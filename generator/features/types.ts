@@ -35,7 +35,6 @@ export interface CollateralUpdatePartial {
   liqBonus: PercentInputValues;
   debtCeiling: NumberInputValues;
   liqProtocolFee: PercentInputValues;
-  eModeCategory: string;
 }
 
 export interface CollateralUpdate extends CollateralUpdatePartial, AssetSelector {}

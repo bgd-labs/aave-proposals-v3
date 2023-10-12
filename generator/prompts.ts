@@ -21,6 +21,7 @@ function isAddressOrKeepCurrent(value: string) {
 // TRANSFORMS
 function transformNumberToPercent(value: string) {
   if (value && isNumber(value)) {
+    if (Number(value) <= 9) value = value.padStart(2, '0');
     return value.replace(/(?=(\d{2}$)+(?!\d))/g, '.') + ' %';
   }
   return value;

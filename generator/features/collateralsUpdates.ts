@@ -27,11 +27,6 @@ export async function fetchCollateralUpdate(
       message: 'Liquidation protocol fee',
       disableKeepCurrent,
     }),
-    eModeCategory: await eModeSelect({
-      message: 'e mode category',
-      disableKeepCurrent,
-      pool,
-    }),
   };
 }
 
@@ -71,11 +66,7 @@ export const collateralsUpdates: FeatureModule<CollateralUpdates> = {
                liqThreshold: ${cfg.liqThreshold},
                liqBonus: ${cfg.liqBonus},
                debtCeiling: ${cfg.debtCeiling},
-               liqProtocolFee: ${cfg.liqProtocolFee},
-               eModeCategory: ${
-                 cfg.eModeCategory === ENGINE_FLAGS.KEEP_CURRENT
-                   ? `EngineFlags.KEEP_CURRENT`
-                   : cfg.eModeCategory
+               liqProtocolFee: ${cfg.liqProtocolFee}
                }
              });`
             )

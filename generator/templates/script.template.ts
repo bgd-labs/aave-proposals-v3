@@ -93,13 +93,13 @@ contract CreateProposal is EthereumScript {
           .join('\n');
         template += `payloads[${ix}] = GovV3Helpers.build${
           chain == 'Ethereum' ? 'Mainnet' : chain
-        }(vm, actions${chain});\n`;
+        }Payload(vm, actions${chain});\n`;
         return template;
       })
       .join('\n')}
 
     // create proposal
-    GovV3Helpers.createProposal(payloads, GovHelpers.ipfsHashFile(vm, 'src/${folderName}/${
+    GovV3Helpers.createProposal(payloads, GovV3Helpers.ipfsHashFile(vm, 'src/${folderName}/${
     options.shortName
   }.md'));
   }

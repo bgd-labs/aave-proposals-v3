@@ -108,7 +108,7 @@ export const rateUpdates: FeatureModule<RateStrategyUpdate[]> = {
               : cfg
                   .map(
                     (cfg, ix) => `rateStrategies[${ix}] = IEngine.RateStrategyUpdate({
-                  asset: ${pool}Assets.${cfg.asset}_UNDERLYING,
+                  asset: ${cfg.asset},
                   params: Rates.RateStrategyParams({
                     optimalUsageRatio: ${cfg.params.optimalUtilizationRate},
                     baseVariableBorrowRate: ${cfg.params.baseVariableBorrowRate},
