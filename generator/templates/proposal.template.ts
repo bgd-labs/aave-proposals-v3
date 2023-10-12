@@ -1,5 +1,6 @@
 import {generateContractName, getPoolChain, getVersion, pragma} from '../common';
 import {CodeArtifact, Options, PoolIdentifier} from '../types';
+import {prefixWithImports, prefixWithPragma} from './utils';
 
 enum EngineImports {
   IEngine = 'IEngine',
@@ -100,9 +101,9 @@ export const proposalTemplate = (
    ${functions}
  }`;
 
-  return `${pragma}
+  return prefixWithPragma(
+    prefixWithImports(`${getImports(pool, engineDependencies, poolDependencies)}
   
-  ${getImports(pool, engineDependencies, poolDependencies)}
-  
-  ${contract}`;
+  ${contract}`)
+  );
 };

@@ -84,6 +84,7 @@ export interface Listing
   asset: Hex;
   assetSymbol: string;
   rateStrategyParams: RateStrategyParams;
+  eModeCategory: number;
 }
 
 export interface ListingWithCustomImpl {

@@ -1,5 +1,4 @@
 import {
-  CHAINS_WITH_GOV_SUPPORT,
   generateContractName,
   generateFolderName,
   getChainAlias,
@@ -7,15 +6,15 @@ import {
   pragma,
 } from '../common';
 import {Options} from '../types';
+import {prefixWithImports, prefixWithPragma} from './utils';
 
 export function generateScript(options: Options) {
   const folderName = generateFolderName(options);
   const fileName = generateContractName(options);
-  let template = pragma;
+  let template = '';
   const chains = [...new Set(options.pools.map((pool) => getPoolChain(pool)!))];
 
   // generate imports
-  template += `import {GovV3Helpers} from 'aave-helpers/GovV3Helpers.sol';\n`;
   template += `import {${['Ethereum', ...chains.filter((c) => c !== 'Ethereum')]
     .map((chain) => `${chain}Script`)
     .join(', ')}} from 'aave-helpers/ScriptUtils.sol';\n`;
@@ -104,5 +103,5 @@ contract CreateProposal is EthereumScript {
   }.md'));
   }
 }`;
-  return template;
+  return prefixWithPragma(prefixWithImports(template));
 }

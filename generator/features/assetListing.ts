@@ -1,5 +1,5 @@
 import {CodeArtifact, FeatureModule, PoolIdentifier} from '../types';
-import {addressInput, stringInput} from '../prompts';
+import {addressInput, eModeSelect, stringInput} from '../prompts';
 import {fetchBorrowUpdate} from './borrowsUpdates';
 import {fetchRateStrategyParams} from './rateUpdates';
 import {fetchCollateralUpdate} from './collateralsUpdates';
@@ -49,6 +49,11 @@ async function fetchListing(pool: PoolIdentifier): Promise<Listing> {
     ...(await fetchBorrowUpdate(true)),
     ...(await fetchCapsUpdate(true)),
     rateStrategyParams: await fetchRateStrategyParams(pool, true),
+    eModeCategory: await eModeSelect({
+      message: `Select the eMode you want to assign to ${asset}`,
+      disableKeepCurrent: true,
+      pool,
+    }),
     asset,
   };
 }

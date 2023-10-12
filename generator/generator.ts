@@ -164,7 +164,6 @@ if (!configFileLoaded) {
   }
 }
 
-console.log('### JSON config emitted to be stored for reuse ###');
 const logOptions = {
   rootOptions: options,
   poolOptions: Object.keys(poolConfigs).reduce((acc, pool) => {
@@ -172,8 +171,6 @@ const logOptions = {
     return acc;
   }, {} as PoolConfigs),
 } as ConfigFile;
-console.log(JSON.stringify(logOptions, null, 2));
-console.log('### ###');
 
 const baseName = generateFolderName(options);
 const baseFolder = path.join(process.cwd(), 'src', baseName);
@@ -190,7 +187,7 @@ if (fs.existsSync(baseFolder) && !options.force) {
   console.log('If you want to overwrite, supply --force');
 } else {
   fs.mkdirSync(baseFolder, {recursive: true});
-
+  fs.writeFileSync(path.join(baseFolder, 'config.json'), JSON.stringify(logOptions, null, 2));
   async function createFiles(options: Options, pool: PoolIdentifier) {
     const contractName = generateContractName(options, pool);
     fs.writeFileSync(
@@ -212,7 +209,6 @@ if (fs.existsSync(baseFolder) && !options.force) {
 
   await Promise.all(options.pools.map((pool) => createFiles(options, pool)));
 
-  console.log(generateScript(options));
   fs.writeFileSync(
     path.join(baseFolder, `${generateContractName(options)}.s.sol`),
     prettier.format(generateScript(options), {
