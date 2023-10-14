@@ -1,10 +1,8 @@
 import {CodeArtifact, FeatureModule} from '../types';
 import {assetsSelect, booleanSelect, percentInput} from '../prompts';
-import {BorrowUpdate, BorrowUpdatePartial} from './types';
+import {BorrowUpdate} from './types';
 
-export async function fetchBorrowUpdate(
-  disableKeepCurrent?: boolean
-): Promise<BorrowUpdatePartial> {
+export async function fetchBorrowUpdate<T extends boolean>(disableKeepCurrent?: T) {
   return {
     enabledToBorrow: await booleanSelect({
       message: 'enabled to borrow',
@@ -46,7 +44,7 @@ export const borrowsUpdates: FeatureModule<BorrowUpdates> = {
     const response: BorrowUpdates = [];
     for (const asset of assets) {
       console.log(`Fetching information for BorrowUpdates on ${pool} ${asset}`);
-      response.push({...(await fetchBorrowUpdate()), asset});
+      response.push({...(await fetchBorrowUpdate(false)), asset});
     }
     return response;
   },

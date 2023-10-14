@@ -7,6 +7,7 @@ import {
   isV2Pool,
 } from '../common';
 import {CodeArtifact, Options, PoolIdentifier} from '../types';
+import {prefixWithImports, prefixWithPragma} from './utils';
 
 export const getBlock = async (chain) => {
   return await createPublicClient({
@@ -30,11 +31,8 @@ export const testTemplate = async (
     .flat()
     .filter((f) => f !== undefined)
     .join('\n');
-  let template = `// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
-
+  let template = `
 import 'forge-std/Test.sol';
-import {GovV3Helpers} from 'aave-helpers/GovV3Helpers.sol';
 import {${pool}, ${pool}Assets} from 'aave-address-book/${pool}.sol';
 import {${testBase}, ReserveConfig} from 'aave-helpers/${testBase}.sol';
 import {${contractName}} from './${contractName}.sol';
@@ -72,5 +70,5 @@ contract ${contractName}_Test is ${testBase} {
 
   ${functions}
 }`;
-  return template;
+  return prefixWithPragma(prefixWithImports(template));
 };

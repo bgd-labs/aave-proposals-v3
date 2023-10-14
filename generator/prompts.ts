@@ -1,7 +1,7 @@
 import {checkbox, input, select} from '@inquirer/prompts';
 import {ENGINE_FLAGS, PoolIdentifier} from './types';
 import {getAssets, getEModes} from './common';
-import {getAddress, isAddress} from 'viem';
+import {Hex, getAddress, isAddress} from 'viem';
 
 // VALIDATION
 function isNumber(value: string) {
@@ -61,9 +61,9 @@ function translateAssetToAssetLibUnderlying(value: string, pool: PoolIdentifier)
 }
 
 // PROMPTS
-interface GenericPrompt {
+interface GenericPrompt<T extends boolean = boolean> {
   message: string;
-  disableKeepCurrent?: boolean;
+  disableKeepCurrent?: T;
   transform?: (value: string) => string;
   defaultValue?: string;
 }
@@ -73,24 +73,39 @@ export type BooleanSelectValues =
   | typeof ENGINE_FLAGS.ENABLED
   | typeof ENGINE_FLAGS.DISABLED;
 
-export async function booleanSelect({message, disableKeepCurrent}: GenericPrompt) {
-  return select({
+export async function booleanSelect<T extends boolean>({
+  message,
+  disableKeepCurrent,
+}: GenericPrompt<T>): Promise<
+  T extends true ? Exclude<BooleanSelectValues, 'KEEP_CURRENT'> : BooleanSelectValues
+> {
+  const choices = [
+    ...(disableKeepCurrent ? [] : [{value: ENGINE_FLAGS.KEEP_CURRENT}]),
+    {value: ENGINE_FLAGS.ENABLED},
+    {value: ENGINE_FLAGS.DISABLED},
+  ];
+  const value = await select({
     message,
-    choices: [
-      ...(disableKeepCurrent ? [] : [{value: ENGINE_FLAGS.KEEP_CURRENT}]),
-      {value: ENGINE_FLAGS.ENABLED},
-      {value: ENGINE_FLAGS.DISABLED},
-    ],
+    choices: choices,
   });
+  return value as T extends true
+    ? Exclude<BooleanSelectValues, 'KEEP_CURRENT'>
+    : BooleanSelectValues;
 }
 
-interface PercentInputPrompt extends GenericPrompt {
+interface PercentInputPrompt<T extends boolean> extends GenericPrompt<T> {
   toRay?: boolean;
 }
 
 export type PercentInputValues = typeof ENGINE_FLAGS.KEEP_CURRENT | string;
 
-export async function percentInput({message, disableKeepCurrent, toRay}: PercentInputPrompt) {
+export async function percentInput<T extends boolean>({
+  message,
+  disableKeepCurrent,
+  toRay,
+}: PercentInputPrompt<T>): Promise<
+  T extends true ? PercentInputValues : Exclude<PercentInputValues, 'KEEP_CURRENT'>
+> {
   const value = await input({
     message,
     transformer: transformNumberToPercent,
@@ -112,16 +127,21 @@ export async function numberInput({message, disableKeepCurrent}: GenericPrompt) 
   return translateJsNumberToSol(value);
 }
 
-export async function addressInput({message, disableKeepCurrent}: GenericPrompt) {
+export type AddressInputValues = Hex | typeof ENGINE_FLAGS.KEEP_CURRENT_ADDRESS;
+
+export async function addressInput<T extends boolean>({
+  message,
+  disableKeepCurrent,
+}: GenericPrompt<T>): Promise<T extends true ? Hex : AddressInputValues> {
   const value = await input({
     message,
     validate: disableKeepCurrent ? isAddress : isAddressOrKeepCurrent,
     ...(disableKeepCurrent ? {} : {default: ENGINE_FLAGS.KEEP_CURRENT_ADDRESS}),
   });
-  return translateJsAddressToSol(value);
+  return translateJsAddressToSol(value) as T extends true ? Hex : AddressInputValues;
 }
 
-interface AssetsSelectPrompt extends Omit<GenericPrompt, 'disableKeepCurrent'> {
+interface AssetsSelectPrompt extends Exclude<GenericPrompt, 'disableKeepCurrent'> {
   pool: PoolIdentifier;
 }
 
@@ -138,11 +158,15 @@ export async function assetsSelect({pool, message}: AssetsSelectPrompt) {
   return values.map((v) => translateAssetToAssetLibUnderlying(v, pool));
 }
 
-interface EModeSelectPrompt extends GenericPrompt {
+interface EModeSelectPrompt<T extends boolean> extends GenericPrompt<T> {
   pool: PoolIdentifier;
 }
 
-export async function eModeSelect({message, disableKeepCurrent, pool}: EModeSelectPrompt) {
+export async function eModeSelect<T extends boolean>({
+  message,
+  disableKeepCurrent,
+  pool,
+}: EModeSelectPrompt<T>) {
   const eModes = getEModes(pool as any);
   const eMode = await select({
     message,
@@ -154,7 +178,7 @@ export async function eModeSelect({message, disableKeepCurrent, pool}: EModeSele
   return translateEModeToEModeLib(eMode, pool);
 }
 
-export async function eModesSelect({message, pool}: EModeSelectPrompt) {
+export async function eModesSelect<T extends boolean>({message, pool}: EModeSelectPrompt<T>) {
   const eModes = getEModes(pool as any);
   const values = await checkbox({
     message,
@@ -167,7 +191,11 @@ export async function eModesSelect({message, pool}: EModeSelectPrompt) {
   return values.map((mode) => translateEModeToEModeLib(mode, pool));
 }
 
-export async function stringInput({message, defaultValue, disableKeepCurrent}: GenericPrompt) {
+export async function stringInput<T extends boolean>({
+  message,
+  defaultValue,
+  disableKeepCurrent,
+}: GenericPrompt<T>) {
   return input({
     message,
     default: defaultValue,
