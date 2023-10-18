@@ -1,4 +1,4 @@
-import {CodeArtifact, FeatureModule, PoolIdentifier} from '../types';
+import {CodeArtifact, FEATURE, FeatureModule, PoolIdentifier} from '../types';
 import {assetsSelect, numberInput} from '../prompts';
 import {CapsUpdate, CapsUpdatePartial} from './types';
 
@@ -18,7 +18,8 @@ export async function fetchCapsUpdate(disableKeepCurrent?: boolean): Promise<Cap
 type CapsUpdates = CapsUpdate[];
 
 export const capsUpdates: FeatureModule<CapsUpdates> = {
-  value: 'CapsUpdates (supplyCap, borrowCap)',
+  value: FEATURE.CAPS_UPDATE,
+  description: 'CapsUpdates (supplyCap, borrowCap)',
   async cli(opt, pool) {
     console.log(`Fetching information for CapsUpdates on ${pool}`);
     const assets = await assetsSelect({

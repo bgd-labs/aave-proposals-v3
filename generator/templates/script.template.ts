@@ -6,7 +6,8 @@ import {
   pragma,
 } from '../common';
 import {Options} from '../types';
-import {prefixWithImports, prefixWithPragma} from './utils';
+import {prefixWithImports} from '../utils/importsResolver';
+import {prefixWithPragma} from './utils';
 
 export function generateScript(options: Options) {
   const folderName = generateFolderName(options);

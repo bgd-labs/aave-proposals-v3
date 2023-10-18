@@ -146,7 +146,7 @@ interface AssetsSelectPrompt extends Exclude<GenericPrompt, 'disableKeepCurrent'
 }
 
 /**
- * allows selecting an asset
+ * allows selecting multiple assets
  * @param param0
  * @returns
  */

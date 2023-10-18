@@ -1,4 +1,4 @@
-import {CodeArtifact, FeatureModule, PoolIdentifier} from '../types';
+import {CodeArtifact, FEATURE, FeatureModule, PoolIdentifier} from '../types';
 import {assetsSelect, eModeSelect} from '../prompts';
 import {AssetEModeUpdate} from './types';
 
@@ -26,7 +26,8 @@ async function subCli(pool: PoolIdentifier) {
 type EmodeAssetUpdates = AssetEModeUpdate[];
 
 export const eModeAssets: FeatureModule<EmodeAssetUpdates> = {
-  value: 'assetsEModeUpdates (setting eMode for an asset)',
+  value: FEATURE.EMODES_ASSETS,
+  description: 'assetsEModeUpdates (setting eMode for an asset)',
   async cli(opt, pool) {
     const response: EmodeAssetUpdates = await subCli(pool);
     return response;

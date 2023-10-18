@@ -1,4 +1,4 @@
-import {CodeArtifact, FeatureModule} from '../types';
+import {CodeArtifact, FEATURE, FeatureModule} from '../types';
 import {assetsSelect, booleanSelect, percentInput} from '../prompts';
 import {BorrowUpdate} from './types';
 
@@ -34,7 +34,8 @@ export async function fetchBorrowUpdate<T extends boolean>(disableKeepCurrent?: 
 type BorrowUpdates = BorrowUpdate[];
 
 export const borrowsUpdates: FeatureModule<BorrowUpdates> = {
-  value:
+  value: FEATURE.BORROWS_UPDATE,
+  description:
     'BorrowsUpdates (enabledToBorrow, flashloanable, stableRateModeEnabled, borrowableInIsolation, withSiloedBorrowing, reserveFactor)',
   async cli(opt, pool) {
     const assets = await assetsSelect({

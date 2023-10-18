@@ -73,7 +73,7 @@ export function getDate() {
  * @returns
  */
 export function generateFolderName(options: Options) {
-  return `${getDate()}_${options.pools.length === 1 ? options.pools[0] : 'Multi'}_${
+  return `${options.date}_${options.pools.length === 1 ? options.pools[0] : 'Multi'}_${
     options.shortName
   }`;
 }
@@ -87,7 +87,7 @@ export function generateFolderName(options: Options) {
 export function generateContractName(options: Options, pool?: PoolIdentifier) {
   let name = pool ? `${pool}_` : '';
   name += `${options.shortName}`;
-  name += `_${getDate()}`;
+  name += `_${options.date}`;
   return name;
 }
 

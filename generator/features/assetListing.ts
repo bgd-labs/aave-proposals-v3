@@ -1,7 +1,7 @@
-import {CodeArtifact, FeatureModule, PoolIdentifier} from '../types';
+import {CodeArtifact, FEATURE, FeatureModule, PoolIdentifier} from '../types';
 import {addressInput, eModeSelect, stringInput} from '../prompts';
 import {fetchBorrowUpdate} from './borrowsUpdates';
-import {fetchRateStrategyParams} from './rateUpdates';
+import {fetchRateStrategyParamsV3} from './rateUpdates';
 import {fetchCollateralUpdate} from './collateralsUpdates';
 import {fetchCapsUpdate} from './capsUpdates';
 import {Listing, ListingWithCustomImpl, TokenImplementations} from './types';
@@ -48,7 +48,7 @@ async function fetchListing(pool: PoolIdentifier): Promise<Listing> {
     ...(await fetchCollateralUpdate(pool, true)),
     ...(await fetchBorrowUpdate(true)),
     ...(await fetchCapsUpdate(true)),
-    rateStrategyParams: await fetchRateStrategyParams(pool, true),
+    rateStrategyParams: await fetchRateStrategyParamsV3(true),
     eModeCategory: await eModeSelect({
       message: `Select the eMode you want to assign to ${asset}`,
       disableKeepCurrent: true,
@@ -67,7 +67,8 @@ async function fetchCustomImpl(): Promise<TokenImplementations> {
 }
 
 export const assetListing: FeatureModule<Listing[]> = {
-  value: 'newListings (listing a new asset)',
+  value: FEATURE.ASSET_LISTING,
+  description: 'newListings (listing a new asset)',
   async cli(opt, pool) {
     const response: Listing[] = [];
     console.log(`Fetching information for Assets assets on ${pool}`);
@@ -133,7 +134,8 @@ export const assetListing: FeatureModule<Listing[]> = {
 };
 
 export const assetListingCustom: FeatureModule<ListingWithCustomImpl[]> = {
-  value: 'newListingsCustom (listing a new asset, with custom imeplementations)',
+  value: FEATURE.ASSET_LISTING_CUSTOM,
+  description: 'newListingsCustom (listing a new asset, with custom imeplementations)',
   async cli(opt, pool) {
     const response: ListingWithCustomImpl[] = [];
     let more: boolean = true;

@@ -96,3 +96,10 @@ export interface ListingWithCustomImpl {
   base: Listing;
   implementations: TokenImplementations;
 }
+
+export interface TokenStream {
+  asset: Hex;
+  receiver: Hex;
+  duration: string;
+  amount: string;
+}

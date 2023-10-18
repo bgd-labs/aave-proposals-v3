@@ -1,4 +1,4 @@
-import {CodeArtifact, ENGINE_FLAGS, FeatureModule, PoolIdentifier} from '../types';
+import {CodeArtifact, ENGINE_FLAGS, FEATURE, FeatureModule, PoolIdentifier} from '../types';
 import {assetsSelect, eModeSelect, numberInput, percentInput} from '../prompts';
 import {CollateralUpdate, CollateralUpdatePartial} from './types';
 
@@ -33,7 +33,8 @@ export async function fetchCollateralUpdate(
 type CollateralUpdates = CollateralUpdate[];
 
 export const collateralsUpdates: FeatureModule<CollateralUpdates> = {
-  value: 'CollateralsUpdates (ltv,lt,lb,debtCeiling,liqProtocolFee,eModeCategory)',
+  value: FEATURE.COLLATERALS_UPDATE,
+  description: 'CollateralsUpdates (ltv,lt,lb,debtCeiling,liqProtocolFee,eModeCategory)',
   async cli(opt, pool) {
     console.log(`Fetching information for Collateral Updates on ${pool}`);
 

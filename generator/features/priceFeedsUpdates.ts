@@ -1,4 +1,4 @@
-import {CodeArtifact, FeatureModule, PoolIdentifier} from '../types';
+import {CodeArtifact, FEATURE, FeatureModule, PoolIdentifier} from '../types';
 import {addressInput, assetsSelect} from '../prompts';
 import {PriceFeedUpdate, PriceFeedUpdatePartial} from './types';
 
@@ -12,7 +12,8 @@ async function fetchPriceFeedUpdate(): Promise<PriceFeedUpdatePartial> {
 }
 
 export const priceFeedsUpdates: FeatureModule<PriceFeedUpdate[]> = {
-  value: 'PriceFeedsUpdates (replacing priceFeeds)',
+  value: FEATURE.PRICE_FEEDS_UPDATE,
+  description: 'PriceFeedsUpdates (replacing priceFeeds)',
   async cli(opt, pool) {
     const response: PriceFeedUpdate[] = [];
     const assets = await assetsSelect({

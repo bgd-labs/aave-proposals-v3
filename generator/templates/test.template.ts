@@ -7,7 +7,8 @@ import {
   isV2Pool,
 } from '../common';
 import {CodeArtifact, Options, PoolIdentifier} from '../types';
-import {prefixWithImports, prefixWithPragma} from './utils';
+import {prefixWithPragma} from './utils';
+import {prefixWithImports} from '../utils/importsResolver';
 
 export const getBlock = async (chain) => {
   return await createPublicClient({
