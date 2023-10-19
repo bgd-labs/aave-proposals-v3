@@ -13,12 +13,6 @@ export interface Options {
   date: string;
 }
 
-export interface PoolConfig {
-  features: string[];
-  artifacts: CodeArtifact[];
-  configs: {[feature: string]: {}};
-}
-
 export type PoolConfigs = Partial<Record<PoolIdentifier, PoolConfig>>;
 
 export type CodeArtifact = {
@@ -96,3 +90,10 @@ export type ConfigFile = {
   rootOptions: Options;
   poolOptions: Record<PoolIdentifier, Omit<PoolConfig, 'artifacts'>>;
 };
+
+export interface PoolConfig {
+  pool: PoolIdentifier;
+  features: FEATURE[];
+  artifacts: CodeArtifact[];
+  configs: {[feature in FEATURE]?: any};
+}

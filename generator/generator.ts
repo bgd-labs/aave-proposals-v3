@@ -49,9 +49,9 @@ export async function generateFiles(options: Options, poolConfigs: PoolConfigs):
   }
   async function createPayloadAndTest(options: Options, pool: PoolIdentifier) {
     const contractName = generateContractName(options, pool);
-    const testCode = await testTemplate(options, pool, poolConfigs[pool]?.artifacts);
+    const testCode = await testTemplate(options, poolConfigs[pool]!);
     return {
-      payload: prettier.format(proposalTemplate(options, pool, poolConfigs[pool]?.artifacts), {
+      payload: prettier.format(proposalTemplate(options, poolConfigs[pool]!), {
         ...prettierSolCfg,
         filepath: 'foo.sol',
       }),
@@ -83,6 +83,7 @@ export async function generateFiles(options: Options, poolConfigs: PoolConfigs):
  * @param param1
  */
 export async function writeFiles(options: Options, {jsonConfig, script, aip, payloads}: Files) {
+  console.log(options);
   const baseName = generateFolderName(options);
   const baseFolder = path.join(process.cwd(), 'src', baseName);
   if (!options.force && fs.existsSync(baseFolder)) {

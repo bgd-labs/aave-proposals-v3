@@ -36,11 +36,11 @@ function generateAddressBookImports(code: string) {
 }
 
 function generateEngineImport(code: string) {
-  const matches = code.match(/Aave(V[2..3])Payload([A-Z][a-z]+)/g);
-  if (matches)
+  const matches = [...code.matchAll(/Aave(V[2..3])Payload([A-Z][a-z]+)/g)].flat();
+  if (matches.length > 0)
     return `import {${matches[0]}} from 'aave-helpers/${matches[1].toLowerCase()}-config-engine/${
       matches[0]
-    }';\n`;
+    }.sol';\n`;
 }
 
 function findMatches(code: string, needles: string[] | readonly string[]) {

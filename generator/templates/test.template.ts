@@ -6,7 +6,7 @@ import {
   getPoolChain,
   isV2Pool,
 } from '../common';
-import {CodeArtifact, Options, PoolIdentifier} from '../types';
+import {Options, PoolConfig} from '../types';
 import {prefixWithPragma} from './utils';
 import {prefixWithImports} from '../utils/importsResolver';
 
@@ -17,24 +17,19 @@ export const getBlock = async (chain) => {
   }).getBlockNumber();
 };
 
-export const testTemplate = async (
-  options: Options,
-  pool: PoolIdentifier,
-  artifacts: CodeArtifact[] = []
-) => {
-  const chain = getPoolChain(pool);
-  const contractName = generateContractName(options, pool);
+export const testTemplate = async (options: Options, poolConfig: PoolConfig) => {
+  const chain = getPoolChain(poolConfig.pool);
+  const contractName = generateContractName(options, poolConfig.pool);
 
-  const testBase = isV2Pool(pool) ? 'ProtocolV2TestBase' : 'ProtocolV3TestBase';
+  const testBase = isV2Pool(poolConfig.pool) ? 'ProtocolV2TestBase' : 'ProtocolV3TestBase';
 
-  const functions = artifacts
+  const functions = poolConfig.artifacts
     .map((artifact) => artifact.test?.fn)
     .flat()
     .filter((f) => f !== undefined)
     .join('\n');
   let template = `
 import 'forge-std/Test.sol';
-import {${pool}, ${pool}Assets} from 'aave-address-book/${pool}.sol';
 import {${testBase}, ReserveConfig} from 'aave-helpers/${testBase}.sol';
 import {${contractName}} from './${contractName}.sol';
 
@@ -53,7 +48,7 @@ contract ${contractName}_Test is ${testBase} {
   function testProposalExecution() public {
     ReserveConfig[] memory allConfigsBefore = createConfigurationSnapshot(
       'pre${contractName}',
-      ${pool}.POOL
+      ${poolConfig.pool}.POOL
     );
 
     GovV3Helpers.executePayload(
@@ -63,7 +58,7 @@ contract ${contractName}_Test is ${testBase} {
 
     ReserveConfig[] memory allConfigsAfter = createConfigurationSnapshot(
       'post${contractName}',
-      ${pool}.POOL
+      ${poolConfig.pool}.POOL
     );
 
     diffReports('pre${contractName}', 'post${contractName}');

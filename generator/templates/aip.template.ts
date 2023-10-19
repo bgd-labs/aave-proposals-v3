@@ -1,5 +1,5 @@
 import {generateContractName, generateFolderName} from '../common';
-import {CodeArtifact, Options, PoolConfigs} from '../types';
+import {Options, PoolConfigs} from '../types';
 
 export function generateAIP(options: Options, configs: PoolConfigs) {
   return `---

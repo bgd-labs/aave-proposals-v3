@@ -104,9 +104,6 @@ export function pascalCase(str: string) {
     .replace(/ /g, '');
 }
 
-export const pragma = `// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;\n\n`;
-
 export const CHAIN_TO_CHAIN_OBJECT = {
   Ethereum: mainnet,
   Polygon: polygon,

@@ -81,6 +81,7 @@ if (options.configFile) {
       const module = v2
         ? FEATURE_MODULES_V2.find((m) => m.value === feature)!
         : FEATURE_MODULES_V3.find((m) => m.value === feature)!;
+      poolConfigs[pool]!.pool = pool;
       poolConfigs[pool]!.artifacts.push(
         module.build(options, pool, poolConfigs[pool]!.configs[feature])
       );
@@ -136,7 +137,7 @@ if (options.configFile) {
   }
 
   for (const pool of options.pools) {
-    poolConfigs[pool] = {configs: {}, artifacts: [], features: []} as PoolConfig;
+    poolConfigs[pool] = {configs: {}, artifacts: [], features: [], pool} as PoolConfig;
     const v2 = isV2Pool(pool);
     poolConfigs[pool]!.features = await checkbox({
       message: `What do you want to do on ${pool}?`,
