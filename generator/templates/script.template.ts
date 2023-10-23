@@ -93,7 +93,7 @@ contract CreateProposal is EthereumScript {
       .join('\n')}
 
     // create proposal
-    GovV3Helpers.createProposal(payloads, GovV3Helpers.ipfsHashFile(vm, 'src/${folderName}/${
+    GovV3Helpers.createProposal2_5(payloads, GovV3Helpers.ipfsHashFile(vm, 'src/${folderName}/${
     options.shortName
   }.md'));
   }
