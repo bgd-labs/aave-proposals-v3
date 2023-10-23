@@ -27,6 +27,20 @@ async function fetchListing(pool: PoolIdentifier): Promise<Listing> {
         stateMutability: 'view',
         type: 'function',
       },
+      {
+        constant: true,
+        inputs: [],
+        name: 'decimals',
+        outputs: [
+          {
+            name: '',
+            type: 'uint8',
+          },
+        ],
+        payable: false,
+        stateMutability: 'view',
+        type: 'function',
+      },
     ],
     publicClient: CHAIN_TO_CHAIN_OBJECT[chain] as PublicClient,
     address: asset,
@@ -34,6 +48,12 @@ async function fetchListing(pool: PoolIdentifier): Promise<Listing> {
   let symbol = '';
   try {
     symbol = await erc20.read.symbol();
+  } catch (e) {
+    console.log('could not fetch the symbol - this is likely an error');
+  }
+  let decimals = 0;
+  try {
+    decimals = await erc20.read.decimals();
   } catch (e) {
     console.log('could not fetch the symbol - this is likely an error');
   }
@@ -84,6 +104,9 @@ export const assetListing: FeatureModule<Listing[]> = {
       code: {
         constants: cfg.map(
           (cfg) => `address public constant ${cfg.assetSymbol} = address(${cfg.asset});`
+        ),
+        execute: cfg.map(
+          (cfg) => `${pool}.POOL.supply(${cfg.assetSymbol}, 10 ** ${cfg}, ${pool}.COLLECTOR, 0);`
         ),
         fn: [
           `function newListings() public pure override returns (IEngine.Listing[] memory) {

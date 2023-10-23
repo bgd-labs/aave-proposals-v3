@@ -31,7 +31,7 @@ export const proposalTemplate = (options: Options, poolConfig: PoolConfig) => {
   );
   if (innerExecute) {
     if (usesConfigEngine) {
-      optionalExecute = `function _preExecute() internal override {
+      optionalExecute = `function _postExecute() internal override {
         ${innerExecute}
        }`;
     } else {
