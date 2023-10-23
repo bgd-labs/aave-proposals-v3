@@ -1,4 +1,4 @@
-import {CodeArtifact, FEATURE, FeatureModule} from '../types';
+import {CodeArtifact, ENGINE_FLAGS, FEATURE, FeatureModule} from '../types';
 import {assetsSelect, booleanSelect, percentInput} from '../prompts';
 import {BorrowUpdate} from './types';
 
@@ -15,14 +15,17 @@ export async function fetchBorrowUpdate<T extends boolean>(disableKeepCurrent?: 
     stableRateModeEnabled: await booleanSelect({
       message: 'stable rate mode enabled',
       disableKeepCurrent,
+      defaultValue: ENGINE_FLAGS.DISABLED,
     }),
     borrowableInIsolation: await booleanSelect({
       message: 'borrowable in isolation',
       disableKeepCurrent,
+      defaultValue: ENGINE_FLAGS.DISABLED,
     }),
     withSiloedBorrowing: await booleanSelect({
       message: 'siloed borrowing',
       disableKeepCurrent,
+      defaultValue: ENGINE_FLAGS.DISABLED,
     }),
     reserveFactor: await percentInput({
       message: 'reserve factor',

@@ -40,7 +40,7 @@ export async function fetchRateStrategyParamsV2(
 }
 
 export async function fetchRateStrategyParamsV3(disableKeepCurrent?: boolean) {
-  const params = await fetchRateStrategyParamsV2();
+  const params = await fetchRateStrategyParamsV2(disableKeepCurrent);
   return {
     ...params,
     baseStableRateOffset: await percentInput({

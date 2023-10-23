@@ -6,7 +6,7 @@ import {fetchCollateralUpdate} from './collateralsUpdates';
 import {fetchCapsUpdate} from './capsUpdates';
 import {Listing, ListingWithCustomImpl, TokenImplementations} from './types';
 import {CHAIN_TO_CHAIN_OBJECT, getPoolChain} from '../common';
-import {PublicClient, getContract} from 'viem';
+import {createPublicClient, getContract, http} from 'viem';
 import {confirm} from '@inquirer/prompts';
 import {TEST_EXECUTE_PROPOSAL} from '../utils/constants';
 
@@ -17,6 +17,7 @@ async function fetchListing(pool: PoolIdentifier): Promise<Listing> {
   });
 
   const chain = getPoolChain(pool);
+  console.log(pool, chain);
   const erc20 = getContract({
     abi: [
       {
@@ -43,7 +44,7 @@ async function fetchListing(pool: PoolIdentifier): Promise<Listing> {
         type: 'function',
       },
     ],
-    publicClient: CHAIN_TO_CHAIN_OBJECT[chain] as PublicClient,
+    publicClient: createPublicClient({chain: CHAIN_TO_CHAIN_OBJECT[chain], transport: http()}),
     address: asset,
   });
   let symbol = '';
@@ -51,13 +52,9 @@ async function fetchListing(pool: PoolIdentifier): Promise<Listing> {
     symbol = await erc20.read.symbol();
   } catch (e) {
     console.log('could not fetch the symbol - this is likely an error');
+    console.log(e);
   }
-  let decimals = 0;
-  try {
-    decimals = await erc20.read.decimals();
-  } catch (e) {
-    console.log('could not fetch the symbol - this is likely an error');
-  }
+  const decimals = await erc20.read.decimals();
 
   return {
     assetSymbol: await stringInput({
@@ -153,6 +150,14 @@ export const assetListing: FeatureModule<Listing[]> = {
           return listings;
         }`,
         ],
+      },
+      test: {
+        fn: cfg.map(
+          (cfg) => `function test_collectorHas${cfg.assetSymbol}Funds() public {
+            ${TEST_EXECUTE_PROPOSAL}
+            assertGte(IERC20(${cfg.asset}).balanceOf(${pool}.COLLECTOR), 10 ** ${cfg.decimals});
+          }`
+        ),
       },
     };
     return response;
