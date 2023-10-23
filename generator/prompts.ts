@@ -76,6 +76,7 @@ export type BooleanSelectValues =
 export async function booleanSelect<T extends boolean>({
   message,
   disableKeepCurrent,
+  defaultValue,
 }: GenericPrompt<T>): Promise<
   T extends true ? Exclude<BooleanSelectValues, 'KEEP_CURRENT'> : BooleanSelectValues
 > {

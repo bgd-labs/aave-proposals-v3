@@ -62,17 +62,21 @@ export async function generateFiles(options: Options, poolConfigs: PoolConfigs):
       contractName: contractName,
     };
   }
+  console.log('generating script');
+  const script = prettier.format(generateScript(options), {
+    ...prettierSolCfg,
+    filepath: 'foo.sol',
+  });
+  console.log('generating aip');
+  const aip = prettier.format(generateAIP(options, poolConfigs), {
+    ...prettierMDCfg,
+    filepath: 'foo.md',
+  });
 
   return {
     jsonConfig,
-    script: prettier.format(generateScript(options), {
-      ...prettierSolCfg,
-      filepath: 'foo.sol',
-    }),
-    aip: prettier.format(generateAIP(options, poolConfigs), {
-      ...prettierMDCfg,
-      filepath: 'foo.md',
-    }),
+    script,
+    aip,
     payloads: await Promise.all(options.pools.map((pool) => createPayloadAndTest(options, pool))),
   };
 }

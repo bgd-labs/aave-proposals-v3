@@ -1,7 +1,7 @@
 import * as addressBook from '@bgd-labs/aave-address-book';
 
 export interface Options {
-  force: boolean;
+  force?: boolean;
   pools: PoolIdentifier[];
   title: string;
   // automatically generated shortName from title
@@ -9,7 +9,7 @@ export interface Options {
   author: string;
   discussion: string;
   snapshot: string;
-  configFile: string;
+  configFile?: string;
   date: string;
 }
 

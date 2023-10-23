@@ -17,7 +17,6 @@ async function fetchListing(pool: PoolIdentifier): Promise<Listing> {
   });
 
   const chain = getPoolChain(pool);
-  console.log(pool, chain);
   const erc20 = getContract({
     abi: [
       {
@@ -124,7 +123,7 @@ export const assetListing: FeatureModule<Listing[]> = {
                borrowableInIsolation: ${cfg.borrowableInIsolation},
                withSiloedBorrowing: ${cfg.withSiloedBorrowing},
                flashloanable: ${cfg.flashloanable},
-               ltv: ${cfg.ltv}
+               ltv: ${cfg.ltv},
                liqThreshold: ${cfg.liqThreshold},
                liqBonus: ${cfg.liqBonus},
                reserveFactor: ${cfg.reserveFactor},
@@ -205,7 +204,7 @@ export const assetListingCustom: FeatureModule<ListingWithCustomImpl[]> = {
                borrowableInIsolation: ${cfg.base.borrowableInIsolation},
                withSiloedBorrowing: ${cfg.base.withSiloedBorrowing},
                flashloanable: ${cfg.base.flashloanable},
-               ltv: ${cfg.base.ltv}
+               ltv: ${cfg.base.ltv},
                liqThreshold: ${cfg.base.liqThreshold},
                liqBonus: ${cfg.base.liqBonus},
                reserveFactor: ${cfg.base.reserveFactor},

@@ -157,5 +157,10 @@ if (options.configFile) {
   }
 }
 
-const files = await generateFiles(options, poolConfigs);
-await writeFiles(options, files);
+try {
+  const files = await generateFiles(options, poolConfigs);
+  await writeFiles(options, files);
+} catch (e) {
+  console.log(JSON.stringify({options, poolConfigs}, null, 2));
+  throw e;
+}

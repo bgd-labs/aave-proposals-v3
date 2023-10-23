@@ -5,7 +5,4 @@ export function prefixWithPragma(code: string) {
   );
 }
 
-export const TEST_EXECUTE_PROPOSAL = `GovV3Helpers.executePayload(
-  vm,
-  address(proposal)
-);`;
+export const TEST_EXECUTE_PROPOSAL = `GovV3Helpers.executePayload(vm,address(proposal));`;
