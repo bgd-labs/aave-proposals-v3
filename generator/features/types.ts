@@ -90,6 +90,7 @@ export interface Listing
   assetSymbol: string;
   rateStrategyParams: RateStrategyParams;
   eModeCategory: string;
+  decimals: number;
 }
 
 export interface ListingWithCustomImpl {

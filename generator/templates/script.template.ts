@@ -1,7 +1,7 @@
 import {generateContractName, generateFolderName, getChainAlias, getPoolChain} from '../common';
 import {Options} from '../types';
 import {prefixWithImports} from '../utils/importsResolver';
-import {prefixWithPragma} from './utils';
+import {prefixWithPragma} from '../utils/constants';
 
 export function generateScript(options: Options) {
   const folderName = generateFolderName(options);

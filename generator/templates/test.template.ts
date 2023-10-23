@@ -7,7 +7,7 @@ import {
   isV2Pool,
 } from '../common';
 import {Options, PoolConfig} from '../types';
-import {prefixWithPragma} from './utils';
+import {prefixWithPragma} from '../utils/constants';
 import {prefixWithImports} from '../utils/importsResolver';
 
 export const getBlock = async (chain) => {
@@ -45,23 +45,11 @@ contract ${contractName}_Test is ${testBase} {
     proposal = new ${contractName}();
   }
 
-  function testProposalExecution() public {
-    ReserveConfig[] memory allConfigsBefore = createConfigurationSnapshot(
-      'pre${contractName}',
-      ${poolConfig.pool}.POOL
-    );
-
-    GovV3Helpers.executePayload(
-      vm,
-      address(proposal)
-    );
-
-    ReserveConfig[] memory allConfigsAfter = createConfigurationSnapshot(
-      'post${contractName}',
-      ${poolConfig.pool}.POOL
-    );
-
-    diffReports('pre${contractName}', 'post${contractName}');
+  /**
+   * @dev executes the generic test suite including e2e and config snapshots 
+   */
+  function test_defaultProposalExecution() public {
+    defaultTest('${contractName}', ${poolConfig.pool}.POOL, address(proposal));
   }
 
   ${functions}

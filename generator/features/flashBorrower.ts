@@ -1,6 +1,7 @@
 import {CodeArtifact, FEATURE, FeatureModule} from '../types';
 import {addressInput} from '../prompts';
 import {Hex} from 'viem';
+import {TEST_EXECUTE_PROPOSAL} from '../utils/constants';
 
 type FlashBorrower = {
   address: Hex;
@@ -28,10 +29,7 @@ export const flashBorrower: FeatureModule<FlashBorrower> = {
       test: {
         fn: [
           `function test_isFlashBorrower() external {
-          GovV3Helpers.executePayload(
-            vm,
-            address(proposal)
-          );
+          ${TEST_EXECUTE_PROPOSAL}
           bool isFlashBorrower = ${pool}.ACL_MANAGER.isFlashBorrower(proposal.NEW_FLASH_BORROWER());
           assertEq(isFlashBorrower, true);
         }`,

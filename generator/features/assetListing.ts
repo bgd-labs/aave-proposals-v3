@@ -8,6 +8,7 @@ import {Listing, ListingWithCustomImpl, TokenImplementations} from './types';
 import {CHAIN_TO_CHAIN_OBJECT, getPoolChain} from '../common';
 import {PublicClient, getContract} from 'viem';
 import {confirm} from '@inquirer/prompts';
+import {TEST_EXECUTE_PROPOSAL} from '../utils/constants';
 
 async function fetchListing(pool: PoolIdentifier): Promise<Listing> {
   const asset = await addressInput({
@@ -64,6 +65,7 @@ async function fetchListing(pool: PoolIdentifier): Promise<Listing> {
       disableKeepCurrent: true,
       defaultValue: symbol,
     }),
+    decimals,
     priceFeed: await addressInput({message: 'PriceFeed address', disableKeepCurrent: true}),
     ...(await fetchCollateralUpdate(pool, true)),
     ...(await fetchBorrowUpdate(true)),
@@ -106,7 +108,8 @@ export const assetListing: FeatureModule<Listing[]> = {
           (cfg) => `address public constant ${cfg.assetSymbol} = address(${cfg.asset});`
         ),
         execute: cfg.map(
-          (cfg) => `${pool}.POOL.supply(${cfg.assetSymbol}, 10 ** ${cfg}, ${pool}.COLLECTOR, 0);`
+          (cfg) =>
+            `${pool}.POOL.supply(${cfg.assetSymbol}, 10 ** ${cfg.decimals}, ${pool}.COLLECTOR, 0);`
         ),
         fn: [
           `function newListings() public pure override returns (IEngine.Listing[] memory) {
@@ -174,6 +177,10 @@ export const assetListingCustom: FeatureModule<ListingWithCustomImpl[]> = {
         constants: cfg.map(
           (cfg) => `address public constant ${cfg.base.assetSymbol} = address(${cfg.base.asset});`
         ),
+        execute: cfg.map(
+          (cfg) =>
+            `${pool}.POOL.supply(${cfg.base.assetSymbol}, 10 ** ${cfg.base.decimals}, ${pool}.COLLECTOR, 0);`
+        ),
         fn: [
           `function newListingsCustom() public pure override returns (IEngine.ListingWithCustomImpl[] memory) {
           IEngine.ListingWithCustomImpl[] memory listings = new IEngine.ListingWithCustomImpl[](${
@@ -225,6 +232,14 @@ export const assetListingCustom: FeatureModule<ListingWithCustomImpl[]> = {
           return listings;
         }`,
         ],
+      },
+      test: {
+        fn: cfg.map(
+          (cfg) => `function test_collectorHas${cfg.base.assetSymbol}Funds() public {
+            ${TEST_EXECUTE_PROPOSAL}
+            assertGte(IERC20(${cfg.base.asset}).balanceOf(${pool}.COLLECTOR), 10 ** ${cfg.base.decimals});
+          }`
+        ),
       },
     };
     return response;

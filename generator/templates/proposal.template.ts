@@ -1,7 +1,7 @@
 import {generateContractName, getPoolChain, getVersion} from '../common';
 import {FEATURE, Options, PoolConfig} from '../types';
 import {prefixWithImports} from '../utils/importsResolver';
-import {prefixWithPragma} from './utils';
+import {prefixWithPragma} from '../utils/constants';
 
 export const proposalTemplate = (options: Options, poolConfig: PoolConfig) => {
   const {title, author, snapshot, discussion} = options;
