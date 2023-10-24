@@ -54,14 +54,14 @@ export const collateralsUpdates: FeatureModule<CollateralUpdates> = {
     const response: CodeArtifact = {
       code: {
         fn: [
-          `function collateralsUpdates() public pure override returns (IEngine.CollateralUpdate[] memory) {
-            IEngine.CollateralUpdate[] memory collateralUpdate = new IEngine.CollateralUpdate[](${
+          `function collateralsUpdates() public pure override returns (IAaveV3ConfigEngine.CollateralUpdate[] memory) {
+            IAaveV3ConfigEngine.CollateralUpdate[] memory collateralUpdate = new IAaveV3ConfigEngine.CollateralUpdate[](${
               cfg.length
             });
 
           ${cfg
             .map(
-              (cfg, ix) => `collateralUpdate[${ix}] = IEngine.CollateralUpdate({
+              (cfg, ix) => `collateralUpdate[${ix}] = IAaveV3ConfigEngine.CollateralUpdate({
                asset: ${cfg.asset},
                ltv: ${cfg.ltv},
                liqThreshold: ${cfg.liqThreshold},

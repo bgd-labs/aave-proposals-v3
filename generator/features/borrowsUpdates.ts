@@ -56,12 +56,14 @@ export const borrowsUpdates: FeatureModule<BorrowUpdates> = {
     const response: CodeArtifact = {
       code: {
         fn: [
-          `function borrowsUpdates() public pure override returns (IEngine.BorrowUpdate[] memory) {
-          IEngine.BorrowUpdate[] memory borrowUpdates = new IEngine.BorrowUpdate[](${cfg.length});
+          `function borrowsUpdates() public pure override returns (IAaveV3ConfigEngine.BorrowUpdate[] memory) {
+          IAaveV3ConfigEngine.BorrowUpdate[] memory borrowUpdates = new IAaveV3ConfigEngine.BorrowUpdate[](${
+            cfg.length
+          });
 
           ${cfg
             .map(
-              (cfg, ix) => `borrowUpdates[${ix}] = IEngine.BorrowUpdate({
+              (cfg, ix) => `borrowUpdates[${ix}] = IAaveV3ConfigEngine.BorrowUpdate({
                asset: ${cfg.asset},
                enabledToBorrow: ${cfg.enabledToBorrow},
                flashloanable: ${cfg.flashloanable},

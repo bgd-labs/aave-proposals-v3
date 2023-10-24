@@ -38,12 +38,14 @@ export const capsUpdates: FeatureModule<CapsUpdates> = {
     const response: CodeArtifact = {
       code: {
         fn: [
-          `function capsUpdates() public pure override returns (IEngine.CapsUpdate[] memory) {
-          IEngine.CapsUpdate[] memory capsUpdate = new IEngine.CapsUpdate[](${cfg.length});
+          `function capsUpdates() public pure override returns (IAaveV3ConfigEngine.CapsUpdate[] memory) {
+          IAaveV3ConfigEngine.CapsUpdate[] memory capsUpdate = new IAaveV3ConfigEngine.CapsUpdate[](${
+            cfg.length
+          });
 
           ${cfg
             .map(
-              (cfg, ix) => `capsUpdate[${ix}] = IEngine.CapsUpdate({
+              (cfg, ix) => `capsUpdate[${ix}] = IAaveV3ConfigEngine.CapsUpdate({
                asset: ${cfg.asset},
                supplyCap: ${cfg.supplyCap},
                borrowCap: ${cfg.borrowCap}

@@ -30,14 +30,14 @@ export const priceFeedsUpdates: FeatureModule<PriceFeedUpdate[]> = {
     const response: CodeArtifact = {
       code: {
         fn: [
-          `function priceFeedsUpdates() public pure override returns (IEngine.PriceFeedUpdate[] memory) {
-          IEngine.PriceFeedUpdate[] memory priceFeedsUpdates = new IEngine.PriceFeedUpdate[](${
+          `function priceFeedsUpdates() public pure override returns (IAaveV3ConfigEngine.PriceFeedUpdate[] memory) {
+          IAaveV3ConfigEngine.PriceFeedUpdate[] memory priceFeedsUpdates = new IAaveV3ConfigEngine.PriceFeedUpdate[](${
             cfg.length
           });
 
           ${cfg
             .map(
-              (cfg, ix) => `priceFeedsUpdates[${ix}] = IEngine.PriceFeedUpdate({
+              (cfg, ix) => `priceFeedsUpdates[${ix}] = IAaveV3ConfigEngine.PriceFeedUpdate({
                asset: ${cfg.asset},
                priceFeed: ${cfg.priceFeed}
              });`

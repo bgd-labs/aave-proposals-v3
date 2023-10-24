@@ -85,14 +85,14 @@ export const rateUpdatesV2: FeatureModule<RateStrategyUpdate[]> = {
           public
           pure
           override
-          returns (IEngine.RateStrategyUpdate[] memory)
+          returns (IAaveV2ConfigEngine.RateStrategyUpdate[] memory)
         {
-          IEngine.RateStrategyUpdate[] memory rateStrategies = new IEngine.RateStrategyUpdate[](${
+          IAaveV2ConfigEngine.RateStrategyUpdate[] memory rateStrategies = new IAaveV2ConfigEngine.RateStrategyUpdate[](${
             cfg.length
           });
           ${cfg
             .map(
-              (cfg, ix) => `rateStrategies[${ix}] = IEngine.RateStrategyUpdate({
+              (cfg, ix) => `rateStrategies[${ix}] = IAaveV2ConfigEngine.RateStrategyUpdate({
                 asset: ${cfg.asset},
                 params: Rates.RateStrategyParams({
                   optimalUtilizationRate: ${cfg.params.optimalUtilizationRate},
@@ -140,14 +140,14 @@ export const rateUpdatesV3: FeatureModule<RateStrategyUpdate[]> = {
           public
           pure
           override
-          returns (IEngine.RateStrategyUpdate[] memory)
+          returns (IAaveV3ConfigEngine.RateStrategyUpdate[] memory)
         {
-          IEngine.RateStrategyUpdate[] memory rateStrategies = new IEngine.RateStrategyUpdate[](${
+          IAaveV3ConfigEngine.RateStrategyUpdate[] memory rateStrategies = new IAaveV3ConfigEngine.RateStrategyUpdate[](${
             cfg.length
           });
           ${cfg
             .map(
-              (cfg, ix) => `rateStrategies[${ix}] = IEngine.RateStrategyUpdate({
+              (cfg, ix) => `rateStrategies[${ix}] = IAaveV3ConfigEngine.RateStrategyUpdate({
                   asset: ${cfg.asset},
                   params: Rates.RateStrategyParams({
                     optimalUsageRatio: ${cfg.params.optimalUtilizationRate},

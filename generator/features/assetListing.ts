@@ -108,12 +108,14 @@ export const assetListing: FeatureModule<Listing[]> = {
             `${pool}.POOL.supply(${cfg.assetSymbol}, 10 ** ${cfg.decimals}, ${pool}.COLLECTOR, 0);`
         ),
         fn: [
-          `function newListings() public pure override returns (IEngine.Listing[] memory) {
-          IEngine.Listing[] memory listings = new IEngine.Listing[](${cfg.length});
+          `function newListings() public pure override returns (IAaveV3ConfigEngine.Listing[] memory) {
+          IAaveV3ConfigEngine.Listing[] memory listings = new IAaveV3ConfigEngine.Listing[](${
+            cfg.length
+          });
 
           ${cfg
             .map(
-              (cfg, ix) => `listings[${ix}] = IEngine.Listing({
+              (cfg, ix) => `listings[${ix}] = IAaveV3ConfigEngine.Listing({
                asset: ${cfg.assetSymbol},
                assetSymbol: "${cfg.assetSymbol}",
                priceFeed: ${cfg.priceFeed},
@@ -186,15 +188,15 @@ export const assetListingCustom: FeatureModule<ListingWithCustomImpl[]> = {
             `${pool}.POOL.supply(${cfg.base.assetSymbol}, 10 ** ${cfg.base.decimals}, ${pool}.COLLECTOR, 0);`
         ),
         fn: [
-          `function newListingsCustom() public pure override returns (IEngine.ListingWithCustomImpl[] memory) {
-          IEngine.ListingWithCustomImpl[] memory listings = new IEngine.ListingWithCustomImpl[](${
+          `function newListingsCustom() public pure override returns (IAaveV3ConfigEngine.ListingWithCustomImpl[] memory) {
+          IAaveV3ConfigEngine.ListingWithCustomImpl[] memory listings = new IAaveV3ConfigEngine.ListingWithCustomImpl[](${
             cfg.length
           });
 
           ${cfg
             .map(
-              (cfg, ix) => `listings[${ix}] = IEngine.ListingWithCustomImpl(
-                IEngine.Listing({
+              (cfg, ix) => `listings[${ix}] = IAaveV3ConfigEngine.ListingWithCustomImpl(
+                IAaveV3ConfigEngine.Listing({
               asset: ${cfg.base.assetSymbol},
               assetSymbol: "${cfg.base.assetSymbol}",
                priceFeed: ${cfg.base.priceFeed},
@@ -224,7 +226,7 @@ export const assetListingCustom: FeatureModule<ListingWithCustomImpl[]> = {
                   optimalStableToTotalDebtRatio: ${cfg.base.rateStrategyParams.optimalStableToTotalDebtRatio}
               })
              }),
-             IEngine.TokenImplementations({
+             IAaveV3ConfigEngine.TokenImplementations({
               aToken: ${cfg.implementations.aToken},
               vToken: ${cfg.implementations.vToken},
               sToken: ${cfg.implementations.sToken}

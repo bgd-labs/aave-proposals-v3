@@ -1,0 +1,29 @@
+{
+  "rootOptions": {
+    "pools": [
+      "AaveV3Ethereum"
+    ],
+    "title": "Test",
+    "shortName": "Test",
+    "date": "20231024",
+    "author": "BGD",
+    "discussion": "link",
+    "snapshot": "link"
+  },
+  "poolOptions": {
+    "AaveV3Ethereum": {
+      "configs": {
+        "CAPS_UPDATE": [
+          {
+            "asset": "AaveV3EthereumAssets.wstETH_UNDERLYING",
+            "supplyCap": "10_000_000",
+            "borrowCap": "100_000"
+          }
+        ]
+      },
+      "features": [
+        "CAPS_UPDATE"
+      ]
+    }
+  }
+}

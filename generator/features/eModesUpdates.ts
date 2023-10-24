@@ -44,14 +44,14 @@ export const eModeUpdates: FeatureModule<EmodeUpdates> = {
     const response: CodeArtifact = {
       code: {
         fn: [
-          `function eModeCategoriesUpdates() public pure override returns (IEngine.EModeCategoryUpdate[] memory) {
-          IEngine.EModeCategoryUpdate[] memory eModeUpdates = new IEngine.EModeCategoryUpdate[](${
+          `function eModeCategoriesUpdates() public pure override returns (IAaveV3ConfigEngine.EModeCategoryUpdate[] memory) {
+          IAaveV3ConfigEngine.EModeCategoryUpdate[] memory eModeUpdates = new IAaveV3ConfigEngine.EModeCategoryUpdate[](${
             cfg.length
           });
 
           ${cfg
             .map(
-              (cfg, ix) => `eModeUpdates[${ix}] = IEngine.EModeCategoryUpdate({
+              (cfg, ix) => `eModeUpdates[${ix}] = IAaveV3ConfigEngine.EModeCategoryUpdate({
                eModeCategory: ${cfg.eModeCategory},
                ltv: ${cfg.ltv},
                liqThreshold: ${cfg.liqThreshold},
