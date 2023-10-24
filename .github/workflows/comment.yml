@@ -1,0 +1,12 @@
+name: PR Comment
+
+on:
+  workflow_run:
+    workflows: [Test]
+    types:
+      - completed
+
+jobs:
+  test:
+    uses: bgd-labs/github-workflows/.github/workflows/comment.yml@main
+    secrets: inherit

@@ -1,7 +1,7 @@
 import {generateContractName, generateFolderName} from '../common';
-import {Options} from '../types';
+import {Options, PoolConfigs} from '../types';
 
-export function generateAIP(options: Options) {
+export function generateAIP(options: Options, configs: PoolConfigs) {
   return `---
 title: ${`"${options.title}"` || 'TODO'}
 author: ${`"${options.author}"` || 'TODO'}
@@ -14,12 +14,19 @@ discussions: ${`"${options.discussion}"` || 'TODO'}
 
 ## Specification
 
+${Object.keys(configs).map((pool) => {
+  let template = `On ${pool} the following steps are performed:\n`;
+  template += configs[pool].artifacts
+    .filter((artifact) => artifact.aip)
+    .map((artifact) => artifact.aip);
+})}
+
 ## References
 
 - Implementation: ${options.pools
     .map(
       (pool) =>
-        `[${pool}](https://github.com/bgd-labs/aave-proposals/blob/main/src/${generateFolderName(
+        `[${pool}](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/${generateFolderName(
           options
         )}/${generateContractName(options, pool)}.sol)`
     )
@@ -27,7 +34,7 @@ discussions: ${`"${options.discussion}"` || 'TODO'}
 - Tests: ${options.pools
     .map(
       (pool) =>
-        `[${pool}](https://github.com/bgd-labs/aave-proposals/blob/main/src/${generateFolderName(
+        `[${pool}](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/${generateFolderName(
           options
         )}/${generateContractName(options, pool)}.t.sol)`
     )

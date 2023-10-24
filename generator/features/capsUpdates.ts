@@ -1,4 +1,4 @@
-import {CodeArtifact, FeatureModule, PoolIdentifier} from '../types';
+import {CodeArtifact, FEATURE, FeatureModule, PoolIdentifier} from '../types';
 import {assetsSelect, numberInput} from '../prompts';
 import {CapsUpdate, CapsUpdatePartial} from './types';
 
@@ -18,7 +18,8 @@ export async function fetchCapsUpdate(disableKeepCurrent?: boolean): Promise<Cap
 type CapsUpdates = CapsUpdate[];
 
 export const capsUpdates: FeatureModule<CapsUpdates> = {
-  value: 'CapsUpdates (supplyCap, borrowCap)',
+  value: FEATURE.CAPS_UPDATE,
+  description: 'CapsUpdates (supplyCap, borrowCap)',
   async cli(opt, pool) {
     console.log(`Fetching information for CapsUpdates on ${pool}`);
     const assets = await assetsSelect({
@@ -37,12 +38,14 @@ export const capsUpdates: FeatureModule<CapsUpdates> = {
     const response: CodeArtifact = {
       code: {
         fn: [
-          `function capsUpdates() public pure override returns (IEngine.CapsUpdate[] memory) {
-          IEngine.CapsUpdate[] memory capsUpdate = new IEngine.CapsUpdate[](${cfg.length});
+          `function capsUpdates() public pure override returns (IAaveV3ConfigEngine.CapsUpdate[] memory) {
+          IAaveV3ConfigEngine.CapsUpdate[] memory capsUpdate = new IAaveV3ConfigEngine.CapsUpdate[](${
+            cfg.length
+          });
 
           ${cfg
             .map(
-              (cfg, ix) => `capsUpdate[${ix}] = IEngine.CapsUpdate({
+              (cfg, ix) => `capsUpdate[${ix}] = IAaveV3ConfigEngine.CapsUpdate({
                asset: ${cfg.asset},
                supplyCap: ${cfg.supplyCap},
                borrowCap: ${cfg.borrowCap}

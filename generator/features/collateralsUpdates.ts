@@ -1,4 +1,4 @@
-import {CodeArtifact, ENGINE_FLAGS, FeatureModule, PoolIdentifier} from '../types';
+import {CodeArtifact, ENGINE_FLAGS, FEATURE, FeatureModule, PoolIdentifier} from '../types';
 import {assetsSelect, eModeSelect, numberInput, percentInput} from '../prompts';
 import {CollateralUpdate, CollateralUpdatePartial} from './types';
 
@@ -27,18 +27,14 @@ export async function fetchCollateralUpdate(
       message: 'Liquidation protocol fee',
       disableKeepCurrent,
     }),
-    eModeCategory: await eModeSelect({
-      message: 'e mode category',
-      disableKeepCurrent,
-      pool,
-    }),
   };
 }
 
 type CollateralUpdates = CollateralUpdate[];
 
 export const collateralsUpdates: FeatureModule<CollateralUpdates> = {
-  value: 'CollateralsUpdates (ltv,lt,lb,debtCeiling,liqProtocolFee,eModeCategory)',
+  value: FEATURE.COLLATERALS_UPDATE,
+  description: 'CollateralsUpdates (ltv,lt,lb,debtCeiling,liqProtocolFee,eModeCategory)',
   async cli(opt, pool) {
     console.log(`Fetching information for Collateral Updates on ${pool}`);
 
@@ -58,24 +54,20 @@ export const collateralsUpdates: FeatureModule<CollateralUpdates> = {
     const response: CodeArtifact = {
       code: {
         fn: [
-          `function collateralsUpdates() public pure override returns (IEngine.CollateralUpdate[] memory) {
-            IEngine.CollateralUpdate[] memory collateralUpdate = new IEngine.CollateralUpdate[](${
+          `function collateralsUpdates() public pure override returns (IAaveV3ConfigEngine.CollateralUpdate[] memory) {
+            IAaveV3ConfigEngine.CollateralUpdate[] memory collateralUpdate = new IAaveV3ConfigEngine.CollateralUpdate[](${
               cfg.length
             });
 
           ${cfg
             .map(
-              (cfg, ix) => `collateralUpdate[${ix}] = IEngine.CollateralUpdate({
+              (cfg, ix) => `collateralUpdate[${ix}] = IAaveV3ConfigEngine.CollateralUpdate({
                asset: ${cfg.asset},
                ltv: ${cfg.ltv},
                liqThreshold: ${cfg.liqThreshold},
                liqBonus: ${cfg.liqBonus},
                debtCeiling: ${cfg.debtCeiling},
-               liqProtocolFee: ${cfg.liqProtocolFee},
-               eModeCategory: ${
-                 cfg.eModeCategory === ENGINE_FLAGS.KEEP_CURRENT
-                   ? `EngineFlags.KEEP_CURRENT`
-                   : cfg.eModeCategory
+               liqProtocolFee: ${cfg.liqProtocolFee}
                }
              });`
             )

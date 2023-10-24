@@ -6,7 +6,9 @@ import {
   getPoolChain,
   isV2Pool,
 } from '../common';
-import {CodeArtifact, Options, PoolIdentifier} from '../types';
+import {Options, PoolConfig} from '../types';
+import {prefixWithPragma} from '../utils/constants';
+import {prefixWithImports} from '../utils/importsResolver';
 
 export const getBlock = async (chain) => {
   return await createPublicClient({
@@ -15,27 +17,19 @@ export const getBlock = async (chain) => {
   }).getBlockNumber();
 };
 
-export const testTemplate = async (
-  options: Options,
-  pool: PoolIdentifier,
-  artifacts: CodeArtifact[] = []
-) => {
-  const chain = getPoolChain(pool);
-  const contractName = generateContractName(options, pool);
+export const testTemplate = async (options: Options, poolConfig: PoolConfig) => {
+  const chain = getPoolChain(poolConfig.pool);
+  const contractName = generateContractName(options, poolConfig.pool);
 
-  const testBase = isV2Pool(pool) ? 'ProtocolV2TestBase' : 'ProtocolV3TestBase';
+  const testBase = isV2Pool(poolConfig.pool) ? 'ProtocolV2TestBase' : 'ProtocolV3TestBase';
 
-  const functions = artifacts
+  const functions = poolConfig.artifacts
     .map((artifact) => artifact.test?.fn)
     .flat()
     .filter((f) => f !== undefined)
     .join('\n');
-  let template = `// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
-
+  let template = `
 import 'forge-std/Test.sol';
-import {GovV3Helpers} from 'aave-helpers/GovV3Helpers.sol';
-import {${pool}, ${pool}Assets} from 'aave-address-book/${pool}.sol';
 import {${testBase}, ReserveConfig} from 'aave-helpers/${testBase}.sol';
 import {${contractName}} from './${contractName}.sol';
 
@@ -51,26 +45,14 @@ contract ${contractName}_Test is ${testBase} {
     proposal = new ${contractName}();
   }
 
-  function testProposalExecution() public {
-    ReserveConfig[] memory allConfigsBefore = createConfigurationSnapshot(
-      'pre${contractName}',
-      ${pool}.POOL
-    );
-
-    GovV3Helpers.executePayload(
-      vm,
-      address(proposal)
-    );
-
-    ReserveConfig[] memory allConfigsAfter = createConfigurationSnapshot(
-      'post${contractName}',
-      ${pool}.POOL
-    );
-
-    diffReports('pre${contractName}', 'post${contractName}');
+  /**
+   * @dev executes the generic test suite including e2e and config snapshots 
+   */
+  function test_defaultProposalExecution() public {
+    defaultTest('${contractName}', ${poolConfig.pool}.POOL, address(proposal));
   }
 
   ${functions}
 }`;
-  return template;
+  return prefixWithPragma(prefixWithImports(template));
 };

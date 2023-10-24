@@ -1,7 +1,7 @@
 import * as addressBook from '@bgd-labs/aave-address-book';
 
 export interface Options {
-  force: boolean;
+  force?: boolean;
   pools: PoolIdentifier[];
   title: string;
   // automatically generated shortName from title
@@ -9,13 +9,8 @@ export interface Options {
   author: string;
   discussion: string;
   snapshot: string;
-  configFile: string;
-}
-
-export interface PoolConfig {
-  features: string[];
-  artifacts: CodeArtifact[];
-  configs: {[feature: string]: {}};
+  configFile?: string;
+  date: string;
 }
 
 export type PoolConfigs = Partial<Record<PoolIdentifier, PoolConfig>>;
@@ -29,16 +24,29 @@ export type CodeArtifact = {
   test?: {
     fn?: string[];
   };
+  aip?: {
+    specification: string[];
+  };
 };
 
-export type Feature = {
-  name: string;
-  value: string;
-  module?: FeatureModule<any>;
-};
+export enum FEATURE {
+  ASSET_LISTING = 'ASSET_LISTING',
+  ASSET_LISTING_CUSTOM = 'ASSET_LISTING_CUSTOM',
+  BORROWS_UPDATE = 'BORROWS_UPDATE',
+  CAPS_UPDATE = 'CAPS_UPDATE',
+  COLLATERALS_UPDATE = 'COLLATERALS_UPDATE',
+  EMODES_ASSETS = 'EMODES_ASSETS',
+  EMODES_UPDATES = 'EMODES_UPDATES',
+  FLASH_BORROWER = 'FLASH_BORROWER',
+  PRICE_FEEDS_UPDATE = 'PRICE_FEEDS_UPDATE',
+  RATE_UPDATE_V3 = 'RATE_UPDATE_V3',
+  RATE_UPDATE_V2 = 'RATE_UPDATE_V2',
+  OTHERS = 'OTHERS',
+}
 
 export interface FeatureModule<T extends {} = {}> {
-  value: string;
+  description: string;
+  value: FEATURE;
   cli: (opt: Options, pool: PoolIdentifier) => Promise<T>;
   build: (opt: Options, pool: PoolIdentifier, cfg: T) => CodeArtifact;
 }
@@ -82,3 +90,10 @@ export type ConfigFile = {
   rootOptions: Options;
   poolOptions: Record<PoolIdentifier, Omit<PoolConfig, 'artifacts'>>;
 };
+
+export interface PoolConfig {
+  pool: PoolIdentifier;
+  features: FEATURE[];
+  artifacts: CodeArtifact[];
+  configs: {[feature in FEATURE]?: any};
+}

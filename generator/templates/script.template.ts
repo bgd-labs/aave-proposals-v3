@@ -1,21 +1,15 @@
-import {
-  CHAINS_WITH_GOV_SUPPORT,
-  generateContractName,
-  generateFolderName,
-  getChainAlias,
-  getPoolChain,
-  pragma,
-} from '../common';
+import {generateContractName, generateFolderName, getChainAlias, getPoolChain} from '../common';
 import {Options} from '../types';
+import {prefixWithImports} from '../utils/importsResolver';
+import {prefixWithPragma} from '../utils/constants';
 
 export function generateScript(options: Options) {
   const folderName = generateFolderName(options);
   const fileName = generateContractName(options);
-  let template = pragma;
+  let template = '';
   const chains = [...new Set(options.pools.map((pool) => getPoolChain(pool)!))];
 
   // generate imports
-  template += `import {GovV3Helpers} from 'aave-helpers/GovV3Helpers.sol';\n`;
   template += `import {${['Ethereum', ...chains.filter((c) => c !== 'Ethereum')]
     .map((chain) => `${chain}Script`)
     .join(', ')}} from 'aave-helpers/ScriptUtils.sol';\n`;
@@ -93,16 +87,16 @@ contract CreateProposal is EthereumScript {
           .join('\n');
         template += `payloads[${ix}] = GovV3Helpers.build${
           chain == 'Ethereum' ? 'Mainnet' : chain
-        }(vm, actions${chain});\n`;
+        }Payload(vm, actions${chain});\n`;
         return template;
       })
       .join('\n')}
 
     // create proposal
-    GovV3Helpers.createProposal(payloads, GovHelpers.ipfsHashFile(vm, 'src/${folderName}/${
+    GovV3Helpers.createProposal2_5(payloads, GovV3Helpers.ipfsHashFile(vm, 'src/${folderName}/${
     options.shortName
   }.md'));
   }
 }`;
-  return template;
+  return prefixWithPragma(prefixWithImports(template));
 }

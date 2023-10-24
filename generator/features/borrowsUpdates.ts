@@ -1,10 +1,8 @@
-import {CodeArtifact, FeatureModule} from '../types';
+import {CodeArtifact, ENGINE_FLAGS, FEATURE, FeatureModule} from '../types';
 import {assetsSelect, booleanSelect, percentInput} from '../prompts';
-import {BorrowUpdate, BorrowUpdatePartial} from './types';
+import {BorrowUpdate} from './types';
 
-export async function fetchBorrowUpdate(
-  disableKeepCurrent?: boolean
-): Promise<BorrowUpdatePartial> {
+export async function fetchBorrowUpdate<T extends boolean>(disableKeepCurrent?: T) {
   return {
     enabledToBorrow: await booleanSelect({
       message: 'enabled to borrow',
@@ -17,14 +15,17 @@ export async function fetchBorrowUpdate(
     stableRateModeEnabled: await booleanSelect({
       message: 'stable rate mode enabled',
       disableKeepCurrent,
+      defaultValue: ENGINE_FLAGS.DISABLED,
     }),
     borrowableInIsolation: await booleanSelect({
       message: 'borrowable in isolation',
       disableKeepCurrent,
+      defaultValue: ENGINE_FLAGS.DISABLED,
     }),
     withSiloedBorrowing: await booleanSelect({
       message: 'siloed borrowing',
       disableKeepCurrent,
+      defaultValue: ENGINE_FLAGS.DISABLED,
     }),
     reserveFactor: await percentInput({
       message: 'reserve factor',
@@ -36,7 +37,8 @@ export async function fetchBorrowUpdate(
 type BorrowUpdates = BorrowUpdate[];
 
 export const borrowsUpdates: FeatureModule<BorrowUpdates> = {
-  value:
+  value: FEATURE.BORROWS_UPDATE,
+  description:
     'BorrowsUpdates (enabledToBorrow, flashloanable, stableRateModeEnabled, borrowableInIsolation, withSiloedBorrowing, reserveFactor)',
   async cli(opt, pool) {
     const assets = await assetsSelect({
@@ -46,7 +48,7 @@ export const borrowsUpdates: FeatureModule<BorrowUpdates> = {
     const response: BorrowUpdates = [];
     for (const asset of assets) {
       console.log(`Fetching information for BorrowUpdates on ${pool} ${asset}`);
-      response.push({...(await fetchBorrowUpdate()), asset});
+      response.push({...(await fetchBorrowUpdate(false)), asset});
     }
     return response;
   },
@@ -54,12 +56,14 @@ export const borrowsUpdates: FeatureModule<BorrowUpdates> = {
     const response: CodeArtifact = {
       code: {
         fn: [
-          `function borrowsUpdates() public pure override returns (IEngine.BorrowUpdate[] memory) {
-          IEngine.BorrowUpdate[] memory borrowUpdates = new IEngine.BorrowUpdate[](${cfg.length});
+          `function borrowsUpdates() public pure override returns (IAaveV3ConfigEngine.BorrowUpdate[] memory) {
+          IAaveV3ConfigEngine.BorrowUpdate[] memory borrowUpdates = new IAaveV3ConfigEngine.BorrowUpdate[](${
+            cfg.length
+          });
 
           ${cfg
             .map(
-              (cfg, ix) => `borrowUpdates[${ix}] = IEngine.BorrowUpdate({
+              (cfg, ix) => `borrowUpdates[${ix}] = IAaveV3ConfigEngine.BorrowUpdate({
                asset: ${cfg.asset},
                enabledToBorrow: ${cfg.enabledToBorrow},
                flashloanable: ${cfg.flashloanable},

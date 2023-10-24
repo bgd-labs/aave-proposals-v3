@@ -1,0 +1,293 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`feature: assetListing > should properly generate files 1`] = `
+{
+  "aip": "---
+title: \\"test\\"
+author: \\"test\\"
+discussions: \\"test\\"
+---
+
+## Simple Summary
+
+## Motivation
+
+## Specification
+
+## References
+
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231023_AaveV3Ethereum_Test/AaveV3Ethereum_Test_20231023.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231023_AaveV3Ethereum_Test/AaveV3Ethereum_Test_20231023.t.sol)
+- [Snapshot](test)
+- [Discussion](test)
+
+## Copyright
+
+Copyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).
+",
+  "jsonConfig": "{
+  \\"rootOptions\\": {
+    \\"pools\\": [
+      \\"AaveV3Ethereum\\"
+    ],
+    \\"title\\": \\"test\\",
+    \\"shortName\\": \\"Test\\",
+    \\"date\\": \\"20231023\\",
+    \\"author\\": \\"test\\",
+    \\"discussion\\": \\"test\\",
+    \\"snapshot\\": \\"test\\"
+  },
+  \\"poolOptions\\": {
+    \\"AaveV3Ethereum\\": {
+      \\"configs\\": {
+        \\"ASSET_LISTING\\": [
+          {
+            \\"assetSymbol\\": \\"PSP\\",
+            \\"decimals\\": 18,
+            \\"priceFeed\\": \\"0x72AFAECF99C9d9C8215fF44C77B94B99C28741e8\\",
+            \\"ltv\\": \\"40_00\\",
+            \\"liqThreshold\\": \\"50_00\\",
+            \\"liqBonus\\": \\"5_00\\",
+            \\"debtCeiling\\": \\"100_000\\",
+            \\"liqProtocolFee\\": \\"20_00\\",
+            \\"enabledToBorrow\\": \\"ENABLED\\",
+            \\"flashloanable\\": \\"ENABLED\\",
+            \\"stableRateModeEnabled\\": \\"DISABLED\\",
+            \\"borrowableInIsolation\\": \\"DISABLED\\",
+            \\"withSiloedBorrowing\\": \\"DISABLED\\",
+            \\"reserveFactor\\": \\"20_00\\",
+            \\"supplyCap\\": \\"10_000\\",
+            \\"borrowCap\\": \\"5_000\\",
+            \\"rateStrategyParams\\": {
+              \\"optimalUtilizationRate\\": \\"_bpsToRay(80_00)\\",
+              \\"baseVariableBorrowRate\\": \\"_bpsToRay(0_00)\\",
+              \\"variableRateSlope1\\": \\"_bpsToRay(10_00)\\",
+              \\"variableRateSlope2\\": \\"_bpsToRay(100_00)\\",
+              \\"stableRateSlope1\\": \\"_bpsToRay(10_00)\\",
+              \\"stableRateSlope2\\": \\"_bpsToRay(100_00)\\",
+              \\"baseStableRateOffset\\": \\"_bpsToRay(1_00)\\",
+              \\"stableRateExcessOffset\\": \\"_bpsToRay()\\",
+              \\"optimalStableToTotalDebtRatio\\": \\"_bpsToRay(10_00)\\"
+            },
+            \\"eModeCategory\\": \\"AaveV3EthereumEModes.NONE\\",
+            \\"asset\\": \\"0xcAfE001067cDEF266AfB7Eb5A286dCFD277f3dE5\\"
+          }
+        ]
+      },
+      \\"features\\": [
+        \\"ASSET_LISTING\\"
+      ]
+    }
+  }
+}",
+  "payloads": [
+    {
+      "contractName": "AaveV3Ethereum_Test_20231023",
+      "payload": "// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+import {AaveV3Ethereum, AaveV3EthereumEModes} from 'aave-address-book/AaveV3Ethereum.sol';
+import {AaveV3PayloadEthereum} from 'aave-helpers/v3-config-engine/AaveV3PayloadEthereum.sol';
+import {IAaveV3ConfigEngine} from 'aave-helpers/v3-config-engine/IAaveV3ConfigEngine.sol';
+
+/**
+ * @title test
+ * @author test
+ * - Snapshot: test
+ * - Discussion: test
+ */
+contract AaveV3Ethereum_Test_20231023 is AaveV3PayloadEthereum {
+  address public constant PSP = address(0xcAfE001067cDEF266AfB7Eb5A286dCFD277f3dE5);
+
+  function _postExecute() internal override {
+    AaveV3Ethereum.POOL.supply(PSP, 10 ** 18, AaveV3Ethereum.COLLECTOR, 0);
+  }
+
+  function newListings() public pure override returns (IAaveV3ConfigEngine.Listing[] memory) {
+    IAaveV3ConfigEngine.Listing[] memory listings = new IAaveV3ConfigEngine.Listing[](1);
+
+    listings[0] = IAaveV3ConfigEngine.Listing({
+      asset: PSP,
+      assetSymbol: 'PSP',
+      priceFeed: 0x72AFAECF99C9d9C8215fF44C77B94B99C28741e8,
+      eModeCategory: AaveV3EthereumEModes.NONE,
+      enabledToBorrow: ENABLED,
+      stableRateModeEnabled: DISABLED,
+      borrowableInIsolation: DISABLED,
+      withSiloedBorrowing: DISABLED,
+      flashloanable: ENABLED,
+      ltv: 40_00,
+      liqThreshold: 50_00,
+      liqBonus: 5_00,
+      reserveFactor: 20_00,
+      supplyCap: 10_000,
+      borrowCap: 5_000,
+      debtCeiling: 100_000,
+      liqProtocolFee: 20_00,
+      rateStrategyParams: Rates.RateStrategyParams({
+        optimalUsageRatio: _bpsToRay(80_00),
+        baseVariableBorrowRate: _bpsToRay(0_00),
+        variableRateSlope1: _bpsToRay(10_00),
+        variableRateSlope2: _bpsToRay(100_00),
+        stableRateSlope1: _bpsToRay(10_00),
+        stableRateSlope2: _bpsToRay(100_00),
+        baseStableRateOffset: _bpsToRay(1_00),
+        stableRateExcessOffset: _bpsToRay(),
+        optimalStableToTotalDebtRatio: _bpsToRay(10_00)
+      })
+    });
+
+    return listings;
+  }
+}
+",
+      "test": "// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+import {GovV3Helpers} from 'aave-helpers/GovV3Helpers.sol';
+import {AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
+
+import 'forge-std/Test.sol';
+import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/ProtocolV3TestBase.sol';
+import {AaveV3Ethereum_Test_20231023} from './AaveV3Ethereum_Test_20231023.sol';
+
+/**
+ * @dev Test for AaveV3Ethereum_Test_20231023
+ * command: make test-contract filter=AaveV3Ethereum_Test_20231023
+ */
+contract AaveV3Ethereum_Test_20231023_Test is ProtocolV3TestBase {
+  AaveV3Ethereum_Test_20231023 internal proposal;
+
+  function setUp() public {
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 18420741);
+    proposal = new AaveV3Ethereum_Test_20231023();
+  }
+
+  /**
+   * @dev executes the generic test suite including e2e and config snapshots
+   */
+  function test_defaultProposalExecution() public {
+    defaultTest('AaveV3Ethereum_Test_20231023', AaveV3Ethereum.POOL, address(proposal));
+  }
+
+  function test_collectorHasPSPFunds() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+    assertGte(
+      IERC20(0xcAfE001067cDEF266AfB7Eb5A286dCFD277f3dE5).balanceOf(AaveV3Ethereum.COLLECTOR),
+      10 ** 18
+    );
+  }
+}
+",
+    },
+  ],
+  "script": "// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aave-helpers/GovV3Helpers.sol';
+import {EthereumScript} from 'aave-helpers/ScriptUtils.sol';
+import {AaveV3Ethereum_Test_20231023} from './AaveV3Ethereum_Test_20231023.sol';
+
+/**
+ * @dev Deploy Ethereum
+ * command: make deploy-ledger contract=src/20231023_AaveV3Ethereum_Test/Test_20231023.s.sol:DeployEthereum chain=mainnet
+ */
+contract DeployEthereum is EthereumScript {
+  function run() external broadcast {
+    // deploy payloads
+    AaveV3Ethereum_Test_20231023 payload0 = new AaveV3Ethereum_Test_20231023();
+
+    // compose action
+    IPayloadsControllerCore.ExecutionAction[]
+      memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
+    actions[0] = GovV3Helpers.buildAction(address(payload0));
+
+    // register action at payloadsController
+    GovV3Helpers.createPayload(actions);
+  }
+}
+
+/**
+ * @dev Create Proposal
+ * command: make deploy-ledger contract=src/20231023_AaveV3Ethereum_Test/Test_20231023.s.sol:CreateProposal chain=mainnet
+ */
+contract CreateProposal is EthereumScript {
+  function run() external broadcast {
+    // create payloads
+    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](1);
+
+    // compose actions for validation
+    IPayloadsControllerCore.ExecutionAction[]
+      memory actionsEthereum = new IPayloadsControllerCore.ExecutionAction[](1);
+    actionsEthereum[0] = GovV3Helpers.buildAction(address(0));
+    payloads[0] = GovV3Helpers.buildMainnetPayload(vm, actionsEthereum);
+
+    // create proposal
+    GovV3Helpers.createProposal2_5(
+      payloads,
+      GovV3Helpers.ipfsHashFile(vm, 'src/20231023_AaveV3Ethereum_Test/Test.md')
+    );
+  }
+}
+",
+}
+`;
+
+exports[`feature: assetListing > should return reasonable code 1`] = `
+{
+  "code": {
+    "constants": [
+      "address public constant PSP = address(0xcAfE001067cDEF266AfB7Eb5A286dCFD277f3dE5);",
+    ],
+    "execute": [
+      "AaveV3Ethereum.POOL.supply(PSP, 10 ** 18, AaveV3Ethereum.COLLECTOR, 0);",
+    ],
+    "fn": [
+      "function newListings() public pure override returns (IAaveV3ConfigEngine.Listing[] memory) {
+          IAaveV3ConfigEngine.Listing[] memory listings = new IAaveV3ConfigEngine.Listing[](1);
+
+          listings[0] = IAaveV3ConfigEngine.Listing({
+               asset: PSP,
+               assetSymbol: \\"PSP\\",
+               priceFeed: 0x72AFAECF99C9d9C8215fF44C77B94B99C28741e8,
+               eModeCategory: AaveV3EthereumEModes.NONE,
+               enabledToBorrow: ENABLED,
+               stableRateModeEnabled: DISABLED,
+               borrowableInIsolation: DISABLED,
+               withSiloedBorrowing: DISABLED,
+               flashloanable: ENABLED,
+               ltv: 40_00,
+               liqThreshold: 50_00,
+               liqBonus: 5_00,
+               reserveFactor: 20_00,
+               supplyCap: 10_000,
+               borrowCap: 5_000,
+               debtCeiling: 100_000,
+               liqProtocolFee: 20_00,
+               rateStrategyParams: Rates.RateStrategyParams({
+                  optimalUsageRatio: _bpsToRay(80_00),
+                  baseVariableBorrowRate: _bpsToRay(0_00),
+                  variableRateSlope1: _bpsToRay(10_00),
+                  variableRateSlope2: _bpsToRay(100_00),
+                  stableRateSlope1: _bpsToRay(10_00),
+                  stableRateSlope2: _bpsToRay(100_00),
+                  baseStableRateOffset: _bpsToRay(1_00),
+                  stableRateExcessOffset: _bpsToRay(),
+                  optimalStableToTotalDebtRatio: _bpsToRay(10_00)
+              })
+             });
+
+          return listings;
+        }",
+    ],
+  },
+  "test": {
+    "fn": [
+      "function test_collectorHasPSPFunds() public {
+            GovV3Helpers.executePayload(vm,address(proposal));
+            assertGte(IERC20(0xcAfE001067cDEF266AfB7Eb5A286dCFD277f3dE5).balanceOf(AaveV3Ethereum.COLLECTOR), 10 ** 18);
+          }",
+    ],
+  },
+}
+`;

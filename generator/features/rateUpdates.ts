@@ -1,10 +1,8 @@
-import {CodeArtifact, FeatureModule, PoolIdentifier} from '../types';
-import {isV2Pool} from '../common';
+import {CodeArtifact, FEATURE, FeatureModule, PoolIdentifier} from '../types';
 import {assetsSelect, percentInput} from '../prompts';
 import {RateStrategyParams, RateStrategyUpdate} from './types';
 
-export async function fetchRateStrategyParams(
-  pool: PoolIdentifier,
+export async function fetchRateStrategyParamsV2(
   disableKeepCurrent?: boolean
 ): Promise<RateStrategyParams> {
   return {
@@ -38,30 +36,34 @@ export async function fetchRateStrategyParams(
       toRay: true,
       disableKeepCurrent,
     }),
-    ...(isV2Pool(pool)
-      ? {}
-      : {
-          baseStableRateOffset: await percentInput({
-            message: 'baseStableRateOffset',
-            toRay: true,
-            disableKeepCurrent,
-          }),
-          stableRateExcessOffset: await percentInput({
-            message: 'stableRateExcessOffset',
-            toRay: true,
-            disableKeepCurrent,
-          }),
-          optimalStableToTotalDebtRatio: await percentInput({
-            message: 'stableRateExcessOffset',
-            toRay: true,
-            disableKeepCurrent,
-          }),
-        }),
   };
 }
 
-export const rateUpdates: FeatureModule<RateStrategyUpdate[]> = {
-  value: 'RateStrategiesUpdates',
+export async function fetchRateStrategyParamsV3(disableKeepCurrent?: boolean) {
+  const params = await fetchRateStrategyParamsV2(disableKeepCurrent);
+  return {
+    ...params,
+    baseStableRateOffset: await percentInput({
+      message: 'baseStableRateOffset',
+      toRay: true,
+      disableKeepCurrent,
+    }),
+    stableRateExcessOffset: await percentInput({
+      message: 'stableRateExcessOffset',
+      toRay: true,
+      disableKeepCurrent,
+    }),
+    optimalStableToTotalDebtRatio: await percentInput({
+      message: 'stableRateExcessOffset',
+      toRay: true,
+      disableKeepCurrent,
+    }),
+  };
+}
+
+export const rateUpdatesV2: FeatureModule<RateStrategyUpdate[]> = {
+  value: FEATURE.RATE_UPDATE_V2,
+  description: 'RateStrategiesUpdates',
   async cli(opt, pool) {
     console.log(`Fetching information for RatesUpdate on ${pool}`);
     const assets = await assetsSelect({
@@ -71,7 +73,7 @@ export const rateUpdates: FeatureModule<RateStrategyUpdate[]> = {
     const response: RateStrategyUpdate[] = [];
     for (const asset of assets) {
       console.log(`Fetching info for ${asset}`);
-      response.push({asset, params: await fetchRateStrategyParams(pool)});
+      response.push({asset, params: await fetchRateStrategyParamsV2()});
     }
     return response;
   },
@@ -83,16 +85,14 @@ export const rateUpdates: FeatureModule<RateStrategyUpdate[]> = {
           public
           pure
           override
-          returns (IEngine.RateStrategyUpdate[] memory)
+          returns (IAaveV2ConfigEngine.RateStrategyUpdate[] memory)
         {
-          IEngine.RateStrategyUpdate[] memory rateStrategies = new IEngine.RateStrategyUpdate[](${
+          IAaveV2ConfigEngine.RateStrategyUpdate[] memory rateStrategies = new IAaveV2ConfigEngine.RateStrategyUpdate[](${
             cfg.length
           });
-          ${
-            isV2Pool(pool)
-              ? cfg
-                  .map(
-                    (cfg, ix) => `rateStrategies[${ix}] = IEngine.RateStrategyUpdate({
+          ${cfg
+            .map(
+              (cfg, ix) => `rateStrategies[${ix}] = IAaveV2ConfigEngine.RateStrategyUpdate({
                 asset: ${cfg.asset},
                 params: Rates.RateStrategyParams({
                   optimalUtilizationRate: ${cfg.params.optimalUtilizationRate},
@@ -103,12 +103,52 @@ export const rateUpdates: FeatureModule<RateStrategyUpdate[]> = {
                   stableRateSlope2: ${cfg.params.stableRateSlope2}
                 })
               });`
-                  )
-                  .join('\n')
-              : cfg
-                  .map(
-                    (cfg, ix) => `rateStrategies[${ix}] = IEngine.RateStrategyUpdate({
-                  asset: ${pool}Assets.${cfg.asset}_UNDERLYING,
+            )
+            .join('\n')}
+
+
+          return rateStrategies;
+        }`,
+        ],
+      },
+    };
+    return response;
+  },
+};
+
+export const rateUpdatesV3: FeatureModule<RateStrategyUpdate[]> = {
+  value: FEATURE.RATE_UPDATE_V3,
+  description: 'RateStrategiesUpdates',
+  async cli(opt, pool) {
+    console.log(`Fetching information for RatesUpdate on ${pool}`);
+    const assets = await assetsSelect({
+      message: 'Select the assets you want to amend',
+      pool,
+    });
+    const response: RateStrategyUpdate[] = [];
+    for (const asset of assets) {
+      console.log(`Fetching info for ${asset}`);
+      response.push({asset, params: await fetchRateStrategyParamsV3()});
+    }
+    return response;
+  },
+  build(opt, pool, cfg) {
+    const response: CodeArtifact = {
+      code: {
+        fn: [
+          `function rateStrategiesUpdates()
+          public
+          pure
+          override
+          returns (IAaveV3ConfigEngine.RateStrategyUpdate[] memory)
+        {
+          IAaveV3ConfigEngine.RateStrategyUpdate[] memory rateStrategies = new IAaveV3ConfigEngine.RateStrategyUpdate[](${
+            cfg.length
+          });
+          ${cfg
+            .map(
+              (cfg, ix) => `rateStrategies[${ix}] = IAaveV3ConfigEngine.RateStrategyUpdate({
+                  asset: ${cfg.asset},
                   params: Rates.RateStrategyParams({
                     optimalUsageRatio: ${cfg.params.optimalUtilizationRate},
                     baseVariableBorrowRate: ${cfg.params.baseVariableBorrowRate},
@@ -121,9 +161,8 @@ export const rateUpdates: FeatureModule<RateStrategyUpdate[]> = {
                     optimalStableToTotalDebtRatio: ${cfg.params.optimalStableToTotalDebtRatio!}
                   })
                 });`
-                  )
-                  .join('\n')
-          }
+            )
+            .join('\n')}
 
 
           return rateStrategies;

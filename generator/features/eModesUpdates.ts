@@ -1,4 +1,4 @@
-import {CodeArtifact, FeatureModule, PoolIdentifier} from '../types';
+import {CodeArtifact, FEATURE, FeatureModule, PoolIdentifier} from '../types';
 import {addressInput, eModesSelect, percentInput, stringInput} from '../prompts';
 import {EModeCategoryUpdate} from './types';
 
@@ -34,7 +34,8 @@ async function subCli(pool: PoolIdentifier) {
 type EmodeUpdates = EModeCategoryUpdate[];
 
 export const eModeUpdates: FeatureModule<EmodeUpdates> = {
-  value: 'eModeCategoriesUpdates (altering/adding eModes)',
+  value: FEATURE.EMODES_UPDATES,
+  description: 'eModeCategoriesUpdates (altering/adding eModes)',
   async cli(opt, pool) {
     const response: EmodeUpdates = await subCli(pool);
     return response;
@@ -43,14 +44,14 @@ export const eModeUpdates: FeatureModule<EmodeUpdates> = {
     const response: CodeArtifact = {
       code: {
         fn: [
-          `function eModeCategoriesUpdates() public pure override returns (IEngine.EModeCategoryUpdate[] memory) {
-          IEngine.EModeCategoryUpdate[] memory eModeUpdates = new IEngine.EModeCategoryUpdate[](${
+          `function eModeCategoriesUpdates() public pure override returns (IAaveV3ConfigEngine.EModeCategoryUpdate[] memory) {
+          IAaveV3ConfigEngine.EModeCategoryUpdate[] memory eModeUpdates = new IAaveV3ConfigEngine.EModeCategoryUpdate[](${
             cfg.length
           });
 
           ${cfg
             .map(
-              (cfg, ix) => `eModeUpdates[${ix}] = IEngine.EModeCategoryUpdate({
+              (cfg, ix) => `eModeUpdates[${ix}] = IAaveV3ConfigEngine.EModeCategoryUpdate({
                eModeCategory: ${cfg.eModeCategory},
                ltv: ${cfg.ltv},
                liqThreshold: ${cfg.liqThreshold},

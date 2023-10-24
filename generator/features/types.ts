@@ -1,5 +1,10 @@
 import {Hex} from 'viem';
-import {BooleanSelectValues, NumberInputValues, PercentInputValues} from '../prompts';
+import {
+  AddressInputValues,
+  BooleanSelectValues,
+  NumberInputValues,
+  PercentInputValues,
+} from '../prompts';
 
 export interface AssetSelector {
   asset: string;
@@ -35,7 +40,6 @@ export interface CollateralUpdatePartial {
   liqBonus: PercentInputValues;
   debtCeiling: NumberInputValues;
   liqProtocolFee: PercentInputValues;
-  eModeCategory: string;
 }
 
 export interface CollateralUpdate extends CollateralUpdatePartial, AssetSelector {}
@@ -57,7 +61,7 @@ export interface EModeCategoryUpdate {
   ltv: NumberInputValues;
   liqThreshold: NumberInputValues;
   liqBonus: NumberInputValues;
-  priceSource: Hex;
+  priceSource: AddressInputValues;
   label: string;
 }
 
@@ -85,9 +89,18 @@ export interface Listing
   asset: Hex;
   assetSymbol: string;
   rateStrategyParams: RateStrategyParams;
+  eModeCategory: string;
+  decimals: number;
 }
 
 export interface ListingWithCustomImpl {
   base: Listing;
   implementations: TokenImplementations;
+}
+
+export interface TokenStream {
+  asset: Hex;
+  receiver: Hex;
+  duration: string;
+  amount: string;
 }

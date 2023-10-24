@@ -1,4 +1,4 @@
-import {CodeArtifact, FeatureModule, PoolIdentifier} from '../types';
+import {CodeArtifact, FEATURE, FeatureModule, PoolIdentifier} from '../types';
 import {assetsSelect, eModeSelect} from '../prompts';
 import {AssetEModeUpdate} from './types';
 
@@ -26,7 +26,8 @@ async function subCli(pool: PoolIdentifier) {
 type EmodeAssetUpdates = AssetEModeUpdate[];
 
 export const eModeAssets: FeatureModule<EmodeAssetUpdates> = {
-  value: 'assetsEModeUpdates (setting eMode for an asset)',
+  value: FEATURE.EMODES_ASSETS,
+  description: 'assetsEModeUpdates (setting eMode for an asset)',
   async cli(opt, pool) {
     const response: EmodeAssetUpdates = await subCli(pool);
     return response;
@@ -35,14 +36,14 @@ export const eModeAssets: FeatureModule<EmodeAssetUpdates> = {
     const response: CodeArtifact = {
       code: {
         fn: [
-          `function assetsEModeUpdates() public pure override returns (IEngine.AssetEModeUpdate[] memory) {
-          IEngine.AssetEModeUpdate[] memory assetEModeUpdates = new IEngine.AssetEModeUpdate[](${
+          `function assetsEModeUpdates() public pure override returns (IAaveV3ConfigEngine.AssetEModeUpdate[] memory) {
+          IAaveV3ConfigEngine.AssetEModeUpdate[] memory assetEModeUpdates = new IAaveV3ConfigEngine.AssetEModeUpdate[](${
             cfg.length
           });
 
           ${cfg
             .map(
-              (cfg, ix) => `assetEModeUpdates[${ix}] = IEngine.AssetEModeUpdate({
+              (cfg, ix) => `assetEModeUpdates[${ix}] = IAaveV3ConfigEngine.AssetEModeUpdate({
                asset: ${cfg.asset},
                eModeCategory: ${cfg.eModeCategory}
              });`
