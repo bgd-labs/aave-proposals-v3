@@ -26,15 +26,6 @@ export const AVAILABLE_CHAINS = [
   'Gnosis',
 ] as const;
 
-export const CHAINS_WITH_GOV_SUPPORT = [
-  'Ethereum',
-  'Optimism',
-  'Arbitrum',
-  'Polygon',
-  'Metis',
-  'Base',
-] as const satisfies readonly (typeof AVAILABLE_CHAINS)[number][];
-
 export function getAssets(pool: PoolIdentifier): string[] {
   const assets = addressBook[pool].ASSETS;
   return Object.keys(assets);
