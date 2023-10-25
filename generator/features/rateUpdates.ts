@@ -54,7 +54,7 @@ export async function fetchRateStrategyParamsV3(disableKeepCurrent?: boolean) {
       disableKeepCurrent,
     }),
     optimalStableToTotalDebtRatio: await percentInput({
-      message: 'stableRateExcessOffset',
+      message: 'optimalStableToTotalDebtRatio',
       toRay: true,
       disableKeepCurrent,
     }),
