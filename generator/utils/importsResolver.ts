@@ -10,7 +10,7 @@ const GovernanceImports = [
 ] as const;
 
 /**
- * @dev matches the code fro known address book imports and generates an import statment satisfying the used libraries
+ * @dev matches the code fro known address book imports and generates an import statement satisfying the used libraries
  * @param code
  * @returns
  */
@@ -83,8 +83,8 @@ export function prefixWithImports(code: string) {
   if (findMatch(code, 'IAaveV3ConfigEngine')) {
     imports += `import {IAaveV3ConfigEngine} from 'aave-helpers/v3-config-engine/IAaveV3ConfigEngine.sol';\n`;
   }
-  if (findMatch(code, 'IV3RateStrategyFactory')) {
-    imports += `import {IV3RateStrategyFactory} from 'aave-helpers/v3-config-engine/IV3RateStrategyFactory.sol';\n`;
+  if (findMatch(code, 'Rates')) {
+    imports += `import {IV3RateStrategyFactory as Rates} from 'aave-helpers/v3-config-engine/IV3RateStrategyFactory.sol';\n`;
   }
   // v2 config engine imports
   if (findMatch(code, 'IAaveV2ConfigEngine')) {
