@@ -12,7 +12,7 @@ import {TEST_EXECUTE_PROPOSAL} from '../utils/constants';
 
 async function fetchListing(pool: PoolIdentifier): Promise<Listing> {
   const asset = await addressInput({
-    message: 'enter the asset you want to list',
+    message: 'Enter the address of the asset you want to list',
     disableKeepCurrent: true,
   });
 
