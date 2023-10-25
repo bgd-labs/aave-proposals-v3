@@ -94,7 +94,7 @@ export const rateUpdatesV2: FeatureModule<RateStrategyUpdate[]> = {
             .map(
               (cfg, ix) => `rateStrategies[${ix}] = IAaveV2ConfigEngine.RateStrategyUpdate({
                 asset: ${cfg.asset},
-                params: Rates.RateStrategyParams({
+                params: IV2RateStrategyFactory.RateStrategyParams({
                   optimalUtilizationRate: ${cfg.params.optimalUtilizationRate},
                   baseVariableBorrowRate: ${cfg.params.baseVariableBorrowRate},
                   variableRateSlope1: ${cfg.params.variableRateSlope1},
@@ -149,7 +149,7 @@ export const rateUpdatesV3: FeatureModule<RateStrategyUpdate[]> = {
             .map(
               (cfg, ix) => `rateStrategies[${ix}] = IAaveV3ConfigEngine.RateStrategyUpdate({
                   asset: ${cfg.asset},
-                  params: Rates.RateStrategyParams({
+                  params: IV3RateStrategyFactory.RateStrategyParams({
                     optimalUsageRatio: ${cfg.params.optimalUtilizationRate},
                     baseVariableBorrowRate: ${cfg.params.baseVariableBorrowRate},
                     variableRateSlope1: ${cfg.params.variableRateSlope1},
