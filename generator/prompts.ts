@@ -51,6 +51,19 @@ function translateJsAddressToSol(value: string) {
   return getAddress(value);
 }
 
+function translateJsBoolToSol(value: string) {
+  switch (value) {
+    case ENGINE_FLAGS.ENABLED:
+      return `EngineFlags.ENABLED`
+    case ENGINE_FLAGS.DISABLED:
+      return `EngineFlags.DISABLED`
+    case ENGINE_FLAGS.KEEP_CURRENT:
+      return `EngineFlags.KEEP_CURRENT`
+    default:
+      return value
+  }
+}
+
 function translateJsStringToSol(value: string) {
   if (value === ENGINE_FLAGS.KEEP_CURRENT_STRING) return `EngineFlags.KEEP_CURRENT_STRING`;
   return value;
@@ -94,7 +107,7 @@ export async function booleanSelect<T extends boolean>({
     message,
     choices: choices,
   });
-  return value as T extends true
+  return translateJsBoolToSol(value) as T extends true
     ? Exclude<BooleanSelectValues, 'KEEP_CURRENT'>
     : BooleanSelectValues;
 }
