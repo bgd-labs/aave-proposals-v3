@@ -48,7 +48,7 @@ contract AaveV3Ethereum_AddFXSToEthereumV3_20231025 is AaveV3PayloadEthereum {
         stableRateSlope2: _bpsToRay(300_00),
         baseStableRateOffset: _bpsToRay(3_00),
         stableRateExcessOffset: _bpsToRay(5_00),
-        optimalStableToTotalDebtRatio: _bpsToRay(5_00)
+        optimalStableToTotalDebtRatio: _bpsToRay(20_00)
       })
     });
 
