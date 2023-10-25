@@ -1,33 +1,59 @@
 import {CodeArtifact, FEATURE, FeatureModule, PoolIdentifier} from '../types';
 import {addressInput, eModesSelect, percentInput, stringInput} from '../prompts';
 import {EModeCategoryUpdate} from './types';
+import {confirm} from '@inquirer/prompts';
+
+async function fetchEmodeCategoryUpdate(isNewCategory: boolean, eModeCategory?: string): Promise<EModeCategoryUpdate> {
+  return {
+    eModeCategory: eModeCategory ?? await stringInput({message: 'eModeCategory'}),
+    ltv: await percentInput({
+      message: 'ltv',
+      disableKeepCurrent: isNewCategory ? true : false
+    }),
+    liqThreshold: await percentInput({
+      message: 'liqThreshold',
+      disableKeepCurrent: isNewCategory ? true : false
+    }),
+    liqBonus: await percentInput({
+      message: 'liqBonus',
+      disableKeepCurrent: isNewCategory ? true : false
+    }),
+    priceSource: await addressInput({
+      message: 'Price Source',
+      disableKeepCurrent: isNewCategory ? true : false
+    }),
+    label: await stringInput({
+      message: 'label',
+      disableKeepCurrent: isNewCategory ? true : false
+    }),
+  };
+}
 
 async function subCli(pool: PoolIdentifier) {
-  console.log(`Fetching information for EModes on ${pool}`);
-  const eModeCategories = await eModesSelect({
-    message: 'Select the eModes you want to amend',
-    pool,
-  });
   const answers: EmodeUpdates = [];
-  for (const eModeCategory of eModeCategories) {
-    console.log(`collecting info for ${eModeCategory}`);
-    answers.push({
-      eModeCategory,
-      ltv: await percentInput({
-        message: 'ltv',
-      }),
-      liqThreshold: await percentInput({
-        message: 'liqThreshold',
-      }),
-      liqBonus: await percentInput({
-        message: 'liqBonus',
-      }),
-      priceSource: await addressInput({
-        message: 'Price Source',
-      }),
-      label: await stringInput({message: 'label'}),
-    });
+
+  const shouldAddNewCategory = await confirm({message: 'Do you wish to add a new emode category?', default: false});
+  if (shouldAddNewCategory) {
+    let more: boolean = true;
+    while (more) {
+      answers.push(await fetchEmodeCategoryUpdate(true));
+      more = await confirm({message: 'Do you want to add another emode category?', default: false});
+    }
   }
+
+  const shouldAmendCategory = await confirm({message: 'Do you wish to amend existing emode category?', default: false});
+  if (shouldAmendCategory) {
+    const eModeCategories = await eModesSelect({
+      message: 'Select the eModes you want to amend',
+      pool,
+    });
+
+    for (const eModeCategory of eModeCategories) {
+      console.log(`collecting info for ${eModeCategory}`);
+      answers.push(await fetchEmodeCategoryUpdate(false, eModeCategory));
+    }
+  }
+
   return answers;
 }
 
