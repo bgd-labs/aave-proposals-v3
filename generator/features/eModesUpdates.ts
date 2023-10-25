@@ -83,7 +83,7 @@ export const eModeUpdates: FeatureModule<EmodeUpdates> = {
                liqThreshold: ${cfg.liqThreshold},
                liqBonus: ${cfg.liqBonus},
                priceSource: ${cfg.priceSource},
-               label: ${cfg.label}
+               label: ${cfg.label == 'EngineFlags.KEEP_CURRENT_STRING' ? cfg.label : `"${cfg.label}"`}
              });`
             )
             .join('\n')}
