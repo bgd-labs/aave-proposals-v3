@@ -15,7 +15,7 @@ function isNumberOrKeepCurrent(value: string) {
 
 function isAddressOrKeepCurrent(value: string) {
   if (value == ENGINE_FLAGS.KEEP_CURRENT_ADDRESS || isAddress(value)) return true;
-  return 'Must be a calid address';
+  return 'Must be a valid address';
 }
 
 // TRANSFORMS

@@ -55,9 +55,9 @@ export const collateralsUpdates: FeatureModule<CollateralUpdates> = {
       code: {
         fn: [
           `function collateralsUpdates() public pure override returns (IAaveV3ConfigEngine.CollateralUpdate[] memory) {
-            IAaveV3ConfigEngine.CollateralUpdate[] memory collateralUpdate = new IAaveV3ConfigEngine.CollateralUpdate[](${
-              cfg.length
-            });
+          IAaveV3ConfigEngine.CollateralUpdate[] memory collateralUpdate = new IAaveV3ConfigEngine.CollateralUpdate[](${
+            cfg.length
+          });
 
           ${cfg
             .map(
@@ -68,7 +68,6 @@ export const collateralsUpdates: FeatureModule<CollateralUpdates> = {
                liqBonus: ${cfg.liqBonus},
                debtCeiling: ${cfg.debtCeiling},
                liqProtocolFee: ${cfg.liqProtocolFee}
-               }
              });`
             )
             .join('\n')}
