@@ -133,7 +133,7 @@ export const assetListing: FeatureModule<Listing[]> = {
                borrowCap: ${cfg.borrowCap},
                debtCeiling: ${cfg.debtCeiling},
                liqProtocolFee: ${cfg.liqProtocolFee},
-               rateStrategyParams: Rates.RateStrategyParams({
+               rateStrategyParams: IV3RateStrategyFactory.RateStrategyParams({
                   optimalUsageRatio: ${cfg.rateStrategyParams.optimalUtilizationRate},
                   baseVariableBorrowRate: ${cfg.rateStrategyParams.baseVariableBorrowRate},
                   variableRateSlope1: ${cfg.rateStrategyParams.variableRateSlope1},
@@ -214,7 +214,7 @@ export const assetListingCustom: FeatureModule<ListingWithCustomImpl[]> = {
                borrowCap: ${cfg.base.borrowCap},
                debtCeiling: ${cfg.base.debtCeiling},
                liqProtocolFee: ${cfg.base.liqProtocolFee},
-               rateStrategyParams: Rates.RateStrategyParams({
+               rateStrategyParams: IV3RateStrategyFactory.RateStrategyParams({
                   optimalUsageRatio: ${cfg.base.rateStrategyParams.optimalUtilizationRate},
                   baseVariableBorrowRate: ${cfg.base.rateStrategyParams.baseVariableBorrowRate},
                   variableRateSlope1: ${cfg.base.rateStrategyParams.variableRateSlope1},
