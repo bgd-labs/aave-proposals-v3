@@ -51,6 +51,11 @@ function translateJsAddressToSol(value: string) {
   return getAddress(value);
 }
 
+function translateJsStringToSol(value: string) {
+  if (value === ENGINE_FLAGS.KEEP_CURRENT_STRING) return `EngineFlags.KEEP_CURRENT_STRING`;
+  return value;
+}
+
 function translateEModeToEModeLib(value: string, pool: PoolIdentifier) {
   if (value === ENGINE_FLAGS.KEEP_CURRENT) return `EngineFlags.KEEP_CURRENT`;
   return `${pool}EModes.${value}`;
@@ -197,9 +202,10 @@ export async function stringInput<T extends boolean>({
   defaultValue,
   disableKeepCurrent,
 }: GenericPrompt<T>) {
-  return input({
+  const value = await input({
     message,
     default: defaultValue,
     ...(disableKeepCurrent ? {} : {default: ENGINE_FLAGS.KEEP_CURRENT_STRING}),
   });
+  return translateJsStringToSol(value);
 }

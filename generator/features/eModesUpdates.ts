@@ -5,7 +5,7 @@ import {confirm} from '@inquirer/prompts';
 
 async function fetchEmodeCategoryUpdate(isNewCategory: boolean, eModeCategory?: string): Promise<EModeCategoryUpdate> {
   return {
-    eModeCategory: eModeCategory ?? await stringInput({message: 'eModeCategory'}),
+    eModeCategory: eModeCategory ?? await stringInput({message: 'eModeCategory', disableKeepCurrent: isNewCategory ? true : false}),
     ltv: await percentInput({
       message: 'ltv',
       disableKeepCurrent: isNewCategory ? true : false
