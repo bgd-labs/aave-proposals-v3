@@ -3,28 +3,28 @@ import {addressInput, eModesSelect, percentInput, stringInput} from '../prompts'
 import {EModeCategoryUpdate} from './types';
 import {confirm} from '@inquirer/prompts';
 
-async function fetchEmodeCategoryUpdate(isNewCategory: boolean, eModeCategory?: string): Promise<EModeCategoryUpdate> {
+async function fetchEmodeCategoryUpdate<T extends boolean>(disableKeepCurrent?: T, eModeCategory?: string): Promise<EModeCategoryUpdate> {
   return {
-    eModeCategory: eModeCategory ?? await stringInput({message: 'eModeCategory', disableKeepCurrent: isNewCategory ? true : false}),
+    eModeCategory: eModeCategory ?? await stringInput({message: 'eModeCategory', disableKeepCurrent}),
     ltv: await percentInput({
       message: 'ltv',
-      disableKeepCurrent: isNewCategory ? true : false
+      disableKeepCurrent
     }),
     liqThreshold: await percentInput({
       message: 'liqThreshold',
-      disableKeepCurrent: isNewCategory ? true : false
+      disableKeepCurrent
     }),
     liqBonus: await percentInput({
       message: 'liqBonus',
-      disableKeepCurrent: isNewCategory ? true : false
+      disableKeepCurrent
     }),
     priceSource: await addressInput({
       message: 'Price Source',
-      disableKeepCurrent: isNewCategory ? true : false
+      disableKeepCurrent
     }),
     label: await stringInput({
       message: 'label',
-      disableKeepCurrent: isNewCategory ? true : false
+      disableKeepCurrent
     }),
   };
 }
