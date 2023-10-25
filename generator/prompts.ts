@@ -52,6 +52,7 @@ function translateJsAddressToSol(value: string) {
 }
 
 function translateJsBoolToSol(value: string) {
+  console.log(value);
   switch (value) {
     case ENGINE_FLAGS.ENABLED:
       return `EngineFlags.ENABLED`;

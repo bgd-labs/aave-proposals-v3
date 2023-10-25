@@ -105,7 +105,7 @@ export const assetListing: FeatureModule<Listing[]> = {
         ),
         execute: cfg.map(
           (cfg) =>
-            `${pool}.POOL.supply(${cfg.assetSymbol}, 10 ** ${cfg.decimals}, ${pool}.COLLECTOR, 0);`
+            `${pool}.POOL.supply(${cfg.assetSymbol}, 10 ** ${cfg.decimals}, address(${pool}.COLLECTOR), 0);`
         ),
         fn: [
           `function newListings() public pure override returns (IAaveV3ConfigEngine.Listing[] memory) {
@@ -156,7 +156,7 @@ export const assetListing: FeatureModule<Listing[]> = {
         fn: cfg.map(
           (cfg) => `function test_collectorHas${cfg.assetSymbol}Funds() public {
             ${TEST_EXECUTE_PROPOSAL}
-            assertGte(IERC20(${cfg.asset}).balanceOf(${pool}.COLLECTOR), 10 ** ${cfg.decimals});
+            assertGe(IERC20(${cfg.asset}).balanceOf(address(${pool}.COLLECTOR)), 10 ** ${cfg.decimals});
           }`
         ),
       },
