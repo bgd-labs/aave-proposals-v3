@@ -54,13 +54,13 @@ function translateJsAddressToSol(value: string) {
 function translateJsBoolToSol(value: string) {
   switch (value) {
     case ENGINE_FLAGS.ENABLED:
-      return `EngineFlags.ENABLED`
+      return `EngineFlags.ENABLED`;
     case ENGINE_FLAGS.DISABLED:
-      return `EngineFlags.DISABLED`
+      return `EngineFlags.DISABLED`;
     case ENGINE_FLAGS.KEEP_CURRENT:
-      return `EngineFlags.KEEP_CURRENT`
+      return `EngineFlags.KEEP_CURRENT`;
     default:
-      return value
+      return value;
   }
 }
 

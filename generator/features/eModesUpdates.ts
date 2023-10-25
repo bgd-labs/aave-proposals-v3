@@ -3,28 +3,32 @@ import {addressInput, eModesSelect, percentInput, stringInput} from '../prompts'
 import {EModeCategoryUpdate} from './types';
 import {confirm} from '@inquirer/prompts';
 
-async function fetchEmodeCategoryUpdate<T extends boolean>(disableKeepCurrent?: T, eModeCategory?: string): Promise<EModeCategoryUpdate> {
+async function fetchEmodeCategoryUpdate<T extends boolean>(
+  disableKeepCurrent?: T,
+  eModeCategory?: string
+): Promise<EModeCategoryUpdate> {
   return {
-    eModeCategory: eModeCategory ?? await stringInput({message: 'eModeCategory', disableKeepCurrent}),
+    eModeCategory:
+      eModeCategory ?? (await stringInput({message: 'eModeCategory', disableKeepCurrent})),
     ltv: await percentInput({
       message: 'ltv',
-      disableKeepCurrent
+      disableKeepCurrent,
     }),
     liqThreshold: await percentInput({
       message: 'liqThreshold',
-      disableKeepCurrent
+      disableKeepCurrent,
     }),
     liqBonus: await percentInput({
       message: 'liqBonus',
-      disableKeepCurrent
+      disableKeepCurrent,
     }),
     priceSource: await addressInput({
       message: 'Price Source',
-      disableKeepCurrent
+      disableKeepCurrent,
     }),
     label: await stringInput({
       message: 'label',
-      disableKeepCurrent
+      disableKeepCurrent,
     }),
   };
 }
@@ -32,7 +36,10 @@ async function fetchEmodeCategoryUpdate<T extends boolean>(disableKeepCurrent?: 
 async function subCli(pool: PoolIdentifier) {
   const answers: EmodeUpdates = [];
 
-  const shouldAddNewCategory = await confirm({message: 'Do you wish to add a new emode category?', default: false});
+  const shouldAddNewCategory = await confirm({
+    message: 'Do you wish to add a new emode category?',
+    default: false,
+  });
   if (shouldAddNewCategory) {
     let more: boolean = true;
     while (more) {
@@ -41,7 +48,10 @@ async function subCli(pool: PoolIdentifier) {
     }
   }
 
-  const shouldAmendCategory = await confirm({message: 'Do you wish to amend existing emode category?', default: false});
+  const shouldAmendCategory = await confirm({
+    message: 'Do you wish to amend existing emode category?',
+    default: false,
+  });
   if (shouldAmendCategory) {
     const eModeCategories = await eModesSelect({
       message: 'Select the eModes you want to amend',
@@ -83,7 +93,9 @@ export const eModeUpdates: FeatureModule<EmodeUpdates> = {
                liqThreshold: ${cfg.liqThreshold},
                liqBonus: ${cfg.liqBonus},
                priceSource: ${cfg.priceSource},
-               label: ${cfg.label == 'EngineFlags.KEEP_CURRENT_STRING' ? cfg.label : `"${cfg.label}"`}
+               label: ${
+                 cfg.label == 'EngineFlags.KEEP_CURRENT_STRING' ? cfg.label : `"${cfg.label}"`
+               }
              });`
             )
             .join('\n')}
