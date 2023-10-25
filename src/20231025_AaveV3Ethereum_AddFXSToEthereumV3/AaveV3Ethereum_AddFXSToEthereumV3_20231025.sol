@@ -17,7 +17,7 @@ contract AaveV3Ethereum_AddFXSToEthereumV3_20231025 is AaveV3PayloadEthereum {
   address public constant FXS = address(0x3432B6A60D23Ca0dFCa7761B7ab56459D9C964D0);
 
   function _postExecute() internal override {
-    AaveV3Ethereum.POOL.supply(FXS, 10 ** 18, AaveV3Ethereum.COLLECTOR, 0);
+    AaveV3Ethereum.POOL.supply(FXS, 10 ** 18, address(AaveV3Ethereum.COLLECTOR), 0);
   }
 
   function newListings() public pure override returns (IAaveV3ConfigEngine.Listing[] memory) {
@@ -27,7 +27,7 @@ contract AaveV3Ethereum_AddFXSToEthereumV3_20231025 is AaveV3PayloadEthereum {
       asset: FXS,
       assetSymbol: 'FXS',
       priceFeed: 0x6Ebc52C8C1089be9eB3945C4350B68B8E4C2233f,
-      eModeCategory: AaveV3EthereumEModes.NONE,
+      eModeCategory: uint8(AaveV3EthereumEModes.NONE),
       enabledToBorrow: EngineFlags.ENABLED,
       stableRateModeEnabled: EngineFlags.DISABLED,
       borrowableInIsolation: EngineFlags.DISABLED,
