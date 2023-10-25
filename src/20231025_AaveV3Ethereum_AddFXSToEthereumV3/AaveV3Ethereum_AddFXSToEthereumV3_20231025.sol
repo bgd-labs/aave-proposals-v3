@@ -4,6 +4,8 @@ pragma solidity ^0.8.0;
 import {AaveV3Ethereum, AaveV3EthereumEModes} from 'aave-address-book/AaveV3Ethereum.sol';
 import {AaveV3PayloadEthereum} from 'aave-helpers/v3-config-engine/AaveV3PayloadEthereum.sol';
 import {IAaveV3ConfigEngine} from 'aave-helpers/v3-config-engine/IAaveV3ConfigEngine.sol';
+import {EngineFlags} from 'aave-helpers/v3-config-engine/EngineFlags.sol';
+import {IV3RateStrategyFactory} from 'aave-helpers/v3-config-engine/IV3RateStrategyFactory.sol';
 
 /**
  * @title Add FXS to Ethereum V3
@@ -26,11 +28,11 @@ contract AaveV3Ethereum_AddFXSToEthereumV3_20231025 is AaveV3PayloadEthereum {
       assetSymbol: 'FXS',
       priceFeed: 0x6Ebc52C8C1089be9eB3945C4350B68B8E4C2233f,
       eModeCategory: AaveV3EthereumEModes.NONE,
-      enabledToBorrow: ENABLED,
-      stableRateModeEnabled: DISABLED,
-      borrowableInIsolation: DISABLED,
-      withSiloedBorrowing: DISABLED,
-      flashloanable: ENABLED,
+      enabledToBorrow: EngineFlags.ENABLED,
+      stableRateModeEnabled: EngineFlags.DISABLED,
+      borrowableInIsolation: EngineFlags.DISABLED,
+      withSiloedBorrowing: EngineFlags.DISABLED,
+      flashloanable: EngineFlags.ENABLED,
       ltv: 35_00,
       liqThreshold: 45_00,
       liqBonus: 10_00,
@@ -39,7 +41,7 @@ contract AaveV3Ethereum_AddFXSToEthereumV3_20231025 is AaveV3PayloadEthereum {
       borrowCap: 500_000_000,
       debtCeiling: 4_000_000_000,
       liqProtocolFee: 10_00,
-      rateStrategyParams: Rates.RateStrategyParams({
+      rateStrategyParams: IV3RateStrategyFactory.RateStrategyParams({
         optimalUsageRatio: _bpsToRay(45_00),
         baseVariableBorrowRate: _bpsToRay(0),
         variableRateSlope1: _bpsToRay(9_00),
