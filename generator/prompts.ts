@@ -187,14 +187,18 @@ export async function eModeSelect<T extends boolean>({
   pool,
 }: EModeSelectPrompt<T>) {
   const eModes = getEModes(pool as any);
-  const eMode = await select({
-    message,
-    choices: [
-      ...(disableKeepCurrent ? [] : [{value: ENGINE_FLAGS.KEEP_CURRENT}]),
-      ...Object.keys(eModes).map((eMode) => ({value: eMode})),
-    ],
-  });
-  return translateEModeToEModeLib(eMode, pool);
+  if (Object.keys(eModes).length != 0) {
+    const eMode = await select({
+      message,
+      choices: [
+        ...(disableKeepCurrent ? [] : [{value: ENGINE_FLAGS.KEEP_CURRENT}]),
+        ...Object.keys(eModes).map((eMode) => ({value: eMode})),
+      ],
+    });
+    return translateEModeToEModeLib(eMode, pool);
+  } else {
+    console.log('No e-mode category active on the current pool');
+  }
 }
 
 export async function eModesSelect<T extends boolean>({message, pool}: EModeSelectPrompt<T>) {
