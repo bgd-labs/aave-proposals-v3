@@ -21,6 +21,7 @@ contract AaveV3Gnosis_AaveV3GnosisActivation_20231026 is AaveV3PayloadGnosis {
   address public constant USDC = address(0xDDAfbb505ad214D7b80b1f830fcCc89B60fb7A83);
   address public constant WXDAI = address(0xe91D153E0b41518A2Ce8Dd3D7944Fa863463a97d);
   address public constant EURe = address(0xcB444e90D8198415266c6a2724b7900fb12FC56E);
+  address public constant sDAI = address(0xaf204776c7245bF4147c2612BF6e5972Ee483701);
 
   address public constant GUARDIAN = 0xF163b8698821cefbD33Cf449764d69Ea445cE23D;
   address public constant FREEZING_STEWARD = 0x3Ceaf9b6CAb92dFe6302D0CC3F1BA880C28d35e5;
@@ -47,6 +48,9 @@ contract AaveV3Gnosis_AaveV3GnosisActivation_20231026 is AaveV3PayloadGnosis {
 
     IERC20(EURe).approve(address(AaveV3Gnosis.POOL), 10 * 1e18);
     AaveV3Gnosis.POOL.supply(EURe, 10 * 1e18, address(AaveV3Gnosis.COLLECTOR), 0);
+
+    IERC20(sDAI).approve(address(AaveV3Gnosis.POOL), 10 * 1e18);
+    AaveV3Gnosis.POOL.supply(sDAI, 10 * 1e18, address(AaveV3Gnosis.COLLECTOR), 0);
   }
 
   function eModeCategoriesUpdates()
@@ -71,7 +75,7 @@ contract AaveV3Gnosis_AaveV3GnosisActivation_20231026 is AaveV3PayloadGnosis {
   }
 
   function newListings() public pure override returns (IAaveV3ConfigEngine.Listing[] memory) {
-    IAaveV3ConfigEngine.Listing[] memory listings = new IAaveV3ConfigEngine.Listing[](6);
+    IAaveV3ConfigEngine.Listing[] memory listings = new IAaveV3ConfigEngine.Listing[](7);
 
     listings[0] = IAaveV3ConfigEngine.Listing({
       asset: WETH,
@@ -103,6 +107,7 @@ contract AaveV3Gnosis_AaveV3GnosisActivation_20231026 is AaveV3PayloadGnosis {
         optimalStableToTotalDebtRatio: _bpsToRay(20_00)
       })
     });
+
     listings[1] = IAaveV3ConfigEngine.Listing({
       asset: wstETH,
       assetSymbol: 'wstETH',
@@ -133,6 +138,7 @@ contract AaveV3Gnosis_AaveV3GnosisActivation_20231026 is AaveV3PayloadGnosis {
         optimalStableToTotalDebtRatio: _bpsToRay(20_00)
       })
     });
+
     listings[2] = IAaveV3ConfigEngine.Listing({
       asset: GNO,
       assetSymbol: 'GNO',
@@ -163,6 +169,7 @@ contract AaveV3Gnosis_AaveV3GnosisActivation_20231026 is AaveV3PayloadGnosis {
         optimalStableToTotalDebtRatio: _bpsToRay(20_00)
       })
     });
+
     listings[3] = IAaveV3ConfigEngine.Listing({
       asset: USDC,
       assetSymbol: 'USDC',
@@ -193,6 +200,7 @@ contract AaveV3Gnosis_AaveV3GnosisActivation_20231026 is AaveV3PayloadGnosis {
         optimalStableToTotalDebtRatio: _bpsToRay(20_00)
       })
     });
+
     listings[4] = IAaveV3ConfigEngine.Listing({
       asset: WXDAI,
       assetSymbol: 'WXDAI',
@@ -223,6 +231,7 @@ contract AaveV3Gnosis_AaveV3GnosisActivation_20231026 is AaveV3PayloadGnosis {
         optimalStableToTotalDebtRatio: _bpsToRay(20_00)
       })
     });
+
     listings[5] = IAaveV3ConfigEngine.Listing({
       asset: EURe,
       assetSymbol: 'EURe',
@@ -241,6 +250,37 @@ contract AaveV3Gnosis_AaveV3GnosisActivation_20231026 is AaveV3PayloadGnosis {
       borrowCap: 1_500_000,
       debtCeiling: 0,
       liqProtocolFee: 10_00,
+      rateStrategyParams: IV3RateStrategyFactory.RateStrategyParams({
+        optimalUsageRatio: _bpsToRay(90_00),
+        baseVariableBorrowRate: 0,
+        variableRateSlope1: _bpsToRay(4_00),
+        variableRateSlope2: _bpsToRay(75_00),
+        stableRateSlope1: _bpsToRay(4_00),
+        stableRateSlope2: _bpsToRay(75_00),
+        baseStableRateOffset: _bpsToRay(1_00),
+        stableRateExcessOffset: _bpsToRay(8_00),
+        optimalStableToTotalDebtRatio: _bpsToRay(20_00)
+      })
+    });
+
+    listings[6] = IAaveV3ConfigEngine.Listing({
+      asset: sDAI,
+      assetSymbol: 'sDAI',
+      priceFeed: 0x1D0f881Ce1a646E2f27Dec3c57Fa056cB838BCC2,
+      eModeCategory: 0,
+      enabledToBorrow: EngineFlags.DISABLED,
+      stableRateModeEnabled: EngineFlags.DISABLED,
+      borrowableInIsolation: EngineFlags.DISABLED,
+      withSiloedBorrowing: EngineFlags.DISABLED,
+      flashloanable: EngineFlags.ENABLED,
+      ltv: 77_00,
+      liqThreshold: 80_00,
+      liqBonus: 5_00,
+      reserveFactor: 10_00,
+      supplyCap: 1_500_000,
+      borrowCap: 0,
+      debtCeiling: 0,
+      liqProtocolFee: 20_00,
       rateStrategyParams: IV3RateStrategyFactory.RateStrategyParams({
         optimalUsageRatio: _bpsToRay(90_00),
         baseVariableBorrowRate: 0,

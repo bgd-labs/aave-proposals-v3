@@ -96,6 +96,15 @@ contract AaveV3Gnosis_AaveV3GnosisActivation_20231026_Test is ProtocolV3TestBase
     );
   }
 
+  function test_collectorHasSDAIFunds() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+    (address aTokenAddress, ,) = AaveV3Gnosis.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(proposal.sDAI());
+    assertGe(
+      IERC20(aTokenAddress).balanceOf(address(AaveV3Gnosis.COLLECTOR)),
+      10 * 1e18
+    );
+  }
+
   function _fundExecutorWithAssetsToList() internal {
     console.log('10 * 1e18', 10 * 1e18);
     deal2(proposal.WETH(), GovernanceV3Gnosis.EXECUTOR_LVL_1, 0.01 * 1e18);
@@ -104,6 +113,7 @@ contract AaveV3Gnosis_AaveV3GnosisActivation_20231026_Test is ProtocolV3TestBase
     deal2(proposal.USDC(), GovernanceV3Gnosis.EXECUTOR_LVL_1, 10 * 1e6);
     deal2(proposal.WXDAI(), GovernanceV3Gnosis.EXECUTOR_LVL_1, 10 * 1e18);
     deal2(proposal.EURe(), GovernanceV3Gnosis.EXECUTOR_LVL_1, 10 * 1e18);
+    deal2(proposal.sDAI(), GovernanceV3Gnosis.EXECUTOR_LVL_1, 10 * 1e18);
     vm.stopPrank();
   }
 }

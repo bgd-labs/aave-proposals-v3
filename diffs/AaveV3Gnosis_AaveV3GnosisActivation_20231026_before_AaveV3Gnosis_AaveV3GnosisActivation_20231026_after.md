@@ -224,6 +224,59 @@
 | interestRate | ![ir](/.assets/64a0110786c519e361963abb7399874664375a85.svg) |
 
 
+#### sDAI ([0xaf204776c7245bF4147c2612BF6e5972Ee483701](https://blockscout.com/xdai/mainnet/address/0xaf204776c7245bF4147c2612BF6e5972Ee483701))
+
+| description | value |
+| --- | --- |
+| decimals | 18 |
+| isActive | true |
+| isFrozen | false |
+| supplyCap | 1,500,000 sDAI |
+| borrowCap | 0 sDAI |
+| debtCeiling | 0 $ |
+| isSiloed | false |
+| isFlashloanable | true |
+| eModeCategory | 0 |
+| oracle | [0x1D0f881Ce1a646E2f27Dec3c57Fa056cB838BCC2](https://blockscout.com/xdai/mainnet/address/0x1D0f881Ce1a646E2f27Dec3c57Fa056cB838BCC2) |
+| oracleDecimals | 8 |
+| oracleDescription | sDAI/DAI/USD |
+| oracleLatestAnswer | 1.01968468 |
+| usageAsCollateralEnabled | true |
+| ltv | 77 % |
+| liquidationThreshold | 80 % |
+| liquidationBonus | 5 % |
+| liquidationProtocolFee | 20 % |
+| reserveFactor | 10 % |
+| aToken | [0x7a5c3860a77a8DC1b225BD46d0fb2ac1C6D191BC](https://blockscout.com/xdai/mainnet/address/0x7a5c3860a77a8DC1b225BD46d0fb2ac1C6D191BC) |
+| aTokenImpl | [0x589750BA8aF186cE5B55391B0b7148cAD43a1619](https://blockscout.com/xdai/mainnet/address/0x589750BA8aF186cE5B55391B0b7148cAD43a1619) |
+| variableDebtToken | [0x8Fe06E1D8Aff42Bf6812CacF7854A2249a00bED7](https://blockscout.com/xdai/mainnet/address/0x8Fe06E1D8Aff42Bf6812CacF7854A2249a00bED7) |
+| variableDebtTokenImpl | [0xBeC519531F0E78BcDdB295242fA4EC5251B38574](https://blockscout.com/xdai/mainnet/address/0xBeC519531F0E78BcDdB295242fA4EC5251B38574) |
+| stableDebtToken | [0xa2E0335175Da40b081717FfD394C0E1de738cb9B](https://blockscout.com/xdai/mainnet/address/0xa2E0335175Da40b081717FfD394C0E1de738cb9B) |
+| stableDebtTokenImpl | [0x06C35Cfd3FC61eC2aC437f0d08840d5776b945af](https://blockscout.com/xdai/mainnet/address/0x06C35Cfd3FC61eC2aC437f0d08840d5776b945af) |
+| borrowingEnabled | false |
+| stableBorrowRateEnabled | false |
+| isBorrowableInIsolation | false |
+| interestRateStrategy | [0x345f7fcd88207fe060AD03c2656A23A3Ab596479](https://blockscout.com/xdai/mainnet/address/0x345f7fcd88207fe060AD03c2656A23A3Ab596479) |
+| aTokenName | Aave Gnosis sDAI |
+| aTokenSymbol | aGnosDAI |
+| isPaused | false |
+| stableDebtTokenName | Aave Gnosis Stable Debt sDAI |
+| stableDebtTokenSymbol | stableDebtGnosDAI |
+| variableDebtTokenName | Aave Gnosis Variable Debt sDAI |
+| variableDebtTokenSymbol | variableDebtGnosDAI |
+| optimalUsageRatio | 90 % |
+| maxExcessUsageRatio | 10 % |
+| baseVariableBorrowRate | 0 % |
+| variableRateSlope1 | 4 % |
+| variableRateSlope2 | 75 % |
+| baseStableBorrowRate | 5 % |
+| stableRateSlope1 | 4 % |
+| stableRateSlope2 | 75 % |
+| optimalStableToTotalDebtRatio | 20 % |
+| maxExcessStableToTotalDebtRatio | 80 % |
+| interestRate | ![ir](/.assets/64a0110786c519e361963abb7399874664375a85.svg) |
+
+
 #### EURe ([0xcB444e90D8198415266c6a2724b7900fb12FC56E](https://blockscout.com/xdai/mainnet/address/0xcB444e90D8198415266c6a2724b7900fb12FC56E))
 
 | description | value |
@@ -518,6 +571,49 @@
         "variableDebtTokenImpl": "0xBeC519531F0E78BcDdB295242fA4EC5251B38574",
         "variableDebtTokenName": "Aave Gnosis Variable Debt USDC",
         "variableDebtTokenSymbol": "variableDebtGnoUSDC"
+      }
+    },
+    "0xaf204776c7245bF4147c2612BF6e5972Ee483701": {
+      "from": null,
+      "to": {
+        "aToken": "0x7a5c3860a77a8DC1b225BD46d0fb2ac1C6D191BC",
+        "aTokenImpl": "0x589750BA8aF186cE5B55391B0b7148cAD43a1619",
+        "aTokenName": "Aave Gnosis sDAI",
+        "aTokenSymbol": "aGnosDAI",
+        "borrowCap": 0,
+        "borrowingEnabled": false,
+        "debtCeiling": 0,
+        "decimals": 18,
+        "eModeCategory": 0,
+        "interestRateStrategy": "0x345f7fcd88207fe060AD03c2656A23A3Ab596479",
+        "isActive": true,
+        "isBorrowableInIsolation": false,
+        "isFlashloanable": true,
+        "isFrozen": false,
+        "isPaused": false,
+        "isSiloed": false,
+        "liquidationBonus": 10500,
+        "liquidationProtocolFee": 2000,
+        "liquidationThreshold": 8000,
+        "ltv": 7700,
+        "oracle": "0x1D0f881Ce1a646E2f27Dec3c57Fa056cB838BCC2",
+        "oracleDecimals": 8,
+        "oracleDescription": "sDAI/DAI/USD",
+        "oracleLatestAnswer": 101968468,
+        "reserveFactor": 1000,
+        "stableBorrowRateEnabled": false,
+        "stableDebtToken": "0xa2E0335175Da40b081717FfD394C0E1de738cb9B",
+        "stableDebtTokenImpl": "0x06C35Cfd3FC61eC2aC437f0d08840d5776b945af",
+        "stableDebtTokenName": "Aave Gnosis Stable Debt sDAI",
+        "stableDebtTokenSymbol": "stableDebtGnosDAI",
+        "supplyCap": 1500000,
+        "symbol": "sDAI",
+        "underlying": "0xaf204776c7245bF4147c2612BF6e5972Ee483701",
+        "usageAsCollateralEnabled": true,
+        "variableDebtToken": "0x8Fe06E1D8Aff42Bf6812CacF7854A2249a00bED7",
+        "variableDebtTokenImpl": "0xBeC519531F0E78BcDdB295242fA4EC5251B38574",
+        "variableDebtTokenName": "Aave Gnosis Variable Debt sDAI",
+        "variableDebtTokenSymbol": "variableDebtGnosDAI"
       }
     },
     "0xcB444e90D8198415266c6a2724b7900fb12FC56E": {
