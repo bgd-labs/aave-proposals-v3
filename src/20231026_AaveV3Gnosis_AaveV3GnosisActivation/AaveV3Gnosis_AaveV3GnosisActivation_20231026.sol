@@ -32,12 +32,12 @@ contract AaveV3Gnosis_AaveV3GnosisActivation_20231026 is AaveV3PayloadGnosis {
     AaveV3Gnosis.ACL_MANAGER.addRiskAdmin(AaveV3Gnosis.CAPS_PLUS_RISK_STEWARD);
 
     IERC20(WETH).approve(address(AaveV3Gnosis.POOL), 0.01 * 1e18);
-    AaveV3Gnosis.POOL.supply(WETH,  0.01 * 1e18, address(AaveV3Gnosis.COLLECTOR), 0);
+    AaveV3Gnosis.POOL.supply(WETH, 0.01 * 1e18, address(AaveV3Gnosis.COLLECTOR), 0);
 
-    IERC20(wstETH).approve(address(AaveV3Gnosis.POOL),  0.01 * 1e18);
-    AaveV3Gnosis.POOL.supply(wstETH,  0.01 * 1e18, address(AaveV3Gnosis.COLLECTOR), 0);
+    IERC20(wstETH).approve(address(AaveV3Gnosis.POOL), 0.01 * 1e18);
+    AaveV3Gnosis.POOL.supply(wstETH, 0.01 * 1e18, address(AaveV3Gnosis.COLLECTOR), 0);
 
-    IERC20(GNO).approve(address(AaveV3Gnosis.POOL),  0.1 * 1e18);
+    IERC20(GNO).approve(address(AaveV3Gnosis.POOL), 0.1 * 1e18);
     AaveV3Gnosis.POOL.supply(GNO, 0.1 * 1e18, address(AaveV3Gnosis.COLLECTOR), 0);
 
     IERC20(USDC).approve(address(AaveV3Gnosis.POOL), 10 * 1e6);

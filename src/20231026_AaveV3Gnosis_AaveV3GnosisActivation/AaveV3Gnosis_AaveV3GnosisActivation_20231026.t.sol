@@ -27,7 +27,9 @@ contract AaveV3Gnosis_AaveV3GnosisActivation_20231026_Test is ProtocolV3TestBase
 
     // TODO: remove after transferring the ownership
     vm.startPrank(DEPLOYER);
-    IOwnable(GovernanceV3Gnosis.EXECUTOR_LVL_1).transferOwnership(address(GovernanceV3Gnosis.PAYLOADS_CONTROLLER));
+    IOwnable(GovernanceV3Gnosis.EXECUTOR_LVL_1).transferOwnership(
+      address(GovernanceV3Gnosis.PAYLOADS_CONTROLLER)
+    );
     vm.stopPrank();
   }
 
@@ -44,65 +46,58 @@ contract AaveV3Gnosis_AaveV3GnosisActivation_20231026_Test is ProtocolV3TestBase
 
   function test_collectorHasWETHFunds() public {
     GovV3Helpers.executePayload(vm, address(proposal));
-    (address aTokenAddress, ,) = AaveV3Gnosis.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(proposal.WETH());
-    assertGe(
-      IERC20(aTokenAddress).balanceOf(address(AaveV3Gnosis.COLLECTOR)),
-      0.01 * 1e18
-    );
+    (address aTokenAddress, , ) = AaveV3Gnosis
+      .AAVE_PROTOCOL_DATA_PROVIDER
+      .getReserveTokensAddresses(proposal.WETH());
+    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Gnosis.COLLECTOR)), 0.01 * 1e18);
   }
 
   function test_collectorHaswstETHFunds() public {
     GovV3Helpers.executePayload(vm, address(proposal));
-    (address aTokenAddress, ,) = AaveV3Gnosis.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(proposal.wstETH());
-    assertGe(
-      IERC20(aTokenAddress).balanceOf(address(AaveV3Gnosis.COLLECTOR)),
-      0.01 * 1e18
-    );
+    (address aTokenAddress, , ) = AaveV3Gnosis
+      .AAVE_PROTOCOL_DATA_PROVIDER
+      .getReserveTokensAddresses(proposal.wstETH());
+    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Gnosis.COLLECTOR)), 0.01 * 1e18);
   }
 
   function test_collectorHasGNOFunds() public {
     GovV3Helpers.executePayload(vm, address(proposal));
-    (address aTokenAddress, ,) = AaveV3Gnosis.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(proposal.GNO());
-    assertGe(
-      IERC20(aTokenAddress).balanceOf(address(AaveV3Gnosis.COLLECTOR)),
-      0.1 * 1e18
-    );
+    (address aTokenAddress, , ) = AaveV3Gnosis
+      .AAVE_PROTOCOL_DATA_PROVIDER
+      .getReserveTokensAddresses(proposal.GNO());
+    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Gnosis.COLLECTOR)), 0.1 * 1e18);
   }
 
   function test_collectorHasUSDCFunds() public {
     GovV3Helpers.executePayload(vm, address(proposal));
-    (address aTokenAddress, ,) = AaveV3Gnosis.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(proposal.USDC());
-    assertGe(
-      IERC20(aTokenAddress).balanceOf(address(AaveV3Gnosis.COLLECTOR)),
-      10 * 1e6
-    );
+    (address aTokenAddress, , ) = AaveV3Gnosis
+      .AAVE_PROTOCOL_DATA_PROVIDER
+      .getReserveTokensAddresses(proposal.USDC());
+    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Gnosis.COLLECTOR)), 10 * 1e6);
   }
 
   function test_collectorHasWXDAIFunds() public {
     GovV3Helpers.executePayload(vm, address(proposal));
-    (address aTokenAddress, ,) = AaveV3Gnosis.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(proposal.WXDAI());
-    assertGe(
-      IERC20(aTokenAddress).balanceOf(address(AaveV3Gnosis.COLLECTOR)),
-      10 * 1e18
-    );
+    (address aTokenAddress, , ) = AaveV3Gnosis
+      .AAVE_PROTOCOL_DATA_PROVIDER
+      .getReserveTokensAddresses(proposal.WXDAI());
+    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Gnosis.COLLECTOR)), 10 * 1e18);
   }
 
   function test_collectorHasEUReFunds() public {
     GovV3Helpers.executePayload(vm, address(proposal));
-    (address aTokenAddress, ,) = AaveV3Gnosis.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(proposal.EURe());
-    assertGe(
-      IERC20(aTokenAddress).balanceOf(address(AaveV3Gnosis.COLLECTOR)),
-      10 * 1e18
-    );
+    (address aTokenAddress, , ) = AaveV3Gnosis
+      .AAVE_PROTOCOL_DATA_PROVIDER
+      .getReserveTokensAddresses(proposal.EURe());
+    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Gnosis.COLLECTOR)), 10 * 1e18);
   }
 
   function test_collectorHasSDAIFunds() public {
     GovV3Helpers.executePayload(vm, address(proposal));
-    (address aTokenAddress, ,) = AaveV3Gnosis.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(proposal.sDAI());
-    assertGe(
-      IERC20(aTokenAddress).balanceOf(address(AaveV3Gnosis.COLLECTOR)),
-      10 * 1e18
-    );
+    (address aTokenAddress, , ) = AaveV3Gnosis
+      .AAVE_PROTOCOL_DATA_PROVIDER
+      .getReserveTokensAddresses(proposal.sDAI());
+    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Gnosis.COLLECTOR)), 10 * 1e18);
   }
 
   function _fundExecutorWithAssetsToList() internal {
