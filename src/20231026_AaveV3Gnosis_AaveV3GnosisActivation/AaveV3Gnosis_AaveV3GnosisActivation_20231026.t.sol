@@ -47,7 +47,7 @@ contract AaveV3Gnosis_AaveV3GnosisActivation_20231026_Test is ProtocolV3TestBase
     (address aTokenAddress, ,) = AaveV3Gnosis.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(proposal.WETH());
     assertGe(
       IERC20(aTokenAddress).balanceOf(address(AaveV3Gnosis.COLLECTOR)),
-      10 ** 18
+      0.01 * 1e18
     );
   }
 
@@ -56,7 +56,7 @@ contract AaveV3Gnosis_AaveV3GnosisActivation_20231026_Test is ProtocolV3TestBase
     (address aTokenAddress, ,) = AaveV3Gnosis.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(proposal.wstETH());
     assertGe(
       IERC20(aTokenAddress).balanceOf(address(AaveV3Gnosis.COLLECTOR)),
-      10 ** 18
+      0.01 * 1e18
     );
   }
 
@@ -65,7 +65,7 @@ contract AaveV3Gnosis_AaveV3GnosisActivation_20231026_Test is ProtocolV3TestBase
     (address aTokenAddress, ,) = AaveV3Gnosis.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(proposal.GNO());
     assertGe(
       IERC20(aTokenAddress).balanceOf(address(AaveV3Gnosis.COLLECTOR)),
-      10 ** 18
+      0.1 * 1e18
     );
   }
 
@@ -74,7 +74,7 @@ contract AaveV3Gnosis_AaveV3GnosisActivation_20231026_Test is ProtocolV3TestBase
     (address aTokenAddress, ,) = AaveV3Gnosis.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(proposal.USDC());
     assertGe(
       IERC20(aTokenAddress).balanceOf(address(AaveV3Gnosis.COLLECTOR)),
-      10 ** 6
+      10 * 1e6
     );
   }
 
@@ -83,7 +83,7 @@ contract AaveV3Gnosis_AaveV3GnosisActivation_20231026_Test is ProtocolV3TestBase
     (address aTokenAddress, ,) = AaveV3Gnosis.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(proposal.WXDAI());
     assertGe(
       IERC20(aTokenAddress).balanceOf(address(AaveV3Gnosis.COLLECTOR)),
-      10 ** 18
+      10 * 1e18
     );
   }
 
@@ -92,17 +92,18 @@ contract AaveV3Gnosis_AaveV3GnosisActivation_20231026_Test is ProtocolV3TestBase
     (address aTokenAddress, ,) = AaveV3Gnosis.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(proposal.EURe());
     assertGe(
       IERC20(aTokenAddress).balanceOf(address(AaveV3Gnosis.COLLECTOR)),
-      10 ** 18
+      10 * 1e18
     );
   }
 
   function _fundExecutorWithAssetsToList() internal {
-    deal2(proposal.WETH(), GovernanceV3Gnosis.EXECUTOR_LVL_1, 10 ** 18);
-    deal2(proposal.wstETH(), GovernanceV3Gnosis.EXECUTOR_LVL_1, 10 ** 18);
-    deal2(proposal.GNO(), GovernanceV3Gnosis.EXECUTOR_LVL_1, 10 ** 18);
-    deal2(proposal.USDC(), GovernanceV3Gnosis.EXECUTOR_LVL_1, 10 ** 6);
-    deal2(proposal.WXDAI(), GovernanceV3Gnosis.EXECUTOR_LVL_1, 10 ** 18);
-    deal2(proposal.EURe(), GovernanceV3Gnosis.EXECUTOR_LVL_1, 10 ** 18);
+    console.log('10 * 1e18', 10 * 1e18);
+    deal2(proposal.WETH(), GovernanceV3Gnosis.EXECUTOR_LVL_1, 0.01 * 1e18);
+    deal2(proposal.wstETH(), GovernanceV3Gnosis.EXECUTOR_LVL_1, 0.01 * 1e18);
+    deal2(proposal.GNO(), GovernanceV3Gnosis.EXECUTOR_LVL_1, 0.1 * 1e18);
+    deal2(proposal.USDC(), GovernanceV3Gnosis.EXECUTOR_LVL_1, 10 * 1e6);
+    deal2(proposal.WXDAI(), GovernanceV3Gnosis.EXECUTOR_LVL_1, 10 * 1e18);
+    deal2(proposal.EURe(), GovernanceV3Gnosis.EXECUTOR_LVL_1, 10 * 1e18);
     vm.stopPrank();
   }
 }

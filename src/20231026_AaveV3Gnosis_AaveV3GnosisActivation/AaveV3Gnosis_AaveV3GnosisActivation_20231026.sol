@@ -30,23 +30,23 @@ contract AaveV3Gnosis_AaveV3GnosisActivation_20231026 is AaveV3PayloadGnosis {
     AaveV3Gnosis.ACL_MANAGER.addRiskAdmin(FREEZING_STEWARD);
     AaveV3Gnosis.ACL_MANAGER.addRiskAdmin(AaveV3Gnosis.CAPS_PLUS_RISK_STEWARD);
 
-    IERC20(WETH).approve(address(AaveV3Gnosis.POOL), 10 ** 18);
-    AaveV3Gnosis.POOL.supply(WETH, 10 ** 18, address(AaveV3Gnosis.COLLECTOR), 0);
+    IERC20(WETH).approve(address(AaveV3Gnosis.POOL), 0.01 * 1e18);
+    AaveV3Gnosis.POOL.supply(WETH,  0.01 * 1e18, address(AaveV3Gnosis.COLLECTOR), 0);
 
-    IERC20(wstETH).approve(address(AaveV3Gnosis.POOL), 10 ** 18);
-    AaveV3Gnosis.POOL.supply(wstETH, 10 ** 18, address(AaveV3Gnosis.COLLECTOR), 0);
+    IERC20(wstETH).approve(address(AaveV3Gnosis.POOL),  0.01 * 1e18);
+    AaveV3Gnosis.POOL.supply(wstETH,  0.01 * 1e18, address(AaveV3Gnosis.COLLECTOR), 0);
 
-    IERC20(GNO).approve(address(AaveV3Gnosis.POOL), 10 ** 18);
-    AaveV3Gnosis.POOL.supply(GNO, 10 ** 18, address(AaveV3Gnosis.COLLECTOR), 0);
+    IERC20(GNO).approve(address(AaveV3Gnosis.POOL),  0.1 * 1e18);
+    AaveV3Gnosis.POOL.supply(GNO, 0.1 * 1e18, address(AaveV3Gnosis.COLLECTOR), 0);
 
-    IERC20(USDC).approve(address(AaveV3Gnosis.POOL), 10 ** 6);
-    AaveV3Gnosis.POOL.supply(USDC, 10 ** 6, address(AaveV3Gnosis.COLLECTOR), 0);
+    IERC20(USDC).approve(address(AaveV3Gnosis.POOL), 10 * 1e6);
+    AaveV3Gnosis.POOL.supply(USDC, 10 * 1e6, address(AaveV3Gnosis.COLLECTOR), 0);
 
-    IERC20(WXDAI).approve(address(AaveV3Gnosis.POOL), 10 ** 18);
-    AaveV3Gnosis.POOL.supply(WXDAI, 10 ** 18, address(AaveV3Gnosis.COLLECTOR), 0);
+    IERC20(WXDAI).approve(address(AaveV3Gnosis.POOL), 10 * 1e18);
+    AaveV3Gnosis.POOL.supply(WXDAI, 10 * 1e18, address(AaveV3Gnosis.COLLECTOR), 0);
 
-    IERC20(EURe).approve(address(AaveV3Gnosis.POOL), 10 ** 18);
-    AaveV3Gnosis.POOL.supply(EURe, 10 ** 18, address(AaveV3Gnosis.COLLECTOR), 0);
+    IERC20(EURe).approve(address(AaveV3Gnosis.POOL), 10 * 1e18);
+    AaveV3Gnosis.POOL.supply(EURe, 10 * 1e18, address(AaveV3Gnosis.COLLECTOR), 0);
   }
 
   function eModeCategoriesUpdates()
