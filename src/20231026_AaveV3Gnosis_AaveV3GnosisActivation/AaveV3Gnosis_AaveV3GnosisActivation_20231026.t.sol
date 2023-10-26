@@ -16,12 +16,17 @@ import {AaveV3Gnosis_AaveV3GnosisActivation_20231026} from './AaveV3Gnosis_AaveV
  */
 contract AaveV3Gnosis_AaveV3GnosisActivation_20231026_Test is ProtocolV3TestBase {
   AaveV3Gnosis_AaveV3GnosisActivation_20231026 internal proposal;
+  address constant DEPLOYER = 0x956DE559DFc27678FD69d4f49f485196b50BDD0F;
 
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('gnosis'), 30643530);
     proposal = new AaveV3Gnosis_AaveV3GnosisActivation_20231026();
 
-    vm.startPrank(0x956DE559DFc27678FD69d4f49f485196b50BDD0F);
+    // TODO: remove after funding the executor
+    _fundExecutorWithAssetsToList();
+
+    // TODO: remove after transferring the ownership
+    vm.startPrank(DEPLOYER);
     IOwnable(GovernanceV3Gnosis.EXECUTOR_LVL_1).transferOwnership(address(GovernanceV3Gnosis.PAYLOADS_CONTROLLER));
     vm.stopPrank();
   }
@@ -37,65 +42,73 @@ contract AaveV3Gnosis_AaveV3GnosisActivation_20231026_Test is ProtocolV3TestBase
     );
   }
 
-  // function test_collectorHasWETHFunds() public {
-  //   GovV3Helpers.executePayload(vm, address(proposal));
-  //   assertGe(
-  //     IERC20(0x6A023CCd1ff6F2045C3309768eAd9E68F978f6e1).balanceOf(address(AaveV3Gnosis.COLLECTOR)),
-  //     10 ** 18
-  //   );
-  // }
+  function test_collectorHasWETHFunds() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+    (address aTokenAddress, ,) = AaveV3Gnosis.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(proposal.WETH());
+    assertGe(
+      IERC20(aTokenAddress).balanceOf(address(AaveV3Gnosis.COLLECTOR)),
+      10 ** 18
+    );
+  }
 
-  // function test_collectorHaswstETHFunds() public {
-  //   GovV3Helpers.executePayload(vm, address(proposal));
-  //   assertGe(
-  //     IERC20(0x6C76971f98945AE98dD7d4DFcA8711ebea946eA6).balanceOf(address(AaveV3Gnosis.COLLECTOR)),
-  //     10 ** 18
-  //   );
-  // }
+  function test_collectorHaswstETHFunds() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+    (address aTokenAddress, ,) = AaveV3Gnosis.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(proposal.wstETH());
+    assertGe(
+      IERC20(aTokenAddress).balanceOf(address(AaveV3Gnosis.COLLECTOR)),
+      10 ** 18
+    );
+  }
 
-  // function test_collectorHasGNOFunds() public {
-  //   GovV3Helpers.executePayload(vm, address(proposal));
-  //   assertGe(
-  //     IERC20(0x9C58BAcC331c9aa871AFD802DB6379a98e80CEdb).balanceOf(address(AaveV3Gnosis.COLLECTOR)),
-  //     10 ** 18
-  //   );
-  // }
+  function test_collectorHasGNOFunds() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+    (address aTokenAddress, ,) = AaveV3Gnosis.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(proposal.GNO());
+    assertGe(
+      IERC20(aTokenAddress).balanceOf(address(AaveV3Gnosis.COLLECTOR)),
+      10 ** 18
+    );
+  }
 
-  // function test_collectorHasUSDCFunds() public {
-  //   GovV3Helpers.executePayload(vm, address(proposal));
-  //   assertGe(
-  //     IERC20(0xDDAfbb505ad214D7b80b1f830fcCc89B60fb7A83).balanceOf(address(AaveV3Gnosis.COLLECTOR)),
-  //     10 ** 6
-  //   );
-  // }
+  function test_collectorHasUSDCFunds() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+    (address aTokenAddress, ,) = AaveV3Gnosis.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(proposal.USDC());
+    assertGe(
+      IERC20(aTokenAddress).balanceOf(address(AaveV3Gnosis.COLLECTOR)),
+      10 ** 6
+    );
+  }
 
-  // function test_collectorHasXDAIFunds() public {
-  //   GovV3Helpers.executePayload(vm, address(proposal));
-  //   assertGe(
-  //     IERC20(0xe91D153E0b41518A2Ce8Dd3D7944Fa863463a97d).balanceOf(address(AaveV3Gnosis.COLLECTOR)),
-  //     10 ** 18
-  //   );
-  // }
+  function test_collectorHasWXDAIFunds() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+    (address aTokenAddress, ,) = AaveV3Gnosis.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(proposal.WXDAI());
+    assertGe(
+      IERC20(aTokenAddress).balanceOf(address(AaveV3Gnosis.COLLECTOR)),
+      10 ** 18
+    );
+  }
 
-  // function test_collectorHasEUReFunds() public {
-  //   GovV3Helpers.executePayload(vm, address(proposal));
-  //   assertGe(
-  //     IERC20(0xcB444e90D8198415266c6a2724b7900fb12FC56E).balanceOf(address(AaveV3Gnosis.COLLECTOR)),
-  //     10 ** 18
-  //   );
-  // }
+  function test_collectorHasEUReFunds() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+    (address aTokenAddress, ,) = AaveV3Gnosis.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(proposal.EURe());
+    assertGe(
+      IERC20(aTokenAddress).balanceOf(address(AaveV3Gnosis.COLLECTOR)),
+      10 ** 18
+    );
+  }
+
+  function _fundExecutorWithAssetsToList() internal {
+    deal2(proposal.WETH(), GovernanceV3Gnosis.EXECUTOR_LVL_1, 10 ** 18);
+    deal2(proposal.wstETH(), GovernanceV3Gnosis.EXECUTOR_LVL_1, 10 ** 18);
+    deal2(proposal.GNO(), GovernanceV3Gnosis.EXECUTOR_LVL_1, 10 ** 18);
+    deal2(proposal.USDC(), GovernanceV3Gnosis.EXECUTOR_LVL_1, 10 ** 6);
+    deal2(proposal.WXDAI(), GovernanceV3Gnosis.EXECUTOR_LVL_1, 10 ** 18);
+    deal2(proposal.EURe(), GovernanceV3Gnosis.EXECUTOR_LVL_1, 10 ** 18);
+    vm.stopPrank();
+  }
 }
 
 interface IOwnable {
-  /**
-   * @dev Transfers ownership of the contract to a new account (`newOwner`).
-   * @param newOwner address of the new owner.
-   * Can only be called by the current owner.
-   **/
   function transferOwnership(address newOwner) external;
 
-  /**
-   * @dev Returns the address of the current owner.
-   **/
   function owner() external view returns (address);
 }
