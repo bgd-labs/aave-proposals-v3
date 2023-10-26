@@ -18,16 +18,23 @@ contract AaveV3Gnosis_AaveV3GnosisActivation_20231026 is AaveV3PayloadGnosis {
   address public constant wstETH = address(0x6C76971f98945AE98dD7d4DFcA8711ebea946eA6);
   address public constant GNO = address(0x9C58BAcC331c9aa871AFD802DB6379a98e80CEdb);
   address public constant USDC = address(0xDDAfbb505ad214D7b80b1f830fcCc89B60fb7A83);
-  address public constant XDAI = address(0xe91D153E0b41518A2Ce8Dd3D7944Fa863463a97d);
+  address public constant WXDAI = address(0xe91D153E0b41518A2Ce8Dd3D7944Fa863463a97d);
   address public constant EURe = address(0xcB444e90D8198415266c6a2724b7900fb12FC56E);
 
+  address public constant GUARDIAN = 0xF163b8698821cefbD33Cf449764d69Ea445cE23D;
+  address public constant FREEZING_STEWARD = 0x3Ceaf9b6CAb92dFe6302D0CC3F1BA880C28d35e5;
+
   function _postExecute() internal override {
-    AaveV3Gnosis.POOL.supply(WETH, 10 ** 18, address(AaveV3Gnosis.COLLECTOR), 0);
-    AaveV3Gnosis.POOL.supply(wstETH, 10 ** 18, address(AaveV3Gnosis.COLLECTOR), 0);
-    AaveV3Gnosis.POOL.supply(GNO, 10 ** 18, address(AaveV3Gnosis.COLLECTOR), 0);
-    AaveV3Gnosis.POOL.supply(USDC, 10 ** 6, address(AaveV3Gnosis.COLLECTOR), 0);
-    AaveV3Gnosis.POOL.supply(XDAI, 10 ** 18, address(AaveV3Gnosis.COLLECTOR), 0);
-    AaveV3Gnosis.POOL.supply(EURe, 10 ** 18, address(AaveV3Gnosis.COLLECTOR), 0);
+    AaveV3Gnosis.ACL_MANAGER.addEmergencyAdmin(GUARDIAN);
+    AaveV3Gnosis.ACL_MANAGER.addRiskAdmin(FREEZING_STEWARD);
+    AaveV3Gnosis.ACL_MANAGER.addRiskAdmin(AaveV3Gnosis.CAPS_PLUS_RISK_STEWARD);
+
+    // AaveV3Gnosis.POOL.supply(WETH, 10 ** 18, address(AaveV3Gnosis.COLLECTOR), 0);
+    // AaveV3Gnosis.POOL.supply(wstETH, 10 ** 18, address(AaveV3Gnosis.COLLECTOR), 0);
+    // AaveV3Gnosis.POOL.supply(GNO, 10 ** 18, address(AaveV3Gnosis.COLLECTOR), 0);
+    // AaveV3Gnosis.POOL.supply(USDC, 10 ** 6, address(AaveV3Gnosis.COLLECTOR), 0);
+    // AaveV3Gnosis.POOL.supply(WXDAI, 10 ** 18, address(AaveV3Gnosis.COLLECTOR), 0);
+    // AaveV3Gnosis.POOL.supply(EURe, 10 ** 18, address(AaveV3Gnosis.COLLECTOR), 0);
   }
 
   function eModeCategoriesUpdates()
@@ -175,8 +182,8 @@ contract AaveV3Gnosis_AaveV3GnosisActivation_20231026 is AaveV3PayloadGnosis {
       })
     });
     listings[4] = IAaveV3ConfigEngine.Listing({
-      asset: XDAI,
-      assetSymbol: 'XDAI',
+      asset: WXDAI,
+      assetSymbol: 'WXDAI',
       priceFeed: 0x678df3415fc31947dA4324eC63212874be5a82f8,
       eModeCategory: 0,
       enabledToBorrow: EngineFlags.ENABLED,
