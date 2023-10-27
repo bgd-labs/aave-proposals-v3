@@ -198,7 +198,7 @@ export async function eModeSelect<T extends boolean>({
     return translateEModeToEModeLib(eMode, pool);
   } else {
     console.log('No e-mode category active on the current pool');
-    return 0;
+    return '0';
   }
 }
 
