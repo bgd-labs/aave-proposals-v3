@@ -7,6 +7,7 @@ import {EngineFlags} from 'aave-helpers/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-helpers/v3-config-engine/IAaveV3ConfigEngine.sol';
 import {IV3RateStrategyFactory} from 'aave-helpers/v3-config-engine/IV3RateStrategyFactory.sol';
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
+import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';
 
 /**
  * @title Aave v3 Gnosis Activation
@@ -15,6 +16,8 @@ import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
  * - Discussion: https://governance.aave.com/t/arfc-aave-v3-deployment-on-gnosischain/14695
  */
 contract AaveV3Gnosis_AaveV3GnosisActivation_20231026 is AaveV3PayloadGnosis {
+  using SafeERC20 for IERC20;
+
   address public constant WETH = 0x6A023CCd1ff6F2045C3309768eAd9E68F978f6e1;
   address public constant wstETH = 0x6C76971f98945AE98dD7d4DFcA8711ebea946eA6;
   address public constant GNO = 0x9C58BAcC331c9aa871AFD802DB6379a98e80CEdb;
@@ -31,25 +34,25 @@ contract AaveV3Gnosis_AaveV3GnosisActivation_20231026 is AaveV3PayloadGnosis {
     AaveV3Gnosis.ACL_MANAGER.addRiskAdmin(FREEZING_STEWARD);
     AaveV3Gnosis.ACL_MANAGER.addRiskAdmin(AaveV3Gnosis.CAPS_PLUS_RISK_STEWARD);
 
-    IERC20(WETH).approve(address(AaveV3Gnosis.POOL), 0.01 * 1e18);
+    IERC20(WETH).forceApprove(address(AaveV3Gnosis.POOL), 0.01 * 1e18);
     AaveV3Gnosis.POOL.supply(WETH, 0.01 * 1e18, address(AaveV3Gnosis.COLLECTOR), 0);
 
-    IERC20(wstETH).approve(address(AaveV3Gnosis.POOL), 0.01 * 1e18);
+    IERC20(wstETH).forceApprove(address(AaveV3Gnosis.POOL), 0.01 * 1e18);
     AaveV3Gnosis.POOL.supply(wstETH, 0.01 * 1e18, address(AaveV3Gnosis.COLLECTOR), 0);
 
-    IERC20(GNO).approve(address(AaveV3Gnosis.POOL), 0.1 * 1e18);
+    IERC20(GNO).forceApprove(address(AaveV3Gnosis.POOL), 0.1 * 1e18);
     AaveV3Gnosis.POOL.supply(GNO, 0.1 * 1e18, address(AaveV3Gnosis.COLLECTOR), 0);
 
-    IERC20(USDC).approve(address(AaveV3Gnosis.POOL), 10 * 1e6);
+    IERC20(USDC).forceApprove(address(AaveV3Gnosis.POOL), 10 * 1e6);
     AaveV3Gnosis.POOL.supply(USDC, 10 * 1e6, address(AaveV3Gnosis.COLLECTOR), 0);
 
-    IERC20(WXDAI).approve(address(AaveV3Gnosis.POOL), 10 * 1e18);
+    IERC20(WXDAI).forceApprove(address(AaveV3Gnosis.POOL), 10 * 1e18);
     AaveV3Gnosis.POOL.supply(WXDAI, 10 * 1e18, address(AaveV3Gnosis.COLLECTOR), 0);
 
-    IERC20(EURe).approve(address(AaveV3Gnosis.POOL), 10 * 1e18);
+    IERC20(EURe).forceApprove(address(AaveV3Gnosis.POOL), 10 * 1e18);
     AaveV3Gnosis.POOL.supply(EURe, 10 * 1e18, address(AaveV3Gnosis.COLLECTOR), 0);
 
-    IERC20(sDAI).approve(address(AaveV3Gnosis.POOL), 10 * 1e18);
+    IERC20(sDAI).forceApprove(address(AaveV3Gnosis.POOL), 10 * 1e18);
     AaveV3Gnosis.POOL.supply(sDAI, 10 * 1e18, address(AaveV3Gnosis.COLLECTOR), 0);
   }
 
