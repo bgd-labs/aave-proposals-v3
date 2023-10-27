@@ -101,11 +101,12 @@ export const assetListing: FeatureModule<Listing[]> = {
     const response: CodeArtifact = {
       code: {
         constants: cfg.map(
-          (cfg) => `address public constant ${cfg.assetSymbol} = address(${cfg.asset});`
+          (cfg) => `address public constant ${cfg.assetSymbol} = ${cfg.asset};`
         ),
         execute: cfg.map(
           (cfg) =>
-            `${pool}.POOL.supply(${cfg.assetSymbol}, 10 ** ${cfg.decimals}, address(${pool}.COLLECTOR), 0);`
+            `IERC20(${cfg.assetSymbol}).approve(address(${pool}.POOL), 10 * ${cfg.decimals});
+            ${pool}.POOL.supply(${cfg.assetSymbol}, 10 ** ${cfg.decimals}, address(${pool}.COLLECTOR), 0);`
         ),
         fn: [
           `function newListings() public pure override returns (IAaveV3ConfigEngine.Listing[] memory) {
@@ -156,7 +157,8 @@ export const assetListing: FeatureModule<Listing[]> = {
         fn: cfg.map(
           (cfg) => `function test_collectorHas${cfg.assetSymbol}Funds() public {
             ${TEST_EXECUTE_PROPOSAL}
-            assertGe(IERC20(${cfg.asset}).balanceOf(address(${pool}.COLLECTOR)), 10 ** ${cfg.decimals});
+            (address aTokenAddress, , ) = ${pool}.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(proposal.${cfg.assetSymbol}());
+            assertGe(IERC20(aTokenAddress).balanceOf(address(${pool}.COLLECTOR)), 10 ** ${cfg.decimals});
           }`
         ),
       },
@@ -167,7 +169,7 @@ export const assetListing: FeatureModule<Listing[]> = {
 
 export const assetListingCustom: FeatureModule<ListingWithCustomImpl[]> = {
   value: FEATURE.ASSET_LISTING_CUSTOM,
-  description: 'newListingsCustom (listing a new asset, with custom imeplementations)',
+  description: 'newListingsCustom (listing a new asset, with custom implementations)',
   async cli(opt, pool) {
     const response: ListingWithCustomImpl[] = [];
     let more: boolean = true;
@@ -181,11 +183,12 @@ export const assetListingCustom: FeatureModule<ListingWithCustomImpl[]> = {
     const response: CodeArtifact = {
       code: {
         constants: cfg.map(
-          (cfg) => `address public constant ${cfg.base.assetSymbol} = address(${cfg.base.asset});`
+          (cfg) => `address public constant ${cfg.base.assetSymbol} = ${cfg.base.asset};`
         ),
         execute: cfg.map(
           (cfg) =>
-            `${pool}.POOL.supply(${cfg.base.assetSymbol}, 10 ** ${cfg.base.decimals}, ${pool}.COLLECTOR, 0);`
+            `IERC20(${cfg.base.assetSymbol}).approve(address(${pool}.POOL), 10 * ${cfg.base.decimals});
+            ${pool}.POOL.supply(${cfg.base.assetSymbol}, 10 ** ${cfg.base.decimals}, ${pool}.COLLECTOR, 0);`
         ),
         fn: [
           `function newListingsCustom() public pure override returns (IAaveV3ConfigEngine.ListingWithCustomImpl[] memory) {
@@ -243,7 +246,8 @@ export const assetListingCustom: FeatureModule<ListingWithCustomImpl[]> = {
         fn: cfg.map(
           (cfg) => `function test_collectorHas${cfg.base.assetSymbol}Funds() public {
             ${TEST_EXECUTE_PROPOSAL}
-            assertGte(IERC20(${cfg.base.asset}).balanceOf(${pool}.COLLECTOR), 10 ** ${cfg.base.decimals});
+            (address aTokenAddress, , ) = ${pool}.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(proposal.${cfg.base.assetSymbol}());
+            assertGte(IERC20(aTokenAddress).balanceOf(${pool}.COLLECTOR), 10 ** ${cfg.base.decimals});
           }`
         ),
       },
