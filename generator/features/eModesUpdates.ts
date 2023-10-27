@@ -58,9 +58,11 @@ async function subCli(pool: PoolIdentifier) {
       pool,
     });
 
-    for (const eModeCategory of eModeCategories) {
-      console.log(`collecting info for ${eModeCategory}`);
-      answers.push(await fetchEmodeCategoryUpdate(false, eModeCategory));
+    if (eModeCategories) {
+      for (const eModeCategory of eModeCategories) {
+        console.log(`collecting info for ${eModeCategory}`);
+        answers.push(await fetchEmodeCategoryUpdate(false, eModeCategory));
+      }
     }
   }
 
