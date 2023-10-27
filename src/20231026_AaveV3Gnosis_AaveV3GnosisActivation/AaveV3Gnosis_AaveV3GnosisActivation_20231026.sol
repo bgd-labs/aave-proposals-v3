@@ -15,13 +15,13 @@ import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
  * - Discussion: https://governance.aave.com/t/arfc-aave-v3-deployment-on-gnosischain/14695
  */
 contract AaveV3Gnosis_AaveV3GnosisActivation_20231026 is AaveV3PayloadGnosis {
-  address public constant WETH = address(0x6A023CCd1ff6F2045C3309768eAd9E68F978f6e1);
-  address public constant wstETH = address(0x6C76971f98945AE98dD7d4DFcA8711ebea946eA6);
-  address public constant GNO = address(0x9C58BAcC331c9aa871AFD802DB6379a98e80CEdb);
-  address public constant USDC = address(0xDDAfbb505ad214D7b80b1f830fcCc89B60fb7A83);
-  address public constant WXDAI = address(0xe91D153E0b41518A2Ce8Dd3D7944Fa863463a97d);
-  address public constant EURe = address(0xcB444e90D8198415266c6a2724b7900fb12FC56E);
-  address public constant sDAI = address(0xaf204776c7245bF4147c2612BF6e5972Ee483701);
+  address public constant WETH = 0x6A023CCd1ff6F2045C3309768eAd9E68F978f6e1;
+  address public constant wstETH = 0x6C76971f98945AE98dD7d4DFcA8711ebea946eA6;
+  address public constant GNO = 0x9C58BAcC331c9aa871AFD802DB6379a98e80CEdb;
+  address public constant USDC = 0xDDAfbb505ad214D7b80b1f830fcCc89B60fb7A83;
+  address public constant WXDAI = 0xe91D153E0b41518A2Ce8Dd3D7944Fa863463a97d;
+  address public constant EURe = 0xcB444e90D8198415266c6a2724b7900fb12FC56E;
+  address public constant sDAI = 0xaf204776c7245bF4147c2612BF6e5972Ee483701;
 
   address public constant GUARDIAN = 0xF163b8698821cefbD33Cf449764d69Ea445cE23D;
   address public constant FREEZING_STEWARD = 0x3Ceaf9b6CAb92dFe6302D0CC3F1BA880C28d35e5;

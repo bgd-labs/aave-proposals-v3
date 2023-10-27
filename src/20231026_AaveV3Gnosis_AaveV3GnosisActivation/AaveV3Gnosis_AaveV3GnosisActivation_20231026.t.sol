@@ -6,7 +6,6 @@ import {AaveV3Gnosis} from 'aave-address-book/AaveV3Gnosis.sol';
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {GovernanceV3Gnosis} from 'aave-address-book/GovernanceV3Gnosis.sol';
 
-import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/ProtocolV3TestBase.sol';
 import {AaveV3Gnosis_AaveV3GnosisActivation_20231026} from './AaveV3Gnosis_AaveV3GnosisActivation_20231026.sol';
 
@@ -41,6 +40,19 @@ contract AaveV3Gnosis_AaveV3GnosisActivation_20231026_Test is ProtocolV3TestBase
       'AaveV3Gnosis_AaveV3GnosisActivation_20231026',
       AaveV3Gnosis.POOL,
       address(proposal)
+    );
+  }
+
+  function test_AdminPermissions() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+    assertTrue(
+      AaveV3Gnosis.ACL_MANAGER.isRiskAdmin(AaveV3Gnosis.CAPS_PLUS_RISK_STEWARD)
+    );
+    assertTrue(
+      AaveV3Gnosis.ACL_MANAGER.isRiskAdmin(proposal.FREEZING_STEWARD())
+    );
+    assertTrue(
+      AaveV3Gnosis.ACL_MANAGER.isEmergencyAdmin(proposal.GUARDIAN())
     );
   }
 
@@ -101,7 +113,6 @@ contract AaveV3Gnosis_AaveV3GnosisActivation_20231026_Test is ProtocolV3TestBase
   }
 
   function _fundExecutorWithAssetsToList() internal {
-    console.log('10 * 1e18', 10 * 1e18);
     deal2(proposal.WETH(), GovernanceV3Gnosis.EXECUTOR_LVL_1, 0.01 * 1e18);
     deal2(proposal.wstETH(), GovernanceV3Gnosis.EXECUTOR_LVL_1, 0.01 * 1e18);
     deal2(proposal.GNO(), GovernanceV3Gnosis.EXECUTOR_LVL_1, 0.1 * 1e18);
