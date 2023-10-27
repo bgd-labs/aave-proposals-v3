@@ -27,32 +27,32 @@ The proposal will do the following:
 
 The table below illustrates the initial suggested risk parameters for each asset, as passed via the snapshot.
 
-|                                    | wETH           | wstETH         | GNO       | USDC    | wxDAI     | EURe      |
-| ---------------------------------- | -------------- | -------------- | --------- | ------- | --------- | --------- |
-| Loan To Value                      | 80.5%          | 71%            | 31%       | 77%     | 77%       | 0%        |
-| Liquidation Threshold              | 83%            | 76%            | 36%       | 80%     | 80%       | 0%        |
-| Liquidation Protocol Fee           | 10%            | 10%            | 10%       | 20%     | 20%       | 10%       |
-| Liquidation Bonus                  | 6%             | 6%             | 10%       | 5%      | 5%        | 0%        |
-| Reserve Factor                     | 15%            | 15%            | 15%       | 10%     | 10%       | 15%       |
-| Enable Borrow                      | Yes            | Yes            | No        | Yes     | Yes       | Yes       |
-| Enable Collateral                  | Yes            | Yes            | Yes       | Yes     | Yes       | No        |
-| Supply Cap                         | 4000 wETH      | 4000 wstETH    | 30000 GNO | 1M USDC | 1.5M xDAI | 1.5M EURe |
-| Borrow Cap                         | 3500 wETH      | 400 wstETH     | 0 GNO     | 1M USDC | 1.5M xDAI | 1.5M EURe |
-| E-mode category                    | ETH Correlated | ETH Correlated | None      | None    | None      | None      |
-| Isolation Mode                     | No             | No             | Yes       | No      | No        | No        |
-| Flashloanable                      | Yes            | Yes            | Yes       | Yes     | Yes       | Yes       |
-| Siloed Borrowing                   | No             | No             | No        | No      | No        | No        |
-| Debt Ceiling                       | 0              | 0              | $5M       | 0       | 0         | 0         |
-| Stable Borrow                      | No             | No             | No        | No      | No        | No        |
-| uOptimal                           | 80%            | 45%            | 45%       | 90%     | 90%       | 90%       |
-| Base Variable Borrow Rate          | 0%             | 0%             | 0%        | 0%      | 0%        | 0%        |
-| Variable Rate Slope1               | 3.3%           | 7%             | 7%        | 4%      | 4%        | 4%        |
-| Variable Rate Slope 2              | 80%            | 300%           | 300%      | 75%     | 75%       | 75%       |
-| Stable Rate Slope 1                | 4%             | 7%             | 7%        | 4%      | 4%        | 4%        |
-| Stable Rate Slope 2                | 80%            | 300%           | 300%      | 75%     | 75%       | 75%       |
-| Base Stable Rate Offset            | 2%             | 2%             | 2%        | 1%      | 1%        | 1%        |
-| Stable Rate Excess Offset          | 8%             | 8%             | 8%        | 8%      | 8%        | 8%        |
-| Optimal Stable To Total Debt Ratio | 20%            | 20%            | 20%       | 20%     | 20%       | 20%       |
+|                                    | wETH           | wstETH         | GNO       | USDC    | wxDAI     | EURe      | sDAI      |
+| ---------------------------------- | -------------- | -------------- | --------- | ------- | --------- | --------- | --------- |
+| Loan To Value                      | 80.5%          | 71%            | 31%       | 77%     | 77%       | 0%        | 77%       |
+| Liquidation Threshold              | 83%            | 76%            | 36%       | 80%     | 80%       | 0%        | 80%       |
+| Liquidation Protocol Fee           | 10%            | 10%            | 10%       | 20%     | 20%       | 10%       | 20%       |
+| Liquidation Bonus                  | 6%             | 6%             | 10%       | 5%      | 5%        | 0%        | 5%        |
+| Reserve Factor                     | 15%            | 15%            | 15%       | 10%     | 10%       | 15%       | 10%       |
+| Enable Borrow                      | Yes            | Yes            | No        | Yes     | Yes       | Yes       | No        |
+| Enable Collateral                  | Yes            | Yes            | Yes       | Yes     | Yes       | No        | Yes       |
+| Supply Cap                         | 4000 wETH      | 4000 wstETH    | 30000 GNO | 1M USDC | 1.5M xDAI | 1.5M EURe | 1.5M sDAI |
+| Borrow Cap                         | 3500 wETH      | 400 wstETH     | 0 GNO     | 1M USDC | 1.5M xDAI | 1.5M EURe | 0 sDAI    |
+| E-mode category                    | ETH Correlated | ETH Correlated | None      | None    | None      | None      | None      |
+| Isolation Mode                     | No             | No             | Yes       | No      | No        | No        | No        |
+| Flashloanable                      | Yes            | Yes            | Yes       | Yes     | Yes       | Yes       | Yes       |
+| Siloed Borrowing                   | No             | No             | No        | No      | No        | No        | No        |
+| Debt Ceiling                       | 0              | 0              | $5M       | 0       | 0         | 0         | 0         |
+| Stable Borrow                      | No             | No             | No        | No      | No        | No        | No        |
+| uOptimal                           | 80%            | 45%            | 45%       | 90%     | 90%       | 90%       | 90%       |
+| Base Variable Borrow Rate          | 0%             | 0%             | 0%        | 0%      | 0%        | 0%        | 0%        |
+| Variable Rate Slope1               | 3.3%           | 7%             | 7%        | 4%      | 4%        | 4%        | 4%        |
+| Variable Rate Slope 2              | 80%            | 300%           | 300%      | 75%     | 75%       | 75%       | 75%       |
+| Stable Rate Slope 1                | 4%             | 7%             | 7%        | 4%      | 4%        | 4%        | 4%        |
+| Stable Rate Slope 2                | 80%            | 300%           | 300%      | 75%     | 75%       | 75%       | 75%       |
+| Base Stable Rate Offset            | 2%             | 2%             | 2%        | 1%      | 1%        | 1%        | 1%        |
+| Stable Rate Excess Offset          | 8%             | 8%             | 8%        | 8%      | 8%        | 8%        | 8%        |
+| Optimal Stable To Total Debt Ratio | 20%            | 20%            | 20%       | 20%     | 20%       | 20%       | 20%       |
 
 <br/>
 
