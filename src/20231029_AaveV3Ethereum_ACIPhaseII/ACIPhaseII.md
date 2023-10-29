@@ -81,6 +81,7 @@ The ACI will continue to be one of the voices of Aave across the globe, supporti
 
 ## Specification
 
+- **Recipient**: [0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922](https://etherscan.io/address/0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922)
 - **Duration**: 180 days
 - **Budget**: 375k GHO
 - **Scope**: Continuation of the ACI's work across Skyward, Growth, and Representation.
