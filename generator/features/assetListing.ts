@@ -105,7 +105,7 @@ export const assetListing: FeatureModule<Listing[]> = {
         ),
         execute: cfg.map(
           (cfg) =>
-            `IERC20(${cfg.assetSymbol}).approve(address(${pool}.POOL), 10 * ${cfg.decimals});
+            `IERC20(${cfg.assetSymbol}).forceApprove(address(${pool}.POOL), 10 * ${cfg.decimals});
             ${pool}.POOL.supply(${cfg.assetSymbol}, 10 ** ${cfg.decimals}, address(${pool}.COLLECTOR), 0);`
         ),
         fn: [
@@ -187,7 +187,7 @@ export const assetListingCustom: FeatureModule<ListingWithCustomImpl[]> = {
         ),
         execute: cfg.map(
           (cfg) =>
-            `IERC20(${cfg.base.assetSymbol}).approve(address(${pool}.POOL), 10 * ${cfg.base.decimals});
+            `IERC20(${cfg.base.assetSymbol}).forceApprove(address(${pool}.POOL), 10 * ${cfg.base.decimals});
             ${pool}.POOL.supply(${cfg.base.assetSymbol}, 10 ** ${cfg.base.decimals}, ${pool}.COLLECTOR, 0);`
         ),
         fn: [

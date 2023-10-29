@@ -97,6 +97,9 @@ export function prefixWithImports(code: string) {
   if (findMatch(code, 'IERC20')) {
     imports += `import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';\n`;
   }
+  if (findMatch(code, 'forceApprove')) {
+    imports += `import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';\n`;
+  }
 
   return imports + code;
 }
