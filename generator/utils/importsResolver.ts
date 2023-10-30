@@ -10,7 +10,7 @@ const GovernanceImports = [
 ] as const;
 
 /**
- * @dev matches the code fro known address book imports and generates an import statement satisfying the used libraries
+ * @dev matches the code from known address book imports and generates an import statement satisfying the used libraries
  * @param code
  * @returns
  */
