@@ -22,7 +22,7 @@ All the governance procedures for the expansion of Aave v3 to Gnosis have been f
 The proposal will do the following:
 
 - Set risk steward and freezing steward as the risk admin by executing ACL_MANAGER.addRiskAdmin().
-- Set the guardian address as the emergency admin by executing ACL_MANAGER.addEmergencyAdmin().
+- Set the guardian address as the pool admin by executing ACL_MANAGER.addPoolAdmin().
 - List the following assets on Aave V3 Gnosis: wETH, wstETH, GNO, USDC, wXDAI, sDAI, EURe.
 
 The table below illustrates the initial suggested risk parameters for each asset, as passed via the snapshot.
@@ -76,6 +76,8 @@ The proposal execution is simulated within the tests and the resulting pool conf
 The deployed pool and other permissions have been programmatically verified.
 
 In addition, we have also checked the code diffs of the deployed base contracts with the deployed contracts on Ethereum and other networks.
+
+As a matter of caution, the POOL_ADMIN role will be given for the first weeks to the Aave Guardian multisig.
 
 ## References
 

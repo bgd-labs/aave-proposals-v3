@@ -18,7 +18,7 @@
 | oracle | [0xa767f745331D267c7751297D982b050c93985627](https://blockscout.com/xdai/mainnet/address/0xa767f745331D267c7751297D982b050c93985627) |
 | oracleDecimals | 8 |
 | oracleDescription | ETH / USD |
-| oracleLatestAnswer | 1847.5472 |
+| oracleLatestAnswer | 1790.94610889 |
 | usageAsCollateralEnabled | true |
 | ltv | 80.5 % |
 | liquidationThreshold | 83 % |
@@ -76,7 +76,7 @@
 | oracle | [0xcb0670258e5961CCA85D8F71D29C1167Ef20De99](https://blockscout.com/xdai/mainnet/address/0xcb0670258e5961CCA85D8F71D29C1167Ef20De99) |
 | oracleDecimals | 8 |
 | oracleDescription | wstETH/ETH/USD |
-| oracleLatestAnswer | 2113.88751285 |
+| oracleLatestAnswer | 2050.00407976 |
 | usageAsCollateralEnabled | true |
 | ltv | 71 % |
 | liquidationThreshold | 76 % |
@@ -134,7 +134,7 @@
 | oracle | [0x22441d81416430A54336aB28765abd31a792Ad37](https://blockscout.com/xdai/mainnet/address/0x22441d81416430A54336aB28765abd31a792Ad37) |
 | oracleDecimals | 8 |
 | oracleDescription | GNO / USD |
-| oracleLatestAnswer | 105.74162843 |
+| oracleLatestAnswer | 102.8511554 |
 | usageAsCollateralEnabled | true |
 | ltv | 31 % |
 | liquidationThreshold | 36 % |
@@ -187,7 +187,7 @@
 | oracle | [0x26C31ac71010aF62E6B486D1132E266D6298857D](https://blockscout.com/xdai/mainnet/address/0x26C31ac71010aF62E6B486D1132E266D6298857D) |
 | oracleDecimals | 8 |
 | oracleDescription | USDC / USD |
-| oracleLatestAnswer | 1.00018933 |
+| oracleLatestAnswer | 1.00008998 |
 | usageAsCollateralEnabled | true |
 | ltv | 77 % |
 | liquidationThreshold | 80 % |
@@ -240,7 +240,7 @@
 | oracle | [0x1D0f881Ce1a646E2f27Dec3c57Fa056cB838BCC2](https://blockscout.com/xdai/mainnet/address/0x1D0f881Ce1a646E2f27Dec3c57Fa056cB838BCC2) |
 | oracleDecimals | 8 |
 | oracleDescription | sDAI/DAI/USD |
-| oracleLatestAnswer | 1.01968468 |
+| oracleLatestAnswer | 1.02051184 |
 | usageAsCollateralEnabled | true |
 | ltv | 77 % |
 | liquidationThreshold | 80 % |
@@ -293,7 +293,7 @@
 | oracle | [0xab70BCB260073d036d1660201e9d5405F5829b7a](https://blockscout.com/xdai/mainnet/address/0xab70BCB260073d036d1660201e9d5405F5829b7a) |
 | oracleDecimals | 8 |
 | oracleDescription | EUR / USD |
-| oracleLatestAnswer | 1.05441 |
+| oracleLatestAnswer | 1.05543 |
 | usageAsCollateralEnabled | false |
 | ltv | 0 % |
 | liquidationThreshold | 0 % |
@@ -346,7 +346,7 @@
 | oracle | [0x678df3415fc31947dA4324eC63212874be5a82f8](https://blockscout.com/xdai/mainnet/address/0x678df3415fc31947dA4324eC63212874be5a82f8) |
 | oracleDecimals | 8 |
 | oracleDescription | DAI / USD |
-| oracleLatestAnswer | 1.00000298 |
+| oracleLatestAnswer | 1.00003278 |
 | usageAsCollateralEnabled | true |
 | ltv | 77 % |
 | liquidationThreshold | 80 % |
@@ -427,7 +427,7 @@
         "oracle": "0xa767f745331D267c7751297D982b050c93985627",
         "oracleDecimals": 8,
         "oracleDescription": "ETH / USD",
-        "oracleLatestAnswer": 184754720000,
+        "oracleLatestAnswer": 179094610889,
         "reserveFactor": 1500,
         "stableBorrowRateEnabled": false,
         "stableDebtToken": "0x436D82d905b014926a2375C576500B6fea0D2496",
@@ -470,7 +470,7 @@
         "oracle": "0xcb0670258e5961CCA85D8F71D29C1167Ef20De99",
         "oracleDecimals": 8,
         "oracleDescription": "wstETH/ETH/USD",
-        "oracleLatestAnswer": 211388751285,
+        "oracleLatestAnswer": 205000407976,
         "reserveFactor": 1500,
         "stableBorrowRateEnabled": false,
         "stableDebtToken": "0x5CBc43c339F5202D2dcB59583D33cA8498b75031",
@@ -513,7 +513,7 @@
         "oracle": "0x22441d81416430A54336aB28765abd31a792Ad37",
         "oracleDecimals": 8,
         "oracleDescription": "GNO / USD",
-        "oracleLatestAnswer": 10574162843,
+        "oracleLatestAnswer": 10285115540,
         "reserveFactor": 1500,
         "stableBorrowRateEnabled": false,
         "stableDebtToken": "0x1A126F613D7705E59ADb39909b25E1223aDF05dd",
@@ -556,7 +556,7 @@
         "oracle": "0x26C31ac71010aF62E6B486D1132E266D6298857D",
         "oracleDecimals": 8,
         "oracleDescription": "USDC / USD",
-        "oracleLatestAnswer": 100018933,
+        "oracleLatestAnswer": 100008998,
         "reserveFactor": 1000,
         "stableBorrowRateEnabled": false,
         "stableDebtToken": "0x8220133C3a631de3C7A5B679A2417BD61431FEcf",
@@ -599,7 +599,7 @@
         "oracle": "0x1D0f881Ce1a646E2f27Dec3c57Fa056cB838BCC2",
         "oracleDecimals": 8,
         "oracleDescription": "sDAI/DAI/USD",
-        "oracleLatestAnswer": 101968468,
+        "oracleLatestAnswer": 102051184,
         "reserveFactor": 1000,
         "stableBorrowRateEnabled": false,
         "stableDebtToken": "0xa2E0335175Da40b081717FfD394C0E1de738cb9B",
@@ -642,7 +642,7 @@
         "oracle": "0xab70BCB260073d036d1660201e9d5405F5829b7a",
         "oracleDecimals": 8,
         "oracleDescription": "EUR / USD",
-        "oracleLatestAnswer": 105441000,
+        "oracleLatestAnswer": 105543000,
         "reserveFactor": 1500,
         "stableBorrowRateEnabled": false,
         "stableDebtToken": "0x916E13857FeeD0d982Df148DBe8d8542519aB96e",
@@ -685,7 +685,7 @@
         "oracle": "0x678df3415fc31947dA4324eC63212874be5a82f8",
         "oracleDecimals": 8,
         "oracleDescription": "DAI / USD",
-        "oracleLatestAnswer": 100000298,
+        "oracleLatestAnswer": 100003278,
         "reserveFactor": 1000,
         "stableBorrowRateEnabled": false,
         "stableDebtToken": "0xaC8b1cE0548C69318920C3e0b21Db296d5770D57",

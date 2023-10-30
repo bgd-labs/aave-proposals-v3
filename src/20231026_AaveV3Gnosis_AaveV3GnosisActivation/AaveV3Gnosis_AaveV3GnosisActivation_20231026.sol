@@ -31,7 +31,7 @@ contract AaveV3Gnosis_AaveV3GnosisActivation_20231026 is AaveV3PayloadGnosis {
   address public constant FREEZING_STEWARD = 0x3Ceaf9b6CAb92dFe6302D0CC3F1BA880C28d35e5;
 
   function _postExecute() internal override {
-    AaveV3Gnosis.ACL_MANAGER.addEmergencyAdmin(GUARDIAN);
+    AaveV3Gnosis.ACL_MANAGER.addPoolAdmin(GUARDIAN);
     AaveV3Gnosis.ACL_MANAGER.addRiskAdmin(FREEZING_STEWARD);
     AaveV3Gnosis.ACL_MANAGER.addRiskAdmin(AaveV3Gnosis.CAPS_PLUS_RISK_STEWARD);
 

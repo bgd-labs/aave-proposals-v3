@@ -44,7 +44,7 @@ contract AaveV3Gnosis_AaveV3GnosisActivation_20231026_Test is ProtocolV3TestBase
     GovV3Helpers.executePayload(vm, address(proposal));
     assertTrue(AaveV3Gnosis.ACL_MANAGER.isRiskAdmin(AaveV3Gnosis.CAPS_PLUS_RISK_STEWARD));
     assertTrue(AaveV3Gnosis.ACL_MANAGER.isRiskAdmin(proposal.FREEZING_STEWARD()));
-    assertTrue(AaveV3Gnosis.ACL_MANAGER.isEmergencyAdmin(proposal.GUARDIAN()));
+    assertTrue(AaveV3Gnosis.ACL_MANAGER.isPoolAdmin(proposal.GUARDIAN()));
   }
 
   function test_collectorHasWETHFunds() public {
