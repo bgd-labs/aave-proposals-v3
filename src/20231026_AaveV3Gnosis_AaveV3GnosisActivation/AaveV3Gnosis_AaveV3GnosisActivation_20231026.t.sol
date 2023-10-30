@@ -18,11 +18,8 @@ contract AaveV3Gnosis_AaveV3GnosisActivation_20231026_Test is ProtocolV3TestBase
   address constant DEPLOYER = 0x956DE559DFc27678FD69d4f49f485196b50BDD0F;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('gnosis'), 30643530);
+    vm.createSelectFork(vm.rpcUrl('gnosis'), 30705986);
     proposal = new AaveV3Gnosis_AaveV3GnosisActivation_20231026();
-
-    // TODO: remove after funding the executor
-    _fundExecutorWithAssetsToList();
 
     // TODO: remove after transferring the ownership
     vm.startPrank(DEPLOYER);
@@ -104,17 +101,6 @@ contract AaveV3Gnosis_AaveV3GnosisActivation_20231026_Test is ProtocolV3TestBase
       .AAVE_PROTOCOL_DATA_PROVIDER
       .getReserveTokensAddresses(proposal.sDAI());
     assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Gnosis.COLLECTOR)), 10 * 1e18);
-  }
-
-  function _fundExecutorWithAssetsToList() internal {
-    deal2(proposal.WETH(), GovernanceV3Gnosis.EXECUTOR_LVL_1, 0.01 * 1e18);
-    deal2(proposal.wstETH(), GovernanceV3Gnosis.EXECUTOR_LVL_1, 0.01 * 1e18);
-    deal2(proposal.GNO(), GovernanceV3Gnosis.EXECUTOR_LVL_1, 0.1 * 1e18);
-    deal2(proposal.USDC(), GovernanceV3Gnosis.EXECUTOR_LVL_1, 10 * 1e6);
-    deal2(proposal.WXDAI(), GovernanceV3Gnosis.EXECUTOR_LVL_1, 10 * 1e18);
-    deal2(proposal.EURe(), GovernanceV3Gnosis.EXECUTOR_LVL_1, 10 * 1e18);
-    deal2(proposal.sDAI(), GovernanceV3Gnosis.EXECUTOR_LVL_1, 10 * 1e18);
-    vm.stopPrank();
   }
 }
 
