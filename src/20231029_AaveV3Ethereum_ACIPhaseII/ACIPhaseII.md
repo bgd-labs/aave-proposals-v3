@@ -1,6 +1,6 @@
 ---
 title: "ACI Phase II"
-author: "@émarczeller + Alice Rozengarden (@Rozengarden - Aave-chan initiative)"
+author: "@marczeller + Alice Rozengarden (@Rozengarden - Aave-chan initiative)"
 discussions: "https://governance.aave.com/t/arfc-aci-phase-ii/15138"
 ---
 
