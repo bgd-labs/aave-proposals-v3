@@ -29,8 +29,8 @@ export const proposalTemplate = (options: Options, poolConfig: PoolConfig) => {
   const usesConfigEngine = poolConfig.features.some(
     (f) => ![FEATURE.OTHERS, FEATURE.FLASH_BORROWER].includes(f)
   );
-  const isAssetListing = poolConfig.features.some(
-    (f) => [FEATURE.ASSET_LISTING, FEATURE.ASSET_LISTING_CUSTOM].includes(f)
+  const isAssetListing = poolConfig.features.some((f) =>
+    [FEATURE.ASSET_LISTING, FEATURE.ASSET_LISTING_CUSTOM].includes(f)
   );
   if (innerExecute) {
     if (usesConfigEngine) {
