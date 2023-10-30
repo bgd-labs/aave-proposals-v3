@@ -3,6 +3,12 @@ import {expect, describe, it} from 'vitest';
 import {prefixWithImports} from './importsResolver';
 
 describe('prefixWithImports', () => {
+  it('should resolve IProposalGenericExecutor', () => {
+    expect(prefixWithImports(`is IProposalGenericExecutor {`)).toContain(
+      `import {IProposalGenericExecutor} from 'aave-helpers/interfaces/IProposalGenericExecutor.sol';`
+    );
+  });
+
   it('should resolve Engine imports', () => {
     expect(prefixWithImports(`GovV3Helpers.createPayload`)).toContain(
       `import {GovV3Helpers} from 'aave-helpers/GovV3Helpers.sol';`

@@ -15,7 +15,7 @@ function isNumberOrKeepCurrent(value: string) {
 
 function isAddressOrKeepCurrent(value: string) {
   if (value == ENGINE_FLAGS.KEEP_CURRENT_ADDRESS || isAddress(value)) return true;
-  return 'Must be a calid address';
+  return 'Must be a valid address';
 }
 
 // TRANSFORMS
@@ -49,6 +49,24 @@ function translateJsNumberToSol(value: string) {
 function translateJsAddressToSol(value: string) {
   if (value === ENGINE_FLAGS.KEEP_CURRENT_ADDRESS) return `EngineFlags.KEEP_CURRENT_ADDRESS`;
   return getAddress(value);
+}
+
+function translateJsBoolToSol(value: string) {
+  switch (value) {
+    case ENGINE_FLAGS.ENABLED:
+      return `EngineFlags.ENABLED`;
+    case ENGINE_FLAGS.DISABLED:
+      return `EngineFlags.DISABLED`;
+    case ENGINE_FLAGS.KEEP_CURRENT:
+      return `EngineFlags.KEEP_CURRENT`;
+    default:
+      return value;
+  }
+}
+
+function translateJsStringToSol(value: string) {
+  if (value === ENGINE_FLAGS.KEEP_CURRENT_STRING) return `EngineFlags.KEEP_CURRENT_STRING`;
+  return value;
 }
 
 function translateEModeToEModeLib(value: string, pool: PoolIdentifier) {
@@ -89,7 +107,7 @@ export async function booleanSelect<T extends boolean>({
     message,
     choices: choices,
   });
-  return value as T extends true
+  return translateJsBoolToSol(value) as T extends true
     ? Exclude<BooleanSelectValues, 'KEEP_CURRENT'>
     : BooleanSelectValues;
 }
@@ -169,27 +187,36 @@ export async function eModeSelect<T extends boolean>({
   pool,
 }: EModeSelectPrompt<T>) {
   const eModes = getEModes(pool as any);
-  const eMode = await select({
-    message,
-    choices: [
-      ...(disableKeepCurrent ? [] : [{value: ENGINE_FLAGS.KEEP_CURRENT}]),
-      ...Object.keys(eModes).map((eMode) => ({value: eMode})),
-    ],
-  });
-  return translateEModeToEModeLib(eMode, pool);
+  if (Object.keys(eModes).length != 0) {
+    const eMode = await select({
+      message,
+      choices: [
+        ...(disableKeepCurrent ? [] : [{value: ENGINE_FLAGS.KEEP_CURRENT}]),
+        ...Object.keys(eModes).map((eMode) => ({value: eMode})),
+      ],
+    });
+    return translateEModeToEModeLib(eMode, pool);
+  } else {
+    console.log('No e-mode category active on the current pool');
+    return '0';
+  }
 }
 
 export async function eModesSelect<T extends boolean>({message, pool}: EModeSelectPrompt<T>) {
   const eModes = getEModes(pool as any);
-  const values = await checkbox({
-    message,
-    choices: [
-      ...Object.keys(eModes)
-        .filter((e) => e != 'NONE')
-        .map((eMode) => ({value: eMode})),
-    ],
-  });
-  return values.map((mode) => translateEModeToEModeLib(mode, pool));
+  if (Object.keys(eModes).length != 0) {
+    const values = await checkbox({
+      message,
+      choices: [
+        ...Object.keys(eModes)
+          .filter((e) => e != 'NONE')
+          .map((eMode) => ({value: eMode})),
+      ],
+    });
+    return values.map((mode) => translateEModeToEModeLib(mode, pool));
+  } else {
+    console.log('No e-mode category active on the current pool');
+  }
 }
 
 export async function stringInput<T extends boolean>({
@@ -197,9 +224,10 @@ export async function stringInput<T extends boolean>({
   defaultValue,
   disableKeepCurrent,
 }: GenericPrompt<T>) {
-  return input({
+  const value = await input({
     message,
     default: defaultValue,
     ...(disableKeepCurrent ? {} : {default: ENGINE_FLAGS.KEEP_CURRENT_STRING}),
   });
+  return translateJsStringToSol(value);
 }

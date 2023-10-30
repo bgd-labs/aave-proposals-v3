@@ -47,6 +47,7 @@ export async function generateFiles(options: Options, poolConfigs: PoolConfigs):
       default: false,
     });
   }
+
   async function createPayloadAndTest(options: Options, pool: PoolIdentifier) {
     const contractName = generateContractName(options, pool);
     const testCode = await testTemplate(options, poolConfigs[pool]!);
@@ -62,6 +63,7 @@ export async function generateFiles(options: Options, poolConfigs: PoolConfigs):
       contractName: contractName,
     };
   }
+
   console.log('generating script');
   const script = prettier.format(generateScript(options), {
     ...prettierSolCfg,
