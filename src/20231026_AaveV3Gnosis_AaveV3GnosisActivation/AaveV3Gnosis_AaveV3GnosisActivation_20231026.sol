@@ -2,6 +2,7 @@
 pragma solidity ^0.8.0;
 
 import {AaveV3Gnosis} from 'aave-address-book/AaveV3Gnosis.sol';
+import {IPool} from 'aave-address-book/AaveV3.sol';
 import {AaveV3PayloadGnosis} from 'aave-helpers/v3-config-engine/AaveV3PayloadGnosis.sol';
 import {EngineFlags} from 'aave-helpers/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-helpers/v3-config-engine/IAaveV3ConfigEngine.sol';
@@ -34,26 +35,13 @@ contract AaveV3Gnosis_AaveV3GnosisActivation_20231026 is AaveV3PayloadGnosis {
     AaveV3Gnosis.ACL_MANAGER.addRiskAdmin(FREEZING_STEWARD);
     AaveV3Gnosis.ACL_MANAGER.addRiskAdmin(AaveV3Gnosis.CAPS_PLUS_RISK_STEWARD);
 
-    IERC20(WETH).forceApprove(address(AaveV3Gnosis.POOL), 0.01 * 1e18);
-    AaveV3Gnosis.POOL.supply(WETH, 0.01 * 1e18, address(AaveV3Gnosis.COLLECTOR), 0);
-
-    IERC20(wstETH).forceApprove(address(AaveV3Gnosis.POOL), 0.01 * 1e18);
-    AaveV3Gnosis.POOL.supply(wstETH, 0.01 * 1e18, address(AaveV3Gnosis.COLLECTOR), 0);
-
-    IERC20(GNO).forceApprove(address(AaveV3Gnosis.POOL), 0.1 * 1e18);
-    AaveV3Gnosis.POOL.supply(GNO, 0.1 * 1e18, address(AaveV3Gnosis.COLLECTOR), 0);
-
-    IERC20(USDC).forceApprove(address(AaveV3Gnosis.POOL), 10 * 1e6);
-    AaveV3Gnosis.POOL.supply(USDC, 10 * 1e6, address(AaveV3Gnosis.COLLECTOR), 0);
-
-    IERC20(WXDAI).forceApprove(address(AaveV3Gnosis.POOL), 10 * 1e18);
-    AaveV3Gnosis.POOL.supply(WXDAI, 10 * 1e18, address(AaveV3Gnosis.COLLECTOR), 0);
-
-    IERC20(EURe).forceApprove(address(AaveV3Gnosis.POOL), 10 * 1e18);
-    AaveV3Gnosis.POOL.supply(EURe, 10 * 1e18, address(AaveV3Gnosis.COLLECTOR), 0);
-
-    IERC20(sDAI).forceApprove(address(AaveV3Gnosis.POOL), 10 * 1e18);
-    AaveV3Gnosis.POOL.supply(sDAI, 10 * 1e18, address(AaveV3Gnosis.COLLECTOR), 0);
+    _supply(AaveV3Gnosis.POOL, WETH, 0.01 * 1e18, address(AaveV3Gnosis.COLLECTOR));
+    _supply(AaveV3Gnosis.POOL, wstETH, 0.01 * 1e18, address(AaveV3Gnosis.COLLECTOR));
+    _supply(AaveV3Gnosis.POOL, GNO, 0.1 * 1e18, address(AaveV3Gnosis.COLLECTOR));
+    _supply(AaveV3Gnosis.POOL, USDC, 10 * 1e6, address(AaveV3Gnosis.COLLECTOR));
+    _supply(AaveV3Gnosis.POOL, WXDAI, 10 * 1e18, address(AaveV3Gnosis.COLLECTOR));
+    _supply(AaveV3Gnosis.POOL, EURe, 10 * 1e18, address(AaveV3Gnosis.COLLECTOR));
+    _supply(AaveV3Gnosis.POOL, sDAI, 10 * 1e18, address(AaveV3Gnosis.COLLECTOR));
   }
 
   function eModeCategoriesUpdates()
@@ -298,5 +286,10 @@ contract AaveV3Gnosis_AaveV3GnosisActivation_20231026 is AaveV3PayloadGnosis {
     });
 
     return listings;
+  }
+
+  function _supply(IPool pool, address asset, uint256 amount, address onBehalfOf) internal {
+    IERC20(asset).forceApprove(address(pool), amount);
+    pool.supply(asset, amount, onBehalfOf, 0);
   }
 }
