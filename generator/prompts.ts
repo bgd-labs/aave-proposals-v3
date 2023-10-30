@@ -198,20 +198,25 @@ export async function eModeSelect<T extends boolean>({
     return translateEModeToEModeLib(eMode, pool);
   } else {
     console.log('No e-mode category active on the current pool');
+    return '0';
   }
 }
 
 export async function eModesSelect<T extends boolean>({message, pool}: EModeSelectPrompt<T>) {
   const eModes = getEModes(pool as any);
-  const values = await checkbox({
-    message,
-    choices: [
-      ...Object.keys(eModes)
-        .filter((e) => e != 'NONE')
-        .map((eMode) => ({value: eMode})),
-    ],
-  });
-  return values.map((mode) => translateEModeToEModeLib(mode, pool));
+  if (Object.keys(eModes).length != 0) {
+    const values = await checkbox({
+      message,
+      choices: [
+        ...Object.keys(eModes)
+          .filter((e) => e != 'NONE')
+          .map((eMode) => ({value: eMode})),
+      ],
+    });
+    return values.map((mode) => translateEModeToEModeLib(mode, pool));
+  } else {
+    console.log('No e-mode category active on the current pool');
+  }
 }
 
 export async function stringInput<T extends boolean>({

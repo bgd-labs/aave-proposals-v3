@@ -10,7 +10,7 @@ const GovernanceImports = [
 ] as const;
 
 /**
- * @dev matches the code fro known address book imports and generates an import statement satisfying the used libraries
+ * @dev matches the code from known address book imports and generates an import statement satisfying the used libraries
  * @param code
  * @returns
  */
@@ -52,7 +52,7 @@ function findMatch(code: string, needle: string) {
 }
 
 /**
- * @dev Returnes the input string prefixed with imports
+ * @dev Returns the input string prefixed with imports
  * @param code
  * @returns
  */
@@ -96,6 +96,9 @@ export function prefixWithImports(code: string) {
   // common imports
   if (findMatch(code, 'IERC20')) {
     imports += `import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';\n`;
+  }
+  if (findMatch(code, 'forceApprove')) {
+    imports += `import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';\n`;
   }
 
   return imports + code;
