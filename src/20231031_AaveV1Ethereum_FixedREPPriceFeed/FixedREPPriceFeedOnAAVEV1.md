@@ -6,7 +6,7 @@ discussions: "https://governance.aave.com/t/bgd-technical-maintenance-proposals/
 
 ## Simple Summary
 
-Replace existing price feed by Chainlink with the fixed price adapter on Aave v1.
+Replace existing REP/ETH price feed by Chainlink on Aave v1 Ethereum with a fixed price adapter.
 
 ## Motivation
 
@@ -16,7 +16,7 @@ Consequently, giving the size of the asset and that factually is off-boarded (fr
 
 ## Specification
 
-Average `REP` value: 0.0004625695693 ETH
+Average `REP` price to use: 0.0004625695693 ETH
 
 - call `IAaveOracle(AAVE_V1_ORACLE).setAssetSources([0x1985365e9f78359a9B6AD760e32412f4a445E862], [0xc7751400F809cdB0C167F87985083C558a0610F7])` to replace the price feed of the `REP` on Aave v1 Pool.
 
