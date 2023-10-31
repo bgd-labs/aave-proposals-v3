@@ -53,5 +53,5 @@ jobs:
           json_array=($(jq -r '.[]' ".github/outputs/all_changed_files.json"))
           for i in "${json_array[@]}"
           do
-            npx aave-cli ipfs $i -u ${{ github.event_name != 'pull_request'}}
+            npx aave-cli ipfs ${{ github.event_name != 'pull_request' && '-u' || ''}} $i
           done
