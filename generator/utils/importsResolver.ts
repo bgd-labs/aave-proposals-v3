@@ -10,7 +10,7 @@ const GovernanceImports = [
 ] as const;
 
 /**
- * @dev matches the code fro known address book imports and generates an import statment satisfying the used libraries
+ * @dev matches the code from known address book imports and generates an import statement satisfying the used libraries
  * @param code
  * @returns
  */
@@ -44,11 +44,11 @@ function generateEngineImport(code: string) {
 }
 
 function findMatches(code: string, needles: string[] | readonly string[]) {
-  return needles.filter((needle) => RegExp(needle + '\\.', 'g').test(code));
+  return needles.filter((needle) => RegExp(needle, 'g').test(code));
 }
 
 function findMatch(code: string, needle: string) {
-  return RegExp(needle + '\\.', 'g').test(code);
+  return RegExp(needle, 'g').test(code);
 }
 
 /**
@@ -92,6 +92,13 @@ export function prefixWithImports(code: string) {
   }
   if (findMatch(code, 'IV2RateStrategyFactory')) {
     imports += `import {IV2RateStrategyFactory} from 'aave-helpers/v2-config-engine/IV2RateStrategyFactory.sol';\n`;
+  }
+  // common imports
+  if (findMatch(code, 'IERC20')) {
+    imports += `import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';\n`;
+  }
+  if (findMatch(code, 'forceApprove')) {
+    imports += `import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';\n`;
   }
 
   return imports + code;

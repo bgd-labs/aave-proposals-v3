@@ -31,20 +31,20 @@ export const priceFeedsUpdates: FeatureModule<PriceFeedUpdate[]> = {
       code: {
         fn: [
           `function priceFeedsUpdates() public pure override returns (IAaveV3ConfigEngine.PriceFeedUpdate[] memory) {
-          IAaveV3ConfigEngine.PriceFeedUpdate[] memory priceFeedsUpdates = new IAaveV3ConfigEngine.PriceFeedUpdate[](${
+          IAaveV3ConfigEngine.PriceFeedUpdate[] memory priceFeedUpdates = new IAaveV3ConfigEngine.PriceFeedUpdate[](${
             cfg.length
           });
 
           ${cfg
             .map(
-              (cfg, ix) => `priceFeedsUpdates[${ix}] = IAaveV3ConfigEngine.PriceFeedUpdate({
+              (cfg, ix) => `priceFeedUpdates[${ix}] = IAaveV3ConfigEngine.PriceFeedUpdate({
                asset: ${cfg.asset},
                priceFeed: ${cfg.priceFeed}
              });`
             )
             .join('\n')}
 
-          return priceFeedsUpdates;
+          return priceFeedUpdates;
         }`,
         ],
       },

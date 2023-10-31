@@ -28,6 +28,7 @@ export const testTemplate = async (options: Options, poolConfig: PoolConfig) => 
     .flat()
     .filter((f) => f !== undefined)
     .join('\n');
+
   let template = `
 import 'forge-std/Test.sol';
 import {${testBase}, ReserveConfig} from 'aave-helpers/${testBase}.sol';
@@ -46,7 +47,7 @@ contract ${contractName}_Test is ${testBase} {
   }
 
   /**
-   * @dev executes the generic test suite including e2e and config snapshots 
+   * @dev executes the generic test suite including e2e and config snapshots
    */
   function test_defaultProposalExecution() public {
     defaultTest('${contractName}', ${poolConfig.pool}.POOL, address(proposal));
