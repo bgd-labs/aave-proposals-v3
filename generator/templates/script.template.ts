@@ -70,7 +70,7 @@ export function generateScript(options: Options) {
  * command: make deploy-ledger contract=src/${folderName}/${fileName}.s.sol:CreateProposal chain=mainnet
  */
 contract CreateProposal is EthereumScript {
-  function run() external broadcast {
+  function run() external {
     // create payloads
     PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](${
       Object.keys(poolsToChainsMap).length
@@ -93,6 +93,7 @@ contract CreateProposal is EthereumScript {
       .join('\n')}
 
     // create proposal
+    vm.startBroadcast();
     GovV3Helpers.createProposal2_5(payloads, GovV3Helpers.ipfsHashFile(vm, 'src/${folderName}/${
     options.shortName
   }.md'));
