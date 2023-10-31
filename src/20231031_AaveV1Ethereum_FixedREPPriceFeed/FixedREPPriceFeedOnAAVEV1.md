@@ -1,7 +1,7 @@
 ---
 title: "Fixed REP price feed on AAVE v1"
 author: "BGD labs (@bgdlabs)"
-discussions: ""
+discussions: "https://governance.aave.com/t/bgd-technical-maintenance-proposals/15274"
 ---
 
 ## Simple Summary
@@ -22,10 +22,10 @@ Average `REP` value: 0.0004625695693 ETH
 
 - Implementation: [AaveV1Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231031_AaveV2Ethereum_FixedREPPriceFeed/AaveV2Ethereum_FixedREPPriceFeedOnAAVEV1_20231031.sol)
 - Tests: [AaveV1Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231031_AaveV2Ethereum_FixedREPPriceFeedOnAAVEV1/AaveV1Ethereum_FixedREPPriceFeed_20231031.t)
-- [Discussion](TODO)
+- [Discussion](https://governance.aave.com/t/bgd-technical-maintenance-proposals/15274)
 
 - [REP token](https://etherscan.io/address/0x1985365e9f78359a9B6AD760e32412f4a445E862)
-- [REP / ETH adapter](TODO)
+- [REP / ETH adapter](https://github.com/bgd-labs/cl-synchronicity-price-adapter/blob/main/src/contracts/RepFixedPriceAdapter.sol)
 
 ## Copyright
 
