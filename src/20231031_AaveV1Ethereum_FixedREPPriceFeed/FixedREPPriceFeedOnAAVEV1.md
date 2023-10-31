@@ -6,7 +6,7 @@ discussions: "https://governance.aave.com/t/bgd-technical-maintenance-proposals/
 
 ## Simple Summary
 
-Replace existing price feed by Chainlink with the fixed price adapter on Aave v1.
+Replace existing REP/ETH price feed by Chainlink on Aave v1 Ethereum with a fixed price adapter.
 
 ## Motivation
 
