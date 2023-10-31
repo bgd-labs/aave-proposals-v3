@@ -1,6 +1,6 @@
 ---
 title: "Aave v3 Gnosis Activation"
-author: "BGD Labs"
+author: "BGD Labs @bgdlabs"
 discussions: "https://governance.aave.com/t/arfc-aave-v3-deployment-on-gnosischain/14695"
 ---
 
