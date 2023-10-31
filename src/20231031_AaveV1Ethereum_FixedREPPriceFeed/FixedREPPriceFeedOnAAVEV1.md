@@ -10,7 +10,9 @@ Replace existing price feed by Chainlink with the fixed price adapter on Aave v1
 
 ## Motivation
 
-Chainlink is planning to shut down its price feed for the `REP` token as it is deprecated. Keeping in mind that the total supply of the `REP` on Aave v1 is less than 100$, we decided to replace the CL oracle by the custom adapter, which will return calculated average price of the token for the period from 01/09/2023 till 31/10/2023.
+The REP asset listed on Aave 1 Ethereum is a legacy one, that long time ago has suffered a token migration.
+With a total supply of this legacy `REP` on Aave v1 of less than $100, Chainlink is looking to shut down the REP/ETH price feed, but this can only be done if Aave stops using it.
+Consequently, giving the size of the asset and that factually is off-boarded (frozen), we propose to replace the Chainlink price feed by an ad-hoc one that will return a constant value: the average price of the token for the period from 01/09/2023 till 31/10/2023.
 
 ## Specification
 
