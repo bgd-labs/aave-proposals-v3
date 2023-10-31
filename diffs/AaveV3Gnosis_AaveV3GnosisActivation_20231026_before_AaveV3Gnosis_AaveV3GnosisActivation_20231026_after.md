@@ -18,10 +18,10 @@
 | oracle | [0xa767f745331D267c7751297D982b050c93985627](https://blockscout.com/xdai/mainnet/address/0xa767f745331D267c7751297D982b050c93985627) |
 | oracleDecimals | 8 |
 | oracleDescription | ETH / USD |
-| oracleLatestAnswer | 1790.94610889 |
+| oracleLatestAnswer | 1799.74305 |
 | usageAsCollateralEnabled | true |
-| ltv | 80.5 % |
-| liquidationThreshold | 83 % |
+| ltv | 75 % |
+| liquidationThreshold | 78 % |
 | liquidationBonus | 6 % |
 | liquidationProtocolFee | 10 % |
 | reserveFactor | 15 % |
@@ -76,10 +76,10 @@
 | oracle | [0xcb0670258e5961CCA85D8F71D29C1167Ef20De99](https://blockscout.com/xdai/mainnet/address/0xcb0670258e5961CCA85D8F71D29C1167Ef20De99) |
 | oracleDecimals | 8 |
 | oracleDescription | wstETH/ETH/USD |
-| oracleLatestAnswer | 2050.00407976 |
+| oracleLatestAnswer | 2060.26942495 |
 | usageAsCollateralEnabled | true |
-| ltv | 71 % |
-| liquidationThreshold | 76 % |
+| ltv | 75 % |
+| liquidationThreshold | 78 % |
 | liquidationBonus | 6 % |
 | liquidationProtocolFee | 10 % |
 | reserveFactor | 15 % |
@@ -127,14 +127,14 @@
 | isFrozen | false |
 | supplyCap | 30,000 GNO |
 | borrowCap | 0 GNO |
-| debtCeiling | 5,000,000 $ |
+| debtCeiling | 1,000,000 $ |
 | isSiloed | false |
 | isFlashloanable | true |
 | eModeCategory | 0 |
 | oracle | [0x22441d81416430A54336aB28765abd31a792Ad37](https://blockscout.com/xdai/mainnet/address/0x22441d81416430A54336aB28765abd31a792Ad37) |
 | oracleDecimals | 8 |
 | oracleDescription | GNO / USD |
-| oracleLatestAnswer | 102.8511554 |
+| oracleLatestAnswer | 106.660434 |
 | usageAsCollateralEnabled | true |
 | ltv | 31 % |
 | liquidationThreshold | 36 % |
@@ -187,7 +187,7 @@
 | oracle | [0x26C31ac71010aF62E6B486D1132E266D6298857D](https://blockscout.com/xdai/mainnet/address/0x26C31ac71010aF62E6B486D1132E266D6298857D) |
 | oracleDecimals | 8 |
 | oracleDescription | USDC / USD |
-| oracleLatestAnswer | 1.00008998 |
+| oracleLatestAnswer | 1.00005376 |
 | usageAsCollateralEnabled | true |
 | ltv | 77 % |
 | liquidationThreshold | 80 % |
@@ -214,14 +214,14 @@
 | optimalUsageRatio | 90 % |
 | maxExcessUsageRatio | 10 % |
 | baseVariableBorrowRate | 0 % |
-| variableRateSlope1 | 4 % |
+| variableRateSlope1 | 5 % |
 | variableRateSlope2 | 75 % |
-| baseStableBorrowRate | 5 % |
-| stableRateSlope1 | 4 % |
+| baseStableBorrowRate | 6 % |
+| stableRateSlope1 | 5 % |
 | stableRateSlope2 | 75 % |
 | optimalStableToTotalDebtRatio | 20 % |
 | maxExcessStableToTotalDebtRatio | 80 % |
-| interestRate | ![ir](/.assets/64a0110786c519e361963abb7399874664375a85.svg) |
+| interestRate | ![ir](/.assets/541043868751fc5ea1344f681b00906bdf734fdf.svg) |
 
 
 #### sDAI ([0xaf204776c7245bF4147c2612BF6e5972Ee483701](https://blockscout.com/xdai/mainnet/address/0xaf204776c7245bF4147c2612BF6e5972Ee483701))
@@ -240,7 +240,7 @@
 | oracle | [0x1D0f881Ce1a646E2f27Dec3c57Fa056cB838BCC2](https://blockscout.com/xdai/mainnet/address/0x1D0f881Ce1a646E2f27Dec3c57Fa056cB838BCC2) |
 | oracleDecimals | 8 |
 | oracleDescription | sDAI/DAI/USD |
-| oracleLatestAnswer | 1.02051184 |
+| oracleLatestAnswer | 1.02071584 |
 | usageAsCollateralEnabled | true |
 | ltv | 77 % |
 | liquidationThreshold | 80 % |
@@ -256,7 +256,7 @@
 | borrowingEnabled | false |
 | stableBorrowRateEnabled | false |
 | isBorrowableInIsolation | false |
-| interestRateStrategy | [0x345f7fcd88207fe060AD03c2656A23A3Ab596479](https://blockscout.com/xdai/mainnet/address/0x345f7fcd88207fe060AD03c2656A23A3Ab596479) |
+| interestRateStrategy | [0x6c3b7e7B8b9609D57C70C3F630228F979EAbb450](https://blockscout.com/xdai/mainnet/address/0x6c3b7e7B8b9609D57C70C3F630228F979EAbb450) |
 | aTokenName | Aave Gnosis sDAI |
 | aTokenSymbol | aGnosDAI |
 | isPaused | false |
@@ -284,8 +284,8 @@
 | decimals | 18 |
 | isActive | true |
 | isFrozen | false |
-| supplyCap | 1,500,000 EURe |
-| borrowCap | 1,500,000 EURe |
+| supplyCap | 500,000 EURe |
+| borrowCap | 500,000 EURe |
 | debtCeiling | 0 $ |
 | isSiloed | false |
 | isFlashloanable | true |
@@ -293,7 +293,7 @@
 | oracle | [0xab70BCB260073d036d1660201e9d5405F5829b7a](https://blockscout.com/xdai/mainnet/address/0xab70BCB260073d036d1660201e9d5405F5829b7a) |
 | oracleDecimals | 8 |
 | oracleDescription | EUR / USD |
-| oracleLatestAnswer | 1.05543 |
+| oracleLatestAnswer | 1.0603 |
 | usageAsCollateralEnabled | false |
 | ltv | 0 % |
 | liquidationThreshold | 0 % |
@@ -309,7 +309,7 @@
 | borrowingEnabled | true |
 | stableBorrowRateEnabled | false |
 | isBorrowableInIsolation | false |
-| interestRateStrategy | [0x345f7fcd88207fe060AD03c2656A23A3Ab596479](https://blockscout.com/xdai/mainnet/address/0x345f7fcd88207fe060AD03c2656A23A3Ab596479) |
+| interestRateStrategy | [0x6c3b7e7B8b9609D57C70C3F630228F979EAbb450](https://blockscout.com/xdai/mainnet/address/0x6c3b7e7B8b9609D57C70C3F630228F979EAbb450) |
 | aTokenName | Aave Gnosis EURe |
 | aTokenSymbol | aGnoEURe |
 | isPaused | false |
@@ -346,7 +346,7 @@
 | oracle | [0x678df3415fc31947dA4324eC63212874be5a82f8](https://blockscout.com/xdai/mainnet/address/0x678df3415fc31947dA4324eC63212874be5a82f8) |
 | oracleDecimals | 8 |
 | oracleDescription | DAI / USD |
-| oracleLatestAnswer | 1.00003278 |
+| oracleLatestAnswer | 1.000059 |
 | usageAsCollateralEnabled | true |
 | ltv | 77 % |
 | liquidationThreshold | 80 % |
@@ -373,14 +373,14 @@
 | optimalUsageRatio | 90 % |
 | maxExcessUsageRatio | 10 % |
 | baseVariableBorrowRate | 0 % |
-| variableRateSlope1 | 4 % |
+| variableRateSlope1 | 5 % |
 | variableRateSlope2 | 75 % |
-| baseStableBorrowRate | 5 % |
-| stableRateSlope1 | 4 % |
+| baseStableBorrowRate | 6 % |
+| stableRateSlope1 | 5 % |
 | stableRateSlope2 | 75 % |
 | optimalStableToTotalDebtRatio | 20 % |
 | maxExcessStableToTotalDebtRatio | 80 % |
-| interestRate | ![ir](/.assets/64a0110786c519e361963abb7399874664375a85.svg) |
+| interestRate | ![ir](/.assets/541043868751fc5ea1344f681b00906bdf734fdf.svg) |
 
 
 ## Raw diff
@@ -422,12 +422,12 @@
         "isSiloed": false,
         "liquidationBonus": 10600,
         "liquidationProtocolFee": 1000,
-        "liquidationThreshold": 8300,
-        "ltv": 8050,
+        "liquidationThreshold": 7800,
+        "ltv": 7500,
         "oracle": "0xa767f745331D267c7751297D982b050c93985627",
         "oracleDecimals": 8,
         "oracleDescription": "ETH / USD",
-        "oracleLatestAnswer": 179094610889,
+        "oracleLatestAnswer": 179974305000,
         "reserveFactor": 1500,
         "stableBorrowRateEnabled": false,
         "stableDebtToken": "0x436D82d905b014926a2375C576500B6fea0D2496",
@@ -465,12 +465,12 @@
         "isSiloed": false,
         "liquidationBonus": 10600,
         "liquidationProtocolFee": 1000,
-        "liquidationThreshold": 7600,
-        "ltv": 7100,
+        "liquidationThreshold": 7800,
+        "ltv": 7500,
         "oracle": "0xcb0670258e5961CCA85D8F71D29C1167Ef20De99",
         "oracleDecimals": 8,
         "oracleDescription": "wstETH/ETH/USD",
-        "oracleLatestAnswer": 205000407976,
+        "oracleLatestAnswer": 206026942495,
         "reserveFactor": 1500,
         "stableBorrowRateEnabled": false,
         "stableDebtToken": "0x5CBc43c339F5202D2dcB59583D33cA8498b75031",
@@ -496,7 +496,7 @@
         "aTokenSymbol": "aGnoGNO",
         "borrowCap": 0,
         "borrowingEnabled": false,
-        "debtCeiling": 500000000,
+        "debtCeiling": 100000000,
         "decimals": 18,
         "eModeCategory": 0,
         "interestRateStrategy": "0x9E57695Dab0DCdb42BC220ff1E9eb2e22a31209b",
@@ -513,7 +513,7 @@
         "oracle": "0x22441d81416430A54336aB28765abd31a792Ad37",
         "oracleDecimals": 8,
         "oracleDescription": "GNO / USD",
-        "oracleLatestAnswer": 10285115540,
+        "oracleLatestAnswer": 10666043400,
         "reserveFactor": 1500,
         "stableBorrowRateEnabled": false,
         "stableDebtToken": "0x1A126F613D7705E59ADb39909b25E1223aDF05dd",
@@ -556,7 +556,7 @@
         "oracle": "0x26C31ac71010aF62E6B486D1132E266D6298857D",
         "oracleDecimals": 8,
         "oracleDescription": "USDC / USD",
-        "oracleLatestAnswer": 100008998,
+        "oracleLatestAnswer": 100005376,
         "reserveFactor": 1000,
         "stableBorrowRateEnabled": false,
         "stableDebtToken": "0x8220133C3a631de3C7A5B679A2417BD61431FEcf",
@@ -585,7 +585,7 @@
         "debtCeiling": 0,
         "decimals": 18,
         "eModeCategory": 0,
-        "interestRateStrategy": "0x345f7fcd88207fe060AD03c2656A23A3Ab596479",
+        "interestRateStrategy": "0x6c3b7e7B8b9609D57C70C3F630228F979EAbb450",
         "isActive": true,
         "isBorrowableInIsolation": false,
         "isFlashloanable": true,
@@ -599,7 +599,7 @@
         "oracle": "0x1D0f881Ce1a646E2f27Dec3c57Fa056cB838BCC2",
         "oracleDecimals": 8,
         "oracleDescription": "sDAI/DAI/USD",
-        "oracleLatestAnswer": 102051184,
+        "oracleLatestAnswer": 102071584,
         "reserveFactor": 1000,
         "stableBorrowRateEnabled": false,
         "stableDebtToken": "0xa2E0335175Da40b081717FfD394C0E1de738cb9B",
@@ -623,12 +623,12 @@
         "aTokenImpl": "0x589750BA8aF186cE5B55391B0b7148cAD43a1619",
         "aTokenName": "Aave Gnosis EURe",
         "aTokenSymbol": "aGnoEURe",
-        "borrowCap": 1500000,
+        "borrowCap": 500000,
         "borrowingEnabled": true,
         "debtCeiling": 0,
         "decimals": 18,
         "eModeCategory": 0,
-        "interestRateStrategy": "0x345f7fcd88207fe060AD03c2656A23A3Ab596479",
+        "interestRateStrategy": "0x6c3b7e7B8b9609D57C70C3F630228F979EAbb450",
         "isActive": true,
         "isBorrowableInIsolation": false,
         "isFlashloanable": true,
@@ -642,14 +642,14 @@
         "oracle": "0xab70BCB260073d036d1660201e9d5405F5829b7a",
         "oracleDecimals": 8,
         "oracleDescription": "EUR / USD",
-        "oracleLatestAnswer": 105543000,
+        "oracleLatestAnswer": 106030000,
         "reserveFactor": 1500,
         "stableBorrowRateEnabled": false,
         "stableDebtToken": "0x916E13857FeeD0d982Df148DBe8d8542519aB96e",
         "stableDebtTokenImpl": "0x06C35Cfd3FC61eC2aC437f0d08840d5776b945af",
         "stableDebtTokenName": "Aave Gnosis Stable Debt EURe",
         "stableDebtTokenSymbol": "stableDebtGnoEURe",
-        "supplyCap": 1500000,
+        "supplyCap": 500000,
         "symbol": "EURe",
         "underlying": "0xcB444e90D8198415266c6a2724b7900fb12FC56E",
         "usageAsCollateralEnabled": false,
@@ -685,7 +685,7 @@
         "oracle": "0x678df3415fc31947dA4324eC63212874be5a82f8",
         "oracleDecimals": 8,
         "oracleDescription": "DAI / USD",
-        "oracleLatestAnswer": 100003278,
+        "oracleLatestAnswer": 100005900,
         "reserveFactor": 1000,
         "stableBorrowRateEnabled": false,
         "stableDebtToken": "0xaC8b1cE0548C69318920C3e0b21Db296d5770D57",
@@ -705,6 +705,21 @@
   },
   "strategies": {
     "0x345f7fcd88207fe060AD03c2656A23A3Ab596479": {
+      "from": null,
+      "to": {
+        "baseStableBorrowRate": "60000000000000000000000000",
+        "baseVariableBorrowRate": 0,
+        "maxExcessStableToTotalDebtRatio": "800000000000000000000000000",
+        "maxExcessUsageRatio": "100000000000000000000000000",
+        "optimalStableToTotalDebtRatio": "200000000000000000000000000",
+        "optimalUsageRatio": "900000000000000000000000000",
+        "stableRateSlope1": "50000000000000000000000000",
+        "stableRateSlope2": "750000000000000000000000000",
+        "variableRateSlope1": "50000000000000000000000000",
+        "variableRateSlope2": "750000000000000000000000000"
+      }
+    },
+    "0x6c3b7e7B8b9609D57C70C3F630228F979EAbb450": {
       "from": null,
       "to": {
         "baseStableBorrowRate": "50000000000000000000000000",

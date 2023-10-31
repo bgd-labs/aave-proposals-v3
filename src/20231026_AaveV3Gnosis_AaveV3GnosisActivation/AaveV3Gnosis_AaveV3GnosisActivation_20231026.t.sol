@@ -18,15 +18,8 @@ contract AaveV3Gnosis_AaveV3GnosisActivation_20231026_Test is ProtocolV3TestBase
   address constant DEPLOYER = 0x956DE559DFc27678FD69d4f49f485196b50BDD0F;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('gnosis'), 30705986);
+    vm.createSelectFork(vm.rpcUrl('gnosis'), 30721143);
     proposal = new AaveV3Gnosis_AaveV3GnosisActivation_20231026();
-
-    // TODO: remove after transferring the ownership
-    vm.startPrank(DEPLOYER);
-    IOwnable(GovernanceV3Gnosis.EXECUTOR_LVL_1).transferOwnership(
-      address(GovernanceV3Gnosis.PAYLOADS_CONTROLLER)
-    );
-    vm.stopPrank();
   }
 
   /**
@@ -102,10 +95,4 @@ contract AaveV3Gnosis_AaveV3GnosisActivation_20231026_Test is ProtocolV3TestBase
       .getReserveTokensAddresses(proposal.sDAI());
     assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Gnosis.COLLECTOR)), 10 * 1e18);
   }
-}
-
-interface IOwnable {
-  function transferOwnership(address newOwner) external;
-
-  function owner() external view returns (address);
 }
