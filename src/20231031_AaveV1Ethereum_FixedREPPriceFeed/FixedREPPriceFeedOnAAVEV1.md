@@ -16,12 +16,15 @@ Chainlink is planning to shut down its price feed for the `REP` token as it is d
 
 Average `REP` value: 0.0004625695693 ETH
 
+- call `IAaveOracle(AAVE_V1_ORACLE).setAssetSources([0x1985365e9f78359a9B6AD760e32412f4a445E862], [0xc7751400F809cdB0C167F87985083C558a0610F7])` to replace the price feed of the `REP` on Aave v1 Pool.
+
 ## References
 
 - Implementation: [AaveV1Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231031_AaveV2Ethereum_FixedREPPriceFeed/AaveV2Ethereum_FixedREPPriceFeedOnAAVEV1_20231031.sol)
 - Tests: [AaveV1Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231031_AaveV2Ethereum_FixedREPPriceFeedOnAAVEV1/AaveV1Ethereum_FixedREPPriceFeed_20231031.t)
 - [Discussion](TODO)
 
+- [REP token](https://etherscan.io/address/0x1985365e9f78359a9B6AD760e32412f4a445E862)
 - [REP / ETH adapter](TODO)
 
 ## Copyright
