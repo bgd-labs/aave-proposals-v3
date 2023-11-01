@@ -24,7 +24,6 @@ export function transformNumberToPercent(value: string) {
     return (
       new Intl.NumberFormat('en-us', {
         maximumFractionDigits: 2,
-        minimumFractionDigits: 2,
       }).format(value as unknown as number) + ' %'
     );
   }
@@ -39,13 +38,20 @@ export function transformNumberToHumanReadable(value: string) {
 }
 
 // TRANSLATIONS
-function translateJsPercentToSol(value: string, bpsToRay?: boolean) {
+export function translateJsPercentToSol(value: string, bpsToRay?: boolean) {
   if (value === ENGINE_FLAGS.KEEP_CURRENT) return `EngineFlags.KEEP_CURRENT`;
-  if (bpsToRay) return `_bpsToRay(${value.replace(/\./g, '_')})`;
-  return value.replace(/\./g, '_');
+  const formattedValue = new Intl.NumberFormat('en-us', {
+    maximumFractionDigits: 2,
+    minimumFractionDigits: 2,
+  }).format(value as unknown as number);
+  const _value = (
+    Number(value) >= 1 ? formattedValue : formattedValue.replace(/^0\.0*(?=[0-9])/, '')
+  ).replace(/[\.,]/g, '_');
+  if (bpsToRay) return `_bpsToRay(${_value})`;
+  return _value;
 }
 
-function translateJsNumberToSol(value: string) {
+export function translateJsNumberToSol(value: string) {
   if (value === ENGINE_FLAGS.KEEP_CURRENT) return `EngineFlags.KEEP_CURRENT`;
   return String(value).replace(/\B(?=(\d{3})+(?!\d))/g, '_');
 }
