@@ -59,18 +59,16 @@ We will also delegate engineering resources for service providers via mini-dapps
 Externally, the ACI has been a voice for the Aave DAO in various capacities.
 
 - **Event Participation**: The ACI has participated in and sponsored several global events to share insights and collaborate with industry peers. In 2023, our engagements included:
-    - Web3DNA (Paris)
-    - EthDubai 2023
-    - Prague DeFi Summit/EthPrague
-    - Stable Summit (Paris)
-    - EthCC[6] (Paris)
-    - Dappcon Berlin 2023
-    - LëtzStake (Luxembourg)
-    - EthLisbon
-    - Devconnect Istanbul
-    
+  - Web3DNA (Paris)
+  - EthDubai 2023
+  - Prague DeFi Summit/EthPrague
+  - Stable Summit (Paris)
+  - EthCC[6] (Paris)
+  - Dappcon Berlin 2023
+  - LëtzStake (Luxembourg)
+  - EthLisbon
+  - Devconnect Istanbul
     A detailed list of our engagements can be found [here](https://www.notion.so/f676c1ce96f44c648ef2a40f7f1bb442?pvs=21).
-    
 - **Regulatory Engagement**: The ACI's founder holds the position of president of the DeFi committee of the French Lobby ADAN. This role involves dialogues with regulators, institutions, and governments in France and Europe regarding the DeFi sector. The ACI has been involved in discussions related to the \"Mica 2\" regulation, which addresses DeFi services.
 
 The ACI, as one of the voices for the Aave DAO, has consistently worked towards enhancing the DAO's presence and reputation in the broader ecosystem.
@@ -85,7 +83,6 @@ The ACI will continue to be one of the voices of Aave across the globe, supporti
 - **Duration**: 180 days
 - **Budget**: 375k GHO
 - **Scope**: Continuation of the ACI's work across Skyward, Growth, and Representation.
-
 
 ## References
 
