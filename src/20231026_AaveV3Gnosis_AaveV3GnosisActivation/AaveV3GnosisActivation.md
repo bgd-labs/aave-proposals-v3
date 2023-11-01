@@ -6,7 +6,7 @@ discussions: "https://governance.aave.com/t/arfc-aave-v3-deployment-on-gnosischa
 
 ## Simple Summary
 
-This proposal allows the Aave governance to activate the Aave V3 Gnosis pool (3.0.2) by completing all the initial setup and listing WETH, wstETH, GNO, USDC, wXDAI, EURe and sDAI as suggested by the service providers (ACI, Gauntlet and Chaos Labs) on the [governance forum](https://governance.aave.com/t/arfc-aave-v3-deployment-on-gnosischain/14695). All the Aave Gnosis V3 addresses can be found in the [aave-address-book](https://github.com/bgd-labs/aave-address-book/blob/main/src/AaveV3Gnosis.sol).
+This proposal allows the Aave governance to activate the Aave V3 Gnosis pool (3.0.2) by completing all the initial setup and listing WETH, wstETH, GNO, USDC, wXDAI, EURe and sDAI as suggested by the service providers (ACI, Gauntlet and Chaos Labs) on the [governance forum](https://governance.aave.com/t/arfc-aave-v3-deployment-on-gnosischain/14695/7). All the Aave Gnosis V3 addresses can be found in the [aave-address-book](https://github.com/bgd-labs/aave-address-book/blob/main/src/AaveV3Gnosis.sol).
 
 ## Motivation
 
