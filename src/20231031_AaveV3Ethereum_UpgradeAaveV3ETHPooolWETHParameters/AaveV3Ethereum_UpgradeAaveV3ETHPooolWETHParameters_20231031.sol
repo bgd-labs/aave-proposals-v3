@@ -10,6 +10,7 @@ import {IV3RateStrategyFactory} from 'aave-helpers/v3-config-engine/IV3RateStrat
 /**
  * @title Upgrade Aave V3 ETH Poool wETH parameters
  * @author Gauntlet, ACI
+ * - Snapshot: TODO
  * - Discussion: https://governance.aave.com/t/arfc-upgrade-aave-v3-eth-pool-weth-parameters/15110
  */
 contract AaveV3Ethereum_UpgradeAaveV3ETHPooolWETHParameters_20231031 is AaveV3PayloadEthereum {
