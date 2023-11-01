@@ -17,9 +17,19 @@ jobs:
     runs-on: ubuntu-latest
     name: Ipfs uploader
     steps:
-      - uses: actions/checkout@v3
+      - name: Generate a token
+        id: generate_token
+        if: github.event_name != 'pull_request'
+        uses: actions/create-github-app-token@v1
+        with:
+          app_id: ${{ secrets.UPDATE_BOT_APP_ID }}
+          private_key: ${{ secrets.UPDATE_BOT_TOKEN }}
+
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          token: ${{ steps.generate_token.outputs.token || github.token }}
+          persist-credentials: true
 
       - uses: actions/setup-node@v3
         with:
@@ -44,6 +54,17 @@ jobs:
         run: |
           cat .github/outputs/all_changed_files.json
 
+      - name: replace main with hash
+        if: github.event_name != 'pull_request' && steps.changed-files.outputs.any_changed == 'true'
+        run: |
+          json_array=($(jq -r '.[]' ".github/outputs/all_changed_files.json"))
+          for i in "${json_array[@]}"
+          do
+            npx prettier $i --write
+            sed -i 's@https://github.com/bgd-labs/aave-proposals/blob/main/@https://github.com/bgd-labs/aave-proposals/blob/${{ github.sha }}/@g' $i
+            sed -i 's@https://github.com/bgd-labs/aave-proposals/tree/main/@https://github.com/bgd-labs/aave-proposals/blob/${{ github.sha }}/@g' $i
+          done
+
       - name: Upload
         if: steps.changed-files.outputs.any_changed == 'true'
         env:
@@ -55,3 +76,24 @@ jobs:
           do
             npx aave-cli ipfs ${{ github.event_name != 'pull_request' && '-u' || ''}} $i
           done
+
+      - name: check diff and potentially commit
+        if: github.event_name != 'pull_request' && steps.changed-files.outputs.any_changed == 'true'
+        env:
+          GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
+        run: |
+          if [[ -z $(git status -s) ]]
+          then
+            echo "tree is clean"
+          else
+            git config --global user.name 'Cache bot'
+            git config --global user.email 'cache-bot@bgdlabs.com'
+            git config --global pull.rebase true
+            git stash
+            git pull origin ${{ github.event.repository.default_branch }}
+            git stash apply
+            git add src
+            git commit -am "fix(cache): automated cache update [skip ci]"
+            git push origin ${{ github.event.repository.default_branch }}
+          exit
+          fi
