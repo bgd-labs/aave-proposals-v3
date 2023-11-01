@@ -85,8 +85,8 @@ As a matter of caution, the `POOL_ADMIN` role will be given for the first weeks 
 
 ## References
 
-- Implementation: [AaveV3Gnosis](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231026_AaveV3Gnosis_AaveV3GnosisActivation/AaveV3Gnosis_AaveV3GnosisActivation_20231026.sol)
-- Tests: [AaveV3Gnosis](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231026_AaveV3Gnosis_AaveV3GnosisActivation/AaveV3Gnosis_AaveV3GnosisActivation_20231026.t.sol)
+- Implementation: [AaveV3Gnosis](https://github.com/bgd-labs/aave-proposals-v3/blob/1450026743363bc47be00702fd058a6dda9c841b/src/20231026_AaveV3Gnosis_AaveV3GnosisActivation/AaveV3Gnosis_AaveV3GnosisActivation_20231026.sol)
+- Tests: [AaveV3Gnosis](https://github.com/bgd-labs/aave-proposals-v3/blob/1450026743363bc47be00702fd058a6dda9c841b/src/20231026_AaveV3Gnosis_AaveV3GnosisActivation/AaveV3Gnosis_AaveV3GnosisActivation_20231026.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0xb62c93a8b3590dc46eed92b223da5fcbbf6b52f1f79a0c2fcd80bbc0afea59d8)
 - [Discussion](https://governance.aave.com/t/arfc-aave-v3-deployment-on-gnosischain/14695)
 
