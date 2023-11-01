@@ -88,19 +88,16 @@ if (options.configFile) {
     }
   }
 } else {
-  // workaround as there's validate is not currently supported on checkbox
-  // https://github.com/SBoudrias/Inquirer.js/issues/1257
-  while (!options.pools?.length === true) {
-    options.pools = await checkbox({
-      message: 'Chains this proposal targets',
-      choices: POOLS.map((v) => ({name: v, value: v})),
-      // validate(input) {
-      //   // currently ignored due to a bug
-      //   if (input.length == 0) return 'You must target at least one chain in your proposal!';
-      //   return true;
-      // },
-    });
-  }
+  options.pools = await checkbox({
+    message: 'Chains this proposal targets',
+    choices: POOLS.map((v) => ({name: v, value: v})),
+    required: true,
+    // validate(input) {
+    //   // currently ignored due to a bug
+    //   if (input.length == 0) return 'You must target at least one chain in your proposal!';
+    //   return true;
+    // },
+  });
 
   if (!options.title) {
     options.title = await input({
