@@ -19,17 +19,21 @@ function isAddressOrKeepCurrent(value: string) {
 }
 
 // TRANSFORMS
-function transformNumberToPercent(value: string) {
+export function transformNumberToPercent(value: string) {
   if (value && isNumber(value)) {
-    if (Number(value) <= 9) value = value.padStart(2, '0');
-    return value.replace(/(?=(\d{2}$)+(?!\d))/g, '.') + ' %';
+    return (
+      new Intl.NumberFormat('en-us', {
+        maximumFractionDigits: 2,
+        minimumFractionDigits: 2,
+      }).format(value as unknown as number) + ' %'
+    );
   }
   return value;
 }
 
-function transformNumberToHumanReadable(value: string) {
+export function transformNumberToHumanReadable(value: string) {
   if (value && isNumber(value)) {
-    return value.replace(/(?=(\d{3}$)+(?!\d))/g, '.');
+    return new Intl.NumberFormat('en-us').format(BigInt(value));
   }
   return value;
 }
@@ -37,8 +41,8 @@ function transformNumberToHumanReadable(value: string) {
 // TRANSLATIONS
 function translateJsPercentToSol(value: string, bpsToRay?: boolean) {
   if (value === ENGINE_FLAGS.KEEP_CURRENT) return `EngineFlags.KEEP_CURRENT`;
-  if (bpsToRay) return `_bpsToRay(${value.replace(/(?=(\d{2}$))/g, '_')})`;
-  return value.replace(/(?=(\d{2}$)+(?!\d))/g, '_');
+  if (bpsToRay) return `_bpsToRay(${value.replace(/\./g, '_')})`;
+  return value.replace(/\./g, '_');
 }
 
 function translateJsNumberToSol(value: string) {
