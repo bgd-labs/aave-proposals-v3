@@ -29,7 +29,7 @@ contract DeployEthereum is EthereumScript {
  * command: make deploy-ledger contract=src/20231030_AaveV2Ethereum_AaveV2EthereumLTReduction/AaveV2EthereumLTReduction_20231030.s.sol:CreateProposal chain=mainnet
  */
 contract CreateProposal is EthereumScript {
-  function run() external broadcast {
+  function run() external {
     // create payloads
     PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](1);
 
