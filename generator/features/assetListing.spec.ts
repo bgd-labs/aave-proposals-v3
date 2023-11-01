@@ -5,7 +5,7 @@ import {MOCK_OPTIONS, assetListingConfig} from './mocks/configs';
 import {generateFiles} from '../generator';
 import {FEATURE, PoolConfigs} from '../types';
 
-describe.skip('feature: assetListing', () => {
+describe('feature: assetListing', () => {
   it('should return reasonable code', () => {
     const output = assetListing.build(MOCK_OPTIONS, 'AaveV3Ethereum', assetListingConfig);
     expect(output).toMatchSnapshot();
