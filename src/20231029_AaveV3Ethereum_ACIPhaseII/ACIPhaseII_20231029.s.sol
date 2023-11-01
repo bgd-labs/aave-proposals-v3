@@ -29,7 +29,7 @@ contract DeployEthereum is EthereumScript {
  * command: make deploy-ledger contract=src/20231029_AaveV3Ethereum_ACIPhaseII/ACIPhaseII_20231029.s.sol:CreateProposal chain=mainnet
  */
 contract CreateProposal is EthereumScript {
-  function run() external broadcast {
+  function run() external {
     // create payloads
     PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](1);
 
@@ -40,6 +40,7 @@ contract CreateProposal is EthereumScript {
     payloads[0] = GovV3Helpers.buildMainnetPayload(vm, actionsEthereum);
 
     // create proposal
+    vm.startBroadcast();
     GovV3Helpers.createProposal2_5(
       payloads,
       GovV3Helpers.ipfsHashFile(vm, 'src/20231029_AaveV3Ethereum_ACIPhaseII/ACIPhaseII.md')
