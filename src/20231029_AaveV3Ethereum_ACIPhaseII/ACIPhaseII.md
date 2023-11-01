@@ -77,8 +77,6 @@ The ACI, as one of the voices for the Aave DAO, has consistently worked towards 
 
 The ACI will continue to be one of the voices of Aave across the globe, supporting devs in hackathons, being one of the DAO voices during events and supporting our brand quality.
 
-
-
 ## Specification
 
 - **Recipient**: [0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922](https://etherscan.io/address/0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922)
@@ -88,8 +86,8 @@ The ACI will continue to be one of the voices of Aave across the globe, supporti
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231029_AaveV3Ethereum_ACIPhaseII/AaveV3Ethereum_ACIPhaseII_20231029.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231029_AaveV3Ethereum_ACIPhaseII/AaveV3Ethereum_ACIPhaseII_20231029.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/537090f38a44a32f658f881004d765c49b516504/src/20231029_AaveV3Ethereum_ACIPhaseII/AaveV3Ethereum_ACIPhaseII_20231029.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/537090f38a44a32f658f881004d765c49b516504/src/20231029_AaveV3Ethereum_ACIPhaseII/AaveV3Ethereum_ACIPhaseII_20231029.t.sol)
 - [Snapshot](https://signal.aave.com/#/proposal/0x04e7059fc5b2c33d4e4554d68d27ef67c1f6d9d310b07493116bdfbf15c25bbc)
 - [Discussion](https://governance.aave.com/t/arfc-aci-phase-ii/15138)
 
