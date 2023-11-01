@@ -17,7 +17,7 @@ contract AaveV3Ethereum_AddFXSToEthereumV3_20231025_Test is ProtocolV3TestBase {
   AaveV3Ethereum_AddFXSToEthereumV3_20231025 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 18428586);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 18470070);
     proposal = new AaveV3Ethereum_AddFXSToEthereumV3_20231025();
   }
 
