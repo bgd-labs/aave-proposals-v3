@@ -100,11 +100,12 @@ export const assetListing: FeatureModule<Listing[]> = {
   build(opt, pool, cfg) {
     const response: CodeArtifact = {
       code: {
-        constants: cfg.map(
-          (cfg) =>
-            `address public constant ${cfg.assetSymbol} = ${cfg.asset};\n` +
-            `uint256 internal constant ${cfg.assetSymbol}_SEED_AMOUNT = 10 ** ${cfg.decimals};\n`
-        ),
+        constants: cfg
+          .map((cfg) => [
+            `address public constant ${cfg.assetSymbol} = ${cfg.asset};`,
+            `uint256 internal constant ${cfg.assetSymbol}_SEED_AMOUNT = 10 ** ${cfg.decimals};`,
+          ])
+          .flat(),
         execute: cfg.map(
           (cfg) =>
             `IERC20(${cfg.assetSymbol}).forceApprove(address(${pool}.POOL), ${cfg.assetSymbol}_SEED_AMOUNT);
