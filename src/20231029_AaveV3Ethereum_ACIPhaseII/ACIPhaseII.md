@@ -77,6 +77,8 @@ The ACI, as one of the voices for the Aave DAO, has consistently worked towards 
 
 The ACI will continue to be one of the voices of Aave across the globe, supporting devs in hackathons, being one of the DAO voices during events and supporting our brand quality.
 
+
+
 ## Specification
 
 - **Recipient**: [0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922](https://etherscan.io/address/0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922)
