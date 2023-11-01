@@ -61,8 +61,8 @@ jobs:
           for i in "${json_array[@]}"
           do
             npx prettier $i --write
-            sed -i 's@https://github.com/bgd-labs/aave-proposals/blob/main/@https://github.com/bgd-labs/aave-proposals/blob/${{ github.sha }}/@g' $i
-            sed -i 's@https://github.com/bgd-labs/aave-proposals/tree/main/@https://github.com/bgd-labs/aave-proposals/blob/${{ github.sha }}/@g' $i
+            sed -i 's@https://github.com/bgd-labs/aave-proposals-v3/blob/main/@https://github.com/bgd-labs/aave-proposals/blob/${{ github.sha }}/@g' $i
+            sed -i 's@https://github.com/bgd-labs/aave-proposals-v3/tree/main/@https://github.com/bgd-labs/aave-proposals/blob/${{ github.sha }}/@g' $i
           done
 
       - name: Upload
