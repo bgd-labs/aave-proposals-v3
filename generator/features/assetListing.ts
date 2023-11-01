@@ -103,7 +103,7 @@ export const assetListing: FeatureModule<Listing[]> = {
         constants: cfg.map(
           (cfg) =>
             `address public constant ${cfg.assetSymbol} = ${cfg.asset};\n` +
-            `uint256 public constant ${cfg.assetSymbol}_SEED_AMOUNT = 10 ** ${cfg.decimals};\n`
+            `uint256 internal constant ${cfg.assetSymbol}_SEED_AMOUNT = 10 ** ${cfg.decimals};\n`
         ),
         execute: cfg.map(
           (cfg) =>
