@@ -89,7 +89,7 @@ contract DeployArbitrum is ArbitrumScript {
  * command: make deploy-ledger contract=src/20231031_Multi_MAIMIMATICDeprecation20231031/MAIMIMATICDeprecation20231031_20231031.s.sol:CreateProposal chain=mainnet
  */
 contract CreateProposal is EthereumScript {
-  function run() external broadcast {
+  function run() external {
     // create payloads
     PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](4);
 
@@ -115,6 +115,7 @@ contract CreateProposal is EthereumScript {
     payloads[3] = GovV3Helpers.buildArbitrumPayload(vm, actionsArbitrum);
 
     // create proposal
+    vm.startBroadcast();
     GovV3Helpers.createProposal2_5(
       payloads,
       GovV3Helpers.ipfsHashFile(
