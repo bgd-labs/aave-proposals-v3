@@ -1,7 +1,8 @@
 import {CodeArtifact, FEATURE, FeatureModule, PoolIdentifier} from '../types';
-import {addressInput, eModesSelect, percentInput, stringInput} from '../prompts';
+import {eModesSelect, percentInput, stringInput} from '../prompts';
 import {EModeCategoryUpdate} from './types';
 import {confirm} from '@inquirer/prompts';
+import {addressPrompt, translateJsAddressToSol} from '../prompts/addressPrompt';
 
 async function fetchEmodeCategoryUpdate<T extends boolean>(
   disableKeepCurrent?: T,
@@ -22,9 +23,9 @@ async function fetchEmodeCategoryUpdate<T extends boolean>(
       message: 'liqBonus',
       disableKeepCurrent,
     }),
-    priceSource: await addressInput({
+    priceSource: await addressPrompt({
       message: 'Price Source',
-      disableKeepCurrent,
+      required: disableKeepCurrent,
     }),
     label: await stringInput({
       message: 'label',
@@ -94,7 +95,7 @@ export const eModeUpdates: FeatureModule<EmodeUpdates> = {
                ltv: ${cfg.ltv},
                liqThreshold: ${cfg.liqThreshold},
                liqBonus: ${cfg.liqBonus},
-               priceSource: ${cfg.priceSource},
+               priceSource: ${translateJsAddressToSol(cfg.priceSource)},
                label: ${
                  cfg.label == 'EngineFlags.KEEP_CURRENT_STRING' ? cfg.label : `"${cfg.label}"`
                }

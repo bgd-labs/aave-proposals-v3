@@ -1,10 +1,5 @@
 import {Hex} from 'viem';
-import {
-  AddressInputValues,
-  BooleanSelectValues,
-  NumberInputValues,
-  PercentInputValues,
-} from '../prompts';
+import {BooleanSelectValues, NumberInputValues, PercentInputValues} from '../prompts';
 
 export interface AssetSelector {
   asset: string;
@@ -61,7 +56,7 @@ export interface EModeCategoryUpdate {
   ltv: NumberInputValues;
   liqThreshold: NumberInputValues;
   liqBonus: NumberInputValues;
-  priceSource: AddressInputValues;
+  priceSource?: Hex;
   label: string;
 }
 

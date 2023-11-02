@@ -1,7 +1,7 @@
 import {CodeArtifact, FEATURE, FeatureModule} from '../types';
-import {addressInput} from '../prompts';
 import {Hex} from 'viem';
 import {TEST_EXECUTE_PROPOSAL} from '../utils/constants';
+import {addressPrompt, translateJsAddressToSol} from '../prompts/addressPrompt';
 
 type FlashBorrower = {
   address: Hex;
@@ -13,9 +13,9 @@ export const flashBorrower: FeatureModule<FlashBorrower> = {
   async cli(opt, pool) {
     console.log(`Fetching information for FlashBorrower on ${pool}`);
     const response: FlashBorrower = {
-      address: await addressInput({
+      address: await addressPrompt({
         message: 'Who do you want to grant the flashBorrower role',
-        disableKeepCurrent: true,
+        required: true,
       }),
     };
     return response;
@@ -23,7 +23,9 @@ export const flashBorrower: FeatureModule<FlashBorrower> = {
   build(opt, pool, cfg) {
     const response: CodeArtifact = {
       code: {
-        constants: [`address public constant NEW_FLASH_BORROWER = address(${cfg.address});`],
+        constants: [
+          `address public constant NEW_FLASH_BORROWER = ${translateJsAddressToSol(cfg.address)};`,
+        ],
         execute: [`${pool}.ACL_MANAGER.addFlashBorrower(NEW_FLASH_BORROWER);`],
       },
       test: {

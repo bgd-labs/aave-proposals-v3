@@ -1,12 +1,13 @@
 import {CodeArtifact, FEATURE, FeatureModule, PoolIdentifier} from '../types';
-import {addressInput, assetsSelect} from '../prompts';
+import {assetsSelect} from '../prompts';
 import {PriceFeedUpdate, PriceFeedUpdatePartial} from './types';
+import {addressPrompt, translateJsAddressToSol} from '../prompts/addressPrompt';
 
 async function fetchPriceFeedUpdate(): Promise<PriceFeedUpdatePartial> {
   return {
-    priceFeed: await addressInput({
+    priceFeed: await addressPrompt({
       message: 'New price feed address',
-      disableKeepCurrent: true,
+      required: true,
     }),
   };
 }
@@ -39,7 +40,7 @@ export const priceFeedsUpdates: FeatureModule<PriceFeedUpdate[]> = {
             .map(
               (cfg, ix) => `priceFeedUpdates[${ix}] = IAaveV3ConfigEngine.PriceFeedUpdate({
                asset: ${cfg.asset},
-               priceFeed: ${cfg.priceFeed}
+               priceFeed: ${translateJsAddressToSol(cfg.priceFeed)}
              });`
             )
             .join('\n')}

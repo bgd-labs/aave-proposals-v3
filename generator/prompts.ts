@@ -57,11 +57,6 @@ export function translateJsNumberToSol(value: string) {
   return String(value).replace(/\B(?=(\d{3})+(?!\d))/g, '_');
 }
 
-function translateJsAddressToSol(value: string) {
-  if (value === ENGINE_FLAGS.KEEP_CURRENT_ADDRESS) return `EngineFlags.KEEP_CURRENT_ADDRESS`;
-  return getAddress(value);
-}
-
 function translateJsBoolToSol(value: string) {
   switch (value) {
     case ENGINE_FLAGS.ENABLED:
@@ -131,7 +126,7 @@ export type PercentInputValues = typeof ENGINE_FLAGS.KEEP_CURRENT | string;
 
 export async function percentInput<T extends boolean>(
   {message, disableKeepCurrent, toRay}: PercentInputPrompt<T>,
-  opts
+  opts?
 ): Promise<T extends true ? PercentInputValues : Exclude<PercentInputValues, 'KEEP_CURRENT'>> {
   const value = await advancedInput(
     {
@@ -149,7 +144,7 @@ export async function percentInput<T extends boolean>(
 
 export type NumberInputValues = typeof ENGINE_FLAGS.KEEP_CURRENT | string;
 
-export async function numberInput({message, disableKeepCurrent}: GenericPrompt, opts) {
+export async function numberInput({message, disableKeepCurrent}: GenericPrompt, opts?) {
   const value = await advancedInput(
     {
       message,
@@ -162,20 +157,6 @@ export async function numberInput({message, disableKeepCurrent}: GenericPrompt, 
     opts
   );
   return translateJsNumberToSol(value);
-}
-
-export type AddressInputValues = Hex | typeof ENGINE_FLAGS.KEEP_CURRENT_ADDRESS;
-
-export async function addressInput<T extends boolean>({
-  message,
-  disableKeepCurrent,
-}: GenericPrompt<T>): Promise<T extends true ? Hex : AddressInputValues> {
-  const value = await input({
-    message,
-    validate: disableKeepCurrent ? isAddress : isAddressOrKeepCurrent,
-    ...(disableKeepCurrent ? {} : {default: ENGINE_FLAGS.KEEP_CURRENT_ADDRESS}),
-  });
-  return translateJsAddressToSol(value) as T extends true ? Hex : AddressInputValues;
 }
 
 interface AssetsSelectPrompt extends Exclude<GenericPrompt, 'disableKeepCurrent'> {
