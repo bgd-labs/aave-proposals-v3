@@ -140,7 +140,7 @@ export async function percentInput<T extends boolean>(
       validate: disableKeepCurrent ? isNumber : isNumberOrKeepCurrent,
       ...(disableKeepCurrent ? {} : {default: ENGINE_FLAGS.KEEP_CURRENT}),
       pattern: /^[0-9]*\.?[0-9]*$/,
-      patternError: 'Only full numbers are allowed',
+      patternError: 'Only decimal numbers are allowed (e.g. 1.1)',
     },
     opts
   );
