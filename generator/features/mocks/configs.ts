@@ -1,5 +1,5 @@
 import {Options} from '../../types';
-import {Listing} from '../types';
+import {CapsUpdate, Listing} from '../types';
 
 export const MOCK_OPTIONS: Options = {
   pools: ['AaveV3Ethereum'],
