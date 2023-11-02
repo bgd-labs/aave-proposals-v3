@@ -18,7 +18,6 @@ contract DeployEthereum is EthereumScript {
     IPayloadsControllerCore.ExecutionAction[]
       memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
     actions[0] = GovV3Helpers.buildAction(address(payload0));
-
     // register action at payloadsController
     GovV3Helpers.createPayload(actions);
   }
