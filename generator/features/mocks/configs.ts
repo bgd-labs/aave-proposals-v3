@@ -45,9 +45,9 @@ export const assetListingConfig: Listing[] = [
   },
 ];
 
-export const priceFeedsUpdate: PriceFeedUpdate[] = [
+export const priceFeedsUpdateConfig: PriceFeedUpdate[] = [
   {
-    asset: 'AaveV3PolygonAssets.DAI_UNDERLYING',
+    asset: 'DAI',
     priceFeed: '0xae7ab96520de3a18e5e111b5eaab095312d7fe84',
   },
 ];
