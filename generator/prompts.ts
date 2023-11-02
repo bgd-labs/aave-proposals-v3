@@ -1,7 +1,6 @@
 import {checkbox, input, select} from '@inquirer/prompts';
 import {ENGINE_FLAGS, PoolIdentifier} from './types';
 import {getAssets, getEModes} from './common';
-import {Hex, getAddress, isAddress} from 'viem';
 import {advancedInput} from './prompts/advancedInput';
 
 // VALIDATION
@@ -12,11 +11,6 @@ function isNumber(value: string) {
 function isNumberOrKeepCurrent(value: string) {
   if (value == ENGINE_FLAGS.KEEP_CURRENT || isNumber(value)) return true;
   return 'Must be number or KEEP_CURRENT';
-}
-
-function isAddressOrKeepCurrent(value: string) {
-  if (value == ENGINE_FLAGS.KEEP_CURRENT_ADDRESS || isAddress(value)) return true;
-  return 'Must be a valid address';
 }
 
 // TRANSFORMS
