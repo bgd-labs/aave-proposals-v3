@@ -25,9 +25,8 @@ The `FreezingSteward` is identical to the one currently deployed on [Ethereum](h
 
 ## References
 
-- Implementation: [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231101_Multi_FreezeStewards/AaveV3Avalanche_FreezeStewards_20231101.sol), [AaveV3Metis](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231101_Multi_FreezeStewards/AaveV3Metis_FreezeStewards_20231101.sol), [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231101_Multi_FreezeStewards/AaveV3Base_FreezeStewards_20231101.sol)
-- Tests: [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231101_Multi_FreezeStewards/AaveV3Avalanche_FreezeStewards_20231101.t.sol), [AaveV3Metis](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231101_Multi_FreezeStewards/AaveV3Metis_FreezeStewards_20231101.t.sol), [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231101_Multi_FreezeStewards/AaveV3Base_FreezeStewards_20231101.t.sol)
-- [Snapshot](TODO)
+- Implementation: [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals/blob/eb3b1855f4d9e40d9a84bba5ee45b1c449f219ec/src/20230907_AaveV3_Multi_FreezeStewards/AaveV3_Avalanche_FreezeStewards_20230907.sol), [AaveV3Metis](https://github.com/bgd-labs/aave-proposals/blob/eb3b1855f4d9e40d9a84bba5ee45b1c449f219ec/src/20230907_AaveV3_Multi_FreezeStewards/AaveV3_Metis_FreezeStewards_20230907.sol), [AaveV3Base](https://github.com/bgd-labs/aave-proposals/blob/eb3b1855f4d9e40d9a84bba5ee45b1c449f219ec/src/20230907_AaveV3_Multi_FreezeStewards/AaveV3_Base_FreezeStewards_20230907.sol)
+- Tests: [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals/blob/eb3b1855f4d9e40d9a84bba5ee45b1c449f219ec/src/20230907_AaveV3_Multi_FreezeStewards/AaveV3_Avalanche_FreezeStewards_20230907.t.sol), [AaveV3Metis](https://github.com/bgd-labs/aave-proposals/blob/eb3b1855f4d9e40d9a84bba5ee45b1c449f219ec/src/20230907_AaveV3_Multi_FreezeStewards/AaveV3_Metis_FreezeStewards_20230907.t.sol), [AaveV3Base](https://github.com/bgd-labs/aave-proposals/blob/eb3b1855f4d9e40d9a84bba5ee45b1c449f219ec/src/20230907_AaveV3_Multi_FreezeStewards/AaveV3_Base_FreezeStewards_20230907.t.sol)
 - [Discussion](https://governance.aave.com/t/bgd-technical-maintenance-proposals/15274)
 
 ## Copyright
