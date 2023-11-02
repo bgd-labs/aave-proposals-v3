@@ -2,6 +2,7 @@ import {checkbox, input, select} from '@inquirer/prompts';
 import {ENGINE_FLAGS, PoolIdentifier} from './types';
 import {getAssets, getEModes} from './common';
 import {Hex, getAddress, isAddress} from 'viem';
+import {advancedInput} from './prompts/advancedInput';
 
 // VALIDATION
 function isNumber(value: string) {
@@ -128,31 +129,38 @@ interface PercentInputPrompt<T extends boolean> extends GenericPrompt<T> {
 
 export type PercentInputValues = typeof ENGINE_FLAGS.KEEP_CURRENT | string;
 
-export async function percentInput<T extends boolean>({
-  message,
-  disableKeepCurrent,
-  toRay,
-}: PercentInputPrompt<T>): Promise<
-  T extends true ? PercentInputValues : Exclude<PercentInputValues, 'KEEP_CURRENT'>
-> {
-  const value = await input({
-    message,
-    transformer: transformNumberToPercent,
-    validate: disableKeepCurrent ? isNumber : isNumberOrKeepCurrent,
-    ...(disableKeepCurrent ? {} : {default: ENGINE_FLAGS.KEEP_CURRENT}),
-  });
+export async function percentInput<T extends boolean>(
+  {message, disableKeepCurrent, toRay}: PercentInputPrompt<T>,
+  opts
+): Promise<T extends true ? PercentInputValues : Exclude<PercentInputValues, 'KEEP_CURRENT'>> {
+  const value = await advancedInput(
+    {
+      message,
+      transformer: transformNumberToPercent,
+      validate: disableKeepCurrent ? isNumber : isNumberOrKeepCurrent,
+      ...(disableKeepCurrent ? {} : {default: ENGINE_FLAGS.KEEP_CURRENT}),
+      pattern: /^[0-9]*\.?[0-9]*$/,
+      patternError: 'Only full numbers are allowed',
+    },
+    opts
+  );
   return translateJsPercentToSol(value, toRay);
 }
 
 export type NumberInputValues = typeof ENGINE_FLAGS.KEEP_CURRENT | string;
 
-export async function numberInput({message, disableKeepCurrent}: GenericPrompt) {
-  const value = await input({
-    message,
-    transformer: transformNumberToHumanReadable,
-    validate: disableKeepCurrent ? isNumber : isNumberOrKeepCurrent,
-    ...(disableKeepCurrent ? {} : {default: ENGINE_FLAGS.KEEP_CURRENT}),
-  });
+export async function numberInput({message, disableKeepCurrent}: GenericPrompt, opts) {
+  const value = await advancedInput(
+    {
+      message,
+      transformer: transformNumberToHumanReadable,
+      validate: disableKeepCurrent ? isNumber : isNumberOrKeepCurrent,
+      ...(disableKeepCurrent ? {} : {default: ENGINE_FLAGS.KEEP_CURRENT}),
+      pattern: /^[0-9]*$/,
+      patternError: 'Only full numbers are allowed',
+    },
+    opts
+  );
   return translateJsNumberToSol(value);
 }
 

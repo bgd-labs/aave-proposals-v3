@@ -1,6 +1,8 @@
-// sum.test.js
 import {expect, describe, it} from 'vitest';
+import {render} from '@inquirer/testing';
 import {
+  numberInput,
+  percentInput,
   transformNumberToHumanReadable,
   transformNumberToPercent,
   translateJsNumberToSol,
@@ -8,6 +10,37 @@ import {
 } from './prompts';
 
 describe('prompts', () => {
+  describe('numberInput', () => {
+    it('handles "yes"', async () => {
+      const {answer, events, getScreen} = await render(numberInput, {
+        message: 'Enter number?',
+      });
+
+      expect(getScreen()).toMatchInlineSnapshot('"? Enter number? (KEEP_CURRENT)"');
+
+      events.type('yes112.3');
+      expect(getScreen()).toMatchInlineSnapshot('"? Enter number? 1,123"');
+
+      events.keypress('enter');
+      await expect(answer).resolves.toEqual('1_123');
+    });
+  });
+
+  describe('percentInput', () => {
+    it('handles "yes"', async () => {
+      const {answer, events, getScreen} = await render(percentInput, {
+        message: 'Enter number?',
+      });
+
+      expect(getScreen()).toMatchInlineSnapshot('"? Enter number? (KEEP_CURRENT)"');
+
+      events.type('yes12.3');
+      expect(getScreen()).toMatchInlineSnapshot('"? Enter number? 12.3 %"');
+
+      events.keypress('enter');
+      await expect(answer).resolves.toEqual('12_30');
+    });
+  });
   /**
    * Transformers are here to format the input based on a users input
    * They do not change the users input value though, the effect is purely visual

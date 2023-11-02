@@ -294,6 +294,18 @@
     chalk "^4.1.2"
     figures "^3.2.0"
 
+"@inquirer/testing@^2.1.8":
+  version "2.1.8"
+  resolved "https://registry.yarnpkg.com/@inquirer/testing/-/testing-2.1.8.tgz#809dffe6a4891100c54eee02ae99e3cd26b8425e"
+  integrity sha512-PPCiS5wN/MDjeJRQuMZa3cUDwsVmmB9wwbWNSNoC3ciPUwhX8fHdC0Um/gKMlF7EnaZaPa+AOrA8zLo/zJLjPw==
+  dependencies:
+    "@inquirer/type" "^1.1.5"
+    "@types/mute-stream" "^0.0.2"
+    "@types/node" "^20.8.2"
+    ansi-escapes "^4.3.2"
+    mute-stream "^1.0.0"
+    strip-ansi "^6.0.1"
+
 "@inquirer/type@^1.1.5":
   version "1.1.5"
   resolved "https://registry.yarnpkg.com/@inquirer/type/-/type-1.1.5.tgz#b8c171f755859c8159b10e41e1e3a88f0ca99d7f"
