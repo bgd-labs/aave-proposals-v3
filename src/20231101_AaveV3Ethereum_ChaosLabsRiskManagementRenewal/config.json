@@ -1,0 +1,19 @@
+{
+  "rootOptions": {
+    "author": "Chaos Labs",
+    "pools": [
+      "AaveV3Ethereum"
+    ],
+    "title": "Chaos Labs Risk Management Renewal",
+    "discussion": "https://governance.aave.com/t/arfc-chaos-labs-aave-risk-management-renewal/15234",
+    "snapshot": "https://snapshot.org/\\#/aave.eth/proposal/0x6fc4b8ece3d4ac789e043d6aace9ffa77a886a7ea4e0bfe4a55b7a8cdada065e",
+    "shortName": "ChaosLabsRiskManagementRenewal",
+    "date": "20231101"
+  },
+  "poolOptions": {
+    "AaveV3Ethereum": {
+      "configs": {},
+      "features": []
+    }
+  }
+}
