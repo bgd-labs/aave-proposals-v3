@@ -100,11 +100,16 @@ export const assetListing: FeatureModule<Listing[]> = {
   build(opt, pool, cfg) {
     const response: CodeArtifact = {
       code: {
-        constants: cfg.map((cfg) => `address public constant ${cfg.assetSymbol} = ${cfg.asset};`),
+        constants: cfg
+          .map((cfg) => [
+            `address public constant ${cfg.assetSymbol} = ${cfg.asset};`,
+            `uint256 internal constant ${cfg.assetSymbol}_SEED_AMOUNT = 10 ** ${cfg.decimals};`,
+          ])
+          .flat(),
         execute: cfg.map(
           (cfg) =>
-            `IERC20(${cfg.assetSymbol}).forceApprove(address(${pool}.POOL), 10 ** ${cfg.decimals});
-            ${pool}.POOL.supply(${cfg.assetSymbol}, 10 ** ${cfg.decimals}, address(${pool}.COLLECTOR), 0);`
+            `IERC20(${cfg.assetSymbol}).forceApprove(address(${pool}.POOL), ${cfg.assetSymbol}_SEED_AMOUNT);
+            ${pool}.POOL.supply(${cfg.assetSymbol}, ${cfg.assetSymbol}_SEED_AMOUNT, address(${pool}.COLLECTOR), 0);`
         ),
         fn: [
           `function newListings() public pure override returns (IAaveV3ConfigEngine.Listing[] memory) {
