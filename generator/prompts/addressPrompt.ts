@@ -10,7 +10,7 @@ export async function addressPrompt<T extends boolean>(
     {
       message: required ? `${message}*` : message,
       validate: (v) => (required ? isAddress(v) : isAddress(v) || v === ''),
-      pattern: /^(0|0x|0x[A-Fa-f0-9]{0,40})$/,
+      pattern: /^(0|0x|0x[A-Fa-f0-9]{0,40})?$/,
     },
     opts
   );

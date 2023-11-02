@@ -1,5 +1,5 @@
 import {Options} from '../../types';
-import {CapsUpdate, Listing} from '../types';
+import {CapsUpdate, Listing, PriceFeedUpdate} from '../types';
 
 export const MOCK_OPTIONS: Options = {
   pools: ['AaveV3Ethereum'],
@@ -42,5 +42,12 @@ export const assetListingConfig: Listing[] = [
     },
     eModeCategory: 'AaveV3EthereumEModes.NONE',
     asset: '0xcAfE001067cDEF266AfB7Eb5A286dCFD277f3dE5',
+  },
+];
+
+export const priceFeedsUpdate: PriceFeedUpdate[] = [
+  {
+    asset: 'AaveV3PolygonAssets.DAI_UNDERLYING',
+    priceFeed: '0xae7ab96520de3a18e5e111b5eaab095312d7fe84',
   },
 ];
