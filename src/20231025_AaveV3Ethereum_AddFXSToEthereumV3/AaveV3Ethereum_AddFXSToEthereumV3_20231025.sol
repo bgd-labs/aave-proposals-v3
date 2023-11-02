@@ -6,6 +6,7 @@ import {AaveV3PayloadEthereum} from 'aave-helpers/v3-config-engine/AaveV3Payload
 import {IAaveV3ConfigEngine} from 'aave-helpers/v3-config-engine/IAaveV3ConfigEngine.sol';
 import {EngineFlags} from 'aave-helpers/v3-config-engine/EngineFlags.sol';
 import {IV3RateStrategyFactory} from 'aave-helpers/v3-config-engine/IV3RateStrategyFactory.sol';
+import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 
 /**
  * @title Add FXS to Ethereum V3
@@ -15,9 +16,11 @@ import {IV3RateStrategyFactory} from 'aave-helpers/v3-config-engine/IV3RateStrat
  */
 contract AaveV3Ethereum_AddFXSToEthereumV3_20231025 is AaveV3PayloadEthereum {
   address public constant FXS = address(0x3432B6A60D23Ca0dFCa7761B7ab56459D9C964D0);
+  uint256 internal constant FXS_SEED_AMOUNT = 10 ** 18;
 
   function _postExecute() internal override {
-    AaveV3Ethereum.POOL.supply(FXS, 10 ** 18, address(AaveV3Ethereum.COLLECTOR), 0);
+    IERC20(FXS).approve(address(AaveV3Ethereum.POOL), FXS_SEED_AMOUNT);
+    AaveV3Ethereum.POOL.supply(FXS, FXS_SEED_AMOUNT, address(AaveV3Ethereum.COLLECTOR), 0);
   }
 
   function newListings() public pure override returns (IAaveV3ConfigEngine.Listing[] memory) {
