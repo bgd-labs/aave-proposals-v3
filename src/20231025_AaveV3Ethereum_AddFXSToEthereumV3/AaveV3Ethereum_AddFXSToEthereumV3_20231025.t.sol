@@ -20,11 +20,14 @@ contract AaveV3Ethereum_AddFXSToEthereumV3_20231025_Test is ProtocolV3TestBase {
     vm.createSelectFork(vm.rpcUrl('mainnet'), 18470070);
     proposal = new AaveV3Ethereum_AddFXSToEthereumV3_20231025();
   }
-
+  
   /**
    * @dev executes the generic test suite including e2e and config snapshots
    */
   function test_defaultProposalExecution() public {
+    hoax(0xF977814e90dA44bFA03b6295A0616a897441aceC);
+    IERC20(proposal.FXS()).transfer(address(AaveV3Ethereum.COLLECTOR), 100*10**18);
+    IERC20(proposal.FXS()).transfer(address(0x5300A1a15135EA4dc7aD5a167152C01EFc9b192A), 100*10**18);
     defaultTest(
       'AaveV3Ethereum_AddFXSToEthereumV3_20231025',
       AaveV3Ethereum.POOL,
