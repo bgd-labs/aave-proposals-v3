@@ -2,6 +2,7 @@ import {checkbox, input, select} from '@inquirer/prompts';
 import {ENGINE_FLAGS, PoolIdentifier} from './types';
 import {getAssets, getEModes} from './common';
 import {Hex, getAddress, isAddress} from 'viem';
+import {advancedInput} from './prompts/advancedInput';
 
 // VALIDATION
 function isNumber(value: string) {
@@ -19,29 +20,39 @@ function isAddressOrKeepCurrent(value: string) {
 }
 
 // TRANSFORMS
-function transformNumberToPercent(value: string) {
+export function transformNumberToPercent(value: string) {
   if (value && isNumber(value)) {
-    if (Number(value) <= 9) value = value.padStart(2, '0');
-    return value.replace(/(?=(\d{2}$)+(?!\d))/g, '.') + ' %';
+    return (
+      new Intl.NumberFormat('en-us', {
+        maximumFractionDigits: 2,
+      }).format(value as unknown as number) + ' %'
+    );
   }
   return value;
 }
 
-function transformNumberToHumanReadable(value: string) {
+export function transformNumberToHumanReadable(value: string) {
   if (value && isNumber(value)) {
-    return value.replace(/(?=(\d{3}$)+(?!\d))/g, '.');
+    return new Intl.NumberFormat('en-us').format(BigInt(value));
   }
   return value;
 }
 
 // TRANSLATIONS
-function translateJsPercentToSol(value: string, bpsToRay?: boolean) {
+export function translateJsPercentToSol(value: string, bpsToRay?: boolean) {
   if (value === ENGINE_FLAGS.KEEP_CURRENT) return `EngineFlags.KEEP_CURRENT`;
-  if (bpsToRay) return `_bpsToRay(${value.replace(/(?=(\d{2}$))/g, '_')})`;
-  return value.replace(/(?=(\d{2}$)+(?!\d))/g, '_');
+  const formattedValue = new Intl.NumberFormat('en-us', {
+    maximumFractionDigits: 2,
+    minimumFractionDigits: 2,
+  }).format(value as unknown as number);
+  const _value = (
+    Number(value) >= 1 ? formattedValue : formattedValue.replace(/^0\.0*(?=[0-9])/, '')
+  ).replace(/[\.,]/g, '_');
+  if (bpsToRay) return `_bpsToRay(${_value})`;
+  return _value;
 }
 
-function translateJsNumberToSol(value: string) {
+export function translateJsNumberToSol(value: string) {
   if (value === ENGINE_FLAGS.KEEP_CURRENT) return `EngineFlags.KEEP_CURRENT`;
   return String(value).replace(/\B(?=(\d{3})+(?!\d))/g, '_');
 }
@@ -118,31 +129,38 @@ interface PercentInputPrompt<T extends boolean> extends GenericPrompt<T> {
 
 export type PercentInputValues = typeof ENGINE_FLAGS.KEEP_CURRENT | string;
 
-export async function percentInput<T extends boolean>({
-  message,
-  disableKeepCurrent,
-  toRay,
-}: PercentInputPrompt<T>): Promise<
-  T extends true ? PercentInputValues : Exclude<PercentInputValues, 'KEEP_CURRENT'>
-> {
-  const value = await input({
-    message,
-    transformer: transformNumberToPercent,
-    validate: disableKeepCurrent ? isNumber : isNumberOrKeepCurrent,
-    ...(disableKeepCurrent ? {} : {default: ENGINE_FLAGS.KEEP_CURRENT}),
-  });
+export async function percentInput<T extends boolean>(
+  {message, disableKeepCurrent, toRay}: PercentInputPrompt<T>,
+  opts
+): Promise<T extends true ? PercentInputValues : Exclude<PercentInputValues, 'KEEP_CURRENT'>> {
+  const value = await advancedInput(
+    {
+      message,
+      transformer: transformNumberToPercent,
+      validate: disableKeepCurrent ? isNumber : isNumberOrKeepCurrent,
+      ...(disableKeepCurrent ? {} : {default: ENGINE_FLAGS.KEEP_CURRENT}),
+      pattern: /^[0-9]*\.?[0-9]*$/,
+      patternError: 'Only decimal numbers are allowed (e.g. 1.1)',
+    },
+    opts
+  );
   return translateJsPercentToSol(value, toRay);
 }
 
 export type NumberInputValues = typeof ENGINE_FLAGS.KEEP_CURRENT | string;
 
-export async function numberInput({message, disableKeepCurrent}: GenericPrompt) {
-  const value = await input({
-    message,
-    transformer: transformNumberToHumanReadable,
-    validate: disableKeepCurrent ? isNumber : isNumberOrKeepCurrent,
-    ...(disableKeepCurrent ? {} : {default: ENGINE_FLAGS.KEEP_CURRENT}),
-  });
+export async function numberInput({message, disableKeepCurrent}: GenericPrompt, opts) {
+  const value = await advancedInput(
+    {
+      message,
+      transformer: transformNumberToHumanReadable,
+      validate: disableKeepCurrent ? isNumber : isNumberOrKeepCurrent,
+      ...(disableKeepCurrent ? {} : {default: ENGINE_FLAGS.KEEP_CURRENT}),
+      pattern: /^[0-9]*$/,
+      patternError: 'Only full numbers are allowed',
+    },
+    opts
+  );
   return translateJsNumberToSol(value);
 }
 
