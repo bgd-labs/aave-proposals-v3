@@ -127,13 +127,14 @@ Our team of experts brings a wealth of experience in risk management and data an
 
 - 12-month engagement, November 13th 2023-November 13th, 2024
 - $1.6M, streamed linearly throughout the engagement.
-  - Given community preference, we suggest the full amount to be paid in GHO but are open to any composition of stables/AAVE tokens.
+  - $800,000 in GHO
+  - $800,000 in aUSDT
 
 ## Specification:
 
 If this proposal is approved, a stream of the allocated budget will be activated, with a Chaos Labs-controlled account (`0xbC540e0729B732fb14afA240aA5A047aE9ba7dF0`) as the recipient.
 
-In terms of technical implementation, the AIP will call the `createStream()` method of the `IAaveEcosystemReserveController` interface to create a stream of 1,600,000 aUSDC or GHO for a 12-month duration.
+In terms of technical implementation, the AIP will call the `createStream()` method of the `IAaveEcosystemReserveController` interface to create a stream of 800,000 aUSDT and 800,000 GHO for a 12-month duration.
 
 ## Disclaimer:
 
