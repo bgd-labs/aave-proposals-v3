@@ -1,6 +1,7 @@
-import {CodeArtifact, FEATURE, FeatureModule, PoolIdentifier} from '../types';
-import {assetsSelect, percentInput} from '../prompts';
+import {CodeArtifact, FEATURE, FeatureModule} from '../types';
+import {percentInput} from '../prompts';
 import {RateStrategyParams, RateStrategyUpdate} from './types';
+import {assetsSelectPrompt, translateAssetToAssetLibUnderlying} from '../prompts/assetsPrompt';
 
 export async function fetchRateStrategyParamsV2(
   disableKeepCurrent?: boolean
@@ -66,7 +67,7 @@ export const rateUpdatesV2: FeatureModule<RateStrategyUpdate[]> = {
   description: 'RateStrategiesUpdates',
   async cli(opt, pool) {
     console.log(`Fetching information for RatesUpdate on ${pool}`);
-    const assets = await assetsSelect({
+    const assets = await assetsSelectPrompt({
       message: 'Select the assets you want to amend',
       pool,
     });
@@ -93,7 +94,7 @@ export const rateUpdatesV2: FeatureModule<RateStrategyUpdate[]> = {
           ${cfg
             .map(
               (cfg, ix) => `rateStrategies[${ix}] = IAaveV2ConfigEngine.RateStrategyUpdate({
-                asset: ${cfg.asset},
+                asset: ${translateAssetToAssetLibUnderlying(cfg.asset, pool)},
                 params: IV2RateStrategyFactory.RateStrategyParams({
                   optimalUtilizationRate: ${cfg.params.optimalUtilizationRate},
                   baseVariableBorrowRate: ${cfg.params.baseVariableBorrowRate},
@@ -121,7 +122,7 @@ export const rateUpdatesV3: FeatureModule<RateStrategyUpdate[]> = {
   description: 'RateStrategiesUpdates',
   async cli(opt, pool) {
     console.log(`Fetching information for RatesUpdate on ${pool}`);
-    const assets = await assetsSelect({
+    const assets = await assetsSelectPrompt({
       message: 'Select the assets you want to amend',
       pool,
     });
@@ -148,7 +149,7 @@ export const rateUpdatesV3: FeatureModule<RateStrategyUpdate[]> = {
           ${cfg
             .map(
               (cfg, ix) => `rateStrategies[${ix}] = IAaveV3ConfigEngine.RateStrategyUpdate({
-                  asset: ${cfg.asset},
+                  asset: ${translateAssetToAssetLibUnderlying(cfg.asset, pool)},
                   params: IV3RateStrategyFactory.RateStrategyParams({
                     optimalUsageRatio: ${cfg.params.optimalUtilizationRate},
                     baseVariableBorrowRate: ${cfg.params.baseVariableBorrowRate},
