@@ -1,16 +1,18 @@
 import {CodeArtifact, FEATURE, FeatureModule, PoolIdentifier} from '../types';
-import {eModesSelect, percentInput, stringInput} from '../prompts';
+import {eModesSelect, percentInput} from '../prompts';
 import {EModeCategoryUpdate} from './types';
 import {confirm} from '@inquirer/prompts';
 import {addressPrompt, translateJsAddressToSol} from '../prompts/addressPrompt';
+import {stringOrKeepCurrent, stringPrompt} from '../prompts/stringPrompt';
+import {zeroAddress} from 'viem';
+import {getEModes} from '../common';
 
 async function fetchEmodeCategoryUpdate<T extends boolean>(
-  disableKeepCurrent?: T,
-  eModeCategory?: string
+  eModeCategory: string | number,
+  disableKeepCurrent?: T
 ): Promise<EModeCategoryUpdate> {
   return {
-    eModeCategory:
-      eModeCategory ?? (await stringInput({message: 'eModeCategory', disableKeepCurrent})),
+    eModeCategory,
     ltv: await percentInput({
       message: 'ltv',
       disableKeepCurrent,
@@ -26,10 +28,11 @@ async function fetchEmodeCategoryUpdate<T extends boolean>(
     priceSource: await addressPrompt({
       message: 'Price Source',
       required: disableKeepCurrent,
+      defaultValue: disableKeepCurrent ? zeroAddress : '',
     }),
-    label: await stringInput({
+    label: await stringPrompt({
       message: 'label',
-      disableKeepCurrent,
+      required: disableKeepCurrent,
     }),
   };
 }
@@ -44,7 +47,9 @@ async function subCli(pool: PoolIdentifier) {
   if (shouldAddNewCategory) {
     let more: boolean = true;
     while (more) {
-      answers.push(await fetchEmodeCategoryUpdate(true));
+      const eModes = getEModes(pool as any);
+      const highestEmode = Math.max(...Object.values(eModes));
+      answers.push(await fetchEmodeCategoryUpdate(highestEmode + 1, true));
       more = await confirm({message: 'Do you want to add another emode category?', default: false});
     }
   }
@@ -62,7 +67,7 @@ async function subCli(pool: PoolIdentifier) {
     if (eModeCategories) {
       for (const eModeCategory of eModeCategories) {
         console.log(`collecting info for ${eModeCategory}`);
-        answers.push(await fetchEmodeCategoryUpdate(false, eModeCategory));
+        answers.push(await fetchEmodeCategoryUpdate(eModeCategory));
       }
     }
   }
@@ -96,9 +101,7 @@ export const eModeUpdates: FeatureModule<EmodeUpdates> = {
                liqThreshold: ${cfg.liqThreshold},
                liqBonus: ${cfg.liqBonus},
                priceSource: ${translateJsAddressToSol(cfg.priceSource)},
-               label: ${
-                 cfg.label == 'EngineFlags.KEEP_CURRENT_STRING' ? cfg.label : `"${cfg.label}"`
-               }
+               label: ${stringOrKeepCurrent(cfg.label)}
              });`
             )
             .join('\n')}

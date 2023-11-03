@@ -1,7 +1,10 @@
 import {CodeArtifact, FEATURE, FeatureModule} from '../types';
 import {percentInput} from '../prompts';
 import {RateStrategyParams, RateStrategyUpdate} from './types';
-import {assetsSelectPrompt, translateAssetToAssetLibUnderlying} from '../prompts/assetsPrompt';
+import {
+  assetsSelectPrompt,
+  translateAssetToAssetLibUnderlying,
+} from '../prompts/assetsSelectPrompt';
 
 export async function fetchRateStrategyParamsV2(
   disableKeepCurrent?: boolean

@@ -1,7 +1,10 @@
 import {CodeArtifact, FEATURE, FeatureModule, PoolIdentifier} from '../types';
 import {eModeSelect} from '../prompts';
 import {AssetEModeUpdate} from './types';
-import {assetsSelectPrompt, translateAssetToAssetLibUnderlying} from '../prompts/assetsPrompt';
+import {
+  assetsSelectPrompt,
+  translateAssetToAssetLibUnderlying,
+} from '../prompts/assetsSelectPrompt';
 
 async function subCli(pool: PoolIdentifier) {
   console.log(`Fetching information for Emode assets on ${pool}`);

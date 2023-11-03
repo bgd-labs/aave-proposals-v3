@@ -1,5 +1,5 @@
 import {Options} from '../../types';
-import {CapsUpdate, Listing, PriceFeedUpdate} from '../types';
+import {EModeCategoryUpdate, Listing, PriceFeedUpdate} from '../types';
 
 export const MOCK_OPTIONS: Options = {
   pools: ['AaveV3Ethereum'],
@@ -49,5 +49,24 @@ export const priceFeedsUpdateConfig: PriceFeedUpdate[] = [
   {
     asset: 'DAI',
     priceFeed: '0xae7ab96520de3a18e5e111b5eaab095312d7fe84',
+  },
+];
+
+export const emodeUpdates: EModeCategoryUpdate[] = [
+  {
+    eModeCategory: 2,
+    ltv: '20_00',
+    liqThreshold: '30_00',
+    liqBonus: '5_00',
+    priceSource: '0x0000000000000000000000000000000000000000',
+    label: 'label',
+  },
+  {
+    eModeCategory: 'AaveV3EthereumEModes.ETH_CORRELATED',
+    ltv: 'EngineFlags.KEEP_CURRENT',
+    liqThreshold: '50_00',
+    liqBonus: 'EngineFlags.KEEP_CURRENT',
+    priceSource: '',
+    label: '',
   },
 ];

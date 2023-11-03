@@ -1,7 +1,10 @@
 import {CodeArtifact, ENGINE_FLAGS, FEATURE, FeatureModule} from '../types';
 import {booleanSelect, percentInput} from '../prompts';
 import {BorrowUpdate} from './types';
-import {assetsSelectPrompt, translateAssetToAssetLibUnderlying} from '../prompts/assetsPrompt';
+import {
+  assetsSelectPrompt,
+  translateAssetToAssetLibUnderlying,
+} from '../prompts/assetsSelectPrompt';
 
 export async function fetchBorrowUpdate<T extends boolean>(disableKeepCurrent?: T) {
   return {

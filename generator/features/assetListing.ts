@@ -1,5 +1,5 @@
 import {CodeArtifact, FEATURE, FeatureModule, PoolIdentifier} from '../types';
-import {eModeSelect, stringInput} from '../prompts';
+import {eModeSelect} from '../prompts';
 import {fetchBorrowUpdate} from './borrowsUpdates';
 import {fetchRateStrategyParamsV3} from './rateUpdates';
 import {fetchCollateralUpdate} from './collateralsUpdates';
@@ -10,6 +10,7 @@ import {createPublicClient, getContract, http} from 'viem';
 import {confirm} from '@inquirer/prompts';
 import {TEST_EXECUTE_PROPOSAL} from '../utils/constants';
 import {addressPrompt, translateJsAddressToSol} from '../prompts/addressPrompt';
+import {stringPrompt} from '../prompts/stringPrompt';
 
 async function fetchListing(pool: PoolIdentifier): Promise<Listing> {
   const asset = await addressPrompt({
@@ -57,9 +58,9 @@ async function fetchListing(pool: PoolIdentifier): Promise<Listing> {
   const decimals = await erc20.read.decimals();
 
   return {
-    assetSymbol: await stringInput({
+    assetSymbol: await stringPrompt({
       message: 'Enter the asset symbol',
-      disableKeepCurrent: true,
+      required: true,
       defaultValue: symbol,
     }),
     decimals,

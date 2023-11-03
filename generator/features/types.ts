@@ -52,11 +52,12 @@ export interface AssetEModeUpdatePartial {
 export interface AssetEModeUpdate extends AssetEModeUpdatePartial, AssetSelector {}
 
 export interface EModeCategoryUpdate {
-  eModeCategory: string;
+  // library accessor or new id
+  eModeCategory: string | number;
   ltv: NumberInputValues;
   liqThreshold: NumberInputValues;
   liqBonus: NumberInputValues;
-  priceSource?: Hex;
+  priceSource?: Hex | '';
   label: string;
 }
 

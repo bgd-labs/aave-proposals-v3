@@ -1,7 +1,10 @@
 import {CodeArtifact, FEATURE, FeatureModule} from '../types';
 import {PriceFeedUpdate, PriceFeedUpdatePartial} from './types';
 import {addressPrompt, translateJsAddressToSol} from '../prompts/addressPrompt';
-import {assetsSelectPrompt, translateAssetToAssetLibUnderlying} from '../prompts/assetsPrompt';
+import {
+  assetsSelectPrompt,
+  translateAssetToAssetLibUnderlying,
+} from '../prompts/assetsSelectPrompt';
 
 async function fetchPriceFeedUpdate(): Promise<PriceFeedUpdatePartial> {
   return {

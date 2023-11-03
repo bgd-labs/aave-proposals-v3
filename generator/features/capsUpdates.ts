@@ -1,7 +1,10 @@
 import {CodeArtifact, FEATURE, FeatureModule} from '../types';
 import {numberInput} from '../prompts';
 import {CapsUpdate, CapsUpdatePartial} from './types';
-import {assetsSelectPrompt, translateAssetToAssetLibUnderlying} from '../prompts/assetsPrompt';
+import {
+  assetsSelectPrompt,
+  translateAssetToAssetLibUnderlying,
+} from '../prompts/assetsSelectPrompt';
 
 export async function fetchCapsUpdate(disableKeepCurrent?: boolean): Promise<CapsUpdatePartial> {
   return {

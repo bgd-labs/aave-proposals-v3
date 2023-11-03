@@ -1,7 +1,10 @@
 import {CodeArtifact, FEATURE, FeatureModule, PoolIdentifier} from '../types';
 import {numberInput, percentInput} from '../prompts';
 import {CollateralUpdate, CollateralUpdatePartial} from './types';
-import {assetsSelectPrompt, translateAssetToAssetLibUnderlying} from '../prompts/assetsPrompt';
+import {
+  assetsSelectPrompt,
+  translateAssetToAssetLibUnderlying,
+} from '../prompts/assetsSelectPrompt';
 
 export async function fetchCollateralUpdate(
   pool: PoolIdentifier,

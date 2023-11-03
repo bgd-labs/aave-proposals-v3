@@ -64,11 +64,6 @@ function translateJsBoolToSol(value: string) {
   }
 }
 
-function translateJsStringToSol(value: string) {
-  if (value === ENGINE_FLAGS.KEEP_CURRENT_STRING) return `EngineFlags.KEEP_CURRENT_STRING`;
-  return value;
-}
-
 function translateEModeToEModeLib(value: string, pool: PoolIdentifier) {
   if (value === ENGINE_FLAGS.KEEP_CURRENT) return `EngineFlags.KEEP_CURRENT`;
   return `${pool}EModes.${value}`;
@@ -189,17 +184,4 @@ export async function eModesSelect<T extends boolean>({message, pool}: EModeSele
   } else {
     console.log('No e-mode category active on the current pool');
   }
-}
-
-export async function stringInput<T extends boolean>({
-  message,
-  defaultValue,
-  disableKeepCurrent,
-}: GenericPrompt<T>) {
-  const value = await input({
-    message,
-    default: defaultValue,
-    ...(disableKeepCurrent ? {} : {default: ENGINE_FLAGS.KEEP_CURRENT_STRING}),
-  });
-  return translateJsStringToSol(value);
 }

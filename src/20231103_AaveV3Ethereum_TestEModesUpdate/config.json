@@ -1,0 +1,40 @@
+{
+  "rootOptions": {
+    "pools": [
+      "AaveV3Ethereum"
+    ],
+    "title": "test eModesUpdate",
+    "shortName": "TestEModesUpdate",
+    "date": "20231103",
+    "author": "bgd",
+    "discussion": "bgd",
+    "snapshot": "bgd"
+  },
+  "poolOptions": {
+    "AaveV3Ethereum": {
+      "configs": {
+        "EMODES_UPDATES": [
+          {
+            "eModeCategory": "what",
+            "ltv": "20_00",
+            "liqThreshold": "30_00",
+            "liqBonus": "5_00",
+            "priceSource": "0x0000000000000000000000000000000000000000",
+            "label": "label"
+          },
+          {
+            "eModeCategory": "AaveV3EthereumEModes.ETH_CORRELATED",
+            "ltv": "EngineFlags.KEEP_CURRENT",
+            "liqThreshold": "50_00",
+            "liqBonus": "EngineFlags.KEEP_CURRENT",
+            "priceSource": "",
+            "label": ""
+          }
+        ]
+      },
+      "features": [
+        "EMODES_UPDATES"
+      ]
+    }
+  }
+}
