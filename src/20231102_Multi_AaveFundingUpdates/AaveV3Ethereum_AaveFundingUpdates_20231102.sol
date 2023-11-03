@@ -3,7 +3,6 @@ pragma solidity ^0.8.0;
 
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';
-import {AaveV2EthereumArc} from 'aave-address-book/AaveV2EthereumArc.sol';
 import {AaveV2Ethereum, AaveV2EthereumAssets} from 'aave-address-book/AaveV2Ethereum.sol';
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
@@ -29,8 +28,6 @@ contract AaveV3Ethereum_AaveFundingUpdates_20231102 is IProposalGenericExecutor 
 
   address public constant MILKMAN = 0x11C76AD590ABDFFCD980afEC9ad951B160F02797;
   address public constant PRICE_CHECKER = 0xe80a1C615F75AFF7Ed8F08c9F21f9d00982D666c;
-  address public constant ARC_USDC = 0xd35f648C3C7f17cd1Ba92e5eac991E3EfcD4566d;
-  address public constant GHO_ETH_FEED = address(0); // TODO: Create!!
   address public constant TUSD_USD_FEED = 0xec746eCF986E2927Abd291a2A1716c940100f8Ba;
 
   function execute() external {
@@ -132,22 +129,18 @@ contract AaveV3Ethereum_AaveFundingUpdates_20231102 is IProposalGenericExecutor 
       MILKMAN,
       PRICE_CHECKER,
       AaveV2EthereumAssets.UST_UNDERLYING,
-      AaveV3EthereumAssets.GHO_UNDERLYING,
+      AaveV2EthereumAssets.USDC_UNDERLYING,
       AaveV2EthereumAssets.UST_ORACLE,
-      GHO_ETH_FEED,
+      AaveV2EthereumAssets.USDC_ORACLE,
       address(AaveV3Ethereum.COLLECTOR),
       balanceUst,
-      600
-    );
-
-    uint256 balanceATusd = IERC20(AaveV2EthereumAssets.TUSD_A_TOKEN).balanceOf(
-      address(AaveV2Ethereum.COLLECTOR)
+      500
     );
 
     AaveV2Ethereum.COLLECTOR.transfer(
-      AaveV2EthereumAssets.TUSD_UNDERLYING,
+      AaveV2EthereumAssets.TUSD_A_TOKEN,
       address(this),
-      balanceATusd
+      IERC20(AaveV2EthereumAssets.TUSD_A_TOKEN).balanceOf(address(AaveV2Ethereum.COLLECTOR))
     );
     AaveV2Ethereum.POOL.withdraw(
       AaveV2EthereumAssets.TUSD_UNDERLYING,
@@ -163,7 +156,7 @@ contract AaveV3Ethereum_AaveFundingUpdates_20231102 is IProposalGenericExecutor 
       TUSD_USD_FEED,
       AaveV3EthereumAssets.GHO_ORACLE,
       address(AaveV3Ethereum.COLLECTOR),
-      balanceUst,
+      IERC20(AaveV2EthereumAssets.TUSD_UNDERLYING).balanceOf(address(SWAPPER)),
       300
     );
 
@@ -181,33 +174,12 @@ contract AaveV3Ethereum_AaveFundingUpdates_20231102 is IProposalGenericExecutor 
       MILKMAN,
       PRICE_CHECKER,
       AaveV2EthereumAssets.GUSD_UNDERLYING,
-      AaveV3EthereumAssets.GHO_UNDERLYING,
+      AaveV2EthereumAssets.USDC_UNDERLYING,
       AaveV2EthereumAssets.GUSD_ORACLE,
-      GHO_ETH_FEED,
+      AaveV2EthereumAssets.USDC_ORACLE,
       address(AaveV3Ethereum.COLLECTOR),
       balanceGUsd,
       500
-    );
-
-    uint256 balanceArcUsdc = IERC20(ARC_USDC).balanceOf(address(AaveV2Ethereum.COLLECTOR));
-
-    AaveV2Ethereum.COLLECTOR.transfer(ARC_USDC, address(this), balanceArcUsdc);
-    AaveV2EthereumArc.POOL.withdraw(
-      AaveV2EthereumAssets.USDC_UNDERLYING,
-      type(uint256).max,
-      address(SWAPPER)
-    );
-
-    SWAPPER.swap(
-      MILKMAN,
-      PRICE_CHECKER,
-      AaveV3EthereumAssets.USDC_UNDERLYING,
-      AaveV3EthereumAssets.GHO_UNDERLYING,
-      AaveV3EthereumAssets.USDC_ORACLE,
-      AaveV3EthereumAssets.GHO_ORACLE,
-      address(AaveV3Ethereum.COLLECTOR),
-      balanceArcUsdc,
-      300
     );
   }
 }

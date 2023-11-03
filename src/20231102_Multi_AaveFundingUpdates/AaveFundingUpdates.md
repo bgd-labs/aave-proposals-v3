@@ -28,11 +28,13 @@ However, with the emergence of new service provider proposal expected, the DAO n
 
 Swap the following asset holdings to GHO:
 
-- All Aave ARC aUSDC (56,843.44 units at time of writing)
-- All GUSD (18,464.03 units at time of writing)
 - All available aTUSD that can be redeemed (57,373.85 units at time of writing)
-- All UST (893,257.63 units at time of writing)
 - 500k units of DAI held in Treasury (received from Polygon bridge)
+
+Swap the following asset holdings to USDC (there is no GHO / ETH oracle thus these tokens cannot be swapped to GHO directly):
+
+- All GUSD (18,464.03 units at time of writing)
+- All UST (893,257.63 units at time of writing)
 
 ## References
 
