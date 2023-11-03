@@ -35,9 +35,6 @@ contract AaveV3Ethereum_TreasuryManagementAddToRETHHolding_20231103 is IProposal
   address public constant COLLECTOR = address(AaveV3Ethereum.COLLECTOR);
   address public constant MILKMAN = 0x11C76AD590ABDFFCD980afEC9ad951B160F02797;
   address public constant PRICE_CHECKER = 0xe80a1C615F75AFF7Ed8F08c9F21f9d00982D666c;
-  address public constant RETH = 0xae78736Cd615f374D3085123A210448E74Fc6393;
-  address public constant RETH_ETH_ORACLE = 0x536218f9E9Eb48863970252233c8F271f554C2d0;
-  address public constant WETH_ETH_ORACLE = 0x8fAF952fca721014DF1ef897581A70D4700475ac;
 
   function execute() external {
     uint256 wethV2Balance = IERC20(AaveV2EthereumAssets.WETH_A_TOKEN).balanceOf(COLLECTOR);
@@ -64,9 +61,9 @@ contract AaveV3Ethereum_TreasuryManagementAddToRETHHolding_20231103 is IProposal
       MILKMAN,
       PRICE_CHECKER,
       AaveV3EthereumAssets.WETH_UNDERLYING,
-      RETH,
-      WETH_ETH_ORACLE,
-      RETH_ETH_ORACLE,
+      AaveV3EthereumAssets.rETH_UNDERLYING,
+      AaveV3EthereumAssets.WETH_ORACLE,
+      AaveV3EthereumAssets.rETH_ORACLE,
       COLLECTOR,
       wEthBalance,
       100
