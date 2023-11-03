@@ -10,7 +10,7 @@ import {IV3RateStrategyFactory} from 'aave-helpers/v3-config-engine/IV3RateStrat
 /**
  * @title MAI/MIMATIC deprecation, 2023.10.31
  * @author Gauntlet
- * - Snapshot: TODO
+ * - Snapshot: https://snapshot.org/#/aave.eth/proposal/0x9b7173e3f91ba3cab15dbe2d6d241de2e58b027612c690f00609d6e4fb422748
  * - Discussion: https://governance.aave.com/t/arfc-gauntlet-recommendation-for-mai-mimatic-deprecation/15119
  */
 contract AaveV3Arbitrum_MAIMIMATICDeprecation20231031_20231031 is AaveV3PayloadArbitrum {

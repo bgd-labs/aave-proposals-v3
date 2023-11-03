@@ -11,14 +11,14 @@
     "date": "20231031",
     "author": "Gauntlet",
     "discussion": "https://governance.aave.com/t/arfc-gauntlet-recommendation-for-mai-mimatic-deprecation/15119",
-    "snapshot": ""
+    "snapshot": "https://snapshot.org/#/aave.eth/proposal/0x9b7173e3f91ba3cab15dbe2d6d241de2e58b027612c690f00609d6e4fb422748"
   },
   "poolOptions": {
     "AaveV3Polygon": {
       "configs": {
         "RATE_UPDATE_V3": [
           {
-            "asset": "AaveV3PolygonAssets.miMATIC_UNDERLYING",
+            "asset": "miMATIC",
             "params": {
               "optimalUtilizationRate": "_bpsToRay(45_00)",
               "baseVariableBorrowRate": "EngineFlags.KEEP_CURRENT",
@@ -34,7 +34,7 @@
         ],
         "COLLATERALS_UPDATE": [
           {
-            "asset": "AaveV3PolygonAssets.miMATIC_UNDERLYING",
+            "asset": "miMATIC",
             "ltv": "EngineFlags.KEEP_CURRENT",
             "liqThreshold": "0",
             "liqBonus": "EngineFlags.KEEP_CURRENT",
@@ -50,7 +50,7 @@
             "borrowableInIsolation": "EngineFlags.KEEP_CURRENT",
             "withSiloedBorrowing": "EngineFlags.KEEP_CURRENT",
             "reserveFactor": "95_00",
-            "asset": "AaveV3PolygonAssets.miMATIC_UNDERLYING"
+            "asset": "miMATIC"
           }
         ]
       },
@@ -64,7 +64,7 @@
       "configs": {
         "RATE_UPDATE_V3": [
           {
-            "asset": "AaveV3AvalancheAssets.MAI_UNDERLYING",
+            "asset": "MAI",
             "params": {
               "optimalUtilizationRate": "_bpsToRay(45_00)",
               "baseVariableBorrowRate": "EngineFlags.KEEP_CURRENT",
@@ -80,7 +80,7 @@
         ],
         "COLLATERALS_UPDATE": [
           {
-            "asset": "AaveV3AvalancheAssets.MAI_UNDERLYING",
+            "asset": "MAI",
             "ltv": "EngineFlags.KEEP_CURRENT",
             "liqThreshold": "0",
             "liqBonus": "EngineFlags.KEEP_CURRENT",
@@ -96,7 +96,7 @@
             "borrowableInIsolation": "EngineFlags.KEEP_CURRENT",
             "withSiloedBorrowing": "EngineFlags.KEEP_CURRENT",
             "reserveFactor": "95_00",
-            "asset": "AaveV3AvalancheAssets.MAI_UNDERLYING"
+            "asset": "MAI"
           }
         ]
       },
@@ -110,7 +110,7 @@
       "configs": {
         "RATE_UPDATE_V3": [
           {
-            "asset": "AaveV3ArbitrumAssets.MAI_UNDERLYING",
+            "asset": "MAI",
             "params": {
               "optimalUtilizationRate": "_bpsToRay(45_00)",
               "baseVariableBorrowRate": "EngineFlags.KEEP_CURRENT",
@@ -126,7 +126,7 @@
         ],
         "COLLATERALS_UPDATE": [
           {
-            "asset": "AaveV3ArbitrumAssets.MAI_UNDERLYING",
+            "asset": "MAI",
             "ltv": "EngineFlags.KEEP_CURRENT",
             "liqThreshold": "0",
             "liqBonus": "EngineFlags.KEEP_CURRENT",
@@ -142,7 +142,7 @@
             "borrowableInIsolation": "EngineFlags.KEEP_CURRENT",
             "withSiloedBorrowing": "EngineFlags.KEEP_CURRENT",
             "reserveFactor": "95_00",
-            "asset": "AaveV3ArbitrumAssets.MAI_UNDERLYING"
+            "asset": "MAI"
           }
         ]
       },
@@ -156,7 +156,7 @@
       "configs": {
         "RATE_UPDATE_V3": [
           {
-            "asset": "AaveV3OptimismAssets.MAI_UNDERLYING",
+            "asset": "MAI",
             "params": {
               "optimalUtilizationRate": "_bpsToRay(45_00)",
               "baseVariableBorrowRate": "EngineFlags.KEEP_CURRENT",
@@ -172,7 +172,7 @@
         ],
         "COLLATERALS_UPDATE": [
           {
-            "asset": "AaveV3OptimismAssets.MAI_UNDERLYING",
+            "asset": "MAI",
             "ltv": "EngineFlags.KEEP_CURRENT",
             "liqThreshold": "65_00",
             "liqBonus": "EngineFlags.KEEP_CURRENT",
@@ -188,7 +188,7 @@
             "borrowableInIsolation": "EngineFlags.KEEP_CURRENT",
             "withSiloedBorrowing": "EngineFlags.KEEP_CURRENT",
             "reserveFactor": "95_00",
-            "asset": "AaveV3OptimismAssets.MAI_UNDERLYING"
+            "asset": "MAI"
           }
         ]
       },

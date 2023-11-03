@@ -237,7 +237,7 @@
       "debtCeiling": 1000000,
       "decimals": 18,
       "eModeCategory": 1,
-      "interestRateStrategy": "0xfab05a6aF585da2F96e21452F91E812452996BD3",
+      "interestRateStrategy": "0x04daBC3C1c052AB94AA2ca80140f2b978d2F6E17",
       "isActive": true,
       "isBorrowableInIsolation": false,
       "isFlashloanable": true,
@@ -252,7 +252,7 @@
       "oracleDecimals": 8,
       "oracleDescription": "MIMATIC / USD",
       "oracleLatestAnswer": 73532096,
-      "reserveFactor": 2000,
+      "reserveFactor": 9500,
       "stableBorrowRateEnabled": false,
       "stableDebtToken": "0x3EF10DFf4928279c004308EbADc4Db8B7620d6fc",
       "stableDebtTokenImpl": "0x893411580e590D62dDBca8a703d61Cc4A8c7b2b9",
@@ -509,6 +509,18 @@
     }
   },
   "strategies": {
+    "0x04daBC3C1c052AB94AA2ca80140f2b978d2F6E17": {
+      "baseStableBorrowRate": 50000000000000000000000000,
+      "baseVariableBorrowRate": 0,
+      "maxExcessStableToTotalDebtRatio": 800000000000000000000000000,
+      "maxExcessUsageRatio": 550000000000000000000000000,
+      "optimalStableToTotalDebtRatio": 200000000000000000000000000,
+      "optimalUsageRatio": 450000000000000000000000000,
+      "stableRateSlope1": 5000000000000000000000000,
+      "stableRateSlope2": 750000000000000000000000000,
+      "variableRateSlope1": 40000000000000000000000000,
+      "variableRateSlope2": 3000000000000000000000000000
+    },
     "0x271f5f8325051f22caDa18FfedD4a805584a232A": {
       "baseStableBorrowRate": 68000000000000000000000000,
       "baseVariableBorrowRate": 10000000000000000000000000,

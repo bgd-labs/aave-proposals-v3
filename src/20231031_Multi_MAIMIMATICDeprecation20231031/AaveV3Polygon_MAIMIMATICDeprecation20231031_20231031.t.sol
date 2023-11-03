@@ -15,7 +15,7 @@ contract AaveV3Polygon_MAIMIMATICDeprecation20231031_20231031_Test is ProtocolV3
   AaveV3Polygon_MAIMIMATICDeprecation20231031_20231031 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('polygon'), 49426471);
+    vm.createSelectFork(vm.rpcUrl('polygon'), 49510067);
     proposal = new AaveV3Polygon_MAIMIMATICDeprecation20231031_20231031();
   }
 
