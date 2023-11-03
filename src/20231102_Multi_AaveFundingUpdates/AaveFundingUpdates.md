@@ -26,6 +26,14 @@ However, with the emergence of new service provider proposal expected, the DAO n
 - Redeem and transfer 0.5M DAI to Ethereum Treasury
 - Redeem and transfer 0.75M USDT to Ethereum Treasury
 
+Swap the following asset holdings to GHO:
+
+- All Aave ARC aUSDC (56,843.44 units at time of writing)
+- All GUSD (18,464.03 units at time of writing)
+- All available aTUSD that can be redeemed (57,373.85 units at time of writing)
+- All UST (893,257.63 units at time of writing)
+- 500k units of DAI held in Treasury (received from Polygon bridge)
+
 ## References
 
 - Implementation: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231102_Multi_AaveFundingUpdates/AaveV2Ethereum_AaveFundingUpdates_20231102.sol), [AaveV2Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231102_Multi_AaveFundingUpdates/AaveV2Polygon_AaveFundingUpdates_20231102.sol), [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231102_Multi_AaveFundingUpdates/AaveV3Ethereum_AaveFundingUpdates_20231102.sol)

@@ -22,7 +22,7 @@ contract AaveV3Ethereum_AaveFundingUpdates_20231102_Test is ProtocolV3TestBase {
     proposal = new AaveV3Ethereum_AaveFundingUpdates_20231102();
   }
 
-  function test_execution() public {
+  function test_execute() public {
     uint256 balanceDaiBefore = IERC20(AaveV3EthereumAssets.DAI_UNDERLYING).balanceOf(
       address(AaveV3Ethereum.COLLECTOR)
     );

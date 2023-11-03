@@ -23,6 +23,11 @@ contract AaveV3Ethereum_AaveFundingUpdates_20231102 is IProposalGenericExecutor 
   uint256 public constant USDT_TO_KEEP_V2 = 700_000e6;
 
   function execute() external {
+    _migration();
+    _swaps();
+  }
+
+  function _migration() internal {
     // Deposit 1M units of DAI from Treasury into Aave v3
     AaveV3Ethereum.COLLECTOR.transfer(
       AaveV2EthereumAssets.DAI_UNDERLYING,
@@ -82,4 +87,6 @@ contract AaveV3Ethereum_AaveFundingUpdates_20231102 is IProposalGenericExecutor 
       IERC20(AaveV3EthereumAssets.DAI_A_TOKEN).balanceOf(address(this))
     );
   }
+
+  function _swaps() internal {}
 }
