@@ -7,8 +7,7 @@ import {IAaveOracle} from 'aave-address-book/AaveV2.sol';
 /**
  * @title Fixed REP price feed on AAVE v1
  * @author BGD labs (@bgdlabs)
- * - Snapshot: TODO
- * - Discussion: TODO
+ * - Discussion: https://governance.aave.com/t/bgd-technical-maintenance-proposals/15274/2
  */
 contract AaveV1Ethereum_FixedREPPriceFeed_20231031 is IProposalGenericExecutor {
   address public constant REP = 0x1985365e9f78359a9B6AD760e32412f4a445E862;
