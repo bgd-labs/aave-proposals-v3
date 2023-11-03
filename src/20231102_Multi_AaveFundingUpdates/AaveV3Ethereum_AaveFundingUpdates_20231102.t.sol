@@ -67,7 +67,7 @@ contract AaveV3Ethereum_AaveFundingUpdates_20231102_Test is ProtocolV3TestBase {
       0
     );
 
-    vm.expectEmit(true, true, false, false, MiscEthereum.AAVE_SWAPPER);
+    vm.expectEmit(true, true, true, true, MiscEthereum.AAVE_SWAPPER);
     emit SwapRequested(
       proposal.MILKMAN(),
       AaveV3EthereumAssets.DAI_UNDERLYING,
@@ -79,7 +79,7 @@ contract AaveV3Ethereum_AaveFundingUpdates_20231102_Test is ProtocolV3TestBase {
       100
     );
 
-    vm.expectEmit(true, true, false, false, MiscEthereum.AAVE_SWAPPER);
+    vm.expectEmit(true, true, true, true, MiscEthereum.AAVE_SWAPPER);
     emit SwapRequested(
       proposal.MILKMAN(),
       AaveV2EthereumAssets.UST_UNDERLYING,
@@ -91,19 +91,19 @@ contract AaveV3Ethereum_AaveFundingUpdates_20231102_Test is ProtocolV3TestBase {
       500
     );
 
-    vm.expectEmit(true, true, false, false, MiscEthereum.AAVE_SWAPPER);
+    vm.expectEmit(true, true, true, false, MiscEthereum.AAVE_SWAPPER);
     emit SwapRequested(
       proposal.MILKMAN(),
       AaveV2EthereumAssets.TUSD_UNDERLYING,
       AaveV3EthereumAssets.GHO_UNDERLYING,
       proposal.TUSD_USD_FEED(),
       AaveV3EthereumAssets.GHO_ORACLE,
-      IERC20(AaveV2EthereumAssets.TUSD_A_TOKEN).balanceOf(address(AaveV2Ethereum.COLLECTOR)),
+      IERC20(AaveV2EthereumAssets.TUSD_UNDERLYING).balanceOf(address(AaveV2Ethereum.COLLECTOR)),
       address(AaveV3Ethereum.COLLECTOR),
-      100
+      300
     );
 
-    vm.expectEmit(true, true, false, false, MiscEthereum.AAVE_SWAPPER);
+    vm.expectEmit(true, true, true, true, MiscEthereum.AAVE_SWAPPER);
     emit SwapRequested(
       proposal.MILKMAN(),
       AaveV2EthereumAssets.GUSD_UNDERLYING,
@@ -112,7 +112,7 @@ contract AaveV3Ethereum_AaveFundingUpdates_20231102_Test is ProtocolV3TestBase {
       AaveV2EthereumAssets.USDC_ORACLE,
       IERC20(AaveV2EthereumAssets.GUSD_UNDERLYING).balanceOf(address(AaveV2Ethereum.COLLECTOR)),
       address(AaveV3Ethereum.COLLECTOR),
-      100
+      500
     );
 
     GovHelpers.executePayload(vm, address(proposal), GovernanceV3Ethereum.EXECUTOR_LVL_1);
@@ -154,6 +154,26 @@ contract AaveV3Ethereum_AaveFundingUpdates_20231102_Test is ProtocolV3TestBase {
 
     assertEq(
       IERC20(AaveV2EthereumAssets.GUSD_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
+      0
+    );
+
+    assertEq(
+      IERC20(AaveV3EthereumAssets.DAI_UNDERLYING).balanceOf(address(proposal.SWAPPER())),
+      0
+    );
+
+    assertEq(
+      IERC20(AaveV2EthereumAssets.TUSD_UNDERLYING).balanceOf(address(proposal.SWAPPER())),
+      0
+    );
+
+    assertEq(
+      IERC20(AaveV2EthereumAssets.UST_UNDERLYING).balanceOf(address(proposal.SWAPPER())),
+      0
+    );
+
+    assertEq(
+      IERC20(AaveV2EthereumAssets.GUSD_UNDERLYING).balanceOf(address(proposal.SWAPPER())),
       0
     );
   }
