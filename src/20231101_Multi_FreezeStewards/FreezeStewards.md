@@ -17,6 +17,7 @@ This is a follow-up to [AIP-319](https://app.aave.com/governance/proposal/319/) 
 ## Specification
 
 Adds the `FreezingSteward` contract as `RISK_ADMIN` on the canonical Aave V3 deployments on the following networks:
+
 - Avalanche
 - Metis
 - Base
