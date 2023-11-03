@@ -1,0 +1,41 @@
+{
+  "rootOptions": {
+    "pools": [
+      "AaveV3Avalanche",
+      "AaveV3Metis",
+      "AaveV3Base"
+    ],
+    "title": "Freeze Stewards",
+    "shortName": "FreezeStewards",
+    "date": "20231101",
+    "author": "BGD Labs @bgdlabs",
+    "discussion": "https://governance.aave.com/t/bgd-technical-maintenance-proposals/15274",
+    "snapshot": ""
+  },
+  "poolOptions": {
+    "AaveV3Avalanche": {
+      "configs": {
+        "OTHERS": {}
+      },
+      "features": [
+        "OTHERS"
+      ]
+    },
+    "AaveV3Metis": {
+      "configs": {
+        "OTHERS": {}
+      },
+      "features": [
+        "OTHERS"
+      ]
+    },
+    "AaveV3Base": {
+      "configs": {
+        "OTHERS": {}
+      },
+      "features": [
+        "OTHERS"
+      ]
+    }
+  }
+}
