@@ -1,5 +1,5 @@
 ---
-title: "Freeze Stewards"
+title: "Activate Freezing Steward on v3 missing networks"
 author: "BGD Labs @bgdlabs"
 discussions: "https://governance.aave.com/t/bgd-technical-maintenance-proposals/15274"
 ---
