@@ -1,5 +1,5 @@
 import {CodeArtifact, FEATURE, FeatureModule, PoolIdentifier} from '../types';
-import {addressInput, eModeSelect, stringInput} from '../prompts';
+import {eModeSelect} from '../prompts';
 import {fetchBorrowUpdate} from './borrowsUpdates';
 import {fetchRateStrategyParamsV3} from './rateUpdates';
 import {fetchCollateralUpdate} from './collateralsUpdates';
@@ -9,11 +9,13 @@ import {CHAIN_TO_CHAIN_OBJECT, getPoolChain} from '../common';
 import {createPublicClient, getContract, http} from 'viem';
 import {confirm} from '@inquirer/prompts';
 import {TEST_EXECUTE_PROPOSAL} from '../utils/constants';
+import {addressPrompt, translateJsAddressToSol} from '../prompts/addressPrompt';
+import {stringPrompt} from '../prompts/stringPrompt';
 
 async function fetchListing(pool: PoolIdentifier): Promise<Listing> {
-  const asset = await addressInput({
+  const asset = await addressPrompt({
     message: 'Enter the address of the asset you want to list',
-    disableKeepCurrent: true,
+    required: true,
   });
 
   const chain = getPoolChain(pool);
@@ -56,13 +58,13 @@ async function fetchListing(pool: PoolIdentifier): Promise<Listing> {
   const decimals = await erc20.read.decimals();
 
   return {
-    assetSymbol: await stringInput({
+    assetSymbol: await stringPrompt({
       message: 'Enter the asset symbol',
-      disableKeepCurrent: true,
+      required: true,
       defaultValue: symbol,
     }),
     decimals,
-    priceFeed: await addressInput({message: 'PriceFeed address', disableKeepCurrent: true}),
+    priceFeed: await addressPrompt({message: 'PriceFeed address', required: true}),
     ...(await fetchCollateralUpdate(pool, true)),
     ...(await fetchBorrowUpdate(true)),
     ...(await fetchCapsUpdate(true)),
@@ -78,9 +80,9 @@ async function fetchListing(pool: PoolIdentifier): Promise<Listing> {
 
 async function fetchCustomImpl(): Promise<TokenImplementations> {
   return {
-    aToken: await addressInput({message: 'aToken implementation', disableKeepCurrent: true}),
-    vToken: await addressInput({message: 'vToken implementation', disableKeepCurrent: true}),
-    sToken: await addressInput({message: 'sToken implementation', disableKeepCurrent: true}),
+    aToken: await addressPrompt({message: 'aToken implementation', required: true}),
+    vToken: await addressPrompt({message: 'vToken implementation', required: true}),
+    sToken: await addressPrompt({message: 'sToken implementation', required: true}),
   };
 }
 
@@ -102,7 +104,7 @@ export const assetListing: FeatureModule<Listing[]> = {
       code: {
         constants: cfg
           .map((cfg) => [
-            `address public constant ${cfg.assetSymbol} = ${cfg.asset};`,
+            `address public constant ${cfg.assetSymbol} = ${translateJsAddressToSol(cfg.asset)};`,
             `uint256 internal constant ${cfg.assetSymbol}_SEED_AMOUNT = 10 ** ${cfg.decimals};`,
           ])
           .flat(),
@@ -122,7 +124,7 @@ export const assetListing: FeatureModule<Listing[]> = {
               (cfg, ix) => `listings[${ix}] = IAaveV3ConfigEngine.Listing({
                asset: ${cfg.assetSymbol},
                assetSymbol: "${cfg.assetSymbol}",
-               priceFeed: ${cfg.priceFeed},
+               priceFeed: ${translateJsAddressToSol(cfg.priceFeed)},
                eModeCategory: ${cfg.eModeCategory},
                enabledToBorrow: ${cfg.enabledToBorrow},
                stableRateModeEnabled: ${cfg.stableRateModeEnabled},
@@ -146,7 +148,9 @@ export const assetListing: FeatureModule<Listing[]> = {
                   stableRateSlope2: ${cfg.rateStrategyParams.stableRateSlope2},
                   baseStableRateOffset: ${cfg.rateStrategyParams.baseStableRateOffset},
                   stableRateExcessOffset: ${cfg.rateStrategyParams.stableRateExcessOffset},
-                  optimalStableToTotalDebtRatio: ${cfg.rateStrategyParams.optimalStableToTotalDebtRatio}
+                  optimalStableToTotalDebtRatio: ${
+                    cfg.rateStrategyParams.optimalStableToTotalDebtRatio
+                  }
               })
              });`
             )
@@ -186,7 +190,10 @@ export const assetListingCustom: FeatureModule<ListingWithCustomImpl[]> = {
     const response: CodeArtifact = {
       code: {
         constants: cfg.map(
-          (cfg) => `address public constant ${cfg.base.assetSymbol} = ${cfg.base.asset};`
+          (cfg) =>
+            `address public constant ${cfg.base.assetSymbol} = ${translateJsAddressToSol(
+              cfg.base.asset
+            )};`
         ),
         execute: cfg.map(
           (cfg) =>
@@ -205,7 +212,7 @@ export const assetListingCustom: FeatureModule<ListingWithCustomImpl[]> = {
                 IAaveV3ConfigEngine.Listing({
               asset: ${cfg.base.assetSymbol},
               assetSymbol: "${cfg.base.assetSymbol}",
-               priceFeed: ${cfg.base.priceFeed},
+               priceFeed: ${translateJsAddressToSol(cfg.base.priceFeed)},
                eModeCategory: ${cfg.base.eModeCategory},
                enabledToBorrow: ${cfg.base.enabledToBorrow},
                stableRateModeEnabled: ${cfg.base.stableRateModeEnabled},
@@ -229,13 +236,15 @@ export const assetListingCustom: FeatureModule<ListingWithCustomImpl[]> = {
                   stableRateSlope2: ${cfg.base.rateStrategyParams.stableRateSlope2},
                   baseStableRateOffset: ${cfg.base.rateStrategyParams.baseStableRateOffset},
                   stableRateExcessOffset: ${cfg.base.rateStrategyParams.stableRateExcessOffset},
-                  optimalStableToTotalDebtRatio: ${cfg.base.rateStrategyParams.optimalStableToTotalDebtRatio}
+                  optimalStableToTotalDebtRatio: ${
+                    cfg.base.rateStrategyParams.optimalStableToTotalDebtRatio
+                  }
               })
              }),
              IAaveV3ConfigEngine.TokenImplementations({
-              aToken: ${cfg.implementations.aToken},
-              vToken: ${cfg.implementations.vToken},
-              sToken: ${cfg.implementations.sToken}
+              aToken: ${translateJsAddressToSol(cfg.implementations.aToken)},
+              vToken: ${translateJsAddressToSol(cfg.implementations.vToken)},
+              sToken: ${translateJsAddressToSol(cfg.implementations.sToken)}
             })
              );`
             )

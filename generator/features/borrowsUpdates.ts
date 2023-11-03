@@ -1,6 +1,10 @@
 import {CodeArtifact, ENGINE_FLAGS, FEATURE, FeatureModule} from '../types';
-import {assetsSelect, booleanSelect, percentInput} from '../prompts';
+import {booleanSelect, percentInput} from '../prompts';
 import {BorrowUpdate} from './types';
+import {
+  assetsSelectPrompt,
+  translateAssetToAssetLibUnderlying,
+} from '../prompts/assetsSelectPrompt';
 
 export async function fetchBorrowUpdate<T extends boolean>(disableKeepCurrent?: T) {
   return {
@@ -41,7 +45,7 @@ export const borrowsUpdates: FeatureModule<BorrowUpdates> = {
   description:
     'BorrowsUpdates (enabledToBorrow, flashloanable, stableRateModeEnabled, borrowableInIsolation, withSiloedBorrowing, reserveFactor)',
   async cli(opt, pool) {
-    const assets = await assetsSelect({
+    const assets = await assetsSelectPrompt({
       message: 'Select the assets you want to amend',
       pool,
     });
@@ -64,7 +68,7 @@ export const borrowsUpdates: FeatureModule<BorrowUpdates> = {
           ${cfg
             .map(
               (cfg, ix) => `borrowUpdates[${ix}] = IAaveV3ConfigEngine.BorrowUpdate({
-               asset: ${cfg.asset},
+               asset: ${translateAssetToAssetLibUnderlying(cfg.asset, pool)},
                enabledToBorrow: ${cfg.enabledToBorrow},
                flashloanable: ${cfg.flashloanable},
                stableRateModeEnabled: ${cfg.stableRateModeEnabled},
