@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aave-helpers/GovV3Helpers.sol';
 import {EthereumScript} from 'aave-helpers/ScriptUtils.sol';
 import {AaveV3Ethereum_TreasuryManagementAddToRETHHolding_20231103} from './AaveV3Ethereum_TreasuryManagementAddToRETHHolding_20231103.sol';
-
+import {WethEthMockChainlinkOracle} from './WethEthMockChainlinkOracle.sol';
 /**
  * @dev Deploy Ethereum
  * command: make deploy-ledger contract=src/20231103_AaveV3Ethereum_TreasuryManagementAddToRETHHolding/TreasuryManagementAddToRETHHolding_20231103.s.sol:DeployEthereum chain=mainnet
@@ -21,6 +21,17 @@ contract DeployEthereum is EthereumScript {
 
     // register action at payloadsController
     GovV3Helpers.createPayload(actions);
+  }
+}
+
+/**
+ * @dev Deploy Mock
+ * command: make deploy-ledger contract=src/20231103_AaveV3Ethereum_TreasuryManagementAddToRETHHolding/TreasuryManagementAddToRETHHolding_20231103.s.sol:DeployMock chain=mainnet
+ */
+contract DeployMock is EthereumScript {
+  function run() external broadcast {
+    // deploy payloads
+    WethEthMockChainlinkOracle payload0 = new WethEthMockChainlinkOracle();
   }
 }
 

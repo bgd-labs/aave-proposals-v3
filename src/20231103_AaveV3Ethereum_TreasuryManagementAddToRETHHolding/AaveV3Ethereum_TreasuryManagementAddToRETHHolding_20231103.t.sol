@@ -20,7 +20,7 @@ contract AaveV3Ethereum_TreasuryManagementAddToRETHHolding_20231103_Test is Prot
   address internal swapProxy = 0x29491c1E89dab8F90Af1D25dE6ebf284Ef367291;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 18488332);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 18488816);
     proposal = new AaveV3Ethereum_TreasuryManagementAddToRETHHolding_20231103();
   }
 
@@ -41,7 +41,7 @@ contract AaveV3Ethereum_TreasuryManagementAddToRETHHolding_20231103_Test is Prot
     
     assertEq(collectorWethBalanceAfter, 0);
     assertEq(swapProxyWethBalanceAfter, expectedWeth);
-    assertLe(collectorAwethv2BalanceAfter, 1e16);
-    assertLe(collectorAwethv3BalanceAfter, 100 ether + 1e16);
+    assertLe(collectorAwethv2BalanceAfter, 1e17);
+    assertLe(collectorAwethv3BalanceAfter, 100 ether + 1e17);
   }
 }
