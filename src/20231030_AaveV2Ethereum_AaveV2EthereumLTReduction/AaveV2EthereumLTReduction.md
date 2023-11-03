@@ -66,8 +66,8 @@ Frozen Assets:
 
 ## References
 
-- Implementation: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231030_AaveV2Ethereum_AaveV2EthereumLTReduction/AaveV2Ethereum_AaveV2EthereumLTReduction_20231030.sol)
-- Tests: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231030_AaveV2Ethereum_AaveV2EthereumLTReduction/AaveV2Ethereum_AaveV2EthereumLTReduction_20231030.t.sol)
+- Implementation: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/a0090d11882adb70c256bcdece3fa3f805638e51/src/20231030_AaveV2Ethereum_AaveV2EthereumLTReduction/AaveV2Ethereum_AaveV2EthereumLTReduction_20231030.sol)
+- Tests: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/a0090d11882adb70c256bcdece3fa3f805638e51/src/20231030_AaveV2Ethereum_AaveV2EthereumLTReduction/AaveV2Ethereum_AaveV2EthereumLTReduction_20231030.t.sol)
 - [Snapshot](Direct to AIP)
 - [Discussion](https://governance.aave.com/t/arfc-v2-ethereum-lt-reductions-10-27-2023/15249)
 
