@@ -1,6 +1,10 @@
-import {CodeArtifact, FEATURE, FeatureModule, PoolIdentifier} from '../types';
-import {assetsSelect, numberInput} from '../prompts';
+import {CodeArtifact, FEATURE, FeatureModule} from '../types';
+import {numberInput} from '../prompts';
 import {CapsUpdate, CapsUpdatePartial} from './types';
+import {
+  assetsSelectPrompt,
+  translateAssetToAssetLibUnderlying,
+} from '../prompts/assetsSelectPrompt';
 
 export async function fetchCapsUpdate(disableKeepCurrent?: boolean): Promise<CapsUpdatePartial> {
   return {
@@ -22,7 +26,7 @@ export const capsUpdates: FeatureModule<CapsUpdates> = {
   description: 'CapsUpdates (supplyCap, borrowCap)',
   async cli(opt, pool) {
     console.log(`Fetching information for CapsUpdates on ${pool}`);
-    const assets = await assetsSelect({
+    const assets = await assetsSelectPrompt({
       message: 'Select the assets you want to amend',
       pool,
     });
@@ -46,7 +50,7 @@ export const capsUpdates: FeatureModule<CapsUpdates> = {
           ${cfg
             .map(
               (cfg, ix) => `capsUpdate[${ix}] = IAaveV3ConfigEngine.CapsUpdate({
-               asset: ${cfg.asset},
+               asset: ${translateAssetToAssetLibUnderlying(cfg.asset, pool)},
                supplyCap: ${cfg.supplyCap},
                borrowCap: ${cfg.borrowCap}
              });`
