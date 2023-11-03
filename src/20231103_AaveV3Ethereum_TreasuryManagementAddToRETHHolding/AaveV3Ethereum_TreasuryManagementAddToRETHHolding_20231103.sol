@@ -1,0 +1,83 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+import {IProposalGenericExecutor} from 'aave-helpers/interfaces/IProposalGenericExecutor.sol';
+import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
+import {AaveV2Ethereum, AaveV2EthereumAssets} from 'aave-address-book/AaveV2Ethereum.sol';
+import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
+import {AaveSwapper} from 'aave-helpers/swaps/AaveSwapper.sol';
+import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
+import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';
+
+interface RocketDepositPoolInterface {
+  function deposit() external payable;
+}
+
+interface WETH9 {
+  function withdraw(uint256 wad) external;
+  function balanceOf(address) external view returns (uint256);
+}
+/**
+ * @title Treasury Management - Add to rETH Holding
+ * @author TokenLogic
+ * - Snapshot: TODO
+ * - Discussion: https://governance.aave.com/t/arfc-treasury-management-add-to-reth-holding/15123
+ */
+contract AaveV3Ethereum_TreasuryManagementAddToRETHHolding_20231103 is IProposalGenericExecutor {
+  // docs suggest using the rocket pool storage contract to fetch the current deposit pool address
+  // since this payload is designed for a timely one-off execution, the deposit address is hardcoded
+  // https://docs.rocketpool.net/overview/contracts-integrations.html#key-protocol-contracts
+  // https://docs.rocketpool.net/developers/usage/contracts/contracts.html#contract-design
+  RocketDepositPoolInterface public constant ROCKET_DEPOSIT_POOL = RocketDepositPoolInterface(0xDD3f50F8A6CafbE9b31a427582963f465E745AF8);
+  
+  WETH9 public constant WETH = WETH9(AaveV3EthereumAssets.WETH_UNDERLYING);
+  AaveSwapper public constant SWAPPER = AaveSwapper(MiscEthereum.AAVE_SWAPPER);
+  address public constant COLLECTOR = address(AaveV3Ethereum.COLLECTOR);
+  address public constant MILKMAN = 0x11C76AD590ABDFFCD980afEC9ad951B160F02797;
+  address public constant PRICE_CHECKER = 0xe80a1C615F75AFF7Ed8F08c9F21f9d00982D666c;
+  address public constant RETH = 0xae78736Cd615f374D3085123A210448E74Fc6393;
+  address public constant RETH_ETH_ORACLE = 0x536218f9E9Eb48863970252233c8F271f554C2d0;
+
+  function execute() external {
+    uint256 wethV2Balance = IERC20(AaveV2EthereumAssets.WETH_A_TOKEN).balanceOf(COLLECTOR);
+    uint256 wethV3Balance = IERC20(AaveV3EthereumAssets.WETH_A_TOKEN).balanceOf(COLLECTOR);
+    uint256 wEthBalance = IERC20(AaveV3EthereumAssets.WETH_UNDERLYING).balanceOf(COLLECTOR);
+
+    // Withdraw all awETH to wETH
+    AaveV2Ethereum.COLLECTOR.transfer(AaveV2EthereumAssets.WETH_A_TOKEN, address(this), wethV2Balance);
+    AaveV2Ethereum.POOL.withdraw(AaveV2EthereumAssets.WETH_UNDERLYING, type(uint256).max, address(this));
+
+    // Withdraw all but 100 aEthWETH to wETH
+    AaveV3Ethereum.COLLECTOR.transfer(AaveV3EthereumAssets.WETH_A_TOKEN, address(this), wethV3Balance - 100 ether);
+    AaveV3Ethereum.POOL.withdraw(AaveV3EthereumAssets.WETH_UNDERLYING, type(uint256).max, address(this));
+
+    // Transfer all wETH to swapper
+    AaveV3Ethereum.COLLECTOR.transfer(AaveV3EthereumAssets.WETH_UNDERLYING, address(this), wEthBalance);
+    wEthBalance = IERC20(AaveV3EthereumAssets.WETH_UNDERLYING).balanceOf(address(this));
+    IERC20(AaveV3EthereumAssets.WETH_UNDERLYING).transfer(address(SWAPPER), wEthBalance);
+
+    // Swap all ETH into RocketPool’s rETH
+    // we use a swap and not a deposit due to new deposits being disabled
+    SWAPPER.swap(
+      MILKMAN,
+      PRICE_CHECKER,
+      address(WETH),
+      RETH,
+      address(this),
+      RETH_ETH_ORACLE,
+      COLLECTOR,
+      wEthBalance,
+      100
+    );
+  }
+
+
+  /// mocks a WETH/ETH chainlink pricefeed to help with swap
+  function latestAnswer() external view returns (int256) {
+    return 1 ether;
+  }
+
+  function decimals() external view returns (uint8) {
+    return 18;
+  }
+}
