@@ -46,10 +46,11 @@ async function subCli(pool: PoolIdentifier) {
   });
   if (shouldAddNewCategory) {
     let more: boolean = true;
+    const eModes = getEModes(pool as any);
+    let highestEmode = Object.values(eModes).length > 0 ? Math.max(...Object.values(eModes)) : 0;
+
     while (more) {
-      const eModes = getEModes(pool as any);
-      const highestEmode = Math.max(...Object.values(eModes));
-      answers.push(await fetchEmodeCategoryUpdate(highestEmode + 1, true));
+      answers.push(await fetchEmodeCategoryUpdate(++highestEmode, true));
       more = await confirm({message: 'Do you want to add another emode category?', default: false});
     }
   }
