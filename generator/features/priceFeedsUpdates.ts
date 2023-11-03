@@ -1,12 +1,16 @@
-import {CodeArtifact, FEATURE, FeatureModule, PoolIdentifier} from '../types';
-import {addressInput, assetsSelect} from '../prompts';
+import {CodeArtifact, FEATURE, FeatureModule} from '../types';
 import {PriceFeedUpdate, PriceFeedUpdatePartial} from './types';
+import {addressPrompt, translateJsAddressToSol} from '../prompts/addressPrompt';
+import {
+  assetsSelectPrompt,
+  translateAssetToAssetLibUnderlying,
+} from '../prompts/assetsSelectPrompt';
 
 async function fetchPriceFeedUpdate(): Promise<PriceFeedUpdatePartial> {
   return {
-    priceFeed: await addressInput({
+    priceFeed: await addressPrompt({
       message: 'New price feed address',
-      disableKeepCurrent: true,
+      required: true,
     }),
   };
 }
@@ -16,7 +20,7 @@ export const priceFeedsUpdates: FeatureModule<PriceFeedUpdate[]> = {
   description: 'PriceFeedsUpdates (replacing priceFeeds)',
   async cli(opt, pool) {
     const response: PriceFeedUpdate[] = [];
-    const assets = await assetsSelect({
+    const assets = await assetsSelectPrompt({
       message: 'Select the assets you want to amend',
       pool,
     });
@@ -38,8 +42,8 @@ export const priceFeedsUpdates: FeatureModule<PriceFeedUpdate[]> = {
           ${cfg
             .map(
               (cfg, ix) => `priceFeedUpdates[${ix}] = IAaveV3ConfigEngine.PriceFeedUpdate({
-               asset: ${cfg.asset},
-               priceFeed: ${cfg.priceFeed}
+               asset: ${translateAssetToAssetLibUnderlying(cfg.asset, pool)},
+               priceFeed: ${translateJsAddressToSol(cfg.priceFeed)}
              });`
             )
             .join('\n')}

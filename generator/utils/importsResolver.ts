@@ -52,7 +52,7 @@ function findMatch(code: string, needle: string) {
 }
 
 /**
- * @dev Returnes the input string prefixed with imports
+ * @dev Returns the input string prefixed with imports
  * @param code
  * @returns
  */

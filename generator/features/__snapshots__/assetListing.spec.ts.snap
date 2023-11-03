@@ -50,23 +50,23 @@ Copyright and related rights waived via [CC0](https://creativecommons.org/public
             \\"liqBonus\\": \\"5_00\\",
             \\"debtCeiling\\": \\"100_000\\",
             \\"liqProtocolFee\\": \\"20_00\\",
-            \\"enabledToBorrow\\": \\"ENABLED\\",
-            \\"flashloanable\\": \\"ENABLED\\",
-            \\"stableRateModeEnabled\\": \\"DISABLED\\",
-            \\"borrowableInIsolation\\": \\"DISABLED\\",
-            \\"withSiloedBorrowing\\": \\"DISABLED\\",
+            \\"enabledToBorrow\\": \\"EngineFlags.ENABLED\\",
+            \\"flashloanable\\": \\"EngineFlags.ENABLED\\",
+            \\"stableRateModeEnabled\\": \\"EngineFlags.DISABLED\\",
+            \\"borrowableInIsolation\\": \\"EngineFlags.DISABLED\\",
+            \\"withSiloedBorrowing\\": \\"EngineFlags.DISABLED\\",
             \\"reserveFactor\\": \\"20_00\\",
             \\"supplyCap\\": \\"10_000\\",
             \\"borrowCap\\": \\"5_000\\",
             \\"rateStrategyParams\\": {
               \\"optimalUtilizationRate\\": \\"_bpsToRay(80_00)\\",
-              \\"baseVariableBorrowRate\\": \\"_bpsToRay(0_00)\\",
+              \\"baseVariableBorrowRate\\": \\"_bpsToRay(0)\\",
               \\"variableRateSlope1\\": \\"_bpsToRay(10_00)\\",
               \\"variableRateSlope2\\": \\"_bpsToRay(100_00)\\",
               \\"stableRateSlope1\\": \\"_bpsToRay(10_00)\\",
               \\"stableRateSlope2\\": \\"_bpsToRay(100_00)\\",
               \\"baseStableRateOffset\\": \\"_bpsToRay(1_00)\\",
-              \\"stableRateExcessOffset\\": \\"_bpsToRay()\\",
+              \\"stableRateExcessOffset\\": \\"_bpsToRay(0)\\",
               \\"optimalStableToTotalDebtRatio\\": \\"_bpsToRay(10_00)\\"
             },
             \\"eModeCategory\\": \\"AaveV3EthereumEModes.NONE\\",
@@ -88,6 +88,7 @@ pragma solidity ^0.8.0;
 
 import {AaveV3Ethereum, AaveV3EthereumEModes} from 'aave-address-book/AaveV3Ethereum.sol';
 import {AaveV3PayloadEthereum} from 'aave-helpers/v3-config-engine/AaveV3PayloadEthereum.sol';
+import {EngineFlags} from 'aave-helpers/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-helpers/v3-config-engine/IAaveV3ConfigEngine.sol';
 import {IV3RateStrategyFactory} from 'aave-helpers/v3-config-engine/IV3RateStrategyFactory.sol';
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
@@ -103,10 +104,11 @@ contract AaveV3Ethereum_Test_20231023 is AaveV3PayloadEthereum {
   using SafeERC20 for IERC20;
 
   address public constant PSP = 0xcAfE001067cDEF266AfB7Eb5A286dCFD277f3dE5;
+  uint256 internal constant PSP_SEED_AMOUNT = 10 ** 18;
 
   function _postExecute() internal override {
-    IERC20(PSP).forceApprove(address(AaveV3Ethereum.POOL), 10 ** 18);
-    AaveV3Ethereum.POOL.supply(PSP, 10 ** 18, address(AaveV3Ethereum.COLLECTOR), 0);
+    IERC20(PSP).forceApprove(address(AaveV3Ethereum.POOL), PSP_SEED_AMOUNT);
+    AaveV3Ethereum.POOL.supply(PSP, PSP_SEED_AMOUNT, address(AaveV3Ethereum.COLLECTOR), 0);
   }
 
   function newListings() public pure override returns (IAaveV3ConfigEngine.Listing[] memory) {
@@ -117,11 +119,11 @@ contract AaveV3Ethereum_Test_20231023 is AaveV3PayloadEthereum {
       assetSymbol: 'PSP',
       priceFeed: 0x72AFAECF99C9d9C8215fF44C77B94B99C28741e8,
       eModeCategory: AaveV3EthereumEModes.NONE,
-      enabledToBorrow: ENABLED,
-      stableRateModeEnabled: DISABLED,
-      borrowableInIsolation: DISABLED,
-      withSiloedBorrowing: DISABLED,
-      flashloanable: ENABLED,
+      enabledToBorrow: EngineFlags.ENABLED,
+      stableRateModeEnabled: EngineFlags.DISABLED,
+      borrowableInIsolation: EngineFlags.DISABLED,
+      withSiloedBorrowing: EngineFlags.DISABLED,
+      flashloanable: EngineFlags.ENABLED,
       ltv: 40_00,
       liqThreshold: 50_00,
       liqBonus: 5_00,
@@ -132,13 +134,13 @@ contract AaveV3Ethereum_Test_20231023 is AaveV3PayloadEthereum {
       liqProtocolFee: 20_00,
       rateStrategyParams: IV3RateStrategyFactory.RateStrategyParams({
         optimalUsageRatio: _bpsToRay(80_00),
-        baseVariableBorrowRate: _bpsToRay(0_00),
+        baseVariableBorrowRate: _bpsToRay(0),
         variableRateSlope1: _bpsToRay(10_00),
         variableRateSlope2: _bpsToRay(100_00),
         stableRateSlope1: _bpsToRay(10_00),
         stableRateSlope2: _bpsToRay(100_00),
         baseStableRateOffset: _bpsToRay(1_00),
-        stableRateExcessOffset: _bpsToRay(),
+        stableRateExcessOffset: _bpsToRay(0),
         optimalStableToTotalDebtRatio: _bpsToRay(10_00)
       })
     });
@@ -166,7 +168,7 @@ contract AaveV3Ethereum_Test_20231023_Test is ProtocolV3TestBase {
   AaveV3Ethereum_Test_20231023 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 18461057);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 18487480);
     proposal = new AaveV3Ethereum_Test_20231023();
   }
 
@@ -219,7 +221,7 @@ contract DeployEthereum is EthereumScript {
  * command: make deploy-ledger contract=src/20231023_AaveV3Ethereum_Test/Test_20231023.s.sol:CreateProposal chain=mainnet
  */
 contract CreateProposal is EthereumScript {
-  function run() external broadcast {
+  function run() external {
     // create payloads
     PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](1);
 
@@ -230,6 +232,7 @@ contract CreateProposal is EthereumScript {
     payloads[0] = GovV3Helpers.buildMainnetPayload(vm, actionsEthereum);
 
     // create proposal
+    vm.startBroadcast();
     GovV3Helpers.createProposal2_5(
       payloads,
       GovV3Helpers.ipfsHashFile(vm, 'src/20231023_AaveV3Ethereum_Test/Test.md')
@@ -245,10 +248,11 @@ exports[`feature: assetListing > should return reasonable code 1`] = `
   "code": {
     "constants": [
       "address public constant PSP = 0xcAfE001067cDEF266AfB7Eb5A286dCFD277f3dE5;",
+      "uint256 internal constant PSP_SEED_AMOUNT = 10 ** 18;",
     ],
     "execute": [
-      "IERC20(PSP).forceApprove(address(AaveV3Ethereum.POOL), 10 ** 18);
-            AaveV3Ethereum.POOL.supply(PSP, 10 ** 18, address(AaveV3Ethereum.COLLECTOR), 0);",
+      "IERC20(PSP).forceApprove(address(AaveV3Ethereum.POOL), PSP_SEED_AMOUNT);
+            AaveV3Ethereum.POOL.supply(PSP, PSP_SEED_AMOUNT, address(AaveV3Ethereum.COLLECTOR), 0);",
     ],
     "fn": [
       "function newListings() public pure override returns (IAaveV3ConfigEngine.Listing[] memory) {
@@ -259,11 +263,11 @@ exports[`feature: assetListing > should return reasonable code 1`] = `
                assetSymbol: \\"PSP\\",
                priceFeed: 0x72AFAECF99C9d9C8215fF44C77B94B99C28741e8,
                eModeCategory: AaveV3EthereumEModes.NONE,
-               enabledToBorrow: ENABLED,
-               stableRateModeEnabled: DISABLED,
-               borrowableInIsolation: DISABLED,
-               withSiloedBorrowing: DISABLED,
-               flashloanable: ENABLED,
+               enabledToBorrow: EngineFlags.ENABLED,
+               stableRateModeEnabled: EngineFlags.DISABLED,
+               borrowableInIsolation: EngineFlags.DISABLED,
+               withSiloedBorrowing: EngineFlags.DISABLED,
+               flashloanable: EngineFlags.ENABLED,
                ltv: 40_00,
                liqThreshold: 50_00,
                liqBonus: 5_00,
@@ -274,13 +278,13 @@ exports[`feature: assetListing > should return reasonable code 1`] = `
                liqProtocolFee: 20_00,
                rateStrategyParams: IV3RateStrategyFactory.RateStrategyParams({
                   optimalUsageRatio: _bpsToRay(80_00),
-                  baseVariableBorrowRate: _bpsToRay(0_00),
+                  baseVariableBorrowRate: _bpsToRay(0),
                   variableRateSlope1: _bpsToRay(10_00),
                   variableRateSlope2: _bpsToRay(100_00),
                   stableRateSlope1: _bpsToRay(10_00),
                   stableRateSlope2: _bpsToRay(100_00),
                   baseStableRateOffset: _bpsToRay(1_00),
-                  stableRateExcessOffset: _bpsToRay(),
+                  stableRateExcessOffset: _bpsToRay(0),
                   optimalStableToTotalDebtRatio: _bpsToRay(10_00)
               })
              });
