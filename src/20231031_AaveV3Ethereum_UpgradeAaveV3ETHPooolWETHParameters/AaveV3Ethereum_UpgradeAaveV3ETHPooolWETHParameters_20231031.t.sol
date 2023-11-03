@@ -15,7 +15,7 @@ contract AaveV3Ethereum_UpgradeAaveV3ETHPooolWETHParameters_20231031_Test is Pro
   AaveV3Ethereum_UpgradeAaveV3ETHPooolWETHParameters_20231031 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 18479575);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 18485108);
     proposal = new AaveV3Ethereum_UpgradeAaveV3ETHPooolWETHParameters_20231031();
   }
 

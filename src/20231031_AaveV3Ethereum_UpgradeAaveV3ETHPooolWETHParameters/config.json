@@ -8,14 +8,14 @@
     "date": "20231031",
     "author": "Gauntlet, ACI",
     "discussion": "https://governance.aave.com/t/arfc-upgrade-aave-v3-eth-pool-weth-parameters/15110",
-    "snapshot": ""
+    "snapshot": "https://snapshot.org/#/aave.eth/proposal/0x192a24fd2b3e1860ce4570c0773d82ab895d27cabf48dddd9bafba7e4e13851e"
   },
   "poolOptions": {
     "AaveV3Ethereum": {
       "configs": {
         "RATE_UPDATE_V3": [
           {
-            "asset": "AaveV3EthereumAssets.WETH_UNDERLYING",
+            "asset": "WETH",
             "params": {
               "optimalUtilizationRate": "_bpsToRay(80_00)",
               "baseVariableBorrowRate": "EngineFlags.KEEP_CURRENT",
