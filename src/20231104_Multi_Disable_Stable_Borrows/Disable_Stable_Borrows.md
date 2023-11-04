@@ -17,11 +17,10 @@ This proposal will revert the freezings and apply a permanent fix. Un-pausing th
 
 ## Specification
 
-The proposal calls `POOL_CONFIGURATOR.setReserveStableRateBorrowing(asset, false);` for all assets with stable borrowing enabled on v3 pools,
-`POOL_CONFIGURATOR.disableReserveStableRate(asset);` for Ethereum v2 pool, and
-`POOL_CONFIGURATOR.unfreeze(asset)` with all assets previously frozen as risk mitigation measure.
-
-,,,,
+The proposal calls
+- `POOL_CONFIGURATOR.setReserveStableRateBorrowing(asset, false);` for all assets with stable borrowing enabled on v3 pools,
+- `POOL_CONFIGURATOR.disableReserveStableRate(asset);` for Ethereum v2 pool, and
+- `POOL_CONFIGURATOR.unfreeze(asset)` with all assets previously frozen as risk mitigation measure.
 
 ## References
 
