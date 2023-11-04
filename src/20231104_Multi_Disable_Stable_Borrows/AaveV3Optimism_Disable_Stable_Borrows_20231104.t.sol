@@ -45,5 +45,9 @@ contract AaveV3Optimism_Disable_Stable_Borrows_20231104_Test is ProtocolV3TestBa
       config.stableBorrowRateEnabled = false;
       _validateReserveConfig(config, allConfigsAfter);
     }
+
+    for (uint256 i = 0; i < allConfigsAfter.length; i++) {
+      require(allConfigsAfter[i].stableBorrowRateEnabled == false);
+    }
   }
 }
