@@ -1,7 +1,7 @@
 ---
 title: "Disable Stable Borrows"
 author: "BGD (@bgdlabs)"
-discussions: ""
+discussions: https://governance.aave.com/t/aave-v2-v3-security-incident-04-11-2023/15335
 ---
 
 ## Simple Summary
