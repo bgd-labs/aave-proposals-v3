@@ -23,7 +23,5 @@ contract AaveV2Ethereum_Disable_Stable_Borrows_20231104 is AaveV2PayloadEthereum
     AaveV2Ethereum.POOL_CONFIGURATOR.disableReserveStableRate(AaveV2EthereumAssets.REN_UNDERLYING);
     AaveV2Ethereum.POOL_CONFIGURATOR.disableReserveStableRate(AaveV2EthereumAssets.USDC_UNDERLYING);
     AaveV2Ethereum.POOL_CONFIGURATOR.disableReserveStableRate(AaveV2EthereumAssets.LUSD_UNDERLYING);
-
   }
-
 }
