@@ -11,7 +11,7 @@ The implementation will effectively stop minting new stable debt tokens.
 
 ## Motivation
 
-In response to an attack vector reported by a white-hat, some immediate steps where taken to protect the Aave Markets by pausing, freezing and disable stable borrowing on the affected assets.
+In response to an attack vector reported by a white-hat, some immediate steps where taken to protect the Aave Pools by pausing, freezing and disable stable borrowing on the affected assets.
 
 Upon further investigation it turned out to be necessary to also prevent new minting of StableDebt.
 
@@ -24,6 +24,8 @@ On AaveV2Ethereum the proposal will call:
 On AaveV3Arbitrum, AaveV3Optimism, AaveV3Avalanche, AaveV3Polygon the proposal will call:
 
 - `POOL_CONFIGURATOR.updateStableDebtToken(input);`
+
+The proposal has been tested by BGD Labs and been reviewed by Aave Companies and Certora.
 
 ## References
 
