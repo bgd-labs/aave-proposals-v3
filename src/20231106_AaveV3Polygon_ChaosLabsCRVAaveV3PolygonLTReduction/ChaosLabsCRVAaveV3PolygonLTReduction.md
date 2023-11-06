@@ -22,19 +22,6 @@ Chaos Labs recommends a 15% reduction. As of October 25, seven total accounts am
 | ----- | ---------- | ------ | -------------------- | ------------------- |
 | CRV   | 65%        | 50%    | 141                  | 8                   |
 
-List of affected accounts:
-
-| Account                                    | Total Supply (USD) | Total CRV Supplied | Total Borrows (USD) | Health | Health After Change |
-| ------------------------------------------ | ------------------ | ------------------ | ------------------- | ------ | ------------------- |
-| 0x9ce21324617b6b573e75d28580dcd5a88c41b4bb | 106                | 29.16              | 86.47               | 1.01   | 0.99                |
-| 0xa21fa160a63993d06daf2cb22f66b9a118a25ed4 | 97                 | 200.43             | 59.14               | 1.07   | 0.83                |
-| 0xf36375ef8ef450476541f6326631cac44f9f0a49 | 58                 | 40.18              | 41.22               | 1.07   | 0.99                |
-| 0xe9784ffc614fe5cc57939cc7b21cdd2cf8f61c86 | 17                 | 34.88              | 10.60               | 1.09   | 0.86                |
-| 0x6c62b64c4e1a4702a41c47d5cdafc29fcba0ebad | 12                 | 25.77              | 6.63                | 1.23   | 0.95                |
-| 0xdb79b400a31997ebc6816f002f2b622fe186056a | 12                 | 25.57              | 6.63                | 1.22   | 0.94                |
-| 0x0906f3f07c7211bdce20d8a7cf9bdd7c3306532d | 4                  | 6.7                | 2.65                | 1.14   | 0.96                |
-| 0x304481771f4922b60a759ac363da3a7da6372cc1 | 4                  | 0.83               | 3.5                 | 1.02   | 1.00                |
-
 ## Specification
 
 | Asset | Parameter | Current Value | Recommendation | Change |
