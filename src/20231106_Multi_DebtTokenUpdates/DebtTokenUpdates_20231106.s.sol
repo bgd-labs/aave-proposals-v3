@@ -45,7 +45,7 @@ contract DeployAvalanche is AvalancheScript {
     // compose action
     IPayloadsControllerCore.ExecutionAction[]
       memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
-    actions[0] = GovV3Helpers.buildAction(address(0));
+    actions[0] = GovV3Helpers.buildAction(address(0x5c15edC83E044D0956fd3F845c15934aB8034BBA));
 
     // register action at payloadsController
     GovV3Helpers.createPayload(actions);
@@ -61,7 +61,7 @@ contract DeployOptimism is OptimismScript {
     // compose action
     IPayloadsControllerCore.ExecutionAction[]
       memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
-    actions[0] = GovV3Helpers.buildAction(address(0));
+    actions[0] = GovV3Helpers.buildAction(address(0x4B02E9A575DFf2783568cE3DFD354736388D813d));
 
     // register action at payloadsController
     GovV3Helpers.createPayload(actions);
@@ -77,7 +77,7 @@ contract DeployArbitrum is ArbitrumScript {
     // compose action
     IPayloadsControllerCore.ExecutionAction[]
       memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
-    actions[0] = GovV3Helpers.buildAction(address(0));
+    actions[0] = GovV3Helpers.buildAction(address(0x625ac4fA12c13210D62348952D54201934194Fe2));
 
     // register action at payloadsController
     GovV3Helpers.createPayload(actions);
