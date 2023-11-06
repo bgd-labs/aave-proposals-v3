@@ -115,7 +115,9 @@ contract CreateProposal is EthereumScript {
 
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsOptimism = new IPayloadsControllerCore.ExecutionAction[](1);
-    actionsOptimism[0] = GovV3Helpers.buildAction(address(0));
+    actionsOptimism[0] = GovV3Helpers.buildAction(
+      address(0x4B02E9A575DFf2783568cE3DFD354736388D813d)
+    );
     payloads[3] = GovV3Helpers.buildOptimismPayload(vm, actionsOptimism);
 
     IPayloadsControllerCore.ExecutionAction[]
