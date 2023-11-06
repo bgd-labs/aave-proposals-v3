@@ -8,7 +8,7 @@ update:; forge update
 # Build & test
 build  :; forge build --sizes
 test   :; forge test -vvv
-test-contract :; forge test --match-contract ${filter} -vvv
+test-contract :; forge test --match-contract ${filter} -vvvv
 
 # Deploy
 deploy-ledger :; forge script ${contract} --rpc-url ${chain} $(if ${dry},--sender 0x25F2226B597E8F9514B3F68F00f494cF4f286491 -vvvv,--broadcast --ledger --mnemonics foo --mnemonic-indexes ${MNEMONIC_INDEX} --sender ${LEDGER_SENDER} --verify -vvvv --slow)
