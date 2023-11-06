@@ -11,10 +11,10 @@ import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/ProtocolV3TestBase
  * command: make test-contract filter=AaveV3Arbitrum_DebtTokenUpdates_20231106
  */
 contract AaveV3Arbitrum_DebtTokenUpdates_20231106_Test is ProtocolV3TestBase {
-  address internal proposal = address(0);
+  address internal proposal = address(0x625ac4fA12c13210D62348952D54201934194Fe2);
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('arbitrum'), 147772611);
+    vm.createSelectFork(vm.rpcUrl('arbitrum'), 147799320);
   }
 
   /**

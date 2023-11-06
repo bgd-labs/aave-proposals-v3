@@ -120,7 +120,9 @@ contract CreateProposal is EthereumScript {
 
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsArbitrum = new IPayloadsControllerCore.ExecutionAction[](1);
-    actionsArbitrum[0] = GovV3Helpers.buildAction(address(0));
+    actionsArbitrum[0] = GovV3Helpers.buildAction(
+      address(0x625ac4fA12c13210D62348952D54201934194Fe2)
+    );
     payloads[4] = GovV3Helpers.buildArbitrumPayload(vm, actionsArbitrum);
 
     // create proposal
