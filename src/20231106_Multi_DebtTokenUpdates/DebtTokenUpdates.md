@@ -25,7 +25,7 @@ On AaveV3Arbitrum, AaveV3Optimism, AaveV3Avalanche, AaveV3Polygon the proposal w
 
 - `POOL_CONFIGURATOR.updateStableDebtToken(input);`
 
-The proposal has been tested by BGD Labs and been reviewed by Aave Companies and Certora.
+The proposal has been tested by BGD Labs and reviewed by Aave Companies and Certora.
 
 ## References
 
