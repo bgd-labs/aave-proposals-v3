@@ -5,7 +5,6 @@ import {AaveV3Optimism} from 'aave-address-book/AaveV3Optimism.sol';
 
 import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/ProtocolV3TestBase.sol';
-import {AaveV3Optimism_DebtTokenUpdates_20231106} from './AaveV3Optimism_DebtTokenUpdates_20231106.sol';
 
 /**
  * @dev Test for AaveV3Optimism_DebtTokenUpdates_20231106

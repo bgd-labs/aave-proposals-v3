@@ -3,11 +3,6 @@ pragma solidity ^0.8.0;
 
 import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aave-helpers/GovV3Helpers.sol';
 import {EthereumScript, PolygonScript, AvalancheScript, OptimismScript, ArbitrumScript} from 'aave-helpers/ScriptUtils.sol';
-import {AaveV2Ethereum_DebtTokenUpdates_20231106} from './AaveV2Ethereum_DebtTokenUpdates_20231106.sol';
-import {AaveV3Polygon_DebtTokenUpdates_20231106} from './AaveV3Polygon_DebtTokenUpdates_20231106.sol';
-import {AaveV3Avalanche_DebtTokenUpdates_20231106} from './AaveV3Avalanche_DebtTokenUpdates_20231106.sol';
-import {AaveV3Optimism_DebtTokenUpdates_20231106} from './AaveV3Optimism_DebtTokenUpdates_20231106.sol';
-import {AaveV3Arbitrum_DebtTokenUpdates_20231106} from './AaveV3Arbitrum_DebtTokenUpdates_20231106.sol';
 
 /**
  * @dev Deploy Ethereum
@@ -18,7 +13,7 @@ contract DeployEthereum is EthereumScript {
     // compose action
     IPayloadsControllerCore.ExecutionAction[]
       memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
-    actions[0] = GovV3Helpers.buildAction(address(payload0));
+    actions[0] = GovV3Helpers.buildAction(address(0x37DF9bd44728e513472D5d44793118cBaE975E12));
 
     // register action at payloadsController
     GovV3Helpers.createPayload(actions);
@@ -34,7 +29,7 @@ contract DeployPolygon is PolygonScript {
     // compose action
     IPayloadsControllerCore.ExecutionAction[]
       memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
-    actions[0] = GovV3Helpers.buildAction(address(payload0));
+    actions[0] = GovV3Helpers.buildAction(address(0));
 
     // register action at payloadsController
     GovV3Helpers.createPayload(actions);
@@ -50,7 +45,7 @@ contract DeployAvalanche is AvalancheScript {
     // compose action
     IPayloadsControllerCore.ExecutionAction[]
       memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
-    actions[0] = GovV3Helpers.buildAction(address(payload0));
+    actions[0] = GovV3Helpers.buildAction(address(0));
 
     // register action at payloadsController
     GovV3Helpers.createPayload(actions);
@@ -66,7 +61,7 @@ contract DeployOptimism is OptimismScript {
     // compose action
     IPayloadsControllerCore.ExecutionAction[]
       memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
-    actions[0] = GovV3Helpers.buildAction(address(payload0));
+    actions[0] = GovV3Helpers.buildAction(address(0));
 
     // register action at payloadsController
     GovV3Helpers.createPayload(actions);
@@ -82,7 +77,7 @@ contract DeployArbitrum is ArbitrumScript {
     // compose action
     IPayloadsControllerCore.ExecutionAction[]
       memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
-    actions[0] = GovV3Helpers.buildAction(address(payload0));
+    actions[0] = GovV3Helpers.buildAction(address(0));
 
     // register action at payloadsController
     GovV3Helpers.createPayload(actions);
@@ -101,7 +96,9 @@ contract CreateProposal is EthereumScript {
     // compose actions for validation
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsEthereum = new IPayloadsControllerCore.ExecutionAction[](1);
-    actionsEthereum[0] = GovV3Helpers.buildAction(address(0));
+    actionsEthereum[0] = GovV3Helpers.buildAction(
+      address(0x37DF9bd44728e513472D5d44793118cBaE975E12)
+    );
     payloads[0] = GovV3Helpers.buildMainnetPayload(vm, actionsEthereum);
 
     IPayloadsControllerCore.ExecutionAction[]
