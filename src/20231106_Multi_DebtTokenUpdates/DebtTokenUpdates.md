@@ -1,5 +1,5 @@
 ---
-title: "Debt Token Updates"
+title: "Multichain Stable Debt Token Upgrades"
 author: "BGD Labs @bgdlabs"
 discussions: "https://governance.aave.com/t/aave-v2-v3-security-incident-04-11-2023/15335/26"
 ---
