@@ -1,6 +1,6 @@
 ---
 title: "Debt Token Updates"
-author: "BGD Labs"
+author: "BGD Labs @bgdlabs"
 discussions: "https://governance.aave.com/t/aave-v2-v3-security-incident-04-11-2023/15335/26"
 ---
 
