@@ -16,7 +16,7 @@ contract AaveV3Polygon_MultichainStableDebtTokenUpgrades_20231107_Test is Protoc
   address internal proposal = address(0x79bdFC73c39Ce05051959a87D78deA6B193ADcf8);
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('polygon'), 49656190);
+    vm.createSelectFork(vm.rpcUrl('polygon'), 49657792);
   }
 
   /**
@@ -32,16 +32,16 @@ contract AaveV3Polygon_MultichainStableDebtTokenUpgrades_20231107_Test is Protoc
 }
 
 /**
- * @dev Test for AaveV3Polygon_MultichainStableDebtTokenUpgrades_20231107
- * command: make test-contract filter=AaveV3Polygon_MultichainStableDebtTokenUpgradesSentinel_20231107
+ * @dev Test for AaveV2Polygon_MultichainStableDebtTokenUpgradesSentinel_20231107
+ * command: make test-contract filter=AaveV2Polygon_MultichainStableDebtTokenUpgradesSentinel_20231107
  */
-contract AaveV3Polygon_MultichainStableDebtTokenUpgradesSentinel_20231107_Test is
-  ProtocolV3TestBase
+contract AaveV2Polygon_MultichainStableDebtTokenUpgradesSentinel_20231107_Test is
+  ProtocolV2TestBase
 {
-  address internal proposal = address(0xcd583c36Dc98cAE001d6c35032935aA291982231);
+  address internal proposal = address(0x2cC18D5Be60bFE2D7F3016524d2E4F1653Afeb60);
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('polygon'), 49656190);
+    vm.createSelectFork(vm.rpcUrl('polygon'), 49657792);
   }
 
   /**
@@ -49,8 +49,8 @@ contract AaveV3Polygon_MultichainStableDebtTokenUpgradesSentinel_20231107_Test i
    */
   function test_defaultProposalExecution() public {
     defaultTest(
-      'AaveV3Polygon_MultichainStableDebtTokenUpgrades_20231107',
-      AaveV3Polygon.POOL,
+      'AaveV2Polygon_MultichainStableDebtTokenUpgrades_20231107',
+      AaveV2Polygon.POOL,
       address(proposal)
     );
   }

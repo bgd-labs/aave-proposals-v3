@@ -61,7 +61,7 @@ contract DeployPolygonSentinel is PolygonScript {
     // compose action
     IPayloadsControllerCore.ExecutionAction[]
       memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
-    actions[0] = GovV3Helpers.buildAction(address(0xcd583c36Dc98cAE001d6c35032935aA291982231));
+    actions[0] = GovV3Helpers.buildAction(address(0x2cC18D5Be60bFE2D7F3016524d2E4F1653Afeb60));
 
     // register action at payloadsController
     GovV3Helpers.createPayload(actions);
@@ -69,15 +69,15 @@ contract DeployPolygonSentinel is PolygonScript {
 }
 
 /**
- * @dev Deploy Polygon
- * command: make deploy-ledger contract=src/20231107_Multi_MultichainStableDebtTokenUpgrades/MultichainStableDebtTokenUpgrades_20231107.s.sol:DeployAvalancheSentinel chain=polygon
+ * @dev Deploy Avalanche
+ * command: make deploy-ledger contract=src/20231107_Multi_MultichainStableDebtTokenUpgrades/MultichainStableDebtTokenUpgrades_20231107.s.sol:DeployAvalancheSentinel chain=avalanche
  */
 contract DeployAvalancheSentinel is AvalancheScript {
   function run() external broadcast {
     // compose action
     IPayloadsControllerCore.ExecutionAction[]
       memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
-    actions[0] = GovV3Helpers.buildAction(address(0xD61BF98649EA8F8D09e184184777b1867F00E5CB));
+    actions[0] = GovV3Helpers.buildAction(address(0x60eE8b61a13c67d0191c851BEC8F0bc850160710));
 
     // register action at payloadsController
     GovV3Helpers.createPayload(actions);
@@ -91,9 +91,10 @@ contract DeployAvalancheSentinel is AvalancheScript {
 contract CreateProposal is EthereumScript {
   function run() external {
     // create payloads
-    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](4);
+    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](5);
 
     // compose actions for validation
+    // update sTokens eth
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsEthereum = new IPayloadsControllerCore.ExecutionAction[](1);
     actionsEthereum[0] = GovV3Helpers.buildAction(
@@ -101,6 +102,7 @@ contract CreateProposal is EthereumScript {
     );
     payloads[0] = GovV3Helpers.buildMainnetPayload(vm, actionsEthereum);
 
+    // update sTokens pol
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsPolygon = new IPayloadsControllerCore.ExecutionAction[](1);
     actionsPolygon[0] = GovV3Helpers.buildAction(
@@ -120,10 +122,11 @@ contract CreateProposal is EthereumScript {
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsPolygonSentinel = new IPayloadsControllerCore.ExecutionAction[](1);
     actionsPolygonSentinel[0] = GovV3Helpers.buildAction(
-      address(0xcd583c36Dc98cAE001d6c35032935aA291982231)
+      address(0x2cC18D5Be60bFE2D7F3016524d2E4F1653Afeb60)
     );
     payloads[3] = GovV3Helpers.buildPolygonPayload(vm, actionsPolygonSentinel);
 
+    // ava sentinel
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsAvalancheSentinel = new IPayloadsControllerCore.ExecutionAction[](1);
     actionsAvalancheSentinel[0] = GovV3Helpers.buildAction(

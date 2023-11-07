@@ -11,10 +11,10 @@ import {ProtocolV2TestBase, ReserveConfig} from 'aave-helpers/ProtocolV2TestBase
  * command: make test-contract filter=AaveV2Avalanche_MultichainStableDebtTokenUpgrades_20231107
  */
 contract AaveV2Avalanche_MultichainStableDebtTokenUpgrades_20231107_Test is ProtocolV2TestBase {
-  address internal proposal = address(0xD61BF98649EA8F8D09e184184777b1867F00E5CB);
+  address internal proposal = address(0x60eE8b61a13c67d0191c851BEC8F0bc850160710);
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('avalanche'), 37456030);
+    vm.createSelectFork(vm.rpcUrl('avalanche'), 37457422);
   }
 
   /**
@@ -24,7 +24,7 @@ contract AaveV2Avalanche_MultichainStableDebtTokenUpgrades_20231107_Test is Prot
     defaultTest(
       'AaveV2Avalanche_MultichainStableDebtTokenUpgradesSentinel_20231107',
       AaveV2Avalanche.POOL,
-      address(0xD61BF98649EA8F8D09e184184777b1867F00E5CB)
+      address(proposal)
     );
   }
 }
