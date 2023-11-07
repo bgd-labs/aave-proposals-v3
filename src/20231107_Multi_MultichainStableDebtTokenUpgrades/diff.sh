@@ -1,0 +1,13 @@
+# old
+cast etherscan-source --chain 1 -d etherscan/v2EthLendingPoolCollateralManager 0xbd4765210d4167CE2A5b87280D9E8Ee316D5EC7C
+cast etherscan-source --chain 137 -d etherscan/v2PolLendingPoolCollateralManager 0xa39599424642d9fd35e475ef802eddf798dc555b
+cast etherscan-source --chain 43114 -d etherscan/v2AvaLendingPoolCollateralManager 0xa9c1bb836752a2Dfb3694ca084D8ffBB07768771
+
+# new
+cast etherscan-source --chain 1 -d etherscan/v2EthLendingPoolCollateralManagerNew 0x368e6441bB27159c6e8e6d3bbd9147BEcBA915E3
+cast etherscan-source --chain 137 -d etherscan/v2PolLendingPoolCollateralManagerNew 0xAdDb96Fb6A795faf042DD25BD4710267C41D1F74
+cast etherscan-source --chain 43114 -d etherscan/v2AvaLendingPoolCollateralManagerNew 0x69A45013F047A65422deFdD0C43f09530D7025c0
+
+make git-diff before=etherscan/v2EthLendingPoolCollateralManager after=etherscan/v2EthLendingPoolCollateralManagerNew out=v2EthLendingPoolCollateralManager_v2EthLendingPoolCollateralManagerNew
+make git-diff before=etherscan/v2PolLendingPoolCollateralManager after=etherscan/v2PolLendingPoolCollateralManagerNew out=v2PolLendingPoolCollateralManager_v2PolLendingPoolCollateralManagerNew
+make git-diff before=etherscan/v2AvaLendingPoolCollateralManager after=etherscan/v2AvaLendingPoolCollateralManagerNew out=v2AvaLendingPoolCollateralManager_v2AvaLendingPoolCollateralManagerNew

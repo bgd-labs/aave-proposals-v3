@@ -17,3 +17,6 @@ node_modules
 broadcast/
 
 reports/
+
+# tooling download folder
+etherscan
