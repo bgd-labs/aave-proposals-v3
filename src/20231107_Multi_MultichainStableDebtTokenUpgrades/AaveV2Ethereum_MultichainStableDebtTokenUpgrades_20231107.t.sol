@@ -14,7 +14,7 @@ contract AaveV2Ethereum_MultichainStableDebtTokenUpgrades_20231107_Test is Proto
   address internal proposal = address(0x3D33aBB521Ef3AA17b76c3FF9aDbEBA3903C5114);
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 18519182);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 18520277);
   }
 
   /**
@@ -26,6 +26,11 @@ contract AaveV2Ethereum_MultichainStableDebtTokenUpgrades_20231107_Test is Proto
       'AaveV2Ethereum_MultichainStableDebtTokenUpgrades_20231107',
       AaveV2Ethereum.POOL,
       address(proposal)
+    );
+    defaultTest(
+      'AaveV2Ethereum_MultichainStableDebtTokenUpgradesSentinel_20231107',
+      AaveV2Ethereum.POOL,
+      address(0x6C43cd7DC9f8d6F9892b4757941F910E3c7f2244)
     );
   }
 
