@@ -106,3 +106,7 @@ export const CHAIN_TO_CHAIN_OBJECT = {
   Bsc: bsc,
   Gnosis: gnosis,
 };
+
+export function flagAsRequired(message: string, required?: boolean) {
+  return required ? `${message}*` : message;
+}

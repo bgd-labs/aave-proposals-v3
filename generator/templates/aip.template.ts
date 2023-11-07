@@ -14,12 +14,14 @@ discussions: ${`"${options.discussion}"` || 'TODO'}
 
 ## Specification
 
-${Object.keys(configs).map((pool) => {
-  let template = `On ${pool} the following steps are performed:\n`;
-  template += configs[pool].artifacts
-    .filter((artifact) => artifact.aip)
-    .map((artifact) => artifact.aip);
-})}
+${Object.keys(configs)
+  .map((pool) => {
+    return configs[pool].artifacts
+      .filter((artifact) => artifact.aip)
+      .map((artifact) => artifact.aip);
+  })
+  .filter((a) => a)
+  .join('\n\n')}
 
 ## References
 

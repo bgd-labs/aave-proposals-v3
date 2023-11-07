@@ -10,7 +10,7 @@ import {
 import type {} from '@inquirer/type';
 import chalk from 'chalk';
 
-type InputConfig = PromptConfig<{
+export type InputConfig = PromptConfig<{
   default?: string;
   transformer?: (value: string, {isFinal}: {isFinal: boolean}) => string;
   validate?: (value: string) => boolean | string | Promise<string | boolean>;
@@ -38,33 +38,31 @@ export const advancedInput = createPrompt<string, InputConfig>((config, done) =>
       return;
     }
 
-    if (!pattern || pattern?.test(rl.line)) {
-      if (isEnterKey(key)) {
-        const answer = value || defaultValue;
-        setStatus('loading');
-        const isValid = await validate(answer);
-        if (isValid === true) {
-          setValue(answer);
-          setStatus('done');
-          done(answer);
-        } else {
-          // Reset the readline line value to the previous value. On line event, the value
-          // get cleared, forcing the user to re-enter the value instead of fixing it.
-          rl.write(value);
-          setError(isValid || 'You must provide a valid value');
-          setStatus('pending');
-        }
-      } else if (isBackspaceKey(key) && !value) {
-        setDefaultValue(undefined);
-      } else if (key.name === 'tab' && !value) {
-        setDefaultValue(undefined);
-        rl.clearLine(0); // Remove the tab character.
-        rl.write(defaultValue);
-        setValue(defaultValue);
+    if (isEnterKey(key)) {
+      const answer = value || defaultValue;
+      setStatus('loading');
+      const isValid = await validate(answer);
+      if (isValid === true) {
+        setValue(answer);
+        setStatus('done');
+        done(answer);
       } else {
-        setValue(rl.line);
-        setError(undefined);
+        // Reset the readline line value to the previous value. On line event, the value
+        // get cleared, forcing the user to re-enter the value instead of fixing it.
+        rl.write(value);
+        setError(isValid || 'You must provide a valid value');
+        setStatus('pending');
       }
+    } else if (isBackspaceKey(key) && !value) {
+      setDefaultValue(undefined);
+    } else if (key.name === 'tab' && !value) {
+      setDefaultValue(undefined);
+      rl.clearLine(0); // Remove the tab character.
+      rl.write(defaultValue);
+      setValue(defaultValue);
+    } else if (!pattern || pattern?.test(rl.line)) {
+      setValue(rl.line);
+      setError(undefined);
     } else {
       const line = rl.line;
       rl.clearLine(0);
