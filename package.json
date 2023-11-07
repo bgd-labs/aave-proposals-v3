@@ -6,7 +6,7 @@
     "lint": "prettier ./",
     "lint:fix": "npm run lint -- --write",
     "generate": "tsx generator/cli",
-    "generate:bgd": "tsx generator/cli -a 'BGD labs'"
+    "generate:bgd": "tsx generator/cli -a 'BGD Labs @bgdlabs'"
   },
   "engines": {
     "node": ">=18.0.0"
