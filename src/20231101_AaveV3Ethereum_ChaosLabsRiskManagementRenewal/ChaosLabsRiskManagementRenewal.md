@@ -144,8 +144,8 @@ This proposal was not commissioned or paid for by any third party.
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231101_AaveV3Ethereum_ChaosLabsRiskManagementRenewal/AaveV3Ethereum_ChaosLabsRiskManagementRenewal_20231101.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231101_AaveV3Ethereum_ChaosLabsRiskManagementRenewal/AaveV3Ethereum_ChaosLabsRiskManagementRenewal_20231101.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/b84a3f1bfc0ecb75311393399dd103c8ceb8f35e/src/20231101_AaveV3Ethereum_ChaosLabsRiskManagementRenewal/AaveV3Ethereum_ChaosLabsRiskManagementRenewal_20231101.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/b84a3f1bfc0ecb75311393399dd103c8ceb8f35e/src/20231101_AaveV3Ethereum_ChaosLabsRiskManagementRenewal/AaveV3Ethereum_ChaosLabsRiskManagementRenewal_20231101.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x6fc4b8ece3d4ac789e043d6aace9ffa77a886a7ea4e0bfe4a55b7a8cdada065e)
 - [Discussion](https://governance.aave.com/t/arfc-chaos-labs-aave-risk-management-renewal/15234)
 
