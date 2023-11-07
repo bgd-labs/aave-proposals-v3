@@ -130,7 +130,7 @@ contract CreateProposal is EthereumScript {
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsAvalancheSentinel = new IPayloadsControllerCore.ExecutionAction[](1);
     actionsAvalancheSentinel[0] = GovV3Helpers.buildAction(
-      address(0xD61BF98649EA8F8D09e184184777b1867F00E5CB)
+      address(0x60eE8b61a13c67d0191c851BEC8F0bc850160710)
     );
     payloads[4] = GovV3Helpers.buildAvalanchePayload(vm, actionsAvalancheSentinel);
 
