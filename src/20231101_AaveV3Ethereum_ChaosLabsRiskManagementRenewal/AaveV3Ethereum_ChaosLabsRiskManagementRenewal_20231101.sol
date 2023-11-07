@@ -3,6 +3,7 @@ pragma solidity ^0.8.0;
 
 import {IProposalGenericExecutor} from 'aave-helpers/interfaces/IProposalGenericExecutor.sol';
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
+import {AaveV2EthereumAssets} from 'aave-address-book/AaveV2Ethereum.sol';
 
 /**
  * @title Chaos Labs Risk Management Renewal
@@ -11,7 +12,6 @@ import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethe
  * - Discussion: https://governance.aave.com/t/arfc-chaos-labs-aave-risk-management-renewal/15234
  */
 contract AaveV3Ethereum_ChaosLabsRiskManagementRenewal_20231101 is IProposalGenericExecutor {
-  address public constant AUSDT = 0x3Ed3B47Dd13EC9a98b44e6204A523E766B225811;
   address public constant CHAOS_LABS_TREASURY = 0xbC540e0729B732fb14afA240aA5A047aE9ba7dF0;
   uint256 public constant STREAM_AMOUNT_GHO = 800_000 ether;
   uint256 public constant STREAM_AMOUNT_AUSDT = 800_000e6;
@@ -33,7 +33,7 @@ contract AaveV3Ethereum_ChaosLabsRiskManagementRenewal_20231101 is IProposalGene
     AaveV3Ethereum.COLLECTOR.createStream(
       CHAOS_LABS_TREASURY,
       ACTUAL_STREAM_AMOUNT_AUSDT,
-      AUSDT,
+      AaveV2EthereumAssets.USDT_A_TOKEN,
       block.timestamp,
       block.timestamp + STREAM_DURATION
     );

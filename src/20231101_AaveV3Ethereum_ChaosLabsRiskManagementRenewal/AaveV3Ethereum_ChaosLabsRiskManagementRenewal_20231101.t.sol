@@ -16,7 +16,6 @@ import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 contract AaveV3Ethereum_ChaosLabsRiskManagementRenewal_20231101_Test is ProtocolV3TestBase {
   AaveV3Ethereum_ChaosLabsRiskManagementRenewal_20231101 internal proposal;
 
-  address public constant AUSDT = 0x3Ed3B47Dd13EC9a98b44e6204A523E766B225811;
   address public constant CHAOS_LABS_TREASURY = 0xbC540e0729B732fb14afA240aA5A047aE9ba7dF0;
   uint256 public constant STREAM_AMOUNT_GHO = 800_000 ether;
   uint256 public constant STREAM_AMOUNT_AUSDT = 800_000e6;
@@ -49,7 +48,9 @@ contract AaveV3Ethereum_ChaosLabsRiskManagementRenewal_20231101_Test is Protocol
     uint256 ChaosGHOBalanceBefore = IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(
       CHAOS_LABS_TREASURY
     );
-    uint256 ChaosAUSDTBalanceBefore = IERC20(AUSDT).balanceOf(CHAOS_LABS_TREASURY);
+    uint256 ChaosAUSDTBalanceBefore = IERC20(AaveV2EthereumAssets.USDT_A_TOKEN).balanceOf(
+      CHAOS_LABS_TREASURY
+    );
 
     executePayload(vm, address(proposal));
 
@@ -88,7 +89,7 @@ contract AaveV3Ethereum_ChaosLabsRiskManagementRenewal_20231101_Test is Protocol
       assertEq(senderAUSDT, address(AaveV3Ethereum.COLLECTOR));
       assertEq(recipientAUSDT, CHAOS_LABS_TREASURY);
       assertEq(depositAUSDT, ACTUAL_STREAM_AMOUNT_AUSDT);
-      assertEq(tokenAddressAUSDT, AUSDT);
+      assertEq(tokenAddressAUSDT, AaveV2EthereumAssets.USDT_A_TOKEN);
       assertEq(stopTimeAUSDT - startTimeAUSDT, STREAM_DURATION);
       assertEq(remainingBalanceAUSDT, ACTUAL_STREAM_AMOUNT_AUSDT);
     }
@@ -104,7 +105,9 @@ contract AaveV3Ethereum_ChaosLabsRiskManagementRenewal_20231101_Test is Protocol
     );
 
     AaveV3Ethereum.COLLECTOR.withdrawFromStream(AUSDTCollectorStreamID, ACTUAL_STREAM_AMOUNT_AUSDT);
-    uint256 ChaosAUSDTBalanceAfter = IERC20(AUSDT).balanceOf(CHAOS_LABS_TREASURY);
+    uint256 ChaosAUSDTBalanceAfter = IERC20(AaveV2EthereumAssets.USDT_A_TOKEN).balanceOf(
+      CHAOS_LABS_TREASURY
+    );
 
     assertEq(ChaosGHOBalanceBefore, ChaosGHOBalanceAfter - ACTUAL_STREAM_AMOUNT_GHO);
     assertEq(ChaosAUSDTBalanceBefore, ChaosAUSDTBalanceAfter - ACTUAL_STREAM_AMOUNT_AUSDT);
