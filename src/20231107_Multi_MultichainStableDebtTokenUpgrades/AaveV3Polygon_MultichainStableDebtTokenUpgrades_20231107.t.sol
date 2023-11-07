@@ -11,10 +11,10 @@ import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/ProtocolV3TestBase
  * command: make test-contract filter=AaveV3Polygon_MultichainStableDebtTokenUpgrades_20231107
  */
 contract AaveV3Polygon_MultichainStableDebtTokenUpgrades_20231107_Test is ProtocolV3TestBase {
-  address internal proposal = address(0);
+  address internal proposal = address(0x79bdFC73c39Ce05051959a87D78deA6B193ADcf8);
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('polygon'), 49647812);
+    vm.createSelectFork(vm.rpcUrl('polygon'), 49648387);
   }
 
   /**

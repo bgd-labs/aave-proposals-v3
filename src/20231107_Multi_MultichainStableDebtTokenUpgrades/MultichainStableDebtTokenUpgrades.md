@@ -6,7 +6,7 @@ discussions: "https://governance.aave.com/t/aave-v2-v3-security-incident-04-11-2
 
 ## Simple Summary
 
-This proposal updates the stable borrow implementations for all tokens that have stable debt across all pools on all networks.
+This proposal updates the stable borrow implementations for 4 tokens that have stable debt across all ethereum v2 and polygon v3 pools.
 The implementation will effectively stop minting new stable debt tokens.
 
 ## Motivation
