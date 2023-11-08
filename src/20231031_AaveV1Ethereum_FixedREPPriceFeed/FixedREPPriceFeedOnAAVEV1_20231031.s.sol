@@ -45,7 +45,7 @@ contract CreateProposal is EthereumScript {
       payloads,
       GovV3Helpers.ipfsHashFile(
         vm,
-        'src/20231031_AaveV1Ethereum_FixedREPPriceFeed/FixedREPPriceFeedOnAAVEV1_20231031.s.sol'
+        'src/20231031_AaveV1Ethereum_FixedREPPriceFeed/FixedREPPriceFeedOnAAVEV1.md'
       )
     );
   }
