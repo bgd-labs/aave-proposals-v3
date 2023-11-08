@@ -15,6 +15,7 @@ import {AaveV3Ethereum_AddFXSToEthereumV3_20231108} from './AaveV3Ethereum_AddFX
  */
 contract AaveV3Ethereum_AddFXSToEthereumV3_20231108_Test is ProtocolV3TestBase {
   AaveV3Ethereum_AddFXSToEthereumV3_20231108 internal proposal;
+  address internal FXS_WHALE = 0xb744bEA7E6892c380B781151554C7eBCc764910b;
 
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('mainnet'), 18528879);
@@ -25,6 +26,8 @@ contract AaveV3Ethereum_AddFXSToEthereumV3_20231108_Test is ProtocolV3TestBase {
    * @dev executes the generic test suite including e2e and config snapshots
    */
   function test_defaultProposalExecution() public {
+    startHoax(FXS_WHALE);
+    IERC20(proposal.FXS()).transfer(0x5300A1a15135EA4dc7aD5a167152C01EFc9b192A, 10**18);
     defaultTest(
       'AaveV3Ethereum_AddFXSToEthereumV3_20231108',
       AaveV3Ethereum.POOL,
@@ -33,6 +36,8 @@ contract AaveV3Ethereum_AddFXSToEthereumV3_20231108_Test is ProtocolV3TestBase {
   }
 
   function test_collectorHasFXSFunds() public {
+    startHoax(FXS_WHALE);
+    IERC20(proposal.FXS()).transfer(0x5300A1a15135EA4dc7aD5a167152C01EFc9b192A, 10**18);
     GovV3Helpers.executePayload(vm, address(proposal));
     (address aTokenAddress, , ) = AaveV3Ethereum
       .AAVE_PROTOCOL_DATA_PROVIDER
