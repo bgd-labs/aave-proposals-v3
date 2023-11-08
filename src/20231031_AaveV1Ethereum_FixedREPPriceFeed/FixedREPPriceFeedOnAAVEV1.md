@@ -22,8 +22,8 @@ Average `REP` price to use: 0.0004625695693 ETH
 
 ## References
 
-- Implementation: [AaveV1Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231031_AaveV1Ethereum_FixedREPPriceFeed/AaveV1Ethereum_FixedREPPriceFeed_20231031.sol)
-- Tests: [AaveV1Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231031_AaveV1Ethereum_FixedREPPriceFeed/AaveV1Ethereum_FixedREPPriceFeed_20231031.t.sol)
+- Implementation: [AaveV1Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/5a5eb6a089e18de3c2f08b48ddb12fe85ab775d6/src/20231031_AaveV1Ethereum_FixedREPPriceFeed/AaveV1Ethereum_FixedREPPriceFeed_20231031.sol)
+- Tests: [AaveV1Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/5a5eb6a089e18de3c2f08b48ddb12fe85ab775d6/src/20231031_AaveV1Ethereum_FixedREPPriceFeed/AaveV1Ethereum_FixedREPPriceFeed_20231031.t.sol)
 - [Discussion](https://governance.aave.com/t/bgd-technical-maintenance-proposals/15274/2)
 
 - [REP token](https://etherscan.io/address/0x1985365e9f78359a9B6AD760e32412f4a445E862)
