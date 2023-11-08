@@ -15,7 +15,7 @@ contract AaveV3Optimism_MAIMIMATICDeprecation20231031_20231031_Test is ProtocolV
   AaveV3Optimism_MAIMIMATICDeprecation20231031_20231031 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('optimism'), 111725851);
+    vm.createSelectFork(vm.rpcUrl('optimism'), 111936632);
     proposal = new AaveV3Optimism_MAIMIMATICDeprecation20231031_20231031();
   }
 
