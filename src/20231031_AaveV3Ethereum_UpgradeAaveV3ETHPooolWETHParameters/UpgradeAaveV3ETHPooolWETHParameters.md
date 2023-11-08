@@ -21,8 +21,8 @@ Increased utilization of ETH reserve is expected to partly compensate for the sl
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231031_AaveV3Ethereum_UpgradeAaveV3ETHPooolWETHParameters/AaveV3Ethereum_UpgradeAaveV3ETHPooolWETHParameters_20231031.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231031_AaveV3Ethereum_UpgradeAaveV3ETHPooolWETHParameters/AaveV3Ethereum_UpgradeAaveV3ETHPooolWETHParameters_20231031.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/41f231cff476ad2c1c290b65e3577af9e2708f0c/src/20231031_AaveV3Ethereum_UpgradeAaveV3ETHPooolWETHParameters/AaveV3Ethereum_UpgradeAaveV3ETHPooolWETHParameters_20231031.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/41f231cff476ad2c1c290b65e3577af9e2708f0c/src/20231031_AaveV3Ethereum_UpgradeAaveV3ETHPooolWETHParameters/AaveV3Ethereum_UpgradeAaveV3ETHPooolWETHParameters_20231031.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x192a24fd2b3e1860ce4570c0773d82ab895d27cabf48dddd9bafba7e4e13851e)
 - [Discussion](https://governance.aave.com/t/arfc-upgrade-aave-v3-eth-pool-weth-parameters/15110)
 
