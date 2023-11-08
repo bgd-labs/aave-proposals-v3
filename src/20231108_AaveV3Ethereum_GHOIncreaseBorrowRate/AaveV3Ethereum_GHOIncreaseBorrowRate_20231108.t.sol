@@ -15,7 +15,7 @@ contract AaveV3Ethereum_GHOIncreaseBorrowRate_20231108_Test is ProtocolV3TestBas
   AaveV3Ethereum_GHOIncreaseBorrowRate_20231108 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 18526797);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 18527567);
     proposal = new AaveV3Ethereum_GHOIncreaseBorrowRate_20231108();
   }
 
