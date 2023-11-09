@@ -64,7 +64,7 @@ contract AaveV3Ethereum_AmendSafetyModuleAAVEEmissions_20231104_Test is Protocol
   uint128 public constant EMISSIONS_PER_SECOND = uint128(DAILY_EMISSIONS / 86400);
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 18500413);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 18535736);
     proposal = new AaveV3Ethereum_AmendSafetyModuleAAVEEmissions_20231104();
   }
 
