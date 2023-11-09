@@ -27,8 +27,8 @@ The Aave Facilitator Bucket Level is to remain at 35.00M units
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231108_AaveV3Ethereum_GHOIncreaseBorrowRate/AaveV3Ethereum_GHOIncreaseBorrowRate_20231108.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231108_AaveV3Ethereum_GHOIncreaseBorrowRate/AaveV3Ethereum_GHOIncreaseBorrowRate_20231108.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/72cad7a3c51b067f567c73524f73e8d0dbf22cb6/src/20231108_AaveV3Ethereum_GHOIncreaseBorrowRate/AaveV3Ethereum_GHOIncreaseBorrowRate_20231108.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/72cad7a3c51b067f567c73524f73e8d0dbf22cb6/src/20231108_AaveV3Ethereum_GHOIncreaseBorrowRate/AaveV3Ethereum_GHOIncreaseBorrowRate_20231108.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x9789e054e29f63da5713368be2dd0b4006f4564ef5e48c9d5e994ec20e932e35)
 - [Discussion](https://governance.aave.com/t/arfc-gho-increase-borrow-rate/15271)
 
