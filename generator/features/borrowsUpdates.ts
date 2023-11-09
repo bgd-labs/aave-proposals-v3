@@ -1,39 +1,40 @@
 import {CodeArtifact, ENGINE_FLAGS, FEATURE, FeatureModule} from '../types';
-import {booleanSelect, percentInput} from '../prompts';
+import {percentInput} from '../prompts';
 import {BorrowUpdate} from './types';
 import {
   assetsSelectPrompt,
   translateAssetToAssetLibUnderlying,
 } from '../prompts/assetsSelectPrompt';
+import {boolPrompt, translateJsBoolToSol} from '../prompts/boolPrompt';
 
-export async function fetchBorrowUpdate<T extends boolean>(disableKeepCurrent?: T) {
+export async function fetchBorrowUpdate<T extends boolean>(required?: T) {
   return {
-    enabledToBorrow: await booleanSelect({
+    enabledToBorrow: await boolPrompt({
       message: 'enabled to borrow',
-      disableKeepCurrent,
+      required,
     }),
-    flashloanable: await booleanSelect({
+    flashloanable: await boolPrompt({
       message: 'flashloanable',
-      disableKeepCurrent,
+      required,
     }),
-    stableRateModeEnabled: await booleanSelect({
+    stableRateModeEnabled: await boolPrompt({
       message: 'stable rate mode enabled',
-      disableKeepCurrent,
+      required,
       defaultValue: ENGINE_FLAGS.DISABLED,
     }),
-    borrowableInIsolation: await booleanSelect({
+    borrowableInIsolation: await boolPrompt({
       message: 'borrowable in isolation',
-      disableKeepCurrent,
+      required,
       defaultValue: ENGINE_FLAGS.DISABLED,
     }),
-    withSiloedBorrowing: await booleanSelect({
+    withSiloedBorrowing: await boolPrompt({
       message: 'siloed borrowing',
-      disableKeepCurrent,
+      required,
       defaultValue: ENGINE_FLAGS.DISABLED,
     }),
     reserveFactor: await percentInput({
       message: 'reserve factor',
-      disableKeepCurrent,
+      disableKeepCurrent: required,
     }),
   };
 }
@@ -69,11 +70,11 @@ export const borrowsUpdates: FeatureModule<BorrowUpdates> = {
             .map(
               (cfg, ix) => `borrowUpdates[${ix}] = IAaveV3ConfigEngine.BorrowUpdate({
                asset: ${translateAssetToAssetLibUnderlying(cfg.asset, pool)},
-               enabledToBorrow: ${cfg.enabledToBorrow},
-               flashloanable: ${cfg.flashloanable},
-               stableRateModeEnabled: ${cfg.stableRateModeEnabled},
-               borrowableInIsolation: ${cfg.borrowableInIsolation},
-               withSiloedBorrowing: ${cfg.withSiloedBorrowing},
+               enabledToBorrow: ${translateJsBoolToSol(cfg.enabledToBorrow)},
+               flashloanable: ${translateJsBoolToSol(cfg.flashloanable)},
+               stableRateModeEnabled: ${translateJsBoolToSol(cfg.stableRateModeEnabled)},
+               borrowableInIsolation: ${translateJsBoolToSol(cfg.borrowableInIsolation)},
+               withSiloedBorrowing: ${translateJsBoolToSol(cfg.withSiloedBorrowing)},
                reserveFactor: ${cfg.reserveFactor}
              });`
             )

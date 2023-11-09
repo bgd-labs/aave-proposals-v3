@@ -169,6 +169,39 @@ export const assetListing: FeatureModule<Listing[]> = {
           }`
         ),
       },
+      // aip: {
+      //   specification: cfg.map((cfg) => {
+      //     let listingTemplate = `The table below illustrates the configured risk parameters for **${cfg.assetSymbol}**\n\n`;
+      //     listingTemplate += `| Parameter | Value |\n`;
+      //     listingTemplate += `| --- | --: |\n`;
+      //     listingTemplate += `| Isolation Mode | ${!!cfg.debtCeiling} |\n`;
+      //     listingTemplate += `| Borrowable | ${cfg.enabledToBorrow} |\n`;
+      //     listingTemplate += `| Collateral Enabled | ${!!cfg.liqThreshold} |\n`;
+      //     listingTemplate += `| Supply Cap (${cfg.assetSymbol}) | ${cfg.supplyCap} |\n`;
+      //     listingTemplate += `| Borrow Cap (${cfg.assetSymbol}) | ${cfg.borrowCap} |\n`;
+      //     listingTemplate += `| Debt Ceiling | ${cfg.debtCeiling} |\n`;
+      //     listingTemplate += `| LTV | ${cfg.ltv} |\n`;
+      //     listingTemplate += `| LT | ${cfg.liqThreshold} |\n`;
+      //     listingTemplate += `| Liquidation Bonus	| ${cfg.liqBonus} |\n`;
+      //     listingTemplate += `| Liquidation Protocol Fee | ${cfg.liqProtocolFee} |\n`;
+      //     listingTemplate += `| Reserve Factor | ${cfg.reserveFactor} |\n`;
+      //     listingTemplate += `| Base Variable Borrow Rate	| ${cfg.rateStrategyParams.baseVariableBorrowRate} |\n`;
+      //     listingTemplate += `| Variable Slope 1 | ${cfg.rateStrategyParams.variableRateSlope1} |\n`;
+      //     listingTemplate += `| Variable Slope 2 | ${cfg.rateStrategyParams.variableRateSlope2} |\n`;
+      //     listingTemplate += `| Uoptimal | ${cfg.rateStrategyParams.optimalUtilizationRate} |\n`;
+      //     listingTemplate += `| Stable Borrowing | ${cfg.stableRateModeEnabled} |\n`;
+      //     listingTemplate += `| Stable Slope1	| ${cfg.rateStrategyParams.stableRateSlope1} |\n`;
+      //     listingTemplate += `| Stable Slope2	| ${cfg.rateStrategyParams.stableRateSlope2} |\n`;
+      //     listingTemplate += `| Base Stable Rate Offset | ${cfg.rateStrategyParams.baseStableRateOffset} |\n`;
+      //     listingTemplate += `| Stable Rate Excess Offset	| ${cfg.rateStrategyParams.stableRateExcessOffset} |\n`;
+      //     listingTemplate += `| Optimal Stable To Total Debt Ratio | ${cfg.rateStrategyParams.optimalStableToTotalDebtRatio} |\n`;
+      //     listingTemplate += `| Flahloanable	| ${cfg.flashloanable} |\n`;
+      //     listingTemplate += `| Siloed Borrowing	| ${cfg.withSiloedBorrowing} |\n`;
+      //     listingTemplate += `| Borrowable in Isolation | ${cfg.borrowableInIsolation} |\n`;
+      //     listingTemplate += `| Oracle | ${cfg.priceFeed} |\n`;
+      //     return listingTemplate;
+      //   }),
+      // },
     };
     return response;
   },
@@ -210,8 +243,8 @@ export const assetListingCustom: FeatureModule<ListingWithCustomImpl[]> = {
             .map(
               (cfg, ix) => `listings[${ix}] = IAaveV3ConfigEngine.ListingWithCustomImpl(
                 IAaveV3ConfigEngine.Listing({
-              asset: ${cfg.base.assetSymbol},
-              assetSymbol: "${cfg.base.assetSymbol}",
+               asset: ${cfg.base.assetSymbol},
+               assetSymbol: "${cfg.base.assetSymbol}",
                priceFeed: ${translateJsAddressToSol(cfg.base.priceFeed)},
                eModeCategory: ${cfg.base.eModeCategory},
                enabledToBorrow: ${cfg.base.enabledToBorrow},

@@ -1,6 +1,6 @@
-import {checkbox, input, select} from '@inquirer/prompts';
+import {checkbox, select} from '@inquirer/prompts';
 import {ENGINE_FLAGS, PoolIdentifier} from './types';
-import {getAssets, getEModes} from './common';
+import {getEModes} from './common';
 import {advancedInput} from './prompts/advancedInput';
 
 // VALIDATION
@@ -51,19 +51,6 @@ export function translateJsNumberToSol(value: string) {
   return String(value).replace(/\B(?=(\d{3})+(?!\d))/g, '_');
 }
 
-function translateJsBoolToSol(value: string) {
-  switch (value) {
-    case ENGINE_FLAGS.ENABLED:
-      return `EngineFlags.ENABLED`;
-    case ENGINE_FLAGS.DISABLED:
-      return `EngineFlags.DISABLED`;
-    case ENGINE_FLAGS.KEEP_CURRENT:
-      return `EngineFlags.KEEP_CURRENT`;
-    default:
-      return value;
-  }
-}
-
 function translateEModeToEModeLib(value: string, pool: PoolIdentifier) {
   if (value === ENGINE_FLAGS.KEEP_CURRENT) return `EngineFlags.KEEP_CURRENT`;
   return `${pool}EModes.${value}`;
@@ -75,33 +62,6 @@ interface GenericPrompt<T extends boolean = boolean> {
   disableKeepCurrent?: T;
   transform?: (value: string) => string;
   defaultValue?: string;
-}
-
-export type BooleanSelectValues =
-  | typeof ENGINE_FLAGS.KEEP_CURRENT
-  | typeof ENGINE_FLAGS.ENABLED
-  | typeof ENGINE_FLAGS.DISABLED;
-
-export async function booleanSelect<T extends boolean>({
-  message,
-  disableKeepCurrent,
-  defaultValue,
-}: GenericPrompt<T>): Promise<
-  T extends true ? Exclude<BooleanSelectValues, 'KEEP_CURRENT'> : BooleanSelectValues
-> {
-  const choices = [
-    ...(disableKeepCurrent ? [] : [{value: ENGINE_FLAGS.KEEP_CURRENT}]),
-    {value: ENGINE_FLAGS.ENABLED},
-    {value: ENGINE_FLAGS.DISABLED},
-  ];
-  const value = await select({
-    message,
-    choices: choices,
-    default: defaultValue,
-  });
-  return translateJsBoolToSol(value) as T extends true
-    ? Exclude<BooleanSelectValues, 'KEEP_CURRENT'>
-    : BooleanSelectValues;
 }
 
 interface PercentInputPrompt<T extends boolean> extends GenericPrompt<T> {
@@ -180,6 +140,7 @@ export async function eModesSelect<T extends boolean>({message, pool}: EModeSele
           .filter((e) => e != 'NONE')
           .map((eMode) => ({value: eMode})),
       ],
+      required: true,
     });
     return values.map((mode) => translateEModeToEModeLib(mode, pool));
   } else {
