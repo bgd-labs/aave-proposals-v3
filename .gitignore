@@ -15,3 +15,8 @@ node_modules
 
 # ignore foundry deploy artifacts
 broadcast/
+
+reports/
+
+# tooling download folder
+etherscan

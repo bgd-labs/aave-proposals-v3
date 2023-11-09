@@ -5,6 +5,54 @@ import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aa
 import {EthereumScript, AvalancheScript, MetisScript, BaseScript} from 'aave-helpers/ScriptUtils.sol';
 
 /**
+ * @dev Deploy Avalanche
+ * command: make deploy-ledger contract=src/20231101_Multi_FreezeStewards/FreezeStewards_20231101.s.sol:DeployAvalanche chain=avalanche
+ */
+contract DeployAvalanche is AvalancheScript {
+  function run() external broadcast {
+    // compose action
+    IPayloadsControllerCore.ExecutionAction[]
+      memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
+    actions[0] = GovV3Helpers.buildAction(address(0xa3255CfE96D192dDe036c30b10AF9a29bb358157));
+
+    // register action at payloadsController
+    GovV3Helpers.createPayload(actions);
+  }
+}
+
+/**
+ * @dev Deploy Metis
+ * command: make deploy-ledger contract=src/20231101_Multi_FreezeStewards/FreezeStewards_20231101.s.sol:DeployMetis chain=metis
+ */
+contract DeployMetis is MetisScript {
+  function run() external broadcast {
+    // compose action
+    IPayloadsControllerCore.ExecutionAction[]
+      memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
+    actions[0] = GovV3Helpers.buildAction(address(0x0f24aF3ea7460E09E33B2e9814Df5856433BE80D));
+
+    // register action at payloadsController
+    GovV3Helpers.createPayload(actions);
+  }
+}
+
+/**
+ * @dev Deploy Base
+ * command: make deploy-ledger contract=src/20231101_Multi_FreezeStewards/FreezeStewards_20231101.s.sol:DeployBase chain=base
+ */
+contract DeployBase is BaseScript {
+  function run() external broadcast {
+    // compose action
+    IPayloadsControllerCore.ExecutionAction[]
+      memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
+    actions[0] = GovV3Helpers.buildAction(address(0x889c0cc3283DB588A34E89Ad1E8F25B0fc827b4b));
+
+    // register action at payloadsController
+    GovV3Helpers.createPayload(actions);
+  }
+}
+
+/**
  * @dev Create Proposal
  * command: make deploy-ledger contract=src/20231101_Multi_FreezeStewards/FreezeStewards_20231101.s.sol:CreateProposal chain=mainnet
  */

@@ -1,0 +1,9540 @@
+```diff
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/@openzeppelin/contracts/token/ERC20/IERC20.sol b/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/@openzeppelin/contracts/token/ERC20/IERC20.sol
+deleted file mode 100644
+index 62ba69f..0000000
+--- a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/@openzeppelin/contracts/token/ERC20/IERC20.sol
++++ /dev/null
+@@ -1,77 +0,0 @@
+-// SPDX-License-Identifier: MIT
+-
+-pragma solidity ^0.6.0;
+-
+-/**
+- * @dev Interface of the ERC20 standard as defined in the EIP.
+- */
+-interface IERC20 {
+-  /**
+-   * @dev Returns the amount of tokens in existence.
+-   */
+-  function totalSupply() external view returns (uint256);
+-
+-  /**
+-   * @dev Returns the amount of tokens owned by `account`.
+-   */
+-  function balanceOf(address account) external view returns (uint256);
+-
+-  /**
+-   * @dev Moves `amount` tokens from the caller's account to `recipient`.
+-   *
+-   * Returns a boolean value indicating whether the operation succeeded.
+-   *
+-   * Emits a {Transfer} event.
+-   */
+-  function transfer(address recipient, uint256 amount) external returns (bool);
+-
+-  /**
+-   * @dev Returns the remaining number of tokens that `spender` will be
+-   * allowed to spend on behalf of `owner` through {transferFrom}. This is
+-   * zero by default.
+-   *
+-   * This value changes when {approve} or {transferFrom} are called.
+-   */
+-  function allowance(address owner, address spender) external view returns (uint256);
+-
+-  /**
+-   * @dev Sets `amount` as the allowance of `spender` over the caller's tokens.
+-   *
+-   * Returns a boolean value indicating whether the operation succeeded.
+-   *
+-   * IMPORTANT: Beware that changing an allowance with this method brings the risk
+-   * that someone may use both the old and the new allowance by unfortunate
+-   * transaction ordering. One possible solution to mitigate this race
+-   * condition is to first reduce the spender's allowance to 0 and set the
+-   * desired value afterwards:
+-   * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
+-   *
+-   * Emits an {Approval} event.
+-   */
+-  function approve(address spender, uint256 amount) external returns (bool);
+-
+-  /**
+-   * @dev Moves `amount` tokens from `sender` to `recipient` using the
+-   * allowance mechanism. `amount` is then deducted from the caller's
+-   * allowance.
+-   *
+-   * Returns a boolean value indicating whether the operation succeeded.
+-   *
+-   * Emits a {Transfer} event.
+-   */
+-  function transferFrom(address sender, address recipient, uint256 amount) external returns (bool);
+-
+-  /**
+-   * @dev Emitted when `value` tokens are moved from one account (`from`) to
+-   * another (`to`).
+-   *
+-   * Note that `value` may be zero.
+-   */
+-  event Transfer(address indexed from, address indexed to, uint256 value);
+-
+-  /**
+-   * @dev Emitted when the allowance of a `spender` for an `owner` is set by
+-   * a call to {approve}. `value` is the new allowance.
+-   */
+-  event Approval(address indexed owner, address indexed spender, uint256 value);
+-}
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/adapters/BaseUniswapAdapter.sol b/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/adapters/BaseUniswapAdapter.sol
+deleted file mode 100644
+index 5921238..0000000
+--- a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/adapters/BaseUniswapAdapter.sol
++++ /dev/null
+@@ -1,541 +0,0 @@
+-// SPDX-License-Identifier: agpl-3.0
+-pragma solidity 0.6.12;
+-pragma experimental ABIEncoderV2;
+-
+-import {PercentageMath} from '../protocol/libraries/math/PercentageMath.sol';
+-import {SafeMath} from '../dependencies/openzeppelin/contracts/SafeMath.sol';
+-import {IERC20} from '../dependencies/openzeppelin/contracts/IERC20.sol';
+-import {IERC20Detailed} from '../dependencies/openzeppelin/contracts/IERC20Detailed.sol';
+-import {SafeERC20} from '../dependencies/openzeppelin/contracts/SafeERC20.sol';
+-import {Ownable} from '../dependencies/openzeppelin/contracts/Ownable.sol';
+-import {ILendingPoolAddressesProvider} from '../interfaces/ILendingPoolAddressesProvider.sol';
+-import {DataTypes} from '../protocol/libraries/types/DataTypes.sol';
+-import {IUniswapV2Router02} from '../interfaces/IUniswapV2Router02.sol';
+-import {IPriceOracleGetter} from '../interfaces/IPriceOracleGetter.sol';
+-import {IERC20WithPermit} from '../interfaces/IERC20WithPermit.sol';
+-import {FlashLoanReceiverBase} from '../flashloan/base/FlashLoanReceiverBase.sol';
+-import {IBaseUniswapAdapter} from './interfaces/IBaseUniswapAdapter.sol';
+-
+-/**
+- * @title BaseUniswapAdapter
+- * @notice Implements the logic for performing assets swaps in Uniswap V2
+- * @author Aave
+- **/
+-abstract contract BaseUniswapAdapter is FlashLoanReceiverBase, IBaseUniswapAdapter, Ownable {
+-  using SafeMath for uint256;
+-  using PercentageMath for uint256;
+-  using SafeERC20 for IERC20;
+-
+-  // Max slippage percent allowed
+-  uint256 public constant override MAX_SLIPPAGE_PERCENT = 3000; // 30%
+-  // FLash Loan fee set in lending pool
+-  uint256 public constant override FLASHLOAN_PREMIUM_TOTAL = 9;
+-  // USD oracle asset address
+-  address public constant override USD_ADDRESS = 0x10F7Fc1F91Ba351f9C629c5947AD69bD03C05b96;
+-
+-  address public immutable override WETH_ADDRESS;
+-  IPriceOracleGetter public immutable override ORACLE;
+-  IUniswapV2Router02 public immutable override UNISWAP_ROUTER;
+-
+-  constructor(
+-    ILendingPoolAddressesProvider addressesProvider,
+-    IUniswapV2Router02 uniswapRouter,
+-    address wethAddress
+-  ) public FlashLoanReceiverBase(addressesProvider) {
+-    ORACLE = IPriceOracleGetter(addressesProvider.getPriceOracle());
+-    UNISWAP_ROUTER = uniswapRouter;
+-    WETH_ADDRESS = wethAddress;
+-  }
+-
+-  /**
+-   * @dev Given an input asset amount, returns the maximum output amount of the other asset and the prices
+-   * @param amountIn Amount of reserveIn
+-   * @param reserveIn Address of the asset to be swap from
+-   * @param reserveOut Address of the asset to be swap to
+-   * @return uint256 Amount out of the reserveOut
+-   * @return uint256 The price of out amount denominated in the reserveIn currency (18 decimals)
+-   * @return uint256 In amount of reserveIn value denominated in USD (8 decimals)
+-   * @return uint256 Out amount of reserveOut value denominated in USD (8 decimals)
+-   */
+-  function getAmountsOut(
+-    uint256 amountIn,
+-    address reserveIn,
+-    address reserveOut
+-  ) external view override returns (uint256, uint256, uint256, uint256, address[] memory) {
+-    AmountCalc memory results = _getAmountsOutData(reserveIn, reserveOut, amountIn);
+-
+-    return (
+-      results.calculatedAmount,
+-      results.relativePrice,
+-      results.amountInUsd,
+-      results.amountOutUsd,
+-      results.path
+-    );
+-  }
+-
+-  /**
+-   * @dev Returns the minimum input asset amount required to buy the given output asset amount and the prices
+-   * @param amountOut Amount of reserveOut
+-   * @param reserveIn Address of the asset to be swap from
+-   * @param reserveOut Address of the asset to be swap to
+-   * @return uint256 Amount in of the reserveIn
+-   * @return uint256 The price of in amount denominated in the reserveOut currency (18 decimals)
+-   * @return uint256 In amount of reserveIn value denominated in USD (8 decimals)
+-   * @return uint256 Out amount of reserveOut value denominated in USD (8 decimals)
+-   */
+-  function getAmountsIn(
+-    uint256 amountOut,
+-    address reserveIn,
+-    address reserveOut
+-  ) external view override returns (uint256, uint256, uint256, uint256, address[] memory) {
+-    AmountCalc memory results = _getAmountsInData(reserveIn, reserveOut, amountOut);
+-
+-    return (
+-      results.calculatedAmount,
+-      results.relativePrice,
+-      results.amountInUsd,
+-      results.amountOutUsd,
+-      results.path
+-    );
+-  }
+-
+-  /**
+-   * @dev Swaps an exact `amountToSwap` of an asset to another
+-   * @param assetToSwapFrom Origin asset
+-   * @param assetToSwapTo Destination asset
+-   * @param amountToSwap Exact amount of `assetToSwapFrom` to be swapped
+-   * @param minAmountOut the min amount of `assetToSwapTo` to be received from the swap
+-   * @return the amount received from the swap
+-   */
+-  function _swapExactTokensForTokens(
+-    address assetToSwapFrom,
+-    address assetToSwapTo,
+-    uint256 amountToSwap,
+-    uint256 minAmountOut,
+-    bool useEthPath
+-  ) internal returns (uint256) {
+-    uint256 fromAssetDecimals = _getDecimals(assetToSwapFrom);
+-    uint256 toAssetDecimals = _getDecimals(assetToSwapTo);
+-
+-    uint256 fromAssetPrice = _getPrice(assetToSwapFrom);
+-    uint256 toAssetPrice = _getPrice(assetToSwapTo);
+-
+-    uint256 expectedMinAmountOut = amountToSwap
+-      .mul(fromAssetPrice.mul(10 ** toAssetDecimals))
+-      .div(toAssetPrice.mul(10 ** fromAssetDecimals))
+-      .percentMul(PercentageMath.PERCENTAGE_FACTOR.sub(MAX_SLIPPAGE_PERCENT));
+-
+-    require(expectedMinAmountOut < minAmountOut, 'minAmountOut exceed max slippage');
+-
+-    // Approves the transfer for the swap. Approves for 0 first to comply with tokens that implement the anti frontrunning approval fix.
+-    IERC20(assetToSwapFrom).safeApprove(address(UNISWAP_ROUTER), 0);
+-    IERC20(assetToSwapFrom).safeApprove(address(UNISWAP_ROUTER), amountToSwap);
+-
+-    address[] memory path;
+-    if (useEthPath) {
+-      path = new address[](3);
+-      path[0] = assetToSwapFrom;
+-      path[1] = WETH_ADDRESS;
+-      path[2] = assetToSwapTo;
+-    } else {
+-      path = new address[](2);
+-      path[0] = assetToSwapFrom;
+-      path[1] = assetToSwapTo;
+-    }
+-    uint256[] memory amounts = UNISWAP_ROUTER.swapExactTokensForTokens(
+-      amountToSwap,
+-      minAmountOut,
+-      path,
+-      address(this),
+-      block.timestamp
+-    );
+-
+-    emit Swapped(assetToSwapFrom, assetToSwapTo, amounts[0], amounts[amounts.length - 1]);
+-
+-    return amounts[amounts.length - 1];
+-  }
+-
+-  /**
+-   * @dev Receive an exact amount `amountToReceive` of `assetToSwapTo` tokens for as few `assetToSwapFrom` tokens as
+-   * possible.
+-   * @param assetToSwapFrom Origin asset
+-   * @param assetToSwapTo Destination asset
+-   * @param maxAmountToSwap Max amount of `assetToSwapFrom` allowed to be swapped
+-   * @param amountToReceive Exact amount of `assetToSwapTo` to receive
+-   * @return the amount swapped
+-   */
+-  function _swapTokensForExactTokens(
+-    address assetToSwapFrom,
+-    address assetToSwapTo,
+-    uint256 maxAmountToSwap,
+-    uint256 amountToReceive,
+-    bool useEthPath
+-  ) internal returns (uint256) {
+-    uint256 fromAssetDecimals = _getDecimals(assetToSwapFrom);
+-    uint256 toAssetDecimals = _getDecimals(assetToSwapTo);
+-
+-    uint256 fromAssetPrice = _getPrice(assetToSwapFrom);
+-    uint256 toAssetPrice = _getPrice(assetToSwapTo);
+-
+-    uint256 expectedMaxAmountToSwap = amountToReceive
+-      .mul(toAssetPrice.mul(10 ** fromAssetDecimals))
+-      .div(fromAssetPrice.mul(10 ** toAssetDecimals))
+-      .percentMul(PercentageMath.PERCENTAGE_FACTOR.add(MAX_SLIPPAGE_PERCENT));
+-
+-    require(maxAmountToSwap < expectedMaxAmountToSwap, 'maxAmountToSwap exceed max slippage');
+-
+-    // Approves the transfer for the swap. Approves for 0 first to comply with tokens that implement the anti frontrunning approval fix.
+-    IERC20(assetToSwapFrom).safeApprove(address(UNISWAP_ROUTER), 0);
+-    IERC20(assetToSwapFrom).safeApprove(address(UNISWAP_ROUTER), maxAmountToSwap);
+-
+-    address[] memory path;
+-    if (useEthPath) {
+-      path = new address[](3);
+-      path[0] = assetToSwapFrom;
+-      path[1] = WETH_ADDRESS;
+-      path[2] = assetToSwapTo;
+-    } else {
+-      path = new address[](2);
+-      path[0] = assetToSwapFrom;
+-      path[1] = assetToSwapTo;
+-    }
+-
+-    uint256[] memory amounts = UNISWAP_ROUTER.swapTokensForExactTokens(
+-      amountToReceive,
+-      maxAmountToSwap,
+-      path,
+-      address(this),
+-      block.timestamp
+-    );
+-
+-    emit Swapped(assetToSwapFrom, assetToSwapTo, amounts[0], amounts[amounts.length - 1]);
+-
+-    return amounts[0];
+-  }
+-
+-  /**
+-   * @dev Get the price of the asset from the oracle denominated in eth
+-   * @param asset address
+-   * @return eth price for the asset
+-   */
+-  function _getPrice(address asset) internal view returns (uint256) {
+-    return ORACLE.getAssetPrice(asset);
+-  }
+-
+-  /**
+-   * @dev Get the decimals of an asset
+-   * @return number of decimals of the asset
+-   */
+-  function _getDecimals(address asset) internal view returns (uint256) {
+-    return IERC20Detailed(asset).decimals();
+-  }
+-
+-  /**
+-   * @dev Get the aToken associated to the asset
+-   * @return address of the aToken
+-   */
+-  function _getReserveData(address asset) internal view returns (DataTypes.ReserveData memory) {
+-    return LENDING_POOL.getReserveData(asset);
+-  }
+-
+-  /**
+-   * @dev Pull the ATokens from the user
+-   * @param reserve address of the asset
+-   * @param reserveAToken address of the aToken of the reserve
+-   * @param user address
+-   * @param amount of tokens to be transferred to the contract
+-   * @param permitSignature struct containing the permit signature
+-   */
+-  function _pullAToken(
+-    address reserve,
+-    address reserveAToken,
+-    address user,
+-    uint256 amount,
+-    PermitSignature memory permitSignature
+-  ) internal {
+-    if (_usePermit(permitSignature)) {
+-      IERC20WithPermit(reserveAToken).permit(
+-        user,
+-        address(this),
+-        permitSignature.amount,
+-        permitSignature.deadline,
+-        permitSignature.v,
+-        permitSignature.r,
+-        permitSignature.s
+-      );
+-    }
+-
+-    // transfer from user to adapter
+-    IERC20(reserveAToken).safeTransferFrom(user, address(this), amount);
+-
+-    // withdraw reserve
+-    LENDING_POOL.withdraw(reserve, amount, address(this));
+-  }
+-
+-  /**
+-   * @dev Tells if the permit method should be called by inspecting if there is a valid signature.
+-   * If signature params are set to 0, then permit won't be called.
+-   * @param signature struct containing the permit signature
+-   * @return whether or not permit should be called
+-   */
+-  function _usePermit(PermitSignature memory signature) internal pure returns (bool) {
+-    return
+-      !(uint256(signature.deadline) == uint256(signature.v) && uint256(signature.deadline) == 0);
+-  }
+-
+-  /**
+-   * @dev Calculates the value denominated in USD
+-   * @param reserve Address of the reserve
+-   * @param amount Amount of the reserve
+-   * @param decimals Decimals of the reserve
+-   * @return whether or not permit should be called
+-   */
+-  function _calcUsdValue(
+-    address reserve,
+-    uint256 amount,
+-    uint256 decimals
+-  ) internal view returns (uint256) {
+-    uint256 ethUsdPrice = _getPrice(USD_ADDRESS);
+-    uint256 reservePrice = _getPrice(reserve);
+-
+-    return amount.mul(reservePrice).div(10 ** decimals).mul(ethUsdPrice).div(10 ** 18);
+-  }
+-
+-  /**
+-   * @dev Given an input asset amount, returns the maximum output amount of the other asset
+-   * @param reserveIn Address of the asset to be swap from
+-   * @param reserveOut Address of the asset to be swap to
+-   * @param amountIn Amount of reserveIn
+-   * @return Struct containing the following information:
+-   *   uint256 Amount out of the reserveOut
+-   *   uint256 The price of out amount denominated in the reserveIn currency (18 decimals)
+-   *   uint256 In amount of reserveIn value denominated in USD (8 decimals)
+-   *   uint256 Out amount of reserveOut value denominated in USD (8 decimals)
+-   */
+-  function _getAmountsOutData(
+-    address reserveIn,
+-    address reserveOut,
+-    uint256 amountIn
+-  ) internal view returns (AmountCalc memory) {
+-    // Subtract flash loan fee
+-    uint256 finalAmountIn = amountIn.sub(amountIn.mul(FLASHLOAN_PREMIUM_TOTAL).div(10000));
+-
+-    if (reserveIn == reserveOut) {
+-      uint256 reserveDecimals = _getDecimals(reserveIn);
+-      address[] memory path = new address[](1);
+-      path[0] = reserveIn;
+-
+-      return
+-        AmountCalc(
+-          finalAmountIn,
+-          finalAmountIn.mul(10 ** 18).div(amountIn),
+-          _calcUsdValue(reserveIn, amountIn, reserveDecimals),
+-          _calcUsdValue(reserveIn, finalAmountIn, reserveDecimals),
+-          path
+-        );
+-    }
+-
+-    address[] memory simplePath = new address[](2);
+-    simplePath[0] = reserveIn;
+-    simplePath[1] = reserveOut;
+-
+-    uint256[] memory amountsWithoutWeth;
+-    uint256[] memory amountsWithWeth;
+-
+-    address[] memory pathWithWeth = new address[](3);
+-    if (reserveIn != WETH_ADDRESS && reserveOut != WETH_ADDRESS) {
+-      pathWithWeth[0] = reserveIn;
+-      pathWithWeth[1] = WETH_ADDRESS;
+-      pathWithWeth[2] = reserveOut;
+-
+-      try UNISWAP_ROUTER.getAmountsOut(finalAmountIn, pathWithWeth) returns (
+-        uint256[] memory resultsWithWeth
+-      ) {
+-        amountsWithWeth = resultsWithWeth;
+-      } catch {
+-        amountsWithWeth = new uint256[](3);
+-      }
+-    } else {
+-      amountsWithWeth = new uint256[](3);
+-    }
+-
+-    uint256 bestAmountOut;
+-    try UNISWAP_ROUTER.getAmountsOut(finalAmountIn, simplePath) returns (
+-      uint256[] memory resultAmounts
+-    ) {
+-      amountsWithoutWeth = resultAmounts;
+-
+-      bestAmountOut = (amountsWithWeth[2] > amountsWithoutWeth[1])
+-        ? amountsWithWeth[2]
+-        : amountsWithoutWeth[1];
+-    } catch {
+-      amountsWithoutWeth = new uint256[](2);
+-      bestAmountOut = amountsWithWeth[2];
+-    }
+-
+-    uint256 reserveInDecimals = _getDecimals(reserveIn);
+-    uint256 reserveOutDecimals = _getDecimals(reserveOut);
+-
+-    uint256 outPerInPrice = finalAmountIn.mul(10 ** 18).mul(10 ** reserveOutDecimals).div(
+-      bestAmountOut.mul(10 ** reserveInDecimals)
+-    );
+-
+-    return
+-      AmountCalc(
+-        bestAmountOut,
+-        outPerInPrice,
+-        _calcUsdValue(reserveIn, amountIn, reserveInDecimals),
+-        _calcUsdValue(reserveOut, bestAmountOut, reserveOutDecimals),
+-        (bestAmountOut == 0) ? new address[](2) : (bestAmountOut == amountsWithoutWeth[1])
+-          ? simplePath
+-          : pathWithWeth
+-      );
+-  }
+-
+-  /**
+-   * @dev Returns the minimum input asset amount required to buy the given output asset amount
+-   * @param reserveIn Address of the asset to be swap from
+-   * @param reserveOut Address of the asset to be swap to
+-   * @param amountOut Amount of reserveOut
+-   * @return Struct containing the following information:
+-   *   uint256 Amount in of the reserveIn
+-   *   uint256 The price of in amount denominated in the reserveOut currency (18 decimals)
+-   *   uint256 In amount of reserveIn value denominated in USD (8 decimals)
+-   *   uint256 Out amount of reserveOut value denominated in USD (8 decimals)
+-   */
+-  function _getAmountsInData(
+-    address reserveIn,
+-    address reserveOut,
+-    uint256 amountOut
+-  ) internal view returns (AmountCalc memory) {
+-    if (reserveIn == reserveOut) {
+-      // Add flash loan fee
+-      uint256 amountIn = amountOut.add(amountOut.mul(FLASHLOAN_PREMIUM_TOTAL).div(10000));
+-      uint256 reserveDecimals = _getDecimals(reserveIn);
+-      address[] memory path = new address[](1);
+-      path[0] = reserveIn;
+-
+-      return
+-        AmountCalc(
+-          amountIn,
+-          amountOut.mul(10 ** 18).div(amountIn),
+-          _calcUsdValue(reserveIn, amountIn, reserveDecimals),
+-          _calcUsdValue(reserveIn, amountOut, reserveDecimals),
+-          path
+-        );
+-    }
+-
+-    (uint256[] memory amounts, address[] memory path) = _getAmountsInAndPath(
+-      reserveIn,
+-      reserveOut,
+-      amountOut
+-    );
+-
+-    // Add flash loan fee
+-    uint256 finalAmountIn = amounts[0].add(amounts[0].mul(FLASHLOAN_PREMIUM_TOTAL).div(10000));
+-
+-    uint256 reserveInDecimals = _getDecimals(reserveIn);
+-    uint256 reserveOutDecimals = _getDecimals(reserveOut);
+-
+-    uint256 inPerOutPrice = amountOut.mul(10 ** 18).mul(10 ** reserveInDecimals).div(
+-      finalAmountIn.mul(10 ** reserveOutDecimals)
+-    );
+-
+-    return
+-      AmountCalc(
+-        finalAmountIn,
+-        inPerOutPrice,
+-        _calcUsdValue(reserveIn, finalAmountIn, reserveInDecimals),
+-        _calcUsdValue(reserveOut, amountOut, reserveOutDecimals),
+-        path
+-      );
+-  }
+-
+-  /**
+-   * @dev Calculates the input asset amount required to buy the given output asset amount
+-   * @param reserveIn Address of the asset to be swap from
+-   * @param reserveOut Address of the asset to be swap to
+-   * @param amountOut Amount of reserveOut
+-   * @return uint256[] amounts Array containing the amountIn and amountOut for a swap
+-   */
+-  function _getAmountsInAndPath(
+-    address reserveIn,
+-    address reserveOut,
+-    uint256 amountOut
+-  ) internal view returns (uint256[] memory, address[] memory) {
+-    address[] memory simplePath = new address[](2);
+-    simplePath[0] = reserveIn;
+-    simplePath[1] = reserveOut;
+-
+-    uint256[] memory amountsWithoutWeth;
+-    uint256[] memory amountsWithWeth;
+-    address[] memory pathWithWeth = new address[](3);
+-
+-    if (reserveIn != WETH_ADDRESS && reserveOut != WETH_ADDRESS) {
+-      pathWithWeth[0] = reserveIn;
+-      pathWithWeth[1] = WETH_ADDRESS;
+-      pathWithWeth[2] = reserveOut;
+-
+-      try UNISWAP_ROUTER.getAmountsIn(amountOut, pathWithWeth) returns (
+-        uint256[] memory resultsWithWeth
+-      ) {
+-        amountsWithWeth = resultsWithWeth;
+-      } catch {
+-        amountsWithWeth = new uint256[](3);
+-      }
+-    } else {
+-      amountsWithWeth = new uint256[](3);
+-    }
+-
+-    try UNISWAP_ROUTER.getAmountsIn(amountOut, simplePath) returns (
+-      uint256[] memory resultAmounts
+-    ) {
+-      amountsWithoutWeth = resultAmounts;
+-
+-      return
+-        (amountsWithWeth[0] < amountsWithoutWeth[0] && amountsWithWeth[0] != 0)
+-          ? (amountsWithWeth, pathWithWeth)
+-          : (amountsWithoutWeth, simplePath);
+-    } catch {
+-      return (amountsWithWeth, pathWithWeth);
+-    }
+-  }
+-
+-  /**
+-   * @dev Calculates the input asset amount required to buy the given output asset amount
+-   * @param reserveIn Address of the asset to be swap from
+-   * @param reserveOut Address of the asset to be swap to
+-   * @param amountOut Amount of reserveOut
+-   * @return uint256[] amounts Array containing the amountIn and amountOut for a swap
+-   */
+-  function _getAmountsIn(
+-    address reserveIn,
+-    address reserveOut,
+-    uint256 amountOut,
+-    bool useEthPath
+-  ) internal view returns (uint256[] memory) {
+-    address[] memory path;
+-
+-    if (useEthPath) {
+-      path = new address[](3);
+-      path[0] = reserveIn;
+-      path[1] = WETH_ADDRESS;
+-      path[2] = reserveOut;
+-    } else {
+-      path = new address[](2);
+-      path[0] = reserveIn;
+-      path[1] = reserveOut;
+-    }
+-
+-    return UNISWAP_ROUTER.getAmountsIn(amountOut, path);
+-  }
+-
+-  /**
+-   * @dev Emergency rescue for token stucked on this contract, as failsafe mechanism
+-   * - Funds should never remain in this contract more time than during transactions
+-   * - Only callable by the owner
+-   **/
+-  function rescueTokens(IERC20 token) external onlyOwner {
+-    token.transfer(owner(), token.balanceOf(address(this)));
+-  }
+-}
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/adapters/FlashLiquidationAdapter.sol b/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/adapters/FlashLiquidationAdapter.sol
+deleted file mode 100644
+index d488ee7..0000000
+--- a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/adapters/FlashLiquidationAdapter.sol
++++ /dev/null
+@@ -1,184 +0,0 @@
+-// SPDX-License-Identifier: agpl-3.0
+-pragma solidity 0.6.12;
+-pragma experimental ABIEncoderV2;
+-
+-import {BaseUniswapAdapter} from './BaseUniswapAdapter.sol';
+-import {ILendingPoolAddressesProvider} from '../interfaces/ILendingPoolAddressesProvider.sol';
+-import {IUniswapV2Router02} from '../interfaces/IUniswapV2Router02.sol';
+-import {IERC20} from '../dependencies/openzeppelin/contracts/IERC20.sol';
+-import {DataTypes} from '../protocol/libraries/types/DataTypes.sol';
+-import {Helpers} from '../protocol/libraries/helpers/Helpers.sol';
+-import {IPriceOracleGetter} from '../interfaces/IPriceOracleGetter.sol';
+-import {IAToken} from '../interfaces/IAToken.sol';
+-import {ReserveConfiguration} from '../protocol/libraries/configuration/ReserveConfiguration.sol';
+-
+-/**
+- * @title UniswapLiquiditySwapAdapter
+- * @notice Uniswap V2 Adapter to swap liquidity.
+- * @author Aave
+- **/
+-contract FlashLiquidationAdapter is BaseUniswapAdapter {
+-  using ReserveConfiguration for DataTypes.ReserveConfigurationMap;
+-  uint256 internal constant LIQUIDATION_CLOSE_FACTOR_PERCENT = 5000;
+-
+-  struct LiquidationParams {
+-    address collateralAsset;
+-    address borrowedAsset;
+-    address user;
+-    uint256 debtToCover;
+-    bool useEthPath;
+-  }
+-
+-  struct LiquidationCallLocalVars {
+-    uint256 initFlashBorrowedBalance;
+-    uint256 diffFlashBorrowedBalance;
+-    uint256 initCollateralBalance;
+-    uint256 diffCollateralBalance;
+-    uint256 flashLoanDebt;
+-    uint256 soldAmount;
+-    uint256 remainingTokens;
+-    uint256 borrowedAssetLeftovers;
+-  }
+-
+-  constructor(
+-    ILendingPoolAddressesProvider addressesProvider,
+-    IUniswapV2Router02 uniswapRouter,
+-    address wethAddress
+-  ) public BaseUniswapAdapter(addressesProvider, uniswapRouter, wethAddress) {}
+-
+-  /**
+-   * @dev Liquidate a non-healthy position collateral-wise, with a Health Factor below 1, using Flash Loan and Uniswap to repay flash loan premium.
+-   * - The caller (liquidator) with a flash loan covers `debtToCover` amount of debt of the user getting liquidated, and receives
+-   *   a proportionally amount of the `collateralAsset` plus a bonus to cover market risk minus the flash loan premium.
+-   * @param assets Address of asset to be swapped
+-   * @param amounts Amount of the asset to be swapped
+-   * @param premiums Fee of the flash loan
+-   * @param initiator Address of the caller
+-   * @param params Additional variadic field to include extra params. Expected parameters:
+-   *   address collateralAsset The collateral asset to release and will be exchanged to pay the flash loan premium
+-   *   address borrowedAsset The asset that must be covered
+-   *   address user The user address with a Health Factor below 1
+-   *   uint256 debtToCover The amount of debt to cover
+-   *   bool useEthPath Use WETH as connector path between the collateralAsset and borrowedAsset at Uniswap
+-   */
+-  function executeOperation(
+-    address[] calldata assets,
+-    uint256[] calldata amounts,
+-    uint256[] calldata premiums,
+-    address initiator,
+-    bytes calldata params
+-  ) external override returns (bool) {
+-    require(msg.sender == address(LENDING_POOL), 'CALLER_MUST_BE_LENDING_POOL');
+-
+-    LiquidationParams memory decodedParams = _decodeParams(params);
+-
+-    require(assets.length == 1 && assets[0] == decodedParams.borrowedAsset, 'INCONSISTENT_PARAMS');
+-
+-    _liquidateAndSwap(
+-      decodedParams.collateralAsset,
+-      decodedParams.borrowedAsset,
+-      decodedParams.user,
+-      decodedParams.debtToCover,
+-      decodedParams.useEthPath,
+-      amounts[0],
+-      premiums[0],
+-      initiator
+-    );
+-
+-    return true;
+-  }
+-
+-  /**
+-   * @dev
+-   * @param collateralAsset The collateral asset to release and will be exchanged to pay the flash loan premium
+-   * @param borrowedAsset The asset that must be covered
+-   * @param user The user address with a Health Factor below 1
+-   * @param debtToCover The amount of debt to coverage, can be max(-1) to liquidate all possible debt
+-   * @param useEthPath true if the swap needs to occur using ETH in the routing, false otherwise
+-   * @param flashBorrowedAmount Amount of asset requested at the flash loan to liquidate the user position
+-   * @param premium Fee of the requested flash loan
+-   * @param initiator Address of the caller
+-   */
+-  function _liquidateAndSwap(
+-    address collateralAsset,
+-    address borrowedAsset,
+-    address user,
+-    uint256 debtToCover,
+-    bool useEthPath,
+-    uint256 flashBorrowedAmount,
+-    uint256 premium,
+-    address initiator
+-  ) internal {
+-    LiquidationCallLocalVars memory vars;
+-    vars.initCollateralBalance = IERC20(collateralAsset).balanceOf(address(this));
+-    if (collateralAsset != borrowedAsset) {
+-      vars.initFlashBorrowedBalance = IERC20(borrowedAsset).balanceOf(address(this));
+-
+-      // Track leftover balance to rescue funds in case of external transfers into this contract
+-      vars.borrowedAssetLeftovers = vars.initFlashBorrowedBalance.sub(flashBorrowedAmount);
+-    }
+-    vars.flashLoanDebt = flashBorrowedAmount.add(premium);
+-
+-    // Approve LendingPool to use debt token for liquidation
+-    IERC20(borrowedAsset).approve(address(LENDING_POOL), debtToCover);
+-
+-    // Liquidate the user position and release the underlying collateral
+-    LENDING_POOL.liquidationCall(collateralAsset, borrowedAsset, user, debtToCover, false);
+-
+-    // Discover the liquidated tokens
+-    uint256 collateralBalanceAfter = IERC20(collateralAsset).balanceOf(address(this));
+-
+-    // Track only collateral released, not current asset balance of the contract
+-    vars.diffCollateralBalance = collateralBalanceAfter.sub(vars.initCollateralBalance);
+-
+-    if (collateralAsset != borrowedAsset) {
+-      // Discover flash loan balance after the liquidation
+-      uint256 flashBorrowedAssetAfter = IERC20(borrowedAsset).balanceOf(address(this));
+-
+-      // Use only flash loan borrowed assets, not current asset balance of the contract
+-      vars.diffFlashBorrowedBalance = flashBorrowedAssetAfter.sub(vars.borrowedAssetLeftovers);
+-
+-      // Swap released collateral into the debt asset, to repay the flash loan
+-      vars.soldAmount = _swapTokensForExactTokens(
+-        collateralAsset,
+-        borrowedAsset,
+-        vars.diffCollateralBalance,
+-        vars.flashLoanDebt.sub(vars.diffFlashBorrowedBalance),
+-        useEthPath
+-      );
+-      vars.remainingTokens = vars.diffCollateralBalance.sub(vars.soldAmount);
+-    } else {
+-      vars.remainingTokens = vars.diffCollateralBalance.sub(premium);
+-    }
+-
+-    // Allow repay of flash loan
+-    IERC20(borrowedAsset).approve(address(LENDING_POOL), vars.flashLoanDebt);
+-
+-    // Transfer remaining tokens to initiator
+-    if (vars.remainingTokens > 0) {
+-      IERC20(collateralAsset).transfer(initiator, vars.remainingTokens);
+-    }
+-  }
+-
+-  /**
+-   * @dev Decodes the information encoded in the flash loan params
+-   * @param params Additional variadic field to include extra params. Expected parameters:
+-   *   address collateralAsset The collateral asset to claim
+-   *   address borrowedAsset The asset that must be covered and will be exchanged to pay the flash loan premium
+-   *   address user The user address with a Health Factor below 1
+-   *   uint256 debtToCover The amount of debt to cover
+-   *   bool useEthPath Use WETH as connector path between the collateralAsset and borrowedAsset at Uniswap
+-   * @return LiquidationParams struct containing decoded params
+-   */
+-  function _decodeParams(bytes memory params) internal pure returns (LiquidationParams memory) {
+-    (
+-      address collateralAsset,
+-      address borrowedAsset,
+-      address user,
+-      uint256 debtToCover,
+-      bool useEthPath
+-    ) = abi.decode(params, (address, address, address, uint256, bool));
+-
+-    return LiquidationParams(collateralAsset, borrowedAsset, user, debtToCover, useEthPath);
+-  }
+-}
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/adapters/UniswapLiquiditySwapAdapter.sol b/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/adapters/UniswapLiquiditySwapAdapter.sol
+deleted file mode 100644
+index 45ef2a7..0000000
+--- a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/adapters/UniswapLiquiditySwapAdapter.sol
++++ /dev/null
+@@ -1,282 +0,0 @@
+-// SPDX-License-Identifier: agpl-3.0
+-pragma solidity 0.6.12;
+-pragma experimental ABIEncoderV2;
+-
+-import {BaseUniswapAdapter} from './BaseUniswapAdapter.sol';
+-import {ILendingPoolAddressesProvider} from '../interfaces/ILendingPoolAddressesProvider.sol';
+-import {IUniswapV2Router02} from '../interfaces/IUniswapV2Router02.sol';
+-import {IERC20} from '../dependencies/openzeppelin/contracts/IERC20.sol';
+-
+-/**
+- * @title UniswapLiquiditySwapAdapter
+- * @notice Uniswap V2 Adapter to swap liquidity.
+- * @author Aave
+- **/
+-contract UniswapLiquiditySwapAdapter is BaseUniswapAdapter {
+-  struct PermitParams {
+-    uint256[] amount;
+-    uint256[] deadline;
+-    uint8[] v;
+-    bytes32[] r;
+-    bytes32[] s;
+-  }
+-
+-  struct SwapParams {
+-    address[] assetToSwapToList;
+-    uint256[] minAmountsToReceive;
+-    bool[] swapAllBalance;
+-    PermitParams permitParams;
+-    bool[] useEthPath;
+-  }
+-
+-  constructor(
+-    ILendingPoolAddressesProvider addressesProvider,
+-    IUniswapV2Router02 uniswapRouter,
+-    address wethAddress
+-  ) public BaseUniswapAdapter(addressesProvider, uniswapRouter, wethAddress) {}
+-
+-  /**
+-   * @dev Swaps the received reserve amount from the flash loan into the asset specified in the params.
+-   * The received funds from the swap are then deposited into the protocol on behalf of the user.
+-   * The user should give this contract allowance to pull the ATokens in order to withdraw the underlying asset and
+-   * repay the flash loan.
+-   * @param assets Address of asset to be swapped
+-   * @param amounts Amount of the asset to be swapped
+-   * @param premiums Fee of the flash loan
+-   * @param initiator Address of the user
+-   * @param params Additional variadic field to include extra params. Expected parameters:
+-   *   address[] assetToSwapToList List of the addresses of the reserve to be swapped to and deposited
+-   *   uint256[] minAmountsToReceive List of min amounts to be received from the swap
+-   *   bool[] swapAllBalance Flag indicating if all the user balance should be swapped
+-   *   uint256[] permitAmount List of amounts for the permit signature
+-   *   uint256[] deadline List of deadlines for the permit signature
+-   *   uint8[] v List of v param for the permit signature
+-   *   bytes32[] r List of r param for the permit signature
+-   *   bytes32[] s List of s param for the permit signature
+-   */
+-  function executeOperation(
+-    address[] calldata assets,
+-    uint256[] calldata amounts,
+-    uint256[] calldata premiums,
+-    address initiator,
+-    bytes calldata params
+-  ) external override returns (bool) {
+-    require(msg.sender == address(LENDING_POOL), 'CALLER_MUST_BE_LENDING_POOL');
+-
+-    SwapParams memory decodedParams = _decodeParams(params);
+-
+-    require(
+-      assets.length == decodedParams.assetToSwapToList.length &&
+-        assets.length == decodedParams.minAmountsToReceive.length &&
+-        assets.length == decodedParams.swapAllBalance.length &&
+-        assets.length == decodedParams.permitParams.amount.length &&
+-        assets.length == decodedParams.permitParams.deadline.length &&
+-        assets.length == decodedParams.permitParams.v.length &&
+-        assets.length == decodedParams.permitParams.r.length &&
+-        assets.length == decodedParams.permitParams.s.length &&
+-        assets.length == decodedParams.useEthPath.length,
+-      'INCONSISTENT_PARAMS'
+-    );
+-
+-    for (uint256 i = 0; i < assets.length; i++) {
+-      _swapLiquidity(
+-        assets[i],
+-        decodedParams.assetToSwapToList[i],
+-        amounts[i],
+-        premiums[i],
+-        initiator,
+-        decodedParams.minAmountsToReceive[i],
+-        decodedParams.swapAllBalance[i],
+-        PermitSignature(
+-          decodedParams.permitParams.amount[i],
+-          decodedParams.permitParams.deadline[i],
+-          decodedParams.permitParams.v[i],
+-          decodedParams.permitParams.r[i],
+-          decodedParams.permitParams.s[i]
+-        ),
+-        decodedParams.useEthPath[i]
+-      );
+-    }
+-
+-    return true;
+-  }
+-
+-  struct SwapAndDepositLocalVars {
+-    uint256 i;
+-    uint256 aTokenInitiatorBalance;
+-    uint256 amountToSwap;
+-    uint256 receivedAmount;
+-    address aToken;
+-  }
+-
+-  /**
+-   * @dev Swaps an amount of an asset to another and deposits the new asset amount on behalf of the user without using
+-   * a flash loan. This method can be used when the temporary transfer of the collateral asset to this contract
+-   * does not affect the user position.
+-   * The user should give this contract allowance to pull the ATokens in order to withdraw the underlying asset and
+-   * perform the swap.
+-   * @param assetToSwapFromList List of addresses of the underlying asset to be swap from
+-   * @param assetToSwapToList List of addresses of the underlying asset to be swap to and deposited
+-   * @param amountToSwapList List of amounts to be swapped. If the amount exceeds the balance, the total balance is used for the swap
+-   * @param minAmountsToReceive List of min amounts to be received from the swap
+-   * @param permitParams List of struct containing the permit signatures
+-   *   uint256 permitAmount Amount for the permit signature
+-   *   uint256 deadline Deadline for the permit signature
+-   *   uint8 v param for the permit signature
+-   *   bytes32 r param for the permit signature
+-   *   bytes32 s param for the permit signature
+-   * @param useEthPath true if the swap needs to occur using ETH in the routing, false otherwise
+-   */
+-  function swapAndDeposit(
+-    address[] calldata assetToSwapFromList,
+-    address[] calldata assetToSwapToList,
+-    uint256[] calldata amountToSwapList,
+-    uint256[] calldata minAmountsToReceive,
+-    PermitSignature[] calldata permitParams,
+-    bool[] calldata useEthPath
+-  ) external {
+-    require(
+-      assetToSwapFromList.length == assetToSwapToList.length &&
+-        assetToSwapFromList.length == amountToSwapList.length &&
+-        assetToSwapFromList.length == minAmountsToReceive.length &&
+-        assetToSwapFromList.length == permitParams.length,
+-      'INCONSISTENT_PARAMS'
+-    );
+-
+-    SwapAndDepositLocalVars memory vars;
+-
+-    for (vars.i = 0; vars.i < assetToSwapFromList.length; vars.i++) {
+-      vars.aToken = _getReserveData(assetToSwapFromList[vars.i]).aTokenAddress;
+-
+-      vars.aTokenInitiatorBalance = IERC20(vars.aToken).balanceOf(msg.sender);
+-      vars.amountToSwap = amountToSwapList[vars.i] > vars.aTokenInitiatorBalance
+-        ? vars.aTokenInitiatorBalance
+-        : amountToSwapList[vars.i];
+-
+-      _pullAToken(
+-        assetToSwapFromList[vars.i],
+-        vars.aToken,
+-        msg.sender,
+-        vars.amountToSwap,
+-        permitParams[vars.i]
+-      );
+-
+-      vars.receivedAmount = _swapExactTokensForTokens(
+-        assetToSwapFromList[vars.i],
+-        assetToSwapToList[vars.i],
+-        vars.amountToSwap,
+-        minAmountsToReceive[vars.i],
+-        useEthPath[vars.i]
+-      );
+-
+-      // Deposit new reserve
+-      IERC20(assetToSwapToList[vars.i]).safeApprove(address(LENDING_POOL), 0);
+-      IERC20(assetToSwapToList[vars.i]).safeApprove(address(LENDING_POOL), vars.receivedAmount);
+-      LENDING_POOL.deposit(assetToSwapToList[vars.i], vars.receivedAmount, msg.sender, 0);
+-    }
+-  }
+-
+-  /**
+-   * @dev Swaps an `amountToSwap` of an asset to another and deposits the funds on behalf of the initiator.
+-   * @param assetFrom Address of the underlying asset to be swap from
+-   * @param assetTo Address of the underlying asset to be swap to and deposited
+-   * @param amount Amount from flash loan
+-   * @param premium Premium of the flash loan
+-   * @param minAmountToReceive Min amount to be received from the swap
+-   * @param swapAllBalance Flag indicating if all the user balance should be swapped
+-   * @param permitSignature List of struct containing the permit signature
+-   * @param useEthPath true if the swap needs to occur using ETH in the routing, false otherwise
+-   */
+-
+-  struct SwapLiquidityLocalVars {
+-    address aToken;
+-    uint256 aTokenInitiatorBalance;
+-    uint256 amountToSwap;
+-    uint256 receivedAmount;
+-    uint256 flashLoanDebt;
+-    uint256 amountToPull;
+-  }
+-
+-  function _swapLiquidity(
+-    address assetFrom,
+-    address assetTo,
+-    uint256 amount,
+-    uint256 premium,
+-    address initiator,
+-    uint256 minAmountToReceive,
+-    bool swapAllBalance,
+-    PermitSignature memory permitSignature,
+-    bool useEthPath
+-  ) internal {
+-    SwapLiquidityLocalVars memory vars;
+-
+-    vars.aToken = _getReserveData(assetFrom).aTokenAddress;
+-
+-    vars.aTokenInitiatorBalance = IERC20(vars.aToken).balanceOf(initiator);
+-    vars.amountToSwap = swapAllBalance && vars.aTokenInitiatorBalance.sub(premium) <= amount
+-      ? vars.aTokenInitiatorBalance.sub(premium)
+-      : amount;
+-
+-    vars.receivedAmount = _swapExactTokensForTokens(
+-      assetFrom,
+-      assetTo,
+-      vars.amountToSwap,
+-      minAmountToReceive,
+-      useEthPath
+-    );
+-
+-    // Deposit new reserve
+-    IERC20(assetTo).safeApprove(address(LENDING_POOL), 0);
+-    IERC20(assetTo).safeApprove(address(LENDING_POOL), vars.receivedAmount);
+-    LENDING_POOL.deposit(assetTo, vars.receivedAmount, initiator, 0);
+-
+-    vars.flashLoanDebt = amount.add(premium);
+-    vars.amountToPull = vars.amountToSwap.add(premium);
+-
+-    _pullAToken(assetFrom, vars.aToken, initiator, vars.amountToPull, permitSignature);
+-
+-    // Repay flash loan
+-    IERC20(assetFrom).safeApprove(address(LENDING_POOL), 0);
+-    IERC20(assetFrom).safeApprove(address(LENDING_POOL), vars.flashLoanDebt);
+-  }
+-
+-  /**
+-   * @dev Decodes the information encoded in the flash loan params
+-   * @param params Additional variadic field to include extra params. Expected parameters:
+-   *   address[] assetToSwapToList List of the addresses of the reserve to be swapped to and deposited
+-   *   uint256[] minAmountsToReceive List of min amounts to be received from the swap
+-   *   bool[] swapAllBalance Flag indicating if all the user balance should be swapped
+-   *   uint256[] permitAmount List of amounts for the permit signature
+-   *   uint256[] deadline List of deadlines for the permit signature
+-   *   uint8[] v List of v param for the permit signature
+-   *   bytes32[] r List of r param for the permit signature
+-   *   bytes32[] s List of s param for the permit signature
+-   *   bool[] useEthPath true if the swap needs to occur using ETH in the routing, false otherwise
+-   * @return SwapParams struct containing decoded params
+-   */
+-  function _decodeParams(bytes memory params) internal pure returns (SwapParams memory) {
+-    (
+-      address[] memory assetToSwapToList,
+-      uint256[] memory minAmountsToReceive,
+-      bool[] memory swapAllBalance,
+-      uint256[] memory permitAmount,
+-      uint256[] memory deadline,
+-      uint8[] memory v,
+-      bytes32[] memory r,
+-      bytes32[] memory s,
+-      bool[] memory useEthPath
+-    ) = abi.decode(
+-        params,
+-        (address[], uint256[], bool[], uint256[], uint256[], uint8[], bytes32[], bytes32[], bool[])
+-      );
+-
+-    return
+-      SwapParams(
+-        assetToSwapToList,
+-        minAmountsToReceive,
+-        swapAllBalance,
+-        PermitParams(permitAmount, deadline, v, r, s),
+-        useEthPath
+-      );
+-  }
+-}
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/adapters/UniswapRepayAdapter.sol b/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/adapters/UniswapRepayAdapter.sol
+deleted file mode 100644
+index 3f1b826..0000000
+--- a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/adapters/UniswapRepayAdapter.sol
++++ /dev/null
+@@ -1,273 +0,0 @@
+-// SPDX-License-Identifier: agpl-3.0
+-pragma solidity 0.6.12;
+-pragma experimental ABIEncoderV2;
+-
+-import {BaseUniswapAdapter} from './BaseUniswapAdapter.sol';
+-import {ILendingPoolAddressesProvider} from '../interfaces/ILendingPoolAddressesProvider.sol';
+-import {IUniswapV2Router02} from '../interfaces/IUniswapV2Router02.sol';
+-import {IERC20} from '../dependencies/openzeppelin/contracts/IERC20.sol';
+-import {DataTypes} from '../protocol/libraries/types/DataTypes.sol';
+-
+-/**
+- * @title UniswapRepayAdapter
+- * @notice Uniswap V2 Adapter to perform a repay of a debt with collateral.
+- * @author Aave
+- **/
+-contract UniswapRepayAdapter is BaseUniswapAdapter {
+-  struct RepayParams {
+-    address collateralAsset;
+-    uint256 collateralAmount;
+-    uint256 rateMode;
+-    PermitSignature permitSignature;
+-    bool useEthPath;
+-  }
+-
+-  constructor(
+-    ILendingPoolAddressesProvider addressesProvider,
+-    IUniswapV2Router02 uniswapRouter,
+-    address wethAddress
+-  ) public BaseUniswapAdapter(addressesProvider, uniswapRouter, wethAddress) {}
+-
+-  /**
+-   * @dev Uses the received funds from the flash loan to repay a debt on the protocol on behalf of the user. Then pulls
+-   * the collateral from the user and swaps it to the debt asset to repay the flash loan.
+-   * The user should give this contract allowance to pull the ATokens in order to withdraw the underlying asset, swap it
+-   * and repay the flash loan.
+-   * Supports only one asset on the flash loan.
+-   * @param assets Address of debt asset
+-   * @param amounts Amount of the debt to be repaid
+-   * @param premiums Fee of the flash loan
+-   * @param initiator Address of the user
+-   * @param params Additional variadic field to include extra params. Expected parameters:
+-   *   address collateralAsset Address of the reserve to be swapped
+-   *   uint256 collateralAmount Amount of reserve to be swapped
+-   *   uint256 rateMode Rate modes of the debt to be repaid
+-   *   uint256 permitAmount Amount for the permit signature
+-   *   uint256 deadline Deadline for the permit signature
+-   *   uint8 v V param for the permit signature
+-   *   bytes32 r R param for the permit signature
+-   *   bytes32 s S param for the permit signature
+-   */
+-  function executeOperation(
+-    address[] calldata assets,
+-    uint256[] calldata amounts,
+-    uint256[] calldata premiums,
+-    address initiator,
+-    bytes calldata params
+-  ) external override returns (bool) {
+-    require(msg.sender == address(LENDING_POOL), 'CALLER_MUST_BE_LENDING_POOL');
+-
+-    RepayParams memory decodedParams = _decodeParams(params);
+-
+-    _swapAndRepay(
+-      decodedParams.collateralAsset,
+-      assets[0],
+-      amounts[0],
+-      decodedParams.collateralAmount,
+-      decodedParams.rateMode,
+-      initiator,
+-      premiums[0],
+-      decodedParams.permitSignature,
+-      decodedParams.useEthPath
+-    );
+-
+-    return true;
+-  }
+-
+-  /**
+-   * @dev Swaps the user collateral for the debt asset and then repay the debt on the protocol on behalf of the user
+-   * without using flash loans. This method can be used when the temporary transfer of the collateral asset to this
+-   * contract does not affect the user position.
+-   * The user should give this contract allowance to pull the ATokens in order to withdraw the underlying asset
+-   * @param collateralAsset Address of asset to be swapped
+-   * @param debtAsset Address of debt asset
+-   * @param collateralAmount Amount of the collateral to be swapped
+-   * @param debtRepayAmount Amount of the debt to be repaid
+-   * @param debtRateMode Rate mode of the debt to be repaid
+-   * @param permitSignature struct containing the permit signature
+-   * @param useEthPath struct containing the permit signature
+-
+-   */
+-  function swapAndRepay(
+-    address collateralAsset,
+-    address debtAsset,
+-    uint256 collateralAmount,
+-    uint256 debtRepayAmount,
+-    uint256 debtRateMode,
+-    PermitSignature calldata permitSignature,
+-    bool useEthPath
+-  ) external {
+-    DataTypes.ReserveData memory collateralReserveData = _getReserveData(collateralAsset);
+-    DataTypes.ReserveData memory debtReserveData = _getReserveData(debtAsset);
+-
+-    address debtToken = DataTypes.InterestRateMode(debtRateMode) ==
+-      DataTypes.InterestRateMode.STABLE
+-      ? debtReserveData.stableDebtTokenAddress
+-      : debtReserveData.variableDebtTokenAddress;
+-
+-    uint256 currentDebt = IERC20(debtToken).balanceOf(msg.sender);
+-    uint256 amountToRepay = debtRepayAmount <= currentDebt ? debtRepayAmount : currentDebt;
+-
+-    if (collateralAsset != debtAsset) {
+-      uint256 maxCollateralToSwap = collateralAmount;
+-      if (amountToRepay < debtRepayAmount) {
+-        maxCollateralToSwap = maxCollateralToSwap.mul(amountToRepay).div(debtRepayAmount);
+-      }
+-
+-      // Get exact collateral needed for the swap to avoid leftovers
+-      uint256[] memory amounts = _getAmountsIn(
+-        collateralAsset,
+-        debtAsset,
+-        amountToRepay,
+-        useEthPath
+-      );
+-      require(amounts[0] <= maxCollateralToSwap, 'slippage too high');
+-
+-      // Pull aTokens from user
+-      _pullAToken(
+-        collateralAsset,
+-        collateralReserveData.aTokenAddress,
+-        msg.sender,
+-        amounts[0],
+-        permitSignature
+-      );
+-
+-      // Swap collateral for debt asset
+-      _swapTokensForExactTokens(collateralAsset, debtAsset, amounts[0], amountToRepay, useEthPath);
+-    } else {
+-      // Pull aTokens from user
+-      _pullAToken(
+-        collateralAsset,
+-        collateralReserveData.aTokenAddress,
+-        msg.sender,
+-        amountToRepay,
+-        permitSignature
+-      );
+-    }
+-
+-    // Repay debt. Approves 0 first to comply with tokens that implement the anti frontrunning approval fix
+-    IERC20(debtAsset).safeApprove(address(LENDING_POOL), 0);
+-    IERC20(debtAsset).safeApprove(address(LENDING_POOL), amountToRepay);
+-    LENDING_POOL.repay(debtAsset, amountToRepay, debtRateMode, msg.sender);
+-  }
+-
+-  /**
+-   * @dev Perform the repay of the debt, pulls the initiator collateral and swaps to repay the flash loan
+-   *
+-   * @param collateralAsset Address of token to be swapped
+-   * @param debtAsset Address of debt token to be received from the swap
+-   * @param amount Amount of the debt to be repaid
+-   * @param collateralAmount Amount of the reserve to be swapped
+-   * @param rateMode Rate mode of the debt to be repaid
+-   * @param initiator Address of the user
+-   * @param premium Fee of the flash loan
+-   * @param permitSignature struct containing the permit signature
+-   */
+-  function _swapAndRepay(
+-    address collateralAsset,
+-    address debtAsset,
+-    uint256 amount,
+-    uint256 collateralAmount,
+-    uint256 rateMode,
+-    address initiator,
+-    uint256 premium,
+-    PermitSignature memory permitSignature,
+-    bool useEthPath
+-  ) internal {
+-    DataTypes.ReserveData memory collateralReserveData = _getReserveData(collateralAsset);
+-
+-    // Repay debt. Approves for 0 first to comply with tokens that implement the anti frontrunning approval fix.
+-    IERC20(debtAsset).safeApprove(address(LENDING_POOL), 0);
+-    IERC20(debtAsset).safeApprove(address(LENDING_POOL), amount);
+-    uint256 repaidAmount = IERC20(debtAsset).balanceOf(address(this));
+-    LENDING_POOL.repay(debtAsset, amount, rateMode, initiator);
+-    repaidAmount = repaidAmount.sub(IERC20(debtAsset).balanceOf(address(this)));
+-
+-    if (collateralAsset != debtAsset) {
+-      uint256 maxCollateralToSwap = collateralAmount;
+-      if (repaidAmount < amount) {
+-        maxCollateralToSwap = maxCollateralToSwap.mul(repaidAmount).div(amount);
+-      }
+-
+-      uint256 neededForFlashLoanDebt = repaidAmount.add(premium);
+-      uint256[] memory amounts = _getAmountsIn(
+-        collateralAsset,
+-        debtAsset,
+-        neededForFlashLoanDebt,
+-        useEthPath
+-      );
+-      require(amounts[0] <= maxCollateralToSwap, 'slippage too high');
+-
+-      // Pull aTokens from user
+-      _pullAToken(
+-        collateralAsset,
+-        collateralReserveData.aTokenAddress,
+-        initiator,
+-        amounts[0],
+-        permitSignature
+-      );
+-
+-      // Swap collateral asset to the debt asset
+-      _swapTokensForExactTokens(
+-        collateralAsset,
+-        debtAsset,
+-        amounts[0],
+-        neededForFlashLoanDebt,
+-        useEthPath
+-      );
+-    } else {
+-      // Pull aTokens from user
+-      _pullAToken(
+-        collateralAsset,
+-        collateralReserveData.aTokenAddress,
+-        initiator,
+-        repaidAmount.add(premium),
+-        permitSignature
+-      );
+-    }
+-
+-    // Repay flashloan. Approves for 0 first to comply with tokens that implement the anti frontrunning approval fix.
+-    IERC20(debtAsset).safeApprove(address(LENDING_POOL), 0);
+-    IERC20(debtAsset).safeApprove(address(LENDING_POOL), amount.add(premium));
+-  }
+-
+-  /**
+-   * @dev Decodes debt information encoded in the flash loan params
+-   * @param params Additional variadic field to include extra params. Expected parameters:
+-   *   address collateralAsset Address of the reserve to be swapped
+-   *   uint256 collateralAmount Amount of reserve to be swapped
+-   *   uint256 rateMode Rate modes of the debt to be repaid
+-   *   uint256 permitAmount Amount for the permit signature
+-   *   uint256 deadline Deadline for the permit signature
+-   *   uint8 v V param for the permit signature
+-   *   bytes32 r R param for the permit signature
+-   *   bytes32 s S param for the permit signature
+-   *   bool useEthPath use WETH path route
+-   * @return RepayParams struct containing decoded params
+-   */
+-  function _decodeParams(bytes memory params) internal pure returns (RepayParams memory) {
+-    (
+-      address collateralAsset,
+-      uint256 collateralAmount,
+-      uint256 rateMode,
+-      uint256 permitAmount,
+-      uint256 deadline,
+-      uint8 v,
+-      bytes32 r,
+-      bytes32 s,
+-      bool useEthPath
+-    ) = abi.decode(
+-        params,
+-        (address, uint256, uint256, uint256, uint256, uint8, bytes32, bytes32, bool)
+-      );
+-
+-    return
+-      RepayParams(
+-        collateralAsset,
+-        collateralAmount,
+-        rateMode,
+-        PermitSignature(permitAmount, deadline, v, r, s),
+-        useEthPath
+-      );
+-  }
+-}
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/adapters/interfaces/IBaseUniswapAdapter.sol b/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/adapters/interfaces/IBaseUniswapAdapter.sol
+deleted file mode 100644
+index cd1a5de..0000000
+--- a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/adapters/interfaces/IBaseUniswapAdapter.sol
++++ /dev/null
+@@ -1,72 +0,0 @@
+-// SPDX-License-Identifier: agpl-3.0
+-pragma solidity 0.6.12;
+-pragma experimental ABIEncoderV2;
+-
+-import {IPriceOracleGetter} from '../../interfaces/IPriceOracleGetter.sol';
+-import {IUniswapV2Router02} from '../../interfaces/IUniswapV2Router02.sol';
+-
+-interface IBaseUniswapAdapter {
+-  event Swapped(address fromAsset, address toAsset, uint256 fromAmount, uint256 receivedAmount);
+-
+-  struct PermitSignature {
+-    uint256 amount;
+-    uint256 deadline;
+-    uint8 v;
+-    bytes32 r;
+-    bytes32 s;
+-  }
+-
+-  struct AmountCalc {
+-    uint256 calculatedAmount;
+-    uint256 relativePrice;
+-    uint256 amountInUsd;
+-    uint256 amountOutUsd;
+-    address[] path;
+-  }
+-
+-  function WETH_ADDRESS() external returns (address);
+-
+-  function MAX_SLIPPAGE_PERCENT() external returns (uint256);
+-
+-  function FLASHLOAN_PREMIUM_TOTAL() external returns (uint256);
+-
+-  function USD_ADDRESS() external returns (address);
+-
+-  function ORACLE() external returns (IPriceOracleGetter);
+-
+-  function UNISWAP_ROUTER() external returns (IUniswapV2Router02);
+-
+-  /**
+-   * @dev Given an input asset amount, returns the maximum output amount of the other asset and the prices
+-   * @param amountIn Amount of reserveIn
+-   * @param reserveIn Address of the asset to be swap from
+-   * @param reserveOut Address of the asset to be swap to
+-   * @return uint256 Amount out of the reserveOut
+-   * @return uint256 The price of out amount denominated in the reserveIn currency (18 decimals)
+-   * @return uint256 In amount of reserveIn value denominated in USD (8 decimals)
+-   * @return uint256 Out amount of reserveOut value denominated in USD (8 decimals)
+-   * @return address[] The exchange path
+-   */
+-  function getAmountsOut(
+-    uint256 amountIn,
+-    address reserveIn,
+-    address reserveOut
+-  ) external view returns (uint256, uint256, uint256, uint256, address[] memory);
+-
+-  /**
+-   * @dev Returns the minimum input asset amount required to buy the given output asset amount and the prices
+-   * @param amountOut Amount of reserveOut
+-   * @param reserveIn Address of the asset to be swap from
+-   * @param reserveOut Address of the asset to be swap to
+-   * @return uint256 Amount in of the reserveIn
+-   * @return uint256 The price of in amount denominated in the reserveOut currency (18 decimals)
+-   * @return uint256 In amount of reserveIn value denominated in USD (8 decimals)
+-   * @return uint256 Out amount of reserveOut value denominated in USD (8 decimals)
+-   * @return address[] The exchange path
+-   */
+-  function getAmountsIn(
+-    uint256 amountOut,
+-    address reserveIn,
+-    address reserveOut
+-  ) external view returns (uint256, uint256, uint256, uint256, address[] memory);
+-}
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/dependencies/openzeppelin/contracts/Context.sol b/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/dependencies/openzeppelin/contracts/Context.sol
+deleted file mode 100644
+index dc82ed7..0000000
+--- a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/dependencies/openzeppelin/contracts/Context.sol
++++ /dev/null
+@@ -1,23 +0,0 @@
+-// SPDX-License-Identifier: MIT
+-pragma solidity 0.6.12;
+-
+-/*
+- * @dev Provides information about the current execution context, including the
+- * sender of the transaction and its data. While these are generally available
+- * via msg.sender and msg.data, they should not be accessed in such a direct
+- * manner, since when dealing with GSN meta-transactions the account sending and
+- * paying for execution may not be the actual sender (as far as an application
+- * is concerned).
+- *
+- * This contract is only required for intermediate, library-like contracts.
+- */
+-abstract contract Context {
+-  function _msgSender() internal view virtual returns (address payable) {
+-    return msg.sender;
+-  }
+-
+-  function _msgData() internal view virtual returns (bytes memory) {
+-    this; // silence state mutability warning without generating bytecode - see https://github.com/ethereum/solidity/issues/2691
+-    return msg.data;
+-  }
+-}
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/dependencies/openzeppelin/contracts/ERC20.sol b/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/dependencies/openzeppelin/contracts/ERC20.sol
+deleted file mode 100644
+index c256bed..0000000
+--- a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/dependencies/openzeppelin/contracts/ERC20.sol
++++ /dev/null
+@@ -1,328 +0,0 @@
+-// SPDX-License-Identifier: MIT
+-
+-pragma solidity ^0.6.0;
+-
+-import './Context.sol';
+-import './IERC20.sol';
+-import './SafeMath.sol';
+-import './Address.sol';
+-
+-/**
+- * @dev Implementation of the {IERC20} interface.
+- *
+- * This implementation is agnostic to the way tokens are created. This means
+- * that a supply mechanism has to be added in a derived contract using {_mint}.
+- * For a generic mechanism see {ERC20PresetMinterPauser}.
+- *
+- * TIP: For a detailed writeup see our guide
+- * https://forum.zeppelin.solutions/t/how-to-implement-erc20-supply-mechanisms/226[How
+- * to implement supply mechanisms].
+- *
+- * We have followed general OpenZeppelin guidelines: functions revert instead
+- * of returning `false` on failure. This behavior is nonetheless conventional
+- * and does not conflict with the expectations of ERC20 applications.
+- *
+- * Additionally, an {Approval} event is emitted on calls to {transferFrom}.
+- * This allows applications to reconstruct the allowance for all accounts just
+- * by listening to said events. Other implementations of the EIP may not emit
+- * these events, as it isn't required by the specification.
+- *
+- * Finally, the non-standard {decreaseAllowance} and {increaseAllowance}
+- * functions have been added to mitigate the well-known issues around setting
+- * allowances. See {IERC20-approve}.
+- */
+-contract ERC20 is Context, IERC20 {
+-  using SafeMath for uint256;
+-  using Address for address;
+-
+-  mapping(address => uint256) private _balances;
+-
+-  mapping(address => mapping(address => uint256)) private _allowances;
+-
+-  uint256 private _totalSupply;
+-
+-  string private _name;
+-  string private _symbol;
+-  uint8 private _decimals;
+-
+-  /**
+-   * @dev Sets the values for {name} and {symbol}, initializes {decimals} with
+-   * a default value of 18.
+-   *
+-   * To select a different value for {decimals}, use {_setupDecimals}.
+-   *
+-   * All three of these values are immutable: they can only be set once during
+-   * construction.
+-   */
+-  constructor(string memory name, string memory symbol) public {
+-    _name = name;
+-    _symbol = symbol;
+-    _decimals = 18;
+-  }
+-
+-  /**
+-   * @dev Returns the name of the token.
+-   */
+-  function name() public view returns (string memory) {
+-    return _name;
+-  }
+-
+-  /**
+-   * @dev Returns the symbol of the token, usually a shorter version of the
+-   * name.
+-   */
+-  function symbol() public view returns (string memory) {
+-    return _symbol;
+-  }
+-
+-  /**
+-   * @dev Returns the number of decimals used to get its user representation.
+-   * For example, if `decimals` equals `2`, a balance of `505` tokens should
+-   * be displayed to a user as `5,05` (`505 / 10 ** 2`).
+-   *
+-   * Tokens usually opt for a value of 18, imitating the relationship between
+-   * Ether and Wei. This is the value {ERC20} uses, unless {_setupDecimals} is
+-   * called.
+-   *
+-   * NOTE: This information is only used for _display_ purposes: it in
+-   * no way affects any of the arithmetic of the contract, including
+-   * {IERC20-balanceOf} and {IERC20-transfer}.
+-   */
+-  function decimals() public view returns (uint8) {
+-    return _decimals;
+-  }
+-
+-  /**
+-   * @dev See {IERC20-totalSupply}.
+-   */
+-  function totalSupply() public view override returns (uint256) {
+-    return _totalSupply;
+-  }
+-
+-  /**
+-   * @dev See {IERC20-balanceOf}.
+-   */
+-  function balanceOf(address account) public view override returns (uint256) {
+-    return _balances[account];
+-  }
+-
+-  /**
+-   * @dev See {IERC20-transfer}.
+-   *
+-   * Requirements:
+-   *
+-   * - `recipient` cannot be the zero address.
+-   * - the caller must have a balance of at least `amount`.
+-   */
+-  function transfer(address recipient, uint256 amount) public virtual override returns (bool) {
+-    _transfer(_msgSender(), recipient, amount);
+-    return true;
+-  }
+-
+-  /**
+-   * @dev See {IERC20-allowance}.
+-   */
+-  function allowance(
+-    address owner,
+-    address spender
+-  ) public view virtual override returns (uint256) {
+-    return _allowances[owner][spender];
+-  }
+-
+-  /**
+-   * @dev See {IERC20-approve}.
+-   *
+-   * Requirements:
+-   *
+-   * - `spender` cannot be the zero address.
+-   */
+-  function approve(address spender, uint256 amount) public virtual override returns (bool) {
+-    _approve(_msgSender(), spender, amount);
+-    return true;
+-  }
+-
+-  /**
+-   * @dev See {IERC20-transferFrom}.
+-   *
+-   * Emits an {Approval} event indicating the updated allowance. This is not
+-   * required by the EIP. See the note at the beginning of {ERC20};
+-   *
+-   * Requirements:
+-   * - `sender` and `recipient` cannot be the zero address.
+-   * - `sender` must have a balance of at least `amount`.
+-   * - the caller must have allowance for ``sender``'s tokens of at least
+-   * `amount`.
+-   */
+-  function transferFrom(
+-    address sender,
+-    address recipient,
+-    uint256 amount
+-  ) public virtual override returns (bool) {
+-    _transfer(sender, recipient, amount);
+-    _approve(
+-      sender,
+-      _msgSender(),
+-      _allowances[sender][_msgSender()].sub(amount, 'ERC20: transfer amount exceeds allowance')
+-    );
+-    return true;
+-  }
+-
+-  /**
+-   * @dev Atomically increases the allowance granted to `spender` by the caller.
+-   *
+-   * This is an alternative to {approve} that can be used as a mitigation for
+-   * problems described in {IERC20-approve}.
+-   *
+-   * Emits an {Approval} event indicating the updated allowance.
+-   *
+-   * Requirements:
+-   *
+-   * - `spender` cannot be the zero address.
+-   */
+-  function increaseAllowance(address spender, uint256 addedValue) public virtual returns (bool) {
+-    _approve(_msgSender(), spender, _allowances[_msgSender()][spender].add(addedValue));
+-    return true;
+-  }
+-
+-  /**
+-   * @dev Atomically decreases the allowance granted to `spender` by the caller.
+-   *
+-   * This is an alternative to {approve} that can be used as a mitigation for
+-   * problems described in {IERC20-approve}.
+-   *
+-   * Emits an {Approval} event indicating the updated allowance.
+-   *
+-   * Requirements:
+-   *
+-   * - `spender` cannot be the zero address.
+-   * - `spender` must have allowance for the caller of at least
+-   * `subtractedValue`.
+-   */
+-  function decreaseAllowance(
+-    address spender,
+-    uint256 subtractedValue
+-  ) public virtual returns (bool) {
+-    _approve(
+-      _msgSender(),
+-      spender,
+-      _allowances[_msgSender()][spender].sub(
+-        subtractedValue,
+-        'ERC20: decreased allowance below zero'
+-      )
+-    );
+-    return true;
+-  }
+-
+-  /**
+-   * @dev Moves tokens `amount` from `sender` to `recipient`.
+-   *
+-   * This is internal function is equivalent to {transfer}, and can be used to
+-   * e.g. implement automatic token fees, slashing mechanisms, etc.
+-   *
+-   * Emits a {Transfer} event.
+-   *
+-   * Requirements:
+-   *
+-   * - `sender` cannot be the zero address.
+-   * - `recipient` cannot be the zero address.
+-   * - `sender` must have a balance of at least `amount`.
+-   */
+-  function _transfer(address sender, address recipient, uint256 amount) internal virtual {
+-    require(sender != address(0), 'ERC20: transfer from the zero address');
+-    require(recipient != address(0), 'ERC20: transfer to the zero address');
+-
+-    _beforeTokenTransfer(sender, recipient, amount);
+-
+-    _balances[sender] = _balances[sender].sub(amount, 'ERC20: transfer amount exceeds balance');
+-    _balances[recipient] = _balances[recipient].add(amount);
+-    emit Transfer(sender, recipient, amount);
+-  }
+-
+-  /** @dev Creates `amount` tokens and assigns them to `account`, increasing
+-   * the total supply.
+-   *
+-   * Emits a {Transfer} event with `from` set to the zero address.
+-   *
+-   * Requirements
+-   *
+-   * - `to` cannot be the zero address.
+-   */
+-  function _mint(address account, uint256 amount) internal virtual {
+-    require(account != address(0), 'ERC20: mint to the zero address');
+-
+-    _beforeTokenTransfer(address(0), account, amount);
+-
+-    _totalSupply = _totalSupply.add(amount);
+-    _balances[account] = _balances[account].add(amount);
+-    emit Transfer(address(0), account, amount);
+-  }
+-
+-  /**
+-   * @dev Destroys `amount` tokens from `account`, reducing the
+-   * total supply.
+-   *
+-   * Emits a {Transfer} event with `to` set to the zero address.
+-   *
+-   * Requirements
+-   *
+-   * - `account` cannot be the zero address.
+-   * - `account` must have at least `amount` tokens.
+-   */
+-  function _burn(address account, uint256 amount) internal virtual {
+-    require(account != address(0), 'ERC20: burn from the zero address');
+-
+-    _beforeTokenTransfer(account, address(0), amount);
+-
+-    _balances[account] = _balances[account].sub(amount, 'ERC20: burn amount exceeds balance');
+-    _totalSupply = _totalSupply.sub(amount);
+-    emit Transfer(account, address(0), amount);
+-  }
+-
+-  /**
+-   * @dev Sets `amount` as the allowance of `spender` over the `owner`s tokens.
+-   *
+-   * This is internal function is equivalent to `approve`, and can be used to
+-   * e.g. set automatic allowances for certain subsystems, etc.
+-   *
+-   * Emits an {Approval} event.
+-   *
+-   * Requirements:
+-   *
+-   * - `owner` cannot be the zero address.
+-   * - `spender` cannot be the zero address.
+-   */
+-  function _approve(address owner, address spender, uint256 amount) internal virtual {
+-    require(owner != address(0), 'ERC20: approve from the zero address');
+-    require(spender != address(0), 'ERC20: approve to the zero address');
+-
+-    _allowances[owner][spender] = amount;
+-    emit Approval(owner, spender, amount);
+-  }
+-
+-  /**
+-   * @dev Sets {decimals} to a value other than the default one of 18.
+-   *
+-   * WARNING: This function should only be called from the constructor. Most
+-   * applications that interact with token contracts will not expect
+-   * {decimals} to ever change, and may work incorrectly if it does.
+-   */
+-  function _setupDecimals(uint8 decimals_) internal {
+-    _decimals = decimals_;
+-  }
+-
+-  /**
+-   * @dev Hook that is called before any transfer of tokens. This includes
+-   * minting and burning.
+-   *
+-   * Calling conditions:
+-   *
+-   * - when `from` and `to` are both non-zero, `amount` of ``from``'s tokens
+-   * will be to transferred to `to`.
+-   * - when `from` is zero, `amount` tokens will be minted for `to`.
+-   * - when `to` is zero, `amount` of ``from``'s tokens will be burned.
+-   * - `from` and `to` are never both zero.
+-   *
+-   * To learn more about hooks, head to xref:ROOT:extending-contracts.adoc#using-hooks[Using Hooks].
+-   */
+-  function _beforeTokenTransfer(address from, address to, uint256 amount) internal virtual {}
+-}
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/dependencies/openzeppelin/contracts/IERC20Detailed.sol b/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/dependencies/openzeppelin/contracts/IERC20Detailed.sol
+deleted file mode 100644
+index 3f4cd13..0000000
+--- a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/dependencies/openzeppelin/contracts/IERC20Detailed.sol
++++ /dev/null
+@@ -1,12 +0,0 @@
+-// SPDX-License-Identifier: agpl-3.0
+-pragma solidity 0.6.12;
+-
+-import {IERC20} from './IERC20.sol';
+-
+-interface IERC20Detailed is IERC20 {
+-  function name() external view returns (string memory);
+-
+-  function symbol() external view returns (string memory);
+-
+-  function decimals() external view returns (uint8);
+-}
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/dependencies/openzeppelin/contracts/Ownable.sol b/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/dependencies/openzeppelin/contracts/Ownable.sol
+deleted file mode 100644
+index c503fe5..0000000
+--- a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/dependencies/openzeppelin/contracts/Ownable.sol
++++ /dev/null
+@@ -1,69 +0,0 @@
+-// SPDX-License-Identifier: MIT
+-
+-pragma solidity ^0.6.0;
+-
+-import './Context.sol';
+-
+-/**
+- * @dev Contract module which provides a basic access control mechanism, where
+- * there is an account (an owner) that can be granted exclusive access to
+- * specific functions.
+- *
+- * By default, the owner account will be the one that deploys the contract. This
+- * can later be changed with {transferOwnership}.
+- *
+- * This module is used through inheritance. It will make available the modifier
+- * `onlyOwner`, which can be applied to your functions to restrict their use to
+- * the owner.
+- */
+-contract Ownable is Context {
+-  address private _owner;
+-
+-  event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
+-
+-  /**
+-   * @dev Initializes the contract setting the deployer as the initial owner.
+-   */
+-  constructor() internal {
+-    address msgSender = _msgSender();
+-    _owner = msgSender;
+-    emit OwnershipTransferred(address(0), msgSender);
+-  }
+-
+-  /**
+-   * @dev Returns the address of the current owner.
+-   */
+-  function owner() public view returns (address) {
+-    return _owner;
+-  }
+-
+-  /**
+-   * @dev Throws if called by any account other than the owner.
+-   */
+-  modifier onlyOwner() {
+-    require(_owner == _msgSender(), 'Ownable: caller is not the owner');
+-    _;
+-  }
+-
+-  /**
+-   * @dev Leaves the contract without owner. It will not be possible to call
+-   * `onlyOwner` functions anymore. Can only be called by the current owner.
+-   *
+-   * NOTE: Renouncing ownership will leave the contract without an owner,
+-   * thereby removing any functionality that is only available to the owner.
+-   */
+-  function renounceOwnership() public virtual onlyOwner {
+-    emit OwnershipTransferred(_owner, address(0));
+-    _owner = address(0);
+-  }
+-
+-  /**
+-   * @dev Transfers ownership of the contract to a new account (`newOwner`).
+-   * Can only be called by the current owner.
+-   */
+-  function transferOwnership(address newOwner) public virtual onlyOwner {
+-    require(newOwner != address(0), 'Ownable: new owner is the zero address');
+-    emit OwnershipTransferred(_owner, newOwner);
+-    _owner = newOwner;
+-  }
+-}
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/dependencies/openzeppelin/upgradeability/AdminUpgradeabilityProxy.sol b/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/dependencies/openzeppelin/upgradeability/AdminUpgradeabilityProxy.sol
+deleted file mode 100644
+index 3d5b346..0000000
+--- a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/dependencies/openzeppelin/upgradeability/AdminUpgradeabilityProxy.sol
++++ /dev/null
+@@ -1,36 +0,0 @@
+-// SPDX-License-Identifier: agpl-3.0
+-pragma solidity 0.6.12;
+-
+-import './BaseAdminUpgradeabilityProxy.sol';
+-
+-/**
+- * @title AdminUpgradeabilityProxy
+- * @dev Extends from BaseAdminUpgradeabilityProxy with a constructor for
+- * initializing the implementation, admin, and init data.
+- */
+-contract AdminUpgradeabilityProxy is BaseAdminUpgradeabilityProxy, UpgradeabilityProxy {
+-  /**
+-   * Contract constructor.
+-   * @param _logic address of the initial implementation.
+-   * @param _admin Address of the proxy administrator.
+-   * @param _data Data to send as msg.data to the implementation to initialize the proxied contract.
+-   * It should include the signature and the parameters of the function to be called, as described in
+-   * https://solidity.readthedocs.io/en/v0.4.24/abi-spec.html#function-selector-and-argument-encoding.
+-   * This parameter is optional, if no data is given the initialization call to proxied contract will be skipped.
+-   */
+-  constructor(
+-    address _logic,
+-    address _admin,
+-    bytes memory _data
+-  ) public payable UpgradeabilityProxy(_logic, _data) {
+-    assert(ADMIN_SLOT == bytes32(uint256(keccak256('eip1967.proxy.admin')) - 1));
+-    _setAdmin(_admin);
+-  }
+-
+-  /**
+-   * @dev Only fall back when the sender is not the admin.
+-   */
+-  function _willFallback() internal override(BaseAdminUpgradeabilityProxy, Proxy) {
+-    BaseAdminUpgradeabilityProxy._willFallback();
+-  }
+-}
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/dependencies/openzeppelin/upgradeability/BaseAdminUpgradeabilityProxy.sol b/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/dependencies/openzeppelin/upgradeability/BaseAdminUpgradeabilityProxy.sol
+deleted file mode 100644
+index 7ca135c..0000000
+--- a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/dependencies/openzeppelin/upgradeability/BaseAdminUpgradeabilityProxy.sol
++++ /dev/null
+@@ -1,125 +0,0 @@
+-// SPDX-License-Identifier: agpl-3.0
+-pragma solidity 0.6.12;
+-
+-import './UpgradeabilityProxy.sol';
+-
+-/**
+- * @title BaseAdminUpgradeabilityProxy
+- * @dev This contract combines an upgradeability proxy with an authorization
+- * mechanism for administrative tasks.
+- * All external functions in this contract must be guarded by the
+- * `ifAdmin` modifier. See ethereum/solidity#3864 for a Solidity
+- * feature proposal that would enable this to be done automatically.
+- */
+-contract BaseAdminUpgradeabilityProxy is BaseUpgradeabilityProxy {
+-  /**
+-   * @dev Emitted when the administration has been transferred.
+-   * @param previousAdmin Address of the previous admin.
+-   * @param newAdmin Address of the new admin.
+-   */
+-  event AdminChanged(address previousAdmin, address newAdmin);
+-
+-  /**
+-   * @dev Storage slot with the admin of the contract.
+-   * This is the keccak-256 hash of "eip1967.proxy.admin" subtracted by 1, and is
+-   * validated in the constructor.
+-   */
+-  bytes32 internal constant ADMIN_SLOT =
+-    0xb53127684a568b3173ae13b9f8a6016e243e63b6e8ee1178d6a717850b5d6103;
+-
+-  /**
+-   * @dev Modifier to check whether the `msg.sender` is the admin.
+-   * If it is, it will run the function. Otherwise, it will delegate the call
+-   * to the implementation.
+-   */
+-  modifier ifAdmin() {
+-    if (msg.sender == _admin()) {
+-      _;
+-    } else {
+-      _fallback();
+-    }
+-  }
+-
+-  /**
+-   * @return The address of the proxy admin.
+-   */
+-  function admin() external ifAdmin returns (address) {
+-    return _admin();
+-  }
+-
+-  /**
+-   * @return The address of the implementation.
+-   */
+-  function implementation() external ifAdmin returns (address) {
+-    return _implementation();
+-  }
+-
+-  /**
+-   * @dev Changes the admin of the proxy.
+-   * Only the current admin can call this function.
+-   * @param newAdmin Address to transfer proxy administration to.
+-   */
+-  function changeAdmin(address newAdmin) external ifAdmin {
+-    require(newAdmin != address(0), 'Cannot change the admin of a proxy to the zero address');
+-    emit AdminChanged(_admin(), newAdmin);
+-    _setAdmin(newAdmin);
+-  }
+-
+-  /**
+-   * @dev Upgrade the backing implementation of the proxy.
+-   * Only the admin can call this function.
+-   * @param newImplementation Address of the new implementation.
+-   */
+-  function upgradeTo(address newImplementation) external ifAdmin {
+-    _upgradeTo(newImplementation);
+-  }
+-
+-  /**
+-   * @dev Upgrade the backing implementation of the proxy and call a function
+-   * on the new implementation.
+-   * This is useful to initialize the proxied contract.
+-   * @param newImplementation Address of the new implementation.
+-   * @param data Data to send as msg.data in the low level call.
+-   * It should include the signature and the parameters of the function to be called, as described in
+-   * https://solidity.readthedocs.io/en/v0.4.24/abi-spec.html#function-selector-and-argument-encoding.
+-   */
+-  function upgradeToAndCall(
+-    address newImplementation,
+-    bytes calldata data
+-  ) external payable ifAdmin {
+-    _upgradeTo(newImplementation);
+-    (bool success, ) = newImplementation.delegatecall(data);
+-    require(success);
+-  }
+-
+-  /**
+-   * @return adm The admin slot.
+-   */
+-  function _admin() internal view returns (address adm) {
+-    bytes32 slot = ADMIN_SLOT;
+-    //solium-disable-next-line
+-    assembly {
+-      adm := sload(slot)
+-    }
+-  }
+-
+-  /**
+-   * @dev Sets the address of the proxy admin.
+-   * @param newAdmin Address of the new proxy admin.
+-   */
+-  function _setAdmin(address newAdmin) internal {
+-    bytes32 slot = ADMIN_SLOT;
+-    //solium-disable-next-line
+-    assembly {
+-      sstore(slot, newAdmin)
+-    }
+-  }
+-
+-  /**
+-   * @dev Only fall back when the sender is not the admin.
+-   */
+-  function _willFallback() internal virtual override {
+-    require(msg.sender != _admin(), 'Cannot call fallback function from the proxy admin');
+-    super._willFallback();
+-  }
+-}
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/dependencies/openzeppelin/upgradeability/BaseUpgradeabilityProxy.sol b/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/dependencies/openzeppelin/upgradeability/BaseUpgradeabilityProxy.sol
+deleted file mode 100644
+index b0b8240..0000000
+--- a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/dependencies/openzeppelin/upgradeability/BaseUpgradeabilityProxy.sol
++++ /dev/null
+@@ -1,66 +0,0 @@
+-// SPDX-License-Identifier: agpl-3.0
+-pragma solidity 0.6.12;
+-
+-import './Proxy.sol';
+-import '../contracts/Address.sol';
+-
+-/**
+- * @title BaseUpgradeabilityProxy
+- * @dev This contract implements a proxy that allows to change the
+- * implementation address to which it will delegate.
+- * Such a change is called an implementation upgrade.
+- */
+-contract BaseUpgradeabilityProxy is Proxy {
+-  /**
+-   * @dev Emitted when the implementation is upgraded.
+-   * @param implementation Address of the new implementation.
+-   */
+-  event Upgraded(address indexed implementation);
+-
+-  /**
+-   * @dev Storage slot with the address of the current implementation.
+-   * This is the keccak-256 hash of "eip1967.proxy.implementation" subtracted by 1, and is
+-   * validated in the constructor.
+-   */
+-  bytes32 internal constant IMPLEMENTATION_SLOT =
+-    0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc;
+-
+-  /**
+-   * @dev Returns the current implementation.
+-   * @return impl Address of the current implementation
+-   */
+-  function _implementation() internal view override returns (address impl) {
+-    bytes32 slot = IMPLEMENTATION_SLOT;
+-    //solium-disable-next-line
+-    assembly {
+-      impl := sload(slot)
+-    }
+-  }
+-
+-  /**
+-   * @dev Upgrades the proxy to a new implementation.
+-   * @param newImplementation Address of the new implementation.
+-   */
+-  function _upgradeTo(address newImplementation) internal {
+-    _setImplementation(newImplementation);
+-    emit Upgraded(newImplementation);
+-  }
+-
+-  /**
+-   * @dev Sets the implementation address of the proxy.
+-   * @param newImplementation Address of the new implementation.
+-   */
+-  function _setImplementation(address newImplementation) internal {
+-    require(
+-      Address.isContract(newImplementation),
+-      'Cannot set a proxy implementation to a non-contract address'
+-    );
+-
+-    bytes32 slot = IMPLEMENTATION_SLOT;
+-
+-    //solium-disable-next-line
+-    assembly {
+-      sstore(slot, newImplementation)
+-    }
+-  }
+-}
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/dependencies/openzeppelin/upgradeability/InitializableAdminUpgradeabilityProxy.sol b/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/dependencies/openzeppelin/upgradeability/InitializableAdminUpgradeabilityProxy.sol
+deleted file mode 100644
+index 4c5a2a2..0000000
+--- a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/dependencies/openzeppelin/upgradeability/InitializableAdminUpgradeabilityProxy.sol
++++ /dev/null
+@@ -1,38 +0,0 @@
+-// SPDX-License-Identifier: agpl-3.0
+-pragma solidity 0.6.12;
+-
+-import './BaseAdminUpgradeabilityProxy.sol';
+-import './InitializableUpgradeabilityProxy.sol';
+-
+-/**
+- * @title InitializableAdminUpgradeabilityProxy
+- * @dev Extends from BaseAdminUpgradeabilityProxy with an initializer for
+- * initializing the implementation, admin, and init data.
+- */
+-contract InitializableAdminUpgradeabilityProxy is
+-  BaseAdminUpgradeabilityProxy,
+-  InitializableUpgradeabilityProxy
+-{
+-  /**
+-   * Contract initializer.
+-   * @param logic address of the initial implementation.
+-   * @param admin Address of the proxy administrator.
+-   * @param data Data to send as msg.data to the implementation to initialize the proxied contract.
+-   * It should include the signature and the parameters of the function to be called, as described in
+-   * https://solidity.readthedocs.io/en/v0.4.24/abi-spec.html#function-selector-and-argument-encoding.
+-   * This parameter is optional, if no data is given the initialization call to proxied contract will be skipped.
+-   */
+-  function initialize(address logic, address admin, bytes memory data) public payable {
+-    require(_implementation() == address(0));
+-    InitializableUpgradeabilityProxy.initialize(logic, data);
+-    assert(ADMIN_SLOT == bytes32(uint256(keccak256('eip1967.proxy.admin')) - 1));
+-    _setAdmin(admin);
+-  }
+-
+-  /**
+-   * @dev Only fall back when the sender is not the admin.
+-   */
+-  function _willFallback() internal override(BaseAdminUpgradeabilityProxy, Proxy) {
+-    BaseAdminUpgradeabilityProxy._willFallback();
+-  }
+-}
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/dependencies/openzeppelin/upgradeability/InitializableUpgradeabilityProxy.sol b/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/dependencies/openzeppelin/upgradeability/InitializableUpgradeabilityProxy.sol
+deleted file mode 100644
+index 2efafec..0000000
+--- a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/dependencies/openzeppelin/upgradeability/InitializableUpgradeabilityProxy.sol
++++ /dev/null
+@@ -1,29 +0,0 @@
+-// SPDX-License-Identifier: agpl-3.0
+-pragma solidity 0.6.12;
+-
+-import './BaseUpgradeabilityProxy.sol';
+-
+-/**
+- * @title InitializableUpgradeabilityProxy
+- * @dev Extends BaseUpgradeabilityProxy with an initializer for initializing
+- * implementation and init data.
+- */
+-contract InitializableUpgradeabilityProxy is BaseUpgradeabilityProxy {
+-  /**
+-   * @dev Contract initializer.
+-   * @param _logic Address of the initial implementation.
+-   * @param _data Data to send as msg.data to the implementation to initialize the proxied contract.
+-   * It should include the signature and the parameters of the function to be called, as described in
+-   * https://solidity.readthedocs.io/en/v0.4.24/abi-spec.html#function-selector-and-argument-encoding.
+-   * This parameter is optional, if no data is given the initialization call to proxied contract will be skipped.
+-   */
+-  function initialize(address _logic, bytes memory _data) public payable {
+-    require(_implementation() == address(0));
+-    assert(IMPLEMENTATION_SLOT == bytes32(uint256(keccak256('eip1967.proxy.implementation')) - 1));
+-    _setImplementation(_logic);
+-    if (_data.length > 0) {
+-      (bool success, ) = _logic.delegatecall(_data);
+-      require(success);
+-    }
+-  }
+-}
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/dependencies/openzeppelin/upgradeability/Proxy.sol b/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/dependencies/openzeppelin/upgradeability/Proxy.sol
+deleted file mode 100644
+index 836dbed..0000000
+--- a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/dependencies/openzeppelin/upgradeability/Proxy.sol
++++ /dev/null
+@@ -1,72 +0,0 @@
+-// SPDX-License-Identifier: agpl-3.0
+-pragma solidity ^0.6.0;
+-
+-/**
+- * @title Proxy
+- * @dev Implements delegation of calls to other contracts, with proper
+- * forwarding of return values and bubbling of failures.
+- * It defines a fallback function that delegates all calls to the address
+- * returned by the abstract _implementation() internal function.
+- */
+-abstract contract Proxy {
+-  /**
+-   * @dev Fallback function.
+-   * Implemented entirely in `_fallback`.
+-   */
+-  fallback() external payable {
+-    _fallback();
+-  }
+-
+-  /**
+-   * @return The Address of the implementation.
+-   */
+-  function _implementation() internal view virtual returns (address);
+-
+-  /**
+-   * @dev Delegates execution to an implementation contract.
+-   * This is a low level function that doesn't return to its internal call site.
+-   * It will return to the external caller whatever the implementation returns.
+-   * @param implementation Address to delegate.
+-   */
+-  function _delegate(address implementation) internal {
+-    //solium-disable-next-line
+-    assembly {
+-      // Copy msg.data. We take full control of memory in this inline assembly
+-      // block because it will not return to Solidity code. We overwrite the
+-      // Solidity scratch pad at memory position 0.
+-      calldatacopy(0, 0, calldatasize())
+-
+-      // Call the implementation.
+-      // out and outsize are 0 because we don't know the size yet.
+-      let result := delegatecall(gas(), implementation, 0, calldatasize(), 0, 0)
+-
+-      // Copy the returned data.
+-      returndatacopy(0, 0, returndatasize())
+-
+-      switch result
+-      // delegatecall returns 0 on error.
+-      case 0 {
+-        revert(0, returndatasize())
+-      }
+-      default {
+-        return(0, returndatasize())
+-      }
+-    }
+-  }
+-
+-  /**
+-   * @dev Function that is run as the first thing in the fallback function.
+-   * Can be redefined in derived contracts to add functionality.
+-   * Redefinitions must call super._willFallback().
+-   */
+-  function _willFallback() internal virtual {}
+-
+-  /**
+-   * @dev fallback implementation.
+-   * Extracted to enable manual triggering.
+-   */
+-  function _fallback() internal {
+-    _willFallback();
+-    _delegate(_implementation());
+-  }
+-}
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/dependencies/openzeppelin/upgradeability/UpgradeabilityProxy.sol b/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/dependencies/openzeppelin/upgradeability/UpgradeabilityProxy.sol
+deleted file mode 100644
+index f644448..0000000
+--- a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/dependencies/openzeppelin/upgradeability/UpgradeabilityProxy.sol
++++ /dev/null
+@@ -1,28 +0,0 @@
+-// SPDX-License-Identifier: agpl-3.0
+-pragma solidity 0.6.12;
+-
+-import './BaseUpgradeabilityProxy.sol';
+-
+-/**
+- * @title UpgradeabilityProxy
+- * @dev Extends BaseUpgradeabilityProxy with a constructor for initializing
+- * implementation and init data.
+- */
+-contract UpgradeabilityProxy is BaseUpgradeabilityProxy {
+-  /**
+-   * @dev Contract constructor.
+-   * @param _logic Address of the initial implementation.
+-   * @param _data Data to send as msg.data to the implementation to initialize the proxied contract.
+-   * It should include the signature and the parameters of the function to be called, as described in
+-   * https://solidity.readthedocs.io/en/v0.4.24/abi-spec.html#function-selector-and-argument-encoding.
+-   * This parameter is optional, if no data is given the initialization call to proxied contract will be skipped.
+-   */
+-  constructor(address _logic, bytes memory _data) public payable {
+-    assert(IMPLEMENTATION_SLOT == bytes32(uint256(keccak256('eip1967.proxy.implementation')) - 1));
+-    _setImplementation(_logic);
+-    if (_data.length > 0) {
+-      (bool success, ) = _logic.delegatecall(_data);
+-      require(success);
+-    }
+-  }
+-}
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/deployments/ATokensAndRatesHelper.sol b/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/deployments/ATokensAndRatesHelper.sol
+deleted file mode 100644
+index fbc97c4..0000000
+--- a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/deployments/ATokensAndRatesHelper.sol
++++ /dev/null
+@@ -1,75 +0,0 @@
+-// SPDX-License-Identifier: agpl-3.0
+-pragma solidity 0.6.12;
+-pragma experimental ABIEncoderV2;
+-
+-import {LendingPool} from '../protocol/lendingpool/LendingPool.sol';
+-import {LendingPoolAddressesProvider} from '../protocol/configuration/LendingPoolAddressesProvider.sol';
+-import {LendingPoolConfigurator} from '../protocol/lendingpool/LendingPoolConfigurator.sol';
+-import {AToken} from '../protocol/tokenization/AToken.sol';
+-import {DefaultReserveInterestRateStrategy} from '../protocol/lendingpool/DefaultReserveInterestRateStrategy.sol';
+-import {Ownable} from '../dependencies/openzeppelin/contracts/Ownable.sol';
+-import {StringLib} from './StringLib.sol';
+-
+-contract ATokensAndRatesHelper is Ownable {
+-  address payable private pool;
+-  address private addressesProvider;
+-  address private poolConfigurator;
+-  event deployedContracts(address aToken, address strategy);
+-
+-  struct InitDeploymentInput {
+-    address asset;
+-    uint256[6] rates;
+-  }
+-
+-  struct ConfigureReserveInput {
+-    address asset;
+-    uint256 baseLTV;
+-    uint256 liquidationThreshold;
+-    uint256 liquidationBonus;
+-    uint256 reserveFactor;
+-    bool stableBorrowingEnabled;
+-  }
+-
+-  constructor(address payable _pool, address _addressesProvider, address _poolConfigurator) public {
+-    pool = _pool;
+-    addressesProvider = _addressesProvider;
+-    poolConfigurator = _poolConfigurator;
+-  }
+-
+-  function initDeployment(InitDeploymentInput[] calldata inputParams) external onlyOwner {
+-    for (uint256 i = 0; i < inputParams.length; i++) {
+-      emit deployedContracts(
+-        address(new AToken()),
+-        address(
+-          new DefaultReserveInterestRateStrategy(
+-            LendingPoolAddressesProvider(addressesProvider),
+-            inputParams[i].rates[0],
+-            inputParams[i].rates[1],
+-            inputParams[i].rates[2],
+-            inputParams[i].rates[3],
+-            inputParams[i].rates[4],
+-            inputParams[i].rates[5]
+-          )
+-        )
+-      );
+-    }
+-  }
+-
+-  function configureReserves(ConfigureReserveInput[] calldata inputParams) external onlyOwner {
+-    LendingPoolConfigurator configurator = LendingPoolConfigurator(poolConfigurator);
+-    for (uint256 i = 0; i < inputParams.length; i++) {
+-      configurator.configureReserveAsCollateral(
+-        inputParams[i].asset,
+-        inputParams[i].baseLTV,
+-        inputParams[i].liquidationThreshold,
+-        inputParams[i].liquidationBonus
+-      );
+-
+-      configurator.enableBorrowingOnReserve(
+-        inputParams[i].asset,
+-        inputParams[i].stableBorrowingEnabled
+-      );
+-      configurator.setReserveFactor(inputParams[i].asset, inputParams[i].reserveFactor);
+-    }
+-  }
+-}
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/deployments/StableAndVariableTokensHelper.sol b/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/deployments/StableAndVariableTokensHelper.sol
+deleted file mode 100644
+index e31651f..0000000
+--- a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/deployments/StableAndVariableTokensHelper.sol
++++ /dev/null
+@@ -1,47 +0,0 @@
+-// SPDX-License-Identifier: agpl-3.0
+-pragma solidity 0.6.12;
+-pragma experimental ABIEncoderV2;
+-
+-import {StableDebtToken} from '../protocol/tokenization/StableDebtToken.sol';
+-import {VariableDebtToken} from '../protocol/tokenization/VariableDebtToken.sol';
+-import {LendingRateOracle} from '../mocks/oracle/LendingRateOracle.sol';
+-import {Ownable} from '../dependencies/openzeppelin/contracts/Ownable.sol';
+-import {StringLib} from './StringLib.sol';
+-
+-contract StableAndVariableTokensHelper is Ownable {
+-  address payable private pool;
+-  address private addressesProvider;
+-  event deployedContracts(address stableToken, address variableToken);
+-
+-  constructor(address payable _pool, address _addressesProvider) public {
+-    pool = _pool;
+-    addressesProvider = _addressesProvider;
+-  }
+-
+-  function initDeployment(address[] calldata tokens, string[] calldata symbols) external onlyOwner {
+-    require(tokens.length == symbols.length, 'Arrays not same length');
+-    require(pool != address(0), 'Pool can not be zero address');
+-    for (uint256 i = 0; i < tokens.length; i++) {
+-      emit deployedContracts(address(new StableDebtToken()), address(new VariableDebtToken()));
+-    }
+-  }
+-
+-  function setOracleBorrowRates(
+-    address[] calldata assets,
+-    uint256[] calldata rates,
+-    address oracle
+-  ) external onlyOwner {
+-    require(assets.length == rates.length, 'Arrays not same length');
+-
+-    for (uint256 i = 0; i < assets.length; i++) {
+-      // LendingRateOracle owner must be this contract
+-      LendingRateOracle(oracle).setMarketBorrowRate(assets[i], rates[i]);
+-    }
+-  }
+-
+-  function setOracleOwnership(address oracle, address admin) external onlyOwner {
+-    require(admin != address(0), 'owner can not be zero');
+-    require(LendingRateOracle(oracle).owner() == address(this), 'helper is not owner');
+-    LendingRateOracle(oracle).transferOwnership(admin);
+-  }
+-}
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/deployments/StringLib.sol b/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/deployments/StringLib.sol
+deleted file mode 100644
+index 235213b..0000000
+--- a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/deployments/StringLib.sol
++++ /dev/null
+@@ -1,8 +0,0 @@
+-// SPDX-License-Identifier: agpl-3.0
+-pragma solidity 0.6.12;
+-
+-library StringLib {
+-  function concat(string memory a, string memory b) internal pure returns (string memory) {
+-    return string(abi.encodePacked(a, b));
+-  }
+-}
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/flashloan/base/FlashLoanReceiverBase.sol b/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/flashloan/base/FlashLoanReceiverBase.sol
+deleted file mode 100644
+index cab5e4d..0000000
+--- a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/flashloan/base/FlashLoanReceiverBase.sol
++++ /dev/null
+@@ -1,22 +0,0 @@
+-// SPDX-License-Identifier: agpl-3.0
+-pragma solidity 0.6.12;
+-
+-import {SafeMath} from '../../dependencies/openzeppelin/contracts/SafeMath.sol';
+-import {IERC20} from '../../dependencies/openzeppelin/contracts/IERC20.sol';
+-import {SafeERC20} from '../../dependencies/openzeppelin/contracts/SafeERC20.sol';
+-import {IFlashLoanReceiver} from '../interfaces/IFlashLoanReceiver.sol';
+-import {ILendingPoolAddressesProvider} from '../../interfaces/ILendingPoolAddressesProvider.sol';
+-import {ILendingPool} from '../../interfaces/ILendingPool.sol';
+-
+-abstract contract FlashLoanReceiverBase is IFlashLoanReceiver {
+-  using SafeERC20 for IERC20;
+-  using SafeMath for uint256;
+-
+-  ILendingPoolAddressesProvider public immutable override ADDRESSES_PROVIDER;
+-  ILendingPool public immutable override LENDING_POOL;
+-
+-  constructor(ILendingPoolAddressesProvider provider) public {
+-    ADDRESSES_PROVIDER = provider;
+-    LENDING_POOL = ILendingPool(provider.getLendingPool());
+-  }
+-}
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/flashloan/interfaces/IFlashLoanReceiver.sol b/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/flashloan/interfaces/IFlashLoanReceiver.sol
+deleted file mode 100644
+index 7e1b119..0000000
+--- a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/flashloan/interfaces/IFlashLoanReceiver.sol
++++ /dev/null
+@@ -1,25 +0,0 @@
+-// SPDX-License-Identifier: agpl-3.0
+-pragma solidity 0.6.12;
+-
+-import {ILendingPoolAddressesProvider} from '../../interfaces/ILendingPoolAddressesProvider.sol';
+-import {ILendingPool} from '../../interfaces/ILendingPool.sol';
+-
+-/**
+- * @title IFlashLoanReceiver interface
+- * @notice Interface for the Aave fee IFlashLoanReceiver.
+- * @author Aave
+- * @dev implement this interface to develop a flashloan-compatible flashLoanReceiver contract
+- **/
+-interface IFlashLoanReceiver {
+-  function executeOperation(
+-    address[] calldata assets,
+-    uint256[] calldata amounts,
+-    uint256[] calldata premiums,
+-    address initiator,
+-    bytes calldata params
+-  ) external returns (bool);
+-
+-  function ADDRESSES_PROVIDER() external view returns (ILendingPoolAddressesProvider);
+-
+-  function LENDING_POOL() external view returns (ILendingPool);
+-}
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/interfaces/IChainlinkAggregator.sol b/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/interfaces/IChainlinkAggregator.sol
+deleted file mode 100644
+index 4b75788..0000000
+--- a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/interfaces/IChainlinkAggregator.sol
++++ /dev/null
+@@ -1,17 +0,0 @@
+-// SPDX-License-Identifier: agpl-3.0
+-pragma solidity 0.6.12;
+-
+-interface IChainlinkAggregator {
+-  function latestAnswer() external view returns (int256);
+-
+-  function latestTimestamp() external view returns (uint256);
+-
+-  function latestRound() external view returns (uint256);
+-
+-  function getAnswer(uint256 roundId) external view returns (int256);
+-
+-  function getTimestamp(uint256 roundId) external view returns (uint256);
+-
+-  event AnswerUpdated(int256 indexed current, uint256 indexed roundId, uint256 timestamp);
+-  event NewRound(uint256 indexed roundId, address indexed startedBy);
+-}
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/interfaces/ICreditDelegationToken.sol b/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/interfaces/ICreditDelegationToken.sol
+deleted file mode 100644
+index 6f26d52..0000000
+--- a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/interfaces/ICreditDelegationToken.sol
++++ /dev/null
+@@ -1,28 +0,0 @@
+-// SPDX-License-Identifier: agpl-3.0
+-pragma solidity 0.6.12;
+-
+-interface ICreditDelegationToken {
+-  event BorrowAllowanceDelegated(
+-    address indexed fromUser,
+-    address indexed toUser,
+-    address asset,
+-    uint256 amount
+-  );
+-
+-  /**
+-   * @dev delegates borrowing power to a user on the specific debt token
+-   * @param delegatee the address receiving the delegated borrowing power
+-   * @param amount the maximum amount being delegated. Delegation will still
+-   * respect the liquidation constraints (even if delegated, a delegatee cannot
+-   * force a delegator HF to go below 1)
+-   **/
+-  function approveDelegation(address delegatee, uint256 amount) external;
+-
+-  /**
+-   * @dev returns the borrow allowance of the user
+-   * @param fromUser The user to giving allowance
+-   * @param toUser The user to give allowance to
+-   * @return the current allowance of toUser
+-   **/
+-  function borrowAllowance(address fromUser, address toUser) external view returns (uint256);
+-}
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/interfaces/IDelegationToken.sol b/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/interfaces/IDelegationToken.sol
+deleted file mode 100644
+index 870e05b..0000000
+--- a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/interfaces/IDelegationToken.sol
++++ /dev/null
+@@ -1,11 +0,0 @@
+-// SPDX-License-Identifier: agpl-3.0
+-pragma solidity 0.6.12;
+-
+-/**
+- * @title IDelegationToken
+- * @dev Implements an interface for tokens with delegation COMP/UNI compatible
+- * @author Aave
+- **/
+-interface IDelegationToken {
+-  function delegate(address delegatee) external;
+-}
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/interfaces/IERC20WithPermit.sol b/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/interfaces/IERC20WithPermit.sol
+deleted file mode 100644
+index 46466b9..0000000
+--- a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/interfaces/IERC20WithPermit.sol
++++ /dev/null
+@@ -1,16 +0,0 @@
+-// SPDX-License-Identifier: agpl-3.0
+-pragma solidity 0.6.12;
+-
+-import {IERC20} from '../dependencies/openzeppelin/contracts/IERC20.sol';
+-
+-interface IERC20WithPermit is IERC20 {
+-  function permit(
+-    address owner,
+-    address spender,
+-    uint256 value,
+-    uint256 deadline,
+-    uint8 v,
+-    bytes32 r,
+-    bytes32 s
+-  ) external;
+-}
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/interfaces/IExchangeAdapter.sol b/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/interfaces/IExchangeAdapter.sol
+deleted file mode 100644
+index 59989cd..0000000
+--- a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/interfaces/IExchangeAdapter.sol
++++ /dev/null
+@@ -1,23 +0,0 @@
+-// SPDX-License-Identifier: agpl-3.0
+-pragma solidity 0.6.12;
+-
+-import {IERC20} from '../dependencies/openzeppelin/contracts/IERC20.sol';
+-
+-interface IExchangeAdapter {
+-  event Exchange(
+-    address indexed from,
+-    address indexed to,
+-    address indexed platform,
+-    uint256 fromAmount,
+-    uint256 toAmount
+-  );
+-
+-  function approveExchange(IERC20[] calldata tokens) external;
+-
+-  function exchange(
+-    address from,
+-    address to,
+-    uint256 amount,
+-    uint256 maxSlippage
+-  ) external returns (uint256);
+-}
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/interfaces/ILendingPoolAddressesProviderRegistry.sol b/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/interfaces/ILendingPoolAddressesProviderRegistry.sol
+deleted file mode 100644
+index 56e5f10..0000000
+--- a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/interfaces/ILendingPoolAddressesProviderRegistry.sol
++++ /dev/null
+@@ -1,25 +0,0 @@
+-// SPDX-License-Identifier: agpl-3.0
+-pragma solidity 0.6.12;
+-
+-/**
+- * @title LendingPoolAddressesProviderRegistry contract
+- * @dev Main registry of LendingPoolAddressesProvider of multiple Aave protocol's markets
+- * - Used for indexing purposes of Aave protocol's markets
+- * - The id assigned to a LendingPoolAddressesProvider refers to the market it is connected with,
+- *   for example with `0` for the Aave main market and `1` for the next created
+- * @author Aave
+- **/
+-interface ILendingPoolAddressesProviderRegistry {
+-  event AddressesProviderRegistered(address indexed newAddress);
+-  event AddressesProviderUnregistered(address indexed newAddress);
+-
+-  function getAddressesProvidersList() external view returns (address[] memory);
+-
+-  function getAddressesProviderIdByAddress(
+-    address addressesProvider
+-  ) external view returns (uint256);
+-
+-  function registerAddressesProvider(address provider, uint256 id) external;
+-
+-  function unregisterAddressesProvider(address provider) external;
+-}
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/interfaces/ILendingPoolConfigurator.sol b/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/interfaces/ILendingPoolConfigurator.sol
+deleted file mode 100644
+index 7554f2a..0000000
+--- a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/interfaces/ILendingPoolConfigurator.sol
++++ /dev/null
+@@ -1,179 +0,0 @@
+-// SPDX-License-Identifier: agpl-3.0
+-pragma solidity 0.6.12;
+-pragma experimental ABIEncoderV2;
+-
+-interface ILendingPoolConfigurator {
+-  struct InitReserveInput {
+-    address aTokenImpl;
+-    address stableDebtTokenImpl;
+-    address variableDebtTokenImpl;
+-    uint8 underlyingAssetDecimals;
+-    address interestRateStrategyAddress;
+-    address underlyingAsset;
+-    address treasury;
+-    address incentivesController;
+-    string underlyingAssetName;
+-    string aTokenName;
+-    string aTokenSymbol;
+-    string variableDebtTokenName;
+-    string variableDebtTokenSymbol;
+-    string stableDebtTokenName;
+-    string stableDebtTokenSymbol;
+-    bytes params;
+-  }
+-
+-  struct UpdateATokenInput {
+-    address asset;
+-    address treasury;
+-    address incentivesController;
+-    string name;
+-    string symbol;
+-    address implementation;
+-    bytes params;
+-  }
+-
+-  struct UpdateDebtTokenInput {
+-    address asset;
+-    address incentivesController;
+-    string name;
+-    string symbol;
+-    address implementation;
+-    bytes params;
+-  }
+-
+-  /**
+-   * @dev Emitted when a reserve is initialized.
+-   * @param asset The address of the underlying asset of the reserve
+-   * @param aToken The address of the associated aToken contract
+-   * @param stableDebtToken The address of the associated stable rate debt token
+-   * @param variableDebtToken The address of the associated variable rate debt token
+-   * @param interestRateStrategyAddress The address of the interest rate strategy for the reserve
+-   **/
+-  event ReserveInitialized(
+-    address indexed asset,
+-    address indexed aToken,
+-    address stableDebtToken,
+-    address variableDebtToken,
+-    address interestRateStrategyAddress
+-  );
+-
+-  /**
+-   * @dev Emitted when borrowing is enabled on a reserve
+-   * @param asset The address of the underlying asset of the reserve
+-   * @param stableRateEnabled True if stable rate borrowing is enabled, false otherwise
+-   **/
+-  event BorrowingEnabledOnReserve(address indexed asset, bool stableRateEnabled);
+-
+-  /**
+-   * @dev Emitted when borrowing is disabled on a reserve
+-   * @param asset The address of the underlying asset of the reserve
+-   **/
+-  event BorrowingDisabledOnReserve(address indexed asset);
+-
+-  /**
+-   * @dev Emitted when the collateralization risk parameters for the specified asset are updated.
+-   * @param asset The address of the underlying asset of the reserve
+-   * @param ltv The loan to value of the asset when used as collateral
+-   * @param liquidationThreshold The threshold at which loans using this asset as collateral will be considered undercollateralized
+-   * @param liquidationBonus The bonus liquidators receive to liquidate this asset
+-   **/
+-  event CollateralConfigurationChanged(
+-    address indexed asset,
+-    uint256 ltv,
+-    uint256 liquidationThreshold,
+-    uint256 liquidationBonus
+-  );
+-
+-  /**
+-   * @dev Emitted when stable rate borrowing is enabled on a reserve
+-   * @param asset The address of the underlying asset of the reserve
+-   **/
+-  event StableRateEnabledOnReserve(address indexed asset);
+-
+-  /**
+-   * @dev Emitted when stable rate borrowing is disabled on a reserve
+-   * @param asset The address of the underlying asset of the reserve
+-   **/
+-  event StableRateDisabledOnReserve(address indexed asset);
+-
+-  /**
+-   * @dev Emitted when a reserve is activated
+-   * @param asset The address of the underlying asset of the reserve
+-   **/
+-  event ReserveActivated(address indexed asset);
+-
+-  /**
+-   * @dev Emitted when a reserve is deactivated
+-   * @param asset The address of the underlying asset of the reserve
+-   **/
+-  event ReserveDeactivated(address indexed asset);
+-
+-  /**
+-   * @dev Emitted when a reserve is frozen
+-   * @param asset The address of the underlying asset of the reserve
+-   **/
+-  event ReserveFrozen(address indexed asset);
+-
+-  /**
+-   * @dev Emitted when a reserve is unfrozen
+-   * @param asset The address of the underlying asset of the reserve
+-   **/
+-  event ReserveUnfrozen(address indexed asset);
+-
+-  /**
+-   * @dev Emitted when a reserve factor is updated
+-   * @param asset The address of the underlying asset of the reserve
+-   * @param factor The new reserve factor
+-   **/
+-  event ReserveFactorChanged(address indexed asset, uint256 factor);
+-
+-  /**
+-   * @dev Emitted when the reserve decimals are updated
+-   * @param asset The address of the underlying asset of the reserve
+-   * @param decimals The new decimals
+-   **/
+-  event ReserveDecimalsChanged(address indexed asset, uint256 decimals);
+-
+-  /**
+-   * @dev Emitted when a reserve interest strategy contract is updated
+-   * @param asset The address of the underlying asset of the reserve
+-   * @param strategy The new address of the interest strategy contract
+-   **/
+-  event ReserveInterestRateStrategyChanged(address indexed asset, address strategy);
+-
+-  /**
+-   * @dev Emitted when an aToken implementation is upgraded
+-   * @param asset The address of the underlying asset of the reserve
+-   * @param proxy The aToken proxy address
+-   * @param implementation The new aToken implementation
+-   **/
+-  event ATokenUpgraded(
+-    address indexed asset,
+-    address indexed proxy,
+-    address indexed implementation
+-  );
+-
+-  /**
+-   * @dev Emitted when the implementation of a stable debt token is upgraded
+-   * @param asset The address of the underlying asset of the reserve
+-   * @param proxy The stable debt token proxy address
+-   * @param implementation The new aToken implementation
+-   **/
+-  event StableDebtTokenUpgraded(
+-    address indexed asset,
+-    address indexed proxy,
+-    address indexed implementation
+-  );
+-
+-  /**
+-   * @dev Emitted when the implementation of a variable debt token is upgraded
+-   * @param asset The address of the underlying asset of the reserve
+-   * @param proxy The variable debt token proxy address
+-   * @param implementation The new aToken implementation
+-   **/
+-  event VariableDebtTokenUpgraded(
+-    address indexed asset,
+-    address indexed proxy,
+-    address indexed implementation
+-  );
+-}
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/interfaces/ILendingRateOracle.sol b/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/interfaces/ILendingRateOracle.sol
+deleted file mode 100644
+index 3d9dfab..0000000
+--- a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/interfaces/ILendingRateOracle.sol
++++ /dev/null
+@@ -1,19 +0,0 @@
+-// SPDX-License-Identifier: agpl-3.0
+-pragma solidity 0.6.12;
+-
+-/**
+- * @title ILendingRateOracle interface
+- * @notice Interface for the Aave borrow rate oracle. Provides the average market borrow rate to be used as a base for the stable borrow rate calculations
+- **/
+-
+-interface ILendingRateOracle {
+-  /**
+-    @dev returns the market borrow rate in ray
+-    **/
+-  function getMarketBorrowRate(address asset) external view returns (uint256);
+-
+-  /**
+-    @dev sets the market borrow rate. Rate value must be in ray
+-    **/
+-  function setMarketBorrowRate(address asset, uint256 rate) external;
+-}
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/interfaces/IUniswapV2Router02.sol b/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/interfaces/IUniswapV2Router02.sol
+deleted file mode 100644
+index 88f7169..0000000
+--- a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/interfaces/IUniswapV2Router02.sol
++++ /dev/null
+@@ -1,30 +0,0 @@
+-// SPDX-License-Identifier: agpl-3.0
+-pragma solidity 0.6.12;
+-
+-interface IUniswapV2Router02 {
+-  function swapExactTokensForTokens(
+-    uint256 amountIn,
+-    uint256 amountOutMin,
+-    address[] calldata path,
+-    address to,
+-    uint256 deadline
+-  ) external returns (uint256[] memory amounts);
+-
+-  function swapTokensForExactTokens(
+-    uint256 amountOut,
+-    uint256 amountInMax,
+-    address[] calldata path,
+-    address to,
+-    uint256 deadline
+-  ) external returns (uint256[] memory amounts);
+-
+-  function getAmountsOut(
+-    uint256 amountIn,
+-    address[] calldata path
+-  ) external view returns (uint256[] memory amounts);
+-
+-  function getAmountsIn(
+-    uint256 amountOut,
+-    address[] calldata path
+-  ) external view returns (uint256[] memory amounts);
+-}
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/misc/AaveOracle.sol b/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/misc/AaveOracle.sol
+deleted file mode 100644
+index 89cbae4..0000000
+--- a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/misc/AaveOracle.sol
++++ /dev/null
+@@ -1,122 +0,0 @@
+-// SPDX-License-Identifier: agpl-3.0
+-pragma solidity 0.6.12;
+-
+-import {Ownable} from '../dependencies/openzeppelin/contracts/Ownable.sol';
+-import {IERC20} from '../dependencies/openzeppelin/contracts/IERC20.sol';
+-
+-import {IPriceOracleGetter} from '../interfaces/IPriceOracleGetter.sol';
+-import {IChainlinkAggregator} from '../interfaces/IChainlinkAggregator.sol';
+-import {SafeERC20} from '../dependencies/openzeppelin/contracts/SafeERC20.sol';
+-
+-/// @title AaveOracle
+-/// @author Aave
+-/// @notice Proxy smart contract to get the price of an asset from a price source, with Chainlink Aggregator
+-///         smart contracts as primary option
+-/// - If the returned price by a Chainlink aggregator is <= 0, the call is forwarded to a fallbackOracle
+-/// - Owned by the Aave governance system, allowed to add sources for assets, replace them
+-///   and change the fallbackOracle
+-contract AaveOracle is IPriceOracleGetter, Ownable {
+-  using SafeERC20 for IERC20;
+-
+-  event WethSet(address indexed weth);
+-  event AssetSourceUpdated(address indexed asset, address indexed source);
+-  event FallbackOracleUpdated(address indexed fallbackOracle);
+-
+-  mapping(address => IChainlinkAggregator) private assetsSources;
+-  IPriceOracleGetter private _fallbackOracle;
+-  address public immutable WETH;
+-
+-  /// @notice Constructor
+-  /// @param assets The addresses of the assets
+-  /// @param sources The address of the source of each asset
+-  /// @param fallbackOracle The address of the fallback oracle to use if the data of an
+-  ///        aggregator is not consistent
+-  constructor(
+-    address[] memory assets,
+-    address[] memory sources,
+-    address fallbackOracle,
+-    address weth
+-  ) public {
+-    _setFallbackOracle(fallbackOracle);
+-    _setAssetsSources(assets, sources);
+-    WETH = weth;
+-    emit WethSet(weth);
+-  }
+-
+-  /// @notice External function called by the Aave governance to set or replace sources of assets
+-  /// @param assets The addresses of the assets
+-  /// @param sources The address of the source of each asset
+-  function setAssetSources(
+-    address[] calldata assets,
+-    address[] calldata sources
+-  ) external onlyOwner {
+-    _setAssetsSources(assets, sources);
+-  }
+-
+-  /// @notice Sets the fallbackOracle
+-  /// - Callable only by the Aave governance
+-  /// @param fallbackOracle The address of the fallbackOracle
+-  function setFallbackOracle(address fallbackOracle) external onlyOwner {
+-    _setFallbackOracle(fallbackOracle);
+-  }
+-
+-  /// @notice Internal function to set the sources for each asset
+-  /// @param assets The addresses of the assets
+-  /// @param sources The address of the source of each asset
+-  function _setAssetsSources(address[] memory assets, address[] memory sources) internal {
+-    require(assets.length == sources.length, 'INCONSISTENT_PARAMS_LENGTH');
+-    for (uint256 i = 0; i < assets.length; i++) {
+-      assetsSources[assets[i]] = IChainlinkAggregator(sources[i]);
+-      emit AssetSourceUpdated(assets[i], sources[i]);
+-    }
+-  }
+-
+-  /// @notice Internal function to set the fallbackOracle
+-  /// @param fallbackOracle The address of the fallbackOracle
+-  function _setFallbackOracle(address fallbackOracle) internal {
+-    _fallbackOracle = IPriceOracleGetter(fallbackOracle);
+-    emit FallbackOracleUpdated(fallbackOracle);
+-  }
+-
+-  /// @notice Gets an asset price by address
+-  /// @param asset The asset address
+-  function getAssetPrice(address asset) public view override returns (uint256) {
+-    IChainlinkAggregator source = assetsSources[asset];
+-
+-    if (asset == WETH) {
+-      return 1 ether;
+-    } else if (address(source) == address(0)) {
+-      return _fallbackOracle.getAssetPrice(asset);
+-    } else {
+-      int256 price = IChainlinkAggregator(source).latestAnswer();
+-      if (price > 0) {
+-        return uint256(price);
+-      } else {
+-        return _fallbackOracle.getAssetPrice(asset);
+-      }
+-    }
+-  }
+-
+-  /// @notice Gets a list of prices from a list of assets addresses
+-  /// @param assets The list of assets addresses
+-  function getAssetsPrices(address[] calldata assets) external view returns (uint256[] memory) {
+-    uint256[] memory prices = new uint256[](assets.length);
+-    for (uint256 i = 0; i < assets.length; i++) {
+-      prices[i] = getAssetPrice(assets[i]);
+-    }
+-    return prices;
+-  }
+-
+-  /// @notice Gets the address of the source for an asset address
+-  /// @param asset The address of the asset
+-  /// @return address The address of the source
+-  function getSourceOfAsset(address asset) external view returns (address) {
+-    return address(assetsSources[asset]);
+-  }
+-
+-  /// @notice Gets the address of the fallback oracle
+-  /// @return address The addres of the fallback oracle
+-  function getFallbackOracle() external view returns (address) {
+-    return address(_fallbackOracle);
+-  }
+-}
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/misc/AaveProtocolDataProvider.sol b/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/misc/AaveProtocolDataProvider.sol
+deleted file mode 100644
+index 1753000..0000000
+--- a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/misc/AaveProtocolDataProvider.sol
++++ /dev/null
+@@ -1,191 +0,0 @@
+-// SPDX-License-Identifier: agpl-3.0
+-pragma solidity 0.6.12;
+-pragma experimental ABIEncoderV2;
+-
+-import {IERC20Detailed} from '../dependencies/openzeppelin/contracts/IERC20Detailed.sol';
+-import {ILendingPoolAddressesProvider} from '../interfaces/ILendingPoolAddressesProvider.sol';
+-import {ILendingPool} from '../interfaces/ILendingPool.sol';
+-import {IStableDebtToken} from '../interfaces/IStableDebtToken.sol';
+-import {IVariableDebtToken} from '../interfaces/IVariableDebtToken.sol';
+-import {ReserveConfiguration} from '../protocol/libraries/configuration/ReserveConfiguration.sol';
+-import {UserConfiguration} from '../protocol/libraries/configuration/UserConfiguration.sol';
+-import {DataTypes} from '../protocol/libraries/types/DataTypes.sol';
+-
+-contract AaveProtocolDataProvider {
+-  using ReserveConfiguration for DataTypes.ReserveConfigurationMap;
+-  using UserConfiguration for DataTypes.UserConfigurationMap;
+-
+-  address constant MKR = 0x9f8F72aA9304c8B593d555F12eF6589cC3A579A2;
+-  address constant ETH = 0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE;
+-
+-  struct TokenData {
+-    string symbol;
+-    address tokenAddress;
+-  }
+-
+-  ILendingPoolAddressesProvider public immutable ADDRESSES_PROVIDER;
+-
+-  constructor(ILendingPoolAddressesProvider addressesProvider) public {
+-    ADDRESSES_PROVIDER = addressesProvider;
+-  }
+-
+-  function getAllReservesTokens() external view returns (TokenData[] memory) {
+-    ILendingPool pool = ILendingPool(ADDRESSES_PROVIDER.getLendingPool());
+-    address[] memory reserves = pool.getReservesList();
+-    TokenData[] memory reservesTokens = new TokenData[](reserves.length);
+-    for (uint256 i = 0; i < reserves.length; i++) {
+-      if (reserves[i] == MKR) {
+-        reservesTokens[i] = TokenData({symbol: 'MKR', tokenAddress: reserves[i]});
+-        continue;
+-      }
+-      if (reserves[i] == ETH) {
+-        reservesTokens[i] = TokenData({symbol: 'ETH', tokenAddress: reserves[i]});
+-        continue;
+-      }
+-      reservesTokens[i] = TokenData({
+-        symbol: IERC20Detailed(reserves[i]).symbol(),
+-        tokenAddress: reserves[i]
+-      });
+-    }
+-    return reservesTokens;
+-  }
+-
+-  function getAllATokens() external view returns (TokenData[] memory) {
+-    ILendingPool pool = ILendingPool(ADDRESSES_PROVIDER.getLendingPool());
+-    address[] memory reserves = pool.getReservesList();
+-    TokenData[] memory aTokens = new TokenData[](reserves.length);
+-    for (uint256 i = 0; i < reserves.length; i++) {
+-      DataTypes.ReserveData memory reserveData = pool.getReserveData(reserves[i]);
+-      aTokens[i] = TokenData({
+-        symbol: IERC20Detailed(reserveData.aTokenAddress).symbol(),
+-        tokenAddress: reserveData.aTokenAddress
+-      });
+-    }
+-    return aTokens;
+-  }
+-
+-  function getReserveConfigurationData(
+-    address asset
+-  )
+-    external
+-    view
+-    returns (
+-      uint256 decimals,
+-      uint256 ltv,
+-      uint256 liquidationThreshold,
+-      uint256 liquidationBonus,
+-      uint256 reserveFactor,
+-      bool usageAsCollateralEnabled,
+-      bool borrowingEnabled,
+-      bool stableBorrowRateEnabled,
+-      bool isActive,
+-      bool isFrozen
+-    )
+-  {
+-    DataTypes.ReserveConfigurationMap memory configuration = ILendingPool(
+-      ADDRESSES_PROVIDER.getLendingPool()
+-    ).getConfiguration(asset);
+-
+-    (ltv, liquidationThreshold, liquidationBonus, decimals, reserveFactor) = configuration
+-      .getParamsMemory();
+-
+-    (isActive, isFrozen, borrowingEnabled, stableBorrowRateEnabled) = configuration
+-      .getFlagsMemory();
+-
+-    usageAsCollateralEnabled = liquidationThreshold > 0;
+-  }
+-
+-  function getReserveData(
+-    address asset
+-  )
+-    external
+-    view
+-    returns (
+-      uint256 availableLiquidity,
+-      uint256 totalStableDebt,
+-      uint256 totalVariableDebt,
+-      uint256 liquidityRate,
+-      uint256 variableBorrowRate,
+-      uint256 stableBorrowRate,
+-      uint256 averageStableBorrowRate,
+-      uint256 liquidityIndex,
+-      uint256 variableBorrowIndex,
+-      uint40 lastUpdateTimestamp
+-    )
+-  {
+-    DataTypes.ReserveData memory reserve = ILendingPool(ADDRESSES_PROVIDER.getLendingPool())
+-      .getReserveData(asset);
+-
+-    return (
+-      IERC20Detailed(asset).balanceOf(reserve.aTokenAddress),
+-      IERC20Detailed(reserve.stableDebtTokenAddress).totalSupply(),
+-      IERC20Detailed(reserve.variableDebtTokenAddress).totalSupply(),
+-      reserve.currentLiquidityRate,
+-      reserve.currentVariableBorrowRate,
+-      reserve.currentStableBorrowRate,
+-      IStableDebtToken(reserve.stableDebtTokenAddress).getAverageStableRate(),
+-      reserve.liquidityIndex,
+-      reserve.variableBorrowIndex,
+-      reserve.lastUpdateTimestamp
+-    );
+-  }
+-
+-  function getUserReserveData(
+-    address asset,
+-    address user
+-  )
+-    external
+-    view
+-    returns (
+-      uint256 currentATokenBalance,
+-      uint256 currentStableDebt,
+-      uint256 currentVariableDebt,
+-      uint256 principalStableDebt,
+-      uint256 scaledVariableDebt,
+-      uint256 stableBorrowRate,
+-      uint256 liquidityRate,
+-      uint40 stableRateLastUpdated,
+-      bool usageAsCollateralEnabled
+-    )
+-  {
+-    DataTypes.ReserveData memory reserve = ILendingPool(ADDRESSES_PROVIDER.getLendingPool())
+-      .getReserveData(asset);
+-
+-    DataTypes.UserConfigurationMap memory userConfig = ILendingPool(
+-      ADDRESSES_PROVIDER.getLendingPool()
+-    ).getUserConfiguration(user);
+-
+-    currentATokenBalance = IERC20Detailed(reserve.aTokenAddress).balanceOf(user);
+-    currentVariableDebt = IERC20Detailed(reserve.variableDebtTokenAddress).balanceOf(user);
+-    currentStableDebt = IERC20Detailed(reserve.stableDebtTokenAddress).balanceOf(user);
+-    principalStableDebt = IStableDebtToken(reserve.stableDebtTokenAddress).principalBalanceOf(user);
+-    scaledVariableDebt = IVariableDebtToken(reserve.variableDebtTokenAddress).scaledBalanceOf(user);
+-    liquidityRate = reserve.currentLiquidityRate;
+-    stableBorrowRate = IStableDebtToken(reserve.stableDebtTokenAddress).getUserStableRate(user);
+-    stableRateLastUpdated = IStableDebtToken(reserve.stableDebtTokenAddress).getUserLastUpdated(
+-      user
+-    );
+-    usageAsCollateralEnabled = userConfig.isUsingAsCollateral(reserve.id);
+-  }
+-
+-  function getReserveTokensAddresses(
+-    address asset
+-  )
+-    external
+-    view
+-    returns (
+-      address aTokenAddress,
+-      address stableDebtTokenAddress,
+-      address variableDebtTokenAddress
+-    )
+-  {
+-    DataTypes.ReserveData memory reserve = ILendingPool(ADDRESSES_PROVIDER.getLendingPool())
+-      .getReserveData(asset);
+-
+-    return (
+-      reserve.aTokenAddress,
+-      reserve.stableDebtTokenAddress,
+-      reserve.variableDebtTokenAddress
+-    );
+-  }
+-}
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/misc/UiPoolDataProvider.sol b/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/misc/UiPoolDataProvider.sol
+deleted file mode 100644
+index e546a0c..0000000
+--- a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/misc/UiPoolDataProvider.sol
++++ /dev/null
+@@ -1,144 +0,0 @@
+-// SPDX-License-Identifier: agpl-3.0
+-pragma solidity 0.6.12;
+-pragma experimental ABIEncoderV2;
+-
+-import {IERC20Detailed} from '../dependencies/openzeppelin/contracts/IERC20Detailed.sol';
+-import {ILendingPoolAddressesProvider} from '../interfaces/ILendingPoolAddressesProvider.sol';
+-import {IUiPoolDataProvider} from './interfaces/IUiPoolDataProvider.sol';
+-import {ILendingPool} from '../interfaces/ILendingPool.sol';
+-import {IPriceOracleGetter} from '../interfaces/IPriceOracleGetter.sol';
+-import {IAToken} from '../interfaces/IAToken.sol';
+-import {IVariableDebtToken} from '../interfaces/IVariableDebtToken.sol';
+-import {IStableDebtToken} from '../interfaces/IStableDebtToken.sol';
+-import {WadRayMath} from '../protocol/libraries/math/WadRayMath.sol';
+-import {ReserveConfiguration} from '../protocol/libraries/configuration/ReserveConfiguration.sol';
+-import {UserConfiguration} from '../protocol/libraries/configuration/UserConfiguration.sol';
+-import {DataTypes} from '../protocol/libraries/types/DataTypes.sol';
+-import {DefaultReserveInterestRateStrategy} from '../protocol/lendingpool/DefaultReserveInterestRateStrategy.sol';
+-
+-contract UiPoolDataProvider is IUiPoolDataProvider {
+-  using WadRayMath for uint256;
+-  using ReserveConfiguration for DataTypes.ReserveConfigurationMap;
+-  using UserConfiguration for DataTypes.UserConfigurationMap;
+-
+-  address public constant MOCK_USD_ADDRESS = 0x10F7Fc1F91Ba351f9C629c5947AD69bD03C05b96;
+-
+-  function getInterestRateStrategySlopes(
+-    DefaultReserveInterestRateStrategy interestRateStrategy
+-  ) internal view returns (uint256, uint256, uint256, uint256) {
+-    return (
+-      interestRateStrategy.variableRateSlope1(),
+-      interestRateStrategy.variableRateSlope2(),
+-      interestRateStrategy.stableRateSlope1(),
+-      interestRateStrategy.stableRateSlope2()
+-    );
+-  }
+-
+-  function getReservesData(
+-    ILendingPoolAddressesProvider provider,
+-    address user
+-  )
+-    external
+-    view
+-    override
+-    returns (AggregatedReserveData[] memory, UserReserveData[] memory, uint256)
+-  {
+-    ILendingPool lendingPool = ILendingPool(provider.getLendingPool());
+-    IPriceOracleGetter oracle = IPriceOracleGetter(provider.getPriceOracle());
+-    address[] memory reserves = lendingPool.getReservesList();
+-    DataTypes.UserConfigurationMap memory userConfig = lendingPool.getUserConfiguration(user);
+-
+-    AggregatedReserveData[] memory reservesData = new AggregatedReserveData[](reserves.length);
+-    UserReserveData[] memory userReservesData = new UserReserveData[](
+-      user != address(0) ? reserves.length : 0
+-    );
+-
+-    for (uint256 i = 0; i < reserves.length; i++) {
+-      AggregatedReserveData memory reserveData = reservesData[i];
+-      reserveData.underlyingAsset = reserves[i];
+-
+-      // reserve current state
+-      DataTypes.ReserveData memory baseData = lendingPool.getReserveData(
+-        reserveData.underlyingAsset
+-      );
+-      reserveData.liquidityIndex = baseData.liquidityIndex;
+-      reserveData.variableBorrowIndex = baseData.variableBorrowIndex;
+-      reserveData.liquidityRate = baseData.currentLiquidityRate;
+-      reserveData.variableBorrowRate = baseData.currentVariableBorrowRate;
+-      reserveData.stableBorrowRate = baseData.currentStableBorrowRate;
+-      reserveData.lastUpdateTimestamp = baseData.lastUpdateTimestamp;
+-      reserveData.aTokenAddress = baseData.aTokenAddress;
+-      reserveData.stableDebtTokenAddress = baseData.stableDebtTokenAddress;
+-      reserveData.variableDebtTokenAddress = baseData.variableDebtTokenAddress;
+-      reserveData.interestRateStrategyAddress = baseData.interestRateStrategyAddress;
+-      reserveData.priceInEth = oracle.getAssetPrice(reserveData.underlyingAsset);
+-
+-      reserveData.availableLiquidity = IERC20Detailed(reserveData.underlyingAsset).balanceOf(
+-        reserveData.aTokenAddress
+-      );
+-      (
+-        reserveData.totalPrincipalStableDebt,
+-        ,
+-        reserveData.averageStableRate,
+-        reserveData.stableDebtLastUpdateTimestamp
+-      ) = IStableDebtToken(reserveData.stableDebtTokenAddress).getSupplyData();
+-      reserveData.totalScaledVariableDebt = IVariableDebtToken(reserveData.variableDebtTokenAddress)
+-        .scaledTotalSupply();
+-
+-      // reserve configuration
+-
+-      // we're getting this info from the aToken, because some of assets can be not compliant with ETC20Detailed
+-      reserveData.symbol = IERC20Detailed(reserveData.aTokenAddress).symbol();
+-      reserveData.name = '';
+-
+-      (
+-        reserveData.baseLTVasCollateral,
+-        reserveData.reserveLiquidationThreshold,
+-        reserveData.reserveLiquidationBonus,
+-        reserveData.decimals,
+-        reserveData.reserveFactor
+-      ) = baseData.configuration.getParamsMemory();
+-      (
+-        reserveData.isActive,
+-        reserveData.isFrozen,
+-        reserveData.borrowingEnabled,
+-        reserveData.stableBorrowRateEnabled
+-      ) = baseData.configuration.getFlagsMemory();
+-      reserveData.usageAsCollateralEnabled = reserveData.baseLTVasCollateral != 0;
+-      (
+-        reserveData.variableRateSlope1,
+-        reserveData.variableRateSlope2,
+-        reserveData.stableRateSlope1,
+-        reserveData.stableRateSlope2
+-      ) = getInterestRateStrategySlopes(
+-        DefaultReserveInterestRateStrategy(reserveData.interestRateStrategyAddress)
+-      );
+-
+-      if (user != address(0)) {
+-        // user reserve data
+-        userReservesData[i].underlyingAsset = reserveData.underlyingAsset;
+-        userReservesData[i].scaledATokenBalance = IAToken(reserveData.aTokenAddress)
+-          .scaledBalanceOf(user);
+-        userReservesData[i].usageAsCollateralEnabledOnUser = userConfig.isUsingAsCollateral(i);
+-
+-        if (userConfig.isBorrowing(i)) {
+-          userReservesData[i].scaledVariableDebt = IVariableDebtToken(
+-            reserveData.variableDebtTokenAddress
+-          ).scaledBalanceOf(user);
+-          userReservesData[i].principalStableDebt = IStableDebtToken(
+-            reserveData.stableDebtTokenAddress
+-          ).principalBalanceOf(user);
+-          if (userReservesData[i].principalStableDebt != 0) {
+-            userReservesData[i].stableBorrowRate = IStableDebtToken(
+-              reserveData.stableDebtTokenAddress
+-            ).getUserStableRate(user);
+-            userReservesData[i].stableBorrowLastUpdateTimestamp = IStableDebtToken(
+-              reserveData.stableDebtTokenAddress
+-            ).getUserLastUpdated(user);
+-          }
+-        }
+-      }
+-    }
+-    return (reservesData, userReservesData, oracle.getAssetPrice(MOCK_USD_ADDRESS));
+-  }
+-}
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/misc/WETHGateway.sol b/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/misc/WETHGateway.sol
+deleted file mode 100644
+index ba59e4a..0000000
+--- a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/misc/WETHGateway.sol
++++ /dev/null
+@@ -1,180 +0,0 @@
+-// SPDX-License-Identifier: agpl-3.0
+-pragma solidity 0.6.12;
+-pragma experimental ABIEncoderV2;
+-
+-import {Ownable} from '../dependencies/openzeppelin/contracts/Ownable.sol';
+-import {IERC20} from '../dependencies/openzeppelin/contracts/IERC20.sol';
+-import {IWETH} from './interfaces/IWETH.sol';
+-import {IWETHGateway} from './interfaces/IWETHGateway.sol';
+-import {ILendingPool} from '../interfaces/ILendingPool.sol';
+-import {IAToken} from '../interfaces/IAToken.sol';
+-import {ReserveConfiguration} from '../protocol/libraries/configuration/ReserveConfiguration.sol';
+-import {UserConfiguration} from '../protocol/libraries/configuration/UserConfiguration.sol';
+-import {Helpers} from '../protocol/libraries/helpers/Helpers.sol';
+-import {DataTypes} from '../protocol/libraries/types/DataTypes.sol';
+-
+-contract WETHGateway is IWETHGateway, Ownable {
+-  using ReserveConfiguration for DataTypes.ReserveConfigurationMap;
+-  using UserConfiguration for DataTypes.UserConfigurationMap;
+-
+-  IWETH internal immutable WETH;
+-
+-  /**
+-   * @dev Sets the WETH address and the LendingPoolAddressesProvider address. Infinite approves lending pool.
+-   * @param weth Address of the Wrapped Ether contract
+-   **/
+-  constructor(address weth) public {
+-    WETH = IWETH(weth);
+-  }
+-
+-  function authorizeLendingPool(address lendingPool) external onlyOwner {
+-    WETH.approve(lendingPool, uint256(-1));
+-  }
+-
+-  /**
+-   * @dev deposits WETH into the reserve, using native ETH. A corresponding amount of the overlying asset (aTokens)
+-   * is minted.
+-   * @param lendingPool address of the targeted underlying lending pool
+-   * @param onBehalfOf address of the user who will receive the aTokens representing the deposit
+-   * @param referralCode integrators are assigned a referral code and can potentially receive rewards.
+-   **/
+-  function depositETH(
+-    address lendingPool,
+-    address onBehalfOf,
+-    uint16 referralCode
+-  ) external payable override {
+-    WETH.deposit{value: msg.value}();
+-    ILendingPool(lendingPool).deposit(address(WETH), msg.value, onBehalfOf, referralCode);
+-  }
+-
+-  /**
+-   * @dev withdraws the WETH _reserves of msg.sender.
+-   * @param lendingPool address of the targeted underlying lending pool
+-   * @param amount amount of aWETH to withdraw and receive native ETH
+-   * @param to address of the user who will receive native ETH
+-   */
+-  function withdrawETH(address lendingPool, uint256 amount, address to) external override {
+-    IAToken aWETH = IAToken(ILendingPool(lendingPool).getReserveData(address(WETH)).aTokenAddress);
+-    uint256 userBalance = aWETH.balanceOf(msg.sender);
+-    uint256 amountToWithdraw = amount;
+-
+-    // if amount is equal to uint(-1), the user wants to redeem everything
+-    if (amount == type(uint256).max) {
+-      amountToWithdraw = userBalance;
+-    }
+-    aWETH.transferFrom(msg.sender, address(this), amountToWithdraw);
+-    ILendingPool(lendingPool).withdraw(address(WETH), amountToWithdraw, address(this));
+-    WETH.withdraw(amountToWithdraw);
+-    _safeTransferETH(to, amountToWithdraw);
+-  }
+-
+-  /**
+-   * @dev repays a borrow on the WETH reserve, for the specified amount (or for the whole amount, if uint256(-1) is specified).
+-   * @param lendingPool address of the targeted underlying lending pool
+-   * @param amount the amount to repay, or uint256(-1) if the user wants to repay everything
+-   * @param rateMode the rate mode to repay
+-   * @param onBehalfOf the address for which msg.sender is repaying
+-   */
+-  function repayETH(
+-    address lendingPool,
+-    uint256 amount,
+-    uint256 rateMode,
+-    address onBehalfOf
+-  ) external payable override {
+-    (uint256 stableDebt, uint256 variableDebt) = Helpers.getUserCurrentDebtMemory(
+-      onBehalfOf,
+-      ILendingPool(lendingPool).getReserveData(address(WETH))
+-    );
+-
+-    uint256 paybackAmount = DataTypes.InterestRateMode(rateMode) ==
+-      DataTypes.InterestRateMode.STABLE
+-      ? stableDebt
+-      : variableDebt;
+-
+-    if (amount < paybackAmount) {
+-      paybackAmount = amount;
+-    }
+-    require(msg.value >= paybackAmount, 'msg.value is less than repayment amount');
+-    WETH.deposit{value: paybackAmount}();
+-    ILendingPool(lendingPool).repay(address(WETH), msg.value, rateMode, onBehalfOf);
+-
+-    // refund remaining dust eth
+-    if (msg.value > paybackAmount) _safeTransferETH(msg.sender, msg.value - paybackAmount);
+-  }
+-
+-  /**
+-   * @dev borrow WETH, unwraps to ETH and send both the ETH and DebtTokens to msg.sender, via `approveDelegation` and onBehalf argument in `LendingPool.borrow`.
+-   * @param lendingPool address of the targeted underlying lending pool
+-   * @param amount the amount of ETH to borrow
+-   * @param interesRateMode the interest rate mode
+-   * @param referralCode integrators are assigned a referral code and can potentially receive rewards
+-   */
+-  function borrowETH(
+-    address lendingPool,
+-    uint256 amount,
+-    uint256 interesRateMode,
+-    uint16 referralCode
+-  ) external override {
+-    ILendingPool(lendingPool).borrow(
+-      address(WETH),
+-      amount,
+-      interesRateMode,
+-      referralCode,
+-      msg.sender
+-    );
+-    WETH.withdraw(amount);
+-    _safeTransferETH(msg.sender, amount);
+-  }
+-
+-  /**
+-   * @dev transfer ETH to an address, revert if it fails.
+-   * @param to recipient of the transfer
+-   * @param value the amount to send
+-   */
+-  function _safeTransferETH(address to, uint256 value) internal {
+-    (bool success, ) = to.call{value: value}(new bytes(0));
+-    require(success, 'ETH_TRANSFER_FAILED');
+-  }
+-
+-  /**
+-   * @dev transfer ERC20 from the utility contract, for ERC20 recovery in case of stuck tokens due
+-   * direct transfers to the contract address.
+-   * @param token token to transfer
+-   * @param to recipient of the transfer
+-   * @param amount amount to send
+-   */
+-  function emergencyTokenTransfer(address token, address to, uint256 amount) external onlyOwner {
+-    IERC20(token).transfer(to, amount);
+-  }
+-
+-  /**
+-   * @dev transfer native Ether from the utility contract, for native Ether recovery in case of stuck Ether
+-   * due selfdestructs or transfer ether to pre-computated contract address before deployment.
+-   * @param to recipient of the transfer
+-   * @param amount amount to send
+-   */
+-  function emergencyEtherTransfer(address to, uint256 amount) external onlyOwner {
+-    _safeTransferETH(to, amount);
+-  }
+-
+-  /**
+-   * @dev Get WETH address used by WETHGateway
+-   */
+-  function getWETHAddress() external view returns (address) {
+-    return address(WETH);
+-  }
+-
+-  /**
+-   * @dev Only WETH contract is allowed to transfer ETH here. Prevent other addresses to send Ether to this contract.
+-   */
+-  receive() external payable {
+-    require(msg.sender == address(WETH), 'Receive not allowed');
+-  }
+-
+-  /**
+-   * @dev Revert fallback calls
+-   */
+-  fallback() external payable {
+-    revert('Fallback not allowed');
+-  }
+-}
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/misc/WalletBalanceProvider.sol b/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/misc/WalletBalanceProvider.sol
+deleted file mode 100644
+index 2373c77..0000000
+--- a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/misc/WalletBalanceProvider.sol
++++ /dev/null
+@@ -1,110 +0,0 @@
+-// SPDX-License-Identifier: agpl-3.0
+-pragma solidity 0.6.12;
+-
+-pragma experimental ABIEncoderV2;
+-
+-import {Address} from '../dependencies/openzeppelin/contracts/Address.sol';
+-import {IERC20} from '../dependencies/openzeppelin/contracts/IERC20.sol';
+-
+-import {ILendingPoolAddressesProvider} from '../interfaces/ILendingPoolAddressesProvider.sol';
+-import {ILendingPool} from '../interfaces/ILendingPool.sol';
+-import {SafeERC20} from '../dependencies/openzeppelin/contracts/SafeERC20.sol';
+-import {ReserveConfiguration} from '../protocol/libraries/configuration/ReserveConfiguration.sol';
+-import {DataTypes} from '../protocol/libraries/types/DataTypes.sol';
+-
+-/**
+- * @title WalletBalanceProvider contract
+- * @author Aave, influenced by https://github.com/wbobeirne/eth-balance-checker/blob/master/contracts/BalanceChecker.sol
+- * @notice Implements a logic of getting multiple tokens balance for one user address
+- * @dev NOTE: THIS CONTRACT IS NOT USED WITHIN THE AAVE PROTOCOL. It's an accessory contract used to reduce the number of calls
+- * towards the blockchain from the Aave backend.
+- **/
+-contract WalletBalanceProvider {
+-  using Address for address payable;
+-  using Address for address;
+-  using SafeERC20 for IERC20;
+-  using ReserveConfiguration for DataTypes.ReserveConfigurationMap;
+-
+-  address constant MOCK_ETH_ADDRESS = 0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE;
+-
+-  /**
+-    @dev Fallback function, don't accept any ETH
+-    **/
+-  receive() external payable {
+-    //only contracts can send ETH to the core
+-    require(msg.sender.isContract(), '22');
+-  }
+-
+-  /**
+-    @dev Check the token balance of a wallet in a token contract
+-
+-    Returns the balance of the token for user. Avoids possible errors:
+-      - return 0 on non-contract address
+-    **/
+-  function balanceOf(address user, address token) public view returns (uint256) {
+-    if (token == MOCK_ETH_ADDRESS) {
+-      return user.balance; // ETH balance
+-      // check if token is actually a contract
+-    } else if (token.isContract()) {
+-      return IERC20(token).balanceOf(user);
+-    }
+-    revert('INVALID_TOKEN');
+-  }
+-
+-  /**
+-   * @notice Fetches, for a list of _users and _tokens (ETH included with mock address), the balances
+-   * @param users The list of users
+-   * @param tokens The list of tokens
+-   * @return And array with the concatenation of, for each user, his/her balances
+-   **/
+-  function batchBalanceOf(
+-    address[] calldata users,
+-    address[] calldata tokens
+-  ) external view returns (uint256[] memory) {
+-    uint256[] memory balances = new uint256[](users.length * tokens.length);
+-
+-    for (uint256 i = 0; i < users.length; i++) {
+-      for (uint256 j = 0; j < tokens.length; j++) {
+-        balances[i * tokens.length + j] = balanceOf(users[i], tokens[j]);
+-      }
+-    }
+-
+-    return balances;
+-  }
+-
+-  /**
+-    @dev provides balances of user wallet for all reserves available on the pool
+-    */
+-  function getUserWalletBalances(
+-    address provider,
+-    address user
+-  ) external view returns (address[] memory, uint256[] memory) {
+-    ILendingPool pool = ILendingPool(ILendingPoolAddressesProvider(provider).getLendingPool());
+-
+-    address[] memory reserves = pool.getReservesList();
+-    address[] memory reservesWithEth = new address[](reserves.length + 1);
+-    for (uint256 i = 0; i < reserves.length; i++) {
+-      reservesWithEth[i] = reserves[i];
+-    }
+-    reservesWithEth[reserves.length] = MOCK_ETH_ADDRESS;
+-
+-    uint256[] memory balances = new uint256[](reservesWithEth.length);
+-
+-    for (uint256 j = 0; j < reserves.length; j++) {
+-      DataTypes.ReserveConfigurationMap memory configuration = pool.getConfiguration(
+-        reservesWithEth[j]
+-      );
+-
+-      (bool isActive, , , ) = configuration.getFlagsMemory();
+-
+-      if (!isActive) {
+-        balances[j] = 0;
+-        continue;
+-      }
+-      balances[j] = balanceOf(user, reservesWithEth[j]);
+-    }
+-    balances[reserves.length] = balanceOf(user, MOCK_ETH_ADDRESS);
+-
+-    return (reservesWithEth, balances);
+-  }
+-}
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/misc/interfaces/IUiPoolDataProvider.sol b/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/misc/interfaces/IUiPoolDataProvider.sol
+deleted file mode 100644
+index 7669c61..0000000
+--- a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/misc/interfaces/IUiPoolDataProvider.sol
++++ /dev/null
+@@ -1,89 +0,0 @@
+-// SPDX-License-Identifier: agpl-3.0
+-pragma solidity 0.6.12;
+-pragma experimental ABIEncoderV2;
+-
+-import {ILendingPoolAddressesProvider} from '../../interfaces/ILendingPoolAddressesProvider.sol';
+-
+-interface IUiPoolDataProvider {
+-  struct AggregatedReserveData {
+-    address underlyingAsset;
+-    string name;
+-    string symbol;
+-    uint256 decimals;
+-    uint256 baseLTVasCollateral;
+-    uint256 reserveLiquidationThreshold;
+-    uint256 reserveLiquidationBonus;
+-    uint256 reserveFactor;
+-    bool usageAsCollateralEnabled;
+-    bool borrowingEnabled;
+-    bool stableBorrowRateEnabled;
+-    bool isActive;
+-    bool isFrozen;
+-    // base data
+-    uint128 liquidityIndex;
+-    uint128 variableBorrowIndex;
+-    uint128 liquidityRate;
+-    uint128 variableBorrowRate;
+-    uint128 stableBorrowRate;
+-    uint40 lastUpdateTimestamp;
+-    address aTokenAddress;
+-    address stableDebtTokenAddress;
+-    address variableDebtTokenAddress;
+-    address interestRateStrategyAddress;
+-    //
+-    uint256 availableLiquidity;
+-    uint256 totalPrincipalStableDebt;
+-    uint256 averageStableRate;
+-    uint256 stableDebtLastUpdateTimestamp;
+-    uint256 totalScaledVariableDebt;
+-    uint256 priceInEth;
+-    uint256 variableRateSlope1;
+-    uint256 variableRateSlope2;
+-    uint256 stableRateSlope1;
+-    uint256 stableRateSlope2;
+-  }
+-  //
+-  //  struct ReserveData {
+-  //    uint256 averageStableBorrowRate;
+-  //    uint256 totalLiquidity;
+-  //  }
+-
+-  struct UserReserveData {
+-    address underlyingAsset;
+-    uint256 scaledATokenBalance;
+-    bool usageAsCollateralEnabledOnUser;
+-    uint256 stableBorrowRate;
+-    uint256 scaledVariableDebt;
+-    uint256 principalStableDebt;
+-    uint256 stableBorrowLastUpdateTimestamp;
+-  }
+-
+-  //
+-  //  struct ATokenSupplyData {
+-  //    string name;
+-  //    string symbol;
+-  //    uint8 decimals;
+-  //    uint256 totalSupply;
+-  //    address aTokenAddress;
+-  //  }
+-
+-  function getReservesData(
+-    ILendingPoolAddressesProvider provider,
+-    address user
+-  ) external view returns (AggregatedReserveData[] memory, UserReserveData[] memory, uint256);
+-
+-  //  function getUserReservesData(ILendingPoolAddressesProvider provider, address user)
+-  //    external
+-  //    view
+-  //    returns (UserReserveData[] memory);
+-  //
+-  //  function getAllATokenSupply(ILendingPoolAddressesProvider provider)
+-  //    external
+-  //    view
+-  //    returns (ATokenSupplyData[] memory);
+-  //
+-  //  function getATokenSupply(address[] calldata aTokens)
+-  //    external
+-  //    view
+-  //    returns (ATokenSupplyData[] memory);
+-}
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/misc/interfaces/IWETH.sol b/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/misc/interfaces/IWETH.sol
+deleted file mode 100644
+index 6104470..0000000
+--- a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/misc/interfaces/IWETH.sol
++++ /dev/null
+@@ -1,12 +0,0 @@
+-// SPDX-License-Identifier: agpl-3.0
+-pragma solidity 0.6.12;
+-
+-interface IWETH {
+-  function deposit() external payable;
+-
+-  function withdraw(uint256) external;
+-
+-  function approve(address guy, uint256 wad) external returns (bool);
+-
+-  function transferFrom(address src, address dst, uint256 wad) external returns (bool);
+-}
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/misc/interfaces/IWETHGateway.sol b/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/misc/interfaces/IWETHGateway.sol
+deleted file mode 100644
+index 7d01e3a..0000000
+--- a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/misc/interfaces/IWETHGateway.sol
++++ /dev/null
+@@ -1,26 +0,0 @@
+-// SPDX-License-Identifier: agpl-3.0
+-pragma solidity 0.6.12;
+-
+-interface IWETHGateway {
+-  function depositETH(
+-    address lendingPool,
+-    address onBehalfOf,
+-    uint16 referralCode
+-  ) external payable;
+-
+-  function withdrawETH(address lendingPool, uint256 amount, address onBehalfOf) external;
+-
+-  function repayETH(
+-    address lendingPool,
+-    uint256 amount,
+-    uint256 rateMode,
+-    address onBehalfOf
+-  ) external payable;
+-
+-  function borrowETH(
+-    address lendingPool,
+-    uint256 amount,
+-    uint256 interesRateMode,
+-    uint16 referralCode
+-  ) external;
+-}
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/mocks/flashloan/MockFlashLoanReceiver.sol b/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/mocks/flashloan/MockFlashLoanReceiver.sol
+deleted file mode 100644
+index a0b3f8c..0000000
+--- a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/mocks/flashloan/MockFlashLoanReceiver.sol
++++ /dev/null
+@@ -1,85 +0,0 @@
+-// SPDX-License-Identifier: agpl-3.0
+-pragma solidity 0.6.12;
+-
+-import {SafeMath} from '../../dependencies/openzeppelin/contracts/SafeMath.sol';
+-import {IERC20} from '../../dependencies/openzeppelin/contracts/IERC20.sol';
+-
+-import {FlashLoanReceiverBase} from '../../flashloan/base/FlashLoanReceiverBase.sol';
+-import {MintableERC20} from '../tokens/MintableERC20.sol';
+-import {SafeERC20} from '../../dependencies/openzeppelin/contracts/SafeERC20.sol';
+-import {ILendingPoolAddressesProvider} from '../../interfaces/ILendingPoolAddressesProvider.sol';
+-
+-contract MockFlashLoanReceiver is FlashLoanReceiverBase {
+-  using SafeERC20 for IERC20;
+-
+-  ILendingPoolAddressesProvider internal _provider;
+-
+-  event ExecutedWithFail(address[] _assets, uint256[] _amounts, uint256[] _premiums);
+-  event ExecutedWithSuccess(address[] _assets, uint256[] _amounts, uint256[] _premiums);
+-
+-  bool _failExecution;
+-  uint256 _amountToApprove;
+-  bool _simulateEOA;
+-
+-  constructor(ILendingPoolAddressesProvider provider) public FlashLoanReceiverBase(provider) {}
+-
+-  function setFailExecutionTransfer(bool fail) public {
+-    _failExecution = fail;
+-  }
+-
+-  function setAmountToApprove(uint256 amountToApprove) public {
+-    _amountToApprove = amountToApprove;
+-  }
+-
+-  function setSimulateEOA(bool flag) public {
+-    _simulateEOA = flag;
+-  }
+-
+-  function amountToApprove() public view returns (uint256) {
+-    return _amountToApprove;
+-  }
+-
+-  function simulateEOA() public view returns (bool) {
+-    return _simulateEOA;
+-  }
+-
+-  function executeOperation(
+-    address[] memory assets,
+-    uint256[] memory amounts,
+-    uint256[] memory premiums,
+-    address initiator,
+-    bytes memory params
+-  ) public override returns (bool) {
+-    params;
+-    initiator;
+-
+-    if (_failExecution) {
+-      emit ExecutedWithFail(assets, amounts, premiums);
+-      return !_simulateEOA;
+-    }
+-
+-    for (uint256 i = 0; i < assets.length; i++) {
+-      //mint to this contract the specific amount
+-      MintableERC20 token = MintableERC20(assets[i]);
+-
+-      //check the contract has the specified balance
+-      require(
+-        amounts[i] <= IERC20(assets[i]).balanceOf(address(this)),
+-        'Invalid balance for the contract'
+-      );
+-
+-      uint256 amountToReturn = (_amountToApprove != 0)
+-        ? _amountToApprove
+-        : amounts[i].add(premiums[i]);
+-      //execution does not fail - mint tokens and return them to the _destination
+-
+-      token.mint(premiums[i]);
+-
+-      IERC20(assets[i]).approve(address(LENDING_POOL), amountToReturn);
+-    }
+-
+-    emit ExecutedWithSuccess(assets, amounts, premiums);
+-
+-    return true;
+-  }
+-}
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/mocks/oracle/LendingRateOracle.sol b/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/mocks/oracle/LendingRateOracle.sol
+deleted file mode 100644
+index 44fe8aa..0000000
+--- a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/mocks/oracle/LendingRateOracle.sol
++++ /dev/null
+@@ -1,26 +0,0 @@
+-// SPDX-License-Identifier: agpl-3.0
+-pragma solidity 0.6.12;
+-
+-import {ILendingRateOracle} from '../../interfaces/ILendingRateOracle.sol';
+-import {Ownable} from '../../dependencies/openzeppelin/contracts/Ownable.sol';
+-
+-contract LendingRateOracle is ILendingRateOracle, Ownable {
+-  mapping(address => uint256) borrowRates;
+-  mapping(address => uint256) liquidityRates;
+-
+-  function getMarketBorrowRate(address _asset) external view override returns (uint256) {
+-    return borrowRates[_asset];
+-  }
+-
+-  function setMarketBorrowRate(address _asset, uint256 _rate) external override onlyOwner {
+-    borrowRates[_asset] = _rate;
+-  }
+-
+-  function getMarketLiquidityRate(address _asset) external view returns (uint256) {
+-    return liquidityRates[_asset];
+-  }
+-
+-  function setMarketLiquidityRate(address _asset, uint256 _rate) external onlyOwner {
+-    liquidityRates[_asset] = _rate;
+-  }
+-}
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/mocks/swap/MockUniswapV2Router02.sol b/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/mocks/swap/MockUniswapV2Router02.sol
+deleted file mode 100644
+index 5679a61..0000000
+--- a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/mocks/swap/MockUniswapV2Router02.sol
++++ /dev/null
+@@ -1,102 +0,0 @@
+-// SPDX-License-Identifier: agpl-3.0
+-pragma solidity 0.6.12;
+-
+-import {IUniswapV2Router02} from '../../interfaces/IUniswapV2Router02.sol';
+-import {IERC20} from '@openzeppelin/contracts/token/ERC20/IERC20.sol';
+-import {MintableERC20} from '../tokens/MintableERC20.sol';
+-
+-contract MockUniswapV2Router02 is IUniswapV2Router02 {
+-  mapping(address => uint256) internal _amountToReturn;
+-  mapping(address => uint256) internal _amountToSwap;
+-  mapping(address => mapping(address => mapping(uint256 => uint256))) internal _amountsIn;
+-  mapping(address => mapping(address => mapping(uint256 => uint256))) internal _amountsOut;
+-  uint256 internal defaultMockValue;
+-
+-  function setAmountToReturn(address reserve, uint256 amount) public {
+-    _amountToReturn[reserve] = amount;
+-  }
+-
+-  function setAmountToSwap(address reserve, uint256 amount) public {
+-    _amountToSwap[reserve] = amount;
+-  }
+-
+-  function swapExactTokensForTokens(
+-    uint256 amountIn,
+-    uint256 /* amountOutMin */,
+-    address[] calldata path,
+-    address to,
+-    uint256 /* deadline */
+-  ) external override returns (uint256[] memory amounts) {
+-    IERC20(path[0]).transferFrom(msg.sender, address(this), amountIn);
+-
+-    MintableERC20(path[1]).mint(_amountToReturn[path[0]]);
+-    IERC20(path[1]).transfer(to, _amountToReturn[path[0]]);
+-
+-    amounts = new uint256[](path.length);
+-    amounts[0] = amountIn;
+-    amounts[1] = _amountToReturn[path[0]];
+-  }
+-
+-  function swapTokensForExactTokens(
+-    uint256 amountOut,
+-    uint256 /* amountInMax */,
+-    address[] calldata path,
+-    address to,
+-    uint256 /* deadline */
+-  ) external override returns (uint256[] memory amounts) {
+-    IERC20(path[0]).transferFrom(msg.sender, address(this), _amountToSwap[path[0]]);
+-
+-    MintableERC20(path[1]).mint(amountOut);
+-    IERC20(path[1]).transfer(to, amountOut);
+-
+-    amounts = new uint256[](path.length);
+-    amounts[0] = _amountToSwap[path[0]];
+-    amounts[1] = amountOut;
+-  }
+-
+-  function setAmountOut(
+-    uint256 amountIn,
+-    address reserveIn,
+-    address reserveOut,
+-    uint256 amountOut
+-  ) public {
+-    _amountsOut[reserveIn][reserveOut][amountIn] = amountOut;
+-  }
+-
+-  function setAmountIn(
+-    uint256 amountOut,
+-    address reserveIn,
+-    address reserveOut,
+-    uint256 amountIn
+-  ) public {
+-    _amountsIn[reserveIn][reserveOut][amountOut] = amountIn;
+-  }
+-
+-  function setDefaultMockValue(uint256 value) public {
+-    defaultMockValue = value;
+-  }
+-
+-  function getAmountsOut(
+-    uint256 amountIn,
+-    address[] calldata path
+-  ) external view override returns (uint256[] memory) {
+-    uint256[] memory amounts = new uint256[](path.length);
+-    amounts[0] = amountIn;
+-    amounts[1] = _amountsOut[path[0]][path[1]][amountIn] > 0
+-      ? _amountsOut[path[0]][path[1]][amountIn]
+-      : defaultMockValue;
+-    return amounts;
+-  }
+-
+-  function getAmountsIn(
+-    uint256 amountOut,
+-    address[] calldata path
+-  ) external view override returns (uint256[] memory) {
+-    uint256[] memory amounts = new uint256[](path.length);
+-    amounts[0] = _amountsIn[path[0]][path[1]][amountOut] > 0
+-      ? _amountsIn[path[0]][path[1]][amountOut]
+-      : defaultMockValue;
+-    amounts[1] = amountOut;
+-    return amounts;
+-  }
+-}
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/mocks/tokens/MintableDelegationERC20.sol b/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/mocks/tokens/MintableDelegationERC20.sol
+deleted file mode 100644
+index 8633d47..0000000
+--- a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/mocks/tokens/MintableDelegationERC20.sol
++++ /dev/null
+@@ -1,30 +0,0 @@
+-// SPDX-License-Identifier: agpl-3.0
+-pragma solidity 0.6.12;
+-
+-import {ERC20} from '../../dependencies/openzeppelin/contracts/ERC20.sol';
+-
+-/**
+- * @title ERC20Mintable
+- * @dev ERC20 minting logic
+- */
+-contract MintableDelegationERC20 is ERC20 {
+-  address public delegatee;
+-
+-  constructor(string memory name, string memory symbol, uint8 decimals) public ERC20(name, symbol) {
+-    _setupDecimals(decimals);
+-  }
+-
+-  /**
+-   * @dev Function to mint tokensp
+-   * @param value The amount of tokens to mint.
+-   * @return A boolean that indicates if the operation was successful.
+-   */
+-  function mint(uint256 value) public returns (bool) {
+-    _mint(msg.sender, value);
+-    return true;
+-  }
+-
+-  function delegate(address delegateeAddress) external {
+-    delegatee = delegateeAddress;
+-  }
+-}
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/mocks/tokens/MintableERC20.sol b/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/mocks/tokens/MintableERC20.sol
+deleted file mode 100644
+index c2951f2..0000000
+--- a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/mocks/tokens/MintableERC20.sol
++++ /dev/null
+@@ -1,24 +0,0 @@
+-// SPDX-License-Identifier: agpl-3.0
+-pragma solidity 0.6.12;
+-
+-import {ERC20} from '../../dependencies/openzeppelin/contracts/ERC20.sol';
+-
+-/**
+- * @title ERC20Mintable
+- * @dev ERC20 minting logic
+- */
+-contract MintableERC20 is ERC20 {
+-  constructor(string memory name, string memory symbol, uint8 decimals) public ERC20(name, symbol) {
+-    _setupDecimals(decimals);
+-  }
+-
+-  /**
+-   * @dev Function to mint tokens
+-   * @param value The amount of tokens to mint.
+-   * @return A boolean that indicates if the operation was successful.
+-   */
+-  function mint(uint256 value) public returns (bool) {
+-    _mint(_msgSender(), value);
+-    return true;
+-  }
+-}
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/mocks/upgradeability/MockAToken.sol b/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/mocks/upgradeability/MockAToken.sol
+deleted file mode 100644
+index 7e7b6f2..0000000
+--- a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/mocks/upgradeability/MockAToken.sol
++++ /dev/null
+@@ -1,12 +0,0 @@
+-// SPDX-License-Identifier: agpl-3.0
+-pragma solidity 0.6.12;
+-
+-import {AToken} from '../../protocol/tokenization/AToken.sol';
+-import {ILendingPool} from '../../interfaces/ILendingPool.sol';
+-import {IAaveIncentivesController} from '../../interfaces/IAaveIncentivesController.sol';
+-
+-contract MockAToken is AToken {
+-  function getRevision() internal pure override returns (uint256) {
+-    return 0x2;
+-  }
+-}
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/mocks/upgradeability/MockStableDebtToken.sol b/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/mocks/upgradeability/MockStableDebtToken.sol
+deleted file mode 100644
+index cbc6666..0000000
+--- a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/mocks/upgradeability/MockStableDebtToken.sol
++++ /dev/null
+@@ -1,10 +0,0 @@
+-// SPDX-License-Identifier: agpl-3.0
+-pragma solidity 0.6.12;
+-
+-import {StableDebtToken} from '../../protocol/tokenization/StableDebtToken.sol';
+-
+-contract MockStableDebtToken is StableDebtToken {
+-  function getRevision() internal pure override returns (uint256) {
+-    return 0x2;
+-  }
+-}
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/mocks/upgradeability/MockVariableDebtToken.sol b/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/mocks/upgradeability/MockVariableDebtToken.sol
+deleted file mode 100644
+index 497682c..0000000
+--- a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/mocks/upgradeability/MockVariableDebtToken.sol
++++ /dev/null
+@@ -1,10 +0,0 @@
+-// SPDX-License-Identifier: agpl-3.0
+-pragma solidity 0.6.12;
+-
+-import {VariableDebtToken} from '../../protocol/tokenization/VariableDebtToken.sol';
+-
+-contract MockVariableDebtToken is VariableDebtToken {
+-  function getRevision() internal pure override returns (uint256) {
+-    return 0x2;
+-  }
+-}
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/configuration/LendingPoolAddressesProvider.sol b/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/configuration/LendingPoolAddressesProvider.sol
+deleted file mode 100644
+index 1a372f4..0000000
+--- a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/configuration/LendingPoolAddressesProvider.sol
++++ /dev/null
+@@ -1,215 +0,0 @@
+-// SPDX-License-Identifier: agpl-3.0
+-pragma solidity 0.6.12;
+-
+-import {Ownable} from '../../dependencies/openzeppelin/contracts/Ownable.sol';
+-
+-// Prettier ignore to prevent buidler flatter bug
+-// prettier-ignore
+-import {InitializableImmutableAdminUpgradeabilityProxy} from '../libraries/aave-upgradeability/InitializableImmutableAdminUpgradeabilityProxy.sol';
+-
+-import {ILendingPoolAddressesProvider} from '../../interfaces/ILendingPoolAddressesProvider.sol';
+-
+-/**
+- * @title LendingPoolAddressesProvider contract
+- * @dev Main registry of addresses part of or connected to the protocol, including permissioned roles
+- * - Acting also as factory of proxies and admin of those, so with right to change its implementations
+- * - Owned by the Aave Governance
+- * @author Aave
+- **/
+-contract LendingPoolAddressesProvider is Ownable, ILendingPoolAddressesProvider {
+-  string private _marketId;
+-  mapping(bytes32 => address) private _addresses;
+-
+-  bytes32 private constant LENDING_POOL = 'LENDING_POOL';
+-  bytes32 private constant LENDING_POOL_CONFIGURATOR = 'LENDING_POOL_CONFIGURATOR';
+-  bytes32 private constant POOL_ADMIN = 'POOL_ADMIN';
+-  bytes32 private constant EMERGENCY_ADMIN = 'EMERGENCY_ADMIN';
+-  bytes32 private constant LENDING_POOL_COLLATERAL_MANAGER = 'COLLATERAL_MANAGER';
+-  bytes32 private constant PRICE_ORACLE = 'PRICE_ORACLE';
+-  bytes32 private constant LENDING_RATE_ORACLE = 'LENDING_RATE_ORACLE';
+-
+-  constructor(string memory marketId) public {
+-    _setMarketId(marketId);
+-  }
+-
+-  /**
+-   * @dev Returns the id of the Aave market to which this contracts points to
+-   * @return The market id
+-   **/
+-  function getMarketId() external view override returns (string memory) {
+-    return _marketId;
+-  }
+-
+-  /**
+-   * @dev Allows to set the market which this LendingPoolAddressesProvider represents
+-   * @param marketId The market id
+-   */
+-  function setMarketId(string memory marketId) external override onlyOwner {
+-    _setMarketId(marketId);
+-  }
+-
+-  /**
+-   * @dev General function to update the implementation of a proxy registered with
+-   * certain `id`. If there is no proxy registered, it will instantiate one and
+-   * set as implementation the `implementationAddress`
+-   * IMPORTANT Use this function carefully, only for ids that don't have an explicit
+-   * setter function, in order to avoid unexpected consequences
+-   * @param id The id
+-   * @param implementationAddress The address of the new implementation
+-   */
+-  function setAddressAsProxy(
+-    bytes32 id,
+-    address implementationAddress
+-  ) external override onlyOwner {
+-    _updateImpl(id, implementationAddress);
+-    emit AddressSet(id, implementationAddress, true);
+-  }
+-
+-  /**
+-   * @dev Sets an address for an id replacing the address saved in the addresses map
+-   * IMPORTANT Use this function carefully, as it will do a hard replacement
+-   * @param id The id
+-   * @param newAddress The address to set
+-   */
+-  function setAddress(bytes32 id, address newAddress) external override onlyOwner {
+-    _addresses[id] = newAddress;
+-    emit AddressSet(id, newAddress, false);
+-  }
+-
+-  /**
+-   * @dev Returns an address by id
+-   * @return The address
+-   */
+-  function getAddress(bytes32 id) public view override returns (address) {
+-    return _addresses[id];
+-  }
+-
+-  /**
+-   * @dev Returns the address of the LendingPool proxy
+-   * @return The LendingPool proxy address
+-   **/
+-  function getLendingPool() external view override returns (address) {
+-    return getAddress(LENDING_POOL);
+-  }
+-
+-  /**
+-   * @dev Updates the implementation of the LendingPool, or creates the proxy
+-   * setting the new `pool` implementation on the first time calling it
+-   * @param pool The new LendingPool implementation
+-   **/
+-  function setLendingPoolImpl(address pool) external override onlyOwner {
+-    _updateImpl(LENDING_POOL, pool);
+-    emit LendingPoolUpdated(pool);
+-  }
+-
+-  /**
+-   * @dev Returns the address of the LendingPoolConfigurator proxy
+-   * @return The LendingPoolConfigurator proxy address
+-   **/
+-  function getLendingPoolConfigurator() external view override returns (address) {
+-    return getAddress(LENDING_POOL_CONFIGURATOR);
+-  }
+-
+-  /**
+-   * @dev Updates the implementation of the LendingPoolConfigurator, or creates the proxy
+-   * setting the new `configurator` implementation on the first time calling it
+-   * @param configurator The new LendingPoolConfigurator implementation
+-   **/
+-  function setLendingPoolConfiguratorImpl(address configurator) external override onlyOwner {
+-    _updateImpl(LENDING_POOL_CONFIGURATOR, configurator);
+-    emit LendingPoolConfiguratorUpdated(configurator);
+-  }
+-
+-  /**
+-   * @dev Returns the address of the LendingPoolCollateralManager. Since the manager is used
+-   * through delegateCall within the LendingPool contract, the proxy contract pattern does not work properly hence
+-   * the addresses are changed directly
+-   * @return The address of the LendingPoolCollateralManager
+-   **/
+-
+-  function getLendingPoolCollateralManager() external view override returns (address) {
+-    return getAddress(LENDING_POOL_COLLATERAL_MANAGER);
+-  }
+-
+-  /**
+-   * @dev Updates the address of the LendingPoolCollateralManager
+-   * @param manager The new LendingPoolCollateralManager address
+-   **/
+-  function setLendingPoolCollateralManager(address manager) external override onlyOwner {
+-    _addresses[LENDING_POOL_COLLATERAL_MANAGER] = manager;
+-    emit LendingPoolCollateralManagerUpdated(manager);
+-  }
+-
+-  /**
+-   * @dev The functions below are getters/setters of addresses that are outside the context
+-   * of the protocol hence the upgradable proxy pattern is not used
+-   **/
+-
+-  function getPoolAdmin() external view override returns (address) {
+-    return getAddress(POOL_ADMIN);
+-  }
+-
+-  function setPoolAdmin(address admin) external override onlyOwner {
+-    _addresses[POOL_ADMIN] = admin;
+-    emit ConfigurationAdminUpdated(admin);
+-  }
+-
+-  function getEmergencyAdmin() external view override returns (address) {
+-    return getAddress(EMERGENCY_ADMIN);
+-  }
+-
+-  function setEmergencyAdmin(address emergencyAdmin) external override onlyOwner {
+-    _addresses[EMERGENCY_ADMIN] = emergencyAdmin;
+-    emit EmergencyAdminUpdated(emergencyAdmin);
+-  }
+-
+-  function getPriceOracle() external view override returns (address) {
+-    return getAddress(PRICE_ORACLE);
+-  }
+-
+-  function setPriceOracle(address priceOracle) external override onlyOwner {
+-    _addresses[PRICE_ORACLE] = priceOracle;
+-    emit PriceOracleUpdated(priceOracle);
+-  }
+-
+-  function getLendingRateOracle() external view override returns (address) {
+-    return getAddress(LENDING_RATE_ORACLE);
+-  }
+-
+-  function setLendingRateOracle(address lendingRateOracle) external override onlyOwner {
+-    _addresses[LENDING_RATE_ORACLE] = lendingRateOracle;
+-    emit LendingRateOracleUpdated(lendingRateOracle);
+-  }
+-
+-  /**
+-   * @dev Internal function to update the implementation of a specific proxied component of the protocol
+-   * - If there is no proxy registered in the given `id`, it creates the proxy setting `newAdress`
+-   *   as implementation and calls the initialize() function on the proxy
+-   * - If there is already a proxy registered, it just updates the implementation to `newAddress` and
+-   *   calls the initialize() function via upgradeToAndCall() in the proxy
+-   * @param id The id of the proxy to be updated
+-   * @param newAddress The address of the new implementation
+-   **/
+-  function _updateImpl(bytes32 id, address newAddress) internal {
+-    address payable proxyAddress = payable(_addresses[id]);
+-
+-    InitializableImmutableAdminUpgradeabilityProxy proxy = InitializableImmutableAdminUpgradeabilityProxy(
+-        proxyAddress
+-      );
+-    bytes memory params = abi.encodeWithSignature('initialize(address)', address(this));
+-
+-    if (proxyAddress == address(0)) {
+-      proxy = new InitializableImmutableAdminUpgradeabilityProxy(address(this));
+-      proxy.initialize(newAddress, params);
+-      _addresses[id] = address(proxy);
+-      emit ProxyCreated(id, address(proxy));
+-    } else {
+-      proxy.upgradeToAndCall(newAddress, params);
+-    }
+-  }
+-
+-  function _setMarketId(string memory marketId) internal {
+-    _marketId = marketId;
+-    emit MarketIdSet(marketId);
+-  }
+-}
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/configuration/LendingPoolAddressesProviderRegistry.sol b/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/configuration/LendingPoolAddressesProviderRegistry.sol
+deleted file mode 100644
+index 578fe6b..0000000
+--- a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/configuration/LendingPoolAddressesProviderRegistry.sol
++++ /dev/null
+@@ -1,84 +0,0 @@
+-// SPDX-License-Identifier: agpl-3.0
+-pragma solidity 0.6.12;
+-
+-import {Ownable} from '../../dependencies/openzeppelin/contracts/Ownable.sol';
+-import {ILendingPoolAddressesProviderRegistry} from '../../interfaces/ILendingPoolAddressesProviderRegistry.sol';
+-import {Errors} from '../libraries/helpers/Errors.sol';
+-
+-/**
+- * @title LendingPoolAddressesProviderRegistry contract
+- * @dev Main registry of LendingPoolAddressesProvider of multiple Aave protocol's markets
+- * - Used for indexing purposes of Aave protocol's markets
+- * - The id assigned to a LendingPoolAddressesProvider refers to the market it is connected with,
+- *   for example with `0` for the Aave main market and `1` for the next created
+- * @author Aave
+- **/
+-contract LendingPoolAddressesProviderRegistry is Ownable, ILendingPoolAddressesProviderRegistry {
+-  mapping(address => uint256) private _addressesProviders;
+-  address[] private _addressesProvidersList;
+-
+-  /**
+-   * @dev Returns the list of registered addresses provider
+-   * @return The list of addresses provider, potentially containing address(0) elements
+-   **/
+-  function getAddressesProvidersList() external view override returns (address[] memory) {
+-    address[] memory addressesProvidersList = _addressesProvidersList;
+-
+-    uint256 maxLength = addressesProvidersList.length;
+-
+-    address[] memory activeProviders = new address[](maxLength);
+-
+-    for (uint256 i = 0; i < maxLength; i++) {
+-      if (_addressesProviders[addressesProvidersList[i]] > 0) {
+-        activeProviders[i] = addressesProvidersList[i];
+-      }
+-    }
+-
+-    return activeProviders;
+-  }
+-
+-  /**
+-   * @dev Registers an addresses provider
+-   * @param provider The address of the new LendingPoolAddressesProvider
+-   * @param id The id for the new LendingPoolAddressesProvider, referring to the market it belongs to
+-   **/
+-  function registerAddressesProvider(address provider, uint256 id) external override onlyOwner {
+-    require(id != 0, Errors.LPAPR_INVALID_ADDRESSES_PROVIDER_ID);
+-
+-    _addressesProviders[provider] = id;
+-    _addToAddressesProvidersList(provider);
+-    emit AddressesProviderRegistered(provider);
+-  }
+-
+-  /**
+-   * @dev Removes a LendingPoolAddressesProvider from the list of registered addresses provider
+-   * @param provider The LendingPoolAddressesProvider address
+-   **/
+-  function unregisterAddressesProvider(address provider) external override onlyOwner {
+-    require(_addressesProviders[provider] > 0, Errors.LPAPR_PROVIDER_NOT_REGISTERED);
+-    _addressesProviders[provider] = 0;
+-    emit AddressesProviderUnregistered(provider);
+-  }
+-
+-  /**
+-   * @dev Returns the id on a registered LendingPoolAddressesProvider
+-   * @return The id or 0 if the LendingPoolAddressesProvider is not registered
+-   */
+-  function getAddressesProviderIdByAddress(
+-    address addressesProvider
+-  ) external view override returns (uint256) {
+-    return _addressesProviders[addressesProvider];
+-  }
+-
+-  function _addToAddressesProvidersList(address provider) internal {
+-    uint256 providersCount = _addressesProvidersList.length;
+-
+-    for (uint256 i = 0; i < providersCount; i++) {
+-      if (_addressesProvidersList[i] == provider) {
+-        return;
+-      }
+-    }
+-
+-    _addressesProvidersList.push(provider);
+-  }
+-}
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/lendingpool/DefaultReserveInterestRateStrategy.sol b/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/lendingpool/DefaultReserveInterestRateStrategy.sol
+deleted file mode 100644
+index f2fee18..0000000
+--- a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/lendingpool/DefaultReserveInterestRateStrategy.sol
++++ /dev/null
+@@ -1,243 +0,0 @@
+-// SPDX-License-Identifier: agpl-3.0
+-pragma solidity 0.6.12;
+-
+-import {SafeMath} from '../../dependencies/openzeppelin/contracts/SafeMath.sol';
+-import {IReserveInterestRateStrategy} from '../../interfaces/IReserveInterestRateStrategy.sol';
+-import {WadRayMath} from '../libraries/math/WadRayMath.sol';
+-import {PercentageMath} from '../libraries/math/PercentageMath.sol';
+-import {ILendingPoolAddressesProvider} from '../../interfaces/ILendingPoolAddressesProvider.sol';
+-import {ILendingRateOracle} from '../../interfaces/ILendingRateOracle.sol';
+-import {IERC20} from '../../dependencies/openzeppelin/contracts/IERC20.sol';
+-import 'hardhat/console.sol';
+-
+-/**
+- * @title DefaultReserveInterestRateStrategy contract
+- * @notice Implements the calculation of the interest rates depending on the reserve state
+- * @dev The model of interest rate is based on 2 slopes, one before the `OPTIMAL_UTILIZATION_RATE`
+- * point of utilization and another from that one to 100%
+- * - An instance of this same contract, can't be used across different Aave markets, due to the caching
+- *   of the LendingPoolAddressesProvider
+- * @author Aave
+- **/
+-contract DefaultReserveInterestRateStrategy is IReserveInterestRateStrategy {
+-  using WadRayMath for uint256;
+-  using SafeMath for uint256;
+-  using PercentageMath for uint256;
+-
+-  /**
+-   * @dev this constant represents the utilization rate at which the pool aims to obtain most competitive borrow rates.
+-   * Expressed in ray
+-   **/
+-  uint256 public immutable OPTIMAL_UTILIZATION_RATE;
+-
+-  /**
+-   * @dev This constant represents the excess utilization rate above the optimal. It's always equal to
+-   * 1-optimal utilization rate. Added as a constant here for gas optimizations.
+-   * Expressed in ray
+-   **/
+-
+-  uint256 public immutable EXCESS_UTILIZATION_RATE;
+-
+-  ILendingPoolAddressesProvider public immutable addressesProvider;
+-
+-  // Base variable borrow rate when Utilization rate = 0. Expressed in ray
+-  uint256 internal immutable _baseVariableBorrowRate;
+-
+-  // Slope of the variable interest curve when utilization rate > 0 and <= OPTIMAL_UTILIZATION_RATE. Expressed in ray
+-  uint256 internal immutable _variableRateSlope1;
+-
+-  // Slope of the variable interest curve when utilization rate > OPTIMAL_UTILIZATION_RATE. Expressed in ray
+-  uint256 internal immutable _variableRateSlope2;
+-
+-  // Slope of the stable interest curve when utilization rate > 0 and <= OPTIMAL_UTILIZATION_RATE. Expressed in ray
+-  uint256 internal immutable _stableRateSlope1;
+-
+-  // Slope of the stable interest curve when utilization rate > OPTIMAL_UTILIZATION_RATE. Expressed in ray
+-  uint256 internal immutable _stableRateSlope2;
+-
+-  constructor(
+-    ILendingPoolAddressesProvider provider,
+-    uint256 optimalUtilizationRate,
+-    uint256 baseVariableBorrowRate,
+-    uint256 variableRateSlope1,
+-    uint256 variableRateSlope2,
+-    uint256 stableRateSlope1,
+-    uint256 stableRateSlope2
+-  ) public {
+-    OPTIMAL_UTILIZATION_RATE = optimalUtilizationRate;
+-    EXCESS_UTILIZATION_RATE = WadRayMath.ray().sub(optimalUtilizationRate);
+-    addressesProvider = provider;
+-    _baseVariableBorrowRate = baseVariableBorrowRate;
+-    _variableRateSlope1 = variableRateSlope1;
+-    _variableRateSlope2 = variableRateSlope2;
+-    _stableRateSlope1 = stableRateSlope1;
+-    _stableRateSlope2 = stableRateSlope2;
+-  }
+-
+-  function variableRateSlope1() external view returns (uint256) {
+-    return _variableRateSlope1;
+-  }
+-
+-  function variableRateSlope2() external view returns (uint256) {
+-    return _variableRateSlope2;
+-  }
+-
+-  function stableRateSlope1() external view returns (uint256) {
+-    return _stableRateSlope1;
+-  }
+-
+-  function stableRateSlope2() external view returns (uint256) {
+-    return _stableRateSlope2;
+-  }
+-
+-  function baseVariableBorrowRate() external view override returns (uint256) {
+-    return _baseVariableBorrowRate;
+-  }
+-
+-  function getMaxVariableBorrowRate() external view override returns (uint256) {
+-    return _baseVariableBorrowRate.add(_variableRateSlope1).add(_variableRateSlope2);
+-  }
+-
+-  /**
+-   * @dev Calculates the interest rates depending on the reserve's state and configurations
+-   * @param reserve The address of the reserve
+-   * @param liquidityAdded The liquidity added during the operation
+-   * @param liquidityTaken The liquidity taken during the operation
+-   * @param totalStableDebt The total borrowed from the reserve a stable rate
+-   * @param totalVariableDebt The total borrowed from the reserve at a variable rate
+-   * @param averageStableBorrowRate The weighted average of all the stable rate loans
+-   * @param reserveFactor The reserve portion of the interest that goes to the treasury of the market
+-   * @return The liquidity rate, the stable borrow rate and the variable borrow rate
+-   **/
+-  function calculateInterestRates(
+-    address reserve,
+-    address aToken,
+-    uint256 liquidityAdded,
+-    uint256 liquidityTaken,
+-    uint256 totalStableDebt,
+-    uint256 totalVariableDebt,
+-    uint256 averageStableBorrowRate,
+-    uint256 reserveFactor
+-  ) external view override returns (uint256, uint256, uint256) {
+-    uint256 availableLiquidity = IERC20(reserve).balanceOf(aToken);
+-    //avoid stack too deep
+-    availableLiquidity = availableLiquidity.add(liquidityAdded).sub(liquidityTaken);
+-
+-    return
+-      calculateInterestRates(
+-        reserve,
+-        availableLiquidity,
+-        totalStableDebt,
+-        totalVariableDebt,
+-        averageStableBorrowRate,
+-        reserveFactor
+-      );
+-  }
+-
+-  struct CalcInterestRatesLocalVars {
+-    uint256 totalDebt;
+-    uint256 currentVariableBorrowRate;
+-    uint256 currentStableBorrowRate;
+-    uint256 currentLiquidityRate;
+-    uint256 utilizationRate;
+-  }
+-
+-  /**
+-   * @dev Calculates the interest rates depending on the reserve's state and configurations.
+-   * NOTE This function is kept for compatibility with the previous DefaultInterestRateStrategy interface.
+-   * New protocol implementation uses the new calculateInterestRates() interface
+-   * @param reserve The address of the reserve
+-   * @param availableLiquidity The liquidity available in the corresponding aToken
+-   * @param totalStableDebt The total borrowed from the reserve a stable rate
+-   * @param totalVariableDebt The total borrowed from the reserve at a variable rate
+-   * @param averageStableBorrowRate The weighted average of all the stable rate loans
+-   * @param reserveFactor The reserve portion of the interest that goes to the treasury of the market
+-   * @return The liquidity rate, the stable borrow rate and the variable borrow rate
+-   **/
+-  function calculateInterestRates(
+-    address reserve,
+-    uint256 availableLiquidity,
+-    uint256 totalStableDebt,
+-    uint256 totalVariableDebt,
+-    uint256 averageStableBorrowRate,
+-    uint256 reserveFactor
+-  ) public view override returns (uint256, uint256, uint256) {
+-    CalcInterestRatesLocalVars memory vars;
+-
+-    vars.totalDebt = totalStableDebt.add(totalVariableDebt);
+-    vars.currentVariableBorrowRate = 0;
+-    vars.currentStableBorrowRate = 0;
+-    vars.currentLiquidityRate = 0;
+-
+-    vars.utilizationRate = vars.totalDebt == 0
+-      ? 0
+-      : vars.totalDebt.rayDiv(availableLiquidity.add(vars.totalDebt));
+-
+-    vars.currentStableBorrowRate = ILendingRateOracle(addressesProvider.getLendingRateOracle())
+-      .getMarketBorrowRate(reserve);
+-
+-    if (vars.utilizationRate > OPTIMAL_UTILIZATION_RATE) {
+-      uint256 excessUtilizationRateRatio = vars
+-        .utilizationRate
+-        .sub(OPTIMAL_UTILIZATION_RATE)
+-        .rayDiv(EXCESS_UTILIZATION_RATE);
+-
+-      vars.currentStableBorrowRate = vars.currentStableBorrowRate.add(_stableRateSlope1).add(
+-        _stableRateSlope2.rayMul(excessUtilizationRateRatio)
+-      );
+-
+-      vars.currentVariableBorrowRate = _baseVariableBorrowRate.add(_variableRateSlope1).add(
+-        _variableRateSlope2.rayMul(excessUtilizationRateRatio)
+-      );
+-    } else {
+-      vars.currentStableBorrowRate = vars.currentStableBorrowRate.add(
+-        _stableRateSlope1.rayMul(vars.utilizationRate.rayDiv(OPTIMAL_UTILIZATION_RATE))
+-      );
+-      vars.currentVariableBorrowRate = _baseVariableBorrowRate.add(
+-        vars.utilizationRate.rayMul(_variableRateSlope1).rayDiv(OPTIMAL_UTILIZATION_RATE)
+-      );
+-    }
+-
+-    vars.currentLiquidityRate = _getOverallBorrowRate(
+-      totalStableDebt,
+-      totalVariableDebt,
+-      vars.currentVariableBorrowRate,
+-      averageStableBorrowRate
+-    ).rayMul(vars.utilizationRate).percentMul(PercentageMath.PERCENTAGE_FACTOR.sub(reserveFactor));
+-
+-    return (
+-      vars.currentLiquidityRate,
+-      vars.currentStableBorrowRate,
+-      vars.currentVariableBorrowRate
+-    );
+-  }
+-
+-  /**
+-   * @dev Calculates the overall borrow rate as the weighted average between the total variable debt and total stable debt
+-   * @param totalStableDebt The total borrowed from the reserve a stable rate
+-   * @param totalVariableDebt The total borrowed from the reserve at a variable rate
+-   * @param currentVariableBorrowRate The current variable borrow rate of the reserve
+-   * @param currentAverageStableBorrowRate The current weighted average of all the stable rate loans
+-   * @return The weighted averaged borrow rate
+-   **/
+-  function _getOverallBorrowRate(
+-    uint256 totalStableDebt,
+-    uint256 totalVariableDebt,
+-    uint256 currentVariableBorrowRate,
+-    uint256 currentAverageStableBorrowRate
+-  ) internal pure returns (uint256) {
+-    uint256 totalDebt = totalStableDebt.add(totalVariableDebt);
+-
+-    if (totalDebt == 0) return 0;
+-
+-    uint256 weightedVariableRate = totalVariableDebt.wadToRay().rayMul(currentVariableBorrowRate);
+-
+-    uint256 weightedStableRate = totalStableDebt.wadToRay().rayMul(currentAverageStableBorrowRate);
+-
+-    uint256 overallBorrowRate = weightedVariableRate.add(weightedStableRate).rayDiv(
+-      totalDebt.wadToRay()
+-    );
+-
+-    return overallBorrowRate;
+-  }
+-}
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/lendingpool/LendingPool.sol b/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/lendingpool/LendingPool.sol
+deleted file mode 100644
+index 9357ee4..0000000
+--- a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/lendingpool/LendingPool.sol
++++ /dev/null
+@@ -1,928 +0,0 @@
+-// SPDX-License-Identifier: agpl-3.0
+-pragma solidity 0.6.12;
+-pragma experimental ABIEncoderV2;
+-
+-import {SafeMath} from '../../dependencies/openzeppelin/contracts/SafeMath.sol';
+-import {IERC20} from '../../dependencies/openzeppelin/contracts/IERC20.sol';
+-import {SafeERC20} from '../../dependencies/openzeppelin/contracts/SafeERC20.sol';
+-import {Address} from '../../dependencies/openzeppelin/contracts/Address.sol';
+-import {ILendingPoolAddressesProvider} from '../../interfaces/ILendingPoolAddressesProvider.sol';
+-import {IAToken} from '../../interfaces/IAToken.sol';
+-import {IVariableDebtToken} from '../../interfaces/IVariableDebtToken.sol';
+-import {IFlashLoanReceiver} from '../../flashloan/interfaces/IFlashLoanReceiver.sol';
+-import {IPriceOracleGetter} from '../../interfaces/IPriceOracleGetter.sol';
+-import {IStableDebtToken} from '../../interfaces/IStableDebtToken.sol';
+-import {ILendingPool} from '../../interfaces/ILendingPool.sol';
+-import {VersionedInitializable} from '../libraries/aave-upgradeability/VersionedInitializable.sol';
+-import {Helpers} from '../libraries/helpers/Helpers.sol';
+-import {Errors} from '../libraries/helpers/Errors.sol';
+-import {WadRayMath} from '../libraries/math/WadRayMath.sol';
+-import {PercentageMath} from '../libraries/math/PercentageMath.sol';
+-import {ReserveLogic} from '../libraries/logic/ReserveLogic.sol';
+-import {GenericLogic} from '../libraries/logic/GenericLogic.sol';
+-import {ValidationLogic} from '../libraries/logic/ValidationLogic.sol';
+-import {ReserveConfiguration} from '../libraries/configuration/ReserveConfiguration.sol';
+-import {UserConfiguration} from '../libraries/configuration/UserConfiguration.sol';
+-import {DataTypes} from '../libraries/types/DataTypes.sol';
+-import {LendingPoolStorage} from './LendingPoolStorage.sol';
+-
+-/**
+- * @title LendingPool contract
+- * @dev Main point of interaction with an Aave protocol's market
+- * - Users can:
+- *   # Deposit
+- *   # Withdraw
+- *   # Borrow
+- *   # Repay
+- *   # Swap their loans between variable and stable rate
+- *   # Enable/disable their deposits as collateral rebalance stable rate borrow positions
+- *   # Liquidate positions
+- *   # Execute Flash Loans
+- * - To be covered by a proxy contract, owned by the LendingPoolAddressesProvider of the specific market
+- * - All admin functions are callable by the LendingPoolConfigurator contract defined also in the
+- *   LendingPoolAddressesProvider
+- * @author Aave
+- **/
+-contract LendingPool is VersionedInitializable, ILendingPool, LendingPoolStorage {
+-  using SafeMath for uint256;
+-  using WadRayMath for uint256;
+-  using PercentageMath for uint256;
+-  using SafeERC20 for IERC20;
+-
+-  uint256 public constant LENDINGPOOL_REVISION = 0x2;
+-
+-  modifier whenNotPaused() {
+-    _whenNotPaused();
+-    _;
+-  }
+-
+-  modifier onlyLendingPoolConfigurator() {
+-    _onlyLendingPoolConfigurator();
+-    _;
+-  }
+-
+-  function _whenNotPaused() internal view {
+-    require(!_paused, Errors.LP_IS_PAUSED);
+-  }
+-
+-  function _onlyLendingPoolConfigurator() internal view {
+-    require(
+-      _addressesProvider.getLendingPoolConfigurator() == msg.sender,
+-      Errors.LP_CALLER_NOT_LENDING_POOL_CONFIGURATOR
+-    );
+-  }
+-
+-  function getRevision() internal pure override returns (uint256) {
+-    return LENDINGPOOL_REVISION;
+-  }
+-
+-  /**
+-   * @dev Function is invoked by the proxy contract when the LendingPool contract is added to the
+-   * LendingPoolAddressesProvider of the market.
+-   * - Caching the address of the LendingPoolAddressesProvider in order to reduce gas consumption
+-   *   on subsequent operations
+-   * @param provider The address of the LendingPoolAddressesProvider
+-   **/
+-  function initialize(ILendingPoolAddressesProvider provider) public initializer {
+-    _addressesProvider = provider;
+-    _maxStableRateBorrowSizePercent = 2500;
+-    _flashLoanPremiumTotal = 9;
+-    _maxNumberOfReserves = 128;
+-  }
+-
+-  /**
+-   * @dev Deposits an `amount` of underlying asset into the reserve, receiving in return overlying aTokens.
+-   * - E.g. User deposits 100 USDC and gets in return 100 aUSDC
+-   * @param asset The address of the underlying asset to deposit
+-   * @param amount The amount to be deposited
+-   * @param onBehalfOf The address that will receive the aTokens, same as msg.sender if the user
+-   *   wants to receive them on his own wallet, or a different address if the beneficiary of aTokens
+-   *   is a different wallet
+-   * @param referralCode Code used to register the integrator originating the operation, for potential rewards.
+-   *   0 if the action is executed directly by the user, without any middle-man
+-   **/
+-  function deposit(
+-    address asset,
+-    uint256 amount,
+-    address onBehalfOf,
+-    uint16 referralCode
+-  ) external override whenNotPaused {
+-    DataTypes.ReserveData storage reserve = _reserves[asset];
+-
+-    ValidationLogic.validateDeposit(reserve, amount);
+-
+-    address aToken = reserve.aTokenAddress;
+-
+-    reserve.updateState();
+-    reserve.updateInterestRates(asset, aToken, amount, 0);
+-
+-    IERC20(asset).safeTransferFrom(msg.sender, aToken, amount);
+-
+-    bool isFirstDeposit = IAToken(aToken).mint(onBehalfOf, amount, reserve.liquidityIndex);
+-
+-    if (isFirstDeposit) {
+-      _usersConfig[onBehalfOf].setUsingAsCollateral(reserve.id, true);
+-      emit ReserveUsedAsCollateralEnabled(asset, onBehalfOf);
+-    }
+-
+-    emit Deposit(asset, msg.sender, onBehalfOf, amount, referralCode);
+-  }
+-
+-  /**
+-   * @dev Withdraws an `amount` of underlying asset from the reserve, burning the equivalent aTokens owned
+-   * E.g. User has 100 aUSDC, calls withdraw() and receives 100 USDC, burning the 100 aUSDC
+-   * @param asset The address of the underlying asset to withdraw
+-   * @param amount The underlying amount to be withdrawn
+-   *   - Send the value type(uint256).max in order to withdraw the whole aToken balance
+-   * @param to Address that will receive the underlying, same as msg.sender if the user
+-   *   wants to receive it on his own wallet, or a different address if the beneficiary is a
+-   *   different wallet
+-   * @return The final amount withdrawn
+-   **/
+-  function withdraw(
+-    address asset,
+-    uint256 amount,
+-    address to
+-  ) external override whenNotPaused returns (uint256) {
+-    DataTypes.ReserveData storage reserve = _reserves[asset];
+-
+-    address aToken = reserve.aTokenAddress;
+-
+-    uint256 userBalance = IAToken(aToken).balanceOf(msg.sender);
+-
+-    uint256 amountToWithdraw = amount;
+-
+-    if (amount == type(uint256).max) {
+-      amountToWithdraw = userBalance;
+-    }
+-
+-    ValidationLogic.validateWithdraw(
+-      asset,
+-      amountToWithdraw,
+-      userBalance,
+-      _reserves,
+-      _usersConfig[msg.sender],
+-      _reservesList,
+-      _reservesCount,
+-      _addressesProvider.getPriceOracle()
+-    );
+-
+-    reserve.updateState();
+-
+-    reserve.updateInterestRates(asset, aToken, 0, amountToWithdraw);
+-
+-    if (amountToWithdraw == userBalance) {
+-      _usersConfig[msg.sender].setUsingAsCollateral(reserve.id, false);
+-      emit ReserveUsedAsCollateralDisabled(asset, msg.sender);
+-    }
+-
+-    IAToken(aToken).burn(msg.sender, to, amountToWithdraw, reserve.liquidityIndex);
+-
+-    emit Withdraw(asset, msg.sender, to, amountToWithdraw);
+-
+-    return amountToWithdraw;
+-  }
+-
+-  /**
+-   * @dev Allows users to borrow a specific `amount` of the reserve underlying asset, provided that the borrower
+-   * already deposited enough collateral, or he was given enough allowance by a credit delegator on the
+-   * corresponding debt token (StableDebtToken or VariableDebtToken)
+-   * - E.g. User borrows 100 USDC passing as `onBehalfOf` his own address, receiving the 100 USDC in his wallet
+-   *   and 100 stable/variable debt tokens, depending on the `interestRateMode`
+-   * @param asset The address of the underlying asset to borrow
+-   * @param amount The amount to be borrowed
+-   * @param interestRateMode The interest rate mode at which the user wants to borrow: 1 for Stable, 2 for Variable
+-   * @param referralCode Code used to register the integrator originating the operation, for potential rewards.
+-   *   0 if the action is executed directly by the user, without any middle-man
+-   * @param onBehalfOf Address of the user who will receive the debt. Should be the address of the borrower itself
+-   * calling the function if he wants to borrow against his own collateral, or the address of the credit delegator
+-   * if he has been given credit delegation allowance
+-   **/
+-  function borrow(
+-    address asset,
+-    uint256 amount,
+-    uint256 interestRateMode,
+-    uint16 referralCode,
+-    address onBehalfOf
+-  ) external override whenNotPaused {
+-    DataTypes.ReserveData storage reserve = _reserves[asset];
+-
+-    _executeBorrow(
+-      ExecuteBorrowParams(
+-        asset,
+-        msg.sender,
+-        onBehalfOf,
+-        amount,
+-        interestRateMode,
+-        reserve.aTokenAddress,
+-        referralCode,
+-        true
+-      )
+-    );
+-  }
+-
+-  /**
+-   * @notice Repays a borrowed `amount` on a specific reserve, burning the equivalent debt tokens owned
+-   * - E.g. User repays 100 USDC, burning 100 variable/stable debt tokens of the `onBehalfOf` address
+-   * @param asset The address of the borrowed underlying asset previously borrowed
+-   * @param amount The amount to repay
+-   * - Send the value type(uint256).max in order to repay the whole debt for `asset` on the specific `debtMode`
+-   * @param rateMode The interest rate mode at of the debt the user wants to repay: 1 for Stable, 2 for Variable
+-   * @param onBehalfOf Address of the user who will get his debt reduced/removed. Should be the address of the
+-   * user calling the function if he wants to reduce/remove his own debt, or the address of any other
+-   * other borrower whose debt should be removed
+-   * @return The final amount repaid
+-   **/
+-  function repay(
+-    address asset,
+-    uint256 amount,
+-    uint256 rateMode,
+-    address onBehalfOf
+-  ) external override whenNotPaused returns (uint256) {
+-    DataTypes.ReserveData storage reserve = _reserves[asset];
+-
+-    (uint256 stableDebt, uint256 variableDebt) = Helpers.getUserCurrentDebt(onBehalfOf, reserve);
+-
+-    DataTypes.InterestRateMode interestRateMode = DataTypes.InterestRateMode(rateMode);
+-
+-    ValidationLogic.validateRepay(
+-      reserve,
+-      amount,
+-      interestRateMode,
+-      onBehalfOf,
+-      stableDebt,
+-      variableDebt
+-    );
+-
+-    uint256 paybackAmount = interestRateMode == DataTypes.InterestRateMode.STABLE
+-      ? stableDebt
+-      : variableDebt;
+-
+-    if (amount < paybackAmount) {
+-      paybackAmount = amount;
+-    }
+-
+-    reserve.updateState();
+-
+-    if (interestRateMode == DataTypes.InterestRateMode.STABLE) {
+-      IStableDebtToken(reserve.stableDebtTokenAddress).burn(onBehalfOf, paybackAmount);
+-    } else {
+-      IVariableDebtToken(reserve.variableDebtTokenAddress).burn(
+-        onBehalfOf,
+-        paybackAmount,
+-        reserve.variableBorrowIndex
+-      );
+-    }
+-
+-    address aToken = reserve.aTokenAddress;
+-    reserve.updateInterestRates(asset, aToken, paybackAmount, 0);
+-
+-    if (stableDebt.add(variableDebt).sub(paybackAmount) == 0) {
+-      _usersConfig[onBehalfOf].setBorrowing(reserve.id, false);
+-    }
+-
+-    IERC20(asset).safeTransferFrom(msg.sender, aToken, paybackAmount);
+-
+-    IAToken(aToken).handleRepayment(msg.sender, paybackAmount);
+-
+-    emit Repay(asset, onBehalfOf, msg.sender, paybackAmount);
+-
+-    return paybackAmount;
+-  }
+-
+-  /**
+-   * @dev Allows a borrower to swap his debt between stable and variable mode, or viceversa
+-   * @param asset The address of the underlying asset borrowed
+-   * @param rateMode The rate mode that the user wants to swap to
+-   **/
+-  function swapBorrowRateMode(address asset, uint256 rateMode) external override whenNotPaused {
+-    DataTypes.ReserveData storage reserve = _reserves[asset];
+-
+-    (uint256 stableDebt, uint256 variableDebt) = Helpers.getUserCurrentDebt(msg.sender, reserve);
+-
+-    DataTypes.InterestRateMode interestRateMode = DataTypes.InterestRateMode(rateMode);
+-
+-    ValidationLogic.validateSwapRateMode(
+-      reserve,
+-      _usersConfig[msg.sender],
+-      stableDebt,
+-      variableDebt,
+-      interestRateMode
+-    );
+-
+-    reserve.updateState();
+-
+-    if (interestRateMode == DataTypes.InterestRateMode.STABLE) {
+-      IStableDebtToken(reserve.stableDebtTokenAddress).burn(msg.sender, stableDebt);
+-      IVariableDebtToken(reserve.variableDebtTokenAddress).mint(
+-        msg.sender,
+-        msg.sender,
+-        stableDebt,
+-        reserve.variableBorrowIndex
+-      );
+-    } else {
+-      IVariableDebtToken(reserve.variableDebtTokenAddress).burn(
+-        msg.sender,
+-        variableDebt,
+-        reserve.variableBorrowIndex
+-      );
+-      IStableDebtToken(reserve.stableDebtTokenAddress).mint(
+-        msg.sender,
+-        msg.sender,
+-        variableDebt,
+-        reserve.currentStableBorrowRate
+-      );
+-    }
+-
+-    reserve.updateInterestRates(asset, reserve.aTokenAddress, 0, 0);
+-
+-    emit Swap(asset, msg.sender, rateMode);
+-  }
+-
+-  /**
+-   * @dev Rebalances the stable interest rate of a user to the current stable rate defined on the reserve.
+-   * - Users can be rebalanced if the following conditions are satisfied:
+-   *     1. Usage ratio is above 95%
+-   *     2. the current deposit APY is below REBALANCE_UP_THRESHOLD * maxVariableBorrowRate, which means that too much has been
+-   *        borrowed at a stable rate and depositors are not earning enough
+-   * @param asset The address of the underlying asset borrowed
+-   * @param user The address of the user to be rebalanced
+-   **/
+-  function rebalanceStableBorrowRate(address asset, address user) external override whenNotPaused {
+-    DataTypes.ReserveData storage reserve = _reserves[asset];
+-
+-    IERC20 stableDebtToken = IERC20(reserve.stableDebtTokenAddress);
+-    IERC20 variableDebtToken = IERC20(reserve.variableDebtTokenAddress);
+-    address aTokenAddress = reserve.aTokenAddress;
+-
+-    uint256 stableDebt = IERC20(stableDebtToken).balanceOf(user);
+-
+-    ValidationLogic.validateRebalanceStableBorrowRate(
+-      reserve,
+-      asset,
+-      stableDebtToken,
+-      variableDebtToken,
+-      aTokenAddress
+-    );
+-
+-    reserve.updateState();
+-
+-    IStableDebtToken(address(stableDebtToken)).burn(user, stableDebt);
+-    IStableDebtToken(address(stableDebtToken)).mint(
+-      user,
+-      user,
+-      stableDebt,
+-      reserve.currentStableBorrowRate
+-    );
+-
+-    reserve.updateInterestRates(asset, aTokenAddress, 0, 0);
+-
+-    emit RebalanceStableBorrowRate(asset, user);
+-  }
+-
+-  /**
+-   * @dev Allows depositors to enable/disable a specific deposited asset as collateral
+-   * @param asset The address of the underlying asset deposited
+-   * @param useAsCollateral `true` if the user wants to use the deposit as collateral, `false` otherwise
+-   **/
+-  function setUserUseReserveAsCollateral(
+-    address asset,
+-    bool useAsCollateral
+-  ) external override whenNotPaused {
+-    DataTypes.ReserveData storage reserve = _reserves[asset];
+-
+-    ValidationLogic.validateSetUseReserveAsCollateral(
+-      reserve,
+-      asset,
+-      useAsCollateral,
+-      _reserves,
+-      _usersConfig[msg.sender],
+-      _reservesList,
+-      _reservesCount,
+-      _addressesProvider.getPriceOracle()
+-    );
+-
+-    _usersConfig[msg.sender].setUsingAsCollateral(reserve.id, useAsCollateral);
+-
+-    if (useAsCollateral) {
+-      emit ReserveUsedAsCollateralEnabled(asset, msg.sender);
+-    } else {
+-      emit ReserveUsedAsCollateralDisabled(asset, msg.sender);
+-    }
+-  }
+-
+-  /**
+-   * @dev Function to liquidate a non-healthy position collateral-wise, with Health Factor below 1
+-   * - The caller (liquidator) covers `debtToCover` amount of debt of the user getting liquidated, and receives
+-   *   a proportionally amount of the `collateralAsset` plus a bonus to cover market risk
+-   * @param collateralAsset The address of the underlying asset used as collateral, to receive as result of the liquidation
+-   * @param debtAsset The address of the underlying borrowed asset to be repaid with the liquidation
+-   * @param user The address of the borrower getting liquidated
+-   * @param debtToCover The debt amount of borrowed `asset` the liquidator wants to cover
+-   * @param receiveAToken `true` if the liquidators wants to receive the collateral aTokens, `false` if he wants
+-   * to receive the underlying collateral asset directly
+-   **/
+-  function liquidationCall(
+-    address collateralAsset,
+-    address debtAsset,
+-    address user,
+-    uint256 debtToCover,
+-    bool receiveAToken
+-  ) external override whenNotPaused {
+-    address collateralManager = _addressesProvider.getLendingPoolCollateralManager();
+-
+-    //solium-disable-next-line
+-    (bool success, bytes memory result) = collateralManager.delegatecall(
+-      abi.encodeWithSignature(
+-        'liquidationCall(address,address,address,uint256,bool)',
+-        collateralAsset,
+-        debtAsset,
+-        user,
+-        debtToCover,
+-        receiveAToken
+-      )
+-    );
+-
+-    require(success, Errors.LP_LIQUIDATION_CALL_FAILED);
+-
+-    (uint256 returnCode, string memory returnMessage) = abi.decode(result, (uint256, string));
+-
+-    require(returnCode == 0, string(abi.encodePacked(returnMessage)));
+-  }
+-
+-  struct FlashLoanLocalVars {
+-    IFlashLoanReceiver receiver;
+-    address oracle;
+-    uint256 i;
+-    address currentAsset;
+-    address currentATokenAddress;
+-    uint256 currentAmount;
+-    uint256 currentPremium;
+-    uint256 currentAmountPlusPremium;
+-    address debtToken;
+-  }
+-
+-  /**
+-   * @dev Allows smartcontracts to access the liquidity of the pool within one transaction,
+-   * as long as the amount taken plus a fee is returned.
+-   * IMPORTANT There are security concerns for developers of flashloan receiver contracts that must be kept into consideration.
+-   * For further details please visit https://developers.aave.com
+-   * @param receiverAddress The address of the contract receiving the funds, implementing the IFlashLoanReceiver interface
+-   * @param assets The addresses of the assets being flash-borrowed
+-   * @param amounts The amounts amounts being flash-borrowed
+-   * @param modes Types of the debt to open if the flash loan is not returned:
+-   *   0 -> Don't open any debt, just revert if funds can't be transferred from the receiver
+-   *   1 -> Open debt at stable rate for the value of the amount flash-borrowed to the `onBehalfOf` address
+-   *   2 -> Open debt at variable rate for the value of the amount flash-borrowed to the `onBehalfOf` address
+-   * @param onBehalfOf The address  that will receive the debt in the case of using on `modes` 1 or 2
+-   * @param params Variadic packed params to pass to the receiver as extra information
+-   * @param referralCode Code used to register the integrator originating the operation, for potential rewards.
+-   *   0 if the action is executed directly by the user, without any middle-man
+-   **/
+-  function flashLoan(
+-    address receiverAddress,
+-    address[] calldata assets,
+-    uint256[] calldata amounts,
+-    uint256[] calldata modes,
+-    address onBehalfOf,
+-    bytes calldata params,
+-    uint16 referralCode
+-  ) external override whenNotPaused {
+-    FlashLoanLocalVars memory vars;
+-
+-    ValidationLogic.validateFlashloan(assets, amounts);
+-
+-    address[] memory aTokenAddresses = new address[](assets.length);
+-    uint256[] memory premiums = new uint256[](assets.length);
+-
+-    vars.receiver = IFlashLoanReceiver(receiverAddress);
+-
+-    for (vars.i = 0; vars.i < assets.length; vars.i++) {
+-      aTokenAddresses[vars.i] = _reserves[assets[vars.i]].aTokenAddress;
+-
+-      premiums[vars.i] = amounts[vars.i].mul(_flashLoanPremiumTotal).div(10000);
+-
+-      IAToken(aTokenAddresses[vars.i]).transferUnderlyingTo(receiverAddress, amounts[vars.i]);
+-    }
+-
+-    require(
+-      vars.receiver.executeOperation(assets, amounts, premiums, msg.sender, params),
+-      Errors.LP_INVALID_FLASH_LOAN_EXECUTOR_RETURN
+-    );
+-
+-    for (vars.i = 0; vars.i < assets.length; vars.i++) {
+-      vars.currentAsset = assets[vars.i];
+-      vars.currentAmount = amounts[vars.i];
+-      vars.currentPremium = premiums[vars.i];
+-      vars.currentATokenAddress = aTokenAddresses[vars.i];
+-      vars.currentAmountPlusPremium = vars.currentAmount.add(vars.currentPremium);
+-
+-      if (DataTypes.InterestRateMode(modes[vars.i]) == DataTypes.InterestRateMode.NONE) {
+-        _reserves[vars.currentAsset].updateState();
+-        _reserves[vars.currentAsset].cumulateToLiquidityIndex(
+-          IERC20(vars.currentATokenAddress).totalSupply(),
+-          vars.currentPremium
+-        );
+-        _reserves[vars.currentAsset].updateInterestRates(
+-          vars.currentAsset,
+-          vars.currentATokenAddress,
+-          vars.currentAmountPlusPremium,
+-          0
+-        );
+-
+-        IERC20(vars.currentAsset).safeTransferFrom(
+-          receiverAddress,
+-          vars.currentATokenAddress,
+-          vars.currentAmountPlusPremium
+-        );
+-      } else {
+-        // If the user chose to not return the funds, the system checks if there is enough collateral and
+-        // eventually opens a debt position
+-        _executeBorrow(
+-          ExecuteBorrowParams(
+-            vars.currentAsset,
+-            msg.sender,
+-            onBehalfOf,
+-            vars.currentAmount,
+-            modes[vars.i],
+-            vars.currentATokenAddress,
+-            referralCode,
+-            false
+-          )
+-        );
+-      }
+-      emit FlashLoan(
+-        receiverAddress,
+-        msg.sender,
+-        vars.currentAsset,
+-        vars.currentAmount,
+-        vars.currentPremium,
+-        referralCode
+-      );
+-    }
+-  }
+-
+-  /**
+-   * @dev Returns the state and configuration of the reserve
+-   * @param asset The address of the underlying asset of the reserve
+-   * @return The state of the reserve
+-   **/
+-  function getReserveData(
+-    address asset
+-  ) external view override returns (DataTypes.ReserveData memory) {
+-    return _reserves[asset];
+-  }
+-
+-  /**
+-   * @dev Returns the user account data across all the reserves
+-   * @param user The address of the user
+-   * @return totalCollateralETH the total collateral in ETH of the user
+-   * @return totalDebtETH the total debt in ETH of the user
+-   * @return availableBorrowsETH the borrowing power left of the user
+-   * @return currentLiquidationThreshold the liquidation threshold of the user
+-   * @return ltv the loan to value of the user
+-   * @return healthFactor the current health factor of the user
+-   **/
+-  function getUserAccountData(
+-    address user
+-  )
+-    external
+-    view
+-    override
+-    returns (
+-      uint256 totalCollateralETH,
+-      uint256 totalDebtETH,
+-      uint256 availableBorrowsETH,
+-      uint256 currentLiquidationThreshold,
+-      uint256 ltv,
+-      uint256 healthFactor
+-    )
+-  {
+-    (
+-      totalCollateralETH,
+-      totalDebtETH,
+-      ltv,
+-      currentLiquidationThreshold,
+-      healthFactor
+-    ) = GenericLogic.calculateUserAccountData(
+-      user,
+-      _reserves,
+-      _usersConfig[user],
+-      _reservesList,
+-      _reservesCount,
+-      _addressesProvider.getPriceOracle()
+-    );
+-
+-    availableBorrowsETH = GenericLogic.calculateAvailableBorrowsETH(
+-      totalCollateralETH,
+-      totalDebtETH,
+-      ltv
+-    );
+-  }
+-
+-  /**
+-   * @dev Returns the configuration of the reserve
+-   * @param asset The address of the underlying asset of the reserve
+-   * @return The configuration of the reserve
+-   **/
+-  function getConfiguration(
+-    address asset
+-  ) external view override returns (DataTypes.ReserveConfigurationMap memory) {
+-    return _reserves[asset].configuration;
+-  }
+-
+-  /**
+-   * @dev Returns the configuration of the user across all the reserves
+-   * @param user The user address
+-   * @return The configuration of the user
+-   **/
+-  function getUserConfiguration(
+-    address user
+-  ) external view override returns (DataTypes.UserConfigurationMap memory) {
+-    return _usersConfig[user];
+-  }
+-
+-  /**
+-   * @dev Returns the normalized income per unit of asset
+-   * @param asset The address of the underlying asset of the reserve
+-   * @return The reserve's normalized income
+-   */
+-  function getReserveNormalizedIncome(
+-    address asset
+-  ) external view virtual override returns (uint256) {
+-    return _reserves[asset].getNormalizedIncome();
+-  }
+-
+-  /**
+-   * @dev Returns the normalized variable debt per unit of asset
+-   * @param asset The address of the underlying asset of the reserve
+-   * @return The reserve normalized variable debt
+-   */
+-  function getReserveNormalizedVariableDebt(
+-    address asset
+-  ) external view override returns (uint256) {
+-    return _reserves[asset].getNormalizedDebt();
+-  }
+-
+-  /**
+-   * @dev Returns if the LendingPool is paused
+-   */
+-  function paused() external view override returns (bool) {
+-    return _paused;
+-  }
+-
+-  /**
+-   * @dev Returns the list of the initialized reserves
+-   **/
+-  function getReservesList() external view override returns (address[] memory) {
+-    address[] memory _activeReserves = new address[](_reservesCount);
+-
+-    for (uint256 i = 0; i < _reservesCount; i++) {
+-      _activeReserves[i] = _reservesList[i];
+-    }
+-    return _activeReserves;
+-  }
+-
+-  /**
+-   * @dev Returns the cached LendingPoolAddressesProvider connected to this contract
+-   **/
+-  function getAddressesProvider() external view override returns (ILendingPoolAddressesProvider) {
+-    return _addressesProvider;
+-  }
+-
+-  /**
+-   * @dev Returns the percentage of available liquidity that can be borrowed at once at stable rate
+-   */
+-  function MAX_STABLE_RATE_BORROW_SIZE_PERCENT() public view returns (uint256) {
+-    return _maxStableRateBorrowSizePercent;
+-  }
+-
+-  /**
+-   * @dev Returns the fee on flash loans
+-   */
+-  function FLASHLOAN_PREMIUM_TOTAL() public view returns (uint256) {
+-    return _flashLoanPremiumTotal;
+-  }
+-
+-  /**
+-   * @dev Returns the maximum number of reserves supported to be listed in this LendingPool
+-   */
+-  function MAX_NUMBER_RESERVES() public view returns (uint256) {
+-    return _maxNumberOfReserves;
+-  }
+-
+-  /**
+-   * @dev Validates and finalizes an aToken transfer
+-   * - Only callable by the overlying aToken of the `asset`
+-   * @param asset The address of the underlying asset of the aToken
+-   * @param from The user from which the aTokens are transferred
+-   * @param to The user receiving the aTokens
+-   * @param amount The amount being transferred/withdrawn
+-   * @param balanceFromBefore The aToken balance of the `from` user before the transfer
+-   * @param balanceToBefore The aToken balance of the `to` user before the transfer
+-   */
+-  function finalizeTransfer(
+-    address asset,
+-    address from,
+-    address to,
+-    uint256 amount,
+-    uint256 balanceFromBefore,
+-    uint256 balanceToBefore
+-  ) external override whenNotPaused {
+-    require(msg.sender == _reserves[asset].aTokenAddress, Errors.LP_CALLER_MUST_BE_AN_ATOKEN);
+-
+-    ValidationLogic.validateTransfer(
+-      from,
+-      _reserves,
+-      _usersConfig[from],
+-      _reservesList,
+-      _reservesCount,
+-      _addressesProvider.getPriceOracle()
+-    );
+-
+-    uint256 reserveId = _reserves[asset].id;
+-
+-    if (from != to) {
+-      if (balanceFromBefore.sub(amount) == 0) {
+-        DataTypes.UserConfigurationMap storage fromConfig = _usersConfig[from];
+-        fromConfig.setUsingAsCollateral(reserveId, false);
+-        emit ReserveUsedAsCollateralDisabled(asset, from);
+-      }
+-
+-      if (balanceToBefore == 0 && amount != 0) {
+-        DataTypes.UserConfigurationMap storage toConfig = _usersConfig[to];
+-        toConfig.setUsingAsCollateral(reserveId, true);
+-        emit ReserveUsedAsCollateralEnabled(asset, to);
+-      }
+-    }
+-  }
+-
+-  /**
+-   * @dev Initializes a reserve, activating it, assigning an aToken and debt tokens and an
+-   * interest rate strategy
+-   * - Only callable by the LendingPoolConfigurator contract
+-   * @param asset The address of the underlying asset of the reserve
+-   * @param aTokenAddress The address of the aToken that will be assigned to the reserve
+-   * @param stableDebtAddress The address of the StableDebtToken that will be assigned to the reserve
+-   * @param aTokenAddress The address of the VariableDebtToken that will be assigned to the reserve
+-   * @param interestRateStrategyAddress The address of the interest rate strategy contract
+-   **/
+-  function initReserve(
+-    address asset,
+-    address aTokenAddress,
+-    address stableDebtAddress,
+-    address variableDebtAddress,
+-    address interestRateStrategyAddress
+-  ) external override onlyLendingPoolConfigurator {
+-    require(Address.isContract(asset), Errors.LP_NOT_CONTRACT);
+-    _reserves[asset].init(
+-      aTokenAddress,
+-      stableDebtAddress,
+-      variableDebtAddress,
+-      interestRateStrategyAddress
+-    );
+-    _addReserveToList(asset);
+-  }
+-
+-  /**
+-   * @dev Updates the address of the interest rate strategy contract
+-   * - Only callable by the LendingPoolConfigurator contract
+-   * @param asset The address of the underlying asset of the reserve
+-   * @param rateStrategyAddress The address of the interest rate strategy contract
+-   **/
+-  function setReserveInterestRateStrategyAddress(
+-    address asset,
+-    address rateStrategyAddress
+-  ) external override onlyLendingPoolConfigurator {
+-    _reserves[asset].interestRateStrategyAddress = rateStrategyAddress;
+-  }
+-
+-  /**
+-   * @dev Sets the configuration bitmap of the reserve as a whole
+-   * - Only callable by the LendingPoolConfigurator contract
+-   * @param asset The address of the underlying asset of the reserve
+-   * @param configuration The new configuration bitmap
+-   **/
+-  function setConfiguration(
+-    address asset,
+-    uint256 configuration
+-  ) external override onlyLendingPoolConfigurator {
+-    _reserves[asset].configuration.data = configuration;
+-  }
+-
+-  /**
+-   * @dev Set the _pause state of a reserve
+-   * - Only callable by the LendingPoolConfigurator contract
+-   * @param val `true` to pause the reserve, `false` to un-pause it
+-   */
+-  function setPause(bool val) external override onlyLendingPoolConfigurator {
+-    _paused = val;
+-    if (_paused) {
+-      emit Paused();
+-    } else {
+-      emit Unpaused();
+-    }
+-  }
+-
+-  struct ExecuteBorrowParams {
+-    address asset;
+-    address user;
+-    address onBehalfOf;
+-    uint256 amount;
+-    uint256 interestRateMode;
+-    address aTokenAddress;
+-    uint16 referralCode;
+-    bool releaseUnderlying;
+-  }
+-
+-  function _executeBorrow(ExecuteBorrowParams memory vars) internal {
+-    DataTypes.ReserveData storage reserve = _reserves[vars.asset];
+-    DataTypes.UserConfigurationMap storage userConfig = _usersConfig[vars.onBehalfOf];
+-
+-    address oracle = _addressesProvider.getPriceOracle();
+-
+-    uint256 amountInETH = IPriceOracleGetter(oracle).getAssetPrice(vars.asset).mul(vars.amount).div(
+-      10 ** reserve.configuration.getDecimals()
+-    );
+-
+-    ValidationLogic.validateBorrow(
+-      vars.asset,
+-      reserve,
+-      vars.onBehalfOf,
+-      vars.amount,
+-      amountInETH,
+-      vars.interestRateMode,
+-      _maxStableRateBorrowSizePercent,
+-      _reserves,
+-      userConfig,
+-      _reservesList,
+-      _reservesCount,
+-      oracle
+-    );
+-
+-    reserve.updateState();
+-
+-    uint256 currentStableRate = 0;
+-
+-    bool isFirstBorrowing = false;
+-    if (DataTypes.InterestRateMode(vars.interestRateMode) == DataTypes.InterestRateMode.STABLE) {
+-      currentStableRate = reserve.currentStableBorrowRate;
+-
+-      isFirstBorrowing = IStableDebtToken(reserve.stableDebtTokenAddress).mint(
+-        vars.user,
+-        vars.onBehalfOf,
+-        vars.amount,
+-        currentStableRate
+-      );
+-    } else {
+-      isFirstBorrowing = IVariableDebtToken(reserve.variableDebtTokenAddress).mint(
+-        vars.user,
+-        vars.onBehalfOf,
+-        vars.amount,
+-        reserve.variableBorrowIndex
+-      );
+-    }
+-
+-    if (isFirstBorrowing) {
+-      userConfig.setBorrowing(reserve.id, true);
+-    }
+-
+-    reserve.updateInterestRates(
+-      vars.asset,
+-      vars.aTokenAddress,
+-      0,
+-      vars.releaseUnderlying ? vars.amount : 0
+-    );
+-
+-    if (vars.releaseUnderlying) {
+-      IAToken(vars.aTokenAddress).transferUnderlyingTo(vars.user, vars.amount);
+-    }
+-
+-    emit Borrow(
+-      vars.asset,
+-      vars.user,
+-      vars.onBehalfOf,
+-      vars.amount,
+-      vars.interestRateMode,
+-      DataTypes.InterestRateMode(vars.interestRateMode) == DataTypes.InterestRateMode.STABLE
+-        ? currentStableRate
+-        : reserve.currentVariableBorrowRate,
+-      vars.referralCode
+-    );
+-  }
+-
+-  function _addReserveToList(address asset) internal {
+-    uint256 reservesCount = _reservesCount;
+-
+-    require(reservesCount < _maxNumberOfReserves, Errors.LP_NO_MORE_RESERVES_ALLOWED);
+-
+-    bool reserveAlreadyAdded = _reserves[asset].id != 0 || _reservesList[0] == asset;
+-
+-    if (!reserveAlreadyAdded) {
+-      _reserves[asset].id = uint8(reservesCount);
+-      _reservesList[reservesCount] = asset;
+-
+-      _reservesCount = reservesCount + 1;
+-    }
+-  }
+-}
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/lendingpool/LendingPoolConfigurator.sol b/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/lendingpool/LendingPoolConfigurator.sol
+deleted file mode 100644
+index 42e1a02..0000000
+--- a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/lendingpool/LendingPoolConfigurator.sol
++++ /dev/null
+@@ -1,478 +0,0 @@
+-// SPDX-License-Identifier: agpl-3.0
+-pragma solidity 0.6.12;
+-pragma experimental ABIEncoderV2;
+-
+-import {SafeMath} from '../../dependencies/openzeppelin/contracts/SafeMath.sol';
+-import {VersionedInitializable} from '../libraries/aave-upgradeability/VersionedInitializable.sol';
+-import {InitializableImmutableAdminUpgradeabilityProxy} from '../libraries/aave-upgradeability/InitializableImmutableAdminUpgradeabilityProxy.sol';
+-import {ReserveConfiguration} from '../libraries/configuration/ReserveConfiguration.sol';
+-import {ILendingPoolAddressesProvider} from '../../interfaces/ILendingPoolAddressesProvider.sol';
+-import {ILendingPool} from '../../interfaces/ILendingPool.sol';
+-import {IERC20Detailed} from '../../dependencies/openzeppelin/contracts/IERC20Detailed.sol';
+-import {Errors} from '../libraries/helpers/Errors.sol';
+-import {PercentageMath} from '../libraries/math/PercentageMath.sol';
+-import {DataTypes} from '../libraries/types/DataTypes.sol';
+-import {IInitializableDebtToken} from '../../interfaces/IInitializableDebtToken.sol';
+-import {IInitializableAToken} from '../../interfaces/IInitializableAToken.sol';
+-import {IAaveIncentivesController} from '../../interfaces/IAaveIncentivesController.sol';
+-import {ILendingPoolConfigurator} from '../../interfaces/ILendingPoolConfigurator.sol';
+-
+-/**
+- * @title LendingPoolConfigurator contract
+- * @author Aave
+- * @dev Implements the configuration methods for the Aave protocol
+- **/
+-
+-contract LendingPoolConfigurator is VersionedInitializable, ILendingPoolConfigurator {
+-  using SafeMath for uint256;
+-  using PercentageMath for uint256;
+-  using ReserveConfiguration for DataTypes.ReserveConfigurationMap;
+-
+-  ILendingPoolAddressesProvider internal addressesProvider;
+-  ILendingPool internal pool;
+-
+-  modifier onlyPoolAdmin() {
+-    require(addressesProvider.getPoolAdmin() == msg.sender, Errors.CALLER_NOT_POOL_ADMIN);
+-    _;
+-  }
+-
+-  modifier onlyEmergencyAdmin() {
+-    require(
+-      addressesProvider.getEmergencyAdmin() == msg.sender,
+-      Errors.LPC_CALLER_NOT_EMERGENCY_ADMIN
+-    );
+-    _;
+-  }
+-
+-  uint256 internal constant CONFIGURATOR_REVISION = 0x1;
+-
+-  function getRevision() internal pure override returns (uint256) {
+-    return CONFIGURATOR_REVISION;
+-  }
+-
+-  function initialize(ILendingPoolAddressesProvider provider) public initializer {
+-    addressesProvider = provider;
+-    pool = ILendingPool(addressesProvider.getLendingPool());
+-  }
+-
+-  /**
+-   * @dev Initializes reserves in batch
+-   **/
+-  function batchInitReserve(InitReserveInput[] calldata input) external onlyPoolAdmin {
+-    ILendingPool cachedPool = pool;
+-    for (uint256 i = 0; i < input.length; i++) {
+-      _initReserve(cachedPool, input[i]);
+-    }
+-  }
+-
+-  function _initReserve(ILendingPool pool, InitReserveInput calldata input) internal {
+-    address aTokenProxyAddress = _initTokenWithProxy(
+-      input.aTokenImpl,
+-      abi.encodeWithSelector(
+-        IInitializableAToken.initialize.selector,
+-        pool,
+-        input.treasury,
+-        input.underlyingAsset,
+-        IAaveIncentivesController(input.incentivesController),
+-        input.underlyingAssetDecimals,
+-        input.aTokenName,
+-        input.aTokenSymbol,
+-        input.params
+-      )
+-    );
+-
+-    address stableDebtTokenProxyAddress = _initTokenWithProxy(
+-      input.stableDebtTokenImpl,
+-      abi.encodeWithSelector(
+-        IInitializableDebtToken.initialize.selector,
+-        pool,
+-        input.underlyingAsset,
+-        IAaveIncentivesController(input.incentivesController),
+-        input.underlyingAssetDecimals,
+-        input.stableDebtTokenName,
+-        input.stableDebtTokenSymbol,
+-        input.params
+-      )
+-    );
+-
+-    address variableDebtTokenProxyAddress = _initTokenWithProxy(
+-      input.variableDebtTokenImpl,
+-      abi.encodeWithSelector(
+-        IInitializableDebtToken.initialize.selector,
+-        pool,
+-        input.underlyingAsset,
+-        IAaveIncentivesController(input.incentivesController),
+-        input.underlyingAssetDecimals,
+-        input.variableDebtTokenName,
+-        input.variableDebtTokenSymbol,
+-        input.params
+-      )
+-    );
+-
+-    pool.initReserve(
+-      input.underlyingAsset,
+-      aTokenProxyAddress,
+-      stableDebtTokenProxyAddress,
+-      variableDebtTokenProxyAddress,
+-      input.interestRateStrategyAddress
+-    );
+-
+-    DataTypes.ReserveConfigurationMap memory currentConfig = pool.getConfiguration(
+-      input.underlyingAsset
+-    );
+-
+-    currentConfig.setDecimals(input.underlyingAssetDecimals);
+-
+-    currentConfig.setActive(true);
+-    currentConfig.setFrozen(false);
+-
+-    pool.setConfiguration(input.underlyingAsset, currentConfig.data);
+-
+-    emit ReserveInitialized(
+-      input.underlyingAsset,
+-      aTokenProxyAddress,
+-      stableDebtTokenProxyAddress,
+-      variableDebtTokenProxyAddress,
+-      input.interestRateStrategyAddress
+-    );
+-  }
+-
+-  /**
+-   * @dev Updates the aToken implementation for the reserve
+-   **/
+-  function updateAToken(UpdateATokenInput calldata input) external onlyPoolAdmin {
+-    ILendingPool cachedPool = pool;
+-
+-    DataTypes.ReserveData memory reserveData = cachedPool.getReserveData(input.asset);
+-
+-    (, , , uint256 decimals, ) = cachedPool.getConfiguration(input.asset).getParamsMemory();
+-
+-    bytes memory encodedCall = abi.encodeWithSelector(
+-      IInitializableAToken.initialize.selector,
+-      cachedPool,
+-      input.treasury,
+-      input.asset,
+-      input.incentivesController,
+-      decimals,
+-      input.name,
+-      input.symbol,
+-      input.params
+-    );
+-
+-    _upgradeTokenImplementation(reserveData.aTokenAddress, input.implementation, encodedCall);
+-
+-    emit ATokenUpgraded(input.asset, reserveData.aTokenAddress, input.implementation);
+-  }
+-
+-  /**
+-   * @dev Updates the stable debt token implementation for the reserve
+-   **/
+-  function updateStableDebtToken(UpdateDebtTokenInput calldata input) external onlyPoolAdmin {
+-    ILendingPool cachedPool = pool;
+-
+-    DataTypes.ReserveData memory reserveData = cachedPool.getReserveData(input.asset);
+-
+-    (, , , uint256 decimals, ) = cachedPool.getConfiguration(input.asset).getParamsMemory();
+-
+-    bytes memory encodedCall = abi.encodeWithSelector(
+-      IInitializableDebtToken.initialize.selector,
+-      cachedPool,
+-      input.asset,
+-      input.incentivesController,
+-      decimals,
+-      input.name,
+-      input.symbol,
+-      input.params
+-    );
+-
+-    _upgradeTokenImplementation(
+-      reserveData.stableDebtTokenAddress,
+-      input.implementation,
+-      encodedCall
+-    );
+-
+-    emit StableDebtTokenUpgraded(
+-      input.asset,
+-      reserveData.stableDebtTokenAddress,
+-      input.implementation
+-    );
+-  }
+-
+-  /**
+-   * @dev Updates the variable debt token implementation for the asset
+-   **/
+-  function updateVariableDebtToken(UpdateDebtTokenInput calldata input) external onlyPoolAdmin {
+-    ILendingPool cachedPool = pool;
+-
+-    DataTypes.ReserveData memory reserveData = cachedPool.getReserveData(input.asset);
+-
+-    (, , , uint256 decimals, ) = cachedPool.getConfiguration(input.asset).getParamsMemory();
+-
+-    bytes memory encodedCall = abi.encodeWithSelector(
+-      IInitializableDebtToken.initialize.selector,
+-      cachedPool,
+-      input.asset,
+-      input.incentivesController,
+-      decimals,
+-      input.name,
+-      input.symbol,
+-      input.params
+-    );
+-
+-    _upgradeTokenImplementation(
+-      reserveData.variableDebtTokenAddress,
+-      input.implementation,
+-      encodedCall
+-    );
+-
+-    emit VariableDebtTokenUpgraded(
+-      input.asset,
+-      reserveData.variableDebtTokenAddress,
+-      input.implementation
+-    );
+-  }
+-
+-  /**
+-   * @dev Enables borrowing on a reserve
+-   * @param asset The address of the underlying asset of the reserve
+-   * @param stableBorrowRateEnabled True if stable borrow rate needs to be enabled by default on this reserve
+-   **/
+-  function enableBorrowingOnReserve(
+-    address asset,
+-    bool stableBorrowRateEnabled
+-  ) external onlyPoolAdmin {
+-    DataTypes.ReserveConfigurationMap memory currentConfig = pool.getConfiguration(asset);
+-
+-    currentConfig.setBorrowingEnabled(true);
+-    currentConfig.setStableRateBorrowingEnabled(stableBorrowRateEnabled);
+-
+-    pool.setConfiguration(asset, currentConfig.data);
+-
+-    emit BorrowingEnabledOnReserve(asset, stableBorrowRateEnabled);
+-  }
+-
+-  /**
+-   * @dev Disables borrowing on a reserve
+-   * @param asset The address of the underlying asset of the reserve
+-   **/
+-  function disableBorrowingOnReserve(address asset) external onlyPoolAdmin {
+-    DataTypes.ReserveConfigurationMap memory currentConfig = pool.getConfiguration(asset);
+-
+-    currentConfig.setBorrowingEnabled(false);
+-
+-    pool.setConfiguration(asset, currentConfig.data);
+-    emit BorrowingDisabledOnReserve(asset);
+-  }
+-
+-  /**
+-   * @dev Configures the reserve collateralization parameters
+-   * all the values are expressed in percentages with two decimals of precision. A valid value is 10000, which means 100.00%
+-   * @param asset The address of the underlying asset of the reserve
+-   * @param ltv The loan to value of the asset when used as collateral
+-   * @param liquidationThreshold The threshold at which loans using this asset as collateral will be considered undercollateralized
+-   * @param liquidationBonus The bonus liquidators receive to liquidate this asset. The values is always above 100%. A value of 105%
+-   * means the liquidator will receive a 5% bonus
+-   **/
+-  function configureReserveAsCollateral(
+-    address asset,
+-    uint256 ltv,
+-    uint256 liquidationThreshold,
+-    uint256 liquidationBonus
+-  ) external onlyPoolAdmin {
+-    DataTypes.ReserveConfigurationMap memory currentConfig = pool.getConfiguration(asset);
+-
+-    //validation of the parameters: the LTV can
+-    //only be lower or equal than the liquidation threshold
+-    //(otherwise a loan against the asset would cause instantaneous liquidation)
+-    require(ltv <= liquidationThreshold, Errors.LPC_INVALID_CONFIGURATION);
+-
+-    if (liquidationThreshold != 0) {
+-      //liquidation bonus must be bigger than 100.00%, otherwise the liquidator would receive less
+-      //collateral than needed to cover the debt
+-      require(
+-        liquidationBonus > PercentageMath.PERCENTAGE_FACTOR,
+-        Errors.LPC_INVALID_CONFIGURATION
+-      );
+-
+-      //if threshold * bonus is less than PERCENTAGE_FACTOR, it's guaranteed that at the moment
+-      //a loan is taken there is enough collateral available to cover the liquidation bonus
+-      require(
+-        liquidationThreshold.percentMul(liquidationBonus) <= PercentageMath.PERCENTAGE_FACTOR,
+-        Errors.LPC_INVALID_CONFIGURATION
+-      );
+-    } else {
+-      require(liquidationBonus == 0, Errors.LPC_INVALID_CONFIGURATION);
+-      //if the liquidation threshold is being set to 0,
+-      // the reserve is being disabled as collateral. To do so,
+-      //we need to ensure no liquidity is deposited
+-      _checkNoLiquidity(asset);
+-    }
+-
+-    currentConfig.setLtv(ltv);
+-    currentConfig.setLiquidationThreshold(liquidationThreshold);
+-    currentConfig.setLiquidationBonus(liquidationBonus);
+-
+-    pool.setConfiguration(asset, currentConfig.data);
+-
+-    emit CollateralConfigurationChanged(asset, ltv, liquidationThreshold, liquidationBonus);
+-  }
+-
+-  /**
+-   * @dev Enable stable rate borrowing on a reserve
+-   * @param asset The address of the underlying asset of the reserve
+-   **/
+-  function enableReserveStableRate(address asset) external onlyPoolAdmin {
+-    DataTypes.ReserveConfigurationMap memory currentConfig = pool.getConfiguration(asset);
+-
+-    currentConfig.setStableRateBorrowingEnabled(true);
+-
+-    pool.setConfiguration(asset, currentConfig.data);
+-
+-    emit StableRateEnabledOnReserve(asset);
+-  }
+-
+-  /**
+-   * @dev Disable stable rate borrowing on a reserve
+-   * @param asset The address of the underlying asset of the reserve
+-   **/
+-  function disableReserveStableRate(address asset) external onlyPoolAdmin {
+-    DataTypes.ReserveConfigurationMap memory currentConfig = pool.getConfiguration(asset);
+-
+-    currentConfig.setStableRateBorrowingEnabled(false);
+-
+-    pool.setConfiguration(asset, currentConfig.data);
+-
+-    emit StableRateDisabledOnReserve(asset);
+-  }
+-
+-  /**
+-   * @dev Activates a reserve
+-   * @param asset The address of the underlying asset of the reserve
+-   **/
+-  function activateReserve(address asset) external onlyPoolAdmin {
+-    DataTypes.ReserveConfigurationMap memory currentConfig = pool.getConfiguration(asset);
+-
+-    currentConfig.setActive(true);
+-
+-    pool.setConfiguration(asset, currentConfig.data);
+-
+-    emit ReserveActivated(asset);
+-  }
+-
+-  /**
+-   * @dev Deactivates a reserve
+-   * @param asset The address of the underlying asset of the reserve
+-   **/
+-  function deactivateReserve(address asset) external onlyPoolAdmin {
+-    _checkNoLiquidity(asset);
+-
+-    DataTypes.ReserveConfigurationMap memory currentConfig = pool.getConfiguration(asset);
+-
+-    currentConfig.setActive(false);
+-
+-    pool.setConfiguration(asset, currentConfig.data);
+-
+-    emit ReserveDeactivated(asset);
+-  }
+-
+-  /**
+-   * @dev Freezes a reserve. A frozen reserve doesn't allow any new deposit, borrow or rate swap
+-   *  but allows repayments, liquidations, rate rebalances and withdrawals
+-   * @param asset The address of the underlying asset of the reserve
+-   **/
+-  function freezeReserve(address asset) external onlyPoolAdmin {
+-    DataTypes.ReserveConfigurationMap memory currentConfig = pool.getConfiguration(asset);
+-
+-    currentConfig.setFrozen(true);
+-
+-    pool.setConfiguration(asset, currentConfig.data);
+-
+-    emit ReserveFrozen(asset);
+-  }
+-
+-  /**
+-   * @dev Unfreezes a reserve
+-   * @param asset The address of the underlying asset of the reserve
+-   **/
+-  function unfreezeReserve(address asset) external onlyPoolAdmin {
+-    DataTypes.ReserveConfigurationMap memory currentConfig = pool.getConfiguration(asset);
+-
+-    currentConfig.setFrozen(false);
+-
+-    pool.setConfiguration(asset, currentConfig.data);
+-
+-    emit ReserveUnfrozen(asset);
+-  }
+-
+-  /**
+-   * @dev Updates the reserve factor of a reserve
+-   * @param asset The address of the underlying asset of the reserve
+-   * @param reserveFactor The new reserve factor of the reserve
+-   **/
+-  function setReserveFactor(address asset, uint256 reserveFactor) external onlyPoolAdmin {
+-    DataTypes.ReserveConfigurationMap memory currentConfig = pool.getConfiguration(asset);
+-
+-    currentConfig.setReserveFactor(reserveFactor);
+-
+-    pool.setConfiguration(asset, currentConfig.data);
+-
+-    emit ReserveFactorChanged(asset, reserveFactor);
+-  }
+-
+-  /**
+-   * @dev Sets the interest rate strategy of a reserve
+-   * @param asset The address of the underlying asset of the reserve
+-   * @param rateStrategyAddress The new address of the interest strategy contract
+-   **/
+-  function setReserveInterestRateStrategyAddress(
+-    address asset,
+-    address rateStrategyAddress
+-  ) external onlyPoolAdmin {
+-    pool.setReserveInterestRateStrategyAddress(asset, rateStrategyAddress);
+-    emit ReserveInterestRateStrategyChanged(asset, rateStrategyAddress);
+-  }
+-
+-  /**
+-   * @dev pauses or unpauses all the actions of the protocol, including aToken transfers
+-   * @param val true if protocol needs to be paused, false otherwise
+-   **/
+-  function setPoolPause(bool val) external onlyEmergencyAdmin {
+-    pool.setPause(val);
+-  }
+-
+-  function _initTokenWithProxy(
+-    address implementation,
+-    bytes memory initParams
+-  ) internal returns (address) {
+-    InitializableImmutableAdminUpgradeabilityProxy proxy = new InitializableImmutableAdminUpgradeabilityProxy(
+-        address(this)
+-      );
+-
+-    proxy.initialize(implementation, initParams);
+-
+-    return address(proxy);
+-  }
+-
+-  function _upgradeTokenImplementation(
+-    address proxyAddress,
+-    address implementation,
+-    bytes memory initParams
+-  ) internal {
+-    InitializableImmutableAdminUpgradeabilityProxy proxy = InitializableImmutableAdminUpgradeabilityProxy(
+-        payable(proxyAddress)
+-      );
+-
+-    proxy.upgradeToAndCall(implementation, initParams);
+-  }
+-
+-  function _checkNoLiquidity(address asset) internal view {
+-    DataTypes.ReserveData memory reserveData = pool.getReserveData(asset);
+-
+-    uint256 availableLiquidity = IERC20Detailed(asset).balanceOf(reserveData.aTokenAddress);
+-
+-    require(
+-      availableLiquidity == 0 && reserveData.currentLiquidityRate == 0,
+-      Errors.LPC_RESERVE_LIQUIDITY_NOT_0
+-    );
+-  }
+-}
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/libraries/aave-upgradeability/BaseImmutableAdminUpgradeabilityProxy.sol b/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/libraries/aave-upgradeability/BaseImmutableAdminUpgradeabilityProxy.sol
+deleted file mode 100644
+index ac4d10d..0000000
+--- a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/libraries/aave-upgradeability/BaseImmutableAdminUpgradeabilityProxy.sol
++++ /dev/null
+@@ -1,79 +0,0 @@
+-// SPDX-License-Identifier: agpl-3.0
+-pragma solidity 0.6.12;
+-
+-import '../../../dependencies/openzeppelin/upgradeability/BaseUpgradeabilityProxy.sol';
+-
+-/**
+- * @title BaseImmutableAdminUpgradeabilityProxy
+- * @author Aave, inspired by the OpenZeppelin upgradeability proxy pattern
+- * @dev This contract combines an upgradeability proxy with an authorization
+- * mechanism for administrative tasks. The admin role is stored in an immutable, which
+- * helps saving transactions costs
+- * All external functions in this contract must be guarded by the
+- * `ifAdmin` modifier. See ethereum/solidity#3864 for a Solidity
+- * feature proposal that would enable this to be done automatically.
+- */
+-contract BaseImmutableAdminUpgradeabilityProxy is BaseUpgradeabilityProxy {
+-  address immutable ADMIN;
+-
+-  constructor(address admin) public {
+-    ADMIN = admin;
+-  }
+-
+-  modifier ifAdmin() {
+-    if (msg.sender == ADMIN) {
+-      _;
+-    } else {
+-      _fallback();
+-    }
+-  }
+-
+-  /**
+-   * @return The address of the proxy admin.
+-   */
+-  function admin() external ifAdmin returns (address) {
+-    return ADMIN;
+-  }
+-
+-  /**
+-   * @return The address of the implementation.
+-   */
+-  function implementation() external ifAdmin returns (address) {
+-    return _implementation();
+-  }
+-
+-  /**
+-   * @dev Upgrade the backing implementation of the proxy.
+-   * Only the admin can call this function.
+-   * @param newImplementation Address of the new implementation.
+-   */
+-  function upgradeTo(address newImplementation) external ifAdmin {
+-    _upgradeTo(newImplementation);
+-  }
+-
+-  /**
+-   * @dev Upgrade the backing implementation of the proxy and call a function
+-   * on the new implementation.
+-   * This is useful to initialize the proxied contract.
+-   * @param newImplementation Address of the new implementation.
+-   * @param data Data to send as msg.data in the low level call.
+-   * It should include the signature and the parameters of the function to be called, as described in
+-   * https://solidity.readthedocs.io/en/v0.4.24/abi-spec.html#function-selector-and-argument-encoding.
+-   */
+-  function upgradeToAndCall(
+-    address newImplementation,
+-    bytes calldata data
+-  ) external payable ifAdmin {
+-    _upgradeTo(newImplementation);
+-    (bool success, ) = newImplementation.delegatecall(data);
+-    require(success);
+-  }
+-
+-  /**
+-   * @dev Only fall back when the sender is not the admin.
+-   */
+-  function _willFallback() internal virtual override {
+-    require(msg.sender != ADMIN, 'Cannot call fallback function from the proxy admin');
+-    super._willFallback();
+-  }
+-}
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/libraries/aave-upgradeability/InitializableImmutableAdminUpgradeabilityProxy.sol b/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/libraries/aave-upgradeability/InitializableImmutableAdminUpgradeabilityProxy.sol
+deleted file mode 100644
+index d6478af..0000000
+--- a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/libraries/aave-upgradeability/InitializableImmutableAdminUpgradeabilityProxy.sol
++++ /dev/null
+@@ -1,23 +0,0 @@
+-// SPDX-License-Identifier: agpl-3.0
+-pragma solidity 0.6.12;
+-
+-import './BaseImmutableAdminUpgradeabilityProxy.sol';
+-import '../../../dependencies/openzeppelin/upgradeability/InitializableUpgradeabilityProxy.sol';
+-
+-/**
+- * @title InitializableAdminUpgradeabilityProxy
+- * @dev Extends BaseAdminUpgradeabilityProxy with an initializer function
+- */
+-contract InitializableImmutableAdminUpgradeabilityProxy is
+-  BaseImmutableAdminUpgradeabilityProxy,
+-  InitializableUpgradeabilityProxy
+-{
+-  constructor(address admin) public BaseImmutableAdminUpgradeabilityProxy(admin) {}
+-
+-  /**
+-   * @dev Only fall back when the sender is not the admin.
+-   */
+-  function _willFallback() internal override(BaseImmutableAdminUpgradeabilityProxy, Proxy) {
+-    BaseImmutableAdminUpgradeabilityProxy._willFallback();
+-  }
+-}
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/tokenization/AToken.sol b/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/tokenization/AToken.sol
+deleted file mode 100644
+index 73456cb..0000000
+--- a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/tokenization/AToken.sol
++++ /dev/null
+@@ -1,388 +0,0 @@
+-// SPDX-License-Identifier: agpl-3.0
+-pragma solidity 0.6.12;
+-
+-import {IERC20} from '../../dependencies/openzeppelin/contracts/IERC20.sol';
+-import {SafeERC20} from '../../dependencies/openzeppelin/contracts/SafeERC20.sol';
+-import {ILendingPool} from '../../interfaces/ILendingPool.sol';
+-import {IAToken} from '../../interfaces/IAToken.sol';
+-import {WadRayMath} from '../libraries/math/WadRayMath.sol';
+-import {Errors} from '../libraries/helpers/Errors.sol';
+-import {VersionedInitializable} from '../libraries/aave-upgradeability/VersionedInitializable.sol';
+-import {IncentivizedERC20} from './IncentivizedERC20.sol';
+-import {IAaveIncentivesController} from '../../interfaces/IAaveIncentivesController.sol';
+-
+-/**
+- * @title Aave ERC20 AToken
+- * @dev Implementation of the interest bearing token for the Aave protocol
+- * @author Aave
+- */
+-contract AToken is
+-  VersionedInitializable,
+-  IncentivizedERC20('ATOKEN_IMPL', 'ATOKEN_IMPL', 0),
+-  IAToken
+-{
+-  using WadRayMath for uint256;
+-  using SafeERC20 for IERC20;
+-
+-  bytes public constant EIP712_REVISION = bytes('1');
+-  bytes32 internal constant EIP712_DOMAIN =
+-    keccak256('EIP712Domain(string name,string version,uint256 chainId,address verifyingContract)');
+-  bytes32 public constant PERMIT_TYPEHASH =
+-    keccak256('Permit(address owner,address spender,uint256 value,uint256 nonce,uint256 deadline)');
+-
+-  uint256 public constant ATOKEN_REVISION = 0x1;
+-
+-  /// @dev owner => next valid nonce to submit with permit()
+-  mapping(address => uint256) public _nonces;
+-
+-  bytes32 public DOMAIN_SEPARATOR;
+-
+-  ILendingPool internal _pool;
+-  address internal _treasury;
+-  address internal _underlyingAsset;
+-  IAaveIncentivesController internal _incentivesController;
+-
+-  modifier onlyLendingPool() {
+-    require(_msgSender() == address(_pool), Errors.CT_CALLER_MUST_BE_LENDING_POOL);
+-    _;
+-  }
+-
+-  function getRevision() internal pure virtual override returns (uint256) {
+-    return ATOKEN_REVISION;
+-  }
+-
+-  /**
+-   * @dev Initializes the aToken
+-   * @param pool The address of the lending pool where this aToken will be used
+-   * @param treasury The address of the Aave treasury, receiving the fees on this aToken
+-   * @param underlyingAsset The address of the underlying asset of this aToken (E.g. WETH for aWETH)
+-   * @param incentivesController The smart contract managing potential incentives distribution
+-   * @param aTokenDecimals The decimals of the aToken, same as the underlying asset's
+-   * @param aTokenName The name of the aToken
+-   * @param aTokenSymbol The symbol of the aToken
+-   */
+-  function initialize(
+-    ILendingPool pool,
+-    address treasury,
+-    address underlyingAsset,
+-    IAaveIncentivesController incentivesController,
+-    uint8 aTokenDecimals,
+-    string calldata aTokenName,
+-    string calldata aTokenSymbol,
+-    bytes calldata params
+-  ) external override initializer {
+-    uint256 chainId;
+-
+-    //solium-disable-next-line
+-    assembly {
+-      chainId := chainid()
+-    }
+-
+-    DOMAIN_SEPARATOR = keccak256(
+-      abi.encode(
+-        EIP712_DOMAIN,
+-        keccak256(bytes(aTokenName)),
+-        keccak256(EIP712_REVISION),
+-        chainId,
+-        address(this)
+-      )
+-    );
+-
+-    _setName(aTokenName);
+-    _setSymbol(aTokenSymbol);
+-    _setDecimals(aTokenDecimals);
+-
+-    _pool = pool;
+-    _treasury = treasury;
+-    _underlyingAsset = underlyingAsset;
+-    _incentivesController = incentivesController;
+-
+-    emit Initialized(
+-      underlyingAsset,
+-      address(pool),
+-      treasury,
+-      address(incentivesController),
+-      aTokenDecimals,
+-      aTokenName,
+-      aTokenSymbol,
+-      params
+-    );
+-  }
+-
+-  /**
+-   * @dev Burns aTokens from `user` and sends the equivalent amount of underlying to `receiverOfUnderlying`
+-   * - Only callable by the LendingPool, as extra state updates there need to be managed
+-   * @param user The owner of the aTokens, getting them burned
+-   * @param receiverOfUnderlying The address that will receive the underlying
+-   * @param amount The amount being burned
+-   * @param index The new liquidity index of the reserve
+-   **/
+-  function burn(
+-    address user,
+-    address receiverOfUnderlying,
+-    uint256 amount,
+-    uint256 index
+-  ) external override onlyLendingPool {
+-    uint256 amountScaled = amount.rayDiv(index);
+-    require(amountScaled != 0, Errors.CT_INVALID_BURN_AMOUNT);
+-    _burn(user, amountScaled);
+-
+-    IERC20(_underlyingAsset).safeTransfer(receiverOfUnderlying, amount);
+-
+-    emit Transfer(user, address(0), amount);
+-    emit Burn(user, receiverOfUnderlying, amount, index);
+-  }
+-
+-  /**
+-   * @dev Mints `amount` aTokens to `user`
+-   * - Only callable by the LendingPool, as extra state updates there need to be managed
+-   * @param user The address receiving the minted tokens
+-   * @param amount The amount of tokens getting minted
+-   * @param index The new liquidity index of the reserve
+-   * @return `true` if the the previous balance of the user was 0
+-   */
+-  function mint(
+-    address user,
+-    uint256 amount,
+-    uint256 index
+-  ) external override onlyLendingPool returns (bool) {
+-    uint256 previousBalance = super.balanceOf(user);
+-
+-    uint256 amountScaled = amount.rayDiv(index);
+-    require(amountScaled != 0, Errors.CT_INVALID_MINT_AMOUNT);
+-    _mint(user, amountScaled);
+-
+-    emit Transfer(address(0), user, amount);
+-    emit Mint(user, amount, index);
+-
+-    return previousBalance == 0;
+-  }
+-
+-  /**
+-   * @dev Mints aTokens to the reserve treasury
+-   * - Only callable by the LendingPool
+-   * @param amount The amount of tokens getting minted
+-   * @param index The new liquidity index of the reserve
+-   */
+-  function mintToTreasury(uint256 amount, uint256 index) external override onlyLendingPool {
+-    if (amount == 0) {
+-      return;
+-    }
+-
+-    address treasury = _treasury;
+-
+-    // Compared to the normal mint, we don't check for rounding errors.
+-    // The amount to mint can easily be very small since it is a fraction of the interest ccrued.
+-    // In that case, the treasury will experience a (very small) loss, but it
+-    // wont cause potentially valid transactions to fail.
+-    _mint(treasury, amount.rayDiv(index));
+-
+-    emit Transfer(address(0), treasury, amount);
+-    emit Mint(treasury, amount, index);
+-  }
+-
+-  /**
+-   * @dev Transfers aTokens in the event of a borrow being liquidated, in case the liquidators reclaims the aToken
+-   * - Only callable by the LendingPool
+-   * @param from The address getting liquidated, current owner of the aTokens
+-   * @param to The recipient
+-   * @param value The amount of tokens getting transferred
+-   **/
+-  function transferOnLiquidation(
+-    address from,
+-    address to,
+-    uint256 value
+-  ) external override onlyLendingPool {
+-    // Being a normal transfer, the Transfer() and BalanceTransfer() are emitted
+-    // so no need to emit a specific event here
+-    _transfer(from, to, value, false);
+-
+-    emit Transfer(from, to, value);
+-  }
+-
+-  /**
+-   * @dev Calculates the balance of the user: principal balance + interest generated by the principal
+-   * @param user The user whose balance is calculated
+-   * @return The balance of the user
+-   **/
+-  function balanceOf(
+-    address user
+-  ) public view override(IncentivizedERC20, IERC20) returns (uint256) {
+-    return super.balanceOf(user).rayMul(_pool.getReserveNormalizedIncome(_underlyingAsset));
+-  }
+-
+-  /**
+-   * @dev Returns the scaled balance of the user. The scaled balance is the sum of all the
+-   * updated stored balance divided by the reserve's liquidity index at the moment of the update
+-   * @param user The user whose balance is calculated
+-   * @return The scaled balance of the user
+-   **/
+-  function scaledBalanceOf(address user) external view override returns (uint256) {
+-    return super.balanceOf(user);
+-  }
+-
+-  /**
+-   * @dev Returns the scaled balance of the user and the scaled total supply.
+-   * @param user The address of the user
+-   * @return The scaled balance of the user
+-   * @return The scaled balance and the scaled total supply
+-   **/
+-  function getScaledUserBalanceAndSupply(
+-    address user
+-  ) external view override returns (uint256, uint256) {
+-    return (super.balanceOf(user), super.totalSupply());
+-  }
+-
+-  /**
+-   * @dev calculates the total supply of the specific aToken
+-   * since the balance of every single user increases over time, the total supply
+-   * does that too.
+-   * @return the current total supply
+-   **/
+-  function totalSupply() public view override(IncentivizedERC20, IERC20) returns (uint256) {
+-    uint256 currentSupplyScaled = super.totalSupply();
+-
+-    if (currentSupplyScaled == 0) {
+-      return 0;
+-    }
+-
+-    return currentSupplyScaled.rayMul(_pool.getReserveNormalizedIncome(_underlyingAsset));
+-  }
+-
+-  /**
+-   * @dev Returns the scaled total supply of the variable debt token. Represents sum(debt/index)
+-   * @return the scaled total supply
+-   **/
+-  function scaledTotalSupply() public view virtual override returns (uint256) {
+-    return super.totalSupply();
+-  }
+-
+-  /**
+-   * @dev Returns the address of the Aave treasury, receiving the fees on this aToken
+-   **/
+-  function RESERVE_TREASURY_ADDRESS() public view returns (address) {
+-    return _treasury;
+-  }
+-
+-  /**
+-   * @dev Returns the address of the underlying asset of this aToken (E.g. WETH for aWETH)
+-   **/
+-  function UNDERLYING_ASSET_ADDRESS() public view returns (address) {
+-    return _underlyingAsset;
+-  }
+-
+-  /**
+-   * @dev Returns the address of the lending pool where this aToken is used
+-   **/
+-  function POOL() public view returns (ILendingPool) {
+-    return _pool;
+-  }
+-
+-  /**
+-   * @dev For internal usage in the logic of the parent contract IncentivizedERC20
+-   **/
+-  function _getIncentivesController() internal view override returns (IAaveIncentivesController) {
+-    return _incentivesController;
+-  }
+-
+-  /**
+-   * @dev Returns the address of the incentives controller contract
+-   **/
+-  function getIncentivesController() external view override returns (IAaveIncentivesController) {
+-    return _getIncentivesController();
+-  }
+-
+-  /**
+-   * @dev Transfers the underlying asset to `target`. Used by the LendingPool to transfer
+-   * assets in borrow(), withdraw() and flashLoan()
+-   * @param target The recipient of the aTokens
+-   * @param amount The amount getting transferred
+-   * @return The amount transferred
+-   **/
+-  function transferUnderlyingTo(
+-    address target,
+-    uint256 amount
+-  ) external override onlyLendingPool returns (uint256) {
+-    IERC20(_underlyingAsset).safeTransfer(target, amount);
+-    return amount;
+-  }
+-
+-  /**
+-   * @dev Invoked to execute actions on the aToken side after a repayment.
+-   * @param user The user executing the repayment
+-   * @param amount The amount getting repaid
+-   **/
+-  function handleRepayment(address user, uint256 amount) external override onlyLendingPool {}
+-
+-  /**
+-   * @dev implements the permit function as for
+-   * https://github.com/ethereum/EIPs/blob/8a34d644aacf0f9f8f00815307fd7dd5da07655f/EIPS/eip-2612.md
+-   * @param owner The owner of the funds
+-   * @param spender The spender
+-   * @param value The amount
+-   * @param deadline The deadline timestamp, type(uint256).max for max deadline
+-   * @param v Signature param
+-   * @param s Signature param
+-   * @param r Signature param
+-   */
+-  function permit(
+-    address owner,
+-    address spender,
+-    uint256 value,
+-    uint256 deadline,
+-    uint8 v,
+-    bytes32 r,
+-    bytes32 s
+-  ) external {
+-    require(owner != address(0), 'INVALID_OWNER');
+-    //solium-disable-next-line
+-    require(block.timestamp <= deadline, 'INVALID_EXPIRATION');
+-    uint256 currentValidNonce = _nonces[owner];
+-    bytes32 digest = keccak256(
+-      abi.encodePacked(
+-        '\x19\x01',
+-        DOMAIN_SEPARATOR,
+-        keccak256(abi.encode(PERMIT_TYPEHASH, owner, spender, value, currentValidNonce, deadline))
+-      )
+-    );
+-    require(owner == ecrecover(digest, v, r, s), 'INVALID_SIGNATURE');
+-    _nonces[owner] = currentValidNonce.add(1);
+-    _approve(owner, spender, value);
+-  }
+-
+-  /**
+-   * @dev Transfers the aTokens between two users. Validates the transfer
+-   * (ie checks for valid HF after the transfer) if required
+-   * @param from The source address
+-   * @param to The destination address
+-   * @param amount The amount getting transferred
+-   * @param validate `true` if the transfer needs to be validated
+-   **/
+-  function _transfer(address from, address to, uint256 amount, bool validate) internal {
+-    address underlyingAsset = _underlyingAsset;
+-    ILendingPool pool = _pool;
+-
+-    uint256 index = pool.getReserveNormalizedIncome(underlyingAsset);
+-
+-    uint256 fromBalanceBefore = super.balanceOf(from).rayMul(index);
+-    uint256 toBalanceBefore = super.balanceOf(to).rayMul(index);
+-
+-    super._transfer(from, to, amount.rayDiv(index));
+-
+-    if (validate) {
+-      pool.finalizeTransfer(underlyingAsset, from, to, amount, fromBalanceBefore, toBalanceBefore);
+-    }
+-
+-    emit BalanceTransfer(from, to, amount, index);
+-  }
+-
+-  /**
+-   * @dev Overrides the parent _transfer to force validated transfer() and transferFrom()
+-   * @param from The source address
+-   * @param to The destination address
+-   * @param amount The amount getting transferred
+-   **/
+-  function _transfer(address from, address to, uint256 amount) internal override {
+-    _transfer(from, to, amount, true);
+-  }
+-}
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/tokenization/DelegationAwareAToken.sol b/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/tokenization/DelegationAwareAToken.sol
+deleted file mode 100644
+index d9591fa..0000000
+--- a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/tokenization/DelegationAwareAToken.sol
++++ /dev/null
+@@ -1,30 +0,0 @@
+-// SPDX-License-Identifier: agpl-3.0
+-pragma solidity 0.6.12;
+-
+-import {ILendingPool} from '../../interfaces/ILendingPool.sol';
+-import {IDelegationToken} from '../../interfaces/IDelegationToken.sol';
+-import {Errors} from '../libraries/helpers/Errors.sol';
+-import {AToken} from './AToken.sol';
+-
+-/**
+- * @title Aave AToken enabled to delegate voting power of the underlying asset to a different address
+- * @dev The underlying asset needs to be compatible with the COMP delegation interface
+- * @author Aave
+- */
+-contract DelegationAwareAToken is AToken {
+-  modifier onlyPoolAdmin() {
+-    require(
+-      _msgSender() == ILendingPool(_pool).getAddressesProvider().getPoolAdmin(),
+-      Errors.CALLER_NOT_POOL_ADMIN
+-    );
+-    _;
+-  }
+-
+-  /**
+-   * @dev Delegates voting power of the underlying asset to a `delegatee` address
+-   * @param delegatee The address that will receive the delegation
+-   **/
+-  function delegateUnderlyingTo(address delegatee) external onlyPoolAdmin {
+-    IDelegationToken(_underlyingAsset).delegate(delegatee);
+-  }
+-}
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/tokenization/IncentivizedERC20.sol b/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/tokenization/IncentivizedERC20.sol
+deleted file mode 100644
+index 48d271b..0000000
+--- a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/tokenization/IncentivizedERC20.sol
++++ /dev/null
+@@ -1,235 +0,0 @@
+-// SPDX-License-Identifier: agpl-3.0
+-pragma solidity 0.6.12;
+-
+-import {Context} from '../../dependencies/openzeppelin/contracts/Context.sol';
+-import {IERC20} from '../../dependencies/openzeppelin/contracts/IERC20.sol';
+-import {IERC20Detailed} from '../../dependencies/openzeppelin/contracts/IERC20Detailed.sol';
+-import {SafeMath} from '../../dependencies/openzeppelin/contracts/SafeMath.sol';
+-import {IAaveIncentivesController} from '../../interfaces/IAaveIncentivesController.sol';
+-
+-/**
+- * @title ERC20
+- * @notice Basic ERC20 implementation
+- * @author Aave, inspired by the Openzeppelin ERC20 implementation
+- **/
+-abstract contract IncentivizedERC20 is Context, IERC20, IERC20Detailed {
+-  using SafeMath for uint256;
+-
+-  mapping(address => uint256) internal _balances;
+-
+-  mapping(address => mapping(address => uint256)) private _allowances;
+-  uint256 internal _totalSupply;
+-  string private _name;
+-  string private _symbol;
+-  uint8 private _decimals;
+-
+-  constructor(string memory name, string memory symbol, uint8 decimals) public {
+-    _name = name;
+-    _symbol = symbol;
+-    _decimals = decimals;
+-  }
+-
+-  /**
+-   * @return The name of the token
+-   **/
+-  function name() public view override returns (string memory) {
+-    return _name;
+-  }
+-
+-  /**
+-   * @return The symbol of the token
+-   **/
+-  function symbol() public view override returns (string memory) {
+-    return _symbol;
+-  }
+-
+-  /**
+-   * @return The decimals of the token
+-   **/
+-  function decimals() public view override returns (uint8) {
+-    return _decimals;
+-  }
+-
+-  /**
+-   * @return The total supply of the token
+-   **/
+-  function totalSupply() public view virtual override returns (uint256) {
+-    return _totalSupply;
+-  }
+-
+-  /**
+-   * @return The balance of the token
+-   **/
+-  function balanceOf(address account) public view virtual override returns (uint256) {
+-    return _balances[account];
+-  }
+-
+-  /**
+-   * @return Abstract function implemented by the child aToken/debtToken.
+-   * Done this way in order to not break compatibility with previous versions of aTokens/debtTokens
+-   **/
+-  function _getIncentivesController() internal view virtual returns (IAaveIncentivesController);
+-
+-  /**
+-   * @dev Executes a transfer of tokens from _msgSender() to recipient
+-   * @param recipient The recipient of the tokens
+-   * @param amount The amount of tokens being transferred
+-   * @return `true` if the transfer succeeds, `false` otherwise
+-   **/
+-  function transfer(address recipient, uint256 amount) public virtual override returns (bool) {
+-    _transfer(_msgSender(), recipient, amount);
+-    emit Transfer(_msgSender(), recipient, amount);
+-    return true;
+-  }
+-
+-  /**
+-   * @dev Returns the allowance of spender on the tokens owned by owner
+-   * @param owner The owner of the tokens
+-   * @param spender The user allowed to spend the owner's tokens
+-   * @return The amount of owner's tokens spender is allowed to spend
+-   **/
+-  function allowance(
+-    address owner,
+-    address spender
+-  ) public view virtual override returns (uint256) {
+-    return _allowances[owner][spender];
+-  }
+-
+-  /**
+-   * @dev Allows `spender` to spend the tokens owned by _msgSender()
+-   * @param spender The user allowed to spend _msgSender() tokens
+-   * @return `true`
+-   **/
+-  function approve(address spender, uint256 amount) public virtual override returns (bool) {
+-    _approve(_msgSender(), spender, amount);
+-    return true;
+-  }
+-
+-  /**
+-   * @dev Executes a transfer of token from sender to recipient, if _msgSender() is allowed to do so
+-   * @param sender The owner of the tokens
+-   * @param recipient The recipient of the tokens
+-   * @param amount The amount of tokens being transferred
+-   * @return `true` if the transfer succeeds, `false` otherwise
+-   **/
+-  function transferFrom(
+-    address sender,
+-    address recipient,
+-    uint256 amount
+-  ) public virtual override returns (bool) {
+-    _transfer(sender, recipient, amount);
+-    _approve(
+-      sender,
+-      _msgSender(),
+-      _allowances[sender][_msgSender()].sub(amount, 'ERC20: transfer amount exceeds allowance')
+-    );
+-    emit Transfer(sender, recipient, amount);
+-    return true;
+-  }
+-
+-  /**
+-   * @dev Increases the allowance of spender to spend _msgSender() tokens
+-   * @param spender The user allowed to spend on behalf of _msgSender()
+-   * @param addedValue The amount being added to the allowance
+-   * @return `true`
+-   **/
+-  function increaseAllowance(address spender, uint256 addedValue) public virtual returns (bool) {
+-    _approve(_msgSender(), spender, _allowances[_msgSender()][spender].add(addedValue));
+-    return true;
+-  }
+-
+-  /**
+-   * @dev Decreases the allowance of spender to spend _msgSender() tokens
+-   * @param spender The user allowed to spend on behalf of _msgSender()
+-   * @param subtractedValue The amount being subtracted to the allowance
+-   * @return `true`
+-   **/
+-  function decreaseAllowance(
+-    address spender,
+-    uint256 subtractedValue
+-  ) public virtual returns (bool) {
+-    _approve(
+-      _msgSender(),
+-      spender,
+-      _allowances[_msgSender()][spender].sub(
+-        subtractedValue,
+-        'ERC20: decreased allowance below zero'
+-      )
+-    );
+-    return true;
+-  }
+-
+-  function _transfer(address sender, address recipient, uint256 amount) internal virtual {
+-    require(sender != address(0), 'ERC20: transfer from the zero address');
+-    require(recipient != address(0), 'ERC20: transfer to the zero address');
+-
+-    _beforeTokenTransfer(sender, recipient, amount);
+-
+-    uint256 oldSenderBalance = _balances[sender];
+-    _balances[sender] = oldSenderBalance.sub(amount, 'ERC20: transfer amount exceeds balance');
+-    uint256 oldRecipientBalance = _balances[recipient];
+-    _balances[recipient] = _balances[recipient].add(amount);
+-
+-    if (address(_getIncentivesController()) != address(0)) {
+-      uint256 currentTotalSupply = _totalSupply;
+-      _getIncentivesController().handleAction(sender, currentTotalSupply, oldSenderBalance);
+-      if (sender != recipient) {
+-        _getIncentivesController().handleAction(recipient, currentTotalSupply, oldRecipientBalance);
+-      }
+-    }
+-  }
+-
+-  function _mint(address account, uint256 amount) internal virtual {
+-    require(account != address(0), 'ERC20: mint to the zero address');
+-
+-    _beforeTokenTransfer(address(0), account, amount);
+-
+-    uint256 oldTotalSupply = _totalSupply;
+-    _totalSupply = oldTotalSupply.add(amount);
+-
+-    uint256 oldAccountBalance = _balances[account];
+-    _balances[account] = oldAccountBalance.add(amount);
+-
+-    if (address(_getIncentivesController()) != address(0)) {
+-      _getIncentivesController().handleAction(account, oldTotalSupply, oldAccountBalance);
+-    }
+-  }
+-
+-  function _burn(address account, uint256 amount) internal virtual {
+-    require(account != address(0), 'ERC20: burn from the zero address');
+-
+-    _beforeTokenTransfer(account, address(0), amount);
+-
+-    uint256 oldTotalSupply = _totalSupply;
+-    _totalSupply = oldTotalSupply.sub(amount);
+-
+-    uint256 oldAccountBalance = _balances[account];
+-    _balances[account] = oldAccountBalance.sub(amount, 'ERC20: burn amount exceeds balance');
+-
+-    if (address(_getIncentivesController()) != address(0)) {
+-      _getIncentivesController().handleAction(account, oldTotalSupply, oldAccountBalance);
+-    }
+-  }
+-
+-  function _approve(address owner, address spender, uint256 amount) internal virtual {
+-    require(owner != address(0), 'ERC20: approve from the zero address');
+-    require(spender != address(0), 'ERC20: approve to the zero address');
+-
+-    _allowances[owner][spender] = amount;
+-    emit Approval(owner, spender, amount);
+-  }
+-
+-  function _setName(string memory newName) internal {
+-    _name = newName;
+-  }
+-
+-  function _setSymbol(string memory newSymbol) internal {
+-    _symbol = newSymbol;
+-  }
+-
+-  function _setDecimals(uint8 newDecimals) internal {
+-    _decimals = newDecimals;
+-  }
+-
+-  function _beforeTokenTransfer(address from, address to, uint256 amount) internal virtual {}
+-}
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/tokenization/StableDebtToken.sol b/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/tokenization/StableDebtToken.sol
+deleted file mode 100644
+index 2b5c096..0000000
+--- a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/tokenization/StableDebtToken.sol
++++ /dev/null
+@@ -1,415 +0,0 @@
+-// SPDX-License-Identifier: agpl-3.0
+-pragma solidity 0.6.12;
+-
+-import {DebtTokenBase} from './base/DebtTokenBase.sol';
+-import {MathUtils} from '../libraries/math/MathUtils.sol';
+-import {WadRayMath} from '../libraries/math/WadRayMath.sol';
+-import {IStableDebtToken} from '../../interfaces/IStableDebtToken.sol';
+-import {ILendingPool} from '../../interfaces/ILendingPool.sol';
+-import {IAaveIncentivesController} from '../../interfaces/IAaveIncentivesController.sol';
+-import {Errors} from '../libraries/helpers/Errors.sol';
+-
+-/**
+- * @title StableDebtToken
+- * @notice Implements a stable debt token to track the borrowing positions of users
+- * at stable rate mode
+- * @author Aave
+- **/
+-contract StableDebtToken is IStableDebtToken, DebtTokenBase {
+-  using WadRayMath for uint256;
+-
+-  uint256 public constant DEBT_TOKEN_REVISION = 0x1;
+-
+-  uint256 internal _avgStableRate;
+-  mapping(address => uint40) internal _timestamps;
+-  mapping(address => uint256) internal _usersStableRate;
+-  uint40 internal _totalSupplyTimestamp;
+-
+-  ILendingPool internal _pool;
+-  address internal _underlyingAsset;
+-  IAaveIncentivesController internal _incentivesController;
+-
+-  /**
+-   * @dev Initializes the debt token.
+-   * @param pool The address of the lending pool where this aToken will be used
+-   * @param underlyingAsset The address of the underlying asset of this aToken (E.g. WETH for aWETH)
+-   * @param incentivesController The smart contract managing potential incentives distribution
+-   * @param debtTokenDecimals The decimals of the debtToken, same as the underlying asset's
+-   * @param debtTokenName The name of the token
+-   * @param debtTokenSymbol The symbol of the token
+-   */
+-  function initialize(
+-    ILendingPool pool,
+-    address underlyingAsset,
+-    IAaveIncentivesController incentivesController,
+-    uint8 debtTokenDecimals,
+-    string memory debtTokenName,
+-    string memory debtTokenSymbol,
+-    bytes calldata params
+-  ) public override initializer {
+-    _setName(debtTokenName);
+-    _setSymbol(debtTokenSymbol);
+-    _setDecimals(debtTokenDecimals);
+-
+-    _pool = pool;
+-    _underlyingAsset = underlyingAsset;
+-    _incentivesController = incentivesController;
+-
+-    emit Initialized(
+-      underlyingAsset,
+-      address(pool),
+-      address(incentivesController),
+-      debtTokenDecimals,
+-      debtTokenName,
+-      debtTokenSymbol,
+-      params
+-    );
+-  }
+-
+-  /**
+-   * @dev Gets the revision of the stable debt token implementation
+-   * @return The debt token implementation revision
+-   **/
+-  function getRevision() internal pure virtual override returns (uint256) {
+-    return DEBT_TOKEN_REVISION;
+-  }
+-
+-  /**
+-   * @dev Returns the average stable rate across all the stable rate debt
+-   * @return the average stable rate
+-   **/
+-  function getAverageStableRate() external view virtual override returns (uint256) {
+-    return _avgStableRate;
+-  }
+-
+-  /**
+-   * @dev Returns the timestamp of the last user action
+-   * @return The last update timestamp
+-   **/
+-  function getUserLastUpdated(address user) external view virtual override returns (uint40) {
+-    return _timestamps[user];
+-  }
+-
+-  /**
+-   * @dev Returns the stable rate of the user
+-   * @param user The address of the user
+-   * @return The stable rate of user
+-   **/
+-  function getUserStableRate(address user) external view virtual override returns (uint256) {
+-    return _usersStableRate[user];
+-  }
+-
+-  /**
+-   * @dev Calculates the current user debt balance
+-   * @return The accumulated debt of the user
+-   **/
+-  function balanceOf(address account) public view virtual override returns (uint256) {
+-    uint256 accountBalance = super.balanceOf(account);
+-    uint256 stableRate = _usersStableRate[account];
+-    if (accountBalance == 0) {
+-      return 0;
+-    }
+-    uint256 cumulatedInterest = MathUtils.calculateCompoundedInterest(
+-      stableRate,
+-      _timestamps[account]
+-    );
+-    return accountBalance.rayMul(cumulatedInterest);
+-  }
+-
+-  struct MintLocalVars {
+-    uint256 previousSupply;
+-    uint256 nextSupply;
+-    uint256 amountInRay;
+-    uint256 newStableRate;
+-    uint256 currentAvgStableRate;
+-  }
+-
+-  /**
+-   * @dev Mints debt token to the `onBehalfOf` address.
+-   * -  Only callable by the LendingPool
+-   * - The resulting rate is the weighted average between the rate of the new debt
+-   * and the rate of the previous debt
+-   * @param user The address receiving the borrowed underlying, being the delegatee in case
+-   * of credit delegate, or same as `onBehalfOf` otherwise
+-   * @param onBehalfOf The address receiving the debt tokens
+-   * @param amount The amount of debt tokens to mint
+-   * @param rate The rate of the debt being minted
+-   **/
+-  function mint(
+-    address user,
+-    address onBehalfOf,
+-    uint256 amount,
+-    uint256 rate
+-  ) external override onlyLendingPool returns (bool) {
+-    MintLocalVars memory vars;
+-
+-    if (user != onBehalfOf) {
+-      _decreaseBorrowAllowance(onBehalfOf, user, amount);
+-    }
+-
+-    (, uint256 currentBalance, uint256 balanceIncrease) = _calculateBalanceIncrease(onBehalfOf);
+-
+-    vars.previousSupply = totalSupply();
+-    vars.currentAvgStableRate = _avgStableRate;
+-    vars.nextSupply = _totalSupply = vars.previousSupply.add(amount);
+-
+-    vars.amountInRay = amount.wadToRay();
+-
+-    vars.newStableRate = _usersStableRate[onBehalfOf]
+-      .rayMul(currentBalance.wadToRay())
+-      .add(vars.amountInRay.rayMul(rate))
+-      .rayDiv(currentBalance.add(amount).wadToRay());
+-
+-    require(vars.newStableRate <= type(uint128).max, Errors.SDT_STABLE_DEBT_OVERFLOW);
+-    _usersStableRate[onBehalfOf] = vars.newStableRate;
+-
+-    //solium-disable-next-line
+-    _totalSupplyTimestamp = _timestamps[onBehalfOf] = uint40(block.timestamp);
+-
+-    // Calculates the updated average stable rate
+-    vars.currentAvgStableRate = _avgStableRate = vars
+-      .currentAvgStableRate
+-      .rayMul(vars.previousSupply.wadToRay())
+-      .add(rate.rayMul(vars.amountInRay))
+-      .rayDiv(vars.nextSupply.wadToRay());
+-
+-    _mint(onBehalfOf, amount.add(balanceIncrease), vars.previousSupply);
+-
+-    emit Transfer(address(0), onBehalfOf, amount);
+-
+-    emit Mint(
+-      user,
+-      onBehalfOf,
+-      amount,
+-      currentBalance,
+-      balanceIncrease,
+-      vars.newStableRate,
+-      vars.currentAvgStableRate,
+-      vars.nextSupply
+-    );
+-
+-    return currentBalance == 0;
+-  }
+-
+-  /**
+-   * @dev Burns debt of `user`
+-   * @param user The address of the user getting his debt burned
+-   * @param amount The amount of debt tokens getting burned
+-   **/
+-  function burn(address user, uint256 amount) external override onlyLendingPool {
+-    (, uint256 currentBalance, uint256 balanceIncrease) = _calculateBalanceIncrease(user);
+-
+-    uint256 previousSupply = totalSupply();
+-    uint256 newAvgStableRate = 0;
+-    uint256 nextSupply = 0;
+-    uint256 userStableRate = _usersStableRate[user];
+-
+-    // Since the total supply and each single user debt accrue separately,
+-    // there might be accumulation errors so that the last borrower repaying
+-    // mght actually try to repay more than the available debt supply.
+-    // In this case we simply set the total supply and the avg stable rate to 0
+-    if (previousSupply <= amount) {
+-      _avgStableRate = 0;
+-      _totalSupply = 0;
+-    } else {
+-      nextSupply = _totalSupply = previousSupply.sub(amount);
+-      uint256 firstTerm = _avgStableRate.rayMul(previousSupply.wadToRay());
+-      uint256 secondTerm = userStableRate.rayMul(amount.wadToRay());
+-
+-      // For the same reason described above, when the last user is repaying it might
+-      // happen that user rate * user balance > avg rate * total supply. In that case,
+-      // we simply set the avg rate to 0
+-      if (secondTerm >= firstTerm) {
+-        newAvgStableRate = _avgStableRate = _totalSupply = 0;
+-      } else {
+-        newAvgStableRate = _avgStableRate = firstTerm.sub(secondTerm).rayDiv(nextSupply.wadToRay());
+-      }
+-    }
+-
+-    if (amount == currentBalance) {
+-      _usersStableRate[user] = 0;
+-      _timestamps[user] = 0;
+-    } else {
+-      //solium-disable-next-line
+-      _timestamps[user] = uint40(block.timestamp);
+-    }
+-    //solium-disable-next-line
+-    _totalSupplyTimestamp = uint40(block.timestamp);
+-
+-    if (balanceIncrease > amount) {
+-      uint256 amountToMint = balanceIncrease.sub(amount);
+-      _mint(user, amountToMint, previousSupply);
+-      emit Mint(
+-        user,
+-        user,
+-        amountToMint,
+-        currentBalance,
+-        balanceIncrease,
+-        userStableRate,
+-        newAvgStableRate,
+-        nextSupply
+-      );
+-    } else {
+-      uint256 amountToBurn = amount.sub(balanceIncrease);
+-      _burn(user, amountToBurn, previousSupply);
+-      emit Burn(user, amountToBurn, currentBalance, balanceIncrease, newAvgStableRate, nextSupply);
+-    }
+-
+-    emit Transfer(user, address(0), amount);
+-  }
+-
+-  /**
+-   * @dev Calculates the increase in balance since the last user interaction
+-   * @param user The address of the user for which the interest is being accumulated
+-   * @return The previous principal balance, the new principal balance and the balance increase
+-   **/
+-  function _calculateBalanceIncrease(
+-    address user
+-  ) internal view returns (uint256, uint256, uint256) {
+-    uint256 previousPrincipalBalance = super.balanceOf(user);
+-
+-    if (previousPrincipalBalance == 0) {
+-      return (0, 0, 0);
+-    }
+-
+-    // Calculation of the accrued interest since the last accumulation
+-    uint256 balanceIncrease = balanceOf(user).sub(previousPrincipalBalance);
+-
+-    return (
+-      previousPrincipalBalance,
+-      previousPrincipalBalance.add(balanceIncrease),
+-      balanceIncrease
+-    );
+-  }
+-
+-  /**
+-   * @dev Returns the principal and total supply, the average borrow rate and the last supply update timestamp
+-   **/
+-  function getSupplyData() public view override returns (uint256, uint256, uint256, uint40) {
+-    uint256 avgRate = _avgStableRate;
+-    return (super.totalSupply(), _calcTotalSupply(avgRate), avgRate, _totalSupplyTimestamp);
+-  }
+-
+-  /**
+-   * @dev Returns the the total supply and the average stable rate
+-   **/
+-  function getTotalSupplyAndAvgRate() public view override returns (uint256, uint256) {
+-    uint256 avgRate = _avgStableRate;
+-    return (_calcTotalSupply(avgRate), avgRate);
+-  }
+-
+-  /**
+-   * @dev Returns the total supply
+-   **/
+-  function totalSupply() public view override returns (uint256) {
+-    return _calcTotalSupply(_avgStableRate);
+-  }
+-
+-  /**
+-   * @dev Returns the timestamp at which the total supply was updated
+-   **/
+-  function getTotalSupplyLastUpdated() public view override returns (uint40) {
+-    return _totalSupplyTimestamp;
+-  }
+-
+-  /**
+-   * @dev Returns the principal debt balance of the user from
+-   * @param user The user's address
+-   * @return The debt balance of the user since the last burn/mint action
+-   **/
+-  function principalBalanceOf(address user) external view virtual override returns (uint256) {
+-    return super.balanceOf(user);
+-  }
+-
+-  /**
+-   * @dev Returns the address of the underlying asset of this aToken (E.g. WETH for aWETH)
+-   **/
+-  function UNDERLYING_ASSET_ADDRESS() public view returns (address) {
+-    return _underlyingAsset;
+-  }
+-
+-  /**
+-   * @dev Returns the address of the lending pool where this aToken is used
+-   **/
+-  function POOL() public view returns (ILendingPool) {
+-    return _pool;
+-  }
+-
+-  /**
+-   * @dev Returns the address of the incentives controller contract
+-   **/
+-  function getIncentivesController() external view override returns (IAaveIncentivesController) {
+-    return _getIncentivesController();
+-  }
+-
+-  /**
+-   * @dev For internal usage in the logic of the parent contracts
+-   **/
+-  function _getIncentivesController() internal view override returns (IAaveIncentivesController) {
+-    return _incentivesController;
+-  }
+-
+-  /**
+-   * @dev For internal usage in the logic of the parent contracts
+-   **/
+-  function _getUnderlyingAssetAddress() internal view override returns (address) {
+-    return _underlyingAsset;
+-  }
+-
+-  /**
+-   * @dev For internal usage in the logic of the parent contracts
+-   **/
+-  function _getLendingPool() internal view override returns (ILendingPool) {
+-    return _pool;
+-  }
+-
+-  /**
+-   * @dev Calculates the total supply
+-   * @param avgRate The average rate at which the total supply increases
+-   * @return The debt balance of the user since the last burn/mint action
+-   **/
+-  function _calcTotalSupply(uint256 avgRate) internal view virtual returns (uint256) {
+-    uint256 principalSupply = super.totalSupply();
+-
+-    if (principalSupply == 0) {
+-      return 0;
+-    }
+-
+-    uint256 cumulatedInterest = MathUtils.calculateCompoundedInterest(
+-      avgRate,
+-      _totalSupplyTimestamp
+-    );
+-
+-    return principalSupply.rayMul(cumulatedInterest);
+-  }
+-
+-  /**
+-   * @dev Mints stable debt tokens to an user
+-   * @param account The account receiving the debt tokens
+-   * @param amount The amount being minted
+-   * @param oldTotalSupply the total supply before the minting event
+-   **/
+-  function _mint(address account, uint256 amount, uint256 oldTotalSupply) internal {
+-    uint256 oldAccountBalance = _balances[account];
+-    _balances[account] = oldAccountBalance.add(amount);
+-
+-    if (address(_incentivesController) != address(0)) {
+-      _incentivesController.handleAction(account, oldTotalSupply, oldAccountBalance);
+-    }
+-  }
+-
+-  /**
+-   * @dev Burns stable debt tokens of an user
+-   * @param account The user getting his debt burned
+-   * @param amount The amount being burned
+-   * @param oldTotalSupply The total supply before the burning event
+-   **/
+-  function _burn(address account, uint256 amount, uint256 oldTotalSupply) internal {
+-    uint256 oldAccountBalance = _balances[account];
+-    _balances[account] = oldAccountBalance.sub(amount, Errors.SDT_BURN_EXCEEDS_BALANCE);
+-
+-    if (address(_incentivesController) != address(0)) {
+-      _incentivesController.handleAction(account, oldTotalSupply, oldAccountBalance);
+-    }
+-  }
+-}
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/tokenization/VariableDebtToken.sol b/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/tokenization/VariableDebtToken.sol
+deleted file mode 100644
+index 8f1ed63..0000000
+--- a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/tokenization/VariableDebtToken.sol
++++ /dev/null
+@@ -1,202 +0,0 @@
+-// SPDX-License-Identifier: agpl-3.0
+-pragma solidity 0.6.12;
+-
+-import {IVariableDebtToken} from '../../interfaces/IVariableDebtToken.sol';
+-import {WadRayMath} from '../libraries/math/WadRayMath.sol';
+-import {Errors} from '../libraries/helpers/Errors.sol';
+-import {DebtTokenBase} from './base/DebtTokenBase.sol';
+-import {ILendingPool} from '../../interfaces/ILendingPool.sol';
+-import {IAaveIncentivesController} from '../../interfaces/IAaveIncentivesController.sol';
+-
+-/**
+- * @title VariableDebtToken
+- * @notice Implements a variable debt token to track the borrowing positions of users
+- * at variable rate mode
+- * @author Aave
+- **/
+-contract VariableDebtToken is DebtTokenBase, IVariableDebtToken {
+-  using WadRayMath for uint256;
+-
+-  uint256 public constant DEBT_TOKEN_REVISION = 0x1;
+-
+-  ILendingPool internal _pool;
+-  address internal _underlyingAsset;
+-  IAaveIncentivesController internal _incentivesController;
+-
+-  /**
+-   * @dev Initializes the debt token.
+-   * @param pool The address of the lending pool where this aToken will be used
+-   * @param underlyingAsset The address of the underlying asset of this aToken (E.g. WETH for aWETH)
+-   * @param incentivesController The smart contract managing potential incentives distribution
+-   * @param debtTokenDecimals The decimals of the debtToken, same as the underlying asset's
+-   * @param debtTokenName The name of the token
+-   * @param debtTokenSymbol The symbol of the token
+-   */
+-  function initialize(
+-    ILendingPool pool,
+-    address underlyingAsset,
+-    IAaveIncentivesController incentivesController,
+-    uint8 debtTokenDecimals,
+-    string memory debtTokenName,
+-    string memory debtTokenSymbol,
+-    bytes calldata params
+-  ) public override initializer {
+-    _setName(debtTokenName);
+-    _setSymbol(debtTokenSymbol);
+-    _setDecimals(debtTokenDecimals);
+-
+-    _pool = pool;
+-    _underlyingAsset = underlyingAsset;
+-    _incentivesController = incentivesController;
+-
+-    emit Initialized(
+-      underlyingAsset,
+-      address(pool),
+-      address(incentivesController),
+-      debtTokenDecimals,
+-      debtTokenName,
+-      debtTokenSymbol,
+-      params
+-    );
+-  }
+-
+-  /**
+-   * @dev Gets the revision of the stable debt token implementation
+-   * @return The debt token implementation revision
+-   **/
+-  function getRevision() internal pure virtual override returns (uint256) {
+-    return DEBT_TOKEN_REVISION;
+-  }
+-
+-  /**
+-   * @dev Calculates the accumulated debt balance of the user
+-   * @return The debt balance of the user
+-   **/
+-  function balanceOf(address user) public view virtual override returns (uint256) {
+-    uint256 scaledBalance = super.balanceOf(user);
+-
+-    if (scaledBalance == 0) {
+-      return 0;
+-    }
+-
+-    return scaledBalance.rayMul(_pool.getReserveNormalizedVariableDebt(_underlyingAsset));
+-  }
+-
+-  /**
+-   * @dev Mints debt token to the `onBehalfOf` address
+-   * -  Only callable by the LendingPool
+-   * @param user The address receiving the borrowed underlying, being the delegatee in case
+-   * of credit delegate, or same as `onBehalfOf` otherwise
+-   * @param onBehalfOf The address receiving the debt tokens
+-   * @param amount The amount of debt being minted
+-   * @param index The variable debt index of the reserve
+-   * @return `true` if the the previous balance of the user is 0
+-   **/
+-  function mint(
+-    address user,
+-    address onBehalfOf,
+-    uint256 amount,
+-    uint256 index
+-  ) external override onlyLendingPool returns (bool) {
+-    if (user != onBehalfOf) {
+-      _decreaseBorrowAllowance(onBehalfOf, user, amount);
+-    }
+-
+-    uint256 previousBalance = super.balanceOf(onBehalfOf);
+-    uint256 amountScaled = amount.rayDiv(index);
+-    require(amountScaled != 0, Errors.CT_INVALID_MINT_AMOUNT);
+-
+-    _mint(onBehalfOf, amountScaled);
+-
+-    emit Transfer(address(0), onBehalfOf, amount);
+-    emit Mint(user, onBehalfOf, amount, index);
+-
+-    return previousBalance == 0;
+-  }
+-
+-  /**
+-   * @dev Burns user variable debt
+-   * - Only callable by the LendingPool
+-   * @param user The user whose debt is getting burned
+-   * @param amount The amount getting burned
+-   * @param index The variable debt index of the reserve
+-   **/
+-  function burn(address user, uint256 amount, uint256 index) external override onlyLendingPool {
+-    uint256 amountScaled = amount.rayDiv(index);
+-    require(amountScaled != 0, Errors.CT_INVALID_BURN_AMOUNT);
+-
+-    _burn(user, amountScaled);
+-
+-    emit Transfer(user, address(0), amount);
+-    emit Burn(user, amount, index);
+-  }
+-
+-  /**
+-   * @dev Returns the principal debt balance of the user from
+-   * @return The debt balance of the user since the last burn/mint action
+-   **/
+-  function scaledBalanceOf(address user) public view virtual override returns (uint256) {
+-    return super.balanceOf(user);
+-  }
+-
+-  /**
+-   * @dev Returns the total supply of the variable debt token. Represents the total debt accrued by the users
+-   * @return The total supply
+-   **/
+-  function totalSupply() public view virtual override returns (uint256) {
+-    return super.totalSupply().rayMul(_pool.getReserveNormalizedVariableDebt(_underlyingAsset));
+-  }
+-
+-  /**
+-   * @dev Returns the scaled total supply of the variable debt token. Represents sum(debt/index)
+-   * @return the scaled total supply
+-   **/
+-  function scaledTotalSupply() public view virtual override returns (uint256) {
+-    return super.totalSupply();
+-  }
+-
+-  /**
+-   * @dev Returns the principal balance of the user and principal total supply.
+-   * @param user The address of the user
+-   * @return The principal balance of the user
+-   * @return The principal total supply
+-   **/
+-  function getScaledUserBalanceAndSupply(
+-    address user
+-  ) external view override returns (uint256, uint256) {
+-    return (super.balanceOf(user), super.totalSupply());
+-  }
+-
+-  /**
+-   * @dev Returns the address of the underlying asset of this aToken (E.g. WETH for aWETH)
+-   **/
+-  function UNDERLYING_ASSET_ADDRESS() public view returns (address) {
+-    return _underlyingAsset;
+-  }
+-
+-  /**
+-   * @dev Returns the address of the incentives controller contract
+-   **/
+-  function getIncentivesController() external view override returns (IAaveIncentivesController) {
+-    return _getIncentivesController();
+-  }
+-
+-  /**
+-   * @dev Returns the address of the lending pool where this aToken is used
+-   **/
+-  function POOL() public view returns (ILendingPool) {
+-    return _pool;
+-  }
+-
+-  function _getIncentivesController() internal view override returns (IAaveIncentivesController) {
+-    return _incentivesController;
+-  }
+-
+-  function _getUnderlyingAssetAddress() internal view override returns (address) {
+-    return _underlyingAsset;
+-  }
+-
+-  function _getLendingPool() internal view override returns (ILendingPool) {
+-    return _pool;
+-  }
+-}
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/tokenization/base/DebtTokenBase.sol b/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/tokenization/base/DebtTokenBase.sol
+deleted file mode 100644
+index 0fb967c..0000000
+--- a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/tokenization/base/DebtTokenBase.sol
++++ /dev/null
+@@ -1,124 +0,0 @@
+-// SPDX-License-Identifier: agpl-3.0
+-pragma solidity 0.6.12;
+-
+-import {ILendingPool} from '../../../interfaces/ILendingPool.sol';
+-import {ICreditDelegationToken} from '../../../interfaces/ICreditDelegationToken.sol';
+-import {VersionedInitializable} from '../../libraries/aave-upgradeability/VersionedInitializable.sol';
+-import {IncentivizedERC20} from '../IncentivizedERC20.sol';
+-import {Errors} from '../../libraries/helpers/Errors.sol';
+-
+-/**
+- * @title DebtTokenBase
+- * @notice Base contract for different types of debt tokens, like StableDebtToken or VariableDebtToken
+- * @author Aave
+- */
+-
+-abstract contract DebtTokenBase is
+-  IncentivizedERC20('DEBTTOKEN_IMPL', 'DEBTTOKEN_IMPL', 0),
+-  VersionedInitializable,
+-  ICreditDelegationToken
+-{
+-  mapping(address => mapping(address => uint256)) internal _borrowAllowances;
+-
+-  /**
+-   * @dev Only lending pool can call functions marked by this modifier
+-   **/
+-  modifier onlyLendingPool() {
+-    require(_msgSender() == address(_getLendingPool()), Errors.CT_CALLER_MUST_BE_LENDING_POOL);
+-    _;
+-  }
+-
+-  /**
+-   * @dev delegates borrowing power to a user on the specific debt token
+-   * @param delegatee the address receiving the delegated borrowing power
+-   * @param amount the maximum amount being delegated. Delegation will still
+-   * respect the liquidation constraints (even if delegated, a delegatee cannot
+-   * force a delegator HF to go below 1)
+-   **/
+-  function approveDelegation(address delegatee, uint256 amount) external override {
+-    _borrowAllowances[_msgSender()][delegatee] = amount;
+-    emit BorrowAllowanceDelegated(_msgSender(), delegatee, _getUnderlyingAssetAddress(), amount);
+-  }
+-
+-  /**
+-   * @dev returns the borrow allowance of the user
+-   * @param fromUser The user to giving allowance
+-   * @param toUser The user to give allowance to
+-   * @return the current allowance of toUser
+-   **/
+-  function borrowAllowance(
+-    address fromUser,
+-    address toUser
+-  ) external view override returns (uint256) {
+-    return _borrowAllowances[fromUser][toUser];
+-  }
+-
+-  /**
+-   * @dev Being non transferrable, the debt token does not implement any of the
+-   * standard ERC20 functions for transfer and allowance.
+-   **/
+-  function transfer(address recipient, uint256 amount) public virtual override returns (bool) {
+-    recipient;
+-    amount;
+-    revert('TRANSFER_NOT_SUPPORTED');
+-  }
+-
+-  function allowance(
+-    address owner,
+-    address spender
+-  ) public view virtual override returns (uint256) {
+-    owner;
+-    spender;
+-    revert('ALLOWANCE_NOT_SUPPORTED');
+-  }
+-
+-  function approve(address spender, uint256 amount) public virtual override returns (bool) {
+-    spender;
+-    amount;
+-    revert('APPROVAL_NOT_SUPPORTED');
+-  }
+-
+-  function transferFrom(
+-    address sender,
+-    address recipient,
+-    uint256 amount
+-  ) public virtual override returns (bool) {
+-    sender;
+-    recipient;
+-    amount;
+-    revert('TRANSFER_NOT_SUPPORTED');
+-  }
+-
+-  function increaseAllowance(
+-    address spender,
+-    uint256 addedValue
+-  ) public virtual override returns (bool) {
+-    spender;
+-    addedValue;
+-    revert('ALLOWANCE_NOT_SUPPORTED');
+-  }
+-
+-  function decreaseAllowance(
+-    address spender,
+-    uint256 subtractedValue
+-  ) public virtual override returns (bool) {
+-    spender;
+-    subtractedValue;
+-    revert('ALLOWANCE_NOT_SUPPORTED');
+-  }
+-
+-  function _decreaseBorrowAllowance(address delegator, address delegatee, uint256 amount) internal {
+-    uint256 newAllowance = _borrowAllowances[delegator][delegatee].sub(
+-      amount,
+-      Errors.BORROW_ALLOWANCE_NOT_ENOUGH
+-    );
+-
+-    _borrowAllowances[delegator][delegatee] = newAllowance;
+-
+-    emit BorrowAllowanceDelegated(delegator, delegatee, _getUnderlyingAssetAddress(), newAllowance);
+-  }
+-
+-  function _getUnderlyingAssetAddress() internal view virtual returns (address);
+-
+-  function _getLendingPool() internal view virtual returns (ILendingPool);
+-}
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/hardhat/console.sol b/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/hardhat/console.sol
+deleted file mode 100644
+index e20b11a..0000000
+--- a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/hardhat/console.sol
++++ /dev/null
+@@ -1,1538 +0,0 @@
+-// SPDX-License-Identifier: MIT
+-pragma solidity >=0.4.22 <0.9.0;
+-
+-library console {
+-  address constant CONSOLE_ADDRESS = address(0x000000000000000000636F6e736F6c652e6c6f67);
+-
+-  function _sendLogPayload(bytes memory payload) private view {
+-    uint256 payloadLength = payload.length;
+-    address consoleAddress = CONSOLE_ADDRESS;
+-    assembly {
+-      let payloadStart := add(payload, 32)
+-      let r := staticcall(gas(), consoleAddress, payloadStart, payloadLength, 0, 0)
+-    }
+-  }
+-
+-  function log() internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log()'));
+-  }
+-
+-  function logInt(int p0) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(int)', p0));
+-  }
+-
+-  function logUint(uint p0) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint)', p0));
+-  }
+-
+-  function logString(string memory p0) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string)', p0));
+-  }
+-
+-  function logBool(bool p0) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool)', p0));
+-  }
+-
+-  function logAddress(address p0) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address)', p0));
+-  }
+-
+-  function logBytes(bytes memory p0) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bytes)', p0));
+-  }
+-
+-  function logBytes1(bytes1 p0) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bytes1)', p0));
+-  }
+-
+-  function logBytes2(bytes2 p0) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bytes2)', p0));
+-  }
+-
+-  function logBytes3(bytes3 p0) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bytes3)', p0));
+-  }
+-
+-  function logBytes4(bytes4 p0) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bytes4)', p0));
+-  }
+-
+-  function logBytes5(bytes5 p0) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bytes5)', p0));
+-  }
+-
+-  function logBytes6(bytes6 p0) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bytes6)', p0));
+-  }
+-
+-  function logBytes7(bytes7 p0) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bytes7)', p0));
+-  }
+-
+-  function logBytes8(bytes8 p0) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bytes8)', p0));
+-  }
+-
+-  function logBytes9(bytes9 p0) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bytes9)', p0));
+-  }
+-
+-  function logBytes10(bytes10 p0) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bytes10)', p0));
+-  }
+-
+-  function logBytes11(bytes11 p0) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bytes11)', p0));
+-  }
+-
+-  function logBytes12(bytes12 p0) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bytes12)', p0));
+-  }
+-
+-  function logBytes13(bytes13 p0) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bytes13)', p0));
+-  }
+-
+-  function logBytes14(bytes14 p0) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bytes14)', p0));
+-  }
+-
+-  function logBytes15(bytes15 p0) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bytes15)', p0));
+-  }
+-
+-  function logBytes16(bytes16 p0) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bytes16)', p0));
+-  }
+-
+-  function logBytes17(bytes17 p0) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bytes17)', p0));
+-  }
+-
+-  function logBytes18(bytes18 p0) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bytes18)', p0));
+-  }
+-
+-  function logBytes19(bytes19 p0) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bytes19)', p0));
+-  }
+-
+-  function logBytes20(bytes20 p0) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bytes20)', p0));
+-  }
+-
+-  function logBytes21(bytes21 p0) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bytes21)', p0));
+-  }
+-
+-  function logBytes22(bytes22 p0) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bytes22)', p0));
+-  }
+-
+-  function logBytes23(bytes23 p0) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bytes23)', p0));
+-  }
+-
+-  function logBytes24(bytes24 p0) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bytes24)', p0));
+-  }
+-
+-  function logBytes25(bytes25 p0) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bytes25)', p0));
+-  }
+-
+-  function logBytes26(bytes26 p0) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bytes26)', p0));
+-  }
+-
+-  function logBytes27(bytes27 p0) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bytes27)', p0));
+-  }
+-
+-  function logBytes28(bytes28 p0) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bytes28)', p0));
+-  }
+-
+-  function logBytes29(bytes29 p0) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bytes29)', p0));
+-  }
+-
+-  function logBytes30(bytes30 p0) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bytes30)', p0));
+-  }
+-
+-  function logBytes31(bytes31 p0) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bytes31)', p0));
+-  }
+-
+-  function logBytes32(bytes32 p0) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bytes32)', p0));
+-  }
+-
+-  function log(uint p0) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint)', p0));
+-  }
+-
+-  function log(string memory p0) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string)', p0));
+-  }
+-
+-  function log(bool p0) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool)', p0));
+-  }
+-
+-  function log(address p0) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address)', p0));
+-  }
+-
+-  function log(uint p0, uint p1) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,uint)', p0, p1));
+-  }
+-
+-  function log(uint p0, string memory p1) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,string)', p0, p1));
+-  }
+-
+-  function log(uint p0, bool p1) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,bool)', p0, p1));
+-  }
+-
+-  function log(uint p0, address p1) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,address)', p0, p1));
+-  }
+-
+-  function log(string memory p0, uint p1) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,uint)', p0, p1));
+-  }
+-
+-  function log(string memory p0, string memory p1) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,string)', p0, p1));
+-  }
+-
+-  function log(string memory p0, bool p1) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,bool)', p0, p1));
+-  }
+-
+-  function log(string memory p0, address p1) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,address)', p0, p1));
+-  }
+-
+-  function log(bool p0, uint p1) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,uint)', p0, p1));
+-  }
+-
+-  function log(bool p0, string memory p1) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,string)', p0, p1));
+-  }
+-
+-  function log(bool p0, bool p1) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,bool)', p0, p1));
+-  }
+-
+-  function log(bool p0, address p1) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,address)', p0, p1));
+-  }
+-
+-  function log(address p0, uint p1) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,uint)', p0, p1));
+-  }
+-
+-  function log(address p0, string memory p1) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,string)', p0, p1));
+-  }
+-
+-  function log(address p0, bool p1) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,bool)', p0, p1));
+-  }
+-
+-  function log(address p0, address p1) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,address)', p0, p1));
+-  }
+-
+-  function log(uint p0, uint p1, uint p2) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,uint,uint)', p0, p1, p2));
+-  }
+-
+-  function log(uint p0, uint p1, string memory p2) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,uint,string)', p0, p1, p2));
+-  }
+-
+-  function log(uint p0, uint p1, bool p2) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,uint,bool)', p0, p1, p2));
+-  }
+-
+-  function log(uint p0, uint p1, address p2) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,uint,address)', p0, p1, p2));
+-  }
+-
+-  function log(uint p0, string memory p1, uint p2) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,string,uint)', p0, p1, p2));
+-  }
+-
+-  function log(uint p0, string memory p1, string memory p2) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,string,string)', p0, p1, p2));
+-  }
+-
+-  function log(uint p0, string memory p1, bool p2) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,string,bool)', p0, p1, p2));
+-  }
+-
+-  function log(uint p0, string memory p1, address p2) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,string,address)', p0, p1, p2));
+-  }
+-
+-  function log(uint p0, bool p1, uint p2) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,bool,uint)', p0, p1, p2));
+-  }
+-
+-  function log(uint p0, bool p1, string memory p2) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,bool,string)', p0, p1, p2));
+-  }
+-
+-  function log(uint p0, bool p1, bool p2) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,bool,bool)', p0, p1, p2));
+-  }
+-
+-  function log(uint p0, bool p1, address p2) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,bool,address)', p0, p1, p2));
+-  }
+-
+-  function log(uint p0, address p1, uint p2) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,address,uint)', p0, p1, p2));
+-  }
+-
+-  function log(uint p0, address p1, string memory p2) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,address,string)', p0, p1, p2));
+-  }
+-
+-  function log(uint p0, address p1, bool p2) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,address,bool)', p0, p1, p2));
+-  }
+-
+-  function log(uint p0, address p1, address p2) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,address,address)', p0, p1, p2));
+-  }
+-
+-  function log(string memory p0, uint p1, uint p2) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,uint,uint)', p0, p1, p2));
+-  }
+-
+-  function log(string memory p0, uint p1, string memory p2) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,uint,string)', p0, p1, p2));
+-  }
+-
+-  function log(string memory p0, uint p1, bool p2) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,uint,bool)', p0, p1, p2));
+-  }
+-
+-  function log(string memory p0, uint p1, address p2) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,uint,address)', p0, p1, p2));
+-  }
+-
+-  function log(string memory p0, string memory p1, uint p2) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,string,uint)', p0, p1, p2));
+-  }
+-
+-  function log(string memory p0, string memory p1, string memory p2) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,string,string)', p0, p1, p2));
+-  }
+-
+-  function log(string memory p0, string memory p1, bool p2) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,string,bool)', p0, p1, p2));
+-  }
+-
+-  function log(string memory p0, string memory p1, address p2) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,string,address)', p0, p1, p2));
+-  }
+-
+-  function log(string memory p0, bool p1, uint p2) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,bool,uint)', p0, p1, p2));
+-  }
+-
+-  function log(string memory p0, bool p1, string memory p2) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,bool,string)', p0, p1, p2));
+-  }
+-
+-  function log(string memory p0, bool p1, bool p2) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,bool,bool)', p0, p1, p2));
+-  }
+-
+-  function log(string memory p0, bool p1, address p2) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,bool,address)', p0, p1, p2));
+-  }
+-
+-  function log(string memory p0, address p1, uint p2) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,address,uint)', p0, p1, p2));
+-  }
+-
+-  function log(string memory p0, address p1, string memory p2) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,address,string)', p0, p1, p2));
+-  }
+-
+-  function log(string memory p0, address p1, bool p2) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,address,bool)', p0, p1, p2));
+-  }
+-
+-  function log(string memory p0, address p1, address p2) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,address,address)', p0, p1, p2));
+-  }
+-
+-  function log(bool p0, uint p1, uint p2) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,uint,uint)', p0, p1, p2));
+-  }
+-
+-  function log(bool p0, uint p1, string memory p2) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,uint,string)', p0, p1, p2));
+-  }
+-
+-  function log(bool p0, uint p1, bool p2) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,uint,bool)', p0, p1, p2));
+-  }
+-
+-  function log(bool p0, uint p1, address p2) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,uint,address)', p0, p1, p2));
+-  }
+-
+-  function log(bool p0, string memory p1, uint p2) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,string,uint)', p0, p1, p2));
+-  }
+-
+-  function log(bool p0, string memory p1, string memory p2) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,string,string)', p0, p1, p2));
+-  }
+-
+-  function log(bool p0, string memory p1, bool p2) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,string,bool)', p0, p1, p2));
+-  }
+-
+-  function log(bool p0, string memory p1, address p2) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,string,address)', p0, p1, p2));
+-  }
+-
+-  function log(bool p0, bool p1, uint p2) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,bool,uint)', p0, p1, p2));
+-  }
+-
+-  function log(bool p0, bool p1, string memory p2) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,bool,string)', p0, p1, p2));
+-  }
+-
+-  function log(bool p0, bool p1, bool p2) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,bool,bool)', p0, p1, p2));
+-  }
+-
+-  function log(bool p0, bool p1, address p2) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,bool,address)', p0, p1, p2));
+-  }
+-
+-  function log(bool p0, address p1, uint p2) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,address,uint)', p0, p1, p2));
+-  }
+-
+-  function log(bool p0, address p1, string memory p2) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,address,string)', p0, p1, p2));
+-  }
+-
+-  function log(bool p0, address p1, bool p2) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,address,bool)', p0, p1, p2));
+-  }
+-
+-  function log(bool p0, address p1, address p2) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,address,address)', p0, p1, p2));
+-  }
+-
+-  function log(address p0, uint p1, uint p2) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,uint,uint)', p0, p1, p2));
+-  }
+-
+-  function log(address p0, uint p1, string memory p2) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,uint,string)', p0, p1, p2));
+-  }
+-
+-  function log(address p0, uint p1, bool p2) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,uint,bool)', p0, p1, p2));
+-  }
+-
+-  function log(address p0, uint p1, address p2) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,uint,address)', p0, p1, p2));
+-  }
+-
+-  function log(address p0, string memory p1, uint p2) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,string,uint)', p0, p1, p2));
+-  }
+-
+-  function log(address p0, string memory p1, string memory p2) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,string,string)', p0, p1, p2));
+-  }
+-
+-  function log(address p0, string memory p1, bool p2) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,string,bool)', p0, p1, p2));
+-  }
+-
+-  function log(address p0, string memory p1, address p2) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,string,address)', p0, p1, p2));
+-  }
+-
+-  function log(address p0, bool p1, uint p2) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,bool,uint)', p0, p1, p2));
+-  }
+-
+-  function log(address p0, bool p1, string memory p2) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,bool,string)', p0, p1, p2));
+-  }
+-
+-  function log(address p0, bool p1, bool p2) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,bool,bool)', p0, p1, p2));
+-  }
+-
+-  function log(address p0, bool p1, address p2) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,bool,address)', p0, p1, p2));
+-  }
+-
+-  function log(address p0, address p1, uint p2) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,address,uint)', p0, p1, p2));
+-  }
+-
+-  function log(address p0, address p1, string memory p2) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,address,string)', p0, p1, p2));
+-  }
+-
+-  function log(address p0, address p1, bool p2) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,address,bool)', p0, p1, p2));
+-  }
+-
+-  function log(address p0, address p1, address p2) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,address,address)', p0, p1, p2));
+-  }
+-
+-  function log(uint p0, uint p1, uint p2, uint p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,uint,uint,uint)', p0, p1, p2, p3));
+-  }
+-
+-  function log(uint p0, uint p1, uint p2, string memory p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,uint,uint,string)', p0, p1, p2, p3));
+-  }
+-
+-  function log(uint p0, uint p1, uint p2, bool p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,uint,uint,bool)', p0, p1, p2, p3));
+-  }
+-
+-  function log(uint p0, uint p1, uint p2, address p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,uint,uint,address)', p0, p1, p2, p3));
+-  }
+-
+-  function log(uint p0, uint p1, string memory p2, uint p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,uint,string,uint)', p0, p1, p2, p3));
+-  }
+-
+-  function log(uint p0, uint p1, string memory p2, string memory p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,uint,string,string)', p0, p1, p2, p3));
+-  }
+-
+-  function log(uint p0, uint p1, string memory p2, bool p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,uint,string,bool)', p0, p1, p2, p3));
+-  }
+-
+-  function log(uint p0, uint p1, string memory p2, address p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,uint,string,address)', p0, p1, p2, p3));
+-  }
+-
+-  function log(uint p0, uint p1, bool p2, uint p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,uint,bool,uint)', p0, p1, p2, p3));
+-  }
+-
+-  function log(uint p0, uint p1, bool p2, string memory p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,uint,bool,string)', p0, p1, p2, p3));
+-  }
+-
+-  function log(uint p0, uint p1, bool p2, bool p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,uint,bool,bool)', p0, p1, p2, p3));
+-  }
+-
+-  function log(uint p0, uint p1, bool p2, address p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,uint,bool,address)', p0, p1, p2, p3));
+-  }
+-
+-  function log(uint p0, uint p1, address p2, uint p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,uint,address,uint)', p0, p1, p2, p3));
+-  }
+-
+-  function log(uint p0, uint p1, address p2, string memory p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,uint,address,string)', p0, p1, p2, p3));
+-  }
+-
+-  function log(uint p0, uint p1, address p2, bool p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,uint,address,bool)', p0, p1, p2, p3));
+-  }
+-
+-  function log(uint p0, uint p1, address p2, address p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,uint,address,address)', p0, p1, p2, p3));
+-  }
+-
+-  function log(uint p0, string memory p1, uint p2, uint p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,string,uint,uint)', p0, p1, p2, p3));
+-  }
+-
+-  function log(uint p0, string memory p1, uint p2, string memory p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,string,uint,string)', p0, p1, p2, p3));
+-  }
+-
+-  function log(uint p0, string memory p1, uint p2, bool p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,string,uint,bool)', p0, p1, p2, p3));
+-  }
+-
+-  function log(uint p0, string memory p1, uint p2, address p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,string,uint,address)', p0, p1, p2, p3));
+-  }
+-
+-  function log(uint p0, string memory p1, string memory p2, uint p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,string,string,uint)', p0, p1, p2, p3));
+-  }
+-
+-  function log(uint p0, string memory p1, string memory p2, string memory p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,string,string,string)', p0, p1, p2, p3));
+-  }
+-
+-  function log(uint p0, string memory p1, string memory p2, bool p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,string,string,bool)', p0, p1, p2, p3));
+-  }
+-
+-  function log(uint p0, string memory p1, string memory p2, address p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,string,string,address)', p0, p1, p2, p3));
+-  }
+-
+-  function log(uint p0, string memory p1, bool p2, uint p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,string,bool,uint)', p0, p1, p2, p3));
+-  }
+-
+-  function log(uint p0, string memory p1, bool p2, string memory p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,string,bool,string)', p0, p1, p2, p3));
+-  }
+-
+-  function log(uint p0, string memory p1, bool p2, bool p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,string,bool,bool)', p0, p1, p2, p3));
+-  }
+-
+-  function log(uint p0, string memory p1, bool p2, address p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,string,bool,address)', p0, p1, p2, p3));
+-  }
+-
+-  function log(uint p0, string memory p1, address p2, uint p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,string,address,uint)', p0, p1, p2, p3));
+-  }
+-
+-  function log(uint p0, string memory p1, address p2, string memory p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,string,address,string)', p0, p1, p2, p3));
+-  }
+-
+-  function log(uint p0, string memory p1, address p2, bool p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,string,address,bool)', p0, p1, p2, p3));
+-  }
+-
+-  function log(uint p0, string memory p1, address p2, address p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,string,address,address)', p0, p1, p2, p3));
+-  }
+-
+-  function log(uint p0, bool p1, uint p2, uint p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,bool,uint,uint)', p0, p1, p2, p3));
+-  }
+-
+-  function log(uint p0, bool p1, uint p2, string memory p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,bool,uint,string)', p0, p1, p2, p3));
+-  }
+-
+-  function log(uint p0, bool p1, uint p2, bool p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,bool,uint,bool)', p0, p1, p2, p3));
+-  }
+-
+-  function log(uint p0, bool p1, uint p2, address p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,bool,uint,address)', p0, p1, p2, p3));
+-  }
+-
+-  function log(uint p0, bool p1, string memory p2, uint p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,bool,string,uint)', p0, p1, p2, p3));
+-  }
+-
+-  function log(uint p0, bool p1, string memory p2, string memory p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,bool,string,string)', p0, p1, p2, p3));
+-  }
+-
+-  function log(uint p0, bool p1, string memory p2, bool p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,bool,string,bool)', p0, p1, p2, p3));
+-  }
+-
+-  function log(uint p0, bool p1, string memory p2, address p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,bool,string,address)', p0, p1, p2, p3));
+-  }
+-
+-  function log(uint p0, bool p1, bool p2, uint p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,bool,bool,uint)', p0, p1, p2, p3));
+-  }
+-
+-  function log(uint p0, bool p1, bool p2, string memory p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,bool,bool,string)', p0, p1, p2, p3));
+-  }
+-
+-  function log(uint p0, bool p1, bool p2, bool p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,bool,bool,bool)', p0, p1, p2, p3));
+-  }
+-
+-  function log(uint p0, bool p1, bool p2, address p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,bool,bool,address)', p0, p1, p2, p3));
+-  }
+-
+-  function log(uint p0, bool p1, address p2, uint p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,bool,address,uint)', p0, p1, p2, p3));
+-  }
+-
+-  function log(uint p0, bool p1, address p2, string memory p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,bool,address,string)', p0, p1, p2, p3));
+-  }
+-
+-  function log(uint p0, bool p1, address p2, bool p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,bool,address,bool)', p0, p1, p2, p3));
+-  }
+-
+-  function log(uint p0, bool p1, address p2, address p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,bool,address,address)', p0, p1, p2, p3));
+-  }
+-
+-  function log(uint p0, address p1, uint p2, uint p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,address,uint,uint)', p0, p1, p2, p3));
+-  }
+-
+-  function log(uint p0, address p1, uint p2, string memory p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,address,uint,string)', p0, p1, p2, p3));
+-  }
+-
+-  function log(uint p0, address p1, uint p2, bool p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,address,uint,bool)', p0, p1, p2, p3));
+-  }
+-
+-  function log(uint p0, address p1, uint p2, address p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,address,uint,address)', p0, p1, p2, p3));
+-  }
+-
+-  function log(uint p0, address p1, string memory p2, uint p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,address,string,uint)', p0, p1, p2, p3));
+-  }
+-
+-  function log(uint p0, address p1, string memory p2, string memory p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,address,string,string)', p0, p1, p2, p3));
+-  }
+-
+-  function log(uint p0, address p1, string memory p2, bool p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,address,string,bool)', p0, p1, p2, p3));
+-  }
+-
+-  function log(uint p0, address p1, string memory p2, address p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,address,string,address)', p0, p1, p2, p3));
+-  }
+-
+-  function log(uint p0, address p1, bool p2, uint p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,address,bool,uint)', p0, p1, p2, p3));
+-  }
+-
+-  function log(uint p0, address p1, bool p2, string memory p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,address,bool,string)', p0, p1, p2, p3));
+-  }
+-
+-  function log(uint p0, address p1, bool p2, bool p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,address,bool,bool)', p0, p1, p2, p3));
+-  }
+-
+-  function log(uint p0, address p1, bool p2, address p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,address,bool,address)', p0, p1, p2, p3));
+-  }
+-
+-  function log(uint p0, address p1, address p2, uint p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,address,address,uint)', p0, p1, p2, p3));
+-  }
+-
+-  function log(uint p0, address p1, address p2, string memory p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,address,address,string)', p0, p1, p2, p3));
+-  }
+-
+-  function log(uint p0, address p1, address p2, bool p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,address,address,bool)', p0, p1, p2, p3));
+-  }
+-
+-  function log(uint p0, address p1, address p2, address p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(uint,address,address,address)', p0, p1, p2, p3));
+-  }
+-
+-  function log(string memory p0, uint p1, uint p2, uint p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,uint,uint,uint)', p0, p1, p2, p3));
+-  }
+-
+-  function log(string memory p0, uint p1, uint p2, string memory p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,uint,uint,string)', p0, p1, p2, p3));
+-  }
+-
+-  function log(string memory p0, uint p1, uint p2, bool p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,uint,uint,bool)', p0, p1, p2, p3));
+-  }
+-
+-  function log(string memory p0, uint p1, uint p2, address p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,uint,uint,address)', p0, p1, p2, p3));
+-  }
+-
+-  function log(string memory p0, uint p1, string memory p2, uint p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,uint,string,uint)', p0, p1, p2, p3));
+-  }
+-
+-  function log(string memory p0, uint p1, string memory p2, string memory p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,uint,string,string)', p0, p1, p2, p3));
+-  }
+-
+-  function log(string memory p0, uint p1, string memory p2, bool p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,uint,string,bool)', p0, p1, p2, p3));
+-  }
+-
+-  function log(string memory p0, uint p1, string memory p2, address p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,uint,string,address)', p0, p1, p2, p3));
+-  }
+-
+-  function log(string memory p0, uint p1, bool p2, uint p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,uint,bool,uint)', p0, p1, p2, p3));
+-  }
+-
+-  function log(string memory p0, uint p1, bool p2, string memory p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,uint,bool,string)', p0, p1, p2, p3));
+-  }
+-
+-  function log(string memory p0, uint p1, bool p2, bool p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,uint,bool,bool)', p0, p1, p2, p3));
+-  }
+-
+-  function log(string memory p0, uint p1, bool p2, address p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,uint,bool,address)', p0, p1, p2, p3));
+-  }
+-
+-  function log(string memory p0, uint p1, address p2, uint p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,uint,address,uint)', p0, p1, p2, p3));
+-  }
+-
+-  function log(string memory p0, uint p1, address p2, string memory p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,uint,address,string)', p0, p1, p2, p3));
+-  }
+-
+-  function log(string memory p0, uint p1, address p2, bool p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,uint,address,bool)', p0, p1, p2, p3));
+-  }
+-
+-  function log(string memory p0, uint p1, address p2, address p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,uint,address,address)', p0, p1, p2, p3));
+-  }
+-
+-  function log(string memory p0, string memory p1, uint p2, uint p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,string,uint,uint)', p0, p1, p2, p3));
+-  }
+-
+-  function log(string memory p0, string memory p1, uint p2, string memory p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,string,uint,string)', p0, p1, p2, p3));
+-  }
+-
+-  function log(string memory p0, string memory p1, uint p2, bool p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,string,uint,bool)', p0, p1, p2, p3));
+-  }
+-
+-  function log(string memory p0, string memory p1, uint p2, address p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,string,uint,address)', p0, p1, p2, p3));
+-  }
+-
+-  function log(string memory p0, string memory p1, string memory p2, uint p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,string,string,uint)', p0, p1, p2, p3));
+-  }
+-
+-  function log(
+-    string memory p0,
+-    string memory p1,
+-    string memory p2,
+-    string memory p3
+-  ) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,string,string,string)', p0, p1, p2, p3));
+-  }
+-
+-  function log(string memory p0, string memory p1, string memory p2, bool p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,string,string,bool)', p0, p1, p2, p3));
+-  }
+-
+-  function log(string memory p0, string memory p1, string memory p2, address p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,string,string,address)', p0, p1, p2, p3));
+-  }
+-
+-  function log(string memory p0, string memory p1, bool p2, uint p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,string,bool,uint)', p0, p1, p2, p3));
+-  }
+-
+-  function log(string memory p0, string memory p1, bool p2, string memory p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,string,bool,string)', p0, p1, p2, p3));
+-  }
+-
+-  function log(string memory p0, string memory p1, bool p2, bool p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,string,bool,bool)', p0, p1, p2, p3));
+-  }
+-
+-  function log(string memory p0, string memory p1, bool p2, address p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,string,bool,address)', p0, p1, p2, p3));
+-  }
+-
+-  function log(string memory p0, string memory p1, address p2, uint p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,string,address,uint)', p0, p1, p2, p3));
+-  }
+-
+-  function log(string memory p0, string memory p1, address p2, string memory p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,string,address,string)', p0, p1, p2, p3));
+-  }
+-
+-  function log(string memory p0, string memory p1, address p2, bool p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,string,address,bool)', p0, p1, p2, p3));
+-  }
+-
+-  function log(string memory p0, string memory p1, address p2, address p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,string,address,address)', p0, p1, p2, p3));
+-  }
+-
+-  function log(string memory p0, bool p1, uint p2, uint p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,bool,uint,uint)', p0, p1, p2, p3));
+-  }
+-
+-  function log(string memory p0, bool p1, uint p2, string memory p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,bool,uint,string)', p0, p1, p2, p3));
+-  }
+-
+-  function log(string memory p0, bool p1, uint p2, bool p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,bool,uint,bool)', p0, p1, p2, p3));
+-  }
+-
+-  function log(string memory p0, bool p1, uint p2, address p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,bool,uint,address)', p0, p1, p2, p3));
+-  }
+-
+-  function log(string memory p0, bool p1, string memory p2, uint p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,bool,string,uint)', p0, p1, p2, p3));
+-  }
+-
+-  function log(string memory p0, bool p1, string memory p2, string memory p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,bool,string,string)', p0, p1, p2, p3));
+-  }
+-
+-  function log(string memory p0, bool p1, string memory p2, bool p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,bool,string,bool)', p0, p1, p2, p3));
+-  }
+-
+-  function log(string memory p0, bool p1, string memory p2, address p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,bool,string,address)', p0, p1, p2, p3));
+-  }
+-
+-  function log(string memory p0, bool p1, bool p2, uint p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,bool,bool,uint)', p0, p1, p2, p3));
+-  }
+-
+-  function log(string memory p0, bool p1, bool p2, string memory p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,bool,bool,string)', p0, p1, p2, p3));
+-  }
+-
+-  function log(string memory p0, bool p1, bool p2, bool p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,bool,bool,bool)', p0, p1, p2, p3));
+-  }
+-
+-  function log(string memory p0, bool p1, bool p2, address p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,bool,bool,address)', p0, p1, p2, p3));
+-  }
+-
+-  function log(string memory p0, bool p1, address p2, uint p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,bool,address,uint)', p0, p1, p2, p3));
+-  }
+-
+-  function log(string memory p0, bool p1, address p2, string memory p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,bool,address,string)', p0, p1, p2, p3));
+-  }
+-
+-  function log(string memory p0, bool p1, address p2, bool p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,bool,address,bool)', p0, p1, p2, p3));
+-  }
+-
+-  function log(string memory p0, bool p1, address p2, address p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,bool,address,address)', p0, p1, p2, p3));
+-  }
+-
+-  function log(string memory p0, address p1, uint p2, uint p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,address,uint,uint)', p0, p1, p2, p3));
+-  }
+-
+-  function log(string memory p0, address p1, uint p2, string memory p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,address,uint,string)', p0, p1, p2, p3));
+-  }
+-
+-  function log(string memory p0, address p1, uint p2, bool p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,address,uint,bool)', p0, p1, p2, p3));
+-  }
+-
+-  function log(string memory p0, address p1, uint p2, address p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,address,uint,address)', p0, p1, p2, p3));
+-  }
+-
+-  function log(string memory p0, address p1, string memory p2, uint p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,address,string,uint)', p0, p1, p2, p3));
+-  }
+-
+-  function log(string memory p0, address p1, string memory p2, string memory p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,address,string,string)', p0, p1, p2, p3));
+-  }
+-
+-  function log(string memory p0, address p1, string memory p2, bool p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,address,string,bool)', p0, p1, p2, p3));
+-  }
+-
+-  function log(string memory p0, address p1, string memory p2, address p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,address,string,address)', p0, p1, p2, p3));
+-  }
+-
+-  function log(string memory p0, address p1, bool p2, uint p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,address,bool,uint)', p0, p1, p2, p3));
+-  }
+-
+-  function log(string memory p0, address p1, bool p2, string memory p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,address,bool,string)', p0, p1, p2, p3));
+-  }
+-
+-  function log(string memory p0, address p1, bool p2, bool p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,address,bool,bool)', p0, p1, p2, p3));
+-  }
+-
+-  function log(string memory p0, address p1, bool p2, address p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,address,bool,address)', p0, p1, p2, p3));
+-  }
+-
+-  function log(string memory p0, address p1, address p2, uint p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,address,address,uint)', p0, p1, p2, p3));
+-  }
+-
+-  function log(string memory p0, address p1, address p2, string memory p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,address,address,string)', p0, p1, p2, p3));
+-  }
+-
+-  function log(string memory p0, address p1, address p2, bool p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,address,address,bool)', p0, p1, p2, p3));
+-  }
+-
+-  function log(string memory p0, address p1, address p2, address p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(string,address,address,address)', p0, p1, p2, p3));
+-  }
+-
+-  function log(bool p0, uint p1, uint p2, uint p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,uint,uint,uint)', p0, p1, p2, p3));
+-  }
+-
+-  function log(bool p0, uint p1, uint p2, string memory p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,uint,uint,string)', p0, p1, p2, p3));
+-  }
+-
+-  function log(bool p0, uint p1, uint p2, bool p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,uint,uint,bool)', p0, p1, p2, p3));
+-  }
+-
+-  function log(bool p0, uint p1, uint p2, address p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,uint,uint,address)', p0, p1, p2, p3));
+-  }
+-
+-  function log(bool p0, uint p1, string memory p2, uint p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,uint,string,uint)', p0, p1, p2, p3));
+-  }
+-
+-  function log(bool p0, uint p1, string memory p2, string memory p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,uint,string,string)', p0, p1, p2, p3));
+-  }
+-
+-  function log(bool p0, uint p1, string memory p2, bool p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,uint,string,bool)', p0, p1, p2, p3));
+-  }
+-
+-  function log(bool p0, uint p1, string memory p2, address p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,uint,string,address)', p0, p1, p2, p3));
+-  }
+-
+-  function log(bool p0, uint p1, bool p2, uint p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,uint,bool,uint)', p0, p1, p2, p3));
+-  }
+-
+-  function log(bool p0, uint p1, bool p2, string memory p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,uint,bool,string)', p0, p1, p2, p3));
+-  }
+-
+-  function log(bool p0, uint p1, bool p2, bool p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,uint,bool,bool)', p0, p1, p2, p3));
+-  }
+-
+-  function log(bool p0, uint p1, bool p2, address p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,uint,bool,address)', p0, p1, p2, p3));
+-  }
+-
+-  function log(bool p0, uint p1, address p2, uint p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,uint,address,uint)', p0, p1, p2, p3));
+-  }
+-
+-  function log(bool p0, uint p1, address p2, string memory p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,uint,address,string)', p0, p1, p2, p3));
+-  }
+-
+-  function log(bool p0, uint p1, address p2, bool p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,uint,address,bool)', p0, p1, p2, p3));
+-  }
+-
+-  function log(bool p0, uint p1, address p2, address p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,uint,address,address)', p0, p1, p2, p3));
+-  }
+-
+-  function log(bool p0, string memory p1, uint p2, uint p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,string,uint,uint)', p0, p1, p2, p3));
+-  }
+-
+-  function log(bool p0, string memory p1, uint p2, string memory p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,string,uint,string)', p0, p1, p2, p3));
+-  }
+-
+-  function log(bool p0, string memory p1, uint p2, bool p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,string,uint,bool)', p0, p1, p2, p3));
+-  }
+-
+-  function log(bool p0, string memory p1, uint p2, address p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,string,uint,address)', p0, p1, p2, p3));
+-  }
+-
+-  function log(bool p0, string memory p1, string memory p2, uint p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,string,string,uint)', p0, p1, p2, p3));
+-  }
+-
+-  function log(bool p0, string memory p1, string memory p2, string memory p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,string,string,string)', p0, p1, p2, p3));
+-  }
+-
+-  function log(bool p0, string memory p1, string memory p2, bool p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,string,string,bool)', p0, p1, p2, p3));
+-  }
+-
+-  function log(bool p0, string memory p1, string memory p2, address p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,string,string,address)', p0, p1, p2, p3));
+-  }
+-
+-  function log(bool p0, string memory p1, bool p2, uint p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,string,bool,uint)', p0, p1, p2, p3));
+-  }
+-
+-  function log(bool p0, string memory p1, bool p2, string memory p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,string,bool,string)', p0, p1, p2, p3));
+-  }
+-
+-  function log(bool p0, string memory p1, bool p2, bool p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,string,bool,bool)', p0, p1, p2, p3));
+-  }
+-
+-  function log(bool p0, string memory p1, bool p2, address p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,string,bool,address)', p0, p1, p2, p3));
+-  }
+-
+-  function log(bool p0, string memory p1, address p2, uint p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,string,address,uint)', p0, p1, p2, p3));
+-  }
+-
+-  function log(bool p0, string memory p1, address p2, string memory p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,string,address,string)', p0, p1, p2, p3));
+-  }
+-
+-  function log(bool p0, string memory p1, address p2, bool p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,string,address,bool)', p0, p1, p2, p3));
+-  }
+-
+-  function log(bool p0, string memory p1, address p2, address p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,string,address,address)', p0, p1, p2, p3));
+-  }
+-
+-  function log(bool p0, bool p1, uint p2, uint p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,bool,uint,uint)', p0, p1, p2, p3));
+-  }
+-
+-  function log(bool p0, bool p1, uint p2, string memory p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,bool,uint,string)', p0, p1, p2, p3));
+-  }
+-
+-  function log(bool p0, bool p1, uint p2, bool p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,bool,uint,bool)', p0, p1, p2, p3));
+-  }
+-
+-  function log(bool p0, bool p1, uint p2, address p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,bool,uint,address)', p0, p1, p2, p3));
+-  }
+-
+-  function log(bool p0, bool p1, string memory p2, uint p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,bool,string,uint)', p0, p1, p2, p3));
+-  }
+-
+-  function log(bool p0, bool p1, string memory p2, string memory p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,bool,string,string)', p0, p1, p2, p3));
+-  }
+-
+-  function log(bool p0, bool p1, string memory p2, bool p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,bool,string,bool)', p0, p1, p2, p3));
+-  }
+-
+-  function log(bool p0, bool p1, string memory p2, address p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,bool,string,address)', p0, p1, p2, p3));
+-  }
+-
+-  function log(bool p0, bool p1, bool p2, uint p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,bool,bool,uint)', p0, p1, p2, p3));
+-  }
+-
+-  function log(bool p0, bool p1, bool p2, string memory p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,bool,bool,string)', p0, p1, p2, p3));
+-  }
+-
+-  function log(bool p0, bool p1, bool p2, bool p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,bool,bool,bool)', p0, p1, p2, p3));
+-  }
+-
+-  function log(bool p0, bool p1, bool p2, address p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,bool,bool,address)', p0, p1, p2, p3));
+-  }
+-
+-  function log(bool p0, bool p1, address p2, uint p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,bool,address,uint)', p0, p1, p2, p3));
+-  }
+-
+-  function log(bool p0, bool p1, address p2, string memory p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,bool,address,string)', p0, p1, p2, p3));
+-  }
+-
+-  function log(bool p0, bool p1, address p2, bool p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,bool,address,bool)', p0, p1, p2, p3));
+-  }
+-
+-  function log(bool p0, bool p1, address p2, address p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,bool,address,address)', p0, p1, p2, p3));
+-  }
+-
+-  function log(bool p0, address p1, uint p2, uint p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,address,uint,uint)', p0, p1, p2, p3));
+-  }
+-
+-  function log(bool p0, address p1, uint p2, string memory p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,address,uint,string)', p0, p1, p2, p3));
+-  }
+-
+-  function log(bool p0, address p1, uint p2, bool p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,address,uint,bool)', p0, p1, p2, p3));
+-  }
+-
+-  function log(bool p0, address p1, uint p2, address p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,address,uint,address)', p0, p1, p2, p3));
+-  }
+-
+-  function log(bool p0, address p1, string memory p2, uint p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,address,string,uint)', p0, p1, p2, p3));
+-  }
+-
+-  function log(bool p0, address p1, string memory p2, string memory p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,address,string,string)', p0, p1, p2, p3));
+-  }
+-
+-  function log(bool p0, address p1, string memory p2, bool p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,address,string,bool)', p0, p1, p2, p3));
+-  }
+-
+-  function log(bool p0, address p1, string memory p2, address p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,address,string,address)', p0, p1, p2, p3));
+-  }
+-
+-  function log(bool p0, address p1, bool p2, uint p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,address,bool,uint)', p0, p1, p2, p3));
+-  }
+-
+-  function log(bool p0, address p1, bool p2, string memory p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,address,bool,string)', p0, p1, p2, p3));
+-  }
+-
+-  function log(bool p0, address p1, bool p2, bool p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,address,bool,bool)', p0, p1, p2, p3));
+-  }
+-
+-  function log(bool p0, address p1, bool p2, address p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,address,bool,address)', p0, p1, p2, p3));
+-  }
+-
+-  function log(bool p0, address p1, address p2, uint p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,address,address,uint)', p0, p1, p2, p3));
+-  }
+-
+-  function log(bool p0, address p1, address p2, string memory p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,address,address,string)', p0, p1, p2, p3));
+-  }
+-
+-  function log(bool p0, address p1, address p2, bool p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,address,address,bool)', p0, p1, p2, p3));
+-  }
+-
+-  function log(bool p0, address p1, address p2, address p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(bool,address,address,address)', p0, p1, p2, p3));
+-  }
+-
+-  function log(address p0, uint p1, uint p2, uint p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,uint,uint,uint)', p0, p1, p2, p3));
+-  }
+-
+-  function log(address p0, uint p1, uint p2, string memory p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,uint,uint,string)', p0, p1, p2, p3));
+-  }
+-
+-  function log(address p0, uint p1, uint p2, bool p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,uint,uint,bool)', p0, p1, p2, p3));
+-  }
+-
+-  function log(address p0, uint p1, uint p2, address p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,uint,uint,address)', p0, p1, p2, p3));
+-  }
+-
+-  function log(address p0, uint p1, string memory p2, uint p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,uint,string,uint)', p0, p1, p2, p3));
+-  }
+-
+-  function log(address p0, uint p1, string memory p2, string memory p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,uint,string,string)', p0, p1, p2, p3));
+-  }
+-
+-  function log(address p0, uint p1, string memory p2, bool p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,uint,string,bool)', p0, p1, p2, p3));
+-  }
+-
+-  function log(address p0, uint p1, string memory p2, address p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,uint,string,address)', p0, p1, p2, p3));
+-  }
+-
+-  function log(address p0, uint p1, bool p2, uint p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,uint,bool,uint)', p0, p1, p2, p3));
+-  }
+-
+-  function log(address p0, uint p1, bool p2, string memory p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,uint,bool,string)', p0, p1, p2, p3));
+-  }
+-
+-  function log(address p0, uint p1, bool p2, bool p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,uint,bool,bool)', p0, p1, p2, p3));
+-  }
+-
+-  function log(address p0, uint p1, bool p2, address p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,uint,bool,address)', p0, p1, p2, p3));
+-  }
+-
+-  function log(address p0, uint p1, address p2, uint p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,uint,address,uint)', p0, p1, p2, p3));
+-  }
+-
+-  function log(address p0, uint p1, address p2, string memory p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,uint,address,string)', p0, p1, p2, p3));
+-  }
+-
+-  function log(address p0, uint p1, address p2, bool p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,uint,address,bool)', p0, p1, p2, p3));
+-  }
+-
+-  function log(address p0, uint p1, address p2, address p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,uint,address,address)', p0, p1, p2, p3));
+-  }
+-
+-  function log(address p0, string memory p1, uint p2, uint p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,string,uint,uint)', p0, p1, p2, p3));
+-  }
+-
+-  function log(address p0, string memory p1, uint p2, string memory p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,string,uint,string)', p0, p1, p2, p3));
+-  }
+-
+-  function log(address p0, string memory p1, uint p2, bool p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,string,uint,bool)', p0, p1, p2, p3));
+-  }
+-
+-  function log(address p0, string memory p1, uint p2, address p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,string,uint,address)', p0, p1, p2, p3));
+-  }
+-
+-  function log(address p0, string memory p1, string memory p2, uint p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,string,string,uint)', p0, p1, p2, p3));
+-  }
+-
+-  function log(address p0, string memory p1, string memory p2, string memory p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,string,string,string)', p0, p1, p2, p3));
+-  }
+-
+-  function log(address p0, string memory p1, string memory p2, bool p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,string,string,bool)', p0, p1, p2, p3));
+-  }
+-
+-  function log(address p0, string memory p1, string memory p2, address p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,string,string,address)', p0, p1, p2, p3));
+-  }
+-
+-  function log(address p0, string memory p1, bool p2, uint p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,string,bool,uint)', p0, p1, p2, p3));
+-  }
+-
+-  function log(address p0, string memory p1, bool p2, string memory p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,string,bool,string)', p0, p1, p2, p3));
+-  }
+-
+-  function log(address p0, string memory p1, bool p2, bool p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,string,bool,bool)', p0, p1, p2, p3));
+-  }
+-
+-  function log(address p0, string memory p1, bool p2, address p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,string,bool,address)', p0, p1, p2, p3));
+-  }
+-
+-  function log(address p0, string memory p1, address p2, uint p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,string,address,uint)', p0, p1, p2, p3));
+-  }
+-
+-  function log(address p0, string memory p1, address p2, string memory p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,string,address,string)', p0, p1, p2, p3));
+-  }
+-
+-  function log(address p0, string memory p1, address p2, bool p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,string,address,bool)', p0, p1, p2, p3));
+-  }
+-
+-  function log(address p0, string memory p1, address p2, address p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,string,address,address)', p0, p1, p2, p3));
+-  }
+-
+-  function log(address p0, bool p1, uint p2, uint p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,bool,uint,uint)', p0, p1, p2, p3));
+-  }
+-
+-  function log(address p0, bool p1, uint p2, string memory p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,bool,uint,string)', p0, p1, p2, p3));
+-  }
+-
+-  function log(address p0, bool p1, uint p2, bool p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,bool,uint,bool)', p0, p1, p2, p3));
+-  }
+-
+-  function log(address p0, bool p1, uint p2, address p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,bool,uint,address)', p0, p1, p2, p3));
+-  }
+-
+-  function log(address p0, bool p1, string memory p2, uint p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,bool,string,uint)', p0, p1, p2, p3));
+-  }
+-
+-  function log(address p0, bool p1, string memory p2, string memory p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,bool,string,string)', p0, p1, p2, p3));
+-  }
+-
+-  function log(address p0, bool p1, string memory p2, bool p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,bool,string,bool)', p0, p1, p2, p3));
+-  }
+-
+-  function log(address p0, bool p1, string memory p2, address p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,bool,string,address)', p0, p1, p2, p3));
+-  }
+-
+-  function log(address p0, bool p1, bool p2, uint p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,bool,bool,uint)', p0, p1, p2, p3));
+-  }
+-
+-  function log(address p0, bool p1, bool p2, string memory p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,bool,bool,string)', p0, p1, p2, p3));
+-  }
+-
+-  function log(address p0, bool p1, bool p2, bool p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,bool,bool,bool)', p0, p1, p2, p3));
+-  }
+-
+-  function log(address p0, bool p1, bool p2, address p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,bool,bool,address)', p0, p1, p2, p3));
+-  }
+-
+-  function log(address p0, bool p1, address p2, uint p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,bool,address,uint)', p0, p1, p2, p3));
+-  }
+-
+-  function log(address p0, bool p1, address p2, string memory p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,bool,address,string)', p0, p1, p2, p3));
+-  }
+-
+-  function log(address p0, bool p1, address p2, bool p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,bool,address,bool)', p0, p1, p2, p3));
+-  }
+-
+-  function log(address p0, bool p1, address p2, address p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,bool,address,address)', p0, p1, p2, p3));
+-  }
+-
+-  function log(address p0, address p1, uint p2, uint p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,address,uint,uint)', p0, p1, p2, p3));
+-  }
+-
+-  function log(address p0, address p1, uint p2, string memory p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,address,uint,string)', p0, p1, p2, p3));
+-  }
+-
+-  function log(address p0, address p1, uint p2, bool p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,address,uint,bool)', p0, p1, p2, p3));
+-  }
+-
+-  function log(address p0, address p1, uint p2, address p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,address,uint,address)', p0, p1, p2, p3));
+-  }
+-
+-  function log(address p0, address p1, string memory p2, uint p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,address,string,uint)', p0, p1, p2, p3));
+-  }
+-
+-  function log(address p0, address p1, string memory p2, string memory p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,address,string,string)', p0, p1, p2, p3));
+-  }
+-
+-  function log(address p0, address p1, string memory p2, bool p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,address,string,bool)', p0, p1, p2, p3));
+-  }
+-
+-  function log(address p0, address p1, string memory p2, address p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,address,string,address)', p0, p1, p2, p3));
+-  }
+-
+-  function log(address p0, address p1, bool p2, uint p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,address,bool,uint)', p0, p1, p2, p3));
+-  }
+-
+-  function log(address p0, address p1, bool p2, string memory p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,address,bool,string)', p0, p1, p2, p3));
+-  }
+-
+-  function log(address p0, address p1, bool p2, bool p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,address,bool,bool)', p0, p1, p2, p3));
+-  }
+-
+-  function log(address p0, address p1, bool p2, address p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,address,bool,address)', p0, p1, p2, p3));
+-  }
+-
+-  function log(address p0, address p1, address p2, uint p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,address,address,uint)', p0, p1, p2, p3));
+-  }
+-
+-  function log(address p0, address p1, address p2, string memory p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,address,address,string)', p0, p1, p2, p3));
+-  }
+-
+-  function log(address p0, address p1, address p2, bool p3) internal view {
+-    _sendLogPayload(abi.encodeWithSignature('log(address,address,address,bool)', p0, p1, p2, p3));
+-  }
+-
+-  function log(address p0, address p1, address p2, address p3) internal view {
+-    _sendLogPayload(
+-      abi.encodeWithSignature('log(address,address,address,address)', p0, p1, p2, p3)
+-    );
+-  }
+-}
+diff --git a/etherscan/v2PolLendingPoolCollateralManagerNew/LendingPoolCollateralManager/src/ILiquidationsGraceSentinel.sol b/etherscan/v2PolLendingPoolCollateralManagerNew/LendingPoolCollateralManager/src/ILiquidationsGraceSentinel.sol
+new file mode 100644
+index 0000000..f61895d
+--- /dev/null
++++ b/etherscan/v2PolLendingPoolCollateralManagerNew/LendingPoolCollateralManager/src/ILiquidationsGraceSentinel.sol
+@@ -0,0 +1,24 @@
++// SPDX-License-Identifier: agpl-3.0
++pragma solidity 0.6.12;
++
++interface ILiquidationsGraceSentinel {
++  /**
++   * @dev Emitted when a new grace period is set
++   * @param asset Address of the underlying asset listed on Aave
++   * @param until Timestamp until the grace period will be activated
++   **/
++  event GracePeriodSet(address indexed asset, uint40 until);
++
++  /**
++   * @dev Returns until when a grace period is enabled
++   * @param asset Address of the underlying asset listed on Aave
++   **/
++  function gracePeriodUntil(address asset) external view returns (uint40);
++
++  /// @notice Function to set grace period to one or multiple Aave underlyings
++  /// @dev To enable a grace period, a timestamp in the future should be set,
++  ///      To disable a grace period, any timestamp in the past works, like 0
++  /// @param assets Address of the underlying asset listed on Aave
++  /// @param until Timestamp when the liquidations' grace period will end
++  function setGracePeriods(address[] calldata assets, uint40[] calldata until) external;
++}
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/dependencies/openzeppelin/contracts/Address.sol b/etherscan/v2PolLendingPoolCollateralManagerNew/LendingPoolCollateralManager/src/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/dependencies/openzeppelin/contracts/Address.sol
+similarity index 100%
+rename from etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/dependencies/openzeppelin/contracts/Address.sol
+rename to etherscan/v2PolLendingPoolCollateralManagerNew/LendingPoolCollateralManager/src/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/dependencies/openzeppelin/contracts/Address.sol
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/dependencies/openzeppelin/contracts/IERC20.sol b/etherscan/v2PolLendingPoolCollateralManagerNew/LendingPoolCollateralManager/src/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/dependencies/openzeppelin/contracts/IERC20.sol
+similarity index 100%
+rename from etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/dependencies/openzeppelin/contracts/IERC20.sol
+rename to etherscan/v2PolLendingPoolCollateralManagerNew/LendingPoolCollateralManager/src/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/dependencies/openzeppelin/contracts/IERC20.sol
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/dependencies/openzeppelin/contracts/SafeERC20.sol b/etherscan/v2PolLendingPoolCollateralManagerNew/LendingPoolCollateralManager/src/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/dependencies/openzeppelin/contracts/SafeERC20.sol
+similarity index 100%
+rename from etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/dependencies/openzeppelin/contracts/SafeERC20.sol
+rename to etherscan/v2PolLendingPoolCollateralManagerNew/LendingPoolCollateralManager/src/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/dependencies/openzeppelin/contracts/SafeERC20.sol
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/dependencies/openzeppelin/contracts/SafeMath.sol b/etherscan/v2PolLendingPoolCollateralManagerNew/LendingPoolCollateralManager/src/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/dependencies/openzeppelin/contracts/SafeMath.sol
+similarity index 100%
+rename from etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/dependencies/openzeppelin/contracts/SafeMath.sol
+rename to etherscan/v2PolLendingPoolCollateralManagerNew/LendingPoolCollateralManager/src/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/dependencies/openzeppelin/contracts/SafeMath.sol
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/interfaces/IAToken.sol b/etherscan/v2PolLendingPoolCollateralManagerNew/LendingPoolCollateralManager/src/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/interfaces/IAToken.sol
+similarity index 100%
+rename from etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/interfaces/IAToken.sol
+rename to etherscan/v2PolLendingPoolCollateralManagerNew/LendingPoolCollateralManager/src/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/interfaces/IAToken.sol
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/interfaces/IAaveIncentivesController.sol b/etherscan/v2PolLendingPoolCollateralManagerNew/LendingPoolCollateralManager/src/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/interfaces/IAaveIncentivesController.sol
+similarity index 100%
+rename from etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/interfaces/IAaveIncentivesController.sol
+rename to etherscan/v2PolLendingPoolCollateralManagerNew/LendingPoolCollateralManager/src/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/interfaces/IAaveIncentivesController.sol
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/interfaces/IInitializableAToken.sol b/etherscan/v2PolLendingPoolCollateralManagerNew/LendingPoolCollateralManager/src/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/interfaces/IInitializableAToken.sol
+similarity index 100%
+rename from etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/interfaces/IInitializableAToken.sol
+rename to etherscan/v2PolLendingPoolCollateralManagerNew/LendingPoolCollateralManager/src/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/interfaces/IInitializableAToken.sol
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/interfaces/IInitializableDebtToken.sol b/etherscan/v2PolLendingPoolCollateralManagerNew/LendingPoolCollateralManager/src/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/interfaces/IInitializableDebtToken.sol
+similarity index 100%
+rename from etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/interfaces/IInitializableDebtToken.sol
+rename to etherscan/v2PolLendingPoolCollateralManagerNew/LendingPoolCollateralManager/src/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/interfaces/IInitializableDebtToken.sol
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/interfaces/ILendingPool.sol b/etherscan/v2PolLendingPoolCollateralManagerNew/LendingPoolCollateralManager/src/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/interfaces/ILendingPool.sol
+similarity index 100%
+rename from etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/interfaces/ILendingPool.sol
+rename to etherscan/v2PolLendingPoolCollateralManagerNew/LendingPoolCollateralManager/src/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/interfaces/ILendingPool.sol
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/interfaces/ILendingPoolAddressesProvider.sol b/etherscan/v2PolLendingPoolCollateralManagerNew/LendingPoolCollateralManager/src/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/interfaces/ILendingPoolAddressesProvider.sol
+similarity index 100%
+rename from etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/interfaces/ILendingPoolAddressesProvider.sol
+rename to etherscan/v2PolLendingPoolCollateralManagerNew/LendingPoolCollateralManager/src/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/interfaces/ILendingPoolAddressesProvider.sol
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/interfaces/ILendingPoolCollateralManager.sol b/etherscan/v2PolLendingPoolCollateralManagerNew/LendingPoolCollateralManager/src/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/interfaces/ILendingPoolCollateralManager.sol
+similarity index 88%
+rename from etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/interfaces/ILendingPoolCollateralManager.sol
+rename to etherscan/v2PolLendingPoolCollateralManagerNew/LendingPoolCollateralManager/src/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/interfaces/ILendingPoolCollateralManager.sol
+index ed70ea0..1b76650 100644
+--- a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/interfaces/ILendingPoolCollateralManager.sol
++++ b/etherscan/v2PolLendingPoolCollateralManagerNew/LendingPoolCollateralManager/src/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/interfaces/ILendingPoolCollateralManager.sol
+@@ -1,5 +1,6 @@
+ // SPDX-License-Identifier: agpl-3.0
+ pragma solidity 0.6.12;
++import {ILiquidationsGraceSentinel} from '../../../../ILiquidationsGraceSentinel.sol';
+ 
+ /**
+  * @title ILendingPoolCollateralManager
+@@ -57,4 +58,10 @@ interface ILendingPoolCollateralManager {
+     uint256 debtToCover,
+     bool receiveAToken
+   ) external returns (uint256, string memory);
++
++  /**
++   * @dev Function to get an address LiquidationsGraceSentinel
++   * @return ILiquidationsGraceSentinel
++   **/
++  function LIQUIDATIONS_GRACE_SENTINEL() external view returns (ILiquidationsGraceSentinel);
+ }
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/interfaces/IPriceOracleGetter.sol b/etherscan/v2PolLendingPoolCollateralManagerNew/LendingPoolCollateralManager/src/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/interfaces/IPriceOracleGetter.sol
+similarity index 100%
+rename from etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/interfaces/IPriceOracleGetter.sol
+rename to etherscan/v2PolLendingPoolCollateralManagerNew/LendingPoolCollateralManager/src/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/interfaces/IPriceOracleGetter.sol
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/interfaces/IReserveInterestRateStrategy.sol b/etherscan/v2PolLendingPoolCollateralManagerNew/LendingPoolCollateralManager/src/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/interfaces/IReserveInterestRateStrategy.sol
+similarity index 100%
+rename from etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/interfaces/IReserveInterestRateStrategy.sol
+rename to etherscan/v2PolLendingPoolCollateralManagerNew/LendingPoolCollateralManager/src/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/interfaces/IReserveInterestRateStrategy.sol
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/interfaces/IScaledBalanceToken.sol b/etherscan/v2PolLendingPoolCollateralManagerNew/LendingPoolCollateralManager/src/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/interfaces/IScaledBalanceToken.sol
+similarity index 100%
+rename from etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/interfaces/IScaledBalanceToken.sol
+rename to etherscan/v2PolLendingPoolCollateralManagerNew/LendingPoolCollateralManager/src/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/interfaces/IScaledBalanceToken.sol
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/interfaces/IStableDebtToken.sol b/etherscan/v2PolLendingPoolCollateralManagerNew/LendingPoolCollateralManager/src/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/interfaces/IStableDebtToken.sol
+similarity index 100%
+rename from etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/interfaces/IStableDebtToken.sol
+rename to etherscan/v2PolLendingPoolCollateralManagerNew/LendingPoolCollateralManager/src/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/interfaces/IStableDebtToken.sol
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/interfaces/IVariableDebtToken.sol b/etherscan/v2PolLendingPoolCollateralManagerNew/LendingPoolCollateralManager/src/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/interfaces/IVariableDebtToken.sol
+similarity index 100%
+rename from etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/interfaces/IVariableDebtToken.sol
+rename to etherscan/v2PolLendingPoolCollateralManagerNew/LendingPoolCollateralManager/src/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/interfaces/IVariableDebtToken.sol
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/lendingpool/LendingPoolCollateralManager.sol b/etherscan/v2PolLendingPoolCollateralManagerNew/LendingPoolCollateralManager/src/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/lendingpool/LendingPoolCollateralManager.sol
+similarity index 94%
+rename from etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/lendingpool/LendingPoolCollateralManager.sol
+rename to etherscan/v2PolLendingPoolCollateralManagerNew/LendingPoolCollateralManager/src/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/lendingpool/LendingPoolCollateralManager.sol
+index ab08244..5917ef1 100644
+--- a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/lendingpool/LendingPoolCollateralManager.sol
++++ b/etherscan/v2PolLendingPoolCollateralManagerNew/LendingPoolCollateralManager/src/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/lendingpool/LendingPoolCollateralManager.sol
+@@ -7,7 +7,7 @@ import {IAToken} from '../../interfaces/IAToken.sol';
+ import {IStableDebtToken} from '../../interfaces/IStableDebtToken.sol';
+ import {IVariableDebtToken} from '../../interfaces/IVariableDebtToken.sol';
+ import {IPriceOracleGetter} from '../../interfaces/IPriceOracleGetter.sol';
+-import {ILendingPoolCollateralManager} from '../../interfaces/ILendingPoolCollateralManager.sol';
++import {ILendingPoolCollateralManager, ILiquidationsGraceSentinel} from '../../interfaces/ILendingPoolCollateralManager.sol';
+ import {VersionedInitializable} from '../libraries/aave-upgradeability/VersionedInitializable.sol';
+ import {GenericLogic} from '../libraries/logic/GenericLogic.sol';
+ import {Helpers} from '../libraries/helpers/Helpers.sol';
+@@ -37,6 +37,7 @@ contract LendingPoolCollateralManager is
+   using PercentageMath for uint256;
+ 
+   uint256 internal constant LIQUIDATION_CLOSE_FACTOR_PERCENT = 5000;
++  ILiquidationsGraceSentinel public immutable override LIQUIDATIONS_GRACE_SENTINEL;
+ 
+   struct LiquidationCallLocalVars {
+     uint256 userCollateralBalance;
+@@ -58,6 +59,10 @@ contract LendingPoolCollateralManager is
+     string errorMsg;
+   }
+ 
++  constructor(address liquidationsGraceRegistry) public {
++    LIQUIDATIONS_GRACE_SENTINEL = ILiquidationsGraceSentinel(liquidationsGraceRegistry);
++  }
++
+   /**
+    * @dev As thIS contract extends the VersionedInitializable contract to match the state
+    * of the LendingPool contract, the getRevision() function is needed, but the value is not
+@@ -91,6 +96,14 @@ contract LendingPoolCollateralManager is
+ 
+     LiquidationCallLocalVars memory vars;
+ 
++    if (
++      address(LIQUIDATIONS_GRACE_SENTINEL) != address(0) &&
++      (LIQUIDATIONS_GRACE_SENTINEL.gracePeriodUntil(collateralAsset) >= uint40(block.timestamp) ||
++        LIQUIDATIONS_GRACE_SENTINEL.gracePeriodUntil(debtAsset) >= uint40(block.timestamp))
++    ) {
++      return (uint256(Errors.CollateralManagerErrors.ON_GRACE_PERIOD), Errors.LPCM_ON_GRACE_PERIOD);
++    }
++
+     (, , , , vars.healthFactor) = GenericLogic.calculateUserAccountData(
+       user,
+       _reserves,
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/lendingpool/LendingPoolStorage.sol b/etherscan/v2PolLendingPoolCollateralManagerNew/LendingPoolCollateralManager/src/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/lendingpool/LendingPoolStorage.sol
+similarity index 100%
+rename from etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/lendingpool/LendingPoolStorage.sol
+rename to etherscan/v2PolLendingPoolCollateralManagerNew/LendingPoolCollateralManager/src/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/lendingpool/LendingPoolStorage.sol
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/libraries/aave-upgradeability/VersionedInitializable.sol b/etherscan/v2PolLendingPoolCollateralManagerNew/LendingPoolCollateralManager/src/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/libraries/aave-upgradeability/VersionedInitializable.sol
+similarity index 100%
+rename from etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/libraries/aave-upgradeability/VersionedInitializable.sol
+rename to etherscan/v2PolLendingPoolCollateralManagerNew/LendingPoolCollateralManager/src/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/libraries/aave-upgradeability/VersionedInitializable.sol
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/libraries/configuration/ReserveConfiguration.sol b/etherscan/v2PolLendingPoolCollateralManagerNew/LendingPoolCollateralManager/src/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/libraries/configuration/ReserveConfiguration.sol
+similarity index 100%
+rename from etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/libraries/configuration/ReserveConfiguration.sol
+rename to etherscan/v2PolLendingPoolCollateralManagerNew/LendingPoolCollateralManager/src/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/libraries/configuration/ReserveConfiguration.sol
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/libraries/configuration/UserConfiguration.sol b/etherscan/v2PolLendingPoolCollateralManagerNew/LendingPoolCollateralManager/src/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/libraries/configuration/UserConfiguration.sol
+similarity index 100%
+rename from etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/libraries/configuration/UserConfiguration.sol
+rename to etherscan/v2PolLendingPoolCollateralManagerNew/LendingPoolCollateralManager/src/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/libraries/configuration/UserConfiguration.sol
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/libraries/helpers/Errors.sol b/etherscan/v2PolLendingPoolCollateralManagerNew/LendingPoolCollateralManager/src/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/libraries/helpers/Errors.sol
+similarity index 98%
+rename from etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/libraries/helpers/Errors.sol
+rename to etherscan/v2PolLendingPoolCollateralManagerNew/LendingPoolCollateralManager/src/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/libraries/helpers/Errors.sol
+index 8756d79..87d2033 100644
+--- a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/libraries/helpers/Errors.sol
++++ b/etherscan/v2PolLendingPoolCollateralManagerNew/LendingPoolCollateralManager/src/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/libraries/helpers/Errors.sol
+@@ -103,6 +103,7 @@ library Errors {
+   string public constant LP_NOT_CONTRACT = '78';
+   string public constant SDT_STABLE_DEBT_OVERFLOW = '79';
+   string public constant SDT_BURN_EXCEEDS_BALANCE = '80';
++  string public constant LPCM_ON_GRACE_PERIOD = '82';
+ 
+   enum CollateralManagerErrors {
+     NO_ERROR,
+@@ -114,6 +115,7 @@ library Errors {
+     NO_ACTIVE_RESERVE,
+     HEALTH_FACTOR_LOWER_THAN_LIQUIDATION_THRESHOLD,
+     INVALID_EQUAL_ASSETS_TO_SWAP,
+-    FROZEN_RESERVE
++    FROZEN_RESERVE,
++    ON_GRACE_PERIOD
+   }
+ }
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/libraries/helpers/Helpers.sol b/etherscan/v2PolLendingPoolCollateralManagerNew/LendingPoolCollateralManager/src/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/libraries/helpers/Helpers.sol
+similarity index 100%
+rename from etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/libraries/helpers/Helpers.sol
+rename to etherscan/v2PolLendingPoolCollateralManagerNew/LendingPoolCollateralManager/src/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/libraries/helpers/Helpers.sol
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/libraries/logic/GenericLogic.sol b/etherscan/v2PolLendingPoolCollateralManagerNew/LendingPoolCollateralManager/src/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/libraries/logic/GenericLogic.sol
+similarity index 100%
+rename from etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/libraries/logic/GenericLogic.sol
+rename to etherscan/v2PolLendingPoolCollateralManagerNew/LendingPoolCollateralManager/src/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/libraries/logic/GenericLogic.sol
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/libraries/logic/ReserveLogic.sol b/etherscan/v2PolLendingPoolCollateralManagerNew/LendingPoolCollateralManager/src/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/libraries/logic/ReserveLogic.sol
+similarity index 100%
+rename from etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/libraries/logic/ReserveLogic.sol
+rename to etherscan/v2PolLendingPoolCollateralManagerNew/LendingPoolCollateralManager/src/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/libraries/logic/ReserveLogic.sol
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/libraries/logic/ValidationLogic.sol b/etherscan/v2PolLendingPoolCollateralManagerNew/LendingPoolCollateralManager/src/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/libraries/logic/ValidationLogic.sol
+similarity index 100%
+rename from etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/libraries/logic/ValidationLogic.sol
+rename to etherscan/v2PolLendingPoolCollateralManagerNew/LendingPoolCollateralManager/src/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/libraries/logic/ValidationLogic.sol
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/libraries/math/MathUtils.sol b/etherscan/v2PolLendingPoolCollateralManagerNew/LendingPoolCollateralManager/src/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/libraries/math/MathUtils.sol
+similarity index 100%
+rename from etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/libraries/math/MathUtils.sol
+rename to etherscan/v2PolLendingPoolCollateralManagerNew/LendingPoolCollateralManager/src/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/libraries/math/MathUtils.sol
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/libraries/math/PercentageMath.sol b/etherscan/v2PolLendingPoolCollateralManagerNew/LendingPoolCollateralManager/src/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/libraries/math/PercentageMath.sol
+similarity index 100%
+rename from etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/libraries/math/PercentageMath.sol
+rename to etherscan/v2PolLendingPoolCollateralManagerNew/LendingPoolCollateralManager/src/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/libraries/math/PercentageMath.sol
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/libraries/math/WadRayMath.sol b/etherscan/v2PolLendingPoolCollateralManagerNew/LendingPoolCollateralManager/src/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/libraries/math/WadRayMath.sol
+similarity index 100%
+rename from etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/libraries/math/WadRayMath.sol
+rename to etherscan/v2PolLendingPoolCollateralManagerNew/LendingPoolCollateralManager/src/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/libraries/math/WadRayMath.sol
+diff --git a/etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/libraries/types/DataTypes.sol b/etherscan/v2PolLendingPoolCollateralManagerNew/LendingPoolCollateralManager/src/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/libraries/types/DataTypes.sol
+similarity index 100%
+rename from etherscan/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/libraries/types/DataTypes.sol
+rename to etherscan/v2PolLendingPoolCollateralManagerNew/LendingPoolCollateralManager/src/v2PolLendingPoolCollateralManager/LendingPoolCollateralManager/contracts/protocol/libraries/types/DataTypes.sol
+```

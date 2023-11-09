@@ -97,6 +97,7 @@ export async function booleanSelect<T extends boolean>({
   const value = await select({
     message,
     choices: choices,
+    default: defaultValue,
   });
   return translateJsBoolToSol(value) as T extends true
     ? Exclude<BooleanSelectValues, 'KEEP_CURRENT'>
