@@ -75,7 +75,7 @@ contract AaveV3Ethereum_AmendSafetyModuleAAVEEmissions_20231104_Test is Protocol
     GovHelpers.executePayload(vm, address(proposal), AaveGovernanceV2.SHORT_EXECUTOR);
 
     /*
-      Check emission changes, the value should be 385 ether * 86400 seconds on a day
+      Check emission changes, the value should be 385 ether * 86400 seconds in a day
     */
     IAaveDistributionManager aaveManager = IAaveDistributionManager(STKAAVE);
     HelperStructs.AssetResponse memory aaveRes = aaveManager.assets(STKAAVE);
