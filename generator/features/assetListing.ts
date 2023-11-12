@@ -13,7 +13,7 @@ import {addressPrompt, translateJsAddressToSol} from '../prompts/addressPrompt';
 import {stringPrompt} from '../prompts/stringPrompt';
 import {translateJsBoolToSol} from '../prompts/boolPrompt';
 import {transformNumberToPercent, translateJsPercentToSol} from '../prompts/percentPrompt';
-import {translateJsNumberToSol} from '../prompts/numberPrompt';
+import {transformNumberToHumanReadable, translateJsNumberToSol} from '../prompts/numberPrompt';
 
 async function fetchListing(pool: PoolIdentifier): Promise<Listing> {
   const asset = await addressPrompt({
@@ -203,9 +203,15 @@ export const assetListing: FeatureModule<Listing[]> = {
           listingTemplate += `| Isolation Mode | ${!!cfg.debtCeiling} |\n`;
           listingTemplate += `| Borrowable | ${cfg.enabledToBorrow} |\n`;
           listingTemplate += `| Collateral Enabled | ${!!cfg.liqThreshold} |\n`;
-          listingTemplate += `| Supply Cap (${cfg.assetSymbol}) | ${cfg.supplyCap} |\n`;
-          listingTemplate += `| Borrow Cap (${cfg.assetSymbol}) | ${cfg.borrowCap} |\n`;
-          listingTemplate += `| Debt Ceiling | ${cfg.debtCeiling} |\n`;
+          listingTemplate += `| Supply Cap (${cfg.assetSymbol}) | ${transformNumberToHumanReadable(
+            cfg.supplyCap
+          )} |\n`;
+          listingTemplate += `| Borrow Cap (${cfg.assetSymbol}) | ${transformNumberToHumanReadable(
+            cfg.borrowCap
+          )} |\n`;
+          listingTemplate += `| Debt Ceiling | USD ${transformNumberToHumanReadable(
+            cfg.debtCeiling
+          )} |\n`;
           listingTemplate += `| LTV | ${transformNumberToPercent(cfg.ltv)} |\n`;
           listingTemplate += `| LT | ${transformNumberToPercent(cfg.liqThreshold)} |\n`;
           listingTemplate += `| Liquidation Bonus	| ${transformNumberToPercent(cfg.liqBonus)} |\n`;

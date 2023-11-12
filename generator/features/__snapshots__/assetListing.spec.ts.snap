@@ -21,9 +21,9 @@ The table below illustrates the configured risk parameters for **PSP**
 | Isolation Mode                     |                                       true |
 | Borrowable                         |                                    ENABLED |
 | Collateral Enabled                 |                                       true |
-| Supply Cap (PSP)                   |                                      10000 |
-| Borrow Cap (PSP)                   |                                       5000 |
-| Debt Ceiling                       |                                     100000 |
+| Supply Cap (PSP)                   |                                     10,000 |
+| Borrow Cap (PSP)                   |                                      5,000 |
+| Debt Ceiling                       |                                USD 100,000 |
 | LTV                                |                                       40 % |
 | LT                                 |                                       50 % |
 | Liquidation Bonus                  |                                        5 % |
@@ -284,9 +284,9 @@ exports[`feature: assetListing > should return reasonable code 1`] = `
 | Isolation Mode | true |
 | Borrowable | ENABLED |
 | Collateral Enabled | true |
-| Supply Cap (PSP) | 10000 |
-| Borrow Cap (PSP) | 5000 |
-| Debt Ceiling | 100000 |
+| Supply Cap (PSP) | 10,000 |
+| Borrow Cap (PSP) | 5,000 |
+| Debt Ceiling | USD 100,000 |
 | LTV | 40 % |
 | LT | 50 % |
 | Liquidation Bonus	| 5 % |
