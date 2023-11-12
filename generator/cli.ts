@@ -1,6 +1,6 @@
 import path from 'path';
 import {Command, Option} from 'commander';
-import {getDate, isV2Pool, pascalCase} from './common';
+import {CHAIN_TO_CHAIN_OBJECT, getDate, getPoolChain, isV2Pool, pascalCase} from './common';
 import {input, checkbox} from '@inquirer/prompts';
 import {
   CodeArtifact,
@@ -9,8 +9,10 @@ import {
   FeatureModule,
   Options,
   POOLS,
+  PoolCache,
   PoolConfig,
   PoolConfigs,
+  PoolIdentifier,
 } from './types';
 import {flashBorrower} from './features/flashBorrower';
 import {capsUpdates} from './features/capsUpdates';
@@ -22,6 +24,8 @@ import {eModeAssets} from './features/eModesAssets';
 import {priceFeedsUpdates} from './features/priceFeedsUpdates';
 import {assetListing, assetListingCustom} from './features/assetListing';
 import {generateFiles, writeFiles} from './generator';
+import {PublicClient} from 'viem';
+import {CHAIN_ID_CLIENT_MAP} from '@bgd-labs/aave-cli';
 
 const program = new Command();
 
@@ -133,8 +137,20 @@ if (options.configFile) {
     });
   }
 
+  async function generateDeterministicPoolCache(pool: PoolIdentifier): Promise<PoolCache> {
+    const chain = getPoolChain(pool);
+    const client = CHAIN_ID_CLIENT_MAP[chain] as PublicClient;
+    return {blockNumber: Number(await client.getBlockNumber())};
+  }
+
   for (const pool of options.pools) {
-    poolConfigs[pool] = {configs: {}, artifacts: [], features: [], pool} as PoolConfig;
+    poolConfigs[pool] = {
+      configs: {},
+      artifacts: [],
+      features: [],
+      pool,
+      cache: await generateDeterministicPoolCache(pool),
+    } as PoolConfig;
     const v2 = isV2Pool(pool);
     poolConfigs[pool]!.features = await checkbox({
       message: `What do you want to do on ${pool}?`,

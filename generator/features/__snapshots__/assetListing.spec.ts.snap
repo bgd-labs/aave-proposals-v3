@@ -45,29 +45,29 @@ Copyright and related rights waived via [CC0](https://creativecommons.org/public
             \\"assetSymbol\\": \\"PSP\\",
             \\"decimals\\": 18,
             \\"priceFeed\\": \\"0x72AFAECF99C9d9C8215fF44C77B94B99C28741e8\\",
-            \\"ltv\\": \\"40_00\\",
-            \\"liqThreshold\\": \\"50_00\\",
-            \\"liqBonus\\": \\"5_00\\",
-            \\"debtCeiling\\": \\"100_000\\",
-            \\"liqProtocolFee\\": \\"20_00\\",
+            \\"ltv\\": \\"40\\",
+            \\"liqThreshold\\": \\"50\\",
+            \\"liqBonus\\": \\"5\\",
+            \\"debtCeiling\\": \\"100000\\",
+            \\"liqProtocolFee\\": \\"20\\",
             \\"enabledToBorrow\\": \\"ENABLED\\",
             \\"flashloanable\\": \\"ENABLED\\",
             \\"stableRateModeEnabled\\": \\"DISABLED\\",
             \\"borrowableInIsolation\\": \\"DISABLED\\",
             \\"withSiloedBorrowing\\": \\"DISABLED\\",
-            \\"reserveFactor\\": \\"20_00\\",
-            \\"supplyCap\\": \\"10_000\\",
-            \\"borrowCap\\": \\"5_000\\",
+            \\"reserveFactor\\": \\"20\\",
+            \\"supplyCap\\": \\"10000\\",
+            \\"borrowCap\\": \\"5000\\",
             \\"rateStrategyParams\\": {
-              \\"optimalUtilizationRate\\": \\"_bpsToRay(80_00)\\",
-              \\"baseVariableBorrowRate\\": \\"_bpsToRay(0)\\",
-              \\"variableRateSlope1\\": \\"_bpsToRay(10_00)\\",
-              \\"variableRateSlope2\\": \\"_bpsToRay(100_00)\\",
-              \\"stableRateSlope1\\": \\"_bpsToRay(10_00)\\",
-              \\"stableRateSlope2\\": \\"_bpsToRay(100_00)\\",
-              \\"baseStableRateOffset\\": \\"_bpsToRay(1_00)\\",
-              \\"stableRateExcessOffset\\": \\"_bpsToRay(0)\\",
-              \\"optimalStableToTotalDebtRatio\\": \\"_bpsToRay(10_00)\\"
+              \\"optimalUtilizationRate\\": \\"80\\",
+              \\"baseVariableBorrowRate\\": \\"0\\",
+              \\"variableRateSlope1\\": \\"10\\",
+              \\"variableRateSlope2\\": \\"100\\",
+              \\"stableRateSlope1\\": \\"10\\",
+              \\"stableRateSlope2\\": \\"100\\",
+              \\"baseStableRateOffset\\": \\"10\\",
+              \\"stableRateExcessOffset\\": \\"0\\",
+              \\"optimalStableToTotalDebtRatio\\": \\"10\\"
             },
             \\"eModeCategory\\": \\"AaveV3EthereumEModes.NONE\\",
             \\"asset\\": \\"0xcAfE001067cDEF266AfB7Eb5A286dCFD277f3dE5\\"
@@ -88,6 +88,7 @@ pragma solidity ^0.8.0;
 
 import {AaveV3Ethereum, AaveV3EthereumEModes} from 'aave-address-book/AaveV3Ethereum.sol';
 import {AaveV3PayloadEthereum} from 'aave-helpers/v3-config-engine/AaveV3PayloadEthereum.sol';
+import {EngineFlags} from 'aave-helpers/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-helpers/v3-config-engine/IAaveV3ConfigEngine.sol';
 import {IV3RateStrategyFactory} from 'aave-helpers/v3-config-engine/IV3RateStrategyFactory.sol';
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
@@ -118,11 +119,11 @@ contract AaveV3Ethereum_Test_20231023 is AaveV3PayloadEthereum {
       assetSymbol: 'PSP',
       priceFeed: 0x72AFAECF99C9d9C8215fF44C77B94B99C28741e8,
       eModeCategory: AaveV3EthereumEModes.NONE,
-      enabledToBorrow: ENABLED,
-      stableRateModeEnabled: DISABLED,
-      borrowableInIsolation: DISABLED,
-      withSiloedBorrowing: DISABLED,
-      flashloanable: ENABLED,
+      enabledToBorrow: EngineFlags.ENABLED,
+      stableRateModeEnabled: EngineFlags.DISABLED,
+      borrowableInIsolation: EngineFlags.DISABLED,
+      withSiloedBorrowing: EngineFlags.DISABLED,
+      flashloanable: EngineFlags.ENABLED,
       ltv: 40_00,
       liqThreshold: 50_00,
       liqBonus: 5_00,
@@ -138,7 +139,7 @@ contract AaveV3Ethereum_Test_20231023 is AaveV3PayloadEthereum {
         variableRateSlope2: _bpsToRay(100_00),
         stableRateSlope1: _bpsToRay(10_00),
         stableRateSlope2: _bpsToRay(100_00),
-        baseStableRateOffset: _bpsToRay(1_00),
+        baseStableRateOffset: _bpsToRay(10_00),
         stableRateExcessOffset: _bpsToRay(0),
         optimalStableToTotalDebtRatio: _bpsToRay(10_00)
       })
@@ -167,7 +168,7 @@ contract AaveV3Ethereum_Test_20231023_Test is ProtocolV3TestBase {
   AaveV3Ethereum_Test_20231023 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 18533234);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 42);
     proposal = new AaveV3Ethereum_Test_20231023();
   }
 
@@ -259,33 +260,33 @@ exports[`feature: assetListing > should return reasonable code 1`] = `
 
           listings[0] = IAaveV3ConfigEngine.Listing({
                asset: PSP,
-               assetSymbol: \\"PSP\\",
-               priceFeed: 0x72AFAECF99C9d9C8215fF44C77B94B99C28741e8,
-               eModeCategory: AaveV3EthereumEModes.NONE,
-               enabledToBorrow: ENABLED,
-               stableRateModeEnabled: DISABLED,
-               borrowableInIsolation: DISABLED,
-               withSiloedBorrowing: DISABLED,
-               flashloanable: ENABLED,
-               ltv: 40_00,
-               liqThreshold: 50_00,
-               liqBonus: 5_00,
-               reserveFactor: 20_00,
-               supplyCap: 10_000,
-               borrowCap: 5_000,
-               debtCeiling: 100_000,
-               liqProtocolFee: 20_00,
-               rateStrategyParams: IV3RateStrategyFactory.RateStrategyParams({
-                  optimalUsageRatio: _bpsToRay(80_00),
-                  baseVariableBorrowRate: _bpsToRay(0),
-                  variableRateSlope1: _bpsToRay(10_00),
-                  variableRateSlope2: _bpsToRay(100_00),
-                  stableRateSlope1: _bpsToRay(10_00),
-                  stableRateSlope2: _bpsToRay(100_00),
-                  baseStableRateOffset: _bpsToRay(1_00),
-                  stableRateExcessOffset: _bpsToRay(0),
-                  optimalStableToTotalDebtRatio: _bpsToRay(10_00)
-              })
+  assetSymbol: \\"PSP\\",
+  priceFeed: 0x72AFAECF99C9d9C8215fF44C77B94B99C28741e8,
+  eModeCategory: AaveV3EthereumEModes.NONE,
+  enabledToBorrow: EngineFlags.ENABLED,
+  stableRateModeEnabled: EngineFlags.DISABLED,
+  borrowableInIsolation: EngineFlags.DISABLED,
+  withSiloedBorrowing: EngineFlags.DISABLED,
+  flashloanable: EngineFlags.ENABLED,
+  ltv: 40_00,
+  liqThreshold: 50_00,
+  liqBonus: 5_00,
+  reserveFactor: 20_00,
+  supplyCap: 10_000,
+  borrowCap: 5_000,
+  debtCeiling: 100_000,
+  liqProtocolFee: 20_00,
+  rateStrategyParams: IV3RateStrategyFactory.RateStrategyParams({
+     optimalUsageRatio: _bpsToRay(80_00),
+     baseVariableBorrowRate: _bpsToRay(0),
+     variableRateSlope1: _bpsToRay(10_00),
+     variableRateSlope2: _bpsToRay(100_00),
+     stableRateSlope1: _bpsToRay(10_00),
+     stableRateSlope2: _bpsToRay(100_00),
+     baseStableRateOffset: _bpsToRay(10_00),
+     stableRateExcessOffset: _bpsToRay(0),
+     optimalStableToTotalDebtRatio: _bpsToRay(10_00)
+  })
              });
 
           return listings;

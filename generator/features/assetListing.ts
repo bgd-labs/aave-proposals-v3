@@ -11,6 +11,9 @@ import {confirm} from '@inquirer/prompts';
 import {TEST_EXECUTE_PROPOSAL} from '../utils/constants';
 import {addressPrompt, translateJsAddressToSol} from '../prompts/addressPrompt';
 import {stringPrompt} from '../prompts/stringPrompt';
+import {translateJsBoolToSol} from '../prompts/boolPrompt';
+import {translateJsPercentToSol} from '../prompts/percentPrompt';
+import {translateJsNumberToSol} from '../prompts/numberPrompt';
 
 async function fetchListing(pool: PoolIdentifier): Promise<Listing> {
   const asset = await addressPrompt({
@@ -86,10 +89,62 @@ async function fetchCustomImpl(): Promise<TokenImplementations> {
   };
 }
 
+function generateAssetListingSol(cfg: Listing) {
+  return `asset: ${cfg.assetSymbol},
+  assetSymbol: "${cfg.assetSymbol}",
+  priceFeed: ${translateJsAddressToSol(cfg.priceFeed)},
+  eModeCategory: ${cfg.eModeCategory},
+  enabledToBorrow: ${translateJsBoolToSol(cfg.enabledToBorrow)},
+  stableRateModeEnabled: ${translateJsBoolToSol(cfg.stableRateModeEnabled)},
+  borrowableInIsolation: ${translateJsBoolToSol(cfg.borrowableInIsolation)},
+  withSiloedBorrowing: ${translateJsBoolToSol(cfg.withSiloedBorrowing)},
+  flashloanable: ${translateJsBoolToSol(cfg.flashloanable)},
+  ltv: ${translateJsPercentToSol(cfg.ltv)},
+  liqThreshold: ${translateJsPercentToSol(cfg.liqThreshold)},
+  liqBonus: ${translateJsPercentToSol(cfg.liqBonus)},
+  reserveFactor: ${translateJsPercentToSol(cfg.reserveFactor)},
+  supplyCap: ${translateJsNumberToSol(cfg.supplyCap)},
+  borrowCap: ${translateJsNumberToSol(cfg.borrowCap)},
+  debtCeiling: ${translateJsNumberToSol(cfg.debtCeiling)},
+  liqProtocolFee: ${translateJsPercentToSol(cfg.liqProtocolFee)},
+  rateStrategyParams: IV3RateStrategyFactory.RateStrategyParams({
+     optimalUsageRatio: ${translateJsPercentToSol(
+       cfg.rateStrategyParams.optimalUtilizationRate,
+       true
+     )},
+     baseVariableBorrowRate: ${translateJsPercentToSol(
+       cfg.rateStrategyParams.baseVariableBorrowRate,
+       true
+     )},
+     variableRateSlope1: ${translateJsPercentToSol(
+       cfg.rateStrategyParams.variableRateSlope1,
+       true
+     )},
+     variableRateSlope2: ${translateJsPercentToSol(
+       cfg.rateStrategyParams.variableRateSlope2,
+       true
+     )},
+     stableRateSlope1: ${translateJsPercentToSol(cfg.rateStrategyParams.stableRateSlope1, true)},
+     stableRateSlope2: ${translateJsPercentToSol(cfg.rateStrategyParams.stableRateSlope2, true)},
+     baseStableRateOffset: ${translateJsPercentToSol(
+       cfg.rateStrategyParams.baseStableRateOffset,
+       true
+     )},
+     stableRateExcessOffset: ${translateJsPercentToSol(
+       cfg.rateStrategyParams.stableRateExcessOffset,
+       true
+     )},
+     optimalStableToTotalDebtRatio: ${translateJsPercentToSol(
+       cfg.rateStrategyParams.optimalStableToTotalDebtRatio,
+       true
+     )}
+  })`;
+}
+
 export const assetListing: FeatureModule<Listing[]> = {
   value: FEATURE.ASSET_LISTING,
   description: 'newListings (listing a new asset)',
-  async cli(opt, pool) {
+  async cli({pool}) {
     const response: Listing[] = [];
     console.log(`Fetching information for Assets assets on ${pool}`);
     let more: boolean = true;
@@ -99,7 +154,7 @@ export const assetListing: FeatureModule<Listing[]> = {
     }
     return response;
   },
-  build(opt, pool, cfg) {
+  build({pool, cfg}) {
     const response: CodeArtifact = {
       code: {
         constants: cfg
@@ -122,36 +177,7 @@ export const assetListing: FeatureModule<Listing[]> = {
           ${cfg
             .map(
               (cfg, ix) => `listings[${ix}] = IAaveV3ConfigEngine.Listing({
-               asset: ${cfg.assetSymbol},
-               assetSymbol: "${cfg.assetSymbol}",
-               priceFeed: ${translateJsAddressToSol(cfg.priceFeed)},
-               eModeCategory: ${cfg.eModeCategory},
-               enabledToBorrow: ${cfg.enabledToBorrow},
-               stableRateModeEnabled: ${cfg.stableRateModeEnabled},
-               borrowableInIsolation: ${cfg.borrowableInIsolation},
-               withSiloedBorrowing: ${cfg.withSiloedBorrowing},
-               flashloanable: ${cfg.flashloanable},
-               ltv: ${cfg.ltv},
-               liqThreshold: ${cfg.liqThreshold},
-               liqBonus: ${cfg.liqBonus},
-               reserveFactor: ${cfg.reserveFactor},
-               supplyCap: ${cfg.supplyCap},
-               borrowCap: ${cfg.borrowCap},
-               debtCeiling: ${cfg.debtCeiling},
-               liqProtocolFee: ${cfg.liqProtocolFee},
-               rateStrategyParams: IV3RateStrategyFactory.RateStrategyParams({
-                  optimalUsageRatio: ${cfg.rateStrategyParams.optimalUtilizationRate},
-                  baseVariableBorrowRate: ${cfg.rateStrategyParams.baseVariableBorrowRate},
-                  variableRateSlope1: ${cfg.rateStrategyParams.variableRateSlope1},
-                  variableRateSlope2: ${cfg.rateStrategyParams.variableRateSlope2},
-                  stableRateSlope1: ${cfg.rateStrategyParams.stableRateSlope1},
-                  stableRateSlope2: ${cfg.rateStrategyParams.stableRateSlope2},
-                  baseStableRateOffset: ${cfg.rateStrategyParams.baseStableRateOffset},
-                  stableRateExcessOffset: ${cfg.rateStrategyParams.stableRateExcessOffset},
-                  optimalStableToTotalDebtRatio: ${
-                    cfg.rateStrategyParams.optimalStableToTotalDebtRatio
-                  }
-              })
+               ${generateAssetListingSol(cfg)}
              });`
             )
             .join('\n')}
@@ -210,7 +236,7 @@ export const assetListing: FeatureModule<Listing[]> = {
 export const assetListingCustom: FeatureModule<ListingWithCustomImpl[]> = {
   value: FEATURE.ASSET_LISTING_CUSTOM,
   description: 'newListingsCustom (listing a new asset, with custom implementations)',
-  async cli(opt, pool) {
+  async cli({pool}) {
     const response: ListingWithCustomImpl[] = [];
     let more: boolean = true;
     while (more) {
@@ -219,7 +245,7 @@ export const assetListingCustom: FeatureModule<ListingWithCustomImpl[]> = {
     }
     return response;
   },
-  build(opt, pool, cfg) {
+  build({pool, cfg}) {
     const response: CodeArtifact = {
       code: {
         constants: cfg.map(
@@ -243,42 +269,13 @@ export const assetListingCustom: FeatureModule<ListingWithCustomImpl[]> = {
             .map(
               (cfg, ix) => `listings[${ix}] = IAaveV3ConfigEngine.ListingWithCustomImpl(
                 IAaveV3ConfigEngine.Listing({
-               asset: ${cfg.base.assetSymbol},
-               assetSymbol: "${cfg.base.assetSymbol}",
-               priceFeed: ${translateJsAddressToSol(cfg.base.priceFeed)},
-               eModeCategory: ${cfg.base.eModeCategory},
-               enabledToBorrow: ${cfg.base.enabledToBorrow},
-               stableRateModeEnabled: ${cfg.base.stableRateModeEnabled},
-               borrowableInIsolation: ${cfg.base.borrowableInIsolation},
-               withSiloedBorrowing: ${cfg.base.withSiloedBorrowing},
-               flashloanable: ${cfg.base.flashloanable},
-               ltv: ${cfg.base.ltv},
-               liqThreshold: ${cfg.base.liqThreshold},
-               liqBonus: ${cfg.base.liqBonus},
-               reserveFactor: ${cfg.base.reserveFactor},
-               supplyCap: ${cfg.base.supplyCap},
-               borrowCap: ${cfg.base.borrowCap},
-               debtCeiling: ${cfg.base.debtCeiling},
-               liqProtocolFee: ${cfg.base.liqProtocolFee},
-               rateStrategyParams: IV3RateStrategyFactory.RateStrategyParams({
-                  optimalUsageRatio: ${cfg.base.rateStrategyParams.optimalUtilizationRate},
-                  baseVariableBorrowRate: ${cfg.base.rateStrategyParams.baseVariableBorrowRate},
-                  variableRateSlope1: ${cfg.base.rateStrategyParams.variableRateSlope1},
-                  variableRateSlope2: ${cfg.base.rateStrategyParams.variableRateSlope2},
-                  stableRateSlope1: ${cfg.base.rateStrategyParams.stableRateSlope1},
-                  stableRateSlope2: ${cfg.base.rateStrategyParams.stableRateSlope2},
-                  baseStableRateOffset: ${cfg.base.rateStrategyParams.baseStableRateOffset},
-                  stableRateExcessOffset: ${cfg.base.rateStrategyParams.stableRateExcessOffset},
-                  optimalStableToTotalDebtRatio: ${
-                    cfg.base.rateStrategyParams.optimalStableToTotalDebtRatio
-                  }
-              })
-             }),
-             IAaveV3ConfigEngine.TokenImplementations({
-              aToken: ${translateJsAddressToSol(cfg.implementations.aToken)},
-              vToken: ${translateJsAddressToSol(cfg.implementations.vToken)},
-              sToken: ${translateJsAddressToSol(cfg.implementations.sToken)}
-            })
+                  ${generateAssetListingSol(cfg.base)},
+                  IAaveV3ConfigEngine.TokenImplementations({
+                    aToken: ${translateJsAddressToSol(cfg.implementations.aToken)},
+                    vToken: ${translateJsAddressToSol(cfg.implementations.vToken)},
+                    sToken: ${translateJsAddressToSol(cfg.implementations.sToken)}
+                  })
+                })
              );`
             )
             .join('\n')}
