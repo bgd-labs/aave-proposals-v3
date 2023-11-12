@@ -36,7 +36,7 @@ export const assetListingConfig: Listing[] = [
       variableRateSlope2: '100',
       stableRateSlope1: '10',
       stableRateSlope2: '100',
-      baseStableRateOffset: '10',
+      baseStableRateOffset: '1',
       stableRateExcessOffset: '0',
       optimalStableToTotalDebtRatio: '10',
     },

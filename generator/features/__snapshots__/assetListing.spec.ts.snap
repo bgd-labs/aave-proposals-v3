@@ -65,7 +65,7 @@ Copyright and related rights waived via [CC0](https://creativecommons.org/public
               \\"variableRateSlope2\\": \\"100\\",
               \\"stableRateSlope1\\": \\"10\\",
               \\"stableRateSlope2\\": \\"100\\",
-              \\"baseStableRateOffset\\": \\"10\\",
+              \\"baseStableRateOffset\\": \\"1\\",
               \\"stableRateExcessOffset\\": \\"0\\",
               \\"optimalStableToTotalDebtRatio\\": \\"10\\"
             },
@@ -139,7 +139,7 @@ contract AaveV3Ethereum_Test_20231023 is AaveV3PayloadEthereum {
         variableRateSlope2: _bpsToRay(100_00),
         stableRateSlope1: _bpsToRay(10_00),
         stableRateSlope2: _bpsToRay(100_00),
-        baseStableRateOffset: _bpsToRay(10_00),
+        baseStableRateOffset: _bpsToRay(1_00),
         stableRateExcessOffset: _bpsToRay(0),
         optimalStableToTotalDebtRatio: _bpsToRay(10_00)
       })
@@ -283,7 +283,7 @@ exports[`feature: assetListing > should return reasonable code 1`] = `
      variableRateSlope2: _bpsToRay(100_00),
      stableRateSlope1: _bpsToRay(10_00),
      stableRateSlope2: _bpsToRay(100_00),
-     baseStableRateOffset: _bpsToRay(10_00),
+     baseStableRateOffset: _bpsToRay(1_00),
      stableRateExcessOffset: _bpsToRay(0),
      optimalStableToTotalDebtRatio: _bpsToRay(10_00)
   })
