@@ -14,6 +14,36 @@ discussions: \\"test\\"
 
 ## Specification
 
+The table below illustrates the configured risk parameters for **PSP**
+
+| Parameter                          |                                      Value |
+| ---------------------------------- | -----------------------------------------: |
+| Isolation Mode                     |                                       true |
+| Borrowable                         |                                    ENABLED |
+| Collateral Enabled                 |                                       true |
+| Supply Cap (PSP)                   |                                      10000 |
+| Borrow Cap (PSP)                   |                                       5000 |
+| Debt Ceiling                       |                                     100000 |
+| LTV                                |                                       40 % |
+| LT                                 |                                       50 % |
+| Liquidation Bonus                  |                                        5 % |
+| Liquidation Protocol Fee           |                                       20 % |
+| Reserve Factor                     |                                       20 % |
+| Base Variable Borrow Rate          |                                        0 % |
+| Variable Slope 1                   |                                       10 % |
+| Variable Slope 2                   |                                      100 % |
+| Uoptimal                           |                                       80 % |
+| Stable Borrowing                   |                                   DISABLED |
+| Stable Slope1                      |                                       10 % |
+| Stable Slope2                      |                                      100 % |
+| Base Stable Rate Offset            |                                        1 % |
+| Stable Rate Excess Offset          |                                        0 % |
+| Optimal Stable To Total Debt Ratio |                                       10 % |
+| Flahloanable                       |                                    ENABLED |
+| Siloed Borrowing                   |                                   DISABLED |
+| Borrowable in Isolation            |                                   DISABLED |
+| Oracle                             | 0x72AFAECF99C9d9C8215fF44C77B94B99C28741e8 |
+
 ## References
 
 - Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231023_AaveV3Ethereum_Test/AaveV3Ethereum_Test_20231023.sol)
@@ -245,6 +275,40 @@ contract CreateProposal is EthereumScript {
 
 exports[`feature: assetListing > should return reasonable code 1`] = `
 {
+  "aip": {
+    "specification": [
+      "The table below illustrates the configured risk parameters for **PSP**
+
+| Parameter | Value |
+| --- | --: |
+| Isolation Mode | true |
+| Borrowable | ENABLED |
+| Collateral Enabled | true |
+| Supply Cap (PSP) | 10000 |
+| Borrow Cap (PSP) | 5000 |
+| Debt Ceiling | 100000 |
+| LTV | 40 % |
+| LT | 50 % |
+| Liquidation Bonus	| 5 % |
+| Liquidation Protocol Fee | 20 % |
+| Reserve Factor | 20 % |
+| Base Variable Borrow Rate	| 0 % |
+| Variable Slope 1 | 10 % |
+| Variable Slope 2 | 100 % |
+| Uoptimal | 80 % |
+| Stable Borrowing | DISABLED |
+| Stable Slope1	| 10 % |
+| Stable Slope2	| 100 % |
+| Base Stable Rate Offset | 1 % |
+| Stable Rate Excess Offset	| 0 % |
+| Optimal Stable To Total Debt Ratio | 10 % |
+| Flahloanable	| ENABLED |
+| Siloed Borrowing	| DISABLED |
+| Borrowable in Isolation | DISABLED |
+| Oracle | 0x72AFAECF99C9d9C8215fF44C77B94B99C28741e8 |
+",
+    ],
+  },
   "code": {
     "constants": [
       "address public constant PSP = 0xcAfE001067cDEF266AfB7Eb5A286dCFD277f3dE5;",
