@@ -3,10 +3,12 @@ pragma solidity ^0.8.0;
 
 import {GovV3Helpers} from 'aave-helpers/GovV3Helpers.sol';
 import {AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
+import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
+
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 
 import 'forge-std/Test.sol';
-import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/ProtocolV3TestBase.sol';
+import {ProtocolV3TestBase} from 'aave-helpers/ProtocolV3TestBase.sol';
 import {AaveV3Ethereum_AddFXSToEthereumV3_20231108} from './AaveV3Ethereum_AddFXSToEthereumV3_20231108.sol';
 
 /**
@@ -27,7 +29,7 @@ contract AaveV3Ethereum_AddFXSToEthereumV3_20231108_Test is ProtocolV3TestBase {
    */
   function test_defaultProposalExecution() public {
     startHoax(FXS_WHALE);
-    IERC20(proposal.FXS()).transfer(0x5300A1a15135EA4dc7aD5a167152C01EFc9b192A, 10**18);
+    IERC20(proposal.FXS()).transfer(GovernanceV3Ethereum.EXECUTOR_LVL_1, 10**18);
     defaultTest(
       'AaveV3Ethereum_AddFXSToEthereumV3_20231108',
       AaveV3Ethereum.POOL,
@@ -37,7 +39,7 @@ contract AaveV3Ethereum_AddFXSToEthereumV3_20231108_Test is ProtocolV3TestBase {
 
   function test_collectorHasFXSFunds() public {
     startHoax(FXS_WHALE);
-    IERC20(proposal.FXS()).transfer(0x5300A1a15135EA4dc7aD5a167152C01EFc9b192A, 10**18);
+    IERC20(proposal.FXS()).transfer(GovernanceV3Ethereum.EXECUTOR_LVL_1, 10**18);
     GovV3Helpers.executePayload(vm, address(proposal));
     (address aTokenAddress, , ) = AaveV3Ethereum
       .AAVE_PROTOCOL_DATA_PROVIDER

@@ -18,8 +18,8 @@ The addition of FXS to Aave V3 represents the introduction of a new asset, encou
 
 The parameters shown below are supported by @Gauntlet
 Ticker: FXS
-Contract Adress: 0x3432B6A60D23Ca0dFCa7761B7ab56459D9C964D0
-Chainlink Oracle: 0x6Ebc52C8C1089be9eB3945C4350B68B8E4C2233f
+Contract Adress: [0x3432B6A60D23Ca0dFCa7761B7ab56459D9C964D0](https://etherscan.io/address/0x3432B6A60D23Ca0dFCa7761B7ab56459D9C964D0)
+Chainlink Oracle: [0x6Ebc52C8C1089be9eB3945C4350B68B8E4C2233f](https://etherscan.io/address/0x6Ebc52C8C1089be9eB3945C4350B68B8E4C2233f)
 
 | Parameter	| Recommendation (Gauntlet) |
 | --- | --- |
