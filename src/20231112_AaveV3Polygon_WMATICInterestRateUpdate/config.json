@@ -1,0 +1,38 @@
+{
+  "rootOptions": {
+    "pools": [
+      "AaveV3Polygon"
+    ],
+    "title": "wMATIC Interest Rate Update",
+    "shortName": "WMATICInterestRateUpdate",
+    "date": "20231112",
+    "author": "TokenLogic",
+    "discussion": "https://governance.aave.com/t/arfc-wmatic-interest-rate-update/15309",
+    "snapshot": "https://snapshot.org/#/aave.eth/proposal/0xdc1c37a14bd416c6c8ab15a472348bf933c2fec33678fe94ba6c15cbc30c2812"
+  },
+  "poolOptions": {
+    "AaveV3Polygon": {
+      "configs": {
+        "RATE_UPDATE_V3": [
+          {
+            "asset": "WMATIC",
+            "params": {
+              "optimalUtilizationRate": "EngineFlags.KEEP_CURRENT",
+              "baseVariableBorrowRate": "EngineFlags.KEEP_CURRENT",
+              "variableRateSlope1": "_bpsToRay(5_00)",
+              "variableRateSlope2": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope1": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope2": "EngineFlags.KEEP_CURRENT",
+              "baseStableRateOffset": "EngineFlags.KEEP_CURRENT",
+              "stableRateExcessOffset": "EngineFlags.KEEP_CURRENT",
+              "optimalStableToTotalDebtRatio": "EngineFlags.KEEP_CURRENT"
+            }
+          }
+        ]
+      },
+      "features": [
+        "RATE_UPDATE_V3"
+      ]
+    }
+  }
+}

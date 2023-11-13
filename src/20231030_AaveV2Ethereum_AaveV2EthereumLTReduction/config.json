@@ -1,0 +1,19 @@
+{
+  "rootOptions": {
+    "author": "Chaos Labs",
+    "pools": [
+      "AaveV2Ethereum"
+    ],
+    "title": "Aave V2 Ethereum LT Reduction",
+    "discussion": "https://governance.aave.com/t/arfc-v2-ethereum-lt-reductions-10-27-2023/15249",
+    "snapshot": "Direct to AIP",
+    "shortName": "AaveV2EthereumLTReduction",
+    "date": "20231030"
+  },
+  "poolOptions": {
+    "AaveV2Ethereum": {
+      "configs": {},
+      "features": []
+    }
+  }
+}

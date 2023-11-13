@@ -1,6 +1,10 @@
-import {CodeArtifact, ENGINE_FLAGS, FEATURE, FeatureModule, PoolIdentifier} from '../types';
-import {assetsSelect, eModeSelect, numberInput, percentInput} from '../prompts';
+import {CodeArtifact, FEATURE, FeatureModule, PoolIdentifier} from '../types';
+import {numberInput, percentInput} from '../prompts';
 import {CollateralUpdate, CollateralUpdatePartial} from './types';
+import {
+  assetsSelectPrompt,
+  translateAssetToAssetLibUnderlying,
+} from '../prompts/assetsSelectPrompt';
 
 export async function fetchCollateralUpdate(
   pool: PoolIdentifier,
@@ -39,7 +43,7 @@ export const collateralsUpdates: FeatureModule<CollateralUpdates> = {
     console.log(`Fetching information for Collateral Updates on ${pool}`);
 
     const response: CollateralUpdates = [];
-    const assets = await assetsSelect({
+    const assets = await assetsSelectPrompt({
       message: 'Select the assets you want to amend',
       pool,
     });
@@ -62,7 +66,7 @@ export const collateralsUpdates: FeatureModule<CollateralUpdates> = {
           ${cfg
             .map(
               (cfg, ix) => `collateralUpdate[${ix}] = IAaveV3ConfigEngine.CollateralUpdate({
-               asset: ${cfg.asset},
+               asset: ${translateAssetToAssetLibUnderlying(cfg.asset, pool)},
                ltv: ${cfg.ltv},
                liqThreshold: ${cfg.liqThreshold},
                liqBonus: ${cfg.liqBonus},
