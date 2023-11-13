@@ -6,7 +6,7 @@ discussions: "https://governance.aave.com/t/arfc-add-fxs-to-ethereum-v3/15112"
 
 ## Simple Summary
 
-This publication presents the community an opportunity to add FXS to the Ethereum Aave v3 Liquidity Pool.
+This publication presents the community with an opportunity to add FXS to the Ethereum Aave v3 Liquidity Pool.
 
 ## Motivation
 
