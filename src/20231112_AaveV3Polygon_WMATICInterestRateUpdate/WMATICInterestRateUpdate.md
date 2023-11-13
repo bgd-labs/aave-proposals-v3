@@ -30,8 +30,8 @@ All other parameters remain the same as the [existing interest rate startegy](ht
 
 ## References
 
-- Implementation: [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231112_AaveV3Polygon_WMATICInterestRateUpdate/AaveV3Polygon_WMATICInterestRateUpdate_20231112.sol)
-- Tests: [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231112_AaveV3Polygon_WMATICInterestRateUpdate/AaveV3Polygon_WMATICInterestRateUpdate_20231112.t.sol)
+- Implementation: [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/c048473176d13990128cba052353ad4de524ab5c/src/20231112_AaveV3Polygon_WMATICInterestRateUpdate/AaveV3Polygon_WMATICInterestRateUpdate_20231112.sol)
+- Tests: [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/c048473176d13990128cba052353ad4de524ab5c/src/20231112_AaveV3Polygon_WMATICInterestRateUpdate/AaveV3Polygon_WMATICInterestRateUpdate_20231112.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0xdc1c37a14bd416c6c8ab15a472348bf933c2fec33678fe94ba6c15cbc30c2812)
 - [Discussion](https://governance.aave.com/t/arfc-wmatic-interest-rate-update/15309)
 
