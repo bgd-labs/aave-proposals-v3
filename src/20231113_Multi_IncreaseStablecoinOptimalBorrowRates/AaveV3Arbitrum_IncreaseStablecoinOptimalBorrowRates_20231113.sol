@@ -21,7 +21,7 @@ contract AaveV3Arbitrum_IncreaseStablecoinOptimalBorrowRates_20231113 is AaveV3P
     returns (IAaveV3ConfigEngine.RateStrategyUpdate[] memory)
   {
     IAaveV3ConfigEngine.RateStrategyUpdate[]
-      memory rateStrategies = new IAaveV3ConfigEngine.RateStrategyUpdate[](6);
+      memory rateStrategies = new IAaveV3ConfigEngine.RateStrategyUpdate[](7);
     rateStrategies[0] = IAaveV3ConfigEngine.RateStrategyUpdate({
       asset: AaveV3ArbitrumAssets.DAI_UNDERLYING,
       params: IV3RateStrategyFactory.RateStrategyParams({
@@ -106,7 +106,20 @@ contract AaveV3Arbitrum_IncreaseStablecoinOptimalBorrowRates_20231113 is AaveV3P
         optimalStableToTotalDebtRatio: EngineFlags.KEEP_CURRENT
       })
     });
-
+    rateStrategies[6] = IAaveV3ConfigEngine.RateStrategyUpdate({
+      asset: AaveV3ArbitrumAssets.FRAX_UNDERLYING,
+      params: IV3RateStrategyFactory.RateStrategyParams({
+        optimalUsageRatio: _bpsToRay(90_00),
+        baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
+        variableRateSlope1: _bpsToRay(5_00),
+        variableRateSlope2: EngineFlags.KEEP_CURRENT,
+        stableRateSlope1: EngineFlags.KEEP_CURRENT,
+        stableRateSlope2: EngineFlags.KEEP_CURRENT,
+        baseStableRateOffset: EngineFlags.KEEP_CURRENT,
+        stableRateExcessOffset: EngineFlags.KEEP_CURRENT,
+        optimalStableToTotalDebtRatio: EngineFlags.KEEP_CURRENT
+      })
+    });
     return rateStrategies;
   }
 }
