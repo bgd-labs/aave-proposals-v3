@@ -6,13 +6,13 @@ discussions: "https://governance.aave.com/t/arfc-wmatic-interest-rate-update/153
 
 ## Simple Summary
 
-This AIP will reduced the wMATIC Slope1 parameters from 6.10% to 5.00% Aave v3 Polygon.
+This AIP will reduce the wMATIC Slope1 parameters from 6.10% to 5.00% Aave v3 Polygon.
 
 ## Motivation
 
 This AIP will reduce the slope1 paramter to 5.00%. This is higher than the current MaticX and stMATIC yield rate whilst marginally lower than the existing borrow rate.
 
-v3 wMATIC Borrow Rate: [5.96% APY](http://app-aave-com.ipns.localhost:48084/reserve-overview/?underlyingAsset=0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270&marketName=proto_polygon_v3)
+v3 wMATIC Borrow Rate: [5.96% APY](https://app.aave.com/reserve-overview/?underlyingAsset=0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270)
 MaticX APR: [4.68%](https://www.staderlabs.com/polygon/stake/)
 stMATIC APR: [4.30%](https://lido.fi/)
 
