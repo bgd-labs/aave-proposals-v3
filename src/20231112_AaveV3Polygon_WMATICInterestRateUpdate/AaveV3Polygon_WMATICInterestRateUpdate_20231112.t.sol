@@ -15,8 +15,8 @@ contract AaveV3Polygon_WMATICInterestRateUpdate_20231112_Test is ProtocolV3TestB
   AaveV3Polygon_WMATICInterestRateUpdate_20231112 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('polygon'), 49870554);
-    proposal = new AaveV3Polygon_WMATICInterestRateUpdate_20231112();
+    vm.createSelectFork(vm.rpcUrl('polygon'), 49901774);
+    proposal = AaveV3Polygon_WMATICInterestRateUpdate_20231112(0xF07633d14da9Dbca112ddE58C6d585CA8F4e845D);
   }
 
   /**
