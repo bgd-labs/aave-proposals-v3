@@ -3,6 +3,7 @@ pragma solidity ^0.8.0;
 
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';
+import {AaveV2Ethereum, AaveV2EthereumAssets} from 'aave-address-book/AaveV2Ethereum.sol';
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {AaveSwapper} from 'aave-helpers/swaps/AaveSwapper.sol';
@@ -19,9 +20,10 @@ contract AaveV3Ethereum_AaveFundingUpdates_20231106 is IProposalGenericExecutor 
 
   AaveSwapper public constant SWAPPER = AaveSwapper(MiscEthereum.AAVE_SWAPPER);
 
-  uint256 public constant USDC_TO_SWAP = 700_000e18;
-  uint256 public constant USDC_TO_DEPOSIT = 1_000_000e18;
-  uint256 public constant USDT_TO_DEPOSIT = 750_000e18;
+  uint256 public constant USDC_TO_SWAP = 700_000e6;
+  uint256 public constant USDC_TO_DEPOSIT = 1_000_000e6;
+  uint256 public constant USDT_TO_DEPOSIT_V3 = 350_000e6;
+  uint256 public constant USDT_TO_DEPOSIT_V2 = 400_000e6;
   uint256 public constant DAI_TO_DEPOSIT = 500_000e18;
 
   address public constant MILKMAN = 0x11C76AD590ABDFFCD980afEC9ad951B160F02797;
@@ -49,15 +51,15 @@ contract AaveV3Ethereum_AaveFundingUpdates_20231106 is IProposalGenericExecutor 
     AaveV3Ethereum.COLLECTOR.transfer(
       AaveV3EthereumAssets.USDT_UNDERLYING,
       address(this),
-      USDT_TO_DEPOSIT
+      USDT_TO_DEPOSIT_V2 + USDT_TO_DEPOSIT_V3
     );
     IERC20(AaveV3EthereumAssets.USDT_UNDERLYING).forceApprove(
       address(AaveV3Ethereum.POOL),
-      USDT_TO_DEPOSIT
+      USDT_TO_DEPOSIT_V3
     );
     AaveV3Ethereum.POOL.deposit(
       AaveV3EthereumAssets.USDT_UNDERLYING,
-      USDT_TO_DEPOSIT,
+      USDT_TO_DEPOSIT_V3,
       address(AaveV3Ethereum.COLLECTOR),
       0
     );

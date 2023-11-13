@@ -19,7 +19,8 @@ However, with the emergence of new service provider proposal expected, the DAO n
 ## Specification
 
 - Deposit 1M units of USDC from Treasury into Aave v3 (received from Polygon bridge)
-- Deposit 750k units of USDT from Treasury into Aave v3 (received from Polygon bridge)
+- Deposit 350k units of USDT from Treasury into Aave v3 (received from Polygon bridge)
+- Deposit 4000k units of USDT from Treasury into Aave v2 (received from Polygon bridge)
 - Deposit 500k units of DAI from Treasury into Aave v3 (received from Polygon bridge)
 
 Swap the following asset holdings to GHO:

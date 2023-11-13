@@ -5,6 +5,7 @@ import {GovHelpers} from 'aave-helpers/GovHelpers.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
+import {AaveV2Ethereum, AaveV2EthereumAssets} from 'aave-address-book/AaveV2Ethereum.sol';
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/ProtocolV3TestBase.sol';
 import {AaveV3Ethereum_AaveFundingUpdates_20231106} from './AaveV3Ethereum_AaveFundingUpdates_20231106.sol';
@@ -49,6 +50,10 @@ contract AaveV3Ethereum_AaveFundingUpdates_20231106_Test is ProtocolV3TestBase {
       address(AaveV3Ethereum.COLLECTOR)
     );
 
+    uint256 balanceAUsdtBeforeV2 = IERC20(AaveV3EthereumAssets.USDT_A_TOKEN).balanceOf(
+      address(AaveV3Ethereum.COLLECTOR)
+    );
+
     uint256 balanceAUsdtBefore = IERC20(AaveV3EthereumAssets.USDT_A_TOKEN).balanceOf(
       address(AaveV3Ethereum.COLLECTOR)
     );
@@ -59,7 +64,7 @@ contract AaveV3Ethereum_AaveFundingUpdates_20231106_Test is ProtocolV3TestBase {
 
     assertGt(balanceUsdcBefore, proposal.USDC_TO_DEPOSIT());
 
-    assertGt(balanceUsdtBefore, proposal.USDT_TO_DEPOSIT());
+    assertGt(balanceUsdtBefore, proposal.USDT_TO_DEPOSIT_V3());
 
     assertGt(balanceDaiBefore, proposal.DAI_TO_DEPOSIT());
 
@@ -89,7 +94,7 @@ contract AaveV3Ethereum_AaveFundingUpdates_20231106_Test is ProtocolV3TestBase {
 
     assertEq(
       IERC20(AaveV3EthereumAssets.USDT_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
-      balanceUsdtBefore - proposal.USDT_TO_DEPOSIT()
+      balanceUsdtBefore - proposal.USDT_TO_DEPOSIT_V3() - proposal.USDT_TO_DEPOSIT_V2()
     );
 
     assertEq(
@@ -97,17 +102,22 @@ contract AaveV3Ethereum_AaveFundingUpdates_20231106_Test is ProtocolV3TestBase {
       balanceDaiBefore - proposal.DAI_TO_DEPOSIT()
     );
 
-    assertEq(
+    assertGt(
       IERC20(AaveV3EthereumAssets.USDC_A_TOKEN).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
       balanceAUsdcBefore
     );
 
-    assertEq(
+    assertGt(
+      IERC20(AaveV2EthereumAssets.USDT_A_TOKEN).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
+      balanceAUsdtBeforeV2
+    );
+
+    assertGt(
       IERC20(AaveV3EthereumAssets.USDT_A_TOKEN).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
       balanceAUsdtBefore
     );
 
-    assertEq(
+    assertGt(
       IERC20(AaveV3EthereumAssets.DAI_A_TOKEN).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
       balanceADaiBefore
     );
