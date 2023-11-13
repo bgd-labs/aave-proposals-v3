@@ -27,7 +27,7 @@ import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 /**
  * @title Treasury Management - Add to rETH Holding
  * @author TokenLogic
- * - Snapshot: TODO
+ * - Snapshot: https://snapshot.org/#/aave.eth/proposal/0x80493cdca3b1893e198802cd245e6e3c00f5fcd0b37c09aa41765b17419a71fe
  * - Discussion: https://governance.aave.com/t/arfc-treasury-management-add-to-reth-holding/15123
  */
 contract AaveV3Ethereum_TreasuryManagementAddToRETHHolding_20231103 is IProposalGenericExecutor {
@@ -55,7 +55,7 @@ contract AaveV3Ethereum_TreasuryManagementAddToRETHHolding_20231103 is IProposal
     IERC20(AaveV3EthereumAssets.WETH_UNDERLYING).transfer(address(SWAPPER), wEthBalance);
 
     // Swap all ETH into RocketPool’s rETH
-    // we use aave swap and not a deposit due to new deposits being disabled
+    // we use aave swap and not a deposit due to new deposits being restricted
     // rocketpool have a router to help with this but this is preferable for reviewing
     SWAPPER.swap(
       MILKMAN,
@@ -66,7 +66,7 @@ contract AaveV3Ethereum_TreasuryManagementAddToRETHHolding_20231103 is IProposal
       AaveV3EthereumAssets.rETH_ORACLE,
       COLLECTOR,
       wEthBalance,
-      100
+      30
     );
   }
 }
