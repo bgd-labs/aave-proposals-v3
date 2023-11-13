@@ -24,7 +24,6 @@ contract AaveV3Ethereum_AaveFundingUpdates_20231102 is IProposalGenericExecutor 
 
   uint256 public constant DAI_TO_DEPOSIT = 1_000_000e18;
   uint256 public constant DAI_TO_SWAP = 500_000e18;
-  uint256 public constant USDT_TO_KEEP_V2 = 700_000e6;
 
   address public constant MILKMAN = 0x11C76AD590ABDFFCD980afEC9ad951B160F02797;
   address public constant PRICE_CHECKER = 0xe80a1C615F75AFF7Ed8F08c9F21f9d00982D666c;
@@ -54,24 +53,13 @@ contract AaveV3Ethereum_AaveFundingUpdates_20231102 is IProposalGenericExecutor 
     );
 
     // Migration
-    address[] memory toMigrate = new address[](2);
-    toMigrate[0] = AaveV2EthereumAssets.USDT_UNDERLYING;
-    toMigrate[1] = AaveV2EthereumAssets.DAI_UNDERLYING;
+    address[] memory toMigrate = new address[](1);
+    toMigrate[0] = AaveV2EthereumAssets.DAI_UNDERLYING;
 
     IMigrationHelper.RepaySimpleInput[] memory toRepay = new IMigrationHelper.RepaySimpleInput[](0);
     IMigrationHelper.PermitInput[] memory permits = new IMigrationHelper.PermitInput[](0);
     IMigrationHelper.CreditDelegationInput[]
       memory creditDelegationPermits = new IMigrationHelper.CreditDelegationInput[](0);
-
-    // Migrate all but 0.7M aUSDT from Aave v2 to v3
-    uint256 amountUSDT = IERC20(AaveV2EthereumAssets.USDT_A_TOKEN).balanceOf(
-      address(AaveV3Ethereum.COLLECTOR)
-    ) - USDT_TO_KEEP_V2;
-    AaveV3Ethereum.COLLECTOR.transfer(AaveV2EthereumAssets.USDT_A_TOKEN, address(this), amountUSDT);
-    IERC20(AaveV2EthereumAssets.USDT_A_TOKEN).forceApprove(
-      AaveV2Ethereum.MIGRATION_HELPER,
-      amountUSDT
-    );
 
     // Migrate all aDAI from Aave v2 to v3
     uint256 amountDAI = IERC20(AaveV2EthereumAssets.DAI_A_TOKEN).balanceOf(
@@ -84,11 +72,6 @@ contract AaveV3Ethereum_AaveFundingUpdates_20231102 is IProposalGenericExecutor 
     );
 
     MIGRATION.migrate(toMigrate, toRepay, permits, creditDelegationPermits);
-
-    IERC20(AaveV3EthereumAssets.USDT_A_TOKEN).safeTransfer(
-      address(AaveV3Ethereum.COLLECTOR),
-      IERC20(AaveV3EthereumAssets.USDT_A_TOKEN).balanceOf(address(this))
-    );
 
     IERC20(AaveV3EthereumAssets.DAI_A_TOKEN).safeTransfer(
       address(AaveV3Ethereum.COLLECTOR),

@@ -44,12 +44,6 @@ contract AaveV3Ethereum_AaveFundingUpdates_20231102_Test is ProtocolV3TestBase {
     uint256 balanceADaiBeforeV3 = IERC20(AaveV3EthereumAssets.DAI_A_TOKEN).balanceOf(
       address(AaveV3Ethereum.COLLECTOR)
     );
-    uint256 balanceAUSDTBeforeV2 = IERC20(AaveV2EthereumAssets.USDT_A_TOKEN).balanceOf(
-      address(AaveV3Ethereum.COLLECTOR)
-    ) - proposal.USDT_TO_KEEP_V2();
-    uint256 balanceAUSDTBeforeV3 = IERC20(AaveV3EthereumAssets.USDT_A_TOKEN).balanceOf(
-      address(AaveV3Ethereum.COLLECTOR)
-    );
 
     assertGt(
       IERC20(AaveV2EthereumAssets.UST_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
@@ -121,11 +115,6 @@ contract AaveV3Ethereum_AaveFundingUpdates_20231102_Test is ProtocolV3TestBase {
       balanceDaiBefore - proposal.DAI_TO_DEPOSIT() - proposal.DAI_TO_SWAP(),
       IERC20(AaveV3EthereumAssets.DAI_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR))
     );
-    assertApproxEqAbs(
-      proposal.USDT_TO_KEEP_V2(),
-      IERC20(AaveV2EthereumAssets.USDT_A_TOKEN).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
-      0.001e18
-    );
 
     // Less than 1,000 aDAI remain after migrating ~37,000
     assertLt(
@@ -133,10 +122,6 @@ contract AaveV3Ethereum_AaveFundingUpdates_20231102_Test is ProtocolV3TestBase {
       1_000e18
     );
 
-    assertEq(
-      balanceAUSDTBeforeV2 + balanceAUSDTBeforeV3,
-      IERC20(AaveV3EthereumAssets.USDT_A_TOKEN).balanceOf(address(AaveV3Ethereum.COLLECTOR))
-    );
     assertEq(
       balanceADaiBeforeV2 + balanceADaiBeforeV3 + proposal.DAI_TO_DEPOSIT(),
       IERC20(AaveV3EthereumAssets.DAI_A_TOKEN).balanceOf(address(AaveV3Ethereum.COLLECTOR))
