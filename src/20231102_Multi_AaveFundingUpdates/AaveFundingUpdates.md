@@ -19,7 +19,6 @@ However, with the emergence of new service provider proposal expected, the DAO n
 ## Specification
 
 - Deposit 1M units of DAI from Treasury into Aave v3
-- Migrate all but 0.7M aUSDT from Aave v2 to v3
 - Migrate all aDAI from Aave v2 to v3
 
 - Redeem and transfer 1.7M USDC to Ethereum Treasury
