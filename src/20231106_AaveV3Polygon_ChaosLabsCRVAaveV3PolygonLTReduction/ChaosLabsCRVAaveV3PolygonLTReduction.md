@@ -30,8 +30,8 @@ Chaos Labs recommends a 15% reduction. As of October 25, seven total accounts am
 
 ## References
 
-- Implementation: [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231106_AaveV3Polygon_ChaosLabsCRVAaveV3PolygonLTReduction/AaveV3Polygon_ChaosLabsCRVAaveV3PolygonLTReduction_20231106.sol)
-- Tests: [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231106_AaveV3Polygon_ChaosLabsCRVAaveV3PolygonLTReduction/AaveV3Polygon_ChaosLabsCRVAaveV3PolygonLTReduction_20231106.t.sol)
+- Implementation: [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/32feb0ecad0dd7e872929d42accba09b7f44b902/src/20231106_AaveV3Polygon_ChaosLabsCRVAaveV3PolygonLTReduction/AaveV3Polygon_ChaosLabsCRVAaveV3PolygonLTReduction_20231106.sol)
+- Tests: [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/32feb0ecad0dd7e872929d42accba09b7f44b902/src/20231106_AaveV3Polygon_ChaosLabsCRVAaveV3PolygonLTReduction/AaveV3Polygon_ChaosLabsCRVAaveV3PolygonLTReduction_20231106.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x0851676384aa4adc836ac6d4f001d1ec7683d5142380a2499bc5ac8b56bb8593)
 - [Discussion](https://governance.aave.com/t/arfc-chaos-labs-crv-aave-v3-polygon-lt-reduction-10-28-2023/15259)
 
