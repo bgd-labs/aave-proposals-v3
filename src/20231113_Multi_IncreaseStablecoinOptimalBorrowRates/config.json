@@ -578,8 +578,22 @@
               "stableRateExcessOffset": "EngineFlags.KEEP_CURRENT",
               "optimalStableToTotalDebtRatio": "EngineFlags.KEEP_CURRENT"
             }
+          },
+           {
+            "asset": "FRAX",
+            "params": {
+              "optimalUtilizationRate": "_bpsToRay(90_00)",
+              "baseVariableBorrowRate": "EngineFlags.KEEP_CURRENT",
+              "variableRateSlope1": "_bpsToRay(5_00)",
+              "variableRateSlope2": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope1": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope2": "EngineFlags.KEEP_CURRENT",
+              "baseStableRateOffset": "EngineFlags.KEEP_CURRENT",
+              "stableRateExcessOffset": "EngineFlags.KEEP_CURRENT",
+              "optimalStableToTotalDebtRatio": "EngineFlags.KEEP_CURRENT"
+            }
           }
-        ]
+       ]
       },
       "features": [
         "RATE_UPDATE_V3"
