@@ -15,7 +15,7 @@ contract AaveV3Arbitrum_IncreaseStablecoinOptimalBorrowRates_20231113_Test is Pr
   AaveV3Arbitrum_IncreaseStablecoinOptimalBorrowRates_20231113 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('arbitrum'), 150103353);
+    vm.createSelectFork(vm.rpcUrl('arbitrum'), 150125673);
     proposal = new AaveV3Arbitrum_IncreaseStablecoinOptimalBorrowRates_20231113();
   }
 
