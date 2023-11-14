@@ -21,6 +21,22 @@ contract DeployEthereum is EthereumScript {
 }
 
 /**
+ * @dev Deploy Ethereum
+ * command: make deploy-ledger contract=src/20231109_Multi_AllowEmergencyAdminToFreezeOnAaveV2/AllowEmergencyAdminToFreezeOnAaveV2_20231109.s.sol:DeployEthereumSentinel chain=mainnet
+ */
+contract DeployEthereumSentinel is EthereumScript {
+  function run() external broadcast {
+    // compose action
+    IPayloadsControllerCore.ExecutionAction[]
+      memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
+    actions[0] = GovV3Helpers.buildAction(0x9441B65EE553F70df9C77d45d3283B6BC24F222d);
+
+    // register action at payloadsController
+    GovV3Helpers.createPayload(actions);
+  }
+}
+
+/**
  * @dev Deploy Polygon
  * command: make deploy-ledger contract=src/20231109_Multi_AllowEmergencyAdminToFreezeOnAaveV2/AllowEmergencyAdminToFreezeOnAaveV2_20231109.s.sol:DeployPolygon chain=polygon
  */
@@ -59,7 +75,7 @@ contract DeployAvalanche is AvalancheScript {
 contract CreateProposal is EthereumScript {
   function run() external {
     // create payloads
-    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](3);
+    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](4);
 
     // compose actions for validation
     IPayloadsControllerCore.ExecutionAction[]
@@ -68,14 +84,19 @@ contract CreateProposal is EthereumScript {
     payloads[0] = GovV3Helpers.buildMainnetPayload(vm, actionsEthereum);
 
     IPayloadsControllerCore.ExecutionAction[]
+      memory actionsEthereumSentinel = new IPayloadsControllerCore.ExecutionAction[](1);
+    actionsEthereumSentinel[0] = GovV3Helpers.buildAction(0x9441B65EE553F70df9C77d45d3283B6BC24F222d); // TODO:
+    payloads[1] = GovV3Helpers.buildMainnetPayload(vm, actionsEthereumSentinel);
+
+    IPayloadsControllerCore.ExecutionAction[]
       memory actionsPolygon = new IPayloadsControllerCore.ExecutionAction[](1);
     actionsPolygon[0] = GovV3Helpers.buildAction(address(0)); // TODO:
-    payloads[1] = GovV3Helpers.buildPolygonPayload(vm, actionsPolygon);
+    payloads[2] = GovV3Helpers.buildPolygonPayload(vm, actionsPolygon);
 
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsAvalanche = new IPayloadsControllerCore.ExecutionAction[](1);
     actionsAvalanche[0] = GovV3Helpers.buildAction(address(0)); // TODO:
-    payloads[2] = GovV3Helpers.buildAvalanchePayload(vm, actionsAvalanche);
+    payloads[3] = GovV3Helpers.buildAvalanchePayload(vm, actionsAvalanche);
 
     // create proposal
     vm.startBroadcast();

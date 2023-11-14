@@ -7,6 +7,7 @@ discussions: "https://governance.aave.com/t/aave-v2-v3-security-incident-04-11-2
 ## Simple Summary
 
 Proposal to allow emergency admin to freeze reserves on Aave V2 pools - including Aave V2 AMM, Aave V2 on Ethereum, Polygon and Avalanche.
+Additionally, Liquidations Grace Sentinel is activated for Aave V2 AMM, following the same approach as [AIP 361](https://app.aave.com/governance/proposal/361/)
 
 ## Motivation
 
@@ -21,6 +22,8 @@ On AaveV2Ethereum, AaveV2EthereumAMM, AaveV2Polygon and AaveV2Avalanche the prop
 - `POOL_ADDRESSES_PROVIDER.setLendingPoolConfiguratorImpl(NEW_POOL_CONFIGURATOR);`
 
 To update the pool configurator with the new implementation.
+
+In addition `LendingPoolCollateralManager` for Aave V2 AMM is updated analog to [AIP 361](https://app.aave.com/governance/proposal/361/).
 
 ## References
 
