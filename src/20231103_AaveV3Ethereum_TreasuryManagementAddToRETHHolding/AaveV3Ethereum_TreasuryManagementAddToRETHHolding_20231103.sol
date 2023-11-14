@@ -41,18 +41,18 @@ contract AaveV3Ethereum_TreasuryManagementAddToRETHHolding_20231103 is IProposal
     uint256 wethV3Balance = IERC20(AaveV3EthereumAssets.WETH_A_TOKEN).balanceOf(COLLECTOR);
     uint256 wEthBalance = IERC20(AaveV3EthereumAssets.WETH_UNDERLYING).balanceOf(COLLECTOR);
 
+    // Transfer all wETH to swapper
+    AaveV3Ethereum.COLLECTOR.transfer(AaveV3EthereumAssets.WETH_UNDERLYING, address(SWAPPER), wEthBalance);
+    
     // Withdraw all awETH to wETH
     AaveV2Ethereum.COLLECTOR.transfer(AaveV2EthereumAssets.WETH_A_TOKEN, address(this), wethV2Balance);
-    AaveV2Ethereum.POOL.withdraw(AaveV2EthereumAssets.WETH_UNDERLYING, type(uint256).max, address(this));
+    wEthBalance += 
+      AaveV2Ethereum.POOL.withdraw(AaveV2EthereumAssets.WETH_UNDERLYING, type(uint256).max, address(SWAPPER));
 
     // Withdraw all but 100 aEthWETH to wETH
     AaveV3Ethereum.COLLECTOR.transfer(AaveV3EthereumAssets.WETH_A_TOKEN, address(this), wethV3Balance - 100 ether);
-    AaveV3Ethereum.POOL.withdraw(AaveV3EthereumAssets.WETH_UNDERLYING, type(uint256).max, address(this));
-
-    // Transfer all wETH to swapper
-    AaveV3Ethereum.COLLECTOR.transfer(AaveV3EthereumAssets.WETH_UNDERLYING, address(this), wEthBalance);
-    wEthBalance = IERC20(AaveV3EthereumAssets.WETH_UNDERLYING).balanceOf(address(this));
-    IERC20(AaveV3EthereumAssets.WETH_UNDERLYING).transfer(address(SWAPPER), wEthBalance);
+    wEthBalance +=
+      AaveV3Ethereum.POOL.withdraw(AaveV3EthereumAssets.WETH_UNDERLYING, type(uint256).max, address(SWAPPER));
 
     // Swap all ETH into RocketPool’s rETH
     // we use aave swap and not a deposit due to new deposits being restricted
@@ -66,7 +66,7 @@ contract AaveV3Ethereum_TreasuryManagementAddToRETHHolding_20231103 is IProposal
       AaveV3EthereumAssets.rETH_ORACLE,
       COLLECTOR,
       wEthBalance,
-      30
+      100
     );
   }
 }
