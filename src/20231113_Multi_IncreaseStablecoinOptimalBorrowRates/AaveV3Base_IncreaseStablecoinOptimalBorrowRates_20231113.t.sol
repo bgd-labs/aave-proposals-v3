@@ -15,7 +15,7 @@ contract AaveV3Base_IncreaseStablecoinOptimalBorrowRates_20231113_Test is Protoc
   AaveV3Base_IncreaseStablecoinOptimalBorrowRates_20231113 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('base'), 6558600);
+    vm.createSelectFork(vm.rpcUrl('base'), 6580110);
     proposal = new AaveV3Base_IncreaseStablecoinOptimalBorrowRates_20231113();
   }
 
