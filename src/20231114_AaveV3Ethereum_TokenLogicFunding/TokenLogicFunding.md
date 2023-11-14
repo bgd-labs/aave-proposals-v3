@@ -12,13 +12,13 @@ This AIP will transfer the equivalent of $115k USD to a TokenLogic address for s
 
 Over the last 6 months, TokenLogic has been contributing to the Aave DAO. This AIP implements the payment transaction as discussed on the governance forum and supported unanimously on Snapshot.
 
-At the time of writing, GHO is trading below 96 cents. For the purpose of this proposal, an exchange rate of 0.966 will be used. The 115k USD is then equivalent to 119k GHO.
+At the time of writing, GHO is trading below 96 cents. For the purpose of this proposal, an exchange rate of 1:1 will be used. The 115k USD is then equivalent to 115k GHO.
 
 ## Specification
 
 This proposal encompasses the following actions:
 
-* Transfer 119,000 GHO to receiver address
+* Transfer 115,000 GHO to receiver address
 
 ## References
 

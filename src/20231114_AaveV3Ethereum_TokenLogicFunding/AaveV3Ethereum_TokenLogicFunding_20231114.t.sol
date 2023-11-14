@@ -31,6 +31,6 @@ contract AaveV3Ethereum_TokenLogicFunding_20231114_Test is CommonTestBase {
 
     uint256 balanceAfter = IERC20(proposal.GHO()).balanceOf(proposal.TOKENLOGIC());
 
-    assertEq(balanceAfter - balanceBefore, 119_000 * 1e18);
+    assertEq(balanceAfter - balanceBefore, 115_000 * 1e18);
   }
 }
