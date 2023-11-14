@@ -28,6 +28,7 @@ contract AaveV3Ethereum_AaveFundingUpdates_20231102 is IProposalGenericExecutor 
   address public constant MILKMAN = 0x11C76AD590ABDFFCD980afEC9ad951B160F02797;
   address public constant PRICE_CHECKER = 0xe80a1C615F75AFF7Ed8F08c9F21f9d00982D666c;
   address public constant TUSD_USD_FEED = 0xec746eCF986E2927Abd291a2A1716c940100f8Ba;
+  address public constant BUSD_USD_FEED = 0x833D8Eb16D306ed1FbB5D7A2E019e106B960965A;
 
   function execute() external {
     _migration();
@@ -117,7 +118,7 @@ contract AaveV3Ethereum_AaveFundingUpdates_20231102 is IProposalGenericExecutor 
       AaveV2EthereumAssets.USDC_ORACLE,
       address(AaveV3Ethereum.COLLECTOR),
       balanceUst,
-      500
+      600
     );
 
     AaveV2Ethereum.COLLECTOR.transfer(
@@ -140,6 +141,29 @@ contract AaveV3Ethereum_AaveFundingUpdates_20231102 is IProposalGenericExecutor 
       AaveV3EthereumAssets.GHO_ORACLE,
       address(AaveV3Ethereum.COLLECTOR),
       IERC20(AaveV2EthereumAssets.TUSD_UNDERLYING).balanceOf(address(SWAPPER)),
+      300
+    );
+
+    AaveV2Ethereum.COLLECTOR.transfer(
+      AaveV2EthereumAssets.BUSD_A_TOKEN,
+      address(this),
+      IERC20(AaveV2EthereumAssets.BUSD_A_TOKEN).balanceOf(address(AaveV2Ethereum.COLLECTOR))
+    );
+    AaveV2Ethereum.POOL.withdraw(
+      AaveV2EthereumAssets.BUSD_UNDERLYING,
+      type(uint256).max,
+      address(SWAPPER)
+    );
+
+    SWAPPER.swap(
+      MILKMAN,
+      PRICE_CHECKER,
+      AaveV2EthereumAssets.BUSD_UNDERLYING,
+      AaveV3EthereumAssets.GHO_UNDERLYING,
+      BUSD_USD_FEED,
+      AaveV3EthereumAssets.GHO_ORACLE,
+      address(AaveV3Ethereum.COLLECTOR),
+      IERC20(AaveV2EthereumAssets.BUSD_UNDERLYING).balanceOf(address(SWAPPER)),
       300
     );
 

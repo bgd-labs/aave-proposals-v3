@@ -29,15 +29,12 @@ Swap the following asset holdings to GHO:
 
 - All available aTUSD that can be redeemed (57,373.85 units at time of writing)
 - 500k units of DAI held in Treasury (received from Polygon bridge)
+- All available aBUSD (~42500 units at time of writing)
 
 Swap the following asset holdings to USDC (there is no GHO / ETH oracle thus these tokens cannot be swapped to GHO directly):
 
 - All GUSD (18,464.03 units at time of writing)
 - All UST (893,257.63 units at time of writing)
-
-Redeem and swap the following:
-
-- All ARC USDC into USDC and swap for GHO
 
 ## References
 

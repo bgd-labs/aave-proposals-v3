@@ -56,6 +56,12 @@ contract AaveV3Ethereum_AaveFundingUpdates_20231102_Test is ProtocolV3TestBase {
       0
     );
 
+    uint256 balanceABusdBefore = IERC20(AaveV2EthereumAssets.BUSD_A_TOKEN).balanceOf(address(AaveV3Ethereum.COLLECTOR));
+    assertGt(
+      balanceABusdBefore,
+      0
+    );
+
     assertGt(
       IERC20(AaveV2EthereumAssets.GUSD_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
       0
@@ -82,7 +88,7 @@ contract AaveV3Ethereum_AaveFundingUpdates_20231102_Test is ProtocolV3TestBase {
       AaveV2EthereumAssets.USDC_ORACLE,
       IERC20(AaveV2EthereumAssets.UST_UNDERLYING).balanceOf(address(AaveV2Ethereum.COLLECTOR)),
       address(AaveV3Ethereum.COLLECTOR),
-      500
+      600
     );
 
     vm.expectEmit(true, true, true, false, MiscEthereum.AAVE_SWAPPER);
@@ -93,6 +99,18 @@ contract AaveV3Ethereum_AaveFundingUpdates_20231102_Test is ProtocolV3TestBase {
       proposal.TUSD_USD_FEED(),
       AaveV3EthereumAssets.GHO_ORACLE,
       IERC20(AaveV2EthereumAssets.TUSD_UNDERLYING).balanceOf(address(AaveV2Ethereum.COLLECTOR)),
+      address(AaveV3Ethereum.COLLECTOR),
+      300
+    );
+
+    vm.expectEmit(true, true, true, false, MiscEthereum.AAVE_SWAPPER);
+    emit SwapRequested(
+      proposal.MILKMAN(),
+      AaveV2EthereumAssets.BUSD_UNDERLYING,
+      AaveV3EthereumAssets.GHO_UNDERLYING,
+      proposal.BUSD_USD_FEED(),
+      AaveV3EthereumAssets.GHO_ORACLE,
+      IERC20(AaveV2EthereumAssets.BUSD_UNDERLYING).balanceOf(address(AaveV2Ethereum.COLLECTOR)),
       address(AaveV3Ethereum.COLLECTOR),
       300
     );
@@ -137,6 +155,11 @@ contract AaveV3Ethereum_AaveFundingUpdates_20231102_Test is ProtocolV3TestBase {
       balanceATusdBefore
     );
 
+    assertLt(
+      IERC20(AaveV2EthereumAssets.BUSD_A_TOKEN).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
+      balanceABusdBefore
+    );
+
     assertEq(
       IERC20(AaveV2EthereumAssets.GUSD_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
       0
@@ -149,6 +172,11 @@ contract AaveV3Ethereum_AaveFundingUpdates_20231102_Test is ProtocolV3TestBase {
 
     assertEq(
       IERC20(AaveV2EthereumAssets.TUSD_UNDERLYING).balanceOf(address(proposal.SWAPPER())),
+      0
+    );
+
+    assertEq(
+      IERC20(AaveV2EthereumAssets.BUSD_UNDERLYING).balanceOf(address(proposal.SWAPPER())),
       0
     );
 
