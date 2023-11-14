@@ -11,6 +11,7 @@ import {AaveV3Arbitrum_MAIMIMATICDeprecation20231031_20231031} from './AaveV3Arb
 /**
  * @dev Deploy Polygon
  * command: make deploy-ledger contract=src/20231031_Multi_MAIMIMATICDeprecation20231031/MAIMIMATICDeprecation20231031_20231031.s.sol:DeployPolygon chain=polygon
+ * command: make deploy-pk contract=src/20231031_Multi_MAIMIMATICDeprecation20231031/MAIMIMATICDeprecation20231031_20231031.s.sol:DeployPolygon chain=polygon
  */
 contract DeployPolygon is PolygonScript {
   function run() external broadcast {
@@ -96,22 +97,22 @@ contract CreateProposal is EthereumScript {
     // compose actions for validation
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsPolygon = new IPayloadsControllerCore.ExecutionAction[](1);
-    actionsPolygon[0] = GovV3Helpers.buildAction(address(0));
+    actionsPolygon[0] = GovV3Helpers.buildAction(0x47a200a4805297c396aE73FFD52044D1Edb261bA);
     payloads[0] = GovV3Helpers.buildPolygonPayload(vm, actionsPolygon);
 
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsAvalanche = new IPayloadsControllerCore.ExecutionAction[](1);
-    actionsAvalanche[0] = GovV3Helpers.buildAction(address(0));
+    actionsAvalanche[0] = GovV3Helpers.buildAction(0xf7C3350757DE224bdB2b77A3943C8667aCEE3d37);
     payloads[1] = GovV3Helpers.buildAvalanchePayload(vm, actionsAvalanche);
 
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsOptimism = new IPayloadsControllerCore.ExecutionAction[](1);
-    actionsOptimism[0] = GovV3Helpers.buildAction(address(0));
+    actionsOptimism[0] = GovV3Helpers.buildAction(0xf8bC2a699559c96D48cf1e6F70aa2e67508C2aE9);
     payloads[2] = GovV3Helpers.buildOptimismPayload(vm, actionsOptimism);
 
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsArbitrum = new IPayloadsControllerCore.ExecutionAction[](1);
-    actionsArbitrum[0] = GovV3Helpers.buildAction(address(0));
+    actionsArbitrum[0] = GovV3Helpers.buildAction(0x0cB2535D00cddFae5Ed1aFf2e5a0239fC947D17d);
     payloads[3] = GovV3Helpers.buildArbitrumPayload(vm, actionsArbitrum);
 
     // create proposal
