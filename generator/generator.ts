@@ -43,7 +43,7 @@ export async function generateFiles(options: Options, poolConfigs: PoolConfigs):
 
   if (!options.force && fs.existsSync(baseFolder)) {
     options.force = await confirm({
-      message: 'A proposal already exists at that location, do you want to override?',
+      message: 'A proposal already exists at that location, do you want to continue?',
       default: false,
     });
   }
@@ -89,30 +89,26 @@ export async function generateFiles(options: Options, poolConfigs: PoolConfigs):
  * @param param1
  */
 export async function writeFiles(options: Options, {jsonConfig, script, aip, payloads}: Files) {
-  console.log(options);
   const baseName = generateFolderName(options);
   const baseFolder = path.join(process.cwd(), 'src', baseName);
   if (!options.force && fs.existsSync(baseFolder)) {
-    options.force = await confirm({
+    const force = await confirm({
       message: 'A proposal already exists at that location, do you want to override?',
       default: false,
     });
+    if (!force) return;
   }
-  if (fs.existsSync(baseFolder) && !options.force) {
-    console.log('Creation skipped as folder already exists.');
-    console.log('If you want to overwrite, supply --force');
-  } else {
-    fs.mkdirSync(baseFolder, {recursive: true});
-    // write config
-    fs.writeFileSync(path.join(baseFolder, 'config.json'), jsonConfig);
-    // write aip
-    fs.writeFileSync(path.join(baseFolder, `${options.shortName}.md`), aip);
-    // write scripts
-    fs.writeFileSync(path.join(baseFolder, `${generateContractName(options)}.s.sol`), script);
 
-    payloads.map(({payload, test, contractName}) => {
-      fs.writeFileSync(path.join(baseFolder, `${contractName}.sol`), payload);
-      fs.writeFileSync(path.join(baseFolder, `${contractName}.t.sol`), test);
-    });
-  }
+  fs.mkdirSync(baseFolder, {recursive: true});
+  // write config
+  fs.writeFileSync(path.join(baseFolder, 'config.json'), jsonConfig);
+  // write aip
+  fs.writeFileSync(path.join(baseFolder, `${options.shortName}.md`), aip);
+  // write scripts
+  fs.writeFileSync(path.join(baseFolder, `${generateContractName(options)}.s.sol`), script);
+
+  payloads.map(({payload, test, contractName}) => {
+    fs.writeFileSync(path.join(baseFolder, `${contractName}.sol`), payload);
+    fs.writeFileSync(path.join(baseFolder, `${contractName}.t.sol`), test);
+  });
 }
