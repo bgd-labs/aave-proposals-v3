@@ -35,6 +35,10 @@ Swap the following asset holdings to USDC (there is no GHO / ETH oracle thus the
 - All GUSD (18,464.03 units at time of writing)
 - All UST (893,257.63 units at time of writing)
 
+Redeem and swap the following:
+
+- All ARC USDC into USDC and swap for GHO
+
 ## References
 
 - Implementation: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231102_Multi_AaveFundingUpdates/AaveV2Ethereum_AaveFundingUpdates_20231102.sol), [AaveV2Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231102_Multi_AaveFundingUpdates/AaveV2Polygon_AaveFundingUpdates_20231102.sol), [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231102_Multi_AaveFundingUpdates/AaveV3Ethereum_AaveFundingUpdates_20231102.sol)
