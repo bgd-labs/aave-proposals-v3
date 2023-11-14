@@ -1,0 +1,189 @@
+{
+  "rootOptions": {
+    "pools": [
+      "AaveV2Ethereum",
+      "AaveV3Polygon",
+      "AaveV3Avalanche",
+      "AaveV3Optimism",
+      "AaveV3Arbitrum"
+    ],
+    "title": "Disable_Stable_Borrows",
+    "shortName": "Disable_Stable_Borrows",
+    "date": "20231104",
+    "author": "BGD",
+    "discussion": "",
+    "snapshot": ""
+  },
+  "poolOptions": {
+    "AaveV2Ethereum": {
+      "configs": {
+        "OTHERS": {}
+      },
+      "features": [
+        "OTHERS"
+      ]
+    },
+    "AaveV3Polygon": {
+      "configs": {
+        "BORROWS_UPDATE": [
+          {
+            "enabledToBorrow": "EngineFlags.DISABLED",
+            "flashloanable": "EngineFlags.KEEP_CURRENT",
+            "stableRateModeEnabled": "EngineFlags.DISABLED",
+            "borrowableInIsolation": "EngineFlags.KEEP_CURRENT",
+            "withSiloedBorrowing": "EngineFlags.KEEP_CURRENT",
+            "reserveFactor": "EngineFlags.KEEP_CURRENT",
+            "asset": "DAI"
+          },
+          {
+            "enabledToBorrow": "EngineFlags.KEEP_CURRENT",
+            "flashloanable": "EngineFlags.KEEP_CURRENT",
+            "stableRateModeEnabled": "EngineFlags.DISABLED",
+            "borrowableInIsolation": "EngineFlags.KEEP_CURRENT",
+            "withSiloedBorrowing": "EngineFlags.KEEP_CURRENT",
+            "reserveFactor": "EngineFlags.KEEP_CURRENT",
+            "asset": "USDC"
+          },
+          {
+            "enabledToBorrow": "EngineFlags.KEEP_CURRENT",
+            "flashloanable": "EngineFlags.KEEP_CURRENT",
+            "stableRateModeEnabled": "EngineFlags.DISABLED",
+            "borrowableInIsolation": "EngineFlags.KEEP_CURRENT",
+            "withSiloedBorrowing": "EngineFlags.KEEP_CURRENT",
+            "reserveFactor": "EngineFlags.KEEP_CURRENT",
+            "asset": "USDT"
+          },
+          {
+            "enabledToBorrow": "EngineFlags.KEEP_CURRENT",
+            "flashloanable": "EngineFlags.KEEP_CURRENT",
+            "stableRateModeEnabled": "EngineFlags.DISABLED",
+            "borrowableInIsolation": "EngineFlags.KEEP_CURRENT",
+            "withSiloedBorrowing": "EngineFlags.KEEP_CURRENT",
+            "reserveFactor": "EngineFlags.KEEP_CURRENT",
+            "asset": "EURS"
+          }
+        ]
+      },
+      "features": [
+        "BORROWS_UPDATE"
+      ]
+    },
+    "AaveV3Avalanche": {
+      "configs": {
+        "BORROWS_UPDATE": [
+          {
+            "enabledToBorrow": "EngineFlags.KEEP_CURRENT",
+            "flashloanable": "EngineFlags.KEEP_CURRENT",
+            "stableRateModeEnabled": "EngineFlags.DISABLED",
+            "borrowableInIsolation": "EngineFlags.KEEP_CURRENT",
+            "withSiloedBorrowing": "EngineFlags.KEEP_CURRENT",
+            "reserveFactor": "EngineFlags.KEEP_CURRENT",
+            "asset": "DAIe"
+          },
+          {
+            "enabledToBorrow": "EngineFlags.KEEP_CURRENT",
+            "flashloanable": "EngineFlags.KEEP_CURRENT",
+            "stableRateModeEnabled": "EngineFlags.DISABLED",
+            "borrowableInIsolation": "EngineFlags.KEEP_CURRENT",
+            "withSiloedBorrowing": "EngineFlags.KEEP_CURRENT",
+            "reserveFactor": "EngineFlags.KEEP_CURRENT",
+            "asset": "USDC"
+          },
+          {
+            "enabledToBorrow": "EngineFlags.KEEP_CURRENT",
+            "flashloanable": "EngineFlags.KEEP_CURRENT",
+            "stableRateModeEnabled": "EngineFlags.DISABLED",
+            "borrowableInIsolation": "EngineFlags.KEEP_CURRENT",
+            "withSiloedBorrowing": "EngineFlags.KEEP_CURRENT",
+            "reserveFactor": "EngineFlags.KEEP_CURRENT",
+            "asset": "USDt"
+          }
+        ]
+      },
+      "features": [
+        "BORROWS_UPDATE"
+      ]
+    },
+    "AaveV3Optimism": {
+      "configs": {
+        "BORROWS_UPDATE": [
+          {
+            "enabledToBorrow": "EngineFlags.KEEP_CURRENT",
+            "flashloanable": "EngineFlags.KEEP_CURRENT",
+            "stableRateModeEnabled": "EngineFlags.DISABLED",
+            "borrowableInIsolation": "EngineFlags.KEEP_CURRENT",
+            "withSiloedBorrowing": "EngineFlags.KEEP_CURRENT",
+            "reserveFactor": "EngineFlags.KEEP_CURRENT",
+            "asset": "DAI"
+          },
+          {
+            "enabledToBorrow": "EngineFlags.KEEP_CURRENT",
+            "flashloanable": "EngineFlags.KEEP_CURRENT",
+            "stableRateModeEnabled": "EngineFlags.DISABLED",
+            "borrowableInIsolation": "EngineFlags.KEEP_CURRENT",
+            "withSiloedBorrowing": "EngineFlags.KEEP_CURRENT",
+            "reserveFactor": "EngineFlags.KEEP_CURRENT",
+            "asset": "USDC"
+          },
+          {
+            "enabledToBorrow": "EngineFlags.KEEP_CURRENT",
+            "flashloanable": "EngineFlags.KEEP_CURRENT",
+            "stableRateModeEnabled": "EngineFlags.DISABLED",
+            "borrowableInIsolation": "EngineFlags.KEEP_CURRENT",
+            "withSiloedBorrowing": "EngineFlags.KEEP_CURRENT",
+            "reserveFactor": "EngineFlags.KEEP_CURRENT",
+            "asset": "USDT"
+          },
+        ]
+      },
+      "features": [
+        "BORROWS_UPDATE"
+      ]
+    },
+    "AaveV3Arbitrum": {
+      "configs": {
+        "BORROWS_UPDATE": [
+          {
+            "enabledToBorrow": "EngineFlags.KEEP_CURRENT",
+            "flashloanable": "EngineFlags.KEEP_CURRENT",
+            "stableRateModeEnabled": "EngineFlags.DISABLED",
+            "borrowableInIsolation": "EngineFlags.KEEP_CURRENT",
+            "withSiloedBorrowing": "EngineFlags.KEEP_CURRENT",
+            "reserveFactor": "EngineFlags.KEEP_CURRENT",
+            "asset": "DAI"
+          },
+          {
+            "enabledToBorrow": "EngineFlags.KEEP_CURRENT",
+            "flashloanable": "EngineFlags.KEEP_CURRENT",
+            "stableRateModeEnabled": "EngineFlags.DISABLED",
+            "borrowableInIsolation": "EngineFlags.KEEP_CURRENT",
+            "withSiloedBorrowing": "EngineFlags.KEEP_CURRENT",
+            "reserveFactor": "EngineFlags.KEEP_CURRENT",
+            "asset": "USDC"
+          },
+          {
+            "enabledToBorrow": "EngineFlags.KEEP_CURRENT",
+            "flashloanable": "EngineFlags.KEEP_CURRENT",
+            "stableRateModeEnabled": "EngineFlags.DISABLED",
+            "borrowableInIsolation": "EngineFlags.KEEP_CURRENT",
+            "withSiloedBorrowing": "EngineFlags.KEEP_CURRENT",
+            "reserveFactor": "EngineFlags.KEEP_CURRENT",
+            "asset": "USDT"
+          },
+          {
+            "enabledToBorrow": "EngineFlags.KEEP_CURRENT",
+            "flashloanable": "EngineFlags.KEEP_CURRENT",
+            "stableRateModeEnabled": "EngineFlags.DISABLED",
+            "borrowableInIsolation": "EngineFlags.KEEP_CURRENT",
+            "withSiloedBorrowing": "EngineFlags.KEEP_CURRENT",
+            "reserveFactor": "EngineFlags.KEEP_CURRENT",
+            "asset": "EURS"
+          }
+        ]
+      },
+      "features": [
+        "BORROWS_UPDATE"
+      ]
+    }
+  }
+}

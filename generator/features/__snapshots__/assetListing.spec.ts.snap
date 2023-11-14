@@ -50,11 +50,11 @@ Copyright and related rights waived via [CC0](https://creativecommons.org/public
             \\"liqBonus\\": \\"5_00\\",
             \\"debtCeiling\\": \\"100_000\\",
             \\"liqProtocolFee\\": \\"20_00\\",
-            \\"enabledToBorrow\\": \\"EngineFlags.ENABLED\\",
-            \\"flashloanable\\": \\"EngineFlags.ENABLED\\",
-            \\"stableRateModeEnabled\\": \\"EngineFlags.DISABLED\\",
-            \\"borrowableInIsolation\\": \\"EngineFlags.DISABLED\\",
-            \\"withSiloedBorrowing\\": \\"EngineFlags.DISABLED\\",
+            \\"enabledToBorrow\\": \\"ENABLED\\",
+            \\"flashloanable\\": \\"ENABLED\\",
+            \\"stableRateModeEnabled\\": \\"DISABLED\\",
+            \\"borrowableInIsolation\\": \\"DISABLED\\",
+            \\"withSiloedBorrowing\\": \\"DISABLED\\",
             \\"reserveFactor\\": \\"20_00\\",
             \\"supplyCap\\": \\"10_000\\",
             \\"borrowCap\\": \\"5_000\\",
@@ -88,7 +88,6 @@ pragma solidity ^0.8.0;
 
 import {AaveV3Ethereum, AaveV3EthereumEModes} from 'aave-address-book/AaveV3Ethereum.sol';
 import {AaveV3PayloadEthereum} from 'aave-helpers/v3-config-engine/AaveV3PayloadEthereum.sol';
-import {EngineFlags} from 'aave-helpers/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-helpers/v3-config-engine/IAaveV3ConfigEngine.sol';
 import {IV3RateStrategyFactory} from 'aave-helpers/v3-config-engine/IV3RateStrategyFactory.sol';
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
@@ -119,11 +118,11 @@ contract AaveV3Ethereum_Test_20231023 is AaveV3PayloadEthereum {
       assetSymbol: 'PSP',
       priceFeed: 0x72AFAECF99C9d9C8215fF44C77B94B99C28741e8,
       eModeCategory: AaveV3EthereumEModes.NONE,
-      enabledToBorrow: EngineFlags.ENABLED,
-      stableRateModeEnabled: EngineFlags.DISABLED,
-      borrowableInIsolation: EngineFlags.DISABLED,
-      withSiloedBorrowing: EngineFlags.DISABLED,
-      flashloanable: EngineFlags.ENABLED,
+      enabledToBorrow: ENABLED,
+      stableRateModeEnabled: DISABLED,
+      borrowableInIsolation: DISABLED,
+      withSiloedBorrowing: DISABLED,
+      flashloanable: ENABLED,
       ltv: 40_00,
       liqThreshold: 50_00,
       liqBonus: 5_00,
@@ -168,7 +167,7 @@ contract AaveV3Ethereum_Test_20231023_Test is ProtocolV3TestBase {
   AaveV3Ethereum_Test_20231023 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 18487480);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 18533234);
     proposal = new AaveV3Ethereum_Test_20231023();
   }
 
@@ -263,11 +262,11 @@ exports[`feature: assetListing > should return reasonable code 1`] = `
                assetSymbol: \\"PSP\\",
                priceFeed: 0x72AFAECF99C9d9C8215fF44C77B94B99C28741e8,
                eModeCategory: AaveV3EthereumEModes.NONE,
-               enabledToBorrow: EngineFlags.ENABLED,
-               stableRateModeEnabled: EngineFlags.DISABLED,
-               borrowableInIsolation: EngineFlags.DISABLED,
-               withSiloedBorrowing: EngineFlags.DISABLED,
-               flashloanable: EngineFlags.ENABLED,
+               enabledToBorrow: ENABLED,
+               stableRateModeEnabled: DISABLED,
+               borrowableInIsolation: DISABLED,
+               withSiloedBorrowing: DISABLED,
+               flashloanable: ENABLED,
                ltv: 40_00,
                liqThreshold: 50_00,
                liqBonus: 5_00,

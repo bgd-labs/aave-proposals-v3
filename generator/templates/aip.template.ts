@@ -1,5 +1,5 @@
 import {generateContractName, generateFolderName} from '../common';
-import {Options, PoolConfigs} from '../types';
+import {Options, PoolConfigs, PoolIdentifier} from '../types';
 
 export function generateAIP(options: Options, configs: PoolConfigs) {
   return `---
@@ -14,9 +14,14 @@ discussions: ${`"${options.discussion}"` || 'TODO'}
 
 ## Specification
 
-${Object.keys(configs).map((pool) => {
-  return configs[pool].artifacts.filter((artifact) => artifact.aip).map((artifact) => artifact.aip);
-})}
+${Object.keys(configs)
+  .map((pool) => {
+    return configs[pool as keyof typeof configs]!.artifacts.filter(
+      (artifact) => artifact.aip?.specification
+    ).map((artifact) => artifact.aip?.specification);
+  })
+  .filter((a) => a)
+  .join('\n\n')}
 
 ## References
 
