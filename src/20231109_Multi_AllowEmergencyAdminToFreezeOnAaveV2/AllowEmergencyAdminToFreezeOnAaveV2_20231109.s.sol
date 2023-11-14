@@ -13,7 +13,7 @@ contract DeployEthereum is EthereumScript {
     // compose action
     IPayloadsControllerCore.ExecutionAction[]
       memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
-    actions[0] = GovV3Helpers.buildAction(address(0)); // TODO
+    actions[0] = GovV3Helpers.buildAction(0xf75cBd975756C52aA7321d10E6aCA90e07835Dee);
 
     // register action at payloadsController
     GovV3Helpers.createPayload(actions);
@@ -45,7 +45,7 @@ contract DeployPolygon is PolygonScript {
     // compose action
     IPayloadsControllerCore.ExecutionAction[]
       memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
-    actions[0] = GovV3Helpers.buildAction(address(0)); // TODO:
+    actions[0] = GovV3Helpers.buildAction(0x1AA25FdD7d55FA8a401D6EFba8e48874Ef730E55);
 
     // register action at payloadsController
     GovV3Helpers.createPayload(actions);
@@ -61,7 +61,7 @@ contract DeployAvalanche is AvalancheScript {
     // compose action
     IPayloadsControllerCore.ExecutionAction[]
       memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
-    actions[0] = GovV3Helpers.buildAction(address(0)); // TODO:
+    actions[0] = GovV3Helpers.buildAction(0xD3DE4b3571744EB77946d65aBF01408902E92c4E);
 
     // register action at payloadsController
     GovV3Helpers.createPayload(actions);
@@ -80,22 +80,22 @@ contract CreateProposal is EthereumScript {
     // compose actions for validation
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsEthereum = new IPayloadsControllerCore.ExecutionAction[](1);
-    actionsEthereum[0] = GovV3Helpers.buildAction(address(0)); // TODO:
+    actionsEthereum[0] = GovV3Helpers.buildAction(0xf75cBd975756C52aA7321d10E6aCA90e07835Dee);
     payloads[0] = GovV3Helpers.buildMainnetPayload(vm, actionsEthereum);
 
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsEthereumSentinel = new IPayloadsControllerCore.ExecutionAction[](1);
-    actionsEthereumSentinel[0] = GovV3Helpers.buildAction(0x9441B65EE553F70df9C77d45d3283B6BC24F222d); // TODO:
+    actionsEthereumSentinel[0] = GovV3Helpers.buildAction(0x9441B65EE553F70df9C77d45d3283B6BC24F222d);
     payloads[1] = GovV3Helpers.buildMainnetPayload(vm, actionsEthereumSentinel);
 
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsPolygon = new IPayloadsControllerCore.ExecutionAction[](1);
-    actionsPolygon[0] = GovV3Helpers.buildAction(address(0)); // TODO:
+    actionsPolygon[0] = GovV3Helpers.buildAction(0x1AA25FdD7d55FA8a401D6EFba8e48874Ef730E55);
     payloads[2] = GovV3Helpers.buildPolygonPayload(vm, actionsPolygon);
 
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsAvalanche = new IPayloadsControllerCore.ExecutionAction[](1);
-    actionsAvalanche[0] = GovV3Helpers.buildAction(address(0)); // TODO:
+    actionsAvalanche[0] = GovV3Helpers.buildAction(0xD3DE4b3571744EB77946d65aBF01408902E92c4E);
     payloads[3] = GovV3Helpers.buildAvalanchePayload(vm, actionsAvalanche);
 
     // create proposal
