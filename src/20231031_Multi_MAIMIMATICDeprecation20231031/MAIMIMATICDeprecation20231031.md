@@ -6,7 +6,7 @@ discussions: "https://governance.aave.com/t/arfc-gauntlet-recommendation-for-mai
 
 ## Summary
 
-Given MAI/MIMATIC price drop to ~$0.72 and its inability to regain peg for the past few months, Gauntlet recommends to begin deprecation of MAI/MIMATIC. We aim to do so by reducing LT and increasing borrow rates to incentivize repayment.
+Given MAI/MIMATIC price drop to ~$0.72 and its inability to regain peg for the past few months, Gauntlet recommends to begin deprecation of MAI/MIMATIC. We aim to do so by changing LT and increasing borrow rates to incentivize repayment. Additionally, Gauntlet recommends freezing MAI/MIMATIC and setting MAI/MIMATIC LTV -> 0 on Avalanche, which was not executed in [this previous AIP](https://app.aave.com/governance/proposal/318/).
 
 ## Specification
 
@@ -14,9 +14,9 @@ Given MAI/MIMATIC price drop to ~$0.72 and its inability to regain peg for the p
 
 | Chain        | Asset       | Current LT | Recommended LT |
 | ------------ | ----------- | ---------- | -------------- |
-| avalanche v3 | MAI/MIMATIC | 0.8        | 0              |
-| arbitrum v3  | MAI/MIMATIC | 0.8        | 0              |
-| polygon v3   | MAI/MIMATIC | 0.8        | 0              |
+| avalanche v3 | MAI/MIMATIC | 0.8        | 0.01           |
+| arbitrum v3  | MAI/MIMATIC | 0.8        | 0.01           |
+| polygon v3   | MAI/MIMATIC | 0.8        | 0.01           |
 | optimism v3  | MAI/MIMATIC | 0.8        | 0.65           |
 
 #### IR recommendations
@@ -29,6 +29,12 @@ Adjust Uopt to 0.45, Slope 2 to 300%, RF to 95%
 | avalanche v3 | MAI     | 0.8          | 0.75           | 0.2        | 0.45             | 3                  | 0.95           |
 | optimism v3  | MAI     | 0.8          | 0.75           | 0.2        | 0.45             | 3                  | 0.95           |
 | polygon v3   | miMATIC | 0.8          | 0.75           | 0.2        | 0.45             | 3                  | 0.95           |
+
+#### Freeze MAI and set LTV -> 0 on Avalanche
+
+| Chain        | Asset       | Action                       |
+| ------------ | ----------- | ---------------------------- |
+| avalanche v3 | MAI/MIMATIC | Freeze Reserve, set LTV -> 0 |
 
 ## References
 

@@ -6,6 +6,7 @@
 
 | description | value before | value after |
 | --- | --- | --- |
+| liquidationThreshold | 80 % | 1 % |
 | reserveFactor | 20 % | 95 % |
 | interestRateStrategy | [0xA9F3C3caE095527061e6d270DBE163693e6fda9D](https://polygonscan.com/address/0xA9F3C3caE095527061e6d270DBE163693e6fda9D) | [0xD87974E8ED49AB16d5053ba793F4e17078Be0426](https://polygonscan.com/address/0xD87974E8ED49AB16d5053ba793F4e17078Be0426) |
 | optimalUsageRatio | 80 % | 45 % |
@@ -22,6 +23,10 @@
       "interestRateStrategy": {
         "from": "0xA9F3C3caE095527061e6d270DBE163693e6fda9D",
         "to": "0xD87974E8ED49AB16d5053ba793F4e17078Be0426"
+      },
+      "liquidationThreshold": {
+        "from": 8000,
+        "to": 100
       },
       "reserveFactor": {
         "from": 2000,

@@ -15,7 +15,7 @@ contract AaveV3Arbitrum_MAIMIMATICDeprecation20231031_20231031_Test is ProtocolV
   AaveV3Arbitrum_MAIMIMATICDeprecation20231031_20231031 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('arbitrum'), 148454072);
+    vm.createSelectFork(vm.rpcUrl('arbitrum'), 150137155);
     proposal = new AaveV3Arbitrum_MAIMIMATICDeprecation20231031_20231031();
   }
 

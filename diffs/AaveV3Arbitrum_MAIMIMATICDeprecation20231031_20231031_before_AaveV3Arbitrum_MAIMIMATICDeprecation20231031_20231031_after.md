@@ -6,6 +6,7 @@
 
 | description | value before | value after |
 | --- | --- | --- |
+| liquidationThreshold | 80 % | 1 % |
 | reserveFactor | 20 % | 95 % |
 | interestRateStrategy | [0xA6459195d60A797D278f58Ffbd2BA62Fb3F7FA1E](https://arbiscan.io/address/0xA6459195d60A797D278f58Ffbd2BA62Fb3F7FA1E) | [0xb02381b1d27aA9845e5012083CA288c1818884f0](https://arbiscan.io/address/0xb02381b1d27aA9845e5012083CA288c1818884f0) |
 | optimalUsageRatio | 80 % | 45 % |
@@ -22,6 +23,10 @@
       "interestRateStrategy": {
         "from": "0xA6459195d60A797D278f58Ffbd2BA62Fb3F7FA1E",
         "to": "0xb02381b1d27aA9845e5012083CA288c1818884f0"
+      },
+      "liquidationThreshold": {
+        "from": 8000,
+        "to": 100
       },
       "reserveFactor": {
         "from": 2000,

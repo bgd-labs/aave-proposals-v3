@@ -6,6 +6,8 @@
 
 | description | value before | value after |
 | --- | --- | --- |
+| ltv | 75 % | 0 % |
+| liquidationThreshold | 80 % | 1 % |
 | reserveFactor | 20 % | 95 % |
 | interestRateStrategy | [0xfab05a6aF585da2F96e21452F91E812452996BD3](https://snowtrace.io/address/0xfab05a6aF585da2F96e21452F91E812452996BD3) | [0x04daBC3C1c052AB94AA2ca80140f2b978d2F6E17](https://snowtrace.io/address/0x04daBC3C1c052AB94AA2ca80140f2b978d2F6E17) |
 | optimalUsageRatio | 80 % | 45 % |
@@ -22,6 +24,14 @@
       "interestRateStrategy": {
         "from": "0xfab05a6aF585da2F96e21452F91E812452996BD3",
         "to": "0x04daBC3C1c052AB94AA2ca80140f2b978d2F6E17"
+      },
+      "liquidationThreshold": {
+        "from": 8000,
+        "to": 100
+      },
+      "ltv": {
+        "from": 7500,
+        "to": 0
       },
       "reserveFactor": {
         "from": 2000,

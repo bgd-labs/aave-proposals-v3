@@ -96,22 +96,22 @@ contract CreateProposal is EthereumScript {
     // compose actions for validation
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsPolygon = new IPayloadsControllerCore.ExecutionAction[](1);
-    actionsPolygon[0] = GovV3Helpers.buildAction(0xb96887502797c07Fc5b0F0938C61cC3D46e16e18);
+    actionsPolygon[0] = GovV3Helpers.buildAction(address(0));
     payloads[0] = GovV3Helpers.buildPolygonPayload(vm, actionsPolygon);
 
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsAvalanche = new IPayloadsControllerCore.ExecutionAction[](1);
-    actionsAvalanche[0] = GovV3Helpers.buildAction(0xf8bC2a699559c96D48cf1e6F70aa2e67508C2aE9);
+    actionsAvalanche[0] = GovV3Helpers.buildAction(address(0));
     payloads[1] = GovV3Helpers.buildAvalanchePayload(vm, actionsAvalanche);
 
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsOptimism = new IPayloadsControllerCore.ExecutionAction[](1);
-    actionsOptimism[0] = GovV3Helpers.buildAction(0x0cB2535D00cddFae5Ed1aFf2e5a0239fC947D17d);
+    actionsOptimism[0] = GovV3Helpers.buildAction(address(0));
     payloads[2] = GovV3Helpers.buildOptimismPayload(vm, actionsOptimism);
 
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsArbitrum = new IPayloadsControllerCore.ExecutionAction[](1);
-    actionsArbitrum[0] = GovV3Helpers.buildAction(0x0f36Dda2b47984434051AeCAa5F9587DEA7f95B7);
+    actionsArbitrum[0] = GovV3Helpers.buildAction(address(0));
     payloads[3] = GovV3Helpers.buildArbitrumPayload(vm, actionsArbitrum);
 
     // create proposal

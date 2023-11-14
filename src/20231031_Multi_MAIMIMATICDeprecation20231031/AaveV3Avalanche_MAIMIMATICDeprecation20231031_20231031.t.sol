@@ -15,7 +15,7 @@ contract AaveV3Avalanche_MAIMIMATICDeprecation20231031_20231031_Test is Protocol
   AaveV3Avalanche_MAIMIMATICDeprecation20231031_20231031 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('avalanche'), 37507184);
+    vm.createSelectFork(vm.rpcUrl('avalanche'), 37728010);
     proposal = new AaveV3Avalanche_MAIMIMATICDeprecation20231031_20231031();
   }
 

@@ -52,7 +52,7 @@ contract AaveV3Arbitrum_MAIMIMATICDeprecation20231031_20231031 is AaveV3PayloadA
     collateralUpdate[0] = IAaveV3ConfigEngine.CollateralUpdate({
       asset: AaveV3ArbitrumAssets.MAI_UNDERLYING,
       ltv: EngineFlags.KEEP_CURRENT,
-      liqThreshold: 0,
+      liqThreshold: 1_00,
       liqBonus: EngineFlags.KEEP_CURRENT,
       debtCeiling: EngineFlags.KEEP_CURRENT,
       liqProtocolFee: EngineFlags.KEEP_CURRENT

@@ -36,7 +36,7 @@
           {
             "asset": "miMATIC",
             "ltv": "EngineFlags.KEEP_CURRENT",
-            "liqThreshold": "0",
+            "liqThreshold": "1_00",
             "liqBonus": "EngineFlags.KEEP_CURRENT",
             "debtCeiling": "EngineFlags.KEEP_CURRENT",
             "liqProtocolFee": "EngineFlags.KEEP_CURRENT"
@@ -81,8 +81,8 @@
         "COLLATERALS_UPDATE": [
           {
             "asset": "MAI",
-            "ltv": "EngineFlags.KEEP_CURRENT",
-            "liqThreshold": "0",
+            "ltv": "0",
+            "liqThreshold": "1_00",
             "liqBonus": "EngineFlags.KEEP_CURRENT",
             "debtCeiling": "EngineFlags.KEEP_CURRENT",
             "liqProtocolFee": "EngineFlags.KEEP_CURRENT"
@@ -128,7 +128,7 @@
           {
             "asset": "MAI",
             "ltv": "EngineFlags.KEEP_CURRENT",
-            "liqThreshold": "0",
+            "liqThreshold": "1_00",
             "liqBonus": "EngineFlags.KEEP_CURRENT",
             "debtCeiling": "EngineFlags.KEEP_CURRENT",
             "liqProtocolFee": "EngineFlags.KEEP_CURRENT"
