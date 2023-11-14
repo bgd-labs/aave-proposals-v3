@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {AaveV3AvalancheAssets} from 'aave-address-book/AaveV3Avalanche.sol';
+import {AaveV3AvalancheAssets, AaveV3Avalanche} from 'aave-address-book/AaveV3Avalanche.sol';
 import {AaveV3PayloadAvalanche} from 'aave-helpers/v3-config-engine/AaveV3PayloadAvalanche.sol';
 import {EngineFlags} from 'aave-helpers/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-helpers/v3-config-engine/IAaveV3ConfigEngine.sol';
@@ -81,5 +81,9 @@ contract AaveV3Avalanche_MAIMIMATICDeprecation20231031_20231031 is AaveV3Payload
     });
 
     return borrowUpdates;
+  }
+
+  function _postExecute() internal override {
+    AaveV3Avalanche.POOL_CONFIGURATOR.setReserveFreeze(AaveV3AvalancheAssets.MAI_UNDERLYING, true);
   }
 }

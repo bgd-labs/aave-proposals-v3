@@ -241,7 +241,7 @@
       "isActive": true,
       "isBorrowableInIsolation": false,
       "isFlashloanable": true,
-      "isFrozen": false,
+      "isFrozen": true,
       "isPaused": false,
       "isSiloed": false,
       "liquidationBonus": 10500,
