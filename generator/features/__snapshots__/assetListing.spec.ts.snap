@@ -103,10 +103,7 @@ Copyright and related rights waived via [CC0](https://creativecommons.org/public
             \\"asset\\": \\"0xcAfE001067cDEF266AfB7Eb5A286dCFD277f3dE5\\"
           }
         ]
-      },
-      \\"features\\": [
-        \\"ASSET_LISTING\\"
-      ]
+      }
     }
   }
 }",

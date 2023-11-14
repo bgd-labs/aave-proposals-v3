@@ -20,7 +20,6 @@ describe('feature: assetListing', () => {
     const poolConfigs: PoolConfigs = {
       [MOCK_OPTIONS.pools[0]]: {
         pool: MOCK_OPTIONS.pools[0],
-        features: [FEATURE.ASSET_LISTING],
         artifacts: [
           assetListing.build({
             options: MOCK_OPTIONS,

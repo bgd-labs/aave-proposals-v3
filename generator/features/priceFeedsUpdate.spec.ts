@@ -20,7 +20,6 @@ describe('feature: priceFeedsUpdates', () => {
     const poolConfigs: PoolConfigs = {
       [MOCK_OPTIONS.pools[0]]: {
         pool: MOCK_OPTIONS.pools[0],
-        features: [FEATURE.PRICE_FEEDS_UPDATE],
         artifacts: [
           priceFeedsUpdates.build({
             options: MOCK_OPTIONS,

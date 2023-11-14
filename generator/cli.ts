@@ -10,7 +10,6 @@ import {
   Options,
   POOLS,
   PoolCache,
-  PoolConfig,
   PoolConfigs,
   PoolIdentifier,
 } from './types';
@@ -152,18 +151,17 @@ if (options.configFile) {
     poolConfigs[pool] = {
       configs: {},
       artifacts: [],
-      features: [],
       pool,
       cache: await generateDeterministicPoolCache(pool),
     };
     const v2 = isV2Pool(pool);
-    poolConfigs[pool]!.features = await checkbox({
+    const features = await checkbox({
       message: `What do you want to do on ${pool}?`,
       choices: v2
         ? FEATURE_MODULES_V2.map((m) => ({value: m.value, name: m.description}))
         : FEATURE_MODULES_V3.map((m) => ({value: m.value, name: m.description})),
     });
-    for (const feature of poolConfigs[pool]!.features) {
+    for (const feature of features) {
       const module = v2
         ? FEATURE_MODULES_V2.find((m) => m.value === feature)!
         : FEATURE_MODULES_V3.find((m) => m.value === feature)!;
