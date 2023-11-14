@@ -1,0 +1,23 @@
+{
+  "rootOptions": {
+    "pools": [
+      "AaveV3Ethereum"
+    ],
+    "title": "Aave Governance V3 Activation",
+    "shortName": "AaveGovernanceV3Activation",
+    "date": "20231114",
+    "author": "BGD Labs (@bgdlabs)",
+    "discussion": "https://governance.aave.com/t/bgd-aave-governance-v3-activation-plan/14993/10",
+    "snapshot": ""
+  },
+  "poolOptions": {
+    "AaveV3Ethereum": {
+      "configs": {
+        "OTHERS": {}
+      },
+      "features": [
+        "OTHERS"
+      ]
+    }
+  }
+}
