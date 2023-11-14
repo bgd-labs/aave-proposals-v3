@@ -1,6 +1,6 @@
 import path from 'path';
 import {Command, Option} from 'commander';
-import {CHAIN_TO_CHAIN_OBJECT, getDate, getPoolChain, isV2Pool, pascalCase} from './common';
+import {getDate, getPoolChain, isV2Pool, pascalCase} from './common';
 import {input, checkbox} from '@inquirer/prompts';
 import {
   CodeArtifact,
@@ -46,13 +46,13 @@ program
 let options = program.opts<Options>();
 let poolConfigs: PoolConfigs = {};
 
-const PLACEHOLDER_MODULE: FeatureModule = {
+const PLACEHOLDER_MODULE: FeatureModule<{}> = {
   description: 'Something different not supported by configEngine',
   value: FEATURE.OTHERS,
-  cli: async (opt, pool) => {
+  cli: async ({}) => {
     return {};
   },
-  build: (opt, pool, cfg) => {
+  build: ({}) => {
     const response: CodeArtifact = {
       code: {execute: ['// custom code goes here']},
     };
@@ -81,13 +81,18 @@ if (options.configFile) {
   for (const pool of options.pools) {
     const v2 = isV2Pool(pool);
     poolConfigs[pool]!.artifacts = [];
-    for (const feature of poolConfigs[pool]!.features) {
+    for (const feature of Object.keys(poolConfigs[pool]!.configs)) {
       const module = v2
         ? FEATURE_MODULES_V2.find((m) => m.value === feature)!
         : FEATURE_MODULES_V3.find((m) => m.value === feature)!;
       poolConfigs[pool]!.pool = pool;
       poolConfigs[pool]!.artifacts.push(
-        module.build(options, pool, poolConfigs[pool]!.configs[feature])
+        module.build({
+          options,
+          pool,
+          cfg: poolConfigs[pool]!.configs[feature],
+          cache: poolConfigs[pool]!.cache,
+        })
       );
     }
   }
@@ -150,7 +155,7 @@ if (options.configFile) {
       features: [],
       pool,
       cache: await generateDeterministicPoolCache(pool),
-    } as PoolConfig;
+    };
     const v2 = isV2Pool(pool);
     poolConfigs[pool]!.features = await checkbox({
       message: `What do you want to do on ${pool}?`,
@@ -162,9 +167,18 @@ if (options.configFile) {
       const module = v2
         ? FEATURE_MODULES_V2.find((m) => m.value === feature)!
         : FEATURE_MODULES_V3.find((m) => m.value === feature)!;
-      poolConfigs[pool]!.configs[feature] = await module.cli(options, pool);
+      poolConfigs[pool]!.configs[feature] = await module.cli({
+        options,
+        pool,
+        cache: poolConfigs[pool]!.cache,
+      });
       poolConfigs[pool]!.artifacts.push(
-        module.build(options, pool, poolConfigs[pool]!.configs[feature])
+        module.build({
+          options,
+          pool,
+          cfg: poolConfigs[pool]!.configs[feature],
+          cache: poolConfigs[pool]!.cache,
+        })
       );
     }
   }
