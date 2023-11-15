@@ -3,7 +3,7 @@ pragma solidity ^0.8.0;
 
 import {GovHelpers} from 'aave-helpers/GovHelpers.sol';
 import {EthereumScript} from 'aave-helpers/ScriptUtils.sol';
-import {AaveV3Ethereum_AaveGovernanceV3Activation_20231114} from './AaveV3Ethereum_AaveGovernanceV3Activation_20231114.sol';
+import {AaveGovernanceV2} from 'aave-address-book/AaveGovernanceV2.sol';
 
 /**
  * @dev Create Long Proposal
