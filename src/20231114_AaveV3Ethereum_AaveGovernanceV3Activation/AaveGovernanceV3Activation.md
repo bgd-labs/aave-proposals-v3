@@ -12,8 +12,8 @@ discussions: "https://governance.aave.com/t/bgd-aave-governance-v3-activation-pl
 
 ## References
 
-- Implementation: [AaveV3Ethereum]()
-- Tests: [AaveV3Ethereum]()
+- Implementation: [V2Ethereum](), [V3Ethereum](), [V3EthereumLong](), [Avalanche](), [Polygon](), [Base]()
+- Tests: [Ethereum](), [EthereumLong](), [Avalanche](), [Polygon](), [Base]()
 - [Snapshot](TODO)
 - [Discussion](https://governance.aave.com/t/bgd-aave-governance-v3-activation-plan/14993/10)
 
