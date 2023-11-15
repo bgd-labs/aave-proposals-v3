@@ -23,8 +23,16 @@ contract AaveV2Etherum_AllowEmergencyAdminToFreeze_Test is ProtocolV2TestBase {
    * @dev executes the generic test suite including e2e and config snapshots
    */
   function test_defaultProposalExecution() public {
-    defaultTest('AaveV2Etherum_AllowEmergencyAdminToFreeze_Test', AaveV2Ethereum.POOL, address(proposal));
-    defaultTestAmm('AaveV2Etherum_AllowEmergencyAdminToFreeze_Test',  AaveV2EthereumAMM.POOL, sentinelPayload);
+    defaultTest(
+      'AaveV2Etherum_AllowEmergencyAdminToFreeze_Test',
+      AaveV2Ethereum.POOL,
+      address(proposal)
+    );
+    defaultTestAmm(
+      'AaveV2Etherum_AllowEmergencyAdminToFreezeSentinel_Test',
+      AaveV2EthereumAMM.POOL,
+      sentinelPayload
+    );
   }
 
   function defaultTestAmm(
