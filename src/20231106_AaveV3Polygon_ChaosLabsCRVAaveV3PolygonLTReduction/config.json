@@ -1,0 +1,19 @@
+{
+  "rootOptions": {
+    "author": "Chaos Labs",
+    "pools": [
+      "AaveV3Polygon"
+    ],
+    "title": "Chaos Labs CRV Aave V3 Polygon LT Reduction",
+    "discussion": "https://governance.aave.com/t/arfc-chaos-labs-crv-aave-v3-polygon-lt-reduction-10-28-2023/15259",
+    "snapshot": "https://snapshot.org/\\#/aave.eth/proposal/0x0851676384aa4adc836ac6d4f001d1ec7683d5142380a2499bc5ac8b56bb8593",
+    "shortName": "ChaosLabsCRVAaveV3PolygonLTReduction",
+    "date": "20231106"
+  },
+  "poolOptions": {
+    "AaveV3Polygon": {
+      "configs": {},
+      "features": []
+    }
+  }
+}

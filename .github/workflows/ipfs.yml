@@ -7,6 +7,13 @@ concurrency:
 # cancel-in-progress: true
 
 on:
+  workflow_dispatch:
+    inputs:
+      myCommit:
+        description: "Commit SHA1"
+        required: true
+        default: "undefined"
+        type: string
   pull_request:
   push:
     branches:
@@ -22,13 +29,14 @@ jobs:
         if: github.event_name != 'pull_request'
         uses: actions/create-github-app-token@v1
         with:
-          app_id: ${{ secrets.UPDATE_BOT_APP_ID }}
-          private_key: ${{ secrets.UPDATE_BOT_TOKEN }}
+          app-id: ${{ secrets.UPDATE_BOT_APP_ID }}
+          private-key: ${{ secrets.UPDATE_BOT_TOKEN }}
 
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
           token: ${{ steps.generate_token.outputs.token || github.token }}
+          ref: ${{ inputs.myCommit }}
           persist-credentials: true
 
       - uses: actions/setup-node@v3
@@ -90,6 +98,7 @@ jobs:
             git config --global user.email 'cache-bot@bgdlabs.com'
             git config --global pull.rebase true
             git stash
+            git checkout ${{ github.event.repository.default_branch }}
             git pull origin ${{ github.event.repository.default_branch }}
             git stash apply
             git add src
