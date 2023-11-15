@@ -75,7 +75,7 @@ const FEATURE_MODULES_V3 = [
 
 if (options.configFile) {
   const cfgFile: ConfigFile = await import(path.join(process.cwd(), options.configFile));
-  options = cfgFile.rootOptions;
+  options = {...options, ...cfgFile.rootOptions};
   poolConfigs = cfgFile.poolOptions as any;
   for (const pool of options.pools) {
     const v2 = isV2Pool(pool);
@@ -84,7 +84,6 @@ if (options.configFile) {
       const module = v2
         ? FEATURE_MODULES_V2.find((m) => m.value === feature)!
         : FEATURE_MODULES_V3.find((m) => m.value === feature)!;
-      poolConfigs[pool]!.pool = pool;
       poolConfigs[pool]!.artifacts.push(
         module.build({
           options,

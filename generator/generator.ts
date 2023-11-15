@@ -29,10 +29,10 @@ export async function generateFiles(options: Options, poolConfigs: PoolConfigs):
   const jsonConfig = JSON.stringify(
     {
       rootOptions: options,
-      poolOptions: Object.keys(poolConfigs).reduce((acc, pool) => {
-        acc[pool] = {configs: poolConfigs[pool].configs, features: poolConfigs[pool].features};
+      poolOptions: (Object.keys(poolConfigs) as PoolIdentifier[]).reduce((acc, pool) => {
+        acc[pool] = {configs: poolConfigs[pool]!.configs, cache: poolConfigs[pool]!.cache};
         return acc;
-      }, {} as PoolConfigs),
+      }, {}),
     } as ConfigFile,
     null,
     2

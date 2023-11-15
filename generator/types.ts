@@ -95,7 +95,6 @@ export type ConfigFile = {
 export type PoolCache = {blockNumber: number};
 
 export interface PoolConfig {
-  pool: PoolIdentifier;
   artifacts: CodeArtifact[];
   configs: {[feature in FEATURE]?: any};
   cache: PoolCache;
