@@ -11,7 +11,7 @@ import {ProtocolV2TestBase} from 'aave-helpers/ProtocolV2TestBase.sol';
  * command: make test-contract filter=AaveV2Avalanche_AllowEmergencyAdminToFreeze_Test
  */
 contract AaveV2Avalanche_AllowEmergencyAdminToFreeze_Test is ProtocolV2TestBase {
-  address internal proposal = address(0x1AA25FdD7d55FA8a401D6EFba8e48874Ef730E55);
+  address internal proposal = address(0xD3DE4b3571744EB77946d65aBF01408902E92c4E);
 
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('avalanche'), 37751305);

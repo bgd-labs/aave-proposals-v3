@@ -14,7 +14,7 @@ contract AaveV2Polygon_AllowEmergencyAdminToFreeze_Test is ProtocolV2TestBase {
   address internal proposal = address(0x1AA25FdD7d55FA8a401D6EFba8e48874Ef730E55);
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('polygon'), 18569843);
+    vm.createSelectFork(vm.rpcUrl('polygon'), 49968183);
   }
 
   /**
