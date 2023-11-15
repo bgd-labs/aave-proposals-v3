@@ -12,6 +12,7 @@ cast etherscan-source --chain 1 -d etherscan/v2EthCollateralManagerAMMNew 0x368e
 cast etherscan-source --chain 137 -d etherscan/v2PolPoolConfiguratorImplNew 0x56C8Aa7e4fCAbaaD5e87d6847D0901134939A13a
 cast etherscan-source --chain 43114 -d etherscan/v2AvaPoolConfiguratorImplNew 0x433636CB0136Cfd75145ccca608Bb548E6C037dE
 
+# diff
 make git-diff before=etherscan/v2EthCollateralManagerAMM after=etherscan/v2EthCollateralManagerAMMNew out=v2EthCollateralManagerAMMNew_v2EthCollateralManagerAMMNew
 make git-diff before=etherscan/v2EthPoolConfiguratorImplAMM after=etherscan/v2EthPoolConfiguratorImplAMMNew out=v2EthPoolConfiguratorImplAMM_v2EthPoolConfiguratorImplAMMNew
 make git-diff before=etherscan/v2EthPoolConfiguratorImpl after=etherscan/v2EthPoolConfiguratorImplNew out=v2EthPoolConfiguratorImpl_v2EthPoolConfiguratorImplNew
