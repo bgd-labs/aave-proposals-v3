@@ -6,7 +6,6 @@ import {AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
 import 'forge-std/Test.sol';
 import {CommonTestBase} from 'aave-helpers/CommonTestBase.sol';
 import {AaveV3Ethereum_TokenLogicFunding_20231114} from './AaveV3Ethereum_TokenLogicFunding_20231114.sol';
-import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 
 /**
