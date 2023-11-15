@@ -16,8 +16,8 @@ contract AaveV3Ethereum_TokenLogicFunding_20231114_Test is CommonTestBase {
   AaveV3Ethereum_TokenLogicFunding_20231114 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 18567445);
-    proposal = new AaveV3Ethereum_TokenLogicFunding_20231114();
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 18577793);
+    proposal = AaveV3Ethereum_TokenLogicFunding_20231114(0x97D74bceC48b003FCd54Ae30e595028A38e8bBA1);
   }
 
   /**
