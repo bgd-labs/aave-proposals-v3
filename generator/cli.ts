@@ -1,6 +1,6 @@
 import path from 'path';
 import {Command, Option} from 'commander';
-import {getDate, getPoolChain, isV2Pool, pascalCase} from './common';
+import {CHAIN_TO_CHAIN_ID, getDate, getPoolChain, isV2Pool, pascalCase} from './common';
 import {input, checkbox} from '@inquirer/prompts';
 import {
   CodeArtifact,
@@ -143,7 +143,7 @@ if (options.configFile) {
 
   async function generateDeterministicPoolCache(pool: PoolIdentifier): Promise<PoolCache> {
     const chain = getPoolChain(pool);
-    const client = CHAIN_ID_CLIENT_MAP[chain] as PublicClient;
+    const client = CHAIN_ID_CLIENT_MAP[CHAIN_TO_CHAIN_ID[chain]] as PublicClient;
     return {blockNumber: Number(await client.getBlockNumber())};
   }
 

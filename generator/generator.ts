@@ -38,19 +38,9 @@ export async function generateFiles(options: Options, poolConfigs: PoolConfigs):
     2
   );
 
-  const baseName = generateFolderName(options);
-  const baseFolder = path.join(process.cwd(), 'src', baseName);
-
-  if (!options.force && fs.existsSync(baseFolder)) {
-    options.force = await confirm({
-      message: 'A proposal already exists at that location, do you want to continue?',
-      default: false,
-    });
-  }
-
-  async function createPayloadAndTest(options: Options, pool: PoolIdentifier) {
+  function createPayloadAndTest(options: Options, pool: PoolIdentifier) {
     const contractName = generateContractName(options, pool);
-    const testCode = await testTemplate(options, poolConfigs[pool]!);
+    const testCode = testTemplate(options, poolConfigs[pool]!);
     return {
       payload: prettier.format(proposalTemplate(options, poolConfigs[pool]!), {
         ...prettierSolCfg,
@@ -79,8 +69,19 @@ export async function generateFiles(options: Options, poolConfigs: PoolConfigs):
     jsonConfig,
     script,
     aip,
-    payloads: await Promise.all(options.pools.map((pool) => createPayloadAndTest(options, pool))),
+    payloads: options.pools.map((pool) => createPayloadAndTest(options, pool)),
   };
+}
+
+async function askBeforeWrite(options: Options, path: string, content: string) {
+  if (!options.force && fs.existsSync(path)) {
+    const force = await confirm({
+      message: `A file already exists at ${path} do you want to overwrite`,
+      default: false,
+    });
+    if (!force) return;
+  }
+  fs.writeFileSync(path, content);
 }
 
 /**
@@ -91,24 +92,31 @@ export async function generateFiles(options: Options, poolConfigs: PoolConfigs):
 export async function writeFiles(options: Options, {jsonConfig, script, aip, payloads}: Files) {
   const baseName = generateFolderName(options);
   const baseFolder = path.join(process.cwd(), 'src', baseName);
-  if (!options.force && fs.existsSync(baseFolder)) {
-    const force = await confirm({
-      message: 'A proposal already exists at that location, do you want to override?',
-      default: false,
-    });
-    if (!force) return;
+  if (fs.existsSync(baseFolder)) {
+    if (!options.force && fs.existsSync(baseFolder)) {
+      const force = await confirm({
+        message: 'A proposal already exists at that location, do you want to continue?',
+        default: false,
+      });
+      if (!force) return;
+    }
+  } else {
+    fs.mkdirSync(baseFolder, {recursive: true});
   }
 
-  fs.mkdirSync(baseFolder, {recursive: true});
   // write config
-  fs.writeFileSync(path.join(baseFolder, 'config.json'), jsonConfig);
+  await askBeforeWrite(options, path.join(baseFolder, 'config.json'), jsonConfig);
   // write aip
-  fs.writeFileSync(path.join(baseFolder, `${options.shortName}.md`), aip);
+  await askBeforeWrite(options, path.join(baseFolder, `${options.shortName}.md`), aip);
   // write scripts
-  fs.writeFileSync(path.join(baseFolder, `${generateContractName(options)}.s.sol`), script);
+  await askBeforeWrite(
+    options,
+    path.join(baseFolder, `${generateContractName(options)}.s.sol`),
+    script
+  );
 
-  payloads.map(({payload, test, contractName}) => {
-    fs.writeFileSync(path.join(baseFolder, `${contractName}.sol`), payload);
-    fs.writeFileSync(path.join(baseFolder, `${contractName}.t.sol`), test);
-  });
+  for (const {payload, test, contractName} of payloads) {
+    await askBeforeWrite(options, path.join(baseFolder, `${contractName}.sol`), payload);
+    await askBeforeWrite(options, path.join(baseFolder, `${contractName}.t.sol`), test);
+  }
 }

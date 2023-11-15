@@ -1,16 +1,9 @@
-import {createPublicClient, http} from 'viem';
-import {
-  CHAIN_TO_CHAIN_OBJECT,
-  generateContractName,
-  getChainAlias,
-  getPoolChain,
-  isV2Pool,
-} from '../common';
+import {generateContractName, getChainAlias, getPoolChain, isV2Pool} from '../common';
 import {Options, PoolConfig} from '../types';
 import {prefixWithPragma} from '../utils/constants';
 import {prefixWithImports} from '../utils/importsResolver';
 
-export const testTemplate = async (options: Options, poolConfig: PoolConfig) => {
+export const testTemplate = (options: Options, poolConfig: PoolConfig) => {
   const chain = getPoolChain(poolConfig.pool);
   const contractName = generateContractName(options, poolConfig.pool);
 
