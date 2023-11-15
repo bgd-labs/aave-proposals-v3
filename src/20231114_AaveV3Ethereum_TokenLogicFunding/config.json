@@ -1,0 +1,23 @@
+{
+  "rootOptions": {
+    "pools": [
+      "AaveV3Ethereum"
+    ],
+    "title": "TokenLogic Funding",
+    "shortName": "TokenLogicFunding",
+    "date": "20231114",
+    "author": "TokenLogic",
+    "discussion": "https://governance.aave.com/t/arfc-retrospective-funding-proposal/15324",
+    "snapshot": "https://snapshot.org/#/aave.eth/proposal/0x66d766a8584ae23e137ca142902f68a6ba4fddf2874fa52815288b72ac9e84ce"
+  },
+  "poolOptions": {
+    "AaveV3Ethereum": {
+      "configs": {
+        "OTHERS": {}
+      },
+      "features": [
+        "OTHERS"
+      ]
+    }
+  }
+}
