@@ -31,7 +31,7 @@ contract AaveV2Etherum_AllowEmergencyAdminToFreeze_Test is ProtocolV2TestBase {
   function test_defaultPayloadExecution_PoolConfigurator_Amm() public {
     defaultTestAmm(
       'AaveV2Etherum_AllowEmergencyAdminToFreezeAmm_Test',
-      AaveV2Ethereum.POOL,
+      AaveV2EthereumAMM.POOL,
       address(ammPayload)
     );
   }
