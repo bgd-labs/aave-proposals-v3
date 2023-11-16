@@ -37,6 +37,6 @@ contract AaveV3Ethereum_CRVUSDOnboardingOnAaveV3Ethereum_20231116_Test is Protoc
     (address aTokenAddress, , ) = AaveV3Ethereum
       .AAVE_PROTOCOL_DATA_PROVIDER
       .getReserveTokensAddresses(proposal.crvUSD());
-    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Ethereum.COLLECTOR)), 10 ** 18);
+    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Ethereum.COLLECTOR)), 10e18);
   }
 }

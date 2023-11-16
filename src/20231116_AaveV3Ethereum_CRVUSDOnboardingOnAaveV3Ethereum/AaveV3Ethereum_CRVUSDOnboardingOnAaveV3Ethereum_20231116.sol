@@ -19,7 +19,7 @@ contract AaveV3Ethereum_CRVUSDOnboardingOnAaveV3Ethereum_20231116 is AaveV3Paylo
   using SafeERC20 for IERC20;
 
   address public constant crvUSD = 0xf939E0A03FB07F59A73314E73794Be0E57ac1b4E;
-  uint256 internal constant crvUSD_SEED_AMOUNT = 11 ** 18;
+  uint256 internal constant crvUSD_SEED_AMOUNT = 11e18;
 
   function _postExecute() internal override {
     IERC20(crvUSD).forceApprove(address(AaveV3Ethereum.POOL), crvUSD_SEED_AMOUNT);
