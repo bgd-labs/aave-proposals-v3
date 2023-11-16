@@ -6,7 +6,7 @@ import {fetchCollateralUpdate} from './collateralsUpdates';
 import {fetchCapsUpdate} from './capsUpdates';
 import {Listing, ListingWithCustomImpl, TokenImplementations} from './types';
 import {CHAIN_TO_CHAIN_ID, getPoolChain} from '../common';
-import {PublicClient, createPublicClient, getContract, http} from 'viem';
+import {PublicClient, getContract} from 'viem';
 import {confirm} from '@inquirer/prompts';
 import {TEST_EXECUTE_PROPOSAL} from '../utils/constants';
 import {addressPrompt, translateJsAddressToSol} from '../prompts/addressPrompt';
@@ -161,7 +161,7 @@ export const assetListing: FeatureModule<Listing[]> = {
         constants: cfg
           .map((cfg) => [
             `address public constant ${cfg.assetSymbol} = ${translateJsAddressToSol(cfg.asset)};`,
-            `uint256 internal constant ${cfg.assetSymbol}_SEED_AMOUNT = 10 ** ${cfg.decimals};`,
+            `uint256 public constant ${cfg.assetSymbol}_SEED_AMOUNT = 1e${cfg.decimals};`,
           ])
           .flat(),
         execute: cfg.map(
