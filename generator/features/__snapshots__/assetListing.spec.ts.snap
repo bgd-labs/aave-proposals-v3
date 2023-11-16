@@ -103,6 +103,9 @@ Copyright and related rights waived via [CC0](https://creativecommons.org/public
             \\"asset\\": \\"0xcAfE001067cDEF266AfB7Eb5A286dCFD277f3dE5\\"
           }
         ]
+      },
+      \\"cache\\": {
+        \\"blockNumber\\": 42
       }
     }
   }
@@ -131,7 +134,7 @@ contract AaveV3Ethereum_Test_20231023 is AaveV3PayloadEthereum {
   using SafeERC20 for IERC20;
 
   address public constant PSP = 0xcAfE001067cDEF266AfB7Eb5A286dCFD277f3dE5;
-  uint256 internal constant PSP_SEED_AMOUNT = 10 ** 18;
+  uint256 public constant PSP_SEED_AMOUNT = 1e18;
 
   function _postExecute() internal override {
     IERC20(PSP).forceApprove(address(AaveV3Ethereum.POOL), PSP_SEED_AMOUNT);
@@ -309,7 +312,7 @@ exports[`feature: assetListing > should return reasonable code 1`] = `
   "code": {
     "constants": [
       "address public constant PSP = 0xcAfE001067cDEF266AfB7Eb5A286dCFD277f3dE5;",
-      "uint256 internal constant PSP_SEED_AMOUNT = 10 ** 18;",
+      "uint256 public constant PSP_SEED_AMOUNT = 1e18;",
     ],
     "execute": [
       "IERC20(PSP).forceApprove(address(AaveV3Ethereum.POOL), PSP_SEED_AMOUNT);
