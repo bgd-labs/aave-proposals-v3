@@ -1,0 +1,40 @@
+{
+  "rootOptions": {
+    "pools": [
+      "AaveV3Polygon"
+    ],
+    "title": "Gauntlet recommendation to lower stMATIC, MaticX non-emode LT, pt 2",
+    "shortName": "GauntletRecommendationToLowerStMATICMaticXNonEmodeLTPt2",
+    "date": "20231117",
+    "author": "Gauntlet",
+    "discussion": "https://governance.aave.com/t/arfc-gauntlet-recommendation-to-lower-stmatic-maticx-non-emode-lt-pt-2/15314",
+    "snapshot": "https://snapshot.org/#/aave.eth/proposal/0xc59f0e1bd1463285d1fca9c3771d92dc227915615e475b84e6e4033f281ff079"
+  },
+  "poolOptions": {
+    "AaveV3Polygon": {
+      "configs": {
+        "COLLATERALS_UPDATE": [
+          {
+            "asset": "stMATIC",
+            "ltv": "EngineFlags.KEEP_CURRENT",
+            "liqThreshold": "56_00",
+            "liqBonus": "EngineFlags.KEEP_CURRENT",
+            "debtCeiling": "EngineFlags.KEEP_CURRENT",
+            "liqProtocolFee": "EngineFlags.KEEP_CURRENT"
+          },
+          {
+            "asset": "MaticX",
+            "ltv": "EngineFlags.KEEP_CURRENT",
+            "liqThreshold": "58_00",
+            "liqBonus": "EngineFlags.KEEP_CURRENT",
+            "debtCeiling": "EngineFlags.KEEP_CURRENT",
+            "liqProtocolFee": "EngineFlags.KEEP_CURRENT"
+          }
+        ]
+      },
+      "features": [
+        "COLLATERALS_UPDATE"
+      ]
+    }
+  }
+}
