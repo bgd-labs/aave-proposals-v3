@@ -10,7 +10,7 @@ This AIP propose to modify the parameters of stablecoins across all the Aave poo
 
 ## Motivation
 
-According to [researchs](https://governance.aave.com/t/arfc-increase-optimal-borrow-rates-for-ethereum-stablecoin-markets/15096/3) by @monet-supply, the borrowing parameters of the stabloecoins on Aave have diverged from the broader market leading to potentials inefficiencies and bad user experience.
+According to [research](https://governance.aave.com/t/arfc-increase-optimal-borrow-rates-for-ethereum-stablecoin-markets/15096/3) by @monet-supply, the borrowing parameters of the stablecoins on Aave have diverged from the broader market leading to potentials inefficiencies and bad user experience.
 
 Those proposed changes have been approved by both risk providers, with additional suggestion by @Gauntlet. 
 
