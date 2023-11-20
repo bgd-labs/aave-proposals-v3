@@ -19,7 +19,7 @@ Stablecoin across all the V2 and V3 markets are concerned by those change. Namel
 ## Specification
 
 The following stablecoins would see changes to their parameters:
-(Blank means no chages)
+(Blank means no changes)
 
 | Market | Asset | slope1 | Uopt | RF |
 | --- | --- | --- | --- | --- |
