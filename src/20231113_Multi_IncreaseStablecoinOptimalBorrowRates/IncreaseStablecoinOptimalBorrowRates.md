@@ -6,7 +6,7 @@ discussions: "https://governance.aave.com/t/arfc-increase-optimal-borrow-rates-f
 
 ## Simple Summary
 
-This AIP propose to modifie the parameters of stablecoins accross all the aave markets. Mainly by setting the slope1 to 5%, as well as changing the RF to 25% and Uopt to 90% of some of them.
+This AIP propose to modify the parameters of stablecoins across all the Aave pools. Mainly by setting the slope1 to 5%, as well as changing the RF to 25% and Uopt to 90% of some of them.
 
 ## Motivation
 
