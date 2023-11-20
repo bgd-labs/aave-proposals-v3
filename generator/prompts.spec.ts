@@ -1,44 +1,46 @@
 import {expect, describe, it} from 'vitest';
 import {render} from '@inquirer/testing';
 import {
-  numberInput,
-  percentInput,
+  numberPrompt,
   transformNumberToHumanReadable,
-  transformNumberToPercent,
   translateJsNumberToSol,
+} from './prompts/numberPrompt';
+import {
+  percentPrompt,
+  transformNumberToPercent,
   translateJsPercentToSol,
-} from './prompts';
+} from './prompts/percentPrompt';
 
 describe('prompts', () => {
   describe('numberInput', () => {
     it('handles "yes"', async () => {
-      const {answer, events, getScreen} = await render(numberInput, {
+      const {answer, events, getScreen} = await render(numberPrompt, {
         message: 'Enter number?',
       });
 
-      expect(getScreen()).toMatchInlineSnapshot('"? Enter number? (KEEP_CURRENT)"');
+      expect(getScreen()).toMatchInlineSnapshot('"? Enter number?"');
 
       events.type('yes112.3');
       expect(getScreen()).toMatchInlineSnapshot('"? Enter number? 1,123"');
 
       events.keypress('enter');
-      await expect(answer).resolves.toEqual('1_123');
+      await expect(answer).resolves.toEqual('1123');
     });
   });
 
   describe('percentInput', () => {
     it('handles "yes"', async () => {
-      const {answer, events, getScreen} = await render(percentInput, {
+      const {answer, events, getScreen} = await render(percentPrompt, {
         message: 'Enter number?',
       });
 
-      expect(getScreen()).toMatchInlineSnapshot('"? Enter number? (KEEP_CURRENT)"');
+      expect(getScreen()).toMatchInlineSnapshot('"? Enter number?"');
 
       events.type('yes12.3');
       expect(getScreen()).toMatchInlineSnapshot('"? Enter number? 12.3 %"');
 
       events.keypress('enter');
-      await expect(answer).resolves.toEqual('12_30');
+      await expect(answer).resolves.toEqual('12.3');
     });
   });
   /**
