@@ -165,40 +165,40 @@ contract CreateProposal is EthereumScript {
     // compose actions for validation
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsEthereum = new IPayloadsControllerCore.ExecutionAction[](2);
-    actionsEthereum[0] = GovV3Helpers.buildAction(address(0));
-    actionsEthereum[1] = GovV3Helpers.buildAction(address(0));
+    actionsEthereum[0] = GovV3Helpers.buildAction(0x21A18A52529e252AFC26AFc4Dfb386860035e35d);
+    actionsEthereum[1] = GovV3Helpers.buildAction(0x659C3e5965255A492B2923A404317A17673cb43a);
     payloads[0] = GovV3Helpers.buildMainnetPayload(vm, actionsEthereum);
 
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsPolygon = new IPayloadsControllerCore.ExecutionAction[](2);
-    actionsPolygon[0] = GovV3Helpers.buildAction(address(0));
-    actionsPolygon[1] = GovV3Helpers.buildAction(address(0));
+    actionsPolygon[0] = GovV3Helpers.buildAction(0xCC8480b54dAc41A79B63A5D9ec3bF12b1F6BF330);
+    actionsPolygon[1] = GovV3Helpers.buildAction(0x7166130EB53161d17f89E8690Abc748DA3f00607);
     payloads[1] = GovV3Helpers.buildPolygonPayload(vm, actionsPolygon);
 
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsAvalanche = new IPayloadsControllerCore.ExecutionAction[](2);
-    actionsAvalanche[0] = GovV3Helpers.buildAction(address(0));
-    actionsAvalanche[1] = GovV3Helpers.buildAction(address(0));
+    actionsAvalanche[0] = GovV3Helpers.buildAction(0xCDB9ea7F9443fA9e8ba6EBC9Ef41C3ed75939663);
+    actionsAvalanche[1] = GovV3Helpers.buildAction(0x783719Ae64bd69F7534f3E57ccA4199f54277665);
     payloads[2] = GovV3Helpers.buildAvalanchePayload(vm, actionsAvalanche);
 
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsOptimism = new IPayloadsControllerCore.ExecutionAction[](1);
-    actionsOptimism[0] = GovV3Helpers.buildAction(address(0));
+    actionsOptimism[0] = GovV3Helpers.buildAction(0x1EC6efd07F8f7FCceD48872E3e9043c4A7e3825D);
     payloads[3] = GovV3Helpers.buildOptimismPayload(vm, actionsOptimism);
 
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsArbitrum = new IPayloadsControllerCore.ExecutionAction[](1);
-    actionsArbitrum[0] = GovV3Helpers.buildAction(address(0));
+    actionsArbitrum[0] = GovV3Helpers.buildAction(0x1054420C7Daf70C02a42D57D6cFe93A53cA51E74);
     payloads[4] = GovV3Helpers.buildArbitrumPayload(vm, actionsArbitrum);
 
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsMetis = new IPayloadsControllerCore.ExecutionAction[](1);
-    actionsMetis[0] = GovV3Helpers.buildAction(address(0));
+    actionsMetis[0] = GovV3Helpers.buildAction(0x6c3bD2D5885D9e8a9B48c403EEb7A25195b7CCc1);
     payloads[5] = GovV3Helpers.buildMetisPayload(vm, actionsMetis);
 
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsBase = new IPayloadsControllerCore.ExecutionAction[](1);
-    actionsBase[0] = GovV3Helpers.buildAction(address(0));
+    actionsBase[0] = GovV3Helpers.buildAction(0x445a95c7e70673188417995425047bF541eEc19D);
     payloads[6] = GovV3Helpers.buildBasePayload(vm, actionsBase);
 
     // create proposal
