@@ -32,11 +32,11 @@ type EmodeAssetUpdates = AssetEModeUpdate[];
 export const eModeAssets: FeatureModule<EmodeAssetUpdates> = {
   value: FEATURE.EMODES_ASSETS,
   description: 'assetsEModeUpdates (setting eMode for an asset)',
-  async cli(opt, pool) {
+  async cli({pool}) {
     const response: EmodeAssetUpdates = await subCli(pool);
     return response;
   },
-  build(opt, pool, cfg) {
+  build({pool, cfg}) {
     const response: CodeArtifact = {
       code: {
         fn: [

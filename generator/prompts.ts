@@ -1,56 +1,8 @@
 import {checkbox, select} from '@inquirer/prompts';
 import {ENGINE_FLAGS, PoolIdentifier} from './types';
 import {getEModes} from './common';
-import {advancedInput} from './prompts/advancedInput';
-
-// VALIDATION
-function isNumber(value: string) {
-  return !isNaN(value as unknown as number);
-}
-
-function isNumberOrKeepCurrent(value: string) {
-  if (value == ENGINE_FLAGS.KEEP_CURRENT || isNumber(value)) return true;
-  return 'Must be number or KEEP_CURRENT';
-}
-
-// TRANSFORMS
-export function transformNumberToPercent(value: string) {
-  if (value && isNumber(value)) {
-    return (
-      new Intl.NumberFormat('en-us', {
-        maximumFractionDigits: 2,
-      }).format(value as unknown as number) + ' %'
-    );
-  }
-  return value;
-}
-
-export function transformNumberToHumanReadable(value: string) {
-  if (value && isNumber(value)) {
-    return new Intl.NumberFormat('en-us').format(BigInt(value));
-  }
-  return value;
-}
 
 // TRANSLATIONS
-export function translateJsPercentToSol(value: string, bpsToRay?: boolean) {
-  if (value === ENGINE_FLAGS.KEEP_CURRENT) return `EngineFlags.KEEP_CURRENT`;
-  const formattedValue = new Intl.NumberFormat('en-us', {
-    maximumFractionDigits: 2,
-    minimumFractionDigits: 2,
-  }).format(value as unknown as number);
-  const _value = (
-    Number(value) >= 1 ? formattedValue : formattedValue.replace(/^0\.0*(?=[0-9])/, '')
-  ).replace(/[\.,]/g, '_');
-  if (bpsToRay) return `_bpsToRay(${_value})`;
-  return _value;
-}
-
-export function translateJsNumberToSol(value: string) {
-  if (value === ENGINE_FLAGS.KEEP_CURRENT) return `EngineFlags.KEEP_CURRENT`;
-  return String(value).replace(/\B(?=(\d{3})+(?!\d))/g, '_');
-}
-
 function translateEModeToEModeLib(value: string, pool: PoolIdentifier) {
   if (value === ENGINE_FLAGS.KEEP_CURRENT) return `EngineFlags.KEEP_CURRENT`;
   return `${pool}EModes.${value}`;
@@ -70,40 +22,7 @@ interface PercentInputPrompt<T extends boolean> extends GenericPrompt<T> {
 
 export type PercentInputValues = typeof ENGINE_FLAGS.KEEP_CURRENT | string;
 
-export async function percentInput<T extends boolean>(
-  {message, disableKeepCurrent, toRay}: PercentInputPrompt<T>,
-  opts?
-): Promise<T extends true ? PercentInputValues : Exclude<PercentInputValues, 'KEEP_CURRENT'>> {
-  const value = await advancedInput(
-    {
-      message,
-      transformer: transformNumberToPercent,
-      validate: disableKeepCurrent ? isNumber : isNumberOrKeepCurrent,
-      ...(disableKeepCurrent ? {} : {default: ENGINE_FLAGS.KEEP_CURRENT}),
-      pattern: /^[0-9]*\.?[0-9]*$/,
-      patternError: 'Only decimal numbers are allowed (e.g. 1.1)',
-    },
-    opts
-  );
-  return translateJsPercentToSol(value, toRay);
-}
-
 export type NumberInputValues = typeof ENGINE_FLAGS.KEEP_CURRENT | string;
-
-export async function numberInput({message, disableKeepCurrent}: GenericPrompt, opts?) {
-  const value = await advancedInput(
-    {
-      message,
-      transformer: transformNumberToHumanReadable,
-      validate: disableKeepCurrent ? isNumber : isNumberOrKeepCurrent,
-      ...(disableKeepCurrent ? {} : {default: ENGINE_FLAGS.KEEP_CURRENT}),
-      pattern: /^[0-9]*$/,
-      patternError: 'Only full numbers are allowed',
-    },
-    opts
-  );
-  return translateJsNumberToSol(value);
-}
 
 interface EModeSelectPrompt<T extends boolean> extends GenericPrompt<T> {
   pool: PoolIdentifier;
