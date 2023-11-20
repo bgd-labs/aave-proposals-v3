@@ -250,7 +250,7 @@ export const assetListing: FeatureModule<Listing[]> = {
           listingTemplate += `| Optimal Stable To Total Debt Ratio | ${transformNumberToPercent(
             cfg.rateStrategyParams.optimalStableToTotalDebtRatio!
           )} |\n`;
-          listingTemplate += `| Flahloanable	| ${cfg.flashloanable} |\n`;
+          listingTemplate += `| Flashloanable	| ${cfg.flashloanable} |\n`;
           listingTemplate += `| Siloed Borrowing	| ${cfg.withSiloedBorrowing} |\n`;
           listingTemplate += `| Borrowable in Isolation | ${cfg.borrowableInIsolation} |\n`;
           listingTemplate += `| Oracle | ${cfg.priceFeed} |\n`;
