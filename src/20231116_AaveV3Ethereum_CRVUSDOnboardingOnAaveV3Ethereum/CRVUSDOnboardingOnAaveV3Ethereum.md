@@ -51,7 +51,7 @@ We propose the following parameters for a crvUSD onboarding:
 | Base Stable Rate Offset | 3.00% |
 | Stable Rate Excess Offset | 8.00% |
 | Optimal Stable To Total Debt Ratio | 20.00% |
-| Flahloanable | Yes |
+| Flashloanable | Yes |
 | Siloed Borrowing | No |
 | Borrowed in Isolation | No |
 
