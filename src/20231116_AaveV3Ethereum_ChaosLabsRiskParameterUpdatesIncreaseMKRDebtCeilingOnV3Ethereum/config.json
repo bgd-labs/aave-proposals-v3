@@ -1,0 +1,32 @@
+{
+  "rootOptions": {
+    "author": "Chaos Labs",
+    "title": "Chaos Labs Risk Parameter Updates - Increase MKR Debt Ceiling on V3 Ethereum",
+    "discussion": "https://governance.aave.com/t/arfc-chaos-labs-risk-parameter-updates-increase-mkr-debt-ceiling-on-v3-ethereum-11-07-2023/15406",
+    "snapshot": "https://snapshot.org/\\#/aave.eth/proposal/0xb3163709f822b662241395c1fde5ecaa8b39d52b1bc81722136c6084a4b3959c",
+    "pools": [
+      "AaveV3Ethereum"
+    ],
+    "shortName": "ChaosLabsRiskParameterUpdatesIncreaseMKRDebtCeilingOnV3Ethereum",
+    "date": "20231116"
+  },
+  "poolOptions": {
+    "AaveV3Ethereum": {
+      "configs": {
+        "COLLATERALS_UPDATE": [
+          {
+            "asset": "MKR",
+            "ltv": "EngineFlags.KEEP_CURRENT",
+            "liqThreshold": "EngineFlags.KEEP_CURRENT",
+            "liqBonus": "EngineFlags.KEEP_CURRENT",
+            "debtCeiling": "8_500_000",
+            "liqProtocolFee": "EngineFlags.KEEP_CURRENT"
+          }
+        ]
+      },
+      "features": [
+        "COLLATERALS_UPDATE"
+      ]
+    }
+  }
+}
