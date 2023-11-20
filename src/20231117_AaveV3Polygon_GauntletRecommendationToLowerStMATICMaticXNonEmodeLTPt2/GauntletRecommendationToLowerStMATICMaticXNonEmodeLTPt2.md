@@ -21,8 +21,8 @@ Gauntlet recommends follow-ups to our previous recommendations on lowering stMAT
 
 ## References
 
-- Implementation: [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231117_AaveV3Polygon_GauntletRecommendationToLowerStMATICMaticXNonEmodeLTPt2/AaveV3Polygon_GauntletRecommendationToLowerStMATICMaticXNonEmodeLTPt2_20231117.sol)
-- Tests: [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231117_AaveV3Polygon_GauntletRecommendationToLowerStMATICMaticXNonEmodeLTPt2/AaveV3Polygon_GauntletRecommendationToLowerStMATICMaticXNonEmodeLTPt2_20231117.t.sol)
+- Implementation: [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/0b832342a79ecd704e399fad3567e2dd146bfd9a/src/20231117_AaveV3Polygon_GauntletRecommendationToLowerStMATICMaticXNonEmodeLTPt2/AaveV3Polygon_GauntletRecommendationToLowerStMATICMaticXNonEmodeLTPt2_20231117.sol)
+- Tests: [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/0b832342a79ecd704e399fad3567e2dd146bfd9a/src/20231117_AaveV3Polygon_GauntletRecommendationToLowerStMATICMaticXNonEmodeLTPt2/AaveV3Polygon_GauntletRecommendationToLowerStMATICMaticXNonEmodeLTPt2_20231117.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0xc59f0e1bd1463285d1fca9c3771d92dc227915615e475b84e6e4033f281ff079)
 - [Discussion](https://governance.aave.com/t/arfc-gauntlet-recommendation-to-lower-stmatic-maticx-non-emode-lt-pt-2/15314)
 
