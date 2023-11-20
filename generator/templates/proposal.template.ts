@@ -26,10 +26,10 @@ export const proposalTemplate = (options: Options, poolConfig: PoolConfig) => {
     .join('\n');
 
   let optionalExecute = '';
-  const usesConfigEngine = poolConfig.features.some(
+  const usesConfigEngine = Object.keys(poolConfig.configs).some(
     (f) => ![FEATURE.OTHERS, FEATURE.FLASH_BORROWER].includes(f)
   );
-  const isAssetListing = poolConfig.features.some((f) =>
+  const isAssetListing = Object.keys(poolConfig.configs).some((f) =>
     [FEATURE.ASSET_LISTING, FEATURE.ASSET_LISTING_CUSTOM].includes(f)
   );
   if (innerExecute) {

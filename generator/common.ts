@@ -95,16 +95,16 @@ export function pascalCase(str: string) {
     .replace(/ /g, '');
 }
 
-export const CHAIN_TO_CHAIN_OBJECT = {
-  Ethereum: mainnet,
-  Polygon: polygon,
-  Optimism: optimism,
-  Arbitrum: arbitrum,
-  Avalanche: avalanche,
-  Metis: metis,
-  Base: base,
-  Bsc: bsc,
-  Gnosis: gnosis,
+export const CHAIN_TO_CHAIN_ID = {
+  Ethereum: mainnet.id,
+  Polygon: polygon.id,
+  Optimism: optimism.id,
+  Arbitrum: arbitrum.id,
+  Avalanche: avalanche.id,
+  Metis: metis.id,
+  Base: base.id,
+  Bsc: bsc.id,
+  Gnosis: gnosis.id,
 };
 
 export function flagAsRequired(message: string, required?: boolean) {

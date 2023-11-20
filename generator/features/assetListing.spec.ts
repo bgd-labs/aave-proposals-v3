@@ -7,7 +7,12 @@ import {FEATURE, PoolConfigs} from '../types';
 
 describe('feature: assetListing', () => {
   it('should return reasonable code', () => {
-    const output = assetListing.build(MOCK_OPTIONS, 'AaveV3Ethereum', assetListingConfig);
+    const output = assetListing.build({
+      options: MOCK_OPTIONS,
+      pool: 'AaveV3Ethereum',
+      cfg: assetListingConfig,
+      cache: {blockNumber: 42},
+    });
     expect(output).toMatchSnapshot();
   });
 
@@ -15,9 +20,16 @@ describe('feature: assetListing', () => {
     const poolConfigs: PoolConfigs = {
       [MOCK_OPTIONS.pools[0]]: {
         pool: MOCK_OPTIONS.pools[0],
-        features: [FEATURE.ASSET_LISTING],
-        artifacts: [assetListing.build(MOCK_OPTIONS, 'AaveV3Ethereum', assetListingConfig)],
+        artifacts: [
+          assetListing.build({
+            options: MOCK_OPTIONS,
+            pool: 'AaveV3Ethereum',
+            cfg: assetListingConfig,
+            cache: {blockNumber: 42},
+          }),
+        ],
         configs: {[FEATURE.ASSET_LISTING]: assetListingConfig},
+        cache: {blockNumber: 42},
       },
     };
     const files = await generateFiles(MOCK_OPTIONS, poolConfigs);

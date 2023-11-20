@@ -10,7 +10,7 @@ type FlashBorrower = {
 export const flashBorrower: FeatureModule<FlashBorrower> = {
   value: FEATURE.FLASH_BORROWER,
   description: 'FlashBorrower (whitelist address as 0% fee flashborrower)',
-  async cli(opt, pool) {
+  async cli({pool}) {
     console.log(`Fetching information for FlashBorrower on ${pool}`);
     const response: FlashBorrower = {
       address: await addressPrompt({
@@ -20,7 +20,7 @@ export const flashBorrower: FeatureModule<FlashBorrower> = {
     };
     return response;
   },
-  build(opt, pool, cfg) {
+  build({pool, cfg}) {
     const response: CodeArtifact = {
       code: {
         constants: [

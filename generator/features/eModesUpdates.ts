@@ -1,38 +1,39 @@
 import {CodeArtifact, FEATURE, FeatureModule, PoolIdentifier} from '../types';
-import {eModesSelect, percentInput} from '../prompts';
+import {eModesSelect} from '../prompts';
 import {EModeCategoryUpdate} from './types';
 import {confirm} from '@inquirer/prompts';
 import {addressPrompt, translateJsAddressToSol} from '../prompts/addressPrompt';
 import {stringOrKeepCurrent, stringPrompt} from '../prompts/stringPrompt';
 import {zeroAddress} from 'viem';
 import {getEModes} from '../common';
+import {percentPrompt, translateJsPercentToSol} from '../prompts/percentPrompt';
 
 async function fetchEmodeCategoryUpdate<T extends boolean>(
   eModeCategory: string | number,
-  disableKeepCurrent?: T
+  required?: T
 ): Promise<EModeCategoryUpdate> {
   return {
     eModeCategory,
-    ltv: await percentInput({
+    ltv: await percentPrompt({
       message: 'ltv',
-      disableKeepCurrent,
+      required,
     }),
-    liqThreshold: await percentInput({
+    liqThreshold: await percentPrompt({
       message: 'liqThreshold',
-      disableKeepCurrent,
+      required,
     }),
-    liqBonus: await percentInput({
+    liqBonus: await percentPrompt({
       message: 'liqBonus',
-      disableKeepCurrent,
+      required,
     }),
     priceSource: await addressPrompt({
       message: 'Price Source',
-      required: disableKeepCurrent,
-      defaultValue: disableKeepCurrent ? zeroAddress : '',
+      required,
+      defaultValue: required ? zeroAddress : '',
     }),
     label: await stringPrompt({
       message: 'label',
-      required: disableKeepCurrent,
+      required,
     }),
   };
 }
@@ -81,11 +82,11 @@ type EmodeUpdates = EModeCategoryUpdate[];
 export const eModeUpdates: FeatureModule<EmodeUpdates> = {
   value: FEATURE.EMODES_UPDATES,
   description: 'eModeCategoriesUpdates (altering/adding eModes)',
-  async cli(opt, pool) {
+  async cli({pool}) {
     const response: EmodeUpdates = await subCli(pool);
     return response;
   },
-  build(opt, pool, cfg) {
+  build({pool, cfg}) {
     const response: CodeArtifact = {
       code: {
         fn: [
@@ -98,9 +99,9 @@ export const eModeUpdates: FeatureModule<EmodeUpdates> = {
             .map(
               (cfg, ix) => `eModeUpdates[${ix}] = IAaveV3ConfigEngine.EModeCategoryUpdate({
                eModeCategory: ${cfg.eModeCategory},
-               ltv: ${cfg.ltv},
-               liqThreshold: ${cfg.liqThreshold},
-               liqBonus: ${cfg.liqBonus},
+               ltv: ${translateJsPercentToSol(cfg.ltv)},
+               liqThreshold: ${translateJsPercentToSol(cfg.liqThreshold)},
+               liqBonus: ${translateJsPercentToSol(cfg.liqBonus)},
                priceSource: ${translateJsAddressToSol(cfg.priceSource)},
                label: ${stringOrKeepCurrent(cfg.label)}
              });`
