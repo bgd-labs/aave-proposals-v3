@@ -30,10 +30,8 @@ Gauntlet recommends follow-ups to our previous recommendations on lowering stMAT
 
 Gauntlet has not received any compensation from any third-party in exchange for recommending any of the actions contained in this proposal.
 
-By approving this proposal, you agree that any services provided by Gauntlet shall be governed by the terms of service available at gauntlet.network/tos.
+_By approving this proposal, you agree that any services provided by Gauntlet shall be governed by the terms of service available at gauntlet.network/tos._
 
 ## Copyright
 
 Copyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).
-
-_By approving this proposal, you agree that any services provided by Gauntlet shall be governed by the terms of service available at gauntlet.network/tos._
