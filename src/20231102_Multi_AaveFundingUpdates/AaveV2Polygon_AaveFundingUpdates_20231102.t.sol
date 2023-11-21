@@ -19,7 +19,7 @@ contract AaveV2Polygon_AaveFundingUpdates_20231102_Test is ProtocolV2TestBase {
   AaveV2Polygon_AaveFundingUpdates_20231102 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('polygon'), 49475560);
+    vm.createSelectFork(vm.rpcUrl('polygon'), 50216002);
     proposal = new AaveV2Polygon_AaveFundingUpdates_20231102();
   }
 
