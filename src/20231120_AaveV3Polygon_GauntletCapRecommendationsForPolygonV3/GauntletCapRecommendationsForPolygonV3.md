@@ -23,8 +23,8 @@ Per Gauntlet’s supply and borrow cap methodology, we recommend setting supply 
 
 ## References
 
-- Implementation: [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231120_AaveV3Polygon_GauntletCapRecommendationsForPolygonV3/AaveV3Polygon_GauntletCapRecommendationsForPolygonV3_20231120.sol)
-- Tests: [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231120_AaveV3Polygon_GauntletCapRecommendationsForPolygonV3/AaveV3Polygon_GauntletCapRecommendationsForPolygonV3_20231120.t.sol)
+- Implementation: [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/3933f440d8878ae9b21bc53e0afacdc2862882c3/src/20231120_AaveV3Polygon_GauntletCapRecommendationsForPolygonV3/AaveV3Polygon_GauntletCapRecommendationsForPolygonV3_20231120.sol)
+- Tests: [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/3933f440d8878ae9b21bc53e0afacdc2862882c3/src/20231120_AaveV3Polygon_GauntletCapRecommendationsForPolygonV3/AaveV3Polygon_GauntletCapRecommendationsForPolygonV3_20231120.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0xcab97d0cf0f484f3604f790234ca26b559b6c38c0b33ed1f7821b3d3340c9354)
 - [Discussion](https://governance.aave.com/t/arfc-gauntlet-cap-recommendations-for-polygon-v3-2023-11-03/15327)
 
