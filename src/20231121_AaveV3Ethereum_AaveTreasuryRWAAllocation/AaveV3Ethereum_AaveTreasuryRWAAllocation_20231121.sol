@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 import {IProposalGenericExecutor} from 'aave-helpers/interfaces/IProposalGenericExecutor.sol';
 
 /**
- * @title Aave Treasury RWA Allocation
+ * @title Activation of A-C Prime Foundation
  * @author @Khan - Centrifuge (Powered By ACI Skywards)
  * - Snapshot: https://snapshot.org/#/aave.eth/proposal/0x71db494e4b49e7533c5ccaa566686b2d045b0761cb3296a2d77af4b500566eb0
  * - Discussion: https://governance.aave.com/t/arfc-aave-treasury-rwa-allocation/14790
