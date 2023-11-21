@@ -10,7 +10,7 @@ Gauntlet recommends parameter changes on Polygon Aave v3 market. For more detail
 
 ## Motivation
 
-Per Gauntlet’s supply and borrow cap methodology, we recommend setting supply and borrow caps for agEUR and jEUR. Currently agEUR borrowing is disabled as borrowing and cannot be used as collateral. jEUR is frozen. Despite this, all assets should have supply and borrow caps.
+Per Gauntlet’s supply and borrow cap methodology, we recommend setting supply and borrow caps for agEUR and jEUR. Currently agEUR borrowing is disabled and cannot be used as collateral. jEUR is frozen. Despite this, all assets should have supply and borrow caps.
 
 ## Specification
 
