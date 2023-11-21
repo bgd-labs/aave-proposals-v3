@@ -18,7 +18,7 @@ CrvUSD is a USD-peg stablecoin minted by the Curve Protocol. While it's relative
 
 As the primary usecase for stablecoins is to be deposited by users looking for a passive yield and used as a borrowable asset and not as much as a collateral asset, the ACI proposes a CRVUSD onboarding outside isolation mode but without collateral properties.
 
-Following CrvUSD maturity, the Aave governance can propose a collateral activation for crvUSD at a later stage. 
+Following CrvUSD maturity, the Aave governance can propose a collateral activation for crvUSD at a later stage.
 
 ## Specification
 
@@ -28,38 +28,37 @@ Price Feed: [0xEEf0C605546958c1f899b6fB336C20671f9cD49F](https://etherscan.io/ad
 
 We propose the following parameters for a crvUSD onboarding:
 
-| Parameter | Value |
-| --- | --- |
-| Isolation Mode | No |
-| Borrowable | Yes |
-| Collateral Enabled | No |
-| Supply Cap (CRVUSD) | 60M |
-| Borrow Cap (CRVUSD) | 50M |
-| Debt Ceiling | N/A |
-| LTV | N/A |
-| LT | N/A |
-| Liquidation Bonus | N/A |
-| Liquidation Protocol Fee | 10.00% |
-| Variable Base | 0.00% |
-| Variable Slope1 | 5.00% |
-| Variable Slope2 | 80.00% |
-| Uoptimal | 80.00% |
-| Reserve Factor | 10.00% |
-| Stable Borrowing | Disabled |
-| Stable Slope1 | 13.00% |
-| Stable Slope2 | 300.00% |
-| Base Stable Rate Offset | 3.00% |
-| Stable Rate Excess Offset | 8.00% |
-| Optimal Stable To Total Debt Ratio | 20.00% |
-| Flashloanable | Yes |
-| Siloed Borrowing | No |
-| Borrowed in Isolation | No |
-
+| Parameter                          | Value    |
+| ---------------------------------- | -------- |
+| Isolation Mode                     | No       |
+| Borrowable                         | Yes      |
+| Collateral Enabled                 | No       |
+| Supply Cap (CRVUSD)                | 60M      |
+| Borrow Cap (CRVUSD)                | 50M      |
+| Debt Ceiling                       | N/A      |
+| LTV                                | N/A      |
+| LT                                 | N/A      |
+| Liquidation Bonus                  | N/A      |
+| Liquidation Protocol Fee           | 10.00%   |
+| Variable Base                      | 0.00%    |
+| Variable Slope1                    | 5.00%    |
+| Variable Slope2                    | 80.00%   |
+| Uoptimal                           | 80.00%   |
+| Reserve Factor                     | 10.00%   |
+| Stable Borrowing                   | Disabled |
+| Stable Slope1                      | 13.00%   |
+| Stable Slope2                      | 300.00%  |
+| Base Stable Rate Offset            | 3.00%    |
+| Stable Rate Excess Offset          | 8.00%    |
+| Optimal Stable To Total Debt Ratio | 20.00%   |
+| Flashloanable                      | Yes      |
+| Siloed Borrowing                   | No       |
+| Borrowed in Isolation              | No       |
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231116_AaveV3Ethereum_CRVUSDOnboardingOnAaveV3Ethereum/AaveV3Ethereum_CRVUSDOnboardingOnAaveV3Ethereum_20231116.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231116_AaveV3Ethereum_CRVUSDOnboardingOnAaveV3Ethereum/AaveV3Ethereum_CRVUSDOnboardingOnAaveV3Ethereum_20231116.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/1e5d9e78ec397ee3280c75d87e0880104c6df9dd/src/20231116_AaveV3Ethereum_CRVUSDOnboardingOnAaveV3Ethereum/AaveV3Ethereum_CRVUSDOnboardingOnAaveV3Ethereum_20231116.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/1e5d9e78ec397ee3280c75d87e0880104c6df9dd/src/20231116_AaveV3Ethereum_CRVUSDOnboardingOnAaveV3Ethereum/AaveV3Ethereum_CRVUSDOnboardingOnAaveV3Ethereum_20231116.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0xbc10b43fccd3954f02c9df774ba6f8335268727b999660738ae37a1b9d5b969e)
 - [Discussion](https://governance.aave.com/t/arfc-crvusd-onboarding-on-aave-v3-ethereum-pool/15161)
 
