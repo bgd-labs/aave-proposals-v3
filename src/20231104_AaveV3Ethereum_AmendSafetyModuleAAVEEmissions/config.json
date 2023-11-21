@@ -1,0 +1,23 @@
+{
+  "rootOptions": {
+    "pools": [
+      "AaveV3Ethereum"
+    ],
+    "title": "AmendSafetyModuleAAVEEmissions",
+    "shortName": "AmendSafetyModuleAAVEEmissions",
+    "date": "20231104",
+    "author": "JosepBove (0xbove - Aave-Chan Initiative)",
+    "discussion": "https://governance.aave.com/t/arfc-treasury-management-amend-safety-module-aave-emissions/14936",
+    "snapshot": "https://snapshot.org/#/aave.eth/proposal/0xb0124fb0206676ee743e8d6221b7b3c317cb26a657551f11cb5fa23544772a73"
+  },
+  "poolOptions": {
+    "AaveV3Ethereum": {
+      "configs": {
+        "OTHERS": {}
+      },
+      "features": [
+        "OTHERS"
+      ]
+    }
+  }
+}
