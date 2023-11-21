@@ -1,0 +1,663 @@
+{
+  "rootOptions": {
+    "author": "Alice Rozengarden (@Rozengarden - Aave-chan initiative)",
+    "pools": [
+      "AaveV2Ethereum",
+      "AaveV2Polygon",
+      "AaveV2Avalanche",
+      "AaveV3Ethereum",
+      "AaveV3Polygon",
+      "AaveV3Avalanche",
+      "AaveV3Optimism",
+      "AaveV3Arbitrum",
+      "AaveV3Metis",
+      "AaveV3Base"
+    ],
+    "title": "Increase Stablecoin Optimal Borrow Rates",
+    "shortName": "IncreaseStablecoinOptimalBorrowRates",
+    "date": "20231113",
+    "discussion": "https://governance.aave.com/t/arfc-increase-optimal-borrow-rates-for-ethereum-stablecoin-markets/15096/3",
+    "snapshot": "https://snapshot.org/#/aave.eth/proposal/0x914862039828294f4277ad63087ffae295b7693ba365c9036326cca802bfc7af, 0xb9b28f57f7633dd6b987de9abcede23da62fe4fab6b002f189b8b25a7c02ea93"
+  },
+  "poolOptions": {
+    "AaveV2Ethereum": {
+      "configs": {
+        "RATE_UPDATE_V2": [
+          {
+            "asset": "USDT",
+            "params": {
+              "optimalUtilizationRate": "EngineFlags.KEEP_CURRENT",
+              "baseVariableBorrowRate": "EngineFlags.KEEP_CURRENT",
+              "variableRateSlope1": "_bpsToRay(5_00)",
+              "variableRateSlope2": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope1": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope2": "EngineFlags.KEEP_CURRENT"
+            }
+          },
+          {
+            "asset": "sUSD",
+            "params": {
+              "optimalUtilizationRate": "EngineFlags.KEEP_CURRENT",
+              "baseVariableBorrowRate": "EngineFlags.KEEP_CURRENT",
+              "variableRateSlope1": "_bpsToRay(5_00)",
+              "variableRateSlope2": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope1": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope2": "EngineFlags.KEEP_CURRENT"
+            }
+          },
+          {
+            "asset": "USDC",
+            "params": {
+              "optimalUtilizationRate": "EngineFlags.KEEP_CURRENT",
+              "baseVariableBorrowRate": "EngineFlags.KEEP_CURRENT",
+              "variableRateSlope1": "_bpsToRay(5_00)",
+              "variableRateSlope2": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope1": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope2": "EngineFlags.KEEP_CURRENT"
+            }
+          },
+          {
+            "asset": "GUSD",
+            "params": {
+              "optimalUtilizationRate": "EngineFlags.KEEP_CURRENT",
+              "baseVariableBorrowRate": "EngineFlags.KEEP_CURRENT",
+              "variableRateSlope1": "_bpsToRay(5_00)",
+              "variableRateSlope2": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope1": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope2": "EngineFlags.KEEP_CURRENT"
+            }
+          },
+          {
+            "asset": "USDP",
+            "params": {
+              "optimalUtilizationRate": "EngineFlags.KEEP_CURRENT",
+              "baseVariableBorrowRate": "EngineFlags.KEEP_CURRENT",
+              "variableRateSlope1": "_bpsToRay(5_00)",
+              "variableRateSlope2": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope1": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope2": "EngineFlags.KEEP_CURRENT"
+            }
+          },
+          {
+            "asset": "FRAX",
+            "params": {
+              "optimalUtilizationRate": "EngineFlags.KEEP_CURRENT",
+              "baseVariableBorrowRate": "EngineFlags.KEEP_CURRENT",
+              "variableRateSlope1": "_bpsToRay(5_00)",
+              "variableRateSlope2": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope1": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope2": "EngineFlags.KEEP_CURRENT"
+            }
+          },
+          {
+            "asset": "LUSD",
+            "params": {
+              "optimalUtilizationRate": "EngineFlags.KEEP_CURRENT",
+              "baseVariableBorrowRate": "EngineFlags.KEEP_CURRENT",
+              "variableRateSlope1": "_bpsToRay(5_00)",
+              "variableRateSlope2": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope1": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope2": "EngineFlags.KEEP_CURRENT"
+            }
+          }
+        ]
+      },
+      "features": [
+        "RATE_UPDATE_V2"
+      ]
+    },
+    "AaveV2Polygon": {
+      "configs": {
+        "RATE_UPDATE_V2": [
+          {
+            "asset": "DAI",
+            "params": {
+              "optimalUtilizationRate": "EngineFlags.KEEP_CURRENT",
+              "baseVariableBorrowRate": "EngineFlags.KEEP_CURRENT",
+              "variableRateSlope1": "_bpsToRay(5_00)",
+              "variableRateSlope2": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope1": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope2": "EngineFlags.KEEP_CURRENT"
+            }
+          },
+          {
+            "asset": "USDC",
+            "params": {
+              "optimalUtilizationRate": "EngineFlags.KEEP_CURRENT",
+              "baseVariableBorrowRate": "EngineFlags.KEEP_CURRENT",
+              "variableRateSlope1": "_bpsToRay(5_00)",
+              "variableRateSlope2": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope1": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope2": "EngineFlags.KEEP_CURRENT"
+            }
+          },
+          {
+            "asset": "USDT",
+            "params": {
+              "optimalUtilizationRate": "EngineFlags.KEEP_CURRENT",
+              "baseVariableBorrowRate": "EngineFlags.KEEP_CURRENT",
+              "variableRateSlope1": "_bpsToRay(5_00)",
+              "variableRateSlope2": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope1": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope2": "EngineFlags.KEEP_CURRENT"
+            }
+          }
+        ]
+      },
+      "features": [
+        "RATE_UPDATE_V2"
+      ]
+    },
+    "AaveV2Avalanche": {
+      "configs": {
+        "RATE_UPDATE_V2": [
+          {
+            "asset": "DAIe",
+            "params": {
+              "optimalUtilizationRate": "EngineFlags.KEEP_CURRENT",
+              "baseVariableBorrowRate": "EngineFlags.KEEP_CURRENT",
+              "variableRateSlope1": "_bpsToRay(5_00)",
+              "variableRateSlope2": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope1": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope2": "EngineFlags.KEEP_CURRENT"
+            }
+          },
+          {
+            "asset": "USDTe",
+            "params": {
+              "optimalUtilizationRate": "EngineFlags.KEEP_CURRENT",
+              "baseVariableBorrowRate": "EngineFlags.KEEP_CURRENT",
+              "variableRateSlope1": "_bpsToRay(5_00)",
+              "variableRateSlope2": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope1": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope2": "EngineFlags.KEEP_CURRENT"
+            }
+          },
+          {
+            "asset": "USDCe",
+            "params": {
+              "optimalUtilizationRate": "EngineFlags.KEEP_CURRENT",
+              "baseVariableBorrowRate": "EngineFlags.KEEP_CURRENT",
+              "variableRateSlope1": "_bpsToRay(5_00)",
+              "variableRateSlope2": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope1": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope2": "EngineFlags.KEEP_CURRENT"
+            }
+          }
+        ]
+      },
+      "features": [
+        "RATE_UPDATE_V2"
+      ]
+    },
+    "AaveV3Ethereum": {
+      "configs": {
+        "RATE_UPDATE_V3": [
+          {
+            "asset": "USDC",
+            "params": {
+              "optimalUtilizationRate": "_bpsToRay(90_00)",
+              "baseVariableBorrowRate": "EngineFlags.KEEP_CURRENT",
+              "variableRateSlope1": "_bpsToRay(5_00)",
+              "variableRateSlope2": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope1": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope2": "EngineFlags.KEEP_CURRENT",
+              "baseStableRateOffset": "EngineFlags.KEEP_CURRENT",
+              "stableRateExcessOffset": "EngineFlags.KEEP_CURRENT",
+              "optimalStableToTotalDebtRatio": "EngineFlags.KEEP_CURRENT"
+            }
+          },
+          {
+            "asset": "USDT",
+            "params": {
+              "optimalUtilizationRate": "_bpsToRay(90_00)",
+              "baseVariableBorrowRate": "EngineFlags.KEEP_CURRENT",
+              "variableRateSlope1": "_bpsToRay(5_00)",
+              "variableRateSlope2": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope1": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope2": "EngineFlags.KEEP_CURRENT",
+              "baseStableRateOffset": "EngineFlags.KEEP_CURRENT",
+              "stableRateExcessOffset": "EngineFlags.KEEP_CURRENT",
+              "optimalStableToTotalDebtRatio": "EngineFlags.KEEP_CURRENT"
+            }
+          },
+          {
+            "asset": "LUSD",
+            "params": {
+              "optimalUtilizationRate": "EngineFlags.KEEP_CURRENT",
+              "baseVariableBorrowRate": "EngineFlags.KEEP_CURRENT",
+              "variableRateSlope1": "_bpsToRay(5_00)",
+              "variableRateSlope2": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope1": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope2": "EngineFlags.KEEP_CURRENT",
+              "baseStableRateOffset": "EngineFlags.KEEP_CURRENT",
+              "stableRateExcessOffset": "EngineFlags.KEEP_CURRENT",
+              "optimalStableToTotalDebtRatio": "EngineFlags.KEEP_CURRENT"
+            }
+          },
+          {
+            "asset": "FRAX",
+            "params": {
+              "optimalUtilizationRate": "_bpsToRay(90_00)",
+              "baseVariableBorrowRate": "EngineFlags.KEEP_CURRENT",
+              "variableRateSlope1": "_bpsToRay(5_00)",
+              "variableRateSlope2": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope1": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope2": "EngineFlags.KEEP_CURRENT",
+              "baseStableRateOffset": "EngineFlags.KEEP_CURRENT",
+              "stableRateExcessOffset": "EngineFlags.KEEP_CURRENT",
+              "optimalStableToTotalDebtRatio": "EngineFlags.KEEP_CURRENT"
+            }
+          }
+        ]
+      },
+      "features": [
+        "RATE_UPDATE_V3"
+      ]
+    },
+    "AaveV3Polygon": {
+      "configs": {
+        "RATE_UPDATE_V3": [
+          {
+            "asset": "DAI",
+            "params": {
+              "optimalUtilizationRate": "_bpsToRay(90_00)",
+              "baseVariableBorrowRate": "EngineFlags.KEEP_CURRENT",
+              "variableRateSlope1": "_bpsToRay(5_00)",
+              "variableRateSlope2": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope1": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope2": "EngineFlags.KEEP_CURRENT",
+              "baseStableRateOffset": "EngineFlags.KEEP_CURRENT",
+              "stableRateExcessOffset": "EngineFlags.KEEP_CURRENT",
+              "optimalStableToTotalDebtRatio": "EngineFlags.KEEP_CURRENT"
+            }
+          },
+          {
+            "asset": "USDC",
+            "params": {
+              "optimalUtilizationRate": "_bpsToRay(90_00)",
+              "baseVariableBorrowRate": "EngineFlags.KEEP_CURRENT",
+              "variableRateSlope1": "_bpsToRay(5_00)",
+              "variableRateSlope2": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope1": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope2": "EngineFlags.KEEP_CURRENT",
+              "baseStableRateOffset": "EngineFlags.KEEP_CURRENT",
+              "stableRateExcessOffset": "EngineFlags.KEEP_CURRENT",
+              "optimalStableToTotalDebtRatio": "EngineFlags.KEEP_CURRENT"
+            }
+          },
+          {
+            "asset": "USDT",
+            "params": {
+              "optimalUtilizationRate": "_bpsToRay(90_00)",
+              "baseVariableBorrowRate": "EngineFlags.KEEP_CURRENT",
+              "variableRateSlope1": "_bpsToRay(5_00)",
+              "variableRateSlope2": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope1": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope2": "EngineFlags.KEEP_CURRENT",
+              "baseStableRateOffset": "EngineFlags.KEEP_CURRENT",
+              "stableRateExcessOffset": "EngineFlags.KEEP_CURRENT",
+              "optimalStableToTotalDebtRatio": "EngineFlags.KEEP_CURRENT"
+            }
+          },
+          {
+            "asset": "miMATIC",
+            "params": {
+              "optimalUtilizationRate": "EngineFlags.KEEP_CURRENT",
+              "baseVariableBorrowRate": "EngineFlags.KEEP_CURRENT",
+              "variableRateSlope1": "_bpsToRay(5_00)",
+              "variableRateSlope2": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope1": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope2": "EngineFlags.KEEP_CURRENT",
+              "baseStableRateOffset": "EngineFlags.KEEP_CURRENT",
+              "stableRateExcessOffset": "EngineFlags.KEEP_CURRENT",
+              "optimalStableToTotalDebtRatio": "EngineFlags.KEEP_CURRENT"
+            }
+          }
+        ]
+      },
+      "features": [
+        "RATE_UPDATE_V3"
+      ]
+    },
+    "AaveV3Avalanche": {
+      "configs": {
+        "RATE_UPDATE_V3": [
+          {
+            "asset": "DAIe",
+            "params": {
+              "optimalUtilizationRate": "_bpsToRay(90_00)",
+              "baseVariableBorrowRate": "EngineFlags.KEEP_CURRENT",
+              "variableRateSlope1": "_bpsToRay(5_00)",
+              "variableRateSlope2": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope1": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope2": "EngineFlags.KEEP_CURRENT",
+              "baseStableRateOffset": "EngineFlags.KEEP_CURRENT",
+              "stableRateExcessOffset": "EngineFlags.KEEP_CURRENT",
+              "optimalStableToTotalDebtRatio": "EngineFlags.KEEP_CURRENT"
+            }
+          },
+          {
+            "asset": "USDC",
+            "params": {
+              "optimalUtilizationRate": "_bpsToRay(90_00)",
+              "baseVariableBorrowRate": "EngineFlags.KEEP_CURRENT",
+              "variableRateSlope1": "_bpsToRay(5_00)",
+              "variableRateSlope2": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope1": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope2": "EngineFlags.KEEP_CURRENT",
+              "baseStableRateOffset": "EngineFlags.KEEP_CURRENT",
+              "stableRateExcessOffset": "EngineFlags.KEEP_CURRENT",
+              "optimalStableToTotalDebtRatio": "EngineFlags.KEEP_CURRENT"
+            }
+          },
+          {
+            "asset": "USDt",
+            "params": {
+              "optimalUtilizationRate": "_bpsToRay(90_00)",
+              "baseVariableBorrowRate": "EngineFlags.KEEP_CURRENT",
+              "variableRateSlope1": "_bpsToRay(5_00)",
+              "variableRateSlope2": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope1": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope2": "EngineFlags.KEEP_CURRENT",
+              "baseStableRateOffset": "EngineFlags.KEEP_CURRENT",
+              "stableRateExcessOffset": "EngineFlags.KEEP_CURRENT",
+              "optimalStableToTotalDebtRatio": "EngineFlags.KEEP_CURRENT"
+            }
+          },
+          {
+            "asset": "FRAX",
+            "params": {
+              "optimalUtilizationRate": "_bpsToRay(90_00)",
+              "baseVariableBorrowRate": "EngineFlags.KEEP_CURRENT",
+              "variableRateSlope1": "_bpsToRay(5_00)",
+              "variableRateSlope2": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope1": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope2": "EngineFlags.KEEP_CURRENT",
+              "baseStableRateOffset": "EngineFlags.KEEP_CURRENT",
+              "stableRateExcessOffset": "EngineFlags.KEEP_CURRENT",
+              "optimalStableToTotalDebtRatio": "EngineFlags.KEEP_CURRENT"
+            }
+          },
+          {
+            "asset": "MAI",
+            "params": {
+              "optimalUtilizationRate": "EngineFlags.KEEP_CURRENT",
+              "baseVariableBorrowRate": "EngineFlags.KEEP_CURRENT",
+              "variableRateSlope1": "_bpsToRay(5_00)",
+              "variableRateSlope2": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope1": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope2": "EngineFlags.KEEP_CURRENT",
+              "baseStableRateOffset": "EngineFlags.KEEP_CURRENT",
+              "stableRateExcessOffset": "EngineFlags.KEEP_CURRENT",
+              "optimalStableToTotalDebtRatio": "EngineFlags.KEEP_CURRENT"
+            }
+          }
+        ]
+      },
+      "features": [
+        "RATE_UPDATE_V3"
+      ]
+    },
+    "AaveV3Optimism": {
+      "configs": {
+        "RATE_UPDATE_V3": [
+          {
+            "asset": "DAI",
+            "params": {
+              "optimalUtilizationRate": "_bpsToRay(90_00)",
+              "baseVariableBorrowRate": "EngineFlags.KEEP_CURRENT",
+              "variableRateSlope1": "_bpsToRay(5_00)",
+              "variableRateSlope2": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope1": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope2": "EngineFlags.KEEP_CURRENT",
+              "baseStableRateOffset": "EngineFlags.KEEP_CURRENT",
+              "stableRateExcessOffset": "EngineFlags.KEEP_CURRENT",
+              "optimalStableToTotalDebtRatio": "EngineFlags.KEEP_CURRENT"
+            }
+          },
+          {
+            "asset": "USDC",
+            "params": {
+              "optimalUtilizationRate": "_bpsToRay(90_00)",
+              "baseVariableBorrowRate": "EngineFlags.KEEP_CURRENT",
+              "variableRateSlope1": "_bpsToRay(5_00)",
+              "variableRateSlope2": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope1": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope2": "EngineFlags.KEEP_CURRENT",
+              "baseStableRateOffset": "EngineFlags.KEEP_CURRENT",
+              "stableRateExcessOffset": "EngineFlags.KEEP_CURRENT",
+              "optimalStableToTotalDebtRatio": "EngineFlags.KEEP_CURRENT"
+            }
+          },
+          {
+            "asset": "USDT",
+            "params": {
+              "optimalUtilizationRate": "_bpsToRay(90_00)",
+              "baseVariableBorrowRate": "EngineFlags.KEEP_CURRENT",
+              "variableRateSlope1": "_bpsToRay(5_00)",
+              "variableRateSlope2": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope1": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope2": "EngineFlags.KEEP_CURRENT",
+              "baseStableRateOffset": "EngineFlags.KEEP_CURRENT",
+              "stableRateExcessOffset": "EngineFlags.KEEP_CURRENT",
+              "optimalStableToTotalDebtRatio": "EngineFlags.KEEP_CURRENT"
+            }
+          },
+          {
+            "asset": "sUSD",
+            "params": {
+              "optimalUtilizationRate": "EngineFlags.KEEP_CURRENT",
+              "baseVariableBorrowRate": "EngineFlags.KEEP_CURRENT",
+              "variableRateSlope1": "_bpsToRay(5_00)",
+              "variableRateSlope2": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope1": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope2": "EngineFlags.KEEP_CURRENT",
+              "baseStableRateOffset": "EngineFlags.KEEP_CURRENT",
+              "stableRateExcessOffset": "EngineFlags.KEEP_CURRENT",
+              "optimalStableToTotalDebtRatio": "EngineFlags.KEEP_CURRENT"
+            }
+          },
+          {
+            "asset": "LUSD",
+            "params": {
+              "optimalUtilizationRate": "EngineFlags.KEEP_CURRENT",
+              "baseVariableBorrowRate": "EngineFlags.KEEP_CURRENT",
+              "variableRateSlope1": "_bpsToRay(5_00)",
+              "variableRateSlope2": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope1": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope2": "EngineFlags.KEEP_CURRENT",
+              "baseStableRateOffset": "EngineFlags.KEEP_CURRENT",
+              "stableRateExcessOffset": "EngineFlags.KEEP_CURRENT",
+              "optimalStableToTotalDebtRatio": "EngineFlags.KEEP_CURRENT"
+            }
+          },
+          {
+            "asset": "MAI",
+            "params": {
+              "optimalUtilizationRate": "EngineFlags.KEEP_CURRENT",
+              "baseVariableBorrowRate": "EngineFlags.KEEP_CURRENT",
+              "variableRateSlope1": "_bpsToRay(5_00)",
+              "variableRateSlope2": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope1": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope2": "EngineFlags.KEEP_CURRENT",
+              "baseStableRateOffset": "EngineFlags.KEEP_CURRENT",
+              "stableRateExcessOffset": "EngineFlags.KEEP_CURRENT",
+              "optimalStableToTotalDebtRatio": "EngineFlags.KEEP_CURRENT"
+            }
+          }
+        ]
+      },
+      "features": [
+        "RATE_UPDATE_V3"
+      ]
+    },
+    "AaveV3Arbitrum": {
+      "configs": {
+        "RATE_UPDATE_V3": [
+          {
+            "asset": "DAI",
+            "params": {
+              "optimalUtilizationRate": "_bpsToRay(90_00)",
+              "baseVariableBorrowRate": "EngineFlags.KEEP_CURRENT",
+              "variableRateSlope1": "_bpsToRay(5_00)",
+              "variableRateSlope2": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope1": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope2": "EngineFlags.KEEP_CURRENT",
+              "baseStableRateOffset": "EngineFlags.KEEP_CURRENT",
+              "stableRateExcessOffset": "EngineFlags.KEEP_CURRENT",
+              "optimalStableToTotalDebtRatio": "EngineFlags.KEEP_CURRENT"
+            }
+          },
+          {
+            "asset": "USDC",
+            "params": {
+              "optimalUtilizationRate": "EngineFlags.KEEP_CURRENT",
+              "baseVariableBorrowRate": "EngineFlags.KEEP_CURRENT",
+              "variableRateSlope1": "_bpsToRay(5_00)",
+              "variableRateSlope2": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope1": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope2": "EngineFlags.KEEP_CURRENT",
+              "baseStableRateOffset": "EngineFlags.KEEP_CURRENT",
+              "stableRateExcessOffset": "EngineFlags.KEEP_CURRENT",
+              "optimalStableToTotalDebtRatio": "EngineFlags.KEEP_CURRENT"
+            }
+          },
+          {
+            "asset": "USDT",
+            "params": {
+              "optimalUtilizationRate": "_bpsToRay(90_00)",
+              "baseVariableBorrowRate": "EngineFlags.KEEP_CURRENT",
+              "variableRateSlope1": "_bpsToRay(5_00)",
+              "variableRateSlope2": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope1": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope2": "EngineFlags.KEEP_CURRENT",
+              "baseStableRateOffset": "EngineFlags.KEEP_CURRENT",
+              "stableRateExcessOffset": "EngineFlags.KEEP_CURRENT",
+              "optimalStableToTotalDebtRatio": "EngineFlags.KEEP_CURRENT"
+            }
+          },
+          {
+            "asset": "MAI",
+            "params": {
+              "optimalUtilizationRate": "EngineFlags.KEEP_CURRENT",
+              "baseVariableBorrowRate": "EngineFlags.KEEP_CURRENT",
+              "variableRateSlope1": "_bpsToRay(5_00)",
+              "variableRateSlope2": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope1": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope2": "EngineFlags.KEEP_CURRENT",
+              "baseStableRateOffset": "EngineFlags.KEEP_CURRENT",
+              "stableRateExcessOffset": "EngineFlags.KEEP_CURRENT",
+              "optimalStableToTotalDebtRatio": "EngineFlags.KEEP_CURRENT"
+            }
+          },
+          {
+            "asset": "LUSD",
+            "params": {
+              "optimalUtilizationRate": "EngineFlags.KEEP_CURRENT",
+              "baseVariableBorrowRate": "EngineFlags.KEEP_CURRENT",
+              "variableRateSlope1": "_bpsToRay(5_00)",
+              "variableRateSlope2": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope1": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope2": "EngineFlags.KEEP_CURRENT",
+              "baseStableRateOffset": "EngineFlags.KEEP_CURRENT",
+              "stableRateExcessOffset": "EngineFlags.KEEP_CURRENT",
+              "optimalStableToTotalDebtRatio": "EngineFlags.KEEP_CURRENT"
+            }
+          },
+          {
+            "asset": "USDCn",
+            "params": {
+              "optimalUtilizationRate": "_bpsToRay(90_00)",
+              "baseVariableBorrowRate": "EngineFlags.KEEP_CURRENT",
+              "variableRateSlope1": "_bpsToRay(5_00)",
+              "variableRateSlope2": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope1": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope2": "EngineFlags.KEEP_CURRENT",
+              "baseStableRateOffset": "EngineFlags.KEEP_CURRENT",
+              "stableRateExcessOffset": "EngineFlags.KEEP_CURRENT",
+              "optimalStableToTotalDebtRatio": "EngineFlags.KEEP_CURRENT"
+            }
+          },
+           {
+            "asset": "FRAX",
+            "params": {
+              "optimalUtilizationRate": "_bpsToRay(90_00)",
+              "baseVariableBorrowRate": "EngineFlags.KEEP_CURRENT",
+              "variableRateSlope1": "_bpsToRay(5_00)",
+              "variableRateSlope2": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope1": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope2": "EngineFlags.KEEP_CURRENT",
+              "baseStableRateOffset": "EngineFlags.KEEP_CURRENT",
+              "stableRateExcessOffset": "EngineFlags.KEEP_CURRENT",
+              "optimalStableToTotalDebtRatio": "EngineFlags.KEEP_CURRENT"
+            }
+          }
+       ]
+      },
+      "features": [
+        "RATE_UPDATE_V3"
+      ]
+    },
+    "AaveV3Metis": {
+      "configs": {
+        "RATE_UPDATE_V3": [
+          {
+            "asset": "mUSDC",
+            "params": {
+              "optimalUtilizationRate": "_bpsToRay(90_00)",
+              "baseVariableBorrowRate": "EngineFlags.KEEP_CURRENT",
+              "variableRateSlope1": "_bpsToRay(5_00)",
+              "variableRateSlope2": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope1": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope2": "EngineFlags.KEEP_CURRENT",
+              "baseStableRateOffset": "EngineFlags.KEEP_CURRENT",
+              "stableRateExcessOffset": "EngineFlags.KEEP_CURRENT",
+              "optimalStableToTotalDebtRatio": "EngineFlags.KEEP_CURRENT"
+            }
+          },
+          {
+            "asset": "mUSDT",
+            "params": {
+              "optimalUtilizationRate": "_bpsToRay(90_00)",
+              "baseVariableBorrowRate": "EngineFlags.KEEP_CURRENT",
+              "variableRateSlope1": "_bpsToRay(5_00)",
+              "variableRateSlope2": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope1": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope2": "EngineFlags.KEEP_CURRENT",
+              "baseStableRateOffset": "EngineFlags.KEEP_CURRENT",
+              "stableRateExcessOffset": "EngineFlags.KEEP_CURRENT",
+              "optimalStableToTotalDebtRatio": "EngineFlags.KEEP_CURRENT"
+            }
+          }
+        ]
+      },
+      "features": [
+        "RATE_UPDATE_V3"
+      ]
+    },
+    "AaveV3Base": {
+      "configs": {
+        "RATE_UPDATE_V3": [
+          {
+            "asset": "USDbC",
+            "params": {
+              "optimalUtilizationRate": "_bpsToRay(90_00)",
+              "baseVariableBorrowRate": "EngineFlags.KEEP_CURRENT",
+              "variableRateSlope1": "_bpsToRay(5_00)",
+              "variableRateSlope2": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope1": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope2": "EngineFlags.KEEP_CURRENT",
+              "baseStableRateOffset": "EngineFlags.KEEP_CURRENT",
+              "stableRateExcessOffset": "EngineFlags.KEEP_CURRENT",
+              "optimalStableToTotalDebtRatio": "EngineFlags.KEEP_CURRENT"
+            }
+          }
+        ]
+      },
+      "features": [
+        "RATE_UPDATE_V3"
+      ]
+    }
+  }
+}
