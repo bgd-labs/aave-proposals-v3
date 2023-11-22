@@ -2,7 +2,7 @@
 pragma solidity ^0.8.0;
 
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
-import {GovHelpers} from 'aave-helpers/GovHelpers.sol';
+import {GovV3Helpers} from 'aave-helpers/GovV3Helpers.sol';
 import {GovernanceV3Polygon} from 'aave-address-book/GovernanceV3Polygon.sol';
 import {AaveV2Polygon, AaveV2PolygonAssets} from 'aave-address-book/AaveV2Polygon.sol';
 import {MiscPolygon} from 'aave-address-book/MiscPolygon.sol';
@@ -43,7 +43,7 @@ contract AaveV2Polygon_AaveFundingUpdates_20231102_Test is ProtocolV2TestBase {
     vm.expectEmit(true, true, false, false, MiscPolygon.AAVE_POL_ETH_BRIDGE);
     emit Bridge(AaveV2PolygonAssets.DAI_UNDERLYING, proposal.DAI_TO_WITHDRAW());
 
-    GovHelpers.executePayload(vm, address(proposal), GovernanceV3Polygon.EXECUTOR_LVL_1);
+    GovV3Helpers.executePayload(vm, address(proposal));
 
     assertApproxEqRel(
       IERC20(AaveV2PolygonAssets.USDC_A_TOKEN).balanceOf(address(AaveV2Polygon.COLLECTOR)),

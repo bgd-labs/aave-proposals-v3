@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {GovHelpers} from 'aave-helpers/GovHelpers.sol';
+import {GovV3Helpers} from 'aave-helpers/GovV3Helpers.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
@@ -127,7 +127,7 @@ contract AaveV3Ethereum_AaveFundingUpdates_20231102_Test is ProtocolV3TestBase {
       500
     );
 
-    GovHelpers.executePayload(vm, address(proposal), GovernanceV3Ethereum.EXECUTOR_LVL_1);
+    GovV3Helpers.executePayload(vm, address(proposal));
 
     assertEq(
       balanceDaiBefore - proposal.DAI_TO_DEPOSIT() - proposal.DAI_TO_SWAP(),
