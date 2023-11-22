@@ -15,7 +15,7 @@ contract AaveV3Ethereum_IncreaseGHOBorrowRate_20231121_Test is ProtocolV3TestBas
   AaveV3Ethereum_IncreaseGHOBorrowRate_20231121 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 18621522);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 18628420);
     proposal = new AaveV3Ethereum_IncreaseGHOBorrowRate_20231121();
   }
 
