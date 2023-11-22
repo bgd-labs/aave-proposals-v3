@@ -9,8 +9,8 @@
 | decimals | 6 |
 | isActive | true |
 | isFrozen | false |
-| supplyCap | 150,000,000 USDC |
-| borrowCap | 100,000,000 USDC |
+| supplyCap | 25,000,000 USDC |
+| borrowCap | 20,000,000 USDC |
 | debtCeiling | 0 $ |
 | isSiloed | false |
 | isFlashloanable | true |
@@ -97,7 +97,7 @@
         "aTokenImpl": "0xbCb167bDCF14a8F791d6f4A6EDd964aed2F8813B",
         "aTokenName": "Aave Optimism USDCn",
         "aTokenSymbol": "aOptUSDCn",
-        "borrowCap": 100000000,
+        "borrowCap": 20000000,
         "borrowingEnabled": true,
         "debtCeiling": 0,
         "decimals": 6,
@@ -123,7 +123,7 @@
         "stableDebtTokenImpl": "0x6b4E260b765B3cA1514e618C0215A6B7839fF93e",
         "stableDebtTokenName": "Aave Optimism Stable Debt USDCn",
         "stableDebtTokenSymbol": "stableDebtOptUSDCn",
-        "supplyCap": 150000000,
+        "supplyCap": 25000000,
         "symbol": "USDC",
         "underlying": "0x0b2C639c533813f4Aa9D7837CAf62653d097Ff85",
         "usageAsCollateralEnabled": true,

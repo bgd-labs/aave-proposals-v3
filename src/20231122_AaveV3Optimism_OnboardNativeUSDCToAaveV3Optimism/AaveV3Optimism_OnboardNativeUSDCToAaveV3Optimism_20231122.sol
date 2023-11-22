@@ -77,8 +77,8 @@ contract AaveV3Optimism_OnboardNativeUSDCToAaveV3Optimism_20231122 is AaveV3Payl
       liqThreshold: 85_00,
       liqBonus: 5_00,
       reserveFactor: 10_00,
-      supplyCap: 150_000_000,
-      borrowCap: 100_000_000,
+      supplyCap: 25_000_000,
+      borrowCap: 20_000_000,
       debtCeiling: 0,
       liqProtocolFee: 10_00,
       rateStrategyParams: IV3RateStrategyFactory.RateStrategyParams({
