@@ -45,6 +45,7 @@ interface IAaveDistributionManager {
 }
 
 interface IStkAAVE is IERC20 {
+  
   function getTotalRewardsBalance(address user) external view returns (uint256);
 
   function claimRewards(address to, uint256 amount) external;
