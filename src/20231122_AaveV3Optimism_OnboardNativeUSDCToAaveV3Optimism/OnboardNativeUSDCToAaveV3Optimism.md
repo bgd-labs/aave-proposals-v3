@@ -18,15 +18,15 @@ With the evolution of L2 networks, adopting native USDC versions becomes vital f
 ### Token Information
 
 - **Token Symbol:** USDC
-- **Token Address:** 0x0b2C639c533813f4Aa9D7837CAf62653d097Ff85
+- **Token Address:** [0x0b2C639c533813f4Aa9D7837CAf62653d097Ff85](https://optimistic.etherscan.io/address/0x0b2C639c533813f4Aa9D7837CAf62653d097Ff85)
 
 ### Parameters
 
 - **Supply Cap:** 
-  - USDC: 150M
+  - USDC: 25M
   - USDC.e: 25M
 - **Borrow Cap:** 
-  - USDC: 100M
+  - USDC: 20M
   - USDC.e: 20M
 - **Reserve Factor (RF):** 
   - USDC.e: Increase to 20% to incentivize native USDC usage.
