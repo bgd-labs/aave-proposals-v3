@@ -44,12 +44,23 @@ interface IAaveDistributionManager {
   function assets(address asset) external returns (HelperStructs.AssetResponse memory);
 }
 
+interface IStkAAVE is IERC20 {
+  
+  function getTotalRewardsBalance(address user) external view returns (uint256);
+
+  function claimRewards(address to, uint256 amount) external;
+}
+
 /**
  * @dev Test for AaveV3Ethereum_AmendSafetyModuleAAVEEmissions_20231104
  * command: make test-contract filter=AaveV3Ethereum_AmendSafetyModuleAAVEEmissions_20231104
  */
 contract AaveV3Ethereum_AmendSafetyModuleAAVEEmissions_20231104_Test is ProtocolV3TestBase {
   AaveV3Ethereum_AmendSafetyModuleAAVEEmissions_20231104 internal proposal;
+
+  address public constant ACI = 0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922;
+  address public constant AAVE = AaveV3EthereumAssets.AAVE_UNDERLYING;
+  IERC20 aaveToken = IERC20(AAVE);
 
   address public constant STKAAVE = AaveSafetyModule.STK_AAVE;
   address public constant STKABPT = AaveSafetyModule.STK_ABPT;
@@ -76,6 +87,11 @@ contract AaveV3Ethereum_AmendSafetyModuleAAVEEmissions_20231104_Test is Protocol
    * @dev executes the generic test suite including e2e and config snapshots
    */
   function test_defaultProposalExecution() public {
+    IStkAAVE stkAAVE = IStkAAVE(STKAAVE);
+
+    // Check and log ACI's claimable amount from StkAAVE before execution
+    uint256 claimableBefore = stkAAVE.getTotalRewardsBalance(ACI);
+
     vm.startPrank(MiscEthereum.ECOSYSTEM_RESERVE);
     GovHelpers.Payload[] memory payloads = new GovHelpers.Payload[](1);
     payloads[0] = GovHelpers.buildMainnet(address(proposal));
@@ -88,6 +104,31 @@ contract AaveV3Ethereum_AmendSafetyModuleAAVEEmissions_20231104_Test is Protocol
       )
     );
     GovHelpers.passVoteAndExecute(vm, proposalId);
+
+    // Check and log ACI's claimable amount from StkAAVE after execution
+    uint256 claimableAfter = stkAAVE.getTotalRewardsBalance(ACI);
+    console.log('Claimable amount after execution: ', claimableAfter);
+
+    // Assert both claimable amounts are equal
+    assertApproxEqAbs(
+      claimableBefore,
+      claimableAfter,
+      10e18,
+      'Claimable amounts before and after execution should be equal'
+    );
+
+    // Simulate the claim from ACI and assert balance in AAVE is higher after than before claim
+    uint256 aaveBalanceBefore = aaveToken.balanceOf(ACI);
+
+    // Impersonate ACI and simulate the claim
+    vm.startPrank(ACI);
+    stkAAVE.claimRewards(ACI, claimableAfter);
+    vm.stopPrank();
+
+    uint256 aaveBalanceAfter = aaveToken.balanceOf(ACI);
+
+    // Assert that the AAVE balance is higher after the claim
+    assertGt(aaveBalanceAfter, aaveBalanceBefore);
 
     /*
       Check emission changes, the value should be 385 ether * 86400 seconds in a day
