@@ -6,189 +6,67 @@ discussions: "https://governance.aave.com/t/arfc-aave-v3-deployment-on-bnb-chain
 
 ## Simple Summary
 
+This proposal allows the Aave governance to activate the Aave V3 Bnb pool (3.0.2) by completing all the initial setup and listing CAKE, WBNB, BTCB, ETH, USDC and USDT as suggested by the service providers (ACI, Gauntlet and Chaos Labs) on the [governance forum](https://governance.aave.com/t/arfc-aave-v3-deployment-on-bnb-chain/12609/). All the Aave Bnb V3 addresses can be found in the [aave-address-book](https://github.com/bgd-labs/aave-address-book/blob/main/src/AaveV3Bnb.sol).
+
 ## Motivation
+
+All the governance procedures for the expansion of Aave v3 to Bnb have been finished, said:
+
+- Positive signaling and approval regarding the expansion on the [governance forum](https://governance.aave.com/t/temp-check-aave-v3-deployment-on-bnb-chain/12412/), [temp check snapshot](https://snapshot.org/#/aave.eth/proposal/0x4579b562a4ea07c52871f724a8baf156514a97384e9427156d04fb6f0ae91515), and [final snapshot](https://snapshot.org/#/aave.eth/proposal/0x60d44523a63e022fcca2f54aa3b84977e49fec0bdf15c9a298122422f6dd5902).
+- Positive technical evaluation done by BGD Labs of the Bnb chain network, as described in the [forum](https://governance.aave.com/t/bgd-aave-bnb-chain-infrastructure-technical-evaluation/13752) in detail.
+- Positive risk analysis and assets/parameters recommendation by the service providers ACI, Gauntlet and Chaos Labs as commented on the forum.
 
 ## Specification
 
-The table below illustrates the configured risk parameters for **Cake**
+The proposal will do the following:
 
-| Parameter                          |                                      Value |
-| ---------------------------------- | -----------------------------------------: |
-| Isolation Mode                     |                                       true |
-| Borrowable                         |                                    ENABLED |
-| Collateral Enabled                 |                                       true |
-| Supply Cap (Cake)                  |                                  5,000,000 |
-| Borrow Cap (Cake)                  |                                  2,750,000 |
-| Debt Ceiling                       |                              USD 8,000,000 |
-| LTV                                |                                       55 % |
-| LT                                 |                                       61 % |
-| Liquidation Bonus                  |                                       10 % |
-| Liquidation Protocol Fee           |                                       10 % |
-| Reserve Factor                     |                                       20 % |
-| Base Variable Borrow Rate          |                                        0 % |
-| Variable Slope 1                   |                                        7 % |
-| Variable Slope 2                   |                                      300 % |
-| Uoptimal                           |                                       45 % |
-| Stable Borrowing                   |                                   DISABLED |
-| Stable Slope1                      |                                        7 % |
-| Stable Slope2                      |                                      300 % |
-| Base Stable Rate Offset            |                                        2 % |
-| Stable Rate Excess Offset          |                                        8 % |
-| Optimal Stable To Total Debt Ratio |                                       20 % |
-| Flashloanable                      |                                    ENABLED |
-| Siloed Borrowing                   |                                   DISABLED |
-| Borrowable in Isolation            |                                   DISABLED |
-| Oracle                             | 0xB6064eD41d4f67e353768aA239cA86f4F73665a1 |
+- Set risk steward and freezing steward as the risk admin by executing `ACL_MANAGER.addRiskAdmin()`.
+- Set the guardian address as the pool admin by executing `ACL_MANAGER.addPoolAdmin()`.
+  This is following the standard procedure of keeping pool admin on the Aave Guardian during the bootstrap period, for security.
+- List the following assets on Aave V3 Bnb: CAKE, WBNB, BTCB, ETH, USDC and USDT.
 
-,The table below illustrates the configured risk parameters for **WBNB**
+The table below illustrates the initial suggested risk parameters for each asset:
 
-| Parameter                          |                                      Value |
-| ---------------------------------- | -----------------------------------------: |
-| Isolation Mode                     |                                       true |
-| Borrowable                         |                                    ENABLED |
-| Collateral Enabled                 |                                       true |
-| Supply Cap (WBNB)                  |                                    100,000 |
-| Borrow Cap (WBNB)                  |                                    550,000 |
-| Debt Ceiling                       |                                      USD 0 |
-| LTV                                |                                       70 % |
-| LT                                 |                                       75 % |
-| Liquidation Bonus                  |                                       10 % |
-| Liquidation Protocol Fee           |                                       10 % |
-| Reserve Factor                     |                                       20 % |
-| Base Variable Borrow Rate          |                                        0 % |
-| Variable Slope 1                   |                                        7 % |
-| Variable Slope 2                   |                                      300 % |
-| Uoptimal                           |                                       45 % |
-| Stable Borrowing                   |                                   DISABLED |
-| Stable Slope1                      |                                        7 % |
-| Stable Slope2                      |                                      300 % |
-| Base Stable Rate Offset            |                                        2 % |
-| Stable Rate Excess Offset          |                                        8 % |
-| Optimal Stable To Total Debt Ratio |                                       20 % |
-| Flashloanable                      |                                    ENABLED |
-| Siloed Borrowing                   |                                   DISABLED |
-| Borrowable in Isolation            |                                   DISABLED |
-| Oracle                             | 0x0567F2323251f0Aab15c8dFb1967E4e8A7D42aeE |
+### Asset Listing Configurations:
 
-,The table below illustrates the configured risk parameters for **BTCB**
+|  | [CAKE](https://bscscan.com/token/0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82) | [WBNB](https://bscscan.com/token/0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c) | [BTCB](https://bscscan.com/token/0x7130d2a12b9bcbfae4f2634d864a1ee1ce3ead9c) | [ETH](https://bscscan.com/token/0x2170ed0880ac9a755fd29b2688956bd959f933f8) | [USDC](https://bscscan.com/token/0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d) | [USDT](https://bscscan.com/token/0x55d398326f99059ff775485246999027b3197955) |
+| --- | --- | --- | --- | --- | --- | --- |
+| Loan To Value | 55% | 70% | 73% | 80% | 77.5% | 77.5% |
+| Liquidation Threshold | 61% | 75% | 78% | 82.5% | 80% | 80% |
+| Liquidation Bonus | 10% | 10% | 7.5% | 5% | 5% | 5% |
+| Reserve Factor | 20% | 20% | 20% | 15% | 10% | 10% |
+| Liquidation Protocol Fee | 10% | 10% | 10% | 10% | 10% | 10% |
+| Supply Cap | 5,000,000 | 100,000 | 500 | 8,000 | 50,000,000 | 50,000,000 |
+| Borrow Cap | 2,750,000 | 55,000 | 275 | 6,400 | 20,000,000 | 20,000,000 |
+| uOptimal | 45% | 45% | 45% | 80% | 90% | 90% |
+| Base Variable Borrow Rate | 0% | 0% | 0% | 1% | 0% | 0% |
+| Variable Rate Slope1 | 7% | 7% | 7% | 3.80% | 5% | 5% |
+| Variable Rate Slope 2 | 300% | 300% | 300% | 80% | 60% | 60% |
+| Stable Rate Slope 1 | 7% | 7% | 7% | 4% | 5% | 5% |
+| Stable Rate Slope 2 | 300% | 300% | 300% | 80% | 60% | 60% |
+| Base Stable Rate Offset | 2% | 2% | 2% | 2% | 1% | 1% |
+| Stable Rate Excess Offset | 8% | 8% | 8% | 8% | 8% | 8% |
+| Optimal Stable To Total Debt Ratio | 20% | 20% | 20% | 20% | 20% | 20% |
+| Debt Ceiling | $8M | $0 | $0 | $0 | $0 | $0 |
+| Enable Borrow | Yes | Yes | Yes | Yes | Yes | Yes |
+| Isolation Mode | Yes | No | No | No | No | No |
+| Enable Collateral | Yes | Yes | Yes | Yes | Yes | Yes |
+| Borrowable In Isolation | No | No | No | No | Yes | Yes |
+| Stable Borrow | No | No | No | No | No | No |
+| Price Feed Address | [CAKE/USD](https://bscscan.com/address/0xB6064eD41d4f67e353768aA239cA86f4F73665a1) | [BNB/USD](https://bscscan.com/address/0x0567F2323251f0Aab15c8dFb1967E4e8A7D42aeE) | [BTC/USD](https://bscscan.com/address/0x264990fbd0A4796A3E3d8E37C4d5F87a3aCa5Ebf) | [ETH/USD](https://bscscan.com/address/0x9ef1B8c0E4F7dc8bF5719Ea496883DC6401d5b2e) | [USDC/USD](https://bscscan.com/address/0x51597f405303C4377E36123cBc172b13269EA163) | [USDT/USD](https://bscscan.com/address/0xB97Ad0E74fa7d920791E90258A6E2085088b4320) |
+| Flashloanable | Yes | Yes | Yes | Yes | Yes | Yes |
+| Siloed Borrowing | No | No | No | No | No | No |
+| E-mode Category Id | 0 | 0 | 0 | 0 | 0 | 0 |
 
-| Parameter                          |                                      Value |
-| ---------------------------------- | -----------------------------------------: |
-| Isolation Mode                     |                                       true |
-| Borrowable                         |                                    ENABLED |
-| Collateral Enabled                 |                                       true |
-| Supply Cap (BTCB)                  |                                        500 |
-| Borrow Cap (BTCB)                  |                                        275 |
-| Debt Ceiling                       |                                      USD 0 |
-| LTV                                |                                       73 % |
-| LT                                 |                                       78 % |
-| Liquidation Bonus                  |                                      7.5 % |
-| Liquidation Protocol Fee           |                                       10 % |
-| Reserve Factor                     |                                       20 % |
-| Base Variable Borrow Rate          |                                        0 % |
-| Variable Slope 1                   |                                        7 % |
-| Variable Slope 2                   |                                      300 % |
-| Uoptimal                           |                                       45 % |
-| Stable Borrowing                   |                                   DISABLED |
-| Stable Slope1                      |                                        7 % |
-| Stable Slope2                      |                                      300 % |
-| Base Stable Rate Offset            |                                        2 % |
-| Stable Rate Excess Offset          |                                        8 % |
-| Optimal Stable To Total Debt Ratio |                                       20 % |
-| Flashloanable                      |                                    ENABLED |
-| Siloed Borrowing                   |                                   DISABLED |
-| Borrowable in Isolation            |                                   DISABLED |
-| Oracle                             | 0x264990fbd0A4796A3E3d8E37C4d5F87a3aCa5Ebf |
+## Security
 
-,The table below illustrates the configured risk parameters for **ETH**
+The proposal execution is simulated within the tests and the resulting pool configuration is tested for correctness.
 
-| Parameter                          |                                      Value |
-| ---------------------------------- | -----------------------------------------: |
-| Isolation Mode                     |                                       true |
-| Borrowable                         |                                    ENABLED |
-| Collateral Enabled                 |                                       true |
-| Supply Cap (ETH)                   |                                      8,000 |
-| Borrow Cap (ETH)                   |                                      6,400 |
-| Debt Ceiling                       |                                      USD 0 |
-| LTV                                |                                       80 % |
-| LT                                 |                                     82.5 % |
-| Liquidation Bonus                  |                                        5 % |
-| Liquidation Protocol Fee           |                                       10 % |
-| Reserve Factor                     |                                       15 % |
-| Base Variable Borrow Rate          |                                        1 % |
-| Variable Slope 1                   |                                      3.8 % |
-| Variable Slope 2                   |                                       80 % |
-| Uoptimal                           |                                       80 % |
-| Stable Borrowing                   |                                   DISABLED |
-| Stable Slope1                      |                                        4 % |
-| Stable Slope2                      |                                       80 % |
-| Base Stable Rate Offset            |                                        2 % |
-| Stable Rate Excess Offset          |                                        8 % |
-| Optimal Stable To Total Debt Ratio |                                       20 % |
-| Flashloanable                      |                                    ENABLED |
-| Siloed Borrowing                   |                                   DISABLED |
-| Borrowable in Isolation            |                                   DISABLED |
-| Oracle                             | 0x9ef1B8c0E4F7dc8bF5719Ea496883DC6401d5b2e |
+The deployed pool and other permissions have been programmatically verified.
 
-,The table below illustrates the configured risk parameters for **USDC**
+In addition, we have also checked the code diffs of the deployed base contracts with the deployed contracts on Ethereum and other networks.
 
-| Parameter                          |                                      Value |
-| ---------------------------------- | -----------------------------------------: |
-| Isolation Mode                     |                                       true |
-| Borrowable                         |                                    ENABLED |
-| Collateral Enabled                 |                                       true |
-| Supply Cap (USDC)                  |                                 50,000,000 |
-| Borrow Cap (USDC)                  |                                 20,000,000 |
-| Debt Ceiling                       |                                      USD 0 |
-| LTV                                |                                     77.5 % |
-| LT                                 |                                       80 % |
-| Liquidation Bonus                  |                                        5 % |
-| Liquidation Protocol Fee           |                                       10 % |
-| Reserve Factor                     |                                       10 % |
-| Base Variable Borrow Rate          |                                        0 % |
-| Variable Slope 1                   |                                        5 % |
-| Variable Slope 2                   |                                       60 % |
-| Uoptimal                           |                                       90 % |
-| Stable Borrowing                   |                                   DISABLED |
-| Stable Slope1                      |                                        5 % |
-| Stable Slope2                      |                                       60 % |
-| Base Stable Rate Offset            |                                        1 % |
-| Stable Rate Excess Offset          |                                        8 % |
-| Optimal Stable To Total Debt Ratio |                                       20 % |
-| Flashloanable                      |                                    ENABLED |
-| Siloed Borrowing                   |                                   DISABLED |
-| Borrowable in Isolation            |                                    ENABLED |
-| Oracle                             | 0x51597f405303C4377E36123cBc172b13269EA163 |
-
-,The table below illustrates the configured risk parameters for **USDT**
-
-| Parameter                          |                                      Value |
-| ---------------------------------- | -----------------------------------------: |
-| Isolation Mode                     |                                       true |
-| Borrowable                         |                                    ENABLED |
-| Collateral Enabled                 |                                       true |
-| Supply Cap (USDT)                  |                                 50,000,000 |
-| Borrow Cap (USDT)                  |                                 20,000,000 |
-| Debt Ceiling                       |                                      USD 0 |
-| LTV                                |                                     77.5 % |
-| LT                                 |                                       80 % |
-| Liquidation Bonus                  |                                        5 % |
-| Liquidation Protocol Fee           |                                       10 % |
-| Reserve Factor                     |                                       10 % |
-| Base Variable Borrow Rate          |                                        0 % |
-| Variable Slope 1                   |                                        5 % |
-| Variable Slope 2                   |                                       60 % |
-| Uoptimal                           |                                       90 % |
-| Stable Borrowing                   |                                   DISABLED |
-| Stable Slope1                      |                                        5 % |
-| Stable Slope2                      |                                       60 % |
-| Base Stable Rate Offset            |                                        1 % |
-| Stable Rate Excess Offset          |                                        8 % |
-| Optimal Stable To Total Debt Ratio |                                       20 % |
-| Flashloanable                      |                                    ENABLED |
-| Siloed Borrowing                   |                                   DISABLED |
-| Borrowable in Isolation            |                                    ENABLED |
-| Oracle                             | 0xB97Ad0E74fa7d920791E90258A6E2085088b4320 |
+As a matter of caution, the `POOL_ADMIN` role will be given for the first weeks to the Aave Guardian multisig.
 
 ## References
 
