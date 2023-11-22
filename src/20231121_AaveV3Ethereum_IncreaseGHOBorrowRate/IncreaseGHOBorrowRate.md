@@ -34,8 +34,8 @@ Given this discrepancy, it is unlikely that the current rate is sufficient to re
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231121_AaveV3Ethereum_IncreaseGHOBorrowRate/AaveV3Ethereum_IncreaseGHOBorrowRate_20231121.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231121_AaveV3Ethereum_IncreaseGHOBorrowRate/AaveV3Ethereum_IncreaseGHOBorrowRate_20231121.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/bbe74d703bf794fa98295322e626a0b2b9262c54/src/20231121_AaveV3Ethereum_IncreaseGHOBorrowRate/AaveV3Ethereum_IncreaseGHOBorrowRate_20231121.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/bbe74d703bf794fa98295322e626a0b2b9262c54/src/20231121_AaveV3Ethereum_IncreaseGHOBorrowRate/AaveV3Ethereum_IncreaseGHOBorrowRate_20231121.t.sol)
 - [Snapshot](Direct-to-AIP)
 - [Discussion](https://governance.aave.com/t/arfc-increase-gho-borrow-rate-to-5-22-on-aave-v3/15632)
 
