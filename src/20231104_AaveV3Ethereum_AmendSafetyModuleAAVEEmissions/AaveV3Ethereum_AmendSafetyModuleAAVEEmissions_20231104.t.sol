@@ -7,6 +7,7 @@ import {AaveSafetyModule} from 'aave-address-book/AaveSafetyModule.sol';
 import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {AaveGovernanceV2} from 'aave-address-book/AaveGovernanceV2.sol';
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
+import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/ProtocolV3TestBase.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {IAaveEcosystemReserveController} from 'aave-address-book/common/IAaveEcosystemReserveController.sol';
@@ -35,9 +36,12 @@ library HelperStructs {
 
 interface IAaveDistributionManager {
   function configureAssets(HelperStructs.AssetConfigInput[] calldata assetsConfigInput) external;
-  function STAKED_TOKEN() external returns(address);
-  function totalSupply() external returns(uint256);
-  function assets(address asset) external returns(HelperStructs.AssetResponse memory);
+
+  function STAKED_TOKEN() external returns (address);
+
+  function totalSupply() external returns (uint256);
+
+  function assets(address asset) external returns (HelperStructs.AssetResponse memory);
 }
 
 /**
@@ -52,8 +56,8 @@ contract AaveV3Ethereum_AmendSafetyModuleAAVEEmissions_20231104_Test is Protocol
 
   address public constant ECOSYSTEM_RESERVE = MiscEthereum.ECOSYSTEM_RESERVE;
 
-  IAaveEcosystemReserveController public constant ECOSYSTEM_RESERVE_CONTROLLER
-    = MiscEthereum.AAVE_ECOSYSTEM_RESERVE_CONTROLLER;
+  IAaveEcosystemReserveController public constant ECOSYSTEM_RESERVE_CONTROLLER =
+    MiscEthereum.AAVE_ECOSYSTEM_RESERVE_CONTROLLER;
 
   uint256 public constant DAILY_EMISSIONS = 385 ether;
 
@@ -72,7 +76,18 @@ contract AaveV3Ethereum_AmendSafetyModuleAAVEEmissions_20231104_Test is Protocol
    * @dev executes the generic test suite including e2e and config snapshots
    */
   function test_defaultProposalExecution() public {
-    GovHelpers.executePayload(vm, address(proposal), AaveGovernanceV2.SHORT_EXECUTOR);
+    vm.startPrank(MiscEthereum.ECOSYSTEM_RESERVE);
+    GovHelpers.Payload[] memory payloads = new GovHelpers.Payload[](1);
+    payloads[0] = GovHelpers.buildMainnet(address(proposal));
+    // create proposal
+    uint256 proposalId = GovHelpers.createProposal(
+      payloads,
+      GovHelpers.ipfsHashFile(
+        vm,
+        'src/20231104_AaveV3Ethereum_AmendSafetyModuleAAVEEmissions/AmendSafetyModuleAAVEEmissions.md'
+      )
+    );
+    GovHelpers.passVoteAndExecute(vm, proposalId);
 
     /*
       Check emission changes, the value should be 385 ether * 86400 seconds in a day
@@ -88,7 +103,13 @@ contract AaveV3Ethereum_AmendSafetyModuleAAVEEmissions_20231104_Test is Protocol
     /*
       Check cycles changes, the allowance should be 385 ether * 90 as described on the proposal
     */
-    assertEq(IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING).allowance(ECOSYSTEM_RESERVE, STKAAVE), CYCLE_EMISSIONS);
-    assertEq(IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING).allowance(ECOSYSTEM_RESERVE, STKABPT), CYCLE_EMISSIONS);
+    assertEq(
+      IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING).allowance(ECOSYSTEM_RESERVE, STKAAVE),
+      CYCLE_EMISSIONS * 2
+    );
+    assertEq(
+      IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING).allowance(ECOSYSTEM_RESERVE, STKABPT),
+      CYCLE_EMISSIONS * 2
+    );
   }
 }
