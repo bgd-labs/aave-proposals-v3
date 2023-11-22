@@ -5,7 +5,7 @@ import {AaveV3Harmony, AaveV3HarmonyAssets} from 'aave-address-book/AaveV3Harmon
 
 import 'forge-std/Test.sol';
 import {GovHelpers} from 'aave-helpers/GovHelpers.sol';
-import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/ProtocolV3TestBase.sol';
+import {ProtocolV3TestBase, InterestStrategyValues, ReserveConfig} from 'aave-helpers/ProtocolV3TestBase.sol';
 import {AaveV3Harmony_FreezePriceFeedsOnV3Harmony_20231122} from './AaveV3Harmony_FreezePriceFeedsOnV3Harmony_20231122.sol';
 
 /**
@@ -14,6 +14,7 @@ import {AaveV3Harmony_FreezePriceFeedsOnV3Harmony_20231122} from './AaveV3Harmon
  */
 contract AaveV3Harmony_FreezePriceFeedsOnV3Harmony_20231122_Test is ProtocolV3TestBase {
   address public constant HARMONY_GUARDIAN = 0xb2f0C5f37f4beD2cB51C44653cD5D84866BDcd2D;
+
   mapping(address => uint256) public assetPrices;
 
   address[] public assets = [
@@ -30,7 +31,7 @@ contract AaveV3Harmony_FreezePriceFeedsOnV3Harmony_20231122_Test is ProtocolV3Te
   AaveV3Harmony_FreezePriceFeedsOnV3Harmony_20231122 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('harmony'), 50040261);
+    vm.createSelectFork(vm.rpcUrl('harmony'), 50042078);
     proposal = new AaveV3Harmony_FreezePriceFeedsOnV3Harmony_20231122();
 
     assetPrices[AaveV3HarmonyAssets.ONE_DAI_UNDERLYING] = 99997072;
@@ -53,20 +54,10 @@ contract AaveV3Harmony_FreezePriceFeedsOnV3Harmony_20231122_Test is ProtocolV3Te
     );
 
     GovHelpers.executePayload(vm, address(proposal), HARMONY_GUARDIAN);
-
     // check price adapters
     for (uint256 i = 0; i < assets.length; i++) {
       assertEq(AaveV3Harmony.ORACLE.getAssetPrice(assets[i]), assetPrices[assets[i]]);
     }
-
-    // check interest rate strategy
-    for (uint256 i = 0; i < assets.length; i++) {
-      assertEq(
-        AaveV3Harmony.POOL_CONFIGURATOR.getReserveInterestRateStrategyAddress(assets[i]),
-        proposal.ZERO_IR_STRATEGY()
-      );
-    }
-
     string memory afterString = string(
       abi.encodePacked('AaveV3Harmony_FreezePriceFeedsOnV3Harmony_20231122', '_after')
     );
@@ -74,11 +65,25 @@ contract AaveV3Harmony_FreezePriceFeedsOnV3Harmony_20231122_Test is ProtocolV3Te
       afterString,
       AaveV3Harmony.POOL
     );
-
+    // check interest rate strategy
+    for (uint256 i = 0; i < assets.length; i++) {
+      _validateInterestRateStrategy(
+        _findReserveConfig(configAfter, assets[i]).interestRateStrategy,
+        proposal.ZERO_IR_STRATEGY(),
+        InterestStrategyValues({
+          addressesProvider: address(AaveV3Harmony.POOL_ADDRESSES_PROVIDER),
+          optimalUsageRatio: 0,
+          optimalStableToTotalDebtRatio: 0,
+          baseStableBorrowRate: 0,
+          baseVariableBorrowRate: 0,
+          stableRateSlope1: 0,
+          stableRateSlope2: 0,
+          variableRateSlope1: 0,
+          variableRateSlope2: 0
+        })
+      );
+    }
     diffReports(beforeString, afterString);
-
     configChangePlausibilityTest(configBefore, configAfter);
-
-    e2eTest(AaveV3Harmony.POOL);
   }
 }

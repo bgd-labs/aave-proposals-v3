@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {GovV3Helpers} from 'aave-helpers/GovV3Helpers.sol';
+import {GovV3Helpers, PayloadsControllerUtils} from 'aave-helpers/GovV3Helpers.sol';
 import {EthereumScript, HarmonyScript} from 'aave-helpers/ScriptUtils.sol';
 import {AaveV3Harmony_FreezePriceFeedsOnV3Harmony_20231122} from './AaveV3Harmony_FreezePriceFeedsOnV3Harmony_20231122.sol';
 
