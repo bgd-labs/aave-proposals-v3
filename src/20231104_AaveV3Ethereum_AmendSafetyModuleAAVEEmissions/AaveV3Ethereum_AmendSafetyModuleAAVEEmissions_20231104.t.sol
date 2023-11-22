@@ -45,7 +45,6 @@ interface IAaveDistributionManager {
 }
 
 interface IStkAAVE is IERC20 {
-  
   function getTotalRewardsBalance(address user) external view returns (uint256);
 
   function claimRewards(address to, uint256 amount) external;
@@ -84,13 +83,45 @@ contract AaveV3Ethereum_AmendSafetyModuleAAVEEmissions_20231104_Test is Protocol
   }
 
   /**
-   * @dev executes the generic test suite including e2e and config snapshots
+   * changing emission should not retroactively change rewards
    */
-  function test_defaultProposalExecution() public {
+  function test_rewardsEmission() public {
     IStkAAVE stkAAVE = IStkAAVE(STKAAVE);
 
     // Check and log ACI's claimable amount from StkAAVE before execution
     uint256 claimableBefore = stkAAVE.getTotalRewardsBalance(ACI);
+
+    GovHelpers.executePayload(vm, address(proposal), AaveGovernanceV2.SHORT_EXECUTOR);
+
+    // Check and log ACI's claimable amount from StkAAVE after execution
+    uint256 claimableAfter = stkAAVE.getTotalRewardsBalance(ACI);
+
+    // Assert both claimable amounts are equal
+    assertEq(claimableBefore, claimableAfter, 'CLAIMABLE_SHOULD_NOT_CHANGE');
+
+    // Simulate the claim from ACI and assert balance in AAVE is higher after than before claim
+    uint256 aaveBalanceBefore = aaveToken.balanceOf(ACI);
+
+    // Impersonate ACI and simulate the claim
+    vm.startPrank(ACI);
+    stkAAVE.claimRewards(ACI, claimableAfter);
+    vm.stopPrank();
+
+    uint256 aaveBalanceAfter = aaveToken.balanceOf(ACI);
+
+    // Assert that the AAVE balance is higher after the claim
+    assertEq(aaveBalanceAfter, aaveBalanceBefore + claimableBefore);
+  }
+
+  /**
+   * @dev executes the generic test suite including e2e and config snapshots
+   */
+  function test_defaultProposalExecution() public {
+    IAaveDistributionManager aaveManager = IAaveDistributionManager(STKAAVE);
+    IAaveDistributionManager bptManager = IAaveDistributionManager(STKABPT);
+
+    HelperStructs.AssetResponse memory aaveResBefore = aaveManager.assets(STKAAVE);
+    HelperStructs.AssetResponse memory bptResBefore = bptManager.assets(STKABPT);
 
     vm.startPrank(MiscEthereum.ECOSYSTEM_RESERVE);
     GovHelpers.Payload[] memory payloads = new GovHelpers.Payload[](1);
@@ -105,42 +136,18 @@ contract AaveV3Ethereum_AmendSafetyModuleAAVEEmissions_20231104_Test is Protocol
     );
     GovHelpers.passVoteAndExecute(vm, proposalId);
 
-    // Check and log ACI's claimable amount from StkAAVE after execution
-    uint256 claimableAfter = stkAAVE.getTotalRewardsBalance(ACI);
-    console.log('Claimable amount after execution: ', claimableAfter);
-
-    // Assert both claimable amounts are equal
-    assertApproxEqAbs(
-      claimableBefore,
-      claimableAfter,
-      10e18,
-      'Claimable amounts before and after execution should be equal'
-    );
-
-    // Simulate the claim from ACI and assert balance in AAVE is higher after than before claim
-    uint256 aaveBalanceBefore = aaveToken.balanceOf(ACI);
-
-    // Impersonate ACI and simulate the claim
-    vm.startPrank(ACI);
-    stkAAVE.claimRewards(ACI, claimableAfter);
-    vm.stopPrank();
-
-    uint256 aaveBalanceAfter = aaveToken.balanceOf(ACI);
-
-    // Assert that the AAVE balance is higher after the claim
-    assertGt(aaveBalanceAfter, aaveBalanceBefore);
-
     /*
       Check emission changes, the value should be 385 ether * 86400 seconds in a day
     */
-    IAaveDistributionManager aaveManager = IAaveDistributionManager(STKAAVE);
-    HelperStructs.AssetResponse memory aaveRes = aaveManager.assets(STKAAVE);
-    assertEq(aaveRes.emissionPerSecond, EMISSIONS_PER_SECOND);
+    HelperStructs.AssetResponse memory aaveResAfter = aaveManager.assets(STKAAVE);
+    assertEq(aaveResAfter.emissionPerSecond, EMISSIONS_PER_SECOND);
+    assertLt(aaveResAfter.emissionPerSecond, aaveResBefore.emissionPerSecond);
 
-    IAaveDistributionManager bptManager = IAaveDistributionManager(STKABPT);
-    HelperStructs.AssetResponse memory bptRes = bptManager.assets(STKABPT);
-    assertEq(bptRes.emissionPerSecond, EMISSIONS_PER_SECOND);
+    HelperStructs.AssetResponse memory bptResAfter = bptManager.assets(STKABPT);
+    assertEq(bptResAfter.emissionPerSecond, EMISSIONS_PER_SECOND);
+    assertLt(bptResAfter.emissionPerSecond, bptResBefore.emissionPerSecond);
 
+    assertEq(aaveResAfter.emissionPerSecond, bptResAfter.emissionPerSecond);
     /*
       Check cycles changes, the allowance should be 385 ether * 90 * 4 as described on the proposal
     */
