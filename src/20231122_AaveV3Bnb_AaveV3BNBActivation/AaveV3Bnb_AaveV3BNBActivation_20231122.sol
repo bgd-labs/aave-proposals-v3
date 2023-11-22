@@ -20,8 +20,8 @@ import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';
 contract AaveV3Bnb_AaveV3BNBActivation_20231122 is AaveV3PayloadBnb {
   using SafeERC20 for IERC20;
 
-  address public constant Cake = 0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82;
-  uint256 public constant Cake_SEED_AMOUNT = 1e18; // 1 cake - 2.5$
+  address public constant CAKE = 0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82;
+  uint256 public constant CAKE_SEED_AMOUNT = 1e18; // 1 cake - 2.5$
   address public constant WBNB = 0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c;
   uint256 public constant WBNB_SEED_AMOUNT = 1e18; // 0.05 wbnb - 10$
   address public constant BTCB = 0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c;
@@ -38,7 +38,7 @@ contract AaveV3Bnb_AaveV3BNBActivation_20231122 is AaveV3PayloadBnb {
     AaveV3Bnb.ACL_MANAGER.addRiskAdmin(AaveV3Bnb.FREEZING_STEWARD);
     AaveV3Bnb.ACL_MANAGER.addRiskAdmin(AaveV3Bnb.CAPS_PLUS_RISK_STEWARD);
 
-    _supply(AaveV3Bnb.POOL, Cake, Cake_SEED_AMOUNT, address(AaveV3Bnb.COLLECTOR));
+    _supply(AaveV3Bnb.POOL, CAKE, CAKE_SEED_AMOUNT, address(AaveV3Bnb.COLLECTOR));
     _supply(AaveV3Bnb.POOL, WBNB, WBNB_SEED_AMOUNT, address(AaveV3Bnb.COLLECTOR));
     _supply(AaveV3Bnb.POOL, BTCB, BTCB_SEED_AMOUNT, address(AaveV3Bnb.COLLECTOR));
     _supply(AaveV3Bnb.POOL, ETH, ETH_SEED_AMOUNT, address(AaveV3Bnb.COLLECTOR));
@@ -50,8 +50,8 @@ contract AaveV3Bnb_AaveV3BNBActivation_20231122 is AaveV3PayloadBnb {
     IAaveV3ConfigEngine.Listing[] memory listings = new IAaveV3ConfigEngine.Listing[](6);
 
     listings[0] = IAaveV3ConfigEngine.Listing({
-      asset: Cake,
-      assetSymbol: 'Cake',
+      asset: CAKE,
+      assetSymbol: 'CAKE',
       priceFeed: 0xB6064eD41d4f67e353768aA239cA86f4F73665a1,
       eModeCategory: 0,
       enabledToBorrow: EngineFlags.ENABLED,

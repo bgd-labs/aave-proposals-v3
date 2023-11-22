@@ -35,13 +35,13 @@
 | stableBorrowRateEnabled | false |
 | isBorrowableInIsolation | false |
 | interestRateStrategy | [0x9A945631004d0452642bC61cEd2871f428F2543f](https://bscscan.com/address/0x9A945631004d0452642bC61cEd2871f428F2543f) |
-| aTokenName | Aave BNB Smart Chain Cake |
-| aTokenSymbol | aBnbCake |
+| aTokenName | Aave BNB Smart Chain CAKE |
+| aTokenSymbol | aBnbCAKE |
 | isPaused | false |
-| stableDebtTokenName | Aave BNB Smart Chain Stable Debt Cake |
-| stableDebtTokenSymbol | stableDebtBnbCake |
-| variableDebtTokenName | Aave BNB Smart Chain Variable Debt Cake |
-| variableDebtTokenSymbol | variableDebtBnbCake |
+| stableDebtTokenName | Aave BNB Smart Chain Stable Debt CAKE |
+| stableDebtTokenSymbol | stableDebtBnbCAKE |
+| variableDebtTokenName | Aave BNB Smart Chain Variable Debt CAKE |
+| variableDebtTokenSymbol | variableDebtBnbCAKE |
 | optimalUsageRatio | 45 % |
 | maxExcessUsageRatio | 55 % |
 | baseVariableBorrowRate | 0 % |
@@ -330,8 +330,8 @@
       "to": {
         "aToken": "0x4199CC1F5ed0d796563d7CcB2e036253E2C18281",
         "aTokenImpl": "0x6c23bAF050ec192afc0B967a93b83e6c5405df43",
-        "aTokenName": "Aave BNB Smart Chain Cake",
-        "aTokenSymbol": "aBnbCake",
+        "aTokenName": "Aave BNB Smart Chain CAKE",
+        "aTokenSymbol": "aBnbCAKE",
         "borrowCap": 2750000,
         "borrowingEnabled": true,
         "debtCeiling": 800000000,
@@ -356,16 +356,16 @@
         "stableBorrowRateEnabled": false,
         "stableDebtToken": "0x57e95511de39890D3e782df4b19F0D97A05DF64A",
         "stableDebtTokenImpl": "0xb172a90A7C238969CE9B27cc19D13b60A91e7F00",
-        "stableDebtTokenName": "Aave BNB Smart Chain Stable Debt Cake",
-        "stableDebtTokenSymbol": "stableDebtBnbCake",
+        "stableDebtTokenName": "Aave BNB Smart Chain Stable Debt CAKE",
+        "stableDebtTokenSymbol": "stableDebtBnbCAKE",
         "supplyCap": 5000000,
         "symbol": "Cake",
         "underlying": "0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82",
         "usageAsCollateralEnabled": true,
         "variableDebtToken": "0xE20dBC7119c635B1B51462f844861258770e0699",
         "variableDebtTokenImpl": "0x777fBA024bA1228fDa76149A4ff8B23475ed057D",
-        "variableDebtTokenName": "Aave BNB Smart Chain Variable Debt Cake",
-        "variableDebtTokenSymbol": "variableDebtBnbCake"
+        "variableDebtTokenName": "Aave BNB Smart Chain Variable Debt CAKE",
+        "variableDebtTokenSymbol": "variableDebtBnbCAKE"
       }
     },
     "0x2170Ed0880ac9A755fd29B2688956BD959F933F8": {

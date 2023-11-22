@@ -41,7 +41,7 @@ contract AaveV3Bnb_AaveV3BNBActivation_20231122_Test is ProtocolV3TestBase {
   function test_collectorHasCakeFunds() public {
     GovV3Helpers.executePayload(vm, address(proposal));
     (address aTokenAddress, , ) = AaveV3Bnb.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(
-      proposal.Cake()
+      proposal.CAKE()
     );
     assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Bnb.COLLECTOR)), 10 ** 18);
   }
@@ -87,7 +87,7 @@ contract AaveV3Bnb_AaveV3BNBActivation_20231122_Test is ProtocolV3TestBase {
   }
 
   function _fundExecutorWithAssetsToList() internal {
-    deal2(proposal.Cake(), GovernanceV3BNB.EXECUTOR_LVL_1, proposal.Cake_SEED_AMOUNT());
+    deal2(proposal.CAKE(), GovernanceV3BNB.EXECUTOR_LVL_1, proposal.CAKE_SEED_AMOUNT());
     deal2(proposal.WBNB(), GovernanceV3BNB.EXECUTOR_LVL_1, proposal.WBNB_SEED_AMOUNT());
     deal2(proposal.BTCB(), GovernanceV3BNB.EXECUTOR_LVL_1, proposal.BTCB_SEED_AMOUNT());
     deal2(proposal.ETH(), GovernanceV3BNB.EXECUTOR_LVL_1, proposal.ETH_SEED_AMOUNT());
