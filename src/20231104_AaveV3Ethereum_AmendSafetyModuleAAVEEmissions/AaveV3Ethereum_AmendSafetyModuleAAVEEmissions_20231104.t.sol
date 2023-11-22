@@ -101,7 +101,7 @@ contract AaveV3Ethereum_AmendSafetyModuleAAVEEmissions_20231104_Test is Protocol
     assertEq(bptRes.emissionPerSecond, EMISSIONS_PER_SECOND);
 
     /*
-      Check cycles changes, the allowance should be 385 ether * 90 as described on the proposal
+      Check cycles changes, the allowance should be 385 ether * 90 * 4 as described on the proposal
     */
     assertEq(
       IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING).allowance(ECOSYSTEM_RESERVE, STKAAVE),
