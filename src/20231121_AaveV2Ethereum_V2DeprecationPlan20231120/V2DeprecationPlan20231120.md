@@ -38,8 +38,8 @@ As Liquidation Threshold reductions may lead to user accounts being eligible for
 
 ## References
 
-- Implementation: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231121_AaveV2Ethereum_V2DeprecationPlan20231120/AaveV2Ethereum_V2DeprecationPlan20231120_20231121.sol)
-- Tests: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231121_AaveV2Ethereum_V2DeprecationPlan20231120/AaveV2Ethereum_V2DeprecationPlan20231120_20231121.t.sol)
+- Implementation: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/e571baf835c669d317a9dfc656f3f4d7159c9972/src/20231121_AaveV2Ethereum_V2DeprecationPlan20231120/AaveV2Ethereum_V2DeprecationPlan20231120_20231121.sol)
+- Tests: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/e571baf835c669d317a9dfc656f3f4d7159c9972/src/20231121_AaveV2Ethereum_V2DeprecationPlan20231120/AaveV2Ethereum_V2DeprecationPlan20231120_20231121.t.sol)
 - [Discussion](https://governance.aave.com/t/arfc-v2-ethereum-deprecation-11-20-2023/15628)
 
 ## Disclaimer
