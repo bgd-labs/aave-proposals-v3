@@ -7,7 +7,7 @@ discussions: "https://governance.aave.com/t/arfc-increase-gho-borrow-rate-to-5-2
 ## Simple Summary
 
 This AIP proposes to increase the GHO borrow rate from 4.72% APR to 5.22% APR.
-this aims to support the GHO peg and align borrowing costs closer to industry market rates.
+This aims to support the GHO peg and align borrowing costs closer to industry market rates.
 
 ## Motivation
 
