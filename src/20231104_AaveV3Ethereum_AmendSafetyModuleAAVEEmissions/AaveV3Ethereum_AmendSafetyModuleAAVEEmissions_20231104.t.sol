@@ -7,6 +7,7 @@ import {AaveSafetyModule} from 'aave-address-book/AaveSafetyModule.sol';
 import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {AaveGovernanceV2} from 'aave-address-book/AaveGovernanceV2.sol';
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
+import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/ProtocolV3TestBase.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {IAaveEcosystemReserveController} from 'aave-address-book/common/IAaveEcosystemReserveController.sol';
@@ -35,9 +36,18 @@ library HelperStructs {
 
 interface IAaveDistributionManager {
   function configureAssets(HelperStructs.AssetConfigInput[] calldata assetsConfigInput) external;
-  function STAKED_TOKEN() external returns(address);
-  function totalSupply() external returns(uint256);
-  function assets(address asset) external returns(HelperStructs.AssetResponse memory);
+
+  function STAKED_TOKEN() external returns (address);
+
+  function totalSupply() external returns (uint256);
+
+  function assets(address asset) external returns (HelperStructs.AssetResponse memory);
+}
+
+interface IStkAAVE is IERC20 {
+  function getTotalRewardsBalance(address user) external view returns (uint256);
+
+  function claimRewards(address to, uint256 amount) external;
 }
 
 /**
@@ -47,13 +57,17 @@ interface IAaveDistributionManager {
 contract AaveV3Ethereum_AmendSafetyModuleAAVEEmissions_20231104_Test is ProtocolV3TestBase {
   AaveV3Ethereum_AmendSafetyModuleAAVEEmissions_20231104 internal proposal;
 
+  address public constant ACI = 0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922;
+  address public constant AAVE = AaveV3EthereumAssets.AAVE_UNDERLYING;
+  IERC20 aaveToken = IERC20(AAVE);
+
   address public constant STKAAVE = AaveSafetyModule.STK_AAVE;
   address public constant STKABPT = AaveSafetyModule.STK_ABPT;
 
   address public constant ECOSYSTEM_RESERVE = MiscEthereum.ECOSYSTEM_RESERVE;
 
-  IAaveEcosystemReserveController public constant ECOSYSTEM_RESERVE_CONTROLLER
-    = MiscEthereum.AAVE_ECOSYSTEM_RESERVE_CONTROLLER;
+  IAaveEcosystemReserveController public constant ECOSYSTEM_RESERVE_CONTROLLER =
+    MiscEthereum.AAVE_ECOSYSTEM_RESERVE_CONTROLLER;
 
   uint256 public constant DAILY_EMISSIONS = 385 ether;
 
@@ -69,26 +83,81 @@ contract AaveV3Ethereum_AmendSafetyModuleAAVEEmissions_20231104_Test is Protocol
   }
 
   /**
+   * changing emission should not retroactively change rewards
+   */
+  function test_rewardsEmission() public {
+    IStkAAVE stkAAVE = IStkAAVE(STKAAVE);
+
+    // Check and log ACI's claimable amount from StkAAVE before execution
+    uint256 claimableBefore = stkAAVE.getTotalRewardsBalance(ACI);
+
+    GovHelpers.executePayload(vm, address(proposal), AaveGovernanceV2.SHORT_EXECUTOR);
+
+    // Check and log ACI's claimable amount from StkAAVE after execution
+    uint256 claimableAfter = stkAAVE.getTotalRewardsBalance(ACI);
+
+    // Assert both claimable amounts are equal
+    assertEq(claimableBefore, claimableAfter, 'CLAIMABLE_SHOULD_NOT_CHANGE');
+
+    // Simulate the claim from ACI and assert balance in AAVE is higher after than before claim
+    uint256 aaveBalanceBefore = aaveToken.balanceOf(ACI);
+
+    // Impersonate ACI and simulate the claim
+    vm.startPrank(ACI);
+    stkAAVE.claimRewards(ACI, claimableAfter);
+    vm.stopPrank();
+
+    uint256 aaveBalanceAfter = aaveToken.balanceOf(ACI);
+
+    // Assert that the AAVE balance is higher after the claim
+    assertEq(aaveBalanceAfter, aaveBalanceBefore + claimableBefore);
+  }
+
+  /**
    * @dev executes the generic test suite including e2e and config snapshots
    */
   function test_defaultProposalExecution() public {
-    GovHelpers.executePayload(vm, address(proposal), AaveGovernanceV2.SHORT_EXECUTOR);
+    IAaveDistributionManager aaveManager = IAaveDistributionManager(STKAAVE);
+    IAaveDistributionManager bptManager = IAaveDistributionManager(STKABPT);
+
+    HelperStructs.AssetResponse memory aaveResBefore = aaveManager.assets(STKAAVE);
+    HelperStructs.AssetResponse memory bptResBefore = bptManager.assets(STKABPT);
+
+    vm.startPrank(MiscEthereum.ECOSYSTEM_RESERVE);
+    GovHelpers.Payload[] memory payloads = new GovHelpers.Payload[](1);
+    payloads[0] = GovHelpers.buildMainnet(address(proposal));
+    // create proposal
+    uint256 proposalId = GovHelpers.createProposal(
+      payloads,
+      GovHelpers.ipfsHashFile(
+        vm,
+        'src/20231104_AaveV3Ethereum_AmendSafetyModuleAAVEEmissions/AmendSafetyModuleAAVEEmissions.md'
+      )
+    );
+    GovHelpers.passVoteAndExecute(vm, proposalId);
 
     /*
       Check emission changes, the value should be 385 ether * 86400 seconds in a day
     */
-    IAaveDistributionManager aaveManager = IAaveDistributionManager(STKAAVE);
-    HelperStructs.AssetResponse memory aaveRes = aaveManager.assets(STKAAVE);
-    assertEq(aaveRes.emissionPerSecond, EMISSIONS_PER_SECOND);
+    HelperStructs.AssetResponse memory aaveResAfter = aaveManager.assets(STKAAVE);
+    assertEq(aaveResAfter.emissionPerSecond, EMISSIONS_PER_SECOND);
+    assertLt(aaveResAfter.emissionPerSecond, aaveResBefore.emissionPerSecond);
 
-    IAaveDistributionManager bptManager = IAaveDistributionManager(STKABPT);
-    HelperStructs.AssetResponse memory bptRes = bptManager.assets(STKABPT);
-    assertEq(bptRes.emissionPerSecond, EMISSIONS_PER_SECOND);
+    HelperStructs.AssetResponse memory bptResAfter = bptManager.assets(STKABPT);
+    assertEq(bptResAfter.emissionPerSecond, EMISSIONS_PER_SECOND);
+    assertLt(bptResAfter.emissionPerSecond, bptResBefore.emissionPerSecond);
 
+    assertEq(aaveResAfter.emissionPerSecond, bptResAfter.emissionPerSecond);
     /*
-      Check cycles changes, the allowance should be 385 ether * 90 as described on the proposal
+      Check cycles changes, the allowance should be 385 ether * 90 * 4 as described on the proposal
     */
-    assertEq(IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING).allowance(ECOSYSTEM_RESERVE, STKAAVE), CYCLE_EMISSIONS);
-    assertEq(IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING).allowance(ECOSYSTEM_RESERVE, STKABPT), CYCLE_EMISSIONS);
+    assertEq(
+      IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING).allowance(ECOSYSTEM_RESERVE, STKAAVE),
+      CYCLE_EMISSIONS * 4
+    );
+    assertEq(
+      IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING).allowance(ECOSYSTEM_RESERVE, STKABPT),
+      CYCLE_EMISSIONS * 4
+    );
   }
 }
