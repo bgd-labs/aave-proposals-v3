@@ -3,6 +3,7 @@ pragma solidity ^0.8.0;
 
 import {GovV3Helpers} from 'aave-helpers/GovV3Helpers.sol';
 import {AaveV3Bnb} from 'aave-address-book/AaveV3Bnb.sol';
+import {MiscBNB} from 'aave-address-book/MiscBNB.sol';
 import {GovernanceV3BNB} from 'aave-address-book/GovernanceV3BNB.sol';
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 
@@ -28,6 +29,13 @@ contract AaveV3Bnb_AaveV3BNBActivation_20231122_Test is ProtocolV3TestBase {
    */
   function test_defaultProposalExecution() public {
     defaultTest('AaveV3Bnb_AaveV3BNBActivation_20231122', AaveV3Bnb.POOL, address(proposal), true);
+  }
+
+  function test_AdminPermissions() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+    assertTrue(AaveV3Bnb.ACL_MANAGER.isRiskAdmin(AaveV3Bnb.CAPS_PLUS_RISK_STEWARD));
+    assertTrue(AaveV3Bnb.ACL_MANAGER.isRiskAdmin(AaveV3Bnb.FREEZING_STEWARD));
+    assertTrue(AaveV3Bnb.ACL_MANAGER.isPoolAdmin(MiscBNB.PROTOCOL_GUARDIAN));
   }
 
   function test_collectorHasCakeFunds() public {

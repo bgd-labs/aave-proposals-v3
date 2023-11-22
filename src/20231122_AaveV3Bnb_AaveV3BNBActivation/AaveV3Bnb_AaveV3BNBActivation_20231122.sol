@@ -2,6 +2,7 @@
 pragma solidity ^0.8.0;
 
 import {AaveV3Bnb} from 'aave-address-book/AaveV3Bnb.sol';
+import {MiscBNB} from 'aave-address-book/MiscBNB.sol';
 import {AaveV3PayloadBnb} from 'aave-helpers/v3-config-engine/AaveV3PayloadBnb.sol';
 import {EngineFlags} from 'aave-helpers/v3-config-engine/EngineFlags.sol';
 import {IPool} from 'aave-address-book/AaveV3.sol';
@@ -20,19 +21,23 @@ contract AaveV3Bnb_AaveV3BNBActivation_20231122 is AaveV3PayloadBnb {
   using SafeERC20 for IERC20;
 
   address public constant Cake = 0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82;
-  uint256 public constant Cake_SEED_AMOUNT = 1e18;
+  uint256 public constant Cake_SEED_AMOUNT = 1e18; // 1 cake - 2.5$
   address public constant WBNB = 0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c;
-  uint256 public constant WBNB_SEED_AMOUNT = 1e18;
+  uint256 public constant WBNB_SEED_AMOUNT = 1e18; // 0.05 wbnb - 10$
   address public constant BTCB = 0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c;
-  uint256 public constant BTCB_SEED_AMOUNT = 1e18;
+  uint256 public constant BTCB_SEED_AMOUNT = 1e18; // 0.0005 btc - 20$
   address public constant ETH = 0x2170Ed0880ac9A755fd29B2688956BD959F933F8;
-  uint256 public constant ETH_SEED_AMOUNT = 1e18;
+  uint256 public constant ETH_SEED_AMOUNT = 1e18; // 0.01 eth - 20$
   address public constant USDC = 0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d;
-  uint256 public constant USDC_SEED_AMOUNT = 1e18;
+  uint256 public constant USDC_SEED_AMOUNT = 1e18; // 5 usdt
   address public constant USDT = 0x55d398326f99059fF775485246999027B3197955;
-  uint256 public constant USDT_SEED_AMOUNT = 1e18;
+  uint256 public constant USDT_SEED_AMOUNT = 1e18; // 5 usdt
 
   function _postExecute() internal override {
+    AaveV3Bnb.ACL_MANAGER.addPoolAdmin(MiscBNB.PROTOCOL_GUARDIAN);
+    AaveV3Bnb.ACL_MANAGER.addRiskAdmin(AaveV3Bnb.FREEZING_STEWARD);
+    AaveV3Bnb.ACL_MANAGER.addRiskAdmin(AaveV3Bnb.CAPS_PLUS_RISK_STEWARD);
+
     _supply(AaveV3Bnb.POOL, Cake, Cake_SEED_AMOUNT, address(AaveV3Bnb.COLLECTOR));
     _supply(AaveV3Bnb.POOL, WBNB, WBNB_SEED_AMOUNT, address(AaveV3Bnb.COLLECTOR));
     _supply(AaveV3Bnb.POOL, BTCB, BTCB_SEED_AMOUNT, address(AaveV3Bnb.COLLECTOR));
