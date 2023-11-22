@@ -105,11 +105,11 @@ contract AaveV3Ethereum_AmendSafetyModuleAAVEEmissions_20231104_Test is Protocol
     */
     assertEq(
       IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING).allowance(ECOSYSTEM_RESERVE, STKAAVE),
-      CYCLE_EMISSIONS * 2
+      CYCLE_EMISSIONS * 4
     );
     assertEq(
       IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING).allowance(ECOSYSTEM_RESERVE, STKABPT),
-      CYCLE_EMISSIONS * 2
+      CYCLE_EMISSIONS * 4
     );
   }
 }

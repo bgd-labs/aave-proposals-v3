@@ -99,14 +99,14 @@ contract AaveV3Ethereum_AmendSafetyModuleAAVEEmissions_20231104 is IProposalGene
       ECOSYSTEM_RESERVE,
       AaveV3EthereumAssets.AAVE_UNDERLYING,
       STKAAVE,
-      CYCLE_EMISSIONS * 2 // account for pending unclaimerd emission
+      CYCLE_EMISSIONS * 4 // account for pending unclaimerd emission
     );
 
     ECOSYSTEM_RESERVE_CONTROLLER.approve(
       ECOSYSTEM_RESERVE,
       AaveV3EthereumAssets.AAVE_UNDERLYING,
       STKABPT,
-      CYCLE_EMISSIONS * 2 // account for pending unclaimerd emission
+      CYCLE_EMISSIONS * 4 // account for pending unclaimerd emission
     );
   }
 }
