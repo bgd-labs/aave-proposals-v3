@@ -18,10 +18,8 @@ contract AaveV3Bnb_AaveV3BNBActivation_20231122_Test is ProtocolV3TestBase {
   AaveV3Bnb_AaveV3BNBActivation_20231122 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('bnb'), 33713775);
+    vm.createSelectFork(vm.rpcUrl('bnb'), 33721679);
     proposal = new AaveV3Bnb_AaveV3BNBActivation_20231122();
-
-    _fundExecutorWithAssetsToList();
   }
 
   /**
@@ -43,7 +41,7 @@ contract AaveV3Bnb_AaveV3BNBActivation_20231122_Test is ProtocolV3TestBase {
     (address aTokenAddress, , ) = AaveV3Bnb.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(
       proposal.CAKE()
     );
-    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Bnb.COLLECTOR)), 10 ** 18);
+    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Bnb.COLLECTOR)), proposal.CAKE_SEED_AMOUNT());
   }
 
   function test_collectorHasWBNBFunds() public {
@@ -51,7 +49,7 @@ contract AaveV3Bnb_AaveV3BNBActivation_20231122_Test is ProtocolV3TestBase {
     (address aTokenAddress, , ) = AaveV3Bnb.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(
       proposal.WBNB()
     );
-    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Bnb.COLLECTOR)), 10 ** 18);
+    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Bnb.COLLECTOR)), proposal.WBNB_SEED_AMOUNT());
   }
 
   function test_collectorHasBTCBFunds() public {
@@ -59,7 +57,7 @@ contract AaveV3Bnb_AaveV3BNBActivation_20231122_Test is ProtocolV3TestBase {
     (address aTokenAddress, , ) = AaveV3Bnb.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(
       proposal.BTCB()
     );
-    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Bnb.COLLECTOR)), 10 ** 18);
+    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Bnb.COLLECTOR)), proposal.BTCB_SEED_AMOUNT());
   }
 
   function test_collectorHasETHFunds() public {
@@ -67,7 +65,7 @@ contract AaveV3Bnb_AaveV3BNBActivation_20231122_Test is ProtocolV3TestBase {
     (address aTokenAddress, , ) = AaveV3Bnb.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(
       proposal.ETH()
     );
-    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Bnb.COLLECTOR)), 10 ** 18);
+    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Bnb.COLLECTOR)), proposal.ETH_SEED_AMOUNT());
   }
 
   function test_collectorHasUSDCFunds() public {
@@ -75,7 +73,7 @@ contract AaveV3Bnb_AaveV3BNBActivation_20231122_Test is ProtocolV3TestBase {
     (address aTokenAddress, , ) = AaveV3Bnb.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(
       proposal.USDC()
     );
-    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Bnb.COLLECTOR)), 10 ** 18);
+    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Bnb.COLLECTOR)), proposal.USDC_SEED_AMOUNT());
   }
 
   function test_collectorHasUSDTFunds() public {
@@ -83,16 +81,6 @@ contract AaveV3Bnb_AaveV3BNBActivation_20231122_Test is ProtocolV3TestBase {
     (address aTokenAddress, , ) = AaveV3Bnb.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(
       proposal.USDT()
     );
-    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Bnb.COLLECTOR)), 10 ** 18);
-  }
-
-  function _fundExecutorWithAssetsToList() internal {
-    deal2(proposal.CAKE(), GovernanceV3BNB.EXECUTOR_LVL_1, proposal.CAKE_SEED_AMOUNT());
-    deal2(proposal.WBNB(), GovernanceV3BNB.EXECUTOR_LVL_1, proposal.WBNB_SEED_AMOUNT());
-    deal2(proposal.BTCB(), GovernanceV3BNB.EXECUTOR_LVL_1, proposal.BTCB_SEED_AMOUNT());
-    deal2(proposal.ETH(), GovernanceV3BNB.EXECUTOR_LVL_1, proposal.ETH_SEED_AMOUNT());
-    deal2(proposal.USDC(), GovernanceV3BNB.EXECUTOR_LVL_1, proposal.USDC_SEED_AMOUNT());
-    deal2(proposal.USDT(), GovernanceV3BNB.EXECUTOR_LVL_1, proposal.USDT_SEED_AMOUNT());
-    vm.stopPrank();
+    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Bnb.COLLECTOR)), proposal.USDT_SEED_AMOUNT());
   }
 }

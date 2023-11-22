@@ -21,17 +21,17 @@ contract AaveV3Bnb_AaveV3BNBActivation_20231122 is AaveV3PayloadBnb {
   using SafeERC20 for IERC20;
 
   address public constant CAKE = 0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82;
-  uint256 public constant CAKE_SEED_AMOUNT = 1e18; // 1 cake - 2.5$
+  uint256 public constant CAKE_SEED_AMOUNT = 1e18;
   address public constant WBNB = 0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c;
-  uint256 public constant WBNB_SEED_AMOUNT = 1e18; // 0.05 wbnb - 10$
+  uint256 public constant WBNB_SEED_AMOUNT = 0.05e18;
   address public constant BTCB = 0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c;
-  uint256 public constant BTCB_SEED_AMOUNT = 1e18; // 0.0005 btc - 20$
+  uint256 public constant BTCB_SEED_AMOUNT = 0.0005e18;
   address public constant ETH = 0x2170Ed0880ac9A755fd29B2688956BD959F933F8;
-  uint256 public constant ETH_SEED_AMOUNT = 1e18; // 0.01 eth - 20$
+  uint256 public constant ETH_SEED_AMOUNT = 0.01e18;
   address public constant USDC = 0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d;
-  uint256 public constant USDC_SEED_AMOUNT = 1e18; // 5 usdt
+  uint256 public constant USDC_SEED_AMOUNT = 5e18;
   address public constant USDT = 0x55d398326f99059fF775485246999027B3197955;
-  uint256 public constant USDT_SEED_AMOUNT = 1e18; // 5 usdt
+  uint256 public constant USDT_SEED_AMOUNT = 5e18;
 
   function _postExecute() internal override {
     AaveV3Bnb.ACL_MANAGER.addPoolAdmin(MiscBNB.PROTOCOL_GUARDIAN);
