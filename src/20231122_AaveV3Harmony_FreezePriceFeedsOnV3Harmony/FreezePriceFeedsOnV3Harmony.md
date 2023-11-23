@@ -23,8 +23,8 @@ For each asset on the pool, call `PoolConfigurator.setReserveInterestRateStrateg
 
 ## References
 
-- Implementation: [AaveV3Harmony](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231122_AaveV3Harmony_FreezePriceFeedsOnV3Harmony/AaveV3Harmony_FreezePriceFeedsOnV3Harmony_20231122.sol)
-- Tests: [AaveV3Harmony](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231122_AaveV3Harmony_FreezePriceFeedsOnV3Harmony/AaveV3Harmony_FreezePriceFeedsOnV3Harmony_20231122.t.sol)
+- Implementation: [AaveV3Harmony](https://github.com/bgd-labs/aave-proposals-v3/blob/a586fef4b2505f1a38d6eb9a9e68d3fd9f9d0465/src/20231122_AaveV3Harmony_FreezePriceFeedsOnV3Harmony/AaveV3Harmony_FreezePriceFeedsOnV3Harmony_20231122.sol)
+- Tests: [AaveV3Harmony](https://github.com/bgd-labs/aave-proposals-v3/blob/a586fef4b2505f1a38d6eb9a9e68d3fd9f9d0465/src/20231122_AaveV3Harmony_FreezePriceFeedsOnV3Harmony/AaveV3Harmony_FreezePriceFeedsOnV3Harmony_20231122.t.sol)
 - [Discussion](https://governance.aave.com/t/bgd-technical-maintenance-proposals/15274/6)
 
 ## Copyright
