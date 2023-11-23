@@ -31,8 +31,8 @@ contract AaveV3Harmony_FreezePriceFeedsOnV3Harmony_20231122_Test is ProtocolV3Te
   AaveV3Harmony_FreezePriceFeedsOnV3Harmony_20231122 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('harmony'), 50042078);
-    proposal = new AaveV3Harmony_FreezePriceFeedsOnV3Harmony_20231122();
+    vm.createSelectFork(vm.rpcUrl('harmony'), 50079189);
+    proposal = new AaveV3Harmony_FreezePriceFeedsOnV3Harmony_20231122(HARMONY_GUARDIAN);
 
     assetPrices[AaveV3HarmonyAssets.ONE_DAI_UNDERLYING] = 99997072;
     assetPrices[AaveV3HarmonyAssets.ONE_USDC_UNDERLYING] = 99993136;
@@ -53,11 +53,18 @@ contract AaveV3Harmony_FreezePriceFeedsOnV3Harmony_20231122_Test is ProtocolV3Te
       AaveV3Harmony.POOL
     );
 
-    GovHelpers.executePayload(vm, address(proposal), HARMONY_GUARDIAN);
+    vm.startPrank(HARMONY_GUARDIAN);
+
+    AaveV3Harmony.ACL_MANAGER.addPoolAdmin(address(proposal));
+    proposal.execute();
+
+    vm.stopPrank();
+
     // check price adapters
     for (uint256 i = 0; i < assets.length; i++) {
       assertEq(AaveV3Harmony.ORACLE.getAssetPrice(assets[i]), assetPrices[assets[i]]);
     }
+
     string memory afterString = string(
       abi.encodePacked('AaveV3Harmony_FreezePriceFeedsOnV3Harmony_20231122', '_after')
     );
@@ -65,6 +72,7 @@ contract AaveV3Harmony_FreezePriceFeedsOnV3Harmony_20231122_Test is ProtocolV3Te
       afterString,
       AaveV3Harmony.POOL
     );
+
     // check interest rate strategy
     for (uint256 i = 0; i < assets.length; i++) {
       _validateInterestRateStrategy(

@@ -4,16 +4,29 @@ pragma solidity ^0.8.0;
 import {AaveV3Harmony, AaveV3HarmonyAssets} from 'aave-address-book/AaveV3Harmony.sol';
 
 import {IProposalGenericExecutor} from 'aave-helpers/interfaces/IProposalGenericExecutor.sol';
+import {StewardBase} from './StewardBase.sol';
 
 /**
  * @title Freeze price feeds on v3 Harmony
  * @author BGD Labs (@bgdlabs)
  * - Discussion: https://governance.aave.com/t/bgd-technical-maintenance-proposals/15274/6
  */
-contract AaveV3Harmony_FreezePriceFeedsOnV3Harmony_20231122 is IProposalGenericExecutor {
+contract AaveV3Harmony_FreezePriceFeedsOnV3Harmony_20231122 is
+  StewardBase,
+  IProposalGenericExecutor
+{
   address public constant ZERO_IR_STRATEGY = 0x230E0321Cf38F09e247e50Afc7801EA2351fe56F;
 
-  function execute() external {
+  constructor(address newOwner) {
+    _transferOwnership(newOwner);
+  }
+
+  function execute()
+    external
+    withRennounceOfAllAavePermissions(AaveV3Harmony.ACL_MANAGER)
+    withOwnershipBurning
+    onlyOwner
+  {
     address[] memory assets = new address[](8);
     assets[0] = AaveV3HarmonyAssets.ONE_DAI_UNDERLYING;
     assets[1] = AaveV3HarmonyAssets.ONE_USDC_UNDERLYING;

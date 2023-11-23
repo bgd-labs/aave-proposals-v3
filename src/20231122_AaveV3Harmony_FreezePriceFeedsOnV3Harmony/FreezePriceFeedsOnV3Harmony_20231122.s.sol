@@ -10,9 +10,12 @@ import {AaveV3Harmony_FreezePriceFeedsOnV3Harmony_20231122} from './AaveV3Harmon
  * command: make deploy-ledger contract=src/20231122_AaveV3Harmony_FreezePriceFeedsOnV3Harmony/FreezePriceFeedsOnV3Harmony_20231122.s.sol:DeployHarmony chain=harmony
  */
 contract DeployHarmony is HarmonyScript {
+  address public constant HARMONY_GUARDIAN = 0xb2f0C5f37f4beD2cB51C44653cD5D84866BDcd2D;
+
   function run() external broadcast {
-    // deploy payloads
-    AaveV3Harmony_FreezePriceFeedsOnV3Harmony_20231122 payload0 = new AaveV3Harmony_FreezePriceFeedsOnV3Harmony_20231122();
+    AaveV3Harmony_FreezePriceFeedsOnV3Harmony_20231122 payload0 = new AaveV3Harmony_FreezePriceFeedsOnV3Harmony_20231122(
+        HARMONY_GUARDIAN
+      );
   }
 }
 
