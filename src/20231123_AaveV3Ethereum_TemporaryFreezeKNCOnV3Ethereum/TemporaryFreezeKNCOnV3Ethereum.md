@@ -10,23 +10,11 @@ A proposal to freeze KNC on Aave V3 Ethereum market.
 
 ## Motivation
 
-On November 22, the KyberSwap DEX experienced a significant security breach, resulting in a loss of nearly $50M in various assets. This incident led the Kyber Network team to advise its users to withdraw their funds as a precaution. Following the hack, KyberSwap's TVL plummeted by 68%, dropping from its peak of $134M in 2023 to $27M. Additionally, the price of the KNC token briefly fell by 7% upon the news breaking but later stabilized and is now trading at ~$0.71
+As a precautionary measure, and to protect the protocol from unexpected behaviors and developments stemming from the recent KyberSwap DEX exploit, Chaos Labs recommends a temporary freeze of the KNC reserve on Aave V3 Ethereum.
 
-### **Aave Protocol Specifics**
+The full analysis can be found in the governance forum post here - https://governance.aave.com/t/arfc-temporary-freeze-knc-on-v3-ethereum/15654
 
-- **KNC on Aave V3 Ethereum:** KNC is currently listed as a collateral asset in isolation mode, with a $1M debt ceiling.
-- **Supply Cap:** The supply cap for KNC is set at 1.2M (~$850,000).
-- **Borrow Cap:** The borrow cap for KNC is set at 650K (~$460,000).
-- **Current State:** As of the time of this post, ~$75,000 worth of KNC has been supplied to the protocol and ~$65,000 has been borrowed. No assets are currently being borrowed against KNC
-
-### **Post-Exploit Developments**
-
-- **Increased Borrowing Activity:** A notable spike in KNC borrowing was observed following the exploit announcement. A specific [account](https://community.chaoslabs.xyz/aave/risk/wallets/0x473d3a2005499301dc353afa9d0c9c5980b5188c) borrowed 50,000 KNC, bringing the asset utilization to over 90% and the borrow APY to over 1,000%.
-
-### Conclusion
-
-- **Minimal Exposure:** Despite the significant exploit in the Kyber Network, it is important to highlight that the exposure of Aave Protocol to KNC remains minimal.
-- **Effective Protocol Mechanisms and Parmeter Settings:** Given the current parameters settings on the protocol, alongside the current usage of the protocol, we do not foresee significant risk to the protocol.
+It is important to note that given the current parameter settings on the protocol, alongside the current usage of the protocol, we do not foresee significant risk to the protocol.
 
 ## Specification
 
