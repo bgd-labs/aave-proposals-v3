@@ -21,20 +21,20 @@ However, with the emergence of new service provider proposal expected, the DAO n
 - Deposit 1M units of DAI from treasury (Aave V3 Ethereum Collector) into Aave v3 Ethereum
 - Migrate all aDAI from Aave v2 Ethereum to Aave v3 Ethereum
 
-- Redeem from Aave v2 Polygon 1.7M USDC and bridge to Ethereum treasury
-- Redeem from Aave v2 Polygon 0.5M DAI and bridge to Ethereum treasury
-- Redeem from Aave v2 Polygon 0.75M USDT and bridge to Ethereum treasury
+- Redeem 1.7M USDC from Aave v2 Polygon and bridge to Ethereum treasury
+- Redeem 0.5M from Aave v2 Polygon DAI and bridge to Ethereum treasury
+- Redeem 0.75M from Aave v2 Polygon USDT and bridge to Ethereum treasury
 
 Swap the following asset holdings to GHO on Ethereum mainnet:
 
-- All available aTUSD that can be redeemed (57,373.85 units at time of writing)
+- All available aTUSD that can be redeemed (~175,000 units at time of writing)
 - 500k units of DAI held in treasury (received from previous Polygon bridge)
-- All available aBUSD (~42,500 units at time of writing)
+- All available aBUSD (~72,000 units at time of writing)
 
 Swap the following asset holdings on Ethereum treasury to USDC (there is no GHO / ETH oracle thus these tokens cannot be swapped to GHO directly, they are Aave v2 Assets with no Aave v3 equivalent oracle):
 
-- All GUSD (18,464.03 units at time of writing)
-- All UST (893,257.63 units at time of writing)
+- All GUSD (18,464.03)
+- All UST (893,257.63)
 
 ## References
 
