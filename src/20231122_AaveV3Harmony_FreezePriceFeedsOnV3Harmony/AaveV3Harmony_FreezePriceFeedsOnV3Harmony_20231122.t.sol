@@ -2,6 +2,7 @@
 pragma solidity ^0.8.0;
 
 import {AaveV3Harmony, AaveV3HarmonyAssets} from 'aave-address-book/AaveV3Harmony.sol';
+import {IAaveEcosystemReserveController} from 'aave-address-book/common/IAaveEcosystemReserveController.sol';
 
 import 'forge-std/Test.sol';
 import {GovHelpers} from 'aave-helpers/GovHelpers.sol';
@@ -14,6 +15,7 @@ import {AaveV3Harmony_FreezePriceFeedsOnV3Harmony_20231122} from './AaveV3Harmon
  */
 contract AaveV3Harmony_FreezePriceFeedsOnV3Harmony_20231122_Test is ProtocolV3TestBase {
   address public constant HARMONY_GUARDIAN = 0xb2f0C5f37f4beD2cB51C44653cD5D84866BDcd2D;
+  address public constant COLLECTOR_CONTROLLER = 0xeaC16519923774Fd7723d3D5E442a1e2E46BA962;
 
   mapping(address => uint256) public assetPrices;
 
@@ -31,7 +33,7 @@ contract AaveV3Harmony_FreezePriceFeedsOnV3Harmony_20231122_Test is ProtocolV3Te
   AaveV3Harmony_FreezePriceFeedsOnV3Harmony_20231122 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('harmony'), 50079189);
+    vm.createSelectFork(vm.rpcUrl('harmony'), 50089892);
     proposal = new AaveV3Harmony_FreezePriceFeedsOnV3Harmony_20231122(HARMONY_GUARDIAN);
 
     assetPrices[AaveV3HarmonyAssets.ONE_DAI_UNDERLYING] = 99997072;
@@ -57,6 +59,17 @@ contract AaveV3Harmony_FreezePriceFeedsOnV3Harmony_20231122_Test is ProtocolV3Te
 
     AaveV3Harmony.ACL_MANAGER.addPoolAdmin(address(proposal));
     proposal.execute();
+
+    vm.stopPrank();
+
+    // withdraw is possible
+    vm.startPrank(address(AaveV3Harmony.COLLECTOR));
+
+    AaveV3Harmony.POOL.withdraw(
+      AaveV3HarmonyAssets.ONE_DAI_UNDERLYING,
+      type(uint256).max,
+      address(this)
+    );
 
     vm.stopPrank();
 
