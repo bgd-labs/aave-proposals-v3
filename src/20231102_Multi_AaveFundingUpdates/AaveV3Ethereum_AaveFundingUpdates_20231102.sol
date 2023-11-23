@@ -30,6 +30,9 @@ contract AaveV3Ethereum_AaveFundingUpdates_20231102 is IProposalGenericExecutor 
   address public constant TUSD_USD_FEED = 0xec746eCF986E2927Abd291a2A1716c940100f8Ba;
   address public constant BUSD_USD_FEED = 0x833D8Eb16D306ed1FbB5D7A2E019e106B960965A;
 
+  // https://etherscan.io/address/0x3f12643D3f6f874d39C2a4c9f2Cd6f2DbAC877FC
+  address public constant GHO_ORACLE = 0x3f12643D3f6f874d39C2a4c9f2Cd6f2DbAC877FC;
+
   function execute() external {
     _migration();
     _swaps();
@@ -53,30 +56,29 @@ contract AaveV3Ethereum_AaveFundingUpdates_20231102 is IProposalGenericExecutor 
       0
     );
 
-    // Migration
-    address[] memory toMigrate = new address[](1);
-    toMigrate[0] = AaveV2EthereumAssets.DAI_UNDERLYING;
-
-    IMigrationHelper.RepaySimpleInput[] memory toRepay = new IMigrationHelper.RepaySimpleInput[](0);
-    IMigrationHelper.PermitInput[] memory permits = new IMigrationHelper.PermitInput[](0);
-    IMigrationHelper.CreditDelegationInput[]
-      memory creditDelegationPermits = new IMigrationHelper.CreditDelegationInput[](0);
-
     // Migrate all aDAI from Aave v2 to v3
-    uint256 amountDAI = IERC20(AaveV2EthereumAssets.DAI_A_TOKEN).balanceOf(
-      address(AaveV3Ethereum.COLLECTOR)
+    AaveV3Ethereum.COLLECTOR.transfer(
+      AaveV2EthereumAssets.DAI_A_TOKEN,
+      address(this),
+      IERC20(AaveV2EthereumAssets.DAI_A_TOKEN).balanceOf(address(AaveV3Ethereum.COLLECTOR))
     );
-    AaveV3Ethereum.COLLECTOR.transfer(AaveV2EthereumAssets.DAI_A_TOKEN, address(this), amountDAI);
-    IERC20(AaveV2EthereumAssets.DAI_A_TOKEN).forceApprove(
-      AaveV2Ethereum.MIGRATION_HELPER,
-      amountDAI
+    AaveV2Ethereum.POOL.withdraw(
+      AaveV2EthereumAssets.DAI_UNDERLYING,
+      type(uint256).max,
+      address(this)
     );
 
-    MIGRATION.migrate(toMigrate, toRepay, permits, creditDelegationPermits);
+    uint256 amountDai = IERC20(AaveV2EthereumAssets.DAI_UNDERLYING).balanceOf(address(this));
+    IERC20(AaveV2EthereumAssets.DAI_UNDERLYING).forceApprove(
+      address(AaveV3Ethereum.POOL),
+      amountDai
+    );
 
-    IERC20(AaveV3EthereumAssets.DAI_A_TOKEN).safeTransfer(
+    AaveV3Ethereum.POOL.deposit(
+      AaveV3EthereumAssets.DAI_UNDERLYING,
+      amountDai,
       address(AaveV3Ethereum.COLLECTOR),
-      IERC20(AaveV3EthereumAssets.DAI_A_TOKEN).balanceOf(address(this))
+      0
     );
   }
 
@@ -93,7 +95,7 @@ contract AaveV3Ethereum_AaveFundingUpdates_20231102 is IProposalGenericExecutor 
       AaveV3EthereumAssets.DAI_UNDERLYING,
       AaveV3EthereumAssets.GHO_UNDERLYING,
       AaveV3EthereumAssets.DAI_ORACLE,
-      AaveV3EthereumAssets.GHO_ORACLE,
+      GHO_ORACLE,
       address(AaveV3Ethereum.COLLECTOR),
       DAI_TO_SWAP,
       100
@@ -138,7 +140,7 @@ contract AaveV3Ethereum_AaveFundingUpdates_20231102 is IProposalGenericExecutor 
       AaveV2EthereumAssets.TUSD_UNDERLYING,
       AaveV3EthereumAssets.GHO_UNDERLYING,
       TUSD_USD_FEED,
-      AaveV3EthereumAssets.GHO_ORACLE,
+      GHO_ORACLE,
       address(AaveV3Ethereum.COLLECTOR),
       IERC20(AaveV2EthereumAssets.TUSD_UNDERLYING).balanceOf(address(SWAPPER)),
       300
@@ -161,7 +163,7 @@ contract AaveV3Ethereum_AaveFundingUpdates_20231102 is IProposalGenericExecutor 
       AaveV2EthereumAssets.BUSD_UNDERLYING,
       AaveV3EthereumAssets.GHO_UNDERLYING,
       BUSD_USD_FEED,
-      AaveV3EthereumAssets.GHO_ORACLE,
+      GHO_ORACLE,
       address(AaveV3Ethereum.COLLECTOR),
       IERC20(AaveV2EthereumAssets.BUSD_UNDERLYING).balanceOf(address(SWAPPER)),
       300
