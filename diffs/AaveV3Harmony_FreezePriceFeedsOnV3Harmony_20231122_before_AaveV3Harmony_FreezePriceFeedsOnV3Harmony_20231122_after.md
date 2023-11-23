@@ -7,7 +7,7 @@
 | description | value before | value after |
 | --- | --- | --- |
 | oracle | 0xD54F119D10901b4509610eA259A63169647800C4 | 0x80f2c02224a2E548FC67c0bF705eBFA825dd5439 |
-| oracleLatestAnswer | 14.43175112 | 14.27072607 |
+| oracleLatestAnswer | 14.438378 | 14.27072607 |
 | interestRateStrategy | 0x145dE30c929a065582da84Cf96F88460dB9745A7 | 0x230E0321Cf38F09e247e50Afc7801EA2351fe56F |
 | optimalUsageRatio | 45 % | 0 % |
 | maxExcessUsageRatio | 55 % | 0 % |
@@ -24,7 +24,7 @@
 | --- | --- | --- |
 | oracle | 0x3C41439Eb1bF3BA3b2C3f8C921088b267f8d11f4 | 0x945fD405773973d286De54E44649cc0d9e264F78 |
 | oracleDescription | BTC / USD | WBTC / USD |
-| oracleLatestAnswer | 37630.03297 | 37192.093 |
+| oracleLatestAnswer | 36999.59 | 37192.093 |
 | interestRateStrategy | 0xb023e699F5a33916Ea823A16485e259257cA8Bd1 | 0x230E0321Cf38F09e247e50Afc7801EA2351fe56F |
 | optimalUsageRatio | 45 % | 0 % |
 | maxExcessUsageRatio | 55 % | 0 % |
@@ -40,7 +40,7 @@
 | description | value before | value after |
 | --- | --- | --- |
 | oracle | 0x5CaAeBE5C69a8287bffB9d00b5231bf7254145bf | 0x05225Cd708bCa9253789C1374e4337a019e99D56 |
-| oracleLatestAnswer | 1.0002526 | 1.0003385 |
+| oracleLatestAnswer | 1.00014 | 1.0003385 |
 | interestRateStrategy | 0xf4a0039F2d4a2EaD5216AbB6Ae4C4C3AA2dB9b82 | 0x230E0321Cf38F09e247e50Afc7801EA2351fe56F |
 | optimalUsageRatio | 90 % | 0 % |
 | maxExcessUsageRatio | 10 % | 0 % |
@@ -58,7 +58,7 @@
 | description | value before | value after |
 | --- | --- | --- |
 | oracle | 0xbaf7C8149D586055ed02c286367A41E0aDA96b7C | 0x7fc3FCb14eF04A48Bb0c12f0c39CD74C249c37d8 |
-| oracleLatestAnswer | 2071.76829 | 2009.87 |
+| oracleLatestAnswer | 2047.567787 | 2009.87 |
 | interestRateStrategy | 0xb023e699F5a33916Ea823A16485e259257cA8Bd1 | 0x230E0321Cf38F09e247e50Afc7801EA2351fe56F |
 | optimalUsageRatio | 45 % | 0 % |
 | maxExcessUsageRatio | 55 % | 0 % |
@@ -74,7 +74,7 @@
 | description | value before | value after |
 | --- | --- | --- |
 | oracle | 0xA45A41be2D8419B60A6CE2Bc393A0B086b8B3bda | 0xA9F30e6ED4098e9439B2ac8aEA2d3fc26BcEbb45 |
-| oracleLatestAnswer | 0.99998994 | 0.99993136 |
+| oracleLatestAnswer | 1.00002502 | 0.99993136 |
 | interestRateStrategy | 0xf4a0039F2d4a2EaD5216AbB6Ae4C4C3AA2dB9b82 | 0x230E0321Cf38F09e247e50Afc7801EA2351fe56F |
 | optimalUsageRatio | 90 % | 0 % |
 | maxExcessUsageRatio | 10 % | 0 % |
@@ -92,7 +92,7 @@
 | description | value before | value after |
 | --- | --- | --- |
 | oracle | 0xF8326D22b2CaFF4880115E92161c324AbC5e0395 | 0x981AB570aC289938F296b975C524B66FBF1B8774 |
-| oracleLatestAnswer | 0.99990808 | 0.99997072 |
+| oracleLatestAnswer | 1.00012 | 0.99997072 |
 | interestRateStrategy | 0xfab05a6aF585da2F96e21452F91E812452996BD3 | 0x230E0321Cf38F09e247e50Afc7801EA2351fe56F |
 | optimalUsageRatio | 80 % | 0 % |
 | maxExcessUsageRatio | 20 % | 0 % |
@@ -110,7 +110,7 @@
 | description | value before | value after |
 | --- | --- | --- |
 | oracle | 0x6EE1EfCCe688D5B79CB8a400870AF471c5282992 | 0xFD858c8bC5ac5e10f01018bC78471bb0DC392247 |
-| oracleLatestAnswer | 95.646 | 89.26779 |
+| oracleLatestAnswer | 96.2437 | 89.26779 |
 | interestRateStrategy | 0xb023e699F5a33916Ea823A16485e259257cA8Bd1 | 0x230E0321Cf38F09e247e50Afc7801EA2351fe56F |
 | optimalUsageRatio | 45 % | 0 % |
 | maxExcessUsageRatio | 55 % | 0 % |
@@ -127,7 +127,7 @@
 | --- | --- | --- |
 | oracle | 0xdCD81FbbD6c4572A69a534D8b8152c562dA8AbEF | 0x3105C276558Dd4cf7E7be71d73Be8D33bD18F211 |
 | oracleDescription | ONE / USD | WONE / USD |
-| oracleLatestAnswer | 0.01299648 | 0.01365605 |
+| oracleLatestAnswer | 0.01284649 | 0.01365605 |
 | interestRateStrategy | 0x145dE30c929a065582da84Cf96F88460dB9745A7 | 0x230E0321Cf38F09e247e50Afc7801EA2351fe56F |
 | optimalUsageRatio | 45 % | 0 % |
 | maxExcessUsageRatio | 55 % | 0 % |
@@ -153,7 +153,7 @@
         "to": "0x80f2c02224a2E548FC67c0bF705eBFA825dd5439"
       },
       "oracleLatestAnswer": {
-        "from": 1443175112,
+        "from": 1443837800,
         "to": 1427072607
       }
     },
@@ -171,7 +171,7 @@
         "to": "WBTC / USD"
       },
       "oracleLatestAnswer": {
-        "from": 3763003297000,
+        "from": 3699959000000,
         "to": 3719209300000
       }
     },
@@ -185,7 +185,7 @@
         "to": "0x05225Cd708bCa9253789C1374e4337a019e99D56"
       },
       "oracleLatestAnswer": {
-        "from": 100025260,
+        "from": 100014000,
         "to": 100033850
       }
     },
@@ -199,7 +199,7 @@
         "to": "0x7fc3FCb14eF04A48Bb0c12f0c39CD74C249c37d8"
       },
       "oracleLatestAnswer": {
-        "from": 207176829000,
+        "from": 204756778700,
         "to": 200987000000
       }
     },
@@ -213,7 +213,7 @@
         "to": "0xA9F30e6ED4098e9439B2ac8aEA2d3fc26BcEbb45"
       },
       "oracleLatestAnswer": {
-        "from": 99998994,
+        "from": 100002502,
         "to": 99993136
       }
     },
@@ -227,7 +227,7 @@
         "to": "0x981AB570aC289938F296b975C524B66FBF1B8774"
       },
       "oracleLatestAnswer": {
-        "from": 99990808,
+        "from": 100012000,
         "to": 99997072
       }
     },
@@ -241,7 +241,7 @@
         "to": "0xFD858c8bC5ac5e10f01018bC78471bb0DC392247"
       },
       "oracleLatestAnswer": {
-        "from": 9564600000,
+        "from": 9624370000,
         "to": 8926779000
       }
     },
@@ -259,7 +259,7 @@
         "to": "WONE / USD"
       },
       "oracleLatestAnswer": {
-        "from": 1299648,
+        "from": 1284649,
         "to": 1365605
       }
     }
