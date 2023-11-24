@@ -6,9 +6,17 @@ discussions: "https://governance.aave.com/t/arfc-gho-bounty-for-integration-issu
 
 ## Simple Summary
 
+This AIP proposes a bounty to a community member of 50,000 GHO for coming forward and reporting an incident.
+
 ## Motivation
 
+Provide a bounty to a community member for helping to detect an incident with GHO.
+
 ## Specification
+
+This proposal encompasses the following actions:
+
+- Transfers 50,000 GHO from collector to the receiver address at 0x7D51910845011B41Cc32806644dA478FEfF2f11F.
 
 ## References
 
