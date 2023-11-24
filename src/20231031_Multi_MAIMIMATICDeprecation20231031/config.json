@@ -1,0 +1,202 @@
+{
+  "rootOptions": {
+    "pools": [
+      "AaveV3Polygon",
+      "AaveV3Avalanche",
+      "AaveV3Optimism",
+      "AaveV3Arbitrum"
+    ],
+    "title": "MAI/MIMATIC deprecation, 2023.10.31",
+    "shortName": "MAIMIMATICDeprecation20231031",
+    "date": "20231031",
+    "author": "Gauntlet",
+    "discussion": "https://governance.aave.com/t/arfc-gauntlet-recommendation-for-mai-mimatic-deprecation/15119",
+    "snapshot": "https://snapshot.org/#/aave.eth/proposal/0x9b7173e3f91ba3cab15dbe2d6d241de2e58b027612c690f00609d6e4fb422748"
+  },
+  "poolOptions": {
+    "AaveV3Polygon": {
+      "configs": {
+        "RATE_UPDATE_V3": [
+          {
+            "asset": "miMATIC",
+            "params": {
+              "optimalUtilizationRate": "_bpsToRay(45_00)",
+              "baseVariableBorrowRate": "EngineFlags.KEEP_CURRENT",
+              "variableRateSlope1": "EngineFlags.KEEP_CURRENT",
+              "variableRateSlope2": "_bpsToRay(300_00)",
+              "stableRateSlope1": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope2": "EngineFlags.KEEP_CURRENT",
+              "baseStableRateOffset": "EngineFlags.KEEP_CURRENT",
+              "stableRateExcessOffset": "EngineFlags.KEEP_CURRENT",
+              "optimalStableToTotalDebtRatio": "EngineFlags.KEEP_CURRENT"
+            }
+          }
+        ],
+        "COLLATERALS_UPDATE": [
+          {
+            "asset": "miMATIC",
+            "ltv": "EngineFlags.KEEP_CURRENT",
+            "liqThreshold": "1_00",
+            "liqBonus": "EngineFlags.KEEP_CURRENT",
+            "debtCeiling": "EngineFlags.KEEP_CURRENT",
+            "liqProtocolFee": "EngineFlags.KEEP_CURRENT"
+          }
+        ],
+        "BORROWS_UPDATE": [
+          {
+            "enabledToBorrow": "EngineFlags.KEEP_CURRENT",
+            "flashloanable": "EngineFlags.KEEP_CURRENT",
+            "stableRateModeEnabled": "EngineFlags.KEEP_CURRENT",
+            "borrowableInIsolation": "EngineFlags.KEEP_CURRENT",
+            "withSiloedBorrowing": "EngineFlags.KEEP_CURRENT",
+            "reserveFactor": "95_00",
+            "asset": "miMATIC"
+          }
+        ]
+      },
+      "features": [
+        "RATE_UPDATE_V3",
+        "COLLATERALS_UPDATE",
+        "BORROWS_UPDATE"
+      ]
+    },
+    "AaveV3Avalanche": {
+      "configs": {
+        "RATE_UPDATE_V3": [
+          {
+            "asset": "MAI",
+            "params": {
+              "optimalUtilizationRate": "_bpsToRay(45_00)",
+              "baseVariableBorrowRate": "EngineFlags.KEEP_CURRENT",
+              "variableRateSlope1": "EngineFlags.KEEP_CURRENT",
+              "variableRateSlope2": "_bpsToRay(300_00)",
+              "stableRateSlope1": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope2": "EngineFlags.KEEP_CURRENT",
+              "baseStableRateOffset": "EngineFlags.KEEP_CURRENT",
+              "stableRateExcessOffset": "EngineFlags.KEEP_CURRENT",
+              "optimalStableToTotalDebtRatio": "EngineFlags.KEEP_CURRENT"
+            }
+          }
+        ],
+        "COLLATERALS_UPDATE": [
+          {
+            "asset": "MAI",
+            "ltv": "0",
+            "liqThreshold": "1_00",
+            "liqBonus": "EngineFlags.KEEP_CURRENT",
+            "debtCeiling": "EngineFlags.KEEP_CURRENT",
+            "liqProtocolFee": "EngineFlags.KEEP_CURRENT"
+          }
+        ],
+        "BORROWS_UPDATE": [
+          {
+            "enabledToBorrow": "EngineFlags.KEEP_CURRENT",
+            "flashloanable": "EngineFlags.KEEP_CURRENT",
+            "stableRateModeEnabled": "EngineFlags.KEEP_CURRENT",
+            "borrowableInIsolation": "EngineFlags.KEEP_CURRENT",
+            "withSiloedBorrowing": "EngineFlags.KEEP_CURRENT",
+            "reserveFactor": "95_00",
+            "asset": "MAI"
+          }
+        ]
+      },
+      "features": [
+        "RATE_UPDATE_V3",
+        "COLLATERALS_UPDATE",
+        "BORROWS_UPDATE"
+      ]
+    },
+    "AaveV3Arbitrum": {
+      "configs": {
+        "RATE_UPDATE_V3": [
+          {
+            "asset": "MAI",
+            "params": {
+              "optimalUtilizationRate": "_bpsToRay(45_00)",
+              "baseVariableBorrowRate": "EngineFlags.KEEP_CURRENT",
+              "variableRateSlope1": "EngineFlags.KEEP_CURRENT",
+              "variableRateSlope2": "_bpsToRay(300_00)",
+              "stableRateSlope1": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope2": "EngineFlags.KEEP_CURRENT",
+              "baseStableRateOffset": "EngineFlags.KEEP_CURRENT",
+              "stableRateExcessOffset": "EngineFlags.KEEP_CURRENT",
+              "optimalStableToTotalDebtRatio": "EngineFlags.KEEP_CURRENT"
+            }
+          }
+        ],
+        "COLLATERALS_UPDATE": [
+          {
+            "asset": "MAI",
+            "ltv": "EngineFlags.KEEP_CURRENT",
+            "liqThreshold": "1_00",
+            "liqBonus": "EngineFlags.KEEP_CURRENT",
+            "debtCeiling": "EngineFlags.KEEP_CURRENT",
+            "liqProtocolFee": "EngineFlags.KEEP_CURRENT"
+          }
+        ],
+        "BORROWS_UPDATE": [
+          {
+            "enabledToBorrow": "EngineFlags.KEEP_CURRENT",
+            "flashloanable": "EngineFlags.KEEP_CURRENT",
+            "stableRateModeEnabled": "EngineFlags.KEEP_CURRENT",
+            "borrowableInIsolation": "EngineFlags.KEEP_CURRENT",
+            "withSiloedBorrowing": "EngineFlags.KEEP_CURRENT",
+            "reserveFactor": "95_00",
+            "asset": "MAI"
+          }
+        ]
+      },
+      "features": [
+        "RATE_UPDATE_V3",
+        "COLLATERALS_UPDATE",
+        "BORROWS_UPDATE"
+      ]
+    },
+    "AaveV3Optimism": {
+      "configs": {
+        "RATE_UPDATE_V3": [
+          {
+            "asset": "MAI",
+            "params": {
+              "optimalUtilizationRate": "_bpsToRay(45_00)",
+              "baseVariableBorrowRate": "EngineFlags.KEEP_CURRENT",
+              "variableRateSlope1": "EngineFlags.KEEP_CURRENT",
+              "variableRateSlope2": "_bpsToRay(300_00)",
+              "stableRateSlope1": "EngineFlags.KEEP_CURRENT",
+              "stableRateSlope2": "EngineFlags.KEEP_CURRENT",
+              "baseStableRateOffset": "EngineFlags.KEEP_CURRENT",
+              "stableRateExcessOffset": "EngineFlags.KEEP_CURRENT",
+              "optimalStableToTotalDebtRatio": "EngineFlags.KEEP_CURRENT"
+            }
+          }
+        ],
+        "COLLATERALS_UPDATE": [
+          {
+            "asset": "MAI",
+            "ltv": "EngineFlags.KEEP_CURRENT",
+            "liqThreshold": "65_00",
+            "liqBonus": "EngineFlags.KEEP_CURRENT",
+            "debtCeiling": "EngineFlags.KEEP_CURRENT",
+            "liqProtocolFee": "EngineFlags.KEEP_CURRENT"
+          }
+        ],
+        "BORROWS_UPDATE": [
+          {
+            "enabledToBorrow": "EngineFlags.KEEP_CURRENT",
+            "flashloanable": "EngineFlags.KEEP_CURRENT",
+            "stableRateModeEnabled": "EngineFlags.KEEP_CURRENT",
+            "borrowableInIsolation": "EngineFlags.KEEP_CURRENT",
+            "withSiloedBorrowing": "EngineFlags.KEEP_CURRENT",
+            "reserveFactor": "95_00",
+            "asset": "MAI"
+          }
+        ]
+      },
+      "features": [
+        "RATE_UPDATE_V3",
+        "COLLATERALS_UPDATE",
+        "BORROWS_UPDATE"
+      ]
+    }
+  }
+}

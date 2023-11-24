@@ -1,0 +1,23 @@
+{
+  "rootOptions": {
+    "pools": [
+      "AaveV2Ethereum"
+    ],
+    "title": " V2 Deprecation Plan, 2023.11.20",
+    "shortName": "V2DeprecationPlan20231120",
+    "date": "20231121",
+    "author": "Gauntlet, Chaos Labs",
+    "discussion": "https://governance.aave.com/t/arfc-v2-ethereum-deprecation-11-20-2023/15628",
+    "snapshot": "Direct to AIP"
+  },
+  "poolOptions": {
+    "AaveV2Ethereum": {
+      "configs": {
+        "OTHERS": {}
+      },
+      "cache": {
+        "blockNumber": 18621717
+      }
+    }
+  }
+}

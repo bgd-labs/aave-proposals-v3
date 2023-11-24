@@ -7,7 +7,12 @@ import {priceFeedsUpdates} from './priceFeedsUpdates';
 
 describe('feature: priceFeedsUpdates', () => {
   it('should return reasonable code', () => {
-    const output = priceFeedsUpdates.build(MOCK_OPTIONS, 'AaveV3Ethereum', priceFeedsUpdateConfig);
+    const output = priceFeedsUpdates.build({
+      options: MOCK_OPTIONS,
+      pool: 'AaveV3Ethereum',
+      cfg: priceFeedsUpdateConfig,
+      cache: {blockNumber: 42},
+    });
     expect(output).toMatchSnapshot();
   });
 
@@ -15,11 +20,16 @@ describe('feature: priceFeedsUpdates', () => {
     const poolConfigs: PoolConfigs = {
       [MOCK_OPTIONS.pools[0]]: {
         pool: MOCK_OPTIONS.pools[0],
-        features: [FEATURE.PRICE_FEEDS_UPDATE],
         artifacts: [
-          priceFeedsUpdates.build(MOCK_OPTIONS, 'AaveV3Ethereum', priceFeedsUpdateConfig),
+          priceFeedsUpdates.build({
+            options: MOCK_OPTIONS,
+            pool: 'AaveV3Ethereum',
+            cfg: priceFeedsUpdateConfig,
+            cache: {blockNumber: 42},
+          }),
         ],
         configs: {[FEATURE.PRICE_FEEDS_UPDATE]: priceFeedsUpdateConfig},
+        cache: {blockNumber: 42},
       },
     };
     const files = await generateFiles(MOCK_OPTIONS, poolConfigs);

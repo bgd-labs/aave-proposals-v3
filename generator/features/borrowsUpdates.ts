@@ -1,11 +1,11 @@
 import {CodeArtifact, ENGINE_FLAGS, FEATURE, FeatureModule} from '../types';
-import {percentInput} from '../prompts';
 import {BorrowUpdate} from './types';
 import {
   assetsSelectPrompt,
   translateAssetToAssetLibUnderlying,
 } from '../prompts/assetsSelectPrompt';
 import {boolPrompt, translateJsBoolToSol} from '../prompts/boolPrompt';
+import {percentPrompt, translateJsPercentToSol} from '../prompts/percentPrompt';
 
 export async function fetchBorrowUpdate<T extends boolean>(required?: T) {
   return {
@@ -32,9 +32,9 @@ export async function fetchBorrowUpdate<T extends boolean>(required?: T) {
       required,
       defaultValue: ENGINE_FLAGS.DISABLED,
     }),
-    reserveFactor: await percentInput({
+    reserveFactor: await percentPrompt({
       message: 'reserve factor',
-      disableKeepCurrent: required,
+      required,
     }),
   };
 }
@@ -45,7 +45,7 @@ export const borrowsUpdates: FeatureModule<BorrowUpdates> = {
   value: FEATURE.BORROWS_UPDATE,
   description:
     'BorrowsUpdates (enabledToBorrow, flashloanable, stableRateModeEnabled, borrowableInIsolation, withSiloedBorrowing, reserveFactor)',
-  async cli(opt, pool) {
+  async cli({pool}) {
     const assets = await assetsSelectPrompt({
       message: 'Select the assets you want to amend',
       pool,
@@ -57,7 +57,7 @@ export const borrowsUpdates: FeatureModule<BorrowUpdates> = {
     }
     return response;
   },
-  build(opt, pool, cfg) {
+  build({pool, cfg}) {
     const response: CodeArtifact = {
       code: {
         fn: [
@@ -75,7 +75,7 @@ export const borrowsUpdates: FeatureModule<BorrowUpdates> = {
                stableRateModeEnabled: ${translateJsBoolToSol(cfg.stableRateModeEnabled)},
                borrowableInIsolation: ${translateJsBoolToSol(cfg.borrowableInIsolation)},
                withSiloedBorrowing: ${translateJsBoolToSol(cfg.withSiloedBorrowing)},
-               reserveFactor: ${cfg.reserveFactor}
+               reserveFactor: ${translateJsPercentToSol(cfg.reserveFactor)}
              });`
             )
             .join('\n')}
