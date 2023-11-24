@@ -31,23 +31,23 @@ The table below illustrates the initial suggested risk parameters for each asset
 
 |  | [CAKE](https://bscscan.com/token/0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82) | [WBNB](https://bscscan.com/token/0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c) | [BTCB](https://bscscan.com/token/0x7130d2a12b9bcbfae4f2634d864a1ee1ce3ead9c) | [ETH](https://bscscan.com/token/0x2170ed0880ac9a755fd29b2688956bd959f933f8) | [USDC](https://bscscan.com/token/0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d) | [USDT](https://bscscan.com/token/0x55d398326f99059ff775485246999027b3197955) |
 | --- | --- | --- | --- | --- | --- | --- |
-| Loan To Value | 55% | 70% | 73% | 80% | 77.5% | 77.5% |
-| Liquidation Threshold | 61% | 75% | 78% | 82.5% | 80% | 80% |
-| Liquidation Bonus | 10% | 10% | 7.5% | 5% | 5% | 5% |
+| Loan To Value | 55% | 70% | 70% | 80% | 77% | 75% |
+| Liquidation Threshold | 61% | 75% | 75% | 82.5% | 80% | 80% |
+| Liquidation Bonus | 10% | 10% | 10% | 10% | 5% | 5% |
 | Reserve Factor | 20% | 20% | 20% | 15% | 10% | 10% |
 | Liquidation Protocol Fee | 10% | 10% | 10% | 10% | 10% | 10% |
-| Supply Cap | 5,000,000 | 100,000 | 500 | 8,000 | 50,000,000 | 50,000,000 |
-| Borrow Cap | 2,750,000 | 55,000 | 275 | 6,400 | 20,000,000 | 20,000,000 |
+| Supply Cap | 5,000,000 | 46,000 | 400 | 8,000 | 50,000,000 | 50,000,000 |
+| Borrow Cap | 1,800,000 | 42,000 | 190 | 6,400 | 20,000,000 | 20,000,000 |
 | uOptimal | 45% | 45% | 45% | 80% | 90% | 90% |
-| Base Variable Borrow Rate | 0% | 0% | 0% | 1% | 0% | 0% |
-| Variable Rate Slope1 | 7% | 7% | 7% | 3.80% | 5% | 5% |
-| Variable Rate Slope 2 | 300% | 300% | 300% | 80% | 60% | 60% |
+| Base Variable Borrow Rate | 0% | 0% | 0% | 0% | 0% | 0% |
+| Variable Rate Slope1 | 7% | 7% | 7% | 3.30% | 5% | 5% |
+| Variable Rate Slope 2 | 300% | 300% | 300% | 80% | 60% | 75% |
 | Stable Rate Slope 1 | 7% | 7% | 7% | 4% | 5% | 5% |
-| Stable Rate Slope 2 | 300% | 300% | 300% | 80% | 60% | 60% |
+| Stable Rate Slope 2 | 300% | 300% | 300% | 80% | 60% | 75% |
 | Base Stable Rate Offset | 2% | 2% | 2% | 2% | 1% | 1% |
 | Stable Rate Excess Offset | 8% | 8% | 8% | 8% | 8% | 8% |
 | Optimal Stable To Total Debt Ratio | 20% | 20% | 20% | 20% | 20% | 20% |
-| Debt Ceiling | $8M | $0 | $0 | $0 | $0 | $0 |
+| Debt Ceiling | $7M | $0 | $0 | $0 | $0 | $0 |
 | Enable Borrow | Yes | Yes | Yes | Yes | Yes | Yes |
 | Isolation Mode | Yes | No | No | No | No | No |
 | Enable Collateral | Yes | Yes | Yes | Yes | Yes | Yes |
