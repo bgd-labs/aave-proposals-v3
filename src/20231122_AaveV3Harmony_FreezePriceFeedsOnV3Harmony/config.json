@@ -1,0 +1,21 @@
+{
+  "rootOptions": {
+    "pools": ["AaveV3Harmony"],
+    "title": "Freeze price feeds on v3 Harmony",
+    "shortName": "FreezePriceFeedsOnV3Harmony",
+    "date": "20231122",
+    "author": "BGD Labs (@bgdlabs)",
+    "discussion": "https://governance.aave.com/t/bgd-technical-maintenance-proposals/15274/6",
+    "snapshot": ""
+  },
+  "poolOptions": {
+    "AaveV3Harmony": {
+      "configs": {
+        "OTHERS": {}
+      },
+      "cache": {
+        "blockNumber": 50038090
+      }
+    }
+  }
+}

@@ -21,11 +21,12 @@ library HelperStructs {
   }
 }
 
-
 interface IAaveDistributionManager {
   function configureAssets(HelperStructs.AssetConfigInput[] calldata assetsConfigInput) external;
-  function STAKED_TOKEN() external returns(address);
-  function totalSupply() external returns(uint256);
+
+  function STAKED_TOKEN() external returns (address);
+
+  function totalSupply() external returns (uint256);
 }
 
 /**
@@ -49,8 +50,8 @@ contract AaveV3Ethereum_AmendSafetyModuleAAVEEmissions_20231104 is IProposalGene
   // Daily emission to seconds; 1 day * 24h * 3600 s = 86400
   uint128 public constant EMISSIONS_PER_SECOND = uint128(DAILY_EMISSIONS / 86400);
 
-  IAaveEcosystemReserveController public constant ECOSYSTEM_RESERVE_CONTROLLER
-    = MiscEthereum.AAVE_ECOSYSTEM_RESERVE_CONTROLLER;
+  IAaveEcosystemReserveController public constant ECOSYSTEM_RESERVE_CONTROLLER =
+    MiscEthereum.AAVE_ECOSYSTEM_RESERVE_CONTROLLER;
 
   function execute() external {
     // stkAave from daily 550 to 385 converted to seconds as required
@@ -78,7 +79,6 @@ contract AaveV3Ethereum_AmendSafetyModuleAAVEEmissions_20231104 is IProposalGene
   }
 
   function _set90DayCycle() internal {
-
     // For requirement of the controller, first we reset allowance
     ECOSYSTEM_RESERVE_CONTROLLER.approve(
       ECOSYSTEM_RESERVE,
@@ -99,15 +99,14 @@ contract AaveV3Ethereum_AmendSafetyModuleAAVEEmissions_20231104 is IProposalGene
       ECOSYSTEM_RESERVE,
       AaveV3EthereumAssets.AAVE_UNDERLYING,
       STKAAVE,
-      CYCLE_EMISSIONS
+      CYCLE_EMISSIONS * 4 // account for pending unclaimed emission
     );
 
     ECOSYSTEM_RESERVE_CONTROLLER.approve(
       ECOSYSTEM_RESERVE,
       AaveV3EthereumAssets.AAVE_UNDERLYING,
       STKABPT,
-      CYCLE_EMISSIONS
+      CYCLE_EMISSIONS * 4 // account for pending unclaimed emission
     );
-
   }
 }
