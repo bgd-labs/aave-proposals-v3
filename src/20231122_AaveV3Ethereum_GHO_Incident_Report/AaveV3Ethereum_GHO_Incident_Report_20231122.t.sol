@@ -23,7 +23,7 @@ contract AaveV3Ethereum_GHO_Incident_Report_20231122_Test is ProtocolV3TestBase 
   uint256 public constant GHO_AMOUNT = 50_000e18;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 18626873);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 18641141);
     proposal = new AaveV3Ethereum_GHO_Incident_Report_20231122();
   }
 
