@@ -77,6 +77,7 @@ export const V3_POOLS = [
   'AaveV3Metis',
   'AaveV3Base',
   'AaveV3Gnosis',
+  'AaveV3Bnb',
 ] as const satisfies readonly (keyof typeof addressBook)[];
 
 export const POOLS = [
