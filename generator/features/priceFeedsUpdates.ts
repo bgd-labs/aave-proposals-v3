@@ -18,7 +18,7 @@ async function fetchPriceFeedUpdate(): Promise<PriceFeedUpdatePartial> {
 export const priceFeedsUpdates: FeatureModule<PriceFeedUpdate[]> = {
   value: FEATURE.PRICE_FEEDS_UPDATE,
   description: 'PriceFeedsUpdates (replacing priceFeeds)',
-  async cli(opt, pool) {
+  async cli({pool}) {
     const response: PriceFeedUpdate[] = [];
     const assets = await assetsSelectPrompt({
       message: 'Select the assets you want to amend',
@@ -30,7 +30,7 @@ export const priceFeedsUpdates: FeatureModule<PriceFeedUpdate[]> = {
     }
     return response;
   },
-  build(opt, pool, cfg) {
+  build({pool, cfg}) {
     const response: CodeArtifact = {
       code: {
         fn: [

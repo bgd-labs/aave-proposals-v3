@@ -1,0 +1,23 @@
+{
+  "rootOptions": {
+    "pools": [
+      "AaveV2Polygon"
+    ],
+    "title": "Reserve Factor Updates - Polygon Aave v2",
+    "shortName": "ReserveFactorUpdatesPolygonAaveV2",
+    "date": "20231103",
+    "author": "TokenLogic",
+    "discussion": "https://governance.aave.com/t/arfc-reserve-factor-updates-polygon-aave-v2/13937/5",
+    "snapshot": "No snapshot for Direct-to-AIP"
+  },
+  "poolOptions": {
+    "AaveV2Polygon": {
+      "configs": {
+        "OTHERS": {}
+      },
+      "features": [
+        "OTHERS"
+      ]
+    }
+  }
+}

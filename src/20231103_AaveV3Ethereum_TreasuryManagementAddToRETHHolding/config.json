@@ -1,0 +1,23 @@
+{
+  "rootOptions": {
+    "pools": [
+      "AaveV3Ethereum"
+    ],
+    "title": "Treasury Management - Add to rETH Holding",
+    "shortName": "TreasuryManagementAddToRETHHolding",
+    "date": "20231103",
+    "author": "TokenLogic",
+    "discussion": "https://governance.aave.com/t/arfc-treasury-management-add-to-reth-holding/15123",
+    "snapshot": "https://snapshot.org/#/aave.eth/proposal/0x80493cdca3b1893e198802cd245e6e3c00f5fcd0b37c09aa41765b17419a71fe"
+  },
+  "poolOptions": {
+    "AaveV3Ethereum": {
+      "configs": {
+        "OTHERS": {}
+      },
+      "features": [
+        "OTHERS"
+      ]
+    }
+  }
+}

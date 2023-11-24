@@ -1,20 +1,20 @@
 import {CodeArtifact, FEATURE, FeatureModule} from '../types';
-import {numberInput} from '../prompts';
 import {CapsUpdate, CapsUpdatePartial} from './types';
 import {
   assetsSelectPrompt,
   translateAssetToAssetLibUnderlying,
 } from '../prompts/assetsSelectPrompt';
+import {numberPrompt, translateJsNumberToSol} from '../prompts/numberPrompt';
 
-export async function fetchCapsUpdate(disableKeepCurrent?: boolean): Promise<CapsUpdatePartial> {
+export async function fetchCapsUpdate(required?: boolean): Promise<CapsUpdatePartial> {
   return {
-    supplyCap: await numberInput({
+    supplyCap: await numberPrompt({
       message: 'New supply cap',
-      disableKeepCurrent,
+      required,
     }),
-    borrowCap: await numberInput({
+    borrowCap: await numberPrompt({
       message: 'New borrow cap',
-      disableKeepCurrent,
+      required,
     }),
   };
 }
@@ -24,7 +24,7 @@ type CapsUpdates = CapsUpdate[];
 export const capsUpdates: FeatureModule<CapsUpdates> = {
   value: FEATURE.CAPS_UPDATE,
   description: 'CapsUpdates (supplyCap, borrowCap)',
-  async cli(opt, pool) {
+  async cli({pool}) {
     console.log(`Fetching information for CapsUpdates on ${pool}`);
     const assets = await assetsSelectPrompt({
       message: 'Select the assets you want to amend',
@@ -38,7 +38,7 @@ export const capsUpdates: FeatureModule<CapsUpdates> = {
     }
     return response;
   },
-  build(opt, pool, cfg) {
+  build({pool, cfg}) {
     const response: CodeArtifact = {
       code: {
         fn: [
@@ -51,8 +51,8 @@ export const capsUpdates: FeatureModule<CapsUpdates> = {
             .map(
               (cfg, ix) => `capsUpdate[${ix}] = IAaveV3ConfigEngine.CapsUpdate({
                asset: ${translateAssetToAssetLibUnderlying(cfg.asset, pool)},
-               supplyCap: ${cfg.supplyCap},
-               borrowCap: ${cfg.borrowCap}
+               supplyCap: ${translateJsNumberToSol(cfg.supplyCap)},
+               borrowCap: ${translateJsNumberToSol(cfg.borrowCap)}
              });`
             )
             .join('\n')}

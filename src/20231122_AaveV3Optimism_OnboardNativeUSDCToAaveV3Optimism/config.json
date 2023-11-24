@@ -1,0 +1,73 @@
+{
+  "rootOptions": {
+    "pools": [
+      "AaveV3Optimism"
+    ],
+    "title": "Onboard Native USDC to Aave V3 Optimism",
+    "shortName": "OnboardNativeUSDCToAaveV3Optimism",
+    "date": "20231122",
+    "author": "@marczeller - Aave Chan Initiative",
+    "discussion": "https://governance.aave.com/t/arfc-onboard-native-usdc-to-aave-v3-optimism-market/15463",
+    "snapshot": "https://snapshot.org/#/aave.eth/proposal/0xf04fdb85e27849310557716d09fb2ed7f84b1a8c4f493088899ad91a2d834fb0"
+  },
+  "poolOptions": {
+    "AaveV3Optimism": {
+      "configs": {
+        "CAPS_UPDATE": [
+          {
+            "asset": "USDC",
+            "supplyCap": "25000000",
+            "borrowCap": "20000000"
+          }
+        ],
+        "BORROWS_UPDATE": [
+          {
+            "enabledToBorrow": "KEEP_CURRENT",
+            "flashloanable": "KEEP_CURRENT",
+            "stableRateModeEnabled": "DISABLED",
+            "borrowableInIsolation": "DISABLED",
+            "withSiloedBorrowing": "DISABLED",
+            "reserveFactor": "20",
+            "asset": "USDC"
+          }
+        ],
+        "ASSET_LISTING": [
+          {
+            "assetSymbol": "USDC",
+            "decimals": 6,
+            "priceFeed": "0x16a9FA2FDa030272Ce99B29CF780dFA30361E0f3",
+            "ltv": "80",
+            "liqThreshold": "85",
+            "liqBonus": "5",
+            "debtCeiling": "0",
+            "liqProtocolFee": "10",
+            "enabledToBorrow": "ENABLED",
+            "flashloanable": "ENABLED",
+            "stableRateModeEnabled": "DISABLED",
+            "borrowableInIsolation": "ENABLED",
+            "withSiloedBorrowing": "DISABLED",
+            "reserveFactor": "10",
+            "supplyCap": "150000000",
+            "borrowCap": "100000000",
+            "rateStrategyParams": {
+              "optimalUtilizationRate": "90",
+              "baseVariableBorrowRate": "0",
+              "variableRateSlope1": "3.5",
+              "variableRateSlope2": "63.5",
+              "stableRateSlope1": "3.5",
+              "stableRateSlope2": "60",
+              "baseStableRateOffset": "20",
+              "stableRateExcessOffset": "80",
+              "optimalStableToTotalDebtRatio": "20"
+            },
+            "eModeCategory": "AaveV3OptimismEModes.NONE",
+            "asset": "0x0b2C639c533813f4Aa9D7837CAf62653d097Ff85"
+          }
+        ]
+      },
+      "cache": {
+        "blockNumber": 112521335
+      }
+    }
+  }
+}

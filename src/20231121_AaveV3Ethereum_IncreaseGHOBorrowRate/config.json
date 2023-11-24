@@ -1,0 +1,38 @@
+{
+  "rootOptions": {
+    "pools": [
+      "AaveV3Ethereum"
+    ],
+    "title": "Increase GHO Borrow Rate",
+    "shortName": "IncreaseGHOBorrowRate",
+    "date": "20231121",
+    "author": "@Marczeller - Aave-Chan Initiative",
+    "discussion": "https://governance.aave.com/t/arfc-increase-gho-borrow-rate-to-5-22-on-aave-v3/15632",
+    "snapshot": "Direct-to-AIP"
+  },
+  "poolOptions": {
+    "AaveV3Ethereum": {
+      "configs": {
+        "RATE_UPDATE_V3": [
+          {
+            "asset": "GHO",
+            "params": {
+              "optimalUtilizationRate": "0",
+              "baseVariableBorrowRate": "5.22",
+              "variableRateSlope1": "0",
+              "variableRateSlope2": "0",
+              "stableRateSlope1": "0",
+              "stableRateSlope2": "0",
+              "baseStableRateOffset": "0",
+              "stableRateExcessOffset": "0",
+              "optimalStableToTotalDebtRatio": "0"
+            }
+          }
+        ]
+      },
+      "cache": {
+        "blockNumber": 18621522
+      }
+    }
+  }
+}

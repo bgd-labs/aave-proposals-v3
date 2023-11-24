@@ -1,0 +1,34 @@
+{
+  "rootOptions": {
+    "pools": [
+      "AaveV3Polygon"
+    ],
+    "title": "Gauntlet Cap Recommendations for Polygon v3",
+    "shortName": "GauntletCapRecommendationsForPolygonV3",
+    "date": "20231120",
+    "author": "Gauntlet",
+    "discussion": "https://governance.aave.com/t/arfc-gauntlet-cap-recommendations-for-polygon-v3-2023-11-03/15327",
+    "snapshot": "https://snapshot.org/#/aave.eth/proposal/0xcab97d0cf0f484f3604f790234ca26b559b6c38c0b33ed1f7821b3d3340c9354"
+  },
+  "poolOptions": {
+    "AaveV3Polygon": {
+      "configs": {
+        "CAPS_UPDATE": [
+          {
+            "asset": "jEUR",
+            "supplyCap": "120000",
+            "borrowCap": "100000"
+          },
+          {
+            "asset": "agEUR",
+            "supplyCap": "300000",
+            "borrowCap": "250000"
+          }
+        ]
+      },
+      "cache": {
+        "blockNumber": 50189285
+      }
+    }
+  }
+}
