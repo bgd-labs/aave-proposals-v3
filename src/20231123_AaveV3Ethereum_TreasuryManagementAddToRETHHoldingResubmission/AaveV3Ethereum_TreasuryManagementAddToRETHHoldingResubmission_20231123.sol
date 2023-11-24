@@ -5,6 +5,7 @@ import {IProposalGenericExecutor} from 'aave-helpers/interfaces/IProposalGeneric
 import {AaveSwapper} from 'aave-helpers/swaps/AaveSwapper.sol';
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
+import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 
 /**
  * @title Treasury Management - Add to rETH Holding (resubmission)
@@ -20,23 +21,11 @@ contract AaveV3Ethereum_TreasuryManagementAddToRETHHoldingResubmission_20231123 
   address public constant MILKMAN = 0x11C76AD590ABDFFCD980afEC9ad951B160F02797;
   address public constant PRICE_CHECKER = 0xe80a1C615F75AFF7Ed8F08c9F21f9d00982D666c;
   address public constant RETH_ORACLE = 0xb031a238940e8051852b156f3efDc462fc34f37B;
-  uint256 public constant WETH_AMOUNT = 1248374229762040079170;
 
   function execute() external {
-    SWAPPER.cancelSwap(
-      MILKMAN,
-      PRICE_CHECKER,
-      AaveV3EthereumAssets.WETH_UNDERLYING,
-      AaveV3EthereumAssets.rETH_UNDERLYING,
-      AaveV3EthereumAssets.WETH_ORACLE,
-      AaveV3EthereumAssets.rETH_ORACLE,
-      COLLECTOR,
-      WETH_AMOUNT,
-      100
-    );
+    uint256 wEthBalance = IERC20(AaveV3EthereumAssets.WETH_UNDERLYING).balanceOf(COLLECTOR);
 
-    // re-transfer wETH to swapper
-    AaveV3Ethereum.COLLECTOR.transfer(AaveV3EthereumAssets.WETH_UNDERLYING, address(SWAPPER), WETH_AMOUNT);
+    AaveV3Ethereum.COLLECTOR.transfer(AaveV3EthereumAssets.WETH_UNDERLYING, address(SWAPPER), wEthBalance);
 
     SWAPPER.swap(
       MILKMAN,
@@ -46,9 +35,8 @@ contract AaveV3Ethereum_TreasuryManagementAddToRETHHoldingResubmission_20231123 
       AaveV3EthereumAssets.WETH_ORACLE,
       RETH_ORACLE,
       COLLECTOR,
-      WETH_AMOUNT,
+      wEthBalance,
       100
     );
-
   }
 }

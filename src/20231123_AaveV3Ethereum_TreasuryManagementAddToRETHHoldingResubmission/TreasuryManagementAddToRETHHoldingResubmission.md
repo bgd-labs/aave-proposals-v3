@@ -6,9 +6,26 @@ discussions: "https://governance.aave.com/t/arfc-treasury-management-add-to-reth
 
 ## Simple Summary
 
+This AIP will convert all wETH held in the DAO’s Ethereum Treasury to rETH.
+
 ## Motivation
 
+This AIP proposes using all available wETH to acquire rETH. The rETH yield, currently at 3.07%, surpasses the ETH deposit yield on Aave v3.
+
+This action will yield two significant advantages for the DAO. First, it will enable the DAO to earn a higher return on its ETH assets, thus improving the value of its holdings. Second, by promoting greater diversity in the nodes supporting the network, this move contributes to the overall health and sustainability of the Ethereum network.
+
+A balance of 100 aEthWETH tokens will be retained in the Treasury. These tokens will serve as a reserve for covering ongoing DAO expenses, including initiatives like the [Quarterly Gas Rebate](https://governance.aave.com/t/arfc-quarterly-gas-rebate-distribution-august-2023/14680), and any other potential expenses that may arise in the future.
+
 ## Specification
+
+The previous attempt of this AIP performed the following:
+
+- Withdraw all awETH to wETH
+- Withdraw all but 100 aEthWETH to wETH
+
+This AIP will perform the following:
+
+- Swap all wETH into RocketPool’s rETH
 
 ## References
 

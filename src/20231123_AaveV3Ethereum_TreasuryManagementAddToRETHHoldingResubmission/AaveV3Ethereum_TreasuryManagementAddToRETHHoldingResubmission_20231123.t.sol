@@ -17,10 +17,16 @@ contract AaveV3Ethereum_TreasuryManagementAddToRETHHoldingResubmission_20231123_
 {
   AaveV3Ethereum_TreasuryManagementAddToRETHHoldingResubmission_20231123 internal proposal;
   address internal collector = address(AaveV3Ethereum.COLLECTOR);
-  address internal swapProxy = 0x29491c1E89dab8F90Af1D25dE6ebf284Ef367291;
+  address internal swapProxy = 0xD1Fe23ADd41021E473f558B6D465c447a89f1759;
 
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('mainnet'), 18636345);
+
+    // collector has no weth, lets give it some
+    vm.deal(collector, 1 ether);
+    vm.prank(collector);
+    payable(AaveV3EthereumAssets.WETH_UNDERLYING).call{value: 1 ether}("");
+
     proposal = new AaveV3Ethereum_TreasuryManagementAddToRETHHoldingResubmission_20231123();
   }
 
@@ -35,7 +41,7 @@ contract AaveV3Ethereum_TreasuryManagementAddToRETHHoldingResubmission_20231123_
     uint256 collectorWethBalanceAfter = IERC20(AaveV3EthereumAssets.WETH_UNDERLYING).balanceOf(collector);
     uint256 swapProxyWethBalanceAfter = IERC20(AaveV3EthereumAssets.WETH_UNDERLYING).balanceOf(swapProxy);
     
-    assertEq(collectorWethBalanceBefore, collectorWethBalanceAfter);
-    assertEq(swapProxyWethBalanceAfter, proposal.WETH_AMOUNT());
+    assertEq(collectorWethBalanceAfter, 0);
+    assertEq(swapProxyWethBalanceAfter, collectorWethBalanceBefore);
   }
 }
