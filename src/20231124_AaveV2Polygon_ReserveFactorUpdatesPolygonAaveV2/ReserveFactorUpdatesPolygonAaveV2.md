@@ -28,7 +28,7 @@ The following parameters are to be updated as follows:
 | wBTC  | 85.00%         |
 | wETH  | 75.00%         |
 | MATIC | 71.00%         |
-| BAL   | 62.00%         |
+| BAL   | 99.00%         |
 
 ## References
 

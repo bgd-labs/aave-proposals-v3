@@ -71,7 +71,7 @@ contract AaveV2Polygon_ReserveFactorUpdatesPolygonAaveV2_20231124_Test is Protoc
     });
     assetChanges[6] = Changes({
       asset: AaveV2PolygonAssets.BAL_UNDERLYING,
-      reserveFactor: 62_00
+      reserveFactor: 99_00
     });
 
     _noReservesConfigsChangesApartFrom(allConfigsBefore, allConfigsAfter, assetsChanged);

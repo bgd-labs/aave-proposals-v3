@@ -41,7 +41,7 @@
 
 | description | value before | value after |
 | --- | --- | --- |
-| reserveFactor | 57 % | 62 % |
+| reserveFactor | 57 % | 99 % |
 
 
 #### USDT ([0xc2132D05D31c914a87C6611C10748AEb04B58e8F](https://polygonscan.com/address/0xc2132D05D31c914a87C6611C10748AEb04B58e8F))
@@ -89,7 +89,7 @@
     "0x9a71012B13CA4d3D0Cdc72A177DF3ef03b0E76A3": {
       "reserveFactor": {
         "from": 5700,
-        "to": 6200
+        "to": 9900
       }
     },
     "0xc2132D05D31c914a87C6611C10748AEb04B58e8F": {
