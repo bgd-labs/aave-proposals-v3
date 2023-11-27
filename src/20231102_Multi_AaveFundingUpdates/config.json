@@ -1,0 +1,31 @@
+{
+  "rootOptions": {
+    "pools": ["AaveV2Ethereum", "AaveV2Polygon", "AaveV3Ethereum"],
+    "title": "Aave Funding Updates",
+    "shortName": "AaveFundingUpdates",
+    "date": "20231102",
+    "author": "TokenLogic",
+    "discussion": "https://governance.aave.com/t/arfc-aave-funding-update/15194",
+    "snapshot": "https://snapshot.org/#/aave.eth/proposal/0x099f88e1728760952be26fcb8fc99b26c29336e6a109820b391751b108399ee5"
+  },
+  "poolOptions": {
+    "AaveV2Ethereum": {
+      "configs": {
+        "OTHERS": {}
+      },
+      "features": ["OTHERS"]
+    },
+    "AaveV2Polygon": {
+      "configs": {
+        "OTHERS": {}
+      },
+      "features": ["OTHERS"]
+    },
+    "AaveV3Ethereum": {
+      "configs": {
+        "OTHERS": {}
+      },
+      "features": ["OTHERS"]
+    }
+  }
+}
