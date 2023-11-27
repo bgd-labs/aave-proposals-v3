@@ -1,12 +1,16 @@
 ---
 title: "Onboarding wstETH to Aave V3 on Base Network"
 author: "Alice Rozengarden (@Rozengarden - Aave-chan initiative)"
-discussions: "https://governance.aave.com/t/arfc-onboarding-wsteth-to-aave-v3-on-base-network/15510/5"
+discussions: "https://governance.aave.com/t/arfc-onboarding-wsteth-to-aave-v3-on-base-network/15510"
 ---
 
 ## Simple Summary
 
+This AIP proposes the onboarding of wstETH (wrapped staked ETH) from Lido to the Aave V3 Base Network to enrich the diversity of the ecosystem's liquid staking assets.
+
 ## Motivation
+
+The onboarding of wstETH will provide Aave users with more options for earning staking rewards on their collateral, reinforcing Aave's position as a diverse and inclusive DeFi protocol.
 
 ## Specification
 
@@ -39,6 +43,8 @@ The table below illustrates the configured risk parameters for **wstETH**
 | Siloed Borrowing                   |                                   DISABLED |
 | Borrowable in Isolation            |                                   DISABLED |
 | Oracle                             | 0xB88BAc61a4Ca37C43a3725912B1f472c9A5bc061 |
+
+- Contract Address: [wstETH - 0xc1CBa3fCea344f92D9239c08C0568f6F2F0ee452](https://basescan.org/address/0xc1cba3fcea344f92d9239c08c0568f6f2f0ee452)
 
 ## References
 
