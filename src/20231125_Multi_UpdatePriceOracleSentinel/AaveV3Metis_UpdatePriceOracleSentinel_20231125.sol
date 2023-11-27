@@ -7,8 +7,6 @@ import {AaveV3Metis} from 'aave-address-book/AaveV3Metis.sol';
 /**
  * @title Update PriceOracleSentinel
  * @author BGD Labs (@bgdlabs)
- * - Snapshot: TODO
- * - Discussion: TODO
  */
 contract AaveV3Metis_UpdatePriceOracleSentinel_20231125 is IProposalGenericExecutor {
   address public constant NEW_PRICE_ORACLE_SENTINEL = 0x2B5EA1604BAbb7B730120950Cb13951f3525828A;
