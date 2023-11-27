@@ -1,13 +1,13 @@
 import {generateContractName, getChainAlias, getPoolChain, isV2Pool} from '../common';
-import {Options, PoolConfig} from '../types';
+import {Options, PoolConfig, PoolIdentifier} from '../types';
 import {prefixWithPragma} from '../utils/constants';
 import {prefixWithImports} from '../utils/importsResolver';
 
-export const testTemplate = (options: Options, poolConfig: PoolConfig) => {
-  const chain = getPoolChain(poolConfig.pool);
-  const contractName = generateContractName(options, poolConfig.pool);
+export const testTemplate = (options: Options, poolConfig: PoolConfig, pool: PoolIdentifier) => {
+  const chain = getPoolChain(pool);
+  const contractName = generateContractName(options, pool);
 
-  const testBase = isV2Pool(poolConfig.pool) ? 'ProtocolV2TestBase' : 'ProtocolV3TestBase';
+  const testBase = isV2Pool(pool) ? 'ProtocolV2TestBase' : 'ProtocolV3TestBase';
 
   const functions = poolConfig.artifacts
     .map((artifact) => artifact.test?.fn)
@@ -36,7 +36,7 @@ contract ${contractName}_Test is ${testBase} {
    * @dev executes the generic test suite including e2e and config snapshots
    */
   function test_defaultProposalExecution() public {
-    defaultTest('${contractName}', ${poolConfig.pool}.POOL, address(proposal));
+    defaultTest('${contractName}', ${pool}.POOL, address(proposal));
   }
 
   ${functions}

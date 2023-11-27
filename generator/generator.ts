@@ -40,9 +40,9 @@ export async function generateFiles(options: Options, poolConfigs: PoolConfigs):
 
   function createPayloadAndTest(options: Options, pool: PoolIdentifier) {
     const contractName = generateContractName(options, pool);
-    const testCode = testTemplate(options, poolConfigs[pool]!);
+    const testCode = testTemplate(options, poolConfigs[pool]!, pool);
     return {
-      payload: prettier.format(proposalTemplate(options, poolConfigs[pool]!), {
+      payload: prettier.format(proposalTemplate(options, poolConfigs[pool]!, pool), {
         ...prettierSolCfg,
         filepath: 'foo.sol',
       }),
