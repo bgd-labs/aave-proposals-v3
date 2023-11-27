@@ -15,7 +15,7 @@ contract AaveV3Metis_UpdatePriceOracleSentinel_20231125_Test is ProtocolV3TestBa
   AaveV3Metis_UpdatePriceOracleSentinel_20231125 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('metis'), 9471772);
+    vm.createSelectFork(vm.rpcUrl('metis'), 9488261);
     proposal = new AaveV3Metis_UpdatePriceOracleSentinel_20231125();
   }
 
