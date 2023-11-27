@@ -32,7 +32,7 @@ export async function generateFiles(options: Options, poolConfigs: PoolConfigs):
       poolOptions: (Object.keys(poolConfigs) as PoolIdentifier[]).reduce((acc, pool) => {
         acc[pool] = {configs: poolConfigs[pool]!.configs, cache: poolConfigs[pool]!.cache};
         return acc;
-      }, {}),
+      }, {} as ConfigFile['poolOptions']),
     } as ConfigFile,
     null,
     2

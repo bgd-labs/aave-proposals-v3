@@ -1,3 +1,4 @@
+import {Context} from '@inquirer/type';
 import {advancedInput} from './advancedInput';
 import {GenericPrompt} from './types';
 
@@ -12,7 +13,7 @@ export function transformNumberToHumanReadable(value: string) {
   return value;
 }
 
-export async function numberPrompt({message, required}: GenericPrompt, opts?) {
+export async function numberPrompt({message, required}: GenericPrompt, opts?: Context) {
   return await advancedInput(
     {
       message,

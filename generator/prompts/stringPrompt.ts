@@ -1,10 +1,11 @@
+import {Context} from '@inquirer/type';
 import {flagAsRequired} from '../common';
 import {advancedInput} from './advancedInput';
 import {GenericPrompt} from './types';
 
 export async function stringPrompt<T extends boolean>(
   {message, defaultValue, required}: GenericPrompt<T>,
-  opts?
+  opts?: Context
 ) {
   return advancedInput(
     {

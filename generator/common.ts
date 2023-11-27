@@ -10,6 +10,8 @@ import {
   base,
   bsc,
   gnosis,
+  fantom,
+  harmonyOne,
 } from 'viem/chains';
 
 export const AVAILABLE_CHAINS = [
@@ -25,6 +27,8 @@ export const AVAILABLE_CHAINS = [
   'Bsc',
   'Gnosis',
 ] as const;
+
+export type Chain = (typeof AVAILABLE_CHAINS)[number];
 
 export function getAssets(pool: PoolIdentifier): string[] {
   const assets = addressBook[pool].ASSETS;
@@ -82,7 +86,7 @@ export function generateContractName(options: Options, pool?: PoolIdentifier) {
   return name;
 }
 
-export function getChainAlias(chain) {
+export function getChainAlias(chain: Chain) {
   return chain === 'Ethereum' ? 'mainnet' : chain.toLowerCase();
 }
 
@@ -105,6 +109,8 @@ export const CHAIN_TO_CHAIN_ID = {
   Base: base.id,
   Bsc: bsc.id,
   Gnosis: gnosis.id,
+  Fantom: fantom.id,
+  Harmony: harmonyOne.id,
 };
 
 export function flagAsRequired(message: string, required?: boolean) {

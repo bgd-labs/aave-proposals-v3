@@ -14,7 +14,7 @@ import {
 describe('prompts', () => {
   describe('numberInput', () => {
     it('handles "yes"', async () => {
-      const {answer, events, getScreen} = await render(numberPrompt, {
+      const {answer, events, getScreen} = await render(numberPrompt as any, {
         message: 'Enter number?',
       });
 
@@ -30,7 +30,7 @@ describe('prompts', () => {
 
   describe('percentInput', () => {
     it('handles "yes"', async () => {
-      const {answer, events, getScreen} = await render(percentPrompt, {
+      const {answer, events, getScreen} = await render(percentPrompt as any, {
         message: 'Enter number?',
       });
 

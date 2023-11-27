@@ -2,10 +2,11 @@ import {Hex, getAddress, isAddress} from 'viem';
 import {GenericPrompt} from './types';
 import {advancedInput} from './advancedInput';
 import {flagAsRequired} from '../common';
+import {Context} from '@inquirer/type';
 
 export async function addressPrompt<T extends boolean>(
   {message, required}: GenericPrompt<T>,
-  opts?
+  opts?: Context
 ): Promise<T extends true ? Hex : Hex | ''> {
   const value = await advancedInput(
     {

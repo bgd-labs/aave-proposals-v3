@@ -1,5 +1,11 @@
-import {generateContractName, generateFolderName, getChainAlias, getPoolChain} from '../common';
-import {Options} from '../types';
+import {
+  Chain,
+  generateContractName,
+  generateFolderName,
+  getChainAlias,
+  getPoolChain,
+} from '../common';
+import {Options, PoolIdentifier} from '../types';
 import {prefixWithImports} from '../utils/importsResolver';
 import {prefixWithPragma} from '../utils/constants';
 
@@ -25,12 +31,12 @@ export function generateScript(options: Options) {
     const chain = getPoolChain(pool);
     const contractName = generateContractName(options, pool);
     if (!acc[chain]) acc[chain] = [];
-    acc[chain].push({contractName, pool});
+    acc[chain]!.push({contractName, pool});
     return acc;
-  }, {});
+  }, {} as Partial<Record<Chain, {contractName: string; pool: PoolIdentifier}[]>>);
 
   // generate chain scripts
-  template += Object.keys(poolsToChainsMap)
+  template += (Object.keys(poolsToChainsMap) as Chain[])
     .map((chain) => {
       return `/**
     * @dev Deploy ${chain}
@@ -41,20 +47,18 @@ export function generateScript(options: Options) {
    contract Deploy${chain} is ${chain}Script {
      function run() external broadcast {
        // deploy payloads
-       ${poolsToChainsMap[chain]
-         .map(({contractName, pool}, ix) => `${contractName} payload${ix} = new ${contractName}();`)
-         .join('\n')}
+       ${poolsToChainsMap[chain]!.map(
+         ({contractName, pool}, ix) => `${contractName} payload${ix} = new ${contractName}();`
+       ).join('\n')}
 
        // compose action
        IPayloadsControllerCore.ExecutionAction[] memory actions = new IPayloadsControllerCore.ExecutionAction[](${
-         poolsToChainsMap[chain].length
+         poolsToChainsMap[chain]!.length
        });
-       ${poolsToChainsMap[chain]
-         .map(
-           ({contractName, pool}, ix) =>
-             `actions[${ix}] = GovV3Helpers.buildAction(address(payload${ix}));`
-         )
-         .join('\n')}
+       ${poolsToChainsMap[chain]!.map(
+         ({contractName, pool}, ix) =>
+           `actions[${ix}] = GovV3Helpers.buildAction(address(payload${ix}));`
+       ).join('\n')}
 
        // register action at payloadsController
        GovV3Helpers.createPayload(actions);
@@ -79,12 +83,12 @@ contract CreateProposal is EthereumScript {
     // compose actions for validation
     ${Object.keys(poolsToChainsMap)
       .map((chain, ix) => {
-        let template = `IPayloadsControllerCore.ExecutionAction[] memory actions${chain} = new IPayloadsControllerCore.ExecutionAction[](${poolsToChainsMap[chain].length});\n`;
-        template += poolsToChainsMap[chain]
-          .map(({contractName, pool}, ix) => {
-            return `actions${chain}[${ix}] = GovV3Helpers.buildAction(address(0));`;
-          })
-          .join('\n');
+        let template = `IPayloadsControllerCore.ExecutionAction[] memory actions${chain} = new IPayloadsControllerCore.ExecutionAction[](${
+          poolsToChainsMap[chain as Chain]!.length
+        });\n`;
+        template += poolsToChainsMap[chain as Chain]!.map(({contractName, pool}, ix) => {
+          return `actions${chain}[${ix}] = GovV3Helpers.buildAction(address(0));`;
+        }).join('\n');
         template += `payloads[${ix}] = GovV3Helpers.build${
           chain == 'Ethereum' ? 'Mainnet' : chain
         }Payload(vm, actions${chain});\n`;

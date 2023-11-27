@@ -88,7 +88,7 @@ if (options.configFile) {
         module.build({
           options,
           pool,
-          cfg: poolConfigs[pool]!.configs[feature],
+          cfg: poolConfigs[pool]!.configs[feature as FEATURE],
           cache: poolConfigs[pool]!.cache,
         })
       );

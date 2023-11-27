@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ES2022",
+    "lib": ["ES2022", "DOM"],
+    "moduleResolution": "node",
+    "strict": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "outDir": "./dist",
+    "declaration": true,
+    "sourceMap": true,
+    "resolveJsonModule": true,
+  },
+  "ts-node": {
+    "esm": true
+  },
+  "include": [
+    "generator/**/*"
+  ]
+}
