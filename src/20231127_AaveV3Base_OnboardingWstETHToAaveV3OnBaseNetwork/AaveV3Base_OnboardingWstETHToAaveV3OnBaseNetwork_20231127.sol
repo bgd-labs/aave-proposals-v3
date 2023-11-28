@@ -19,7 +19,7 @@ contract AaveV3Base_OnboardingWstETHToAaveV3OnBaseNetwork_20231127 is AaveV3Payl
   using SafeERC20 for IERC20;
 
   address public constant wstETH = 0xc1CBa3fCea344f92D9239c08C0568f6F2F0ee452;
-  uint256 public constant wstETH_SEED_AMOUNT = 1e18;
+  uint256 public constant wstETH_SEED_AMOUNT = 1e17;
 
   function _postExecute() internal override {
     IERC20(wstETH).forceApprove(address(AaveV3Base.POOL), wstETH_SEED_AMOUNT);
