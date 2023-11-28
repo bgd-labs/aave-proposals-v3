@@ -10,8 +10,6 @@ import {
   base,
   bsc,
   gnosis,
-  fantom,
-  harmonyOne,
 } from 'viem/chains';
 
 export const AVAILABLE_CHAINS = [
