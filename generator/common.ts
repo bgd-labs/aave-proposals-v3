@@ -99,7 +99,7 @@ export function pascalCase(str: string) {
     .replace(/ /g, '');
 }
 
-export const CHAIN_TO_CHAIN_ID = {
+export const CHAIN_TO_CHAIN_ID: Partial<Record<Chain, number>> = {
   Ethereum: mainnet.id,
   Polygon: polygon.id,
   Optimism: optimism.id,
@@ -109,8 +109,6 @@ export const CHAIN_TO_CHAIN_ID = {
   Base: base.id,
   Bsc: bsc.id,
   Gnosis: gnosis.id,
-  Fantom: fantom.id,
-  Harmony: harmonyOne.id,
 };
 
 export function flagAsRequired(message: string, required?: boolean) {
