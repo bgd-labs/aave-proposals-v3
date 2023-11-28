@@ -15,10 +15,10 @@
 | isSiloed | false |
 | isFlashloanable | true |
 | eModeCategory | 1 |
-| oracle | [0xB88BAc61a4Ca37C43a3725912B1f472c9A5bc061](https://basescan.org/address/0xB88BAc61a4Ca37C43a3725912B1f472c9A5bc061) |
-| oracleDecimals | 18 |
-| oracleDescription | wstETH-stETH Exchange Rate |
-| oracleLatestAnswer | 1.147960576506003304 |
+| oracle | [0x945fD405773973d286De54E44649cc0d9e264F78](https://basescan.org/address/0x945fD405773973d286De54E44649cc0d9e264F78) |
+| oracleDecimals | 8 |
+| oracleDescription | wstETH/ETH/USD |
+| oracleLatestAnswer | 2306.83825809 |
 | usageAsCollateralEnabled | true |
 | ltv | 71 % |
 | liquidationThreshold | 76 % |
@@ -88,10 +88,10 @@
         "liquidationProtocolFee": 1000,
         "liquidationThreshold": 7600,
         "ltv": 7100,
-        "oracle": "0xB88BAc61a4Ca37C43a3725912B1f472c9A5bc061",
-        "oracleDecimals": 18,
-        "oracleDescription": "wstETH-stETH Exchange Rate",
-        "oracleLatestAnswer": "1147960576506003304",
+        "oracle": "0x945fD405773973d286De54E44649cc0d9e264F78",
+        "oracleDecimals": 8,
+        "oracleDescription": "wstETH/ETH/USD",
+        "oracleLatestAnswer": 230683825809,
         "reserveFactor": 1500,
         "stableBorrowRateEnabled": false,
         "stableDebtToken": "0xfe742Fa2a84294E8316F05b17c05090Fc68B5105",

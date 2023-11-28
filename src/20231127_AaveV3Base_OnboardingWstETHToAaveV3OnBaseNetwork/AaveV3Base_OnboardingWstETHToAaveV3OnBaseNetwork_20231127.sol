@@ -32,7 +32,7 @@ contract AaveV3Base_OnboardingWstETHToAaveV3OnBaseNetwork_20231127 is AaveV3Payl
     listings[0] = IAaveV3ConfigEngine.Listing({
       asset: wstETH,
       assetSymbol: 'wstETH',
-      priceFeed: 0xB88BAc61a4Ca37C43a3725912B1f472c9A5bc061,
+      priceFeed: 0x945fD405773973d286De54E44649cc0d9e264F78,
       eModeCategory: AaveV3BaseEModes.ETH_CORRELATED,
       enabledToBorrow: EngineFlags.ENABLED,
       stableRateModeEnabled: EngineFlags.DISABLED,
