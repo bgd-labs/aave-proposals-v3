@@ -30,7 +30,7 @@ contract AaveV2Polygon_ReserveFactorUpdatesPolygonAaveV2_20231124_Test is Protoc
    */
   function test_defaultProposalExecution() public {
     (ReserveConfig[] memory allConfigsBefore, ReserveConfig[] memory allConfigsAfter) = defaultTest(
-      'AaveV2Polygon_ReserveFactorUpdatesPolygonAaveV2_20231103',
+      'AaveV2Polygon_ReserveFactorUpdatesPolygonAaveV2_20231124',
       AaveV2Polygon.POOL,
       address(proposal)
     );
