@@ -21,8 +21,8 @@ This proposal encompasses the following actions:
 ## References
 
 - [Payload](https://etherscan.io/address/0x5107f3274893daf384241370cb84c9991780a786#code)
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231122_AaveV3Ethereum_GHO_Incident_Report/AaveV3Ethereum_GHO_Incident_Report_20231122.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231122_AaveV3Ethereum_GHO_Incident_Report/AaveV3Ethereum_GHO_Incident_Report_20231122.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/3821ec71b8a0cc6669912892ed19b63caec455c3/src/20231122_AaveV3Ethereum_GHO_Incident_Report/AaveV3Ethereum_GHO_Incident_Report_20231122.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/3821ec71b8a0cc6669912892ed19b63caec455c3/src/20231122_AaveV3Ethereum_GHO_Incident_Report/AaveV3Ethereum_GHO_Incident_Report_20231122.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x87098e081bb28ad8a28f02886303c75e83593c3e25764626ccf4cf584e230c75)
 - [Discussion](https://governance.aave.com/t/arfc-gho-bounty-for-integration-issue-detection/15296)
 
