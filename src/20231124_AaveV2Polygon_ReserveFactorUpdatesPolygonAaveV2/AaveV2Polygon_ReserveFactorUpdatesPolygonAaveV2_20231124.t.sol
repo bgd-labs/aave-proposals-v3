@@ -21,8 +21,8 @@ contract AaveV2Polygon_ReserveFactorUpdatesPolygonAaveV2_20231124_Test is Protoc
   }
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('polygon'), 50316131);
-    proposal = new AaveV2Polygon_ReserveFactorUpdatesPolygonAaveV2_20231124();
+    vm.createSelectFork(vm.rpcUrl('polygon'), 50536176);
+    proposal = AaveV2Polygon_ReserveFactorUpdatesPolygonAaveV2_20231124(0x7f88576D829C82E7f3BDDEFc67A143E83AC1d615);
   }
 
   /**
