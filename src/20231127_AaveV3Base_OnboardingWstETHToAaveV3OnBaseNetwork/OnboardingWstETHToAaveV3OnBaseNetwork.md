@@ -42,7 +42,7 @@ The table below illustrates the configured risk parameters for **wstETH**
 | Flashloanable                      |                                    ENABLED |
 | Siloed Borrowing                   |                                   DISABLED |
 | Borrowable in Isolation            |                                   DISABLED |
-| Oracle                             | 0xB88BAc61a4Ca37C43a3725912B1f472c9A5bc061 |
+| Oracle                             | 0x945fD405773973d286De54E44649cc0d9e264F78 |
 
 - Contract Address: [wstETH - 0xc1CBa3fCea344f92D9239c08C0568f6F2F0ee452](https://basescan.org/address/0xc1cba3fcea344f92d9239c08c0568f6f2f0ee452)
 
