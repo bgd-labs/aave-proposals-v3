@@ -16,7 +16,7 @@ contract AaveV3Ethereum_GauntletAaveRenewal2023_20231128_Test is ProtocolV3TestB
   AaveV3Ethereum_GauntletAaveRenewal2023_20231128 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 18672689);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 18679448);
     proposal = new AaveV3Ethereum_GauntletAaveRenewal2023_20231128();
   }
 
