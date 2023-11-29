@@ -1,0 +1,23 @@
+{
+  "rootOptions": {
+    "pools": [
+      "AaveV3Ethereum"
+    ],
+    "title": "GHO_Incident_Report",
+    "shortName": "GHO_Incident_Report",
+    "date": "20231122",
+    "author": "aave co",
+    "discussion": "https://governance.aave.com/t/arfc-gho-bounty-for-integration-issue-detection/15296",
+    "snapshot": "https://snapshot.org/#/aave.eth/proposal/0x87098e081bb28ad8a28f02886303c75e83593c3e25764626ccf4cf584e230c75"
+  },
+  "poolOptions": {
+    "AaveV3Ethereum": {
+      "configs": {
+        "OTHERS": {}
+      },
+      "features": [
+        "OTHERS"
+      ]
+    }
+  }
+}
