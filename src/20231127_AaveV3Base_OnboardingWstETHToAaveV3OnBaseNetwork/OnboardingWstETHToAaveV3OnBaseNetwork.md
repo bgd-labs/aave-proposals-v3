@@ -18,7 +18,7 @@ The table below illustrates the configured risk parameters for **wstETH**
 
 | Parameter                          |                                      Value |
 | ---------------------------------- | -----------------------------------------: |
-| Isolation Mode                     |                                       true |
+| Isolation Mode                     |                                       false |
 | Borrowable                         |                                    ENABLED |
 | Collateral Enabled                 |                                       true |
 | Supply Cap (wstETH)                |                                      4,000 |
