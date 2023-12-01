@@ -27,26 +27,3 @@ contract CreateLongProposal is EthereumScript {
     );
   }
 }
-
-/**
- * @dev Create Proposal
- * command: make deploy-ledger contract=src/20231114_AaveV3Ethereum_AaveGovernanceV3Activation/AaveGovernanceV3Activation_20231114.s.sol:CreateProposal chain=mainnet
- */
-contract CreateProposal is EthereumScript {
-  function run() external {
-    // create payloads
-    GovHelpers.Payload[] memory payloads = new GovHelpers.Payload[](2);
-    payloads[0] = GovHelpers.buildMainnet(address(0));
-    payloads[1] = GovHelpers.buildBase(address(1));
-
-    // create proposal
-    vm.startBroadcast();
-    GovHelpers.createProposal(
-      payloads,
-      GovHelpers.ipfsHashFile(
-        vm,
-        'src/20231114_AaveV3Ethereum_AaveGovernanceV3Activation/AaveGovernanceV3Activation.md'
-      )
-    );
-  }
-}
