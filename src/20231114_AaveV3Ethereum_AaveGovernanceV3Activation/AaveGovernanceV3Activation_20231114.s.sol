@@ -13,7 +13,7 @@ contract CreateLongProposal is EthereumScript {
   function run() external {
     // create payloads
     GovHelpers.Payload[] memory payloads = new GovHelpers.Payload[](1);
-    payloads[0] = GovHelpers.buildMainnet(address(0));
+    payloads[0] = GovHelpers.buildMainnet(0xAF0C901489790c35D9cef02CFA11123009E81e2a);
 
     // create proposal
     vm.startBroadcast();
