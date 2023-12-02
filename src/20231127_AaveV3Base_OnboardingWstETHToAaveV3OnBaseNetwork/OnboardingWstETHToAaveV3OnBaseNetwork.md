@@ -18,7 +18,7 @@ The table below illustrates the configured risk parameters for **wstETH**
 
 | Parameter                          |                                      Value |
 | ---------------------------------- | -----------------------------------------: |
-| Isolation Mode                     |                                       false |
+| Isolation Mode                     |                                      false |
 | Borrowable                         |                                    ENABLED |
 | Collateral Enabled                 |                                       true |
 | Supply Cap (wstETH)                |                                      4,000 |
@@ -48,8 +48,8 @@ The table below illustrates the configured risk parameters for **wstETH**
 
 ## References
 
-- Implementation: [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231127_AaveV3Base_OnboardingWstETHToAaveV3OnBaseNetwork/AaveV3Base_OnboardingWstETHToAaveV3OnBaseNetwork_20231127.sol)
-- Tests: [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231127_AaveV3Base_OnboardingWstETHToAaveV3OnBaseNetwork/AaveV3Base_OnboardingWstETHToAaveV3OnBaseNetwork_20231127.t.sol)
+- Implementation: [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/5a20ff77b5bc9ef8b9bf46a3212a9318750e75a6/src/20231127_AaveV3Base_OnboardingWstETHToAaveV3OnBaseNetwork/AaveV3Base_OnboardingWstETHToAaveV3OnBaseNetwork_20231127.sol)
+- Tests: [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/5a20ff77b5bc9ef8b9bf46a3212a9318750e75a6/src/20231127_AaveV3Base_OnboardingWstETHToAaveV3OnBaseNetwork/AaveV3Base_OnboardingWstETHToAaveV3OnBaseNetwork_20231127.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x9cf4ba743e0363f77fbbd1bf0d3946b06154abd57cd4bc897c23cdfcdb3bcbeb)
 - [Discussion](https://governance.aave.com/t/arfc-onboarding-wsteth-to-aave-v3-on-base-network/15510/5)
 
