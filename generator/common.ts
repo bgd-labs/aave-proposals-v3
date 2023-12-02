@@ -26,6 +26,8 @@ export const AVAILABLE_CHAINS = [
   'Gnosis',
 ] as const;
 
+export type Chain = (typeof AVAILABLE_CHAINS)[number];
+
 export function getAssets(pool: PoolIdentifier): string[] {
   const assets = addressBook[pool].ASSETS;
   return Object.keys(assets);
@@ -82,7 +84,7 @@ export function generateContractName(options: Options, pool?: PoolIdentifier) {
   return name;
 }
 
-export function getChainAlias(chain) {
+export function getChainAlias(chain: Chain) {
   return chain === 'Ethereum' ? 'mainnet' : chain.toLowerCase();
 }
 
@@ -95,7 +97,7 @@ export function pascalCase(str: string) {
     .replace(/ /g, '');
 }
 
-export const CHAIN_TO_CHAIN_ID = {
+export const CHAIN_TO_CHAIN_ID: Partial<Record<Chain, number>> = {
   Ethereum: mainnet.id,
   Polygon: polygon.id,
   Optimism: optimism.id,

@@ -31,10 +31,10 @@ export const proposalTemplate = (
 
   let optionalExecute = '';
   const usesConfigEngine = Object.keys(poolConfig.configs).some(
-    (f) => ![FEATURE.OTHERS, FEATURE.FLASH_BORROWER].includes(f)
+    (f) => ![FEATURE.OTHERS, FEATURE.FLASH_BORROWER].includes(f as FEATURE)
   );
   const isAssetListing = Object.keys(poolConfig.configs).some((f) =>
-    [FEATURE.ASSET_LISTING, FEATURE.ASSET_LISTING_CUSTOM].includes(f)
+    [FEATURE.ASSET_LISTING, FEATURE.ASSET_LISTING_CUSTOM].includes(f as FEATURE)
   );
   if (innerExecute) {
     if (usesConfigEngine) {

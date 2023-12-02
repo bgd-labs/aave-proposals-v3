@@ -1,3 +1,4 @@
+import {Context} from '@inquirer/type';
 import {advancedInput} from './advancedInput';
 import {GenericPrompt} from './types';
 
@@ -18,7 +19,7 @@ export function transformNumberToPercent(value: string) {
 
 export async function percentPrompt<T extends boolean>(
   {message, required}: GenericPrompt<T>,
-  opts?
+  opts?: Context
 ): Promise<string> {
   const value = await advancedInput(
     {

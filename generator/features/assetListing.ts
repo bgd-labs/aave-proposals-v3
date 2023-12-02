@@ -49,7 +49,7 @@ async function fetchListing(pool: PoolIdentifier): Promise<Listing> {
         type: 'function',
       },
     ],
-    publicClient: CHAIN_ID_CLIENT_MAP[CHAIN_TO_CHAIN_ID[chain]] as PublicClient,
+    publicClient: CHAIN_ID_CLIENT_MAP[CHAIN_TO_CHAIN_ID[chain]!] as PublicClient,
     address: asset,
   });
   let symbol = '';

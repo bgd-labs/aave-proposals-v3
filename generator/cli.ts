@@ -88,7 +88,7 @@ if (options.configFile) {
         module.build({
           options,
           pool,
-          cfg: poolConfigs[pool]!.configs[feature],
+          cfg: poolConfigs[pool]!.configs[feature as FEATURE],
           cache: poolConfigs[pool]!.cache,
         })
       );
@@ -142,7 +142,7 @@ if (options.configFile) {
 
   async function generateDeterministicPoolCache(pool: PoolIdentifier): Promise<PoolCache> {
     const chain = getPoolChain(pool);
-    const client = CHAIN_ID_CLIENT_MAP[CHAIN_TO_CHAIN_ID[chain]] as PublicClient;
+    const client = CHAIN_ID_CLIENT_MAP[CHAIN_TO_CHAIN_ID[chain]!] as PublicClient;
     return {blockNumber: Number(await client.getBlockNumber())};
   }
 

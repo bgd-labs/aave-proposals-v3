@@ -5,7 +5,7 @@ import {addressPrompt, translateJsAddressToSol} from './addressPrompt';
 describe('addresses', () => {
   describe('addressPrompt', () => {
     it('handles "required"', async () => {
-      const {answer, events, getScreen} = await render(addressPrompt, {
+      const {answer, events, getScreen} = await render(addressPrompt as any, {
         message: 'Enter address?',
         required: true,
       });
@@ -28,7 +28,7 @@ describe('addresses', () => {
     });
 
     it('handles "optional"', async () => {
-      const {answer, events, getScreen} = await render(addressPrompt, {
+      const {answer, events, getScreen} = await render(addressPrompt as any, {
         message: 'Enter address?',
       });
 
