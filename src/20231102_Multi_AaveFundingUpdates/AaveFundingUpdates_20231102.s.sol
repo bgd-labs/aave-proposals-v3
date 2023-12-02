@@ -51,7 +51,7 @@ contract DeployPolygon is PolygonScript {
 contract CreateProposal is EthereumScript {
   function run() external {
     // create payloads
-    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](1);
+    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](2);
 
     // compose actions for validation
     IPayloadsControllerCore.ExecutionAction[]

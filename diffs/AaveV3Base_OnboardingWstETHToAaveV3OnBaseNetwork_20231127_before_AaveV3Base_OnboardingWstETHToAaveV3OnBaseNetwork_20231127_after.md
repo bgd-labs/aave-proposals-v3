@@ -18,7 +18,7 @@
 | oracle | [0x945fD405773973d286De54E44649cc0d9e264F78](https://basescan.org/address/0x945fD405773973d286De54E44649cc0d9e264F78) |
 | oracleDecimals | 8 |
 | oracleDescription | wstETH/ETH/USD |
-| oracleLatestAnswer | 2306.83825809 |
+| oracleLatestAnswer | 2416.61188866 |
 | usageAsCollateralEnabled | true |
 | ltv | 71 % |
 | liquidationThreshold | 76 % |
@@ -91,7 +91,7 @@
         "oracle": "0x945fD405773973d286De54E44649cc0d9e264F78",
         "oracleDecimals": 8,
         "oracleDescription": "wstETH/ETH/USD",
-        "oracleLatestAnswer": 230683825809,
+        "oracleLatestAnswer": 241661188866,
         "reserveFactor": 1500,
         "stableBorrowRateEnabled": false,
         "stableDebtToken": "0xfe742Fa2a84294E8316F05b17c05090Fc68B5105",

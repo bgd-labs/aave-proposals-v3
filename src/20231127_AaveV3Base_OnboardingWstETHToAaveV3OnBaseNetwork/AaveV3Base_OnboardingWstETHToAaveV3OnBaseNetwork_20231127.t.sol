@@ -18,7 +18,7 @@ contract AaveV3Base_OnboardingWstETHToAaveV3OnBaseNetwork_20231127_Test is Proto
   address internal wstETH_WHALE = 0xC9B826BAD20872EB29f9b1D8af4BefE8460b50c6;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('base'), 7156340);
+    vm.createSelectFork(vm.rpcUrl('base'), 7361627);
     proposal = new AaveV3Base_OnboardingWstETHToAaveV3OnBaseNetwork_20231127();
   }
 
