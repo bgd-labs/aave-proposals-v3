@@ -11,8 +11,12 @@ on:
       - main
 
 jobs:
-  test:
+  test-sol:
     uses: bgd-labs/github-workflows/.github/workflows/foundry-test.yml@main
     secrets: inherit
     with:
       mode: "CHANGED"
+
+  test-js:
+    uses: bgd-labs/github-workflows/.github/workflows/test-node.yml@main
+    secrets: inherit

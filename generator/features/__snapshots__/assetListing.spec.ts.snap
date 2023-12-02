@@ -39,7 +39,7 @@ The table below illustrates the configured risk parameters for **PSP**
 | Base Stable Rate Offset            |                                        1 % |
 | Stable Rate Excess Offset          |                                        0 % |
 | Optimal Stable To Total Debt Ratio |                                       10 % |
-| Flahloanable                       |                                    ENABLED |
+| Flashloanable                      |                                    ENABLED |
 | Siloed Borrowing                   |                                   DISABLED |
 | Borrowable in Isolation            |                                   DISABLED |
 | Oracle                             | 0x72AFAECF99C9d9C8215fF44C77B94B99C28741e8 |
@@ -264,6 +264,7 @@ contract CreateProposal is EthereumScript {
     // create proposal
     vm.startBroadcast();
     GovV3Helpers.createProposal2_5(
+      vm,
       payloads,
       GovV3Helpers.ipfsHashFile(vm, 'src/20231023_AaveV3Ethereum_Test/Test.md')
     );
@@ -302,7 +303,7 @@ exports[`feature: assetListing > should return reasonable code 1`] = `
 | Base Stable Rate Offset | 1 % |
 | Stable Rate Excess Offset	| 0 % |
 | Optimal Stable To Total Debt Ratio | 10 % |
-| Flahloanable	| ENABLED |
+| Flashloanable	| ENABLED |
 | Siloed Borrowing	| DISABLED |
 | Borrowable in Isolation | DISABLED |
 | Oracle | 0x72AFAECF99C9d9C8215fF44C77B94B99C28741e8 |

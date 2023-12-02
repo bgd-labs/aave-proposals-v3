@@ -150,7 +150,6 @@ if (options.configFile) {
     poolConfigs[pool] = {
       configs: {},
       artifacts: [],
-      pool,
       cache: await generateDeterministicPoolCache(pool),
     };
     const v2 = isV2Pool(pool);
