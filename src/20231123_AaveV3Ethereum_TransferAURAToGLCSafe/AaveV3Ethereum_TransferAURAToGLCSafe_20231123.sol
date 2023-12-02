@@ -9,8 +9,8 @@ import {IProposalGenericExecutor} from 'aave-helpers/interfaces/IProposalGeneric
 /**
  * @title Transfer AURA to GLC Safe
  * @author efecarranza.eth
- * - Snapshot: TODO
- * - Discussion: TODO
+ * - Snapshot: https://snapshot.org/#/aave.eth/proposal/0xc999644bf64e4f62722d327416520b6f8cf8d7ceecbb69e7c52e2ebe1f4c3d63
+ * - Discussion: https://governance.aave.com/t/arfc-treasury-management-transfer-aura-to-glc-safe/15669
  */
 contract AaveV3Ethereum_TransferAURAToGLCSafe_20231123 is IProposalGenericExecutor {
   address public constant AURA = 0xC0c293ce456fF0ED870ADd98a0828Dd4d2903DBF;
