@@ -6,13 +6,13 @@ discussions: "https://governance.aave.com/t/arfc-treasury-management-transfer-au
 
 # Summary
 
-This AIP will transfer the AURA holding from the Ethereum Treasury to the GHO Liquidity Committee (GLC) SAFE.
+This AIP will transfer the AURA holdings from the Ethereum Treasury to the GHO Liquidity Committee (GLC) SAFE.
 
 # Motivation
 
-The Aave DAO holds [845,090.43 vlAURA](https://etherscan.io/token/0xc0c293ce456ff0ed870add98a0828dd4d2903dbf?a=0x205e795336610f5131Be52F09218AF19f0f3eC60) on the GLC SAFE and also [443,674 AURA](https://etherscan.io/token/0xC0c293ce456fF0ED870ADd98a0828Dd4d2903DBF?a=0x464C71f6c2F760DdA6093dCB91C24c39e5d6e18c) nn the Treasury (Collector contract).
+The Aave DAO holds [845,090.43 vlAURA](https://etherscan.io/token/0xc0c293ce456ff0ed870add98a0828dd4d2903dbf?a=0x205e795336610f5131Be52F09218AF19f0f3eC60) on the GLC SAFE and also [443,674 AURA](https://etherscan.io/token/0xC0c293ce456fF0ED870ADd98a0828Dd4d2903DBF?a=0x464C71f6c2F760DdA6093dCB91C24c39e5d6e18c) on the Treasury (Collector contract).
 
-This AIP will transfer the AURA from the Treasury to the GLC SAFE, consolidating the vlAURA holdings. The Aave DAO is expected to receive 413,849.57 units of vlAURA upon locking 443,674 AURA.
+This AIP will transfer the AURA from the Treasury to the GLC SAFE, consolidating the vlAURA holdings. The Aave DAO is expected to receive ~413,849.57 units of vlAURA upon locking 443,674 AURA.
 
 The GLC is tasked with locking the AURA and managing the vlAURA holdings on behalf of the Aave DAO.
 
