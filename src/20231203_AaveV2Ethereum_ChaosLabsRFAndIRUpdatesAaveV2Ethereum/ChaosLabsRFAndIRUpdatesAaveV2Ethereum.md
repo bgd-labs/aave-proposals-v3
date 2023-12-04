@@ -58,17 +58,11 @@ In order to further disincentivize the supply of the assets being deprecated, th
 
 ### Increase Borrow Rates:
 
-To encourage the repayment of borrowed assets, we propose raising the borrow rates across V2 frozen assets. This will be achieved by creating a constant borrow rate up to the currently set UOptomal configuration. Accordingly, we put forward the following options for the community to choose from:
+To encourage the repayment of borrowed assets, we propose raising the borrow rates across V2 frozen assets. This will be achieved by creating a constant borrow rate up to the currently set UOptomal configuration, with the moderate option as voted by the community on Snapshot:
 
 _Moderate (Chaos Recommendation):_
 
 1. Set Base Rate at 20%
-2. Set Slope1 at 0%
-3. Set Slope2 at 300%
-
-_Aggressive:_
-
-1. Set Base Rate at 40%
 2. Set Slope1 at 0%
 3. Set Slope2 at 300%
 
@@ -78,26 +72,26 @@ After these changes are put into effect, we'll evaluate their influence on loan 
 
 | Asset  | Current RF | Rec RF | Current Base | Recommended Base | Current Slope1 | Recommended Slope1 | Current Slope2 | Recommended Slope2 |
 | ------ | ---------- | ------ | ------------ | ---------------- | -------------- | ------------------ | -------------- | ------------------ |
-| 1INCH  | 30%        | 99.90% | 0%           | 20% / 40%        | 7%             | 0%                 | 300%           | 300%               |
-| BAL    | 35%        | 99.90% | 5%           | 20% / 40%        | 22%            | 0%                 | 150%           | 300%               |
-| BAT    | 35%        | 99.90% | 0%           | 20% / 40%        | 7%             | 0%                 | 300%           | 300%               |
-| CRV    | 30%        | 99.90% | 3%           | 20% / 40%        | 14%            | 0%                 | 300%           | 300%               |
-| CVX    | 35%        | 99.90% | 0%           | 20% / 40%        | 7%             | 0%                 | 300%           | 300%               |
-| DPI    | 35%        | 99.90% | 0%           | 20% / 40%        | 7%             | 0%                 | 300%           | 300%               |
-| ENJ    | 35%        | 99.90% | 0%           | 20% / 40%        | 7%             | 0%                 | 300%           | 300%               |
-| ENS    | 30%        | 99.90% | 0%           | 20% / 40%        | 7%             | 0%                 | 300%           | 300%               |
-| MANA   | 50%        | 99.90% | 0%           | 20% / 40%        | 7%             | 0%                 | 300%           | 300%               |
-| MKR    | 30%        | 99.90% | 0%           | 20% / 40%        | 7%             | 0%                 | 300%           | 300%               |
-| REN    | 35%        | 99.90% | 0%           | 20% / 40%        | 7%             | 0%                 | 300%           | 300%               |
-| SNX    | 45%        | 99.90% | 3%           | 20% / 40%        | 12%            | 0%                 | 100%           | 300%               |
-| UNI    | 30%        | 99.90% | 0%           | 20% / 40%        | 7%             | 0%                 | 300%           | 300%               |
-| xSUSHI | 50%        | 99.90% | 0%           | 20% / 40%        | 7%             | 0%                 | 300%           | 300%               |
-| YFI    | 35%        | 99.90% | 0%           | 20% / 40%        | 7%             | 0%                 | 300%           | 300%               |
-| ZRX    | 35%        | 99.90% | 0%           | 20% / 40%        | 7%             | 0%                 | 300%           | 300%               |
-| KNCL   | 30%        | 99.90% | 0%           | 20% / 40%        | 8%             | 0%                 | 300%           | 300%               |
-| UST    | 20%        | 99.90% | 0%           | 20% / 40%        | 4%             | 0%                 | 300%           | 300%               |
-| AMPL   | 10%        | 99.90% | 1%           | 20% / 40%        | 2%             | 0%                 | 750%           | 300%               |
-| RAI    | 20%        | 99.90% | 0%           | 20% / 40%        | 4%             | 0%                 | 75%            | 300%               |
+| 1INCH  | 30%        | 99.90% | 0%           | 20%              | 7%             | 0%                 | 300%           | 300%               |
+| BAL    | 35%        | 99.90% | 5%           | 20%              | 22%            | 0%                 | 150%           | 300%               |
+| BAT    | 35%        | 99.90% | 0%           | 20%              | 7%             | 0%                 | 300%           | 300%               |
+| CRV    | 30%        | 99.90% | 3%           | 20%              | 14%            | 0%                 | 300%           | 300%               |
+| CVX    | 35%        | 99.90% | 0%           | 20%              | 7%             | 0%                 | 300%           | 300%               |
+| DPI    | 35%        | 99.90% | 0%           | 20%              | 7%             | 0%                 | 300%           | 300%               |
+| ENJ    | 35%        | 99.90% | 0%           | 20%              | 7%             | 0%                 | 300%           | 300%               |
+| ENS    | 30%        | 99.90% | 0%           | 20%              | 7%             | 0%                 | 300%           | 300%               |
+| MANA   | 50%        | 99.90% | 0%           | 20%              | 7%             | 0%                 | 300%           | 300%               |
+| MKR    | 30%        | 99.90% | 0%           | 20%              | 7%             | 0%                 | 300%           | 300%               |
+| REN    | 35%        | 99.90% | 0%           | 20%              | 7%             | 0%                 | 300%           | 300%               |
+| SNX    | 45%        | 99.90% | 3%           | 20%              | 12%            | 0%                 | 100%           | 300%               |
+| UNI    | 30%        | 99.90% | 0%           | 20%              | 7%             | 0%                 | 300%           | 300%               |
+| xSUSHI | 50%        | 99.90% | 0%           | 20%              | 7%             | 0%                 | 300%           | 300%               |
+| YFI    | 35%        | 99.90% | 0%           | 20%              | 7%             | 0%                 | 300%           | 300%               |
+| ZRX    | 35%        | 99.90% | 0%           | 20%              | 7%             | 0%                 | 300%           | 300%               |
+| KNCL   | 30%        | 99.90% | 0%           | 20%              | 8%             | 0%                 | 300%           | 300%               |
+| UST    | 20%        | 99.90% | 0%           | 20%              | 4%             | 0%                 | 300%           | 300%               |
+| AMPL   | 10%        | 99.90% | 1%           | 20%              | 2%             | 0%                 | 750%           | 300%               |
+| RAI    | 20%        | 99.90% | 0%           | 20%              | 4%             | 0%                 | 75%            | 300%               |
 
 ## References
 
