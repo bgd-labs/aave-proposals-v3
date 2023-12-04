@@ -23,6 +23,29 @@ contract AaveV2Ethereum_ChaosLabsRFAndIRUpdatesAaveV2Ethereum_20231203 is AaveV2
     IAaveV2ConfigEngine.RateStrategyUpdate[]
       memory rateStrategies = new IAaveV2ConfigEngine.RateStrategyUpdate[](20);
 
+    address[20] memory assets = [
+      AaveV2EthereumAssets.YFI_UNDERLYING,
+      AaveV2EthereumAssets.ZRX_UNDERLYING,
+      AaveV2EthereumAssets.UNI_UNDERLYING,
+      AaveV2EthereumAssets.BAT_UNDERLYING,
+      AaveV2EthereumAssets.ENJ_UNDERLYING,
+      AaveV2EthereumAssets.KNC_UNDERLYING,
+      AaveV2EthereumAssets.MANA_UNDERLYING,
+      AaveV2EthereumAssets.MKR_UNDERLYING,
+      AaveV2EthereumAssets.REN_UNDERLYING,
+      AaveV2EthereumAssets.SNX_UNDERLYING,
+      AaveV2EthereumAssets.CRV_UNDERLYING,
+      AaveV2EthereumAssets.BAL_UNDERLYING,
+      AaveV2EthereumAssets.xSUSHI_UNDERLYING,
+      AaveV2EthereumAssets.RAI_UNDERLYING,
+      AaveV2EthereumAssets.AMPL_UNDERLYING,
+      AaveV2EthereumAssets.DPI_UNDERLYING,
+      AaveV2EthereumAssets.ENS_UNDERLYING,
+      AaveV2EthereumAssets.UST_UNDERLYING,
+      AaveV2EthereumAssets.CVX_UNDERLYING,
+      AaveV2EthereumAssets.ONE_INCH_UNDERLYING
+    ];
+
     IV2RateStrategyFactory.RateStrategyParams memory newParams = IV2RateStrategyFactory
       .RateStrategyParams({
         optimalUtilizationRate: EngineFlags.KEEP_CURRENT,
@@ -33,170 +56,42 @@ contract AaveV2Ethereum_ChaosLabsRFAndIRUpdatesAaveV2Ethereum_20231203 is AaveV2
         stableRateSlope2: EngineFlags.KEEP_CURRENT
       });
 
-    rateStrategies[0] = IAaveV2ConfigEngine.RateStrategyUpdate({
-      asset: AaveV2EthereumAssets.YFI_UNDERLYING,
-      params: newParams
-    });
-    rateStrategies[1] = IAaveV2ConfigEngine.RateStrategyUpdate({
-      asset: AaveV2EthereumAssets.ZRX_UNDERLYING,
-      params: newParams
-    });
-    rateStrategies[2] = IAaveV2ConfigEngine.RateStrategyUpdate({
-      asset: AaveV2EthereumAssets.UNI_UNDERLYING,
-      params: newParams
-    });
-    rateStrategies[3] = IAaveV2ConfigEngine.RateStrategyUpdate({
-      asset: AaveV2EthereumAssets.BAT_UNDERLYING,
-      params: newParams
-    });
-    rateStrategies[4] = IAaveV2ConfigEngine.RateStrategyUpdate({
-      asset: AaveV2EthereumAssets.ENJ_UNDERLYING,
-      params: newParams
-    });
-    rateStrategies[5] = IAaveV2ConfigEngine.RateStrategyUpdate({
-      asset: AaveV2EthereumAssets.KNC_UNDERLYING,
-      params: newParams
-    });
-    rateStrategies[6] = IAaveV2ConfigEngine.RateStrategyUpdate({
-      asset: AaveV2EthereumAssets.MANA_UNDERLYING,
-      params: newParams
-    });
-    rateStrategies[7] = IAaveV2ConfigEngine.RateStrategyUpdate({
-      asset: AaveV2EthereumAssets.MKR_UNDERLYING,
-      params: newParams
-    });
-    rateStrategies[8] = IAaveV2ConfigEngine.RateStrategyUpdate({
-      asset: AaveV2EthereumAssets.REN_UNDERLYING,
-      params: newParams
-    });
-    rateStrategies[9] = IAaveV2ConfigEngine.RateStrategyUpdate({
-      asset: AaveV2EthereumAssets.SNX_UNDERLYING,
-      params: newParams
-    });
-    rateStrategies[10] = IAaveV2ConfigEngine.RateStrategyUpdate({
-      asset: AaveV2EthereumAssets.CRV_UNDERLYING,
-      params: newParams
-    });
-    rateStrategies[11] = IAaveV2ConfigEngine.RateStrategyUpdate({
-      asset: AaveV2EthereumAssets.BAL_UNDERLYING,
-      params: newParams
-    });
-    rateStrategies[12] = IAaveV2ConfigEngine.RateStrategyUpdate({
-      asset: AaveV2EthereumAssets.xSUSHI_UNDERLYING,
-      params: newParams
-    });
-    rateStrategies[13] = IAaveV2ConfigEngine.RateStrategyUpdate({
-      asset: AaveV2EthereumAssets.RAI_UNDERLYING,
-      params: newParams
-    });
-    rateStrategies[14] = IAaveV2ConfigEngine.RateStrategyUpdate({
-      asset: AaveV2EthereumAssets.AMPL_UNDERLYING,
-      params: newParams
-    });
-    rateStrategies[15] = IAaveV2ConfigEngine.RateStrategyUpdate({
-      asset: AaveV2EthereumAssets.DPI_UNDERLYING,
-      params: newParams
-    });
-    rateStrategies[16] = IAaveV2ConfigEngine.RateStrategyUpdate({
-      asset: AaveV2EthereumAssets.ENS_UNDERLYING,
-      params: newParams
-    });
-    rateStrategies[17] = IAaveV2ConfigEngine.RateStrategyUpdate({
-      asset: AaveV2EthereumAssets.UST_UNDERLYING,
-      params: newParams
-    });
-    rateStrategies[18] = IAaveV2ConfigEngine.RateStrategyUpdate({
-      asset: AaveV2EthereumAssets.CVX_UNDERLYING,
-      params: newParams
-    });
-    rateStrategies[19] = IAaveV2ConfigEngine.RateStrategyUpdate({
-      asset: AaveV2EthereumAssets.ONE_INCH_UNDERLYING,
-      params: newParams
-    });
+    for (uint256 i = 0; i < assets.length; i++) {
+      rateStrategies[i] = IAaveV2ConfigEngine.RateStrategyUpdate({
+        asset: assets[i],
+        params: newParams
+      });
+    }
 
     return rateStrategies;
   }
 
   function _postExecute() internal override {
-    ILendingPoolConfigurator(AaveV2Ethereum.POOL_CONFIGURATOR).setReserveFactor(
+    address[20] memory assets = [
       AaveV2EthereumAssets.YFI_UNDERLYING,
-      99_00
-    );
-    ILendingPoolConfigurator(AaveV2Ethereum.POOL_CONFIGURATOR).setReserveFactor(
       AaveV2EthereumAssets.ZRX_UNDERLYING,
-      99_00
-    );
-    ILendingPoolConfigurator(AaveV2Ethereum.POOL_CONFIGURATOR).setReserveFactor(
       AaveV2EthereumAssets.UNI_UNDERLYING,
-      99_00
-    );
-    ILendingPoolConfigurator(AaveV2Ethereum.POOL_CONFIGURATOR).setReserveFactor(
       AaveV2EthereumAssets.BAT_UNDERLYING,
-      99_00
-    );
-    ILendingPoolConfigurator(AaveV2Ethereum.POOL_CONFIGURATOR).setReserveFactor(
       AaveV2EthereumAssets.ENJ_UNDERLYING,
-      99_00
-    );
-    ILendingPoolConfigurator(AaveV2Ethereum.POOL_CONFIGURATOR).setReserveFactor(
       AaveV2EthereumAssets.KNC_UNDERLYING,
-      99_00
-    );
-    ILendingPoolConfigurator(AaveV2Ethereum.POOL_CONFIGURATOR).setReserveFactor(
       AaveV2EthereumAssets.MANA_UNDERLYING,
-      99_00
-    );
-    ILendingPoolConfigurator(AaveV2Ethereum.POOL_CONFIGURATOR).setReserveFactor(
       AaveV2EthereumAssets.MKR_UNDERLYING,
-      99_00
-    );
-    ILendingPoolConfigurator(AaveV2Ethereum.POOL_CONFIGURATOR).setReserveFactor(
       AaveV2EthereumAssets.REN_UNDERLYING,
-      99_00
-    );
-    ILendingPoolConfigurator(AaveV2Ethereum.POOL_CONFIGURATOR).setReserveFactor(
       AaveV2EthereumAssets.SNX_UNDERLYING,
-      99_00
-    );
-    ILendingPoolConfigurator(AaveV2Ethereum.POOL_CONFIGURATOR).setReserveFactor(
       AaveV2EthereumAssets.CRV_UNDERLYING,
-      99_00
-    );
-    ILendingPoolConfigurator(AaveV2Ethereum.POOL_CONFIGURATOR).setReserveFactor(
       AaveV2EthereumAssets.BAL_UNDERLYING,
-      99_00
-    );
-    ILendingPoolConfigurator(AaveV2Ethereum.POOL_CONFIGURATOR).setReserveFactor(
       AaveV2EthereumAssets.xSUSHI_UNDERLYING,
-      99_00
-    );
-    ILendingPoolConfigurator(AaveV2Ethereum.POOL_CONFIGURATOR).setReserveFactor(
       AaveV2EthereumAssets.RAI_UNDERLYING,
-      99_00
-    );
-    ILendingPoolConfigurator(AaveV2Ethereum.POOL_CONFIGURATOR).setReserveFactor(
       AaveV2EthereumAssets.AMPL_UNDERLYING,
-      99_00
-    );
-    ILendingPoolConfigurator(AaveV2Ethereum.POOL_CONFIGURATOR).setReserveFactor(
       AaveV2EthereumAssets.DPI_UNDERLYING,
-      99_00
-    );
-    ILendingPoolConfigurator(AaveV2Ethereum.POOL_CONFIGURATOR).setReserveFactor(
       AaveV2EthereumAssets.ENS_UNDERLYING,
-      99_00
-    );
-    ILendingPoolConfigurator(AaveV2Ethereum.POOL_CONFIGURATOR).setReserveFactor(
       AaveV2EthereumAssets.UST_UNDERLYING,
-      99_00
-    );
-    ILendingPoolConfigurator(AaveV2Ethereum.POOL_CONFIGURATOR).setReserveFactor(
       AaveV2EthereumAssets.CVX_UNDERLYING,
-      99_00
-    );
-    ILendingPoolConfigurator(AaveV2Ethereum.POOL_CONFIGURATOR).setReserveFactor(
-      AaveV2EthereumAssets.ONE_INCH_UNDERLYING,
-      99_00
-    );
+      AaveV2EthereumAssets.ONE_INCH_UNDERLYING
+    ];
+
+    for (uint256 i = 0; i < assets.length; i++) {
+      ILendingPoolConfigurator(AaveV2Ethereum.POOL_CONFIGURATOR).setReserveFactor(assets[i], 99_00);
+    }
   }
 }
