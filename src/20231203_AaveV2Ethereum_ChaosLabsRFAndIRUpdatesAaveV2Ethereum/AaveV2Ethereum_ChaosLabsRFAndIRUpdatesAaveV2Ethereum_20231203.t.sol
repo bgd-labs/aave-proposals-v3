@@ -26,10 +26,6 @@ contract AaveV2Ethereum_ChaosLabsRFAndIRUpdatesAaveV2Ethereum_20231203_Test is P
     ReserveConfig memory reserveConfigAfter,
     ReserveConfig[] memory allConfigsAfter
   ) internal view {
-    reserveConfigBefore.reserveFactor = 99_00;
-    reserveConfigBefore.interestRateStrategy = reserveConfigAfter.interestRateStrategy;
-    _validateReserveConfig(reserveConfigBefore, allConfigsAfter);
-
     IDefaultInterestRateStrategy strategy = IDefaultInterestRateStrategy(
       reserveConfigBefore.interestRateStrategy
     );
@@ -49,6 +45,10 @@ contract AaveV2Ethereum_ChaosLabsRFAndIRUpdatesAaveV2Ethereum_20231203_Test is P
       reserveConfigAfter.interestRateStrategy,
       expectedStrategyValues
     );
+
+    reserveConfigBefore.reserveFactor = 99_00;
+    reserveConfigBefore.interestRateStrategy = reserveConfigAfter.interestRateStrategy;
+    _validateReserveConfig(reserveConfigBefore, allConfigsAfter);
   }
 
   function testProposalExecution() public {
@@ -83,15 +83,15 @@ contract AaveV2Ethereum_ChaosLabsRFAndIRUpdatesAaveV2Ethereum_20231203_Test is P
     _noReservesConfigsChangesApartFrom(allConfigsBefore, allConfigsAfter, assetsChanged);
 
     for (uint256 i = 0; i < assetsChanged.length; i++) {
-      ReserveConfig memory RESERVE_CONFIG_BEFORE = _findReserveConfig(
+      ReserveConfig memory reserveConfigBefore = _findReserveConfig(
         allConfigsBefore,
         assetsChanged[i]
       );
-      ReserveConfig memory RESERVE_CONFIG_AFTER = _findReserveConfig(
+      ReserveConfig memory reserveConfigAfter = _findReserveConfig(
         allConfigsAfter,
         assetsChanged[i]
       );
-      _validateChanges(RESERVE_CONFIG_BEFORE, RESERVE_CONFIG_AFTER, allConfigsAfter);
+      _validateChanges(reserveConfigBefore, reserveConfigAfter, allConfigsAfter);
     }
   }
 
