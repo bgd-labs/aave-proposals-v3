@@ -26,7 +26,7 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Enforce linting
-        run: yarn lint
+        run: yarn lint --check
 
   test-sol:
     uses: bgd-labs/github-workflows/.github/workflows/foundry-test.yml@main
