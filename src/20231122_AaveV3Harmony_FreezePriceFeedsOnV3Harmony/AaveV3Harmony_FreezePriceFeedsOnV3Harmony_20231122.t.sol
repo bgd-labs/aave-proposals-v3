@@ -5,6 +5,7 @@ import {AaveV3Harmony, AaveV3HarmonyAssets} from 'aave-address-book/AaveV3Harmon
 import {IAaveEcosystemReserveController} from 'aave-address-book/common/IAaveEcosystemReserveController.sol';
 
 import 'forge-std/Test.sol';
+import {IProposalGenericExecutor} from 'aave-helpers/interfaces/IProposalGenericExecutor.sol';
 import {GovHelpers} from 'aave-helpers/GovHelpers.sol';
 import {ProtocolV3TestBase, InterestStrategyValues, ReserveConfig} from 'aave-helpers/ProtocolV3TestBase.sol';
 import {AaveV3Harmony_FreezePriceFeedsOnV3Harmony_20231122} from './AaveV3Harmony_FreezePriceFeedsOnV3Harmony_20231122.sol';
@@ -33,7 +34,7 @@ contract AaveV3Harmony_FreezePriceFeedsOnV3Harmony_20231122_Test is ProtocolV3Te
   AaveV3Harmony_FreezePriceFeedsOnV3Harmony_20231122 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('harmony'), 50089892);
+    vm.createSelectFork(vm.rpcUrl('harmony'), 50599896);
     proposal = new AaveV3Harmony_FreezePriceFeedsOnV3Harmony_20231122(HARMONY_GUARDIAN);
 
     assetPrices[AaveV3HarmonyAssets.ONE_DAI_UNDERLYING] = 99997072;
@@ -57,8 +58,9 @@ contract AaveV3Harmony_FreezePriceFeedsOnV3Harmony_20231122_Test is ProtocolV3Te
 
     vm.startPrank(HARMONY_GUARDIAN);
 
-    AaveV3Harmony.ACL_MANAGER.addPoolAdmin(address(proposal));
-    proposal.execute();
+    AaveV3Harmony.ACL_MANAGER.addPoolAdmin(0xab22988D93d5F942fC6B6c6Ea285744809D1d9Cc);
+    // proposal.execute();
+    IProposalGenericExecutor(0xab22988D93d5F942fC6B6c6Ea285744809D1d9Cc).execute();
 
     vm.stopPrank();
 
