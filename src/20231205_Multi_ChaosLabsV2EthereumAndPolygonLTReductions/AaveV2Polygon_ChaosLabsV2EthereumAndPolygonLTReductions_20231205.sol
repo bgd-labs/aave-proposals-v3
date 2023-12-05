@@ -14,42 +14,42 @@ contract AaveV2Polygon_ChaosLabsV2EthereumAndPolygonLTReductions_20231205 is Aav
   function _postExecute() internal override {
     AaveV2Polygon.POOL_CONFIGURATOR.configureReserveAsCollateral(
       AaveV2PolygonAssets.SUSHI_UNDERLYING,
-      2000,
+      0,
       100,
       11000
     );
 
     AaveV2Polygon.POOL_CONFIGURATOR.configureReserveAsCollateral(
       AaveV2PolygonAssets.DPI_UNDERLYING,
-      2000,
+      0,
       100,
       11000
     );
 
     AaveV2Polygon.POOL_CONFIGURATOR.configureReserveAsCollateral(
       AaveV2PolygonAssets.BAL_UNDERLYING,
-      2000,
+      0,
       100,
       11000
     );
 
     AaveV2Polygon.POOL_CONFIGURATOR.configureReserveAsCollateral(
       AaveV2PolygonAssets.CRV_UNDERLYING,
-      2000,
+      0,
       100,
       11000
     );
 
     AaveV2Polygon.POOL_CONFIGURATOR.configureReserveAsCollateral(
       AaveV2PolygonAssets.GHST_UNDERLYING,
-      2500,
+      0,
       100,
       11250
     );
 
     AaveV2Polygon.POOL_CONFIGURATOR.configureReserveAsCollateral(
       AaveV2PolygonAssets.LINK_UNDERLYING,
-      5000,
+      0,
       100,
       10750
     );
