@@ -1,8 +1,6 @@
 {
   "rootOptions": {
-    "pools": [
-      "AaveV3Ethereum"
-    ],
+    "pools": ["AaveV3Ethereum"],
     "title": "CRVUSD onboarding on Aave V3 Ethereum",
     "shortName": "CRVUSDOnboardingOnAaveV3Ethereum",
     "date": "20231116",
@@ -47,9 +45,7 @@
           }
         ]
       },
-      "features": [
-        "ASSET_LISTING"
-      ]
+      "features": ["ASSET_LISTING"]
     }
   }
 }

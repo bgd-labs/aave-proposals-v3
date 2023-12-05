@@ -11,7 +11,7 @@ import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethe
  * - Discussion: https://governance.aave.com/t/arfc-aci-phase-ii/15138
  */
 contract AaveV3Ethereum_ACIPhaseII_20231029 is IProposalGenericExecutor {
-  address public constant ACI_TREASURY = 0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922 ;
+  address public constant ACI_TREASURY = 0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922;
   uint256 public constant GHO_STREAM_AMOUNT = 375_000 ether;
   uint256 public constant STREAM_DURATION = 180 days;
   uint256 public constant ACTUAL_AMOUNT_GHO =

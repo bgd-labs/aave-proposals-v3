@@ -28,7 +28,7 @@ contract AaveV2Ethereum_IncreaseStablecoinOptimalBorrowRates_20231113_Test is Pr
    * @dev executes the generic test suite including e2e and config snapshots
    */
   function test_defaultProposalExecution() public {
-    (ReserveConfig[] memory allConfigsBefore, ReserveConfig[] memory allConfigsAfter) =  defaultTest(
+    (ReserveConfig[] memory allConfigsBefore, ReserveConfig[] memory allConfigsAfter) = defaultTest(
       'AaveV2Ethereum_IncreaseStablecoinOptimalBorrowRates_20231113',
       AaveV2Ethereum.POOL,
       address(proposal)
@@ -44,18 +44,9 @@ contract AaveV2Ethereum_IncreaseStablecoinOptimalBorrowRates_20231113_Test is Pr
     assetsChanged[6] = AaveV2EthereumAssets.USDP_UNDERLYING;
 
     Changes[] memory assetChanges = new Changes[](3);
-    assetChanges[0] = Changes({
-      asset: AaveV2EthereumAssets.USDC_UNDERLYING,
-      reserveFactor: 25_00
-    });
-    assetChanges[1] = Changes({
-      asset: AaveV2EthereumAssets.USDT_UNDERLYING,
-      reserveFactor: 25_00
-    });
-    assetChanges[2] = Changes({
-      asset: AaveV2EthereumAssets.LUSD_UNDERLYING,
-      reserveFactor: 25_00
-    });
+    assetChanges[0] = Changes({asset: AaveV2EthereumAssets.USDC_UNDERLYING, reserveFactor: 25_00});
+    assetChanges[1] = Changes({asset: AaveV2EthereumAssets.USDT_UNDERLYING, reserveFactor: 25_00});
+    assetChanges[2] = Changes({asset: AaveV2EthereumAssets.LUSD_UNDERLYING, reserveFactor: 25_00});
 
     _noReservesConfigsChangesApartFrom(allConfigsBefore, allConfigsAfter, assetsChanged);
 

@@ -1,8 +1,6 @@
 {
   "rootOptions": {
-    "pools": [
-      "AaveV3Ethereum"
-    ],
+    "pools": ["AaveV3Ethereum"],
     "title": "Upgrade Aave V3 ETH Poool wETH parameters",
     "shortName": "UpgradeAaveV3ETHPooolWETHParameters",
     "date": "20231031",
@@ -30,9 +28,7 @@
           }
         ]
       },
-      "features": [
-        "RATE_UPDATE_V3"
-      ]
+      "features": ["RATE_UPDATE_V3"]
     }
   }
 }
