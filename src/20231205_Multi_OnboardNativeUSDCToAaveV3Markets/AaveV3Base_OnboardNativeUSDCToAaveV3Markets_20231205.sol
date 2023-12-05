@@ -64,26 +64,6 @@ contract AaveV3Base_OnboardNativeUSDCToAaveV3Markets_20231205 is AaveV3PayloadBa
     return capsUpdate;
   }
 
-  function collateralsUpdates()
-    public
-    pure
-    override
-    returns (IAaveV3ConfigEngine.CollateralUpdate[] memory)
-  {
-    IAaveV3ConfigEngine.CollateralUpdate[]
-      memory collateralUpdate = new IAaveV3ConfigEngine.CollateralUpdate[](1);
-
-    collateralUpdate[0] = IAaveV3ConfigEngine.CollateralUpdate({
-      asset: AaveV3BaseAssets.USDbC_UNDERLYING,
-      ltv: EngineFlags.KEEP_CURRENT,
-      liqThreshold: EngineFlags.KEEP_CURRENT,
-      liqBonus: EngineFlags.KEEP_CURRENT,
-      debtCeiling: EngineFlags.KEEP_CURRENT,
-      liqProtocolFee: EngineFlags.KEEP_CURRENT
-    });
-
-    return collateralUpdate;
-  }
 
   function borrowsUpdates()
     public
