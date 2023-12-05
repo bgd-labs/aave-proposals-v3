@@ -1,0 +1,354 @@
+{
+  "rootOptions": {
+    "author": "Aave Chan Initiative and @EzR3aL",
+    "title": "Onboard Native USDC to Aave V3 Markets",
+    "discussion": "https://governance.aave.com/t/arfc-onboard-native-usdc-to-aave-v3-markets/15720",
+    "snapshot": "No snapshot for Direct-to-AIP",
+    "pools": [
+      "AaveV3Polygon",
+      "AaveV3Optimism",
+      "AaveV3Arbitrum",
+      "AaveV3Base"
+    ],
+    "shortName": "OnboardNativeUSDCToAaveV3Markets",
+    "date": "20231205"
+  },
+  "poolOptions": {
+    "AaveV3Polygon": {
+      "configs": {
+        "RATE_UPDATE_V3": [
+          {
+            "asset": "USDC",
+            "params": {
+              "optimalUtilizationRate": "",
+              "baseVariableBorrowRate": "",
+              "variableRateSlope1": "7",
+              "variableRateSlope2": "80",
+              "stableRateSlope1": "",
+              "stableRateSlope2": "",
+              "baseStableRateOffset": "",
+              "stableRateExcessOffset": "",
+              "optimalStableToTotalDebtRatio": ""
+            }
+          }
+        ],
+        "CAPS_UPDATE": [
+          {
+            "asset": "USDC",
+            "supplyCap": "40000000",
+            "borrowCap": "36000000"
+          }
+        ],
+        "COLLATERALS_UPDATE": [
+          {
+            "asset": "USDC",
+            "ltv": "77",
+            "liqThreshold": "80",
+            "liqBonus": "5",
+            "debtCeiling": "",
+            "liqProtocolFee": ""
+          }
+        ],
+        "BORROWS_UPDATE": [
+          {
+            "enabledToBorrow": "KEEP_CURRENT",
+            "flashloanable": "KEEP_CURRENT",
+            "stableRateModeEnabled": "KEEP_CURRENT",
+            "borrowableInIsolation": "KEEP_CURRENT",
+            "withSiloedBorrowing": "KEEP_CURRENT",
+            "reserveFactor": "20",
+            "asset": "USDC"
+          }
+        ],
+        "ASSET_LISTING": [
+          {
+            "assetSymbol": "nUSDC",
+            "decimals": 6,
+            "priceFeed": "0xfE4A8cc5b5B2366C1B58Bea3858e81843581b2F7",
+            "ltv": "77",
+            "liqThreshold": "80",
+            "liqBonus": "5",
+            "debtCeiling": "0",
+            "liqProtocolFee": "10",
+            "enabledToBorrow": "ENABLED",
+            "flashloanable": "ENABLED",
+            "stableRateModeEnabled": "DISABLED",
+            "borrowableInIsolation": "DISABLED",
+            "withSiloedBorrowing": "DISABLED",
+            "reserveFactor": "10",
+            "supplyCap": "50000000",
+            "borrowCap": "45000000",
+            "rateStrategyParams": {
+              "optimalUtilizationRate": "90",
+              "baseVariableBorrowRate": "0",
+              "variableRateSlope1": "5",
+              "variableRateSlope2": "60",
+              "stableRateSlope1": "5",
+              "stableRateSlope2": "60",
+              "baseStableRateOffset": "0",
+              "stableRateExcessOffset": "0",
+              "optimalStableToTotalDebtRatio": "0"
+            },
+            "eModeCategory": "AaveV3PolygonEModes.STABLECOINS",
+            "asset": "0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359"
+          }
+        ]
+      },
+      "cache": {
+        "blockNumber": 50786431
+      }
+    },
+    "AaveV3Optimism": {
+      "configs": {
+        "RATE_UPDATE_V3": [
+          {
+            "asset": "USDC",
+            "params": {
+              "optimalUtilizationRate": "",
+              "baseVariableBorrowRate": "",
+              "variableRateSlope1": "7",
+              "variableRateSlope2": "80",
+              "stableRateSlope1": "",
+              "stableRateSlope2": "",
+              "baseStableRateOffset": "",
+              "stableRateExcessOffset": "",
+              "optimalStableToTotalDebtRatio": ""
+            }
+          }
+        ],
+        "CAPS_UPDATE": [
+          {
+            "asset": "USDC",
+            "supplyCap": "18000000",
+            "borrowCap": "15500000"
+          }
+        ],
+        "COLLATERALS_UPDATE": [
+          {
+            "asset": "USDC",
+            "ltv": "",
+            "liqThreshold": "",
+            "liqBonus": "",
+            "debtCeiling": "",
+            "liqProtocolFee": ""
+          }
+        ],
+        "BORROWS_UPDATE": [
+          {
+            "enabledToBorrow": "KEEP_CURRENT",
+            "flashloanable": "KEEP_CURRENT",
+            "stableRateModeEnabled": "KEEP_CURRENT",
+            "borrowableInIsolation": "KEEP_CURRENT",
+            "withSiloedBorrowing": "KEEP_CURRENT",
+            "reserveFactor": "20",
+            "asset": "USDC"
+          }
+        ],
+        "ASSET_LISTING": [
+          {
+            "assetSymbol": "nUSDC",
+            "decimals": 6,
+            "priceFeed": "0x16a9FA2FDa030272Ce99B29CF780dFA30361E0f3",
+            "ltv": "77",
+            "liqThreshold": "80",
+            "liqBonus": "5",
+            "debtCeiling": "0",
+            "liqProtocolFee": "10",
+            "enabledToBorrow": "ENABLED",
+            "flashloanable": "ENABLED",
+            "stableRateModeEnabled": "DISABLED",
+            "borrowableInIsolation": "DISABLED",
+            "withSiloedBorrowing": "DISABLED",
+            "reserveFactor": "10",
+            "supplyCap": "25000000",
+            "borrowCap": "20000000",
+            "rateStrategyParams": {
+              "optimalUtilizationRate": "90",
+              "baseVariableBorrowRate": "0",
+              "variableRateSlope1": "5",
+              "variableRateSlope2": "60",
+              "stableRateSlope1": "5",
+              "stableRateSlope2": "300",
+              "baseStableRateOffset": "0",
+              "stableRateExcessOffset": "0",
+              "optimalStableToTotalDebtRatio": "0"
+            },
+            "eModeCategory": "AaveV3OptimismEModes.STABLECOINS",
+            "asset": "0x0b2C639c533813f4Aa9D7837CAf62653d097Ff85"
+          }
+        ]
+      },
+      "cache": {
+        "blockNumber": 113108279
+      }
+    },
+    "AaveV3Arbitrum": {
+      "configs": {
+        "RATE_UPDATE_V3": [
+          {
+            "asset": "USDC",
+            "params": {
+              "optimalUtilizationRate": "",
+              "baseVariableBorrowRate": "",
+              "variableRateSlope1": "7",
+              "variableRateSlope2": "80",
+              "stableRateSlope1": "",
+              "stableRateSlope2": "",
+              "baseStableRateOffset": "",
+              "stableRateExcessOffset": "",
+              "optimalStableToTotalDebtRatio": ""
+            }
+          }
+        ],
+        "CAPS_UPDATE": [
+          {
+            "asset": "USDC",
+            "supplyCap": "26000000",
+            "borrowCap": "24000000"
+          }
+        ],
+        "COLLATERALS_UPDATE": [
+          {
+            "asset": "USDC",
+            "ltv": "77",
+            "liqThreshold": "80",
+            "liqBonus": "5",
+            "debtCeiling": "",
+            "liqProtocolFee": ""
+          }
+        ],
+        "BORROWS_UPDATE": [
+          {
+            "enabledToBorrow": "KEEP_CURRENT",
+            "flashloanable": "KEEP_CURRENT",
+            "stableRateModeEnabled": "KEEP_CURRENT",
+            "borrowableInIsolation": "KEEP_CURRENT",
+            "withSiloedBorrowing": "KEEP_CURRENT",
+            "reserveFactor": "20",
+            "asset": "USDC"
+          }
+        ],
+        "ASSET_LISTING": [
+          {
+            "assetSymbol": "nUSDC",
+            "decimals": 6,
+            "priceFeed": "0x50834F3163758fcC1Df9973b6e91f0F0F0434aD3",
+            "ltv": "77",
+            "liqThreshold": "80",
+            "liqBonus": "5",
+            "debtCeiling": "0",
+            "liqProtocolFee": "10",
+            "enabledToBorrow": "ENABLED",
+            "flashloanable": "ENABLED",
+            "stableRateModeEnabled": "DISABLED",
+            "borrowableInIsolation": "DISABLED",
+            "withSiloedBorrowing": "DISABLED",
+            "reserveFactor": "10",
+            "supplyCap": "64000000",
+            "borrowCap": "60000000",
+            "rateStrategyParams": {
+              "optimalUtilizationRate": "90",
+              "baseVariableBorrowRate": "0",
+              "variableRateSlope1": "5",
+              "variableRateSlope2": "60",
+              "stableRateSlope1": "5",
+              "stableRateSlope2": "300",
+              "baseStableRateOffset": "0",
+              "stableRateExcessOffset": "0",
+              "optimalStableToTotalDebtRatio": "0"
+            },
+            "eModeCategory": "AaveV3ArbitrumEModes.STABLECOINS",
+            "asset": "0xaf88d065e77c8cC2239327C5EDb3A432268e5831"
+          }
+        ]
+      },
+      "cache": {
+        "blockNumber": 157246516
+      }
+    },
+    "AaveV3Base": {
+      "configs": {
+        "RATE_UPDATE_V3": [
+          {
+            "asset": "USDbC",
+            "params": {
+              "optimalUtilizationRate": "",
+              "baseVariableBorrowRate": "",
+              "variableRateSlope1": "7",
+              "variableRateSlope2": "80",
+              "stableRateSlope1": "",
+              "stableRateSlope2": "",
+              "baseStableRateOffset": "",
+              "stableRateExcessOffset": "",
+              "optimalStableToTotalDebtRatio": ""
+            }
+          }
+        ],
+        "CAPS_UPDATE": [
+          {
+            "asset": "USDbC",
+            "supplyCap": "2000000",
+            "borrowCap": "2000000"
+          }
+        ],
+        "COLLATERALS_UPDATE": [
+          {
+            "asset": "USDbC",
+            "ltv": "",
+            "liqThreshold": "",
+            "liqBonus": "",
+            "debtCeiling": "",
+            "liqProtocolFee": ""
+          }
+        ],
+        "BORROWS_UPDATE": [
+          {
+            "enabledToBorrow": "KEEP_CURRENT",
+            "flashloanable": "KEEP_CURRENT",
+            "stableRateModeEnabled": "KEEP_CURRENT",
+            "borrowableInIsolation": "KEEP_CURRENT",
+            "withSiloedBorrowing": "KEEP_CURRENT",
+            "reserveFactor": "20",
+            "asset": "USDbC"
+          }
+        ],
+        "ASSET_LISTING": [
+          {
+            "assetSymbol": "USDC",
+            "decimals": 6,
+            "priceFeed": "0x7e860098F58bBFC8648a4311b374B1D669a2bc6B",
+            "ltv": "77",
+            "liqThreshold": "80",
+            "liqBonus": "5",
+            "debtCeiling": "0",
+            "liqProtocolFee": "10",
+            "enabledToBorrow": "ENABLED",
+            "flashloanable": "ENABLED",
+            "stableRateModeEnabled": "DISABLED",
+            "borrowableInIsolation": "DISABLED",
+            "withSiloedBorrowing": "DISABLED",
+            "reserveFactor": "10",
+            "supplyCap": "10000000",
+            "borrowCap": "9000000",
+            "rateStrategyParams": {
+              "optimalUtilizationRate": "90",
+              "baseVariableBorrowRate": "0",
+              "variableRateSlope1": "5",
+              "variableRateSlope2": "60",
+              "stableRateSlope1": "5",
+              "stableRateSlope2": "300",
+              "baseStableRateOffset": "0",
+              "stableRateExcessOffset": "0",
+              "optimalStableToTotalDebtRatio": "0"
+            },
+            "eModeCategory": "AaveV3BaseEModes.NONE",
+            "asset": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913"
+          }
+        ]
+      },
+      "cache": {
+        "blockNumber": 7513307
+      }
+    }
+  }
+}
