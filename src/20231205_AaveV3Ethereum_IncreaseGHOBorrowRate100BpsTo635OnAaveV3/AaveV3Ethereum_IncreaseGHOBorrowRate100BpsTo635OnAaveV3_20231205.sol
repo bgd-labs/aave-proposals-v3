@@ -2,6 +2,7 @@
 pragma solidity ^0.8.0;
 
 import {IProposalGenericExecutor} from 'aave-helpers/interfaces/IProposalGenericExecutor.sol';
+import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 
 /**
  * @title Increase GHO Borrow Rate 100 bps to 6.35% on Aave V3
@@ -12,7 +13,11 @@ import {IProposalGenericExecutor} from 'aave-helpers/interfaces/IProposalGeneric
 contract AaveV3Ethereum_IncreaseGHOBorrowRate100BpsTo635OnAaveV3_20231205 is
   IProposalGenericExecutor
 {
+  address public constant INTEREST_RATE_STRATEGY = 0x00524e8E4C5FD2b8D8aa1226fA16b39Cad69B8A0;
   function execute() external {
-    // custom code goes here
+    AaveV3Ethereum.POOL_CONFIGURATOR.setReserveInterestRateStrategyAddress(
+      AaveV3EthereumAssets.GHO_UNDERLYING,
+      INTEREST_RATE_STRATEGY
+    );
   }
 }
