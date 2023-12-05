@@ -6,7 +6,8 @@
     "lint": "prettier ./",
     "lint:fix": "npm run lint -- --write",
     "generate": "tsx generator/cli",
-    "generate:bgd": "tsx generator/cli -a 'BGD Labs @bgdlabs'"
+    "generate:bgd": "tsx generator/cli -a 'BGD Labs @bgdlabs'",
+    "prepare": "husky install"
   },
   "engines": {
     "node": ">=18.0.0"
@@ -35,7 +36,12 @@
     "@inquirer/prompts": "^3.3.0",
     "@inquirer/testing": "^2.1.9",
     "commander": "^11.1.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.2.0",
     "tsx": "^3.14.0",
     "viem": "^1.18.9"
+  },
+  "lint-staged": {
+    "*": "prettier --ignore-unknown --write"
   }
 }
