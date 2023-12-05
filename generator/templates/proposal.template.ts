@@ -1,13 +1,17 @@
 import {generateContractName, getPoolChain, getVersion} from '../common';
-import {FEATURE, Options, PoolConfig} from '../types';
+import {FEATURE, Options, PoolConfig, PoolIdentifier} from '../types';
 import {prefixWithImports} from '../utils/importsResolver';
 import {prefixWithPragma} from '../utils/constants';
 
-export const proposalTemplate = (options: Options, poolConfig: PoolConfig) => {
+export const proposalTemplate = (
+  options: Options,
+  poolConfig: PoolConfig,
+  pool: PoolIdentifier
+) => {
   const {title, author, snapshot, discussion} = options;
-  const chain = getPoolChain(poolConfig.pool);
-  const version = getVersion(poolConfig.pool);
-  const contractName = generateContractName(options, poolConfig.pool);
+  const chain = getPoolChain(pool);
+  const version = getVersion(pool);
+  const contractName = generateContractName(options, pool);
 
   const constants = poolConfig.artifacts
     .map((artifact) => artifact.code?.constants)

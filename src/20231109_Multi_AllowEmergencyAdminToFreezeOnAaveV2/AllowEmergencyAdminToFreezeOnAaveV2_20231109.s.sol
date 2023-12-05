@@ -100,24 +100,24 @@ contract CreateProposal is EthereumScript {
     payloads[0] = GovV3Helpers.buildMainnetPayload(vm, actionsEthereum);
 
     IPayloadsControllerCore.ExecutionAction[]
-      memory actionsEthereumAmm = new IPayloadsControllerCore.ExecutionAction[](2);
-    actionsEthereum[0] = GovV3Helpers.buildAction(0xf75cBd975756C52aA7321d10E6aCA90e07835Dee);
-    payloads[0] = GovV3Helpers.buildMainnetPayload(vm, actionsEthereumAmm);
+      memory actionsEthereumAmm = new IPayloadsControllerCore.ExecutionAction[](1);
+    actionsEthereumAmm[0] = GovV3Helpers.buildAction(0xf75cBd975756C52aA7321d10E6aCA90e07835Dee);
+    payloads[1] = GovV3Helpers.buildMainnetPayload(vm, actionsEthereumAmm);
 
     IPayloadsControllerCore.ExecutionAction[]
-      memory actionsEthereumSentinel = new IPayloadsControllerCore.ExecutionAction[](3);
+      memory actionsEthereumSentinel = new IPayloadsControllerCore.ExecutionAction[](1);
     actionsEthereumSentinel[0] = GovV3Helpers.buildAction(0x9441B65EE553F70df9C77d45d3283B6BC24F222d);
-    payloads[1] = GovV3Helpers.buildMainnetPayload(vm, actionsEthereumSentinel);
+    payloads[2] = GovV3Helpers.buildMainnetPayload(vm, actionsEthereumSentinel);
 
     IPayloadsControllerCore.ExecutionAction[]
-      memory actionsPolygon = new IPayloadsControllerCore.ExecutionAction[](4);
+      memory actionsPolygon = new IPayloadsControllerCore.ExecutionAction[](1);
     actionsPolygon[0] = GovV3Helpers.buildAction(0x1AA25FdD7d55FA8a401D6EFba8e48874Ef730E55);
-    payloads[2] = GovV3Helpers.buildPolygonPayload(vm, actionsPolygon);
+    payloads[3] = GovV3Helpers.buildPolygonPayload(vm, actionsPolygon);
 
     IPayloadsControllerCore.ExecutionAction[]
-      memory actionsAvalanche = new IPayloadsControllerCore.ExecutionAction[](5);
+      memory actionsAvalanche = new IPayloadsControllerCore.ExecutionAction[](1);
     actionsAvalanche[0] = GovV3Helpers.buildAction(0xD3DE4b3571744EB77946d65aBF01408902E92c4E);
-    payloads[3] = GovV3Helpers.buildAvalanchePayload(vm, actionsAvalanche);
+    payloads[4] = GovV3Helpers.buildAvalanchePayload(vm, actionsAvalanche);
 
     // create proposal
     vm.startBroadcast();

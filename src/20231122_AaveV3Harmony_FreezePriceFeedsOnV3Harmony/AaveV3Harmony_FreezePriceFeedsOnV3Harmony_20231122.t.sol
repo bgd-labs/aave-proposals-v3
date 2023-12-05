@@ -75,6 +75,17 @@ contract AaveV3Harmony_FreezePriceFeedsOnV3Harmony_20231122_Test is ProtocolV3Te
 
     vm.stopPrank();
 
+    // withdraw is possible
+    vm.startPrank(address(AaveV3Harmony.COLLECTOR));
+
+    AaveV3Harmony.POOL.withdraw(
+      AaveV3HarmonyAssets.ONE_DAI_UNDERLYING,
+      type(uint256).max,
+      address(this)
+    );
+
+    vm.stopPrank();
+
     // check price adapters
     for (uint256 i = 0; i < assets.length; i++) {
       assertEq(AaveV3Harmony.ORACLE.getAssetPrice(assets[i]), assetPrices[assets[i]]);
