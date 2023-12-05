@@ -8,6 +8,7 @@ import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/ProtocolV3TestBase
 import {AaveV3Ethereum_ACIPhaseII_20231029} from './AaveV3Ethereum_ACIPhaseII_20231029.sol';
 
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
+
 /**
  * @dev Test for AaveV3Ethereum_ACIPhaseII_20231029
  * command: make test-contract filter=AaveV3Ethereum_ACIPhaseII_20231029
@@ -35,16 +36,20 @@ contract AaveV3Ethereum_ACIPhaseII_20231029_Test is ProtocolV3TestBase {
   }
    */
   function testProposalExecution() public {
-    uint256 nextCollectorStreamID =  AaveV3Ethereum.COLLECTOR.getNextStreamId();
-    uint256 ACIGHOBalanceBefore = IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(ACI_TREASURY);
+    uint256 nextCollectorStreamID = AaveV3Ethereum.COLLECTOR.getNextStreamId();
+    uint256 ACIGHOBalanceBefore = IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(
+      ACI_TREASURY
+    );
 
-    uint256 CollectorV3GHOBalanceBefore = IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR));
+    uint256 CollectorV3GHOBalanceBefore = IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(
+      address(AaveV3Ethereum.COLLECTOR)
+    );
 
     executePayload(vm, address(proposal));
-    
-// Checking if the streams have been created properly
-// scoping to avoid the "stack too deep" error
-   {
+
+    // Checking if the streams have been created properly
+    // scoping to avoid the "stack too deep" error
+    {
       (
         address senderGHO,
         address recipientGHO,
