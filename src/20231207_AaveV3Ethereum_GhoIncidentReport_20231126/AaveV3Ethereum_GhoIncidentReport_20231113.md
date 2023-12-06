@@ -10,7 +10,7 @@ This proposal patches the GHO integration with the Aave V3 Pool, fixing an issue
 
 ## Motivation
 
-A resolution for the identified technical issue identified in the GHO integration with the Aave V3 Ethereum Pool. The patch guarantees a permanent solution without altering any of the existing GHO features within the Aave Pool.
+The proposed patch guarantees a permanent solution for the technical issue that was identified and reported by Immunefi with the GHO integration with the Aave V3 Ethereum Pool. The fix will be implemented without altering any of the existing GHO features within the Aave V3 Pool.
 
 ## Specification
 
