@@ -21,7 +21,7 @@ contract AaveV3Ethereum_GhoIncidentReport_20231113_Test is ProtocolV3TestBase {
 
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('mainnet'), 18722500);
-    proposal = new AaveV3Ethereum_GhoIncidentReport_20231113(NEW_VGHO_IMPL);
+    proposal = new AaveV3Ethereum_GhoIncidentReport_20231113();
   }
 
   function test_defaultProposalExecution() public {
