@@ -44,14 +44,14 @@ Chaos and Gauntlet align on the aggressive approach to expedite the deprecation 
 
 ### **Aave v2 Polygon**
 
-| Asset | Current LT | Chaos Rec LT | Value Liquidated ($) | Accounts Liquidated |
-| --- | --- | --- | --- | --- |
-| SUSHI | 45% | 1% | 13 | 3 |
-| DPI | 45% | 1% | 40 | 2 |
-| BAL | 45% | 1% | 1.2K | 15 |
-| CRV | 45% | 1% | 127 | 11 |
-| GHST | 40% | 1% | 7.7K | 10 |
-| LINK | 65% | 1% | 6.6K | 26 |
+| Asset | Current LT | Chaos Rec LT | Chaos Rec LTV | Value Liquidated ($) | Accounts Liquidated |
+| --- | --- | --- | --- | --- | --- |
+| SUSHI | 45% | 1% | 0% | 13 | 3 |
+| DPI | 45% | 1% | 0% | 40 | 2 |
+| BAL | 45% | 1% | 0% | 1.2K | 15 |
+| CRV | 45% | 1% | 0% | 127 | 11 |
+| GHST | 40% | 1% | 0% | 7.7K | 10 |
+| LINK | 65% | 1% | 0% | 6.6K | 26 |
 
 |  | Value liquidated | Accounts liquidated |
 | --- | --- | --- |
