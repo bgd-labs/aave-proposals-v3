@@ -12,11 +12,7 @@ import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethe
  * - Discussion: https://governance.aave.com/t/arfc-gho-technical-incident-13-11-2023/15642
  */
 contract AaveV3Ethereum_GhoIncidentReport_20231113 {
-  address public immutable NEW_VGHO_IMPL;
-
-  constructor(address newVGhoImpl) {
-    NEW_VGHO_IMPL = newVGhoImpl;
-  }
+  address public constant NEW_VGHO_IMPL = 0x20Cb2f303EDe313e2Cc44549Ad8653a5E8c0050e;
 
   function execute() external {
     AaveV3Ethereum.POOL_CONFIGURATOR.updateVariableDebtToken(

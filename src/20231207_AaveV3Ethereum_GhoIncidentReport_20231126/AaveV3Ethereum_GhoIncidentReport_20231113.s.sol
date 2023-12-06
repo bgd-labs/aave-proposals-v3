@@ -14,9 +14,7 @@ contract DeployEthereum is EthereumScript {
 
   function run() external broadcast {
     // deploy payloads
-    AaveV3Ethereum_GhoIncidentReport_20231113 payload = new AaveV3Ethereum_GhoIncidentReport_20231113(
-        NEW_VGHO_IMPL
-      );
+    AaveV3Ethereum_GhoIncidentReport_20231113 payload = new AaveV3Ethereum_GhoIncidentReport_20231113();
 
     // compose action
     IPayloadsControllerCore.ExecutionAction[]
@@ -47,7 +45,7 @@ contract CreateProposal is EthereumScript {
     // create proposal
     vm.startBroadcast();
     GovV3Helpers.createProposal2_5(
-        vm,
+      vm,
       payloads,
       GovV3Helpers.ipfsHashFile(
         vm,
