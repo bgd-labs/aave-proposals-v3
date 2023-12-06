@@ -22,7 +22,7 @@ export const AVAILABLE_CHAINS = [
   'Harmony',
   'Metis',
   'Base',
-  'Bsc',
+  'BNB',
   'Gnosis',
 ] as const;
 
@@ -103,7 +103,7 @@ export const CHAIN_TO_CHAIN_ID = {
   Avalanche: avalanche.id,
   Metis: metis.id,
   Base: base.id,
-  Bsc: bsc.id,
+  BNB: bsc.id,
   Gnosis: gnosis.id,
 };
 
