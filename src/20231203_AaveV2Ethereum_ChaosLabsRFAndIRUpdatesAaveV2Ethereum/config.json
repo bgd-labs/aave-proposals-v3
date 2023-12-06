@@ -1,9 +1,7 @@
 {
   "rootOptions": {
     "author": "Chaos Labs",
-    "pools": [
-      "AaveV2Ethereum"
-    ],
+    "pools": ["AaveV2Ethereum"],
     "title": "Chaos Labs RF and IR Updates - Aave V2 Ethereum",
     "discussion": "https://governance.aave.com/t/arfc-chaos-labs-rf-and-ir-updates-aave-v2-ethereum-2023-11-24/15661",
     "snapshot": "https://snapshot.org/#/aave.eth/proposal/0xbdd7c43d6e435c6c1ed08183f9e2e78f66a24436f45d48f04b85487a2f96e387",
