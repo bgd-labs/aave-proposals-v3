@@ -2,9 +2,8 @@
 pragma solidity ^0.8.0;
 
 import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aave-helpers/GovV3Helpers.sol';
-import {EthereumScript, PolygonScript, ArbitrumScript} from 'aave-helpers/ScriptUtils.sol';
+import {EthereumScript, PolygonScript} from 'aave-helpers/ScriptUtils.sol';
 import {AaveV3Polygon_IncreaseSupplyAndBorrowCapsAt100UtilizationDecember2023_20231205} from './AaveV3Polygon_IncreaseSupplyAndBorrowCapsAt100UtilizationDecember2023_20231205.sol';
-import {AaveV3Arbitrum_IncreaseSupplyAndBorrowCapsAt100UtilizationDecember2023_20231205} from './AaveV3Arbitrum_IncreaseSupplyAndBorrowCapsAt100UtilizationDecember2023_20231205.sol';
 
 /**
  * @dev Deploy Polygon
@@ -26,43 +25,19 @@ contract DeployPolygon is PolygonScript {
 }
 
 /**
- * @dev Deploy Arbitrum
- * command: make deploy-ledger contract=src/20231205_Multi_IncreaseSupplyAndBorrowCapsAt100UtilizationDecember2023/IncreaseSupplyAndBorrowCapsAt100UtilizationDecember2023_20231205.s.sol:DeployArbitrum chain=arbitrum
- */
-contract DeployArbitrum is ArbitrumScript {
-  function run() external broadcast {
-    // deploy payloads
-    AaveV3Arbitrum_IncreaseSupplyAndBorrowCapsAt100UtilizationDecember2023_20231205 payload0 = new AaveV3Arbitrum_IncreaseSupplyAndBorrowCapsAt100UtilizationDecember2023_20231205();
-
-    // compose action
-    IPayloadsControllerCore.ExecutionAction[]
-      memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
-    actions[0] = GovV3Helpers.buildAction(address(payload0));
-
-    // register action at payloadsController
-    GovV3Helpers.createPayload(actions);
-  }
-}
-
-/**
  * @dev Create Proposal
  * command: make deploy-ledger contract=src/20231205_Multi_IncreaseSupplyAndBorrowCapsAt100UtilizationDecember2023/IncreaseSupplyAndBorrowCapsAt100UtilizationDecember2023_20231205.s.sol:CreateProposal chain=mainnet
  */
 contract CreateProposal is EthereumScript {
   function run() external {
     // create payloads
-    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](2);
+    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](1);
 
     // compose actions for validation
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsPolygon = new IPayloadsControllerCore.ExecutionAction[](1);
     actionsPolygon[0] = GovV3Helpers.buildAction(address(0));
     payloads[0] = GovV3Helpers.buildPolygonPayload(vm, actionsPolygon);
-
-    IPayloadsControllerCore.ExecutionAction[]
-      memory actionsArbitrum = new IPayloadsControllerCore.ExecutionAction[](1);
-    actionsArbitrum[0] = GovV3Helpers.buildAction(address(0));
-    payloads[1] = GovV3Helpers.buildArbitrumPayload(vm, actionsArbitrum);
 
     // create proposal
     vm.startBroadcast();

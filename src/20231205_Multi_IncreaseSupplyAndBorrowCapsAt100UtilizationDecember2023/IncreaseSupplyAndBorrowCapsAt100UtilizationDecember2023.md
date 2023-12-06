@@ -18,7 +18,6 @@ After a review from Chaos Labs, we propose changes on the following assets.
 
 |Asset|Chain ID|Current Supply Cap|New Supply Cap|Current Borrow Cap|New Borrow Cap|
 | --- | --- | --- | --- | --- | --- |
-|LINK|Arbitrum|1.45m|1.575m|242.25k|484.5k|
 |wsETH|Polygon|3.45k|4.37k|285.00|No Change|
 
 ## References
