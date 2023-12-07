@@ -89,7 +89,7 @@ export type PoolIdentifierV3 = (typeof V3_POOLS)[number];
 
 export type ConfigFile = {
   rootOptions: Options;
-  poolOptions: Record<PoolIdentifier, Omit<PoolConfig, 'artifacts'>>;
+  poolOptions: Partial<Record<PoolIdentifier, Omit<PoolConfig, 'artifacts'>>>;
 };
 
 export type PoolCache = {blockNumber: number};
