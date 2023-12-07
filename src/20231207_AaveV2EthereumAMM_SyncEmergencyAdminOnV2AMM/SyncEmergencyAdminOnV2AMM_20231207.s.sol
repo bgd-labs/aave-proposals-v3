@@ -13,7 +13,7 @@ import {AaveV2EthereumAMM_SyncEmergencyAdminOnV2AMM_20231207} from './AaveV2Ethe
 contract DeployEthereum is EthereumScript {
   function run() external broadcast {
     // deploy payloads
-    AaveV2EthereumAMM_SyncEmergencyAdminOnV2AMM_20231207 payload0 = Create2Utils.create2Deploy(
+    address payload0 = Create2Utils.create2Deploy(
       'aave-proposals-v3',
       type(AaveV2EthereumAMM_SyncEmergencyAdminOnV2AMM_20231207).creationCode
     );
@@ -43,7 +43,9 @@ contract CreateProposal is EthereumScript {
     actionsEthereum[0] = GovV3Helpers.buildAction(
       Create2Utils.computeCreate2Address(
         'aave-proposals-v3',
-        type(AaveV2EthereumAMM_SyncEmergencyAdminOnV2AMM_20231207).creationCode
+        keccak256(
+          abi.encodePacked(type(AaveV2EthereumAMM_SyncEmergencyAdminOnV2AMM_20231207).creationCode)
+        )
       )
     );
     payloads[0] = GovV3Helpers.buildMainnetPayload(vm, actionsEthereum);
