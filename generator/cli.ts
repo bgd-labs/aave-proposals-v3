@@ -74,7 +74,9 @@ const FEATURE_MODULES_V3 = [
 ];
 
 if (options.configFile) {
-  const cfgFile: ConfigFile = await import(path.join(process.cwd(), options.configFile));
+  const {config: cfgFile}: {config: ConfigFile} = await import(
+    path.join(process.cwd(), options.configFile)
+  );
   options = {...options, ...cfgFile.rootOptions};
   poolConfigs = cfgFile.poolOptions as any;
   for (const pool of options.pools) {
