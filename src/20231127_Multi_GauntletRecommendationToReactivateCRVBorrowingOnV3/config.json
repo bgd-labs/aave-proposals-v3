@@ -2,10 +2,7 @@
   "rootOptions": {
     "configFile": "src/20231127_Multi_GauntletRecommendationToReactivateCRVBorrowingOnV3/config.json",
     "force": true,
-    "pools": [
-      "AaveV3Ethereum",
-      "AaveV3Polygon"
-    ],
+    "pools": ["AaveV3Ethereum", "AaveV3Polygon"],
     "title": "Gauntlet recommendation to reactivate CRV borrowing on v3",
     "shortName": "GauntletRecommendationToReactivateCRVBorrowingOnV3",
     "date": "20231127",
