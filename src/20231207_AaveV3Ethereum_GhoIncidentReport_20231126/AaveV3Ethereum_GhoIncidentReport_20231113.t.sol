@@ -4,6 +4,7 @@ pragma solidity ^0.8.0;
 import 'forge-std/Test.sol';
 import {AaveV3EthereumAssets, AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/ProtocolV3TestBase.sol';
+import {IPoolConfigurator} from 'aave-address-book/AaveV3.sol';
 import {AaveV3Ethereum_GhoIncidentReport_20231113} from './AaveV3Ethereum_GhoIncidentReport_20231113.sol';
 
 interface IGhoVariableDebtTokenHelper {
@@ -25,6 +26,9 @@ contract AaveV3Ethereum_GhoIncidentReport_20231113_Test is ProtocolV3TestBase {
   }
 
   function test_defaultProposalExecution() public {
+    // increase GHO borrow cap so test borrows can succeed
+    vm.prank(AaveV3Ethereum.CAPS_PLUS_RISK_STEWARD);
+    AaveV3Ethereum.POOL_CONFIGURATOR.setBorrowCap(AaveV3Ethereum.GHO_TOKEN, 36_000_000);
     defaultTest(
       'AaveV3Ethereum_GhoIncidentReport_20231113',
       AaveV3Ethereum.POOL,
