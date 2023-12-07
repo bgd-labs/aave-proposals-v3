@@ -22,7 +22,6 @@ The proposal payload upgrades the implementation of GhoVariableDebtToken.
 - Implementation: [Payload]()
 - [Discussion](https://governance.aave.com/t/arfc-gho-technical-incident-13-11-2023/15642)
 
-
 ## Copyright
 
 Copyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).
