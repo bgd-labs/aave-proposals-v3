@@ -15,10 +15,9 @@ import {AaveV3Arbitrum_OnboardNativeUSDCToAaveV3Markets_20231205} from './AaveV3
  */
 contract AaveV3Arbitrum_OnboardNativeUSDCToAaveV3Markets_20231205_Test is ProtocolV3TestBase {
   AaveV3Arbitrum_OnboardNativeUSDCToAaveV3Markets_20231205 internal proposal;
-  address internal USDC_WHALE = 0xE68Ee8A12c611fd043fB05d65E1548dC1383f2b9;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('arbitrum'), 157546316);
+    vm.createSelectFork(vm.rpcUrl('arbitrum'), 157897379);
     proposal = new AaveV3Arbitrum_OnboardNativeUSDCToAaveV3Markets_20231205();
   }
 
@@ -26,8 +25,6 @@ contract AaveV3Arbitrum_OnboardNativeUSDCToAaveV3Markets_20231205_Test is Protoc
    * @dev executes the generic test suite including e2e and config snapshots
    */
   function test_defaultProposalExecution() public {
-    startHoax(USDC_WHALE);
-    IERC20(proposal.nUSDC()).transfer(GovernanceV3Arbitrum.EXECUTOR_LVL_1, 10 ** 6);
     defaultTest(
       'AaveV3Arbitrum_OnboardNativeUSDCToAaveV3Markets_20231205',
       AaveV3Arbitrum.POOL,
@@ -35,13 +32,4 @@ contract AaveV3Arbitrum_OnboardNativeUSDCToAaveV3Markets_20231205_Test is Protoc
     );
   }
 
-  function test_collectorHasnUSDCFunds() public {
-    startHoax(USDC_WHALE);
-    IERC20(proposal.nUSDC()).transfer(GovernanceV3Arbitrum.EXECUTOR_LVL_1, 10 ** 6);
-    GovV3Helpers.executePayload(vm, address(proposal));
-    (address aTokenAddress, , ) = AaveV3Arbitrum
-      .AAVE_PROTOCOL_DATA_PROVIDER
-      .getReserveTokensAddresses(proposal.nUSDC());
-    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Arbitrum.COLLECTOR)), 10 ** 6);
-  }
 }

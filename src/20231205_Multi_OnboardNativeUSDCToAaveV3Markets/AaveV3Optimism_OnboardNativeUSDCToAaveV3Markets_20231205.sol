@@ -18,14 +18,6 @@ import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';
 contract AaveV3Optimism_OnboardNativeUSDCToAaveV3Markets_20231205 is AaveV3PayloadOptimism {
   using SafeERC20 for IERC20;
 
-  address public constant nUSDC = 0x0b2C639c533813f4Aa9D7837CAf62653d097Ff85;
-  uint256 public constant nUSDC_SEED_AMOUNT = 1e6;
-
-  function _postExecute() internal override {
-    IERC20(nUSDC).forceApprove(address(AaveV3Optimism.POOL), nUSDC_SEED_AMOUNT);
-    AaveV3Optimism.POOL.supply(nUSDC, nUSDC_SEED_AMOUNT, address(AaveV3Optimism.COLLECTOR), 0);
-  }
-
   function rateStrategiesUpdates()
     public
     pure
@@ -33,7 +25,7 @@ contract AaveV3Optimism_OnboardNativeUSDCToAaveV3Markets_20231205 is AaveV3Paylo
     returns (IAaveV3ConfigEngine.RateStrategyUpdate[] memory)
   {
     IAaveV3ConfigEngine.RateStrategyUpdate[]
-      memory rateStrategies = new IAaveV3ConfigEngine.RateStrategyUpdate[](1);
+      memory rateStrategies = new IAaveV3ConfigEngine.RateStrategyUpdate[](2);
     rateStrategies[0] = IAaveV3ConfigEngine.RateStrategyUpdate({
       asset: AaveV3OptimismAssets.USDC_UNDERLYING,
       params: IV3RateStrategyFactory.RateStrategyParams({
@@ -48,6 +40,22 @@ contract AaveV3Optimism_OnboardNativeUSDCToAaveV3Markets_20231205 is AaveV3Paylo
         optimalStableToTotalDebtRatio: EngineFlags.KEEP_CURRENT
       })
     });
+
+    rateStrategies[1] = IAaveV3ConfigEngine.RateStrategyUpdate({
+      asset: AaveV3OptimismAssets.USDCn_UNDERLYING,
+      params: IV3RateStrategyFactory.RateStrategyParams({
+        optimalUsageRatio: EngineFlags.KEEP_CURRENT,
+        baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
+        variableRateSlope1: _bpsToRay(5_00),
+        variableRateSlope2: EngineFlags.KEEP_CURRENT,
+        stableRateSlope1: EngineFlags.KEEP_CURRENT,
+        stableRateSlope2: EngineFlags.KEEP_CURRENT,
+        baseStableRateOffset: EngineFlags.KEEP_CURRENT,
+        stableRateExcessOffset: EngineFlags.KEEP_CURRENT,
+        optimalStableToTotalDebtRatio: EngineFlags.KEEP_CURRENT
+      })
+    });
+
 
     return rateStrategies;
   }
@@ -74,9 +82,9 @@ contract AaveV3Optimism_OnboardNativeUSDCToAaveV3Markets_20231205 is AaveV3Paylo
       memory collateralUpdate = new IAaveV3ConfigEngine.CollateralUpdate[](1);
 
     collateralUpdate[0] = IAaveV3ConfigEngine.CollateralUpdate({
-      asset: AaveV3OptimismAssets.USDC_UNDERLYING,
-      ltv: EngineFlags.KEEP_CURRENT,
-      liqThreshold: EngineFlags.KEEP_CURRENT,
+      asset: AaveV3OptimismAssets.USDCn_UNDERLYING,
+      ltv: 77_00,
+      liqThreshold: 80_00,
       liqBonus: EngineFlags.KEEP_CURRENT,
       debtCeiling: EngineFlags.KEEP_CURRENT,
       liqProtocolFee: EngineFlags.KEEP_CURRENT
@@ -105,42 +113,5 @@ contract AaveV3Optimism_OnboardNativeUSDCToAaveV3Markets_20231205 is AaveV3Paylo
     });
 
     return borrowUpdates;
-  }
-
-  function newListings() public pure override returns (IAaveV3ConfigEngine.Listing[] memory) {
-    IAaveV3ConfigEngine.Listing[] memory listings = new IAaveV3ConfigEngine.Listing[](1);
-
-    listings[0] = IAaveV3ConfigEngine.Listing({
-      asset: nUSDC,
-      assetSymbol: 'nUSDC',
-      priceFeed: 0x16a9FA2FDa030272Ce99B29CF780dFA30361E0f3,
-      eModeCategory: AaveV3OptimismEModes.STABLECOINS,
-      enabledToBorrow: EngineFlags.ENABLED,
-      stableRateModeEnabled: EngineFlags.DISABLED,
-      borrowableInIsolation: EngineFlags.DISABLED,
-      withSiloedBorrowing: EngineFlags.DISABLED,
-      flashloanable: EngineFlags.ENABLED,
-      ltv: 77_00,
-      liqThreshold: 80_00,
-      liqBonus: 5_00,
-      reserveFactor: 10_00,
-      supplyCap: 25_000_000,
-      borrowCap: 20_000_000,
-      debtCeiling: 0,
-      liqProtocolFee: 10_00,
-      rateStrategyParams: IV3RateStrategyFactory.RateStrategyParams({
-        optimalUsageRatio: _bpsToRay(90_00),
-        baseVariableBorrowRate: _bpsToRay(0),
-        variableRateSlope1: _bpsToRay(5_00),
-        variableRateSlope2: _bpsToRay(60_00),
-        stableRateSlope1: _bpsToRay(5_00),
-        stableRateSlope2: _bpsToRay(300_00),
-        baseStableRateOffset: _bpsToRay(0),
-        stableRateExcessOffset: _bpsToRay(0),
-        optimalStableToTotalDebtRatio: _bpsToRay(0)
-      })
-    });
-
-    return listings;
   }
 }

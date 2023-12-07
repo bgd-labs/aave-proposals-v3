@@ -18,12 +18,12 @@ import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';
 contract AaveV3Polygon_OnboardNativeUSDCToAaveV3Markets_20231205 is AaveV3PayloadPolygon {
   using SafeERC20 for IERC20;
 
-  address public constant nUSDC = 0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359;
-  uint256 public constant nUSDC_SEED_AMOUNT = 1e6;
+  address public constant USDCn = 0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359;
+  uint256 public constant USDCn_SEED_AMOUNT = 1e6;
 
   function _postExecute() internal override {
-    IERC20(nUSDC).forceApprove(address(AaveV3Polygon.POOL), nUSDC_SEED_AMOUNT);
-    AaveV3Polygon.POOL.supply(nUSDC, nUSDC_SEED_AMOUNT, address(AaveV3Polygon.COLLECTOR), 0);
+    IERC20(USDCn).forceApprove(address(AaveV3Polygon.POOL), USDCn_SEED_AMOUNT);
+    AaveV3Polygon.POOL.supply(USDCn, USDCn_SEED_AMOUNT, address(AaveV3Polygon.COLLECTOR), 0);
   }
 
   function rateStrategiesUpdates()
@@ -111,8 +111,8 @@ contract AaveV3Polygon_OnboardNativeUSDCToAaveV3Markets_20231205 is AaveV3Payloa
     IAaveV3ConfigEngine.Listing[] memory listings = new IAaveV3ConfigEngine.Listing[](1);
 
     listings[0] = IAaveV3ConfigEngine.Listing({
-      asset: nUSDC,
-      assetSymbol: 'nUSDC',
+      asset: USDCn,
+      assetSymbol: 'USDCn',
       priceFeed: 0xfE4A8cc5b5B2366C1B58Bea3858e81843581b2F7,
       eModeCategory: AaveV3PolygonEModes.STABLECOINS,
       enabledToBorrow: EngineFlags.ENABLED,

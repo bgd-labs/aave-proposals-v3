@@ -27,7 +27,7 @@ contract AaveV3Polygon_OnboardNativeUSDCToAaveV3Markets_20231205_Test is Protoco
    */
   function test_defaultProposalExecution() public {
     startHoax(USDC_WHALE);
-    IERC20(proposal.nUSDC()).transfer(GovernanceV3Polygon.EXECUTOR_LVL_1, 10 ** 6);
+    IERC20(proposal.USDCn()).transfer(GovernanceV3Polygon.EXECUTOR_LVL_1, 10 ** 6);
     defaultTest(
       'AaveV3Polygon_OnboardNativeUSDCToAaveV3Markets_20231205',
       AaveV3Polygon.POOL,
@@ -37,11 +37,11 @@ contract AaveV3Polygon_OnboardNativeUSDCToAaveV3Markets_20231205_Test is Protoco
 
   function test_collectorHasnUSDCFunds() public {
     startHoax(USDC_WHALE);
-    IERC20(proposal.nUSDC()).transfer(GovernanceV3Polygon.EXECUTOR_LVL_1, 10 ** 6);
+    IERC20(proposal.USDCn()).transfer(GovernanceV3Polygon.EXECUTOR_LVL_1, 10 ** 6);
     GovV3Helpers.executePayload(vm, address(proposal));
     (address aTokenAddress, , ) = AaveV3Polygon
       .AAVE_PROTOCOL_DATA_PROVIDER
-      .getReserveTokensAddresses(proposal.nUSDC());
+      .getReserveTokensAddresses(proposal.USDCn());
     assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Polygon.COLLECTOR)), 10 ** 6);
   }
 }

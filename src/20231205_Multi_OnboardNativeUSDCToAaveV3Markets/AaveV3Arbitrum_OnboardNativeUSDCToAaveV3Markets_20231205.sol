@@ -18,14 +18,6 @@ import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';
 contract AaveV3Arbitrum_OnboardNativeUSDCToAaveV3Markets_20231205 is AaveV3PayloadArbitrum {
   using SafeERC20 for IERC20;
 
-  address public constant nUSDC = 0xaf88d065e77c8cC2239327C5EDb3A432268e5831;
-  uint256 public constant nUSDC_SEED_AMOUNT = 1e6;
-
-  function _postExecute() internal override {
-    IERC20(nUSDC).forceApprove(address(AaveV3Arbitrum.POOL), nUSDC_SEED_AMOUNT);
-    AaveV3Arbitrum.POOL.supply(nUSDC, nUSDC_SEED_AMOUNT, address(AaveV3Arbitrum.COLLECTOR), 0);
-  }
-
   function rateStrategiesUpdates()
     public
     pure
@@ -71,13 +63,22 @@ contract AaveV3Arbitrum_OnboardNativeUSDCToAaveV3Markets_20231205 is AaveV3Paylo
     returns (IAaveV3ConfigEngine.CollateralUpdate[] memory)
   {
     IAaveV3ConfigEngine.CollateralUpdate[]
-      memory collateralUpdate = new IAaveV3ConfigEngine.CollateralUpdate[](1);
+      memory collateralUpdate = new IAaveV3ConfigEngine.CollateralUpdate[](2);
 
     collateralUpdate[0] = IAaveV3ConfigEngine.CollateralUpdate({
       asset: AaveV3ArbitrumAssets.USDC_UNDERLYING,
       ltv: 77_00,
       liqThreshold: 80_00,
       liqBonus: 5_00,
+      debtCeiling: EngineFlags.KEEP_CURRENT,
+      liqProtocolFee: EngineFlags.KEEP_CURRENT
+    });
+
+    collateralUpdate[1] = IAaveV3ConfigEngine.CollateralUpdate({
+      asset: AaveV3ArbitrumAssets.USDCn_UNDERLYING,
+      ltv: 77_00,
+      liqThreshold: 80_00,
+      liqBonus: EngineFlags.KEEP_CURRENT,
       debtCeiling: EngineFlags.KEEP_CURRENT,
       liqProtocolFee: EngineFlags.KEEP_CURRENT
     });
@@ -105,42 +106,5 @@ contract AaveV3Arbitrum_OnboardNativeUSDCToAaveV3Markets_20231205 is AaveV3Paylo
     });
 
     return borrowUpdates;
-  }
-
-  function newListings() public pure override returns (IAaveV3ConfigEngine.Listing[] memory) {
-    IAaveV3ConfigEngine.Listing[] memory listings = new IAaveV3ConfigEngine.Listing[](1);
-
-    listings[0] = IAaveV3ConfigEngine.Listing({
-      asset: nUSDC,
-      assetSymbol: 'nUSDC',
-      priceFeed: 0x50834F3163758fcC1Df9973b6e91f0F0F0434aD3,
-      eModeCategory: AaveV3ArbitrumEModes.STABLECOINS,
-      enabledToBorrow: EngineFlags.ENABLED,
-      stableRateModeEnabled: EngineFlags.DISABLED,
-      borrowableInIsolation: EngineFlags.DISABLED,
-      withSiloedBorrowing: EngineFlags.DISABLED,
-      flashloanable: EngineFlags.ENABLED,
-      ltv: 77_00,
-      liqThreshold: 80_00,
-      liqBonus: 5_00,
-      reserveFactor: 10_00,
-      supplyCap: 64_000_000,
-      borrowCap: 60_000_000,
-      debtCeiling: 0,
-      liqProtocolFee: 10_00,
-      rateStrategyParams: IV3RateStrategyFactory.RateStrategyParams({
-        optimalUsageRatio: _bpsToRay(90_00),
-        baseVariableBorrowRate: _bpsToRay(0),
-        variableRateSlope1: _bpsToRay(5_00),
-        variableRateSlope2: _bpsToRay(60_00),
-        stableRateSlope1: _bpsToRay(5_00),
-        stableRateSlope2: _bpsToRay(300_00),
-        baseStableRateOffset: _bpsToRay(0),
-        stableRateExcessOffset: _bpsToRay(0),
-        optimalStableToTotalDebtRatio: _bpsToRay(0)
-      })
-    });
-
-    return listings;
   }
 }
