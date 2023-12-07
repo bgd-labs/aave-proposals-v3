@@ -26,8 +26,8 @@ GLC SAFE Address: `0x205e795336610f5131Be52F09218AF19f0f3eC60`
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231123_AaveV3Ethereum_TransferAURAToGLCSafe/AaveV3Ethereum_TransferAURAToGLCSafe_20231123.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231123_AaveV3Ethereum_TransferAURAToGLCSafe/AaveV3Ethereum_TransferAURAToGLCSafe_20231123.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/60cce51b1d9877b9f90988d57eda958d9c5698e1/src/20231123_AaveV3Ethereum_TransferAURAToGLCSafe/AaveV3Ethereum_TransferAURAToGLCSafe_20231123.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/60cce51b1d9877b9f90988d57eda958d9c5698e1/src/20231123_AaveV3Ethereum_TransferAURAToGLCSafe/AaveV3Ethereum_TransferAURAToGLCSafe_20231123.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0xc999644bf64e4f62722d327416520b6f8cf8d7ceecbb69e7c52e2ebe1f4c3d63)
 - [Discussion](https://governance.aave.com/t/arfc-treasury-management-transfer-aura-to-glc-safe/15669)
 
