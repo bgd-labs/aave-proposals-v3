@@ -1,8 +1,6 @@
 {
   "rootOptions": {
-    "pools": [
-      "AaveV3Ethereum"
-    ],
+    "pools": ["AaveV3Ethereum"],
     "title": "Transfer AURA to GLC Safe",
     "shortName": "TransferAURAToGLCSafe",
     "date": "20231123",

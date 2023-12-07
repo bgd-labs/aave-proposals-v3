@@ -17,6 +17,10 @@ contract AaveV3Ethereum_TransferAURAToGLCSafe_20231123 is IProposalGenericExecut
   address public constant GLC_SAFE = 0x205e795336610f5131Be52F09218AF19f0f3eC60;
 
   function execute() external {
-    AaveV3Ethereum.COLLECTOR.transfer(AURA, GLC_SAFE, IERC20(AURA).balanceOf(address(AaveV3Ethereum.COLLECTOR)));
+    AaveV3Ethereum.COLLECTOR.transfer(
+      AURA,
+      GLC_SAFE,
+      IERC20(AURA).balanceOf(address(AaveV3Ethereum.COLLECTOR))
+    );
   }
 }
