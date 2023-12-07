@@ -25,34 +25,29 @@ discussions: \\"test\\"
 
 Copyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).
 ",
-  "jsonConfig": "{
-  \\"rootOptions\\": {
-    \\"pools\\": [
-      \\"AaveV3Ethereum\\"
-    ],
-    \\"title\\": \\"test\\",
-    \\"shortName\\": \\"Test\\",
-    \\"date\\": \\"20231023\\",
-    \\"author\\": \\"test\\",
-    \\"discussion\\": \\"test\\",
-    \\"snapshot\\": \\"test\\"
+  "jsonConfig": "import {ConfigFile} from '../../generator/types';
+export const config: ConfigFile = {
+  rootOptions: {
+    pools: ['AaveV3Ethereum'],
+    title: 'test',
+    shortName: 'Test',
+    date: '20231023',
+    author: 'test',
+    discussion: 'test',
+    snapshot: 'test',
   },
-  \\"poolOptions\\": {
-    \\"AaveV3Ethereum\\": {
-      \\"configs\\": {
-        \\"PRICE_FEEDS_UPDATE\\": [
-          {
-            \\"asset\\": \\"DAI\\",
-            \\"priceFeed\\": \\"0xae7ab96520de3a18e5e111b5eaab095312d7fe84\\"
-          }
-        ]
+  poolOptions: {
+    AaveV3Ethereum: {
+      configs: {
+        PRICE_FEEDS_UPDATE: [
+          {asset: 'DAI', priceFeed: '0xae7ab96520de3a18e5e111b5eaab095312d7fe84'},
+        ],
       },
-      \\"cache\\": {
-        \\"blockNumber\\": 42
-      }
-    }
-  }
-}",
+      cache: {blockNumber: 42},
+    },
+  },
+};
+",
   "payloads": [
     {
       "contractName": "AaveV3Ethereum_Test_20231023",
