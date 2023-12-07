@@ -1,0 +1,21 @@
+{
+  "rootOptions": {
+    "pools": ["AaveV3Ethereum"],
+    "title": "TokenLogic & karpatkey Service Provider Partnership",
+    "shortName": "TokenLogicKarpatkeyServiceProviderPartnership",
+    "date": "20231207",
+    "author": "TokenLogic & karpatkey",
+    "discussion": "https://governance.aave.com/t/temp-check-financial-services-proposal-karpatkey-tokenlogic/15633",
+    "snapshot": ""
+  },
+  "poolOptions": {
+    "AaveV3Ethereum": {
+      "configs": {
+        "OTHERS": {}
+      },
+      "cache": {
+        "blockNumber": 18736059
+      }
+    }
+  }
+}
