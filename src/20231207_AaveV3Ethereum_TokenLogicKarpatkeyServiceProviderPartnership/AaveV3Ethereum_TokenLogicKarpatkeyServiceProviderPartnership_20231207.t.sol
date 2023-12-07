@@ -26,6 +26,19 @@ contract AaveV3Ethereum_TokenLogicKarpatkeyServiceProviderPartnership_20231207_T
    * @dev executes the generic test suite including e2e and config snapshots
    */
   function test_execute() public {
+    (, , , , , , uint256 streamToCancelRemaining, ) = AaveV3Ethereum.COLLECTOR.getStream(
+      proposal.STREAM_TO_CANCEL()
+    );
+
+    assertGt(streamToCancelRemaining, 0);
+
+    vm.startPrank(proposal.STREAM_TWO_RECEIVER());
+    AaveV3Ethereum.COLLECTOR.withdrawFromStream(
+      proposal.STREAM_TO_CANCEL(),
+      7773680555555554162512 // what's available currently to withdraw
+    );
+    vm.stopPrank();
+    
     uint256 nextCollectorStreamID = AaveV3Ethereum.COLLECTOR.getNextStreamId();
     uint256 nextCollectorStreamIDTwo = nextCollectorStreamID + 1;
 
@@ -41,6 +54,10 @@ contract AaveV3Ethereum_TokenLogicKarpatkeyServiceProviderPartnership_20231207_T
     );
 
     executePayload(vm, address(proposal));
+
+    uint256 streamId = proposal.STREAM_TO_CANCEL();
+    vm.expectRevert('stream does not exist');
+    AaveV3Ethereum.COLLECTOR.getStream(streamId);
 
     {
       (

@@ -28,6 +28,8 @@ contract AaveV3Ethereum_TokenLogicKarpatkeyServiceProviderPartnership_20231207 i
   uint256 public constant ACTUAL_AMOUNT_TWO =
     (STREAM_TWO_AMOUNT / STREAM_DURATION) * STREAM_DURATION;
 
+  uint256 public constant STREAM_TO_CANCEL = 100017; // ipns://app.aave.com/governance/proposal/346/
+
   function execute() external {
     AaveV3Ethereum.COLLECTOR.createStream(
       STREAM_ONE_RECEIVER,
@@ -44,5 +46,7 @@ contract AaveV3Ethereum_TokenLogicKarpatkeyServiceProviderPartnership_20231207 i
       block.timestamp,
       block.timestamp + STREAM_DURATION
     );
+
+    AaveV3Ethereum.COLLECTOR.cancelStream(STREAM_TO_CANCEL);
   }
 }
