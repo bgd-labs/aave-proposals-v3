@@ -1,7 +1,7 @@
 ---
 title: "Activate Proof of Reserve"
 author: "BGD Labs (@bgdlabs)"
-discussions: "https://governance.aave.com/t/bgd-aave-chainlink-proof-of-reserve-phase-1-release-candidate/10972"
+discussions: "https://governance.aave.com/t/bgd-technical-maintenance-proposals/15274/11"
 ---
 
 ## Simple Summary
