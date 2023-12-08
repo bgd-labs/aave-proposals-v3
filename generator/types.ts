@@ -47,8 +47,8 @@ export enum FEATURE {
 export interface FeatureModule<T extends {} = {}> {
   description: string;
   value: FEATURE;
-  cli: (opt: Options, pool: PoolIdentifier) => Promise<T>;
-  build: (opt: Options, pool: PoolIdentifier, cfg: T) => CodeArtifact;
+  cli: (args: {options: Options; pool: PoolIdentifier; cache: PoolCache}) => Promise<T>;
+  build: (args: {options: Options; pool: PoolIdentifier; cache: PoolCache; cfg: T}) => CodeArtifact;
 }
 
 export const ENGINE_FLAGS = {
@@ -92,9 +92,10 @@ export type ConfigFile = {
   poolOptions: Record<PoolIdentifier, Omit<PoolConfig, 'artifacts'>>;
 };
 
+export type PoolCache = {blockNumber: number};
+
 export interface PoolConfig {
-  pool: PoolIdentifier;
-  features: FEATURE[];
   artifacts: CodeArtifact[];
   configs: {[feature in FEATURE]?: any};
+  cache: PoolCache;
 }

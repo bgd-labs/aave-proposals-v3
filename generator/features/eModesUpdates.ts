@@ -1,34 +1,39 @@
 import {CodeArtifact, FEATURE, FeatureModule, PoolIdentifier} from '../types';
-import {addressInput, eModesSelect, percentInput, stringInput} from '../prompts';
+import {eModesSelect} from '../prompts';
 import {EModeCategoryUpdate} from './types';
 import {confirm} from '@inquirer/prompts';
+import {addressPrompt, translateJsAddressToSol} from '../prompts/addressPrompt';
+import {stringOrKeepCurrent, stringPrompt} from '../prompts/stringPrompt';
+import {zeroAddress} from 'viem';
+import {getEModes} from '../common';
+import {percentPrompt, translateJsPercentToSol} from '../prompts/percentPrompt';
 
 async function fetchEmodeCategoryUpdate<T extends boolean>(
-  disableKeepCurrent?: T,
-  eModeCategory?: string
+  eModeCategory: string | number,
+  required?: T
 ): Promise<EModeCategoryUpdate> {
   return {
-    eModeCategory:
-      eModeCategory ?? (await stringInput({message: 'eModeCategory', disableKeepCurrent})),
-    ltv: await percentInput({
+    eModeCategory,
+    ltv: await percentPrompt({
       message: 'ltv',
-      disableKeepCurrent,
+      required,
     }),
-    liqThreshold: await percentInput({
+    liqThreshold: await percentPrompt({
       message: 'liqThreshold',
-      disableKeepCurrent,
+      required,
     }),
-    liqBonus: await percentInput({
+    liqBonus: await percentPrompt({
       message: 'liqBonus',
-      disableKeepCurrent,
+      required,
     }),
-    priceSource: await addressInput({
+    priceSource: await addressPrompt({
       message: 'Price Source',
-      disableKeepCurrent,
+      required,
+      defaultValue: required ? zeroAddress : '',
     }),
-    label: await stringInput({
+    label: await stringPrompt({
       message: 'label',
-      disableKeepCurrent,
+      required,
     }),
   };
 }
@@ -42,8 +47,11 @@ async function subCli(pool: PoolIdentifier) {
   });
   if (shouldAddNewCategory) {
     let more: boolean = true;
+    const eModes = getEModes(pool as any);
+    let highestEmode = Object.values(eModes).length > 0 ? Math.max(...Object.values(eModes)) : 0;
+
     while (more) {
-      answers.push(await fetchEmodeCategoryUpdate(true));
+      answers.push(await fetchEmodeCategoryUpdate(++highestEmode, true));
       more = await confirm({message: 'Do you want to add another emode category?', default: false});
     }
   }
@@ -61,7 +69,7 @@ async function subCli(pool: PoolIdentifier) {
     if (eModeCategories) {
       for (const eModeCategory of eModeCategories) {
         console.log(`collecting info for ${eModeCategory}`);
-        answers.push(await fetchEmodeCategoryUpdate(false, eModeCategory));
+        answers.push(await fetchEmodeCategoryUpdate(eModeCategory));
       }
     }
   }
@@ -74,11 +82,11 @@ type EmodeUpdates = EModeCategoryUpdate[];
 export const eModeUpdates: FeatureModule<EmodeUpdates> = {
   value: FEATURE.EMODES_UPDATES,
   description: 'eModeCategoriesUpdates (altering/adding eModes)',
-  async cli(opt, pool) {
+  async cli({pool}) {
     const response: EmodeUpdates = await subCli(pool);
     return response;
   },
-  build(opt, pool, cfg) {
+  build({pool, cfg}) {
     const response: CodeArtifact = {
       code: {
         fn: [
@@ -91,13 +99,11 @@ export const eModeUpdates: FeatureModule<EmodeUpdates> = {
             .map(
               (cfg, ix) => `eModeUpdates[${ix}] = IAaveV3ConfigEngine.EModeCategoryUpdate({
                eModeCategory: ${cfg.eModeCategory},
-               ltv: ${cfg.ltv},
-               liqThreshold: ${cfg.liqThreshold},
-               liqBonus: ${cfg.liqBonus},
-               priceSource: ${cfg.priceSource},
-               label: ${
-                 cfg.label == 'EngineFlags.KEEP_CURRENT_STRING' ? cfg.label : `"${cfg.label}"`
-               }
+               ltv: ${translateJsPercentToSol(cfg.ltv)},
+               liqThreshold: ${translateJsPercentToSol(cfg.liqThreshold)},
+               liqBonus: ${translateJsPercentToSol(cfg.liqBonus)},
+               priceSource: ${translateJsAddressToSol(cfg.priceSource)},
+               label: ${stringOrKeepCurrent(cfg.label)}
              });`
             )
             .join('\n')}

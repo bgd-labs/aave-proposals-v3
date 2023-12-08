@@ -1,13 +1,17 @@
 import {generateContractName, getPoolChain, getVersion} from '../common';
-import {FEATURE, Options, PoolConfig} from '../types';
+import {FEATURE, Options, PoolConfig, PoolIdentifier} from '../types';
 import {prefixWithImports} from '../utils/importsResolver';
 import {prefixWithPragma} from '../utils/constants';
 
-export const proposalTemplate = (options: Options, poolConfig: PoolConfig) => {
+export const proposalTemplate = (
+  options: Options,
+  poolConfig: PoolConfig,
+  pool: PoolIdentifier
+) => {
   const {title, author, snapshot, discussion} = options;
-  const chain = getPoolChain(poolConfig.pool);
-  const version = getVersion(poolConfig.pool);
-  const contractName = generateContractName(options, poolConfig.pool);
+  const chain = getPoolChain(pool);
+  const version = getVersion(pool);
+  const contractName = generateContractName(options, pool);
 
   const constants = poolConfig.artifacts
     .map((artifact) => artifact.code?.constants)
@@ -26,10 +30,10 @@ export const proposalTemplate = (options: Options, poolConfig: PoolConfig) => {
     .join('\n');
 
   let optionalExecute = '';
-  const usesConfigEngine = poolConfig.features.some(
+  const usesConfigEngine = Object.keys(poolConfig.configs).some(
     (f) => ![FEATURE.OTHERS, FEATURE.FLASH_BORROWER].includes(f)
   );
-  const isAssetListing = poolConfig.features.some((f) =>
+  const isAssetListing = Object.keys(poolConfig.configs).some((f) =>
     [FEATURE.ASSET_LISTING, FEATURE.ASSET_LISTING_CUSTOM].includes(f)
   );
   if (innerExecute) {

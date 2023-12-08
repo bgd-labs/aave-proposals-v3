@@ -1,35 +1,40 @@
 import {CodeArtifact, ENGINE_FLAGS, FEATURE, FeatureModule} from '../types';
-import {assetsSelect, booleanSelect, percentInput} from '../prompts';
 import {BorrowUpdate} from './types';
+import {
+  assetsSelectPrompt,
+  translateAssetToAssetLibUnderlying,
+} from '../prompts/assetsSelectPrompt';
+import {boolPrompt, translateJsBoolToSol} from '../prompts/boolPrompt';
+import {percentPrompt, translateJsPercentToSol} from '../prompts/percentPrompt';
 
-export async function fetchBorrowUpdate<T extends boolean>(disableKeepCurrent?: T) {
+export async function fetchBorrowUpdate<T extends boolean>(required?: T) {
   return {
-    enabledToBorrow: await booleanSelect({
+    enabledToBorrow: await boolPrompt({
       message: 'enabled to borrow',
-      disableKeepCurrent,
+      required,
     }),
-    flashloanable: await booleanSelect({
+    flashloanable: await boolPrompt({
       message: 'flashloanable',
-      disableKeepCurrent,
+      required,
     }),
-    stableRateModeEnabled: await booleanSelect({
+    stableRateModeEnabled: await boolPrompt({
       message: 'stable rate mode enabled',
-      disableKeepCurrent,
+      required,
       defaultValue: ENGINE_FLAGS.DISABLED,
     }),
-    borrowableInIsolation: await booleanSelect({
+    borrowableInIsolation: await boolPrompt({
       message: 'borrowable in isolation',
-      disableKeepCurrent,
+      required,
       defaultValue: ENGINE_FLAGS.DISABLED,
     }),
-    withSiloedBorrowing: await booleanSelect({
+    withSiloedBorrowing: await boolPrompt({
       message: 'siloed borrowing',
-      disableKeepCurrent,
+      required,
       defaultValue: ENGINE_FLAGS.DISABLED,
     }),
-    reserveFactor: await percentInput({
+    reserveFactor: await percentPrompt({
       message: 'reserve factor',
-      disableKeepCurrent,
+      required,
     }),
   };
 }
@@ -40,8 +45,8 @@ export const borrowsUpdates: FeatureModule<BorrowUpdates> = {
   value: FEATURE.BORROWS_UPDATE,
   description:
     'BorrowsUpdates (enabledToBorrow, flashloanable, stableRateModeEnabled, borrowableInIsolation, withSiloedBorrowing, reserveFactor)',
-  async cli(opt, pool) {
-    const assets = await assetsSelect({
+  async cli({pool}) {
+    const assets = await assetsSelectPrompt({
       message: 'Select the assets you want to amend',
       pool,
     });
@@ -52,7 +57,7 @@ export const borrowsUpdates: FeatureModule<BorrowUpdates> = {
     }
     return response;
   },
-  build(opt, pool, cfg) {
+  build({pool, cfg}) {
     const response: CodeArtifact = {
       code: {
         fn: [
@@ -64,13 +69,13 @@ export const borrowsUpdates: FeatureModule<BorrowUpdates> = {
           ${cfg
             .map(
               (cfg, ix) => `borrowUpdates[${ix}] = IAaveV3ConfigEngine.BorrowUpdate({
-               asset: ${cfg.asset},
-               enabledToBorrow: ${cfg.enabledToBorrow},
-               flashloanable: ${cfg.flashloanable},
-               stableRateModeEnabled: ${cfg.stableRateModeEnabled},
-               borrowableInIsolation: ${cfg.borrowableInIsolation},
-               withSiloedBorrowing: ${cfg.withSiloedBorrowing},
-               reserveFactor: ${cfg.reserveFactor}
+               asset: ${translateAssetToAssetLibUnderlying(cfg.asset, pool)},
+               enabledToBorrow: ${translateJsBoolToSol(cfg.enabledToBorrow)},
+               flashloanable: ${translateJsBoolToSol(cfg.flashloanable)},
+               stableRateModeEnabled: ${translateJsBoolToSol(cfg.stableRateModeEnabled)},
+               borrowableInIsolation: ${translateJsBoolToSol(cfg.borrowableInIsolation)},
+               withSiloedBorrowing: ${translateJsBoolToSol(cfg.withSiloedBorrowing)},
+               reserveFactor: ${translateJsPercentToSol(cfg.reserveFactor)}
              });`
             )
             .join('\n')}

@@ -1,6 +1,6 @@
 import path from 'path';
 import {Command, Option} from 'commander';
-import {getDate, isV2Pool, pascalCase} from './common';
+import {CHAIN_TO_CHAIN_ID, getDate, getPoolChain, isV2Pool, pascalCase} from './common';
 import {input, checkbox} from '@inquirer/prompts';
 import {
   CodeArtifact,
@@ -9,8 +9,9 @@ import {
   FeatureModule,
   Options,
   POOLS,
-  PoolConfig,
+  PoolCache,
   PoolConfigs,
+  PoolIdentifier,
 } from './types';
 import {flashBorrower} from './features/flashBorrower';
 import {capsUpdates} from './features/capsUpdates';
@@ -22,6 +23,8 @@ import {eModeAssets} from './features/eModesAssets';
 import {priceFeedsUpdates} from './features/priceFeedsUpdates';
 import {assetListing, assetListingCustom} from './features/assetListing';
 import {generateFiles, writeFiles} from './generator';
+import {PublicClient} from 'viem';
+import {CHAIN_ID_CLIENT_MAP} from '@bgd-labs/aave-cli';
 
 const program = new Command();
 
@@ -42,13 +45,13 @@ program
 let options = program.opts<Options>();
 let poolConfigs: PoolConfigs = {};
 
-const PLACEHOLDER_MODULE: FeatureModule = {
+const PLACEHOLDER_MODULE: FeatureModule<{}> = {
   description: 'Something different not supported by configEngine',
   value: FEATURE.OTHERS,
-  cli: async (opt, pool) => {
+  cli: async ({}) => {
     return {};
   },
-  build: (opt, pool, cfg) => {
+  build: ({}) => {
     const response: CodeArtifact = {
       code: {execute: ['// custom code goes here']},
     };
@@ -72,35 +75,36 @@ const FEATURE_MODULES_V3 = [
 
 if (options.configFile) {
   const cfgFile: ConfigFile = await import(path.join(process.cwd(), options.configFile));
-  options = cfgFile.rootOptions;
+  options = {...options, ...cfgFile.rootOptions};
   poolConfigs = cfgFile.poolOptions as any;
   for (const pool of options.pools) {
     const v2 = isV2Pool(pool);
     poolConfigs[pool]!.artifacts = [];
-    for (const feature of poolConfigs[pool]!.features) {
+    for (const feature of Object.keys(poolConfigs[pool]!.configs)) {
       const module = v2
         ? FEATURE_MODULES_V2.find((m) => m.value === feature)!
         : FEATURE_MODULES_V3.find((m) => m.value === feature)!;
-      poolConfigs[pool]!.pool = pool;
       poolConfigs[pool]!.artifacts.push(
-        module.build(options, pool, poolConfigs[pool]!.configs[feature])
+        module.build({
+          options,
+          pool,
+          cfg: poolConfigs[pool]!.configs[feature],
+          cache: poolConfigs[pool]!.cache,
+        })
       );
     }
   }
 } else {
-  // workaround as there's validate is not currently supported on checkbox
-  // https://github.com/SBoudrias/Inquirer.js/issues/1257
-  while (!options.pools?.length === true) {
-    options.pools = await checkbox({
-      message: 'Chains this proposal targets',
-      choices: POOLS.map((v) => ({name: v, value: v})),
-      // validate(input) {
-      //   // currently ignored due to a bug
-      //   if (input.length == 0) return 'You must target at least one chain in your proposal!';
-      //   return true;
-      // },
-    });
-  }
+  options.pools = await checkbox({
+    message: 'Chains this proposal targets',
+    choices: POOLS.map((v) => ({name: v, value: v})),
+    required: true,
+    // validate(input) {
+    //   // currently ignored due to a bug
+    //   if (input.length == 0) return 'You must target at least one chain in your proposal!';
+    //   return true;
+    // },
+  });
 
   if (!options.title) {
     options.title = await input({
@@ -136,22 +140,41 @@ if (options.configFile) {
     });
   }
 
+  async function generateDeterministicPoolCache(pool: PoolIdentifier): Promise<PoolCache> {
+    const chain = getPoolChain(pool);
+    const client = CHAIN_ID_CLIENT_MAP[CHAIN_TO_CHAIN_ID[chain]] as PublicClient;
+    return {blockNumber: Number(await client.getBlockNumber())};
+  }
+
   for (const pool of options.pools) {
-    poolConfigs[pool] = {configs: {}, artifacts: [], features: [], pool} as PoolConfig;
+    poolConfigs[pool] = {
+      configs: {},
+      artifacts: [],
+      cache: await generateDeterministicPoolCache(pool),
+    };
     const v2 = isV2Pool(pool);
-    poolConfigs[pool]!.features = await checkbox({
+    const features = await checkbox({
       message: `What do you want to do on ${pool}?`,
       choices: v2
         ? FEATURE_MODULES_V2.map((m) => ({value: m.value, name: m.description}))
         : FEATURE_MODULES_V3.map((m) => ({value: m.value, name: m.description})),
     });
-    for (const feature of poolConfigs[pool]!.features) {
+    for (const feature of features) {
       const module = v2
         ? FEATURE_MODULES_V2.find((m) => m.value === feature)!
         : FEATURE_MODULES_V3.find((m) => m.value === feature)!;
-      poolConfigs[pool]!.configs[feature] = await module.cli(options, pool);
+      poolConfigs[pool]!.configs[feature] = await module.cli({
+        options,
+        pool,
+        cache: poolConfigs[pool]!.cache,
+      });
       poolConfigs[pool]!.artifacts.push(
-        module.build(options, pool, poolConfigs[pool]!.configs[feature])
+        module.build({
+          options,
+          pool,
+          cfg: poolConfigs[pool]!.configs[feature],
+          cache: poolConfigs[pool]!.cache,
+        })
       );
     }
   }

@@ -1,10 +1,14 @@
 import {CodeArtifact, FEATURE, FeatureModule, PoolIdentifier} from '../types';
-import {assetsSelect, eModeSelect} from '../prompts';
+import {eModeSelect} from '../prompts';
 import {AssetEModeUpdate} from './types';
+import {
+  assetsSelectPrompt,
+  translateAssetToAssetLibUnderlying,
+} from '../prompts/assetsSelectPrompt';
 
 async function subCli(pool: PoolIdentifier) {
   console.log(`Fetching information for Emode assets on ${pool}`);
-  const assets = await assetsSelect({
+  const assets = await assetsSelectPrompt({
     message: 'Select the assets you want to amend eMode for',
     pool,
   });
@@ -28,11 +32,11 @@ type EmodeAssetUpdates = AssetEModeUpdate[];
 export const eModeAssets: FeatureModule<EmodeAssetUpdates> = {
   value: FEATURE.EMODES_ASSETS,
   description: 'assetsEModeUpdates (setting eMode for an asset)',
-  async cli(opt, pool) {
+  async cli({pool}) {
     const response: EmodeAssetUpdates = await subCli(pool);
     return response;
   },
-  build(opt, pool, cfg) {
+  build({pool, cfg}) {
     const response: CodeArtifact = {
       code: {
         fn: [
@@ -44,7 +48,7 @@ export const eModeAssets: FeatureModule<EmodeAssetUpdates> = {
           ${cfg
             .map(
               (cfg, ix) => `assetEModeUpdates[${ix}] = IAaveV3ConfigEngine.AssetEModeUpdate({
-               asset: ${cfg.asset},
+               asset: ${translateAssetToAssetLibUnderlying(cfg.asset, pool)},
                eModeCategory: ${cfg.eModeCategory}
              });`
             )

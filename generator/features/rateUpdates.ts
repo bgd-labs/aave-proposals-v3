@@ -1,62 +1,55 @@
-import {CodeArtifact, FEATURE, FeatureModule, PoolIdentifier} from '../types';
-import {assetsSelect, percentInput} from '../prompts';
+import {CodeArtifact, FEATURE, FeatureModule} from '../types';
 import {RateStrategyParams, RateStrategyUpdate} from './types';
+import {
+  assetsSelectPrompt,
+  translateAssetToAssetLibUnderlying,
+} from '../prompts/assetsSelectPrompt';
+import {percentPrompt, translateJsPercentToSol} from '../prompts/percentPrompt';
 
-export async function fetchRateStrategyParamsV2(
-  disableKeepCurrent?: boolean
-): Promise<RateStrategyParams> {
+export async function fetchRateStrategyParamsV2(required?: boolean): Promise<RateStrategyParams> {
   return {
-    optimalUtilizationRate: await percentInput({
+    optimalUtilizationRate: await percentPrompt({
       message: 'optimalUtilizationRate',
-      toRay: true,
-      disableKeepCurrent,
+      required,
     }),
-    baseVariableBorrowRate: await percentInput({
+    baseVariableBorrowRate: await percentPrompt({
       message: 'baseVariableBorrowRate',
-      toRay: true,
-      disableKeepCurrent,
+      required,
     }),
-    variableRateSlope1: await percentInput({
+    variableRateSlope1: await percentPrompt({
       message: 'variableRateSlope1',
-      toRay: true,
-      disableKeepCurrent,
+      required,
     }),
-    variableRateSlope2: await percentInput({
+    variableRateSlope2: await percentPrompt({
       message: 'variableRateSlope2',
-      toRay: true,
-      disableKeepCurrent,
+      required,
     }),
-    stableRateSlope1: await percentInput({
+    stableRateSlope1: await percentPrompt({
       message: 'stableRateSlope1',
-      toRay: true,
-      disableKeepCurrent,
+      required,
     }),
-    stableRateSlope2: await percentInput({
+    stableRateSlope2: await percentPrompt({
       message: 'stableRateSlope2',
-      toRay: true,
-      disableKeepCurrent,
+      required,
     }),
   };
 }
 
-export async function fetchRateStrategyParamsV3(disableKeepCurrent?: boolean) {
-  const params = await fetchRateStrategyParamsV2(disableKeepCurrent);
+export async function fetchRateStrategyParamsV3(required?: boolean) {
+  const params = await fetchRateStrategyParamsV2(required);
   return {
     ...params,
-    baseStableRateOffset: await percentInput({
+    baseStableRateOffset: await percentPrompt({
       message: 'baseStableRateOffset',
-      toRay: true,
-      disableKeepCurrent,
+      required,
     }),
-    stableRateExcessOffset: await percentInput({
+    stableRateExcessOffset: await percentPrompt({
       message: 'stableRateExcessOffset',
-      toRay: true,
-      disableKeepCurrent,
+      required,
     }),
-    optimalStableToTotalDebtRatio: await percentInput({
+    optimalStableToTotalDebtRatio: await percentPrompt({
       message: 'optimalStableToTotalDebtRatio',
-      toRay: true,
-      disableKeepCurrent,
+      required,
     }),
   };
 }
@@ -64,9 +57,9 @@ export async function fetchRateStrategyParamsV3(disableKeepCurrent?: boolean) {
 export const rateUpdatesV2: FeatureModule<RateStrategyUpdate[]> = {
   value: FEATURE.RATE_UPDATE_V2,
   description: 'RateStrategiesUpdates',
-  async cli(opt, pool) {
+  async cli({pool}) {
     console.log(`Fetching information for RatesUpdate on ${pool}`);
-    const assets = await assetsSelect({
+    const assets = await assetsSelectPrompt({
       message: 'Select the assets you want to amend',
       pool,
     });
@@ -77,7 +70,7 @@ export const rateUpdatesV2: FeatureModule<RateStrategyUpdate[]> = {
     }
     return response;
   },
-  build(opt, pool, cfg) {
+  build({pool, cfg}) {
     const response: CodeArtifact = {
       code: {
         fn: [
@@ -93,14 +86,26 @@ export const rateUpdatesV2: FeatureModule<RateStrategyUpdate[]> = {
           ${cfg
             .map(
               (cfg, ix) => `rateStrategies[${ix}] = IAaveV2ConfigEngine.RateStrategyUpdate({
-                asset: ${cfg.asset},
+                asset: ${translateAssetToAssetLibUnderlying(cfg.asset, pool)},
                 params: IV2RateStrategyFactory.RateStrategyParams({
-                  optimalUtilizationRate: ${cfg.params.optimalUtilizationRate},
-                  baseVariableBorrowRate: ${cfg.params.baseVariableBorrowRate},
-                  variableRateSlope1: ${cfg.params.variableRateSlope1},
-                  variableRateSlope2: ${cfg.params.variableRateSlope2},
-                  stableRateSlope1: ${cfg.params.stableRateSlope1},
-                  stableRateSlope2: ${cfg.params.stableRateSlope2}
+                  optimalUtilizationRate: ${translateJsPercentToSol(
+                    cfg.params.optimalUtilizationRate,
+                    true
+                  )},
+                  baseVariableBorrowRate: ${translateJsPercentToSol(
+                    cfg.params.baseVariableBorrowRate,
+                    true
+                  )},
+                  variableRateSlope1: ${translateJsPercentToSol(
+                    cfg.params.variableRateSlope1,
+                    true
+                  )},
+                  variableRateSlope2: ${translateJsPercentToSol(
+                    cfg.params.variableRateSlope2,
+                    true
+                  )},
+                  stableRateSlope1: ${translateJsPercentToSol(cfg.params.stableRateSlope1, true)},
+                  stableRateSlope2: ${translateJsPercentToSol(cfg.params.stableRateSlope2, true)}
                 })
               });`
             )
@@ -119,9 +124,9 @@ export const rateUpdatesV2: FeatureModule<RateStrategyUpdate[]> = {
 export const rateUpdatesV3: FeatureModule<RateStrategyUpdate[]> = {
   value: FEATURE.RATE_UPDATE_V3,
   description: 'RateStrategiesUpdates',
-  async cli(opt, pool) {
+  async cli({pool}) {
     console.log(`Fetching information for RatesUpdate on ${pool}`);
-    const assets = await assetsSelect({
+    const assets = await assetsSelectPrompt({
       message: 'Select the assets you want to amend',
       pool,
     });
@@ -132,7 +137,7 @@ export const rateUpdatesV3: FeatureModule<RateStrategyUpdate[]> = {
     }
     return response;
   },
-  build(opt, pool, cfg) {
+  build({pool, cfg}) {
     const response: CodeArtifact = {
       code: {
         fn: [
@@ -148,17 +153,38 @@ export const rateUpdatesV3: FeatureModule<RateStrategyUpdate[]> = {
           ${cfg
             .map(
               (cfg, ix) => `rateStrategies[${ix}] = IAaveV3ConfigEngine.RateStrategyUpdate({
-                  asset: ${cfg.asset},
+                  asset: ${translateAssetToAssetLibUnderlying(cfg.asset, pool)},
                   params: IV3RateStrategyFactory.RateStrategyParams({
-                    optimalUsageRatio: ${cfg.params.optimalUtilizationRate},
-                    baseVariableBorrowRate: ${cfg.params.baseVariableBorrowRate},
-                    variableRateSlope1: ${cfg.params.variableRateSlope1},
-                    variableRateSlope2: ${cfg.params.variableRateSlope2},
-                    stableRateSlope1: ${cfg.params.stableRateSlope1},
-                    stableRateSlope2: ${cfg.params.stableRateSlope2},
-                    baseStableRateOffset: ${cfg.params.baseStableRateOffset!},
-                    stableRateExcessOffset: ${cfg.params.stableRateExcessOffset!},
-                    optimalStableToTotalDebtRatio: ${cfg.params.optimalStableToTotalDebtRatio!}
+                    optimalUsageRatio: ${translateJsPercentToSol(
+                      cfg.params.optimalUtilizationRate,
+                      true
+                    )},
+                    baseVariableBorrowRate: ${translateJsPercentToSol(
+                      cfg.params.baseVariableBorrowRate,
+                      true
+                    )},
+                    variableRateSlope1: ${translateJsPercentToSol(
+                      cfg.params.variableRateSlope1,
+                      true
+                    )},
+                    variableRateSlope2: ${translateJsPercentToSol(
+                      cfg.params.variableRateSlope2,
+                      true
+                    )},
+                    stableRateSlope1: ${translateJsPercentToSol(cfg.params.stableRateSlope1, true)},
+                    stableRateSlope2: ${translateJsPercentToSol(cfg.params.stableRateSlope2, true)},
+                    baseStableRateOffset: ${translateJsPercentToSol(
+                      cfg.params.baseStableRateOffset!,
+                      true
+                    )},
+                    stableRateExcessOffset: ${translateJsPercentToSol(
+                      cfg.params.stableRateExcessOffset!,
+                      true
+                    )},
+                    optimalStableToTotalDebtRatio: ${translateJsPercentToSol(
+                      cfg.params.optimalStableToTotalDebtRatio!,
+                      true
+                    )}
                   })
                 });`
             )
