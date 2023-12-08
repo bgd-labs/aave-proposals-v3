@@ -18,7 +18,7 @@ export function generateScript(options: Options) {
   // generate imports
   template += `import {${['Ethereum', ...chains.filter((c) => c !== 'Ethereum')]
     .map((chain) => `${chain}Script`)
-    .join(', ')}, Create2Utils} from 'aave-helpers/ScriptUtils.sol';\n`;
+    .join(', ')}} from 'aave-helpers/ScriptUtils.sol';\n`;
   template += options.pools
     .map((pool) => {
       const name = generateContractName(options, pool);
@@ -53,7 +53,7 @@ export function generateScript(options: Options) {
        ${poolsToChainsMap[chain]
          .map(
            ({contractName, pool}, ix) =>
-             `${contractName} payload${ix} = Create2Utils.create2Deploy('aave-proposals-v3', type(${contractName}).creationCode);`
+             `${contractName} payload${ix} = GovV3Helpers.deployDeterministic(type(${contractName}).creationCode);`
          )
          .join('\n')}
 
@@ -94,7 +94,7 @@ contract CreateProposal is EthereumScript {
         let template = `IPayloadsControllerCore.ExecutionAction[] memory actions${chain} = new IPayloadsControllerCore.ExecutionAction[](${poolsToChainsMap[chain].length});\n`;
         template += poolsToChainsMap[chain]
           .map(({contractName, pool}, ix) => {
-            return `actions${chain}[${ix}] = GovV3Helpers.buildAction(Create2Utils.computeCreate2Address('aave-proposals-v3', type(${contractName}).creationCode));`;
+            return `actions${chain}[${ix}] = GovV3Helpers.buildAction(type(${contractName}).creationCode);`;
           })
           .join('\n');
         template += `payloads[${ix}] = GovV3Helpers.build${
