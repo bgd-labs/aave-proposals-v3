@@ -20,10 +20,10 @@ contract AaveV3Ethereum_AaveFundingUpdates_20231106 is IProposalGenericExecutor 
 
   AaveSwapper public constant SWAPPER = AaveSwapper(MiscEthereum.AAVE_SWAPPER);
 
-  uint256 public constant USDC_TO_SWAP = 700_000e6;
-  uint256 public constant USDC_TO_DEPOSIT = 1_000_000e6;
+  uint256 public constant USDC_TO_SWAP = 200_000e6;
+  uint256 public constant USDC_TO_DEPOSIT = 1_500_000e6;
   uint256 public constant USDT_TO_DEPOSIT = 750_000e6;
-  uint256 public constant DAI_TO_DEPOSIT = 500_000e18;
+  uint256 public constant DAI_TO_SWAP = 500_000e18;
 
   address public constant MILKMAN = 0x11C76AD590ABDFFCD980afEC9ad951B160F02797;
   address public constant PRICE_CHECKER = 0xe80a1C615F75AFF7Ed8F08c9F21f9d00982D666c;
@@ -66,23 +66,7 @@ contract AaveV3Ethereum_AaveFundingUpdates_20231106 is IProposalGenericExecutor 
       0
     );
 
-    AaveV3Ethereum.COLLECTOR.transfer(
-      AaveV3EthereumAssets.DAI_UNDERLYING,
-      address(this),
-      DAI_TO_DEPOSIT
-    );
-    IERC20(AaveV3EthereumAssets.DAI_UNDERLYING).forceApprove(
-      address(AaveV3Ethereum.POOL),
-      DAI_TO_DEPOSIT
-    );
-    AaveV3Ethereum.POOL.deposit(
-      AaveV3EthereumAssets.DAI_UNDERLYING,
-      DAI_TO_DEPOSIT,
-      address(AaveV3Ethereum.COLLECTOR),
-      0
-    );
-
-    // Swap USDC
+    // Swaps
 
     SWAPPER.swap(
       MILKMAN,
@@ -93,6 +77,18 @@ contract AaveV3Ethereum_AaveFundingUpdates_20231106 is IProposalGenericExecutor 
       GHO_ORACLE,
       address(AaveV3Ethereum.COLLECTOR),
       USDC_TO_SWAP,
+      100
+    );
+
+    SWAPPER.swap(
+      MILKMAN,
+      PRICE_CHECKER,
+      AaveV3EthereumAssets.DAI_UNDERLYING,
+      AaveV3EthereumAssets.GHO_UNDERLYING,
+      AaveV3EthereumAssets.DAI_ORACLE,
+      GHO_ORACLE,
+      address(AaveV3Ethereum.COLLECTOR),
+      DAI_TO_SWAP,
       100
     );
   }

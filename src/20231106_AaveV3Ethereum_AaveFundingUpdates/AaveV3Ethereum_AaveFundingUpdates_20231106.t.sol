@@ -55,15 +55,9 @@ contract AaveV3Ethereum_AaveFundingUpdates_20231106_Test is ProtocolV3TestBase {
       address(AaveV3Ethereum.COLLECTOR)
     );
 
-    uint256 balanceADaiBefore = IERC20(AaveV3EthereumAssets.DAI_A_TOKEN).balanceOf(
-      address(AaveV3Ethereum.COLLECTOR)
-    );
-
     assertGt(balanceUsdcBefore, proposal.USDC_TO_DEPOSIT());
 
     assertGt(balanceUsdtBefore, proposal.USDT_TO_DEPOSIT());
-
-    assertGt(balanceDaiBefore, proposal.DAI_TO_DEPOSIT());
 
     vm.expectEmit(true, true, true, true, MiscEthereum.AAVE_SWAPPER);
     emit SwapRequested(
@@ -77,12 +71,26 @@ contract AaveV3Ethereum_AaveFundingUpdates_20231106_Test is ProtocolV3TestBase {
       100
     );
 
+    vm.expectEmit(true, true, true, true, MiscEthereum.AAVE_SWAPPER);
+    emit SwapRequested(
+      proposal.MILKMAN(),
+      AaveV3EthereumAssets.DAI_UNDERLYING,
+      AaveV3EthereumAssets.GHO_UNDERLYING,
+      AaveV3EthereumAssets.DAI_ORACLE,
+      proposal.GHO_ORACLE(),
+      proposal.DAI_TO_SWAP(),
+      address(AaveV3Ethereum.COLLECTOR),
+      100
+    );
+
     GovHelpers.executePayload(vm, address(proposal), GovernanceV3Ethereum.EXECUTOR_LVL_1);
 
     assertEq(
       IERC20(AaveV3EthereumAssets.USDC_UNDERLYING).balanceOf(address(proposal.SWAPPER())),
       0
     );
+
+    assertEq(IERC20(AaveV3EthereumAssets.DAI_UNDERLYING).balanceOf(address(proposal.SWAPPER())), 0);
 
     assertEq(
       IERC20(AaveV3EthereumAssets.USDC_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
@@ -96,7 +104,7 @@ contract AaveV3Ethereum_AaveFundingUpdates_20231106_Test is ProtocolV3TestBase {
 
     assertEq(
       IERC20(AaveV3EthereumAssets.DAI_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
-      balanceDaiBefore - proposal.DAI_TO_DEPOSIT()
+      balanceDaiBefore - proposal.DAI_TO_SWAP()
     );
 
     assertGt(
@@ -107,11 +115,6 @@ contract AaveV3Ethereum_AaveFundingUpdates_20231106_Test is ProtocolV3TestBase {
     assertGt(
       IERC20(AaveV3EthereumAssets.USDT_A_TOKEN).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
       balanceAUsdtBefore
-    );
-
-    assertGt(
-      IERC20(AaveV3EthereumAssets.DAI_A_TOKEN).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
-      balanceADaiBefore
     );
   }
 }
