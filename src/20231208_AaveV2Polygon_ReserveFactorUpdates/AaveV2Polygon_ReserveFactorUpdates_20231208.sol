@@ -16,7 +16,7 @@ contract AaveV2Polygon_ReserveFactorUpdates_20231208 is IProposalGenericExecutor
   uint256 public constant USDC_RF = 58_00;
   uint256 public constant USDT_RF = 57_00;
   uint256 public constant WBTC_RF = 90_00;
-  uint256 public constant WETH_RF = 81_00;
+  uint256 public constant WETH_RF = 80_00;
   uint256 public constant WMATIC_RF = 66_00;
 
   function execute() external {

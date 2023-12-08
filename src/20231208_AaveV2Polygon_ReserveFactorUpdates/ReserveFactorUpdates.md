@@ -26,7 +26,7 @@ The following parameters are to be updated as follows:
 | USDC  | 58.00%         |
 | USDT  | 57.00%         |
 | wBTC  | 90.00%         |
-| wETH  | 81.00%         |
+| wETH  | 80.00%         |
 | MATIC | 76.00%         |
 
 ## References
