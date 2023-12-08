@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+
+pragma solidity 0.8.19;
 
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';
-import {AaveV2Ethereum, AaveV2EthereumAssets} from 'aave-address-book/AaveV2Ethereum.sol';
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {AaveSwapper} from 'aave-helpers/swaps/AaveSwapper.sol';
@@ -22,12 +22,14 @@ contract AaveV3Ethereum_AaveFundingUpdates_20231106 is IProposalGenericExecutor 
 
   uint256 public constant USDC_TO_SWAP = 700_000e6;
   uint256 public constant USDC_TO_DEPOSIT = 1_000_000e6;
-  uint256 public constant USDT_TO_DEPOSIT_V3 = 350_000e6;
-  uint256 public constant USDT_TO_DEPOSIT_V2 = 400_000e6;
+  uint256 public constant USDT_TO_DEPOSIT = 750_000e6;
   uint256 public constant DAI_TO_DEPOSIT = 500_000e18;
 
   address public constant MILKMAN = 0x11C76AD590ABDFFCD980afEC9ad951B160F02797;
   address public constant PRICE_CHECKER = 0xe80a1C615F75AFF7Ed8F08c9F21f9d00982D666c;
+
+  // https://etherscan.io/address/0x3f12643D3f6f874d39C2a4c9f2Cd6f2DbAC877FC
+  address public constant GHO_ORACLE = 0x3f12643D3f6f874d39C2a4c9f2Cd6f2DbAC877FC;
 
   function execute() external {
     // Deposit into V3
@@ -51,15 +53,15 @@ contract AaveV3Ethereum_AaveFundingUpdates_20231106 is IProposalGenericExecutor 
     AaveV3Ethereum.COLLECTOR.transfer(
       AaveV3EthereumAssets.USDT_UNDERLYING,
       address(this),
-      USDT_TO_DEPOSIT_V2 + USDT_TO_DEPOSIT_V3
+      USDT_TO_DEPOSIT
     );
     IERC20(AaveV3EthereumAssets.USDT_UNDERLYING).forceApprove(
       address(AaveV3Ethereum.POOL),
-      USDT_TO_DEPOSIT_V3
+      USDT_TO_DEPOSIT
     );
     AaveV3Ethereum.POOL.deposit(
       AaveV3EthereumAssets.USDT_UNDERLYING,
-      USDT_TO_DEPOSIT_V3,
+      USDT_TO_DEPOSIT,
       address(AaveV3Ethereum.COLLECTOR),
       0
     );
@@ -88,7 +90,7 @@ contract AaveV3Ethereum_AaveFundingUpdates_20231106 is IProposalGenericExecutor 
       AaveV3EthereumAssets.USDC_UNDERLYING,
       AaveV3EthereumAssets.GHO_UNDERLYING,
       AaveV3EthereumAssets.USDC_ORACLE,
-      AaveV3EthereumAssets.GHO_ORACLE,
+      GHO_ORACLE,
       address(AaveV3Ethereum.COLLECTOR),
       USDC_TO_SWAP,
       100
