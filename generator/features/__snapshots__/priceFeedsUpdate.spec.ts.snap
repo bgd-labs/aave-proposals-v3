@@ -118,7 +118,7 @@ contract AaveV3Ethereum_Test_20231023_Test is ProtocolV3TestBase {
 pragma solidity ^0.8.0;
 
 import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aave-helpers/GovV3Helpers.sol';
-import {EthereumScript, Create2Utils} from 'aave-helpers/ScriptUtils.sol';
+import {EthereumScript} from 'aave-helpers/ScriptUtils.sol';
 import {AaveV3Ethereum_Test_20231023} from './AaveV3Ethereum_Test_20231023.sol';
 
 /**
@@ -129,8 +129,7 @@ import {AaveV3Ethereum_Test_20231023} from './AaveV3Ethereum_Test_20231023.sol';
 contract DeployEthereum is EthereumScript {
   function run() external broadcast {
     // deploy payloads
-    AaveV3Ethereum_Test_20231023 payload0 = Create2Utils.create2Deploy(
-      'aave-proposals-v3',
+    AaveV3Ethereum_Test_20231023 payload0 = GovV3Helpers.deployDeterministic(
       type(AaveV3Ethereum_Test_20231023).creationCode
     );
 
@@ -156,12 +155,7 @@ contract CreateProposal is EthereumScript {
     // compose actions for validation
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsEthereum = new IPayloadsControllerCore.ExecutionAction[](1);
-    actionsEthereum[0] = GovV3Helpers.buildAction(
-      Create2Utils.computeCreate2Address(
-        'aave-proposals-v3',
-        type(AaveV3Ethereum_Test_20231023).creationCode
-      )
-    );
+    actionsEthereum[0] = GovV3Helpers.buildAction(type(AaveV3Ethereum_Test_20231023).creationCode);
     payloads[0] = GovV3Helpers.buildMainnetPayload(vm, actionsEthereum);
 
     // create proposal
