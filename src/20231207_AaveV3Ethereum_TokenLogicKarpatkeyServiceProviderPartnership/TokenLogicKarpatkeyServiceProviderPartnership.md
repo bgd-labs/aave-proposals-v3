@@ -6,7 +6,7 @@ discussions: "https://governance.aave.com/t/temp-check-financial-services-propos
 
 ## Simple Summary
 
-This ARFC is to onboard TokenLogic & karpatkey to provide financial services to the Aave DAO for an initial period of 180 days, with a combined budget of 400k GHO.
+This AIP onboards TokenLogic & karpatkey to provide financial services to the Aave DAO for an initial period of 180 days, with a combined budget of 400k GHO.
 
 # Motivation
 
@@ -70,9 +70,9 @@ As part of the scope, karpatkey and TokenLogic will focus on modeling the SM per
 The below outlines at a high level what we intend to deliver:
 
 - Introduce additional asset categories to promote diversification and reduce the dependence on AAVE as a backstop for the protocol.
-  - Initial parameter configuration will incorporate feedback from @ChaosLabs & @Gauntlet.
+  - Initial parameter configuration will incorporate feedback from Chaos Labs & Gauntlet.
   - We will explore the feasibility of including GHO LP assets and harness rewards from other protocols.
-  - Technical lift associated with creating new categories will be performed by @bgdlabs, with a security audit, if required.
+  - Technical lift associated with creating new categories will be performed by BGD Labs, with a security audit, if required.
 - 90-day emission forecast will be provided ahead of each emission cycle for community feedback. TokenLogic and karpatkey will prepare the payload to extend the SM emissions for @bgdlabs for review.
   - Iterative emission cycles enable the DAO to target specific asset categories and improve the correlations between bad debt potential whilst maintaining a base level of insurance. The proposal will feature the ability to reward some categories with non AAVE rewards, like GHO, to support adoption and velocity.
 - Capital efficiency, optimize emission schedules to balance attracting and retaining new deposits for each respective category. For example the APR on stkAAVE is expected to continue being reduced given the recent GHO Mint Discount utility being added and the introduction of new categories.
@@ -88,13 +88,11 @@ Address: `0x58e6c7ab55aa9012eacca16d1ed4c15795669e1c`
 The following address will be the recipient of the 180k GHO stream:
 Address: `0x3e4A9f478C0c13A15137Fc81e9d8269F127b4B40`
 
-TokenLogic and karpatkey will periodically claim a fraction of the budget for the duration of the stream.
-
 TokenLogic and karpatkey are to be included in the Gas Rebate program that reimburses on-chain voting, calling revenue contracts, deployment and testings costs.
 
-Upon the ARFC Snapshot passing, the GLC SAFE Signers will be updated. The following signer `0xAFe4043c9FFd31753c5bE2B76dfc45AaA70ebD6f` is to be replaced with `0x818c277dbe886b934e60aa047250a73529e26a99`.
+TokenLogic and karpatkey will jointly lead the GLC for the duration of the service provider contract.
 
-When the AIP onboarding TokenLogic and karpatkey as service providers passes, TokenLogic and karpatkey will jointly lead the GLC for the duration of the service provider contract with the Aave DAO.
+Upon execution of this AIP, TokenLogic's Orbit program GHO stream (StreamID 100017) will be cancelled.
 
 # Disclaimer
 
