@@ -11,7 +11,6 @@ import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethe
  * - Discussion: https://governance.aave.com/t/arfc-retrospective-funding-proposal/15324
  */
 contract AaveV3Ethereum_TokenLogicFunding_20231114 is IProposalGenericExecutor {
-  
   uint256 public constant AMOUNT = 115_000 * 1e18;
   address public constant TOKENLOGIC = 0x3e4A9f478C0c13A15137Fc81e9d8269F127b4B40;
   address public constant GHO = AaveV3EthereumAssets.GHO_UNDERLYING;

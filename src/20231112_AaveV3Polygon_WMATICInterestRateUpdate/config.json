@@ -1,8 +1,6 @@
 {
   "rootOptions": {
-    "pools": [
-      "AaveV3Polygon"
-    ],
+    "pools": ["AaveV3Polygon"],
     "title": "wMATIC Interest Rate Update",
     "shortName": "WMATICInterestRateUpdate",
     "date": "20231112",
@@ -30,9 +28,7 @@
           }
         ]
       },
-      "features": [
-        "RATE_UPDATE_V3"
-      ]
+      "features": ["RATE_UPDATE_V3"]
     }
   }
 }

@@ -12,7 +12,8 @@ import {AaveV2EthereumAssets} from 'aave-address-book/AaveV2Ethereum.sol';
  * - Discussion: https://governance.aave.com/t/arfc-gauntlet-aave-renewal-2023/15380
  */
 contract AaveV3Ethereum_GauntletAaveRenewal2023_20231128 is IProposalGenericExecutor {
-  address public constant GAUNTLET_STREAMING_BENEFICIARY = 0xD20c9667bf0047F313228F9fE11F8b9F8Dc29bBa;
+  address public constant GAUNTLET_STREAMING_BENEFICIARY =
+    0xD20c9667bf0047F313228F9fE11F8b9F8Dc29bBa;
   address public constant GAUNTLET_INSOLVENCY_REFUND = 0x7667095Caa12b79fCa489ff6E2198Ca01fDAe057;
 
   uint256 public constant STREAM_DURATION = 365 days;

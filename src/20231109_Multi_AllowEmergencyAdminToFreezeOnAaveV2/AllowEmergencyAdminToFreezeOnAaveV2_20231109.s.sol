@@ -106,7 +106,9 @@ contract CreateProposal is EthereumScript {
 
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsEthereumSentinel = new IPayloadsControllerCore.ExecutionAction[](1);
-    actionsEthereumSentinel[0] = GovV3Helpers.buildAction(0x9441B65EE553F70df9C77d45d3283B6BC24F222d);
+    actionsEthereumSentinel[0] = GovV3Helpers.buildAction(
+      0x9441B65EE553F70df9C77d45d3283B6BC24F222d
+    );
     payloads[2] = GovV3Helpers.buildMainnetPayload(vm, actionsEthereumSentinel);
 
     IPayloadsControllerCore.ExecutionAction[]

@@ -19,9 +19,7 @@
       "configs": {
         "OTHERS": {}
       },
-      "features": [
-        "OTHERS"
-      ]
+      "features": ["OTHERS"]
     },
     "AaveV3Polygon": {
       "configs": {
@@ -64,9 +62,7 @@
           }
         ]
       },
-      "features": [
-        "BORROWS_UPDATE"
-      ]
+      "features": ["BORROWS_UPDATE"]
     },
     "AaveV3Avalanche": {
       "configs": {
@@ -100,9 +96,7 @@
           }
         ]
       },
-      "features": [
-        "BORROWS_UPDATE"
-      ]
+      "features": ["BORROWS_UPDATE"]
     },
     "AaveV3Optimism": {
       "configs": {
@@ -133,12 +127,10 @@
             "withSiloedBorrowing": "EngineFlags.KEEP_CURRENT",
             "reserveFactor": "EngineFlags.KEEP_CURRENT",
             "asset": "USDT"
-          },
+          }
         ]
       },
-      "features": [
-        "BORROWS_UPDATE"
-      ]
+      "features": ["BORROWS_UPDATE"]
     },
     "AaveV3Arbitrum": {
       "configs": {
@@ -181,9 +173,7 @@
           }
         ]
       },
-      "features": [
-        "BORROWS_UPDATE"
-      ]
+      "features": ["BORROWS_UPDATE"]
     }
   }
 }

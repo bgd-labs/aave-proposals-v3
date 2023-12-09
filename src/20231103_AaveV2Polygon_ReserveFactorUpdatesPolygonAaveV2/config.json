@@ -1,8 +1,6 @@
 {
   "rootOptions": {
-    "pools": [
-      "AaveV2Polygon"
-    ],
+    "pools": ["AaveV2Polygon"],
     "title": "Reserve Factor Updates - Polygon Aave v2",
     "shortName": "ReserveFactorUpdatesPolygonAaveV2",
     "date": "20231103",
@@ -15,9 +13,7 @@
       "configs": {
         "OTHERS": {}
       },
-      "features": [
-        "OTHERS"
-      ]
+      "features": ["OTHERS"]
     }
   }
 }

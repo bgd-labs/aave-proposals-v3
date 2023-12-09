@@ -1,8 +1,6 @@
 {
   "rootOptions": {
-    "pools": [
-      "AaveV3Ethereum"
-    ],
+    "pools": ["AaveV3Ethereum"],
     "author": "Alice Rozengarden (@Rozengarden - Aave-chan initiative)",
     "title": "ACI Phase II",
     "shortName": "ACIPhaseII",

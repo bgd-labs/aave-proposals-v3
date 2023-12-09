@@ -54,11 +54,7 @@
           }
         ]
       },
-      "features": [
-        "RATE_UPDATE_V3",
-        "COLLATERALS_UPDATE",
-        "BORROWS_UPDATE"
-      ]
+      "features": ["RATE_UPDATE_V3", "COLLATERALS_UPDATE", "BORROWS_UPDATE"]
     },
     "AaveV3Avalanche": {
       "configs": {
@@ -100,11 +96,7 @@
           }
         ]
       },
-      "features": [
-        "RATE_UPDATE_V3",
-        "COLLATERALS_UPDATE",
-        "BORROWS_UPDATE"
-      ]
+      "features": ["RATE_UPDATE_V3", "COLLATERALS_UPDATE", "BORROWS_UPDATE"]
     },
     "AaveV3Arbitrum": {
       "configs": {
@@ -146,11 +138,7 @@
           }
         ]
       },
-      "features": [
-        "RATE_UPDATE_V3",
-        "COLLATERALS_UPDATE",
-        "BORROWS_UPDATE"
-      ]
+      "features": ["RATE_UPDATE_V3", "COLLATERALS_UPDATE", "BORROWS_UPDATE"]
     },
     "AaveV3Optimism": {
       "configs": {
@@ -192,11 +180,7 @@
           }
         ]
       },
-      "features": [
-        "RATE_UPDATE_V3",
-        "COLLATERALS_UPDATE",
-        "BORROWS_UPDATE"
-      ]
+      "features": ["RATE_UPDATE_V3", "COLLATERALS_UPDATE", "BORROWS_UPDATE"]
     }
   }
 }
