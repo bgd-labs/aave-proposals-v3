@@ -1,9 +1,7 @@
 {
   "rootOptions": {
     "author": "Alice Rozengarden (@Rozengarden - Aave-chan initiative)",
-    "pools": [
-      "AaveV3Base"
-    ],
+    "pools": ["AaveV3Base"],
     "title": "Onboarding wstETH to Aave V3 on Base Network",
     "shortName": "OnboardingWstETHToAaveV3OnBaseNetwork",
     "date": "20231127",

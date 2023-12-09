@@ -1,10 +1,6 @@
 {
   "rootOptions": {
-    "pools": [
-      "AaveV3Avalanche",
-      "AaveV3Metis",
-      "AaveV3Base"
-    ],
+    "pools": ["AaveV3Avalanche", "AaveV3Metis", "AaveV3Base"],
     "title": "Freeze Stewards",
     "shortName": "FreezeStewards",
     "date": "20231101",
@@ -17,25 +13,19 @@
       "configs": {
         "OTHERS": {}
       },
-      "features": [
-        "OTHERS"
-      ]
+      "features": ["OTHERS"]
     },
     "AaveV3Metis": {
       "configs": {
         "OTHERS": {}
       },
-      "features": [
-        "OTHERS"
-      ]
+      "features": ["OTHERS"]
     },
     "AaveV3Base": {
       "configs": {
         "OTHERS": {}
       },
-      "features": [
-        "OTHERS"
-      ]
+      "features": ["OTHERS"]
     }
   }
 }

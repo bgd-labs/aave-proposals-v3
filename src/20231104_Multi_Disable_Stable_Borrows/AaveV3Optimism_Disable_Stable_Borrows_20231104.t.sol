@@ -3,7 +3,7 @@ pragma solidity ^0.8.0;
 
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/ProtocolV3TestBase.sol';
 import {AaveV3Optimism_Disable_Stable_Borrows_20231104} from './AaveV3Optimism_Disable_Stable_Borrows_20231104.sol';
-import {AaveV3OptimismAssets,AaveV3Optimism} from 'aave-address-book/AaveV3Optimism.sol';
+import {AaveV3OptimismAssets, AaveV3Optimism} from 'aave-address-book/AaveV3Optimism.sol';
 
 /**
  * @dev Test for AaveV3Optimism_Disable_Stable_Borrows_20231104
@@ -27,7 +27,6 @@ contract AaveV3Optimism_Disable_Stable_Borrows_20231104_Test is ProtocolV3TestBa
       address(proposal)
     );
 
-
     address[] memory assetsChanged = new address[](3);
 
     assetsChanged[0] = AaveV3OptimismAssets.DAI_UNDERLYING;
@@ -37,10 +36,7 @@ contract AaveV3Optimism_Disable_Stable_Borrows_20231104_Test is ProtocolV3TestBa
     _noReservesConfigsChangesApartFrom(allConfigsBefore, allConfigsAfter, assetsChanged);
 
     for (uint256 i = 0; i < assetsChanged.length; i++) {
-      ReserveConfig memory config = _findReserveConfig(
-        allConfigsBefore,
-        assetsChanged[i]
-      );
+      ReserveConfig memory config = _findReserveConfig(allConfigsBefore, assetsChanged[i]);
       config.isFrozen = false;
       config.stableBorrowRateEnabled = false;
       _validateReserveConfig(config, allConfigsAfter);

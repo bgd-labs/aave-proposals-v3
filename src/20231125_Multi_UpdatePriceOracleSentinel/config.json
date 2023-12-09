@@ -1,11 +1,6 @@
 {
   "rootOptions": {
-    "pools": [
-      "AaveV3Optimism",
-      "AaveV3Arbitrum",
-      "AaveV3Metis",
-      "AaveV3Base"
-    ],
+    "pools": ["AaveV3Optimism", "AaveV3Arbitrum", "AaveV3Metis", "AaveV3Base"],
     "title": "Update PriceOracleSentinel",
     "shortName": "UpdatePriceOracleSentinel",
     "date": "20231125",
