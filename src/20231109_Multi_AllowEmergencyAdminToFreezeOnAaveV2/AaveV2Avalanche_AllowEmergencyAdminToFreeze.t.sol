@@ -21,6 +21,10 @@ contract AaveV2Avalanche_AllowEmergencyAdminToFreeze_Test is ProtocolV2TestBase 
    * @dev executes the generic test suite including e2e and config snapshots
    */
   function test_defaultProposalExecution() public {
-    defaultTest('AaveV2Avalanche_AllowEmergencyAdminToFreeze_Test', AaveV2Avalanche.POOL, address(proposal));
+    defaultTest(
+      'AaveV2Avalanche_AllowEmergencyAdminToFreeze_Test',
+      AaveV2Avalanche.POOL,
+      address(proposal)
+    );
   }
 }

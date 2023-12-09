@@ -40,11 +40,7 @@ contract AaveV3Optimism_UpdatePriceOracleSentinel_20231125_Test is ProtocolV3Tes
 
   function test_borrwingAndLiquidationAllowed() public {
     GovV3Helpers.executePayload(vm, address(proposal));
-    assertTrue(
-      IPriceOracleSentinel(proposal.NEW_PRICE_ORACLE_SENTINEL()).isLiquidationAllowed()
-    );
-    assertTrue(
-      IPriceOracleSentinel(proposal.NEW_PRICE_ORACLE_SENTINEL()).isBorrowAllowed()
-    );
+    assertTrue(IPriceOracleSentinel(proposal.NEW_PRICE_ORACLE_SENTINEL()).isLiquidationAllowed());
+    assertTrue(IPriceOracleSentinel(proposal.NEW_PRICE_ORACLE_SENTINEL()).isBorrowAllowed());
   }
 }

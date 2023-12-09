@@ -27,7 +27,7 @@ contract AaveV3Base_OnboardingWstETHToAaveV3OnBaseNetwork_20231127_Test is Proto
    */
   function test_defaultProposalExecution() public {
     startHoax(wstETH_WHALE);
-    IERC20(proposal.wstETH()).transfer(GovernanceV3Base.EXECUTOR_LVL_1,0.01 ether);
+    IERC20(proposal.wstETH()).transfer(GovernanceV3Base.EXECUTOR_LVL_1, 0.01 ether);
     defaultTest(
       'AaveV3Base_OnboardingWstETHToAaveV3OnBaseNetwork_20231127',
       AaveV3Base.POOL,
@@ -37,7 +37,7 @@ contract AaveV3Base_OnboardingWstETHToAaveV3OnBaseNetwork_20231127_Test is Proto
 
   function test_collectorHaswstETHFunds() public {
     startHoax(wstETH_WHALE);
-    IERC20(proposal.wstETH()).transfer(GovernanceV3Base.EXECUTOR_LVL_1,0.01 ether);
+    IERC20(proposal.wstETH()).transfer(GovernanceV3Base.EXECUTOR_LVL_1, 0.01 ether);
     GovV3Helpers.executePayload(vm, address(proposal));
     (address aTokenAddress, , ) = AaveV3Base.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(
       proposal.wstETH()

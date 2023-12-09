@@ -1,8 +1,6 @@
 {
   "rootOptions": {
-    "pools": [
-      "AaveV3Polygon"
-    ],
+    "pools": ["AaveV3Polygon"],
     "title": "Gauntlet Cap Recommendations for Polygon v3",
     "shortName": "GauntletCapRecommendationsForPolygonV3",
     "date": "20231120",

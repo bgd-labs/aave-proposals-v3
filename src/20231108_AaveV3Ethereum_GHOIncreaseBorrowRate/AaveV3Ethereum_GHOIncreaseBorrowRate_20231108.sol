@@ -10,8 +10,7 @@ import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethe
  * - Discussion: https://governance.aave.com/t/arfc-gho-increase-borrow-rate/15271
  */
 contract AaveV3Ethereum_GHOIncreaseBorrowRate_20231108 {
-
- address public constant INTEREST_RATE_STRATEGY = 0xE7C0AE65f7D52E121654eEa0A57b4af0894F6D27;
+  address public constant INTEREST_RATE_STRATEGY = 0xE7C0AE65f7D52E121654eEa0A57b4af0894F6D27;
 
   function execute() external {
     AaveV3Ethereum.POOL_CONFIGURATOR.setReserveInterestRateStrategyAddress(

@@ -21,13 +21,11 @@ contract AaveV3Arbitrum_Disable_Stable_Borrows_20231104_Test is ProtocolV3TestBa
    * @dev executes the generic test suite including e2e and config snapshots
    */
   function test_defaultProposalExecution() public {
-    (ReserveConfig[] memory allConfigsBefore, ReserveConfig[] memory allConfigsAfter) =  defaultTest(
+    (ReserveConfig[] memory allConfigsBefore, ReserveConfig[] memory allConfigsAfter) = defaultTest(
       'AaveV3Arbitrum_Disable_Stable_Borrows_20231104',
       AaveV3Arbitrum.POOL,
       address(proposal)
     );
-
-
 
     address[] memory assetsChanged = new address[](4);
 
@@ -39,10 +37,7 @@ contract AaveV3Arbitrum_Disable_Stable_Borrows_20231104_Test is ProtocolV3TestBa
     _noReservesConfigsChangesApartFrom(allConfigsBefore, allConfigsAfter, assetsChanged);
 
     for (uint256 i = 0; i < assetsChanged.length; i++) {
-      ReserveConfig memory config = _findReserveConfig(
-        allConfigsBefore,
-        assetsChanged[i]
-      );
+      ReserveConfig memory config = _findReserveConfig(allConfigsBefore, assetsChanged[i]);
       config.isFrozen = false;
       config.stableBorrowRateEnabled = false;
       _validateReserveConfig(config, allConfigsAfter);

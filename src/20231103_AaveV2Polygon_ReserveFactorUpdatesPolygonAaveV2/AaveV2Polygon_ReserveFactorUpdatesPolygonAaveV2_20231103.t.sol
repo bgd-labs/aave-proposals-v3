@@ -22,7 +22,9 @@ contract AaveV2Polygon_ReserveFactorUpdatesPolygonAaveV2_20231103_Test is Protoc
 
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('polygon'), 49711925);
-    proposal = AaveV2Polygon_ReserveFactorUpdatesPolygonAaveV2_20231103(0x3aE999AEf88072aC7fB702af1C362f47647962FC);
+    proposal = AaveV2Polygon_ReserveFactorUpdatesPolygonAaveV2_20231103(
+      0x3aE999AEf88072aC7fB702af1C362f47647962FC
+    );
   }
 
   /**
@@ -45,34 +47,13 @@ contract AaveV2Polygon_ReserveFactorUpdatesPolygonAaveV2_20231103_Test is Protoc
     assetsChanged[6] = AaveV2PolygonAssets.BAL_UNDERLYING;
 
     Changes[] memory assetChanges = new Changes[](7);
-    assetChanges[0] = Changes({
-      asset: AaveV2PolygonAssets.DAI_UNDERLYING,
-      reserveFactor: 46_00
-    });
-    assetChanges[1] = Changes({
-      asset: AaveV2PolygonAssets.USDC_UNDERLYING,
-      reserveFactor: 48_00
-    });
-    assetChanges[2] = Changes({
-      asset: AaveV2PolygonAssets.USDT_UNDERLYING,
-      reserveFactor: 47_00
-    });
-    assetChanges[3] = Changes({
-      asset: AaveV2PolygonAssets.WBTC_UNDERLYING,
-      reserveFactor: 80_00
-    });
-    assetChanges[4] = Changes({
-      asset: AaveV2PolygonAssets.WETH_UNDERLYING,
-      reserveFactor: 70_00
-    });
-    assetChanges[5] = Changes({
-      asset: AaveV2PolygonAssets.WMATIC_UNDERLYING,
-      reserveFactor: 66_00
-    });
-    assetChanges[6] = Changes({
-      asset: AaveV2PolygonAssets.BAL_UNDERLYING,
-      reserveFactor: 57_00
-    });
+    assetChanges[0] = Changes({asset: AaveV2PolygonAssets.DAI_UNDERLYING, reserveFactor: 46_00});
+    assetChanges[1] = Changes({asset: AaveV2PolygonAssets.USDC_UNDERLYING, reserveFactor: 48_00});
+    assetChanges[2] = Changes({asset: AaveV2PolygonAssets.USDT_UNDERLYING, reserveFactor: 47_00});
+    assetChanges[3] = Changes({asset: AaveV2PolygonAssets.WBTC_UNDERLYING, reserveFactor: 80_00});
+    assetChanges[4] = Changes({asset: AaveV2PolygonAssets.WETH_UNDERLYING, reserveFactor: 70_00});
+    assetChanges[5] = Changes({asset: AaveV2PolygonAssets.WMATIC_UNDERLYING, reserveFactor: 66_00});
+    assetChanges[6] = Changes({asset: AaveV2PolygonAssets.BAL_UNDERLYING, reserveFactor: 57_00});
 
     _noReservesConfigsChangesApartFrom(allConfigsBefore, allConfigsAfter, assetsChanged);
 
@@ -80,6 +61,5 @@ contract AaveV2Polygon_ReserveFactorUpdatesPolygonAaveV2_20231103_Test is Protoc
       ReserveConfig memory cfg = _findReserveConfig(allConfigsAfter, assetChanges[i].asset);
       assertEq(cfg.reserveFactor, assetChanges[i].reserveFactor);
     }
-
   }
 }
