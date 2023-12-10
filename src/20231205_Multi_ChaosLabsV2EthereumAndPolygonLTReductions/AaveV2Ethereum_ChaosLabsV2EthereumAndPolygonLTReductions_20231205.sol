@@ -24,21 +24,21 @@ contract AaveV2Ethereum_ChaosLabsV2EthereumAndPolygonLTReductions_20231205 is
     AaveV2Ethereum.POOL_CONFIGURATOR.configureReserveAsCollateral(
       AaveV2EthereumAssets.CVX_UNDERLYING,
       0,
-      100,
+      5,
       10850
     );
 
     AaveV2Ethereum.POOL_CONFIGURATOR.configureReserveAsCollateral(
       AaveV2EthereumAssets.DPI_UNDERLYING,
       0,
-      100,
+      5,
       11000
     );
 
     AaveV2Ethereum.POOL_CONFIGURATOR.configureReserveAsCollateral(
       AaveV2EthereumAssets.ENJ_UNDERLYING,
       0,
-      100,
+      5,
       11000
     );
 
@@ -59,7 +59,7 @@ contract AaveV2Ethereum_ChaosLabsV2EthereumAndPolygonLTReductions_20231205 is
     AaveV2Ethereum.POOL_CONFIGURATOR.configureReserveAsCollateral(
       AaveV2EthereumAssets.MANA_UNDERLYING,
       0,
-      100,
+      5,
       11000
     );
 
@@ -73,14 +73,14 @@ contract AaveV2Ethereum_ChaosLabsV2EthereumAndPolygonLTReductions_20231205 is
     AaveV2Ethereum.POOL_CONFIGURATOR.configureReserveAsCollateral(
       AaveV2EthereumAssets.REN_UNDERLYING,
       0,
-      100,
+      5,
       11000
     );
 
     AaveV2Ethereum.POOL_CONFIGURATOR.configureReserveAsCollateral(
       AaveV2EthereumAssets.SNX_UNDERLYING,
       0,
-      100,
+      5,
       10750
     );
 
@@ -94,7 +94,7 @@ contract AaveV2Ethereum_ChaosLabsV2EthereumAndPolygonLTReductions_20231205 is
     AaveV2Ethereum.POOL_CONFIGURATOR.configureReserveAsCollateral(
       AaveV2EthereumAssets.YFI_UNDERLYING,
       0,
-      100,
+      5,
       11000
     );
 
@@ -102,6 +102,48 @@ contract AaveV2Ethereum_ChaosLabsV2EthereumAndPolygonLTReductions_20231205 is
       AaveV2EthereumAssets.ZRX_UNDERLYING,
       0,
       1800,
+      11000
+    );
+
+    AaveV2Ethereum.POOL_CONFIGURATOR.configureReserveAsCollateral(
+      AaveV2EthereumAssets.ONE_INCH_UNDERLYING,
+      0,
+      5,
+      10850
+    );
+
+    AaveV2Ethereum.POOL_CONFIGURATOR.configureReserveAsCollateral(
+      AaveV2EthereumAssets.BAL_UNDERLYING,
+      0,
+      5,
+      10800
+    );
+
+    AaveV2Ethereum.POOL_CONFIGURATOR.configureReserveAsCollateral(
+      AaveV2EthereumAssets.BAT_UNDERLYING,
+      0,
+      5,
+      11000
+    );
+
+    AaveV2Ethereum.POOL_CONFIGURATOR.configureReserveAsCollateral(
+      AaveV2EthereumAssets.KNC_UNDERLYING,
+      0,
+      5,
+      11000
+    );
+
+    AaveV2Ethereum.POOL_CONFIGURATOR.configureReserveAsCollateral(
+      AaveV2EthereumAssets.FEI_UNDERLYING,
+      0,
+      5,
+      11000
+    );
+
+    AaveV2Ethereum.POOL_CONFIGURATOR.configureReserveAsCollateral(
+      AaveV2EthereumAssets.xSUSHI_UNDERLYING,
+      0,
+      5,
       11000
     );
   }

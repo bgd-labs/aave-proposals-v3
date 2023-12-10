@@ -47,7 +47,7 @@ contract AaveV2Polygon_ChaosLabsV2EthereumAndPolygonLTReductions_20231205_Test i
         allConfigsBefore,
         AaveV2PolygonAssets.SUSHI_UNDERLYING
       );
-      SUSHI_UNDERLYING_CONFIG.liquidationThreshold = 1_00;
+      SUSHI_UNDERLYING_CONFIG.liquidationThreshold = 5;
       SUSHI_UNDERLYING_CONFIG.ltv = 0;
       _validateReserveConfig(SUSHI_UNDERLYING_CONFIG, allConfigsAfter);
 
@@ -55,7 +55,7 @@ contract AaveV2Polygon_ChaosLabsV2EthereumAndPolygonLTReductions_20231205_Test i
         allConfigsBefore,
         AaveV2PolygonAssets.DPI_UNDERLYING
       );
-      DPI_UNDERLYING_CONFIG.liquidationThreshold = 1_00;
+      DPI_UNDERLYING_CONFIG.liquidationThreshold = 5;
       DPI_UNDERLYING_CONFIG.ltv = 0;
       _validateReserveConfig(DPI_UNDERLYING_CONFIG, allConfigsAfter);
 
@@ -63,7 +63,7 @@ contract AaveV2Polygon_ChaosLabsV2EthereumAndPolygonLTReductions_20231205_Test i
         allConfigsBefore,
         AaveV2PolygonAssets.BAL_UNDERLYING
       );
-      BAL_UNDERLYING_CONFIG.liquidationThreshold = 1_00;
+      BAL_UNDERLYING_CONFIG.liquidationThreshold = 5;
       BAL_UNDERLYING_CONFIG.ltv = 0;
       _validateReserveConfig(BAL_UNDERLYING_CONFIG, allConfigsAfter);
     }
@@ -73,7 +73,7 @@ contract AaveV2Polygon_ChaosLabsV2EthereumAndPolygonLTReductions_20231205_Test i
         allConfigsBefore,
         AaveV2PolygonAssets.CRV_UNDERLYING
       );
-      CRV_UNDERLYING_CONFIG.liquidationThreshold = 1_00;
+      CRV_UNDERLYING_CONFIG.liquidationThreshold = 5;
       CRV_UNDERLYING_CONFIG.ltv = 0;
       _validateReserveConfig(CRV_UNDERLYING_CONFIG, allConfigsAfter);
 
@@ -81,7 +81,7 @@ contract AaveV2Polygon_ChaosLabsV2EthereumAndPolygonLTReductions_20231205_Test i
         allConfigsBefore,
         AaveV2PolygonAssets.GHST_UNDERLYING
       );
-      GHST_UNDERLYING_CONFIG.liquidationThreshold = 1_00;
+      GHST_UNDERLYING_CONFIG.liquidationThreshold = 5;
       GHST_UNDERLYING_CONFIG.ltv = 0;
       _validateReserveConfig(GHST_UNDERLYING_CONFIG, allConfigsAfter);
 
@@ -89,7 +89,7 @@ contract AaveV2Polygon_ChaosLabsV2EthereumAndPolygonLTReductions_20231205_Test i
         allConfigsBefore,
         AaveV2PolygonAssets.LINK_UNDERLYING
       );
-      LINK_UNDERLYING_CONFIG.liquidationThreshold = 1_00;
+      LINK_UNDERLYING_CONFIG.liquidationThreshold = 5;
       LINK_UNDERLYING_CONFIG.ltv = 0;
       _validateReserveConfig(LINK_UNDERLYING_CONFIG, allConfigsAfter);
     }

@@ -15,42 +15,42 @@ contract AaveV2Polygon_ChaosLabsV2EthereumAndPolygonLTReductions_20231205 is Aav
     AaveV2Polygon.POOL_CONFIGURATOR.configureReserveAsCollateral(
       AaveV2PolygonAssets.SUSHI_UNDERLYING,
       0,
-      100,
+      5,
       11000
     );
 
     AaveV2Polygon.POOL_CONFIGURATOR.configureReserveAsCollateral(
       AaveV2PolygonAssets.DPI_UNDERLYING,
       0,
-      100,
+      5,
       11000
     );
 
     AaveV2Polygon.POOL_CONFIGURATOR.configureReserveAsCollateral(
       AaveV2PolygonAssets.BAL_UNDERLYING,
       0,
-      100,
+      5,
       11000
     );
 
     AaveV2Polygon.POOL_CONFIGURATOR.configureReserveAsCollateral(
       AaveV2PolygonAssets.CRV_UNDERLYING,
       0,
-      100,
+      5,
       11000
     );
 
     AaveV2Polygon.POOL_CONFIGURATOR.configureReserveAsCollateral(
       AaveV2PolygonAssets.GHST_UNDERLYING,
       0,
-      100,
+      5,
       11250
     );
 
     AaveV2Polygon.POOL_CONFIGURATOR.configureReserveAsCollateral(
       AaveV2PolygonAssets.LINK_UNDERLYING,
       0,
-      100,
+      5,
       10750
     );
   }

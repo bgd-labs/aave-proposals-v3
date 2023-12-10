@@ -31,7 +31,7 @@ contract AaveV2Ethereum_ChaosLabsV2EthereumAndPolygonLTReductions_20231205_Test 
       address(proposal)
     );
 
-    address[] memory assetsChanged = new address[](13);
+    address[] memory assetsChanged = new address[](19);
 
     assetsChanged[0] = AaveV2EthereumAssets.CRV_UNDERLYING;
     assetsChanged[1] = AaveV2EthereumAssets.CVX_UNDERLYING;
@@ -46,6 +46,12 @@ contract AaveV2Ethereum_ChaosLabsV2EthereumAndPolygonLTReductions_20231205_Test 
     assetsChanged[10] = AaveV2EthereumAssets.UNI_UNDERLYING;
     assetsChanged[11] = AaveV2EthereumAssets.YFI_UNDERLYING;
     assetsChanged[12] = AaveV2EthereumAssets.ZRX_UNDERLYING;
+    assetsChanged[13] = AaveV2EthereumAssets.ONE_INCH_UNDERLYING;
+    assetsChanged[14] = AaveV2EthereumAssets.BAL_UNDERLYING;
+    assetsChanged[15] = AaveV2EthereumAssets.BAT_UNDERLYING;
+    assetsChanged[16] = AaveV2EthereumAssets.KNC_UNDERLYING;
+    assetsChanged[17] = AaveV2EthereumAssets.FEI_UNDERLYING;
+    assetsChanged[18] = AaveV2EthereumAssets.xSUSHI_UNDERLYING;
 
     _noReservesConfigsChangesApartFrom(allConfigsBefore, allConfigsAfter, assetsChanged);
 
@@ -61,14 +67,14 @@ contract AaveV2Ethereum_ChaosLabsV2EthereumAndPolygonLTReductions_20231205_Test 
         allConfigsBefore,
         AaveV2EthereumAssets.CVX_UNDERLYING
       );
-      CVX_UNDERLYING_CONFIG.liquidationThreshold = 1_00;
+      CVX_UNDERLYING_CONFIG.liquidationThreshold = 5;
       _validateReserveConfig(CVX_UNDERLYING_CONFIG, allConfigsAfter);
 
       ReserveConfig memory DPI_UNDERLYING_CONFIG = _findReserveConfig(
         allConfigsBefore,
         AaveV2EthereumAssets.DPI_UNDERLYING
       );
-      DPI_UNDERLYING_CONFIG.liquidationThreshold = 1_00;
+      DPI_UNDERLYING_CONFIG.liquidationThreshold = 5;
       _validateReserveConfig(DPI_UNDERLYING_CONFIG, allConfigsAfter);
     }
 
@@ -77,7 +83,7 @@ contract AaveV2Ethereum_ChaosLabsV2EthereumAndPolygonLTReductions_20231205_Test 
         allConfigsBefore,
         AaveV2EthereumAssets.ENJ_UNDERLYING
       );
-      ENJ_UNDERLYING_CONFIG.liquidationThreshold = 1_00;
+      ENJ_UNDERLYING_CONFIG.liquidationThreshold = 5;
       _validateReserveConfig(ENJ_UNDERLYING_CONFIG, allConfigsAfter);
 
       ReserveConfig memory ENS_UNDERLYING_CONFIG = _findReserveConfig(
@@ -100,7 +106,7 @@ contract AaveV2Ethereum_ChaosLabsV2EthereumAndPolygonLTReductions_20231205_Test 
         allConfigsBefore,
         AaveV2EthereumAssets.MANA_UNDERLYING
       );
-      MANA_UNDERLYING_CONFIG.liquidationThreshold = 1_00;
+      MANA_UNDERLYING_CONFIG.liquidationThreshold = 5;
       _validateReserveConfig(MANA_UNDERLYING_CONFIG, allConfigsAfter);
 
       ReserveConfig memory MKR_UNDERLYING_CONFIG = _findReserveConfig(
@@ -114,7 +120,7 @@ contract AaveV2Ethereum_ChaosLabsV2EthereumAndPolygonLTReductions_20231205_Test 
         allConfigsBefore,
         AaveV2EthereumAssets.REN_UNDERLYING
       );
-      REN_UNDERLYING_CONFIG.liquidationThreshold = 1_00;
+      REN_UNDERLYING_CONFIG.liquidationThreshold = 5;
       _validateReserveConfig(REN_UNDERLYING_CONFIG, allConfigsAfter);
     }
 
@@ -123,7 +129,7 @@ contract AaveV2Ethereum_ChaosLabsV2EthereumAndPolygonLTReductions_20231205_Test 
         allConfigsBefore,
         AaveV2EthereumAssets.SNX_UNDERLYING
       );
-      SNX_UNDERLYING_CONFIG.liquidationThreshold = 1_00;
+      SNX_UNDERLYING_CONFIG.liquidationThreshold = 5;
       _validateReserveConfig(SNX_UNDERLYING_CONFIG, allConfigsAfter);
 
       ReserveConfig memory UNI_UNDERLYING_CONFIG = _findReserveConfig(
@@ -137,7 +143,7 @@ contract AaveV2Ethereum_ChaosLabsV2EthereumAndPolygonLTReductions_20231205_Test 
         allConfigsBefore,
         AaveV2EthereumAssets.YFI_UNDERLYING
       );
-      YFI_UNDERLYING_CONFIG.liquidationThreshold = 1_00;
+      YFI_UNDERLYING_CONFIG.liquidationThreshold = 5;
       _validateReserveConfig(YFI_UNDERLYING_CONFIG, allConfigsAfter);
 
       ReserveConfig memory ZRX_UNDERLYING_CONFIG = _findReserveConfig(
@@ -147,5 +153,51 @@ contract AaveV2Ethereum_ChaosLabsV2EthereumAndPolygonLTReductions_20231205_Test 
       ZRX_UNDERLYING_CONFIG.liquidationThreshold = 18_00;
       _validateReserveConfig(ZRX_UNDERLYING_CONFIG, allConfigsAfter);
     }
+
+    {
+      ReserveConfig memory ONE_INCH_UNDERLYING_CONFIG = _findReserveConfig(
+        allConfigsBefore,
+        AaveV2EthereumAssets.ONE_INCH_UNDERLYING
+      );
+      ONE_INCH_UNDERLYING_CONFIG.liquidationThreshold = 5;
+      _validateReserveConfig(ONE_INCH_UNDERLYING_CONFIG, allConfigsAfter);
+
+      ReserveConfig memory BAL_UNDERLYING_CONFIG = _findReserveConfig(
+        allConfigsBefore,
+        AaveV2EthereumAssets.BAL_UNDERLYING
+      );
+      BAL_UNDERLYING_CONFIG.liquidationThreshold = 5;
+      _validateReserveConfig(BAL_UNDERLYING_CONFIG, allConfigsAfter);
+
+      ReserveConfig memory BAT_UNDERLYING_CONFIG = _findReserveConfig(
+        allConfigsBefore,
+        AaveV2EthereumAssets.BAT_UNDERLYING
+      );
+      BAT_UNDERLYING_CONFIG.liquidationThreshold = 5;
+      _validateReserveConfig(BAT_UNDERLYING_CONFIG, allConfigsAfter);
+
+      ReserveConfig memory KNC_UNDERLYING_CONFIG = _findReserveConfig(
+        allConfigsBefore,
+        AaveV2EthereumAssets.KNC_UNDERLYING
+      );
+      KNC_UNDERLYING_CONFIG.liquidationThreshold = 5;
+      _validateReserveConfig(KNC_UNDERLYING_CONFIG, allConfigsAfter);
+    }
+
+    {
+      ReserveConfig memory FEI_UNDERLYING_CONFIG = _findReserveConfig(
+        allConfigsBefore,
+        AaveV2EthereumAssets.FEI_UNDERLYING
+      );
+      FEI_UNDERLYING_CONFIG.liquidationThreshold = 5;
+      _validateReserveConfig(FEI_UNDERLYING_CONFIG, allConfigsAfter);
+
+      ReserveConfig memory xSUSHI_UNDERLYING_CONFIG = _findReserveConfig(
+        allConfigsBefore,
+        AaveV2EthereumAssets.xSUSHI_UNDERLYING
+      );
+      xSUSHI_UNDERLYING_CONFIG.liquidationThreshold = 5;
+      _validateReserveConfig(xSUSHI_UNDERLYING_CONFIG, allConfigsAfter);
+    } 
   }
 }
