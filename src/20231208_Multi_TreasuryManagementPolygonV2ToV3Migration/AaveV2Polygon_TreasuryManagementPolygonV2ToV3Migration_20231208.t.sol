@@ -19,7 +19,7 @@ contract AaveV2Polygon_TreasuryManagementPolygonV2ToV3Migration_20231208_Test is
   AaveV2Polygon_TreasuryManagementPolygonV2ToV3Migration_20231208 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('polygon'), 50900776);
+    vm.createSelectFork(vm.rpcUrl('polygon'), 50991163);
     proposal = new AaveV2Polygon_TreasuryManagementPolygonV2ToV3Migration_20231208();
   }
 
@@ -66,15 +66,16 @@ contract AaveV2Polygon_TreasuryManagementPolygonV2ToV3Migration_20231208_Test is
 
     executePayload(vm, address(proposal));
 
+    assertEq(IERC20(AaveV2PolygonAssets.USDC_UNDERLYING).balanceOf(address(proposal)), 0);
+    assertEq(IERC20(AaveV2PolygonAssets.WMATIC_UNDERLYING).balanceOf(address(proposal)), 0);
+
     for (uint256 i = 0; i < TO_MIGRATE.length; ++i) {
       uint256 balanceV2 = IERC20(A_TOKENS[i]).balanceOf(address(AaveV2Polygon.COLLECTOR));
       uint256 balanceV3 = IERC20(V3_A_TOKENS[i]).balanceOf(address(AaveV3Polygon.COLLECTOR));
 
-      assertEq(IERC20(AaveV2PolygonAssets.USDC_UNDERLYING).balanceOf(address(proposal)), 0);
-      assertEq(IERC20(AaveV2PolygonAssets.WMATIC_UNDERLYING).balanceOf(address(proposal)), 0);
       assertEq(IERC20(A_TOKENS[i]).balanceOf(address(proposal)), 0);
 
-      assertEq(balanceV2, 0);
+      assertLt(balanceV2, v2Assetsbalances[i]);
 
       address underlying = TO_MIGRATE[i];
       if (

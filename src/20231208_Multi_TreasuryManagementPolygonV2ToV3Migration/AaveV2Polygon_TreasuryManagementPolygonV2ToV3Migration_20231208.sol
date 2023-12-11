@@ -106,24 +106,5 @@ contract AaveV2Polygon_TreasuryManagementPolygonV2ToV3Migration_20231208 is
       address(AaveV3Polygon.COLLECTOR),
       0
     );
-
-    AaveV2Polygon.COLLECTOR.transfer(
-      AaveV2PolygonAssets.LINK_UNDERLYING,
-      address(this),
-      IERC20(AaveV2PolygonAssets.LINK_UNDERLYING).balanceOf(address(AaveV2Polygon.COLLECTOR))
-    );
-
-    uint256 amountLink = IERC20(AaveV2PolygonAssets.LINK_UNDERLYING).balanceOf(address(this));
-    IERC20(AaveV2PolygonAssets.LINK_UNDERLYING).forceApprove(
-      address(AaveV3Polygon.POOL),
-      amountLink
-    );
-
-    AaveV3Polygon.POOL.deposit(
-      AaveV2PolygonAssets.LINK_UNDERLYING,
-      amountLink,
-      address(AaveV3Polygon.COLLECTOR),
-      0
-    );
   }
 }
