@@ -20,6 +20,8 @@ However, with the emergence of new service provider proposal expected, the DAO n
 
 - Deposit 1.5M units of USDC from Treasury into Aave v3 Ethereum (received from Polygon bridge)
 - Deposit 750k units of USDT from Treasury into Aave v3 Ethereum (received from Polygon bridge)
+- Withdraw 900k units of USDC from Aave v2 Ethereum Pool into USDC
+- Deposit 900k of USDC into Aave v3 Ethereum Pool (withdrawn in previous step)
 
 Swap the following asset holdings to GHO:
 

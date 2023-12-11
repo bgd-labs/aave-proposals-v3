@@ -2,10 +2,9 @@
 
 pragma solidity 0.8.19;
 
-import {GovHelpers} from 'aave-helpers/GovHelpers.sol';
-import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
+import {AaveV2Ethereum, AaveV2EthereumAssets} from 'aave-address-book/AaveV2Ethereum.sol';
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/ProtocolV3TestBase.sol';
 
@@ -30,7 +29,7 @@ contract AaveV3Ethereum_AaveFundingUpdates_20231106_Test is ProtocolV3TestBase {
   AaveV3Ethereum_AaveFundingUpdates_20231106 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 18516167); // TODO: Update block number post bridge
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 18759585);
     proposal = new AaveV3Ethereum_AaveFundingUpdates_20231106();
   }
 
@@ -47,7 +46,11 @@ contract AaveV3Ethereum_AaveFundingUpdates_20231106_Test is ProtocolV3TestBase {
       address(AaveV3Ethereum.COLLECTOR)
     );
 
-    uint256 balanceAUsdcBefore = IERC20(AaveV3EthereumAssets.USDC_A_TOKEN).balanceOf(
+    uint256 balanceAUsdcV2Before = IERC20(AaveV2EthereumAssets.USDC_A_TOKEN).balanceOf(
+      address(AaveV3Ethereum.COLLECTOR)
+    );
+
+    uint256 balanceAUsdcV3Before = IERC20(AaveV3EthereumAssets.USDC_A_TOKEN).balanceOf(
       address(AaveV3Ethereum.COLLECTOR)
     );
 
@@ -57,7 +60,7 @@ contract AaveV3Ethereum_AaveFundingUpdates_20231106_Test is ProtocolV3TestBase {
 
     assertGt(balanceUsdcBefore, proposal.USDC_TO_DEPOSIT());
 
-    assertGt(balanceUsdtBefore, proposal.USDT_TO_DEPOSIT());
+    assertEq(balanceUsdtBefore, proposal.USDT_TO_DEPOSIT());
 
     vm.expectEmit(true, true, true, true, MiscEthereum.AAVE_SWAPPER);
     emit SwapRequested(
@@ -83,7 +86,7 @@ contract AaveV3Ethereum_AaveFundingUpdates_20231106_Test is ProtocolV3TestBase {
       100
     );
 
-    GovHelpers.executePayload(vm, address(proposal), GovernanceV3Ethereum.EXECUTOR_LVL_1);
+    executePayload(vm, address(proposal));
 
     assertEq(
       IERC20(AaveV3EthereumAssets.USDC_UNDERLYING).balanceOf(address(proposal.SWAPPER())),
@@ -95,6 +98,12 @@ contract AaveV3Ethereum_AaveFundingUpdates_20231106_Test is ProtocolV3TestBase {
     assertEq(
       IERC20(AaveV3EthereumAssets.USDC_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
       balanceUsdcBefore - proposal.USDC_TO_DEPOSIT() - proposal.USDC_TO_SWAP()
+    );
+
+    assertApproxEqAbs(
+      IERC20(AaveV2EthereumAssets.USDC_A_TOKEN).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
+      balanceAUsdcV2Before - proposal.USDC_TO_MIGRATE(),
+      150e6
     );
 
     assertEq(
@@ -109,7 +118,7 @@ contract AaveV3Ethereum_AaveFundingUpdates_20231106_Test is ProtocolV3TestBase {
 
     assertGt(
       IERC20(AaveV3EthereumAssets.USDC_A_TOKEN).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
-      balanceAUsdcBefore
+      balanceAUsdcV3Before
     );
 
     assertGt(

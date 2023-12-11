@@ -4,6 +4,7 @@ pragma solidity 0.8.19;
 
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';
+import {AaveV2Ethereum, AaveV2EthereumAssets} from 'aave-address-book/AaveV2Ethereum.sol';
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {AaveSwapper} from 'aave-helpers/swaps/AaveSwapper.sol';
@@ -24,6 +25,7 @@ contract AaveV3Ethereum_AaveFundingUpdates_20231106 is IProposalGenericExecutor 
   uint256 public constant USDC_TO_DEPOSIT = 1_500_000e6;
   uint256 public constant USDT_TO_DEPOSIT = 750_000e6;
   uint256 public constant DAI_TO_SWAP = 500_000e18;
+  uint256 public constant USDC_TO_MIGRATE = 900_000e6;
 
   address public constant MILKMAN = 0x11C76AD590ABDFFCD980afEC9ad951B160F02797;
   address public constant PRICE_CHECKER = 0xe80a1C615F75AFF7Ed8F08c9F21f9d00982D666c;
@@ -32,6 +34,42 @@ contract AaveV3Ethereum_AaveFundingUpdates_20231106 is IProposalGenericExecutor 
   address public constant GHO_ORACLE = 0x3f12643D3f6f874d39C2a4c9f2Cd6f2DbAC877FC;
 
   function execute() external {
+    AaveV2Ethereum.COLLECTOR.transfer(
+      AaveV2EthereumAssets.USDC_A_TOKEN,
+      address(this),
+      USDC_TO_MIGRATE
+    );
+
+    AaveV2Ethereum.POOL.withdraw(
+      AaveV2EthereumAssets.USDC_UNDERLYING,
+      USDC_TO_MIGRATE,
+      address(this)
+    );
+
+    IERC20(AaveV2EthereumAssets.USDC_UNDERLYING).forceApprove(
+      address(AaveV3Ethereum.POOL),
+      USDC_TO_MIGRATE
+    );
+
+    AaveV3Ethereum.POOL.deposit(
+      AaveV2EthereumAssets.USDC_UNDERLYING,
+      USDC_TO_MIGRATE,
+      address(AaveV3Ethereum.COLLECTOR),
+      0
+    );
+
+    AaveV3Ethereum.COLLECTOR.transfer(
+      AaveV3EthereumAssets.USDC_UNDERLYING,
+      address(SWAPPER),
+      USDC_TO_SWAP
+    );
+
+    AaveV3Ethereum.COLLECTOR.transfer(
+      AaveV3EthereumAssets.DAI_UNDERLYING,
+      address(SWAPPER),
+      DAI_TO_SWAP
+    );
+
     // Deposit into V3
 
     AaveV3Ethereum.COLLECTOR.transfer(
