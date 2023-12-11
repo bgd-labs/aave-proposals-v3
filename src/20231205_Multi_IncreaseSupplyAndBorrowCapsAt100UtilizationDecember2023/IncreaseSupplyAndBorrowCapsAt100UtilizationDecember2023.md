@@ -6,13 +6,11 @@ discussions: "https://governance.aave.com/t/arfc-increase-supply-and-borrow-caps
 
 ## Simple Summary
 
-This ARFC proposes to increase supply and borrow caps on assets that currently have 100% or close to 100% utilization.
+This AIP proposes to increase supply caps on assets that currently have 100% or close to 100% utilization.
 
 ## Motivation
 
-The ARFC proposes increasing supply and borrow caps on a number of assets to meet the ongoing market demand for depositing and borrowing. This increase will enable new Aave users to join Aave V3 and allow existing users to expand their positions. We will use the caps update framework and institute these changes as a direct-to-AIP proposal after review from risk managers. Supply caps on assets at supply cap will be increased by 50%. Borrow caps on 100% borrow utilization assets will be increased by 50%.
-
-After a review from Chaos Labs, we propose changes on the following assets.
+The AIP proposes increasing supply caps to meet the ongoing market demand for depositing. This increase will enable new Aave users to join Aave V3 on Polygon and allow existing users to expand their positions. These changes will use the direct-to-AIP framework as those change have been greenlighted by Chaos Labs. Supply caps on assets at supply cap will be increased by 50%.
 
 ## Specification
 
