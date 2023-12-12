@@ -50,7 +50,7 @@ contract CreateProposal is EthereumScript {
       payloads,
       GovV3Helpers.ipfsHashFile(
         vm,
-        'src/20231206_AaveV2Avalanche_ActivateProofOfReserve/ActivateProofOfReserve.md'
+        'src/20231206_AaveV2Avalanche_ActivateProofOfReserve/ActivateProofOfReserveV2.md'
       )
     );
   }
