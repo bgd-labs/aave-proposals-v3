@@ -17,7 +17,7 @@ contract AaveV3Ethereum_OnboardingETHxToAaveV3Ethereum_20231212_Test is Protocol
   AaveV3Ethereum_OnboardingETHxToAaveV3Ethereum_20231212 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 18769365);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 18770009);
     proposal = new AaveV3Ethereum_OnboardingETHxToAaveV3Ethereum_20231212();
   }
 

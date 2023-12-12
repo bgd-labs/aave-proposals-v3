@@ -34,7 +34,7 @@ contract AaveV3Ethereum_OnboardingETHxToAaveV3Ethereum_20231212 is AaveV3Payload
       assetSymbol: 'ETHx',
       priceFeed: 0xED65C5085a18Fa160Af0313E60dcc7905E944Dc7,
       eModeCategory: AaveV3EthereumEModes.NONE,
-      enabledToBorrow: EngineFlags.DISABLED,
+      enabledToBorrow: EngineFlags.ENABLED,
       stableRateModeEnabled: EngineFlags.DISABLED,
       borrowableInIsolation: EngineFlags.DISABLED,
       withSiloedBorrowing: EngineFlags.DISABLED,

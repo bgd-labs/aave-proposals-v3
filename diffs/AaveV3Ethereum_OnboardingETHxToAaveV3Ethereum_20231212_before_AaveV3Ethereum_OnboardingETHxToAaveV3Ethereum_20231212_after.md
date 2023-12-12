@@ -17,7 +17,7 @@
 | eModeCategory | 0 |
 | oracle | [0xED65C5085a18Fa160Af0313E60dcc7905E944Dc7](https://etherscan.io/address/0xED65C5085a18Fa160Af0313E60dcc7905E944Dc7) |
 | oracleName | ETHx/ETH/USD |
-| oracleLatestAnswer | 226,378,637,010 |
+| oracleLatestAnswer | 224,721,966,677 |
 | usageAsCollateralEnabled | true |
 | ltv | 74.5 % |
 | liquidationThreshold | 77 % |
@@ -30,7 +30,7 @@
 | variableDebtTokenImpl | [0xaC725CB59D16C81061BDeA61041a8A5e73DA9EC6](https://etherscan.io/address/0xaC725CB59D16C81061BDeA61041a8A5e73DA9EC6) |
 | stableDebtToken | [0x5B393DB4c72B1Bd82CE2834F6485d61b137Bc7aC](https://etherscan.io/address/0x5B393DB4c72B1Bd82CE2834F6485d61b137Bc7aC) |
 | stableDebtTokenImpl | [0x15C5620dfFaC7c7366EED66C20Ad222DDbB1eD57](https://etherscan.io/address/0x15C5620dfFaC7c7366EED66C20Ad222DDbB1eD57) |
-| borrowingEnabled | false |
+| borrowingEnabled | true |
 | stableBorrowRateEnabled | false |
 | isBorrowableInIsolation | false |
 | interestRateStrategy | [0x642a8DAcC59b73491Dcaa3BCeF046D660901fCc1](https://etherscan.io/address/0x642a8DAcC59b73491Dcaa3BCeF046D660901fCc1) |
@@ -67,7 +67,7 @@
         "aTokenName": "Aave Ethereum ETHx",
         "aTokenSymbol": "aEthETHx",
         "borrowCap": 1000,
-        "borrowingEnabled": false,
+        "borrowingEnabled": true,
         "debtCeiling": 0,
         "decimals": 18,
         "eModeCategory": 0,
@@ -83,7 +83,7 @@
         "liquidationThreshold": 7700,
         "ltv": 7450,
         "oracle": "0xED65C5085a18Fa160Af0313E60dcc7905E944Dc7",
-        "oracleLatestAnswer": 226378637010,
+        "oracleLatestAnswer": 224721966677,
         "oracleName": "ETHx/ETH/USD",
         "reserveFactor": 1500,
         "stableBorrowRateEnabled": false,
