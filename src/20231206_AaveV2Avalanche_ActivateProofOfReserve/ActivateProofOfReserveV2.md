@@ -16,10 +16,10 @@ These assets have 2 sides: one deposit account in the network where the asset or
 
 Given that architecture, there are 2 main attack vectors to exploit “bridged” assets:
 
-An exploit on the origination network, extracting tokens from the deposit contract.
 An exploit on the usage network, generally minting tokens that have no backing on the origination network, usually called an “infinite minting attack”.
+An exploit on the origination network, extracting tokens from the deposit contract.
 
-In order to prevent the 2) type of attack Proof of Reserve mechanism was introduced and activated for the V3 Pool on Avalanche almost a year ago. Now we are ready to activate it for the V2 as well.
+In order to prevent the 1) type of attack Proof of Reserve mechanism was introduced and activated for the V3 Pool on Avalanche almost a year ago. Now we are ready to activate it for the V2 as well.
 
 ## Specification
 
