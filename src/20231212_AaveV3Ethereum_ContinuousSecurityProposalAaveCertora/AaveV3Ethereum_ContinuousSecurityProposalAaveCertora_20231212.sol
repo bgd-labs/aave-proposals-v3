@@ -12,7 +12,7 @@ import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethe
  * - Discussion: https://governance.aave.com/t/arfc-continuous-security-proposal-aave-certora/15732
  */
 contract AaveV3Ethereum_ContinuousSecurityProposalAaveCertora_20231212 is IProposalGenericExecutor {
-  address public constant CERTORA_TREASURY = 0x0f11640bf66e2d9352d9c41434a5c6e597c5e4c8;
+  address public constant CERTORA_TREASURY = 0x0F11640BF66e2D9352d9c41434A5C6E597c5e4c8;
   uint256 public constant GHO_STREAM_AMOUNT = 1_000_000 ether;
   uint256 public constant AAVE_STREAM_AMOUNT = 5_200 ether;
   uint256 public constant STREAM_DURATION = 270 days;
