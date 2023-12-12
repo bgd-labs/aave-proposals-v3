@@ -11,6 +11,7 @@ import {generateAIP} from './templates/aip.template';
 
 const prettierSolCfg = await prettier.resolveConfig('foo.sol');
 const prettierMDCfg = await prettier.resolveConfig('foo.md');
+const prettierTsCfg = await prettier.resolveConfig('foo.ts');
 
 type Files = {
   jsonConfig: string;
@@ -26,16 +27,16 @@ type Files = {
  * @returns
  */
 export async function generateFiles(options: Options, poolConfigs: PoolConfigs): Promise<Files> {
-  const jsonConfig = JSON.stringify(
-    {
+  const jsonConfig = prettier.format(
+    `import {ConfigFile} from '../../generator/types';
+    export const config: ConfigFile = ${JSON.stringify({
       rootOptions: options,
       poolOptions: (Object.keys(poolConfigs) as PoolIdentifier[]).reduce((acc, pool) => {
         acc[pool] = {configs: poolConfigs[pool]!.configs, cache: poolConfigs[pool]!.cache};
         return acc;
       }, {}),
-    } as ConfigFile,
-    null,
-    2
+    } as ConfigFile)}`,
+    {...prettierTsCfg, filepath: 'foo.ts'}
   );
 
   function createPayloadAndTest(options: Options, pool: PoolIdentifier) {
@@ -105,7 +106,7 @@ export async function writeFiles(options: Options, {jsonConfig, script, aip, pay
   }
 
   // write config
-  await askBeforeWrite(options, path.join(baseFolder, 'config.json'), jsonConfig);
+  await askBeforeWrite(options, path.join(baseFolder, 'config.ts'), jsonConfig);
   // write aip
   await askBeforeWrite(options, path.join(baseFolder, `${options.shortName}.md`), aip);
   // write scripts
