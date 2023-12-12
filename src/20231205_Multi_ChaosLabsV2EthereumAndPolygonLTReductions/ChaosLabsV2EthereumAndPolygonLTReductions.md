@@ -67,7 +67,7 @@ Chaos and Gauntlet align on the aggressive approach to expedite the deprecation 
 
 - Implementation: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231205_Multi_ChaosLabsV2EthereumAndPolygonLTReductions/AaveV2Ethereum_ChaosLabsV2EthereumAndPolygonLTReductions_20231205.sol), [AaveV2Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231205_Multi_ChaosLabsV2EthereumAndPolygonLTReductions/AaveV2Polygon_ChaosLabsV2EthereumAndPolygonLTReductions_20231205.sol)
 - Tests: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231205_Multi_ChaosLabsV2EthereumAndPolygonLTReductions/AaveV2Ethereum_ChaosLabsV2EthereumAndPolygonLTReductions_20231205.t.sol), [AaveV2Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231205_Multi_ChaosLabsV2EthereumAndPolygonLTReductions/AaveV2Polygon_ChaosLabsV2EthereumAndPolygonLTReductions_20231205.t.sol)
-- [Snapshot](“Direct-to-AIP”)
+- Snapshot: Direct-to-AIP
 - [Discussion](https://governance.aave.com/t/arfc-v2-ethereum-and-polygon-lt-reductions-12-04-2023/15747)
 
 ## Copyright

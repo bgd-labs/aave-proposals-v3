@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {AaveV2PayloadEthereum} from 'aave-helpers/v2-config-engine/AaveV2PayloadEthereum.sol';
+import {IProposalGenericExecutor} from 'aave-helpers/interfaces/IProposalGenericExecutor.sol';
 import {AaveV2Ethereum, AaveV2EthereumAssets} from 'aave-address-book/AaveV2Ethereum.sol';
 
 /**
@@ -11,140 +11,140 @@ import {AaveV2Ethereum, AaveV2EthereumAssets} from 'aave-address-book/AaveV2Ethe
  * - Discussion: https://governance.aave.com/t/arfc-v2-ethereum-and-polygon-lt-reductions-12-04-2023/15747
  */
 contract AaveV2Ethereum_ChaosLabsV2EthereumAndPolygonLTReductions_20231205 is
-  AaveV2PayloadEthereum
+  IProposalGenericExecutor
 {
-  function _postExecute() internal override {
+  function execute() external {
     AaveV2Ethereum.POOL_CONFIGURATOR.configureReserveAsCollateral(
       AaveV2EthereumAssets.CRV_UNDERLYING,
       0,
-      2500,
-      10800
+      25_00,
+      108_00
     );
 
     AaveV2Ethereum.POOL_CONFIGURATOR.configureReserveAsCollateral(
       AaveV2EthereumAssets.CVX_UNDERLYING,
       0,
       5,
-      10850
+      108_50
     );
 
     AaveV2Ethereum.POOL_CONFIGURATOR.configureReserveAsCollateral(
       AaveV2EthereumAssets.DPI_UNDERLYING,
       0,
       5,
-      11000
+      110_00
     );
 
     AaveV2Ethereum.POOL_CONFIGURATOR.configureReserveAsCollateral(
       AaveV2EthereumAssets.ENJ_UNDERLYING,
       0,
       5,
-      11000
+      110_00
     );
 
     AaveV2Ethereum.POOL_CONFIGURATOR.configureReserveAsCollateral(
       AaveV2EthereumAssets.ENS_UNDERLYING,
       0,
-      3000,
-      10800
+      30_00,
+      108_00
     );
 
     AaveV2Ethereum.POOL_CONFIGURATOR.configureReserveAsCollateral(
       AaveV2EthereumAssets.LINK_UNDERLYING,
       0,
-      7500,
-      10700
+      75_00,
+      107_00
     );
 
     AaveV2Ethereum.POOL_CONFIGURATOR.configureReserveAsCollateral(
       AaveV2EthereumAssets.MANA_UNDERLYING,
       0,
       5,
-      11000
+      110_00
     );
 
     AaveV2Ethereum.POOL_CONFIGURATOR.configureReserveAsCollateral(
       AaveV2EthereumAssets.MKR_UNDERLYING,
       0,
-      2600,
-      10750
+      26_00,
+      107_50
     );
 
     AaveV2Ethereum.POOL_CONFIGURATOR.configureReserveAsCollateral(
       AaveV2EthereumAssets.REN_UNDERLYING,
       0,
       5,
-      11000
+      110_00
     );
 
     AaveV2Ethereum.POOL_CONFIGURATOR.configureReserveAsCollateral(
       AaveV2EthereumAssets.SNX_UNDERLYING,
       0,
       5,
-      10750
+      107_50
     );
 
     AaveV2Ethereum.POOL_CONFIGURATOR.configureReserveAsCollateral(
       AaveV2EthereumAssets.UNI_UNDERLYING,
       0,
-      4000,
-      10900
+      40_00,
+      109_00
     );
 
     AaveV2Ethereum.POOL_CONFIGURATOR.configureReserveAsCollateral(
       AaveV2EthereumAssets.YFI_UNDERLYING,
       0,
       5,
-      11000
+      110_00
     );
 
     AaveV2Ethereum.POOL_CONFIGURATOR.configureReserveAsCollateral(
       AaveV2EthereumAssets.ZRX_UNDERLYING,
       0,
-      1800,
-      11000
+      18_00,
+      110_00
     );
 
     AaveV2Ethereum.POOL_CONFIGURATOR.configureReserveAsCollateral(
       AaveV2EthereumAssets.ONE_INCH_UNDERLYING,
       0,
       5,
-      10850
+      108_50
     );
 
     AaveV2Ethereum.POOL_CONFIGURATOR.configureReserveAsCollateral(
       AaveV2EthereumAssets.BAL_UNDERLYING,
       0,
       5,
-      10800
+      108_00
     );
 
     AaveV2Ethereum.POOL_CONFIGURATOR.configureReserveAsCollateral(
       AaveV2EthereumAssets.BAT_UNDERLYING,
       0,
       5,
-      11000
+      110_00
     );
 
     AaveV2Ethereum.POOL_CONFIGURATOR.configureReserveAsCollateral(
       AaveV2EthereumAssets.KNC_UNDERLYING,
       0,
       5,
-      11000
+      110_00
     );
 
     AaveV2Ethereum.POOL_CONFIGURATOR.configureReserveAsCollateral(
       AaveV2EthereumAssets.FEI_UNDERLYING,
       0,
       5,
-      11000
+      110_00
     );
 
     AaveV2Ethereum.POOL_CONFIGURATOR.configureReserveAsCollateral(
       AaveV2EthereumAssets.xSUSHI_UNDERLYING,
       0,
       5,
-      11000
+      110_00
     );
   }
 }
