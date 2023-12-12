@@ -1,4 +1,43 @@
 import * as addressBook from '@bgd-labs/aave-address-book';
+import {
+  AssetEModeUpdate,
+  BorrowUpdate,
+  BorrowUpdatePartial,
+  CapsUpdate,
+  CollateralUpdate,
+  EModeCategoryUpdate,
+  Listing,
+  ListingWithCustomImpl,
+  PriceFeedUpdate,
+  RateStrategyUpdate,
+} from './features/types';
+import {FlashBorrower} from './features/flashBorrower';
+
+export const V2_POOLS = [
+  'AaveV2Ethereum',
+  'AaveV2EthereumAMM',
+  'AaveV2Polygon',
+  'AaveV2Avalanche',
+] as const satisfies readonly (keyof typeof addressBook)[];
+
+export const V3_POOLS = [
+  'AaveV3Ethereum',
+  'AaveV3Polygon',
+  'AaveV3Avalanche',
+  'AaveV3Optimism',
+  'AaveV3Arbitrum',
+  'AaveV3Metis',
+  'AaveV3Base',
+  'AaveV3Gnosis',
+] as const satisfies readonly (keyof typeof addressBook)[];
+
+export const POOLS = [
+  ...V2_POOLS,
+  ...V3_POOLS,
+] as const satisfies readonly (keyof typeof addressBook)[];
+
+export type PoolIdentifier = (typeof POOLS)[number];
+export type PoolIdentifierV3 = (typeof V3_POOLS)[number];
 
 export interface Options {
   force?: boolean;
@@ -61,41 +100,28 @@ export const ENGINE_FLAGS = {
 
 export const AVAILABLE_VERSIONS = {V2: 'V2', V3: 'V3'} as const;
 
-export const V2_POOLS = [
-  'AaveV2Ethereum',
-  'AaveV2EthereumAMM',
-  'AaveV2Polygon',
-  'AaveV2Avalanche',
-] as const satisfies readonly (keyof typeof addressBook)[];
-
-export const V3_POOLS = [
-  'AaveV3Ethereum',
-  'AaveV3Polygon',
-  'AaveV3Avalanche',
-  'AaveV3Optimism',
-  'AaveV3Arbitrum',
-  'AaveV3Metis',
-  'AaveV3Base',
-  'AaveV3Gnosis',
-] as const satisfies readonly (keyof typeof addressBook)[];
-
-export const POOLS = [
-  ...V2_POOLS,
-  ...V3_POOLS,
-] as const satisfies readonly (keyof typeof addressBook)[];
-
-export type PoolIdentifier = (typeof POOLS)[number];
-export type PoolIdentifierV3 = (typeof V3_POOLS)[number];
-
 export type ConfigFile = {
   rootOptions: Options;
-  poolOptions: Record<PoolIdentifier, Omit<PoolConfig, 'artifacts'>>;
+  poolOptions: Partial<Record<PoolIdentifier, Omit<PoolConfig, 'artifacts'>>>;
 };
 
 export type PoolCache = {blockNumber: number};
 
 export interface PoolConfig {
   artifacts: CodeArtifact[];
-  configs: {[feature in FEATURE]?: any};
+  configs: {
+    [FEATURE.ASSET_LISTING]?: Listing[];
+    [FEATURE.ASSET_LISTING_CUSTOM]?: ListingWithCustomImpl[];
+    [FEATURE.BORROWS_UPDATE]?: BorrowUpdate[];
+    [FEATURE.CAPS_UPDATE]?: CapsUpdate[];
+    [FEATURE.COLLATERALS_UPDATE]?: CollateralUpdate[];
+    [FEATURE.EMODES_ASSETS]?: AssetEModeUpdate[];
+    [FEATURE.EMODES_UPDATES]?: EModeCategoryUpdate[];
+    [FEATURE.FLASH_BORROWER]?: FlashBorrower;
+    [FEATURE.PRICE_FEEDS_UPDATE]?: PriceFeedUpdate[];
+    [FEATURE.RATE_UPDATE_V3]?: RateStrategyUpdate[]; // TODO: type could be improved
+    [FEATURE.RATE_UPDATE_V2]?: RateStrategyUpdate[];
+    [FEATURE.OTHERS]?: {};
+  };
   cache: PoolCache;
 }
