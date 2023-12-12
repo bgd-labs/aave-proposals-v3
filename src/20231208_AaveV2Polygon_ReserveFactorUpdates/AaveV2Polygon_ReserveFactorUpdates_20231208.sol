@@ -17,7 +17,7 @@ contract AaveV2Polygon_ReserveFactorUpdates_20231208 is IProposalGenericExecutor
   uint256 public constant USDT_RF = 57_00;
   uint256 public constant WBTC_RF = 90_00;
   uint256 public constant WETH_RF = 80_00;
-  uint256 public constant WMATIC_RF = 66_00;
+  uint256 public constant WMATIC_RF = 76_00;
 
   function execute() external {
     ILendingPoolConfigurator(AaveV2Polygon.POOL_CONFIGURATOR).setReserveFactor(AaveV2PolygonAssets.DAI_UNDERLYING, DAI_RF);
