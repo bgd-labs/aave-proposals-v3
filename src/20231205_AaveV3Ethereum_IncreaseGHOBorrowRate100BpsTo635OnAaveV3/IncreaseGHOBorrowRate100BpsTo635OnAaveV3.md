@@ -6,7 +6,7 @@ discussions: "https://governance.aave.com/t/arfc-increase-gho-borrow-rate-100-bp
 
 ## Simple Summary
 
-This AIP proposes an increase in the GHO borrow rate from 5.35% APY to 6.35% APY to support the GHO peg restoration and align borrowing costs with market rates.
+This AIP proposes an increase in the GHO borrow rate from 5.22% APR to 6.22% APR to support the GHO peg restoration and align borrowing costs with market rates.
 
 ## Motivation
 
@@ -15,8 +15,8 @@ This AIP proposes an increase in the GHO borrow rate from 5.35% APY to 6.35% APY
 ## Specification
 
 - **Current Borrow Rate:** 5.22% APR - ~5.35% APY
-- **Proposed Borrow Rate:** 6.22% APR - ~6.35% APY
-- **New Discounted Borrow Rate:** ~4.7% APR - 4.75% APY
+- **Proposed Borrow Rate:** 6.22% APR - ~6.41% APY
+- **New Discounted Borrow Rate:** ~4.35% APR - ~4.45% APY
 
 ACI will continue with up to 100 bps incremental increases every 7 days if required up to 9.5% if the monthly average price of GHO stays outside a 0,995<>1,005 price range.
 
