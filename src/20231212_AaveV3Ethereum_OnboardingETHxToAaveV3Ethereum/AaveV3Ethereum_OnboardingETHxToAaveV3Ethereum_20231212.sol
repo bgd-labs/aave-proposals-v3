@@ -19,7 +19,7 @@ contract AaveV3Ethereum_OnboardingETHxToAaveV3Ethereum_20231212 is AaveV3Payload
   using SafeERC20 for IERC20;
 
   address public constant ETHx = 0xA35b1B31Ce002FBF2058D22F30f95D405200A15b;
-  uint256 public constant ETHx_SEED_AMOUNT = 1e18;
+  uint256 public constant ETHx_SEED_AMOUNT = 0.01 ether;
 
   function _postExecute() internal override {
     IERC20(ETHx).forceApprove(address(AaveV3Ethereum.POOL), ETHx_SEED_AMOUNT);

@@ -17,7 +17,7 @@ contract AaveV3Ethereum_OnboardingETHxToAaveV3Ethereum_20231212_Test is Protocol
   AaveV3Ethereum_OnboardingETHxToAaveV3Ethereum_20231212 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 18769245);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 18769365);
     proposal = new AaveV3Ethereum_OnboardingETHxToAaveV3Ethereum_20231212();
   }
 
@@ -37,6 +37,6 @@ contract AaveV3Ethereum_OnboardingETHxToAaveV3Ethereum_20231212_Test is Protocol
     (address aTokenAddress, , ) = AaveV3Ethereum
       .AAVE_PROTOCOL_DATA_PROVIDER
       .getReserveTokensAddresses(proposal.ETHx());
-    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Ethereum.COLLECTOR)), 10 ** 18);
+    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Ethereum.COLLECTOR)), 0.01 ether);
   }
 }
