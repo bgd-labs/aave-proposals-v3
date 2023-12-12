@@ -15,7 +15,7 @@ contract AaveV3Ethereum_ContinuousSecurityProposalAaveCertora_20231212 is IPropo
   address public constant CERTORA_TREASURY = 0x0f11640bf66e2d9352d9c41434a5c6e597c5e4c8;
   uint256 public constant GHO_STREAM_AMOUNT = 1_000_000 ether;
   uint256 public constant AAVE_STREAM_AMOUNT = 5_200 ether;
-  uint256 public constant STREAM_DURATION = 365 days;
+  uint256 public constant STREAM_DURATION = 270 days;
   uint256 public constant ACTUAL_AMOUNT_GHO =
     (GHO_STREAM_AMOUNT / STREAM_DURATION) * STREAM_DURATION;
   uint256 public constant ACTUAL_AMOUNT_AAVE =
