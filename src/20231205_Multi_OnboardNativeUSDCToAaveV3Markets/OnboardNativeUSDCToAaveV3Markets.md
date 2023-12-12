@@ -23,11 +23,12 @@ ARFC forum post stage:
 
 * [OP Mainnet ](https://governance.aave.com/t/arfc-onboard-native-usdc-to-aave-v3-optimism-market/15463)
 
-To streamline the process, we propose moving the Base and Polygon PoS native USDC onboarding proposals straight to ARFC, then combine all three ARFC proposals into a single ARFC snapshot vote.
-
-Note that as part of the risk parameter harmonization, the liquidation threshold for some USDC.e markets will decrease. Risk managers will need to monitor potential liquidation effect of this change and give feedback accordingly.
-
+To streamline the process, we propose moving the Base and Polygon PoS native USDC onboarding proposals straight to ARFC, then combine all three ARFC proposals into a single AIP.
 This proposal also include similar change for USDC on Arbitrum.
+
+Note that as part of the risk parameter harmonization, the liquidation threshold for some USDC.e markets will decrease. Risk managers gave their feedback on the matter accordingly.
+
+Finaly, native USDC on base won't get added to E-Mode as it doesn't exist yet for this market.
 
 ## Specification
 
