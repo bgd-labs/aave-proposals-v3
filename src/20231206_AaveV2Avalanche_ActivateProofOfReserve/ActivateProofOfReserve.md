@@ -30,7 +30,7 @@ In order to prevent the 2) type of attack Proof of Reserve mechanism was introdu
 ## References
 
 - Implementation: [AaveV2Avalanche](https://github.com/bgd-labs/aave-v2-proof-of-reserve/blob/main/src/payloads/ConfiguratorUpdatePayload.sol)
-- Tests: [AaveV2Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231206_AaveV2Avalanche_ActivateProofOfReserve/AaveV2Avalanche_ActivateProofOfReserve_20231206.t.sol)
+- Tests: [AaveV2Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/bf8c97c945bbd644a812043b1fd00c69feaaaab2/src/20231206_AaveV2Avalanche_ActivateProofOfReserve/AaveV2Avalanche_ActivateProofOfReserve_20231206.t.sol)
 - [Discussion](https://governance.aave.com/t/bgd-aave-chainlink-proof-of-reserve-phase-1-release-candidate/10972)
 
 ## Copyright
