@@ -3,7 +3,7 @@ import {Hex} from 'viem';
 import {TEST_EXECUTE_PROPOSAL} from '../utils/constants';
 import {addressPrompt, translateJsAddressToSol} from '../prompts/addressPrompt';
 
-type FlashBorrower = {
+export type FlashBorrower = {
   address: Hex;
 };
 
