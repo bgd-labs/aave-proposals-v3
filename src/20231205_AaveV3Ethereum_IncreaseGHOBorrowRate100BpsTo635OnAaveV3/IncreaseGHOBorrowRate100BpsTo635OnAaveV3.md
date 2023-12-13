@@ -22,8 +22,8 @@ ACI will continue with up to 100 bps incremental increases every 7 days if requi
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231205_AaveV3Ethereum_IncreaseGHOBorrowRate100BpsTo635OnAaveV3/AaveV3Ethereum_IncreaseGHOBorrowRate100BpsTo635OnAaveV3_20231205.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231205_AaveV3Ethereum_IncreaseGHOBorrowRate100BpsTo635OnAaveV3/AaveV3Ethereum_IncreaseGHOBorrowRate100BpsTo635OnAaveV3_20231205.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/f6f4b43fec247208c71c1ece9611019ec1f7bdd8/src/20231205_AaveV3Ethereum_IncreaseGHOBorrowRate100BpsTo635OnAaveV3/AaveV3Ethereum_IncreaseGHOBorrowRate100BpsTo635OnAaveV3_20231205.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/f6f4b43fec247208c71c1ece9611019ec1f7bdd8/src/20231205_AaveV3Ethereum_IncreaseGHOBorrowRate100BpsTo635OnAaveV3/AaveV3Ethereum_IncreaseGHOBorrowRate100BpsTo635OnAaveV3_20231205.t.sol)
 - [Snapshot](No snapshot for direct to AIP)
 - [Discussion](https://governance.aave.com/t/arfc-increase-gho-borrow-rate-100-bps-to-6-35-on-aave-v3/15744)
 
