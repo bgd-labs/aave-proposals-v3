@@ -198,6 +198,6 @@ contract AaveV2Ethereum_ChaosLabsV2EthereumAndPolygonLTReductions_20231205_Test 
       );
       xSUSHI_UNDERLYING_CONFIG.liquidationThreshold = 5;
       _validateReserveConfig(xSUSHI_UNDERLYING_CONFIG, allConfigsAfter);
-    } 
+    }
   }
 }
