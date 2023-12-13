@@ -1,5 +1,5 @@
 ---
-title: "Increase GHO Borrow Rate 100 bps to 6.35% on Aave V3"
+title: "Increase GHO Borrow Rate 100 bps to ~6.41% on Aave V3"
 author: "Alice Rozengarden (@Rozengarden - Aave-chan initiative)"
 discussions: "https://governance.aave.com/t/arfc-increase-gho-borrow-rate-100-bps-to-6-35-on-aave-v3/15744"
 ---
