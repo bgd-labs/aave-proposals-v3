@@ -3,7 +3,7 @@ pragma solidity ^0.8.0;
 
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/ProtocolV3TestBase.sol';
 import {AaveV3Avalanche_Disable_Stable_Borrows_20231104} from './AaveV3Avalanche_Disable_Stable_Borrows_20231104.sol';
-import {AaveV3AvalancheAssets,AaveV3Avalanche} from 'aave-address-book/AaveV3Avalanche.sol';
+import {AaveV3AvalancheAssets, AaveV3Avalanche} from 'aave-address-book/AaveV3Avalanche.sol';
 
 /**
  * @dev Test for AaveV3Avalanche_Disable_Stable_Borrows_20231104
@@ -36,10 +36,7 @@ contract AaveV3Avalanche_Disable_Stable_Borrows_20231104_Test is ProtocolV3TestB
     _noReservesConfigsChangesApartFrom(allConfigsBefore, allConfigsAfter, assetsChanged);
 
     for (uint256 i = 0; i < assetsChanged.length; i++) {
-      ReserveConfig memory config = _findReserveConfig(
-        allConfigsBefore,
-        assetsChanged[i]
-      );
+      ReserveConfig memory config = _findReserveConfig(allConfigsBefore, assetsChanged[i]);
       config.stableBorrowRateEnabled = false;
       _validateReserveConfig(config, allConfigsAfter);
     }
@@ -48,5 +45,4 @@ contract AaveV3Avalanche_Disable_Stable_Borrows_20231104_Test is ProtocolV3TestB
       require(allConfigsAfter[i].stableBorrowRateEnabled == false);
     }
   }
-
 }

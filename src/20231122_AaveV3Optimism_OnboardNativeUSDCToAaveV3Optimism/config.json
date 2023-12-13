@@ -1,8 +1,6 @@
 {
   "rootOptions": {
-    "pools": [
-      "AaveV3Optimism"
-    ],
+    "pools": ["AaveV3Optimism"],
     "title": "Onboard Native USDC to Aave V3 Optimism",
     "shortName": "OnboardNativeUSDCToAaveV3Optimism",
     "date": "20231122",

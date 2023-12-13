@@ -1,8 +1,6 @@
 {
   "rootOptions": {
-    "pools": [
-      "AaveV2Ethereum"
-    ],
+    "pools": ["AaveV2Ethereum"],
     "title": " V2 Deprecation Plan, 2023.11.20",
     "shortName": "V2DeprecationPlan20231120",
     "date": "20231121",

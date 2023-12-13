@@ -102,9 +102,7 @@
           }
         ]
       },
-      "features": [
-        "RATE_UPDATE_V2"
-      ]
+      "features": ["RATE_UPDATE_V2"]
     },
     "AaveV2Polygon": {
       "configs": {
@@ -144,9 +142,7 @@
           }
         ]
       },
-      "features": [
-        "RATE_UPDATE_V2"
-      ]
+      "features": ["RATE_UPDATE_V2"]
     },
     "AaveV2Avalanche": {
       "configs": {
@@ -186,9 +182,7 @@
           }
         ]
       },
-      "features": [
-        "RATE_UPDATE_V2"
-      ]
+      "features": ["RATE_UPDATE_V2"]
     },
     "AaveV3Ethereum": {
       "configs": {
@@ -251,9 +245,7 @@
           }
         ]
       },
-      "features": [
-        "RATE_UPDATE_V3"
-      ]
+      "features": ["RATE_UPDATE_V3"]
     },
     "AaveV3Polygon": {
       "configs": {
@@ -316,9 +308,7 @@
           }
         ]
       },
-      "features": [
-        "RATE_UPDATE_V3"
-      ]
+      "features": ["RATE_UPDATE_V3"]
     },
     "AaveV3Avalanche": {
       "configs": {
@@ -395,9 +385,7 @@
           }
         ]
       },
-      "features": [
-        "RATE_UPDATE_V3"
-      ]
+      "features": ["RATE_UPDATE_V3"]
     },
     "AaveV3Optimism": {
       "configs": {
@@ -488,9 +476,7 @@
           }
         ]
       },
-      "features": [
-        "RATE_UPDATE_V3"
-      ]
+      "features": ["RATE_UPDATE_V3"]
     },
     "AaveV3Arbitrum": {
       "configs": {
@@ -579,7 +565,7 @@
               "optimalStableToTotalDebtRatio": "EngineFlags.KEEP_CURRENT"
             }
           },
-           {
+          {
             "asset": "FRAX",
             "params": {
               "optimalUtilizationRate": "_bpsToRay(90_00)",
@@ -593,11 +579,9 @@
               "optimalStableToTotalDebtRatio": "EngineFlags.KEEP_CURRENT"
             }
           }
-       ]
+        ]
       },
-      "features": [
-        "RATE_UPDATE_V3"
-      ]
+      "features": ["RATE_UPDATE_V3"]
     },
     "AaveV3Metis": {
       "configs": {
@@ -632,9 +616,7 @@
           }
         ]
       },
-      "features": [
-        "RATE_UPDATE_V3"
-      ]
+      "features": ["RATE_UPDATE_V3"]
     },
     "AaveV3Base": {
       "configs": {
@@ -655,9 +637,7 @@
           }
         ]
       },
-      "features": [
-        "RATE_UPDATE_V3"
-      ]
+      "features": ["RATE_UPDATE_V3"]
     }
   }
 }

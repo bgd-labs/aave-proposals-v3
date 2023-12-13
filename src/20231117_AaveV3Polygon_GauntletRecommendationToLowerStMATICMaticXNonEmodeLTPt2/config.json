@@ -1,8 +1,6 @@
 {
   "rootOptions": {
-    "pools": [
-      "AaveV3Polygon"
-    ],
+    "pools": ["AaveV3Polygon"],
     "title": "Gauntlet recommendation to lower stMATIC, MaticX non-emode LT, pt 2",
     "shortName": "GauntletRecommendationToLowerStMATICMaticXNonEmodeLTPt2",
     "date": "20231117",
@@ -32,9 +30,7 @@
           }
         ]
       },
-      "features": [
-        "COLLATERALS_UPDATE"
-      ]
+      "features": ["COLLATERALS_UPDATE"]
     }
   }
 }

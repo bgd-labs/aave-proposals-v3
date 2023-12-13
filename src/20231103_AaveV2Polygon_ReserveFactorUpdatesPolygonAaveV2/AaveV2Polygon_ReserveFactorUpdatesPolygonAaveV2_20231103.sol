@@ -12,12 +12,33 @@ import {AaveV2Polygon, AaveV2PolygonAssets, ILendingPoolConfigurator} from 'aave
  */
 contract AaveV2Polygon_ReserveFactorUpdatesPolygonAaveV2_20231103 is IProposalGenericExecutor {
   function execute() external {
-    ILendingPoolConfigurator(AaveV2Polygon.POOL_CONFIGURATOR).setReserveFactor(AaveV2PolygonAssets.DAI_UNDERLYING, 46_00);
-    ILendingPoolConfigurator(AaveV2Polygon.POOL_CONFIGURATOR).setReserveFactor(AaveV2PolygonAssets.USDC_UNDERLYING, 48_00);
-    ILendingPoolConfigurator(AaveV2Polygon.POOL_CONFIGURATOR).setReserveFactor(AaveV2PolygonAssets.USDT_UNDERLYING, 47_00);
-    ILendingPoolConfigurator(AaveV2Polygon.POOL_CONFIGURATOR).setReserveFactor(AaveV2PolygonAssets.WBTC_UNDERLYING, 80_00);
-    ILendingPoolConfigurator(AaveV2Polygon.POOL_CONFIGURATOR).setReserveFactor(AaveV2PolygonAssets.WETH_UNDERLYING, 70_00);
-    ILendingPoolConfigurator(AaveV2Polygon.POOL_CONFIGURATOR).setReserveFactor(AaveV2PolygonAssets.WMATIC_UNDERLYING, 66_00);
-    ILendingPoolConfigurator(AaveV2Polygon.POOL_CONFIGURATOR).setReserveFactor(AaveV2PolygonAssets.BAL_UNDERLYING, 57_00);
+    ILendingPoolConfigurator(AaveV2Polygon.POOL_CONFIGURATOR).setReserveFactor(
+      AaveV2PolygonAssets.DAI_UNDERLYING,
+      46_00
+    );
+    ILendingPoolConfigurator(AaveV2Polygon.POOL_CONFIGURATOR).setReserveFactor(
+      AaveV2PolygonAssets.USDC_UNDERLYING,
+      48_00
+    );
+    ILendingPoolConfigurator(AaveV2Polygon.POOL_CONFIGURATOR).setReserveFactor(
+      AaveV2PolygonAssets.USDT_UNDERLYING,
+      47_00
+    );
+    ILendingPoolConfigurator(AaveV2Polygon.POOL_CONFIGURATOR).setReserveFactor(
+      AaveV2PolygonAssets.WBTC_UNDERLYING,
+      80_00
+    );
+    ILendingPoolConfigurator(AaveV2Polygon.POOL_CONFIGURATOR).setReserveFactor(
+      AaveV2PolygonAssets.WETH_UNDERLYING,
+      70_00
+    );
+    ILendingPoolConfigurator(AaveV2Polygon.POOL_CONFIGURATOR).setReserveFactor(
+      AaveV2PolygonAssets.WMATIC_UNDERLYING,
+      66_00
+    );
+    ILendingPoolConfigurator(AaveV2Polygon.POOL_CONFIGURATOR).setReserveFactor(
+      AaveV2PolygonAssets.BAL_UNDERLYING,
+      57_00
+    );
   }
 }

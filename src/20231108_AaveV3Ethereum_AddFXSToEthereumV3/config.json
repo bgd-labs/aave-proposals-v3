@@ -1,8 +1,6 @@
 {
   "rootOptions": {
-    "pools": [
-      "AaveV3Ethereum"
-    ],
+    "pools": ["AaveV3Ethereum"],
     "author": "Alice Rozengarden (@Rozengarden - Aave-chan initiative)",
     "title": "Add FXS to Ethereum V3",
     "shortName": "AddFXSToEthereumV3",
@@ -47,9 +45,7 @@
           }
         ]
       },
-      "features": [
-        "ASSET_LISTING"
-      ]
+      "features": ["ASSET_LISTING"]
     }
   }
 }

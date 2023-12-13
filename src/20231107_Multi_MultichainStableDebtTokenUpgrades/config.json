@@ -1,10 +1,7 @@
 {
   "rootOptions": {
     "author": "BGD Labs @bgdlabs",
-    "pools": [
-      "AaveV2Ethereum",
-      "AaveV3Polygon"
-    ],
+    "pools": ["AaveV2Ethereum", "AaveV3Polygon"],
     "title": "Multichain Stable Debt Token Upgrades",
     "shortName": "MultichainStableDebtTokenUpgrades",
     "date": "20231107",
@@ -16,17 +13,13 @@
       "configs": {
         "OTHERS": {}
       },
-      "features": [
-        "OTHERS"
-      ]
+      "features": ["OTHERS"]
     },
     "AaveV3Polygon": {
       "configs": {
         "OTHERS": {}
       },
-      "features": [
-        "OTHERS"
-      ]
+      "features": ["OTHERS"]
     }
   }
 }

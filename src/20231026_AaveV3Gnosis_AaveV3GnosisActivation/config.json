@@ -1,8 +1,6 @@
 {
   "rootOptions": {
-    "pools": [
-      "AaveV3Gnosis"
-    ],
+    "pools": ["AaveV3Gnosis"],
     "title": "Aave v3 Gnosis Activation",
     "shortName": "AaveV3GnosisActivation",
     "date": "20231026",
@@ -206,10 +204,7 @@
           }
         ]
       },
-      "features": [
-        "EMODES_UPDATES",
-        "ASSET_LISTING"
-      ]
+      "features": ["EMODES_UPDATES", "ASSET_LISTING"]
     }
   }
 }

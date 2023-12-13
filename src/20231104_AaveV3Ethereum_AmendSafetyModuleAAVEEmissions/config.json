@@ -1,8 +1,6 @@
 {
   "rootOptions": {
-    "pools": [
-      "AaveV3Ethereum"
-    ],
+    "pools": ["AaveV3Ethereum"],
     "title": "AmendSafetyModuleAAVEEmissions",
     "shortName": "AmendSafetyModuleAAVEEmissions",
     "date": "20231104",
@@ -15,9 +13,7 @@
       "configs": {
         "OTHERS": {}
       },
-      "features": [
-        "OTHERS"
-      ]
+      "features": ["OTHERS"]
     }
   }
 }
