@@ -31,8 +31,8 @@ The following parameters are to be updated as follows:
 
 ## References
 
-- Implementation: [AaveV2Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231208_AaveV2Polygon_ReserveFactorUpdates/AaveV2Polygon_ReserveFactorUpdates_20231208.sol)
-- Tests: [AaveV2Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231208_AaveV2Polygon_ReserveFactorUpdates/AaveV2Polygon_ReserveFactorUpdates_20231208.t.sol)
+- Implementation: [AaveV2Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/b166bcb29080e3d59ace613e9c394cb0be8f9331/src/20231208_AaveV2Polygon_ReserveFactorUpdates/AaveV2Polygon_ReserveFactorUpdates_20231208.sol)
+- Tests: [AaveV2Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/b166bcb29080e3d59ace613e9c394cb0be8f9331/src/20231208_AaveV2Polygon_ReserveFactorUpdates/AaveV2Polygon_ReserveFactorUpdates_20231208.t.sol)
 - [Snapshot](No snapshot for Direct-to-AIP)
 - [Discussion](https://governance.aave.com/t/arfc-reserve-factor-updates-polygon-aave-v2/13937/13)
 
