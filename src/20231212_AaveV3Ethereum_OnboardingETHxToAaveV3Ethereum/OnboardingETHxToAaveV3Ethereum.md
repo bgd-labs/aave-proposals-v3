@@ -18,8 +18,8 @@ The table below illustrates the configured risk parameters for **ETHx**
 
 | Parameter                          |                                      Value |
 | ---------------------------------- | -----------------------------------------: |
-| Isolation Mode                     |                                       false |
-| Borrowable                         |                                   DISABLED |
+| Isolation Mode                     |                                      false |
+| Borrowable                         |                                    ENABLED |
 | Collateral Enabled                 |                                       true |
 | Supply Cap (ETHx)                  |                                     10,000 |
 | Borrow Cap (ETHx)                  |                                      1,000 |
