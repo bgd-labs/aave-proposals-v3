@@ -1,5 +1,5 @@
 ---
-title: "Increase Supply and Borrow Caps at 100% Utilization - December 2023"
+title: "Increase Polygon wstETH Supply Cap"
 author: "Alice Rozengarden (@Rozengarden - Aave-chan initiative)"
 discussions: "https://governance.aave.com/t/arfc-increase-supply-and-borrow-caps-at-100-utilization-december-2023/15754"
 ---
