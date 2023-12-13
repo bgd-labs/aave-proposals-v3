@@ -1,7 +1,7 @@
 ---
-title: "Redeem CRV from AaveV2Ethereum and Transfer to GLC"
-author: "karpatkey_TokenLogic - MatthewGraham, Sisyphos & efecarranza"
-discussions: ""
+title: "Transfer all CRV positions from Ethereum Mainnet Collector to GLC Safe"
+author: "TokenLogic & karpatkey"
+discussions: "https://governance.aave.com/t/arfc-deploy-acrv-crv-to-vecrv/11628"
 ---
 
 ## Simple Summary
@@ -27,10 +27,10 @@ The GLC is then expected to manage the sdCRV holdings to the benefit of the DAO 
 This proposal encompasses the following actions:
 
 - Transfer aEthCRV (Aave V3) & aCRV (AaveV2) from Collector to Proposal Payload contract
-- Withdraw aEthCRV (Aave V3) & aCRV (Aave V2) from Ethereum Mainnet on the Proposal Payload contract
-- Transfer all newly available Ethereum Mainnet CRV to GLC SAFE
+- Withdraw aEthCRV (Aave V3) & aCRV (Aave V2) from Ethereum Mainnet on the Proposal Payload contract to GLC SAFE
+- Transfer existing CRV position on Ethereum Mainnet to GLC SAFE
 
-GLC SAFE Address: `0x205e795336610f5131Be52F09218AF19f0f3eC60`
+GLC SAFE Address: [`0x205e795336610f5131Be52F09218AF19f0f3eC60`](https://etherscan.io/address/0x205e795336610f5131Be52F09218AF19f0f3eC60)
 
 ## References
 
