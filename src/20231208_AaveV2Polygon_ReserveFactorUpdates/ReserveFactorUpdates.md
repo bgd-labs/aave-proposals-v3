@@ -1,5 +1,5 @@
 ---
-title: "Reserve Factor Updates"
+title: "Polygon V2 Reserve Factor Updates"
 author: "TokenLogic"
 discussions: "https://governance.aave.com/t/arfc-reserve-factor-updates-polygon-aave-v2/13937"
 ---
