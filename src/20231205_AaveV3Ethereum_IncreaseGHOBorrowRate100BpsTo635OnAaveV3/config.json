@@ -1,0 +1,21 @@
+{
+  "rootOptions": {
+    "author": "Alice Rozengarden (@Rozengarden - Aave-chan initiative)",
+    "pools": ["AaveV3Ethereum"],
+    "title": "Increase GHO Borrow Rate 100 bps to 6.35% on Aave V3",
+    "shortName": "IncreaseGHOBorrowRate100BpsTo635OnAaveV3",
+    "date": "20231205",
+    "discussion": "https://governance.aave.com/t/arfc-increase-gho-borrow-rate-100-bps-to-6-35-on-aave-v3/15744",
+    "snapshot": "No snapshot for direct to AIP"
+  },
+  "poolOptions": {
+    "AaveV3Ethereum": {
+      "configs": {
+        "OTHERS": {}
+      },
+      "cache": {
+        "blockNumber": 18722018
+      }
+    }
+  }
+}

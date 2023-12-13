@@ -1,4 +1,10 @@
-import {generateContractName, generateFolderName, getChainAlias, getPoolChain} from '../common';
+import {
+  CHAIN_TO_CHAIN_ID,
+  generateContractName,
+  generateFolderName,
+  getChainAlias,
+  getPoolChain,
+} from '../common';
 import {Options} from '../types';
 import {prefixWithImports} from '../utils/importsResolver';
 import {prefixWithPragma} from '../utils/constants';
@@ -34,15 +40,21 @@ export function generateScript(options: Options) {
     .map((chain) => {
       return `/**
     * @dev Deploy ${chain}
-    * command: make deploy-ledger contract=src/${folderName}/${fileName}.s.sol:Deploy${chain} chain=${getChainAlias(
+    * deploy-command: make deploy-ledger contract=src/${folderName}/${fileName}.s.sol:Deploy${chain} chain=${getChainAlias(
         chain
       )}
+    * verify-command: npx catapulta-verify -b broadcast/${fileName}.s.sol/${
+        CHAIN_TO_CHAIN_ID[chain]
+      }/run-latest.json
     */
    contract Deploy${chain} is ${chain}Script {
      function run() external broadcast {
        // deploy payloads
        ${poolsToChainsMap[chain]
-         .map(({contractName, pool}, ix) => `${contractName} payload${ix} = new ${contractName}();`)
+         .map(
+           ({contractName, pool}, ix) =>
+             `${contractName} payload${ix} = GovV3Helpers.deployDeterministic(type(${contractName}).creationCode);`
+         )
          .join('\n')}
 
        // compose action
@@ -82,7 +94,7 @@ contract CreateProposal is EthereumScript {
         let template = `IPayloadsControllerCore.ExecutionAction[] memory actions${chain} = new IPayloadsControllerCore.ExecutionAction[](${poolsToChainsMap[chain].length});\n`;
         template += poolsToChainsMap[chain]
           .map(({contractName, pool}, ix) => {
-            return `actions${chain}[${ix}] = GovV3Helpers.buildAction(address(0));`;
+            return `actions${chain}[${ix}] = GovV3Helpers.buildAction(type(${contractName}).creationCode);`;
           })
           .join('\n');
         template += `payloads[${ix}] = GovV3Helpers.build${

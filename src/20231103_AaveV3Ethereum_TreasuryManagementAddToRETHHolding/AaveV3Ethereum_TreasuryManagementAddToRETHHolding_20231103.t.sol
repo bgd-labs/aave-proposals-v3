@@ -21,24 +21,42 @@ contract AaveV3Ethereum_TreasuryManagementAddToRETHHolding_20231103_Test is Prot
 
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('mainnet'), 18571429);
-    proposal = AaveV3Ethereum_TreasuryManagementAddToRETHHolding_20231103(0xB08b75BaAC19FAcd43e643af10B35E5cA3527F5F);
+    proposal = AaveV3Ethereum_TreasuryManagementAddToRETHHolding_20231103(
+      0xB08b75BaAC19FAcd43e643af10B35E5cA3527F5F
+    );
   }
 
   /**
    * @dev executes the generic test suite including e2e and config snapshots
    */
   function test_defaultProposalExecution() public {
-    uint256 collectorWethBalanceBefore = IERC20(AaveV3EthereumAssets.WETH_UNDERLYING).balanceOf(collector);
-    uint256 collectorAwethv2BalanceBefore = IERC20(AaveV2EthereumAssets.WETH_A_TOKEN).balanceOf(collector);
-    uint256 collectorAwethv3BalanceBefore = IERC20(AaveV3EthereumAssets.WETH_A_TOKEN).balanceOf(collector);
-    uint256 expectedWeth = 
-      collectorWethBalanceBefore + collectorAwethv2BalanceBefore + collectorAwethv3BalanceBefore - 100 ether;
+    uint256 collectorWethBalanceBefore = IERC20(AaveV3EthereumAssets.WETH_UNDERLYING).balanceOf(
+      collector
+    );
+    uint256 collectorAwethv2BalanceBefore = IERC20(AaveV2EthereumAssets.WETH_A_TOKEN).balanceOf(
+      collector
+    );
+    uint256 collectorAwethv3BalanceBefore = IERC20(AaveV3EthereumAssets.WETH_A_TOKEN).balanceOf(
+      collector
+    );
+    uint256 expectedWeth = collectorWethBalanceBefore +
+      collectorAwethv2BalanceBefore +
+      collectorAwethv3BalanceBefore -
+      100 ether;
     executePayload(vm, address(proposal));
-    uint256 collectorWethBalanceAfter = IERC20(AaveV3EthereumAssets.WETH_UNDERLYING).balanceOf(collector);
-    uint256 swapProxyWethBalanceAfter = IERC20(AaveV3EthereumAssets.WETH_UNDERLYING).balanceOf(swapProxy);
-    uint256 collectorAwethv2BalanceAfter = IERC20(AaveV2EthereumAssets.WETH_A_TOKEN).balanceOf(collector);
-    uint256 collectorAwethv3BalanceAfter = IERC20(AaveV3EthereumAssets.WETH_A_TOKEN).balanceOf(collector);
-    
+    uint256 collectorWethBalanceAfter = IERC20(AaveV3EthereumAssets.WETH_UNDERLYING).balanceOf(
+      collector
+    );
+    uint256 swapProxyWethBalanceAfter = IERC20(AaveV3EthereumAssets.WETH_UNDERLYING).balanceOf(
+      swapProxy
+    );
+    uint256 collectorAwethv2BalanceAfter = IERC20(AaveV2EthereumAssets.WETH_A_TOKEN).balanceOf(
+      collector
+    );
+    uint256 collectorAwethv3BalanceAfter = IERC20(AaveV3EthereumAssets.WETH_A_TOKEN).balanceOf(
+      collector
+    );
+
     assertEq(collectorWethBalanceAfter, 0);
     assertEq(swapProxyWethBalanceAfter, expectedWeth);
     assertLe(collectorAwethv2BalanceAfter, 1e17);

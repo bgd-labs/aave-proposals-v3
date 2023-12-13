@@ -1,8 +1,6 @@
 {
   "rootOptions": {
-    "pools": [
-      "AaveV3Ethereum"
-    ],
+    "pools": ["AaveV3Ethereum"],
     "title": "GHO - Increase Borrow Rate",
     "shortName": "GHOIncreaseBorrowRate",
     "date": "20231108",
