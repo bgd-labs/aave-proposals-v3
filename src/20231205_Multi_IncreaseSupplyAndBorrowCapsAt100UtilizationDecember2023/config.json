@@ -1,10 +1,7 @@
 {
   "rootOptions": {
     "author": "Alice Rozengarden (@Rozengarden - Aave-chan initiative)",
-    "pools": [
-      "AaveV3Polygon",
-      "AaveV3Arbitrum"
-    ],
+    "pools": ["AaveV3Polygon", "AaveV3Arbitrum"],
     "title": "Increase Supply and Borrow Caps at 100% Utilization - December 2023",
     "shortName": "IncreaseSupplyAndBorrowCapsAt100UtilizationDecember2023",
     "date": "20231205",

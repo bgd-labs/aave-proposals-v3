@@ -14,9 +14,9 @@ The AIP proposes increasing supply caps to meet the ongoing market demand for de
 
 ## Specification
 
-|Asset|Chain ID|Current Supply Cap|New Supply Cap|Current Borrow Cap|New Borrow Cap|
-| --- | --- | --- | --- | --- | --- |
-|wsETH|Polygon|3.45k|4.37k|285.00|No Change|
+| Asset | Chain ID | Current Supply Cap | New Supply Cap | Current Borrow Cap | New Borrow Cap |
+| ----- | -------- | ------------------ | -------------- | ------------------ | -------------- |
+| wsETH | Polygon  | 3.45k              | 4.37k          | 285.00             | No Change      |
 
 ## References
 
