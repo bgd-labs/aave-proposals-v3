@@ -1,9 +1,7 @@
 {
   "rootOptions": {
     "author": "Alice Rozengarden (@Rozengarden - Aave-chan initiative)",
-    "pools": [
-      "AaveV3Ethereum"
-    ],
+    "pools": ["AaveV3Ethereum"],
     "title": "Increase GHO Borrow Rate 100 bps to 6.35% on Aave V3",
     "shortName": "IncreaseGHOBorrowRate100BpsTo635OnAaveV3",
     "date": "20231205",

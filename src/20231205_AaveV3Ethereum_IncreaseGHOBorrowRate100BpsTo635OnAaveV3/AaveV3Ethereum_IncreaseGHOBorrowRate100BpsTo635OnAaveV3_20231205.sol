@@ -11,6 +11,7 @@ import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethe
  */
 contract AaveV3Ethereum_IncreaseGHOBorrowRate100BpsTo635OnAaveV3_20231205 {
   address public constant INTEREST_RATE_STRATEGY = 0x00524e8E4C5FD2b8D8aa1226fA16b39Cad69B8A0;
+
   function execute() external {
     AaveV3Ethereum.POOL_CONFIGURATOR.setReserveInterestRateStrategyAddress(
       AaveV3EthereumAssets.GHO_UNDERLYING,
