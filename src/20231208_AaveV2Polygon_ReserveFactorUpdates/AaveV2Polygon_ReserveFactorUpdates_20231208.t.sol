@@ -73,10 +73,8 @@ contract AaveV2Polygon_ReserveFactorUpdates_20231208_Test is ProtocolV2TestBase 
     _noReservesConfigsChangesApartFrom(allConfigsBefore, allConfigsAfter, assetsChanged);
 
     for (uint i = 0; i < assetChanges.length; i++) {
-      console2.log("asset is:", assetChanges[i].asset);
-      ReserveConfig memory cfg = _findReserveConfig(allConfigsBefore, assetChanges[i].asset);
-      console2.log("reserve factor is:", cfg.reserveFactor);
-      // assertEq(cfg.reserveFactor, assetChanges[i].reserveFactor);
+      ReserveConfig memory cfg = _findReserveConfig(allConfigsAfter, assetChanges[i].asset);
+      assertEq(cfg.reserveFactor, assetChanges[i].reserveFactor);
     }
   }
 }

@@ -36,7 +36,7 @@ contract CreateProposal is EthereumScript {
     // compose actions for validation
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsPolygon = new IPayloadsControllerCore.ExecutionAction[](1);
-    actionsPolygon[0] = GovV3Helpers.buildAction(address(0));
+    actionsPolygon[0] = GovV3Helpers.buildAction(0x15135198e254259899e472c4d2aa566fec59077d);
     payloads[0] = GovV3Helpers.buildPolygonPayload(vm, actionsPolygon);
 
     // create proposal
