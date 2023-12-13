@@ -20,11 +20,29 @@ contract AaveV2Polygon_ReserveFactorUpdates_20231208 is IProposalGenericExecutor
   uint256 public constant WMATIC_RF = 76_00;
 
   function execute() external {
-    ILendingPoolConfigurator(AaveV2Polygon.POOL_CONFIGURATOR).setReserveFactor(AaveV2PolygonAssets.DAI_UNDERLYING, DAI_RF);
-    ILendingPoolConfigurator(AaveV2Polygon.POOL_CONFIGURATOR).setReserveFactor(AaveV2PolygonAssets.USDC_UNDERLYING, USDC_RF);
-    ILendingPoolConfigurator(AaveV2Polygon.POOL_CONFIGURATOR).setReserveFactor(AaveV2PolygonAssets.USDT_UNDERLYING, USDT_RF);
-    ILendingPoolConfigurator(AaveV2Polygon.POOL_CONFIGURATOR).setReserveFactor(AaveV2PolygonAssets.WBTC_UNDERLYING, WBTC_RF);
-    ILendingPoolConfigurator(AaveV2Polygon.POOL_CONFIGURATOR).setReserveFactor(AaveV2PolygonAssets.WETH_UNDERLYING, WETH_RF);
-    ILendingPoolConfigurator(AaveV2Polygon.POOL_CONFIGURATOR).setReserveFactor(AaveV2PolygonAssets.WMATIC_UNDERLYING, WMATIC_RF);
+    ILendingPoolConfigurator(AaveV2Polygon.POOL_CONFIGURATOR).setReserveFactor(
+      AaveV2PolygonAssets.DAI_UNDERLYING,
+      DAI_RF
+    );
+    ILendingPoolConfigurator(AaveV2Polygon.POOL_CONFIGURATOR).setReserveFactor(
+      AaveV2PolygonAssets.USDC_UNDERLYING,
+      USDC_RF
+    );
+    ILendingPoolConfigurator(AaveV2Polygon.POOL_CONFIGURATOR).setReserveFactor(
+      AaveV2PolygonAssets.USDT_UNDERLYING,
+      USDT_RF
+    );
+    ILendingPoolConfigurator(AaveV2Polygon.POOL_CONFIGURATOR).setReserveFactor(
+      AaveV2PolygonAssets.WBTC_UNDERLYING,
+      WBTC_RF
+    );
+    ILendingPoolConfigurator(AaveV2Polygon.POOL_CONFIGURATOR).setReserveFactor(
+      AaveV2PolygonAssets.WETH_UNDERLYING,
+      WETH_RF
+    );
+    ILendingPoolConfigurator(AaveV2Polygon.POOL_CONFIGURATOR).setReserveFactor(
+      AaveV2PolygonAssets.WMATIC_UNDERLYING,
+      WMATIC_RF
+    );
   }
 }
