@@ -3,9 +3,9 @@
 exports[`feature: priceFeedsUpdates > should properly generate files 1`] = `
 {
   "aip": "---
-title: \\"test\\"
-author: \\"test\\"
-discussions: \\"test\\"
+title: "test"
+author: "test"
+discussions: "test"
 ---
 
 ## Simple Summary
@@ -160,7 +160,7 @@ contract CreateProposal is EthereumScript {
 
     // create proposal
     vm.startBroadcast();
-    GovV3Helpers.createProposal2_5(
+    GovV3Helpers.createProposal(
       vm,
       payloads,
       GovV3Helpers.ipfsHashFile(vm, 'src/20231023_AaveV3Ethereum_Test/Test.md')
