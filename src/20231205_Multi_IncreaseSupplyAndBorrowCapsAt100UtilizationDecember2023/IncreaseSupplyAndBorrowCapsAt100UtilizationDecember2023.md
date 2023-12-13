@@ -10,7 +10,7 @@ This AIP proposes to increase supply caps on assets that currently have 100% or 
 
 ## Motivation
 
-The AIP proposes increasing supply caps to meet the ongoing market demand for depositing. This increase will enable new Aave users to join Aave V3 on Polygon and allow existing users to expand their positions. These changes will use the direct-to-AIP framework as those change have been greenlighted by Chaos Labs. Supply caps on assets at supply cap will be increased by 50%.
+The AIP proposes increasing supply caps to meet the ongoing market demand for depositing. This increase will enable new Aave users to join Aave V3 on Polygon and allow existing users to expand their positions. These changes will use the direct-to-AIP framework as those change have been greenlighted by Chaos Labs. Supply caps on assets at supply cap will be increased by 20%.
 
 ## Specification
 
