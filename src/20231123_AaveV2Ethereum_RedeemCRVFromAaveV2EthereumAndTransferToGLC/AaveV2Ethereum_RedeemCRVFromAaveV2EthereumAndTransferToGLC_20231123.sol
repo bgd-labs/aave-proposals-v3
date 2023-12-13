@@ -37,16 +37,8 @@ contract AaveV2Ethereum_RedeemCRVFromAaveV2EthereumAndTransferToGLC_20231123 is
       IERC20(AaveV2EthereumAssets.CRV_UNDERLYING).balanceOf(address(AaveV2Ethereum.COLLECTOR))
     );
 
-    AaveV2Ethereum.POOL.withdraw(
-      AaveV2EthereumAssets.CRV_UNDERLYING,
-      type(uint256).max,
-      GLC_SAFE
-    );
+    AaveV2Ethereum.POOL.withdraw(AaveV2EthereumAssets.CRV_UNDERLYING, type(uint256).max, GLC_SAFE);
 
-    AaveV3Ethereum.POOL.withdraw(
-      AaveV3EthereumAssets.CRV_UNDERLYING,
-      type(uint256).max,
-      GLC_SAFE
-    );
+    AaveV3Ethereum.POOL.withdraw(AaveV3EthereumAssets.CRV_UNDERLYING, type(uint256).max, GLC_SAFE);
   }
 }
