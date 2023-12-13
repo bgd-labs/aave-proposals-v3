@@ -15,10 +15,9 @@ import {AaveV3Polygon_OnboardNativeUSDCToAaveV3Markets_20231205} from './AaveV3P
  */
 contract AaveV3Polygon_OnboardNativeUSDCToAaveV3Markets_20231205_Test is ProtocolV3TestBase {
   AaveV3Polygon_OnboardNativeUSDCToAaveV3Markets_20231205 internal proposal;
-  address internal USDC_WHALE = 0xe7804c37c13166fF0b37F5aE0BB07A3aEbb6e245;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('polygon'), 50786431);
+    vm.createSelectFork(vm.rpcUrl('polygon'), 51092556);
     proposal = new AaveV3Polygon_OnboardNativeUSDCToAaveV3Markets_20231205();
   }
 
@@ -26,8 +25,6 @@ contract AaveV3Polygon_OnboardNativeUSDCToAaveV3Markets_20231205_Test is Protoco
    * @dev executes the generic test suite including e2e and config snapshots
    */
   function test_defaultProposalExecution() public {
-    startHoax(USDC_WHALE);
-    IERC20(proposal.USDCn()).transfer(GovernanceV3Polygon.EXECUTOR_LVL_1, 10 ** 6);
     defaultTest(
       'AaveV3Polygon_OnboardNativeUSDCToAaveV3Markets_20231205',
       AaveV3Polygon.POOL,
@@ -36,8 +33,6 @@ contract AaveV3Polygon_OnboardNativeUSDCToAaveV3Markets_20231205_Test is Protoco
   }
 
   function test_collectorHasnUSDCFunds() public {
-    startHoax(USDC_WHALE);
-    IERC20(proposal.USDCn()).transfer(GovernanceV3Polygon.EXECUTOR_LVL_1, 10 ** 6);
     GovV3Helpers.executePayload(vm, address(proposal));
     (address aTokenAddress, , ) = AaveV3Polygon
       .AAVE_PROTOCOL_DATA_PROVIDER

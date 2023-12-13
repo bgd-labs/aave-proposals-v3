@@ -18,23 +18,23 @@
 | oracle | [0x7e860098F58bBFC8648a4311b374B1D669a2bc6B](https://basescan.org/address/0x7e860098F58bBFC8648a4311b374B1D669a2bc6B) |
 | oracleDecimals | 8 |
 | oracleDescription | USDC / USD |
-| oracleLatestAnswer | 0.99994367 |
+| oracleLatestAnswer | 1.00006816 |
 | usageAsCollateralEnabled | true |
 | ltv | 77 % |
 | liquidationThreshold | 80 % |
 | liquidationBonus | 5 % |
 | liquidationProtocolFee | 10 % |
 | reserveFactor | 10 % |
-| aToken | [0x99CBC45ea5bb7eF3a5BC08FB1B7E56bB2442Ef0D](https://basescan.org/address/0x99CBC45ea5bb7eF3a5BC08FB1B7E56bB2442Ef0D) |
+| aToken | [0x4e65fE4DbA92790696d040ac24Aa414708F5c0AB](https://basescan.org/address/0x4e65fE4DbA92790696d040ac24Aa414708F5c0AB) |
 | aTokenImpl | [0x98F409Fc4A42F34AE3c326c7f48ED01ae8cAeC69](https://basescan.org/address/0x98F409Fc4A42F34AE3c326c7f48ED01ae8cAeC69) |
-| variableDebtToken | [0x41A7C3f5904ad176dACbb1D99101F59ef0811DC1](https://basescan.org/address/0x41A7C3f5904ad176dACbb1D99101F59ef0811DC1) |
+| variableDebtToken | [0x59dca05b6c26dbd64b5381374aAaC5CD05644C28](https://basescan.org/address/0x59dca05b6c26dbd64b5381374aAaC5CD05644C28) |
 | variableDebtTokenImpl | [0x2425A746911128c2eAA7bEBDc9Bc452eE52208a1](https://basescan.org/address/0x2425A746911128c2eAA7bEBDc9Bc452eE52208a1) |
-| stableDebtToken | [0xfe742Fa2a84294E8316F05b17c05090Fc68B5105](https://basescan.org/address/0xfe742Fa2a84294E8316F05b17c05090Fc68B5105) |
+| stableDebtToken | [0x03506214379aA86ad1176af71c260278cfa10B38](https://basescan.org/address/0x03506214379aA86ad1176af71c260278cfa10B38) |
 | stableDebtTokenImpl | [0xe0b9B4f959fa8B52B7228c8D78875482b8813349](https://basescan.org/address/0xe0b9B4f959fa8B52B7228c8D78875482b8813349) |
 | borrowingEnabled | true |
 | stableBorrowRateEnabled | false |
 | isBorrowableInIsolation | false |
-| interestRateStrategy | [0x2f51b00eC4912874DFDBd8dC3C8e390c21e77aF9](https://basescan.org/address/0x2f51b00eC4912874DFDBd8dC3C8e390c21e77aF9) |
+| interestRateStrategy | [0x50eC656Ba67885D0937b5f549f3104ea15E75588](https://basescan.org/address/0x50eC656Ba67885D0937b5f549f3104ea15E75588) |
 | aTokenName | Aave Base USDC |
 | aTokenSymbol | aBasUSDC |
 | isPaused | false |
@@ -64,7 +64,7 @@
 | supplyCap | 8,000,000 USDbC | 2,000,000 USDbC |
 | borrowCap | 6,500,000 USDbC | 2,000,000 USDbC |
 | reserveFactor | 10 % | 20 % |
-| interestRateStrategy | [0x8c63A1b0721D5776Ae5ed1Be8dc7f2A1e7312Ed3](https://basescan.org/address/0x8c63A1b0721D5776Ae5ed1Be8dc7f2A1e7312Ed3) | [0x50eC656Ba67885D0937b5f549f3104ea15E75588](https://basescan.org/address/0x50eC656Ba67885D0937b5f549f3104ea15E75588) |
+| interestRateStrategy | [0x8c63A1b0721D5776Ae5ed1Be8dc7f2A1e7312Ed3](https://basescan.org/address/0x8c63A1b0721D5776Ae5ed1Be8dc7f2A1e7312Ed3) | [0xDBea12F69D3Fcb4Be9FD14dd450AAe2B2a3d4de7](https://basescan.org/address/0xDBea12F69D3Fcb4Be9FD14dd450AAe2B2a3d4de7) |
 | variableRateSlope1 | 5 % | 7 % |
 | variableRateSlope2 | 60 % | 80 % |
 | baseStableBorrowRate | 6 % | 8 % |
@@ -82,7 +82,7 @@
       },
       "interestRateStrategy": {
         "from": "0x8c63A1b0721D5776Ae5ed1Be8dc7f2A1e7312Ed3",
-        "to": "0x50eC656Ba67885D0937b5f549f3104ea15E75588"
+        "to": "0xDBea12F69D3Fcb4Be9FD14dd450AAe2B2a3d4de7"
       },
       "reserveFactor": {
         "from": 1000,
@@ -96,7 +96,7 @@
     "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913": {
       "from": null,
       "to": {
-        "aToken": "0x99CBC45ea5bb7eF3a5BC08FB1B7E56bB2442Ef0D",
+        "aToken": "0x4e65fE4DbA92790696d040ac24Aa414708F5c0AB",
         "aTokenImpl": "0x98F409Fc4A42F34AE3c326c7f48ED01ae8cAeC69",
         "aTokenName": "Aave Base USDC",
         "aTokenSymbol": "aBasUSDC",
@@ -105,7 +105,7 @@
         "debtCeiling": 0,
         "decimals": 6,
         "eModeCategory": 0,
-        "interestRateStrategy": "0x2f51b00eC4912874DFDBd8dC3C8e390c21e77aF9",
+        "interestRateStrategy": "0x50eC656Ba67885D0937b5f549f3104ea15E75588",
         "isActive": true,
         "isBorrowableInIsolation": false,
         "isFlashloanable": true,
@@ -119,10 +119,10 @@
         "oracle": "0x7e860098F58bBFC8648a4311b374B1D669a2bc6B",
         "oracleDecimals": 8,
         "oracleDescription": "USDC / USD",
-        "oracleLatestAnswer": 99994367,
+        "oracleLatestAnswer": 100006816,
         "reserveFactor": 1000,
         "stableBorrowRateEnabled": false,
-        "stableDebtToken": "0xfe742Fa2a84294E8316F05b17c05090Fc68B5105",
+        "stableDebtToken": "0x03506214379aA86ad1176af71c260278cfa10B38",
         "stableDebtTokenImpl": "0xe0b9B4f959fa8B52B7228c8D78875482b8813349",
         "stableDebtTokenName": "Aave Base Stable Debt USDC",
         "stableDebtTokenSymbol": "stableDebtBasUSDC",
@@ -130,7 +130,7 @@
         "symbol": "USDC",
         "underlying": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
         "usageAsCollateralEnabled": true,
-        "variableDebtToken": "0x41A7C3f5904ad176dACbb1D99101F59ef0811DC1",
+        "variableDebtToken": "0x59dca05b6c26dbd64b5381374aAaC5CD05644C28",
         "variableDebtTokenImpl": "0x2425A746911128c2eAA7bEBDc9Bc452eE52208a1",
         "variableDebtTokenName": "Aave Base Variable Debt USDC",
         "variableDebtTokenSymbol": "variableDebtBasUSDC"
@@ -138,7 +138,7 @@
     }
   },
   "strategies": {
-    "0x2f51b00eC4912874DFDBd8dC3C8e390c21e77aF9": {
+    "0x50eC656Ba67885D0937b5f549f3104ea15E75588": {
       "from": null,
       "to": {
         "baseStableBorrowRate": "50000000000000000000000000",
@@ -153,7 +153,7 @@
         "variableRateSlope2": "600000000000000000000000000"
       }
     },
-    "0x50eC656Ba67885D0937b5f549f3104ea15E75588": {
+    "0xDBea12F69D3Fcb4Be9FD14dd450AAe2B2a3d4de7": {
       "from": null,
       "to": {
         "baseStableBorrowRate": "80000000000000000000000000",

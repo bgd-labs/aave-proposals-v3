@@ -18,7 +18,7 @@
 | oracle | [0xfE4A8cc5b5B2366C1B58Bea3858e81843581b2F7](https://polygonscan.com/address/0xfE4A8cc5b5B2366C1B58Bea3858e81843581b2F7) |
 | oracleDecimals | 8 |
 | oracleDescription | USDC / USD |
-| oracleLatestAnswer | 1.0000357 |
+| oracleLatestAnswer | 1.0003053 |
 | usageAsCollateralEnabled | true |
 | ltv | 77 % |
 | liquidationThreshold | 80 % |
@@ -139,7 +139,7 @@
         "oracle": "0xfE4A8cc5b5B2366C1B58Bea3858e81843581b2F7",
         "oracleDecimals": 8,
         "oracleDescription": "USDC / USD",
-        "oracleLatestAnswer": 100003570,
+        "oracleLatestAnswer": 100030530,
         "reserveFactor": 1000,
         "stableBorrowRateEnabled": false,
         "stableDebtToken": "0xc889e9f8370D14A428a9857205d99BFdB400b757",
