@@ -1,8 +1,10 @@
 ---
-title: "Continuous Security Proposal Aave <> Certora"
+title: "Continuous Security Proposal Aave <> Certora, GHO funding"
 author: "@Shelly - Certora, Powered by ACI Skywards"
 discussions: "https://governance.aave.com/t/arfc-continuous-security-proposal-aave-certora/15732"
 ---
+
+**Due to governance limitation this AIP was split in two parts, this is the GHO funding part**
 
 ## Simple Summary
 

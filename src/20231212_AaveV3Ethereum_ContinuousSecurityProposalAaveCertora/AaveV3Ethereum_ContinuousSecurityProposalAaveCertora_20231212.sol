@@ -14,12 +14,9 @@ import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethe
 contract AaveV3Ethereum_ContinuousSecurityProposalAaveCertora_20231212 is IProposalGenericExecutor {
   address public constant CERTORA_TREASURY = 0x0F11640BF66e2D9352d9c41434A5C6E597c5e4c8;
   uint256 public constant GHO_STREAM_AMOUNT = 1_000_000 ether;
-  uint256 public constant AAVE_STREAM_AMOUNT = 5_200 ether;
   uint256 public constant STREAM_DURATION = 270 days;
   uint256 public constant ACTUAL_AMOUNT_GHO =
     (GHO_STREAM_AMOUNT / STREAM_DURATION) * STREAM_DURATION;
-  uint256 public constant ACTUAL_AMOUNT_AAVE =
-    (AAVE_STREAM_AMOUNT / STREAM_DURATION) * STREAM_DURATION;
 
   function execute() external {
     // create GHO stream for Certora
@@ -27,17 +24,6 @@ contract AaveV3Ethereum_ContinuousSecurityProposalAaveCertora_20231212 is IPropo
       CERTORA_TREASURY,
       ACTUAL_AMOUNT_GHO,
       AaveV3EthereumAssets.GHO_UNDERLYING,
-      block.timestamp,
-      block.timestamp + STREAM_DURATION
-    );
-
-    // create AAVE stream for Certora
-
-    MiscEthereum.AAVE_ECOSYSTEM_RESERVE_CONTROLLER.createStream(
-      MiscEthereum.ECOSYSTEM_RESERVE,
-      CERTORA_TREASURY,
-      ACTUAL_AMOUNT_AAVE,
-      AaveV3EthereumAssets.AAVE_UNDERLYING,
       block.timestamp,
       block.timestamp + STREAM_DURATION
     );
