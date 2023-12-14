@@ -6,7 +6,7 @@ discussions: "https://governance.aave.com/t/arfc-migrate-consolidate-polygon-tre
 
 ## Simple Summary
 
-This AIP will migrate all the DAOs assets (except BAL, CRV & LINK) held on Polygon v2 to Polygon v3.
+This AIP will migrate all the DAOs assets (except BAL & CRV) held on Polygon v2 to Polygon v3.
 
 ## Motivation
 
