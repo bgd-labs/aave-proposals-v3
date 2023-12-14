@@ -1,6 +1,6 @@
 ---
 title: "Continuous Security Proposal Aave <> Certora"
-author: "@Shelly - Certora, Powered by ACI Skywards"
+author: "@Shelly - Certora, Powered by ACI Skywards and @bgdlabs"
 discussions: "https://governance.aave.com/t/arfc-continuous-security-proposal-aave-certora/15732"
 ---
 
