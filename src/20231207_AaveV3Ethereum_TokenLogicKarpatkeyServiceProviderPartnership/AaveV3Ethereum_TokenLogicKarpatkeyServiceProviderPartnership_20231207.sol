@@ -8,8 +8,8 @@ import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethe
 /**
  * @title TokenLogic & karpatkey Service Provider Partnership
  * @author efecarranza.eth
- * - Snapshot: TODO
- * - Discussion: https://governance.aave.com/t/temp-check-financial-services-proposal-karpatkey-tokenlogic/15633
+ * - Snapshot: https://snapshot.org/#/aave.eth/proposal/0x6e57ed54cf803652ab4839ff7b7f7de08ba086fbe99163547c6188a3ee55e209
+ * - Discussion: https://governance.aave.com/t/arfc-tokenlogic-karpatkey-service-provider-partnership/15755
  */
 contract AaveV3Ethereum_TokenLogicKarpatkeyServiceProviderPartnership_20231207 is
   IProposalGenericExecutor
