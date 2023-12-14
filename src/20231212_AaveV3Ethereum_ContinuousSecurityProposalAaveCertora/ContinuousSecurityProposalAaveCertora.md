@@ -8,8 +8,7 @@ discussions: "https://governance.aave.com/t/arfc-continuous-security-proposal-aa
 
 We offer to extend the existing [formal verification and manual review services](https://governance.aave.com/t/security-and-agility-of-aave-smart-contracts-via-continuous-formal-verification/10181) and provide additional security services:
 
-1. Governance proposal reviews - Review every governance proposal in the on-chain stage as suggested by BGDLabs.
-2. We will assist Aave and BGD in reviewing Immunify bug bounties per request.
+1. We will assist Aave and BGD in reviewing Immunify bug bounties per request.
 
 This proposal asks for a 1-year duration with a budget of $1.5m, starting from the 14th of September 2023.
 
@@ -39,7 +38,7 @@ In past commitments, we have played a crucial role in two critical incident resp
 
 ## Specification
 
-The annual price for the project is $1.5M: $1M is paid in GHO vested linearly over one year, and $500,000 is paid in Aave tokens vested linearly over one year. A 30-day termination is possible after a vote. We reduced the price of $2.7M from last year to reflect the bear market and inlined with the reduced project review capacity.
+The annual price for the project is $1.5M: $1M is paid in GHO vested linearly over one year, and $500,000 is paid in Aave tokens vested linearly over one year, This amount to 5200 AAVE according to the 30-DAY TWAP price of the asset. A 30-day termination is possible after a vote. We reduced the price of $2.7M from last year to reflect the bear market and inlined with the reduced project review capacity.
 
 The Aave and the BGD team will also assist by writing their CVL rules.
 
