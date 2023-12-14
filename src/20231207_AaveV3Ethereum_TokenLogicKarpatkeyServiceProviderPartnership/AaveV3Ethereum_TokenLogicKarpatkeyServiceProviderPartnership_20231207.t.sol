@@ -19,7 +19,7 @@ contract AaveV3Ethereum_TokenLogicKarpatkeyServiceProviderPartnership_20231207_T
 
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('mainnet'), 18736059);
-    proposal = new AaveV3Ethereum_TokenLogicKarpatkeyServiceProviderPartnership_20231207();
+    proposal = AaveV3Ethereum_TokenLogicKarpatkeyServiceProviderPartnership_20231207(0x485CDe091918e1EaC67495a73DBa7bbcf1Da4F86);
   }
 
   /**
