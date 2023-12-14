@@ -38,7 +38,7 @@ The table below illustrates the configured risk parameters for **USDC** on Polyg
 
 | Parameter                          |                                      Value |
 | ---------------------------------- | -----------------------------------------: |
-| Isolation Mode                     |                                       true |
+| Isolation Mode                     |                                       false |
 | Borrowable                         |                                    ENABLED |
 | Collateral Enabled                 |                                       true |
 | Supply Cap (USDC)                  |                                 50,000,000 |
