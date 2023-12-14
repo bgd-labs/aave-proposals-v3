@@ -1,6 +1,6 @@
 ---
 title: "Update GNO Risk Parameters on Aave V3 Gnosis Pool"
-author: " Aave Chan Initiative"
+author: "Aave Chan Initiative"
 discussions: "https://governance.aave.com/t/arfc-update-gno-risk-parameters-on-aave-v3-gnosis-pool/15613"
 ---
 
