@@ -40,25 +40,37 @@ library AddressesToMigrate {
  * @title Treasury Management - Polygon v2 to v3 Migration
  * @author efecarranza.eth
  * - Snapshot: https://snapshot.org/#/aave.eth/proposal/0x1b816c12b6f547a1982198ffd0e36412390b05828b560c9edee4e8a6903c4882
- * - Discussion: https://governance.aave.com/t/arfc-migrate-consolidate-polygon-treasury/12248
+ * - Discussion: https://governance.aave.com/t/arfc-migrate-consolidate-polygon-treasury/12248/4
  */
 contract AaveV2Polygon_TreasuryManagementPolygonV2ToV3Migration_20231208 is
   IProposalGenericExecutor
 {
   using SafeERC20 for IERC20;
-  
+
   function execute() external {
     address[8] memory TO_MIGRATE = AddressesToMigrate.getUnderlyingAddresses();
     address[8] memory A_TOKENS = AddressesToMigrate.getV2ATokenAddresses();
+
+    AaveV3Polygon.COLLECTOR.transfer(
+      AaveV2PolygonAssets.USDC_UNDERLYING,
+      address(this),
+      IERC20(AaveV2PolygonAssets.USDC_UNDERLYING).balanceOf(address(AaveV3Polygon.COLLECTOR))
+    );
+
+    AaveV3Polygon.COLLECTOR.transfer(
+      AaveV2PolygonAssets.WMATIC_UNDERLYING,
+      address(this),
+      IERC20(AaveV2PolygonAssets.WMATIC_UNDERLYING).balanceOf(address(AaveV3Polygon.COLLECTOR))
+    );
 
     for (uint256 i = 0; i < 8; ++i) {
       address underlying = TO_MIGRATE[i];
       address aToken = A_TOKENS[i];
 
-      AaveV2Polygon.COLLECTOR.transfer(
+      AaveV3Polygon.COLLECTOR.transfer(
         aToken,
         address(this),
-        IERC20(aToken).balanceOf(address(AaveV2Polygon.COLLECTOR))
+        IERC20(aToken).balanceOf(address(AaveV3Polygon.COLLECTOR))
       );
 
       AaveV2Polygon.POOL.withdraw(underlying, type(uint256).max, address(this));
@@ -68,43 +80,5 @@ contract AaveV2Polygon_TreasuryManagementPolygonV2ToV3Migration_20231208 is
 
       AaveV3Polygon.POOL.deposit(underlying, amount, address(AaveV3Polygon.COLLECTOR), 0);
     }
-
-    AaveV2Polygon.COLLECTOR.transfer(
-      AaveV2PolygonAssets.USDC_UNDERLYING,
-      address(this),
-      IERC20(AaveV2PolygonAssets.USDC_UNDERLYING).balanceOf(address(AaveV2Polygon.COLLECTOR))
-    );
-
-    uint256 amountUsdc = IERC20(AaveV2PolygonAssets.USDC_UNDERLYING).balanceOf(address(this));
-    IERC20(AaveV2PolygonAssets.USDC_UNDERLYING).forceApprove(
-      address(AaveV3Polygon.POOL),
-      amountUsdc
-    );
-
-    AaveV3Polygon.POOL.deposit(
-      AaveV2PolygonAssets.USDC_UNDERLYING,
-      amountUsdc,
-      address(AaveV3Polygon.COLLECTOR),
-      0
-    );
-
-    AaveV2Polygon.COLLECTOR.transfer(
-      AaveV2PolygonAssets.WMATIC_UNDERLYING,
-      address(this),
-      IERC20(AaveV2PolygonAssets.WMATIC_UNDERLYING).balanceOf(address(AaveV2Polygon.COLLECTOR))
-    );
-
-    uint256 amountWMatic = IERC20(AaveV2PolygonAssets.WMATIC_UNDERLYING).balanceOf(address(this));
-    IERC20(AaveV2PolygonAssets.WMATIC_UNDERLYING).forceApprove(
-      address(AaveV3Polygon.POOL),
-      amountWMatic
-    );
-
-    AaveV3Polygon.POOL.deposit(
-      AaveV2PolygonAssets.WMATIC_UNDERLYING,
-      amountWMatic,
-      address(AaveV3Polygon.COLLECTOR),
-      0
-    );
   }
 }

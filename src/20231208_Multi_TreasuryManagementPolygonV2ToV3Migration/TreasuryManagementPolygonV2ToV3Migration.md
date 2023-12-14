@@ -6,7 +6,7 @@ discussions: "https://governance.aave.com/t/arfc-migrate-consolidate-polygon-tre
 
 ## Simple Summary
 
-This AIP will migrate all the DAOs assets held on Polygon v2 to Polygon v3.
+This AIP will migrate all the DAOs assets (except BAL & CRV) held on Polygon v2 to Polygon v3.
 
 ## Motivation
 
@@ -46,7 +46,7 @@ Deposit funds into Aave v3.
 - Implementation: [AaveV2Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231208_Multi_TreasuryManagementPolygonV2ToV3Migration/AaveV2Polygon_TreasuryManagementPolygonV2ToV3Migration_20231208.sol), [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231208_Multi_TreasuryManagementPolygonV2ToV3Migration/AaveV3Polygon_TreasuryManagementPolygonV2ToV3Migration_20231208.sol)
 - Tests: [AaveV2Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231208_Multi_TreasuryManagementPolygonV2ToV3Migration/AaveV2Polygon_TreasuryManagementPolygonV2ToV3Migration_20231208.t.sol), [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231208_Multi_TreasuryManagementPolygonV2ToV3Migration/AaveV3Polygon_TreasuryManagementPolygonV2ToV3Migration_20231208.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x1b816c12b6f547a1982198ffd0e36412390b05828b560c9edee4e8a6903c4882)
-- [Discussion](https://governance.aave.com/t/arfc-migrate-consolidate-polygon-treasury/12248)
+- [Discussion](https://governance.aave.com/t/arfc-migrate-consolidate-polygon-treasury/12248/4)
 
 ## Disclaimer
 
