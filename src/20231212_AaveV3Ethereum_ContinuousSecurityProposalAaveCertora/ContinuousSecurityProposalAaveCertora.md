@@ -8,7 +8,8 @@ discussions: "https://governance.aave.com/t/arfc-continuous-security-proposal-aa
 
 We offer to extend the existing [formal verification and manual review services](https://governance.aave.com/t/security-and-agility-of-aave-smart-contracts-via-continuous-formal-verification/10181) and provide additional security services:
 
-1. We will assist Aave and BGD in reviewing Immunify bug bounties per request.
+1. Governance proposal reviews - Review every governance proposal in the on-chain stage as suggested by BGDLabs.
+2. We will assist Aave and BGD in reviewing Immunify bug bounties per request.
 
 This proposal asks for a 1-year duration with a budget of $1.5m, starting from the 14th of September 2023.
 
