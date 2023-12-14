@@ -19,8 +19,10 @@ contract AaveV2Polygon_TreasuryManagementPolygonV2ToV3Migration_20231208_Test is
   AaveV2Polygon_TreasuryManagementPolygonV2ToV3Migration_20231208 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('polygon'), 50991163);
-    proposal = new AaveV2Polygon_TreasuryManagementPolygonV2ToV3Migration_20231208();
+    vm.createSelectFork(vm.rpcUrl('polygon'), 51130199);
+    proposal = AaveV2Polygon_TreasuryManagementPolygonV2ToV3Migration_20231208(
+      0x31B7F31dcCF8E8127a6f1619e6624A2a5Ef6713B
+    );
   }
 
   function test_execute() public {
