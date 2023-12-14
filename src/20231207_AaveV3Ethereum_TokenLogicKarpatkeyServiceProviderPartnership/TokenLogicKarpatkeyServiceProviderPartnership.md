@@ -100,8 +100,8 @@ TokenLogic and karpatkey receive no compensation beyond Aave protocol for the cr
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231207_AaveV3Ethereum_TokenLogicKarpatkeyServiceProviderPartnership/AaveV3Ethereum_TokenLogicKarpatkeyServiceProviderPartnership_20231207.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231207_AaveV3Ethereum_TokenLogicKarpatkeyServiceProviderPartnership/AaveV3Ethereum_TokenLogicKarpatkeyServiceProviderPartnership_20231207.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/f50d80c1f5be6e2823ea4b6ffbf292af72268feb/src/20231207_AaveV3Ethereum_TokenLogicKarpatkeyServiceProviderPartnership/AaveV3Ethereum_TokenLogicKarpatkeyServiceProviderPartnership_20231207.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/f50d80c1f5be6e2823ea4b6ffbf292af72268feb/src/20231207_AaveV3Ethereum_TokenLogicKarpatkeyServiceProviderPartnership/AaveV3Ethereum_TokenLogicKarpatkeyServiceProviderPartnership_20231207.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x6e57ed54cf803652ab4839ff7b7f7de08ba086fbe99163547c6188a3ee55e209)
 - [Discussion](https://governance.aave.com/t/temp-check-financial-services-proposal-karpatkey-tokenlogic/15633)
 
