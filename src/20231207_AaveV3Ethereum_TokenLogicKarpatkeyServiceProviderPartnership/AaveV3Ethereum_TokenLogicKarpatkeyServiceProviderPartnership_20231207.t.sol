@@ -19,7 +19,9 @@ contract AaveV3Ethereum_TokenLogicKarpatkeyServiceProviderPartnership_20231207_T
 
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('mainnet'), 18736059);
-    proposal = AaveV3Ethereum_TokenLogicKarpatkeyServiceProviderPartnership_20231207(0x485CDe091918e1EaC67495a73DBa7bbcf1Da4F86);
+    proposal = AaveV3Ethereum_TokenLogicKarpatkeyServiceProviderPartnership_20231207(
+      0x485CDe091918e1EaC67495a73DBa7bbcf1Da4F86
+    );
   }
 
   /**
@@ -38,7 +40,7 @@ contract AaveV3Ethereum_TokenLogicKarpatkeyServiceProviderPartnership_20231207_T
       7773680555555554162512 // what's available currently to withdraw
     );
     vm.stopPrank();
-    
+
     uint256 nextCollectorStreamID = AaveV3Ethereum.COLLECTOR.getNextStreamId();
     uint256 nextCollectorStreamIDTwo = nextCollectorStreamID + 1;
 
