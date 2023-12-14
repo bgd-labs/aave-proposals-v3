@@ -16,12 +16,12 @@ You can see the existing proposals on the forum below.
 
 TEMP CHECK forum post stage:
 
-* [Base](https://governance.aave.com/t/temp-check-add-native-usdc-to-aave-v3-base-market/15655)
-* [Polygon PoS ](https://governance.aave.com/t/temp-check-add-native-usdc-to-aave-v3-polygon-market/15659)
+- [Base](https://governance.aave.com/t/temp-check-add-native-usdc-to-aave-v3-base-market/15655)
+- [Polygon PoS ](https://governance.aave.com/t/temp-check-add-native-usdc-to-aave-v3-polygon-market/15659)
 
 ARFC forum post stage:
 
-* [OP Mainnet ](https://governance.aave.com/t/arfc-onboard-native-usdc-to-aave-v3-optimism-market/15463)
+- [OP Mainnet ](https://governance.aave.com/t/arfc-onboard-native-usdc-to-aave-v3-optimism-market/15463)
 
 To streamline the process, we propose moving the Base and Polygon PoS native USDC onboarding proposals straight to ARFC, then combine all three ARFC proposals into a single AIP.
 This proposal also include similar change for USDC on Arbitrum.
@@ -99,68 +99,74 @@ The table below illustrates the configured risk parameters for **USDC** on base
 The following changes will be implemented for the native version of USDC:
 
 **Optimism:**
-* **LTV:**
-  * USDC: Decrease to 77% to match the others aave markets
-* **LT:**
-  * USDC: Decrease to 80% to match the others aave markets
-* **Slope1:**
-  * USDC: Increase to 5% to match the others aave markets.
+
+- **LTV:**
+  - USDC: Decrease to 77% to match the others aave markets
+- **LT:**
+  - USDC: Decrease to 80% to match the others aave markets
+- **Slope1:**
+  - USDC: Increase to 5% to match the others aave markets.
 
 **Arbitrum:**
-* **LTV:**
-  * USDC: Decrease to 77% to match the others aave markets
-* **LT:**
-  * USDC: Decrease to 80% to match the others aave markets
+
+- **LTV:**
+  - USDC: Decrease to 77% to match the others aave markets
+- **LT:**
+  - USDC: Decrease to 80% to match the others aave markets
 
 ### Bridged USDC modification
 
 The following changes will be implemented for the bridged version of USDC:
 
 **Base:**
-* **Supply Cap:** 2m
-* **Borrow Cap:** 2m
-* **Reserve Factor (RF):**
-  * USDC.e: Increase to 20% to incentivize native USDC usage.
-* **Slope1:**
-  * USDC.e: Increase to 7% to incentivize native USDC usage.
-* **Slope2:**
-  * USDC.e: Increase to 80% to incentivize native USDC usage.
+
+- **Supply Cap:** 2m
+- **Borrow Cap:** 2m
+- **Reserve Factor (RF):**
+  - USDC.e: Increase to 20% to incentivize native USDC usage.
+- **Slope1:**
+  - USDC.e: Increase to 7% to incentivize native USDC usage.
+- **Slope2:**
+  - USDC.e: Increase to 80% to incentivize native USDC usage.
 
 **Optimism:**
-* **Supply Cap:** 18m
-* **Borrow Cap:** 15.5m
-* **Reserve Factor (RF):**
-  * USDC.e: Increase to 20% to incentivize native USDC usage.
-* **Slope1:**
-  * USDC.e: Increase to 7% to incentivize native USDC usage.
-* **Slope2:**
-  * USDC.e: Increase to 80% to incentivize native USDC usage.
+
+- **Supply Cap:** 18m
+- **Borrow Cap:** 15.5m
+- **Reserve Factor (RF):**
+  - USDC.e: Increase to 20% to incentivize native USDC usage.
+- **Slope1:**
+  - USDC.e: Increase to 7% to incentivize native USDC usage.
+- **Slope2:**
+  - USDC.e: Increase to 80% to incentivize native USDC usage.
 
 **Polygon:**
-* **Supply Cap:** 40m
-* **Borrow Cap:** 36m
-* Loan To Value (LTV): 77%
-* LT: 80%
-* LB: 5%
-* **Reserve Factor (RF):**
-  * USDC.e: Increase to 20% to incentivize native USDC usage.
-* **Slope1:**
-  * USDC.e: Increase to 7% to incentivize native USDC usage.
-* **Slope2:**
-  * USDC.e: Increase to 80% to incentivize native USDC usage.
+
+- **Supply Cap:** 40m
+- **Borrow Cap:** 36m
+- Loan To Value (LTV): 77%
+- LT: 80%
+- LB: 5%
+- **Reserve Factor (RF):**
+  - USDC.e: Increase to 20% to incentivize native USDC usage.
+- **Slope1:**
+  - USDC.e: Increase to 7% to incentivize native USDC usage.
+- **Slope2:**
+  - USDC.e: Increase to 80% to incentivize native USDC usage.
 
 **Arbitrum:**
-* **Supply Cap:** 26m
-* **Borrow Cap:** 24m
-* Loan To Value (LTV): 77%
-* LT: 80%
-* LB: 5%
-* **Reserve Factor (RF):**
-* USDC.e: Increase to 20% to incentivize native USDC usage.
-* **Slope1:**
-* USDC.e: Increase to 7% to incentivize native USDC usage.
-* **Slope2:**
-* USDC.e: Increase to 80% to incentivize native USDC usage.
+
+- **Supply Cap:** 26m
+- **Borrow Cap:** 24m
+- Loan To Value (LTV): 77%
+- LT: 80%
+- LB: 5%
+- **Reserve Factor (RF):**
+- USDC.e: Increase to 20% to incentivize native USDC usage.
+- **Slope1:**
+- USDC.e: Increase to 7% to incentivize native USDC usage.
+- **Slope2:**
+- USDC.e: Increase to 80% to incentivize native USDC usage.
 
 ## References
 

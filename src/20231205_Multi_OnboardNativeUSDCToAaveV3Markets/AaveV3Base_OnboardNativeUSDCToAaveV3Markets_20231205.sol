@@ -64,7 +64,6 @@ contract AaveV3Base_OnboardNativeUSDCToAaveV3Markets_20231205 is AaveV3PayloadBa
     return capsUpdate;
   }
 
-
   function borrowsUpdates()
     public
     pure

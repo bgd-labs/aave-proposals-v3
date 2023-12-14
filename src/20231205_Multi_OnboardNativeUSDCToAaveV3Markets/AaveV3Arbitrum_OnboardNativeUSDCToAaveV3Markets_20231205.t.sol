@@ -31,5 +31,4 @@ contract AaveV3Arbitrum_OnboardNativeUSDCToAaveV3Markets_20231205_Test is Protoc
       address(proposal)
     );
   }
-
 }

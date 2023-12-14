@@ -56,7 +56,6 @@ contract AaveV3Optimism_OnboardNativeUSDCToAaveV3Markets_20231205 is AaveV3Paylo
       })
     });
 
-
     return rateStrategies;
   }
 
