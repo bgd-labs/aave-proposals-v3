@@ -45,8 +45,8 @@ The Aave and the BGD team will also assist by writing their CVL rules.
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231212_AaveV3Ethereum_ContinuousSecurityProposalAaveCertora/AaveV3Ethereum_ContinuousSecurityProposalAaveCertora_20231212.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231212_AaveV3Ethereum_ContinuousSecurityProposalAaveCertora/AaveV3Ethereum_ContinuousSecurityProposalAaveCertora_20231212.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/7750f5c704224465be135557c490c2fc649f375c/src/20231212_AaveV3Ethereum_ContinuousSecurityProposalAaveCertora/AaveV3Ethereum_ContinuousSecurityProposalAaveCertora_20231212.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/7750f5c704224465be135557c490c2fc649f375c/src/20231212_AaveV3Ethereum_ContinuousSecurityProposalAaveCertora/AaveV3Ethereum_ContinuousSecurityProposalAaveCertora_20231212.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x3f379dfb0bebc149756997aeccb5e5b916c63e84c1236c0825d09211603a002d)
 - [Discussion](https://governance.aave.com/t/arfc-continuous-security-proposal-aave-certora/15732)
 
