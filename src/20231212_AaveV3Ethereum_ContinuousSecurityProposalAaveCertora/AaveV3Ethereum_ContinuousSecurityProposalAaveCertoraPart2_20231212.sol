@@ -15,7 +15,9 @@ contract AaveV3Ethereum_ContinuousSecurityProposalAaveCertoraPart2_20231212 is
   IProposalGenericExecutor
 {
   address public constant CERTORA_TREASURY = 0x0F11640BF66e2D9352d9c41434A5C6E597c5e4c8;
+  // 5200 AAVE is 500k$ according to the 30 day TWAP price
   uint256 public constant AAVE_STREAM_AMOUNT = 5_200 ether;
+  // CERTORA engagement started on Sep 14th, This AIP regonize their past work
   uint256 public constant STREAM_DURATION = 270 days;
   uint256 public constant ACTUAL_AMOUNT_AAVE =
     (AAVE_STREAM_AMOUNT / STREAM_DURATION) * STREAM_DURATION;

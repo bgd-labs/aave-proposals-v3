@@ -39,7 +39,7 @@ In past commitments, we have played a crucial role in two critical incident resp
 
 ## Specification
 
-The annual price for the project is $1.5M: $1M is paid in GHO vested linearly over one year, and $500,000 is paid in Aave tokens vested linearly over one year. A 30-day termination is possible after a vote. We reduced the price of $2.7M from last year to reflect the bear market and inlined with the reduced project review capacity.
+The annual price for the project is $1.5M: $1M is paid in GHO vested linearly over one year, and $500,000 is paid in Aave tokens vested linearly over one year, This amounts to 5200 AAVE according to the 30-DAY TWAP price of the asset. A 30-day termination is possible after a vote. We reduced the price of $2.7M from last year to reflect the bear market and inlined with the reduced project review capacity.
 
 The Aave and the BGD team will also assist by writing their CVL rules.
 
