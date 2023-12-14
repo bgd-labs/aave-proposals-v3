@@ -1,7 +1,7 @@
 ---
 title: "TokenLogic & karpatkey Service Provider Partnership"
 author: "TokenLogic & karpatkey"
-discussions: "https://governance.aave.com/t/temp-check-financial-services-proposal-karpatkey-tokenlogic/15633"
+discussions: "https://governance.aave.com/t/arfc-tokenlogic-karpatkey-service-provider-partnership/15755"
 ---
 
 ## Simple Summary
