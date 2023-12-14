@@ -24,9 +24,6 @@ contract AaveV2Polygon_TreasuryManagementPolygonV2ToV3Migration_20231208_Test is
   }
 
   function test_execute() public {
-    // Collector contract is same address across both files
-    assertEq(address(AaveV2Polygon.COLLECTOR), address(AaveV3Polygon.COLLECTOR));
-
     address[8] memory TO_MIGRATE = AddressesToMigrate.getUnderlyingAddresses();
     address[8] memory A_TOKENS = AddressesToMigrate.getV2ATokenAddresses();
 
@@ -45,20 +42,20 @@ contract AaveV2Polygon_TreasuryManagementPolygonV2ToV3Migration_20231208_Test is
     uint256[] memory v2Assetsbalances = new uint256[](8);
 
     for (uint256 i = 0; i < TO_MIGRATE.length; ++i) {
-      uint256 balanceV2 = IERC20(A_TOKENS[i]).balanceOf(address(AaveV2Polygon.COLLECTOR));
+      uint256 balanceV2 = IERC20(A_TOKENS[i]).balanceOf(address(AaveV3Polygon.COLLECTOR));
       uint256 balanceV3 = IERC20(V3_A_TOKENS[i]).balanceOf(address(AaveV3Polygon.COLLECTOR));
 
-      assertGt(IERC20(A_TOKENS[i]).balanceOf(address(AaveV2Polygon.COLLECTOR)), 0);
+      assertGt(IERC20(A_TOKENS[i]).balanceOf(address(AaveV3Polygon.COLLECTOR)), 0);
 
       v2Assetsbalances[i] = balanceV2;
       v3AssetsBalances[i] = balanceV3;
     }
 
     uint256 balanceUsdcBefore = IERC20(AaveV2PolygonAssets.USDC_UNDERLYING).balanceOf(
-      address(AaveV2Polygon.COLLECTOR)
+      address(AaveV3Polygon.COLLECTOR)
     );
     uint256 balanceWMaticBefore = IERC20(AaveV2PolygonAssets.WMATIC_UNDERLYING).balanceOf(
-      address(AaveV2Polygon.COLLECTOR)
+      address(AaveV3Polygon.COLLECTOR)
     );
 
     assertGt(balanceUsdcBefore, 0);
@@ -69,8 +66,8 @@ contract AaveV2Polygon_TreasuryManagementPolygonV2ToV3Migration_20231208_Test is
     assertEq(IERC20(AaveV2PolygonAssets.USDC_UNDERLYING).balanceOf(address(proposal)), 0);
     assertEq(IERC20(AaveV2PolygonAssets.WMATIC_UNDERLYING).balanceOf(address(proposal)), 0);
 
-    for (uint256 i = 0; i < TO_MIGRATE.length; ++i) {
-      uint256 balanceV2 = IERC20(A_TOKENS[i]).balanceOf(address(AaveV2Polygon.COLLECTOR));
+    for (uint256 i = 0; i < TO_MIGRATE.length; i++) {
+      uint256 balanceV2 = IERC20(A_TOKENS[i]).balanceOf(address(AaveV3Polygon.COLLECTOR));
       uint256 balanceV3 = IERC20(V3_A_TOKENS[i]).balanceOf(address(AaveV3Polygon.COLLECTOR));
 
       assertEq(IERC20(A_TOKENS[i]).balanceOf(address(proposal)), 0);
