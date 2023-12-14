@@ -7,7 +7,7 @@ import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethe
 
 /**
  * @title Continuous Security Proposal Aave <> Certora
- * @author @Shelly - Certora, Powered by ACI Skywards and @bgdlabs
+ * @author @Shelly - Certora, Powered by ACI Skywards
  * - Snapshot: https://snapshot.org/#/aave.eth/proposal/0x3f379dfb0bebc149756997aeccb5e5b916c63e84c1236c0825d09211603a002d
  * - Discussion: https://governance.aave.com/t/arfc-continuous-security-proposal-aave-certora/15732
  */
