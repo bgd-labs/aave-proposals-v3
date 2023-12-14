@@ -13,11 +13,10 @@ import {AaveV3Gnosis_UpdateGNORiskParametersOnAaveV3GnosisPool_20231213} from '.
 contract DeployGnosis is GnosisScript {
   function run() external broadcast {
     // deploy payloads
-    AaveV3Gnosis_UpdateGNORiskParametersOnAaveV3GnosisPool_20231213 payload0 = AaveV3Gnosis_UpdateGNORiskParametersOnAaveV3GnosisPool_20231213(
+    address payload0 =
         GovV3Helpers.deployDeterministic(
           type(AaveV3Gnosis_UpdateGNORiskParametersOnAaveV3GnosisPool_20231213).creationCode
-        )
-      );
+        );
 
     // compose action
     IPayloadsControllerCore.ExecutionAction[]
