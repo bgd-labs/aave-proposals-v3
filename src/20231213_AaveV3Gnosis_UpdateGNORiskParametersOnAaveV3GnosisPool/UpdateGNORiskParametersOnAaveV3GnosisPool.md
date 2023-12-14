@@ -38,8 +38,8 @@ The proposed changes aim to make GNO a borrowable asset outside of isolation mod
 
 ## References
 
-- Implementation: [AaveV3Gnosis](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231213_AaveV3Gnosis_UpdateGNORiskParametersOnAaveV3GnosisPool/AaveV3Gnosis_UpdateGNORiskParametersOnAaveV3GnosisPool_20231213.sol)
-- Tests: [AaveV3Gnosis](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231213_AaveV3Gnosis_UpdateGNORiskParametersOnAaveV3GnosisPool/AaveV3Gnosis_UpdateGNORiskParametersOnAaveV3GnosisPool_20231213.t.sol)
+- Implementation: [AaveV3Gnosis](https://github.com/bgd-labs/aave-proposals-v3/blob/be398376cb2766e09a404142988a4f6d08019b4b/src/20231213_AaveV3Gnosis_UpdateGNORiskParametersOnAaveV3GnosisPool/AaveV3Gnosis_UpdateGNORiskParametersOnAaveV3GnosisPool_20231213.sol)
+- Tests: [AaveV3Gnosis](https://github.com/bgd-labs/aave-proposals-v3/blob/be398376cb2766e09a404142988a4f6d08019b4b/src/20231213_AaveV3Gnosis_UpdateGNORiskParametersOnAaveV3GnosisPool/AaveV3Gnosis_UpdateGNORiskParametersOnAaveV3GnosisPool_20231213.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0xe35faf498e25ff6a0620b8395c4653b05fe98cb0ccaacb62da140e53097f9ac0)
 - [Discussion](https://governance.aave.com/t/arfc-update-gno-risk-parameters-on-aave-v3-gnosis-pool/15613)
 
