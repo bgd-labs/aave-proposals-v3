@@ -1,0 +1,29 @@
+{
+  "rootOptions": {
+    "pools": ["AaveV2Polygon", "AaveV3Polygon"],
+    "title": "Treasury Management - Polygon v2 to v3 Migration",
+    "shortName": "TreasuryManagementPolygonV2ToV3Migration",
+    "date": "20231208",
+    "author": "TokenLogic",
+    "discussion": "https://governance.aave.com/t/arfc-migrate-consolidate-polygon-treasury/12248/4",
+    "snapshot": "https://snapshot.org/#/aave.eth/proposal/0x1b816c12b6f547a1982198ffd0e36412390b05828b560c9edee4e8a6903c4882"
+  },
+  "poolOptions": {
+    "AaveV2Polygon": {
+      "configs": {
+        "OTHERS": {}
+      },
+      "cache": {
+        "blockNumber": 50900776
+      }
+    },
+    "AaveV3Polygon": {
+      "configs": {
+        "OTHERS": {}
+      },
+      "cache": {
+        "blockNumber": 50900776
+      }
+    }
+  }
+}
