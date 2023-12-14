@@ -34,8 +34,8 @@ GLC SAFE Address: [`0x205e795336610f5131Be52F09218AF19f0f3eC60`](https://ethersc
 
 ## References
 
-- Implementation: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231123_AaveV2Ethereum_RedeemCRVFromAaveV2EthereumAndTransferToGLC/AaveV2Ethereum_RedeemCRVFromAaveV2EthereumAndTransferToGLC_20231123.sol)
-- Tests: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231123_AaveV2Ethereum_RedeemCRVFromAaveV2EthereumAndTransferToGLC/AaveV2Ethereum_RedeemCRVFromAaveV2EthereumAndTransferToGLC_20231123.t.sol)
+- Implementation: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/3e50661ad7dbfe4b60591f75feea7d84b57a0109/src/20231123_AaveV2Ethereum_RedeemCRVFromAaveV2EthereumAndTransferToGLC/AaveV2Ethereum_RedeemCRVFromAaveV2EthereumAndTransferToGLC_20231123.sol)
+- Tests: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/3e50661ad7dbfe4b60591f75feea7d84b57a0109/src/20231123_AaveV2Ethereum_RedeemCRVFromAaveV2EthereumAndTransferToGLC/AaveV2Ethereum_RedeemCRVFromAaveV2EthereumAndTransferToGLC_20231123.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0xf92c5647c7f60a4a3db994b4953fc4408f5946cafdc0cebcd4c5924f40e04d36)
 - [Discussion](https://governance.aave.com/t/arfc-deploy-acrv-crv-to-vecrv/11628)
 
