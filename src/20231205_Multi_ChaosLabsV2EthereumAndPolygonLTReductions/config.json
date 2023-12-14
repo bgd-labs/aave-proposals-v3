@@ -1,0 +1,25 @@
+{
+  "rootOptions": {
+    "author": "Chaos Labs",
+    "pools": ["AaveV2Ethereum", "AaveV2Polygon"],
+    "title": "Chaos Labs V2 Ethereum and Polygon LT Reductions",
+    "discussion": "https://governance.aave.com/t/arfc-v2-ethereum-and-polygon-lt-reductions-12-04-2023/15747",
+    "shortName": "ChaosLabsV2EthereumAndPolygonLTReductions",
+    "date": "20231205",
+    "snapshot": "“Direct-to-AIP”"
+  },
+  "poolOptions": {
+    "AaveV2Ethereum": {
+      "configs": {},
+      "cache": {
+        "blockNumber": 18720737
+      }
+    },
+    "AaveV2Polygon": {
+      "configs": {},
+      "cache": {
+        "blockNumber": 50773537
+      }
+    }
+  }
+}
