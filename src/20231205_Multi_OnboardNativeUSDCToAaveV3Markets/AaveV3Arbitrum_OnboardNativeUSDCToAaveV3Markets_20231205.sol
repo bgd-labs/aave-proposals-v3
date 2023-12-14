@@ -69,7 +69,7 @@ contract AaveV3Arbitrum_OnboardNativeUSDCToAaveV3Markets_20231205 is AaveV3Paylo
       asset: AaveV3ArbitrumAssets.USDC_UNDERLYING,
       ltv: 77_00,
       liqThreshold: 80_00,
-      liqBonus: 5_00,
+      liqBonus: EngineFlags.KEEP_CURRENT,
       debtCeiling: EngineFlags.KEEP_CURRENT,
       liqProtocolFee: EngineFlags.KEEP_CURRENT
     });
