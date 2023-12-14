@@ -1,26 +1,44 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
+import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aave-helpers/GovV3Helpers.sol';
+import {GovHelpers} from 'aave-helpers/GovHelpers.sol';
 import {EthereumScript} from 'aave-helpers/ScriptUtils.sol';
-import {AaveV3Ethereum_ContinuousSecurityProposalAaveCertora_20231212} from './AaveV3Ethereum_ContinuousSecurityProposalAaveCertora_20231212.sol';
+import {AaveV3Ethereum_ContinuousSecurityProposalAaveCertoraPart1_20231212} from './AaveV3Ethereum_ContinuousSecurityProposalAaveCertoraPart1_20231212.sol';
+import {AaveV3Ethereum_ContinuousSecurityProposalAaveCertoraPart2_20231212} from './AaveV3Ethereum_ContinuousSecurityProposalAaveCertoraPart2_20231212.sol';
 
 /**
  * @dev Deploy Ethereum
- * command: make deploy-ledger contract=src/20231212_AaveV3Ethereum_ContinuousSecurityProposalAaveCertora/ContinuousSecurityProposalAaveCertora_20231212.s.sol:DeployEthereum chain=mainnet
+ * command: make deploy-ledger contract=src/20231212_AaveV3Ethereum_ContinuousSecurityProposalAaveCertora/ContinuousSecurityProposalAaveCertora_20231212.s.sol:DeployEthereumPart1 chain=mainnet
  */
-contract DeployEthereum is EthereumScript {
+contract DeployEthereumPart1 is EthereumScript {
   function run() external broadcast {
     // deploy payloads
-    AaveV3Ethereum_ContinuousSecurityProposalAaveCertora_20231212 payload0 = new AaveV3Ethereum_ContinuousSecurityProposalAaveCertora_20231212();
+    address payload0 = GovV3Helpers.deployDeterministic(
+      type(AaveV3Ethereum_ContinuousSecurityProposalAaveCertoraPart1_20231212).creationCode
+    );
 
     // compose action
     IPayloadsControllerCore.ExecutionAction[]
       memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
-    actions[0] = GovV3Helpers.buildAction(address(payload0));
+    actions[0] = GovV3Helpers.buildAction(payload0);
 
     // register action at payloadsController
     GovV3Helpers.createPayload(actions);
+  }
+}
+
+/**
+ * @dev Deploy Ethereum
+ * command: make deploy-ledger contract=src/20231212_AaveV3Ethereum_ContinuousSecurityProposalAaveCertora_oldgov/ContinuousSecurityProposalAaveCertora_20231212.s.sol:DeployEthereumPart2 chain=mainnet
+ */
+contract DeployEthereumPart2 is EthereumScript {
+  function run() external broadcast {
+    // deploy payloads
+    GovV3Helpers.deployDeterministic(
+      type(AaveV3Ethereum_ContinuousSecurityProposalAaveCertoraPart2_20231212).creationCode
+    );
   }
 }
 
@@ -30,20 +48,33 @@ contract DeployEthereum is EthereumScript {
  */
 contract CreateProposal is EthereumScript {
   function run() external {
-    // create payloads
-    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](1);
+    GovHelpers.Payload[] memory govPayloads = new GovHelpers.Payload[](2);
 
     // compose actions for validation
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsEthereum = new IPayloadsControllerCore.ExecutionAction[](1);
-    actionsEthereum[0] = GovV3Helpers.buildAction(address(0));
-    payloads[0] = GovV3Helpers.buildMainnetPayload(vm, actionsEthereum);
+    actionsEthereum[0] = GovV3Helpers.buildAction(
+      type(AaveV3Ethereum_ContinuousSecurityProposalAaveCertoraPart1_20231212).creationCode
+    ); // part1
+    PayloadsControllerUtils.Payload memory payload = GovV3Helpers.buildMainnetPayload(
+      vm,
+      actionsEthereum
+    );
+
+    // GHO payload
+    govPayloads[0] = GovV3Helpers.build2_5Payload(payload);
+
+    // part2
+    govPayloads[0] = GovHelpers.buildMainnet(
+      GovV3Helpers.predictDeterministicAddress(
+        type(AaveV3Ethereum_ContinuousSecurityProposalAaveCertoraPart1_20231212).creationCode
+      )
+    );
 
     // create proposal
     vm.startBroadcast();
-    GovV3Helpers.createProposal2_5(
-      vm,
-      payloads,
+    GovHelpers.createProposal(
+      govPayloads,
       GovV3Helpers.ipfsHashFile(
         vm,
         'src/20231212_AaveV3Ethereum_ContinuousSecurityProposalAaveCertora/ContinuousSecurityProposalAaveCertora.md'
