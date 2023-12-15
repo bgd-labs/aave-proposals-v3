@@ -29,8 +29,8 @@ After checking with a financial contributor to the DAO (TokenLogic & Karpatkey),
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231213_AaveV3Ethereum_RequestForBountyPayoutDecember2023/AaveV3Ethereum_RequestForBountyPayoutDecember2023_20231213.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231213_AaveV3Ethereum_RequestForBountyPayoutDecember2023/AaveV3Ethereum_RequestForBountyPayoutDecember2023_20231213.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/4fefcfdecac30abbd4c5bb462da8d15b7c719c55/src/20231213_AaveV3Ethereum_RequestForBountyPayoutDecember2023/AaveV3Ethereum_RequestForBountyPayoutDecember2023_20231213.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/4fefcfdecac30abbd4c5bb462da8d15b7c719c55/src/20231213_AaveV3Ethereum_RequestForBountyPayoutDecember2023/AaveV3Ethereum_RequestForBountyPayoutDecember2023_20231213.t.sol)
 - Snapshot: N/A
 - [Discussion](https://governance.aave.com/t/bgd-request-for-bounty-payout-december-2023/15826)
 
