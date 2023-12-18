@@ -18,17 +18,6 @@ import {DeploymentHelper} from './SpearbitAudit_20231218.s.sol';
 contract AaveV3Ethereum_SpearbitAudit_20231218_Test is ProtocolV3TestBase {
   AaveV3Ethereum_SpearbitAudit_20231218 internal proposal;
 
-  function _executeV2Proposal(uint256 proposalId) internal {
-    uint256 executionTime = AaveGovernanceV2.GOV.getProposalById(proposalId).executionTime;
-    vm.warp(executionTime + 1);
-    AaveGovernanceV2.GOV.execute(proposalId);
-  }
-
-  function _executeV3Proposal(Vm vm, uint256 proposalId) internal {
-    GovV3StorageHelpers.readyProposal(vm, proposalId);
-    GovernanceV3Ethereum.GOVERNANCE.executeProposal(proposalId);
-  }
-
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('mainnet'), 18812072);
     proposal = new AaveV3Ethereum_SpearbitAudit_20231218();
@@ -60,7 +49,7 @@ contract AaveV3Ethereum_SpearbitAudit_20231218_Test is ProtocolV3TestBase {
     vm.startPrank(MiscEthereum.ECOSYSTEM_RESERVE);
     uint256 proposalId = DeploymentHelper.createProposal(vm);
     vm.stopPrank();
-    _executeV3Proposal(vm, proposalId);
+    GovV3Helpers.executeProposal(vm, proposalId);
     GovV3Helpers.executePayload(vm, payloadId);
 
     uint256 usdcBalanceAfter = IERC20(AaveV3EthereumAssets.USDC_A_TOKEN).balanceOf(
@@ -80,5 +69,11 @@ contract AaveV3Ethereum_SpearbitAudit_20231218_Test is ProtocolV3TestBase {
     );
     assertApproxEqAbs(BGDaDAIBalanceAfter - BGDaDAIBalanceBefore, 42_000 ether, 1);
     assertApproxEqAbs(cantinaUSDCBalanceAfter - cantinaUSDCBalanceBefore, 109_200e6, 1);
+  }
+
+  function _executeV2Proposal(uint256 proposalId) internal {
+    uint256 executionTime = AaveGovernanceV2.GOV.getProposalById(proposalId).executionTime;
+    vm.warp(executionTime + 1);
+    AaveGovernanceV2.GOV.execute(proposalId);
   }
 }

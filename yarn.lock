@@ -49,10 +49,10 @@
   resolved "https://registry.yarnpkg.com/@bgd-labs/aave-address-book/-/aave-address-book-2.13.0.tgz#1c2dc3f8fdcb6d37e74715bc04261f9eed71c5ca"
   integrity sha512-Ai1q9nW6WpY+R9EtfAaN4Qz8vRQZCIksvQler4Jr7XotyhRNBK9j8kMl4wCK9iO2jOKdEX3n7I0IB+xxAOCzLQ==
 
-"@bgd-labs/aave-cli@0.1.0":
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/@bgd-labs/aave-cli/-/aave-cli-0.1.0.tgz#f10a23735173387d92a802b19abf3ad8987c0104"
-  integrity sha512-CDU4VSp51+NaDvGNw/Gax4fMMIMTGm0CN54vFifiKC3QTM/ZCCY614Gca1UEBt5cOvOxHe2OmGYqgeoZ3s8BlA==
+"@bgd-labs/aave-cli@0.2.1":
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/@bgd-labs/aave-cli/-/aave-cli-0.2.1.tgz#a9424c13107a6641caf5b8da3dc5c9d959c3d9c4"
+  integrity sha512-UAwPXZvFaqXtkP1GW2C8cI09ZdPR7xYNTHe+FqAyPelb7gd755xNnl3/VXXekAln8uiiiKIH2+4zKzEsAS9sCw==
   dependencies:
     "@bgd-labs/aave-address-book" "2.10.0"
     "@commander-js/extra-typings" "^11.1.0"
@@ -631,10 +631,10 @@
   dependencies:
     undici-types "~5.25.1"
 
-"@types/node@^20.10.4":
-  version "20.10.4"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.10.4.tgz#b246fd84d55d5b1b71bf51f964bd514409347198"
-  integrity sha512-D08YG6rr8X90YB56tSIuBaddy/UXAA9RKJoFvrsnogAum/0pmjkgi4+2nx96A330FmioegBWmEYQ+syqCFaveg==
+"@types/node@^20.10.5":
+  version "20.10.5"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.10.5.tgz#47ad460b514096b7ed63a1dae26fad0914ed3ab2"
+  integrity sha512-nNPsNE65wjMxEKI93yOP+NPGGBJz/PoN3kZsVLee0XMiJolxSekEVD8wRwBUBqkwc7UWop0edW50yrCQW4CyRw==
   dependencies:
     undici-types "~5.26.4"
 
@@ -2384,10 +2384,10 @@ viem@^1.18.9:
     isows "1.0.3"
     ws "8.13.0"
 
-viem@^1.19.13:
-  version "1.19.13"
-  resolved "https://registry.yarnpkg.com/viem/-/viem-1.19.13.tgz#3a018720bd2abf54a039c751fc2bcd473838c523"
-  integrity sha512-DizIwJAecLedI+nq6c5LIqCLAnYXUhQX5BnH6o1H2ln6isPyJVf+v4H1IfMlRHgR5KRlC+wGI/mCjarr3tW6eg==
+viem@^1.20.1:
+  version "1.20.1"
+  resolved "https://registry.yarnpkg.com/viem/-/viem-1.20.1.tgz#ea92f9bab2fded4be556be4d4be724805d11780e"
+  integrity sha512-PaYyfuCVkNFzdaVoV8HefMIt5YtjIG6UPqxOz0rYchN52cD05YcRJlO0h/XrehQfo8ib2RSOkZ0ChJ6Adlh1Jg==
   dependencies:
     "@adraffy/ens-normalize" "1.10.0"
     "@noble/curves" "1.2.0"
