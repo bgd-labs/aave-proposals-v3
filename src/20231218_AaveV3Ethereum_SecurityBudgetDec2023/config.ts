@@ -1,10 +1,11 @@
 import {ConfigFile} from '../../generator/types';
 export const config: ConfigFile = {
   rootOptions: {
+    configFile: 'src/20231218_AaveV3Ethereum_SpearbitAudit/config.ts',
     author: 'BGD Labs (@bgdlabs)',
     pools: ['AaveV3Ethereum'],
-    title: 'Spearbit audit',
-    shortName: 'SpearbitAudit',
+    title: 'Security Budget Dec 2023',
+    shortName: 'SecurityBudgetDec2023',
     date: '20231218',
     discussion:
       'https://governance.aave.com/t/arfc-bgd-security-budget-request-december-2023/15783',
