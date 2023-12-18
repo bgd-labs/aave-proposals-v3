@@ -53,7 +53,7 @@ export function generateScript(options: Options) {
        ${poolsToChainsMap[chain]
          .map(
            ({contractName, pool}, ix) =>
-             `${contractName} payload${ix} = GovV3Helpers.deployDeterministic(type(${contractName}).creationCode);`
+             `address payload${ix} = GovV3Helpers.deployDeterministic(type(${contractName}).creationCode);`
          )
          .join('\n')}
 
@@ -63,8 +63,7 @@ export function generateScript(options: Options) {
        });
        ${poolsToChainsMap[chain]
          .map(
-           ({contractName, pool}, ix) =>
-             `actions[${ix}] = GovV3Helpers.buildAction(address(payload${ix}));`
+           ({contractName, pool}, ix) => `actions[${ix}] = GovV3Helpers.buildAction(payload${ix});`
          )
          .join('\n')}
 
