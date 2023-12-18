@@ -6,6 +6,9 @@ import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aa
 import {EthereumScript} from 'aave-helpers/ScriptUtils.sol';
 import {AaveV3Ethereum_SecurityBudgetDec2023_20231218} from './AaveV3Ethereum_SecurityBudgetDec2023_20231218.sol';
 
+/**
+ * deployment library so it's easier to use within tests
+ */
 library DeploymentHelper {
   function createPayloads() internal returns (uint40) {
     // deploy payloads
