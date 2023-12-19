@@ -10,9 +10,11 @@ This is the short executor part of the proposal for the migration of the Aave Go
 
 Additionally, Aave Robot systems is activated, being requirement for the optimal functioning of Governance v3.
 
+This Proposal is a resubmission of [415](https://app.aave.com/governance/proposal/?proposalId=415) with initial voting / proposition configurations consistent with current Aave GovernanceV2.
+
 ## Motivation
 
-v3 is a the next iteration for the Aave governance smart contracts systems, controlling in a fully decentralized manner the whole Aave ecosystem.
+v3 is the next iteration for the Aave governance smart contracts systems, controlling in a fully decentralized manner the whole Aave ecosystem.
 
 Being a replacement on the currently running v2.5, a set of two proposals on v2.5 need to be passed to migrate one system to another: once both are passed and executed on the current governance smart contracts, these will stop working, and the new v3 ones will start operating.
 
@@ -21,7 +23,7 @@ Being a replacement on the currently running v2.5, a set of two proposals on v2.
 A full specification can be found [HERE](https://governance.aave.com/t/bgd-aave-governance-v3-activation-plan/14993/13), but as summary:
 
 - 2 governance proposals need to be created: one running on the Level 1 Executor (Short Executor) and another on the Level 2 Executor (Long Executor).
-- As both proposals need to be atomically executed, a `Mediator` contract will temporary receive certain permissions, in order to sync both Level 1 and Level 2.
+- As both proposals need to be atomically executed, a `Mediator` contract will temporarily receive certain permissions, in order to sync both Level 1 and Level 2.
 - High-level, the proposals do the following:
 
   - Migrate the ownership of the v2 Executors to the v3 Executors, in order to avoid any possible permissions lock.
