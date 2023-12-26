@@ -57,8 +57,8 @@ From a technical perspective, the proposal payload does the following:
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231218_AaveV3Ethereum_SecurityBudgetDec2023/AaveV3Ethereum_SecurityBudgetDec2023_20231218.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231218_AaveV3Ethereum_SecurityBudgetDec2023/AaveV3Ethereum_SecurityBudgetDec2023_20231218.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/ab472d7e450c107f93a52ab9e6f59dbe60be86f5/src/20231218_AaveV3Ethereum_SecurityBudgetDec2023/AaveV3Ethereum_SecurityBudgetDec2023_20231218.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/ab472d7e450c107f93a52ab9e6f59dbe60be86f5/src/20231218_AaveV3Ethereum_SecurityBudgetDec2023/AaveV3Ethereum_SecurityBudgetDec2023_20231218.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0xf95bc210e3e93c2112c694cb158db22c93504155b48c03d9358e4c41c33ee782)
 - [Discussion](https://governance.aave.com/t/arfc-bgd-security-budget-request-december-2023/15783)
 
