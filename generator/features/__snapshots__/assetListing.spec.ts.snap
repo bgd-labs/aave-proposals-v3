@@ -3,9 +3,9 @@
 exports[`feature: assetListing > should properly generate files 1`] = `
 {
   "aip": "---
-title: \\"test\\"
-author: \\"test\\"
-discussions: \\"test\\"
+title: "test"
+author: "test"
+discussions: "test"
 ---
 
 ## Simple Summary
@@ -252,7 +252,7 @@ contract DeployEthereum is EthereumScript {
  * command: make deploy-ledger contract=src/20231023_AaveV3Ethereum_Test/Test_20231023.s.sol:CreateProposal chain=mainnet
  */
 contract CreateProposal is EthereumScript {
-  function run() external {
+  function run() external broadcast {
     // create payloads
     PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](1);
 
@@ -263,8 +263,7 @@ contract CreateProposal is EthereumScript {
     payloads[0] = GovV3Helpers.buildMainnetPayload(vm, actionsEthereum);
 
     // create proposal
-    vm.startBroadcast();
-    GovV3Helpers.createProposal2_5(
+    GovV3Helpers.createProposal(
       vm,
       payloads,
       GovV3Helpers.ipfsHashFile(vm, 'src/20231023_AaveV3Ethereum_Test/Test.md')
@@ -326,7 +325,7 @@ exports[`feature: assetListing > should return reasonable code 1`] = `
 
           listings[0] = IAaveV3ConfigEngine.Listing({
                asset: PSP,
-  assetSymbol: \\"PSP\\",
+  assetSymbol: "PSP",
   priceFeed: 0x72AFAECF99C9d9C8215fF44C77B94B99C28741e8,
   eModeCategory: AaveV3EthereumEModes.NONE,
   enabledToBorrow: EngineFlags.ENABLED,
