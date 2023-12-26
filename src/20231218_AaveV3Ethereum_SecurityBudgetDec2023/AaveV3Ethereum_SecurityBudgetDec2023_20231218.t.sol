@@ -19,13 +19,11 @@ contract AaveV3Ethereum_SecurityBudgetDec2023_20231218_Test is ProtocolV3TestBas
   AaveV3Ethereum_SecurityBudgetDec2023_20231218 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 18812072);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 18869235);
     proposal = new AaveV3Ethereum_SecurityBudgetDec2023_20231218();
   }
 
   function test_defaultProposalExecution() public {
-    _executeV2Proposal(395); // long 395
-    GovHelpers.passVoteAndExecute(vm, 415); // short 415
     GovV3Helpers.executePayload(vm, 26); // mediator call
 
     uint256 daiBalanceBefore = IERC20(AaveV3EthereumAssets.DAI_A_TOKEN).balanceOf(
