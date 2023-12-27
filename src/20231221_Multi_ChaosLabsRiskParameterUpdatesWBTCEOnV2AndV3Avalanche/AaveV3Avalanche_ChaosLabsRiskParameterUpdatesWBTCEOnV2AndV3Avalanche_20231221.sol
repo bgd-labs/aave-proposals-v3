@@ -9,7 +9,7 @@ import {IAaveV3ConfigEngine} from 'aave-helpers/v3-config-engine/IAaveV3ConfigEn
 /**
  * @title Chaos Labs Risk Parameter Updates - WBTC.e on V2 and V3 Avalanche
  * @author Chaos Labs - Eyal Ovadya
- * - Snapshot: https://governance.aave.com/t/arfc-chaos-labs-risk-parameter-updates-wbtc-e-on-v2-and-v3-avalanche/15824
+ * - Snapshot: https://snapshot.org/#/aave.eth/proposal/0x0e496f9cb98fb887e9c0e1b4669607a2b99a0675b23ad152c7aedbe28f8dc08d
  * - Discussion: https://governance.aave.com/t/arfc-chaos-labs-risk-parameter-updates-wbtc-e-on-v2-and-v3-avalanche/15824
  */
 contract AaveV3Avalanche_ChaosLabsRiskParameterUpdatesWBTCEOnV2AndV3Avalanche_20231221 is
