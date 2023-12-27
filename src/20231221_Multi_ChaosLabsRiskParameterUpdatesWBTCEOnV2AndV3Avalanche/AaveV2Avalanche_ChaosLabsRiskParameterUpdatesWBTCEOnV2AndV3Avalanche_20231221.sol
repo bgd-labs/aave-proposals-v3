@@ -3,7 +3,6 @@ pragma solidity ^0.8.0;
 
 import {AaveV2Avalanche, AaveV2AvalancheAssets} from 'aave-address-book/AaveV2Avalanche.sol';
 import {IProposalGenericExecutor} from 'aave-helpers/interfaces/IProposalGenericExecutor.sol';
-import {EngineFlags} from 'aave-helpers/v3-config-engine/EngineFlags.sol';
 
 /**
  * @title Chaos Labs Risk Parameter Updates - WBTC.e on V2 and V3 Avalanche
