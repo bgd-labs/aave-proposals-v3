@@ -6,6 +6,7 @@
 
 | description | value before | value after |
 | --- | --- | --- |
+| isFrozen | false | true |
 | ltv | 70 % | 0 % |
 | liquidationThreshold | 75 % | 70 % |
 
@@ -16,6 +17,10 @@
 {
   "reserves": {
     "0x50b7545627a5162F82A992c33b87aDc75187B218": {
+      "isFrozen": {
+        "from": false,
+        "to": true
+      },
       "liquidationThreshold": {
         "from": 7500,
         "to": 7000
