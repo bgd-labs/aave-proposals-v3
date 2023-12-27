@@ -15,7 +15,7 @@ contract AaveV2Ethereum_StablecoinIRCurvesUpdates_20231221_Test is ProtocolV2Tes
   AaveV2Ethereum_StablecoinIRCurvesUpdates_20231221 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 18833180);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 18876949);
     proposal = new AaveV2Ethereum_StablecoinIRCurvesUpdates_20231221();
   }
 

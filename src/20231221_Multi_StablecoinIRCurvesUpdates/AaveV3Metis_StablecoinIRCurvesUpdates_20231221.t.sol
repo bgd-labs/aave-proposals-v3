@@ -15,7 +15,7 @@ contract AaveV3Metis_StablecoinIRCurvesUpdates_20231221_Test is ProtocolV3TestBa
   AaveV3Metis_StablecoinIRCurvesUpdates_20231221 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('metis'), 9803663);
+    vm.createSelectFork(vm.rpcUrl('metis'), 10103586);
     proposal = new AaveV3Metis_StablecoinIRCurvesUpdates_20231221();
   }
 

@@ -15,7 +15,7 @@ contract AaveV3Arbitrum_StablecoinIRCurvesUpdates_20231221_Test is ProtocolV3Tes
   AaveV3Arbitrum_StablecoinIRCurvesUpdates_20231221 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('arbitrum'), 162205091);
+    vm.createSelectFork(vm.rpcUrl('arbitrum'), 164209360);
     proposal = new AaveV3Arbitrum_StablecoinIRCurvesUpdates_20231221();
   }
 

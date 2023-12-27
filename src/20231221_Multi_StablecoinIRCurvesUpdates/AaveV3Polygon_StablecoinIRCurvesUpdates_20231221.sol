@@ -21,7 +21,7 @@ contract AaveV3Polygon_StablecoinIRCurvesUpdates_20231221 is AaveV3PayloadPolygo
     returns (IAaveV3ConfigEngine.RateStrategyUpdate[] memory)
   {
     IAaveV3ConfigEngine.RateStrategyUpdate[]
-      memory rateStrategies = new IAaveV3ConfigEngine.RateStrategyUpdate[](4);
+      memory rateStrategies = new IAaveV3ConfigEngine.RateStrategyUpdate[](5);
     rateStrategies[0] = IAaveV3ConfigEngine.RateStrategyUpdate({
       asset: AaveV3PolygonAssets.DAI_UNDERLYING,
       params: IV3RateStrategyFactory.RateStrategyParams({
@@ -66,6 +66,20 @@ contract AaveV3Polygon_StablecoinIRCurvesUpdates_20231221 is AaveV3PayloadPolygo
     });
     rateStrategies[3] = IAaveV3ConfigEngine.RateStrategyUpdate({
       asset: AaveV3PolygonAssets.miMATIC_UNDERLYING,
+      params: IV3RateStrategyFactory.RateStrategyParams({
+        optimalUsageRatio: EngineFlags.KEEP_CURRENT,
+        baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
+        variableRateSlope1: _bpsToRay(6_00),
+        variableRateSlope2: EngineFlags.KEEP_CURRENT,
+        stableRateSlope1: EngineFlags.KEEP_CURRENT,
+        stableRateSlope2: EngineFlags.KEEP_CURRENT,
+        baseStableRateOffset: EngineFlags.KEEP_CURRENT,
+        stableRateExcessOffset: EngineFlags.KEEP_CURRENT,
+        optimalStableToTotalDebtRatio: EngineFlags.KEEP_CURRENT
+      })
+    });
+    rateStrategies[4] = IAaveV3ConfigEngine.RateStrategyUpdate({
+      asset: AaveV3PolygonAssets.USDCn_UNDERLYING,
       params: IV3RateStrategyFactory.RateStrategyParams({
         optimalUsageRatio: EngineFlags.KEEP_CURRENT,
         baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,

@@ -2,6 +2,15 @@
 
 ### Reserve altered
 
+#### USDC ([0x0b2C639c533813f4Aa9D7837CAf62653d097Ff85](https://explorer.optimism.io/address/0x0b2C639c533813f4Aa9D7837CAf62653d097Ff85))
+
+| description | value before | value after |
+| --- | --- | --- |
+| interestRateStrategy | [0xB57Ff919A953424d6B143ABfD6740A225eab953e](https://explorer.optimism.io/address/0xB57Ff919A953424d6B143ABfD6740A225eab953e) | [0xd00655ED65edE44354F54A23d46DCbd7ba0727dD](https://explorer.optimism.io/address/0xd00655ED65edE44354F54A23d46DCbd7ba0727dD) |
+| variableRateSlope1 | 5 % | 6 % |
+| baseStableBorrowRate | 6 % | 7 % |
+| interestRate | ![before](/.assets/642e6998ba4d8e6257bd1b98e572a781ba6d9958.svg) | ![after](/.assets/f75716c7eaa3c871931fca294b19538f6ade058c.svg) |
+
 #### USDC ([0x7F5c764cBc14f9669B88837ca1490cCa17c31607](https://explorer.optimism.io/address/0x7F5c764cBc14f9669B88837ca1490cCa17c31607))
 
 | description | value before | value after |
@@ -61,6 +70,12 @@
 ```json
 {
   "reserves": {
+    "0x0b2C639c533813f4Aa9D7837CAf62653d097Ff85": {
+      "interestRateStrategy": {
+        "from": "0xB57Ff919A953424d6B143ABfD6740A225eab953e",
+        "to": "0xd00655ED65edE44354F54A23d46DCbd7ba0727dD"
+      }
+    },
     "0x7F5c764cBc14f9669B88837ca1490cCa17c31607": {
       "interestRateStrategy": {
         "from": "0x769EbC5106bF09D9A665CCb691e1907612b57F16",
@@ -157,6 +172,21 @@
         "stableRateSlope2": "750000000000000000000000000",
         "variableRateSlope1": "60000000000000000000000000",
         "variableRateSlope2": "3000000000000000000000000000"
+      }
+    },
+    "0xd00655ED65edE44354F54A23d46DCbd7ba0727dD": {
+      "from": null,
+      "to": {
+        "baseStableBorrowRate": "70000000000000000000000000",
+        "baseVariableBorrowRate": 0,
+        "maxExcessStableToTotalDebtRatio": "800000000000000000000000000",
+        "maxExcessUsageRatio": "100000000000000000000000000",
+        "optimalStableToTotalDebtRatio": "200000000000000000000000000",
+        "optimalUsageRatio": "900000000000000000000000000",
+        "stableRateSlope1": "35000000000000000000000000",
+        "stableRateSlope2": "600000000000000000000000000",
+        "variableRateSlope1": "60000000000000000000000000",
+        "variableRateSlope2": "600000000000000000000000000"
       }
     },
     "0xd5CA18a70189309664e34FB8150799ff13722308": {

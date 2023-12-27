@@ -11,6 +11,15 @@
 | baseStableBorrowRate | 8 % | 7 % |
 | interestRate | ![before](/.assets/08d9252b4f8f8c9e59638a9a35a34e736f126166.svg) | ![after](/.assets/0fdd83ea5ba82910340836485e69608f6aae4358.svg) |
 
+#### USDC ([0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359](https://polygonscan.com/address/0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359))
+
+| description | value before | value after |
+| --- | --- | --- |
+| interestRateStrategy | [0x53b13a6D43F647D788411Abfd28D229C274AfBF9](https://polygonscan.com/address/0x53b13a6D43F647D788411Abfd28D229C274AfBF9) | [0x2402C25e7E45b1466c53Ef7766AAd878A4CbC237](https://polygonscan.com/address/0x2402C25e7E45b1466c53Ef7766AAd878A4CbC237) |
+| variableRateSlope1 | 5 % | 6 % |
+| baseStableBorrowRate | 5 % | 6 % |
+| interestRate | ![before](/.assets/84c6523d74f61d0ba00e446918a767fdc26e571b.svg) | ![after](/.assets/318b60b17ede8c1afe32538706766de085a6f3c7.svg) |
+
 #### DAI ([0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063](https://polygonscan.com/address/0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063))
 
 | description | value before | value after |
@@ -49,6 +58,12 @@
         "to": "0x44CaDF6E49895640D9De85ac01d97D44429Ad0A4"
       }
     },
+    "0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359": {
+      "interestRateStrategy": {
+        "from": "0x53b13a6D43F647D788411Abfd28D229C274AfBF9",
+        "to": "0x2402C25e7E45b1466c53Ef7766AAd878A4CbC237"
+      }
+    },
     "0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063": {
       "interestRateStrategy": {
         "from": "0xdef8F50155A6cf21181E29E400E8CffAE2d50968",
@@ -69,6 +84,21 @@
     }
   },
   "strategies": {
+    "0x2402C25e7E45b1466c53Ef7766AAd878A4CbC237": {
+      "from": null,
+      "to": {
+        "baseStableBorrowRate": "60000000000000000000000000",
+        "baseVariableBorrowRate": 0,
+        "maxExcessStableToTotalDebtRatio": "1000000000000000000000000000",
+        "maxExcessUsageRatio": "100000000000000000000000000",
+        "optimalStableToTotalDebtRatio": 0,
+        "optimalUsageRatio": "900000000000000000000000000",
+        "stableRateSlope1": "50000000000000000000000000",
+        "stableRateSlope2": "600000000000000000000000000",
+        "variableRateSlope1": "60000000000000000000000000",
+        "variableRateSlope2": "600000000000000000000000000"
+      }
+    },
     "0x44CaDF6E49895640D9De85ac01d97D44429Ad0A4": {
       "from": null,
       "to": {

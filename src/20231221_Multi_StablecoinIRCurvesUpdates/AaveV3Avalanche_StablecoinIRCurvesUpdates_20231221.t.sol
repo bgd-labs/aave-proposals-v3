@@ -15,7 +15,7 @@ contract AaveV3Avalanche_StablecoinIRCurvesUpdates_20231221_Test is ProtocolV3Te
   AaveV3Avalanche_StablecoinIRCurvesUpdates_20231221 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('avalanche'), 39323815);
+    vm.createSelectFork(vm.rpcUrl('avalanche'), 39578954);
     proposal = new AaveV3Avalanche_StablecoinIRCurvesUpdates_20231221();
   }
 

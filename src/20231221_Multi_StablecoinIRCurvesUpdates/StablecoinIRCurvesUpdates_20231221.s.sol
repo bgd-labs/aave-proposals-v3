@@ -181,6 +181,28 @@ contract DeployBase is BaseScript {
 }
 
 /**
+ * @dev Deploy Gnosis
+ * deploy-command: make deploy-ledger contract=src/20231221_Multi_StablecoinIRCurvesUpdates/StablecoinIRCurvesUpdates_20231221.s.sol:DeployBase chain=base
+ * verify-command: npx catapulta-verify -b broadcast/StablecoinIRCurvesUpdates_20231221.s.sol/8453/run-latest.json
+ */
+contract DeployGnosis is GnosisScript {
+  function run() external broadcast {
+    // deploy payloads
+    address payload0 = GovV3Helpers.deployDeterministic(
+      type(AaveV3Gnosis_StablecoinIRCurvesUpdates_20231221).creationCode
+    );
+
+    // compose action
+    IPayloadsControllerCore.ExecutionAction[]
+      memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
+    actions[0] = GovV3Helpers.buildAction(payload0);
+
+    // register action at payloadsController
+    GovV3Helpers.createPayload(actions);
+  }
+}
+
+/**
  * @dev Create Proposal
  * command: make deploy-ledger contract=src/20231221_Multi_StablecoinIRCurvesUpdates/StablecoinIRCurvesUpdates_20231221.s.sol:CreateProposal chain=mainnet
  */

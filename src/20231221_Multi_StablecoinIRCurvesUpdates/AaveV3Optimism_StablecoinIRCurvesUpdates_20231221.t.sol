@@ -15,7 +15,7 @@ contract AaveV3Optimism_StablecoinIRCurvesUpdates_20231221_Test is ProtocolV3Tes
   AaveV3Optimism_StablecoinIRCurvesUpdates_20231221 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('optimism'), 113776059);
+    vm.createSelectFork(vm.rpcUrl('optimism'), 114036391);
     proposal = new AaveV3Optimism_StablecoinIRCurvesUpdates_20231221();
   }
 
