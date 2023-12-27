@@ -15,8 +15,8 @@
 | description | value before | value after |
 | --- | --- | --- |
 | interestRateStrategy | [0x7B3B29B622987Ae2D890BF9B44C1785805C16485](https://etherscan.io/address/0x7B3B29B622987Ae2D890BF9B44C1785805C16485) | [0x28fc7a5F0e7652B6f5E398F5E656A3eB36a1F3DE](https://etherscan.io/address/0x28fc7a5F0e7652B6f5E398F5E656A3eB36a1F3DE) |
-| stableRateSlope1 | 0 % | 6 % |
-| interestRate | ![before](/.assets/366ae4c132a12c764ec8a9869c7c0dc7e99c7ed6.svg) | ![after](/.assets/1923f2627b4adf4e2975ca248126112c6c8bd9cc.svg) |
+| variableRateSlope1 | 5 % | 6 % |
+| interestRate | ![before](/.assets/366ae4c132a12c764ec8a9869c7c0dc7e99c7ed6.svg) | ![after](/.assets/1a8c34e80e24e6ccaf0f1681a4f94fdcba67eb2c.svg) |
 
 #### LUSD ([0x5f98805A4E8be255a32880FDeC7F6728C6568bA0](https://etherscan.io/address/0x5f98805A4E8be255a32880FDeC7F6728C6568bA0))
 
@@ -38,7 +38,7 @@
 
 | description | value before | value after |
 | --- | --- | --- |
-| interestRateStrategy | [0x7B3B29B622987Ae2D890BF9B44C1785805C16485](https://etherscan.io/address/0x7B3B29B622987Ae2D890BF9B44C1785805C16485) | [0xa324C768Bdd002b3387CE1c691A549268f63250b](https://etherscan.io/address/0xa324C768Bdd002b3387CE1c691A549268f63250b) |
+| interestRateStrategy | [0x7B3B29B622987Ae2D890BF9B44C1785805C16485](https://etherscan.io/address/0x7B3B29B622987Ae2D890BF9B44C1785805C16485) | [0x28fc7a5F0e7652B6f5E398F5E656A3eB36a1F3DE](https://etherscan.io/address/0x28fc7a5F0e7652B6f5E398F5E656A3eB36a1F3DE) |
 | variableRateSlope1 | 5 % | 6 % |
 | interestRate | ![before](/.assets/366ae4c132a12c764ec8a9869c7c0dc7e99c7ed6.svg) | ![after](/.assets/1a8c34e80e24e6ccaf0f1681a4f94fdcba67eb2c.svg) |
 
@@ -98,7 +98,7 @@
     "0x853d955aCEf822Db058eb8505911ED77F175b99e": {
       "interestRateStrategy": {
         "from": "0x7B3B29B622987Ae2D890BF9B44C1785805C16485",
-        "to": "0xa324C768Bdd002b3387CE1c691A549268f63250b"
+        "to": "0x28fc7a5F0e7652B6f5E398F5E656A3eB36a1F3DE"
       }
     },
     "0x8E870D67F660D95d5be530380D0eC0bd388289E1": {
@@ -127,9 +127,9 @@
         "baseVariableBorrowRate": 0,
         "maxExcessUsageRatio": "200000000000000000000000000",
         "optimalUsageRatio": "800000000000000000000000000",
-        "stableRateSlope1": "60000000000000000000000000",
+        "stableRateSlope1": 0,
         "stableRateSlope2": 0,
-        "variableRateSlope1": "50000000000000000000000000",
+        "variableRateSlope1": "60000000000000000000000000",
         "variableRateSlope2": "1000000000000000000000000000"
       }
     },
@@ -165,18 +165,6 @@
         "optimalUsageRatio": "800000000000000000000000000",
         "stableRateSlope1": "20000000000000000000000000",
         "stableRateSlope2": "1000000000000000000000000000",
-        "variableRateSlope1": "60000000000000000000000000",
-        "variableRateSlope2": "1000000000000000000000000000"
-      }
-    },
-    "0xa324C768Bdd002b3387CE1c691A549268f63250b": {
-      "from": null,
-      "to": {
-        "baseVariableBorrowRate": 0,
-        "maxExcessUsageRatio": "200000000000000000000000000",
-        "optimalUsageRatio": "800000000000000000000000000",
-        "stableRateSlope1": 0,
-        "stableRateSlope2": 0,
         "variableRateSlope1": "60000000000000000000000000",
         "variableRateSlope2": "1000000000000000000000000000"
       }

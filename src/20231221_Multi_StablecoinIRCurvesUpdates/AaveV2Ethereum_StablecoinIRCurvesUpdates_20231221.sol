@@ -49,9 +49,9 @@ contract AaveV2Ethereum_StablecoinIRCurvesUpdates_20231221 is AaveV2PayloadEther
       params: IV2RateStrategyFactory.RateStrategyParams({
         optimalUtilizationRate: EngineFlags.KEEP_CURRENT,
         baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
-        variableRateSlope1: EngineFlags.KEEP_CURRENT,
+        variableRateSlope1: _bpsToRay(6_00),
         variableRateSlope2: EngineFlags.KEEP_CURRENT,
-        stableRateSlope1: _bpsToRay(6_00),
+        stableRateSlope1: EngineFlags.KEEP_CURRENT,
         stableRateSlope2: EngineFlags.KEEP_CURRENT
       })
     });

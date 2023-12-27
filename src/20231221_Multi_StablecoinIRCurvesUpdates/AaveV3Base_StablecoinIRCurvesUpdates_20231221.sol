@@ -21,22 +21,8 @@ contract AaveV3Base_StablecoinIRCurvesUpdates_20231221 is AaveV3PayloadBase {
     returns (IAaveV3ConfigEngine.RateStrategyUpdate[] memory)
   {
     IAaveV3ConfigEngine.RateStrategyUpdate[]
-      memory rateStrategies = new IAaveV3ConfigEngine.RateStrategyUpdate[](2);
+      memory rateStrategies = new IAaveV3ConfigEngine.RateStrategyUpdate[](1);
     rateStrategies[0] = IAaveV3ConfigEngine.RateStrategyUpdate({
-      asset: AaveV3BaseAssets.USDbC_UNDERLYING,
-      params: IV3RateStrategyFactory.RateStrategyParams({
-        optimalUsageRatio: EngineFlags.KEEP_CURRENT,
-        baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
-        variableRateSlope1: _bpsToRay(6_00),
-        variableRateSlope2: EngineFlags.KEEP_CURRENT,
-        stableRateSlope1: EngineFlags.KEEP_CURRENT,
-        stableRateSlope2: EngineFlags.KEEP_CURRENT,
-        baseStableRateOffset: EngineFlags.KEEP_CURRENT,
-        stableRateExcessOffset: EngineFlags.KEEP_CURRENT,
-        optimalStableToTotalDebtRatio: EngineFlags.KEEP_CURRENT
-      })
-    });
-    rateStrategies[1] = IAaveV3ConfigEngine.RateStrategyUpdate({
       asset: AaveV3BaseAssets.USDC_UNDERLYING,
       params: IV3RateStrategyFactory.RateStrategyParams({
         optimalUsageRatio: EngineFlags.KEEP_CURRENT,

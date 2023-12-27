@@ -2,7 +2,7 @@
 pragma solidity ^0.8.0;
 
 import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aave-helpers/GovV3Helpers.sol';
-import {EthereumScript, PolygonScript, AvalancheScript, OptimismScript, ArbitrumScript, MetisScript, BaseScript} from 'aave-helpers/ScriptUtils.sol';
+import {EthereumScript, PolygonScript, AvalancheScript, OptimismScript, ArbitrumScript, MetisScript, BaseScript, GnosisScript} from 'aave-helpers/ScriptUtils.sol';
 import {AaveV2Ethereum_StablecoinIRCurvesUpdates_20231221} from './AaveV2Ethereum_StablecoinIRCurvesUpdates_20231221.sol';
 import {AaveV2Polygon_StablecoinIRCurvesUpdates_20231221} from './AaveV2Polygon_StablecoinIRCurvesUpdates_20231221.sol';
 import {AaveV2Avalanche_StablecoinIRCurvesUpdates_20231221} from './AaveV2Avalanche_StablecoinIRCurvesUpdates_20231221.sol';
@@ -13,6 +13,7 @@ import {AaveV3Optimism_StablecoinIRCurvesUpdates_20231221} from './AaveV3Optimis
 import {AaveV3Arbitrum_StablecoinIRCurvesUpdates_20231221} from './AaveV3Arbitrum_StablecoinIRCurvesUpdates_20231221.sol';
 import {AaveV3Metis_StablecoinIRCurvesUpdates_20231221} from './AaveV3Metis_StablecoinIRCurvesUpdates_20231221.sol';
 import {AaveV3Base_StablecoinIRCurvesUpdates_20231221} from './AaveV3Base_StablecoinIRCurvesUpdates_20231221.sol';
+import {AaveV3Gnosis_StablecoinIRCurvesUpdates_20231221} from './AaveV3Gnosis_StablecoinIRCurvesUpdates_20231221.sol';
 
 /**
  * @dev Deploy Ethereum

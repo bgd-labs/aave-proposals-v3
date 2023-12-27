@@ -21,7 +21,7 @@ contract AaveV3Optimism_StablecoinIRCurvesUpdates_20231221 is AaveV3PayloadOptim
     returns (IAaveV3ConfigEngine.RateStrategyUpdate[] memory)
   {
     IAaveV3ConfigEngine.RateStrategyUpdate[]
-      memory rateStrategies = new IAaveV3ConfigEngine.RateStrategyUpdate[](7);
+      memory rateStrategies = new IAaveV3ConfigEngine.RateStrategyUpdate[](6);
     rateStrategies[0] = IAaveV3ConfigEngine.RateStrategyUpdate({
       asset: AaveV3OptimismAssets.DAI_UNDERLYING,
       params: IV3RateStrategyFactory.RateStrategyParams({
@@ -37,20 +37,6 @@ contract AaveV3Optimism_StablecoinIRCurvesUpdates_20231221 is AaveV3PayloadOptim
       })
     });
     rateStrategies[1] = IAaveV3ConfigEngine.RateStrategyUpdate({
-      asset: AaveV3OptimismAssets.USDC_UNDERLYING,
-      params: IV3RateStrategyFactory.RateStrategyParams({
-        optimalUsageRatio: EngineFlags.KEEP_CURRENT,
-        baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
-        variableRateSlope1: _bpsToRay(6_00),
-        variableRateSlope2: EngineFlags.KEEP_CURRENT,
-        stableRateSlope1: EngineFlags.KEEP_CURRENT,
-        stableRateSlope2: EngineFlags.KEEP_CURRENT,
-        baseStableRateOffset: EngineFlags.KEEP_CURRENT,
-        stableRateExcessOffset: EngineFlags.KEEP_CURRENT,
-        optimalStableToTotalDebtRatio: EngineFlags.KEEP_CURRENT
-      })
-    });
-    rateStrategies[2] = IAaveV3ConfigEngine.RateStrategyUpdate({
       asset: AaveV3OptimismAssets.USDT_UNDERLYING,
       params: IV3RateStrategyFactory.RateStrategyParams({
         optimalUsageRatio: EngineFlags.KEEP_CURRENT,
@@ -64,7 +50,7 @@ contract AaveV3Optimism_StablecoinIRCurvesUpdates_20231221 is AaveV3PayloadOptim
         optimalStableToTotalDebtRatio: EngineFlags.KEEP_CURRENT
       })
     });
-    rateStrategies[3] = IAaveV3ConfigEngine.RateStrategyUpdate({
+    rateStrategies[2] = IAaveV3ConfigEngine.RateStrategyUpdate({
       asset: AaveV3OptimismAssets.sUSD_UNDERLYING,
       params: IV3RateStrategyFactory.RateStrategyParams({
         optimalUsageRatio: EngineFlags.KEEP_CURRENT,
@@ -78,7 +64,7 @@ contract AaveV3Optimism_StablecoinIRCurvesUpdates_20231221 is AaveV3PayloadOptim
         optimalStableToTotalDebtRatio: EngineFlags.KEEP_CURRENT
       })
     });
-    rateStrategies[4] = IAaveV3ConfigEngine.RateStrategyUpdate({
+    rateStrategies[3] = IAaveV3ConfigEngine.RateStrategyUpdate({
       asset: AaveV3OptimismAssets.LUSD_UNDERLYING,
       params: IV3RateStrategyFactory.RateStrategyParams({
         optimalUsageRatio: EngineFlags.KEEP_CURRENT,
@@ -92,7 +78,7 @@ contract AaveV3Optimism_StablecoinIRCurvesUpdates_20231221 is AaveV3PayloadOptim
         optimalStableToTotalDebtRatio: EngineFlags.KEEP_CURRENT
       })
     });
-    rateStrategies[5] = IAaveV3ConfigEngine.RateStrategyUpdate({
+    rateStrategies[4] = IAaveV3ConfigEngine.RateStrategyUpdate({
       asset: AaveV3OptimismAssets.MAI_UNDERLYING,
       params: IV3RateStrategyFactory.RateStrategyParams({
         optimalUsageRatio: EngineFlags.KEEP_CURRENT,
@@ -106,7 +92,7 @@ contract AaveV3Optimism_StablecoinIRCurvesUpdates_20231221 is AaveV3PayloadOptim
         optimalStableToTotalDebtRatio: EngineFlags.KEEP_CURRENT
       })
     });
-    rateStrategies[6] = IAaveV3ConfigEngine.RateStrategyUpdate({
+    rateStrategies[5] = IAaveV3ConfigEngine.RateStrategyUpdate({
       asset: AaveV3OptimismAssets.USDCn_UNDERLYING,
       params: IV3RateStrategyFactory.RateStrategyParams({
         optimalUsageRatio: EngineFlags.KEEP_CURRENT,
