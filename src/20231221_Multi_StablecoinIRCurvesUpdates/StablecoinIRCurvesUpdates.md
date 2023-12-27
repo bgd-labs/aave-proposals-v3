@@ -45,12 +45,12 @@ Therefore, we propose increasing Slope1 to 6% for stablecoins across all Aave de
 | Polygon V2   | USDC   | 5%             | 6%         |
 | Polygon V2   | USDT   | 5%             | 6%         |
 | Polygon V2   | DAI    | 5%             | 6%         |
-| Polygon V3   | USDC.e | 5%             | 6%         |
+| Polygon V3   | USDC.e | 7%             | No Change  |
 | Polygon V3   | USDC   | 5%             | 6%         |
 | Polygon V3   | USDT   | 5%             | 6%         |
 | Polygon V3   | DAI    | 5%             | 6%         |
 | Polygon V3   | MAI    | 5%             | 6%         |
-| Optimism V3  | USDC.e | 5%             | 6%         |
+| Optimism V3  | USDC.e | 7%             | No Change  |
 | Optimism V3  | USDC   | 5%             | 6%         |
 | Optimism V3  | USDT   | 5%             | 6%         |
 | Optimism V3  | DAI    | 5%             | 6%         |
@@ -58,14 +58,14 @@ Therefore, we propose increasing Slope1 to 6% for stablecoins across all Aave de
 | Optimism V3  | LUSD   | 5%             | 6%         |
 | Optimism V3  | MAI    | 5%             | 6%         |
 | Arbitrum V3  | USDC   | 5%             | 6%         |
-| Arbitrum V3  | USDC.e | 5%             | 6%         |
+| Arbitrum V3  | USDC.e | 7%             | No Change  |
 | Arbitrum V3  | USDT   | 5%             | 6%         |
 | Arbitrum V3  | DAI    | 5%             | 6%         |
 | Arbitrum V3  | LUSD   | 5%             | 6%         |
 | Arbitrum V3  | FRAX   | 5%             | 6%         |
 | Arbitrum V3  | MAI    | 5%             | 6%         |
 | Base V3      | USDC   | 5%             | 6%         |
-| Base V3      | USDbC  | 5%             | 6%         |
+| Base V3      | USDbC  | 7%             | No Change  |
 | Metis V3     | USDC   | 5%             | 6%         |
 | Metis V3     | USDT   | 5%             | 6%         |
 | Gnosis V3    | USDC   | 5%             | 6%         |
