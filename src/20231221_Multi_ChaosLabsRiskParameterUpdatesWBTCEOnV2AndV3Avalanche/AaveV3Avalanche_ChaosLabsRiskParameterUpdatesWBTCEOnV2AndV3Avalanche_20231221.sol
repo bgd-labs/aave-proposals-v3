@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {AaveV3AvalancheAssets} from 'aave-address-book/AaveV3Avalanche.sol';
+import {AaveV3Avalanche, AaveV3AvalancheAssets} from 'aave-address-book/AaveV3Avalanche.sol';
 import {AaveV3PayloadAvalanche} from 'aave-helpers/v3-config-engine/AaveV3PayloadAvalanche.sol';
 import {EngineFlags} from 'aave-helpers/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-helpers/v3-config-engine/IAaveV3ConfigEngine.sol';
@@ -16,7 +16,10 @@ contract AaveV3Avalanche_ChaosLabsRiskParameterUpdatesWBTCEOnV2AndV3Avalanche_20
   AaveV3PayloadAvalanche
 {
   function _postExecute() internal override {
-    // custom code goes here
+    AaveV3Avalanche.POOL_CONFIGURATOR.setReserveFreeze(
+      AaveV3AvalancheAssets.WBTCe_UNDERLYING,
+      true
+    );
   }
 
   function collateralsUpdates()
