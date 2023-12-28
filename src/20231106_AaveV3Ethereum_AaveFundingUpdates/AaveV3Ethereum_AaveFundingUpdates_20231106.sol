@@ -21,8 +21,7 @@ contract AaveV3Ethereum_AaveFundingUpdates_20231106 is IProposalGenericExecutor 
 
   AaveSwapper public constant SWAPPER = AaveSwapper(MiscEthereum.AAVE_SWAPPER);
 
-  uint256 public constant USDC_TO_SWAP = 200_000e6;
-  uint256 public constant USDC_TO_DEPOSIT = 1_500_000e6;
+  uint256 public constant USDC_TO_DEPOSIT = 1_700_000e6;
   uint256 public constant USDT_TO_DEPOSIT = 750_000e6;
   uint256 public constant DAI_TO_SWAP = 500_000e18;
   uint256 public constant USDC_TO_MIGRATE = 900_000e6;
@@ -34,7 +33,7 @@ contract AaveV3Ethereum_AaveFundingUpdates_20231106 is IProposalGenericExecutor 
   address public constant GHO_ORACLE = 0x3f12643D3f6f874d39C2a4c9f2Cd6f2DbAC877FC;
 
   function execute() external {
-    AaveV2Ethereum.COLLECTOR.transfer(
+    AaveV3Ethereum.COLLECTOR.transfer(
       AaveV2EthereumAssets.USDC_A_TOKEN,
       address(this),
       USDC_TO_MIGRATE
@@ -42,26 +41,20 @@ contract AaveV3Ethereum_AaveFundingUpdates_20231106 is IProposalGenericExecutor 
 
     AaveV2Ethereum.POOL.withdraw(
       AaveV2EthereumAssets.USDC_UNDERLYING,
-      USDC_TO_MIGRATE,
+      type(uint256).max,
       address(this)
     );
 
     IERC20(AaveV2EthereumAssets.USDC_UNDERLYING).forceApprove(
       address(AaveV3Ethereum.POOL),
-      USDC_TO_MIGRATE
+      IERC20(AaveV2EthereumAssets.USDC_UNDERLYING).balanceOf(address(this))
     );
 
     AaveV3Ethereum.POOL.deposit(
       AaveV2EthereumAssets.USDC_UNDERLYING,
-      USDC_TO_MIGRATE,
+      IERC20(AaveV2EthereumAssets.USDC_UNDERLYING).balanceOf(address(this)),
       address(AaveV3Ethereum.COLLECTOR),
       0
-    );
-
-    AaveV3Ethereum.COLLECTOR.transfer(
-      AaveV3EthereumAssets.USDC_UNDERLYING,
-      address(SWAPPER),
-      USDC_TO_SWAP
     );
 
     AaveV3Ethereum.COLLECTOR.transfer(
@@ -97,7 +90,7 @@ contract AaveV3Ethereum_AaveFundingUpdates_20231106 is IProposalGenericExecutor 
       address(AaveV3Ethereum.POOL),
       USDT_TO_DEPOSIT
     );
-    AaveV3Ethereum.POOL.deposit(
+    AaveV2Ethereum.POOL.deposit(
       AaveV3EthereumAssets.USDT_UNDERLYING,
       USDT_TO_DEPOSIT,
       address(AaveV3Ethereum.COLLECTOR),
@@ -105,18 +98,6 @@ contract AaveV3Ethereum_AaveFundingUpdates_20231106 is IProposalGenericExecutor 
     );
 
     // Swaps
-
-    SWAPPER.swap(
-      MILKMAN,
-      PRICE_CHECKER,
-      AaveV3EthereumAssets.USDC_UNDERLYING,
-      AaveV3EthereumAssets.GHO_UNDERLYING,
-      AaveV3EthereumAssets.USDC_ORACLE,
-      GHO_ORACLE,
-      address(AaveV3Ethereum.COLLECTOR),
-      USDC_TO_SWAP,
-      100
-    );
 
     SWAPPER.swap(
       MILKMAN,

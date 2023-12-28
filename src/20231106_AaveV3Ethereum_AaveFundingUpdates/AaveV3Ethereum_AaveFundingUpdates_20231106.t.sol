@@ -29,7 +29,7 @@ contract AaveV3Ethereum_AaveFundingUpdates_20231106_Test is ProtocolV3TestBase {
   AaveV3Ethereum_AaveFundingUpdates_20231106 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 18759585);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 18885834);
     proposal = new AaveV3Ethereum_AaveFundingUpdates_20231106();
   }
 
@@ -65,18 +65,6 @@ contract AaveV3Ethereum_AaveFundingUpdates_20231106_Test is ProtocolV3TestBase {
     vm.expectEmit(true, true, true, true, MiscEthereum.AAVE_SWAPPER);
     emit SwapRequested(
       proposal.MILKMAN(),
-      AaveV3EthereumAssets.USDC_UNDERLYING,
-      AaveV3EthereumAssets.GHO_UNDERLYING,
-      AaveV3EthereumAssets.USDC_ORACLE,
-      proposal.GHO_ORACLE(),
-      proposal.USDC_TO_SWAP(),
-      address(AaveV3Ethereum.COLLECTOR),
-      100
-    );
-
-    vm.expectEmit(true, true, true, true, MiscEthereum.AAVE_SWAPPER);
-    emit SwapRequested(
-      proposal.MILKMAN(),
       AaveV3EthereumAssets.DAI_UNDERLYING,
       AaveV3EthereumAssets.GHO_UNDERLYING,
       AaveV3EthereumAssets.DAI_ORACLE,
@@ -88,16 +76,11 @@ contract AaveV3Ethereum_AaveFundingUpdates_20231106_Test is ProtocolV3TestBase {
 
     executePayload(vm, address(proposal));
 
-    assertEq(
-      IERC20(AaveV3EthereumAssets.USDC_UNDERLYING).balanceOf(address(proposal.SWAPPER())),
-      0
-    );
-
     assertEq(IERC20(AaveV3EthereumAssets.DAI_UNDERLYING).balanceOf(address(proposal.SWAPPER())), 0);
 
     assertEq(
       IERC20(AaveV3EthereumAssets.USDC_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
-      balanceUsdcBefore - proposal.USDC_TO_DEPOSIT() - proposal.USDC_TO_SWAP()
+      balanceUsdcBefore - proposal.USDC_TO_DEPOSIT()
     );
 
     assertApproxEqAbs(
