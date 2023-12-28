@@ -54,7 +54,7 @@ contract AaveV3Ethereum_AaveFundingUpdates_20231106_Test is ProtocolV3TestBase {
       address(AaveV3Ethereum.COLLECTOR)
     );
 
-    uint256 balanceAUsdtBefore = IERC20(AaveV3EthereumAssets.USDT_A_TOKEN).balanceOf(
+    uint256 balanceAUsdtBefore = IERC20(AaveV2EthereumAssets.USDT_A_TOKEN).balanceOf(
       address(AaveV3Ethereum.COLLECTOR)
     );
 
@@ -105,7 +105,7 @@ contract AaveV3Ethereum_AaveFundingUpdates_20231106_Test is ProtocolV3TestBase {
     );
 
     assertGt(
-      IERC20(AaveV3EthereumAssets.USDT_A_TOKEN).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
+      IERC20(AaveV2EthereumAssets.USDT_A_TOKEN).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
       balanceAUsdtBefore
     );
   }

@@ -87,7 +87,7 @@ contract AaveV3Ethereum_AaveFundingUpdates_20231106 is IProposalGenericExecutor 
       USDT_TO_DEPOSIT
     );
     IERC20(AaveV3EthereumAssets.USDT_UNDERLYING).forceApprove(
-      address(AaveV3Ethereum.POOL),
+      address(AaveV2Ethereum.POOL),
       USDT_TO_DEPOSIT
     );
     AaveV2Ethereum.POOL.deposit(
