@@ -39,7 +39,7 @@ contract DeployAvalanche is AvalancheScript {
  * command: make deploy-ledger contract=src/20231221_Multi_ChaosLabsRiskParameterUpdatesWBTCEOnV2AndV3Avalanche/ChaosLabsRiskParameterUpdatesWBTCEOnV2AndV3Avalanche_20231221.s.sol:CreateProposal chain=mainnet
  */
 contract CreateProposal is EthereumScript {
-  function run() external {
+  function run() external broadcast {
     // create payloads
     PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](1);
 
@@ -57,8 +57,7 @@ contract CreateProposal is EthereumScript {
     payloads[0] = GovV3Helpers.buildAvalanchePayload(vm, actionsAvalanche);
 
     // create proposal
-    vm.startBroadcast();
-    GovV3Helpers.createProposal2_5(
+    GovV3Helpers.createProposal(
       vm,
       payloads,
       GovV3Helpers.ipfsHashFile(

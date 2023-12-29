@@ -1,6 +1,7 @@
 import {ConfigFile} from '../../generator/types';
 export const config: ConfigFile = {
   rootOptions: {
+    configFile: 'src/20231221_Multi_ChaosLabsRiskParameterUpdatesWBTCEOnV2AndV3Avalanche/config.ts',
     author: 'Chaos Labs - Eyal Ovadya',
     pools: ['AaveV2Avalanche', 'AaveV3Avalanche'],
     title: 'Chaos Labs Risk Parameter Updates - WBTC.e on V2 and V3 Avalanche',
