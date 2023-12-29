@@ -1,6 +1,7 @@
 import {ConfigFile} from '../../generator/types';
 export const config: ConfigFile = {
   rootOptions: {
+    configFile: 'src/20231221_Multi_StablecoinIRCurvesUpdates/config.ts',
     author: 'Chaos Labs',
     title: 'Stablecoin IR Curves Updates',
     discussion: 'https://governance.aave.com/t/arfc-chaos-labs-stablecoin-ir-curves-updates/15838',
