@@ -1,5 +1,5 @@
 ---
-title: "Reserve Factor Updates"
+title: "Polygon V2 Reserve Factor Updates"
 author: "karpatkey_TokenLogic"
 discussions: "https://governance.aave.com/t/arfc-reserve-factor-updates-polygon-aave-v2/13937"
 ---
@@ -34,7 +34,7 @@ The following parameters are to be updated as follows:
 - Implementation: [AaveV2Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240102_AaveV2Polygon_ReserveFactorUpdates/AaveV2Polygon_ReserveFactorUpdates_20240102.sol)
 - Tests: [AaveV2Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240102_AaveV2Polygon_ReserveFactorUpdates/AaveV2Polygon_ReserveFactorUpdates_20240102.t.sol)
 - [Snapshot](No snapshot for Direct-to-AIP)
-- [Discussion](https://governance.aave.com/t/arfc-reserve-factor-updates-polygon-aave-v2/13937)
+- [Discussion](https://governance.aave.com/t/arfc-reserve-factor-updates-polygon-aave-v2/13937/14)
 
 ## Copyright
 
