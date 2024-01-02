@@ -36,6 +36,10 @@ The following parameters are to be updated as follows:
 - [Snapshot](No snapshot for Direct-to-AIP)
 - [Discussion](https://governance.aave.com/t/arfc-reserve-factor-updates-polygon-aave-v2/13937/14)
 
+## Dislaimer
+
+TokenLogic and karpatkey receive no compensation beyond Aave protocol for the creation of this proposal. TokenLogic and karpatkey are both delegates within the Aave ecosystem.
+
 ## Copyright
 
 Copyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).
