@@ -6,7 +6,7 @@ discussions: "https://governance.aave.com/t/arfc-reserve-factor-updates-polygon-
 
 ## Simple Summary
 
-This AIP is a continuation of [AIP 284](https://app.aave.com/governance/proposal/284) and increases the Reserve Factor (RF) for assets on Polygon v2 by 5.00%, up to a maximum of 99.99%.
+This AIP is a continuation of AIP-284 and increases the Reserve Factor (RF) for assets on Polygon v2 by 5.00%, up to a maximum of 99.99%.
 
 ## Motivation
 
@@ -36,7 +36,7 @@ The following parameters are to be updated as follows:
 - [Snapshot](No snapshot for Direct-to-AIP)
 - [Discussion](https://governance.aave.com/t/arfc-reserve-factor-updates-polygon-aave-v2/13937/14)
 
-## Dislaimer
+## Disclaimer
 
 TokenLogic and karpatkey receive no compensation beyond Aave protocol for the creation of this proposal. TokenLogic and karpatkey are both delegates within the Aave ecosystem.
 
