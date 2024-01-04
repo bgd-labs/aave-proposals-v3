@@ -32,7 +32,7 @@ export const freezeUpdates: FeatureModule<FreezeUpdate[]> = {
             `${pool}.POOL_CONFIGURATOR.setReserveFreeze(${translateAssetToAssetLibUnderlying(
               cfg.asset,
               pool
-            )}.DAI_UNDERLYING, false);`
+            )}, false);`
         ),
       },
     };
