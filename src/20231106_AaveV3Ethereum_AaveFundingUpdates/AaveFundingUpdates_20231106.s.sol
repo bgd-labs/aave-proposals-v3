@@ -41,7 +41,7 @@ contract CreateProposal is EthereumScript {
 
     // create proposal
     vm.startBroadcast();
-    GovV3Helpers.createProposal2_5(
+    GovV3Helpers.createProposal(
       vm,
       payloads,
       GovV3Helpers.ipfsHashFile(
