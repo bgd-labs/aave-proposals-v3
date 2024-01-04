@@ -12,7 +12,7 @@ This AIP aims to consolidate Aave DAO's stablecoin holdings. It is divided into 
 
 This AIP (Part B) when implemented ensures the Aave Protocol is sufficiently funded to support service providers receiving DAI, GHO and USDT.
 
-The funds transferred from Polygon to Ethereum by the Aave Funding Part A AIP are to be deposited into Aave v2 and v3 as required and DAI swapped to GHO. In addition, with no USDC stream drawing from Aave v2 on Ethereum, all USDC is to be withdrawn from v2. 1.00M of this USDC is to be swapped to GHO and the remained to be deposited into v3.
+The funds transferred from Polygon to Ethereum by the Aave Funding Part A AIP are to be deposited into Aave v2 and v3 as required and DAI swapped to GHO. In addition, with no USDC stream drawing from Aave v2 on Ethereum, all USDC is to be withdrawn from v2. 1.00M of this USDC is to be swapped to GHO and the remainder to be deposited into v3.
 
 ## Specification
 
@@ -32,6 +32,10 @@ Swap the following asset holdings to GHO:
 - Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231106_AaveV3Ethereum_AaveFundingUpdates/AaveV3Ethereum_AaveFundingUpdates_20231106.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x099f88e1728760952be26fcb8fc99b26c29336e6a109820b391751b108399ee5)
 - [Discussion](https://governance.aave.com/t/arfc-aave-funding-update/15194)
+
+## Disclaimer
+
+TokenLogic and karpatkey receive no compensation beyond Aave protocol for the creation of this proposal. TokenLogic and karpatkey are both delegates within the Aave ecosystem.
 
 ## Copyright
 
