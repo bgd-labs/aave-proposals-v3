@@ -17,7 +17,7 @@ contract AaveV2Ethereum_TreasuryManagementGSMFundingRWAStrategyPreparationsPart1
     internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 18891644);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 18934678);
     proposal = new AaveV2Ethereum_TreasuryManagementGSMFundingRWAStrategyPreparationsPart1_20231229();
   }
 
@@ -25,33 +25,70 @@ contract AaveV2Ethereum_TreasuryManagementGSMFundingRWAStrategyPreparationsPart1
     assertGt(
       IERC20(AaveV2EthereumAssets.USDC_A_TOKEN).allowance(
         address(AaveV2Ethereum.COLLECTOR),
-        proposal.TO_REVOKE_ONE()
+        proposal.ONE_WAY_BONDING_CURVE()
       ),
       0
     );
     assertGt(
       IERC20(AaveV2EthereumAssets.USDC_A_TOKEN).allowance(
         address(AaveV2Ethereum.COLLECTOR),
-        proposal.TO_REVOKE_TWO()
+        proposal.CRV_BAD_DEBT_REPAYMENT()
       ),
       0
     );
+
+    address[14] memory toRevokeConsolidator = [
+      AaveV2EthereumAssets.ENS_A_TOKEN,
+      AaveV2EthereumAssets.MANA_A_TOKEN,
+      AaveV2EthereumAssets.UST_A_TOKEN,
+      AaveV2EthereumAssets.sUSD_UNDERLYING,
+      AaveV2EthereumAssets.RAI_A_TOKEN,
+      AaveV2EthereumAssets.ZRX_A_TOKEN,
+      AaveV2EthereumAssets.AMPL_A_TOKEN,
+      AaveV2EthereumAssets.sUSD_A_TOKEN,
+      AaveV2EthereumAssets.TUSD_UNDERLYING,
+      AaveV2EthereumAssets.BUSD_UNDERLYING,
+      AaveV2EthereumAssets.TUSD_A_TOKEN,
+      AaveV2EthereumAssets.DPI_A_TOKEN,
+      AaveV2EthereumAssets.FRAX_A_TOKEN,
+      AaveV2EthereumAssets.BUSD_A_TOKEN
+    ];
+
+    for (uint256 i = 0; i < 14; i++) {
+      assertGt(
+        IERC20(toRevokeConsolidator[i]).allowance(
+          address(AaveV2Ethereum.COLLECTOR),
+          proposal.AAVE_COLLECTOR_CONSOLIDATION()
+        ),
+        0
+      );
+    }
 
     executePayload(vm, address(proposal));
 
     assertEq(
       IERC20(AaveV2EthereumAssets.USDC_A_TOKEN).allowance(
         address(AaveV2Ethereum.COLLECTOR),
-        proposal.TO_REVOKE_ONE()
+        proposal.ONE_WAY_BONDING_CURVE()
       ),
       0
     );
     assertEq(
       IERC20(AaveV2EthereumAssets.USDC_A_TOKEN).allowance(
         address(AaveV2Ethereum.COLLECTOR),
-        proposal.TO_REVOKE_TWO()
+        proposal.CRV_BAD_DEBT_REPAYMENT()
       ),
       0
     );
+
+    for (uint256 i = 0; i < 14; i++) {
+      assertEq(
+        IERC20(toRevokeConsolidator[i]).allowance(
+          address(AaveV2Ethereum.COLLECTOR),
+          proposal.AAVE_COLLECTOR_CONSOLIDATION()
+        ),
+        0
+      );
+    }
   }
 }

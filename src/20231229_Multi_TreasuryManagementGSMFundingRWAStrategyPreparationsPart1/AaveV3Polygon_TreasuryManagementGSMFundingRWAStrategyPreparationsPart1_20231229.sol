@@ -24,6 +24,8 @@ contract AaveV3Polygon_TreasuryManagementGSMFundingRWAStrategyPreparationsPart1_
 {
   using SafeERC20 for IERC20;
 
+  uint256 public constant AAVE_V3_DAI_TO_WITHDRAW = 1_300_000 ether;
+
   IAavePolEthERC20Bridge public constant bridge =
     IAavePolEthERC20Bridge(MiscPolygon.AAVE_POL_ETH_BRIDGE);
 
@@ -94,7 +96,11 @@ contract AaveV3Polygon_TreasuryManagementGSMFundingRWAStrategyPreparationsPart1_
       address(this)
     );
 
-    AaveV3Polygon.POOL.withdraw(AaveV3PolygonAssets.DAI_UNDERLYING, 1_000_000e18, address(this));
+    AaveV3Polygon.POOL.withdraw(
+      AaveV3PolygonAssets.DAI_UNDERLYING,
+      AAVE_V3_DAI_TO_WITHDRAW,
+      address(this)
+    );
 
     bridge.bridge(
       AaveV2PolygonAssets.USDC_UNDERLYING,

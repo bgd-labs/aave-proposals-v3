@@ -47,14 +47,33 @@ The two allowances, 174k and 196k, are legacy from previous [CRV](https://app.aa
 Part A of this proposal will perform the following:
 
 - Withdraw all amUSDC & aPolUSDC from Polygon V2 and V3
-- Withdraw all amDAI & aPolDAI from Polygon V2 and V3
+- Withdraw all amDAI from Polygon V2
+- Withdraw 1.3M amPolDAI from Polygon V3
 - Withdraw all amUSDT & aPolUSDT from Polygon V2 and V3
 - Bridge all withdrawn assets to Ethereum
 
-The following [aUSDC](https://etherscan.io/address/0xBcca60bB61934080951369a648Fb03DF4F96263C) Allowances are to set to zero on Ethereum mainnet:
+Revoke the following allowances for the Aave Collector on Mainnet:
 
-- approve(0x04f90d449D4f8316eDd6Ef4F963b657f8444a4cA,0)
-- approve(0x46a1b7d4a2920270c7eb2c2db4df2259a109bcb4,0)
+`IERC20Token.approve(spender, 0);`
+
+|token|spender|description|
+|---|---|---|
+|aENS|0xa426759e433224c2b04f6619ab44217dad626c6e|Aave Collector Consolidation|
+|aMANA|0xa426759e433224C2b04f6619aB44217DaD626c6e|Aave Collector Consolidation|
+|aUST|0xa426759e433224c2b04f6619ab44217dad626c6e|Aave Collector Consolidation|
+|sUSD|0xa426759e433224c2b04f6619ab44217dad626c6e|Aave Collector Consolidation|
+|aUSDC|0x04f90d449d4f8316edd6ef4f963b657f8444a4ca|One Way Bonding Curve|
+|aRAI|0xa426759e433224C2b04f6619aB44217DaD626c6e|Aave Collector Consolidation|
+|aZRX|0xa426759e433224C2b04f6619aB44217DaD626c6e|Aave Collector Consolidation|
+|aAMPL|0xa426759e433224C2b04f6619aB44217DaD626c6e|Aave Collector Consolidation|
+|aSUSD|0xa426759e433224C2b04f6619aB44217DaD626c6e|Aave Collector Consolidation|
+|aUSDC|0x46a1b7d4a2920270c7eb2c2db4df2259a109bcb4|CRV Bad Debt Repayment|
+|TUSD|0xa426759e433224c2b04f6619ab44217dad626c6e|Aave Collector Consolidation|
+|BUSD|0xa426759e433224c2b04f6619ab44217dad626c6e|Aave Collector Consolidation|
+|aTUSD|0xa426759e433224C2b04f6619aB44217DaD626c6e|Aave Collector Consolidation|
+|aDPI|0xa426759e433224C2b04f6619aB44217DaD626c6e|Aave Collector Consolidation|
+|aFRAX|0xa426759e433224C2b04f6619aB44217DaD626c6e|Aave Collector Consolidation|
+|aBUSD|0xa426759e433224C2b04f6619aB44217DaD626c6e|Aave Collector Consolidation|
 
 ## References
 

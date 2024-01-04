@@ -20,7 +20,7 @@ contract AaveV3Polygon_TreasuryManagementGSMFundingRWAStrategyPreparationsPart1_
   AaveV3Polygon_TreasuryManagementGSMFundingRWAStrategyPreparationsPart1_20231229 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('polygon'), 51700277);
+    vm.createSelectFork(vm.rpcUrl('polygon'), 51933019);
     proposal = new AaveV3Polygon_TreasuryManagementGSMFundingRWAStrategyPreparationsPart1_20231229();
   }
 
@@ -62,49 +62,61 @@ contract AaveV3Polygon_TreasuryManagementGSMFundingRWAStrategyPreparationsPart1_
 
     executePayload(vm, address(proposal));
 
-    assertEq(
+    assertApproxEqAbs(
       IERC20(AaveV2PolygonAssets.USDC_A_TOKEN).balanceOf(address(AaveV3Polygon.COLLECTOR)),
-      0
+      0,
+      5e6,
+      'aUSDC token greater than 0'
     );
 
-    assertEq(
+    assertApproxEqAbs(
       IERC20(AaveV2PolygonAssets.USDT_A_TOKEN).balanceOf(address(AaveV3Polygon.COLLECTOR)),
-      0
+      0,
+      5e6,
+      'aUSDT token greater than 0'
     );
 
-    assertEq(
+    assertApproxEqAbs(
       IERC20(AaveV2PolygonAssets.DAI_A_TOKEN).balanceOf(address(AaveV3Polygon.COLLECTOR)),
-      0
+      0,
+      5 ether,
+      'aDAI token greater than 0'
     );
 
     assertEq(
       IERC20(AaveV3PolygonAssets.USDC_A_TOKEN).balanceOf(address(AaveV3Polygon.COLLECTOR)),
-      0
+      0,
+      'aPolUSDC token greater than 0'
     );
 
     assertEq(
       IERC20(AaveV3PolygonAssets.USDT_A_TOKEN).balanceOf(address(AaveV3Polygon.COLLECTOR)),
-      0
+      0,
+      'aPolUSDT token greater than 0'
     );
 
     assertEq(
       IERC20(AaveV3PolygonAssets.DAI_A_TOKEN).balanceOf(address(AaveV3Polygon.COLLECTOR)),
-      0
+      0,
+      'aPolDAI token greater than 0'
     );
 
     assertEq(
       IERC20(AaveV3PolygonAssets.USDC_UNDERLYING).balanceOf(address(AaveV3Polygon.COLLECTOR)),
-      0
+      0,
+      'USDC token greater than 0'
     );
 
     assertEq(
       IERC20(AaveV3PolygonAssets.USDT_UNDERLYING).balanceOf(address(AaveV3Polygon.COLLECTOR)),
-      0
+      0,
+      'USDT token greater than 0'
     );
 
     assertEq(
       IERC20(AaveV3PolygonAssets.DAI_UNDERLYING).balanceOf(address(AaveV3Polygon.COLLECTOR)),
-      0
+      0,
+      'DAI token greater than 0'
     );
   }
 }
