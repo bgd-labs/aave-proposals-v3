@@ -183,7 +183,7 @@ contract DeployBase is BaseScript {
 
 /**
  * @dev Deploy Gnosis
- * deploy-command: make deploy-ledger contract=src/20231221_Multi_StablecoinIRCurvesUpdates/StablecoinIRCurvesUpdates_20231221.s.sol:DeployBase chain=base
+ * deploy-command: make deploy-ledger contract=src/20231221_Multi_StablecoinIRCurvesUpdates/StablecoinIRCurvesUpdates_20231221.s.sol:DeployGnosis chain=gnosis
  * verify-command: npx catapulta-verify -b broadcast/StablecoinIRCurvesUpdates_20231221.s.sol/8453/run-latest.json
  */
 contract DeployGnosis is GnosisScript {
@@ -210,7 +210,7 @@ contract DeployGnosis is GnosisScript {
 contract CreateProposal is EthereumScript {
   function run() external broadcast {
     // create payloads
-    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](7);
+    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](8);
 
     // compose actions for validation
     IPayloadsControllerCore.ExecutionAction[]
@@ -270,6 +270,13 @@ contract CreateProposal is EthereumScript {
       type(AaveV3Base_StablecoinIRCurvesUpdates_20231221).creationCode
     );
     payloads[6] = GovV3Helpers.buildBasePayload(vm, actionsBase);
+
+    IPayloadsControllerCore.ExecutionAction[]
+      memory actionsGnosis = new IPayloadsControllerCore.ExecutionAction[](1);
+    actionsGnosis[0] = GovV3Helpers.buildAction(
+      type(AaveV3Gnosis_StablecoinIRCurvesUpdates_20231221).creationCode
+    );
+    payloads[7] = GovV3Helpers.buildGnosisPayload(vm, actionsGnosis);
 
     // create proposal
     GovV3Helpers.createProposal(
