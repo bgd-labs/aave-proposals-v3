@@ -6,26 +6,25 @@ discussions: "https://governance.aave.com/t/arfc-aave-funding-update/15194"
 
 ## Simple Summary
 
-This AIP aims to consolidate Aave DAO's stablecoin holdings. It is divided into different parts that are detailed below. This is part two and it consists of depositing USDC into Aave v3 Ethereum, as well as migrating the v2 position to v3 in Ethereum. Also depositing USDT into Aave v2 Ethereum and swapping DAI for GHO.
+This AIP aims to consolidate Aave DAO's stablecoin holdings. It is divided into different parts that are detailed below. This is part two and it consists of depositing USDC into Aave v3 Ethereum, as well as migrating the v2 position to v3 in Ethereum. Also depositing USDT into Aave v2 Ethereum and swapping DAI and USDC for GHO.
 
 ## Motivation
 
-This proposal intends to ensure the DAO is well capitalised.
+This AIP (Part B) when implemented ensures the Aave Protocol is sufficiently funded to support service providers receiving DAI, GHO and USDT.
 
-The DAO has sufficient USDC, DAI and USDT deposited across the various instances of Aave Protocol to support existing streams and the AURA purchase 3.
-
-However, with the emergence of new service provider proposal expected, the DAO needs to adjust its stable coin holdings. This publication supports transferring additional funds from Polygon to Mainnet and acquiring GHO on the market to ensure the DAO is well capitalised for the next 6 months. It also aims to move assets from the old V2 to the newer V3 aToken.
+The funds transferred from Polygon to Ethereum by the Aave Funding Part A AIP are to be deposited into Aave v2 and v3 as required and DAI swapped to GHO. In addition, with no USDC stream drawing from Aave v2 on Ethereum, all USDC is to be withdrawn from v2. 1.00M of this USDC is to be swapped to GHO and the remained to be deposited into v3.
 
 ## Specification
 
 - Deposit 1.7M units of USDC from Treasury into Aave v3 Ethereum (received from Polygon bridge)
 - Deposit 750k units of USDT from Treasury into Aave v3 Ethereum (received from Polygon bridge)
-- Withdraw 900k units of USDC from Aave v2 Ethereum Pool into USDC
-- Deposit 900k of USDC into Aave v3 Ethereum Pool (withdrawn in previous step)
+- Withdraw all units of USDC from Aave v2 Ethereum Pool into USDC
+- Deposit the balance of the withdrawn USDC, minuts the 1.0M to be swapped, into Aave v3 Ethereum Pool (withdrawn in previous step)
 
 Swap the following asset holdings to GHO:
 
 - 500k units of DAI held in Treasury (received from Polygon bridge)
+- 1.0M units of USDC (withdrawn from Aave v2 Ethereum in previous step)
 
 ## References
 
