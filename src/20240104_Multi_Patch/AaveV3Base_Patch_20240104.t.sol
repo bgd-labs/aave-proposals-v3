@@ -20,9 +20,9 @@ contract AaveV3Base_Patch_20240104_Test is ProtocolV3TestBase {
   }
 
   /**
-   * @dev executes the generic test suite including e2e and config snapshots
+   * @dev execution will fail because logic is not yet deployed
    */
-  function test_defaultProposalExecution() public {
-    defaultTest('AaveV3Base_Patch_20240104', AaveV3Base.POOL, address(proposal));
+  function testFail_defaultProposalExecution() public {
+    executePayload(vm, address(proposal));
   }
 }

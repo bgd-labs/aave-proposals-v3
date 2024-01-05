@@ -16,7 +16,7 @@ contract AaveV3Optimism_Patch_20240104 is IProposalGenericExecutor {
   address public constant NEW_POOL_IMPL = address(PoolAddresses.OPTIMISM_POOL_IMPL_ADDRESS);
 
   function execute() external {
-    require(Address.isContract(NEW_POOL_IMPL), 'CONTRACT_NO_YET_DEPLOYED');
+    require(Address.isContract(NEW_POOL_IMPL), 'CONTRACT_NON_YET_DEPLOYED');
     AaveV3Optimism.POOL_ADDRESSES_PROVIDER.setPoolImpl(NEW_POOL_IMPL);
   }
 }

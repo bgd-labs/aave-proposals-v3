@@ -8,7 +8,6 @@ import {AaveV3Polygon_Patch_20240104} from './AaveV3Polygon_Patch_20240104.sol';
 import {AaveV3Avalanche_Patch_20240104} from './AaveV3Avalanche_Patch_20240104.sol';
 import {AaveV3Optimism_Patch_20240104} from './AaveV3Optimism_Patch_20240104.sol';
 import {AaveV3Arbitrum_Patch_20240104} from './AaveV3Arbitrum_Patch_20240104.sol';
-import {AaveV3Metis_Patch_20240104} from './AaveV3Metis_Patch_20240104.sol';
 import {AaveV3Base_Patch_20240104} from './AaveV3Base_Patch_20240104.sol';
 import {AaveV3Gnosis_Patch_20240104} from './AaveV3Gnosis_Patch_20240104.sol';
 
