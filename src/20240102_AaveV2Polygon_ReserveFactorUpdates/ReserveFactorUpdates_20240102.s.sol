@@ -32,7 +32,7 @@ contract DeployPolygon is PolygonScript {
  * command: make deploy-ledger contract=src/20240102_AaveV2Polygon_ReserveFactorUpdates/ReserveFactorUpdates_20240102.s.sol:CreateProposal chain=mainnet
  */
 contract CreateProposal is EthereumScript {
-  function run() external broadcast {
+  function run() external {
     // create payloads
     PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](1);
 
@@ -45,6 +45,7 @@ contract CreateProposal is EthereumScript {
     payloads[0] = GovV3Helpers.buildPolygonPayload(vm, actionsPolygon);
 
     // create proposal
+    vm.startBroadcast();
     GovV3Helpers.createProposal(
       vm,
       payloads,

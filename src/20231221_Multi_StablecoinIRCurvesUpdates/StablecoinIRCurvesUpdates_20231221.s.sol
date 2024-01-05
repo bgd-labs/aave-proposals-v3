@@ -208,7 +208,7 @@ contract DeployGnosis is GnosisScript {
  * command: make deploy-ledger contract=src/20231221_Multi_StablecoinIRCurvesUpdates/StablecoinIRCurvesUpdates_20231221.s.sol:CreateProposal chain=mainnet
  */
 contract CreateProposal is EthereumScript {
-  function run() external broadcast {
+  function run() external {
     // create payloads
     PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](8);
 
@@ -279,6 +279,7 @@ contract CreateProposal is EthereumScript {
     payloads[7] = GovV3Helpers.buildGnosisPayload(vm, actionsGnosis);
 
     // create proposal
+    vm.startBroadcast();
     GovV3Helpers.createProposal(
       vm,
       payloads,
