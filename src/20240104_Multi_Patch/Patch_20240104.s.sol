@@ -105,7 +105,7 @@ contract DeployGnosis is GnosisScript, GenericDeploy {
  * command: make deploy-ledger contract=src/20240104_Multi_Patch/Patch_20240104.s.sol:CreateProposal chain=mainnet
  */
 contract CreateProposal is EthereumScript {
-  function run() external broadcast {
+  function run() external {
     // create payloads
     PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](7);
 
@@ -146,6 +146,7 @@ contract CreateProposal is EthereumScript {
     );
 
     // create proposal
+    vm.startBroadcast();
     GovV3Helpers.createProposal(
       vm,
       payloads,
