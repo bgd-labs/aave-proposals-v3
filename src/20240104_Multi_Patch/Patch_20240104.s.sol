@@ -2,7 +2,7 @@
 pragma solidity ^0.8.0;
 
 import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aave-helpers/GovV3Helpers.sol';
-import {EthereumScript, PolygonScript, AvalancheScript, OptimismScript, ArbitrumScript, MetisScript, BaseScript, GnosisScript} from 'aave-helpers/ScriptUtils.sol';
+import {WithChainIdValidation, EthereumScript, PolygonScript, AvalancheScript, OptimismScript, ArbitrumScript, MetisScript, BaseScript, GnosisScript} from 'aave-helpers/ScriptUtils.sol';
 import {AaveV3Ethereum_Patch_20240104} from './AaveV3Ethereum_Patch_20240104.sol';
 import {AaveV3Polygon_Patch_20240104} from './AaveV3Polygon_Patch_20240104.sol';
 import {AaveV3Avalanche_Patch_20240104} from './AaveV3Avalanche_Patch_20240104.sol';
@@ -11,17 +11,12 @@ import {AaveV3Arbitrum_Patch_20240104} from './AaveV3Arbitrum_Patch_20240104.sol
 import {AaveV3Base_Patch_20240104} from './AaveV3Base_Patch_20240104.sol';
 import {AaveV3Gnosis_Patch_20240104} from './AaveV3Gnosis_Patch_20240104.sol';
 
-/**
- * @dev Deploy Ethereum
- * deploy-command: make deploy-ledger contract=src/20240104_Multi_Patch/Patch_20240104.s.sol:DeployEthereum chain=mainnet
- * verify-command: npx catapulta-verify -b broadcast/Patch_20240104.s.sol/1/run-latest.json
- */
-contract DeployEthereum is EthereumScript {
+abstract contract GenericDeploy is WithChainIdValidation {
+  function _getPayload() internal virtual returns (bytes memory);
+
   function run() external broadcast {
     // deploy payloads
-    address payload0 = GovV3Helpers.deployDeterministic(
-      type(AaveV3Ethereum_Patch_20240104).creationCode
-    );
+    address payload0 = GovV3Helpers.deployDeterministic(_getPayload());
 
     // compose action
     IPayloadsControllerCore.ExecutionAction[]
@@ -30,6 +25,17 @@ contract DeployEthereum is EthereumScript {
 
     // register action at payloadsController
     GovV3Helpers.createPayload(actions);
+  }
+}
+
+/**
+ * @dev Deploy Ethereum
+ * deploy-command: make deploy-ledger contract=src/20240104_Multi_Patch/Patch_20240104.s.sol:DeployEthereum chain=mainnet
+ * verify-command: npx catapulta-verify -b broadcast/Patch_20240104.s.sol/1/run-latest.json
+ */
+contract DeployEthereum is EthereumScript, GenericDeploy {
+  function _getPayload() internal override returns (bytes memory) {
+    return type(AaveV3Ethereum_Patch_20240104).creationCode;
   }
 }
 
@@ -38,20 +44,9 @@ contract DeployEthereum is EthereumScript {
  * deploy-command: make deploy-ledger contract=src/20240104_Multi_Patch/Patch_20240104.s.sol:DeployPolygon chain=polygon
  * verify-command: npx catapulta-verify -b broadcast/Patch_20240104.s.sol/137/run-latest.json
  */
-contract DeployPolygon is PolygonScript {
-  function run() external broadcast {
-    // deploy payloads
-    address payload0 = GovV3Helpers.deployDeterministic(
-      type(AaveV3Polygon_Patch_20240104).creationCode
-    );
-
-    // compose action
-    IPayloadsControllerCore.ExecutionAction[]
-      memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
-    actions[0] = GovV3Helpers.buildAction(payload0);
-
-    // register action at payloadsController
-    GovV3Helpers.createPayload(actions);
+contract DeployPolygon is PolygonScript, GenericDeploy {
+  function _getPayload() internal override returns (bytes memory) {
+    return type(AaveV3Polygon_Patch_20240104).creationCode;
   }
 }
 
@@ -60,20 +55,9 @@ contract DeployPolygon is PolygonScript {
  * deploy-command: make deploy-ledger contract=src/20240104_Multi_Patch/Patch_20240104.s.sol:DeployAvalanche chain=avalanche
  * verify-command: npx catapulta-verify -b broadcast/Patch_20240104.s.sol/43114/run-latest.json
  */
-contract DeployAvalanche is AvalancheScript {
-  function run() external broadcast {
-    // deploy payloads
-    address payload0 = GovV3Helpers.deployDeterministic(
-      type(AaveV3Avalanche_Patch_20240104).creationCode
-    );
-
-    // compose action
-    IPayloadsControllerCore.ExecutionAction[]
-      memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
-    actions[0] = GovV3Helpers.buildAction(payload0);
-
-    // register action at payloadsController
-    GovV3Helpers.createPayload(actions);
+contract DeployAvalanche is AvalancheScript, GenericDeploy {
+  function _getPayload() internal override returns (bytes memory) {
+    return type(AaveV3Avalanche_Patch_20240104).creationCode;
   }
 }
 
@@ -82,20 +66,9 @@ contract DeployAvalanche is AvalancheScript {
  * deploy-command: make deploy-ledger contract=src/20240104_Multi_Patch/Patch_20240104.s.sol:DeployOptimism chain=optimism
  * verify-command: npx catapulta-verify -b broadcast/Patch_20240104.s.sol/10/run-latest.json
  */
-contract DeployOptimism is OptimismScript {
-  function run() external broadcast {
-    // deploy payloads
-    address payload0 = GovV3Helpers.deployDeterministic(
-      type(AaveV3Optimism_Patch_20240104).creationCode
-    );
-
-    // compose action
-    IPayloadsControllerCore.ExecutionAction[]
-      memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
-    actions[0] = GovV3Helpers.buildAction(payload0);
-
-    // register action at payloadsController
-    GovV3Helpers.createPayload(actions);
+contract DeployOptimism is OptimismScript, GenericDeploy {
+  function _getPayload() internal override returns (bytes memory) {
+    return type(AaveV3Optimism_Patch_20240104).creationCode;
   }
 }
 
@@ -104,20 +77,9 @@ contract DeployOptimism is OptimismScript {
  * deploy-command: make deploy-ledger contract=src/20240104_Multi_Patch/Patch_20240104.s.sol:DeployArbitrum chain=arbitrum
  * verify-command: npx catapulta-verify -b broadcast/Patch_20240104.s.sol/42161/run-latest.json
  */
-contract DeployArbitrum is ArbitrumScript {
-  function run() external broadcast {
-    // deploy payloads
-    address payload0 = GovV3Helpers.deployDeterministic(
-      type(AaveV3Arbitrum_Patch_20240104).creationCode
-    );
-
-    // compose action
-    IPayloadsControllerCore.ExecutionAction[]
-      memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
-    actions[0] = GovV3Helpers.buildAction(payload0);
-
-    // register action at payloadsController
-    GovV3Helpers.createPayload(actions);
+contract DeployArbitrum is ArbitrumScript, GenericDeploy {
+  function _getPayload() internal override returns (bytes memory) {
+    return type(AaveV3Arbitrum_Patch_20240104).creationCode;
   }
 }
 
@@ -126,20 +88,9 @@ contract DeployArbitrum is ArbitrumScript {
  * deploy-command: make deploy-ledger contract=src/20240104_Multi_Patch/Patch_20240104.s.sol:DeployBase chain=base
  * verify-command: npx catapulta-verify -b broadcast/Patch_20240104.s.sol/8453/run-latest.json
  */
-contract DeployBase is BaseScript {
-  function run() external broadcast {
-    // deploy payloads
-    address payload0 = GovV3Helpers.deployDeterministic(
-      type(AaveV3Base_Patch_20240104).creationCode
-    );
-
-    // compose action
-    IPayloadsControllerCore.ExecutionAction[]
-      memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
-    actions[0] = GovV3Helpers.buildAction(payload0);
-
-    // register action at payloadsController
-    GovV3Helpers.createPayload(actions);
+contract DeployBase is BaseScript, GenericDeploy {
+  function _getPayload() internal override returns (bytes memory) {
+    return type(AaveV3Base_Patch_20240104).creationCode;
   }
 }
 
@@ -148,20 +99,9 @@ contract DeployBase is BaseScript {
  * deploy-command: make deploy-ledger contract=src/20240104_Multi_Patch/Patch_20240104.s.sol:DeployGnosis chain=gnosis
  * verify-command: npx catapulta-verify -b broadcast/Patch_20240104.s.sol/100/run-latest.json
  */
-contract DeployGnosis is GnosisScript {
-  function run() external broadcast {
-    // deploy payloads
-    address payload0 = GovV3Helpers.deployDeterministic(
-      type(AaveV3Gnosis_Patch_20240104).creationCode
-    );
-
-    // compose action
-    IPayloadsControllerCore.ExecutionAction[]
-      memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
-    actions[0] = GovV3Helpers.buildAction(payload0);
-
-    // register action at payloadsController
-    GovV3Helpers.createPayload(actions);
+contract DeployGnosis is GnosisScript, GenericDeploy {
+  function _getPayload() internal override returns (bytes memory) {
+    return type(AaveV3Gnosis_Patch_20240104).creationCode;
   }
 }
 
@@ -175,42 +115,40 @@ contract CreateProposal is EthereumScript {
     PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](7);
 
     // compose actions for validation
-    IPayloadsControllerCore.ExecutionAction[]
-      memory actionsEthereum = new IPayloadsControllerCore.ExecutionAction[](1);
-    actionsEthereum[0] = GovV3Helpers.buildAction(type(AaveV3Ethereum_Patch_20240104).creationCode);
-    payloads[0] = GovV3Helpers.buildMainnetPayload(vm, actionsEthereum);
-
-    IPayloadsControllerCore.ExecutionAction[]
-      memory actionsPolygon = new IPayloadsControllerCore.ExecutionAction[](1);
-    actionsPolygon[0] = GovV3Helpers.buildAction(type(AaveV3Polygon_Patch_20240104).creationCode);
-    payloads[1] = GovV3Helpers.buildPolygonPayload(vm, actionsPolygon);
-
-    IPayloadsControllerCore.ExecutionAction[]
-      memory actionsAvalanche = new IPayloadsControllerCore.ExecutionAction[](1);
-    actionsAvalanche[0] = GovV3Helpers.buildAction(
-      type(AaveV3Avalanche_Patch_20240104).creationCode
+    payloads[0] = GovV3Helpers.buildMainnetPayload(
+      vm,
+      GovV3Helpers.buildAction(type(AaveV3Ethereum_Patch_20240104).creationCode)
     );
-    payloads[2] = GovV3Helpers.buildAvalanchePayload(vm, actionsAvalanche);
 
-    IPayloadsControllerCore.ExecutionAction[]
-      memory actionsOptimism = new IPayloadsControllerCore.ExecutionAction[](1);
-    actionsOptimism[0] = GovV3Helpers.buildAction(type(AaveV3Optimism_Patch_20240104).creationCode);
-    payloads[3] = GovV3Helpers.buildOptimismPayload(vm, actionsOptimism);
+    payloads[1] = GovV3Helpers.buildPolygonPayload(
+      vm,
+      GovV3Helpers.buildAction(type(AaveV3Polygon_Patch_20240104).creationCode)
+    );
 
-    IPayloadsControllerCore.ExecutionAction[]
-      memory actionsArbitrum = new IPayloadsControllerCore.ExecutionAction[](1);
-    actionsArbitrum[0] = GovV3Helpers.buildAction(type(AaveV3Arbitrum_Patch_20240104).creationCode);
-    payloads[4] = GovV3Helpers.buildArbitrumPayload(vm, actionsArbitrum);
+    payloads[2] = GovV3Helpers.buildAvalanchePayload(
+      vm,
+      GovV3Helpers.buildAction(type(AaveV3Avalanche_Patch_20240104).creationCode)
+    );
 
-    IPayloadsControllerCore.ExecutionAction[]
-      memory actionsBase = new IPayloadsControllerCore.ExecutionAction[](1);
-    actionsBase[0] = GovV3Helpers.buildAction(type(AaveV3Base_Patch_20240104).creationCode);
-    payloads[5] = GovV3Helpers.buildBasePayload(vm, actionsBase);
+    payloads[3] = GovV3Helpers.buildOptimismPayload(
+      vm,
+      GovV3Helpers.buildAction(type(AaveV3Optimism_Patch_20240104).creationCode)
+    );
 
-    IPayloadsControllerCore.ExecutionAction[]
-      memory actionsGnosis = new IPayloadsControllerCore.ExecutionAction[](1);
-    actionsGnosis[0] = GovV3Helpers.buildAction(type(AaveV3Gnosis_Patch_20240104).creationCode);
-    payloads[6] = GovV3Helpers.buildGnosisPayload(vm, actionsGnosis);
+    payloads[4] = GovV3Helpers.buildArbitrumPayload(
+      vm,
+      GovV3Helpers.buildAction(type(AaveV3Arbitrum_Patch_20240104).creationCode)
+    );
+
+    payloads[5] = GovV3Helpers.buildBasePayload(
+      vm,
+      GovV3Helpers.buildAction(type(AaveV3Base_Patch_20240104).creationCode)
+    );
+
+    payloads[6] = GovV3Helpers.buildGnosisPayload(
+      vm,
+      GovV3Helpers.buildAction(type(AaveV3Gnosis_Patch_20240104).creationCode)
+    );
 
     // create proposal
     GovV3Helpers.createProposal(
