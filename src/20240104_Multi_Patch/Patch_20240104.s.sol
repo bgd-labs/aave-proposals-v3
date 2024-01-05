@@ -18,13 +18,8 @@ abstract contract GenericDeploy is WithChainIdValidation {
     // deploy payloads
     address payload0 = GovV3Helpers.deployDeterministic(_getPayload());
 
-    // compose action
-    IPayloadsControllerCore.ExecutionAction[]
-      memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
-    actions[0] = GovV3Helpers.buildAction(payload0);
-
     // register action at payloadsController
-    GovV3Helpers.createPayload(actions);
+    GovV3Helpers.createPayload(GovV3Helpers.buildAction(payload0));
   }
 }
 
