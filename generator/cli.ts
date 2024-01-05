@@ -21,6 +21,7 @@ import {borrowsUpdates} from './features/borrowsUpdates';
 import {eModeUpdates} from './features/eModesUpdates';
 import {eModeAssets} from './features/eModesAssets';
 import {priceFeedsUpdates} from './features/priceFeedsUpdates';
+import {freezeUpdates} from './features/freeze';
 import {assetListing, assetListingCustom} from './features/assetListing';
 import {generateFiles, writeFiles} from './generator';
 import {PublicClient} from 'viem';
@@ -70,6 +71,7 @@ const FEATURE_MODULES_V3 = [
   eModeAssets,
   assetListing,
   assetListingCustom,
+  freezeUpdates,
   PLACEHOLDER_MODULE,
 ];
 
