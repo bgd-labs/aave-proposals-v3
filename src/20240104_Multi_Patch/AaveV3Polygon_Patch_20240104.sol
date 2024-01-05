@@ -9,7 +9,7 @@ import {Address} from 'solidity-utils/contracts/oz-common/Address.sol';
 /**
  * @title Patch
  * @author BGD Labs @bgdlabs
- * - Snapshot: TODO
+ * - Snapshot: N/A
  * - Discussion: https://governance.aave.com/t/pre-cautionary-measures-on-three-aave-v3-assets/16037
  */
 contract AaveV3Polygon_Patch_20240104 is IProposalGenericExecutor {
