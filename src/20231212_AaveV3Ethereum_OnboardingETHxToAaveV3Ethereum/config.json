@@ -1,0 +1,53 @@
+{
+  "rootOptions": {
+    "pools": ["AaveV3Ethereum"],
+    "title": "Onboarding ETHx to Aave V3 Ethereum",
+    "shortName": "OnboardingETHxToAaveV3Ethereum",
+    "date": "20231212",
+    "author": "MarcZeller - Aave-Chan Initiative",
+    "discussion": "https://governance.aave.com/t/arfc-onboarding-ethx-to-aave-v3-ethereum/15672",
+    "snapshot": "https://snapshot.org/#/aave.eth/proposal/0x9238b091250c739f5b5486ab8dbaa110b0b7ec0582698ea2c2d3721377e4b0bb"
+  },
+  "poolOptions": {
+    "AaveV3Ethereum": {
+      "configs": {
+        "ASSET_LISTING": [
+          {
+            "assetSymbol": "ETHx",
+            "decimals": 18,
+            "priceFeed": "0xED65C5085a18Fa160Af0313E60dcc7905E944Dc7",
+            "ltv": "74.5",
+            "liqThreshold": "77",
+            "liqBonus": "7.5",
+            "debtCeiling": "0",
+            "liqProtocolFee": "10",
+            "enabledToBorrow": "DISABLED",
+            "flashloanable": "ENABLED",
+            "stableRateModeEnabled": "DISABLED",
+            "borrowableInIsolation": "DISABLED",
+            "withSiloedBorrowing": "DISABLED",
+            "reserveFactor": "15",
+            "supplyCap": "10000",
+            "borrowCap": "1000",
+            "rateStrategyParams": {
+              "optimalUtilizationRate": "45",
+              "baseVariableBorrowRate": "0",
+              "variableRateSlope1": "7",
+              "variableRateSlope2": "300",
+              "stableRateSlope1": "7",
+              "stableRateSlope2": "300",
+              "baseStableRateOffset": "2",
+              "stableRateExcessOffset": "2",
+              "optimalStableToTotalDebtRatio": "2"
+            },
+            "eModeCategory": "AaveV3EthereumEModes.NONE",
+            "asset": "0xA35b1B31Ce002FBF2058D22F30f95D405200A15b"
+          }
+        ]
+      },
+      "cache": {
+        "blockNumber": 18769245
+      }
+    }
+  }
+}
