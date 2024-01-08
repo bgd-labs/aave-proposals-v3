@@ -853,10 +853,10 @@ camelcase@^5.3.1:
   resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-5.3.1.tgz#e3c9b31569e106811df242f715725a1f4c494320"
   integrity sha512-L28STB170nwWS63UjtlEOE3dldQApaJXZkOI1uMFfzf3rRuPegHaHesyee+YxQ+W6SvRDQV6UrdOdRiR153wJg==
 
-catapulta-verify@^0.1.9:
-  version "0.1.9"
-  resolved "https://registry.yarnpkg.com/catapulta-verify/-/catapulta-verify-0.1.9.tgz#eeb263cbe0fa5a00361764dc2fb44d310342bd57"
-  integrity sha512-GbUEPh4oCIG/4vGFJMNCbaZuK34G1ytmRDqdofr9C5nHhLMbZJDYEij4f1k1uPL0cdYZDgEZw/7O2BojI7XwAg==
+catapulta-verify@^0.1.11:
+  version "0.1.11"
+  resolved "https://registry.yarnpkg.com/catapulta-verify/-/catapulta-verify-0.1.11.tgz#089829655e04d6af68828da268ea7400bfad2610"
+  integrity sha512-oGZ/L2CZFYkE56eXq0oeKgTSJUQZkHCQ/zBMUnsB3YFDbFHopVIfQA80ISZcEiFGGzdpMDoXLszSBFruY2omAg==
 
 chai@^4.3.10:
   version "4.3.10"
