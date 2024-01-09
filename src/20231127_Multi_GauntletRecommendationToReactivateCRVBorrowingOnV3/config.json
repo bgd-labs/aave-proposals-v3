@@ -1,0 +1,75 @@
+{
+  "rootOptions": {
+    "configFile": "src/20231127_Multi_GauntletRecommendationToReactivateCRVBorrowingOnV3/config.json",
+    "force": true,
+    "pools": ["AaveV3Ethereum", "AaveV3Polygon"],
+    "title": "Gauntlet recommendation to reactivate CRV borrowing on v3",
+    "shortName": "GauntletRecommendationToReactivateCRVBorrowingOnV3",
+    "date": "20231127",
+    "author": "Gauntlet",
+    "discussion": "https://governance.aave.com/t/arfc-gauntlet-recommendation-to-re-enable-crv-borrowing-on-v3-ethereum-polygon/15513",
+    "snapshot": "https://snapshot.org/#/aave.eth/proposal/0x2db7ffd336637173a5c58f6bbb3609c17bba1b16740d8b3b0ea23a694f4c7b52"
+  },
+  "poolOptions": {
+    "AaveV3Ethereum": {
+      "configs": {
+        "CAPS_UPDATE": [
+          {
+            "asset": "CRV",
+            "supplyCap": "7500000",
+            "borrowCap": "5000000"
+          }
+        ],
+        "COLLATERALS_UPDATE": [
+          {
+            "asset": "CRV",
+            "ltv": "",
+            "liqThreshold": "",
+            "liqBonus": "",
+            "debtCeiling": "1000000",
+            "liqProtocolFee": ""
+          }
+        ],
+        "BORROWS_UPDATE": [
+          {
+            "enabledToBorrow": "ENABLED",
+            "flashloanable": "KEEP_CURRENT",
+            "stableRateModeEnabled": "KEEP_CURRENT",
+            "borrowableInIsolation": "KEEP_CURRENT",
+            "withSiloedBorrowing": "KEEP_CURRENT",
+            "reserveFactor": "35",
+            "asset": "CRV"
+          }
+        ]
+      },
+      "cache": {
+        "blockNumber": 18664733
+      }
+    },
+    "AaveV3Polygon": {
+      "configs": {
+        "CAPS_UPDATE": [
+          {
+            "asset": "CRV",
+            "supplyCap": "",
+            "borrowCap": "300000"
+          }
+        ],
+        "BORROWS_UPDATE": [
+          {
+            "enabledToBorrow": "ENABLED",
+            "flashloanable": "KEEP_CURRENT",
+            "stableRateModeEnabled": "KEEP_CURRENT",
+            "borrowableInIsolation": "KEEP_CURRENT",
+            "withSiloedBorrowing": "KEEP_CURRENT",
+            "reserveFactor": "35",
+            "asset": "CRV"
+          }
+        ]
+      },
+      "cache": {
+        "blockNumber": 50461791
+      }
+    }
+  }
+}
