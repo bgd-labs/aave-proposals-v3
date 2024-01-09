@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: MIT
+
 pragma solidity ^0.8.0;
 
 import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aave-helpers/GovV3Helpers.sol';
@@ -12,12 +13,14 @@ import {AaveV3Ethereum_AaveFundingUpdates_20231106} from './AaveV3Ethereum_AaveF
 contract DeployEthereum is EthereumScript {
   function run() external broadcast {
     // deploy payloads
-    AaveV3Ethereum_AaveFundingUpdates_20231106 payload0 = new AaveV3Ethereum_AaveFundingUpdates_20231106();
+    address payload0 = GovV3Helpers.deployDeterministic(
+      type(AaveV3Ethereum_AaveFundingUpdates_20231106).creationCode
+    );
 
     // compose action
     IPayloadsControllerCore.ExecutionAction[]
       memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
-    actions[0] = GovV3Helpers.buildAction(address(payload0));
+    actions[0] = GovV3Helpers.buildAction(payload0);
 
     // register action at payloadsController
     GovV3Helpers.createPayload(actions);
@@ -35,9 +38,11 @@ contract CreateProposal is EthereumScript {
 
     // compose actions for validation
     IPayloadsControllerCore.ExecutionAction[]
-      memory actionsEthereum = new IPayloadsControllerCore.ExecutionAction[](1);
-    actionsEthereum[0] = GovV3Helpers.buildAction(address(0));
-    payloads[0] = GovV3Helpers.buildMainnetPayload(vm, actionsEthereum);
+      memory actionsPolygon = new IPayloadsControllerCore.ExecutionAction[](1);
+    actionsPolygon[0] = GovV3Helpers.buildAction(
+      type(AaveV3Ethereum_AaveFundingUpdates_20231106).creationCode
+    );
+    payloads[0] = GovV3Helpers.buildPolygonPayload(vm, actionsPolygon);
 
     // create proposal
     vm.startBroadcast();

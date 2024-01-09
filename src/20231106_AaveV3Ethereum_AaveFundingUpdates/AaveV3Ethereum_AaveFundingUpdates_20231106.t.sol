@@ -29,7 +29,7 @@ contract AaveV3Ethereum_AaveFundingUpdates_20231106_Test is ProtocolV3TestBase {
   AaveV3Ethereum_AaveFundingUpdates_20231106 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 18933940);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 18969749);
     proposal = new AaveV3Ethereum_AaveFundingUpdates_20231106();
   }
 
@@ -104,7 +104,7 @@ contract AaveV3Ethereum_AaveFundingUpdates_20231106_Test is ProtocolV3TestBase {
     assertApproxEqAbs(
       IERC20(AaveV2EthereumAssets.USDC_A_TOKEN).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
       0,
-      500e6
+      20e6
     );
 
     assertEq(
