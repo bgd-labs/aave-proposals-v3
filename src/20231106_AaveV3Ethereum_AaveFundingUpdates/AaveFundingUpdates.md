@@ -18,7 +18,7 @@ The funds transferred from Polygon to Ethereum by the Aave Funding Part A AIP ar
 
 - Deposit 1.7M units of USDC from Treasury into Aave v3 Ethereum (received from Polygon bridge)
 - Deposit 750k units of USDT from Treasury into Aave v3 Ethereum (received from Polygon bridge)
-- Withdraw all units of USDC from Aave v2 Ethereum Pool into USDC
+- Withdraw all but 10 units of USDC from Aave v2 Ethereum Pool into USDC (keep 10 units of USDC as dust, as to not leave an empty reserve)
 - Deposit the balance of the withdrawn USDC, minuts the 1.0M to be swapped, into Aave v3 Ethereum Pool (withdrawn in previous step)
 
 Swap the following asset holdings to GHO:

@@ -36,7 +36,8 @@ contract AaveV3Ethereum_AaveFundingUpdates_20231106 is IProposalGenericExecutor 
     AaveV3Ethereum.COLLECTOR.transfer(
       AaveV2EthereumAssets.USDC_A_TOKEN,
       address(this),
-      IERC20(AaveV2EthereumAssets.USDC_A_TOKEN).balanceOf(address(AaveV3Ethereum.COLLECTOR))
+      IERC20(AaveV2EthereumAssets.USDC_A_TOKEN).balanceOf(address(AaveV3Ethereum.COLLECTOR)) -
+        10 ** 6 // USDC has 6 decimals, keep 10 units to not empty reserve
     );
 
     AaveV2Ethereum.POOL.withdraw(

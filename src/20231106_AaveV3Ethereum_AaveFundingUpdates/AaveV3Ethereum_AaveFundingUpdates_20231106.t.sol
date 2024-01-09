@@ -104,7 +104,7 @@ contract AaveV3Ethereum_AaveFundingUpdates_20231106_Test is ProtocolV3TestBase {
     assertApproxEqAbs(
       IERC20(AaveV2EthereumAssets.USDC_A_TOKEN).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
       0,
-      20e6
+      25e6
     );
 
     assertEq(
