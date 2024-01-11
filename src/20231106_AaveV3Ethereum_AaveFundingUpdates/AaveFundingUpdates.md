@@ -28,8 +28,8 @@ Swap the following asset holdings to GHO:
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231106_AaveV3Ethereum_AaveFundingUpdates/AaveV3Ethereum_AaveFundingUpdates_20231106.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231106_AaveV3Ethereum_AaveFundingUpdates/AaveV3Ethereum_AaveFundingUpdates_20231106.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/6f6d369f9ae1d13828b93b7a1276cf6241682cd4/src/20231106_AaveV3Ethereum_AaveFundingUpdates/AaveV3Ethereum_AaveFundingUpdates_20231106.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/6f6d369f9ae1d13828b93b7a1276cf6241682cd4/src/20231106_AaveV3Ethereum_AaveFundingUpdates/AaveV3Ethereum_AaveFundingUpdates_20231106.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x099f88e1728760952be26fcb8fc99b26c29336e6a109820b391751b108399ee5)
 - [Discussion](https://governance.aave.com/t/arfc-aave-funding-update/15194)
 
