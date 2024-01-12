@@ -10,6 +10,7 @@ import {
   base,
   bsc,
   gnosis,
+  polygonZkEvm,
 } from 'viem/chains';
 
 export const AVAILABLE_CHAINS = [
@@ -24,6 +25,7 @@ export const AVAILABLE_CHAINS = [
   'Base',
   'BNB',
   'Gnosis',
+  'PolygonZkEvm',
 ] as const;
 
 export function getAssets(pool: PoolIdentifier): string[] {
@@ -45,7 +47,10 @@ export function getVersion(pool: PoolIdentifier) {
 }
 
 export function getPoolChain(pool: PoolIdentifier) {
-  const chain = AVAILABLE_CHAINS.find((chain) => pool.indexOf(chain) !== -1);
+  const chain =
+    pool != 'AaveV3PolygonZkEvm'
+      ? AVAILABLE_CHAINS.find((chain) => pool.includes(chain))
+      : 'PolygonZkEvm';
   if (!chain) throw new Error('cannot find chain for pool');
   return chain;
 }
@@ -105,6 +110,7 @@ export const CHAIN_TO_CHAIN_ID = {
   Base: base.id,
   BNB: bsc.id,
   Gnosis: gnosis.id,
+  PolygonZkEvm: polygonZkEvm.id,
 };
 
 export function flagAsRequired(message: string, required?: boolean) {
