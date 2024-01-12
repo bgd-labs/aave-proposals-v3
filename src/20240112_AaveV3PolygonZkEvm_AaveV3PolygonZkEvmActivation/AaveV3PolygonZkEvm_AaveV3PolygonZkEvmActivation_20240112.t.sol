@@ -3,6 +3,8 @@ pragma solidity ^0.8.0;
 
 import {GovV3Helpers} from 'aave-helpers/GovV3Helpers.sol';
 import {AaveV3PolygonZkEvm} from 'aave-address-book/AaveV3PolygonZkEvm.sol';
+import {GovernanceV3PolygonZkEvm} from 'aave-address-book/GovernanceV3PolygonZkEvm.sol';
+import {MiscPolygonZkEvm} from 'aave-address-book/MiscPolygonZkEvm.sol';
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 
 import 'forge-std/Test.sol';
@@ -17,8 +19,11 @@ contract AaveV3PolygonZkEvm_AaveV3PolygonZkEvmActivation_20240112_Test is Protoc
   AaveV3PolygonZkEvm_AaveV3PolygonZkEvmActivation_20240112 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('polygonzkevm'), 9196867);
+    vm.createSelectFork(vm.rpcUrl('zkevm'), 9200441);
     proposal = new AaveV3PolygonZkEvm_AaveV3PolygonZkEvmActivation_20240112();
+
+    // TODO: remove after seeding
+    _fundExecutorWithAssetsToList();
   }
 
   /**
@@ -37,7 +42,10 @@ contract AaveV3PolygonZkEvm_AaveV3PolygonZkEvmActivation_20240112_Test is Protoc
     (address aTokenAddress, , ) = AaveV3PolygonZkEvm
       .AAVE_PROTOCOL_DATA_PROVIDER
       .getReserveTokensAddresses(proposal.USDC());
-    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3PolygonZkEvm.COLLECTOR)), 10 ** 6);
+    assertGe(
+      IERC20(aTokenAddress).balanceOf(address(AaveV3PolygonZkEvm.COLLECTOR)),
+      proposal.USDC_SEED_AMOUNT()
+    );
   }
 
   function test_collectorHasWETHFunds() public {
@@ -45,7 +53,10 @@ contract AaveV3PolygonZkEvm_AaveV3PolygonZkEvmActivation_20240112_Test is Protoc
     (address aTokenAddress, , ) = AaveV3PolygonZkEvm
       .AAVE_PROTOCOL_DATA_PROVIDER
       .getReserveTokensAddresses(proposal.WETH());
-    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3PolygonZkEvm.COLLECTOR)), 10 ** 18);
+    assertGe(
+      IERC20(aTokenAddress).balanceOf(address(AaveV3PolygonZkEvm.COLLECTOR)),
+      proposal.WETH_SEED_AMOUNT()
+    );
   }
 
   function test_collectorHasMATICFunds() public {
@@ -53,6 +64,22 @@ contract AaveV3PolygonZkEvm_AaveV3PolygonZkEvmActivation_20240112_Test is Protoc
     (address aTokenAddress, , ) = AaveV3PolygonZkEvm
       .AAVE_PROTOCOL_DATA_PROVIDER
       .getReserveTokensAddresses(proposal.MATIC());
-    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3PolygonZkEvm.COLLECTOR)), 10 ** 18);
+    assertGe(
+      IERC20(aTokenAddress).balanceOf(address(AaveV3PolygonZkEvm.COLLECTOR)),
+      proposal.MATIC_SEED_AMOUNT()
+    );
+  }
+
+  function test_AdminPermissions() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+    assertTrue(
+      AaveV3PolygonZkEvm.ACL_MANAGER.isRiskAdmin(AaveV3PolygonZkEvm.CAPS_PLUS_RISK_STEWARD)
+    );
+    assertTrue(AaveV3PolygonZkEvm.ACL_MANAGER.isRiskAdmin(AaveV3PolygonZkEvm.FREEZING_STEWARD));
+    assertTrue(AaveV3PolygonZkEvm.ACL_MANAGER.isPoolAdmin(MiscPolygonZkEvm.PROTOCOL_GUARDIAN));
+  }
+
+  function _fundExecutorWithAssetsToList() internal {
+    deal2(proposal.USDC(), GovernanceV3PolygonZkEvm.EXECUTOR_LVL_1, proposal.USDC_SEED_AMOUNT());
   }
 }
