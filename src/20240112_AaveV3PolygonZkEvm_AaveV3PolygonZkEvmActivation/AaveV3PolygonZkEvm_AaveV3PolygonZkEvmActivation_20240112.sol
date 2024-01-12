@@ -5,6 +5,7 @@ import {AaveV3PayloadPolygonZkEvm} from 'aave-helpers/v3-config-engine/AaveV3Pay
 import {EngineFlags} from 'aave-helpers/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-helpers/v3-config-engine/IAaveV3ConfigEngine.sol';
 import {AaveV3PolygonZkEvm} from 'aave-address-book/AaveV3PolygonZkEvm.sol';
+import {MiscPolygonZkEvm} from 'aave-address-book/MiscPolygonZkEvm.sol';
 import {IV3RateStrategyFactory} from 'aave-helpers/v3-config-engine/IV3RateStrategyFactory.sol';
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';
@@ -26,6 +27,10 @@ contract AaveV3PolygonZkEvm_AaveV3PolygonZkEvmActivation_20240112 is AaveV3Paylo
   uint256 public constant MATIC_SEED_AMOUNT = 10e18;
 
   function _postExecute() internal override {
+    AaveV3PolygonZkEvm.ACL_MANAGER.addPoolAdmin(MiscPolygonZkEvm.PROTOCOL_GUARDIAN);
+    AaveV3PolygonZkEvm.ACL_MANAGER.addRiskAdmin(AaveV3PolygonZkEvm.FREEZING_STEWARD);
+    AaveV3PolygonZkEvm.ACL_MANAGER.addRiskAdmin(AaveV3PolygonZkEvm.CAPS_PLUS_RISK_STEWARD);
+
     IERC20(USDC).forceApprove(address(AaveV3PolygonZkEvm.POOL), USDC_SEED_AMOUNT);
     AaveV3PolygonZkEvm.POOL.supply(
       USDC,
