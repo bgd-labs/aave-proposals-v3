@@ -20,7 +20,7 @@ contract AaveV2Polygon_ReserveFactorUpdatesJan152024_20240108_Test is ProtocolV2
   AaveV2Polygon_ReserveFactorUpdatesJan152024_20240108 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('polygon'), 52093827);
+    vm.createSelectFork(vm.rpcUrl('polygon'), 52316752);
     proposal = new AaveV2Polygon_ReserveFactorUpdatesJan152024_20240108();
   }
 
