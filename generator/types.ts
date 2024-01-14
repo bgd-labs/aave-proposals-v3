@@ -10,6 +10,7 @@ import {
   ListingWithCustomImpl,
   PriceFeedUpdate,
   RateStrategyUpdate,
+  FreezeUpdate,
 } from './features/types';
 import {FlashBorrower} from './features/flashBorrower';
 
@@ -80,6 +81,7 @@ export enum FEATURE {
   PRICE_FEEDS_UPDATE = 'PRICE_FEEDS_UPDATE',
   RATE_UPDATE_V3 = 'RATE_UPDATE_V3',
   RATE_UPDATE_V2 = 'RATE_UPDATE_V2',
+  FREEZE = 'FREEZE',
   OTHERS = 'OTHERS',
 }
 
@@ -121,6 +123,7 @@ export interface PoolConfig {
     [FEATURE.PRICE_FEEDS_UPDATE]?: PriceFeedUpdate[];
     [FEATURE.RATE_UPDATE_V3]?: RateStrategyUpdate[]; // TODO: type could be improved
     [FEATURE.RATE_UPDATE_V2]?: RateStrategyUpdate[];
+    [FEATURE.FREEZE]?: FreezeUpdate[];
     [FEATURE.OTHERS]?: {};
   };
   cache: PoolCache;
