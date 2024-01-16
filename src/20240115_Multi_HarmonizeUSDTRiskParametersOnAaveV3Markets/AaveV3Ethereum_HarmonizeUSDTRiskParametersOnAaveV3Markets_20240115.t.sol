@@ -17,7 +17,7 @@ contract AaveV3Ethereum_HarmonizeUSDTRiskParametersOnAaveV3Markets_20240115_Test
   AaveV3Ethereum_HarmonizeUSDTRiskParametersOnAaveV3Markets_20240115 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 19015350);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 19015754);
     proposal = new AaveV3Ethereum_HarmonizeUSDTRiskParametersOnAaveV3Markets_20240115();
   }
 

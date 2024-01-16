@@ -17,7 +17,7 @@ contract AaveV3Optimism_HarmonizeUSDTRiskParametersOnAaveV3Markets_20240115_Test
   AaveV3Optimism_HarmonizeUSDTRiskParametersOnAaveV3Markets_20240115 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('optimism'), 114880201);
+    vm.createSelectFork(vm.rpcUrl('optimism'), 114882875);
     proposal = new AaveV3Optimism_HarmonizeUSDTRiskParametersOnAaveV3Markets_20240115();
   }
 

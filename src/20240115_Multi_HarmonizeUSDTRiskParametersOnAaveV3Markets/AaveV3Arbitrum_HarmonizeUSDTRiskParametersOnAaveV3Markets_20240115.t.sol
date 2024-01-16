@@ -17,7 +17,7 @@ contract AaveV3Arbitrum_HarmonizeUSDTRiskParametersOnAaveV3Markets_20240115_Test
   AaveV3Arbitrum_HarmonizeUSDTRiskParametersOnAaveV3Markets_20240115 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('arbitrum'), 170839641);
+    vm.createSelectFork(vm.rpcUrl('arbitrum'), 170852915);
     proposal = new AaveV3Arbitrum_HarmonizeUSDTRiskParametersOnAaveV3Markets_20240115();
   }
 
