@@ -48,39 +48,45 @@ Part A of this proposal will perform the following:
 
 - Withdraw all amUSDC & aPolUSDC from Polygon V2 and V3
 - Withdraw all amDAI from Polygon V2
-- Withdraw 1.3M amPolDAI from Polygon V3
+- Withdraw 1.0M amPolDAI from Polygon V3
 - Withdraw all amUSDT & aPolUSDT from Polygon V2 and V3
 - Bridge all withdrawn assets to Ethereum
+
+_note_ When withdrawing all units from pools, in actuality, 10 units will be left as to not empty the pool.
 
 Revoke the following allowances for the Aave Collector on Mainnet:
 
 `IERC20Token.approve(spender, 0);`
 
-|token|spender|description|
-|---|---|---|
-|aENS|0xa426759e433224c2b04f6619ab44217dad626c6e|Aave Collector Consolidation|
-|aMANA|0xa426759e433224C2b04f6619aB44217DaD626c6e|Aave Collector Consolidation|
-|aUST|0xa426759e433224c2b04f6619ab44217dad626c6e|Aave Collector Consolidation|
-|sUSD|0xa426759e433224c2b04f6619ab44217dad626c6e|Aave Collector Consolidation|
-|aUSDC|0x04f90d449d4f8316edd6ef4f963b657f8444a4ca|One Way Bonding Curve|
-|aRAI|0xa426759e433224C2b04f6619aB44217DaD626c6e|Aave Collector Consolidation|
-|aZRX|0xa426759e433224C2b04f6619aB44217DaD626c6e|Aave Collector Consolidation|
-|aAMPL|0xa426759e433224C2b04f6619aB44217DaD626c6e|Aave Collector Consolidation|
-|aSUSD|0xa426759e433224C2b04f6619aB44217DaD626c6e|Aave Collector Consolidation|
-|aUSDC|0x46a1b7d4a2920270c7eb2c2db4df2259a109bcb4|CRV Bad Debt Repayment|
-|TUSD|0xa426759e433224c2b04f6619ab44217dad626c6e|Aave Collector Consolidation|
-|BUSD|0xa426759e433224c2b04f6619ab44217dad626c6e|Aave Collector Consolidation|
-|aTUSD|0xa426759e433224C2b04f6619aB44217DaD626c6e|Aave Collector Consolidation|
-|aDPI|0xa426759e433224C2b04f6619aB44217DaD626c6e|Aave Collector Consolidation|
-|aFRAX|0xa426759e433224C2b04f6619aB44217DaD626c6e|Aave Collector Consolidation|
-|aBUSD|0xa426759e433224C2b04f6619aB44217DaD626c6e|Aave Collector Consolidation|
+| token | spender                                    | description                  |
+| ----- | ------------------------------------------ | ---------------------------- |
+| aENS  | 0xa426759e433224c2b04f6619ab44217dad626c6e | Aave Collector Consolidation |
+| aMANA | 0xa426759e433224C2b04f6619aB44217DaD626c6e | Aave Collector Consolidation |
+| aUST  | 0xa426759e433224c2b04f6619ab44217dad626c6e | Aave Collector Consolidation |
+| sUSD  | 0xa426759e433224c2b04f6619ab44217dad626c6e | Aave Collector Consolidation |
+| aUSDC | 0x04f90d449d4f8316edd6ef4f963b657f8444a4ca | One Way Bonding Curve        |
+| aRAI  | 0xa426759e433224C2b04f6619aB44217DaD626c6e | Aave Collector Consolidation |
+| aZRX  | 0xa426759e433224C2b04f6619aB44217DaD626c6e | Aave Collector Consolidation |
+| aAMPL | 0xa426759e433224C2b04f6619aB44217DaD626c6e | Aave Collector Consolidation |
+| aSUSD | 0xa426759e433224C2b04f6619aB44217DaD626c6e | Aave Collector Consolidation |
+| aUSDC | 0x46a1b7d4a2920270c7eb2c2db4df2259a109bcb4 | CRV Bad Debt Repayment       |
+| TUSD  | 0xa426759e433224c2b04f6619ab44217dad626c6e | Aave Collector Consolidation |
+| BUSD  | 0xa426759e433224c2b04f6619ab44217dad626c6e | Aave Collector Consolidation |
+| aTUSD | 0xa426759e433224C2b04f6619aB44217DaD626c6e | Aave Collector Consolidation |
+| aDPI  | 0xa426759e433224C2b04f6619aB44217DaD626c6e | Aave Collector Consolidation |
+| aFRAX | 0xa426759e433224C2b04f6619aB44217DaD626c6e | Aave Collector Consolidation |
+| aBUSD | 0xa426759e433224C2b04f6619aB44217DaD626c6e | Aave Collector Consolidation |
 
 ## References
 
 - Implementation: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231229_Multi_TreasuryManagementGSMFundingRWAStrategyPreparationsPart1/AaveV2Ethereum_TreasuryManagementGSMFundingRWAStrategyPreparationsPart1_20231229.sol), [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231229_Multi_TreasuryManagementGSMFundingRWAStrategyPreparationsPart1/AaveV3Polygon_TreasuryManagementGSMFundingRWAStrategyPreparationsPart1_20231229.sol)
 - Tests: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231229_Multi_TreasuryManagementGSMFundingRWAStrategyPreparationsPart1/AaveV2Ethereum_TreasuryManagementGSMFundingRWAStrategyPreparationsPart1_20231229.t.sol), [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231229_Multi_TreasuryManagementGSMFundingRWAStrategyPreparationsPart1/AaveV3Polygon_TreasuryManagementGSMFundingRWAStrategyPreparationsPart1_20231229.t.sol)
-- [Snapshot](TODO)
-- [Discussion](https://governance.aave.com/t/gho-stability-module-update/14442/10)
+- [Snapshot](https://snapshot.org/#/aave.eth/proposal/0xb39537e468eef8c212c67a539cdc6d802cd857f186a4f66aefd44faaadd6ba19)
+- [Discussion](https://governance.aave.com/t/arfc-treasury-management-gsm-funding-rwa-strategy-preparations/16128)
+
+## Disclaimer
+
+TokenLogic and karpatkey receive no compensation beyond Aave protocol for the creation of this proposal. TokenLogic and karpatkey are both delegates within the Aave ecosystem.
 
 ## Copyright
 

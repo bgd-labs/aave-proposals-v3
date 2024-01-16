@@ -16,15 +16,15 @@ interface IAavePolEthERC20Bridge {
 /**
  * @title Treasury Management - GSM Funding & RWA Strategy Preparations (Part 1)
  * @author efecarranza.eth
- * - Snapshot: TODO
- * - Discussion: TODO
+ * - Snapshot: https://snapshot.org/#/aave.eth/proposal/0xb39537e468eef8c212c67a539cdc6d802cd857f186a4f66aefd44faaadd6ba19
+ * - Discussion: https://governance.aave.com/t/arfc-treasury-management-gsm-funding-rwa-strategy-preparations/16128
  */
 contract AaveV3Polygon_TreasuryManagementGSMFundingRWAStrategyPreparationsPart1_20231229 is
   IProposalGenericExecutor
 {
   using SafeERC20 for IERC20;
 
-  uint256 public constant AAVE_V3_DAI_TO_WITHDRAW = 1_300_000 ether;
+  uint256 public constant AAVE_V3_DAI_TO_WITHDRAW = 1_000_000 ether;
 
   IAavePolEthERC20Bridge public constant bridge =
     IAavePolEthERC20Bridge(MiscPolygon.AAVE_POL_ETH_BRIDGE);
@@ -33,37 +33,37 @@ contract AaveV3Polygon_TreasuryManagementGSMFundingRWAStrategyPreparationsPart1_
     AaveV3Polygon.COLLECTOR.transfer(
       AaveV2PolygonAssets.USDC_A_TOKEN,
       address(this),
-      IERC20(AaveV2PolygonAssets.USDC_A_TOKEN).balanceOf(address(AaveV3Polygon.COLLECTOR))
+      IERC20(AaveV2PolygonAssets.USDC_A_TOKEN).balanceOf(address(AaveV3Polygon.COLLECTOR)) - 10e6
     );
 
     AaveV3Polygon.COLLECTOR.transfer(
       AaveV2PolygonAssets.USDT_A_TOKEN,
       address(this),
-      IERC20(AaveV2PolygonAssets.USDT_A_TOKEN).balanceOf(address(AaveV3Polygon.COLLECTOR))
+      IERC20(AaveV2PolygonAssets.USDT_A_TOKEN).balanceOf(address(AaveV3Polygon.COLLECTOR)) - 10e6
     );
 
     AaveV3Polygon.COLLECTOR.transfer(
       AaveV2PolygonAssets.DAI_A_TOKEN,
       address(this),
-      IERC20(AaveV2PolygonAssets.DAI_A_TOKEN).balanceOf(address(AaveV3Polygon.COLLECTOR))
+      IERC20(AaveV2PolygonAssets.DAI_A_TOKEN).balanceOf(address(AaveV3Polygon.COLLECTOR)) - 10e18
     );
 
     AaveV3Polygon.COLLECTOR.transfer(
       AaveV3PolygonAssets.USDC_A_TOKEN,
       address(this),
-      IERC20(AaveV3PolygonAssets.USDC_A_TOKEN).balanceOf(address(AaveV3Polygon.COLLECTOR))
+      IERC20(AaveV3PolygonAssets.USDC_A_TOKEN).balanceOf(address(AaveV3Polygon.COLLECTOR)) - 10e6
     );
 
     AaveV3Polygon.COLLECTOR.transfer(
       AaveV3PolygonAssets.USDT_A_TOKEN,
       address(this),
-      IERC20(AaveV3PolygonAssets.USDT_A_TOKEN).balanceOf(address(AaveV3Polygon.COLLECTOR))
+      IERC20(AaveV3PolygonAssets.USDT_A_TOKEN).balanceOf(address(AaveV3Polygon.COLLECTOR)) - 10e6
     );
 
     AaveV3Polygon.COLLECTOR.transfer(
       AaveV3PolygonAssets.DAI_A_TOKEN,
       address(this),
-      IERC20(AaveV3PolygonAssets.DAI_A_TOKEN).balanceOf(address(AaveV3Polygon.COLLECTOR))
+      AAVE_V3_DAI_TO_WITHDRAW
     );
 
     AaveV2Polygon.POOL.withdraw(

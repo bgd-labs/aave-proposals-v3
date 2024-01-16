@@ -17,7 +17,7 @@ contract AaveV2Ethereum_TreasuryManagementGSMFundingRWAStrategyPreparationsPart1
     internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 18934678);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 19014869);
     proposal = new AaveV2Ethereum_TreasuryManagementGSMFundingRWAStrategyPreparationsPart1_20231229();
   }
 

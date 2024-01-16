@@ -9,8 +9,8 @@ import {IProposalGenericExecutor} from 'aave-helpers/interfaces/IProposalGeneric
 /**
  * @title Treasury Management - GSM Funding & RWA Strategy Preparations (Part 1)
  * @author efecarranza.eth
- * - Snapshot: TODO
- * - Discussion: TODO
+ * - Snapshot: https://snapshot.org/#/aave.eth/proposal/0xb39537e468eef8c212c67a539cdc6d802cd857f186a4f66aefd44faaadd6ba19
+ * - Discussion: https://governance.aave.com/t/arfc-treasury-management-gsm-funding-rwa-strategy-preparations/16128
  */
 contract AaveV2Ethereum_TreasuryManagementGSMFundingRWAStrategyPreparationsPart1_20231229 is
   IProposalGenericExecutor
