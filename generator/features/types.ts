@@ -1,5 +1,6 @@
 import {Hex} from 'viem';
-import {BooleanSelectValues, NumberInputValues, PercentInputValues} from '../prompts';
+import {NumberInputValues, PercentInputValues} from '../prompts';
+import {BooleanSelectValues} from '../prompts/boolPrompt';
 
 export interface AssetSelector {
   asset: string;
@@ -99,4 +100,8 @@ export interface TokenStream {
   receiver: Hex;
   duration: string;
   amount: string;
+}
+
+export interface FreezeUpdate extends AssetSelector {
+  shouldBeFrozen: boolean;
 }

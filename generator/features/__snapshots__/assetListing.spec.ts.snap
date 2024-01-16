@@ -3,9 +3,9 @@
 exports[`feature: assetListing > should properly generate files 1`] = `
 {
   "aip": "---
-title: \\"test\\"
-author: \\"test\\"
-discussions: \\"test\\"
+title: "test"
+author: "test"
+discussions: "test"
 ---
 
 ## Simple Summary
@@ -233,14 +233,14 @@ import {AaveV3Ethereum_Test_20231023} from './AaveV3Ethereum_Test_20231023.sol';
 contract DeployEthereum is EthereumScript {
   function run() external broadcast {
     // deploy payloads
-    AaveV3Ethereum_Test_20231023 payload0 = GovV3Helpers.deployDeterministic(
+    address payload0 = GovV3Helpers.deployDeterministic(
       type(AaveV3Ethereum_Test_20231023).creationCode
     );
 
     // compose action
     IPayloadsControllerCore.ExecutionAction[]
       memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
-    actions[0] = GovV3Helpers.buildAction(address(payload0));
+    actions[0] = GovV3Helpers.buildAction(payload0);
 
     // register action at payloadsController
     GovV3Helpers.createPayload(actions);
@@ -264,7 +264,7 @@ contract CreateProposal is EthereumScript {
 
     // create proposal
     vm.startBroadcast();
-    GovV3Helpers.createProposal2_5(
+    GovV3Helpers.createProposal(
       vm,
       payloads,
       GovV3Helpers.ipfsHashFile(vm, 'src/20231023_AaveV3Ethereum_Test/Test.md')
@@ -326,7 +326,7 @@ exports[`feature: assetListing > should return reasonable code 1`] = `
 
           listings[0] = IAaveV3ConfigEngine.Listing({
                asset: PSP,
-  assetSymbol: \\"PSP\\",
+  assetSymbol: "PSP",
   priceFeed: 0x72AFAECF99C9d9C8215fF44C77B94B99C28741e8,
   eModeCategory: AaveV3EthereumEModes.NONE,
   enabledToBorrow: EngineFlags.ENABLED,
