@@ -18,7 +18,7 @@ contract AaveV3Bnb_AaveV3BNBActivation_20231122_Test is ProtocolV3TestBase {
   AaveV3Bnb_AaveV3BNBActivation_20231122 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('bnb'), 33721679);
+    vm.createSelectFork(vm.rpcUrl('bnb'), 35320733);
     proposal = new AaveV3Bnb_AaveV3BNBActivation_20231122();
   }
 
@@ -101,4 +101,13 @@ contract AaveV3Bnb_AaveV3BNBActivation_20231122_Test is ProtocolV3TestBase {
       proposal.USDT_SEED_AMOUNT()
     );
   }
+
+  function test_poolImplUpdate() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+    assertEq(IPool(address(AaveV3BNB.POOL)).POOL_REVISION(), 3);
+  }
+}
+
+interface IPool {
+  function POOL_REVISION() external view returns (uint256);
 }

@@ -10,7 +10,7 @@
 | isActive | true |
 | isFrozen | false |
 | supplyCap | 5,000,000 Cake |
-| borrowCap | 1,800,000 Cake |
+| borrowCap | 2,250,000 Cake |
 | debtCeiling | 7,000,000 $ |
 | isSiloed | false |
 | isFlashloanable | true |
@@ -18,7 +18,7 @@
 | oracle | [0xB6064eD41d4f67e353768aA239cA86f4F73665a1](https://bscscan.com/address/0xB6064eD41d4f67e353768aA239cA86f4F73665a1) |
 | oracleDecimals | 8 |
 | oracleDescription | CAKE / USD |
-| oracleLatestAnswer | 2.36944931 |
+| oracleLatestAnswer | 2.9081 |
 | usageAsCollateralEnabled | true |
 | ltv | 55 % |
 | liquidationThreshold | 61 % |
@@ -62,8 +62,8 @@
 | decimals | 18 |
 | isActive | true |
 | isFrozen | false |
-| supplyCap | 8,000 ETH |
-| borrowCap | 6,400 ETH |
+| supplyCap | 5,000 ETH |
+| borrowCap | 4,000 ETH |
 | debtCeiling | 0 $ |
 | isSiloed | false |
 | isFlashloanable | true |
@@ -71,7 +71,7 @@
 | oracle | [0x9ef1B8c0E4F7dc8bF5719Ea496883DC6401d5b2e](https://bscscan.com/address/0x9ef1B8c0E4F7dc8bF5719Ea496883DC6401d5b2e) |
 | oracleDecimals | 8 |
 | oracleDescription | ETH / USD |
-| oracleLatestAnswer | 2034.0637 |
+| oracleLatestAnswer | 2540.85 |
 | usageAsCollateralEnabled | true |
 | ltv | 80 % |
 | liquidationThreshold | 82.5 % |
@@ -116,7 +116,7 @@
 | isActive | true |
 | isFrozen | false |
 | supplyCap | 50,000,000 USDT |
-| borrowCap | 20,000,000 USDT |
+| borrowCap | 45,000,000 USDT |
 | debtCeiling | 0 $ |
 | isSiloed | false |
 | isFlashloanable | true |
@@ -124,7 +124,7 @@
 | oracle | [0xB97Ad0E74fa7d920791E90258A6E2085088b4320](https://bscscan.com/address/0xB97Ad0E74fa7d920791E90258A6E2085088b4320) |
 | oracleDecimals | 8 |
 | oracleDescription | USDT / USD |
-| oracleLatestAnswer | 1.00012824 |
+| oracleLatestAnswer | 0.99931 |
 | usageAsCollateralEnabled | true |
 | ltv | 75 % |
 | liquidationThreshold | 80 % |
@@ -151,14 +151,14 @@
 | optimalUsageRatio | 90 % |
 | maxExcessUsageRatio | 10 % |
 | baseVariableBorrowRate | 0 % |
-| variableRateSlope1 | 5 % |
+| variableRateSlope1 | 6 % |
 | variableRateSlope2 | 75 % |
-| baseStableBorrowRate | 6 % |
-| stableRateSlope1 | 5 % |
+| baseStableBorrowRate | 7 % |
+| stableRateSlope1 | 6 % |
 | stableRateSlope2 | 75 % |
 | optimalStableToTotalDebtRatio | 20 % |
 | maxExcessStableToTotalDebtRatio | 80 % |
-| interestRate | ![ir](/.assets/541043868751fc5ea1344f681b00906bdf734fdf.svg) |
+| interestRate | ![ir](/.assets/05797d7d762619547fb25ca8541d1e5620b88224.svg) |
 
 
 #### BTCB ([0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c](https://bscscan.com/address/0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c))
@@ -169,7 +169,7 @@
 | isActive | true |
 | isFrozen | false |
 | supplyCap | 400 BTCB |
-| borrowCap | 190 BTCB |
+| borrowCap | 180 BTCB |
 | debtCeiling | 0 $ |
 | isSiloed | false |
 | isFlashloanable | true |
@@ -177,7 +177,7 @@
 | oracle | [0x264990fbd0A4796A3E3d8E37C4d5F87a3aCa5Ebf](https://bscscan.com/address/0x264990fbd0A4796A3E3d8E37C4d5F87a3aCa5Ebf) |
 | oracleDecimals | 8 |
 | oracleDescription | BTC / USD |
-| oracleLatestAnswer | 36551.83 |
+| oracleLatestAnswer | 42638.66106975 |
 | usageAsCollateralEnabled | true |
 | ltv | 70 % |
 | liquidationThreshold | 75 % |
@@ -222,7 +222,7 @@
 | isActive | true |
 | isFrozen | false |
 | supplyCap | 50,000,000 USDC |
-| borrowCap | 20,000,000 USDC |
+| borrowCap | 45,000,000 USDC |
 | debtCeiling | 0 $ |
 | isSiloed | false |
 | isFlashloanable | true |
@@ -230,7 +230,7 @@
 | oracle | [0x51597f405303C4377E36123cBc172b13269EA163](https://bscscan.com/address/0x51597f405303C4377E36123cBc172b13269EA163) |
 | oracleDecimals | 8 |
 | oracleDescription | USDC / USD |
-| oracleLatestAnswer | 1.00000414 |
+| oracleLatestAnswer | 1.00007748 |
 | usageAsCollateralEnabled | true |
 | ltv | 77 % |
 | liquidationThreshold | 80 % |
@@ -257,14 +257,14 @@
 | optimalUsageRatio | 90 % |
 | maxExcessUsageRatio | 10 % |
 | baseVariableBorrowRate | 0 % |
-| variableRateSlope1 | 5 % |
+| variableRateSlope1 | 6 % |
 | variableRateSlope2 | 60 % |
-| baseStableBorrowRate | 6 % |
-| stableRateSlope1 | 5 % |
+| baseStableBorrowRate | 7 % |
+| stableRateSlope1 | 6 % |
 | stableRateSlope2 | 60 % |
 | optimalStableToTotalDebtRatio | 20 % |
 | maxExcessStableToTotalDebtRatio | 80 % |
-| interestRate | ![ir](/.assets/66d716abff4a87dcfc719a431d31ee77d341c950.svg) |
+| interestRate | ![ir](/.assets/4c5958ae482feac8d910d7dab706b3b1cfd28679.svg) |
 
 
 #### WBNB ([0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c](https://bscscan.com/address/0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c))
@@ -274,8 +274,8 @@
 | decimals | 18 |
 | isActive | true |
 | isFrozen | false |
-| supplyCap | 46,000 WBNB |
-| borrowCap | 42,000 WBNB |
+| supplyCap | 50,000 WBNB |
+| borrowCap | 22,500 WBNB |
 | debtCeiling | 0 $ |
 | isSiloed | false |
 | isFlashloanable | true |
@@ -283,7 +283,7 @@
 | oracle | [0x0567F2323251f0Aab15c8dFb1967E4e8A7D42aeE](https://bscscan.com/address/0x0567F2323251f0Aab15c8dFb1967E4e8A7D42aeE) |
 | oracleDecimals | 8 |
 | oracleDescription | BNB / USD |
-| oracleLatestAnswer | 232.4 |
+| oracleLatestAnswer | 309.34149715 |
 | usageAsCollateralEnabled | true |
 | ltv | 70 % |
 | liquidationThreshold | 75 % |
@@ -324,6 +324,12 @@
 
 ```json
 {
+  "poolConfig": {
+    "poolImpl": {
+      "from": "0x4172E6aAEC070ACB31aaCE343A58c93E4C70f44D",
+      "to": "0xe6905378F7F595704368f2295938cb844a5b7eED"
+    }
+  },
   "reserves": {
     "0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82": {
       "from": null,
@@ -332,7 +338,7 @@
         "aTokenImpl": "0x6c23bAF050ec192afc0B967a93b83e6c5405df43",
         "aTokenName": "Aave BNB Smart Chain CAKE",
         "aTokenSymbol": "aBnbCAKE",
-        "borrowCap": 1800000,
+        "borrowCap": 2250000,
         "borrowingEnabled": true,
         "debtCeiling": 700000000,
         "decimals": 18,
@@ -351,7 +357,7 @@
         "oracle": "0xB6064eD41d4f67e353768aA239cA86f4F73665a1",
         "oracleDecimals": 8,
         "oracleDescription": "CAKE / USD",
-        "oracleLatestAnswer": 236944931,
+        "oracleLatestAnswer": 290810000,
         "reserveFactor": 2000,
         "stableBorrowRateEnabled": false,
         "stableDebtToken": "0x57e95511de39890D3e782df4b19F0D97A05DF64A",
@@ -375,7 +381,7 @@
         "aTokenImpl": "0x6c23bAF050ec192afc0B967a93b83e6c5405df43",
         "aTokenName": "Aave BNB Smart Chain ETH",
         "aTokenSymbol": "aBnbETH",
-        "borrowCap": 6400,
+        "borrowCap": 4000,
         "borrowingEnabled": true,
         "debtCeiling": 0,
         "decimals": 18,
@@ -394,14 +400,14 @@
         "oracle": "0x9ef1B8c0E4F7dc8bF5719Ea496883DC6401d5b2e",
         "oracleDecimals": 8,
         "oracleDescription": "ETH / USD",
-        "oracleLatestAnswer": 203406370000,
+        "oracleLatestAnswer": 254085000000,
         "reserveFactor": 1500,
         "stableBorrowRateEnabled": false,
         "stableDebtToken": "0xa8327EE1858E06983af6690d24e77774807109d4",
         "stableDebtTokenImpl": "0xb172a90A7C238969CE9B27cc19D13b60A91e7F00",
         "stableDebtTokenName": "Aave BNB Smart Chain Stable Debt ETH",
         "stableDebtTokenSymbol": "stableDebtBnbETH",
-        "supplyCap": 8000,
+        "supplyCap": 5000,
         "symbol": "ETH",
         "underlying": "0x2170Ed0880ac9A755fd29B2688956BD959F933F8",
         "usageAsCollateralEnabled": true,
@@ -418,7 +424,7 @@
         "aTokenImpl": "0x6c23bAF050ec192afc0B967a93b83e6c5405df43",
         "aTokenName": "Aave BNB Smart Chain USDT",
         "aTokenSymbol": "aBnbUSDT",
-        "borrowCap": 20000000,
+        "borrowCap": 45000000,
         "borrowingEnabled": true,
         "debtCeiling": 0,
         "decimals": 18,
@@ -437,7 +443,7 @@
         "oracle": "0xB97Ad0E74fa7d920791E90258A6E2085088b4320",
         "oracleDecimals": 8,
         "oracleDescription": "USDT / USD",
-        "oracleLatestAnswer": 100012824,
+        "oracleLatestAnswer": 99931000,
         "reserveFactor": 1000,
         "stableBorrowRateEnabled": false,
         "stableDebtToken": "0xB735D922a36d4337f561CE433594727e1bc8bD01",
@@ -461,7 +467,7 @@
         "aTokenImpl": "0x6c23bAF050ec192afc0B967a93b83e6c5405df43",
         "aTokenName": "Aave BNB Smart Chain BTCB",
         "aTokenSymbol": "aBnbBTCB",
-        "borrowCap": 190,
+        "borrowCap": 180,
         "borrowingEnabled": true,
         "debtCeiling": 0,
         "decimals": 18,
@@ -480,7 +486,7 @@
         "oracle": "0x264990fbd0A4796A3E3d8E37C4d5F87a3aCa5Ebf",
         "oracleDecimals": 8,
         "oracleDescription": "BTC / USD",
-        "oracleLatestAnswer": 3655183000000,
+        "oracleLatestAnswer": 4263866106975,
         "reserveFactor": 2000,
         "stableBorrowRateEnabled": false,
         "stableDebtToken": "0x9Ef6D76740713C674A6e4f38B863E62D10965053",
@@ -504,7 +510,7 @@
         "aTokenImpl": "0x6c23bAF050ec192afc0B967a93b83e6c5405df43",
         "aTokenName": "Aave BNB Smart Chain USDC",
         "aTokenSymbol": "aBnbUSDC",
-        "borrowCap": 20000000,
+        "borrowCap": 45000000,
         "borrowingEnabled": true,
         "debtCeiling": 0,
         "decimals": 18,
@@ -523,7 +529,7 @@
         "oracle": "0x51597f405303C4377E36123cBc172b13269EA163",
         "oracleDecimals": 8,
         "oracleDescription": "USDC / USD",
-        "oracleLatestAnswer": 100000414,
+        "oracleLatestAnswer": 100007748,
         "reserveFactor": 1000,
         "stableBorrowRateEnabled": false,
         "stableDebtToken": "0xCcC260D9778F900eAd566Fa2E1D622E667677653",
@@ -547,7 +553,7 @@
         "aTokenImpl": "0x6c23bAF050ec192afc0B967a93b83e6c5405df43",
         "aTokenName": "Aave BNB Smart Chain WBNB",
         "aTokenSymbol": "aBnbWBNB",
-        "borrowCap": 42000,
+        "borrowCap": 22500,
         "borrowingEnabled": true,
         "debtCeiling": 0,
         "decimals": 18,
@@ -566,14 +572,14 @@
         "oracle": "0x0567F2323251f0Aab15c8dFb1967E4e8A7D42aeE",
         "oracleDecimals": 8,
         "oracleDescription": "BNB / USD",
-        "oracleLatestAnswer": 23240000000,
+        "oracleLatestAnswer": 30934149715,
         "reserveFactor": 2000,
         "stableBorrowRateEnabled": false,
         "stableDebtToken": "0x5cc46d2b1103aB23CFD63eF8631480bbf4eB40FE",
         "stableDebtTokenImpl": "0xb172a90A7C238969CE9B27cc19D13b60A91e7F00",
         "stableDebtTokenName": "Aave BNB Smart Chain Stable Debt WBNB",
         "stableDebtTokenSymbol": "stableDebtBnbWBNB",
-        "supplyCap": 46000,
+        "supplyCap": 50000,
         "symbol": "WBNB",
         "underlying": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
         "usageAsCollateralEnabled": true,
@@ -603,15 +609,15 @@
     "0x786c9fF899805fa0813C77CD3228C0e857664E78": {
       "from": null,
       "to": {
-        "baseStableBorrowRate": "60000000000000000000000000",
+        "baseStableBorrowRate": "70000000000000000000000000",
         "baseVariableBorrowRate": 0,
         "maxExcessStableToTotalDebtRatio": "800000000000000000000000000",
         "maxExcessUsageRatio": "100000000000000000000000000",
         "optimalStableToTotalDebtRatio": "200000000000000000000000000",
         "optimalUsageRatio": "900000000000000000000000000",
-        "stableRateSlope1": "50000000000000000000000000",
+        "stableRateSlope1": "60000000000000000000000000",
         "stableRateSlope2": "600000000000000000000000000",
-        "variableRateSlope1": "50000000000000000000000000",
+        "variableRateSlope1": "60000000000000000000000000",
         "variableRateSlope2": "600000000000000000000000000"
       }
     },
@@ -633,15 +639,15 @@
     "0xA60d98d1e7C1b5C186c181152AE7412C38ABaC94": {
       "from": null,
       "to": {
-        "baseStableBorrowRate": "60000000000000000000000000",
+        "baseStableBorrowRate": "70000000000000000000000000",
         "baseVariableBorrowRate": 0,
         "maxExcessStableToTotalDebtRatio": "800000000000000000000000000",
         "maxExcessUsageRatio": "100000000000000000000000000",
         "optimalStableToTotalDebtRatio": "200000000000000000000000000",
         "optimalUsageRatio": "900000000000000000000000000",
-        "stableRateSlope1": "50000000000000000000000000",
+        "stableRateSlope1": "60000000000000000000000000",
         "stableRateSlope2": "750000000000000000000000000",
-        "variableRateSlope1": "50000000000000000000000000",
+        "variableRateSlope1": "60000000000000000000000000",
         "variableRateSlope2": "750000000000000000000000000"
       }
     }

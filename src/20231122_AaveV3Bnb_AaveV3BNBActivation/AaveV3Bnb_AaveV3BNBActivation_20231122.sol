@@ -33,6 +33,8 @@ contract AaveV3Bnb_AaveV3BNBActivation_20231122 is AaveV3PayloadBnb {
   address public constant USDT = 0x55d398326f99059fF775485246999027B3197955;
   uint256 public constant USDT_SEED_AMOUNT = 5e18;
 
+  address public constant POOL_IMPL = 0xe6905378F7F595704368f2295938cb844a5b7eED;
+
   function _postExecute() internal override {
     AaveV3BNB.ACL_MANAGER.addPoolAdmin(MiscBNB.PROTOCOL_GUARDIAN);
     AaveV3BNB.ACL_MANAGER.addRiskAdmin(AaveV3BNB.FREEZING_STEWARD);
@@ -44,6 +46,10 @@ contract AaveV3Bnb_AaveV3BNBActivation_20231122 is AaveV3PayloadBnb {
     _supply(AaveV3BNB.POOL, ETH, ETH_SEED_AMOUNT, address(AaveV3BNB.COLLECTOR));
     _supply(AaveV3BNB.POOL, USDC, USDC_SEED_AMOUNT, address(AaveV3BNB.COLLECTOR));
     _supply(AaveV3BNB.POOL, USDT, USDT_SEED_AMOUNT, address(AaveV3BNB.COLLECTOR));
+  }
+
+  function _preExecute() internal override {
+    AaveV3BNB.POOL_ADDRESSES_PROVIDER.setPoolImpl(POOL_IMPL);
   }
 
   function newListings() public pure override returns (IAaveV3ConfigEngine.Listing[] memory) {
@@ -64,7 +70,7 @@ contract AaveV3Bnb_AaveV3BNBActivation_20231122 is AaveV3PayloadBnb {
       liqBonus: 10_00,
       reserveFactor: 20_00,
       supplyCap: 5_000_000,
-      borrowCap: 1_800_000,
+      borrowCap: 2_250_000,
       debtCeiling: 7_000_000,
       liqProtocolFee: 10_00,
       rateStrategyParams: IV3RateStrategyFactory.RateStrategyParams({
@@ -93,8 +99,8 @@ contract AaveV3Bnb_AaveV3BNBActivation_20231122 is AaveV3PayloadBnb {
       liqThreshold: 75_00,
       liqBonus: 10_00,
       reserveFactor: 20_00,
-      supplyCap: 46_000,
-      borrowCap: 42_000,
+      supplyCap: 50_000,
+      borrowCap: 22_500,
       debtCeiling: 0,
       liqProtocolFee: 10_00,
       rateStrategyParams: IV3RateStrategyFactory.RateStrategyParams({
@@ -124,7 +130,7 @@ contract AaveV3Bnb_AaveV3BNBActivation_20231122 is AaveV3PayloadBnb {
       liqBonus: 10_00,
       reserveFactor: 20_00,
       supplyCap: 400,
-      borrowCap: 190,
+      borrowCap: 180,
       debtCeiling: 0,
       liqProtocolFee: 10_00,
       rateStrategyParams: IV3RateStrategyFactory.RateStrategyParams({
@@ -153,8 +159,8 @@ contract AaveV3Bnb_AaveV3BNBActivation_20231122 is AaveV3PayloadBnb {
       liqThreshold: 82_50,
       liqBonus: 10_00,
       reserveFactor: 15_00,
-      supplyCap: 8_000,
-      borrowCap: 6_400,
+      supplyCap: 5_000,
+      borrowCap: 4_000,
       debtCeiling: 0,
       liqProtocolFee: 10_00,
       rateStrategyParams: IV3RateStrategyFactory.RateStrategyParams({
@@ -184,15 +190,15 @@ contract AaveV3Bnb_AaveV3BNBActivation_20231122 is AaveV3PayloadBnb {
       liqBonus: 5_00,
       reserveFactor: 10_00,
       supplyCap: 50_000_000,
-      borrowCap: 20_000_000,
+      borrowCap: 45_000_000,
       debtCeiling: 0,
       liqProtocolFee: 10_00,
       rateStrategyParams: IV3RateStrategyFactory.RateStrategyParams({
         optimalUsageRatio: _bpsToRay(90_00),
         baseVariableBorrowRate: 0,
-        variableRateSlope1: _bpsToRay(5_00),
+        variableRateSlope1: _bpsToRay(6_00),
         variableRateSlope2: _bpsToRay(60_00),
-        stableRateSlope1: _bpsToRay(5_00),
+        stableRateSlope1: _bpsToRay(6_00),
         stableRateSlope2: _bpsToRay(60_00),
         baseStableRateOffset: _bpsToRay(1_00),
         stableRateExcessOffset: _bpsToRay(8_00),
@@ -214,15 +220,15 @@ contract AaveV3Bnb_AaveV3BNBActivation_20231122 is AaveV3PayloadBnb {
       liqBonus: 5_00,
       reserveFactor: 10_00,
       supplyCap: 50_000_000,
-      borrowCap: 20_000_000,
+      borrowCap: 45_000_000,
       debtCeiling: 0,
       liqProtocolFee: 10_00,
       rateStrategyParams: IV3RateStrategyFactory.RateStrategyParams({
         optimalUsageRatio: _bpsToRay(90_00),
         baseVariableBorrowRate: 0,
-        variableRateSlope1: _bpsToRay(5_00),
+        variableRateSlope1: _bpsToRay(6_00),
         variableRateSlope2: _bpsToRay(75_00),
-        stableRateSlope1: _bpsToRay(5_00),
+        stableRateSlope1: _bpsToRay(6_00),
         stableRateSlope2: _bpsToRay(75_00),
         baseStableRateOffset: _bpsToRay(1_00),
         stableRateExcessOffset: _bpsToRay(8_00),
