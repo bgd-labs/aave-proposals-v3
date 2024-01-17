@@ -56,10 +56,7 @@ contract AaveV2Ethereum_Disable_Stable_Borrows_20231104_Test is ProtocolV2TestBa
     _noReservesConfigsChangesApartFrom(allConfigsBefore, allConfigsAfter, assetsChanged);
 
     for (uint256 i = 0; i < assetsChanged.length; i++) {
-      ReserveConfig memory config = _findReserveConfig(
-        allConfigsBefore,
-        assetsChanged[i]
-      );
+      ReserveConfig memory config = _findReserveConfig(allConfigsBefore, assetsChanged[i]);
       config.stableBorrowRateEnabled = false;
       _validateReserveConfig(config, allConfigsAfter);
     }

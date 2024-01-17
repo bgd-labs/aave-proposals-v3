@@ -21,6 +21,10 @@ contract AaveV2Polygon_AllowEmergencyAdminToFreeze_Test is ProtocolV2TestBase {
    * @dev executes the generic test suite including e2e and config snapshots
    */
   function test_defaultProposalExecution() public {
-    defaultTest('AaveV2Polygon_AllowEmergencyAdminToFreeze_Test', AaveV2Polygon.POOL, address(proposal));
+    defaultTest(
+      'AaveV2Polygon_AllowEmergencyAdminToFreeze_Test',
+      AaveV2Polygon.POOL,
+      address(proposal)
+    );
   }
 }

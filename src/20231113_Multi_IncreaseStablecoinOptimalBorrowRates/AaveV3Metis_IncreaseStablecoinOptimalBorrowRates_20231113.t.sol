@@ -9,6 +9,7 @@ import {GovV3Helpers} from 'aave-helpers/GovV3Helpers.sol';
 import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/ProtocolV3TestBase.sol';
 import {AaveV3Metis_IncreaseStablecoinOptimalBorrowRates_20231113} from './AaveV3Metis_IncreaseStablecoinOptimalBorrowRates_20231113.sol';
+
 contract mock_proposal is AaveV3PayloadMetis {
   function capsUpdates() public pure override returns (IAaveV3ConfigEngine.CapsUpdate[] memory) {
     IAaveV3ConfigEngine.CapsUpdate[] memory capsUpdate = new IAaveV3ConfigEngine.CapsUpdate[](5);
@@ -46,6 +47,7 @@ contract mock_proposal is AaveV3PayloadMetis {
     return capsUpdate;
   }
 }
+
 /**
  * @dev Test for AaveV3Metis_IncreaseStablecoinOptimalBorrowRates_20231113
  * command: make test-contract filter=AaveV3Metis_IncreaseStablecoinOptimalBorrowRates_20231113
@@ -64,10 +66,7 @@ contract AaveV3Metis_IncreaseStablecoinOptimalBorrowRates_20231113_Test is Proto
    * @dev executes the generic test suite including e2e and config snapshots
    */
   function test_defaultProposalExecution() public {
-    GovV3Helpers.executePayload(
-      vm,
-      address(mock)
-    );
+    GovV3Helpers.executePayload(vm, address(mock));
     defaultTest(
       'AaveV3Metis_IncreaseStablecoinOptimalBorrowRates_20231113',
       AaveV3Metis.POOL,

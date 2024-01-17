@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {AaveV3Bnb} from 'aave-address-book/AaveV3Bnb.sol';
+import {AaveV3BNB} from 'aave-address-book/AaveV3BNB.sol';
 import {MiscBNB} from 'aave-address-book/MiscBNB.sol';
 import {AaveV3PayloadBnb} from 'aave-helpers/v3-config-engine/AaveV3PayloadBnb.sol';
 import {EngineFlags} from 'aave-helpers/v3-config-engine/EngineFlags.sol';
@@ -34,16 +34,16 @@ contract AaveV3Bnb_AaveV3BNBActivation_20231122 is AaveV3PayloadBnb {
   uint256 public constant USDT_SEED_AMOUNT = 5e18;
 
   function _postExecute() internal override {
-    AaveV3Bnb.ACL_MANAGER.addPoolAdmin(MiscBNB.PROTOCOL_GUARDIAN);
-    AaveV3Bnb.ACL_MANAGER.addRiskAdmin(AaveV3Bnb.FREEZING_STEWARD);
-    AaveV3Bnb.ACL_MANAGER.addRiskAdmin(AaveV3Bnb.CAPS_PLUS_RISK_STEWARD);
+    AaveV3BNB.ACL_MANAGER.addPoolAdmin(MiscBNB.PROTOCOL_GUARDIAN);
+    AaveV3BNB.ACL_MANAGER.addRiskAdmin(AaveV3BNB.FREEZING_STEWARD);
+    AaveV3BNB.ACL_MANAGER.addRiskAdmin(AaveV3BNB.CAPS_PLUS_RISK_STEWARD);
 
-    _supply(AaveV3Bnb.POOL, CAKE, CAKE_SEED_AMOUNT, address(AaveV3Bnb.COLLECTOR));
-    _supply(AaveV3Bnb.POOL, WBNB, WBNB_SEED_AMOUNT, address(AaveV3Bnb.COLLECTOR));
-    _supply(AaveV3Bnb.POOL, BTCB, BTCB_SEED_AMOUNT, address(AaveV3Bnb.COLLECTOR));
-    _supply(AaveV3Bnb.POOL, ETH, ETH_SEED_AMOUNT, address(AaveV3Bnb.COLLECTOR));
-    _supply(AaveV3Bnb.POOL, USDC, USDC_SEED_AMOUNT, address(AaveV3Bnb.COLLECTOR));
-    _supply(AaveV3Bnb.POOL, USDT, USDT_SEED_AMOUNT, address(AaveV3Bnb.COLLECTOR));
+    _supply(AaveV3BNB.POOL, CAKE, CAKE_SEED_AMOUNT, address(AaveV3BNB.COLLECTOR));
+    _supply(AaveV3BNB.POOL, WBNB, WBNB_SEED_AMOUNT, address(AaveV3BNB.COLLECTOR));
+    _supply(AaveV3BNB.POOL, BTCB, BTCB_SEED_AMOUNT, address(AaveV3BNB.COLLECTOR));
+    _supply(AaveV3BNB.POOL, ETH, ETH_SEED_AMOUNT, address(AaveV3BNB.COLLECTOR));
+    _supply(AaveV3BNB.POOL, USDC, USDC_SEED_AMOUNT, address(AaveV3BNB.COLLECTOR));
+    _supply(AaveV3BNB.POOL, USDT, USDT_SEED_AMOUNT, address(AaveV3BNB.COLLECTOR));
   }
 
   function newListings() public pure override returns (IAaveV3ConfigEngine.Listing[] memory) {

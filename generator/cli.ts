@@ -21,6 +21,7 @@ import {borrowsUpdates} from './features/borrowsUpdates';
 import {eModeUpdates} from './features/eModesUpdates';
 import {eModeAssets} from './features/eModesAssets';
 import {priceFeedsUpdates} from './features/priceFeedsUpdates';
+import {freezeUpdates} from './features/freeze';
 import {assetListing, assetListingCustom} from './features/assetListing';
 import {generateFiles, writeFiles} from './generator';
 import {PublicClient} from 'viem';
@@ -70,11 +71,14 @@ const FEATURE_MODULES_V3 = [
   eModeAssets,
   assetListing,
   assetListingCustom,
+  freezeUpdates,
   PLACEHOLDER_MODULE,
 ];
 
 if (options.configFile) {
-  const cfgFile: ConfigFile = await import(path.join(process.cwd(), options.configFile));
+  const {config: cfgFile}: {config: ConfigFile} = await import(
+    path.join(process.cwd(), options.configFile)
+  );
   options = {...options, ...cfgFile.rootOptions};
   poolConfigs = cfgFile.poolOptions as any;
   for (const pool of options.pools) {
@@ -150,7 +154,6 @@ if (options.configFile) {
     poolConfigs[pool] = {
       configs: {},
       artifacts: [],
-      pool,
       cache: await generateDeterministicPoolCache(pool),
     };
     const v2 = isV2Pool(pool);

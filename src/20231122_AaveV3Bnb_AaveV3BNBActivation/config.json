@@ -1,8 +1,6 @@
 {
   "rootOptions": {
-    "pools": [
-      "AaveV3Bnb"
-    ],
+    "pools": ["AaveV3BNB"],
     "title": "Aave v3 BNB Activation",
     "shortName": "AaveV3BNBActivation",
     "date": "20231122",
@@ -11,7 +9,7 @@
     "snapshot": "https://snapshot.org/#/aave.eth/proposal/0x60d44523a63e022fcca2f54aa3b84977e49fec0bdf15c9a298122422f6dd5902"
   },
   "poolOptions": {
-    "AaveV3Bnb": {
+    "AaveV3BNB": {
       "configs": {
         "ASSET_LISTING": [
           {
