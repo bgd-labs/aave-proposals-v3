@@ -7,12 +7,15 @@ import {AaveV3Bnb_AaveV3BNBActivation_20231122} from './AaveV3Bnb_AaveV3BNBActiv
 
 /**
  * @dev Deploy Bnb
- * command: make deploy-ledger contract=src/20231122_AaveV3Bnb_AaveV3BNBActivation/AaveV3BNBActivation_20231122.s.sol:DeployBnb chain=bnb
+ * deploy-command: make deploy-ledger contract=src/20231122_AaveV3Bnb_AaveV3BNBActivation/AaveV3BNBActivation_20231122.s.sol:DeployBnb chain=bnb
+ * verify-command: npx catapulta-verify -b broadcast/AaveV3BNBActivation_20231122.s.sol/56/run-latest.json
  */
 contract DeployBnb is BNBScript {
   function run() external broadcast {
     // deploy payloads
-    AaveV3Bnb_AaveV3BNBActivation_20231122 payload0 = new AaveV3Bnb_AaveV3BNBActivation_20231122();
+    address payload0 = GovV3Helpers.deployDeterministic(
+      type(AaveV3Bnb_AaveV3BNBActivation_20231122).creationCode
+    );
 
     // compose action
     IPayloadsControllerCore.ExecutionAction[]
@@ -36,7 +39,9 @@ contract CreateProposal is EthereumScript {
     // compose actions for validation
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsBnb = new IPayloadsControllerCore.ExecutionAction[](1);
-    actionsBnb[0] = GovV3Helpers.buildAction(address(0));
+    actionsBnb[0] = GovV3Helpers.buildAction(
+      type(AaveV3Bnb_AaveV3BNBActivation_20231122).creationCode
+    );
     payloads[0] = GovV3Helpers.buildBNBPayload(vm, actionsBnb);
 
     // create proposal
