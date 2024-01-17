@@ -14,7 +14,7 @@ import {stringPrompt} from '../prompts/stringPrompt';
 import {translateJsBoolToSol} from '../prompts/boolPrompt';
 import {transformNumberToPercent, translateJsPercentToSol} from '../prompts/percentPrompt';
 import {transformNumberToHumanReadable, translateJsNumberToSol} from '../prompts/numberPrompt';
-import {CHAIN_ID_CLIENT_MAP} from '@bgd-labs/aave-cli';
+import {CHAIN_ID_CLIENT_MAP} from '@bgd-labs/js-utils';
 
 async function fetchListing(pool: PoolIdentifier): Promise<Listing> {
   const asset = await addressPrompt({

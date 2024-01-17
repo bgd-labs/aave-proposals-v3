@@ -25,7 +25,7 @@ import {freezeUpdates} from './features/freeze';
 import {assetListing, assetListingCustom} from './features/assetListing';
 import {generateFiles, writeFiles} from './generator';
 import {PublicClient} from 'viem';
-import {CHAIN_ID_CLIENT_MAP} from '@bgd-labs/aave-cli';
+import {CHAIN_ID_CLIENT_MAP} from '@bgd-labs/js-utils';
 
 const program = new Command();
 

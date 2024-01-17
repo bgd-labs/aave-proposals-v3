@@ -10,6 +10,7 @@ import {
   base,
   bsc,
   gnosis,
+  scroll,
 } from 'viem/chains';
 
 export const AVAILABLE_CHAINS = [
@@ -24,6 +25,7 @@ export const AVAILABLE_CHAINS = [
   'Base',
   'BNB',
   'Gnosis',
+  'Scroll',
 ] as const;
 
 export function getAssets(pool: PoolIdentifier): string[] {
@@ -105,6 +107,7 @@ export const CHAIN_TO_CHAIN_ID = {
   Base: base.id,
   BNB: bsc.id,
   Gnosis: gnosis.id,
+  Scroll: scroll.id,
 };
 
 export function flagAsRequired(message: string, required?: boolean) {
