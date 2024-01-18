@@ -20,7 +20,7 @@ The proposal sets the LT/LTV of USDT on all deployments at 80/77, matching that 
 
 | Asset  | Network   | Current Liquidation Threshold | New Liquidation Threshold | Current LTV | New LTV |
 | ------ | --------- | ----------------------------- | ------------------------- | ----------- | ------- |
-| USDT   | Mainnet   | 76%                           | 80%                       | 75%         | 77%     |
+| USDT   | Mainnet   | 76%                           | 80%                       | 74%         | 77%     |
 | USDT   | Optimism  | 80%                           | 80%                       | 75%         | 77%     |
 | USDT   | Polygon   | 80%                           | 80%                       | 75%         | 77%     |
 | USDT   | Arbitrum  | 80%                           | 80%                       | 75%         | 77%     |
