@@ -18,7 +18,7 @@
 | oracle | [0xB6064eD41d4f67e353768aA239cA86f4F73665a1](https://bscscan.com/address/0xB6064eD41d4f67e353768aA239cA86f4F73665a1) |
 | oracleDecimals | 8 |
 | oracleDescription | CAKE / USD |
-| oracleLatestAnswer | 2.9081 |
+| oracleLatestAnswer | 2.84234507 |
 | usageAsCollateralEnabled | true |
 | ltv | 55 % |
 | liquidationThreshold | 61 % |
@@ -71,7 +71,7 @@
 | oracle | [0x9ef1B8c0E4F7dc8bF5719Ea496883DC6401d5b2e](https://bscscan.com/address/0x9ef1B8c0E4F7dc8bF5719Ea496883DC6401d5b2e) |
 | oracleDecimals | 8 |
 | oracleDescription | ETH / USD |
-| oracleLatestAnswer | 2540.85 |
+| oracleLatestAnswer | 2516.4541 |
 | usageAsCollateralEnabled | true |
 | ltv | 80 % |
 | liquidationThreshold | 82.5 % |
@@ -124,7 +124,7 @@
 | oracle | [0xB97Ad0E74fa7d920791E90258A6E2085088b4320](https://bscscan.com/address/0xB97Ad0E74fa7d920791E90258A6E2085088b4320) |
 | oracleDecimals | 8 |
 | oracleDescription | USDT / USD |
-| oracleLatestAnswer | 0.99931 |
+| oracleLatestAnswer | 0.99889717 |
 | usageAsCollateralEnabled | true |
 | ltv | 75 % |
 | liquidationThreshold | 80 % |
@@ -177,7 +177,7 @@
 | oracle | [0x264990fbd0A4796A3E3d8E37C4d5F87a3aCa5Ebf](https://bscscan.com/address/0x264990fbd0A4796A3E3d8E37C4d5F87a3aCa5Ebf) |
 | oracleDecimals | 8 |
 | oracleDescription | BTC / USD |
-| oracleLatestAnswer | 42638.66106975 |
+| oracleLatestAnswer | 42463.69843816 |
 | usageAsCollateralEnabled | true |
 | ltv | 70 % |
 | liquidationThreshold | 75 % |
@@ -230,7 +230,7 @@
 | oracle | [0x51597f405303C4377E36123cBc172b13269EA163](https://bscscan.com/address/0x51597f405303C4377E36123cBc172b13269EA163) |
 | oracleDecimals | 8 |
 | oracleDescription | USDC / USD |
-| oracleLatestAnswer | 1.00007748 |
+| oracleLatestAnswer | 1.00016841 |
 | usageAsCollateralEnabled | true |
 | ltv | 77 % |
 | liquidationThreshold | 80 % |
@@ -283,7 +283,7 @@
 | oracle | [0x0567F2323251f0Aab15c8dFb1967E4e8A7D42aeE](https://bscscan.com/address/0x0567F2323251f0Aab15c8dFb1967E4e8A7D42aeE) |
 | oracleDecimals | 8 |
 | oracleDescription | BNB / USD |
-| oracleLatestAnswer | 309.34149715 |
+| oracleLatestAnswer | 311.22958865 |
 | usageAsCollateralEnabled | true |
 | ltv | 70 % |
 | liquidationThreshold | 75 % |
@@ -327,7 +327,7 @@
   "poolConfig": {
     "poolImpl": {
       "from": "0x4172E6aAEC070ACB31aaCE343A58c93E4C70f44D",
-      "to": "0xe6905378F7F595704368f2295938cb844a5b7eED"
+      "to": "0xE23AE099E2EF2a75183d06Af93c8EE0B5f1B546D"
     }
   },
   "reserves": {
@@ -357,7 +357,7 @@
         "oracle": "0xB6064eD41d4f67e353768aA239cA86f4F73665a1",
         "oracleDecimals": 8,
         "oracleDescription": "CAKE / USD",
-        "oracleLatestAnswer": 290810000,
+        "oracleLatestAnswer": 284234507,
         "reserveFactor": 2000,
         "stableBorrowRateEnabled": false,
         "stableDebtToken": "0x57e95511de39890D3e782df4b19F0D97A05DF64A",
@@ -400,7 +400,7 @@
         "oracle": "0x9ef1B8c0E4F7dc8bF5719Ea496883DC6401d5b2e",
         "oracleDecimals": 8,
         "oracleDescription": "ETH / USD",
-        "oracleLatestAnswer": 254085000000,
+        "oracleLatestAnswer": 251645410000,
         "reserveFactor": 1500,
         "stableBorrowRateEnabled": false,
         "stableDebtToken": "0xa8327EE1858E06983af6690d24e77774807109d4",
@@ -443,7 +443,7 @@
         "oracle": "0xB97Ad0E74fa7d920791E90258A6E2085088b4320",
         "oracleDecimals": 8,
         "oracleDescription": "USDT / USD",
-        "oracleLatestAnswer": 99931000,
+        "oracleLatestAnswer": 99889717,
         "reserveFactor": 1000,
         "stableBorrowRateEnabled": false,
         "stableDebtToken": "0xB735D922a36d4337f561CE433594727e1bc8bD01",
@@ -486,7 +486,7 @@
         "oracle": "0x264990fbd0A4796A3E3d8E37C4d5F87a3aCa5Ebf",
         "oracleDecimals": 8,
         "oracleDescription": "BTC / USD",
-        "oracleLatestAnswer": 4263866106975,
+        "oracleLatestAnswer": 4246369843816,
         "reserveFactor": 2000,
         "stableBorrowRateEnabled": false,
         "stableDebtToken": "0x9Ef6D76740713C674A6e4f38B863E62D10965053",
@@ -529,7 +529,7 @@
         "oracle": "0x51597f405303C4377E36123cBc172b13269EA163",
         "oracleDecimals": 8,
         "oracleDescription": "USDC / USD",
-        "oracleLatestAnswer": 100007748,
+        "oracleLatestAnswer": 100016841,
         "reserveFactor": 1000,
         "stableBorrowRateEnabled": false,
         "stableDebtToken": "0xCcC260D9778F900eAd566Fa2E1D622E667677653",
@@ -572,7 +572,7 @@
         "oracle": "0x0567F2323251f0Aab15c8dFb1967E4e8A7D42aeE",
         "oracleDecimals": 8,
         "oracleDescription": "BNB / USD",
-        "oracleLatestAnswer": 30934149715,
+        "oracleLatestAnswer": 31122958865,
         "reserveFactor": 2000,
         "stableBorrowRateEnabled": false,
         "stableDebtToken": "0x5cc46d2b1103aB23CFD63eF8631480bbf4eB40FE",
