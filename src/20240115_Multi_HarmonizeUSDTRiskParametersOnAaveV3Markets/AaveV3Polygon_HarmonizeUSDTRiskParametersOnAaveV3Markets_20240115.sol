@@ -27,7 +27,7 @@ contract AaveV3Polygon_HarmonizeUSDTRiskParametersOnAaveV3Markets_20240115 is Aa
       ltv: 77_00,
       liqThreshold: EngineFlags.KEEP_CURRENT,
       liqBonus: EngineFlags.KEEP_CURRENT,
-      debtCeiling: EngineFlags.KEEP_CURRENT,
+      debtCeiling: 0,
       liqProtocolFee: EngineFlags.KEEP_CURRENT
     });
 

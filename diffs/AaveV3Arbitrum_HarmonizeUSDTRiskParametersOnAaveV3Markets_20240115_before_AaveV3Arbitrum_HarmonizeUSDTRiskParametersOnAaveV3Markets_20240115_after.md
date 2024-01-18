@@ -6,6 +6,7 @@
 
 | description | value before | value after |
 | --- | --- | --- |
+| debtCeiling | 2,500,000 $ | 0 $ |
 | ltv | 75 % | 77 % |
 
 
@@ -15,6 +16,10 @@
 {
   "reserves": {
     "0xFd086bC7CD5C481DCC9C85ebE478A1C0b69FCbb9": {
+      "debtCeiling": {
+        "from": 250000000,
+        "to": 0
+      },
       "ltv": {
         "from": 7500,
         "to": 7700

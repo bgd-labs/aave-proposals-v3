@@ -27,6 +27,12 @@ The proposal sets the LT/LTV of USDT on all deployments at 80/77, matching that 
 | USDt   | Avalanche | 81%                           | 80%                       | 75%         | 77%     |
 | m.USDT | Metis     | 80%                           | 80%                       | 75%         | 77%     |
 
+This proposal will also remove USDT from isolation mode on the following markets (please notes that once an asset is removed from isolation mode it can't be added back again):
+
+- Optimism
+- Polygon
+- Arbitrum
+
 ## References
 
 - Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240115_Multi_HarmonizeUSDTRiskParametersOnAaveV3Markets/AaveV3Ethereum_HarmonizeUSDTRiskParametersOnAaveV3Markets_20240115.sol), [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240115_Multi_HarmonizeUSDTRiskParametersOnAaveV3Markets/AaveV3Polygon_HarmonizeUSDTRiskParametersOnAaveV3Markets_20240115.sol), [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240115_Multi_HarmonizeUSDTRiskParametersOnAaveV3Markets/AaveV3Avalanche_HarmonizeUSDTRiskParametersOnAaveV3Markets_20240115.sol), [AaveV3Optimism](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240115_Multi_HarmonizeUSDTRiskParametersOnAaveV3Markets/AaveV3Optimism_HarmonizeUSDTRiskParametersOnAaveV3Markets_20240115.sol), [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240115_Multi_HarmonizeUSDTRiskParametersOnAaveV3Markets/AaveV3Arbitrum_HarmonizeUSDTRiskParametersOnAaveV3Markets_20240115.sol), [AaveV3Metis](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240115_Multi_HarmonizeUSDTRiskParametersOnAaveV3Markets/AaveV3Metis_HarmonizeUSDTRiskParametersOnAaveV3Markets_20240115.sol)
