@@ -12,6 +12,9 @@ Deprecate the `stkABPT` Balancer v1 safety module in favor of a new `AAVE_wstETH
 
 The ABPT(AAVE/WETH) pool was created in January 2021, so it runs on the Balancer v1 system.
 The community decided that an upgrade to Balancer v2 and a yield optimized AAVE/wstETH pool.
+
+## Specification
+
 Therefore this proposal:
 
 - Upgrades the existing `stkABPT` to allow immediate withdrawal without cooldown and disable slashing.
