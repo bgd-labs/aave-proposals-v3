@@ -69,50 +69,50 @@ contract AaveV3Polygon_TreasuryManagementGSMFundingRWAStrategyPreparationsPart1_
     AaveV2Polygon.POOL.withdraw(
       AaveV3PolygonAssets.USDC_UNDERLYING,
       type(uint256).max,
-      address(this)
+      address(bridge)
     );
 
     AaveV2Polygon.POOL.withdraw(
       AaveV3PolygonAssets.USDT_UNDERLYING,
       type(uint256).max,
-      address(this)
+      address(bridge)
     );
 
     AaveV2Polygon.POOL.withdraw(
       AaveV3PolygonAssets.DAI_UNDERLYING,
       type(uint256).max,
-      address(this)
+      address(bridge)
     );
 
     AaveV3Polygon.POOL.withdraw(
       AaveV3PolygonAssets.USDC_UNDERLYING,
       type(uint256).max,
-      address(this)
+      address(bridge)
     );
 
     AaveV3Polygon.POOL.withdraw(
       AaveV3PolygonAssets.USDT_UNDERLYING,
       type(uint256).max,
-      address(this)
+      address(bridge)
     );
 
     AaveV3Polygon.POOL.withdraw(
       AaveV3PolygonAssets.DAI_UNDERLYING,
       AAVE_V3_DAI_TO_WITHDRAW,
-      address(this)
+      address(bridge)
     );
 
     bridge.bridge(
       AaveV2PolygonAssets.USDC_UNDERLYING,
-      IERC20(AaveV3PolygonAssets.USDC_UNDERLYING).balanceOf(address(AaveV3Polygon.COLLECTOR))
+      IERC20(AaveV3PolygonAssets.USDC_UNDERLYING).balanceOf(address(bridge))
     );
     bridge.bridge(
       AaveV2PolygonAssets.DAI_UNDERLYING,
-      IERC20(AaveV3PolygonAssets.DAI_UNDERLYING).balanceOf(address(AaveV3Polygon.COLLECTOR))
+      IERC20(AaveV3PolygonAssets.DAI_UNDERLYING).balanceOf(address(bridge))
     );
     bridge.bridge(
       AaveV2PolygonAssets.USDT_UNDERLYING,
-      IERC20(AaveV3PolygonAssets.USDT_UNDERLYING).balanceOf(address(AaveV3Polygon.COLLECTOR))
+      IERC20(AaveV3PolygonAssets.USDT_UNDERLYING).balanceOf(address(bridge))
     );
   }
 }

@@ -52,14 +52,14 @@ contract AaveV3Polygon_TreasuryManagementGSMFundingRWAStrategyPreparationsPart1_
     );
     assertGt(balanceADaiV3Before, 0);
 
-    vm.expectEmit(true, true, false, false, MiscPolygon.AAVE_POL_ETH_BRIDGE);
-    emit Bridge(AaveV3PolygonAssets.USDC_UNDERLYING, 1);
+    vm.expectEmit(true, true, true, true, MiscPolygon.AAVE_POL_ETH_BRIDGE);
+    emit Bridge(AaveV3PolygonAssets.USDC_UNDERLYING, 2901234552153); // $2,901,234.552153
 
-    vm.expectEmit(true, true, false, false, MiscPolygon.AAVE_POL_ETH_BRIDGE);
-    emit Bridge(AaveV3PolygonAssets.USDT_UNDERLYING, 1);
+    vm.expectEmit(true, true, true, true, MiscPolygon.AAVE_POL_ETH_BRIDGE);
+    emit Bridge(AaveV3PolygonAssets.DAI_UNDERLYING, 1070165430067882417587945); // $1,070,165.430067882417587945
 
-    vm.expectEmit(true, true, false, false, MiscPolygon.AAVE_POL_ETH_BRIDGE);
-    emit Bridge(AaveV3PolygonAssets.DAI_UNDERLYING, 1);
+    vm.expectEmit(true, true, true, true, MiscPolygon.AAVE_POL_ETH_BRIDGE);
+    emit Bridge(AaveV3PolygonAssets.USDT_UNDERLYING, 855125082825); // $855,125.082825
 
     executePayload(vm, address(proposal));
 
