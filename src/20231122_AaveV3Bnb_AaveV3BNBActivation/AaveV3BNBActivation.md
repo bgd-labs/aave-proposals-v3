@@ -6,7 +6,9 @@ discussions: "https://governance.aave.com/t/arfc-aave-v3-deployment-on-bnb-chain
 
 ## Simple Summary
 
-This proposal allows the Aave governance to activate the Aave V3 Bnb pool (3.0.2) by completing all the initial setup and listing CAKE, WBNB, BTCB, ETH, USDC and USDT as suggested by the service providers (ACI, Gauntlet and Chaos Labs) on the [governance forum](https://governance.aave.com/t/arfc-aave-v3-deployment-on-bnb-chain/12609/). All the Aave Bnb V3 addresses can be found in the [aave-address-book](https://github.com/bgd-labs/aave-address-book/blob/main/src/AaveV3BNB.sol).
+This proposal allows the Aave governance to activate the Aave V3 Bnb pool (3.0.2) by completing all the initial setup and listing CAKE, WBNB, BTCB, ETH, USDC and USDT as suggested by the risk service providers engaged with the DAO (Gauntlet and Chaos Labs) on the [governance forum](https://governance.aave.com/t/arfc-aave-v3-deployment-on-bnb-chain/12609/).
+
+All the Aave Bnb V3 addresses can be found in the [aave-address-book](https://github.com/bgd-labs/aave-address-book/blob/main/src/AaveV3BNB.sol).
 
 ## Motivation
 
@@ -14,7 +16,7 @@ All the governance procedures for the expansion of Aave v3 to Bnb have been fini
 
 - Positive signaling and approval regarding the expansion on the [governance forum](https://governance.aave.com/t/temp-check-aave-v3-deployment-on-bnb-chain/12412/), [temp check snapshot](https://snapshot.org/#/aave.eth/proposal/0x4579b562a4ea07c52871f724a8baf156514a97384e9427156d04fb6f0ae91515), and [final snapshot](https://snapshot.org/#/aave.eth/proposal/0x60d44523a63e022fcca2f54aa3b84977e49fec0bdf15c9a298122422f6dd5902).
 - Positive technical evaluation done by BGD Labs of the Bnb chain network, as described in the [forum](https://governance.aave.com/t/bgd-aave-bnb-chain-infrastructure-technical-evaluation/13752) in detail.
-- Positive risk analysis and assets/parameters recommendation by the service providers ACI, Gauntlet and Chaos Labs as commented on the forum.
+- Positive risk analysis and assets/parameters recommendation by the service providers Gauntlet and Chaos Labs.
 
 ## Specification
 
