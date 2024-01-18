@@ -33,7 +33,7 @@ contract AaveV3Bnb_AaveV3BNBActivation_20231122 is AaveV3PayloadBnb {
   address public constant USDT = 0x55d398326f99059fF775485246999027B3197955;
   uint256 public constant USDT_SEED_AMOUNT = 5e18;
 
-  address public constant POOL_IMPL = 0xe6905378F7F595704368f2295938cb844a5b7eED;
+  address public constant POOL_IMPL = 0xE23AE099E2EF2a75183d06Af93c8EE0B5f1B546D;
 
   function _postExecute() internal override {
     AaveV3BNB.ACL_MANAGER.addPoolAdmin(MiscBNB.PROTOCOL_GUARDIAN);
