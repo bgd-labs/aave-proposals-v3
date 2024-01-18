@@ -73,8 +73,8 @@ As a matter of caution, the `POOL_ADMIN` role will be given for the first weeks 
 
 ## References
 
-- Implementation: [AaveV3BNB](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231122_AaveV3Bnb_AaveV3BNBActivation/AaveV3Bnb_AaveV3BNBActivation_20231122.sol)
-- Tests: [AaveV3BNB](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231122_AaveV3Bnb_AaveV3BNBActivation/AaveV3Bnb_AaveV3BNBActivation_20231122.t.sol)
+- Implementation: [AaveV3BNB](https://github.com/bgd-labs/aave-proposals-v3/blob/ba412016e39267adaea2941e4f5a678e6a47ab46/src/20231122_AaveV3Bnb_AaveV3BNBActivation/AaveV3Bnb_AaveV3BNBActivation_20231122.sol)
+- Tests: [AaveV3BNB](https://github.com/bgd-labs/aave-proposals-v3/blob/ba412016e39267adaea2941e4f5a678e6a47ab46/src/20231122_AaveV3Bnb_AaveV3BNBActivation/AaveV3Bnb_AaveV3BNBActivation_20231122.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x60d44523a63e022fcca2f54aa3b84977e49fec0bdf15c9a298122422f6dd5902)
 - [Discussion](https://governance.aave.com/t/arfc-aave-v3-deployment-on-bnb-chain/12609/)
 
