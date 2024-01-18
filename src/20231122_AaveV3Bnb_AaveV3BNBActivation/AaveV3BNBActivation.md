@@ -23,6 +23,7 @@ The proposal will do the following:
 - Set risk steward and freezing steward as the risk admin by executing `ACL_MANAGER.addRiskAdmin()`.
 - Set the guardian address as the pool admin by executing `ACL_MANAGER.addPoolAdmin()`.
   This is following the standard procedure of keeping pool admin on the Aave Guardian during the bootstrap period, for security.
+- Set the new pool impl by executing `ADDRESSES_PROVIDER.setPoolImpl()` to align with the current implementation on all networks.
 - List the following assets on Aave V3 Bnb: CAKE, WBNB, BTCB, ETH, USDC and USDT.
 
 The table below illustrates the initial suggested risk parameters for each asset:
