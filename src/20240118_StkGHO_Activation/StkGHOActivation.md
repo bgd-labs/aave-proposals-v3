@@ -1,6 +1,6 @@
 ---
-title: "Polygon V2 Reserve Factor Updates"
-author: "karpatkey_TokenLogic"
+title: "GHO Safety Module Initialization"
+author: "Aave_BGDLabs_ACI"
 discussions: "https://governance.aave.com/t/arfc-upgrade-safety-module-with-stkgho/15635"
 ---
 
