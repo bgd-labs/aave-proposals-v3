@@ -20,6 +20,14 @@ interface IGhoToken {
   function getFacilitatorsList() external view returns (address[] memory);
 }
 
+interface IAccessControl {
+  function hasRole(bytes32 role, address account) external view returns (bool);
+}
+
+interface IPoolAddressesProvider {
+  function getPriceOracle() external view returns (address);
+}
+
 interface IGsm {
   function getFeeStrategy() external view returns (address);
 
@@ -30,6 +38,8 @@ interface IGsm {
   function getIsSeized() external view returns (bool);
 
   function UNDERLYING_ASSET() external view returns (address);
+
+  function SWAP_FREEZER_ROLE() external view returns (bytes32);
 }
 
 interface IFeeStrategy {
@@ -44,6 +54,14 @@ interface IOracleSwapFreezer {
   function getFreezeBound() external view returns (uint128, uint128);
 
   function getUnfreezeBound() external view returns (uint128, uint128);
+
+  function performUpkeep(bytes calldata) external;
+
+  function ADDRESS_PROVIDER() external view returns (IPoolAddressesProvider);
+}
+
+interface IPriceOracle {
+  function getAssetPrice(address asset) external view returns (uint256);
 }
 
 /**
@@ -126,6 +144,155 @@ contract Gho_GHOStabilityModule_20240119_Test is ProtocolV3TestBase {
       IOracleSwapFreezer(proposal.GSM_USDT_ORACLE_SWAP_FREEZER()),
       gsmUsdtConfig
     );
+  }
+
+  function test_OracleSwapFreezers() public {
+    assertEq(
+      IAccessControl(proposal.GSM_USDC()).hasRole(
+        IGsm(proposal.GSM_USDC()).SWAP_FREEZER_ROLE(),
+        proposal.GSM_USDC_ORACLE_SWAP_FREEZER()
+      ),
+      false
+    );
+    assertEq(
+      IAccessControl(proposal.GSM_USDT()).hasRole(
+        IGsm(proposal.GSM_USDT()).SWAP_FREEZER_ROLE(),
+        proposal.GSM_USDT_ORACLE_SWAP_FREEZER()
+      ),
+      false
+    );
+    (uint128 usdcFreezeLowerBound, ) = IOracleSwapFreezer(proposal.GSM_USDC_ORACLE_SWAP_FREEZER())
+      .getFreezeBound();
+    (uint128 usdtFreezeLowerBound, ) = IOracleSwapFreezer(proposal.GSM_USDT_ORACLE_SWAP_FREEZER())
+      .getFreezeBound();
+    (uint128 usdcUnfreezeLowerBound, ) = IOracleSwapFreezer(proposal.GSM_USDC_ORACLE_SWAP_FREEZER())
+      .getUnfreezeBound();
+    (uint128 usdtUnfreezeLowerBound, ) = IOracleSwapFreezer(proposal.GSM_USDT_ORACLE_SWAP_FREEZER())
+      .getUnfreezeBound();
+
+    vm.mockCall(
+      IOracleSwapFreezer(proposal.GSM_USDC_ORACLE_SWAP_FREEZER())
+        .ADDRESS_PROVIDER()
+        .getPriceOracle(),
+      abi.encodeWithSelector(
+        IPriceOracle.getAssetPrice.selector,
+        AaveV3EthereumAssets.USDC_UNDERLYING
+      ),
+      abi.encode(usdcFreezeLowerBound - 1)
+    );
+    IOracleSwapFreezer(proposal.GSM_USDC_ORACLE_SWAP_FREEZER()).performUpkeep(bytes(''));
+    assertEq(IGsm(proposal.GSM_USDC()).getIsFrozen(), false);
+
+    vm.mockCall(
+      IOracleSwapFreezer(proposal.GSM_USDT_ORACLE_SWAP_FREEZER())
+        .ADDRESS_PROVIDER()
+        .getPriceOracle(),
+      abi.encodeWithSelector(
+        IPriceOracle.getAssetPrice.selector,
+        AaveV3EthereumAssets.USDT_UNDERLYING
+      ),
+      abi.encode(usdtFreezeLowerBound - 1)
+    );
+    IOracleSwapFreezer(proposal.GSM_USDT_ORACLE_SWAP_FREEZER()).performUpkeep(bytes(''));
+    assertEq(IGsm(proposal.GSM_USDT()).getIsFrozen(), false);
+
+    vm.mockCall(
+      IOracleSwapFreezer(proposal.GSM_USDC_ORACLE_SWAP_FREEZER())
+        .ADDRESS_PROVIDER()
+        .getPriceOracle(),
+      abi.encodeWithSelector(
+        IPriceOracle.getAssetPrice.selector,
+        AaveV3EthereumAssets.USDC_UNDERLYING
+      ),
+      abi.encode(usdcFreezeLowerBound + 1)
+    );
+    vm.mockCall(
+      IOracleSwapFreezer(proposal.GSM_USDT_ORACLE_SWAP_FREEZER())
+        .ADDRESS_PROVIDER()
+        .getPriceOracle(),
+      abi.encodeWithSelector(
+        IPriceOracle.getAssetPrice.selector,
+        AaveV3EthereumAssets.USDT_UNDERLYING
+      ),
+      abi.encode(usdtFreezeLowerBound + 1)
+    );
+    executePayload(vm, address(proposal));
+    assertEq(
+      IAccessControl(proposal.GSM_USDC()).hasRole(
+        IGsm(proposal.GSM_USDC()).SWAP_FREEZER_ROLE(),
+        proposal.GSM_USDC_ORACLE_SWAP_FREEZER()
+      ),
+      true
+    );
+    assertEq(
+      IAccessControl(proposal.GSM_USDT()).hasRole(
+        IGsm(proposal.GSM_USDT()).SWAP_FREEZER_ROLE(),
+        proposal.GSM_USDT_ORACLE_SWAP_FREEZER()
+      ),
+      true
+    );
+    (bytes32[] memory reads1, bytes32[] memory writes1) = vm.accesses(
+      proposal.GSM_USDC_ORACLE_SWAP_FREEZER()
+    );
+    (bytes32[] memory reads2, bytes32[] memory writes2) = vm.accesses(
+      proposal.GSM_USDT_ORACLE_SWAP_FREEZER()
+    );
+    IOracleSwapFreezer(proposal.GSM_USDC_ORACLE_SWAP_FREEZER()).performUpkeep(bytes(''));
+    IOracleSwapFreezer(proposal.GSM_USDT_ORACLE_SWAP_FREEZER()).performUpkeep(bytes(''));
+    assertEq(writes1.length, 0);
+    assertEq(writes2.length, 0);
+
+    vm.mockCall(
+      IOracleSwapFreezer(proposal.GSM_USDC_ORACLE_SWAP_FREEZER())
+        .ADDRESS_PROVIDER()
+        .getPriceOracle(),
+      abi.encodeWithSelector(
+        IPriceOracle.getAssetPrice.selector,
+        AaveV3EthereumAssets.USDC_UNDERLYING
+      ),
+      abi.encode(usdcFreezeLowerBound - 1)
+    );
+    IOracleSwapFreezer(proposal.GSM_USDC_ORACLE_SWAP_FREEZER()).performUpkeep(bytes(''));
+    assertEq(IGsm(proposal.GSM_USDC()).getIsFrozen(), true);
+
+    vm.mockCall(
+      IOracleSwapFreezer(proposal.GSM_USDT_ORACLE_SWAP_FREEZER())
+        .ADDRESS_PROVIDER()
+        .getPriceOracle(),
+      abi.encodeWithSelector(
+        IPriceOracle.getAssetPrice.selector,
+        AaveV3EthereumAssets.USDT_UNDERLYING
+      ),
+      abi.encode(usdtFreezeLowerBound - 1)
+    );
+    IOracleSwapFreezer(proposal.GSM_USDT_ORACLE_SWAP_FREEZER()).performUpkeep(bytes(''));
+    assertEq(IGsm(proposal.GSM_USDT()).getIsFrozen(), true);
+
+    vm.mockCall(
+      IOracleSwapFreezer(proposal.GSM_USDC_ORACLE_SWAP_FREEZER())
+        .ADDRESS_PROVIDER()
+        .getPriceOracle(),
+      abi.encodeWithSelector(
+        IPriceOracle.getAssetPrice.selector,
+        AaveV3EthereumAssets.USDC_UNDERLYING
+      ),
+      abi.encode(usdcUnfreezeLowerBound + 1)
+    );
+    IOracleSwapFreezer(proposal.GSM_USDC_ORACLE_SWAP_FREEZER()).performUpkeep(bytes(''));
+    assertEq(IGsm(proposal.GSM_USDC()).getIsFrozen(), false);
+
+    vm.mockCall(
+      IOracleSwapFreezer(proposal.GSM_USDT_ORACLE_SWAP_FREEZER())
+        .ADDRESS_PROVIDER()
+        .getPriceOracle(),
+      abi.encodeWithSelector(
+        IPriceOracle.getAssetPrice.selector,
+        AaveV3EthereumAssets.USDT_UNDERLYING
+      ),
+      abi.encode(usdtUnfreezeLowerBound + 1)
+    );
+    IOracleSwapFreezer(proposal.GSM_USDT_ORACLE_SWAP_FREEZER()).performUpkeep(bytes(''));
+    assertEq(IGsm(proposal.GSM_USDT()).getIsFrozen(), false);
   }
 
   struct GsmConfig {
