@@ -3,19 +3,18 @@ pragma solidity ^0.8.0;
 
 import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aave-helpers/GovV3Helpers.sol';
 import {EthereumScript} from 'aave-helpers/ScriptUtils.sol';
-import {StkGHO_Activation_20240118} from './StkGHO_Activation_20240118.sol';
-import {AaveSafetyModule} from 'aave-address-book/AaveSafetyModule.sol';
+import {AaveV3Ethereum_StkGHOActivation_20240119} from './AaveV3Ethereum_StkGHOActivation_20240119.sol';
 
 /**
  * @dev Deploy Ethereum
- * deploy-command: make deploy-ledger contract=src/20240118_StkGHO_Activation/StkGHO_Activation_20240118.s.sol:DeployEthereum chain=mainnet
- * verify-command: npx catapulta-verify -b broadcast/20240118_StkGHO_Activation.s.sol/137/run-latest.json
+ * deploy-command: make deploy-ledger contract=src/20240119_AaveV3Ethereum_StkGHOActivation/StkGHOActivation_20240119.s.sol:DeployEthereum chain=mainnet
+ * verify-command: npx catapulta-verify -b broadcast/StkGHOActivation_20240119.s.sol/1/run-latest.json
  */
 contract DeployEthereum is EthereumScript {
   function run() external broadcast {
     // deploy payloads
     address payload0 = GovV3Helpers.deployDeterministic(
-      type(StkGHO_Activation_20240118).creationCode
+      type(AaveV3Ethereum_StkGHOActivation_20240119).creationCode
     );
 
     // compose action
@@ -30,7 +29,7 @@ contract DeployEthereum is EthereumScript {
 
 /**
  * @dev Create Proposal
- * command: make deploy-ledger contract=src/20240118_StkGHO_Activation/StkGHO_Activation_20240118.s.sol:CreateProposal chain=mainnet
+ * command: make deploy-ledger contract=src/20240119_AaveV3Ethereum_StkGHOActivation/StkGHOActivation_20240119.s.sol:CreateProposal chain=mainnet
  */
 contract CreateProposal is EthereumScript {
   function run() external {
@@ -40,7 +39,9 @@ contract CreateProposal is EthereumScript {
     // compose actions for validation
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsEthereum = new IPayloadsControllerCore.ExecutionAction[](1);
-    actionsEthereum[0] = GovV3Helpers.buildAction(type(StkGHO_Activation_20240118).creationCode);
+    actionsEthereum[0] = GovV3Helpers.buildAction(
+      type(AaveV3Ethereum_StkGHOActivation_20240119).creationCode
+    );
     payloads[0] = GovV3Helpers.buildMainnetPayload(vm, actionsEthereum);
 
     // create proposal
@@ -48,7 +49,10 @@ contract CreateProposal is EthereumScript {
     GovV3Helpers.createProposal(
       vm,
       payloads,
-      GovV3Helpers.ipfsHashFile(vm, 'src/StkGHO_Activation_20240118/StkGHOActivation.md')
+      GovV3Helpers.ipfsHashFile(
+        vm,
+        'src/20240119_AaveV3Ethereum_StkGHOActivation/StkGHOActivation.md'
+      )
     );
   }
 }

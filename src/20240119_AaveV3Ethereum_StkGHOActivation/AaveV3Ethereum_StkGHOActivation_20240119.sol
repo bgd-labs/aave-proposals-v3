@@ -9,11 +9,11 @@ import {IStakeToken} from './IStakeToken.sol';
 
 /**
  * @title StkGHO Activation
- * @author ACI & Aave Labs (@aave)
+ * @author Aave Labs & ACI
  * - Snapshot: https://snapshot.org/#/aave.eth/proposal/0x4bc99a842adab6cdd8c7d5c7a787ee4c0056be554fde0d008d53b45b3e795065
  * - Discussion: https://governance.aave.com/t/arfc-upgrade-safety-module-with-stkgho/15635
  */
-contract StkGHO_Activation_20240118 is IProposalGenericExecutor {
+contract AaveV3Ethereum_StkGHOActivation_20240119 is IProposalGenericExecutor {
   uint128 public constant AAVE_EMISSION_PER_SECOND = uint128(50e18) / 1 days; // 50 AAVE per day
   uint256 public constant DISTRIBUTION_DURATION = 90 days; // 3 months
 
