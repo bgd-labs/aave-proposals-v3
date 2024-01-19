@@ -9,7 +9,7 @@ import {IStakeToken} from './IStakeToken.sol';
 
 /**
  * @title StkGHO Activation
- * @author the3d.eth
+ * @author ACI & Aave Labs (@aave)
  * - Snapshot: https://snapshot.org/#/aave.eth/proposal/0x4bc99a842adab6cdd8c7d5c7a787ee4c0056be554fde0d008d53b45b3e795065
  * - Discussion: https://governance.aave.com/t/arfc-upgrade-safety-module-with-stkgho/15635
  */

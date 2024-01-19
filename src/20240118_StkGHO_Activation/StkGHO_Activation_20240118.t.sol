@@ -1,32 +1,21 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {ProtocolV2TestBase, ReserveConfig} from 'aave-helpers/ProtocolV2TestBase.sol';
-import {GovV3Helpers} from 'aave-helpers/GovV3Helpers.sol';
-import {AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
 import 'forge-std/console.sol';
-import {StkGHO_Activation_20240118} from './StkGHO_Activation_20240118.sol';
-import {IStakeToken} from './IStakeToken.sol';
-
+import {ProtocolV3TestBase} from 'aave-helpers/ProtocolV3TestBase.sol';
+import {GovV3Helpers} from 'aave-helpers/GovV3Helpers.sol';
+import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
-import {AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
-import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
-import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {AaveSafetyModule} from 'aave-address-book/AaveSafetyModule.sol';
+import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
+import {IStakeToken} from './IStakeToken.sol';
+import {StkGHO_Activation_20240118} from './StkGHO_Activation_20240118.sol';
 
 /**
  * @dev Test for StkGHO_Activation_20240118
  * command: make test-contract filter=StkGHO_Activation_20240118
  */
-contract StkGHO_Activation_20240118_Test is ProtocolV2TestBase {
-  uint128 public constant AAVE_EMISSION_PER_SECOND = uint128(50e18) / 1 days; // 50 AAVE per day
-  uint256 public constant DISTRIBUTION_DURATION = 90 days; // 3 months
-
-  struct Changes {
-    address asset;
-    uint256 reserveFactor;
-  }
-
+contract StkGHO_Activation_20240118_Test is ProtocolV3TestBase {
   StkGHO_Activation_20240118 internal proposal;
 
   function setUp() public {
@@ -51,11 +40,11 @@ contract StkGHO_Activation_20240118_Test is ProtocolV2TestBase {
     ) = IStakeToken(AaveSafetyModule.STK_GHO).assets(AaveSafetyModule.STK_GHO);
 
     // NOTE index is still 0
-    assertEq((emissionPerSecondBefore + emissionPerSecondAfter), AAVE_EMISSION_PER_SECOND);
+    assertEq(emissionPerSecondBefore + emissionPerSecondAfter, proposal.AAVE_EMISSION_PER_SECOND());
     assertEq(lastUpdateTimestampAfter, block.timestamp);
   }
 
-  function test_EcosystemCorrectAllowance() public {
+  function test_ecosystemCorrectAllowance() public {
     uint256 allowanceBefore = IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING).allowance(
       MiscEthereum.ECOSYSTEM_RESERVE,
       AaveSafetyModule.STK_GHO
@@ -68,7 +57,10 @@ contract StkGHO_Activation_20240118_Test is ProtocolV2TestBase {
       AaveSafetyModule.STK_GHO
     );
 
-    assertEq((allowanceAfter + allowanceBefore), AAVE_EMISSION_PER_SECOND * DISTRIBUTION_DURATION);
+    assertEq(
+      allowanceAfter - allowanceBefore,
+      proposal.AAVE_EMISSION_PER_SECOND() * proposal.DISTRIBUTION_DURATION()
+    );
   }
 
   function test_emission() public {

@@ -6,7 +6,7 @@ discussions: "https://governance.aave.com/t/arfc-upgrade-safety-module-with-stkg
 
 ## Simple Summary
 
-This AIP activates the new GHO based Safety module by initiating the emission schedule approved by the community during the vote 
+This AIP activates the new GHO based Safety module by initiating the emission schedule approved by the community during the vote
 https://snapshot.org/#/aave.eth/proposal/0x4bc99a842adab6cdd8c7d5c7a787ee4c0056be554fde0d008d53b45b3e795065
 
 ## Motivation
@@ -26,7 +26,7 @@ Duration: Three months
 
 ## Disclaimer
 
-Aave Labs, BGD Labs and ACI receive no compensation beyond Aave protocol for the creation of this proposal. BGD Labs and ACI are both delegates within the Aave ecosystem.
+Aave Labs, and ACI receive no compensation beyond Aave protocol for the creation of this proposal. ACI is delegate within the Aave ecosystem.
 
 ## Copyright
 
