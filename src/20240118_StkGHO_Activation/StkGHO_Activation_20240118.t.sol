@@ -41,7 +41,7 @@ contract StkGHO_Activation_20240118_Test is ProtocolV2TestBase {
    */
   function test_defaultProposalExecution() public {
     (uint128 emissionPerSecondBefore, , ) = IStakeToken(STKGHO_PROXY).assets(
-      AaveV3Ethereum.GHO_TOKEN
+      AaveV3EthereumAssets.GHO_UNDERLYING
     );
 
     GovV3Helpers.executePayload(vm, address(proposal));
@@ -49,7 +49,7 @@ contract StkGHO_Activation_20240118_Test is ProtocolV2TestBase {
       uint128 emissionPerSecondAfter,
       uint128 lastUpdateTimestampAfter, // uint256 indexAfter
 
-    ) = IStakeToken(STKGHO_PROXY).assets(AaveV3Ethereum.GHO_TOKEN);
+    ) = IStakeToken(STKGHO_PROXY).assets(AaveV3EthereumAssets.GHO_UNDERLYING);
 
     // NOTE index is still 0
     assertEq((emissionPerSecondBefore + emissionPerSecondAfter), STKGHO_EMISSION_PER_SECOND);
