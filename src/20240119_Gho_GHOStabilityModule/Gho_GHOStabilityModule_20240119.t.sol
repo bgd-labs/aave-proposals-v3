@@ -54,7 +54,7 @@ contract Gho_GHOStabilityModule_20240119_Test is ProtocolV3TestBase {
   Gho_GHOStabilityModule_20240119 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 19037431);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 19041084);
     proposal = new Gho_GHOStabilityModule_20240119();
   }
 
