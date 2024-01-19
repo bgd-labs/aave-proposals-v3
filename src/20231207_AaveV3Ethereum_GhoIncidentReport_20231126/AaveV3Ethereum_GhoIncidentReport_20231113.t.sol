@@ -28,7 +28,7 @@ contract AaveV3Ethereum_GhoIncidentReport_20231113_Test is ProtocolV3TestBase {
   function test_defaultProposalExecution() public {
     // increase GHO borrow cap so test borrows can succeed
     vm.prank(AaveV3Ethereum.CAPS_PLUS_RISK_STEWARD);
-    AaveV3Ethereum.POOL_CONFIGURATOR.setBorrowCap(AaveV3Ethereum.GHO_TOKEN, 36_000_000);
+    AaveV3Ethereum.POOL_CONFIGURATOR.setBorrowCap(AaveV3EthereumAssets.GHO_UNDERLYING, 36_000_000);
     defaultTest(
       'AaveV3Ethereum_GhoIncidentReport_20231113',
       AaveV3Ethereum.POOL,
