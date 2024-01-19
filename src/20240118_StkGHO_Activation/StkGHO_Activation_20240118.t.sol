@@ -19,9 +19,8 @@ import {AaveSafetyModule} from 'aave-address-book/AaveSafetyModule.sol';
  * command: make test-contract filter=StkGHO_Activation_20240118
  */
 contract StkGHO_Activation_20240118_Test is ProtocolV2TestBase {
-  uint256 public constant STKGHO_EMISSION_PER_SECOND = 578703703703704; // 50 AAVE/day
-  uint256 public constant DISTRIBUTION_DURATION = 3 * 30 * 86400; // three months
-  address public constant STKGHO_PROXY = 0x1a88Df1cFe15Af22B3c4c783D4e6F7F9e0C1885d; // AaveSafetyModule.STK_GHO;
+  uint128 public constant AAVE_EMISSION_PER_SECOND = uint128(50e18) / 1 days; // 50 AAVE per day
+  uint256 public constant DISTRIBUTION_DURATION = 90 days; // 3 months
 
   struct Changes {
     address asset;
@@ -40,7 +39,7 @@ contract StkGHO_Activation_20240118_Test is ProtocolV2TestBase {
    * @dev executes the generic test suite including e2e and config snapshots
    */
   function test_defaultProposalExecution() public {
-    (uint128 emissionPerSecondBefore, , ) = IStakeToken(STKGHO_PROXY).assets(
+    (uint128 emissionPerSecondBefore, , ) = IStakeToken(AaveSafetyModule.STK_GHO).assets(
       AaveV3EthereumAssets.GHO_UNDERLYING
     );
 
@@ -49,29 +48,54 @@ contract StkGHO_Activation_20240118_Test is ProtocolV2TestBase {
       uint128 emissionPerSecondAfter,
       uint128 lastUpdateTimestampAfter, // uint256 indexAfter
 
-    ) = IStakeToken(STKGHO_PROXY).assets(AaveV3EthereumAssets.GHO_UNDERLYING);
+    ) = IStakeToken(AaveSafetyModule.STK_GHO).assets(AaveSafetyModule.STK_GHO);
 
     // NOTE index is still 0
-    assertEq((emissionPerSecondBefore + emissionPerSecondAfter), STKGHO_EMISSION_PER_SECOND);
+    assertEq((emissionPerSecondBefore + emissionPerSecondAfter), AAVE_EMISSION_PER_SECOND);
     assertEq(lastUpdateTimestampAfter, block.timestamp);
   }
 
   function test_EcosystemCorrectAllowance() public {
     uint256 allowanceBefore = IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING).allowance(
       MiscEthereum.ECOSYSTEM_RESERVE,
-      STKGHO_PROXY
+      AaveSafetyModule.STK_GHO
     );
 
     GovV3Helpers.executePayload(vm, address(proposal));
 
     uint256 allowanceAfter = IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING).allowance(
       MiscEthereum.ECOSYSTEM_RESERVE,
-      STKGHO_PROXY
+      AaveSafetyModule.STK_GHO
     );
 
-    assertEq(
-      (allowanceAfter + allowanceBefore),
-      STKGHO_EMISSION_PER_SECOND * DISTRIBUTION_DURATION
+    assertEq((allowanceAfter + allowanceBefore), AAVE_EMISSION_PER_SECOND * DISTRIBUTION_DURATION);
+  }
+
+  function test_emission() public {
+    address prankAddress = 0xF5Fb27b912D987B5b6e02A1B1BE0C1F0740E2c6f;
+
+    uint256 confidenceMargin = 1e6; // margin of error due to rounding
+    uint256 rewardsPerDay = 50e18;
+
+    GovV3Helpers.executePayload(vm, address(proposal));
+
+    // impersonating address with AAVE balance
+    vm.prank(prankAddress);
+    IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).approve(AaveSafetyModule.STK_GHO, 1e18);
+
+    vm.prank(prankAddress);
+    IStakeToken(AaveSafetyModule.STK_GHO).stake(prankAddress, 1e18);
+
+    vm.warp(block.timestamp + 1 days);
+
+    vm.prank(prankAddress);
+    uint256 rewardsBalance = IStakeToken(AaveSafetyModule.STK_GHO).getTotalRewardsBalance(
+      prankAddress
+    );
+
+    assertTrue(
+      rewardsBalance >= (rewardsPerDay - confidenceMargin) &&
+        rewardsBalance <= (rewardsPerDay + confidenceMargin)
     );
   }
 }
