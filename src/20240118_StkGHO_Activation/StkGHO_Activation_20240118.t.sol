@@ -6,8 +6,8 @@ import {GovV3Helpers} from 'aave-helpers/GovV3Helpers.sol';
 import {AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
 import 'forge-std/console.sol';
 import {StkGHO_Activation_20240118} from './StkGHO_Activation_20240118.sol';
-import {IAggregatedStakeToken} from 'stake-token/src/contracts/IAggregatedStakeToken.sol';
-import {IStakeToken} from 'stake-token/src/contracts/IStakeToken.sol';
+import {IStakeToken} from './IStakeToken.sol';
+
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
@@ -40,7 +40,7 @@ contract StkGHO_Activation_20240118_Test is ProtocolV2TestBase {
    * @dev executes the generic test suite including e2e and config snapshots
    */
   function test_defaultProposalExecution() public {
-    (uint128 emissionPerSecondBefore, , ) = IAggregatedStakeToken(STKGHO_PROXY).assets(
+    (uint128 emissionPerSecondBefore, , ) = IStakeToken(STKGHO_PROXY).assets(
       AaveV3Ethereum.GHO_TOKEN
     );
 
@@ -49,7 +49,7 @@ contract StkGHO_Activation_20240118_Test is ProtocolV2TestBase {
       uint128 emissionPerSecondAfter,
       uint128 lastUpdateTimestampAfter, // uint256 indexAfter
 
-    ) = IAggregatedStakeToken(STKGHO_PROXY).assets(AaveV3Ethereum.GHO_TOKEN);
+    ) = IStakeToken(STKGHO_PROXY).assets(AaveV3Ethereum.GHO_TOKEN);
 
     // NOTE index is still 0
     assertEq((emissionPerSecondBefore + emissionPerSecondAfter), STKGHO_EMISSION_PER_SECOND);

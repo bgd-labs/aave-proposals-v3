@@ -15,7 +15,7 @@ import {IStakeToken} from './IStakeToken.sol';
  * - Discussion: https://governance.aave.com/t/arfc-upgrade-safety-module-with-stkgho/15635
  */
 contract StkGHO_Activation_20240118 is IProposalGenericExecutor {
-  uint256 public constant STKGHO_EMISSION_PER_SECOND = 5787037037037037; // 50 AAVE/day
+  uint256 public constant STKGHO_EMISSION_PER_SECOND = 578703703703704; // 50 AAVE/day
   uint256 public constant DISTRIBUTION_DURATION = 90 days; // three months
   address public constant STKGHO_PROXY = 0x1a88Df1cFe15Af22B3c4c783D4e6F7F9e0C1885d;
 
