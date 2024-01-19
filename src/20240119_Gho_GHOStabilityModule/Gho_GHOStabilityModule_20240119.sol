@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
+import {IProposalGenericExecutor} from 'aave-helpers/interfaces/IProposalGenericExecutor.sol';
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';
@@ -26,14 +27,6 @@ interface IGsmRegistry {
 }
 
 interface IAaveCLRobotOperator {
-  /**
-   * @notice method called by owner to register the automation robot keeper.
-   * @param name - name of keeper.
-   * @param upkeepContract - upkeepContract of the keeper.
-   * @param gasLimit - max gasLimit which the chainlink automation node can execute for the automation.
-   * @param amountToFund - amount of link to fund the keeper with.
-   * @return chainlink id for the registered keeper.
-   **/
   function register(
     string memory name,
     address upkeepContract,
@@ -60,28 +53,24 @@ interface IAaveCLRobotOperator {
  * 3. GHO Stability Module Launch
  * - Snapshot: https://snapshot.org/#/aave.eth/proposal/0xe9b62e197a98832da7d1231442b5960588747f184415fba4699b6325d7618842
  */
-contract Gho_GhoStabilityModule {
+contract Gho_GHOStabilityModule_20240119 is IProposalGenericExecutor {
   using SafeERC20 for IERC20;
 
-  address public constant GSM_USDC = 0x55027d3dBBcEA0327eF73eFd74ba0Af42A13A966; // TODO
-  address public constant GSM_USDC_ORACLE_SWAP_FREEZER = 0x1Dbbf529D78d6507B0dd71F6c02f41138d828990; // TODO
-  address public constant GSM_USDT = 0x9eb52339B52e71B1EFD5537947e75D23b3a7719B; // TODO
-  address public constant GSM_USDT_ORACLE_SWAP_FREEZER = 0xf18774574148852771c2631d7d06E2A6c8b44fCA; // TODO
-  address public constant GSM_REGISTRY = 0x9f62EE65a8395824Ee0821eF2Dc4C947a23F0f25; // TODO
-
-  address public constant GSM_FIXED_FEE_STRATEGY = 0xF6d2cE02a0647dd10F3f4263e29f2167DC6542cC; // TODO
+  address public constant GSM_USDC = 0x0d8eFfC11dF3F229AA1EA0509BC9DFa632A13578;
+  address public constant GSM_USDC_ORACLE_SWAP_FREEZER = 0xD9096444807Da3D05EcA6d1E19380133A59394A6;
+  address public constant GSM_USDT = 0x686F8D21520f4ecEc7ba577be08354F4d1EB8262;
+  address public constant GSM_USDT_ORACLE_SWAP_FREEZER = 0x0F1773be3CaA314273A69dfE1A107814893C359F;
+  address public constant GSM_REGISTRY = 0x167527DB01325408696326e3580cd8e55D99Dc1A;
+  address public constant GSM_FIXED_FEE_STRATEGY = 0xD4478A76aCeA81D3768A0ACB6e38f25eEB6Eb1B5;
 
   string public constant GSM_USDC_FACILITATOR_LABEL = 'GSM USDC';
   uint128 public constant GSM_USDC_BUCKET_CAPACITY = 500_000e18;
   string public constant GSM_USDT_FACILITATOR_LABEL = 'GSM USDT';
   uint128 public constant GSM_USDT_BUCKET_CAPACITY = 500_000e18;
 
-  //
   address public constant ROBOT_OPERATOR = 0x020E452b463568f55BAc6Dc5aFC8F0B62Ea5f0f3;
   uint96 public constant LINK_AMOUNT_ORACLE_FREEZER_KEEPER = 10 ether;
   uint96 public constant TOTAL_LINK_AMOUNT_KEEPERS = LINK_AMOUNT_ORACLE_FREEZER_KEEPER * 2; // 2 GSMs
-
-  //
 
   function execute() external {
     // 1. Enroll GSMs as GHO Facilitators

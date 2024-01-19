@@ -5,7 +5,7 @@ import 'forge-std/Test.sol';
 import {AaveV3EthereumAssets, AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/ProtocolV3TestBase.sol';
 import {IPoolConfigurator} from 'aave-address-book/AaveV3.sol';
-import {Gho_GhoStabilityModule} from './20240119_Gho_GhoStabilityModule.sol';
+import {Gho_GHOStabilityModule_20240119} from './Gho_GHOStabilityModule_20240119.sol';
 
 interface IGhoToken {
   struct Facilitator {
@@ -46,24 +46,19 @@ interface IOracleSwapFreezer {
 }
 
 /**
- * @dev Test for Gho_GhoStabilityModule
- * command: make test-contract filter=Gho_GhoStabilityModule
+ * @dev Test for Gho_GHOStabilityModule_20240119
+ * command: make test-contract filter=Gho_GHOStabilityModule_20240119
  */
-contract Gho_GhoStabilityModule_Test is ProtocolV3TestBase {
-  address constant NEW_VGHO_IMPL = 0x20Cb2f303EDe313e2Cc44549Ad8653a5E8c0050e;
-
-  Gho_GhoStabilityModule internal proposal;
+contract Gho_GHOStabilityModule_20240119_Test is ProtocolV3TestBase {
+  Gho_GHOStabilityModule_20240119 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 19026100);
-    proposal = new Gho_GhoStabilityModule();
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 19037431);
+    proposal = new Gho_GHOStabilityModule_20240119();
   }
 
   function test_defaultProposalExecution() public {
-    // // increase GHO borrow cap so test borrows can succeed
-    // vm.prank(AaveV3Ethereum.CAPS_PLUS_RISK_STEWARD);
-    // AaveV3Ethereum.POOL_CONFIGURATOR.setBorrowCap(AaveV3Ethereum.GHO_TOKEN, 36_000_000);
-    defaultTest('Gho_GhoStabilityModule', AaveV3Ethereum.POOL, address(proposal));
+    defaultTest('Gho_GHOStabilityModule_20240119', AaveV3Ethereum.POOL, address(proposal));
   }
 
   function test_checkConfig() public {
@@ -93,8 +88,8 @@ contract Gho_GhoStabilityModule_Test is ProtocolV3TestBase {
 
     // GSM USDC
     GsmConfig memory gsmUsdcConfig = GsmConfig({
-      sellFee: 200,
-      buyFee: 200,
+      sellFee: 0.0020e4, // 0.2%
+      buyFee: 0.0020e4, // 0.2%
       exposureCap: 500_000e6,
       isFrozen: false,
       isSeized: false,
@@ -113,8 +108,8 @@ contract Gho_GhoStabilityModule_Test is ProtocolV3TestBase {
 
     // GSM USDT
     GsmConfig memory gsmUsdtConfig = GsmConfig({
-      sellFee: 200,
-      buyFee: 200,
+      sellFee: 0.0020e4, // 0.2%
+      buyFee: 0.0020e4, // 0.2%
       exposureCap: 500_000e6,
       isFrozen: false,
       isSeized: false,
