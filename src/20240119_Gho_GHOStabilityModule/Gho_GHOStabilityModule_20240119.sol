@@ -3,6 +3,7 @@ pragma solidity ^0.8.0;
 
 import {IProposalGenericExecutor} from 'aave-helpers/interfaces/IProposalGenericExecutor.sol';
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
+import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';
 
@@ -75,12 +76,12 @@ contract Gho_GHOStabilityModule_20240119 is IProposalGenericExecutor {
 
   function execute() external {
     // 1. Enroll GSMs as GHO Facilitators
-    IGhoToken(AaveV3Ethereum.GHO_TOKEN).addFacilitator(
+    IGhoToken(MiscEthereum.GHO_TOKEN).addFacilitator(
       GSM_USDC,
       GSM_USDC_FACILITATOR_LABEL,
       GSM_USDC_BUCKET_CAPACITY
     );
-    IGhoToken(AaveV3Ethereum.GHO_TOKEN).addFacilitator(
+    IGhoToken(MiscEthereum.GHO_TOKEN).addFacilitator(
       GSM_USDT,
       GSM_USDT_FACILITATOR_LABEL,
       GSM_USDT_BUCKET_CAPACITY

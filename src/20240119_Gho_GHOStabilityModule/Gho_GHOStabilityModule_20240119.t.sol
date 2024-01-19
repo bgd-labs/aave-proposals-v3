@@ -3,6 +3,7 @@ pragma solidity ^0.8.0;
 
 import 'forge-std/Test.sol';
 import {AaveV3EthereumAssets, AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
+import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/ProtocolV3TestBase.sol';
 import {IPoolConfigurator} from 'aave-address-book/AaveV3.sol';
 import {Gho_GHOStabilityModule_20240119} from './Gho_GHOStabilityModule_20240119.sol';
@@ -62,24 +63,24 @@ contract Gho_GHOStabilityModule_20240119_Test is ProtocolV3TestBase {
   }
 
   function test_checkConfig() public {
-    uint256 facilitatorListLengthBefore = IGhoToken(AaveV3Ethereum.GHO_TOKEN)
+    uint256 facilitatorListLengthBefore = IGhoToken(MiscEthereum.GHO_TOKEN)
       .getFacilitatorsList()
       .length;
 
     executePayload(vm, address(proposal));
 
     assertTrue(
-      IGhoToken(AaveV3Ethereum.GHO_TOKEN).getFacilitatorsList().length ==
+      IGhoToken(MiscEthereum.GHO_TOKEN).getFacilitatorsList().length ==
         facilitatorListLengthBefore + 2
     );
-    IGhoToken.Facilitator memory gsmUsdc = IGhoToken(AaveV3Ethereum.GHO_TOKEN).getFacilitator(
+    IGhoToken.Facilitator memory gsmUsdc = IGhoToken(MiscEthereum.GHO_TOKEN).getFacilitator(
       proposal.GSM_USDC()
     );
     assertEq(gsmUsdc.label, proposal.GSM_USDC_FACILITATOR_LABEL());
     assertEq(gsmUsdc.bucketCapacity, proposal.GSM_USDC_BUCKET_CAPACITY());
     assertEq(gsmUsdc.bucketLevel, 0);
 
-    IGhoToken.Facilitator memory gsmUsdt = IGhoToken(AaveV3Ethereum.GHO_TOKEN).getFacilitator(
+    IGhoToken.Facilitator memory gsmUsdt = IGhoToken(MiscEthereum.GHO_TOKEN).getFacilitator(
       proposal.GSM_USDT()
     );
     assertEq(gsmUsdt.label, proposal.GSM_USDT_FACILITATOR_LABEL());
