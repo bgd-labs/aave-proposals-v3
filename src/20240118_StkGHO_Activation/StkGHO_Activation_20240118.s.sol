@@ -8,8 +8,8 @@ import {AaveSafetyModule} from 'aave-address-book/AaveSafetyModule.sol';
 
 /**
  * @dev Deploy Ethereum
- * deploy-command: make deploy-ledger contract=src/20240118_StkGHO_Activation/StkGHO_Activation_20240118.s.sol:DeployPolygon chain=polygon
- * verify-command: npx catapulta-verify -b broadcast/ReserveFactorUpdates_20240102.s.sol/137/run-latest.json
+ * deploy-command: make deploy-ledger contract=src/20240118_StkGHO_Activation/StkGHO_Activation_20240118.s.sol:DeployEthereum chain=mainnet
+ * verify-command: npx catapulta-verify -b broadcast/20240118_StkGHO_Activation.s.sol/137/run-latest.json
  */
 contract DeployEthereum is EthereumScript {
   function run() external broadcast {
