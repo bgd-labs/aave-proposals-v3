@@ -69,8 +69,9 @@ contract Gho_GHOStabilityModule_20240119 is IProposalGenericExecutor {
   uint128 public constant GSM_USDT_BUCKET_CAPACITY = 500_000e18;
 
   address public constant ROBOT_OPERATOR = 0x020E452b463568f55BAc6Dc5aFC8F0B62Ea5f0f3;
-  uint96 public constant LINK_AMOUNT_ORACLE_FREEZER_KEEPER = 10 ether;
+  uint96 public constant LINK_AMOUNT_ORACLE_FREEZER_KEEPER = 100 ether;
   uint96 public constant TOTAL_LINK_AMOUNT_KEEPERS = LINK_AMOUNT_ORACLE_FREEZER_KEEPER * 2; // 2 GSMs
+  uint32 public constant KEEPER_GAS_LIMIT = 150_000;
 
   function execute() external {
     // 1. Enroll GSMs as GHO Facilitators
@@ -109,15 +110,15 @@ contract Gho_GHOStabilityModule_20240119 is IProposalGenericExecutor {
     );
 
     IAaveCLRobotOperator(ROBOT_OPERATOR).register(
-      'GSM USDC OracleSwapFreezer',
+      'GHO GSM USDC OracleSwapFreezer',
       GSM_USDC_ORACLE_SWAP_FREEZER,
-      5000000, // gasLimit
+      KEEPER_GAS_LIMIT,
       LINK_AMOUNT_ORACLE_FREEZER_KEEPER
     );
     IAaveCLRobotOperator(ROBOT_OPERATOR).register(
-      'GSM USDT OracleSwapFreezer',
+      'GHO GSM USDT OracleSwapFreezer',
       GSM_USDT_ORACLE_SWAP_FREEZER,
-      5000000, // gasLimit
+      KEEPER_GAS_LIMIT,
       LINK_AMOUNT_ORACLE_FREEZER_KEEPER
     );
   }
