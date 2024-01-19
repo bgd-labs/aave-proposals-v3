@@ -42,7 +42,7 @@ contract CreateProposal is EthereumScript {
     actionsPolygon[0] = GovV3Helpers.buildAction(
       type(StkGHO_Activation_20240118).creationCode
     );
-    payloads[0] = GovV3Helpers.buildPolygonPayload(vm, actionsPolygon);
+    payloads[0] = GovV3Helpers.buildMainnetPayload(vm, actionsPolygon);
 
     // create proposal
     vm.startBroadcast();
