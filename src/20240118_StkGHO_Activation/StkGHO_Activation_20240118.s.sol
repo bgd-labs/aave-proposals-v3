@@ -2,7 +2,7 @@
 pragma solidity ^0.8.0;
 
 import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aave-helpers/GovV3Helpers.sol';
-import {EthereumScript, PolygonScript} from 'aave-helpers/ScriptUtils.sol';
+import {EthereumScript} from 'aave-helpers/ScriptUtils.sol';
 import {StkGHO_Activation_20240118} from './StkGHO_Activation_20240118.sol';
 
 /**
@@ -10,7 +10,7 @@ import {StkGHO_Activation_20240118} from './StkGHO_Activation_20240118.sol';
  * deploy-command: make deploy-ledger contract=src/20240102_AaveV2Polygon_ReserveFactorUpdates/ReserveFactorUpdates_20240102.s.sol:DeployPolygon chain=polygon
  * verify-command: npx catapulta-verify -b broadcast/ReserveFactorUpdates_20240102.s.sol/137/run-latest.json
  */
-contract DeployPolygon is PolygonScript {
+contract DeployEthereum is EthereumScript {
   function run() external broadcast {
     // deploy payloads
     address payload0 = GovV3Helpers.deployDeterministic(
