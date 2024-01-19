@@ -33,10 +33,6 @@ contract DeployEthereum is EthereumScript {
  * command: make deploy-ledger contract=src/20240118_StkGHO_Activation/StkGHO_Activation_20240118.s.sol:CreateProposal chain=mainnet
  */
 contract CreateProposal is EthereumScript {
-  uint256 public constant STKGHO_EMISSION_PER_SECOND = 578703703703704; // 50 AAVE/day
-  uint256 public constant DISTRIBUTION_DURATION = 90 days; // three months
-  address public constant STKGHO_PROXY = 0x1a88Df1cFe15Af22B3c4c783D4e6F7F9e0C1885d; // AaveSafetyModule.STK_GHO;
-
   function run() external {
     // create payloads
     PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](1);
