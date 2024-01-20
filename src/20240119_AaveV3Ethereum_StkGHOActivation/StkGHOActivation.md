@@ -21,8 +21,8 @@ The GHO Safety module will be activated with the following parameters:
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240119_AaveV3Ethereum_StkGHOActivation/AaveV3Ethereum_StkGHOActivation_20240119.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240119_AaveV3Ethereum_StkGHOActivation/AaveV3Ethereum_StkGHOActivation_20240119.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/198281130656afdb67959cfd957018fcf773a5fa/src/20240119_AaveV3Ethereum_StkGHOActivation/AaveV3Ethereum_StkGHOActivation_20240119.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/198281130656afdb67959cfd957018fcf773a5fa/src/20240119_AaveV3Ethereum_StkGHOActivation/AaveV3Ethereum_StkGHOActivation_20240119.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x4bc99a842adab6cdd8c7d5c7a787ee4c0056be554fde0d008d53b45b3e795065)
 - [Discussion](https://governance.aave.com/t/arfc-upgrade-safety-module-with-stkgho/15635)
 - [StkGHO](https://etherscan.io/address/0x1a88Df1cFe15Af22B3c4c783D4e6F7F9e0C1885d)
