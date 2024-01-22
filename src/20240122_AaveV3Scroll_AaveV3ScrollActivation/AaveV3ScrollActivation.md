@@ -6,99 +6,56 @@ discussions: "https://governance.aave.com/t/arfc-aave-v3-deployment-on-scroll-ma
 
 ## Simple Summary
 
+This proposal allows the Aave governance to activate the Aave V3 Scroll pool (3.0.2) by completing all the initial setup and listing WETH, USDC, wstETH as suggested by the risk service providers engaged with the DAO (Gauntlet and Chaos Labs) on the [governance forum](https://governance.aave.com/t/arfc-aave-v3-deployment-on-scroll-mainnet/16126/6).
+
+All the Aave Scroll V3 addresses can be found in the [aave-address-book](https://github.com/bgd-labs/aave-address-book/blob/main/src/AaveV3Scroll.sol).
+
 ## Motivation
+
+All the governance procedures for the expansion of Aave v3 to Scroll have been finished, said:
+
+- Positive signaling and approval regarding the expansion on the [governance forum](https://governance.aave.com/t/tempcheck-aave-v3-mvp-deployment-on-scroll-mainnet/13265), [temp check snapshot](https://snapshot.org/#/aave.eth/proposal/0x0c9447367d5223863e829393a9e8937a54b2af85adef883542f063df4fb86db6), and [final snapshot](https://snapshot.org/#/aave.eth/proposal/0x8110de95ff2827946ede0a9b8c5b9c1876605163bb1e7f8c637b6b80848224c8).
+- Positive technical evaluation done by BGD Labs of the Scroll chain network, as described in the [forum](https://governance.aave.com/t/bgd-aave-scroll-infrastructure-technical-evaluation/15854) in detail.
+- Positive risk analysis and assets/parameters recommendation by the service providers Gauntlet and Chaos Labs.
 
 ## Specification
 
-The table below illustrates the configured risk parameters for **WETH**
+The proposal will do the following:
 
-| Parameter                          |                                      Value |
-| ---------------------------------- | -----------------------------------------: |
-| Isolation Mode                     |                                       true |
-| Borrowable                         |                                    ENABLED |
-| Collateral Enabled                 |                                       true |
-| Supply Cap (WETH)                  |                                        240 |
-| Borrow Cap (WETH)                  |                                        200 |
-| Debt Ceiling                       |                                      USD 0 |
-| LTV                                |                                       75 % |
-| LT                                 |                                       78 % |
-| Liquidation Bonus                  |                                        6 % |
-| Liquidation Protocol Fee           |                                       10 % |
-| Reserve Factor                     |                                       15 % |
-| Base Variable Borrow Rate          |                                        0 % |
-| Variable Slope 1                   |                                      3.3 % |
-| Variable Slope 2                   |                                        8 % |
-| Uoptimal                           |                                       80 % |
-| Stable Borrowing                   |                                   DISABLED |
-| Stable Slope1                      |                                      3.3 % |
-| Stable Slope2                      |                                        8 % |
-| Base Stable Rate Offset            |                                        2 % |
-| Stable Rate Excess Offset          |                                        8 % |
-| Optimal Stable To Total Debt Ratio |                                       20 % |
-| Flashloanable                      |                                    ENABLED |
-| Siloed Borrowing                   |                                   DISABLED |
-| Borrowable in Isolation            |                                   DISABLED |
-| Oracle                             | 0x6bF14CB0A831078629D993FDeBcB182b21A8774C |
+- Set risk steward and freezing steward as the risk admin by executing `ACL_MANAGER.addRiskAdmin()`.
+- Set the guardian address as the pool admin by executing `ACL_MANAGER.addPoolAdmin()`.
+  This is following the standard procedure of keeping pool admin on the Aave Guardian during the bootstrap period, for security.
+- List the following assets on Aave V3 Scroll: WETH, USDC, wstETH.
 
-,The table below illustrates the configured risk parameters for **USDC**
+The table below illustrates the initial suggested risk parameters for each asset:
 
-| Parameter                          |                                      Value |
-| ---------------------------------- | -----------------------------------------: |
-| Isolation Mode                     |                                       true |
-| Borrowable                         |                                    ENABLED |
-| Collateral Enabled                 |                                       true |
-| Supply Cap (USDC)                  |                                  1,000,000 |
-| Borrow Cap (USDC)                  |                                    900,000 |
-| Debt Ceiling                       |                                      USD 0 |
-| LTV                                |                                       77 % |
-| LT                                 |                                       80 % |
-| Liquidation Bonus                  |                                        5 % |
-| Liquidation Protocol Fee           |                                       10 % |
-| Reserve Factor                     |                                       10 % |
-| Base Variable Borrow Rate          |                                        0 % |
-| Variable Slope 1                   |                                        6 % |
-| Variable Slope 2                   |                                       60 % |
-| Uoptimal                           |                                       90 % |
-| Stable Borrowing                   |                                   DISABLED |
-| Stable Slope1                      |                                        6 % |
-| Stable Slope2                      |                                       60 % |
-| Base Stable Rate Offset            |                                        1 % |
-| Stable Rate Excess Offset          |                                        8 % |
-| Optimal Stable To Total Debt Ratio |                                       20 % |
-| Flashloanable                      |                                    ENABLED |
-| Siloed Borrowing                   |                                   DISABLED |
-| Borrowable in Isolation            |                                    ENABLED |
-| Oracle                             | 0x43d12Fb3AfCAd5347fA764EeAB105478337b7200 |
-
-,The table below illustrates the configured risk parameters for **wstETH**
-
-| Parameter                          |                                      Value |
-| ---------------------------------- | -----------------------------------------: |
-| Isolation Mode                     |                                       true |
-| Borrowable                         |                                    ENABLED |
-| Collateral Enabled                 |                                       true |
-| Supply Cap (wstETH)                |                                        130 |
-| Borrow Cap (wstETH)                |                                         45 |
-| Debt Ceiling                       |                                      USD 0 |
-| LTV                                |                                       75 % |
-| LT                                 |                                       78 % |
-| Liquidation Bonus                  |                                        7 % |
-| Liquidation Protocol Fee           |                                       10 % |
-| Reserve Factor                     |                                       15 % |
-| Base Variable Borrow Rate          |                                        0 % |
-| Variable Slope 1                   |                                        7 % |
-| Variable Slope 2                   |                                      300 % |
-| Uoptimal                           |                                       45 % |
-| Stable Borrowing                   |                                   DISABLED |
-| Stable Slope1                      |                                        7 % |
-| Stable Slope2                      |                                      300 % |
-| Base Stable Rate Offset            |                                        2 % |
-| Stable Rate Excess Offset          |                                        8 % |
-| Optimal Stable To Total Debt Ratio |                                       20 % |
-| Flashloanable                      |                                    ENABLED |
-| Siloed Borrowing                   |                                   DISABLED |
-| Borrowable in Isolation            |                                   DISABLED |
-| Oracle                             | 0xdb93e2712a8b36835078f8d28c70fcc95fd6d37c |
+| Parameter                          |                                                                                 WETH |                                                                                  USDC |                                                                                  wstETH |
+| ---------------------------------- | -----------------------------------------------------------------------------------: | ------------------------------------------------------------------------------------: | --------------------------------------------------------------------------------------: |
+| Isolation Mode                     |                                                                                false |                                                                                  true |                                                                                    true |
+| Borrowable                         |                                                                              ENABLED |                                                                               ENABLED |                                                                                 ENABLED |
+| Collateral Enabled                 |                                                                                 true |                                                                                  true |                                                                                    true |
+| Supply Cap                         |                                                                                  240 |                                                                             1,000,000 |                                                                                     130 |
+| Borrow Cap                         |                                                                                  200 |                                                                               900,000 |                                                                                      45 |
+| Debt Ceiling                       |                                                                                USD 0 |                                                                                 USD 0 |                                                                                   USD 0 |
+| LTV                                |                                                                                 75 % |                                                                                  77 % |                                                                                    75 % |
+| LT                                 |                                                                                 78 % |                                                                                  80 % |                                                                                    78 % |
+| Liquidation Bonus                  |                                                                                  6 % |                                                                                   5 % |                                                                                     7 % |
+| Liquidation Protocol Fee           |                                                                                 10 % |                                                                                  10 % |                                                                                    10 % |
+| Reserve Factor                     |                                                                                 15 % |                                                                                  10 % |                                                                                    15 % |
+| Base Variable Borrow Rate          |                                                                                  0 % |                                                                                   0 % |                                                                                     0 % |
+| Variable Slope 1                   |                                                                                3.3 % |                                                                                   6 % |                                                                                     7 % |
+| Variable Slope 2                   |                                                                                  8 % |                                                                                  60 % |                                                                                   300 % |
+| Uoptimal                           |                                                                                 80 % |                                                                                  90 % |                                                                                    45 % |
+| Stable Borrowing                   |                                                                             DISABLED |                                                                              DISABLED |                                                                                DISABLED |
+| Stable Slope1                      |                                                                                3.3 % |                                                                                   6 % |                                                                                     7 % |
+| Stable Slope2                      |                                                                                  8 % |                                                                                  60 % |                                                                                   300 % |
+| Base Stable Rate Offset            |                                                                                  2 % |                                                                                   1 % |                                                                                     2 % |
+| Stable Rate Excess Offset          |                                                                                  8 % |                                                                                   8 % |                                                                                     8 % |
+| Optimal Stable To Total Debt Ratio |                                                                                 20 % |                                                                                  20 % |                                                                                    20 % |
+| Flashloanable                      |                                                                              ENABLED |                                                                               ENABLED |                                                                                 ENABLED |
+| Siloed Borrowing                   |                                                                             DISABLED |                                                                              DISABLED |                                                                                DISABLED |
+| Borrowable in Isolation            |                                                                             DISABLED |                                                                               ENABLED |                                                                                DISABLED |
+| Oracle                             | [ETH/USD](https://scrollscan.com/address/0x6bF14CB0A831078629D993FDeBcB182b21A8774C) | [USDC/USD](https://scrollscan.com/address/0x43d12Fb3AfCAd5347fA764EeAB105478337b7200) | [wstETH/USD](https://scrollscan.com/address/0xdb93e2712a8b36835078f8d28c70fcc95fd6d37c) |
 
 ## References
 
