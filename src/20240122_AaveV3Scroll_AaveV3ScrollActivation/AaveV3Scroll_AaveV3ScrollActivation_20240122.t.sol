@@ -17,9 +17,10 @@ import {AaveV3Scroll_AaveV3ScrollActivation_20240122} from './AaveV3Scroll_AaveV
  */
 contract AaveV3Scroll_AaveV3ScrollActivation_20240122_Test is ProtocolV3TestBase {
   AaveV3Scroll_AaveV3ScrollActivation_20240122 internal proposal;
+  address constant NULL_ADDRESS = 0x000000000000000000000000000000000000dEaD;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('scroll'), 2669127);
+    vm.createSelectFork(vm.rpcUrl('scroll'), 2671609);
     proposal = new AaveV3Scroll_AaveV3ScrollActivation_20240122();
 
     // TOOD: remove after revoking permission
@@ -53,10 +54,7 @@ contract AaveV3Scroll_AaveV3ScrollActivation_20240122_Test is ProtocolV3TestBase
     (address aTokenAddress, , ) = AaveV3Scroll
       .AAVE_PROTOCOL_DATA_PROVIDER
       .getReserveTokensAddresses(proposal.WETH());
-    assertGe(
-      IERC20(aTokenAddress).balanceOf(address(AaveV3Scroll.COLLECTOR)),
-      proposal.WETH_SEED_AMOUNT()
-    );
+    assertGe(IERC20(aTokenAddress).balanceOf(NULL_ADDRESS), proposal.WETH_SEED_AMOUNT());
   }
 
   function test_SeedUSDCFunds() public {
@@ -64,10 +62,7 @@ contract AaveV3Scroll_AaveV3ScrollActivation_20240122_Test is ProtocolV3TestBase
     (address aTokenAddress, , ) = AaveV3Scroll
       .AAVE_PROTOCOL_DATA_PROVIDER
       .getReserveTokensAddresses(proposal.USDC());
-    assertGe(
-      IERC20(aTokenAddress).balanceOf(address(AaveV3Scroll.COLLECTOR)),
-      proposal.USDC_SEED_AMOUNT()
-    );
+    assertGe(IERC20(aTokenAddress).balanceOf(NULL_ADDRESS), proposal.USDC_SEED_AMOUNT());
   }
 
   function test_SeedwstETHFunds() public {
@@ -75,10 +70,7 @@ contract AaveV3Scroll_AaveV3ScrollActivation_20240122_Test is ProtocolV3TestBase
     (address aTokenAddress, , ) = AaveV3Scroll
       .AAVE_PROTOCOL_DATA_PROVIDER
       .getReserveTokensAddresses(proposal.wstETH());
-    assertGe(
-      IERC20(aTokenAddress).balanceOf(address(AaveV3Scroll.COLLECTOR)),
-      proposal.wstETH_SEED_AMOUNT()
-    );
+    assertGe(IERC20(aTokenAddress).balanceOf(NULL_ADDRESS), proposal.wstETH_SEED_AMOUNT());
   }
 }
 

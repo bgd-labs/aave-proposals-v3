@@ -25,16 +25,16 @@
 | liquidationBonus | 5 % |
 | liquidationProtocolFee | 10 % |
 | reserveFactor | 10 % |
-| aToken | 0xf0b6aA4505E318532140bB1081Df673AF5A35cf3 |
-| aTokenImpl | 0xA9E3fFb25C369e44862DD3e87Be4420abb879965 |
-| variableDebtToken | 0x4ff879c317CFD0912DBa6d34378Ca59ca5FD0475 |
-| variableDebtTokenImpl | 0x95eeA7A0b16C8ee3A923D3F5ebe6d77C0332084c |
-| stableDebtToken | 0xe0eA34Bf4e01CE3A0B04562d7e88E99ff2A44D82 |
-| stableDebtTokenImpl | 0x07c319CaCAcF9422fA18f3e7389A0BE1B64cAB86 |
+| aToken | 0x1D738a3436A8C49CefFbaB7fbF04B660fb528CbD |
+| aTokenImpl | 0x92EDe4ABd9df4Bfb49b4d723e4c932e35c47C54C |
+| variableDebtToken | 0x3d2E209af5BFa79297C88D6b57F89d792F6E28EE |
+| variableDebtTokenImpl | 0x49bA16C08130FF8cFADE263B49387A8555bc057B |
+| stableDebtToken | 0x59F359aA263f7Ac09876E869AF1F75b558904ed4 |
+| stableDebtTokenImpl | 0x8Ff5f08EDB2E5e1A51bd14d0494320bdB436a149 |
 | borrowingEnabled | true |
 | stableBorrowRateEnabled | false |
 | isBorrowableInIsolation | true |
-| interestRateStrategy | 0xC2F0e01A37fb2A0a3B5ff8BDD1daf8184d985ea2 |
+| interestRateStrategy | 0x9205B37978aC983A297dFB53b3f3D2cCC7DDDADa |
 | aTokenName | Aave Scroll USDC |
 | aTokenSymbol | aScrUSDC |
 | isPaused | false |
@@ -71,23 +71,23 @@
 | oracle | 0x6bF14CB0A831078629D993FDeBcB182b21A8774C |
 | oracleDecimals | 8 |
 | oracleDescription | ETH / USD |
-| oracleLatestAnswer | 2431.63 |
+| oracleLatestAnswer | 2418.25350811 |
 | usageAsCollateralEnabled | true |
 | ltv | 75 % |
 | liquidationThreshold | 78 % |
 | liquidationBonus | 6 % |
 | liquidationProtocolFee | 10 % |
 | reserveFactor | 15 % |
-| aToken | 0x775575E7618FDFf29BB274856FaD8FcF7ab1819E |
-| aTokenImpl | 0xA9E3fFb25C369e44862DD3e87Be4420abb879965 |
-| variableDebtToken | 0x2Fd377b32F845a700419257879DD2CA655f88ae2 |
-| variableDebtTokenImpl | 0x95eeA7A0b16C8ee3A923D3F5ebe6d77C0332084c |
-| stableDebtToken | 0x199C94D13dAbBa6009cb23aB5a5ffe641A5812F6 |
-| stableDebtTokenImpl | 0x07c319CaCAcF9422fA18f3e7389A0BE1B64cAB86 |
+| aToken | 0xf301805bE1Df81102C957f6d4Ce29d2B8c056B2a |
+| aTokenImpl | 0x92EDe4ABd9df4Bfb49b4d723e4c932e35c47C54C |
+| variableDebtToken | 0xfD7344CeB1Df9Cf238EcD667f4A6F99c6Ef44a56 |
+| variableDebtTokenImpl | 0x49bA16C08130FF8cFADE263B49387A8555bc057B |
+| stableDebtToken | 0x117d9cF336287F46DBE509a43925cFF115Aa563c |
+| stableDebtTokenImpl | 0x8Ff5f08EDB2E5e1A51bd14d0494320bdB436a149 |
 | borrowingEnabled | true |
 | stableBorrowRateEnabled | false |
 | isBorrowableInIsolation | false |
-| interestRateStrategy | 0xAE252DA024783d1813C890d82642bbED120c3093 |
+| interestRateStrategy | 0xD828F2f9Da85b190721797bEaD5Eb0acC4150f05 |
 | aTokenName | Aave Scroll WETH |
 | aTokenSymbol | aScrWETH |
 | isPaused | false |
@@ -129,23 +129,23 @@
 | oracle | 0xdb93e2712a8B36835078f8D28c70fCC95FD6d37c |
 | oracleDecimals | 8 |
 | oracleDescription | wstETH/ETH/USD |
-| oracleLatestAnswer | 2807.24011742 |
+| oracleLatestAnswer | 2791.79737956 |
 | usageAsCollateralEnabled | true |
 | ltv | 75 % |
 | liquidationThreshold | 78 % |
 | liquidationBonus | 7 % |
 | liquidationProtocolFee | 10 % |
 | reserveFactor | 15 % |
-| aToken | 0x78055e64480ba8018CeCff7Edb0885f33fF758f5 |
-| aTokenImpl | 0xA9E3fFb25C369e44862DD3e87Be4420abb879965 |
-| variableDebtToken | 0x6d3F04380a7a4fAa7c7d878440EeEC384D9f956d |
-| variableDebtTokenImpl | 0x95eeA7A0b16C8ee3A923D3F5ebe6d77C0332084c |
-| stableDebtToken | 0x4F84488504cfB509fa5d52e56a96Ec5708931899 |
-| stableDebtTokenImpl | 0x07c319CaCAcF9422fA18f3e7389A0BE1B64cAB86 |
+| aToken | 0x5B1322eeb46240b02e20062b8F0F9908d525B09c |
+| aTokenImpl | 0x92EDe4ABd9df4Bfb49b4d723e4c932e35c47C54C |
+| variableDebtToken | 0x8a035644322129800C3f747f54Db0F4d3c0A2877 |
+| variableDebtTokenImpl | 0x49bA16C08130FF8cFADE263B49387A8555bc057B |
+| stableDebtToken | 0x18e3f125ce85e8D65AD2bb4f6b5fff110772A078 |
+| stableDebtTokenImpl | 0x8Ff5f08EDB2E5e1A51bd14d0494320bdB436a149 |
 | borrowingEnabled | true |
 | stableBorrowRateEnabled | false |
 | isBorrowableInIsolation | false |
-| interestRateStrategy | 0x4d623EA9305Dc1D5d6Ea4570827848Da983bdfb0 |
+| interestRateStrategy | 0xCB032D7e38a10503c0b2F9f7bE8c1A81bBBEe2A8 |
 | aTokenName | Aave Scroll wstETH |
 | aTokenSymbol | aScrwstETH |
 | isPaused | false |
@@ -192,8 +192,8 @@
     "0x06eFdBFf2a14a7c8E15944D1F4A48F9F95F663A4": {
       "from": null,
       "to": {
-        "aToken": "0xf0b6aA4505E318532140bB1081Df673AF5A35cf3",
-        "aTokenImpl": "0xA9E3fFb25C369e44862DD3e87Be4420abb879965",
+        "aToken": "0x1D738a3436A8C49CefFbaB7fbF04B660fb528CbD",
+        "aTokenImpl": "0x92EDe4ABd9df4Bfb49b4d723e4c932e35c47C54C",
         "aTokenName": "Aave Scroll USDC",
         "aTokenSymbol": "aScrUSDC",
         "borrowCap": 900000,
@@ -201,7 +201,7 @@
         "debtCeiling": 0,
         "decimals": 6,
         "eModeCategory": 0,
-        "interestRateStrategy": "0xC2F0e01A37fb2A0a3B5ff8BDD1daf8184d985ea2",
+        "interestRateStrategy": "0x9205B37978aC983A297dFB53b3f3D2cCC7DDDADa",
         "isActive": true,
         "isBorrowableInIsolation": true,
         "isFlashloanable": true,
@@ -218,16 +218,16 @@
         "oracleLatestAnswer": 100010854,
         "reserveFactor": 1000,
         "stableBorrowRateEnabled": false,
-        "stableDebtToken": "0xe0eA34Bf4e01CE3A0B04562d7e88E99ff2A44D82",
-        "stableDebtTokenImpl": "0x07c319CaCAcF9422fA18f3e7389A0BE1B64cAB86",
+        "stableDebtToken": "0x59F359aA263f7Ac09876E869AF1F75b558904ed4",
+        "stableDebtTokenImpl": "0x8Ff5f08EDB2E5e1A51bd14d0494320bdB436a149",
         "stableDebtTokenName": "Aave Scroll Stable Debt USDC",
         "stableDebtTokenSymbol": "stableDebtScrUSDC",
         "supplyCap": 1000000,
         "symbol": "USDC",
         "underlying": "0x06eFdBFf2a14a7c8E15944D1F4A48F9F95F663A4",
         "usageAsCollateralEnabled": true,
-        "variableDebtToken": "0x4ff879c317CFD0912DBa6d34378Ca59ca5FD0475",
-        "variableDebtTokenImpl": "0x95eeA7A0b16C8ee3A923D3F5ebe6d77C0332084c",
+        "variableDebtToken": "0x3d2E209af5BFa79297C88D6b57F89d792F6E28EE",
+        "variableDebtTokenImpl": "0x49bA16C08130FF8cFADE263B49387A8555bc057B",
         "variableDebtTokenName": "Aave Scroll Variable Debt USDC",
         "variableDebtTokenSymbol": "variableDebtScrUSDC"
       }
@@ -235,8 +235,8 @@
     "0x5300000000000000000000000000000000000004": {
       "from": null,
       "to": {
-        "aToken": "0x775575E7618FDFf29BB274856FaD8FcF7ab1819E",
-        "aTokenImpl": "0xA9E3fFb25C369e44862DD3e87Be4420abb879965",
+        "aToken": "0xf301805bE1Df81102C957f6d4Ce29d2B8c056B2a",
+        "aTokenImpl": "0x92EDe4ABd9df4Bfb49b4d723e4c932e35c47C54C",
         "aTokenName": "Aave Scroll WETH",
         "aTokenSymbol": "aScrWETH",
         "borrowCap": 200,
@@ -244,7 +244,7 @@
         "debtCeiling": 0,
         "decimals": 18,
         "eModeCategory": 1,
-        "interestRateStrategy": "0xAE252DA024783d1813C890d82642bbED120c3093",
+        "interestRateStrategy": "0xD828F2f9Da85b190721797bEaD5Eb0acC4150f05",
         "isActive": true,
         "isBorrowableInIsolation": false,
         "isFlashloanable": true,
@@ -258,19 +258,19 @@
         "oracle": "0x6bF14CB0A831078629D993FDeBcB182b21A8774C",
         "oracleDecimals": 8,
         "oracleDescription": "ETH / USD",
-        "oracleLatestAnswer": 243163000000,
+        "oracleLatestAnswer": 241825350811,
         "reserveFactor": 1500,
         "stableBorrowRateEnabled": false,
-        "stableDebtToken": "0x199C94D13dAbBa6009cb23aB5a5ffe641A5812F6",
-        "stableDebtTokenImpl": "0x07c319CaCAcF9422fA18f3e7389A0BE1B64cAB86",
+        "stableDebtToken": "0x117d9cF336287F46DBE509a43925cFF115Aa563c",
+        "stableDebtTokenImpl": "0x8Ff5f08EDB2E5e1A51bd14d0494320bdB436a149",
         "stableDebtTokenName": "Aave Scroll Stable Debt WETH",
         "stableDebtTokenSymbol": "stableDebtScrWETH",
         "supplyCap": 240,
         "symbol": "WETH",
         "underlying": "0x5300000000000000000000000000000000000004",
         "usageAsCollateralEnabled": true,
-        "variableDebtToken": "0x2Fd377b32F845a700419257879DD2CA655f88ae2",
-        "variableDebtTokenImpl": "0x95eeA7A0b16C8ee3A923D3F5ebe6d77C0332084c",
+        "variableDebtToken": "0xfD7344CeB1Df9Cf238EcD667f4A6F99c6Ef44a56",
+        "variableDebtTokenImpl": "0x49bA16C08130FF8cFADE263B49387A8555bc057B",
         "variableDebtTokenName": "Aave Scroll Variable Debt WETH",
         "variableDebtTokenSymbol": "variableDebtScrWETH"
       }
@@ -278,8 +278,8 @@
     "0xf610A9dfB7C89644979b4A0f27063E9e7d7Cda32": {
       "from": null,
       "to": {
-        "aToken": "0x78055e64480ba8018CeCff7Edb0885f33fF758f5",
-        "aTokenImpl": "0xA9E3fFb25C369e44862DD3e87Be4420abb879965",
+        "aToken": "0x5B1322eeb46240b02e20062b8F0F9908d525B09c",
+        "aTokenImpl": "0x92EDe4ABd9df4Bfb49b4d723e4c932e35c47C54C",
         "aTokenName": "Aave Scroll wstETH",
         "aTokenSymbol": "aScrwstETH",
         "borrowCap": 45,
@@ -287,7 +287,7 @@
         "debtCeiling": 0,
         "decimals": 18,
         "eModeCategory": 1,
-        "interestRateStrategy": "0x4d623EA9305Dc1D5d6Ea4570827848Da983bdfb0",
+        "interestRateStrategy": "0xCB032D7e38a10503c0b2F9f7bE8c1A81bBBEe2A8",
         "isActive": true,
         "isBorrowableInIsolation": false,
         "isFlashloanable": true,
@@ -301,26 +301,41 @@
         "oracle": "0xdb93e2712a8B36835078f8D28c70fCC95FD6d37c",
         "oracleDecimals": 8,
         "oracleDescription": "wstETH/ETH/USD",
-        "oracleLatestAnswer": 280724011742,
+        "oracleLatestAnswer": 279179737956,
         "reserveFactor": 1500,
         "stableBorrowRateEnabled": false,
-        "stableDebtToken": "0x4F84488504cfB509fa5d52e56a96Ec5708931899",
-        "stableDebtTokenImpl": "0x07c319CaCAcF9422fA18f3e7389A0BE1B64cAB86",
+        "stableDebtToken": "0x18e3f125ce85e8D65AD2bb4f6b5fff110772A078",
+        "stableDebtTokenImpl": "0x8Ff5f08EDB2E5e1A51bd14d0494320bdB436a149",
         "stableDebtTokenName": "Aave Scroll Stable Debt wstETH",
         "stableDebtTokenSymbol": "stableDebtScrwstETH",
         "supplyCap": 130,
         "symbol": "wstETH",
         "underlying": "0xf610A9dfB7C89644979b4A0f27063E9e7d7Cda32",
         "usageAsCollateralEnabled": true,
-        "variableDebtToken": "0x6d3F04380a7a4fAa7c7d878440EeEC384D9f956d",
-        "variableDebtTokenImpl": "0x95eeA7A0b16C8ee3A923D3F5ebe6d77C0332084c",
+        "variableDebtToken": "0x8a035644322129800C3f747f54Db0F4d3c0A2877",
+        "variableDebtTokenImpl": "0x49bA16C08130FF8cFADE263B49387A8555bc057B",
         "variableDebtTokenName": "Aave Scroll Variable Debt wstETH",
         "variableDebtTokenSymbol": "variableDebtScrwstETH"
       }
     }
   },
   "strategies": {
-    "0x4d623EA9305Dc1D5d6Ea4570827848Da983bdfb0": {
+    "0x9205B37978aC983A297dFB53b3f3D2cCC7DDDADa": {
+      "from": null,
+      "to": {
+        "baseStableBorrowRate": "70000000000000000000000000",
+        "baseVariableBorrowRate": 0,
+        "maxExcessStableToTotalDebtRatio": "800000000000000000000000000",
+        "maxExcessUsageRatio": "100000000000000000000000000",
+        "optimalStableToTotalDebtRatio": "200000000000000000000000000",
+        "optimalUsageRatio": "900000000000000000000000000",
+        "stableRateSlope1": "60000000000000000000000000",
+        "stableRateSlope2": "600000000000000000000000000",
+        "variableRateSlope1": "60000000000000000000000000",
+        "variableRateSlope2": "600000000000000000000000000"
+      }
+    },
+    "0xCB032D7e38a10503c0b2F9f7bE8c1A81bBBEe2A8": {
       "from": null,
       "to": {
         "baseStableBorrowRate": "90000000000000000000000000",
@@ -335,7 +350,7 @@
         "variableRateSlope2": "3000000000000000000000000000"
       }
     },
-    "0xAE252DA024783d1813C890d82642bbED120c3093": {
+    "0xD828F2f9Da85b190721797bEaD5Eb0acC4150f05": {
       "from": null,
       "to": {
         "baseStableBorrowRate": "53000000000000000000000000",
@@ -348,21 +363,6 @@
         "stableRateSlope2": "80000000000000000000000000",
         "variableRateSlope1": "33000000000000000000000000",
         "variableRateSlope2": "80000000000000000000000000"
-      }
-    },
-    "0xC2F0e01A37fb2A0a3B5ff8BDD1daf8184d985ea2": {
-      "from": null,
-      "to": {
-        "baseStableBorrowRate": "70000000000000000000000000",
-        "baseVariableBorrowRate": 0,
-        "maxExcessStableToTotalDebtRatio": "800000000000000000000000000",
-        "maxExcessUsageRatio": "100000000000000000000000000",
-        "optimalStableToTotalDebtRatio": "200000000000000000000000000",
-        "optimalUsageRatio": "900000000000000000000000000",
-        "stableRateSlope1": "60000000000000000000000000",
-        "stableRateSlope2": "600000000000000000000000000",
-        "variableRateSlope1": "60000000000000000000000000",
-        "variableRateSlope2": "600000000000000000000000000"
       }
     }
   }
