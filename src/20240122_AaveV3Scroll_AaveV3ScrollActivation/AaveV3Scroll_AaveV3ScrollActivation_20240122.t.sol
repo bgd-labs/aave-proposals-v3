@@ -20,15 +20,8 @@ contract AaveV3Scroll_AaveV3ScrollActivation_20240122_Test is ProtocolV3TestBase
   address constant NULL_ADDRESS = 0x000000000000000000000000000000000000dEaD;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('scroll'), 2671609);
+    vm.createSelectFork(vm.rpcUrl('scroll'), 2675703);
     proposal = new AaveV3Scroll_AaveV3ScrollActivation_20240122();
-
-    // TOOD: remove after revoking permission
-    vm.startPrank(0x6ec33534BE07d45cc4E02Fbd127F8ed2aE919a6b);
-    IOwnable(GovernanceV3Scroll.EXECUTOR_LVL_1).transferOwnership(
-      address(GovernanceV3Scroll.PAYLOADS_CONTROLLER)
-    );
-    vm.stopPrank();
   }
 
   /**

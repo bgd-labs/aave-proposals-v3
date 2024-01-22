@@ -71,7 +71,7 @@
 | oracle | 0x6bF14CB0A831078629D993FDeBcB182b21A8774C |
 | oracleDecimals | 8 |
 | oracleDescription | ETH / USD |
-| oracleLatestAnswer | 2418.25350811 |
+| oracleLatestAnswer | 2379.36 |
 | usageAsCollateralEnabled | true |
 | ltv | 75 % |
 | liquidationThreshold | 78 % |
@@ -129,7 +129,7 @@
 | oracle | 0xdb93e2712a8B36835078f8D28c70fCC95FD6d37c |
 | oracleDecimals | 8 |
 | oracleDescription | wstETH/ETH/USD |
-| oracleLatestAnswer | 2791.79737956 |
+| oracleLatestAnswer | 2746.89605153 |
 | usageAsCollateralEnabled | true |
 | ltv | 75 % |
 | liquidationThreshold | 78 % |
@@ -258,7 +258,7 @@
         "oracle": "0x6bF14CB0A831078629D993FDeBcB182b21A8774C",
         "oracleDecimals": 8,
         "oracleDescription": "ETH / USD",
-        "oracleLatestAnswer": 241825350811,
+        "oracleLatestAnswer": 237936000000,
         "reserveFactor": 1500,
         "stableBorrowRateEnabled": false,
         "stableDebtToken": "0x117d9cF336287F46DBE509a43925cFF115Aa563c",
@@ -301,7 +301,7 @@
         "oracle": "0xdb93e2712a8B36835078f8D28c70fCC95FD6d37c",
         "oracleDecimals": 8,
         "oracleDescription": "wstETH/ETH/USD",
-        "oracleLatestAnswer": 279179737956,
+        "oracleLatestAnswer": 274689605153,
         "reserveFactor": 1500,
         "stableBorrowRateEnabled": false,
         "stableDebtToken": "0x18e3f125ce85e8D65AD2bb4f6b5fff110772A078",
