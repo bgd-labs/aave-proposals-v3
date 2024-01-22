@@ -2,9 +2,11 @@
 pragma solidity ^0.8.0;
 
 import {AaveV3Scroll} from 'aave-address-book/AaveV3Scroll.sol';
+import {MiscScroll} from 'aave-address-book/MiscScroll.sol';
 import {AaveV3PayloadScroll} from 'aave-helpers/v3-config-engine/AaveV3PayloadScroll.sol';
 import {EngineFlags} from 'aave-helpers/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-helpers/v3-config-engine/IAaveV3ConfigEngine.sol';
+import {IPool} from 'aave-address-book/AaveV3.sol';
 import {IV3RateStrategyFactory} from 'aave-helpers/v3-config-engine/IV3RateStrategyFactory.sol';
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';
@@ -19,19 +21,25 @@ contract AaveV3Scroll_AaveV3ScrollActivation_20240122 is AaveV3PayloadScroll {
   using SafeERC20 for IERC20;
 
   address public constant WETH = 0x5300000000000000000000000000000000000004;
-  uint256 public constant WETH_SEED_AMOUNT = 1e18;
+  uint256 public constant WETH_SEED_AMOUNT = 0.005e18;
   address public constant USDC = 0x06eFdBFf2a14a7c8E15944D1F4A48F9F95F663A4;
-  uint256 public constant USDC_SEED_AMOUNT = 1e6;
+  uint256 public constant USDC_SEED_AMOUNT = 10e6;
   address public constant wstETH = 0xf610A9dfB7C89644979b4A0f27063E9e7d7Cda32;
-  uint256 public constant wstETH_SEED_AMOUNT = 1e18;
+  uint256 public constant wstETH_SEED_AMOUNT = 0.005e18;
 
   function _postExecute() internal override {
-    IERC20(WETH).forceApprove(address(AaveV3Scroll.POOL), WETH_SEED_AMOUNT);
-    AaveV3Scroll.POOL.supply(WETH, WETH_SEED_AMOUNT, address(AaveV3Scroll.COLLECTOR), 0);
-    IERC20(USDC).forceApprove(address(AaveV3Scroll.POOL), USDC_SEED_AMOUNT);
-    AaveV3Scroll.POOL.supply(USDC, USDC_SEED_AMOUNT, address(AaveV3Scroll.COLLECTOR), 0);
-    IERC20(wstETH).forceApprove(address(AaveV3Scroll.POOL), wstETH_SEED_AMOUNT);
-    AaveV3Scroll.POOL.supply(wstETH, wstETH_SEED_AMOUNT, address(AaveV3Scroll.COLLECTOR), 0);
+    AaveV3Scroll.ACL_MANAGER.addPoolAdmin(MiscScroll.PROTOCOL_GUARDIAN);
+    AaveV3Scroll.ACL_MANAGER.addRiskAdmin(AaveV3Scroll.FREEZING_STEWARD);
+    AaveV3Scroll.ACL_MANAGER.addRiskAdmin(AaveV3Scroll.CAPS_PLUS_RISK_STEWARD);
+
+    _supply(AaveV3Scroll.POOL, WETH, WETH_SEED_AMOUNT, 0x000000000000000000000000000000000000dEaD);
+    _supply(AaveV3Scroll.POOL, USDC, USDC_SEED_AMOUNT, 0x000000000000000000000000000000000000dEaD);
+    _supply(
+      AaveV3Scroll.POOL,
+      wstETH,
+      wstETH_SEED_AMOUNT,
+      0x000000000000000000000000000000000000dEaD
+    );
   }
 
   function eModeCategoriesUpdates()
@@ -150,5 +158,10 @@ contract AaveV3Scroll_AaveV3ScrollActivation_20240122 is AaveV3PayloadScroll {
     });
 
     return listings;
+  }
+
+  function _supply(IPool pool, address asset, uint256 amount, address onBehalfOf) internal {
+    IERC20(asset).forceApprove(address(pool), amount);
+    pool.supply(asset, amount, onBehalfOf, 0);
   }
 }
