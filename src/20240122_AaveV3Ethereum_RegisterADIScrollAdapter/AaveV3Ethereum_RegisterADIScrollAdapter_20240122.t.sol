@@ -50,23 +50,28 @@ contract AaveV3Ethereum_RegisterADIScrollAdapter_20240122_Test is ProtocolV3Test
    * @dev executes the generic test suite including e2e and config snapshots
    */
   function test_defaultProposalExecution() public {
+    address scroll_adapter_ethereum = proposal.SCROLL_ADAPTER_ETHEREUM();
+    address scroll_adapter_scroll = proposal.SCROLL_ADAPTER_SCROLL();
+
+    executePayload(vm, address(proposal));
+
     ICrossChainForwarder.ChainIdBridgeConfig[] memory ethConfig = ICrossChainForwarder(
       GovernanceV3Ethereum.CROSS_CHAIN_CONTROLLER
     ).getForwarderBridgeAdaptersByChain(ChainIds.SCROLL);
 
     assertEq(ethConfig.length, 1);
-    assertEq(ethConfig[0].destinationBridgeAdapter, proposal.SCROLL_ADAPTER_SCROLL());
-    assertEq(ethConfig[0].currentChainBridgeAdapter, proposal.SCROLL_ADAPTER_ETHEREUM());
+    assertEq(ethConfig[0].destinationBridgeAdapter, scroll_adapter_scroll);
+    assertEq(ethConfig[0].currentChainBridgeAdapter, scroll_adapter_ethereum);
 
     vm.selectFork(scrollFork);
     address[] memory scrollConfig = ICrossChainReceiver(GovernanceV3Scroll.CROSS_CHAIN_CONTROLLER)
       .getReceiverBridgeAdaptersByChain(ChainIds.MAINNET);
 
     assertEq(scrollConfig.length, 1);
-    assertEq(scrollConfig[0], proposal.SCROLL_ADAPTER_ETHEREUM());
+    assertEq(scrollConfig[0], scroll_adapter_scroll);
 
     assertEq(
-      IBaseAdapter(proposal.SCROLL_ADAPTER_SCROLL()).getTrustedRemoteByChainId(ChainIds.MAINNET),
+      IBaseAdapter(scroll_adapter_scroll).getTrustedRemoteByChainId(ChainIds.MAINNET),
       GovernanceV3Ethereum.CROSS_CHAIN_CONTROLLER
     );
   }
