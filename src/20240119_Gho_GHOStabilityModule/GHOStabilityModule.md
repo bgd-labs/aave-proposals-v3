@@ -33,7 +33,7 @@ The proposed payload entails the comprehensive activation of GSM USDC and GSM US
 2. Adjust the Fee Strategy for both GSMs to implement a 2% flat fee for both directions (buy/sell).
 3. Add both GSMs to the GSM Registry.
 4. Designate OracleSwapFreezer contracts as SwapFreezer entities in each GSM contract, respectively.
-5. Activate these OracleSwapFreezer contracts as keepers of the Aave DAO through AaveRobot with a funding of 10 LINK for each.
+5. Activate these OracleSwapFreezer contracts as keepers of the Aave DAO through AaveRobot with a funding of 80 LINK for each.
 
 The table below outlines the initially proposed risk parameters for each GSM contract, as approved through the snapshot:
 
