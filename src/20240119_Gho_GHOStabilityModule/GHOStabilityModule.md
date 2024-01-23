@@ -30,7 +30,7 @@ Summarizing the functionality offered by the GHO Stability Module (GSM), here is
 The proposed payload entails the comprehensive activation of GSM USDC and GSM USDT, involving the following steps:
 
 1. Incorporate GSM USDC and GSM USDT as facilitators of the GHO Token on Ethereum.
-2. Adjust the Fee Strategy for both GSMs to implement a 2% flat fee for both directions (buy/sell).
+2. Adjust the Fee Strategy for both GSMs to implement a 0.2% flat fee for both directions (buy/sell).
 3. Add both GSMs to the GSM Registry.
 4. Designate OracleSwapFreezer contracts as SwapFreezer entities in each GSM contract, respectively.
 5. Activate these OracleSwapFreezer contracts as keepers of the Aave DAO through AaveRobot with a funding of 80 LINK for each.
