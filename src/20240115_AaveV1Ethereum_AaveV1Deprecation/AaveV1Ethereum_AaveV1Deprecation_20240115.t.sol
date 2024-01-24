@@ -23,13 +23,6 @@ interface ILendingPool {
     bool _receiveAToken
   ) external payable;
 
-  function offboardingLiquidationCall(
-    address _collateral,
-    address _reserve,
-    address _user,
-    uint256 _purchaseAmount
-  ) external payable;
-
   function getUserAccountData(
     address _user
   )
@@ -94,29 +87,57 @@ contract AaveV1Ethereum_AaveV1Deprecation_20240115_Test is ProtocolV2TestBase {
    */
   function test_defaultProposalExecution() public {
     executePayload(vm, address(proposal));
-    V1User[] memory users = new V1User[](1);
+    V1User[] memory users = new V1User[](4);
     users[0] = V1User(
       0x1F0aeAeE69468727BA258B0cf692E6bfecc2E286,
       0x514910771AF9Ca656af840dff83E8264EcF986CA, // LINK
       0x0000000000085d4780B73119b644AE5ecd22b376 // TUSD
+    );
+    users[1] = V1User(
+      0x1F0aeAeE69468727BA258B0cf692E6bfecc2E286,
+      0x514910771AF9Ca656af840dff83E8264EcF986CA, // LINK
+      0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48 // USDC
+    );
+    users[2] = V1User(
+      0x310D5C8EE1512D5092ee4377061aE82E48973689,
+      0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599, // WBTC
+      0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE // weth
+    );
+    users[3] = V1User(
+      0xb570de1e7f1696DE9623e1784122EBCA1d6907e5,
+      0x514910771AF9Ca656af840dff83E8264EcF986CA, // LINK
+      0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48 // USDC
     );
     for (uint256 i = 0; i < users.length; i++) {
       (, uint256 currentBorrowBalance, , , , , , , , ) = POOL.getUserReserveData(
         users[i].debt,
         users[i].user
       );
-      deal(users[i].debt, address(this), currentBorrowBalance);
       // offboarding liquidations should provide a fixed 1% bonus
       (, uint256 totalCollateralETHBefore, uint256 totalBorrowsETHBefore, , , , , ) = POOL
         .getUserAccountData(users[i].user);
-      IERC20(users[i].debt).approve(ADDRESSES_PROVIDER.getLendingPoolCore(), type(uint256).max);
-      POOL.liquidationCall(
-        users[i].collateral,
-        users[i].debt,
-        users[i].user,
-        type(uint256).max,
-        false
-      );
+      if (users[i].debt == 0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE) {
+        deal(address(this), 1000 ether);
+        POOL.liquidationCall{value: currentBorrowBalance}(
+          users[i].collateral,
+          users[i].debt,
+          users[i].user,
+          type(uint256).max,
+          false
+        );
+      } else {
+        deal2(users[i].debt, address(this), currentBorrowBalance);
+        assertEq(currentBorrowBalance, IERC20(users[i].debt).balanceOf(address(this)));
+        IERC20(users[i].debt).approve(ADDRESSES_PROVIDER.getLendingPoolCore(), 0);
+        IERC20(users[i].debt).approve(ADDRESSES_PROVIDER.getLendingPoolCore(), type(uint256).max);
+        POOL.liquidationCall(
+          users[i].collateral,
+          users[i].debt,
+          users[i].user,
+          currentBorrowBalance,
+          false
+        );
+      }
       (, uint256 totalCollateralETHAfter, uint256 totalBorrowsETHAfter, , , , , ) = POOL
         .getUserAccountData(users[i].user);
 
