@@ -6,7 +6,7 @@ discussions: "https://governance.aave.com/t/arfc-gauntlet-recommendation-for-mai
 
 ## Simple Summary
 
-A proposal to make parameter changes on Aave Optimism v3. For more details, see the full forum post [here](https://governance.aave.com/t/arfc-gauntlet-recommendation-for-mai-mimatic-deprecation-phase-2/15957).
+A proposal for MAI / MIMATIC deprecation on Aave Optimism v3. For more details, see the full forum post [here](https://governance.aave.com/t/arfc-gauntlet-recommendation-for-mai-mimatic-deprecation-phase-2/15957).
 
 ## Motivation
 
