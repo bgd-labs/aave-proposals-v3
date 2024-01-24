@@ -63,8 +63,8 @@ The table below outlines the initially proposed risk parameters for each GSM con
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/65aee9f4468d2b3ec77879e59b9cdacb0bb32bcc/src/20240119_Gho_GHOStabilityModule/AaveV3Ethereum_GHOStabilityModule_20240119.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/65aee9f4468d2b3ec77879e59b9cdacb0bb32bcc/src/20240119_Gho_GHOStabilityModule/AaveV3Ethereum_GHOStabilityModule_20240119.t.sol)
+- Implementation: [Gho](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240119_Gho_GHOStabilityModule/Gho_GHOStabilityModule_20240119.sol)
+- Tests: [Gho](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240119_Gho_GHOStabilityModule/Gho_GHOStabilityModule_20240119.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0xe9b62e197a98832da7d1231442b5960588747f184415fba4699b6325d7618842)
 - [Discussion](https://governance.aave.com/t/gho-stability-module-update/14442)
 - [GSM Repository](https://github.com/aave/gho-core/tree/main/src/contracts/facilitators/gsm)
