@@ -46,7 +46,8 @@ interface ICrossChainForwarder {
 /**
  * @title Register a.DI Scroll adapter
  * @author BGD Labs @bgdlabs
- * - Snapshot: Direct-to-AIP
+ * - Snapshot: N/A (Technical maintenance proposal)
+ * - Forum: https://governance.aave.com/t/bgd-technical-maintenance-proposals/15274/15
  */
 contract AaveV3Ethereum_RegisterADIScrollAdapter_20240122 is IProposalGenericExecutor {
   address public constant SCROLL_ADAPTER_ETHEREUM = 0xb29F03cbCc646201eC83E9F2C164747beA84b162;
