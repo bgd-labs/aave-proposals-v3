@@ -6,7 +6,7 @@ discussions: "https://governance.aave.com/t/arfc-update-steth-and-weth-risk-para
 
 ## Simple Summary
 
-This ARFC proposes to update stETH and WETH risk parameters on the Aave V3 Ethereum Mainnet, OP Mainnet and Arbitrum.
+This AIP proposes to update stETH and WETH risk parameters on the Aave V3 Ethereum Mainnet, OP Mainnet and Arbitrum.
 
 ## Motivation
 
