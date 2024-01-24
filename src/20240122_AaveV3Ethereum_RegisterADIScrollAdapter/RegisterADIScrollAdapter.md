@@ -6,7 +6,7 @@ discussions: "https://governance.aave.com/t/bgd-technical-maintenance-proposals/
 
 ## Simple Summary
 
-Proposal to register the scroll adapter on Ethereum a.DI
+Proposal to register the Scroll adapter on Ethereum a.DI, a technical requirement for an activation vote of Aave v3 Scroll.
 
 ## Motivation
 
