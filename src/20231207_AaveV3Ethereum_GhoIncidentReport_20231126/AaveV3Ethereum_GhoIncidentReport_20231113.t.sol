@@ -2,7 +2,7 @@
 pragma solidity ^0.8.0;
 
 import 'forge-std/Test.sol';
-import {AaveV3EthereumAssets, AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
+import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/ProtocolV3TestBase.sol';
 import {IPoolConfigurator} from 'aave-address-book/AaveV3.sol';
 import {AaveV3Ethereum_GhoIncidentReport_20231113} from './AaveV3Ethereum_GhoIncidentReport_20231113.sol';
