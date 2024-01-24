@@ -3,6 +3,7 @@ pragma solidity ^0.8.0;
 
 import {IProposalGenericExecutor} from 'aave-helpers/interfaces/IProposalGenericExecutor.sol';
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
+import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';
@@ -42,6 +43,7 @@ interface IAaveCLRobotOperator {
  * @dev This proposal enables 2 GHO Stability Modules (USDC, USDT):
  * - Addition of USDC and USDT GSMs as GHO Facilitators
  * - Give Swap Freezer permissions to OracleSwapFreezers, one per module
+ * - Give Swap Freezer permissions to the DAO Level 1 Executor
  * - Install a 0.2% fee strategy into both modules
  * - Register both GSMs in the GsmRegistry
  * - Activate OracleSwapFreezer contracts as AaveRobot Keepers
@@ -90,6 +92,14 @@ contract Gho_GHOStabilityModule_20240119 is IProposalGenericExecutor {
     // 2. Add GSM Swap Freezer role to OracleSwapFreezers
     IGsm(GSM_USDC).grantRole(IGsm(GSM_USDC).SWAP_FREEZER_ROLE(), GSM_USDC_ORACLE_SWAP_FREEZER);
     IGsm(GSM_USDT).grantRole(IGsm(GSM_USDT).SWAP_FREEZER_ROLE(), GSM_USDT_ORACLE_SWAP_FREEZER);
+    IGsm(GSM_USDC).grantRole(
+      IGsm(GSM_USDC).SWAP_FREEZER_ROLE(),
+      GovernanceV3Ethereum.EXECUTOR_LVL_1
+    );
+    IGsm(GSM_USDT).grantRole(
+      IGsm(GSM_USDT).SWAP_FREEZER_ROLE(),
+      GovernanceV3Ethereum.EXECUTOR_LVL_1
+    );
 
     // 3. Update Fee Strategy
     IGsm(GSM_USDC).updateFeeStrategy(GSM_FIXED_FEE_STRATEGY);

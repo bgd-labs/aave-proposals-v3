@@ -3,6 +3,7 @@ pragma solidity ^0.8.0;
 
 import 'forge-std/Test.sol';
 import {AaveV3EthereumAssets, AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
+import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/ProtocolV3TestBase.sol';
 import {IPoolConfigurator} from 'aave-address-book/AaveV3.sol';
@@ -33,7 +34,13 @@ interface IGsm {
 
   function UNDERLYING_ASSET() external view returns (address);
 
+  function CONFIGURATOR_ROLE() external pure returns (bytes32);
+
+  function TOKEN_RESCUER_ROLE() external pure returns (bytes32);
+
   function SWAP_FREEZER_ROLE() external view returns (bytes32);
+
+  function LIQUIDATOR_ROLE() external pure returns (bytes32);
 }
 
 interface IFeeStrategy {
@@ -66,7 +73,7 @@ contract Gho_GHOStabilityModule_20240119_Test is ProtocolV3TestBase {
   Gho_GHOStabilityModule_20240119 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 19041084);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 19075310);
     proposal = new Gho_GHOStabilityModule_20240119();
   }
 
@@ -238,6 +245,43 @@ contract Gho_GHOStabilityModule_20240119_Test is ProtocolV3TestBase {
     assertEq(canPerformUpkeep, true);
     usdtFreezer.performUpkeep(bytes(''));
     assertEq(IGsm(proposal.GSM_USDT()).getIsFrozen(), false);
+  }
+
+  function test_checkRoles() public {
+    executePayload(vm, address(proposal));
+
+    _checkRolesConfig(IGsm(proposal.GSM_USDC()));
+    _checkRolesConfig(IGsm(proposal.GSM_USDT()));
+  }
+
+  function _checkRolesConfig(IGsm gsm) internal {
+    // DAO permissions
+    assertTrue(
+      gsm.hasRole(bytes32(0), GovernanceV3Ethereum.EXECUTOR_LVL_1),
+      'Executor is not admin'
+    );
+    assertTrue(
+      gsm.hasRole(gsm.SWAP_FREEZER_ROLE(), GovernanceV3Ethereum.EXECUTOR_LVL_1),
+      'Executor is not swap freezer'
+    );
+    assertTrue(
+      gsm.hasRole(gsm.CONFIGURATOR_ROLE(), GovernanceV3Ethereum.EXECUTOR_LVL_1),
+      'Executor is not configurator'
+    );
+    // No need to be liquidator or token rescuer at the beginning
+    assertFalse(gsm.hasRole(gsm.LIQUIDATOR_ROLE(), GovernanceV3Ethereum.EXECUTOR_LVL_1));
+    assertFalse(gsm.hasRole(gsm.TOKEN_RESCUER_ROLE(), GovernanceV3Ethereum.EXECUTOR_LVL_1));
+
+    // Deployer does not have permissions
+    address deployer = 0x99C7A4A4Ab99882C422eF777b182eBda204D5B02;
+    assertFalse(gsm.hasRole(bytes32(0), deployer), 'Deployer cannot be admin');
+    assertFalse(gsm.hasRole(gsm.SWAP_FREEZER_ROLE(), deployer), 'Deployer cannot be swap freezer');
+    assertFalse(gsm.hasRole(gsm.CONFIGURATOR_ROLE(), deployer), 'Deployer cannot be configurator');
+    assertFalse(gsm.hasRole(gsm.LIQUIDATOR_ROLE(), deployer), 'Deployer cannot be liquidator');
+    assertFalse(
+      gsm.hasRole(gsm.TOKEN_RESCUER_ROLE(), deployer),
+      'Deployer cannot be token rescuer'
+    );
   }
 
   function _mockAssetPrice(address priceOracle, address asset, uint256 price) internal {
