@@ -64,5 +64,11 @@ contract AaveV3Ethereum_RegisterADIScrollAdapter_20240122_Test is ProtocolV3Test
       IBaseAdapter(scroll_adapter_scroll).getTrustedRemoteByChainId(ChainIds.MAINNET),
       GovernanceV3Ethereum.CROSS_CHAIN_CONTROLLER
     );
+
+    ICrossChainReceiver.ReceiverConfiguration memory config = ICrossChainReceiver(
+      GovernanceV3Scroll.CROSS_CHAIN_CONTROLLER
+    ).getConfigurationByChain(ChainIds.MAINNET);
+
+    assertEq(config.requiredConfirmation, uint8(1));
   }
 }
