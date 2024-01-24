@@ -18,7 +18,9 @@ This procedure was not required on previous activations like BNB, given that the
 
 ## Specification
 
-The proposal registers a pre-deployed Scroll adapter (with the necessary configurations to communicate with the Scroll a.DI) on the Ethereum a.DI.
+The proposal payload simply registers a pre-deployed Scroll adapter (with the necessary configurations to communicate with the Scroll a.DI) on the Ethereum a.DI instance.
+
+This is done by calling the `enableBridgeAdapters()` function on the Ethereum Cross-chain Controller smart contract.
 
 ## References
 
