@@ -7,6 +7,7 @@ import {AaveV3Ethereum_RegisterADIScrollAdapter_20240122, ICrossChainForwarder} 
 import {GovernanceV3Scroll} from 'aave-address-book/GovernanceV3Scroll.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {ChainIds} from 'aave-helpers/ChainIds.sol';
+import {ICrossChainReceiver} from 'aave-address-book/common/ICrossChainController.sol';
 
 interface IBaseAdapter {
   /**
@@ -15,17 +16,6 @@ interface IBaseAdapter {
    * @return address of the trusted remote
    */
   function getTrustedRemoteByChainId(uint256 chainId) external view returns (address);
-}
-
-interface ICrossChainReceiver {
-  /**
-   * @notice method to get the current allowed receiver bridge adapters for a chain
-   * @param chainId id of the chain to get the allowed bridge adapter list
-   * @return the list of allowed bridge adapters
-   */
-  function getReceiverBridgeAdaptersByChain(
-    uint256 chainId
-  ) external view returns (address[] memory);
 }
 
 /**

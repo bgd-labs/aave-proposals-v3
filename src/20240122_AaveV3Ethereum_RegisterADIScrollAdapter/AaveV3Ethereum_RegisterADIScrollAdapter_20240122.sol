@@ -4,44 +4,7 @@ pragma solidity ^0.8.0;
 import {IProposalGenericExecutor} from 'aave-helpers/interfaces/IProposalGenericExecutor.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {ChainIds} from 'aave-helpers/ChainIds.sol';
-
-interface ICrossChainForwarder {
-  /**
-   * @notice object storing the connected pair of bridge adapters, on current and destination chain
-   * @param destinationBridgeAdapter address of the bridge adapter on the destination chain
-   * @param currentChainBridgeAdapter address of the bridge adapter deployed on current network
-   */
-  struct ChainIdBridgeConfig {
-    address destinationBridgeAdapter;
-    address currentChainBridgeAdapter;
-  }
-  /**
-   * @notice object storing the pair bridgeAdapter (current deployed chain) destination chain bridge adapter configuration
-   * @param currentChainBridgeAdapter address of the bridge adapter deployed on current chain
-   * @param destinationBridgeAdapter address of the bridge adapter on the destination chain
-   * @param destinationChainId id of the destination chain using our own nomenclature
-   */
-  struct ForwarderBridgeAdapterConfigInput {
-    address currentChainBridgeAdapter;
-    address destinationBridgeAdapter;
-    uint256 destinationChainId;
-  }
-
-  /**
-   * @notice method to get all the forwarder bridge adapters of a chain
-   * @param chainId id of the chain we want to get the adapters from
-   * @return an array of chain configurations where the bridge adapter can communicate
-   */
-  function getForwarderBridgeAdaptersByChain(
-    uint256 chainId
-  ) external view returns (ChainIdBridgeConfig[] memory);
-
-  /**
-   * @notice method to enable bridge adapters
-   * @param bridgeAdapters array of new bridge adapter configurations
-   */
-  function enableBridgeAdapters(ForwarderBridgeAdapterConfigInput[] memory bridgeAdapters) external;
-}
+import {ICrossChainForwarder} from 'aave-address-book/common/ICrossChainController.sol';
 
 /**
  * @title Register a.DI Scroll adapter
