@@ -1,7 +1,7 @@
 ---
 title: "Register a.DI Scroll adapter"
 author: "BGD Labs @bgdlabs"
-discussions: "https://governance.aave.com/t/arfc-aave-v3-deployment-on-scroll-mainnet/16126/"
+discussions: "https://governance.aave.com/t/bgd-technical-maintenance-proposals/15274/15"
 ---
 
 ## Simple Summary
