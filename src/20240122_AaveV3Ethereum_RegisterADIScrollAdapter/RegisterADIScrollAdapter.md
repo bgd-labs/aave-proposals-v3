@@ -10,8 +10,11 @@ Proposal to register the scroll adapter on Ethereum a.DI
 
 ## Motivation
 
-For the Aave DAO to have control of the Aave Protocol deployed in the Scroll network, a Scroll adapter needs to be
-registered in the Ethereum a.DI that is configured for the communication with the Scroll network a.DI.
+In order to be able to pass messages from Ethereum to Scroll via a.DI (Aave Delivery Infrastructure), it is necessary to at least have one valid adapter Ethereum -> Scroll smart contract enabled in the system.
+
+The first case of message passing Ethereum -> Scroll is the activation proposal for an Aave v3 Scroll pool and consequently, to be able to execute on the Scroll side the payload, the Aave governance should approve in advance the a.DI adapter smart contract.
+
+This procedure was not required on previous activations like BNB, given that their adapter were pre-configured on the initial a.DI release, but will be needed going forward.
 
 ## Specification
 
