@@ -38,26 +38,28 @@ The proposed payload entails the comprehensive activation of GSM USDC and GSM US
 The table below outlines the initially proposed risk parameters for each GSM contract, as approved through the snapshot:
 
 **GSM USDC**
-| Parameter | Value |
-|------------------------------------------ |----------------- |
-| Underlying Price Range for Swap Freeze | [0.99 - 1.01] |
+
+| Parameter                                | Value           |
+| ---------------------------------------- | --------------- |
+| Underlying Price Range for Swap Freeze   | [0.99 - 1.01]   |
 | Underlying Price Range for Swap Unfreeze | [0.995 - 1.005] |
-| Buy Fee | 0.2% |
-| Sell Fee | 0.2% |
-| Exposure Cap | 500,000 USDC |
-| Facilitator Bucket Capacity | 500,000 GHO |
-| Swap Active | True |
+| Buy Fee                                  | 0.2%            |
+| Sell Fee                                 | 0.2%            |
+| Exposure Cap                             | 500,000 USDC    |
+| Facilitator Bucket Capacity              | 500,000 GHO     |
+| Swap Active                              | True            |
 
 **GSM USDT**
-| Parameter | Value |
-|------------------------------------------ |----------------- |
-| Underlying Price Range for Swap Freeze | [0.99 - 1.01] |
+
+| Parameter                                | Value           |
+| ---------------------------------------- | --------------- |
+| Underlying Price Range for Swap Freeze   | [0.99 - 1.01]   |
 | Underlying Price Range for Swap Unfreeze | [0.995 - 1.005] |
-| Buy Fee | 0.2% |
-| Sell Fee | 0.2% |
-| Exposure Cap | 500,000 USDT |
-| Facilitator Bucket Capacity | 500,000 GHO |
-| Swap Active | True |
+| Buy Fee                                  | 0.2%            |
+| Sell Fee                                 | 0.2%            |
+| Exposure Cap                             | 500,000 USDT    |
+| Facilitator Bucket Capacity              | 500,000 GHO     |
+| Swap Active                              | True            |
 
 ## References
 
