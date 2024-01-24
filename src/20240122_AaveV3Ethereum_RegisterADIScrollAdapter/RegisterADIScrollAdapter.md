@@ -24,8 +24,8 @@ This is done by calling the `enableBridgeAdapters()` function on the Ethereum Cr
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240122_AaveV3Ethereum_RegisterADIScrollAdapter/AaveV3Ethereum_RegisterADIScrollAdapter_20240122.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240122_AaveV3Ethereum_RegisterADIScrollAdapter/AaveV3Ethereum_RegisterADIScrollAdapter_20240122.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/f700e6370439769ffd53c3504a3ab4a0ac2792b7/src/20240122_AaveV3Ethereum_RegisterADIScrollAdapter/AaveV3Ethereum_RegisterADIScrollAdapter_20240122.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/f700e6370439769ffd53c3504a3ab4a0ac2792b7/src/20240122_AaveV3Ethereum_RegisterADIScrollAdapter/AaveV3Ethereum_RegisterADIScrollAdapter_20240122.t.sol)
 - [Discussion](https://governance.aave.com/t/arfc-aave-v3-deployment-on-scroll-mainnet/16126/)
 
 ## Copyright
