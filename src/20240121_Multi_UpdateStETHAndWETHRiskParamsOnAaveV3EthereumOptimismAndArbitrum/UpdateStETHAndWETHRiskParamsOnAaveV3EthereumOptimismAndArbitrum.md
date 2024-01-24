@@ -1,5 +1,5 @@
 ---
-title: "Update stETH and WETH Risk Params on Aave v3 Ethereum, Optimism and Arbitrum"
+title: "Update ETH EMode and WETH Risk Params on Aave v3 Ethereum, Optimism and Arbitrum"
 author: "Aave Chan Initiative"
 discussions: "https://governance.aave.com/t/arfc-update-steth-and-weth-risk-params-on-aave-v3-ethereum-optimism-and-arbitrum/16168"
 ---
