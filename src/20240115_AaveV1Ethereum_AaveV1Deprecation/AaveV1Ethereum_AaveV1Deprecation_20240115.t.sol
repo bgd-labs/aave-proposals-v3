@@ -45,6 +45,25 @@ interface ILendingPool {
       uint256 ltv,
       uint256 healthFactor
     );
+
+  function getUserReserveData(
+    address _reserve,
+    address _user
+  )
+    external
+    view
+    returns (
+      uint256 currentATokenBalance,
+      uint256 currentBorrowBalance,
+      uint256 principalBorrowBalance,
+      uint256 borrowRateMode,
+      uint256 borrowRate,
+      uint256 liquidityRate,
+      uint256 originationFee,
+      uint256 variableBorrowIndex,
+      uint256 lastUpdateTimestamp,
+      bool usageAsCollateralEnabled
+    );
 }
 
 /**
@@ -66,7 +85,7 @@ contract AaveV1Ethereum_AaveV1Deprecation_20240115_Test is ProtocolV2TestBase {
   AaveV1Ethereum_AaveV1Deprecation_20240115 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 19011848);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 19075684);
     proposal = new AaveV1Ethereum_AaveV1Deprecation_20240115();
   }
 
@@ -82,7 +101,11 @@ contract AaveV1Ethereum_AaveV1Deprecation_20240115_Test is ProtocolV2TestBase {
       0x0000000000085d4780B73119b644AE5ecd22b376 // TUSD
     );
     for (uint256 i = 0; i < users.length; i++) {
-      deal(users[i].debt, address(this), 26936742563757401924489);
+      (, uint256 currentBorrowBalance, , , , , , , , ) = POOL.getUserReserveData(
+        users[i].debt,
+        users[i].user
+      );
+      deal(users[i].debt, address(this), currentBorrowBalance);
       // offboarding liquidations should provide a fixed 1% bonus
       (, uint256 totalCollateralETHBefore, uint256 totalBorrowsETHBefore, , , , , ) = POOL
         .getUserAccountData(users[i].user);

@@ -19,9 +19,10 @@ contract AaveV1Ethereum_AaveV1Deprecation_20240115 is IProposalGenericExecutor {
   ILendingPoolAddressesProvider public constant ADDRESSES_PROVIDER =
     ILendingPoolAddressesProvider(0x24a42fD28C976A61Df5D00D0599C34c4f90748c8);
 
-  address public constant LIQUIDATION_MANAGER_IMPL = address(0);
+  address public constant LIQUIDATION_MANAGER_IMPL =
+    address(0x1a7Dde6344d5F2888209DdB446756FE292e1325e);
 
-  address public constant POOL_IMPL = address(0);
+  address public constant POOL_IMPL = address(0x89A943BAc327c9e217d70E57DCD57C7f2a8C3fA9);
 
   function execute() external {
     ADDRESSES_PROVIDER.setLendingPoolLiquidationManager(LIQUIDATION_MANAGER_IMPL);
