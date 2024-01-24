@@ -134,7 +134,7 @@ contract AaveV1Ethereum_AaveV1Deprecation_20240115_Test is ProtocolV2TestBase {
           users[i].collateral,
           users[i].debt,
           users[i].user,
-          currentBorrowBalance,
+          type(uint256).max,
           false
         );
       }
