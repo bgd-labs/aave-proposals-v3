@@ -42,7 +42,7 @@ interface IAaveCLRobotOperator {
  * @dev This proposal enables 2 GHO Stability Modules (USDC, USDT):
  * - Addition of USDC and USDT GSMs as GHO Facilitators
  * - Give Swap Freezer permissions to OracleSwapFreezers, one per module
- * - Install a 2% fee strategy into both modules
+ * - Install a 0.2% fee strategy into both modules
  * - Register both GSMs in the GsmRegistry
  * - Activate OracleSwapFreezer contracts as AaveRobot Keepers
  * Relevant governance links:
