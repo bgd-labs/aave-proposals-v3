@@ -38,31 +38,33 @@ The proposed payload entails the comprehensive activation of GSM USDC and GSM US
 The table below outlines the initially proposed risk parameters for each GSM contract, as approved through the snapshot:
 
 **GSM USDC**
-| Parameter | Value |
-|------------------------------------------ |----------------- |
-| Underlying Price Range for Swap Freeze | [0.99 - 1.01] |
+
+| Parameter                                | Value           |
+| ---------------------------------------- | --------------- |
+| Underlying Price Range for Swap Freeze   | [0.99 - 1.01]   |
 | Underlying Price Range for Swap Unfreeze | [0.995 - 1.005] |
-| Buy Fee | 0.2% |
-| Sell Fee | 0.2% |
-| Exposure Cap | 500,000 USDC |
-| Facilitator Bucket Capacity | 500,000 GHO |
-| Swap Active | True |
+| Buy Fee                                  | 0.2%            |
+| Sell Fee                                 | 0.2%            |
+| Exposure Cap                             | 500,000 USDC    |
+| Facilitator Bucket Capacity              | 500,000 GHO     |
+| Swap Active                              | True            |
 
 **GSM USDT**
-| Parameter | Value |
-|------------------------------------------ |----------------- |
-| Underlying Price Range for Swap Freeze | [0.99 - 1.01] |
+
+| Parameter                                | Value           |
+| ---------------------------------------- | --------------- |
+| Underlying Price Range for Swap Freeze   | [0.99 - 1.01]   |
 | Underlying Price Range for Swap Unfreeze | [0.995 - 1.005] |
-| Buy Fee | 0.2% |
-| Sell Fee | 0.2% |
-| Exposure Cap | 500,000 USDT |
-| Facilitator Bucket Capacity | 500,000 GHO |
-| Swap Active | True |
+| Buy Fee                                  | 0.2%            |
+| Sell Fee                                 | 0.2%            |
+| Exposure Cap                             | 500,000 USDT    |
+| Facilitator Bucket Capacity              | 500,000 GHO     |
+| Swap Active                              | True            |
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/0f4c6e7bfce0cb48c7e686a2fef61539eb46e6e8/src/20240119_Gho_GHOStabilityModule/AaveV3Ethereum_GHOStabilityModule_20240119.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/0f4c6e7bfce0cb48c7e686a2fef61539eb46e6e8/src/20240119_Gho_GHOStabilityModule/AaveV3Ethereum_GHOStabilityModule_20240119.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240119_Gho_GHOStabilityModule/AaveV3Ethereum_GHOStabilityModule_20240119.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240119_Gho_GHOStabilityModule/AaveV3Ethereum_GHOStabilityModule_20240119.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0xe9b62e197a98832da7d1231442b5960588747f184415fba4699b6325d7618842)
 - [Discussion](https://governance.aave.com/t/gho-stability-module-update/14442)
 - [GSM Repository](https://github.com/aave/gho-core/tree/main/src/contracts/facilitators/gsm)
