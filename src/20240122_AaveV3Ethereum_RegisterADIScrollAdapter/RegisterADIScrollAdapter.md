@@ -1,5 +1,5 @@
 ---
-title: "Register a.DI Scroll adapter"
+title: "Register a.DI Ethereum -> Scroll adapter"
 author: "BGD Labs @bgdlabs"
 discussions: "https://governance.aave.com/t/bgd-technical-maintenance-proposals/15274/15"
 ---
