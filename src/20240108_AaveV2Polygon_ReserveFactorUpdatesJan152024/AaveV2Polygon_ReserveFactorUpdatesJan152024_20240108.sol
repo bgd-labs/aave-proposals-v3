@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity 0.8.19;
+pragma solidity ^0.8.0;
 
 import {AaveV2Polygon, AaveV2PolygonAssets, ILendingPoolConfigurator} from 'aave-address-book/AaveV2Polygon.sol';
 import {IProposalGenericExecutor} from 'aave-helpers/interfaces/IProposalGenericExecutor.sol';
@@ -9,7 +9,7 @@ import {IProposalGenericExecutor} from 'aave-helpers/interfaces/IProposalGeneric
  * @title Reserve Factor Updates (Jan 15, 2024)
  * @author karpatkey_TokenLogic
  * - Snapshot: No snapshot for Direct-to-AIP
- * - Discussion: https://governance.aave.com/t/arfc-reserve-factor-updates-polygon-aave-v2/13937
+ * - Discussion: https://governance.aave.com/t/arfc-reserve-factor-updates-polygon-aave-v2/13937/14
  */
 contract AaveV2Polygon_ReserveFactorUpdatesJan152024_20240108 is IProposalGenericExecutor {
   uint256 public constant DAI_RF = 66_00;

@@ -6,7 +6,7 @@ discussions: "https://governance.aave.com/t/arfc-reserve-factor-updates-polygon-
 
 ## Simple Summary
 
-This AIP is a continuation of AIP-284 and increases the Reserve Factor (RF) for assets on Polygon v2 by 5.00%, up to a maximum of 99.99%.
+This AIP is a continuation of Governace V3 ProposalID 1 and increases the Reserve Factor (RF) for assets on Polygon v2 by 5.00%, up to a maximum of 99.99%.
 
 ## Motivation
 
@@ -32,10 +32,10 @@ The following parameters are to be updated as follows:
 
 ## References
 
-- Implementation: [AaveV2Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240108_AaveV2Polygon_ReserveFactorUpdatesJan152024/AaveV2Polygon_ReserveFactorUpdatesJan152024_20240108.sol)
-- Tests: [AaveV2Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240108_AaveV2Polygon_ReserveFactorUpdatesJan152024/AaveV2Polygon_ReserveFactorUpdatesJan152024_20240108.t.sol)
+- Implementation: [AaveV2Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/13b98e06705455c7299a2b38814c4e370f6f48ad/src/20240108_AaveV2Polygon_ReserveFactorUpdatesJan152024/AaveV2Polygon_ReserveFactorUpdatesJan152024_20240108.sol)
+- Tests: [AaveV2Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/13b98e06705455c7299a2b38814c4e370f6f48ad/src/20240108_AaveV2Polygon_ReserveFactorUpdatesJan152024/AaveV2Polygon_ReserveFactorUpdatesJan152024_20240108.t.sol)
 - [Snapshot](No snapshot for Direct-to-AIP)
-- [Discussion](https://governance.aave.com/t/arfc-reserve-factor-updates-polygon-aave-v2/13937)
+- [Discussion](https://governance.aave.com/t/arfc-reserve-factor-updates-polygon-aave-v2/13937/14)
 
 ## Disclaimer
 

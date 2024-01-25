@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity 0.8.19;
+pragma solidity ^0.8.0;
 
 import {AaveV2Polygon, AaveV2PolygonAssets} from 'aave-address-book/AaveV2Polygon.sol';
 import {ProtocolV2TestBase, ReserveConfig} from 'aave-helpers/ProtocolV2TestBase.sol';
@@ -20,7 +20,7 @@ contract AaveV2Polygon_ReserveFactorUpdatesJan152024_20240108_Test is ProtocolV2
   AaveV2Polygon_ReserveFactorUpdatesJan152024_20240108 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('polygon'), 52093827);
+    vm.createSelectFork(vm.rpcUrl('polygon'), 52316752);
     proposal = new AaveV2Polygon_ReserveFactorUpdatesJan152024_20240108();
   }
 
