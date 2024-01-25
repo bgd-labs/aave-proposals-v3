@@ -6,15 +6,15 @@ discussions: "https://governance.aave.com/t/arfc-update-steth-and-weth-risk-para
 
 ## Simple Summary
 
-This AIP proposes to update stETH and WETH risk parameters on the Aave V3 Ethereum Mainnet, OP Mainnet and Arbitrum.
+This AIP proposes to update ETH LSTs (wstETH, rETH, cbETH) and WETH risk parameters on the Aave V3 Ethereum Mainnet, OP Mainnet and Arbitrum.
 
 ## Motivation
 
-We propose updating the stETH and WETH risk parameters to be optimal and competitive in the current market landscape. This will maintain Aave’s position as the prime liquidity protocol by increasing our protocol attractiveness for users looking to maximize their capital efficiency.
+We propose updating the ETH LSTs and WETH risk parameters to be optimal and competitive in the current market landscape. This will maintain Aave’s position as the prime liquidity protocol by increasing our protocol attractiveness for users looking to maximize their capital efficiency.
 
 ## Specification
 
-The proposed changes update some risk parameters on stETH and WETH.
+The proposed changes update some risk parameters on ETH LSTs and WETH.
 
 **ETH correlated E-Mode Ethereum**
 
@@ -25,7 +25,7 @@ Update ETH-correlated E-Mode parameters with the following values.
 | Loan To Value (LTV)   | 90%           | 93%            |
 | Liquidation Threshold | 93%           | 95%            |
 
-We propose no changes to the stETH non-E-Mode parameters.
+We propose no changes to the ETH LSTs non-E-Mode parameters.
 
 **ETH correlated E-Mode Arbitrum**
 
@@ -37,7 +37,7 @@ Update ETH-correlated E-Mode parameters with the following values.
 | Liquidation Threshold | 93%           | 95%            |
 | Liquidation Bonus     | 2%            | 1%             |
 
-We propose no changes to the stETH non-E-Mode parameters.
+We propose no changes to the ETH LSTs non-E-Mode parameters.
 
 **ETH correlated E-Mode Optimism**
 
