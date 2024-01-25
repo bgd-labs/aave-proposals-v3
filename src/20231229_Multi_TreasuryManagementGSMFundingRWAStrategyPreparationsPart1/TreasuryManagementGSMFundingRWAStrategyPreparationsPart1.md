@@ -28,6 +28,10 @@ Part A of this proposal will perform the following:
 
 _note_ When withdrawing all units from pools, in actuality, 10 units will be left as to not empty the pool.
 
+- Withdraw 128 aWETH from Ethereum V2
+- The received 128 wETH is to be withdrawn into ETH
+- Transfer the 128 ETH to SAFE address: 0xCDb4fA6ba08bF1FB7Aa9fDf6002E78EDc431a642 as part of the "Frontier" [initiative](https://governance.aave.com/t/arfc-introducing-frontier-staking-as-a-service-for-the-aave-dao/16225)
+
 Revoke the following allowances for the Aave Collector on Mainnet:
 
 `IERC20Token.approve(spender, 0);`

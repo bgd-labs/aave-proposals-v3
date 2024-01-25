@@ -6,6 +6,10 @@ import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {AaveV2Ethereum, AaveV2EthereumAssets} from 'aave-address-book/AaveV2Ethereum.sol';
 import {IProposalGenericExecutor} from 'aave-helpers/interfaces/IProposalGenericExecutor.sol';
 
+interface IWETH {
+  function withdraw(uint256) external;
+}
+
 /**
  * @title Treasury Management - GSM Funding & RWA Strategy Preparations (Part 1)
  * @author efecarranza.eth
@@ -19,7 +23,28 @@ contract AaveV2Ethereum_TreasuryManagementGSMFundingRWAStrategyPreparationsPart1
   address public constant CRV_BAD_DEBT_REPAYMENT = 0x46A1B7d4a2920270c7eB2C2Db4DF2259A109bcb4;
   address public constant AAVE_COLLECTOR_CONSOLIDATION = 0xa426759e433224C2b04f6619aB44217DaD626c6e;
 
+  address public constant SAFE = 0xCDb4fA6ba08bF1FB7Aa9fDf6002E78EDc431a642;
+  uint256 public constant WETH_TO_WITHDRAW = 128 ether;
+
   function execute() external {
+    AaveV2Ethereum.COLLECTOR.transfer(
+      AaveV2EthereumAssets.WETH_A_TOKEN,
+      address(this),
+      WETH_TO_WITHDRAW
+    );
+
+    AaveV2Ethereum.POOL.withdraw(
+      AaveV2EthereumAssets.WETH_UNDERLYING,
+      IERC20(AaveV2EthereumAssets.WETH_A_TOKEN).balanceOf(address(this)),
+      address(this)
+    );
+
+    IWETH(AaveV2EthereumAssets.WETH_UNDERLYING).withdraw(
+      IERC20(AaveV2EthereumAssets.WETH_UNDERLYING).balanceOf(address(this))
+    );
+
+    SAFE.call{value: address(this).balance}('');
+
     AaveV2Ethereum.COLLECTOR.approve(AaveV2EthereumAssets.USDC_A_TOKEN, ONE_WAY_BONDING_CURVE, 0);
     AaveV2Ethereum.COLLECTOR.approve(AaveV2EthereumAssets.USDC_A_TOKEN, CRV_BAD_DEBT_REPAYMENT, 0);
 
@@ -94,4 +119,6 @@ contract AaveV2Ethereum_TreasuryManagementGSMFundingRWAStrategyPreparationsPart1
       0
     );
   }
+
+  receive() external payable {}
 }

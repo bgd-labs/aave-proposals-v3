@@ -17,11 +17,16 @@ contract AaveV2Ethereum_TreasuryManagementGSMFundingRWAStrategyPreparationsPart1
     internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 19014869);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 19085998);
     proposal = new AaveV2Ethereum_TreasuryManagementGSMFundingRWAStrategyPreparationsPart1_20231229();
   }
 
   function test_execute() public {
+    uint256 balanceAWethBefore = IERC20(AaveV2EthereumAssets.WETH_A_TOKEN).balanceOf(
+      address(AaveV2Ethereum.COLLECTOR)
+    );
+    uint256 ethBalanceBefore = proposal.SAFE().balance;
+
     assertGt(
       IERC20(AaveV2EthereumAssets.USDC_A_TOKEN).allowance(
         address(AaveV2Ethereum.COLLECTOR),
@@ -90,5 +95,22 @@ contract AaveV2Ethereum_TreasuryManagementGSMFundingRWAStrategyPreparationsPart1
         0
       );
     }
+
+    uint256 balanceAWethAfter = IERC20(AaveV2EthereumAssets.WETH_A_TOKEN).balanceOf(
+      address(AaveV2Ethereum.COLLECTOR)
+    );
+    uint256 ethBalanceAfter = proposal.SAFE().balance;
+
+    assertApproxEqAbs(
+      balanceAWethAfter,
+      balanceAWethBefore - proposal.WETH_TO_WITHDRAW(),
+      1 ether,
+      'aWETH balance after not equal'
+    );
+    assertEq(
+      ethBalanceAfter,
+      ethBalanceBefore + proposal.WETH_TO_WITHDRAW(),
+      'ETH balance after not equal'
+    );
   }
 }

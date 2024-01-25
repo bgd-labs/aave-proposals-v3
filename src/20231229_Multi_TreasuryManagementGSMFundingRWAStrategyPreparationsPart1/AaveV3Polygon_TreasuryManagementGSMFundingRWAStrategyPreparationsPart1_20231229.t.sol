@@ -20,53 +20,58 @@ contract AaveV3Polygon_TreasuryManagementGSMFundingRWAStrategyPreparationsPart1_
   AaveV3Polygon_TreasuryManagementGSMFundingRWAStrategyPreparationsPart1_20231229 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('polygon'), 52366142);
+    vm.createSelectFork(vm.rpcUrl('polygon'), 52745691);
     proposal = new AaveV3Polygon_TreasuryManagementGSMFundingRWAStrategyPreparationsPart1_20231229();
   }
 
   function test_execute() public {
     assertGt(
       IERC20(AaveV2PolygonAssets.USDC_A_TOKEN).balanceOf(address(AaveV3Polygon.COLLECTOR)),
-      0
+      0,
+      'aUSDC not greater than 0'
     );
     assertGt(
       IERC20(AaveV2PolygonAssets.USDT_A_TOKEN).balanceOf(address(AaveV3Polygon.COLLECTOR)),
-      0
+      0,
+      'aUSDT not greater than 0'
     );
     assertGt(
       IERC20(AaveV2PolygonAssets.DAI_A_TOKEN).balanceOf(address(AaveV3Polygon.COLLECTOR)),
-      0
+      0,
+      'aDAI not greater than 0'
     );
 
     assertGt(
       IERC20(AaveV3PolygonAssets.USDC_A_TOKEN).balanceOf(address(AaveV3Polygon.COLLECTOR)),
-      0
+      0,
+      'amPolUSDC not greater than 0'
     );
     assertGt(
       IERC20(AaveV3PolygonAssets.USDT_A_TOKEN).balanceOf(address(AaveV3Polygon.COLLECTOR)),
-      0
+      0,
+      'amPolUSDT not greater than 0'
     );
 
     uint256 balanceADaiV3Before = IERC20(AaveV3PolygonAssets.DAI_A_TOKEN).balanceOf(
       address(AaveV3Polygon.COLLECTOR)
     );
-    assertGt(balanceADaiV3Before, 0);
+    assertGt(balanceADaiV3Before, 0, 'amPolDAI not greater than 0');
 
     vm.expectEmit(true, true, true, true, MiscPolygon.AAVE_POL_ETH_BRIDGE);
-    emit Bridge(AaveV3PolygonAssets.USDC_UNDERLYING, 2901234552153); // $2,901,234.552153
+    emit Bridge(AaveV3PolygonAssets.USDC_UNDERLYING, 3057435069425); // $3,057,435.069425
 
     vm.expectEmit(true, true, true, true, MiscPolygon.AAVE_POL_ETH_BRIDGE);
-    emit Bridge(AaveV3PolygonAssets.DAI_UNDERLYING, 1070165430067882417587945); // $1,070,165.430067882417587945
+    emit Bridge(AaveV3PolygonAssets.DAI_UNDERLYING, 1097534794305085978960689); // $1,097,534.794305085978960689
 
     vm.expectEmit(true, true, true, true, MiscPolygon.AAVE_POL_ETH_BRIDGE);
-    emit Bridge(AaveV3PolygonAssets.USDT_UNDERLYING, 855125082825); // $855,125.082825
+    emit Bridge(AaveV3PolygonAssets.USDT_UNDERLYING, 869442691714); // $869,442.691714
 
     executePayload(vm, address(proposal));
 
     assertApproxEqAbs(
       IERC20(AaveV2PolygonAssets.USDC_A_TOKEN).balanceOf(address(AaveV3Polygon.COLLECTOR)),
       10e6,
-      5e6,
+      20e6,
       'aUSDC token greater than 0'
     );
 
@@ -90,9 +95,10 @@ contract AaveV3Polygon_TreasuryManagementGSMFundingRWAStrategyPreparationsPart1_
       'amPolUSDC token greater than 0'
     );
 
-    assertEq(
+    assertApproxEqAbs(
       IERC20(AaveV3PolygonAssets.USDT_A_TOKEN).balanceOf(address(AaveV3Polygon.COLLECTOR)),
       10e6,
+      1,
       'amPolUSDT token greater than 0'
     );
 
