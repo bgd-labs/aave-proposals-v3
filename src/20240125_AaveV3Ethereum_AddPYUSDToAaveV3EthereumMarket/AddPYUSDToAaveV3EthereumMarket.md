@@ -5,18 +5,32 @@ discussions: "https://governance.aave.com/t/arfc-add-pyusd-to-aave-v3-ethereum-m
 ---
 
 ## Simple Summary
+This AIP proposes the onboarding of the PYUSD stablecoin, minted by Paxos Trust Company, into the Aave V3 Ethereum pool.
 
 ## Motivation
+PYUSD is a USD-pegged stablecoin minted through Paxos. While it’s still young, it has grown to a circulating supply of over $230M with strong peg resilience. Onboarding this asset into Aave will:
+
+Build synergies between Aave and PYUSD.
+Offer Aave users an additional stablecoin option.
+Strengthen the relationship between the PYUSD & the GHO stablecoin. (Trident may explore the deployment of a PYUSD/GHO pool)
+We propose a PYUSD onboarding outside isolation mode but without collateral properties.
+
+If the community deems that PYUSD as collateral is immediately viable we stand ready to support that role on day one; otherwise following PYUSD maturity, the Aave governance can propose a collateral activation for PYUSD at a later stage.
 
 ## Specification
+Ticker: PYUSD
+Contract address: 0x6c3ea9036406852006290770bedfcaba0e23a0e8
+Price Feed: 0x8f1df6d7f2db73eece86a18b4381f4707b918fb1
+
+Chainlink Oracle: https://data.chain.link/ethereum/mainnet/stablecoins/PYUSD-usd
 
 The table below illustrates the configured risk parameters for **PYUSD**
 
 | Parameter                          |                                      Value |
 | ---------------------------------- | -----------------------------------------: |
-| Isolation Mode                     |                                       true |
+| Isolation Mode                     |                                      false |
 | Borrowable                         |                                    ENABLED |
-| Collateral Enabled                 |                                       true |
+| Collateral Enabled                 |                                      false |
 | Supply Cap (PYUSD)                 |                                 10,000,000 |
 | Borrow Cap (PYUSD)                 |                                  9,000,000 |
 | Debt Ceiling                       |                                      USD 0 |
@@ -29,7 +43,7 @@ The table below illustrates the configured risk parameters for **PYUSD**
 | Variable Slope 1                   |                                        6 % |
 | Variable Slope 2                   |                                       80 % |
 | Uoptimal                           |                                       80 % |
-| Stable Borrowing                   |                                    ENABLED |
+| Stable Borrowing                   |                                   DISABLED |
 | Stable Slope1                      |                                       13 % |
 | Stable Slope2                      |                                      300 % |
 | Base Stable Rate Offset            |                                        3 % |
