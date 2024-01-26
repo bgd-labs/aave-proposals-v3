@@ -25,7 +25,7 @@ export const config: ConfigFile = {
             liqProtocolFee: '10',
             enabledToBorrow: 'ENABLED',
             flashloanable: 'DISABLED',
-            stableRateModeEnabled: 'ENABLED',
+            stableRateModeEnabled: 'DISABLED',
             borrowableInIsolation: 'DISABLED',
             withSiloedBorrowing: 'DISABLED',
             reserveFactor: '20',
