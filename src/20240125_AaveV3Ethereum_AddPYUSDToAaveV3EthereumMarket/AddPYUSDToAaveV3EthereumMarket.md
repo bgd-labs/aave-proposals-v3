@@ -15,7 +15,6 @@ Offer Aave users an additional stablecoin option.
 Strengthen the relationship between the PYUSD & the GHO stablecoin. (Trident may explore the deployment of a PYUSD/GHO pool)
 We propose a PYUSD onboarding outside isolation mode but without collateral properties.
 
-If the community deems that PYUSD as collateral is immediately viable we stand ready to support that role on day one; otherwise following PYUSD maturity, the Aave governance can propose a collateral activation for PYUSD at a later stage.
 
 ## Specification
 Ticker: PYUSD
