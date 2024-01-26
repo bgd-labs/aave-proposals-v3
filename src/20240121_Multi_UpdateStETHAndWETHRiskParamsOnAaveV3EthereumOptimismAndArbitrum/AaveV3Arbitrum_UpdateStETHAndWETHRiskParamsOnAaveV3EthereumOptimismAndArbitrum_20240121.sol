@@ -8,7 +8,7 @@ import {IAaveV3ConfigEngine} from 'aave-helpers/v3-config-engine/IAaveV3ConfigEn
 import {IV3RateStrategyFactory} from 'aave-helpers/v3-config-engine/IV3RateStrategyFactory.sol';
 
 /**
- * @title Update stETH and WETH Risk Params on Aave v3 Ethereum, Optimism and Arbitrum
+ * @title Update ETH LSTs and WETH Risk Params on Aave v3 Ethereum, Optimism and Arbitrum
  * @author Aave Chan Initiative
  * - Snapshot: https://snapshot.org/#/aave.eth/proposal/0xb8790aeb32267062c1500deb613ad15ebd5deac4d78d1786cb1690c12d0512c9
  * - Discussion: https://governance.aave.com/t/arfc-update-steth-and-weth-risk-params-on-aave-v3-ethereum-optimism-and-arbitrum/16168
