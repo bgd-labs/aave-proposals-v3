@@ -4,15 +4,7 @@ pragma solidity ^0.8.0;
 import 'forge-std/Test.sol';
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {ProtocolV2TestBase, ReserveConfig} from 'aave-helpers/ProtocolV2TestBase.sol';
-import {AaveV1Ethereum_AaveV1Deprecation_20240115} from './AaveV1Ethereum_AaveV1Deprecation_20240115.sol';
-
-interface ILendingPoolAddressesProvider {
-  function getLendingPoolCore() external view returns (address);
-
-  function getLendingPool() external view returns (address);
-
-  function getLendingPoolLiquidationManager() external view returns (address);
-}
+import {AaveV1Ethereum_AaveV1Deprecation_20240115, ILendingPoolAddressesProvider, ILendingPoolCore} from './AaveV1Ethereum_AaveV1Deprecation_20240115.sol';
 
 interface ILendingPool {
   function liquidationCall(
@@ -73,17 +65,31 @@ contract AaveV1Ethereum_AaveV1Deprecation_20240115_Test is ProtocolV2TestBase {
   ILendingPoolAddressesProvider public constant ADDRESSES_PROVIDER =
     ILendingPoolAddressesProvider(0x24a42fD28C976A61Df5D00D0599C34c4f90748c8);
 
+  ILendingPoolCore public constant CORE =
+    ILendingPoolCore(0x3dfd23A6c5E8BbcFc9581d2E864a68feb6a076d3);
+
   ILendingPool public constant POOL = ILendingPool(0x398eC7346DcD622eDc5ae82352F02bE94C62d119);
 
   AaveV1Ethereum_AaveV1Deprecation_20240115 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 19075684);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 19111804);
     proposal = new AaveV1Ethereum_AaveV1Deprecation_20240115();
   }
 
   /**
-   * @dev executes the generic test suite including e2e and config snapshots
+   * Check the IR is updated correctly
+   */
+  function test_ir() public {
+    executePayload(vm, address(proposal));
+    address[] memory reserves = CORE.getReserves();
+    for (uint256 i = 0; i < reserves.length; i++) {
+      assertEq(CORE.getReserveInterestRateStrategyAddress(reserves[i]), proposal.MINIMAL_IR());
+    }
+  }
+
+  /**
+   * check the liquidation mechanics work as intended
    */
   function test_defaultProposalExecution() public {
     executePayload(vm, address(proposal));
