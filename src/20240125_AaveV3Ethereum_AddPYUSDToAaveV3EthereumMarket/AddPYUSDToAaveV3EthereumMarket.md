@@ -1,5 +1,5 @@
 ---
-title: "Add PYUSD to Aave v3 Ethereum Market"
+title: "Add PYUSD to Aave v3 Ethereum Pool"
 author: "JosepBove (ACI)"
 discussions: "https://governance.aave.com/t/arfc-add-pyusd-to-aave-v3-ethereum-market/16218/"
 ---
