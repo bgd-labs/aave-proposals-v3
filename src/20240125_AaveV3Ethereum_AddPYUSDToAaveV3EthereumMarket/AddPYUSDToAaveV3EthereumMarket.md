@@ -42,12 +42,6 @@ The table below illustrates the configured risk parameters for **PYUSD**
 | Variable Slope 1                   |                                        6 % |
 | Variable Slope 2                   |                                       80 % |
 | Uoptimal                           |                                       80 % |
-| Stable Borrowing                   |                                   DISABLED |
-| Stable Slope1                      |                                       13 % |
-| Stable Slope2                      |                                      300 % |
-| Base Stable Rate Offset            |                                        3 % |
-| Stable Rate Excess Offset          |                                        8 % |
-| Optimal Stable To Total Debt Ratio |                                       20 % |
 | Flashloanable                      |                                   DISABLED |
 | Siloed Borrowing                   |                                   DISABLED |
 | Borrowable in Isolation            |                                   DISABLED |
