@@ -1,5 +1,5 @@
 ---
-title: "Treasury Management - GSM Funding & RWA Strategy Preparations (Part 1)"
+title: "Treasury Management - GSM Funding & RWA Strategy Preparations (Part 1), Frontier Staking as a Service"
 author: "karpatkey_TokenLogic"
 discussions: "https://governance.aave.com/t/gho-stability-module-update/14442/10"
 ---
@@ -30,7 +30,7 @@ _note_ When withdrawing all units from pools, in actuality, 10 units will be lef
 
 - Withdraw 128 aWETH from Ethereum V2
 - The received 128 wETH is to be withdrawn into ETH
-- Transfer the 128 ETH to SAFE address: 0xCDb4fA6ba08bF1FB7Aa9fDf6002E78EDc431a642 as part of the "Frontier" [initiative](https://governance.aave.com/t/arfc-introducing-frontier-staking-as-a-service-for-the-aave-dao/16225)
+- Transfer the 128 ETH to SAFE address: 0xCDb4fA6ba08bF1FB7Aa9fDf6002E78EDc431a642 as part of the "Frontier" [initiative](https://governance.aave.com/t/arfc-introducing-frontier-staking-as-a-service-for-the-aave-dao/16225). The snapshot for Frontier can be found [here](https://snapshot.org/#/aave.eth/proposal/0x6fc11878e04e6bd26def1077115f67294c7a4cb0b91d4c4eacfa4e036791cfef).
 
 Revoke the following allowances for the Aave Collector on Mainnet:
 

@@ -11,9 +11,10 @@ interface IWETH {
 }
 
 /**
- * @title Treasury Management - GSM Funding & RWA Strategy Preparations (Part 1)
+ * @title Treasury Management - GSM Funding & RWA Strategy Preparations (Part 1), Frontier Staking as a Service
  * @author efecarranza.eth
  * - Snapshot: https://snapshot.org/#/aave.eth/proposal/0xb39537e468eef8c212c67a539cdc6d802cd857f186a4f66aefd44faaadd6ba19
+ * - Snapshot: https://snapshot.org/#/aave.eth/proposal/0x6fc11878e04e6bd26def1077115f67294c7a4cb0b91d4c4eacfa4e036791cfef
  * - Discussion: https://governance.aave.com/t/arfc-treasury-management-gsm-funding-rwa-strategy-preparations/16128
  */
 contract AaveV2Ethereum_TreasuryManagementGSMFundingRWAStrategyPreparationsPart1_20231229 is
