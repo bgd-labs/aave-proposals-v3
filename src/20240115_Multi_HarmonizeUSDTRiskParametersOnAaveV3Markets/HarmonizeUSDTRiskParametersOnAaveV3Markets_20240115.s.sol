@@ -3,13 +3,14 @@ pragma solidity ^0.8.0;
 
 import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aave-helpers/GovV3Helpers.sol';
 //import {AaveV3Markets} from 'aave-address-book/AaveV3Markets.sol';
-import {EthereumScript, PolygonScript, AvalancheScript, OptimismScript, ArbitrumScript, MetisScript} from 'aave-helpers/ScriptUtils.sol';
+import {EthereumScript, PolygonScript, AvalancheScript, OptimismScript, ArbitrumScript, MetisScript, BNBScript} from 'aave-helpers/ScriptUtils.sol';
 import {AaveV3Ethereum_HarmonizeUSDTRiskParametersOnAaveV3Markets_20240115} from './AaveV3Ethereum_HarmonizeUSDTRiskParametersOnAaveV3Markets_20240115.sol';
 import {AaveV3Polygon_HarmonizeUSDTRiskParametersOnAaveV3Markets_20240115} from './AaveV3Polygon_HarmonizeUSDTRiskParametersOnAaveV3Markets_20240115.sol';
 import {AaveV3Avalanche_HarmonizeUSDTRiskParametersOnAaveV3Markets_20240115} from './AaveV3Avalanche_HarmonizeUSDTRiskParametersOnAaveV3Markets_20240115.sol';
 import {AaveV3Optimism_HarmonizeUSDTRiskParametersOnAaveV3Markets_20240115} from './AaveV3Optimism_HarmonizeUSDTRiskParametersOnAaveV3Markets_20240115.sol';
 import {AaveV3Arbitrum_HarmonizeUSDTRiskParametersOnAaveV3Markets_20240115} from './AaveV3Arbitrum_HarmonizeUSDTRiskParametersOnAaveV3Markets_20240115.sol';
 import {AaveV3Metis_HarmonizeUSDTRiskParametersOnAaveV3Markets_20240115} from './AaveV3Metis_HarmonizeUSDTRiskParametersOnAaveV3Markets_20240115.sol';
+import {AaveV3BNB_HarmonizeUSDTRiskParametersOnAaveV3Markets_20240115} from './AaveV3BNB_HarmonizeUSDTRiskParametersOnAaveV3Markets_20240115.sol';
 
 /**
  * @dev Deploy Ethereum
@@ -144,13 +145,35 @@ contract DeployMetis is MetisScript {
 }
 
 /**
+ * @dev Deploy BNB
+ * deploy-command: make deploy-ledger contract=src/20240115_Multi_HarmonizeUSDTRiskParametersOnAaveV3Markets/HarmonizeUSDTRiskParametersOnAaveV3Markets_20240115.s.sol:DeployBNB chain=Bnb
+ * verify-command: npx catapulta-verify -b broadcast/HarmonizeUSDTRiskParametersOnAaveV3Markets_20240115.s.sol/1088/run-latest.json
+ */
+contract DeployBNB is BNBScript {
+  function run() external broadcast {
+    // deploy payloads
+    address payload0 = GovV3Helpers.deployDeterministic(
+      type(AaveV3BNB_HarmonizeUSDTRiskParametersOnAaveV3Markets_20240115).creationCode
+    );
+
+    // compose action
+    IPayloadsControllerCore.ExecutionAction[]
+      memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
+    actions[0] = GovV3Helpers.buildAction(payload0);
+
+    // register action at payloadsController
+    GovV3Helpers.createPayload(actions);
+  }
+}
+
+/**
  * @dev Create Proposal
  * command: make deploy-ledger contract=src/20240115_Multi_HarmonizeUSDTRiskParametersOnAaveV3Markets/HarmonizeUSDTRiskParametersOnAaveV3Markets_20240115.s.sol:CreateProposal chain=mainnet
  */
 contract CreateProposal is EthereumScript {
   function run() external {
     // create payloads
-    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](6);
+    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](7);
 
     // compose actions for validation
     IPayloadsControllerCore.ExecutionAction[]
@@ -194,6 +217,13 @@ contract CreateProposal is EthereumScript {
       type(AaveV3Metis_HarmonizeUSDTRiskParametersOnAaveV3Markets_20240115).creationCode
     );
     payloads[5] = GovV3Helpers.buildMetisPayload(vm, actionsMetis);
+
+    IPayloadsControllerCore.ExecutionAction[]
+      memory actionsBNB = new IPayloadsControllerCore.ExecutionAction[](1);
+    actionsBNB[0] = GovV3Helpers.buildAction(
+      type(AaveV3BNB_HarmonizeUSDTRiskParametersOnAaveV3Markets_20240115).creationCode
+    );
+    payloads[6] = GovV3Helpers.buildBNBPayload(vm, actionsBNB);
 
     // create proposal
     vm.startBroadcast();
