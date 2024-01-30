@@ -7,7 +7,7 @@ discussions: "https://governance.aave.com/t/temp-check-bgd-further-aave-v1-depre
 ## Simple Summary
 
 Approve further steps of Aave v1 off-boarding, to reduce operational overhead on deprecated Aave instances.
-Therefore the proposal suggests to upgrade the pool logic to allow liquidation of healthy positions with a fixed 1% bonus.
+Therefore the proposal suggests to upgrade the pool logic to allow liquidation of healthy positions with a fixed 1% bonus, amongst other measures.
 
 ## Motivation
 
