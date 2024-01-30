@@ -26,6 +26,7 @@ The proposal sets the LT/LTV of USDT on all deployments at 80/77, matching that 
 | USDT   | Arbitrum  | 80%                           | 80%                       | 75%         | 77%     |
 | USDt   | Avalanche | 81%                           | 80%                       | 75%         | 77%     |
 | m.USDT | Metis     | 80%                           | 80%                       | 75%         | 77%     |
+| USDT   | BNB       | 80%                           | 80%                       | 75%         | 77%     |
 
 This proposal will also remove USDT from isolation mode on the following markets (please notes that once an asset is removed from isolation mode it can't be added back again):
 
