@@ -18,7 +18,7 @@ contract AaveV3Polygon_FreezeAndSetLTVTo0ForDPIBALCRVAndSUSHIOnAaveV3Polygon2024
     internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('polygon'), 52939180);
+    vm.createSelectFork(vm.rpcUrl('polygon'), 52940636);
     proposal = new AaveV3Polygon_FreezeAndSetLTVTo0ForDPIBALCRVAndSUSHIOnAaveV3Polygon20240119_20240130();
   }
 

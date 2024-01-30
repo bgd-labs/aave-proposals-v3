@@ -7,9 +7,9 @@ export const config: ConfigFile = {
     date: '20240130',
     author: 'Gauntlet',
     discussion:
-      'https://snapshot.org/#/aave.eth/proposal/0x8a190af80cffafcbca70727c807ef86933b2e08b5212b447eafab976a9612e75',
-    snapshot:
       'https://governance.aave.com/t/arfc-recommendation-to-freeze-and-set-ltv-to-0-on-low-cap-aave-v3-polygon-collateral-assets/16311',
+    snapshot:
+      'https://snapshot.org/#/aave.eth/proposal/0x8a190af80cffafcbca70727c807ef86933b2e08b5212b447eafab976a9612e75',
     pools: ['AaveV3Polygon'],
   },
   poolOptions: {
@@ -56,7 +56,7 @@ export const config: ConfigFile = {
           {asset: 'SUSHI', shouldBeFrozen: true},
         ],
       },
-      cache: {blockNumber: 52939180},
+      cache: {blockNumber: 52940636},
     },
   },
 };

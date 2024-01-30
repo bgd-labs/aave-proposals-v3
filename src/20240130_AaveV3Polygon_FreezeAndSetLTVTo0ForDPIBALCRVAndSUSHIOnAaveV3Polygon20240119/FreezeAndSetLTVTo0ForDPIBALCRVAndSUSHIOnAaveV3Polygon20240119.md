@@ -1,12 +1,16 @@
 ---
 title: "Freeze and set LTV to 0 for DPI, BAL, CRV, and SUSHI on Aave v3 Polygon, 2024.01.19"
 author: "Gauntlet"
-discussions: "https://snapshot.org/#/aave.eth/proposal/0x8a190af80cffafcbca70727c807ef86933b2e08b5212b447eafab976a9612e75"
+discussions: "https://governance.aave.com/t/arfc-recommendation-to-freeze-and-set-ltv-to-0-on-low-cap-aave-v3-polygon-collateral-assets/16311"
 ---
 
 ## Simple Summary
 
+<<<<<<< Updated upstream
 A proposal to to freeze and set LTV to 0 for DPI, BAL, CRV, and SUSHI on Aave v3 Polygon. For more details, see the full forum post [here](https://governance.aave.com/t/arfc-recommendation-to-freeze-and-set-ltv-to-0-on-low-cap-aave-v3-polygon-collateral-assets/16311).
+=======
+
+> > > > > > > Stashed changes
 
 ## Motivation
 
@@ -28,7 +32,11 @@ Freeze and set LTV to 0 for DPI, BAL, CRV, and SUSHI on Aave v3 Polygon.
 
 ## Disclaimer
 
+<<<<<<< Updated upstream
 Gauntlet have not been compensated by any third party for publishing this ARFC.
+=======
+
+> > > > > > > Stashed changes
 
 ## Copyright
 
