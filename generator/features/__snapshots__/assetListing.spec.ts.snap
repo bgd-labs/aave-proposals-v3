@@ -6,6 +6,7 @@ exports[`feature: assetListing > should properly generate files 1`] = `
 title: "test"
 author: "test"
 discussions: "test"
+snapshot: "test"
 ---
 
 ## Simple Summary
