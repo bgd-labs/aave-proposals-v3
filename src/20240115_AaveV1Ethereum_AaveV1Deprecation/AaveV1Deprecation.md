@@ -23,7 +23,7 @@ The proposal contract calls:
 
 - ADDRESSES_PROVIDER.setLendingPoolLiquidationManager(LIQUIDATION_MANAGER_IMPL);
 - ADDRESSES_PROVIDER.setLendingPoolImpl(POOL_IMPL);
-- CONFIGURATOR.setReserveInterestRateStrategyAddress(0x9Bf9df78b1f7c76a473588c41321B5059b62981e); where `0x9Bf9df78b1f7c76a473588c41321B5059b62981e` is a InterestRateStrategy with 0% base and 1%/2% slopes
+- CONFIGURATOR.setReserveInterestRateStrategyAddress(IR); on all assets where `IR` is a InterestRateStrategy with 0% base and 1%/2% slopes
 
 to update the implementations accordingly.
 
