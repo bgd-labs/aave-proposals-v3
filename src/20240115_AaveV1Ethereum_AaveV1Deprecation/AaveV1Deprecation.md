@@ -2,6 +2,7 @@
 title: "Aave V1 Deprecation"
 author: "BGD Labs @bgdlabs"
 discussions: "https://governance.aave.com/t/temp-check-bgd-further-aave-v1-deprecation-strategy/15893"
+snapshot: "https://snapshot.org/#/aave.eth/proposal/0x7451f00809986c7cb8cce7ef4587efdfedad06089ebf2851d64122d00b035d9c"
 ---
 
 ## Simple Summary
