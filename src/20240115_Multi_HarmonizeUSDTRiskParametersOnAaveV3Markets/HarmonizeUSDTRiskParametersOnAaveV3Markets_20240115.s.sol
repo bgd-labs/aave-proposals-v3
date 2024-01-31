@@ -146,7 +146,7 @@ contract DeployMetis is MetisScript {
 
 /**
  * @dev Deploy BNB
- * deploy-command: make deploy-ledger contract=src/20240115_Multi_HarmonizeUSDTRiskParametersOnAaveV3Markets/HarmonizeUSDTRiskParametersOnAaveV3Markets_20240115.s.sol:DeployBNB chain=Bnb
+ * deploy-command: make deploy-ledger contract=src/20240115_Multi_HarmonizeUSDTRiskParametersOnAaveV3Markets/HarmonizeUSDTRiskParametersOnAaveV3Markets_20240115.s.sol:DeployBNB chain=bnb
  * verify-command: npx catapulta-verify -b broadcast/HarmonizeUSDTRiskParametersOnAaveV3Markets_20240115.s.sol/1088/run-latest.json
  */
 contract DeployBNB is BNBScript {
