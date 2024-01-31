@@ -2,9 +2,6 @@
 title: "Freeze and set LTV to 0 for DPI, BAL, CRV, and SUSHI on Aave v3 Polygon, 2024.01.19"
 author: "Gauntlet"
 discussions: "https://governance.aave.com/t/arfc-recommendation-to-freeze-and-set-ltv-to-0-on-low-cap-aave-v3-polygon-collateral-assets/16311"
-snapshot: https://snapshot.org/#/aave.eth/proposal/0x598f04c1f4fb2acba0a9bdaeb2b18e6e1f43b4c62845ee4b81ae5596a6fc2076
-snapshot: https://snapshot.org/#/aave.eth/proposal/0x049fc4fea64a71937882047f1c0e3f39eb96c332f016a7a4b04320846ba55e59
-snapshot: https://snapshot.org/#/aave.eth/proposal/0x04a921887dcb54ec68ceb231e7cc2f64eac443b8cde47f0f5eecbd51b3cffef1
 snapshot: https://snapshot.org/#/aave.eth/proposal/0x8a190af80cffafcbca70727c807ef86933b2e08b5212b447eafab976a9612e75
 ---
 

@@ -16,10 +16,10 @@ contract AaveV3Polygon_FreezeAndSetLTVTo0ForDPIBALCRVAndSUSHIOnAaveV3Polygon2024
   AaveV3PayloadPolygon
 {
   function _postExecute() internal override {
-    AaveV3Polygon.POOL_CONFIGURATOR.setReserveFreeze(AaveV3PolygonAssets.BAL_UNDERLYING, false);
-    AaveV3Polygon.POOL_CONFIGURATOR.setReserveFreeze(AaveV3PolygonAssets.CRV_UNDERLYING, false);
-    AaveV3Polygon.POOL_CONFIGURATOR.setReserveFreeze(AaveV3PolygonAssets.DPI_UNDERLYING, false);
-    AaveV3Polygon.POOL_CONFIGURATOR.setReserveFreeze(AaveV3PolygonAssets.SUSHI_UNDERLYING, false);
+    AaveV3Polygon.POOL_CONFIGURATOR.setReserveFreeze(AaveV3PolygonAssets.BAL_UNDERLYING, true);
+    AaveV3Polygon.POOL_CONFIGURATOR.setReserveFreeze(AaveV3PolygonAssets.CRV_UNDERLYING, true);
+    AaveV3Polygon.POOL_CONFIGURATOR.setReserveFreeze(AaveV3PolygonAssets.DPI_UNDERLYING, true);
+    AaveV3Polygon.POOL_CONFIGURATOR.setReserveFreeze(AaveV3PolygonAssets.SUSHI_UNDERLYING, true);
   }
 
   function collateralsUpdates()
