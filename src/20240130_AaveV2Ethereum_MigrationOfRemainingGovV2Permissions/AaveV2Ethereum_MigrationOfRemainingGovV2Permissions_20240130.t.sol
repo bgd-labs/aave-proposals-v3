@@ -6,10 +6,11 @@ import {AaveV2Ethereum} from 'aave-address-book/AaveV2Ethereum.sol';
 import 'forge-std/Test.sol';
 import {GovHelpers} from 'aave-helpers/GovHelpers.sol';
 import {AaveGovernanceV2} from 'aave-address-book/AaveGovernanceV2.sol';
+import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {ProtocolV2TestBase, ReserveConfig} from 'aave-helpers/ProtocolV2TestBase.sol';
 import {AaveV2Ethereum_MigrationOfRemainingGovV2Permissions_20240130, IExecutor, AaveV2Ethereum_MigrationOfRemainingGovV2Permissions_Part2_20240130} from './AaveV2Ethereum_MigrationOfRemainingGovV2Permissions_20240130.sol';
 import {PayloadsToDeploy} from './MigrationOfRemainingGovV2Permissions_20240130.s.sol';
-import {MainnetPayload} from './MainnetPayload.sol';
+import {MainnetPayload, IAaveArcTimelock} from './MainnetPayload.sol';
 import {PolygonPayload} from './PolygonPayload.sol';
 
 /**
@@ -39,6 +40,23 @@ contract AaveV2Ethereum_MigrationOfRemainingGovV2Permissions_20240130_Test is Pr
     executePayload(vm, address(proposal));
     vm.warp(proposal.EXECUTION_TIME());
     executePayload(vm, address(proposalPart2));
+
+    _testArc();
+  }
+
+  function _testArc() internal {
+    // execute payload on arc timelock
+    uint256 currentActionId = IAaveArcTimelock(AaveGovernanceV2.ARC_TIMELOCK).getActionsSetCount();
+
+    skip(3 days + 10);
+    IAaveArcTimelock(AaveGovernanceV2.ARC_TIMELOCK).execute(currentActionId - 1);
+
+    assertEq(
+      IAaveArcTimelock(AaveGovernanceV2.ARC_TIMELOCK).getEthereumGovernanceExecutor(),
+      GovernanceV3Ethereum.EXECUTOR_LVL_1
+    );
+
+    rewind(3 days + 10);
   }
 }
 

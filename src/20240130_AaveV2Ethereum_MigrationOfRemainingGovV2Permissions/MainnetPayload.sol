@@ -15,6 +15,12 @@ interface IAaveArcTimelock {
     bytes[] memory calldatas,
     bool[] memory withDelegatecalls
   ) external;
+
+  function getActionsSetCount() external view returns (uint256);
+
+  function execute(uint256 actionsSetId) external;
+
+  function getEthereumGovernanceExecutor() external view returns (address);
 }
 
 /**
