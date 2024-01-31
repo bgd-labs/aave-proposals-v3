@@ -2,6 +2,7 @@
 title: "AMPL Interest Rate Updates on V2 Ethereum"
 author: "Chaos Labs"
 discussions: "https://governance.aave.com/t/arfc-ampl-interest-rate-updates-on-v2-ethereum/16189"
+snapshot: "https://snapshot.org/#/aave.eth/proposal/0xc5373ecc51b9ce6a568f2bb99181cf34efb3f317a4bd340719bc10c864fd1332"
 ---
 
 ## Simple Summary
