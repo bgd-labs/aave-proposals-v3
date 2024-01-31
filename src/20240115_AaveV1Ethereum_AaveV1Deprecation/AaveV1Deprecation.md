@@ -37,8 +37,8 @@ This upgrade will:
 
 ## References
 
-- Implementation: [AaveV1Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240115_AaveV1Ethereum_AaveV1Deprecation/AaveV1Ethereum_AaveV1Deprecation_20240115.sol)
-- Tests: [AaveV1Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240115_AaveV1Ethereum_AaveV1Deprecation/AaveV1Ethereum_AaveV1Deprecation_20240115.t.sol)
+- Implementation: [AaveV1Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/530081c7056b72c66b70ed66f9e89ddf66303830/src/20240115_AaveV1Ethereum_AaveV1Deprecation/AaveV1Ethereum_AaveV1Deprecation_20240115.sol)
+- Tests: [AaveV1Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/530081c7056b72c66b70ed66f9e89ddf66303830/src/20240115_AaveV1Ethereum_AaveV1Deprecation/AaveV1Ethereum_AaveV1Deprecation_20240115.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x7451f00809986c7cb8cce7ef4587efdfedad06089ebf2851d64122d00b035d9c)
 - [Discussion](https://governance.aave.com/t/temp-check-bgd-further-aave-v1-deprecation-strategy/15893)
 - [Updated Implementations](https://github.com/bgd-labs/v1-offboarding)
