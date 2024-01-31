@@ -4,6 +4,7 @@ out/
 
 # general
 .env
+.env.bk
 
 # editors
 .idea
