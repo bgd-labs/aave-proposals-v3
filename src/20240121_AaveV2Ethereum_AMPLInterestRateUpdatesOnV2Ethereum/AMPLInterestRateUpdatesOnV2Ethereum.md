@@ -27,8 +27,8 @@ With minimal withdrawals and 100% utilization rate over the last month and a hal
 
 ## References
 
-- Implementation: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240121_AaveV2Ethereum_AMPLInterestRateUpdatesOnV2Ethereum/AaveV2Ethereum_AMPLInterestRateUpdatesOnV2Ethereum_20240121.sol)
-- Tests: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240121_AaveV2Ethereum_AMPLInterestRateUpdatesOnV2Ethereum/AaveV2Ethereum_AMPLInterestRateUpdatesOnV2Ethereum_20240121.t.sol)
+- Implementation: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/02681712c414ab39bd3840337f1584ff7c4b603b/src/20240121_AaveV2Ethereum_AMPLInterestRateUpdatesOnV2Ethereum/AaveV2Ethereum_AMPLInterestRateUpdatesOnV2Ethereum_20240121.sol)
+- Tests: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/02681712c414ab39bd3840337f1584ff7c4b603b/src/20240121_AaveV2Ethereum_AMPLInterestRateUpdatesOnV2Ethereum/AaveV2Ethereum_AMPLInterestRateUpdatesOnV2Ethereum_20240121.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0xc5373ecc51b9ce6a568f2bb99181cf34efb3f317a4bd340719bc10c864fd1332)
 - [Discussion](https://governance.aave.com/t/arfc-ampl-interest-rate-updates-on-v2-ethereum/16189)
 
