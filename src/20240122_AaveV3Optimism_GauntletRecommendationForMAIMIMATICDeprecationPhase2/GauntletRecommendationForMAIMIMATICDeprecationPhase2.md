@@ -28,7 +28,7 @@ As a continuation of our previous [MAI/MIMATIC deprecation](https://governance-v
 
 ## Disclaimer
 
-Gauntlet reserves the right to not move forward with any parameter changes recommended in Snapshot polls, if market conditions change meaningfully.
+Gauntlet has not been compensated by any third party for publishing this ARFC.
 
 ## Copyright
 
