@@ -2,8 +2,47 @@
 pragma solidity ^0.8.0;
 
 import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aave-helpers/GovV3Helpers.sol';
-import {EthereumScript} from 'aave-helpers/ScriptUtils.sol';
+import {EthereumScript, PolygonScript} from 'aave-helpers/ScriptUtils.sol';
 import {AaveV2Ethereum_MigrationOfRemainingGovV2Permissions_20240130, AaveV2Ethereum_MigrationOfRemainingGovV2Permissions_Part2_20240130} from './AaveV2Ethereum_MigrationOfRemainingGovV2Permissions_20240130.sol';
+import {MainnetPayload} from './MainnetPayload.sol';
+import {PolygonPayload} from './PolygonPayload.sol';
+
+library PayloadsToDeploy {
+  function part1(address mainnetPayload, address polygonPayload) internal returns (address) {
+    uint256 estimatedOnchainExecution = block.timestamp +
+      5 days + // governance
+      1 days + // executor delay
+      1 days; // margin for error (time between payload deployment & proposal creation)
+    return
+      GovV3Helpers.deployDeterministic(
+        abi.encodePacked(
+          type(AaveV2Ethereum_MigrationOfRemainingGovV2Permissions_20240130).creationCode,
+          abi.encode(mainnetPayload, polygonPayload, estimatedOnchainExecution)
+        )
+      );
+  }
+
+  function part2(address payload) internal returns (address) {
+    return
+      GovV3Helpers.deployDeterministic(
+        abi.encodePacked(
+          type(AaveV2Ethereum_MigrationOfRemainingGovV2Permissions_Part2_20240130).creationCode,
+          abi.encode(payload)
+        )
+      );
+  }
+}
+
+/**
+ * @dev Deploy Polygon
+ * deploy-command: make deploy-ledger contract=src/20240130_AaveV2Ethereum_MigrationOfRemainingGovV2Permissions/MigrationOfRemainingGovV2Permissions_20240130.s.sol:DeployPolygon chain=polygon
+ * verify-command: npx catapulta-verify -b broadcast/MigrationOfRemainingGovV2Permissions_20240130.s.sol/137/run-latest.json
+ */
+contract DeployPolygon is PolygonScript {
+  function run() external broadcast {
+    new PolygonPayload();
+  }
+}
 
 /**
  * @dev Deploy Ethereum
@@ -11,26 +50,14 @@ import {AaveV2Ethereum_MigrationOfRemainingGovV2Permissions_20240130, AaveV2Ethe
  * verify-command: npx catapulta-verify -b broadcast/MigrationOfRemainingGovV2Permissions_20240130.s.sol/1/run-latest.json
  */
 contract DeployEthereum is EthereumScript {
+  address internal constant POLYGON_PAYLOAD = address(0);
+
   function run() external broadcast {
-    uint256 estimatedOnchainExecution = block.timestamp +
-      5 days + // governance
-      1 days + // executor delay
-      1 days; // margin for error (delay on bridging/ time between payload deployment & proposal creation)
-
+    require(POLYGON_PAYLOAD != address(0));
     // deploy payloads
-    address payload0 = GovV3Helpers.deployDeterministic(
-      abi.encodePacked(
-        type(AaveV2Ethereum_MigrationOfRemainingGovV2Permissions_20240130).creationCode,
-        abi.encode(address(0), 0) // TODO: replace with correct address
-      )
-    );
+    address payload0 = PayloadsToDeploy.part1(address(0), POLYGON_PAYLOAD);
 
-    address payload1 = GovV3Helpers.deployDeterministic(
-      abi.encodePacked(
-        type(AaveV2Ethereum_MigrationOfRemainingGovV2Permissions_Part2_20240130).creationCode,
-        abi.encode(payload0)
-      )
-    );
+    address payload1 = PayloadsToDeploy.part2(address(new MainnetPayload()));
 
     // compose action
     IPayloadsControllerCore.ExecutionAction[]

@@ -27,25 +27,29 @@ interface IExecutor {
 }
 
 /**
- * @title Migration of remaining gov v2 permissions
+ * @title Migration of remaining gov v2 executor controlled systems
+ * - migrating paraswap collector funds
+ * - migrating arc permissions
  * @author TODO
  * - Snapshot: TODO
  * - Discussion: TODO
  */
 contract AaveV2Ethereum_MigrationOfRemainingGovV2Permissions_20240130 is IProposalGenericExecutor {
-  address public immutable PAYLOAD;
+  address public immutable MAINNET_PAYLOAD;
+  address public immutable POLYGON_PAYLOAD;
 
   uint256 public immutable EXECUTION_TIME;
 
-  constructor(address payload, uint256 executionTime) {
-    PAYLOAD = payload;
+  constructor(address mainnetPayload, address polygonPayload, uint256 executionTime) {
+    MAINNET_PAYLOAD = mainnetPayload;
+    POLYGON_PAYLOAD = polygonPayload;
     EXECUTION_TIME = executionTime;
   }
 
   function execute() external {
     // mainnet payload
     IExecutor(AaveGovernanceV2.SHORT_EXECUTOR).queueTransaction(
-      PAYLOAD,
+      MAINNET_PAYLOAD,
       0,
       'execute()',
       '',
@@ -53,14 +57,14 @@ contract AaveV2Ethereum_MigrationOfRemainingGovV2Permissions_20240130 is IPropos
       true
     );
     // l2 payload
-    // IExecutor(AaveGovernanceV2.SHORT_EXECUTOR).queueTransaction(
-    //   address(0), // forwarder
-    //   0,
-    //   'execute(address)',
-    //   abi.encode(payloadAddress),
-    //   EXECUTION_TIME,
-    //   true
-    // );
+    IExecutor(AaveGovernanceV2.SHORT_EXECUTOR).queueTransaction(
+      address(AaveGovernanceV2.CROSSCHAIN_FORWARDER_POLYGON),
+      0,
+      'execute(address)',
+      abi.encode(POLYGON_PAYLOAD),
+      EXECUTION_TIME,
+      true
+    );
   }
 }
 
@@ -77,10 +81,19 @@ contract AaveV2Ethereum_MigrationOfRemainingGovV2Permissions_Part2_20240130 is
   function execute() external {
     // analog to first payload, but using executeTransaction
     IExecutor(AaveGovernanceV2.SHORT_EXECUTOR).executeTransaction(
-      PART1.PAYLOAD(),
+      PART1.MAINNET_PAYLOAD(),
       0,
       'execute()',
       '',
+      PART1.EXECUTION_TIME(),
+      true
+    );
+
+    IExecutor(AaveGovernanceV2.SHORT_EXECUTOR).executeTransaction(
+      address(AaveGovernanceV2.CROSSCHAIN_FORWARDER_POLYGON),
+      0,
+      'execute(address)',
+      abi.encode(PART1.POLYGON_PAYLOAD()),
       PART1.EXECUTION_TIME(),
       true
     );
