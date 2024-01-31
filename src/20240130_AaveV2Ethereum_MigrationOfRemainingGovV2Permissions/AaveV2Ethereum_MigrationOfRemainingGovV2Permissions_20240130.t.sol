@@ -1,7 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {AaveV2Ethereum} from 'aave-address-book/AaveV2Ethereum.sol';
+import {AaveV2Ethereum, AaveV2EthereumAssets} from 'aave-address-book/AaveV2Ethereum.sol';
+import {AaveV3Polygon, AaveV3PolygonAssets} from 'aave-address-book/AaveV3Polygon.sol';
+import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 
 import 'forge-std/Test.sol';
 import {GovHelpers} from 'aave-helpers/GovHelpers.sol';
@@ -35,11 +37,18 @@ contract AaveV2Ethereum_MigrationOfRemainingGovV2Permissions_20240130_Test is Pr
    * @dev executes the generic test suite including e2e and config snapshots
    */
   function test_defaultProposalExecution() public {
+    uint256 wETHBalance = IERC20(AaveV2EthereumAssets.WETH_UNDERLYING).balanceOf(
+      address(AaveV2Ethereum.COLLECTOR)
+    );
     assert(proposal.EXECUTION_TIME() == block.timestamp + 7 days);
     vm.warp(proposal.EXECUTION_TIME() - 2 days);
     executePayload(vm, address(proposal));
     vm.warp(proposal.EXECUTION_TIME());
     executePayload(vm, address(proposalPart2));
+    uint256 wETHBalanceAfter = IERC20(AaveV2EthereumAssets.WETH_UNDERLYING).balanceOf(
+      address(AaveV2Ethereum.COLLECTOR)
+    );
+    assertGt(wETHBalanceAfter, wETHBalance);
 
     _testArc();
   }
@@ -78,6 +87,13 @@ contract AaveV2Ethereum_MigrationOfRemainingGovV2Permissions_20240130_Polygon_Te
    * @dev executes the generic test suite including e2e and config snapshots
    */
   function test_defaultProposalExecution() public {
+    uint256 wMATICBalance = IERC20(AaveV3PolygonAssets.WMATIC_UNDERLYING).balanceOf(
+      address(AaveV3Polygon.COLLECTOR)
+    );
     GovHelpers.executePayload(vm, address(proposal), AaveGovernanceV2.POLYGON_BRIDGE_EXECUTOR);
+    uint256 wMATICBalanceAfter = IERC20(AaveV3PolygonAssets.WMATIC_UNDERLYING).balanceOf(
+      address(AaveV3Polygon.COLLECTOR)
+    );
+    assertGt(wMATICBalanceAfter, wMATICBalance);
   }
 }
