@@ -17,17 +17,17 @@ const GovernanceImports = [
 function generateAddressBookImports(code: string) {
   const imports: string[] = [];
   let root = '';
-  const addressBookMatch = code.match(/(AaveV[2..3][A-Z][a-z]+)\./);
+  const addressBookMatch = code.match(/(AaveV[2..3][A-Za-z]+)\./);
   if (addressBookMatch) {
     imports.push(addressBookMatch[1]);
     root = addressBookMatch[1];
   }
-  const assetsMatch = code.match(/(AaveV[2..3][A-Z][a-z]+)Assets\./);
+  const assetsMatch = code.match(/(AaveV[2..3][A-Za-z]+)Assets\./);
   if (assetsMatch) {
     imports.push(assetsMatch[1] + 'Assets');
     root = assetsMatch[1];
   }
-  const eModesMatch = code.match(/(AaveV[2..3][A-Z][a-z]+)EModes\./);
+  const eModesMatch = code.match(/(AaveV[2..3][A-Za-z]+)EModes\./);
   if (eModesMatch) {
     imports.push(eModesMatch[1] + 'EModes');
     root = eModesMatch[1];
@@ -36,7 +36,7 @@ function generateAddressBookImports(code: string) {
 }
 
 function generateEngineImport(code: string) {
-  const matches = [...code.matchAll(/Aave(V[2..3])Payload([A-Z][a-z]+)/g)].flat();
+  const matches = [...code.matchAll(/Aave(V[2..3])Payload([A-Za-z]+)/g)].flat();
   if (matches.length > 0)
     return `import {${matches[0]}} from 'aave-helpers/${matches[1].toLowerCase()}-config-engine/${
       matches[0]
