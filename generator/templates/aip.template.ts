@@ -6,6 +6,7 @@ export function generateAIP(options: Options, configs: PoolConfigs) {
 title: ${`"${options.title}"` || 'TODO'}
 author: ${`"${options.author}"` || 'TODO'}
 discussions: ${`"${options.discussion}"` || 'TODO'}
+snapshot: ${`"${options.snapshot}"` || 'TODO'}
 ---
 
 ## Simple Summary
