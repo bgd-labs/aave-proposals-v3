@@ -7,7 +7,7 @@ import {ParaswapClaim, ParaswapClaimer} from './ParaswapClaim.sol';
 
 /**
  * @title PolygonPayload
- * @author BGD Labs
+ * @author BGD Labs @bgdlabs
  * @notice Aave governance payload to claim rewards accrued as positive slippage on paraswap to the polygon collector.
  */
 contract PolygonPayload is IProposalGenericExecutor, ParaswapClaim {

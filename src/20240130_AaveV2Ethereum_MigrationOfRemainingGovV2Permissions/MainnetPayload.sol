@@ -25,7 +25,7 @@ interface IAaveArcTimelock {
 
 /**
  * @title MainnetPayload
- * @author BGD Labs
+ * @author BGD Labs @bgdlabs
  * @notice Aave governance payload to claim rewards accrued as positive slippage on paraswap to the ethereum collector.
  * @notice Also migrates aave arc permissions from old governance v2 short executor, to the governance v3 executor.
  */

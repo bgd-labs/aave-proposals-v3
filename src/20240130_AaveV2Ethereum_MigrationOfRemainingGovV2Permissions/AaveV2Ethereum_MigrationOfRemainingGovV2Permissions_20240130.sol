@@ -30,7 +30,7 @@ interface IExecutor {
  * @title Migration of remaining gov v2 executor controlled systems
  * - migrating paraswap collector funds
  * - migrating arc permissions
- * @author TODO
+ * @author BGD Labs @bgdlabs
  * - Snapshot: TODO
  * - Discussion: TODO
  */

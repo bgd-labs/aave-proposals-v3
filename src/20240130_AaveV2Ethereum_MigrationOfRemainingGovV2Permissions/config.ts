@@ -1,7 +1,7 @@
 import {ConfigFile} from '../../generator/types';
 export const config: ConfigFile = {
   rootOptions: {
-    author: 'TODO',
+    author: 'BGD Labs @bgdlabs',
     pools: ['AaveV2Ethereum'],
     title: 'Migration of remaining gov v2 permissions',
     shortName: 'MigrationOfRemainingGovV2Permissions',
