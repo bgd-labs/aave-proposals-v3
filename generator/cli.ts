@@ -24,8 +24,8 @@ import {priceFeedsUpdates} from './features/priceFeedsUpdates';
 import {freezeUpdates} from './features/freeze';
 import {assetListing, assetListingCustom} from './features/assetListing';
 import {generateFiles, writeFiles} from './generator';
-import {PublicClient} from 'viem';
-import {CHAIN_ID_CLIENT_MAP} from '@bgd-labs/aave-cli';
+import {CHAIN_ID_CLIENT_MAP} from '@bgd-labs/js-utils';
+import {getBlockNumber} from 'viem/actions';
 
 const program = new Command();
 
@@ -146,8 +146,8 @@ if (options.configFile) {
 
   async function generateDeterministicPoolCache(pool: PoolIdentifier): Promise<PoolCache> {
     const chain = getPoolChain(pool);
-    const client = CHAIN_ID_CLIENT_MAP[CHAIN_TO_CHAIN_ID[chain]] as PublicClient;
-    return {blockNumber: Number(await client.getBlockNumber())};
+    const client = CHAIN_ID_CLIENT_MAP[CHAIN_TO_CHAIN_ID[chain]];
+    return {blockNumber: Number(await getBlockNumber(client))};
   }
 
   for (const pool of options.pools) {
