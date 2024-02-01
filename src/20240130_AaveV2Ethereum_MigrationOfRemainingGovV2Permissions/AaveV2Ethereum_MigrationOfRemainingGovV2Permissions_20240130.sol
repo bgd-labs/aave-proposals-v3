@@ -31,7 +31,7 @@ interface IExecutor {
  * - migrating paraswap collector funds
  * - migrating arc permissions
  * @author BGD Labs @bgdlabs
- * - Snapshot: TODO
+ * - Snapshot: https://snapshot.org/#/aave.eth/proposal/0x4fd357741900bfe62a863d1e3ec84fbf79bfebd5bdda3f66eee75b8845274b6d
  * - Discussion: TODO
  */
 contract AaveV2Ethereum_MigrationOfRemainingGovV2Permissions_20240130 is IProposalGenericExecutor {

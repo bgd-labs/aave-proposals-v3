@@ -1,5 +1,5 @@
 ---
-title: "Migration of remaining gov v2 permissions"
+title: "Migration of arc permissions & old paraswap claims"
 author: "BGD Labs @bgdlabs"
 discussions: "https://governance.aave.com/t/bgd-aave-paraswap-fee-claimer/10671/3"
 snapshot: "https://snapshot.org/#/aave.eth/proposal/0x4fd357741900bfe62a863d1e3ec84fbf79bfebd5bdda3f66eee75b8845274b6d"
@@ -29,7 +29,7 @@ On mainnet the proposal also queues a call to:
 
 - Implementation: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240130_AaveV2Ethereum_MigrationOfRemainingGovV2Permissions/AaveV2Ethereum_MigrationOfRemainingGovV2Permissions_20240130.sol)
 - Tests: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240130_AaveV2Ethereum_MigrationOfRemainingGovV2Permissions/AaveV2Ethereum_MigrationOfRemainingGovV2Permissions_20240130.t.sol)
-- [Snapshot](TODO)
+- [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x4fd357741900bfe62a863d1e3ec84fbf79bfebd5bdda3f66eee75b8845274b6d)
 - [Discussion](TODO)
 
 ## Copyright
