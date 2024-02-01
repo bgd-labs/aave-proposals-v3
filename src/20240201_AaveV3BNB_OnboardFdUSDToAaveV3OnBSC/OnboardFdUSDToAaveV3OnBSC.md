@@ -1,5 +1,5 @@
 ---
-title: "Onboard fdUSD to Aave v3 on BSC"
+title: "Onboard fdUSD to Aave v3 on BNB chain"
 author: "ACI (Aave Chan Initiative)"
 discussions: "https://governance.aave.com/t/arfc-onboard-fdusd-to-aave-v3-on-bsc/16364"
 snapshot: "https://snapshot.org/#/aave.eth/proposal/0xedacc2aab061dbb187ef705ffee8a8f35ab3f53670e4d8e432eed9dfd2c31958"
@@ -7,21 +7,21 @@ snapshot: "https://snapshot.org/#/aave.eth/proposal/0xedacc2aab061dbb187ef705ffe
 
 ## Simple Summary
 
-The proposal aims to onboard fdUSD, a fiat-backed stablecoin, to the Aave v3 protocol on the BNB Chain (BSC).
+The proposal aims to onboard fdUSD, a fiat-backed stablecoin, to the Aave v3 protocol on the BNB Chain.
 
 ## Motivation
 
 fdUSD is a dollar-pegged stablecoin that provides stability and value preservation for users on the BNB Chain. It is issued by FD121 Ltd. (First Digital Labs), a subsidiary of First Digital Group that is incorporated in Hong Kong.
 
-As part of the approved deployment on BSC, fdUSD will be a key asset for supply liquidity and borrow demand. As this is a net-new asset for Aave, we propose this ARFC to confirm community approval to add fdUSD as an asset for the launch of the BSC deployment of Aave. The proposal seeks to leverage the strong demand for stablecoins and the growing popularity of the BSC ecosystem to provide users with enhanced liquidity options.
+As part of the approved deployment on BNB chain, fdUSD will be a key asset for supply liquidity and borrow demand. The proposal seeks to leverage the strong demand for stablecoins and the growing popularity of the BNB ecosystem to provide users with enhanced liquidity options.
 
 Benefits of listing fdUSD:
 
-- Enhanced liquidity options for Aave users on the BSC deployment
+- Enhanced liquidity options for Aave users on the BNB deployment
 - Increased utility for fdUSD as it becomes available for lending and borrowing
-- Strengthened collaboration between Aave and the BSC ecosystem, fostering growth and innovation
+- Strengthened collaboration between Aave and the BNB ecosystem, fostering growth and innovation
 
-Aave’s BSC deployment will be integrated with Binance’s web3 wallet, making easy access for Binance users to deposit fdUSD in Aave through the Earn program.
+Aave’s BNB deployment will be integrated with Binance’s web3 wallet, making easy access for Binance users to deposit fdUSD in Aave through the Earn program.
 
 ## Specification
 
