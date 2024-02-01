@@ -6,7 +6,7 @@ import {fetchCollateralUpdate} from './collateralsUpdates';
 import {fetchCapsUpdate} from './capsUpdates';
 import {Listing, ListingWithCustomImpl, TokenImplementations} from './types';
 import {CHAIN_TO_CHAIN_ID, getPoolChain} from '../common';
-import {PublicClient, getContract} from 'viem';
+import {getContract} from 'viem';
 import {confirm} from '@inquirer/prompts';
 import {TEST_EXECUTE_PROPOSAL} from '../utils/constants';
 import {addressPrompt, translateJsAddressToSol} from '../prompts/addressPrompt';
@@ -49,7 +49,7 @@ async function fetchListing(pool: PoolIdentifier): Promise<Listing> {
         type: 'function',
       },
     ],
-    publicClient: CHAIN_ID_CLIENT_MAP[CHAIN_TO_CHAIN_ID[chain]] as PublicClient,
+    client: CHAIN_ID_CLIENT_MAP[CHAIN_TO_CHAIN_ID[chain]],
     address: asset,
   });
   let symbol = '';
