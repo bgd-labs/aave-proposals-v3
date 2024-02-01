@@ -7,7 +7,7 @@ snapshot: "https://snapshot.org/#/aave.eth/proposal/0xedacc2aab061dbb187ef705ffe
 
 ## Simple Summary
 
-The proposal aims to onboard fdUSD, a fiat-backed stablecoin, to the Aave v3 protocol on the BNB Chain (BSC).
+The proposal aims to onboard fdUSD, a fiat-backed stablecoin, to the Aave v3 protocol on the BNB Chain.
 
 ## Motivation
 
