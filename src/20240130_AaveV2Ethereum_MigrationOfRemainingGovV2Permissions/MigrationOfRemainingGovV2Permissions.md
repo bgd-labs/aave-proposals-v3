@@ -15,6 +15,8 @@ In November 2022 a permissionless contract was [introduced](https://governance.a
 
 When governance v3 was introduced, some permissions for the deprecated aave arc pool were not properly migrated to the new governance system. For proper permission alignment this should still be done.
 
+Approving this proposal will also authorize the guardians on `optimism`, `arbitrum`, `avalanche` and `fantom` to claim the pending paraswap positive slippage to the respective network collector.
+
 ## Specification
 
 On mainnet & polygon the proposal calls:
