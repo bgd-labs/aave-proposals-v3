@@ -1,5 +1,5 @@
 ---
-title: "Chaos Labs V2 Ethereum LT Reductions"
+title: "V2 Ethereum LT Reductions"
 author: "Chaos Labs - Eyal Ovadya"
 discussions: "https://governance.aave.com/t/arfc-v2-ethereum-lt-reductions-01-30-2024/16468"
 snapshot: "No snapshot for Direct-to-AIP"
