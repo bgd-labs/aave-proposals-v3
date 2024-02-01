@@ -18,7 +18,7 @@
 | oracle | [0x390180e80058A8499930F0c13963AD3E0d86Bfc9](https://bscscan.com/address/0x390180e80058A8499930F0c13963AD3E0d86Bfc9) |
 | oracleDecimals | 8 |
 | oracleDescription | FDUSD / USD |
-| oracleLatestAnswer | 0.99915282 |
+| oracleLatestAnswer | 0.99897852 |
 | usageAsCollateralEnabled | true |
 | ltv | 70 % |
 | liquidationThreshold | 75 % |
@@ -48,11 +48,11 @@
 | variableRateSlope1 | 6 % |
 | variableRateSlope2 | 75 % |
 | baseStableBorrowRate | 9 % |
-| stableRateSlope1 | 20 % |
+| stableRateSlope1 | 13 % |
 | stableRateSlope2 | 300 % |
 | optimalStableToTotalDebtRatio | 20 % |
 | maxExcessStableToTotalDebtRatio | 80 % |
-| interestRate | ![ir](/.assets/d55f4b207213a055fad41f0ecf7fadcf722624f4.svg) |
+| interestRate | ![ir](/.assets/698e43131f9db2b95d61c650ead9d06d20ce7bf9.svg) |
 
 
 ## Raw diff
@@ -86,7 +86,7 @@
         "oracle": "0x390180e80058A8499930F0c13963AD3E0d86Bfc9",
         "oracleDecimals": 8,
         "oracleDescription": "FDUSD / USD",
-        "oracleLatestAnswer": 99915282,
+        "oracleLatestAnswer": 99897852,
         "reserveFactor": 2000,
         "stableBorrowRateEnabled": false,
         "stableDebtToken": "0x5543d347bfae77A5FF913e589aB6D6ad520f1C73",
@@ -114,7 +114,7 @@
         "maxExcessUsageRatio": "100000000000000000000000000",
         "optimalStableToTotalDebtRatio": "200000000000000000000000000",
         "optimalUsageRatio": "900000000000000000000000000",
-        "stableRateSlope1": "200000000000000000000000000",
+        "stableRateSlope1": "130000000000000000000000000",
         "stableRateSlope2": "3000000000000000000000000000",
         "variableRateSlope1": "60000000000000000000000000",
         "variableRateSlope2": "750000000000000000000000000"

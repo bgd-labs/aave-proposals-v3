@@ -17,7 +17,7 @@ contract AaveV3BNB_OnboardFdUSDToAaveV3OnBSC_20240201_Test is ProtocolV3TestBase
   AaveV3BNB_OnboardFdUSDToAaveV3OnBSC_20240201 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('bnb'), 35752020);
+    vm.createSelectFork(vm.rpcUrl('bnb'), 35760458);
     proposal = new AaveV3BNB_OnboardFdUSDToAaveV3OnBSC_20240201();
   }
 
