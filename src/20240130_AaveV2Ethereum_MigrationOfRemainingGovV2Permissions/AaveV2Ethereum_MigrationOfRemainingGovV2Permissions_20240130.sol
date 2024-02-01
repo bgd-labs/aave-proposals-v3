@@ -27,12 +27,12 @@ interface IExecutor {
 }
 
 /**
- * @title Migration of remaining gov v2 executor controlled systems
- * - migrating paraswap collector funds
+ * @title Migration of remaining gov v2 executor controlled systems Part1
+ * - migrating paraswap positive slippage
  * - migrating arc permissions
  * @author BGD Labs @bgdlabs
  * - Snapshot: https://snapshot.org/#/aave.eth/proposal/0x4fd357741900bfe62a863d1e3ec84fbf79bfebd5bdda3f66eee75b8845274b6d
- * - Discussion: TODO
+ * - Discussion: https://governance.aave.com/t/bgd-technical-maintenance-proposals/15274/17
  */
 contract AaveV2Ethereum_MigrationOfRemainingGovV2Permissions_20240130 is IProposalGenericExecutor {
   address public immutable MAINNET_PAYLOAD;
@@ -68,6 +68,14 @@ contract AaveV2Ethereum_MigrationOfRemainingGovV2Permissions_20240130 is IPropos
   }
 }
 
+/**
+ * @title Migration of remaining gov v2 executor controlled systems Part2
+ * - migrating paraswap positive slippage
+ * - migrating arc permissions
+ * @author BGD Labs @bgdlabs
+ * - Snapshot: https://snapshot.org/#/aave.eth/proposal/0x4fd357741900bfe62a863d1e3ec84fbf79bfebd5bdda3f66eee75b8845274b6d
+ * - Discussion: https://governance.aave.com/t/bgd-technical-maintenance-proposals/15274/17
+ */
 contract AaveV2Ethereum_MigrationOfRemainingGovV2Permissions_Part2_20240130 is
   IProposalGenericExecutor
 {
