@@ -17,7 +17,7 @@ As part of the approved deployment on BNB chain, fdUSD will be a key asset for s
 
 Benefits of listing fdUSD:
 
-- Enhanced liquidity options for Aave users on the BSC deployment
+- Enhanced liquidity options for Aave users on the BNB deployment
 - Increased utility for fdUSD as it becomes available for lending and borrowing
 - Strengthened collaboration between Aave and the BNB ecosystem, fostering growth and innovation
 
