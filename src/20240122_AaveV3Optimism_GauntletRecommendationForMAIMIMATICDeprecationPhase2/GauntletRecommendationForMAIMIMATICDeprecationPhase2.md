@@ -21,8 +21,8 @@ As a continuation of our previous [MAI/MIMATIC deprecation](https://governance-v
 
 ## References
 
-- Implementation: [AaveV3Optimism](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240122_AaveV3Optimism_GauntletRecommendationForMAIMIMATICDeprecationPhase2/AaveV3Optimism_GauntletRecommendationForMAIMIMATICDeprecationPhase2_20240122.sol)
-- Tests: [AaveV3Optimism](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240122_AaveV3Optimism_GauntletRecommendationForMAIMIMATICDeprecationPhase2/AaveV3Optimism_GauntletRecommendationForMAIMIMATICDeprecationPhase2_20240122.t.sol)
+- Implementation: [AaveV3Optimism](https://github.com/bgd-labs/aave-proposals-v3/blob/28a99cfe636a003b92fb1e8b8af03a66e4b3eaa6/src/20240122_AaveV3Optimism_GauntletRecommendationForMAIMIMATICDeprecationPhase2/AaveV3Optimism_GauntletRecommendationForMAIMIMATICDeprecationPhase2_20240122.sol)
+- Tests: [AaveV3Optimism](https://github.com/bgd-labs/aave-proposals-v3/blob/28a99cfe636a003b92fb1e8b8af03a66e4b3eaa6/src/20240122_AaveV3Optimism_GauntletRecommendationForMAIMIMATICDeprecationPhase2/AaveV3Optimism_GauntletRecommendationForMAIMIMATICDeprecationPhase2_20240122.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x67a6941140c0c0662cfbf99254100f58930afb6763b8040c4bdbd0dfbb2a952b)
 - [Discussion](https://governance.aave.com/t/arfc-gauntlet-recommendation-for-mai-mimatic-deprecation-phase-2/15957)
 
