@@ -1,5 +1,5 @@
 ---
-title: "Onboard fdUSD to Aave v3 on BSC"
+title: "Onboard fdUSD to Aave v3 on BNB chain"
 author: "ACI (Aave Chan Initiative)"
 discussions: "https://governance.aave.com/t/arfc-onboard-fdusd-to-aave-v3-on-bsc/16364"
 snapshot: "https://snapshot.org/#/aave.eth/proposal/0xedacc2aab061dbb187ef705ffee8a8f35ab3f53670e4d8e432eed9dfd2c31958"
