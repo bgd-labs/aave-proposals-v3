@@ -49,6 +49,33 @@ interface ILendingPool {
       uint256 lastUpdateTimestamp,
       bool usageAsCollateralEnabled
     );
+
+  function getReserveData(
+    address _reserve
+  )
+    external
+    view
+    returns (
+      uint256 totalLiquidity,
+      uint256 availableLiquidity,
+      uint256 totalBorrowsStable,
+      uint256 totalBorrowsVariable,
+      uint256 liquidityRate,
+      uint256 variableBorrowRate,
+      uint256 stableBorrowRate,
+      uint256 averageStableBorrowRate,
+      uint256 utilizationRate,
+      uint256 liquidityIndex,
+      uint256 variableBorrowIndex,
+      address aTokenAddress,
+      uint40 lastUpdateTimestamp
+    );
+
+  function repay(address _reserve, uint256 _amount, address payable _onBehalfOf) external payable;
+}
+
+interface IAToken {
+  function redeem(uint256 _amount) external;
 }
 
 /**
@@ -57,7 +84,7 @@ interface ILendingPool {
  */
 contract AaveV1Ethereum_AaveV1Deprecation_20240115_Test is ProtocolV2TestBase {
   struct V1User {
-    address user;
+    address payable user;
     address collateral;
     address debt;
   }
@@ -88,32 +115,65 @@ contract AaveV1Ethereum_AaveV1Deprecation_20240115_Test is ProtocolV2TestBase {
     }
   }
 
+  function test_repay() public {
+    executePayload(vm, address(proposal));
+    V1User[] memory users = _getUsers();
+    for (uint256 i = 0; i < users.length; i++) {
+      vm.startPrank(users[i].user);
+
+      // repay
+      _repayV1(users[i].debt, users[i].user);
+
+      vm.stopPrank();
+    }
+  }
+
+  function test_redeem() public {
+    executePayload(vm, address(proposal));
+    V1User[] memory users = _getUsers();
+
+    for (uint256 i = 0; i < users.length; i++) {
+      vm.startPrank(users[i].user);
+
+      // redeem
+      _redeemV1(users[i].collateral, users[i].user, 100);
+
+      vm.stopPrank();
+    }
+  }
+
+  function _repayV1(address debtAsset, address payable user) internal {
+    (, uint256 currentBorrowBalance, , , , , uint256 originationFee, , , ) = POOL
+      .getUserReserveData(debtAsset, user);
+    uint256 debt = currentBorrowBalance + originationFee;
+    if (debtAsset == 0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE) {
+      deal(user, debt);
+      POOL.repay{value: debt}(debtAsset, type(uint256).max, user);
+    } else {
+      deal2(debtAsset, user, debt);
+      IERC20(debtAsset).approve(ADDRESSES_PROVIDER.getLendingPoolCore(), 0);
+      IERC20(debtAsset).approve(ADDRESSES_PROVIDER.getLendingPoolCore(), type(uint256).max);
+      POOL.repay(debtAsset, type(uint256).max, user);
+    }
+    (, uint256 currentBorrowBalanceAfter, , , , , uint256 originationFeeAfter, , , ) = POOL
+      .getUserReserveData(debtAsset, user);
+    assertEq(currentBorrowBalanceAfter + originationFeeAfter, 0, vm.toString(debtAsset));
+  }
+
+  function _redeemV1(address token, address user, uint256 amount) internal {
+    (uint256 currentATokenBalance, , , , , , , , , ) = POOL.getUserReserveData(token, user);
+    address aToken = CORE.getReserveATokenAddress(token);
+    IAToken(aToken).redeem(amount);
+    (uint256 currentATokenBalanceAfter, , , , , , , , , ) = POOL.getUserReserveData(token, user);
+    assertEq(currentATokenBalance - amount, currentATokenBalanceAfter);
+  }
+
   /**
    * check the liquidation mechanics work as intended
    */
-  function test_defaultProposalExecution() public {
+  function test_testLiquidation() public {
     executePayload(vm, address(proposal));
-    V1User[] memory users = new V1User[](4);
-    users[0] = V1User(
-      0x1F0aeAeE69468727BA258B0cf692E6bfecc2E286,
-      0x514910771AF9Ca656af840dff83E8264EcF986CA, // LINK
-      0x0000000000085d4780B73119b644AE5ecd22b376 // TUSD
-    );
-    users[1] = V1User(
-      0x1F0aeAeE69468727BA258B0cf692E6bfecc2E286,
-      0x514910771AF9Ca656af840dff83E8264EcF986CA, // LINK
-      0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48 // USDC
-    );
-    users[2] = V1User(
-      0x310D5C8EE1512D5092ee4377061aE82E48973689,
-      0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599, // WBTC
-      0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE // weth
-    );
-    users[3] = V1User(
-      0xb570de1e7f1696DE9623e1784122EBCA1d6907e5,
-      0x514910771AF9Ca656af840dff83E8264EcF986CA, // LINK
-      0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48 // USDC
-    );
+    V1User[] memory users = _getUsers();
     for (uint256 i = 0; i < users.length; i++) {
       (, uint256 currentBorrowBalance, , , , , , , , ) = POOL.getUserReserveData(
         users[i].debt,
@@ -152,5 +212,30 @@ contract AaveV1Ethereum_AaveV1Deprecation_20240115_Test is ProtocolV2TestBase {
       assertGt(collateralDiff, borrowsDiff);
       assertApproxEqAbs((borrowsDiff * 1 ether) / collateralDiff, 0.99 ether, 0.001 ether); // should be ~1% + rounding
     }
+  }
+
+  function _getUsers() internal returns (V1User[] memory) {
+    V1User[] memory users = new V1User[](4);
+    users[0] = V1User(
+      payable(0x1F0aeAeE69468727BA258B0cf692E6bfecc2E286),
+      0x514910771AF9Ca656af840dff83E8264EcF986CA, // LINK
+      0x0000000000085d4780B73119b644AE5ecd22b376 // TUSD
+    );
+    users[1] = V1User(
+      payable(0x1F0aeAeE69468727BA258B0cf692E6bfecc2E286),
+      0x514910771AF9Ca656af840dff83E8264EcF986CA, // LINK
+      0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48 // USDC
+    );
+    users[2] = V1User(
+      payable(0x310D5C8EE1512D5092ee4377061aE82E48973689),
+      0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599, // WBTC
+      0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE // weth
+    );
+    users[3] = V1User(
+      payable(0xb570de1e7f1696DE9623e1784122EBCA1d6907e5),
+      0x514910771AF9Ca656af840dff83E8264EcF986CA, // LINK
+      0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48 // USDC
+    );
+    return users;
   }
 }

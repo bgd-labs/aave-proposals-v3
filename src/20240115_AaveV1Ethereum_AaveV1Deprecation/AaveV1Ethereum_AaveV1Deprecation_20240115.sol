@@ -19,6 +19,8 @@ interface ILendingPoolCore {
   function getReserves() external view returns (address[] memory);
 
   function getReserveInterestRateStrategyAddress(address) external view returns (address);
+
+  function getReserveATokenAddress(address) external view returns (address);
 }
 
 interface IPoolConfigurator {
