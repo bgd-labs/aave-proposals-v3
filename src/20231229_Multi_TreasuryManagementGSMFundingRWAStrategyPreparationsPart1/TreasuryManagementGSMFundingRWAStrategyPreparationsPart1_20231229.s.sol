@@ -57,7 +57,7 @@ contract DeployPolygon is PolygonScript {
  * command: make deploy-ledger contract=src/20231229_Multi_TreasuryManagementGSMFundingRWAStrategyPreparationsPart1/TreasuryManagementGSMFundingRWAStrategyPreparationsPart1_20231229.s.sol:CreateProposal chain=mainnet
  */
 contract CreateProposal is EthereumScript {
-  function run() external broadcast {
+  function run() external {
     // create payloads
     PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](2);
 
@@ -79,6 +79,7 @@ contract CreateProposal is EthereumScript {
     payloads[1] = GovV3Helpers.buildPolygonPayload(vm, actionsPolygon);
 
     // create proposal
+    vm.startBroadcast();
     GovV3Helpers.createProposal(
       vm,
       payloads,
