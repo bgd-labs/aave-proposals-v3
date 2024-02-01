@@ -63,8 +63,8 @@ The table below illustrates the configured risk parameters for **FDUSD**
 
 ## References
 
-- Implementation: [AaveV3BNB](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240201_AaveV3BNB_OnboardFdUSDToAaveV3OnBSC/AaveV3BNB_OnboardFdUSDToAaveV3OnBSC_20240201.sol)
-- Tests: [AaveV3BNB](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240201_AaveV3BNB_OnboardFdUSDToAaveV3OnBSC/AaveV3BNB_OnboardFdUSDToAaveV3OnBSC_20240201.t.sol)
+- Implementation: [AaveV3BNB](https://github.com/bgd-labs/aave-proposals-v3/blob/670e6221c853857f7c7e86f9cd87ebef5890d5e7/src/20240201_AaveV3BNB_OnboardFdUSDToAaveV3OnBSC/AaveV3BNB_OnboardFdUSDToAaveV3OnBSC_20240201.sol)
+- Tests: [AaveV3BNB](https://github.com/bgd-labs/aave-proposals-v3/blob/670e6221c853857f7c7e86f9cd87ebef5890d5e7/src/20240201_AaveV3BNB_OnboardFdUSDToAaveV3OnBSC/AaveV3BNB_OnboardFdUSDToAaveV3OnBSC_20240201.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0xedacc2aab061dbb187ef705ffee8a8f35ab3f53670e4d8e432eed9dfd2c31958)
 - [Discussion](https://governance.aave.com/t/arfc-onboard-fdusd-to-aave-v3-on-bsc/16364)
 
