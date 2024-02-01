@@ -29,8 +29,8 @@ On Ethereum the proposal also queues a call to:
 
 ## References
 
-- Implementation: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240130_AaveV2Ethereum_MigrationOfRemainingGovV2Permissions/AaveV2Ethereum_MigrationOfRemainingGovV2Permissions_20240130.sol)
-- Tests: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240130_AaveV2Ethereum_MigrationOfRemainingGovV2Permissions/AaveV2Ethereum_MigrationOfRemainingGovV2Permissions_20240130.t.sol)
+- Implementation: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/6a5856de61049e47f43a3cb4f05f74400b493427/src/20240130_AaveV2Ethereum_MigrationOfRemainingGovV2Permissions/AaveV2Ethereum_MigrationOfRemainingGovV2Permissions_20240130.sol)
+- Tests: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/6a5856de61049e47f43a3cb4f05f74400b493427/src/20240130_AaveV2Ethereum_MigrationOfRemainingGovV2Permissions/AaveV2Ethereum_MigrationOfRemainingGovV2Permissions_20240130.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x4fd357741900bfe62a863d1e3ec84fbf79bfebd5bdda3f66eee75b8845274b6d)
 - [Discussion](https://governance.aave.com/t/bgd-technical-maintenance-proposals/15274/17)
 
