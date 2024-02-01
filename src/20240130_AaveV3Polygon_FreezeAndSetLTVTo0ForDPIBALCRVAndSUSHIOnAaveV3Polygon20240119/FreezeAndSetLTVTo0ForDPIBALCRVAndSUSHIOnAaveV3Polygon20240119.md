@@ -24,8 +24,8 @@ The primary reason for keeping smaller-cap assets like DPI, BAL, CRV, and SUSHI 
 
 ## References
 
-- Implementation: [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240130_AaveV3Polygon_FreezeAndSetLTVTo0ForDPIBALCRVAndSUSHIOnAaveV3Polygon20240119/AaveV3Polygon_FreezeAndSetLTVTo0ForDPIBALCRVAndSUSHIOnAaveV3Polygon20240119_20240130.sol)
-- Tests: [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240130_AaveV3Polygon_FreezeAndSetLTVTo0ForDPIBALCRVAndSUSHIOnAaveV3Polygon20240119/AaveV3Polygon_FreezeAndSetLTVTo0ForDPIBALCRVAndSUSHIOnAaveV3Polygon20240119_20240130.t.sol)
+- Implementation: [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/4731cbf29eff70f3f1ccda01d1c331c2dd5aac19/src/20240130_AaveV3Polygon_FreezeAndSetLTVTo0ForDPIBALCRVAndSUSHIOnAaveV3Polygon20240119/AaveV3Polygon_FreezeAndSetLTVTo0ForDPIBALCRVAndSUSHIOnAaveV3Polygon20240119_20240130.sol)
+- Tests: [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/4731cbf29eff70f3f1ccda01d1c331c2dd5aac19/src/20240130_AaveV3Polygon_FreezeAndSetLTVTo0ForDPIBALCRVAndSUSHIOnAaveV3Polygon20240119/AaveV3Polygon_FreezeAndSetLTVTo0ForDPIBALCRVAndSUSHIOnAaveV3Polygon20240119_20240130.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x598f04c1f4fb2acba0a9bdaeb2b18e6e1f43b4c62845ee4b81ae5596a6fc2076)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x049fc4fea64a71937882047f1c0e3f39eb96c332f016a7a4b04320846ba55e59)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x04a921887dcb54ec68ceb231e7cc2f64eac443b8cde47f0f5eecbd51b3cffef1)
