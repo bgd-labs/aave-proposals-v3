@@ -19,7 +19,7 @@ Benefits of listing fdUSD:
 
 - Enhanced liquidity options for Aave users on the BSC deployment
 - Increased utility for fdUSD as it becomes available for lending and borrowing
-- Strengthened collaboration between Aave and the BSC ecosystem, fostering growth and innovation
+- Strengthened collaboration between Aave and the BNB ecosystem, fostering growth and innovation
 
 Aave’s BSC deployment will be integrated with Binance’s web3 wallet, making easy access for Binance users to deposit fdUSD in Aave through the Earn program.
 
