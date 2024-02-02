@@ -59,8 +59,8 @@ The table below illustrates the initial suggested risk parameters for each asset
 
 ## References
 
-- Implementation: [AaveV3Scroll](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240122_AaveV3Scroll_AaveV3ScrollActivation/AaveV3Scroll_AaveV3ScrollActivation_20240122.sol)
-- Tests: [AaveV3Scroll](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240122_AaveV3Scroll_AaveV3ScrollActivation/AaveV3Scroll_AaveV3ScrollActivation_20240122.t.sol)
+- Implementation: [AaveV3Scroll](https://github.com/bgd-labs/aave-proposals-v3/blob/1264249853c64ae4602f6abf40822cb8e6890395/src/20240122_AaveV3Scroll_AaveV3ScrollActivation/AaveV3Scroll_AaveV3ScrollActivation_20240122.sol)
+- Tests: [AaveV3Scroll](https://github.com/bgd-labs/aave-proposals-v3/blob/1264249853c64ae4602f6abf40822cb8e6890395/src/20240122_AaveV3Scroll_AaveV3ScrollActivation/AaveV3Scroll_AaveV3ScrollActivation_20240122.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x8110de95ff2827946ede0a9b8c5b9c1876605163bb1e7f8c637b6b80848224c8)
 - [Discussion](https://governance.aave.com/t/arfc-aave-v3-deployment-on-scroll-mainnet/16126/)
 
