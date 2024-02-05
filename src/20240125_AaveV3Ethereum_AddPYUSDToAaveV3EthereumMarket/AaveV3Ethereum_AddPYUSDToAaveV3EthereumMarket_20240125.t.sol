@@ -17,7 +17,7 @@ contract AaveV3Ethereum_AddPYUSDToAaveV3EthereumMarket_20240125_Test is Protocol
   AaveV3Ethereum_AddPYUSDToAaveV3EthereumMarket_20240125 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 19084159);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 19161904);
     proposal = new AaveV3Ethereum_AddPYUSDToAaveV3EthereumMarket_20240125();
   }
 
