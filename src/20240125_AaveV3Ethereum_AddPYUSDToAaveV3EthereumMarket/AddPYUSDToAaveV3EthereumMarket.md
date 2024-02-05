@@ -44,7 +44,7 @@ The table below illustrates the configured risk parameters for **PYUSD**
 | Variable Slope 1          |                                        6 % |
 | Variable Slope 2          |                                       80 % |
 | Uoptimal                  |                                       80 % |
-| Flashloanable             |                                   DISABLED |
+| Flashloanable             |                                    ENABLED |
 | Siloed Borrowing          |                                   DISABLED |
 | Borrowable in Isolation   |                                   DISABLED |
 | Oracle                    | 0x8f1df6d7f2db73eece86a18b4381f4707b918fb1 |
