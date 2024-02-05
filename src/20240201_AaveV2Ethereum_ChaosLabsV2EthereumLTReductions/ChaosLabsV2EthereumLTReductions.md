@@ -35,8 +35,8 @@ Chaos and Gauntlet align on following recommendations, choosing the higher value
 
 ## References
 
-- Implementation: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240201_AaveV2Ethereum_ChaosLabsV2EthereumLTReductions/AaveV2Ethereum_ChaosLabsV2EthereumLTReductions_20240201.sol)
-- Tests: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240201_AaveV2Ethereum_ChaosLabsV2EthereumLTReductions/AaveV2Ethereum_ChaosLabsV2EthereumLTReductions_20240201.t.sol)
+- Implementation: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/295f9414834c29c4250b6da9d52c2c3e958b0728/src/20240201_AaveV2Ethereum_ChaosLabsV2EthereumLTReductions/AaveV2Ethereum_ChaosLabsV2EthereumLTReductions_20240201.sol)
+- Tests: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/295f9414834c29c4250b6da9d52c2c3e958b0728/src/20240201_AaveV2Ethereum_ChaosLabsV2EthereumLTReductions/AaveV2Ethereum_ChaosLabsV2EthereumLTReductions_20240201.t.sol)
 - [Snapshot](No snapshot for Direct-to-AIP)
 - [Discussion](https://governance.aave.com/t/arfc-v2-ethereum-lt-reductions-01-30-2024/16468)
 
