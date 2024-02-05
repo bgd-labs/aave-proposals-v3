@@ -27,6 +27,8 @@ This proposal, will release the following funds to white-hat addresses and the I
 
 - $6'500 to `0x2BC5fFc5De1a83a9e4cDDfA138bAEd516D70414b` (immunefi.eth). This is the fee corresponding to the 10% of the bounty being paid.
 
+_Note: The asset used for the transfers is aUSDC v3 Ethereum_.
+
 ## References
 
 - Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240205_AaveV3Ethereum_RetroactiveBugBountyPreImmunefi/AaveV3Ethereum_RetroactiveBugBountyPreImmunefi_20240205.sol)

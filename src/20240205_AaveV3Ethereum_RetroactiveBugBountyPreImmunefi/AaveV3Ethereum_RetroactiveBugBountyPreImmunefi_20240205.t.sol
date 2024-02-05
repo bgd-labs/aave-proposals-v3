@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
+import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 
-import 'forge-std/Test.sol';
-import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/ProtocolV3TestBase.sol';
+import {ProtocolV3TestBase} from 'aave-helpers/ProtocolV3TestBase.sol';
+import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {AaveV3Ethereum_RetroactiveBugBountyPreImmunefi_20240205} from './AaveV3Ethereum_RetroactiveBugBountyPreImmunefi_20240205.sol';
 
 /**
@@ -28,5 +28,42 @@ contract AaveV3Ethereum_RetroactiveBugBountyPreImmunefi_20240205_Test is Protoco
       AaveV3Ethereum.POOL,
       address(proposal)
     );
+  }
+
+  function test_consistentBalances() public {
+    AaveV3Ethereum_RetroactiveBugBountyPreImmunefi_20240205.Bounty[3] memory bounties = proposal
+      .getBounties();
+
+    uint256 TOTAL_AMOUNT = 96_500e6;
+
+    uint256[] memory balancesRecipientsBefore = new uint256[](3);
+    uint256 balanceCollectorBefore = IERC20(AaveV3EthereumAssets.USDC_A_TOKEN).balanceOf(
+      address(AaveV3Ethereum.COLLECTOR)
+    );
+
+    // Validate the Collector has enough aUSDC v3
+    assertGe(balanceCollectorBefore, TOTAL_AMOUNT);
+
+    for (uint256 i = 0; i < bounties.length; i++) {
+      balancesRecipientsBefore[i] = IERC20(AaveV3EthereumAssets.USDC_A_TOKEN).balanceOf(
+        bounties[i].recipient
+      );
+    }
+
+    executePayload(vm, address(proposal));
+
+    for (uint256 i = 0; i < bounties.length; i++) {
+      assertApproxEqAbs(
+        IERC20(AaveV3EthereumAssets.USDC_A_TOKEN).balanceOf(bounties[i].recipient),
+        balancesRecipientsBefore[i] + bounties[i].amount,
+        1
+      );
+    }
+
+    uint256 balanceCollectorAfter = IERC20(AaveV3EthereumAssets.USDC_A_TOKEN).balanceOf(
+      address(AaveV3Ethereum.COLLECTOR)
+    );
+    // Checking worst case scenario of 3 wei imprecision, but probabilistically pretty rare
+    assertApproxEqAbs(balanceCollectorAfter, balanceCollectorBefore - TOTAL_AMOUNT, 3);
   }
 }
