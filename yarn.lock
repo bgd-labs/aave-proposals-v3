@@ -988,10 +988,10 @@ camelcase@^5.3.1:
   resolved "https://registry.npmjs.org/camelcase/-/camelcase-5.3.1.tgz"
   integrity sha512-L28STB170nwWS63UjtlEOE3dldQApaJXZkOI1uMFfzf3rRuPegHaHesyee+YxQ+W6SvRDQV6UrdOdRiR153wJg==
 
-catapulta-verify@^0.1.12:
-  version "0.1.12"
-  resolved "https://registry.yarnpkg.com/catapulta-verify/-/catapulta-verify-0.1.12.tgz#a0fc7f7f6388f4f197f7fba9e6d80a975134a3cd"
-  integrity sha512-lQfFHadbGGRSuCsG80NFQTX1SYE3CgUqTA7uzQdFb0iPzlD8AVtO6ml0qf1PlmRvOBjOiykvuFjXAjlmG3Mtkw==
+catapulta-verify@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/catapulta-verify/-/catapulta-verify-1.0.4.tgz#6d109772437ec1bb3ee943b3b2ca8ad15b16ea76"
+  integrity sha512-8bOR7eOuwc8mStLtyeOU+ofCdT7i0CkH2KsKXRekf7xXrJefqtY+sA9mGnJmln9MU0qNDv6EvNCOTadLyhtbAA==
 
 chai@^4.3.10:
   version "4.3.10"
