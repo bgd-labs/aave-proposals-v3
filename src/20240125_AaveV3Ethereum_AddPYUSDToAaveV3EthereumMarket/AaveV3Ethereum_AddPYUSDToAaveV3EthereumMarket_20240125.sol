@@ -38,7 +38,7 @@ contract AaveV3Ethereum_AddPYUSDToAaveV3EthereumMarket_20240125 is AaveV3Payload
       stableRateModeEnabled: EngineFlags.DISABLED,
       borrowableInIsolation: EngineFlags.DISABLED,
       withSiloedBorrowing: EngineFlags.DISABLED,
-      flashloanable: EngineFlags.DISABLED,
+      flashloanable: EngineFlags.ENABLED,
       ltv: 0,
       liqThreshold: 0,
       liqBonus: 0,

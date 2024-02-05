@@ -13,7 +13,7 @@
 | borrowCap | 9,000,000 PYUSD |
 | debtCeiling | 0 $ |
 | isSiloed | false |
-| isFlashloanable | false |
+| isFlashloanable | true |
 | eModeCategory | 0 |
 | oracle | [0x8f1dF6D7F2db73eECE86a18b4381F4707b918FB1](https://etherscan.io/address/0x8f1dF6D7F2db73eECE86a18b4381F4707b918FB1) |
 | oracleDecimals | 8 |
@@ -75,7 +75,7 @@
         "interestRateStrategy": "0xAC4f9019608f3A359Ba6a576DC4deC9561D2e514",
         "isActive": true,
         "isBorrowableInIsolation": false,
-        "isFlashloanable": false,
+        "isFlashloanable": true,
         "isFrozen": false,
         "isPaused": false,
         "isSiloed": false,
