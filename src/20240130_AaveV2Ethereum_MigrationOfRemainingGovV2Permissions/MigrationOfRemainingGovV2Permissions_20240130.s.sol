@@ -50,14 +50,15 @@ contract DeployPolygon is PolygonScript {
  * verify-command: npx catapulta-verify -b broadcast/MigrationOfRemainingGovV2Permissions_20240130.s.sol/1/run-latest.json
  */
 contract DeployEthereum is EthereumScript {
-  address internal constant POLYGON_PAYLOAD = address(0);
+  address internal constant POLYGON_PAYLOAD = address(0x40F9a4FB0E9E2a982c0A7547A6a48965BD480235);
 
   function run() external broadcast {
     require(POLYGON_PAYLOAD != address(0));
+    MainnetPayload payload = new MainnetPayload();
     // deploy payloads
-    address payload0 = PayloadsToDeploy.part1(address(0), POLYGON_PAYLOAD);
+    address payload0 = PayloadsToDeploy.part1(address(payload), POLYGON_PAYLOAD);
 
-    address payload1 = PayloadsToDeploy.part2(address(new MainnetPayload()));
+    address payload1 = PayloadsToDeploy.part2(address(payload0));
 
     // compose action
     IPayloadsControllerCore.ExecutionAction[]
@@ -86,12 +87,16 @@ contract CreateProposal is EthereumScript {
     // compose actions for validation
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsEthereum0 = new IPayloadsControllerCore.ExecutionAction[](1);
-    actionsEthereum0[0] = GovV3Helpers.buildAction(address(0)); // TODO: replace with part1
+    actionsEthereum0[0] = GovV3Helpers.buildAction(
+      address(0xd15280055CfE8A8AD69EBC5108582fE5CF9e72ae)
+    );
     payloads[0] = GovV3Helpers.buildMainnetPayload(vm, actionsEthereum0);
 
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsEthereum1 = new IPayloadsControllerCore.ExecutionAction[](1);
-    actionsEthereum1[0] = GovV3Helpers.buildAction(address(0)); // TODO: replace with part2
+    actionsEthereum1[0] = GovV3Helpers.buildAction(
+      address(0xb26EF5Fcef56262A5a21565b7665ffe2068DaE7C)
+    );
     payloads[1] = GovV3Helpers.buildMainnetPayload(vm, actionsEthereum1);
     // create proposal
     vm.startBroadcast();

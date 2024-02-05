@@ -24,12 +24,12 @@ contract AaveV2Ethereum_MigrationOfRemainingGovV2Permissions_20240130_Test is Pr
   AaveV2Ethereum_MigrationOfRemainingGovV2Permissions_Part2_20240130 internal proposalPart2;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 19119958);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 19162360);
     proposal = AaveV2Ethereum_MigrationOfRemainingGovV2Permissions_20240130(
-      PayloadsToDeploy.part1(address(new MainnetPayload()), address(0))
+      0xd15280055CfE8A8AD69EBC5108582fE5CF9e72ae // PayloadsToDeploy.part1(address(new MainnetPayload()), address(0))
     );
     proposalPart2 = AaveV2Ethereum_MigrationOfRemainingGovV2Permissions_Part2_20240130(
-      PayloadsToDeploy.part2(address(proposal))
+      0xb26EF5Fcef56262A5a21565b7665ffe2068DaE7C // PayloadsToDeploy.part2(address(proposal))
     );
   }
 
@@ -40,7 +40,7 @@ contract AaveV2Ethereum_MigrationOfRemainingGovV2Permissions_20240130_Test is Pr
     uint256 wETHBalance = IERC20(AaveV2EthereumAssets.WETH_UNDERLYING).balanceOf(
       address(AaveV2Ethereum.COLLECTOR)
     );
-    assert(proposal.EXECUTION_TIME() == block.timestamp + 7 days);
+    assert(proposal.EXECUTION_TIME() >= block.timestamp + 5 days);
     vm.warp(proposal.EXECUTION_TIME() - 2 days);
     executePayload(vm, address(proposal));
     vm.warp(proposal.EXECUTION_TIME());
@@ -79,8 +79,8 @@ contract AaveV2Ethereum_MigrationOfRemainingGovV2Permissions_20240130_Polygon_Te
   PolygonPayload proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('polygon'), 52961125);
-    proposal = new PolygonPayload();
+    vm.createSelectFork(vm.rpcUrl('polygon'), 53153947);
+    proposal = PolygonPayload(0x40F9a4FB0E9E2a982c0A7547A6a48965BD480235);
   }
 
   /**
