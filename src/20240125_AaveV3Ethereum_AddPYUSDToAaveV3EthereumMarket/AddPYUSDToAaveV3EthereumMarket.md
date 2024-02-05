@@ -51,8 +51,8 @@ The table below illustrates the configured risk parameters for **PYUSD**
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240125_AaveV3Ethereum_AddPYUSDToAaveV3EthereumMarket/AaveV3Ethereum_AddPYUSDToAaveV3EthereumMarket_20240125.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240125_AaveV3Ethereum_AddPYUSDToAaveV3EthereumMarket/AaveV3Ethereum_AddPYUSDToAaveV3EthereumMarket_20240125.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/6ce4cb92b4fb7dc9a857357c26d9cdb529b9ea30/src/20240125_AaveV3Ethereum_AddPYUSDToAaveV3EthereumMarket/AaveV3Ethereum_AddPYUSDToAaveV3EthereumMarket_20240125.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/6ce4cb92b4fb7dc9a857357c26d9cdb529b9ea30/src/20240125_AaveV3Ethereum_AddPYUSDToAaveV3EthereumMarket/AaveV3Ethereum_AddPYUSDToAaveV3EthereumMarket_20240125.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0xb91949efad61b134b913d93b00f73ca8a122259e6d1458cf793f22a0eebfd5d5)
 - [Discussion](https://governance.aave.com/t/arfc-add-pyusd-to-aave-v3-ethereum-market/16218/)
 
