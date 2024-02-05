@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {AaveV2EthereumAMM, AaveV2EthereumAMMAssets} from 'aave-address-book/AaveV2EthereumAMM.sol';
+import {AaveV2EthereumAMM, AaveV2EthereumAMMAssets, ILendingPoolConfigurator} from 'aave-address-book/AaveV2EthereumAMM.sol';
 import {AaveV2PayloadEthereum} from 'aave-helpers/v2-config-engine/AaveV2PayloadEthereum.sol';
 import {EngineFlags} from 'aave-helpers/v3-config-engine/EngineFlags.sol';
 import {IAaveV2ConfigEngine} from 'aave-helpers/v2-config-engine/IAaveV2ConfigEngine.sol';
@@ -15,23 +15,23 @@ import {IV2RateStrategyFactory} from 'aave-helpers/v2-config-engine/IV2RateStrat
  */
 contract AaveV2EthereumAMM_ARFCDeprecateAaveV2AMMMarketStep2_20240205 is AaveV2PayloadEthereum {
   function _postExecute() internal override {
-    AaveV2EthereumAMM.POOL_CONFIGURATOR.setReserveFactor(
+    ILendingPoolConfigurator(AaveV2EthereumAMM.POOL_CONFIGURATOR).setReserveFactor(
       AaveV2EthereumAMMAssets.WETH_UNDERLYING,
       99_00
     );
-    AaveV2EthereumAMM.POOL_CONFIGURATOR.setReserveFactor(
+    ILendingPoolConfigurator(AaveV2EthereumAMM.POOL_CONFIGURATOR).setReserveFactor(
       AaveV2EthereumAMMAssets.DAI_UNDERLYING,
       99_00
     );
-    AaveV2EthereumAMM.POOL_CONFIGURATOR.setReserveFactor(
+    ILendingPoolConfigurator(AaveV2EthereumAMM.POOL_CONFIGURATOR).setReserveFactor(
       AaveV2EthereumAMMAssets.USDC_UNDERLYING,
       99_00
     );
-    AaveV2EthereumAMM.POOL_CONFIGURATOR.setReserveFactor(
+    ILendingPoolConfigurator(AaveV2EthereumAMM.POOL_CONFIGURATOR).setReserveFactor(
       AaveV2EthereumAMMAssets.WBTC_UNDERLYING,
       99_00
     );
-    AaveV2EthereumAMM.POOL_CONFIGURATOR.setReserveFactor(
+    ILendingPoolConfigurator(AaveV2EthereumAMM.POOL_CONFIGURATOR).setReserveFactor(
       AaveV2EthereumAMMAssets.USDT_UNDERLYING,
       99_00
     );
