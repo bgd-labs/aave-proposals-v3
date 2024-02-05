@@ -7,7 +7,7 @@ snapshot: "https://snapshot.org/#/aave.eth/proposal/0x0ade316f52d5f763160ea15538
 
 ## Simple Summary
 
-Since the community approved to deprecate the v2 AMM market within the Deprecate Aave v2 AMM Market forum [post](https://governance.aave.com/t/arfc-deprecate-aave-v2-amm-market/12830). Gauntlet is providing further parameter recommendations to motivate the remaining v2 AMM users to migrate to v3 markets.
+A proposal for further deprecation recommendations on Aave AMM v2. For more details, see the full forum post [here](https://governance.aave.com/t/arfc-deprecate-aave-v2-amm-market-step-2/16408/2).
 
 ## Motivation
 
