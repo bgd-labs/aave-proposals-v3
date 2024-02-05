@@ -7,6 +7,7 @@ import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 
 import 'forge-std/Test.sol';
 import {GovHelpers} from 'aave-helpers/GovHelpers.sol';
+import {GovV3Helpers} from 'aave-helpers/GovV3Helpers.sol';
 import {AaveGovernanceV2} from 'aave-address-book/AaveGovernanceV2.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {ProtocolV2TestBase, ReserveConfig} from 'aave-helpers/ProtocolV2TestBase.sol';
@@ -42,9 +43,9 @@ contract AaveV2Ethereum_MigrationOfRemainingGovV2Permissions_20240130_Test is Pr
     );
     assert(proposal.EXECUTION_TIME() >= block.timestamp + 5 days);
     vm.warp(proposal.EXECUTION_TIME() - 2 days);
-    executePayload(vm, address(proposal));
+    GovV3Helpers.executePayload(vm, 57);
     vm.warp(proposal.EXECUTION_TIME());
-    executePayload(vm, address(proposalPart2));
+    GovV3Helpers.executePayload(vm, 58);
     uint256 wETHBalanceAfter = IERC20(AaveV2EthereumAssets.WETH_UNDERLYING).balanceOf(
       address(AaveV2Ethereum.COLLECTOR)
     );
