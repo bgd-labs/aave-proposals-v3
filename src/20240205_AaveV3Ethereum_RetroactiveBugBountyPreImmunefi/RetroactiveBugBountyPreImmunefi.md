@@ -7,7 +7,7 @@ snapshot: "https://snapshot.org/#/aave.eth/proposal/0xb707cff629af03eeaa44bbbb7e
 
 ## Simple Summary
 
-Proposal to release a grand total of 96’500 USDC, for bounties pending from before the setup of the Aave <> Immunefi official bug bounty program.
+Proposal to release a grand total of 86’500 USDC, for bounties pending from before the setup of the Aave <> Immunefi official bug bounty program.
 
 ## Motivation
 
@@ -23,11 +23,11 @@ This proposal, will release the following funds to white-hat addresses and the I
 
 - $65’000 to `0xFa760444A229e78A50Ca9b3779f4ce4CcE10E170`.
 
-- $25’000 to `0x7dF98A6e1895fd247aD4e75B8EDa59889fa7310b`.
+- $15’000 to `0x7dF98A6e1895fd247aD4e75B8EDa59889fa7310b`.
 
 - $6'500 to `0x2BC5fFc5De1a83a9e4cDDfA138bAEd516D70414b` (immunefi.eth). This is the fee corresponding to the 10% of the bounty being paid.
 
-_Note: The asset used for the transfers is aUSDC v3 Ethereum_.
+_Note: After checking with a financial contributor to the DAO (TokenLogic & Karpatkey), the asset used for the transfers is aUSDC v2 Ethereum_
 
 ## References
 
