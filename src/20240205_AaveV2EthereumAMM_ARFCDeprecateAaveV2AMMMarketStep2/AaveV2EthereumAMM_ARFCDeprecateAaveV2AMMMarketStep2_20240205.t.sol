@@ -26,7 +26,8 @@ contract AaveV2EthereumAMM_ARFCDeprecateAaveV2AMMMarketStep2_20240205_Test is Pr
     defaultTest(
       'AaveV2EthereumAMM_ARFCDeprecateAaveV2AMMMarketStep2_20240205',
       AaveV2EthereumAMM.POOL,
-      address(proposal)
+      address(proposal),
+      false
     );
   }
 }
