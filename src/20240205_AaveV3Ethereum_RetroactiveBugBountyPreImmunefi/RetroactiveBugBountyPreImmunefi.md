@@ -7,7 +7,7 @@ snapshot: "https://snapshot.org/#/aave.eth/proposal/0xb707cff629af03eeaa44bbbb7e
 
 ## Simple Summary
 
-Proposal to release a grand total of 86’500 USDC, for bounties pending from before the setup of the Aave <> Immunefi official bug bounty program
+Proposal to release a grand total of 96’500 USDC, for bounties pending from before the setup of the Aave <> Immunefi official bug bounty program.
 
 ## Motivation
 
