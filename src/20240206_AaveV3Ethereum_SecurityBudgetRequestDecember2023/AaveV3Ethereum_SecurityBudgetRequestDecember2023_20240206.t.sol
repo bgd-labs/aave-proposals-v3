@@ -1,7 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
+import {AaveV2Ethereum, AaveV2EthereumAssets} from 'aave-address-book/AaveV2Ethereum.sol';
+import {AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
 
 import {ProtocolV3TestBase} from 'aave-helpers/ProtocolV3TestBase.sol';
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
@@ -31,30 +32,62 @@ contract AaveV3Ethereum_SecurityBudgetRequestDecember2023_20240206_Test is Proto
   }
 
   function test_consistentBalances() public {
-    uint256 collectorBalanceBefore = IERC20(AaveV3EthereumAssets.USDC_A_TOKEN).balanceOf(
-      address(AaveV3Ethereum.COLLECTOR)
+    uint256 collectorUsdcBalanceBefore = IERC20(AaveV2EthereumAssets.USDC_A_TOKEN).balanceOf(
+      address(AaveV2Ethereum.COLLECTOR)
+    );
+    uint256 collectorUsdtBalanceBefore = IERC20(AaveV2EthereumAssets.USDT_A_TOKEN).balanceOf(
+      address(AaveV2Ethereum.COLLECTOR)
     );
 
-    // Validate the Collector has enough aUSDC v3
-    assertGe(collectorBalanceBefore, proposal.TOTAL_AMOUNT());
+    // Validate the Collector has enough aUSDC v2
+    assertGe(collectorUsdcBalanceBefore, proposal.USDC_AMOUNT());
 
-    uint256 recipientBalanceBefore = IERC20(AaveV3EthereumAssets.USDC_A_TOKEN).balanceOf(
+    // Validate the Collector has enough aUSDT v2
+    assertGe(collectorUsdtBalanceBefore, proposal.USDT_AMOUNT());
+
+    uint256 recipientUsdcBalanceBefore = IERC20(AaveV2EthereumAssets.USDC_A_TOKEN).balanceOf(
+      proposal.BGD_RECIPIENT()
+    );
+    uint256 recipientUsdtBalanceBefore = IERC20(AaveV2EthereumAssets.USDT_A_TOKEN).balanceOf(
       proposal.BGD_RECIPIENT()
     );
 
     executePayload(vm, address(proposal));
 
+    uint256 recipientUsdcBalanceAfter = IERC20(AaveV2EthereumAssets.USDC_A_TOKEN).balanceOf(
+      proposal.BGD_RECIPIENT()
+    );
+    uint256 recipientUsdtBalanceAfter = IERC20(AaveV2EthereumAssets.USDT_A_TOKEN).balanceOf(
+      proposal.BGD_RECIPIENT()
+    );
+
     assertApproxEqAbs(
-      IERC20(AaveV3EthereumAssets.USDC_A_TOKEN).balanceOf(proposal.BGD_RECIPIENT()),
-      recipientBalanceBefore + proposal.TOTAL_AMOUNT(),
+      recipientUsdcBalanceAfter,
+      recipientUsdcBalanceBefore + proposal.USDC_AMOUNT(),
+      1
+    );
+    assertApproxEqAbs(
+      recipientUsdtBalanceAfter,
+      recipientUsdtBalanceBefore + proposal.USDT_AMOUNT(),
       1
     );
 
-    uint256 collectorBalanceAfter = IERC20(AaveV3EthereumAssets.USDC_A_TOKEN).balanceOf(
-      address(AaveV3Ethereum.COLLECTOR)
+    uint256 collectorUsdcBalanceAfter = IERC20(AaveV2EthereumAssets.USDC_A_TOKEN).balanceOf(
+      address(AaveV2Ethereum.COLLECTOR)
+    );
+    uint256 collectorUsdtBalanceAfter = IERC20(AaveV2EthereumAssets.USDT_A_TOKEN).balanceOf(
+      address(AaveV2Ethereum.COLLECTOR)
     );
 
-    // Checking worst case scenario of 3 wei imprecision, but probabilistically pretty rare
-    assertApproxEqAbs(collectorBalanceAfter, collectorBalanceBefore - proposal.TOTAL_AMOUNT(), 3);
+    assertApproxEqAbs(
+      collectorUsdcBalanceAfter,
+      collectorUsdcBalanceBefore - proposal.USDC_AMOUNT(),
+      3
+    );
+    assertApproxEqAbs(
+      collectorUsdtBalanceAfter,
+      collectorUsdtBalanceBefore - proposal.USDT_AMOUNT(),
+      3
+    );
   }
 }

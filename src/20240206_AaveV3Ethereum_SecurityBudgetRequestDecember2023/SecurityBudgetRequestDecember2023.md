@@ -7,7 +7,7 @@ snapshot: "https://snapshot.org/#/aave.eth/proposal/0xf95bc210e3e93c2112c694cb15
 
 ## Simple Summary
 
-Proposal to release a total of 151’200 USDC to reimburse BGD Labs for the costs paid towards external security reviews.
+Proposal to release a total of $151’200 to reimburse BGD Labs for the costs paid towards external security reviews.
 
 ## Motivation
 
@@ -27,7 +27,10 @@ Considering this, the following security researchers have been paid by BGD Labs 
 
 This proposal, will release a total of $151’200, from the Aave Ethereum Collector to BGD Labs:
 
-- Transfer 151'200 aUSDC v3 Ethereum to `0xb812d0944f8F581DfAA3a93Dda0d22EcEf51A9CF`.
+- Transfer 42'000 aUSDC v2 Ethereum to `0xb812d0944f8F581DfAA3a93Dda0d22EcEf51A9CF`.
+- Transfer 109'200 aUSDT v2 Ethereum to `0xb812d0944f8F581DfAA3a93Dda0d22EcEf51A9CF`.
+
+_Note: The assets used for transfer has been recommended by the financial contributor to the DAO (TokenLogic & Karpatkey)_
 
 ## References
 

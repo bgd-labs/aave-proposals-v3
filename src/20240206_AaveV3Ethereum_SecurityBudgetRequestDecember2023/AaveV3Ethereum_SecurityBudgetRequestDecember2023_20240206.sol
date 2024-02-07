@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
+import {AaveV2Ethereum, AaveV2EthereumAssets} from 'aave-address-book/AaveV2Ethereum.sol';
 import {IProposalGenericExecutor} from 'aave-helpers/interfaces/IProposalGenericExecutor.sol';
 
 /**
@@ -12,13 +12,19 @@ import {IProposalGenericExecutor} from 'aave-helpers/interfaces/IProposalGeneric
  */
 contract AaveV3Ethereum_SecurityBudgetRequestDecember2023_20240206 is IProposalGenericExecutor {
   address public constant BGD_RECIPIENT = 0xb812d0944f8F581DfAA3a93Dda0d22EcEf51A9CF;
-  uint256 public constant TOTAL_AMOUNT = 151_200e6;
+  uint256 public constant USDC_AMOUNT = 42_000e6;
+  uint256 public constant USDT_AMOUNT = 109_200e6;
 
   function execute() external {
-    AaveV3Ethereum.COLLECTOR.transfer(
-      AaveV3EthereumAssets.USDC_A_TOKEN,
+    AaveV2Ethereum.COLLECTOR.transfer(
+      AaveV2EthereumAssets.USDC_A_TOKEN,
       BGD_RECIPIENT,
-      TOTAL_AMOUNT
+      USDC_AMOUNT
+    );
+    AaveV2Ethereum.COLLECTOR.transfer(
+      AaveV2EthereumAssets.USDT_A_TOKEN,
+      BGD_RECIPIENT,
+      USDT_AMOUNT
     );
   }
 }
