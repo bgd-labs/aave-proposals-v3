@@ -2,7 +2,7 @@
 pragma solidity ^0.8.0;
 
 import {AaveV2EthereumAMM, AaveV2EthereumAMMAssets, ILendingPoolConfigurator} from 'aave-address-book/AaveV2EthereumAMM.sol';
-import {AaveV2PayloadEthereum} from 'aave-helpers/v2-config-engine/AaveV2PayloadEthereum.sol';
+import {AaveV2PayloadEthereumAMM} from 'aave-helpers/v2-config-engine/AaveV2PayloadEthereumAMM.sol';
 import {EngineFlags} from 'aave-helpers/v3-config-engine/EngineFlags.sol';
 import {IAaveV2ConfigEngine} from 'aave-helpers/v2-config-engine/IAaveV2ConfigEngine.sol';
 import {IV2RateStrategyFactory} from 'aave-helpers/v2-config-engine/IV2RateStrategyFactory.sol';
