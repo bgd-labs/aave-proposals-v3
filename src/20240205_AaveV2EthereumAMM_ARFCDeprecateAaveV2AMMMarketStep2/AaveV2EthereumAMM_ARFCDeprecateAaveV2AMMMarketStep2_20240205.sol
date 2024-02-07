@@ -13,7 +13,7 @@ import {IV2RateStrategyFactory} from 'aave-helpers/v2-config-engine/IV2RateStrat
  * - Snapshot: https://snapshot.org/#/aave.eth/proposal/0x0ade316f52d5f763160ea15538a71a4682ae1b708864e8d33497d8de40ad9973
  * - Discussion: https://governance.aave.com/t/arfc-deprecate-aave-v2-amm-market-step-2/16408/1
  */
-contract AaveV2EthereumAMM_ARFCDeprecateAaveV2AMMMarketStep2_20240205 is AaveV2PayloadEthereum {
+contract AaveV2EthereumAMM_ARFCDeprecateAaveV2AMMMarketStep2_20240205 is AaveV2PayloadEthereumAMM {
   function _postExecute() internal override {
     ILendingPoolConfigurator(AaveV2EthereumAMM.POOL_CONFIGURATOR).setReserveFactor(
       AaveV2EthereumAMMAssets.WETH_UNDERLYING,
