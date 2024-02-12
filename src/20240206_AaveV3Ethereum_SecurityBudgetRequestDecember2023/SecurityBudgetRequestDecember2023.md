@@ -34,8 +34,8 @@ _Note: The assets used for transfer has been recommended by the financial contri
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240206_AaveV3Ethereum_SecurityBudgetRequestDecember2023/AaveV3Ethereum_SecurityBudgetRequestDecember2023_20240206.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240206_AaveV3Ethereum_SecurityBudgetRequestDecember2023/AaveV3Ethereum_SecurityBudgetRequestDecember2023_20240206.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/1998db6d1a8e3953a605cd277749b2138fddc8d9/src/20240206_AaveV3Ethereum_SecurityBudgetRequestDecember2023/AaveV3Ethereum_SecurityBudgetRequestDecember2023_20240206.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/1998db6d1a8e3953a605cd277749b2138fddc8d9/src/20240206_AaveV3Ethereum_SecurityBudgetRequestDecember2023/AaveV3Ethereum_SecurityBudgetRequestDecember2023_20240206.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0xf95bc210e3e93c2112c694cb158db22c93504155b48c03d9358e4c41c33ee782)
 - [Discussion](https://governance.aave.com/t/arfc-bgd-security-budget-request-december-2023/15783)
 
