@@ -18,7 +18,7 @@ contract AaveV3Arbitrum_SetLiquidityObservationLabsAsEmissionManagerForWstETHOnV
     internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('arbitrum'), 178103256);
+    vm.createSelectFork(vm.rpcUrl('arbitrum'), 180082278);
     proposal = new AaveV3Arbitrum_SetLiquidityObservationLabsAsEmissionManagerForWstETHOnV3Markets_20240206();
   }
 

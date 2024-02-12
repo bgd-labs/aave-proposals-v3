@@ -14,7 +14,7 @@ import {IEmissionManager} from 'aave-v3-periphery/contracts/rewards/interfaces/I
 contract AaveV3Base_SetLiquidityObservationLabsAsEmissionManagerForWstETHOnV3Markets_20240206 is
   IProposalGenericExecutor
 {
-  address constant EMISSION_ADMIN = address(0);
+  address constant EMISSION_ADMIN = 0xC18F11735C6a1941431cCC5BcF13AF0a052A5022;
 
   function execute() external {
     IEmissionManager(AaveV3Base.EMISSION_MANAGER).setEmissionAdmin(

@@ -7,7 +7,6 @@ import {AaveV3Ethereum_SetLiquidityObservationLabsAsEmissionManagerForWstETHOnV3
 import {AaveV3Polygon_SetLiquidityObservationLabsAsEmissionManagerForWstETHOnV3Markets_20240206} from './AaveV3Polygon_SetLiquidityObservationLabsAsEmissionManagerForWstETHOnV3Markets_20240206.sol';
 import {AaveV3Optimism_SetLiquidityObservationLabsAsEmissionManagerForWstETHOnV3Markets_20240206} from './AaveV3Optimism_SetLiquidityObservationLabsAsEmissionManagerForWstETHOnV3Markets_20240206.sol';
 import {AaveV3Arbitrum_SetLiquidityObservationLabsAsEmissionManagerForWstETHOnV3Markets_20240206} from './AaveV3Arbitrum_SetLiquidityObservationLabsAsEmissionManagerForWstETHOnV3Markets_20240206.sol';
-import {AaveV3Gnosis_SetLiquidityObservationLabsAsEmissionManagerForWstETHOnV3Markets_20240206} from './AaveV3Gnosis_SetLiquidityObservationLabsAsEmissionManagerForWstETHOnV3Markets_20240206.sol';
 import {AaveV3Base_SetLiquidityObservationLabsAsEmissionManagerForWstETHOnV3Markets_20240206} from './AaveV3Base_SetLiquidityObservationLabsAsEmissionManagerForWstETHOnV3Markets_20240206.sol';
 
 /**
@@ -103,29 +102,6 @@ contract DeployArbitrum is ArbitrumScript {
 }
 
 /**
- * @dev DeployGnosis
- * deploy-command: make deploy-ledger contract=src/20240206_Multi_SetLiquidityObservationLabsAsEmissionManagerForWstETHOnV3Markets/SetLiquidityObservationLabsAsEmissionManagerForWstETHOnV3Markets_20240206.s.sol:DeployGnosis chain=gnosis
- * verify-command: npx catapulta-verify -b broadcast/SetLiquidityObservationLabsAsEmissionManagerForWstETHOnV3Markets_20240206.s.sol/1088/run-latest.json
- */
-contract DeployGnosis is GnosisScript {
-  function run() external broadcast {
-    // deploy payloads
-    address payload0 = GovV3Helpers.deployDeterministic(
-      type(AaveV3Gnosis_SetLiquidityObservationLabsAsEmissionManagerForWstETHOnV3Markets_20240206)
-        .creationCode
-    );
-
-    // compose action
-    IPayloadsControllerCore.ExecutionAction[]
-      memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
-    actions[0] = GovV3Helpers.buildAction(payload0);
-
-    // register action at payloadsController
-    GovV3Helpers.createPayload(actions);
-  }
-}
-
-/**
  * @dev Deploy Base
  * deploy-command: make deploy-ledger contract=src/20240206_Multi_SetLiquidityObservationLabsAsEmissionManagerForWstETHOnV3Markets/SetLiquidityObservationLabsAsEmissionManagerForWstETHOnV3Markets_20240206.s.sol:DeployBase chain=base
  * verify-command: npx catapulta-verify -b broadcast/SetLiquidityObservationLabsAsEmissionManagerForWstETHOnV3Markets_20240206.s.sol/8453/run-latest.json
@@ -155,7 +131,7 @@ contract DeployBase is BaseScript {
 contract CreateProposal is EthereumScript {
   function run() external {
     // create payloads
-    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](6);
+    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](5);
 
     // compose actions for validation
     IPayloadsControllerCore.ExecutionAction[]
@@ -191,20 +167,12 @@ contract CreateProposal is EthereumScript {
     payloads[3] = GovV3Helpers.buildArbitrumPayload(vm, actionsArbitrum);
 
     IPayloadsControllerCore.ExecutionAction[]
-      memory actionsGnosis = new IPayloadsControllerCore.ExecutionAction[](1);
-    actionsGnosis[0] = GovV3Helpers.buildAction(
-      type(AaveV3Gnosis_SetLiquidityObservationLabsAsEmissionManagerForWstETHOnV3Markets_20240206)
-        .creationCode
-    );
-    payloads[4] = GovV3Helpers.buildGnosisPayload(vm, actionsGnosis);
-
-    IPayloadsControllerCore.ExecutionAction[]
       memory actionsBase = new IPayloadsControllerCore.ExecutionAction[](1);
     actionsBase[0] = GovV3Helpers.buildAction(
       type(AaveV3Base_SetLiquidityObservationLabsAsEmissionManagerForWstETHOnV3Markets_20240206)
         .creationCode
     );
-    payloads[5] = GovV3Helpers.buildBasePayload(vm, actionsBase);
+    payloads[4] = GovV3Helpers.buildBasePayload(vm, actionsBase);
 
     // create proposal
     vm.startBroadcast();
