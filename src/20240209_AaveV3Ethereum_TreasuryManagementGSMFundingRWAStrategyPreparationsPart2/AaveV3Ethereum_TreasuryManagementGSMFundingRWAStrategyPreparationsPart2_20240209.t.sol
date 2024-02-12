@@ -108,4 +108,6 @@ contract AaveV3Ethereum_TreasuryManagementGSMFundingRWAStrategyPreparationsPart2
 
     assertGt(aUsdcBalanceAfter, aUsdcBalanceBefore);
   }
+
+  function test_depositsToV3() public {}
 }
