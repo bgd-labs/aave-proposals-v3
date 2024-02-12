@@ -31,8 +31,8 @@ _Note: After checking with a financial contributor to the DAO (TokenLogic & Karp
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240205_AaveV3Ethereum_RetroactiveBugBountyPreImmunefi/AaveV3Ethereum_RetroactiveBugBountyPreImmunefi_20240205.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240205_AaveV3Ethereum_RetroactiveBugBountyPreImmunefi/AaveV3Ethereum_RetroactiveBugBountyPreImmunefi_20240205.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/acb952495e591972e26915668817a0cd0b3b7d05/src/20240205_AaveV3Ethereum_RetroactiveBugBountyPreImmunefi/AaveV3Ethereum_RetroactiveBugBountyPreImmunefi_20240205.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/acb952495e591972e26915668817a0cd0b3b7d05/src/20240205_AaveV3Ethereum_RetroactiveBugBountyPreImmunefi/AaveV3Ethereum_RetroactiveBugBountyPreImmunefi_20240205.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0xb707cff629af03eeaa44bbbb7e38def2907a53791eb16d472dac1d45fb5ec26b)
 - [Discussion](https://governance.aave.com/t/bgd-retroactive-bug-bounties-proposal-pre-immunefi/15989)
 
