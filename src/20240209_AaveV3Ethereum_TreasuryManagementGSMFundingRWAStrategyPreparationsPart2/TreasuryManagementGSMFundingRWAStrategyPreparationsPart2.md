@@ -15,6 +15,8 @@ This proposal also includes the renewal of the Orbit program for recognized dele
 
 The GSM is expected to be available for deployment in the near future. The Centrifuge proposal is currently mid way through the review process. The current stable coin holdings on Ethereum are insufficient to support both the GSM, RWA strategy and Service Provider (SP) commitments. Additional funds are needed on Ethereum to support the GSM.
 
+The Orbit program Snapshot and discussion can be found [here](https://snapshot.org/#/aave.eth/proposal/0x412b38c7a0cf1840b102e28ea7ef0373e3ab4b9544873e8cc1544972b777d9a1) and [here](https://governance.aave.com/t/arfc-orbit-program-renewal/16550) respectively.
+
 The following table outlines the proposed compensation for eligible delegates matching the requirements:
 
 |--|--|--|

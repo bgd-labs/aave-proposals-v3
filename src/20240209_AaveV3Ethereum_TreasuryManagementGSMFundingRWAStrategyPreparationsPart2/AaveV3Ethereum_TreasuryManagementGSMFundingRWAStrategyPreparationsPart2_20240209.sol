@@ -20,7 +20,9 @@ interface IWETH {
  * @title Treasury Management - GSM Funding & RWA Strategy Preparations (Part 2)
  * @author karpatkey_TokenLogic
  * - Snapshot: https://snapshot.org/#/aave.eth/proposal/0xb39537e468eef8c212c67a539cdc6d802cd857f186a4f66aefd44faaadd6ba19
+ * - Snapshot: https://snapshot.org/#/aave.eth/proposal/0x412b38c7a0cf1840b102e28ea7ef0373e3ab4b9544873e8cc1544972b777d9a1
  * - Discussion: https://governance.aave.com/t/arfc-treasury-management-gsm-funding-rwa-strategy-preparations/16128
+ * - Discussion: https://governance.aave.com/t/arfc-orbit-program-renewal/16550
  */
 contract AaveV3Ethereum_TreasuryManagementGSMFundingRWAStrategyPreparationsPart2_20240209 is
   DepositV3SwapPayload
