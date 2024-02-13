@@ -19,25 +19,25 @@ The Orbit program Snapshot and discussion can be found [here](https://snapshot.o
 
 The following table outlines the proposed compensation for eligible delegates matching the requirements:
 
-|--|--|--|
-|Delegate Platform|Retro-Payment (GHO)|New Stream (GHO)|
-|EzR3al|5000|15000|
-|Stable Labs|5000|15000|
-|LBS Blockchain|5000|15000|
-|Michigan|5000|15000|
+| Delegate Platform | Retro-Payment (GHO) | New Stream (GHO) |
+| ----------------- | ------------------- | ---------------- |
+| EzR3al            | 5000                | 15000            |
+| Stable Labs       | 5000                | 15000            |
+| LBS Blockchain    | 5000                | 15000            |
+| Michigan          | 5000                | 15000            |
 
 In terms of gas rebate, we included Gov V2 reimbursement & payload-related activity in the following table:
 
-|--|--|
-|Delegate / Service Provider|Gas Used (ETH)|
-|ACI| 3.365|
-|Tokenlogic|0.586|
-|Michigan|0.276|
-|Wintermute|0.2518|
-|LBS|0.031|
-|StableLabs|0.0342|
-|ezr3al|0.3833|
-|Total|4.9273|
+| Delegate / Service Provider | Gas Used (ETH) |
+| --------------------------- | -------------- |
+| ACI                         | 3.365          |
+| Tokenlogic                  | 0.586          |
+| Michigan                    | 0.276          |
+| Wintermute                  | 0.2518         |
+| LBS                         | 0.031          |
+| StableLabs                  | 0.0342         |
+| ezr3al                      | 0.3833         |
+| Total                       | 4.9273         |
 
 ## Specification
 
