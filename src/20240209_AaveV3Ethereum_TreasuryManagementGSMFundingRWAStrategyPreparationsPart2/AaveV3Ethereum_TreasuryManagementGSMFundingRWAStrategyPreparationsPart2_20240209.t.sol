@@ -8,6 +8,7 @@ import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethe
 import {ProtocolV3TestBase} from 'aave-helpers/ProtocolV3TestBase.sol';
 
 import {AaveV3Ethereum_TreasuryManagementGSMFundingRWAStrategyPreparationsPart2_20240209} from './AaveV3Ethereum_TreasuryManagementGSMFundingRWAStrategyPreparationsPart2_20240209.sol';
+import {OrbitProgramData} from './OrbitProgramData.sol';
 
 /**
  * @dev Test for AaveV3Ethereum_TreasuryManagementGSMFundingRWAStrategyPreparationsPart2_20240209
@@ -27,14 +28,16 @@ contract AaveV3Ethereum_TreasuryManagementGSMFundingRWAStrategyPreparationsPart2
     uint256 slippage
   );
 
+  uint256 public constant TOTAL_GHO_WITHDRAWN = 20_000 ether;
+
   AaveV3Ethereum_TreasuryManagementGSMFundingRWAStrategyPreparationsPart2_20240209
     internal proposal;
 
-  address public constant swapProxyDai = 0x4244Ad553f7Fd604bD30D890E50e6eEC4b16FA32;
-  address public constant swapProxyUsdc = 0xa59c5fE2c0A09069bD1fD31a71031d9b8D3FaE93;
+  address public constant swapProxyDai = 0xa59c5fE2c0A09069bD1fD31a71031d9b8D3FaE93;
+  address public constant swapProxyUsdc = 0x16b97c7a2870edCA71e4Ed837b3a0Ec93Af328E9;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 19191027);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 19215132);
     proposal = new AaveV3Ethereum_TreasuryManagementGSMFundingRWAStrategyPreparationsPart2_20240209();
   }
 
@@ -42,7 +45,10 @@ contract AaveV3Ethereum_TreasuryManagementGSMFundingRWAStrategyPreparationsPart2
    * @dev executes the generic test suite including e2e and config snapshots
    */
   function test_defaultProposalExecution() public {
-    uint256 collectorUsdcBalanceBefore = IERC20(AaveV3EthereumAssets.USDC_UNDERLYING).balanceOf(
+    uint256 collectorGhoBalanceBefore = IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(
+      address(AaveV3Ethereum.COLLECTOR)
+    );
+    uint256 collectorWethBalanceBefore = IERC20(AaveV3EthereumAssets.WETH_UNDERLYING).balanceOf(
       address(AaveV3Ethereum.COLLECTOR)
     );
 
@@ -53,6 +59,20 @@ contract AaveV3Ethereum_TreasuryManagementGSMFundingRWAStrategyPreparationsPart2
     uint256 aUsdcBalanceBefore = IERC20(AaveV3EthereumAssets.USDC_A_TOKEN).balanceOf(
       address(AaveV3Ethereum.COLLECTOR)
     );
+
+    uint256[] memory ethBalancesBeforeUsers = new uint256[](7);
+    OrbitProgramData.GasUsage[] memory usage = OrbitProgramData.getGasUsageData();
+    for (uint256 i = 0; i < usage.length; i++) {
+      ethBalancesBeforeUsers[i] = usage[i].account.balance;
+    }
+
+    uint256[] memory ghoBalancesBeforeUsers = new uint256[](4);
+    address[] memory ghoPaymentAddresses = OrbitProgramData.getOrbitAddresses();
+    for (uint256 i = 0; i < ghoPaymentAddresses.length; i++) {
+      ghoBalancesBeforeUsers[i] = IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(
+        ghoPaymentAddresses[i]
+      );
+    }
 
     vm.expectEmit(true, true, true, true, MiscEthereum.AAVE_SWAPPER);
     emit SwapRequested(
@@ -78,36 +98,93 @@ contract AaveV3Ethereum_TreasuryManagementGSMFundingRWAStrategyPreparationsPart2
       50
     );
 
+    uint256 nextStreamId = AaveV3Ethereum.COLLECTOR.getNextStreamId();
+    vm.expectRevert();
+    AaveV3Ethereum.COLLECTOR.getStream(nextStreamId);
+
     executePayload(vm, address(proposal));
 
-    uint256 collectorDaiBalanceAfter = IERC20(AaveV3EthereumAssets.DAI_UNDERLYING).balanceOf(
-      address(AaveV3Ethereum.COLLECTOR)
+    assertEq(
+      IERC20(AaveV3EthereumAssets.DAI_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
+      0,
+      'DAI balance of Collector is not zero'
+    );
+    assertEq(
+      IERC20(AaveV3EthereumAssets.DAI_UNDERLYING).balanceOf(swapProxyDai),
+      collectorDaiBalanceBefore,
+      'DAI balance of proxy is not equal to Collector balance before'
     );
 
-    uint256 collectorUsdcBalanceAfter = IERC20(AaveV3EthereumAssets.USDC_UNDERLYING).balanceOf(
-      address(AaveV3Ethereum.COLLECTOR)
+    assertEq(
+      IERC20(AaveV3EthereumAssets.USDC_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
+      0,
+      'USDC balance of Collector is not zero'
+    );
+    assertEq(
+      IERC20(AaveV3EthereumAssets.USDC_UNDERLYING).balanceOf(swapProxyUsdc),
+      proposal.USDC_TO_SWAP(),
+      'USDC balance of proxy is not equal to USDC_TO_SWAP amount'
     );
 
-    uint256 swapProxyDaiBalanceAfter = IERC20(AaveV3EthereumAssets.DAI_UNDERLYING).balanceOf(
-      swapProxyDai
+    assertGt(
+      IERC20(AaveV3EthereumAssets.USDC_A_TOKEN).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
+      aUsdcBalanceBefore,
+      'aUSDC balance of Collector is not greater than before'
     );
 
-    uint256 swapProxyUsdcBalanceAfter = IERC20(AaveV3EthereumAssets.USDC_UNDERLYING).balanceOf(
-      swapProxyUsdc
+    assertEq(
+      IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
+      collectorGhoBalanceBefore - TOTAL_GHO_WITHDRAWN,
+      'GHO balance of Collector is not equal to previous minus to withdraw'
+    );
+    assertEq(
+      IERC20(AaveV3EthereumAssets.WETH_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
+      collectorWethBalanceBefore - OrbitProgramData.TOTAL_WETH_REBATE,
+      'WETH balance of Collector is not equal to previous minus to withdraw'
     );
 
-    uint256 aUsdcBalanceAfter = IERC20(AaveV3EthereumAssets.USDC_A_TOKEN).balanceOf(
-      address(AaveV3Ethereum.COLLECTOR)
-    );
+    for (uint256 i = 0; i < usage.length; i++) {
+      assertGt(
+        usage[i].account.balance,
+        ethBalancesBeforeUsers[i],
+        'REBATE recipient balance is not greater than before'
+      );
+    }
 
-    assertEq(collectorDaiBalanceAfter, 0);
-    assertEq(swapProxyDaiBalanceAfter, collectorDaiBalanceBefore);
+    vm.warp(block.timestamp + 7 days);
 
-    assertEq(collectorUsdcBalanceAfter, 0);
-    assertEq(swapProxyUsdcBalanceAfter, proposal.USDC_TO_SWAP());
+    /// Their GHO balance has increased and call also withdraw from stream as it now exists
+    for (uint256 i = 0; i < ghoPaymentAddresses.length; i++) {
+      assertEq(
+        IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(ghoPaymentAddresses[i]),
+        ghoBalancesBeforeUsers[i] + OrbitProgramData.RETRO_PAYMENT,
+        'GHO balance of Orbit recipient is not greater than before'
+      );
 
-    assertGt(aUsdcBalanceAfter, aUsdcBalanceBefore);
+      vm.prank(ghoPaymentAddresses[i]);
+      AaveV3Ethereum.COLLECTOR.withdrawFromStream(nextStreamId + i, 1);
+      assertEq(
+        IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(ghoPaymentAddresses[i]),
+        ghoBalancesBeforeUsers[i] + OrbitProgramData.RETRO_PAYMENT + 1
+      );
+    }
   }
 
-  function test_depositsToV3() public {}
+  function test_depositsToV3() public {
+    uint256 collectorAUsdtBalanceBefore = IERC20(AaveV3EthereumAssets.USDT_A_TOKEN).balanceOf(
+      address(AaveV3Ethereum.COLLECTOR)
+    );
+
+    uint256 toWithdraw = 1_000e6;
+
+    deal(AaveV3EthereumAssets.USDT_UNDERLYING, address(proposal), toWithdraw);
+
+    proposal.deposit(AaveV3EthereumAssets.USDT_UNDERLYING, toWithdraw);
+
+    assertApproxEqAbs(
+      IERC20(AaveV3EthereumAssets.USDT_A_TOKEN).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
+      collectorAUsdtBalanceBefore + toWithdraw,
+      1
+    );
+  }
 }

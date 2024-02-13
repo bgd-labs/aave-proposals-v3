@@ -9,6 +9,13 @@ import {DepositV3SwapPayload} from 'aave-helpers/swaps/DepositV3SwapPayload.sol'
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 
+import {OrbitProgramData} from './OrbitProgramData.sol';
+
+/// Helper interface to withdraw ETH
+interface IWETH {
+  function withdraw(uint256) external;
+}
+
 /**
  * @title Treasury Management - GSM Funding & RWA Strategy Preparations (Part 2)
  * @author karpatkey_TokenLogic
@@ -26,6 +33,15 @@ contract AaveV3Ethereum_TreasuryManagementGSMFundingRWAStrategyPreparationsPart2
   address public constant PRICE_CHECKER = 0xe80a1C615F75AFF7Ed8F08c9F21f9d00982D666c;
 
   function execute() external {
+    _swap();
+    _orbit();
+  }
+
+  function deposit(address token, uint256 amount) external {
+    _deposit(token, amount);
+  }
+
+  function _swap() internal {
     uint256 usdcBalance = IERC20(AaveV3EthereumAssets.USDC_UNDERLYING).balanceOf(
       address(AaveV3Ethereum.COLLECTOR)
     );
@@ -88,7 +104,42 @@ contract AaveV3Ethereum_TreasuryManagementGSMFundingRWAStrategyPreparationsPart2
     );
   }
 
-  function deposit(address token, uint256 amount) external {
-    _deposit(token, amount);
+  function _orbit() internal {
+    AaveV3Ethereum.COLLECTOR.transfer(
+      AaveV3EthereumAssets.WETH_UNDERLYING,
+      address(this),
+      OrbitProgramData.TOTAL_WETH_REBATE
+    );
+
+    IWETH(AaveV3EthereumAssets.WETH_UNDERLYING).withdraw(OrbitProgramData.TOTAL_WETH_REBATE);
+
+    OrbitProgramData.GasUsage[] memory usage = OrbitProgramData.getGasUsageData();
+    uint256 usageLength = usage.length;
+    for (uint256 i = 0; i < usageLength; i++) {
+      (bool ok, ) = usage[i].account.call{value: usage[i].usage}('');
+    }
+
+    uint256 actualStreamAmount = (OrbitProgramData.STREAM_AMOUNT /
+      OrbitProgramData.STREAM_DURATION) * OrbitProgramData.STREAM_DURATION;
+
+    address[] memory orbitAddresses = OrbitProgramData.getOrbitAddresses();
+    uint256 orbitAddressesLength = orbitAddresses.length;
+    for (uint256 i = 0; i < orbitAddressesLength; i++) {
+      AaveV3Ethereum.COLLECTOR.transfer(
+        AaveV3EthereumAssets.GHO_UNDERLYING,
+        orbitAddresses[i],
+        OrbitProgramData.RETRO_PAYMENT
+      );
+
+      AaveV3Ethereum.COLLECTOR.createStream(
+        orbitAddresses[i],
+        actualStreamAmount,
+        AaveV3EthereumAssets.GHO_UNDERLYING,
+        block.timestamp,
+        block.timestamp + OrbitProgramData.STREAM_DURATION
+      );
+    }
   }
+
+  receive() external payable {}
 }
