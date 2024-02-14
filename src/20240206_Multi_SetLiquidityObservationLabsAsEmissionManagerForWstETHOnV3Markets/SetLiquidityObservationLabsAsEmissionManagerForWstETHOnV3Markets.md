@@ -15,7 +15,7 @@ The Lido "Lido Liquidity Observation Labs has expressed a desire to actively con
 
 ## Specification
 
-The Lido "Lido Liquidity Observation Labs wallet address will be provided in a later stage.
+The Lido "Lido Liquidity Observation Labs Gnosis safe wallet address is `0xC18F11735C6a1941431cCC5BcF13AF0a052A5022` on every network.
 
 The AIP call setEmissionAdmin() method in the emission_manager contract.
 
