@@ -1,3 +1,7 @@
+# build and cache
+cache/
+out/
+
 # general
 .env
 .env.bk
