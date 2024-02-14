@@ -37,10 +37,7 @@ contract AaveV3Ethereum_ChaosLabsRiskParameterUpdatesIncreaseDebtCeilingForSNXAn
     assetsChanged[1] = AaveV3EthereumAssets.SNX_UNDERLYING;
     _noReservesConfigsChangesApartFrom(allConfigsBefore, allConfigsAfter, assetsChanged);
 
-    ReserveConfig memory mkrConfigAfter = _findReserveConfig(
-      allConfigsAfter,
-      AaveV3EthereumAssets.MKR_UNDERLYING
-    );
+    ReserveConfig memory mkrConfigAfter = _findReserveConfig(allConfigsAfter, assetsChanged[0]);
     mkrConfigAfter.debtCeiling = 12_000_000_00;
     _validateReserveConfig(mkrConfigAfter, allConfigsAfter);
 

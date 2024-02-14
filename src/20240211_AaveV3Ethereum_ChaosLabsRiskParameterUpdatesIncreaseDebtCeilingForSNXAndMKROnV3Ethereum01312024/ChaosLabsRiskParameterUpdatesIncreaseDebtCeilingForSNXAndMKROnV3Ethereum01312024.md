@@ -22,7 +22,9 @@ Positions Analysis
 There are currently two major users utilizing SNX as collateral on V3 Ethereum:
 
 1. 0x09d86d566092bec46d449e72087ee788937599d2 1 - borrowing $1.81M in stables (USDC and USDT) against his 1.4M SNX collateral, accounting for nearly 73% of the debt ceiling. The user’s current health score is 1.59.
+   Wallet etherscan link - https://etherscan.io/address/0x09d86d566092bec46d449e72087ee788937599d2
 2. 0x97cfb214adcd7243efd6b491a6c719c493d04122 - borrowing ~$448K USDT against his ~595K SNX collateral, accounting for nearly 18% of the debt ceiling. The user’s current health score is 2.73.
+   Wallet etherscan link - https://etherscan.io/address/0x97cfb214adcd7243efd6b491a6c719c493d04122
 
 MKR
 The current debt ceiling for MKR on V3 Ethereum set at $8.5M, has reached 99% utilization.
@@ -33,10 +35,14 @@ There are currently four major users using MKR as collateral on V3 Ethereum, uti
 
 Positions Analysis
 
-1. 0xa9dee54892713f43c221509cfedbd717d16791a0 - borrowing ~$3.79 DAI against his ~6,27K MKR collateral, accounting for nearly 45% of the debt ceiling. The user’s current health score is 2.27.
+1. 0xa9dee54892713f43c221509cfedbd717d16791a0 - borrowing ~$3.79M DAI against his ~6,27K MKR collateral, accounting for nearly 45% of the debt ceiling. The user’s current health score is 2.27.
+   Wallet etherscan link - https://etherscan.io/address/0xa9dee54892713f43c221509cfedbd717d16791a0
 2. 0x09eda5af6b634dcee8e4c563a97a18dde1a11c81 - borrowing ~$2.11M USDC against his ~2.79K MKR collateral, accounting for nearly 25% of the debt ceiling. The user’s current health score is 1.81.
+   Wallet etherscan link - https://etherscan.io/address/0x09eda5af6b634dcee8e4c563a97a18dde1a11c81
 3. 0xf47841f562689ad85363b41c235d61136c0ccf26 - borrowing ~$801K USDC against his ~1.04K MKR collateral, accounting for nearly 9.5% of the debt ceiling. The user’s current health score is 1.79.
+   Wallet etherscan link - https://etherscan.io/address/0xf47841f562689ad85363b41c235d61136c0ccf26
 4. 0x1e7267fa2628d66538822fc44f0edb62b07272a4 - borrowing ~$711K in stables (USDC and USDT) against his ~700 MKR collateral, accounting for nearly 8% of the debt ceiling. The user’s current health score is 1.59.
+   Wallet etherscan link - https://etherscan.io/address/0x1e7267fa2628d66538822fc44f0edb62b07272a4
 
 ## Specification
 
