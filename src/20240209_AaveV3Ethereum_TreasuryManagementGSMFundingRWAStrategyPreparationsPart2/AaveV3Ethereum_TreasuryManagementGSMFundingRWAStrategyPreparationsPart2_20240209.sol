@@ -39,28 +39,37 @@ contract AaveV3Ethereum_TreasuryManagementGSMFundingRWAStrategyPreparationsPart2
     _orbit();
   }
 
+  /**
+   * @dev To be used after the async swap takes place to deposit USDT in AAVE v3
+   */
   function deposit(address token, uint256 amount) external {
     _deposit(token, amount);
   }
 
   function _swap() internal {
-    uint256 usdcBalance = IERC20(AaveV3EthereumAssets.USDC_UNDERLYING).balanceOf(
-      address(AaveV3Ethereum.COLLECTOR)
+    // Transfer 700k USDC from Collector to Swapper
+    AaveV3Ethereum.COLLECTOR.transfer(
+      AaveV3EthereumAssets.USDC_UNDERLYING,
+      address(SWAPPER),
+      USDC_TO_SWAP
     );
-    uint256 daiBalance = IERC20(AaveV3EthereumAssets.DAI_UNDERLYING).balanceOf(
+
+    // Deposit all remaining USDC from collector into Aave v3.
+    uint256 usdcBalance = IERC20(AaveV3EthereumAssets.USDC_UNDERLYING).balanceOf(
       address(AaveV3Ethereum.COLLECTOR)
     );
 
     AaveV3Ethereum.COLLECTOR.transfer(
       AaveV3EthereumAssets.USDC_UNDERLYING,
       address(this),
-      usdcBalance - USDC_TO_SWAP
+      usdcBalance
     );
 
-    AaveV3Ethereum.COLLECTOR.transfer(
-      AaveV3EthereumAssets.USDC_UNDERLYING,
-      address(SWAPPER),
-      USDC_TO_SWAP
+    _deposit(AaveV3EthereumAssets.USDC_UNDERLYING, usdcBalance);
+
+    // Transfer the whole DAI balance of the collector into the Swapper
+    uint256 daiBalance = IERC20(AaveV3EthereumAssets.DAI_UNDERLYING).balanceOf(
+      address(AaveV3Ethereum.COLLECTOR)
     );
 
     AaveV3Ethereum.COLLECTOR.transfer(
@@ -69,18 +78,7 @@ contract AaveV3Ethereum_TreasuryManagementGSMFundingRWAStrategyPreparationsPart2
       daiBalance
     );
 
-    IERC20(AaveV3EthereumAssets.USDC_UNDERLYING).forceApprove(
-      address(AaveV3Ethereum.POOL),
-      IERC20(AaveV3EthereumAssets.USDC_UNDERLYING).balanceOf(address(this))
-    );
-
-    AaveV3Ethereum.POOL.deposit(
-      AaveV3EthereumAssets.USDC_UNDERLYING,
-      IERC20(AaveV3EthereumAssets.USDC_UNDERLYING).balanceOf(address(this)),
-      address(AaveV3Ethereum.COLLECTOR),
-      0
-    );
-
+    // Swap DAI into USDT with receiver being this contract
     SWAPPER.swap(
       MILKMAN,
       PRICE_CHECKER,
@@ -93,6 +91,7 @@ contract AaveV3Ethereum_TreasuryManagementGSMFundingRWAStrategyPreparationsPart2
       50
     );
 
+    // Swap USDC into USDT with receiver being this contract
     SWAPPER.swap(
       MILKMAN,
       PRICE_CHECKER,
