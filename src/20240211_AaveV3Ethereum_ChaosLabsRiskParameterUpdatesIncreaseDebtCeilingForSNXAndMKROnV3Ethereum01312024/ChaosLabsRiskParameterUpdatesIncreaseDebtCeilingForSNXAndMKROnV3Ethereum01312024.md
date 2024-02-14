@@ -53,8 +53,8 @@ Positions Analysis
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240211_AaveV3Ethereum_ChaosLabsRiskParameterUpdatesIncreaseDebtCeilingForSNXAndMKROnV3Ethereum01312024/AaveV3Ethereum_ChaosLabsRiskParameterUpdatesIncreaseDebtCeilingForSNXAndMKROnV3Ethereum01312024_20240211.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240211_AaveV3Ethereum_ChaosLabsRiskParameterUpdatesIncreaseDebtCeilingForSNXAndMKROnV3Ethereum01312024/AaveV3Ethereum_ChaosLabsRiskParameterUpdatesIncreaseDebtCeilingForSNXAndMKROnV3Ethereum01312024_20240211.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/b579a68dfbb445e7fc46e5f848426b9f6170797c/src/20240211_AaveV3Ethereum_ChaosLabsRiskParameterUpdatesIncreaseDebtCeilingForSNXAndMKROnV3Ethereum01312024/AaveV3Ethereum_ChaosLabsRiskParameterUpdatesIncreaseDebtCeilingForSNXAndMKROnV3Ethereum01312024_20240211.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/b579a68dfbb445e7fc46e5f848426b9f6170797c/src/20240211_AaveV3Ethereum_ChaosLabsRiskParameterUpdatesIncreaseDebtCeilingForSNXAndMKROnV3Ethereum01312024/AaveV3Ethereum_ChaosLabsRiskParameterUpdatesIncreaseDebtCeilingForSNXAndMKROnV3Ethereum01312024_20240211.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0xe1a36b7daaf5ab8555510edf53fc75645c7a0ac26b3d47cfe9295b94f96bcf3a)
 - [Discussion](https://governance.aave.com/t/arfc-chaos-labs-risk-parameter-updates-increase-debt-ceiling-for-snx-and-mkr-on-v3-ethereum-01-31-2024/16480/1)
 
