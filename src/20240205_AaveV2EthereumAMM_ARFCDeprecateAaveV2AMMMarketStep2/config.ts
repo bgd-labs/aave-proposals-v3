@@ -3,7 +3,7 @@ export const config: ConfigFile = {
   rootOptions: {
     pools: ['AaveV2EthereumAMM'],
     title: '[ARFC] Deprecate Aave V2 AMM Market - Step 2',
-    shortName: 'test',
+    shortName: 'ARFCDeprecateAaveV2AMMMarketStep2',
     date: '20240205',
     author: 'Gauntlet',
     discussion: 'https://governance.aave.com/t/arfc-deprecate-aave-v2-amm-market-step-2/16408/1',
