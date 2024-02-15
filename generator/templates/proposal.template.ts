@@ -9,7 +9,7 @@ export const proposalTemplate = (
   pool: PoolIdentifier
 ) => {
   const {title, author, snapshot, discussion} = options;
-  const chain = getPoolChain(pool);
+  const poolName = pool.match(/AaveV[2|3](.*)/)![1];
   const version = getVersion(pool);
   const contractName = generateContractName(options, pool);
 
@@ -55,7 +55,7 @@ export const proposalTemplate = (
   * - Discussion: ${discussion || 'TODO'}
   */
  contract ${contractName} is ${
-    usesConfigEngine ? `Aave${version}Payload${chain}` : 'IProposalGenericExecutor'
+    usesConfigEngine ? `Aave${version}Payload${poolName}` : 'IProposalGenericExecutor'
   } {
    ${isAssetListing ? 'using SafeERC20 for IERC20;' : ''}
 
