@@ -17,7 +17,7 @@ const GovernanceImports = [
 function generateAddressBookImports(code: string) {
   const imports: string[] = [];
   let root = '';
-  const addressBookMatch = code.match(/(AaveV[2..3][A-Za-z]+)\./);
+  const addressBookMatch = code.match(/(?<!I)(AaveV[2..3][A-Za-z]+)\./);
   if (addressBookMatch) {
     imports.push(addressBookMatch[1]);
     root = addressBookMatch[1];
