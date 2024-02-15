@@ -18,21 +18,20 @@ describe('feature: rateUpdatesV2', () => {
 
   it('should properly generate files', async () => {
     const poolConfigs: PoolConfigs = {
-      [MOCK_OPTIONS.pools[0]]: {
-        pool: MOCK_OPTIONS.pools[0],
+      ['AaveV2EthereumAMM']: {
         artifacts: [
           rateUpdatesV2.build({
-            options: MOCK_OPTIONS,
+            options: {...MOCK_OPTIONS, pools: ['AaveV2EthereumAMM']},
             pool: 'AaveV2EthereumAMM',
             cfg: rateUpdateV2,
             cache: {blockNumber: 42},
           }),
         ],
-        configs: {[FEATURE.PRICE_FEEDS_UPDATE]: rateUpdateV2},
+        configs: {[FEATURE.RATE_UPDATE_V2]: rateUpdateV2},
         cache: {blockNumber: 42},
       },
     };
-    const files = await generateFiles(MOCK_OPTIONS, poolConfigs);
+    const files = await generateFiles({...MOCK_OPTIONS, pools: ['AaveV2EthereumAMM']}, poolConfigs);
     expect(files).toMatchSnapshot();
   });
 });
