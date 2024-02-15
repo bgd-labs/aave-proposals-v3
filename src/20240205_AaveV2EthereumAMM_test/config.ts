@@ -1,6 +1,7 @@
 import {ConfigFile} from '../../generator/types';
 export const config: ConfigFile = {
   rootOptions: {
+    configFile: './src/20240205_AaveV2EthereumAMM_ARFCDeprecateAaveV2AMMMarketStep2/config.ts',
     pools: ['AaveV2EthereumAMM'],
     title: '[ARFC] Deprecate Aave V2 AMM Market - Step 2',
     shortName: 'test',
