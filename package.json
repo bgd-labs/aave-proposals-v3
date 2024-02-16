@@ -36,7 +36,7 @@
     "@bgd-labs/js-utils": "^1.1.1",
     "@inquirer/prompts": "^3.3.0",
     "@inquirer/testing": "^2.1.9",
-    "catapulta-verify": "^1.0.4",
+    "catapulta-verify": "^1.0.5",
     "commander": "^11.1.0",
     "husky": "^8.0.3",
     "lint-staged": "^15.2.0",
