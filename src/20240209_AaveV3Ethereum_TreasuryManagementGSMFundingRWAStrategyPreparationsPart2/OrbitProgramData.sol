@@ -14,7 +14,7 @@ library OrbitProgramData {
   uint256 public constant TOTAL_WETH_REBATE = 4.9273 ether;
   address public constant EZREAL = 0x8659D0BB123Da6D16D9394C7838BA286c2207d0E;
   address public constant STABLE_LABS = 0xECC2a9240268BC7a26386ecB49E1Befca2706AC9;
-  address public constant LBS = 0x2331F2D4C65155C10f2a3ceF4d16F79aa4607e73;
+  address public constant LBS = 0x8b37a5Af68D315cf5A64097D96621F64b5502a22;
   address public constant MICHIGAN = 0x13BDaE8c5F0fC40231F0E6A4ad70196F59138548;
   address public constant ACI = 0x57ab7ee15cE5ECacB1aB84EE42D5A9d0d8112922;
   address public constant TOKEN_LOGIC = 0x2cc1ADE245020FC5AAE66Ad443e1F66e01c54Df1;
