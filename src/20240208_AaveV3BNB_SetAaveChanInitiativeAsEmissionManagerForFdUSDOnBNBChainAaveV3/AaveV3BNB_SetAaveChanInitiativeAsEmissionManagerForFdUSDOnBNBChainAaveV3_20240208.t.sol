@@ -18,7 +18,7 @@ contract AaveV3BNB_SetAaveChanInitiativeAsEmissionManagerForFdUSDOnBNBChainAaveV
     internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('bnb'), 35967871);
+    vm.createSelectFork(vm.rpcUrl('bnb'), 36183713);
     proposal = new AaveV3BNB_SetAaveChanInitiativeAsEmissionManagerForFdUSDOnBNBChainAaveV3_20240208();
   }
 
