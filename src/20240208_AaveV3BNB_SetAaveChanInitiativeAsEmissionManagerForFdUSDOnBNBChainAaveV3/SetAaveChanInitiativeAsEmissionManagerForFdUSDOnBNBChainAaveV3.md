@@ -2,7 +2,7 @@
 title: "Set Aave Chan Initiative as Emission Manager for fdUSD on BNB Chain Aave V3"
 author: " Aave Chan Initiative (ACI)"
 discussions: "https://governance.aave.com/t/arfc-set-aave-chan-initiative-as-emission-manager-for-fdusd-on-bnb-chain-aave-v3/16558"
-snapshot: "TODO"
+snapshot: "https://snapshot.org/#/aave.eth/proposal/0x4db0fe8cb6c21abd34e4d38836db72ed7f1b06c91386ec9e637df8786a289d0d"
 ---
 
 ## Simple Summary
@@ -27,7 +27,7 @@ This method will set the ACI multisig as the emission admin for the fdUSD token 
 
 - Implementation: [AaveV3BNB](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240208_AaveV3BNB_SetAaveChanInitiativeAsEmissionManagerForFdUSDOnBNBChainAaveV3/AaveV3BNB_SetAaveChanInitiativeAsEmissionManagerForFdUSDOnBNBChainAaveV3_20240208.sol)
 - Tests: [AaveV3BNB](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240208_AaveV3BNB_SetAaveChanInitiativeAsEmissionManagerForFdUSDOnBNBChainAaveV3/AaveV3BNB_SetAaveChanInitiativeAsEmissionManagerForFdUSDOnBNBChainAaveV3_20240208.t.sol)
-- [Snapshot](TODO)
+- [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x4db0fe8cb6c21abd34e4d38836db72ed7f1b06c91386ec9e637df8786a289d0d)
 - [Discussion](https://governance.aave.com/t/arfc-set-aave-chan-initiative-as-emission-manager-for-fdusd-on-bnb-chain-aave-v3/16558)
 
 ## Copyright
