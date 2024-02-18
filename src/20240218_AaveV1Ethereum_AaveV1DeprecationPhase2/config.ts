@@ -5,7 +5,7 @@ export const config: ConfigFile = {
     pools: ['AaveV1Ethereum'],
     title: 'Aave V1 Deprecation',
     shortName: 'AaveV1Deprecation',
-    date: '20240115',
+    date: '20240218',
     discussion:
       'https://governance.aave.com/t/temp-check-bgd-further-aave-v1-deprecation-strategy/15893',
     snapshot:

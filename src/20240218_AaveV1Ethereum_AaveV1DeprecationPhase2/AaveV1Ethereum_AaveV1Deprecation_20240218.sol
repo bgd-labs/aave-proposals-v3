@@ -31,34 +31,19 @@ interface IPoolConfigurator {
 }
 
 /**
- * @title Aave V1 Deprecation
+ * @title Aave V1 Deprecation Phase 2
  * @author BGD Labs @bgdlabs
  * - Snapshot: https://snapshot.org/#/aave.eth/proposal/0x7451f00809986c7cb8cce7ef4587efdfedad06089ebf2851d64122d00b035d9c
- * - Discussion: https://governance.aave.com/t/temp-check-bgd-further-aave-v1-deprecation-strategy/15893
+ * - Discussion: https://governance.aave.com/t/temp-check-bgd-further-aave-v1-deprecation-strategy/15893/5
  */
-contract AaveV1Ethereum_AaveV1Deprecation_20240115 is IProposalGenericExecutor {
+contract AaveV1Ethereum_AaveV1Deprecation_20240218 is IProposalGenericExecutor {
   ILendingPoolAddressesProvider public constant ADDRESSES_PROVIDER =
     ILendingPoolAddressesProvider(0x24a42fD28C976A61Df5D00D0599C34c4f90748c8);
 
-  ILendingPoolCore public constant CORE =
-    ILendingPoolCore(0x3dfd23A6c5E8BbcFc9581d2E864a68feb6a076d3);
-
-  IPoolConfigurator public constant CONFIGURATOR =
-    IPoolConfigurator(0x4965f6FA20fE9728deCf5165016fc338a5a85aBF);
-
   address public constant LIQUIDATION_MANAGER_IMPL =
-    address(0x1a7Dde6344d5F2888209DdB446756FE292e1325e);
-
-  address public constant POOL_IMPL = address(0x89A943BAc327c9e217d70E57DCD57C7f2a8C3fA9);
-
-  address public constant MINIMAL_IR = address(0x9Bf9df78b1f7c76a473588c41321B5059b62981e);
+    address(0x60eE8b61a13c67d0191c851BEC8F0bc850160710);
 
   function execute() external {
     ADDRESSES_PROVIDER.setLendingPoolLiquidationManager(LIQUIDATION_MANAGER_IMPL);
-    ADDRESSES_PROVIDER.setLendingPoolImpl(POOL_IMPL);
-    address[] memory reserves = CORE.getReserves();
-    for (uint256 i = 0; i < reserves.length; i++) {
-      CONFIGURATOR.setReserveInterestRateStrategyAddress(reserves[i], MINIMAL_IR);
-    }
   }
 }
