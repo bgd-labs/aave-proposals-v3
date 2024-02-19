@@ -1,5 +1,5 @@
 ---
-title: "Treasury Management - GSM Funding & RWA Strategy Preparations (Part 2)"
+title: "Treasury Management - GSM Funding & RWA Strategy Preparations (Part 2), Aave Protocol Embassy, Orbit Program"
 author: "karpatkey_TokenLogic"
 discussions: "https://governance.aave.com/t/arfc-treasury-management-gsm-funding-rwa-strategy-preparations/16128"
 snapshot: "https://snapshot.org/#/aave.eth/proposal/0xb39537e468eef8c212c67a539cdc6d802cd857f186a4f66aefd44faaadd6ba19"
@@ -14,6 +14,8 @@ This proposal also includes the renewal of the Orbit program for recognized dele
 ## Motivation
 
 The GSM is expected to be available for deployment in the near future. The Centrifuge proposal is currently mid way through the review process. The current stable coin holdings on Ethereum are insufficient to support both the GSM, RWA strategy and Service Provider (SP) commitments. Additional funds are needed on Ethereum to support the GSM.
+
+The Aave DAO possesses significant voting power in various governance tokens. However, the current structure of the collector contract hinders direct participation in other DAOs’ governance. To effectively leverage this power and actively participate in pivotal governance decisions, such as LTIPs on Arbitrum, the creation of APE is essential. Details on the Aave Protocol Embassy can be found [here](https://governance.aave.com/t/arfc-establishing-the-aave-protocol-embassy-ape/16445).
 
 The Orbit program Snapshot and discussion can be found [here](https://snapshot.org/#/aave.eth/proposal/0x412b38c7a0cf1840b102e28ea7ef0373e3ab4b9544873e8cc1544972b777d9a1) and [here](https://governance.aave.com/t/arfc-orbit-program-renewal/16550) respectively.
 
@@ -49,6 +51,8 @@ In terms of gas rebate, we included Gov V2 reimbursement & payload-related activ
 - Create GHO streams for Orbit participants of 15,000 GHO for 90 days as detailed in the table above
 - Transfer GHO for Orbit participants of 5,000 as retroactive payment as detailed in the table above
 - Transfer ETH to delegates/service providers as detailed in the table above
+
+- Transfer all available ARB on the Collector on Arbitrumm to SAFE Multi-sig 0xa9e777D56C0Ad861f6a03967E080e767ad8D39b6
 
 ## References
 
