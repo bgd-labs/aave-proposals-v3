@@ -2,7 +2,7 @@
 
 ### Reserve added
 
-#### USDC (0x06eFdBFf2a14a7c8E15944D1F4A48F9F95F663A4)
+#### USDC ([0x06eFdBFf2a14a7c8E15944D1F4A48F9F95F663A4](https://scrollscan.com/address/0x06eFdBFf2a14a7c8E15944D1F4A48F9F95F663A4))
 
 | description | value |
 | --- | --- |
@@ -15,7 +15,7 @@
 | isSiloed | false |
 | isFlashloanable | true |
 | eModeCategory | 0 |
-| oracle | 0x43d12Fb3AfCAd5347fA764EeAB105478337b7200 |
+| oracle | [0x43d12Fb3AfCAd5347fA764EeAB105478337b7200](https://scrollscan.com/address/0x43d12Fb3AfCAd5347fA764EeAB105478337b7200) |
 | oracleDecimals | 8 |
 | oracleDescription | USDC / USD |
 | oracleLatestAnswer | 1.00010854 |
@@ -25,16 +25,16 @@
 | liquidationBonus | 5 % |
 | liquidationProtocolFee | 10 % |
 | reserveFactor | 10 % |
-| aToken | 0x1D738a3436A8C49CefFbaB7fbF04B660fb528CbD |
-| aTokenImpl | 0x92EDe4ABd9df4Bfb49b4d723e4c932e35c47C54C |
-| variableDebtToken | 0x3d2E209af5BFa79297C88D6b57F89d792F6E28EE |
-| variableDebtTokenImpl | 0x49bA16C08130FF8cFADE263B49387A8555bc057B |
-| stableDebtToken | 0x59F359aA263f7Ac09876E869AF1F75b558904ed4 |
-| stableDebtTokenImpl | 0x8Ff5f08EDB2E5e1A51bd14d0494320bdB436a149 |
+| aToken | [0x1D738a3436A8C49CefFbaB7fbF04B660fb528CbD](https://scrollscan.com/address/0x1D738a3436A8C49CefFbaB7fbF04B660fb528CbD) |
+| aTokenImpl | [0x92EDe4ABd9df4Bfb49b4d723e4c932e35c47C54C](https://scrollscan.com/address/0x92EDe4ABd9df4Bfb49b4d723e4c932e35c47C54C) |
+| variableDebtToken | [0x3d2E209af5BFa79297C88D6b57F89d792F6E28EE](https://scrollscan.com/address/0x3d2E209af5BFa79297C88D6b57F89d792F6E28EE) |
+| variableDebtTokenImpl | [0x49bA16C08130FF8cFADE263B49387A8555bc057B](https://scrollscan.com/address/0x49bA16C08130FF8cFADE263B49387A8555bc057B) |
+| stableDebtToken | [0x59F359aA263f7Ac09876E869AF1F75b558904ed4](https://scrollscan.com/address/0x59F359aA263f7Ac09876E869AF1F75b558904ed4) |
+| stableDebtTokenImpl | [0x8Ff5f08EDB2E5e1A51bd14d0494320bdB436a149](https://scrollscan.com/address/0x8Ff5f08EDB2E5e1A51bd14d0494320bdB436a149) |
 | borrowingEnabled | true |
 | stableBorrowRateEnabled | false |
 | isBorrowableInIsolation | true |
-| interestRateStrategy | 0x9205B37978aC983A297dFB53b3f3D2cCC7DDDADa |
+| interestRateStrategy | [0x9205B37978aC983A297dFB53b3f3D2cCC7DDDADa](https://scrollscan.com/address/0x9205B37978aC983A297dFB53b3f3D2cCC7DDDADa) |
 | aTokenName | Aave Scroll USDC |
 | aTokenSymbol | aScrUSDC |
 | isPaused | false |
@@ -55,7 +55,7 @@
 | interestRate | ![ir](/.assets/4c5958ae482feac8d910d7dab706b3b1cfd28679.svg) |
 
 
-#### WETH (0x5300000000000000000000000000000000000004)
+#### WETH ([0x5300000000000000000000000000000000000004](https://scrollscan.com/address/0x5300000000000000000000000000000000000004))
 
 | description | value |
 | --- | --- |
@@ -68,7 +68,7 @@
 | isSiloed | false |
 | isFlashloanable | true |
 | eModeCategory | 1 |
-| oracle | 0x6bF14CB0A831078629D993FDeBcB182b21A8774C |
+| oracle | [0x6bF14CB0A831078629D993FDeBcB182b21A8774C](https://scrollscan.com/address/0x6bF14CB0A831078629D993FDeBcB182b21A8774C) |
 | oracleDecimals | 8 |
 | oracleDescription | ETH / USD |
 | oracleLatestAnswer | 2379.36 |
@@ -78,16 +78,16 @@
 | liquidationBonus | 6 % |
 | liquidationProtocolFee | 10 % |
 | reserveFactor | 15 % |
-| aToken | 0xf301805bE1Df81102C957f6d4Ce29d2B8c056B2a |
-| aTokenImpl | 0x92EDe4ABd9df4Bfb49b4d723e4c932e35c47C54C |
-| variableDebtToken | 0xfD7344CeB1Df9Cf238EcD667f4A6F99c6Ef44a56 |
-| variableDebtTokenImpl | 0x49bA16C08130FF8cFADE263B49387A8555bc057B |
-| stableDebtToken | 0x117d9cF336287F46DBE509a43925cFF115Aa563c |
-| stableDebtTokenImpl | 0x8Ff5f08EDB2E5e1A51bd14d0494320bdB436a149 |
+| aToken | [0xf301805bE1Df81102C957f6d4Ce29d2B8c056B2a](https://scrollscan.com/address/0xf301805bE1Df81102C957f6d4Ce29d2B8c056B2a) |
+| aTokenImpl | [0x92EDe4ABd9df4Bfb49b4d723e4c932e35c47C54C](https://scrollscan.com/address/0x92EDe4ABd9df4Bfb49b4d723e4c932e35c47C54C) |
+| variableDebtToken | [0xfD7344CeB1Df9Cf238EcD667f4A6F99c6Ef44a56](https://scrollscan.com/address/0xfD7344CeB1Df9Cf238EcD667f4A6F99c6Ef44a56) |
+| variableDebtTokenImpl | [0x49bA16C08130FF8cFADE263B49387A8555bc057B](https://scrollscan.com/address/0x49bA16C08130FF8cFADE263B49387A8555bc057B) |
+| stableDebtToken | [0x117d9cF336287F46DBE509a43925cFF115Aa563c](https://scrollscan.com/address/0x117d9cF336287F46DBE509a43925cFF115Aa563c) |
+| stableDebtTokenImpl | [0x8Ff5f08EDB2E5e1A51bd14d0494320bdB436a149](https://scrollscan.com/address/0x8Ff5f08EDB2E5e1A51bd14d0494320bdB436a149) |
 | borrowingEnabled | true |
 | stableBorrowRateEnabled | false |
 | isBorrowableInIsolation | false |
-| interestRateStrategy | 0xD828F2f9Da85b190721797bEaD5Eb0acC4150f05 |
+| interestRateStrategy | [0xD828F2f9Da85b190721797bEaD5Eb0acC4150f05](https://scrollscan.com/address/0xD828F2f9Da85b190721797bEaD5Eb0acC4150f05) |
 | aTokenName | Aave Scroll WETH |
 | aTokenSymbol | aScrWETH |
 | isPaused | false |
@@ -113,7 +113,7 @@
 | eMode.priceSource | 0x0000000000000000000000000000000000000000 |
 
 
-#### wstETH (0xf610A9dfB7C89644979b4A0f27063E9e7d7Cda32)
+#### wstETH ([0xf610A9dfB7C89644979b4A0f27063E9e7d7Cda32](https://scrollscan.com/address/0xf610A9dfB7C89644979b4A0f27063E9e7d7Cda32))
 
 | description | value |
 | --- | --- |
@@ -126,7 +126,7 @@
 | isSiloed | false |
 | isFlashloanable | true |
 | eModeCategory | 1 |
-| oracle | 0xdb93e2712a8B36835078f8D28c70fCC95FD6d37c |
+| oracle | [0xdb93e2712a8B36835078f8D28c70fCC95FD6d37c](https://scrollscan.com/address/0xdb93e2712a8B36835078f8D28c70fCC95FD6d37c) |
 | oracleDecimals | 8 |
 | oracleDescription | wstETH/ETH/USD |
 | oracleLatestAnswer | 2746.89605153 |
@@ -136,16 +136,16 @@
 | liquidationBonus | 7 % |
 | liquidationProtocolFee | 10 % |
 | reserveFactor | 15 % |
-| aToken | 0x5B1322eeb46240b02e20062b8F0F9908d525B09c |
-| aTokenImpl | 0x92EDe4ABd9df4Bfb49b4d723e4c932e35c47C54C |
-| variableDebtToken | 0x8a035644322129800C3f747f54Db0F4d3c0A2877 |
-| variableDebtTokenImpl | 0x49bA16C08130FF8cFADE263B49387A8555bc057B |
-| stableDebtToken | 0x18e3f125ce85e8D65AD2bb4f6b5fff110772A078 |
-| stableDebtTokenImpl | 0x8Ff5f08EDB2E5e1A51bd14d0494320bdB436a149 |
+| aToken | [0x5B1322eeb46240b02e20062b8F0F9908d525B09c](https://scrollscan.com/address/0x5B1322eeb46240b02e20062b8F0F9908d525B09c) |
+| aTokenImpl | [0x92EDe4ABd9df4Bfb49b4d723e4c932e35c47C54C](https://scrollscan.com/address/0x92EDe4ABd9df4Bfb49b4d723e4c932e35c47C54C) |
+| variableDebtToken | [0x8a035644322129800C3f747f54Db0F4d3c0A2877](https://scrollscan.com/address/0x8a035644322129800C3f747f54Db0F4d3c0A2877) |
+| variableDebtTokenImpl | [0x49bA16C08130FF8cFADE263B49387A8555bc057B](https://scrollscan.com/address/0x49bA16C08130FF8cFADE263B49387A8555bc057B) |
+| stableDebtToken | [0x18e3f125ce85e8D65AD2bb4f6b5fff110772A078](https://scrollscan.com/address/0x18e3f125ce85e8D65AD2bb4f6b5fff110772A078) |
+| stableDebtTokenImpl | [0x8Ff5f08EDB2E5e1A51bd14d0494320bdB436a149](https://scrollscan.com/address/0x8Ff5f08EDB2E5e1A51bd14d0494320bdB436a149) |
 | borrowingEnabled | true |
 | stableBorrowRateEnabled | false |
 | isBorrowableInIsolation | false |
-| interestRateStrategy | 0xCB032D7e38a10503c0b2F9f7bE8c1A81bBBEe2A8 |
+| interestRateStrategy | [0xCB032D7e38a10503c0b2F9f7bE8c1A81bBBEe2A8](https://scrollscan.com/address/0xCB032D7e38a10503c0b2F9f7bE8c1A81bBBEe2A8) |
 | aTokenName | Aave Scroll wstETH |
 | aTokenSymbol | aScrwstETH |
 | isPaused | false |
