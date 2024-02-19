@@ -112,9 +112,15 @@ if (options.configFile) {
 
   if (!options.title) {
     options.title = await input({
-      message: 'Title of your proposal',
+      message:
+        'Short title of your proposal that will be used as contract name(please refrain from including author or date)',
       validate(input) {
         if (input.length == 0) return "Your title can't be empty";
+        // this is no exact math
+        // fully qualified identifiers are not allowed to be longer then 300 chars on etherscan api
+        // the path is roughly src(3)/date(8)_title/title_date(8):title_date(8), so 3 + 3*8 + 3 title.length
+        // so 80 sounds like a reasonable upper bound to stay below 300 character limit
+        if (input.trim().length > 80) return 'Your title is to long';
         return true;
       },
     });
