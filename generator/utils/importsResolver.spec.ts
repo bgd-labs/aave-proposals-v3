@@ -27,7 +27,6 @@ describe('prefixWithImports', () => {
 
   it('should detect v2 Engine imports', () => {
     const result = prefixWithImports('IAaveV2ConfigEngine.RateStrategyUpdate');
-    console.log(result);
     expect(result).toContain(
       `import {IAaveV2ConfigEngine} from 'aave-helpers/v2-config-engine/IAaveV2ConfigEngine.sol';`
     );
