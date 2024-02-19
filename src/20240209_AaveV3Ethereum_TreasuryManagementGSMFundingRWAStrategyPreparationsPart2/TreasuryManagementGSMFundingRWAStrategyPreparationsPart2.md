@@ -18,6 +18,7 @@ The GSM is expected to be available for deployment in the near future. The Centr
 The Aave DAO possesses significant voting power in various governance tokens. However, the current structure of the collector contract hinders direct participation in other DAOs’ governance. To effectively leverage this power and actively participate in pivotal governance decisions, such as LTIPs on Arbitrum, the creation of APE is essential. Details on the Aave Protocol Embassy can be found [here](https://governance.aave.com/t/arfc-establishing-the-aave-protocol-embassy-ape/16445).
 
 The Orbit program Snapshot and discussion can be found [here](https://snapshot.org/#/aave.eth/proposal/0x412b38c7a0cf1840b102e28ea7ef0373e3ab4b9544873e8cc1544972b777d9a1) and [here](https://governance.aave.com/t/arfc-orbit-program-renewal/16550) respectively.
+LBS updated their address [here](https://governance.aave.com/t/arfc-orbit-program-renewal/16550/5?u=lbsblockchain).
 
 The following table outlines the proposed compensation for eligible delegates matching the requirements:
 
