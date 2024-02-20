@@ -31,8 +31,8 @@ Useful Links
 
 ## References
 
-- Implementation: [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240206_AaveV3Polygon_MaticXSupplyCapIncreaseInPolygonV3/AaveV3Polygon_MaticXSupplyCapIncreaseInPolygonV3_20240206.sol)
-- Tests: [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240206_AaveV3Polygon_MaticXSupplyCapIncreaseInPolygonV3/AaveV3Polygon_MaticXSupplyCapIncreaseInPolygonV3_20240206.t.sol)
+- Implementation: [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/76cbbd699702d5662409355a40d8ede251c7b06e/src/20240206_AaveV3Polygon_MaticXSupplyCapIncreaseInPolygonV3/AaveV3Polygon_MaticXSupplyCapIncreaseInPolygonV3_20240206.sol)
+- Tests: [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/76cbbd699702d5662409355a40d8ede251c7b06e/src/20240206_AaveV3Polygon_MaticXSupplyCapIncreaseInPolygonV3/AaveV3Polygon_MaticXSupplyCapIncreaseInPolygonV3_20240206.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x73b2f1d14eb6710deabe84639ea8b06929738ef1973fee21c26945d17bf57a5b)
 - [Discussion](https://governance.aave.com/t/arfc-maticx-supply-cap-increase-in-polygon-v3/16449)
 
