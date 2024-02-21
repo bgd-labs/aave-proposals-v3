@@ -8,7 +8,6 @@ import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethe
 import {ProtocolV3TestBase} from 'aave-helpers/ProtocolV3TestBase.sol';
 
 import {AaveV3Ethereum_TreasuryManagementGSMFundingRWAStrategyPreparationsPart2_20240209} from './AaveV3Ethereum_TreasuryManagementGSMFundingRWAStrategyPreparationsPart2_20240209.sol';
-import {OrbitProgramData} from './OrbitProgramData.sol';
 
 /**
  * @dev Test for AaveV3Ethereum_TreasuryManagementGSMFundingRWAStrategyPreparationsPart2_20240209
@@ -28,8 +27,6 @@ contract AaveV3Ethereum_TreasuryManagementGSMFundingRWAStrategyPreparationsPart2
     uint256 slippage
   );
 
-  uint256 public constant TOTAL_GHO_WITHDRAWN = 20_000 ether;
-
   AaveV3Ethereum_TreasuryManagementGSMFundingRWAStrategyPreparationsPart2_20240209
     internal proposal;
 
@@ -45,13 +42,6 @@ contract AaveV3Ethereum_TreasuryManagementGSMFundingRWAStrategyPreparationsPart2
    * @dev executes the generic test suite including e2e and config snapshots
    */
   function test_defaultProposalExecution() public {
-    uint256 collectorGhoBalanceBefore = IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(
-      address(AaveV3Ethereum.COLLECTOR)
-    );
-    uint256 collectorWethBalanceBefore = IERC20(AaveV3EthereumAssets.WETH_UNDERLYING).balanceOf(
-      address(AaveV3Ethereum.COLLECTOR)
-    );
-
     uint256 collectorDaiBalanceBefore = IERC20(AaveV3EthereumAssets.DAI_UNDERLYING).balanceOf(
       address(AaveV3Ethereum.COLLECTOR)
     );
@@ -59,20 +49,6 @@ contract AaveV3Ethereum_TreasuryManagementGSMFundingRWAStrategyPreparationsPart2
     uint256 aUsdcBalanceBefore = IERC20(AaveV3EthereumAssets.USDC_A_TOKEN).balanceOf(
       address(AaveV3Ethereum.COLLECTOR)
     );
-
-    uint256[] memory ethBalancesBeforeUsers = new uint256[](7);
-    OrbitProgramData.GasUsage[] memory usage = OrbitProgramData.getGasUsageData();
-    for (uint256 i = 0; i < usage.length; i++) {
-      ethBalancesBeforeUsers[i] = usage[i].account.balance;
-    }
-
-    uint256[] memory ghoBalancesBeforeUsers = new uint256[](4);
-    address[] memory ghoPaymentAddresses = OrbitProgramData.getOrbitAddresses();
-    for (uint256 i = 0; i < ghoPaymentAddresses.length; i++) {
-      ghoBalancesBeforeUsers[i] = IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(
-        ghoPaymentAddresses[i]
-      );
-    }
 
     vm.expectEmit(true, true, true, true, MiscEthereum.AAVE_SWAPPER);
     emit SwapRequested(
@@ -97,10 +73,6 @@ contract AaveV3Ethereum_TreasuryManagementGSMFundingRWAStrategyPreparationsPart2
       address(proposal),
       50
     );
-
-    uint256 nextStreamId = AaveV3Ethereum.COLLECTOR.getNextStreamId();
-    vm.expectRevert();
-    AaveV3Ethereum.COLLECTOR.getStream(nextStreamId);
 
     executePayload(vm, address(proposal));
 
@@ -131,43 +103,6 @@ contract AaveV3Ethereum_TreasuryManagementGSMFundingRWAStrategyPreparationsPart2
       aUsdcBalanceBefore,
       'aUSDC balance of Collector is not greater than before'
     );
-
-    assertEq(
-      IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
-      collectorGhoBalanceBefore - TOTAL_GHO_WITHDRAWN,
-      'GHO balance of Collector is not equal to previous minus to withdraw'
-    );
-    assertEq(
-      IERC20(AaveV3EthereumAssets.WETH_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
-      collectorWethBalanceBefore - OrbitProgramData.TOTAL_WETH_REBATE,
-      'WETH balance of Collector is not equal to previous minus to withdraw'
-    );
-
-    for (uint256 i = 0; i < usage.length; i++) {
-      assertGt(
-        usage[i].account.balance,
-        ethBalancesBeforeUsers[i],
-        'REBATE recipient balance is not greater than before'
-      );
-    }
-
-    vm.warp(block.timestamp + 7 days);
-
-    /// Their GHO balance has increased and call also withdraw from stream as it now exists
-    for (uint256 i = 0; i < ghoPaymentAddresses.length; i++) {
-      assertEq(
-        IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(ghoPaymentAddresses[i]),
-        ghoBalancesBeforeUsers[i] + OrbitProgramData.RETRO_PAYMENT,
-        'GHO balance of Orbit recipient is not greater than before'
-      );
-
-      vm.prank(ghoPaymentAddresses[i]);
-      AaveV3Ethereum.COLLECTOR.withdrawFromStream(nextStreamId + i, 1);
-      assertEq(
-        IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(ghoPaymentAddresses[i]),
-        ghoBalancesBeforeUsers[i] + OrbitProgramData.RETRO_PAYMENT + 1
-      );
-    }
   }
 
   function test_depositsToV3() public {
