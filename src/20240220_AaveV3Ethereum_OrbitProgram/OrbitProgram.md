@@ -36,6 +36,8 @@ In terms of gas rebate, we included Gov V2 reimbursement & payload-related activ
 | ezr3al                      | 0.3833         |
 | Total                       | 4.9273         |
 
+Note Michigan has rebranded as Arana as can be seen in the forum [here](https://governance.aave.com/t/arfc-orbit-program-renewal/16550/6).
+
 ## Specification
 
 - Create GHO streams for Orbit participants of 15,000 GHO for 90 days as detailed in the table above
