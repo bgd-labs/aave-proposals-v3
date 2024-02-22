@@ -23,6 +23,10 @@ EMISSION_MANAGER.setEmissionAdmin(wstETH, EMISSION_ADMIN);
 
 This method will set the Lido "Lido Liquidity Observation Labs wallet as the emission admin for the wstETH token on Ethereum, Base, Arbitrum, Optimism and Polygon V3 markets.
 
+After synchronizing with Liquidity Observation Labs, it was decided not to favor, in the short term, a bridged version of StETH on the gnosis chain.
+
+As such, and following their request, no role will be attributed to the gnosis chain in the context of this AIP.
+
 ## References
 
 - Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240206_Multi_SetLiquidityObservationLabsAsEmissionManagerForWstETHOnV3Markets/AaveV3Ethereum_SetLiquidityObservationLabsAsEmissionManagerForWstETHOnV3Markets_20240206.sol), [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240206_Multi_SetLiquidityObservationLabsAsEmissionManagerForWstETHOnV3Markets/AaveV3Polygon_SetLiquidityObservationLabsAsEmissionManagerForWstETHOnV3Markets_20240206.sol), [AaveV3Optimism](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240206_Multi_SetLiquidityObservationLabsAsEmissionManagerForWstETHOnV3Markets/AaveV3Optimism_SetLiquidityObservationLabsAsEmissionManagerForWstETHOnV3Markets_20240206.sol), [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240206_Multi_SetLiquidityObservationLabsAsEmissionManagerForWstETHOnV3Markets/AaveV3Arbitrum_SetLiquidityObservationLabsAsEmissionManagerForWstETHOnV3Markets_20240206.sol), [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240206_Multi_SetLiquidityObservationLabsAsEmissionManagerForWstETHOnV3Markets/AaveV3Base_SetLiquidityObservationLabsAsEmissionManagerForWstETHOnV3Markets_20240206.sol)
