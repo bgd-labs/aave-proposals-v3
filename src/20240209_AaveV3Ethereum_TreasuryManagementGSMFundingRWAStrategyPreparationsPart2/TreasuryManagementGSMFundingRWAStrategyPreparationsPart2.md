@@ -7,11 +7,11 @@ snapshot: "https://snapshot.org/#/aave.eth/proposal/0xb39537e468eef8c212c67a539c
 
 ## Simple Summary
 
-In preparation for launching the GHO Stability Module (GSM) and the $1M RWA strategy with Centirfuge, this publication seeks to make available the necessary amount of USDC, USDT and DAI on Ethereum.
+In preparation for potentially funding the GHO Stability Module (GSM) and the $1M RWA strategy with Centirfuge, this publication seeks to make available the necessary amount of USDC, USDT and DAI on Ethereum.
 
 ## Motivation
 
-The GSM is expected to be available for deployment in the near future. The Centrifuge proposal is currently mid way through the review process. The current stable coin holdings on Ethereum are insufficient to support both the GSM, RWA strategy and Service Provider (SP) commitments. Additional funds are needed on Ethereum to support the GSM.
+The GSM was deployed in a previous proposal and the current stable coin holdings on Ethereum are insufficient to support both the GSM, RWA strategy and Service Provider (SP) commitments. Additional funds are needed on Ethereum to support the GSM.
 
 ## Specification
 
