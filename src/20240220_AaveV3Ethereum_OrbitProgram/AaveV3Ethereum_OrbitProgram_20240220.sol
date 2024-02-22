@@ -20,6 +20,8 @@ interface IWETH {
  * - Discussion: https://governance.aave.com/t/arfc-orbit-program-renewal/16550
  */
 contract AaveV3Ethereum_OrbitProgram_20240220 is IProposalGenericExecutor {
+  error EthTransferFailed(address account);
+
   function execute() external {
     AaveV3Ethereum.COLLECTOR.transfer(
       AaveV3EthereumAssets.WETH_UNDERLYING,
@@ -33,6 +35,7 @@ contract AaveV3Ethereum_OrbitProgram_20240220 is IProposalGenericExecutor {
     uint256 usageLength = usage.length;
     for (uint256 i = 0; i < usageLength; i++) {
       (bool ok, ) = usage[i].account.call{value: usage[i].usage}('');
+      if (!ok) revert EthTransferFailed(usage[i].account);
     }
 
     uint256 actualStreamAmount = (OrbitProgramData.STREAM_AMOUNT /
