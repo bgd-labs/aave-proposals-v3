@@ -17,6 +17,8 @@ This will allow the Aave DAO to have a meta-governance embassy represented by Aa
 
 ## Specification
 
+The multi-sig address was commented [here](https://governance.aave.com/t/arfc-establishing-the-aave-protocol-embassy-ape/16445/9).
+
 - Transfer all available ARB on the Collector on Arbitrumm to SAFE Multi-sig 0xa9e777D56C0Ad861f6a03967E080e767ad8D39b6
 
 ## References
