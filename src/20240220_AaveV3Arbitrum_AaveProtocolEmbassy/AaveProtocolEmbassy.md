@@ -23,8 +23,8 @@ The multi-sig address was commented [here](https://governance.aave.com/t/arfc-es
 
 ## References
 
-- Implementation: [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240220_AaveV3Arbitrum_AaveProtocolEmbassy/AaveV3Arbitrum_AaveProtocolEmbassy_20240220.sol)
-- Tests: [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240220_AaveV3Arbitrum_AaveProtocolEmbassy/AaveV3Arbitrum_AaveProtocolEmbassy_20240220.t.sol)
+- Implementation: [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/1b85d9fb8fd2175b49da486fc6db3f8b752349cc/src/20240220_AaveV3Arbitrum_AaveProtocolEmbassy/AaveV3Arbitrum_AaveProtocolEmbassy_20240220.sol)
+- Tests: [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/1b85d9fb8fd2175b49da486fc6db3f8b752349cc/src/20240220_AaveV3Arbitrum_AaveProtocolEmbassy/AaveV3Arbitrum_AaveProtocolEmbassy_20240220.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0xe9da0e50526a98a55aae743f44afc21a86076a12184a6c6c9022aa63dcb0be73)
 - [Discussion](https://governance.aave.com/t/arfc-establishing-the-aave-protocol-embassy-ape/16445)
 
