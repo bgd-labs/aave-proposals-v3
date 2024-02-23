@@ -29,8 +29,8 @@ The governance proposal executes the payment to 2 different recipients:
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240207_AaveV3Ethereum_StableRateBugBounty/AaveV3Ethereum_StableRateBugBounty_20240207.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240207_AaveV3Ethereum_StableRateBugBounty/AaveV3Ethereum_StableRateBugBounty_20240207.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/111a502c618f493409b593a0816c84a71b8e8e28/src/20240207_AaveV3Ethereum_StableRateBugBounty/AaveV3Ethereum_StableRateBugBounty_20240207.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/111a502c618f493409b593a0816c84a71b8e8e28/src/20240207_AaveV3Ethereum_StableRateBugBounty/AaveV3Ethereum_StableRateBugBounty_20240207.t.sol)
 - [Discussion](https://governance.aave.com/t/bgd-full-deprecation-of-stable-rate/16473)
 
 ## Copyright
