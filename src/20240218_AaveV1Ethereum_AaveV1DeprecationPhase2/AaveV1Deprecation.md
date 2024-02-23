@@ -31,7 +31,7 @@ to update the implementations accordingly.
 
 This upgrade will:
 
-- allow liquidations of collateralized positions with 3% liquidation bonus
+- allow liquidations of collateralized positions with 3% liquidation bonus by replacing the liquidation manager with [0x60eE8b61a13c67d0191c851BEC8F0bc850160710](https://etherscan.io/address/0x60eE8b61a13c67d0191c851BEC8F0bc850160710)
 
 ## References
 
