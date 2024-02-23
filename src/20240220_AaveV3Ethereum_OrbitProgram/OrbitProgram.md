@@ -46,8 +46,8 @@ Note Michigan has rebranded as Arana as can be seen in the forum [here](https://
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240220_AaveV3Ethereum_OrbitProgram/AaveV3Ethereum_OrbitProgram_20240220.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240220_AaveV3Ethereum_OrbitProgram/AaveV3Ethereum_OrbitProgram_20240220.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/4c487a2f49adf301e08c80313dc3f946709c29f3/src/20240220_AaveV3Ethereum_OrbitProgram/AaveV3Ethereum_OrbitProgram_20240220.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/4c487a2f49adf301e08c80313dc3f946709c29f3/src/20240220_AaveV3Ethereum_OrbitProgram/AaveV3Ethereum_OrbitProgram_20240220.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x412b38c7a0cf1840b102e28ea7ef0373e3ab4b9544873e8cc1544972b777d9a1)
 - [Discussion](https://governance.aave.com/t/arfc-orbit-program-renewal/16550)
 
