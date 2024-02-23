@@ -15,8 +15,9 @@ contract AaveV3Ethereum_StableRateBugBounty_20240207 is IProposalGenericExecutor
   address public constant WHITEHAT_RECIPIENT = 0x501eE2A368f1E58C736dd7cE3b494B33c3158c68;
   address public constant IMMUNEFI_RECIPIENT = 0x2BC5fFc5De1a83a9e4cDDfA138bAEd516D70414b;
 
-  // considering the 30 day avg price of 1 AAVE: $95.23
-  uint256 public constant AAVE_WHITEHAT_AMOUNT = 5_250 ether;
+  // Considering the 30 day avg price of 1 AAVE: $89.56 recommended by financial SPs
+  // https://governance.aave.com/t/bgd-full-deprecation-of-stable-rate/16473/8
+  uint256 public constant AAVE_WHITEHAT_AMOUNT = 5_777 ether;
   uint256 public constant USDT_WHITEHAT_AMOUNT = 500_000e6;
   uint256 public constant USDT_IMMUNEFI_AMOUNT = 100_000e6;
 

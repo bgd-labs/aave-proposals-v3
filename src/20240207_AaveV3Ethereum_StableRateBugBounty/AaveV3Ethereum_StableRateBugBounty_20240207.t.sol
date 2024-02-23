@@ -16,7 +16,7 @@ contract AaveV3Ethereum_StableRateBugBounty_20240207_Test is ProtocolV3TestBase 
   AaveV3Ethereum_StableRateBugBounty_20240207 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 19174640);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 19290890);
     proposal = new AaveV3Ethereum_StableRateBugBounty_20240207();
   }
 
