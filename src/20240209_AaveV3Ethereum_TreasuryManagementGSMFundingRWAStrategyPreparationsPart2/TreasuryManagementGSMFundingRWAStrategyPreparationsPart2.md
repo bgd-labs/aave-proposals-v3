@@ -22,8 +22,8 @@ The GSM was deployed in a previous proposal and the current stable coin holdings
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240209_AaveV3Ethereum_TreasuryManagementGSMFundingRWAStrategyPreparationsPart2/AaveV3Ethereum_TreasuryManagementGSMFundingRWAStrategyPreparationsPart2_20240209.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240209_AaveV3Ethereum_TreasuryManagementGSMFundingRWAStrategyPreparationsPart2/AaveV3Ethereum_TreasuryManagementGSMFundingRWAStrategyPreparationsPart2_20240209.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/312f7338478da05b55b2104434002762238df0d3/src/20240209_AaveV3Ethereum_TreasuryManagementGSMFundingRWAStrategyPreparationsPart2/AaveV3Ethereum_TreasuryManagementGSMFundingRWAStrategyPreparationsPart2_20240209.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/312f7338478da05b55b2104434002762238df0d3/src/20240209_AaveV3Ethereum_TreasuryManagementGSMFundingRWAStrategyPreparationsPart2/AaveV3Ethereum_TreasuryManagementGSMFundingRWAStrategyPreparationsPart2_20240209.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0xb39537e468eef8c212c67a539cdc6d802cd857f186a4f66aefd44faaadd6ba19)
 - [Discussion](https://governance.aave.com/t/arfc-treasury-management-gsm-funding-rwa-strategy-preparations/16128)
 
