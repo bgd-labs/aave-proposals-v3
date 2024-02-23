@@ -17,7 +17,7 @@ contract AaveV3Ethereum_StableRateBugBounty_20240207 is IProposalGenericExecutor
 
   // Considering the 30 day avg price of 1 AAVE: $89.56 recommended by financial SPs
   // https://governance.aave.com/t/bgd-full-deprecation-of-stable-rate/16473/8
-  uint256 public constant AAVE_WHITEHAT_AMOUNT = 5_777 ether;
+  uint256 public constant AAVE_WHITEHAT_AMOUNT = 5_583 ether;
   uint256 public constant USDT_WHITEHAT_AMOUNT = 500_000e6;
   uint256 public constant USDT_IMMUNEFI_AMOUNT = 100_000e6;
 

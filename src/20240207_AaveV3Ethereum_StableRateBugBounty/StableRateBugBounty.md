@@ -21,7 +21,7 @@ The governance proposal executes the payment to 2 different recipients:
 -> **White-hat**
 
 - Transfer of 500'000 aUSDT v2 Ethereum from the Aave Ethereum Collector.
-- Transfer of 5'777 AAVE (calculated to be $500'000 using a 30-days average) from the Aave Ecosystem Reserve. The amount has been determined following the recommendation of the financial service providers of the DAO [HERE](https://governance.aave.com/t/bgd-full-deprecation-of-stable-rate/16473/8).
+- Transfer of 5'583 AAVE (calculated to be $500'000 using a 30-days average) from the Aave Ecosystem Reserve. The amount has been determined following the recommendation of the financial service providers of the DAO [HERE](https://governance.aave.com/t/bgd-full-deprecation-of-stable-rate/16473/8).
 
 -> **Immunefi**
 
