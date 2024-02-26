@@ -3,8 +3,9 @@ pragma solidity ^0.8.0;
 
 import 'forge-std/Test.sol';
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
+import {AaveV2EthereumAssets} from 'aave-address-book/AaveV2Ethereum.sol';
 import {ProtocolV2TestBase, ReserveConfig} from 'aave-helpers/ProtocolV2TestBase.sol';
-import {AaveV1Ethereum_AaveV1Deprecation_20240115, ILendingPoolAddressesProvider, ILendingPoolCore} from './AaveV1Ethereum_AaveV1Deprecation_20240115.sol';
+import {AaveV1Ethereum_AaveV1Deprecation_20240218, ILendingPoolAddressesProvider, ILendingPoolCore} from './AaveV1Ethereum_AaveV1Deprecation_20240218.sol';
 
 interface ILendingPool {
   function liquidationCall(
@@ -79,10 +80,10 @@ interface IAToken {
 }
 
 /**
- * @dev Test for AaveV1Ethereum_AaveV1Deprecation_20240115
- * command: make test-contract filter=AaveV1Ethereum_AaveV1Deprecation_20240115
+ * @dev Test for AaveV1Ethereum_AaveV1Deprecation_20240218
+ * command: make test-contract filter=AaveV1Ethereum_AaveV1Deprecation_20240218
  */
-contract AaveV1Ethereum_AaveV1Deprecation_20240115_Test is ProtocolV2TestBase {
+contract AaveV1Ethereum_AaveV1Deprecation_20240218_Test is ProtocolV2TestBase {
   struct V1User {
     address payable user;
     address collateral;
@@ -97,22 +98,11 @@ contract AaveV1Ethereum_AaveV1Deprecation_20240115_Test is ProtocolV2TestBase {
 
   ILendingPool public constant POOL = ILendingPool(0x398eC7346DcD622eDc5ae82352F02bE94C62d119);
 
-  AaveV1Ethereum_AaveV1Deprecation_20240115 internal proposal;
+  AaveV1Ethereum_AaveV1Deprecation_20240218 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 19111804);
-    proposal = new AaveV1Ethereum_AaveV1Deprecation_20240115();
-  }
-
-  /**
-   * Check the IR is updated correctly
-   */
-  function test_ir() public {
-    executePayload(vm, address(proposal));
-    address[] memory reserves = CORE.getReserves();
-    for (uint256 i = 0; i < reserves.length; i++) {
-      assertEq(CORE.getReserveInterestRateStrategyAddress(reserves[i]), proposal.MINIMAL_IR());
-    }
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 19254674);
+    proposal = new AaveV1Ethereum_AaveV1Deprecation_20240218();
   }
 
   function test_repay() public {
@@ -210,7 +200,7 @@ contract AaveV1Ethereum_AaveV1Deprecation_20240115_Test is ProtocolV2TestBase {
       uint256 collateralDiff = totalCollateralETHBefore - totalCollateralETHAfter;
       uint256 borrowsDiff = totalBorrowsETHBefore - totalBorrowsETHAfter;
       assertGt(collateralDiff, borrowsDiff);
-      assertApproxEqAbs((borrowsDiff * 1 ether) / collateralDiff, 0.99 ether, 0.001 ether); // should be ~1% + rounding
+      assertApproxEqAbs((borrowsDiff * 1 ether) / collateralDiff, 0.97 ether, 0.001 ether); // should be ~3% + rounding
     }
   }
 
@@ -218,24 +208,26 @@ contract AaveV1Ethereum_AaveV1Deprecation_20240115_Test is ProtocolV2TestBase {
     V1User[] memory users = new V1User[](4);
     users[0] = V1User(
       payable(0x1F0aeAeE69468727BA258B0cf692E6bfecc2E286),
-      0x514910771AF9Ca656af840dff83E8264EcF986CA, // LINK
-      0x0000000000085d4780B73119b644AE5ecd22b376 // TUSD
+      AaveV2EthereumAssets.LINK_UNDERLYING, // LINK
+      AaveV2EthereumAssets.TUSD_UNDERLYING // TUSD
     );
     users[1] = V1User(
-      payable(0x1F0aeAeE69468727BA258B0cf692E6bfecc2E286),
-      0x514910771AF9Ca656af840dff83E8264EcF986CA, // LINK
-      0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48 // USDC
+      payable(0x9F3C2254414c852b83C727B257b6EaB9418cF914),
+      0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE, // ETH
+      AaveV2EthereumAssets.USDC_UNDERLYING // USDC
     );
     users[2] = V1User(
-      payable(0x310D5C8EE1512D5092ee4377061aE82E48973689),
-      0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599, // WBTC
-      0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE // weth
+      payable(0x9F3C2254414c852b83C727B257b6EaB9418cF914),
+      0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE, // ETH
+      AaveV2EthereumAssets.DAI_UNDERLYING // weth
     );
     users[3] = V1User(
-      payable(0xb570de1e7f1696DE9623e1784122EBCA1d6907e5),
-      0x514910771AF9Ca656af840dff83E8264EcF986CA, // LINK
-      0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48 // USDC
+      payable(0x9F3C2254414c852b83C727B257b6EaB9418cF914),
+      0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE, // ETH
+      AaveV2EthereumAssets.BUSD_UNDERLYING // USDC
     );
     return users;
   }
+
+  fallback() external payable {}
 }
