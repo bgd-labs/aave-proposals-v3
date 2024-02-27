@@ -2,7 +2,6 @@
 title: "Cut Gauntlet Service Provider Stream"
 author: "ACI"
 discussions: "https://governance.aave.com/t/gauntlet-is-leaving-aave/16700"
-snapshot: Direct-to-AIP
 ---
 
 ## Simple Summary
