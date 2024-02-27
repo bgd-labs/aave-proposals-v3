@@ -26,13 +26,13 @@ describe('prefixWithImports', () => {
   });
 
   it('should detect v2 Engine imports', () => {
-    expect(prefixWithImports('IAaveV2ConfigEngine.RateStrategyUpdate')).toContain(
+    const result = prefixWithImports('IAaveV2ConfigEngine.RateStrategyUpdate');
+    expect(result).toContain(
       `import {IAaveV2ConfigEngine} from 'aave-helpers/v2-config-engine/IAaveV2ConfigEngine.sol';`
     );
   });
 
   it('should detect addressbook imports', () => {
-    console.log(prefixWithImports('AaveV2Ethereum.POOL AaveV2EthereumAssets.DAI'));
     expect(prefixWithImports('AaveV2Ethereum.POOL AaveV2EthereumAssets.DAI')).toContain(
       `import {AaveV2Ethereum,AaveV2EthereumAssets} from 'aave-address-book/AaveV2Ethereum.sol';`
     );

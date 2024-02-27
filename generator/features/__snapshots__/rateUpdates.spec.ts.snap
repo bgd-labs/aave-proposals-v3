@@ -1,0 +1,354 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`feature: rateUpdatesV2 > should properly generate files 1`] = `
+{
+  "aip": "---
+title: "test"
+author: "test"
+discussions: "test"
+snapshot: "test"
+---
+
+## Simple Summary
+
+## Motivation
+
+## Specification
+
+## References
+
+- Implementation: [AaveV2EthereumAMM](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231023_AaveV2EthereumAMM_Test/AaveV2EthereumAMM_Test_20231023.sol)
+- Tests: [AaveV2EthereumAMM](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20231023_AaveV2EthereumAMM_Test/AaveV2EthereumAMM_Test_20231023.t.sol)
+- [Snapshot](test)
+- [Discussion](test)
+
+## Copyright
+
+Copyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).
+",
+  "jsonConfig": "import {ConfigFile} from '../../generator/types';
+export const config: ConfigFile = {
+  rootOptions: {
+    pools: ['AaveV2EthereumAMM'],
+    title: 'test',
+    shortName: 'Test',
+    date: '20231023',
+    author: 'test',
+    discussion: 'test',
+    snapshot: 'test',
+  },
+  poolOptions: {
+    AaveV2EthereumAMM: {
+      configs: {
+        RATE_UPDATE_V2: [
+          {
+            asset: 'WETH',
+            params: {
+              optimalUtilizationRate: '',
+              baseVariableBorrowRate: '6',
+              variableRateSlope1: '',
+              variableRateSlope2: '',
+              stableRateSlope1: '',
+              stableRateSlope2: '',
+            },
+          },
+          {
+            asset: 'DAI',
+            params: {
+              optimalUtilizationRate: '',
+              baseVariableBorrowRate: '4',
+              variableRateSlope1: '10',
+              variableRateSlope2: '',
+              stableRateSlope1: '',
+              stableRateSlope2: '',
+            },
+          },
+          {
+            asset: 'USDC',
+            params: {
+              optimalUtilizationRate: '',
+              baseVariableBorrowRate: '4',
+              variableRateSlope1: '10',
+              variableRateSlope2: '',
+              stableRateSlope1: '',
+              stableRateSlope2: '',
+            },
+          },
+          {
+            asset: 'USDT',
+            params: {
+              optimalUtilizationRate: '',
+              baseVariableBorrowRate: '6',
+              variableRateSlope1: '10',
+              variableRateSlope2: '',
+              stableRateSlope1: '',
+              stableRateSlope2: '',
+            },
+          },
+          {
+            asset: 'WBTC',
+            params: {
+              optimalUtilizationRate: '',
+              baseVariableBorrowRate: '5',
+              variableRateSlope1: '',
+              variableRateSlope2: '',
+              stableRateSlope1: '',
+              stableRateSlope2: '',
+            },
+          },
+        ],
+      },
+      cache: {blockNumber: 42},
+    },
+  },
+};
+",
+  "payloads": [
+    {
+      "contractName": "AaveV2EthereumAMM_Test_20231023",
+      "payload": "// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+import {AaveV2EthereumAMMAssets} from 'aave-address-book/AaveV2EthereumAMM.sol';
+import {AaveV2PayloadEthereumAMM} from 'aave-helpers/v2-config-engine/AaveV2PayloadEthereumAMM.sol';
+import {EngineFlags} from 'aave-helpers/v3-config-engine/EngineFlags.sol';
+import {IAaveV2ConfigEngine} from 'aave-helpers/v2-config-engine/IAaveV2ConfigEngine.sol';
+import {IV2RateStrategyFactory} from 'aave-helpers/v2-config-engine/IV2RateStrategyFactory.sol';
+
+/**
+ * @title test
+ * @author test
+ * - Snapshot: test
+ * - Discussion: test
+ */
+contract AaveV2EthereumAMM_Test_20231023 is AaveV2PayloadEthereumAMM {
+  function rateStrategiesUpdates()
+    public
+    pure
+    override
+    returns (IAaveV2ConfigEngine.RateStrategyUpdate[] memory)
+  {
+    IAaveV2ConfigEngine.RateStrategyUpdate[]
+      memory rateStrategies = new IAaveV2ConfigEngine.RateStrategyUpdate[](5);
+    rateStrategies[0] = IAaveV2ConfigEngine.RateStrategyUpdate({
+      asset: AaveV2EthereumAMMAssets.WETH_UNDERLYING,
+      params: IV2RateStrategyFactory.RateStrategyParams({
+        optimalUtilizationRate: EngineFlags.KEEP_CURRENT,
+        baseVariableBorrowRate: _bpsToRay(6_00),
+        variableRateSlope1: EngineFlags.KEEP_CURRENT,
+        variableRateSlope2: EngineFlags.KEEP_CURRENT,
+        stableRateSlope1: EngineFlags.KEEP_CURRENT,
+        stableRateSlope2: EngineFlags.KEEP_CURRENT
+      })
+    });
+    rateStrategies[1] = IAaveV2ConfigEngine.RateStrategyUpdate({
+      asset: AaveV2EthereumAMMAssets.DAI_UNDERLYING,
+      params: IV2RateStrategyFactory.RateStrategyParams({
+        optimalUtilizationRate: EngineFlags.KEEP_CURRENT,
+        baseVariableBorrowRate: _bpsToRay(4_00),
+        variableRateSlope1: _bpsToRay(10_00),
+        variableRateSlope2: EngineFlags.KEEP_CURRENT,
+        stableRateSlope1: EngineFlags.KEEP_CURRENT,
+        stableRateSlope2: EngineFlags.KEEP_CURRENT
+      })
+    });
+    rateStrategies[2] = IAaveV2ConfigEngine.RateStrategyUpdate({
+      asset: AaveV2EthereumAMMAssets.USDC_UNDERLYING,
+      params: IV2RateStrategyFactory.RateStrategyParams({
+        optimalUtilizationRate: EngineFlags.KEEP_CURRENT,
+        baseVariableBorrowRate: _bpsToRay(4_00),
+        variableRateSlope1: _bpsToRay(10_00),
+        variableRateSlope2: EngineFlags.KEEP_CURRENT,
+        stableRateSlope1: EngineFlags.KEEP_CURRENT,
+        stableRateSlope2: EngineFlags.KEEP_CURRENT
+      })
+    });
+    rateStrategies[3] = IAaveV2ConfigEngine.RateStrategyUpdate({
+      asset: AaveV2EthereumAMMAssets.USDT_UNDERLYING,
+      params: IV2RateStrategyFactory.RateStrategyParams({
+        optimalUtilizationRate: EngineFlags.KEEP_CURRENT,
+        baseVariableBorrowRate: _bpsToRay(6_00),
+        variableRateSlope1: _bpsToRay(10_00),
+        variableRateSlope2: EngineFlags.KEEP_CURRENT,
+        stableRateSlope1: EngineFlags.KEEP_CURRENT,
+        stableRateSlope2: EngineFlags.KEEP_CURRENT
+      })
+    });
+    rateStrategies[4] = IAaveV2ConfigEngine.RateStrategyUpdate({
+      asset: AaveV2EthereumAMMAssets.WBTC_UNDERLYING,
+      params: IV2RateStrategyFactory.RateStrategyParams({
+        optimalUtilizationRate: EngineFlags.KEEP_CURRENT,
+        baseVariableBorrowRate: _bpsToRay(5_00),
+        variableRateSlope1: EngineFlags.KEEP_CURRENT,
+        variableRateSlope2: EngineFlags.KEEP_CURRENT,
+        stableRateSlope1: EngineFlags.KEEP_CURRENT,
+        stableRateSlope2: EngineFlags.KEEP_CURRENT
+      })
+    });
+
+    return rateStrategies;
+  }
+}
+",
+      "test": "// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+import 'forge-std/Test.sol';
+import {ProtocolV2TestBase, ReserveConfig} from 'aave-helpers/ProtocolV2TestBase.sol';
+import {AaveV2EthereumAMM_Test_20231023} from './AaveV2EthereumAMM_Test_20231023.sol';
+
+/**
+ * @dev Test for AaveV2EthereumAMM_Test_20231023
+ * command: make test-contract filter=AaveV2EthereumAMM_Test_20231023
+ */
+contract AaveV2EthereumAMM_Test_20231023_Test is ProtocolV2TestBase {
+  AaveV2EthereumAMM_Test_20231023 internal proposal;
+
+  function setUp() public {
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 42);
+    proposal = new AaveV2EthereumAMM_Test_20231023();
+  }
+
+  /**
+   * @dev executes the generic test suite including e2e and config snapshots
+   */
+  function test_defaultProposalExecution() public {
+    defaultTest('AaveV2EthereumAMM_Test_20231023', AaveV2EthereumAMM.POOL, address(proposal));
+  }
+}
+",
+    },
+  ],
+  "script": "// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aave-helpers/GovV3Helpers.sol';
+import {EthereumScript} from 'aave-helpers/ScriptUtils.sol';
+import {AaveV2EthereumAMM_Test_20231023} from './AaveV2EthereumAMM_Test_20231023.sol';
+
+/**
+ * @dev Deploy Ethereum
+ * deploy-command: make deploy-ledger contract=src/20231023_AaveV2EthereumAMM_Test/Test_20231023.s.sol:DeployEthereum chain=mainnet
+ * verify-command: npx catapulta-verify -b broadcast/Test_20231023.s.sol/1/run-latest.json
+ */
+contract DeployEthereum is EthereumScript {
+  function run() external broadcast {
+    // deploy payloads
+    address payload0 = GovV3Helpers.deployDeterministic(
+      type(AaveV2EthereumAMM_Test_20231023).creationCode
+    );
+
+    // compose action
+    IPayloadsControllerCore.ExecutionAction[]
+      memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
+    actions[0] = GovV3Helpers.buildAction(payload0);
+
+    // register action at payloadsController
+    GovV3Helpers.createPayload(actions);
+  }
+}
+
+/**
+ * @dev Create Proposal
+ * command: make deploy-ledger contract=src/20231023_AaveV2EthereumAMM_Test/Test_20231023.s.sol:CreateProposal chain=mainnet
+ */
+contract CreateProposal is EthereumScript {
+  function run() external {
+    // create payloads
+    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](1);
+
+    // compose actions for validation
+    IPayloadsControllerCore.ExecutionAction[]
+      memory actionsEthereum = new IPayloadsControllerCore.ExecutionAction[](1);
+    actionsEthereum[0] = GovV3Helpers.buildAction(
+      type(AaveV2EthereumAMM_Test_20231023).creationCode
+    );
+    payloads[0] = GovV3Helpers.buildMainnetPayload(vm, actionsEthereum);
+
+    // create proposal
+    vm.startBroadcast();
+    GovV3Helpers.createProposal(
+      vm,
+      payloads,
+      GovV3Helpers.ipfsHashFile(vm, 'src/20231023_AaveV2EthereumAMM_Test/Test.md')
+    );
+  }
+}
+",
+}
+`;
+
+exports[`feature: rateUpdatesV2 > should return reasonable code 1`] = `
+{
+  "code": {
+    "fn": [
+      "function rateStrategiesUpdates()
+          public
+          pure
+          override
+          returns (IAaveV2ConfigEngine.RateStrategyUpdate[] memory)
+        {
+          IAaveV2ConfigEngine.RateStrategyUpdate[] memory rateStrategies = new IAaveV2ConfigEngine.RateStrategyUpdate[](5);
+          rateStrategies[0] = IAaveV2ConfigEngine.RateStrategyUpdate({
+                asset: AaveV2EthereumAMMAssets.WETH_UNDERLYING,
+                params: IV2RateStrategyFactory.RateStrategyParams({
+                  optimalUtilizationRate: EngineFlags.KEEP_CURRENT,
+                  baseVariableBorrowRate: _bpsToRay(6_00),
+                  variableRateSlope1: EngineFlags.KEEP_CURRENT,
+                  variableRateSlope2: EngineFlags.KEEP_CURRENT,
+                  stableRateSlope1: EngineFlags.KEEP_CURRENT,
+                  stableRateSlope2: EngineFlags.KEEP_CURRENT
+                })
+              });
+rateStrategies[1] = IAaveV2ConfigEngine.RateStrategyUpdate({
+                asset: AaveV2EthereumAMMAssets.DAI_UNDERLYING,
+                params: IV2RateStrategyFactory.RateStrategyParams({
+                  optimalUtilizationRate: EngineFlags.KEEP_CURRENT,
+                  baseVariableBorrowRate: _bpsToRay(4_00),
+                  variableRateSlope1: _bpsToRay(10_00),
+                  variableRateSlope2: EngineFlags.KEEP_CURRENT,
+                  stableRateSlope1: EngineFlags.KEEP_CURRENT,
+                  stableRateSlope2: EngineFlags.KEEP_CURRENT
+                })
+              });
+rateStrategies[2] = IAaveV2ConfigEngine.RateStrategyUpdate({
+                asset: AaveV2EthereumAMMAssets.USDC_UNDERLYING,
+                params: IV2RateStrategyFactory.RateStrategyParams({
+                  optimalUtilizationRate: EngineFlags.KEEP_CURRENT,
+                  baseVariableBorrowRate: _bpsToRay(4_00),
+                  variableRateSlope1: _bpsToRay(10_00),
+                  variableRateSlope2: EngineFlags.KEEP_CURRENT,
+                  stableRateSlope1: EngineFlags.KEEP_CURRENT,
+                  stableRateSlope2: EngineFlags.KEEP_CURRENT
+                })
+              });
+rateStrategies[3] = IAaveV2ConfigEngine.RateStrategyUpdate({
+                asset: AaveV2EthereumAMMAssets.USDT_UNDERLYING,
+                params: IV2RateStrategyFactory.RateStrategyParams({
+                  optimalUtilizationRate: EngineFlags.KEEP_CURRENT,
+                  baseVariableBorrowRate: _bpsToRay(6_00),
+                  variableRateSlope1: _bpsToRay(10_00),
+                  variableRateSlope2: EngineFlags.KEEP_CURRENT,
+                  stableRateSlope1: EngineFlags.KEEP_CURRENT,
+                  stableRateSlope2: EngineFlags.KEEP_CURRENT
+                })
+              });
+rateStrategies[4] = IAaveV2ConfigEngine.RateStrategyUpdate({
+                asset: AaveV2EthereumAMMAssets.WBTC_UNDERLYING,
+                params: IV2RateStrategyFactory.RateStrategyParams({
+                  optimalUtilizationRate: EngineFlags.KEEP_CURRENT,
+                  baseVariableBorrowRate: _bpsToRay(5_00),
+                  variableRateSlope1: EngineFlags.KEEP_CURRENT,
+                  variableRateSlope2: EngineFlags.KEEP_CURRENT,
+                  stableRateSlope1: EngineFlags.KEEP_CURRENT,
+                  stableRateSlope2: EngineFlags.KEEP_CURRENT
+                })
+              });
+
+
+          return rateStrategies;
+        }",
+    ],
+  },
+}
+`;

@@ -1,5 +1,5 @@
 import {Options} from '../../types';
-import {EModeCategoryUpdate, Listing, PriceFeedUpdate} from '../types';
+import {EModeCategoryUpdate, Listing, PriceFeedUpdate, RateStrategyUpdate} from '../types';
 
 export const MOCK_OPTIONS: Options = {
   pools: ['AaveV3Ethereum'],
@@ -68,5 +68,63 @@ export const emodeUpdates: EModeCategoryUpdate[] = [
     liqBonus: 'EngineFlags.KEEP_CURRENT',
     priceSource: '',
     label: '',
+  },
+];
+
+export const rateUpdateV2: RateStrategyUpdate[] = [
+  {
+    asset: 'WETH',
+    params: {
+      optimalUtilizationRate: '',
+      baseVariableBorrowRate: '6',
+      variableRateSlope1: '',
+      variableRateSlope2: '',
+      stableRateSlope1: '',
+      stableRateSlope2: '',
+    },
+  },
+  {
+    asset: 'DAI',
+    params: {
+      optimalUtilizationRate: '',
+      baseVariableBorrowRate: '4',
+      variableRateSlope1: '10',
+      variableRateSlope2: '',
+      stableRateSlope1: '',
+      stableRateSlope2: '',
+    },
+  },
+  {
+    asset: 'USDC',
+    params: {
+      optimalUtilizationRate: '',
+      baseVariableBorrowRate: '4',
+      variableRateSlope1: '10',
+      variableRateSlope2: '',
+      stableRateSlope1: '',
+      stableRateSlope2: '',
+    },
+  },
+  {
+    asset: 'USDT',
+    params: {
+      optimalUtilizationRate: '',
+      baseVariableBorrowRate: '6',
+      variableRateSlope1: '10',
+      variableRateSlope2: '',
+      stableRateSlope1: '',
+      stableRateSlope2: '',
+    },
+  },
+  {
+    asset: 'WBTC',
+    params: {
+      optimalUtilizationRate: '',
+      baseVariableBorrowRate: '5',
+      variableRateSlope1: '',
+      variableRateSlope2: '',
+      stableRateSlope1: '',
+      stableRateSlope2: '',
+    },
   },
 ];

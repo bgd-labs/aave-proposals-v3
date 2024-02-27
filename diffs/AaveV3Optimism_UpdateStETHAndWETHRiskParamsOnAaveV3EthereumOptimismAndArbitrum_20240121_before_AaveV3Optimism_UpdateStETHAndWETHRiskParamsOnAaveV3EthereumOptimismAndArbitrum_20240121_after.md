@@ -2,11 +2,11 @@
 
 ### Reserves altered
 
-#### WETH ([0x4200000000000000000000000000000000000006](https://explorer.optimism.io/address/0x4200000000000000000000000000000000000006))
+#### WETH ([0x4200000000000000000000000000000000000006](https://optimistic.etherscan.io/address/0x4200000000000000000000000000000000000006))
 
 | description | value before | value after |
 | --- | --- | --- |
-| interestRateStrategy | [0x5f58C25D17C09c9e1892F45DE6dA45ed973A5326](https://explorer.optimism.io/address/0x5f58C25D17C09c9e1892F45DE6dA45ed973A5326) | [0xd00655ED65edE44354F54A23d46DCbd7ba0727dD](https://explorer.optimism.io/address/0xd00655ED65edE44354F54A23d46DCbd7ba0727dD) |
+| interestRateStrategy | [0x5f58C25D17C09c9e1892F45DE6dA45ed973A5326](https://optimistic.etherscan.io/address/0x5f58C25D17C09c9e1892F45DE6dA45ed973A5326) | [0xd00655ED65edE44354F54A23d46DCbd7ba0727dD](https://optimistic.etherscan.io/address/0xd00655ED65edE44354F54A23d46DCbd7ba0727dD) |
 | optimalUsageRatio | 80 % | 90 % |
 | maxExcessUsageRatio | 20 % | 10 % |
 | interestRate | ![before](/.assets/715cbb89cad22db0c20f074df5ed4b41cd5a2327.svg) | ![after](/.assets/ca6b2aa74895f1fc2926cdd88b0b86033580d616.svg) |
