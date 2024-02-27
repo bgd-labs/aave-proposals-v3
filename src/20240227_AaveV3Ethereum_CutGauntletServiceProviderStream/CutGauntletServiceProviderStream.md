@@ -19,7 +19,7 @@ This AIP proposes to cut the payment streams of Gauntlet from the Aave protocol.
 - 100021 for aUSDT stream
 - 100022 for GHO stream
 
- [0xD20c9667bf0047F313228F9fE11F8b9F8Dc29bBa](https://etherscan.io/address/0xD20c9667bf0047F313228F9fE11F8b9F8Dc29bBa) is the address of Gauntlet.
+[0xD20c9667bf0047F313228F9fE11F8b9F8Dc29bBa](https://etherscan.io/address/0xD20c9667bf0047F313228F9fE11F8b9F8Dc29bBa) is the address of Gauntlet.
 
 ## References
 
