@@ -2,8 +2,8 @@ import {ConfigFile} from '../../generator/types';
 export const config: ConfigFile = {
   rootOptions: {
     pools: [],
-    title: 'Set Price Cap Price Adapters',
-    shortName: 'SetPriceCapPriceAdapters',
+    title: 'Set Price Cap Adapters',
+    shortName: 'SetPriceCapAdapters',
     date: '20240206',
     author: 'BGD Labs (@bgdlabs)',
     discussion: 'https://governance.aave.com/t/bgd-correlated-asset-price-oracle/16133',

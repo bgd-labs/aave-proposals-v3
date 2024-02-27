@@ -1,5 +1,5 @@
 ---
-title: "Set Price Cap Price Adapters"
+title: "Set Price Cap Adapters"
 author: "BGD Labs (@bgdlabs)"
 discussions: "https://governance.aave.com/t/bgd-correlated-asset-price-oracle/16133"
 snapshot: "https://snapshot.org/#/aave.eth/proposal/0x387f779952a20e850f941111ccf7aa49022ee35274fd219b9759c0ea240b72e1"
@@ -17,7 +17,27 @@ In some cases, the relation between an underlying asset and its correlated is di
 
 ## Specification
 
-- [Price adapters implementation](https://github.com/bgd-labs/aave-capo)
+- [Capped price adapters implementation](https://github.com/bgd-labs/aave-capo)
+- [Risk providers parameters recommendations](https://governance.aave.com/t/chaos-labs-correlated-asset-price-oracle-framework/16605)
+
+| Asset   | Growth percent | Snapshot delay |
+| ------- | -------------- | -------------- |
+| wstETH  | 9.68%          | 7 days         |
+| rETH    | 9.3%           | 7 days         |
+| sDAI    | 10.15%         | 7 days         |
+| cbETH   | 8.12%          | 7 days         |
+| MaticX  | 10.2%          | 14 days        |
+| stMATIC | 10.45%         | 14 days        |
+| sAVAX   | 10.1%          | 14 days        |
+| stEUR   | 9.26%          |                |
+
+All stablecoins are capped at 4%.
+
+# Security
+
+- [Audit by Certora](TODO: pase link when available)
+- A retrospective test was conducted for the last half year with the parameters provided, which showed that the price was not capped, which is expected
+- Inner review at BGD
 
 ## References
 
