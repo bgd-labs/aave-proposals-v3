@@ -1,11 +1,12 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {AaveV3Optimism} from 'aave-address-book/AaveV3Optimism.sol';
+import {AaveV3Optimism, AaveV3OptimismAssets} from 'aave-address-book/AaveV3Optimism.sol';
 
 import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/ProtocolV3TestBase.sol';
 import {AaveV3Optimism_SetLiquidityObservationLabsAsEmissionManagerForWstETHOnV3Markets_20240206} from './AaveV3Optimism_SetLiquidityObservationLabsAsEmissionManagerForWstETHOnV3Markets_20240206.sol';
+import {IEmissionManager} from 'aave-v3-periphery/contracts/rewards/interfaces/IEmissionManager.sol';
 
 /**
  * @dev Test for AaveV3Optimism_SetLiquidityObservationLabsAsEmissionManagerForWstETHOnV3Markets_20240206
@@ -30,6 +31,14 @@ contract AaveV3Optimism_SetLiquidityObservationLabsAsEmissionManagerForWstETHOnV
       'AaveV3Optimism_SetLiquidityObservationLabsAsEmissionManagerForWstETHOnV3Markets_20240206',
       AaveV3Optimism.POOL,
       address(proposal)
+    );
+
+    // test emission manager update
+    assertEq(
+      IEmissionManager(AaveV3Optimism.EMISSION_MANAGER).getEmissionAdmin(
+        AaveV3OptimismAssets.wstETH_UNDERLYING
+      ),
+      0xC18F11735C6a1941431cCC5BcF13AF0a052A5022
     );
   }
 }

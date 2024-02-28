@@ -1,11 +1,12 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {AaveV3Base} from 'aave-address-book/AaveV3Base.sol';
+import {AaveV3Base, AaveV3BaseAssets} from 'aave-address-book/AaveV3Base.sol';
 
 import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/ProtocolV3TestBase.sol';
 import {AaveV3Base_SetLiquidityObservationLabsAsEmissionManagerForWstETHOnV3Markets_20240206} from './AaveV3Base_SetLiquidityObservationLabsAsEmissionManagerForWstETHOnV3Markets_20240206.sol';
+import {IEmissionManager} from 'aave-v3-periphery/contracts/rewards/interfaces/IEmissionManager.sol';
 
 /**
  * @dev Test for AaveV3Base_SetLiquidityObservationLabsAsEmissionManagerForWstETHOnV3Markets_20240206
@@ -30,6 +31,13 @@ contract AaveV3Base_SetLiquidityObservationLabsAsEmissionManagerForWstETHOnV3Mar
       'AaveV3Base_SetLiquidityObservationLabsAsEmissionManagerForWstETHOnV3Markets_20240206',
       AaveV3Base.POOL,
       address(proposal)
+    );
+    // test emission manager update
+    assertEq(
+      IEmissionManager(AaveV3Base.EMISSION_MANAGER).getEmissionAdmin(
+        AaveV3BaseAssets.wstETH_UNDERLYING
+      ),
+      0xC18F11735C6a1941431cCC5BcF13AF0a052A5022
     );
   }
 }
