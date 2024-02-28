@@ -7,23 +7,19 @@ snapshot: "https://snapshot.org/#/aave.eth/proposal/0xf30c35c586e283bae81fe1c22b
 
 ## Simple Summary
 
-This ARFC proposes to set the Lido "Lido Liquidity Observation Labs wallet as the emission manager for the wstETH token on Ethereum, Base, Arbitrum, Optimism and Polygon Aave V3 markets. This will enable the Lido "Lido Liquidity Observation Labs to define and fund incentive programs for all wstETH markets, promoting growth and expanding the user base of Aave.
+This ARFC proposes to set the Lido Liquidity Observation Labs' wallet as the emission manager for the wstETH token on Ethereum, Base, Arbitrum, Optimism and Polygon Aave V3 markets. This will enable the Lido Liquidity Observation Labs to define and fund incentive programs for all wstETH markets, promoting growth and expanding the user base of Aave.
 
 ## Motivation
 
-The Lido "Lido Liquidity Observation Labs has expressed a desire to actively contribute to the growth and development of the Aave V3. By setting their wallet as the emission manager for the wstETH token, the Foundation will be able to directly fund incentive programs that can attract more users to the pool and stimulate activity. This aligns with the broader goals of the Aave community to foster active and engaged markets.
+The Lido "Lido Liquidity Observation Labs has expressed a desire to actively contribute to the growth and development of Aave V3. By setting their wallet as the emission manager for the wstETH token, the Foundation will be able to directly fund incentive programs that can attract more users to the protocol and stimulate activity. This aligns with the broader goals of the Aave community to foster active and engaged markets.
 
 ## Specification
 
-The Lido "Lido Liquidity Observation Labs Gnosis safe wallet address is `0xC18F11735C6a1941431cCC5BcF13AF0a052A5022` on every network.
-
-The AIP calls  `EMISSION_MANAGER.setEmissionAdmin(asset, admin)` for each respective network. With asset `wstETH` as asset and the Gnosis safe as admin.
-
-This method will set the Lido "Lido Liquidity Observation Labs wallet as the emission admin for the wstETH token on Ethereum, Base, Arbitrum, Optimism and Polygon V3 markets.
-
-After synchronizing with Liquidity Observation Labs, it was decided not to favor, in the short term, a bridged version of StETH on the gnosis chain.
-
-As such, and following their request, no role will be attributed to the gnosis chain in the context of this AIP.
+The Lido Liquidity Observation Labs safe wallet use the same address on all network: [0xC18F11735C6a1941431cCC5BcF13AF0a052A5022](https://etherscan.io/address/0xC18F11735C6a1941431cCC5BcF13AF0a052A5022)
+The AIP calls `EMISSION_MANAGER.setEmissionAdmin(asset, admin)` for each network. With `wstETH` as the asset and the Lido Liquidity Observation Labs' safe address as the admin.
+This method will set the Lido Liquidity Observation Labs wallet as the emission admin for the wstETH token on Ethereum, Base, Arbitrum, Optimism and Polygon V3 markets.
+After synchronizing with the Liquidity Observation Labs, it was decided not to favor, in the short term, the bridged version of stETH on the gnosis chain.
+As such, and following their request, no role will be attributed on the gnosis chain in the context of this AIP.
 
 ## References
 
