@@ -17,7 +17,7 @@ The Lido "Lido Liquidity Observation Labs has expressed a desire to actively con
 
 The Lido "Lido Liquidity Observation Labs Gnosis safe wallet address is `0xC18F11735C6a1941431cCC5BcF13AF0a052A5022` on every network.
 
-The AIP call setEmissionAdmin() method in the emission_manager contract.
+The AIP calls  `EMISSION_MANAGER.setEmissionAdmin(asset, admin)` for each respective network. With asset `wstETH` as asset and the Gnosis safe as admin.
 
 EMISSION_MANAGER.setEmissionAdmin(wstETH, EMISSION_ADMIN);
 
