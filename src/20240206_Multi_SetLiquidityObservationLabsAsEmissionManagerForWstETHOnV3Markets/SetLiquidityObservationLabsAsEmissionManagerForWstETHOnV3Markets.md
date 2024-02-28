@@ -11,7 +11,7 @@ This ARFC proposes to set the Lido Liquidity Observation Labs' wallet as the emi
 
 ## Motivation
 
-The Lido "liquidity Observation Labs3 has expressed a desire to actively contribute to the growth and development of Aave V3. By setting their wallet as the emission manager for the wstETH token, theY will be able to directly fund incentive programs that can attract more users to the protocol and stimulate activity. This aligns with the broader goals of the Aave community to foster active and engaged markets.
+The Lido "Liquidity Observation Labs" has expressed a desire to actively contribute to the growth and development of Aave V3. By setting their wallet as the emission manager for the wstETH token, theY will be able to directly fund incentive programs that can attract more users to the protocol and stimulate activity. This aligns with the broader goals of the Aave community to foster active and engaged markets.
 
 ## Specification
 
