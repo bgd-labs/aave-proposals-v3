@@ -15,7 +15,7 @@ The Lido "Lido Liquidity Observation Labs has expressed a desire to actively con
 
 ## Specification
 
-The Lido Liquidity Observation Labs safe wallet use the same address on all network: [0xC18F11735C6a1941431cCC5BcF13AF0a052A5022](https://etherscan.io/address/0xC18F11735C6a1941431cCC5BcF13AF0a052A5022)
+The Lido Liquidity Observation Labs safe wallet use the same address on all networks: [0xC18F11735C6a1941431cCC5BcF13AF0a052A5022](https://etherscan.io/address/0xC18F11735C6a1941431cCC5BcF13AF0a052A5022)
 The AIP calls `EMISSION_MANAGER.setEmissionAdmin(asset, admin)` for each network. With `wstETH` as the asset and the Lido Liquidity Observation Labs' safe address as the admin.
 This method will set the Lido Liquidity Observation Labs wallet as the emission admin for the wstETH token on Ethereum, Base, Arbitrum, Optimism and Polygon V3 markets.
 After synchronizing with the Liquidity Observation Labs, it was decided not to favor, in the short term, the bridged version of stETH on the gnosis chain.
