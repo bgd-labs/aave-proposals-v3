@@ -19,8 +19,6 @@ The Lido "Lido Liquidity Observation Labs Gnosis safe wallet address is `0xC18F1
 
 The AIP calls  `EMISSION_MANAGER.setEmissionAdmin(asset, admin)` for each respective network. With asset `wstETH` as asset and the Gnosis safe as admin.
 
-EMISSION_MANAGER.setEmissionAdmin(wstETH, EMISSION_ADMIN);
-
 This method will set the Lido "Lido Liquidity Observation Labs wallet as the emission admin for the wstETH token on Ethereum, Base, Arbitrum, Optimism and Polygon V3 markets.
 
 After synchronizing with Liquidity Observation Labs, it was decided not to favor, in the short term, a bridged version of StETH on the gnosis chain.
