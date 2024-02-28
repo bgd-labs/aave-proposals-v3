@@ -23,8 +23,8 @@ This AIP proposes to cut the payment streams of Gauntlet from the Aave protocol.
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240227_AaveV3Ethereum_CutGauntletServiceProviderStream/AaveV3Ethereum_CutGauntletServiceProviderStream_20240227.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240227_AaveV3Ethereum_CutGauntletServiceProviderStream/AaveV3Ethereum_CutGauntletServiceProviderStream_20240227.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/c02e81dc5894dcaef593dd1779ef6f2cfd7b95e6/src/20240227_AaveV3Ethereum_CutGauntletServiceProviderStream/AaveV3Ethereum_CutGauntletServiceProviderStream_20240227.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/c02e81dc5894dcaef593dd1779ef6f2cfd7b95e6/src/20240227_AaveV3Ethereum_CutGauntletServiceProviderStream/AaveV3Ethereum_CutGauntletServiceProviderStream_20240227.t.sol)
 - [Discussion](https://governance.aave.com/t/gauntlet-is-leaving-aave/16700)
 
 ## Copyright
