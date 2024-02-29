@@ -15,7 +15,6 @@ AIP-381 allows for 100 bps increases in the GHO borrow rate every 7 days while m
 While the peg has improved, it is still outside of the target range. This ARFC continues with the previous proposals for a further increase in the GHO borrow rate.
 
 The GHO peg has shown more stability recently but is still slightly below the target. The average monthly borrow rate on Aave for DAI is 8.41%, LUSD is 7.34%, USDC is 9.01%, and USDT is 8.94%.
-Source: https://aave.tokenlogic.com.au/stablecoin-rates
 
 Increasing the non-discounted borrow rate of GHO from 6.22% to 7.22% will keep it an attractive option, increase protocol revenue, and is not expected to negatively affect the peg.
 
@@ -27,7 +26,7 @@ Increasing the non-discounted borrow rate of GHO from 6.22% to 7.22% will keep i
 - **New Discounted Borrow Rate:**
   - GHO: ~5.24% APY
 
-If required, ACI will monitor the GHO peg and use authorized discretion for further rate adjustments in coordination with @karpatkey_TokenLogic Aave finance SPs.
+If required, ACI will monitor the GHO peg and use authorized discretion for further rate adjustments in coordination with Aave finance SPs.
 
 ## References
 
