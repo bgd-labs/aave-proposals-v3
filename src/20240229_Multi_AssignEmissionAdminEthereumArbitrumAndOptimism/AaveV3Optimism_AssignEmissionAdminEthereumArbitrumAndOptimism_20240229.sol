@@ -6,12 +6,12 @@ import {AaveV3Optimism, AaveV3OptimismAssets} from 'aave-address-book/AaveV3Opti
 import {IEmissionManager} from '@aave/periphery-v3/contracts/rewards/interfaces/IEmissionManager.sol';
 
 /**
- * @title Assign Emission Admin - Ethereum, Arbitirum and Optimism
+ * @title Assign Emission Admin - Ethereum, Arbitrum and Optimism
  * @author karpatkey-TokenLogic & ACI
  * - Snapshot: https://snapshot.org/#/aave.eth/proposal/0x66040ad4d46ba756365fbe5c2ed5957d17a3e70db5a00ec532fdc725251d2327
  * - Discussion: https://governance.aave.com/t/arfc-set-op-emission-admin/16621
  */
-contract AaveV3Optimism_AssignEmissionAdminEthereumArbitirumAndOptimism_20240229 is
+contract AaveV3Optimism_AssignEmissionAdminEthereumArbitrumAndOptimism_20240229 is
   IProposalGenericExecutor
 {
   IEmissionManager public constant EMISSION_MANAGER =

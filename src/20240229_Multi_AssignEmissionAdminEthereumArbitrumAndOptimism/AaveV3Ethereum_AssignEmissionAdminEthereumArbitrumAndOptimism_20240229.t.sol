@@ -5,24 +5,24 @@ import {AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
 
 import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/ProtocolV3TestBase.sol';
-import {AaveV3Ethereum_AssignEmissionAdminEthereumArbitirumAndOptimism_20240229} from './AaveV3Ethereum_AssignEmissionAdminEthereumArbitirumAndOptimism_20240229.sol';
+import {AaveV3Ethereum_AssignEmissionAdminEthereumArbitrumAndOptimism_20240229} from './AaveV3Ethereum_AssignEmissionAdminEthereumArbitrumAndOptimism_20240229.sol';
 import {IEmissionManager} from '@aave/periphery-v3/contracts/rewards/interfaces/IEmissionManager.sol';
 
 /**
- * @dev Test for AaveV3Ethereum_AssignEmissionAdminEthereumArbitirumAndOptimism_20240229
- * command: make test-contract filter=AaveV3Ethereum_AssignEmissionAdminEthereumArbitirumAndOptimism_20240229
+ * @dev Test for AaveV3Ethereum_AssignEmissionAdminEthereumArbitrumAndOptimism_20240229
+ * command: make test-contract filter=AaveV3Ethereum_AssignEmissionAdminEthereumArbitrumAndOptimism_20240229
  */
-contract AaveV3Ethereum_AssignEmissionAdminEthereumArbitirumAndOptimism_20240229_Test is
+contract AaveV3Ethereum_AssignEmissionAdminEthereumArbitrumAndOptimism_20240229_Test is
   ProtocolV3TestBase
 {
-  AaveV3Ethereum_AssignEmissionAdminEthereumArbitirumAndOptimism_20240229 internal proposal;
+  AaveV3Ethereum_AssignEmissionAdminEthereumArbitrumAndOptimism_20240229 internal proposal;
 
   address internal sdEthxEmissionAdmin = 0xbDa6C9cd7eD043CB739ca2C748dAbd1fCA397132;
   address internal swiseOsethEmissionAdmin = 0x189Cb93839AD52b5e955ddA254Ed7212ae1B1f61;
 
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('mainnet'), 19335100);
-    proposal = new AaveV3Ethereum_AssignEmissionAdminEthereumArbitirumAndOptimism_20240229();
+    proposal = new AaveV3Ethereum_AssignEmissionAdminEthereumArbitrumAndOptimism_20240229();
   }
 
   /**
@@ -30,7 +30,7 @@ contract AaveV3Ethereum_AssignEmissionAdminEthereumArbitirumAndOptimism_20240229
    */
   function test_defaultProposalExecution() public {
     defaultTest(
-      'AaveV3Ethereum_AssignEmissionAdminEthereumArbitirumAndOptimism_20240229',
+      'AaveV3Ethereum_AssignEmissionAdminEthereumArbitrumAndOptimism_20240229',
       AaveV3Ethereum.POOL,
       address(proposal)
     );

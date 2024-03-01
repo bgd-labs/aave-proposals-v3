@@ -2,8 +2,8 @@ import {ConfigFile} from '../../generator/types';
 export const config: ConfigFile = {
   rootOptions: {
     pools: ['AaveV3Ethereum', 'AaveV3Optimism', 'AaveV3Arbitrum'],
-    title: 'Assign Emission Admin - Ethereum, Arbitirum and Optimism',
-    shortName: 'AssignEmissionAdminEthereumArbitirumAndOptimism',
+    title: 'Assign Emission Admin - Ethereum, Arbitrum and Optimism',
+    shortName: 'AssignEmissionAdminEthereumArbitrumAndOptimism',
     date: '20240229',
     author: 'karpatkey-TokenLogic & ACI',
     discussion: 'TODO',

@@ -5,23 +5,23 @@ import {AaveV3Arbitrum, AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbi
 
 import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/ProtocolV3TestBase.sol';
-import {AaveV3Arbitrum_AssignEmissionAdminEthereumArbitirumAndOptimism_20240229} from './AaveV3Arbitrum_AssignEmissionAdminEthereumArbitirumAndOptimism_20240229.sol';
+import {AaveV3Arbitrum_AssignEmissionAdminEthereumArbitrumAndOptimism_20240229} from './AaveV3Arbitrum_AssignEmissionAdminEthereumArbitrumAndOptimism_20240229.sol';
 import {IEmissionManager} from '@aave/periphery-v3/contracts/rewards/interfaces/IEmissionManager.sol';
 
 /**
- * @dev Test for AaveV3Arbitrum_AssignEmissionAdminEthereumArbitirumAndOptimism_20240229
- * command: make test-contract filter=AaveV3Arbitrum_AssignEmissionAdminEthereumArbitirumAndOptimism_20240229
+ * @dev Test for AaveV3Arbitrum_AssignEmissionAdminEthereumArbitrumAndOptimism_20240229
+ * command: make test-contract filter=AaveV3Arbitrum_AssignEmissionAdminEthereumArbitrumAndOptimism_20240229
  */
-contract AaveV3Arbitrum_AssignEmissionAdminEthereumArbitirumAndOptimism_20240229_Test is
+contract AaveV3Arbitrum_AssignEmissionAdminEthereumArbitrumAndOptimism_20240229_Test is
   ProtocolV3TestBase
 {
-  AaveV3Arbitrum_AssignEmissionAdminEthereumArbitirumAndOptimism_20240229 internal proposal;
+  AaveV3Arbitrum_AssignEmissionAdminEthereumArbitrumAndOptimism_20240229 internal proposal;
 
   address internal arbEmissionAdmin = 0xE79C65a313a1f4Ca5D1d15414E0c515056dA90b4;
 
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('arbitrum'), 185767002);
-    proposal = new AaveV3Arbitrum_AssignEmissionAdminEthereumArbitirumAndOptimism_20240229();
+    proposal = new AaveV3Arbitrum_AssignEmissionAdminEthereumArbitrumAndOptimism_20240229();
   }
 
   /**
@@ -29,7 +29,7 @@ contract AaveV3Arbitrum_AssignEmissionAdminEthereumArbitirumAndOptimism_20240229
    */
   function test_defaultProposalExecution() public {
     defaultTest(
-      'AaveV3Arbitrum_AssignEmissionAdminEthereumArbitirumAndOptimism_20240229',
+      'AaveV3Arbitrum_AssignEmissionAdminEthereumArbitrumAndOptimism_20240229',
       AaveV3Arbitrum.POOL,
       address(proposal)
     );

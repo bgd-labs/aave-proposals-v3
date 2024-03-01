@@ -1,5 +1,5 @@
 ---
-title: "Assign Emission Admin - Ethereum, Arbitirum and Optimism"
+title: "Assign Emission Admin - Ethereum, Arbitrum and Optimism"
 author: "karpatkey-TokenLogic & ACI"
 discussions: "https://governance.aave.com/t/arfc-set-op-emission-admin/16621"
 ---
@@ -23,15 +23,15 @@ The OP and ARB incentives are being distributed with the intent of migrating USD
 
 ## Specification
 
-The `setEmissionAdmin`, a governance controlled function, assigns the `EMISSION_MANAGER` role for a specified token on the respective network.
+The `setEmissionAdmin`, a governance controlled function, assigns the `EMISSION_ADMIN` role for a specified token on the respective network.
 
-The `EMISSION_MANAGER` role controls the distribution of the specified token across the specified Aave v3 deployment.
+The `EMISSION_ADMIN` role controls the distribution of the specified token across the specified Aave v3 deployment.
 
-The `EMISSION_MANAGER` can distribute the specified token anywhere across the Aave v3 deployment on the respective Liquidity Pool.
+The `EMISSION_ADMIN` can distribute the specified token anywhere across the Aave v3 deployment on the respective Liquidity Pool.
 
 ## Implementation
 
-Set `EMISSION_MANAGER` permission for ETHx, SD, SWISE, osETH, OP and ARB to the following address:
+Set `EMISSION_ADMIN` permission for ETHx, SD, SWISE, osETH, OP and ARB to the following address:
 
 **Aave v3 Ethereum**
 
