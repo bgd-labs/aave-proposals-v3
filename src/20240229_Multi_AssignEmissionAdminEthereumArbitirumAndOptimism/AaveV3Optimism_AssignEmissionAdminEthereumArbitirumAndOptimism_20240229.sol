@@ -8,8 +8,8 @@ import {IEmissionManager} from '@aave/periphery-v3/contracts/rewards/interfaces/
 /**
  * @title Assign Emission Admin - Ethereum, Arbitirum and Optimism
  * @author karpatkey-TokenLogic & ACI
- * - Snapshot: TODO
- * - Discussion: TODO
+ * - Snapshot: https://snapshot.org/#/aave.eth/proposal/0x66040ad4d46ba756365fbe5c2ed5957d17a3e70db5a00ec532fdc725251d2327
+ * - Discussion: https://governance.aave.com/t/arfc-set-op-emission-admin/16621
  */
 contract AaveV3Optimism_AssignEmissionAdminEthereumArbitirumAndOptimism_20240229 is
   IProposalGenericExecutor

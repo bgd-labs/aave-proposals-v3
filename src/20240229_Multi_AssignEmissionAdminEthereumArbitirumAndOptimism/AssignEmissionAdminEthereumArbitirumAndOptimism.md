@@ -1,15 +1,16 @@
 ---
 title: "Assign Emission Admin - Ethereum, Arbitirum and Optimism"
 author: "karpatkey-TokenLogic & ACI"
+discussions: "https://governance.aave.com/t/arfc-set-op-emission-admin/16621"
 ---
 
 ## Simple Summary
 
-This enables various teams to distribute rewards across Aave v3 Ethereuim.
+This enables various teams to distribute rewards across Aave v3 Ethereum.
 
 ## Motivation
 
-This AIP integrates four separate ARFC that each propose granting a team the privileges to distribute there choose asset across an Aave v3 deployment. The below summaries each iniative:
+This AIP integrates four separate ARFC that each propose granting a team the privileges to distribute there chosen asset across an Aave v3 deployment. The below summaries each initiative:
 
 - ETHx & SD rewards by Stader Labs
 - osETH & SWISE by Stakewise DAO
@@ -22,37 +23,37 @@ The OP and ARB incentives are being distributed with the intent of migrating USD
 
 ## Specification
 
-The `EmissionManager`, a governance controlled function, assigns the `Emission_Admin` role for a specified token on the respective network.
+The `setEmissionAdmin`, a governance controlled function, assigns the `EMISSION_MANAGER` role for a specified token on the respective network.
 
-The `Emission_Admin` role controls the distribution of the specified token across the specified Aave v3 deployment.
+The `EMISSION_MANAGER` role controls the distribution of the specified token across the specified Aave v3 deployment.
 
-The `Emission_Admin` can distribute the specified token anywhere across the Aave v3 deployment on the respective Liquidity Pool.
+The `EMISSION_MANAGER` can distribute the specified token anywhere across the Aave v3 deployment on the respective Liquidity Pool.
 
 ## Implementation
 
-Set `Emission_Admin` permission for ETHx, SD, SWISE, osETH, OP and ARB to the following address:
+Set `EMISSION_MANAGER` permission for ETHx, SD, SWISE, osETH, OP and ARB to the following address:
 
 **Aave v3 Ethereum**
 
-Address Reward (SD): `0x30D20208d987713f46DFD34EF128Bb16C404D10f`
-Address Reward (ETHx): `0xA35b1B31Ce002FBF2058D22F30f95D405200A15b`
-SD & ETHx EMISSION_ADMIN: `0xbDa6C9cd7eD043CB739ca2C748dAbd1fCA397132`
+Address Reward (SD): [0x30D20208d987713f46DFD34EF128Bb16C404D10f](https://etherscan.io/address/0x30D20208d987713f46DFD34EF128Bb16C404D10f)
+Address Reward (ETHx): [0xA35b1B31Ce002FBF2058D22F30f95D405200A15b](https://etherscan.io/address/0xA35b1B31Ce002FBF2058D22F30f95D405200A15b)
+SD & ETHx EMISSION_ADMIN: [0xbDa6C9cd7eD043CB739ca2C748dAbd1fCA397132](https://etherscan.io/address/0xbDa6C9cd7eD043CB739ca2C748dAbd1fCA397132)
 
-Address Reward (SWISE): `0x48C3399719B582dD63eB5AADf12A40B4C3f52FA2`
-Address Reward (osETH): `0xf1C9acDc66974dFB6dEcB12aA385b9cD01190E38`
-SWISE & osETH EMISSION_ADMIN:`0x189Cb93839AD52b5e955ddA254Ed7212ae1B1f61`
+Address Reward (SWISE): [0x48C3399719B582dD63eB5AADf12A40B4C3f52FA2](https://etherscan.io/address/0x48C3399719B582dD63eB5AADf12A40B4C3f52FA2)
+Address Reward (osETH): [0xf1C9acDc66974dFB6dEcB12aA385b9cD01190E38](https://etherscan.io/address/0xf1C9acDc66974dFB6dEcB12aA385b9cD01190E38)
+SWISE & osETH EMISSION_ADMIN:[0x189Cb93839AD52b5e955ddA254Ed7212ae1B1f61](https://etherscan.io/address/0x189Cb93839AD52b5e955ddA254Ed7212ae1B1f61)
 
 **Aave v3 Arbitrum**
 
-Address Reward (ARB): `0x912CE59144191C1204E64559FE8253a0e49E6548`
-EMISSION_ADMIN: `0xE79C65a313a1f4Ca5D1d15414E0c515056dA90b4`
+Address Reward (ARB): [0x912CE59144191C1204E64559FE8253a0e49E6548](https://arbiscan.io/address/0x912CE59144191C1204E64559FE8253a0e49E6548)
+EMISSION_ADMIN: [0xE79C65a313a1f4Ca5D1d15414E0c515056dA90b4](https://arbiscan.io/address/0xE79C65a313a1f4Ca5D1d15414E0c515056dA90b4)
 
 **Aave v3 Optimism**
 
-Address Reward (OP): 0x4200000000000000000000000000000000000042
-EMISSION_ADMIN: 0x3479CEb4b1fcaDC586d4c5F1c16b4d8c0D70Bc71
+Address Reward (OP): [0x4200000000000000000000000000000000000042](https://optimistic.etherscan.io/address/0x4200000000000000000000000000000000000042)
+EMISSION_ADMIN: [0x3479CEb4b1fcaDC586d4c5F1c16b4d8c0D70Bc71](https://optimistic.etherscan.io/address/0x3479CEb4b1fcaDC586d4c5F1c16b4d8c0D70Bc71)
 
-The AIP call setEmissionAdmin() method in the emission_manager contract.
+The AIP calls setEmissionAdmin() method in the EMISSION_MANAGER contract.
 
 EMISSION_MANAGER.setEmissionAdmin(REWARD_ASSET,EMISSION_ADMIN);
 
