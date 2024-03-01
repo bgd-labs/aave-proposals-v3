@@ -7,7 +7,7 @@ snapshot: "https://snapshot.org/#/aave.eth/proposal/0x387f779952a20e850f941111cc
 
 ## Simple Summary
 
-This proposal aims to use correlated-assets price oracle (CAPO) for LSTs and USD-pegged stable coins.
+This proposal activates the correlated-assets price oracle (CAPO) system for LSTs and fiat-pegged stable coins.
 
 ## Motivation
 
@@ -18,7 +18,7 @@ In some cases, the relation between an underlying asset and its correlated is di
 ## Specification
 
 - [Capped price adapters implementation](https://github.com/bgd-labs/aave-capo)
-- [Risk providers parameters recommendations](https://governance.aave.com/t/chaos-labs-correlated-asset-price-oracle-framework/16605)
+- [Risk providers parameters recommendations](https://governance.aave.com/t/chaos-labs-correlated-asset-price-oracle-framework/16605/4)
 
 | Asset   | Growth percent | Snapshot delay |
 | ------- | -------------- | -------------- |
@@ -33,16 +33,29 @@ In some cases, the relation between an underlying asset and its correlated is di
 
 All stablecoins are capped at 4%.
 
+Oracles will be updated using 'priceFeedsUpdates()' method of the Config Engine on every network. Below is the list of assets per network to be updated:
+
+| Network   | LSTs                      | Stables                             |
+| --------- | ------------------------- | ----------------------------------- |
+| Mainnet   | wstETH, rETH, sDAI, cbETH | USDC, USDT, DAI, FRAX, LUSD, crvUSd |
+| Arbitrum  | wstETH, rETH              | USDC, USDC.e USDT, FRAX, LUSD       |
+| Avalanche | sAvax                     | USDC, DAI.e, FRAX                   |
+| Optimism  | wstETH, rETH              | USDC, USDC.e, USDT, DAI, LUSD, sUSD |
+| Polygon   | wstETH, stMatic, MaticX   | USDC, USDC.e, USDT, DAI             |
+| Gnosis    | wstETH, sDAI              | USDC, xDAI                          |
+| Base      | wstETH, cbETH             | USDC                                |
+| Metis     |                           | USDC, USDT, m.DAI                   |
+| BNB       |                           | USDC, USDT                          |
+
 # Security
 
-- [Audit by Certora](TODO: pase link when available)
+- [Audit by Certora](https://github.com/bgd-labs/aave-capo/blob/main/certora/CAPO%20report.pdf)
 - A retrospective test was conducted for the last half year with the parameters provided, which showed that the price was not capped, which is expected
-- Inner review at BGD
 
 ## References
 
 - Payloads: [AaveV3Ethereum](https://github.com/bgd-labs/aave-capo/blob/main/src/contracts/payloads/AaveV3EthereumPayload.sol), [AaveV3Polygon](https://github.com/bgd-labs/aave-capo/blob/main/src/contracts/payloads/AaveV3PolygonPayload.sol), [AaveV3Avalanche](https://github.com/bgd-labs/aave-capo/blob/main/src/contracts/payloads/AaveV3AvalanchePayload.sol), [AaveV3Arbitrum](https://github.com/bgd-labs/aave-capo/blob/main/src/contracts/payloads/AaveV3ArbitrumPayload.sol), [AaveV3Optimism](https://github.com/bgd-labs/aave-capo/blob/main/src/contracts/payloads/AaveV3OptimismPayload.sol), [AaveV3Metis](https://github.com/bgd-labs/aave-capo/blob/main/src/contracts/payloads/AaveV3MetisPayload.sol), [AaveV3Base](https://github.com/bgd-labs/aave-capo/blob/main/src/contracts/payloads/AaveV3BasePayload.sol), [AaveV3Gnosis](https://github.com/bgd-labs/aave-capo/blob/main/src/contracts/payloads/AaveV3GnosisPayload.sol), [AaveV3BNB](https://github.com/bgd-labs/aave-capo/blob/main/src/contracts/payloads/AaveV3BNBPayload.sol)
-- Tests:
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-capo/tree/main/tests/ethereum), [AaveV3Polygon](https://github.com/bgd-labs/aave-capo/tree/main/tests/polygon), [AaveV3Avalanche](https://github.com/bgd-labs/aave-capo/tree/main/tests/avalanche), [AaveV3Arbitrum](https://github.com/bgd-labs/aave-capo/tree/main/tests/arbitrum), [AaveV3Optimism](https://github.com/bgd-labs/aave-capo/tree/main/tests/optimism), [AaveV3Base](https://github.com/bgd-labs/aave-capo/tree/main/tests/base), [AaveV3Gnosis](https://github.com/bgd-labs/aave-capo/tree/main/tests/gnosis)
 
 ## Copyright
 
