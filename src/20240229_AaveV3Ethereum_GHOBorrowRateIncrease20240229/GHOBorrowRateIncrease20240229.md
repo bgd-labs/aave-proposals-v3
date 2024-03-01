@@ -30,8 +30,8 @@ If required, ACI will monitor the GHO peg and use authorized discretion for furt
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240229_AaveV3Ethereum_GHOBorrowRateIncrease20240229/AaveV3Ethereum_GHOBorrowRateIncrease20240229_20240229.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240229_AaveV3Ethereum_GHOBorrowRateIncrease20240229/AaveV3Ethereum_GHOBorrowRateIncrease20240229_20240229.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/23873467c60a1c79bf5ed9a73c60e05ceaea6171/src/20240229_AaveV3Ethereum_GHOBorrowRateIncrease20240229/AaveV3Ethereum_GHOBorrowRateIncrease20240229_20240229.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/23873467c60a1c79bf5ed9a73c60e05ceaea6171/src/20240229_AaveV3Ethereum_GHOBorrowRateIncrease20240229/AaveV3Ethereum_GHOBorrowRateIncrease20240229_20240229.t.sol)
 - [Discussion](https://governance.aave.com/t/arfc-increase-gho-borrow-rate-29-02-2024/16787)
 
 ## Copyright
