@@ -282,31 +282,31 @@ contract AaveV3Ethereum_FundingUpdate_20240224 is IProposalGenericExecutor {
       AaveV2EthereumAssets.LUSD_UNDERLYING,
       AaveV2EthereumAssets.LUSD_A_TOKEN,
       AaveV2EthereumAssets.LUSD_ORACLE,
-      0
+      500
     );
     tokens[1] = TokenToSwap(
       AaveV2EthereumAssets.TUSD_UNDERLYING,
       AaveV2EthereumAssets.TUSD_A_TOKEN,
       AaveV2EthereumAssets.TUSD_ORACLE,
-      0
+      300
     );
     tokens[2] = TokenToSwap(
       AaveV2EthereumAssets.DAI_UNDERLYING,
       AaveV2EthereumAssets.DAI_A_TOKEN,
       AaveV2EthereumAssets.DAI_ORACLE,
-      0
+      100
     );
     tokens[3] = TokenToSwap(
       AaveV2EthereumAssets.DPI_UNDERLYING,
       AaveV2EthereumAssets.DPI_A_TOKEN,
       AaveV2EthereumAssets.DPI_ORACLE,
-      0
+      300
     );
     tokens[4] = TokenToSwap(
       AaveV2EthereumAssets.FRAX_UNDERLYING,
       AaveV2EthereumAssets.FRAX_A_TOKEN,
       AaveV2EthereumAssets.FRAX_ORACLE,
-      0
+      300
     );
 
     return tokens;
