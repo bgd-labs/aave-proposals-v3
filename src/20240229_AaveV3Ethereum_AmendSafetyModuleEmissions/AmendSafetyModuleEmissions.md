@@ -23,11 +23,11 @@ This publication also proposes to offset this increase in AAVE emissions by redu
 
 This proposal will implement the following changes to the AAVE emissions across the three SM categories:
 
-| Asset Current            | AAVE/Day | Proposed AAVE/Day |
-| ------------------------ | -------- | ----------------- |
-| stkAAVE                  | 385      | 360               |
-| stkGHO                   | 50       | 100               |
-| stkBPT (AAVE/wstETH) 385 | 360      |
+| Asset Current        | AAVE/Day | Proposed AAVE/Day |
+| -------------------- | -------- | ----------------- |
+| stkAAVE              | 385      | 360               |
+| stkGHO               | 50       | 100               |
+| stkBPT (AAVE/wstETH) | 385      | 360               |
 
 ## References
 
