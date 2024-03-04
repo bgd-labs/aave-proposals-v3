@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
+import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {AaveSafetyModule} from 'aave-address-book/AaveSafetyModule.sol';
@@ -20,6 +21,20 @@ contract AaveV3Ethereum_AmendSafetyModuleEmissions_20240229 is IProposalGenericE
   uint128 public constant AAVE_EMISSION_PER_SECOND_STK_ABPT = uint128(360e18) / 1 days; // 360 AAVE per day
 
   function execute() external {
+    uint256 currentAllowance = IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING).allowance(
+      MiscEthereum.ECOSYSTEM_RESERVE,
+      AaveSafetyModule.STK_GHO
+    );
+
+    uint256 distributionDuration = IStakeToken(AaveSafetyModule.STK_GHO).distributionEnd() -
+      block.timestamp;
+    (uint128 emissionPerSecond, , ) = IStakeToken(AaveSafetyModule.STK_GHO).assets(
+      AaveSafetyModule.STK_GHO
+    );
+    uint256 newAllowance = currentAllowance +
+      distributionDuration *
+      (AAVE_EMISSION_PER_SECOND_STK_GHO - emissionPerSecond);
+
     // stkGHO
     IStakeToken.AssetConfigInput[] memory ghoConfigs = new IStakeToken.AssetConfigInput[](1);
     ghoConfigs[0] = IStakeToken.AssetConfigInput({
@@ -55,13 +70,11 @@ contract AaveV3Ethereum_AmendSafetyModuleEmissions_20240229 is IProposalGenericE
       0
     );
 
-    uint256 distributionDuration = IStakeToken(AaveSafetyModule.STK_GHO).distributionEnd() -
-      block.timestamp;
     MiscEthereum.AAVE_ECOSYSTEM_RESERVE_CONTROLLER.approve(
       MiscEthereum.ECOSYSTEM_RESERVE,
       AaveV3EthereumAssets.AAVE_UNDERLYING,
       AaveSafetyModule.STK_GHO,
-      AAVE_EMISSION_PER_SECOND_STK_GHO * distributionDuration
+      newAllowance
     );
   }
 }
