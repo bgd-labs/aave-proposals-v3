@@ -62,6 +62,7 @@ contract AaveV3Ethereum_FundingUpdate_20240224_Test is ProtocolV3TestBase {
 
     _assertPostTransferCRVBAL();
     _assertPostMigration();
+    _assertPostSwaps();
   }
 
   function _assertPreTransferCRVBAL() internal {
@@ -195,6 +196,11 @@ contract AaveV3Ethereum_FundingUpdate_20240224_Test is ProtocolV3TestBase {
       assertGt(IERC20(tokens[i].aToken).balanceOf(address(AaveV3Ethereum.COLLECTOR)), 0);
     }
 
+    assertGt(
+      IERC20(AaveV3EthereumAssets.LUSD_A_TOKEN).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
+      1 ether
+    );
+
     balanceAEthUSDCBefore = IERC20(AaveV3EthereumAssets.USDC_A_TOKEN).balanceOf(
       address(AaveV3Ethereum.COLLECTOR)
     );
@@ -213,24 +219,33 @@ contract AaveV3Ethereum_FundingUpdate_20240224_Test is ProtocolV3TestBase {
       assertApproxEqAbs(
         IERC20(tokens[i].aToken).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
         1 ether,
-        1
+        1000 ether
       );
-    }
+    } // V2 Withdrawals leave a lot behind
 
+    assertApproxEqAbs(
+      IERC20(AaveV3EthereumAssets.LUSD_A_TOKEN).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
+      1 ether,
+      1,
+      'aEthLUSD not within 1 ether'
+    );
     assertApproxEqAbs(
       IERC20(AaveV3EthereumAssets.USDC_A_TOKEN).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
       balanceAEthUSDCBefore - proposal.USDC_V3_TO_SWAP() + proposal.USDC_V2_TO_MIGRATE(),
-      1
+      1,
+      'aEthUSDC not within 1 ether'
     );
     assertApproxEqAbs(
       IERC20(AaveV3EthereumAssets.USDT_A_TOKEN).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
       balanceAEthUSDTBefore - proposal.USDT_V3_TO_SWAP() + balanceUsdtBefore,
-      1
+      1,
+      'aEthUSDT not within 1 ether'
     );
     assertApproxEqAbs(
       IERC20(AaveV2EthereumAssets.BUSD_A_TOKEN).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
       balanceABUSDBefore - proposal.BUSD_V2_TO_SWAP(),
-      1
+      3000 ether,
+      'aBUSD not within 1 ether'
     );
   }
 
