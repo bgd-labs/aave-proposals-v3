@@ -46,11 +46,25 @@ contract AaveV3Ethereum_FundingUpdate_20240224 is IProposalGenericExecutor {
   uint256 public constant USDC_V2_TO_MIGRATE = 300_000e6;
 
   uint256 public constant USDC_V3_TO_SWAP = 1_250_000e6;
-  uint256 public constant USDT_V3_TO_SWAP = 1_200_000e6;
+  uint256 public constant USDT_V3_TO_SWAP = 1_500_000e6;
   uint256 public constant USDT_V2_TO_SWAP = 200_000e6;
-  uint256 public constant BUSD_V2_TO_SWAP = 50_000 ether;
+
+  uint256 public constant GHO_ALLOWANCE = 2_900_000 ether;
+  uint256 public constant WETH_V3_ALLOWANCE = 600 ether;
+  address public constant ALLOWANCES_WALLET = 0xdeadD8aB03075b7FBA81864202a2f59EE25B312b;
 
   function execute() external {
+    AaveV3Ethereum.COLLECTOR.approve(
+      AaveV3EthereumAssets.GHO_UNDERLYING,
+      ALLOWANCES_WALLET,
+      GHO_ALLOWANCE
+    );
+    AaveV3Ethereum.COLLECTOR.approve(
+      AaveV3EthereumAssets.WETH_A_TOKEN,
+      ALLOWANCES_WALLET,
+      WETH_V3_ALLOWANCE
+    );
+
     // Deposit USDT into V3
     AaveV3Ethereum.COLLECTOR.transfer(
       AaveV3EthereumAssets.USDT_UNDERLYING,
@@ -120,7 +134,8 @@ contract AaveV3Ethereum_FundingUpdate_20240224 is IProposalGenericExecutor {
     AaveV3Ethereum.COLLECTOR.transfer(
       AaveV2EthereumAssets.BUSD_A_TOKEN,
       address(this),
-      BUSD_V2_TO_SWAP
+      IERC20(AaveV2EthereumAssets.BUSD_A_TOKEN).balanceOf(address(AaveV3Ethereum.COLLECTOR)) -
+        1 ether
     );
 
     AaveV2Ethereum.POOL.withdraw(

@@ -42,6 +42,7 @@ contract AaveV3Ethereum_FundingUpdate_20240224_Test is ProtocolV3TestBase {
   }
 
   function test_execution() public {
+    _assertPreApproval();
     _assertPreTransferCRVBAL();
     _assertPreMigration();
     _assertPreSwaps();
@@ -60,9 +61,44 @@ contract AaveV3Ethereum_FundingUpdate_20240224_Test is ProtocolV3TestBase {
       0
     );
 
+    _assertPostApproval();
     _assertPostTransferCRVBAL();
     _assertPostMigration();
     _assertPostSwaps();
+  }
+
+  function _assertPreApproval() internal {
+    assertEq(
+      IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).allowance(
+        address(AaveV3Ethereum.COLLECTOR),
+        proposal.ALLOWANCES_WALLET()
+      ),
+      0
+    );
+    assertEq(
+      IERC20(AaveV3EthereumAssets.WETH_A_TOKEN).allowance(
+        address(AaveV3Ethereum.COLLECTOR),
+        proposal.ALLOWANCES_WALLET()
+      ),
+      0
+    );
+  }
+
+  function _assertPostApproval() internal {
+    assertEq(
+      IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).allowance(
+        address(AaveV3Ethereum.COLLECTOR),
+        proposal.ALLOWANCES_WALLET()
+      ),
+      proposal.GHO_ALLOWANCE()
+    );
+    assertEq(
+      IERC20(AaveV3EthereumAssets.WETH_A_TOKEN).allowance(
+        address(AaveV3Ethereum.COLLECTOR),
+        proposal.ALLOWANCES_WALLET()
+      ),
+      proposal.WETH_V3_ALLOWANCE()
+    );
   }
 
   function _assertPreTransferCRVBAL() internal {
@@ -243,8 +279,8 @@ contract AaveV3Ethereum_FundingUpdate_20240224_Test is ProtocolV3TestBase {
     );
     assertApproxEqAbs(
       IERC20(AaveV2EthereumAssets.BUSD_A_TOKEN).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
-      balanceABUSDBefore - proposal.BUSD_V2_TO_SWAP(),
-      3000 ether,
+      2913 ether,
+      1 ether,
       'aBUSD not within 1 ether'
     );
   }
@@ -290,14 +326,14 @@ contract AaveV3Ethereum_FundingUpdate_20240224_Test is ProtocolV3TestBase {
       50
     );
 
-    vm.expectEmit(true, true, true, true, MiscEthereum.AAVE_SWAPPER);
+    vm.expectEmit(true, true, false, false, MiscEthereum.AAVE_SWAPPER);
     emit SwapRequested(
       proposal.MILKMAN(),
       AaveV2EthereumAssets.BUSD_UNDERLYING,
       AaveV3EthereumAssets.GHO_UNDERLYING,
       proposal.BUSD_USD_FEED(),
       proposal.GHO_USD_FEED(),
-      proposal.BUSD_V2_TO_SWAP(),
+      0,
       address(AaveV3Ethereum.COLLECTOR),
       300
     );
