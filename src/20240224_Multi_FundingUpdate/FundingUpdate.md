@@ -32,7 +32,7 @@ This is Part 1 of the specified proposal and it will do as follows:
 
 | Withdraw & Swap to GHO | Migrate ETH v2 to v3 | Polygon to ETH   |
 | ---------------------- | -------------------- | ---------------- |
-| aEthLUSD (All-1)\*     | awBTC (All-1)        | aPolwETH (All-1) |
+| aEthLUSD (All-1)       | awBTC (All-1)        | aPolwETH (All-1) |
 | aEthUSDC (1.25M)       | awETH (All-1)        | aPolDAI (All-1)  |
 | aEthUSDT (1.2M) \*     | aUSDC (300k)         | aPolBAL (All-1)  |
 | LUSD (All)             |                      | aPolCRV (All-1)  |
@@ -48,7 +48,6 @@ This is Part 1 of the specified proposal and it will do as follows:
 _Note_
 
 The forum post specified withdrawing 1.5M from Aave V3 USDT, but it cannot be done at the moment so we are withdrawing 1.2M instead.
-The forum post also asks to withdraw from Aave V3 LUSD but that pool is currently paused.
 The forum post also asks to withdraw all from Aave V2 AMPL, but the pool has no AMPL available.
 
 Withdraw aCRV, aEthCRV, aBAL and aEthBAL and transfer BAL and CRV to ALC SAFE.

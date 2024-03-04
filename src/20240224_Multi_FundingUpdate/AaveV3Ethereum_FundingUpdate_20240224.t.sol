@@ -37,7 +37,7 @@ contract AaveV3Ethereum_FundingUpdate_20240224_Test is ProtocolV3TestBase {
   uint256 balanceAEthUSDCBefore;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 19300831);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 19363481);
     proposal = new AaveV3Ethereum_FundingUpdate_20240224();
   }
 
@@ -122,13 +122,13 @@ contract AaveV3Ethereum_FundingUpdate_20240224_Test is ProtocolV3TestBase {
     );
     assertApproxEqAbs(
       IERC20(AaveV2EthereumAssets.CRV_A_TOKEN).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
-      155 ether,
+      25 ether,
       1 ether,
       'post aCRV not equal to 155 ether'
     );
     assertApproxEqAbs(
       IERC20(AaveV2EthereumAssets.BAL_A_TOKEN).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
-      4 ether,
+      14 ether,
       1 ether,
       'post aBAL not equal to 4 ether'
     );
@@ -270,7 +270,7 @@ contract AaveV3Ethereum_FundingUpdate_20240224_Test is ProtocolV3TestBase {
       AaveV3EthereumAssets.GHO_UNDERLYING,
       AaveV3EthereumAssets.USDT_ORACLE,
       proposal.GHO_USD_FEED(),
-      proposal.USDT_V3_TO_SWAP() + proposal.USDT_V2_TO_SWAP() - 1, // Rounding error on withdrawal
+      proposal.USDT_V3_TO_SWAP() + proposal.USDT_V2_TO_SWAP(),
       address(AaveV3Ethereum.COLLECTOR),
       50
     );
@@ -282,7 +282,7 @@ contract AaveV3Ethereum_FundingUpdate_20240224_Test is ProtocolV3TestBase {
       AaveV3EthereumAssets.GHO_UNDERLYING,
       proposal.BUSD_USD_FEED(),
       proposal.GHO_USD_FEED(),
-      proposal.BUSD_V2_TO_SWAP() - 1, // Rounding error on withdrawal
+      proposal.BUSD_V2_TO_SWAP(),
       address(AaveV3Ethereum.COLLECTOR),
       300
     );

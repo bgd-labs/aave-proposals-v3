@@ -129,6 +129,20 @@ contract AaveV3Ethereum_FundingUpdate_20240224 is IProposalGenericExecutor {
       address(SWAPPER)
     );
 
+    // Aave V3 LUSD
+    AaveV3Ethereum.COLLECTOR.transfer(
+      AaveV3EthereumAssets.LUSD_A_TOKEN,
+      address(this),
+      IERC20(AaveV3EthereumAssets.LUSD_A_TOKEN).balanceOf(address(AaveV3Ethereum.COLLECTOR)) -
+        1 ether
+    );
+
+    AaveV3Ethereum.POOL.withdraw(
+      AaveV3EthereumAssets.LUSD_UNDERLYING,
+      type(uint256).max,
+      address(SWAPPER)
+    );
+
     // LUSD
     AaveV3Ethereum.COLLECTOR.transfer(
       AaveV3EthereumAssets.LUSD_UNDERLYING,
