@@ -51,6 +51,25 @@ contract AaveV3Ethereum_FundingUpdate_20240224 is IProposalGenericExecutor {
   uint256 public constant BUSD_V2_TO_SWAP = 50_000 ether;
 
   function execute() external {
+    // Deposit USDT into V3
+    AaveV3Ethereum.COLLECTOR.transfer(
+      AaveV3EthereumAssets.USDT_UNDERLYING,
+      address(this),
+      IERC20(AaveV3EthereumAssets.USDT_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR))
+    );
+
+    IERC20(AaveV3EthereumAssets.USDT_UNDERLYING).forceApprove(
+      address(AaveV3Ethereum.POOL),
+      IERC20(AaveV3EthereumAssets.USDT_UNDERLYING).balanceOf(address(this))
+    );
+
+    AaveV3Ethereum.POOL.deposit(
+      AaveV3EthereumAssets.USDT_UNDERLYING,
+      IERC20(AaveV3EthereumAssets.USDT_UNDERLYING).balanceOf(address(this)),
+      address(AaveV3Ethereum.COLLECTOR),
+      0
+    );
+
     _migrate();
     _transfer();
     _swap();
