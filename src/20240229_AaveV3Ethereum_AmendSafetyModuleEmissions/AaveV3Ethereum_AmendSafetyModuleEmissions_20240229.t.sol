@@ -63,6 +63,12 @@ contract AaveV3Ethereum_AmendSafetyModuleEmissions_20240229_Test is ProtocolV3Te
       'emissions after not equal stkGHO'
     );
     assertEq(lastUpdateTimestampAfterStkGHO, block.timestamp);
+    assertApproxEqAbs(
+      emissionPerSecondAfterStkGHO,
+      emissionPerSecondBeforeStkGHO * 2,
+      1,
+      'stkGHO emissions not double previous'
+    );
 
     (
       uint128 emissionPerSecondAfterStkAAVE,
@@ -76,6 +82,7 @@ contract AaveV3Ethereum_AmendSafetyModuleEmissions_20240229_Test is ProtocolV3Te
       'emissions after not equal stkAAVE'
     );
     assertEq(lastUpdateTimestampAfterStkAAVE, block.timestamp);
+    assertLt(emissionPerSecondAfterStkAAVE, emissionPerSecondBeforeStkAAVE);
 
     (
       uint128 emissionPerSecondAfterStkABPT,
@@ -91,6 +98,7 @@ contract AaveV3Ethereum_AmendSafetyModuleEmissions_20240229_Test is ProtocolV3Te
       'emissions after not equal stkABPT'
     );
     assertEq(lastUpdateTimestampAfterStkABPT, block.timestamp);
+    assertLt(emissionPerSecondAfterStkABPT, emissionPerSecondBeforeStkABPT);
   }
 
   function test_checkAllowance() public {
