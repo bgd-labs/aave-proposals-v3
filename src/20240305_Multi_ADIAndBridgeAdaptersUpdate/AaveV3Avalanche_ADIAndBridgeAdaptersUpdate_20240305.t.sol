@@ -30,17 +30,17 @@ contract AaveV3Avalanche_ADIAndBridgeAdaptersUpdate_20240305_Test is ProtocolV3T
    */
   function test_defaultProposalExecution() public {
     assertEq(
-      ICrossChainReceiver(GovernanceV3Arbitrum.CROSS_CHAIN_CONTROLLER)
+      ICrossChainReceiver(GovernanceV3Avalanche.CROSS_CHAIN_CONTROLLER)
         .isReceiverBridgeAdapterAllowed(proposal.CCIP_ADAPTER_TO_REMOVE(), ChainIds.MAINNET),
       true
     );
     assertEq(
-      ICrossChainReceiver(GovernanceV3Arbitrum.CROSS_CHAIN_CONTROLLER)
+      ICrossChainReceiver(GovernanceV3Avalanche.CROSS_CHAIN_CONTROLLER)
         .isReceiverBridgeAdapterAllowed(proposal.LZ_ADAPTER_TO_REMOVE(), ChainIds.MAINNET),
       true
     );
     assertEq(
-      ICrossChainReceiver(GovernanceV3Arbitrum.CROSS_CHAIN_CONTROLLER)
+      ICrossChainReceiver(GovernanceV3Avalanche.CROSS_CHAIN_CONTROLLER)
         .isReceiverBridgeAdapterAllowed(proposal.HL_ADAPTER_TO_REMOVE(), ChainIds.MAINNET),
       true
     );
@@ -98,17 +98,17 @@ contract AaveV3Avalanche_ADIAndBridgeAdaptersUpdate_20240305_Test is ProtocolV3T
     );
 
     assertEq(
-      ICrossChainReceiver(GovernanceV3Arbitrum.CROSS_CHAIN_CONTROLLER)
+      ICrossChainReceiver(GovernanceV3Avalanche.CROSS_CHAIN_CONTROLLER)
         .isReceiverBridgeAdapterAllowed(proposal.CCIP_ADAPTER_TO_REMOVE(), ChainIds.MAINNET),
       false
     );
     assertEq(
-      ICrossChainReceiver(GovernanceV3Arbitrum.CROSS_CHAIN_CONTROLLER)
+      ICrossChainReceiver(GovernanceV3Avalanche.CROSS_CHAIN_CONTROLLER)
         .isReceiverBridgeAdapterAllowed(proposal.LZ_ADAPTER_TO_REMOVE(), ChainIds.MAINNET),
       false
     );
     assertEq(
-      ICrossChainReceiver(GovernanceV3Arbitrum.CROSS_CHAIN_CONTROLLER)
+      ICrossChainReceiver(GovernanceV3Avalanche.CROSS_CHAIN_CONTROLLER)
         .isReceiverBridgeAdapterAllowed(proposal.HL_ADAPTER_TO_REMOVE(), ChainIds.MAINNET),
       false
     );

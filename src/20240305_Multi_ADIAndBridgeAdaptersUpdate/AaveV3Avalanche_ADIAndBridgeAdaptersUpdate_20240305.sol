@@ -75,9 +75,8 @@ contract AaveV3Avalanche_ADIAndBridgeAdaptersUpdate_20240305 is IProposalGeneric
       bridgeAdapter: HL_ADAPTER_TO_REMOVE,
       chainIds: chainIds
     });
-    ICrossChainReceiver(GovernanceV3Arbitrum.CROSS_CHAIN_CONTROLLER).disallowReceiverBridgeAdapters(
-      bridgeAdaptersToRemove
-    );
+    ICrossChainReceiver(GovernanceV3Avalanche.CROSS_CHAIN_CONTROLLER)
+      .disallowReceiverBridgeAdapters(bridgeAdaptersToRemove);
 
     // add new forwarding adapter paths
     ICrossChainForwarder.ForwarderBridgeAdapterConfigInput[]
@@ -101,7 +100,7 @@ contract AaveV3Avalanche_ADIAndBridgeAdaptersUpdate_20240305 is IProposalGeneric
       destinationChainId: ChainIds.ETHEREUM
     });
 
-    ICrossChainForwarder(GovernanceV3Arbitrum.CROSS_CHAIN_CONTROLLER).enableBridgeAdapters(
+    ICrossChainForwarder(GovernanceV3Avalanche.CROSS_CHAIN_CONTROLLER).enableBridgeAdapters(
       bridgeAdaptersToEnable
     );
   }
