@@ -6,7 +6,7 @@ discussions: "https://governance.aave.com/t/arfc-aave-treasury-rwa-allocation/14
 
 ## Simple Summary
 
-Following [AIP-331](https://app.aave.com/governance/proposal/331/) giving mandate to Centrifuge to create a Association to represent the Aave DAO off-chain, this AIP proposes the activation of the A-C Prime Foundation.
+Following [AIP-331](https://governance-v2.aave.com/governance/proposal/331/) giving mandate to Centrifuge to create a Association to represent the Aave DAO off-chain, this AIP proposes the activation of the A-C Prime Foundation.
 
 ## Motivation
 
@@ -14,24 +14,19 @@ The A-C Prime Foundation is a Cayman island foundation company created by Centri
 
 This AIP proposes the activation of the A-C Prime Foundation. and the pre-approval of a investment in the Anemoy Liquid Treasury Fund 1 with an initial investment of the equivalent of $1m in shares.
 
-
-
 ## Specification
 
 This AIP does not require any on-chain changes. It is a proposal to activate the A-C Prime Foundation.
 
 To explicitly convey the Aave DAO approval via its governance, an event is created on-chain casting the following message:
 
-    
     ```
     'The Aave DAO approves and ratify the following documents :
-    
-    the articles of Association : https://centrifuge.mypinata.cloud/ipfs/QmSn1Jx4PCPCvJDwx5JHqAcrCYFtCdVGtXc2Dcmk8NFauM 
-    
+
+    the articles of Association : https://centrifuge.mypinata.cloud/ipfs/QmSn1Jx4PCPCvJDwx5JHqAcrCYFtCdVGtXc2Dcmk8NFauM
+
     The Memorandum Of association : https://centrifuge.mypinata.cloud/ipfs/QmeNnARf9CqLQ9krQn8b4UCnBaWhUhLryEBqrVqW9cuTjV'
 
-    This AIP payload also serves as a DAO resolution approving, authorizing and empowering Leeward Management Limited to do all acts necessary to onboard with and enter into the Subscription Agreement for the Anemoy Liquid Treasury Fund 1 (the "Fund") with an initial investment of the equivalent of $1m in shares including executing any and all documentation necessary to further the investment in the Fund
-    
     ```
 
 ## References

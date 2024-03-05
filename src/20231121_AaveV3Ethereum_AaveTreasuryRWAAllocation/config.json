@@ -1,8 +1,6 @@
 {
   "rootOptions": {
-    "pools": [
-      "AaveV3Ethereum"
-    ],
+    "pools": ["AaveV3Ethereum"],
     "title": "Aave Treasury RWA Allocation",
     "shortName": "AaveTreasuryRWAAllocation",
     "date": "20231121",
