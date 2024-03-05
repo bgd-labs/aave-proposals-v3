@@ -31,8 +31,8 @@ This proposal will implement the following changes to the AAVE emissions across 
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240229_AaveV3Ethereum_AmendSafetyModuleEmissions/AaveV3Ethereum_AmendSafetyModuleEmissions_20240229.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240229_AaveV3Ethereum_AmendSafetyModuleEmissions/AaveV3Ethereum_AmendSafetyModuleEmissions_20240229.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/48bcc880f0956f13f4255f0b5e4b3562b3936fbb/src/20240229_AaveV3Ethereum_AmendSafetyModuleEmissions/AaveV3Ethereum_AmendSafetyModuleEmissions_20240229.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/48bcc880f0956f13f4255f0b5e4b3562b3936fbb/src/20240229_AaveV3Ethereum_AmendSafetyModuleEmissions/AaveV3Ethereum_AmendSafetyModuleEmissions_20240229.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x0f73500d0f65c72482d352080ea9aa0aa92264eb059b8f646cf6f0e86556bc3d)
 - [Discussion](https://governance.aave.com/t/arfc-amend-safety-module-emissions/16640)
 
