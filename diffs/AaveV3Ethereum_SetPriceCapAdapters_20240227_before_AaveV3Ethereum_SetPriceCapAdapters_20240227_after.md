@@ -74,7 +74,7 @@
 | oracle | [0x05225Cd708bCa9253789C1374e4337a019e99D56](https://etherscan.io/address/0x05225Cd708bCa9253789C1374e4337a019e99D56) | [0x21aB2dEE5ee29E28816a89d7d905d8296fa1C3cE](https://etherscan.io/address/0x21aB2dEE5ee29E28816a89d7d905d8296fa1C3cE) |
 | oracleDecimals | null | 8 |
 | oracleDescription | null | Capped rETH / ETH / USD |
-| oracleLatestAnswer | 0.39168598007 | 0.391300340759 |
+| oracleLatestAnswer | 391,685,980,070 | 3913.00340759 |
 
 
 #### USDT ([0xdAC17F958D2ee523a2206206994597C13D831ec7](https://etherscan.io/address/0xdAC17F958D2ee523a2206206994597C13D831ec7))
