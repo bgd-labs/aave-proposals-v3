@@ -1,0 +1,35 @@
+import {ConfigFile} from '../../generator/types';
+export const config: ConfigFile = {
+  rootOptions: {
+    author: 'BGD Labs @bgdlabs',
+    pools: [
+      'AaveV3Ethereum',
+      'AaveV3Polygon',
+      'AaveV3Avalanche',
+      'AaveV3Optimism',
+      'AaveV3Arbitrum',
+      'AaveV3Metis',
+      'AaveV3Base',
+      'AaveV3Gnosis',
+      'AaveV3Scroll',
+      'AaveV3BNB',
+    ],
+    title: 'aDI and bridge adapters update',
+    shortName: 'ADIAndBridgeAdaptersUpdate',
+    date: '20240305',
+    discussion: '',
+    snapshot: '',
+  },
+  poolOptions: {
+    AaveV3Ethereum: {configs: {OTHERS: {}}, cache: {blockNumber: 19367957}},
+    AaveV3Polygon: {configs: {OTHERS: {}}, cache: {blockNumber: 54289111}},
+    AaveV3Avalanche: {configs: {OTHERS: {}}, cache: {blockNumber: 42502057}},
+    AaveV3Optimism: {configs: {OTHERS: {}}, cache: {blockNumber: 117015407}},
+    AaveV3Arbitrum: {configs: {OTHERS: {}}, cache: {blockNumber: 187288037}},
+    AaveV3Metis: {configs: {OTHERS: {}}, cache: {blockNumber: 14662925}},
+    AaveV3Base: {configs: {OTHERS: {}}, cache: {blockNumber: 11420130}},
+    AaveV3Gnosis: {configs: {OTHERS: {}}, cache: {blockNumber: 32774450}},
+    AaveV3Scroll: {configs: {OTHERS: {}}, cache: {blockNumber: 3863980}},
+    AaveV3BNB: {configs: {OTHERS: {}}, cache: {blockNumber: 36699072}},
+  },
+};
