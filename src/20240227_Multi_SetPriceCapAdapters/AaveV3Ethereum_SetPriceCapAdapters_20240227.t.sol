@@ -13,7 +13,7 @@ import {Payloads} from './SetPriceCapAdapters_20240227.s.sol';
  */
 contract AaveV3Ethereum_SetPriceCapAdapters_20240227_Test is ProtocolV3TestBase {
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 19362871);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 19369127);
   }
 
   /**

@@ -64,17 +64,16 @@
 | --- | --- | --- |
 | oracle | [0x5f4d15d761528c57a5C30c43c1DAb26Fc5452731](https://etherscan.io/address/0x5f4d15d761528c57a5C30c43c1DAb26Fc5452731) | [0x6243d2F41b4ec944F731f647589E28d9745a2674](https://etherscan.io/address/0x6243d2F41b4ec944F731f647589E28d9745a2674) |
 | oracleDescription | null | Capped cbETH / ETH / USD |
-| oracleLatestAnswer | 3772.63505463 | 3794.26459819 |
+| oracleLatestAnswer | 3983.38166794 | 4003.57195902 |
 
 
 #### rETH ([0xae78736Cd615f374D3085123A210448E74Fc6393](https://etherscan.io/address/0xae78736Cd615f374D3085123A210448E74Fc6393))
 
 | description | value before | value after |
 | --- | --- | --- |
-| oracle | [0x05225Cd708bCa9253789C1374e4337a019e99D56](https://etherscan.io/address/0x05225Cd708bCa9253789C1374e4337a019e99D56) | [0x21aB2dEE5ee29E28816a89d7d905d8296fa1C3cE](https://etherscan.io/address/0x21aB2dEE5ee29E28816a89d7d905d8296fa1C3cE) |
+| oracle | [0x05225Cd708bCa9253789C1374e4337a019e99D56](https://etherscan.io/address/0x05225Cd708bCa9253789C1374e4337a019e99D56) | [0x5AE8365D0a30D67145f0c55A08760C250559dB64](https://etherscan.io/address/0x5AE8365D0a30D67145f0c55A08760C250559dB64) |
 | oracleDecimals | null | 8 |
 | oracleDescription | null | Capped rETH / ETH / USD |
-| oracleLatestAnswer | 391,685,980,070 | 3913.00340759 |
 
 
 #### USDT ([0xdAC17F958D2ee523a2206206994597C13D831ec7](https://etherscan.io/address/0xdAC17F958D2ee523a2206206994597C13D831ec7))
@@ -174,8 +173,8 @@
         "to": "0x6243d2F41b4ec944F731f647589E28d9745a2674"
       },
       "oracleLatestAnswer": {
-        "from": 377263505463,
-        "to": 379426459819
+        "from": 398338166794,
+        "to": 400357195902
       },
       "oracleDescription": {
         "from": null,
@@ -185,11 +184,7 @@
     "0xae78736Cd615f374D3085123A210448E74Fc6393": {
       "oracle": {
         "from": "0x05225Cd708bCa9253789C1374e4337a019e99D56",
-        "to": "0x21aB2dEE5ee29E28816a89d7d905d8296fa1C3cE"
-      },
-      "oracleLatestAnswer": {
-        "from": 391685980070,
-        "to": 391300340759
+        "to": "0x5AE8365D0a30D67145f0c55A08760C250559dB64"
       },
       "oracleDecimals": {
         "from": null,

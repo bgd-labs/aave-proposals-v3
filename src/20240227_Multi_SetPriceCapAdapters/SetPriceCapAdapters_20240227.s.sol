@@ -5,8 +5,8 @@ import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aa
 import {EthereumScript, PolygonScript, AvalancheScript, OptimismScript, ArbitrumScript, MetisScript, BaseScript, GnosisScript, BNBScript} from 'aave-helpers/ScriptUtils.sol';
 
 library Payloads {
-  // https://etherscan.io/address/0xec4d7aef658aedea8107b8b3018aeb13684a0b54
-  address public constant ETHEREUM = 0xeC4d7Aef658AeDea8107b8b3018aeB13684A0b54;
+  // https://etherscan.io/address/0x3611300f745f1e60aa1ce1d205517cdaa3b10b83
+  address public constant ETHEREUM = 0x3611300f745F1e60AA1cE1d205517cDAA3b10B83;
 
   // https://polygonscan.com/address/0xbde0efa2ce806a02b4f25bfd77303c7790f279e4
   address public constant POLYGON = 0xbdE0Efa2CE806a02B4f25bfD77303C7790f279e4;
