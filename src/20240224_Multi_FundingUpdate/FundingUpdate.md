@@ -20,12 +20,6 @@ In preparation for the upcoming launch of the Merit program and the expected ren
 
 To reduce governance burden, this proposal also includes withdrawing BAL and CRV from mainnet Aave v3 and v2, as well as withdrawing and bridging them from Polygon Aave v3 to Ethereum. All the BAL and CRV included in this proposal will then be transferred to the Aave Liquidity Committee (ALC) for its future allocation on behalf of the DAO.
 
-In addition to the above, this proposal seeks to enable @karpatkey_TokenLogic to submit proposals via the Direct-to-AIP process which include actions similar to the above:
-
-- Consolidate treasury holdings to GHO
-- Migrate funds from v2 to v3 deployments
-- Move funds from Polygon to Ethereum
-
 ## Specification
 
 This is Part 1 of the specified proposal and it will do as follows:
@@ -51,12 +45,6 @@ The forum post specified withdrawing TUSD and BUSD but these will be kept in ord
 The forum post also asks to withdraw all from Aave V2 AMPL, but the pool has no AMPL available.
 
 Withdraw aCRV, aEthCRV, aBAL and aEthBAL and transfer BAL and CRV to ALC SAFE.
-
-Enable @karpatkey_Tokenlogic so submit funding proposals consisting of the following via the Direct-to-AIP process:
-
-1. Consolidate the treasury to GHO
-2. Migrate funds from v2 to v3 on respective networks
-3. Move funds from Polygon to Ethereum
 
 ## References
 
