@@ -28,7 +28,6 @@ contract AaveV3Ethereum_FundingUpdate_20240224_Test is ProtocolV3TestBase {
   AaveV3Ethereum_FundingUpdate_20240224 internal proposal;
 
   uint256 balanceUsdtBefore;
-  uint256 balanceABUSDBefore;
   uint256 balanceAUSDCBefore;
   uint256 balanceEthAWBTCBefore;
   uint256 balanceEthAWETHBefore;
@@ -243,9 +242,6 @@ contract AaveV3Ethereum_FundingUpdate_20240224_Test is ProtocolV3TestBase {
     balanceAEthUSDTBefore = IERC20(AaveV3EthereumAssets.USDT_A_TOKEN).balanceOf(
       address(AaveV3Ethereum.COLLECTOR)
     );
-    balanceABUSDBefore = IERC20(AaveV2EthereumAssets.BUSD_A_TOKEN).balanceOf(
-      address(AaveV3Ethereum.COLLECTOR)
-    );
   }
 
   function _assertPostSwaps() internal {
@@ -276,12 +272,6 @@ contract AaveV3Ethereum_FundingUpdate_20240224_Test is ProtocolV3TestBase {
       balanceAEthUSDTBefore - proposal.USDT_V3_TO_SWAP() + balanceUsdtBefore,
       1,
       'aEthUSDT not within 1 ether'
-    );
-    assertApproxEqAbs(
-      IERC20(AaveV2EthereumAssets.BUSD_A_TOKEN).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
-      2913 ether,
-      1 ether,
-      'aBUSD not within 1 ether'
     );
   }
 
@@ -324,18 +314,6 @@ contract AaveV3Ethereum_FundingUpdate_20240224_Test is ProtocolV3TestBase {
       proposal.USDT_V3_TO_SWAP() + proposal.USDT_V2_TO_SWAP(),
       address(AaveV3Ethereum.COLLECTOR),
       50
-    );
-
-    vm.expectEmit(true, true, false, false, MiscEthereum.AAVE_SWAPPER);
-    emit SwapRequested(
-      proposal.MILKMAN(),
-      AaveV2EthereumAssets.BUSD_UNDERLYING,
-      AaveV3EthereumAssets.GHO_UNDERLYING,
-      proposal.BUSD_USD_FEED(),
-      proposal.GHO_USD_FEED(),
-      0,
-      address(AaveV3Ethereum.COLLECTOR),
-      300
     );
   }
 }

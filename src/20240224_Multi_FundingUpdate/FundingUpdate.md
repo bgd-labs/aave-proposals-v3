@@ -34,11 +34,11 @@ This is Part 1 of the specified proposal and it will do as follows:
 | ---------------------- | -------------------- | ---------------- |
 | aEthLUSD (All-1)       | awBTC (All-1)        | aPolwETH (All-1) |
 | aEthUSDC (1.25M)       | awETH (All-1)        | aPolDAI (All-1)  |
-| aEthUSDT (1.2M) \*     | aUSDC (300k)         | aPolBAL (All-1)  |
+| aEthUSDT (1.5M)        | aUSDC (300k)         | aPolBAL (All-1)  |
 | LUSD (All)             |                      | aPolCRV (All-1)  |
 | aLUSD (All-1)          |                      |                  |
-| aBUSD (50k)            |                      |                  |
-| aTUSD (All-1)          |                      |                  |
+| aBUSD (50k)\*          |                      |                  |
+| aTUSD (All-1)\*        |                      |                  |
 | aAMPL (All-1)\*        |                      |                  |
 | aUSDT (200k)           |                      |                  |
 | aDAI (All-1)           |                      |                  |
@@ -47,7 +47,7 @@ This is Part 1 of the specified proposal and it will do as follows:
 
 _Note_
 
-The forum post specified withdrawing 1.5M from Aave V3 USDT, but it cannot be done at the moment so we are withdrawing 1.2M instead.
+The forum post specified withdrawing TUSD and BUSD but these will be kept in order to help the offboarding of the two tokens in case of bad debt.
 The forum post also asks to withdraw all from Aave V2 AMPL, but the pool has no AMPL available.
 
 Withdraw aCRV, aEthCRV, aBAL and aEthBAL and transfer BAL and CRV to ALC SAFE.
