@@ -4,7 +4,6 @@ pragma solidity ^0.8.0;
 import {AaveV3Arbitrum} from 'aave-address-book/AaveV3Arbitrum.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/ProtocolV3TestBase.sol';
 import {AaveV3Arbitrum_ADIAndBridgeAdaptersUpdate_20240305} from './AaveV3Arbitrum_ADIAndBridgeAdaptersUpdate_20240305.sol';
-import {ICrossChainReceiver} from 'aave-address-book/common/ICrossChainController.sol';
 import {MiscArbitrum} from 'aave-address-book/MiscArbitrum.sol';
 import {GovernanceV3Arbitrum} from 'aave-address-book/GovernanceV3Arbitrum.sol';
 import './BaseTest.sol';
@@ -17,6 +16,9 @@ contract AaveV3Arbitrum_ADIAndBridgeAdaptersUpdate_20240305_Test is ProtocolV3Te
   AaveV3Arbitrum_ADIAndBridgeAdaptersUpdate_20240305 internal proposal;
 
   function setUp() public {
+    ccc = GovernanceV3Arbitrum.CROSS_CHAIN_CONTROLLER;
+    proxyAdmin = MiscArbitrum.PROXY_ADMIN;
+
     vm.createSelectFork(vm.rpcUrl('arbitrum'), 187288037);
     proposal = new AaveV3Arbitrum_ADIAndBridgeAdaptersUpdate_20240305();
   }
@@ -25,51 +27,40 @@ contract AaveV3Arbitrum_ADIAndBridgeAdaptersUpdate_20240305_Test is ProtocolV3Te
    * @dev executes the generic test suite including e2e and config snapshots
    */
   function test_defaultProposalExecution() public {
-    // get receiver adapters
-    address[] memory receiverAdapters = ICrossChainReceiver(
-      GovernanceV3Arbitrum.CROSS_CHAIN_CONTROLLER
-    ).getReceiverBridgeAdaptersByChain(ChainIds.MAINNET);
-
-    assertEq(receiverAdapters.length, 1);
-    assertEq(receiverAdapters[0] != proposal.NEW_ADAPTER(), true);
-    assertEq(receiverAdapters[0], proposal.ADAPTER_TO_REMOVE());
-    assertEq(
-      ICrossChainReceiver(GovernanceV3Arbitrum.CROSS_CHAIN_CONTROLLER)
-        .isReceiverBridgeAdapterAllowed(proposal.ADAPTER_TO_REMOVE(), ChainIds.MAINNET),
-      true
-    );
-
-    // get proxy information
-    address cccImplementation = ProxyAdmin(MiscArbitrum.PROXY_ADMIN).getProxyImplementation(
-      TransparentUpgradeableProxy(payable(GovernanceV3Arbitrum.CROSS_CHAIN_CONTROLLER))
-    );
-
-    assertEq(cccImplementation != proposal.NEW_CROSS_CHAIN_CONTROLLER_IMPLEMENTATION(), true);
+    _testImplementationAddress(proposal.NEW_CROSS_CHAIN_CONTROLLER_IMPLEMENTATION(), false);
+    _testCurrentReceiversAreAllowed();
+    _testAllReceiversAreRepresented();
 
     executePayload(vm, address(proposal));
 
-    address[] memory receiverAdaptersAfter = ICrossChainReceiver(
-      GovernanceV3Arbitrum.CROSS_CHAIN_CONTROLLER
-    ).getReceiverBridgeAdaptersByChain(ChainIds.MAINNET);
+    _testImplementationAddress(proposal.NEW_CROSS_CHAIN_CONTROLLER_IMPLEMENTATION(), true);
+    _testAfterReceiversAreAllowed();
+    _testAllReceiversAreRepresentedAfter();
+  }
 
-    assertEq(proposal.NEW_ADAPTER(), receiverAdaptersAfter[0]);
-    assertEq(
-      ICrossChainReceiver(GovernanceV3Arbitrum.CROSS_CHAIN_CONTROLLER)
-        .isReceiverBridgeAdapterAllowed(proposal.NEW_ADAPTER(), ChainIds.MAINNET),
-      true
-    );
-    assertEq(
-      ICrossChainReceiver(GovernanceV3Arbitrum.CROSS_CHAIN_CONTROLLER)
-        .isReceiverBridgeAdapterAllowed(proposal.ADAPTER_TO_REMOVE(), ChainIds.MAINNET),
-      false
-    );
+  function _testAllReceiversAreRepresented() internal {
+    address[] memory adapters = new address[](1);
+    adapters[0] = proposal.ADAPTER_TO_REMOVE();
 
-    address cccImplementationAfter = ProxyAdmin(MiscArbitrum.PROXY_ADMIN).getProxyImplementation(
-      TransparentUpgradeableProxy(payable(GovernanceV3Arbitrum.CROSS_CHAIN_CONTROLLER))
-    );
+    _testReceiverAdaptersByChain(ChainIds.MAINNET, adapters);
+  }
 
-    assertEq(cccImplementationAfter, proposal.NEW_CROSS_CHAIN_CONTROLLER_IMPLEMENTATION());
+  function _testAllReceiversAreRepresentedAfter() internal {
+    address[] memory adapters = new address[](1);
+    adapters[0] = proposal.NEW_ADAPTER();
 
-    // TODO: does it make sense to check other configs? required confirmations etc
+    _testReceiverAdaptersByChain(ChainIds.MAINNET, adapters);
+  }
+
+  function _testCurrentReceiversAreAllowed() internal {
+    _testReceiverAdapterAllowed(proposal.ADAPTER_TO_REMOVE(), ChainIds.MAINNET, true);
+  }
+
+  function _testAfterReceiversAreAllowed() internal {
+    // check that old bridges are no longer allowed
+    _testReceiverAdapterAllowed(proposal.ADAPTER_TO_REMOVE(), ChainIds.MAINNET, false);
+
+    // check that new bridges are allowed
+    _testReceiverAdapterAllowed(proposal.NEW_ADAPTER(), ChainIds.MAINNET, true);
   }
 }

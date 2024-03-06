@@ -29,13 +29,67 @@ contract AaveV3Ethereum_ADIAndBridgeAdaptersUpdate_20240305_Test is ProtocolV3Te
   function test_defaultProposalExecution() public {
     _testCurrentReceiversAreAllowed();
     _testCurrentForwarders();
+    _testAllReceiversAreRepresented();
     _testImplementationAddress(proposal.NEW_CROSS_CHAIN_CONTROLLER_IMPLEMENTATION(), false);
 
     executePayload(vm, address(proposal));
 
     _testAfterReceiversAreAllowed();
     _testAfterForwarders();
+    _testAllReceiversAreRepresentedAfter();
     _testImplementationAddress(proposal.NEW_CROSS_CHAIN_CONTROLLER_IMPLEMENTATION(), true);
+  }
+
+  function _testAllReceiversAreRepresented() internal {
+    uint256[] memory forwarderChains = new uint256[](2);
+    forwarderChains[0] = ChainIds.POLYGON;
+    forwarderChains[1] = ChainIds.AVALANCHE;
+
+    for (uint256 i = 0; i < forwarderChains.length; i++) {
+      if (forwarderChains[i] == ChainIds.POLYGON) {
+        address[] memory adapters = new address[](4);
+        adapters[0] = proposal.CCIP_ADAPTER_TO_REMOVE();
+        adapters[1] = proposal.LZ_ADAPTER_TO_REMOVE();
+        adapters[2] = proposal.HL_ADAPTER_TO_REMOVE();
+        adapters[3] = proposal.POL_ADAPTER_TO_REMOVE();
+
+        _testReceiverAdaptersByChain(forwarderChains[i], adapters);
+      }
+      if (forwarderChains[i] == ChainIds.AVALANCHE) {
+        address[] memory adapters = new address[](3);
+        adapters[0] = proposal.CCIP_ADAPTER_TO_REMOVE();
+        adapters[1] = proposal.LZ_ADAPTER_TO_REMOVE();
+        adapters[2] = proposal.HL_ADAPTER_TO_REMOVE();
+
+        _testReceiverAdaptersByChain(forwarderChains[i], adapters);
+      }
+    }
+  }
+
+  function _testAllReceiversAreRepresentedAfter() internal {
+    uint256[] memory forwarderChains = new uint256[](2);
+    forwarderChains[0] = ChainIds.POLYGON;
+    forwarderChains[1] = ChainIds.AVALANCHE;
+
+    for (uint256 i = 0; i < forwarderChains.length; i++) {
+      if (forwarderChains[i] == ChainIds.POLYGON) {
+        address[] memory adapters = new address[](4);
+        adapters[0] = proposal.CCIP_NEW_ADAPTER();
+        adapters[1] = proposal.LZ_NEW_ADAPTER();
+        adapters[2] = proposal.HL_NEW_ADAPTER();
+        adapters[3] = proposal.POL_NEW_ADAPTER();
+
+        _testReceiverAdaptersByChain(forwarderChains[i], adapters);
+      }
+      if (forwarderChains[i] == ChainIds.AVALANCHE) {
+        address[] memory adapters = new address[](3);
+        adapters[0] = proposal.CCIP_NEW_ADAPTER();
+        adapters[1] = proposal.LZ_NEW_ADAPTER();
+        adapters[2] = proposal.HL_NEW_ADAPTER();
+
+        _testReceiverAdaptersByChain(forwarderChains[i], adapters);
+      }
+    }
   }
 
   function _testCurrentForwarders() internal {
@@ -52,59 +106,67 @@ contract AaveV3Ethereum_ADIAndBridgeAdaptersUpdate_20240305_Test is ProtocolV3Te
 
     for (uint256 i = 0; i < forwarderChains.length; i++) {
       if (forwarderChains[i] == ChainIds.POLYGON) {
-        address[] memory adapters = new address[](4);
-        adapters[0] = proposal.CCIP_ADAPTER_TO_REMOVE();
-        adapters[1] = proposal.LZ_ADAPTER_TO_REMOVE();
-        adapters[2] = proposal.HL_ADAPTER_TO_REMOVE();
-        adapters[3] = proposal.POL_ADAPTER_TO_REMOVE();
+        ICrossChainForwarder.ChainIdBridgeConfig[]
+          memory adapters = new ICrossChainForwarder.ChainIdBridgeConfig[](4);
+        adapters[0].currentChainBridgeAdapter = proposal.CCIP_ADAPTER_TO_REMOVE();
+        adapters[1].currentChainBridgeAdapter = proposal.LZ_ADAPTER_TO_REMOVE();
+        adapters[2].currentChainBridgeAdapter = proposal.HL_ADAPTER_TO_REMOVE();
+        adapters[3].currentChainBridgeAdapter = proposal.POL_ADAPTER_TO_REMOVE();
 
-        _checkAdapterCorrectness(forwarderChains[i], adapters);
+        _checkForwarderAdapterCorrectness(forwarderChains[i], adapters, false);
       }
       if (forwarderChains[i] == ChainIds.AVALANCHE || forwarderChains[i] == ChainIds.BNB) {
-        address[] memory adapters = new address[](3);
-        adapters[0] = proposal.CCIP_ADAPTER_TO_REMOVE();
-        adapters[1] = proposal.LZ_ADAPTER_TO_REMOVE();
-        adapters[2] = proposal.HL_ADAPTER_TO_REMOVE();
+        ICrossChainForwarder.ChainIdBridgeConfig[]
+          memory adapters = new ICrossChainForwarder.ChainIdBridgeConfig[](3);
+        adapters[0].currentChainBridgeAdapter = proposal.CCIP_ADAPTER_TO_REMOVE();
+        adapters[1].currentChainBridgeAdapter = proposal.LZ_ADAPTER_TO_REMOVE();
+        adapters[2].currentChainBridgeAdapter = proposal.HL_ADAPTER_TO_REMOVE();
 
-        _checkAdapterCorrectness(forwarderChains[i], adapters);
+        _checkForwarderAdapterCorrectness(forwarderChains[i], adapters, false);
       }
       if (forwarderChains[i] == ChainIds.GNOSIS) {
-        address[] memory adapters = new address[](3);
-        adapters[0] = proposal.GNOSIS_ADAPTER_TO_REMOVE();
-        adapters[1] = proposal.LZ_ADAPTER_TO_REMOVE_GNOSIS();
-        adapters[2] = proposal.HL_ADAPTER_TO_REMOVE();
+        ICrossChainForwarder.ChainIdBridgeConfig[]
+          memory adapters = new ICrossChainForwarder.ChainIdBridgeConfig[](3);
+        adapters[0].currentChainBridgeAdapter = proposal.GNOSIS_ADAPTER_TO_REMOVE();
+        adapters[1].currentChainBridgeAdapter = proposal.LZ_ADAPTER_TO_REMOVE_GNOSIS();
+        adapters[2].currentChainBridgeAdapter = proposal.HL_ADAPTER_TO_REMOVE();
 
-        _checkAdapterCorrectness(forwarderChains[i], adapters);
+        _checkForwarderAdapterCorrectness(forwarderChains[i], adapters, false);
       }
       if (forwarderChains[i] == ChainIds.ARBITRUM) {
-        address[] memory adapters = new address[](1);
-        adapters[0] = proposal.ARB_ADAPTER_TO_REMOVE();
+        ICrossChainForwarder.ChainIdBridgeConfig[]
+          memory adapters = new ICrossChainForwarder.ChainIdBridgeConfig[](1);
+        adapters[0].currentChainBridgeAdapter = proposal.ARB_ADAPTER_TO_REMOVE();
 
-        _checkAdapterCorrectness(forwarderChains[i], adapters);
+        _checkForwarderAdapterCorrectness(forwarderChains[i], adapters, false);
       }
       if (forwarderChains[i] == ChainIds.OPTIMISM) {
-        address[] memory adapters = new address[](1);
-        adapters[0] = proposal.OPT_ADAPTER_TO_REMOVE();
+        ICrossChainForwarder.ChainIdBridgeConfig[]
+          memory adapters = new ICrossChainForwarder.ChainIdBridgeConfig[](1);
+        adapters[0].currentChainBridgeAdapter = proposal.OPT_ADAPTER_TO_REMOVE();
 
-        _checkAdapterCorrectness(forwarderChains[i], adapters);
+        _checkForwarderAdapterCorrectness(forwarderChains[i], adapters, false);
       }
       if (forwarderChains[i] == ChainIds.METIS) {
-        address[] memory adapters = new address[](1);
-        adapters[0] = proposal.METIS_ADAPTER_TO_REMOVE();
+        ICrossChainForwarder.ChainIdBridgeConfig[]
+          memory adapters = new ICrossChainForwarder.ChainIdBridgeConfig[](1);
+        adapters[0].currentChainBridgeAdapter = proposal.METIS_ADAPTER_TO_REMOVE();
 
-        _checkAdapterCorrectness(forwarderChains[i], adapters);
+        _checkForwarderAdapterCorrectness(forwarderChains[i], adapters, false);
       }
       if (forwarderChains[i] == ChainIds.SCROLL) {
-        address[] memory adapters = new address[](1);
-        adapters[0] = proposal.SCROLL_ADAPTER_TO_REMOVE();
+        ICrossChainForwarder.ChainIdBridgeConfig[]
+          memory adapters = new ICrossChainForwarder.ChainIdBridgeConfig[](1);
+        adapters[0].currentChainBridgeAdapter = proposal.SCROLL_ADAPTER_TO_REMOVE();
 
-        _checkAdapterCorrectness(forwarderChains[i], adapters);
+        _checkForwarderAdapterCorrectness(forwarderChains[i], adapters, false);
       }
       if (forwarderChains[i] == ChainIds.BASE) {
-        address[] memory adapters = new address[](1);
-        adapters[0] = proposal.BASE_ADAPTER_TO_REMOVE();
+        ICrossChainForwarder.ChainIdBridgeConfig[]
+          memory adapters = new ICrossChainForwarder.ChainIdBridgeConfig[](1);
+        adapters[0].currentChainBridgeAdapter = proposal.BASE_ADAPTER_TO_REMOVE();
 
-        _checkAdapterCorrectness(forwarderChains[i], adapters);
+        _checkForwarderAdapterCorrectness(forwarderChains[i], adapters, false);
       }
     }
   }
@@ -123,59 +185,94 @@ contract AaveV3Ethereum_ADIAndBridgeAdaptersUpdate_20240305_Test is ProtocolV3Te
 
     for (uint256 i = 0; i < forwarderChains.length; i++) {
       if (forwarderChains[i] == ChainIds.POLYGON) {
-        address[] memory adapters = new address[](4);
-        adapters[0] = proposal.CCIP_NEW_ADAPTER();
-        adapters[1] = proposal.LZ_NEW_ADAPTER();
-        adapters[2] = proposal.HL_NEW_ADAPTER();
-        adapters[3] = proposal.POL_NEW_ADAPTER();
+        ICrossChainForwarder.ChainIdBridgeConfig[]
+          memory adapters = new ICrossChainForwarder.ChainIdBridgeConfig[](4);
+        adapters[0].currentChainBridgeAdapter = proposal.CCIP_NEW_ADAPTER();
+        adapters[1].currentChainBridgeAdapter = proposal.LZ_NEW_ADAPTER();
+        adapters[2].currentChainBridgeAdapter = proposal.HL_NEW_ADAPTER();
+        adapters[3].currentChainBridgeAdapter = proposal.POL_NEW_ADAPTER();
+        adapters[0].destinationBridgeAdapter = proposal.DESTINATION_CCIP_NEW_ADAPTER_POLYGON();
+        adapters[1].destinationBridgeAdapter = proposal.DESTINATION_LZ_NEW_ADAPTER_POLYGON();
+        adapters[2].destinationBridgeAdapter = proposal.DESTINATION_HL_NEW_ADAPTER_POLYGON();
+        adapters[3].destinationBridgeAdapter = proposal.DESTINATION_POL_NEW_ADAPTER();
 
-        _checkAdapterCorrectness(forwarderChains[i], adapters);
+        _checkForwarderAdapterCorrectness(forwarderChains[i], adapters, true);
       }
-      if (forwarderChains[i] == ChainIds.AVALANCHE || forwarderChains[i] == ChainIds.BNB) {
-        address[] memory adapters = new address[](3);
-        adapters[0] = proposal.CCIP_NEW_ADAPTER();
-        adapters[1] = proposal.LZ_NEW_ADAPTER();
-        adapters[2] = proposal.HL_NEW_ADAPTER();
+      if (forwarderChains[i] == ChainIds.AVALANCHE) {
+        ICrossChainForwarder.ChainIdBridgeConfig[]
+          memory adapters = new ICrossChainForwarder.ChainIdBridgeConfig[](3);
+        adapters[0].currentChainBridgeAdapter = proposal.CCIP_NEW_ADAPTER();
+        adapters[1].currentChainBridgeAdapter = proposal.LZ_NEW_ADAPTER();
+        adapters[2].currentChainBridgeAdapter = proposal.HL_NEW_ADAPTER();
+        adapters[0].destinationBridgeAdapter = proposal.DESTINATION_CCIP_NEW_ADAPTER_AVALANCHE();
+        adapters[1].destinationBridgeAdapter = proposal.DESTINATION_LZ_NEW_ADAPTER_AVALANCHE();
+        adapters[2].destinationBridgeAdapter = proposal.DESTINATION_HL_NEW_ADAPTER_AVALANCHE();
 
-        _checkAdapterCorrectness(forwarderChains[i], adapters);
+        _checkForwarderAdapterCorrectness(forwarderChains[i], adapters, true);
+      }
+      if (forwarderChains[i] == ChainIds.BNB) {
+        ICrossChainForwarder.ChainIdBridgeConfig[]
+          memory adapters = new ICrossChainForwarder.ChainIdBridgeConfig[](3);
+        adapters[0].currentChainBridgeAdapter = proposal.CCIP_NEW_ADAPTER();
+        adapters[1].currentChainBridgeAdapter = proposal.LZ_NEW_ADAPTER();
+        adapters[2].currentChainBridgeAdapter = proposal.HL_NEW_ADAPTER();
+        adapters[0].destinationBridgeAdapter = proposal.DESTINATION_CCIP_NEW_ADAPTER_BNB();
+        adapters[1].destinationBridgeAdapter = proposal.DESTINATION_LZ_NEW_ADAPTER_BNB();
+        adapters[2].destinationBridgeAdapter = proposal.DESTINATION_HL_NEW_ADAPTER_BNB();
+
+        _checkForwarderAdapterCorrectness(forwarderChains[i], adapters, true);
       }
       if (forwarderChains[i] == ChainIds.GNOSIS) {
-        address[] memory adapters = new address[](3);
-        adapters[0] = proposal.GNOSIS_NEW_ADAPTER();
-        adapters[1] = proposal.LZ_NEW_ADAPTER();
-        adapters[2] = proposal.HL_NEW_ADAPTER();
+        ICrossChainForwarder.ChainIdBridgeConfig[]
+          memory adapters = new ICrossChainForwarder.ChainIdBridgeConfig[](3);
+        adapters[0].currentChainBridgeAdapter = proposal.GNOSIS_NEW_ADAPTER();
+        adapters[1].currentChainBridgeAdapter = proposal.LZ_NEW_ADAPTER();
+        adapters[2].currentChainBridgeAdapter = proposal.HL_NEW_ADAPTER();
+        adapters[0].destinationBridgeAdapter = proposal.DESTINATION_GNOSIS_NEW_ADAPTER();
+        adapters[1].destinationBridgeAdapter = proposal.DESTINATION_LZ_NEW_ADAPTER_GNOSIS();
+        adapters[2].destinationBridgeAdapter = proposal.DESTINATION_HL_NEW_ADAPTER_GNOSIS();
 
-        _checkAdapterCorrectness(forwarderChains[i], adapters);
+        _checkForwarderAdapterCorrectness(forwarderChains[i], adapters, true);
       }
       if (forwarderChains[i] == ChainIds.ARBITRUM) {
-        address[] memory adapters = new address[](1);
-        adapters[0] = proposal.ARB_NEW_ADAPTER();
+        ICrossChainForwarder.ChainIdBridgeConfig[]
+          memory adapters = new ICrossChainForwarder.ChainIdBridgeConfig[](1);
+        adapters[0].currentChainBridgeAdapter = proposal.ARB_NEW_ADAPTER();
+        adapters[0].destinationBridgeAdapter = proposal.DESTINATION_ARB_NEW_ADAPTER();
 
-        _checkAdapterCorrectness(forwarderChains[i], adapters);
+        _checkForwarderAdapterCorrectness(forwarderChains[i], adapters, true);
       }
       if (forwarderChains[i] == ChainIds.OPTIMISM) {
-        address[] memory adapters = new address[](1);
-        adapters[0] = proposal.OPT_NEW_ADAPTER();
+        ICrossChainForwarder.ChainIdBridgeConfig[]
+          memory adapters = new ICrossChainForwarder.ChainIdBridgeConfig[](1);
+        adapters[0].currentChainBridgeAdapter = proposal.OPT_NEW_ADAPTER();
+        adapters[0].destinationBridgeAdapter = proposal.DESTINATION_OPT_NEW_ADAPTER();
 
-        _checkAdapterCorrectness(forwarderChains[i], adapters);
+        _checkForwarderAdapterCorrectness(forwarderChains[i], adapters, true);
       }
       if (forwarderChains[i] == ChainIds.METIS) {
-        address[] memory adapters = new address[](1);
-        adapters[0] = proposal.METIS_NEW_ADAPTER();
+        ICrossChainForwarder.ChainIdBridgeConfig[]
+          memory adapters = new ICrossChainForwarder.ChainIdBridgeConfig[](1);
+        adapters[0].currentChainBridgeAdapter = proposal.METIS_NEW_ADAPTER();
+        adapters[0].destinationBridgeAdapter = proposal.DESTINATION_METIS_NEW_ADAPTER();
 
-        _checkAdapterCorrectness(forwarderChains[i], adapters);
+        _checkForwarderAdapterCorrectness(forwarderChains[i], adapters, true);
       }
       if (forwarderChains[i] == ChainIds.SCROLL) {
-        address[] memory adapters = new address[](1);
-        adapters[0] = proposal.SCROLL_NEW_ADAPTER();
+        ICrossChainForwarder.ChainIdBridgeConfig[]
+          memory adapters = new ICrossChainForwarder.ChainIdBridgeConfig[](1);
+        adapters[0].currentChainBridgeAdapter = proposal.SCROLL_NEW_ADAPTER();
+        adapters[0].destinationBridgeAdapter = proposal.DESTINATION_SCROLL_NEW_ADAPTER();
 
-        _checkAdapterCorrectness(forwarderChains[i], adapters);
+        _checkForwarderAdapterCorrectness(forwarderChains[i], adapters, true);
       }
       if (forwarderChains[i] == ChainIds.BASE) {
-        address[] memory adapters = new address[](1);
-        adapters[0] = proposal.BASE_NEW_ADAPTER();
+        ICrossChainForwarder.ChainIdBridgeConfig[]
+          memory adapters = new ICrossChainForwarder.ChainIdBridgeConfig[](1);
+        adapters[0].currentChainBridgeAdapter = proposal.BASE_NEW_ADAPTER();
+        adapters[0].destinationBridgeAdapter = proposal.DESTINATION_BASE_NEW_ADAPTER();
 
-        _checkAdapterCorrectness(forwarderChains[i], adapters);
+        _checkForwarderAdapterCorrectness(forwarderChains[i], adapters, true);
       }
     }
   }

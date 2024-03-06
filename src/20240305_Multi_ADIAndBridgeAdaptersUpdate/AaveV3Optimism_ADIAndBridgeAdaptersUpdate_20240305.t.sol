@@ -2,24 +2,23 @@
 pragma solidity ^0.8.0;
 
 import {AaveV3Optimism} from 'aave-address-book/AaveV3Optimism.sol';
-
-import 'forge-std/Test.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/ProtocolV3TestBase.sol';
 import {AaveV3Optimism_ADIAndBridgeAdaptersUpdate_20240305} from './AaveV3Optimism_ADIAndBridgeAdaptersUpdate_20240305.sol';
-import {ChainIds} from 'aave-helpers/ChainIds.sol';
-import {ProxyAdmin} from 'solidity-utils/contracts/transparent-proxy/ProxyAdmin.sol';
 import {MiscOptimism} from 'aave-address-book/MiscOptimism.sol';
-import {TransparentUpgradeableProxy} from 'solidity-utils/contracts/transparent-proxy/TransparentUpgradeableProxy.sol';
-import {ICrossChainReceiver} from 'aave-address-book/common/ICrossChainController.sol';
+import {GovernanceV3Optimism} from 'aave-address-book/GovernanceV3Avalanche.sol';
+import './BaseTest.sol';
 
 /**
  * @dev Test for AaveV3Optimism_ADIAndBridgeAdaptersUpdate_20240305
  * command: make test-contract filter=AaveV3Optimism_ADIAndBridgeAdaptersUpdate_20240305
  */
-contract AaveV3Optimism_ADIAndBridgeAdaptersUpdate_20240305_Test is ProtocolV3TestBase {
+contract AaveV3Optimism_ADIAndBridgeAdaptersUpdate_20240305_Test is ProtocolV3TestBase, BaseTest {
   AaveV3Optimism_ADIAndBridgeAdaptersUpdate_20240305 internal proposal;
 
   function setUp() public {
+    ccc = GovernanceV3Optimism.CROSS_CHAIN_CONTROLLER;
+    proxyAdmin = MiscOptimism.PROXY_ADMIN;
+
     vm.createSelectFork(vm.rpcUrl('optimism'), 117015407);
     proposal = new AaveV3Optimism_ADIAndBridgeAdaptersUpdate_20240305();
   }

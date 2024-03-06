@@ -11,7 +11,11 @@ contract BaseTest is Test {
   address public ccc;
   address public proxyAdmin;
 
-  function _checkAdapterCorrectness(uint256 chainId, address[] memory adapters) internal {
+  function _checkForwarderAdapterCorrectness(
+    uint256 chainId,
+    ICrossChainForwarder.ChainIdBridgeConfig[] memory adapters,
+    bool checkDestination
+  ) internal {
     ICrossChainForwarder.ChainIdBridgeConfig[]
       memory forwarderBridgeAdapters = ICrossChainForwarder(ccc).getForwarderBridgeAdaptersByChain(
         chainId
@@ -22,8 +26,20 @@ contract BaseTest is Test {
     uint256 adaptersCount;
     for (uint256 i = 0; i < forwarderBridgeAdapters.length; i++) {
       for (uint256 j = 0; j < adapters.length; j++) {
-        if (forwarderBridgeAdapters[i].currentChainBridgeAdapter == adapters[j]) {
-          adaptersCount++;
+        if (
+          forwarderBridgeAdapters[i].currentChainBridgeAdapter ==
+          adapters[j].currentChainBridgeAdapter
+        ) {
+          if (checkDestination) {
+            if (
+              forwarderBridgeAdapters[i].destinationBridgeAdapter ==
+              adapters[j].destinationBridgeAdapter
+            ) {
+              adaptersCount++;
+            }
+          } else {
+            adaptersCount++;
+          }
         }
       }
     }
@@ -32,6 +48,23 @@ contract BaseTest is Test {
 
   function _testReceiverAdapterAllowed(address adapter, uint256 chainId, bool allowed) internal {
     assertEq(ICrossChainReceiver(ccc).isReceiverBridgeAdapterAllowed(adapter, chainId), allowed);
+  }
+
+  function _testReceiverAdaptersByChain(uint256 chainId, address[] memory adapters) internal {
+    address[] memory receiverAdapters = ICrossChainReceiver(ccc).getReceiverBridgeAdaptersByChain(
+      chainId
+    );
+
+    assertEq(adapters.length, receiverAdapters.length);
+    uint256 adaptersCount;
+    for (uint256 i = 0; i < receiverAdapters.length; i++) {
+      for (uint256 j = 0; j < adapters.length; j++) {
+        if (receiverAdapters[i] == adapters[j]) {
+          adaptersCount++;
+        }
+      }
+    }
+    assertEq(adaptersCount, receiverAdapters.length);
   }
 
   function _testImplementationAddress(address implementation, bool equal) internal {
