@@ -41,7 +41,6 @@ contract AaveV3Ethereum_FundingUpdate_20240224_Test is ProtocolV3TestBase {
   }
 
   function test_execution() public {
-    _assertPreApproval();
     _assertPreTransferCRVBAL();
     _assertPreMigration();
     _assertPreSwaps();
@@ -60,44 +59,9 @@ contract AaveV3Ethereum_FundingUpdate_20240224_Test is ProtocolV3TestBase {
       0
     );
 
-    _assertPostApproval();
     _assertPostTransferCRVBAL();
     _assertPostMigration();
     _assertPostSwaps();
-  }
-
-  function _assertPreApproval() internal {
-    assertEq(
-      IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).allowance(
-        address(AaveV3Ethereum.COLLECTOR),
-        proposal.ALLOWANCES_WALLET()
-      ),
-      0
-    );
-    assertEq(
-      IERC20(AaveV3EthereumAssets.WETH_A_TOKEN).allowance(
-        address(AaveV3Ethereum.COLLECTOR),
-        proposal.ALLOWANCES_WALLET()
-      ),
-      0
-    );
-  }
-
-  function _assertPostApproval() internal {
-    assertEq(
-      IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).allowance(
-        address(AaveV3Ethereum.COLLECTOR),
-        proposal.ALLOWANCES_WALLET()
-      ),
-      proposal.GHO_ALLOWANCE()
-    );
-    assertEq(
-      IERC20(AaveV3EthereumAssets.WETH_A_TOKEN).allowance(
-        address(AaveV3Ethereum.COLLECTOR),
-        proposal.ALLOWANCES_WALLET()
-      ),
-      proposal.WETH_V3_ALLOWANCE()
-    );
   }
 
   function _assertPreTransferCRVBAL() internal {
@@ -276,21 +240,53 @@ contract AaveV3Ethereum_FundingUpdate_20240224_Test is ProtocolV3TestBase {
   }
 
   function _expectEmits() internal {
-    AaveV3Ethereum_FundingUpdate_20240224.TokenToSwap[] memory tokens = proposal
-      .aTokensToWithdraw();
-    for (uint256 i = 0; i < tokens.length; i++) {
-      vm.expectEmit(true, true, false, false, MiscEthereum.AAVE_SWAPPER);
-      emit SwapRequested(
-        proposal.MILKMAN(),
-        tokens[i].underlying,
-        AaveV3EthereumAssets.GHO_UNDERLYING,
-        tokens[i].underlying,
-        proposal.GHO_ETH_FEED(),
-        IERC20(tokens[i].underlying).balanceOf(address(proposal.SWAPPER())),
-        address(AaveV3Ethereum.COLLECTOR),
-        tokens[i].slippage
-      );
-    }
+    vm.expectEmit(true, true, true, true, MiscEthereum.AAVE_SWAPPER);
+    emit SwapRequested(
+      proposal.MILKMAN(),
+      AaveV3EthereumAssets.LUSD_UNDERLYING,
+      AaveV3EthereumAssets.GHO_UNDERLYING,
+      AaveV3EthereumAssets.LUSD_ORACLE,
+      proposal.GHO_USD_FEED(),
+      32761384430524382295524, // Hardcoded because of V2 withdrawal
+      address(AaveV3Ethereum.COLLECTOR),
+      500
+    );
+
+    vm.expectEmit(true, true, true, true, MiscEthereum.AAVE_SWAPPER);
+    emit SwapRequested(
+      proposal.MILKMAN(),
+      AaveV3EthereumAssets.DAI_UNDERLYING,
+      AaveV3EthereumAssets.GHO_UNDERLYING,
+      AaveV3EthereumAssets.DAI_ORACLE,
+      proposal.GHO_USD_FEED(),
+      400349503743721455670834, // Hardcoded because of V2 withdrawal
+      address(AaveV3Ethereum.COLLECTOR),
+      100
+    );
+
+    vm.expectEmit(true, true, true, true, MiscEthereum.AAVE_SWAPPER);
+    emit SwapRequested(
+      proposal.MILKMAN(),
+      AaveV2EthereumAssets.DPI_UNDERLYING,
+      AaveV3EthereumAssets.GHO_UNDERLYING,
+      proposal.DPI_USD_FEED(),
+      proposal.GHO_USD_FEED(),
+      486852204700306697462, // Hardcoded because of V2 withdrawal
+      address(AaveV3Ethereum.COLLECTOR),
+      300
+    );
+
+    vm.expectEmit(true, true, true, true, MiscEthereum.AAVE_SWAPPER);
+    emit SwapRequested(
+      proposal.MILKMAN(),
+      AaveV3EthereumAssets.FRAX_UNDERLYING,
+      AaveV3EthereumAssets.GHO_UNDERLYING,
+      AaveV3EthereumAssets.FRAX_ORACLE,
+      proposal.GHO_USD_FEED(),
+      29115641783196347431241, // Hardcoded because of V2 withdrawal
+      address(AaveV3Ethereum.COLLECTOR),
+      300
+    );
 
     vm.expectEmit(true, true, true, true, MiscEthereum.AAVE_SWAPPER);
     emit SwapRequested(

@@ -29,8 +29,6 @@ contract AaveV3Ethereum_FundingUpdate_20240224 is IProposalGenericExecutor {
   struct TokenToSwap {
     address underlying;
     address aToken;
-    address oracle;
-    uint256 slippage;
   }
 
   AaveSwapper public constant SWAPPER = AaveSwapper(MiscEthereum.AAVE_SWAPPER);
@@ -40,7 +38,7 @@ contract AaveV3Ethereum_FundingUpdate_20240224 is IProposalGenericExecutor {
   address public constant PRICE_CHECKER = 0xe80a1C615F75AFF7Ed8F08c9F21f9d00982D666c;
 
   address public constant GHO_USD_FEED = 0x3f12643D3f6f874d39C2a4c9f2Cd6f2DbAC877FC;
-  address public constant GHO_ETH_FEED = 0xe3A830577f07b58895971322D5Cf65f08CCA6E02;
+  address public constant DPI_USD_FEED = 0xD2A593BF7594aCE1faD597adb697b5645d5edDB2;
 
   uint256 public constant USDC_V2_TO_MIGRATE = 300_000e6;
 
@@ -48,22 +46,7 @@ contract AaveV3Ethereum_FundingUpdate_20240224 is IProposalGenericExecutor {
   uint256 public constant USDT_V3_TO_SWAP = 1_500_000e6;
   uint256 public constant USDT_V2_TO_SWAP = 200_000e6;
 
-  uint256 public constant GHO_ALLOWANCE = 2_900_000 ether;
-  uint256 public constant WETH_V3_ALLOWANCE = 600 ether;
-  address public constant ALLOWANCES_WALLET = 0xdeadD8aB03075b7FBA81864202a2f59EE25B312b;
-
   function execute() external {
-    AaveV3Ethereum.COLLECTOR.approve(
-      AaveV3EthereumAssets.GHO_UNDERLYING,
-      ALLOWANCES_WALLET,
-      GHO_ALLOWANCE
-    );
-    AaveV3Ethereum.COLLECTOR.approve(
-      AaveV3EthereumAssets.WETH_A_TOKEN,
-      ALLOWANCES_WALLET,
-      WETH_V3_ALLOWANCE
-    );
-
     // Deposit USDT into V3
     AaveV3Ethereum.COLLECTOR.transfer(
       AaveV3EthereumAssets.USDT_UNDERLYING,
@@ -89,59 +72,8 @@ contract AaveV3Ethereum_FundingUpdate_20240224 is IProposalGenericExecutor {
   }
 
   function _swap() internal {
-    // Aave V3 USDC
-    AaveV3Ethereum.COLLECTOR.transfer(
-      AaveV3EthereumAssets.USDC_A_TOKEN,
-      address(this),
-      USDC_V3_TO_SWAP
-    );
-
-    AaveV3Ethereum.POOL.withdraw(
-      AaveV3EthereumAssets.USDC_UNDERLYING,
-      type(uint256).max,
-      address(SWAPPER)
-    );
-
-    // Aave V3 USDT
-    AaveV3Ethereum.COLLECTOR.transfer(
-      AaveV3EthereumAssets.USDT_A_TOKEN,
-      address(this),
-      USDT_V3_TO_SWAP
-    );
-
-    AaveV3Ethereum.POOL.withdraw(
-      AaveV3EthereumAssets.USDT_UNDERLYING,
-      type(uint256).max,
-      address(SWAPPER)
-    );
-
-    // Aave V2 USDT
-
-    AaveV3Ethereum.COLLECTOR.transfer(
-      AaveV2EthereumAssets.USDT_A_TOKEN,
-      address(this),
-      USDT_V2_TO_SWAP
-    );
-
-    AaveV2Ethereum.POOL.withdraw(
-      AaveV2EthereumAssets.USDT_UNDERLYING,
-      type(uint256).max,
-      address(SWAPPER)
-    );
-
-    // Aave V3 LUSD
-    AaveV3Ethereum.COLLECTOR.transfer(
-      AaveV3EthereumAssets.LUSD_A_TOKEN,
-      address(this),
-      IERC20(AaveV3EthereumAssets.LUSD_A_TOKEN).balanceOf(address(AaveV3Ethereum.COLLECTOR)) -
-        1 ether
-    );
-
-    AaveV3Ethereum.POOL.withdraw(
-      AaveV3EthereumAssets.LUSD_UNDERLYING,
-      type(uint256).max,
-      address(SWAPPER)
-    );
+    _withdrawV2Tokens();
+    _withdrawV3Tokens();
 
     // LUSD
     AaveV3Ethereum.COLLECTOR.transfer(
@@ -150,30 +82,53 @@ contract AaveV3Ethereum_FundingUpdate_20240224 is IProposalGenericExecutor {
       IERC20(AaveV3EthereumAssets.LUSD_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR))
     );
 
-    // Aave V2 Tokens
-    TokenToSwap[] memory tokens = aTokensToWithdraw();
+    SWAPPER.swap(
+      MILKMAN,
+      PRICE_CHECKER,
+      AaveV3EthereumAssets.LUSD_UNDERLYING,
+      AaveV3EthereumAssets.GHO_UNDERLYING,
+      AaveV3EthereumAssets.LUSD_ORACLE,
+      GHO_USD_FEED,
+      address(AaveV3Ethereum.COLLECTOR),
+      IERC20(AaveV3EthereumAssets.LUSD_UNDERLYING).balanceOf(address(SWAPPER)),
+      500
+    );
 
-    for (uint256 i = 0; i < 4; i++) {
-      AaveV3Ethereum.COLLECTOR.transfer(
-        tokens[i].aToken,
-        address(this),
-        IERC20(tokens[i].aToken).balanceOf(address(AaveV3Ethereum.COLLECTOR)) - 1 ether
-      );
+    SWAPPER.swap(
+      MILKMAN,
+      PRICE_CHECKER,
+      AaveV3EthereumAssets.DAI_UNDERLYING,
+      AaveV3EthereumAssets.GHO_UNDERLYING,
+      AaveV3EthereumAssets.DAI_ORACLE,
+      GHO_USD_FEED,
+      address(AaveV3Ethereum.COLLECTOR),
+      IERC20(AaveV3EthereumAssets.DAI_UNDERLYING).balanceOf(address(SWAPPER)),
+      100
+    );
 
-      AaveV2Ethereum.POOL.withdraw(tokens[i].underlying, type(uint256).max, address(SWAPPER));
+    SWAPPER.swap(
+      MILKMAN,
+      PRICE_CHECKER,
+      AaveV2EthereumAssets.DPI_UNDERLYING,
+      AaveV3EthereumAssets.GHO_UNDERLYING,
+      DPI_USD_FEED,
+      GHO_USD_FEED,
+      address(AaveV3Ethereum.COLLECTOR),
+      IERC20(AaveV2EthereumAssets.DPI_UNDERLYING).balanceOf(address(SWAPPER)),
+      300
+    );
 
-      SWAPPER.swap(
-        MILKMAN,
-        PRICE_CHECKER,
-        tokens[i].underlying,
-        AaveV3EthereumAssets.GHO_UNDERLYING,
-        tokens[i].oracle,
-        GHO_ETH_FEED,
-        address(AaveV3Ethereum.COLLECTOR),
-        IERC20(tokens[i].underlying).balanceOf(address(SWAPPER)),
-        tokens[i].slippage
-      );
-    }
+    SWAPPER.swap(
+      MILKMAN,
+      PRICE_CHECKER,
+      AaveV3EthereumAssets.FRAX_UNDERLYING,
+      AaveV3EthereumAssets.GHO_UNDERLYING,
+      AaveV3EthereumAssets.FRAX_ORACLE,
+      GHO_USD_FEED,
+      address(AaveV3Ethereum.COLLECTOR),
+      IERC20(AaveV3EthereumAssets.FRAX_UNDERLYING).balanceOf(address(SWAPPER)),
+      300
+    );
 
     SWAPPER.swap(
       MILKMAN,
@@ -202,7 +157,8 @@ contract AaveV3Ethereum_FundingUpdate_20240224 is IProposalGenericExecutor {
 
   function _migrate() internal {
     TokenToMigrate[] memory tokens = tokensToMigrate();
-    for (uint256 i = 0; i < 3; i++) {
+    uint256 tokensLength = tokens.length;
+    for (uint256 i = 0; i < tokensLength; i++) {
       AaveV3Ethereum.COLLECTOR.transfer(tokens[i].aToken, address(this), tokens[i].qty);
 
       AaveV2Ethereum.POOL.withdraw(tokens[i].underlying, type(uint256).max, address(this));
@@ -275,6 +231,77 @@ contract AaveV3Ethereum_FundingUpdate_20240224 is IProposalGenericExecutor {
     );
   }
 
+  function _withdrawV2Tokens() internal {
+    // Aave V2 USDT
+
+    AaveV3Ethereum.COLLECTOR.transfer(
+      AaveV2EthereumAssets.USDT_A_TOKEN,
+      address(this),
+      USDT_V2_TO_SWAP
+    );
+
+    AaveV2Ethereum.POOL.withdraw(
+      AaveV2EthereumAssets.USDT_UNDERLYING,
+      type(uint256).max,
+      address(SWAPPER)
+    );
+
+    // Remaining Aave V2 Tokens
+    TokenToSwap[] memory tokens = aTokensToWithdraw();
+    uint256 tokensLength = tokens.length;
+    for (uint256 i = 0; i < tokensLength; i++) {
+      AaveV3Ethereum.COLLECTOR.transfer(
+        tokens[i].aToken,
+        address(this),
+        IERC20(tokens[i].aToken).balanceOf(address(AaveV3Ethereum.COLLECTOR)) - 1 ether
+      );
+
+      AaveV2Ethereum.POOL.withdraw(tokens[i].underlying, type(uint256).max, address(SWAPPER));
+    }
+  }
+
+  function _withdrawV3Tokens() internal {
+    // Aave V3 USDC
+    AaveV3Ethereum.COLLECTOR.transfer(
+      AaveV3EthereumAssets.USDC_A_TOKEN,
+      address(this),
+      USDC_V3_TO_SWAP
+    );
+
+    AaveV3Ethereum.POOL.withdraw(
+      AaveV3EthereumAssets.USDC_UNDERLYING,
+      type(uint256).max,
+      address(SWAPPER)
+    );
+
+    // Aave V3 USDT
+    AaveV3Ethereum.COLLECTOR.transfer(
+      AaveV3EthereumAssets.USDT_A_TOKEN,
+      address(this),
+      USDT_V3_TO_SWAP
+    );
+
+    AaveV3Ethereum.POOL.withdraw(
+      AaveV3EthereumAssets.USDT_UNDERLYING,
+      type(uint256).max,
+      address(SWAPPER)
+    );
+
+    // Aave V3 LUSD
+    AaveV3Ethereum.COLLECTOR.transfer(
+      AaveV3EthereumAssets.LUSD_A_TOKEN,
+      address(this),
+      IERC20(AaveV3EthereumAssets.LUSD_A_TOKEN).balanceOf(address(AaveV3Ethereum.COLLECTOR)) -
+        1 ether
+    );
+
+    AaveV3Ethereum.POOL.withdraw(
+      AaveV3EthereumAssets.LUSD_UNDERLYING,
+      type(uint256).max,
+      address(SWAPPER)
+    );
+  }
+
   function tokensToMigrate() public view returns (TokenToMigrate[] memory) {
     TokenToMigrate[] memory tokens = new TokenToMigrate[](3);
     tokens[0] = TokenToMigrate(
@@ -301,27 +328,13 @@ contract AaveV3Ethereum_FundingUpdate_20240224 is IProposalGenericExecutor {
     TokenToSwap[] memory tokens = new TokenToSwap[](4);
     tokens[0] = TokenToSwap(
       AaveV2EthereumAssets.LUSD_UNDERLYING,
-      AaveV2EthereumAssets.LUSD_A_TOKEN,
-      AaveV2EthereumAssets.LUSD_ORACLE,
-      500
+      AaveV2EthereumAssets.LUSD_A_TOKEN
     );
-    tokens[1] = TokenToSwap(
-      AaveV2EthereumAssets.DAI_UNDERLYING,
-      AaveV2EthereumAssets.DAI_A_TOKEN,
-      AaveV2EthereumAssets.DAI_ORACLE,
-      100
-    );
-    tokens[2] = TokenToSwap(
-      AaveV2EthereumAssets.DPI_UNDERLYING,
-      AaveV2EthereumAssets.DPI_A_TOKEN,
-      AaveV2EthereumAssets.DPI_ORACLE,
-      300
-    );
+    tokens[1] = TokenToSwap(AaveV2EthereumAssets.DAI_UNDERLYING, AaveV2EthereumAssets.DAI_A_TOKEN);
+    tokens[2] = TokenToSwap(AaveV2EthereumAssets.DPI_UNDERLYING, AaveV2EthereumAssets.DPI_A_TOKEN);
     tokens[3] = TokenToSwap(
       AaveV2EthereumAssets.FRAX_UNDERLYING,
-      AaveV2EthereumAssets.FRAX_A_TOKEN,
-      AaveV2EthereumAssets.FRAX_ORACLE,
-      300
+      AaveV2EthereumAssets.FRAX_A_TOKEN
     );
 
     return tokens;
