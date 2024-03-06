@@ -6,6 +6,8 @@ import {TransparentUpgradeableProxy} from 'solidity-utils/contracts/transparent-
 import {ProxyAdmin} from 'solidity-utils/contracts/transparent-proxy/ProxyAdmin.sol';
 import {ChainIds} from 'aave-helpers/ChainIds.sol';
 import {MiscMetis} from 'aave-address-book/MiscMetis.sol';
+import {GovernanceV3Metis} from 'aave-address-book/GovernanceV3Metis.sol';
+import {ICrossChainReceiver, ICrossChainForwarder} from 'aave-address-book/common/ICrossChainController.sol';
 
 /**
  * @title aDI and bridge adapters update

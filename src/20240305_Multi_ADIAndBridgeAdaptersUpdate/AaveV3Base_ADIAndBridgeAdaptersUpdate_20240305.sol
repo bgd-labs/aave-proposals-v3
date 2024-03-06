@@ -7,7 +7,7 @@ import {ProxyAdmin} from 'solidity-utils/contracts/transparent-proxy/ProxyAdmin.
 import {ChainIds} from 'aave-helpers/ChainIds.sol';
 import {MiscBase} from 'aave-address-book/MiscBase.sol';
 import {GovernanceV3Base} from 'aave-address-book/GovernanceV3Base.sol';
-import {ICrossChainReceiver, ICrossChainForwarder} from 'aave-address-book/common/ICrossChainController.sol';
+import {ICrossChainReceiver} from 'aave-address-book/common/ICrossChainController.sol';
 
 /**
  * @title aDI and bridge adapters update
@@ -28,32 +28,56 @@ contract AaveV3Base_ADIAndBridgeAdaptersUpdate_20240305 is IProposalGenericExecu
       abi.encodeWithSignature('initializeRevision()')
     );
 
-    // Set new Receiver bridge adapter
-    uint256[] memory chainIds = new uint256[](1);
-    chainIds[0] = ChainIds.MAINNET;
-
-    ICrossChainReceiver.ReceiverBridgeAdapterConfigInput[]
-      memory bridgeAdapterConfig = new ICrossChainReceiver.ReceiverBridgeAdapterConfigInput[](1);
-
-    bridgeAdapterConfig[0] = ICrossChainReceiver.ReceiverBridgeAdapterConfigInput({
-      bridgeAdapter: NEW_ADAPTER,
-      chainIds: chainIds
-    });
-
-    ICrossChainReceiver(GovernanceV3Base.CROSS_CHAIN_CONTROLLER).allowReceiverBridgeAdapters(
-      bridgeAdapterConfig
-    );
-
     // remove old Receiver bridge adapter
-    ICrossChainReceiver.ReceiverBridgeAdapterConfigInput[]
-      memory bridgeAdaptersToRemove = new ICrossChainReceiver.ReceiverBridgeAdapterConfigInput[](1);
-
-    bridgeAdaptersToRemove[0] = ICrossChainReceiver.ReceiverBridgeAdapterConfigInput({
-      bridgeAdapter: ADAPTER_TO_REMOVE,
-      chainIds: chainIds
-    });
-    ICrossChainReceiver(GovernanceV3Base.CROSS_CHAIN_CONTROLLER).disallowReceiverBridgeAdapters(
-      bridgeAdaptersToRemove
+    ICrossChainReceiver(GovernanceV3Ethereum.CROSS_CHAIN_CONTROLLER).disallowReceiverBridgeAdapters(
+      _getReceiverBridgeAdaptersToRemove()
     );
+
+    // add receiver adapters
+    ICrossChainReceiver(GovernanceV3Ethereum.CROSS_CHAIN_CONTROLLER).allowReceiverBridgeAdapters(
+      _getReceiverBridgeAdaptersToAllow()
+    );
+  }
+
+  function _getReceiverBridgeAdaptersToRemove()
+    internal
+    pure
+    returns (ICrossChainReceiver.ReceiverBridgeAdapterConfigInput[] memory)
+  {
+    uint256[] memory receiverChainIds = new uint256[](1);
+    receiverChainIds[0] = ChainIds.MAINNET;
+
+    ICrossChainReceiver.ReceiverBridgeAdapterConfigInput[]
+      memory receiverAdaptersToRemove = new ICrossChainReceiver.ReceiverBridgeAdapterConfigInput[](
+        1
+      );
+
+    receiverAdaptersToRemove[0] = ICrossChainReceiver.ReceiverBridgeAdapterConfigInput({
+      bridgeAdapter: ADAPTER_TO_REMOVE,
+      chainIds: receiverChainIds
+    });
+
+    return receiverAdaptersToRemove;
+  }
+
+  function _getReceiverBridgeAdaptersToAllow()
+    internal
+    pure
+    returns (ICrossChainReceiver.ReceiverBridgeAdapterConfigInput[] memory)
+  {
+    uint256[] memory receiverChainIds = new uint256[](1);
+    receiverChainIds[0] = ChainIds.MAINNET;
+
+    ICrossChainReceiver.ReceiverBridgeAdapterConfigInput[]
+      memory receiverAdaptersToAllow = new ICrossChainReceiver.ReceiverBridgeAdapterConfigInput[](
+        1
+      );
+
+    receiverAdaptersToAllow[0] = ICrossChainReceiver.ReceiverBridgeAdapterConfigInput({
+      bridgeAdapter: NEW_ADAPTER,
+      chainIds: receiverChainIds
+    });
+
+    return receiverAdaptersToAllow;
   }
 }

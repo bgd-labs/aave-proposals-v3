@@ -7,7 +7,7 @@ import {ProxyAdmin} from 'solidity-utils/contracts/transparent-proxy/ProxyAdmin.
 import {ChainIds} from 'aave-helpers/ChainIds.sol';
 import {MiscBNB} from 'aave-address-book/MiscBNB.sol';
 import {GovernanceV3BNB} from 'aave-address-book/GovernanceV3BNB.sol';
-import {ICrossChainReceiver, ICrossChainForwarder} from 'aave-address-book/common/ICrossChainController.sol';
+import {ICrossChainReceiver} from 'aave-address-book/common/ICrossChainController.sol';
 
 /**
  * @title aDI and bridge adapters update
@@ -22,9 +22,6 @@ contract AaveV3BNB_ADIAndBridgeAdaptersUpdate_20240305 is IProposalGenericExecut
   address public constant CCIP_NEW_ADAPTER = address(0); // TODO: change for real address when deployed
   address public constant LZ_NEW_ADAPTER = address(0); // TODO: change for real address when deployed
   address public constant HL_NEW_ADAPTER = address(0); // TODO: change for real address when deployed
-  address public constant DESTINATION_CCIP_NEW_ADAPTER = address(0); // TODO: change for real address when deployed in ethereum
-  address public constant DESTINATION_LZ_NEW_ADAPTER = address(0); // TODO: change for real address when deployed in ethereum
-  address public constant DESTINATION_HL_NEW_ADAPTER = address(0); // TODO: change for real address when deployed in ethereum
   address public constant NEW_CROSS_CHAIN_CONTROLLER_IMPLEMENTATION = address(0); // TODO: change for real address when deployed
 
   function execute() external {
@@ -35,7 +32,48 @@ contract AaveV3BNB_ADIAndBridgeAdaptersUpdate_20240305 is IProposalGenericExecut
       abi.encodeWithSignature('initializeRevision()')
     );
 
-    // Set new Receiver bridge adapter
+    // remove old Receiver bridge adapter
+    ICrossChainReceiver(GovernanceV3Ethereum.CROSS_CHAIN_CONTROLLER).disallowReceiverBridgeAdapters(
+      _getReceiverBridgeAdaptersToRemove()
+    );
+
+    // add receiver adapters
+    ICrossChainReceiver(GovernanceV3Ethereum.CROSS_CHAIN_CONTROLLER).allowReceiverBridgeAdapters(
+      _getReceiverBridgeAdaptersToAllow()
+    );
+  }
+
+  function _getReceiverBridgeAdaptersToRemove()
+    internal
+    pure
+    returns (ICrossChainReceiver.ReceiverBridgeAdapterConfigInput[] memory)
+  {
+    uint256[] memory chainIds = new uint256[](1);
+    chainIds[0] = ChainIds.MAINNET;
+
+    ICrossChainReceiver.ReceiverBridgeAdapterConfigInput[]
+      memory bridgeAdaptersToRemove = new ICrossChainReceiver.ReceiverBridgeAdapterConfigInput[](3);
+
+    bridgeAdaptersToRemove[0] = ICrossChainReceiver.ReceiverBridgeAdapterConfigInput({
+      bridgeAdapter: CCIP_ADAPTER_TO_REMOVE,
+      chainIds: chainIds
+    });
+    bridgeAdaptersToRemove[1] = ICrossChainReceiver.ReceiverBridgeAdapterConfigInput({
+      bridgeAdapter: LZ_ADAPTER_TO_REMOVE,
+      chainIds: chainIds
+    });
+    bridgeAdaptersToRemove[2] = ICrossChainReceiver.ReceiverBridgeAdapterConfigInput({
+      bridgeAdapter: HL_ADAPTER_TO_REMOVE,
+      chainIds: chainIds
+    });
+    return bridgeAdaptersToRemove;
+  }
+
+  function _getReceiverBridgeAdaptersToAllow()
+    internal
+    pure
+    returns (ICrossChainReceiver.ReceiverBridgeAdapterConfigInput[] memory)
+  {
     uint256[] memory chainIds = new uint256[](1);
     chainIds[0] = ChainIds.MAINNET;
 
@@ -54,29 +92,6 @@ contract AaveV3BNB_ADIAndBridgeAdaptersUpdate_20240305 is IProposalGenericExecut
       bridgeAdapter: HL_NEW_ADAPTER,
       chainIds: chainIds
     });
-
-    ICrossChainReceiver(GovernanceV3BNB.CROSS_CHAIN_CONTROLLER).allowReceiverBridgeAdapters(
-      bridgeAdapterConfig
-    );
-
-    // remove old Receiver bridge adapter
-    ICrossChainReceiver.ReceiverBridgeAdapterConfigInput[]
-      memory bridgeAdaptersToRemove = new ICrossChainReceiver.ReceiverBridgeAdapterConfigInput[](3);
-
-    bridgeAdaptersToRemove[0] = ICrossChainReceiver.ReceiverBridgeAdapterConfigInput({
-      bridgeAdapter: CCIP_ADAPTER_TO_REMOVE,
-      chainIds: chainIds
-    });
-    bridgeAdaptersToRemove[1] = ICrossChainReceiver.ReceiverBridgeAdapterConfigInput({
-      bridgeAdapter: LZ_ADAPTER_TO_REMOVE,
-      chainIds: chainIds
-    });
-    bridgeAdaptersToRemove[2] = ICrossChainReceiver.ReceiverBridgeAdapterConfigInput({
-      bridgeAdapter: HL_ADAPTER_TO_REMOVE,
-      chainIds: chainIds
-    });
-    ICrossChainReceiver(GovernanceV3BNB.CROSS_CHAIN_CONTROLLER).disallowReceiverBridgeAdapters(
-      bridgeAdaptersToRemove
-    );
+    return bridgeAdapterConfig;
   }
 }

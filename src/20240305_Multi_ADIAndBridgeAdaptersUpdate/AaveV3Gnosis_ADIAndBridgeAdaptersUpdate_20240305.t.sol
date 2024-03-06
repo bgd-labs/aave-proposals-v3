@@ -5,7 +5,7 @@ import {AaveV3Gnosis} from 'aave-address-book/AaveV3Gnosis.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/ProtocolV3TestBase.sol';
 import {AaveV3Gnosis_ADIAndBridgeAdaptersUpdate_20240305} from './AaveV3Gnosis_ADIAndBridgeAdaptersUpdate_20240305.sol';
 import {MiscGnosis} from 'aave-address-book/MiscGnosis.sol';
-import {GovernanceV3Gnosis} from 'aave-address-book/GovernanceV3Avalanche.sol';
+import {GovernanceV3Gnosis} from 'aave-address-book/GovernanceV3Gnosis.sol';
 import './BaseTest.sol';
 
 /**
@@ -27,10 +27,51 @@ contract AaveV3Gnosis_ADIAndBridgeAdaptersUpdate_20240305_Test is ProtocolV3Test
    * @dev executes the generic test suite including e2e and config snapshots
    */
   function test_defaultProposalExecution() public {
-    defaultTest(
-      'AaveV3Gnosis_ADIAndBridgeAdaptersUpdate_20240305',
-      AaveV3Gnosis.POOL,
-      address(proposal)
-    );
+    _testCurrentReceiversAreAllowed();
+    _testAllReceiversAreRepresented();
+    _testImplementationAddress(proposal.NEW_CROSS_CHAIN_CONTROLLER_IMPLEMENTATION(), false);
+
+    executePayload(vm, address(proposal));
+
+    _testAfterReceiversAreAllowed();
+    _testAllReceiversAreRepresentedAfter();
+    _testImplementationAddress(proposal.NEW_CROSS_CHAIN_CONTROLLER_IMPLEMENTATION(), true);
+  }
+
+  function _testAllReceiversAreRepresented() internal {
+    address[] memory adapters = new address[](3);
+    adapters[0] = proposal.GNOSIS_ADAPTER_TO_REMOVE();
+    adapters[1] = proposal.LZ_ADAPTER_TO_REMOVE();
+    adapters[2] = proposal.HL_ADAPTER_TO_REMOVE();
+
+    _testReceiverAdaptersByChain(ChainIds.MAINNET, adapters);
+  }
+
+  function _testAllReceiversAreRepresentedAfter() internal {
+    address[] memory adapters = new address[](3);
+    adapters[0] = proposal.GNOSIS_NEW_ADAPTER();
+    adapters[1] = proposal.LZ_NEW_ADAPTER();
+    adapters[2] = proposal.HL_NEW_ADAPTER();
+
+    _testReceiverAdaptersByChain(ChainIds.MAINNET, adapters);
+  }
+
+  function _testCurrentReceiversAreAllowed() internal {
+    // check that current bridges are allowed
+    _testReceiverAdapterAllowed(proposal.GNOSIS_ADAPTER_TO_REMOVE(), ChainIds.MAINNET, true);
+    _testReceiverAdapterAllowed(proposal.LZ_ADAPTER_TO_REMOVE(), ChainIds.MAINNET, true);
+    _testReceiverAdapterAllowed(proposal.HL_ADAPTER_TO_REMOVE(), ChainIds.MAINNET, true);
+  }
+
+  function _testAfterReceiversAreAllowed() internal {
+    // check that old bridges are no longer allowed
+    _testReceiverAdapterAllowed(proposal.GNOSIS_ADAPTER_TO_REMOVE(), ChainIds.MAINNET, false);
+    _testReceiverAdapterAllowed(proposal.LZ_ADAPTER_TO_REMOVE(), ChainIds.MAINNET, false);
+    _testReceiverAdapterAllowed(proposal.HL_ADAPTER_TO_REMOVE(), ChainIds.MAINNET, false);
+
+    // check that new bridges are allowed
+    _testReceiverAdapterAllowed(proposal.GNOSIS_NEW_ADAPTER(), ChainIds.MAINNET, true);
+    _testReceiverAdapterAllowed(proposal.LZ_NEW_ADAPTER(), ChainIds.MAINNET, true);
+    _testReceiverAdapterAllowed(proposal.HL_NEW_ADAPTER(), ChainIds.MAINNET, true);
   }
 }
