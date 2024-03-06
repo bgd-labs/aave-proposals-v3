@@ -29,8 +29,8 @@ library Payloads {
   // https://gnosisscan.io/address/0x473e655bb3066326f7a5ffa5d3cccd6e0ef6f61e
   address public constant GNOSIS = 0x473e655bb3066326F7a5FFA5D3cCcd6E0eF6F61e;
 
-  // https://bscscan.com/address/0x7525a45f37197dcb7c9e9e7e3a354dee81b1224b
-  address public constant BNB = 0x7525A45F37197DcB7C9e9E7E3a354DeE81b1224B;
+  // https://bscscan.com/address/0x2683f613a899694a8d8669243321541cbdc6a95b
+  address public constant BNB = 0x2683F613a899694a8d8669243321541CBdc6a95b;
 }
 
 /**

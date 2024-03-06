@@ -31,7 +31,7 @@ In some cases, the relation between an underlying asset and its correlated is di
 | sAVAX   | 10.1%          | 14 days        |
 | stEUR   | 9.26%          |                |
 
-All stablecoins are capped at 4%.
+All stablecoins are capped at 4%, except LUSD, which is capped at 10%.
 
 Oracles will be updated using 'priceFeedsUpdates()' method of the Config Engine on every network. Below is the list of assets per network to be updated:
 
@@ -45,7 +45,7 @@ Oracles will be updated using 'priceFeedsUpdates()' method of the Config Engine 
 | Gnosis    | wstETH, sDAI              | USDC, xDAI                                 |
 | Base      | wstETH, cbETH             | USDC                                       |
 | Metis     |                           | USDC, USDT, m.DAI                          |
-| BNB       |                           | USDC, USDT                                 |
+| BNB       |                           | USDC, USDT, fdUSD                          |
 
 # Security
 
