@@ -18,6 +18,14 @@
 | oracleDescription | USDC / USD | Capped USDC/USD |
 
 
+#### FDUSD ([0xc5f0f7b66764F6ec8C8Dff7BA683102295E16409](https://bscscan.com/address/0xc5f0f7b66764F6ec8C8Dff7BA683102295E16409))
+
+| description | value before | value after |
+| --- | --- | --- |
+| oracle | [0x390180e80058A8499930F0c13963AD3E0d86Bfc9](https://bscscan.com/address/0x390180e80058A8499930F0c13963AD3E0d86Bfc9) | [0x60a117Fa5bAbee4d645884fB11E413Da4F893b6D](https://bscscan.com/address/0x60a117Fa5bAbee4d645884fB11E413Da4F893b6D) |
+| oracleDescription | FDUSD / USD | Capped fdUSD/USD |
+
+
 ## Raw diff
 
 ```json
@@ -41,6 +49,16 @@
       "oracleDescription": {
         "from": "USDC / USD",
         "to": "Capped USDC/USD"
+      }
+    },
+    "0xc5f0f7b66764F6ec8C8Dff7BA683102295E16409": {
+      "oracle": {
+        "from": "0x390180e80058A8499930F0c13963AD3E0d86Bfc9",
+        "to": "0x60a117Fa5bAbee4d645884fB11E413Da4F893b6D"
+      },
+      "oracleDescription": {
+        "from": "FDUSD / USD",
+        "to": "Capped fdUSD/USD"
       }
     }
   }
