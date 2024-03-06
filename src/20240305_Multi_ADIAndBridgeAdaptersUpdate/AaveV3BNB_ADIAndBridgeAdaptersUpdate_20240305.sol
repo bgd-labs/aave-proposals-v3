@@ -33,12 +33,12 @@ contract AaveV3BNB_ADIAndBridgeAdaptersUpdate_20240305 is IProposalGenericExecut
     );
 
     // remove old Receiver bridge adapter
-    ICrossChainReceiver(GovernanceV3Ethereum.CROSS_CHAIN_CONTROLLER).disallowReceiverBridgeAdapters(
+    ICrossChainReceiver(GovernanceV3BNB.CROSS_CHAIN_CONTROLLER).disallowReceiverBridgeAdapters(
       _getReceiverBridgeAdaptersToRemove()
     );
 
     // add receiver adapters
-    ICrossChainReceiver(GovernanceV3Ethereum.CROSS_CHAIN_CONTROLLER).allowReceiverBridgeAdapters(
+    ICrossChainReceiver(GovernanceV3BNB.CROSS_CHAIN_CONTROLLER).allowReceiverBridgeAdapters(
       _getReceiverBridgeAdaptersToAllow()
     );
   }
