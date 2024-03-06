@@ -190,7 +190,7 @@ contract AaveV3Ethereum_FundingUpdate_20240224_Test is ProtocolV3TestBase {
 
   function _assertPreSwaps() internal {
     AaveV3Ethereum_FundingUpdate_20240224.TokenToSwap[] memory tokens = proposal
-      .aTokensToWithdraw();
+      .aTokensV2ToWithdraw();
     for (uint256 i = 0; i < tokens.length; i++) {
       assertGt(IERC20(tokens[i].aToken).balanceOf(address(AaveV3Ethereum.COLLECTOR)), 0);
     }
@@ -210,7 +210,7 @@ contract AaveV3Ethereum_FundingUpdate_20240224_Test is ProtocolV3TestBase {
 
   function _assertPostSwaps() internal {
     AaveV3Ethereum_FundingUpdate_20240224.TokenToSwap[] memory tokens = proposal
-      .aTokensToWithdraw();
+      .aTokensV2ToWithdraw();
     for (uint256 i = 0; i < tokens.length; i++) {
       assertApproxEqAbs(
         IERC20(tokens[i].aToken).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
