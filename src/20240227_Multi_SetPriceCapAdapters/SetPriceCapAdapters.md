@@ -35,17 +35,17 @@ All stablecoins are capped at 4%.
 
 Oracles will be updated using 'priceFeedsUpdates()' method of the Config Engine on every network. Below is the list of assets per network to be updated:
 
-| Network   | LSTs                      | Stables                             |
-| --------- | ------------------------- | ----------------------------------- |
-| Mainnet   | wstETH, rETH, sDAI, cbETH | USDC, USDT, DAI, FRAX, LUSD, crvUSd |
-| Arbitrum  | wstETH, rETH              | USDC, USDC.e USDT, FRAX, LUSD       |
-| Avalanche | sAvax                     | USDC, DAI.e, FRAX                   |
-| Optimism  | wstETH, rETH              | USDC, USDC.e, USDT, DAI, LUSD, sUSD |
-| Polygon   | wstETH, stMatic, MaticX   | USDC, USDC.e, USDT, DAI             |
-| Gnosis    | wstETH, sDAI              | USDC, xDAI                          |
-| Base      | wstETH, cbETH             | USDC                                |
-| Metis     |                           | USDC, USDT, m.DAI                   |
-| BNB       |                           | USDC, USDT                          |
+| Network   | LSTs                      | Stables                                    |
+| --------- | ------------------------- | ------------------------------------------ |
+| Mainnet   | wstETH, rETH, sDAI, cbETH | USDC, USDT, DAI, FRAX, LUSD, crvUSd, pyUSD |
+| Arbitrum  | wstETH, rETH              | USDC, USDC.e USDT, FRAX, LUSD              |
+| Avalanche | sAvax                     | USDC, DAI.e, FRAX                          |
+| Optimism  | wstETH, rETH              | USDC, USDC.e, USDT, DAI, LUSD, sUSD        |
+| Polygon   | wstETH, stMatic, MaticX   | USDC, USDC.e, USDT, DAI                    |
+| Gnosis    | wstETH, sDAI              | USDC, xDAI                                 |
+| Base      | wstETH, cbETH             | USDC                                       |
+| Metis     |                           | USDC, USDT, m.DAI                          |
+| BNB       |                           | USDC, USDT                                 |
 
 # Security
 
