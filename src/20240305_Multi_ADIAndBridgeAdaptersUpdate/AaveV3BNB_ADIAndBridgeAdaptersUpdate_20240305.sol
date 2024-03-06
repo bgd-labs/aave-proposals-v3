@@ -29,8 +29,8 @@ contract AaveV3BNB_ADIAndBridgeAdaptersUpdate_20240305 is IProposalGenericExecut
 
   function execute() external {
     // Update CrossChainController implementation
-    ProxyAdmin(GovernanceV3BNB.PROXY_ADMIN).upgradeAndCall(
-      TransparentUpgradeableProxy(payable(GovernanceV3Avalanche.CROSS_CHAIN_CONTROLLER)),
+    ProxyAdmin(MiscBNB.PROXY_ADMIN).upgradeAndCall(
+      TransparentUpgradeableProxy(payable(GovernanceV3BNB.CROSS_CHAIN_CONTROLLER)),
       NEW_CROSS_CHAIN_CONTROLLER_IMPLEMENTATION,
       abi.encodeWithSignature('initializeRevision()')
     );

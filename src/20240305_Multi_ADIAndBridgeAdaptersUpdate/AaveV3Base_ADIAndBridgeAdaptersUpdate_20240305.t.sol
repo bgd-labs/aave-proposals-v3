@@ -45,7 +45,7 @@ contract AaveV3Base_ADIAndBridgeAdaptersUpdate_20240305_Test is ProtocolV3TestBa
 
     // get proxy information
     address cccImplementation = ProxyAdmin(MiscBase.PROXY_ADMIN).getProxyImplementation(
-      TransparentUpgradeableProxy(payable(GovernanceV3Arbitrum.CROSS_CHAIN_CONTROLLER))
+      TransparentUpgradeableProxy(payable(GovernanceV3Base.CROSS_CHAIN_CONTROLLER))
     );
 
     assertEq(cccImplementation != proposal.NEW_CROSS_CHAIN_CONTROLLER_IMPLEMENTATION(), true);

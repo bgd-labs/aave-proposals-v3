@@ -27,15 +27,66 @@ contract AaveV3Avalanche_ADIAndBridgeAdaptersUpdate_20240305 is IProposalGeneric
   address public constant DESTINATION_HL_NEW_ADAPTER = address(0); // TODO: change for real address when deployed in ethereum
   address public constant NEW_CROSS_CHAIN_CONTROLLER_IMPLEMENTATION = address(0); // TODO: change for real address when deployed
 
-  function execute() external {
-    // Update CrossChainController implementation
-    ProxyAdmin(MiscAvalanche.PROXY_ADMIN).upgradeAndCall(
-      TransparentUpgradeableProxy(payable(GovernanceV3Avalanche.CROSS_CHAIN_CONTROLLER)),
-      NEW_CROSS_CHAIN_CONTROLLER_IMPLEMENTATION,
-      abi.encodeWithSignature('initializeRevision()')
-    );
+  function _getReceiverBridgeAdaptersToRemove()
+    internal
+    pure
+    returns (ICrossChainReceiver.ReceiverBridgeAdapterConfigInput[] memory)
+  {
+    uint256[] memory chainIds = new uint256[](1);
+    chainIds[0] = ChainIds.MAINNET;
 
-    // Set new Receiver bridge adapter
+    // remove old Receiver bridge adapter
+    ICrossChainReceiver.ReceiverBridgeAdapterConfigInput[]
+      memory bridgeAdaptersToRemove = new ICrossChainReceiver.ReceiverBridgeAdapterConfigInput[](3);
+
+    bridgeAdaptersToRemove[0] = ICrossChainReceiver.ReceiverBridgeAdapterConfigInput({
+      bridgeAdapter: CCIP_ADAPTER_TO_REMOVE,
+      chainIds: chainIds
+    });
+    bridgeAdaptersToRemove[1] = ICrossChainReceiver.ReceiverBridgeAdapterConfigInput({
+      bridgeAdapter: LZ_ADAPTER_TO_REMOVE,
+      chainIds: chainIds
+    });
+    bridgeAdaptersToRemove[2] = ICrossChainReceiver.ReceiverBridgeAdapterConfigInput({
+      bridgeAdapter: HL_ADAPTER_TO_REMOVE,
+      chainIds: chainIds
+    });
+
+    return bridgeAdaptersToRemove;
+  }
+
+  function _getForwarderBridgeAdaptersToRemove()
+    internal
+    pure
+    returns (ICrossChainForwarder.BridgeAdapterToDisable[] memory)
+  {
+    uint256[] memory chainIds = new uint256[](1);
+    chainIds[0] = ChainIds.MAINNET;
+
+    ICrossChainForwarder.BridgeAdapterToDisable[]
+      memory forwarderAdaptersToRemove = new ICrossChainForwarder.BridgeAdapterToDisable[](3);
+
+    forwarderAdaptersToRemove[0] = ICrossChainForwarder.BridgeAdapterToDisable({
+      bridgeAdapter: CCIP_ADAPTER_TO_REMOVE,
+      chainIds: chainIds
+    });
+    forwarderAdaptersToRemove[1] = ICrossChainForwarder.BridgeAdapterToDisable({
+      bridgeAdapter: LZ_ADAPTER_TO_REMOVE,
+      chainIds: chainIds
+    });
+    forwarderAdaptersToRemove[2] = ICrossChainForwarder.BridgeAdapterToDisable({
+      bridgeAdapter: HL_ADAPTER_TO_REMOVE,
+      chainIds: chainIds
+    });
+
+    return forwarderAdaptersToRemove;
+  }
+
+  function _getReceiverBridgeAdaptersToAllow()
+    internal
+    pure
+    returns (ICrossChainReceiver.ReceiverBridgeAdapterConfigInput[] memory)
+  {
     uint256[] memory chainIds = new uint256[](1);
     chainIds[0] = ChainIds.MAINNET;
 
@@ -55,30 +106,14 @@ contract AaveV3Avalanche_ADIAndBridgeAdaptersUpdate_20240305 is IProposalGeneric
       chainIds: chainIds
     });
 
-    ICrossChainReceiver(GovernanceV3Avalanche.CROSS_CHAIN_CONTROLLER).allowReceiverBridgeAdapters(
-      bridgeAdapterConfig
-    );
+    return bridgeAdapterConfig;
+  }
 
-    // remove old Receiver bridge adapter
-    ICrossChainReceiver.ReceiverBridgeAdapterConfigInput[]
-      memory bridgeAdaptersToRemove = new ICrossChainReceiver.ReceiverBridgeAdapterConfigInput[](3);
-
-    bridgeAdaptersToRemove[0] = ICrossChainReceiver.ReceiverBridgeAdapterConfigInput({
-      bridgeAdapter: CCIP_ADAPTER_TO_REMOVE,
-      chainIds: chainIds
-    });
-    bridgeAdaptersToRemove[1] = ICrossChainReceiver.ReceiverBridgeAdapterConfigInput({
-      bridgeAdapter: LZ_ADAPTER_TO_REMOVE,
-      chainIds: chainIds
-    });
-    bridgeAdaptersToRemove[2] = ICrossChainReceiver.ReceiverBridgeAdapterConfigInput({
-      bridgeAdapter: HL_ADAPTER_TO_REMOVE,
-      chainIds: chainIds
-    });
-    ICrossChainReceiver(GovernanceV3Avalanche.CROSS_CHAIN_CONTROLLER)
-      .disallowReceiverBridgeAdapters(bridgeAdaptersToRemove);
-
-    // add new forwarding adapter paths
+  function _getForwarderBridgeAdaptersToEnable()
+    internal
+    pure
+    returns (ICrossChainForwarder.ForwarderBridgeAdapterConfigInput[] memory)
+  {
     ICrossChainForwarder.ForwarderBridgeAdapterConfigInput[]
       memory bridgeAdaptersToEnable = new ICrossChainForwarder.ForwarderBridgeAdapterConfigInput[](
         3
@@ -87,21 +122,46 @@ contract AaveV3Avalanche_ADIAndBridgeAdaptersUpdate_20240305 is IProposalGeneric
     bridgeAdaptersToEnable[0] = ICrossChainForwarder.ForwarderBridgeAdapterConfigInput({
       currentChainBridgeAdapter: CCIP_NEW_ADAPTER,
       destinationBridgeAdapter: DESTINATION_CCIP_NEW_ADAPTER,
-      destinationChainId: ChainIds.ETHEREUM
+      destinationChainId: ChainIds.MAINNET
     });
     bridgeAdaptersToEnable[1] = ICrossChainForwarder.ForwarderBridgeAdapterConfigInput({
       currentChainBridgeAdapter: LZ_NEW_ADAPTER,
       destinationBridgeAdapter: DESTINATION_LZ_NEW_ADAPTER,
-      destinationChainId: ChainIds.ETHEREUM
+      destinationChainId: ChainIds.MAINNET
     });
     bridgeAdaptersToEnable[2] = ICrossChainForwarder.ForwarderBridgeAdapterConfigInput({
       currentChainBridgeAdapter: HL_NEW_ADAPTER,
       destinationBridgeAdapter: DESTINATION_HL_NEW_ADAPTER,
-      destinationChainId: ChainIds.ETHEREUM
+      destinationChainId: ChainIds.MAINNET
     });
+    return bridgeAdaptersToEnable;
+  }
 
+  function execute() external {
+    // Update CrossChainController implementation
+    ProxyAdmin(MiscAvalanche.PROXY_ADMIN).upgradeAndCall(
+      TransparentUpgradeableProxy(payable(GovernanceV3Avalanche.CROSS_CHAIN_CONTROLLER)),
+      NEW_CROSS_CHAIN_CONTROLLER_IMPLEMENTATION,
+      abi.encodeWithSignature('initializeRevision()')
+    );
+
+    // remove old Receiver bridge adapter
+    ICrossChainReceiver(GovernanceV3Avalanche.CROSS_CHAIN_CONTROLLER)
+      .disallowReceiverBridgeAdapters(_getReceiverBridgeAdaptersToRemove());
+
+    // remove forwarding adapters
+    ICrossChainForwarder(GovernanceV3Avalanche.CROSS_CHAIN_CONTROLLER).disableBridgeAdapters(
+      _getForwarderBridgeAdaptersToRemove()
+    );
+
+    // add receiver adapters
+    ICrossChainReceiver(GovernanceV3Avalanche.CROSS_CHAIN_CONTROLLER).allowReceiverBridgeAdapters(
+      _getReceiverBridgeAdaptersToAllow()
+    );
+
+    // add forwarding adapters
     ICrossChainForwarder(GovernanceV3Avalanche.CROSS_CHAIN_CONTROLLER).enableBridgeAdapters(
-      bridgeAdaptersToEnable
+      _getForwarderBridgeAdaptersToEnable()
     );
   }
 }

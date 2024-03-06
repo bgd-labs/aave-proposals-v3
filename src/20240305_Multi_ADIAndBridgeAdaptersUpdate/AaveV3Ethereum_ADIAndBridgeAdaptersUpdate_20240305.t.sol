@@ -10,7 +10,8 @@ import {ChainIds} from 'aave-helpers/ChainIds.sol';
 import {ProxyAdmin} from 'solidity-utils/contracts/transparent-proxy/ProxyAdmin.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {TransparentUpgradeableProxy} from 'solidity-utils/contracts/transparent-proxy/TransparentUpgradeableProxy.sol';
-import {ICrossChainReceiver} from 'aave-address-book/common/ICrossChainController.sol';
+import {ICrossChainReceiver, ICrossChainForwarder} from 'aave-address-book/common/ICrossChainController.sol';
+import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 
 /**
  * @dev Test for AaveV3Ethereum_ADIAndBridgeAdaptersUpdate_20240305
@@ -28,10 +29,222 @@ contract AaveV3Ethereum_ADIAndBridgeAdaptersUpdate_20240305_Test is ProtocolV3Te
    * @dev executes the generic test suite including e2e and config snapshots
    */
   function test_defaultProposalExecution() public {
+    _testCurrentReceiversAreAllowed();
+    _testCurrentForwarders();
+
+    // get proxy information
+    address cccImplementation = ProxyAdmin(MiscEthereum.PROXY_ADMIN).getProxyImplementation(
+      TransparentUpgradeableProxy(payable(GovernanceV3Ethereum.CROSS_CHAIN_CONTROLLER))
+    );
+    assertEq(cccImplementation != proposal.NEW_CROSS_CHAIN_CONTROLLER_IMPLEMENTATION(), true);
+
     defaultTest(
       'AaveV3Ethereum_ADIAndBridgeAdaptersUpdate_20240305',
       AaveV3Ethereum.POOL,
       address(proposal)
     );
+
+    _testAfterReceiversAreAllowed();
+    _testAfterForwarders();
+  }
+
+  function _checkAdapterCorrectness(uint256 chainId, address[] memory adapters) internal {
+    ICrossChainForwarder.ChainIdBridgeConfig[]
+      memory forwarderBridgeAdapters = ICrossChainForwarder(
+        GovernanceV3Ethereum.CROSS_CHAIN_CONTROLLER
+      ).getForwarderBridgeAdaptersByChain(chainId);
+
+    assertEq(adapters.length, forwarderBridgeAdapters.length);
+
+    uint256 adaptersCount;
+    for (uint256 i = 0; i < forwarderBridgeAdapters.length; i++) {
+      for (uint256 j = 0; j < adapters.length; j++) {
+        if (forwarderBridgeAdapters[i].currentChainBridgeAdapter == adapters[j]) {
+          adaptersCount++;
+        }
+      }
+    }
+    assertEq(adaptersCount, forwarderBridgeAdapters.length);
+  }
+
+  function _testCurrentForwarders() internal {
+    uint256[] memory forwarderChains = new uint256[](9);
+    forwarderChains[0] = ChainIds.POLYGON;
+    forwarderChains[1] = ChainIds.AVALANCHE;
+    forwarderChains[2] = ChainIds.BNB;
+    forwarderChains[3] = ChainIds.GNOSIS;
+    forwarderChains[4] = ChainIds.ARBITRUM;
+    forwarderChains[5] = ChainIds.OPTIMISM;
+    forwarderChains[6] = ChainIds.BASE;
+    forwarderChains[7] = ChainIds.METIS;
+    forwarderChains[8] = ChainIds.SCROLL;
+
+    for (uint256 i = 0; i < forwarderChains.length; i++) {
+      if (forwarderChains[i] == ChainIds.POLYGON) {
+        address[] memory adapters = new address[](4);
+        adapters[0] = proposal.CCIP_ADAPTER_TO_REMOVE();
+        adapters[1] = proposal.LZ_ADAPTER_TO_REMOVE();
+        adapters[2] = proposal.HL_ADAPTER_TO_REMOVE();
+        adapters[3] = proposal.POL_ADAPTER_TO_REMOVE();
+
+        _checkAdapterCorrectness(forwarderChains[i], adapters);
+      }
+      if (forwarderChains[i] == ChainIds.AVALANCHE || forwarderChains[i] == ChainIds.BNB) {
+        address[] memory adapters = new address[](3);
+        adapters[0] = proposal.CCIP_ADAPTER_TO_REMOVE();
+        adapters[1] = proposal.LZ_ADAPTER_TO_REMOVE();
+        adapters[2] = proposal.HL_ADAPTER_TO_REMOVE();
+
+        _checkAdapterCorrectness(forwarderChains[i], adapters);
+      }
+      if (forwarderChains[i] == ChainIds.GNOSIS) {
+        address[] memory adapters = new address[](3);
+        adapters[0] = proposal.GNOSIS_ADAPTER_TO_REMOVE();
+        adapters[1] = proposal.LZ_ADAPTER_TO_REMOVE_GNOSIS();
+        adapters[2] = proposal.HL_ADAPTER_TO_REMOVE();
+
+        _checkAdapterCorrectness(forwarderChains[i], adapters);
+      }
+      if (forwarderChains[i] == ChainIds.ARBITRUM) {
+        address[] memory adapters = new address[](1);
+        adapters[0] = proposal.ARB_ADAPTER_TO_REMOVE();
+
+        _checkAdapterCorrectness(forwarderChains[i], adapters);
+      }
+      if (forwarderChains[i] == ChainIds.OPTIMISM) {
+        address[] memory adapters = new address[](1);
+        adapters[0] = proposal.OPT_ADAPTER_TO_REMOVE();
+
+        _checkAdapterCorrectness(forwarderChains[i], adapters);
+      }
+      if (forwarderChains[i] == ChainIds.METIS) {
+        address[] memory adapters = new address[](1);
+        adapters[0] = proposal.METIS_ADAPTER_TO_REMOVE();
+
+        _checkAdapterCorrectness(forwarderChains[i], adapters);
+      }
+      if (forwarderChains[i] == ChainIds.SCROLL) {
+        address[] memory adapters = new address[](1);
+        adapters[0] = proposal.SCROLL_ADAPTER_TO_REMOVE();
+
+        _checkAdapterCorrectness(forwarderChains[i], adapters);
+      }
+      if (forwarderChains[i] == ChainIds.BASE) {
+        address[] memory adapters = new address[](1);
+        adapters[0] = proposal.BASE_ADAPTER_TO_REMOVE();
+
+        _checkAdapterCorrectness(forwarderChains[i], adapters);
+      }
+    }
+  }
+
+  function _testAfterForwarders() internal {
+    uint256[] memory forwarderChains = new uint256[](9);
+    forwarderChains[0] = ChainIds.POLYGON;
+    forwarderChains[1] = ChainIds.AVALANCHE;
+    forwarderChains[2] = ChainIds.BNB;
+    forwarderChains[3] = ChainIds.GNOSIS;
+    forwarderChains[4] = ChainIds.ARBITRUM;
+    forwarderChains[5] = ChainIds.OPTIMISM;
+    forwarderChains[6] = ChainIds.BASE;
+    forwarderChains[7] = ChainIds.METIS;
+    forwarderChains[8] = ChainIds.SCROLL;
+
+    for (uint256 i = 0; i < forwarderChains.length; i++) {
+      if (forwarderChains[i] == ChainIds.POLYGON) {
+        address[] memory adapters = new address[](4);
+        adapters[0] = proposal.CCIP_NEW_ADAPTER();
+        adapters[1] = proposal.LZ_NEW_ADAPTER();
+        adapters[2] = proposal.HL_NEW_ADAPTER();
+        adapters[3] = proposal.POL_NEW_ADAPTER();
+
+        _checkAdapterCorrectness(forwarderChains[i], adapters);
+      }
+      if (forwarderChains[i] == ChainIds.AVALANCHE || forwarderChains[i] == ChainIds.BNB) {
+        address[] memory adapters = new address[](3);
+        adapters[0] = proposal.CCIP_NEW_ADAPTER();
+        adapters[1] = proposal.LZ_NEW_ADAPTER();
+        adapters[2] = proposal.HL_NEW_ADAPTER();
+
+        _checkAdapterCorrectness(forwarderChains[i], adapters);
+      }
+      if (forwarderChains[i] == ChainIds.GNOSIS) {
+        address[] memory adapters = new address[](3);
+        adapters[0] = proposal.GNOSIS_NEW_ADAPTER();
+        adapters[1] = proposal.LZ_NEW_ADAPTER();
+        adapters[2] = proposal.HL_NEW_ADAPTER();
+
+        _checkAdapterCorrectness(forwarderChains[i], adapters);
+      }
+      if (forwarderChains[i] == ChainIds.ARBITRUM) {
+        address[] memory adapters = new address[](1);
+        adapters[0] = proposal.ARB_NEW_ADAPTER();
+
+        _checkAdapterCorrectness(forwarderChains[i], adapters);
+      }
+      if (forwarderChains[i] == ChainIds.OPTIMISM) {
+        address[] memory adapters = new address[](1);
+        adapters[0] = proposal.OPT_NEW_ADAPTER();
+
+        _checkAdapterCorrectness(forwarderChains[i], adapters);
+      }
+      if (forwarderChains[i] == ChainIds.METIS) {
+        address[] memory adapters = new address[](1);
+        adapters[0] = proposal.METIS_NEW_ADAPTER();
+
+        _checkAdapterCorrectness(forwarderChains[i], adapters);
+      }
+      if (forwarderChains[i] == ChainIds.SCROLL) {
+        address[] memory adapters = new address[](1);
+        adapters[0] = proposal.SCROLL_NEW_ADAPTER();
+
+        _checkAdapterCorrectness(forwarderChains[i], adapters);
+      }
+      if (forwarderChains[i] == ChainIds.BASE) {
+        address[] memory adapters = new address[](1);
+        adapters[0] = proposal.BASE_NEW_ADAPTER();
+
+        _checkAdapterCorrectness(forwarderChains[i], adapters);
+      }
+    }
+  }
+
+  function _testCurrentReceiversAreAllowed() internal {
+    // check that current bridges are allowed
+    _testReceiverAdapterAllowed(proposal.CCIP_ADAPTER_TO_REMOVE(), ChainIds.AVALANCHE, true);
+    _testReceiverAdapterAllowed(proposal.CCIP_ADAPTER_TO_REMOVE(), ChainIds.POLYGON, true);
+    _testReceiverAdapterAllowed(proposal.LZ_ADAPTER_TO_REMOVE(), ChainIds.AVALANCHE, true);
+    _testReceiverAdapterAllowed(proposal.LZ_ADAPTER_TO_REMOVE(), ChainIds.POLYGON, true);
+    _testReceiverAdapterAllowed(proposal.HL_ADAPTER_TO_REMOVE(), ChainIds.AVALANCHE, true);
+    _testReceiverAdapterAllowed(proposal.HL_ADAPTER_TO_REMOVE(), ChainIds.POLYGON, true);
+    _testReceiverAdapterAllowed(proposal.POL_ADAPTER_TO_REMOVE(), ChainIds.POLYGON, true);
+  }
+
+  function _testReceiverAdapterAllowed(address adapter, uint256 chainId, bool allowed) internal {
+    assertEq(
+      ICrossChainReceiver(GovernanceV3Ethereum.CROSS_CHAIN_CONTROLLER)
+        .isReceiverBridgeAdapterAllowed(adapter, chainId),
+      allowed
+    );
+  }
+
+  function _testAfterReceiversAreAllowed() internal {
+    // check that old bridges are no longer allowed
+    _testReceiverAdapterAllowed(proposal.CCIP_ADAPTER_TO_REMOVE(), ChainIds.AVALANCHE, false);
+    _testReceiverAdapterAllowed(proposal.CCIP_ADAPTER_TO_REMOVE(), ChainIds.POLYGON, false);
+    _testReceiverAdapterAllowed(proposal.LZ_ADAPTER_TO_REMOVE(), ChainIds.AVALANCHE, false);
+    _testReceiverAdapterAllowed(proposal.LZ_ADAPTER_TO_REMOVE(), ChainIds.POLYGON, false);
+    _testReceiverAdapterAllowed(proposal.HL_ADAPTER_TO_REMOVE(), ChainIds.AVALANCHE, false);
+    _testReceiverAdapterAllowed(proposal.HL_ADAPTER_TO_REMOVE(), ChainIds.POLYGON, false);
+    _testReceiverAdapterAllowed(proposal.POL_ADAPTER_TO_REMOVE(), ChainIds.POLYGON, false);
+
+    // check that new bridges are allowed
+    _testReceiverAdapterAllowed(proposal.CCIP_NEW_ADAPTER(), ChainIds.AVALANCHE, true);
+    _testReceiverAdapterAllowed(proposal.CCIP_NEW_ADAPTER(), ChainIds.POLYGON, true);
+    _testReceiverAdapterAllowed(proposal.LZ_NEW_ADAPTER(), ChainIds.AVALANCHE, true);
+    _testReceiverAdapterAllowed(proposal.LZ_NEW_ADAPTER(), ChainIds.POLYGON, true);
+    _testReceiverAdapterAllowed(proposal.HL_NEW_ADAPTER(), ChainIds.AVALANCHE, true);
+    _testReceiverAdapterAllowed(proposal.HL_NEW_ADAPTER(), ChainIds.POLYGON, true);
+    _testReceiverAdapterAllowed(proposal.POL_NEW_ADAPTER(), ChainIds.POLYGON, true);
   }
 }

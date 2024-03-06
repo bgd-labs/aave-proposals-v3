@@ -144,11 +144,11 @@ contract AaveV3Avalanche_ADIAndBridgeAdaptersUpdate_20240305_Test is ProtocolV3T
     assertEq(receiverAdaptersCountAfter, receiverAdaptersAfter.length);
     assertEq(receiverAdaptersAfter.length, 3);
 
-    uint256 forwarderAdaptersCount;
+    uint256 forwarderAdaptersCountAfter;
     for (uint256 i = 0; i < forwarderBridgeAdaptersEthereumAfter.length; i++) {
       if (
-        forwarderBridgeAdaptersEthereumAfter[i].currentChainBridgeAdapter ==
-        (proposal.CCIP_NEW_ADAPTER() &&
+        (forwarderBridgeAdaptersEthereumAfter[i].currentChainBridgeAdapter ==
+          proposal.CCIP_NEW_ADAPTER() &&
           forwarderBridgeAdaptersEthereumAfter[i].destinationBridgeAdapter ==
           proposal.DESTINATION_CCIP_NEW_ADAPTER()) ||
         (forwarderBridgeAdaptersEthereumAfter[i].currentChainBridgeAdapter ==
@@ -160,10 +160,10 @@ contract AaveV3Avalanche_ADIAndBridgeAdaptersUpdate_20240305_Test is ProtocolV3T
           forwarderBridgeAdaptersEthereumAfter[i].destinationBridgeAdapter ==
           proposal.DESTINATION_HL_NEW_ADAPTER())
       ) {
-        forwarderAdaptersCount++;
+        forwarderAdaptersCountAfter++;
       }
     }
-    assertEq(forwarderAdaptersCount, forwarderBridgeAdaptersEthereumAfter.length);
+    assertEq(forwarderAdaptersCountAfter, forwarderBridgeAdaptersEthereumAfter.length);
     assertEq(forwarderBridgeAdaptersEthereumAfter.length, 3);
   }
 }
