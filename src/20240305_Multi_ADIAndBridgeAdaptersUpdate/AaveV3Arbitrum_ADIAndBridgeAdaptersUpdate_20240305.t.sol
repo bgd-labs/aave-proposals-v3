@@ -2,22 +2,18 @@
 pragma solidity ^0.8.0;
 
 import {AaveV3Arbitrum} from 'aave-address-book/AaveV3Arbitrum.sol';
-
-import 'forge-std/Test.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/ProtocolV3TestBase.sol';
 import {AaveV3Arbitrum_ADIAndBridgeAdaptersUpdate_20240305} from './AaveV3Arbitrum_ADIAndBridgeAdaptersUpdate_20240305.sol';
 import {ICrossChainReceiver} from 'aave-address-book/common/ICrossChainController.sol';
-import {ChainIds} from 'aave-helpers/ChainIds.sol';
-import {ProxyAdmin} from 'solidity-utils/contracts/transparent-proxy/ProxyAdmin.sol';
 import {MiscArbitrum} from 'aave-address-book/MiscArbitrum.sol';
 import {GovernanceV3Arbitrum} from 'aave-address-book/GovernanceV3Arbitrum.sol';
-import {TransparentUpgradeableProxy} from 'solidity-utils/contracts/transparent-proxy/TransparentUpgradeableProxy.sol';
+import './BaseTest.sol';
 
 /**
  * @dev Test for AaveV3Arbitrum_ADIAndBridgeAdaptersUpdate_20240305
  * command: make test-contract filter=AaveV3Arbitrum_ADIAndBridgeAdaptersUpdate_20240305
  */
-contract AaveV3Arbitrum_ADIAndBridgeAdaptersUpdate_20240305_Test is ProtocolV3TestBase {
+contract AaveV3Arbitrum_ADIAndBridgeAdaptersUpdate_20240305_Test is ProtocolV3TestBase, BaseTest {
   AaveV3Arbitrum_ADIAndBridgeAdaptersUpdate_20240305 internal proposal;
 
   function setUp() public {
@@ -50,11 +46,7 @@ contract AaveV3Arbitrum_ADIAndBridgeAdaptersUpdate_20240305_Test is ProtocolV3Te
 
     assertEq(cccImplementation != proposal.NEW_CROSS_CHAIN_CONTROLLER_IMPLEMENTATION(), true);
 
-    defaultTest(
-      'AaveV3Arbitrum_ADIAndBridgeAdaptersUpdate_20240305',
-      AaveV3Arbitrum.POOL,
-      address(proposal)
-    );
+    executePayload(vm, address(proposal));
 
     address[] memory receiverAdaptersAfter = ICrossChainReceiver(
       GovernanceV3Arbitrum.CROSS_CHAIN_CONTROLLER

@@ -2,25 +2,23 @@
 pragma solidity ^0.8.0;
 
 import {AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
-
-import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/ProtocolV3TestBase.sol';
 import {AaveV3Ethereum_ADIAndBridgeAdaptersUpdate_20240305} from './AaveV3Ethereum_ADIAndBridgeAdaptersUpdate_20240305.sol';
-import {ChainIds} from 'aave-helpers/ChainIds.sol';
-import {ProxyAdmin} from 'solidity-utils/contracts/transparent-proxy/ProxyAdmin.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
-import {TransparentUpgradeableProxy} from 'solidity-utils/contracts/transparent-proxy/TransparentUpgradeableProxy.sol';
-import {ICrossChainReceiver, ICrossChainForwarder} from 'aave-address-book/common/ICrossChainController.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
+import './BaseTest.sol';
 
 /**
  * @dev Test for AaveV3Ethereum_ADIAndBridgeAdaptersUpdate_20240305
  * command: make test-contract filter=AaveV3Ethereum_ADIAndBridgeAdaptersUpdate_20240305
  */
-contract AaveV3Ethereum_ADIAndBridgeAdaptersUpdate_20240305_Test is ProtocolV3TestBase {
+contract AaveV3Ethereum_ADIAndBridgeAdaptersUpdate_20240305_Test is ProtocolV3TestBase, BaseTest {
   AaveV3Ethereum_ADIAndBridgeAdaptersUpdate_20240305 internal proposal;
 
   function setUp() public {
+    ccc = GovernanceV3Ethereum.CROSS_CHAIN_CONTROLLER;
+    proxyAdmin = MiscEthereum.PROXY_ADMIN;
+
     vm.createSelectFork(vm.rpcUrl('mainnet'), 19367957);
     proposal = new AaveV3Ethereum_ADIAndBridgeAdaptersUpdate_20240305();
   }
@@ -31,40 +29,13 @@ contract AaveV3Ethereum_ADIAndBridgeAdaptersUpdate_20240305_Test is ProtocolV3Te
   function test_defaultProposalExecution() public {
     _testCurrentReceiversAreAllowed();
     _testCurrentForwarders();
+    _testImplementationAddress(proposal.NEW_CROSS_CHAIN_CONTROLLER_IMPLEMENTATION(), false);
 
-    // get proxy information
-    address cccImplementation = ProxyAdmin(MiscEthereum.PROXY_ADMIN).getProxyImplementation(
-      TransparentUpgradeableProxy(payable(GovernanceV3Ethereum.CROSS_CHAIN_CONTROLLER))
-    );
-    assertEq(cccImplementation != proposal.NEW_CROSS_CHAIN_CONTROLLER_IMPLEMENTATION(), true);
-
-    defaultTest(
-      'AaveV3Ethereum_ADIAndBridgeAdaptersUpdate_20240305',
-      AaveV3Ethereum.POOL,
-      address(proposal)
-    );
+    executePayload(vm, address(proposal));
 
     _testAfterReceiversAreAllowed();
     _testAfterForwarders();
-  }
-
-  function _checkAdapterCorrectness(uint256 chainId, address[] memory adapters) internal {
-    ICrossChainForwarder.ChainIdBridgeConfig[]
-      memory forwarderBridgeAdapters = ICrossChainForwarder(
-        GovernanceV3Ethereum.CROSS_CHAIN_CONTROLLER
-      ).getForwarderBridgeAdaptersByChain(chainId);
-
-    assertEq(adapters.length, forwarderBridgeAdapters.length);
-
-    uint256 adaptersCount;
-    for (uint256 i = 0; i < forwarderBridgeAdapters.length; i++) {
-      for (uint256 j = 0; j < adapters.length; j++) {
-        if (forwarderBridgeAdapters[i].currentChainBridgeAdapter == adapters[j]) {
-          adaptersCount++;
-        }
-      }
-    }
-    assertEq(adaptersCount, forwarderBridgeAdapters.length);
+    _testImplementationAddress(proposal.NEW_CROSS_CHAIN_CONTROLLER_IMPLEMENTATION(), true);
   }
 
   function _testCurrentForwarders() internal {
@@ -218,14 +189,6 @@ contract AaveV3Ethereum_ADIAndBridgeAdaptersUpdate_20240305_Test is ProtocolV3Te
     _testReceiverAdapterAllowed(proposal.HL_ADAPTER_TO_REMOVE(), ChainIds.AVALANCHE, true);
     _testReceiverAdapterAllowed(proposal.HL_ADAPTER_TO_REMOVE(), ChainIds.POLYGON, true);
     _testReceiverAdapterAllowed(proposal.POL_ADAPTER_TO_REMOVE(), ChainIds.POLYGON, true);
-  }
-
-  function _testReceiverAdapterAllowed(address adapter, uint256 chainId, bool allowed) internal {
-    assertEq(
-      ICrossChainReceiver(GovernanceV3Ethereum.CROSS_CHAIN_CONTROLLER)
-        .isReceiverBridgeAdapterAllowed(adapter, chainId),
-      allowed
-    );
   }
 
   function _testAfterReceiversAreAllowed() internal {
