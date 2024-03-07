@@ -15,7 +15,7 @@ Addressing the competitive DeFi landscape, “Merit” seeks to elevate Aave’s
 
 ## Specification
 
-Merit SAFE: ‘0xdeadD8aB03075b7FBA81864202a2f59EE25B312b’
+Merit SAFE: [0xdeadD8aB03075b7FBA81864202a2f59EE25B312b](https://etherscan.io/address/0xdeadD8aB03075b7FBA81864202a2f59EE25B312b)
 
 - Approve 2.9M GHO
 - Approve 600 wEthWETH
