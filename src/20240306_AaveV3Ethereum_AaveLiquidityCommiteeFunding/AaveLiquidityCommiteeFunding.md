@@ -78,10 +78,12 @@ Each of the above metrics, plus more, will be shown on the TokenLogic analytics 
 
 Swap the following assets for GHO:
 
-- 250k aUSDT
-- 250k aUSDC
+- Withdraw 250k Aave V2 USDT from the collector
+- Withdraw 250k Aave V2 USDC from the collector
+- Swap 250k USDT withdrawn above for GHO
+- Swap 250k USDC withdrawn above for GHO
 
-Create an allowance for 500k GHO.
+Create an allowance of 500k GHO to ALC SAFE.
 
 ALC SAFE: `0x205e795336610f5131Be52F09218AF19f0f3eC60`
 

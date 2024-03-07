@@ -65,7 +65,7 @@ contract AaveV3Ethereum_AaveLiquidityCommiteeFunding_20240306 is IProposalGeneri
       GHO_USD_FEED,
       address(AaveV3Ethereum.COLLECTOR),
       USDC_V2_TO_SWAP,
-      50
+      100
     );
 
     // Withdraw Aave V2 USDT & Transfer to SWAPPER & swap for GHO
@@ -91,7 +91,7 @@ contract AaveV3Ethereum_AaveLiquidityCommiteeFunding_20240306 is IProposalGeneri
       GHO_USD_FEED,
       address(AaveV3Ethereum.COLLECTOR),
       USDT_V2_TO_SWAP,
-      50
+      100
     );
   }
 }
