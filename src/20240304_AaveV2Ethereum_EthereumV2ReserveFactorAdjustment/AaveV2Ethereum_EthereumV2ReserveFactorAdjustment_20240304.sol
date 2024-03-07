@@ -35,7 +35,6 @@ contract AaveV2Ethereum_EthereumV2ReserveFactorAdjustment_20240304 is IProposalG
   uint256 public constant MKR_RF = 99_99;
   uint256 public constant RAI_RF = 99_99;
   uint256 public constant REN_RF = 99_99;
-  uint256 public constant renFIL_RF = 99_99;
   uint256 public constant SNX_RF = 99_99;
   uint256 public constant sUSD_RF = 35_00;
   uint256 public constant xSUSHI_RF = 99_99;
@@ -72,7 +71,6 @@ contract AaveV2Ethereum_EthereumV2ReserveFactorAdjustment_20240304 is IProposalG
     POOL_CONFIGURATOR.setReserveFactor(AaveV2EthereumAssets.MKR_UNDERLYING, MKR_RF);
     POOL_CONFIGURATOR.setReserveFactor(AaveV2EthereumAssets.RAI_UNDERLYING, RAI_RF);
     POOL_CONFIGURATOR.setReserveFactor(AaveV2EthereumAssets.REN_UNDERLYING, REN_RF);
-    POOL_CONFIGURATOR.setReserveFactor(AaveV2EthereumAssets.renFIL_UNDERLYING, renFIL_RF);
     POOL_CONFIGURATOR.setReserveFactor(AaveV2EthereumAssets.SNX_UNDERLYING, SNX_RF);
     POOL_CONFIGURATOR.setReserveFactor(AaveV2EthereumAssets.sUSD_UNDERLYING, sUSD_RF);
     POOL_CONFIGURATOR.setReserveFactor(AaveV2EthereumAssets.xSUSHI_UNDERLYING, xSUSHI_RF);

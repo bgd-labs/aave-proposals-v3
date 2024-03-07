@@ -191,13 +191,6 @@
 | reserveFactor | 99.9 % | 99.99 % |
 
 
-#### renFIL ([0xD5147bc8e386d91Cc5DBE72099DAC6C9b99276F5](https://etherscan.io/address/0xD5147bc8e386d91Cc5DBE72099DAC6C9b99276F5))
-
-| description | value before | value after |
-| --- | --- | --- |
-| reserveFactor | 35 % | 99.99 % |
-
-
 #### CRV ([0xD533a949740bb3306d119CC777fa900bA034cd52](https://etherscan.io/address/0xD533a949740bb3306d119CC777fa900bA034cd52))
 
 | description | value before | value after |
@@ -411,12 +404,6 @@
     "0xD46bA6D942050d489DBd938a2C909A5d5039A161": {
       "reserveFactor": {
         "from": 9990,
-        "to": 9999
-      }
-    },
-    "0xD5147bc8e386d91Cc5DBE72099DAC6C9b99276F5": {
-      "reserveFactor": {
-        "from": 3500,
         "to": 9999
       }
     },

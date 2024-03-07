@@ -46,7 +46,6 @@ The below shows the current and proposed RF for each reserve.
 | MKR      | 99.00%     | 99.99%         |
 | RAI      | 99.00%     | 99.99%         |
 | REN      | 99.00%     | 99.99%         |
-| renFIL   | 35.00%     | 99.99%         |
 | SNX      | 99.00%     | 99.99%         |
 | sUSD     | 30.00%     | 35.00%         |
 | xSUSHI   | 99.00%     | 99.99%         |

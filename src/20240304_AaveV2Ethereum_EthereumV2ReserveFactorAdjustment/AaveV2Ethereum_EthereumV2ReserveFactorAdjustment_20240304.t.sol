@@ -34,7 +34,7 @@ contract AaveV2Ethereum_EthereumV2ReserveFactorAdjustment_20240304_Test is Proto
       address(proposal)
     );
 
-    address[] memory assetsChanged = new address[](35);
+    address[] memory assetsChanged = new address[](34);
     assetsChanged[0] = AaveV2EthereumAssets.ONE_INCH_UNDERLYING;
     assetsChanged[1] = AaveV2EthereumAssets.AMPL_UNDERLYING;
     assetsChanged[2] = AaveV2EthereumAssets.BUSD_UNDERLYING;
@@ -56,22 +56,21 @@ contract AaveV2Ethereum_EthereumV2ReserveFactorAdjustment_20240304_Test is Proto
     assetsChanged[18] = AaveV2EthereumAssets.MKR_UNDERLYING;
     assetsChanged[19] = AaveV2EthereumAssets.RAI_UNDERLYING;
     assetsChanged[20] = AaveV2EthereumAssets.REN_UNDERLYING;
-    assetsChanged[21] = AaveV2EthereumAssets.renFIL_UNDERLYING;
-    assetsChanged[22] = AaveV2EthereumAssets.SNX_UNDERLYING;
-    assetsChanged[23] = AaveV2EthereumAssets.sUSD_UNDERLYING;
-    assetsChanged[24] = AaveV2EthereumAssets.xSUSHI_UNDERLYING;
-    assetsChanged[25] = AaveV2EthereumAssets.TUSD_UNDERLYING;
-    assetsChanged[26] = AaveV2EthereumAssets.UNI_UNDERLYING;
-    assetsChanged[27] = AaveV2EthereumAssets.USDC_UNDERLYING;
-    assetsChanged[28] = AaveV2EthereumAssets.USDP_UNDERLYING;
-    assetsChanged[29] = AaveV2EthereumAssets.USDT_UNDERLYING;
-    assetsChanged[30] = AaveV2EthereumAssets.UST_UNDERLYING;
-    assetsChanged[31] = AaveV2EthereumAssets.WBTC_UNDERLYING;
-    assetsChanged[32] = AaveV2EthereumAssets.WETH_UNDERLYING;
-    assetsChanged[33] = AaveV2EthereumAssets.YFI_UNDERLYING;
-    assetsChanged[34] = AaveV2EthereumAssets.ZRX_UNDERLYING;
+    assetsChanged[21] = AaveV2EthereumAssets.SNX_UNDERLYING;
+    assetsChanged[22] = AaveV2EthereumAssets.sUSD_UNDERLYING;
+    assetsChanged[23] = AaveV2EthereumAssets.xSUSHI_UNDERLYING;
+    assetsChanged[24] = AaveV2EthereumAssets.TUSD_UNDERLYING;
+    assetsChanged[25] = AaveV2EthereumAssets.UNI_UNDERLYING;
+    assetsChanged[26] = AaveV2EthereumAssets.USDC_UNDERLYING;
+    assetsChanged[27] = AaveV2EthereumAssets.USDP_UNDERLYING;
+    assetsChanged[28] = AaveV2EthereumAssets.USDT_UNDERLYING;
+    assetsChanged[29] = AaveV2EthereumAssets.UST_UNDERLYING;
+    assetsChanged[30] = AaveV2EthereumAssets.WBTC_UNDERLYING;
+    assetsChanged[31] = AaveV2EthereumAssets.WETH_UNDERLYING;
+    assetsChanged[32] = AaveV2EthereumAssets.YFI_UNDERLYING;
+    assetsChanged[33] = AaveV2EthereumAssets.ZRX_UNDERLYING;
 
-    Changes[] memory assetChanges = new Changes[](35);
+    Changes[] memory assetChanges = new Changes[](34);
     assetChanges[0] = Changes({
       asset: AaveV2EthereumAssets.ONE_INCH_UNDERLYING,
       reserveFactor: proposal.ONE_INCH_RF()
@@ -157,58 +156,54 @@ contract AaveV2Ethereum_EthereumV2ReserveFactorAdjustment_20240304_Test is Proto
       reserveFactor: proposal.REN_RF()
     });
     assetChanges[21] = Changes({
-      asset: AaveV2EthereumAssets.renFIL_UNDERLYING,
-      reserveFactor: proposal.renFIL_RF()
-    });
-    assetChanges[22] = Changes({
       asset: AaveV2EthereumAssets.SNX_UNDERLYING,
       reserveFactor: proposal.SNX_RF()
     });
-    assetChanges[23] = Changes({
+    assetChanges[22] = Changes({
       asset: AaveV2EthereumAssets.sUSD_UNDERLYING,
       reserveFactor: proposal.sUSD_RF()
     });
-    assetChanges[24] = Changes({
+    assetChanges[23] = Changes({
       asset: AaveV2EthereumAssets.xSUSHI_UNDERLYING,
       reserveFactor: proposal.xSUSHI_RF()
     });
-    assetChanges[25] = Changes({
+    assetChanges[24] = Changes({
       asset: AaveV2EthereumAssets.TUSD_UNDERLYING,
       reserveFactor: proposal.TUSD_RF()
     });
-    assetChanges[26] = Changes({
+    assetChanges[25] = Changes({
       asset: AaveV2EthereumAssets.UNI_UNDERLYING,
       reserveFactor: proposal.UNI_RF()
     });
-    assetChanges[27] = Changes({
+    assetChanges[26] = Changes({
       asset: AaveV2EthereumAssets.USDC_UNDERLYING,
       reserveFactor: proposal.USDC_RF()
     });
-    assetChanges[28] = Changes({
+    assetChanges[27] = Changes({
       asset: AaveV2EthereumAssets.USDP_UNDERLYING,
       reserveFactor: proposal.USDP_RF()
     });
-    assetChanges[29] = Changes({
+    assetChanges[28] = Changes({
       asset: AaveV2EthereumAssets.USDT_UNDERLYING,
       reserveFactor: proposal.USDT_RF()
     });
-    assetChanges[30] = Changes({
+    assetChanges[29] = Changes({
       asset: AaveV2EthereumAssets.UST_UNDERLYING,
       reserveFactor: proposal.UST_RF()
     });
-    assetChanges[31] = Changes({
+    assetChanges[30] = Changes({
       asset: AaveV2EthereumAssets.WBTC_UNDERLYING,
       reserveFactor: proposal.WBTC_RF()
     });
-    assetChanges[32] = Changes({
+    assetChanges[31] = Changes({
       asset: AaveV2EthereumAssets.WETH_UNDERLYING,
       reserveFactor: proposal.WETH_RF()
     });
-    assetChanges[33] = Changes({
+    assetChanges[32] = Changes({
       asset: AaveV2EthereumAssets.YFI_UNDERLYING,
       reserveFactor: proposal.YFI_RF()
     });
-    assetChanges[34] = Changes({
+    assetChanges[33] = Changes({
       asset: AaveV2EthereumAssets.ZRX_UNDERLYING,
       reserveFactor: proposal.ZRX_RF()
     });
