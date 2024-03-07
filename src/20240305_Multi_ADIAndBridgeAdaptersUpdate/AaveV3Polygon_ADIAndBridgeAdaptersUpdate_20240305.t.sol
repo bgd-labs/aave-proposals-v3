@@ -6,6 +6,7 @@ import {ProtocolV3TestBase} from 'aave-helpers/ProtocolV3TestBase.sol';
 import {AaveV3Polygon_ADIAndBridgeAdaptersUpdate_20240305} from './AaveV3Polygon_ADIAndBridgeAdaptersUpdate_20240305.sol';
 import {MiscPolygon} from 'aave-address-book/MiscPolygon.sol';
 import {GovernanceV3Polygon} from 'aave-address-book/GovernanceV3Polygon.sol';
+import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import './BaseTest.sol';
 
 /**
@@ -27,6 +28,8 @@ contract AaveV3Polygon_ADIAndBridgeAdaptersUpdate_20240305_Test is ProtocolV3Tes
    * @dev executes the generic test suite including e2e and config snapshots
    */
   function test_defaultProposalExecution() public {
+    _testTrustedRemotes();
+
     _testCurrentReceiversAreAllowed();
     _testAllReceiversAreRepresented();
     _testCurrentForwarders();
@@ -38,6 +41,29 @@ contract AaveV3Polygon_ADIAndBridgeAdaptersUpdate_20240305_Test is ProtocolV3Tes
     _testAllReceiversAreRepresentedAfter();
     _testAfterForwarders();
     _testImplementationAddress(proposal.NEW_CROSS_CHAIN_CONTROLLER_IMPLEMENTATION(), true);
+  }
+
+  function _testTrustedRemotes() internal {
+    _testTrustedRemoteByChain(
+      proposal.CCIP_NEW_ADAPTER(),
+      GovernanceV3Ethereum.CROSS_CHAIN_CONTROLLER,
+      ChainIds.MAINNET
+    );
+    _testTrustedRemoteByChain(
+      proposal.LZ_NEW_ADAPTER(),
+      GovernanceV3Ethereum.CROSS_CHAIN_CONTROLLER,
+      ChainIds.MAINNET
+    );
+    _testTrustedRemoteByChain(
+      proposal.HL_NEW_ADAPTER(),
+      GovernanceV3Ethereum.CROSS_CHAIN_CONTROLLER,
+      ChainIds.MAINNET
+    );
+    _testTrustedRemoteByChain(
+      proposal.POL_NEW_ADAPTER(),
+      GovernanceV3Ethereum.CROSS_CHAIN_CONTROLLER,
+      ChainIds.MAINNET
+    );
   }
 
   function _testCurrentForwarders() internal {

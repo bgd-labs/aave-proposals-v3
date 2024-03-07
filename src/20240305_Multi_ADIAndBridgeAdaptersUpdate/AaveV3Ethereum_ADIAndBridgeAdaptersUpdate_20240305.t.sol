@@ -6,6 +6,8 @@ import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/ProtocolV3TestBase
 import {AaveV3Ethereum_ADIAndBridgeAdaptersUpdate_20240305} from './AaveV3Ethereum_ADIAndBridgeAdaptersUpdate_20240305.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
+import {GovernanceV3Polygon} from 'aave-address-book/GovernanceV3Polygon.sol';
+import {GovernanceV3Avalanche} from 'aave-address-book/GovernanceV3Avalanche.sol';
 import './BaseTest.sol';
 
 /**
@@ -27,6 +29,8 @@ contract AaveV3Ethereum_ADIAndBridgeAdaptersUpdate_20240305_Test is ProtocolV3Te
    * @dev executes the generic test suite including e2e and config snapshots
    */
   function test_defaultProposalExecution() public {
+    _testTrustedRemotes();
+
     _testCurrentReceiversAreAllowed();
     _testCurrentForwarders();
     _testAllReceiversAreRepresented();
@@ -38,6 +42,45 @@ contract AaveV3Ethereum_ADIAndBridgeAdaptersUpdate_20240305_Test is ProtocolV3Te
     _testAfterForwarders();
     _testAllReceiversAreRepresentedAfter();
     _testImplementationAddress(proposal.NEW_CROSS_CHAIN_CONTROLLER_IMPLEMENTATION(), true);
+  }
+
+  function _testTrustedRemotes() internal {
+    _testTrustedRemoteByChain(
+      proposal.CCIP_NEW_ADAPTER(),
+      GovernanceV3Polygon.CROSS_CHAIN_CONTROLLER,
+      ChainIds.POLYGON
+    );
+    _testTrustedRemoteByChain(
+      proposal.LZ_NEW_ADAPTER(),
+      GovernanceV3Polygon.CROSS_CHAIN_CONTROLLER,
+      ChainIds.POLYGON
+    );
+    _testTrustedRemoteByChain(
+      proposal.HL_NEW_ADAPTER(),
+      GovernanceV3Polygon.CROSS_CHAIN_CONTROLLER,
+      ChainIds.POLYGON
+    );
+    _testTrustedRemoteByChain(
+      proposal.POL_NEW_ADAPTER(),
+      GovernanceV3Polygon.CROSS_CHAIN_CONTROLLER,
+      ChainIds.POLYGON
+    );
+
+    _testTrustedRemoteByChain(
+      proposal.CCIP_NEW_ADAPTER(),
+      GovernanceV3Avalanche.CROSS_CHAIN_CONTROLLER,
+      ChainIds.AVALANCHE
+    );
+    _testTrustedRemoteByChain(
+      proposal.LZ_NEW_ADAPTER(),
+      GovernanceV3Avalanche.CROSS_CHAIN_CONTROLLER,
+      ChainIds.AVALANCHE
+    );
+    _testTrustedRemoteByChain(
+      proposal.HL_NEW_ADAPTER(),
+      GovernanceV3Avalanche.CROSS_CHAIN_CONTROLLER,
+      ChainIds.AVALANCHE
+    );
   }
 
   function _testAllReceiversAreRepresented() internal {

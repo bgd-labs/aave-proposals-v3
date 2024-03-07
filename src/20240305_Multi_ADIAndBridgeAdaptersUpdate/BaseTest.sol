@@ -6,10 +6,19 @@ import {ICrossChainReceiver, ICrossChainForwarder} from 'aave-address-book/commo
 import {TransparentUpgradeableProxy} from 'solidity-utils/contracts/transparent-proxy/TransparentUpgradeableProxy.sol';
 import {ChainIds} from 'aave-helpers/ChainIds.sol';
 import {ProxyAdmin} from 'solidity-utils/contracts/transparent-proxy/ProxyAdmin.sol';
+import {IBaseAdapter} from 'aave-address-book/common/IBaseAdapter.sol';
 
 contract BaseTest is Test {
   address public ccc;
   address public proxyAdmin;
+
+  function _testTrustedRemoteByChain(
+    address adapter,
+    address trustedRemote,
+    uint256 chainId
+  ) internal {
+    assertEq(trustedRemote, IBaseAdapter(adapter).getTrustedRemoteByChainId(chainId));
+  }
 
   function _checkForwarderAdapterCorrectness(
     uint256 chainId,

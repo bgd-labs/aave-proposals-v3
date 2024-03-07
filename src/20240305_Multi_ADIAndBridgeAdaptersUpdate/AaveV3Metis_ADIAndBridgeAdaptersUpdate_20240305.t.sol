@@ -6,6 +6,7 @@ import {ProtocolV3TestBase} from 'aave-helpers/ProtocolV3TestBase.sol';
 import {AaveV3Metis_ADIAndBridgeAdaptersUpdate_20240305} from './AaveV3Metis_ADIAndBridgeAdaptersUpdate_20240305.sol';
 import {MiscMetis} from 'aave-address-book/MiscMetis.sol';
 import {GovernanceV3Metis} from 'aave-address-book/GovernanceV3Metis.sol';
+import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import './BaseTest.sol';
 
 /**
@@ -27,6 +28,8 @@ contract AaveV3Metis_ADIAndBridgeAdaptersUpdate_20240305_Test is ProtocolV3TestB
    * @dev executes the generic test suite including e2e and config snapshots
    */
   function test_defaultProposalExecution() public {
+    _testTrustedRemotes();
+
     _testImplementationAddress(proposal.NEW_CROSS_CHAIN_CONTROLLER_IMPLEMENTATION(), false);
     _testCurrentReceiversAreAllowed();
     _testAllReceiversAreRepresented();
@@ -36,6 +39,14 @@ contract AaveV3Metis_ADIAndBridgeAdaptersUpdate_20240305_Test is ProtocolV3TestB
     _testImplementationAddress(proposal.NEW_CROSS_CHAIN_CONTROLLER_IMPLEMENTATION(), true);
     _testAfterReceiversAreAllowed();
     _testAllReceiversAreRepresentedAfter();
+  }
+
+  function _testTrustedRemotes() internal {
+    _testTrustedRemoteByChain(
+      proposal.NEW_ADAPTER(),
+      GovernanceV3Ethereum.CROSS_CHAIN_CONTROLLER,
+      ChainIds.MAINNET
+    );
   }
 
   function _testAllReceiversAreRepresented() internal {
