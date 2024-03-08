@@ -2,12 +2,12 @@
 title: "GHOBorrowRateIncrease"
 author: "Aave Chan Initiative"
 discussions: "https://governance.aave.com/t/arfc-increase-gho-borrow-rate-08-03-2024/16885"
-snapshot: "No snapsht for Direct-to-AIP"
+snapshot: "No snapshot for Direct-to-AIP"
 ---
 
 ## Simple Summary
 
-This AIP will increase GHO borrow rates by 50bps.
+This AIP will increase GHO borrow rate by 0.5% APR.
 
 ## Motivation
 
@@ -40,7 +40,7 @@ If required, ACI will monitor the GHO peg and use authorized discretion for furt
 
 - Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240308_AaveV3Ethereum_GHOBorrowRateIncrease/AaveV3Ethereum_GHOBorrowRateIncrease_20240308.sol)
 - Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240308_AaveV3Ethereum_GHOBorrowRateIncrease/AaveV3Ethereum_GHOBorrowRateIncrease_20240308.t.sol)
-- [Snapshot](No snapsht for Direct-to-AIP)
+- Snapshot: No snapshot for Direct-to-AIP)
 - [Discussion](https://governance.aave.com/t/arfc-increase-gho-borrow-rate-08-03-2024/16885)
 
 ## Copyright
