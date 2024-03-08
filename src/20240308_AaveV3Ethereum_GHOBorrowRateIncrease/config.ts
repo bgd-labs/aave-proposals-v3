@@ -7,7 +7,7 @@ export const config: ConfigFile = {
     shortName: 'GHOBorrowRateIncrease',
     date: '20240308',
     discussion: 'https://governance.aave.com/t/arfc-increase-gho-borrow-rate-08-03-2024/16885',
-    snapshot: 'No snapsht for Direct-to-AIP',
+    snapshot: 'No snapshot for Direct-to-AIP',
   },
   poolOptions: {AaveV3Ethereum: {configs: {OTHERS: {}}, cache: {blockNumber: 19391086}}},
 };

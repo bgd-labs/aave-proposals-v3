@@ -8,7 +8,7 @@ import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethe
 /**
  * @title GHOBorrowRateIncrease
  * @author Aave Chan Initiative
- * - Snapshot: No snapsht for Direct-to-AIP
+ * - Snapshot: No snapshot for Direct-to-AIP
  * - Discussion: https://governance.aave.com/t/arfc-increase-gho-borrow-rate-08-03-2024/16885
  */
 contract AaveV3Ethereum_GHOBorrowRateIncrease_20240308 is IProposalGenericExecutor {
