@@ -30,42 +30,39 @@ contract AaveV3Ethereum_AaveLiquidityCommiteeFunding_20240306_Test is ProtocolV3
   AaveV3Ethereum_AaveLiquidityCommiteeFunding_20240306 internal proposal;
 
   address swapper;
-  uint256 initialBalanceAUSDT;
-  uint256 initialBalanceAUSDC;
-  uint256 initialBalanceGHO;
-  uint256 initialAllowanceGHO;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 19377423);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 19392386);
     proposal = new AaveV3Ethereum_AaveLiquidityCommiteeFunding_20240306();
     swapper = address(proposal.SWAPPER());
   }
 
   function test_execution() public {
-    initialBalanceGHO = IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(
+    uint256 initialBalanceGHO = IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(
       address(AaveV3Ethereum.COLLECTOR)
     );
     assertGe(initialBalanceGHO, 0, 'Collector has 0 GHO');
 
-    _assertPreApproval();
-    _assertPreSwaps();
-    _expectEmits();
-
-    executePayload(vm, address(proposal));
-
-    _assertPostApproval();
-    _assertPostSwaps();
-  }
-
-  function _assertPreApproval() internal {
-    initialAllowanceGHO = IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).allowance(
+    uint256 initialAllowanceGHO = IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).allowance(
       address(AaveV3Ethereum.COLLECTOR),
       proposal.ALC_SAFE()
     );
     assertEq(initialAllowanceGHO, 0);
-  }
 
-  function _assertPostApproval() internal {
+    uint256 initialBalanceAUSDC = IERC20(AaveV2EthereumAssets.USDC_A_TOKEN).balanceOf(
+      address(AaveV3Ethereum.COLLECTOR)
+    );
+    uint256 initialBalanceAUSDT = IERC20(AaveV2EthereumAssets.USDT_A_TOKEN).balanceOf(
+      address(AaveV3Ethereum.COLLECTOR)
+    );
+
+    assertGe(initialBalanceAUSDT, proposal.USDT_V2_TO_SWAP(), 'Not enough aUSDT to Withdraw');
+    assertGe(initialBalanceAUSDC, proposal.USDC_V2_TO_SWAP(), 'Not enough aUSDC to Withdraw');
+
+    _expectEmits();
+
+    executePayload(vm, address(proposal));
+
     assertEq(
       IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).allowance(
         address(AaveV3Ethereum.COLLECTOR),
@@ -73,21 +70,7 @@ contract AaveV3Ethereum_AaveLiquidityCommiteeFunding_20240306_Test is ProtocolV3
       ),
       proposal.GHO_ALLOWANCE()
     );
-  }
 
-  function _assertPreSwaps() internal {
-    initialBalanceAUSDC = IERC20(AaveV2EthereumAssets.USDC_A_TOKEN).balanceOf(
-      address(AaveV3Ethereum.COLLECTOR)
-    );
-    initialBalanceAUSDT = IERC20(AaveV2EthereumAssets.USDT_A_TOKEN).balanceOf(
-      address(AaveV3Ethereum.COLLECTOR)
-    );
-
-    assertGe(initialBalanceAUSDT, proposal.USDT_V2_TO_SWAP(), 'Not enough aUSDT to Withdraw');
-    assertGe(initialBalanceAUSDC, proposal.USDC_V2_TO_SWAP(), 'Not enough aUSDC to Withdraw');
-  }
-
-  function _assertPostSwaps() internal {
     uint256 finalBalanceAUSDC = IERC20(AaveV2EthereumAssets.USDC_A_TOKEN).balanceOf(
       address(AaveV3Ethereum.COLLECTOR)
     );
@@ -125,7 +108,7 @@ contract AaveV3Ethereum_AaveLiquidityCommiteeFunding_20240306_Test is ProtocolV3
       proposal.GHO_USD_FEED(),
       proposal.USDC_V2_TO_SWAP(),
       address(AaveV3Ethereum.COLLECTOR),
-      50
+      100
     );
 
     vm.expectEmit(true, true, true, true, AaveV3EthereumAssets.USDT_UNDERLYING);
@@ -144,7 +127,7 @@ contract AaveV3Ethereum_AaveLiquidityCommiteeFunding_20240306_Test is ProtocolV3
       proposal.GHO_USD_FEED(),
       proposal.USDT_V2_TO_SWAP(),
       address(AaveV3Ethereum.COLLECTOR),
-      50
+      100
     );
   }
 }
