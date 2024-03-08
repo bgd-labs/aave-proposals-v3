@@ -8,22 +8,43 @@ import {GhoInterestRateStrategy} from './GhoInterestRateStrategy.sol';
 
 /**
  * @dev Deploy Ethereum
+ * deploy-command: make deploy-ledger contract=src/20240308_AaveV3Ethereum_GHOBorrowRateIncrease/GHOBorrowRateIncrease_20240308.s.sol:DeployInterestRateStrategy chain=mainnet
+ * verify-command: npx catapulta-verify -b broadcast/GHOBorrowRateIncrease_20240308.s.sol/1/run-latest.json
+ */
+contract DeployInterestRateStrategy is EthereumScript {
+  function run() external broadcast {
+    // deploy payloads
+    address payload0 = GovV3Helpers.deployDeterministic(type(GhoInterestRateStrategy).creationCode);
+
+    // compose action
+    IPayloadsControllerCore.ExecutionAction[]
+      memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
+    actions[0] = GovV3Helpers.buildAction(payload0);
+
+    // register action at payloadsController
+    GovV3Helpers.createPayload(actions);
+  }
+}
+
+/**
+ * @dev Deploy Ethereum
  * deploy-command: make deploy-ledger contract=src/20240308_AaveV3Ethereum_GHOBorrowRateIncrease/GHOBorrowRateIncrease_20240308.s.sol:DeployEthereum chain=mainnet
  * verify-command: npx catapulta-verify -b broadcast/GHOBorrowRateIncrease_20240308.s.sol/1/run-latest.json
  */
 contract DeployEthereum is EthereumScript {
   function run() external broadcast {
     // deploy payloads
-    address payload0 = GovV3Helpers.deployDeterministic(type(GhoInterestRateStrategy).creationCode);
-    address payload1 = GovV3Helpers.deployDeterministic(
-      abi.encode(type(AaveV3Ethereum_GHOBorrowRateIncrease_20240308).creationCode, payload0)
+    address payload0 = GovV3Helpers.deployDeterministic(
+      abi.encode(
+        type(AaveV3Ethereum_GHOBorrowRateIncrease_20240308).creationCode,
+        GovV3Helpers.predictDeterministicAddress(type(GhoInterestRateStrategy).creationCode)
+      )
     );
 
     // compose action
     IPayloadsControllerCore.ExecutionAction[]
-      memory actions = new IPayloadsControllerCore.ExecutionAction[](2);
+      memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
     actions[0] = GovV3Helpers.buildAction(payload0);
-    actions[1] = GovV3Helpers.buildAction(payload1);
 
     // register action at payloadsController
     GovV3Helpers.createPayload(actions);
