@@ -64,8 +64,8 @@ Upon implementing this proposal, a subsequent AIP will be submitted every 2 week
 
 ## References
 
-- Implementation: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240304_AaveV2Ethereum_EthereumV2ReserveFactorAdjustment/AaveV2Ethereum_EthereumV2ReserveFactorAdjustment_20240304.sol)
-- Tests: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240304_AaveV2Ethereum_EthereumV2ReserveFactorAdjustment/AaveV2Ethereum_EthereumV2ReserveFactorAdjustment_20240304.t.sol)
+- Implementation: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/1c642cb090ba92717b6e99442b6904b6945b6993/src/20240304_AaveV2Ethereum_EthereumV2ReserveFactorAdjustment/AaveV2Ethereum_EthereumV2ReserveFactorAdjustment_20240304.sol)
+- Tests: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/1c642cb090ba92717b6e99442b6904b6945b6993/src/20240304_AaveV2Ethereum_EthereumV2ReserveFactorAdjustment/AaveV2Ethereum_EthereumV2ReserveFactorAdjustment_20240304.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x26a03c08359c340f63b78b0c3e96d37aa0adeda65814643b0886d4719048ea7e)
 - [Discussion](https://governance.aave.com/t/arfc-ethereum-v2-reserve-factor-adjustment/16764)
 
