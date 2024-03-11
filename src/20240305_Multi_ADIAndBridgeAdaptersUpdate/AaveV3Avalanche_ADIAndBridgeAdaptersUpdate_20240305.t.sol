@@ -8,6 +8,7 @@ import {MiscAvalanche} from 'aave-address-book/MiscAvalanche.sol';
 import {GovernanceV3Avalanche} from 'aave-address-book/GovernanceV3Avalanche.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import './BaseTest.sol';
+import {AaveV3Ethereum_ADIAndBridgeAdaptersUpdate_20240305} from './AaveV3Ethereum_ADIAndBridgeAdaptersUpdate_20240305.sol';
 
 /**
  * @dev Test for AaveV3Avalanche_ADIAndBridgeAdaptersUpdate_20240305
@@ -15,6 +16,7 @@ import './BaseTest.sol';
  */
 contract AaveV3Avalanche_ADIAndBridgeAdaptersUpdate_20240305_Test is ProtocolV3TestBase, BaseTest {
   AaveV3Avalanche_ADIAndBridgeAdaptersUpdate_20240305 internal proposal;
+  AaveV3Ethereum_ADIAndBridgeAdaptersUpdate_20240305 internal ethereumPayload;
 
   function setUp() public {
     ccc = GovernanceV3Avalanche.CROSS_CHAIN_CONTROLLER;
@@ -22,6 +24,7 @@ contract AaveV3Avalanche_ADIAndBridgeAdaptersUpdate_20240305_Test is ProtocolV3T
 
     vm.createSelectFork(vm.rpcUrl('avalanche'), 42502057);
     proposal = new AaveV3Avalanche_ADIAndBridgeAdaptersUpdate_20240305();
+    ethereumPayload = new AaveV3Ethereum_ADIAndBridgeAdaptersUpdate_20240305();
   }
 
   /**
@@ -29,6 +32,7 @@ contract AaveV3Avalanche_ADIAndBridgeAdaptersUpdate_20240305_Test is ProtocolV3T
    */
   function test_defaultProposalExecution() public {
     _testTrustedRemotes();
+    _testCorrectPathConfiguration();
 
     _testCurrentReceiversAreAllowed();
     _testAllReceiversAreRepresented();
@@ -41,6 +45,12 @@ contract AaveV3Avalanche_ADIAndBridgeAdaptersUpdate_20240305_Test is ProtocolV3T
     _testAllReceiversAreRepresentedAfter();
     _testAfterForwarders();
     _testImplementationAddress(proposal.NEW_CROSS_CHAIN_CONTROLLER_IMPLEMENTATION(), true);
+  }
+
+  function _testCorrectPathConfiguration() internal {
+    assertEq(ethereumPayload.CCIP_NEW_ADAPTER(), proposal.DESTINATION_CCIP_NEW_ADAPTER());
+    assertEq(ethereumPayload.LZ_NEW_ADAPTER(), proposal.DESTINATION_LZ_NEW_ADAPTER()());
+    assertEq(ethereumPayload.HL_NEW_ADAPTER(), proposal.DESTINATION_HL_NEW_ADAPTER());
   }
 
   function _testTrustedRemotes() internal {

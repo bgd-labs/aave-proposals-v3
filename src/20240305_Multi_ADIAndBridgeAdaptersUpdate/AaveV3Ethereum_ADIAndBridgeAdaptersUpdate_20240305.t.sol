@@ -9,6 +9,15 @@ import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {GovernanceV3Polygon} from 'aave-address-book/GovernanceV3Polygon.sol';
 import {GovernanceV3Avalanche} from 'aave-address-book/GovernanceV3Avalanche.sol';
 import './BaseTest.sol';
+import {AaveV3Arbitrum_ADIAndBridgeAdaptersUpdate_20240305} from './AaveV3Arbitrum_ADIAndBridgeAdaptersUpdate_20240305.sol';
+import {AaveV3Avalanche_ADIAndBridgeAdaptersUpdate_20240305} from './AaveV3Avalanche_ADIAndBridgeAdaptersUpdate_20240305.sol';
+import {AaveV3Base_ADIAndBridgeAdaptersUpdate_20240305} from './AaveV3Base_ADIAndBridgeAdaptersUpdate_20240305.sol';
+import {AaveV3BNB_ADIAndBridgeAdaptersUpdate_20240305} from './AaveV3BNB_ADIAndBridgeAdaptersUpdate_20240305.sol';
+import {AaveV3Gnosis_ADIAndBridgeAdaptersUpdate_20240305} from './AaveV3Gnosis_ADIAndBridgeAdaptersUpdate_20240305.sol';
+import {AaveV3Metis_ADIAndBridgeAdaptersUpdate_20240305} from './AaveV3Metis_ADIAndBridgeAdaptersUpdate_20240305.sol';
+import {AaveV3Optimism_ADIAndBridgeAdaptersUpdate_20240305} from './AaveV3Optimism_ADIAndBridgeAdaptersUpdate_20240305.sol';
+import {AaveV3Polygon_ADIAndBridgeAdaptersUpdate_20240305} from './AaveV3Polygon_ADIAndBridgeAdaptersUpdate_20240305.sol';
+import {AaveV3Scroll_ADIAndBridgeAdaptersUpdate_20240305} from './AaveV3Scroll_ADIAndBridgeAdaptersUpdate_20240305.sol';
 
 /**
  * @dev Test for AaveV3Ethereum_ADIAndBridgeAdaptersUpdate_20240305
@@ -16,6 +25,15 @@ import './BaseTest.sol';
  */
 contract AaveV3Ethereum_ADIAndBridgeAdaptersUpdate_20240305_Test is ProtocolV3TestBase, BaseTest {
   AaveV3Ethereum_ADIAndBridgeAdaptersUpdate_20240305 internal proposal;
+  AaveV3Arbitrum_ADIAndBridgeAdaptersUpdate_20240305 internal arbitrumPayload;
+  AaveV3Avalanche_ADIAndBridgeAdaptersUpdate_20240305 internal avalanchePayload;
+  AaveV3Base_ADIAndBridgeAdaptersUpdate_20240305 internal basePayload;
+  AaveV3BNB_ADIAndBridgeAdaptersUpdate_20240305 internal bnbPayload;
+  AaveV3Gnosis_ADIAndBridgeAdaptersUpdate_20240305 internal gnosisPayload;
+  AaveV3Metis_ADIAndBridgeAdaptersUpdate_20240305 internal metisPayload;
+  AaveV3Optimism_ADIAndBridgeAdaptersUpdate_20240305 internal optimismPayload;
+  AaveV3Polygon_ADIAndBridgeAdaptersUpdate_20240305 internal polygonPayload;
+  AaveV3Scroll_ADIAndBridgeAdaptersUpdate_20240305 internal scrollPayload;
 
   function setUp() public {
     ccc = GovernanceV3Ethereum.CROSS_CHAIN_CONTROLLER;
@@ -23,6 +41,15 @@ contract AaveV3Ethereum_ADIAndBridgeAdaptersUpdate_20240305_Test is ProtocolV3Te
 
     vm.createSelectFork(vm.rpcUrl('mainnet'), 19367957);
     proposal = new AaveV3Ethereum_ADIAndBridgeAdaptersUpdate_20240305();
+    arbitrumPayload = new AaveV3Arbitrum_ADIAndBridgeAdaptersUpdate_20240305();
+    avalanchePayload = new AaveV3Avalanche_ADIAndBridgeAdaptersUpdate_20240305();
+    basePayload = new AaveV3Base_ADIAndBridgeAdaptersUpdate_20240305();
+    bnbPayload = new AaveV3BNB_ADIAndBridgeAdaptersUpdate_20240305();
+    gnosisPayload = new AaveV3Gnosis_ADIAndBridgeAdaptersUpdate_20240305();
+    metisPayload = new AaveV3Metis_ADIAndBridgeAdaptersUpdate_20240305();
+    optimismPayload = new AaveV3Optimism_ADIAndBridgeAdaptersUpdate_20240305();
+    polygonPayload = new AaveV3Polygon_ADIAndBridgeAdaptersUpdate_20240305();
+    scrollPayload = new AaveV3Scroll_ADIAndBridgeAdaptersUpdate_20240305();
   }
 
   /**
@@ -30,6 +57,7 @@ contract AaveV3Ethereum_ADIAndBridgeAdaptersUpdate_20240305_Test is ProtocolV3Te
    */
   function test_defaultProposalExecution() public {
     _testTrustedRemotes();
+    _testCorrectPathConfiguration();
 
     _testCurrentReceiversAreAllowed();
     _testCurrentForwarders();
@@ -42,6 +70,30 @@ contract AaveV3Ethereum_ADIAndBridgeAdaptersUpdate_20240305_Test is ProtocolV3Te
     _testAfterForwarders();
     _testAllReceiversAreRepresentedAfter();
     _testImplementationAddress(proposal.NEW_CROSS_CHAIN_CONTROLLER_IMPLEMENTATION(), true);
+  }
+
+  function _testCorrectPathConfiguration() internal {
+    assertEq(proposal.DESTINATION_ARB_NEW_ADAPTER(), arbitrumPayload.NEW_ADAPTER()());
+    assertEq(
+      proposal.DESTINATION_CCIP_NEW_ADAPTER_AVALANCHE(),
+      avalanchePayload.CCIP_NEW_ADAPTER()
+    );
+    assertEq(proposal.DESTINATION_LZ_NEW_ADAPTER_AVALANCHE(), avalanchePayload.LZ_NEW_ADAPTER()());
+    assertEq(proposal.DESTINATION_HL_NEW_ADAPTER_AVALANCHE(), avalanchePayload.HL_NEW_ADAPTER());
+    assertEq(proposal.DESTINATION_BASE_NEW_ADAPTER(), basePayload.NEW_ADAPTER());
+    assertEq(proposal.DESTINATION_CCIP_NEW_ADAPTER_BNB(), bnbPayload.CCIP_NEW_ADAPTER());
+    assertEq(proposal.DESTINATION_LZ_NEW_ADAPTER_BNB(), bnbPayload.LZ_NEW_ADAPTER());
+    assertEq(proposal.DESTINATION_HL_NEW_ADAPTER_BNB(), bnbPayload.HL_NEW_ADAPTER());
+    assertEq(proposal.DESTINATION_GNOSIS_NEW_ADAPTER(), gnosisPayload.GNOSIS_NEW_ADAPTER());
+    assertEq(proposal.DESTINATION_LZ_NEW_ADAPTER_GNOSIS(), gnosisPayload.LZ_NEW_ADAPTER());
+    assertEq(proposal.DESTINATION_HL_NEW_ADAPTER_GNOSIS(), gnosisPayload.HL_NEW_ADAPTER());
+    assertEq(proposal.DESTINATION_METIS_NEW_ADAPTER(), metisPayload.NEW_ADAPTER());
+    assertEq(proposal.DESTINATION_OPT_NEW_ADAPTER(), optimismPayload.NEW_ADAPTER());
+    assertEq(proposal.DESTINATION_CCIP_NEW_ADAPTER_POLYGON(), polygonPayload.CCIP_NEW_ADAPTER());
+    assertEq(proposal.DESTINATION_LZ_NEW_ADAPTER_POLYGON(), polygonPayload.LZ_NEW_ADAPTER());
+    assertEq(proposal.DESTINATION_HL_NEW_ADAPTER_POLYGON(), polygonPayload.HL_NEW_ADAPTER());
+    assertEq(proposal.DESTINATION_POL_NEW_ADAPTER(), polygonPayload.HL_POL_ADAPTER());
+    assertEq(proposal.DESTINATION_SCROLL_NEW_ADAPTER(), scrollPayload.NEW_ADAPTER());
   }
 
   function _testTrustedRemotes() internal {
