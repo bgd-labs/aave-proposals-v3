@@ -16,7 +16,7 @@ contract AaveV3Arbitrum_AddFlashborrowers_20240306_Test is ProtocolV3TestBase {
   AaveV3Arbitrum_AddFlashborrowers_20240306 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('arbitrum'), 187760041);
+    vm.createSelectFork(vm.rpcUrl('arbitrum'), 189265718);
     proposal = new AaveV3Arbitrum_AddFlashborrowers_20240306();
   }
 

@@ -11,7 +11,7 @@ import {IProposalGenericExecutor} from 'aave-helpers/interfaces/IProposalGeneric
  * - Discussion: https://governance.aave.com/t/arfc-add-contango-protocol-cian-protocol-and-index-coop-to-flashborrowers-on-aave-v3/16478
  */
 contract AaveV3Arbitrum_AddFlashborrowers_20240306 is IProposalGenericExecutor {
-  address public constant CONTANGO_PROTOCOL = 0xab515542d621574f9b5212d50593cD0C07e641bD;
+  address public constant CONTANGO_PROTOCOL = 0x5e2aDC1F256f990D73a69875E06AF8A8404e3a03;
 
   function execute() external {
     AaveV3Arbitrum.ACL_MANAGER.addFlashBorrower(CONTANGO_PROTOCOL);

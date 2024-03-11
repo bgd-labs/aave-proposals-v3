@@ -46,7 +46,7 @@ This AIP will whitelist the following contracts:
 | Ethereum | Index Coop | [0x3a657Ec8a755d2E43DDbfDeaDc15899EDaf8dcf8](https://etherscan.io/address/0x3a657Ec8a755d2E43DDbfDeaDc15899EDaf8dcf8)            | BTC2x-FLI AaveMigrationExtension |
 | Ethereum | CIAN       | [0x85105b7E11c442Ca6fF6b4d90d7a439f68376Ac4](https://etherscan.io/address/0x85105b7e11c442ca6ff6b4d90d7a439f68376ac4)            | FlashloanHelper                  |
 | Ethereum | Contango   | [0xab515542d621574f9b5212d50593cD0C07e641bD](https://etherscan.io/address/0xab515542d621574f9b5212d50593cD0C07e641bD)            | PermissionedAaveWrapper          |
-| Arbitrum | Contango   | [0xab515542d621574f9b5212d50593cD0C07e641bD](https://arbiscan.io/address/0xab515542d621574f9b5212d50593cd0c07e641bd)             | PermissionedAaveWrapper          |
+| Arbitrum | Contango   | [0x5e2aDC1F256f990D73a69875E06AF8A8404e3a03](https://arbiscan.io/address/0x5e2aDC1F256f990D73a69875E06AF8A8404e3a03)             | PermissionedAaveWrapper          |
 | Optimism | Contango   | [0xab515542d621574f9b5212d50593cD0C07e641bD](https://optimistic.etherscan.io/address/0xab515542d621574f9b5212d50593cd0c07e641bd) | PermissionedAaveWrapper          |
 
 ## References
