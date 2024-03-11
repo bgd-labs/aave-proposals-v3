@@ -1,5 +1,5 @@
 ---
-title: "GHOBorrowRateIncrease"
+title: "GHO Borrow Rate Increase"
 author: "Aave Chan Initiative"
 discussions: "https://governance.aave.com/t/arfc-increase-gho-borrow-rate-08-03-2024/16885"
 snapshot: "No snapshot for Direct-to-AIP"
