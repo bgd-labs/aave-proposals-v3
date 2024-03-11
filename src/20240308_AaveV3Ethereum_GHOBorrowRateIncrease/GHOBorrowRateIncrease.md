@@ -6,7 +6,7 @@ discussions: "https://governance.aave.com/t/arfc-increase-gho-borrow-rate-08-03-
 
 ## Simple Summary
 
-This AIP will increase GHO borrow rate by 0.5% APR.
+This AIP will increase GHO borrow rate by 0.7% APR.
 
 ## Motivation
 
