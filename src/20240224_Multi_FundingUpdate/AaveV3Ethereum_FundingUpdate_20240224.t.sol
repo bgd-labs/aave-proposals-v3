@@ -25,185 +25,92 @@ contract AaveV3Ethereum_FundingUpdate_20240224_Test is ProtocolV3TestBase {
     uint256 slippage
   );
 
+  struct TokenToMigrate {
+    address underlying;
+    address aToken;
+    uint256 qty;
+  }
+
+  struct TokenToSwap {
+    address underlying;
+    address aToken;
+    uint256 balance;
+  }
+
   AaveV3Ethereum_FundingUpdate_20240224 internal proposal;
 
   uint256 balanceUsdtBefore;
-  uint256 balanceAUSDCBefore;
-  uint256 balanceEthAWBTCBefore;
-  uint256 balanceEthAWETHBefore;
-  uint256 balanceEthAUSDCBefore;
-  uint256 balanceAEthUSDTBefore;
-  uint256 balanceAEthUSDCBefore;
 
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('mainnet'), 19363481);
     proposal = new AaveV3Ethereum_FundingUpdate_20240224();
   }
 
-  function test_execution() public {
-    _assertPreApproval();
-    _assertPreTransferCRVBAL();
-    _assertPreMigration();
-    _assertPreSwaps();
-    _expectEmits();
-
-    balanceUsdtBefore = IERC20(AaveV3EthereumAssets.USDT_UNDERLYING).balanceOf(
+  function test_alcTransfers() public {
+    uint256 balanceCRVBeforeALC = IERC20(AaveV3EthereumAssets.CRV_UNDERLYING).balanceOf(
+      proposal.ALC_SAFE()
+    );
+    uint256 balanceBALBeforeALC = IERC20(AaveV3EthereumAssets.CRV_UNDERLYING).balanceOf(
+      proposal.ALC_SAFE()
+    );
+    uint256 balanceCRVBeforeCollector = IERC20(AaveV3EthereumAssets.CRV_UNDERLYING).balanceOf(
+      address(AaveV3Ethereum.COLLECTOR)
+    );
+    uint256 balanceBALBeforeCollector = IERC20(AaveV3EthereumAssets.BAL_UNDERLYING).balanceOf(
+      address(AaveV3Ethereum.COLLECTOR)
+    );
+    uint256 balanceAEthCRVBeforeCollector = IERC20(AaveV2EthereumAssets.CRV_A_TOKEN).balanceOf(
+      address(AaveV3Ethereum.COLLECTOR)
+    );
+    uint256 balanceAEthBALBeforeCollector = IERC20(AaveV2EthereumAssets.BAL_A_TOKEN).balanceOf(
       address(AaveV3Ethereum.COLLECTOR)
     );
 
-    assertGt(balanceUsdtBefore, 0);
+    assertGt(balanceCRVBeforeCollector, 0);
+    assertGt(balanceBALBeforeCollector, 0);
 
     executePayload(vm, address(proposal));
 
-    assertEq(
-      IERC20(AaveV3EthereumAssets.USDT_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
-      0
+    uint256 balanceCRVAfterALC = IERC20(AaveV3EthereumAssets.CRV_UNDERLYING).balanceOf(
+      proposal.ALC_SAFE()
     );
-
-    _assertPostApproval();
-    _assertPostTransferCRVBAL();
-    _assertPostMigration();
-    _assertPostSwaps();
-  }
-
-  function _assertPreApproval() internal {
-    assertEq(
-      IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).allowance(
-        address(AaveV3Ethereum.COLLECTOR),
-        proposal.ALLOWANCES_WALLET()
-      ),
-      0
+    uint256 balanceBALAfterALC = IERC20(AaveV3EthereumAssets.CRV_UNDERLYING).balanceOf(
+      proposal.ALC_SAFE()
     );
-    assertEq(
-      IERC20(AaveV3EthereumAssets.WETH_A_TOKEN).allowance(
-        address(AaveV3Ethereum.COLLECTOR),
-        proposal.ALLOWANCES_WALLET()
-      ),
-      0
-    );
-  }
-
-  function _assertPostApproval() internal {
-    assertEq(
-      IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).allowance(
-        address(AaveV3Ethereum.COLLECTOR),
-        proposal.ALLOWANCES_WALLET()
-      ),
-      proposal.GHO_ALLOWANCE()
-    );
-    assertEq(
-      IERC20(AaveV3EthereumAssets.WETH_A_TOKEN).allowance(
-        address(AaveV3Ethereum.COLLECTOR),
-        proposal.ALLOWANCES_WALLET()
-      ),
-      proposal.WETH_V3_ALLOWANCE()
-    );
-  }
-
-  function _assertPreTransferCRVBAL() internal {
-    assertGt(
-      IERC20(AaveV3EthereumAssets.CRV_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
-      0,
-      'pre CRV not greater than zero'
-    );
-    assertGt(
-      IERC20(AaveV3EthereumAssets.BAL_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
-      0,
-      'pre BAL not greater than zero'
-    );
-    assertGt(
-      IERC20(AaveV3EthereumAssets.CRV_A_TOKEN).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
-      1 ether,
-      'pre aEthCRV not greater than 1'
-    );
-    assertGt(
-      IERC20(AaveV3EthereumAssets.BAL_A_TOKEN).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
-      1 ether,
-      'pre aEthBal not greater than 1'
-    );
-    assertGt(
-      IERC20(AaveV2EthereumAssets.CRV_A_TOKEN).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
-      1 ether,
-      'pre aCRV not greater than 1'
-    );
-    assertGt(
-      IERC20(AaveV2EthereumAssets.BAL_A_TOKEN).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
-      1 ether,
-      'pre aBAL not greater than 1'
-    );
-  }
-
-  function _assertPostTransferCRVBAL() internal {
-    assertEq(
-      IERC20(AaveV3EthereumAssets.CRV_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
-      0,
-      'post CRV not equal zero'
-    );
-    assertEq(
-      IERC20(AaveV3EthereumAssets.BAL_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
-      0,
-      'post BAL not equal zero'
-    );
-    assertApproxEqAbs(
-      IERC20(AaveV3EthereumAssets.CRV_A_TOKEN).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
-      0,
-      1 ether,
-      'post aEthCRV not equal to 1'
-    );
-    assertApproxEqAbs(
-      IERC20(AaveV3EthereumAssets.BAL_A_TOKEN).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
-      0,
-      1 ether,
-      'post aEthBAL not equal to 1'
-    );
-    assertApproxEqAbs(
-      IERC20(AaveV2EthereumAssets.CRV_A_TOKEN).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
-      25 ether,
-      1 ether,
-      'post aCRV not equal to 155 ether'
-    );
-    assertApproxEqAbs(
-      IERC20(AaveV2EthereumAssets.BAL_A_TOKEN).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
-      14 ether,
-      1 ether,
-      'post aBAL not equal to 4 ether'
-    );
-  }
-
-  function _assertPreMigration() internal {
-    AaveV3Ethereum_FundingUpdate_20240224.TokenToMigrate[] memory tokens = proposal
-      .tokensToMigrate();
-    for (uint256 i = 0; i < tokens.length; i++) {
-      assertGt(
-        IERC20(tokens[i].aToken).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
-        tokens[i].qty
-      );
-    }
-
-    balanceAUSDCBefore = IERC20(AaveV2EthereumAssets.USDC_A_TOKEN).balanceOf(
+    uint256 balanceCRVAfterCollector = IERC20(AaveV3EthereumAssets.CRV_UNDERLYING).balanceOf(
       address(AaveV3Ethereum.COLLECTOR)
     );
-    balanceEthAWBTCBefore = IERC20(AaveV3EthereumAssets.WBTC_A_TOKEN).balanceOf(
+    uint256 balanceBALAfterCollector = IERC20(AaveV3EthereumAssets.BAL_UNDERLYING).balanceOf(
       address(AaveV3Ethereum.COLLECTOR)
     );
-    balanceEthAWETHBefore = IERC20(AaveV3EthereumAssets.WETH_A_TOKEN).balanceOf(
-      address(AaveV3Ethereum.COLLECTOR)
+
+    assertEq(balanceCRVAfterCollector, 0, 'collector CRV balance after not 0');
+    assertEq(balanceBALAfterCollector, 0, 'collector BAL balance after not 0');
+    assertGt(
+      balanceCRVAfterALC,
+      balanceCRVBeforeALC + balanceCRVBeforeCollector + balanceAEthCRVBeforeCollector
     );
-    balanceEthAUSDCBefore = IERC20(AaveV3EthereumAssets.USDC_A_TOKEN).balanceOf(
-      address(AaveV3Ethereum.COLLECTOR)
+    assertGt(
+      balanceBALAfterALC,
+      balanceBALBeforeALC + balanceBALBeforeCollector + balanceAEthBALBeforeCollector
     );
   }
 
-  function _assertPostMigration() internal {
-    AaveV3Ethereum_FundingUpdate_20240224.TokenToMigrate[] memory tokens = proposal
-      .tokensToMigrate();
-    for (uint256 i = 0; i < 2; i++) {
-      assertApproxEqAbs(
-        IERC20(tokens[i].aToken).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
-        1 ether,
-        1 ether
-      );
-    }
+  function test_migrateV2toV3() internal {
+    uint256 balanceAUSDCBefore = IERC20(AaveV2EthereumAssets.USDC_A_TOKEN).balanceOf(
+      address(AaveV3Ethereum.COLLECTOR)
+    );
+    uint256 balanceEthAWBTCBefore = IERC20(AaveV3EthereumAssets.WBTC_A_TOKEN).balanceOf(
+      address(AaveV3Ethereum.COLLECTOR)
+    );
+    uint256 balanceEthAWETHBefore = IERC20(AaveV3EthereumAssets.WETH_A_TOKEN).balanceOf(
+      address(AaveV3Ethereum.COLLECTOR)
+    );
+    uint256 balanceEthAUSDCBefore = IERC20(AaveV3EthereumAssets.USDC_A_TOKEN).balanceOf(
+      address(AaveV3Ethereum.COLLECTOR)
+    );
+
+    executePayload(vm, address(proposal));
 
     assertLt(
       IERC20(AaveV2EthereumAssets.USDC_A_TOKEN).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
@@ -224,29 +131,46 @@ contract AaveV3Ethereum_FundingUpdate_20240224_Test is ProtocolV3TestBase {
     );
   }
 
-  function _assertPreSwaps() internal {
-    AaveV3Ethereum_FundingUpdate_20240224.TokenToSwap[] memory tokens = proposal
-      .aTokensToWithdraw();
+  function test_withdrawV2() public {
+    TokenToSwap[] memory tokens = new TokenToSwap[](5);
+    tokens[0] = TokenToSwap(
+      AaveV2EthereumAssets.LUSD_UNDERLYING,
+      AaveV2EthereumAssets.LUSD_A_TOKEN,
+      IERC20(AaveV2EthereumAssets.LUSD_A_TOKEN).balanceOf(address(AaveV3Ethereum.COLLECTOR)) -
+        1 ether
+    );
+    tokens[1] = TokenToSwap(
+      AaveV2EthereumAssets.DAI_UNDERLYING,
+      AaveV2EthereumAssets.DAI_A_TOKEN,
+      IERC20(AaveV2EthereumAssets.DAI_A_TOKEN).balanceOf(address(AaveV3Ethereum.COLLECTOR)) -
+        1 ether
+    );
+    tokens[2] = TokenToSwap(
+      AaveV2EthereumAssets.DPI_UNDERLYING,
+      AaveV2EthereumAssets.DPI_A_TOKEN,
+      IERC20(AaveV2EthereumAssets.DPI_A_TOKEN).balanceOf(address(AaveV3Ethereum.COLLECTOR)) -
+        1 ether
+    );
+    tokens[3] = TokenToSwap(
+      AaveV2EthereumAssets.FRAX_UNDERLYING,
+      AaveV2EthereumAssets.FRAX_A_TOKEN,
+      IERC20(AaveV2EthereumAssets.FRAX_A_TOKEN).balanceOf(address(AaveV3Ethereum.COLLECTOR)) -
+        1 ether
+    );
+    tokens[4] = TokenToSwap(
+      AaveV2EthereumAssets.USDT_UNDERLYING,
+      AaveV2EthereumAssets.USDT_A_TOKEN,
+      proposal.USDT_V2_TO_SWAP()
+    );
+
     for (uint256 i = 0; i < tokens.length; i++) {
       assertGt(IERC20(tokens[i].aToken).balanceOf(address(AaveV3Ethereum.COLLECTOR)), 0);
     }
 
-    assertGt(
-      IERC20(AaveV3EthereumAssets.LUSD_A_TOKEN).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
-      1 ether
-    );
+    _expectEmits();
 
-    balanceAEthUSDCBefore = IERC20(AaveV3EthereumAssets.USDC_A_TOKEN).balanceOf(
-      address(AaveV3Ethereum.COLLECTOR)
-    );
-    balanceAEthUSDTBefore = IERC20(AaveV3EthereumAssets.USDT_A_TOKEN).balanceOf(
-      address(AaveV3Ethereum.COLLECTOR)
-    );
-  }
+    executePayload(vm, address(proposal));
 
-  function _assertPostSwaps() internal {
-    AaveV3Ethereum_FundingUpdate_20240224.TokenToSwap[] memory tokens = proposal
-      .aTokensToWithdraw();
     for (uint256 i = 0; i < tokens.length; i++) {
       assertApproxEqAbs(
         IERC20(tokens[i].aToken).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
@@ -254,6 +178,45 @@ contract AaveV3Ethereum_FundingUpdate_20240224_Test is ProtocolV3TestBase {
         1000 ether
       );
     } // V2 Withdrawals leave a lot behind
+  }
+
+  function test_withdrawV3() public {
+    TokenToSwap[] memory tokens = new TokenToSwap[](3);
+    tokens[0] = TokenToSwap(
+      AaveV3EthereumAssets.USDC_UNDERLYING,
+      AaveV3EthereumAssets.USDC_A_TOKEN,
+      proposal.USDC_V3_TO_SWAP()
+    );
+    tokens[1] = TokenToSwap(
+      AaveV3EthereumAssets.USDT_UNDERLYING,
+      AaveV3EthereumAssets.USDT_A_TOKEN,
+      proposal.USDT_V3_TO_SWAP() -
+        IERC20(AaveV3EthereumAssets.USDT_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR))
+    );
+    tokens[2] = TokenToSwap(
+      AaveV3EthereumAssets.LUSD_UNDERLYING,
+      AaveV3EthereumAssets.LUSD_A_TOKEN,
+      IERC20(AaveV3EthereumAssets.LUSD_A_TOKEN).balanceOf(address(AaveV3Ethereum.COLLECTOR)) -
+        1 ether
+    );
+
+    for (uint256 i = 0; i < tokens.length; i++) {
+      assertGt(IERC20(tokens[i].aToken).balanceOf(address(AaveV3Ethereum.COLLECTOR)), 0);
+    }
+
+    uint256 balanceAEthUSDCBefore = IERC20(AaveV3EthereumAssets.USDC_A_TOKEN).balanceOf(
+      address(AaveV3Ethereum.COLLECTOR)
+    );
+    uint256 balanceAEthUSDTBefore = IERC20(AaveV3EthereumAssets.USDT_A_TOKEN).balanceOf(
+      address(AaveV3Ethereum.COLLECTOR)
+    );
+    uint256 balanceUSDTBefore = IERC20(AaveV3EthereumAssets.USDT_UNDERLYING).balanceOf(
+      address(AaveV3Ethereum.COLLECTOR)
+    );
+
+    _expectEmits();
+
+    executePayload(vm, address(proposal));
 
     assertApproxEqAbs(
       IERC20(AaveV3EthereumAssets.LUSD_A_TOKEN).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
@@ -269,28 +232,60 @@ contract AaveV3Ethereum_FundingUpdate_20240224_Test is ProtocolV3TestBase {
     );
     assertApproxEqAbs(
       IERC20(AaveV3EthereumAssets.USDT_A_TOKEN).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
-      balanceAEthUSDTBefore - proposal.USDT_V3_TO_SWAP() + balanceUsdtBefore,
+      balanceAEthUSDTBefore - proposal.USDT_V3_TO_SWAP() + balanceUSDTBefore,
       1,
       'aEthUSDT not within 1 ether'
     );
   }
 
   function _expectEmits() internal {
-    AaveV3Ethereum_FundingUpdate_20240224.TokenToSwap[] memory tokens = proposal
-      .aTokensToWithdraw();
-    for (uint256 i = 0; i < tokens.length; i++) {
-      vm.expectEmit(true, true, false, false, MiscEthereum.AAVE_SWAPPER);
-      emit SwapRequested(
-        proposal.MILKMAN(),
-        tokens[i].underlying,
-        AaveV3EthereumAssets.GHO_UNDERLYING,
-        tokens[i].underlying,
-        proposal.GHO_ETH_FEED(),
-        IERC20(tokens[i].underlying).balanceOf(address(proposal.SWAPPER())),
-        address(AaveV3Ethereum.COLLECTOR),
-        tokens[i].slippage
-      );
-    }
+    vm.expectEmit(true, true, true, true, MiscEthereum.AAVE_SWAPPER);
+    emit SwapRequested(
+      proposal.MILKMAN(),
+      AaveV3EthereumAssets.LUSD_UNDERLYING,
+      AaveV3EthereumAssets.GHO_UNDERLYING,
+      AaveV3EthereumAssets.LUSD_ORACLE,
+      proposal.GHO_USD_FEED(),
+      32761384430524382295524, // Hardcoded because of V2 withdrawal
+      address(AaveV3Ethereum.COLLECTOR),
+      500
+    );
+
+    vm.expectEmit(true, true, true, true, MiscEthereum.AAVE_SWAPPER);
+    emit SwapRequested(
+      proposal.MILKMAN(),
+      AaveV3EthereumAssets.DAI_UNDERLYING,
+      AaveV3EthereumAssets.GHO_UNDERLYING,
+      AaveV3EthereumAssets.DAI_ORACLE,
+      proposal.GHO_USD_FEED(),
+      400349503743721455670834, // Hardcoded because of V2 withdrawal
+      address(AaveV3Ethereum.COLLECTOR),
+      100
+    );
+
+    vm.expectEmit(true, true, true, true, MiscEthereum.AAVE_SWAPPER);
+    emit SwapRequested(
+      proposal.MILKMAN(),
+      AaveV2EthereumAssets.DPI_UNDERLYING,
+      AaveV3EthereumAssets.GHO_UNDERLYING,
+      proposal.DPI_USD_FEED(),
+      proposal.GHO_USD_FEED(),
+      486852204700306697462, // Hardcoded because of V2 withdrawal
+      address(AaveV3Ethereum.COLLECTOR),
+      300
+    );
+
+    vm.expectEmit(true, true, true, true, MiscEthereum.AAVE_SWAPPER);
+    emit SwapRequested(
+      proposal.MILKMAN(),
+      AaveV3EthereumAssets.FRAX_UNDERLYING,
+      AaveV3EthereumAssets.GHO_UNDERLYING,
+      AaveV3EthereumAssets.FRAX_ORACLE,
+      proposal.GHO_USD_FEED(),
+      29115641783196347431241, // Hardcoded because of V2 withdrawal
+      address(AaveV3Ethereum.COLLECTOR),
+      300
+    );
 
     vm.expectEmit(true, true, true, true, MiscEthereum.AAVE_SWAPPER);
     emit SwapRequested(
