@@ -43,16 +43,16 @@
 | variableDebtTokenName | Aave Scroll Variable Debt USDC |
 | variableDebtTokenSymbol | variableDebtScrUSDC |
 | optimalUsageRatio | 90 % |
+| maxExcessStableToTotalDebtRatio | 80 % |
 | maxExcessUsageRatio | 10 % |
+| optimalStableToTotalDebtRatio | 20 % |
 | baseVariableBorrowRate | 0 % |
 | variableRateSlope1 | 6 % |
 | variableRateSlope2 | 60 % |
 | baseStableBorrowRate | 7 % |
 | stableRateSlope1 | 6 % |
 | stableRateSlope2 | 60 % |
-| optimalStableToTotalDebtRatio | 20 % |
-| maxExcessStableToTotalDebtRatio | 80 % |
-| interestRate | ![ir](/.assets/4c5958ae482feac8d910d7dab706b3b1cfd28679.svg) |
+| interestRate | ![ir](/.assets/3dae2b4f6923d155de327323b76840893e8fe017.svg) |
 
 
 #### WETH ([0x5300000000000000000000000000000000000004](https://scrollscan.com/address/0x5300000000000000000000000000000000000004))
@@ -96,16 +96,16 @@
 | variableDebtTokenName | Aave Scroll Variable Debt WETH |
 | variableDebtTokenSymbol | variableDebtScrWETH |
 | optimalUsageRatio | 80 % |
+| maxExcessStableToTotalDebtRatio | 80 % |
 | maxExcessUsageRatio | 20 % |
+| optimalStableToTotalDebtRatio | 20 % |
 | baseVariableBorrowRate | 0 % |
 | variableRateSlope1 | 3.3 % |
 | variableRateSlope2 | 8 % |
 | baseStableBorrowRate | 5.3 % |
 | stableRateSlope1 | 3.3 % |
 | stableRateSlope2 | 8 % |
-| optimalStableToTotalDebtRatio | 20 % |
-| maxExcessStableToTotalDebtRatio | 80 % |
-| interestRate | ![ir](/.assets/7af3d32d5b53ea30044e549f0c9e403bbecdaaf1.svg) |
+| interestRate | ![ir](/.assets/940be9e2c5904458308f1e79b5eec2070061cda2.svg) |
 | eMode.label | ETH correlated |
 | eMode.ltv | 90 % |
 | eMode.liquidationThreshold | 93 % |
@@ -154,16 +154,16 @@
 | variableDebtTokenName | Aave Scroll Variable Debt wstETH |
 | variableDebtTokenSymbol | variableDebtScrwstETH |
 | optimalUsageRatio | 45 % |
+| maxExcessStableToTotalDebtRatio | 80 % |
 | maxExcessUsageRatio | 55 % |
+| optimalStableToTotalDebtRatio | 20 % |
 | baseVariableBorrowRate | 0 % |
 | variableRateSlope1 | 7 % |
 | variableRateSlope2 | 300 % |
 | baseStableBorrowRate | 9 % |
 | stableRateSlope1 | 7 % |
 | stableRateSlope2 | 300 % |
-| optimalStableToTotalDebtRatio | 20 % |
-| maxExcessStableToTotalDebtRatio | 80 % |
-| interestRate | ![ir](/.assets/b5cb0fd07fde8594230045982589445fc02ace52.svg) |
+| interestRate | ![ir](/.assets/253355680c0ab0a5b6df35bc5a881e2573651a72.svg) |
 | eMode.label | ETH correlated |
 | eMode.ltv | 90 % |
 | eMode.liquidationThreshold | 93 % |
@@ -320,9 +320,10 @@
     }
   },
   "strategies": {
-    "0x9205B37978aC983A297dFB53b3f3D2cCC7DDDADa": {
+    "0x06eFdBFf2a14a7c8E15944D1F4A48F9F95F663A4": {
       "from": null,
       "to": {
+        "address": "0x9205B37978aC983A297dFB53b3f3D2cCC7DDDADa",
         "baseStableBorrowRate": "70000000000000000000000000",
         "baseVariableBorrowRate": 0,
         "maxExcessStableToTotalDebtRatio": "800000000000000000000000000",
@@ -335,24 +336,10 @@
         "variableRateSlope2": "600000000000000000000000000"
       }
     },
-    "0xCB032D7e38a10503c0b2F9f7bE8c1A81bBBEe2A8": {
+    "0x5300000000000000000000000000000000000004": {
       "from": null,
       "to": {
-        "baseStableBorrowRate": "90000000000000000000000000",
-        "baseVariableBorrowRate": 0,
-        "maxExcessStableToTotalDebtRatio": "800000000000000000000000000",
-        "maxExcessUsageRatio": "550000000000000000000000000",
-        "optimalStableToTotalDebtRatio": "200000000000000000000000000",
-        "optimalUsageRatio": "450000000000000000000000000",
-        "stableRateSlope1": "70000000000000000000000000",
-        "stableRateSlope2": "3000000000000000000000000000",
-        "variableRateSlope1": "70000000000000000000000000",
-        "variableRateSlope2": "3000000000000000000000000000"
-      }
-    },
-    "0xD828F2f9Da85b190721797bEaD5Eb0acC4150f05": {
-      "from": null,
-      "to": {
+        "address": "0xD828F2f9Da85b190721797bEaD5Eb0acC4150f05",
         "baseStableBorrowRate": "53000000000000000000000000",
         "baseVariableBorrowRate": 0,
         "maxExcessStableToTotalDebtRatio": "800000000000000000000000000",
@@ -363,6 +350,22 @@
         "stableRateSlope2": "80000000000000000000000000",
         "variableRateSlope1": "33000000000000000000000000",
         "variableRateSlope2": "80000000000000000000000000"
+      }
+    },
+    "0xf610A9dfB7C89644979b4A0f27063E9e7d7Cda32": {
+      "from": null,
+      "to": {
+        "address": "0xCB032D7e38a10503c0b2F9f7bE8c1A81bBBEe2A8",
+        "baseStableBorrowRate": "90000000000000000000000000",
+        "baseVariableBorrowRate": 0,
+        "maxExcessStableToTotalDebtRatio": "800000000000000000000000000",
+        "maxExcessUsageRatio": "550000000000000000000000000",
+        "optimalStableToTotalDebtRatio": "200000000000000000000000000",
+        "optimalUsageRatio": "450000000000000000000000000",
+        "stableRateSlope1": "70000000000000000000000000",
+        "stableRateSlope2": "3000000000000000000000000000",
+        "variableRateSlope1": "70000000000000000000000000",
+        "variableRateSlope2": "3000000000000000000000000000"
       }
     }
   }

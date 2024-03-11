@@ -19,8 +19,17 @@ contract AaveV3Ethereum_GHOBorrowRateIncrease_20240308_Test is ProtocolV3TestBas
 
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('mainnet'), 19391086);
-    interestRateStrategy = new GhoInterestRateStrategy();
-    proposal = new AaveV3Ethereum_GHOBorrowRateIncrease_20240308(address(interestRateStrategy));
+    interestRateStrategy = GhoInterestRateStrategy(
+      GovV3Helpers.deployDeterministic(type(GhoInterestRateStrategy).creationCode)
+    );
+    proposal = AaveV3Ethereum_GHOBorrowRateIncrease_20240308(
+      GovV3Helpers.deployDeterministic(
+        type(AaveV3Ethereum_GHOBorrowRateIncrease_20240308).creationCode,
+        abi.encode(
+          GovV3Helpers.predictDeterministicAddress(type(GhoInterestRateStrategy).creationCode)
+        )
+      )
+    );
   }
 
   /**

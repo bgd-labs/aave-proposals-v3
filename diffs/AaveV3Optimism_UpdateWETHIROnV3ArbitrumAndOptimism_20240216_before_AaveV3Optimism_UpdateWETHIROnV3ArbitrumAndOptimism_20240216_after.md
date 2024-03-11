@@ -9,7 +9,7 @@
 | interestRateStrategy | [0xd00655ED65edE44354F54A23d46DCbd7ba0727dD](https://optimistic.etherscan.io/address/0xd00655ED65edE44354F54A23d46DCbd7ba0727dD) | [0x16F9bBeE415e519F184Fe1c09d653C6567e4eb2f](https://optimistic.etherscan.io/address/0x16F9bBeE415e519F184Fe1c09d653C6567e4eb2f) |
 | variableRateSlope1 | 3.3 % | 3 % |
 | baseStableBorrowRate | 6.3 % | 6 % |
-| interestRate | ![before](/.assets/ca6b2aa74895f1fc2926cdd88b0b86033580d616.svg) | ![after](/.assets/4e91bd04e654729df4b59d001423aed83e6d6759.svg) |
+| interestRate | ![before](/.assets/4518db8827287a0e0bddbe470c885ab6fa67cf74.svg) | ![after](/.assets/5a987481fcd21ac926a7663682a9aa4ac8703d67.svg) |
 
 ## Raw diff
 
@@ -24,19 +24,18 @@
     }
   },
   "strategies": {
-    "0x16F9bBeE415e519F184Fe1c09d653C6567e4eb2f": {
-      "from": null,
-      "to": {
-        "baseStableBorrowRate": "60000000000000000000000000",
-        "baseVariableBorrowRate": 0,
-        "maxExcessStableToTotalDebtRatio": "800000000000000000000000000",
-        "maxExcessUsageRatio": "100000000000000000000000000",
-        "optimalStableToTotalDebtRatio": "200000000000000000000000000",
-        "optimalUsageRatio": "900000000000000000000000000",
-        "stableRateSlope1": "40000000000000000000000000",
-        "stableRateSlope2": "800000000000000000000000000",
-        "variableRateSlope1": "30000000000000000000000000",
-        "variableRateSlope2": "800000000000000000000000000"
+    "0x4200000000000000000000000000000000000006": {
+      "address": {
+        "from": "0xd00655ED65edE44354F54A23d46DCbd7ba0727dD",
+        "to": "0x16F9bBeE415e519F184Fe1c09d653C6567e4eb2f"
+      },
+      "baseStableBorrowRate": {
+        "from": "63000000000000000000000000",
+        "to": "60000000000000000000000000"
+      },
+      "variableRateSlope1": {
+        "from": "33000000000000000000000000",
+        "to": "30000000000000000000000000"
       }
     }
   }
