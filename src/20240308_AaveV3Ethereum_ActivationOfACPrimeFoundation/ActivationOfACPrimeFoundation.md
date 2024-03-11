@@ -32,8 +32,8 @@ To explicitly convey the Aave DAO approval via its governance, an event is creat
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240308_AaveV3Ethereum_ActivationOfACPrimeFoundation/AaveV3Ethereum_ActivationOfACPrimeFoundation_20240308.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240308_AaveV3Ethereum_ActivationOfACPrimeFoundation/AaveV3Ethereum_ActivationOfACPrimeFoundation_20240308.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/ea76865ffbaccf08920bace6268571076e1ce06b/src/20240308_AaveV3Ethereum_ActivationOfACPrimeFoundation/AaveV3Ethereum_ActivationOfACPrimeFoundation_20240308.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/ea76865ffbaccf08920bace6268571076e1ce06b/src/20240308_AaveV3Ethereum_ActivationOfACPrimeFoundation/AaveV3Ethereum_ActivationOfACPrimeFoundation_20240308.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x71db494e4b49e7533c5ccaa566686b2d045b0761cb3296a2d77af4b500566eb0)
 - [Discussion](https://governance.aave.com/t/arfc-aave-treasury-rwa-allocation/14790)
 
