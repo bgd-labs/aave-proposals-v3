@@ -45,5 +45,9 @@ contract AaveV3Ethereum_AddFlashborrowers_20240306_Test is ProtocolV3TestBase {
     assertEq(isFlashBorrower, true);
     isFlashBorrower = AaveV3Ethereum.ACL_MANAGER.isFlashBorrower(proposal.CIAN_PROTOCOL());
     assertEq(isFlashBorrower, true);
+    isFlashBorrower = AaveV3Ethereum.ACL_MANAGER.isFlashBorrower(proposal.ALIGNED_PROTOCOL_1());
+    assertEq(isFlashBorrower, true);
+    isFlashBorrower = AaveV3Ethereum.ACL_MANAGER.isFlashBorrower(proposal.ALIGNED_PROTOCOL_2());
+    assertEq(isFlashBorrower, true);
   }
 }

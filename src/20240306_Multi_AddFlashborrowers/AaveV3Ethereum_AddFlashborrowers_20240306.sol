@@ -16,6 +16,8 @@ contract AaveV3Ethereum_AddFlashborrowers_20240306 is IProposalGenericExecutor {
   address public constant INDEXCOOP_FLASHBORROWER = 0x45c00508C14601fd1C1e296eB3C0e3eEEdCa45D0;
   address public constant INDEXCOOP_ETHX2 = 0x6e8ac99B2ec2e08600c7d0Aab970f31e9b11957a;
   address public constant INDEXCOOP_BTCX2 = 0x3a657Ec8a755d2E43DDbfDeaDc15899EDaf8dcf8;
+  address public constant ALIGNED_PROTOCOL_1 = 0xb5b29320d2Dde5BA5BAFA1EbcD270052070483ec;
+  address public constant ALIGNED_PROTOCOL_2 = 0x0274a704a6D9129F90A62dDC6f6024b33EcDad36;
 
   function execute() external {
     AaveV3Ethereum.ACL_MANAGER.addFlashBorrower(CONTANGO_PROTOCOL);
@@ -23,5 +25,7 @@ contract AaveV3Ethereum_AddFlashborrowers_20240306 is IProposalGenericExecutor {
     AaveV3Ethereum.ACL_MANAGER.addFlashBorrower(INDEXCOOP_FLASHBORROWER);
     AaveV3Ethereum.ACL_MANAGER.addFlashBorrower(INDEXCOOP_ETHX2);
     AaveV3Ethereum.ACL_MANAGER.addFlashBorrower(INDEXCOOP_BTCX2);
+    AaveV3Ethereum.ACL_MANAGER.addFlashBorrower(ALIGNED_PROTOCOL_1);
+    AaveV3Ethereum.ACL_MANAGER.addFlashBorrower(ALIGNED_PROTOCOL_2);
   }
 }

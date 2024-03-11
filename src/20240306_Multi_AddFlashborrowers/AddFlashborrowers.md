@@ -17,6 +17,8 @@ The following proposal plans to add Contango Protocol, Cian Protocol and Index C
 
 [Index Coop](https://indexcoop.com/) is an EVM based protocol that enables easy access to complex DeFi strategies by translating them into ERC20 tokens
 
+Another Aave-Aligned protocol has been added to this proposal in the context of upcoming synergies and partnerships.
+
 If this proposal is implemented, all flashLoan fees for Contango Protocol, Cian Protocol and Index Coop users using Aave would be waived.
 
 The Aave-Chan initiative believes that any incurred lost potential revenue will be compensated by the increased competitiveness of the Aave Protocol and the increased borrow volume.
