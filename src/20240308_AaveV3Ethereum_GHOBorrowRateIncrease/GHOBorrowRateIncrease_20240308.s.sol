@@ -13,16 +13,8 @@ import {GhoInterestRateStrategy} from './GhoInterestRateStrategy.sol';
  */
 contract DeployInterestRateStrategy is EthereumScript {
   function run() external broadcast {
-    // deploy payloads
-    address payload0 = GovV3Helpers.deployDeterministic(type(GhoInterestRateStrategy).creationCode);
-
-    // compose action
-    IPayloadsControllerCore.ExecutionAction[]
-      memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
-    actions[0] = GovV3Helpers.buildAction(payload0);
-
-    // register action at payloadsController
-    GovV3Helpers.createPayload(actions);
+    // deploy ir
+    GovV3Helpers.deployDeterministic(type(GhoInterestRateStrategy).creationCode);
   }
 }
 
