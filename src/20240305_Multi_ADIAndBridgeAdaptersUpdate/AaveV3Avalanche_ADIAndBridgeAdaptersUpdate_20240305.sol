@@ -19,13 +19,14 @@ contract AaveV3Avalanche_ADIAndBridgeAdaptersUpdate_20240305 is IProposalGeneric
   address public constant CCIP_ADAPTER_TO_REMOVE = 0x3F006299eC88985c18E6e885EeA29A49eC579882;
   address public constant LZ_ADAPTER_TO_REMOVE = 0xf41193E25408F652AF878c47E4401A01B5E4B682;
   address public constant HL_ADAPTER_TO_REMOVE = 0xa198Fac58E02A5C5F8F7e877895d50cFa9ad1E04;
-  address public constant CCIP_NEW_ADAPTER = address(0); // TODO: change for real address when deployed
-  address public constant LZ_NEW_ADAPTER = address(0); // TODO: change for real address when deployed
-  address public constant HL_NEW_ADAPTER = address(0); // TODO: change for real address when deployed
+  address public constant CCIP_NEW_ADAPTER = 0x2b88C83727B0E290B76EB3F6133994fF81B7f355;
+  address public constant LZ_NEW_ADAPTER = 0x10f02995a399C0dC0FaF29914220E9C1bCdE8640;
+  address public constant HL_NEW_ADAPTER = 0x617332a777780F546261247F621051d0b98975Eb;
   address public constant DESTINATION_CCIP_NEW_ADAPTER = address(0); // TODO: change for real address when deployed in ethereum
   address public constant DESTINATION_LZ_NEW_ADAPTER = address(0); // TODO: change for real address when deployed in ethereum
   address public constant DESTINATION_HL_NEW_ADAPTER = address(0); // TODO: change for real address when deployed in ethereum
-  address public constant NEW_CROSS_CHAIN_CONTROLLER_IMPLEMENTATION = address(0); // TODO: change for real address when deployed
+  address public constant NEW_CROSS_CHAIN_CONTROLLER_IMPLEMENTATION =
+    0x5Ef80c5eB6CF65Dab8cD1C0ee258a6D2bD38Bd22;
 
   function execute() external {
     // Update CrossChainController implementation

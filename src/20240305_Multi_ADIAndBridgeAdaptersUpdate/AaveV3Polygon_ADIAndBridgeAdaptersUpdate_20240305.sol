@@ -20,15 +20,16 @@ contract AaveV3Polygon_ADIAndBridgeAdaptersUpdate_20240305 is IProposalGenericEx
   address public constant LZ_ADAPTER_TO_REMOVE = 0xDA4B6024aA06f7565BBcAaD9B8bE24C3c229AAb5;
   address public constant HL_ADAPTER_TO_REMOVE = 0x3c25b96fF62D21E90556869272a277eE2E229747;
   address public constant POL_ADAPTER_TO_REMOVE = 0xb13712De579E1f9943502FFCf72eab6ec348cF79;
-  address public constant CCIP_NEW_ADAPTER = address(0); // TODO: change for real address when deployed
-  address public constant LZ_NEW_ADAPTER = address(0); // TODO: change for real address when deployed
-  address public constant HL_NEW_ADAPTER = address(0); // TODO: change for real address when deployed
-  address public constant POL_NEW_ADAPTER = address(0); // TODO: change for real address when deployed
+  address public constant CCIP_NEW_ADAPTER = 0xe79757D55a1600eF28D816a893E78E9FCDE2019E;
+  address public constant LZ_NEW_ADAPTER = 0x7FAE7765abB4c8f778d57337bB720d0BC53057e3;
+  address public constant HL_NEW_ADAPTER = 0x3e72665008dC237bdd91C04C10782Ed1987a4019;
+  address public constant POL_NEW_ADAPTER = 0x853649f897383f89d8441346Cf26a9ed02720B02;
   address public constant DESTINATION_CCIP_NEW_ADAPTER = address(0); // TODO: change for real address when deployed in ethereum
   address public constant DESTINATION_LZ_NEW_ADAPTER = address(0); // TODO: change for real address when deployed in ethereum
   address public constant DESTINATION_HL_NEW_ADAPTER = address(0); // TODO: change for real address when deployed in ethereum
   address public constant DESTINATION_POL_NEW_ADAPTER = address(0); // TODO: change for real address when deployed in ethereum
-  address public constant NEW_CROSS_CHAIN_CONTROLLER_IMPLEMENTATION = address(0); // TODO: change for real address when deployed
+  address public constant NEW_CROSS_CHAIN_CONTROLLER_IMPLEMENTATION =
+    0x87a95917DE670088d81B9a8B30E3B36704Ba3043;
 
   function execute() external {
     // Update CrossChainController implementation

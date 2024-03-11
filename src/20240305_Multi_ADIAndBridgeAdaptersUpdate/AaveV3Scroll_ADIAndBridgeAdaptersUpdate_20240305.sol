@@ -17,8 +17,9 @@ import {GovernanceV3Scroll} from 'aave-address-book/GovernanceV3Scroll.sol';
  */
 contract AaveV3Scroll_ADIAndBridgeAdaptersUpdate_20240305 is IProposalGenericExecutor {
   address public constant ADAPTER_TO_REMOVE = 0x118DFD5418890c0332042ab05173Db4A2C1d283c;
-  address public constant NEW_ADAPTER = address(0); // TODO: change for real address when deployed
-  address public constant NEW_CROSS_CHAIN_CONTROLLER_IMPLEMENTATION = address(0); // TODO: change for real address when deployed
+  address public constant NEW_ADAPTER = 0x3C06dce358add17aAf230f2234bCCC4afd50d090;
+  address public constant NEW_CROSS_CHAIN_CONTROLLER_IMPLEMENTATION =
+    0x5e06b10B3b9c3E1c0996D2544A35B9839Be02922;
 
   function execute() external {
     // Update CrossChainController implementation

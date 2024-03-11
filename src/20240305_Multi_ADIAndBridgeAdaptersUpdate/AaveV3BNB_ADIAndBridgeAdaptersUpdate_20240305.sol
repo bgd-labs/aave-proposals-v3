@@ -19,10 +19,11 @@ contract AaveV3BNB_ADIAndBridgeAdaptersUpdate_20240305 is IProposalGenericExecut
   address public constant CCIP_ADAPTER_TO_REMOVE = 0x746c675dAB49Bcd5BB9Dc85161f2d7Eb435009bf;
   address public constant LZ_ADAPTER_TO_REMOVE = 0xFF1137243698CaA18EE364Cc966CF0e02A4e6327;
   address public constant HL_ADAPTER_TO_REMOVE = 0x118DFD5418890c0332042ab05173Db4A2C1d283c;
-  address public constant CCIP_NEW_ADAPTER = address(0); // TODO: change for real address when deployed
-  address public constant LZ_NEW_ADAPTER = address(0); // TODO: change for real address when deployed
-  address public constant HL_NEW_ADAPTER = address(0); // TODO: change for real address when deployed
-  address public constant NEW_CROSS_CHAIN_CONTROLLER_IMPLEMENTATION = address(0); // TODO: change for real address when deployed
+  address public constant CCIP_NEW_ADAPTER = 0xAE93BEa44dcbE52B625169588574d31e36fb3A67;
+  address public constant LZ_NEW_ADAPTER = 0xa5cc218513305221201f196760E9e64e9D49d98A;
+  address public constant HL_NEW_ADAPTER = 0x3F006299eC88985c18E6e885EeA29A49eC579882;
+  address public constant NEW_CROSS_CHAIN_CONTROLLER_IMPLEMENTATION =
+    0xf41193E25408F652AF878c47E4401A01B5E4B682;
 
   function execute() external {
     // Update CrossChainController implementation

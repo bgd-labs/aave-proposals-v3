@@ -17,8 +17,9 @@ import {ICrossChainReceiver} from 'aave-address-book/common/ICrossChainControlle
  */
 contract AaveV3Base_ADIAndBridgeAdaptersUpdate_20240305 is IProposalGenericExecutor {
   address public constant ADAPTER_TO_REMOVE = 0x7b62461a3570c6AC8a9f8330421576e417B71EE7;
-  address public constant NEW_ADAPTER = address(0); // TODO: change for real address when deployed
-  address public constant NEW_CROSS_CHAIN_CONTROLLER_IMPLEMENTATION = address(0); // TODO: change for real address when deployed
+  address public constant NEW_ADAPTER = 0x7120b1f8e5b73c0C0DC99C6e52Fe4937E7EA11e0;
+  address public constant NEW_CROSS_CHAIN_CONTROLLER_IMPLEMENTATION =
+    0x9b6f5ef589A3DD08670Dd146C11C4Fb33E04494F;
 
   function execute() external {
     // Update CrossChainController implementation

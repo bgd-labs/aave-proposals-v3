@@ -19,10 +19,11 @@ contract AaveV3Gnosis_ADIAndBridgeAdaptersUpdate_20240305 is IProposalGenericExe
   address public constant GNOSIS_ADAPTER_TO_REMOVE = 0x889c0cc3283DB588A34E89Ad1E8F25B0fc827b4b;
   address public constant LZ_ADAPTER_TO_REMOVE = 0x7b62461a3570c6AC8a9f8330421576e417B71EE7;
   address public constant HL_ADAPTER_TO_REMOVE = 0x4A4c73d563395ad827511F70097d4Ef82E653805;
-  address public constant GNOSIS_NEW_ADAPTER = address(0); // TODO: change for real address when deployed
-  address public constant LZ_NEW_ADAPTER = address(0); // TODO: change for real address when deployed
-  address public constant HL_NEW_ADAPTER = address(0); // TODO: change for real address when deployed
-  address public constant NEW_CROSS_CHAIN_CONTROLLER_IMPLEMENTATION = address(0); // TODO: change for real address when deployed
+  address public constant GNOSIS_NEW_ADAPTER = 0x3C06dce358add17aAf230f2234bCCC4afd50d090;
+  address public constant LZ_NEW_ADAPTER = 0x9b6f5ef589A3DD08670Dd146C11C4Fb33E04494F;
+  address public constant HL_NEW_ADAPTER = 0xA806DA549FcB2B4912a7dFFE4c1aA7A1ed0Bd5C9;
+  address public constant NEW_CROSS_CHAIN_CONTROLLER_IMPLEMENTATION =
+    0x5e06b10B3b9c3E1c0996D2544A35B9839Be02922;
 
   function execute() external {
     // Update CrossChainController implementation

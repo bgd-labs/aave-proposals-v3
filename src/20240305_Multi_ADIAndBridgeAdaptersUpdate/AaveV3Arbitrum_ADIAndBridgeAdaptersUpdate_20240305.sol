@@ -17,8 +17,9 @@ import {GovernanceV3Arbitrum} from 'aave-address-book/GovernanceV3Arbitrum.sol';
  */
 contract AaveV3Arbitrum_ADIAndBridgeAdaptersUpdate_20240305 is IProposalGenericExecutor {
   address public constant ADAPTER_TO_REMOVE = 0x3829943c53F2d00e20B58475aF19716724bF90Ba;
-  address public constant NEW_ADAPTER = address(0); // TODO: change for real address when deployed
-  address public constant NEW_CROSS_CHAIN_CONTROLLER_IMPLEMENTATION = address(0); // TODO: change for real address when deployed
+  address public constant NEW_ADAPTER = 0xc8a2ADC4261c6b669CdFf69E717E77C9cFeB420d;
+  address public constant NEW_CROSS_CHAIN_CONTROLLER_IMPLEMENTATION =
+    0x6e633269af45F37c44659D98f382dd0DD524E5Df;
 
   function execute() external {
     // Update CrossChainController implementation

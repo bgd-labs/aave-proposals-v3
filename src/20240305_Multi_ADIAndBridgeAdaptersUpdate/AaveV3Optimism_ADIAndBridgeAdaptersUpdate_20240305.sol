@@ -17,8 +17,9 @@ import {GovernanceV3Optimism} from 'aave-address-book/GovernanceV3Optimism.sol';
  */
 contract AaveV3Optimism_ADIAndBridgeAdaptersUpdate_20240305 is IProposalGenericExecutor {
   address public constant ADAPTER_TO_REMOVE = 0x81d32B36380e6266e1BDd490eAC56cdB300afBe0;
-  address public constant NEW_ADAPTER = address(0); // TODO: change for real address when deployed
-  address public constant NEW_CROSS_CHAIN_CONTROLLER_IMPLEMENTATION = address(0); // TODO: change for real address when deployed
+  address public constant NEW_ADAPTER = 0xAE93BEa44dcbE52B625169588574d31e36fb3A67;
+  address public constant NEW_CROSS_CHAIN_CONTROLLER_IMPLEMENTATION =
+    0xa5cc218513305221201f196760E9e64e9D49d98A;
 
   function execute() external {
     // Update CrossChainController implementation
