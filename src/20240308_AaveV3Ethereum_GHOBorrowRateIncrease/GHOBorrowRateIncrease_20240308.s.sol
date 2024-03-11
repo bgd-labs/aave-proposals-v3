@@ -35,8 +35,8 @@ contract DeployEthereum is EthereumScript {
   function run() external broadcast {
     // deploy payloads
     address payload0 = GovV3Helpers.deployDeterministic(
+      type(AaveV3Ethereum_GHOBorrowRateIncrease_20240308).creationCode,
       abi.encode(
-        type(AaveV3Ethereum_GHOBorrowRateIncrease_20240308).creationCode,
         GovV3Helpers.predictDeterministicAddress(type(GhoInterestRateStrategy).creationCode)
       )
     );
@@ -57,7 +57,9 @@ contract DeployEthereum is EthereumScript {
  */
 contract CreateProposal is EthereumScript {
   function run() external {
-    address payload0 = GovV3Helpers.deployDeterministic(type(GhoInterestRateStrategy).creationCode);
+    address ghoIr = GovV3Helpers.predictDeterministicAddress(
+      type(GhoInterestRateStrategy).creationCode
+    );
     // create payloads
     PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](1);
 
@@ -65,7 +67,8 @@ contract CreateProposal is EthereumScript {
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsEthereum = new IPayloadsControllerCore.ExecutionAction[](1);
     actionsEthereum[0] = GovV3Helpers.buildAction(
-      abi.encode(type(AaveV3Ethereum_GHOBorrowRateIncrease_20240308).creationCode, payload0)
+      type(AaveV3Ethereum_GHOBorrowRateIncrease_20240308).creationCode,
+      abi.encode(ghoIr)
     );
     payloads[0] = GovV3Helpers.buildMainnetPayload(vm, actionsEthereum);
 
