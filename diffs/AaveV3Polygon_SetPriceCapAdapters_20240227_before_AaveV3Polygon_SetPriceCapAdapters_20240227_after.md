@@ -42,6 +42,14 @@
 | oracleDescription | DAI / USD | Capped DAI/USD |
 
 
+#### miMATIC ([0xa3Fa99A148fA48D14Ed51d610c367C61876997F1](https://polygonscan.com/address/0xa3Fa99A148fA48D14Ed51d610c367C61876997F1))
+
+| description | value before | value after |
+| --- | --- | --- |
+| oracle | [0xd8d483d813547CfB624b8Dc33a00F2fcbCd2D428](https://polygonscan.com/address/0xd8d483d813547CfB624b8Dc33a00F2fcbCd2D428) | [0x4ae2Ab1af7e3b0092dbF3A4B20ec3de8fC834873](https://polygonscan.com/address/0x4ae2Ab1af7e3b0092dbF3A4B20ec3de8fC834873) |
+| oracleDescription | MIMATIC / USD | Capped MAI/USD |
+
+
 #### USDT ([0xc2132D05D31c914a87C6611C10748AEb04B58e8F](https://polygonscan.com/address/0xc2132D05D31c914a87C6611C10748AEb04B58e8F))
 
 | description | value before | value after |
@@ -111,6 +119,16 @@
       "oracleDescription": {
         "from": "DAI / USD",
         "to": "Capped DAI/USD"
+      }
+    },
+    "0xa3Fa99A148fA48D14Ed51d610c367C61876997F1": {
+      "oracle": {
+        "from": "0xd8d483d813547CfB624b8Dc33a00F2fcbCd2D428",
+        "to": "0x4ae2Ab1af7e3b0092dbF3A4B20ec3de8fC834873"
+      },
+      "oracleDescription": {
+        "from": "MIMATIC / USD",
+        "to": "Capped MAI/USD"
       }
     },
     "0xc2132D05D31c914a87C6611C10748AEb04B58e8F": {

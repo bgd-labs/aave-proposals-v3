@@ -10,6 +10,14 @@
 | oracleDescription | FRAX / USD | Capped FRAX/USD |
 
 
+#### MAI ([0x3F56e0c36d275367b8C502090EDF38289b3dEa0d](https://arbiscan.io/address/0x3F56e0c36d275367b8C502090EDF38289b3dEa0d))
+
+| description | value before | value after |
+| --- | --- | --- |
+| oracle | [0x59644ec622243878d1464A9504F9e9a31294128a](https://arbiscan.io/address/0x59644ec622243878d1464A9504F9e9a31294128a) | [0x7a7cE08a1057723CCEDeA2462407427Ae33FFEb2](https://arbiscan.io/address/0x7a7cE08a1057723CCEDeA2462407427Ae33FFEb2) |
+| oracleDescription | MIMATIC / USD | Capped MAI/USD |
+
+
 #### wstETH ([0x5979D7b546E38E414F7E9822514be443A4800529](https://arbiscan.io/address/0x5979D7b546E38E414F7E9822514be443A4800529))
 
 | description | value before | value after |
@@ -79,6 +87,16 @@
       "oracleDescription": {
         "from": "FRAX / USD",
         "to": "Capped FRAX/USD"
+      }
+    },
+    "0x3F56e0c36d275367b8C502090EDF38289b3dEa0d": {
+      "oracle": {
+        "from": "0x59644ec622243878d1464A9504F9e9a31294128a",
+        "to": "0x7a7cE08a1057723CCEDeA2462407427Ae33FFEb2"
+      },
+      "oracleDescription": {
+        "from": "MIMATIC / USD",
+        "to": "Capped MAI/USD"
       }
     },
     "0x5979D7b546E38E414F7E9822514be443A4800529": {

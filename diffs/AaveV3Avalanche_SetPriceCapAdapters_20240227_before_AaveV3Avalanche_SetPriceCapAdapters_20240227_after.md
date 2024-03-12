@@ -11,6 +11,14 @@
 | oracleDescription | null | Capped sAVAX / AVAX / USD |
 
 
+#### MAI ([0x5c49b268c9841AFF1Cc3B0a418ff5c3442eE3F3b](https://snowtrace.io/address/0x5c49b268c9841AFF1Cc3B0a418ff5c3442eE3F3b))
+
+| description | value before | value after |
+| --- | --- | --- |
+| oracle | [0x5D1F504211c17365CA66353442a74D4435A8b778](https://snowtrace.io/address/0x5D1F504211c17365CA66353442a74D4435A8b778) | [0xCcC55Db26B78a19Dba1beE0066F9c1665575439A](https://snowtrace.io/address/0xCcC55Db26B78a19Dba1beE0066F9c1665575439A) |
+| oracleDescription | MIMATIC / USD | Capped MAI/USD |
+
+
 #### USDt ([0x9702230A8Ea53601f5cD2dc00fDBc13d4dF4A8c7](https://snowtrace.io/address/0x9702230A8Ea53601f5cD2dc00fDBc13d4dF4A8c7))
 
 | description | value before | value after |
@@ -60,6 +68,16 @@
       "oracleDescription": {
         "from": null,
         "to": "Capped sAVAX / AVAX / USD"
+      }
+    },
+    "0x5c49b268c9841AFF1Cc3B0a418ff5c3442eE3F3b": {
+      "oracle": {
+        "from": "0x5D1F504211c17365CA66353442a74D4435A8b778",
+        "to": "0xCcC55Db26B78a19Dba1beE0066F9c1665575439A"
+      },
+      "oracleDescription": {
+        "from": "MIMATIC / USD",
+        "to": "Capped MAI/USD"
       }
     },
     "0x9702230A8Ea53601f5cD2dc00fDBc13d4dF4A8c7": {

@@ -66,6 +66,14 @@
 | oracleDescription | LUSD / USD | Capped LUSD/USD |
 
 
+#### MAI ([0xdFA46478F9e5EA86d57387849598dbFB2e964b02](https://optimistic.etherscan.io/address/0xdFA46478F9e5EA86d57387849598dbFB2e964b02))
+
+| description | value before | value after |
+| --- | --- | --- |
+| oracle | [0x73A3919a69eFCd5b19df8348c6740bB1446F5ed0](https://optimistic.etherscan.io/address/0x73A3919a69eFCd5b19df8348c6740bB1446F5ed0) | [0xc6ac65E8f4F50a6655Efd78A92b6c503B5B625C8](https://optimistic.etherscan.io/address/0xc6ac65E8f4F50a6655Efd78A92b6c503B5B625C8) |
+| oracleDescription | MIMATIC / USD | Capped MAI/USD |
+
+
 ## Raw diff
 
 ```json
@@ -149,6 +157,16 @@
       "oracleDescription": {
         "from": "LUSD / USD",
         "to": "Capped LUSD/USD"
+      }
+    },
+    "0xdFA46478F9e5EA86d57387849598dbFB2e964b02": {
+      "oracle": {
+        "from": "0x73A3919a69eFCd5b19df8348c6740bB1446F5ed0",
+        "to": "0xc6ac65E8f4F50a6655Efd78A92b6c503B5B625C8"
+      },
+      "oracleDescription": {
+        "from": "MIMATIC / USD",
+        "to": "Capped MAI/USD"
       }
     }
   }

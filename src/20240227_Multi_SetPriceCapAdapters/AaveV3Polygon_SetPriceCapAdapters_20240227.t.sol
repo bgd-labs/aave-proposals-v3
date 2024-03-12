@@ -13,7 +13,7 @@ import {Payloads} from './SetPriceCapAdapters_20240227.s.sol';
  */
 contract AaveV3Polygon_SetPriceCapAdapters_20240227_Test is ProtocolV3TestBase {
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('polygon'), 54261515);
+    vm.createSelectFork(vm.rpcUrl('polygon'), 54567456);
   }
 
   /**

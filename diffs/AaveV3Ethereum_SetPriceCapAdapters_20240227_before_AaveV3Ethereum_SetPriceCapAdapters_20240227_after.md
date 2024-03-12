@@ -34,14 +34,6 @@
 | oracleDescription | wstETH/ETH/USD | Capped wstETH / stETH(ETH) / USD |
 
 
-#### sDAI ([0x83F20F44975D03b1b09e64809B757c47f942BEeA](https://etherscan.io/address/0x83F20F44975D03b1b09e64809B757c47f942BEeA))
-
-| description | value before | value after |
-| --- | --- | --- |
-| oracle | [0x29081f7aB5a644716EfcDC10D5c926c5fEe9F72B](https://etherscan.io/address/0x29081f7aB5a644716EfcDC10D5c926c5fEe9F72B) | [0x325f676C393410c4044E6566e782C8ED96E49474](https://etherscan.io/address/0x325f676C393410c4044E6566e782C8ED96E49474) |
-| oracleDescription | sDAI/DAI/USD | Capped sDAI / DAI / USD |
-
-
 #### FRAX ([0x853d955aCEf822Db058eb8505911ED77F175b99e](https://etherscan.io/address/0x853d955aCEf822Db058eb8505911ED77F175b99e))
 
 | description | value before | value after |
@@ -64,7 +56,7 @@
 | --- | --- | --- |
 | oracle | [0x5f4d15d761528c57a5C30c43c1DAb26Fc5452731](https://etherscan.io/address/0x5f4d15d761528c57a5C30c43c1DAb26Fc5452731) | [0x6243d2F41b4ec944F731f647589E28d9745a2674](https://etherscan.io/address/0x6243d2F41b4ec944F731f647589E28d9745a2674) |
 | oracleDescription | null | Capped cbETH / ETH / USD |
-| oracleLatestAnswer | 3983.38166794 | 4003.57195902 |
+| oracleLatestAnswer | 4250.44712602 | 4272.48373554 |
 
 
 #### rETH ([0xae78736Cd615f374D3085123A210448E74Fc6393](https://etherscan.io/address/0xae78736Cd615f374D3085123A210448E74Fc6393))
@@ -137,16 +129,6 @@
         "to": "Capped wstETH / stETH(ETH) / USD"
       }
     },
-    "0x83F20F44975D03b1b09e64809B757c47f942BEeA": {
-      "oracle": {
-        "from": "0x29081f7aB5a644716EfcDC10D5c926c5fEe9F72B",
-        "to": "0x325f676C393410c4044E6566e782C8ED96E49474"
-      },
-      "oracleDescription": {
-        "from": "sDAI/DAI/USD",
-        "to": "Capped sDAI / DAI / USD"
-      }
-    },
     "0x853d955aCEf822Db058eb8505911ED77F175b99e": {
       "oracle": {
         "from": "0xB9E1E3A9feFf48998E45Fa90847ed4D467E8BcfD",
@@ -173,8 +155,8 @@
         "to": "0x6243d2F41b4ec944F731f647589E28d9745a2674"
       },
       "oracleLatestAnswer": {
-        "from": 398338166794,
-        "to": 400357195902
+        "from": 425044712602,
+        "to": 427248373554
       },
       "oracleDescription": {
         "from": null,

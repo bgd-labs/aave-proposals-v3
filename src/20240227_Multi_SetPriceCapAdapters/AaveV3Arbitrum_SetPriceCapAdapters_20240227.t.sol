@@ -13,7 +13,7 @@ import {Payloads} from './SetPriceCapAdapters_20240227.s.sol';
  */
 contract AaveV3Arbitrum_SetPriceCapAdapters_20240227_Test is ProtocolV3TestBase {
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('arbitrum'), 187055996);
+    vm.createSelectFork(vm.rpcUrl('arbitrum'), 189601578);
   }
 
   /**

@@ -2,23 +2,23 @@
 pragma solidity ^0.8.0;
 
 import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aave-helpers/GovV3Helpers.sol';
-import {EthereumScript, PolygonScript, AvalancheScript, OptimismScript, ArbitrumScript, MetisScript, BaseScript, GnosisScript, BNBScript} from 'aave-helpers/ScriptUtils.sol';
+import {EthereumScript, PolygonScript, AvalancheScript, OptimismScript, ArbitrumScript, MetisScript, BaseScript, GnosisScript, BNBScript, ScrollScript} from 'aave-helpers/ScriptUtils.sol';
 
 library Payloads {
-  // https://etherscan.io/address/0x3611300f745f1e60aa1ce1d205517cdaa3b10b83
-  address public constant ETHEREUM = 0x3611300f745F1e60AA1cE1d205517cDAA3b10B83;
+  // https://etherscan.io/address/0xb20935059e3f49cbfa35bed0780fb8887d7d0d67
+  address public constant ETHEREUM = 0xb20935059e3F49Cbfa35bED0780Fb8887D7D0D67;
 
-  // https://polygonscan.com/address/0xbde0efa2ce806a02b4f25bfd77303c7790f279e4
-  address public constant POLYGON = 0xbdE0Efa2CE806a02B4f25bfD77303C7790f279e4;
+  // https://polygonscan.com/address/0x2d976a898522e6bca5bf1464931283d24d2a2698
+  address public constant POLYGON = 0x2d976a898522e6Bca5bf1464931283d24D2A2698;
 
-  // https://snowtrace.io/address/0x7a74E967Ba0663F7fC174D7Fc50D818e2fe877b0
-  address public constant AVALANCHE = 0x7a74E967Ba0663F7fC174D7Fc50D818e2fe877b0;
+  // https://snowtrace.io/address/0x882cCd8087bC44105E962Bc01280A335b210d738
+  address public constant AVALANCHE = 0x882cCd8087bC44105E962Bc01280A335b210d738;
 
-  // https://optimistic.etherscan.io/address/0x8740b38ff207cc0f8bf2621fe467e9cf1aacdb86
-  address public constant OPTIMISM = 0x8740b38fF207CC0F8BF2621fe467e9cF1AACDB86;
+  // https://optimistic.etherscan.io/address/0xe2fad8c2e3aefbb3e8fea1e0b84463c7c06350a3
+  address public constant OPTIMISM = 0xE2FaD8c2e3AefBB3e8FEa1E0B84463C7C06350A3;
 
-  // https://arbiscan.io/address/0x8d12d8d7eb9cbeee29a64e31dbc352b7ebc17337
-  address public constant ARBITRUM = 0x8D12D8D7Eb9CbeEe29a64E31DbC352B7ebC17337;
+  // https://arbiscan.io/address/0x296c266263bdc0b4ef32f75a7769ab925772f6cb
+  address public constant ARBITRUM = 0x296C266263bDc0b4eF32F75a7769aB925772F6Cb;
 
   // https://andromeda-explorer.metis.io/address/0xAE04aDeC3Ce3140d34377FB38C71C882E948AA03/
   address public constant METIS = 0xAE04aDeC3Ce3140d34377FB38C71C882E948AA03;
@@ -26,11 +26,14 @@ library Payloads {
   // https://basescan.org/address/0x360ef8d31b90718f13b73d10f3f3c122d86577f1
   address public constant BASE = 0x360eF8D31B90718f13b73d10f3F3C122d86577f1;
 
-  // https://gnosisscan.io/address/0x473e655bb3066326f7a5ffa5d3cccd6e0ef6f61e
-  address public constant GNOSIS = 0x473e655bb3066326F7a5FFA5D3cCcd6E0eF6F61e;
+  // https://gnosisscan.io/address/0xac603d82de4fed4c28175f707bc4d15d79e63303
+  address public constant GNOSIS = 0xaC603d82de4Fed4c28175f707BC4d15d79E63303;
 
   // https://bscscan.com/address/0x2683f613a899694a8d8669243321541cbdc6a95b
   address public constant BNB = 0x2683F613a899694a8d8669243321541CBdc6a95b;
+
+  // https://scrollscan.com/address/0xd11f81a205b2ae847cb46c58e12b4c82a30e1809
+  address public constant SCROLL = 0xD11f81a205b2ae847cB46c58e12b4c82A30e1809;
 }
 
 /**
@@ -187,13 +190,30 @@ contract DeployBNB is BNBScript {
 }
 
 /**
+ * @dev Deploy Scroll
+ * deploy-command: make deploy-ledger contract=src/20240206_Multi_SetPriceCapPriceAdapters/SetPriceCapPriceAdapters_20240206.s.sol:DeployScroll chain=scroll
+ * verify-command: npx catapulta-verify -b broadcast/SetPriceCapPriceAdapters_20240206.s.sol/534351/run-latest.json
+ */
+contract DeployScroll is ScrollScript {
+  function run() external broadcast {
+    // compose action
+    IPayloadsControllerCore.ExecutionAction[]
+      memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
+    actions[0] = GovV3Helpers.buildAction(Payloads.SCROLL);
+
+    // register action at payloadsController
+    GovV3Helpers.createPayload(actions);
+  }
+}
+
+/**
  * @dev Create Proposal
  * command: make deploy-ledger contract=src/20240206_Multi_SetPriceCapPriceAdapters/SetPriceCapPriceAdapters_20240206.s.sol:CreateProposal chain=mainnet
  */
 contract CreateProposal is EthereumScript {
   function run() external {
     // create payloads
-    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](9);
+    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](10);
 
     // compose actions for validation
     IPayloadsControllerCore.ExecutionAction[]
@@ -240,6 +260,11 @@ contract CreateProposal is EthereumScript {
       memory actionsBNB = new IPayloadsControllerCore.ExecutionAction[](1);
     actionsBNB[0] = GovV3Helpers.buildAction(Payloads.BNB);
     payloads[8] = GovV3Helpers.buildBNBPayload(vm, actionsBNB);
+
+    IPayloadsControllerCore.ExecutionAction[]
+      memory actionsScroll = new IPayloadsControllerCore.ExecutionAction[](1);
+    actionsScroll[0] = GovV3Helpers.buildAction(Payloads.SCROLL);
+    payloads[9] = GovV3Helpers.buildScrollPayload(vm, actionsScroll);
 
     // create proposal
     vm.startBroadcast();

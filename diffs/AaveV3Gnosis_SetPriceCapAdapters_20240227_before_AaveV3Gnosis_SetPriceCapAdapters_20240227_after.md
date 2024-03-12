@@ -18,14 +18,6 @@
 | oracleDescription | USDC / USD | Capped USDC/USD |
 
 
-#### sDAI ([0xaf204776c7245bF4147c2612BF6e5972Ee483701](https://gnosisscan.io/address/0xaf204776c7245bF4147c2612BF6e5972Ee483701))
-
-| description | value before | value after |
-| --- | --- | --- |
-| oracle | [0x1D0f881Ce1a646E2f27Dec3c57Fa056cB838BCC2](https://gnosisscan.io/address/0x1D0f881Ce1a646E2f27Dec3c57Fa056cB838BCC2) | [0x808E873E85766fc889aa550018Fd2ad13Ad60f2D](https://gnosisscan.io/address/0x808E873E85766fc889aa550018Fd2ad13Ad60f2D) |
-| oracleDescription | sDAI/DAI/USD | Capped sDAI / DAI / USD |
-
-
 #### WXDAI ([0xe91D153E0b41518A2Ce8Dd3D7944Fa863463a97d](https://gnosisscan.io/address/0xe91D153E0b41518A2Ce8Dd3D7944Fa863463a97d))
 
 | description | value before | value after |
@@ -57,16 +49,6 @@
       "oracleDescription": {
         "from": "USDC / USD",
         "to": "Capped USDC/USD"
-      }
-    },
-    "0xaf204776c7245bF4147c2612BF6e5972Ee483701": {
-      "oracle": {
-        "from": "0x1D0f881Ce1a646E2f27Dec3c57Fa056cB838BCC2",
-        "to": "0x808E873E85766fc889aa550018Fd2ad13Ad60f2D"
-      },
-      "oracleDescription": {
-        "from": "sDAI/DAI/USD",
-        "to": "Capped sDAI / DAI / USD"
       }
     },
     "0xe91D153E0b41518A2Ce8Dd3D7944Fa863463a97d": {

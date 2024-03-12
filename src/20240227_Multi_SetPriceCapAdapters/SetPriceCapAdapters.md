@@ -1,5 +1,5 @@
 ---
-title: "Set Price Cap Adapters"
+title: "Set Price Cap Adapters (CAPO)"
 author: "BGD Labs (@bgdlabs)"
 discussions: "https://governance.aave.com/t/bgd-correlated-asset-price-oracle/16133"
 snapshot: "https://snapshot.org/#/aave.eth/proposal/0x387f779952a20e850f941111ccf7aa49022ee35274fd219b9759c0ea240b72e1"
@@ -24,7 +24,6 @@ In some cases, the relation between an underlying asset and its correlated is di
 | ------- | -------------- | -------------- |
 | wstETH  | 9.68%          | 7 days         |
 | rETH    | 9.3%           | 7 days         |
-| sDAI    | 10.15%         | 7 days         |
 | cbETH   | 8.12%          | 7 days         |
 | MaticX  | 10.2%          | 14 days        |
 | stMATIC | 10.45%         | 14 days        |
@@ -38,14 +37,15 @@ Oracles will be updated using 'priceFeedsUpdates()' method of the Config Engine 
 | Network   | LSTs                      | Stables                                    |
 | --------- | ------------------------- | ------------------------------------------ |
 | Mainnet   | wstETH, rETH, sDAI, cbETH | USDC, USDT, DAI, FRAX, LUSD, crvUSd, pyUSD |
-| Arbitrum  | wstETH, rETH              | USDC, USDC.e USDT, FRAX, LUSD              |
-| Avalanche | sAvax                     | USDC, DAI.e, FRAX                          |
-| Optimism  | wstETH, rETH              | USDC, USDC.e, USDT, DAI, LUSD, sUSD        |
-| Polygon   | wstETH, stMatic, MaticX   | USDC, USDC.e, USDT, DAI                    |
+| Arbitrum  | wstETH, rETH              | USDC, USDC.e USDT, FRAX, LUSD, MAI         |
+| Avalanche | sAvax                     | USDC, DAI.e, FRAX, MAI                     |
+| Optimism  | wstETH, rETH              | USDC, USDC.e, USDT, DAI, LUSD, sUSD, MAI   |
+| Polygon   | wstETH, stMatic, MaticX   | USDC, USDC.e, USDT, DAI, MAI               |
 | Gnosis    | wstETH, sDAI              | USDC, xDAI                                 |
 | Base      | wstETH, cbETH             | USDC                                       |
 | Metis     |                           | USDC, USDT, m.DAI                          |
 | BNB       |                           | USDC, USDT, fdUSD                          |
+| Scroll    | wstETH                    | USDC                                       |
 
 # Security
 
@@ -54,8 +54,8 @@ Oracles will be updated using 'priceFeedsUpdates()' method of the Config Engine 
 
 ## References
 
-- Payloads: [AaveV3Ethereum](https://github.com/bgd-labs/aave-capo/blob/main/src/contracts/payloads/AaveV3EthereumPayload.sol), [AaveV3Polygon](https://github.com/bgd-labs/aave-capo/blob/main/src/contracts/payloads/AaveV3PolygonPayload.sol), [AaveV3Avalanche](https://github.com/bgd-labs/aave-capo/blob/main/src/contracts/payloads/AaveV3AvalanchePayload.sol), [AaveV3Arbitrum](https://github.com/bgd-labs/aave-capo/blob/main/src/contracts/payloads/AaveV3ArbitrumPayload.sol), [AaveV3Optimism](https://github.com/bgd-labs/aave-capo/blob/main/src/contracts/payloads/AaveV3OptimismPayload.sol), [AaveV3Metis](https://github.com/bgd-labs/aave-capo/blob/main/src/contracts/payloads/AaveV3MetisPayload.sol), [AaveV3Base](https://github.com/bgd-labs/aave-capo/blob/main/src/contracts/payloads/AaveV3BasePayload.sol), [AaveV3Gnosis](https://github.com/bgd-labs/aave-capo/blob/main/src/contracts/payloads/AaveV3GnosisPayload.sol), [AaveV3BNB](https://github.com/bgd-labs/aave-capo/blob/main/src/contracts/payloads/AaveV3BNBPayload.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-capo/tree/main/tests/ethereum), [AaveV3Polygon](https://github.com/bgd-labs/aave-capo/tree/main/tests/polygon), [AaveV3Avalanche](https://github.com/bgd-labs/aave-capo/tree/main/tests/avalanche), [AaveV3Arbitrum](https://github.com/bgd-labs/aave-capo/tree/main/tests/arbitrum), [AaveV3Optimism](https://github.com/bgd-labs/aave-capo/tree/main/tests/optimism), [AaveV3Base](https://github.com/bgd-labs/aave-capo/tree/main/tests/base), [AaveV3Gnosis](https://github.com/bgd-labs/aave-capo/tree/main/tests/gnosis)
+- Payloads: [AaveV3Ethereum](https://github.com/bgd-labs/aave-capo/blob/main/src/contracts/payloads/AaveV3EthereumPayload.sol), [AaveV3Polygon](https://github.com/bgd-labs/aave-capo/blob/main/src/contracts/payloads/AaveV3PolygonPayload.sol), [AaveV3Avalanche](https://github.com/bgd-labs/aave-capo/blob/main/src/contracts/payloads/AaveV3AvalanchePayload.sol), [AaveV3Arbitrum](https://github.com/bgd-labs/aave-capo/blob/main/src/contracts/payloads/AaveV3ArbitrumPayload.sol), [AaveV3Optimism](https://github.com/bgd-labs/aave-capo/blob/main/src/contracts/payloads/AaveV3OptimismPayload.sol), [AaveV3Metis](https://github.com/bgd-labs/aave-capo/blob/main/src/contracts/payloads/AaveV3MetisPayload.sol), [AaveV3Base](https://github.com/bgd-labs/aave-capo/blob/main/src/contracts/payloads/AaveV3BasePayload.sol), [AaveV3Gnosis](https://github.com/bgd-labs/aave-capo/blob/main/src/contracts/payloads/AaveV3GnosisPayload.sol), [AaveV3BNB](https://github.com/bgd-labs/aave-capo/blob/main/src/contracts/payloads/AaveV3BNBPayload.sol), [AaveV3Scroll](https://github.com/bgd-labs/aave-capo/blob/main/src/contracts/payloads/AaveV3ScrollPayload.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-capo/tree/main/tests/ethereum), [AaveV3Polygon](https://github.com/bgd-labs/aave-capo/tree/main/tests/polygon), [AaveV3Avalanche](https://github.com/bgd-labs/aave-capo/tree/main/tests/avalanche), [AaveV3Arbitrum](https://github.com/bgd-labs/aave-capo/tree/main/tests/arbitrum), [AaveV3Optimism](https://github.com/bgd-labs/aave-capo/tree/main/tests/optimism), [AaveV3Base](https://github.com/bgd-labs/aave-capo/tree/main/tests/base), [AaveV3Gnosis](https://github.com/bgd-labs/aave-capo/tree/main/tests/gnosis), [AaveV3Scroll](https://github.com/bgd-labs/aave-capo/tree/main/tests/scroll)
 
 ## Copyright
 
