@@ -19,7 +19,8 @@ contract AaveV3BNB_ADIAndBridgeAdaptersUpdate_20240305_Test is BaseTest {
     BaseTest(GovernanceV3BNB.CROSS_CHAIN_CONTROLLER, MiscBNB.PROXY_ADMIN, 'bnb', 36903911)
   {}
 
-  function setUp() public {
+  function setUp() public override {
+    super.setUp();
     payload = new AaveV3BNB_ADIAndBridgeAdaptersUpdate_20240305();
     payloadAddress = address(payload);
   }
@@ -58,7 +59,7 @@ contract AaveV3BNB_ADIAndBridgeAdaptersUpdate_20240305_Test is BaseTest {
     bool beforeExecution
   ) internal view override returns (AdaptersByChain[] memory) {
     address[] memory adapters = new address[](3);
-    AdaptersByChain[] memory receiverAdaptersByChain = AdaptersByChain[](1);
+    AdaptersByChain[] memory receiverAdaptersByChain = new AdaptersByChain[](1);
 
     adapters[0] = payload.CCIP_ADAPTER_TO_REMOVE();
     adapters[1] = payload.LZ_ADAPTER_TO_REMOVE();
@@ -79,32 +80,32 @@ contract AaveV3BNB_ADIAndBridgeAdaptersUpdate_20240305_Test is BaseTest {
     bool beforeExecution
   ) internal view override returns (AdapterAllowed[] memory) {
     AdapterAllowed[] memory adaptersAllowed = new AdapterAllowed[](6);
-    adaptersAllowed[0]({
+    adaptersAllowed[0] = AdapterAllowed({
       adapter: payload.CCIP_ADAPTER_TO_REMOVE(),
       chainId: ChainIds.MAINNET,
       allowed: true
     });
-    adaptersAllowed[1]({
+    adaptersAllowed[1] = AdapterAllowed({
       adapter: payload.LZ_ADAPTER_TO_REMOVE(),
       chainId: ChainIds.MAINNET,
       allowed: true
     });
-    adaptersAllowed[2]({
+    adaptersAllowed[2] = AdapterAllowed({
       adapter: payload.HL_ADAPTER_TO_REMOVE(),
       chainId: ChainIds.MAINNET,
       allowed: true
     });
-    adaptersAllowed[3]({
+    adaptersAllowed[3] = AdapterAllowed({
       adapter: payload.CCIP_NEW_ADAPTER(),
       chainId: ChainIds.MAINNET,
       allowed: false
     });
-    adaptersAllowed[4]({
+    adaptersAllowed[4] = AdapterAllowed({
       adapter: payload.LZ_NEW_ADAPTER(),
       chainId: ChainIds.MAINNET,
       allowed: false
     });
-    adaptersAllowed[5]({
+    adaptersAllowed[5] = AdapterAllowed({
       adapter: payload.HL_NEW_ADAPTER(),
       chainId: ChainIds.MAINNET,
       allowed: false

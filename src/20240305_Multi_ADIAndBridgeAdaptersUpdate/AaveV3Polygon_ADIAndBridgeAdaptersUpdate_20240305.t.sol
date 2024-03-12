@@ -24,7 +24,8 @@ contract AaveV3Polygon_ADIAndBridgeAdaptersUpdate_20240305_Test is BaseTest {
     )
   {}
 
-  function setUp() public {
+  function setUp() public override {
+    super.setUp();
     payload = new AaveV3Polygon_ADIAndBridgeAdaptersUpdate_20240305();
     payloadAddress = address(payload);
   }
@@ -42,7 +43,7 @@ contract AaveV3Polygon_ADIAndBridgeAdaptersUpdate_20240305_Test is BaseTest {
     return adapterNames;
   }
 
-  function _checkCorrectPathConfiguration() internal {
+  function _checkCorrectPathConfiguration() internal override {
     assertEq(ethereumPayload.CCIP_NEW_ADAPTER(), payload.DESTINATION_CCIP_NEW_ADAPTER());
     assertEq(ethereumPayload.LZ_NEW_ADAPTER(), payload.DESTINATION_LZ_NEW_ADAPTER());
     assertEq(ethereumPayload.HL_NEW_ADAPTER(), payload.DESTINATION_HL_NEW_ADAPTER());
@@ -107,7 +108,7 @@ contract AaveV3Polygon_ADIAndBridgeAdaptersUpdate_20240305_Test is BaseTest {
     bool beforeExecution
   ) internal view override returns (AdaptersByChain[] memory) {
     address[] memory adapters = new address[](4);
-    AdaptersByChain[] memory receiverAdaptersByChain = AdaptersByChain[](1);
+    AdaptersByChain[] memory receiverAdaptersByChain = new AdaptersByChain[](1);
 
     adapters[0] = payload.CCIP_ADAPTER_TO_REMOVE();
     adapters[1] = payload.LZ_ADAPTER_TO_REMOVE();
@@ -130,42 +131,42 @@ contract AaveV3Polygon_ADIAndBridgeAdaptersUpdate_20240305_Test is BaseTest {
     bool beforeExecution
   ) internal view override returns (AdapterAllowed[] memory) {
     AdapterAllowed[] memory adaptersAllowed = new AdapterAllowed[](8);
-    adaptersAllowed[0]({
+    adaptersAllowed[0] = AdapterAllowed({
       adapter: payload.CCIP_ADAPTER_TO_REMOVE(),
       chainId: ChainIds.MAINNET,
       allowed: true
     });
-    adaptersAllowed[1]({
+    adaptersAllowed[1] = AdapterAllowed({
       adapter: payload.LZ_ADAPTER_TO_REMOVE(),
       chainId: ChainIds.MAINNET,
       allowed: true
     });
-    adaptersAllowed[2]({
+    adaptersAllowed[2] = AdapterAllowed({
       adapter: payload.HL_ADAPTER_TO_REMOVE(),
       chainId: ChainIds.MAINNET,
       allowed: true
     });
-    adaptersAllowed[3]({
+    adaptersAllowed[3] = AdapterAllowed({
       adapter: payload.POL_ADAPTER_TO_REMOVE(),
       chainId: ChainIds.MAINNET,
       allowed: true
     });
-    adaptersAllowed[4]({
+    adaptersAllowed[4] = AdapterAllowed({
       adapter: payload.CCIP_NEW_ADAPTER(),
       chainId: ChainIds.MAINNET,
       allowed: false
     });
-    adaptersAllowed[5]({
+    adaptersAllowed[5] = AdapterAllowed({
       adapter: payload.LZ_NEW_ADAPTER(),
       chainId: ChainIds.MAINNET,
       allowed: false
     });
-    adaptersAllowed[6]({
+    adaptersAllowed[6] = AdapterAllowed({
       adapter: payload.HL_NEW_ADAPTER(),
       chainId: ChainIds.MAINNET,
       allowed: false
     });
-    adaptersAllowed[7]({
+    adaptersAllowed[7] = AdapterAllowed({
       adapter: payload.POL_NEW_ADAPTER(),
       chainId: ChainIds.MAINNET,
       allowed: false

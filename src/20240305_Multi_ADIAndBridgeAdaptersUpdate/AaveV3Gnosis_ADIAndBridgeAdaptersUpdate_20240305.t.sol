@@ -16,10 +16,11 @@ contract AaveV3Gnosis_ADIAndBridgeAdaptersUpdate_20240305_Test is BaseTest {
   AaveV3Gnosis_ADIAndBridgeAdaptersUpdate_20240305 internal payload;
 
   constructor()
-    BaseTest(GovernanceV3Gnosis.CROSS_CHAIN_CONTROLLER, MiscGnosis.PROXY_ADMIN, 'gnosis', 32891914)
+    BaseTest(GovernanceV3Gnosis.CROSS_CHAIN_CONTROLLER, MiscGnosis.PROXY_ADMIN, 'gnosis', 32897310)
   {}
 
-  function setUp() public {
+  function setUp() public override {
+    super.setUp();
     payload = new AaveV3Gnosis_ADIAndBridgeAdaptersUpdate_20240305();
     payloadAddress = address(payload);
   }
@@ -61,7 +62,7 @@ contract AaveV3Gnosis_ADIAndBridgeAdaptersUpdate_20240305_Test is BaseTest {
     bool beforeExecution
   ) internal view override returns (AdaptersByChain[] memory) {
     address[] memory adapters = new address[](3);
-    AdaptersByChain[] memory receiverAdaptersByChain = AdaptersByChain[](1);
+    AdaptersByChain[] memory receiverAdaptersByChain = new AdaptersByChain[](1);
 
     adapters[0] = payload.GNOSIS_ADAPTER_TO_REMOVE();
     adapters[1] = payload.LZ_ADAPTER_TO_REMOVE();
@@ -82,32 +83,32 @@ contract AaveV3Gnosis_ADIAndBridgeAdaptersUpdate_20240305_Test is BaseTest {
     bool beforeExecution
   ) internal view override returns (AdapterAllowed[] memory) {
     AdapterAllowed[] memory adaptersAllowed = new AdapterAllowed[](6);
-    adaptersAllowed[0]({
+    adaptersAllowed[0] = AdapterAllowed({
       adapter: payload.GNOSIS_ADAPTER_TO_REMOVE(),
       chainId: ChainIds.MAINNET,
       allowed: true
     });
-    adaptersAllowed[1]({
+    adaptersAllowed[1] = AdapterAllowed({
       adapter: payload.LZ_ADAPTER_TO_REMOVE(),
       chainId: ChainIds.MAINNET,
       allowed: true
     });
-    adaptersAllowed[2]({
+    adaptersAllowed[2] = AdapterAllowed({
       adapter: payload.HL_ADAPTER_TO_REMOVE(),
       chainId: ChainIds.MAINNET,
       allowed: true
     });
-    adaptersAllowed[3]({
+    adaptersAllowed[3] = AdapterAllowed({
       adapter: payload.GNOSIS_NEW_ADAPTER(),
       chainId: ChainIds.MAINNET,
       allowed: false
     });
-    adaptersAllowed[4]({
+    adaptersAllowed[4] = AdapterAllowed({
       adapter: payload.LZ_NEW_ADAPTER(),
       chainId: ChainIds.MAINNET,
       allowed: false
     });
-    adaptersAllowed[5]({
+    adaptersAllowed[5] = AdapterAllowed({
       adapter: payload.HL_NEW_ADAPTER(),
       chainId: ChainIds.MAINNET,
       allowed: false

@@ -24,13 +24,14 @@ contract AaveV3Optimism_ADIAndBridgeAdaptersUpdate_20240305_Test is BaseTest {
     )
   {}
 
-  function setUp() public {
+  function setUp() public override {
+    super.setUp();
     payload = new AaveV3Optimism_ADIAndBridgeAdaptersUpdate_20240305();
     payloadAddress = address(payload);
   }
 
-  function _getAdapterNames() internal override returns (AdapterName[] memory) {
-    AdapterName[] memory adapterNames = new AdapterName[](3);
+  function _getAdapterNames() internal view override returns (AdapterName[] memory) {
+    AdapterName[] memory adapterNames = new AdapterName[](1);
     adapterNames[0] = AdapterName({
       adapter: payload.NEW_ADAPTER(),
       name: 'Optimism native adapter'
@@ -54,7 +55,7 @@ contract AaveV3Optimism_ADIAndBridgeAdaptersUpdate_20240305_Test is BaseTest {
     bool beforeExecution
   ) internal view override returns (AdaptersByChain[] memory) {
     address[] memory adapters = new address[](1);
-    AdaptersByChain[] memory receiverAdaptersByChain = AdaptersByChain[](1);
+    AdaptersByChain[] memory receiverAdaptersByChain = new AdaptersByChain[](1);
 
     if (beforeExecution) {
       adapters[0] = payload.ADAPTER_TO_REMOVE();
@@ -71,12 +72,16 @@ contract AaveV3Optimism_ADIAndBridgeAdaptersUpdate_20240305_Test is BaseTest {
     bool beforeExecution
   ) internal view override returns (AdapterAllowed[] memory) {
     AdapterAllowed[] memory adaptersAllowed = new AdapterAllowed[](2);
-    adaptersAllowed[0]({
+    adaptersAllowed[0] = AdapterAllowed({
       adapter: payload.ADAPTER_TO_REMOVE(),
       chainId: ChainIds.MAINNET,
       allowed: true
     });
-    adaptersAllowed[1]({adapter: payload.NEW_ADAPTER(), chainId: ChainIds.MAINNET, allowed: false});
+    adaptersAllowed[1] = AdapterAllowed({
+      adapter: payload.NEW_ADAPTER(),
+      chainId: ChainIds.MAINNET,
+      allowed: false
+    });
 
     if (!beforeExecution) {
       adaptersAllowed[0].allowed = false;

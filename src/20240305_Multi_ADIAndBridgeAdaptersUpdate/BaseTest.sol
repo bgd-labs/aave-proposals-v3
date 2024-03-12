@@ -40,18 +40,24 @@ interface Payload {
   function NEW_CROSS_CHAIN_CONTROLLER_IMPLEMENTATION() external returns (address);
 }
 
-contract BaseTest is ProtocolV3TestBase {
+abstract contract BaseTest is ProtocolV3TestBase {
   address public immutable CROSS_CHAIN_CONTROLLER;
   address public immutable PROXY_ADMIN;
 
   address public payloadAddress;
+  string public network;
+  uint256 public blockNumber;
 
   AaveV3Ethereum_ADIAndBridgeAdaptersUpdate_20240305 internal ethereumPayload;
 
-  constructor(address ccc, address proxyAdmin, string memory network, uint256 blockNumber) {
+  constructor(address ccc, address proxyAdmin, string memory _network, uint256 _blockNumber) {
     CROSS_CHAIN_CONTROLLER = ccc;
     PROXY_ADMIN = proxyAdmin;
+    network = _network;
+    blockNumber = _blockNumber;
+  }
 
+  function setUp() public virtual {
     vm.createSelectFork(vm.rpcUrl(network), blockNumber);
     ethereumPayload = new AaveV3Ethereum_ADIAndBridgeAdaptersUpdate_20240305();
   }
@@ -84,7 +90,7 @@ contract BaseTest is ProtocolV3TestBase {
   }
 
   // -------------- virtual methods --------------------------
-  function _checkCorrectPathConfiguration() internal view virtual {}
+  function _checkCorrectPathConfiguration() internal virtual {}
 
   function _getAdapterNames() internal view virtual returns (AdapterName[] memory);
 
@@ -106,7 +112,7 @@ contract BaseTest is ProtocolV3TestBase {
   ) internal view virtual returns (AdaptersByChain[] memory);
 
   // ------------------------ checks -------------
-  function _checkAllForwarderAdaptersAreRepresented(bool beforeExecution) internal view {
+  function _checkAllForwarderAdaptersAreRepresented(bool beforeExecution) internal {
     ForwarderAdapters[] memory forwarderAdapters = _getForwarderAdaptersByChain(beforeExecution);
 
     for (uint256 i = 0; i < forwarderAdapters.length; i++) {
@@ -118,7 +124,7 @@ contract BaseTest is ProtocolV3TestBase {
     }
   }
 
-  function _checkAllReceiversAreRepresented(bool beforeExecution) internal view virtual {
+  function _checkAllReceiversAreRepresented(bool beforeExecution) internal virtual {
     AdaptersByChain[] memory receiverAdaptersByChain = _getReceiverAdaptersByChain(beforeExecution);
 
     for (uint256 i = 0; i < receiverAdaptersByChain.length; i++) {

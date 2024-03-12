@@ -43,7 +43,8 @@ contract AaveV3Ethereum_ADIAndBridgeAdaptersUpdate_20240305_Test is BaseTest {
     )
   {}
 
-  function setUp() public {
+  function setUp() public override {
+    super.setUp();
     payload = new AaveV3Ethereum_ADIAndBridgeAdaptersUpdate_20240305();
     arbitrumPayload = new AaveV3Arbitrum_ADIAndBridgeAdaptersUpdate_20240305();
     avalanchePayload = new AaveV3Avalanche_ADIAndBridgeAdaptersUpdate_20240305();
@@ -98,7 +99,7 @@ contract AaveV3Ethereum_ADIAndBridgeAdaptersUpdate_20240305_Test is BaseTest {
     return adapterNames;
   }
 
-  function _checkCorrectPathConfiguration() internal {
+  function _checkCorrectPathConfiguration() internal override {
     assertEq(payload.DESTINATION_ARB_NEW_ADAPTER(), arbitrumPayload.NEW_ADAPTER());
     assertEq(payload.DESTINATION_CCIP_NEW_ADAPTER_AVALANCHE(), avalanchePayload.CCIP_NEW_ADAPTER());
     assertEq(payload.DESTINATION_LZ_NEW_ADAPTER_AVALANCHE(), avalanchePayload.LZ_NEW_ADAPTER());
@@ -124,37 +125,37 @@ contract AaveV3Ethereum_ADIAndBridgeAdaptersUpdate_20240305_Test is BaseTest {
     trustedRemotes[0] = TrustedRemote({
       adapter: payload.CCIP_NEW_ADAPTER(),
       expectedRemote: GovernanceV3Polygon.CROSS_CHAIN_CONTROLLER,
-      remoteChainId: ChainIds.MAINNET
+      remoteChainId: ChainIds.POLYGON
     });
     trustedRemotes[1] = TrustedRemote({
       adapter: payload.LZ_NEW_ADAPTER(),
       expectedRemote: GovernanceV3Polygon.CROSS_CHAIN_CONTROLLER,
-      remoteChainId: ChainIds.MAINNET
+      remoteChainId: ChainIds.POLYGON
     });
     trustedRemotes[2] = TrustedRemote({
       adapter: payload.HL_NEW_ADAPTER(),
       expectedRemote: GovernanceV3Polygon.CROSS_CHAIN_CONTROLLER,
-      remoteChainId: ChainIds.MAINNET
+      remoteChainId: ChainIds.POLYGON
     });
     trustedRemotes[3] = TrustedRemote({
       adapter: payload.POL_NEW_ADAPTER(),
       expectedRemote: GovernanceV3Polygon.CROSS_CHAIN_CONTROLLER,
-      remoteChainId: ChainIds.MAINNET
+      remoteChainId: ChainIds.POLYGON
     });
     trustedRemotes[4] = TrustedRemote({
       adapter: payload.CCIP_NEW_ADAPTER(),
       expectedRemote: GovernanceV3Avalanche.CROSS_CHAIN_CONTROLLER,
-      remoteChainId: ChainIds.MAINNET
+      remoteChainId: ChainIds.AVALANCHE
     });
     trustedRemotes[5] = TrustedRemote({
       adapter: payload.LZ_NEW_ADAPTER(),
       expectedRemote: GovernanceV3Avalanche.CROSS_CHAIN_CONTROLLER,
-      remoteChainId: ChainIds.MAINNET
+      remoteChainId: ChainIds.AVALANCHE
     });
     trustedRemotes[6] = TrustedRemote({
       adapter: payload.HL_NEW_ADAPTER(),
       expectedRemote: GovernanceV3Avalanche.CROSS_CHAIN_CONTROLLER,
-      remoteChainId: ChainIds.MAINNET
+      remoteChainId: ChainIds.AVALANCHE
     });
 
     return trustedRemotes;
@@ -165,7 +166,7 @@ contract AaveV3Ethereum_ADIAndBridgeAdaptersUpdate_20240305_Test is BaseTest {
   ) internal view override returns (AdaptersByChain[] memory) {
     address[] memory polygonAdapters = new address[](4);
     address[] memory avalancheAdapters = new address[](3);
-    AdaptersByChain[] memory receiverAdaptersByChain = AdaptersByChain[](2);
+    AdaptersByChain[] memory receiverAdaptersByChain = new AdaptersByChain[](2);
 
     polygonAdapters[0] = payload.CCIP_ADAPTER_TO_REMOVE();
     polygonAdapters[1] = payload.LZ_ADAPTER_TO_REMOVE();
@@ -329,72 +330,72 @@ contract AaveV3Ethereum_ADIAndBridgeAdaptersUpdate_20240305_Test is BaseTest {
     bool beforeExecution
   ) internal view override returns (AdapterAllowed[] memory) {
     AdapterAllowed[] memory adaptersAllowed = new AdapterAllowed[](14);
-    adaptersAllowed[0]({
+    adaptersAllowed[0] = AdapterAllowed({
       adapter: payload.CCIP_ADAPTER_TO_REMOVE(),
       chainId: ChainIds.POLYGON,
       allowed: true
     });
-    adaptersAllowed[1]({
+    adaptersAllowed[1] = AdapterAllowed({
       adapter: payload.LZ_ADAPTER_TO_REMOVE(),
       chainId: ChainIds.POLYGON,
       allowed: true
     });
-    adaptersAllowed[2]({
+    adaptersAllowed[2] = AdapterAllowed({
       adapter: payload.HL_ADAPTER_TO_REMOVE(),
       chainId: ChainIds.POLYGON,
       allowed: true
     });
-    adaptersAllowed[3]({
+    adaptersAllowed[3] = AdapterAllowed({
       adapter: payload.POL_ADAPTER_TO_REMOVE(),
       chainId: ChainIds.POLYGON,
       allowed: true
     });
-    adaptersAllowed[4]({
+    adaptersAllowed[4] = AdapterAllowed({
       adapter: payload.CCIP_ADAPTER_TO_REMOVE(),
       chainId: ChainIds.AVALANCHE,
       allowed: true
     });
-    adaptersAllowed[5]({
+    adaptersAllowed[5] = AdapterAllowed({
       adapter: payload.LZ_ADAPTER_TO_REMOVE(),
       chainId: ChainIds.AVALANCHE,
       allowed: true
     });
-    adaptersAllowed[6]({
+    adaptersAllowed[6] = AdapterAllowed({
       adapter: payload.HL_ADAPTER_TO_REMOVE(),
       chainId: ChainIds.AVALANCHE,
       allowed: true
     });
-    adaptersAllowed[7]({
+    adaptersAllowed[7] = AdapterAllowed({
       adapter: payload.CCIP_NEW_ADAPTER(),
       chainId: ChainIds.POLYGON,
       allowed: false
     });
-    adaptersAllowed[8]({
+    adaptersAllowed[8] = AdapterAllowed({
       adapter: payload.LZ_NEW_ADAPTER(),
       chainId: ChainIds.POLYGON,
       allowed: false
     });
-    adaptersAllowed[9]({
+    adaptersAllowed[9] = AdapterAllowed({
       adapter: payload.HL_NEW_ADAPTER(),
       chainId: ChainIds.POLYGON,
       allowed: false
     });
-    adaptersAllowed[10]({
+    adaptersAllowed[10] = AdapterAllowed({
       adapter: payload.POL_NEW_ADAPTER(),
       chainId: ChainIds.POLYGON,
       allowed: false
     });
-    adaptersAllowed[11]({
+    adaptersAllowed[11] = AdapterAllowed({
       adapter: payload.CCIP_NEW_ADAPTER(),
       chainId: ChainIds.AVALANCHE,
       allowed: false
     });
-    adaptersAllowed[12]({
+    adaptersAllowed[12] = AdapterAllowed({
       adapter: payload.LZ_NEW_ADAPTER(),
       chainId: ChainIds.AVALANCHE,
       allowed: false
     });
-    adaptersAllowed[13]({
+    adaptersAllowed[13] = AdapterAllowed({
       adapter: payload.HL_NEW_ADAPTER(),
       chainId: ChainIds.AVALANCHE,
       allowed: false
