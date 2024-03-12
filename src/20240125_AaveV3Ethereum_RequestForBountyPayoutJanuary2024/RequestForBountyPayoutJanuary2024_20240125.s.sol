@@ -1,58 +1,28 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aave-helpers/GovV3Helpers.sol';
+import {WithPayloads, DeployPayloadsEthereum, CreateProposal} from '../templating/DeploymentScripts.sol';
 import {EthereumScript} from 'aave-helpers/ScriptUtils.sol';
 import {AaveV3Ethereum_RequestForBountyPayoutJanuary2024_20240125} from './AaveV3Ethereum_RequestForBountyPayoutJanuary2024_20240125.sol';
 
-/**
- * @dev Deploy Ethereum
- * deploy-command: make deploy-ledger contract=src/20240125_AaveV3Ethereum_RequestForBountyPayoutJanuary2024/RequestForBountyPayoutJanuary2024_20240125.s.sol:DeployEthereum chain=mainnet
- * verify-command: npx catapulta-verify -b broadcast/RequestForBountyPayoutJanuary2024_20240125.s.sol/1/run-latest.json
- */
-contract DeployEthereum is EthereumScript {
-  function run() external broadcast {
-    // deploy payloads
-    address payload0 = GovV3Helpers.deployDeterministic(
-      type(AaveV3Ethereum_RequestForBountyPayoutJanuary2024_20240125).creationCode
-    );
+abstract contract ProposalActions is WithPayloads {
+  function getActions() public pure override returns (ActionsPerChain[] memory) {
+    ActionsPerChain[] memory payloads = new ActionsPerChain[](1);
 
-    // compose action
-    IPayloadsControllerCore.ExecutionAction[]
-      memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
-    actions[0] = GovV3Helpers.buildAction(payload0);
+    payloads[0].chainName = 'ethereum';
+    payloads[0].actionCode = new bytes[](1);
+    payloads[0].actionCode[0] = type(AaveV3Ethereum_RequestForBountyPayoutJanuary2024_20240125)
+      .creationCode;
 
-    // register action at payloadsController
-    GovV3Helpers.createPayload(actions);
+    return payloads;
   }
 }
 
-/**
- * @dev Create Proposal
- * command: make deploy-ledger contract=src/20240125_AaveV3Ethereum_RequestForBountyPayoutJanuary2024/RequestForBountyPayoutJanuary2024_20240125.s.sol:CreateProposal chain=mainnet
- */
-contract CreateProposal is EthereumScript {
-  function run() external {
-    // create payloads
-    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](1);
+contract DeployEthereum is ProposalActions, DeployPayloadsEthereum {}
 
-    // compose actions for validation
-    IPayloadsControllerCore.ExecutionAction[]
-      memory actionsEthereum = new IPayloadsControllerCore.ExecutionAction[](1);
-    actionsEthereum[0] = GovV3Helpers.buildAction(
-      type(AaveV3Ethereum_RequestForBountyPayoutJanuary2024_20240125).creationCode
-    );
-    payloads[0] = GovV3Helpers.buildMainnetPayload(vm, actionsEthereum);
-
-    // create proposal
-    vm.startBroadcast();
-    GovV3Helpers.createProposal(
-      vm,
-      payloads,
-      GovV3Helpers.ipfsHashFile(
-        vm,
-        'src/20240125_AaveV3Ethereum_RequestForBountyPayoutJanuary2024/RequestForBountyPayoutJanuary2024.md'
-      )
-    );
-  }
-}
+contract ProposalCreation is
+  ProposalActions,
+  CreateProposal(
+    'src/20240125_AaveV3Ethereum_RequestForBountyPayoutJanuary2024/RequestForBountyPayoutJanuary2024.md'
+  )
+{}
