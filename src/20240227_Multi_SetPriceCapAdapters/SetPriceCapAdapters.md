@@ -28,7 +28,6 @@ In some cases, the relation between an underlying asset and its correlated is di
 | MaticX  | 10.2%          | 14 days        |
 | stMATIC | 10.45%         | 14 days        |
 | sAVAX   | 10.1%          | 14 days        |
-| stEUR   | 9.26%          |                |
 
 All stablecoins are capped at 4%, except LUSD, which is capped at 10%.
 
