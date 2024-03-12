@@ -18,7 +18,7 @@ In some cases, the relation between an underlying asset and its correlated is di
 ## Specification
 
 - [Capped price adapters implementation](https://github.com/bgd-labs/aave-capo)
-- [Risk providers parameters recommendations](https://governance.aave.com/t/chaos-labs-correlated-asset-price-oracle-framework/16605/4)
+- [Risk providers parameters recommendations](https://governance.aave.com/t/chaos-labs-correlated-asset-price-oracle-framework/16605/5)
 
 | Asset   | Growth percent | Snapshot delay |
 | ------- | -------------- | -------------- |
