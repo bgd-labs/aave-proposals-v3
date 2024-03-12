@@ -35,7 +35,7 @@ Oracles will be updated using 'priceFeedsUpdates()' method of the Config Engine 
 
 | Network   | LSTs                    | Stables                                    |
 | --------- | ----------------------- | ------------------------------------------ |
-| Mainnet   | wstETH, rETH, cbETH     | USDC, USDT, DAI, FRAX, LUSD, crvUSd, pyUSD |
+| Mainnet   | wstETH, rETH, cbETH     | USDC, USDT, DAI, FRAX, LUSD, crvUSD, pyUSD |
 | Arbitrum  | wstETH, rETH            | USDC, USDC.e, USDT, FRAX, LUSD, MAI        |
 | Avalanche | sAvax                   | USDC, USDT, DAI.e, FRAX, MAI               |
 | Optimism  | wstETH, rETH            | USDC, USDC.e, USDT, DAI, LUSD, sUSD, MAI   |
