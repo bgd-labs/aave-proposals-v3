@@ -82,4 +82,9 @@ contract BaseTest is Test {
     );
     assertEq(cccImplementation == implementation, equal);
   }
+
+  function _testAdapterName(address adapter, string memory expectedName) internal {
+    string memory adapterName = IBaseAdapter(adapter).adapterName();
+    assertEq(keccak256(abi.encode(adapterName)), keccak256(abi.encode(expectedName)));
+  }
 }

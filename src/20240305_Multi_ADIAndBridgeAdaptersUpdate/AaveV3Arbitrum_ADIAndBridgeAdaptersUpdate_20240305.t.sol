@@ -29,7 +29,7 @@ contract AaveV3Arbitrum_ADIAndBridgeAdaptersUpdate_20240305_Test is ProtocolV3Te
    */
   function test_defaultProposalExecution() public {
     _testTrustedRemotes();
-
+    _testCorrectAdapterNames();
     _testImplementationAddress(proposal.NEW_CROSS_CHAIN_CONTROLLER_IMPLEMENTATION(), false);
     _testCurrentReceiversAreAllowed();
     _testAllReceiversAreRepresented();
@@ -39,6 +39,11 @@ contract AaveV3Arbitrum_ADIAndBridgeAdaptersUpdate_20240305_Test is ProtocolV3Te
     _testImplementationAddress(proposal.NEW_CROSS_CHAIN_CONTROLLER_IMPLEMENTATION(), true);
     _testAfterReceiversAreAllowed();
     _testAllReceiversAreRepresentedAfter();
+    // TODO: could be good to test ccc configs did not change (apart from adapters)
+  }
+
+  function _testCorrectAdapterNames() internal {
+    _testAdapterName(proposal.NEW_ADAPTER(), 'Arbitrum native adapter');
   }
 
   function _testTrustedRemotes() internal {

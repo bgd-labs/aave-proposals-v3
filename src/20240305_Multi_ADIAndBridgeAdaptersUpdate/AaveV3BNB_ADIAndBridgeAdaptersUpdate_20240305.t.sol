@@ -29,6 +29,7 @@ contract AaveV3BNB_ADIAndBridgeAdaptersUpdate_20240305_Test is ProtocolV3TestBas
    */
   function test_defaultProposalExecution() public {
     _testTrustedRemotes();
+    _testCorrectAdapterNames();
 
     _testCurrentReceiversAreAllowed();
     _testAllReceiversAreRepresented();
@@ -39,6 +40,12 @@ contract AaveV3BNB_ADIAndBridgeAdaptersUpdate_20240305_Test is ProtocolV3TestBas
     _testAfterReceiversAreAllowed();
     _testAllReceiversAreRepresentedAfter();
     _testImplementationAddress(proposal.NEW_CROSS_CHAIN_CONTROLLER_IMPLEMENTATION(), true);
+  }
+
+  function _testCorrectAdapterNames() internal {
+    _testAdapterName(proposal.CCIP_NEW_ADAPTER(), 'CCIP native adapter');
+    _testAdapterName(proposal.LZ_NEW_ADAPTER(), 'LayerZero adapter');
+    _testAdapterName(proposal.HL_NEW_ADAPTER(), 'Hyperlane adapter');
   }
 
   function _testTrustedRemotes() internal {

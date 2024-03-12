@@ -29,7 +29,7 @@ contract AaveV3Ethereum_ADIAndBridgeAdaptersUpdate_20240305 is IProposalGenericE
   address public constant POL_ADAPTER_TO_REMOVE = 0xb13712De579E1f9943502FFCf72eab6ec348cF79;
   address public constant SCROLL_ADAPTER_TO_REMOVE = 0xb29F03cbCc646201eC83E9F2C164747beA84b162;
   // forwarder-receiver adapter pairs to add
-  address public constant CCIP_NEW_ADAPTER = address(0); // TODO: change for real address when deployed
+  address public constant CCIP_NEW_ADAPTER = 0xB7a6618df58626C3a122ABAFD6Ee63Af63f3Ef29;
   address public constant LZ_NEW_ADAPTER = address(0); // TODO: change for real address when deployed
   address public constant HL_NEW_ADAPTER = address(0); // TODO: change for real address when deployed
   address public constant ARB_NEW_ADAPTER = address(0); // TODO: change for real address when deployed
@@ -59,7 +59,8 @@ contract AaveV3Ethereum_ADIAndBridgeAdaptersUpdate_20240305 is IProposalGenericE
   address public constant DESTINATION_POL_NEW_ADAPTER = address(0); // TODO: change for real address when deployed
   address public constant DESTINATION_SCROLL_NEW_ADAPTER = address(0); // TODO: change for real address when deployed
 
-  address public constant NEW_CROSS_CHAIN_CONTROLLER_IMPLEMENTATION = address(0); // TODO: change for real address when deployed
+  address public constant NEW_CROSS_CHAIN_CONTROLLER_IMPLEMENTATION =
+    0x28559c2F4B038b1E836fA419DCcDe7454d8Fe215;
 
   function execute() external {
     // Update CrossChainController implementation

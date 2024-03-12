@@ -58,6 +58,7 @@ contract AaveV3Ethereum_ADIAndBridgeAdaptersUpdate_20240305_Test is ProtocolV3Te
   function test_defaultProposalExecution() public {
     _testTrustedRemotes();
     _testCorrectPathConfiguration();
+    _testCorrectAdapterNames();
 
     _testCurrentReceiversAreAllowed();
     _testCurrentForwarders();
@@ -70,6 +71,19 @@ contract AaveV3Ethereum_ADIAndBridgeAdaptersUpdate_20240305_Test is ProtocolV3Te
     _testAfterForwarders();
     _testAllReceiversAreRepresentedAfter();
     _testImplementationAddress(proposal.NEW_CROSS_CHAIN_CONTROLLER_IMPLEMENTATION(), true);
+  }
+
+  function _testCorrectAdapterNames() internal {
+    _testAdapterName(proposal.CCIP_NEW_ADAPTER(), 'CCIP native adapter');
+    _testAdapterName(proposal.LZ_NEW_ADAPTER(), 'LayerZero adapter');
+    _testAdapterName(proposal.HL_NEW_ADAPTER(), 'Hyperlane adapter');
+    _testAdapterName(proposal.POL_NEW_ADAPTER(), 'Polygon native adapter');
+    _testAdapterName(proposal.ARB_NEW_ADAPTER(), 'Arbitrum native adapter');
+    _testAdapterName(proposal.OPT_NEW_ADAPTER(), 'Optimism native adapter');
+    _testAdapterName(proposal.METIS_NEW_ADAPTER(), 'Metis native adapter');
+    _testAdapterName(proposal.GNOSIS_NEW_ADAPTER(), 'Gnosis native adapter');
+    _testAdapterName(proposal.BASE_NEW_ADAPTER(), 'Base native adapter');
+    _testAdapterName(proposal.SCROLL_NEW_ADAPTER(), 'Scroll native adapter');
   }
 
   function _testCorrectPathConfiguration() internal {

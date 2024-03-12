@@ -29,6 +29,7 @@ contract AaveV3Base_ADIAndBridgeAdaptersUpdate_20240305_Test is ProtocolV3TestBa
    */
   function test_defaultProposalExecution() public {
     _testTrustedRemotes();
+    _testCorrectAdapterNames();
 
     _testImplementationAddress(proposal.NEW_CROSS_CHAIN_CONTROLLER_IMPLEMENTATION(), false);
     _testCurrentReceiversAreAllowed();
@@ -39,6 +40,10 @@ contract AaveV3Base_ADIAndBridgeAdaptersUpdate_20240305_Test is ProtocolV3TestBa
     _testImplementationAddress(proposal.NEW_CROSS_CHAIN_CONTROLLER_IMPLEMENTATION(), true);
     _testAfterReceiversAreAllowed();
     _testAllReceiversAreRepresentedAfter();
+  }
+
+  function _testCorrectAdapterNames() internal {
+    _testAdapterName(proposal.NEW_ADAPTER(), 'Base native adapter');
   }
 
   function _testTrustedRemotes() internal {

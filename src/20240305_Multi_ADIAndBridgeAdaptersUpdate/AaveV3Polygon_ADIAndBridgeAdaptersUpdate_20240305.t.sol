@@ -33,6 +33,7 @@ contract AaveV3Polygon_ADIAndBridgeAdaptersUpdate_20240305_Test is ProtocolV3Tes
   function test_defaultProposalExecution() public {
     _testTrustedRemotes();
     _testCorrectPathConfiguration();
+    _testCorrectAdapterNames();
 
     _testCurrentReceiversAreAllowed();
     _testAllReceiversAreRepresented();
@@ -45,6 +46,13 @@ contract AaveV3Polygon_ADIAndBridgeAdaptersUpdate_20240305_Test is ProtocolV3Tes
     _testAllReceiversAreRepresentedAfter();
     _testAfterForwarders();
     _testImplementationAddress(proposal.NEW_CROSS_CHAIN_CONTROLLER_IMPLEMENTATION(), true);
+  }
+
+  function _testCorrectAdapterNames() internal {
+    _testAdapterName(proposal.CCIP_NEW_ADAPTER(), 'CCIP native adapter');
+    _testAdapterName(proposal.LZ_NEW_ADAPTER(), 'LayerZero adapter');
+    _testAdapterName(proposal.HL_NEW_ADAPTER(), 'Hyperlane adapter');
+    _testAdapterName(proposal.POL_NEW_ADAPTER(), 'Polygon native adapter');
   }
 
   function _testCorrectPathConfiguration() internal {
