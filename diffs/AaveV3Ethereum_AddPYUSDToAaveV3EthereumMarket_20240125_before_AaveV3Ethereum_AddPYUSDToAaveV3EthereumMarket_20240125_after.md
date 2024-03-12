@@ -43,16 +43,16 @@
 | variableDebtTokenName | Aave Ethereum Variable Debt PYUSD |
 | variableDebtTokenSymbol | variableDebtEthPYUSD |
 | optimalUsageRatio | 80 % |
+| maxExcessStableToTotalDebtRatio | 80 % |
 | maxExcessUsageRatio | 20 % |
+| optimalStableToTotalDebtRatio | 20 % |
 | baseVariableBorrowRate | 0 % |
 | variableRateSlope1 | 6 % |
 | variableRateSlope2 | 80 % |
 | baseStableBorrowRate | 9 % |
 | stableRateSlope1 | 13 % |
 | stableRateSlope2 | 300 % |
-| optimalStableToTotalDebtRatio | 20 % |
-| maxExcessStableToTotalDebtRatio | 80 % |
-| interestRate | ![ir](/.assets/7dc62027c00efdf4a27a7ad723f8f7ca99f89d77.svg) |
+| interestRate | ![ir](/.assets/c907af8377a5e8ffda3acd3fe2ac6aee00eff4ae.svg) |
 
 
 ## Raw diff
@@ -105,9 +105,10 @@
     }
   },
   "strategies": {
-    "0xAC4f9019608f3A359Ba6a576DC4deC9561D2e514": {
+    "0x6c3ea9036406852006290770BEdFcAbA0e23A0e8": {
       "from": null,
       "to": {
+        "address": "0xAC4f9019608f3A359Ba6a576DC4deC9561D2e514",
         "baseStableBorrowRate": "90000000000000000000000000",
         "baseVariableBorrowRate": 0,
         "maxExcessStableToTotalDebtRatio": "800000000000000000000000000",
