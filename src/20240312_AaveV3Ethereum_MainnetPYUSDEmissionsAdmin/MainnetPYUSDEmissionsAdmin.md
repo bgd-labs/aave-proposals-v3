@@ -7,7 +7,7 @@ snapshot: "https://snapshot.org/#/aave.eth/proposal/0xac80b6d5488c4949e30013d8ed
 
 ## Simple Summary
 
-This ARFC proposes to set the Aave Chan Initiative (ACI) wallet as the emission manager for the PYUSD token on Aave V3 Ethereum Market. This will enable the ACI to enact incentive programs funded by ecosystem partners for all PYUSD markets, promoting growth and expanding the user base of Aave.
+This AIP proposes to set the Aave Chan Initiative (ACI) wallet as the emission manager for the PYUSD token on Aave V3 Ethereum Market. This will enable the ACI to enact incentive programs funded by ecosystem partners for all PYUSD markets, promoting growth and expanding the user base of Aave.
 
 ## Motivation
 
