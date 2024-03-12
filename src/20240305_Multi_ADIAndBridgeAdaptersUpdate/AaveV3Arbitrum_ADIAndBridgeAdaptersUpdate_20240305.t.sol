@@ -2,7 +2,6 @@
 pragma solidity ^0.8.0;
 
 import {AaveV3Arbitrum} from 'aave-address-book/AaveV3Arbitrum.sol';
-import {ProtocolV3TestBase} from 'aave-helpers/ProtocolV3TestBase.sol';
 import {AaveV3Arbitrum_ADIAndBridgeAdaptersUpdate_20240305} from './AaveV3Arbitrum_ADIAndBridgeAdaptersUpdate_20240305.sol';
 import {MiscArbitrum} from 'aave-address-book/MiscArbitrum.sol';
 import {GovernanceV3Arbitrum} from 'aave-address-book/GovernanceV3Arbitrum.sol';
@@ -13,7 +12,7 @@ import './BaseTest.sol';
  * @dev Test for AaveV3Arbitrum_ADIAndBridgeAdaptersUpdate_20240305
  * command: make test-contract filter=AaveV3Arbitrum_ADIAndBridgeAdaptersUpdate_20240305
  */
-contract AaveV3Arbitrum_ADIAndBridgeAdaptersUpdate_20240305_Test is ProtocolV3TestBase, BaseTest {
+contract AaveV3Arbitrum_ADIAndBridgeAdaptersUpdate_20240305_Test is BaseTest {
   AaveV3Arbitrum_ADIAndBridgeAdaptersUpdate_20240305 internal proposal;
 
   function setUp() public {
@@ -39,7 +38,6 @@ contract AaveV3Arbitrum_ADIAndBridgeAdaptersUpdate_20240305_Test is ProtocolV3Te
     _testImplementationAddress(proposal.NEW_CROSS_CHAIN_CONTROLLER_IMPLEMENTATION(), true);
     _testAfterReceiversAreAllowed();
     _testAllReceiversAreRepresentedAfter();
-    // TODO: could be good to test ccc configs did not change (apart from adapters)
   }
 
   function _testCorrectAdapterNames() internal {

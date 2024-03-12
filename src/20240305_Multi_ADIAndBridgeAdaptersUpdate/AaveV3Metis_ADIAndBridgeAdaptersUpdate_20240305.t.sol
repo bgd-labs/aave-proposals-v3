@@ -2,7 +2,6 @@
 pragma solidity ^0.8.0;
 
 import {AaveV3Metis} from 'aave-address-book/AaveV3Metis.sol';
-import {ProtocolV3TestBase} from 'aave-helpers/ProtocolV3TestBase.sol';
 import {AaveV3Metis_ADIAndBridgeAdaptersUpdate_20240305} from './AaveV3Metis_ADIAndBridgeAdaptersUpdate_20240305.sol';
 import {MiscMetis} from 'aave-address-book/MiscMetis.sol';
 import {GovernanceV3Metis} from 'aave-address-book/GovernanceV3Metis.sol';
@@ -13,7 +12,7 @@ import './BaseTest.sol';
  * @dev Test for AaveV3Metis_ADIAndBridgeAdaptersUpdate_20240305
  * command: make test-contract filter=AaveV3Metis_ADIAndBridgeAdaptersUpdate_20240305
  */
-contract AaveV3Metis_ADIAndBridgeAdaptersUpdate_20240305_Test is ProtocolV3TestBase, BaseTest {
+contract AaveV3Metis_ADIAndBridgeAdaptersUpdate_20240305_Test is BaseTest {
   AaveV3Metis_ADIAndBridgeAdaptersUpdate_20240305 internal proposal;
 
   function setUp() public {

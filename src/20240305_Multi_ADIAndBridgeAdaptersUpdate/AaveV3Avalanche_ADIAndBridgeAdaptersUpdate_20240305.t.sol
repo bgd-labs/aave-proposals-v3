@@ -2,7 +2,6 @@
 pragma solidity ^0.8.0;
 
 import {AaveV3Avalanche} from 'aave-address-book/AaveV3Avalanche.sol';
-import {ProtocolV3TestBase} from 'aave-helpers/ProtocolV3TestBase.sol';
 import {AaveV3Avalanche_ADIAndBridgeAdaptersUpdate_20240305} from './AaveV3Avalanche_ADIAndBridgeAdaptersUpdate_20240305.sol';
 import {MiscAvalanche} from 'aave-address-book/MiscAvalanche.sol';
 import {GovernanceV3Avalanche} from 'aave-address-book/GovernanceV3Avalanche.sol';
@@ -14,7 +13,7 @@ import {AaveV3Ethereum_ADIAndBridgeAdaptersUpdate_20240305} from './AaveV3Ethere
  * @dev Test for AaveV3Avalanche_ADIAndBridgeAdaptersUpdate_20240305
  * command: make test-contract filter=AaveV3Avalanche_ADIAndBridgeAdaptersUpdate_20240305
  */
-contract AaveV3Avalanche_ADIAndBridgeAdaptersUpdate_20240305_Test is ProtocolV3TestBase, BaseTest {
+contract AaveV3Avalanche_ADIAndBridgeAdaptersUpdate_20240305_Test is BaseTest {
   AaveV3Avalanche_ADIAndBridgeAdaptersUpdate_20240305 internal proposal;
   AaveV3Ethereum_ADIAndBridgeAdaptersUpdate_20240305 internal ethereumPayload;
 

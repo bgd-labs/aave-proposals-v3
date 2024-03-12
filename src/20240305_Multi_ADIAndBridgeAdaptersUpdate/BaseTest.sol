@@ -1,14 +1,14 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import 'forge-std/Test.sol';
+import {ProtocolV3TestBase} from 'aave-helpers/ProtocolV3TestBase.sol';
 import {ICrossChainReceiver, ICrossChainForwarder} from 'aave-address-book/common/ICrossChainController.sol';
 import {TransparentUpgradeableProxy} from 'solidity-utils/contracts/transparent-proxy/TransparentUpgradeableProxy.sol';
 import {ChainIds} from 'aave-helpers/ChainIds.sol';
 import {ProxyAdmin} from 'solidity-utils/contracts/transparent-proxy/ProxyAdmin.sol';
 import {IBaseAdapter} from 'aave-address-book/common/IBaseAdapter.sol';
 
-contract BaseTest is Test {
+contract BaseTest is ProtocolV3TestBase {
   address public ccc;
   address public proxyAdmin;
 

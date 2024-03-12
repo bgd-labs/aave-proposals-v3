@@ -2,7 +2,6 @@
 pragma solidity ^0.8.0;
 
 import {AaveV3Optimism} from 'aave-address-book/AaveV3Optimism.sol';
-import {ProtocolV3TestBase} from 'aave-helpers/ProtocolV3TestBase.sol';
 import {AaveV3Optimism_ADIAndBridgeAdaptersUpdate_20240305} from './AaveV3Optimism_ADIAndBridgeAdaptersUpdate_20240305.sol';
 import {MiscOptimism} from 'aave-address-book/MiscOptimism.sol';
 import {GovernanceV3Optimism} from 'aave-address-book/GovernanceV3Optimism.sol';
@@ -13,7 +12,7 @@ import './BaseTest.sol';
  * @dev Test for AaveV3Optimism_ADIAndBridgeAdaptersUpdate_20240305
  * command: make test-contract filter=AaveV3Optimism_ADIAndBridgeAdaptersUpdate_20240305
  */
-contract AaveV3Optimism_ADIAndBridgeAdaptersUpdate_20240305_Test is ProtocolV3TestBase, BaseTest {
+contract AaveV3Optimism_ADIAndBridgeAdaptersUpdate_20240305_Test is BaseTest {
   AaveV3Optimism_ADIAndBridgeAdaptersUpdate_20240305 internal proposal;
 
   function setUp() public {
