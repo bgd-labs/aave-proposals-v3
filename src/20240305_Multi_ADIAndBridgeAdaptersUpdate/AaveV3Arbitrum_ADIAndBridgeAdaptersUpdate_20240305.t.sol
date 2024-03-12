@@ -13,68 +13,76 @@ import './BaseTest.sol';
  * command: make test-contract filter=AaveV3Arbitrum_ADIAndBridgeAdaptersUpdate_20240305
  */
 contract AaveV3Arbitrum_ADIAndBridgeAdaptersUpdate_20240305_Test is BaseTest {
-  AaveV3Arbitrum_ADIAndBridgeAdaptersUpdate_20240305 internal proposal;
+  AaveV3Arbitrum_ADIAndBridgeAdaptersUpdate_20240305 internal payload;
+
+  constructor()
+    BaseTest(
+      GovernanceV3Arbitrum.CROSS_CHAIN_CONTROLLER,
+      MiscArbitrum.PROXY_ADMIN,
+      'arbitrum',
+      189596312
+    )
+  {}
 
   function setUp() public {
-    ccc = GovernanceV3Arbitrum.CROSS_CHAIN_CONTROLLER;
-    proxyAdmin = MiscArbitrum.PROXY_ADMIN;
-
-    vm.createSelectFork(vm.rpcUrl('arbitrum'), 189596312);
-    proposal = new AaveV3Arbitrum_ADIAndBridgeAdaptersUpdate_20240305();
+    payload = new AaveV3Arbitrum_ADIAndBridgeAdaptersUpdate_20240305();
+    payloadAddress = address(payload);
   }
 
-  /**
-   * @dev executes the generic test suite including e2e and config snapshots
-   */
-  function test_defaultProposalExecution() public {
-    _testTrustedRemotes();
-    _testCorrectAdapterNames();
-    _testImplementationAddress(proposal.NEW_CROSS_CHAIN_CONTROLLER_IMPLEMENTATION(), false);
-    _testCurrentReceiversAreAllowed();
-    _testAllReceiversAreRepresented();
+  function _getAdapterNames() internal override returns (AdapterName[] memory) {
+    AdapterName[] memory adapterNames = new AdapterName[](3);
+    adapterNames[0] = AdapterName({
+      adapter: payload.NEW_ADAPTER(),
+      name: 'Arbitrum native adapter'
+    });
 
-    executePayload(vm, address(proposal));
-
-    _testImplementationAddress(proposal.NEW_CROSS_CHAIN_CONTROLLER_IMPLEMENTATION(), true);
-    _testAfterReceiversAreAllowed();
-    _testAllReceiversAreRepresentedAfter();
+    return adapterNames;
   }
 
-  function _testCorrectAdapterNames() internal {
-    _testAdapterName(proposal.NEW_ADAPTER(), 'Arbitrum native adapter');
+  function _getTrustedRemotes() internal view override returns (TrustedRemote[] memory) {
+    TrustedRemote[] memory trustedRemotes = new TrustedRemote[](1);
+    trustedRemotes[0] = TrustedRemote({
+      adapter: payload.NEW_ADAPTER(),
+      expectedRemote: GovernanceV3Ethereum.CROSS_CHAIN_CONTROLLER,
+      remoteChainId: ChainIds.MAINNET
+    });
+
+    return trustedRemotes;
   }
 
-  function _testTrustedRemotes() internal {
-    _testTrustedRemoteByChain(
-      proposal.NEW_ADAPTER(),
-      GovernanceV3Ethereum.CROSS_CHAIN_CONTROLLER,
-      ChainIds.MAINNET
-    );
-  }
-
-  function _testAllReceiversAreRepresented() internal {
+  function _getReceiverAdaptersByChain(
+    bool beforeExecution
+  ) internal view override returns (AdaptersByChain[] memory) {
     address[] memory adapters = new address[](1);
-    adapters[0] = proposal.ADAPTER_TO_REMOVE();
+    AdaptersByChain[] memory receiverAdaptersByChain = new AdaptersByChain[](1);
 
-    _testReceiverAdaptersByChain(ChainIds.MAINNET, adapters);
+    if (beforeExecution) {
+      adapters[0] = payload.ADAPTER_TO_REMOVE();
+    } else {
+      adapters[0] = payload.NEW_ADAPTER();
+    }
+    receiverAdaptersByChain[0].adapters = adapters;
+    receiverAdaptersByChain[0].chainId = ChainIds.MAINNET;
+
+    return receiverAdaptersByChain;
   }
 
-  function _testAllReceiversAreRepresentedAfter() internal {
-    address[] memory adapters = new address[](1);
-    adapters[0] = proposal.NEW_ADAPTER();
+  function _getAdapterByChain(
+    bool beforeExecution
+  ) internal view override returns (AdapterAllowed[] memory) {
+    AdapterAllowed[] memory adaptersAllowed = new AdapterAllowed[](2);
+    adaptersAllowed[0]({
+      adapter: payload.ADAPTER_TO_REMOVE(),
+      chainId: ChainIds.MAINNET,
+      allowed: true
+    });
+    adaptersAllowed[1]({adapter: payload.NEW_ADAPTER(), chainId: ChainIds.MAINNET, allowed: false});
 
-    _testReceiverAdaptersByChain(ChainIds.MAINNET, adapters);
-  }
+    if (!beforeExecution) {
+      adaptersAllowed[0].allowed = false;
+      adaptersAllowed[1].allowed = true;
+    }
 
-  function _testCurrentReceiversAreAllowed() internal {
-    _testReceiverAdapterAllowed(proposal.ADAPTER_TO_REMOVE(), ChainIds.MAINNET, true);
-  }
-
-  function _testAfterReceiversAreAllowed() internal {
-    // check that old bridges are no longer allowed
-    _testReceiverAdapterAllowed(proposal.ADAPTER_TO_REMOVE(), ChainIds.MAINNET, false);
-
-    // check that new bridges are allowed
-    _testReceiverAdapterAllowed(proposal.NEW_ADAPTER(), ChainIds.MAINNET, true);
+    return adaptersAllowed;
   }
 }

@@ -23,7 +23,7 @@ import {AaveV3Scroll_ADIAndBridgeAdaptersUpdate_20240305} from './AaveV3Scroll_A
  * command: make test-contract filter=AaveV3Ethereum_ADIAndBridgeAdaptersUpdate_20240305
  */
 contract AaveV3Ethereum_ADIAndBridgeAdaptersUpdate_20240305_Test is BaseTest {
-  AaveV3Ethereum_ADIAndBridgeAdaptersUpdate_20240305 internal proposal;
+  AaveV3Ethereum_ADIAndBridgeAdaptersUpdate_20240305 internal payload;
   AaveV3Arbitrum_ADIAndBridgeAdaptersUpdate_20240305 internal arbitrumPayload;
   AaveV3Avalanche_ADIAndBridgeAdaptersUpdate_20240305 internal avalanchePayload;
   AaveV3Base_ADIAndBridgeAdaptersUpdate_20240305 internal basePayload;
@@ -34,12 +34,17 @@ contract AaveV3Ethereum_ADIAndBridgeAdaptersUpdate_20240305_Test is BaseTest {
   AaveV3Polygon_ADIAndBridgeAdaptersUpdate_20240305 internal polygonPayload;
   AaveV3Scroll_ADIAndBridgeAdaptersUpdate_20240305 internal scrollPayload;
 
-  function setUp() public {
-    ccc = GovernanceV3Ethereum.CROSS_CHAIN_CONTROLLER;
-    proxyAdmin = MiscEthereum.PROXY_ADMIN;
+  constructor()
+    BaseTest(
+      GovernanceV3Ethereum.CROSS_CHAIN_CONTROLLER,
+      MiscEthereum.PROXY_ADMIN,
+      'mainnet',
+      19418547
+    )
+  {}
 
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 19418547);
-    proposal = new AaveV3Ethereum_ADIAndBridgeAdaptersUpdate_20240305();
+  function setUp() public {
+    payload = new AaveV3Ethereum_ADIAndBridgeAdaptersUpdate_20240305();
     arbitrumPayload = new AaveV3Arbitrum_ADIAndBridgeAdaptersUpdate_20240305();
     avalanchePayload = new AaveV3Avalanche_ADIAndBridgeAdaptersUpdate_20240305();
     basePayload = new AaveV3Base_ADIAndBridgeAdaptersUpdate_20240305();
@@ -49,388 +54,368 @@ contract AaveV3Ethereum_ADIAndBridgeAdaptersUpdate_20240305_Test is BaseTest {
     optimismPayload = new AaveV3Optimism_ADIAndBridgeAdaptersUpdate_20240305();
     polygonPayload = new AaveV3Polygon_ADIAndBridgeAdaptersUpdate_20240305();
     scrollPayload = new AaveV3Scroll_ADIAndBridgeAdaptersUpdate_20240305();
+    payloadAddress = address(payload);
   }
 
-  /**
-   * @dev executes the generic test suite including e2e and config snapshots
-   */
-  function test_defaultProposalExecution() public {
-    _testTrustedRemotes();
-    _testCorrectPathConfiguration();
-    _testCorrectAdapterNames();
+  function _getAdapterNames() internal view override returns (AdapterName[] memory) {
+    AdapterName[] memory adapterNames = new AdapterName[](11);
+    adapterNames[0] = AdapterName({adapter: payload.CCIP_NEW_ADAPTER(), name: 'CCIP adapter'});
+    adapterNames[1] = AdapterName({adapter: payload.LZ_NEW_ADAPTER(), name: 'LayerZero adapter'});
+    adapterNames[2] = AdapterName({adapter: payload.HL_NEW_ADAPTER(), name: 'Hyperlane adapter'});
+    adapterNames[3] = AdapterName({
+      adapter: payload.POL_NEW_ADAPTER(),
+      name: 'Polygon native adapter'
+    });
+    adapterNames[4] = AdapterName({
+      adapter: payload.ARB_NEW_ADAPTER(),
+      name: 'Arbitrum native adapter'
+    });
+    adapterNames[5] = AdapterName({
+      adapter: payload.OPT_NEW_ADAPTER(),
+      name: 'Optimism native adapter'
+    });
+    adapterNames[6] = AdapterName({
+      adapter: payload.METIS_NEW_ADAPTER(),
+      name: 'Metis native adapter'
+    });
+    adapterNames[7] = AdapterName({
+      adapter: payload.GNOSIS_NEW_ADAPTER(),
+      name: 'Gnosis native adapter'
+    });
+    adapterNames[8] = AdapterName({
+      adapter: payload.BASE_NEW_ADAPTER(),
+      name: 'Base native adapter'
+    });
+    adapterNames[9] = AdapterName({
+      adapter: payload.SCROLL_NEW_ADAPTER(),
+      name: 'Scroll native adapter'
+    });
+    adapterNames[10] = AdapterName({
+      adapter: payload.SAME_CHAIN_NEW_ADAPTER(),
+      name: 'SameChain adapter'
+    });
 
-    _testCurrentReceiversAreAllowed();
-    _testCurrentForwarders();
-    _testAllReceiversAreRepresented();
-    _testImplementationAddress(proposal.NEW_CROSS_CHAIN_CONTROLLER_IMPLEMENTATION(), false);
-
-    executePayload(vm, address(proposal));
-
-    _testAfterReceiversAreAllowed();
-    _testAfterForwarders();
-    _testAllReceiversAreRepresentedAfter();
-    _testImplementationAddress(proposal.NEW_CROSS_CHAIN_CONTROLLER_IMPLEMENTATION(), true);
+    return adapterNames;
   }
 
-  function _testCorrectAdapterNames() internal {
-    _testAdapterName(proposal.CCIP_NEW_ADAPTER(), 'CCIP adapter');
-    _testAdapterName(proposal.LZ_NEW_ADAPTER(), 'LayerZero adapter');
-    _testAdapterName(proposal.HL_NEW_ADAPTER(), 'Hyperlane adapter');
-    _testAdapterName(proposal.POL_NEW_ADAPTER(), 'Polygon native adapter');
-    _testAdapterName(proposal.ARB_NEW_ADAPTER(), 'Arbitrum native adapter');
-    _testAdapterName(proposal.OPT_NEW_ADAPTER(), 'Optimism native adapter');
-    _testAdapterName(proposal.METIS_NEW_ADAPTER(), 'Metis native adapter');
-    _testAdapterName(proposal.GNOSIS_NEW_ADAPTER(), 'Gnosis native adapter');
-    _testAdapterName(proposal.BASE_NEW_ADAPTER(), 'Base native adapter');
-    _testAdapterName(proposal.SCROLL_NEW_ADAPTER(), 'Scroll native adapter');
-    _testAdapterName(proposal.SAME_CHAIN_NEW_ADAPTER(), 'SameChain adapter');
+  function _checkCorrectPathConfiguration() internal {
+    assertEq(payload.DESTINATION_ARB_NEW_ADAPTER(), arbitrumPayload.NEW_ADAPTER());
+    assertEq(payload.DESTINATION_CCIP_NEW_ADAPTER_AVALANCHE(), avalanchePayload.CCIP_NEW_ADAPTER());
+    assertEq(payload.DESTINATION_LZ_NEW_ADAPTER_AVALANCHE(), avalanchePayload.LZ_NEW_ADAPTER());
+    assertEq(payload.DESTINATION_HL_NEW_ADAPTER_AVALANCHE(), avalanchePayload.HL_NEW_ADAPTER());
+    assertEq(payload.DESTINATION_BASE_NEW_ADAPTER(), basePayload.NEW_ADAPTER());
+    assertEq(payload.DESTINATION_CCIP_NEW_ADAPTER_BNB(), bnbPayload.CCIP_NEW_ADAPTER());
+    assertEq(payload.DESTINATION_LZ_NEW_ADAPTER_BNB(), bnbPayload.LZ_NEW_ADAPTER());
+    assertEq(payload.DESTINATION_HL_NEW_ADAPTER_BNB(), bnbPayload.HL_NEW_ADAPTER());
+    assertEq(payload.DESTINATION_GNOSIS_NEW_ADAPTER(), gnosisPayload.GNOSIS_NEW_ADAPTER());
+    assertEq(payload.DESTINATION_LZ_NEW_ADAPTER_GNOSIS(), gnosisPayload.LZ_NEW_ADAPTER());
+    assertEq(payload.DESTINATION_HL_NEW_ADAPTER_GNOSIS(), gnosisPayload.HL_NEW_ADAPTER());
+    assertEq(payload.DESTINATION_METIS_NEW_ADAPTER(), metisPayload.NEW_ADAPTER());
+    assertEq(payload.DESTINATION_OPT_NEW_ADAPTER(), optimismPayload.NEW_ADAPTER());
+    assertEq(payload.DESTINATION_CCIP_NEW_ADAPTER_POLYGON(), polygonPayload.CCIP_NEW_ADAPTER());
+    assertEq(payload.DESTINATION_LZ_NEW_ADAPTER_POLYGON(), polygonPayload.LZ_NEW_ADAPTER());
+    assertEq(payload.DESTINATION_HL_NEW_ADAPTER_POLYGON(), polygonPayload.HL_NEW_ADAPTER());
+    assertEq(payload.DESTINATION_POL_NEW_ADAPTER(), polygonPayload.POL_NEW_ADAPTER());
+    assertEq(payload.DESTINATION_SCROLL_NEW_ADAPTER(), scrollPayload.NEW_ADAPTER());
   }
 
-  function _testCorrectPathConfiguration() internal {
-    assertEq(proposal.DESTINATION_ARB_NEW_ADAPTER(), arbitrumPayload.NEW_ADAPTER());
-    assertEq(
-      proposal.DESTINATION_CCIP_NEW_ADAPTER_AVALANCHE(),
-      avalanchePayload.CCIP_NEW_ADAPTER()
-    );
-    assertEq(proposal.DESTINATION_LZ_NEW_ADAPTER_AVALANCHE(), avalanchePayload.LZ_NEW_ADAPTER());
-    assertEq(proposal.DESTINATION_HL_NEW_ADAPTER_AVALANCHE(), avalanchePayload.HL_NEW_ADAPTER());
-    assertEq(proposal.DESTINATION_BASE_NEW_ADAPTER(), basePayload.NEW_ADAPTER());
-    assertEq(proposal.DESTINATION_CCIP_NEW_ADAPTER_BNB(), bnbPayload.CCIP_NEW_ADAPTER());
-    assertEq(proposal.DESTINATION_LZ_NEW_ADAPTER_BNB(), bnbPayload.LZ_NEW_ADAPTER());
-    assertEq(proposal.DESTINATION_HL_NEW_ADAPTER_BNB(), bnbPayload.HL_NEW_ADAPTER());
-    assertEq(proposal.DESTINATION_GNOSIS_NEW_ADAPTER(), gnosisPayload.GNOSIS_NEW_ADAPTER());
-    assertEq(proposal.DESTINATION_LZ_NEW_ADAPTER_GNOSIS(), gnosisPayload.LZ_NEW_ADAPTER());
-    assertEq(proposal.DESTINATION_HL_NEW_ADAPTER_GNOSIS(), gnosisPayload.HL_NEW_ADAPTER());
-    assertEq(proposal.DESTINATION_METIS_NEW_ADAPTER(), metisPayload.NEW_ADAPTER());
-    assertEq(proposal.DESTINATION_OPT_NEW_ADAPTER(), optimismPayload.NEW_ADAPTER());
-    assertEq(proposal.DESTINATION_CCIP_NEW_ADAPTER_POLYGON(), polygonPayload.CCIP_NEW_ADAPTER());
-    assertEq(proposal.DESTINATION_LZ_NEW_ADAPTER_POLYGON(), polygonPayload.LZ_NEW_ADAPTER());
-    assertEq(proposal.DESTINATION_HL_NEW_ADAPTER_POLYGON(), polygonPayload.HL_NEW_ADAPTER());
-    assertEq(proposal.DESTINATION_POL_NEW_ADAPTER(), polygonPayload.POL_NEW_ADAPTER());
-    assertEq(proposal.DESTINATION_SCROLL_NEW_ADAPTER(), scrollPayload.NEW_ADAPTER());
+  function _getTrustedRemotes() internal view override returns (TrustedRemote[] memory) {
+    TrustedRemote[] memory trustedRemotes = new TrustedRemote[](7);
+    trustedRemotes[0] = TrustedRemote({
+      adapter: payload.CCIP_NEW_ADAPTER(),
+      expectedRemote: GovernanceV3Polygon.CROSS_CHAIN_CONTROLLER,
+      remoteChainId: ChainIds.MAINNET
+    });
+    trustedRemotes[1] = TrustedRemote({
+      adapter: payload.LZ_NEW_ADAPTER(),
+      expectedRemote: GovernanceV3Polygon.CROSS_CHAIN_CONTROLLER,
+      remoteChainId: ChainIds.MAINNET
+    });
+    trustedRemotes[2] = TrustedRemote({
+      adapter: payload.HL_NEW_ADAPTER(),
+      expectedRemote: GovernanceV3Polygon.CROSS_CHAIN_CONTROLLER,
+      remoteChainId: ChainIds.MAINNET
+    });
+    trustedRemotes[3] = TrustedRemote({
+      adapter: payload.POL_NEW_ADAPTER(),
+      expectedRemote: GovernanceV3Polygon.CROSS_CHAIN_CONTROLLER,
+      remoteChainId: ChainIds.MAINNET
+    });
+    trustedRemotes[4] = TrustedRemote({
+      adapter: payload.CCIP_NEW_ADAPTER(),
+      expectedRemote: GovernanceV3Avalanche.CROSS_CHAIN_CONTROLLER,
+      remoteChainId: ChainIds.MAINNET
+    });
+    trustedRemotes[5] = TrustedRemote({
+      adapter: payload.LZ_NEW_ADAPTER(),
+      expectedRemote: GovernanceV3Avalanche.CROSS_CHAIN_CONTROLLER,
+      remoteChainId: ChainIds.MAINNET
+    });
+    trustedRemotes[6] = TrustedRemote({
+      adapter: payload.HL_NEW_ADAPTER(),
+      expectedRemote: GovernanceV3Avalanche.CROSS_CHAIN_CONTROLLER,
+      remoteChainId: ChainIds.MAINNET
+    });
+
+    return trustedRemotes;
   }
 
-  function _testTrustedRemotes() internal {
-    _testTrustedRemoteByChain(
-      proposal.CCIP_NEW_ADAPTER(),
-      GovernanceV3Polygon.CROSS_CHAIN_CONTROLLER,
-      ChainIds.POLYGON
-    );
-    _testTrustedRemoteByChain(
-      proposal.LZ_NEW_ADAPTER(),
-      GovernanceV3Polygon.CROSS_CHAIN_CONTROLLER,
-      ChainIds.POLYGON
-    );
-    _testTrustedRemoteByChain(
-      proposal.HL_NEW_ADAPTER(),
-      GovernanceV3Polygon.CROSS_CHAIN_CONTROLLER,
-      ChainIds.POLYGON
-    );
-    _testTrustedRemoteByChain(
-      proposal.POL_NEW_ADAPTER(),
-      GovernanceV3Polygon.CROSS_CHAIN_CONTROLLER,
-      ChainIds.POLYGON
-    );
+  function _getReceiverAdaptersByChain(
+    bool beforeExecution
+  ) internal view override returns (AdaptersByChain[] memory) {
+    address[] memory polygonAdapters = new address[](4);
+    address[] memory avalancheAdapters = new address[](3);
+    AdaptersByChain[] memory receiverAdaptersByChain = AdaptersByChain[](2);
 
-    _testTrustedRemoteByChain(
-      proposal.CCIP_NEW_ADAPTER(),
-      GovernanceV3Avalanche.CROSS_CHAIN_CONTROLLER,
-      ChainIds.AVALANCHE
-    );
-    _testTrustedRemoteByChain(
-      proposal.LZ_NEW_ADAPTER(),
-      GovernanceV3Avalanche.CROSS_CHAIN_CONTROLLER,
-      ChainIds.AVALANCHE
-    );
-    _testTrustedRemoteByChain(
-      proposal.HL_NEW_ADAPTER(),
-      GovernanceV3Avalanche.CROSS_CHAIN_CONTROLLER,
-      ChainIds.AVALANCHE
-    );
-  }
+    polygonAdapters[0] = payload.CCIP_ADAPTER_TO_REMOVE();
+    polygonAdapters[1] = payload.LZ_ADAPTER_TO_REMOVE();
+    polygonAdapters[2] = payload.HL_ADAPTER_TO_REMOVE();
+    polygonAdapters[3] = payload.POL_ADAPTER_TO_REMOVE();
+    avalancheAdapters[0] = payload.CCIP_ADAPTER_TO_REMOVE();
+    avalancheAdapters[1] = payload.LZ_ADAPTER_TO_REMOVE();
+    avalancheAdapters[2] = payload.HL_ADAPTER_TO_REMOVE();
 
-  function _testAllReceiversAreRepresented() internal {
-    uint256[] memory forwarderChains = new uint256[](2);
-    forwarderChains[0] = ChainIds.POLYGON;
-    forwarderChains[1] = ChainIds.AVALANCHE;
-
-    for (uint256 i = 0; i < forwarderChains.length; i++) {
-      if (forwarderChains[i] == ChainIds.POLYGON) {
-        address[] memory adapters = new address[](4);
-        adapters[0] = proposal.CCIP_ADAPTER_TO_REMOVE();
-        adapters[1] = proposal.LZ_ADAPTER_TO_REMOVE();
-        adapters[2] = proposal.HL_ADAPTER_TO_REMOVE();
-        adapters[3] = proposal.POL_ADAPTER_TO_REMOVE();
-
-        _testReceiverAdaptersByChain(forwarderChains[i], adapters);
-      }
-      if (forwarderChains[i] == ChainIds.AVALANCHE) {
-        address[] memory adapters = new address[](3);
-        adapters[0] = proposal.CCIP_ADAPTER_TO_REMOVE();
-        adapters[1] = proposal.LZ_ADAPTER_TO_REMOVE();
-        adapters[2] = proposal.HL_ADAPTER_TO_REMOVE();
-
-        _testReceiverAdaptersByChain(forwarderChains[i], adapters);
-      }
+    if (!beforeExecution) {
+      polygonAdapters[0] = payload.CCIP_NEW_ADAPTER();
+      polygonAdapters[1] = payload.LZ_NEW_ADAPTER();
+      polygonAdapters[2] = payload.HL_NEW_ADAPTER();
+      polygonAdapters[3] = payload.POL_NEW_ADAPTER();
+      avalancheAdapters[0] = payload.CCIP_NEW_ADAPTER();
+      avalancheAdapters[1] = payload.LZ_NEW_ADAPTER();
+      avalancheAdapters[2] = payload.HL_NEW_ADAPTER();
     }
+    receiverAdaptersByChain[0].adapters = polygonAdapters;
+    receiverAdaptersByChain[0].chainId = ChainIds.POLYGON;
+    receiverAdaptersByChain[0].adapters = avalancheAdapters;
+    receiverAdaptersByChain[0].chainId = ChainIds.AVALANCHE;
+
+    return receiverAdaptersByChain;
   }
 
-  function _testAllReceiversAreRepresentedAfter() internal {
-    uint256[] memory forwarderChains = new uint256[](2);
-    forwarderChains[0] = ChainIds.POLYGON;
-    forwarderChains[1] = ChainIds.AVALANCHE;
+  function _getForwarderAdaptersByChain(
+    bool beforeExecution
+  ) internal view override returns (ForwarderAdapters[] memory) {
+    ForwarderAdapters[] memory forwarderAdapters = new ForwarderAdapters[](10);
 
-    for (uint256 i = 0; i < forwarderChains.length; i++) {
-      if (forwarderChains[i] == ChainIds.POLYGON) {
-        address[] memory adapters = new address[](4);
-        adapters[0] = proposal.CCIP_NEW_ADAPTER();
-        adapters[1] = proposal.LZ_NEW_ADAPTER();
-        adapters[2] = proposal.HL_NEW_ADAPTER();
-        adapters[3] = proposal.POL_NEW_ADAPTER();
+    ICrossChainForwarder.ChainIdBridgeConfig[]
+      memory polygonAdapters = new ICrossChainForwarder.ChainIdBridgeConfig[](4);
+    ICrossChainForwarder.ChainIdBridgeConfig[]
+      memory avalancheAdapters = new ICrossChainForwarder.ChainIdBridgeConfig[](3);
+    ICrossChainForwarder.ChainIdBridgeConfig[]
+      memory binanceAdapters = new ICrossChainForwarder.ChainIdBridgeConfig[](3);
+    ICrossChainForwarder.ChainIdBridgeConfig[]
+      memory gnosisAdapters = new ICrossChainForwarder.ChainIdBridgeConfig[](3);
+    ICrossChainForwarder.ChainIdBridgeConfig[]
+      memory arbitrumAdapters = new ICrossChainForwarder.ChainIdBridgeConfig[](1);
+    ICrossChainForwarder.ChainIdBridgeConfig[]
+      memory optimismAdapters = new ICrossChainForwarder.ChainIdBridgeConfig[](1);
+    ICrossChainForwarder.ChainIdBridgeConfig[]
+      memory metisAdapters = new ICrossChainForwarder.ChainIdBridgeConfig[](1);
+    ICrossChainForwarder.ChainIdBridgeConfig[]
+      memory baseAdapters = new ICrossChainForwarder.ChainIdBridgeConfig[](1);
+    ICrossChainForwarder.ChainIdBridgeConfig[]
+      memory scrollAdapters = new ICrossChainForwarder.ChainIdBridgeConfig[](1);
+    ICrossChainForwarder.ChainIdBridgeConfig[]
+      memory ethereumAdapters = new ICrossChainForwarder.ChainIdBridgeConfig[](1);
 
-        _testReceiverAdaptersByChain(forwarderChains[i], adapters);
-      }
-      if (forwarderChains[i] == ChainIds.AVALANCHE) {
-        address[] memory adapters = new address[](3);
-        adapters[0] = proposal.CCIP_NEW_ADAPTER();
-        adapters[1] = proposal.LZ_NEW_ADAPTER();
-        adapters[2] = proposal.HL_NEW_ADAPTER();
+    // polygon
+    polygonAdapters[0].currentChainBridgeAdapter = payload.CCIP_ADAPTER_TO_REMOVE();
+    polygonAdapters[1].currentChainBridgeAdapter = payload.LZ_ADAPTER_TO_REMOVE();
+    polygonAdapters[2].currentChainBridgeAdapter = payload.HL_ADAPTER_TO_REMOVE();
+    polygonAdapters[3].currentChainBridgeAdapter = payload.POL_ADAPTER_TO_REMOVE();
+    // avalanche
+    avalancheAdapters[0].currentChainBridgeAdapter = payload.CCIP_ADAPTER_TO_REMOVE();
+    avalancheAdapters[1].currentChainBridgeAdapter = payload.LZ_ADAPTER_TO_REMOVE();
+    avalancheAdapters[2].currentChainBridgeAdapter = payload.HL_ADAPTER_TO_REMOVE();
+    // binance
+    binanceAdapters[0].currentChainBridgeAdapter = payload.CCIP_ADAPTER_TO_REMOVE();
+    binanceAdapters[1].currentChainBridgeAdapter = payload.LZ_ADAPTER_TO_REMOVE();
+    binanceAdapters[2].currentChainBridgeAdapter = payload.HL_ADAPTER_TO_REMOVE();
+    // gnosis
+    gnosisAdapters[0].currentChainBridgeAdapter = payload.GNOSIS_ADAPTER_TO_REMOVE();
+    gnosisAdapters[1].currentChainBridgeAdapter = payload.LZ_ADAPTER_TO_REMOVE_GNOSIS();
+    gnosisAdapters[2].currentChainBridgeAdapter = payload.HL_ADAPTER_TO_REMOVE();
+    // arbitrum
+    arbitrumAdapters[0].currentChainBridgeAdapter = payload.ARB_ADAPTER_TO_REMOVE();
+    // optimism
+    optimismAdapters[0].currentChainBridgeAdapter = payload.OPT_ADAPTER_TO_REMOVE();
+    // metis
+    metisAdapters[0].currentChainBridgeAdapter = payload.METIS_ADAPTER_TO_REMOVE();
+    // scroll
+    scrollAdapters[0].currentChainBridgeAdapter = payload.SCROLL_ADAPTER_TO_REMOVE();
+    // base
+    baseAdapters[0].currentChainBridgeAdapter = payload.BASE_ADAPTER_TO_REMOVE();
+    // ethereum
+    ethereumAdapters[0].currentChainBridgeAdapter = payload.SAME_CHAIN_ADAPTER_TO_REMOVE();
 
-        _testReceiverAdaptersByChain(forwarderChains[i], adapters);
-      }
+    if (!beforeExecution) {
+      // polygon
+      polygonAdapters[0].currentChainBridgeAdapter = payload.CCIP_NEW_ADAPTER();
+      polygonAdapters[1].currentChainBridgeAdapter = payload.LZ_NEW_ADAPTER();
+      polygonAdapters[2].currentChainBridgeAdapter = payload.HL_NEW_ADAPTER();
+      polygonAdapters[3].currentChainBridgeAdapter = payload.POL_NEW_ADAPTER();
+      polygonAdapters[0].destinationBridgeAdapter = payload.DESTINATION_CCIP_NEW_ADAPTER_POLYGON();
+      polygonAdapters[1].destinationBridgeAdapter = payload.DESTINATION_LZ_NEW_ADAPTER_POLYGON();
+      polygonAdapters[2].destinationBridgeAdapter = payload.DESTINATION_HL_NEW_ADAPTER_POLYGON();
+      polygonAdapters[3].destinationBridgeAdapter = payload.DESTINATION_POL_NEW_ADAPTER();
+      // avalanche
+      avalancheAdapters[0].currentChainBridgeAdapter = payload.CCIP_NEW_ADAPTER();
+      avalancheAdapters[1].currentChainBridgeAdapter = payload.LZ_NEW_ADAPTER();
+      avalancheAdapters[2].currentChainBridgeAdapter = payload.HL_NEW_ADAPTER();
+      avalancheAdapters[0].destinationBridgeAdapter = payload
+        .DESTINATION_CCIP_NEW_ADAPTER_AVALANCHE();
+      avalancheAdapters[1].destinationBridgeAdapter = payload
+        .DESTINATION_LZ_NEW_ADAPTER_AVALANCHE();
+      avalancheAdapters[2].destinationBridgeAdapter = payload
+        .DESTINATION_HL_NEW_ADAPTER_AVALANCHE();
+      // binance
+      binanceAdapters[0].currentChainBridgeAdapter = payload.CCIP_NEW_ADAPTER();
+      binanceAdapters[1].currentChainBridgeAdapter = payload.LZ_NEW_ADAPTER();
+      binanceAdapters[2].currentChainBridgeAdapter = payload.HL_NEW_ADAPTER();
+      binanceAdapters[0].destinationBridgeAdapter = payload.DESTINATION_CCIP_NEW_ADAPTER_BNB();
+      binanceAdapters[1].destinationBridgeAdapter = payload.DESTINATION_LZ_NEW_ADAPTER_BNB();
+      binanceAdapters[2].destinationBridgeAdapter = payload.DESTINATION_HL_NEW_ADAPTER_BNB();
+      // gnosis
+      gnosisAdapters[0].currentChainBridgeAdapter = payload.GNOSIS_NEW_ADAPTER();
+      gnosisAdapters[1].currentChainBridgeAdapter = payload.LZ_NEW_ADAPTER();
+      gnosisAdapters[2].currentChainBridgeAdapter = payload.HL_NEW_ADAPTER();
+      gnosisAdapters[0].destinationBridgeAdapter = payload.DESTINATION_GNOSIS_NEW_ADAPTER();
+      gnosisAdapters[1].destinationBridgeAdapter = payload.DESTINATION_LZ_NEW_ADAPTER_GNOSIS();
+      gnosisAdapters[2].destinationBridgeAdapter = payload.DESTINATION_HL_NEW_ADAPTER_GNOSIS();
+      // arbitrum
+      arbitrumAdapters[0].currentChainBridgeAdapter = payload.ARB_NEW_ADAPTER();
+      arbitrumAdapters[0].destinationBridgeAdapter = payload.DESTINATION_ARB_NEW_ADAPTER();
+      // optimism
+      optimismAdapters[0].currentChainBridgeAdapter = payload.OPT_NEW_ADAPTER();
+      optimismAdapters[0].destinationBridgeAdapter = payload.DESTINATION_OPT_NEW_ADAPTER();
+      // metis
+      metisAdapters[0].currentChainBridgeAdapter = payload.METIS_NEW_ADAPTER();
+      metisAdapters[0].destinationBridgeAdapter = payload.DESTINATION_METIS_NEW_ADAPTER();
+      // scroll
+      scrollAdapters[0].currentChainBridgeAdapter = payload.SCROLL_NEW_ADAPTER();
+      scrollAdapters[0].destinationBridgeAdapter = payload.DESTINATION_SCROLL_NEW_ADAPTER();
+      // base
+      baseAdapters[0].currentChainBridgeAdapter = payload.BASE_NEW_ADAPTER();
+      baseAdapters[0].destinationBridgeAdapter = payload.DESTINATION_BASE_NEW_ADAPTER();
+      // ethereum
+      ethereumAdapters[0].currentChainBridgeAdapter = payload.SAME_CHAIN_NEW_ADAPTER();
+      ethereumAdapters[0].destinationBridgeAdapter = payload.SAME_CHAIN_NEW_ADAPTER();
     }
+    forwarderAdapters[0].adapters = polygonAdapters;
+    forwarderAdapters[0].chainId = ChainIds.POLYGON;
+    forwarderAdapters[1].adapters = avalancheAdapters;
+    forwarderAdapters[1].chainId = ChainIds.AVALANCHE;
+    forwarderAdapters[2].adapters = binanceAdapters;
+    forwarderAdapters[2].chainId = ChainIds.BNB;
+    forwarderAdapters[3].adapters = gnosisAdapters;
+    forwarderAdapters[3].chainId = ChainIds.GNOSIS;
+    forwarderAdapters[4].adapters = arbitrumAdapters;
+    forwarderAdapters[4].chainId = ChainIds.ARBITRUM;
+    forwarderAdapters[5].adapters = optimismAdapters;
+    forwarderAdapters[5].chainId = ChainIds.OPTIMISM;
+    forwarderAdapters[6].adapters = metisAdapters;
+    forwarderAdapters[6].chainId = ChainIds.METIS;
+    forwarderAdapters[7].adapters = baseAdapters;
+    forwarderAdapters[7].chainId = ChainIds.BASE;
+    forwarderAdapters[8].adapters = scrollAdapters;
+    forwarderAdapters[8].chainId = ChainIds.SCROLL;
+    forwarderAdapters[9].adapters = ethereumAdapters;
+    forwarderAdapters[9].chainId = ChainIds.MAINNET;
+
+    return forwarderAdapters;
   }
 
-  function _testCurrentForwarders() internal {
-    uint256[] memory forwarderChains = new uint256[](10);
-    forwarderChains[0] = ChainIds.POLYGON;
-    forwarderChains[1] = ChainIds.AVALANCHE;
-    forwarderChains[2] = ChainIds.BNB;
-    forwarderChains[3] = ChainIds.GNOSIS;
-    forwarderChains[4] = ChainIds.ARBITRUM;
-    forwarderChains[5] = ChainIds.OPTIMISM;
-    forwarderChains[6] = ChainIds.BASE;
-    forwarderChains[7] = ChainIds.METIS;
-    forwarderChains[8] = ChainIds.SCROLL;
-    forwarderChains[9] = ChainIds.MAINNET;
-
-    for (uint256 i = 0; i < forwarderChains.length; i++) {
-      if (forwarderChains[i] == ChainIds.MAINNET) {
-        ICrossChainForwarder.ChainIdBridgeConfig[]
-          memory adapters = new ICrossChainForwarder.ChainIdBridgeConfig[](1);
-        adapters[0].currentChainBridgeAdapter = proposal.SAME_CHAIN_ADAPTER_TO_REMOVE();
-
-        _checkForwarderAdapterCorrectness(forwarderChains[i], adapters, false);
-      }
-      if (forwarderChains[i] == ChainIds.POLYGON) {
-        ICrossChainForwarder.ChainIdBridgeConfig[]
-          memory adapters = new ICrossChainForwarder.ChainIdBridgeConfig[](4);
-        adapters[0].currentChainBridgeAdapter = proposal.CCIP_ADAPTER_TO_REMOVE();
-        adapters[1].currentChainBridgeAdapter = proposal.LZ_ADAPTER_TO_REMOVE();
-        adapters[2].currentChainBridgeAdapter = proposal.HL_ADAPTER_TO_REMOVE();
-        adapters[3].currentChainBridgeAdapter = proposal.POL_ADAPTER_TO_REMOVE();
-
-        _checkForwarderAdapterCorrectness(forwarderChains[i], adapters, false);
-      }
-      if (forwarderChains[i] == ChainIds.AVALANCHE || forwarderChains[i] == ChainIds.BNB) {
-        ICrossChainForwarder.ChainIdBridgeConfig[]
-          memory adapters = new ICrossChainForwarder.ChainIdBridgeConfig[](3);
-        adapters[0].currentChainBridgeAdapter = proposal.CCIP_ADAPTER_TO_REMOVE();
-        adapters[1].currentChainBridgeAdapter = proposal.LZ_ADAPTER_TO_REMOVE();
-        adapters[2].currentChainBridgeAdapter = proposal.HL_ADAPTER_TO_REMOVE();
-
-        _checkForwarderAdapterCorrectness(forwarderChains[i], adapters, false);
-      }
-      if (forwarderChains[i] == ChainIds.GNOSIS) {
-        ICrossChainForwarder.ChainIdBridgeConfig[]
-          memory adapters = new ICrossChainForwarder.ChainIdBridgeConfig[](3);
-        adapters[0].currentChainBridgeAdapter = proposal.GNOSIS_ADAPTER_TO_REMOVE();
-        adapters[1].currentChainBridgeAdapter = proposal.LZ_ADAPTER_TO_REMOVE_GNOSIS();
-        adapters[2].currentChainBridgeAdapter = proposal.HL_ADAPTER_TO_REMOVE();
-
-        _checkForwarderAdapterCorrectness(forwarderChains[i], adapters, false);
-      }
-      if (forwarderChains[i] == ChainIds.ARBITRUM) {
-        ICrossChainForwarder.ChainIdBridgeConfig[]
-          memory adapters = new ICrossChainForwarder.ChainIdBridgeConfig[](1);
-        adapters[0].currentChainBridgeAdapter = proposal.ARB_ADAPTER_TO_REMOVE();
-
-        _checkForwarderAdapterCorrectness(forwarderChains[i], adapters, false);
-      }
-      if (forwarderChains[i] == ChainIds.OPTIMISM) {
-        ICrossChainForwarder.ChainIdBridgeConfig[]
-          memory adapters = new ICrossChainForwarder.ChainIdBridgeConfig[](1);
-        adapters[0].currentChainBridgeAdapter = proposal.OPT_ADAPTER_TO_REMOVE();
-
-        _checkForwarderAdapterCorrectness(forwarderChains[i], adapters, false);
-      }
-      if (forwarderChains[i] == ChainIds.METIS) {
-        ICrossChainForwarder.ChainIdBridgeConfig[]
-          memory adapters = new ICrossChainForwarder.ChainIdBridgeConfig[](1);
-        adapters[0].currentChainBridgeAdapter = proposal.METIS_ADAPTER_TO_REMOVE();
-
-        _checkForwarderAdapterCorrectness(forwarderChains[i], adapters, false);
-      }
-      if (forwarderChains[i] == ChainIds.SCROLL) {
-        ICrossChainForwarder.ChainIdBridgeConfig[]
-          memory adapters = new ICrossChainForwarder.ChainIdBridgeConfig[](1);
-        adapters[0].currentChainBridgeAdapter = proposal.SCROLL_ADAPTER_TO_REMOVE();
-
-        _checkForwarderAdapterCorrectness(forwarderChains[i], adapters, false);
-      }
-      if (forwarderChains[i] == ChainIds.BASE) {
-        ICrossChainForwarder.ChainIdBridgeConfig[]
-          memory adapters = new ICrossChainForwarder.ChainIdBridgeConfig[](1);
-        adapters[0].currentChainBridgeAdapter = proposal.BASE_ADAPTER_TO_REMOVE();
-
-        _checkForwarderAdapterCorrectness(forwarderChains[i], adapters, false);
-      }
+  function _getAdapterByChain(
+    bool beforeExecution
+  ) internal view override returns (AdapterAllowed[] memory) {
+    AdapterAllowed[] memory adaptersAllowed = new AdapterAllowed[](14);
+    adaptersAllowed[0]({
+      adapter: payload.CCIP_ADAPTER_TO_REMOVE(),
+      chainId: ChainIds.POLYGON,
+      allowed: true
+    });
+    adaptersAllowed[1]({
+      adapter: payload.LZ_ADAPTER_TO_REMOVE(),
+      chainId: ChainIds.POLYGON,
+      allowed: true
+    });
+    adaptersAllowed[2]({
+      adapter: payload.HL_ADAPTER_TO_REMOVE(),
+      chainId: ChainIds.POLYGON,
+      allowed: true
+    });
+    adaptersAllowed[3]({
+      adapter: payload.POL_ADAPTER_TO_REMOVE(),
+      chainId: ChainIds.POLYGON,
+      allowed: true
+    });
+    adaptersAllowed[4]({
+      adapter: payload.CCIP_ADAPTER_TO_REMOVE(),
+      chainId: ChainIds.AVALANCHE,
+      allowed: true
+    });
+    adaptersAllowed[5]({
+      adapter: payload.LZ_ADAPTER_TO_REMOVE(),
+      chainId: ChainIds.AVALANCHE,
+      allowed: true
+    });
+    adaptersAllowed[6]({
+      adapter: payload.HL_ADAPTER_TO_REMOVE(),
+      chainId: ChainIds.AVALANCHE,
+      allowed: true
+    });
+    adaptersAllowed[7]({
+      adapter: payload.CCIP_NEW_ADAPTER(),
+      chainId: ChainIds.POLYGON,
+      allowed: false
+    });
+    adaptersAllowed[8]({
+      adapter: payload.LZ_NEW_ADAPTER(),
+      chainId: ChainIds.POLYGON,
+      allowed: false
+    });
+    adaptersAllowed[9]({
+      adapter: payload.HL_NEW_ADAPTER(),
+      chainId: ChainIds.POLYGON,
+      allowed: false
+    });
+    adaptersAllowed[10]({
+      adapter: payload.POL_NEW_ADAPTER(),
+      chainId: ChainIds.POLYGON,
+      allowed: false
+    });
+    adaptersAllowed[11]({
+      adapter: payload.CCIP_NEW_ADAPTER(),
+      chainId: ChainIds.AVALANCHE,
+      allowed: false
+    });
+    adaptersAllowed[12]({
+      adapter: payload.LZ_NEW_ADAPTER(),
+      chainId: ChainIds.AVALANCHE,
+      allowed: false
+    });
+    adaptersAllowed[13]({
+      adapter: payload.HL_NEW_ADAPTER(),
+      chainId: ChainIds.AVALANCHE,
+      allowed: false
+    });
+    if (!beforeExecution) {
+      adaptersAllowed[0].allowed = false;
+      adaptersAllowed[1].allowed = false;
+      adaptersAllowed[2].allowed = false;
+      adaptersAllowed[3].allowed = false;
+      adaptersAllowed[4].allowed = false;
+      adaptersAllowed[5].allowed = false;
+      adaptersAllowed[6].allowed = false;
+      adaptersAllowed[7].allowed = true;
+      adaptersAllowed[8].allowed = true;
+      adaptersAllowed[9].allowed = true;
+      adaptersAllowed[10].allowed = true;
+      adaptersAllowed[11].allowed = true;
+      adaptersAllowed[12].allowed = true;
+      adaptersAllowed[13].allowed = true;
     }
-  }
 
-  function _testAfterForwarders() internal {
-    uint256[] memory forwarderChains = new uint256[](10);
-    forwarderChains[0] = ChainIds.POLYGON;
-    forwarderChains[1] = ChainIds.AVALANCHE;
-    forwarderChains[2] = ChainIds.BNB;
-    forwarderChains[3] = ChainIds.GNOSIS;
-    forwarderChains[4] = ChainIds.ARBITRUM;
-    forwarderChains[5] = ChainIds.OPTIMISM;
-    forwarderChains[6] = ChainIds.BASE;
-    forwarderChains[7] = ChainIds.METIS;
-    forwarderChains[8] = ChainIds.SCROLL;
-    forwarderChains[9] = ChainIds.MAINNET;
-
-    for (uint256 i = 0; i < forwarderChains.length; i++) {
-      if (forwarderChains[i] == ChainIds.MAINNET) {
-        ICrossChainForwarder.ChainIdBridgeConfig[]
-          memory adapters = new ICrossChainForwarder.ChainIdBridgeConfig[](1);
-        adapters[0].currentChainBridgeAdapter = proposal.SAME_CHAIN_NEW_ADAPTER();
-        adapters[0].destinationBridgeAdapter = proposal.SAME_CHAIN_NEW_ADAPTER();
-
-        _checkForwarderAdapterCorrectness(forwarderChains[i], adapters, true);
-      }
-      if (forwarderChains[i] == ChainIds.POLYGON) {
-        ICrossChainForwarder.ChainIdBridgeConfig[]
-          memory adapters = new ICrossChainForwarder.ChainIdBridgeConfig[](4);
-        adapters[0].currentChainBridgeAdapter = proposal.CCIP_NEW_ADAPTER();
-        adapters[1].currentChainBridgeAdapter = proposal.LZ_NEW_ADAPTER();
-        adapters[2].currentChainBridgeAdapter = proposal.HL_NEW_ADAPTER();
-        adapters[3].currentChainBridgeAdapter = proposal.POL_NEW_ADAPTER();
-        adapters[0].destinationBridgeAdapter = proposal.DESTINATION_CCIP_NEW_ADAPTER_POLYGON();
-        adapters[1].destinationBridgeAdapter = proposal.DESTINATION_LZ_NEW_ADAPTER_POLYGON();
-        adapters[2].destinationBridgeAdapter = proposal.DESTINATION_HL_NEW_ADAPTER_POLYGON();
-        adapters[3].destinationBridgeAdapter = proposal.DESTINATION_POL_NEW_ADAPTER();
-
-        _checkForwarderAdapterCorrectness(forwarderChains[i], adapters, true);
-      }
-      if (forwarderChains[i] == ChainIds.AVALANCHE) {
-        ICrossChainForwarder.ChainIdBridgeConfig[]
-          memory adapters = new ICrossChainForwarder.ChainIdBridgeConfig[](3);
-        adapters[0].currentChainBridgeAdapter = proposal.CCIP_NEW_ADAPTER();
-        adapters[1].currentChainBridgeAdapter = proposal.LZ_NEW_ADAPTER();
-        adapters[2].currentChainBridgeAdapter = proposal.HL_NEW_ADAPTER();
-        adapters[0].destinationBridgeAdapter = proposal.DESTINATION_CCIP_NEW_ADAPTER_AVALANCHE();
-        adapters[1].destinationBridgeAdapter = proposal.DESTINATION_LZ_NEW_ADAPTER_AVALANCHE();
-        adapters[2].destinationBridgeAdapter = proposal.DESTINATION_HL_NEW_ADAPTER_AVALANCHE();
-
-        _checkForwarderAdapterCorrectness(forwarderChains[i], adapters, true);
-      }
-      if (forwarderChains[i] == ChainIds.BNB) {
-        ICrossChainForwarder.ChainIdBridgeConfig[]
-          memory adapters = new ICrossChainForwarder.ChainIdBridgeConfig[](3);
-        adapters[0].currentChainBridgeAdapter = proposal.CCIP_NEW_ADAPTER();
-        adapters[1].currentChainBridgeAdapter = proposal.LZ_NEW_ADAPTER();
-        adapters[2].currentChainBridgeAdapter = proposal.HL_NEW_ADAPTER();
-        adapters[0].destinationBridgeAdapter = proposal.DESTINATION_CCIP_NEW_ADAPTER_BNB();
-        adapters[1].destinationBridgeAdapter = proposal.DESTINATION_LZ_NEW_ADAPTER_BNB();
-        adapters[2].destinationBridgeAdapter = proposal.DESTINATION_HL_NEW_ADAPTER_BNB();
-
-        _checkForwarderAdapterCorrectness(forwarderChains[i], adapters, true);
-      }
-      if (forwarderChains[i] == ChainIds.GNOSIS) {
-        ICrossChainForwarder.ChainIdBridgeConfig[]
-          memory adapters = new ICrossChainForwarder.ChainIdBridgeConfig[](3);
-        adapters[0].currentChainBridgeAdapter = proposal.GNOSIS_NEW_ADAPTER();
-        adapters[1].currentChainBridgeAdapter = proposal.LZ_NEW_ADAPTER();
-        adapters[2].currentChainBridgeAdapter = proposal.HL_NEW_ADAPTER();
-        adapters[0].destinationBridgeAdapter = proposal.DESTINATION_GNOSIS_NEW_ADAPTER();
-        adapters[1].destinationBridgeAdapter = proposal.DESTINATION_LZ_NEW_ADAPTER_GNOSIS();
-        adapters[2].destinationBridgeAdapter = proposal.DESTINATION_HL_NEW_ADAPTER_GNOSIS();
-
-        _checkForwarderAdapterCorrectness(forwarderChains[i], adapters, true);
-      }
-      if (forwarderChains[i] == ChainIds.ARBITRUM) {
-        ICrossChainForwarder.ChainIdBridgeConfig[]
-          memory adapters = new ICrossChainForwarder.ChainIdBridgeConfig[](1);
-        adapters[0].currentChainBridgeAdapter = proposal.ARB_NEW_ADAPTER();
-        adapters[0].destinationBridgeAdapter = proposal.DESTINATION_ARB_NEW_ADAPTER();
-
-        _checkForwarderAdapterCorrectness(forwarderChains[i], adapters, true);
-      }
-      if (forwarderChains[i] == ChainIds.OPTIMISM) {
-        ICrossChainForwarder.ChainIdBridgeConfig[]
-          memory adapters = new ICrossChainForwarder.ChainIdBridgeConfig[](1);
-        adapters[0].currentChainBridgeAdapter = proposal.OPT_NEW_ADAPTER();
-        adapters[0].destinationBridgeAdapter = proposal.DESTINATION_OPT_NEW_ADAPTER();
-
-        _checkForwarderAdapterCorrectness(forwarderChains[i], adapters, true);
-      }
-      if (forwarderChains[i] == ChainIds.METIS) {
-        ICrossChainForwarder.ChainIdBridgeConfig[]
-          memory adapters = new ICrossChainForwarder.ChainIdBridgeConfig[](1);
-        adapters[0].currentChainBridgeAdapter = proposal.METIS_NEW_ADAPTER();
-        adapters[0].destinationBridgeAdapter = proposal.DESTINATION_METIS_NEW_ADAPTER();
-
-        _checkForwarderAdapterCorrectness(forwarderChains[i], adapters, true);
-      }
-      if (forwarderChains[i] == ChainIds.SCROLL) {
-        ICrossChainForwarder.ChainIdBridgeConfig[]
-          memory adapters = new ICrossChainForwarder.ChainIdBridgeConfig[](1);
-        adapters[0].currentChainBridgeAdapter = proposal.SCROLL_NEW_ADAPTER();
-        adapters[0].destinationBridgeAdapter = proposal.DESTINATION_SCROLL_NEW_ADAPTER();
-
-        _checkForwarderAdapterCorrectness(forwarderChains[i], adapters, true);
-      }
-      if (forwarderChains[i] == ChainIds.BASE) {
-        ICrossChainForwarder.ChainIdBridgeConfig[]
-          memory adapters = new ICrossChainForwarder.ChainIdBridgeConfig[](1);
-        adapters[0].currentChainBridgeAdapter = proposal.BASE_NEW_ADAPTER();
-        adapters[0].destinationBridgeAdapter = proposal.DESTINATION_BASE_NEW_ADAPTER();
-
-        _checkForwarderAdapterCorrectness(forwarderChains[i], adapters, true);
-      }
-    }
-  }
-
-  function _testCurrentReceiversAreAllowed() internal {
-    // check that current bridges are allowed
-    _testReceiverAdapterAllowed(proposal.CCIP_ADAPTER_TO_REMOVE(), ChainIds.AVALANCHE, true);
-    _testReceiverAdapterAllowed(proposal.CCIP_ADAPTER_TO_REMOVE(), ChainIds.POLYGON, true);
-    _testReceiverAdapterAllowed(proposal.LZ_ADAPTER_TO_REMOVE(), ChainIds.AVALANCHE, true);
-    _testReceiverAdapterAllowed(proposal.LZ_ADAPTER_TO_REMOVE(), ChainIds.POLYGON, true);
-    _testReceiverAdapterAllowed(proposal.HL_ADAPTER_TO_REMOVE(), ChainIds.AVALANCHE, true);
-    _testReceiverAdapterAllowed(proposal.HL_ADAPTER_TO_REMOVE(), ChainIds.POLYGON, true);
-    _testReceiverAdapterAllowed(proposal.POL_ADAPTER_TO_REMOVE(), ChainIds.POLYGON, true);
-  }
-
-  function _testAfterReceiversAreAllowed() internal {
-    // check that old bridges are no longer allowed
-    _testReceiverAdapterAllowed(proposal.CCIP_ADAPTER_TO_REMOVE(), ChainIds.AVALANCHE, false);
-    _testReceiverAdapterAllowed(proposal.CCIP_ADAPTER_TO_REMOVE(), ChainIds.POLYGON, false);
-    _testReceiverAdapterAllowed(proposal.LZ_ADAPTER_TO_REMOVE(), ChainIds.AVALANCHE, false);
-    _testReceiverAdapterAllowed(proposal.LZ_ADAPTER_TO_REMOVE(), ChainIds.POLYGON, false);
-    _testReceiverAdapterAllowed(proposal.HL_ADAPTER_TO_REMOVE(), ChainIds.AVALANCHE, false);
-    _testReceiverAdapterAllowed(proposal.HL_ADAPTER_TO_REMOVE(), ChainIds.POLYGON, false);
-    _testReceiverAdapterAllowed(proposal.POL_ADAPTER_TO_REMOVE(), ChainIds.POLYGON, false);
-
-    // check that new bridges are allowed
-    _testReceiverAdapterAllowed(proposal.CCIP_NEW_ADAPTER(), ChainIds.AVALANCHE, true);
-    _testReceiverAdapterAllowed(proposal.CCIP_NEW_ADAPTER(), ChainIds.POLYGON, true);
-    _testReceiverAdapterAllowed(proposal.LZ_NEW_ADAPTER(), ChainIds.AVALANCHE, true);
-    _testReceiverAdapterAllowed(proposal.LZ_NEW_ADAPTER(), ChainIds.POLYGON, true);
-    _testReceiverAdapterAllowed(proposal.HL_NEW_ADAPTER(), ChainIds.AVALANCHE, true);
-    _testReceiverAdapterAllowed(proposal.HL_NEW_ADAPTER(), ChainIds.POLYGON, true);
-    _testReceiverAdapterAllowed(proposal.POL_NEW_ADAPTER(), ChainIds.POLYGON, true);
+    return adaptersAllowed;
   }
 }

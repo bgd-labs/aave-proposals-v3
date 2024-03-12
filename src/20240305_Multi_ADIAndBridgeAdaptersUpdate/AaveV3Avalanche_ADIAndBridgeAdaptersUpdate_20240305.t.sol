@@ -14,126 +14,147 @@ import {AaveV3Ethereum_ADIAndBridgeAdaptersUpdate_20240305} from './AaveV3Ethere
  * command: make test-contract filter=AaveV3Avalanche_ADIAndBridgeAdaptersUpdate_20240305
  */
 contract AaveV3Avalanche_ADIAndBridgeAdaptersUpdate_20240305_Test is BaseTest {
-  AaveV3Avalanche_ADIAndBridgeAdaptersUpdate_20240305 internal proposal;
-  AaveV3Ethereum_ADIAndBridgeAdaptersUpdate_20240305 internal ethereumPayload;
+  AaveV3Avalanche_ADIAndBridgeAdaptersUpdate_20240305 internal payload;
+
+  constructor()
+    BaseTest(
+      GovernanceV3Avalanche.CROSS_CHAIN_CONTROLLER,
+      MiscAvalanche.PROXY_ADMIN,
+      'avalanche',
+      42801819
+    )
+  {}
 
   function setUp() public {
-    ccc = GovernanceV3Avalanche.CROSS_CHAIN_CONTROLLER;
-    proxyAdmin = MiscAvalanche.PROXY_ADMIN;
-
-    vm.createSelectFork(vm.rpcUrl('avalanche'), 42801819);
-    proposal = new AaveV3Avalanche_ADIAndBridgeAdaptersUpdate_20240305();
-    ethereumPayload = new AaveV3Ethereum_ADIAndBridgeAdaptersUpdate_20240305();
+    payload = new AaveV3Avalanche_ADIAndBridgeAdaptersUpdate_20240305();
+    payloadAddress = address(payload);
   }
 
-  /**
-   * @dev executes the generic test suite including e2e and config snapshots
-   */
-  function test_defaultProposalExecution() public {
-    _testTrustedRemotes();
-    _testCorrectPathConfiguration();
-    _testCorrectAdapterNames();
+  function _getAdapterNames() internal view override returns (AdapterName[] memory) {
+    AdapterName[] memory adapterNames = new AdapterName[](3);
+    adapterNames[0] = AdapterName({adapter: payload.CCIP_NEW_ADAPTER(), name: 'CCIP adapter'});
+    adapterNames[1] = AdapterName({adapter: payload.LZ_NEW_ADAPTER(), name: 'LayerZero adapter'});
+    adapterNames[2] = AdapterName({adapter: payload.HL_NEW_ADAPTER(), name: 'Hyperlane adapter'});
 
-    _testCurrentReceiversAreAllowed();
-    _testAllReceiversAreRepresented();
-    _testCurrentForwarders();
-    _testImplementationAddress(proposal.NEW_CROSS_CHAIN_CONTROLLER_IMPLEMENTATION(), false);
-
-    executePayload(vm, address(proposal));
-
-    _testAfterReceiversAreAllowed();
-    _testAllReceiversAreRepresentedAfter();
-    _testAfterForwarders();
-    _testImplementationAddress(proposal.NEW_CROSS_CHAIN_CONTROLLER_IMPLEMENTATION(), true);
+    return adapterNames;
   }
 
-  function _testCorrectAdapterNames() internal {
-    _testAdapterName(proposal.CCIP_NEW_ADAPTER(), 'CCIP adapter');
-    _testAdapterName(proposal.LZ_NEW_ADAPTER(), 'LayerZero adapter');
-    _testAdapterName(proposal.HL_NEW_ADAPTER(), 'Hyperlane adapter');
+  function _checkCorrectPathConfiguration() internal {
+    assertEq(ethereumPayload.CCIP_NEW_ADAPTER(), payload.DESTINATION_CCIP_NEW_ADAPTER());
+    assertEq(ethereumPayload.LZ_NEW_ADAPTER(), payload.DESTINATION_LZ_NEW_ADAPTER());
+    assertEq(ethereumPayload.HL_NEW_ADAPTER(), payload.DESTINATION_HL_NEW_ADAPTER());
   }
 
-  function _testCorrectPathConfiguration() internal {
-    assertEq(ethereumPayload.CCIP_NEW_ADAPTER(), proposal.DESTINATION_CCIP_NEW_ADAPTER());
-    assertEq(ethereumPayload.LZ_NEW_ADAPTER(), proposal.DESTINATION_LZ_NEW_ADAPTER());
-    assertEq(ethereumPayload.HL_NEW_ADAPTER(), proposal.DESTINATION_HL_NEW_ADAPTER());
+  function _getTrustedRemotes() internal view override returns (TrustedRemote[] memory) {
+    TrustedRemote[] memory trustedRemotes = new TrustedRemote[](3);
+    trustedRemotes[0] = TrustedRemote({
+      adapter: payload.CCIP_NEW_ADAPTER(),
+      expectedRemote: GovernanceV3Ethereum.CROSS_CHAIN_CONTROLLER,
+      remoteChainId: ChainIds.MAINNET
+    });
+    trustedRemotes[1] = TrustedRemote({
+      adapter: payload.LZ_NEW_ADAPTER(),
+      expectedRemote: GovernanceV3Ethereum.CROSS_CHAIN_CONTROLLER,
+      remoteChainId: ChainIds.MAINNET
+    });
+    trustedRemotes[2] = TrustedRemote({
+      adapter: payload.HL_NEW_ADAPTER(),
+      expectedRemote: GovernanceV3Ethereum.CROSS_CHAIN_CONTROLLER,
+      remoteChainId: ChainIds.MAINNET
+    });
+
+    return trustedRemotes;
   }
 
-  function _testTrustedRemotes() internal {
-    _testTrustedRemoteByChain(
-      proposal.CCIP_NEW_ADAPTER(),
-      GovernanceV3Ethereum.CROSS_CHAIN_CONTROLLER,
-      ChainIds.MAINNET
-    );
-    _testTrustedRemoteByChain(
-      proposal.LZ_NEW_ADAPTER(),
-      GovernanceV3Ethereum.CROSS_CHAIN_CONTROLLER,
-      ChainIds.MAINNET
-    );
-    _testTrustedRemoteByChain(
-      proposal.HL_NEW_ADAPTER(),
-      GovernanceV3Ethereum.CROSS_CHAIN_CONTROLLER,
-      ChainIds.MAINNET
-    );
-  }
+  function _getForwarderAdaptersByChain(
+    bool beforeExecution
+  ) internal view override returns (ForwarderAdapters[] memory) {
+    ForwarderAdapters[] memory forwarderAdapters = new ForwarderAdapters[](1);
 
-  function _testCurrentForwarders() internal {
     ICrossChainForwarder.ChainIdBridgeConfig[]
       memory adapters = new ICrossChainForwarder.ChainIdBridgeConfig[](3);
-    adapters[0].currentChainBridgeAdapter = proposal.CCIP_ADAPTER_TO_REMOVE();
-    adapters[1].currentChainBridgeAdapter = proposal.LZ_ADAPTER_TO_REMOVE();
-    adapters[2].currentChainBridgeAdapter = proposal.HL_ADAPTER_TO_REMOVE();
+    adapters[0].currentChainBridgeAdapter = payload.CCIP_ADAPTER_TO_REMOVE();
+    adapters[1].currentChainBridgeAdapter = payload.LZ_ADAPTER_TO_REMOVE();
+    adapters[2].currentChainBridgeAdapter = payload.HL_ADAPTER_TO_REMOVE();
 
-    _checkForwarderAdapterCorrectness(ChainIds.MAINNET, adapters, false);
+    if (!beforeExecution) {
+      adapters[0].currentChainBridgeAdapter = payload.CCIP_NEW_ADAPTER();
+      adapters[1].currentChainBridgeAdapter = payload.LZ_NEW_ADAPTER();
+      adapters[2].currentChainBridgeAdapter = payload.HL_NEW_ADAPTER();
+      adapters[0].destinationBridgeAdapter = payload.DESTINATION_CCIP_NEW_ADAPTER();
+      adapters[1].destinationBridgeAdapter = payload.DESTINATION_LZ_NEW_ADAPTER();
+      adapters[2].destinationBridgeAdapter = payload.DESTINATION_HL_NEW_ADAPTER();
+    }
+    forwarderAdapters[0].adapters = adapters;
+    forwarderAdapters[0].chainId = ChainIds.MAINNET;
+
+    return forwarderAdapters;
   }
 
-  function _testAfterForwarders() internal {
-    ICrossChainForwarder.ChainIdBridgeConfig[]
-      memory adapters = new ICrossChainForwarder.ChainIdBridgeConfig[](3);
-    adapters[0].currentChainBridgeAdapter = proposal.CCIP_NEW_ADAPTER();
-    adapters[1].currentChainBridgeAdapter = proposal.LZ_NEW_ADAPTER();
-    adapters[2].currentChainBridgeAdapter = proposal.HL_NEW_ADAPTER();
-    adapters[0].destinationBridgeAdapter = proposal.DESTINATION_CCIP_NEW_ADAPTER();
-    adapters[1].destinationBridgeAdapter = proposal.DESTINATION_LZ_NEW_ADAPTER();
-    adapters[2].destinationBridgeAdapter = proposal.DESTINATION_HL_NEW_ADAPTER();
-
-    _checkForwarderAdapterCorrectness(ChainIds.MAINNET, adapters, true);
-  }
-
-  function _testAllReceiversAreRepresented() internal {
+  function _getReceiverAdaptersByChain(
+    bool beforeExecution
+  ) internal view override returns (AdaptersByChain[] memory) {
     address[] memory adapters = new address[](3);
-    adapters[0] = proposal.CCIP_ADAPTER_TO_REMOVE();
-    adapters[1] = proposal.LZ_ADAPTER_TO_REMOVE();
-    adapters[2] = proposal.HL_ADAPTER_TO_REMOVE();
+    AdaptersByChain[] memory receiverAdaptersByChain = AdaptersByChain[](1);
 
-    _testReceiverAdaptersByChain(ChainIds.MAINNET, adapters);
+    adapters[0] = payload.CCIP_ADAPTER_TO_REMOVE();
+    adapters[1] = payload.LZ_ADAPTER_TO_REMOVE();
+    adapters[2] = payload.HL_ADAPTER_TO_REMOVE();
+
+    if (!beforeExecution) {
+      adapters[0] = payload.CCIP_NEW_ADAPTER();
+      adapters[1] = payload.LZ_NEW_ADAPTER();
+      adapters[2] = payload.HL_NEW_ADAPTER();
+    }
+    receiverAdaptersByChain[0].adapters = adapters;
+    receiverAdaptersByChain[0].chainId = ChainIds.MAINNET;
+
+    return receiverAdaptersByChain;
   }
 
-  function _testAllReceiversAreRepresentedAfter() internal {
-    address[] memory adapters = new address[](3);
-    adapters[0] = proposal.CCIP_NEW_ADAPTER();
-    adapters[1] = proposal.LZ_NEW_ADAPTER();
-    adapters[2] = proposal.HL_NEW_ADAPTER();
+  function _getAdapterByChain(
+    bool beforeExecution
+  ) internal view override returns (AdapterAllowed[] memory) {
+    AdapterAllowed[] memory adaptersAllowed = new AdapterAllowed[](6);
+    adaptersAllowed[0]({
+      adapter: payload.CCIP_ADAPTER_TO_REMOVE(),
+      chainId: ChainIds.MAINNET,
+      allowed: true
+    });
+    adaptersAllowed[1]({
+      adapter: payload.LZ_ADAPTER_TO_REMOVE(),
+      chainId: ChainIds.MAINNET,
+      allowed: true
+    });
+    adaptersAllowed[2]({
+      adapter: payload.HL_ADAPTER_TO_REMOVE(),
+      chainId: ChainIds.MAINNET,
+      allowed: true
+    });
+    adaptersAllowed[3]({
+      adapter: payload.CCIP_NEW_ADAPTER(),
+      chainId: ChainIds.MAINNET,
+      allowed: false
+    });
+    adaptersAllowed[4]({
+      adapter: payload.LZ_NEW_ADAPTER(),
+      chainId: ChainIds.MAINNET,
+      allowed: false
+    });
+    adaptersAllowed[5]({
+      adapter: payload.HL_NEW_ADAPTER(),
+      chainId: ChainIds.MAINNET,
+      allowed: false
+    });
+    if (!beforeExecution) {
+      adaptersAllowed[0].allowed = false;
+      adaptersAllowed[1].allowed = false;
+      adaptersAllowed[2].allowed = false;
+      adaptersAllowed[3].allowed = true;
+      adaptersAllowed[4].allowed = true;
+      adaptersAllowed[5].allowed = true;
+    }
 
-    _testReceiverAdaptersByChain(ChainIds.MAINNET, adapters);
-  }
-
-  function _testCurrentReceiversAreAllowed() internal {
-    // check that current bridges are allowed
-    _testReceiverAdapterAllowed(proposal.CCIP_ADAPTER_TO_REMOVE(), ChainIds.MAINNET, true);
-    _testReceiverAdapterAllowed(proposal.LZ_ADAPTER_TO_REMOVE(), ChainIds.MAINNET, true);
-    _testReceiverAdapterAllowed(proposal.HL_ADAPTER_TO_REMOVE(), ChainIds.MAINNET, true);
-  }
-
-  function _testAfterReceiversAreAllowed() internal {
-    // check that old bridges are no longer allowed
-    _testReceiverAdapterAllowed(proposal.CCIP_ADAPTER_TO_REMOVE(), ChainIds.MAINNET, false);
-    _testReceiverAdapterAllowed(proposal.LZ_ADAPTER_TO_REMOVE(), ChainIds.MAINNET, false);
-    _testReceiverAdapterAllowed(proposal.HL_ADAPTER_TO_REMOVE(), ChainIds.MAINNET, false);
-
-    // check that new bridges are allowed
-    _testReceiverAdapterAllowed(proposal.CCIP_NEW_ADAPTER(), ChainIds.MAINNET, true);
-    _testReceiverAdapterAllowed(proposal.LZ_NEW_ADAPTER(), ChainIds.MAINNET, true);
-    _testReceiverAdapterAllowed(proposal.HL_NEW_ADAPTER(), ChainIds.MAINNET, true);
+    return adaptersAllowed;
   }
 }
