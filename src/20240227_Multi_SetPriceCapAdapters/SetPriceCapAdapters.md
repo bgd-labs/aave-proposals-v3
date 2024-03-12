@@ -31,7 +31,7 @@ In some cases, the relation between an underlying asset and its correlated is di
 
 All stablecoins are capped at 4%, except LUSD, which is capped at 10%.
 
-Oracles will be updated using 'priceFeedsUpdates()' method of the Config Engine on every network. Below is the list of assets per network to be updated:
+Oracles will be updated using `priceFeedsUpdates()` method of the Config Engine on every network. Below is the list of assets per network to be updated:
 
 | Network   | LSTs                    | Stables                                    |
 | --------- | ----------------------- | ------------------------------------------ |
