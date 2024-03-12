@@ -271,7 +271,7 @@ contract CreateProposal is EthereumScript {
     GovV3Helpers.createProposal(
       vm,
       payloads,
-      GovV3Helpers.ipfsHashFile(vm, 'src/20240206_Multi_SetPriceCapAdapters/SetPriceCapAdapters.md')
+      GovV3Helpers.ipfsHashFile(vm, 'src/20240227_Multi_SetPriceCapAdapters/SetPriceCapAdapters.md')
     );
   }
 }
