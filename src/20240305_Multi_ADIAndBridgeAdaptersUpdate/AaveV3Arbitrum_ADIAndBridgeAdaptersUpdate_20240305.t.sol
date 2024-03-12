@@ -20,7 +20,7 @@ contract AaveV3Arbitrum_ADIAndBridgeAdaptersUpdate_20240305_Test is ProtocolV3Te
     ccc = GovernanceV3Arbitrum.CROSS_CHAIN_CONTROLLER;
     proxyAdmin = MiscArbitrum.PROXY_ADMIN;
 
-    vm.createSelectFork(vm.rpcUrl('arbitrum'), 187288037);
+    vm.createSelectFork(vm.rpcUrl('arbitrum'), 189596312);
     proposal = new AaveV3Arbitrum_ADIAndBridgeAdaptersUpdate_20240305();
   }
 

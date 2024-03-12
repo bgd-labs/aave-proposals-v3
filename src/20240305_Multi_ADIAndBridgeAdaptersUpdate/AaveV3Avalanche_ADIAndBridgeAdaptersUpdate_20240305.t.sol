@@ -22,7 +22,7 @@ contract AaveV3Avalanche_ADIAndBridgeAdaptersUpdate_20240305_Test is ProtocolV3T
     ccc = GovernanceV3Avalanche.CROSS_CHAIN_CONTROLLER;
     proxyAdmin = MiscAvalanche.PROXY_ADMIN;
 
-    vm.createSelectFork(vm.rpcUrl('avalanche'), 42502057);
+    vm.createSelectFork(vm.rpcUrl('avalanche'), 42801819);
     proposal = new AaveV3Avalanche_ADIAndBridgeAdaptersUpdate_20240305();
     ethereumPayload = new AaveV3Ethereum_ADIAndBridgeAdaptersUpdate_20240305();
   }
@@ -49,14 +49,14 @@ contract AaveV3Avalanche_ADIAndBridgeAdaptersUpdate_20240305_Test is ProtocolV3T
   }
 
   function _testCorrectAdapterNames() internal {
-    _testAdapterName(proposal.CCIP_NEW_ADAPTER(), 'CCIP native adapter');
+    _testAdapterName(proposal.CCIP_NEW_ADAPTER(), 'CCIP adapter');
     _testAdapterName(proposal.LZ_NEW_ADAPTER(), 'LayerZero adapter');
     _testAdapterName(proposal.HL_NEW_ADAPTER(), 'Hyperlane adapter');
   }
 
   function _testCorrectPathConfiguration() internal {
     assertEq(ethereumPayload.CCIP_NEW_ADAPTER(), proposal.DESTINATION_CCIP_NEW_ADAPTER());
-    assertEq(ethereumPayload.LZ_NEW_ADAPTER(), proposal.DESTINATION_LZ_NEW_ADAPTER()());
+    assertEq(ethereumPayload.LZ_NEW_ADAPTER(), proposal.DESTINATION_LZ_NEW_ADAPTER());
     assertEq(ethereumPayload.HL_NEW_ADAPTER(), proposal.DESTINATION_HL_NEW_ADAPTER());
   }
 

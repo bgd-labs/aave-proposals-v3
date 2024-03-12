@@ -22,7 +22,7 @@ contract AaveV3Polygon_ADIAndBridgeAdaptersUpdate_20240305_Test is ProtocolV3Tes
     ccc = GovernanceV3Polygon.CROSS_CHAIN_CONTROLLER;
     proxyAdmin = MiscPolygon.PROXY_ADMIN;
 
-    vm.createSelectFork(vm.rpcUrl('polygon'), 54289111);
+    vm.createSelectFork(vm.rpcUrl('polygon'), 54566890);
     proposal = new AaveV3Polygon_ADIAndBridgeAdaptersUpdate_20240305();
     ethereumPayload = new AaveV3Ethereum_ADIAndBridgeAdaptersUpdate_20240305();
   }
@@ -49,7 +49,7 @@ contract AaveV3Polygon_ADIAndBridgeAdaptersUpdate_20240305_Test is ProtocolV3Tes
   }
 
   function _testCorrectAdapterNames() internal {
-    _testAdapterName(proposal.CCIP_NEW_ADAPTER(), 'CCIP native adapter');
+    _testAdapterName(proposal.CCIP_NEW_ADAPTER(), 'CCIP adapter');
     _testAdapterName(proposal.LZ_NEW_ADAPTER(), 'LayerZero adapter');
     _testAdapterName(proposal.HL_NEW_ADAPTER(), 'Hyperlane adapter');
     _testAdapterName(proposal.POL_NEW_ADAPTER(), 'Polygon native adapter');
@@ -57,9 +57,9 @@ contract AaveV3Polygon_ADIAndBridgeAdaptersUpdate_20240305_Test is ProtocolV3Tes
 
   function _testCorrectPathConfiguration() internal {
     assertEq(ethereumPayload.CCIP_NEW_ADAPTER(), proposal.DESTINATION_CCIP_NEW_ADAPTER());
-    assertEq(ethereumPayload.LZ_NEW_ADAPTER(), proposal.DESTINATION_LZ_NEW_ADAPTER()());
+    assertEq(ethereumPayload.LZ_NEW_ADAPTER(), proposal.DESTINATION_LZ_NEW_ADAPTER());
     assertEq(ethereumPayload.HL_NEW_ADAPTER(), proposal.DESTINATION_HL_NEW_ADAPTER());
-    assertEq(ethereumPayload.POL_NEW_ADAPTER()(), proposal.DESTINATION_POL_NEW_ADAPTER());
+    assertEq(ethereumPayload.POL_NEW_ADAPTER(), proposal.DESTINATION_POL_NEW_ADAPTER());
   }
 
   function _testTrustedRemotes() internal {

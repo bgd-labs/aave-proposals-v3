@@ -22,9 +22,9 @@ contract AaveV3Avalanche_ADIAndBridgeAdaptersUpdate_20240305 is IProposalGeneric
   address public constant CCIP_NEW_ADAPTER = 0x2b88C83727B0E290B76EB3F6133994fF81B7f355;
   address public constant LZ_NEW_ADAPTER = 0x10f02995a399C0dC0FaF29914220E9C1bCdE8640;
   address public constant HL_NEW_ADAPTER = 0x617332a777780F546261247F621051d0b98975Eb;
-  address public constant DESTINATION_CCIP_NEW_ADAPTER = address(0); // TODO: change for real address when deployed in ethereum
-  address public constant DESTINATION_LZ_NEW_ADAPTER = address(0); // TODO: change for real address when deployed in ethereum
-  address public constant DESTINATION_HL_NEW_ADAPTER = address(0); // TODO: change for real address when deployed in ethereum
+  address public constant DESTINATION_CCIP_NEW_ADAPTER = 0xB7a6618df58626C3a122ABAFD6Ee63Af63f3Ef29;
+  address public constant DESTINATION_LZ_NEW_ADAPTER = 0x8410d9BD353b420ebA8C48ff1B0518426C280FCC;
+  address public constant DESTINATION_HL_NEW_ADAPTER = 0x01dcb90Cf13b82Cde4A0BAcC655585a83Af3cCC1;
   address public constant NEW_CROSS_CHAIN_CONTROLLER_IMPLEMENTATION =
     0x5Ef80c5eB6CF65Dab8cD1C0ee258a6D2bD38Bd22;
 

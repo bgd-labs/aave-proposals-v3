@@ -20,7 +20,7 @@ contract AaveV3Optimism_ADIAndBridgeAdaptersUpdate_20240305_Test is ProtocolV3Te
     ccc = GovernanceV3Optimism.CROSS_CHAIN_CONTROLLER;
     proxyAdmin = MiscOptimism.PROXY_ADMIN;
 
-    vm.createSelectFork(vm.rpcUrl('optimism'), 117015407);
+    vm.createSelectFork(vm.rpcUrl('optimism'), 117321235);
     proposal = new AaveV3Optimism_ADIAndBridgeAdaptersUpdate_20240305();
   }
 

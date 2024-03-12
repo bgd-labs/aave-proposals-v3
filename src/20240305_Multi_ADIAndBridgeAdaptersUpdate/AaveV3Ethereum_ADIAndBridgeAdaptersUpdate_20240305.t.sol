@@ -39,7 +39,7 @@ contract AaveV3Ethereum_ADIAndBridgeAdaptersUpdate_20240305_Test is ProtocolV3Te
     ccc = GovernanceV3Ethereum.CROSS_CHAIN_CONTROLLER;
     proxyAdmin = MiscEthereum.PROXY_ADMIN;
 
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 19367957);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 19418547);
     proposal = new AaveV3Ethereum_ADIAndBridgeAdaptersUpdate_20240305();
     arbitrumPayload = new AaveV3Arbitrum_ADIAndBridgeAdaptersUpdate_20240305();
     avalanchePayload = new AaveV3Avalanche_ADIAndBridgeAdaptersUpdate_20240305();
@@ -74,7 +74,7 @@ contract AaveV3Ethereum_ADIAndBridgeAdaptersUpdate_20240305_Test is ProtocolV3Te
   }
 
   function _testCorrectAdapterNames() internal {
-    _testAdapterName(proposal.CCIP_NEW_ADAPTER(), 'CCIP native adapter');
+    _testAdapterName(proposal.CCIP_NEW_ADAPTER(), 'CCIP adapter');
     _testAdapterName(proposal.LZ_NEW_ADAPTER(), 'LayerZero adapter');
     _testAdapterName(proposal.HL_NEW_ADAPTER(), 'Hyperlane adapter');
     _testAdapterName(proposal.POL_NEW_ADAPTER(), 'Polygon native adapter');
@@ -84,15 +84,16 @@ contract AaveV3Ethereum_ADIAndBridgeAdaptersUpdate_20240305_Test is ProtocolV3Te
     _testAdapterName(proposal.GNOSIS_NEW_ADAPTER(), 'Gnosis native adapter');
     _testAdapterName(proposal.BASE_NEW_ADAPTER(), 'Base native adapter');
     _testAdapterName(proposal.SCROLL_NEW_ADAPTER(), 'Scroll native adapter');
+    _testAdapterName(proposal.SAME_CHAIN_NEW_ADAPTER(), 'SameChain adapter');
   }
 
   function _testCorrectPathConfiguration() internal {
-    assertEq(proposal.DESTINATION_ARB_NEW_ADAPTER(), arbitrumPayload.NEW_ADAPTER()());
+    assertEq(proposal.DESTINATION_ARB_NEW_ADAPTER(), arbitrumPayload.NEW_ADAPTER());
     assertEq(
       proposal.DESTINATION_CCIP_NEW_ADAPTER_AVALANCHE(),
       avalanchePayload.CCIP_NEW_ADAPTER()
     );
-    assertEq(proposal.DESTINATION_LZ_NEW_ADAPTER_AVALANCHE(), avalanchePayload.LZ_NEW_ADAPTER()());
+    assertEq(proposal.DESTINATION_LZ_NEW_ADAPTER_AVALANCHE(), avalanchePayload.LZ_NEW_ADAPTER());
     assertEq(proposal.DESTINATION_HL_NEW_ADAPTER_AVALANCHE(), avalanchePayload.HL_NEW_ADAPTER());
     assertEq(proposal.DESTINATION_BASE_NEW_ADAPTER(), basePayload.NEW_ADAPTER());
     assertEq(proposal.DESTINATION_CCIP_NEW_ADAPTER_BNB(), bnbPayload.CCIP_NEW_ADAPTER());
@@ -106,7 +107,7 @@ contract AaveV3Ethereum_ADIAndBridgeAdaptersUpdate_20240305_Test is ProtocolV3Te
     assertEq(proposal.DESTINATION_CCIP_NEW_ADAPTER_POLYGON(), polygonPayload.CCIP_NEW_ADAPTER());
     assertEq(proposal.DESTINATION_LZ_NEW_ADAPTER_POLYGON(), polygonPayload.LZ_NEW_ADAPTER());
     assertEq(proposal.DESTINATION_HL_NEW_ADAPTER_POLYGON(), polygonPayload.HL_NEW_ADAPTER());
-    assertEq(proposal.DESTINATION_POL_NEW_ADAPTER(), polygonPayload.HL_POL_ADAPTER());
+    assertEq(proposal.DESTINATION_POL_NEW_ADAPTER(), polygonPayload.POL_NEW_ADAPTER());
     assertEq(proposal.DESTINATION_SCROLL_NEW_ADAPTER(), scrollPayload.NEW_ADAPTER());
   }
 
@@ -202,7 +203,7 @@ contract AaveV3Ethereum_ADIAndBridgeAdaptersUpdate_20240305_Test is ProtocolV3Te
   }
 
   function _testCurrentForwarders() internal {
-    uint256[] memory forwarderChains = new uint256[](9);
+    uint256[] memory forwarderChains = new uint256[](10);
     forwarderChains[0] = ChainIds.POLYGON;
     forwarderChains[1] = ChainIds.AVALANCHE;
     forwarderChains[2] = ChainIds.BNB;
@@ -212,8 +213,16 @@ contract AaveV3Ethereum_ADIAndBridgeAdaptersUpdate_20240305_Test is ProtocolV3Te
     forwarderChains[6] = ChainIds.BASE;
     forwarderChains[7] = ChainIds.METIS;
     forwarderChains[8] = ChainIds.SCROLL;
+    forwarderChains[9] = ChainIds.MAINNET;
 
     for (uint256 i = 0; i < forwarderChains.length; i++) {
+      if (forwarderChains[i] == ChainIds.MAINNET) {
+        ICrossChainForwarder.ChainIdBridgeConfig[]
+          memory adapters = new ICrossChainForwarder.ChainIdBridgeConfig[](1);
+        adapters[0].currentChainBridgeAdapter = proposal.SAME_CHAIN_ADAPTER_TO_REMOVE();
+
+        _checkForwarderAdapterCorrectness(forwarderChains[i], adapters, false);
+      }
       if (forwarderChains[i] == ChainIds.POLYGON) {
         ICrossChainForwarder.ChainIdBridgeConfig[]
           memory adapters = new ICrossChainForwarder.ChainIdBridgeConfig[](4);
@@ -281,7 +290,7 @@ contract AaveV3Ethereum_ADIAndBridgeAdaptersUpdate_20240305_Test is ProtocolV3Te
   }
 
   function _testAfterForwarders() internal {
-    uint256[] memory forwarderChains = new uint256[](9);
+    uint256[] memory forwarderChains = new uint256[](10);
     forwarderChains[0] = ChainIds.POLYGON;
     forwarderChains[1] = ChainIds.AVALANCHE;
     forwarderChains[2] = ChainIds.BNB;
@@ -291,8 +300,17 @@ contract AaveV3Ethereum_ADIAndBridgeAdaptersUpdate_20240305_Test is ProtocolV3Te
     forwarderChains[6] = ChainIds.BASE;
     forwarderChains[7] = ChainIds.METIS;
     forwarderChains[8] = ChainIds.SCROLL;
+    forwarderChains[9] = ChainIds.MAINNET;
 
     for (uint256 i = 0; i < forwarderChains.length; i++) {
+      if (forwarderChains[i] == ChainIds.MAINNET) {
+        ICrossChainForwarder.ChainIdBridgeConfig[]
+          memory adapters = new ICrossChainForwarder.ChainIdBridgeConfig[](1);
+        adapters[0].currentChainBridgeAdapter = proposal.SAME_CHAIN_NEW_ADAPTER();
+        adapters[0].destinationBridgeAdapter = proposal.SAME_CHAIN_NEW_ADAPTER();
+
+        _checkForwarderAdapterCorrectness(forwarderChains[i], adapters, true);
+      }
       if (forwarderChains[i] == ChainIds.POLYGON) {
         ICrossChainForwarder.ChainIdBridgeConfig[]
           memory adapters = new ICrossChainForwarder.ChainIdBridgeConfig[](4);

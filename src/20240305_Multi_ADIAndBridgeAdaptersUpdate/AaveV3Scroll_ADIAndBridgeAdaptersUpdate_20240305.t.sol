@@ -20,7 +20,7 @@ contract AaveV3Scroll_ADIAndBridgeAdaptersUpdate_20240305_Test is ProtocolV3Test
     ccc = GovernanceV3Scroll.CROSS_CHAIN_CONTROLLER;
     proxyAdmin = MiscScroll.PROXY_ADMIN;
 
-    vm.createSelectFork(vm.rpcUrl('scroll'), 3863980);
+    vm.createSelectFork(vm.rpcUrl('scroll'), 4063725);
     proposal = new AaveV3Scroll_ADIAndBridgeAdaptersUpdate_20240305();
   }
 

@@ -20,7 +20,7 @@ contract AaveV3Base_ADIAndBridgeAdaptersUpdate_20240305_Test is ProtocolV3TestBa
     ccc = GovernanceV3Base.CROSS_CHAIN_CONTROLLER;
     proxyAdmin = MiscBase.PROXY_ADMIN;
 
-    vm.createSelectFork(vm.rpcUrl('base'), 11420130);
+    vm.createSelectFork(vm.rpcUrl('base'), 11725901);
     proposal = new AaveV3Base_ADIAndBridgeAdaptersUpdate_20240305();
   }
 

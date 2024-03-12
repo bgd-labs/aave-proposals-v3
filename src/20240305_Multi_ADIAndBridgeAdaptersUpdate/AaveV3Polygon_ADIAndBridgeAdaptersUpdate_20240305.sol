@@ -24,10 +24,10 @@ contract AaveV3Polygon_ADIAndBridgeAdaptersUpdate_20240305 is IProposalGenericEx
   address public constant LZ_NEW_ADAPTER = 0x7FAE7765abB4c8f778d57337bB720d0BC53057e3;
   address public constant HL_NEW_ADAPTER = 0x3e72665008dC237bdd91C04C10782Ed1987a4019;
   address public constant POL_NEW_ADAPTER = 0x853649f897383f89d8441346Cf26a9ed02720B02;
-  address public constant DESTINATION_CCIP_NEW_ADAPTER = address(0); // TODO: change for real address when deployed in ethereum
-  address public constant DESTINATION_LZ_NEW_ADAPTER = address(0); // TODO: change for real address when deployed in ethereum
-  address public constant DESTINATION_HL_NEW_ADAPTER = address(0); // TODO: change for real address when deployed in ethereum
-  address public constant DESTINATION_POL_NEW_ADAPTER = address(0); // TODO: change for real address when deployed in ethereum
+  address public constant DESTINATION_CCIP_NEW_ADAPTER = 0xB7a6618df58626C3a122ABAFD6Ee63Af63f3Ef29;
+  address public constant DESTINATION_LZ_NEW_ADAPTER = 0x8410d9BD353b420ebA8C48ff1B0518426C280FCC;
+  address public constant DESTINATION_HL_NEW_ADAPTER = 0x01dcb90Cf13b82Cde4A0BAcC655585a83Af3cCC1;
+  address public constant DESTINATION_POL_NEW_ADAPTER = 0x1562F1b2487F892BBA8Ef325aF054Fd157510a71;
   address public constant NEW_CROSS_CHAIN_CONTROLLER_IMPLEMENTATION =
     0x87a95917DE670088d81B9a8B30E3B36704Ba3043;
 

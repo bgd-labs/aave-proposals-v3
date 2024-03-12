@@ -20,7 +20,7 @@ contract AaveV3BNB_ADIAndBridgeAdaptersUpdate_20240305_Test is ProtocolV3TestBas
     ccc = GovernanceV3BNB.CROSS_CHAIN_CONTROLLER;
     proxyAdmin = MiscBNB.PROXY_ADMIN;
 
-    vm.createSelectFork(vm.rpcUrl('bnb'), 36699072);
+    vm.createSelectFork(vm.rpcUrl('bnb'), 36903911);
     proposal = new AaveV3BNB_ADIAndBridgeAdaptersUpdate_20240305();
   }
 
@@ -43,7 +43,7 @@ contract AaveV3BNB_ADIAndBridgeAdaptersUpdate_20240305_Test is ProtocolV3TestBas
   }
 
   function _testCorrectAdapterNames() internal {
-    _testAdapterName(proposal.CCIP_NEW_ADAPTER(), 'CCIP native adapter');
+    _testAdapterName(proposal.CCIP_NEW_ADAPTER(), 'CCIP adapter');
     _testAdapterName(proposal.LZ_NEW_ADAPTER(), 'LayerZero adapter');
     _testAdapterName(proposal.HL_NEW_ADAPTER(), 'Hyperlane adapter');
   }

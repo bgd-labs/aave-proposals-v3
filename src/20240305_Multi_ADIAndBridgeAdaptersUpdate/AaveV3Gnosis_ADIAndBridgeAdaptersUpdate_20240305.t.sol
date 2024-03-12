@@ -20,7 +20,7 @@ contract AaveV3Gnosis_ADIAndBridgeAdaptersUpdate_20240305_Test is ProtocolV3Test
     ccc = GovernanceV3Gnosis.CROSS_CHAIN_CONTROLLER;
     proxyAdmin = MiscGnosis.PROXY_ADMIN;
 
-    vm.createSelectFork(vm.rpcUrl('gnosis'), 32774450);
+    vm.createSelectFork(vm.rpcUrl('gnosis'), 32891914);
     proposal = new AaveV3Gnosis_ADIAndBridgeAdaptersUpdate_20240305();
   }
 
