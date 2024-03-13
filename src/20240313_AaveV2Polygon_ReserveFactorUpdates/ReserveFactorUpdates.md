@@ -1,12 +1,12 @@
 ---
 title: "Reserve Factor Updates (March 13, 2024)"
 author: "dd0sxx_TokenLogic"
-discussions: "https://governance.aave.com/t/arfc-reserve-factor-updates-polygon-aave-v2/13937/18"
+discussions: "https://governance.aave.com/t/arfc-reserve-factor-updates-polygon-aave-v2/13937/20"
 ---
 
 ## Simple Summary
 
-This AIP is a continuation of proposal 30 on Governance v3 and increases the Reserve Factor (RF) for assets on Polygon v2 by 5.00%, up to a maximum of 99.99%.
+This AIP is a continuation of proposal 41 on Governance v3 and increases the Reserve Factor (RF) for assets on Polygon v2 by 5.00%, up to a maximum of 99.99%.
 
 ## Motivation
 
