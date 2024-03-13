@@ -76,6 +76,9 @@ export async function generateFiles(options: Options, poolConfigs: PoolConfigs):
 
 async function askBeforeWrite(options: Options, path: string, content: string) {
   if (!options.force && fs.existsSync(path)) {
+    const currentContent = fs.readFileSync(path, {encoding: 'utf8'});
+    // skip if content did not change
+    if (currentContent === content) return;
     const force = await confirm({
       message: `A file already exists at ${path} do you want to overwrite`,
       default: false,
