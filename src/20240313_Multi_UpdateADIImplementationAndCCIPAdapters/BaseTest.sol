@@ -2,22 +2,24 @@
 pragma solidity ^0.8.0;
 
 import 'forge-std/console.sol';
+
 import {ProtocolV3TestBase} from 'aave-helpers/ProtocolV3TestBase.sol';
 import {ICrossChainReceiver, ICrossChainForwarder} from 'aave-address-book/common/ICrossChainController.sol';
 import {TransparentUpgradeableProxy} from 'solidity-utils/contracts/transparent-proxy/TransparentUpgradeableProxy.sol';
 import {ChainIds} from 'aave-helpers/ChainIds.sol';
 import {ProxyAdmin} from 'solidity-utils/contracts/transparent-proxy/ProxyAdmin.sol';
 import {IBaseAdapter} from 'aave-address-book/common/IBaseAdapter.sol';
+
+import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
+import {GovernanceV3Polygon} from 'aave-address-book/GovernanceV3Polygon.sol';
+import {GovernanceV3Avalanche} from 'aave-address-book/GovernanceV3Avalanche.sol';
+
 import {AaveV3Ethereum_UpdateADIImplementationAndCCIPAdapters_20240313} from './AaveV3Ethereum_UpdateADIImplementationAndCCIPAdapters_20240313.sol';
 import {BaseAdaptersUpdatePayload} from './BaseAdaptersUpdatePayload.sol';
 import {AaveV3Avalanche_UpdateADIImplementationAndCCIPAdapters_20240313} from './AaveV3Avalanche_UpdateADIImplementationAndCCIPAdapters_20240313.sol';
 import {AaveV3BNB_UpdateADIImplementationAndCCIPAdapters_20240313} from './AaveV3BNB_UpdateADIImplementationAndCCIPAdapters_20240313.sol';
 import {AaveV3Polygon_UpdateADIImplementationAndCCIPAdapters_20240313} from './AaveV3Polygon_UpdateADIImplementationAndCCIPAdapters_20240313.sol';
 import {BaseCCCImplementationUpdatePayloadTest} from './BaseCCCImplementationUpdatePayloadTest.sol';
-
-import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
-import {GovernanceV3Polygon} from 'aave-address-book/GovernanceV3Polygon.sol';
-import {GovernanceV3Avalanche} from 'aave-address-book/GovernanceV3Avalanche.sol';
 
 struct AdapterName {
   address adapter;
@@ -66,6 +68,7 @@ abstract contract BaseTest is BaseCCCImplementationUpdatePayloadTest {
 
   function setUp() public override {
     super.setUp();
+
     ethereumPayload = new AaveV3Ethereum_UpdateADIImplementationAndCCIPAdapters_20240313();
     polygonPayload = new AaveV3Polygon_UpdateADIImplementationAndCCIPAdapters_20240313();
     avalanchePayload = new AaveV3Avalanche_UpdateADIImplementationAndCCIPAdapters_20240313();
@@ -85,6 +88,17 @@ abstract contract BaseTest is BaseCCCImplementationUpdatePayloadTest {
     revert();
   }
 
+  function getTrustedRemoteByChainId(uint256 chainId) public view returns (address) {
+    if (chainId == ChainIds.MAINNET) {
+      return GovernanceV3Ethereum.CROSS_CHAIN_CONTROLLER;
+    } else if (chainId == ChainIds.POLYGON) {
+      return GovernanceV3Polygon.CROSS_CHAIN_CONTROLLER;
+    } else if (chainId == ChainIds.AVALANCHE) {
+      return GovernanceV3Avalanche.CROSS_CHAIN_CONTROLLER;
+    }
+    revert();
+  }
+
   function test_trustedRemotes() public {
     ICrossChainReceiver.ReceiverBridgeAdapterConfigInput[]
       memory receivers = BaseAdaptersUpdatePayload(payloadAddress)
@@ -92,28 +106,12 @@ abstract contract BaseTest is BaseCCCImplementationUpdatePayloadTest {
 
     for (uint256 i = 0; i < receivers.length; i++) {
       for (uint256 j = 0; j < receivers[i].chainIds.length; j++) {
-        if (receivers[i].chainIds[j] == ChainIds.MAINNET) {
-          assertEq(
-            GovernanceV3Ethereum.CROSS_CHAIN_CONTROLLER,
-            IBaseAdapter(receivers[i].bridgeAdapter).getTrustedRemoteByChainId(
-              receivers[i].chainIds[j]
-            )
-          );
-        } else if (receivers[i].chainIds[j] == ChainIds.POLYGON) {
-          assertEq(
-            GovernanceV3Polygon.CROSS_CHAIN_CONTROLLER,
-            IBaseAdapter(receivers[i].bridgeAdapter).getTrustedRemoteByChainId(
-              receivers[i].chainIds[j]
-            )
-          );
-        } else if (receivers[i].chainIds[j] == ChainIds.AVALANCHE) {
-          assertEq(
-            GovernanceV3Avalanche.CROSS_CHAIN_CONTROLLER,
-            IBaseAdapter(receivers[i].bridgeAdapter).getTrustedRemoteByChainId(
-              receivers[i].chainIds[j]
-            )
-          );
-        }
+        assertEq(
+          getTrustedRemoteByChainId(receivers[i].chainIds[j]),
+          IBaseAdapter(receivers[i].bridgeAdapter).getTrustedRemoteByChainId(
+            receivers[i].chainIds[j]
+          )
+        );
       }
     }
   }
