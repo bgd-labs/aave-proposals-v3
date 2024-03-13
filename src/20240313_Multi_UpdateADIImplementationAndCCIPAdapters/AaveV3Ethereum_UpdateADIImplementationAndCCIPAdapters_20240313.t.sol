@@ -96,38 +96,4 @@ contract AaveV3Ethereum_UpdateADIImplementationAndCCIPAdapters_20240313_Test is 
   //
   //    return forwarderAdapters;
   //  }
-
-  function _getAdapterByChain(
-    bool afterExecution
-  ) internal view override returns (AdapterAllowed[] memory) {
-    AdapterAllowed[] memory adaptersAllowed = new AdapterAllowed[](4);
-    adaptersAllowed[0] = AdapterAllowed({
-      adapter: payload.CCIP_ADAPTER_TO_REMOVE(),
-      chainId: ChainIds.POLYGON,
-      allowed: true
-    });
-    adaptersAllowed[1] = AdapterAllowed({
-      adapter: payload.CCIP_ADAPTER_TO_REMOVE(),
-      chainId: ChainIds.AVALANCHE,
-      allowed: true
-    });
-    adaptersAllowed[2] = AdapterAllowed({
-      adapter: payload.CCIP_NEW_ADAPTER(),
-      chainId: ChainIds.POLYGON,
-      allowed: false
-    });
-    adaptersAllowed[3] = AdapterAllowed({
-      adapter: payload.CCIP_NEW_ADAPTER(),
-      chainId: ChainIds.AVALANCHE,
-      allowed: false
-    });
-    if (afterExecution) {
-      adaptersAllowed[0].allowed = false;
-      adaptersAllowed[1].allowed = false;
-      adaptersAllowed[2].allowed = true;
-      adaptersAllowed[3].allowed = true;
-    }
-
-    return adaptersAllowed;
-  }
 }

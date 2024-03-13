@@ -139,12 +139,47 @@ abstract contract BaseTest is ProtocolV3TestBase {
     }
   }
 
+  function test_receiversAreCorrectlySetAfterExecution() public {
+    ICrossChainReceiver.ReceiverBridgeAdapterConfigInput[]
+      memory beforeReceivers = BaseAdaptersUpdatePayload(payloadAddress)
+        .getReceiverBridgeAdaptersToAllow();
+
+    for (uint256 i = 0; i < beforeReceivers.length; i++) {
+      for (uint256 j = 0; j < beforeReceivers[i].chainIds.length; j++) {
+        assertEq(
+          ICrossChainReceiver(CROSS_CHAIN_CONTROLLER).isReceiverBridgeAdapterAllowed(
+            beforeReceivers[i].bridgeAdapter,
+            beforeReceivers[i].chainIds[j]
+          ),
+          false
+        );
+      }
+    }
+
+    executePayload(vm, payloadAddress);
+
+    ICrossChainReceiver.ReceiverBridgeAdapterConfigInput[]
+      memory receivers = BaseAdaptersUpdatePayload(payloadAddress)
+        .getReceiverBridgeAdaptersToAllow();
+
+    for (uint256 i = 0; i < receivers.length; i++) {
+      for (uint256 j = 0; j < receivers[i].chainIds.length; j++) {
+        assertEq(
+          ICrossChainReceiver(CROSS_CHAIN_CONTROLLER).isReceiverBridgeAdapterAllowed(
+            receivers[i].bridgeAdapter,
+            receivers[i].chainIds[j]
+          ),
+          true
+        );
+      }
+    }
+  }
+
   /**
    * @dev executes the generic test suite including e2e and config snapshots
    */
   function test_defaultProposalExecution() public {
     //
-    //    _checkCurrentReceiversState(false);
     //    _checkAllReceiversAreRepresented(false);
     //    _checkAllForwarderAdaptersAreRepresented(false);
     _checkImplementationAddress(
@@ -158,7 +193,6 @@ abstract contract BaseTest is ProtocolV3TestBase {
     //
     //    AdaptersByChain[] memory afterBeforeExecution = _getCurrentReceiverAdaptersByChain();
     //
-    //    //    _checkCurrentReceiversState(true);
     //    //    _checkAllReceiversAreRepresented(true);
     //    //    _checkAllForwarderAdaptersAreRepresented(true);
     _checkImplementationAddress(
@@ -168,10 +202,6 @@ abstract contract BaseTest is ProtocolV3TestBase {
   }
 
   // -------------- virtual methods --------------------------
-
-  function _getAdapterByChain(
-    bool afterExecution
-  ) internal view virtual returns (AdapterAllowed[] memory);
 
   function _getForwarderAdaptersByChain(
     bool afterExecution
@@ -204,20 +234,6 @@ abstract contract BaseTest is ProtocolV3TestBase {
       _testReceiverAdaptersByChain(
         receiverAdaptersByChain[i].chainId,
         receiverAdaptersByChain[i].adapters
-      );
-    }
-  }
-
-  function _checkCurrentReceiversState(bool afterExecution) internal {
-    AdapterAllowed[] memory adaptersByChain = _getAdapterByChain(afterExecution);
-
-    for (uint256 i = 0; i < adaptersByChain.length; i++) {
-      assertEq(
-        ICrossChainReceiver(CROSS_CHAIN_CONTROLLER).isReceiverBridgeAdapterAllowed(
-          adaptersByChain[i].adapter,
-          adaptersByChain[i].chainId
-        ),
-        adaptersByChain[i].allowed
       );
     }
   }

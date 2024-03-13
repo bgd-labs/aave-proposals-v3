@@ -42,26 +42,4 @@ contract AaveV3BNB_UpdateADIImplementationAndCCIPAdapters_20240313_Test is BaseT
 
     return receiverAdaptersByChain;
   }
-
-  function _getAdapterByChain(
-    bool afterExecution
-  ) internal view override returns (AdapterAllowed[] memory) {
-    AdapterAllowed[] memory adaptersAllowed = new AdapterAllowed[](2);
-    adaptersAllowed[0] = AdapterAllowed({
-      adapter: payload.CCIP_ADAPTER_TO_REMOVE(),
-      chainId: ChainIds.MAINNET,
-      allowed: true
-    });
-    adaptersAllowed[1] = AdapterAllowed({
-      adapter: payload.CCIP_NEW_ADAPTER(),
-      chainId: ChainIds.MAINNET,
-      allowed: false
-    });
-    if (afterExecution) {
-      adaptersAllowed[0].allowed = false;
-      adaptersAllowed[5].allowed = true;
-    }
-
-    return adaptersAllowed;
-  }
 }
