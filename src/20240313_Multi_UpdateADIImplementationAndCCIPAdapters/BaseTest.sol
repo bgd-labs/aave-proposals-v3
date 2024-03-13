@@ -13,6 +13,7 @@ import {BaseAdaptersUpdatePayload} from './BaseAdaptersUpdatePayload.sol';
 import {AaveV3Avalanche_UpdateADIImplementationAndCCIPAdapters_20240313} from './AaveV3Avalanche_UpdateADIImplementationAndCCIPAdapters_20240313.sol';
 import {AaveV3BNB_UpdateADIImplementationAndCCIPAdapters_20240313} from './AaveV3BNB_UpdateADIImplementationAndCCIPAdapters_20240313.sol';
 import {AaveV3Polygon_UpdateADIImplementationAndCCIPAdapters_20240313} from './AaveV3Polygon_UpdateADIImplementationAndCCIPAdapters_20240313.sol';
+import {BaseCCCImplementationUpdatePayloadTest} from './BaseCCCImplementationUpdatePayloadTest.sol';
 
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {GovernanceV3Polygon} from 'aave-address-book/GovernanceV3Polygon.sol';
@@ -49,32 +50,39 @@ interface Payload {
   function CROSS_CHAIN_CONTROLLER_IMPLEMENTATION() external returns (address);
 }
 
-abstract contract BaseTest is ProtocolV3TestBase {
-  address public immutable CROSS_CHAIN_CONTROLLER;
-  address public immutable PROXY_ADMIN;
+abstract contract BaseTest is BaseCCCImplementationUpdatePayloadTest {
+  BaseAdaptersUpdatePayload internal ethereumPayload;
+  BaseAdaptersUpdatePayload internal polygonPayload;
+  BaseAdaptersUpdatePayload internal avalanchePayload;
+  BaseAdaptersUpdatePayload internal binancePayload;
 
-  address public payloadAddress;
-  string public network;
-  uint256 public blockNumber;
+  constructor(
+    address ccc,
+    address proxyAdmin,
+    bytes memory _payloadCode,
+    string memory _network,
+    uint256 _blockNumber
+  ) BaseCCCImplementationUpdatePayloadTest(ccc, proxyAdmin, _payloadCode, _network, _blockNumber) {}
 
-  AaveV3Ethereum_UpdateADIImplementationAndCCIPAdapters_20240313 internal ethereumPayload;
-  AaveV3Polygon_UpdateADIImplementationAndCCIPAdapters_20240313 internal polygonPayload;
-  AaveV3Avalanche_UpdateADIImplementationAndCCIPAdapters_20240313 internal avalanchePayload;
-  AaveV3BNB_UpdateADIImplementationAndCCIPAdapters_20240313 internal binancePayload;
-
-  constructor(address ccc, address proxyAdmin, string memory _network, uint256 _blockNumber) {
-    CROSS_CHAIN_CONTROLLER = ccc;
-    PROXY_ADMIN = proxyAdmin;
-    network = _network;
-    blockNumber = _blockNumber;
-  }
-
-  function setUp() public virtual {
-    vm.createSelectFork(vm.rpcUrl(network), blockNumber);
+  function setUp() public override {
+    super.setUp();
     ethereumPayload = new AaveV3Ethereum_UpdateADIImplementationAndCCIPAdapters_20240313();
     polygonPayload = new AaveV3Polygon_UpdateADIImplementationAndCCIPAdapters_20240313();
     avalanchePayload = new AaveV3Avalanche_UpdateADIImplementationAndCCIPAdapters_20240313();
     binancePayload = new AaveV3BNB_UpdateADIImplementationAndCCIPAdapters_20240313();
+  }
+
+  function getPayloadByChainId(uint256 chainId) public view returns (BaseAdaptersUpdatePayload) {
+    if (chainId == ChainIds.MAINNET) {
+      return ethereumPayload;
+    } else if (chainId == ChainIds.POLYGON) {
+      return polygonPayload;
+    } else if (chainId == ChainIds.BNB) {
+      return binancePayload;
+    } else if (chainId == ChainIds.AVALANCHE) {
+      return avalanchePayload;
+    }
+    revert();
   }
 
   function test_trustedRemotes() public {
@@ -116,15 +124,10 @@ abstract contract BaseTest is ProtocolV3TestBase {
         .getDestinationAdapters();
 
     for (uint256 i = 0; i < destinationConfigs.length; i++) {
-      if (destinationConfigs[i].chainId == ChainIds.MAINNET) {
-        assertEq(ethereumPayload.CCIP_NEW_ADAPTER(), destinationConfigs[i].adapter);
-      } else if (destinationConfigs[i].chainId == ChainIds.POLYGON) {
-        assertEq(polygonPayload.CCIP_NEW_ADAPTER(), destinationConfigs[i].adapter);
-      } else if (destinationConfigs[i].chainId == ChainIds.BNB) {
-        assertEq(binancePayload.CCIP_NEW_ADAPTER(), destinationConfigs[i].adapter);
-      } else if (destinationConfigs[i].chainId == ChainIds.AVALANCHE) {
-        assertEq(avalanchePayload.CCIP_NEW_ADAPTER(), destinationConfigs[i].adapter);
-      }
+      assertEq(
+        getPayloadByChainId(destinationConfigs[i].chainId).CCIP_NEW_ADAPTER(),
+        destinationConfigs[i].adapter
+      );
     }
   }
 

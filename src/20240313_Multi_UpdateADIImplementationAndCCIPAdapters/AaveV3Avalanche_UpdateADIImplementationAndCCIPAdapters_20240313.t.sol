@@ -15,22 +15,15 @@ import {AaveV3Avalanche_UpdateADIImplementationAndCCIPAdapters_20240313} from '.
  * command: make test-contract filter=AaveV3Avalanche_UpdateADIImplementationAndCCIPAdapters_20240313
  */
 contract AaveV3Avalanche_UpdateADIImplementationAndCCIPAdapters_20240313_Test is BaseTest {
-  AaveV3Avalanche_UpdateADIImplementationAndCCIPAdapters_20240313 internal payload;
-
   constructor()
     BaseTest(
       GovernanceV3Avalanche.CROSS_CHAIN_CONTROLLER,
       MiscAvalanche.PROXY_ADMIN,
+      type(AaveV3Avalanche_UpdateADIImplementationAndCCIPAdapters_20240313).creationCode,
       'avalanche',
       42801819
     )
   {}
-
-  function setUp() public override {
-    super.setUp();
-    payload = new AaveV3Avalanche_UpdateADIImplementationAndCCIPAdapters_20240313();
-    payloadAddress = address(payload);
-  }
 
   //  function _getForwarderAdaptersByChain(
   //    bool afterExecution
@@ -57,10 +50,10 @@ contract AaveV3Avalanche_UpdateADIImplementationAndCCIPAdapters_20240313_Test is
     address[] memory adapters = new address[](1);
     AdaptersByChain[] memory receiverAdaptersByChain = new AdaptersByChain[](1);
 
-    adapters[0] = payload.CCIP_ADAPTER_TO_REMOVE();
+    adapters[0] = BaseAdaptersUpdatePayload(payloadAddress).CCIP_ADAPTER_TO_REMOVE();
 
     if (afterExecution) {
-      adapters[0] = payload.CCIP_NEW_ADAPTER();
+      adapters[0] = BaseAdaptersUpdatePayload(payloadAddress).CCIP_NEW_ADAPTER();
     }
     receiverAdaptersByChain[0].adapters = adapters;
     receiverAdaptersByChain[0].chainId = ChainIds.MAINNET;

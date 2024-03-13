@@ -13,22 +13,15 @@ import {AaveV3Polygon_UpdateADIImplementationAndCCIPAdapters_20240313} from './A
  * command: make test-contract filter=AaveV3Polygon_UpdateADIImplementationAndCCIPAdapters_20240313
  */
 contract AaveV3Polygon_UpdateADIImplementationAndCCIPAdapters_20240313_Test is BaseTest {
-  AaveV3Polygon_UpdateADIImplementationAndCCIPAdapters_20240313 internal payload;
-
   constructor()
     BaseTest(
       GovernanceV3Polygon.CROSS_CHAIN_CONTROLLER,
       MiscPolygon.PROXY_ADMIN,
+      type(AaveV3Polygon_UpdateADIImplementationAndCCIPAdapters_20240313).creationCode,
       'polygon',
       54566890
     )
   {}
-
-  function setUp() public override {
-    super.setUp();
-    payload = new AaveV3Polygon_UpdateADIImplementationAndCCIPAdapters_20240313();
-    payloadAddress = address(payload);
-  }
 
   //  function _getForwarderAdaptersByChain(
   //    bool afterExecution
@@ -55,10 +48,10 @@ contract AaveV3Polygon_UpdateADIImplementationAndCCIPAdapters_20240313_Test is B
     address[] memory adapters = new address[](1);
     AdaptersByChain[] memory receiverAdaptersByChain = new AdaptersByChain[](1);
 
-    adapters[0] = payload.CCIP_ADAPTER_TO_REMOVE();
+    adapters[0] = BaseAdaptersUpdatePayload(payloadAddress).CCIP_ADAPTER_TO_REMOVE();
 
     if (afterExecution) {
-      adapters[0] = payload.CCIP_NEW_ADAPTER();
+      adapters[0] = BaseAdaptersUpdatePayload(payloadAddress).CCIP_NEW_ADAPTER();
     }
     receiverAdaptersByChain[0].adapters = adapters;
     receiverAdaptersByChain[0].chainId = ChainIds.MAINNET;

@@ -31,7 +31,7 @@ contract BaseCCCImplementationUpdatePayloadTest is ProtocolV3TestBase {
     payloadCode = _payloadCode;
   }
 
-  function setUp() public {
+  function setUp() public virtual {
     vm.createSelectFork(vm.rpcUrl(network), blockNumber);
     payloadAddress = GovV3Helpers.deployDeterministic(payloadCode);
   }
