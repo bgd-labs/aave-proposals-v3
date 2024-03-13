@@ -10,6 +10,7 @@ contract BaseCCCImplementationUpdatePayload is IProposalGenericExecutor {
     address ccc;
     address newCCCImplementation;
   }
+
   address public immutable CROSS_CHAIN_CONTROLLER_IMPLEMENTATION;
   address public immutable CROSS_CHAIN_CONTROLLER;
   address public immutable PROXY_ADMIN;

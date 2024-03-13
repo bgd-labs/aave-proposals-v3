@@ -27,8 +27,7 @@ abstract contract BaseAdaptersUpdatePayload is BaseCCCImplementationUpdatePayloa
   constructor(
     ConstructorInput memory constructorInput
   )
-    public
-    BaseAdaptersUpdatePayload(
+    BaseCCCImplementationUpdatePayload(
       CCCImplementationUpdateInput({
         proxyAdmin: constructorInput.proxyAdmin,
         ccc: constructorInput.ccc,
@@ -40,7 +39,7 @@ abstract contract BaseAdaptersUpdatePayload is BaseCCCImplementationUpdatePayloa
     CCIP_NEW_ADAPTER = constructorInput.ccipNewAdapter;
   }
 
-  function execute() external {
+  function execute() public override {
     super.execute();
     // remove old Receiver bridge adapter
     ICrossChainReceiver(CROSS_CHAIN_CONTROLLER).disallowReceiverBridgeAdapters(
