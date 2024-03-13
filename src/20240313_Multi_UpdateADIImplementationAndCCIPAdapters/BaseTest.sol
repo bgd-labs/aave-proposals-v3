@@ -85,6 +85,17 @@ abstract contract BaseTest is BaseCCCImplementationUpdatePayloadTest {
     revert();
   }
 
+  function getTrustedRemoteByChainId(uint256 chainId) public view returns (address) {
+    if (chainId == ChainIds.MAINNET) {
+      return GovernanceV3Ethereum.CROSS_CHAIN_CONTROLLER;
+    } else if (chainId == ChainIds.POLYGON) {
+      return GovernanceV3Polygon.CROSS_CHAIN_CONTROLLER;
+    } else if (chainId == ChainIds.AVALANCHE) {
+      return GovernanceV3Avalanche.CROSS_CHAIN_CONTROLLER;
+    }
+    revert();
+  }
+
   function test_trustedRemotes() public {
     ICrossChainReceiver.ReceiverBridgeAdapterConfigInput[]
       memory receivers = BaseAdaptersUpdatePayload(payloadAddress)
@@ -92,28 +103,12 @@ abstract contract BaseTest is BaseCCCImplementationUpdatePayloadTest {
 
     for (uint256 i = 0; i < receivers.length; i++) {
       for (uint256 j = 0; j < receivers[i].chainIds.length; j++) {
-        if (receivers[i].chainIds[j] == ChainIds.MAINNET) {
-          assertEq(
-            GovernanceV3Ethereum.CROSS_CHAIN_CONTROLLER,
-            IBaseAdapter(receivers[i].bridgeAdapter).getTrustedRemoteByChainId(
-              receivers[i].chainIds[j]
-            )
-          );
-        } else if (receivers[i].chainIds[j] == ChainIds.POLYGON) {
-          assertEq(
-            GovernanceV3Polygon.CROSS_CHAIN_CONTROLLER,
-            IBaseAdapter(receivers[i].bridgeAdapter).getTrustedRemoteByChainId(
-              receivers[i].chainIds[j]
-            )
-          );
-        } else if (receivers[i].chainIds[j] == ChainIds.AVALANCHE) {
-          assertEq(
-            GovernanceV3Avalanche.CROSS_CHAIN_CONTROLLER,
-            IBaseAdapter(receivers[i].bridgeAdapter).getTrustedRemoteByChainId(
-              receivers[i].chainIds[j]
-            )
-          );
-        }
+        assertEq(
+          getTrustedRemoteByChainId(receivers[i].chainIds[j]),
+          IBaseAdapter(receivers[i].bridgeAdapter).getTrustedRemoteByChainId(
+            receivers[i].chainIds[j]
+          )
+        );
       }
     }
   }
