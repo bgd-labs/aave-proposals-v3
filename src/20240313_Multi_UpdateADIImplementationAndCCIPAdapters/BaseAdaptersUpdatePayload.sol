@@ -138,7 +138,7 @@ abstract contract BaseAdaptersUpdatePayload is BaseCCCImplementationUpdatePayloa
   }
 
   function getForwarderBridgeAdaptersToEnable()
-    internal
+    public
     view
     returns (ICrossChainForwarder.ForwarderBridgeAdapterConfigInput[] memory)
   {

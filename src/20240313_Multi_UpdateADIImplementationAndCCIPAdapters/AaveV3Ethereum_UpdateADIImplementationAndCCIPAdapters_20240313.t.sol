@@ -27,28 +27,6 @@ contract AaveV3Ethereum_UpdateADIImplementationAndCCIPAdapters_20240313_Test is 
     )
   {}
 
-  function _getReceiverAdaptersByChain(
-    bool afterExecution
-  ) internal view override returns (AdaptersByChain[] memory) {
-    address[] memory polygonAdapters = new address[](1);
-    address[] memory avalancheAdapters = new address[](1);
-    AdaptersByChain[] memory receiverAdaptersByChain = new AdaptersByChain[](2);
-
-    polygonAdapters[0] = BaseAdaptersUpdatePayload(payloadAddress).CCIP_ADAPTER_TO_REMOVE();
-    avalancheAdapters[0] = BaseAdaptersUpdatePayload(payloadAddress).CCIP_ADAPTER_TO_REMOVE();
-
-    if (afterExecution) {
-      polygonAdapters[0] = BaseAdaptersUpdatePayload(payloadAddress).CCIP_NEW_ADAPTER();
-      avalancheAdapters[0] = BaseAdaptersUpdatePayload(payloadAddress).CCIP_NEW_ADAPTER();
-    }
-    receiverAdaptersByChain[0].adapters = polygonAdapters;
-    receiverAdaptersByChain[0].chainId = ChainIds.POLYGON;
-    receiverAdaptersByChain[0].adapters = avalancheAdapters;
-    receiverAdaptersByChain[0].chainId = ChainIds.AVALANCHE;
-
-    return receiverAdaptersByChain;
-  }
-
   //  function _getForwarderAdaptersByChain(
   //    bool afterExecution
   //  ) internal view override returns (ForwarderAdapters[] memory) {

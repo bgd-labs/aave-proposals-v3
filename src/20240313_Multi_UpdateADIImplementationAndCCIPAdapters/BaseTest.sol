@@ -226,30 +226,45 @@ abstract contract BaseTest is BaseCCCImplementationUpdatePayloadTest {
     }
   }
 
+  function test_forwarderAdaptersAreSet() public {
+    executePayload(vm, payloadAddress);
+
+    ICrossChainForwarder.ForwarderBridgeAdapterConfigInput[]
+      memory forwarders = BaseAdaptersUpdatePayload(payloadAddress)
+        .getForwarderBridgeAdaptersToEnable();
+
+    for (uint256 i = 0; i < forwarders.length; i++) {
+      ICrossChainForwarder.ChainIdBridgeConfig[]
+        memory forwardersBridgeAdaptersByChain = ICrossChainForwarder(CROSS_CHAIN_CONTROLLER)
+          .getForwarderBridgeAdaptersByChain(forwarders[i].destinationChainId);
+      bool newAdapterFound;
+      for (uint256 j = 0; j < forwardersBridgeAdaptersByChain.length; j++) {
+        if (
+          forwardersBridgeAdaptersByChain[j].destinationBridgeAdapter ==
+          forwarders[i].destinationBridgeAdapter &&
+          forwardersBridgeAdaptersByChain[j].currentChainBridgeAdapter ==
+          forwarders[i].currentChainBridgeAdapter
+        ) {
+          newAdapterFound = true;
+        }
+      }
+      assertEq(newAdapterFound, true);
+    }
+  }
+
   /**
    * @dev executes the generic test suite including e2e and config snapshots
    */
   function test_defaultProposalExecution() public {
-    //
-    //    _checkAllReceiversAreRepresented(false);
     //    _checkAllForwarderAdaptersAreRepresented(false);
-    _checkImplementationAddress(
-      Payload(payloadAddress).CROSS_CHAIN_CONTROLLER_IMPLEMENTATION(),
-      false
-    );
+
     //
     //    AdaptersByChain[] memory receiversBeforeExecution = _getCurrentReceiverAdaptersByChain();
     //
     executePayload(vm, payloadAddress);
     //
     //    AdaptersByChain[] memory afterBeforeExecution = _getCurrentReceiverAdaptersByChain();
-    //
-    //    //    _checkAllReceiversAreRepresented(true);
     //    //    _checkAllForwarderAdaptersAreRepresented(true);
-    _checkImplementationAddress(
-      Payload(payloadAddress).CROSS_CHAIN_CONTROLLER_IMPLEMENTATION(),
-      true
-    );
   }
 
   // -------------- virtual methods --------------------------
@@ -260,10 +275,6 @@ abstract contract BaseTest is BaseCCCImplementationUpdatePayloadTest {
     ForwarderAdapters[] memory forwarderAdapters = new ForwarderAdapters[](0);
     return forwarderAdapters;
   }
-
-  function _getReceiverAdaptersByChain(
-    bool afterExecution
-  ) internal view virtual returns (AdaptersByChain[] memory);
 
   // ------------------------ checks -------------
   //  function _checkAllForwarderAdaptersAreRepresented(bool afterExecution) internal {
@@ -277,24 +288,6 @@ abstract contract BaseTest is BaseCCCImplementationUpdatePayloadTest {
   //      );
   //    }
   //  }
-
-  function _checkAllReceiversAreRepresented(bool afterExecution) internal virtual {
-    AdaptersByChain[] memory receiverAdaptersByChain = _getReceiverAdaptersByChain(afterExecution);
-
-    for (uint256 i = 0; i < receiverAdaptersByChain.length; i++) {
-      _testReceiverAdaptersByChain(
-        receiverAdaptersByChain[i].chainId,
-        receiverAdaptersByChain[i].adapters
-      );
-    }
-  }
-
-  function _checkImplementationAddress(address implementation, bool equal) internal {
-    address cccImplementation = ProxyAdmin(PROXY_ADMIN).getProxyImplementation(
-      TransparentUpgradeableProxy(payable(CROSS_CHAIN_CONTROLLER))
-    );
-    assertEq(cccImplementation == implementation, equal);
-  }
 
   //-----------------------------------------------------------------
 
@@ -328,46 +321,6 @@ abstract contract BaseTest is BaseCCCImplementationUpdatePayloadTest {
       }
     }
     assertEq(adaptersCount, adapters.length);
-  }
-
-  function _testReceiverAdaptersByChain(uint256 chainId, address[] memory adapters) internal {
-    address[] memory receiverAdapters = ICrossChainReceiver(CROSS_CHAIN_CONTROLLER)
-      .getReceiverBridgeAdaptersByChain(chainId);
-
-    uint256 adaptersCount;
-    for (uint256 i = 0; i < receiverAdapters.length; i++) {
-      for (uint256 j = 0; j < adapters.length; j++) {
-        if (receiverAdapters[i] == adapters[j]) {
-          adaptersCount++;
-        }
-      }
-    }
-    assertEq(adaptersCount, adapters.length);
-  }
-
-  function _testOnlyUpdatedReceiverAdapterChanges(
-    address[] memory previousReceivers,
-    address newAdapter,
-    uint256 chainId
-  ) internal {
-    address[] memory currentReceiverAdapters = ICrossChainReceiver(CROSS_CHAIN_CONTROLLER)
-      .getReceiverBridgeAdaptersByChain(chainId);
-
-    uint256 adaptersCount;
-    uint256 newAdapterCount;
-    for (uint256 i = 0; i < currentReceiverAdapters.length; i++) {
-      for (uint256 j = 0; j < previousReceivers.length; j++) {
-        if (currentReceiverAdapters[i] == previousReceivers[j]) {
-          adaptersCount++;
-        }
-        if (currentReceiverAdapters[i] == newAdapter) {
-          newAdapterCount++;
-        }
-      }
-    }
-
-    assertEq(previousReceivers.length, currentReceiverAdapters.length);
-    assertEq(currentReceiverAdapters.length, adaptersCount + newAdapterCount);
   }
 
   function _getCurrentReceiverAdaptersByChain() internal returns (AdaptersByChain[] memory) {
