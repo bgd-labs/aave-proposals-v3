@@ -175,6 +175,54 @@ abstract contract BaseTest is ProtocolV3TestBase {
     }
   }
 
+  function test_onlyUpdatedNeededAdapter() public {
+    uint256[] memory supportedChainsBefore = ICrossChainReceiver(CROSS_CHAIN_CONTROLLER)
+      .getSupportedChains();
+    AdaptersByChain[] memory adaptersBefore = _getCurrentReceiverAdaptersByChain();
+
+    executePayload(vm, payloadAddress);
+
+    uint256[] memory supportedChainsAfter = ICrossChainReceiver(CROSS_CHAIN_CONTROLLER)
+      .getSupportedChains();
+
+    assertEq(supportedChainsBefore, supportedChainsAfter);
+    for (uint256 i = 0; i < supportedChainsBefore.length; i++) {
+      assertEq(supportedChainsAfter[i], supportedChainsBefore[i]);
+    }
+
+    ICrossChainReceiver.ReceiverBridgeAdapterConfigInput[]
+      memory adaptersToRemove = BaseAdaptersUpdatePayload(payloadAddress)
+        .getReceiverBridgeAdaptersToRemove();
+
+    for (uint256 i = 0; i < adaptersBefore.length; i++) {
+      for (uint256 j = 0; j < adaptersToRemove.length; j++) {
+        for (uint256 x = 0; x < adaptersToRemove[j].chainIds.length; x++) {
+          if (adaptersToRemove[j].chainIds[x] == adaptersBefore[i].chainId) {
+            for (uint256 k = 0; k < adaptersBefore[i].adapters.length; k++) {
+              if (adaptersBefore[i].adapters[k] == adaptersToRemove[j].bridgeAdapter) {
+                assertEq(
+                  ICrossChainReceiver(CROSS_CHAIN_CONTROLLER).isReceiverBridgeAdapterAllowed(
+                    adaptersToRemove[j].bridgeAdapter,
+                    adaptersBefore[i].chainId
+                  ),
+                  false
+                );
+              } else {
+                assertEq(
+                  ICrossChainReceiver(CROSS_CHAIN_CONTROLLER).isReceiverBridgeAdapterAllowed(
+                    adaptersBefore[i].adapters[k],
+                    adaptersBefore[i].chainId
+                  ),
+                  true
+                );
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
   /**
    * @dev executes the generic test suite including e2e and config snapshots
    */
