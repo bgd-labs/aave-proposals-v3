@@ -122,7 +122,7 @@ abstract contract BaseAdaptersUpdatePayload is BaseCCCImplementationUpdatePayloa
   }
 
   function getReceiverBridgeAdaptersToAllow()
-    internal
+    public
     view
     returns (ICrossChainReceiver.ReceiverBridgeAdapterConfigInput[] memory)
   {

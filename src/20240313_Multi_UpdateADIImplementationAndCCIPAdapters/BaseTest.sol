@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
+import 'forge-std/console.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/ProtocolV3TestBase.sol';
 import {ICrossChainReceiver, ICrossChainForwarder} from 'aave-address-book/common/ICrossChainController.sol';
 import {TransparentUpgradeableProxy} from 'solidity-utils/contracts/transparent-proxy/TransparentUpgradeableProxy.sol';
@@ -12,6 +13,10 @@ import {BaseAdaptersUpdatePayload} from './BaseAdaptersUpdatePayload.sol';
 import {AaveV3Avalanche_UpdateADIImplementationAndCCIPAdapters_20240313} from './AaveV3Avalanche_UpdateADIImplementationAndCCIPAdapters_20240313.sol';
 import {AaveV3BNB_UpdateADIImplementationAndCCIPAdapters_20240313} from './AaveV3BNB_UpdateADIImplementationAndCCIPAdapters_20240313.sol';
 import {AaveV3Polygon_UpdateADIImplementationAndCCIPAdapters_20240313} from './AaveV3Polygon_UpdateADIImplementationAndCCIPAdapters_20240313.sol';
+
+import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
+import {GovernanceV3Polygon} from 'aave-address-book/GovernanceV3Polygon.sol';
+import {GovernanceV3Avalanche} from 'aave-address-book/GovernanceV3Avalanche.sol';
 
 struct AdapterName {
   address adapter;
@@ -41,7 +46,7 @@ struct ForwarderAdapters {
 }
 
 interface Payload {
-  function NEW_CROSS_CHAIN_CONTROLLER_IMPLEMENTATION() external returns (address);
+  function CROSS_CHAIN_CONTROLLER_IMPLEMENTATION() external returns (address);
 }
 
 abstract contract BaseTest is ProtocolV3TestBase {
@@ -72,44 +77,45 @@ abstract contract BaseTest is ProtocolV3TestBase {
     binancePayload = new AaveV3BNB_UpdateADIImplementationAndCCIPAdapters_20240313();
   }
 
-  /**
-   * @dev executes the generic test suite including e2e and config snapshots
-   */
-  function test_defaultProposalExecution() public {
-    _checkTrustedRemotes();
-    _checkCorrectPathConfiguration();
-    _checkCorrectAdapterNames();
-    //
-    //    _checkCurrentReceiversState(false);
-    //    _checkAllReceiversAreRepresented(false);
-    //    _checkAllForwarderAdaptersAreRepresented(false);
-    _checkImplementationAddress(
-      Payload(payloadAddress).NEW_CROSS_CHAIN_CONTROLLER_IMPLEMENTATION(),
-      false
-    );
+  function test_trustedRemotes() public {
+    ICrossChainReceiver.ReceiverBridgeAdapterConfigInput[]
+      memory receivers = BaseAdaptersUpdatePayload(payloadAddress)
+        .getReceiverBridgeAdaptersToAllow();
 
-    AdaptersByChain[] memory receiversBeforeExecution = _getCurrentReceiverAdaptersByChain();
-
-    executePayload(vm, payloadAddress);
-
-    AdaptersByChain[] memory afterBeforeExecution = _getCurrentReceiverAdaptersByChain();
-
-    //    _checkCurrentReceiversState(true);
-    //    _checkAllReceiversAreRepresented(true);
-    //    _checkAllForwarderAdaptersAreRepresented(true);
-    _checkImplementationAddress(
-      Payload(payloadAddress).NEW_CROSS_CHAIN_CONTROLLER_IMPLEMENTATION(),
-      true
-    );
+    for (uint256 i = 0; i < receivers.length; i++) {
+      for (uint256 j = 0; j < receivers[i].chainIds.length; j++) {
+        if (receivers[i].chainIds[j] == ChainIds.MAINNET) {
+          assertEq(
+            GovernanceV3Ethereum.CROSS_CHAIN_CONTROLLER,
+            IBaseAdapter(receivers[i].bridgeAdapter).getTrustedRemoteByChainId(
+              receivers[i].chainIds[j]
+            )
+          );
+        } else if (receivers[i].chainIds[j] == ChainIds.POLYGON) {
+          assertEq(
+            GovernanceV3Polygon.CROSS_CHAIN_CONTROLLER,
+            IBaseAdapter(receivers[i].bridgeAdapter).getTrustedRemoteByChainId(
+              receivers[i].chainIds[j]
+            )
+          );
+        } else if (receivers[i].chainIds[j] == ChainIds.AVALANCHE) {
+          assertEq(
+            GovernanceV3Avalanche.CROSS_CHAIN_CONTROLLER,
+            IBaseAdapter(receivers[i].bridgeAdapter).getTrustedRemoteByChainId(
+              receivers[i].chainIds[j]
+            )
+          );
+        }
+      }
+    }
   }
 
-  // -------------- virtual methods --------------------------
-  function _checkCorrectPathConfiguration() internal {
+  function test_correctPathConfiguration() public {
     BaseAdaptersUpdatePayload.DestinationAdaptersInput[]
       memory destinationConfigs = BaseAdaptersUpdatePayload(payloadAddress)
         .getDestinationAdapters();
 
-    for (uint256 i; i < destinationConfigs.length; i++) {
+    for (uint256 i = 0; i < destinationConfigs.length; i++) {
       if (destinationConfigs[i].chainId == ChainIds.MAINNET) {
         assertEq(ethereumPayload.CCIP_NEW_ADAPTER(), destinationConfigs[i].adapter);
       } else if (destinationConfigs[i].chainId == ChainIds.POLYGON) {
@@ -122,9 +128,46 @@ abstract contract BaseTest is ProtocolV3TestBase {
     }
   }
 
-  function _getAdapterNames() internal view virtual returns (AdapterName[] memory);
+  function test_correctAdapterNames() public {
+    ICrossChainReceiver.ReceiverBridgeAdapterConfigInput[]
+      memory receivers = BaseAdaptersUpdatePayload(payloadAddress)
+        .getReceiverBridgeAdaptersToAllow();
 
-  function _getTrustedRemotes() internal view virtual returns (TrustedRemote[] memory);
+    for (uint256 i = 0; i < receivers.length; i++) {
+      string memory adapterName = IBaseAdapter(receivers[i].bridgeAdapter).adapterName();
+      assertEq(keccak256(abi.encode(adapterName)), keccak256(abi.encode('CCIP adapter')));
+    }
+  }
+
+  /**
+   * @dev executes the generic test suite including e2e and config snapshots
+   */
+  function test_defaultProposalExecution() public {
+    //
+    //    _checkCurrentReceiversState(false);
+    //    _checkAllReceiversAreRepresented(false);
+    //    _checkAllForwarderAdaptersAreRepresented(false);
+    _checkImplementationAddress(
+      Payload(payloadAddress).CROSS_CHAIN_CONTROLLER_IMPLEMENTATION(),
+      false
+    );
+    //
+    //    AdaptersByChain[] memory receiversBeforeExecution = _getCurrentReceiverAdaptersByChain();
+    //
+    executePayload(vm, payloadAddress);
+    //
+    //    AdaptersByChain[] memory afterBeforeExecution = _getCurrentReceiverAdaptersByChain();
+    //
+    //    //    _checkCurrentReceiversState(true);
+    //    //    _checkAllReceiversAreRepresented(true);
+    //    //    _checkAllForwarderAdaptersAreRepresented(true);
+    _checkImplementationAddress(
+      Payload(payloadAddress).CROSS_CHAIN_CONTROLLER_IMPLEMENTATION(),
+      true
+    );
+  }
+
+  // -------------- virtual methods --------------------------
 
   function _getAdapterByChain(
     bool afterExecution
@@ -175,28 +218,6 @@ abstract contract BaseTest is ProtocolV3TestBase {
           adaptersByChain[i].chainId
         ),
         adaptersByChain[i].allowed
-      );
-    }
-  }
-
-  function _checkCorrectAdapterNames() internal {
-    AdapterName[] memory adapterNames = _getAdapterNames();
-
-    for (uint256 i = 0; i < adapterNames.length; i++) {
-      string memory adapterName = IBaseAdapter(adapterNames[i].adapter).adapterName();
-      assertEq(keccak256(abi.encode(adapterName)), keccak256(abi.encode(adapterNames[i].name)));
-    }
-  }
-
-  function _checkTrustedRemotes() internal {
-    TrustedRemote[] memory trustedRemotes = _getTrustedRemotes();
-
-    for (uint256 i = 0; i < trustedRemotes.length; i++) {
-      assertEq(
-        trustedRemotes[i].expectedRemote,
-        IBaseAdapter(trustedRemotes[i].adapter).getTrustedRemoteByChainId(
-          trustedRemotes[i].remoteChainId
-        )
       );
     }
   }

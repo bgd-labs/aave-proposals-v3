@@ -34,29 +34,6 @@ contract AaveV3Ethereum_UpdateADIImplementationAndCCIPAdapters_20240313_Test is 
     payloadAddress = address(payload);
   }
 
-  function _getAdapterNames() internal view override returns (AdapterName[] memory) {
-    AdapterName[] memory adapterNames = new AdapterName[](1);
-    adapterNames[0] = AdapterName({adapter: payload.CCIP_NEW_ADAPTER(), name: 'CCIP adapter'});
-
-    return adapterNames;
-  }
-
-  function _getTrustedRemotes() internal view override returns (TrustedRemote[] memory) {
-    TrustedRemote[] memory trustedRemotes = new TrustedRemote[](2);
-    trustedRemotes[0] = TrustedRemote({
-      adapter: payload.CCIP_NEW_ADAPTER(),
-      expectedRemote: GovernanceV3Polygon.CROSS_CHAIN_CONTROLLER,
-      remoteChainId: ChainIds.POLYGON
-    });
-    trustedRemotes[1] = TrustedRemote({
-      adapter: payload.CCIP_NEW_ADAPTER(),
-      expectedRemote: GovernanceV3Avalanche.CROSS_CHAIN_CONTROLLER,
-      remoteChainId: ChainIds.AVALANCHE
-    });
-
-    return trustedRemotes;
-  }
-
   function _getReceiverAdaptersByChain(
     bool afterExecution
   ) internal view override returns (AdaptersByChain[] memory) {

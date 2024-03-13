@@ -26,24 +26,6 @@ contract AaveV3BNB_UpdateADIImplementationAndCCIPAdapters_20240313_Test is BaseT
     payloadAddress = address(payload);
   }
 
-  function _getAdapterNames() internal view override returns (AdapterName[] memory) {
-    AdapterName[] memory adapterNames = new AdapterName[](1);
-    adapterNames[0] = AdapterName({adapter: payload.CCIP_NEW_ADAPTER(), name: 'CCIP adapter'});
-
-    return adapterNames;
-  }
-
-  function _getTrustedRemotes() internal view override returns (TrustedRemote[] memory) {
-    TrustedRemote[] memory trustedRemotes = new TrustedRemote[](1);
-    trustedRemotes[0] = TrustedRemote({
-      adapter: payload.CCIP_NEW_ADAPTER(),
-      expectedRemote: GovernanceV3Ethereum.CROSS_CHAIN_CONTROLLER,
-      remoteChainId: ChainIds.MAINNET
-    });
-
-    return trustedRemotes;
-  }
-
   function _getReceiverAdaptersByChain(
     bool afterExecution
   ) internal view override returns (AdaptersByChain[] memory) {
