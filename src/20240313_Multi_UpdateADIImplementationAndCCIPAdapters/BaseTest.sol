@@ -78,7 +78,11 @@ abstract contract BaseTest is ProtocolV3TestBase {
       false
     );
 
+    AdaptersByChain[] memory receiversBeforeExecution = _getCurrentReceiverAdaptersByChain();
+
     executePayload(vm, payloadAddress);
+
+    AdaptersByChain[] memory afterBeforeExecution = _getCurrentReceiverAdaptersByChain();
 
     _checkCurrentReceiversState(true);
     _checkAllReceiversAreRepresented(true);
@@ -97,18 +101,18 @@ abstract contract BaseTest is ProtocolV3TestBase {
   function _getTrustedRemotes() internal view virtual returns (TrustedRemote[] memory);
 
   function _getAdapterByChain(
-    bool beforeExecution
+    bool afterExecution
   ) internal view virtual returns (AdapterAllowed[] memory);
 
   function _getForwarderAdaptersByChain(
-    bool beforeExecution
+    bool afterExecution
   ) internal view virtual returns (ForwarderAdapters[] memory) {
     ForwarderAdapters[] memory forwarderAdapters = new ForwarderAdapters[](0);
     return forwarderAdapters;
   }
 
   function _getReceiverAdaptersByChain(
-    bool beforeExecution
+    bool afterExecution
   ) internal view virtual returns (AdaptersByChain[] memory);
 
   // ------------------------ checks -------------
@@ -230,20 +234,41 @@ abstract contract BaseTest is ProtocolV3TestBase {
   function _testOnlyUpdatedReceiverAdapterChanges(
     address[] memory previousReceivers,
     address newAdapter,
-    address removedAdapter
+    uint256 chainId
   ) internal {
     address[] memory currentReceiverAdapters = ICrossChainReceiver(CROSS_CHAIN_CONTROLLER)
       .getReceiverBridgeAdaptersByChain(chainId);
 
     uint256 adaptersCount;
-    bool removedAdapterFound;
-    bool newAdapterFound;
+    uint256 newAdapterCount;
     for (uint256 i = 0; i < currentReceiverAdapters.length; i++) {
       for (uint256 j = 0; j < previousReceivers.length; j++) {
-        if (currentReceiverAdapters[i] == adapters[j]) {
+        if (currentReceiverAdapters[i] == previousReceivers[j]) {
           adaptersCount++;
+        }
+        if (currentReceiverAdapters[i] == newAdapter) {
+          newAdapterCount++;
         }
       }
     }
+
+    assertEq(previousReceivers.length, currentReceiverAdapters.length);
+    assertEq(currentReceiverAdapters.length, adaptersCount + newAdapterCount);
+  }
+
+  function _getCurrentReceiverAdaptersByChain() internal returns (AdaptersByChain[] memory) {
+    uint256[] memory supportedChains = ICrossChainReceiver(CROSS_CHAIN_CONTROLLER)
+      .getSupportedChains();
+
+    AdaptersByChain[] memory receiverAdapters = new AdaptersByChain[](supportedChains.length);
+
+    for (uint256 i = 0; i < supportedChains.length; i++) {
+      address[] memory receivers = ICrossChainReceiver(CROSS_CHAIN_CONTROLLER)
+        .getReceiverBridgeAdaptersByChain(supportedChains[i]);
+
+      receiverAdapters[i] = AdaptersByChain({adapters: receivers, chainId: supportedChains[i]});
+    }
+
+    return receiverAdapters;
   }
 }
