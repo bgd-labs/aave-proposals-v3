@@ -33,10 +33,9 @@ contract AaveV3Polygon_UpdateADIImplementationAndCCIPAdapters_20240313 is
     public
     pure
     override
-    returns (BaseAdaptersUpdatePayload.DestinationAdaptersInput[] memory)
+    returns (DestinationAdaptersInput[] memory)
   {
-    BaseAdaptersUpdatePayload.DestinationAdaptersInput[]
-      memory destinationAdapters = new BaseAdaptersUpdatePayload.DestinationAdaptersInput[](1);
+    DestinationAdaptersInput[] memory destinationAdapters = new DestinationAdaptersInput[](1);
 
     destinationAdapters[0].adapter = 0xB7a6618df58626C3a122ABAFD6Ee63Af63f3Ef29;
     destinationAdapters[0].chainId = ChainIds.MAINNET;

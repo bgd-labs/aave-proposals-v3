@@ -34,10 +34,9 @@ contract AaveV3Ethereum_UpdateADIImplementationAndCCIPAdapters_20240313 is
     public
     pure
     override
-    returns (BaseAdaptersUpdatePayload.DestinationAdaptersInput[] memory)
+    returns (DestinationAdaptersInput[] memory)
   {
-    BaseAdaptersUpdatePayload.DestinationAdaptersInput[]
-      memory destinationAdapters = new BaseAdaptersUpdatePayload.DestinationAdaptersInput[](3);
+    DestinationAdaptersInput[] memory destinationAdapters = new DestinationAdaptersInput[](3);
 
     destinationAdapters[0].adapter = 0x2b88C83727B0E290B76EB3F6133994fF81B7f355;
     destinationAdapters[0].chainId = ChainIds.AVALANCHE;

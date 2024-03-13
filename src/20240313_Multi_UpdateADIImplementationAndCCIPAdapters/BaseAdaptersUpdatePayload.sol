@@ -41,6 +41,7 @@ abstract contract BaseAdaptersUpdatePayload is BaseCCCImplementationUpdatePayloa
 
   function execute() public override {
     super.execute();
+
     // remove old Receiver bridge adapter
     ICrossChainReceiver(CROSS_CHAIN_CONTROLLER).disallowReceiverBridgeAdapters(
       getReceiverBridgeAdaptersToRemove()
