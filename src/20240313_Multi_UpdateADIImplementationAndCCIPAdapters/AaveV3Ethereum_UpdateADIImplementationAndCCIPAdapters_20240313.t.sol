@@ -17,22 +17,15 @@ import {AaveV3Ethereum_UpdateADIImplementationAndCCIPAdapters_20240313} from './
  * command: make test-contract filter=AaveV3Ethereum_UpdateADIImplementationAndCCIPAdapters_20240313
  */
 contract AaveV3Ethereum_UpdateADIImplementationAndCCIPAdapters_20240313_Test is BaseTest {
-  AaveV3Ethereum_UpdateADIImplementationAndCCIPAdapters_20240313 internal payload;
-
   constructor()
     BaseTest(
       GovernanceV3Ethereum.CROSS_CHAIN_CONTROLLER,
       MiscEthereum.PROXY_ADMIN,
+      type(AaveV3Ethereum_UpdateADIImplementationAndCCIPAdapters_20240313).creationCode,
       'mainnet',
       19418547
     )
   {}
-
-  function setUp() public override {
-    super.setUp();
-    payload = new AaveV3Ethereum_UpdateADIImplementationAndCCIPAdapters_20240313();
-    payloadAddress = address(payload);
-  }
 
   function _getReceiverAdaptersByChain(
     bool afterExecution
@@ -41,12 +34,12 @@ contract AaveV3Ethereum_UpdateADIImplementationAndCCIPAdapters_20240313_Test is 
     address[] memory avalancheAdapters = new address[](1);
     AdaptersByChain[] memory receiverAdaptersByChain = new AdaptersByChain[](2);
 
-    polygonAdapters[0] = payload.CCIP_ADAPTER_TO_REMOVE();
-    avalancheAdapters[0] = payload.CCIP_ADAPTER_TO_REMOVE();
+    polygonAdapters[0] = BaseAdaptersUpdatePayload(payloadAddress).CCIP_ADAPTER_TO_REMOVE();
+    avalancheAdapters[0] = BaseAdaptersUpdatePayload(payloadAddress).CCIP_ADAPTER_TO_REMOVE();
 
     if (afterExecution) {
-      polygonAdapters[0] = payload.CCIP_NEW_ADAPTER();
-      avalancheAdapters[0] = payload.CCIP_NEW_ADAPTER();
+      polygonAdapters[0] = BaseAdaptersUpdatePayload(payloadAddress).CCIP_NEW_ADAPTER();
+      avalancheAdapters[0] = BaseAdaptersUpdatePayload(payloadAddress).CCIP_NEW_ADAPTER();
     }
     receiverAdaptersByChain[0].adapters = polygonAdapters;
     receiverAdaptersByChain[0].chainId = ChainIds.POLYGON;

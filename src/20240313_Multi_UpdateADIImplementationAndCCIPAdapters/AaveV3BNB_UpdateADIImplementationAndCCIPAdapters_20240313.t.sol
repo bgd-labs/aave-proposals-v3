@@ -14,17 +14,15 @@ import {AaveV3BNB_UpdateADIImplementationAndCCIPAdapters_20240313} from './AaveV
  * command: make test-contract filter=AaveV3BNB_UpdateADIImplementationAndCCIPAdapters_20240313
  */
 contract AaveV3BNB_UpdateADIImplementationAndCCIPAdapters_20240313_Test is BaseTest {
-  AaveV3BNB_UpdateADIImplementationAndCCIPAdapters_20240313 internal payload;
-
   constructor()
-    BaseTest(GovernanceV3BNB.CROSS_CHAIN_CONTROLLER, MiscBNB.PROXY_ADMIN, 'bnb', 36903911)
+    BaseTest(
+      GovernanceV3BNB.CROSS_CHAIN_CONTROLLER,
+      MiscBNB.PROXY_ADMIN,
+      type(AaveV3BNB_UpdateADIImplementationAndCCIPAdapters_20240313).creationCode,
+      'bnb',
+      36903911
+    )
   {}
-
-  function setUp() public override {
-    super.setUp();
-    payload = new AaveV3BNB_UpdateADIImplementationAndCCIPAdapters_20240313();
-    payloadAddress = address(payload);
-  }
 
   function _getReceiverAdaptersByChain(
     bool afterExecution
@@ -32,10 +30,10 @@ contract AaveV3BNB_UpdateADIImplementationAndCCIPAdapters_20240313_Test is BaseT
     address[] memory adapters = new address[](1);
     AdaptersByChain[] memory receiverAdaptersByChain = new AdaptersByChain[](1);
 
-    adapters[0] = payload.CCIP_ADAPTER_TO_REMOVE();
+    adapters[0] = BaseAdaptersUpdatePayload(payloadAddress).CCIP_ADAPTER_TO_REMOVE();
 
     if (afterExecution) {
-      adapters[0] = payload.CCIP_NEW_ADAPTER();
+      adapters[0] = BaseAdaptersUpdatePayload(payloadAddress).CCIP_NEW_ADAPTER();
     }
     receiverAdaptersByChain[0].adapters = adapters;
     receiverAdaptersByChain[0].chainId = ChainIds.MAINNET;
