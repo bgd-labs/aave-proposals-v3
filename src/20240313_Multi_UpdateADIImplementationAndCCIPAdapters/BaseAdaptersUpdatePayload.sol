@@ -83,7 +83,7 @@ abstract contract BaseAdaptersUpdatePayload is BaseCCCImplementationUpdatePayloa
     DestinationAdaptersInput[] memory destinationAdapters = getDestinationAdapters();
     uint256[] memory chainsToSend = new uint256[](destinationAdapters.length);
     for (uint256 i = 0; i < destinationAdapters.length; i++) {
-      chainsToSend[i] = destinationAdapters[i];
+      chainsToSend[i] = destinationAdapters[i].chainId;
     }
     return chainsToSend;
   }
