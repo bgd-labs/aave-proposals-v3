@@ -22,23 +22,4 @@ contract AaveV3Polygon_UpdateADIImplementationAndCCIPAdapters_20240313_Test is B
       54566890
     )
   {}
-
-  //  function _getForwarderAdaptersByChain(
-  //    bool afterExecution
-  //  ) internal view override returns (ForwarderAdapters[] memory) {
-  //    ForwarderAdapters[] memory forwarderAdapters = new ForwarderAdapters[](1);
-  //
-  //    ICrossChainForwarder.ChainIdBridgeConfig[]
-  //      memory adapters = new ICrossChainForwarder.ChainIdBridgeConfig[](1);
-  //    adapters[0].currentChainBridgeAdapter = payload.CCIP_ADAPTER_TO_REMOVE();
-  //
-  //    if (afterExecution) {
-  //      adapters[0].currentChainBridgeAdapter = payload.CCIP_NEW_ADAPTER();
-  //      adapters[0].destinationBridgeAdapter = payload.DESTINATION_CCIP_NEW_ADAPTER();
-  //    }
-  //    forwarderAdapters[0].adapters = adapters;
-  //    forwarderAdapters[0].chainId = ChainIds.MAINNET;
-  //
-  //    return forwarderAdapters;
-  //  }
 }

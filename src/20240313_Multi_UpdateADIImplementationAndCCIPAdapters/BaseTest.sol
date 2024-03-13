@@ -250,75 +250,92 @@ abstract contract BaseTest is BaseCCCImplementationUpdatePayloadTest {
     }
   }
 
-  /**
-   * @dev executes the generic test suite including e2e and config snapshots
-   */
-  function test_defaultProposalExecution() public {
-    //    _checkAllForwarderAdaptersAreRepresented(false);
+  function test_onlyChangedNeededForwarders() public {
+    ForwarderAdapters[]
+      memory forwardersBridgeAdaptersByChainBefore = _getCurrentForwarderAdaptersByChain();
 
-    //
-    //    AdaptersByChain[] memory receiversBeforeExecution = _getCurrentReceiverAdaptersByChain();
-    //
+    ICrossChainForwarder.BridgeAdapterToDisable[]
+      memory adaptersToRemove = BaseAdaptersUpdatePayload(payloadAddress)
+        .getForwarderBridgeAdaptersToRemove();
+
     executePayload(vm, payloadAddress);
-    //
-    //    AdaptersByChain[] memory afterBeforeExecution = _getCurrentReceiverAdaptersByChain();
-    //    //    _checkAllForwarderAdaptersAreRepresented(true);
-  }
 
-  // -------------- virtual methods --------------------------
+    ForwarderAdapters[]
+      memory forwardersBridgeAdaptersByChainAfter = _getCurrentForwarderAdaptersByChain();
 
-  function _getForwarderAdaptersByChain(
-    bool afterExecution
-  ) internal view virtual returns (ForwarderAdapters[] memory) {
-    ForwarderAdapters[] memory forwarderAdapters = new ForwarderAdapters[](0);
-    return forwarderAdapters;
-  }
+    assertEq(
+      forwardersBridgeAdaptersByChainAfter.length,
+      forwardersBridgeAdaptersByChainBefore.length
+    );
 
-  // ------------------------ checks -------------
-  //  function _checkAllForwarderAdaptersAreRepresented(bool afterExecution) internal {
-  //    ForwarderAdapters[] memory forwarderAdapters = _getForwarderAdaptersByChain(afterExecution);
-  //
-  //    for (uint256 i = 0; i < forwarderAdapters.length; i++) {
-  //      _testForwarderAdapterCorrectness(
-  //        forwarderAdapters[i].chainId,
-  //        forwarderAdapters[i].adapters,
-  //        afterExecution
-  //      );
-  //    }
-  //  }
-
-  //-----------------------------------------------------------------
-
-  function _testForwarderAdapterCorrectness(
-    uint256 chainId,
-    ICrossChainForwarder.ChainIdBridgeConfig[] memory adapters,
-    bool checkDestination
-  ) internal {
-    ICrossChainForwarder.ChainIdBridgeConfig[]
-      memory forwarderBridgeAdapters = ICrossChainForwarder(CROSS_CHAIN_CONTROLLER)
-        .getForwarderBridgeAdaptersByChain(chainId);
-
-    uint256 adaptersCount;
-    for (uint256 i = 0; i < forwarderBridgeAdapters.length; i++) {
-      for (uint256 j = 0; j < adapters.length; j++) {
+    for (uint256 l = 0; l < forwardersBridgeAdaptersByChainBefore.length; l++) {
+      for (uint256 j = 0; j < forwardersBridgeAdaptersByChainAfter.length; j++) {
         if (
-          forwarderBridgeAdapters[i].currentChainBridgeAdapter ==
-          adapters[j].currentChainBridgeAdapter
+          forwardersBridgeAdaptersByChainBefore[l].chainId ==
+          forwardersBridgeAdaptersByChainAfter[j].chainId
         ) {
-          if (checkDestination) {
-            if (
-              forwarderBridgeAdapters[i].destinationBridgeAdapter ==
-              adapters[j].destinationBridgeAdapter
-            ) {
-              adaptersCount++;
+          for (uint256 i = 0; i < forwardersBridgeAdaptersByChainBefore[l].adapters.length; i++) {
+            bool forwarderFound;
+            for (uint256 m = 0; m < forwardersBridgeAdaptersByChainAfter[j].adapters.length; m++) {
+              if (
+                forwardersBridgeAdaptersByChainBefore[l].adapters[i].destinationBridgeAdapter ==
+                forwardersBridgeAdaptersByChainAfter[j].adapters[m].destinationBridgeAdapter &&
+                forwardersBridgeAdaptersByChainBefore[l].adapters[i].currentChainBridgeAdapter ==
+                forwardersBridgeAdaptersByChainAfter[j].adapters[m].currentChainBridgeAdapter
+              ) {
+                forwarderFound = true;
+                break;
+              }
             }
-          } else {
-            adaptersCount++;
+            if (!forwarderFound) {
+              bool isAdapterToBeRemoved;
+              for (uint256 k = 0; k < adaptersToRemove.length; k++) {
+                if (
+                  forwardersBridgeAdaptersByChainBefore[l].adapters[i].currentChainBridgeAdapter ==
+                  adaptersToRemove[k].bridgeAdapter
+                ) {
+                  for (uint256 n = 0; n < adaptersToRemove[k].chainIds.length; n++) {
+                    if (
+                      forwardersBridgeAdaptersByChainBefore[l].chainId ==
+                      adaptersToRemove[k].chainIds[n]
+                    ) {
+                      isAdapterToBeRemoved = true;
+                      break;
+                    }
+                  }
+                }
+              }
+              assertEq(isAdapterToBeRemoved, true);
+            }
           }
         }
       }
     }
-    assertEq(adaptersCount, adapters.length);
+  }
+
+  function _getCurrentForwarderAdaptersByChain() internal returns (ForwarderAdapters[] memory) {
+    uint256[] memory supportedChains = new uint256[](10);
+    supportedChains[0] = ChainIds.POLYGON;
+    supportedChains[1] = ChainIds.AVALANCHE;
+    supportedChains[2] = ChainIds.BNB;
+    supportedChains[3] = ChainIds.GNOSIS;
+    supportedChains[4] = ChainIds.ARBITRUM;
+    supportedChains[5] = ChainIds.OPTIMISM;
+    supportedChains[6] = ChainIds.METIS;
+    supportedChains[7] = ChainIds.BASE;
+    supportedChains[8] = ChainIds.SCROLL;
+    supportedChains[9] = ChainIds.MAINNET;
+
+    ForwarderAdapters[] memory forwarderAdapters = new ForwarderAdapters[](supportedChains.length);
+
+    for (uint256 i = 0; i < supportedChains.length; i++) {
+      ICrossChainForwarder.ChainIdBridgeConfig[] memory forwarders = ICrossChainForwarder(
+        CROSS_CHAIN_CONTROLLER
+      ).getForwarderBridgeAdaptersByChain(supportedChains[i]);
+
+      forwarderAdapters[i] = ForwarderAdapters({adapters: forwarders, chainId: supportedChains[i]});
+    }
+    return forwarderAdapters;
   }
 
   function _getCurrentReceiverAdaptersByChain() internal returns (AdaptersByChain[] memory) {
