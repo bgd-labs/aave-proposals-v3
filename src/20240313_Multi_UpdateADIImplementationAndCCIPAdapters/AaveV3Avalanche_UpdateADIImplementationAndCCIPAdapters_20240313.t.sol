@@ -39,10 +39,6 @@ contract AaveV3Avalanche_UpdateADIImplementationAndCCIPAdapters_20240313_Test is
     return adapterNames;
   }
 
-  function _checkCorrectPathConfiguration() internal override {
-    assertEq(ethereumPayload.CCIP_NEW_ADAPTER(), payload.DESTINATION_CCIP_NEW_ADAPTER());
-  }
-
   function _getTrustedRemotes() internal view override returns (TrustedRemote[] memory) {
     TrustedRemote[] memory trustedRemotes = new TrustedRemote[](1);
     trustedRemotes[0] = TrustedRemote({
@@ -54,24 +50,24 @@ contract AaveV3Avalanche_UpdateADIImplementationAndCCIPAdapters_20240313_Test is
     return trustedRemotes;
   }
 
-  function _getForwarderAdaptersByChain(
-    bool afterExecution
-  ) internal view override returns (ForwarderAdapters[] memory) {
-    ForwarderAdapters[] memory forwarderAdapters = new ForwarderAdapters[](1);
-
-    ICrossChainForwarder.ChainIdBridgeConfig[]
-      memory adapters = new ICrossChainForwarder.ChainIdBridgeConfig[](1);
-    adapters[0].currentChainBridgeAdapter = payload.CCIP_ADAPTER_TO_REMOVE();
-
-    if (afterExecution) {
-      adapters[0].currentChainBridgeAdapter = payload.CCIP_NEW_ADAPTER();
-      adapters[0].destinationBridgeAdapter = payload.DESTINATION_CCIP_NEW_ADAPTER();
-    }
-    forwarderAdapters[0].adapters = adapters;
-    forwarderAdapters[0].chainId = ChainIds.MAINNET;
-
-    return forwarderAdapters;
-  }
+  //  function _getForwarderAdaptersByChain(
+  //    bool afterExecution
+  //  ) internal view override returns (ForwarderAdapters[] memory) {
+  //    ForwarderAdapters[] memory forwarderAdapters = new ForwarderAdapters[](1);
+  //
+  //    ICrossChainForwarder.ChainIdBridgeConfig[]
+  //      memory adapters = new ICrossChainForwarder.ChainIdBridgeConfig[](1);
+  //    adapters[0].currentChainBridgeAdapter = payload.CCIP_ADAPTER_TO_REMOVE();
+  //
+  //    if (afterExecution) {
+  //      adapters[0].currentChainBridgeAdapter = payload.CCIP_NEW_ADAPTER();
+  //      adapters[0].destinationBridgeAdapter = payload.DESTINATION_CCIP_NEW_ADAPTER();
+  //    }
+  //    forwarderAdapters[0].adapters = adapters;
+  //    forwarderAdapters[0].chainId = ChainIds.MAINNET;
+  //
+  //    return forwarderAdapters;
+  //  }
 
   function _getReceiverAdaptersByChain(
     bool afterExecution

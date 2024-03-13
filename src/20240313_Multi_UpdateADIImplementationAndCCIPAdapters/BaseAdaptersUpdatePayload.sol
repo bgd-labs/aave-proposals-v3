@@ -89,7 +89,7 @@ abstract contract BaseAdaptersUpdatePayload is BaseCCCImplementationUpdatePayloa
 
   function getReceiverBridgeAdaptersToRemove()
     public
-    pure
+    view
     returns (ICrossChainReceiver.ReceiverBridgeAdapterConfigInput[] memory)
   {
     // remove old Receiver bridge adapter
@@ -106,7 +106,7 @@ abstract contract BaseAdaptersUpdatePayload is BaseCCCImplementationUpdatePayloa
 
   function getForwarderBridgeAdaptersToRemove()
     public
-    pure
+    view
     returns (ICrossChainForwarder.BridgeAdapterToDisable[] memory)
   {
     ICrossChainForwarder.BridgeAdapterToDisable[]
@@ -122,7 +122,7 @@ abstract contract BaseAdaptersUpdatePayload is BaseCCCImplementationUpdatePayloa
 
   function getReceiverBridgeAdaptersToAllow()
     internal
-    pure
+    view
     returns (ICrossChainReceiver.ReceiverBridgeAdapterConfigInput[] memory)
   {
     ICrossChainReceiver.ReceiverBridgeAdapterConfigInput[]
@@ -138,7 +138,7 @@ abstract contract BaseAdaptersUpdatePayload is BaseCCCImplementationUpdatePayloa
 
   function getForwarderBridgeAdaptersToEnable()
     internal
-    pure
+    view
     returns (ICrossChainForwarder.ForwarderBridgeAdapterConfigInput[] memory)
   {
     DestinationAdaptersInput[] memory destinationAdapters = getDestinationAdapters();
