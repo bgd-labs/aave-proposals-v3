@@ -32,7 +32,7 @@ contract AaveV3Ethereum_AaveLiquidityCommiteeFunding_20240306_Test is ProtocolV3
   address swapper;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 19392386);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 19432086);
     proposal = new AaveV3Ethereum_AaveLiquidityCommiteeFunding_20240306();
     swapper = address(proposal.SWAPPER());
   }

@@ -51,7 +51,7 @@ contract CreateProposal is EthereumScript {
       payloads,
       GovV3Helpers.ipfsHashFile(
         vm,
-        'src/20240306_AaveV3Ethereum_AaveLiquidityCommiteeFunding/FundingUpdate.md'
+        'src/20240306_AaveV3Ethereum_AaveLiquidityCommiteeFunding/AaaveLiquidityCommunityFunding.md'
       )
     );
   }

@@ -87,15 +87,16 @@ Create an allowance of 500k GHO to ALC SAFE.
 
 ALC SAFE: `0x205e795336610f5131Be52F09218AF19f0f3eC60`
 
+## References
+
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/fb272d7b8174809b2e6988fe46629aba2c4db87b/src/20240306_AaveV3Ethereum_AaveLiquidityCommiteeFunding/AaveV3Ethereum_AaveLiquidityCommiteeFunding_20240306.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/fb272d7b8174809b2e6988fe46629aba2c4db87b/src/20240306_AaveV3Ethereum_AaveLiquidityCommiteeFunding/AaveV3Ethereum_AaveLiquidityCommiteeFunding_20240306.t.sol)
+- [Snapshot](https://snapshot.org/#/aave.eth/proposal/0xd6229e068e755336339bd8a314136e18ef00b22a95430476b6fa3665e9300548)
+- [Discussion](https://governance.aave.com/t/arfc-aave-liquidity-committee-funding/16793)
+
 # Disclosure
 
 TokenLogic and karpatkey receive no payment for this proposal. TokenLogic and karpatkey are both delegates within the Aave community.
-
-# Next Steps
-
-1. Gather feedback from the community.
-1. If consensus is reached on this ARFC, escalate this proposal to the Snapshot stage.
-1. If Snapshot outcome is YAE, escalate this proposal to AIP stage
 
 # Copyright
 
