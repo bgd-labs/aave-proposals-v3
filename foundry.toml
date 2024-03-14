@@ -4,6 +4,7 @@ test = 'tests'
 script = 'scripts'
 solc = '0.8.19'
 out = 'out'
+bytecode_hash = 'none'
 libs = ['lib']
 remappings = [
 ]
