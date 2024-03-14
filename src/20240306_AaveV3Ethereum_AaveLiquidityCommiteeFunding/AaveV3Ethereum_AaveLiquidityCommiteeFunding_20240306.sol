@@ -1,8 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {console2} from 'forge-std/Test.sol';
-
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
@@ -64,7 +62,7 @@ contract AaveV3Ethereum_AaveLiquidityCommiteeFunding_20240306 is IProposalGeneri
       AaveV3EthereumAssets.USDC_ORACLE,
       GHO_USD_FEED,
       address(AaveV3Ethereum.COLLECTOR),
-      USDC_V2_TO_SWAP,
+      IERC20(AaveV2EthereumAssets.USDC_UNDERLYING).balanceOf(address(SWAPPER)),
       100
     );
 
@@ -90,7 +88,7 @@ contract AaveV3Ethereum_AaveLiquidityCommiteeFunding_20240306 is IProposalGeneri
       AaveV3EthereumAssets.USDT_ORACLE,
       GHO_USD_FEED,
       address(AaveV3Ethereum.COLLECTOR),
-      USDT_V2_TO_SWAP,
+      IERC20(AaveV2EthereumAssets.USDT_UNDERLYING).balanceOf(address(SWAPPER)),
       100
     );
   }
