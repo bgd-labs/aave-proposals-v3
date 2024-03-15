@@ -90,8 +90,8 @@ ALC SAFE: `0x205e795336610f5131Be52F09218AF19f0f3eC60`
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240306_AaveV3Ethereum_AaveLiquidityCommiteeFunding/AaveV3Ethereum_AaveLiquidityCommiteeFunding_20240306.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240306_AaveV3Ethereum_AaveLiquidityCommiteeFunding/AaveV3Ethereum_AaveLiquidityCommiteeFunding_20240306.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/e7ca7963d0ae0f766845ff30ab4ff17650be0823/src/20240306_AaveV3Ethereum_AaveLiquidityCommiteeFunding/AaveV3Ethereum_AaveLiquidityCommiteeFunding_20240306.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/e7ca7963d0ae0f766845ff30ab4ff17650be0823/src/20240306_AaveV3Ethereum_AaveLiquidityCommiteeFunding/AaveV3Ethereum_AaveLiquidityCommiteeFunding_20240306.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0xd6229e068e755336339bd8a314136e18ef00b22a95430476b6fa3665e9300548)
 - [Discussion](https://governance.aave.com/t/arfc-aave-liquidity-committee-funding/16793)
 
