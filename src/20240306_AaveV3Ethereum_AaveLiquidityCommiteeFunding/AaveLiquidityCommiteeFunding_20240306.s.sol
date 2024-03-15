@@ -34,7 +34,7 @@ contract DeployEthereum is EthereumScript {
 contract CreateProposal is EthereumScript {
   function run() external {
     // create payloads
-    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](2);
+    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](1);
 
     // compose actions for validation
     IPayloadsControllerCore.ExecutionAction[]
