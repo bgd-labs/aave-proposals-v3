@@ -7,8 +7,8 @@ import {AaveV3Ethereum_AaveLiquidityCommiteeFunding_20240306} from './AaveV3Ethe
 
 /**
  * @dev Deploy Ethereum
- * deploy-command: make deploy-ledger contract=src/20240224_Multi_FundingUpdate/FundingUpdate_20240224.s.sol:DeployEthereum chain=mainnet
- * verify-command: npx catapulta-verify -b broadcast/FundingUpdate_20240224.s.sol/1/run-latest.json
+ * deploy-command: make deploy-ledger contract=src/20240306_AaveV3Ethereum_AaveLiquidityCommiteeFunding/AaveLiquidityCommiteeFunding_20240306.s.sol:DeployEthereum chain=mainnet
+ * verify-command: npx catapulta-verify -b broadcast/AaveLiquidityCommiteeFunding_20240306.s.sol/1/run-latest.json
  */
 contract DeployEthereum is EthereumScript {
   function run() external broadcast {
@@ -29,7 +29,7 @@ contract DeployEthereum is EthereumScript {
 
 /**
  * @dev Create Proposal
- * command: make deploy-ledger contract=src/20240224_Multi_FundingUpdate/FundingUpdate_20240224.s.sol:CreateProposal chain=mainnet
+ * command: make deploy-ledger contract=src/20240306_AaveV3Ethereum_AaveLiquidityCommiteeFunding/AaveLiquidityCommiteeFunding_20240306.s.sol:CreateProposal chain=mainnet
  */
 contract CreateProposal is EthereumScript {
   function run() external {
@@ -51,7 +51,7 @@ contract CreateProposal is EthereumScript {
       payloads,
       GovV3Helpers.ipfsHashFile(
         vm,
-        'src/20240306_AaveV3Ethereum_AaveLiquidityCommiteeFunding/AaaveLiquidityCommunityFunding.md'
+        'src/20240306_AaveV3Ethereum_AaveLiquidityCommiteeFunding/AaveLiquidityCommiteeFunding.md'
       )
     );
   }
