@@ -14,10 +14,7 @@ import {IProposalGenericExecutor} from 'aave-helpers/interfaces/IProposalGeneric
  */
 contract AaveV3Arbitrum_ARBRemoveIsolation_20240315 is IProposalGenericExecutor {
   function execute() external {
-    AaveV3Arbitrum.COLLECTOR.transfer(
-      AaveV3ArbitrumAssets.ARB_UNDERLYING,
-      SAFE,
-      IERC20(AaveV3ArbitrumAssets.ARB_UNDERLYING).balanceOf(address(AaveV3Arbitrum.COLLECTOR))
-    );
+    // set debtCeiling to 0 exits isolation Mode
+    AaveV3Arbitrum.POOL_CONFIGURATOR.setDebtCeiling(AaveV3ArbitrumAssets.ARB_UNDERLYING, 0);
   }
 }
