@@ -1,5 +1,5 @@
 ---
-title: "Aave Protocol Embassy"
+title: "Remove ARB from Isolation Mode on Arbitrum"
 author: "karpatkey_TokenLogic_ACI"
 discussions: "https://governance.aave.com/t/arfc-remove-arb-from-isolation-mode-on-arbitrum-market/16703"
 snapshot: "https://snapshot.org/#/aave.eth/proposal/0xbc5471496bbc2beda343625cee22c34fc9672785112cc5d19a25ca87c5b422c3"
