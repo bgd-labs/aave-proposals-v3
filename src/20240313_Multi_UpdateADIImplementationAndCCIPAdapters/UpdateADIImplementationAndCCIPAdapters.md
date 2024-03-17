@@ -26,7 +26,7 @@ Updates the implementation of CrossChainController on aDI on all supported netwo
 
 | Network   | CrossChainController Impl                                                                                                            |
 | --------- | ------------------------------------------------------------------------------------------------------------------------------------ |
-| Ethereum  | [](https://etherscan.io/address/)                                                                                                    |
+| Ethereum  | [0x28559c2F4B038b1E836fA419DCcDe7454d8Fe215](https://etherscan.io/address/0x28559c2F4B038b1E836fA419DCcDe7454d8Fe215)                |
 | Polygon   | [0x87a95917DE670088d81B9a8B30E3B36704Ba3043](https://polygonscan.com/address/0x87a95917DE670088d81B9a8B30E3B36704Ba3043)             |
 | Avalanche | [0x5Ef80c5eB6CF65Dab8cD1C0ee258a6D2bD38Bd22](https://snowscan.xyz/address/0x5Ef80c5eB6CF65Dab8cD1C0ee258a6D2bD38Bd22)                |
 | Binance   | [0xf41193E25408F652AF878c47E4401A01B5E4B682](https://bscscan.com/address/0xf41193E25408F652AF878c47E4401A01B5E4B682)                 |
