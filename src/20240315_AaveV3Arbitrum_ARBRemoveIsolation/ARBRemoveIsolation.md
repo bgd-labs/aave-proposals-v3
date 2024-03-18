@@ -18,8 +18,8 @@ With the support of the Risk Service providers, this proposal is to disable Isol
 ## Specification:
 
 Ticker: ARB
-Contract Adress: 0x912CE59144191C1204E64559FE8253a0e49E6548 4
-Chainlink Oracle: 0xb2A824043730FE05F3DA2efaFa1CBbe83fa548D6 2
+Contract Adress: [0x912CE59144191C1204E64559FE8253a0e49E6548](https://arbiscan.io/address/0x912CE59144191C1204E64559FE8253a0e49E6548)
+Chainlink Oracle: [0xb2A824043730FE05F3DA2efaFa1CBbe83fa548D6](https://arbiscan.io/address/0x912CE59144191C1204E64559FE8253a0e49E6548)
 
 Risk parameters can be proposed by Risk Service providers.
 
