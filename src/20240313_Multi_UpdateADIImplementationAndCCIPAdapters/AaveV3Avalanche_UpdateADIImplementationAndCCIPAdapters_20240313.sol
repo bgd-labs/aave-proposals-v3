@@ -9,8 +9,7 @@ import {BaseAdaptersUpdatePayload} from './BaseAdaptersUpdatePayload.sol';
 /**
  * @title aDI and bridge adapters update
  * @author BGD Labs @bgdlabs
- * - Snapshot: TODO
- * - Discussion: TODO
+ * - Discussion: https://governance.aave.com/t/bgd-technical-maintenance-proposals/15274/21
  */
 contract AaveV3Avalanche_UpdateADIImplementationAndCCIPAdapters_20240313 is
   BaseAdaptersUpdatePayload(

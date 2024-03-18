@@ -53,13 +53,16 @@ abstract contract BaseAdaptersUpdatePayload is BaseCCCImplementationUpdatePayloa
     );
 
     uint256[] memory chainsToSend = getChainsToSend();
+    uint256[] memory chainsToReceive = getChainsToReceive();
 
-    if (chainsToSend.length != 0) {
+    if (chainsToReceive.length != 0) {
       // add receiver adapters
       ICrossChainReceiver(CROSS_CHAIN_CONTROLLER).allowReceiverBridgeAdapters(
         getReceiverBridgeAdaptersToAllow()
       );
+    }
 
+    if (chainsToSend.length != 0) {
       // add forwarding adapters
       ICrossChainForwarder(CROSS_CHAIN_CONTROLLER).enableBridgeAdapters(
         getForwarderBridgeAdaptersToEnable()

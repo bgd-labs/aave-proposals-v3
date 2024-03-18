@@ -20,7 +20,7 @@ contract AaveV3BNB_UpdateADIImplementationAndCCIPAdapters_20240313_Test is BaseT
       MiscBNB.PROXY_ADMIN,
       type(AaveV3BNB_UpdateADIImplementationAndCCIPAdapters_20240313).creationCode,
       'bnb',
-      36903911
+      37073128
     )
   {}
 }

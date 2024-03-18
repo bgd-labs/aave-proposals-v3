@@ -8,8 +8,7 @@ import {BaseCCCImplementationUpdatePayload} from './BaseCCCImplementationUpdateP
 /**
  * @title aDI and bridge adapters update
  * @author BGD Labs @bgdlabs
- * - Snapshot: TODO
- * - Discussion: TODO
+ * - Discussion: https://governance.aave.com/t/bgd-technical-maintenance-proposals/15274/21
  */
 contract AaveV3Arbitrum_UpdateADIImplementationAndCCIPAdapters_20240313 is
   BaseCCCImplementationUpdatePayload(
