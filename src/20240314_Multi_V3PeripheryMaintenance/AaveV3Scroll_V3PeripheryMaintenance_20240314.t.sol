@@ -16,7 +16,7 @@ contract AaveV3Scroll_V3PeripheryMaintenance_20240314_Test is ProtocolV3TestBase
   AaveV3Scroll_V3PeripheryMaintenance_20240314 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('scroll'), 4126179);
+    vm.createSelectFork(vm.rpcUrl('scroll'), 4240928);
     proposal = new AaveV3Scroll_V3PeripheryMaintenance_20240314();
   }
 
