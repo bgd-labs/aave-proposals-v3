@@ -35,7 +35,7 @@ The ACI proposes the following strategy shift:
 
 - FRAX
 - LUSD
-- EURS
+- EURS (except Polygon)
 - agEUR
 - JEUR
 - MAI
@@ -44,15 +44,12 @@ The ACI proposes the following strategy shift:
 
 | Collateral Type | Network   |
 | --------------- | --------- |
-| EURS            | All pools |
 | agEUR           | All pools |
 | JEUR            | All pools |
 | MAI             | All pools |
 | KNC             | Ethereum  |
 | STG             | Ethereum  |
-| BAL             | All pools |
 | FXS             | Ethereum  |
-| UNI             | Ethereum  |
 | WBTC.e          | Avalanche |
 
 ## References

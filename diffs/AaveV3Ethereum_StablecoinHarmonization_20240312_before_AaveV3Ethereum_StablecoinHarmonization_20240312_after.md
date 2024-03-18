@@ -6,7 +6,6 @@
 
 | description | value before | value after |
 | --- | --- | --- |
-| isFrozen | false | true |
 | liquidationThreshold | 77 % | 74 % |
 
 
@@ -55,7 +54,6 @@
 
 | description | value before | value after |
 | --- | --- | --- |
-| isFrozen | false | true |
 | liquidationThreshold | 62 % | 59 % |
 
 
@@ -73,10 +71,6 @@
 {
   "reserves": {
     "0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984": {
-      "isFrozen": {
-        "from": false,
-        "to": true
-      },
       "liquidationThreshold": {
         "from": 7700,
         "to": 7400
@@ -137,10 +131,6 @@
       }
     },
     "0xba100000625a3754423978a60c9317c58a424e3D": {
-      "isFrozen": {
-        "from": false,
-        "to": true
-      },
       "liquidationThreshold": {
         "from": 6200,
         "to": 5900

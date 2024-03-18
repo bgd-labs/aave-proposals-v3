@@ -24,7 +24,7 @@ contract AaveV3Avalanche_StablecoinHarmonization_20240312 is AaveV3PayloadAvalan
 
     collateralUpdate[0] = IAaveV3ConfigEngine.CollateralUpdate({
       asset: AaveV3AvalancheAssets.WBTCe_UNDERLYING,
-      ltv: EngineFlags.KEEP_CURRENT,
+      ltv: 0,
       liqThreshold: 67_00,
       liqBonus: EngineFlags.KEEP_CURRENT,
       debtCeiling: EngineFlags.KEEP_CURRENT,

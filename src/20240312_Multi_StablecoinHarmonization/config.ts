@@ -1,6 +1,8 @@
 import {ConfigFile} from '../../generator/types';
 export const config: ConfigFile = {
   rootOptions: {
+    configFile: 'src/20240312_Multi_StablecoinHarmonization/config.ts',
+    force: true,
     author: 'Aave Chan Initiative',
     pools: [
       'AaveV3Ethereum',
@@ -57,7 +59,7 @@ export const config: ConfigFile = {
           },
           {
             asset: 'STG',
-            ltv: '',
+            ltv: '0',
             liqThreshold: '37',
             liqBonus: '',
             debtCeiling: '',
@@ -65,7 +67,7 @@ export const config: ConfigFile = {
           },
           {
             asset: 'KNC',
-            ltv: '',
+            ltv: '0',
             liqThreshold: '37',
             liqBonus: '',
             debtCeiling: '',
@@ -73,7 +75,7 @@ export const config: ConfigFile = {
           },
           {
             asset: 'FXS',
-            ltv: '',
+            ltv: '0',
             liqThreshold: '42',
             liqBonus: '',
             debtCeiling: '',
@@ -110,8 +112,6 @@ export const config: ConfigFile = {
           },
         ],
         FREEZE: [
-          {asset: 'BAL', shouldBeFrozen: true},
-          {asset: 'UNI', shouldBeFrozen: true},
           {asset: 'STG', shouldBeFrozen: true},
           {asset: 'KNC', shouldBeFrozen: true},
           {asset: 'FXS', shouldBeFrozen: true},
@@ -126,14 +126,6 @@ export const config: ConfigFile = {
             asset: 'BAL',
             ltv: '',
             liqThreshold: '42',
-            liqBonus: '',
-            debtCeiling: '',
-            liqProtocolFee: '',
-          },
-          {
-            asset: 'EURS',
-            ltv: '0',
-            liqThreshold: '67',
             liqBonus: '',
             debtCeiling: '',
             liqProtocolFee: '',
@@ -159,10 +151,7 @@ export const config: ConfigFile = {
             asset: 'EURS',
           },
         ],
-        FREEZE: [
-          {asset: 'EURS', shouldBeFrozen: true},
-          {asset: 'agEUR', shouldBeFrozen: true},
-        ],
+        FREEZE: [{asset: 'agEUR', shouldBeFrozen: true}],
       },
       cache: {blockNumber: 54552463},
     },
@@ -171,7 +160,7 @@ export const config: ConfigFile = {
         COLLATERALS_UPDATE: [
           {
             asset: 'WBTCe',
-            ltv: '',
+            ltv: '0',
             liqThreshold: '67',
             liqBonus: '',
             debtCeiling: '',

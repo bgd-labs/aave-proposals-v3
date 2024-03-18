@@ -14,8 +14,6 @@ import {IAaveV3ConfigEngine} from 'aave-helpers/v3-config-engine/IAaveV3ConfigEn
  */
 contract AaveV3Ethereum_StablecoinHarmonization_20240312 is AaveV3PayloadEthereum {
   function _postExecute() internal override {
-    AaveV3Ethereum.POOL_CONFIGURATOR.setReserveFreeze(AaveV3EthereumAssets.BAL_UNDERLYING, true);
-    AaveV3Ethereum.POOL_CONFIGURATOR.setReserveFreeze(AaveV3EthereumAssets.UNI_UNDERLYING, true);
     AaveV3Ethereum.POOL_CONFIGURATOR.setReserveFreeze(AaveV3EthereumAssets.STG_UNDERLYING, true);
     AaveV3Ethereum.POOL_CONFIGURATOR.setReserveFreeze(AaveV3EthereumAssets.KNC_UNDERLYING, true);
     AaveV3Ethereum.POOL_CONFIGURATOR.setReserveFreeze(AaveV3EthereumAssets.FXS_UNDERLYING, true);

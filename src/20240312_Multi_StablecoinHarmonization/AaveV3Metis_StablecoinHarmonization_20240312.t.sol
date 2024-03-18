@@ -3,8 +3,9 @@ pragma solidity ^0.8.0;
 
 import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/ProtocolV3TestBase.sol';
-import {AaveV3Metis_StablecoinHarmonization_20240312} from './AaveV3Metis_StablecoinHarmonization_20240312.sol';
 import {AaveV3Metis} from 'aave-address-book/AaveV3Metis.sol';
+
+import {AaveV3Metis_StablecoinHarmonization_20240312} from './AaveV3Metis_StablecoinHarmonization_20240312.sol';
 
 /**
  * @dev Test for AaveV3Metis_StablecoinHarmonization_20240312

@@ -15,7 +15,7 @@ contract AaveV3Arbitrum_StablecoinHarmonization_20240312_Test is ProtocolV3TestB
   AaveV3Arbitrum_StablecoinHarmonization_20240312 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('arbitrum'), 189749095);
+    vm.createSelectFork(vm.rpcUrl('arbitrum'), 189476832);
     proposal = new AaveV3Arbitrum_StablecoinHarmonization_20240312();
   }
 
