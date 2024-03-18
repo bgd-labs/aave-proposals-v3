@@ -31,6 +31,8 @@ The ACI proposes the following strategy shift:
 | Alternative stablecoins & long tail assets | 20%              |
 | DAI                                        | 25%              |
 
+note: except for MAI that is currently 95% RF
+
 5. Fade out as collateral the following stablecoins:
 
 - FRAX
