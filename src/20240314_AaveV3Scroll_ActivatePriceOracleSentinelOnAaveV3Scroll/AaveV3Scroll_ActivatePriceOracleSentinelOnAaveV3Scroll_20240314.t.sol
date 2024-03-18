@@ -16,7 +16,7 @@ contract AaveV3Scroll_ActivatePriceOracleSentinelOnAaveV3Scroll_20240314_Test is
   AaveV3Scroll_ActivatePriceOracleSentinelOnAaveV3Scroll_20240314 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('scroll'), 4126179);
+    vm.createSelectFork(vm.rpcUrl('scroll'), 4227173);
     proposal = new AaveV3Scroll_ActivatePriceOracleSentinelOnAaveV3Scroll_20240314();
   }
 
