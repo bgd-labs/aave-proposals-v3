@@ -17,7 +17,7 @@ and updating the logic to ease and standardize off chain tracking of a.DI contra
 ## Specification
 
 - Update CCIP to v1.2.0
-- Added Adaper Name to the contracts to make it easy to track off chain.
+- Added Adapter Name to the contracts to make it easy to track off chain.
 
 On the CrossChainController implementation we have updated the logic so that all bridged messages will be treated the same
 even if required confirmation have already been reached. (Previously these messages where ignored)
