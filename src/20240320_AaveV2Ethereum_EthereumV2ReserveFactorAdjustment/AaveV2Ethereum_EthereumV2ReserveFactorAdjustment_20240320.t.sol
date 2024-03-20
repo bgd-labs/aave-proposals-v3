@@ -29,7 +29,7 @@ contract AaveV2Ethereum_EthereumV2ReserveFactorAdjustment_20240320_Test is Proto
    */
   function test_defaultProposalExecution() public {
     (ReserveConfig[] memory allConfigsBefore, ReserveConfig[] memory allConfigsAfter) = defaultTest(
-      'AaveV2Ethereum_ReserveFactorUpdates_20240102',
+      'AaveV2Ethereum_ReserveFactorUpdates_20240320',
       AaveV2Ethereum.POOL,
       address(proposal)
     );

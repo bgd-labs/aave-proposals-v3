@@ -31,7 +31,7 @@ The following parameters are to be updated as follows:
 | USDC  | 30.00%                  | 35.00%             |
 | USDP  | 25.00%                  | 30.00%             |
 | USDT  | 30.00%                  | 35.00%             |
-| WBTC  | 35.00%                  | 30.00%             |
+| WBTC  | 35.00%                  | 40.00%             |
 | WETH  | 30.00%                  | 35.00%             |
 
 ## References

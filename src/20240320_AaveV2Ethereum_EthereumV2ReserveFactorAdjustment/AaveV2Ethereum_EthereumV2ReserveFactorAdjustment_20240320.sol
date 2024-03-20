@@ -23,7 +23,7 @@ contract AaveV2Ethereum_EthereumV2ReserveFactorAdjustment_20240320 is IProposalG
   uint256 public constant USDC_RF = 35_00;
   uint256 public constant USDP_RF = 30_00;
   uint256 public constant USDT_RF = 35_00;
-  uint256 public constant WBTC_RF = 30_00;
+  uint256 public constant WBTC_RF = 40_00;
   uint256 public constant WETH_RF = 35_00;
 
   function execute() external {
