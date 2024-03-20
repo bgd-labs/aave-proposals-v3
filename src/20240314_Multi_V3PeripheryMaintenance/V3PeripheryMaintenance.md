@@ -35,8 +35,8 @@ Upon execution, the proposal will call
 
 ## References
 
-- Implementation: [AaveV3Scroll](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240314_Multi_V3PeripheryMaintenance/AaveV3Scroll_V3PeripheryMaintenance_20240314.sol)
-- Tests: [AaveV3Scroll](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240314_Multi_V3PeripheryMaintenance/AaveV3Scroll_V3PeripheryMaintenance_20240314.t.sol)
+- Implementation: [AaveV3Scroll](https://github.com/bgd-labs/aave-proposals-v3/blob/18f654208a27fae18368cf3dff9395e70677fc2c/src/20240314_Multi_V3PeripheryMaintenance/AaveV3Scroll_V3PeripheryMaintenance_20240314.sol)
+- Tests: [AaveV3Scroll](https://github.com/bgd-labs/aave-proposals-v3/blob/18f654208a27fae18368cf3dff9395e70677fc2c/src/20240314_Multi_V3PeripheryMaintenance/AaveV3Scroll_V3PeripheryMaintenance_20240314.t.sol)
 - [Discussion](https://governance.aave.com/t/bgd-technical-maintenance-proposals/15274)
 
 ## Copyright
