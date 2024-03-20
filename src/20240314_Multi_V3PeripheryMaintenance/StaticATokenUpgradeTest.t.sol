@@ -129,7 +129,7 @@ contract UpgradeOptimismTest is UpgradePayloadTest('optimism', 117597816) {
   }
 }
 
-contract UpgradeMetisTest is UpgradePayloadTest('metis', 15387067) {
+contract UpgradeMetisTest is UpgradePayloadTest('metis', 15472572) {
   function _getPayload() internal virtual override returns (address) {
     return StataPayloads.METIS;
   }
