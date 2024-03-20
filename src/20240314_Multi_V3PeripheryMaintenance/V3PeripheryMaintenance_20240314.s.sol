@@ -27,7 +27,7 @@ library StataPayloads {
   // https://scrollscan.com/address/0x70bf6ec6fca41a7d08dcbb9909985ac0a4510b5e#code
   address internal constant SCROLL = 0x70Bf6EC6Fca41a7d08dCBB9909985AC0A4510B5E;
 
-  //
+  // https://explorer.metis.io/address/0xe427FCbD54169136391cfEDf68E96abB13dA87A0/contract/1088/code
   address internal constant METIS = 0xe427FCbD54169136391cfEDf68E96abB13dA87A0;
 
   // https://basescan.org/address/0x31a239f3e39c5d8ba6b201ba81ed584492ae960f#code
