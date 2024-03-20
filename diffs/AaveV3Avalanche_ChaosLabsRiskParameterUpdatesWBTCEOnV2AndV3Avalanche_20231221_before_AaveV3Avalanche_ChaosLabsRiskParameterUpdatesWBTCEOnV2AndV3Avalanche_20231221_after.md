@@ -2,7 +2,7 @@
 
 ### Reserves altered
 
-#### WBTC.e ([0x50b7545627a5162F82A992c33b87aDc75187B218](https://snowtrace.io/address/0x50b7545627a5162F82A992c33b87aDc75187B218))
+#### WBTC.e ([0x50b7545627a5162F82A992c33b87aDc75187B218](https://snowscan.xyz/address/0x50b7545627a5162F82A992c33b87aDc75187B218))
 
 | description | value before | value after |
 | --- | --- | --- |
