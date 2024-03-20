@@ -2,6 +2,8 @@
 pragma solidity ^0.8.0;
 
 import {BaseAdaptersUpdatePayload} from './BaseAdaptersUpdatePayload.sol';
+import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
+import {ChainIds} from 'aave-helpers/ChainIds.sol';
 
 /**
  * @title Hyperlane bridge adapter update to V3
@@ -12,7 +14,7 @@ import {BaseAdaptersUpdatePayload} from './BaseAdaptersUpdatePayload.sol';
 contract AaveV3Ethereum_HyperlaneBridgeAdapterUpdateToV3_20240320 is
   BaseAdaptersUpdatePayload(
     BaseAdaptersUpdatePayload.ConstructorInput({
-      ccc: GovernanceV3Avalanche.CROSS_CHAIN_CONTROLLER,
+      ccc: GovernanceV3Ethereum.CROSS_CHAIN_CONTROLLER,
       hlNewAdapter: 0x01dcb90Cf13b82Cde4A0BAcC655585a83Af3cCC1,
       hlAdapterToRemove: 0x6Abb61beb5848B476d026C4934E8a6415e2E75a8
     })

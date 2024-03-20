@@ -4,6 +4,7 @@ pragma solidity ^0.8.0;
 import 'forge-std/console.sol';
 import 'aave-helpers/ProtocolV3TestBase.sol';
 
+import {GovV3Helpers} from 'aave-helpers/GovV3Helpers.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/ProtocolV3TestBase.sol';
 import {ICrossChainReceiver, ICrossChainForwarder} from 'aave-address-book/common/ICrossChainController.sol';
 import {TransparentUpgradeableProxy} from 'solidity-utils/contracts/transparent-proxy/TransparentUpgradeableProxy.sol';
@@ -79,7 +80,7 @@ abstract contract BaseTest is ProtocolV3TestBase {
     payloadCode = _payloadCode;
   }
 
-  function setUp() public override {
+  function setUp() public {
     vm.createSelectFork(vm.rpcUrl(network), blockNumber);
     payloadAddress = GovV3Helpers.deployDeterministic(payloadCode);
 
@@ -140,7 +141,7 @@ abstract contract BaseTest is ProtocolV3TestBase {
 
     for (uint256 i = 0; i < destinationConfigs.length; i++) {
       assertEq(
-        getPayloadByChainId(destinationConfigs[i].chainId).CCIP_NEW_ADAPTER(),
+        getPayloadByChainId(destinationConfigs[i].chainId).HL_NEW_ADAPTER(),
         destinationConfigs[i].adapter
       );
     }

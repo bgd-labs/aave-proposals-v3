@@ -2,6 +2,8 @@
 pragma solidity ^0.8.0;
 
 import {BaseAdaptersUpdatePayload} from './BaseAdaptersUpdatePayload.sol';
+import {GovernanceV3Avalanche} from 'aave-address-book/GovernanceV3Avalanche.sol';
+import {ChainIds} from 'aave-helpers/ChainIds.sol';
 
 /**
  * @title Hyperlane bridge adapter update to V3
