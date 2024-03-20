@@ -6,7 +6,7 @@ discussions: "https://governance.aave.com/t/arfc-ethereum-v2-reserve-factor-adju
 
 ## Simple Summary
 
-his AIP is a continuation of proposal 49 on Governance v3 and increases the Reserve Factor (RF) for assets on Ethereum v2 by 5.00%, up to a maximum of 99.99%.
+This AIP is a continuation of proposal 49 on Governance v3 and increases the Reserve Factor (RF) for assets on Ethereum v2 by 5.00%, up to a maximum of 99.99%.
 
 ## Motivation
 
