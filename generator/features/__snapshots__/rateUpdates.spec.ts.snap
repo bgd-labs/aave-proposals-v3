@@ -193,6 +193,8 @@ contract AaveV2EthereumAMM_Test_20231023 is AaveV2PayloadEthereumAMM {
       "test": "// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
+import {AaveV2EthereumAMM} from 'aave-address-book/AaveV2EthereumAMM.sol';
+
 import 'forge-std/Test.sol';
 import {ProtocolV2TestBase, ReserveConfig} from 'aave-helpers/ProtocolV2TestBase.sol';
 import {AaveV2EthereumAMM_Test_20231023} from './AaveV2EthereumAMM_Test_20231023.sol';

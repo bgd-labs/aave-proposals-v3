@@ -36,5 +36,9 @@ describe('prefixWithImports', () => {
     expect(prefixWithImports('AaveV2Ethereum.POOL AaveV2EthereumAssets.DAI')).toContain(
       `import {AaveV2Ethereum,AaveV2EthereumAssets} from 'aave-address-book/AaveV2Ethereum.sol';`
     );
+
+    expect(prefixWithImports('AaveV3Avalanche.POOL')).toContain(
+      `import {AaveV3Avalanche} from 'aave-address-book/AaveV3Avalanche.sol';`
+    );
   });
 });
