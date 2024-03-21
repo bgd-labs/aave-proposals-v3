@@ -44,7 +44,7 @@ export const priceFeedsUpdates: FeatureModule<PriceFeedUpdate[]> = {
               (cfg, ix) => `priceFeedUpdates[${ix}] = IAaveV3ConfigEngine.PriceFeedUpdate({
                asset: ${translateAssetToAssetLibUnderlying(cfg.asset, pool)},
                priceFeed: ${translateJsAddressToSol(cfg.priceFeed)}
-             });`
+             });`,
             )
             .join('\n')}
 

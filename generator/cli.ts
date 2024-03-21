@@ -110,7 +110,7 @@ async function fetchPoolOptions(pool: PoolIdentifier) {
         pool,
         cfg: poolConfigs[pool]!.configs[feature],
         cache: poolConfigs[pool]!.cache,
-      })
+      }),
     );
   }
 }
@@ -135,7 +135,7 @@ if (options.configFile) {
             pool,
             cfg: poolConfigs[pool]!.configs[feature],
             cache: poolConfigs[pool]!.cache,
-          })
+          }),
         );
       }
     } else {
