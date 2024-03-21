@@ -22,7 +22,7 @@ The following parameters are to be updated as follows:
 
 | Asset | Previous Reserve Factor | New Reserve Factor |
 | ----- | ----------------------- | ------------------ |
-| DAI   | 25.00%                  | 30.00%             |
+| DAI   | 30.00%                  | 35.00%             |
 | FRAX  | 35.00%                  | 40.00%             |
 | GUSD  | 25.00%                  | 30.00%             |
 | LINK  | 35.00%                  | 40.00%             |

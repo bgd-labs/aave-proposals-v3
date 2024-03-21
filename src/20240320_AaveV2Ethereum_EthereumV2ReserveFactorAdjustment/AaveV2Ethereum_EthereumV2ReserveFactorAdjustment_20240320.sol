@@ -14,7 +14,7 @@ contract AaveV2Ethereum_EthereumV2ReserveFactorAdjustment_20240320 is IProposalG
   ILendingPoolConfigurator public constant POOL_CONFIGURATOR =
     ILendingPoolConfigurator(AaveV2Ethereum.POOL_CONFIGURATOR);
 
-  uint256 public constant DAI_RF = 30_00;
+  uint256 public constant DAI_RF = 35_00;
   uint256 public constant FRAX_RF = 40_00;
   uint256 public constant GUSD_RF = 30_00;
   uint256 public constant LINK_RF = 40_00;

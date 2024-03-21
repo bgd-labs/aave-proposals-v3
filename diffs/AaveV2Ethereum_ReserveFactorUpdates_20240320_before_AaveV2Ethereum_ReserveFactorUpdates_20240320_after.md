@@ -37,6 +37,13 @@
 | reserveFactor | 30 % | 35 % |
 
 
+#### DAI ([0x6B175474E89094C44Da98b954EedeAC495271d0F](https://etherscan.io/address/0x6B175474E89094C44Da98b954EedeAC495271d0F))
+
+| description | value before | value after |
+| --- | --- | --- |
+| reserveFactor | 30 % | 35 % |
+
+
 #### FRAX ([0x853d955aCEf822Db058eb8505911ED77F175b99e](https://etherscan.io/address/0x853d955aCEf822Db058eb8505911ED77F175b99e))
 
 | description | value before | value after |
@@ -102,6 +109,12 @@
       }
     },
     "0x5f98805A4E8be255a32880FDeC7F6728C6568bA0": {
+      "reserveFactor": {
+        "from": 3000,
+        "to": 3500
+      }
+    },
+    "0x6B175474E89094C44Da98b954EedeAC495271d0F": {
       "reserveFactor": {
         "from": 3000,
         "to": 3500
