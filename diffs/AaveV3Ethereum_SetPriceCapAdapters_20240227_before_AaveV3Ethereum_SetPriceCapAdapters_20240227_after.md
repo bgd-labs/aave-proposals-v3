@@ -56,6 +56,7 @@
 | --- | --- | --- |
 | oracle | [0x5f4d15d761528c57a5C30c43c1DAb26Fc5452731](https://etherscan.io/address/0x5f4d15d761528c57a5C30c43c1DAb26Fc5452731) | [0x6243d2F41b4ec944F731f647589E28d9745a2674](https://etherscan.io/address/0x6243d2F41b4ec944F731f647589E28d9745a2674) |
 | oracleDescription | null | Capped cbETH / ETH / USD |
+| oracleName | cbETH/ETH/USD | null |
 | oracleLatestAnswer | 4250.44712602 | 4272.48373554 |
 
 
@@ -66,6 +67,7 @@
 | oracle | [0x05225Cd708bCa9253789C1374e4337a019e99D56](https://etherscan.io/address/0x05225Cd708bCa9253789C1374e4337a019e99D56) | [0x5AE8365D0a30D67145f0c55A08760C250559dB64](https://etherscan.io/address/0x5AE8365D0a30D67145f0c55A08760C250559dB64) |
 | oracleDecimals | null | 8 |
 | oracleDescription | null | Capped rETH / ETH / USD |
+| oracleName | rETH/ETH/USD | null |
 
 
 #### USDT ([0xdAC17F958D2ee523a2206206994597C13D831ec7](https://etherscan.io/address/0xdAC17F958D2ee523a2206206994597C13D831ec7))
@@ -158,6 +160,10 @@
         "from": 425044712602,
         "to": 427248373554
       },
+      "oracleName": {
+        "from": "cbETH/ETH/USD",
+        "to": null
+      },
       "oracleDescription": {
         "from": null,
         "to": "Capped cbETH / ETH / USD"
@@ -167,6 +173,10 @@
       "oracle": {
         "from": "0x05225Cd708bCa9253789C1374e4337a019e99D56",
         "to": "0x5AE8365D0a30D67145f0c55A08760C250559dB64"
+      },
+      "oracleName": {
+        "from": "rETH/ETH/USD",
+        "to": null
       },
       "oracleDecimals": {
         "from": null,
