@@ -18,6 +18,4 @@ contract AaveV3Optimism_UpdateADIImplementationAndCCIPAdapters_20240313 is
       newCCCImplementation: 0xa5cc218513305221201f196760E9e64e9D49d98A
     })
   )
-{
-
-}
+{}

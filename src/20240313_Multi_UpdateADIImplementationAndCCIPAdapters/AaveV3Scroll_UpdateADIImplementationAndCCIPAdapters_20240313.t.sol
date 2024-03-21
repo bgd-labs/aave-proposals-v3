@@ -18,6 +18,4 @@ contract AaveV3Scroll_UpdateADIImplementationAndCCIPAdapters_20240313_Test is
     'scroll',
     4063725
   )
-{
-
-}
+{}

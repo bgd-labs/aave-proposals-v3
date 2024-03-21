@@ -18,6 +18,4 @@ contract AaveV3Base_UpdateADIImplementationAndCCIPAdapters_20240313_Test is
     'base',
     11725901
   )
-{
-
-}
+{}

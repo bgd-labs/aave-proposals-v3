@@ -18,6 +18,4 @@ contract AaveV3Gnosis_UpdateADIImplementationAndCCIPAdapters_20240313_Test is
     'gnosis',
     32990165
   )
-{
-
-}
+{}
