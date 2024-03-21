@@ -26,6 +26,9 @@ to make it easy to track off chain
 | Binance   | [0x3F006299eC88985c18E6e885EeA29A49eC579882](https://bscscan.com/address/0x3F006299eC88985c18E6e885EeA29A49eC579882)     |
 | Gnosis    | [0xA806DA549FcB2B4912a7dFFE4c1aA7A1ed0Bd5C9](https://bscscan.com/address/0xA806DA549FcB2B4912a7dFFE4c1aA7A1ed0Bd5C9)     |
 
+Code diffs for the different networks can be checked on a.DI diff repository for [revision 2](https://github.com/bgd-labs/aDI-diffs/tree/main/diffs/rev2).
+Adapter diffs: [HLAdapter](https://github.com/bgd-labs/aDI-diffs/tree/main/diffs/rev2/hyperlane), [BaseAdapter](https://github.com/bgd-labs/aDI-diffs/tree/main/diffs/rev2/base_adapter), [IBaseAdapter](https://github.com/bgd-labs/aDI-diffs/tree/main/diffs/rev2/i_base_adapter)
+
 ## References
 
 - Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240320_Multi_HyperlaneBridgeAdapterUpdateToV3/AaveV3Ethereum_HyperlaneBridgeAdapterUpdateToV3_20240320.sol), [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240320_Multi_HyperlaneBridgeAdapterUpdateToV3/AaveV3Polygon_HyperlaneBridgeAdapterUpdateToV3_20240320.sol), [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240320_Multi_HyperlaneBridgeAdapterUpdateToV3/AaveV3Avalanche_HyperlaneBridgeAdapterUpdateToV3_20240320.sol), [AaveV3Gnosis](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240320_Multi_HyperlaneBridgeAdapterUpdateToV3/AaveV3Gnosis_HyperlaneBridgeAdapterUpdateToV3_20240320.sol), [AaveV3BNB](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240320_Multi_HyperlaneBridgeAdapterUpdateToV3/AaveV3BNB_HyperlaneBridgeAdapterUpdateToV3_20240320.sol)

@@ -15,7 +15,7 @@ contract AaveV3Gnosis_HyperlaneBridgeAdapterUpdateToV3_20240320_Test is BaseTest
       GovernanceV3Gnosis.CROSS_CHAIN_CONTROLLER,
       type(AaveV3Gnosis_HyperlaneBridgeAdapterUpdateToV3_20240320).creationCode,
       'gnosis',
-      33027304
+      33043984
     )
   {}
 }

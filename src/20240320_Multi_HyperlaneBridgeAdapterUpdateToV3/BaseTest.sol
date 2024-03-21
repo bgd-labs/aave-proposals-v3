@@ -154,7 +154,7 @@ abstract contract BaseTest is ProtocolV3TestBase {
 
     for (uint256 i = 0; i < receivers.length; i++) {
       string memory adapterName = IBaseAdapter(receivers[i].bridgeAdapter).adapterName();
-      assertEq(keccak256(abi.encode(adapterName)), keccak256(abi.encode('CCIP adapter')));
+      assertEq(keccak256(abi.encode(adapterName)), keccak256(abi.encode('Hyperlane adapter')));
     }
   }
 
