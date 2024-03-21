@@ -5,7 +5,6 @@ import {AaveV3Polygon, AaveV3PolygonAssets} from 'aave-address-book/AaveV3Polygo
 import {AaveV3PayloadPolygon} from 'aave-helpers/v3-config-engine/AaveV3PayloadPolygon.sol';
 import {EngineFlags} from 'aave-helpers/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-helpers/v3-config-engine/IAaveV3ConfigEngine.sol';
-
 /**
  * @title stablecoin harmonization
  * @author Aave Chan Initiative
@@ -24,7 +23,7 @@ contract AaveV3Polygon_StablecoinHarmonization_20240312 is AaveV3PayloadPolygon 
     returns (IAaveV3ConfigEngine.CollateralUpdate[] memory)
   {
     IAaveV3ConfigEngine.CollateralUpdate[]
-      memory collateralUpdate = new IAaveV3ConfigEngine.CollateralUpdate[](2);
+      memory collateralUpdate = new IAaveV3ConfigEngine.CollateralUpdate[](1);
 
     collateralUpdate[0] = IAaveV3ConfigEngine.CollateralUpdate({
       asset: AaveV3PolygonAssets.BAL_UNDERLYING,
@@ -34,18 +33,9 @@ contract AaveV3Polygon_StablecoinHarmonization_20240312 is AaveV3PayloadPolygon 
       debtCeiling: EngineFlags.KEEP_CURRENT,
       liqProtocolFee: EngineFlags.KEEP_CURRENT
     });
-    collateralUpdate[1] = IAaveV3ConfigEngine.CollateralUpdate({
-      asset: AaveV3PolygonAssets.EURS_UNDERLYING,
-      ltv: 0,
-      liqThreshold: 67_00,
-      liqBonus: EngineFlags.KEEP_CURRENT,
-      debtCeiling: EngineFlags.KEEP_CURRENT,
-      liqProtocolFee: EngineFlags.KEEP_CURRENT
-    });
 
     return collateralUpdate;
   }
-
   function borrowsUpdates()
     public
     pure

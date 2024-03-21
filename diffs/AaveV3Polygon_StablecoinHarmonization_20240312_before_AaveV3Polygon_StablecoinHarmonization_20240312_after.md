@@ -27,8 +27,6 @@
 
 | description | value before | value after |
 | --- | --- | --- |
-| ltv | 65 % | 0 % |
-| liquidationThreshold | 70 % | 67 % |
 | reserveFactor | 10 % | 20 % |
 
 
@@ -56,14 +54,6 @@
       }
     },
     "0xE111178A87A3BFf0c8d18DECBa5798827539Ae99": {
-      "liquidationThreshold": {
-        "from": 7000,
-        "to": 6700
-      },
-      "ltv": {
-        "from": 6500,
-        "to": 0
-      },
       "reserveFactor": {
         "from": 1000,
         "to": 2000

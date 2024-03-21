@@ -5,7 +5,6 @@ import {AaveV3OptimismAssets} from 'aave-address-book/AaveV3Optimism.sol';
 import {AaveV3PayloadOptimism} from 'aave-helpers/v3-config-engine/AaveV3PayloadOptimism.sol';
 import {EngineFlags} from 'aave-helpers/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-helpers/v3-config-engine/IAaveV3ConfigEngine.sol';
-
 /**
  * @title stablecoin harmonization
  * @author Aave Chan Initiative
@@ -20,7 +19,7 @@ contract AaveV3Optimism_StablecoinHarmonization_20240312 is AaveV3PayloadOptimis
     returns (IAaveV3ConfigEngine.BorrowUpdate[] memory)
   {
     IAaveV3ConfigEngine.BorrowUpdate[]
-      memory borrowUpdates = new IAaveV3ConfigEngine.BorrowUpdate[](2);
+      memory borrowUpdates = new IAaveV3ConfigEngine.BorrowUpdate[](3);
 
     borrowUpdates[0] = IAaveV3ConfigEngine.BorrowUpdate({
       asset: AaveV3OptimismAssets.DAI_UNDERLYING,
@@ -33,6 +32,15 @@ contract AaveV3Optimism_StablecoinHarmonization_20240312 is AaveV3PayloadOptimis
     });
     borrowUpdates[1] = IAaveV3ConfigEngine.BorrowUpdate({
       asset: AaveV3OptimismAssets.LUSD_UNDERLYING,
+      enabledToBorrow: EngineFlags.KEEP_CURRENT,
+      flashloanable: EngineFlags.KEEP_CURRENT,
+      stableRateModeEnabled: EngineFlags.KEEP_CURRENT,
+      borrowableInIsolation: EngineFlags.KEEP_CURRENT,
+      withSiloedBorrowing: EngineFlags.KEEP_CURRENT,
+      reserveFactor: 20_00
+    });
+    borrowUpdates[2] = IAaveV3ConfigEngine.BorrowUpdate({
+      asset: AaveV3OptimismAssets.sUSD_UNDERLYING,
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
       stableRateModeEnabled: EngineFlags.KEEP_CURRENT,

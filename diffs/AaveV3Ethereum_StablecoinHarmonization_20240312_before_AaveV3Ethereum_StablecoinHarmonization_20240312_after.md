@@ -14,6 +14,7 @@
 | description | value before | value after |
 | --- | --- | --- |
 | isFrozen | false | true |
+| ltv | 35 % | 0 % |
 | liquidationThreshold | 45 % | 42 % |
 
 
@@ -47,6 +48,7 @@
 | description | value before | value after |
 | --- | --- | --- |
 | isFrozen | false | true |
+| ltv | 35 % | 0 % |
 | liquidationThreshold | 40 % | 37 % |
 
 
@@ -62,6 +64,7 @@
 | description | value before | value after |
 | --- | --- | --- |
 | isFrozen | false | true |
+| ltv | 35 % | 0 % |
 | liquidationThreshold | 40 % | 37 % |
 
 
@@ -84,6 +87,10 @@
       "liquidationThreshold": {
         "from": 4500,
         "to": 4200
+      },
+      "ltv": {
+        "from": 3500,
+        "to": 0
       }
     },
     "0x5f98805A4E8be255a32880FDeC7F6728C6568bA0": {
@@ -128,6 +135,10 @@
       "liquidationThreshold": {
         "from": 4000,
         "to": 3700
+      },
+      "ltv": {
+        "from": 3500,
+        "to": 0
       }
     },
     "0xba100000625a3754423978a60c9317c58a424e3D": {
@@ -144,6 +155,10 @@
       "liquidationThreshold": {
         "from": 4000,
         "to": 3700
+      },
+      "ltv": {
+        "from": 3500,
+        "to": 0
       }
     }
   }

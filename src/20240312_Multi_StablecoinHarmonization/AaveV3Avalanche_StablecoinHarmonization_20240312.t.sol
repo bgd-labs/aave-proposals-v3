@@ -1,8 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import 'forge-std/Test.sol';
 import {AaveV3Avalanche} from 'aave-address-book/AaveV3Avalanche.sol';
+
+import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/ProtocolV3TestBase.sol';
 import {AaveV3Avalanche_StablecoinHarmonization_20240312} from './AaveV3Avalanche_StablecoinHarmonization_20240312.sol';
 

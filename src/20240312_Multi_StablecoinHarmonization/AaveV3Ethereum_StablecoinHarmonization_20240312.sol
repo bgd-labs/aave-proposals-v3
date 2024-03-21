@@ -5,7 +5,6 @@ import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethe
 import {AaveV3PayloadEthereum} from 'aave-helpers/v3-config-engine/AaveV3PayloadEthereum.sol';
 import {EngineFlags} from 'aave-helpers/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-helpers/v3-config-engine/IAaveV3ConfigEngine.sol';
-
 /**
  * @title stablecoin harmonization
  * @author Aave Chan Initiative
@@ -62,7 +61,7 @@ contract AaveV3Ethereum_StablecoinHarmonization_20240312 is AaveV3PayloadEthereu
     });
     collateralUpdate[4] = IAaveV3ConfigEngine.CollateralUpdate({
       asset: AaveV3EthereumAssets.STG_UNDERLYING,
-      ltv: EngineFlags.KEEP_CURRENT,
+      ltv: 0,
       liqThreshold: 37_00,
       liqBonus: EngineFlags.KEEP_CURRENT,
       debtCeiling: EngineFlags.KEEP_CURRENT,
@@ -70,7 +69,7 @@ contract AaveV3Ethereum_StablecoinHarmonization_20240312 is AaveV3PayloadEthereu
     });
     collateralUpdate[5] = IAaveV3ConfigEngine.CollateralUpdate({
       asset: AaveV3EthereumAssets.KNC_UNDERLYING,
-      ltv: EngineFlags.KEEP_CURRENT,
+      ltv: 0,
       liqThreshold: 37_00,
       liqBonus: EngineFlags.KEEP_CURRENT,
       debtCeiling: EngineFlags.KEEP_CURRENT,
@@ -78,7 +77,7 @@ contract AaveV3Ethereum_StablecoinHarmonization_20240312 is AaveV3PayloadEthereu
     });
     collateralUpdate[6] = IAaveV3ConfigEngine.CollateralUpdate({
       asset: AaveV3EthereumAssets.FXS_UNDERLYING,
-      ltv: EngineFlags.KEEP_CURRENT,
+      ltv: 0,
       liqThreshold: 42_00,
       liqBonus: EngineFlags.KEEP_CURRENT,
       debtCeiling: EngineFlags.KEEP_CURRENT,
@@ -87,7 +86,6 @@ contract AaveV3Ethereum_StablecoinHarmonization_20240312 is AaveV3PayloadEthereu
 
     return collateralUpdate;
   }
-
   function borrowsUpdates()
     public
     pure
