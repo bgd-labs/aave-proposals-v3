@@ -27,7 +27,7 @@ type Files = {
  * @returns
  */
 export async function generateFiles(options: Options, poolConfigs: PoolConfigs): Promise<Files> {
-  const jsonConfig = prettier.format(
+  const jsonConfig = await prettier.format(
     `import {ConfigFile} from '../../generator/types';
     export const config: ConfigFile = ${JSON.stringify({
       rootOptions: options,
@@ -36,18 +36,18 @@ export async function generateFiles(options: Options, poolConfigs: PoolConfigs):
         return acc;
       }, {}),
     } as ConfigFile)}`,
-    {...prettierTsCfg, filepath: 'foo.ts'}
+    {...prettierTsCfg, filepath: 'foo.ts'},
   );
 
-  function createPayloadAndTest(options: Options, pool: PoolIdentifier) {
+  async function createPayloadAndTest(options: Options, pool: PoolIdentifier) {
     const contractName = generateContractName(options, pool);
     const testCode = testTemplate(options, poolConfigs[pool]!, pool);
     return {
-      payload: prettier.format(proposalTemplate(options, poolConfigs[pool]!, pool), {
+      payload: await prettier.format(proposalTemplate(options, poolConfigs[pool]!, pool), {
         ...prettierSolCfg,
         filepath: 'foo.sol',
       }),
-      test: prettier.format(testCode, {
+      test: await prettier.format(testCode, {
         ...prettierSolCfg,
         filepath: 'foo.sol',
       }),
@@ -56,12 +56,12 @@ export async function generateFiles(options: Options, poolConfigs: PoolConfigs):
   }
 
   console.log('generating script');
-  const script = prettier.format(generateScript(options), {
+  const script = await prettier.format(generateScript(options), {
     ...prettierSolCfg,
     filepath: 'foo.sol',
   });
   console.log('generating aip');
-  const aip = prettier.format(generateAIP(options, poolConfigs), {
+  const aip = await prettier.format(generateAIP(options, poolConfigs), {
     ...prettierMDCfg,
     filepath: 'foo.md',
   });
@@ -70,7 +70,7 @@ export async function generateFiles(options: Options, poolConfigs: PoolConfigs):
     jsonConfig,
     script,
     aip,
-    payloads: options.pools.map((pool) => createPayloadAndTest(options, pool)),
+    payloads: await Promise.all(options.pools.map((pool) => createPayloadAndTest(options, pool))),
   };
 }
 
@@ -116,7 +116,7 @@ export async function writeFiles(options: Options, {jsonConfig, script, aip, pay
   await askBeforeWrite(
     options,
     path.join(baseFolder, `${generateContractName(options)}.s.sol`),
-    script
+    script,
   );
 
   for (const {payload, test, contractName} of payloads) {
