@@ -47,9 +47,8 @@ Updates the bridge adapters used to connect between networks
 | Binance   | [0xAE93BEa44dcbE52B625169588574d31e36fb3A67](https://bscscan.com/address/0xAE93BEa44dcbE52B625169588574d31e36fb3A67)     |
 
 Code diffs for the different networks can be checked on a.DI diff repository for [revision 2](https://github.com/bgd-labs/aDI-diffs/tree/main/diffs/rev2).
-
-- Adapter diffs: [CCIPAdapter](https://github.com/bgd-labs/aDI-diffs/tree/main/diffs/rev2/ccip), [BaseAdapter](https://github.com/bgd-labs/aDI-diffs/tree/main/diffs/rev2/base_adapter), [IBaseAdapter](https://github.com/bgd-labs/aDI-diffs/tree/main/diffs/rev2/i_base_adapter)
-- CCC Diffs: [Forwarder](https://github.com/bgd-labs/aDI-diffs/tree/main/diffs/rev2/ccc_impl), [Errors](https://github.com/bgd-labs/aDI-diffs/tree/main/diffs/rev2/errors)
+Adapter diffs: [CCIPAdapter](https://github.com/bgd-labs/aDI-diffs/tree/main/diffs/rev2/ccip), [BaseAdapter](https://github.com/bgd-labs/aDI-diffs/tree/main/diffs/rev2/base_adapter), [IBaseAdapter](https://github.com/bgd-labs/aDI-diffs/tree/main/diffs/rev2/i_base_adapter)
+CCC Diffs: [Forwarder](https://github.com/bgd-labs/aDI-diffs/tree/main/diffs/rev2/ccc_impl), [Errors](https://github.com/bgd-labs/aDI-diffs/tree/main/diffs/rev2/errors)
 
 ## References
 
