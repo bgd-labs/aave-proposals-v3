@@ -3,3 +3,6 @@ lib
 cache
 node_modules
 diffs
+broadcast
+etherscan
+.assets
