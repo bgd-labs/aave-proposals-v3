@@ -15,12 +15,12 @@ describe('addresses', () => {
       events.keypress('enter');
       await Promise.resolve();
       expect(getScreen()).toMatchInlineSnapshot(
-        '"? Enter address?*\n> You must provide a valid value"'
+        '"? Enter address?*\n> You must provide a valid value"',
       );
 
       events.type('XX0xXXae7ab96520de3a18e5e111b5eaab095312d7fe84');
       expect(getScreen()).toMatchInlineSnapshot(
-        '"? Enter address?* 0xae7ab96520de3a18e5e111b5eaab095312d7fe84"'
+        '"? Enter address?* 0xae7ab96520de3a18e5e111b5eaab095312d7fe84"',
       );
 
       events.keypress('enter');
@@ -47,7 +47,7 @@ describe('addresses', () => {
     it('translateJsAddressToSol: should properly translate values to addresses', () => {
       expect(translateJsAddressToSol('')).toBe('EngineFlags.KEEP_CURRENT_ADDRESS');
       expect(translateJsAddressToSol('0xae7ab96520de3a18e5e111b5eaab095312d7fe84')).toBe(
-        '0xae7ab96520DE3A18E5e111B5EaAb095312D7fE84'
+        '0xae7ab96520DE3A18E5e111B5EaAb095312D7fE84',
       );
     });
   });
