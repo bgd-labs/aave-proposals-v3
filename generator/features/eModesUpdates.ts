@@ -10,7 +10,7 @@ import {percentPrompt, translateJsPercentToSol} from '../prompts/percentPrompt';
 
 async function fetchEmodeCategoryUpdate<T extends boolean>(
   eModeCategory: string | number,
-  required?: T
+  required?: T,
 ): Promise<EModeCategoryUpdate> {
   return {
     eModeCategory,
@@ -104,7 +104,7 @@ export const eModeUpdates: FeatureModule<EmodeUpdates> = {
                liqBonus: ${translateJsPercentToSol(cfg.liqBonus)},
                priceSource: ${translateJsAddressToSol(cfg.priceSource)},
                label: ${stringOrKeepCurrent(cfg.label)}
-             });`
+             });`,
             )
             .join('\n')}
 

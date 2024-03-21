@@ -18,6 +18,4 @@ contract AaveV3Base_UpdateADIImplementationAndCCIPAdapters_20240313 is
       newCCCImplementation: 0x9b6f5ef589A3DD08670Dd146C11C4Fb33E04494F
     })
   )
-{
-
-}
+{}

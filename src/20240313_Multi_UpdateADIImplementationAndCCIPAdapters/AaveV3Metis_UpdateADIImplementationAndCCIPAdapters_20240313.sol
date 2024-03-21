@@ -18,6 +18,4 @@ contract AaveV3Metis_UpdateADIImplementationAndCCIPAdapters_20240313 is
       newCCCImplementation: 0xa198Fac58E02A5C5F8F7e877895d50cFa9ad1E04
     })
   )
-{
-
-}
+{}

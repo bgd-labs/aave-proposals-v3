@@ -18,6 +18,4 @@ contract AaveV3Optimism_UpdateADIImplementationAndCCIPAdapters_20240313_Test is
     'optimism',
     117321235
   )
-{
-
-}
+{}

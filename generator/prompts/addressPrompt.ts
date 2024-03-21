@@ -5,7 +5,7 @@ import {flagAsRequired} from '../common';
 
 export async function addressPrompt<T extends boolean>(
   {message, required}: GenericPrompt<T>,
-  opts?
+  opts?,
 ): Promise<T extends true ? Hex : Hex | ''> {
   const value = await advancedInput(
     {
@@ -13,7 +13,7 @@ export async function addressPrompt<T extends boolean>(
       validate: (v) => (required ? isAddress(v) : isAddress(v) || v === ''),
       pattern: /^(0|0x|0x[A-Fa-f0-9]{0,40})?$/,
     },
-    opts
+    opts,
   );
   return value as Hex;
 }

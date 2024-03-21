@@ -18,6 +18,4 @@ contract AaveV3Metis_UpdateADIImplementationAndCCIPAdapters_20240313_Test is
     'metis',
     15127085
   )
-{
-
-}
+{}

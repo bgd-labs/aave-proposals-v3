@@ -18,6 +18,4 @@ contract AaveV3Arbitrum_UpdateADIImplementationAndCCIPAdapters_20240313_Test is
     'arbitrum',
     189596312
   )
-{
-
-}
+{}

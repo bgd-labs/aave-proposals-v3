@@ -50,7 +50,7 @@ export const eModeAssets: FeatureModule<EmodeAssetUpdates> = {
               (cfg, ix) => `assetEModeUpdates[${ix}] = IAaveV3ConfigEngine.AssetEModeUpdate({
                asset: ${translateAssetToAssetLibUnderlying(cfg.asset, pool)},
                eModeCategory: ${cfg.eModeCategory}
-             });`
+             });`,
             )
             .join('\n')}
 

@@ -18,6 +18,4 @@ contract AaveV3Arbitrum_UpdateADIImplementationAndCCIPAdapters_20240313 is
       newCCCImplementation: 0x6e633269af45F37c44659D98f382dd0DD524E5Df
     })
   )
-{
-
-}
+{}
