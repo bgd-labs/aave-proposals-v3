@@ -16,7 +16,7 @@ contract AaveV3BNB_ContangoFlashborrower_20240319_Test is ProtocolV3TestBase {
   AaveV3BNB_ContangoFlashborrower_20240319 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('bnb'), 37089606);
+    vm.createSelectFork(vm.rpcUrl('bnb'), 37168106);
     proposal = new AaveV3BNB_ContangoFlashborrower_20240319();
   }
 

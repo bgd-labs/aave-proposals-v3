@@ -8,7 +8,6 @@ export const config: ConfigFile = {
       'AaveV3Base',
       'AaveV3Avalanche',
       'AaveV3Polygon',
-      'AaveV3Metis',
       'AaveV3Gnosis',
       'AaveV3BNB',
       'AaveV3Scroll',
@@ -33,10 +32,6 @@ export const config: ConfigFile = {
     AaveV3Polygon: {
       configs: {FLASH_BORROWER: {address: '0xab515542d621574f9b5212d50593cD0C07e641bD'}},
       cache: {blockNumber: 54819969},
-    },
-    AaveV3Metis: {
-      configs: {FLASH_BORROWER: {address: '0xab515542d621574f9b5212d50593cD0C07e641bD'}},
-      cache: {blockNumber: 15393789},
     },
     AaveV3Gnosis: {
       configs: {FLASH_BORROWER: {address: '0xab515542d621574f9b5212d50593cD0C07e641bD'}},

@@ -11,7 +11,7 @@ import {AaveV3Avalanche} from 'aave-address-book/AaveV3Avalanche.sol';
  * - Discussion: https://governance.aave.com/t/arfc-add-contango-protocol-cian-protocol-and-index-coop-to-flashborrowers-on-aave-v3/16478
  */
 contract AaveV3Avalanche_ContangoFlashborrower_20240319 is IProposalGenericExecutor {
-  address public constant NEW_FLASH_BORROWER = 0xab515542d621574f9b5212d50593cD0C07e641bD;
+  address public constant NEW_FLASH_BORROWER = 0x14F8e5Fe35b2d0D67dBcE9329f1b5d09f60c06C3;
 
   function execute() external {
     AaveV3Avalanche.ACL_MANAGER.addFlashBorrower(NEW_FLASH_BORROWER);

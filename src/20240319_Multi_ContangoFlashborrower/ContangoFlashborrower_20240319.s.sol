@@ -6,7 +6,6 @@ import {EthereumScript, BaseScript, AvalancheScript, PolygonScript, MetisScript,
 import {AaveV3Base_ContangoFlashborrower_20240319} from './AaveV3Base_ContangoFlashborrower_20240319.sol';
 import {AaveV3Avalanche_ContangoFlashborrower_20240319} from './AaveV3Avalanche_ContangoFlashborrower_20240319.sol';
 import {AaveV3Polygon_ContangoFlashborrower_20240319} from './AaveV3Polygon_ContangoFlashborrower_20240319.sol';
-import {AaveV3Metis_ContangoFlashborrower_20240319} from './AaveV3Metis_ContangoFlashborrower_20240319.sol';
 import {AaveV3Gnosis_ContangoFlashborrower_20240319} from './AaveV3Gnosis_ContangoFlashborrower_20240319.sol';
 import {AaveV3BNB_ContangoFlashborrower_20240319} from './AaveV3BNB_ContangoFlashborrower_20240319.sol';
 import {AaveV3Scroll_ContangoFlashborrower_20240319} from './AaveV3Scroll_ContangoFlashborrower_20240319.sol';
@@ -65,28 +64,6 @@ contract DeployPolygon is PolygonScript {
     // deploy payloads
     address payload0 = GovV3Helpers.deployDeterministic(
       type(AaveV3Polygon_ContangoFlashborrower_20240319).creationCode
-    );
-
-    // compose action
-    IPayloadsControllerCore.ExecutionAction[]
-      memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
-    actions[0] = GovV3Helpers.buildAction(payload0);
-
-    // register action at payloadsController
-    GovV3Helpers.createPayload(actions);
-  }
-}
-
-/**
- * @dev Deploy Metis
- * deploy-command: make deploy-ledger contract=src/20240319_Multi_ContangoFlashborrower/ContangoFlashborrower_20240319.s.sol:DeployMetis chain=metis
- * verify-command: npx catapulta-verify -b broadcast/ContangoFlashborrower_20240319.s.sol/1088/run-latest.json
- */
-contract DeployMetis is MetisScript {
-  function run() external broadcast {
-    // deploy payloads
-    address payload0 = GovV3Helpers.deployDeterministic(
-      type(AaveV3Metis_ContangoFlashborrower_20240319).creationCode
     );
 
     // compose action
@@ -172,7 +149,7 @@ contract DeployScroll is ScrollScript {
 contract CreateProposal is EthereumScript {
   function run() external {
     // create payloads
-    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](7);
+    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](6);
 
     // compose actions for validation
     IPayloadsControllerCore.ExecutionAction[]
@@ -195,34 +172,26 @@ contract CreateProposal is EthereumScript {
       type(AaveV3Polygon_ContangoFlashborrower_20240319).creationCode
     );
     payloads[2] = GovV3Helpers.buildPolygonPayload(vm, actionsPolygon);
-
-    IPayloadsControllerCore.ExecutionAction[]
-      memory actionsMetis = new IPayloadsControllerCore.ExecutionAction[](1);
-    actionsMetis[0] = GovV3Helpers.buildAction(
-      type(AaveV3Metis_ContangoFlashborrower_20240319).creationCode
-    );
-    payloads[3] = GovV3Helpers.buildMetisPayload(vm, actionsMetis);
-
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsGnosis = new IPayloadsControllerCore.ExecutionAction[](1);
     actionsGnosis[0] = GovV3Helpers.buildAction(
       type(AaveV3Gnosis_ContangoFlashborrower_20240319).creationCode
     );
-    payloads[4] = GovV3Helpers.buildGnosisPayload(vm, actionsGnosis);
+    payloads[3] = GovV3Helpers.buildGnosisPayload(vm, actionsGnosis);
 
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsBNB = new IPayloadsControllerCore.ExecutionAction[](1);
     actionsBNB[0] = GovV3Helpers.buildAction(
       type(AaveV3BNB_ContangoFlashborrower_20240319).creationCode
     );
-    payloads[5] = GovV3Helpers.buildBNBPayload(vm, actionsBNB);
+    payloads[4] = GovV3Helpers.buildBNBPayload(vm, actionsBNB);
 
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsScroll = new IPayloadsControllerCore.ExecutionAction[](1);
     actionsScroll[0] = GovV3Helpers.buildAction(
       type(AaveV3Scroll_ContangoFlashborrower_20240319).creationCode
     );
-    payloads[6] = GovV3Helpers.buildScrollPayload(vm, actionsScroll);
+    payloads[5] = GovV3Helpers.buildScrollPayload(vm, actionsScroll);
 
     // create proposal
     vm.startBroadcast();
