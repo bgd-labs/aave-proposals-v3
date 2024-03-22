@@ -10,7 +10,7 @@ import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';
 
 /**
- * @title weETH Listing
+ * @title weETH Onboarding
  * @author Aave Chan Initiative
  * - Snapshot: https://snapshot.org/#/aave.eth/proposal/0xd5807ee6ec3d33e7d86805a4287540b0a9801430ee0900ff6babb698e4f2a273
  * - Discussion: https://governance.aave.com/t/arfc-onboard-weeth-to-aave-v3-on-ethereum/16758

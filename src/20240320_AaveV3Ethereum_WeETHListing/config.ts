@@ -3,7 +3,7 @@ export const config: ConfigFile = {
   rootOptions: {
     author: 'Aave Chan Initiative',
     pools: ['AaveV3Ethereum'],
-    title: 'weETH Listing',
+    title: 'weETH Onboarding',
     shortName: 'WeETHListing',
     date: '20240320',
     discussion: 'https://governance.aave.com/t/arfc-onboard-weeth-to-aave-v3-on-ethereum/16758',

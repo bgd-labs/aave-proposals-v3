@@ -1,5 +1,5 @@
 ---
-title: "weETH Listing"
+title: "weETH Onbaording"
 author: "Aave Chan Initiative"
 discussions: "https://governance.aave.com/t/arfc-onboard-weeth-to-aave-v3-on-ethereum/16758"
 snapshot: "https://snapshot.org/#/aave.eth/proposal/0xd5807ee6ec3d33e7d86805a4287540b0a9801430ee0900ff6babb698e4f2a273"
