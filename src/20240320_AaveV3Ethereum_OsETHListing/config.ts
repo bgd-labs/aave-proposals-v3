@@ -3,8 +3,8 @@ export const config: ConfigFile = {
   rootOptions: {
     author: 'Aave Chan Initiative',
     pools: ['AaveV3Ethereum'],
-    title: 'osETH listing',
-    shortName: 'OsETHListing',
+    title: 'osETH Onboarding',
+    shortName: 'OsETHOnboarding',
     date: '20240320',
     discussion: 'https://governance.aave.com/t/arfc-onboard-oseth-to-aave-v3-on-ethereum/16913',
     snapshot:
