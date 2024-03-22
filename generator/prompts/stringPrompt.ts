@@ -4,7 +4,7 @@ import {GenericPrompt} from './types';
 
 export async function stringPrompt<T extends boolean>(
   {message, defaultValue, required}: GenericPrompt<T>,
-  opts?
+  opts?,
 ) {
   return advancedInput(
     {
@@ -12,7 +12,7 @@ export async function stringPrompt<T extends boolean>(
       default: defaultValue,
       validate: (v) => (required ? v.trim().length != 0 : true),
     },
-    opts
+    opts,
   );
 }
 

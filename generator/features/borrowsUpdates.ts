@@ -76,7 +76,7 @@ export const borrowsUpdates: FeatureModule<BorrowUpdates> = {
                borrowableInIsolation: ${translateJsBoolToSol(cfg.borrowableInIsolation)},
                withSiloedBorrowing: ${translateJsBoolToSol(cfg.withSiloedBorrowing)},
                reserveFactor: ${translateJsPercentToSol(cfg.reserveFactor)}
-             });`
+             });`,
             )
             .join('\n')}
 

@@ -18,7 +18,7 @@ function generateAddressBookImports(code: string) {
   const imports: string[] = [];
   let root = '';
   // lookbehind for I to not match interfaces like IAaveV3ConfigEngine
-  const addressBookMatch = code.match(/(?<!I)(AaveV[2..3][A-Za-z]+)(?<![Assets|EModes])\b\./);
+  const addressBookMatch = code.match(/(?<!I)(AaveV[2..3][A-Za-z]+)(?<!(Assets)|(EModes))\b\./);
   if (addressBookMatch) {
     imports.push(addressBookMatch[1]);
     root = addressBookMatch[1];
