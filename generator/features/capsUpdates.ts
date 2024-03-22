@@ -53,7 +53,7 @@ export const capsUpdates: FeatureModule<CapsUpdates> = {
                asset: ${translateAssetToAssetLibUnderlying(cfg.asset, pool)},
                supplyCap: ${translateJsNumberToSol(cfg.supplyCap)},
                borrowCap: ${translateJsNumberToSol(cfg.borrowCap)}
-             });`
+             });`,
             )
             .join('\n')}
 

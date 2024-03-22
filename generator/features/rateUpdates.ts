@@ -90,24 +90,24 @@ export const rateUpdatesV2: FeatureModule<RateStrategyUpdate[]> = {
                 params: IV2RateStrategyFactory.RateStrategyParams({
                   optimalUtilizationRate: ${translateJsPercentToSol(
                     cfg.params.optimalUtilizationRate,
-                    true
+                    true,
                   )},
                   baseVariableBorrowRate: ${translateJsPercentToSol(
                     cfg.params.baseVariableBorrowRate,
-                    true
+                    true,
                   )},
                   variableRateSlope1: ${translateJsPercentToSol(
                     cfg.params.variableRateSlope1,
-                    true
+                    true,
                   )},
                   variableRateSlope2: ${translateJsPercentToSol(
                     cfg.params.variableRateSlope2,
-                    true
+                    true,
                   )},
                   stableRateSlope1: ${translateJsPercentToSol(cfg.params.stableRateSlope1, true)},
                   stableRateSlope2: ${translateJsPercentToSol(cfg.params.stableRateSlope2, true)}
                 })
-              });`
+              });`,
             )
             .join('\n')}
 
@@ -157,36 +157,36 @@ export const rateUpdatesV3: FeatureModule<RateStrategyUpdate[]> = {
                   params: IV3RateStrategyFactory.RateStrategyParams({
                     optimalUsageRatio: ${translateJsPercentToSol(
                       cfg.params.optimalUtilizationRate,
-                      true
+                      true,
                     )},
                     baseVariableBorrowRate: ${translateJsPercentToSol(
                       cfg.params.baseVariableBorrowRate,
-                      true
+                      true,
                     )},
                     variableRateSlope1: ${translateJsPercentToSol(
                       cfg.params.variableRateSlope1,
-                      true
+                      true,
                     )},
                     variableRateSlope2: ${translateJsPercentToSol(
                       cfg.params.variableRateSlope2,
-                      true
+                      true,
                     )},
                     stableRateSlope1: ${translateJsPercentToSol(cfg.params.stableRateSlope1, true)},
                     stableRateSlope2: ${translateJsPercentToSol(cfg.params.stableRateSlope2, true)},
                     baseStableRateOffset: ${translateJsPercentToSol(
                       cfg.params.baseStableRateOffset!,
-                      true
+                      true,
                     )},
                     stableRateExcessOffset: ${translateJsPercentToSol(
                       cfg.params.stableRateExcessOffset!,
-                      true
+                      true,
                     )},
                     optimalStableToTotalDebtRatio: ${translateJsPercentToSol(
                       cfg.params.optimalStableToTotalDebtRatio!,
-                      true
+                      true,
                     )}
                   })
-                });`
+                });`,
             )
             .join('\n')}
 
