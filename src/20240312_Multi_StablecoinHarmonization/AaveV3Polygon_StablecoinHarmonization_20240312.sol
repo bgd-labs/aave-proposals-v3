@@ -13,7 +13,7 @@ import {IAaveV3ConfigEngine} from 'aave-helpers/v3-config-engine/IAaveV3ConfigEn
  */
 contract AaveV3Polygon_StablecoinHarmonization_20240312 is AaveV3PayloadPolygon {
   function _postExecute() internal override {
-    AaveV3Polygon.POOL_CONFIGURATOR.setReserveFreeze(AaveV3PolygonAssets.agEUR_UNDERLYING, true);
+    AaveV3Polygon.POOL_CONFIGURATOR.setReserveFreeze(AaveV3PolygonAssets.EURA_UNDERLYING, true);
   }
 
   function collateralsUpdates()

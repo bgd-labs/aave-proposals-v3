@@ -35,8 +35,12 @@
 | stableBorrowRateEnabled | false |
 | isBorrowableInIsolation | true |
 | interestRateStrategy | [0xDFFD9CDd2eC42099D7086Ff76938C111022014D0](https://bscscan.com/address/0xDFFD9CDd2eC42099D7086Ff76938C111022014D0) |
+| liquidityIndex | 1 |
+| variableBorrowIndex | 1 |
 | aTokenName | Aave BNB Smart Chain FDUSD |
 | aTokenSymbol | aBnbFDUSD |
+| currentLiquidityRate | 0 % |
+| currentVariableBorrowRate | 0 % |
 | isPaused | false |
 | stableDebtTokenName | Aave BNB Smart Chain Stable Debt FDUSD |
 | stableDebtTokenSymbol | stableDebtBnbFDUSD |
@@ -69,6 +73,8 @@
         "aTokenSymbol": "aBnbFDUSD",
         "borrowCap": 7500000,
         "borrowingEnabled": true,
+        "currentLiquidityRate": 0,
+        "currentVariableBorrowRate": 0,
         "debtCeiling": 0,
         "decimals": 18,
         "eModeCategory": 0,
@@ -82,6 +88,7 @@
         "liquidationBonus": 10500,
         "liquidationProtocolFee": 1000,
         "liquidationThreshold": 7500,
+        "liquidityIndex": "1000000000000000000000000000",
         "ltv": 7000,
         "oracle": "0x390180e80058A8499930F0c13963AD3E0d86Bfc9",
         "oracleDecimals": 8,
@@ -97,6 +104,7 @@
         "symbol": "FDUSD",
         "underlying": "0xc5f0f7b66764F6ec8C8Dff7BA683102295E16409",
         "usageAsCollateralEnabled": true,
+        "variableBorrowIndex": "1000000000000000000000000000",
         "variableDebtToken": "0xE628B8a123e6037f1542e662B9F55141a16945C8",
         "variableDebtTokenImpl": "0x777fBA024bA1228fDa76149A4ff8B23475ed057D",
         "variableDebtTokenName": "Aave BNB Smart Chain Variable Debt FDUSD",
