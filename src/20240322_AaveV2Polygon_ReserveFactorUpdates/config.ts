@@ -5,7 +5,7 @@ export const config: ConfigFile = {
     title: 'ReserveFactorUpdates',
     shortName: 'ReserveFactorUpdates',
     date: '20240322',
-    author: 'tokenlogic',
+    author: 'TokenLogic',
     discussion: 'https://hackmd.io/VuOFSRuzSXOb0vNxP5-Otw',
     snapshot: '',
   },

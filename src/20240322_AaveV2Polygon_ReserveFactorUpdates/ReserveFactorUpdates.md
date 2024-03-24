@@ -1,6 +1,6 @@
 ---
 title: "ReserveFactorUpdates"
-author: "tokenlogic"
+author: "TokenLogic"
 discussions: "https://hackmd.io/VuOFSRuzSXOb0vNxP5-Otw"
 ---
 
