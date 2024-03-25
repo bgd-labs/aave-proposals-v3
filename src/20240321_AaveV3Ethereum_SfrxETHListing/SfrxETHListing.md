@@ -1,5 +1,5 @@
 ---
-title: "sfrxETH Listing"
+title: "sfrxETH Onboarding"
 author: "Aave Chan Initiative"
 discussions: "https://governance.aave.com/t/arfc-onboarding-sfrxeth-to-aave-v3-ethereum/15673"
 snapshot: "https://snapshot.org/#/aave.eth/proposal/0x7b5eb16470a0246d8515fc551962740735c7db93bf7c39810e7d3126c04e49c3"

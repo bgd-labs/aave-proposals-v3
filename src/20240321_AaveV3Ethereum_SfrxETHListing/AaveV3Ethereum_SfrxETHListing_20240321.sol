@@ -10,7 +10,7 @@ import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';
 
 /**
- * @title sfrxETH Listing
+ * @title sfrxETH Onboarding
  * @author Aave Chan Initiative
  * - Snapshot: https://snapshot.org/#/aave.eth/proposal/0x7b5eb16470a0246d8515fc551962740735c7db93bf7c39810e7d3126c04e49c3
  * - Discussion: https://governance.aave.com/t/arfc-onboarding-sfrxeth-to-aave-v3-ethereum/15673
