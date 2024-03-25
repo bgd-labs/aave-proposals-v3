@@ -15,7 +15,7 @@ contract AaveV3Gnosis_NativeBridgeAdaptersUpdate_20240322_Test is BaseTest {
       GovernanceV3Gnosis.CROSS_CHAIN_CONTROLLER,
       type(AaveV3Gnosis_NativeBridgeAdaptersUpdate_20240322).creationCode,
       'gnosis',
-      33059583,
+      33108913,
       'Gnosis native adapter'
     )
   {}

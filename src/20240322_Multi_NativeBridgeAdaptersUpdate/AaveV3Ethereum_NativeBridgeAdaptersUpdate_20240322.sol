@@ -15,28 +15,15 @@ contract AaveV3Ethereum_NativeBridgeAdaptersUpdate_20240322 is
   BaseAdaptersUpdatePayload(
     BaseAdaptersUpdatePayload.ConstructorInput({
       ccc: GovernanceV3Ethereum.CROSS_CHAIN_CONTROLLER,
-      newAdapter: address(0),
-      adapterToRemove: address(0)
+      newAdapter: 0x1562F1b2487F892BBA8Ef325aF054Fd157510a71, // POLYGON native bridge adapter
+      adapterToRemove: 0xb13712De579E1f9943502FFCf72eab6ec348cF79 // POLYGON native bridge adapter
     })
   )
 {
-  // Enable the polygon native bridge to receive from polygon network
-  function getReceiverBridgeAdaptersToAllow()
-    public
-    pure
-    override
-    returns (ICrossChainReceiver.ReceiverBridgeAdapterConfigInput[] memory)
-  {
-    ICrossChainReceiver.ReceiverBridgeAdapterConfigInput[]
-      memory bridgeAdapterConfig = new ICrossChainReceiver.ReceiverBridgeAdapterConfigInput[](1);
-
-    bridgeAdapterConfig[0] = ICrossChainReceiver.ReceiverBridgeAdapterConfigInput({
-      bridgeAdapter: 0x1562F1b2487F892BBA8Ef325aF054Fd157510a71,
-      chainIds: new uint256[](1)
-    });
-    bridgeAdapterConfig[0].chainIds[0] = ChainIds.POLYGON;
-
-    return bridgeAdapterConfig;
+  function getChainsToReceive() public pure override returns (uint256[] memory) {
+    uint256[] memory chains = new uint256[](1);
+    chains[0] = ChainIds.POLYGON;
+    return chains;
   }
 
   function getForwarderBridgeAdaptersToEnable()
@@ -152,19 +139,5 @@ contract AaveV3Ethereum_NativeBridgeAdaptersUpdate_20240322 is
     forwarderAdaptersToRemove[7].chainIds[0] = ChainIds.MAINNET;
 
     return forwarderAdaptersToRemove;
-  }
-
-  function getChainsToSend() public pure override returns (uint256[] memory) {
-    uint256[] memory chainsToSend = new uint256[](8);
-    chainsToSend[0] = ChainIds.ARBITRUM;
-    chainsToSend[1] = ChainIds.POLYGON;
-    chainsToSend[2] = ChainIds.OPTIMISM;
-    chainsToSend[3] = ChainIds.GNOSIS;
-    chainsToSend[4] = ChainIds.SCROLL;
-    chainsToSend[5] = ChainIds.BASE;
-    chainsToSend[6] = ChainIds.METIS;
-    chainsToSend[7] = ChainIds.MAINNET;
-
-    return chainsToSend;
   }
 }

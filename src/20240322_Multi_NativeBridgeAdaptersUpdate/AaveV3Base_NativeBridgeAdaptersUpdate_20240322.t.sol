@@ -16,7 +16,7 @@ contract AaveV3Base_NativeBridgeAdaptersUpdate_20240322_Test is BaseTest {
       type(AaveV3Base_NativeBridgeAdaptersUpdate_20240322).creationCode,
       'base',
       12163947,
-      'Arbitrum native adapter'
+      'Base native adapter'
     )
   {}
 }

@@ -158,10 +158,17 @@ abstract contract BaseTest is ProtocolV3TestBase {
         .getForwarderBridgeAdaptersToEnable();
 
     for (uint256 i = 0; i < destinationConfigs.length; i++) {
-      assertEq(
-        getPayloadByChainId(destinationConfigs[i].destinationChainId).NEW_ADAPTER(),
-        destinationConfigs[i].destinationBridgeAdapter
-      );
+      if (destinationConfigs[i].destinationChainId == block.chainid) {
+        assertEq(
+          destinationConfigs[i].currentChainBridgeAdapter,
+          destinationConfigs[i].destinationBridgeAdapter
+        );
+      } else {
+        assertEq(
+          getPayloadByChainId(destinationConfigs[i].destinationChainId).NEW_ADAPTER(),
+          destinationConfigs[i].destinationBridgeAdapter
+        );
+      }
     }
   }
 

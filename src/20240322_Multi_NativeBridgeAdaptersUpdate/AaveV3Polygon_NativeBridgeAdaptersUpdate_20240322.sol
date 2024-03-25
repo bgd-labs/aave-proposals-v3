@@ -16,7 +16,7 @@ contract AaveV3Polygon_NativeBridgeAdaptersUpdate_20240322 is
     BaseAdaptersUpdatePayload.ConstructorInput({
       ccc: GovernanceV3Polygon.CROSS_CHAIN_CONTROLLER,
       newAdapter: 0x853649f897383f89d8441346Cf26a9ed02720B02,
-      adapterToRemove: 0xb13712De579E1f9943502FFCf72eab6ec348cF79 // not removing
+      adapterToRemove: 0xb13712De579E1f9943502FFCf72eab6ec348cF79
     })
   )
 {
@@ -26,23 +26,17 @@ contract AaveV3Polygon_NativeBridgeAdaptersUpdate_20240322 is
     return chains;
   }
 
-  function getForwarderBridgeAdaptersToEnable()
+  function getDestinationAdapters()
     public
-    view
+    pure
     override
-    returns (ICrossChainForwarder.ForwarderBridgeAdapterConfigInput[] memory)
+    returns (DestinationAdaptersInput[] memory)
   {
-    ICrossChainForwarder.ForwarderBridgeAdapterConfigInput[]
-      memory bridgeAdaptersToEnable = new ICrossChainForwarder.ForwarderBridgeAdapterConfigInput[](
-        8
-      );
+    DestinationAdaptersInput[] memory destinationAdapters = new DestinationAdaptersInput[](1);
 
-    bridgeAdaptersToEnable[0] = ICrossChainForwarder.ForwarderBridgeAdapterConfigInput({
-      currentChainBridgeAdapter: NEW_ADAPTER,
-      destinationBridgeAdapter: 0x1562F1b2487F892BBA8Ef325aF054Fd157510a71,
-      destinationChainId: ChainIds.MAINNET
-    });
+    destinationAdapters[0].adapter = 0x1562F1b2487F892BBA8Ef325aF054Fd157510a71;
+    destinationAdapters[0].chainId = ChainIds.MAINNET;
 
-    return bridgeAdaptersToEnable;
+    return destinationAdapters;
   }
 }
