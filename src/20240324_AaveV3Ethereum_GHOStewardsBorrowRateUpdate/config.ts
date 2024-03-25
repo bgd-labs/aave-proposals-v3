@@ -10,22 +10,5 @@ export const config: ConfigFile = {
     snapshot:
       'https://snapshot.org/#/aave.eth/proposal/0xc26346b891974968c6fa1745b2cfa869d2d0e5875e9fc2bd661167ae19314c6b',
   },
-  poolOptions: {
-    AaveV3Ethereum: {
-      configs: {
-        BORROWS_UPDATE: [
-          {
-            enabledToBorrow: 'KEEP_CURRENT',
-            flashloanable: 'KEEP_CURRENT',
-            stableRateModeEnabled: 'KEEP_CURRENT',
-            borrowableInIsolation: 'KEEP_CURRENT',
-            withSiloedBorrowing: 'KEEP_CURRENT',
-            reserveFactor: '10',
-            asset: 'GHO',
-          },
-        ],
-      },
-      cache: {blockNumber: 19508206},
-    },
-  },
+  poolOptions: {AaveV3Ethereum: {configs: {}, cache: {blockNumber: 19508206}}},
 };
