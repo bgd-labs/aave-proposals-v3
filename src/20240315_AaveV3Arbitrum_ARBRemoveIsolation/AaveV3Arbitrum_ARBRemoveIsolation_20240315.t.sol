@@ -17,7 +17,7 @@ contract AaveV3Arbitrum_ARBRemoveIsolation_20240315_Test is ProtocolV3TestBase {
   AaveV3Arbitrum_ARBRemoveIsolation_20240315 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('arbitrum'), 191404560);
+    vm.createSelectFork(vm.rpcUrl('arbitrum'), 194086877);
     proposal = new AaveV3Arbitrum_ARBRemoveIsolation_20240315();
   }
 
