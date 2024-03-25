@@ -19,9 +19,14 @@ With the support of the Risk Service providers, this proposal is to disable Isol
 
 Ticker: ARB
 Contract Address: [0x912CE59144191C1204E64559FE8253a0e49E6548](https://arbiscan.io/address/0x912CE59144191C1204E64559FE8253a0e49E6548)
-Chainlink Oracle: [0xb2A824043730FE05F3DA2efaFa1CBbe83fa548D6](https://arbiscan.io/address/0xb2A824043730FE05F3DA2efaFa1CBbe83fa548D6)
 
-Risk parameters can be proposed by Risk Service providers.
+The following parameters are to be updated as follows in Arbitrum market:
+
+| Asset | Debt Ceiling |
+| ----- | ------------ |
+| ARB   | 0            |
+
+The executor will call the ArbitrumV3 configurator and use the "setDebtCeiling" method.
 
 ## Disclaimer:
 
