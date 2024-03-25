@@ -35,8 +35,12 @@
 | stableBorrowRateEnabled | false |
 | isBorrowableInIsolation | true |
 | interestRateStrategy | [0x9205B37978aC983A297dFB53b3f3D2cCC7DDDADa](https://scrollscan.com/address/0x9205B37978aC983A297dFB53b3f3D2cCC7DDDADa) |
+| liquidityIndex | 1 |
+| variableBorrowIndex | 1 |
 | aTokenName | Aave Scroll USDC |
 | aTokenSymbol | aScrUSDC |
+| currentLiquidityRate | 0 % |
+| currentVariableBorrowRate | 0 % |
 | isPaused | false |
 | stableDebtTokenName | Aave Scroll Stable Debt USDC |
 | stableDebtTokenSymbol | stableDebtScrUSDC |
@@ -88,8 +92,12 @@
 | stableBorrowRateEnabled | false |
 | isBorrowableInIsolation | false |
 | interestRateStrategy | [0xD828F2f9Da85b190721797bEaD5Eb0acC4150f05](https://scrollscan.com/address/0xD828F2f9Da85b190721797bEaD5Eb0acC4150f05) |
+| liquidityIndex | 1 |
+| variableBorrowIndex | 1 |
 | aTokenName | Aave Scroll WETH |
 | aTokenSymbol | aScrWETH |
+| currentLiquidityRate | 0 % |
+| currentVariableBorrowRate | 0 % |
 | isPaused | false |
 | stableDebtTokenName | Aave Scroll Stable Debt WETH |
 | stableDebtTokenSymbol | stableDebtScrWETH |
@@ -146,8 +154,12 @@
 | stableBorrowRateEnabled | false |
 | isBorrowableInIsolation | false |
 | interestRateStrategy | [0xCB032D7e38a10503c0b2F9f7bE8c1A81bBBEe2A8](https://scrollscan.com/address/0xCB032D7e38a10503c0b2F9f7bE8c1A81bBBEe2A8) |
+| liquidityIndex | 1 |
+| variableBorrowIndex | 1 |
 | aTokenName | Aave Scroll wstETH |
 | aTokenSymbol | aScrwstETH |
+| currentLiquidityRate | 0 % |
+| currentVariableBorrowRate | 0 % |
 | isPaused | false |
 | stableDebtTokenName | Aave Scroll Stable Debt wstETH |
 | stableDebtTokenSymbol | stableDebtScrwstETH |
@@ -198,6 +210,8 @@
         "aTokenSymbol": "aScrUSDC",
         "borrowCap": 900000,
         "borrowingEnabled": true,
+        "currentLiquidityRate": 0,
+        "currentVariableBorrowRate": 0,
         "debtCeiling": 0,
         "decimals": 6,
         "eModeCategory": 0,
@@ -211,6 +225,7 @@
         "liquidationBonus": 10500,
         "liquidationProtocolFee": 1000,
         "liquidationThreshold": 8000,
+        "liquidityIndex": "1000000000000000000000000000",
         "ltv": 7700,
         "oracle": "0x43d12Fb3AfCAd5347fA764EeAB105478337b7200",
         "oracleDecimals": 8,
@@ -226,6 +241,7 @@
         "symbol": "USDC",
         "underlying": "0x06eFdBFf2a14a7c8E15944D1F4A48F9F95F663A4",
         "usageAsCollateralEnabled": true,
+        "variableBorrowIndex": "1000000000000000000000000000",
         "variableDebtToken": "0x3d2E209af5BFa79297C88D6b57F89d792F6E28EE",
         "variableDebtTokenImpl": "0x49bA16C08130FF8cFADE263B49387A8555bc057B",
         "variableDebtTokenName": "Aave Scroll Variable Debt USDC",
@@ -241,6 +257,8 @@
         "aTokenSymbol": "aScrWETH",
         "borrowCap": 200,
         "borrowingEnabled": true,
+        "currentLiquidityRate": 0,
+        "currentVariableBorrowRate": 0,
         "debtCeiling": 0,
         "decimals": 18,
         "eModeCategory": 1,
@@ -254,6 +272,7 @@
         "liquidationBonus": 10600,
         "liquidationProtocolFee": 1000,
         "liquidationThreshold": 7800,
+        "liquidityIndex": "1000000000000000000000000000",
         "ltv": 7500,
         "oracle": "0x6bF14CB0A831078629D993FDeBcB182b21A8774C",
         "oracleDecimals": 8,
@@ -269,6 +288,7 @@
         "symbol": "WETH",
         "underlying": "0x5300000000000000000000000000000000000004",
         "usageAsCollateralEnabled": true,
+        "variableBorrowIndex": "1000000000000000000000000000",
         "variableDebtToken": "0xfD7344CeB1Df9Cf238EcD667f4A6F99c6Ef44a56",
         "variableDebtTokenImpl": "0x49bA16C08130FF8cFADE263B49387A8555bc057B",
         "variableDebtTokenName": "Aave Scroll Variable Debt WETH",
@@ -284,6 +304,8 @@
         "aTokenSymbol": "aScrwstETH",
         "borrowCap": 45,
         "borrowingEnabled": true,
+        "currentLiquidityRate": 0,
+        "currentVariableBorrowRate": 0,
         "debtCeiling": 0,
         "decimals": 18,
         "eModeCategory": 1,
@@ -297,6 +319,7 @@
         "liquidationBonus": 10700,
         "liquidationProtocolFee": 1000,
         "liquidationThreshold": 7800,
+        "liquidityIndex": "1000000000000000000000000000",
         "ltv": 7500,
         "oracle": "0xdb93e2712a8B36835078f8D28c70fCC95FD6d37c",
         "oracleDecimals": 8,
@@ -312,6 +335,7 @@
         "symbol": "wstETH",
         "underlying": "0xf610A9dfB7C89644979b4A0f27063E9e7d7Cda32",
         "usageAsCollateralEnabled": true,
+        "variableBorrowIndex": "1000000000000000000000000000",
         "variableDebtToken": "0x8a035644322129800C3f747f54Db0F4d3c0A2877",
         "variableDebtTokenImpl": "0x49bA16C08130FF8cFADE263B49387A8555bc057B",
         "variableDebtTokenName": "Aave Scroll Variable Debt wstETH",
