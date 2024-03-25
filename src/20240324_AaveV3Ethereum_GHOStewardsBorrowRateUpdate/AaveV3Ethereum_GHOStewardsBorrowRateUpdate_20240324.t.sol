@@ -17,7 +17,7 @@ contract AaveV3Ethereum_GHOStewardsBorrowRateUpdate_20240324_Test is ProtocolV3T
   GhoInterestRateStrategy internal strategy;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 19508206);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 19511307);
     strategy = GhoInterestRateStrategy(
       GovV3Helpers.deployDeterministic(type(GhoInterestRateStrategy).creationCode)
     );
