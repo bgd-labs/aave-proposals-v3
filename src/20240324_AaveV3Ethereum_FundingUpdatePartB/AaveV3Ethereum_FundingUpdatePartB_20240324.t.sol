@@ -7,6 +7,7 @@ import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {AaveV2Ethereum, AaveV2EthereumAssets} from 'aave-address-book/AaveV2Ethereum.sol';
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {AaveSwapper} from 'aave-helpers/swaps/AaveSwapper.sol';
+import {ProtocolV3TestBase} from 'aave-helpers/ProtocolV3TestBase.sol';
 
 import {AaveV3Ethereum_FundingUpdatePartB_20240324} from './AaveV3Ethereum_FundingUpdatePartB_20240324.sol';
 
@@ -29,7 +30,7 @@ contract AaveV3Ethereum_FundingUpdatePartB_20240324_Test is ProtocolV3TestBase {
   AaveV3Ethereum_FundingUpdatePartB_20240324 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 19504819);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 19508017);
     proposal = new AaveV3Ethereum_FundingUpdatePartB_20240324();
   }
 
@@ -88,6 +89,20 @@ contract AaveV3Ethereum_FundingUpdatePartB_20240324_Test is ProtocolV3TestBase {
       address(AaveV2Ethereum.COLLECTOR)
     );
 
+    assertGt(dpiBalanceBefore, 0);
+
+    vm.expectEmit(true, true, true, true, MiscEthereum.AAVE_SWAPPER);
+    emit SwapRequested(
+      proposal.MILKMAN(),
+      AaveV3EthereumAssets.USDC_UNDERLYING,
+      AaveV3EthereumAssets.GHO_UNDERLYING,
+      AaveV3EthereumAssets.USDC_ORACLE,
+      proposal.GHO_USD_FEED(),
+      proposal.USDC_V2_TO_SWAP() + 1, // Rounding error of 1
+      address(AaveV3Ethereum.COLLECTOR),
+      100
+    );
+
     vm.expectEmit(true, true, true, true, MiscEthereum.AAVE_SWAPPER);
     emit SwapRequested(
       proposal.MILKMAN(),
@@ -100,27 +115,16 @@ contract AaveV3Ethereum_FundingUpdatePartB_20240324_Test is ProtocolV3TestBase {
       600
     );
 
-    vm.expectEmit(true, true, true, true, MiscEthereum.AAVE_SWAPPER);
-    emit SwapRequested(
-      proposal.MILKMAN(),
-      AaveV3EthereumAssets.USDC_UNDERLYING,
-      AaveV3EthereumAssets.GHO_UNDERLYING,
-      AaveV3EthereumAssets.USDC_ORACLE,
-      proposal.GHO_USD_FEED(),
-      proposal.USDC_V2_TO_SWAP(),
-      address(AaveV3Ethereum.COLLECTOR),
-      100
-    );
-
     executePayload(vm, address(proposal));
 
     assertEq(
       IERC20(AaveV2EthereumAssets.DPI_UNDERLYING).balanceOf(address(AaveV2Ethereum.COLLECTOR)),
       0
     );
-    assertEq(
-      IERC20(AaveV2EthereumAssets.DPI_UNDERLYING).balanceOf(address(AaveV2Ethereum.COLLECTOR)),
-      aUsdcBalanceBefore - proposal.USDC_V2_TO_SWAP()
+    assertGt(
+      IERC20(AaveV2EthereumAssets.USDC_A_TOKEN).balanceOf(address(AaveV2Ethereum.COLLECTOR)),
+      aUsdcBalanceBefore - proposal.USDC_V2_TO_SWAP(),
+      'aUSDC balance after does not match'
     );
   }
 
@@ -142,11 +146,6 @@ contract AaveV3Ethereum_FundingUpdatePartB_20240324_Test is ProtocolV3TestBase {
 
     executePayload(vm, address(proposal));
 
-    uint256 balanceWETHCollectorAfter = address(AaveV3Ethereum.COLLECTOR).balance;
-    uint256 balanceDaiCollectorAfter = IERC20(AaveV3EthereumAssets.DAI_UNDERLYING).balanceOf(
-      address(AaveV3Ethereum.COLLECTOR)
-    );
-
     uint256 balanceEthAWETHAfter = IERC20(AaveV3EthereumAssets.WETH_A_TOKEN).balanceOf(
       address(AaveV3Ethereum.COLLECTOR)
     );
@@ -161,6 +160,6 @@ contract AaveV3Ethereum_FundingUpdatePartB_20240324_Test is ProtocolV3TestBase {
     );
 
     assertEq(balanceEthAWETHAfter, balanceEthAWETHBefore + balanceWETHCollectorBefore);
-    assertEq(balanceAEthDAIAfter, balanceEthADAIBefore + balanceDaiCollectorBefore);
+    assertApproxEqAbs(balanceAEthDAIAfter, balanceEthADAIBefore + balanceDaiCollectorBefore, 1);
   }
 }

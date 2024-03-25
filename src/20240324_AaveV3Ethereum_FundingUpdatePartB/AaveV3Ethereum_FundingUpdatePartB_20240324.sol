@@ -10,7 +10,7 @@ import {AaveSwapper} from 'aave-helpers/swaps/AaveSwapper.sol';
 import {IProposalGenericExecutor} from 'aave-helpers/interfaces/IProposalGenericExecutor.sol';
 
 interface IWETH {
-  function deposit(uint256) external;
+  function deposit(uint256) external payable;
 }
 
 /**
@@ -20,6 +20,8 @@ interface IWETH {
  * - Discussion: https://governance.aave.com/t/arfc-funding-update/16675/4
  */
 contract AaveV3Ethereum_FundingUpdatePartB_20240324 is IProposalGenericExecutor {
+  using SafeERC20 for IERC20;
+
   AaveSwapper public constant SWAPPER = AaveSwapper(MiscEthereum.AAVE_SWAPPER);
 
   address public constant MILKMAN = 0x11C76AD590ABDFFCD980afEC9ad951B160F02797;
@@ -48,6 +50,7 @@ contract AaveV3Ethereum_FundingUpdatePartB_20240324 is IProposalGenericExecutor 
       IERC20(AaveV3EthereumAssets.CRV_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR))
     );
 
+    // DAI Deposit
     uint256 daiBalance = IERC20(AaveV3EthereumAssets.DAI_UNDERLYING).balanceOf(
       address(AaveV3Ethereum.COLLECTOR)
     );
@@ -68,9 +71,10 @@ contract AaveV3Ethereum_FundingUpdatePartB_20240324 is IProposalGenericExecutor 
       0
     );
 
+    // wETH Deposit
     uint256 ethBalance = address(AaveV3Ethereum.COLLECTOR).balance;
     AaveV3Ethereum.COLLECTOR.transfer(ETH_MOCK_ADDRESS, address(this), ethBalance);
-    IWETH(AaveV3EthereumAssets.WETH_UNDERLYING).deposit(ethBalance);
+    IWETH(AaveV3EthereumAssets.WETH_UNDERLYING).deposit{value: ethBalance}(ethBalance);
     IERC20(AaveV3EthereumAssets.WETH_UNDERLYING).forceApprove(
       address(AaveV3Ethereum.POOL),
       ethBalance
@@ -86,11 +90,11 @@ contract AaveV3Ethereum_FundingUpdatePartB_20240324 is IProposalGenericExecutor 
     AaveV3Ethereum.COLLECTOR.transfer(
       AaveV2EthereumAssets.USDC_A_TOKEN,
       address(this),
-      IERC20(AaveV2EthereumAssets.USDC_A_TOKEN).balanceOf(address(AaveV3Ethereum.COLLECTOR))
+      USDC_V2_TO_SWAP
     );
 
     AaveV2Ethereum.POOL.withdraw(
-      AaveV2EthereumAssets.USDC_A_TOKEN,
+      AaveV2EthereumAssets.USDC_UNDERLYING,
       type(uint256).max,
       address(SWAPPER)
     );
