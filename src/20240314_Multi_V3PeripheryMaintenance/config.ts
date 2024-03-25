@@ -1,0 +1,36 @@
+import {ConfigFile} from '../../generator/types';
+export const config: ConfigFile = {
+  rootOptions: {
+    configFile: 'src/20240314_AaveV3Scroll_ActivatePriceOracleSentinelOnAaveV3Scroll/config.ts',
+    pools: [
+      'AaveV3Ethereum',
+      'AaveV3Polygon',
+      'AaveV3Avalanche',
+      'AaveV3BNB',
+      'AaveV3Base',
+      'AaveV3Gnosis',
+      'AaveV3Optimism',
+      'AaveV3Arbitrum',
+      'AaveV3Metis',
+      'AaveV3Scroll',
+    ],
+    title: 'v3 Periphery maintenance',
+    shortName: 'V3PeripheryMaintenance',
+    date: '20240314',
+    author: 'BGD Labs',
+    discussion: 'https://governance.aave.com/t/bgd-technical-maintenance-proposals/15274',
+    snapshot: '',
+  },
+  poolOptions: {
+    AaveV3Scroll: {configs: {OTHERS: {}}, cache: {blockNumber: 4126179}},
+    AaveV3Ethereum: {configs: {OTHERS: {}}, cache: {blockNumber: 19460551}},
+    AaveV3Polygon: {configs: {OTHERS: {}}, cache: {blockNumber: 54797453}},
+    AaveV3Avalanche: {configs: {OTHERS: {}}, cache: {blockNumber: 43052221}},
+    AaveV3BNB: {configs: {OTHERS: {}}, cache: {blockNumber: 37071996}},
+    AaveV3Base: {configs: {OTHERS: {}}, cache: {blockNumber: 11980928}},
+    AaveV3Gnosis: {configs: {OTHERS: {}}, cache: {blockNumber: 32989721}},
+    AaveV3Optimism: {configs: {OTHERS: {}}, cache: {blockNumber: 117576214}},
+    AaveV3Arbitrum: {configs: {OTHERS: {}}, cache: {blockNumber: 191592208}},
+    AaveV3Metis: {configs: {OTHERS: {}}, cache: {blockNumber: 15353523}},
+  },
+};
