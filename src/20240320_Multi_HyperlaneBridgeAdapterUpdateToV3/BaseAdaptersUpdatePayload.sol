@@ -31,30 +31,30 @@ abstract contract BaseAdaptersUpdatePayload is IProposalGenericExecutor {
 
   function execute() public override {
     // remove old Receiver bridge adapter
-    ICrossChainReceiver(CROSS_CHAIN_CONTROLLER).disallowReceiverBridgeAdapters(
-      getReceiverBridgeAdaptersToRemove()
-    );
-
-    // remove forwarding adapters
-    ICrossChainForwarder(CROSS_CHAIN_CONTROLLER).disableBridgeAdapters(
-      getForwarderBridgeAdaptersToRemove()
-    );
-
-    uint256[] memory chainsToSend = getChainsToSend();
-    uint256[] memory chainsToReceive = getChainsToReceive();
-
-    if (chainsToReceive.length != 0) {
-      // add receiver adapters
-      ICrossChainReceiver(CROSS_CHAIN_CONTROLLER).allowReceiverBridgeAdapters(
-        getReceiverBridgeAdaptersToAllow()
-      );
+    ICrossChainReceiver.ReceiverBridgeAdapterConfigInput[]
+      memory receiversToRemove = getReceiverBridgeAdaptersToRemove();
+    if (receiversToRemove.length != 0) {
+      ICrossChainReceiver(CROSS_CHAIN_CONTROLLER).disallowReceiverBridgeAdapters(receiversToRemove);
     }
 
-    if (chainsToSend.length != 0) {
+    // remove forwarding adapters
+    ICrossChainForwarder.BridgeAdapterToDisable[]
+      memory forwardersToRemove = getForwarderBridgeAdaptersToRemove();
+    if (forwardersToRemove.length != 0) {
+      ICrossChainForwarder(CROSS_CHAIN_CONTROLLER).disableBridgeAdapters(forwardersToRemove);
+    }
+
+    ICrossChainReceiver.ReceiverBridgeAdapterConfigInput[]
+      memory receiversToAllow = getReceiverBridgeAdaptersToAllow();
+    if (receiversToAllow.length != 0) {
+      // add receiver adapters
+      ICrossChainReceiver(CROSS_CHAIN_CONTROLLER).allowReceiverBridgeAdapters(receiversToAllow);
+    }
+    ICrossChainForwarder.ForwarderBridgeAdapterConfigInput[]
+      memory forwardersToEnable = getForwarderBridgeAdaptersToEnable();
+    if (forwardersToEnable.length != 0) {
       // add forwarding adapters
-      ICrossChainForwarder(CROSS_CHAIN_CONTROLLER).enableBridgeAdapters(
-        getForwarderBridgeAdaptersToEnable()
-      );
+      ICrossChainForwarder(CROSS_CHAIN_CONTROLLER).enableBridgeAdapters(forwardersToEnable);
     }
   }
 
@@ -99,6 +99,7 @@ abstract contract BaseAdaptersUpdatePayload is IProposalGenericExecutor {
   function getForwarderBridgeAdaptersToRemove()
     public
     view
+    virtual
     returns (ICrossChainForwarder.BridgeAdapterToDisable[] memory)
   {
     ICrossChainForwarder.BridgeAdapterToDisable[]
