@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {BaseAdaptersUpdatePayload} from './BaseAdaptersUpdatePayload.sol';
+import {BaseAdaptersUpdatePayload, ICrossChainForwarder} from './BaseAdaptersUpdatePayload.sol';
 import {GovernanceV3Gnosis} from 'aave-address-book/GovernanceV3Gnosis.sol';
 import {ChainIds} from 'aave-helpers/ChainIds.sol';
 
@@ -24,5 +24,14 @@ contract AaveV3Gnosis_LayerZeroBridgeAdapterUpdateToV2_20240322 is
     uint256[] memory chains = new uint256[](1);
     chains[0] = ChainIds.MAINNET;
     return chains;
+  }
+
+  function getForwarderBridgeAdaptersToRemove()
+    public
+    pure
+    override
+    returns (ICrossChainForwarder.BridgeAdapterToDisable[] memory)
+  {
+    return new ICrossChainForwarder.BridgeAdapterToDisable[](0);
   }
 }
