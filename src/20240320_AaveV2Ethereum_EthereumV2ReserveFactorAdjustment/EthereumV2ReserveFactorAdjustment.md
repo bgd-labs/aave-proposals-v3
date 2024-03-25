@@ -36,8 +36,8 @@ The following parameters are to be updated as follows:
 
 ## References
 
-- Implementation: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240320_AaveV2Ethereum_EthereumV2ReserveFactorAdjustment/AaveV2Ethereum_EthereumV2ReserveFactorAdjustment_20240320.sol)
-- Tests: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240320_AaveV2Ethereum_EthereumV2ReserveFactorAdjustment/AaveV2Ethereum_EthereumV2ReserveFactorAdjustment_20240320.t.sol)
+- Implementation: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/81bb8a48787c123d4df09cabcd4d7d529f6ecbf2/src/20240320_AaveV2Ethereum_EthereumV2ReserveFactorAdjustment/AaveV2Ethereum_EthereumV2ReserveFactorAdjustment_20240320.sol)
+- Tests: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/81bb8a48787c123d4df09cabcd4d7d529f6ecbf2/src/20240320_AaveV2Ethereum_EthereumV2ReserveFactorAdjustment/AaveV2Ethereum_EthereumV2ReserveFactorAdjustment_20240320.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x26a03c08359c340f63b78b0c3e96d37aa0adeda65814643b0886d4719048ea7e)
 - [Discussion](https://governance.aave.com/t/arfc-ethereum-v2-reserve-factor-adjustment/16764)
 
