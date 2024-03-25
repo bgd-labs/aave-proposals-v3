@@ -36,7 +36,7 @@ export async function generateFiles(options: Options, poolConfigs: PoolConfigs):
         return acc;
       }, {}),
     } as ConfigFile)}`,
-    {...prettierTsCfg, filepath: 'foo.ts'}
+    {...prettierTsCfg, filepath: 'foo.ts'},
   );
 
   async function createPayloadAndTest(options: Options, pool: PoolIdentifier) {
@@ -116,7 +116,7 @@ export async function writeFiles(options: Options, {jsonConfig, script, aip, pay
   await askBeforeWrite(
     options,
     path.join(baseFolder, `${generateContractName(options)}.s.sol`),
-    script
+    script,
   );
 
   for (const {payload, test, contractName} of payloads) {
