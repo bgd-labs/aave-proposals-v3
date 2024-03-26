@@ -17,8 +17,6 @@ After successful collaboration with the Aave DAO on the previous BGD Labs <> Aav
 
 This proposal includes 2 scopes:
 
-&nspb;
-
 ### SCOPE 1. Aave technical maintenance, improvements, security coordination and tech advisory to the DAO
 
 This scope is the continuist component historically performed by BGD for the DAO, and will be composed of the following items:
@@ -45,8 +43,6 @@ This scope is the continuist component historically performed by BGD for the DAO
 - Generally advise other contributors, whenever feedback from an entity expert on the Aave protocol is required. This includes but is not limited to contributors on the risk, treasury, security reviews and miscellaneous fields.
 - Review governance proposals on pre-onchain stage, not as a full security audit, but in order to verify that we don’t see any integration problem with Aave’s smart contracts and good practises.
 
-&nspb;
-
 **What is NOT part of the scope**
 
 - We are a technical provider of the community, we don’t do any type of business development and/or growth, that should be responsibility of other parties.
@@ -56,8 +52,6 @@ This scope is the continuist component historically performed by BGD for the DAO
 - We only work on projects with TEMP CHECK Snapshot passed (e.g. reviews). With the activity on the DAO increasing day by day, unless a filtering of projects is applied, it is not really manageable for us to support any project in pre-TEMP CHECK stage, unless we identified a clear need from our side.
 - We are not running services on behalf of the DAO, we design them to be ran in a decentralised manner, or by parties with the proper role to do so.
   Any tool we decide to run on our infrastructure (e.g. hosting of one instance of the Aave Governance v3 interface) is our own decision, outside of the scope of engagement.
-
-&nspb;
 
 ---
 
@@ -69,8 +63,6 @@ _Scope 1. Aave technical maintenance, improvements, security coordination and te
 
 ---
 
-&nspb;
-
 ### SCOPE 2. Aave Safety Module - Code A
 
 As commented before, we believe now the Aave DAO is in a really solid stage of their current systems, quite future-proof and ready to scale:
@@ -81,8 +73,6 @@ As commented before, we believe now the Aave DAO is in a really solid stage of t
 - Aave Robot is a solid automation layer, integrated with Chainlink Automation, but flexible enough for any technology.
 
 More in the line of innovative projects like Aave Governance v3, we propose to create a completely new system in an Aave component which requires improvement: the Aave Safety Module.
-
-&nspb;
 
 **Aave Safety Module: Code A**
 
@@ -100,9 +90,6 @@ However, we can say the following about Code A:
 
 We are aware this requires some trust by the community on our research and execution capabilities (which is reflected on the payment schedule), but considering that the main beneficiary will be explicitly the DAO and our history of services, we think it is acceptable.
 
-&nspb;
-&nspb;
-
 ---
 
 _Scope 2. Safety Module Code A_
@@ -117,8 +104,6 @@ However, delivery and communications will definitely be iterative, with extensiv
 
 ---
 
-&nspb;
-
 ### Technical specification
 
 The proposal payload sets up the payment schedule for the 2 scopes, interacting with the Aave Ethereum Collector for the stablecoins components and the AAVE Ecosystem Collector for the AAVE ones:
@@ -130,9 +115,6 @@ The proposal payload sets up the payment schedule for the 2 scopes, interacting 
 - Creation of a 2'000 AAVE stream for 6 months; 40% of the 5'000 total AAVE component in Scope 1.
 - Creation of a 1'140'000 aUSDC v3 Ethereum 4-months deferred payment; 60% of the 1'900'000 total stablecoins component in Scope 2.
 - Creation of a 4'500 AAVE 4-months deferred payment; 60% of the 7'500 total AAVE component in Scope 2.
-
-&nspb;
-&nspb;
 
 _Disclaimer_
 
