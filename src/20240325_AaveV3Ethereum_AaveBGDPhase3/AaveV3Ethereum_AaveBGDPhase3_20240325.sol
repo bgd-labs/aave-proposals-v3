@@ -77,7 +77,7 @@ contract AaveV3Ethereum_AaveBGDPhase3_20240325 is IProposalGenericExecutor {
       SCOPE_2_AAVE_STREAM,
       AaveV3EthereumAssets.AAVE_UNDERLYING,
       block.timestamp + 120 days, // start of the stream will be after 4 months
-      block.timestamp + 120 days + 1 // end of the stream will be one block after the start
+      block.timestamp + 120 days + 1 // end of the stream will be one second after the start
     );
     AaveV3Ethereum.COLLECTOR.createStream(
       BGD_RECIPIENT,
