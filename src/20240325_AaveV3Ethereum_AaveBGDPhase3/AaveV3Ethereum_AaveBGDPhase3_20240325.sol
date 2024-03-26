@@ -10,7 +10,7 @@ import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
  * @title Aave BGD Phase 3
  * @author BGD Labs
  * - Snapshot: https://snapshot.org/#/aave.eth/proposal/0xf453667458e093dcd5bd986e0a62b4ef9dc914dca56ef97a8dc28ca89af6c8d3
- * - Discussion: https://governance.aave.com/t/aave-bored-ghosts-developing-phase-2
+ * - Discussion: https://governance.aave.com/t/aave-bored-ghosts-developing-phase-3/16893
  */
 contract AaveV3Ethereum_AaveBGDPhase3_20240325 is IProposalGenericExecutor {
   address public constant BGD_RECIPIENT = 0xb812d0944f8F581DfAA3a93Dda0d22EcEf51A9CF;
