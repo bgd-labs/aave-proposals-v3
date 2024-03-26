@@ -57,6 +57,7 @@ This scope is the continuist component historically performed by BGD for the DAO
 - We are not running services on behalf of the DAO, we design them to be ran in a decentralised manner, or by parties with the proper role to do so.
   Any tool we decide to run on our infrastructure (e.g. hosting of one instance of the Aave Governance v3 interface) is our own decision, outside of the scope of engagement.
 
+
 &nbsp;
 
 ---
