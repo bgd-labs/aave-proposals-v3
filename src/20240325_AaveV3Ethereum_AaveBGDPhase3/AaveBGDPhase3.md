@@ -1,7 +1,7 @@
 ---
 title: "Aave BGD Phase 3"
 author: "BGD Labs"
-discussions: "https://governance.aave.com/t/aave-bored-ghosts-developing-phase-2"
+discussions: "https://governance.aave.com/t/aave-bored-ghosts-developing-phase-3/16893"
 snapshot: "https://snapshot.org/#/aave.eth/proposal/0xf453667458e093dcd5bd986e0a62b4ef9dc914dca56ef97a8dc28ca89af6c8d3"
 ---
 
