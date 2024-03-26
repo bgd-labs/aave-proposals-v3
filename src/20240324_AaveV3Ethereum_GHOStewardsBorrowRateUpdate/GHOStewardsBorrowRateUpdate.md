@@ -7,13 +7,13 @@ snapshot: "https://snapshot.org/#/aave.eth/proposal/0xc26346b891974968c6fa1745b2
 
 ## Simple Summary
 
-In response to recent market events, this publication proposes increasing the GHO Borrow Rate to better respond to varying market conditions.
+In response to recent market events, this AIP increases the GHO Borrow Rate to 13.00%.
 
 ## Motivation
 
-In response to recent stable coin rates increasing and Maker DAO's recently proposed changes this publication seeks to amend the current GHO Interest Rate strategy and better equip the GHO Stewards to respond to evolving market conditions.
+In response to recent stable coin Borrow Rates increasing and Maker DAO's recently proposed changes, this AIP amends the current GHO Interest Rate strategy.
 
-The Maker DAO proposal is expected to lead to higher borrowing rates. To enable GHO to continue growing with improved peg stability, this proposal acts to heavily reduce the Borrow Rate arbitrage opportunity created by incrementally increasing the GHO Borrow Rate within the current approved Direct-to-AIP process.
+This AIP is expected to enable GHO to continue growing whilst maintaining peg stability. Upon implementation the Borrow Rate arbitrage opportunity with be meaningfully reduced.
 
 ## Specification
 
