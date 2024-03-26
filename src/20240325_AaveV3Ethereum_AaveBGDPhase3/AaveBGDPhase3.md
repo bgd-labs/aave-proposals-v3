@@ -17,7 +17,7 @@ After successful collaboration with the Aave DAO on the previous BGD Labs <> Aav
 
 This proposal includes 2 scopes:
 
-<br>
+&nspb;
 
 ### SCOPE 1. Aave technical maintenance, improvements, security coordination and tech advisory to the DAO
 
@@ -45,7 +45,7 @@ This scope is the continuist component historically performed by BGD for the DAO
 - Generally advise other contributors, whenever feedback from an entity expert on the Aave protocol is required. This includes but is not limited to contributors on the risk, treasury, security reviews and miscellaneous fields.
 - Review governance proposals on pre-onchain stage, not as a full security audit, but in order to verify that we don’t see any integration problem with Aave’s smart contracts and good practises.
 
-<br>
+&nspb;
 
 **What is NOT part of the scope**
 
@@ -57,7 +57,7 @@ This scope is the continuist component historically performed by BGD for the DAO
 - We are not running services on behalf of the DAO, we design them to be ran in a decentralised manner, or by parties with the proper role to do so.
   Any tool we decide to run on our infrastructure (e.g. hosting of one instance of the Aave Governance v3 interface) is our own decision, outside of the scope of engagement.
 
-<br>
+&nspb;
 
 ---
 
@@ -69,7 +69,7 @@ _Scope 1. Aave technical maintenance, improvements, security coordination and te
 
 ---
 
-<br>
+&nspb;
 
 ### SCOPE 2. Aave Safety Module - Code A
 
@@ -82,7 +82,7 @@ As commented before, we believe now the Aave DAO is in a really solid stage of t
 
 More in the line of innovative projects like Aave Governance v3, we propose to create a completely new system in an Aave component which requires improvement: the Aave Safety Module.
 
-<br>
+&nspb;
 
 **Aave Safety Module: Code A**
 
@@ -100,8 +100,8 @@ However, we can say the following about Code A:
 
 We are aware this requires some trust by the community on our research and execution capabilities (which is reflected on the payment schedule), but considering that the main beneficiary will be explicitly the DAO and our history of services, we think it is acceptable.
 
-<br>
-<br>
+&nspb;
+&nspb;
 
 ---
 
@@ -117,7 +117,7 @@ However, delivery and communications will definitely be iterative, with extensiv
 
 ---
 
-<br>
+&nspb;
 
 ### Technical specification
 
@@ -131,8 +131,8 @@ The proposal payload sets up the payment schedule for the 2 scopes, interacting 
 - Creation of a 1'140'000 aUSDC v3 Ethereum 4-months deferred payment; 60% of the 1'900'000 total stablecoins component in Scope 2.
 - Creation of a 4'500 AAVE 4-months deferred payment; 60% of the 7'500 total AAVE component in Scope 2.
 
-<br>
-<br>
+&nspb;
+&nspb;
 
 _Disclaimer_
 
