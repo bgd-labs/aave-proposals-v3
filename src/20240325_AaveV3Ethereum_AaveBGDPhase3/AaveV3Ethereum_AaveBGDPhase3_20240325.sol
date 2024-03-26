@@ -33,6 +33,7 @@ contract AaveV3Ethereum_AaveBGDPhase3_20240325 is IProposalGenericExecutor {
   uint256 public constant SCOPE_2_AAVE_STREAM = 4_500 ether;
   uint256 public constant SCOPE_2_AUSDC_STREAM = 1_140_000e6;
   uint256 public constant SCOPE_2_STREAM_DURATION = 1; // 1 second
+  uint256 public constant SCOPE_2_DELAY = 120 days;
 
   function execute() external {
     // UPFRONT
@@ -76,15 +77,15 @@ contract AaveV3Ethereum_AaveBGDPhase3_20240325 is IProposalGenericExecutor {
       BGD_RECIPIENT,
       SCOPE_2_AAVE_STREAM,
       AaveV3EthereumAssets.AAVE_UNDERLYING,
-      block.timestamp + 120 days, // start of the stream will be after 4 months
-      block.timestamp + 120 days + 1 // end of the stream will be one second after the start
+      block.timestamp + SCOPE_2_DELAY, // start of the stream will be after 4 months
+      block.timestamp + SCOPE_2_DELAY + SCOPE_2_STREAM_DURATION // end of the stream will be one second after the start
     );
     AaveV3Ethereum.COLLECTOR.createStream(
       BGD_RECIPIENT,
       SCOPE_2_AUSDC_STREAM,
       AaveV3EthereumAssets.USDC_A_TOKEN,
-      block.timestamp + 120 days, // start of the stream will be after 4 months
-      block.timestamp + 120 days + SCOPE_2_STREAM_DURATION // end of the stream will be one second after the start
+      block.timestamp + SCOPE_2_DELAY, // start of the stream will be after 4 months
+      block.timestamp + SCOPE_2_DELAY + SCOPE_2_STREAM_DURATION // end of the stream will be one second after the start
     );
   }
 }
