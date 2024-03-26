@@ -6,6 +6,7 @@ import {AaveV3PayloadScroll} from 'aave-helpers/v3-config-engine/AaveV3PayloadSc
 import {EngineFlags} from 'aave-helpers/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-helpers/v3-config-engine/IAaveV3ConfigEngine.sol';
 import {IV3RateStrategyFactory} from 'aave-helpers/v3-config-engine/IV3RateStrategyFactory.sol';
+
 /**
  * @title Stablecoin IR Updates
  * @author Chaos Labs, ACI
@@ -24,7 +25,7 @@ contract AaveV3Scroll_StablecoinIRUpdates_20240322 is AaveV3PayloadScroll {
     rateStrategies[0] = IAaveV3ConfigEngine.RateStrategyUpdate({
       asset: AaveV3ScrollAssets.USDC_UNDERLYING,
       params: IV3RateStrategyFactory.RateStrategyParams({
-        optimalUsageRatio: _bpsToRay(92_00),
+        optimalUsageRatio: EngineFlags.KEEP_CURRENT,
         baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
         variableRateSlope1: _bpsToRay(12_00),
         variableRateSlope2: EngineFlags.KEEP_CURRENT,

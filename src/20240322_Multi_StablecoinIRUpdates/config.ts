@@ -33,7 +33,7 @@ export const config: ConfigFile = {
           {
             asset: 'USDT',
             params: {
-              optimalUtilizationRate: '92',
+              optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '12',
               variableRateSlope2: '',
@@ -44,7 +44,7 @@ export const config: ConfigFile = {
           {
             asset: 'DAI',
             params: {
-              optimalUtilizationRate: '92',
+              optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '12',
               variableRateSlope2: '',
@@ -66,7 +66,7 @@ export const config: ConfigFile = {
           {
             asset: 'USDC',
             params: {
-              optimalUtilizationRate: '92',
+              optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '12',
               variableRateSlope2: '',
@@ -128,7 +128,7 @@ export const config: ConfigFile = {
           {
             asset: 'USDC',
             params: {
-              optimalUtilizationRate: '92',
+              optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '12',
               variableRateSlope2: '',
@@ -142,7 +142,7 @@ export const config: ConfigFile = {
           {
             asset: 'USDT',
             params: {
-              optimalUtilizationRate: '92',
+              optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '12',
               variableRateSlope2: '',
@@ -156,7 +156,7 @@ export const config: ConfigFile = {
           {
             asset: 'DAI',
             params: {
-              optimalUtilizationRate: '92',
+              optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '12',
               variableRateSlope2: '',
@@ -177,7 +177,7 @@ export const config: ConfigFile = {
           {
             asset: 'USDC',
             params: {
-              optimalUtilizationRate: '92',
+              optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '12',
               variableRateSlope2: '',
@@ -191,7 +191,7 @@ export const config: ConfigFile = {
           {
             asset: 'USDT',
             params: {
-              optimalUtilizationRate: '92',
+              optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '12',
               variableRateSlope2: '',
@@ -205,7 +205,7 @@ export const config: ConfigFile = {
           {
             asset: 'DAI',
             params: {
-              optimalUtilizationRate: '92',
+              optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '12',
               variableRateSlope2: '',
@@ -331,7 +331,7 @@ export const config: ConfigFile = {
           {
             asset: 'DAI',
             params: {
-              optimalUtilizationRate: '92',
+              optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '12',
               variableRateSlope2: '',
@@ -345,7 +345,7 @@ export const config: ConfigFile = {
           {
             asset: 'USDC',
             params: {
-              optimalUtilizationRate: '92',
+              optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '12',
               variableRateSlope2: '',
@@ -359,7 +359,7 @@ export const config: ConfigFile = {
           {
             asset: 'USDT',
             params: {
-              optimalUtilizationRate: '92',
+              optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '12',
               variableRateSlope2: '',
@@ -415,7 +415,7 @@ export const config: ConfigFile = {
           {
             asset: 'USDCn',
             params: {
-              optimalUtilizationRate: '92',
+              optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '12',
               variableRateSlope2: '',
@@ -436,7 +436,7 @@ export const config: ConfigFile = {
           {
             asset: 'DAIe',
             params: {
-              optimalUtilizationRate: '92',
+              optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '12',
               variableRateSlope2: '',
@@ -450,7 +450,7 @@ export const config: ConfigFile = {
           {
             asset: 'USDC',
             params: {
-              optimalUtilizationRate: '92',
+              optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '12',
               variableRateSlope2: '',
@@ -464,7 +464,7 @@ export const config: ConfigFile = {
           {
             asset: 'USDt',
             params: {
-              optimalUtilizationRate: '92',
+              optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '12',
               variableRateSlope2: '',
@@ -513,7 +513,7 @@ export const config: ConfigFile = {
           {
             asset: 'DAI',
             params: {
-              optimalUtilizationRate: '92',
+              optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '12',
               variableRateSlope2: '',
@@ -527,7 +527,7 @@ export const config: ConfigFile = {
           {
             asset: 'USDC',
             params: {
-              optimalUtilizationRate: '92',
+              optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '12',
               variableRateSlope2: '',
@@ -541,7 +541,7 @@ export const config: ConfigFile = {
           {
             asset: 'USDT',
             params: {
-              optimalUtilizationRate: '92',
+              optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '12',
               variableRateSlope2: '',
@@ -597,7 +597,7 @@ export const config: ConfigFile = {
           {
             asset: 'USDCn',
             params: {
-              optimalUtilizationRate: '92',
+              optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '12',
               variableRateSlope2: '',
@@ -618,7 +618,7 @@ export const config: ConfigFile = {
           {
             asset: 'DAI',
             params: {
-              optimalUtilizationRate: '92',
+              optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '12',
               variableRateSlope2: '',
@@ -632,7 +632,7 @@ export const config: ConfigFile = {
           {
             asset: 'USDC',
             params: {
-              optimalUtilizationRate: '92',
+              optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '12',
               variableRateSlope2: '',
@@ -646,7 +646,7 @@ export const config: ConfigFile = {
           {
             asset: 'USDT',
             params: {
-              optimalUtilizationRate: '92',
+              optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '12',
               variableRateSlope2: '',
@@ -702,7 +702,7 @@ export const config: ConfigFile = {
           {
             asset: 'USDCn',
             params: {
-              optimalUtilizationRate: '92',
+              optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '12',
               variableRateSlope2: '',
@@ -738,7 +738,7 @@ export const config: ConfigFile = {
           {
             asset: 'USDbC',
             params: {
-              optimalUtilizationRate: '92',
+              optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '12',
               variableRateSlope2: '',
@@ -752,7 +752,7 @@ export const config: ConfigFile = {
           {
             asset: 'USDC',
             params: {
-              optimalUtilizationRate: '92',
+              optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '12',
               variableRateSlope2: '',
@@ -773,7 +773,7 @@ export const config: ConfigFile = {
           {
             asset: 'USDC',
             params: {
-              optimalUtilizationRate: '92',
+              optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '12',
               variableRateSlope2: '',
@@ -787,7 +787,7 @@ export const config: ConfigFile = {
           {
             asset: 'WXDAI',
             params: {
-              optimalUtilizationRate: '92',
+              optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '12',
               variableRateSlope2: '',
@@ -822,7 +822,7 @@ export const config: ConfigFile = {
           {
             asset: 'USDC',
             params: {
-              optimalUtilizationRate: '92',
+              optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '12',
               variableRateSlope2: '',
@@ -843,7 +843,7 @@ export const config: ConfigFile = {
           {
             asset: 'USDC',
             params: {
-              optimalUtilizationRate: '92',
+              optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '12',
               variableRateSlope2: '',
@@ -857,7 +857,7 @@ export const config: ConfigFile = {
           {
             asset: 'USDT',
             params: {
-              optimalUtilizationRate: '92',
+              optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '12',
               variableRateSlope2: '',
@@ -871,7 +871,7 @@ export const config: ConfigFile = {
           {
             asset: 'FDUSD',
             params: {
-              optimalUtilizationRate: '92',
+              optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '12',
               variableRateSlope2: '',

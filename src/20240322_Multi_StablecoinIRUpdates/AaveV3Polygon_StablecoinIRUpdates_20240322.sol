@@ -24,7 +24,7 @@ contract AaveV3Polygon_StablecoinIRUpdates_20240322 is AaveV3PayloadPolygon {
     rateStrategies[0] = IAaveV3ConfigEngine.RateStrategyUpdate({
       asset: AaveV3PolygonAssets.DAI_UNDERLYING,
       params: IV3RateStrategyFactory.RateStrategyParams({
-        optimalUsageRatio: _bpsToRay(92_00),
+        optimalUsageRatio: EngineFlags.KEEP_CURRENT,
         baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
         variableRateSlope1: _bpsToRay(12_00),
         variableRateSlope2: EngineFlags.KEEP_CURRENT,
@@ -38,7 +38,7 @@ contract AaveV3Polygon_StablecoinIRUpdates_20240322 is AaveV3PayloadPolygon {
     rateStrategies[1] = IAaveV3ConfigEngine.RateStrategyUpdate({
       asset: AaveV3PolygonAssets.USDC_UNDERLYING,
       params: IV3RateStrategyFactory.RateStrategyParams({
-        optimalUsageRatio: _bpsToRay(92_00),
+        optimalUsageRatio: EngineFlags.KEEP_CURRENT,
         baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
         variableRateSlope1: _bpsToRay(12_00),
         variableRateSlope2: EngineFlags.KEEP_CURRENT,
@@ -52,7 +52,7 @@ contract AaveV3Polygon_StablecoinIRUpdates_20240322 is AaveV3PayloadPolygon {
     rateStrategies[2] = IAaveV3ConfigEngine.RateStrategyUpdate({
       asset: AaveV3PolygonAssets.USDT_UNDERLYING,
       params: IV3RateStrategyFactory.RateStrategyParams({
-        optimalUsageRatio: _bpsToRay(92_00),
+        optimalUsageRatio: EngineFlags.KEEP_CURRENT,
         baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
         variableRateSlope1: _bpsToRay(12_00),
         variableRateSlope2: EngineFlags.KEEP_CURRENT,
@@ -92,7 +92,7 @@ contract AaveV3Polygon_StablecoinIRUpdates_20240322 is AaveV3PayloadPolygon {
       })
     });
     rateStrategies[5] = IAaveV3ConfigEngine.RateStrategyUpdate({
-      asset: 0xE0B52e49357Fd4DAf2c15e02058DCE6BC0057db4,
+      asset: AaveV3PolygonAssets.EURA_UNDERLYING,
       params: IV3RateStrategyFactory.RateStrategyParams({
         optimalUsageRatio: EngineFlags.KEEP_CURRENT,
         baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
@@ -108,7 +108,7 @@ contract AaveV3Polygon_StablecoinIRUpdates_20240322 is AaveV3PayloadPolygon {
     rateStrategies[6] = IAaveV3ConfigEngine.RateStrategyUpdate({
       asset: AaveV3PolygonAssets.USDCn_UNDERLYING,
       params: IV3RateStrategyFactory.RateStrategyParams({
-        optimalUsageRatio: _bpsToRay(92_00),
+        optimalUsageRatio: EngineFlags.KEEP_CURRENT,
         baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
         variableRateSlope1: _bpsToRay(12_00),
         variableRateSlope2: EngineFlags.KEEP_CURRENT,

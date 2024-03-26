@@ -24,7 +24,7 @@ contract AaveV3Avalanche_StablecoinIRUpdates_20240322 is AaveV3PayloadAvalanche 
     rateStrategies[0] = IAaveV3ConfigEngine.RateStrategyUpdate({
       asset: AaveV3AvalancheAssets.DAIe_UNDERLYING,
       params: IV3RateStrategyFactory.RateStrategyParams({
-        optimalUsageRatio: _bpsToRay(92_00),
+        optimalUsageRatio: EngineFlags.KEEP_CURRENT,
         baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
         variableRateSlope1: _bpsToRay(12_00),
         variableRateSlope2: EngineFlags.KEEP_CURRENT,
@@ -38,7 +38,7 @@ contract AaveV3Avalanche_StablecoinIRUpdates_20240322 is AaveV3PayloadAvalanche 
     rateStrategies[1] = IAaveV3ConfigEngine.RateStrategyUpdate({
       asset: AaveV3AvalancheAssets.USDC_UNDERLYING,
       params: IV3RateStrategyFactory.RateStrategyParams({
-        optimalUsageRatio: _bpsToRay(92_00),
+        optimalUsageRatio: EngineFlags.KEEP_CURRENT,
         baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
         variableRateSlope1: _bpsToRay(12_00),
         variableRateSlope2: EngineFlags.KEEP_CURRENT,
@@ -52,7 +52,7 @@ contract AaveV3Avalanche_StablecoinIRUpdates_20240322 is AaveV3PayloadAvalanche 
     rateStrategies[2] = IAaveV3ConfigEngine.RateStrategyUpdate({
       asset: AaveV3AvalancheAssets.USDt_UNDERLYING,
       params: IV3RateStrategyFactory.RateStrategyParams({
-        optimalUsageRatio: _bpsToRay(92_00),
+        optimalUsageRatio: EngineFlags.KEEP_CURRENT,
         baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
         variableRateSlope1: _bpsToRay(12_00),
         variableRateSlope2: EngineFlags.KEEP_CURRENT,
