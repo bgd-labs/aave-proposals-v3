@@ -16,7 +16,7 @@ contract AaveV3Scroll_NativeBridgeAdaptersUpdate_20240322 is
     BaseAdaptersUpdatePayload.ConstructorInput({
       ccc: GovernanceV3Scroll.CROSS_CHAIN_CONTROLLER,
       newAdapter: 0x3C06dce358add17aAf230f2234bCCC4afd50d090,
-      adapterToRemove: 0x118DFD5418890c0332042ab05173Db4A2C1d283c // not removing
+      adapterToRemove: address(0) // @dev We dont remove old adapter so that system can be rescued by just re adding sender on Ethereum aDI
     })
   )
 {

@@ -16,7 +16,7 @@ contract AaveV3Metis_NativeBridgeAdaptersUpdate_20240322 is
     BaseAdaptersUpdatePayload.ConstructorInput({
       ccc: GovernanceV3Metis.CROSS_CHAIN_CONTROLLER,
       newAdapter: 0xf41193E25408F652AF878c47E4401A01B5E4B682,
-      adapterToRemove: 0x746c675dAB49Bcd5BB9Dc85161f2d7Eb435009bf // not removing
+      adapterToRemove: address(0) // @dev We dont remove old adapter so that system can be rescued by just re adding sender on Ethereum aDI
     })
   )
 {

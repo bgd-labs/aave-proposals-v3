@@ -15,7 +15,7 @@ contract AaveV3Gnosis_NativeBridgeAdaptersUpdate_20240322 is
     BaseAdaptersUpdatePayload.ConstructorInput({
       ccc: GovernanceV3Gnosis.CROSS_CHAIN_CONTROLLER,
       newAdapter: 0x3C06dce358add17aAf230f2234bCCC4afd50d090,
-      adapterToRemove: 0x889c0cc3283DB588A34E89Ad1E8F25B0fc827b4b // we can remove native adapter because we can reach confirmations with other 2 bridges
+      adapterToRemove: 0x889c0cc3283DB588A34E89Ad1E8F25B0fc827b4b
     })
   )
 {

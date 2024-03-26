@@ -16,7 +16,7 @@ contract AaveV3Arbitrum_NativeBridgeAdaptersUpdate_20240322 is
     BaseAdaptersUpdatePayload.ConstructorInput({
       ccc: GovernanceV3Arbitrum.CROSS_CHAIN_CONTROLLER,
       newAdapter: 0xc8a2ADC4261c6b669CdFf69E717E77C9cFeB420d,
-      adapterToRemove: 0x3829943c53F2d00e20B58475aF19716724bF90Ba // not removing
+      adapterToRemove: address(0) // @dev We dont remove old adapter so that system can be rescued by just re adding sender on Ethereum aDI
     })
   )
 {
