@@ -15,7 +15,7 @@ To adapt to the current market conditions and optimize the utilization of stable
 
 This will help to maintain the competitiveness of Aave's stablecoin markets and ensure that the interest rates are aligned with the market conditions.
 
-THis will also increase Aave DAO revenue by increasing the utilization of stablecoins and cost of borrowing them.
+This will also increase Aave DAO revenue by increasing the utilization of stablecoins and cost of borrowing them.
 
 ## Specification
 
