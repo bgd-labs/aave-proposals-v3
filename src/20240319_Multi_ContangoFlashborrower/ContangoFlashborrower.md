@@ -11,7 +11,7 @@ This AIP extend free Flashloans abilities of Contango protocol to every network 
 
 ## Motivation
 
-this AIP is the natural following of [AIP 48](https://vote.onaave.com/proposal/?proposalId=48&ipfsHash=0x925b92bc979665e02c8d91956e8c01dd9e5e4b9fbb3e2c5ab018b4a6a91e6d00) that successfully added a set of 4 protocols into the FlashBorrower protocol whitelist.
+This AIP is the natural following of [AIP 48](https://vote.onaave.com/proposal/?proposalId=48&ipfsHash=0x925b92bc979665e02c8d91956e8c01dd9e5e4b9fbb3e2c5ab018b4a6a91e6d00) that successfully added a set of 4 protocols into the FlashBorrower protocol whitelist.
 One of them was Contango and this proposal will extend this whitelisting to all networks.
 
 ## Specification
