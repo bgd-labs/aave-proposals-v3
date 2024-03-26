@@ -15,11 +15,11 @@ After successful collaboration with the Aave DAO on the previous BGD Labs <> Aav
 
 ## Specification
 
-### Scopes
-
 This proposal includes 2 scopes:
 
-**SCOPE 1. Aave technical maintenance, improvements, security coordination and tech advisory to the DAO**
+<br>
+
+### SCOPE 1. Aave technical maintenance, improvements, security coordination and tech advisory to the DAO
 
 This scope is the continuist component historically performed by BGD for the DAO, and will be composed of the following items:
 
@@ -47,7 +47,7 @@ This scope is the continuist component historically performed by BGD for the DAO
 
 <br>
 
-_What is NOT part of the scope_
+**What is NOT part of the scope**
 
 - We are a technical provider of the community, we don’t do any type of business development and/or growth, that should be responsibility of other parties.
 - We don’t do security reviews on major developments of other contributors. We offer our security advisory for minor projects solely benefiting the Aave DAO, but on bigger scopes (e.g. something like GHO), that is up to parties engaged specifically on security, like Certora.
@@ -69,7 +69,9 @@ _Scope 1. Aave technical maintenance, improvements, security coordination and te
 
 ---
 
-**SCOPE 2. Aave Safety Module - Code A**
+<br>
+
+### SCOPE 2. Aave Safety Module - Code A
 
 As commented before, we believe now the Aave DAO is in a really solid stage of their current systems, quite future-proof and ready to scale:
 
@@ -82,7 +84,7 @@ More in the line of innovative projects like Aave Governance v3, we propose to c
 
 <br>
 
-### Aave Safety Module: Code A
+**Aave Safety Module: Code A**
 
 Safety Module Code A is the major project on the innovation side of this scope, but different to previous cases, our proposed approach is different: at the moment, we will not disclose a detailed description of it, as we think this is the right strategic approach for the DAO.
 
@@ -114,6 +116,8 @@ However, delivery and communications will definitely be iterative, with extensiv
 - 60% in a delayed payment in 4-months from now, when we estimate to be in good stage of completion.
 
 ---
+
+<br>
 
 ### Technical specification
 
