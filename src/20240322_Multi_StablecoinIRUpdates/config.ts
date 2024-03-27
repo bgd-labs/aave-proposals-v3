@@ -11,7 +11,6 @@ export const config: ConfigFile = {
       'AaveV3Avalanche',
       'AaveV3Optimism',
       'AaveV3Arbitrum',
-      'AaveV3Metis',
       'AaveV3Base',
       'AaveV3Gnosis',
       'AaveV3Scroll',
@@ -731,7 +730,6 @@ export const config: ConfigFile = {
       },
       cache: {blockNumber: 193053541},
     },
-    AaveV3Metis: {configs: {RATE_UPDATE_V3: []}, cache: {blockNumber: 15633620}},
     AaveV3Base: {
       configs: {
         RATE_UPDATE_V3: [

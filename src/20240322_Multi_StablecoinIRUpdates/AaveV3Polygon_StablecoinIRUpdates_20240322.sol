@@ -92,7 +92,7 @@ contract AaveV3Polygon_StablecoinIRUpdates_20240322 is AaveV3PayloadPolygon {
       })
     });
     rateStrategies[5] = IAaveV3ConfigEngine.RateStrategyUpdate({
-      asset: AaveV3PolygonAssets.EURA_UNDERLYING,
+      asset: 0xE0B52e49357Fd4DAf2c15e02058DCE6BC0057db4,
       params: IV3RateStrategyFactory.RateStrategyParams({
         optimalUsageRatio: EngineFlags.KEEP_CURRENT,
         baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,

@@ -22,7 +22,7 @@ contract AaveV2Avalanche_StablecoinIRUpdates_20240322 is AaveV2PayloadAvalanche 
     IAaveV2ConfigEngine.RateStrategyUpdate[]
       memory rateStrategies = new IAaveV2ConfigEngine.RateStrategyUpdate[](3);
     rateStrategies[0] = IAaveV2ConfigEngine.RateStrategyUpdate({
-      asset: AaveV2AvalancheAssets.USDC_UNDERLYING,
+      asset: AaveV2AvalancheAssets.USDCe_UNDERLYING,
       params: IV2RateStrategyFactory.RateStrategyParams({
         optimalUtilizationRate: EngineFlags.KEEP_CURRENT,
         baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
@@ -33,7 +33,7 @@ contract AaveV2Avalanche_StablecoinIRUpdates_20240322 is AaveV2PayloadAvalanche 
       })
     });
     rateStrategies[1] = IAaveV2ConfigEngine.RateStrategyUpdate({
-      asset: AaveV2AvalancheAssets.USDT_UNDERLYING,
+      asset: AaveV2AvalancheAssets.USDTe_UNDERLYING,
       params: IV2RateStrategyFactory.RateStrategyParams({
         optimalUtilizationRate: EngineFlags.KEEP_CURRENT,
         baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
@@ -44,7 +44,7 @@ contract AaveV2Avalanche_StablecoinIRUpdates_20240322 is AaveV2PayloadAvalanche 
       })
     });
     rateStrategies[2] = IAaveV2ConfigEngine.RateStrategyUpdate({
-      asset: AaveV2AvalancheAssets.DAI_UNDERLYING,
+      asset: AaveV2AvalancheAssets.DAIe_UNDERLYING,
       params: IV2RateStrategyFactory.RateStrategyParams({
         optimalUtilizationRate: EngineFlags.KEEP_CURRENT,
         baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
