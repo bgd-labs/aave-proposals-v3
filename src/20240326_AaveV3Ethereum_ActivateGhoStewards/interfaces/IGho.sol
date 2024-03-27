@@ -7,4 +7,6 @@ interface IGhoToken is IAccessControl {
   function BUCKET_MANAGER_ROLE() external pure returns (bytes32);
 
   function getFacilitatorsList() external view returns (address[] memory);
+
+  function getFacilitatorBucket(address facilitator) external view returns (uint256, uint256);
 }

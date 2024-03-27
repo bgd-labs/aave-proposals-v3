@@ -5,4 +5,8 @@ import {IAccessControl} from 'aave-v3-core/contracts/dependencies/openzeppelin/c
 
 interface IGsm is IAccessControl {
   function CONFIGURATOR_ROLE() external pure returns (bytes32);
+
+  function getExposureCap() external view returns (uint128);
+
+  function getFeeStrategy() external view returns (address);
 }
