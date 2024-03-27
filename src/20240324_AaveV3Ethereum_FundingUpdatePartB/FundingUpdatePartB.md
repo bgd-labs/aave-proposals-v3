@@ -7,19 +7,17 @@ snapshot: "https://snapshot.org/#/aave.eth/proposal/0x4dd4dff7096bf7ab8c4c071975
 
 ## Simple Summary
 
-This publication mainly proposes consolidating DAO assets in preparation of foreseeable DAO expenses. There are additional small treasury management actions included in this proposal for house-keeping.
+This publication mainly proposes consolidating DAO assets in preparation of foreseeable DAO expenses. It is a continuation of governance proposal 44 which was executed in early March of 2024.
 
 ## Motivation
 
-In preparation for the upcoming launch of the Merit program and the expected renewal of DAO service providers, this proposal intends to:
+This proposal combined with the previously executed one aim to:
 
 - Consolidate the DAOs smaller holdings to GHO
 - Swap larger stablecoins holdings for GHO
 - Replenish the stablecoins Reserves in Aave v3
 - Migrate funds from Aave v2 to v3
-- Bridge funds from Polygon to Mainnet
-
-To reduce governance burden, this proposal also includes withdrawing BAL and CRV from mainnet Aave v3 and v2, as well as withdrawing and bridging them from Polygon Aave v3 to Ethereum. All the BAL and CRV included in this proposal will then be transferred to the Aave Liquidity Committee (ALC) for its future allocation on behalf of the DAO.
+- Transfer BAL and CRV to the ALC SAFE
 
 ## Specification
 
