@@ -47,14 +47,14 @@ contract AaveV3Ethereum_ActivateGhoStewards_20240326_Test is ProtocolV3TestBase 
       )
     );
     assertTrue(
-      IGsm(proposal.GSM_USDT()).hasRole(
-        IGsm(proposal.GSM_USDT()).CONFIGURATOR_ROLE(),
+      IGsm(MiscEthereum.GSM_USDT).hasRole(
+        IGsm(MiscEthereum.GSM_USDT).CONFIGURATOR_ROLE(),
         proposal.GHO_STEWARD()
       )
     );
     assertTrue(
-      IGsm(proposal.GSM_USDC()).hasRole(
-        IGsm(proposal.GSM_USDC()).CONFIGURATOR_ROLE(),
+      IGsm(MiscEthereum.GSM_USDC).hasRole(
+        IGsm(MiscEthereum.GSM_USDC).CONFIGURATOR_ROLE(),
         proposal.GHO_STEWARD()
       )
     );
@@ -130,8 +130,8 @@ contract AaveV3Ethereum_ActivateGhoStewards_20240326_Test is ProtocolV3TestBase 
     executePayload(vm, address(proposal));
 
     address[2] memory gsmList;
-    gsmList[0] = proposal.GSM_USDC();
-    gsmList[1] = proposal.GSM_USDT();
+    gsmList[0] = MiscEthereum.GSM_USDC;
+    gsmList[1] = MiscEthereum.GSM_USDT;
 
     for (uint256 i = 0; i < gsmList.length; i++) {
       address gsm = gsmList[i];
@@ -152,8 +152,8 @@ contract AaveV3Ethereum_ActivateGhoStewards_20240326_Test is ProtocolV3TestBase 
     executePayload(vm, address(proposal));
 
     address[2] memory gsmList;
-    gsmList[0] = proposal.GSM_USDC();
-    gsmList[1] = proposal.GSM_USDT();
+    gsmList[0] = MiscEthereum.GSM_USDC;
+    gsmList[1] = MiscEthereum.GSM_USDT;
 
     for (uint256 i = 0; i < gsmList.length; i++) {
       address gsm = gsmList[i];

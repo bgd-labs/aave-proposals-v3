@@ -16,8 +16,6 @@ import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
  */
 contract AaveV3Ethereum_ActivateGhoStewards_20240326 is IProposalGenericExecutor {
   address public constant GHO_STEWARD = 0x8F2411a538381aae2b464499005F0211e867d84f;
-  address public constant GSM_USDC = 0x0d8eFfC11dF3F229AA1EA0509BC9DFa632A13578;
-  address public constant GSM_USDT = 0x686F8D21520f4ecEc7ba577be08354F4d1EB8262;
 
   function execute() external {
     // Give risk admin role to the steward
@@ -30,8 +28,14 @@ contract AaveV3Ethereum_ActivateGhoStewards_20240326 is IProposalGenericExecutor
     );
 
     // Give configurator role on usdc, usdt gsm to the stewards
-    IGsm(GSM_USDC).grantRole(IGsm(GSM_USDC).CONFIGURATOR_ROLE(), GHO_STEWARD);
-    IGsm(GSM_USDT).grantRole(IGsm(GSM_USDT).CONFIGURATOR_ROLE(), GHO_STEWARD);
+    IGsm(MiscEthereum.GSM_USDC).grantRole(
+      IGsm(MiscEthereum.GSM_USDC).CONFIGURATOR_ROLE(),
+      GHO_STEWARD
+    );
+    IGsm(MiscEthereum.GSM_USDT).grantRole(
+      IGsm(MiscEthereum.GSM_USDT).CONFIGURATOR_ROLE(),
+      GHO_STEWARD
+    );
 
     // Whitelist all the facilitators on the stewards, including: GhoAToken, GhoFlashMinter, GSM USDC, GSM USDT
     IGhoStewardV2(GHO_STEWARD).setControlledFacilitator(
