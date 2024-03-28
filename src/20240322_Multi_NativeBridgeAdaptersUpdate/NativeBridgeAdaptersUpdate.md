@@ -6,7 +6,7 @@ discussions: ""
 
 ## Simple Summary
 
-This proposal updates the Native bridge adapters used on a.DI to connect Ethereum with Polygon, Arbitrum, Optimism, Base, Metis, Gnosis, Scroll, Base and the Ethereum SameChain adapter.
+This proposal updates the Native bridge adapters used on a.DI, to add extra naming metadata and make the gas limit configurations more granular.
 
 ## Motivation
 
