@@ -31,8 +31,8 @@ This proposal combined with the previously executed one aim to:
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240324_AaveV3Ethereum_FundingUpdatePartB/AaveV3Ethereum_FundingUpdatePartB_20240324.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240324_AaveV3Ethereum_FundingUpdatePartB/AaveV3Ethereum_FundingUpdatePartB_20240324.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/3fe3470367bdd903b6fe91cf061b000fde31590a/src/20240324_AaveV3Ethereum_FundingUpdatePartB/AaveV3Ethereum_FundingUpdatePartB_20240324.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/3fe3470367bdd903b6fe91cf061b000fde31590a/src/20240324_AaveV3Ethereum_FundingUpdatePartB/AaveV3Ethereum_FundingUpdatePartB_20240324.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x4dd4dff7096bf7ab8c4c071975d40f4cf709c41b4b6b7c60777a6dd50d2ecd09)
 - [Discussion](https://governance.aave.com/t/arfc-funding-update/16675/4)
 
