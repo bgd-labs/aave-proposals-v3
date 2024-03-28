@@ -24,7 +24,7 @@ contract AaveV2Ethereum_StablecoinIRUpdates_20240322 is AaveV2PayloadEthereum {
     rateStrategies[0] = IAaveV2ConfigEngine.RateStrategyUpdate({
       asset: AaveV2EthereumAssets.USDT_UNDERLYING,
       params: IV2RateStrategyFactory.RateStrategyParams({
-        optimalUtilizationRate: _bpsToRay(92_00),
+        optimalUtilizationRate: EngineFlags.KEEP_CURRENT,
         baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
         variableRateSlope1: _bpsToRay(12_00),
         variableRateSlope2: EngineFlags.KEEP_CURRENT,
@@ -35,7 +35,7 @@ contract AaveV2Ethereum_StablecoinIRUpdates_20240322 is AaveV2PayloadEthereum {
     rateStrategies[1] = IAaveV2ConfigEngine.RateStrategyUpdate({
       asset: AaveV2EthereumAssets.DAI_UNDERLYING,
       params: IV2RateStrategyFactory.RateStrategyParams({
-        optimalUtilizationRate: _bpsToRay(92_00),
+        optimalUtilizationRate: EngineFlags.KEEP_CURRENT,
         baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
         variableRateSlope1: _bpsToRay(12_00),
         variableRateSlope2: EngineFlags.KEEP_CURRENT,
@@ -57,7 +57,7 @@ contract AaveV2Ethereum_StablecoinIRUpdates_20240322 is AaveV2PayloadEthereum {
     rateStrategies[3] = IAaveV2ConfigEngine.RateStrategyUpdate({
       asset: AaveV2EthereumAssets.USDC_UNDERLYING,
       params: IV2RateStrategyFactory.RateStrategyParams({
-        optimalUtilizationRate: _bpsToRay(92_00),
+        optimalUtilizationRate: EngineFlags.KEEP_CURRENT,
         baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
         variableRateSlope1: _bpsToRay(12_00),
         variableRateSlope2: EngineFlags.KEEP_CURRENT,

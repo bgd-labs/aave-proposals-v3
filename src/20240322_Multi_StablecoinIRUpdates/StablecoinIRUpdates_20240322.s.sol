@@ -2,7 +2,7 @@
 pragma solidity ^0.8.0;
 
 import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aave-helpers/GovV3Helpers.sol';
-import {EthereumScript, PolygonScript, AvalancheScript, OptimismScript, ArbitrumScript, MetisScript, BaseScript, GnosisScript, ScrollScript, BNBScript} from 'aave-helpers/ScriptUtils.sol';
+import {EthereumScript, PolygonScript, AvalancheScript, OptimismScript, ArbitrumScript, BaseScript, GnosisScript, ScrollScript, BNBScript} from 'aave-helpers/ScriptUtils.sol';
 import {AaveV2Ethereum_StablecoinIRUpdates_20240322} from './AaveV2Ethereum_StablecoinIRUpdates_20240322.sol';
 import {AaveV2Polygon_StablecoinIRUpdates_20240322} from './AaveV2Polygon_StablecoinIRUpdates_20240322.sol';
 import {AaveV2Avalanche_StablecoinIRUpdates_20240322} from './AaveV2Avalanche_StablecoinIRUpdates_20240322.sol';
@@ -11,7 +11,6 @@ import {AaveV3Polygon_StablecoinIRUpdates_20240322} from './AaveV3Polygon_Stable
 import {AaveV3Avalanche_StablecoinIRUpdates_20240322} from './AaveV3Avalanche_StablecoinIRUpdates_20240322.sol';
 import {AaveV3Optimism_StablecoinIRUpdates_20240322} from './AaveV3Optimism_StablecoinIRUpdates_20240322.sol';
 import {AaveV3Arbitrum_StablecoinIRUpdates_20240322} from './AaveV3Arbitrum_StablecoinIRUpdates_20240322.sol';
-import {AaveV3Metis_StablecoinIRUpdates_20240322} from './AaveV3Metis_StablecoinIRUpdates_20240322.sol';
 import {AaveV3Base_StablecoinIRUpdates_20240322} from './AaveV3Base_StablecoinIRUpdates_20240322.sol';
 import {AaveV3Gnosis_StablecoinIRUpdates_20240322} from './AaveV3Gnosis_StablecoinIRUpdates_20240322.sol';
 import {AaveV3Scroll_StablecoinIRUpdates_20240322} from './AaveV3Scroll_StablecoinIRUpdates_20240322.sol';
@@ -140,28 +139,6 @@ contract DeployArbitrum is ArbitrumScript {
 }
 
 /**
- * @dev Deploy Metis
- * deploy-command: make deploy-ledger contract=src/20240322_Multi_StablecoinIRUpdates/StablecoinIRUpdates_20240322.s.sol:DeployMetis chain=metis
- * verify-command: npx catapulta-verify -b broadcast/StablecoinIRUpdates_20240322.s.sol/1088/run-latest.json
- */
-contract DeployMetis is MetisScript {
-  function run() external broadcast {
-    // deploy payloads
-    address payload0 = GovV3Helpers.deployDeterministic(
-      type(AaveV3Metis_StablecoinIRUpdates_20240322).creationCode
-    );
-
-    // compose action
-    IPayloadsControllerCore.ExecutionAction[]
-      memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
-    actions[0] = GovV3Helpers.buildAction(payload0);
-
-    // register action at payloadsController
-    GovV3Helpers.createPayload(actions);
-  }
-}
-
-/**
  * @dev Deploy Base
  * deploy-command: make deploy-ledger contract=src/20240322_Multi_StablecoinIRUpdates/StablecoinIRUpdates_20240322.s.sol:DeployBase chain=base
  * verify-command: npx catapulta-verify -b broadcast/StablecoinIRUpdates_20240322.s.sol/8453/run-latest.json
@@ -256,7 +233,7 @@ contract DeployBNB is BNBScript {
 contract CreateProposal is EthereumScript {
   function run() external {
     // create payloads
-    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](10);
+    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](9);
 
     // compose actions for validation
     IPayloadsControllerCore.ExecutionAction[]
@@ -304,39 +281,32 @@ contract CreateProposal is EthereumScript {
     payloads[4] = GovV3Helpers.buildArbitrumPayload(vm, actionsArbitrum);
 
     IPayloadsControllerCore.ExecutionAction[]
-      memory actionsMetis = new IPayloadsControllerCore.ExecutionAction[](1);
-    actionsMetis[0] = GovV3Helpers.buildAction(
-      type(AaveV3Metis_StablecoinIRUpdates_20240322).creationCode
-    );
-    payloads[5] = GovV3Helpers.buildMetisPayload(vm, actionsMetis);
-
-    IPayloadsControllerCore.ExecutionAction[]
       memory actionsBase = new IPayloadsControllerCore.ExecutionAction[](1);
     actionsBase[0] = GovV3Helpers.buildAction(
       type(AaveV3Base_StablecoinIRUpdates_20240322).creationCode
     );
-    payloads[6] = GovV3Helpers.buildBasePayload(vm, actionsBase);
+    payloads[5] = GovV3Helpers.buildBasePayload(vm, actionsBase);
 
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsGnosis = new IPayloadsControllerCore.ExecutionAction[](1);
     actionsGnosis[0] = GovV3Helpers.buildAction(
       type(AaveV3Gnosis_StablecoinIRUpdates_20240322).creationCode
     );
-    payloads[7] = GovV3Helpers.buildGnosisPayload(vm, actionsGnosis);
+    payloads[6] = GovV3Helpers.buildGnosisPayload(vm, actionsGnosis);
 
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsScroll = new IPayloadsControllerCore.ExecutionAction[](1);
     actionsScroll[0] = GovV3Helpers.buildAction(
       type(AaveV3Scroll_StablecoinIRUpdates_20240322).creationCode
     );
-    payloads[8] = GovV3Helpers.buildScrollPayload(vm, actionsScroll);
+    payloads[7] = GovV3Helpers.buildScrollPayload(vm, actionsScroll);
 
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsBNB = new IPayloadsControllerCore.ExecutionAction[](1);
     actionsBNB[0] = GovV3Helpers.buildAction(
       type(AaveV3BNB_StablecoinIRUpdates_20240322).creationCode
     );
-    payloads[9] = GovV3Helpers.buildBNBPayload(vm, actionsBNB);
+    payloads[8] = GovV3Helpers.buildBNBPayload(vm, actionsBNB);
 
     // create proposal
     vm.startBroadcast();

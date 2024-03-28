@@ -22,19 +22,17 @@
 
 | description | value before | value after |
 | --- | --- | --- |
-| interestRateStrategy | [0xab7f8ca781C736EB624A9E321cd043F8E6292C96](https://etherscan.io/address/0xab7f8ca781C736EB624A9E321cd043F8E6292C96) | [0x45d54d48ca90C03Eb8352ADf228DeA4D1E0bc19b](https://etherscan.io/address/0x45d54d48ca90C03Eb8352ADf228DeA4D1E0bc19b) |
+| interestRateStrategy | [0xab7f8ca781C736EB624A9E321cd043F8E6292C96](https://etherscan.io/address/0xab7f8ca781C736EB624A9E321cd043F8E6292C96) | [0x13828736b5e2CcF7811A2012ff9eB3e685a815b2](https://etherscan.io/address/0x13828736b5e2CcF7811A2012ff9eB3e685a815b2) |
 | variableRateSlope1 | 6 % | 12 % |
-| interestRate | ![before](/.assets/162b720585663968afe7fc152291b9068b0e7e2a.svg) | ![after](/.assets/fee6cda63ae61ef578b581e2e081791148973f1c.svg) |
+| interestRate | ![before](/.assets/162b720585663968afe7fc152291b9068b0e7e2a.svg) | ![after](/.assets/1aacc27adfcd690db39f0bb5d47ab2aca7da4b9f.svg) |
 
 #### DAI ([0x6B175474E89094C44Da98b954EedeAC495271d0F](https://etherscan.io/address/0x6B175474E89094C44Da98b954EedeAC495271d0F))
 
 | description | value before | value after |
 | --- | --- | --- |
 | interestRateStrategy | [0xab7f8ca781C736EB624A9E321cd043F8E6292C96](https://etherscan.io/address/0xab7f8ca781C736EB624A9E321cd043F8E6292C96) | [0x13828736b5e2CcF7811A2012ff9eB3e685a815b2](https://etherscan.io/address/0x13828736b5e2CcF7811A2012ff9eB3e685a815b2) |
-| optimalUsageRatio | 80 % | 92 % |
 | variableRateSlope1 | 6 % | 12 % |
-| maxExcessUsageRatio | 20 % | 8 % |
-| interestRate | ![before](/.assets/162b720585663968afe7fc152291b9068b0e7e2a.svg) | ![after](/.assets/5509c191e41e4e07dfee46916075efd0ef72e575.svg) |
+| interestRate | ![before](/.assets/162b720585663968afe7fc152291b9068b0e7e2a.svg) | ![after](/.assets/1aacc27adfcd690db39f0bb5d47ab2aca7da4b9f.svg) |
 
 #### FRAX ([0x853d955aCEf822Db058eb8505911ED77F175b99e](https://etherscan.io/address/0x853d955aCEf822Db058eb8505911ED77F175b99e))
 
@@ -57,20 +55,16 @@
 | description | value before | value after |
 | --- | --- | --- |
 | interestRateStrategy | [0xb72F23adE9b9980c2E731Ca504105fC860643619](https://etherscan.io/address/0xb72F23adE9b9980c2E731Ca504105fC860643619) | [0x6959f4a661FDF1f3405CaDd56d0Af73a4b082Cb2](https://etherscan.io/address/0x6959f4a661FDF1f3405CaDd56d0Af73a4b082Cb2) |
-| optimalUsageRatio | 90 % | 92 % |
 | variableRateSlope1 | 6 % | 12 % |
-| maxExcessUsageRatio | 10 % | 8 % |
-| interestRate | ![before](/.assets/3f55f2c949040cc13cee0d8a8329ed5bb280d3d3.svg) | ![after](/.assets/4973bf64778f4a833728753fe06f9a2fb49bb83a.svg) |
+| interestRate | ![before](/.assets/3f55f2c949040cc13cee0d8a8329ed5bb280d3d3.svg) | ![after](/.assets/18b03d6f60b9750d02983796033f924a6d918d81.svg) |
 
 #### USDT ([0xdAC17F958D2ee523a2206206994597C13D831ec7](https://etherscan.io/address/0xdAC17F958D2ee523a2206206994597C13D831ec7))
 
 | description | value before | value after |
 | --- | --- | --- |
 | interestRateStrategy | [0xF02EC9CA513ca505f0F5347E7D784Fa6165F8a99](https://etherscan.io/address/0xF02EC9CA513ca505f0F5347E7D784Fa6165F8a99) | [0x65A3De6d805c2A25A8E53e69da6A5a11848f25b3](https://etherscan.io/address/0x65A3De6d805c2A25A8E53e69da6A5a11848f25b3) |
-| optimalUsageRatio | 80 % | 92 % |
 | variableRateSlope1 | 6 % | 12 % |
-| maxExcessUsageRatio | 20 % | 8 % |
-| interestRate | ![before](/.assets/ff2b0e4a102e0124ddc975718bccf3d3a6c8dc9b.svg) | ![after](/.assets/bd3c2469546fb86c1fca744d14fda357059d800c.svg) |
+| interestRate | ![before](/.assets/ff2b0e4a102e0124ddc975718bccf3d3a6c8dc9b.svg) | ![after](/.assets/facf081bdcfeedc751f6987ba20c1f591aa3d9ae.svg) |
 
 ## Raw diff
 
@@ -92,7 +86,7 @@
     "0x5f98805A4E8be255a32880FDeC7F6728C6568bA0": {
       "interestRateStrategy": {
         "from": "0xab7f8ca781C736EB624A9E321cd043F8E6292C96",
-        "to": "0x45d54d48ca90C03Eb8352ADf228DeA4D1E0bc19b"
+        "to": "0x13828736b5e2CcF7811A2012ff9eB3e685a815b2"
       }
     },
     "0x6B175474E89094C44Da98b954EedeAC495271d0F": {
@@ -150,7 +144,7 @@
     "0x5f98805A4E8be255a32880FDeC7F6728C6568bA0": {
       "address": {
         "from": "0xab7f8ca781C736EB624A9E321cd043F8E6292C96",
-        "to": "0x45d54d48ca90C03Eb8352ADf228DeA4D1E0bc19b"
+        "to": "0x13828736b5e2CcF7811A2012ff9eB3e685a815b2"
       },
       "variableRateSlope1": {
         "from": "60000000000000000000000000",
@@ -161,14 +155,6 @@
       "address": {
         "from": "0xab7f8ca781C736EB624A9E321cd043F8E6292C96",
         "to": "0x13828736b5e2CcF7811A2012ff9eB3e685a815b2"
-      },
-      "maxExcessUsageRatio": {
-        "from": "200000000000000000000000000",
-        "to": "80000000000000000000000000"
-      },
-      "optimalUsageRatio": {
-        "from": "800000000000000000000000000",
-        "to": "920000000000000000000000000"
       },
       "variableRateSlope1": {
         "from": "60000000000000000000000000",
@@ -200,14 +186,6 @@
         "from": "0xb72F23adE9b9980c2E731Ca504105fC860643619",
         "to": "0x6959f4a661FDF1f3405CaDd56d0Af73a4b082Cb2"
       },
-      "maxExcessUsageRatio": {
-        "from": "100000000000000000000000000",
-        "to": "80000000000000000000000000"
-      },
-      "optimalUsageRatio": {
-        "from": "900000000000000000000000000",
-        "to": "920000000000000000000000000"
-      },
       "variableRateSlope1": {
         "from": "60000000000000000000000000",
         "to": "120000000000000000000000000"
@@ -217,14 +195,6 @@
       "address": {
         "from": "0xF02EC9CA513ca505f0F5347E7D784Fa6165F8a99",
         "to": "0x65A3De6d805c2A25A8E53e69da6A5a11848f25b3"
-      },
-      "maxExcessUsageRatio": {
-        "from": "200000000000000000000000000",
-        "to": "80000000000000000000000000"
-      },
-      "optimalUsageRatio": {
-        "from": "800000000000000000000000000",
-        "to": "920000000000000000000000000"
       },
       "variableRateSlope1": {
         "from": "60000000000000000000000000",

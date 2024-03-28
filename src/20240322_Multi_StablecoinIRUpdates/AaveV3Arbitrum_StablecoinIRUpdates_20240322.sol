@@ -24,7 +24,7 @@ contract AaveV3Arbitrum_StablecoinIRUpdates_20240322 is AaveV3PayloadArbitrum {
     rateStrategies[0] = IAaveV3ConfigEngine.RateStrategyUpdate({
       asset: AaveV3ArbitrumAssets.DAI_UNDERLYING,
       params: IV3RateStrategyFactory.RateStrategyParams({
-        optimalUsageRatio: _bpsToRay(92_00),
+        optimalUsageRatio: EngineFlags.KEEP_CURRENT,
         baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
         variableRateSlope1: _bpsToRay(12_00),
         variableRateSlope2: EngineFlags.KEEP_CURRENT,
@@ -38,7 +38,7 @@ contract AaveV3Arbitrum_StablecoinIRUpdates_20240322 is AaveV3PayloadArbitrum {
     rateStrategies[1] = IAaveV3ConfigEngine.RateStrategyUpdate({
       asset: AaveV3ArbitrumAssets.USDC_UNDERLYING,
       params: IV3RateStrategyFactory.RateStrategyParams({
-        optimalUsageRatio: _bpsToRay(92_00),
+        optimalUsageRatio: EngineFlags.KEEP_CURRENT,
         baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
         variableRateSlope1: _bpsToRay(12_00),
         variableRateSlope2: EngineFlags.KEEP_CURRENT,
@@ -52,7 +52,7 @@ contract AaveV3Arbitrum_StablecoinIRUpdates_20240322 is AaveV3PayloadArbitrum {
     rateStrategies[2] = IAaveV3ConfigEngine.RateStrategyUpdate({
       asset: AaveV3ArbitrumAssets.USDT_UNDERLYING,
       params: IV3RateStrategyFactory.RateStrategyParams({
-        optimalUsageRatio: _bpsToRay(92_00),
+        optimalUsageRatio: EngineFlags.KEEP_CURRENT,
         baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
         variableRateSlope1: _bpsToRay(12_00),
         variableRateSlope2: EngineFlags.KEEP_CURRENT,
@@ -108,7 +108,7 @@ contract AaveV3Arbitrum_StablecoinIRUpdates_20240322 is AaveV3PayloadArbitrum {
     rateStrategies[6] = IAaveV3ConfigEngine.RateStrategyUpdate({
       asset: AaveV3ArbitrumAssets.USDCn_UNDERLYING,
       params: IV3RateStrategyFactory.RateStrategyParams({
-        optimalUsageRatio: _bpsToRay(92_00),
+        optimalUsageRatio: EngineFlags.KEEP_CURRENT,
         baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
         variableRateSlope1: _bpsToRay(12_00),
         variableRateSlope2: EngineFlags.KEEP_CURRENT,

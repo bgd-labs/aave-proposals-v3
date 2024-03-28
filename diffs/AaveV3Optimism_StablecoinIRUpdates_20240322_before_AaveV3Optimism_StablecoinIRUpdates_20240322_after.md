@@ -7,22 +7,18 @@
 | description | value before | value after |
 | --- | --- | --- |
 | interestRateStrategy | [0xb83d1B74e1D917d4a95C1e9392f6c639932F444C](https://optimistic.etherscan.io/address/0xb83d1B74e1D917d4a95C1e9392f6c639932F444C) | [0x2b5F720fBA11EeB5f2213FdF06Be9f7fB0ad1C48](https://optimistic.etherscan.io/address/0x2b5F720fBA11EeB5f2213FdF06Be9f7fB0ad1C48) |
-| optimalUsageRatio | 90 % | 92 % |
 | variableRateSlope1 | 6 % | 12 % |
 | baseStableBorrowRate | 7 % | 13 % |
-| maxExcessUsageRatio | 10 % | 8 % |
-| interestRate | ![before](/.assets/674d17a62ee62a3043e08a86f4469e4fede11d3a.svg) | ![after](/.assets/162508ac28f40ef80345b6a915655e49cab178f5.svg) |
+| interestRate | ![before](/.assets/674d17a62ee62a3043e08a86f4469e4fede11d3a.svg) | ![after](/.assets/f23f96fab886586256a20855ce2dd7a1566267f0.svg) |
 
 #### USDC ([0x7F5c764cBc14f9669B88837ca1490cCa17c31607](https://optimistic.etherscan.io/address/0x7F5c764cBc14f9669B88837ca1490cCa17c31607))
 
 | description | value before | value after |
 | --- | --- | --- |
 | interestRateStrategy | [0x769EbC5106bF09D9A665CCb691e1907612b57F16](https://optimistic.etherscan.io/address/0x769EbC5106bF09D9A665CCb691e1907612b57F16) | [0xdd5ee22CC6CbbB41518871D95558B648a3551b54](https://optimistic.etherscan.io/address/0xdd5ee22CC6CbbB41518871D95558B648a3551b54) |
-| optimalUsageRatio | 90 % | 92 % |
 | variableRateSlope1 | 7 % | 12 % |
 | baseStableBorrowRate | 8 % | 13 % |
-| maxExcessUsageRatio | 10 % | 8 % |
-| interestRate | ![before](/.assets/30004f8456edabc18f0ed307b8a79983ab437388.svg) | ![after](/.assets/44d599c03feefc2020867d5fbb3089dcd86edb84.svg) |
+| interestRate | ![before](/.assets/30004f8456edabc18f0ed307b8a79983ab437388.svg) | ![after](/.assets/fa415d85cf3a2a1b266d8754e0257240f664acf4.svg) |
 
 #### sUSD ([0x8c6f28f2F1A3C87F0f938b96d27520d9751ec8d9](https://optimistic.etherscan.io/address/0x8c6f28f2F1A3C87F0f938b96d27520d9751ec8d9))
 
@@ -38,22 +34,18 @@
 | description | value before | value after |
 | --- | --- | --- |
 | interestRateStrategy | [0xd5CA18a70189309664e34FB8150799ff13722308](https://optimistic.etherscan.io/address/0xd5CA18a70189309664e34FB8150799ff13722308) | [0x16F9bBeE415e519F184Fe1c09d653C6567e4eb2f](https://optimistic.etherscan.io/address/0x16F9bBeE415e519F184Fe1c09d653C6567e4eb2f) |
-| optimalUsageRatio | 90 % | 92 % |
 | variableRateSlope1 | 6 % | 12 % |
 | baseStableBorrowRate | 7 % | 13 % |
-| maxExcessUsageRatio | 10 % | 8 % |
-| interestRate | ![before](/.assets/19d720ba733a698f9e5c8714853876f8759c351e.svg) | ![after](/.assets/b2302f89365f5c7a915d77a2d396103d9d630a4e.svg) |
+| interestRate | ![before](/.assets/19d720ba733a698f9e5c8714853876f8759c351e.svg) | ![after](/.assets/f97fde975a340ec20a967916a1754eee7309d36f.svg) |
 
 #### DAI ([0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1](https://optimistic.etherscan.io/address/0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1))
 
 | description | value before | value after |
 | --- | --- | --- |
 | interestRateStrategy | [0xd5CA18a70189309664e34FB8150799ff13722308](https://optimistic.etherscan.io/address/0xd5CA18a70189309664e34FB8150799ff13722308) | [0x16F9bBeE415e519F184Fe1c09d653C6567e4eb2f](https://optimistic.etherscan.io/address/0x16F9bBeE415e519F184Fe1c09d653C6567e4eb2f) |
-| optimalUsageRatio | 90 % | 92 % |
 | variableRateSlope1 | 6 % | 12 % |
 | baseStableBorrowRate | 7 % | 13 % |
-| maxExcessUsageRatio | 10 % | 8 % |
-| interestRate | ![before](/.assets/19d720ba733a698f9e5c8714853876f8759c351e.svg) | ![after](/.assets/b2302f89365f5c7a915d77a2d396103d9d630a4e.svg) |
+| interestRate | ![before](/.assets/19d720ba733a698f9e5c8714853876f8759c351e.svg) | ![after](/.assets/f97fde975a340ec20a967916a1754eee7309d36f.svg) |
 
 #### LUSD ([0xc40F949F8a4e094D1b49a23ea9241D289B7b2819](https://optimistic.etherscan.io/address/0xc40F949F8a4e094D1b49a23ea9241D289B7b2819))
 
@@ -131,14 +123,6 @@
         "from": "70000000000000000000000000",
         "to": "130000000000000000000000000"
       },
-      "maxExcessUsageRatio": {
-        "from": "100000000000000000000000000",
-        "to": "80000000000000000000000000"
-      },
-      "optimalUsageRatio": {
-        "from": "900000000000000000000000000",
-        "to": "920000000000000000000000000"
-      },
       "variableRateSlope1": {
         "from": "60000000000000000000000000",
         "to": "120000000000000000000000000"
@@ -152,14 +136,6 @@
       "baseStableBorrowRate": {
         "from": "80000000000000000000000000",
         "to": "130000000000000000000000000"
-      },
-      "maxExcessUsageRatio": {
-        "from": "100000000000000000000000000",
-        "to": "80000000000000000000000000"
-      },
-      "optimalUsageRatio": {
-        "from": "900000000000000000000000000",
-        "to": "920000000000000000000000000"
       },
       "variableRateSlope1": {
         "from": "70000000000000000000000000",
@@ -189,14 +165,6 @@
         "from": "70000000000000000000000000",
         "to": "130000000000000000000000000"
       },
-      "maxExcessUsageRatio": {
-        "from": "100000000000000000000000000",
-        "to": "80000000000000000000000000"
-      },
-      "optimalUsageRatio": {
-        "from": "900000000000000000000000000",
-        "to": "920000000000000000000000000"
-      },
       "variableRateSlope1": {
         "from": "60000000000000000000000000",
         "to": "120000000000000000000000000"
@@ -210,14 +178,6 @@
       "baseStableBorrowRate": {
         "from": "70000000000000000000000000",
         "to": "130000000000000000000000000"
-      },
-      "maxExcessUsageRatio": {
-        "from": "100000000000000000000000000",
-        "to": "80000000000000000000000000"
-      },
-      "optimalUsageRatio": {
-        "from": "900000000000000000000000000",
-        "to": "920000000000000000000000000"
       },
       "variableRateSlope1": {
         "from": "60000000000000000000000000",
