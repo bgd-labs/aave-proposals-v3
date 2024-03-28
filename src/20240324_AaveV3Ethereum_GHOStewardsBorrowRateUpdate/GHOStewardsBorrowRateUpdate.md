@@ -25,8 +25,8 @@ This AIP is expected to enable GHO to continue growing whilst maintaining peg st
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240324_AaveV3Ethereum_GHOStewardsBorrowRateUpdate/AaveV3Ethereum_GHOStewardsBorrowRateUpdate_20240324.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240324_AaveV3Ethereum_GHOStewardsBorrowRateUpdate/AaveV3Ethereum_GHOStewardsBorrowRateUpdate_20240324.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/c03225fbd1892f72d742c51a3597d63f171e610d/src/20240324_AaveV3Ethereum_GHOStewardsBorrowRateUpdate/AaveV3Ethereum_GHOStewardsBorrowRateUpdate_20240324.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/c03225fbd1892f72d742c51a3597d63f171e610d/src/20240324_AaveV3Ethereum_GHOStewardsBorrowRateUpdate/AaveV3Ethereum_GHOStewardsBorrowRateUpdate_20240324.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0xc26346b891974968c6fa1745b2cfa869d2d0e5875e9fc2bd661167ae19314c6b)
 - [Discussion](https://governance.aave.com/t/arfc-gho-stewards-borrow-rate-update/16956)
 
