@@ -117,14 +117,14 @@ contract AaveV3Ethereum_FundingUpdatePartB_20240324_Test is ProtocolV3TestBase {
 
     executePayload(vm, address(proposal));
 
-    assertEq(
-      IERC20(AaveV2EthereumAssets.DPI_UNDERLYING).balanceOf(address(AaveV2Ethereum.COLLECTOR)),
-      0
-    );
     assertGt(
       IERC20(AaveV2EthereumAssets.USDC_A_TOKEN).balanceOf(address(AaveV2Ethereum.COLLECTOR)),
       aUsdcBalanceBefore - proposal.USDC_V2_TO_SWAP(),
       'aUSDC balance after does not match'
+    );
+    assertEq(
+      IERC20(AaveV2EthereumAssets.DPI_UNDERLYING).balanceOf(address(AaveV2Ethereum.COLLECTOR)),
+      dpiBalanceBefore - proposal.DPI_TO_SWAP()
     );
   }
 
@@ -138,10 +138,6 @@ contract AaveV3Ethereum_FundingUpdatePartB_20240324_Test is ProtocolV3TestBase {
       address(AaveV3Ethereum.COLLECTOR)
     );
     uint256 balanceEthADAIBefore = IERC20(AaveV3EthereumAssets.DAI_A_TOKEN).balanceOf(
-      address(AaveV3Ethereum.COLLECTOR)
-    );
-
-    uint256 balanceADPIBefore = IERC20(AaveV2EthereumAssets.DPI_A_TOKEN).balanceOf(
       address(AaveV3Ethereum.COLLECTOR)
     );
 
@@ -165,9 +161,5 @@ contract AaveV3Ethereum_FundingUpdatePartB_20240324_Test is ProtocolV3TestBase {
 
     assertEq(balanceEthAWETHAfter, balanceEthAWETHBefore + balanceWETHCollectorBefore);
     assertApproxEqAbs(balanceAEthDAIAfter, balanceEthADAIBefore + balanceDaiCollectorBefore, 1);
-    assertGt(
-      IERC20(AaveV2EthereumAssets.DPI_A_TOKEN).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
-      balanceADPIBefore
-    );
   }
 }
