@@ -12,7 +12,7 @@ import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
  * @title Activate Gho Stewards
  * @author Aave Chan Initiative
  * - Snapshot: https://snapshot.org/#/aave.eth/proposal/0x29f63b24638ee822f88632572ca4b061774771c0cc6d0ae5ccdeb538177232cd
- * - Discussion: https://governance.aave.com/t/arfc-gho-stewards/16466
+ * - Discussion: https://governance.aave.com/t/arfc-gho-stewards-borrow-rate-update/16956
  */
 contract AaveV3Ethereum_ActivateGhoStewards_20240326 is IProposalGenericExecutor {
   address public constant GHO_STEWARD = 0x8F2411a538381aae2b464499005F0211e867d84f;

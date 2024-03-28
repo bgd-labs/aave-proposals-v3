@@ -1,7 +1,7 @@
 ---
 title: "Activate Gho Stewards"
 author: "Aave Chan Initiative"
-discussions: "https://governance.aave.com/t/arfc-gho-stewards/16466"
+discussions: "https://governance.aave.com/t/arfc-gho-stewards-borrow-rate-update/16956"
 snapshot: "https://snapshot.org/#/aave.eth/proposal/0x29f63b24638ee822f88632572ca4b061774771c0cc6d0ae5ccdeb538177232cd"
 ---
 
@@ -33,7 +33,7 @@ The proposal gives the following admin roles:
 The GHO Stewards parameters are set as follow:
 
 - GHO Aave Bucket Capacity: 100% increase
-- GHO Borrow Rate: 0.5% change
+- GHO Borrow Rate: 5% change
 - GSM Exposure Cap: 100% increase
 - GSM Bucket Capacity: 100% increase
 - GHO Borrow Cap: 100% increase
@@ -47,7 +47,7 @@ The GHO Stewards parameters are set as follow:
 - Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240326_AaveV3Ethereum_ActivateGhoStewards/AaveV3Ethereum_ActivateGhoStewards_20240326.sol)
 - Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240326_AaveV3Ethereum_ActivateGhoStewards/AaveV3Ethereum_ActivateGhoStewards_20240326.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x29f63b24638ee822f88632572ca4b061774771c0cc6d0ae5ccdeb538177232cd)
-- [Discussion](https://governance.aave.com/t/arfc-gho-stewards/16466)
+- [Discussion](https://governance.aave.com/t/arfc-gho-stewards-borrow-rate-update/16956)
 
 ## Copyright
 
