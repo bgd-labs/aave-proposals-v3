@@ -17,15 +17,18 @@ This publication proposes to creating the GHO Stewards and granting the GHO Stew
 - GHO Borrow Rate
 - GSM Exposure Cap
 - GSM Bucket Capacity
-- GSM Price Strategy
 - GSM Fee Strategy
-- GSM Price Range (Freeze, Unfreeze)
 
 GHO Stewards consists of members from Growth (ACI), Risk (ChaosLabs and Gauntlet) and Finance (TokenLogic + Karpatkey) Service Providers and utilize a 3 of 4 multi-sig.
 
 ## Specification
 
-// add more specification regarding admin roles given
+The proposal gives the following admin roles:
+
+- Grant GHO Steward the Risk Admin role via the [ACL_MANAGER](https://etherscan.io/address/0xc2aaCf6553D20d1e9d78E365AAba8032af9c85b0) contract.
+- Grant GHO Steward the Bucket Manager role on the [GHO token](https://etherscan.io/address/0x40D16FC0246aD3160Ccc09B8D0D3A2cD28aE6C2f).
+- Grant GHO Steward the Configurator role on [GSM_USDC](https://etherscan.io/address/0x0d8eFfC11dF3F229AA1EA0509BC9DFa632A13578) and [GSM_USDT](https://etherscan.io/address/0x686F8D21520f4ecEc7ba577be08354F4d1EB8262).
+- Whitelists all the facilitators on the GHO Stewards, including: [GHO_AToken](https://etherscan.io/address/0x00907f9921424583e7ffBfEdf84F92B7B2Be4977), [GHO_FlashMinter](https://etherscan.io/address/0xb639D208Bcf0589D54FaC24E655C79EC529762B8), [GSM_USDC](https://etherscan.io/address/0x0d8eFfC11dF3F229AA1EA0509BC9DFa632A13578), [GSM_USDT](https://etherscan.io/address/0x686F8D21520f4ecEc7ba577be08354F4d1EB8262) - so that the steward has the permissions to update the bucket capacity.
 
 The GHO Stewards parameters are set as follow:
 
@@ -34,9 +37,7 @@ The GHO Stewards parameters are set as follow:
 - GSM Exposure Cap: 100% increase
 - GSM Bucket Capacity: 100% increase
 - GHO Borrow Cap: 100% increase
-- GSM Price Strategy: TODO
-- GSM Fee Strategy: + 0.5%
-- GSM Price Range (Freeze, Unfreeze)
+- GSM Fee Strategy: +0.5%
 
 ## References
 
