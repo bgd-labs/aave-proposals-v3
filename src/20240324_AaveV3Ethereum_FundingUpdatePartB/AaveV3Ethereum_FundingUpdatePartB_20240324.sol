@@ -34,6 +34,7 @@ contract AaveV3Ethereum_FundingUpdatePartB_20240324 is IProposalGenericExecutor 
   address public constant ETH_MOCK_ADDRESS = 0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE;
 
   uint256 public constant USDC_V2_TO_SWAP = 640_000e6;
+  uint256 public constant DPI_TO_SWAP = 350 ether;
 
   function execute() external {
     // BAL
@@ -87,6 +88,33 @@ contract AaveV3Ethereum_FundingUpdatePartB_20240324 is IProposalGenericExecutor 
       0
     );
 
+    // Deposit DPI
+
+    AaveV3Ethereum.COLLECTOR.transfer(
+      AaveV2EthereumAssets.DPI_UNDERLYING,
+      address(SWAPPER),
+      DPI_TO_SWAP
+    );
+
+    uint256 dpiBalance = address(AaveV3Ethereum.COLLECTOR).balance;
+    AaveV3Ethereum.COLLECTOR.transfer(
+      AaveV2EthereumAssets.DPI_UNDERLYING,
+      address(this),
+      IERC20(AaveV2EthereumAssets.DPI_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR))
+    );
+
+    IERC20(AaveV2EthereumAssets.DPI_UNDERLYING).forceApprove(
+      address(AaveV2Ethereum.POOL),
+      dpiBalance
+    );
+
+    AaveV2Ethereum.POOL.deposit(
+      AaveV2EthereumAssets.DPI_UNDERLYING,
+      dpiBalance,
+      address(AaveV3Ethereum.COLLECTOR),
+      0
+    );
+
     AaveV3Ethereum.COLLECTOR.transfer(
       AaveV2EthereumAssets.USDC_A_TOKEN,
       address(this),
@@ -111,12 +139,6 @@ contract AaveV3Ethereum_FundingUpdatePartB_20240324 is IProposalGenericExecutor 
       100
     );
 
-    AaveV3Ethereum.COLLECTOR.transfer(
-      AaveV2EthereumAssets.DPI_UNDERLYING,
-      address(SWAPPER),
-      IERC20(AaveV2EthereumAssets.DPI_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR))
-    );
-
     SWAPPER.swap(
       MILKMAN,
       PRICE_CHECKER,
@@ -126,7 +148,7 @@ contract AaveV3Ethereum_FundingUpdatePartB_20240324 is IProposalGenericExecutor 
       GHO_USD_FEED,
       address(AaveV3Ethereum.COLLECTOR),
       IERC20(AaveV2EthereumAssets.DPI_UNDERLYING).balanceOf(address(SWAPPER)),
-      600
+      700
     );
   }
 
