@@ -44,8 +44,8 @@ The GHO Stewards parameters are set as follow:
 - GHO Steward SAFE address: [0x8513e6F37dBc52De87b166980Fa3F50639694B60](https://etherscan.io/address/0x8513e6F37dBc52De87b166980Fa3F50639694B60)
 - GHO Steward V2 address: [0x8F2411a538381aae2b464499005F0211e867d84f](https://etherscan.io/address/0x8F2411a538381aae2b464499005F0211e867d84f)
 - GHO Steward Repo: [GhoStewardV2.sol](https://github.com/aave/gho-core/blob/f02f87482de7ccbd30ba76b40939fb016dbb2fea/src/contracts/misc/GhoStewardV2.sol)
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240326_AaveV3Ethereum_ActivateGhoStewards/AaveV3Ethereum_ActivateGhoStewards_20240326.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240326_AaveV3Ethereum_ActivateGhoStewards/AaveV3Ethereum_ActivateGhoStewards_20240326.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/f14e4127807521b5ee1a1efc9c7649d09cd60fb3/src/20240326_AaveV3Ethereum_ActivateGhoStewards/AaveV3Ethereum_ActivateGhoStewards_20240326.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/f14e4127807521b5ee1a1efc9c7649d09cd60fb3/src/20240326_AaveV3Ethereum_ActivateGhoStewards/AaveV3Ethereum_ActivateGhoStewards_20240326.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x29f63b24638ee822f88632572ca4b061774771c0cc6d0ae5ccdeb538177232cd)
 - [Discussion](https://governance.aave.com/t/arfc-gho-stewards-borrow-rate-update/16956)
 
