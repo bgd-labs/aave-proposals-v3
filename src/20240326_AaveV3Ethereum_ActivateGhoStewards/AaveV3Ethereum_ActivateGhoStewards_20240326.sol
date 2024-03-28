@@ -18,8 +18,8 @@ contract AaveV3Ethereum_ActivateGhoStewards_20240326 is IProposalGenericExecutor
   address public constant GHO_STEWARD = 0x8F2411a538381aae2b464499005F0211e867d84f;
 
   function execute() external {
-    // Give risk admin role to the steward
-    AaveV3Ethereum.ACL_MANAGER.addRiskAdmin(GHO_STEWARD);
+    // Give pool admin role to the steward
+    AaveV3Ethereum.ACL_MANAGER.addPoolAdmin(GHO_STEWARD);
 
     // Give bucket manager role to the steward
     IGhoToken(MiscEthereum.GHO_TOKEN).grantRole(

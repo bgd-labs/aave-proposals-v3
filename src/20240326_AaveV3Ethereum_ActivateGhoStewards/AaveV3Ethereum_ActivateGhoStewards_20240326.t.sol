@@ -39,7 +39,7 @@ contract AaveV3Ethereum_ActivateGhoStewards_20240326_Test is ProtocolV3TestBase 
   function test_adminPermissions() public {
     executePayload(vm, address(proposal));
 
-    assertTrue(AaveV3Ethereum.ACL_MANAGER.isRiskAdmin(proposal.GHO_STEWARD()));
+    assertTrue(AaveV3Ethereum.ACL_MANAGER.isPoolAdmin(proposal.GHO_STEWARD()));
     assertTrue(
       IGhoToken(MiscEthereum.GHO_TOKEN).hasRole(
         IGhoToken(MiscEthereum.GHO_TOKEN).BUCKET_MANAGER_ROLE(),
