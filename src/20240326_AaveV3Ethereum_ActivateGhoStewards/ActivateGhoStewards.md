@@ -19,7 +19,7 @@ This publication proposes to creating the GHO Stewards and granting the GHO Stew
 - GSM Bucket Capacity
 - GSM Fee Strategy
 
-GHO Stewards consists of members from Growth (ACI), Risk (ChaosLabs and Gauntlet) and Finance (TokenLogic + Karpatkey) Service Providers and utilize a 3 of 4 multi-sig.
+GHO Stewards consists of members from Growth (ACI), Risk (ChaosLabs) and Finance (TokenLogic + Karpatkey) Service Providers and utilize a 3 of 4 multi-sig.
 
 ## Specification
 
