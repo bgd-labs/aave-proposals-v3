@@ -1,6 +1,6 @@
 ---
 title: "Ethereum v2 Reserve Factor Adjustment"
-author: "TokenLogic"
+author: "karpatkey_TokenLogic"
 discussions: "https://governance.aave.com/t/arfc-ethereum-v2-reserve-factor-adjustment/16764/6"
 snapshot: "https://snapshot.org/#/aave.eth/proposal/0x26a03c08359c340f63b78b0c3e96d37aa0adeda65814643b0886d4719048ea7e"
 ---
@@ -15,7 +15,7 @@ This AIP will reduce deposit yield for assets on Ethereum v2 by increasing the R
 
 Increasing the RF routes a larger portion of the interest paid by users to Aave DAO's Treasury. User's funds are not at risk of liquidation and the borrowing rate remains unchanged.
 
-Of the assets with an RF set at 99.99%, there is no change. All other asset reserves will have the RF increased by up to 5%.
+Of the assets with an RF set at 99.99%, there is no change. All other asset reserves will have the RF increased by up to 5.00%.
 
 ## Specification
 

@@ -5,7 +5,7 @@ export const config: ConfigFile = {
     title: 'Ethereum v2 Reserve Factor Adjustment',
     shortName: 'EthereumV2ReserveFactorAdjustment',
     date: '20240401',
-    author: 'TokenLogic',
+    author: 'karpatkey_TokenLogic',
     discussion: 'https://governance.aave.com/t/arfc-ethereum-v2-reserve-factor-adjustment/16764/6',
     snapshot:
       'https://snapshot.org/#/aave.eth/proposal/0x26a03c08359c340f63b78b0c3e96d37aa0adeda65814643b0886d4719048ea7e',
