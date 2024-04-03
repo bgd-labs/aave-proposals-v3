@@ -28,8 +28,8 @@ This method will appoint the Aave Chan Initiative (ACI) wallet as the emissions 
 
 ## References
 
-- Implementation: [AaveV3Gnosis](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240327_AaveV3Gnosis_EUReEmissionsManager/AaveV3Gnosis_EUReEmissionsManager_20240327.sol)
-- Tests: [AaveV3Gnosis](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240327_AaveV3Gnosis_EUReEmissionsManager/AaveV3Gnosis_EUReEmissionsManager_20240327.t.sol)
+- Implementation: [AaveV3Gnosis](https://github.com/bgd-labs/aave-proposals-v3/blob/b996197773b566b6ebd3a9f82e2abbcf118f0d09/src/20240327_AaveV3Gnosis_EUReEmissionsManager/AaveV3Gnosis_EUReEmissionsManager_20240327.sol)
+- Tests: [AaveV3Gnosis](https://github.com/bgd-labs/aave-proposals-v3/blob/b996197773b566b6ebd3a9f82e2abbcf118f0d09/src/20240327_AaveV3Gnosis_EUReEmissionsManager/AaveV3Gnosis_EUReEmissionsManager_20240327.t.sol)
 - [Discussion](https://governance.aave.com/t/arfc-set-aci-as-emissions-manager-for-eure-on-aave-v3-gnosis-market/17130)
 
 ## Copyright
