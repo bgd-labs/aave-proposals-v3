@@ -33,8 +33,8 @@ Due to a significant amount of bad debt in these markets, the anticipated outcom
 
 ## References
 
-- Implementation: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240324_AaveV2Ethereum_TUSDAndBUSDAaveV2RateAmendments/AaveV2Ethereum_TUSDAndBUSDAaveV2RateAmendments_20240324.sol)
-- Tests: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240324_AaveV2Ethereum_TUSDAndBUSDAaveV2RateAmendments/AaveV2Ethereum_TUSDAndBUSDAaveV2RateAmendments_20240324.t.sol)
+- Implementation: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/64d84923830233364030bbf87f555208e05c78bd/src/20240324_AaveV2Ethereum_TUSDAndBUSDAaveV2RateAmendments/AaveV2Ethereum_TUSDAndBUSDAaveV2RateAmendments_20240324.sol)
+- Tests: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/64d84923830233364030bbf87f555208e05c78bd/src/20240324_AaveV2Ethereum_TUSDAndBUSDAaveV2RateAmendments/AaveV2Ethereum_TUSDAndBUSDAaveV2RateAmendments_20240324.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0xcff2253ff9d74193354370fe95ebe0fe2f0b6f34873281d1b9b55b9f51dea011)
 - [Discussion](https://governance.aave.com/t/arfc-tusd-and-busd-aave-v2-rate-amendments/16887)
 
