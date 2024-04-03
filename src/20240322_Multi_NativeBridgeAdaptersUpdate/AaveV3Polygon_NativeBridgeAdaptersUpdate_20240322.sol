@@ -8,8 +8,7 @@ import {ChainIds} from 'aave-helpers/ChainIds.sol';
 /**
  * @title Native bridge adapters update
  * @author BGD Labs @bgdlabs
- * - Snapshot: TODO
- * - Discussion: TODO
+ * - Discussion: https://governance.aave.com/t/bgd-technical-maintenance-proposals/15274/26
  */
 contract AaveV3Polygon_NativeBridgeAdaptersUpdate_20240322 is
   BaseAdaptersUpdatePayload(
