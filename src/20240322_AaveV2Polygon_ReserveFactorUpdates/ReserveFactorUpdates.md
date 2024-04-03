@@ -1,12 +1,12 @@
 ---
 title: "ReserveFactorUpdates"
 author: "TokenLogic"
-discussions: "https://hackmd.io/VuOFSRuzSXOb0vNxP5-Otw"
+discussions: "https://governance.aave.com/t/arfc-reserve-factor-updates-polygon-aave-v2/13937/21"
 ---
 
 ## Simple Summary
 
-This AIP is a continuation of proposal 41 on Governance v3 and increases the Reserve Factor (RF) for assets on Polygon v2 by 5.00%, up to a maximum of 99.99%.
+This AIP is a continuation of proposal 54 on Governance v3 and increases the Reserve Factor (RF) for assets on Polygon v2 by 5.00%, up to a maximum of 99.99%.
 
 ## Motivation
 
@@ -31,7 +31,7 @@ The following parameters are to be updated as follows:
 - Implementation: [AaveV2Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240322_AaveV2Polygon_ReserveFactorUpdates/AaveV2Polygon_ReserveFactorUpdates_20240322.sol)
 - Tests: [AaveV2Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240322_AaveV2Polygon_ReserveFactorUpdates/AaveV2Polygon_ReserveFactorUpdates_20240322.t.sol)
 - [Snapshot](TODO)
-- [Discussion](https://hackmd.io/VuOFSRuzSXOb0vNxP5-Otw)
+- [Discussion](https://governance.aave.com/t/arfc-reserve-factor-updates-polygon-aave-v2/13937/21)
 
 ## Copyright
 

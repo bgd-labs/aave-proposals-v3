@@ -5,7 +5,7 @@ import {AaveV2Polygon, AaveV2PolygonAssets} from 'aave-address-book/AaveV2Polygo
 import {IProposalGenericExecutor} from 'aave-helpers/interfaces/IProposalGenericExecutor.sol';
 
 /**
- * @title Reserve Factor Updates (March 15, 2024)
+ * @title AaveV2Polygon_ReserveFactorUpdates_20240322 (April 3, 2024)
  * @author dd0sxx_TokenLogic
  * - Snapshot: Direct-to-AIP
  * - Discussion: https://governance.aave.com/t/arfc-reserve-factor-updates-polygon-aave-v2/13937/20

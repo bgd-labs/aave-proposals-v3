@@ -6,8 +6,9 @@ export const config: ConfigFile = {
     shortName: 'ReserveFactorUpdates',
     date: '20240322',
     author: 'TokenLogic',
-    discussion: 'https://hackmd.io/VuOFSRuzSXOb0vNxP5-Otw',
+    discussion:
+      'https://governance.aave.com/t/arfc-reserve-factor-updates-polygon-aave-v2/13937/21',
     snapshot: '',
   },
-  poolOptions: {AaveV2Polygon: {configs: {}, cache: {blockNumber: 54963727}}},
+  poolOptions: {AaveV2Polygon: {configs: {}, cache: {blockNumber: 55391331}}},
 };
