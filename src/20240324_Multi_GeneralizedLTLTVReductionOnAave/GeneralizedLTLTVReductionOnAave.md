@@ -15,17 +15,35 @@ In response to the volatility risks highlighted by the UNI incident on Compound,
 
 ## Specification
 
-| Assets            | LT           | LTV       | Total Liquidated |
-| ----------------- | ------------ | --------- | ---------------- |
-| USDC, USDT, DAI   | 80% → 79%    | 77% → 76% | $18k             |
-| USDC.e, USDbC     | 80% → 79%    | 77% → 76% | $1.8k            |
-| USDC (Avalanche)  | 86.25% → 85% | 82% → 80% | $2.3k            |
-| USDT (Avalanche)  | 80% → 78%    | 77% → 75% | 0                |
-| DAI (Avalanche)   | 82% → 80%    | 75%       | 27               |
-| FRAX (Avalanche)  | 80% → 78%    | 75%       | 0                |
-| LUSD, sDAI, xDAI  | 80% → 79%    | 77% → 76% | 0                |
-| USDC.e (Optimism) | 85% → 84%    | 80% → 78% | 9                |
-| DAI (Optimism)    | 83% → 80%    | 78% → 75% | $13              |
+| Assets | Chain     | Current LT | Recommended LT | Current LTV | Recommended LTV |
+| ------ | --------- | ---------- | -------------- | ----------- | --------------- |
+| USDC   | Arbitrum  | 80%        | 79%            | 77%         | 76%             |
+| USDT   | Arbitrum  | 80%        | 79%            | 77%         | 76%             |
+| DAI    | Arbitrum  | 80%        | 79%            | 77%         | 76%             |
+| LUSD   | Arbitrum  | 80%        | 79%            | 77%         | 76%             |
+| USDC.e | Arbitrum  | 80%        | 79%            | 77%         | 76%             |
+| USDC   | Avalanche | 86.25%     | 85%            | 82%         | 80%             |
+| USDT   | Avalanche | 80%        | 78%            | 77%         | 75%             |
+| DAI    | Avalanche | 82%        | 80%            | 75%         | -               |
+| USDC   | BNBChain  | 80%        | 79%            | 77%         | 76%             |
+| USDT   | BNBChain  | 80%        | 79%            | 77%         | 76%             |
+| USDC   | Base      | 80%        | 79%            | 77%         | 76%             |
+| USDbC  | Base      | 80%        | 79%            | 77%         | 76%             |
+| LUSD   | Ethereum  | 80%        | 79%            | 77%         | 76%             |
+| sDAI   | Ethereum  | 80%        | 79%            | 77%         | 76%             |
+| USDC   | Gnosis    | 80%        | 79%            | 77%         | 76%             |
+| sDAI   | Gnosis    | 80%        | 79%            | 77%         | 76%             |
+| xDAI   | Gnosis    | 80%        | 79%            | 77%         | 76%             |
+| USDC   | Optimism  | 80%        | 79%            | 77%         | 76%             |
+| USDC.e | Optimism  | 85%        | 84%            | 80%         | 78%             |
+| DAI    | Optimism  | 83%        | 80%            | 78%         | 75%             |
+| LUSD   | Optimism  | 80%        | 78%            | 77%         | 76%             |
+| USDC   | Polygon   | 80%        | 79%            | 77%         | 76%             |
+| USDT   | Polygon   | 80%        | 79%            | 77%         | 76%             |
+| DAI    | Polygon   | 80%        | 79%            | 77%         | 76%             |
+| USDC.e | Polygon   | 80%        | 79%            | 77%         | 76%             |
+| USDC   | Scroll    | 80%        | 79%            | 77%         | 76%             |
+| FRAX   | Avalanche | 82%        | 80%            | 75%         | -               |
 
 ## References
 
