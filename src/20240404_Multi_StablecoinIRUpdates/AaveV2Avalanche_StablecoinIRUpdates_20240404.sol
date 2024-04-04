@@ -10,7 +10,7 @@ import {IV2RateStrategyFactory} from 'aave-helpers/v2-config-engine/IV2RateStrat
  * @title StablecoinIRUpdates
  * @author Chaos Labs, ACI
  * - Snapshot: https://snapshot.org/#/aave.eth/proposal/0xe2dd228640c3cad93f5418c40c4b5743b3c6c85aa0aae9eee53cbdbca2ed5c2d
- * - Discussion: https://governance.aave.com/t/arfc-stablecoin-ir-curve-amendment-on-aave-v2-and-v3/16864
+ * - Discussion: https://governance.aave.com/t/arfc-stablecoin-ir-curve-amendment-on-aave-v2-and-v3/16864/5
  */
 contract AaveV2Avalanche_StablecoinIRUpdates_20240404 is AaveV2PayloadAvalanche {
   function rateStrategiesUpdates()
