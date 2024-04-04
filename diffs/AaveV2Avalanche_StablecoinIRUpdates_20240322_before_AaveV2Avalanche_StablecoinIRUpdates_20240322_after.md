@@ -7,30 +7,24 @@
 | description | value before | value after |
 | --- | --- | --- |
 | interestRateStrategy | [0xa7C0f85c626761eDD0875549aD09E8d3f5446695](https://snowscan.xyz/address/0xa7C0f85c626761eDD0875549aD09E8d3f5446695) | [0xb1f13B58D6a3B1aEdB211Db58D9e42d28D09DbF4](https://snowscan.xyz/address/0xb1f13B58D6a3B1aEdB211Db58D9e42d28D09DbF4) |
-| optimalUsageRatio | 80 % | 92 % |
 | variableRateSlope1 | 6 % | 12 % |
-| maxExcessUsageRatio | 20 % | 8 % |
-| interestRate | ![before](/.assets/ae7612ca9dd768ff3aee2f745910dc0a19e5fa71.svg) | ![after](/.assets/c3b1571e65a2211f7a0d9bc13633a228b24e8311.svg) |
+| interestRate | ![before](/.assets/ae7612ca9dd768ff3aee2f745910dc0a19e5fa71.svg) | ![after](/.assets/857e4e2fbb6d6dc9100be9ba3b6b134c59ad974b.svg) |
 
 #### USDT.e ([0xc7198437980c041c805A1EDcbA50c1Ce5db95118](https://snowscan.xyz/address/0xc7198437980c041c805A1EDcbA50c1Ce5db95118))
 
 | description | value before | value after |
 | --- | --- | --- |
 | interestRateStrategy | [0xa7C0f85c626761eDD0875549aD09E8d3f5446695](https://snowscan.xyz/address/0xa7C0f85c626761eDD0875549aD09E8d3f5446695) | [0xb1f13B58D6a3B1aEdB211Db58D9e42d28D09DbF4](https://snowscan.xyz/address/0xb1f13B58D6a3B1aEdB211Db58D9e42d28D09DbF4) |
-| optimalUsageRatio | 80 % | 92 % |
 | variableRateSlope1 | 6 % | 12 % |
-| maxExcessUsageRatio | 20 % | 8 % |
-| interestRate | ![before](/.assets/ae7612ca9dd768ff3aee2f745910dc0a19e5fa71.svg) | ![after](/.assets/c3b1571e65a2211f7a0d9bc13633a228b24e8311.svg) |
+| interestRate | ![before](/.assets/ae7612ca9dd768ff3aee2f745910dc0a19e5fa71.svg) | ![after](/.assets/857e4e2fbb6d6dc9100be9ba3b6b134c59ad974b.svg) |
 
 #### DAI.e ([0xd586E7F844cEa2F87f50152665BCbc2C279D8d70](https://snowscan.xyz/address/0xd586E7F844cEa2F87f50152665BCbc2C279D8d70))
 
 | description | value before | value after |
 | --- | --- | --- |
 | interestRateStrategy | [0xa7C0f85c626761eDD0875549aD09E8d3f5446695](https://snowscan.xyz/address/0xa7C0f85c626761eDD0875549aD09E8d3f5446695) | [0xb1f13B58D6a3B1aEdB211Db58D9e42d28D09DbF4](https://snowscan.xyz/address/0xb1f13B58D6a3B1aEdB211Db58D9e42d28D09DbF4) |
-| optimalUsageRatio | 80 % | 92 % |
 | variableRateSlope1 | 6 % | 12 % |
-| maxExcessUsageRatio | 20 % | 8 % |
-| interestRate | ![before](/.assets/ae7612ca9dd768ff3aee2f745910dc0a19e5fa71.svg) | ![after](/.assets/c3b1571e65a2211f7a0d9bc13633a228b24e8311.svg) |
+| interestRate | ![before](/.assets/ae7612ca9dd768ff3aee2f745910dc0a19e5fa71.svg) | ![after](/.assets/857e4e2fbb6d6dc9100be9ba3b6b134c59ad974b.svg) |
 
 ## Raw diff
 
@@ -62,14 +56,6 @@
         "from": "0xa7C0f85c626761eDD0875549aD09E8d3f5446695",
         "to": "0xb1f13B58D6a3B1aEdB211Db58D9e42d28D09DbF4"
       },
-      "maxExcessUsageRatio": {
-        "from": "200000000000000000000000000",
-        "to": "80000000000000000000000000"
-      },
-      "optimalUsageRatio": {
-        "from": "800000000000000000000000000",
-        "to": "920000000000000000000000000"
-      },
       "variableRateSlope1": {
         "from": "60000000000000000000000000",
         "to": "120000000000000000000000000"
@@ -80,14 +66,6 @@
         "from": "0xa7C0f85c626761eDD0875549aD09E8d3f5446695",
         "to": "0xb1f13B58D6a3B1aEdB211Db58D9e42d28D09DbF4"
       },
-      "maxExcessUsageRatio": {
-        "from": "200000000000000000000000000",
-        "to": "80000000000000000000000000"
-      },
-      "optimalUsageRatio": {
-        "from": "800000000000000000000000000",
-        "to": "920000000000000000000000000"
-      },
       "variableRateSlope1": {
         "from": "60000000000000000000000000",
         "to": "120000000000000000000000000"
@@ -97,14 +75,6 @@
       "address": {
         "from": "0xa7C0f85c626761eDD0875549aD09E8d3f5446695",
         "to": "0xb1f13B58D6a3B1aEdB211Db58D9e42d28D09DbF4"
-      },
-      "maxExcessUsageRatio": {
-        "from": "200000000000000000000000000",
-        "to": "80000000000000000000000000"
-      },
-      "optimalUsageRatio": {
-        "from": "800000000000000000000000000",
-        "to": "920000000000000000000000000"
       },
       "variableRateSlope1": {
         "from": "60000000000000000000000000",

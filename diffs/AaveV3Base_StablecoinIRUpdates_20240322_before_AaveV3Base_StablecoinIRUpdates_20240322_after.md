@@ -7,22 +7,18 @@
 | description | value before | value after |
 | --- | --- | --- |
 | interestRateStrategy | [0x136848FdaedEB56245bE0e61E28A3CB8c0B45CaA](https://basescan.org/address/0x136848FdaedEB56245bE0e61E28A3CB8c0B45CaA) | [0xcbF65e0708961Da6Dd3F1A4e1cE17D97D1E8C29A](https://basescan.org/address/0xcbF65e0708961Da6Dd3F1A4e1cE17D97D1E8C29A) |
-| optimalUsageRatio | 90 % | 92 % |
 | variableRateSlope1 | 6 % | 12 % |
 | baseStableBorrowRate | 6 % | 12 % |
-| maxExcessUsageRatio | 10 % | 8 % |
-| interestRate | ![before](/.assets/44bd6c5258c27248fabcd09a99dec757454c2a7e.svg) | ![after](/.assets/59123f839c4a9ef1d4a2dab92414c51edb0dd440.svg) |
+| interestRate | ![before](/.assets/44bd6c5258c27248fabcd09a99dec757454c2a7e.svg) | ![after](/.assets/2dd6d84168e4068a40122f647020c27ee3e36ed1.svg) |
 
 #### USDbC ([0xd9aAEc86B65D86f6A7B5B1b0c42FFA531710b6CA](https://basescan.org/address/0xd9aAEc86B65D86f6A7B5B1b0c42FFA531710b6CA))
 
 | description | value before | value after |
 | --- | --- | --- |
 | interestRateStrategy | [0xDBea12F69D3Fcb4Be9FD14dd450AAe2B2a3d4de7](https://basescan.org/address/0xDBea12F69D3Fcb4Be9FD14dd450AAe2B2a3d4de7) | [0x64163263753A9610a391A5D0276ae94B0d42fB75](https://basescan.org/address/0x64163263753A9610a391A5D0276ae94B0d42fB75) |
-| optimalUsageRatio | 90 % | 92 % |
 | variableRateSlope1 | 7 % | 12 % |
 | baseStableBorrowRate | 8 % | 13 % |
-| maxExcessUsageRatio | 10 % | 8 % |
-| interestRate | ![before](/.assets/d79d8eb0abd33ffb877708fe07140ce5c8503360.svg) | ![after](/.assets/36c73faed5aa696962f84de663a53270b225721c.svg) |
+| interestRate | ![before](/.assets/d79d8eb0abd33ffb877708fe07140ce5c8503360.svg) | ![after](/.assets/41494af0da6f85cabec3c980938db6fcf8b6171f.svg) |
 
 ## Raw diff
 
@@ -52,14 +48,6 @@
         "from": "60000000000000000000000000",
         "to": "120000000000000000000000000"
       },
-      "maxExcessUsageRatio": {
-        "from": "100000000000000000000000000",
-        "to": "80000000000000000000000000"
-      },
-      "optimalUsageRatio": {
-        "from": "900000000000000000000000000",
-        "to": "920000000000000000000000000"
-      },
       "variableRateSlope1": {
         "from": "60000000000000000000000000",
         "to": "120000000000000000000000000"
@@ -73,14 +61,6 @@
       "baseStableBorrowRate": {
         "from": "80000000000000000000000000",
         "to": "130000000000000000000000000"
-      },
-      "maxExcessUsageRatio": {
-        "from": "100000000000000000000000000",
-        "to": "80000000000000000000000000"
-      },
-      "optimalUsageRatio": {
-        "from": "900000000000000000000000000",
-        "to": "920000000000000000000000000"
       },
       "variableRateSlope1": {
         "from": "70000000000000000000000000",

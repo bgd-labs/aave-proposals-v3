@@ -7,11 +7,9 @@
 | description | value before | value after |
 | --- | --- | --- |
 | interestRateStrategy | [0xE74CD4ADF9103370144c327457bd294753E2E856](https://gnosisscan.io/address/0xE74CD4ADF9103370144c327457bd294753E2E856) | [0xBAbaB9202855F1c3FC943F0d032eAb4847A92D7e](https://gnosisscan.io/address/0xBAbaB9202855F1c3FC943F0d032eAb4847A92D7e) |
-| optimalUsageRatio | 90 % | 92 % |
 | variableRateSlope1 | 6 % | 12 % |
 | baseStableBorrowRate | 7 % | 13 % |
-| maxExcessUsageRatio | 10 % | 8 % |
-| interestRate | ![before](/.assets/f4b1b8f3a89d9f171e1de97ae32be0c4decc7291.svg) | ![after](/.assets/16c880792461d9bda0eb72ab837e4fddcecc96bc.svg) |
+| interestRate | ![before](/.assets/f4b1b8f3a89d9f171e1de97ae32be0c4decc7291.svg) | ![after](/.assets/63d85ef2aae018346bf4ae5d47f0f379ee834a81.svg) |
 
 #### EURe ([0xcB444e90D8198415266c6a2724b7900fb12FC56E](https://gnosisscan.io/address/0xcB444e90D8198415266c6a2724b7900fb12FC56E))
 
@@ -27,11 +25,9 @@
 | description | value before | value after |
 | --- | --- | --- |
 | interestRateStrategy | [0xE74CD4ADF9103370144c327457bd294753E2E856](https://gnosisscan.io/address/0xE74CD4ADF9103370144c327457bd294753E2E856) | [0xBAbaB9202855F1c3FC943F0d032eAb4847A92D7e](https://gnosisscan.io/address/0xBAbaB9202855F1c3FC943F0d032eAb4847A92D7e) |
-| optimalUsageRatio | 90 % | 92 % |
 | variableRateSlope1 | 6 % | 12 % |
 | baseStableBorrowRate | 7 % | 13 % |
-| maxExcessUsageRatio | 10 % | 8 % |
-| interestRate | ![before](/.assets/f4b1b8f3a89d9f171e1de97ae32be0c4decc7291.svg) | ![after](/.assets/16c880792461d9bda0eb72ab837e4fddcecc96bc.svg) |
+| interestRate | ![before](/.assets/f4b1b8f3a89d9f171e1de97ae32be0c4decc7291.svg) | ![after](/.assets/63d85ef2aae018346bf4ae5d47f0f379ee834a81.svg) |
 
 ## Raw diff
 
@@ -67,14 +63,6 @@
         "from": "70000000000000000000000000",
         "to": "130000000000000000000000000"
       },
-      "maxExcessUsageRatio": {
-        "from": "100000000000000000000000000",
-        "to": "80000000000000000000000000"
-      },
-      "optimalUsageRatio": {
-        "from": "900000000000000000000000000",
-        "to": "920000000000000000000000000"
-      },
       "variableRateSlope1": {
         "from": "60000000000000000000000000",
         "to": "120000000000000000000000000"
@@ -102,14 +90,6 @@
       "baseStableBorrowRate": {
         "from": "70000000000000000000000000",
         "to": "130000000000000000000000000"
-      },
-      "maxExcessUsageRatio": {
-        "from": "100000000000000000000000000",
-        "to": "80000000000000000000000000"
-      },
-      "optimalUsageRatio": {
-        "from": "900000000000000000000000000",
-        "to": "920000000000000000000000000"
       },
       "variableRateSlope1": {
         "from": "60000000000000000000000000",

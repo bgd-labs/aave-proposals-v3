@@ -174,7 +174,7 @@ export const config: ConfigFile = {
       configs: {
         RATE_UPDATE_V2: [
           {
-            asset: 'USDC',
+            asset: 'USDCe',
             params: {
               optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
@@ -188,7 +188,7 @@ export const config: ConfigFile = {
             },
           },
           {
-            asset: 'USDT',
+            asset: 'USDTe',
             params: {
               optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
@@ -202,7 +202,7 @@ export const config: ConfigFile = {
             },
           },
           {
-            asset: 'DAI',
+            asset: 'DAIe',
             params: {
               optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
