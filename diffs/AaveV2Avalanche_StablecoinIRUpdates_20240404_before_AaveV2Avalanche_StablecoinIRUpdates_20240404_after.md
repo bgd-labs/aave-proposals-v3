@@ -7,24 +7,24 @@
 | description | value before | value after |
 | --- | --- | --- |
 | interestRateStrategy | [0xa7C0f85c626761eDD0875549aD09E8d3f5446695](https://snowscan.xyz/address/0xa7C0f85c626761eDD0875549aD09E8d3f5446695) | [0xb1f13B58D6a3B1aEdB211Db58D9e42d28D09DbF4](https://snowscan.xyz/address/0xb1f13B58D6a3B1aEdB211Db58D9e42d28D09DbF4) |
-| variableRateSlope1 | 6 % | 12 % |
-| interestRate | ![before](/.assets/ae7612ca9dd768ff3aee2f745910dc0a19e5fa71.svg) | ![after](/.assets/857e4e2fbb6d6dc9100be9ba3b6b134c59ad974b.svg) |
+| variableRateSlope1 | 6 % | 13 % |
+| interestRate | ![before](/.assets/ae7612ca9dd768ff3aee2f745910dc0a19e5fa71.svg) | ![after](/.assets/ebccca66b9c426e3cc1dbbc7f4951b3043ab0eb0.svg) |
 
 #### USDT.e ([0xc7198437980c041c805A1EDcbA50c1Ce5db95118](https://snowscan.xyz/address/0xc7198437980c041c805A1EDcbA50c1Ce5db95118))
 
 | description | value before | value after |
 | --- | --- | --- |
 | interestRateStrategy | [0xa7C0f85c626761eDD0875549aD09E8d3f5446695](https://snowscan.xyz/address/0xa7C0f85c626761eDD0875549aD09E8d3f5446695) | [0xb1f13B58D6a3B1aEdB211Db58D9e42d28D09DbF4](https://snowscan.xyz/address/0xb1f13B58D6a3B1aEdB211Db58D9e42d28D09DbF4) |
-| variableRateSlope1 | 6 % | 12 % |
-| interestRate | ![before](/.assets/ae7612ca9dd768ff3aee2f745910dc0a19e5fa71.svg) | ![after](/.assets/857e4e2fbb6d6dc9100be9ba3b6b134c59ad974b.svg) |
+| variableRateSlope1 | 6 % | 13 % |
+| interestRate | ![before](/.assets/ae7612ca9dd768ff3aee2f745910dc0a19e5fa71.svg) | ![after](/.assets/ebccca66b9c426e3cc1dbbc7f4951b3043ab0eb0.svg) |
 
 #### DAI.e ([0xd586E7F844cEa2F87f50152665BCbc2C279D8d70](https://snowscan.xyz/address/0xd586E7F844cEa2F87f50152665BCbc2C279D8d70))
 
 | description | value before | value after |
 | --- | --- | --- |
 | interestRateStrategy | [0xa7C0f85c626761eDD0875549aD09E8d3f5446695](https://snowscan.xyz/address/0xa7C0f85c626761eDD0875549aD09E8d3f5446695) | [0xb1f13B58D6a3B1aEdB211Db58D9e42d28D09DbF4](https://snowscan.xyz/address/0xb1f13B58D6a3B1aEdB211Db58D9e42d28D09DbF4) |
-| variableRateSlope1 | 6 % | 12 % |
-| interestRate | ![before](/.assets/ae7612ca9dd768ff3aee2f745910dc0a19e5fa71.svg) | ![after](/.assets/857e4e2fbb6d6dc9100be9ba3b6b134c59ad974b.svg) |
+| variableRateSlope1 | 6 % | 13 % |
+| interestRate | ![before](/.assets/ae7612ca9dd768ff3aee2f745910dc0a19e5fa71.svg) | ![after](/.assets/ebccca66b9c426e3cc1dbbc7f4951b3043ab0eb0.svg) |
 
 ## Raw diff
 
@@ -58,7 +58,7 @@
       },
       "variableRateSlope1": {
         "from": "60000000000000000000000000",
-        "to": "120000000000000000000000000"
+        "to": "130000000000000000000000000"
       }
     },
     "0xc7198437980c041c805A1EDcbA50c1Ce5db95118": {
@@ -68,7 +68,7 @@
       },
       "variableRateSlope1": {
         "from": "60000000000000000000000000",
-        "to": "120000000000000000000000000"
+        "to": "130000000000000000000000000"
       }
     },
     "0xd586E7F844cEa2F87f50152665BCbc2C279D8d70": {
@@ -78,7 +78,7 @@
       },
       "variableRateSlope1": {
         "from": "60000000000000000000000000",
-        "to": "120000000000000000000000000"
+        "to": "130000000000000000000000000"
       }
     }
   }

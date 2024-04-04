@@ -52,9 +52,9 @@
 | description | value before | value after |
 | --- | --- | --- |
 | interestRateStrategy | [0x642a8DAcC59b73491Dcaa3BCeF046D660901fCc1](https://arbiscan.io/address/0x642a8DAcC59b73491Dcaa3BCeF046D660901fCc1) | [0xa8C12113DB50549A1E36FD25982C88B69A0007E0](https://arbiscan.io/address/0xa8C12113DB50549A1E36FD25982C88B69A0007E0) |
-| variableRateSlope1 | 7 % | 12 % |
-| baseStableBorrowRate | 8 % | 13 % |
-| interestRate | ![before](/.assets/7387a2f081b5c6aaea817fa3774fd472edbae392.svg) | ![after](/.assets/bab87e261ce14178066782517b478b20a088e4a8.svg) |
+| variableRateSlope1 | 7 % | 13 % |
+| baseStableBorrowRate | 8 % | 14 % |
+| interestRate | ![before](/.assets/7387a2f081b5c6aaea817fa3774fd472edbae392.svg) | ![after](/.assets/e0672346a3ac158f15160527e2470ea266cd2a7c.svg) |
 
 #### USDT ([0xFd086bC7CD5C481DCC9C85ebE478A1C0b69FCbb9](https://arbiscan.io/address/0xFd086bC7CD5C481DCC9C85ebE478A1C0b69FCbb9))
 
@@ -206,11 +206,11 @@
       },
       "baseStableBorrowRate": {
         "from": "80000000000000000000000000",
-        "to": "130000000000000000000000000"
+        "to": "140000000000000000000000000"
       },
       "variableRateSlope1": {
         "from": "70000000000000000000000000",
-        "to": "120000000000000000000000000"
+        "to": "130000000000000000000000000"
       }
     },
     "0xFd086bC7CD5C481DCC9C85ebE478A1C0b69FCbb9": {

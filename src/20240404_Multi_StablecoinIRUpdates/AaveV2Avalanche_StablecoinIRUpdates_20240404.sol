@@ -26,7 +26,7 @@ contract AaveV2Avalanche_StablecoinIRUpdates_20240404 is AaveV2PayloadAvalanche 
       params: IV2RateStrategyFactory.RateStrategyParams({
         optimalUtilizationRate: EngineFlags.KEEP_CURRENT,
         baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
-        variableRateSlope1: _bpsToRay(12_00),
+        variableRateSlope1: _bpsToRay(13_00),
         variableRateSlope2: EngineFlags.KEEP_CURRENT,
         stableRateSlope1: EngineFlags.KEEP_CURRENT,
         stableRateSlope2: EngineFlags.KEEP_CURRENT
@@ -37,7 +37,7 @@ contract AaveV2Avalanche_StablecoinIRUpdates_20240404 is AaveV2PayloadAvalanche 
       params: IV2RateStrategyFactory.RateStrategyParams({
         optimalUtilizationRate: EngineFlags.KEEP_CURRENT,
         baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
-        variableRateSlope1: _bpsToRay(12_00),
+        variableRateSlope1: _bpsToRay(13_00),
         variableRateSlope2: EngineFlags.KEEP_CURRENT,
         stableRateSlope1: EngineFlags.KEEP_CURRENT,
         stableRateSlope2: EngineFlags.KEEP_CURRENT
@@ -48,7 +48,7 @@ contract AaveV2Avalanche_StablecoinIRUpdates_20240404 is AaveV2PayloadAvalanche 
       params: IV2RateStrategyFactory.RateStrategyParams({
         optimalUtilizationRate: EngineFlags.KEEP_CURRENT,
         baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
-        variableRateSlope1: _bpsToRay(12_00),
+        variableRateSlope1: _bpsToRay(13_00),
         variableRateSlope2: EngineFlags.KEEP_CURRENT,
         stableRateSlope1: EngineFlags.KEEP_CURRENT,
         stableRateSlope2: EngineFlags.KEEP_CURRENT

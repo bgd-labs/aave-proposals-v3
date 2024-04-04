@@ -6,19 +6,19 @@
 
 | description | value before | value after |
 | --- | --- | --- |
-| interestRateStrategy | [0xD61ca03Eac0352090f45bE50403F7B17d20E11F2](https://snowscan.xyz/address/0xD61ca03Eac0352090f45bE50403F7B17d20E11F2) | [0x049E42fe40368384d04bC10f8494Ea6FD164442a](https://snowscan.xyz/address/0x049E42fe40368384d04bC10f8494Ea6FD164442a) |
+| interestRateStrategy | [0xD61ca03Eac0352090f45bE50403F7B17d20E11F2](https://snowscan.xyz/address/0xD61ca03Eac0352090f45bE50403F7B17d20E11F2) | [0x5eE947d920643cCd3e2c54eAAd8F260FC8Add3b4](https://snowscan.xyz/address/0x5eE947d920643cCd3e2c54eAAd8F260FC8Add3b4) |
 | variableRateSlope1 | 6 % | 12 % |
 | baseStableBorrowRate | 7 % | 13 % |
-| interestRate | ![before](/.assets/f47524384ab6225b87778689e3c6d8287a38de2b.svg) | ![after](/.assets/ff6afa53063e923502967d99a4191110108e0d3c.svg) |
+| interestRate | ![before](/.assets/f47524384ab6225b87778689e3c6d8287a38de2b.svg) | ![after](/.assets/e94f5c80815f2711734095b0eadafd2e3b09ef4b.svg) |
 
 #### USDt ([0x9702230A8Ea53601f5cD2dc00fDBc13d4dF4A8c7](https://snowscan.xyz/address/0x9702230A8Ea53601f5cD2dc00fDBc13d4dF4A8c7))
 
 | description | value before | value after |
 | --- | --- | --- |
-| interestRateStrategy | [0x6D6D3b7FC50999bf20dE5CC8e0F63AFD18B95f0e](https://snowscan.xyz/address/0x6D6D3b7FC50999bf20dE5CC8e0F63AFD18B95f0e) | [0x41365f2aC2D19c3B4Bc691007d314aba80af3669](https://snowscan.xyz/address/0x41365f2aC2D19c3B4Bc691007d314aba80af3669) |
+| interestRateStrategy | [0x6D6D3b7FC50999bf20dE5CC8e0F63AFD18B95f0e](https://snowscan.xyz/address/0x6D6D3b7FC50999bf20dE5CC8e0F63AFD18B95f0e) | [0x049E42fe40368384d04bC10f8494Ea6FD164442a](https://snowscan.xyz/address/0x049E42fe40368384d04bC10f8494Ea6FD164442a) |
 | variableRateSlope1 | 6 % | 12 % |
 | baseStableBorrowRate | 7 % | 13 % |
-| interestRate | ![before](/.assets/ef89d610edf6a8e63ac63c8bc807752accdabb0c.svg) | ![after](/.assets/1ead2b84ed46bdafcda42d716eb6cd8f54bd190f.svg) |
+| interestRate | ![before](/.assets/ef89d610edf6a8e63ac63c8bc807752accdabb0c.svg) | ![after](/.assets/ee650e2faae2d5566154a1aff322be3b91a5cd57.svg) |
 
 #### USDC ([0xB97EF9Ef8734C71904D8002F8b6Bc66Dd9c48a6E](https://snowscan.xyz/address/0xB97EF9Ef8734C71904D8002F8b6Bc66Dd9c48a6E))
 
@@ -33,19 +33,19 @@
 
 | description | value before | value after |
 | --- | --- | --- |
-| interestRateStrategy | [0x6D6D3b7FC50999bf20dE5CC8e0F63AFD18B95f0e](https://snowscan.xyz/address/0x6D6D3b7FC50999bf20dE5CC8e0F63AFD18B95f0e) | [0x41365f2aC2D19c3B4Bc691007d314aba80af3669](https://snowscan.xyz/address/0x41365f2aC2D19c3B4Bc691007d314aba80af3669) |
+| interestRateStrategy | [0x6D6D3b7FC50999bf20dE5CC8e0F63AFD18B95f0e](https://snowscan.xyz/address/0x6D6D3b7FC50999bf20dE5CC8e0F63AFD18B95f0e) | [0x049E42fe40368384d04bC10f8494Ea6FD164442a](https://snowscan.xyz/address/0x049E42fe40368384d04bC10f8494Ea6FD164442a) |
 | variableRateSlope1 | 6 % | 12 % |
 | baseStableBorrowRate | 7 % | 13 % |
-| interestRate | ![before](/.assets/ef89d610edf6a8e63ac63c8bc807752accdabb0c.svg) | ![after](/.assets/1ead2b84ed46bdafcda42d716eb6cd8f54bd190f.svg) |
+| interestRate | ![before](/.assets/ef89d610edf6a8e63ac63c8bc807752accdabb0c.svg) | ![after](/.assets/ee650e2faae2d5566154a1aff322be3b91a5cd57.svg) |
 
 #### DAI.e ([0xd586E7F844cEa2F87f50152665BCbc2C279D8d70](https://snowscan.xyz/address/0xd586E7F844cEa2F87f50152665BCbc2C279D8d70))
 
 | description | value before | value after |
 | --- | --- | --- |
 | interestRateStrategy | [0x6D6D3b7FC50999bf20dE5CC8e0F63AFD18B95f0e](https://snowscan.xyz/address/0x6D6D3b7FC50999bf20dE5CC8e0F63AFD18B95f0e) | [0x41365f2aC2D19c3B4Bc691007d314aba80af3669](https://snowscan.xyz/address/0x41365f2aC2D19c3B4Bc691007d314aba80af3669) |
-| variableRateSlope1 | 6 % | 12 % |
-| baseStableBorrowRate | 7 % | 13 % |
-| interestRate | ![before](/.assets/ef89d610edf6a8e63ac63c8bc807752accdabb0c.svg) | ![after](/.assets/1ead2b84ed46bdafcda42d716eb6cd8f54bd190f.svg) |
+| variableRateSlope1 | 6 % | 13 % |
+| baseStableBorrowRate | 7 % | 14 % |
+| interestRate | ![before](/.assets/ef89d610edf6a8e63ac63c8bc807752accdabb0c.svg) | ![after](/.assets/7efecc4d2041425c720b18988582bc44083be408.svg) |
 
 ## Raw diff
 
@@ -55,13 +55,13 @@
     "0x5c49b268c9841AFF1Cc3B0a418ff5c3442eE3F3b": {
       "interestRateStrategy": {
         "from": "0xD61ca03Eac0352090f45bE50403F7B17d20E11F2",
-        "to": "0x049E42fe40368384d04bC10f8494Ea6FD164442a"
+        "to": "0x5eE947d920643cCd3e2c54eAAd8F260FC8Add3b4"
       }
     },
     "0x9702230A8Ea53601f5cD2dc00fDBc13d4dF4A8c7": {
       "interestRateStrategy": {
         "from": "0x6D6D3b7FC50999bf20dE5CC8e0F63AFD18B95f0e",
-        "to": "0x41365f2aC2D19c3B4Bc691007d314aba80af3669"
+        "to": "0x049E42fe40368384d04bC10f8494Ea6FD164442a"
       }
     },
     "0xB97EF9Ef8734C71904D8002F8b6Bc66Dd9c48a6E": {
@@ -73,7 +73,7 @@
     "0xD24C2Ad096400B6FBcd2ad8B24E7acBc21A1da64": {
       "interestRateStrategy": {
         "from": "0x6D6D3b7FC50999bf20dE5CC8e0F63AFD18B95f0e",
-        "to": "0x41365f2aC2D19c3B4Bc691007d314aba80af3669"
+        "to": "0x049E42fe40368384d04bC10f8494Ea6FD164442a"
       }
     },
     "0xd586E7F844cEa2F87f50152665BCbc2C279D8d70": {
@@ -87,7 +87,7 @@
     "0x5c49b268c9841AFF1Cc3B0a418ff5c3442eE3F3b": {
       "address": {
         "from": "0xD61ca03Eac0352090f45bE50403F7B17d20E11F2",
-        "to": "0x049E42fe40368384d04bC10f8494Ea6FD164442a"
+        "to": "0x5eE947d920643cCd3e2c54eAAd8F260FC8Add3b4"
       },
       "baseStableBorrowRate": {
         "from": "70000000000000000000000000",
@@ -101,7 +101,7 @@
     "0x9702230A8Ea53601f5cD2dc00fDBc13d4dF4A8c7": {
       "address": {
         "from": "0x6D6D3b7FC50999bf20dE5CC8e0F63AFD18B95f0e",
-        "to": "0x41365f2aC2D19c3B4Bc691007d314aba80af3669"
+        "to": "0x049E42fe40368384d04bC10f8494Ea6FD164442a"
       },
       "baseStableBorrowRate": {
         "from": "70000000000000000000000000",
@@ -129,7 +129,7 @@
     "0xD24C2Ad096400B6FBcd2ad8B24E7acBc21A1da64": {
       "address": {
         "from": "0x6D6D3b7FC50999bf20dE5CC8e0F63AFD18B95f0e",
-        "to": "0x41365f2aC2D19c3B4Bc691007d314aba80af3669"
+        "to": "0x049E42fe40368384d04bC10f8494Ea6FD164442a"
       },
       "baseStableBorrowRate": {
         "from": "70000000000000000000000000",
@@ -147,11 +147,11 @@
       },
       "baseStableBorrowRate": {
         "from": "70000000000000000000000000",
-        "to": "130000000000000000000000000"
+        "to": "140000000000000000000000000"
       },
       "variableRateSlope1": {
         "from": "60000000000000000000000000",
-        "to": "120000000000000000000000000"
+        "to": "130000000000000000000000000"
       }
     }
   }

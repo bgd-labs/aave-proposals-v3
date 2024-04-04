@@ -177,7 +177,7 @@ export const config: ConfigFile = {
             params: {
               optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
-              variableRateSlope1: '12',
+              variableRateSlope1: '13',
               variableRateSlope2: '',
               stableRateSlope1: '',
               stableRateSlope2: '',
@@ -191,7 +191,7 @@ export const config: ConfigFile = {
             params: {
               optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
-              variableRateSlope1: '12',
+              variableRateSlope1: '13',
               variableRateSlope2: '',
               stableRateSlope1: '',
               stableRateSlope2: '',
@@ -205,7 +205,7 @@ export const config: ConfigFile = {
             params: {
               optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
-              variableRateSlope1: '12',
+              variableRateSlope1: '13',
               variableRateSlope2: '',
               stableRateSlope1: '',
               stableRateSlope2: '',
@@ -345,7 +345,7 @@ export const config: ConfigFile = {
             params: {
               optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
-              variableRateSlope1: '12',
+              variableRateSlope1: '13',
               variableRateSlope2: '',
               stableRateSlope1: '',
               stableRateSlope2: '',
@@ -436,7 +436,7 @@ export const config: ConfigFile = {
             params: {
               optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
-              variableRateSlope1: '12',
+              variableRateSlope1: '13',
               variableRateSlope2: '',
               stableRateSlope1: '',
               stableRateSlope2: '',
@@ -527,7 +527,7 @@ export const config: ConfigFile = {
             params: {
               optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
-              variableRateSlope1: '12',
+              variableRateSlope1: '13',
               variableRateSlope2: '',
               stableRateSlope1: '',
               stableRateSlope2: '',
@@ -632,7 +632,7 @@ export const config: ConfigFile = {
             params: {
               optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
-              variableRateSlope1: '12',
+              variableRateSlope1: '13',
               variableRateSlope2: '',
               stableRateSlope1: '',
               stableRateSlope2: '',
@@ -737,7 +737,7 @@ export const config: ConfigFile = {
             params: {
               optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
-              variableRateSlope1: '12',
+              variableRateSlope1: '13',
               variableRateSlope2: '',
               stableRateSlope1: '',
               stableRateSlope2: '',

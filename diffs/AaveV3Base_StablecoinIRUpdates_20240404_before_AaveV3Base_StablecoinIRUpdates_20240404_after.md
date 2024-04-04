@@ -16,9 +16,9 @@
 | description | value before | value after |
 | --- | --- | --- |
 | interestRateStrategy | [0xDBea12F69D3Fcb4Be9FD14dd450AAe2B2a3d4de7](https://basescan.org/address/0xDBea12F69D3Fcb4Be9FD14dd450AAe2B2a3d4de7) | [0x64163263753A9610a391A5D0276ae94B0d42fB75](https://basescan.org/address/0x64163263753A9610a391A5D0276ae94B0d42fB75) |
-| variableRateSlope1 | 7 % | 12 % |
-| baseStableBorrowRate | 8 % | 13 % |
-| interestRate | ![before](/.assets/d79d8eb0abd33ffb877708fe07140ce5c8503360.svg) | ![after](/.assets/41494af0da6f85cabec3c980938db6fcf8b6171f.svg) |
+| variableRateSlope1 | 7 % | 13 % |
+| baseStableBorrowRate | 8 % | 14 % |
+| interestRate | ![before](/.assets/d79d8eb0abd33ffb877708fe07140ce5c8503360.svg) | ![after](/.assets/830c41eadf476da561594683a69e91e3a5f6862f.svg) |
 
 ## Raw diff
 
@@ -60,11 +60,11 @@
       },
       "baseStableBorrowRate": {
         "from": "80000000000000000000000000",
-        "to": "130000000000000000000000000"
+        "to": "140000000000000000000000000"
       },
       "variableRateSlope1": {
         "from": "70000000000000000000000000",
-        "to": "120000000000000000000000000"
+        "to": "130000000000000000000000000"
       }
     }
   }

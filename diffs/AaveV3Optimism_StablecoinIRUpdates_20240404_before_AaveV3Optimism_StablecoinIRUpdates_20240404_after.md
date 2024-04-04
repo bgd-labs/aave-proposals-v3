@@ -16,9 +16,9 @@
 | description | value before | value after |
 | --- | --- | --- |
 | interestRateStrategy | [0x769EbC5106bF09D9A665CCb691e1907612b57F16](https://optimistic.etherscan.io/address/0x769EbC5106bF09D9A665CCb691e1907612b57F16) | [0xdd5ee22CC6CbbB41518871D95558B648a3551b54](https://optimistic.etherscan.io/address/0xdd5ee22CC6CbbB41518871D95558B648a3551b54) |
-| variableRateSlope1 | 7 % | 12 % |
-| baseStableBorrowRate | 8 % | 13 % |
-| interestRate | ![before](/.assets/30004f8456edabc18f0ed307b8a79983ab437388.svg) | ![after](/.assets/fa415d85cf3a2a1b266d8754e0257240f664acf4.svg) |
+| variableRateSlope1 | 7 % | 13 % |
+| baseStableBorrowRate | 8 % | 14 % |
+| interestRate | ![before](/.assets/30004f8456edabc18f0ed307b8a79983ab437388.svg) | ![after](/.assets/1310e892bb7af5800a0bc1a339f7f3c1b918edb0.svg) |
 
 #### sUSD ([0x8c6f28f2F1A3C87F0f938b96d27520d9751ec8d9](https://optimistic.etherscan.io/address/0x8c6f28f2F1A3C87F0f938b96d27520d9751ec8d9))
 
@@ -135,11 +135,11 @@
       },
       "baseStableBorrowRate": {
         "from": "80000000000000000000000000",
-        "to": "130000000000000000000000000"
+        "to": "140000000000000000000000000"
       },
       "variableRateSlope1": {
         "from": "70000000000000000000000000",
-        "to": "120000000000000000000000000"
+        "to": "130000000000000000000000000"
       }
     },
     "0x8c6f28f2F1A3C87F0f938b96d27520d9751ec8d9": {

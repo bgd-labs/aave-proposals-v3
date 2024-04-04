@@ -7,9 +7,9 @@
 | description | value before | value after |
 | --- | --- | --- |
 | interestRateStrategy | [0x588b62C84533232E3A881e096E5D639Fa754F093](https://polygonscan.com/address/0x588b62C84533232E3A881e096E5D639Fa754F093) | [0xc77576b02D74BBF9CdC26F3B86FD09d134416df2](https://polygonscan.com/address/0xc77576b02D74BBF9CdC26F3B86FD09d134416df2) |
-| variableRateSlope1 | 7 % | 12 % |
-| baseStableBorrowRate | 8 % | 13 % |
-| interestRate | ![before](/.assets/8dca23d950316194bae32289f94123f87abf1dcf.svg) | ![after](/.assets/815175152675989ae95d4f77c383a7d32c223e20.svg) |
+| variableRateSlope1 | 7 % | 13 % |
+| baseStableBorrowRate | 8 % | 14 % |
+| interestRate | ![before](/.assets/8dca23d950316194bae32289f94123f87abf1dcf.svg) | ![after](/.assets/e8496300bba6992ef8245dbc827b240692a59ca4.svg) |
 
 #### USDC ([0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359](https://polygonscan.com/address/0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359))
 
@@ -121,11 +121,11 @@
       },
       "baseStableBorrowRate": {
         "from": "80000000000000000000000000",
-        "to": "130000000000000000000000000"
+        "to": "140000000000000000000000000"
       },
       "variableRateSlope1": {
         "from": "70000000000000000000000000",
-        "to": "120000000000000000000000000"
+        "to": "130000000000000000000000000"
       }
     },
     "0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359": {

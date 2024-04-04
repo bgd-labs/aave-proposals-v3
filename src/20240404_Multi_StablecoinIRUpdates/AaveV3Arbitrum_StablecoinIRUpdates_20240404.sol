@@ -40,7 +40,7 @@ contract AaveV3Arbitrum_StablecoinIRUpdates_20240404 is AaveV3PayloadArbitrum {
       params: IV3RateStrategyFactory.RateStrategyParams({
         optimalUsageRatio: EngineFlags.KEEP_CURRENT,
         baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
-        variableRateSlope1: _bpsToRay(12_00),
+        variableRateSlope1: _bpsToRay(13_00),
         variableRateSlope2: EngineFlags.KEEP_CURRENT,
         stableRateSlope1: EngineFlags.KEEP_CURRENT,
         stableRateSlope2: EngineFlags.KEEP_CURRENT,
