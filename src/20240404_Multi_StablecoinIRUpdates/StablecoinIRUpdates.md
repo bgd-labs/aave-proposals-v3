@@ -1,7 +1,7 @@
 ---
 title: "StablecoinIRUpdates"
 author: "Chaos Labs, ACI"
-discussions: "https://governance.aave.com/t/arfc-stablecoin-ir-curve-amendment-on-aave-v2-and-v3/16864"
+discussions: "https://governance.aave.com/t/arfc-stablecoin-ir-curve-amendment-on-aave-v2-and-v3/16864/5"
 snapshot: "https://snapshot.org/#/aave.eth/proposal/0xe2dd228640c3cad93f5418c40c4b5743b3c6c85aa0aae9eee53cbdbca2ed5c2d"
 ---
 
