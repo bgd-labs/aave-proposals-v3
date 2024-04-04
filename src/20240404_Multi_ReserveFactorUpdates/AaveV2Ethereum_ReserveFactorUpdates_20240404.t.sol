@@ -5,14 +5,14 @@ import {AaveV2Ethereum, AaveV2EthereumAssets} from 'aave-address-book/AaveV2Ethe
 
 import 'forge-std/Test.sol';
 import {ProtocolV2TestBase, ReserveConfig} from 'aave-helpers/ProtocolV2TestBase.sol';
-import {AaveV2Ethereum_EthereumV2ReserveFactorAdjustment_20240401} from './AaveV2Ethereum_EthereumV2ReserveFactorAdjustment_20240401.sol';
+import {AaveV2Ethereum_ReserveFactorUpdates_20240404} from './AaveV2Ethereum_ReserveFactorUpdates_20240404.sol';
 
 /**
- * @dev Test for AaveV2Ethereum_EthereumV2ReserveFactorAdjustment_20240401
- * command: make test-contract filter=AaveV2Ethereum_EthereumV2ReserveFactorAdjustment_20240401
+ * @dev Test for AaveV2Ethereum_ReserveFactorUpdates_20240404
+ * command: make test-contract filter=AaveV2Ethereum_ReserveFactorUpdates_20240404
  */
-contract AaveV2Ethereum_EthereumV2ReserveFactorAdjustment_20240401_Test is ProtocolV2TestBase {
-  AaveV2Ethereum_EthereumV2ReserveFactorAdjustment_20240401 internal proposal;
+contract AaveV2Ethereum_ReserveFactorUpdates_20240404_Test is ProtocolV2TestBase {
+  AaveV2Ethereum_ReserveFactorUpdates_20240404 internal proposal;
 
   struct Changes {
     address asset;
@@ -21,7 +21,7 @@ contract AaveV2Ethereum_EthereumV2ReserveFactorAdjustment_20240401_Test is Proto
 
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('mainnet'), 19561616);
-    proposal = new AaveV2Ethereum_EthereumV2ReserveFactorAdjustment_20240401();
+    proposal = new AaveV2Ethereum_ReserveFactorUpdates_20240404();
   }
 
   /**
@@ -29,7 +29,7 @@ contract AaveV2Ethereum_EthereumV2ReserveFactorAdjustment_20240401_Test is Proto
    */
   function test_defaultProposalExecution() public {
     (ReserveConfig[] memory allConfigsBefore, ReserveConfig[] memory allConfigsAfter) = defaultTest(
-      'AaveV2Ethereum_EthereumV2ReserveFactorAdjustment_20240401',
+      'AaveV2Ethereum_ReserveFactorUpdates_20240404',
       AaveV2Ethereum.POOL,
       address(proposal)
     );
