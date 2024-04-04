@@ -1,7 +1,7 @@
 ---
 title: "Native bridge adapters update"
 author: "BGD Labs @bgdlabs"
-discussions: ""
+discussions: "https://governance.aave.com/t/bgd-technical-maintenance-proposals/15274/26"
 ---
 
 ## Simple Summary
