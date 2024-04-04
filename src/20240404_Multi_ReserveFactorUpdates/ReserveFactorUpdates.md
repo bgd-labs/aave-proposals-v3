@@ -7,11 +7,11 @@ snapshot: "https://snapshot.org/#/aave.eth/proposal/0x26a03c08359c340f63b78b0c3e
 
 ## Simple Summary
 
-This AIP is composed of two actions: (1) a continuation of proposal 49 on Governance v3 that increases the Reserve Factor (RF) for assets on Ethereum v2 by 5.00%, up to a maximum of 99.99%; and (2) to start periodically increasing the RF across the last remaining v2 deployment, Avalanche.
+This AIP is composed of two actions: (1) a continuation of proposal 49 on Governance V3 that increases the Reserve Factor (RF) for assets on Ethereum V2 by 5.00%, up to a maximum of 99.99%; and (2) to start periodically increasing the RF across Avalanche V2.
 
 ## Motivation
 
-This AIP will reduce deposit yield for assets on Ethereum & Avalanche v2 by increasing the RF. With this upgrade being passed, users will be further encouraged to migrate from Ethereum v2 to v3.
+This AIP will reduce deposit yield for assets on Ethereum & Avalanche V2 by increasing the RF. With this upgrade being passed, users will be further encouraged to migrate from Ethereum V2 to V3.
 
 Increasing the RF routes a larger portion of the interest paid by users to Aave DAO's Treasury. User's funds are not at risk of liquidation and the borrowing rate remains unchanged.
 
