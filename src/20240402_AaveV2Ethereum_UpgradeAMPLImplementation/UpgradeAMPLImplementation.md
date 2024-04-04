@@ -11,10 +11,10 @@ Disable withdrawals and transfers for aAMPL so a distribution snapshot can be ta
 
 ## Motivation
 
-Due to a problem in the aAMPL implementation there are currently aAMPL tokens that are not backed by underlying AMPL.
-To make the users whole, a proposal was created to distribute an initial 300k USDC to compensate users proportionally, why working out the exact numbers for a final compensation. As there are still active AMPL borrow positions, a situation could occur in which a user repays there debt and another user withdrawing their aAMPL, causing issues in for a fair distribution.
+Due to a problem in the aAMPL custom implementation, the supply and balances don't correspond to the claims of AMPL suppliers.
+While work is being made to determined the exact claims, there has been a proposal for the distribution of an initial 300'000 USD. As there are still active AMPL borrow positions, a situation could occur in which a user repays his debt and another user withdraws their aAMPL, causing issues in for a fair distribution.
 
-Therefore transfers and withdrawals will be permanently disabled, while repayments and liquidations will stay intact.
+Therefore transfers aAMPL and withdrawals of AMPL will be disabled, while repayments and liquidations will stay intact.
 
 ## Specification
 
