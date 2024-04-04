@@ -19,7 +19,7 @@ This will also increase Aave DAO revenue by increasing the utilization of stable
 
 ## Specification
 
-This AIP update the Slope1 parameters of Aave stablecoins to 12%. It also increase the uOptimal parameter of DAI, USDC & USDT assets to 92% on Aave V3 Ethereum.
+This AIP update the Slope1 parameters of Aave stablecoins to 12% Bridged USDC is raised to 13% to enable native USDC a competitive advantage. It also increase the uOptimal parameter of DAI, USDC & USDT assets to 92% on Aave V3 Ethereum.
 
 ## References
 
