@@ -32,7 +32,7 @@ contract AaveV3Ethereum_WeETHListing_20240320 is AaveV3PayloadEthereum {
     listings[0] = IAaveV3ConfigEngine.Listing({
       asset: weETH,
       assetSymbol: 'weETH',
-      priceFeed: 0x0000000000000000000000000000000000000000,
+      priceFeed: 0xf112aF6F0A332B815fbEf3Ff932c057E570b62d3,
       eModeCategory: AaveV3EthereumEModes.ETH_CORRELATED,
       enabledToBorrow: EngineFlags.ENABLED,
       stableRateModeEnabled: EngineFlags.DISABLED,
