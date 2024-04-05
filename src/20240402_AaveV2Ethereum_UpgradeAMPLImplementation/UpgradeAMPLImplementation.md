@@ -16,11 +16,23 @@ While work is being made to determined the exact claims, there has been a propos
 
 Therefore transfers aAMPL and withdrawals of AMPL will be disabled, while repayments and liquidations will stay intact.
 
+In addition, after validating there is no impact of it on the borrow side, the interest rate strategy of AMPL is reverted to the one that was configured before [proposal 16](https://vote.onaave.com/proposal/?proposalId=16), when parameters where lowered for pre-caution.
+The goal of this is to, as intended, still apply growth on the borrow side, specially for currently healthy positions (non-liquidated).
+
 ## Specification
 
 The proposal will call:
 
 - `AaveV2Ethereum.POOL_CONFIGURATOR.updateAToken(AaveV2EthereumAssets.AMPL_UNDERLYING, A_TOKEN_IMPL);` to replace the aToken implementation
+- Change the AMPL interest rate strategy to the previous one, with the following configuration:
+
+| Parameter      | Current | Recommended |
+| -------------- | ------- | ----------- |
+| Base           | 20%     | No Change   |
+| Slope1         | 0%      | No Change   |
+| Slope2         | 0%      | 300%        |
+| Uoptimal       | 80%     | No Change   |
+| Reserve Factor | 99.00%  | No Change   |
 
 ## References
 
