@@ -15,7 +15,7 @@ contract AaveV2Ethereum_UpgradeAMPLImplementation_20240402_Test is ProtocolV2Tes
   AaveV2Ethereum_UpgradeAMPLImplementation_20240402 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 19568854);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 19591457);
     proposal = new AaveV2Ethereum_UpgradeAMPLImplementation_20240402();
   }
 

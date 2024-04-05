@@ -14,7 +14,7 @@ import {AaveV2Ethereum, AaveV2PayloadEthereum} from 'aave-helpers/v2-config-engi
  * - Discussion: https://governance.aave.com/t/arfc-aampl-interim-distribution/17184
  */
 contract AaveV2Ethereum_UpgradeAMPLImplementation_20240402 is AaveV2PayloadEthereum {
-  address constant A_TOKEN_IMPL = address(0);
+  address constant A_TOKEN_IMPL = 0x1F32642b216d19DAEb1531862647195a626F4193;
 
   function _preExecute() internal override {
     AaveV2Ethereum.POOL_CONFIGURATOR.updateAToken(
