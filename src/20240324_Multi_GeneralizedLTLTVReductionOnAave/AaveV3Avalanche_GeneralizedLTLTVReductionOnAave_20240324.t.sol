@@ -35,17 +35,15 @@ contract AaveV3Avalanche_GeneralizedLTLTVReductionOnAave_20240324_Test is Protoc
       address(proposal)
     );
 
-    address[] memory assetsChanged = new address[](4);
+    address[] memory assetsChanged = new address[](3);
     assetsChanged[0] = AaveV3AvalancheAssets.DAIe_UNDERLYING;
     assetsChanged[1] = AaveV3AvalancheAssets.USDC_UNDERLYING;
     assetsChanged[2] = AaveV3AvalancheAssets.USDt_UNDERLYING;
-    assetsChanged[3] = AaveV3AvalancheAssets.FRAX_UNDERLYING;
 
-    Change[] memory assetChanges = new Change[](4);
+    Change[] memory assetChanges = new Change[](3);
     assetChanges[0] = Change({asset: AaveV3AvalancheAssets.DAIe_UNDERLYING, ltv: 75_00, lt: 80_00});
     assetChanges[1] = Change({asset: AaveV3AvalancheAssets.USDC_UNDERLYING, ltv: 80_00, lt: 85_00});
     assetChanges[2] = Change({asset: AaveV3AvalancheAssets.USDt_UNDERLYING, ltv: 75_00, lt: 78_00});
-    assetChanges[3] = Change({asset: AaveV3AvalancheAssets.FRAX_UNDERLYING, ltv: 75_00, lt: 78_00});
 
     _noReservesConfigsChangesApartFrom(allConfigsBefore, allConfigsAfter, assetsChanged);
 

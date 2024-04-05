@@ -18,13 +18,6 @@
 | liquidationThreshold | 86.25 % | 85 % |
 
 
-#### FRAX ([0xD24C2Ad096400B6FBcd2ad8B24E7acBc21A1da64](https://snowscan.xyz/address/0xD24C2Ad096400B6FBcd2ad8B24E7acBc21A1da64))
-
-| description | value before | value after |
-| --- | --- | --- |
-| liquidationThreshold | 80 % | 78 % |
-
-
 #### DAI.e ([0xd586E7F844cEa2F87f50152665BCbc2C279D8d70](https://snowscan.xyz/address/0xd586E7F844cEa2F87f50152665BCbc2C279D8d70))
 
 | description | value before | value after |
@@ -55,12 +48,6 @@
       "ltv": {
         "from": 8250,
         "to": 8000
-      }
-    },
-    "0xD24C2Ad096400B6FBcd2ad8B24E7acBc21A1da64": {
-      "liquidationThreshold": {
-        "from": 8000,
-        "to": 7800
       }
     },
     "0xd586E7F844cEa2F87f50152665BCbc2C279D8d70": {

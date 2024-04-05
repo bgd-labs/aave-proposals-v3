@@ -20,7 +20,7 @@ contract AaveV3Avalanche_GeneralizedLTLTVReductionOnAave_20240324 is AaveV3Paylo
     returns (IAaveV3ConfigEngine.CollateralUpdate[] memory)
   {
     IAaveV3ConfigEngine.CollateralUpdate[]
-      memory collateralUpdate = new IAaveV3ConfigEngine.CollateralUpdate[](4);
+      memory collateralUpdate = new IAaveV3ConfigEngine.CollateralUpdate[](3);
 
     collateralUpdate[0] = IAaveV3ConfigEngine.CollateralUpdate({
       asset: AaveV3AvalancheAssets.DAIe_UNDERLYING,
@@ -40,14 +40,6 @@ contract AaveV3Avalanche_GeneralizedLTLTVReductionOnAave_20240324 is AaveV3Paylo
     });
     collateralUpdate[2] = IAaveV3ConfigEngine.CollateralUpdate({
       asset: AaveV3AvalancheAssets.USDt_UNDERLYING,
-      ltv: 75_00,
-      liqThreshold: 78_00,
-      liqBonus: EngineFlags.KEEP_CURRENT,
-      debtCeiling: EngineFlags.KEEP_CURRENT,
-      liqProtocolFee: EngineFlags.KEEP_CURRENT
-    });
-    collateralUpdate[3] = IAaveV3ConfigEngine.CollateralUpdate({
-      asset: AaveV3AvalancheAssets.FRAX_UNDERLYING,
       ltv: 75_00,
       liqThreshold: 78_00,
       liqBonus: EngineFlags.KEEP_CURRENT,

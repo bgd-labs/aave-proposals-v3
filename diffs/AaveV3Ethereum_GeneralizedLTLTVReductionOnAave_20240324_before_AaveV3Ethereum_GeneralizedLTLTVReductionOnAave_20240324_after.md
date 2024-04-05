@@ -2,14 +2,6 @@
 
 ### Reserve altered
 
-#### LUSD ([0x5f98805A4E8be255a32880FDeC7F6728C6568bA0](https://etherscan.io/address/0x5f98805A4E8be255a32880FDeC7F6728C6568bA0))
-
-| description | value before | value after |
-| --- | --- | --- |
-| ltv | 77 % | 76 % |
-| liquidationThreshold | 80 % | 79 % |
-
-
 #### DAI ([0x6B175474E89094C44Da98b954EedeAC495271d0F](https://etherscan.io/address/0x6B175474E89094C44Da98b954EedeAC495271d0F))
 
 | description | value before | value after |
@@ -47,16 +39,6 @@
 ```json
 {
   "reserves": {
-    "0x5f98805A4E8be255a32880FDeC7F6728C6568bA0": {
-      "liquidationThreshold": {
-        "from": 8000,
-        "to": 7900
-      },
-      "ltv": {
-        "from": 7700,
-        "to": 7600
-      }
-    },
     "0x6B175474E89094C44Da98b954EedeAC495271d0F": {
       "liquidationThreshold": {
         "from": 8000,

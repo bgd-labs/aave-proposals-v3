@@ -24,7 +24,7 @@ contract AaveV3Polygon_GeneralizedLTLTVReductionOnAave_20240324 is AaveV3Payload
 
     collateralUpdate[0] = IAaveV3ConfigEngine.CollateralUpdate({
       asset: AaveV3PolygonAssets.DAI_UNDERLYING,
-      ltv: 76_00,
+      ltv: EngineFlags.KEEP_CURRENT,
       liqThreshold: 79_00,
       liqBonus: EngineFlags.KEEP_CURRENT,
       debtCeiling: EngineFlags.KEEP_CURRENT,

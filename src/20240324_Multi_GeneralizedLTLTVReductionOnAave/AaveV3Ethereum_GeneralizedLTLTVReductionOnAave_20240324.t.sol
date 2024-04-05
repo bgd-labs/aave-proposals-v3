@@ -35,19 +35,17 @@ contract AaveV3Ethereum_GeneralizedLTLTVReductionOnAave_20240324_Test is Protoco
       address(proposal)
     );
 
-    address[] memory assetsChanged = new address[](5);
+    address[] memory assetsChanged = new address[](4);
     assetsChanged[0] = AaveV3EthereumAssets.USDC_UNDERLYING;
     assetsChanged[1] = AaveV3EthereumAssets.USDT_UNDERLYING;
     assetsChanged[2] = AaveV3EthereumAssets.DAI_UNDERLYING;
-    assetsChanged[3] = AaveV3EthereumAssets.LUSD_UNDERLYING;
-    assetsChanged[4] = AaveV3EthereumAssets.sDAI_UNDERLYING;
+    assetsChanged[3] = AaveV3EthereumAssets.sDAI_UNDERLYING;
 
-    Change[] memory assetChanges = new Change[](5);
+    Change[] memory assetChanges = new Change[](4);
     assetChanges[0] = Change({asset: AaveV3EthereumAssets.USDC_UNDERLYING, ltv: 76_00, lt: 79_00});
     assetChanges[1] = Change({asset: AaveV3EthereumAssets.USDT_UNDERLYING, ltv: 76_00, lt: 79_00});
     assetChanges[2] = Change({asset: AaveV3EthereumAssets.DAI_UNDERLYING, ltv: 76_00, lt: 79_00});
-    assetChanges[3] = Change({asset: AaveV3EthereumAssets.LUSD_UNDERLYING, ltv: 76_00, lt: 79_00});
-    assetChanges[4] = Change({asset: AaveV3EthereumAssets.sDAI_UNDERLYING, ltv: 76_00, lt: 79_00});
+    assetChanges[3] = Change({asset: AaveV3EthereumAssets.sDAI_UNDERLYING, ltv: 76_00, lt: 79_00});
 
     _noReservesConfigsChangesApartFrom(allConfigsBefore, allConfigsAfter, assetsChanged);
 

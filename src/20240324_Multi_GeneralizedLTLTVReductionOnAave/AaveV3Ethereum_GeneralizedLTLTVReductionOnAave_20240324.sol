@@ -20,7 +20,7 @@ contract AaveV3Ethereum_GeneralizedLTLTVReductionOnAave_20240324 is AaveV3Payloa
     returns (IAaveV3ConfigEngine.CollateralUpdate[] memory)
   {
     IAaveV3ConfigEngine.CollateralUpdate[]
-      memory collateralUpdate = new IAaveV3ConfigEngine.CollateralUpdate[](5);
+      memory collateralUpdate = new IAaveV3ConfigEngine.CollateralUpdate[](4);
 
     collateralUpdate[0] = IAaveV3ConfigEngine.CollateralUpdate({
       asset: AaveV3EthereumAssets.USDC_UNDERLYING,
@@ -47,14 +47,6 @@ contract AaveV3Ethereum_GeneralizedLTLTVReductionOnAave_20240324 is AaveV3Payloa
       liqProtocolFee: EngineFlags.KEEP_CURRENT
     });
     collateralUpdate[3] = IAaveV3ConfigEngine.CollateralUpdate({
-      asset: AaveV3EthereumAssets.LUSD_UNDERLYING,
-      ltv: 76_00,
-      liqThreshold: 79_00,
-      liqBonus: EngineFlags.KEEP_CURRENT,
-      debtCeiling: EngineFlags.KEEP_CURRENT,
-      liqProtocolFee: EngineFlags.KEEP_CURRENT
-    });
-    collateralUpdate[4] = IAaveV3ConfigEngine.CollateralUpdate({
       asset: AaveV3EthereumAssets.sDAI_UNDERLYING,
       ltv: 76_00,
       liqThreshold: 79_00,
