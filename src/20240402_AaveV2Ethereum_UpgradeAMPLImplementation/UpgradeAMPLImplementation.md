@@ -36,8 +36,8 @@ The proposal will call:
 
 ## References
 
-- Implementation: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240402_AaveV2Ethereum_UpgradeAMPLImplementation/AaveV2Ethereum_UpgradeAMPLImplementation_20240402.sol)
-- Tests: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240402_AaveV2Ethereum_UpgradeAMPLImplementation/AaveV2Ethereum_UpgradeAMPLImplementation_20240402.t.sol)
+- Implementation: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/ab46df3a63eecc68ea3921fdcc4a7663bbc0a4a0/src/20240402_AaveV2Ethereum_UpgradeAMPLImplementation/AaveV2Ethereum_UpgradeAMPLImplementation_20240402.sol)
+- Tests: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/ab46df3a63eecc68ea3921fdcc4a7663bbc0a4a0/src/20240402_AaveV2Ethereum_UpgradeAMPLImplementation/AaveV2Ethereum_UpgradeAMPLImplementation_20240402.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0xb7226dd6441b67225924082215f7a512bfd98252897ee43a879084e07ab53607)
 - [Discussion](https://governance.aave.com/t/arfc-aampl-interim-distribution/17184)
 
