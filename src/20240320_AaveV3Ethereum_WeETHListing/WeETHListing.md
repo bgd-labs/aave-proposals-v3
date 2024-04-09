@@ -63,7 +63,7 @@ The table below illustrates the configured risk parameters for [weETH](https://e
 | Flashloanable                      |                                    ENABLED |
 | Siloed Borrowing                   |                                   DISABLED |
 | Borrowable in Isolation            |                                   DISABLED |
-| Oracle                             | 0x0000000000000000000000000000000000000000 |
+| Oracle                             | 0xf112aF6F0A332B815fbEf3Ff932c057E570b62d3 |
 
 ## References
 
