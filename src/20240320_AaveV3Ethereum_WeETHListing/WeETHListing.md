@@ -67,8 +67,8 @@ The table below illustrates the configured risk parameters for [weETH](https://e
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240320_AaveV3Ethereum_WeETHListing/AaveV3Ethereum_WeETHListing_20240320.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240320_AaveV3Ethereum_WeETHListing/AaveV3Ethereum_WeETHListing_20240320.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/aee28e9b93fc42841e7cc7cad997553ab885e46c/src/20240320_AaveV3Ethereum_WeETHListing/AaveV3Ethereum_WeETHListing_20240320.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/aee28e9b93fc42841e7cc7cad997553ab885e46c/src/20240320_AaveV3Ethereum_WeETHListing/AaveV3Ethereum_WeETHListing_20240320.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0xd5807ee6ec3d33e7d86805a4287540b0a9801430ee0900ff6babb698e4f2a273)
 - [Discussion](https://governance.aave.com/t/arfc-onboard-weeth-to-aave-v3-on-ethereum/16758)
 
