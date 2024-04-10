@@ -63,8 +63,6 @@ contract AaveV2Ethereum_MerklTest_20240409 is IProposalGenericExecutor {
     IERC20(REWARD_TOKEN).approve(0x8BB4C975Ff3c250e0ceEA271728547f3802B36Fd, amountPlusFee);
     // 3. accept tos
     DISTRIBUTION_CREATOR.acceptConditions();
-    bytes
-      memory campaignData = hex'000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000000000000000000e00000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000005568747470733a2f2f616e676c652d626c6f672e696e667572612d697066732e696f2f697066732f516d643767596f67476137355156656e5557524d7771667967706a7964436334653558663644384a4c4337454a66000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000';
     // 4.create campaign
     IDistributionCreator.CampaignParameters memory newCampaign = IDistributionCreator
       .CampaignParameters({
@@ -75,7 +73,11 @@ contract AaveV2Ethereum_MerklTest_20240409 is IProposalGenericExecutor {
         campaignType: 4,
         startTimestamp: uint32(block.timestamp + 2 hours),
         duration: 1 hours,
-        campaignData: campaignData
+        campaignData: abi.encode(
+          'https://angle-blog.infura-ipfs.io/ipfs/Qmd7gYogGa75QVenUWRMwqfygpjydCc4e5Xf6D8JLC7EJf',
+          '',
+          '0x'
+        )
       });
     DISTRIBUTION_CREATOR.createCampaign(newCampaign);
   }

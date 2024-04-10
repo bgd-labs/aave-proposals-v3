@@ -1,0 +1,5342 @@
+[
+  {
+    "Wallet": "0x464c71f6c2f760dda6093dcb91c24c39e5d6e18c",
+    "FIELD2": "Collector",
+    "% of Total aAMPL Supply": "N/A",
+    "USDC_Per_User": null
+  },
+  {
+    "Wallet": "0xaa24d0ee83cb785be0a571692e516fa62ba43ef3",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00000%",
+    "USDC_Per_User": 0
+  },
+  {
+    "Wallet": "0xf03387d8d0ff326ab586a58e0ab4121d106147df",
+    "FIELD2": "Unbuttoned",
+    "% of Total aAMPL Supply": "17.45707%",
+    "USDC_Per_User": 52371213717
+  },
+  {
+    "Wallet": "0x32f36ac523093f4d62b74bd8de109f72cd2e6daf",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.04492%",
+    "USDC_Per_User": 134766093.8
+  },
+  {
+    "Wallet": "0x5bd79f61ce36e70831f3c1e72de13527346600d7",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "6.27187%",
+    "USDC_Per_User": 18815623330
+  },
+  {
+    "Wallet": "0xa67ec8737021a7e91e883a3277384e6018bb5776",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "4.77643%",
+    "USDC_Per_User": 14329278629
+  },
+  {
+    "Wallet": "0x22833a5e77d39d08c8391d421eb4eef67d13f81e",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00002%",
+    "USDC_Per_User": 68922.40571
+  },
+  {
+    "Wallet": "0xec9a1e23cffb6a674a3556dbd7c6a60cb89cb875",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "4.87574%",
+    "USDC_Per_User": 14627229443
+  },
+  {
+    "Wallet": "0xee6256f9dcb69170231220a6549916d919b72f14",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01215%",
+    "USDC_Per_User": 36452532.08
+  },
+  {
+    "Wallet": "0x603028ec8ed0bed832d266c93ae4232458b07201",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.15259%",
+    "USDC_Per_User": 457776251
+  },
+  {
+    "Wallet": "0x90760a276baeb7485f2472151d2befdd5f91ae44",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "3.40269%",
+    "USDC_Per_User": 10208082305
+  },
+  {
+    "Wallet": "0x3869ef735ce6b0d11cac512e3f00acc4841581ac",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01004%",
+    "USDC_Per_User": 30131911.25
+  },
+  {
+    "Wallet": "0x7dcc2d600cd0dc41fc331c9e07be462dd946340c",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00086%",
+    "USDC_Per_User": 2583241.768
+  },
+  {
+    "Wallet": "0x7973d4a24748c9243a894e9de295f9099bc7adc8",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00000%",
+    "USDC_Per_User": 0
+  },
+  {
+    "Wallet": "0xe2a1a93f4d1e170f9187ce467ffa89988ca83f15",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "1.92735%",
+    "USDC_Per_User": 5782042672
+  },
+  {
+    "Wallet": "0x1768d745673e9ee2f350f6de817ad88fd72c637e",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "1.76034%",
+    "USDC_Per_User": 5281006229
+  },
+  {
+    "Wallet": "0x6a99e8961055b505d8d62c447220bb341ad769ee",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "1.25001%",
+    "USDC_Per_User": 3750026692
+  },
+  {
+    "Wallet": "0xd32be4948565217365bbfb68b076b151f90982b8",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "1.42619%",
+    "USDC_Per_User": 4278584331
+  },
+  {
+    "Wallet": "0xe22afb679a5cdad32007fef546fb01b8fe200872",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "1.30568%",
+    "USDC_Per_User": 3917038639
+  },
+  {
+    "Wallet": "0xcb163f86f63117c658240ce074bed6af8b45a413",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "1.25969%",
+    "USDC_Per_User": 3779059636
+  },
+  {
+    "Wallet": "0xbe699c22c723388ea18878f651290aa36787b47d",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "1.07915%",
+    "USDC_Per_User": 3237463422
+  },
+  {
+    "Wallet": "0xfb7c128acb6c8ac3581013cee8e91f0c8d7c677a",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "1.06673%",
+    "USDC_Per_User": 3200203803
+  },
+  {
+    "Wallet": "0x4cf82fe8e0072d546729d005b08faeeab8528cb7",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.94947%",
+    "USDC_Per_User": 2848399225
+  },
+  {
+    "Wallet": "0xb3df6edf11433651de9999a21f1ea30306f3ba26",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.94918%",
+    "USDC_Per_User": 2847541940
+  },
+  {
+    "Wallet": "0xb9bf628bed1adebcd43c544414586924ddbe76f0",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.93396%",
+    "USDC_Per_User": 2801892206
+  },
+  {
+    "Wallet": "0x17e326cd2854c0097203248d9913f140b9622e6d",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.92371%",
+    "USDC_Per_User": 2771121215
+  },
+  {
+    "Wallet": "0x148cffad2ac2716964914c72950669116450c932",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.92072%",
+    "USDC_Per_User": 2762173968
+  },
+  {
+    "Wallet": "0x9dd42d03ec1c844282d054fa34074c8351e255f9",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.86377%",
+    "USDC_Per_User": 2591317436
+  },
+  {
+    "Wallet": "0x910616025b6f977e8ce73573ce16ca7684a89eda",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00020%",
+    "USDC_Per_User": 609142.835
+  },
+  {
+    "Wallet": "0x3acb5eaecfab99d01e86f7068ae7b90479fb50e9",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.78383%",
+    "USDC_Per_User": 2351480680
+  },
+  {
+    "Wallet": "0xa59887b4246ad9139b70cad4f2ffe21eef6e712b",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.72214%",
+    "USDC_Per_User": 2166432217
+  },
+  {
+    "Wallet": "0xa16946a605ddb755d3a5774b6124f97fed1bd1e3",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.71329%",
+    "USDC_Per_User": 2139879037
+  },
+  {
+    "Wallet": "0xce4cf5dca6aee3b48b28a846b6253533e6790129",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.71224%",
+    "USDC_Per_User": 2136715295
+  },
+  {
+    "Wallet": "0xbe1b01e264a29f2f4dac05847bed5af666ac33f6",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.68881%",
+    "USDC_Per_User": 2066416240
+  },
+  {
+    "Wallet": "0xf8e9a32fed339f1ff14820e0c242d19c73140882",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.64864%",
+    "USDC_Per_User": 1945910742
+  },
+  {
+    "Wallet": "0xd3ed7ac88449c2e65077127a256393c41ab86189",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.64639%",
+    "USDC_Per_User": 1939170429
+  },
+  {
+    "Wallet": "0x81ed5ee3581bf0f8dbf5d2c6d2f7cf150f122c15",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.64495%",
+    "USDC_Per_User": 1934863176
+  },
+  {
+    "Wallet": "0x177a981a8a9d0104e675f0c1eb2a1cf330bc5bcb",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.62998%",
+    "USDC_Per_User": 1889950724
+  },
+  {
+    "Wallet": "0xa49794ad5c8eb5041b403899cc16bed6a41f5e81",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.43566%",
+    "USDC_Per_User": 1306976704
+  },
+  {
+    "Wallet": "0xa03cda6619370b1f6b80055870fca43abb8ed8fa",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.59684%",
+    "USDC_Per_User": 1790524703
+  },
+  {
+    "Wallet": "0x0e8be6f071060dcd2ea0e38badad8af357e9b302",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.44859%",
+    "USDC_Per_User": 1345756043
+  },
+  {
+    "Wallet": "0x1d197fd4e7975efd21add0ce3128c488bbd70b83",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.52170%",
+    "USDC_Per_User": 1565112945
+  },
+  {
+    "Wallet": "0xb49b895ae5741edb9978c1d740c31096a1e2322a",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.51741%",
+    "USDC_Per_User": 1552225426
+  },
+  {
+    "Wallet": "0xa7ed022ba3d7aa85928866d7fdee9d19701f7313",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.51323%",
+    "USDC_Per_User": 1539689365
+  },
+  {
+    "Wallet": "0xa7dcc417c63f24f9073b667a5d7149bd38463d0f",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.48767%",
+    "USDC_Per_User": 1462999519
+  },
+  {
+    "Wallet": "0x1a576cff160af44dc87ad56824228d221a224070",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.22949%",
+    "USDC_Per_User": 688478416.1
+  },
+  {
+    "Wallet": "0xa77d0868a5604d3b525cd323ca4cb04d6d11f279",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.44463%",
+    "USDC_Per_User": 1333878829
+  },
+  {
+    "Wallet": "0xcf2647d1efabc54db8cf9263a6629519061e76b2",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.43723%",
+    "USDC_Per_User": 1311699700
+  },
+  {
+    "Wallet": "0x349e48ae915ff06a74220228c7277058515e3391",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.42454%",
+    "USDC_Per_User": 1273623310
+  },
+  {
+    "Wallet": "0xf784d7a7a3ee7c52bd6d07a5e968d4e83ae19e25",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.42238%",
+    "USDC_Per_User": 1267133092
+  },
+  {
+    "Wallet": "0x5d225a0b8734754c1048c1adefa8075d9f0aeb29",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.41121%",
+    "USDC_Per_User": 1233616544
+  },
+  {
+    "Wallet": "0xd1a317989c846e42f64128daebd975f857068a8c",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.39510%",
+    "USDC_Per_User": 1185308233
+  },
+  {
+    "Wallet": "0x3c232f531c816979105ca30899df4229caf17abe",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.13941%",
+    "USDC_Per_User": 418233996.4
+  },
+  {
+    "Wallet": "0x688d5a18323349a002b294162e0f1768fc4573be",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01144%",
+    "USDC_Per_User": 34306489.9
+  },
+  {
+    "Wallet": "0xc219cafde6855f60da76d9cacc3873fda65516e6",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.36971%",
+    "USDC_Per_User": 1109132203
+  },
+  {
+    "Wallet": "0xce1f76ea807d282861ef802d06355c9a19bc82f5",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.36385%",
+    "USDC_Per_User": 1091558275
+  },
+  {
+    "Wallet": "0x8b80504a3af7cf43c154ed6928db6d2ce1ac7e8d",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.36357%",
+    "USDC_Per_User": 1090704717
+  },
+  {
+    "Wallet": "0xda1c0d6095c17ae01ebb65c401806e4b36e3545d",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.36335%",
+    "USDC_Per_User": 1090045674
+  },
+  {
+    "Wallet": "0x00003c9c440383ef834524fbef3b37f4db850000",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.33478%",
+    "USDC_Per_User": 1004327126
+  },
+  {
+    "Wallet": "0x68d90e84567017cd1c1e14fb8c077c53a922cca9",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.31963%",
+    "USDC_Per_User": 958895047.2
+  },
+  {
+    "Wallet": "0xfc4eaa4ac84d00f1c5854113581f881b42b4a745",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00158%",
+    "USDC_Per_User": 4745228.15
+  },
+  {
+    "Wallet": "0xc3e5bc0b1abc5247375d5190898fa98d5fa25b65",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.29970%",
+    "USDC_Per_User": 899092238.1
+  },
+  {
+    "Wallet": "0x1081ce368c6435156d23b88c3fcdf03111f88900",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.29636%",
+    "USDC_Per_User": 889085673.8
+  },
+  {
+    "Wallet": "0xcf9d6b5e47ea25aab31982ed52e7372d078e2145",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.29149%",
+    "USDC_Per_User": 874460658.5
+  },
+  {
+    "Wallet": "0xa925cf392c8a915d27c731528bcc3f703a8de0b7",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.29072%",
+    "USDC_Per_User": 872165451.9
+  },
+  {
+    "Wallet": "0x2fb40ebff86dc990df31a1a21f4e211886d3fbe3",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.29061%",
+    "USDC_Per_User": 871828344.5
+  },
+  {
+    "Wallet": "0xdabdab6115d32136d0e663a5d0e867923a923eef",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.28708%",
+    "USDC_Per_User": 861238753.9
+  },
+  {
+    "Wallet": "0x08d00024c42767107fa3d1673259eb9990a6483b",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.28694%",
+    "USDC_Per_User": 860809988.2
+  },
+  {
+    "Wallet": "0x23385e02bf2b240f5b63cef102ab214b97acba9f",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.28455%",
+    "USDC_Per_User": 853661887.2
+  },
+  {
+    "Wallet": "0x9caab5a7d11facf6281bb26af5e8330a0210b555",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.28292%",
+    "USDC_Per_User": 848748058.7
+  },
+  {
+    "Wallet": "0x26d7267d10e9062610899157216556fbaf5176a2",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.27793%",
+    "USDC_Per_User": 833794690
+  },
+  {
+    "Wallet": "0xca06db5a81cf899e7616c00017e919d43376ee3b",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.27446%",
+    "USDC_Per_User": 823382607
+  },
+  {
+    "Wallet": "0x92a7f0dfb36af2781f4c56ee7f7458794343cc8b",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.27293%",
+    "USDC_Per_User": 818789229.8
+  },
+  {
+    "Wallet": "0x5b1b20c0eef21785cd9b2cfcc517aa181ad8f117",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.27252%",
+    "USDC_Per_User": 817547791.4
+  },
+  {
+    "Wallet": "0x8e8f651efd439439eba920766e298959de505b2c",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.07763%",
+    "USDC_Per_User": 232904553.2
+  },
+  {
+    "Wallet": "0xaf097e965d7632b0ae03c869fe529e0ea3772581",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00011%",
+    "USDC_Per_User": 336035.1546
+  },
+  {
+    "Wallet": "0xfe1cc6382506b0eb83752c36dddf953ec055547a",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.25439%",
+    "USDC_Per_User": 763183396.4
+  },
+  {
+    "Wallet": "0x95f2e4096482ebaded815b3aacfa1524ef3e0568",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.25101%",
+    "USDC_Per_User": 753016003.7
+  },
+  {
+    "Wallet": "0xbe2758e7f8c6c645c6af0a7aaf655fa54eae29c0",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.25005%",
+    "USDC_Per_User": 750135082.2
+  },
+  {
+    "Wallet": "0x352633d94258e9d3b3a67f8418294c00a84f7cbf",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.24942%",
+    "USDC_Per_User": 748267827.6
+  },
+  {
+    "Wallet": "0xc5883a16258af48d77ef432472538f593842fccb",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.24540%",
+    "USDC_Per_User": 736198892.5
+  },
+  {
+    "Wallet": "0x490d69a409565f212e74a34afe56886e0a292fcc",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.24328%",
+    "USDC_Per_User": 729838327.9
+  },
+  {
+    "Wallet": "0xeea6cedb8a760d8ac043ee84229cba849c46d8ff",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.17998%",
+    "USDC_Per_User": 539937449.2
+  },
+  {
+    "Wallet": "0xeef39f3ef4b26c2044384a82fc7227b61f2d6700",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.23521%",
+    "USDC_Per_User": 705623197.1
+  },
+  {
+    "Wallet": "0xdd4a14f9e67813426dedff4abe6dc8e466deb7dd",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.23426%",
+    "USDC_Per_User": 702780115.9
+  },
+  {
+    "Wallet": "0x33173a3b9b4a86654fefa252f75dab701df092cb",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.23214%",
+    "USDC_Per_User": 696423983.6
+  },
+  {
+    "Wallet": "0x25238f6f0b899dcad634047e048f3d200be4efbd",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.23102%",
+    "USDC_Per_User": 693046252.2
+  },
+  {
+    "Wallet": "0x31eee8bc0929bfc81a9429790b73887272985a2b",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.22804%",
+    "USDC_Per_User": 684132566.6
+  },
+  {
+    "Wallet": "0x3a71a75e89010ed934b928618d314b721f9d247e",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.22142%",
+    "USDC_Per_User": 664251121.2
+  },
+  {
+    "Wallet": "0xdb09782a7a3bc41b3dd1b9b0c31d141dcfa44ab1",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00983%",
+    "USDC_Per_User": 29483502.14
+  },
+  {
+    "Wallet": "0x7587ad483f05269d4fa01fd9f7f0b281b6900a43",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.20597%",
+    "USDC_Per_User": 617910210.8
+  },
+  {
+    "Wallet": "0x24a8e9f301da25cd9f6a2171756d0c09a6295eb5",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.21191%",
+    "USDC_Per_User": 635740910.9
+  },
+  {
+    "Wallet": "0xb017f665706a4bd7508211f32aa5771a72140e38",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.19921%",
+    "USDC_Per_User": 597617449.1
+  },
+  {
+    "Wallet": "0x1a7a0b88ea6deb20f10accb2aa954d02cba0caf9",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.09190%",
+    "USDC_Per_User": 275702796.6
+  },
+  {
+    "Wallet": "0x54b2cb592273f8897c7e51801a43de9f71131156",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.19209%",
+    "USDC_Per_User": 576272866.9
+  },
+  {
+    "Wallet": "0x0957e08cdbbc0e99ad1b2874a88af2133b5a4d42",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.19165%",
+    "USDC_Per_User": 574958358.1
+  },
+  {
+    "Wallet": "0x9f5ea6af1ce2e330c369b67bf31bdccc1e9a1123",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.19051%",
+    "USDC_Per_User": 571521035.7
+  },
+  {
+    "Wallet": "0x56bdaec9bce23e2549d627db4b54a4e3a9587962",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.18449%",
+    "USDC_Per_User": 553455458.3
+  },
+  {
+    "Wallet": "0xbd0310dcb5678a02a6268526cce1c907e674ba8e",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.17946%",
+    "USDC_Per_User": 538371773.4
+  },
+  {
+    "Wallet": "0xf7b4db18a92c5a635f21ed65f33095f59d68ce42",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.17015%",
+    "USDC_Per_User": 510460694.2
+  },
+  {
+    "Wallet": "0x2f2197ae058b31b3cc27f45a9795b67bb6fdb613",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.17423%",
+    "USDC_Per_User": 522686250
+  },
+  {
+    "Wallet": "0x10627ac1215884a8e01ab7a8deb2a0e9f9ebc268",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.17315%",
+    "USDC_Per_User": 519456318.8
+  },
+  {
+    "Wallet": "0xc2af799f55e5c497c73b82de467cb4952fa8757e",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.17281%",
+    "USDC_Per_User": 518437419.5
+  },
+  {
+    "Wallet": "0x0be5149120375a4b5ba59352d55173c9b0283c3d",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00000%",
+    "USDC_Per_User": 0.002632625569
+  },
+  {
+    "Wallet": "0xd4471f9a2a4722e68bff162dc835d9107db8e134",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.15311%",
+    "USDC_Per_User": 459316825.3
+  },
+  {
+    "Wallet": "0x5c18049745a262868013454f3f6670294f663dc6",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.16926%",
+    "USDC_Per_User": 507770494.7
+  },
+  {
+    "Wallet": "0x5a38108d309bcd45112fd1f456a18719d3f432f4",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.16745%",
+    "USDC_Per_User": 502357188.7
+  },
+  {
+    "Wallet": "0x74a7784f8ec588f3ea91e10392779dce51fc8989",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.13042%",
+    "USDC_Per_User": 391274968.6
+  },
+  {
+    "Wallet": "0x0c0754704756721aed2a2105009598349a4af41c",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00307%",
+    "USDC_Per_User": 9200181.337
+  },
+  {
+    "Wallet": "0x0202ed9ff0d505f9b064a610199a001cef9977bd",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.15763%",
+    "USDC_Per_User": 472904101.4
+  },
+  {
+    "Wallet": "0x415a6f24e55903391c2c41067193d527843f0409",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.15732%",
+    "USDC_Per_User": 471968323.4
+  },
+  {
+    "Wallet": "0xa1f911050f89539c3565cbe7dbb46bce57d4785b",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.15423%",
+    "USDC_Per_User": 462682986
+  },
+  {
+    "Wallet": "0x3a5edc5d89a1af2951022449ea39475a4d26122a",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.14714%",
+    "USDC_Per_User": 441414241.1
+  },
+  {
+    "Wallet": "0x2699c9deee5e7eabd0c5d8744583ba18098cd97d",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.14638%",
+    "USDC_Per_User": 439145049.6
+  },
+  {
+    "Wallet": "0x020df2b9490cf02833e9232814d401d2d94b008f",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.14601%",
+    "USDC_Per_User": 438025167.5
+  },
+  {
+    "Wallet": "0x20d9b8825b5071098e7964730be657c6052a931c",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.14325%",
+    "USDC_Per_User": 429743167.2
+  },
+  {
+    "Wallet": "0x6b893c62ae64152d91680789abed2f8a64f57133",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.14253%",
+    "USDC_Per_User": 427599762.1
+  },
+  {
+    "Wallet": "0xcca1b82342a8dbea13b4012a292d1b674fc1576f",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.14167%",
+    "USDC_Per_User": 425016062
+  },
+  {
+    "Wallet": "0xdb33052e0d11885a528c4016f3e92e1a7b1da559",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.13658%",
+    "USDC_Per_User": 409743103.2
+  },
+  {
+    "Wallet": "0xdfc11349cb2b6368854318b808b47c87f32c7efb",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00000%",
+    "USDC_Per_User": 0
+  },
+  {
+    "Wallet": "0xffb373bb1d969ad89bc5edbc4a2c73ab2284f5d2",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.13546%",
+    "USDC_Per_User": 406370809.1
+  },
+  {
+    "Wallet": "0x4b193dabc44c0c49b198427bb92d149107670b2a",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.04701%",
+    "USDC_Per_User": 141039044.7
+  },
+  {
+    "Wallet": "0x174af4cf65f7191cfb0dcb02cc4e0b400ed57eef",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.13419%",
+    "USDC_Per_User": 402556584.1
+  },
+  {
+    "Wallet": "0x50b17bd57edde87d1c1dfac65549a74a995e0a18",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.13300%",
+    "USDC_Per_User": 399000777.3
+  },
+  {
+    "Wallet": "0xdc108ef8ed085f8ca5ec9240974de1251029fac9",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.13299%",
+    "USDC_Per_User": 398968913.3
+  },
+  {
+    "Wallet": "0xbb2efafb11b86d85244ca1017fd717fb9ac24c64",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.13293%",
+    "USDC_Per_User": 398799200.4
+  },
+  {
+    "Wallet": "0x3aac9ab49190ca80ccbc1c0edecd510bc15b2b8f",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.13280%",
+    "USDC_Per_User": 398395664.6
+  },
+  {
+    "Wallet": "0xf9a27308a5441356ba3e3d5f591a1a0c12314165",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.13066%",
+    "USDC_Per_User": 391984197.9
+  },
+  {
+    "Wallet": "0x144c6600127b5f744a32c3c893bf941d60db8837",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.13057%",
+    "USDC_Per_User": 391715301.5
+  },
+  {
+    "Wallet": "0xffafe4d780c7496fefd8e910056bf8e34e5049e1",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.12764%",
+    "USDC_Per_User": 382921980.3
+  },
+  {
+    "Wallet": "0x8da02d597a2616e9ec0c82b2b8366b00d69da29a",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.12494%",
+    "USDC_Per_User": 374805313.1
+  },
+  {
+    "Wallet": "0xc8bc5f44ff33c939468806bb0c54692a75f64079",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.12429%",
+    "USDC_Per_User": 372876943.6
+  },
+  {
+    "Wallet": "0x71d12e15be35d25ff458c430694c4ab7caab71b4",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.12296%",
+    "USDC_Per_User": 368890804.9
+  },
+  {
+    "Wallet": "0x7a9a685fc7da093c7d7e33d383985a96ce55a22b",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.12179%",
+    "USDC_Per_User": 365375258
+  },
+  {
+    "Wallet": "0xc5cee9416571752528acbb4331761c5e2706748c",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.12128%",
+    "USDC_Per_User": 363835655.5
+  },
+  {
+    "Wallet": "0xe2d36cd8becbf532341ecda425df95227c98645b",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.03851%",
+    "USDC_Per_User": 115522379.6
+  },
+  {
+    "Wallet": "0x63eaea2320de01cb4610f24ff191403783ddc77a",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.12072%",
+    "USDC_Per_User": 362164473.8
+  },
+  {
+    "Wallet": "0x800c49b4a5bac2ac16f045037f8fbac255b62ec9",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.11981%",
+    "USDC_Per_User": 359421343.6
+  },
+  {
+    "Wallet": "0x61dc92b9df5a4fe11ed4846c06b0c89ccca08444",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.11964%",
+    "USDC_Per_User": 358911957.2
+  },
+  {
+    "Wallet": "0x6a9d63cbb02b6a7d5d09ce11d0a4b981bb1a221d",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.11927%",
+    "USDC_Per_User": 357813358.8
+  },
+  {
+    "Wallet": "0xdea08114d9edd56a0f5fde65acc19cd398f5ef99",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.03559%",
+    "USDC_Per_User": 106760192.5
+  },
+  {
+    "Wallet": "0xc9a5ba8a6c96b085fbcf4ddc682c8ef2c8885fb1",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.11854%",
+    "USDC_Per_User": 355622088.4
+  },
+  {
+    "Wallet": "0x7f0a3bd72dca12bb83c13047dd4ab9098ab2f4dd",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.11830%",
+    "USDC_Per_User": 354894347.5
+  },
+  {
+    "Wallet": "0xa136d1b31950cf66d049958cb84ba77d6f402556",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.11808%",
+    "USDC_Per_User": 354250629.5
+  },
+  {
+    "Wallet": "0xcfbb5e18264fa67998cfba0dac5f25ed53b5950c",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.11651%",
+    "USDC_Per_User": 349540888.2
+  },
+  {
+    "Wallet": "0xf98ff587feb37db9e6934ddaf1ab377240430753",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.11651%",
+    "USDC_Per_User": 349528131.9
+  },
+  {
+    "Wallet": "0xf9ae442fb607c058284f349ed08bfd3ddae3c2f9",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.08549%",
+    "USDC_Per_User": 256458908.1
+  },
+  {
+    "Wallet": "0xae4bfe93857d54ffb3c2e221627d582b7c216b4d",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.11408%",
+    "USDC_Per_User": 342247402.5
+  },
+  {
+    "Wallet": "0x29d1aaaca17a24a4346004d16fd6072a0a4b3f98",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.11403%",
+    "USDC_Per_User": 342089654.5
+  },
+  {
+    "Wallet": "0x1d35dd9ca01f9a10afd920b35bdbcf66a5e3ad4b",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.09914%",
+    "USDC_Per_User": 297412230.8
+  },
+  {
+    "Wallet": "0xb51c56f419e752d8b0a0a08822e6ce68c811dc15",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.11322%",
+    "USDC_Per_User": 339667413.9
+  },
+  {
+    "Wallet": "0xba47e030fa3ce45f037497fcc4e2b3a9b307d7a6",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.11260%",
+    "USDC_Per_User": 337789207.8
+  },
+  {
+    "Wallet": "0x1112b5c870e717b7015486ff8b59ca6a91a164e3",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00339%",
+    "USDC_Per_User": 10168697.56
+  },
+  {
+    "Wallet": "0xa14c5e8d3b5680db8246b18cf986c54905c2249f",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.11073%",
+    "USDC_Per_User": 332183739.7
+  },
+  {
+    "Wallet": "0x5f96b1ae377aeccc5bba0c1460781e7640afcb7d",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.10950%",
+    "USDC_Per_User": 328505465.2
+  },
+  {
+    "Wallet": "0xfd05d467f652890d791380f287ec76679a345d14",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.10844%",
+    "USDC_Per_User": 325311440.6
+  },
+  {
+    "Wallet": "0xff070af1e78fa6faa0e9190dc6fb2c98df92d2c8",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.10835%",
+    "USDC_Per_User": 325057829.8
+  },
+  {
+    "Wallet": "0x2162307357b557ae84daa225e2423bf33a47bf05",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.08854%",
+    "USDC_Per_User": 265615942.1
+  },
+  {
+    "Wallet": "0x3f256788cfbc64529db4cb3f278ec2873f19dd92",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.10666%",
+    "USDC_Per_User": 319986406.1
+  },
+  {
+    "Wallet": "0xfee98896762c131e166b3150bce388f714004f61",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.10632%",
+    "USDC_Per_User": 318966002
+  },
+  {
+    "Wallet": "0x8db8c3a3396a6ade31d1e909f89d6710a4864373",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.10544%",
+    "USDC_Per_User": 316320488.5
+  },
+  {
+    "Wallet": "0x76e5fd6818f5ed1e47a6fc8fdce75b20551cbc46",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.10468%",
+    "USDC_Per_User": 314050602.5
+  },
+  {
+    "Wallet": "0x72cd0338438a5cfd0d6e84355db38cbefdba19bd",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.10442%",
+    "USDC_Per_User": 313263228.2
+  },
+  {
+    "Wallet": "0x91bf4748adadf73ce8fdf4d59a3d36d7d3b3c06f",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.09863%",
+    "USDC_Per_User": 295884065.8
+  },
+  {
+    "Wallet": "0x992fa06f38ae3521f2145eb0772de4c48f7a3dfa",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.07187%",
+    "USDC_Per_User": 215613327.6
+  },
+  {
+    "Wallet": "0x86ba15c005b82cf3a6ef411ab553e9d408304907",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.10325%",
+    "USDC_Per_User": 309743003.6
+  },
+  {
+    "Wallet": "0x5f356f97010cd61c3f5f3bdedf2d080d09ccedcf",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.10118%",
+    "USDC_Per_User": 303550474.1
+  },
+  {
+    "Wallet": "0xc95ed3844cfc92e68ab7b0cd72e832a3f6eb0259",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.10114%",
+    "USDC_Per_User": 303429137.7
+  },
+  {
+    "Wallet": "0x5210e1b72b3d86e7ceb4780ee8e09a57534d08f1",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.10089%",
+    "USDC_Per_User": 302675267.9
+  },
+  {
+    "Wallet": "0xbf056da135025c5a9fc4204980bcd04a46f529e3",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.09881%",
+    "USDC_Per_User": 296434583.9
+  },
+  {
+    "Wallet": "0xc04e49b2201d85273888fc46437a441346c3c204",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.09849%",
+    "USDC_Per_User": 295477142.8
+  },
+  {
+    "Wallet": "0xad9acdb4c29404050e4f60d9b1914a2ecddb5a0c",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.09779%",
+    "USDC_Per_User": 293383253.6
+  },
+  {
+    "Wallet": "0x874b93dbda0c3496b01ec52f0d4fe3b473946cac",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.09684%",
+    "USDC_Per_User": 290529839.5
+  },
+  {
+    "Wallet": "0xd0f67b39ae77e7673690d61e32c4df8a5d14795c",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.09677%",
+    "USDC_Per_User": 290297491.4
+  },
+  {
+    "Wallet": "0x6feef56348d516a53d1666068ceebf18ad00a4cf",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.09196%",
+    "USDC_Per_User": 275877366.3
+  },
+  {
+    "Wallet": "0xd81fe6994c8ca430d2baaa16245defc24c7de49e",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.09409%",
+    "USDC_Per_User": 282271362.1
+  },
+  {
+    "Wallet": "0x50767c76e29e73cf2fbf812abf2bb573e83a93db",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.09353%",
+    "USDC_Per_User": 280578683.7
+  },
+  {
+    "Wallet": "0xe0d710ee7c6f644190c59920d3240cd6af4a1bb6",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.09345%",
+    "USDC_Per_User": 280341835.5
+  },
+  {
+    "Wallet": "0x879f5009c0b74edcfd1da9e0118db24fdabe240a",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.09278%",
+    "USDC_Per_User": 278337025.7
+  },
+  {
+    "Wallet": "0x5ade243f5be6dd4d0bc4f96856b70c1fc7a5b719",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01492%",
+    "USDC_Per_User": 44770559.81
+  },
+  {
+    "Wallet": "0x8f2d0919a6a2f3f4881616448315367ecbd0e39e",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.06518%",
+    "USDC_Per_User": 195550394
+  },
+  {
+    "Wallet": "0x67a429dd9b4b4111052a70ee781b38cac33fc5c0",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.09225%",
+    "USDC_Per_User": 276736186.1
+  },
+  {
+    "Wallet": "0xe2abe2706a8bd68fe8ff82dda198e34c84ee5d76",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00023%",
+    "USDC_Per_User": 678726.0105
+  },
+  {
+    "Wallet": "0x257d8a72537f3efbe4a82546c5530b5c7c33b216",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.09206%",
+    "USDC_Per_User": 276193850.9
+  },
+  {
+    "Wallet": "0x60b4aa91028ab07df9bee21e4f7d8767d9d6debf",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.09186%",
+    "USDC_Per_User": 275587988.2
+  },
+  {
+    "Wallet": "0xfe19062e4a16ac6f66159d43dea5c92a31b0d182",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.08904%",
+    "USDC_Per_User": 267119935.4
+  },
+  {
+    "Wallet": "0x8378bae39144567123fcaf001c130245854ae2b5",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.08685%",
+    "USDC_Per_User": 260540335.9
+  },
+  {
+    "Wallet": "0xf3799e6e97a2768deb1a07be6eb2b109405812b6",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.08635%",
+    "USDC_Per_User": 259040287.3
+  },
+  {
+    "Wallet": "0x93151cb748de7e0cab45d8016cc56198454357c1",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.08621%",
+    "USDC_Per_User": 258623848.8
+  },
+  {
+    "Wallet": "0x0292959e255dcb82dfc641dab9eb23f56eeefe02",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.08618%",
+    "USDC_Per_User": 258544934.9
+  },
+  {
+    "Wallet": "0xd28b15083ce099067e6d7baf7c0ddecac9160f79",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.08593%",
+    "USDC_Per_User": 257804039.5
+  },
+  {
+    "Wallet": "0xeeb76207767660606dd496c893e67c4140909751",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.08561%",
+    "USDC_Per_User": 256818985.5
+  },
+  {
+    "Wallet": "0xbc5fc57c47e4cf8609492f071ed04c7a248a6952",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.08520%",
+    "USDC_Per_User": 255614821.8
+  },
+  {
+    "Wallet": "0x59ac6b46ed0c4cb8235c878ebcbe3a404f5f5037",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.08443%",
+    "USDC_Per_User": 253283172.7
+  },
+  {
+    "Wallet": "0x53d0e4dab3e125dd25ecfb24ca610075fa9bc8e1",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.08369%",
+    "USDC_Per_User": 251081781.5
+  },
+  {
+    "Wallet": "0xe84dfbcad561e268e6c3188cb71b7b79b9369052",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.08357%",
+    "USDC_Per_User": 250720740.8
+  },
+  {
+    "Wallet": "0x204af80fbbdd8d618f9392334fb3b383d76de2a3",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.08306%",
+    "USDC_Per_User": 249185569.9
+  },
+  {
+    "Wallet": "0x6251f30a08bee3736f0cf8978c48b22392710345",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.08153%",
+    "USDC_Per_User": 244578222.4
+  },
+  {
+    "Wallet": "0x72fc0c6a2c66bdcc6c1d12fff923533b2cd7a655",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.08141%",
+    "USDC_Per_User": 244238008.7
+  },
+  {
+    "Wallet": "0xd43f3716cbb9386352880a9bd52f7f07ac01752b",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.08120%",
+    "USDC_Per_User": 243601797.4
+  },
+  {
+    "Wallet": "0x485ddddca41012c376fbb61ce03de02323dcb3e7",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.08055%",
+    "USDC_Per_User": 241658869.2
+  },
+  {
+    "Wallet": "0xf601f3b764063c689e69ba8120b4f5cea6457e1c",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.08004%",
+    "USDC_Per_User": 240129574.6
+  },
+  {
+    "Wallet": "0x07cb22feea0a313ef0b737f53653760d80ec30e7",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.07936%",
+    "USDC_Per_User": 238090686.5
+  },
+  {
+    "Wallet": "0x14c01ad2978054daae521a6d69a83f4a4cfab06f",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.07930%",
+    "USDC_Per_User": 237891151.2
+  },
+  {
+    "Wallet": "0xcfcbc21bcc9b742f2b46bf7cb86c0955cf3a25ce",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.07890%",
+    "USDC_Per_User": 236713446.3
+  },
+  {
+    "Wallet": "0x5b040d72fb62edf81bb28b200af165a0aa47f911",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.07413%",
+    "USDC_Per_User": 222381427.4
+  },
+  {
+    "Wallet": "0x8c74f0c7f9508110bfed1406c813961f926bfd9e",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.07750%",
+    "USDC_Per_User": 232513470
+  },
+  {
+    "Wallet": "0xfeaf83600925e707a03c500bffd36eae171ca22c",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.07650%",
+    "USDC_Per_User": 229486475
+  },
+  {
+    "Wallet": "0x3103c84c86a534a4f10c3823606f2a5b90923924",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.07646%",
+    "USDC_Per_User": 229373860.5
+  },
+  {
+    "Wallet": "0xdb8492a646039c3c62e0baceb63d1ddf6f51b131",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.07595%",
+    "USDC_Per_User": 227862871.1
+  },
+  {
+    "Wallet": "0xe2dfda69b37559d5fa7197c73af679d3054b6a2b",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.04035%",
+    "USDC_Per_User": 121055839.1
+  },
+  {
+    "Wallet": "0x2000f6594adb48bdf3d7b08df3964c873da36d56",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.06796%",
+    "USDC_Per_User": 203883377
+  },
+  {
+    "Wallet": "0x47a04ce18e4e3e5a86f1d50550cbd78da853d331",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.07475%",
+    "USDC_Per_User": 224254949.6
+  },
+  {
+    "Wallet": "0xbe8cc9f177a1c1204092360c94e05b0e67fc7b7e",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.07458%",
+    "USDC_Per_User": 223732107
+  },
+  {
+    "Wallet": "0x65585cf52a7c66cdfa2101f602a4dc3904802ad4",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.07414%",
+    "USDC_Per_User": 222414434.6
+  },
+  {
+    "Wallet": "0x6f0f0a544750ae442721dc9bb7e8eafc4aedf3f6",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.07364%",
+    "USDC_Per_User": 220907850.3
+  },
+  {
+    "Wallet": "0xf2b0e390ad881bb8a86777591936c2b56dd1f025",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.07212%",
+    "USDC_Per_User": 216374893.3
+  },
+  {
+    "Wallet": "0x69306de146ba29f57ad25ea3ae2de3a420c11ce9",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.07187%",
+    "USDC_Per_User": 215606968.2
+  },
+  {
+    "Wallet": "0xeb4ef1ec65a2337b35c003ec8a1e5d5f75dadcc9",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.04848%",
+    "USDC_Per_User": 145433051
+  },
+  {
+    "Wallet": "0x883e5bef307b99fba45335a612a40bc3d5a8b9c3",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.07139%",
+    "USDC_Per_User": 214168858.8
+  },
+  {
+    "Wallet": "0x8db542e101e866ac55d60708b8e42a955f41ae4b",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.07071%",
+    "USDC_Per_User": 212140884.6
+  },
+  {
+    "Wallet": "0x7bb315bfe68d745985eeab4aaba96d244576fecc",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.07043%",
+    "USDC_Per_User": 211297322.9
+  },
+  {
+    "Wallet": "0x4a8865578607ecb2caaa180165fe4e188d0a819b",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.07033%",
+    "USDC_Per_User": 210994920.9
+  },
+  {
+    "Wallet": "0x657d2f64ce7643bca624cd14e07fea95ad87b1cf",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.06985%",
+    "USDC_Per_User": 209550376.7
+  },
+  {
+    "Wallet": "0xfab22550fcd520a7eced27414cd74bc70a6ac1a9",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.06956%",
+    "USDC_Per_User": 208687960.7
+  },
+  {
+    "Wallet": "0x9a4e72dedce55b5b159a98189b3a513b5769086b",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.06870%",
+    "USDC_Per_User": 206100558.2
+  },
+  {
+    "Wallet": "0x627e0e1f55e2e09d8ca1f3665b5118b67dc91035",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.06805%",
+    "USDC_Per_User": 204145973.8
+  },
+  {
+    "Wallet": "0x44f38af109ef6f69621655043e401141bd6f82ac",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.06796%",
+    "USDC_Per_User": 203869532.3
+  },
+  {
+    "Wallet": "0xada68c3f8e898ea2f82264779753a2b8e84db6ee",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.06780%",
+    "USDC_Per_User": 203404933
+  },
+  {
+    "Wallet": "0xd04d2227dd1bed8adc7254019f41cdd0b57e1002",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.06635%",
+    "USDC_Per_User": 199059106.8
+  },
+  {
+    "Wallet": "0xc67a1ce868f6f0f52c358077d3c7706125daec49",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.06634%",
+    "USDC_Per_User": 199032852
+  },
+  {
+    "Wallet": "0x993dac23b978727c5aaa346d3e14bf3965efdda5",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.06453%",
+    "USDC_Per_User": 193583127.2
+  },
+  {
+    "Wallet": "0x829cc88e8d99d351b3bc683edcccf026e8dbedbb",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.06438%",
+    "USDC_Per_User": 193153940.3
+  },
+  {
+    "Wallet": "0x3543583bcbb198bbb80a3f92935d9f66a248eb95",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.06432%",
+    "USDC_Per_User": 192946991
+  },
+  {
+    "Wallet": "0x7f248e4301f5a16b2a8289989584a509f7157845",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.06430%",
+    "USDC_Per_User": 192911470.6
+  },
+  {
+    "Wallet": "0x95fc03d96396f1dac5b505c142b828d9b91f4c66",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02145%",
+    "USDC_Per_User": 64351732.36
+  },
+  {
+    "Wallet": "0x4e9163f55e208e3a89df230e2e7be8b62e6743ce",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.06296%",
+    "USDC_Per_User": 188894366.3
+  },
+  {
+    "Wallet": "0xf0065194295e26ba520b65758b01b84e31622891",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.04135%",
+    "USDC_Per_User": 124062201.9
+  },
+  {
+    "Wallet": "0xddd0898ccb492e78c714ea1baeb593100746510e",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.06184%",
+    "USDC_Per_User": 185518430.3
+  },
+  {
+    "Wallet": "0x60ac79c32cfbdfbb76308a5aed321fe7cbeee7d4",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.06175%",
+    "USDC_Per_User": 185255937.4
+  },
+  {
+    "Wallet": "0x9c1a8a57457855806cfd10f0f1740d40023763f9",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.06175%",
+    "USDC_Per_User": 185240898.4
+  },
+  {
+    "Wallet": "0x7f97bbc233844cbdf13388fe1700a4c5d27036cc",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.06144%",
+    "USDC_Per_User": 184324618.1
+  },
+  {
+    "Wallet": "0xe75f9cea8335600013da07f202ef2bab83b58d6d",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.06128%",
+    "USDC_Per_User": 183829829.9
+  },
+  {
+    "Wallet": "0x36c0ba3a6e30d5637d90f7c778d3fec2aecc3990",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.06063%",
+    "USDC_Per_User": 181900048.5
+  },
+  {
+    "Wallet": "0x963e8030c69ea68bf99840bc4939419ea5bb2b3f",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.06045%",
+    "USDC_Per_User": 181344627.8
+  },
+  {
+    "Wallet": "0x8090f7ecedfc2e9bdfaeab6a4b8b8fc69b066f48",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.05983%",
+    "USDC_Per_User": 179495012.9
+  },
+  {
+    "Wallet": "0xc3ee6ddf545e31c68c9a6299098b51fe4db52cd6",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.05956%",
+    "USDC_Per_User": 178676892.3
+  },
+  {
+    "Wallet": "0x6c671bf4e4b0409b060230d23ad08fef632c402f",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.05890%",
+    "USDC_Per_User": 176703621.8
+  },
+  {
+    "Wallet": "0x1530f2940bd7e9d9e8a8c5eaa37409bd22dbfb3f",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.05781%",
+    "USDC_Per_User": 173429049
+  },
+  {
+    "Wallet": "0x3b4b0d8853db68f290757e8d5de2e5c7893ddab0",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.05764%",
+    "USDC_Per_User": 172923273.5
+  },
+  {
+    "Wallet": "0xa8c83b1b30291a3a1a118058b5445cc83041cd9d",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.05745%",
+    "USDC_Per_User": 172346947.2
+  },
+  {
+    "Wallet": "0x685d4dd9a3230fff20cd06d1b9a0ea1dd2496e56",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.05729%",
+    "USDC_Per_User": 171867864.3
+  },
+  {
+    "Wallet": "0xa9310d9309f29be2b39548a57ade204fb4d70dc1",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.05719%",
+    "USDC_Per_User": 171578906.6
+  },
+  {
+    "Wallet": "0x4429cf6569442ae3243114b761f4694c973ecd9f",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.05666%",
+    "USDC_Per_User": 169989842.9
+  },
+  {
+    "Wallet": "0xf9e64f3d4146f2f2373b29636c16f48fdac9ccf7",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.05650%",
+    "USDC_Per_User": 169509964.9
+  },
+  {
+    "Wallet": "0x230aef6528ac4a89dce940d1959996eaa43f40c4",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.05648%",
+    "USDC_Per_User": 169438298.5
+  },
+  {
+    "Wallet": "0x2b98006084845ae63e28d1f53a78553db6f0d188",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.05645%",
+    "USDC_Per_User": 169337358.9
+  },
+  {
+    "Wallet": "0xc7b8381a632dc7256ae41c576d8cbac5448e6b14",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.05593%",
+    "USDC_Per_User": 167797298.4
+  },
+  {
+    "Wallet": "0x431b5ddb0ace97ebc3d936403ea25831bad832b6",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.05373%",
+    "USDC_Per_User": 161177414.6
+  },
+  {
+    "Wallet": "0xa1a62fc10b8117a467c85828450f9093140990ff",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02283%",
+    "USDC_Per_User": 68490835.75
+  },
+  {
+    "Wallet": "0x8b4a8c1f32761d820d12015b293d24a2ec1b47e9",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.05488%",
+    "USDC_Per_User": 164640940
+  },
+  {
+    "Wallet": "0x9bcd3e3e3ff5949ab5a187643d92c7f937111a1e",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.05460%",
+    "USDC_Per_User": 163814982.6
+  },
+  {
+    "Wallet": "0x4c026d5d6a7fe1b2e2b28b916ef2016f6058f7b4",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.05446%",
+    "USDC_Per_User": 163370386.5
+  },
+  {
+    "Wallet": "0xb11a0a0b545f299261a047ddcf9d629f3ea03fe3",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.05433%",
+    "USDC_Per_User": 163002456.2
+  },
+  {
+    "Wallet": "0x6061812676e9b3aa36321321c26a5b17469fa1f9",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.05402%",
+    "USDC_Per_User": 162053951.9
+  },
+  {
+    "Wallet": "0x69008d2ab8d69afc951dbec200e6b5bbce1415e7",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.05360%",
+    "USDC_Per_User": 160803980.6
+  },
+  {
+    "Wallet": "0x8921ac2fededea364feac8e4b7f9172d53587874",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.05348%",
+    "USDC_Per_User": 160438105.9
+  },
+  {
+    "Wallet": "0x2b6de11ddfe496118b79c7e029e483589a462de4",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.05336%",
+    "USDC_Per_User": 160070895.1
+  },
+  {
+    "Wallet": "0x5061a60d2893fbbc5a06c88b9b0ef8a423442a55",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.05320%",
+    "USDC_Per_User": 159598435.7
+  },
+  {
+    "Wallet": "0xe87d743bdbb2212d5044a7d57a19cc2f2e5fadc7",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.05259%",
+    "USDC_Per_User": 157779653.7
+  },
+  {
+    "Wallet": "0xa5159b5e642b0bd38c4537856d9af65eafa21f64",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.05220%",
+    "USDC_Per_User": 156602492.6
+  },
+  {
+    "Wallet": "0x322e432714dd273a109e0b74c7dc11d38a47b07f",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.05215%",
+    "USDC_Per_User": 156446349.7
+  },
+  {
+    "Wallet": "0x19735d51d0992ef804d385ff1b356610a76f36e9",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.05208%",
+    "USDC_Per_User": 156246922
+  },
+  {
+    "Wallet": "0xb1b3b0f531ac0332aca7b754e057d0360ba1d63f",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.05189%",
+    "USDC_Per_User": 155661801.2
+  },
+  {
+    "Wallet": "0x8403a14fc49aad6cf5597b675c8b281f8eda0291",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.05087%",
+    "USDC_Per_User": 152608984.6
+  },
+  {
+    "Wallet": "0x7da1fe8dba99c5ece230f600d48ec3e5aa182a56",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.05024%",
+    "USDC_Per_User": 150731564.3
+  },
+  {
+    "Wallet": "0xf54be96ac34cdbd08b3cb3d2117c852460486652",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.04986%",
+    "USDC_Per_User": 149578222.9
+  },
+  {
+    "Wallet": "0x0aa4201ed91b4c72bbaa743810800679269d228a",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.04876%",
+    "USDC_Per_User": 146278923.1
+  },
+  {
+    "Wallet": "0x9b71b598d172d39cbef3f1e55ed55eac9f31e9c6",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.04866%",
+    "USDC_Per_User": 145966991.3
+  },
+  {
+    "Wallet": "0x9135f2d550ed472da6a5b5a6ae2fbc21af8612b2",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.04838%",
+    "USDC_Per_User": 145144614.2
+  },
+  {
+    "Wallet": "0x7988768b855c67708843e5ef4bc2177f30b30f38",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.04830%",
+    "USDC_Per_User": 144894744.2
+  },
+  {
+    "Wallet": "0x7829b2ed7fa1d2caa9a3d1862eb8cda69e1ce9fe",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.04787%",
+    "USDC_Per_User": 143624985.4
+  },
+  {
+    "Wallet": "0x4009b33378bd620469ba3ebf7065913f9b138239",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.04782%",
+    "USDC_Per_User": 143474948.7
+  },
+  {
+    "Wallet": "0x7687d7d8f66f73fb6371d5c29a54f05c3063e337",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.04739%",
+    "USDC_Per_User": 142181222
+  },
+  {
+    "Wallet": "0x624d01b92e78bcf52b16fb3568a5b342b9c3f6b4",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.04696%",
+    "USDC_Per_User": 140889463.8
+  },
+  {
+    "Wallet": "0xfe667f5bb242473bfa5e1eaf305703f2322795cf",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.04674%",
+    "USDC_Per_User": 140229338.2
+  },
+  {
+    "Wallet": "0x4d0b186c265d4b33304f0ad65458ff4af9711e68",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.04630%",
+    "USDC_Per_User": 138909910.4
+  },
+  {
+    "Wallet": "0x3a6bd1dee9f971ca228ad654366e2d896391bc48",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02222%",
+    "USDC_Per_User": 66659397.32
+  },
+  {
+    "Wallet": "0x61a57102f4e2ecd9bce097caef623e6313cc773a",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.04600%",
+    "USDC_Per_User": 138003345.5
+  },
+  {
+    "Wallet": "0x7a048b7d035ed62ac4cdcc4295cb5e189b833fa2",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.04597%",
+    "USDC_Per_User": 137909539.6
+  },
+  {
+    "Wallet": "0xbe954eb5c5b381398d75f3e68fabb9afc1274732",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.04562%",
+    "USDC_Per_User": 136871883.8
+  },
+  {
+    "Wallet": "0x19ce401e966e118ea6fa0f02362799243579d9ee",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.04549%",
+    "USDC_Per_User": 136466227.9
+  },
+  {
+    "Wallet": "0xf12d61bd65a6cd275070086bfcbbf879413af4d2",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.03637%",
+    "USDC_Per_User": 109095956.8
+  },
+  {
+    "Wallet": "0x461d4b46640247e8de99382265db615998e04f30",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.04450%",
+    "USDC_Per_User": 133512388
+  },
+  {
+    "Wallet": "0x687ff2712e4d0176c7aa4f7728338535b49a0601",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.04438%",
+    "USDC_Per_User": 133150193
+  },
+  {
+    "Wallet": "0x7e9f2c308c5aeb608d0dc344893ae250030e113d",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.04343%",
+    "USDC_Per_User": 130287117.5
+  },
+  {
+    "Wallet": "0x957334150f973ee5ab67888aa2cc111f40d62c5a",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.04343%",
+    "USDC_Per_User": 130283185.8
+  },
+  {
+    "Wallet": "0x077fb615bfa79bb3f3cd032710e331a167b68d70",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.04323%",
+    "USDC_Per_User": 129690583.1
+  },
+  {
+    "Wallet": "0xa4a6afbbc10a0a1d4ef401818d6dd6b9a4e4579c",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.04259%",
+    "USDC_Per_User": 127776959.9
+  },
+  {
+    "Wallet": "0xa31b44cac6031d798ef2d8e57b75e7fa53455976",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.04254%",
+    "USDC_Per_User": 127629692.1
+  },
+  {
+    "Wallet": "0xa05cc8ead61af3025f98a390d1b93a672e9ce3fa",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.04230%",
+    "USDC_Per_User": 126902546.1
+  },
+  {
+    "Wallet": "0x0b6412fae814067bcdafe5d7f31c258467c9a22d",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.04226%",
+    "USDC_Per_User": 126776677.9
+  },
+  {
+    "Wallet": "0x1187513647bfc90a0c4c307e772b55384d4543db",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.04213%",
+    "USDC_Per_User": 126398852.4
+  },
+  {
+    "Wallet": "0xd42bbf286ef303edd818f0b8231afc74c8077403",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.04188%",
+    "USDC_Per_User": 125628996.7
+  },
+  {
+    "Wallet": "0xd3ccfe3c9ab8951b46ef4b2b44d75d8a5589ffff",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.04186%",
+    "USDC_Per_User": 125586216.5
+  },
+  {
+    "Wallet": "0x489ee8ecca6776afe91be1b83b4d25afc9f8fbf3",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.04166%",
+    "USDC_Per_User": 124978330.3
+  },
+  {
+    "Wallet": "0x90a34cef8766d31133acb1787fabfa1af32d3d73",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.03810%",
+    "USDC_Per_User": 114306321.3
+  },
+  {
+    "Wallet": "0xb18dacf8937dcd595ac19f3ca4390e5a411b2eae",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.04159%",
+    "USDC_Per_User": 124781040.4
+  },
+  {
+    "Wallet": "0x37ec625e52b35f13006c627057ae740c1763191b",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.04157%",
+    "USDC_Per_User": 124707098.9
+  },
+  {
+    "Wallet": "0xb31712a038794fb808381c7ea6401000898cbe4a",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.04140%",
+    "USDC_Per_User": 124202505.7
+  },
+  {
+    "Wallet": "0x4d0085f627f45bb2541ad5afa1303574b1e1a9f8",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.04099%",
+    "USDC_Per_User": 122969352.8
+  },
+  {
+    "Wallet": "0x1f7f344b3dea7f92c36bd6d024ed6e12269c97f6",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.04029%",
+    "USDC_Per_User": 120874461
+  },
+  {
+    "Wallet": "0xe25b601e2b7d2bce0ab19b587ab2a619e5043a7e",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01289%",
+    "USDC_Per_User": 38659606.43
+  },
+  {
+    "Wallet": "0xc2f81e4d235e23c52523d6ee48e858310157ab73",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.04030%",
+    "USDC_Per_User": 120904127.7
+  },
+  {
+    "Wallet": "0xd58dcd4594087c2758717a59f44a5ac09db65105",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.03997%",
+    "USDC_Per_User": 119909961.2
+  },
+  {
+    "Wallet": "0x94d8cc8552bef076850082c375338737d628bb21",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.03979%",
+    "USDC_Per_User": 119371883.4
+  },
+  {
+    "Wallet": "0x3f13cc8a2f41c42ab895d4f2843693f19831587b",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.03956%",
+    "USDC_Per_User": 118687366.2
+  },
+  {
+    "Wallet": "0x40932dc5858a4ce40ff726f6d4472c338ac7e083",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.03942%",
+    "USDC_Per_User": 118267442.5
+  },
+  {
+    "Wallet": "0xe2dac409e1d44ca89c369fd3ebd34d470e34871f",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.03886%",
+    "USDC_Per_User": 116567905.7
+  },
+  {
+    "Wallet": "0x18f1726394f67f1ef06f61ec752a5882233a6ede",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.03869%",
+    "USDC_Per_User": 116070148
+  },
+  {
+    "Wallet": "0xd5d67e91e86f3544eb569e2e4528a4082a50d763",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.03855%",
+    "USDC_Per_User": 115649835.9
+  },
+  {
+    "Wallet": "0x0bd091e299f30366eaee17dc57d89a85466bbc33",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.03838%",
+    "USDC_Per_User": 115130706.3
+  },
+  {
+    "Wallet": "0xb9c6a3e51ef1f2a7120358ad3963f868f4201a75",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.03800%",
+    "USDC_Per_User": 113989940.8
+  },
+  {
+    "Wallet": "0x7fa4d8e63619354866890b8bedc5405c651b5e92",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.03776%",
+    "USDC_Per_User": 113270911.3
+  },
+  {
+    "Wallet": "0x72f18183858a47e5347dff219ede5e0f0797256d",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.03733%",
+    "USDC_Per_User": 112000281.8
+  },
+  {
+    "Wallet": "0x0b1a8657b352ae726249b116b4c9e98dd71cfda2",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.03709%",
+    "USDC_Per_User": 111272822.1
+  },
+  {
+    "Wallet": "0xd6de2fa335cab01b078dda2d776e3a103b0452d9",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.03708%",
+    "USDC_Per_User": 111228865.3
+  },
+  {
+    "Wallet": "0xf3a4db8cf3b0932ee3fbbef6d7eb2aba068c43e5",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.03635%",
+    "USDC_Per_User": 109050825.1
+  },
+  {
+    "Wallet": "0x5a8d16fec8e8092e2d8b4bc23004acf944513370",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.03329%",
+    "USDC_Per_User": 99870851.78
+  },
+  {
+    "Wallet": "0x65bca25958ab8355e1cd9dd3624e01287b06e32f",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.03613%",
+    "USDC_Per_User": 108394209.4
+  },
+  {
+    "Wallet": "0x7c791910960d0fa63e3b6c9dd54dcbf4a9c6c69f",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.03570%",
+    "USDC_Per_User": 107085850.2
+  },
+  {
+    "Wallet": "0x1b9b01cd85afb8ba31971f3b8abafee4f9372ddf",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.03524%",
+    "USDC_Per_User": 105734192.2
+  },
+  {
+    "Wallet": "0x34fbfe141f248759067e6264ea4a91af2dee7b7d",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.03519%",
+    "USDC_Per_User": 105566947.9
+  },
+  {
+    "Wallet": "0x1d54e24633f530aa531d5dceb9a7d4bf13405fe0",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00000%",
+    "USDC_Per_User": 0
+  },
+  {
+    "Wallet": "0x9cb2e1a1289b39d23d20d8b7982e9698a0e15475",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.03462%",
+    "USDC_Per_User": 103851426.3
+  },
+  {
+    "Wallet": "0x8c2865934499e36b8eae90ceeebf9604e2b699da",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.03440%",
+    "USDC_Per_User": 103188223
+  },
+  {
+    "Wallet": "0x47326fa363a4fe946885055065ed65db7c287494",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.03423%",
+    "USDC_Per_User": 102695386.5
+  },
+  {
+    "Wallet": "0x7aeedabea6420ca9977af8433d125f7f079567db",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.03414%",
+    "USDC_Per_User": 102425957.8
+  },
+  {
+    "Wallet": "0x35f7d41e56b3715c5c8d1b883d31b73476730965",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.03412%",
+    "USDC_Per_User": 102367865.3
+  },
+  {
+    "Wallet": "0xb827c34ba56ab2756053e6871b3d4d816e776488",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.03405%",
+    "USDC_Per_User": 102137744.8
+  },
+  {
+    "Wallet": "0x11e02ff2f18c798b239e6224e9a96e6531136885",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.03373%",
+    "USDC_Per_User": 101179833.1
+  },
+  {
+    "Wallet": "0xc8e3d3c9a6215d0f0f940fe8e50ee4f865c864c4",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.03368%",
+    "USDC_Per_User": 101044793.2
+  },
+  {
+    "Wallet": "0x8d5a80840addb770e6ac41f06473f88add91daa2",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.03338%",
+    "USDC_Per_User": 100128141.7
+  },
+  {
+    "Wallet": "0x12cfce1619fc022ff0b0b9d93570e0da4344a69f",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.03307%",
+    "USDC_Per_User": 99202058.25
+  },
+  {
+    "Wallet": "0x6a1fc405fd7b173ff78ec78b6021767bf1897f10",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.03282%",
+    "USDC_Per_User": 98471706.48
+  },
+  {
+    "Wallet": "0x61bac1acf9d50f6b64932c68e163aac25341d29f",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.03272%",
+    "USDC_Per_User": 98165414.83
+  },
+  {
+    "Wallet": "0x2e83df9c1dac27f2a298487eff539de5c146edfa",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.03255%",
+    "USDC_Per_User": 97636555.5
+  },
+  {
+    "Wallet": "0xa4befa4f2a690edfd18092aa72d6c8f319ba47f6",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.03248%",
+    "USDC_Per_User": 97432699.3
+  },
+  {
+    "Wallet": "0x9f8e32eded08be9d4c196ac1b251d6f0c58324b9",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.03214%",
+    "USDC_Per_User": 96407183.56
+  },
+  {
+    "Wallet": "0xf5f5c8924db9aa5e70bdf7842473ee8c7f1f4c9d",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.03148%",
+    "USDC_Per_User": 94433934.4
+  },
+  {
+    "Wallet": "0xad1f16f4a26bbdf42750e391e5939191404429e2",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.03139%",
+    "USDC_Per_User": 94157443.44
+  },
+  {
+    "Wallet": "0x0ec230c210c67371e06042424f89db39caee40d6",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.03119%",
+    "USDC_Per_User": 93572377.94
+  },
+  {
+    "Wallet": "0x9e914526b6acf1fd1fd8300a12bd7b49ad5fe47b",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.03110%",
+    "USDC_Per_User": 93311449.08
+  },
+  {
+    "Wallet": "0x7427b2a4884a6f799b85ae2292a2bf1ee1f018f7",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02316%",
+    "USDC_Per_User": 69490238.5
+  },
+  {
+    "Wallet": "0xc86e15edf575c511a0d7af9552003edd31a03ac9",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.03093%",
+    "USDC_Per_User": 92792467.58
+  },
+  {
+    "Wallet": "0xdc9d67068a6d265650160937f21a4b0beba3fe03",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.03091%",
+    "USDC_Per_User": 92718547.73
+  },
+  {
+    "Wallet": "0xff55b4735fb7bfa605c842dd5966fe43181cd7dd",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.03052%",
+    "USDC_Per_User": 91553396.39
+  },
+  {
+    "Wallet": "0xfe8ca776d9804ecd89b4f221267865c3cc4aaf96",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00000%",
+    "USDC_Per_User": 0
+  },
+  {
+    "Wallet": "0xd4259dbf8fdb78967e22cf369514ce80df5aec7e",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.03001%",
+    "USDC_Per_User": 90015877.8
+  },
+  {
+    "Wallet": "0x30ce97bf1b0da58dee0cde805f3151a3831096bc",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02986%",
+    "USDC_Per_User": 89587882.26
+  },
+  {
+    "Wallet": "0x724eee8ccc983c417214cac892772b1bda9a226a",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02981%",
+    "USDC_Per_User": 89436532.86
+  },
+  {
+    "Wallet": "0xeb2a37071c4c938c926f03be1f131d73f9065aa1",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02966%",
+    "USDC_Per_User": 88974482.38
+  },
+  {
+    "Wallet": "0x8695298d87196eba3e6054afe84c9a9097f2e522",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02964%",
+    "USDC_Per_User": 88907305.78
+  },
+  {
+    "Wallet": "0xb346142b86c7b1b77405a2b162ede4694849382d",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02933%",
+    "USDC_Per_User": 87993612.55
+  },
+  {
+    "Wallet": "0x4621cbd159498dd9c22552f2b1f55bc7bf0fcffa",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02925%",
+    "USDC_Per_User": 87758330.49
+  },
+  {
+    "Wallet": "0xfa3dad9ee47faeb8a540833f16b458d556d72fea",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02892%",
+    "USDC_Per_User": 86748463.38
+  },
+  {
+    "Wallet": "0xd00baf555c8476f218606e9f84e53a92a84e7703",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02861%",
+    "USDC_Per_User": 85822318.63
+  },
+  {
+    "Wallet": "0x80db3238ce9bf3bd374b59d9909ee74cf9181e22",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02860%",
+    "USDC_Per_User": 85789709.65
+  },
+  {
+    "Wallet": "0xaed836041e39de556e7214c70789885726126b25",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02825%",
+    "USDC_Per_User": 84758137.29
+  },
+  {
+    "Wallet": "0xc8a72a933ed93ee9fc350b73fceddf61155539a2",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02807%",
+    "USDC_Per_User": 84214886.46
+  },
+  {
+    "Wallet": "0x38a6d21feba8f14c82618d8316d99d20bfe1f74b",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02807%",
+    "USDC_Per_User": 84206626.36
+  },
+  {
+    "Wallet": "0x25779abc102dee9beee26c0de20e595ea790d44b",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02781%",
+    "USDC_Per_User": 83443987.52
+  },
+  {
+    "Wallet": "0xf50476727032d1c8cc6f14871034349324c23138",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02769%",
+    "USDC_Per_User": 83084692.15
+  },
+  {
+    "Wallet": "0x7b42a844f265265040eb4940bc25fc239e2f5a6a",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02768%",
+    "USDC_Per_User": 83040241.44
+  },
+  {
+    "Wallet": "0x3b97dfc962b62545ae72153862bca07719fcb9fb",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02762%",
+    "USDC_Per_User": 82852567.86
+  },
+  {
+    "Wallet": "0x7b91e6b7ac16bf3938ec7473ea254535f711733a",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02751%",
+    "USDC_Per_User": 82541038.96
+  },
+  {
+    "Wallet": "0xe669a2ad82ccee4f6f4eed0c663f7fcc3bec81fe",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02728%",
+    "USDC_Per_User": 81847123.22
+  },
+  {
+    "Wallet": "0x32e5f47314490388ed2f7b83f19b810cb516fdde",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02711%",
+    "USDC_Per_User": 81333929.75
+  },
+  {
+    "Wallet": "0x0eba1eb72f42f0dd62cf07bb37f87829c0992896",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02704%",
+    "USDC_Per_User": 81131031.75
+  },
+  {
+    "Wallet": "0xed77c7d0f1ea412972a5565549ca22ac4cf772b6",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02699%",
+    "USDC_Per_User": 80975040.53
+  },
+  {
+    "Wallet": "0x78abfdbe312ec574aefd4e3b6f25cda23237d032",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02685%",
+    "USDC_Per_User": 80537409.77
+  },
+  {
+    "Wallet": "0x40df5ee2722b43628e7e4f4b59909627f0c018f8",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02677%",
+    "USDC_Per_User": 80306062.55
+  },
+  {
+    "Wallet": "0x7fa21cc710aca10355a71012a516487c985115be",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02676%",
+    "USDC_Per_User": 80289374.98
+  },
+  {
+    "Wallet": "0x5dc86afc6a9bcca4688a991da74175cf8b70903b",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02666%",
+    "USDC_Per_User": 79967391.35
+  },
+  {
+    "Wallet": "0xaffe92ed93e8cbefc6a5eec5033940b96bf14de6",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02665%",
+    "USDC_Per_User": 79946515.92
+  },
+  {
+    "Wallet": "0x792a9b4ff29f8dd59ae205b922aec31b099acd96",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02659%",
+    "USDC_Per_User": 79764669.44
+  },
+  {
+    "Wallet": "0xc2b5f3ec79688cc386221d44c89f1a100b634653",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02658%",
+    "USDC_Per_User": 79751609.47
+  },
+  {
+    "Wallet": "0x5ddedd14f66904678b9354af59c6d32639bc45b8",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02655%",
+    "USDC_Per_User": 79644467.48
+  },
+  {
+    "Wallet": "0x2cd4ecd2fb38a527bdf0d6b43cf76eb6de2a16b0",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02651%",
+    "USDC_Per_User": 79540253.14
+  },
+  {
+    "Wallet": "0x2c8cfca338f56ca2b5621749f490902964dc12a8",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02648%",
+    "USDC_Per_User": 79440139.33
+  },
+  {
+    "Wallet": "0xe85d5330f9cc9225202da83aa6fbc39e019bf45d",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02647%",
+    "USDC_Per_User": 79421994.46
+  },
+  {
+    "Wallet": "0x6a83ce24617aa90a731ee0f2eff96e81ca4c1b96",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02642%",
+    "USDC_Per_User": 79267735.85
+  },
+  {
+    "Wallet": "0x6a15beba796f3a819bd441433ad1ff9635844d34",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02640%",
+    "USDC_Per_User": 79209597.73
+  },
+  {
+    "Wallet": "0x9ed9f17d3ecf9c09b8a0d22164815cd3a50ccaa2",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02632%",
+    "USDC_Per_User": 78973376.7
+  },
+  {
+    "Wallet": "0x257e7407d506405d1f1cf46a147f4efa0cae733e",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01955%",
+    "USDC_Per_User": 58648721.32
+  },
+  {
+    "Wallet": "0x26273e65aab399b7a2f5bd081f4569515effd050",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02629%",
+    "USDC_Per_User": 78868613.92
+  },
+  {
+    "Wallet": "0x10e3ed08f72db37c4159c2e39a318db755024807",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02626%",
+    "USDC_Per_User": 78788237.47
+  },
+  {
+    "Wallet": "0xae98e0d6460aa94c7c92977de3ad8d4c0380409d",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02621%",
+    "USDC_Per_User": 78619572.63
+  },
+  {
+    "Wallet": "0xbe3ddba6b26536aae50b9ac6b7a2212d3851ccda",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02601%",
+    "USDC_Per_User": 78044724.62
+  },
+  {
+    "Wallet": "0x164624002647e5808cf33bd23ff6e448ff642b42",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02590%",
+    "USDC_Per_User": 77707147.84
+  },
+  {
+    "Wallet": "0x01684684730daf6ab624fbc32a93a5d6ff2d6e56",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02531%",
+    "USDC_Per_User": 75920413.66
+  },
+  {
+    "Wallet": "0x3fc64866868a033b28e18e43dacd124fabcba5f9",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02514%",
+    "USDC_Per_User": 75410968.52
+  },
+  {
+    "Wallet": "0x7ec166e836f02bda7599a7085c658af21c055936",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02512%",
+    "USDC_Per_User": 75358213.11
+  },
+  {
+    "Wallet": "0x7c89cb305ee23a61d2759b5b5c82c76d81bef4b4",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02505%",
+    "USDC_Per_User": 75136886.32
+  },
+  {
+    "Wallet": "0xe3ca85a7a80fab154f215dbafe0191f4ea817852",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02498%",
+    "USDC_Per_User": 74951759.27
+  },
+  {
+    "Wallet": "0xd818a02765463d007f2a9cc73fb1fd98f1abbfd9",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02496%",
+    "USDC_Per_User": 74887381.23
+  },
+  {
+    "Wallet": "0x465307de85dd26c8b78edb8939bb88baff1eb64d",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02488%",
+    "USDC_Per_User": 74628560.49
+  },
+  {
+    "Wallet": "0x1d5cad80e2e3fb76e948a5a3095e4587defe130d",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00918%",
+    "USDC_Per_User": 27531181.89
+  },
+  {
+    "Wallet": "0x13fc173dd95c4e1846e8e3f52f1ec896f06b4373",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02471%",
+    "USDC_Per_User": 74143044.25
+  },
+  {
+    "Wallet": "0xa91a3cc43fc23929fe879b853d4e6ae9568b8251",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02466%",
+    "USDC_Per_User": 73976735.36
+  },
+  {
+    "Wallet": "0x067e2069acf2a133c71b453da8e7a13c66eeeb2a",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00000%",
+    "USDC_Per_User": 0
+  },
+  {
+    "Wallet": "0xc18c26458be3e373d2c262b52aaf932cddb30b04",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02411%",
+    "USDC_Per_User": 72343989.7
+  },
+  {
+    "Wallet": "0x495833d72cb1c78c5f53e0fbafdbe18e012b2482",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02402%",
+    "USDC_Per_User": 72048041.76
+  },
+  {
+    "Wallet": "0xa7df20366aacff3235366f6c13817d532bd71895",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02383%",
+    "USDC_Per_User": 71487505.63
+  },
+  {
+    "Wallet": "0xe55a49c4e94db92fdf4087c11d5e9e4f1b91cc03",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02382%",
+    "USDC_Per_User": 71463083.03
+  },
+  {
+    "Wallet": "0x0f4098206c1c6f50fc33ad5c29edc7f5cfec493f",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02372%",
+    "USDC_Per_User": 71155682.84
+  },
+  {
+    "Wallet": "0xf60428129f6c6e0ea692781b1cec0bebdbabd267",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02367%",
+    "USDC_Per_User": 71010200.27
+  },
+  {
+    "Wallet": "0x1b41fdd28c849d5951fe62f4d8ec8a14900f44f4",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02363%",
+    "USDC_Per_User": 70880318.97
+  },
+  {
+    "Wallet": "0xc8a5bcfb310a2779493b5e207f77af1e0e9402bf",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02359%",
+    "USDC_Per_User": 70766986.82
+  },
+  {
+    "Wallet": "0xc864dbfd3cd906561e2c3705e8cc55a41c6a84b4",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02353%",
+    "USDC_Per_User": 70593979.6
+  },
+  {
+    "Wallet": "0x318d060c7acb0b1746ff4f5aaa4250e24108fdd1",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02307%",
+    "USDC_Per_User": 69204790.79
+  },
+  {
+    "Wallet": "0xba7fc3690ae2a81a924479e25b7dab37aea91e39",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02306%",
+    "USDC_Per_User": 69186148.87
+  },
+  {
+    "Wallet": "0x3f9dc5abb14e34bd94cf9ebcdddfd4a4eb68387a",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02256%",
+    "USDC_Per_User": 67669581.79
+  },
+  {
+    "Wallet": "0x4657eb96473efab108b5b115b67f1de0dc8357e8",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02250%",
+    "USDC_Per_User": 67509752.23
+  },
+  {
+    "Wallet": "0xda163b7acb1da65cc638e10748aaae9a40c4240f",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02248%",
+    "USDC_Per_User": 67448689.77
+  },
+  {
+    "Wallet": "0x2f3eb6cfe062c882e2e63a6578440fcf8b38ca54",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02223%",
+    "USDC_Per_User": 66696926.57
+  },
+  {
+    "Wallet": "0x96d18df7700946780744967eae743a5ad246cc7b",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02213%",
+    "USDC_Per_User": 66394269.43
+  },
+  {
+    "Wallet": "0x378236a972abfcc81dc4670ac95dfd990932916d",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02192%",
+    "USDC_Per_User": 65766815.32
+  },
+  {
+    "Wallet": "0x3c5fd63beb59643fb7a01cb657970768fb75f202",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02190%",
+    "USDC_Per_User": 65704883.76
+  },
+  {
+    "Wallet": "0x04894e87522562b13a938d1a96233ac83905db5d",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02154%",
+    "USDC_Per_User": 64610801.91
+  },
+  {
+    "Wallet": "0xf7ca19894ae1cf00a8156d7b54c2f2cfd2c08a13",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00068%",
+    "USDC_Per_User": 2035790.469
+  },
+  {
+    "Wallet": "0x28d47f79a0dfb22de0ab43b9029568de5a240011",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02138%",
+    "USDC_Per_User": 64140047.32
+  },
+  {
+    "Wallet": "0x76f0d737398e07567cf2067eda419ad010d204df",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02125%",
+    "USDC_Per_User": 63737793.83
+  },
+  {
+    "Wallet": "0x29a38160ee9aed84900abfda71bb825f5625b64f",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02111%",
+    "USDC_Per_User": 63343515.47
+  },
+  {
+    "Wallet": "0x8c520a84a2ae29473219c4f9afdda615692fd093",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02094%",
+    "USDC_Per_User": 62822722.65
+  },
+  {
+    "Wallet": "0xd114f6c3d7678b0c34865f79334853e83a9dd6b9",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02057%",
+    "USDC_Per_User": 61717338.02
+  },
+  {
+    "Wallet": "0xe9a98cd41bf532023c5cb87b5d9e55987ca01ae3",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02034%",
+    "USDC_Per_User": 61020324.26
+  },
+  {
+    "Wallet": "0xba6e45997009308e42322ca88a3d2240b0db6ba1",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02019%",
+    "USDC_Per_User": 60572801.64
+  },
+  {
+    "Wallet": "0xcbe7bd0a512faf2ae0c0ad41a86cae107b9e6e41",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.02017%",
+    "USDC_Per_User": 60511918.91
+  },
+  {
+    "Wallet": "0xf1606ee0fb515bd858c72998433b9d1227d90822",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01990%",
+    "USDC_Per_User": 59687074.49
+  },
+  {
+    "Wallet": "0xa6bff476a6676382a423134c307d0c8858eab397",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01972%",
+    "USDC_Per_User": 59162058.62
+  },
+  {
+    "Wallet": "0x03ba4b9973039d6e7fe93c34535caf4516ebaa3f",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01940%",
+    "USDC_Per_User": 58194871.13
+  },
+  {
+    "Wallet": "0x8b7d666ffb5bafcdcf8d344c8ced426e4e9d613d",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01850%",
+    "USDC_Per_User": 55510254.59
+  },
+  {
+    "Wallet": "0xfa65b3292d24934fee2f2a0814ad3028dd194a86",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01932%",
+    "USDC_Per_User": 57956061.42
+  },
+  {
+    "Wallet": "0x27b747d72588493fb5397813b368581e7b13a7d0",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01908%",
+    "USDC_Per_User": 57228579.08
+  },
+  {
+    "Wallet": "0xc40cbf37430cf0c9eaa66eed35e57ca2e327a0fe",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01892%",
+    "USDC_Per_User": 56770980.31
+  },
+  {
+    "Wallet": "0x13177178653a887c3d545e8fa9be84c647d1eba4",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01849%",
+    "USDC_Per_User": 55465726.2
+  },
+  {
+    "Wallet": "0x3bc426aeb624f2d2c5ea6b19ebcf93c14729ea1a",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01845%",
+    "USDC_Per_User": 55356858.13
+  },
+  {
+    "Wallet": "0x2412e66cc5057b6c42ac184d3f63f1df7db30c5e",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01845%",
+    "USDC_Per_User": 55346411.83
+  },
+  {
+    "Wallet": "0x1859cf0ecb942a973658a48a78bf9b906fad4a83",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01844%",
+    "USDC_Per_User": 55306271.56
+  },
+  {
+    "Wallet": "0xe48425358440dc6c06a5d4c098ffca855901a61a",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01838%",
+    "USDC_Per_User": 55128617.77
+  },
+  {
+    "Wallet": "0x8cae42d61894f8291838147fd456c66663fa665b",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01836%",
+    "USDC_Per_User": 55072172.12
+  },
+  {
+    "Wallet": "0x7c0fe09c5be67e2a1072a8f05dfd70207039767e",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01834%",
+    "USDC_Per_User": 55022579.53
+  },
+  {
+    "Wallet": "0xe375d8902103fc0897a272c2ac4538159cd32d4f",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01830%",
+    "USDC_Per_User": 54910886.22
+  },
+  {
+    "Wallet": "0xb43db671f601adfc83284e33ccd788e3832f161a",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01830%",
+    "USDC_Per_User": 54893193.82
+  },
+  {
+    "Wallet": "0x2adea7007176d828e988277190a4eb625ecf2e9b",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01815%",
+    "USDC_Per_User": 54461908.07
+  },
+  {
+    "Wallet": "0xe1aa6ce4b66d775797f9cf7e6e08aa072b285124",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01801%",
+    "USDC_Per_User": 54017842.28
+  },
+  {
+    "Wallet": "0x2f62cb2c365abd916b1d46e99133257f9ebf936c",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01797%",
+    "USDC_Per_User": 53924866.08
+  },
+  {
+    "Wallet": "0x319aae1e01c1bfcd106c1063cd230a59375368f5",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01790%",
+    "USDC_Per_User": 53692486.03
+  },
+  {
+    "Wallet": "0xcde5b9b3c50ea882a40376de8a5cb140eaf2d624",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01787%",
+    "USDC_Per_User": 53598482.19
+  },
+  {
+    "Wallet": "0xc1a969ee8f69e72c41b3e7282e91951f10e75c22",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01776%",
+    "USDC_Per_User": 53265465.9
+  },
+  {
+    "Wallet": "0x9d784382ac2201c9709332654dc5800b71c71e3d",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01741%",
+    "USDC_Per_User": 52233711.33
+  },
+  {
+    "Wallet": "0x071e39274b3f254473894aaaca5bf42dfe4fd489",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01736%",
+    "USDC_Per_User": 52068654.75
+  },
+  {
+    "Wallet": "0xff536f23d12c103bde620bc301be1296239053f7",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01713%",
+    "USDC_Per_User": 51377052.77
+  },
+  {
+    "Wallet": "0xfb076dc52e7b750fb7779811048993541db4e572",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01706%",
+    "USDC_Per_User": 51184534.06
+  },
+  {
+    "Wallet": "0xe60936022b8ecb45e75f07eb5922080dd1026efd",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01701%",
+    "USDC_Per_User": 51024716.57
+  },
+  {
+    "Wallet": "0x911393376262d92b066ad2956f37c56e61b97b2e",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01689%",
+    "USDC_Per_User": 50670597.76
+  },
+  {
+    "Wallet": "0x5776f4732685fb430be79ea682159e2c214a4bc5",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01679%",
+    "USDC_Per_User": 50360832.98
+  },
+  {
+    "Wallet": "0x0f9167e5ca3972e00d4b75e3d50be253b58d4dbf",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01673%",
+    "USDC_Per_User": 50197074.16
+  },
+  {
+    "Wallet": "0x0c806594070578457f40af3d199bf862ee841dcc",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01337%",
+    "USDC_Per_User": 40108586.54
+  },
+  {
+    "Wallet": "0x5b6b57479da1198a4c265c6d0f1597ddeb3ed906",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01668%",
+    "USDC_Per_User": 50043317.21
+  },
+  {
+    "Wallet": "0x3c224982328e0763786b5926ad1f0273709a814c",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01664%",
+    "USDC_Per_User": 49922156.44
+  },
+  {
+    "Wallet": "0x29d38bb9827b09094587e6f1d20b149d3e25f0e7",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01654%",
+    "USDC_Per_User": 49623116.71
+  },
+  {
+    "Wallet": "0xbf3f6477dbd514ef85b7d3ec6ac2205fd0962039",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01648%",
+    "USDC_Per_User": 49436754.46
+  },
+  {
+    "Wallet": "0xeb0e12f798e126a392d19dc9bc84e60f25570848",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01634%",
+    "USDC_Per_User": 49029619.75
+  },
+  {
+    "Wallet": "0xf47c6684301866aab040584116025677f049056d",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01615%",
+    "USDC_Per_User": 48451724.46
+  },
+  {
+    "Wallet": "0x14c9cf222854978680533941771176e48bd1fa77",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00000%",
+    "USDC_Per_User": 0
+  },
+  {
+    "Wallet": "0x12d96ca5c480f099fda6ff594c2a64a94473a491",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01609%",
+    "USDC_Per_User": 48268755.96
+  },
+  {
+    "Wallet": "0x1c3990ea067b7388e4a0b97609dbb23a27043c82",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01607%",
+    "USDC_Per_User": 48199436.4
+  },
+  {
+    "Wallet": "0x03828b7129d49313b2cdc966e50369b75ec79a48",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01596%",
+    "USDC_Per_User": 47880485.12
+  },
+  {
+    "Wallet": "0xb2883c5bcec9b7659eaa24f8841a33e1211fb905",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01589%",
+    "USDC_Per_User": 47675778.58
+  },
+  {
+    "Wallet": "0x81a2ffca7b5e7b616c963e8112d212340815c634",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00000%",
+    "USDC_Per_User": 0
+  },
+  {
+    "Wallet": "0x5e8829acd7be1a80d93c5580dec41856c8d59db8",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01578%",
+    "USDC_Per_User": 47354988.93
+  },
+  {
+    "Wallet": "0x014b86f96e8bc2f7d352e86fa09346a8a254eb5d",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01574%",
+    "USDC_Per_User": 47222656.08
+  },
+  {
+    "Wallet": "0x4e18215aba866cda8fa71fe2f76883c81cf3ae88",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01570%",
+    "USDC_Per_User": 47111392.43
+  },
+  {
+    "Wallet": "0xa9f008f4153eea289e46ad23e275f16afe405f61",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01567%",
+    "USDC_Per_User": 47002618.62
+  },
+  {
+    "Wallet": "0x6d74a69e14f72f1c8b9f26c0fa4e68beab773391",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01559%",
+    "USDC_Per_User": 46784565.25
+  },
+  {
+    "Wallet": "0x945445acc53d863f0cd301f82412bc479ee527a2",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01559%",
+    "USDC_Per_User": 46755211.02
+  },
+  {
+    "Wallet": "0xf5919abf24c359bdfbb21d046c0c0921c5fb463e",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01556%",
+    "USDC_Per_User": 46690507.71
+  },
+  {
+    "Wallet": "0xb01f6c7c4e78a6c5f3f9ec3e35d1b849d079425c",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01099%",
+    "USDC_Per_User": 32962288.02
+  },
+  {
+    "Wallet": "0x62ade9823fa42c107ce27b4d8378665790b6e9cb",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01519%",
+    "USDC_Per_User": 45572248.2
+  },
+  {
+    "Wallet": "0xfe3c3c986578a688789eb23b6d3392fc3818b1ca",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01148%",
+    "USDC_Per_User": 34431329.98
+  },
+  {
+    "Wallet": "0xcd1059f9e8c395142616e830a6c4b8c7dfff2fa9",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01514%",
+    "USDC_Per_User": 45408938.43
+  },
+  {
+    "Wallet": "0xfd96be298130d8e96696c2043c7d97c6e59f95d6",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01508%",
+    "USDC_Per_User": 45233499.76
+  },
+  {
+    "Wallet": "0xe8eafaef537effb8266ddaaa155a59ecdb5fa3dd",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01498%",
+    "USDC_Per_User": 44928069.5
+  },
+  {
+    "Wallet": "0x6dd8e51d42498a6b9030c272db1a8d725407a861",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01109%",
+    "USDC_Per_User": 33275006.87
+  },
+  {
+    "Wallet": "0xc1707189cc03e5f709d9df9cf65331a48f29eb35",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01492%",
+    "USDC_Per_User": 44760036.7
+  },
+  {
+    "Wallet": "0x8489c9377b248028e8c7e801012baad03b3702cd",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01487%",
+    "USDC_Per_User": 44614993.04
+  },
+  {
+    "Wallet": "0xa308de214e01c365834e3344c1088b0d2b97559c",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01484%",
+    "USDC_Per_User": 44522007.76
+  },
+  {
+    "Wallet": "0x467a758739ba9aabe12ae63ace0a12c255877cb2",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01476%",
+    "USDC_Per_User": 44276807.61
+  },
+  {
+    "Wallet": "0xa2a87036b68ddb37149e1b79c42106feb193cf09",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01474%",
+    "USDC_Per_User": 44232930.51
+  },
+  {
+    "Wallet": "0x0c3bd97290a5d93204e79d237e6a2f77a8e62458",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01468%",
+    "USDC_Per_User": 44052013.88
+  },
+  {
+    "Wallet": "0x1c9737b23bc98fa0f1c0e462ece0c17912998962",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01458%",
+    "USDC_Per_User": 43749963.79
+  },
+  {
+    "Wallet": "0x49f69b5659d3a8daed1a2319e7a297e04e864eed",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01457%",
+    "USDC_Per_User": 43712336.86
+  },
+  {
+    "Wallet": "0xb0cd10b79923d2fdd368abe31ed159e3022448f6",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01455%",
+    "USDC_Per_User": 43642128.64
+  },
+  {
+    "Wallet": "0x163c577ce071c0704c8c60207b6f2367e7bf1b57",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01445%",
+    "USDC_Per_User": 43362026.45
+  },
+  {
+    "Wallet": "0x3d7a034fdfb97f3e06fdbbcee1d22fd35859a1b2",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01444%",
+    "USDC_Per_User": 43332916.6
+  },
+  {
+    "Wallet": "0x4099b161c037277f4e406e2ad1aee43603d97231",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01444%",
+    "USDC_Per_User": 43311911.46
+  },
+  {
+    "Wallet": "0x5be66fe7e6bfffa5af7d9f9a3b49ae7c50ca54df",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01436%",
+    "USDC_Per_User": 43080914.03
+  },
+  {
+    "Wallet": "0xab12253171a0d73df64b115cd43fe0a32feb9daa",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01419%",
+    "USDC_Per_User": 42555481.7
+  },
+  {
+    "Wallet": "0x513e95eec3bac74802b4b2d859e802f17eae57a9",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01417%",
+    "USDC_Per_User": 42497871.58
+  },
+  {
+    "Wallet": "0x5e7ebd5521e724bb4c7ea8663b71d64625bf6b4c",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01416%",
+    "USDC_Per_User": 42471305.53
+  },
+  {
+    "Wallet": "0xf6359ed68643d8675ed197e10190356bc2cf71ec",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01405%",
+    "USDC_Per_User": 42157407.04
+  },
+  {
+    "Wallet": "0x8fa5ebb986fa6db89291a383142bb756ab88428e",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01401%",
+    "USDC_Per_User": 42028557.25
+  },
+  {
+    "Wallet": "0x7698f83a181ef3e048720927b0b7847600b4bb54",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01394%",
+    "USDC_Per_User": 41816430.62
+  },
+  {
+    "Wallet": "0x8c06510445cfb4c967ef2835b59848a8bbee4d84",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01391%",
+    "USDC_Per_User": 41733346.88
+  },
+  {
+    "Wallet": "0x7ea312f620fab8aef8f555ff2aed2d81d6244504",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01389%",
+    "USDC_Per_User": 41681177
+  },
+  {
+    "Wallet": "0x811b889a5b073713e6591ee05b50c867a9722005",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01382%",
+    "USDC_Per_User": 41453342.53
+  },
+  {
+    "Wallet": "0xfbe849ea94aa5acd53c83776449620b1b51976db",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01378%",
+    "USDC_Per_User": 41336184.17
+  },
+  {
+    "Wallet": "0xa0b65f62e19b764f8918dc9b457178f6e1268645",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01369%",
+    "USDC_Per_User": 41074068.41
+  },
+  {
+    "Wallet": "0x5e13f87d9f83a0699ada37eb92cc8f7238430975",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01367%",
+    "USDC_Per_User": 41006262.79
+  },
+  {
+    "Wallet": "0xae699156f5d90db2e06ebad5f23e31e382360a67",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01357%",
+    "USDC_Per_User": 40716134.68
+  },
+  {
+    "Wallet": "0x083bd503942b485455a704da2c173f991313abfb",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01356%",
+    "USDC_Per_User": 40679820.44
+  },
+  {
+    "Wallet": "0x5538793f0ed24fd4ea2fcd5225a40995a8f5ac3a",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01325%",
+    "USDC_Per_User": 39760665.31
+  },
+  {
+    "Wallet": "0xc26d35e055af391d19fe35fcb20e5505cbfdd705",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01342%",
+    "USDC_Per_User": 40271806.6
+  },
+  {
+    "Wallet": "0x386bb46c6255829ec0a3df986bcd141fcfa32323",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01336%",
+    "USDC_Per_User": 40076495.89
+  },
+  {
+    "Wallet": "0xa56a07e2791e33d06493477d6f293e9171ca00c6",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01330%",
+    "USDC_Per_User": 39911256.02
+  },
+  {
+    "Wallet": "0x03a7983417f84b523a15eb8db50f757d3ae944cd",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01322%",
+    "USDC_Per_User": 39665238.97
+  },
+  {
+    "Wallet": "0xe665e9c2fb6309bf0db80b80cf9230e31a0bd491",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01309%",
+    "USDC_Per_User": 39284316.91
+  },
+  {
+    "Wallet": "0xce2986a4a84245e021cea4df8729d84c4a1cb01f",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01309%",
+    "USDC_Per_User": 39266075.78
+  },
+  {
+    "Wallet": "0x4e9ca750d8f32533b171224386e9a79a191c33e3",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01302%",
+    "USDC_Per_User": 39063029.94
+  },
+  {
+    "Wallet": "0x1c2a01f94e101515601623cadef17ab90e1de639",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01301%",
+    "USDC_Per_User": 39037710.85
+  },
+  {
+    "Wallet": "0x6ff1b106b8bc56540317b19593592bd7ac299108",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00401%",
+    "USDC_Per_User": 12023204.19
+  },
+  {
+    "Wallet": "0xf5532e1ebd9894f34cd66435ce484a50973af07c",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01293%",
+    "USDC_Per_User": 38787861.36
+  },
+  {
+    "Wallet": "0x7068460ad2e11d864649d630a87c1e73b44c66a8",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01290%",
+    "USDC_Per_User": 38703660.62
+  },
+  {
+    "Wallet": "0x07f2455261fc76bc326486b4a2e0e19585bd81a0",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01266%",
+    "USDC_Per_User": 37975222.02
+  },
+  {
+    "Wallet": "0x48200affb5be019f75d8d8094d71196b3b94067b",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01246%",
+    "USDC_Per_User": 37383759.51
+  },
+  {
+    "Wallet": "0x5ba273a6199fa83508e15940cd9a94d766b33953",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01236%",
+    "USDC_Per_User": 37073424.91
+  },
+  {
+    "Wallet": "0x3a6e2310c72624713fd2f678684b678dd1ddc28c",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01221%",
+    "USDC_Per_User": 36637793.04
+  },
+  {
+    "Wallet": "0xfc2ec10b246c0b52ca2ad5a042d032cd543945f1",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01219%",
+    "USDC_Per_User": 36560028.79
+  },
+  {
+    "Wallet": "0x25ff5d845866b3b60b1beac91244c21011e10762",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01215%",
+    "USDC_Per_User": 36453137.45
+  },
+  {
+    "Wallet": "0x2948a11cc70c7fd3cf93705a9b034a89bff78ab0",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01210%",
+    "USDC_Per_User": 36305886.67
+  },
+  {
+    "Wallet": "0x020782d33dfa394275530a00639b9ef276e2c0ea",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01204%",
+    "USDC_Per_User": 36113473.62
+  },
+  {
+    "Wallet": "0xf6b4d07f6fd5b5801b42d641a42ae4c134590ece",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01182%",
+    "USDC_Per_User": 35449820.24
+  },
+  {
+    "Wallet": "0x76f3ed1cde09df31c70424649dd29ca5b7242d57",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01177%",
+    "USDC_Per_User": 35320984.66
+  },
+  {
+    "Wallet": "0x4af7c0f4e03d314082f4d4b7623ded92b46cd747",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01174%",
+    "USDC_Per_User": 35222400.24
+  },
+  {
+    "Wallet": "0x3058b13c47a5c6472181a82a4c1ce7150d5f638f",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01154%",
+    "USDC_Per_User": 34624977.86
+  },
+  {
+    "Wallet": "0x0a205e43a2df5560da8977d28990e32e17461497",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01133%",
+    "USDC_Per_User": 34002979.26
+  },
+  {
+    "Wallet": "0xb467631be7e1a7f62de4d3e6fd9769b7ed2fc678",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01132%",
+    "USDC_Per_User": 33958023.32
+  },
+  {
+    "Wallet": "0xd064e4fe9c18f555547ceb19238dbfa5e95236e7",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01129%",
+    "USDC_Per_User": 33884638.93
+  },
+  {
+    "Wallet": "0xe271b53513ecdba42fa6635cc1e77040660c8cc4",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01115%",
+    "USDC_Per_User": 33462926.27
+  },
+  {
+    "Wallet": "0xe6faff5c5020e05a8514acd2d0bf887257e1e3f5",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01112%",
+    "USDC_Per_User": 33357197.88
+  },
+  {
+    "Wallet": "0xabebc24b95a764cd3b84132aa4bd0453e277a765",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01111%",
+    "USDC_Per_User": 33334418.09
+  },
+  {
+    "Wallet": "0x3841018b6441de80503d2d50239bdba517f36ecf",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01108%",
+    "USDC_Per_User": 33246371.16
+  },
+  {
+    "Wallet": "0xfa0e56d74dcb533c144b553317196ddc527b27d2",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01099%",
+    "USDC_Per_User": 32974189.08
+  },
+  {
+    "Wallet": "0x86121466c57705dba9a4753ed55e95ef72e4f6e1",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01093%",
+    "USDC_Per_User": 32781216.53
+  },
+  {
+    "Wallet": "0x30c25704ed625ab02ce330fecb16e10f4235257e",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01086%",
+    "USDC_Per_User": 32594142.53
+  },
+  {
+    "Wallet": "0xdc173b36003a886b3248650206a1fae7433660a2",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01081%",
+    "USDC_Per_User": 32433686.08
+  },
+  {
+    "Wallet": "0x1c5ad0ff8cb036d664eb57ce6b7963775a8ca4f6",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01069%",
+    "USDC_Per_User": 32070688.62
+  },
+  {
+    "Wallet": "0xbf17674fb75393ba1e9909c7c3c7e0c82e4e9ce0",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01061%",
+    "USDC_Per_User": 31825309.6
+  },
+  {
+    "Wallet": "0x37f619954730de8ee6414b3b741352aa7d93007f",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01047%",
+    "USDC_Per_User": 31397605.83
+  },
+  {
+    "Wallet": "0x5b3d8e62d82ece9591220e8b782233224a59f713",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01028%",
+    "USDC_Per_User": 30841097.24
+  },
+  {
+    "Wallet": "0xebba5fcfd6c5061d26fa479048fa50c72d60a416",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01025%",
+    "USDC_Per_User": 30742090.42
+  },
+  {
+    "Wallet": "0x93af249b7d54d33fcd5cef3f4d88feeefd68251c",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01022%",
+    "USDC_Per_User": 30663845.66
+  },
+  {
+    "Wallet": "0xc63c8459fea26c0bc116da495452c3484cd4b9be",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01022%",
+    "USDC_Per_User": 30662389.54
+  },
+  {
+    "Wallet": "0x1ec59bbdf44203a2da421805aa7fc0852701b77c",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01022%",
+    "USDC_Per_User": 30649867.78
+  },
+  {
+    "Wallet": "0xb59886a33ecabb43555317c7527cc1d9586e2e7f",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.01020%",
+    "USDC_Per_User": 30599498.31
+  },
+  {
+    "Wallet": "0x03c2bfd2509de9b13d0124015077e100a292336d",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00000%",
+    "USDC_Per_User": 0
+  },
+  {
+    "Wallet": "0xb157e7df0ff7bf23e9efb627a1379a4bf88f21b2",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00997%",
+    "USDC_Per_User": 29903106.48
+  },
+  {
+    "Wallet": "0xc5ba4c9ed13bc50e3412594dd09320de54018ea1",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00993%",
+    "USDC_Per_User": 29784889.87
+  },
+  {
+    "Wallet": "0xb48f889807415da785ddadf21b87f06e4f51900d",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00987%",
+    "USDC_Per_User": 29597173.84
+  },
+  {
+    "Wallet": "0x7a8988e520279bfddda73fddaa6046e471e35111",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00984%",
+    "USDC_Per_User": 29513159.33
+  },
+  {
+    "Wallet": "0xe10f6e0fca7354a2f66562a97092e9adcd98c39c",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00850%",
+    "USDC_Per_User": 25492080.82
+  },
+  {
+    "Wallet": "0xe06df8ad4c63cc27454af2ce3a722621f680ce77",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00974%",
+    "USDC_Per_User": 29232283.69
+  },
+  {
+    "Wallet": "0xa1503a7cd5f4be5e987443c57563f99a7e57464f",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00965%",
+    "USDC_Per_User": 28955154.09
+  },
+  {
+    "Wallet": "0xf9fb0889bdcf4d9d1561994496a1325c7bfc9c67",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00965%",
+    "USDC_Per_User": 28952269.65
+  },
+  {
+    "Wallet": "0x2bf53331e562faadc11e3538754fcb579bf4ca24",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00959%",
+    "USDC_Per_User": 28758361.69
+  },
+  {
+    "Wallet": "0x29f6431ed5b5bd1cba8e9a9ea9ac977131895cfd",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00958%",
+    "USDC_Per_User": 28746299.4
+  },
+  {
+    "Wallet": "0x7bf6e077974410dc2874a53b3276a75191cd98da",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00955%",
+    "USDC_Per_User": 28649732.39
+  },
+  {
+    "Wallet": "0xdf0a93bd143b6a0776f86753e7a9524065793033",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00953%",
+    "USDC_Per_User": 28603469.85
+  },
+  {
+    "Wallet": "0x3cca0ce852976a089def119b66622ec3c9f12001",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00493%",
+    "USDC_Per_User": 14798356.06
+  },
+  {
+    "Wallet": "0x1d638089aa5394a08677ee698a5593b25703ec22",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00948%",
+    "USDC_Per_User": 28430747.88
+  },
+  {
+    "Wallet": "0x1effd663c607c72c42231530b3016dcd3ad5f546",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00947%",
+    "USDC_Per_User": 28414087.35
+  },
+  {
+    "Wallet": "0x38e694131779b7cf066b1771715c0b112db79f9f",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00945%",
+    "USDC_Per_User": 28349065.03
+  },
+  {
+    "Wallet": "0x7080df800866f8d6f1d43df784189c8367fa4bf6",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00945%",
+    "USDC_Per_User": 28335733.15
+  },
+  {
+    "Wallet": "0x8364e2de8f50ba4eec4dda7a0ffe470e3a4cdeae",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00944%",
+    "USDC_Per_User": 28315413.95
+  },
+  {
+    "Wallet": "0x07d0f772ff64cf723a9d04d8173735be8d8335d2",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00942%",
+    "USDC_Per_User": 28272747.94
+  },
+  {
+    "Wallet": "0x8a358dfdc6e55888083685a53491acde19f7fc97",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00936%",
+    "USDC_Per_User": 28066212.9
+  },
+  {
+    "Wallet": "0x5d8814a1668d59e1c354de44f52a4e4c5393e7c6",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00362%",
+    "USDC_Per_User": 10857478.48
+  },
+  {
+    "Wallet": "0x2fcfc8f99501bcdf6a969eb7a239c11f21e9bfca",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00931%",
+    "USDC_Per_User": 27929897.45
+  },
+  {
+    "Wallet": "0xe6c486eb5f5cc2c64b53ab6c3942986d648c9b89",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00922%",
+    "USDC_Per_User": 27672115.88
+  },
+  {
+    "Wallet": "0xbb0584655c0fa6cd9bfbc4f61d8151b757f067a7",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00922%",
+    "USDC_Per_User": 27664529.86
+  },
+  {
+    "Wallet": "0x3b41f89f4795a050f9e3d3a7537cb01276e4b73b",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00922%",
+    "USDC_Per_User": 27657213.47
+  },
+  {
+    "Wallet": "0x5d9dd8620e6ac0c6843e5fd3051dd1d58065a061",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00922%",
+    "USDC_Per_User": 27651016.84
+  },
+  {
+    "Wallet": "0xbf6e898b7599d2e6dac7884302d9425ec1564fe3",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00907%",
+    "USDC_Per_User": 27217354.07
+  },
+  {
+    "Wallet": "0xf4c7a8daaff6362b31dcc3fc2cd5de0f36c5ea7a",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00901%",
+    "USDC_Per_User": 27039608.73
+  },
+  {
+    "Wallet": "0x6088fddadce3e7f8f0ddf8ca79aa87af397d6e17",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00897%",
+    "USDC_Per_User": 26917543.33
+  },
+  {
+    "Wallet": "0xe35e556f2b894cc88fd35b3edeae386b556e541a",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00878%",
+    "USDC_Per_User": 26338031.36
+  },
+  {
+    "Wallet": "0x70df59dcb86ab6a9ddd771d61ca14fbf4d9642d0",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00868%",
+    "USDC_Per_User": 26052513.36
+  },
+  {
+    "Wallet": "0x15b595338f8c1d4760a62e557e5a67d971ffb0aa",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00863%",
+    "USDC_Per_User": 25879425.64
+  },
+  {
+    "Wallet": "0x6ff9171908df3ccf7470ef8786e69450d68c28fe",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00858%",
+    "USDC_Per_User": 25751716.62
+  },
+  {
+    "Wallet": "0x464c41126308c155afef0db7cc8821166fac9852",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00855%",
+    "USDC_Per_User": 25662995.23
+  },
+  {
+    "Wallet": "0xdcbb22b496c7ce8f60bdaf0140c14c8283559070",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00832%",
+    "USDC_Per_User": 24951644.45
+  },
+  {
+    "Wallet": "0x83edea9faedb03762e338a63d28a6d216b04efb5",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00831%",
+    "USDC_Per_User": 24927829.73
+  },
+  {
+    "Wallet": "0x245401e2c5e4d36d9da0695c01aae93f0c7e1d1f",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00828%",
+    "USDC_Per_User": 24850433.98
+  },
+  {
+    "Wallet": "0x032b7d93aeed91127baa55ad570d88fd2f15d589",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00822%",
+    "USDC_Per_User": 24669886.23
+  },
+  {
+    "Wallet": "0x2b1a28ea5ec63373caa0342ad7b1940b7348b5b6",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00818%",
+    "USDC_Per_User": 24547349.56
+  },
+  {
+    "Wallet": "0x7cffa3d22d97e34c51a4bf331171b07da23d036b",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00810%",
+    "USDC_Per_User": 24308928.08
+  },
+  {
+    "Wallet": "0x31b7e144b2cf261a015004bee9c84a98263e2f66",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00800%",
+    "USDC_Per_User": 23991109.39
+  },
+  {
+    "Wallet": "0x7507d252e32253fd6ee89f2c910f844a0ec35ad9",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00794%",
+    "USDC_Per_User": 23814378.18
+  },
+  {
+    "Wallet": "0x198dde5120928d240abd6f912fabe8a9e3a156ef",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00784%",
+    "USDC_Per_User": 23521619.52
+  },
+  {
+    "Wallet": "0xcfbaf3e3d90f090ab15816042840b5374084cd94",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00783%",
+    "USDC_Per_User": 23501643.54
+  },
+  {
+    "Wallet": "0x8446608c2b862afdb42b53c6a0fc7e69b25929f7",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00769%",
+    "USDC_Per_User": 23078433.59
+  },
+  {
+    "Wallet": "0x9fb0415c74fbc3f78cf0b8b6ea256bb0157021c3",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00766%",
+    "USDC_Per_User": 22976916.42
+  },
+  {
+    "Wallet": "0x677d4a619af2869b1ad63ae06232b1c22868913c",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00762%",
+    "USDC_Per_User": 22873447.8
+  },
+  {
+    "Wallet": "0xe1a0057dd20e329442a8c01edb182a9b6936ebcf",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00762%",
+    "USDC_Per_User": 22867478.27
+  },
+  {
+    "Wallet": "0x2a6fe3d9a66a8ecfd95c7cd905eb39864b34f64b",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00569%",
+    "USDC_Per_User": 17071021.03
+  },
+  {
+    "Wallet": "0x4b773d149ae327e7f7b3eb49633999a87d023e96",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00759%",
+    "USDC_Per_User": 22760914.98
+  },
+  {
+    "Wallet": "0xf9281c539b5df24675a0cafcc6d05d92308913db",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00752%",
+    "USDC_Per_User": 22560470.18
+  },
+  {
+    "Wallet": "0xdf410708ecf053274ddf0c2318649524abf1dc87",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00751%",
+    "USDC_Per_User": 22526125.87
+  },
+  {
+    "Wallet": "0xd5ae6a8452a902b687dc0f46417689145d3b24c0",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00749%",
+    "USDC_Per_User": 22475159.37
+  },
+  {
+    "Wallet": "0x302d6c4a6cafdf4dfd58df5f7f5db241dbae27d8",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00748%",
+    "USDC_Per_User": 22443011.89
+  },
+  {
+    "Wallet": "0x34954c29d7174466fe8fb4147f2e96aa3d645921",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00733%",
+    "USDC_Per_User": 21982661.76
+  },
+  {
+    "Wallet": "0xe684700ba51280da463c1aa0f46ee52098b87538",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00000%",
+    "USDC_Per_User": 0
+  },
+  {
+    "Wallet": "0xa58579414e0af248f4b30946bb76086abeecb40b",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00723%",
+    "USDC_Per_User": 21680821.52
+  },
+  {
+    "Wallet": "0x326b76e0915c0d30cba220e8a746efb2795d26ca",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00716%",
+    "USDC_Per_User": 21476046.41
+  },
+  {
+    "Wallet": "0x46e8f1254d18d886928d0f44faa8e5b6d499b459",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00715%",
+    "USDC_Per_User": 21441643.53
+  },
+  {
+    "Wallet": "0x74f7caf74cbcfe90f71b7b885a7173b5e06064d8",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00711%",
+    "USDC_Per_User": 21322036.92
+  },
+  {
+    "Wallet": "0xd2decced0aa2ebb562fb936125cd10e1ece1b27a",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00709%",
+    "USDC_Per_User": 21258388.44
+  },
+  {
+    "Wallet": "0x2d326e109d936dd845045cc563f0ce797fc88f11",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00698%",
+    "USDC_Per_User": 20925891.58
+  },
+  {
+    "Wallet": "0xdb1565eba695ba03c8bcff2a3c418bf17c9b10bb",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00691%",
+    "USDC_Per_User": 20724279.15
+  },
+  {
+    "Wallet": "0x405a9dc591662fc91be00e08e629cfe6794afa30",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00684%",
+    "USDC_Per_User": 20528411.07
+  },
+  {
+    "Wallet": "0x62c6606995cb7f8e15716752b0369686f6bb7b4e",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00673%",
+    "USDC_Per_User": 20177088.09
+  },
+  {
+    "Wallet": "0x7287ba7cc847f284f549f583f6bd9be6330de216",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00667%",
+    "USDC_Per_User": 20021899.78
+  },
+  {
+    "Wallet": "0x5c87e3021223ef355defabd469a4a38664d3d113",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00666%",
+    "USDC_Per_User": 19992290.13
+  },
+  {
+    "Wallet": "0xa72c32feac5133ff7d1f648f9249e5f588334143",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00663%",
+    "USDC_Per_User": 19883561.86
+  },
+  {
+    "Wallet": "0x017170e69d0fea31bca1ee7d66c10b05c0259d1e",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00662%",
+    "USDC_Per_User": 19859821.03
+  },
+  {
+    "Wallet": "0xb112335d0f43764fb3fccc0c1217e106852d98d0",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00346%",
+    "USDC_Per_User": 10367082.35
+  },
+  {
+    "Wallet": "0x56d93551542fb2805bce596add15752b7723a724",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00657%",
+    "USDC_Per_User": 19702378.25
+  },
+  {
+    "Wallet": "0x95a04a8a4bac8e70d6985b19af9efb6da187bc5d",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00649%",
+    "USDC_Per_User": 19470969.1
+  },
+  {
+    "Wallet": "0xd6e19d0a6b6a48781373ded9f1b01de136598741",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00645%",
+    "USDC_Per_User": 19360466.07
+  },
+  {
+    "Wallet": "0xe4380beab18c07832f512ee97b4daccf69339d3a",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00637%",
+    "USDC_Per_User": 19106865.3
+  },
+  {
+    "Wallet": "0x4b46db1b3f2b5dec2a831664175a0d4ad9224440",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00635%",
+    "USDC_Per_User": 19040929.8
+  },
+  {
+    "Wallet": "0x7388b78fc073c92d5dbe24adb3b9746d0d0e2b0c",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00633%",
+    "USDC_Per_User": 18994148.84
+  },
+  {
+    "Wallet": "0x416d859290ae95e1e0e4ab828d74dcacf9b6d3f0",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00000%",
+    "USDC_Per_User": 0
+  },
+  {
+    "Wallet": "0xd6c585ec642c6b75a10ee4dd479d599a872d8be0",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00615%",
+    "USDC_Per_User": 18462081.14
+  },
+  {
+    "Wallet": "0x00738c7945284affe9d82a5f02b103d05a0f1dc5",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00614%",
+    "USDC_Per_User": 18420400.59
+  },
+  {
+    "Wallet": "0x82dcff3c5f3cd89eee6887ca817a92289a73b7b8",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00613%",
+    "USDC_Per_User": 18378579.46
+  },
+  {
+    "Wallet": "0x71c1a6723964b5db1a193b3bec100aaeea389170",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00610%",
+    "USDC_Per_User": 18304333.38
+  },
+  {
+    "Wallet": "0x2b96d2a3bc8237aeaf392f1af39e70b230f4ee48",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00608%",
+    "USDC_Per_User": 18225507.95
+  },
+  {
+    "Wallet": "0xaa92bd09701d53a0f8089a93c354c03c73114450",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00595%",
+    "USDC_Per_User": 17852522.24
+  },
+  {
+    "Wallet": "0xa3445dbcc2512eeb414be231e35e874aea81326d",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00594%",
+    "USDC_Per_User": 17806476.99
+  },
+  {
+    "Wallet": "0xf6bd947d74bde530b810ea4b61e8c54365028aad",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00590%",
+    "USDC_Per_User": 17698111.58
+  },
+  {
+    "Wallet": "0xb36837946a2b89708be8b49bad31b8c82c36ad05",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00589%",
+    "USDC_Per_User": 17676505.52
+  },
+  {
+    "Wallet": "0x77f36b3a04dd06f14b5f6c4dddc96fb8ddffd4b0",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00527%",
+    "USDC_Per_User": 15824067.59
+  },
+  {
+    "Wallet": "0x64fd8887cb254a198458d756d38cc24a1b05b778",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00019%",
+    "USDC_Per_User": 572529.9904
+  },
+  {
+    "Wallet": "0x6977e753e022f65ebeb170d8267b2ea54a431523",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00565%",
+    "USDC_Per_User": 16949016.73
+  },
+  {
+    "Wallet": "0x602c2bd5466a30073cfa1956b5dc883d23156519",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00116%",
+    "USDC_Per_User": 3493636.983
+  },
+  {
+    "Wallet": "0x6ada4e93aa63f395a66444db475f0f56f4f3ca4f",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00555%",
+    "USDC_Per_User": 16638443.7
+  },
+  {
+    "Wallet": "0x5edca2ee78ac4c12bc81dbe0ed0447096a21ffb2",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00000%",
+    "USDC_Per_User": 0
+  },
+  {
+    "Wallet": "0xc84bb686971a23ca95963065b31b49fb5906a991",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00545%",
+    "USDC_Per_User": 16358462.77
+  },
+  {
+    "Wallet": "0x9d8b79abebc1d6206e216121b015b51ca8e641ea",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00544%",
+    "USDC_Per_User": 16308286.56
+  },
+  {
+    "Wallet": "0x596b40ea06032fe516eb9630dc57919881bae75c",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00522%",
+    "USDC_Per_User": 15646631.64
+  },
+  {
+    "Wallet": "0x3f34051f1a2eaeee2b43a46191b2752f3fb8af4b",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00517%",
+    "USDC_Per_User": 15515984.91
+  },
+  {
+    "Wallet": "0x8a07236a35b1553a2069b75f599a899ce198cb92",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00489%",
+    "USDC_Per_User": 14673811.15
+  },
+  {
+    "Wallet": "0x21e353dd845bee59260129f8eb566daae858cc8f",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00486%",
+    "USDC_Per_User": 14593320.7
+  },
+  {
+    "Wallet": "0x3b1939fa4a0774d9873c9eca017ecd6931da4994",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00483%",
+    "USDC_Per_User": 14478681.58
+  },
+  {
+    "Wallet": "0x4a88c52c48d245bd18b24fd75bf7c94437917c2b",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00481%",
+    "USDC_Per_User": 14415832.5
+  },
+  {
+    "Wallet": "0x864906b0a673a5949f689ad8b8453d2a89d429ad",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00465%",
+    "USDC_Per_User": 13950637.07
+  },
+  {
+    "Wallet": "0xd0d544adf8c6c5dc024244b682eef63f622d925f",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00461%",
+    "USDC_Per_User": 13836809.3
+  },
+  {
+    "Wallet": "0xbf57f35eccf1e11fb718728226249c5495f52eab",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00458%",
+    "USDC_Per_User": 13754685.12
+  },
+  {
+    "Wallet": "0x8c7bc53a5f6744c3a210868cd7db987ab0c2fece",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00327%",
+    "USDC_Per_User": 9808553.14
+  },
+  {
+    "Wallet": "0xf96f54e3b76647d8537d4daa1389cba846d16d10",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00451%",
+    "USDC_Per_User": 13531970.75
+  },
+  {
+    "Wallet": "0x44a0a9aac1d49d56514b3429903022a56bb8e3c0",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00447%",
+    "USDC_Per_User": 13408153.04
+  },
+  {
+    "Wallet": "0x0a852303511aac297a9e6938a84a0f6073f6e204",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00444%",
+    "USDC_Per_User": 13329778.72
+  },
+  {
+    "Wallet": "0x02cb9ee7f914b7baf88fd1867174edcda3558d33",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00003%",
+    "USDC_Per_User": 85496.38248
+  },
+  {
+    "Wallet": "0x5247cb423b36888c0aadb915847f29306cf57cba",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00421%",
+    "USDC_Per_User": 12623376.42
+  },
+  {
+    "Wallet": "0xc53a06632d1d12d874a4b3d34c7d14b5f69a5c4d",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00416%",
+    "USDC_Per_User": 12493466.81
+  },
+  {
+    "Wallet": "0x5fc2ce5a4c64ccda5bec1f39fbead636be7072aa",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00413%",
+    "USDC_Per_User": 12391516.12
+  },
+  {
+    "Wallet": "0xdd54b1a309332d9d79e635bbca965e250d5e886b",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00411%",
+    "USDC_Per_User": 12325374.77
+  },
+  {
+    "Wallet": "0x69a10f3caa907cd6342bdc705446702c1c5e24e6",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00410%",
+    "USDC_Per_User": 12294634.87
+  },
+  {
+    "Wallet": "0xcaf6e5465c410c187bd6abb25ae8c0221881086b",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00404%",
+    "USDC_Per_User": 12131409.48
+  },
+  {
+    "Wallet": "0xc68b3fbc678a9603fcccf087a83e8421623139cd",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00175%",
+    "USDC_Per_User": 5235444.067
+  },
+  {
+    "Wallet": "0x041004caf83d39be8627d42f1d43c5f56c08f0ba",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00389%",
+    "USDC_Per_User": 11683748.3
+  },
+  {
+    "Wallet": "0x558b861ab7a69a3064b60eec218df814dc81b5bc",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00387%",
+    "USDC_Per_User": 11605349.87
+  },
+  {
+    "Wallet": "0x3d5316b25a1efe4095c2d6e5c0fd62c2d12c18ed",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00379%",
+    "USDC_Per_User": 11358224.74
+  },
+  {
+    "Wallet": "0x69f1cfac1200167eb88cbcac030ccd94c8c01651",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00377%",
+    "USDC_Per_User": 11312766.03
+  },
+  {
+    "Wallet": "0x280cb8cbe79fdb4fa63a6589cac2d01fec017841",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00376%",
+    "USDC_Per_User": 11273505.86
+  },
+  {
+    "Wallet": "0x7cd4363ac3405e8442afefcddea178fc0d80f3f8",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00373%",
+    "USDC_Per_User": 11202450.3
+  },
+  {
+    "Wallet": "0x1bebf0e2c487bf6db1703145f0bba42f528d48cd",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00372%",
+    "USDC_Per_User": 11161691.92
+  },
+  {
+    "Wallet": "0xa1d89211f3d7370806053d2277524bc07501cead",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00369%",
+    "USDC_Per_User": 11069053.36
+  },
+  {
+    "Wallet": "0xf1269ba63892aacfea7ffa8bd2619b862e968d4c",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00365%",
+    "USDC_Per_User": 10964379.94
+  },
+  {
+    "Wallet": "0x0064f7e15fdf96a5225d4cc07b38eef45c8bdc46",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00364%",
+    "USDC_Per_User": 10919536.55
+  },
+  {
+    "Wallet": "0x145d9df4c64a6b4b50766f54a76d0eb12d93fda7",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00000%",
+    "USDC_Per_User": 0
+  },
+  {
+    "Wallet": "0x5d4460988d42e2acd49ff0aeec073d0127459b30",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00351%",
+    "USDC_Per_User": 10536820.36
+  },
+  {
+    "Wallet": "0xa565b30be466e71984d15c46cbe479bcce907e17",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00346%",
+    "USDC_Per_User": 10377376.2
+  },
+  {
+    "Wallet": "0xd90dc0f8de7a3076773888da88c8008e7fe72e13",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00008%",
+    "USDC_Per_User": 242373.5784
+  },
+  {
+    "Wallet": "0xe8316a2d59ff6f8fb261c4546debecbd35dc11cf",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00340%",
+    "USDC_Per_User": 10191323.27
+  },
+  {
+    "Wallet": "0xaec6400601fc71a05808330f4818e5453b90f81c",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00191%",
+    "USDC_Per_User": 5720134.818
+  },
+  {
+    "Wallet": "0x4022891df7645f87009c048598f2fb9055537a64",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00313%",
+    "USDC_Per_User": 9384785.135
+  },
+  {
+    "Wallet": "0x63c100607265d77955bfc24dde892d5a9fa644ca",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00312%",
+    "USDC_Per_User": 9356709.436
+  },
+  {
+    "Wallet": "0xb49109a2e1641d8f0d7f49a101b50e1b2f4d97bd",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00284%",
+    "USDC_Per_User": 8523108.623
+  },
+  {
+    "Wallet": "0x1b826e10618cb126190dd4408a9ad0d5d403b6b8",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00233%",
+    "USDC_Per_User": 7004419.673
+  },
+  {
+    "Wallet": "0x2598bbd40dd8868651207483c84b43c1747233bb",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00311%",
+    "USDC_Per_User": 9329409.882
+  },
+  {
+    "Wallet": "0x63aef8da947ed56ed0b512267159a8964a87fa82",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00300%",
+    "USDC_Per_User": 8997319.393
+  },
+  {
+    "Wallet": "0x12f10f22876c8242ddb484b48a6b04d91c2b2469",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00299%",
+    "USDC_Per_User": 8974582.783
+  },
+  {
+    "Wallet": "0x179b5181f15902462f2bea0fe447b9eda189d969",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00297%",
+    "USDC_Per_User": 8901003.152
+  },
+  {
+    "Wallet": "0x08fc9477fe3819126b941ca3fdf9fccf6c801f66",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00079%",
+    "USDC_Per_User": 2363567.212
+  },
+  {
+    "Wallet": "0xf8d765725ab6b03049108db3b9342dd1cf1b61ba",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00294%",
+    "USDC_Per_User": 8813898.974
+  },
+  {
+    "Wallet": "0x6c4d94bf16f8b345be5fe93c8b085541af029a35",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00287%",
+    "USDC_Per_User": 8598402.944
+  },
+  {
+    "Wallet": "0xd77900479ef30963f4b5aa7d752b15795192ee15",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00002%",
+    "USDC_Per_User": 66012.35487
+  },
+  {
+    "Wallet": "0xca8b1b7d35f5859ece9138b753b801996a75fa48",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00179%",
+    "USDC_Per_User": 5362545.798
+  },
+  {
+    "Wallet": "0x4ebb2c644ac156b6c9d9152def15647d51613747",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00265%",
+    "USDC_Per_User": 7952325.779
+  },
+  {
+    "Wallet": "0x47db46f6803624d20a2e34f8e5c990b4bd35c65a",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00262%",
+    "USDC_Per_User": 7868701.542
+  },
+  {
+    "Wallet": "0xd2a1534fd2398e45bba0e441303b64cbcc8f662d",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00252%",
+    "USDC_Per_User": 7549578.21
+  },
+  {
+    "Wallet": "0x66d16484353cdc4cb7178d147d20c13a9a9def13",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00243%",
+    "USDC_Per_User": 7284398.934
+  },
+  {
+    "Wallet": "0xafda8e3e2c947394ffcc0db93a6765b6ec83b692",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00239%",
+    "USDC_Per_User": 7155323.462
+  },
+  {
+    "Wallet": "0x5b09a569ce6ee5f8fa4bffa3b93470fc37493d5c",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00005%",
+    "USDC_Per_User": 162672.2478
+  },
+  {
+    "Wallet": "0xdde41cf730d1df6848f025fc0b2762cea2b9ceb2",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00232%",
+    "USDC_Per_User": 6946724.288
+  },
+  {
+    "Wallet": "0xca5f646d7c6019afec4ba63474bf960686948d61",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00231%",
+    "USDC_Per_User": 6931741.599
+  },
+  {
+    "Wallet": "0x51ae3e7cf112d38a464cd957d758e3b7169a3c15",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00227%",
+    "USDC_Per_User": 6804654.479
+  },
+  {
+    "Wallet": "0x89ddad6277deff03f2666b66cfe66abd48197867",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00169%",
+    "USDC_Per_User": 5056869.092
+  },
+  {
+    "Wallet": "0xd8ae1493597cecb7700c24fbd728ce86160e425c",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00165%",
+    "USDC_Per_User": 4950042.284
+  },
+  {
+    "Wallet": "0x87c4b69db634fd2c3da3a1127ec81e5c0b6d5f19",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00220%",
+    "USDC_Per_User": 6589993.678
+  },
+  {
+    "Wallet": "0x73165a7bf621f466c63f6a0c8f08e969772c2a6d",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00007%",
+    "USDC_Per_User": 199265.3819
+  },
+  {
+    "Wallet": "0xcb41a05bb0d644fdf4998ccc7d250da11414293a",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00214%",
+    "USDC_Per_User": 6406622.84
+  },
+  {
+    "Wallet": "0x4269bf9727ed052c40e6f127ee0dd5e2ddee6289",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00002%",
+    "USDC_Per_User": 64258.76075
+  },
+  {
+    "Wallet": "0x885ea391039e0fa3f6833a1f3b6d7433b5b69bb6",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00151%",
+    "USDC_Per_User": 4520493.859
+  },
+  {
+    "Wallet": "0x27ecdf0f8e6e42d0cd8eedf7547591a07fd3be49",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00202%",
+    "USDC_Per_User": 6064707.331
+  },
+  {
+    "Wallet": "0x6154066a87713586be3ff6f455cf91a7f66eaaf0",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00200%",
+    "USDC_Per_User": 6009878.836
+  },
+  {
+    "Wallet": "0xb4cc9e7a47c2c12ee765a25e6cfbc302ee99bae1",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00200%",
+    "USDC_Per_User": 5992002.956
+  },
+  {
+    "Wallet": "0x6b67faa624590d39cd3f9bf512ebccbb5ef2be3d",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00194%",
+    "USDC_Per_User": 5824704.643
+  },
+  {
+    "Wallet": "0x17bdc5f0d55c81754c4378ea99c1888cb38ded72",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00193%",
+    "USDC_Per_User": 5793726.667
+  },
+  {
+    "Wallet": "0x7689f17560b5ee53799f0b37c975927e1258fbb5",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00191%",
+    "USDC_Per_User": 5722769.401
+  },
+  {
+    "Wallet": "0xdd95107244d0e86f1c3bb59010407fb7fdfe2d61",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00188%",
+    "USDC_Per_User": 5650317.251
+  },
+  {
+    "Wallet": "0x5084c31cc4725de68060894dd8d21eb743c84a1e",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00000%",
+    "USDC_Per_User": 0
+  },
+  {
+    "Wallet": "0x0e9363c3492253384c4f6cc3fcb61e51b537f8f4",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00150%",
+    "USDC_Per_User": 4502046.962
+  },
+  {
+    "Wallet": "0xae1cba05de9666b9b6122570b8cf4a1c2689edc6",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00165%",
+    "USDC_Per_User": 4950103.059
+  },
+  {
+    "Wallet": "0xefd67615d66e3819539021d40e155e1a6107f283",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00132%",
+    "USDC_Per_User": 3966995.569
+  },
+  {
+    "Wallet": "0x612825c4a882236d5846f86dc3ded6d2ece16ecb",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00160%",
+    "USDC_Per_User": 4807244.541
+  },
+  {
+    "Wallet": "0xba6bbd5bd5468c73faf572773406ec8710b88fde",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00156%",
+    "USDC_Per_User": 4679749.505
+  },
+  {
+    "Wallet": "0xa8672f1cf1ef0b5f2cf3b8afe1f729c3999af043",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00153%",
+    "USDC_Per_User": 4588441.74
+  },
+  {
+    "Wallet": "0xf4dd75db973d4d5da44a83349f842327c3d1f067",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00152%",
+    "USDC_Per_User": 4566172.107
+  },
+  {
+    "Wallet": "0x988511dc1b80b40223012c63d41c80217e53da7c",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00142%",
+    "USDC_Per_User": 4260632.558
+  },
+  {
+    "Wallet": "0x731ee099b85ca4a95264022a3c6cc73417ff4385",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00139%",
+    "USDC_Per_User": 4184548.686
+  },
+  {
+    "Wallet": "0xa0c53cd593990e66be2cbd4201a412d3702fdd74",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00070%",
+    "USDC_Per_User": 2113225.799
+  },
+  {
+    "Wallet": "0x890ecf465680229f2cee624579a92e03e283a18a",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00127%",
+    "USDC_Per_User": 3817607.795
+  },
+  {
+    "Wallet": "0x2f9cd09de5ced8d93c83e09362e6ea61a6c765c4",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00002%",
+    "USDC_Per_User": 63861.04069
+  },
+  {
+    "Wallet": "0xbf6c04336d7e8eca6fce884fc8ee7095d3690bc3",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00113%",
+    "USDC_Per_User": 3397405.381
+  },
+  {
+    "Wallet": "0x14346d5468c5f31b5352f7d1fc8b6c4c9868a475",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00112%",
+    "USDC_Per_User": 3357982.288
+  },
+  {
+    "Wallet": "0x72ac1d8c6170cf6674d7d8da99ea5898f4ef36ca",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00110%",
+    "USDC_Per_User": 3312521.702
+  },
+  {
+    "Wallet": "0x6425fb24f7ceab05253958d2a5e39c727ffc8c40",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00108%",
+    "USDC_Per_User": 3243618.008
+  },
+  {
+    "Wallet": "0x26065e949c3a607768d2163dc8d384a8943a66ed",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00000%",
+    "USDC_Per_User": 0
+  },
+  {
+    "Wallet": "0xd82609aee7500ce9066a6d2a6fbb9b7721c38721",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00000%",
+    "USDC_Per_User": 0
+  },
+  {
+    "Wallet": "0xde22ac6f326e35cab37438e7391271f1de68604e",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00100%",
+    "USDC_Per_User": 3004853.193
+  },
+  {
+    "Wallet": "0xd6ad01fcc254ee590eac320dc7fa43041e152563",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00100%",
+    "USDC_Per_User": 2986958.314
+  },
+  {
+    "Wallet": "0x145c9910024bc76a4e519bae76484be57300de46",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00100%",
+    "USDC_Per_User": 2985352.678
+  },
+  {
+    "Wallet": "0x06b58a6711983515181262fd0d943f73fcb767d3",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00042%",
+    "USDC_Per_User": 1259368.472
+  },
+  {
+    "Wallet": "0xc35bfca6d85ef8d6be7a249ba3c098c4fc8772ba",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00095%",
+    "USDC_Per_User": 2842774.217
+  },
+  {
+    "Wallet": "0xfea1acd2eef97c396561813a7e0a1527433c6c8f",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00092%",
+    "USDC_Per_User": 2768209.659
+  },
+  {
+    "Wallet": "0x3f0f8f0203f96879c69705c0ba194cd1d85fb00b",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00092%",
+    "USDC_Per_User": 2766540.121
+  },
+  {
+    "Wallet": "0xeeb4085b25698958acd6bf142b6cf2316f47f0db",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00092%",
+    "USDC_Per_User": 2755693.603
+  },
+  {
+    "Wallet": "0x4f300d237983189d30d74a9f03a773af1ec65f10",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00000%",
+    "USDC_Per_User": 0
+  },
+  {
+    "Wallet": "0xf2ae6611c692bb4bab2645ec8e1b890d21ef8e8f",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00000%",
+    "USDC_Per_User": 0
+  },
+  {
+    "Wallet": "0xec001d0000004536cad29291f4000000d029abb2",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00087%",
+    "USDC_Per_User": 2607071.92
+  },
+  {
+    "Wallet": "0x854de5feddd1a036a05c23850128760f6e0c776d",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00086%",
+    "USDC_Per_User": 2575808.378
+  },
+  {
+    "Wallet": "0xcfcdb141e37c16d008bc9acffbdf9b8f0d33b4ef",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00085%",
+    "USDC_Per_User": 2537672.532
+  },
+  {
+    "Wallet": "0xb64c462a155dbe151fa34f402c12564671ee08cb",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00082%",
+    "USDC_Per_User": 2471023.13
+  },
+  {
+    "Wallet": "0xa3d05108450caa759535ea9ba1483844a2418ad3",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00000%",
+    "USDC_Per_User": 0
+  },
+  {
+    "Wallet": "0x7963e64bebb547725f6829ecdfe78761dd88b77b",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00069%",
+    "USDC_Per_User": 2076430.47
+  },
+  {
+    "Wallet": "0x61c265aa7616f31d92a57e358d3facf1b351d2da",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00060%",
+    "USDC_Per_User": 1807734.642
+  },
+  {
+    "Wallet": "0x8f22cee99b55ffba8c55f27181d14bcd34e202ed",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00000%",
+    "USDC_Per_User": 0
+  },
+  {
+    "Wallet": "0xd952dc6d2badb958dcb263d5883f76a65dbbf842",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00000%",
+    "USDC_Per_User": 0
+  },
+  {
+    "Wallet": "0x5869fa78876b4a03deb28c7fb1eb2529ac0028cd",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00000%",
+    "USDC_Per_User": 0
+  },
+  {
+    "Wallet": "0xb8740f8518fdf262b63d741c0dd1634daf645796",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00000%",
+    "USDC_Per_User": 0
+  },
+  {
+    "Wallet": "0x8ad865b57fb72870eb1daf309f92fb7ba327860b",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00042%",
+    "USDC_Per_User": 1263910.137
+  },
+  {
+    "Wallet": "0x71bc7c8bb5ef22d123dd2468cbea44b32b99ca94",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00042%",
+    "USDC_Per_User": 1246517.238
+  },
+  {
+    "Wallet": "0x6a42c1f4dd8d9fcf3bd7bbcda396d12dda35ee9b",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00000%",
+    "USDC_Per_User": 0
+  },
+  {
+    "Wallet": "0xa72379fcb101cece911ca1b4d5ed438e781b91f0",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00037%",
+    "USDC_Per_User": 1109529.823
+  },
+  {
+    "Wallet": "0x3bc78c5fb49f5a50aed564dabea2512b0fad37e6",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00005%",
+    "USDC_Per_User": 159074.5877
+  },
+  {
+    "Wallet": "0xd451f825282eedbdb4808d34cce76b4dff619a61",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00034%",
+    "USDC_Per_User": 1022179.658
+  },
+  {
+    "Wallet": "0xb33f35ce4e53e128b78bc9c2c9ac9b3957ae4b89",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00031%",
+    "USDC_Per_User": 919365.3429
+  },
+  {
+    "Wallet": "0xc8f9dd6eccd0f9f1da6748d9b68d72989c878912",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00030%",
+    "USDC_Per_User": 907157.6834
+  },
+  {
+    "Wallet": "0x95016a64375e6ff616998abf20be805445c639ba",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00030%",
+    "USDC_Per_User": 891704.2067
+  },
+  {
+    "Wallet": "0xfa10cea919c9e403d150318ee0eccdec57c0d941",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00030%",
+    "USDC_Per_User": 890181.7733
+  },
+  {
+    "Wallet": "0x7b9f633c987db2556b99d2527d68c33fcf58622d",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00028%",
+    "USDC_Per_User": 849349.0379
+  },
+  {
+    "Wallet": "0xc56c352137a7753236fc21adc6109c7b0ec94a68",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00027%",
+    "USDC_Per_User": 799978.9595
+  },
+  {
+    "Wallet": "0x16d9d7fc3b19d03caf88b70be54200310e5641d4",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00025%",
+    "USDC_Per_User": 764892.2538
+  },
+  {
+    "Wallet": "0x7b45d09cbe7b1d07ed73fdf9e748d32fb79c2f8d",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00023%",
+    "USDC_Per_User": 687345.2359
+  },
+  {
+    "Wallet": "0xbe0bfa8da7f0602bcfe24c72e5e265ae204f5983",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00022%",
+    "USDC_Per_User": 650154.674
+  },
+  {
+    "Wallet": "0xfc107a6d78f6b7bc21924010374e5a428461aef5",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00022%",
+    "USDC_Per_User": 649906.5211
+  },
+  {
+    "Wallet": "0xc07c56e8df0ec6e82d38f708037df9c8700891bd",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00019%",
+    "USDC_Per_User": 571729.4419
+  },
+  {
+    "Wallet": "0xa1885d546b892989df144c85680f1106fbb75ce8",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00017%",
+    "USDC_Per_User": 512281.5679
+  },
+  {
+    "Wallet": "0x97b9b29552317867368a9f0234dc768fb6a27fd9",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00006%",
+    "USDC_Per_User": 186614.3137
+  },
+  {
+    "Wallet": "0xfc24a6dada4d1c128510d77878122188d560f36a",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00016%",
+    "USDC_Per_User": 489240.5968
+  },
+  {
+    "Wallet": "0xd890b6f0551345b8146f66f8c329f70877c71119",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00016%",
+    "USDC_Per_User": 471820.866
+  },
+  {
+    "Wallet": "0x2df2d34eed59556e2929c5b5f1ef765203e9b6a1",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00014%",
+    "USDC_Per_User": 417459.5146
+  },
+  {
+    "Wallet": "0x02381f433de35fb09b519575f019c753388f1cbe",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00013%",
+    "USDC_Per_User": 403406.5283
+  },
+  {
+    "Wallet": "0x823b621165e2222f8992c1812abc02b8d60144b6",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00013%",
+    "USDC_Per_User": 375624.9861
+  },
+  {
+    "Wallet": "0xa52a90a14a2568a6ed033a6a00ccd36254ac9d84",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00012%",
+    "USDC_Per_User": 364322.6217
+  },
+  {
+    "Wallet": "0xa50e4b760ed45296a4c0cd285879d6ad709fa846",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00012%",
+    "USDC_Per_User": 361174.2486
+  },
+  {
+    "Wallet": "0xe27e7c50773ca859875107ef7db5e22aa2e248fd",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00012%",
+    "USDC_Per_User": 360595.8458
+  },
+  {
+    "Wallet": "0x63328adb8268a74781d2d9c74671b248a3eca755",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00012%",
+    "USDC_Per_User": 352068.0332
+  },
+  {
+    "Wallet": "0xc35a5fec6be6957899e15559be252db882220b37",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00011%",
+    "USDC_Per_User": 342502.6677
+  },
+  {
+    "Wallet": "0x8aff9b6e0d2eeddc8f5b7783384ae6126a899572",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00011%",
+    "USDC_Per_User": 335895.0446
+  },
+  {
+    "Wallet": "0x8fa565f1da748e80ecc67a84dc8645170eb82b6c",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00011%",
+    "USDC_Per_User": 332653.981
+  },
+  {
+    "Wallet": "0x6bb84acda075cf8adb3628d57cd8811afcbd189e",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00002%",
+    "USDC_Per_User": 46683.87453
+  },
+  {
+    "Wallet": "0xeab337618f6e6a3ac744e06b42765116fd81b0d2",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00010%",
+    "USDC_Per_User": 310286.4558
+  },
+  {
+    "Wallet": "0xa628645e0e705b0593b039b90461541ff9fc78aa",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00010%",
+    "USDC_Per_User": 302221.5955
+  },
+  {
+    "Wallet": "0x783fbe25e38b77fbf1d7eb122a2ccc9293bd4dba",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00010%",
+    "USDC_Per_User": 298780.357
+  },
+  {
+    "Wallet": "0x6f0dfb24be81b87e54ecee67dc755de4353eb39c",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00010%",
+    "USDC_Per_User": 289463.8635
+  },
+  {
+    "Wallet": "0x7c786160fb41d7e644c188ec702c203fc3f2e79e",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00009%",
+    "USDC_Per_User": 276642.1424
+  },
+  {
+    "Wallet": "0xd81e67ee15bc7140e7df33f25ebcfb7e1a8dbc5e",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00000%",
+    "USDC_Per_User": 0
+  },
+  {
+    "Wallet": "0x94965eba92d72a473a12fef4ecbf1ef151e1c581",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00009%",
+    "USDC_Per_User": 259642.6955
+  },
+  {
+    "Wallet": "0x2ac4d005edafc2b771cd0173db9a9d1b6dd1ed1c",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00008%",
+    "USDC_Per_User": 250801.1011
+  },
+  {
+    "Wallet": "0x6e0b12d7fb70a23b50a09d651efafabf0c84dd5b",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00008%",
+    "USDC_Per_User": 246673.983
+  },
+  {
+    "Wallet": "0x44ccdcd59984848a749e9f999b08f2b68153e123",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00008%",
+    "USDC_Per_User": 243342.9998
+  },
+  {
+    "Wallet": "0xb7bfcdc3a2aa2af3fe653c9e8a19830977e1993c",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00007%",
+    "USDC_Per_User": 221338.439
+  },
+  {
+    "Wallet": "0x36162c7b2d4a94686d74f8c9649769e1733ee42e",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00007%",
+    "USDC_Per_User": 220454.6366
+  },
+  {
+    "Wallet": "0x849b8c6ffbc13805ba510af899e9d63645f174a3",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00007%",
+    "USDC_Per_User": 218187.652
+  },
+  {
+    "Wallet": "0xf6735b081f9a0feac40f7689db24ed7e11bff429",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00007%",
+    "USDC_Per_User": 214060.8716
+  },
+  {
+    "Wallet": "0x0e315f6a0c2b18a4760b14389a35e11b958941f8",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00007%",
+    "USDC_Per_User": 206421.9527
+  },
+  {
+    "Wallet": "0x56ef37643968f8a0ab437646b605c71fd58c13c5",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00007%",
+    "USDC_Per_User": 206367.8511
+  },
+  {
+    "Wallet": "0x4dac3180cbedcbdb8f4c78589c69073a590c5e12",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00007%",
+    "USDC_Per_User": 201517.2826
+  },
+  {
+    "Wallet": "0x9e00e9c19a3197b9f19d00f696541d97d8b8e3e4",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00007%",
+    "USDC_Per_User": 196324.1077
+  },
+  {
+    "Wallet": "0x3f1123b212d3bf6d32cb82b6522f69090d0cb636",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00006%",
+    "USDC_Per_User": 187448.8835
+  },
+  {
+    "Wallet": "0xa3b437e126fa1ecf45d76caac445c65c760f38d2",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00006%",
+    "USDC_Per_User": 187282.7031
+  },
+  {
+    "Wallet": "0x529ffcec1ee0dbbb822b29982b7d5ea7b8dce4e2",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00006%",
+    "USDC_Per_User": 184151.5739
+  },
+  {
+    "Wallet": "0x437027165684d99b771c81cdc1a351ce25287ccc",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00006%",
+    "USDC_Per_User": 172165.5758
+  },
+  {
+    "Wallet": "0x462cba2dc7e2709143bcacc86ec106354cf82108",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00000%",
+    "USDC_Per_User": 0
+  },
+  {
+    "Wallet": "0xb87f39b96fe805ad0041daf046a4f86093719940",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00005%",
+    "USDC_Per_User": 155051.7874
+  },
+  {
+    "Wallet": "0x17b4287d25e0dda44c4ed560ab5e3c100f786d50",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00005%",
+    "USDC_Per_User": 149588.3374
+  },
+  {
+    "Wallet": "0xf0b7e723719b1bfac706ace09e02f4d3116411f3",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00005%",
+    "USDC_Per_User": 149022.0921
+  },
+  {
+    "Wallet": "0x6e6e9bc0543e9d07dfa5f5e9e8991c404b25f637",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00005%",
+    "USDC_Per_User": 142187.8012
+  },
+  {
+    "Wallet": "0x4925ee4d70b169926a2be518478c5bedfacf4b68",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00005%",
+    "USDC_Per_User": 136783.1282
+  },
+  {
+    "Wallet": "0xc43d29b87d2ec92e70de1ce30fcfdf58829e47d8",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00004%",
+    "USDC_Per_User": 133098.2491
+  },
+  {
+    "Wallet": "0x692b28f0b3c5c6f19bb6984c7242c7bfd3383f78",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00004%",
+    "USDC_Per_User": 130356.9919
+  },
+  {
+    "Wallet": "0xcc0968421e3cd4a9dc4feab6e6847cd9f83576d0",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00004%",
+    "USDC_Per_User": 129787.7263
+  },
+  {
+    "Wallet": "0x5a1a25db03717930c0dbef1d9b543d7ae3cc7984",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00004%",
+    "USDC_Per_User": 127528.7825
+  },
+  {
+    "Wallet": "0x95116d1d589bcab3e0e48898f4ea4eb8edc6940a",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00004%",
+    "USDC_Per_User": 115294.1703
+  },
+  {
+    "Wallet": "0xa149e992167f0ce4bc961b5ae8e76b70ea7edd79",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00004%",
+    "USDC_Per_User": 110953.4651
+  },
+  {
+    "Wallet": "0x9f8ace53e22619a1eeb214e64731f95594cb07a4",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00000%",
+    "USDC_Per_User": 0
+  },
+  {
+    "Wallet": "0xd63479b184b590dd7aaede4511cb87f7d3c1e058",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00003%",
+    "USDC_Per_User": 99683.63265
+  },
+  {
+    "Wallet": "0xca6b1efd45f7292eb33e2f40574f859401a4dad7",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00003%",
+    "USDC_Per_User": 98246.05587
+  },
+  {
+    "Wallet": "0x0a87c1fec424aecf89af0e4be9e30c73740563cb",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00003%",
+    "USDC_Per_User": 94903.55719
+  },
+  {
+    "Wallet": "0x618775d01d51212db228a668fab3a5022601c947",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00003%",
+    "USDC_Per_User": 93005.9378
+  },
+  {
+    "Wallet": "0xd33bc260dca305c7a0866967b4deb3a5a5b5a96f",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00003%",
+    "USDC_Per_User": 92401.62751
+  },
+  {
+    "Wallet": "0xb6314005148f51d6b1340b7f021db8679bd85596",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00003%",
+    "USDC_Per_User": 90811.27076
+  },
+  {
+    "Wallet": "0xa181a3c3460ad5a2650f380352e3e68111e3d60e",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00001%",
+    "USDC_Per_User": 32835.16825
+  },
+  {
+    "Wallet": "0x9c649cb19f8dd6f8c338a3e8253d64efd04b5842",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00003%",
+    "USDC_Per_User": 76773.32711
+  },
+  {
+    "Wallet": "0x35d448178c938ee1a2dd0c3c9da3185d433e79aa",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00003%",
+    "USDC_Per_User": 76035.83695
+  },
+  {
+    "Wallet": "0x3b1df5763010a6ee0b43e98e4d0fbef75432a930",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00002%",
+    "USDC_Per_User": 74803.42635
+  },
+  {
+    "Wallet": "0x086fd6ea5c800667a470f3f79f536248190f5051",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00002%",
+    "USDC_Per_User": 69356.15831
+  },
+  {
+    "Wallet": "0xc30840c29a8de630687010944c09ff03f2aa8827",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00002%",
+    "USDC_Per_User": 68189.84626
+  },
+  {
+    "Wallet": "0xcb6e7bdfd5bba62bbdc487facc347637297cfda8",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00002%",
+    "USDC_Per_User": 63295.41157
+  },
+  {
+    "Wallet": "0x859d0e38d24307dc8c7c6bc73594aa1726990094",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00002%",
+    "USDC_Per_User": 62406.54747
+  },
+  {
+    "Wallet": "0x45f4b95505a7d106ccc556fc0a16d3249000c847",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00000%",
+    "USDC_Per_User": 0
+  },
+  {
+    "Wallet": "0xa1b9e11ee24c494016ec618965c6b76c11d4410e",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00002%",
+    "USDC_Per_User": 58272.72772
+  },
+  {
+    "Wallet": "0x028b2b9adca1bd1263086b0b221713a684968817",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00000%",
+    "USDC_Per_User": 0
+  },
+  {
+    "Wallet": "0xb2381e7124af4d2aa7c0cafc530b6dc72b75ff43",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00002%",
+    "USDC_Per_User": 56648.94026
+  },
+  {
+    "Wallet": "0x8dfc298c549ac38f208508bb9fbc0373d45de502",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00002%",
+    "USDC_Per_User": 51203.12828
+  },
+  {
+    "Wallet": "0xf341950486be46beb28c425d6b52527826f10325",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00002%",
+    "USDC_Per_User": 49109.47508
+  },
+  {
+    "Wallet": "0x1dc0cb13f1fbeecb7d3fa4a418cc532ac2e7cf87",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00002%",
+    "USDC_Per_User": 46991.47353
+  },
+  {
+    "Wallet": "0x18255835afd7fa217024d5039879458bbef3af89",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00001%",
+    "USDC_Per_User": 42763.06274
+  },
+  {
+    "Wallet": "0x407990228582f7a56fdc368da5e8931f4395a051",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00001%",
+    "USDC_Per_User": 41310.99639
+  },
+  {
+    "Wallet": "0xe7fb43d9f60bca652ab814eff1a0d9c07bb8d045",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00001%",
+    "USDC_Per_User": 40349.06356
+  },
+  {
+    "Wallet": "0xedf389d1bdc02ae00495cfe619f9512c348e1479",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00001%",
+    "USDC_Per_User": 39074.55849
+  },
+  {
+    "Wallet": "0xa7331dad88e0dcf40c15e79df83b410f32c89ac6",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00001%",
+    "USDC_Per_User": 38596.90625
+  },
+  {
+    "Wallet": "0x8dff2b80fd893c7d50ff7ea233f8a09aceb7bcb7",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00001%",
+    "USDC_Per_User": 34629.28253
+  },
+  {
+    "Wallet": "0x535051520c4ce3e2bfb3f609251b34a497ce343f",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00001%",
+    "USDC_Per_User": 33275.18833
+  },
+  {
+    "Wallet": "0x0f60367778e508d96907e7daf328120f2db76d25",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00001%",
+    "USDC_Per_User": 32095.11108
+  },
+  {
+    "Wallet": "0x0461ec6406ddbe57317c5f798431540a61376185",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00001%",
+    "USDC_Per_User": 30582.72055
+  },
+  {
+    "Wallet": "0x60fdd339c36d4a67544903c9013cc2c59b192033",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00001%",
+    "USDC_Per_User": 28697.05206
+  },
+  {
+    "Wallet": "0xd0acf62292039591c348ad3beb33408a7acefb32",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00001%",
+    "USDC_Per_User": 28525.18049
+  },
+  {
+    "Wallet": "0x4ddde8a6e58dd856f80cdc4759c3a8081aeaa51b",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00001%",
+    "USDC_Per_User": 28080.66126
+  },
+  {
+    "Wallet": "0x3f712722356ed1c9f96f0ad3942744ac5141de68",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00001%",
+    "USDC_Per_User": 27809.24992
+  },
+  {
+    "Wallet": "0xfa088e1f6691a4de186b6486a3266687019cf916",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00001%",
+    "USDC_Per_User": 27030.8439
+  },
+  {
+    "Wallet": "0x4bc8b9a2c943c7e4addb1c593a14a297049607c7",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00001%",
+    "USDC_Per_User": 26660.23948
+  },
+  {
+    "Wallet": "0xb6fbeb760bac3508b5cee8779c9b6a6cd746707d",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00001%",
+    "USDC_Per_User": 25201.19039
+  },
+  {
+    "Wallet": "0x192c635b3b1cb8e4bd46cf7c66ab06a62b83ff4b",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00001%",
+    "USDC_Per_User": 25069.47689
+  },
+  {
+    "Wallet": "0xf6a53ee81efa670ebc73eb1edf299b00fd68c671",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00001%",
+    "USDC_Per_User": 23801.3203
+  },
+  {
+    "Wallet": "0xc3ec30b1d0f9bfdb328d79fd2803a69a18512b15",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00001%",
+    "USDC_Per_User": 23493.94729
+  },
+  {
+    "Wallet": "0x82416784046af6e6cfc7fda2b362dc6223dd7b48",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00001%",
+    "USDC_Per_User": 22749.13155
+  },
+  {
+    "Wallet": "0xedcb53f0ea600b3c15eb2351f9aee65660d383de",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00001%",
+    "USDC_Per_User": 22298.20471
+  },
+  {
+    "Wallet": "0x0f0238cfc797f8747c3875c440684bd5c28831bc",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00001%",
+    "USDC_Per_User": 21674.47536
+  },
+  {
+    "Wallet": "0x7a2269e15d34fc2a69e4c598a7dc51733ae93638",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00001%",
+    "USDC_Per_User": 20698.32777
+  },
+  {
+    "Wallet": "0x0000000000007f150bd6f54c40a34d7c3d5e9f56",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00000%",
+    "USDC_Per_User": 1957.894773
+  },
+  {
+    "Wallet": "0xe52599c268d3c38199c8afd0b1cfb20f6c0a2dc3",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00000%",
+    "USDC_Per_User": 485.7149622
+  },
+  {
+    "Wallet": "0xa01dd79c6a09cd5d51278dba059114bc2cb5ebce",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00000%",
+    "USDC_Per_User": 0
+  },
+  {
+    "Wallet": "0xfdd9e429a159fef749e1224483295c826e23eee5",
+    "FIELD2": "",
+    "% of Total aAMPL Supply": "0.00000%",
+    "USDC_Per_User": 0
+  }
+]
