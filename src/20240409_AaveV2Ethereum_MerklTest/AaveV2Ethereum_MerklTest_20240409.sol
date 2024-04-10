@@ -32,6 +32,8 @@ interface IDistributionCreator {
     bytes campaignData;
   }
 
+  function campaign(bytes32 id) external view returns (CampaignParameters memory);
+
   function acceptConditions() external;
 
   function createCampaign(CampaignParameters memory newCampaign) external returns (bytes32);
@@ -48,6 +50,7 @@ contract AaveV2Ethereum_MerklTest_20240409 is IProposalGenericExecutor {
     IDistributionCreator(0x8BB4C975Ff3c250e0ceEA271728547f3802B36Fd);
   address public constant REWARD_TOKEN = AaveV2EthereumAssets.USDC_UNDERLYING;
   uint256 public constant REWARD_AMOUNT = 300_000e6;
+  string public constant FILE_URL = 'TODO';
 
   function execute() external {
     // 1. send funds to executor
@@ -73,11 +76,7 @@ contract AaveV2Ethereum_MerklTest_20240409 is IProposalGenericExecutor {
         campaignType: 4,
         startTimestamp: uint32(block.timestamp + 2 hours),
         duration: 1 hours,
-        campaignData: abi.encode(
-          'https://angle-blog.infura-ipfs.io/ipfs/Qmd7gYogGa75QVenUWRMwqfygpjydCc4e5Xf6D8JLC7EJf',
-          '',
-          '0x'
-        )
+        campaignData: abi.encode(FILE_URL, string(''), bytes('0x'))
       });
     DISTRIBUTION_CREATOR.createCampaign(newCampaign);
   }
