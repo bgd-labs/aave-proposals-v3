@@ -40,12 +40,12 @@ interface IDistributionCreator {
 }
 
 /**
- * @title Merkl test
+ * @title Interim aAMPL distribution
  * @author BGD Labs
- * - Snapshot: TODO
- * - Discussion: TODO
+ * - Snapshot: https://snapshot.org/#/aave.eth/proposal/0xb7226dd6441b67225924082215f7a512bfd98252897ee43a879084e07ab53607
+ * - Discussion: https://governance.aave.com/t/arfc-aampl-interim-distribution/17184
  */
-contract AaveV2Ethereum_MerklTest_20240409 is IProposalGenericExecutor {
+contract AaveV2Ethereum_InterimAAMPLDistribution_20240409 is IProposalGenericExecutor {
   IDistributionCreator public constant DISTRIBUTION_CREATOR =
     IDistributionCreator(0x8BB4C975Ff3c250e0ceEA271728547f3802B36Fd);
   address public constant REWARD_TOKEN = AaveV2EthereumAssets.USDC_UNDERLYING;
