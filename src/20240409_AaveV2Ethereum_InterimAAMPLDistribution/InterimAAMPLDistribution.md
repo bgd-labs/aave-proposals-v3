@@ -44,12 +44,12 @@ Therefore the proposal will perform the following steps upon execution:
 
 ## References
 
-- Implementation: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240409_AaveV2Ethereum_InterimAAMPLDistribution/AaveV2Ethereum_InterimAAMPLDistribution_20240409.sol)
-- Tests: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240409_AaveV2Ethereum_InterimAAMPLDistribution/AaveV2Ethereum_InterimAAMPLDistribution_20240409.t.sol)
+- Implementation: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/2244338d3cb5b0482ff3499bf8f95c0762cc004c/src/20240409_AaveV2Ethereum_InterimAAMPLDistribution/AaveV2Ethereum_InterimAAMPLDistribution_20240409.sol)
+- Tests: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/2244338d3cb5b0482ff3499bf8f95c0762cc004c/src/20240409_AaveV2Ethereum_InterimAAMPLDistribution/AaveV2Ethereum_InterimAAMPLDistribution_20240409.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0xb7226dd6441b67225924082215f7a512bfd98252897ee43a879084e07ab53607)
 - [Discussion](https://governance.aave.com/t/arfc-aampl-interim-distribution/17184)
 - [Distribution:IPFS](https://angle-blog.infura-ipfs.io/ipfs/Qmb9uJbEdppQsL8W4aVKxREoHo42iXtcp4CV1FLE5tY8Rt)
-- [Distribution:formatted](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240409_AaveV2Ethereum_InterimAAMPLDistribution/distribution.pdf)
+- [Distribution:formatted](https://github.com/bgd-labs/aave-proposals-v3/blob/2244338d3cb5b0482ff3499bf8f95c0762cc004c/src/20240409_AaveV2Ethereum_InterimAAMPLDistribution/distribution.pdf)
 
 ## Copyright
 
