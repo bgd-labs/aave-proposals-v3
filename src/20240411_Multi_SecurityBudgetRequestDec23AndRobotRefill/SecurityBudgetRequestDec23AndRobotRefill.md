@@ -38,8 +38,8 @@ This proposal, will release the following, from the Aave Ethereum Collector to B
 - Transfer 42'000 aUSDC v2 Ethereum to `0xb812d0944f8F581DfAA3a93Dda0d22EcEf51A9CF`.
 - Transfer 109'200 aUSDT v2 Ethereum to `0xb812d0944f8F581DfAA3a93Dda0d22EcEf51A9CF`.
 - Transfer 1640 aLINK v2 Ethereum to `0xb812d0944f8F581DfAA3a93Dda0d22EcEf51A9CF`.
-- Transfer 3500 WMATIC Polygon to `0xb812d0944f8F581DfAA3a93Dda0d22EcEf51A9CF`.
-- Transfer 500 aMATIC v2 Polygon to `0xb812d0944f8F581DfAA3a93Dda0d22EcEf51A9CF`.
+- Transfer 3500 WMATIC Polygon to `0xbCEB4f363f2666E2E8E430806F37e97C405c130b`.
+- Transfer 500 aMATIC v2 Polygon to `0xbCEB4f363f2666E2E8E430806F37e97C405c130b`.
 
 In addition, the proposal will refill [Aave Execution Chain Robot](https://etherscan.io/address/0x365d47ceD3D7Eb6a9bdB3814aA23cc06B2D33Ef8) and [Aave Governance Chain Robot](https://etherscan.io/address/0x011824f238AEE05329213d5Ae029e899e5412343) with 500 LINK each by calling the `refill()` method on the [robot operator contract](https://etherscan.io/address/0x020e452b463568f55bac6dc5afc8f0b62ea5f0f3).
 

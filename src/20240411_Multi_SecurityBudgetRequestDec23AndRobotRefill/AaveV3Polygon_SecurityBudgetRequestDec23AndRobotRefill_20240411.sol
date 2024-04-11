@@ -15,7 +15,7 @@ contract AaveV3Polygon_SecurityBudgetRequestDec23AndRobotRefill_20240411 is
 {
   uint256 public constant WMATIC_AMOUNT_REIMBURSEMENT = 3500 ether;
   uint256 public constant A_WMATIC_AMOUNT_REIMBURSEMENT = 500 ether;
-  address public constant BGD_RECIPIENT = 0xb812d0944f8F581DfAA3a93Dda0d22EcEf51A9CF;
+  address public constant BGD_RECIPIENT = 0xbCEB4f363f2666E2E8E430806F37e97C405c130b;
 
   function execute() external {
     AaveV2Polygon.COLLECTOR.transfer(
