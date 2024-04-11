@@ -26,7 +26,7 @@ Users with a balance below 30$ will be excluded from this initial distribution a
 Therefore the proposal will perform the following steps upon execution:
 
 - withdraw USDC from the collector (298.5k including a 0.5% fee for angle labs)
-- approve the full amount to [0x8BB4C975Ff3c250e0ceEA271728547f3802B36Fd](https://etherscan.io/address/0x8BB4C975Ff3c250e0ceEA271728547f3802B36Fd) which is the distribution creator by angle labs
+- approve the full amount to [0x8BB4C975Ff3c250e0ceEA271728547f3802B36Fd](https://etherscan.io/address/0x8BB4C975Ff3c250e0ceEA271728547f3802B36Fd) which is the distribution creator by Angle Labs
 - sign the tos of https://app.merkl.xyz/ via a onchain transaction
 - create a campaign to distribute funds to the affected users
 
