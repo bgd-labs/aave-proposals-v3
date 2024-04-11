@@ -127,34 +127,22 @@ export const config: ConfigFile = {
     },
     AaveV3Gnosis: {
       configs: {
-        RATE_UPDATE_V3: [
+        COLLATERALS_UPDATE: [
           {
             asset: 'WXDAI',
-            params: {
-              optimalUtilizationRate: '',
-              baseVariableBorrowRate: '',
-              variableRateSlope1: '',
-              variableRateSlope2: '',
-              stableRateSlope1: '',
-              stableRateSlope2: '',
-              baseStableRateOffset: '',
-              stableRateExcessOffset: '',
-              optimalStableToTotalDebtRatio: '',
-            },
+            ltv: '63',
+            liqThreshold: '77',
+            liqBonus: '',
+            debtCeiling: '',
+            liqProtocolFee: '',
           },
           {
             asset: 'sDAI',
-            params: {
-              optimalUtilizationRate: '',
-              baseVariableBorrowRate: '',
-              variableRateSlope1: '',
-              variableRateSlope2: '',
-              stableRateSlope1: '',
-              stableRateSlope2: '',
-              baseStableRateOffset: '',
-              stableRateExcessOffset: '',
-              optimalStableToTotalDebtRatio: '',
-            },
+            ltv: '63',
+            liqThreshold: '77',
+            liqBonus: '',
+            debtCeiling: '',
+            liqProtocolFee: '',
           },
         ],
       },
