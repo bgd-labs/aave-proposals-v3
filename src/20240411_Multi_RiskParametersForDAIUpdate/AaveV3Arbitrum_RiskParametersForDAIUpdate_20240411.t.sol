@@ -15,7 +15,7 @@ contract AaveV3Arbitrum_RiskParametersForDAIUpdate_20240411_Test is ProtocolV3Te
   AaveV3Arbitrum_RiskParametersForDAIUpdate_20240411 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('arbitrum'), 199811886);
+    vm.createSelectFork(vm.rpcUrl('arbitrum'), 200008386);
     proposal = new AaveV3Arbitrum_RiskParametersForDAIUpdate_20240411();
   }
 

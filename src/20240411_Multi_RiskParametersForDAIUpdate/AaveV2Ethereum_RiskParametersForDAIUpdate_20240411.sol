@@ -15,8 +15,8 @@ contract AaveV2Ethereum_RiskParametersForDAIUpdate_20240411 is IProposalGenericE
     // custom code goes here   i
     AaveV2Ethereum.POOL_CONFIGURATOR.configureReserveAsCollateral(
       AaveV2EthereumAssets.DAI_UNDERLYING,
-      77_00,
       63_00,
+      77_00,
       104_00
     );
   }

@@ -14,8 +14,8 @@ contract AaveV2Polygon_RiskParametersForDAIUpdate_20240411 is IProposalGenericEx
     // custom code goes here
     AaveV2Polygon.POOL_CONFIGURATOR.configureReserveAsCollateral(
       AaveV2PolygonAssets.DAI_UNDERLYING,
-      77_00,
       63_00,
+      77_00,
       105_00
     );
   }

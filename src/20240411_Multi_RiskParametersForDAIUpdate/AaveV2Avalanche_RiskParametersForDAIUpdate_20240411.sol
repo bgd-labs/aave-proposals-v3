@@ -15,8 +15,8 @@ contract AaveV2Avalanche_RiskParametersForDAIUpdate_20240411 is IProposalGeneric
     // custom code goes here
     AaveV2Avalanche.POOL_CONFIGURATOR.configureReserveAsCollateral(
       AaveV2AvalancheAssets.DAIe_UNDERLYING,
-      77_00,
       63_00,
+      77_00,
       105_00
     );
   }

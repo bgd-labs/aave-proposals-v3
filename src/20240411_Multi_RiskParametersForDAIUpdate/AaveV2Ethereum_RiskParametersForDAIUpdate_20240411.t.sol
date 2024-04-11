@@ -15,7 +15,7 @@ contract AaveV2Ethereum_RiskParametersForDAIUpdate_20240411_Test is ProtocolV2Te
   AaveV2Ethereum_RiskParametersForDAIUpdate_20240411 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 19630555);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 19634582);
     proposal = new AaveV2Ethereum_RiskParametersForDAIUpdate_20240411();
   }
 
