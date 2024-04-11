@@ -17,7 +17,7 @@ contract AaveV2Avalanche_RiskParametersForDAIUpdate_20240411 is IProposalGeneric
       AaveV2AvalancheAssets.DAIe_UNDERLYING,
       77_00,
       63_00,
-      104_00
+      105_00
     );
   }
 }

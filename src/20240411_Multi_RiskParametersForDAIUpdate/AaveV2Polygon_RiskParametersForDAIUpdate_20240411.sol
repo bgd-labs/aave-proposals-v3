@@ -16,7 +16,7 @@ contract AaveV2Polygon_RiskParametersForDAIUpdate_20240411 is IProposalGenericEx
       AaveV2PolygonAssets.DAI_UNDERLYING,
       77_00,
       63_00,
-      104_00
+      105_00
     );
   }
 }
