@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.17;
 
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {AaveV2Ethereum, AaveV2EthereumAssets} from 'aave-address-book/AaveV2Ethereum.sol';
@@ -49,21 +49,21 @@ contract AaveV2Ethereum_InterimAAMPLDistribution_20240409 is IProposalGenericExe
   IDistributionCreator public constant DISTRIBUTION_CREATOR =
     IDistributionCreator(0x8BB4C975Ff3c250e0ceEA271728547f3802B36Fd);
   address public constant REWARD_TOKEN = AaveV2EthereumAssets.USDC_UNDERLYING;
-  uint256 public constant REWARD_AMOUNT = 300_000e6;
-  string public constant FILE_URL = 'TODO';
+  uint256 public constant REWARD_AMOUNT_PLUS_FEES = 298_543_522_440;
+  string public constant FILE_URL =
+    'https://angle-blog.infura-ipfs.io/ipfs/Qmb9uJbEdppQsL8W4aVKxREoHo42iXtcp4CV1FLE5tY8Rt';
 
   function execute() external {
     // 1. send funds to executor
     // 0.5% fee for angle merkle distributor
-    uint256 amountPlusFee = REWARD_AMOUNT + (REWARD_AMOUNT * 5) / 1000;
     AaveV2Ethereum.COLLECTOR.transfer(
       AaveV2EthereumAssets.USDC_A_TOKEN,
       address(this),
-      amountPlusFee + 1 // account for imprecision on transfer
+      REWARD_AMOUNT_PLUS_FEES + 1 // account for imprecision on transfer
     );
-    AaveV2Ethereum.POOL.withdraw(REWARD_TOKEN, amountPlusFee, address(this));
+    AaveV2Ethereum.POOL.withdraw(REWARD_TOKEN, REWARD_AMOUNT_PLUS_FEES, address(this));
     // 2. approve to merkl
-    IERC20(REWARD_TOKEN).approve(0x8BB4C975Ff3c250e0ceEA271728547f3802B36Fd, amountPlusFee);
+    IERC20(REWARD_TOKEN).approve(address(DISTRIBUTION_CREATOR), REWARD_AMOUNT_PLUS_FEES);
     // 3. accept tos
     DISTRIBUTION_CREATOR.acceptConditions();
     // 4.create campaign
@@ -72,7 +72,7 @@ contract AaveV2Ethereum_InterimAAMPLDistribution_20240409 is IProposalGenericExe
         campaignId: '',
         creator: address(0),
         rewardToken: REWARD_TOKEN,
-        amount: amountPlusFee,
+        amount: REWARD_AMOUNT_PLUS_FEES,
         campaignType: 4,
         startTimestamp: uint32(block.timestamp + 2 hours),
         duration: 1 hours,

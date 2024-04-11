@@ -36,11 +36,11 @@ contract AaveV2Ethereum_InterimAAMPLDistribution_20240409_Test is ProtocolV2Test
 
     IDistributionCreator.CampaignParameters memory campaign = proposal
       .DISTRIBUTION_CREATOR()
-      .campaign(bytes32(0xf9c2eb37d44c3495bb42c51d2483f332ace5f1a0e02d828a3bc6f32e5d02ab30));
+      .campaign(bytes32(0xf202b6960fcee67260b0d7251d8eabba7b65d7a092357b57092d7e2f4a556f76));
 
     assertEq(campaign.creator, GovernanceV3Ethereum.EXECUTOR_LVL_1);
     assertEq(campaign.rewardToken, AaveV2EthereumAssets.USDC_UNDERLYING);
-    // assertEq(campaign.amount, 300_000e6);
+    assertLe(campaign.amount, 300_000e6);
     assertEq(campaign.campaignType, 4);
     assertGt(campaign.startTimestamp, block.timestamp);
     assertEq(campaign.duration, 3600);

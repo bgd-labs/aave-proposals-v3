@@ -19,11 +19,15 @@ With [aip 72](https://vote.onaave.com/proposal/?proposalId=72&ipfsHash=0xaa46d2c
 
 ## Specification
 
-The proposal will perform the following steps upon execution:
+The distribution will be done via the [Merkl](https://app.merkl.xyz/) platform by Angle Labs, specialised on these operations and used before in other Aave DAO proposals, like the Merit program.
 
-- withdraw 301.5k USDC from the collector (300k for the distribution and 1.5k as fee for angle labs)
+Users with a balance below 30$ will be excluded from this initial distribution as the gas-cost for claiming would not offset set amount claimed.
+
+Therefore the proposal will perform the following steps upon execution:
+
+- withdraw USDC from the collector (298.5k including a 0.5% fee for angle labs)
 - approve the full amount to [0x8BB4C975Ff3c250e0ceEA271728547f3802B36Fd](https://etherscan.io/address/0x8BB4C975Ff3c250e0ceEA271728547f3802B36Fd) which is the distribution creator by angle labs
-- sign the tos of https://app.merkl.xyz/
+- sign the tos of https://app.merkl.xyz/ via a onchain transaction
 - create a campaign to distribute funds to the affected users
 
 2 hours after proposal execution, users will be able to claim the USDC on https://app.merkl.xyz/
@@ -34,7 +38,8 @@ The proposal will perform the following steps upon execution:
 - Tests: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240409_AaveV2Ethereum_InterimAAMPLDistribution/AaveV2Ethereum_InterimAAMPLDistribution_20240409.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0xb7226dd6441b67225924082215f7a512bfd98252897ee43a879084e07ab53607)
 - [Discussion](https://governance.aave.com/t/arfc-aampl-interim-distribution/17184)
-- [Distribution](todo - link to the ipfs used by merkl)
+- [Distribution:IPFS](https://angle-blog.infura-ipfs.io/ipfs/Qmb9uJbEdppQsL8W4aVKxREoHo42iXtcp4CV1FLE5tY8Rt)
+- [Distribution:formatted](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240409_AaveV2Ethereum_InterimAAMPLDistribution/distribution.mht)
 
 ## Copyright
 
