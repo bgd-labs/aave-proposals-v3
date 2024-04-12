@@ -17,7 +17,7 @@ contract AaveV3Arbitrum_WeETHArbitrumOnboarding_20240409_Test is ProtocolV3TestB
   AaveV3Arbitrum_WeETHArbitrumOnboarding_20240409 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('arbitrum'), 199243484);
+    vm.createSelectFork(vm.rpcUrl('arbitrum'), 200346777);
     proposal = new AaveV3Arbitrum_WeETHArbitrumOnboarding_20240409();
   }
 
