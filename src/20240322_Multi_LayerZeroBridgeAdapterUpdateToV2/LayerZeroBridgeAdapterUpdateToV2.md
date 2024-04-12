@@ -1,7 +1,7 @@
 ---
 title: "LayerZero bridge adapter update to V2"
 author: "BGD Labs @bgdlabs"
-discussions: ""
+discussions: "https://governance.aave.com/t/bgd-technical-maintenance-proposals/15274/29"
 ---
 
 ## Simple Summary
@@ -33,8 +33,7 @@ Adapter diffs: [LayerZeroAdapter](https://github.com/bgd-labs/aDI-diffs/tree/mai
 
 - Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240322_Multi_LayerZeroBridgeAdapterUpdateToV2/AaveV3Ethereum_LayerZeroBridgeAdapterUpdateToV2_20240322.sol), [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240322_Multi_LayerZeroBridgeAdapterUpdateToV2/AaveV3Polygon_LayerZeroBridgeAdapterUpdateToV2_20240322.sol), [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240322_Multi_LayerZeroBridgeAdapterUpdateToV2/AaveV3Avalanche_LayerZeroBridgeAdapterUpdateToV2_20240322.sol), [AaveV3Gnosis](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240322_Multi_LayerZeroBridgeAdapterUpdateToV2/AaveV3Gnosis_LayerZeroBridgeAdapterUpdateToV2_20240322.sol), [AaveV3BNB](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240322_Multi_LayerZeroBridgeAdapterUpdateToV2/AaveV3BNB_LayerZeroBridgeAdapterUpdateToV2_20240322.sol)
 - Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240322_Multi_LayerZeroBridgeAdapterUpdateToV2/AaveV3Ethereum_LayerZeroBridgeAdapterUpdateToV2_20240322.t.sol), [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240322_Multi_LayerZeroBridgeAdapterUpdateToV2/AaveV3Polygon_LayerZeroBridgeAdapterUpdateToV2_20240322.t.sol), [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240322_Multi_LayerZeroBridgeAdapterUpdateToV2/AaveV3Avalanche_LayerZeroBridgeAdapterUpdateToV2_20240322.t.sol), [AaveV3Gnosis](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240322_Multi_LayerZeroBridgeAdapterUpdateToV2/AaveV3Gnosis_LayerZeroBridgeAdapterUpdateToV2_20240322.t.sol), [AaveV3BNB](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240322_Multi_LayerZeroBridgeAdapterUpdateToV2/AaveV3BNB_LayerZeroBridgeAdapterUpdateToV2_20240322.t.sol)
-- [Snapshot](TODO)
-- [Discussion](TODO)
+- [Discussion](https://governance.aave.com/t/bgd-technical-maintenance-proposals/15274/29)
 
 ## Copyright
 

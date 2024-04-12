@@ -7,8 +7,7 @@ import {ChainIds} from 'aave-helpers/ChainIds.sol';
 /**
  * @title LayerZero bridge adapter update to V2
  * @author BGD Labs @bgdlabs
- * - Snapshot: TODO
- * - Discussion: TODO
+ * - Discussion: https://governance.aave.com/t/bgd-technical-maintenance-proposals/15274/29
  */
 contract AaveV3Avalanche_LayerZeroBridgeAdapterUpdateToV2_20240322 is
   BaseAdaptersUpdatePayload(
