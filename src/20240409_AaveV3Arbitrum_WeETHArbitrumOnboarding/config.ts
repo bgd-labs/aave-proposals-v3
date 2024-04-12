@@ -16,7 +16,7 @@ export const config: ConfigFile = {
           {
             assetSymbol: 'weETH',
             decimals: 18,
-            priceFeed: '0x0000000000000000000000000000000000000000',
+            priceFeed: '0x517276B5972C4Db7E88B9F76Ee500E888a2D73C3',
             ltv: '72.5',
             liqThreshold: '75',
             liqBonus: '7.5',
