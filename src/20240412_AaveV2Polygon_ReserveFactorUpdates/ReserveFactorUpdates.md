@@ -6,7 +6,7 @@ discussions: "https://governance.aave.com/t/arfc-reserve-factor-updates-polygon-
 
 ## Simple Summary
 
-This AIP is a continuation of proposal 54 on Governance v3 and increases the Reserve Factor (RF) for assets on Polygon v2 by 5.00%, up to a maximum of 99.99%.
+This AIP is a continuation of proposal 68 on Governance v3 and increases the Reserve Factor (RF) for assets on Polygon v2 by 5.00%, up to a maximum of 99.99%.
 
 This AIP will reduce deposit yield for assets on Polygon v2 by increasing the RF. With this upgrade being passed, users will be further encouraged to migrate from Polygon v2 to v3.
 
