@@ -7,7 +7,7 @@ import {IProposalGenericExecutor} from 'aave-helpers/interfaces/IProposalGeneric
 /**
  * @title ReserveFactorUpdates
  * @author TokenLogic
- * - Discussion: https://governance.aave.com/t/arfc-reserve-factor-updates-polygon-aave-v2/13937/20
+ * - Discussion: https://governance.aave.com/t/arfc-reserve-factor-updates-polygon-aave-v2/13937/22
  */
 contract AaveV2Polygon_ReserveFactorUpdates_20240412 is IProposalGenericExecutor {
   uint256 public constant DAI_RF = 96_00;

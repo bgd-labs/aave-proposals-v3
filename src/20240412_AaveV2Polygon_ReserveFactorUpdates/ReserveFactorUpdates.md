@@ -1,7 +1,7 @@
 ---
 title: "ReserveFactorUpdates"
 author: "TokenLogic"
-discussions: "https://governance.aave.com/t/arfc-reserve-factor-updates-polygon-aave-v2/13937/20"
+discussions: "https://governance.aave.com/t/arfc-reserve-factor-updates-polygon-aave-v2/13937/22"
 ---
 
 ## Simple Summary
@@ -28,7 +28,7 @@ The following parameters are to be updated as follows:
 
 - Implementation: [AaveV2Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240412_AaveV2Polygon_ReserveFactorUpdates/AaveV2Polygon_ReserveFactorUpdates_20240412.sol)
 - Tests: [AaveV2Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240412_AaveV2Polygon_ReserveFactorUpdates/AaveV2Polygon_ReserveFactorUpdates_20240412.t.sol)
-- [Discussion](https://governance.aave.com/t/arfc-reserve-factor-updates-polygon-aave-v2/13937/20)
+- [Discussion](https://governance.aave.com/t/arfc-reserve-factor-updates-polygon-aave-v2/13937/22)
 
 ## Copyright
 
