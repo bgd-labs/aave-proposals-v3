@@ -16,13 +16,10 @@ contract AaveV3Ethereum_ChaosLabsEngagementAmendment_20240415_Test is ProtocolV3
   AaveV3Ethereum_ChaosLabsEngagementAmendment_20240415 internal proposal;
 
   address public constant CHAOS_LABS_TREASURY = 0xbC540e0729B732fb14afA240aA5A047aE9ba7dF0;
-  uint256 public constant STREAM_AMOUNT_GHO = 200_000 ether;
-  uint256 public constant STREAM_AMOUNT_AUSDC = 200_000e6;
+  uint256 public constant STREAM_AMOUNT_GHO = 400_000 ether;
   uint256 public constant STREAM_DURATION = 365 days;
   uint256 public constant ACTUAL_STREAM_AMOUNT_GHO =
     (STREAM_AMOUNT_GHO / STREAM_DURATION) * STREAM_DURATION;
-  uint256 public constant ACTUAL_STREAM_AMOUNT_AUSDC =
-    (STREAM_AMOUNT_AUSDC / STREAM_DURATION) * STREAM_DURATION;
 
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('mainnet'), 19660101);
@@ -42,12 +39,8 @@ contract AaveV3Ethereum_ChaosLabsEngagementAmendment_20240415_Test is ProtocolV3
 
   function testProposalExecution() public {
     uint256 GHOCollectorStreamID = AaveV3Ethereum.COLLECTOR.getNextStreamId();
-    uint256 AUSDCCollectorStreamID = GHOCollectorStreamID + 1;
 
     uint256 ChaosGHOBalanceBefore = IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(
-      CHAOS_LABS_TREASURY
-    );
-    uint256 ChaosAUSDCBalanceBefore = IERC20(AaveV3EthereumAssets.USDC_A_TOKEN).balanceOf(
       CHAOS_LABS_TREASURY
     );
 
@@ -73,26 +66,6 @@ contract AaveV3Ethereum_ChaosLabsEngagementAmendment_20240415_Test is ProtocolV3
       assertEq(remainingBalanceGHO, ACTUAL_STREAM_AMOUNT_GHO);
     }
 
-    {
-      (
-        address senderAUSDC,
-        address recipientAUSDC,
-        uint256 depositAUSDC,
-        address tokenAddressAUSDC,
-        uint256 startTimeAUSDC,
-        uint256 stopTimeAUSDC,
-        uint256 remainingBalanceAUSDC,
-
-      ) = AaveV3Ethereum.COLLECTOR.getStream(AUSDCCollectorStreamID);
-
-      assertEq(senderAUSDC, address(AaveV3Ethereum.COLLECTOR));
-      assertEq(recipientAUSDC, CHAOS_LABS_TREASURY);
-      assertEq(depositAUSDC, ACTUAL_STREAM_AMOUNT_AUSDC);
-      assertEq(tokenAddressAUSDC, AaveV3EthereumAssets.USDC_A_TOKEN);
-      assertEq(stopTimeAUSDC - startTimeAUSDC, STREAM_DURATION);
-      assertEq(remainingBalanceAUSDC, ACTUAL_STREAM_AMOUNT_AUSDC);
-    }
-
     // checking if Chaos can withdraw from the stream
 
     vm.startPrank(CHAOS_LABS_TREASURY);
@@ -103,13 +76,7 @@ contract AaveV3Ethereum_ChaosLabsEngagementAmendment_20240415_Test is ProtocolV3
       CHAOS_LABS_TREASURY
     );
 
-    AaveV3Ethereum.COLLECTOR.withdrawFromStream(AUSDCCollectorStreamID, ACTUAL_STREAM_AMOUNT_AUSDC);
-    uint256 ChaosAUSDCBalanceAfter = IERC20(AaveV3EthereumAssets.USDC_A_TOKEN).balanceOf(
-      CHAOS_LABS_TREASURY
-    );
-
     assertEq(ChaosGHOBalanceBefore, ChaosGHOBalanceAfter - ACTUAL_STREAM_AMOUNT_GHO);
-    assertEq(ChaosAUSDCBalanceBefore, ChaosAUSDCBalanceAfter - ACTUAL_STREAM_AMOUNT_AUSDC);
 
     vm.stopPrank();
   }
