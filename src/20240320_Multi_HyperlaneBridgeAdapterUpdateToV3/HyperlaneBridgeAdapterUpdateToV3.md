@@ -8,11 +8,13 @@ discussions: ""
 
 This proposal updates the bridge Hyperlane bridge adapters used on a.DI to connect Ethereum with Polygon, Avalanche, Binance and Gnosis to the new
 Hyperlane V3 version.
-Additionally removes old native bridges on Optimism, Base, Arbitrum, Scroll and Metis
+Additionally, removes old native bridges on Optimism, Base, Arbitrum, Scroll and Metis
 
 ## Motivation
 
-The main motivation of this proposal is to bring the Hyperlane bridge adapters to the up to date version (V3)
+The main motivation of this proposal is to bring the Hyperlane bridge adapters to the up to date version (V3).
+
+This AIP also removes the old native bridges as new ones have already been set in place and are working.
 
 ## Specification
 
