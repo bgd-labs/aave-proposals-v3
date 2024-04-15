@@ -2,7 +2,6 @@
 title: "weETH Arbitrum onboarding"
 author: "@mzeller - ACI"
 discussions: "https://governance.aave.com/t/arfc-onboard-weeth-to-aave-v3-on-ethereum/16758/11"
-snapshot: "direct-to-aip"
 ---
 
 ## Simple Summary
