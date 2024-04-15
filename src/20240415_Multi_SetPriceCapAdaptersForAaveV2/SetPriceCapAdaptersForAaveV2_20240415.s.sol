@@ -8,9 +8,6 @@ library Payloads {
   // https://etherscan.io/address/0x0
   address public constant ETHEREUM = address(0);
 
-  // https://etherscan.io/address/0x0
-  address public constant ETHEREUM_AMM = address(0);
-
   // https://polygonscan.com/address/0x0
   address public constant POLYGON = address(0);
 
@@ -27,9 +24,8 @@ contract DeployEthereum is EthereumScript {
   function run() external broadcast {
     // compose action
     IPayloadsControllerCore.ExecutionAction[]
-      memory actions = new IPayloadsControllerCore.ExecutionAction[](2);
+      memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
     actions[0] = GovV3Helpers.buildAction(Payloads.ETHEREUM);
-    actions[1] = GovV3Helpers.buildAction(Payloads.ETHEREUM_AMM);
 
     // register action at payloadsController
     GovV3Helpers.createPayload(actions);
@@ -81,9 +77,8 @@ contract CreateProposal is EthereumScript {
 
     // compose actions for validation
     IPayloadsControllerCore.ExecutionAction[]
-      memory actionsEthereum = new IPayloadsControllerCore.ExecutionAction[](2);
+      memory actionsEthereum = new IPayloadsControllerCore.ExecutionAction[](1);
     actionsEthereum[0] = GovV3Helpers.buildAction(Payloads.ETHEREUM);
-    actionsEthereum[1] = GovV3Helpers.buildAction(Payloads.ETHEREUM_AMM);
     payloads[0] = GovV3Helpers.buildMainnetPayload(vm, actionsEthereum);
 
     IPayloadsControllerCore.ExecutionAction[]
