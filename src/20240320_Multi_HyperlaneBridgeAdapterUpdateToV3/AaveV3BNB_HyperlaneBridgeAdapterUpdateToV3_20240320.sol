@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {BaseAdaptersUpdatePayload, ICrossChainForwarder} from './BaseAdaptersUpdatePayload.sol';
+import 'aave-helpers/adi/SimpleOneToManyAdapterUpdate.sol';
 import {GovernanceV3BNB} from 'aave-address-book/GovernanceV3BNB.sol';
 import {ChainIds} from 'aave-helpers/ChainIds.sol';
 
@@ -12,11 +12,11 @@ import {ChainIds} from 'aave-helpers/ChainIds.sol';
  * - Discussion: TODO
  */
 contract AaveV3BNB_HyperlaneBridgeAdapterUpdateToV3_20240320 is
-  BaseAdaptersUpdatePayload(
-    BaseAdaptersUpdatePayload.ConstructorInput({
+  SimpleOneToManyAdapterUpdate(
+    SimpleOneToManyAdapterUpdate.ConstructorInput({
       ccc: GovernanceV3BNB.CROSS_CHAIN_CONTROLLER,
-      hlNewAdapter: 0x3F006299eC88985c18E6e885EeA29A49eC579882,
-      hlAdapterToRemove: 0x118DFD5418890c0332042ab05173Db4A2C1d283c
+      newAdapter: 0x3F006299eC88985c18E6e885EeA29A49eC579882,
+      adapterToRemove: 0x118DFD5418890c0332042ab05173Db4A2C1d283c
     })
   )
 {
@@ -24,14 +24,5 @@ contract AaveV3BNB_HyperlaneBridgeAdapterUpdateToV3_20240320 is
     uint256[] memory chains = new uint256[](1);
     chains[0] = ChainIds.MAINNET;
     return chains;
-  }
-
-  function getForwarderBridgeAdaptersToRemove()
-    public
-    pure
-    override
-    returns (ICrossChainForwarder.BridgeAdapterToDisable[] memory)
-  {
-    return new ICrossChainForwarder.BridgeAdapterToDisable[](0);
   }
 }
