@@ -44,7 +44,7 @@ The table below illustrates the configured risk parameters for **weETH**
 | Flashloanable                      |                                    ENABLED |
 | Siloed Borrowing                   |                                   DISABLED |
 | Borrowable in Isolation            |                                   DISABLED |
-| Oracle                             | 0x517276B5972C4Db7E88B9F76Ee500E888a2D73C3 |
+| Oracle                             | [0x517276B5972C4Db7E88B9F76Ee500E888a2D73C3](https://arbiscan.io/address/0x517276B5972C4Db7E88B9F76Ee500E888a2D73C3) |
 
 ## References
 
