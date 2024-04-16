@@ -42,8 +42,8 @@ _Note: The assets used for transfer has been recommended by the financial contri
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240411_Multi_SecurityBudgetRequestDec23AndRobotRefill/AaveV3Ethereum_SecurityBudgetRequestDec23AndRobotRefill_20240411.sol), [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240411_Multi_SecurityBudgetRequestDec23AndRobotRefill/AaveV3Polygon_SecurityBudgetRequestDec23AndRobotRefill_20240411.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240411_Multi_SecurityBudgetRequestDec23AndRobotRefill/AaveV3Ethereum_SecurityBudgetRequestDec23AndRobotRefill_20240411.t.sol), [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240411_Multi_SecurityBudgetRequestDec23AndRobotRefill/AaveV3Polygon_SecurityBudgetRequestDec23AndRobotRefill_20240411.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/be94106008b0e3e1f3fb9679dc7f589855d3cb60/src/20240411_Multi_SecurityBudgetRequestDec23AndRobotRefill/AaveV3Ethereum_SecurityBudgetRequestDec23AndRobotRefill_20240411.sol), [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/be94106008b0e3e1f3fb9679dc7f589855d3cb60/src/20240411_Multi_SecurityBudgetRequestDec23AndRobotRefill/AaveV3Polygon_SecurityBudgetRequestDec23AndRobotRefill_20240411.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/be94106008b0e3e1f3fb9679dc7f589855d3cb60/src/20240411_Multi_SecurityBudgetRequestDec23AndRobotRefill/AaveV3Ethereum_SecurityBudgetRequestDec23AndRobotRefill_20240411.t.sol), [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/be94106008b0e3e1f3fb9679dc7f589855d3cb60/src/20240411_Multi_SecurityBudgetRequestDec23AndRobotRefill/AaveV3Polygon_SecurityBudgetRequestDec23AndRobotRefill_20240411.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0xf95bc210e3e93c2112c694cb158db22c93504155b48c03d9358e4c41c33ee782)
 - [Discussion](https://governance.aave.com/t/arfc-bgd-security-budget-request-december-2023/15783)
 
