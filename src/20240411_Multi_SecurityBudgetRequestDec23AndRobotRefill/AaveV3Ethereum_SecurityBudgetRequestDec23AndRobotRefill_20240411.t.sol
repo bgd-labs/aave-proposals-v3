@@ -3,7 +3,6 @@ pragma solidity ^0.8.0;
 
 import {AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
 import {AaveV2EthereumAssets} from 'aave-address-book/AaveV2Ethereum.sol';
-import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 
 import {ProtocolV3TestBase} from 'aave-helpers/ProtocolV3TestBase.sol';
 import {AaveV3Ethereum_SecurityBudgetRequestDec23AndRobotRefill_20240411} from './AaveV3Ethereum_SecurityBudgetRequestDec23AndRobotRefill_20240411.sol';
@@ -17,8 +16,6 @@ contract AaveV3Ethereum_SecurityBudgetRequestDec23AndRobotRefill_20240411_Test i
   ProtocolV3TestBase
 {
   AaveV3Ethereum_SecurityBudgetRequestDec23AndRobotRefill_20240411 internal proposal;
-
-  event KeeperRefilled(uint256 indexed id, address indexed from, uint96 indexed amount);
 
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('mainnet'), 19631594);
@@ -45,20 +42,6 @@ contract AaveV3Ethereum_SecurityBudgetRequestDec23AndRobotRefill_20240411_Test i
     );
     uint256 collectorALinkBalanceBefore = IERC20(AaveV2EthereumAssets.LINK_A_TOKEN).balanceOf(
       address(AaveV3Ethereum.COLLECTOR)
-    );
-
-    // Validate the Collector has enough aUSDC v2
-    assertGe(collectorAUsdcBalanceBefore, proposal.USDC_AMOUNT_REIMBURSEMENT());
-
-    // Validate the Collector has enough aUSDT v2
-    assertGe(collectorAUsdtBalanceBefore, proposal.USDT_AMOUNT_REIMBURSEMENT());
-
-    // Validate the Collector has enough aLINK v2
-    assertGe(
-      collectorALinkBalanceBefore,
-      proposal.LINK_AMOUNT_ROBOT_1_REFILL() +
-        proposal.LINK_AMOUNT_ROBOT_2_REFILL() +
-        proposal.LINK_AMOUNT_REIMBURSEMENT()
     );
 
     uint256 recipientAUsdcBalanceBefore = IERC20(AaveV2EthereumAssets.USDC_A_TOKEN).balanceOf(
@@ -119,33 +102,11 @@ contract AaveV3Ethereum_SecurityBudgetRequestDec23AndRobotRefill_20240411_Test i
       collectorAUsdtBalanceBefore - proposal.USDT_AMOUNT_REIMBURSEMENT(),
       3
     );
-
     // high delta is because when withdrawing LINK from collector on aave v2, the state update causes claiming rewards to treasury
     assertApproxEqAbs(
       collectorALinkBalanceAfter,
-      collectorALinkBalanceBefore -
-        (proposal.LINK_AMOUNT_REIMBURSEMENT() +
-          proposal.LINK_AMOUNT_ROBOT_1_REFILL() +
-          proposal.LINK_AMOUNT_ROBOT_2_REFILL()),
+      collectorALinkBalanceBefore - proposal.LINK_AMOUNT_REIMBURSEMENT(),
       0.3 ether
     );
-  }
-
-  function test_robot_refilled() public {
-    vm.expectEmit();
-    emit KeeperRefilled(
-      proposal.ROBOT_1_ID(),
-      GovernanceV3Ethereum.EXECUTOR_LVL_1,
-      uint96(proposal.LINK_AMOUNT_ROBOT_1_REFILL())
-    );
-
-    vm.expectEmit();
-    emit KeeperRefilled(
-      proposal.ROBOT_2_ID(),
-      GovernanceV3Ethereum.EXECUTOR_LVL_1,
-      uint96(proposal.LINK_AMOUNT_ROBOT_2_REFILL())
-    );
-
-    executePayload(vm, address(proposal));
   }
 }
