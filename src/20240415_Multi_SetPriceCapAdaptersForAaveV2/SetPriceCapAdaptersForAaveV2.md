@@ -12,6 +12,8 @@ This proposal activates the correlated-assets price oracle (CAPO) system for fia
 
 To continue enhancing the security of the protocol using CAPO and to align with the recent V3 update, we are introducing the activation of the CAP adapters for the Aave V2 pools. As no LSTs are listed on the V2, we are only applying the adapters to the fiat-pegged stablecoins.
 
+This proposal also includes update of the oracle for DPI as the existing one for `DPI / ETH` is being deprecated by Chainlink.
+
 ## Specification
 
 - [Capped price adapters implementation](https://github.com/bgd-labs/aave-capo)
@@ -29,6 +31,8 @@ To continue enhancing the security of the protocol using CAPO and to align with 
 | BUSD  | 4%  |
 | TUSD  | 4%  |
 | UST   | 4%  |
+
+Cap adapter for BUSD will be using `fdUSD / USD` oracle under the hood as the asset is redeemable for fdUSD.
 
 GUSD and FEI won't be updated as the fixed price oracles are used for them.
 
