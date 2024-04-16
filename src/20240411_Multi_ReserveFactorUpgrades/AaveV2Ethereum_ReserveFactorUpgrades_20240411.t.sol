@@ -20,7 +20,7 @@ contract AaveV2Ethereum_ReserveFactorUpgrades_20240411_Test is ProtocolV2TestBas
   }
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 19633182);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 19668943);
     proposal = new AaveV2Ethereum_ReserveFactorUpgrades_20240411();
   }
 
