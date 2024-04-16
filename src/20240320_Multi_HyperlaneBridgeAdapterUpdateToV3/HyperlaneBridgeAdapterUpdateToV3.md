@@ -1,5 +1,5 @@
 ---
-title: "Hyperlane bridge adapter update to V3"
+title: "Hyperlane bridge adapter update to V3 and removal of old native bridge adapters"
 author: "BGD Labs @bgdlabs"
 discussions: ""
 ---
