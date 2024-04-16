@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import 'aave-helpers/adi/SimpleOneToManyAdapterUpdate.sol';
-import {GovernanceV3BNB} from 'aave-address-book/GovernanceV3BNB.sol';
+import 'aave-helpers/adi/SimpleReceiverAdapterUpdate.sol';
+import {GovernanceV3Scroll} from 'aave-address-book/GovernanceV3Scroll.sol';
 import {ChainIds} from 'aave-helpers/ChainIds.sol';
 
 /**
@@ -11,11 +11,11 @@ import {ChainIds} from 'aave-helpers/ChainIds.sol';
  * - Snapshot: TODO
  * - Discussion: TODO
  */
-contract AaveV3BNB_HyperlaneBridgeAdapterUpdateToV3_20240320 is
-  SimpleOneToManyAdapterUpdate(
-    SimpleOneToManyAdapterUpdate.ConstructorInput({
-      ccc: GovernanceV3BNB.CROSS_CHAIN_CONTROLLER,
-      newAdapter: 0x3F006299eC88985c18E6e885EeA29A49eC579882,
+contract AaveV3Scroll_HyperlaneBridgeAdapterUpdateToV3_20240320 is
+  SimpleReceiverAdapterUpdate(
+    SimpleReceiverAdapterUpdate.ConstructorInput({
+      ccc: GovernanceV3Scroll.CROSS_CHAIN_CONTROLLER,
+      newAdapter: address(0), // no new adapter
       adapterToRemove: 0x118DFD5418890c0332042ab05173Db4A2C1d283c
     })
   )

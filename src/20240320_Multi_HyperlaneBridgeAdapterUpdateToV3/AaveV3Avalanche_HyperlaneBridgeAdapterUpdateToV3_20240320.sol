@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {BaseAdaptersUpdatePayload} from './BaseAdaptersUpdatePayload.sol';
 import {GovernanceV3Avalanche} from 'aave-address-book/GovernanceV3Avalanche.sol';
 import {ChainIds} from 'aave-helpers/ChainIds.sol';
+import 'aave-helpers/adi/SimpleOneToManyAdapterUpdate.sol';
 
 /**
  * @title Hyperlane bridge adapter update to V3
@@ -12,11 +12,11 @@ import {ChainIds} from 'aave-helpers/ChainIds.sol';
  * - Discussion: TODO
  */
 contract AaveV3Avalanche_HyperlaneBridgeAdapterUpdateToV3_20240320 is
-  BaseAdaptersUpdatePayload(
-    BaseAdaptersUpdatePayload.ConstructorInput({
+  SimpleOneToManyAdapterUpdate(
+    SimpleOneToManyAdapterUpdate.ConstructorInput({
       ccc: GovernanceV3Avalanche.CROSS_CHAIN_CONTROLLER,
-      hlNewAdapter: 0x617332a777780F546261247F621051d0b98975Eb,
-      hlAdapterToRemove: 0xa198Fac58E02A5C5F8F7e877895d50cFa9ad1E04
+      newAdapter: 0x617332a777780F546261247F621051d0b98975Eb,
+      adapterToRemove: 0xa198Fac58E02A5C5F8F7e877895d50cFa9ad1E04
     })
   )
 {
