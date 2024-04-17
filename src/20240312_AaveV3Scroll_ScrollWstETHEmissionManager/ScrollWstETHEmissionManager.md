@@ -21,7 +21,7 @@ By setting their wallet as the emission manager for the wstETH token, the Founda
 
 The Liquidity Observation Labs wallet address is:
 
-Emission Admin Wallet (Liquidity Observation Labs): [0xC18F11735C6a1941431cCC5BcF13AF0a052A5022](https://app.safe.global/home?safe=eth:0xC18F11735C6a1941431cCC5BcF13AF0a052A5022)
+Emission Admin Wallet (Liquidity Observation Labs): [0xC18F11735C6a1941431cCC5BcF13AF0a052A5022](https://safe.scroll.xyz/home?safe=scr:0xC18F11735C6a1941431cCC5BcF13AF0a052A5022)
 
 The AIP call setEmissionAdmin() method in the emission manager contract.
 
