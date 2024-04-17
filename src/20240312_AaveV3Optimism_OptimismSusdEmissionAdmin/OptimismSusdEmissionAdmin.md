@@ -27,8 +27,8 @@ This method will set the ACI multisig as the emission admin for the sUSD token o
 
 ## References
 
-- Implementation: [AaveV3Optimism](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240312_AaveV3Optimism_OptimismSusdEmissionAdmin/AaveV3Optimism_OptimismSusdEmissionAdmin_20240312.sol)
-- Tests: [AaveV3Optimism](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240312_AaveV3Optimism_OptimismSusdEmissionAdmin/AaveV3Optimism_OptimismSusdEmissionAdmin_20240312.t.sol)
+- Implementation: [AaveV3Optimism](https://github.com/bgd-labs/aave-proposals-v3/blob/8810a7cd06432a6e77fc2669676323b07fa870bd/src/20240312_AaveV3Optimism_OptimismSusdEmissionAdmin/AaveV3Optimism_OptimismSusdEmissionAdmin_20240312.sol)
+- Tests: [AaveV3Optimism](https://github.com/bgd-labs/aave-proposals-v3/blob/8810a7cd06432a6e77fc2669676323b07fa870bd/src/20240312_AaveV3Optimism_OptimismSusdEmissionAdmin/AaveV3Optimism_OptimismSusdEmissionAdmin_20240312.t.sol)
 - [Snapshot](https://governance.aave.com/t/arfc-set-aave-chan-initiative-as-emission-manager-for-susd-on-aave-v3-optimism/16867)
 - [Discussion](https://governance.aave.com/t/arfc-set-aave-chan-initiative-as-emission-manager-for-susd-on-aave-v3-optimism/16867)
 
