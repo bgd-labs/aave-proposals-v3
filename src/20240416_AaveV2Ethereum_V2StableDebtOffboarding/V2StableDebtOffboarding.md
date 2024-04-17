@@ -27,8 +27,8 @@ On execution this proposal will call:
 
 ## References
 
-- Implementation: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240416_AaveV2Ethereum_V2StableDebtOffboarding/AaveV2Ethereum_V2StableDebtOffboarding_20240416.sol)
-- Tests: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240416_AaveV2Ethereum_V2StableDebtOffboarding/AaveV2Ethereum_V2StableDebtOffboarding_20240416.t.sol)
+- Implementation: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/c897b15496a26fd9f30aff69e3a66b22321a1576/src/20240416_AaveV2Ethereum_V2StableDebtOffboarding/AaveV2Ethereum_V2StableDebtOffboarding_20240416.sol)
+- Tests: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/c897b15496a26fd9f30aff69e3a66b22321a1576/src/20240416_AaveV2Ethereum_V2StableDebtOffboarding/AaveV2Ethereum_V2StableDebtOffboarding_20240416.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0xb58ef33b4b7f4c35b7a6834b24f11b282d713b5e9f527f29d782aef04886c189)
 - [Discussion](https://governance.aave.com/t/bgd-full-deprecation-of-stable-rate/16473)
 - [Diff](https://github.com/bgd-labs/v2-stable-debt-offboarding/blob/d9862450d82930a6c9c9fe67e84894c7c467514e/diffs/diff.md)
