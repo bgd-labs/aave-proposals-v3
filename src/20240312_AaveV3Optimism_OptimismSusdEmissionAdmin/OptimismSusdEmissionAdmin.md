@@ -17,7 +17,7 @@ By setting the multisig as the emission manager for the sUSD token, the ACI will
 
 ## Specification
 
-The ACI multisig address OP:0xac140648435d03f784879cd789130F22Ef588Fcd will be set as Emissions manager.
+The ACI multisig address OP:[0xac140648435d03f784879cd789130F22Ef588Fcd](https://optimistic.etherscan.io/address/0xac140648435d03f784879cd789130F22Ef588Fcd) will be set as Emissions manager.
 
 The call to the setEmissionAdmin() method in the emission_manager contract will be as follows:
 
