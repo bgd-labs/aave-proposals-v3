@@ -48,8 +48,8 @@ For Avalanche V2, the following parameters are to be updated as follows:
 
 ## References
 
-- Implementation: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240411_Multi_ReserveFactorUpgrades/AaveV2Ethereum_ReserveFactorUpgrades_20240411.sol), [AaveV2Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240411_Multi_ReserveFactorUpgrades/AaveV2Avalanche_ReserveFactorUpgrades_20240411.sol)
-- Tests: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240411_Multi_ReserveFactorUpgrades/AaveV2Ethereum_ReserveFactorUpgrades_20240411.t.sol), [AaveV2Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240411_Multi_ReserveFactorUpgrades/AaveV2Avalanche_ReserveFactorUpgrades_20240411.t.sol)
+- Implementation: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/a08db8acff5c6f1398bc4a2b75fce2ab983351c6/src/20240411_Multi_ReserveFactorUpgrades/AaveV2Ethereum_ReserveFactorUpgrades_20240411.sol), [AaveV2Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/a08db8acff5c6f1398bc4a2b75fce2ab983351c6/src/20240411_Multi_ReserveFactorUpgrades/AaveV2Avalanche_ReserveFactorUpgrades_20240411.sol)
+- Tests: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/a08db8acff5c6f1398bc4a2b75fce2ab983351c6/src/20240411_Multi_ReserveFactorUpgrades/AaveV2Ethereum_ReserveFactorUpgrades_20240411.t.sol), [AaveV2Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/a08db8acff5c6f1398bc4a2b75fce2ab983351c6/src/20240411_Multi_ReserveFactorUpgrades/AaveV2Avalanche_ReserveFactorUpgrades_20240411.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x26a03c08359c340f63b78b0c3e96d37aa0adeda65814643b0886d4719048ea7e)
 - [Discussion for Ethereum Reserve Factor Updates](https://governance.aave.com/t/arfc-ethereum-v2-reserve-factor-adjustment/16764/7)
 - [Snapshot for Ethereum Reserve Factor Updates](https://snapshot.org/#/aave.eth/proposal/0x26a03c08359c340f63b78b0c3e96d37aa0adeda65814643b0886d4719048ea7e)
