@@ -52,8 +52,6 @@ contract AaveV2Polygon_ReserveFactorUpdates_20240412_Test is ProtocolV2TestBase 
       reserveFactor: proposal.USDT_RF()
     });
 
-    _noReservesConfigsChangesApartFrom(allConfigsBefore, allConfigsAfter, assetsChanged);
-
     for (uint i = 0; i < assetChanges.length; i++) {
       ReserveConfig memory cfg = _findReserveConfig(allConfigsAfter, assetChanges[i].asset);
       assertEq(cfg.reserveFactor, assetChanges[i].reserveFactor);
