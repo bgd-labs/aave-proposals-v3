@@ -23,9 +23,7 @@ In order to facilitate emissions by various stakeholders, ACI proposes becoming 
 
 ## Specification
 
-The Aave Chan Initiative (ACI) multisig address eth :0xac140648435d03f784879cd789130F22Ef588Fcd
-
-will be set as Emissions manager.
+The Aave Chan Initiative (ACI) multisig address [0xac140648435d03f784879cd789130F22Ef588Fcd](https://app.safe.global/home?safe=eth:0xac140648435d03f784879cd789130F22Ef588Fcd) will be set as Emissions manager.
 
 The call to the setEmissionAdmin() method in the emission_manager contract will be as follows:
 
