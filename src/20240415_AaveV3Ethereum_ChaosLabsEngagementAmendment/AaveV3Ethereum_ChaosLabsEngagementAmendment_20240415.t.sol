@@ -17,7 +17,7 @@ contract AaveV3Ethereum_ChaosLabsEngagementAmendment_20240415_Test is ProtocolV3
 
   address public constant CHAOS_LABS_TREASURY = 0xbC540e0729B732fb14afA240aA5A047aE9ba7dF0;
   uint256 public constant STREAM_AMOUNT_GHO = 400_000 ether;
-  uint256 public constant STREAM_DURATION = 365 days;
+  uint256 public constant STREAM_DURATION = 200 days;
   uint256 public constant ACTUAL_STREAM_AMOUNT_GHO =
     (STREAM_AMOUNT_GHO / STREAM_DURATION) * STREAM_DURATION;
 
