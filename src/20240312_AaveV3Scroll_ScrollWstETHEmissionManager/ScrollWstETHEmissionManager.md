@@ -31,8 +31,8 @@ This method will set the Liquidity Observation Labs wallet as the emission admin
 
 ## References
 
-- Implementation: [AaveV3Scroll](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240312_AaveV3Scroll_ScrollWstETHEmissionManager/AaveV3Scroll_ScrollWstETHEmissionManager_20240312.sol)
-- Tests: [AaveV3Scroll](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240312_AaveV3Scroll_ScrollWstETHEmissionManager/AaveV3Scroll_ScrollWstETHEmissionManager_20240312.t.sol)
+- Implementation: [AaveV3Scroll](https://github.com/bgd-labs/aave-proposals-v3/blob/9e52d09720c29a2999f07ae97f71063c0ed32c53/src/20240312_AaveV3Scroll_ScrollWstETHEmissionManager/AaveV3Scroll_ScrollWstETHEmissionManager_20240312.sol)
+- Tests: [AaveV3Scroll](https://github.com/bgd-labs/aave-proposals-v3/blob/9e52d09720c29a2999f07ae97f71063c0ed32c53/src/20240312_AaveV3Scroll_ScrollWstETHEmissionManager/AaveV3Scroll_ScrollWstETHEmissionManager_20240312.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0xb70490f6b0623631686d34f4ca99a7d45394ad29fdd504df3cd6e68790b22b9c)
 - [Discussion](https://governance.aave.com/t/arfc-set-liquidity-observation-labs-as-emission-manager-for-wsteth-on-scroll/16813)
 
