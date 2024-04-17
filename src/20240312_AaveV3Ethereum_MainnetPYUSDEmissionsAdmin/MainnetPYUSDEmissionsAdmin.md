@@ -13,7 +13,7 @@ This AIP proposes to set the Aave Chan Initiative (ACI) wallet as the emission m
 
 The Aave Chan Initiative (ACI) has been in discussion with various parties that have a desire to actively contribute to the growth and development of the Aave V3 on the Ethereum Network.
 
-Recently, governance approved the [addition of PYUSD to Aave V3 Ethereum Market ](https://governance.aave.com/t/arfc-add-pyusd-to-aave-v3-ethereum-market/16218). As a result, onboarding PYUSD into Aave has:
+Recently, governance approved the [addition of PYUSD to Aave V3 Ethereum Market](https://governance.aave.com/t/arfc-add-pyusd-to-aave-v3-ethereum-market/16218). As a result, onboarding PYUSD into Aave has:
 
 - Built synergies between Aave and PYUSD.
 - Offered Aave users an additional stablecoin option.
