@@ -7,7 +7,7 @@ snapshot: "https://governance.aave.com/t/arfc-set-aave-chan-initiative-as-emissi
 
 ## Simple Summary
 
-This ARFC proposes to set the Aave Chan Initiative (ACI) wallet as the emission manager for the sUSD token on Optimism Aave V3 market. This will enable the ACI to enact incentive programs funded by SNX ecosystem partners for all sUSD markets, promoting growth and expanding the user base of Aave on Optimism.
+This AIP proposes to set the Aave Chan Initiative (ACI) wallet as the emission manager for the sUSD token on Optimism Aave V3 market. This will enable the ACI to enact incentive programs funded by SNX ecosystem partners for all sUSD markets, promoting growth and expanding the user base of Aave on Optimism.
 
 ## Motivation
 
