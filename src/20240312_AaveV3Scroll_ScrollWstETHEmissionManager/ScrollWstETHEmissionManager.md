@@ -7,13 +7,13 @@ snapshot: "https://snapshot.org/#/aave.eth/proposal/0xb70490f6b0623631686d34f4ca
 
 ## Simple Summary
 
-This AIP proposes to set Liquidity Observation Labs wallet as the emission manager for the wstETH token on Scroll. This will enable Liquidity Observation Labs to define and fund incentive programs for all wstETH markets, including Scroll, promoting growth and expanding the user base of Aave.
+This AIP proposes to set Liquidity Observation Labs wallet as the emission manager for the wstETH token on Scroll. This will enable the Liquidity Observation Labs to define and fund incentive programs for all wstETH markets, including Scroll, promoting growth and expanding the user base of Aave.
 
 ## Motivation
 
 Governance have already approved setting Liquidity Observation Labs as Emission manager for wstETH on the current Aave V3 Markets.
 
-But since Scroll market is live, the current ARFC is set to establish Liquidity Observation Labs as Emission manager for wstETH, aligning with the desire to actively contribute to the growth and development of the Aave V3.
+But since Scroll market is live, the current AIP is set to establish Liquidity Observation Labs as Emission manager for wstETH, aligning with the desire to actively contribute to the growth and development of the Aave V3.
 
 By setting their wallet as the emission manager for the wstETH token, the Foundation will be able to directly fund incentive programs that can attract more users to the pool and stimulate activity. This aligns with the broader goals of the Aave community to foster active and engaged markets.
 
@@ -21,11 +21,11 @@ By setting their wallet as the emission manager for the wstETH token, the Founda
 
 The Liquidity Observation Labs wallet address is:
 
-Emission Admin Wallet (Liquidity Observation Labs): [0xC18F11735C6a1941431cCC5BcF13AF0a052A5022 ](https://app.safe.global/home?safe=eth:0xC18F11735C6a1941431cCC5BcF13AF0a052A5022)
+Emission Admin Wallet (Liquidity Observation Labs): [0xC18F11735C6a1941431cCC5BcF13AF0a052A5022](https://app.safe.global/home?safe=eth:0xC18F11735C6a1941431cCC5BcF13AF0a052A5022)
 
 The AIP call setEmissionAdmin() method in the emission manager contract.
 
-`EMISSION_MANAGER.setEmissionAdmin(wstETH,[0xC18F11735C6a1941431cCC5BcF13AF0a052A5022],EMISSION_ADMIN);`
+`EMISSION_MANAGER.setEmissionAdmin(wstETH,0xC18F11735C6a1941431cCC5BcF13AF0a052A5022,EMISSION_ADMIN);`
 
 This method will set the Liquidity Observation Labs wallet as the emission admin for the wstETH token on Scroll, besides the current Ethereum, Base, Arbitrum, Optimism, Polygon and Gnosis V3 markets.
 
