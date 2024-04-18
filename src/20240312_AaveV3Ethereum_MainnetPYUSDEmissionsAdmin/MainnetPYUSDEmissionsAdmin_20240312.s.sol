@@ -3,18 +3,18 @@ pragma solidity ^0.8.0;
 
 import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aave-helpers/GovV3Helpers.sol';
 import {EthereumScript} from 'aave-helpers/ScriptUtils.sol';
-import {AaveV3Ethereum_SecurityBudgetRequestDecember2023_20240206} from './AaveV3Ethereum_SecurityBudgetRequestDecember2023_20240206.sol';
+import {AaveV3Ethereum_MainnetPYUSDEmissionsAdmin_20240312} from './AaveV3Ethereum_MainnetPYUSDEmissionsAdmin_20240312.sol';
 
 /**
  * @dev Deploy Ethereum
- * deploy-command: make deploy-ledger contract=src/20240206_AaveV3Ethereum_SecurityBudgetRequestDecember2023/SecurityBudgetRequestDecember2023_20240206.s.sol:DeployEthereum chain=mainnet
- * verify-command: npx catapulta-verify -b broadcast/SecurityBudgetRequestDecember2023_20240206.s.sol/1/run-latest.json
+ * deploy-command: make deploy-ledger contract=src/20240312_AaveV3Ethereum_MainnetPYUSDEmissionsAdmin/MainnetPYUSDEmissionsAdmin_20240312.s.sol:DeployEthereum chain=mainnet
+ * verify-command: npx catapulta-verify -b broadcast/MainnetPYUSDEmissionsAdmin_20240312.s.sol/1/run-latest.json
  */
 contract DeployEthereum is EthereumScript {
   function run() external broadcast {
     // deploy payloads
     address payload0 = GovV3Helpers.deployDeterministic(
-      type(AaveV3Ethereum_SecurityBudgetRequestDecember2023_20240206).creationCode
+      type(AaveV3Ethereum_MainnetPYUSDEmissionsAdmin_20240312).creationCode
     );
 
     // compose action
@@ -29,7 +29,7 @@ contract DeployEthereum is EthereumScript {
 
 /**
  * @dev Create Proposal
- * command: make deploy-ledger contract=src/20240206_AaveV3Ethereum_SecurityBudgetRequestDecember2023/SecurityBudgetRequestDecember2023_20240206.s.sol:CreateProposal chain=mainnet
+ * command: make deploy-ledger contract=src/20240312_AaveV3Ethereum_MainnetPYUSDEmissionsAdmin/MainnetPYUSDEmissionsAdmin_20240312.s.sol:CreateProposal chain=mainnet
  */
 contract CreateProposal is EthereumScript {
   function run() external {
@@ -40,7 +40,7 @@ contract CreateProposal is EthereumScript {
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsEthereum = new IPayloadsControllerCore.ExecutionAction[](1);
     actionsEthereum[0] = GovV3Helpers.buildAction(
-      type(AaveV3Ethereum_SecurityBudgetRequestDecember2023_20240206).creationCode
+      type(AaveV3Ethereum_MainnetPYUSDEmissionsAdmin_20240312).creationCode
     );
     payloads[0] = GovV3Helpers.buildMainnetPayload(vm, actionsEthereum);
 
@@ -51,7 +51,7 @@ contract CreateProposal is EthereumScript {
       payloads,
       GovV3Helpers.ipfsHashFile(
         vm,
-        'src/20240206_AaveV3Ethereum_SecurityBudgetRequestDecember2023/SecurityBudgetRequestDecember2023.md'
+        'src/20240312_AaveV3Ethereum_MainnetPYUSDEmissionsAdmin/MainnetPYUSDEmissionsAdmin.md'
       )
     );
   }
