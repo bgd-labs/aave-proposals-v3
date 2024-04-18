@@ -4,23 +4,23 @@ pragma solidity ^0.8.0;
 import {AaveV2Polygon, AaveV2PolygonAssets} from 'aave-address-book/AaveV2Polygon.sol';
 import {ProtocolV2TestBase, ReserveConfig} from 'aave-helpers/ProtocolV2TestBase.sol';
 
-import {AaveV2Polygon_ReserveFactorUpdates_20240412} from './AaveV2Polygon_ReserveFactorUpdates_20240412.sol';
+import {AaveV2Polygon_ReserveFactorAndBorrowRateUpdates_20240412} from './AaveV2Polygon_ReserveFactorAndBorrowRateUpdates_20240412.sol';
 
 /**
- * @dev Test for AaveV2Polygon_ReserveFactorUpdates_20240412
- * command: make test-contract filter=AaveV2Polygon_ReserveFactorUpdates_20240412
+ * @dev Test for AaveV2Polygon_ReserveFactorAndBorrowRateUpdates_20240412
+ * command: make test-contract filter=AaveV2Polygon_ReserveFactorAndBorrowRateUpdates_20240412
  */
-contract AaveV2Polygon_ReserveFactorUpdates_20240412_Test is ProtocolV2TestBase {
+contract AaveV2Polygon_ReserveFactorAndBorrowRateUpdates_20240412_Test is ProtocolV2TestBase {
   struct Changes {
     address asset;
     uint256 reserveFactor;
   }
 
-  AaveV2Polygon_ReserveFactorUpdates_20240412 internal proposal;
+  AaveV2Polygon_ReserveFactorAndBorrowRateUpdates_20240412 internal proposal;
 
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('polygon'), 55728740);
-    proposal = new AaveV2Polygon_ReserveFactorUpdates_20240412();
+    proposal = new AaveV2Polygon_ReserveFactorAndBorrowRateUpdates_20240412();
   }
 
   /**
@@ -28,7 +28,7 @@ contract AaveV2Polygon_ReserveFactorUpdates_20240412_Test is ProtocolV2TestBase 
    */
   function test_defaultProposalExecution() public {
     (ReserveConfig[] memory allConfigsBefore, ReserveConfig[] memory allConfigsAfter) = defaultTest(
-      'AaveV2Polygon_ReserveFactorUpdates_20240412',
+      'AaveV2Polygon_ReserveFactorAndBorrowRateUpdates_20240412',
       AaveV2Polygon.POOL,
       address(proposal)
     );

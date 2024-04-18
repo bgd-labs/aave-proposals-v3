@@ -3,18 +3,18 @@ pragma solidity ^0.8.0;
 
 import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aave-helpers/GovV3Helpers.sol';
 import {EthereumScript, PolygonScript} from 'aave-helpers/ScriptUtils.sol';
-import {AaveV2Polygon_ReserveFactorUpdates_20240412} from './AaveV2Polygon_ReserveFactorUpdates_20240412.sol';
+import {AaveV2Polygon_ReserveFactorAndBorrowRateUpdates_20240412} from './AaveV2Polygon_ReserveFactorAndBorrowRateUpdates_20240412.sol';
 
 /**
  * @dev Deploy Polygon
- * deploy-command: make deploy-ledger contract=src/20240412_AaveV2Polygon_ReserveFactorUpdates/ReserveFactorUpdates_20240412.s.sol:DeployPolygon chain=polygon
- * verify-command: npx catapulta-verify -b broadcast/ReserveFactorUpdates_20240412.s.sol/137/run-latest.json
+ * deploy-command: make deploy-ledger contract=src/20240412_AaveV2Polygon_ReserveFactorAndBorrowRateUpdates/ReserveFactorAndBorrowRateUpdates_20240412.s.sol:DeployPolygon chain=polygon
+ * verify-command: npx catapulta-verify -b broadcast/ReserveFactorAndBorrowRateUpdates_20240412.s.sol/137/run-latest.json
  */
 contract DeployPolygon is PolygonScript {
   function run() external broadcast {
     // deploy payloads
     address payload0 = GovV3Helpers.deployDeterministic(
-      type(AaveV2Polygon_ReserveFactorUpdates_20240412).creationCode
+      type(AaveV2Polygon_ReserveFactorAndBorrowRateUpdates_20240412).creationCode
     );
 
     // compose action
@@ -29,7 +29,7 @@ contract DeployPolygon is PolygonScript {
 
 /**
  * @dev Create Proposal
- * command: make deploy-ledger contract=src/20240412_AaveV2Polygon_ReserveFactorUpdates/ReserveFactorUpdates_20240412.s.sol:CreateProposal chain=mainnet
+ * command: make deploy-ledger contract=src/20240412_AaveV2Polygon_ReserveFactorAndBorrowRateUpdates/ReserveFactorAndBorrowRateUpdates_20240412.s.sol:CreateProposal chain=mainnet
  */
 contract CreateProposal is EthereumScript {
   function run() external {
@@ -40,7 +40,7 @@ contract CreateProposal is EthereumScript {
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsPolygon = new IPayloadsControllerCore.ExecutionAction[](1);
     actionsPolygon[0] = GovV3Helpers.buildAction(
-      type(AaveV2Polygon_ReserveFactorUpdates_20240412).creationCode
+      type(AaveV2Polygon_ReserveFactorAndBorrowRateUpdates_20240412).creationCode
     );
     payloads[0] = GovV3Helpers.buildPolygonPayload(vm, actionsPolygon);
 
@@ -51,7 +51,7 @@ contract CreateProposal is EthereumScript {
       payloads,
       GovV3Helpers.ipfsHashFile(
         vm,
-        'src/20240412_AaveV2Polygon_ReserveFactorUpdates/ReserveFactorUpdates.md'
+        'src/20240412_AaveV2Polygon_ReserveFactorAndBorrowRateUpdates/ReserveFactorAndBorrowRateUpdates.md'
       )
     );
   }
