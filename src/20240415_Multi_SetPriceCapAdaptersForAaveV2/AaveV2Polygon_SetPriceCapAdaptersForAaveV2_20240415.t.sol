@@ -13,7 +13,7 @@ import {Payloads} from './SetPriceCapAdaptersForAaveV2_20240415.s.sol';
  */
 contract AaveV2Polygon_SetPriceCapAdaptersForAaveV2_20240415_Test is ProtocolV2TestBase {
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('polygon'), 55845356);
+    vm.createSelectFork(vm.rpcUrl('polygon'), 55964527);
   }
 
   /**

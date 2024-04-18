@@ -5,14 +5,14 @@ import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aa
 import {EthereumScript, PolygonScript, AvalancheScript} from 'aave-helpers/ScriptUtils.sol';
 
 library Payloads {
-  // https://etherscan.io/address/0x0
-  address public constant ETHEREUM = address(0);
+  // https://etherscan.io/address/0x927402dF69eaDC67ab0Ce0D443dA87d04dcaD84A
+  address public constant ETHEREUM = 0x927402dF69eaDC67ab0Ce0D443dA87d04dcaD84A;
 
-  // https://polygonscan.com/address/0x0
-  address public constant POLYGON = address(0);
+  // https://polygonscan.com/address/0xF70E9568Cc0E23154b1478356a1bCB75fD2d0D16
+  address public constant POLYGON = 0xF70E9568Cc0E23154b1478356a1bCB75fD2d0D16;
 
-  // https://snowtrace.io/address/0x0
-  address public constant AVALANCHE = address(0);
+  // https://snowscan.xyz/address/0x3c27599160ed92bc62660c13e6f3f5930485f92b
+  address public constant AVALANCHE = 0x3C27599160ed92bc62660c13E6F3F5930485F92B;
 }
 
 /**

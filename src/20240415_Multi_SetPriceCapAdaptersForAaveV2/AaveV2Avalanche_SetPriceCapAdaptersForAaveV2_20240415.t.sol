@@ -13,7 +13,7 @@ import {Payloads} from './SetPriceCapAdaptersForAaveV2_20240415.s.sol';
  */
 contract AaveV2Avalanche_SetPriceCapAdaptersForAaveV2_20240415_Test is ProtocolV2TestBase {
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('avalanche'), 44227427);
+    vm.createSelectFork(vm.rpcUrl('avalanche'), 44355072);
   }
 
   /**
