@@ -23,11 +23,11 @@ Oracles will be updated using `ORACLE.setAssetSource()` method. Below is the lis
 
 **All assets affected**
 
-| Network   | Stables                                                             |
-| --------- | ------------------------------------------------------------------- |
-| Mainnet   | USDC, USDT, DAI, USDP, sUSD, FRAX, GUSD, LUSD, BUSD, TUSD, UST, FEI |
-| Avalanche | USDC.e, USDT.e, DAI.e                                               |
-| Polygon   | USDC.e, USDT, DAI                                                   |
+| Network   | Stables                                                             | Other |
+| --------- | ------------------------------------------------------------------- | ----- |
+| Mainnet   | USDC, USDT, DAI, USDP, sUSD, FRAX, GUSD, LUSD, BUSD, TUSD, UST, FEI | DPI   |
+| Avalanche | USDC.e, USDT.e, DAI.e                                               |       |
+| Polygon   | USDC.e, USDT, DAI                                                   |       |
 
 **CAPO configurations**
 
