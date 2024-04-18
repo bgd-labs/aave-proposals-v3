@@ -12,5 +12,123 @@ export const config: ConfigFile = {
     snapshot:
       'https://snapshot.org/#/aave.eth/proposal/0x95643085ee16eb0eaa4110a9f0ea8223009f9521e596e1a958303705a5001363',
   },
-  poolOptions: {AaveV2Polygon: {configs: {}, cache: {blockNumber: 55728740}}},
+  poolOptions: {
+    AaveV2Polygon: {
+      configs: {
+        RATE_UPDATE_V2: [
+          {
+            asset: 'BAL',
+            params: {
+              optimalUtilizationRate: '20',
+              baseVariableBorrowRate: '',
+              variableRateSlope1: '50',
+              variableRateSlope2: '134',
+              stableRateSlope1: '',
+              stableRateSlope2: '',
+            },
+          },
+          {
+            asset: 'CRV',
+            params: {
+              optimalUtilizationRate: '10',
+              baseVariableBorrowRate: '',
+              variableRateSlope1: '50',
+              variableRateSlope2: '134',
+              stableRateSlope1: '',
+              stableRateSlope2: '',
+            },
+          },
+          {
+            asset: 'GHST',
+            params: {
+              optimalUtilizationRate: '10',
+              baseVariableBorrowRate: '',
+              variableRateSlope1: '50',
+              variableRateSlope2: '134',
+              stableRateSlope1: '',
+              stableRateSlope2: '',
+            },
+          },
+          {
+            asset: 'LINK',
+            params: {
+              optimalUtilizationRate: '10',
+              baseVariableBorrowRate: '',
+              variableRateSlope1: '50',
+              variableRateSlope2: '134',
+              stableRateSlope1: '',
+              stableRateSlope2: '',
+            },
+          },
+          {
+            asset: 'DAI',
+            params: {
+              optimalUtilizationRate: '',
+              baseVariableBorrowRate: '',
+              variableRateSlope1: '12.75',
+              variableRateSlope2: '134',
+              stableRateSlope1: '',
+              stableRateSlope2: '',
+            },
+          },
+          {
+            asset: 'USDC',
+            params: {
+              optimalUtilizationRate: '',
+              baseVariableBorrowRate: '',
+              variableRateSlope1: '12.75',
+              variableRateSlope2: '',
+              stableRateSlope1: '',
+              stableRateSlope2: '',
+            },
+          },
+          {
+            asset: 'USDT',
+            params: {
+              optimalUtilizationRate: '',
+              baseVariableBorrowRate: '',
+              variableRateSlope1: '12.75',
+              variableRateSlope2: '134',
+              stableRateSlope1: '',
+              stableRateSlope2: '',
+            },
+          },
+          {
+            asset: 'WBTC',
+            params: {
+              optimalUtilizationRate: '',
+              baseVariableBorrowRate: '',
+              variableRateSlope1: '4.75',
+              variableRateSlope2: '134',
+              stableRateSlope1: '',
+              stableRateSlope2: '',
+            },
+          },
+          {
+            asset: 'WETH',
+            params: {
+              optimalUtilizationRate: '',
+              baseVariableBorrowRate: '',
+              variableRateSlope1: '4.75',
+              variableRateSlope2: '134',
+              stableRateSlope1: '',
+              stableRateSlope2: '',
+            },
+          },
+          {
+            asset: 'WMATIC',
+            params: {
+              optimalUtilizationRate: '',
+              baseVariableBorrowRate: '',
+              variableRateSlope1: '6.75',
+              variableRateSlope2: '134',
+              stableRateSlope1: '',
+              stableRateSlope2: '',
+            },
+          },
+        ],
+      },
+      cache: {blockNumber: 55728740},
+    },
+  },
 };
