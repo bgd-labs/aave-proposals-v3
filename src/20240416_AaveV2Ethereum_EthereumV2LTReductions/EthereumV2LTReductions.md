@@ -33,8 +33,8 @@ Aave v2 Ethereum
 
 ## References
 
-- Implementation: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240416_AaveV2Ethereum_EthereumV2LTReductions/AaveV2Ethereum_EthereumV2LTReductions_20240416.sol)
-- Tests: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240416_AaveV2Ethereum_EthereumV2LTReductions/AaveV2Ethereum_EthereumV2LTReductions_20240416.t.sol)
+- Implementation: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/93df385bf7640e2113fd1257776eae40a14530f4/src/20240416_AaveV2Ethereum_EthereumV2LTReductions/AaveV2Ethereum_EthereumV2LTReductions_20240416.sol)
+- Tests: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/93df385bf7640e2113fd1257776eae40a14530f4/src/20240416_AaveV2Ethereum_EthereumV2LTReductions/AaveV2Ethereum_EthereumV2LTReductions_20240416.t.sol)
 - [Discussion](https://governance.aave.com/t/arfc-chaos-labs-ethereum-v2-lt-reductions-04-15-2024/17369)
 
 ## Copyright
