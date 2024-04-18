@@ -8,7 +8,7 @@ discussions: ""
 
 This proposal updates the bridge Hyperlane bridge adapters used on a.DI to connect Ethereum with Polygon, Avalanche, Binance and Gnosis to the new
 Hyperlane V3 version.
-Additionally, removes old native bridges on Optimism, Base, Arbitrum, Scroll and Metis
+Additionally, removes old native bridges on Optimism, Base, Arbitrum, Scroll and Metis, after verifying that the new active versions work properly.
 
 ## Motivation
 
@@ -28,6 +28,22 @@ to make it easy to track off chain
 | Avalanche | [0x617332a777780F546261247F621051d0b98975Eb](https://snowscan.xyz/address/0x617332a777780F546261247F621051d0b98975Eb)    |
 | Binance   | [0x3F006299eC88985c18E6e885EeA29A49eC579882](https://bscscan.com/address/0x3F006299eC88985c18E6e885EeA29A49eC579882)     |
 | Gnosis    | [0xA806DA549FcB2B4912a7dFFE4c1aA7A1ed0Bd5C9](https://bscscan.com/address/0xA806DA549FcB2B4912a7dFFE4c1aA7A1ed0Bd5C9)     |
+
+To add the new forwarder adapters the method `function enableBridgeAdapters(ForwarderBridgeAdapterConfigInput[] memory bridgeAdapters) external` will be used,
+and to remove the old forwarder adapters, the method `function disableBridgeAdapters(BridgeAdapterToDisable[] memory bridgeAdapters) external` will be called on each CrossChainController.
+
+To add the new receiver adapters the method `function allowReceiverBridgeAdapters(ReceiverBridgeAdapterConfigInput[] memory bridgeAdaptersInput) external` will be used,
+and to remove the old receiver adapters, the method `function disallowReceiverBridgeAdapters(ReceiverBridgeAdapterConfigInput[] memory bridgeAdaptersInput) external` will be called on each CrossChainController.
+
+The old native receiver bridge adapters to remove are:
+
+| Network  | Native adapters                                                                                                                   |
+| -------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| Arbitrum | [0x3829943c53F2d00e20B58475aF19716724bF90Ba](https://arbiscan.io/address/0x3829943c53F2d00e20B58475aF19716724bF90Ba)              |
+| Base     | [0x7b62461a3570c6AC8a9f8330421576e417B71EE7](https://basescan.org/address/0x7b62461a3570c6AC8a9f8330421576e417B71EE7)             |
+| Metis    | [0x746c675dAB49Bcd5BB9Dc85161f2d7Eb435009bf](https://explorer.metis.io/address/0x746c675dAB49Bcd5BB9Dc85161f2d7Eb435009bf)        |
+| Optimism | [0x81d32B36380e6266e1BDd490eAC56cdB300afBe0](https://optimistic.etherscan.io//address/0x81d32B36380e6266e1BDd490eAC56cdB300afBe0) |
+| Scroll   | [0x118DFD5418890c0332042ab05173Db4A2C1d283c](https://scrollscan.com/address/0x118DFD5418890c0332042ab05173Db4A2C1d283c)           |
 
 Code diffs for the different networks can be checked on a.DI diff repository for [revision 2](https://github.com/bgd-labs/aDI-diffs/tree/main/diffs/rev2).
 Adapter diffs: [HLAdapter](https://github.com/bgd-labs/aDI-diffs/tree/main/diffs/rev2/hyperlane), [BaseAdapter](https://github.com/bgd-labs/aDI-diffs/tree/main/diffs/rev2/base_adapter), [IBaseAdapter](https://github.com/bgd-labs/aDI-diffs/tree/main/diffs/rev2/i_base_adapter)
