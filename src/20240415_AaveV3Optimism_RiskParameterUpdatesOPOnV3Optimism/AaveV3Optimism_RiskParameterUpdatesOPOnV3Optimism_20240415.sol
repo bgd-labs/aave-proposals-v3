@@ -8,7 +8,7 @@ import {IAaveV3ConfigEngine} from 'aave-helpers/v3-config-engine/IAaveV3ConfigEn
 /**
  * @title Risk Parameter Updates - OP on V3 Optimism
  * @author Chaos Labs
- * - Snapshot: TODO
+ * - Snapshot: https://snapshot.org/#/aave.eth/proposal/0xbaaf99c1e738da5755166fc6b1429265243507fdb9638a31ca177dd81a8b7313
  * - Discussion: https://governance.aave.com/t/arfc-chaos-labs-risk-parameter-updates-op-on-v3-optimism/17326
  */
 contract AaveV3Optimism_RiskParameterUpdatesOPOnV3Optimism_20240415 is AaveV3PayloadOptimism {
