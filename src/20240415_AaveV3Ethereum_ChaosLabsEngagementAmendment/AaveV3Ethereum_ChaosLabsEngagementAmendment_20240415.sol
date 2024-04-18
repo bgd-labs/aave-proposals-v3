@@ -6,7 +6,7 @@ import {IProposalGenericExecutor} from 'aave-helpers/interfaces/IProposalGeneric
 /**
  * @title Chaos Labs Engagement Amendment
  * @author Chaos Labs
- * - Snapshot: TODO
+ * - Snapshot: https://snapshot.org/#/aave.eth/proposal/0x34b6cf5bc9c8a0525c5b32d4ce2ca2ccfce39d15bd0aba5cab46a4e9e78f3ea8
  * - Discussion: https://governance.aave.com/t/arfc-chaos-labs-engagement-amendment/17324
  */
 contract AaveV3Ethereum_ChaosLabsEngagementAmendment_20240415 is IProposalGenericExecutor {
