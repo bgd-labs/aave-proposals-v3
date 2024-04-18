@@ -1,7 +1,7 @@
 ---
 title: "Polygon V2 Reserve Factor Updates & Interest Rate Increases"
 author: "@karpatkey_TokenLogic & @ChaosLabs"
-discussions: "https://governance.aave.com/t/arfc-reserve-factor-updates-polygon-aave-v2/13937/22"
+discussions: "https://governance.aave.com/t/arfc-polygon-v2-borrow-rate-adjustments/1725"
 ---
 
 ## Simple Summary
@@ -60,6 +60,7 @@ The following parameters are to be updated as follows in the Polygon V2 Market:
 
 - Implementation: [AaveV2Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240412_AaveV2Polygon_ReserveFactorAndBorrowRateUpdates/AaveV2Polygon_ReserveFactorAndBorrowRateUpdates_20240412.sol)
 - Tests: [AaveV2Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240412_AaveV2Polygon_ReserveFactorAndBorrowRateUpdates/AaveV2Polygon_ReserveFactorAndBorrowRateUpdates_20240412.t.sol)
+- [Discussion](https://governance.aave.com/t/arfc-reserve-factor-updates-polygon-aave-v2/13937/22)
 - [Discussion](https://governance.aave.com/t/arfc-polygon-v2-borrow-rate-adjustments/17252)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x95643085ee16eb0eaa4110a9f0ea8223009f9521e596e1a958303705a5001363)
 
