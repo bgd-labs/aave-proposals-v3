@@ -8,8 +8,7 @@ import {ChainIds} from 'aave-helpers/ChainIds.sol';
 /**
  * @title Hyperlane bridge adapter update to V3
  * @author BGD Labs @bgdlabs
- * - Snapshot: TODO
- * - Discussion: TODO
+ * - Discussion: https://governance.aave.com/t/bgd-technical-maintenance-proposals/15274/31
  */
 contract AaveV3Metis_HyperlaneBridgeAdapterUpdateToV3_20240320 is
   SimpleReceiverAdapterUpdate(

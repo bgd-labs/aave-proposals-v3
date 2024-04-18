@@ -1,7 +1,7 @@
 ---
 title: "Hyperlane bridge adapter update to V3 and removal of old native bridge adapters"
 author: "BGD Labs @bgdlabs"
-discussions: ""
+discussions: "https://governance.aave.com/t/bgd-technical-maintenance-proposals/15274/31"
 ---
 
 ## Simple Summary
@@ -13,8 +13,6 @@ Additionally, removes old native bridges on Optimism, Base, Arbitrum, Scroll and
 ## Motivation
 
 The main motivation of this proposal is to bring the Hyperlane bridge adapters to the up to date version (V3).
-
-This AIP also removes the old native bridges as new ones have already been set in place and are working.
 
 ## Specification
 
@@ -52,8 +50,7 @@ Adapter diffs: [HLAdapter](https://github.com/bgd-labs/aDI-diffs/tree/main/diffs
 
 - Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240320_Multi_HyperlaneBridgeAdapterUpdateToV3/AaveV3Ethereum_HyperlaneBridgeAdapterUpdateToV3_20240320.sol), [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240320_Multi_HyperlaneBridgeAdapterUpdateToV3/AaveV3Polygon_HyperlaneBridgeAdapterUpdateToV3_20240320.sol), [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240320_Multi_HyperlaneBridgeAdapterUpdateToV3/AaveV3Avalanche_HyperlaneBridgeAdapterUpdateToV3_20240320.sol), [AaveV3Gnosis](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240320_Multi_HyperlaneBridgeAdapterUpdateToV3/AaveV3Gnosis_HyperlaneBridgeAdapterUpdateToV3_20240320.sol), [AaveV3BNB](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240320_Multi_HyperlaneBridgeAdapterUpdateToV3/AaveV3BNB_HyperlaneBridgeAdapterUpdateToV3_20240320.sol), [AaveV3Scroll](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240320_Multi_HyperlaneBridgeAdapterUpdateToV3/AaveV3Scroll_HyperlaneBridgeAdapterUpdateToV3_20240320.sol), [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240320_Multi_HyperlaneBridgeAdapterUpdateToV3/AaveV3Arbitrum_HyperlaneBridgeAdapterUpdateToV3_20240320.sol), [AaveV3Optimism](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240320_Multi_HyperlaneBridgeAdapterUpdateToV3/AaveV3Optimism_HyperlaneBridgeAdapterUpdateToV3_20240320.sol), [AaveV3Metis](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240320_Multi_HyperlaneBridgeAdapterUpdateToV3/AaveV3Metis_HyperlaneBridgeAdapterUpdateToV3_20240320.sol), [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240320_Multi_HyperlaneBridgeAdapterUpdateToV3/AaveV3Base_HyperlaneBridgeAdapterUpdateToV3_20240320.sol)
 - Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240320_Multi_HyperlaneBridgeAdapterUpdateToV3/AaveV3Ethereum_HyperlaneBridgeAdapterUpdateToV3_20240320.t.sol), [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240320_Multi_HyperlaneBridgeAdapterUpdateToV3/AaveV3Polygon_HyperlaneBridgeAdapterUpdateToV3_20240320.t.sol), [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240320_Multi_HyperlaneBridgeAdapterUpdateToV3/AaveV3Avalanche_HyperlaneBridgeAdapterUpdateToV3_20240320.t.sol), [AaveV3Gnosis](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240320_Multi_HyperlaneBridgeAdapterUpdateToV3/AaveV3Gnosis_HyperlaneBridgeAdapterUpdateToV3_20240320.t.sol), [AaveV3BNB](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240320_Multi_HyperlaneBridgeAdapterUpdateToV3/AaveV3BNB_HyperlaneBridgeAdapterUpdateToV3_20240320.t.sol), [AaveV3Scroll](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240320_Multi_HyperlaneBridgeAdapterUpdateToV3/AaveV3Scroll_HyperlaneBridgeAdapterUpdateToV3_20240320.t.sol), [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240320_Multi_HyperlaneBridgeAdapterUpdateToV3/AaveV3Arbitrum_HyperlaneBridgeAdapterUpdateToV3_20240320.t.sol), [AaveV3Optimism](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240320_Multi_HyperlaneBridgeAdapterUpdateToV3/AaveV3Optimism_HyperlaneBridgeAdapterUpdateToV3_20240320.t.sol), [AaveV3Metis](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240320_Multi_HyperlaneBridgeAdapterUpdateToV3/AaveV3Metis_HyperlaneBridgeAdapterUpdateToV3_20240320.t.sol), [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240320_Multi_HyperlaneBridgeAdapterUpdateToV3/AaveV3Base_HyperlaneBridgeAdapterUpdateToV3_20240320.t.sol)
-- [Snapshot](TODO)
-- [Discussion](TODO)
+- [Discussion](https://governance.aave.com/t/bgd-technical-maintenance-proposals/15274/31)
 
 ## Copyright
 
