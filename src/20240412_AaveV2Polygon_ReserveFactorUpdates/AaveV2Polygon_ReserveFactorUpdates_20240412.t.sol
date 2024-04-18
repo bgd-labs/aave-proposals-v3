@@ -28,7 +28,7 @@ contract AaveV2Polygon_ReserveFactorUpdates_20240412_Test is ProtocolV2TestBase 
    */
   function test_defaultProposalExecution() public {
     (ReserveConfig[] memory allConfigsBefore, ReserveConfig[] memory allConfigsAfter) = defaultTest(
-      'AaveV2Polygon_ReserveFactorUpdates_20240322',
+      'AaveV2Polygon_ReserveFactorUpdates_20240412',
       AaveV2Polygon.POOL,
       address(proposal)
     );
