@@ -25,7 +25,7 @@ Oracles will be updated using `ORACLE.setAssetSource()` method. Below is the lis
 
 | Network   | Stables                                                             | Other |
 | --------- | ------------------------------------------------------------------- | ----- |
-| Mainnet   | USDC, USDT, DAI, USDP, sUSD, FRAX, GUSD, LUSD, BUSD, TUSD, UST, FEI | DPI   |
+| Mainnet   | USDC, USDT, DAI, USDP, sUSD, FRAX, GUSD, LUSD, BUSD, TUSD, UST      | DPI   |
 | Avalanche | USDC.e, USDT.e, DAI.e                                               |       |
 | Polygon   | USDC.e, USDT, DAI                                                   |       |
 
