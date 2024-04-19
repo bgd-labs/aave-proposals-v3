@@ -12,15 +12,18 @@ import {IProposalGenericExecutor} from 'aave-helpers/interfaces/IProposalGeneric
 contract AaveV3Ethereum_ChaosLabsEngagementAmendment_20240415 is IProposalGenericExecutor {
   address public constant CHAOS_LABS_TREASURY = 0xbC540e0729B732fb14afA240aA5A047aE9ba7dF0;
   uint256 public constant STREAM_AMOUNT_GHO = 400_000 ether;
-  uint256 public constant STREAM_DURATION = 200 days;
+  uint256 public constant STREAM_END = 1731405179;
 
   function execute() external {
+    uint256 duration = STREAM_END - block.timestamp;
+    uint256 exactAmount = (STREAM_AMOUNT_GHO / duration) * duration;
+
     AaveV3Ethereum.COLLECTOR.createStream(
       CHAOS_LABS_TREASURY,
-      STREAM_AMOUNT_GHO,
+      exactAmount,
       AaveV3EthereumAssets.GHO_UNDERLYING,
       block.timestamp,
-      block.timestamp + STREAM_DURATION
+      STREAM_END
     );
   }
 }

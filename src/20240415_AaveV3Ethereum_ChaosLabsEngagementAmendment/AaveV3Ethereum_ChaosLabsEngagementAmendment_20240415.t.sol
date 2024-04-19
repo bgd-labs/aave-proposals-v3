@@ -17,9 +17,7 @@ contract AaveV3Ethereum_ChaosLabsEngagementAmendment_20240415_Test is ProtocolV3
 
   address public constant CHAOS_LABS_TREASURY = 0xbC540e0729B732fb14afA240aA5A047aE9ba7dF0;
   uint256 public constant STREAM_AMOUNT_GHO = 400_000 ether;
-  uint256 public constant STREAM_DURATION = 200 days;
-  uint256 public constant ACTUAL_STREAM_AMOUNT_GHO =
-    (STREAM_AMOUNT_GHO / STREAM_DURATION) * STREAM_DURATION;
+  uint256 public constant STREAM_END = 1731405179;
 
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('mainnet'), 19660101);
@@ -46,37 +44,38 @@ contract AaveV3Ethereum_ChaosLabsEngagementAmendment_20240415_Test is ProtocolV3
 
     executePayload(vm, address(proposal));
 
-    {
-      (
-        address senderGHO,
-        address recipientGHO,
-        uint256 depositGHO,
-        address tokenAddressGHO,
-        uint256 startTimeGHO,
-        uint256 stopTimeGHO,
-        uint256 remainingBalanceGHO,
+    uint256 duration = STREAM_END - block.timestamp;
+    uint256 exactAmount = (STREAM_AMOUNT_GHO / duration) * duration;
 
-      ) = AaveV3Ethereum.COLLECTOR.getStream(GHOCollectorStreamID);
+    (
+      address senderGHO,
+      address recipientGHO,
+      uint256 depositGHO,
+      address tokenAddressGHO,
+      uint256 startTimeGHO,
+      uint256 stopTimeGHO,
+      uint256 remainingBalanceGHO,
 
-      assertEq(senderGHO, address(AaveV3Ethereum.COLLECTOR));
-      assertEq(recipientGHO, CHAOS_LABS_TREASURY);
-      assertEq(depositGHO, ACTUAL_STREAM_AMOUNT_GHO);
-      assertEq(tokenAddressGHO, AaveV3EthereumAssets.GHO_UNDERLYING);
-      assertEq(stopTimeGHO - startTimeGHO, STREAM_DURATION);
-      assertEq(remainingBalanceGHO, ACTUAL_STREAM_AMOUNT_GHO);
-    }
+    ) = AaveV3Ethereum.COLLECTOR.getStream(GHOCollectorStreamID);
+
+    assertEq(senderGHO, address(AaveV3Ethereum.COLLECTOR));
+    assertEq(recipientGHO, CHAOS_LABS_TREASURY);
+    assertEq(depositGHO, exactAmount);
+    assertEq(tokenAddressGHO, AaveV3EthereumAssets.GHO_UNDERLYING);
+    assertEq(stopTimeGHO - startTimeGHO, duration);
+    assertEq(remainingBalanceGHO, exactAmount);
 
     // checking if Chaos can withdraw from the stream
 
     vm.startPrank(CHAOS_LABS_TREASURY);
-    vm.warp(block.timestamp + STREAM_DURATION + 1 days);
+    vm.warp(STREAM_END + 1 days);
 
-    AaveV3Ethereum.COLLECTOR.withdrawFromStream(GHOCollectorStreamID, ACTUAL_STREAM_AMOUNT_GHO);
+    AaveV3Ethereum.COLLECTOR.withdrawFromStream(GHOCollectorStreamID, exactAmount);
     uint256 ChaosGHOBalanceAfter = IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(
       CHAOS_LABS_TREASURY
     );
 
-    assertEq(ChaosGHOBalanceBefore, ChaosGHOBalanceAfter - ACTUAL_STREAM_AMOUNT_GHO);
+    assertEq(ChaosGHOBalanceBefore, ChaosGHOBalanceAfter - exactAmount);
 
     vm.stopPrank();
   }
