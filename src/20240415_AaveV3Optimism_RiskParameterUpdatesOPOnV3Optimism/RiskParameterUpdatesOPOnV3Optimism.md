@@ -30,8 +30,8 @@ Given these observations, we recommend first aligning OP’s parameters with ARB
 
 ## References
 
-- Implementation: [AaveV3Optimism](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240415_AaveV3Optimism_RiskParameterUpdatesOPOnV3Optimism/AaveV3Optimism_RiskParameterUpdatesOPOnV3Optimism_20240415.sol)
-- Tests: [AaveV3Optimism](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240415_AaveV3Optimism_RiskParameterUpdatesOPOnV3Optimism/AaveV3Optimism_RiskParameterUpdatesOPOnV3Optimism_20240415.t.sol)
+- Implementation: [AaveV3Optimism](https://github.com/bgd-labs/aave-proposals-v3/blob/90b7908bd0255ce9224380e0f834acbcc9cc2922/src/20240415_AaveV3Optimism_RiskParameterUpdatesOPOnV3Optimism/AaveV3Optimism_RiskParameterUpdatesOPOnV3Optimism_20240415.sol)
+- Tests: [AaveV3Optimism](https://github.com/bgd-labs/aave-proposals-v3/blob/90b7908bd0255ce9224380e0f834acbcc9cc2922/src/20240415_AaveV3Optimism_RiskParameterUpdatesOPOnV3Optimism/AaveV3Optimism_RiskParameterUpdatesOPOnV3Optimism_20240415.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0xbaaf99c1e738da5755166fc6b1429265243507fdb9638a31ca177dd81a8b7313)
 - [Discussion](https://governance.aave.com/t/arfc-chaos-labs-risk-parameter-updates-op-on-v3-optimism/17326)
 
