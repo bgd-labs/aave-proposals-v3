@@ -20,7 +20,7 @@ contract AaveV3Scroll_AaveV3ScrollActivation_20240122_Test is ProtocolV3TestBase
   address constant NULL_ADDRESS = 0x000000000000000000000000000000000000dEaD;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('scroll'), 2675703);
+    vm.createSelectFork(vm.rpcUrl('scroll'), 3196632);
     proposal = new AaveV3Scroll_AaveV3ScrollActivation_20240122();
   }
 
