@@ -51,8 +51,7 @@ contract CreateProposal is EthereumScript {
       payloads,
       GovV3Helpers.ipfsHashFile(
         vm,
-        'src/20240415_AaveV3Optimism_RiskParameterUpdatesOPOnV3Optimism/RiskParameterUpdatesOPOnV3Optimism.md',
-        true
+        'src/20240415_AaveV3Optimism_RiskParameterUpdatesOPOnV3Optimism/RiskParameterUpdatesOPOnV3Optimism.md'
       )
     );
   }
