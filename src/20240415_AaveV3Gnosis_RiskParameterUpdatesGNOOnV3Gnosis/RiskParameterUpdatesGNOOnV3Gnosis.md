@@ -27,7 +27,6 @@ Given current market conditions and utilizing our Isolation Mode Methodology we 
 
 - Implementation: [AaveV3Gnosis](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240415_AaveV3Gnosis_RiskParameterUpdatesGNOOnV3Gnosis/AaveV3Gnosis_RiskParameterUpdatesGNOOnV3Gnosis_20240415.sol)
 - Tests: [AaveV3Gnosis](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240415_AaveV3Gnosis_RiskParameterUpdatesGNOOnV3Gnosis/AaveV3Gnosis_RiskParameterUpdatesGNOOnV3Gnosis_20240415.t.sol)
-- [Snapshot](TODO)
 - [Discussion](https://governance.aave.com/t/arfc-chaos-labs-risk-parameter-updates-gno-on-v3-gnosis/17340)
 
 ## Copyright
