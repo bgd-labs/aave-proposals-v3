@@ -8,7 +8,6 @@ import {IAaveV3ConfigEngine} from 'aave-helpers/v3-config-engine/IAaveV3ConfigEn
 /**
  * @title Risk Parameter Updates GNO on V3 Gnosis
  * @author Chaos Labs
- * - Snapshot: TODO
  * - Discussion: https://governance.aave.com/t/arfc-chaos-labs-risk-parameter-updates-gno-on-v3-gnosis/17340
  */
 contract AaveV3Gnosis_RiskParameterUpdatesGNOOnV3Gnosis_20240415 is AaveV3PayloadGnosis {
