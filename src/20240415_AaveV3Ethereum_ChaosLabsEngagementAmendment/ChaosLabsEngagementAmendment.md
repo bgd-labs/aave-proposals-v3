@@ -50,8 +50,8 @@ This proposal was not commissioned or paid for by any third party.
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240415_AaveV3Ethereum_ChaosLabsEngagementAmendment/AaveV3Ethereum_ChaosLabsEngagementAmendment_20240415.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240415_AaveV3Ethereum_ChaosLabsEngagementAmendment/AaveV3Ethereum_ChaosLabsEngagementAmendment_20240415.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/7d467002155ba0b1d30cb77780169dc268662f4e/src/20240415_AaveV3Ethereum_ChaosLabsEngagementAmendment/AaveV3Ethereum_ChaosLabsEngagementAmendment_20240415.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/7d467002155ba0b1d30cb77780169dc268662f4e/src/20240415_AaveV3Ethereum_ChaosLabsEngagementAmendment/AaveV3Ethereum_ChaosLabsEngagementAmendment_20240415.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x34b6cf5bc9c8a0525c5b32d4ce2ca2ccfce39d15bd0aba5cab46a4e9e78f3ea8)
 - [Discussion](https://governance.aave.com/t/arfc-chaos-labs-engagement-amendment/17324)
 
