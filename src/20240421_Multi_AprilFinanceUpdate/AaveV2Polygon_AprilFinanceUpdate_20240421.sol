@@ -43,7 +43,17 @@ contract AaveV2Polygon_AprilFinanceUpdate_20240421 is IProposalGenericExecutor {
   IAavePolEthPlasmaBridge public constant plasmaBridge =
     IAavePolEthPlasmaBridge(0xc980508cC8866f726040Da1C0C61f682e74aBc39);
 
+  uint256 public constant A_WMATIC_AMOUNT_REIMBURSEMENT = 4000 ether;
+  address public constant BGD_RECIPIENT = 0xbCEB4f363f2666E2E8E430806F37e97C405c130b;
+  address public constant NATIVE_MATIC = 0x0000000000000000000000000000000000001010;
+
   function execute() external {
+    AaveV2Polygon.COLLECTOR.transfer(
+      AaveV2PolygonAssets.WMATIC_A_TOKEN,
+      BGD_RECIPIENT,
+      A_WMATIC_AMOUNT_REIMBURSEMENT
+    );
+
     _migrateV2ToV3();
     _withdrawV2Tokens();
     _withdrawV3Tokens();
@@ -58,6 +68,8 @@ contract AaveV2Polygon_AprilFinanceUpdate_20240421 is IProposalGenericExecutor {
       AaveV3PolygonAssets.DAI_UNDERLYING,
       IERC20(AaveV3PolygonAssets.DAI_UNDERLYING).balanceOf(address(bridge))
     );
+
+    plasmaBridge.bridge(IERC20(NATIVE_MATIC).balanceOf(address(plasmaBridge)));
   }
 
   function _migrateV2ToV3() internal {
@@ -85,30 +97,39 @@ contract AaveV2Polygon_AprilFinanceUpdate_20240421 is IProposalGenericExecutor {
   }
 
   function _withdrawMatic() internal {
-    TokenToBridge[] memory tokens = new TokenToBridge[](2);
-    tokens[0] = TokenToBridge(
-      AaveV2PolygonAssets.WMATIC_UNDERLYING,
+    AaveV3Polygon.COLLECTOR.transfer(
       AaveV2PolygonAssets.WMATIC_A_TOKEN,
-      IERC20(AaveV2PolygonAssets.WMATIC_A_TOKEN).balanceOf(address(AaveV3Polygon.COLLECTOR)) -
-        1 ether
-    );
-    tokens[1] = TokenToBridge(
-      AaveV2PolygonAssets.WMATIC_UNDERLYING,
-      AaveV2PolygonAssets.WMATIC_A_TOKEN,
+      address(this),
       IERC20(AaveV2PolygonAssets.WMATIC_A_TOKEN).balanceOf(address(AaveV3Polygon.COLLECTOR)) -
         1 ether
     );
 
-    uint256 tokensLength = tokens.length;
-    for (uint256 i = 0; i < tokensLength; i++) {
-      AaveV3Polygon.COLLECTOR.transfer(tokens[i].aToken, address(this), tokens[i].balance);
+    AaveV2Polygon.POOL.withdraw(
+      AaveV2PolygonAssets.WMATIC_UNDERLYING,
+      type(uint256).max,
+      address(this)
+    );
 
-      AaveV2Polygon.POOL.withdraw(tokens[i].underlying, type(uint256).max, address(this));
-    }
+    AaveV3Polygon.COLLECTOR.transfer(
+      AaveV3PolygonAssets.WMATIC_A_TOKEN,
+      address(this),
+      IERC20(AaveV3PolygonAssets.WMATIC_A_TOKEN).balanceOf(address(AaveV3Polygon.COLLECTOR)) -
+        1 ether
+    );
 
-    // (bool ok, ) = plasmaBridge.call{value: address(this).balance}('');
+    AaveV3Polygon.POOL.withdraw(
+      AaveV3PolygonAssets.WMATIC_UNDERLYING,
+      type(uint256).max,
+      address(this)
+    );
 
-    // if (!ok) revert FailedToSendMATIC();
+    IWMatic(AaveV3PolygonAssets.WMATIC_UNDERLYING).withdraw(
+      IERC20(AaveV3PolygonAssets.WMATIC_UNDERLYING).balanceOf(address(this))
+    );
+
+    (bool ok, ) = address(plasmaBridge).call{value: address(this).balance}('');
+
+    if (!ok) revert FailedToSendMATIC();
   }
 
   /**
@@ -141,21 +162,21 @@ contract AaveV2Polygon_AprilFinanceUpdate_20240421 is IProposalGenericExecutor {
   function _withdrawV3Tokens() internal {
     TokenToBridge[] memory tokens = new TokenToBridge[](2);
     tokens[0] = TokenToBridge(
-      AaveV2PolygonAssets.DAI_UNDERLYING,
-      AaveV2PolygonAssets.DAI_A_TOKEN,
-      IERC20(AaveV2PolygonAssets.DAI_A_TOKEN).balanceOf(address(AaveV3Polygon.COLLECTOR)) - 1 ether
+      AaveV3PolygonAssets.DAI_UNDERLYING,
+      AaveV3PolygonAssets.DAI_A_TOKEN,
+      IERC20(AaveV3PolygonAssets.DAI_A_TOKEN).balanceOf(address(AaveV3Polygon.COLLECTOR)) - 1 ether
     );
     tokens[1] = TokenToBridge(
-      AaveV2PolygonAssets.USDC_UNDERLYING,
-      AaveV2PolygonAssets.USDC_A_TOKEN,
-      IERC20(AaveV2PolygonAssets.USDC_A_TOKEN).balanceOf(address(AaveV3Polygon.COLLECTOR)) - 1e6
+      AaveV3PolygonAssets.USDC_UNDERLYING,
+      AaveV3PolygonAssets.USDC_A_TOKEN,
+      IERC20(AaveV3PolygonAssets.USDC_A_TOKEN).balanceOf(address(AaveV3Polygon.COLLECTOR)) - 1e6
     );
 
     uint256 tokensLength = tokens.length;
     for (uint256 i = 0; i < tokensLength; i++) {
       AaveV3Polygon.COLLECTOR.transfer(tokens[i].aToken, address(this), tokens[i].balance);
 
-      AaveV2Polygon.POOL.withdraw(tokens[i].underlying, type(uint256).max, address(bridge));
+      AaveV3Polygon.POOL.withdraw(tokens[i].underlying, type(uint256).max, address(bridge));
     }
   }
 

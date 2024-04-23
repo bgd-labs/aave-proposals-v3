@@ -15,6 +15,8 @@ This proposal presents April's funding update, including the following key activ
 - Reimburse BGD Labs for the costs paid towards external security reviews
 - Send LINK and MATIC to refill Aave Robot and Aave Delivery Infrastructure
 
+The forum discussion for BGD labs' reimbursements can be found [here](https://governance.aave.com/t/arfc-bgd-security-budget-request-december-2023/15783) and the Snapshot can be found [here](https://snapshot.org/#/aave.eth/proposal/0xf95bc210e3e93c2112c694cb158db22c93504155b48c03d9358e4c41c33ee782).
+
 ## Motivation
 
 With the upcoming extension of [Merit](https://governance.aave.com/t/arfc-merit-is-forever-reward-system-program-extension/17336) and the funding request from [Chaos Labs](https://governance.aave.com/t/arfc-chaos-labs-engagement-amendment/17324), this proposal will swap sufficient assets to GHO to ensure enough funds are available as required.
