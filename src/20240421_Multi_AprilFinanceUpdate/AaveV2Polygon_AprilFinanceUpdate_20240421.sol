@@ -16,6 +16,10 @@ interface IWMatic {
   function withdraw(uint256 amount) external;
 }
 
+interface IAavePolEthPlasmaBridge {
+  function bridge(uint256 amount) external;
+}
+
 /**
  * @title April Finance Update
  * @author @karpatkey_TokenLogic
@@ -23,6 +27,8 @@ interface IWMatic {
  * - Discussion: https://governance.aave.com/t/arfc-april-finance-update/17390
  */
 contract AaveV2Polygon_AprilFinanceUpdate_20240421 is IProposalGenericExecutor {
+  using SafeERC20 for IERC20;
+
   struct TokenToBridge {
     address underlying;
     address aToken;
@@ -34,8 +40,8 @@ contract AaveV2Polygon_AprilFinanceUpdate_20240421 is IProposalGenericExecutor {
   IAavePolEthERC20Bridge public constant bridge =
     IAavePolEthERC20Bridge(MiscPolygon.AAVE_POL_ETH_BRIDGE);
 
-  // IAavePolEthPlasmaBridge public constant plasmaBridge =
-  //   IAavePolEthPlasmaBridge(MiscPolygon.AAVE_POL_ETH_PLASMA_BRIDGE);
+  IAavePolEthPlasmaBridge public constant plasmaBridge =
+    IAavePolEthPlasmaBridge(0xc980508cC8866f726040Da1C0C61f682e74aBc39);
 
   function execute() external {
     _migrateV2ToV3();
@@ -100,13 +106,13 @@ contract AaveV2Polygon_AprilFinanceUpdate_20240421 is IProposalGenericExecutor {
       AaveV2Polygon.POOL.withdraw(tokens[i].underlying, type(uint256).max, address(this));
     }
 
-    (bool ok, ) = plasmaBridge.call{value: address(this).balance}('');
+    // (bool ok, ) = plasmaBridge.call{value: address(this).balance}('');
 
-    if (!ok) revert FailedToSendMATIC();
+    // if (!ok) revert FailedToSendMATIC();
   }
 
   /**
-   * @notice Withdraws v2 tokens to swapper
+   * @notice Withdraws v2 tokens to bridge
    */
   function _withdrawV2Tokens() internal {
     TokenToBridge[] memory tokens = new TokenToBridge[](2);
@@ -153,5 +159,5 @@ contract AaveV2Polygon_AprilFinanceUpdate_20240421 is IProposalGenericExecutor {
     }
   }
 
-  receive() external payable;
+  receive() external payable {}
 }

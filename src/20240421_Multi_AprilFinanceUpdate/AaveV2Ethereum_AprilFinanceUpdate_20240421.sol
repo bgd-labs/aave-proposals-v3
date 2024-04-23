@@ -41,10 +41,34 @@ contract AaveV2Ethereum_AprilFinanceUpdate_20240421 is IProposalGenericExecutor 
   uint256 public constant USDC_V3_TO_SWAP = 1_400_000e6; // 1.4M
   uint256 public constant USDT_V2_TO_KEEP = 650_000e6; // 650,000
 
+  address public constant BGD_RECIPIENT = 0xb812d0944f8F581DfAA3a93Dda0d22EcEf51A9CF;
+  uint256 public constant USDC_AMOUNT_REIMBURSEMENT = 42_000e6;
+  uint256 public constant USDT_AMOUNT_REIMBURSEMENT = 109_200e6;
+  uint256 public constant LINK_AMOUNT_REIMBURSEMENT = 1640 ether;
+
   function execute() external {
+    _bgdReimbursements();
     _agdAllowance();
     _v2ToV3Migration();
-    _swaps();
+    // _swaps();
+  }
+
+  function _bgdReimbursements() internal {
+    AaveV2Ethereum.COLLECTOR.transfer(
+      AaveV2EthereumAssets.USDC_A_TOKEN,
+      BGD_RECIPIENT,
+      USDC_AMOUNT_REIMBURSEMENT
+    );
+    AaveV2Ethereum.COLLECTOR.transfer(
+      AaveV2EthereumAssets.USDT_A_TOKEN,
+      BGD_RECIPIENT,
+      USDT_AMOUNT_REIMBURSEMENT
+    );
+    AaveV2Ethereum.COLLECTOR.transfer(
+      AaveV2EthereumAssets.LINK_A_TOKEN,
+      BGD_RECIPIENT,
+      LINK_AMOUNT_REIMBURSEMENT
+    );
   }
 
   function _agdAllowance() internal {

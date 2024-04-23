@@ -12,6 +12,8 @@ This proposal presents April's funding update, including the following key activ
 - Extending the DAO's GHO runway to cover upcoming expenses
 - Returning RealT's supplied WXDAI to RealT
 - Migrating AGD's allowance to GHO
+- Reimburse BGD Labs for the costs paid towards external security reviews
+- Send LINK and MATIC to refill Aave Robot and Aave Delivery Infrastructure
 
 ## Motivation
 
@@ -23,7 +25,24 @@ Also within this proposal, there is the corective action of returning [3504 Real
 
 This proposal will follow the Direct-To-AIP as outlined in this [proposal](https://governance.aave.com/t/arfc-funding-update/16675).
 
+Certain permissionless actions on the aave governance requires interaction (transaction) by someone for the governance system to run. This is done by the Aave Robot, which spends LINK tokens for the gas amount spent during the automation of these permissionless actions.
+
+During the past months BGD labs had spent in total of 1640 LINK for the Aave Robot, and 4000 MATIC for funding the Aave Delivery Infrastructure which is used to pay for the bridging fees in order for the governance system to work.
+
+BGD has paid the following amounts for security reviews so reimbursement is in order:
+
+- Compensation to Mixbytes for the review of Governance v3 Tokens: $30'000
+- Compensation to Emanuele Ricci (@stermi) for the review done on Aave 3.1 Feature: $12'000
+- Engagement with Spearbit for Aave v3 Ad-hoc Review: $109'200
+
 ## Specification
+
+## BGD Reimbursements
+
+- Transfer 42'000 aUSDC v2 Ethereum to `0xb812d0944f8F581DfAA3a93Dda0d22EcEf51A9CF`
+- Transfer 109'200 aUSDT v2 Ethereum to `0xb812d0944f8F581DfAA3a93Dda0d22EcEf51A9CF`
+- Transfer 1640 aLINK v2 Ethereum to `0xb812d0944f8F581DfAA3a93Dda0d22EcEf51A9CF`
+- Transfer 4000 aMATIC v2 Polygon to `0xbCEB4f363f2666E2E8E430806F37e97C405c130b`
 
 ### Migrating AGD's allowance to GHO
 
