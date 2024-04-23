@@ -46,13 +46,11 @@ Perform the following Swaps, Migrate Eth v2 to v3 and bridge from Polyon to Ethe
 
 | Withdraw & Swap to GHO | Migrate Eth v2 to v3 |    Pol to Eth     | Migrate Pol v2 to v3 |
 | :--------------------: | :------------------: | :---------------: | :------------------: |
-|                        |    awBTC (All-1)     |  aPolDAI (All-1)  |    amUSDT (All-1)    |
+|    aEthUSDC (1.4M)     |    awBTC (All-1)     |  aPolDAI (All-1)  |    amUSDT (All-1)    |
 |      aDAI (All-1)      |    awETH (All-1)     |  amUSDC (All-1)   |                      |
 |     aUSDC (All-1)      |    aLINK (All-1)     | aPolMATIC (All-1) |                      |
 |   aUSDT (All-0.65M)    |     aSNX (All-1)     |   amDAI (All-1)   |                      |
-|    aEthUSDC (1.4M)     |                      |  aPolUSDC(All-1)  |                      |
-|     aSUSD (All-1)      |                      |  amMATIC (All-1)  |                      |
-|      aPAX (All-1)      |                      |                   |                      |
+|                        |                      |  aPolUSDC(All-1)  |                      |
 
 Deposit wETH and wBTC in the Treasury into Aave v3.
 
