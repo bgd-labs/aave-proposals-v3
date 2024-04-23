@@ -4,6 +4,7 @@ pragma solidity ^0.8.0;
 import {AaveV3Arbitrum} from 'aave-address-book/AaveV3Arbitrum.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/ProtocolV3TestBase.sol';
 import {AaveV3Arbitrum_MigrateRobotsToChainlinkAutomationV2_20240422} from './AaveV3Arbitrum_MigrateRobotsToChainlinkAutomationV2_20240422.sol';
+import {ArbSys} from './interfaces/ArbSys.sol';
 
 /**
  * @dev Test for AaveV3Arbitrum_MigrateRobotsToChainlinkAutomationV2_20240422
@@ -11,13 +12,26 @@ import {AaveV3Arbitrum_MigrateRobotsToChainlinkAutomationV2_20240422} from './Aa
  */
 contract AaveV3Arbitrum_MigrateRobotsToChainlinkAutomationV2_20240422_Test is ProtocolV3TestBase {
   AaveV3Arbitrum_MigrateRobotsToChainlinkAutomationV2_20240422 internal proposal;
+  address public constant ARB_SYS = 0x0000000000000000000000000000000000000064;
 
   event KeeperRegistered(uint256 indexed id, address indexed upkeep, uint96 indexed amount);
   event KeeperCancelled(uint256 indexed id, address indexed upkeep);
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('arbitrum'), 203931041);
+    uint256 blockNumber = 203936337;
+    vm.createSelectFork(vm.rpcUrl('arbitrum'), blockNumber);
     proposal = new AaveV3Arbitrum_MigrateRobotsToChainlinkAutomationV2_20240422();
+
+    vm.mockCall(
+      ARB_SYS,
+      abi.encodeWithSelector(ArbSys.arbBlockNumber.selector),
+      abi.encode(blockNumber)
+    );
+    vm.mockCall(
+      ARB_SYS,
+      abi.encodeWithSelector(ArbSys.arbBlockHash.selector, blockNumber - 1),
+      abi.encode(0xbe6f5dfa9ce3324bd677f5195ecd8d1a258cbf3800f24621d0e0d2724224704f)
+    );
   }
 
   /**
