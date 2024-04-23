@@ -4,6 +4,7 @@ pragma solidity ^0.8.0;
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {AaveV2Polygon, AaveV2PolygonAssets} from 'aave-address-book/AaveV2Polygon.sol';
 import {AaveV3Polygon, AaveV3PolygonAssets} from 'aave-address-book/AaveV3Polygon.sol';
+import {MiscPolygon} from 'aave-address-book/MiscPolygon.sol';
 import {ProtocolV2TestBase} from 'aave-helpers/ProtocolV2TestBase.sol';
 
 import {AaveV2Polygon_AprilFinanceUpdate_20240421} from './AaveV2Polygon_AprilFinanceUpdate_20240421.sol';
@@ -132,5 +133,14 @@ contract AaveV2Polygon_AprilFinanceUpdate_20240421_Test is ProtocolV2TestBase {
     );
   }
 
-  function _expectEmits() internal {}
+  function _expectEmits() internal {
+    vm.expectEmit(true, true, true, true, MiscPolygon.AAVE_POL_ETH_BRIDGE);
+    emit Bridge(AaveV3PolygonAssets.USDC_UNDERLYING, 833867244365); // ~268 units
+
+    vm.expectEmit(true, true, true, true, MiscPolygon.AAVE_POL_ETH_BRIDGE);
+    emit Bridge(AaveV3PolygonAssets.DAI_UNDERLYING, 198944360880437552419394); // ~559,109 units
+
+    vm.expectEmit(true, true, true, true, address(proposal.plasmaBridge()));
+    emit Bridge(proposal.NATIVE_MATIC(), 627139693358400415831543);
+  }
 }
