@@ -39,6 +39,7 @@ contract AaveV2Ethereum_AprilFinanceUpdate_20240421 is IProposalGenericExecutor 
   uint256 public constant AGD_GHO_ALLOWANCE = 613_000 ether;
 
   uint256 public constant USDC_V3_TO_SWAP = 1_400_000e6; // 1.4M
+  uint256 public constant DAI_V3_TO_SWAP = 2_000_000 ether;
   uint256 public constant USDT_V2_TO_KEEP = 650_000e6; // 650,000
 
   address public constant BGD_RECIPIENT = 0xb812d0944f8F581DfAA3a93Dda0d22EcEf51A9CF;
@@ -50,7 +51,7 @@ contract AaveV2Ethereum_AprilFinanceUpdate_20240421 is IProposalGenericExecutor 
     _bgdReimbursements();
     _agdAllowance();
     _v2ToV3Migration();
-    // _swaps();
+    _swaps();
   }
 
   function _bgdReimbursements() internal {
@@ -141,7 +142,7 @@ contract AaveV2Ethereum_AprilFinanceUpdate_20240421 is IProposalGenericExecutor 
       GHO_USD_FEED,
       address(AaveV3Ethereum.COLLECTOR),
       IERC20(AaveV3EthereumAssets.DAI_UNDERLYING).balanceOf(address(SWAPPER)),
-      100
+      50
     );
 
     SWAPPER.swap(
@@ -153,7 +154,7 @@ contract AaveV2Ethereum_AprilFinanceUpdate_20240421 is IProposalGenericExecutor 
       GHO_USD_FEED,
       address(AaveV3Ethereum.COLLECTOR),
       IERC20(AaveV3EthereumAssets.USDC_UNDERLYING).balanceOf(address(SWAPPER)),
-      50
+      100
     );
 
     SWAPPER.swap(
@@ -165,7 +166,7 @@ contract AaveV2Ethereum_AprilFinanceUpdate_20240421 is IProposalGenericExecutor 
       GHO_USD_FEED,
       address(AaveV3Ethereum.COLLECTOR),
       IERC20(AaveV3EthereumAssets.USDT_UNDERLYING).balanceOf(address(SWAPPER)),
-      50
+      100
     );
   }
 
@@ -173,7 +174,7 @@ contract AaveV2Ethereum_AprilFinanceUpdate_20240421 is IProposalGenericExecutor 
    * @notice Withdraws v2 tokens to swapper
    */
   function _withdrawV2Tokens() internal {
-    TokenToSwap[] memory tokens = new TokenToSwap[](5);
+    TokenToSwap[] memory tokens = new TokenToSwap[](3);
     tokens[0] = TokenToSwap(
       AaveV2EthereumAssets.DAI_UNDERLYING,
       AaveV2EthereumAssets.DAI_A_TOKEN,
@@ -190,18 +191,6 @@ contract AaveV2Ethereum_AprilFinanceUpdate_20240421 is IProposalGenericExecutor 
       AaveV2EthereumAssets.USDT_A_TOKEN,
       IERC20(AaveV2EthereumAssets.USDT_A_TOKEN).balanceOf(address(AaveV3Ethereum.COLLECTOR)) -
         USDT_V2_TO_KEEP
-    );
-    tokens[3] = TokenToSwap(
-      AaveV2EthereumAssets.sUSD_UNDERLYING,
-      AaveV2EthereumAssets.sUSD_A_TOKEN,
-      IERC20(AaveV2EthereumAssets.sUSD_A_TOKEN).balanceOf(address(AaveV3Ethereum.COLLECTOR)) -
-        1 ether
-    );
-    tokens[4] = TokenToSwap(
-      AaveV2EthereumAssets.USDP_UNDERLYING,
-      AaveV2EthereumAssets.USDP_A_TOKEN,
-      IERC20(AaveV2EthereumAssets.USDP_A_TOKEN).balanceOf(address(AaveV3Ethereum.COLLECTOR)) -
-        1 ether
     );
 
     uint256 tokensLength = tokens.length;
@@ -225,7 +214,7 @@ contract AaveV2Ethereum_AprilFinanceUpdate_20240421 is IProposalGenericExecutor 
     tokens[1] = TokenToSwap(
       AaveV3EthereumAssets.DAI_UNDERLYING,
       AaveV3EthereumAssets.DAI_A_TOKEN,
-      IERC20(AaveV3EthereumAssets.DAI_A_TOKEN).balanceOf(address(SWAPPER)) - 1 ether
+      DAI_V3_TO_SWAP
     );
 
     uint256 tokensLength = tokens.length;
