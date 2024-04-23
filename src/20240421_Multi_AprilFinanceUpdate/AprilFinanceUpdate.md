@@ -46,7 +46,7 @@ Perform the following Swaps, Migrate Eth v2 to v3 and bridge from Polyon to Ethe
 
 | Withdraw & Swap to GHO | Migrate Eth v2 to v3 |    Pol to Eth     | Migrate Pol v2 to v3 |
 | :--------------------: | :------------------: | :---------------: | :------------------: |
-|    aEthDAI (All-1)     |    awBTC (All-1)     |  aPolDAI (All-1)  |    amUSDT (All-1)    |
+|                        |    awBTC (All-1)     |  aPolDAI (All-1)  |    amUSDT (All-1)    |
 |      aDAI (All-1)      |    awETH (All-1)     |  amUSDC (All-1)   |                      |
 |     aUSDC (All-1)      |    aLINK (All-1)     | aPolMATIC (All-1) |                      |
 |   aUSDT (All-0.65M)    |     aSNX (All-1)     |   amDAI (All-1)   |                      |
