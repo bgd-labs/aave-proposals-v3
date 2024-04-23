@@ -22,6 +22,7 @@ contract AaveV3Arbitrum_MigrateRobotsToChainlinkAutomationV2_20240422_Test is Pr
     vm.createSelectFork(vm.rpcUrl('arbitrum'), blockNumber);
     proposal = new AaveV3Arbitrum_MigrateRobotsToChainlinkAutomationV2_20240422();
 
+    // https://github.com/foundry-rs/foundry/issues/5085
     vm.mockCall(
       ARB_SYS,
       abi.encodeWithSelector(ArbSys.arbBlockNumber.selector),
