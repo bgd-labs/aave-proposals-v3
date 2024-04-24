@@ -54,6 +54,26 @@ contract AaveV3Ethereum_StkGHOIncentives_20240424_Test is ProtocolV3TestBase {
     );
   }
 
+  function test_checkDistributionEnd() public {
+    uint256 endTimestampBefore = IStakeToken(AaveSafetyModule.STK_GHO).distributionEnd();
+
+    assertLt(
+      endTimestampBefore,
+      block.timestamp + proposal.DISTRIBUTION_DURATION(),
+      'New distribution duration is lower than previously configured'
+    );
+
+    executePayload(vm, address(proposal));
+
+    uint256 endTimestampAfter = IStakeToken(AaveSafetyModule.STK_GHO).distributionEnd();
+
+    assertEq(
+      endTimestampAfter,
+      block.timestamp + proposal.DISTRIBUTION_DURATION(),
+      'New distribution duration has not been set correctly'
+    );
+  }
+
   function test_checkAllowance() public {
     uint256 allowanceBefore = IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING).allowance(
       MiscEthereum.ECOSYSTEM_RESERVE,
