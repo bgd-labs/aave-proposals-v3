@@ -9,6 +9,12 @@ import {ProtocolV2TestBase} from 'aave-helpers/ProtocolV2TestBase.sol';
 
 import {AaveV2Polygon_AprilFinanceUpdate_20240421} from './AaveV2Polygon_AprilFinanceUpdate_20240421.sol';
 
+interface IAavePolEthPlasmaBridge {
+  function bridge(uint256 amount) external;
+  function transferOwnership(address newOwner) external;
+  function owner() external view returns (address);
+}
+
 /**
  * @dev Test for AaveV2Polygon_AprilFinanceUpdate_20240421
  * command: make test-contract filter=AaveV2Polygon_AprilFinanceUpdate_20240421
@@ -27,6 +33,16 @@ contract AaveV2Polygon_AprilFinanceUpdate_20240421_Test is ProtocolV2TestBase {
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('polygon'), 56178996);
     proposal = new AaveV2Polygon_AprilFinanceUpdate_20240421();
+    setupBridge();
+  }
+
+  // Assign bridge ownership to the Polygon Executor
+  function setupBridge() public {
+    IAavePolEthPlasmaBridge plasmaBridge = IAavePolEthPlasmaBridge(
+      0xc980508cC8866f726040Da1C0C61f682e74aBc39
+    );
+    vm.prank(plasmaBridge.owner());
+    plasmaBridge.transferOwnership(0xDf7d0e6454DB638881302729F5ba99936EaAB233);
   }
 
   function test_bgdReimbursements() public {
