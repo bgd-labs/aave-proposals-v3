@@ -11,7 +11,7 @@ import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethe
  * - Discussion: https://governance.aave.com/t/arfc-onboard-new-risk-service-provider/17348
  */
 contract AaveV3Ethereum_LlamariskRiskProvider_20240421 is IProposalGenericExecutor {
-  address public constant LLAMARISK_RECIPIENT = 0x0000000000000000000000000000000000000000;
+  address public constant LLAMARISK_RECIPIENT = 0xa2482aA1376BEcCBA98B17578B17EcE82E6D9E86;
   uint256 public constant GHO_STREAM = 250_000 ether;
   uint256 public constant STREAM_DURATION = 180 days;
 
