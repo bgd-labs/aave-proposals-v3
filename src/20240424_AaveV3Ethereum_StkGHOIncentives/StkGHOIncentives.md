@@ -7,7 +7,7 @@ snapshot: "https://snapshot.org/#/aave.eth/proposal/0x0f73500d0f65c72482d352080e
 
 ## Simple Summary
 
-Re-enable stkGHO incentives emissions for 90 days after previous period ended.
+Re-enable stkGHO incentives emissions for 180 days after previous period ended.
 
 ## Motivation
 
@@ -17,8 +17,9 @@ To support the GHO peg and to pave the way for future GHO supply expansion, this
 
 For stkGHO:
 
-- Set new allowance to 100 AAVE per day for 90 days
-- Set distribution end for 90 days
+- Set new allowance to 100 AAVE per day for 180 days
+- Set distribution end for 180 days from Execution date
+- Set new allowance of 700 AAVE to Merit Multisig to compensate stkGHO rewards missed
 
 ## References
 
