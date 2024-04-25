@@ -11,7 +11,7 @@ This AIP will onboard the LlamaRisk team as Aave's second Risk Service Provider 
 
 ## Motivation
 
-The Aave DAO is using a dual risk provider models, since a spot is vacant and a [snapshot vote](https://snapshot.org/#/aave.eth/proposal/0x2b7433455b16d50b9b6afdf2e60bfd6e733896224688c9891c371aa2597853a2) to choose a new one among three candidates ended with the community voicing their support for the LlamaRisk Team, this AIP is here to make it official and set the payement stream to compensate them with 250,000 GHO over the next 6 months of their engagement.
+The Aave DAO is using a dual risk provider models, since a spot is vacant and a [snapshot vote](https://snapshot.org/#/aave.eth/proposal/0x2b7433455b16d50b9b6afdf2e60bfd6e733896224688c9891c371aa2597853a2) to choose a new one among three candidates ended with the community voicing their support for the LlamaRisk Team, this AIP is here to make it official and set the payment stream to compensate them with 250,000 GHO over the next 6 months of their engagement.
 
 ## Specification
 
