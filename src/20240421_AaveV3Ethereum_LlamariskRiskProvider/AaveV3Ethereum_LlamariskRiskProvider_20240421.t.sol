@@ -84,7 +84,7 @@ contract AaveV3Ethereum_LlamariskRiskProvider_20240421_Test is ProtocolV3TestBas
     uint256 balanceAfter = IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(
       proposal.LLAMARISK_RECIPIENT()
     );
-    assertEq(balanceAfter, balanceBefore + accrued);
+    assertEq(balanceAfter, balanceBefore + proposal.ACTUAL_GHO_STREAM());
     vm.stopPrank();
   }
 }
