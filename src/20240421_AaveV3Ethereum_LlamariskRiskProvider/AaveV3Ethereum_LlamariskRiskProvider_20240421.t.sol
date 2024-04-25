@@ -76,8 +76,6 @@ contract AaveV3Ethereum_LlamariskRiskProvider_20240421_Test is ProtocolV3TestBas
     );
 
     vm.startPrank(proposal.LLAMARISK_RECIPIENT());
-    uint256 streamSpeed = proposal.ACTUAL_GHO_STREAM() / proposal.STREAM_DURATION();
-    uint256 accrued = streamSpeed * timeWarp;
 
     AaveV3Ethereum.COLLECTOR.withdrawFromStream(streamId, proposal.ACTUAL_GHO_STREAM());
 
