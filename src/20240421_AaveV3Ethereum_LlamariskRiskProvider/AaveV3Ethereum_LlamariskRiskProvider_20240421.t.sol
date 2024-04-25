@@ -36,7 +36,7 @@ contract AaveV3Ethereum_LlamariskRiskProvider_20240421_Test is ProtocolV3TestBas
 
     uint256 currentCollectorStreamId = AaveV3Ethereum.COLLECTOR.getNextStreamId() - 1;
 
-    _validateGhoStreamConfig(currentCollectorStreamId - 1);
+    _validateGhoStreamConfig(currentCollectorStreamId);
   }
 
   function test_withdrawFromStream() public {
