@@ -70,7 +70,7 @@ contract AaveV3Ethereum_LlamariskRiskProvider_20240421_Test is ProtocolV3TestBas
     assertEq(toClaim, proposal.ACTUAL_GHO_STREAM());
   }
 
-  function _validateGhoStreamWithdrawal(uint256 streamId, uint256 timeWarp) internal {
+  function _validateGhoStreamWithdrawal(uint256 streamId) internal {
     uint256 balanceBefore = IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(
       proposal.LLAMARISK_RECIPIENT()
     );
