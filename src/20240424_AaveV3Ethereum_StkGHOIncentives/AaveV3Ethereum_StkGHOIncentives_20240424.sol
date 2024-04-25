@@ -21,6 +21,15 @@ contract AaveV3Ethereum_StkGHOIncentives_20240424 is IProposalGenericExecutor {
   address public constant MERIT_WALLET = 0xdeadD8aB03075b7FBA81864202a2f59EE25B312b;
 
   function execute() external {
+    // configure with same settings to update internal state
+    IStakeToken.AssetConfigInput[] memory ghoConfigs = new IStakeToken.AssetConfigInput[](1);
+    ghoConfigs[0] = IStakeToken.AssetConfigInput({
+      emissionPerSecond: AAVE_EMISSION_PER_SECOND_STK_GHO,
+      totalStaked: 0, // it's overwritten internally
+      underlyingAsset: AaveSafetyModule.STK_GHO
+    });
+    IStakeToken(AaveSafetyModule.STK_GHO).configureAssets(ghoConfigs);
+
     IStakeToken(AaveSafetyModule.STK_GHO).setDistributionEnd(
       block.timestamp + DISTRIBUTION_DURATION
     );
