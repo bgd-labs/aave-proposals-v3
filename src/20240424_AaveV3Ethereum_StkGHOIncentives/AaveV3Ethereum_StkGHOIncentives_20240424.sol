@@ -16,8 +16,9 @@ import {IStakeToken} from './IStakeToken.sol';
  * - Discussion: https://governance.aave.com/t/arfc-amend-safety-module-emissions/16640
  */
 contract AaveV3Ethereum_StkGHOIncentives_20240424 is IProposalGenericExecutor {
-  uint256 public constant DISTRIBUTION_DURATION = 90 days;
+  uint256 public constant DISTRIBUTION_DURATION = 180 days;
   uint128 public constant AAVE_EMISSION_PER_SECOND_STK_GHO = uint128(100e18) / 1 days;
+  address public constant MERIT_WALLET = 0xdeadD8aB03075b7FBA81864202a2f59EE25B312b;
 
   function execute() external {
     IStakeToken(AaveSafetyModule.STK_GHO).setDistributionEnd(
@@ -31,11 +32,24 @@ contract AaveV3Ethereum_StkGHOIncentives_20240424 is IProposalGenericExecutor {
       0
     );
 
+    uint256 remainingAllowance = IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING).allowance(
+      address(MiscEthereum.AAVE_ECOSYSTEM_RESERVE_CONTROLLER),
+      AaveSafetyModule.STK_GHO
+    );
+
     MiscEthereum.AAVE_ECOSYSTEM_RESERVE_CONTROLLER.approve(
       MiscEthereum.ECOSYSTEM_RESERVE,
       AaveV3EthereumAssets.AAVE_UNDERLYING,
       AaveSafetyModule.STK_GHO,
-      AAVE_EMISSION_PER_SECOND_STK_GHO * DISTRIBUTION_DURATION
+      remainingAllowance + (AAVE_EMISSION_PER_SECOND_STK_GHO * DISTRIBUTION_DURATION)
+    );
+
+    // Allowance of 700 AAVE to Merit to compensate missed stkGHO rewards
+    MiscEthereum.AAVE_ECOSYSTEM_RESERVE_CONTROLLER.approve(
+      MiscEthereum.ECOSYSTEM_RESERVE,
+      AaveV3EthereumAssets.AAVE_UNDERLYING,
+      MERIT_WALLET,
+      700 ether
     );
   }
 }
