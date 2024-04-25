@@ -32,7 +32,7 @@ Based on the details outlined in this [post ](https://governance.aave.com/t/gene
 | Chain        | Asset | Current Expected LTV | Recommended LTV | Current Expected LT | Recommended LT (1st stage) | Recommended LT (Last Stage) |
 | ------------ | ----- | -------------------- | --------------- | ------------------- | -------------------------- | --------------------------- |
 | V3 Ethereum  | DAI   | 76%                  | 63%             | 79%                 | 77%                        | 72%                         |
-| V3 Arbitrum  | DAI   | 75%                  | 63%             | 78%                 | 77%                        | 72%                         |
+| V3 Arbitrum  | DAI   | 76%                  | 63%             | 79%                 | 77%                        | 72%                         |
 | V3 Optimism  | DAI   | 75%                  | 63%             | 80%                 | 77%                        | 72%                         |
 | V3 Polygon   | DAI   | 75%                  | 63%             | 78%                 | 77%                        | 72%                         |
 | V3 Gnosis    | WXDAI | 75%                  | 63%             | 78%                 | 77%                        | 72%                         |
