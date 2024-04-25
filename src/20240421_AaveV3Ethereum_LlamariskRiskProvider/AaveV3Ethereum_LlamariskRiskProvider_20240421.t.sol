@@ -47,7 +47,7 @@ contract AaveV3Ethereum_LlamariskRiskProvider_20240421_Test is ProtocolV3TestBas
     uint256 timeWarp = 180 days + 1;
     vm.warp(block.timestamp + timeWarp);
 
-    _validateGhoStreamWithdrawal(currentCollectorStreamId - 1, timeWarp);
+    _validateGhoStreamWithdrawal(currentCollectorStreamId);
   }
 
   function _validateGhoStreamConfig(uint256 streamId) internal {
