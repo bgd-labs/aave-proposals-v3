@@ -22,8 +22,8 @@ For stkGHO:
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240424_AaveV3Ethereum_StkGHOIncentives/AaveV3Ethereum_StkGHOIncentives_20240424.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240424_AaveV3Ethereum_StkGHOIncentives/AaveV3Ethereum_StkGHOIncentives_20240424.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/8fe09bb7196ce1f7043b85660c6aed5f0457be3f/src/20240424_AaveV3Ethereum_StkGHOIncentives/AaveV3Ethereum_StkGHOIncentives_20240424.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/8fe09bb7196ce1f7043b85660c6aed5f0457be3f/src/20240424_AaveV3Ethereum_StkGHOIncentives/AaveV3Ethereum_StkGHOIncentives_20240424.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x0f73500d0f65c72482d352080ea9aa0aa92264eb059b8f646cf6f0e86556bc3d)
 - [Discussion](https://governance.aave.com/t/arfc-amend-safety-module-emissions/16640)
 
