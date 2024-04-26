@@ -19,7 +19,6 @@ For stkGHO:
 
 - Set new allowance to 100 AAVE per day for 180 days
 - Set distribution end for 180 days from Execution date
-- Set new allowance of 700 AAVE to Merit Multisig to compensate stkGHO rewards missed
 
 ## References
 
