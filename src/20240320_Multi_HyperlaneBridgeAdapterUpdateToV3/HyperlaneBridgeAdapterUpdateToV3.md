@@ -1,5 +1,5 @@
 ---
-title: "Hyperlane bridge adapter update to V3 and removal of old native bridge adapters"
+title: "Hyperlane bridge adapter update to V3"
 author: "BGD Labs @bgdlabs"
 discussions: "https://governance.aave.com/t/bgd-technical-maintenance-proposals/15274/31"
 ---
@@ -25,7 +25,7 @@ to make it easy to track off chain
 | Polygon   | [0x3e72665008dC237bdd91C04C10782Ed1987a4019](https://polygonscan.com/address/0x3e72665008dC237bdd91C04C10782Ed1987a4019) |
 | Avalanche | [0x617332a777780F546261247F621051d0b98975Eb](https://snowscan.xyz/address/0x617332a777780F546261247F621051d0b98975Eb)    |
 | Binance   | [0x3F006299eC88985c18E6e885EeA29A49eC579882](https://bscscan.com/address/0x3F006299eC88985c18E6e885EeA29A49eC579882)     |
-| Gnosis    | [0xA806DA549FcB2B4912a7dFFE4c1aA7A1ed0Bd5C9](https://bscscan.com/address/0xA806DA549FcB2B4912a7dFFE4c1aA7A1ed0Bd5C9)     |
+| Gnosis    | [0xA806DA549FcB2B4912a7dFFE4c1aA7A1ed0Bd5C9](https://gnosisscan.io/address/0xA806DA549FcB2B4912a7dFFE4c1aA7A1ed0Bd5C9)   |
 
 To add the new forwarder adapters the method `function enableBridgeAdapters(ForwarderBridgeAdapterConfigInput[] memory bridgeAdapters) external` will be used,
 and to remove the old forwarder adapters, the method `function disableBridgeAdapters(BridgeAdapterToDisable[] memory bridgeAdapters) external` will be called on each CrossChainController.
