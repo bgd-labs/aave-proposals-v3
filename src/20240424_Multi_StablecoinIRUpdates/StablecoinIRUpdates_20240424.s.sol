@@ -2,9 +2,8 @@
 pragma solidity ^0.8.0;
 
 import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aave-helpers/GovV3Helpers.sol';
-import {EthereumScript, PolygonScript, AvalancheScript, OptimismScript, ArbitrumScript, BaseScript, GnosisScript, ScrollScript, BNBScript} from 'aave-helpers/ScriptUtils.sol';
+import {EthereumScript, AvalancheScript, PolygonScript, OptimismScript, ArbitrumScript, BaseScript, GnosisScript, ScrollScript, BNBScript} from 'aave-helpers/ScriptUtils.sol';
 import {AaveV2Ethereum_StablecoinIRUpdates_20240424} from './AaveV2Ethereum_StablecoinIRUpdates_20240424.sol';
-import {AaveV2Polygon_StablecoinIRUpdates_20240424} from './AaveV2Polygon_StablecoinIRUpdates_20240424.sol';
 import {AaveV2Avalanche_StablecoinIRUpdates_20240424} from './AaveV2Avalanche_StablecoinIRUpdates_20240424.sol';
 import {AaveV3Ethereum_StablecoinIRUpdates_20240424} from './AaveV3Ethereum_StablecoinIRUpdates_20240424.sol';
 import {AaveV3Polygon_StablecoinIRUpdates_20240424} from './AaveV3Polygon_StablecoinIRUpdates_20240424.sol';
@@ -43,32 +42,6 @@ contract DeployEthereum is EthereumScript {
 }
 
 /**
- * @dev Deploy Polygon
- * deploy-command: make deploy-ledger contract=src/20240424_Multi_StablecoinIRUpdates/StablecoinIRUpdates_20240424.s.sol:DeployPolygon chain=polygon
- * verify-command: npx catapulta-verify -b broadcast/StablecoinIRUpdates_20240424.s.sol/137/run-latest.json
- */
-contract DeployPolygon is PolygonScript {
-  function run() external broadcast {
-    // deploy payloads
-    address payload0 = GovV3Helpers.deployDeterministic(
-      type(AaveV2Polygon_StablecoinIRUpdates_20240424).creationCode
-    );
-    address payload1 = GovV3Helpers.deployDeterministic(
-      type(AaveV3Polygon_StablecoinIRUpdates_20240424).creationCode
-    );
-
-    // compose action
-    IPayloadsControllerCore.ExecutionAction[]
-      memory actions = new IPayloadsControllerCore.ExecutionAction[](2);
-    actions[0] = GovV3Helpers.buildAction(payload0);
-    actions[1] = GovV3Helpers.buildAction(payload1);
-
-    // register action at payloadsController
-    GovV3Helpers.createPayload(actions);
-  }
-}
-
-/**
  * @dev Deploy Avalanche
  * deploy-command: make deploy-ledger contract=src/20240424_Multi_StablecoinIRUpdates/StablecoinIRUpdates_20240424.s.sol:DeployAvalanche chain=avalanche
  * verify-command: npx catapulta-verify -b broadcast/StablecoinIRUpdates_20240424.s.sol/43114/run-latest.json
@@ -88,6 +61,28 @@ contract DeployAvalanche is AvalancheScript {
       memory actions = new IPayloadsControllerCore.ExecutionAction[](2);
     actions[0] = GovV3Helpers.buildAction(payload0);
     actions[1] = GovV3Helpers.buildAction(payload1);
+
+    // register action at payloadsController
+    GovV3Helpers.createPayload(actions);
+  }
+}
+
+/**
+ * @dev Deploy Polygon
+ * deploy-command: make deploy-ledger contract=src/20240424_Multi_StablecoinIRUpdates/StablecoinIRUpdates_20240424.s.sol:DeployPolygon chain=polygon
+ * verify-command: npx catapulta-verify -b broadcast/StablecoinIRUpdates_20240424.s.sol/137/run-latest.json
+ */
+contract DeployPolygon is PolygonScript {
+  function run() external broadcast {
+    // deploy payloads
+    address payload0 = GovV3Helpers.deployDeterministic(
+      type(AaveV3Polygon_StablecoinIRUpdates_20240424).creationCode
+    );
+
+    // compose action
+    IPayloadsControllerCore.ExecutionAction[]
+      memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
+    actions[0] = GovV3Helpers.buildAction(payload0);
 
     // register action at payloadsController
     GovV3Helpers.createPayload(actions);
@@ -247,16 +242,6 @@ contract CreateProposal is EthereumScript {
     payloads[0] = GovV3Helpers.buildMainnetPayload(vm, actionsEthereum);
 
     IPayloadsControllerCore.ExecutionAction[]
-      memory actionsPolygon = new IPayloadsControllerCore.ExecutionAction[](2);
-    actionsPolygon[0] = GovV3Helpers.buildAction(
-      type(AaveV2Polygon_StablecoinIRUpdates_20240424).creationCode
-    );
-    actionsPolygon[1] = GovV3Helpers.buildAction(
-      type(AaveV3Polygon_StablecoinIRUpdates_20240424).creationCode
-    );
-    payloads[1] = GovV3Helpers.buildPolygonPayload(vm, actionsPolygon);
-
-    IPayloadsControllerCore.ExecutionAction[]
       memory actionsAvalanche = new IPayloadsControllerCore.ExecutionAction[](2);
     actionsAvalanche[0] = GovV3Helpers.buildAction(
       type(AaveV2Avalanche_StablecoinIRUpdates_20240424).creationCode
@@ -264,7 +249,14 @@ contract CreateProposal is EthereumScript {
     actionsAvalanche[1] = GovV3Helpers.buildAction(
       type(AaveV3Avalanche_StablecoinIRUpdates_20240424).creationCode
     );
-    payloads[2] = GovV3Helpers.buildAvalanchePayload(vm, actionsAvalanche);
+    payloads[1] = GovV3Helpers.buildAvalanchePayload(vm, actionsAvalanche);
+
+    IPayloadsControllerCore.ExecutionAction[]
+      memory actionsPolygon = new IPayloadsControllerCore.ExecutionAction[](1);
+    actionsPolygon[0] = GovV3Helpers.buildAction(
+      type(AaveV3Polygon_StablecoinIRUpdates_20240424).creationCode
+    );
+    payloads[2] = GovV3Helpers.buildPolygonPayload(vm, actionsPolygon);
 
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsOptimism = new IPayloadsControllerCore.ExecutionAction[](1);

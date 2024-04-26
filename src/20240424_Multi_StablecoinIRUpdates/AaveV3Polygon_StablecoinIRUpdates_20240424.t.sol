@@ -15,7 +15,7 @@ contract AaveV3Polygon_StablecoinIRUpdates_20240424_Test is ProtocolV3TestBase {
   AaveV3Polygon_StablecoinIRUpdates_20240424 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('polygon'), 56208747);
+    vm.createSelectFork(vm.rpcUrl('polygon'), 56205923);
     proposal = new AaveV3Polygon_StablecoinIRUpdates_20240424();
   }
 

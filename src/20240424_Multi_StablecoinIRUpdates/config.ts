@@ -5,7 +5,6 @@ export const config: ConfigFile = {
     force: true,
     pools: [
       'AaveV2Ethereum',
-      'AaveV2Polygon',
       'AaveV2Avalanche',
       'AaveV3Ethereum',
       'AaveV3Polygon',
@@ -65,55 +64,6 @@ export const config: ConfigFile = {
         ],
       },
       cache: {blockNumber: 19726460},
-    },
-    AaveV2Polygon: {
-      configs: {
-        RATE_UPDATE_V2: [
-          {
-            asset: 'USDC',
-            params: {
-              optimalUtilizationRate: '',
-              baseVariableBorrowRate: '',
-              variableRateSlope1: '9',
-              variableRateSlope2: '',
-              stableRateSlope1: '',
-              stableRateSlope2: '',
-              baseStableRateOffset: '',
-              stableRateExcessOffset: '',
-              optimalStableToTotalDebtRatio: '',
-            },
-          },
-          {
-            asset: 'USDT',
-            params: {
-              optimalUtilizationRate: '',
-              baseVariableBorrowRate: '',
-              variableRateSlope1: '9',
-              variableRateSlope2: '',
-              stableRateSlope1: '',
-              stableRateSlope2: '',
-              baseStableRateOffset: '',
-              stableRateExcessOffset: '',
-              optimalStableToTotalDebtRatio: '',
-            },
-          },
-          {
-            asset: 'DAI',
-            params: {
-              optimalUtilizationRate: '',
-              baseVariableBorrowRate: '',
-              variableRateSlope1: '9',
-              variableRateSlope2: '',
-              stableRateSlope1: '',
-              stableRateSlope2: '',
-              baseStableRateOffset: '',
-              stableRateExcessOffset: '',
-              optimalStableToTotalDebtRatio: '',
-            },
-          },
-        ],
-      },
-      cache: {blockNumber: 56205923},
     },
     AaveV2Avalanche: {
       configs: {
