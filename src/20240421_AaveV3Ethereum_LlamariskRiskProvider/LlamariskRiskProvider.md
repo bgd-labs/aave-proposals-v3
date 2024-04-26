@@ -49,8 +49,8 @@ This AIP will have the collector setup a 250 000 GHO stream for 6 months toward 
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240421_AaveV3Ethereum_LlamariskRiskProvider/AaveV3Ethereum_LlamariskRiskProvider_20240421.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240421_AaveV3Ethereum_LlamariskRiskProvider/AaveV3Ethereum_LlamariskRiskProvider_20240421.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/b2a5bfef825f4341b8f24f95dcbc1ec894a02d07/src/20240421_AaveV3Ethereum_LlamariskRiskProvider/AaveV3Ethereum_LlamariskRiskProvider_20240421.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/b2a5bfef825f4341b8f24f95dcbc1ec894a02d07/src/20240421_AaveV3Ethereum_LlamariskRiskProvider/AaveV3Ethereum_LlamariskRiskProvider_20240421.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x2b7433455b16d50b9b6afdf2e60bfd6e733896224688c9891c371aa2597853a2)
 - [Discussion](https://governance.aave.com/t/arfc-onboard-new-risk-service-provider/17348)
 
