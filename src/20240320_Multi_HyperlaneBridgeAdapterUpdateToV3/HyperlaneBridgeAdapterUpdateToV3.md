@@ -1,5 +1,5 @@
 ---
-title: "Hyperlane bridge adapter update to V3 and removal of old native bridge adapters"
+title: "Hyperlane bridge adapter update to V3"
 author: "BGD Labs @bgdlabs"
 discussions: "https://governance.aave.com/t/bgd-technical-maintenance-proposals/15274/31"
 ---
