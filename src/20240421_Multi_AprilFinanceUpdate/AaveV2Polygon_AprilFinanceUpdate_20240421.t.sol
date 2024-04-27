@@ -25,7 +25,7 @@ contract AaveV2Polygon_AprilFinanceUpdate_20240421_Test is ProtocolV2TestBase {
   AaveV2Polygon_AprilFinanceUpdate_20240421 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('polygon'), 56178996);
+    vm.createSelectFork(vm.rpcUrl('polygon'), 56325958);
     proposal = new AaveV2Polygon_AprilFinanceUpdate_20240421();
   }
 
@@ -135,12 +135,12 @@ contract AaveV2Polygon_AprilFinanceUpdate_20240421_Test is ProtocolV2TestBase {
 
   function _expectEmits() internal {
     vm.expectEmit(true, true, true, true, MiscPolygon.AAVE_POL_ETH_BRIDGE);
-    emit Bridge(AaveV3PolygonAssets.USDC_UNDERLYING, 833867244365); // ~268 units
+    emit Bridge(AaveV3PolygonAssets.USDC_UNDERLYING, 860847806245); // ~268 units
 
     vm.expectEmit(true, true, true, true, MiscPolygon.AAVE_POL_ETH_BRIDGE);
-    emit Bridge(AaveV3PolygonAssets.DAI_UNDERLYING, 198944360880437552419394); // ~559,109 units
+    emit Bridge(AaveV3PolygonAssets.DAI_UNDERLYING, 208780946681487285992038); // ~559,109 units
 
     vm.expectEmit(true, true, true, true, address(proposal.plasmaBridge()));
-    emit Bridge(proposal.NATIVE_MATIC(), 627139693358400415831543);
+    emit Bridge(proposal.NATIVE_MATIC(), 629734303188364283159075);
   }
 }
