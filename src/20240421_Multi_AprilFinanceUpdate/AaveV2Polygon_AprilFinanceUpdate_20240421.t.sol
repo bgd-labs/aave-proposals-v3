@@ -33,16 +33,6 @@ contract AaveV2Polygon_AprilFinanceUpdate_20240421_Test is ProtocolV2TestBase {
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('polygon'), 56325958);
     proposal = new AaveV2Polygon_AprilFinanceUpdate_20240421();
-    setupBridge();
-  }
-
-  // Assign bridge ownership to the Polygon Executor
-  function setupBridge() public {
-    IAavePolEthPlasmaBridge plasmaBridge = IAavePolEthPlasmaBridge(
-      0xc980508cC8866f726040Da1C0C61f682e74aBc39
-    );
-    vm.prank(plasmaBridge.owner());
-    plasmaBridge.transferOwnership(0xDf7d0e6454DB638881302729F5ba99936EaAB233);
   }
 
   function test_bgdReimbursements() public {
