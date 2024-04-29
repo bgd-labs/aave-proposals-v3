@@ -49,6 +49,7 @@ Regarding the technical details, the proposal will:
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x372ea60168390ca30be8890ae18ba3c1bb171428ad613a3c8c1a568721c1d65d)
 - [Discussion](https://governance.aave.com/t/arfc-aampl-second-distribution/17464)
 - [Distribution:IPFS](https://angle-blog.infura-ipfs.io/ipfs/QmTvv4u6MUb6cwThCi7tma1ZJ1XUe9mQmaGcHEmLZhazre)
+- [Distribution:formatted](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240429_AaveV2Ethereum_AAMPLSecondDistribution/distribution.pdf)
 
 ## Copyright
 
