@@ -45,12 +45,12 @@ Regarding the technical details, the proposal will:
 
 ## References
 
-- Implementation: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240429_AaveV2Ethereum_AAMPLSecondDistribution/AaveV2Ethereum_AAMPLSecondDistribution_20240429.sol)
-- Tests: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240429_AaveV2Ethereum_AAMPLSecondDistribution/AaveV2Ethereum_AAMPLSecondDistribution_20240429.t.sol)
+- Implementation: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/f54bd5c228fc7789a4ea3f0c5ef77fe70f4be020/src/20240429_AaveV2Ethereum_AAMPLSecondDistribution/AaveV2Ethereum_AAMPLSecondDistribution_20240429.sol)
+- Tests: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/f54bd5c228fc7789a4ea3f0c5ef77fe70f4be020/src/20240429_AaveV2Ethereum_AAMPLSecondDistribution/AaveV2Ethereum_AAMPLSecondDistribution_20240429.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x372ea60168390ca30be8890ae18ba3c1bb171428ad613a3c8c1a568721c1d65d)
 - [Discussion](https://governance.aave.com/t/arfc-aampl-second-distribution/17464)
 - [Distribution:IPFS](https://angle-blog.infura-ipfs.io/ipfs/QmTvv4u6MUb6cwThCi7tma1ZJ1XUe9mQmaGcHEmLZhazre)
-- [Distribution:formatted](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240429_AaveV2Ethereum_AAMPLSecondDistribution/distribution.pdf)
+- [Distribution:formatted](https://github.com/bgd-labs/aave-proposals-v3/blob/f54bd5c228fc7789a4ea3f0c5ef77fe70f4be020/src/20240429_AaveV2Ethereum_AAMPLSecondDistribution/distribution.pdf)
 
 ## Copyright
 
