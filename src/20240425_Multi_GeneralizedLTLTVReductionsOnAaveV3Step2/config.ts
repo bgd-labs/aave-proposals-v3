@@ -18,7 +18,8 @@ export const config: ConfigFile = {
     author: 'Chaos Labs',
     discussion:
       'https://governance.aave.com/t/arfc-generalized-lt-ltv-reductions-on-aave-v3-step-2-04-23-2024/17455',
-    snapshot: '',
+    snapshot:
+      'https://snapshot.org/#/aave.eth/proposal/0x4067d91ef5864925136d10ec9419f032a70f7e6489740386e348488426656274',
   },
   poolOptions: {
     AaveV3Ethereum: {

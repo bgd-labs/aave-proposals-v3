@@ -8,7 +8,7 @@ import {IAaveV3ConfigEngine} from 'aave-helpers/v3-config-engine/IAaveV3ConfigEn
 /**
  * @title Generalized LT/LTV Reductions on Aave V3 Step 2
  * @author Chaos Labs
- * - Snapshot: TODO
+ * - Snapshot: https://snapshot.org/#/aave.eth/proposal/0x4067d91ef5864925136d10ec9419f032a70f7e6489740386e348488426656274
  * - Discussion: https://governance.aave.com/t/arfc-generalized-lt-ltv-reductions-on-aave-v3-step-2-04-23-2024/17455
  */
 contract AaveV3Arbitrum_GeneralizedLTLTVReductionsOnAaveV3Step2_20240425 is AaveV3PayloadArbitrum {
