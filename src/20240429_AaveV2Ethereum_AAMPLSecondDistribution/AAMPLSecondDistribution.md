@@ -31,6 +31,7 @@ Some key points output of the analysis are:
 - Pricing claims at $1.198 price per AMPL, despite the price falling below and negative rebases accruing on the aAMPL supply since.
   Any holding by the Aave Collector contract is not included in the compensation, to increase the amount received by other aAMPL holders.
 - Interest generated from the 300’000 available on 17th April to withdraw is discounted, as those funds are fully claimable by users.
+- The claim for the Mooniswap pool has been proxied with sub-claims for LPs on it.
 
 The Ampleforth team agreed to compensate 40% of the total after proposal execution, as stated on https://governance.aave.com/t/ampl-problem-on-aave-v2-ethereum/15886/128, which will be done after Aave fully approves this distribution.
 
