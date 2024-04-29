@@ -11,9 +11,9 @@ import {IProposalGenericExecutor} from 'aave-helpers/interfaces/IProposalGeneric
  * - Discussion: https://governance.aave.com/t/arfc-reserve-factor-updates-polygon-aave-v2/13937/20
  */
 contract AaveV2Polygon_ReserveFactorUpdate_20240429 is IProposalGenericExecutor {
-  uint256 public constant DAI_RF = 99_00;
-  uint256 public constant USDC_RF = 99_00;
-  uint256 public constant USDT_RF = 99_00;
+  uint256 public constant DAI_RF = 99_99;
+  uint256 public constant USDC_RF = 99_99;
+  uint256 public constant USDT_RF = 99_99;
 
   function execute() external {
     AaveV2Polygon.POOL_CONFIGURATOR.setReserveFactor(AaveV2PolygonAssets.DAI_UNDERLYING, DAI_RF);

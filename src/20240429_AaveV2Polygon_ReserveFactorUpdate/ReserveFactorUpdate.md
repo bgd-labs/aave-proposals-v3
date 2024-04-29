@@ -22,9 +22,9 @@ The following parameters are to be updated as follows:
 
 | Asset | Reserve Factor |
 | ----- | -------------- |
-| DAI   | 99.00%         |
-| USDC  | 99.00%         |
-| USDT  | 99.00%         |
+| DAI   | 99.99%         |
+| USDC  | 99.99%         |
+| USDT  | 99.99%         |
 
 ## References
 
