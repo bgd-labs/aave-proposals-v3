@@ -7,7 +7,7 @@ snapshot: "https://snapshot.org/#/aave.eth/proposal/0x372ea60168390ca30be8890ae1
 
 ## Simple Summary
 
-A proposal for a follow-up distribution of 766’000 aUSDC from the Aave Collector to allow full withdrawals by aAMPL suppliers to Aave v2 Ethereum, consequence of the problem detected at the end of 2023.
+A proposal for a follow-up distribution of 766'436 aUSDC (762'604 aUSDC + 3'832 aUSDC angle labs fee) from the Aave Collector to allow full withdrawals by aAMPL suppliers to Aave v2 Ethereum, consequence of the problem detected at the end of 2023.
 
 ## Motivation
 
@@ -19,7 +19,7 @@ After further analysis and remediation strategy, the Aave governance approved an
 
 To fully understand the problem at hand and the rationale of this distribution, we recommend mandatorily reading its specification on the [forum](https://governance.aave.com/t/ampl-problem-on-aave-v2-ethereum/15886/155), to make an informed decision.
 
-In summary, this proposal recommends making claimable 766’000 aUSDC from the Aave Ethereum Collector, in addition to the already distributed 300’000 USDC, making a total of approximately $1,066,000.
+In summary, this proposal recommends making claimable 766'436 aUSDC (762'604 aUSDC + 3'832 aUSDC angle labs fee) from the Aave Ethereum Collector, in addition to the already distributed 300’000 USDC, making a total of approximately $1,066,436.
 
 Some key points output of the analysis are:
 
@@ -36,7 +36,7 @@ The Ampleforth team agreed to compensate 40% of the total after proposal executi
 
 Regarding the technical details, the proposal will:
 
-- Transfer v3 aUSDC from the collector (766.4k including a 0.5% fee for angle labs)
+- Transfer v3 aUSDC from the collector (766.436k including a 0.5% fee for angle labs)
 - Approve the full amount to [0x8BB4C975Ff3c250e0ceEA271728547f3802B36Fd](https://etherscan.io/address/0x8BB4C975Ff3c250e0ceEA271728547f3802B36Fd) which is the distribution creator by Angle Labs
 - Create a campaign to distribute funds to the affected users
 
