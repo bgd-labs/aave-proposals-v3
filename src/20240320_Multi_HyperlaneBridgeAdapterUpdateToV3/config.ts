@@ -1,0 +1,36 @@
+import {ConfigFile} from '../../generator/types';
+export const config: ConfigFile = {
+  rootOptions: {
+    configFile: './src/20240320_Multi_HyperlaneBridgeAdapterUpdateToV3/config.ts',
+    author: 'BGD Labs @bgdlabs',
+    pools: [
+      'AaveV3Ethereum',
+      'AaveV3Polygon',
+      'AaveV3Avalanche',
+      'AaveV3Gnosis',
+      'AaveV3BNB',
+      'AaveV3Scroll',
+      'AaveV3Arbitrum',
+      'AaveV3Optimism',
+      'AaveV3Metis',
+      'AaveV3Base',
+    ],
+    title: 'Hyperlane bridge adapter update to V3',
+    shortName: 'HyperlaneBridgeAdapterUpdateToV3',
+    date: '20240320',
+    discussion: '',
+    snapshot: '',
+  },
+  poolOptions: {
+    AaveV3Ethereum: {configs: {OTHERS: {}}, cache: {blockNumber: 19476776}},
+    AaveV3Polygon: {configs: {OTHERS: {}}, cache: {blockNumber: 54882095}},
+    AaveV3Avalanche: {configs: {OTHERS: {}}, cache: {blockNumber: 43150105}},
+    AaveV3Gnosis: {configs: {OTHERS: {}}, cache: {blockNumber: 33027304}},
+    AaveV3BNB: {configs: {OTHERS: {}}, cache: {blockNumber: 37137492}},
+    AaveV3Scroll: {configs: {OTHERS: {}}, cache: {blockNumber: 4850650}},
+    AaveV3Arbitrum: {configs: {OTHERS: {}}, cache: {blockNumber: 201314733}},
+    AaveV3Optimism: {configs: {OTHERS: {}}, cache: {blockNumber: 118797852}},
+    AaveV3Metis: {configs: {OTHERS: {}}, cache: {blockNumber: 16616814}},
+    AaveV3Base: {configs: {OTHERS: {}}, cache: {blockNumber: 13202337}},
+  },
+};
