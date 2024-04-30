@@ -145,8 +145,5 @@ contract AaveV2Polygon_AprilFinanceUpdate_20240421_Test is ProtocolV2TestBase {
 
     vm.expectEmit(true, true, true, true, MiscPolygon.AAVE_POL_ETH_BRIDGE);
     emit Bridge(AaveV3PolygonAssets.DAI_UNDERLYING, 208780946681487285992038); // ~559,109 units
-
-    vm.expectEmit(true, true, true, true, address(proposal.plasmaBridge()));
-    emit Bridge(proposal.NATIVE_MATIC(), 629734303188364283159075);
   }
 }

@@ -68,8 +68,6 @@ contract AaveV2Polygon_AprilFinanceUpdate_20240421 is IProposalGenericExecutor {
       AaveV3PolygonAssets.DAI_UNDERLYING,
       IERC20(AaveV3PolygonAssets.DAI_UNDERLYING).balanceOf(address(bridge))
     );
-
-    plasmaBridge.bridge(IERC20(NATIVE_MATIC).balanceOf(address(plasmaBridge)));
   }
 
   function _migrateV2ToV3() internal {

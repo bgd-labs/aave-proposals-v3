@@ -75,7 +75,7 @@ Perform the following Swaps, Migrate Eth v2 to v3 and bridge from Polyon to Ethe
 
 Deposit wETH and wBTC in the Treasury into Aave v3.
 
-Assets migrated from Polygon to Ethereum are to be deposited into Aave v3 where practical, with the exception of DAI and USDC which will be swapped to GHO during Part B.
+Assets migrated from Polygon to Ethereum are to be deposited into Aave v3 where practical, with the exception of DAI and USDC which will be swapped to GHO during Part B. MATIC bridging will also happen on part B.
 
 ## References
 
