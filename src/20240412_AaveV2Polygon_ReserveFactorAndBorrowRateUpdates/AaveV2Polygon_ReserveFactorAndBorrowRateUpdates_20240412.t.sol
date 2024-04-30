@@ -19,7 +19,7 @@ contract AaveV2Polygon_ReserveFactorAndBorrowRateUpdates_20240412_Test is Protoc
   AaveV2Polygon_ReserveFactorAndBorrowRateUpdates_20240412 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('polygon'), 55728740);
+    vm.createSelectFork(vm.rpcUrl('polygon'), 56422116);
     proposal = new AaveV2Polygon_ReserveFactorAndBorrowRateUpdates_20240412();
   }
 
@@ -27,7 +27,7 @@ contract AaveV2Polygon_ReserveFactorAndBorrowRateUpdates_20240412_Test is Protoc
    * @dev executes the generic test suite including e2e and config snapshots
    */
   function test_defaultProposalExecution() public {
-    (ReserveConfig[] memory allConfigsBefore, ReserveConfig[] memory allConfigsAfter) = defaultTest(
+    (, ReserveConfig[] memory allConfigsAfter) = defaultTest(
       'AaveV2Polygon_ReserveFactorAndBorrowRateUpdates_20240412',
       AaveV2Polygon.POOL,
       address(proposal)

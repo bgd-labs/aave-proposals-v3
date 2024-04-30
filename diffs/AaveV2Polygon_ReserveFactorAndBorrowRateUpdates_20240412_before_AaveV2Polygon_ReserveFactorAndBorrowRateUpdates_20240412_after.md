@@ -37,8 +37,8 @@
 | --- | --- | --- |
 | reserveFactor | 93 % | 98 % |
 | interestRateStrategy | [0x40648f731198AD8ba5757a0bE5DaDaE034ffCf76](https://polygonscan.com/address/0x40648f731198AD8ba5757a0bE5DaDaE034ffCf76) | [0x15d31D8a5da6A57Ea8EaDc12261777768b1E8C60](https://polygonscan.com/address/0x15d31D8a5da6A57Ea8EaDc12261777768b1E8C60) |
-| variableRateSlope1 | 12 % | 12.75 % |
-| interestRate | ![before](/.assets/6f633d9077d080479568e5342fc14c4507401d2f.svg) | ![after](/.assets/e7d15e995584ca44d1f58544a171217542a7330b.svg) |
+| variableRateSlope1 | 12 % | 9.75 % |
+| interestRate | ![before](/.assets/6f633d9077d080479568e5342fc14c4507401d2f.svg) | ![after](/.assets/df4a7d9cc3f6a6d30ec065c93141fe49eee42c4d.svg) |
 
 #### GHST ([0x385Eeac5cB85A38A9a07A70c73e0a3271CfB54A7](https://polygonscan.com/address/0x385Eeac5cB85A38A9a07A70c73e0a3271CfB54A7))
 
@@ -77,9 +77,9 @@
 | --- | --- | --- |
 | reserveFactor | 91 % | 96 % |
 | interestRateStrategy | [0xc4d392a7Bfe01E80A07272F5D8a34D49E9cce966](https://polygonscan.com/address/0xc4d392a7Bfe01E80A07272F5D8a34D49E9cce966) | [0x08487E1EB852e06779634A176194192a36894313](https://polygonscan.com/address/0x08487E1EB852e06779634A176194192a36894313) |
-| variableRateSlope1 | 12 % | 12.75 % |
+| variableRateSlope1 | 12 % | 9.75 % |
 | variableRateSlope2 | 105 % | 134 % |
-| interestRate | ![before](/.assets/9566c6dd3a1bea1498b3908b4be8b94c971a839d.svg) | ![after](/.assets/396519224a434908fa0265d607d6c550349c706b.svg) |
+| interestRate | ![before](/.assets/9566c6dd3a1bea1498b3908b4be8b94c971a839d.svg) | ![after](/.assets/4bbdb7d641ac53393afda2d993e24109f61f61a1.svg) |
 
 #### BAL ([0x9a71012B13CA4d3D0Cdc72A177DF3ef03b0E76A3](https://polygonscan.com/address/0x9a71012B13CA4d3D0Cdc72A177DF3ef03b0E76A3))
 
@@ -98,9 +98,9 @@
 | --- | --- | --- |
 | reserveFactor | 92 % | 97 % |
 | interestRateStrategy | [0x1233847129541c166ad585FaC0727CcBF6cf28eC](https://polygonscan.com/address/0x1233847129541c166ad585FaC0727CcBF6cf28eC) | [0xC22014C5159bcf56110414A9FB71971974294e98](https://polygonscan.com/address/0xC22014C5159bcf56110414A9FB71971974294e98) |
-| variableRateSlope1 | 12 % | 12.75 % |
+| variableRateSlope1 | 12 % | 9.75 % |
 | variableRateSlope2 | 236 % | 134 % |
-| interestRate | ![before](/.assets/ad5d77509bc0670471c898f81b8247410aaa1df4.svg) | ![after](/.assets/e2882c57645ea786a899138290d691e731c08209.svg) |
+| interestRate | ![before](/.assets/ad5d77509bc0670471c898f81b8247410aaa1df4.svg) | ![after](/.assets/629673f8cf1a36a93dc0ebfe1dd5da5b11ead5be.svg) |
 
 ## Raw diff
 
@@ -238,7 +238,7 @@
       },
       "variableRateSlope1": {
         "from": "120000000000000000000000000",
-        "to": "127500000000000000000000000"
+        "to": "97500000000000000000000000"
       }
     },
     "0x385Eeac5cB85A38A9a07A70c73e0a3271CfB54A7": {
@@ -306,7 +306,7 @@
       },
       "variableRateSlope1": {
         "from": "120000000000000000000000000",
-        "to": "127500000000000000000000000"
+        "to": "97500000000000000000000000"
       },
       "variableRateSlope2": {
         "from": "1050000000000000000000000000",
@@ -342,7 +342,7 @@
       },
       "variableRateSlope1": {
         "from": "120000000000000000000000000",
-        "to": "127500000000000000000000000"
+        "to": "97500000000000000000000000"
       },
       "variableRateSlope2": {
         "from": "2360000000000000000000000000",
