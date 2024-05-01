@@ -38,6 +38,14 @@ contract AaveV2Ethereum_AprilFinanceUpdate_20240421_Test is ProtocolV2TestBase {
     proposal = new AaveV2Ethereum_AprilFinanceUpdate_20240421();
   }
 
+  function test_defaultProposalExecution() public {
+    defaultTest(
+      'AaveV2Ethereum_AprilFinanceUpdate_20240421',
+      AaveV2Ethereum.POOL,
+      address(proposal)
+    );
+  }
+
   function test_bgdReimbursements() public {
     uint256 recipientAUsdcBalanceBefore = IERC20(AaveV2EthereumAssets.USDC_A_TOKEN).balanceOf(
       proposal.BGD_RECIPIENT()

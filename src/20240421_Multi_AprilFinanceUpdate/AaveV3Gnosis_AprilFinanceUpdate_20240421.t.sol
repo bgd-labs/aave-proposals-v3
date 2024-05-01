@@ -19,6 +19,10 @@ contract AaveV3Gnosis_AprilFinanceUpdate_20240421_Test is ProtocolV3TestBase {
     proposal = new AaveV3Gnosis_AprilFinanceUpdate_20240421();
   }
 
+  function test_defaultProposalExecution() public {
+    defaultTest('AaveV3Gnosis_AprilFinanceUpdate_20240421', AaveV3Gnosis.POOL, address(proposal));
+  }
+
   function test_transfer() public {
     uint256 balanceCollectorBefore = IERC20(proposal.armmv3WXDAI()).balanceOf(
       address(AaveV3Gnosis.COLLECTOR)

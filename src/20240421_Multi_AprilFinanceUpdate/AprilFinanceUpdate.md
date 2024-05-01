@@ -21,9 +21,9 @@ The forum discussion for BGD labs' reimbursements can be found [here](https://go
 
 With the upcoming extension of [Merit](https://governance.aave.com/t/arfc-merit-is-forever-reward-system-program-extension/17336) and the funding request from [Chaos Labs](https://governance.aave.com/t/arfc-chaos-labs-engagement-amendment/17324), this proposal will swap sufficient assets to GHO to ensure enough funds are available as required.
 
-This proposal cancels the existing USDT Allowance to the Aave Grants DAO and replaces it with a GHO Allowance of equal size, 612.9k. This represents a continuation of transistioning to using GHO as the preferred means of covering DAO expenses.
+This proposal cancels the existing USDT Allowance to the Aave Grants DAO and replaces it with a GHO Allowance of equal size, 612.9k. This represents a continuation of transitioning to using GHO as the preferred means of covering DAO expenses.
 
-Also within this proposal, there is the corective action of returning [3504 RealT WXDAI](https://gnosisscan.io/tx/0xf70a507847da2ad4acbecc35cd84c2f5d2489b0b0eb0e16af49c9262ca95707e) sent by RealT to the Aave Gnosis Chain collector by accident. Details on the agreement with realT can be found [here](https://snapshot.org/#/aave.eth/proposal/0xff69be7580614ebc1a455591c1bd651d8f0af12070d277d7d8846beb3c7c964b).
+Also within this proposal, there is the corrective action of returning [3504 RealT WXDAI](https://gnosisscan.io/tx/0xf70a507847da2ad4acbecc35cd84c2f5d2489b0b0eb0e16af49c9262ca95707e) sent by RealT to the Aave Gnosis Chain collector by accident. Details on the agreement with realT can be found [here](https://snapshot.org/#/aave.eth/proposal/0xff69be7580614ebc1a455591c1bd651d8f0af12070d277d7d8846beb3c7c964b).
 
 This proposal will follow the Direct-To-AIP as outlined in this [proposal](https://governance.aave.com/t/arfc-funding-update/16675).
 
@@ -81,7 +81,6 @@ Assets migrated from Polygon to Ethereum are to be deposited into Aave v3 where 
 
 - Implementation: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240421_Multi_AprilFinanceUpdate/AaveV2Ethereum_AprilFinanceUpdate_20240421.sol), [AaveV2Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240421_Multi_AprilFinanceUpdate/AaveV2Polygon_AprilFinanceUpdate_20240421.sol), [AaveV3Gnosis](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240421_Multi_AprilFinanceUpdate/AaveV3Gnosis_AprilFinanceUpdate_20240421.sol)
 - Tests: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240421_Multi_AprilFinanceUpdate/AaveV2Ethereum_AprilFinanceUpdate_20240421.t.sol), [AaveV2Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240421_Multi_AprilFinanceUpdate/AaveV2Polygon_AprilFinanceUpdate_20240421.t.sol), [AaveV3Gnosis](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240421_Multi_AprilFinanceUpdate/AaveV3Gnosis_AprilFinanceUpdate_20240421.t.sol)
-- [Snapshot](TODO)
 - [Discussion](https://governance.aave.com/t/arfc-april-finance-update/17390)
 
 ## Copyright

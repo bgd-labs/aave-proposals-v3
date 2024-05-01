@@ -35,6 +35,10 @@ contract AaveV2Polygon_AprilFinanceUpdate_20240421_Test is ProtocolV2TestBase {
     proposal = new AaveV2Polygon_AprilFinanceUpdate_20240421();
   }
 
+  function test_defaultProposalExecution() public {
+    defaultTest('AaveV2Polygon_AprilFinanceUpdate_20240421', AaveV2Polygon.POOL, address(proposal));
+  }
+
   function test_bgdReimbursements() public {
     uint256 recipientAWmaticBalanceBefore = IERC20(AaveV2PolygonAssets.WMATIC_A_TOKEN).balanceOf(
       proposal.BGD_RECIPIENT()
