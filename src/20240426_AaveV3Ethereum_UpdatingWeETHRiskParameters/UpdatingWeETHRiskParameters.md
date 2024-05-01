@@ -22,6 +22,7 @@ We also propose to increase weETH RF to 45% to contribute to Aave DAO revenue.
 The following changes will be made to the **weETH** asset on Aave EthereumV3:
 
 | Parameters | Current | Recommended |
+| -------------- | ------- | ----------- |
 | Supply Cap | 48,000 | 84,000 |
 | Borrows Caps | 3,200 | 29,500 |
 | UOpt | 45% | 35% |
