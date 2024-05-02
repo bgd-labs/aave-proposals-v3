@@ -5,6 +5,7 @@ import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aa
 import {EthereumScript, PolygonScript, GnosisScript} from 'aave-helpers/ScriptUtils.sol';
 import {AaveV2Ethereum_AprilFinanceUpdate_20240421} from './AaveV2Ethereum_AprilFinanceUpdate_20240421.sol';
 import {AaveV2Polygon_AprilFinanceUpdate_20240421} from './AaveV2Polygon_AprilFinanceUpdate_20240421.sol';
+import {AaveV2Polygon_AprilFinanceUpdate_20240421_PartB} from './AaveV2Polygon_AprilFinanceUpdate_20240421_PartB.sol';
 import {AaveV3Gnosis_AprilFinanceUpdate_20240421} from './AaveV3Gnosis_AprilFinanceUpdate_20240421.sol';
 
 /**
@@ -40,11 +41,15 @@ contract DeployPolygon is PolygonScript {
     address payload0 = GovV3Helpers.deployDeterministic(
       type(AaveV2Polygon_AprilFinanceUpdate_20240421).creationCode
     );
+    address payload1 = GovV3Helpers.deployDeterministic(
+      type(AaveV2Polygon_AprilFinanceUpdate_20240421_PartB).creationCode
+    );
 
     // compose action
     IPayloadsControllerCore.ExecutionAction[]
-      memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
+      memory actions = new IPayloadsControllerCore.ExecutionAction[](2);
     actions[0] = GovV3Helpers.buildAction(payload0);
+    actions[1] = GovV3Helpers.buildAction(payload1);
 
     // register action at payloadsController
     GovV3Helpers.createPayload(actions);
@@ -91,9 +96,12 @@ contract CreateProposal is EthereumScript {
     payloads[0] = GovV3Helpers.buildMainnetPayload(vm, actionsEthereum);
 
     IPayloadsControllerCore.ExecutionAction[]
-      memory actionsPolygon = new IPayloadsControllerCore.ExecutionAction[](1);
+      memory actionsPolygon = new IPayloadsControllerCore.ExecutionAction[](2);
     actionsPolygon[0] = GovV3Helpers.buildAction(
       type(AaveV2Polygon_AprilFinanceUpdate_20240421).creationCode
+    );
+    actionsPolygon[1] = GovV3Helpers.buildAction(
+      type(AaveV2Polygon_AprilFinanceUpdate_20240421_PartB).creationCode
     );
     payloads[1] = GovV3Helpers.buildPolygonPayload(vm, actionsPolygon);
 
