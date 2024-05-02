@@ -23,7 +23,7 @@ contract AaveV3Ethereum_GeneralizedLTLTVReductionsOnAaveV3Step2_20240425_Test is
   AaveV3Ethereum_GeneralizedLTLTVReductionsOnAaveV3Step2_20240425 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 19730712);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 19781181);
     proposal = new AaveV3Ethereum_GeneralizedLTLTVReductionsOnAaveV3Step2_20240425();
   }
 
@@ -37,13 +37,15 @@ contract AaveV3Ethereum_GeneralizedLTLTVReductionsOnAaveV3Step2_20240425_Test is
       address(proposal)
     );
 
-    address[] memory assetsChanged = new address[](2);
+    address[] memory assetsChanged = new address[](3);
     assetsChanged[0] = AaveV3EthereumAssets.USDC_UNDERLYING;
     assetsChanged[1] = AaveV3EthereumAssets.USDT_UNDERLYING;
+    assetsChanged[2] = AaveV3EthereumAssets.sDAI_UNDERLYING;
 
-    Change[] memory assetChanges = new Change[](2);
+    Change[] memory assetChanges = new Change[](3);
     assetChanges[0] = Change({asset: AaveV3EthereumAssets.USDC_UNDERLYING, ltv: 75_00, lt: 78_00});
     assetChanges[1] = Change({asset: AaveV3EthereumAssets.USDT_UNDERLYING, ltv: 75_00, lt: 78_00});
+    assetChanges[2] = Change({asset: AaveV3EthereumAssets.sDAI_UNDERLYING, ltv: 75_00, lt: 78_00});
 
     _noReservesConfigsChangesApartFrom(allConfigsBefore, allConfigsAfter, assetsChanged);
 

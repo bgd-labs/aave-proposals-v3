@@ -21,7 +21,7 @@ contract AaveV3Gnosis_GeneralizedLTLTVReductionsOnAaveV3Step2_20240425_Test is P
   AaveV3Gnosis_GeneralizedLTLTVReductionsOnAaveV3Step2_20240425 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('gnosis'), 33619103);
+    vm.createSelectFork(vm.rpcUrl('gnosis'), 33741852);
     proposal = new AaveV3Gnosis_GeneralizedLTLTVReductionsOnAaveV3Step2_20240425();
   }
 
@@ -35,11 +35,13 @@ contract AaveV3Gnosis_GeneralizedLTLTVReductionsOnAaveV3Step2_20240425_Test is P
       address(proposal)
     );
 
-    address[] memory assetsChanged = new address[](1);
+    address[] memory assetsChanged = new address[](2);
     assetsChanged[0] = AaveV3GnosisAssets.USDC_UNDERLYING;
+    assetsChanged[1] = AaveV3GnosisAssets.sDAI_UNDERLYING;
 
-    Change[] memory assetChanges = new Change[](1);
+    Change[] memory assetChanges = new Change[](2);
     assetChanges[0] = Change({asset: AaveV3GnosisAssets.USDC_UNDERLYING, ltv: 75_00, lt: 78_00});
+    assetChanges[1] = Change({asset: AaveV3GnosisAssets.sDAI_UNDERLYING, ltv: 75_00, lt: 78_00});
 
     _noReservesConfigsChangesApartFrom(allConfigsBefore, allConfigsAfter, assetsChanged);
 
