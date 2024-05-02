@@ -9,7 +9,7 @@ export const proposalTemplate = (
   pool: PoolIdentifier,
 ) => {
   const {title, author, snapshot, discussion} = options;
-  const poolName = pool.match(/AaveV[2|3](.*)/)![1];
+  const poolName = /AaveV[2|3](.*)/.test(pool) && pool.match(/AaveV[2|3](.*)/)![1];
   const version = getVersion(pool);
   const contractName = generateContractName(options, pool);
 
