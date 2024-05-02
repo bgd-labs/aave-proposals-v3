@@ -138,6 +138,12 @@ contract AaveV1Ethereum_AaveV1Deprecation_20240502 is IProposalGenericExecutor {
       type(uint256).max,
       address(CORE)
     );
+    AaveV2Ethereum.COLLECTOR.transfer(AaveV2EthereumAssets.WBTC_A_TOKEN, address(this), 0.02e8);
+    AaveV2Ethereum.POOL.withdraw(
+      AaveV2EthereumAssets.WBTC_UNDERLYING,
+      type(uint256).max,
+      address(CORE)
+    );
     AaveV2Ethereum.COLLECTOR.transfer(AaveV2EthereumAssets.WETH_A_TOKEN, address(this), 2e18);
     AaveV2Ethereum.POOL.withdraw(
       AaveV2EthereumAssets.WETH_UNDERLYING,
