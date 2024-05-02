@@ -30,8 +30,8 @@ The following changes will be made to the **weETH** asset on Aave EthereumV3:
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240426_AaveV3Ethereum_UpdatingWeETHRiskParameters/AaveV3Ethereum_UpdatingWeETHRiskParameters_20240426.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240426_AaveV3Ethereum_UpdatingWeETHRiskParameters/AaveV3Ethereum_UpdatingWeETHRiskParameters_20240426.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/bbbfdace00fcae8c0d89f2c7916eb56af1f4e21c/src/20240426_AaveV3Ethereum_UpdatingWeETHRiskParameters/AaveV3Ethereum_UpdatingWeETHRiskParameters_20240426.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/bbbfdace00fcae8c0d89f2c7916eb56af1f4e21c/src/20240426_AaveV3Ethereum_UpdatingWeETHRiskParameters/AaveV3Ethereum_UpdatingWeETHRiskParameters_20240426.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0xf01d857c392a5d3efcd69725cdee5a5d8e94e5cbe952791d24ff26a26f2b83fa)
 - [Discussion](https://governance.aave.com/t/arfc-updating-weeth-risk-parameters/17402)
 
