@@ -41,18 +41,23 @@ contract DeployPolygon is PolygonScript {
     address payload0 = GovV3Helpers.deployDeterministic(
       type(AaveV2Polygon_AprilFinanceUpdate_20240421).creationCode
     );
+
     address payload1 = GovV3Helpers.deployDeterministic(
       type(AaveV2Polygon_AprilFinanceUpdate_20240421_PartB).creationCode
     );
 
     // compose action
     IPayloadsControllerCore.ExecutionAction[]
-      memory actions = new IPayloadsControllerCore.ExecutionAction[](2);
+      memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
     actions[0] = GovV3Helpers.buildAction(payload0);
-    actions[1] = GovV3Helpers.buildAction(payload1);
+
+    IPayloadsControllerCore.ExecutionAction[]
+      memory actionsTwo = new IPayloadsControllerCore.ExecutionAction[](1);
+    actions[0] = GovV3Helpers.buildAction(payload1);
 
     // register action at payloadsController
     GovV3Helpers.createPayload(actions);
+    GovV3Helpers.createPayload(actionsTwo);
   }
 }
 
@@ -85,7 +90,7 @@ contract DeployGnosis is GnosisScript {
 contract CreateProposal is EthereumScript {
   function run() external {
     // create payloads
-    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](3);
+    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](4);
 
     // compose actions for validation
     IPayloadsControllerCore.ExecutionAction[]
@@ -96,21 +101,25 @@ contract CreateProposal is EthereumScript {
     payloads[0] = GovV3Helpers.buildMainnetPayload(vm, actionsEthereum);
 
     IPayloadsControllerCore.ExecutionAction[]
-      memory actionsPolygon = new IPayloadsControllerCore.ExecutionAction[](2);
+      memory actionsPolygon = new IPayloadsControllerCore.ExecutionAction[](1);
     actionsPolygon[0] = GovV3Helpers.buildAction(
       type(AaveV2Polygon_AprilFinanceUpdate_20240421).creationCode
     );
-    actionsPolygon[1] = GovV3Helpers.buildAction(
+    payloads[1] = GovV3Helpers.buildPolygonPayload(vm, actionsPolygon);
+
+    IPayloadsControllerCore.ExecutionAction[]
+      memory actionsPolygonTwo = new IPayloadsControllerCore.ExecutionAction[](1);
+    actionsPolygon[0] = GovV3Helpers.buildAction(
       type(AaveV2Polygon_AprilFinanceUpdate_20240421_PartB).creationCode
     );
-    payloads[1] = GovV3Helpers.buildPolygonPayload(vm, actionsPolygon);
+    payloads[2] = GovV3Helpers.buildPolygonPayload(vm, actionsPolygonTwo);
 
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsGnosis = new IPayloadsControllerCore.ExecutionAction[](1);
     actionsGnosis[0] = GovV3Helpers.buildAction(
       type(AaveV3Gnosis_AprilFinanceUpdate_20240421).creationCode
     );
-    payloads[2] = GovV3Helpers.buildGnosisPayload(vm, actionsGnosis);
+    payloads[3] = GovV3Helpers.buildGnosisPayload(vm, actionsGnosis);
 
     // create proposal
     vm.startBroadcast();
