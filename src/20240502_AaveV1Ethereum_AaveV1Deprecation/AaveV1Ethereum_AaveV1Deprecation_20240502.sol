@@ -101,58 +101,5 @@ contract AaveV1Ethereum_AaveV1Deprecation_20240502 is IProposalGenericExecutor {
     assets[4] = AaveV2EthereumAssets.sUSD_UNDERLYING;
     sources[4] = AaveV2EthereumAssets.sUSD_ORACLE;
     ORACLE.setAssetSources(assets, sources);
-    // 6. provide exit liquidity
-    AaveV2Ethereum.COLLECTOR.transfer(AaveV2EthereumAssets.TUSD_A_TOKEN, address(this), 17_000e18);
-    AaveV2Ethereum.POOL.withdraw(
-      AaveV2EthereumAssets.TUSD_UNDERLYING,
-      type(uint256).max,
-      address(CORE)
-    );
-    AaveV2Ethereum.COLLECTOR.transfer(AaveV2EthereumAssets.DAI_A_TOKEN, address(this), 15_000e18);
-    AaveV2Ethereum.POOL.withdraw(
-      AaveV2EthereumAssets.DAI_UNDERLYING,
-      type(uint256).max,
-      address(CORE)
-    );
-    AaveV2Ethereum.COLLECTOR.transfer(AaveV2EthereumAssets.USDC_A_TOKEN, address(this), 9_500e6);
-    AaveV2Ethereum.POOL.withdraw(
-      AaveV2EthereumAssets.USDC_UNDERLYING,
-      type(uint256).max,
-      address(CORE)
-    );
-    AaveV2Ethereum.COLLECTOR.transfer(AaveV2EthereumAssets.BUSD_A_TOKEN, address(this), 6_000e18);
-    AaveV2Ethereum.POOL.withdraw(
-      AaveV2EthereumAssets.BUSD_UNDERLYING,
-      type(uint256).max,
-      address(CORE)
-    );
-    AaveV2Ethereum.COLLECTOR.transfer(AaveV2EthereumAssets.MANA_A_TOKEN, address(this), 6_500e18);
-    AaveV2Ethereum.POOL.withdraw(
-      AaveV2EthereumAssets.MANA_UNDERLYING,
-      type(uint256).max,
-      address(CORE)
-    );
-    AaveV2Ethereum.COLLECTOR.transfer(AaveV2EthereumAssets.BAT_A_TOKEN, address(this), 6_500e18);
-    AaveV2Ethereum.POOL.withdraw(
-      AaveV2EthereumAssets.BAT_UNDERLYING,
-      type(uint256).max,
-      address(CORE)
-    );
-    AaveV2Ethereum.COLLECTOR.transfer(AaveV2EthereumAssets.WBTC_A_TOKEN, address(this), 0.02e8);
-    AaveV2Ethereum.POOL.withdraw(
-      AaveV2EthereumAssets.WBTC_UNDERLYING,
-      type(uint256).max,
-      address(CORE)
-    );
-    AaveV2Ethereum.COLLECTOR.transfer(AaveV2EthereumAssets.WETH_A_TOKEN, address(this), 2e18);
-    AaveV2Ethereum.POOL.withdraw(
-      AaveV2EthereumAssets.WETH_UNDERLYING,
-      type(uint256).max,
-      address(this)
-    );
-    IWETH(AaveV2EthereumAssets.WETH_UNDERLYING).withdraw(
-      IERC20(AaveV2EthereumAssets.WETH_UNDERLYING).balanceOf(address(this))
-    );
-    address(CORE).call{value: address(this).balance}('');
   }
 }

@@ -234,59 +234,6 @@ contract AaveV1Ethereum_AaveV1Deprecation_20240502_Test is ProtocolV3TestBase {
     }
   }
 
-  /**
-   * test funds are properly injected
-   */
-  function test_inject() public {
-    uint256 tusdBefore = IERC20(AaveV2EthereumAssets.TUSD_UNDERLYING).balanceOf(AaveV1.CORE);
-    uint256 daiBefore = IERC20(AaveV2EthereumAssets.DAI_UNDERLYING).balanceOf(AaveV1.CORE);
-    uint256 usdcBefore = IERC20(AaveV2EthereumAssets.USDC_UNDERLYING).balanceOf(AaveV1.CORE);
-    uint256 busdBefore = IERC20(AaveV2EthereumAssets.BUSD_UNDERLYING).balanceOf(AaveV1.CORE);
-    uint256 manaBefore = IERC20(AaveV2EthereumAssets.MANA_UNDERLYING).balanceOf(AaveV1.CORE);
-    uint256 batBefore = IERC20(AaveV2EthereumAssets.BAT_UNDERLYING).balanceOf(AaveV1.CORE);
-    uint256 wbtcBefore = IERC20(AaveV2EthereumAssets.WBTC_UNDERLYING).balanceOf(AaveV1.CORE);
-
-    uint256 ethBefore = address(AaveV1.CORE).balance;
-
-    executePayload(vm, address(proposal));
-    assertApproxEqAbs(
-      tusdBefore + 17_000e18,
-      IERC20(AaveV2EthereumAssets.TUSD_UNDERLYING).balanceOf(AaveV1.CORE),
-      1
-    );
-    assertApproxEqAbs(
-      daiBefore + 15_000e18,
-      IERC20(AaveV2EthereumAssets.DAI_UNDERLYING).balanceOf(AaveV1.CORE),
-      1
-    );
-    assertApproxEqAbs(
-      usdcBefore + 9_500e6,
-      IERC20(AaveV2EthereumAssets.USDC_UNDERLYING).balanceOf(AaveV1.CORE),
-      1
-    );
-    assertApproxEqAbs(
-      busdBefore + 6_000e18,
-      IERC20(AaveV2EthereumAssets.BUSD_UNDERLYING).balanceOf(AaveV1.CORE),
-      1
-    );
-    assertApproxEqAbs(
-      manaBefore + 6_500e18,
-      IERC20(AaveV2EthereumAssets.MANA_UNDERLYING).balanceOf(AaveV1.CORE),
-      1
-    );
-    assertApproxEqAbs(
-      batBefore + 6_500e18,
-      IERC20(AaveV2EthereumAssets.BAT_UNDERLYING).balanceOf(AaveV1.CORE),
-      1
-    );
-    assertApproxEqAbs(
-      wbtcBefore + 0.02e8,
-      IERC20(AaveV2EthereumAssets.WBTC_UNDERLYING).balanceOf(AaveV1.CORE),
-      1
-    );
-    assertApproxEqAbs(ethBefore + 2e18, address(AaveV1.CORE).balance, 1);
-  }
-
   function _getUsers() internal pure returns (V1User[] memory) {
     V1User[] memory users = new V1User[](3);
     users[0] = V1User(
