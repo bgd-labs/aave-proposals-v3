@@ -9,12 +9,6 @@ import {ProtocolV2TestBase} from 'aave-helpers/ProtocolV2TestBase.sol';
 
 import {AaveV2Polygon_AprilFinanceUpdate_20240421} from './AaveV2Polygon_AprilFinanceUpdate_20240421.sol';
 
-interface IAavePolEthPlasmaBridge {
-  function bridge(uint256 amount) external;
-  function transferOwnership(address newOwner) external;
-  function owner() external view returns (address);
-}
-
 /**
  * @dev Test for AaveV2Polygon_AprilFinanceUpdate_20240421
  * command: make test-contract filter=AaveV2Polygon_AprilFinanceUpdate_20240421
@@ -27,6 +21,9 @@ contract AaveV2Polygon_AprilFinanceUpdate_20240421_Test is ProtocolV2TestBase {
     address aToken;
     uint256 balance;
   }
+
+  address public constant NATIVE_MATIC = 0x0000000000000000000000000000000000001010;
+  address public constant PLASMA_BRIDGE = 0xc980508cC8866f726040Da1C0C61f682e74aBc39;
 
   AaveV2Polygon_AprilFinanceUpdate_20240421 internal proposal;
 
@@ -140,6 +137,36 @@ contract AaveV2Polygon_AprilFinanceUpdate_20240421_Test is ProtocolV2TestBase {
       1 ether,
       1,
       'aEthDAI not within 1 ether'
+    );
+  }
+
+  function test_withdrawMatic() public {
+    uint256 balancePlasmaBefore = IERC20(NATIVE_MATIC).balanceOf(address(PLASMA_BRIDGE));
+
+    assertGt(
+      IERC20(AaveV3PolygonAssets.WMATIC_A_TOKEN).balanceOf(address(AaveV3Polygon.COLLECTOR)),
+      1 ether
+    );
+    assertGt(
+      IERC20(AaveV2PolygonAssets.WMATIC_A_TOKEN).balanceOf(address(AaveV3Polygon.COLLECTOR)),
+      1 ether
+    );
+
+    assertEq(balancePlasmaBefore, 0);
+
+    executePayload(vm, address(proposal));
+
+    assertEq(IERC20(NATIVE_MATIC).balanceOf(address(PLASMA_BRIDGE)), 629734303188364283159075); // ~629,734 units
+
+    assertApproxEqAbs(
+      IERC20(AaveV3PolygonAssets.WMATIC_A_TOKEN).balanceOf(address(AaveV3Polygon.COLLECTOR)),
+      1 ether,
+      1 ether
+    );
+    assertApproxEqAbs(
+      IERC20(AaveV2PolygonAssets.WMATIC_A_TOKEN).balanceOf(address(AaveV3Polygon.COLLECTOR)),
+      1 ether,
+      1 ether
     );
   }
 

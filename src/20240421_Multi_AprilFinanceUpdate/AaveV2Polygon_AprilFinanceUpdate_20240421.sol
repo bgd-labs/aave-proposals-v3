@@ -45,7 +45,6 @@ contract AaveV2Polygon_AprilFinanceUpdate_20240421 is IProposalGenericExecutor {
 
   uint256 public constant A_WMATIC_AMOUNT_REIMBURSEMENT = 4000 ether;
   address public constant BGD_RECIPIENT = 0xbCEB4f363f2666E2E8E430806F37e97C405c130b;
-  address public constant NATIVE_MATIC = 0x0000000000000000000000000000000000001010;
 
   function execute() external {
     AaveV2Polygon.COLLECTOR.transfer(
