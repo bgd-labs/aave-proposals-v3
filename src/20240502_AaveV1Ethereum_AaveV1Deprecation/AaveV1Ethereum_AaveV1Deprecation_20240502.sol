@@ -88,8 +88,8 @@ contract AaveV1Ethereum_AaveV1Deprecation_20240502 is IProposalGenericExecutor {
     // 4. upgrade lending pool
     ADDRESSES_PROVIDER.setLendingPoolImpl(POOL_IMPL);
     // 5. upgrade stablecoin oracles
-    address[] memory assets = new address[](5);
-    address[] memory sources = new address[](5);
+    address[] memory assets = new address[](6);
+    address[] memory sources = new address[](6);
     assets[0] = AaveV2EthereumAssets.BUSD_UNDERLYING;
     sources[0] = AaveV2EthereumAssets.BUSD_ORACLE;
     assets[1] = AaveV2EthereumAssets.DAI_UNDERLYING;
@@ -100,6 +100,8 @@ contract AaveV1Ethereum_AaveV1Deprecation_20240502 is IProposalGenericExecutor {
     sources[3] = AaveV2EthereumAssets.TUSD_ORACLE;
     assets[4] = AaveV2EthereumAssets.sUSD_UNDERLYING;
     sources[4] = AaveV2EthereumAssets.sUSD_ORACLE;
+    assets[5] = AaveV2EthereumAssets.USDT_UNDERLYING;
+    sources[5] = AaveV2EthereumAssets.USDT_ORACLE;
     ORACLE.setAssetSources(assets, sources);
   }
 }

@@ -288,4 +288,6 @@ contract AaveV1Ethereum_AaveV1Deprecation_20240502_Test is ProtocolV3TestBase {
       .getUserReserveData(token, user);
     assertEq(currentATokenBalance - amount, currentATokenBalanceAfter);
   }
+
+  fallback() external payable {}
 }
