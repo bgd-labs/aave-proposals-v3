@@ -20,14 +20,14 @@ We think that a competition can have extra security value for the improvements i
 
 ## Specification
 
-After discussions with their team regarding options, we propose to create a [Cantina competition]((https://cantina.xyz/competitions)) with the following characteristics:
+After discussions with their team regarding options, we propose to create a [Cantina competition](<(https://cantina.xyz/competitions)>) with the following characteristics:
 
 - $150’000 total prize pot, with the following limitations:
 
   - If there is any High (highest grade) finding, the whole $150’000 prize pot will be distributed.
   - If there is only Medium or lower grade findings, $50’000 prize pot will be distributed.
   - If there is only Lower/Informational, $20’000 prize pot will be distributed.
-  
+
   The total of funds will be transferred initially to Cantina, and if applicable reimburse afterwards to the Aave DAO contracts.
 
 - 20% fees over the total prize pot, amounting $30’000. Additional $15’000 for Cantina judging.
@@ -36,7 +36,7 @@ After discussions with their team regarding options, we propose to create a [Can
 
 - Before the start, BGD Labs will collaborate with Cantina to have the best possible setup for researchers to tackle the competition, including but not limited to all required extra documentation. During the competition, we will also give all necessary support.
 
-- The execution of the on-chain AIP proposal will act as a binding agreement between the Aave DAO and Cantina. The formal SoW (Scope-of-Work) between the Aave DAO and Cantina can be found [HERE]().
+- The execution of the on-chain AIP proposal will act as a binding agreement between the Aave DAO and Cantina. The formal SoW (Scope-of-Work) between the Aave DAO and Cantina can be found [HERE](https://drive.google.com/file/d/1lGBLa9wqOC6Dvuv7jloqEoghNP-7wkb9/view).
 
 - Only current or previous team members of BGD Labs and Certora, MixBytes (auditors of v3.1) during the last 6 months are non-eligible for any prizes in the competition, given the conflict of interest. Any other entity or individual is allowed to participate.
 
