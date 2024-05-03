@@ -2,7 +2,7 @@
 src = 'src'
 test = 'tests'
 script = 'scripts'
-solc = '0.8.19'
+solc = '0.8.21'
 out = 'out'
 bytecode_hash = 'none'
 libs = ['lib']
@@ -10,6 +10,7 @@ remappings = [
 ]
 ffi = true
 fs_permissions = [{ access = "write", path = "./reports" }]
+evm_version = 'shanghai'
 
 [rpc_endpoints]
 mainnet = "${RPC_MAINNET}"
