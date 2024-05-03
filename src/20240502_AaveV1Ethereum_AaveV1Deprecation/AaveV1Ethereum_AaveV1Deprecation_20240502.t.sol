@@ -121,7 +121,7 @@ contract AaveV1Ethereum_AaveV1Deprecation_20240502_Test is ProtocolV3TestBase {
     for (uint256 i = 0; i < users.length; i++) {
       (, uint256 currentBorrowBalance, , , , , , , , ) = ILendingPool(AaveV1.POOL)
         .getUserReserveData(users[i].debt, users[i].user);
-      // offboarding liquidations should provide a fixed 1% bonus
+      // offboarding liquidations should provide a fixed 5% bonus
       (, uint256 totalCollateralETHBefore, uint256 totalBorrowsETHBefore, , , , , ) = ILendingPool(
         AaveV1.POOL
       ).getUserAccountData(users[i].user);
