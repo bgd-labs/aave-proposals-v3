@@ -70,10 +70,11 @@ contract AaveV1Ethereum_AaveV1Deprecation_20240502 is IProposalGenericExecutor {
     ILendingPoolCore(0x3dfd23A6c5E8BbcFc9581d2E864a68feb6a076d3);
   IAaveOracle public constant ORACLE = IAaveOracle(0x76B47460d7F7c5222cFb6b6A75615ab10895DDe4);
 
-  address constant CORE_IMPL = address(0x0E26E0bf83b4ec2cb0dcbC037bb01dA5BB352eAE);
-  address constant ZERO_IR = address(0xB20E27A199404bf9BCD56e37B6dE07DC906581Db);
-  address constant LIQUIDATION_MANAGER_IMPL = address(0xB67347196F551d1f85B7a07e64e0E47E6c9c254a);
-  address constant POOL_IMPL = address(0x588790f64ac1424862081A56b8329Decae206249);
+  address public constant CORE_IMPL = address(0x0E26E0bf83b4ec2cb0dcbC037bb01dA5BB352eAE);
+  address public constant ZERO_IR = address(0xB20E27A199404bf9BCD56e37B6dE07DC906581Db);
+  address public constant LIQUIDATION_MANAGER_IMPL =
+    address(0xB67347196F551d1f85B7a07e64e0E47E6c9c254a);
+  address public constant POOL_IMPL = address(0x588790f64ac1424862081A56b8329Decae206249);
 
   function execute() external {
     // 1. upgrade core to update irs one last time
