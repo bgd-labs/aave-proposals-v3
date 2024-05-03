@@ -44,8 +44,8 @@ After discussions with their team regarding options, we propose to create a [Can
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240503_AaveV3Ethereum_AaveV31CantinaCompetition/AaveV3Ethereum_AaveV31CantinaCompetition_20240503.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240503_AaveV3Ethereum_AaveV31CantinaCompetition/AaveV3Ethereum_AaveV31CantinaCompetition_20240503.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/000927a49396c16f1f1d246c3fafd2573466c43e/src/20240503_AaveV3Ethereum_AaveV31CantinaCompetition/AaveV3Ethereum_AaveV31CantinaCompetition_20240503.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/000927a49396c16f1f1d246c3fafd2573466c43e/src/20240503_AaveV3Ethereum_AaveV31CantinaCompetition/AaveV3Ethereum_AaveV31CantinaCompetition_20240503.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x79de5212e90a562918f72d47809bba5af1221cce4a8cd6dd38b89f38984e90ee)
 - [Discussion](https://governance.aave.com/t/arfc-bgd-aave-3-1-cantina-competition/17485)
 
