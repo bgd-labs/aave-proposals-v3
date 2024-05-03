@@ -27,7 +27,8 @@ After discussions with their team regarding options, we propose to create a Cant
   - If there is any High (highest grade) finding, the whole $150’000 prize pot will be distributed.
   - If there is only Medium or lower grade findings, $50’000 prize pot will be distributed.
   - If there is only Lower/Informational, $20’000 prize pot will be distributed.
-    The total of funds will be transferred initially to Cantina, and if applicable reimburse afterwards to the Aave DAO contracts.
+  
+  The total of funds will be transferred initially to Cantina, and if applicable reimburse afterwards to the Aave DAO contracts.
 
 - 20% fees over the total prize pot, amounting $30’000. Additional $15’000 for Cantina judging.
 
