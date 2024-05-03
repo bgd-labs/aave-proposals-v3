@@ -210,10 +210,15 @@ contract AaveV1Ethereum_AaveV1Deprecation_20240502_Test is ProtocolV3TestBase {
       uint256 lIndexAfter = proposal.CORE().getReserveLiquidityCumulativeIndex(reserves[i]);
       uint256 vIndexAfter = proposal.CORE().getReserveVariableBorrowsCumulativeIndex(reserves[i]);
       uint256 liquidityRateAfter = proposal.CORE().getReserveCurrentLiquidityRate(reserves[i]);
+      uint256 variableRateAfter = proposal.CORE().getReserveCurrentVariableBorrowRate(reserves[i]);
+      // uint256 stableRateAfter = proposal.CORE().getReserveCurrentStableBorrowRate(reserves[i]);
 
       assertEq(lIndexBefore, lIndexAfter);
       assertEq(vIndexBefore, vIndexAfter);
       assertEq(liquidityRateAfter, 0);
+      assertEq(variableRateAfter, 0);
+      // stable rate is non zero because the lendingRateOracle still has baseRate set
+      // assertEq(stableRateAfter, 0);
       vm.revertTo(snapshot);
     }
   }
