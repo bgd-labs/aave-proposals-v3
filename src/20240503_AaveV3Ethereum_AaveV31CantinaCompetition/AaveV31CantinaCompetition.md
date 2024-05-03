@@ -7,7 +7,7 @@ snapshot: "https://snapshot.org/#/aave.eth/proposal/0x79de5212e90a562918f72d4780
 
 ## Simple Summary
 
-Proposal for the Aave DAO to have a Cantina security competition for the upcoming Aave v3.1 upgrade, to complement the other security procedures already completed.
+Proposal for the Aave DAO to have a [Cantina security competition](https://cantina.xyz/competitions) for the upcoming Aave v3.1 upgrade, to complement the other security procedures already completed.
 The budget will be a total of $195’000, with $150’000 prize pool and the rest ($45'000) allocated to platform and judging fees.
 
 ## Motivation
