@@ -44,7 +44,9 @@ contract AaveV2Polygon_AprilFinanceUpdate_20240421 is IProposalGenericExecutor {
     IAavePolEthPlasmaBridge(0xc980508cC8866f726040Da1C0C61f682e74aBc39);
 
   uint256 public constant A_WMATIC_AMOUNT_REIMBURSEMENT = 4000 ether;
+  uint256 public constant ADI_BOT_REFILL = 20_000 ether;
   address public constant BGD_RECIPIENT = 0xbCEB4f363f2666E2E8E430806F37e97C405c130b;
+  address public constant ADI_BOT = 0xF6B99959F0b5e79E1CC7062E12aF632CEb18eF0d;
 
   function execute() external {
     AaveV2Polygon.COLLECTOR.transfer(
@@ -124,7 +126,11 @@ contract AaveV2Polygon_AprilFinanceUpdate_20240421 is IProposalGenericExecutor {
       IERC20(AaveV3PolygonAssets.WMATIC_UNDERLYING).balanceOf(address(this))
     );
 
-    (bool ok, ) = address(plasmaBridge).call{value: address(this).balance}('');
+    (bool ok, ) = ADI_BOT.call{value: ADI_BOT_REFILL}('');
+
+    if (!ok) revert FailedToSendMATIC();
+
+    (ok, ) = address(plasmaBridge).call{value: address(this).balance}('');
 
     if (!ok) revert FailedToSendMATIC();
   }
@@ -176,6 +182,4 @@ contract AaveV2Polygon_AprilFinanceUpdate_20240421 is IProposalGenericExecutor {
       AaveV3Polygon.POOL.withdraw(tokens[i].underlying, type(uint256).max, address(bridge));
     }
   }
-
-  receive() external payable {}
 }

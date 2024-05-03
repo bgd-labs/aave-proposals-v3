@@ -142,6 +142,7 @@ contract AaveV2Polygon_AprilFinanceUpdate_20240421_Test is ProtocolV2TestBase {
 
   function test_withdrawMatic() public {
     uint256 balancePlasmaBefore = IERC20(NATIVE_MATIC).balanceOf(address(PLASMA_BRIDGE));
+    uint256 balanceADIBefore = IERC20(NATIVE_MATIC).balanceOf(proposal.ADI_BOT());
 
     assertGt(
       IERC20(AaveV3PolygonAssets.WMATIC_A_TOKEN).balanceOf(address(AaveV3Polygon.COLLECTOR)),
@@ -156,7 +157,11 @@ contract AaveV2Polygon_AprilFinanceUpdate_20240421_Test is ProtocolV2TestBase {
 
     executePayload(vm, address(proposal));
 
-    assertEq(IERC20(NATIVE_MATIC).balanceOf(address(PLASMA_BRIDGE)), 629734303188364283159075); // ~629,734 units
+    assertEq(IERC20(NATIVE_MATIC).balanceOf(address(PLASMA_BRIDGE)), 609734303188364283159075); // ~609,734 units
+    assertEq(
+      IERC20(NATIVE_MATIC).balanceOf(proposal.ADI_BOT()),
+      proposal.ADI_BOT_REFILL() + balanceADIBefore
+    );
 
     assertApproxEqAbs(
       IERC20(AaveV3PolygonAssets.WMATIC_A_TOKEN).balanceOf(address(AaveV3Polygon.COLLECTOR)),

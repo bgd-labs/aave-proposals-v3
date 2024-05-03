@@ -31,7 +31,7 @@ contract AaveV2Polygon_AprilFinanceUpdate_20240421_PartB_Test is ProtocolV2TestB
     executePayload(vm, address(proposalBefore));
 
     vm.expectEmit(true, true, true, true, address(proposal.plasmaBridge()));
-    emit Bridge(proposal.NATIVE_MATIC(), 629734303188364283159075);
+    emit Bridge(proposal.NATIVE_MATIC(), 609734303188364283159075);
 
     executePayload(vm, address(proposal));
 

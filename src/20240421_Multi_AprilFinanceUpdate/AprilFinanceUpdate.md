@@ -46,6 +46,10 @@ BGD has paid the following amounts for security reviews so reimbursement is in o
 - Transfer 1640 aLINK v2 Ethereum to `0xb812d0944f8F581DfAA3a93Dda0d22EcEf51A9CF`
 - Transfer 4000 aMATIC v2 Polygon to `0xbCEB4f363f2666E2E8E430806F37e97C405c130b`
 
+## aDI BOT Refill
+
+- Transfer 20,000 MATIC to `0xF6B99959F0b5e79E1CC7062E12aF632CEb18eF0d`
+
 ### Migrating AGD's allowance to GHO
 
 The following Allowance is to be cancelled and replaced with GHO:
