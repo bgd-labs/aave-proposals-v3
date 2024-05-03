@@ -19,7 +19,13 @@ This creates meaningful overhead for all involved development & security teams, 
 
 On [6th of february](https://vote.onaave.com/proposal/?proposalId=15) a first set of measures was implemented by the DAO to accelerate the offboarding process, followed by a second proposal on [3th of march](https://vote.onaave.com/proposal/?proposalId=37&ipfsHash=0xa451c9a2426267673fd125702c99581683426ca5ff1a003b07a3cd129ed30470).
 
-This `Phase 3` is the final phase of the off-boarding as suggested on the [forum](https://governance.aave.com/t/temp-check-bgd-further-aave-v1-deprecation-strategy/15893/7).
+This `Phase 3` is the final phase of the off-boarding as suggested on the [forum](https://governance.aave.com/t/temp-check-bgd-further-aave-v1-deprecation-strategy/15893/7) with some slight modifications:
+
+- the proposal does not inject capital to core. The rational being that:
+  - there is enough liquidity for even the biggest account of each asset to withdraw.
+  - it's not possible to calculate the **exact** amount of bad debt as some of the debt is collateralized with a basket of relatively small collateral positions.
+  - if a situation in which a user cannot withdraw due to liquidity constrains ever occurs the treasury managers can easily inject capital at any point.
+- the proposal also replaces the stable asset oracles with the capo oracles introduced on [aave v2](https://vote.onaave.com/proposal/?proposalId=82&ipfsHash=0x4886864ed1dc6cb220f17cd372697218cbb5c2ada41e63d6a1f7664168d59052) for consistency across the pools.
 
 ## Specification
 
