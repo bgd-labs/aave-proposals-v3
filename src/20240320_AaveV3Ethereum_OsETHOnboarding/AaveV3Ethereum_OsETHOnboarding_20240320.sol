@@ -8,18 +8,17 @@ import {IAaveV3ConfigEngine} from 'aave-helpers/v3-config-engine/IAaveV3ConfigEn
 import {IV3RateStrategyFactory} from 'aave-helpers/v3-config-engine/IV3RateStrategyFactory.sol';
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';
-
 /**
  * @title osETH Onboarding
  * @author Aave Chan Initiative
  * - Snapshot: https://snapshot.org/#/aave.eth/proposal/0x3dc8b06441d0f1dcd6f4a53d06d62e9bb1ac87ced19020d9c735854bbf68b835
  * - Discussion: https://governance.aave.com/t/arfc-onboard-oseth-to-aave-v3-on-ethereum/16913
  */
-contract AaveV3Ethereum_OsETHListing_20240320 is AaveV3PayloadEthereum {
+contract AaveV3Ethereum_OsETHOnboarding_20240320 is AaveV3PayloadEthereum {
   using SafeERC20 for IERC20;
 
   address public constant osETH = 0xf1C9acDc66974dFB6dEcB12aA385b9cD01190E38;
-  uint256 public constant osETH_SEED_AMOUNT = 1e16;
+  uint256 public constant osETH_SEED_AMOUNT = 0.01 ether;
 
   function _postExecute() internal override {
     IERC20(osETH).forceApprove(address(AaveV3Ethereum.POOL), osETH_SEED_AMOUNT);
@@ -32,18 +31,18 @@ contract AaveV3Ethereum_OsETHListing_20240320 is AaveV3PayloadEthereum {
     listings[0] = IAaveV3ConfigEngine.Listing({
       asset: osETH,
       assetSymbol: 'osETH',
-      priceFeed: 0x0000000000000000000000000000000000000000,
+      priceFeed: 0x0A2AF898cEc35197e6944D9E0F525C2626393442,
       eModeCategory: AaveV3EthereumEModes.NONE,
       enabledToBorrow: EngineFlags.ENABLED,
       stableRateModeEnabled: EngineFlags.DISABLED,
       borrowableInIsolation: EngineFlags.DISABLED,
       withSiloedBorrowing: EngineFlags.DISABLED,
       flashloanable: EngineFlags.ENABLED,
-      ltv: 71_00,
-      liqThreshold: 76_00,
-      liqBonus: 10_00,
+      ltv: 72_50,
+      liqThreshold: 75_00,
+      liqBonus: 7_50,
       reserveFactor: 15_00,
-      supplyCap: 15_000,
+      supplyCap: 10_000,
       borrowCap: 1_000,
       debtCeiling: 0,
       liqProtocolFee: 10_00,

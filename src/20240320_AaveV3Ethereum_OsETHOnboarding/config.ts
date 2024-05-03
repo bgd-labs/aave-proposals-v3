@@ -1,6 +1,7 @@
 import {ConfigFile} from '../../generator/types';
 export const config: ConfigFile = {
   rootOptions: {
+    configFile: 'src/20240320_AaveV3Ethereum_OsETHListing/config.ts',
     author: 'Aave Chan Initiative',
     pools: ['AaveV3Ethereum'],
     title: 'osETH Onboarding',
@@ -17,10 +18,10 @@ export const config: ConfigFile = {
           {
             assetSymbol: 'osETH',
             decimals: 18,
-            priceFeed: '0x0000000000000000000000000000000000000000',
-            ltv: '71',
-            liqThreshold: '76',
-            liqBonus: '10',
+            priceFeed: '0x0A2AF898cEc35197e6944D9E0F525C2626393442',
+            ltv: '72.5',
+            liqThreshold: '75',
+            liqBonus: '7.5',
             debtCeiling: '0',
             liqProtocolFee: '10',
             enabledToBorrow: 'ENABLED',
@@ -29,7 +30,7 @@ export const config: ConfigFile = {
             borrowableInIsolation: 'DISABLED',
             withSiloedBorrowing: 'DISABLED',
             reserveFactor: '15',
-            supplyCap: '15000',
+            supplyCap: '10000',
             borrowCap: '1000',
             rateStrategyParams: {
               optimalUtilizationRate: '45',
