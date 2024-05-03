@@ -20,7 +20,7 @@ We think that a competition can have extra security value for the improvements i
 
 ## Specification
 
-After discussions with their team regarding options, we propose to create a Cantina competition with the following characteristics:
+After discussions with their team regarding options, we propose to create a [Cantina competition]((https://cantina.xyz/competitions)) with the following characteristics:
 
 - $150’000 total prize pot, with the following limitations:
 
