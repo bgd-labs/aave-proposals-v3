@@ -73,12 +73,19 @@ contract AaveV2Ethereum_AprilFinanceUpdate_20240421 is IProposalGenericExecutor 
   }
 
   function _agdAllowance() internal {
-    AaveV3Ethereum.COLLECTOR.approve(AaveV2EthereumAssets.USDT_A_TOKEN, AGD_MULTISIG, 0);
-    AaveV3Ethereum.COLLECTOR.approve(
-      AaveV3EthereumAssets.GHO_UNDERLYING,
-      AGD_MULTISIG,
-      AGD_GHO_ALLOWANCE
-    );
+    if (
+      IERC20(AaveV2EthereumAssets.USDT_A_TOKEN).allowance(
+        address(AaveV3Ethereum.COLLECTOR),
+        AGD_MULTISIG
+      ) >= 612944900000
+    ) {
+      AaveV3Ethereum.COLLECTOR.approve(AaveV2EthereumAssets.USDT_A_TOKEN, AGD_MULTISIG, 0);
+      AaveV3Ethereum.COLLECTOR.approve(
+        AaveV3EthereumAssets.GHO_UNDERLYING,
+        AGD_MULTISIG,
+        AGD_GHO_ALLOWANCE
+      );
+    }
   }
 
   /**

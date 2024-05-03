@@ -53,7 +53,7 @@ contract DeployPolygon is PolygonScript {
 
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsTwo = new IPayloadsControllerCore.ExecutionAction[](1);
-    actions[0] = GovV3Helpers.buildAction(payload1);
+    actionsTwo[0] = GovV3Helpers.buildAction(payload1);
 
     // register action at payloadsController
     GovV3Helpers.createPayload(actions);
@@ -109,7 +109,7 @@ contract CreateProposal is EthereumScript {
 
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsPolygonTwo = new IPayloadsControllerCore.ExecutionAction[](1);
-    actionsPolygon[0] = GovV3Helpers.buildAction(
+    actionsPolygonTwo[0] = GovV3Helpers.buildAction(
       type(AaveV2Polygon_AprilFinanceUpdate_20240421_PartB).creationCode
     );
     payloads[2] = GovV3Helpers.buildPolygonPayload(vm, actionsPolygonTwo);
