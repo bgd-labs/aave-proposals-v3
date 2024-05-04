@@ -1,6 +1,7 @@
 import {ConfigFile} from '../../generator/types';
 export const config: ConfigFile = {
   rootOptions: {
+    configFile: './src/20240218_AaveV1Ethereum_AaveV1DeprecationPhase2/config.ts',
     author: 'BGD Labs @bgdlabs',
     pools: ['AaveV1Ethereum'],
     title: 'Aave V1 Deprecation',
