@@ -42,8 +42,8 @@ Also, the proposal will change the pool configuration:
 
 ## References
 
-- Implementation: [AaveV1Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240502_AaveV1Ethereum_AaveV1Deprecation/AaveV1Ethereum_AaveV1Deprecation_20240502.sol)
-- Tests: [AaveV1Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240502_AaveV1Ethereum_AaveV1Deprecation/AaveV1Ethereum_AaveV1Deprecation_20240502.t.sol)
+- Implementation: [AaveV1Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/016fe7db25ffa0de51b283fc2574762af7aea9e3/src/20240502_AaveV1Ethereum_AaveV1Deprecation/AaveV1Ethereum_AaveV1Deprecation_20240502.sol)
+- Tests: [AaveV1Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/016fe7db25ffa0de51b283fc2574762af7aea9e3/src/20240502_AaveV1Ethereum_AaveV1Deprecation/AaveV1Ethereum_AaveV1Deprecation_20240502.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x7451f00809986c7cb8cce7ef4587efdfedad06089ebf2851d64122d00b035d9c)
 - [Discussion](https://governance.aave.com/t/temp-check-bgd-further-aave-v1-deprecation-strategy/15893/7)
 - [Upgraded V1 Contracts](https://github.com/bgd-labs/v1-offboarding)
