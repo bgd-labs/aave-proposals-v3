@@ -11,6 +11,12 @@ remappings = [
 ffi = true
 fs_permissions = [{ access = "write", path = "./reports" }]
 
+[profile.metis]
+evm_version = 'paris'
+
+[profile.mainnet]
+evm_version = 'shanghai'
+
 [rpc_endpoints]
 mainnet = "${RPC_MAINNET}"
 optimism = "${RPC_OPTIMISM}"
