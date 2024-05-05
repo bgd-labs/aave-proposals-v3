@@ -11,13 +11,13 @@ import {AaveV3Ethereum_OsETHOnboarding_20240320} from './AaveV3Ethereum_OsETHOnb
 
 /**
  * @dev Test for AaveV3Ethereum_OsETHOnboarding_20240320
- * command: make test-contract filter=AaveV3Ethereum_OsETHOnboarding_20240320
+ * command: FOUNDRY_PROFILE=mainnet forge test --match-path=src/20240320_AaveV3Ethereum_OsETHOnboarding/AaveV3Ethereum_OsETHOnboarding_20240320.t.sol -vv
  */
 contract AaveV3Ethereum_OsETHOnboarding_20240320_Test is ProtocolV3TestBase {
   AaveV3Ethereum_OsETHOnboarding_20240320 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 19789360);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 19805624);
     proposal = new AaveV3Ethereum_OsETHOnboarding_20240320();
   }
 

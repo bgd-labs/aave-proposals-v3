@@ -5,6 +5,7 @@ import {AaveV3AvalancheAssets} from 'aave-address-book/AaveV3Avalanche.sol';
 import {AaveV3PayloadAvalanche} from 'aave-helpers/v3-config-engine/AaveV3PayloadAvalanche.sol';
 import {EngineFlags} from 'aave-helpers/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-helpers/v3-config-engine/IAaveV3ConfigEngine.sol';
+
 /**
  * @title stablecoin harmonization
  * @author Aave Chan Initiative
@@ -40,6 +41,7 @@ contract AaveV3Avalanche_StablecoinHarmonization_20240312 is AaveV3PayloadAvalan
 
     return collateralUpdate;
   }
+
   function borrowsUpdates()
     public
     pure

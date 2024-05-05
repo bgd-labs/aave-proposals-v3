@@ -5,6 +5,7 @@ import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethe
 import {AaveV3PayloadEthereum} from 'aave-helpers/v3-config-engine/AaveV3PayloadEthereum.sol';
 import {EngineFlags} from 'aave-helpers/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-helpers/v3-config-engine/IAaveV3ConfigEngine.sol';
+
 /**
  * @title stablecoin harmonization
  * @author Aave Chan Initiative
@@ -86,6 +87,7 @@ contract AaveV3Ethereum_StablecoinHarmonization_20240312 is AaveV3PayloadEthereu
 
     return collateralUpdate;
   }
+
   function borrowsUpdates()
     public
     pure

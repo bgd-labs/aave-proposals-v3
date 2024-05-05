@@ -2,7 +2,7 @@
 pragma solidity ^0.8.0;
 
 import {AaveV3BNB, AaveV3BNBEModes} from 'aave-address-book/AaveV3BNB.sol';
-import {AaveV3PayloadBnb} from 'aave-helpers/v3-config-engine/AaveV3PayloadBnb.sol';
+import {AaveV3PayloadBNB} from 'aave-helpers/v3-config-engine/AaveV3PayloadBNB.sol';
 import {EngineFlags} from 'aave-helpers/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-helpers/v3-config-engine/IAaveV3ConfigEngine.sol';
 import {IV3RateStrategyFactory} from 'aave-helpers/v3-config-engine/IV3RateStrategyFactory.sol';
@@ -15,7 +15,7 @@ import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';
  * - Snapshot: https://snapshot.org/#/aave.eth/proposal/0xedacc2aab061dbb187ef705ffee8a8f35ab3f53670e4d8e432eed9dfd2c31958
  * - Discussion: https://governance.aave.com/t/arfc-onboard-fdusd-to-aave-v3-on-bsc/16364
  */
-contract AaveV3BNB_OnboardFdUSDToAaveV3OnBSC_20240201 is AaveV3PayloadBnb {
+contract AaveV3BNB_OnboardFdUSDToAaveV3OnBSC_20240201 is AaveV3PayloadBNB {
   using SafeERC20 for IERC20;
 
   address public constant FDUSD = 0xc5f0f7b66764F6ec8C8Dff7BA683102295E16409;
