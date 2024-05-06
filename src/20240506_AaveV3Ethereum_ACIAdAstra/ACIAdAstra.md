@@ -16,10 +16,10 @@ This proposal seeks to extend our collaboration for another year.
 
 ## Specification
 
-Proposal duration: 365 Days
+Proposal duration: ~365 Days
 Proposal Budget: 1M GHO
 
-Note: this proposal is intended to be a continuation of ACI’s previous streams due to governance mandatory delays to avoid a “gap” in ACI’s engagement, the AIP payload stream duration will be adjusted to reflect an engagement from May 5th, 2024.
+Note: this proposal is intended to be a continuation of ACI’s previous streams due to governance mandatory delays to avoid a “gap” in ACI’s engagement, the AIP payload will be adjusted to approximately reflect an engagement from May 5th, 2024 and then for a year after execution.
 
 ## References
 
