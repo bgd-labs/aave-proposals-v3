@@ -47,9 +47,13 @@ contract AaveV2Ethereum_AprilFinanceUpdate_20240421 is IProposalGenericExecutor 
   uint256 public constant USDT_AMOUNT_REIMBURSEMENT = 109_200e6;
   uint256 public constant LINK_AMOUNT_REIMBURSEMENT = 1640 ether;
 
+  uint256 public constant MERIT_GHO_ALLOWANCE = 3_000_000 ether;
+  uint256 public constant MERIT_WETH_V3_ALLOWANCE = 645 ether;
+  address public constant MERIT_WALLET = 0xdeadD8aB03075b7FBA81864202a2f59EE25B312b;
+
   function execute() external {
     _bgdReimbursements();
-    _agdAllowance();
+    _allowances();
     _v2ToV3Migration();
     _swaps();
   }
@@ -72,7 +76,7 @@ contract AaveV2Ethereum_AprilFinanceUpdate_20240421 is IProposalGenericExecutor 
     );
   }
 
-  function _agdAllowance() internal {
+  function _allowances() internal {
     if (
       IERC20(AaveV2EthereumAssets.USDT_A_TOKEN).allowance(
         address(AaveV3Ethereum.COLLECTOR),
@@ -86,6 +90,18 @@ contract AaveV2Ethereum_AprilFinanceUpdate_20240421 is IProposalGenericExecutor 
         AGD_GHO_ALLOWANCE
       );
     }
+
+    AaveV3Ethereum.COLLECTOR.approve(
+      AaveV3EthereumAssets.GHO_UNDERLYING,
+      MERIT_WALLET,
+      MERIT_GHO_ALLOWANCE
+    );
+
+    AaveV3Ethereum.COLLECTOR.approve(
+      AaveV3EthereumAssets.WETH_A_TOKEN,
+      MERIT_WALLET,
+      MERIT_WETH_V3_ALLOWANCE
+    );
   }
 
   /**

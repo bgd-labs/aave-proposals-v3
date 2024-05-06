@@ -34,7 +34,7 @@ contract AaveV2Ethereum_AprilFinanceUpdate_20240421_Test is ProtocolV2TestBase {
   AaveV2Ethereum_AprilFinanceUpdate_20240421 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 19706815);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 19812746);
     proposal = new AaveV2Ethereum_AprilFinanceUpdate_20240421();
   }
 
@@ -86,7 +86,7 @@ contract AaveV2Ethereum_AprilFinanceUpdate_20240421_Test is ProtocolV2TestBase {
     );
   }
 
-  function test_agdAllowanceChanges() public {
+  function test_allowanceChanges() public {
     assertGt(
       IERC20(AaveV2EthereumAssets.USDT_A_TOKEN).allowance(
         address(AaveV3Ethereum.COLLECTOR),
@@ -98,6 +98,22 @@ contract AaveV2Ethereum_AprilFinanceUpdate_20240421_Test is ProtocolV2TestBase {
       IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).allowance(
         address(AaveV3Ethereum.COLLECTOR),
         proposal.AGD_MULTISIG()
+      ),
+      0
+    );
+
+    assertEq(
+      IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).allowance(
+        address(AaveV3Ethereum.COLLECTOR),
+        proposal.MERIT_WALLET()
+      ),
+      0
+    );
+
+    assertEq(
+      IERC20(AaveV3EthereumAssets.WETH_A_TOKEN).allowance(
+        address(AaveV3Ethereum.COLLECTOR),
+        proposal.MERIT_WALLET()
       ),
       0
     );
@@ -117,6 +133,22 @@ contract AaveV2Ethereum_AprilFinanceUpdate_20240421_Test is ProtocolV2TestBase {
         proposal.AGD_MULTISIG()
       ),
       proposal.AGD_GHO_ALLOWANCE()
+    );
+
+    assertEq(
+      IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).allowance(
+        address(AaveV3Ethereum.COLLECTOR),
+        proposal.MERIT_WALLET()
+      ),
+      proposal.MERIT_GHO_ALLOWANCE()
+    );
+
+    assertEq(
+      IERC20(AaveV3EthereumAssets.WETH_A_TOKEN).allowance(
+        address(AaveV3Ethereum.COLLECTOR),
+        proposal.MERIT_WALLET()
+      ),
+      proposal.MERIT_WETH_V3_ALLOWANCE()
     );
   }
 
@@ -270,7 +302,7 @@ contract AaveV2Ethereum_AprilFinanceUpdate_20240421_Test is ProtocolV2TestBase {
       AaveV3EthereumAssets.GHO_UNDERLYING,
       AaveV3EthereumAssets.DAI_ORACLE,
       proposal.GHO_USD_FEED(),
-      2409868227366659334411118, // Hardcoded as dynamic
+      2559123908595926911497284, // Hardcoded as dynamic
       address(AaveV3Ethereum.COLLECTOR),
       50
     );
@@ -282,7 +314,7 @@ contract AaveV2Ethereum_AprilFinanceUpdate_20240421_Test is ProtocolV2TestBase {
       AaveV3EthereumAssets.GHO_UNDERLYING,
       AaveV3EthereumAssets.USDC_ORACLE,
       proposal.GHO_USD_FEED(),
-      2211506432381, // Hardcoded as dynamic
+      2682550752636, // Hardcoded as dynamic
       address(AaveV3Ethereum.COLLECTOR),
       100
     );
@@ -294,7 +326,7 @@ contract AaveV2Ethereum_AprilFinanceUpdate_20240421_Test is ProtocolV2TestBase {
       AaveV3EthereumAssets.GHO_UNDERLYING,
       AaveV3EthereumAssets.USDT_ORACLE,
       proposal.GHO_USD_FEED(),
-      1101378482388, // Hardcoded as dynamic
+      1333036975589, // Hardcoded as dynamic
       address(AaveV3Ethereum.COLLECTOR),
       100
     );
