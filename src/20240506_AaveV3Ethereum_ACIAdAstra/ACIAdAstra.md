@@ -23,8 +23,8 @@ Note: this proposal is intended to be a continuation of ACI’s previous streams
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240506_AaveV3Ethereum_ACIAdAstra/AaveV3Ethereum_ACIAdAstra_20240506.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240506_AaveV3Ethereum_ACIAdAstra/AaveV3Ethereum_ACIAdAstra_20240506.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/9cc085fed28b1de905ec3c5fbd869a1701abd32d/src/20240506_AaveV3Ethereum_ACIAdAstra/AaveV3Ethereum_ACIAdAstra_20240506.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/9cc085fed28b1de905ec3c5fbd869a1701abd32d/src/20240506_AaveV3Ethereum_ACIAdAstra/AaveV3Ethereum_ACIAdAstra_20240506.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x477b3dd277c13cc1b0c1086a04b87d221edd5d09ffd588a246457e6dc3bf2b77)
 - [Discussion](https://governance.aave.com/t/arfc-aci-phase-iii-ad-astra/17515)
 
