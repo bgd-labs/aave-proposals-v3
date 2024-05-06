@@ -22,14 +22,14 @@ Please note that given the [proposal](https://governance.aave.com/t/arfc-risk-pa
 | ----- | ----------- | --------------- | ---------- | -------------- | ---------------- |
 | USDC  | 76%         | 75%             | 79%        | 78%            | $2,600           |
 | USDT  | 76%         | 75%             | 79%        | 78%            | $0               |
-| sDAI  | 73%         | 75%             | 77%        | 78%            |                  |
+| sDAI  | 63%         | 75%             | 77%        | 78%            |                  |
 
 ### Gnosis
 
 | Asset | Current LTV | Recommended LTV | Current LT | Recommended LT | New Liquidations |
 | ----- | ----------- | --------------- | ---------- | -------------- | ---------------- |
 | USDC  | 76%         | 75%             | 79%        | 78%            | $0               |
-| sDAI  | 73%         | 75%             | 77%        | 78%            |                  |
+| sDAI  | 63%         | 75%             | 77%        | 78%            |                  |
 
 ### Base
 
