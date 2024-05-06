@@ -75,7 +75,7 @@ Perform the following Swaps, Migrate Eth v2 to v3 and bridge from Polyon to Ethe
 |      aDAI (All-1)      |    awETH (All-1)     |  amUSDC (All-1)   |                      |
 |     aUSDC (All-1)      |    aLINK (All-1)     | aPolMATIC (All-1) |                      |
 |   aUSDT (All-0.65M)    |     aSNX (All-1)     |   amDAI (All-1)   |                      |
-|   aEthDAI (All-1)      |                      |  aPolUSDC(All-1)  |                      |
+|    aEthDAI (All-1)     |                      |  aPolUSDC(All-1)  |                      |
 
 Deposit wETH and wBTC in the Treasury into Aave v3.
 
