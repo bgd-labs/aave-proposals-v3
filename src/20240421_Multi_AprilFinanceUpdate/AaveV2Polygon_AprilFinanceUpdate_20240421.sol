@@ -40,6 +40,8 @@ contract AaveV2Polygon_AprilFinanceUpdate_20240421 is IProposalGenericExecutor {
   IAavePolEthERC20Bridge public constant bridge =
     IAavePolEthERC20Bridge(MiscPolygon.AAVE_POL_ETH_BRIDGE);
 
+  IAavePolEthPlasmaBridge public constant plasmaBridge =
+    IAavePolEthPlasmaBridge(0xc980508cC8866f726040Da1C0C61f682e74aBc39);
 
   uint256 public constant A_WMATIC_AMOUNT_REIMBURSEMENT = 4000 ether;
   uint256 public constant ADI_BOT_REFILL = 20_000 ether;
