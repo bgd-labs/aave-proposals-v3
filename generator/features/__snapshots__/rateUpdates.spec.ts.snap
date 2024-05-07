@@ -200,7 +200,7 @@ import {AaveV2EthereumAMM_Test_20231023} from './AaveV2EthereumAMM_Test_20231023
 
 /**
  * @dev Test for AaveV2EthereumAMM_Test_20231023
- * command: make test-contract filter=AaveV2EthereumAMM_Test_20231023
+ * command: FOUNDRY_PROFILE=mainnet forge test --match-path=src/20231023_AaveV2EthereumAMM_Test/AaveV2EthereumAMM_Test_20231023.t.sol -vv
  */
 contract AaveV2EthereumAMM_Test_20231023_Test is ProtocolV2TestBase {
   AaveV2EthereumAMM_Test_20231023 internal proposal;
