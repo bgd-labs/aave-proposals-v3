@@ -13,7 +13,7 @@ This is a ARFC proposal for adding borrow/lend support for StakeWise’s new ove
 
 Liquid staking tokens (LSTs) have proven to be popular collateral assets on Aave, with Lido’s stETH the largest Reserve across all Aave deployments and rETH quickly reaching its supply caps. As productive assets, LSTs are high quality collateral to borrow against. Given their high correlation to ETH, LSTs are commonly used as collateral to borrow ETH and engage in yield leveraged staking, with several communities having built products that automate such strategies on top of Aave. The introduction of eMode only made such strategies more popular.
 
-osETH in particular is overcollateralized by design, providing in-built slashing protection and consequently an increased level of protection for the Aave protocol…
+osETH in particular is overcollateralized by design, providing in-built slashing protection and consequently an increased level of protection for the Aave protocol.
 
 As StakeWise V3 provides solo stakers to ability to mint osETH against their own nodes, on-boarding osETH will benefit Aave, StakeWise, and the Ethereum ecosystem as a whole, and be an important step in the pursuit to diversify Ethereum staking and encourage staking from home.
 
