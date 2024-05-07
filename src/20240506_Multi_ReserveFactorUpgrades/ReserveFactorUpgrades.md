@@ -48,8 +48,8 @@ For Avalanche V2, the following parameters are to be updated as follows:
 
 ## References
 
-- Implementation: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240506_Multi_ReserveFactorUpgrades/AaveV2Ethereum_ReserveFactorUpgrades_20240506.sol), [AaveV2Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240506_Multi_ReserveFactorUpgrades/AaveV2Avalanche_ReserveFactorUpgrades_20240506.sol)
-- Tests: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240506_Multi_ReserveFactorUpgrades/AaveV2Ethereum_ReserveFactorUpgrades_20240506.t.sol), [AaveV2Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240506_Multi_ReserveFactorUpgrades/AaveV2Avalanche_ReserveFactorUpgrades_20240506.t.sol)
+- Implementation: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/d90e14550053f219ecc816ecaa0fa9b3f5215872/src/20240506_Multi_ReserveFactorUpgrades/AaveV2Ethereum_ReserveFactorUpgrades_20240506.sol), [AaveV2Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/d90e14550053f219ecc816ecaa0fa9b3f5215872/src/20240506_Multi_ReserveFactorUpgrades/AaveV2Avalanche_ReserveFactorUpgrades_20240506.sol)
+- Tests: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/d90e14550053f219ecc816ecaa0fa9b3f5215872/src/20240506_Multi_ReserveFactorUpgrades/AaveV2Ethereum_ReserveFactorUpgrades_20240506.t.sol), [AaveV2Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/d90e14550053f219ecc816ecaa0fa9b3f5215872/src/20240506_Multi_ReserveFactorUpgrades/AaveV2Avalanche_ReserveFactorUpgrades_20240506.t.sol)
 - [Discussion for Ethereum Reserve Factor Updates](https://governance.aave.com/t/arfc-ethereum-v2-reserve-factor-adjustment/16764/8)
 - [Snapshot for Ethereum Reserve Factor Updates](https://snapshot.org/#/aave.eth/proposal/0x26a03c08359c340f63b78b0c3e96d37aa0adeda65814643b0886d4719048ea7e)
 - [Discussion for Avalanche Reserve Factor Updates](https://governance.aave.com/t/arfc-avalanche-v2-reserve-factor-adjustment/17040/4)
