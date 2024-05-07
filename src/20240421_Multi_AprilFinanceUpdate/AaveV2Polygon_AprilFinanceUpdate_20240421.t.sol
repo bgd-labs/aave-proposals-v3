@@ -28,7 +28,7 @@ contract AaveV2Polygon_AprilFinanceUpdate_20240421_Test is ProtocolV2TestBase {
   AaveV2Polygon_AprilFinanceUpdate_20240421 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('polygon'), 56325958);
+    vm.createSelectFork(vm.rpcUrl('polygon'), 56654280);
     proposal = new AaveV2Polygon_AprilFinanceUpdate_20240421();
   }
 
@@ -146,7 +146,7 @@ contract AaveV2Polygon_AprilFinanceUpdate_20240421_Test is ProtocolV2TestBase {
 
     assertGt(
       IERC20(AaveV3PolygonAssets.WMATIC_A_TOKEN).balanceOf(address(AaveV3Polygon.COLLECTOR)),
-      1 ether
+      proposal.MATIC_TO_KEEP()
     );
     assertGt(
       IERC20(AaveV2PolygonAssets.WMATIC_A_TOKEN).balanceOf(address(AaveV3Polygon.COLLECTOR)),
@@ -157,7 +157,7 @@ contract AaveV2Polygon_AprilFinanceUpdate_20240421_Test is ProtocolV2TestBase {
 
     executePayload(vm, address(proposal));
 
-    assertEq(IERC20(NATIVE_MATIC).balanceOf(address(PLASMA_BRIDGE)), 609734303188364283159075); // ~609,734 units
+    assertEq(IERC20(NATIVE_MATIC).balanceOf(address(PLASMA_BRIDGE)), 575125293824820370250891); // ~575,125 units
     assertEq(
       IERC20(NATIVE_MATIC).balanceOf(proposal.ADI_BOT()),
       proposal.ADI_BOT_REFILL() + balanceADIBefore
@@ -165,7 +165,7 @@ contract AaveV2Polygon_AprilFinanceUpdate_20240421_Test is ProtocolV2TestBase {
 
     assertApproxEqAbs(
       IERC20(AaveV3PolygonAssets.WMATIC_A_TOKEN).balanceOf(address(AaveV3Polygon.COLLECTOR)),
-      1 ether,
+      proposal.MATIC_TO_KEEP(),
       1 ether
     );
     assertApproxEqAbs(
@@ -177,9 +177,9 @@ contract AaveV2Polygon_AprilFinanceUpdate_20240421_Test is ProtocolV2TestBase {
 
   function _expectEmits() internal {
     vm.expectEmit(true, true, true, true, MiscPolygon.AAVE_POL_ETH_BRIDGE);
-    emit Bridge(AaveV3PolygonAssets.USDC_UNDERLYING, 860847806245); // ~268 units
+    emit Bridge(AaveV3PolygonAssets.USDC_UNDERLYING, 901487694633); // ~268 units
 
     vm.expectEmit(true, true, true, true, MiscPolygon.AAVE_POL_ETH_BRIDGE);
-    emit Bridge(AaveV3PolygonAssets.DAI_UNDERLYING, 208780946681487285992038); // ~559,109 units
+    emit Bridge(AaveV3PolygonAssets.DAI_UNDERLYING, 246017539057488860610531); // ~559,109 units
   }
 }

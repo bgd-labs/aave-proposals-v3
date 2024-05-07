@@ -45,6 +45,7 @@ contract AaveV2Polygon_AprilFinanceUpdate_20240421 is IProposalGenericExecutor {
 
   uint256 public constant A_WMATIC_AMOUNT_REIMBURSEMENT = 4000 ether;
   uint256 public constant ADI_BOT_REFILL = 20_000 ether;
+  uint256 public constant MATIC_TO_KEEP = 40_000 ether;
   address public constant BGD_RECIPIENT = 0xbCEB4f363f2666E2E8E430806F37e97C405c130b;
   address public constant ADI_BOT = 0xF6B99959F0b5e79E1CC7062E12aF632CEb18eF0d;
 
@@ -113,7 +114,7 @@ contract AaveV2Polygon_AprilFinanceUpdate_20240421 is IProposalGenericExecutor {
       AaveV3PolygonAssets.WMATIC_A_TOKEN,
       address(this),
       IERC20(AaveV3PolygonAssets.WMATIC_A_TOKEN).balanceOf(address(AaveV3Polygon.COLLECTOR)) -
-        1 ether
+        MATIC_TO_KEEP
     );
 
     AaveV3Polygon.POOL.withdraw(

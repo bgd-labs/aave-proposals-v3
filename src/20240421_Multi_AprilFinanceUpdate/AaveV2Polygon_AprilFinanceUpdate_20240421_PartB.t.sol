@@ -22,7 +22,7 @@ contract AaveV2Polygon_AprilFinanceUpdate_20240421_PartB_Test is ProtocolV2TestB
   AaveV2Polygon_AprilFinanceUpdate_20240421 internal proposalBefore;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('polygon'), 56325958);
+    vm.createSelectFork(vm.rpcUrl('polygon'), 56654280);
     proposal = new AaveV2Polygon_AprilFinanceUpdate_20240421_PartB();
     proposalBefore = new AaveV2Polygon_AprilFinanceUpdate_20240421();
   }
@@ -31,7 +31,7 @@ contract AaveV2Polygon_AprilFinanceUpdate_20240421_PartB_Test is ProtocolV2TestB
     executePayload(vm, address(proposalBefore));
 
     vm.expectEmit(true, true, true, true, address(proposal.plasmaBridge()));
-    emit Bridge(proposal.NATIVE_MATIC(), 609734303188364283159075);
+    emit Bridge(proposal.NATIVE_MATIC(), 575125293824820370250891);
 
     executePayload(vm, address(proposal));
 

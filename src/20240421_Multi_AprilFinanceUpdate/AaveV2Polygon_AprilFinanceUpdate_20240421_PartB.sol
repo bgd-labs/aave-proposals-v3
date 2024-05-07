@@ -28,7 +28,7 @@ contract AaveV2Polygon_AprilFinanceUpdate_20240421_PartB is IProposalGenericExec
 
   function execute() external {
     uint256 balance = IERC20(NATIVE_MATIC).balanceOf(address(plasmaBridge));
-    if (balance < 600_000 ether) revert InsufficientBalance();
+    if (balance < 570_000 ether) revert InsufficientBalance();
     plasmaBridge.bridge(balance);
   }
 }
