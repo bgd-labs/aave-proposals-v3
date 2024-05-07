@@ -53,8 +53,8 @@ The table below illustrates the configured risk parameters for **osETH**
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240320_AaveV3Ethereum_OsETHOnboarding/AaveV3Ethereum_OsETHOnboarding_20240320.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240320_AaveV3Ethereum_OsETHOnboarding/AaveV3Ethereum_OsETHOnboarding_20240320.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/87868950652279e22329757789e49f35ea1eb0cd/src/20240320_AaveV3Ethereum_OsETHOnboarding/AaveV3Ethereum_OsETHOnboarding_20240320.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/87868950652279e22329757789e49f35ea1eb0cd/src/20240320_AaveV3Ethereum_OsETHOnboarding/AaveV3Ethereum_OsETHOnboarding_20240320.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x3dc8b06441d0f1dcd6f4a53d06d62e9bb1ac87ced19020d9c735854bbf68b835)
 - [Discussion](https://governance.aave.com/t/arfc-onboard-oseth-to-aave-v3-on-ethereum/16913)
 
