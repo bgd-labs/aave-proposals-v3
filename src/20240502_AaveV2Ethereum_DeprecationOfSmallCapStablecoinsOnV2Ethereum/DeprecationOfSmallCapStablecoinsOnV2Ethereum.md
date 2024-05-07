@@ -19,14 +19,14 @@ Recent events have highlighted the need for Aave to reduce its V2 exposure to le
 
 For USDP, GUSD, LUSD, FRAX, and sUSD we propose the following parameters:
 
-| Parameter         | Proposed Value | Proposed Value |
-| ----------------- | -------------- | -------------- |
-| Reserve Factor    | 95%            | 95%            |
-| Borrowing Enabled | No             | No             |
-| Base Rate         | 3%             | 3%             |
-| Slope1            | +3%            | 15%            |
-| Slope2            | 200%           | 200%           |
-| UOptimal          | 20%            | 20%            |
+| Parameter         | Proposed Value |
+| ----------------- | -------------- |
+| Reserve Factor    | 95%            |
+| Borrowing Enabled | No             |
+| Base Rate         | 3%             |
+| Slope1            | +3%            |
+| Slope2            | 200%           |
+| UOptimal          | 20%            |
 
 The goal of Phase I is to increase borrower APR to encourage borrowers to repay their loans; this is achieved through higher Base Rate, Slope1, Slope2, and lower UOptimal. Additionally, we recommend leaving them frozen to prevent new supplies and borrowings. Finally, we increase the reserve factor to reduce supply APY, reducing the attractiveness of supply as borrowers pay increased rates.
 
@@ -37,7 +37,7 @@ Following observations from Phase I, we may move to further decrease UOptimal, i
 USDP
 | Parameter | Current Value | Proposed Value |
 |-------------------|---------------|----------------|
-| Reserve Factor | 35% | 95% |
+| Reserve Factor | 40% | 95% |
 | Borrowing Enabled | Yes | No |
 | Base Rate | 0% | 3% |
 | Slope1 | 12% | 15% |
@@ -47,7 +47,7 @@ USDP
 GUSD
 | Parameter | Current Value | Proposed Value |
 |-------------------|---------------|----------------|
-| Reserve Factor | 35% | 95% |
+| Reserve Factor | 40% | 95% |
 | Borrowing Enabled | Yes | No |
 | Base Rate | 0% | 3% |
 | Slope1 | 12% | 15% |
@@ -57,17 +57,17 @@ GUSD
 LUSD
 | Parameter | Current Value | Proposed Value |
 |-------------------|---------------|----------------|
-| Reserve Factor | 40% | 95% |
+| Reserve Factor | 45% | 95% |
 | Borrowing Enabled | Yes | No |
 | Base Rate | 0% | 3% |
 | Slope1 | 12% | 15% |
-| Slope2 | 65% | 200% |
+| Slope2 | 75% | 200% |
 | UOptimal | 80% | 20% |
 
 FRAX
 | Parameter | Current Value | Proposed Value |
 |-------------------|---------------|----------------|
-| Reserve Factor | 45% | 95% |
+| Reserve Factor | 50% | 95% |
 | Borrowing Enabled | Yes | No |
 | Base Rate | 0% | 3% |
 | Slope1 | 12% | 15% |
@@ -77,7 +77,7 @@ FRAX
 sUSD
 | Parameter | Current Value | Proposed Value |
 |-------------------|---------------|----------------|
-| Reserve Factor | 45% | 95% |
+| Reserve Factor | 50% | 95% |
 | Borrowing Enabled | Yes | No |
 | Base Rate | 0% | 3% |
 | Slope1 | 12% | 15% |
