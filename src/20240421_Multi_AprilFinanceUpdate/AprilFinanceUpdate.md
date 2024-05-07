@@ -59,6 +59,11 @@ The following Allowance is to be cancelled and replaced with GHO:
 
 The AGD mulisig `eth:0x89C51828427F70D77875C6747759fB17Ba10Ceb0` will be able to use the allowance function on `0x464C71f6c2F760DdA6093dCB91C24c39e5d6e18c` to claim the GHO.
 
+### Merit Allowances
+
+- Allowance of 3.0M GHO for the Merit program
+- Allowance of 645 aEthWETH for the Merit program
+
 ### Returning RealT's supplied WXDAI to RealT
 
 Transfer 3,504 armmv3WXDAI to `0x7DA9A33d15413F499299687cC9d81DE84684E28E` on Gnosis Chain.
