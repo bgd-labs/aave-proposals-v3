@@ -14,11 +14,11 @@
 | debtCeiling | 0 $ |
 | isSiloed | false |
 | isFlashloanable | true |
-| eModeCategory | 0 |
+| eModeCategory | 1 |
 | oracle | [0x0A2AF898cEc35197e6944D9E0F525C2626393442](https://etherscan.io/address/0x0A2AF898cEc35197e6944D9E0F525C2626393442) |
 | oracleDecimals | 8 |
 | oracleDescription | Capped osETH / ETH / USD |
-| oracleLatestAnswer | 3197.21535065 |
+| oracleLatestAnswer | 3132.90207426 |
 | usageAsCollateralEnabled | true |
 | ltv | 72.5 % |
 | liquidationThreshold | 75 % |
@@ -57,6 +57,11 @@
 | stableRateSlope1 | 0 % |
 | stableRateSlope2 | 0 % |
 | interestRate | ![ir](/.assets/aa2e8a5322392ad3d4ae80453f4e281a8da627cc.svg) |
+| eMode.label | ETH correlated |
+| eMode.ltv | 93 % |
+| eMode.liquidationThreshold | 95 % |
+| eMode.liquidationBonus | 1 % |
+| eMode.priceSource | 0x0000000000000000000000000000000000000000 |
 
 
 ## Raw diff
@@ -77,7 +82,7 @@
         "currentVariableBorrowRate": 0,
         "debtCeiling": 0,
         "decimals": 18,
-        "eModeCategory": 0,
+        "eModeCategory": 1,
         "interestRateStrategy": "0x48AF11111764E710fcDcE2750db848C63edab57B",
         "isActive": true,
         "isBorrowableInIsolation": false,
@@ -93,7 +98,7 @@
         "oracle": "0x0A2AF898cEc35197e6944D9E0F525C2626393442",
         "oracleDecimals": 8,
         "oracleDescription": "Capped osETH / ETH / USD",
-        "oracleLatestAnswer": 319721535065,
+        "oracleLatestAnswer": 313290207426,
         "reserveFactor": 1500,
         "stableBorrowRateEnabled": false,
         "stableDebtToken": "0x48Fa27f511F40d16f9E7C913e9388d52d95bC6d2",

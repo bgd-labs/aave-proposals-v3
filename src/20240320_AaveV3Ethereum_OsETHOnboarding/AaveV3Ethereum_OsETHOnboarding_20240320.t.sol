@@ -17,7 +17,7 @@ contract AaveV3Ethereum_OsETHOnboarding_20240320_Test is ProtocolV3TestBase {
   AaveV3Ethereum_OsETHOnboarding_20240320 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 19478614);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 19819112);
     proposal = new AaveV3Ethereum_OsETHOnboarding_20240320();
   }
 
