@@ -23,33 +23,33 @@ The onboarding of osETH will consequently create increased osETH demand and incr
 
 The table below illustrates the configured risk parameters for **osETH**
 
-| Parameter                          |                                      Value |
-| ---------------------------------- | -----------------------------------------: |
-| Isolation Mode                     |                                       true |
-| Borrowable                         |                                    ENABLED |
-| Collateral Enabled                 |                                       true |
-| Supply Cap (osETH)                 |                                     10,000 |
-| Borrow Cap (osETH)                 |                                      1,000 |
-| Debt Ceiling                       |                                      USD 0 |
-| LTV                                |                                     72.5 % |
-| LT                                 |                                       75 % |
-| Liquidation Bonus                  |                                      7.5 % |
-| Liquidation Protocol Fee           |                                       10 % |
-| Reserve Factor                     |                                       15 % |
-| Base Variable Borrow Rate          |                                        0 % |
-| Variable Slope 1                   |                                        7 % |
-| Variable Slope 2                   |                                      300 % |
-| Uoptimal                           |                                       45 % |
-| Stable Borrowing                   |                                   DISABLED |
-| Stable Slope1                      |                                        0 % |
-| Stable Slope2                      |                                        0 % |
-| Base Stable Rate Offset            |                                        0 % |
-| Stable Rate Excess Offset          |                                        0 % |
-| Optimal Stable To Total Debt Ratio |                                        0 % |
-| Flashloanable                      |                                    ENABLED |
-| Siloed Borrowing                   |                                   DISABLED |
-| Borrowable in Isolation            |                                   DISABLED |
-| Oracle                             | 0x0A2AF898cEc35197e6944D9E0F525C2626393442 |
+| Parameter                          |                                                                                                                 Value |
+| ---------------------------------- | --------------------------------------------------------------------------------------------------------------------: |
+| Isolation Mode                     |                                                                                                                 False |
+| Borrowable                         |                                                                                                               ENABLED |
+| Collateral Enabled                 |                                                                                                                  true |
+| Supply Cap (osETH)                 |                                                                                                                10,000 |
+| Borrow Cap (osETH)                 |                                                                                                                 1,000 |
+| Debt Ceiling                       |                                                                                                                 USD 0 |
+| LTV                                |                                                                                                                72.5 % |
+| LT                                 |                                                                                                                  75 % |
+| Liquidation Bonus                  |                                                                                                                 7.5 % |
+| Liquidation Protocol Fee           |                                                                                                                  10 % |
+| Reserve Factor                     |                                                                                                                  15 % |
+| Base Variable Borrow Rate          |                                                                                                                   0 % |
+| Variable Slope 1                   |                                                                                                                   7 % |
+| Variable Slope 2                   |                                                                                                                 300 % |
+| Uoptimal                           |                                                                                                                  45 % |
+| Stable Borrowing                   |                                                                                                              DISABLED |
+| Stable Slope1                      |                                                                                                                   0 % |
+| Stable Slope2                      |                                                                                                                   0 % |
+| Base Stable Rate Offset            |                                                                                                                   0 % |
+| Stable Rate Excess Offset          |                                                                                                                   0 % |
+| Optimal Stable To Total Debt Ratio |                                                                                                                   0 % |
+| Flashloanable                      |                                                                                                               ENABLED |
+| Siloed Borrowing                   |                                                                                                              DISABLED |
+| Borrowable in Isolation            |                                                                                                              DISABLED |
+| Oracle                             | [0x0A2AF898cEc35197e6944D9E0F525C2626393442](https://etherscan.io/address/0x0A2AF898cEc35197e6944D9E0F525C2626393442) |
 
 ## References
 

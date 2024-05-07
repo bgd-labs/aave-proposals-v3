@@ -43,7 +43,7 @@ export const config: ConfigFile = {
               stableRateExcessOffset: '0',
               optimalStableToTotalDebtRatio: '0',
             },
-            eModeCategory: 'AaveV3EthereumEModes.NONE',
+            eModeCategory: 'AaveV3EthereumEModes.ETH_CORRELATED',
             asset: '0xf1C9acDc66974dFB6dEcB12aA385b9cD01190E38',
           },
         ],

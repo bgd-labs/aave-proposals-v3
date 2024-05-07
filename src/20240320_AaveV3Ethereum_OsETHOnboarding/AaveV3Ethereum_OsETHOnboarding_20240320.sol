@@ -32,7 +32,7 @@ contract AaveV3Ethereum_OsETHOnboarding_20240320 is AaveV3PayloadEthereum {
       asset: osETH,
       assetSymbol: 'osETH',
       priceFeed: 0x0A2AF898cEc35197e6944D9E0F525C2626393442,
-      eModeCategory: AaveV3EthereumEModes.NONE,
+      eModeCategory: AaveV3EthereumEModes.ETH_CORRELATED,
       enabledToBorrow: EngineFlags.ENABLED,
       stableRateModeEnabled: EngineFlags.DISABLED,
       borrowableInIsolation: EngineFlags.DISABLED,
