@@ -17,6 +17,12 @@ evm_version = 'paris'
 [profile.mainnet]
 evm_version = 'shanghai'
 
+[profile.arbitrum]
+evm_version = 'shanghai'
+
+[profile.optimism]
+evm_version = 'shanghai'
+
 [rpc_endpoints]
 mainnet = "${RPC_MAINNET}"
 optimism = "${RPC_OPTIMISM}"
