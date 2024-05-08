@@ -28,7 +28,7 @@ evm_version = 'shanghai'
 evm_version = 'shanghai'
 
 [profile.avalanche]
-evm_version = 'polygon'
+evm_version = 'shanghai'
 
 [rpc_endpoints]
 mainnet = "${RPC_MAINNET}"
