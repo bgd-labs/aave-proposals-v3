@@ -70,7 +70,7 @@ export function getVotingPortal(votingNetwork: VOTING_NETWORK) {
   } else if (votingNetwork == VOTING_NETWORK.AVALANCHE) {
     votingPortal = 'GovernanceV3Ethereum.VOTING_PORTAL_ETH_AVAX';
   } else {
-    throw new Error('Invalid voting portal');
+    throw new Error('Invalid voting network');
   }
   return votingPortal;
 }
