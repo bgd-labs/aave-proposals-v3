@@ -43,7 +43,7 @@ export function generateScript(options: Options) {
     * deploy-command: make deploy-ledger contract=src/${folderName}/${fileName}.s.sol:Deploy${chain} chain=${getChainAlias(
       chain,
     )}
-    * verify-command: npx catapulta-verify -b broadcast/${fileName}.s.sol/${
+    * verify-command: FOUNDRY_PROFILE=${getChainAlias(chain)} npx catapulta-verify -b broadcast/${fileName}.s.sol/${
       CHAIN_TO_CHAIN_ID[chain]
     }/run-latest.json
     */

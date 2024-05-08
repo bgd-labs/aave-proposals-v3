@@ -11,10 +11,17 @@ remappings = [
 ffi = true
 fs_permissions = [{ access = "write", path = "./reports" }]
 
+# incomplete list at https://www.evmdiff.com/features?name=PUSH0&kind=opcode
 [profile.metis]
 evm_version = 'paris'
 
 [profile.mainnet]
+evm_version = 'shanghai'
+
+[profile.arbitrum]
+evm_version = 'shanghai'
+
+[profile.optimism]
 evm_version = 'shanghai'
 
 [rpc_endpoints]
