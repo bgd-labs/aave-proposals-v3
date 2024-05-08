@@ -4,6 +4,7 @@ import {
   generateFolderName,
   getChainAlias,
   getPoolChain,
+  getVotingPortal,
 } from '../common';
 import {Options} from '../types';
 import {prefixWithImports} from '../utils/importsResolver';
@@ -12,6 +13,7 @@ import {prefixWithPragma} from '../utils/constants';
 export function generateScript(options: Options) {
   const folderName = generateFolderName(options);
   const fileName = generateContractName(options);
+  const votingPortal = getVotingPortal(options.votingNetwork);
   let template = '';
   const chains = [...new Set(options.pools.map((pool) => getPoolChain(pool)!))];
 
@@ -105,7 +107,7 @@ contract CreateProposal is EthereumScript {
 
     // create proposal
     vm.startBroadcast();
-    GovV3Helpers.createProposal(vm, payloads, GovV3Helpers.ipfsHashFile(vm, 'src/${folderName}/${
+    GovV3Helpers.createProposal(vm, payloads, ${votingPortal}, GovV3Helpers.ipfsHashFile(vm, 'src/${folderName}/${
       options.shortName
     }.md'));
   }

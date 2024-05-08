@@ -63,6 +63,7 @@ export function prefixWithImports(code: string) {
   // gov related imports
   if (govMatches.length > 0)
     imports += `import {${govMatches}} from 'aave-helpers/GovV3Helpers.sol';\n`;
+  imports += `import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';\n`;
   // address book imports
   const addressBookImports = generateAddressBookImports(code);
   if (addressBookImports) {

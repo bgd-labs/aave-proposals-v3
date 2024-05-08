@@ -1,5 +1,5 @@
 import * as addressBook from '@bgd-labs/aave-address-book';
-import {Options, PoolIdentifier, PoolIdentifierV3, V2_POOLS} from './types';
+import {Options, PoolIdentifier, PoolIdentifierV3, V2_POOLS, VOTING_NETWORK} from './types';
 import {
   arbitrum,
   avalanche,
@@ -58,6 +58,21 @@ export function getDate() {
   const months = date.getMonth() + 1; // it's js so months are 0 indexed
   const day = date.getDate();
   return `${years}${months <= 9 ? '0' : ''}${months}${day <= 9 ? '0' : ''}${day}`;
+}
+
+export function getVotingPortal(votingNetwork: VOTING_NETWORK) {
+  let votingPortal: string;
+
+  if (votingNetwork == VOTING_NETWORK.ETHEREUM) {
+    votingPortal = 'GovernanceV3Ethereum.VOTING_PORTAL_ETH_ETH';
+  } else if (votingNetwork == VOTING_NETWORK.POLYGON) {
+    votingPortal = 'GovernanceV3Ethereum.VOTING_PORTAL_ETH_POL';
+  } else if (votingNetwork == VOTING_NETWORK.AVALANCHE) {
+    votingPortal = 'GovernanceV3Ethereum.VOTING_PORTAL_ETH_AVAX';
+  } else {
+    throw new Error('Invalid voting portal');
+  }
+  return votingPortal;
 }
 
 /**
