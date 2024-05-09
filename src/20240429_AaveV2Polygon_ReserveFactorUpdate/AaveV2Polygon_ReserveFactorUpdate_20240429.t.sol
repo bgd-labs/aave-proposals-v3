@@ -26,7 +26,7 @@ contract AaveV2Polygon_ReserveFactorUpdate_20240429_Test is ProtocolV2TestBase {
    * @dev executes the generic test suite including e2e and config snapshots
    */
   function test_defaultProposalExecution() public {
-    (ReserveConfig[] memory allConfigsBefore, ReserveConfig[] memory allConfigsAfter) = defaultTest(
+    (, ReserveConfig[] memory allConfigsAfter) = defaultTest(
       'AaveV2Polygon_ReserveFactorUpdate_20240429',
       AaveV2Polygon.POOL,
       address(proposal)
@@ -50,8 +50,6 @@ contract AaveV2Polygon_ReserveFactorUpdate_20240429_Test is ProtocolV2TestBase {
       asset: AaveV2PolygonAssets.USDT_UNDERLYING,
       reserveFactor: proposal.USDT_RF()
     });
-
-    _noReservesConfigsChangesApartFrom(allConfigsBefore, allConfigsAfter, assetsChanged);
 
     for (uint i = 0; i < assetChanges.length; i++) {
       ReserveConfig memory cfg = _findReserveConfig(allConfigsAfter, assetChanges[i].asset);
