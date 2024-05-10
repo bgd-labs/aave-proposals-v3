@@ -204,7 +204,11 @@ if (options.configFile) {
   if (!options.votingNetwork) {
     options.votingNetwork = await select({
       message: 'Select network where voting should takes place for the proposal',
-      choices: Object.values(VOTING_NETWORK).map((v) => ({name: v, value: v})),
+      choices: Object.values(VOTING_NETWORK).map((v) => ({
+        name: v != VOTING_NETWORK.POLYGON ? v : VOTING_NETWORK.POLYGON + ' (DEFAULT)',
+        value: v,
+      })),
+      default: VOTING_NETWORK.POLYGON,
     });
   }
 

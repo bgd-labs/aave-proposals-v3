@@ -46,7 +46,7 @@ export interface Options {
   force?: boolean;
   pools: PoolIdentifier[];
   title: string;
-  votingNetwork: VOTING_NETWORK;
+  votingNetwork?: VOTING_NETWORK;
   // automatically generated shortName from title
   shortName: string;
   author: string;

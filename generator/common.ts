@@ -60,19 +60,13 @@ export function getDate() {
   return `${years}${months <= 9 ? '0' : ''}${months}${day <= 9 ? '0' : ''}${day}`;
 }
 
-export function getVotingPortal(votingNetwork: VOTING_NETWORK) {
-  let votingPortal: string;
-
+export function getVotingPortal(votingNetwork?: VOTING_NETWORK) {
   if (votingNetwork == VOTING_NETWORK.ETHEREUM) {
-    votingPortal = 'GovernanceV3Ethereum.VOTING_PORTAL_ETH_ETH';
-  } else if (votingNetwork == VOTING_NETWORK.POLYGON) {
-    votingPortal = 'GovernanceV3Ethereum.VOTING_PORTAL_ETH_POL';
+    return 'GovernanceV3Ethereum.VOTING_PORTAL_ETH_ETH';
   } else if (votingNetwork == VOTING_NETWORK.AVALANCHE) {
-    votingPortal = 'GovernanceV3Ethereum.VOTING_PORTAL_ETH_AVAX';
-  } else {
-    throw new Error('Invalid voting network');
+    return 'GovernanceV3Ethereum.VOTING_PORTAL_ETH_AVAX';
   }
-  return votingPortal;
+  return 'GovernanceV3Ethereum.VOTING_PORTAL_ETH_POL'; // default voting network is polygon
 }
 
 /**
