@@ -6,7 +6,6 @@ import {AaveV2Ethereum, AaveV2EthereumAssets} from 'aave-address-book/AaveV2Ethe
 /**
  * @title Chaos Labs Ethereum V2 LT Reductions
  * @author Chaos Labs
- * - Snapshot: TODO
  * - Discussion: https://governance.aave.com/t/arfc-chaos-labs-ethereum-v2-lt-reductions-05-06-2024/17598
  */
 contract AaveV2Ethereum_ChaosLabsEthereumV2LTReductions_20240509 is IProposalGenericExecutor {

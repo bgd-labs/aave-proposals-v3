@@ -31,7 +31,6 @@ Our recommendations below suggest an LT configuration that optimizes reductions 
 
 - Implementation: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240509_AaveV2Ethereum_ChaosLabsEthereumV2LTReductions/AaveV2Ethereum_ChaosLabsEthereumV2LTReductions_20240509.sol)
 - Tests: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240509_AaveV2Ethereum_ChaosLabsEthereumV2LTReductions/AaveV2Ethereum_ChaosLabsEthereumV2LTReductions_20240509.t.sol)
-- [Snapshot](TODO)
 - [Discussion](https://governance.aave.com/t/arfc-chaos-labs-ethereum-v2-lt-reductions-05-06-2024/17598)
 
 ## Copyright
