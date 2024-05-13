@@ -101,6 +101,9 @@ export function prefixWithImports(code: string) {
   if (findMatch(code, 'forceApprove')) {
     imports += `import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';\n`;
   }
+  if (findMatch(code, 'GovernanceV3Ethereum')) {
+    imports += `import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';\n`;
+  }
 
   return imports + code;
 }
