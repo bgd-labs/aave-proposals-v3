@@ -37,7 +37,7 @@ Following observations from Phase I, we may move to further decrease UOptimal, i
 USDP
 | Parameter | Current Value | Proposed Value |
 |-------------------|---------------|----------------|
-| Reserve Factor | 40% | 95% |
+| Reserve Factor | 45% | 95% |
 | Borrowing Enabled | Yes | No |
 | Base Rate | 0% | 3% |
 | Slope1 | 12% | 15% |
@@ -47,7 +47,7 @@ USDP
 GUSD
 | Parameter | Current Value | Proposed Value |
 |-------------------|---------------|----------------|
-| Reserve Factor | 40% | 95% |
+| Reserve Factor | 45% | 95% |
 | Borrowing Enabled | Yes | No |
 | Base Rate | 0% | 3% |
 | Slope1 | 12% | 15% |
@@ -57,7 +57,7 @@ GUSD
 LUSD
 | Parameter | Current Value | Proposed Value |
 |-------------------|---------------|----------------|
-| Reserve Factor | 45% | 95% |
+| Reserve Factor | 50% | 95% |
 | Borrowing Enabled | Yes | No |
 | Base Rate | 0% | 3% |
 | Slope1 | 12% | 15% |
@@ -67,7 +67,7 @@ LUSD
 FRAX
 | Parameter | Current Value | Proposed Value |
 |-------------------|---------------|----------------|
-| Reserve Factor | 50% | 95% |
+| Reserve Factor | 55% | 95% |
 | Borrowing Enabled | Yes | No |
 | Base Rate | 0% | 3% |
 | Slope1 | 12% | 15% |
@@ -77,7 +77,7 @@ FRAX
 sUSD
 | Parameter | Current Value | Proposed Value |
 |-------------------|---------------|----------------|
-| Reserve Factor | 50% | 95% |
+| Reserve Factor | 55% | 95% |
 | Borrowing Enabled | Yes | No |
 | Base Rate | 0% | 3% |
 | Slope1 | 12% | 15% |
