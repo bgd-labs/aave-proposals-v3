@@ -11,7 +11,7 @@ A proposal to deprecate USDP, GUSD, LUSD, FRAX, and sUSD on Aave V2
 
 ## Motivation
 
-Following our ongoing efforts to deprecate the V2 markets and following the recent USDP volatility 1 and subsequent freeze 1, we propose deprecating smaller market cap stablecoins on V2.
+Following our ongoing efforts to deprecate the V2 markets and following the recent USDP volatility and subsequent freeze, we propose deprecating smaller market cap stablecoins on V2.
 
 #### Deprecation Phase I
 
