@@ -86,8 +86,8 @@ sUSD
 
 ## References
 
-- Implementation: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240502_AaveV2Ethereum_DeprecationOfSmallCapStablecoinsOnV2Ethereum/AaveV2Ethereum_DeprecationOfSmallCapStablecoinsOnV2Ethereum_20240502.sol)
-- Tests: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240502_AaveV2Ethereum_DeprecationOfSmallCapStablecoinsOnV2Ethereum/AaveV2Ethereum_DeprecationOfSmallCapStablecoinsOnV2Ethereum_20240502.t.sol)
+- Implementation: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/8a8b08961887ec193aa153fe3ff8322d3b8a53f2/src/20240502_AaveV2Ethereum_DeprecationOfSmallCapStablecoinsOnV2Ethereum/AaveV2Ethereum_DeprecationOfSmallCapStablecoinsOnV2Ethereum_20240502.sol)
+- Tests: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/8a8b08961887ec193aa153fe3ff8322d3b8a53f2/src/20240502_AaveV2Ethereum_DeprecationOfSmallCapStablecoinsOnV2Ethereum/AaveV2Ethereum_DeprecationOfSmallCapStablecoinsOnV2Ethereum_20240502.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0xf6aaa50a6a76f44df9cfbbb760ca80878854dd16d88b16a3fc0f5fa6920741f0)
 - [Discussion](https://governance.aave.com/t/arfc-deprecation-of-small-cap-stablecoins-on-v2-ethereum/17484/1)
 
