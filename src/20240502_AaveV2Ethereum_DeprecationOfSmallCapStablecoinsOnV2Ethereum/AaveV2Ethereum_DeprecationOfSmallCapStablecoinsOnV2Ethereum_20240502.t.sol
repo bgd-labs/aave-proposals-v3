@@ -23,7 +23,7 @@ contract AaveV2Ethereum_DeprecationOfSmallCapStablecoinsOnV2Ethereum_20240502_Te
   }
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 19783031);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 19874343);
     proposal = new AaveV2Ethereum_DeprecationOfSmallCapStablecoinsOnV2Ethereum_20240502();
   }
 
