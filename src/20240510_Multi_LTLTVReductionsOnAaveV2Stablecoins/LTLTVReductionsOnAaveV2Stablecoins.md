@@ -55,11 +55,13 @@ Again, the largest liquidation would be a [user](https://community.chaoslabs.xyz
 
 ## LT/LTV Reduction
 
-| Chain     | Asset  | Current LTV | Rec. LTV  | Current LT | Rec LT (Agressive / Moderate) |
-| --------- | ------ | ----------- | --------- | ---------- | ----------------------------- |
-| Ethereum  | USDC   | 80.00%      | 75.00%    | 87.50%     | No Change / 87%               |
-| Polygon   | USDC.e | 80.00%      | 75.00%    | 85.00%     | 84.50% / 83%                  |
-| Avalanche | USDC.e | 75.00%      | No Change | 80.00%     | 78%                           |
+As per the community Snaphsot vote, this proposal adopts the conservative recommendations:
+
+| Chain     | Asset  | Current LTV | Rec. LTV  | Current LT | Rec LT    |
+| --------- | ------ | ----------- | --------- | ---------- | --------- |
+| Ethereum  | USDC   | 80.00%      | 75.00%    | 87.50%     | No Change |
+| Polygon   | USDC.e | 80.00%      | 75.00%    | 85.00%     | 84.50%    |
+| Avalanche | USDC.e | 75.00%      | No Change | 80.00%     | 78%       |
 
 ## References
 
