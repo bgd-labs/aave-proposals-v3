@@ -10,7 +10,7 @@ Proposal to migrate existing Aave robots from chainlink automation `v1.2` to `v2
 
 ## Motivation
 
-With the release of Chainlink automation `v2.1`, we think its a good idea to update our existing infrastructure to the latest `v2.1` version.
+With the release of Chainlink automation `v2.1`, we think its a good idea to update the Aave Robot existing infrastructure to the latest `v2.1` version.
 In addition, as an effort to reduce the cost spent in gas in times of high gas prices, we also introduce gas-capped robots on mainnet which will be activated via this proposal.
 
 ## Specification
