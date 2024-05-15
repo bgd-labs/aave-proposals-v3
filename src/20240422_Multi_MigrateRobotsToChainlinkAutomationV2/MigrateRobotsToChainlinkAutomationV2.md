@@ -15,7 +15,7 @@ In addition, as an effort to reduce the cost spent in gas in times of high gas p
 
 ## Specification
 
-For the migration, the robots registered on the previous robot operator contract will be cancelled and new robots will be registered using an updated robot operator contract which is compatible with the newer version of chainlink automation `v2.1`.
+For the migration, the robots registered on the previous robot operator contract will be cancelled and new robots will be registered using an updated robot operator contract, compatible with the newer version of chainlink automation `v2.1`.
 
 The robots will be cancelled by calling the `cancel()` method by the payload on the previous robot operator contract, and after the delay has passed anyone could call the permissionless method `withdrawLink()` on the robot operator contract to withdraw the unused funds on the previous robots to the collector.
 
