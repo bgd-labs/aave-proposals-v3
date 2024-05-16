@@ -8,7 +8,7 @@ discussions: "https://governance.aave.com/t/arfc-reserve-factor-updates-polygon-
 
 This AIP is composed of two actions:
 
-- A continuation of proposal 54 on Governance v3 and increases the Reserve Factor (RF) for assets on Polygon v2 by 5.00%, up to a maximum of 99.99%
+- A continuation of proposal 96 on Governance v3 and increases the Reserve Factor (RF) for assets on Polygon v2 by 5.00%, up to a maximum of 99.99%
 - And gradually revising the Borrow Rate, by increasing the Slope1 parameter by 75bps every two weeks, or 1.5% per month, on Polygon v2 to provide further encouragement for users to migrate to Aave v3.
 
 ## Motivation
