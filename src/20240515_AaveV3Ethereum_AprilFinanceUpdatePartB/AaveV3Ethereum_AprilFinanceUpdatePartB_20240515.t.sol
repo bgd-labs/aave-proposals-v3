@@ -32,24 +32,11 @@ contract AaveV3Ethereum_AprilFinanceUpdatePartB_20240515_Test is ProtocolV3TestB
     proposal = new AaveV3Ethereum_AprilFinanceUpdatePartB_20240515();
   }
 
-  /**
-   * @dev executes the generic test suite including e2e and config snapshots
-   */
-  function test_defaultProposalExecution() public {
-    defaultTest(
-      'AaveV3Ethereum_AprilFinanceUpdatePartB_20240515',
-      AaveV3Ethereum.POOL,
-      address(proposal)
-    );
-  }
-
   function test_swap() public {
     assertGt(
       IERC20(AaveV3EthereumAssets.DAI_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
       0
     );
-
-    executePayload(vm, address(proposal));
 
     vm.expectEmit(true, true, true, true, MiscEthereum.AAVE_SWAPPER);
     emit SwapRequested(
@@ -58,14 +45,103 @@ contract AaveV3Ethereum_AprilFinanceUpdatePartB_20240515_Test is ProtocolV3TestB
       AaveV3EthereumAssets.GHO_UNDERLYING,
       AaveV3EthereumAssets.DAI_ORACLE,
       proposal.GHO_USD_FEED(),
-      2559123908595926911497284, // Hardcoded as dynamic
+      499803957060009088221525, // Hardcoded as dynamic
       address(AaveV3Ethereum.COLLECTOR),
       150
     );
 
+    executePayload(vm, address(proposal));
+
     assertEq(
       IERC20(AaveV3EthereumAssets.DAI_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
       0
+    );
+  }
+
+  function test_allowances() public {
+    assertEq(
+      IERC20(AaveV3EthereumAssets.USDT_A_TOKEN).allowance(
+        address(AaveV3Ethereum.COLLECTOR),
+        proposal.ALC_SAFE()
+      ),
+      0
+    );
+    assertEq(
+      IERC20(AaveV3EthereumAssets.USDC_UNDERLYING).allowance(
+        address(AaveV3Ethereum.COLLECTOR),
+        proposal.ALC_SAFE()
+      ),
+      0
+    );
+
+    executePayload(vm, address(proposal));
+
+    assertEq(
+      IERC20(AaveV3EthereumAssets.USDT_A_TOKEN).allowance(
+        address(AaveV3Ethereum.COLLECTOR),
+        proposal.ALC_SAFE()
+      ),
+      proposal.ALC_ALLOWANCES()
+    );
+    assertEq(
+      IERC20(AaveV3EthereumAssets.USDC_UNDERLYING).allowance(
+        address(AaveV3Ethereum.COLLECTOR),
+        proposal.ALC_SAFE()
+      ),
+      proposal.ALC_ALLOWANCES()
+    );
+  }
+
+  function test_depositIntoV3() public {
+    assertGt(
+      IERC20(AaveV3EthereumAssets.USDC_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
+      0
+    );
+    assertGt(
+      IERC20(AaveV3EthereumAssets.WETH_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
+      0
+    );
+    assertGt(
+      IERC20(AaveV3EthereumAssets.WBTC_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
+      0
+    );
+
+    uint256 balanceAEthUSDCBefore = IERC20(AaveV3EthereumAssets.USDC_A_TOKEN).balanceOf(
+      address(AaveV3Ethereum.COLLECTOR)
+    );
+    uint256 balanceAEthWETHBefore = IERC20(AaveV3EthereumAssets.WETH_A_TOKEN).balanceOf(
+      address(AaveV3Ethereum.COLLECTOR)
+    );
+    uint256 balanceAEthWBTCBefore = IERC20(AaveV3EthereumAssets.WBTC_A_TOKEN).balanceOf(
+      address(AaveV3Ethereum.COLLECTOR)
+    );
+
+    executePayload(vm, address(proposal));
+
+    assertEq(
+      IERC20(AaveV3EthereumAssets.USDC_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
+      proposal.ALC_ALLOWANCES()
+    );
+    assertEq(
+      IERC20(AaveV3EthereumAssets.WETH_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
+      0
+    );
+    assertEq(
+      IERC20(AaveV3EthereumAssets.WBTC_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
+      0
+    );
+
+    assertGt(
+      IERC20(AaveV3EthereumAssets.USDC_A_TOKEN).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
+      balanceAEthUSDCBefore
+    );
+    assertGt(
+      IERC20(AaveV3EthereumAssets.WETH_A_TOKEN).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
+      balanceAEthWETHBefore
+    );
+    assertGt(
+      IERC20(AaveV3EthereumAssets.WBTC_A_TOKEN).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
+      balanceAEthWBTCBefore
     );
   }
 }

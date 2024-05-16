@@ -7,9 +7,25 @@ snapshot: "Direct-to-AIP"
 
 ## Simple Summary
 
+This proposal presents April's funding update part B, which is a follow up to the one executed last week, including the following key activities:
+
+- Swap DAI bridged from Polygon on Part A to GHO
+- Create allowance for ALC safe of USDC and aEthUSDT
+- Deposit underlying balances into Aave V3 Ethereum
+
 ## Motivation
 
+This is an ongoing effort to manage the DAO's treasury as can be seen in the April [Update](https://governance.aave.com/t/arfc-april-finance-update/17390)
+and GSM funding [update](https://governance.aave.com/t/arfc-fund-usdc-usdt-gsm/17566).
+
 ## Specification
+
+- Swap DAI bridged from Polygon on Part A to GHO (~500,000 units)
+- Create allowance for ALC safe of USDC for 1,000,000
+- Create allowance for ALC safe of aEthUSDT for 1,000,000
+- Deposit Collector wETH balance into V3
+- Deposit Collector wBTC balance into V3
+- Deposit Collector USDC balance (minus ALC approval) into V3
 
 ## References
 
