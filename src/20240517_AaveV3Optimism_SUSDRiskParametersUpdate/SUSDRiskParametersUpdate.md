@@ -22,8 +22,8 @@ Contract address: [0x8c6f28f2F1A3C87F0f938b96d27520d9751ec8d9](https://optimisti
 
 ## References
 
-- Implementation: [AaveV3Optimism](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240517_AaveV3Optimism_SUSDRiskParametersUpdate/AaveV3Optimism_SUSDRiskParametersUpdate_20240517.sol)
-- Tests: [AaveV3Optimism](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240517_AaveV3Optimism_SUSDRiskParametersUpdate/AaveV3Optimism_SUSDRiskParametersUpdate_20240517.t.sol)
+- Implementation: [AaveV3Optimism](https://github.com/bgd-labs/aave-proposals-v3/blob/eff7796bef947bc12c65d1b282057315961c8fbe/src/20240517_AaveV3Optimism_SUSDRiskParametersUpdate/AaveV3Optimism_SUSDRiskParametersUpdate_20240517.sol)
+- Tests: [AaveV3Optimism](https://github.com/bgd-labs/aave-proposals-v3/blob/eff7796bef947bc12c65d1b282057315961c8fbe/src/20240517_AaveV3Optimism_SUSDRiskParametersUpdate/AaveV3Optimism_SUSDRiskParametersUpdate_20240517.t.sol)
 - [Discussion](https://governance.aave.com/t/susd-depeg-update-05-16-2024/17719)
 
 ## Copyright
