@@ -18,7 +18,7 @@ contract AaveV3Polygon_MigrateRobotsToChainlinkAutomationV2_20240422_Test is Pro
   event KeeperRegistered(uint256 indexed id, address indexed upkeep, uint96 indexed amount);
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('polygon'), 56113531);
+    vm.createSelectFork(vm.rpcUrl('polygon'), 57189258);
     proposal = new AaveV3Polygon_MigrateRobotsToChainlinkAutomationV2_20240422();
 
     cancelRobotsProposal = new AaveV2Polygon_MigrateRobotsToChainlinkAutomationV2_20240422();
@@ -60,6 +60,13 @@ contract AaveV3Polygon_MigrateRobotsToChainlinkAutomationV2_20240422_Test is Pro
       uint256(0),
       proposal.VOTING_CHAIN_ROBOT_ADDRESS(),
       uint96(proposal.VOTING_CHAIN_ROBOT_LINK_AMOUNT())
+    );
+
+    vm.expectEmit(false, true, true, true);
+    emit KeeperRegistered(
+      uint256(0),
+      proposal.STATIC_A_TOKEN_ROBOT_ADDRESS(),
+      uint96(proposal.STATIC_A_TOKEN_ROBOT_LINK_AMOUNT())
     );
 
     executePayload(vm, address(proposal));

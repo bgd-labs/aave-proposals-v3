@@ -19,7 +19,7 @@ contract AaveV3Avalanche_MigrateRobotsToChainlinkAutomationV2_20240422_Test is P
   event KeeperRegistered(uint256 indexed id, address indexed upkeep, uint96 indexed amount);
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('avalanche'), 44512842);
+    vm.createSelectFork(vm.rpcUrl('avalanche'), 45718364);
     proposal = new AaveV3Avalanche_MigrateRobotsToChainlinkAutomationV2_20240422();
     cancelRobotsProposal = new AaveV2Avalanche_MigrateRobotsToChainlinkAutomationV2_20240422();
 
@@ -39,7 +39,7 @@ contract AaveV3Avalanche_MigrateRobotsToChainlinkAutomationV2_20240422_Test is P
   /**
    * @dev executes the generic test suite including e2e and config snapshots
    */
-  function test_defaultProposalExecutionX() public {
+  function test_defaultProposalExecution() public {
     defaultTest(
       'AaveV3Avalanche_MigrateRobotsToChainlinkAutomationV2_20240422',
       AaveV3Avalanche.POOL,
@@ -60,6 +60,26 @@ contract AaveV3Avalanche_MigrateRobotsToChainlinkAutomationV2_20240422_Test is P
       uint256(0),
       proposal.VOTING_CHAIN_ROBOT_ADDRESS(),
       uint96(proposal.VOTING_CHAIN_ROBOT_LINK_AMOUNT())
+    );
+
+    vm.expectEmit(false, true, true, true);
+    emit KeeperRegistered(
+      uint256(0),
+      proposal.PROOF_OF_RESERVE_ROBOT_ADDRESS(),
+      uint96(proposal.PROOF_OF_RESERVE_ROBOT_LINK_AMOUNT())
+    );
+    vm.expectEmit(false, true, true, true);
+    emit KeeperRegistered(
+      uint256(0),
+      proposal.PROOF_OF_RESERVE_ROBOT_ADDRESS(),
+      uint96(proposal.PROOF_OF_RESERVE_ROBOT_LINK_AMOUNT())
+    );
+
+    vm.expectEmit(false, true, true, true);
+    emit KeeperRegistered(
+      uint256(0),
+      proposal.STATIC_A_TOKEN_ROBOT_ADDRESS(),
+      uint96(proposal.STATIC_A_TOKEN_ROBOT_LINK_AMOUNT())
     );
 
     executePayload(vm, address(proposal));

@@ -24,7 +24,7 @@ contract AaveV3Ethereum_MigrateRobotsToChainlinkAutomationV2_20240422_Test is Pr
     0x011824f238AEE05329213d5Ae029e899e5412343;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 19709151);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 19917667);
     proposal = new AaveV3Ethereum_MigrateRobotsToChainlinkAutomationV2_20240422();
   }
 
@@ -102,6 +102,13 @@ contract AaveV3Ethereum_MigrateRobotsToChainlinkAutomationV2_20240422_Test is Pr
       uint256(0),
       proposal.GSM_SWAP_FREEZE_USDT_ROBOT_ADDRESS(),
       uint96(proposal.GSM_SWAP_FREEZE_USDT_ROBOT_LINK_AMOUNT())
+    );
+
+    vm.expectEmit(false, true, true, true);
+    emit KeeperRegistered(
+      uint256(0),
+      proposal.GAS_CAPPED_STATIC_A_TOKEN_ROBOT_ADDRESS(),
+      uint96(proposal.STATIC_A_TOKEN_ROBOT_LINK_AMOUNT())
     );
 
     executePayload(vm, address(proposal));

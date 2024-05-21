@@ -7,12 +7,12 @@ import {IRootsConsumer} from './interfaces/IRootsConsumer.sol';
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';
 import {SafeCast} from 'solidity-utils/contracts/oz-common/SafeCast.sol';
-import {AaveV2Ethereum, AaveV2EthereumAssets} from 'aave-address-book/AaveV2Ethereum.sol';
+import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 
 /**
  * @title Migrate Robots to Chainlink Automation v2
  * @author BGD Labs (@bgdlabs)
- * - Discussion: TODO
+ * - Discussion: https://governance.aave.com/t/bgd-technical-maintenance-proposals/15274/36
  */
 contract AaveV3Ethereum_MigrateRobotsToChainlinkAutomationV2_20240422 is IProposalGenericExecutor {
   using SafeERC20 for IERC20;
@@ -30,7 +30,7 @@ contract AaveV3Ethereum_MigrateRobotsToChainlinkAutomationV2_20240422 is IPropos
   uint256 public constant OLD_GSM_SWAP_FREEZE_USDT_ROBOT_ID =
     29419557335377754353590946220126755014551271053492007946914462953700619858182;
 
-  address public constant ROBOT_OPERATOR = 0x737806fe47FDBDEcBcB82dF7b89AA3D74AdadF62;
+  address public constant ROBOT_OPERATOR = 0x1cDF8879eC8bE012bA959EB515b11008E0cb6323;
   address public constant ROOTS_CONSUMER = 0x2fA6F0A65886123AFD24A575aE4554d0FCe8B577;
 
   address public constant GSM_SWAP_FREEZE_USDC_ROBOT_ADDRESS =
@@ -43,12 +43,15 @@ contract AaveV3Ethereum_MigrateRobotsToChainlinkAutomationV2_20240422 is IPropos
     0x7Ed0A6A294Cf085c90917c0ee1aa34e795932558;
   address public constant GAS_CAPPED_GOVERNANCE_CHAIN_ROBOT_ADDRESS =
     0x1996c281235D99bB3c6B8d2afbEb8ac6c7A39C11;
+  address public constant GAS_CAPPED_STATIC_A_TOKEN_ROBOT_ADDRESS =
+    0xda82148a3944BBe442116f41cDb329b0edF11d41;
 
   uint256 public constant GSM_SWAP_FREEZE_USDC_ROBOT_LINK_AMOUNT = 80 ether;
   uint256 public constant GSM_SWAP_FREEZE_USDT_ROBOT_LINK_AMOUNT = 80 ether;
   uint256 public constant EXECUTION_CHAIN_ROBOT_LINK_AMOUNT = 1500 ether;
   uint256 public constant GOVERNANCE_CHAIN_ROBOT_LINK_AMOUNT = 2500 ether;
   uint256 public constant VOTING_CHAIN_ROBOT_LINK_AMOUNT = 400 ether;
+  uint256 public constant STATIC_A_TOKEN_ROBOT_LINK_AMOUNT = 200 ether;
 
   function execute() external {
     // cancel previous robots
@@ -62,42 +65,46 @@ contract AaveV3Ethereum_MigrateRobotsToChainlinkAutomationV2_20240422 is IPropos
       GOVERNANCE_CHAIN_ROBOT_LINK_AMOUNT +
       VOTING_CHAIN_ROBOT_LINK_AMOUNT +
       GSM_SWAP_FREEZE_USDC_ROBOT_LINK_AMOUNT +
-      GSM_SWAP_FREEZE_USDT_ROBOT_LINK_AMOUNT;
+      GSM_SWAP_FREEZE_USDT_ROBOT_LINK_AMOUNT +
+      STATIC_A_TOKEN_ROBOT_LINK_AMOUNT;
 
-    AaveV2Ethereum.COLLECTOR.transfer(
-      AaveV2EthereumAssets.LINK_A_TOKEN,
+    AaveV3Ethereum.COLLECTOR.transfer(
+      AaveV3EthereumAssets.LINK_A_TOKEN,
       address(this),
       totalLinkAmount
     );
-    AaveV2Ethereum.POOL.withdraw(
-      AaveV2EthereumAssets.LINK_UNDERLYING,
+    AaveV3Ethereum.POOL.withdraw(
+      AaveV3EthereumAssets.LINK_UNDERLYING,
       type(uint256).max,
       address(this)
     );
 
-    uint256 linkBalance = IERC20(AaveV2EthereumAssets.LINK_UNDERLYING).balanceOf(address(this));
-    IERC20(AaveV2EthereumAssets.LINK_UNDERLYING).forceApprove(ROBOT_OPERATOR, linkBalance);
+    uint256 linkBalance = IERC20(AaveV3EthereumAssets.LINK_UNDERLYING).balanceOf(address(this));
+    IERC20(AaveV3EthereumAssets.LINK_UNDERLYING).forceApprove(ROBOT_OPERATOR, linkBalance);
 
     // register new robots
     IAaveCLRobotOperator(ROBOT_OPERATOR).register(
-      'Execution Chain Robot',
+      'Gas Capped Execution Chain Robot',
       GAS_CAPPED_EXECUTION_CHAIN_ROBOT_ADDRESS,
+      '',
       5_000_000,
       EXECUTION_CHAIN_ROBOT_LINK_AMOUNT.toUint96(),
       0,
       ''
     );
     IAaveCLRobotOperator(ROBOT_OPERATOR).register(
-      'Governance Chain Robot',
+      'Gas Capped Governance Chain Robot',
       GAS_CAPPED_GOVERNANCE_CHAIN_ROBOT_ADDRESS,
+      '',
       5_000_000,
       GOVERNANCE_CHAIN_ROBOT_LINK_AMOUNT.toUint96(),
       0,
       ''
     );
     IAaveCLRobotOperator(ROBOT_OPERATOR).register(
-      'Voting Chain Robot',
+      'Gas Capped Voting Chain Robot',
       GAS_CAPPED_VOTING_CHAIN_ROBOT_ADDRESS,
+      '',
       5_000_000,
       VOTING_CHAIN_ROBOT_LINK_AMOUNT.toUint96(),
       0,
@@ -106,6 +113,7 @@ contract AaveV3Ethereum_MigrateRobotsToChainlinkAutomationV2_20240422 is IPropos
     IAaveCLRobotOperator(ROBOT_OPERATOR).register(
       'GHO GSM USDC OracleSwapFreezer',
       GSM_SWAP_FREEZE_USDC_ROBOT_ADDRESS,
+      '',
       150_000,
       GSM_SWAP_FREEZE_USDC_ROBOT_LINK_AMOUNT.toUint96(),
       0,
@@ -114,8 +122,18 @@ contract AaveV3Ethereum_MigrateRobotsToChainlinkAutomationV2_20240422 is IPropos
     IAaveCLRobotOperator(ROBOT_OPERATOR).register(
       'GHO GSM USDT OracleSwapFreezer',
       GSM_SWAP_FREEZE_USDT_ROBOT_ADDRESS,
+      '',
       150_000,
-      IERC20(AaveV2EthereumAssets.LINK_UNDERLYING).balanceOf(address(this)).toUint96(),
+      GSM_SWAP_FREEZE_USDT_ROBOT_LINK_AMOUNT.toUint96(),
+      0,
+      ''
+    );
+    IAaveCLRobotOperator(ROBOT_OPERATOR).register(
+      'Gas Capped StaticAToken Rewards Robot',
+      GAS_CAPPED_STATIC_A_TOKEN_ROBOT_ADDRESS,
+      '',
+      1_000_000,
+      IERC20(AaveV3EthereumAssets.LINK_UNDERLYING).balanceOf(address(this)).toUint96(),
       0,
       ''
     );

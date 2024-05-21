@@ -2,9 +2,7 @@
 pragma solidity ^0.8.0;
 
 import {AaveV3Optimism} from 'aave-address-book/AaveV3Optimism.sol';
-
-import 'forge-std/Test.sol';
-import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/ProtocolV3TestBase.sol';
+import {ProtocolV3TestBase} from 'aave-helpers/ProtocolV3TestBase.sol';
 import {AaveV3Optimism_MigrateRobotsToChainlinkAutomationV2_20240422} from './AaveV3Optimism_MigrateRobotsToChainlinkAutomationV2_20240422.sol';
 
 /**
@@ -18,7 +16,7 @@ contract AaveV3Optimism_MigrateRobotsToChainlinkAutomationV2_20240422_Test is Pr
   event KeeperCancelled(uint256 indexed id, address indexed upkeep);
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('optimism'), 119084285);
+    vm.createSelectFork(vm.rpcUrl('optimism'), 120310846);
     proposal = new AaveV3Optimism_MigrateRobotsToChainlinkAutomationV2_20240422();
   }
 
@@ -47,6 +45,13 @@ contract AaveV3Optimism_MigrateRobotsToChainlinkAutomationV2_20240422_Test is Pr
       uint256(0),
       proposal.EXECUTION_CHAIN_ROBOT_ADDRESS(),
       uint96(proposal.EXECUTION_CHAIN_ROBOT_LINK_AMOUNT())
+    );
+
+    vm.expectEmit(false, true, true, true);
+    emit KeeperRegistered(
+      uint256(0),
+      proposal.STATIC_A_TOKEN_ROBOT_ADDRESS(),
+      uint96(proposal.STATIC_A_TOKEN_ROBOT_LINK_AMOUNT())
     );
 
     executePayload(vm, address(proposal));

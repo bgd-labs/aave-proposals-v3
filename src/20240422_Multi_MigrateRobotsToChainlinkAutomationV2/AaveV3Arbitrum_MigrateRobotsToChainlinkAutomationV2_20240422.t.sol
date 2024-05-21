@@ -18,7 +18,7 @@ contract AaveV3Arbitrum_MigrateRobotsToChainlinkAutomationV2_20240422_Test is Pr
   event KeeperCancelled(uint256 indexed id, address indexed upkeep);
 
   function setUp() public {
-    uint256 blockNumber = 203936337;
+    uint256 blockNumber = 213434099;
     vm.createSelectFork(vm.rpcUrl('arbitrum'), blockNumber);
     proposal = new AaveV3Arbitrum_MigrateRobotsToChainlinkAutomationV2_20240422();
 
@@ -60,6 +60,12 @@ contract AaveV3Arbitrum_MigrateRobotsToChainlinkAutomationV2_20240422_Test is Pr
       uint256(0),
       proposal.EXECUTION_CHAIN_ROBOT_ADDRESS(),
       uint96(proposal.EXECUTION_CHAIN_ROBOT_LINK_AMOUNT())
+    );
+    vm.expectEmit(false, true, true, true);
+    emit KeeperRegistered(
+      uint256(0),
+      proposal.STATIC_A_TOKEN_ROBOT_ADDRESS(),
+      uint96(proposal.STATIC_A_TOKEN_ROBOT_LINK_AMOUNT())
     );
 
     executePayload(vm, address(proposal));

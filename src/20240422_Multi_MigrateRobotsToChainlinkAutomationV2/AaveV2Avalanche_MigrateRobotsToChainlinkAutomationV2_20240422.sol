@@ -8,7 +8,7 @@ import {IAaveCLRobotOperator} from './interfaces/IAaveCLRobotOperator.sol';
  * @title Migrate Robots to Chainlink Automation v2
  * @author BGD Labs (@bgdlabs)
  * @notice This payload should be executed before the payload for registering new robots.
- * - Discussion: TODO
+ * - Discussion: https://governance.aave.com/t/bgd-technical-maintenance-proposals/15274/36
  */
 contract AaveV2Avalanche_MigrateRobotsToChainlinkAutomationV2_20240422 is IProposalGenericExecutor {
   address public constant OLD_ROBOT_OPERATOR = 0x7A9ff54A6eE4a21223036890bB8c4ea2D62c686b;
