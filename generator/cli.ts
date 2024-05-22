@@ -1,7 +1,7 @@
 import path from 'path';
 import {Command, Option} from 'commander';
 import {CHAIN_TO_CHAIN_ID, getDate, getPoolChain, isV2Pool, pascalCase} from './common';
-import {input, checkbox} from '@inquirer/prompts';
+import {input, checkbox, select} from '@inquirer/prompts';
 import {
   CodeArtifact,
   ConfigFile,
@@ -12,6 +12,7 @@ import {
   PoolCache,
   PoolConfigs,
   PoolIdentifier,
+  VOTING_NETWORK,
 } from './types';
 import {flashBorrower} from './features/flashBorrower';
 import {capsUpdates} from './features/capsUpdates';
@@ -39,6 +40,12 @@ program
   .addOption(new Option('-a, --author <string>', 'author'))
   .addOption(new Option('-d, --discussion <string>', 'forum link'))
   .addOption(new Option('-s, --snapshot <string>', 'snapshot link'))
+  .addOption(
+    new Option(
+      '-v, --votingNetwork <votingNetwork...>',
+      'network where voting should take place for the proposal',
+    ).choices(Object.values(VOTING_NETWORK)),
+  )
   .addOption(new Option('-c, --configFile <string>', 'path to config file'))
   .allowExcessArguments(false)
   .parse(process.argv);
@@ -191,6 +198,17 @@ if (options.configFile) {
   if (!options.snapshot) {
     options.snapshot = await input({
       message: 'Link to snapshot',
+    });
+  }
+
+  if (!options.votingNetwork) {
+    options.votingNetwork = await select({
+      message: 'Select network where voting should takes place for the proposal',
+      choices: Object.values(VOTING_NETWORK).map((v) => ({
+        name: v != VOTING_NETWORK.POLYGON ? v : VOTING_NETWORK.POLYGON + ' (DEFAULT)',
+        value: v,
+      })),
+      default: VOTING_NETWORK.POLYGON,
     });
   }
 
