@@ -5,6 +5,7 @@ import {AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
 import {IRootsConsumer} from './interfaces/IRootsConsumer.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/ProtocolV3TestBase.sol';
 import {AaveV3Ethereum_MigrateRobotsToChainlinkAutomationV2_20240422} from './AaveV3Ethereum_MigrateRobotsToChainlinkAutomationV2_20240422.sol';
+import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 
 /**
  * @dev Test for AaveV3Ethereum_MigrateRobotsToChainlinkAutomationV2_20240422
@@ -121,5 +122,13 @@ contract AaveV3Ethereum_MigrateRobotsToChainlinkAutomationV2_20240422_Test is Pr
       IRootsConsumer(proposal.ROOTS_CONSUMER()).getRobotKeeper(),
       proposal.GAS_CAPPED_VOTING_CHAIN_ROBOT_ADDRESS()
     );
+  }
+
+  function test_crossChainControllerETHRefill() public {
+    uint256 beforeBalance = GovernanceV3Ethereum.CROSS_CHAIN_CONTROLLER.balance;
+    executePayload(vm, address(proposal));
+    uint256 afterBalance = GovernanceV3Ethereum.CROSS_CHAIN_CONTROLLER.balance;
+
+    assertEq(afterBalance - beforeBalance, proposal.CROSS_CHAIN_CONTROLLER_ETH_AMOUNT());
   }
 }

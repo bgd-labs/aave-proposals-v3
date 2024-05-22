@@ -4,9 +4,11 @@ pragma solidity ^0.8.0;
 import {IProposalGenericExecutor} from 'aave-helpers/interfaces/IProposalGenericExecutor.sol';
 import {IAaveCLRobotOperator} from './interfaces/IAaveCLRobotOperator.sol';
 import {IRootsConsumer} from './interfaces/IRootsConsumer.sol';
+import {IWETH} from './interfaces/IWETH.sol';
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';
 import {SafeCast} from 'solidity-utils/contracts/oz-common/SafeCast.sol';
+import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 
 /**
@@ -17,6 +19,8 @@ import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethe
 contract AaveV3Ethereum_MigrateRobotsToChainlinkAutomationV2_20240422 is IProposalGenericExecutor {
   using SafeERC20 for IERC20;
   using SafeCast for uint256;
+
+  error FailedToSendETH();
 
   address public constant OLD_ROBOT_OPERATOR = 0x020E452b463568f55BAc6Dc5aFC8F0B62Ea5f0f3;
   uint256 public constant OLD_EXECUTION_CHAIN_ROBOT_ID =
@@ -52,8 +56,21 @@ contract AaveV3Ethereum_MigrateRobotsToChainlinkAutomationV2_20240422 is IPropos
   uint256 public constant GOVERNANCE_CHAIN_ROBOT_LINK_AMOUNT = 2500 ether;
   uint256 public constant VOTING_CHAIN_ROBOT_LINK_AMOUNT = 400 ether;
   uint256 public constant STATIC_A_TOKEN_ROBOT_LINK_AMOUNT = 200 ether;
+  uint256 public constant CROSS_CHAIN_CONTROLLER_ETH_AMOUNT = 1 ether;
 
   function execute() external {
+    // refill cross-chain-controller with ETH
+    AaveV3Ethereum.COLLECTOR.transfer(
+      AaveV3EthereumAssets.WETH_UNDERLYING,
+      address(this),
+      CROSS_CHAIN_CONTROLLER_ETH_AMOUNT
+    );
+    IWETH(AaveV3EthereumAssets.WETH_UNDERLYING).withdraw(CROSS_CHAIN_CONTROLLER_ETH_AMOUNT);
+    (bool status, ) = GovernanceV3Ethereum.CROSS_CHAIN_CONTROLLER.call{
+      value: CROSS_CHAIN_CONTROLLER_ETH_AMOUNT
+    }('');
+    if (!status) revert FailedToSendETH();
+
     // cancel previous robots
     IAaveCLRobotOperator(OLD_ROBOT_OPERATOR).cancel(OLD_GSM_SWAP_FREEZE_USDC_ROBOT_ID);
     IAaveCLRobotOperator(OLD_ROBOT_OPERATOR).cancel(OLD_GSM_SWAP_FREEZE_USDT_ROBOT_ID);

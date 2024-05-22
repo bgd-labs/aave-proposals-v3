@@ -23,6 +23,8 @@ The robots will be cancelled by calling the `cancel()` method by the payload on 
 
 On the newer robot operator, the payload will call the `register()` method to register the keepers with the newer chainlink automation registry supporting `v2.1`.
 
+The proposal also refills the cross-chain-controller contract (part of aDI) on mainnet with 1 ethereum from the collector.
+
 _Note: All aave governance v3 robots along with robots used for gsm swap freeze and Proof of Reserve will be migrated via this proposal and will use the same contract as before except the one's mentioned below_
 
 |           | Deployed AaveCLRobotOperator                                                                                                     |
