@@ -26,14 +26,9 @@ contract DeployPolygon is PolygonScript {
       type(AaveV3Polygon_MigrateRobotsToChainlinkAutomationV2_20240422).creationCode
     );
 
-    // compose action
-    IPayloadsControllerCore.ExecutionAction[]
-      memory actions = new IPayloadsControllerCore.ExecutionAction[](2);
-    actions[0] = GovV3Helpers.buildAction(payload0);
-    actions[1] = GovV3Helpers.buildAction(payload1);
-
     // register action at payloadsController
-    GovV3Helpers.createPayload(actions);
+    GovV3Helpers.createPayload(GovV3Helpers.buildAction(payload0));
+    GovV3Helpers.createPayload(GovV3Helpers.buildAction(payload1));
   }
 }
 
@@ -52,14 +47,9 @@ contract DeployAvalanche is AvalancheScript {
       type(AaveV3Avalanche_MigrateRobotsToChainlinkAutomationV2_20240422).creationCode
     );
 
-    // compose action
-    IPayloadsControllerCore.ExecutionAction[]
-      memory actions = new IPayloadsControllerCore.ExecutionAction[](2);
-    actions[0] = GovV3Helpers.buildAction(payload0);
-    actions[1] = GovV3Helpers.buildAction(payload1);
-
     // register action at payloadsController
-    GovV3Helpers.createPayload(actions);
+    GovV3Helpers.createPayload(GovV3Helpers.buildAction(payload0));
+    GovV3Helpers.createPayload(GovV3Helpers.buildAction(payload1));
   }
 }
 
@@ -136,49 +126,57 @@ contract DeployArbitrum is ArbitrumScript {
 contract CreateProposal is EthereumScript {
   function run() external {
     // create payloads
-    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](5);
+    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](7);
 
     // compose actions for validation
     IPayloadsControllerCore.ExecutionAction[]
-      memory actionsPolygon = new IPayloadsControllerCore.ExecutionAction[](2);
-    actionsPolygon[0] = GovV3Helpers.buildAction(
+      memory actionsPolygonOne = new IPayloadsControllerCore.ExecutionAction[](1);
+    actionsPolygonOne[0] = GovV3Helpers.buildAction(
       type(AaveV2Polygon_MigrateRobotsToChainlinkAutomationV2_20240422).creationCode
     );
-    actionsPolygon[1] = GovV3Helpers.buildAction(
-      type(AaveV3Polygon_MigrateRobotsToChainlinkAutomationV2_20240422).creationCode
-    );
-    payloads[0] = GovV3Helpers.buildPolygonPayload(vm, actionsPolygon);
+    payloads[0] = GovV3Helpers.buildPolygonPayload(vm, actionsPolygonOne);
 
     IPayloadsControllerCore.ExecutionAction[]
-      memory actionsAvalanche = new IPayloadsControllerCore.ExecutionAction[](2);
-    actionsAvalanche[0] = GovV3Helpers.buildAction(
+      memory actionsPolygonTwo = new IPayloadsControllerCore.ExecutionAction[](1);
+    actionsPolygonTwo[0] = GovV3Helpers.buildAction(
+      type(AaveV3Polygon_MigrateRobotsToChainlinkAutomationV2_20240422).creationCode
+    );
+    payloads[1] = GovV3Helpers.buildPolygonPayload(vm, actionsPolygonTwo);
+
+    IPayloadsControllerCore.ExecutionAction[]
+      memory actionsAvalancheOne = new IPayloadsControllerCore.ExecutionAction[](1);
+    actionsAvalancheOne[0] = GovV3Helpers.buildAction(
       type(AaveV2Avalanche_MigrateRobotsToChainlinkAutomationV2_20240422).creationCode
     );
-    actionsAvalanche[1] = GovV3Helpers.buildAction(
+    payloads[2] = GovV3Helpers.buildAvalanchePayload(vm, actionsAvalancheOne);
+
+    IPayloadsControllerCore.ExecutionAction[]
+      memory actionsAvalancheTwo = new IPayloadsControllerCore.ExecutionAction[](1);
+    actionsAvalancheTwo[0] = GovV3Helpers.buildAction(
       type(AaveV3Avalanche_MigrateRobotsToChainlinkAutomationV2_20240422).creationCode
     );
-    payloads[1] = GovV3Helpers.buildAvalanchePayload(vm, actionsAvalanche);
+    payloads[3] = GovV3Helpers.buildAvalanchePayload(vm, actionsAvalancheTwo);
 
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsEthereum = new IPayloadsControllerCore.ExecutionAction[](1);
     actionsEthereum[0] = GovV3Helpers.buildAction(
       type(AaveV3Ethereum_MigrateRobotsToChainlinkAutomationV2_20240422).creationCode
     );
-    payloads[2] = GovV3Helpers.buildMainnetPayload(vm, actionsEthereum);
+    payloads[4] = GovV3Helpers.buildMainnetPayload(vm, actionsEthereum);
 
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsOptimism = new IPayloadsControllerCore.ExecutionAction[](1);
     actionsOptimism[0] = GovV3Helpers.buildAction(
       type(AaveV3Optimism_MigrateRobotsToChainlinkAutomationV2_20240422).creationCode
     );
-    payloads[3] = GovV3Helpers.buildOptimismPayload(vm, actionsOptimism);
+    payloads[5] = GovV3Helpers.buildOptimismPayload(vm, actionsOptimism);
 
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsArbitrum = new IPayloadsControllerCore.ExecutionAction[](1);
     actionsArbitrum[0] = GovV3Helpers.buildAction(
       type(AaveV3Arbitrum_MigrateRobotsToChainlinkAutomationV2_20240422).creationCode
     );
-    payloads[4] = GovV3Helpers.buildArbitrumPayload(vm, actionsArbitrum);
+    payloads[6] = GovV3Helpers.buildArbitrumPayload(vm, actionsArbitrum);
 
     // create proposal
     vm.startBroadcast();
