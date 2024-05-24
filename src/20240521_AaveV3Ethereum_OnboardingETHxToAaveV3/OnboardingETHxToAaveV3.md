@@ -1,5 +1,5 @@
 ---
-title: "Onboarding ETHx to Aave V3"
+title: "Onboarding ETHx to Aave V3 Ethereum"
 author: "karpatkey_TokenLogic"
 discussions: "https://governance.aave.com/t/arfc-onboarding-ethx-to-aave-v3-ethereum/15672"
 snapshot: "https://snapshot.org/#/aave.eth/proposal/0x9238b091250c739f5b5486ab8dbaa110b0b7ec0582698ea2c2d3721377e4b0bb"
@@ -7,7 +7,17 @@ snapshot: "https://snapshot.org/#/aave.eth/proposal/0x9238b091250c739f5b5486ab8d
 
 ## Simple Summary
 
+This is a ARFC proposal for adding borrow/lend support for StakeWise’s new over-collateralized staked ETH token, osETH, on AAVE V3 Ethereum.
+
 ## Motivation
+
+Liquid staking tokens (LSTs) have proven to be popular collateral assets on Aave, with Lido’s stETH the largest Reserve across all Aave deployments and rETH quickly reaching its supply caps. As productive assets, LSTs are high quality collateral to borrow against. Given their high correlation to ETH, LSTs are commonly used as collateral to borrow ETH and engage in yield leveraged staking, with several communities having built products that automate such strategies on top of Aave. The introduction of eMode only made such strategies more popular.
+
+osETH in particular is overcollateralized by design, providing in-built slashing protection and consequently an increased level of protection for the Aave protocol…
+
+As StakeWise V3 provides solo stakers to ability to mint osETH against their own nodes, on-boarding osETH will benefit Aave, StakeWise, and the Ethereum ecosystem as a whole, and be an important step in the pursuit to diversify Ethereum staking and encourage staking from home.
+
+The onboarding of osETH will consequently create increased osETH demand and increased revenues for both Aave and StakeWise protocols, whilst also bolstering the liquidity and peg stability of osETH.
 
 ## Specification
 
@@ -16,11 +26,11 @@ The table below illustrates the configured risk parameters for **ETHx**
 | Parameter                          |                                      Value |
 | ---------------------------------- | -----------------------------------------: |
 | Isolation Mode                     |                                       true |
-| Borrowable                         |                                   DISABLED |
+| Borrowable                         |                                    ENABLED |
 | Collateral Enabled                 |                                       true |
-| Supply Cap (ETHx)                  |                                     10,000 |
-| Borrow Cap (ETHx)                  |                                      1,000 |
-| Debt Ceiling                       |                                    USD 100 |
+| Supply Cap (ETHx)                  |                                      3,200 |
+| Borrow Cap (ETHx)                  |                                        320 |
+| Debt Ceiling                       |                                      USD 0 |
 | LTV                                |                                     74.5 % |
 | LT                                 |                                       77 % |
 | Liquidation Bonus                  |                                      7.5 % |
@@ -39,7 +49,7 @@ The table below illustrates the configured risk parameters for **ETHx**
 | Flashloanable                      |                                    ENABLED |
 | Siloed Borrowing                   |                                   DISABLED |
 | Borrowable in Isolation            |                                   DISABLED |
-| Oracle                             | 0xC5f8c4aB091Be1A899214c0C3636ca33DcA0C547 |
+| Oracle                             | 0xD6270dAabFe4862306190298C2B48fed9e15C847 |
 
 ## References
 
