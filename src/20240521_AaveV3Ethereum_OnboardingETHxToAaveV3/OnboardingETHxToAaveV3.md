@@ -7,17 +7,15 @@ snapshot: "https://snapshot.org/#/aave.eth/proposal/0x9238b091250c739f5b5486ab8d
 
 ## Simple Summary
 
-This is a ARFC proposal for adding borrow/lend support for StakeWise’s new over-collateralized staked ETH token, osETH, on AAVE V3 Ethereum.
+This publication onboards Stader Lab's ETHx onto the Etherume Aave v3 deployment as collateral and included in the ETH-correlated E-Mode category.
 
 ## Motivation
 
-Liquid staking tokens (LSTs) have proven to be popular collateral assets on Aave, with Lido’s stETH the largest Reserve across all Aave deployments and rETH quickly reaching its supply caps. As productive assets, LSTs are high quality collateral to borrow against. Given their high correlation to ETH, LSTs are commonly used as collateral to borrow ETH and engage in yield leveraged staking, with several communities having built products that automate such strategies on top of Aave. The introduction of eMode only made such strategies more popular.
+Liquid staking tokens (LSTs) have proven to be popular collateral assets on Aave. The ETHx represents Stader’s staked ETH and provides its users with liquid staking benefits. Supporting ETHx on Aave V3 promotes LST diversity and compliments existing assets like stETH, cbETH and rETH.
 
-osETH in particular is overcollateralized by design, providing in-built slashing protection and consequently an increased level of protection for the Aave protocol…
+Given their high correlation to ETH, LSTs are commonly used as collateral to borrow ETH and engage in yield leveraged staking. Several communities having built products that automate such strategies on top of Aave. The inclusion of ETHx in the ETH-category E-Mode enables these strategies to maximise the yield potential of the recursive strategy.
 
-As StakeWise V3 provides solo stakers to ability to mint osETH against their own nodes, on-boarding osETH will benefit Aave, StakeWise, and the Ethereum ecosystem as a whole, and be an important step in the pursuit to diversify Ethereum staking and encourage staking from home.
-
-The onboarding of osETH will consequently create increased osETH demand and increased revenues for both Aave and StakeWise protocols, whilst also bolstering the liquidity and peg stability of osETH.
+The risk parameters provided within have been provided by Chaos Labs and the smart contracts of ETHx reviewed by bgdlabs. Further details, including LlamaRisk's more qualitative assessment can be found on the Aave governance forum.
 
 ## Specification
 
