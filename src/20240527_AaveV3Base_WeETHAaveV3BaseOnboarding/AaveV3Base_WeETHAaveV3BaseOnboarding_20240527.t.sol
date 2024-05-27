@@ -17,7 +17,7 @@ contract AaveV3Base_WeETHAaveV3BaseOnboarding_20240527_Test is ProtocolV3TestBas
   AaveV3Base_WeETHAaveV3BaseOnboarding_20240527 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('base'), 15006699);
+    vm.createSelectFork(vm.rpcUrl('base'), 15015803);
     proposal = new AaveV3Base_WeETHAaveV3BaseOnboarding_20240527();
   }
 
