@@ -11,7 +11,6 @@ import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';
 /**
  * @title weETH Aave V3 Base Onboarding
  * @author ACI
- * - Snapshot: TODO
  * - Discussion: https://governance.aave.com/t/arfc-onboarding-of-weeth-to-aave-v3-on-base/17691
  */
 contract AaveV3Base_WeETHAaveV3BaseOnboarding_20240527 is AaveV3PayloadBase {
