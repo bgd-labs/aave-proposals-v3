@@ -20,6 +20,8 @@ eETH is an LRT that allows users to stake their ETH, accrue staking rewards, and
 
 The table below illustrates the configured risk parameters for **weETH**
 
+the Reserve Factor & UOptimal parameters have been aligned with the mainnet parameters to optimize Aave DAO revenue.
+
 | Parameter                          |                                      Value |
 | ---------------------------------- | -----------------------------------------: |
 | Isolation Mode                     |                                      False |
