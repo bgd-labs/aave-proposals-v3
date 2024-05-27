@@ -53,6 +53,7 @@ The table below illustrates the configured risk parameters for **weETH**
 - Implementation: [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240527_AaveV3Base_WeETHAaveV3BaseOnboarding/AaveV3Base_WeETHAaveV3BaseOnboarding_20240527.sol)
 - Tests: [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240527_AaveV3Base_WeETHAaveV3BaseOnboarding/AaveV3Base_WeETHAaveV3BaseOnboarding_20240527.t.sol)
 - [Discussion](https://governance.aave.com/t/arfc-onboarding-of-weeth-to-aave-v3-on-base/17691)
+- [Updated parameters Discussion](https://governance.aave.com/t/arfc-adjusting-interest-rate-curve-for-weeth-on-arbitrum-and-base/17804)
 
 ## Copyright
 
