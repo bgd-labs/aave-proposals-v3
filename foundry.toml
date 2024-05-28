@@ -24,6 +24,9 @@ evm_version = 'shanghai'
 [profile.optimism]
 evm_version = 'shanghai'
 
+[profile.base]
+evm_version = 'shanghai'
+
 [profile.polygon]
 evm_version = 'shanghai'
 
