@@ -3,13 +3,13 @@ export const config: ConfigFile = {
   rootOptions: {
     configFile: 'config.ts',
     force: true,
-    pools: ['AaveV3Polygon', 'AaveV3Optimism', 'AaveV3Arbitrum'],
-    title: 'StablecoinIRUpdates',
-    shortName: 'StablecoinIRUpdates',
-    date: '20240424',
-    author: 'Chaos Labs, ACI',
+    pools: ['AaveV3Polygon', 'AaveV3Optimism', 'AaveV3Arbitrum', 'AaveV3Base'],
+    title: 'Increase Bridged USDC Reserve Factor Across All Deployments',
+    shortName: 'IncreaseUSDCeRF',
+    date: '20240528',
+    author: 'karpatkey_TokenLogic',
     discussion:
-      'https://governance.aave.com/t/arfc-stablecoin-ir-curve-amendment-on-aave-v2-and-v3-04-22-2024/17450',
+      'https://governance.aave.com/t/arfc-increase-bridged-usdc-reserve-factor-across-all-deployments/17787',
     snapshot: 'Direct-to-AIP',
   },
   poolOptions: {
@@ -17,11 +17,11 @@ export const config: ConfigFile = {
       configs: {
         RATE_UPDATE_V3: [
           {
-            asset: 'USDCn',
+            asset: 'USDC',
             params: {
               optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
-              variableRateSlope1: '11',
+              variableRateSlope1: '',
               variableRateSlope2: '',
               stableRateSlope1: '',
               stableRateSlope2: '',
@@ -32,17 +32,17 @@ export const config: ConfigFile = {
           },
         ],
       },
-      cache: {blockNumber: 56205923},
+      cache: {blockNumber: 57485864},
     },
     AaveV3Optimism: {
       configs: {
         RATE_UPDATE_V3: [
           {
-            asset: 'USDCn',
+            asset: 'USDC',
             params: {
               optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
-              variableRateSlope1: '11',
+              variableRateSlope1: '',
               variableRateSlope2: '',
               stableRateSlope1: '',
               stableRateSlope2: '',
@@ -53,17 +53,17 @@ export const config: ConfigFile = {
           },
         ],
       },
-      cache: {blockNumber: 119190057},
+      cache: {blockNumber: 120646754},
     },
     AaveV3Arbitrum: {
       configs: {
         RATE_UPDATE_V3: [
           {
-            asset: 'USDCn',
+            asset: 'USDC',
             params: {
               optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
-              variableRateSlope1: '11',
+              variableRateSlope1: '',
               variableRateSlope2: '',
               stableRateSlope1: '',
               stableRateSlope2: '',
@@ -74,7 +74,28 @@ export const config: ConfigFile = {
           },
         ],
       },
-      cache: {blockNumber: 204403350},
+      cache: {blockNumber: 215884651},
+    },
+    AaveV3Base: {
+      configs: {
+        RATE_UPDATE_V3: [
+          {
+            asset: 'USDbC',
+            params: {
+              optimalUtilizationRate: '',
+              baseVariableBorrowRate: '',
+              variableRateSlope1: '',
+              variableRateSlope2: '',
+              stableRateSlope1: '',
+              stableRateSlope2: '',
+              baseStableRateOffset: '',
+              stableRateExcessOffset: '',
+              optimalStableToTotalDebtRatio: '',
+            },
+          },
+        ],
+      },
+      cache: {blockNumber: 15052532},
     },
   },
 };
