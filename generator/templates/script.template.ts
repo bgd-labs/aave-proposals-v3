@@ -4,6 +4,7 @@ import {
   generateFolderName,
   getChainAlias,
   getPoolChain,
+  getVotingPortal,
 } from '../common';
 import {Options} from '../types';
 import {prefixWithImports} from '../utils/importsResolver';
@@ -12,6 +13,7 @@ import {prefixWithPragma} from '../utils/constants';
 export function generateScript(options: Options) {
   const folderName = generateFolderName(options);
   const fileName = generateContractName(options);
+  const votingPortal = getVotingPortal(options.votingNetwork);
   let template = '';
   const chains = [...new Set(options.pools.map((pool) => getPoolChain(pool)!))];
 
@@ -41,11 +43,11 @@ export function generateScript(options: Options) {
       return `/**
     * @dev Deploy ${chain}
     * deploy-command: make deploy-ledger contract=src/${folderName}/${fileName}.s.sol:Deploy${chain} chain=${getChainAlias(
-        chain
-      )}
-    * verify-command: npx catapulta-verify -b broadcast/${fileName}.s.sol/${
-        CHAIN_TO_CHAIN_ID[chain]
-      }/run-latest.json
+      chain,
+    )}
+    * verify-command: FOUNDRY_PROFILE=${getChainAlias(chain)} npx catapulta-verify -b broadcast/${fileName}.s.sol/${
+      CHAIN_TO_CHAIN_ID[chain]
+    }/run-latest.json
     */
    contract Deploy${chain} is ${chain}Script {
      function run() external broadcast {
@@ -53,7 +55,7 @@ export function generateScript(options: Options) {
        ${poolsToChainsMap[chain]
          .map(
            ({contractName, pool}, ix) =>
-             `address payload${ix} = GovV3Helpers.deployDeterministic(type(${contractName}).creationCode);`
+             `address payload${ix} = GovV3Helpers.deployDeterministic(type(${contractName}).creationCode);`,
          )
          .join('\n')}
 
@@ -63,7 +65,7 @@ export function generateScript(options: Options) {
        });
        ${poolsToChainsMap[chain]
          .map(
-           ({contractName, pool}, ix) => `actions[${ix}] = GovV3Helpers.buildAction(payload${ix});`
+           ({contractName, pool}, ix) => `actions[${ix}] = GovV3Helpers.buildAction(payload${ix});`,
          )
          .join('\n')}
 
@@ -105,9 +107,9 @@ contract CreateProposal is EthereumScript {
 
     // create proposal
     vm.startBroadcast();
-    GovV3Helpers.createProposal(vm, payloads, GovV3Helpers.ipfsHashFile(vm, 'src/${folderName}/${
-    options.shortName
-  }.md'));
+    GovV3Helpers.createProposal(vm, payloads, ${votingPortal}, GovV3Helpers.ipfsHashFile(vm, 'src/${folderName}/${
+      options.shortName
+    }.md'));
   }
 }`;
   return prefixWithPragma(prefixWithImports(template));

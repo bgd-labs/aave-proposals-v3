@@ -6,10 +6,10 @@ import {prefixWithPragma} from '../utils/constants';
 export const proposalTemplate = (
   options: Options,
   poolConfig: PoolConfig,
-  pool: PoolIdentifier
+  pool: PoolIdentifier,
 ) => {
   const {title, author, snapshot, discussion} = options;
-  const chain = getPoolChain(pool);
+  const poolName = /AaveV[2|3](.*)/.test(pool) && pool.match(/AaveV[2|3](.*)/)![1];
   const version = getVersion(pool);
   const contractName = generateContractName(options, pool);
 
@@ -31,10 +31,10 @@ export const proposalTemplate = (
 
   let optionalExecute = '';
   const usesConfigEngine = Object.keys(poolConfig.configs).some(
-    (f) => ![FEATURE.OTHERS, FEATURE.FLASH_BORROWER, FEATURE.FREEZE].includes(f)
+    (f) => ![FEATURE.OTHERS, FEATURE.FLASH_BORROWER, FEATURE.FREEZE].includes(f),
   );
   const isAssetListing = Object.keys(poolConfig.configs).some((f) =>
-    [FEATURE.ASSET_LISTING, FEATURE.ASSET_LISTING_CUSTOM].includes(f)
+    [FEATURE.ASSET_LISTING, FEATURE.ASSET_LISTING_CUSTOM].includes(f),
   );
   if (innerExecute) {
     if (usesConfigEngine) {
@@ -55,8 +55,8 @@ export const proposalTemplate = (
   * - Discussion: ${discussion || 'TODO'}
   */
  contract ${contractName} is ${
-    usesConfigEngine ? `Aave${version}Payload${chain}` : 'IProposalGenericExecutor'
-  } {
+   usesConfigEngine ? `Aave${version}Payload${poolName}` : 'IProposalGenericExecutor'
+ } {
    ${isAssetListing ? 'using SafeERC20 for IERC20;' : ''}
 
    ${constants}

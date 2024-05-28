@@ -1,9 +1,16 @@
-import {generateContractName, getChainAlias, getPoolChain, isV2Pool} from '../common';
+import {
+  generateContractName,
+  generateFolderName,
+  getChainAlias,
+  getPoolChain,
+  isV2Pool,
+} from '../common';
 import {Options, PoolConfig, PoolIdentifier} from '../types';
 import {prefixWithPragma} from '../utils/constants';
 import {prefixWithImports} from '../utils/importsResolver';
 
 export const testTemplate = (options: Options, poolConfig: PoolConfig, pool: PoolIdentifier) => {
+  const folderName = generateFolderName(options);
   const chain = getPoolChain(pool);
   const contractName = generateContractName(options, pool);
 
@@ -22,7 +29,7 @@ import {${contractName}} from './${contractName}.sol';
 
 /**
  * @dev Test for ${contractName}
- * command: make test-contract filter=${contractName}
+ * command: FOUNDRY_PROFILE=${getChainAlias(chain)} forge test --match-path=src/${folderName}/${contractName}.t.sol -vv
  */
 contract ${contractName}_Test is ${testBase} {
   ${contractName} internal proposal;

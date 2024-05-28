@@ -1,9 +1,13 @@
+# mac artifacts
+.DS_Store
+
 # build and cache
 cache/
 out/
 
 # general
 .env
+.env.bk
 
 # editors
 .idea

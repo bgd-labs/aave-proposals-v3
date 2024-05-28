@@ -4,11 +4,34 @@ test = 'tests'
 script = 'scripts'
 solc = '0.8.19'
 out = 'out'
+bytecode_hash = 'none'
 libs = ['lib']
 remappings = [
 ]
 ffi = true
 fs_permissions = [{ access = "write", path = "./reports" }]
+
+# incomplete list at https://www.evmdiff.com/features?name=PUSH0&kind=opcode
+[profile.metis]
+evm_version = 'paris'
+
+[profile.mainnet]
+evm_version = 'shanghai'
+
+[profile.arbitrum]
+evm_version = 'shanghai'
+
+[profile.optimism]
+evm_version = 'shanghai'
+
+[profile.base]
+evm_version = 'shanghai'
+
+[profile.polygon]
+evm_version = 'shanghai'
+
+[profile.avalanche]
+evm_version = 'shanghai'
 
 [rpc_endpoints]
 mainnet = "${RPC_MAINNET}"
@@ -23,18 +46,20 @@ base = "${RPC_BASE}"
 zkevm = "${RPC_ZKEVM}"
 gnosis = "${RPC_GNOSIS}"
 bnb = "${RPC_BNB}"
+scroll="${RPC_SCROLL}"
 
 [etherscan]
-mainnet = { key="${ETHERSCAN_API_KEY_MAINNET}", chainId=1 }
-optimism = { key="${ETHERSCAN_API_KEY_OPTIMISM}", chainId=10 }
-avalanche = { key="${ETHERSCAN_API_KEY_AVALANCHE}", chainId=43114 }
-polygon = { key="${ETHERSCAN_API_KEY_POLYGON}", chainId=137 }
-arbitrum = { key="${ETHERSCAN_API_KEY_ARBITRUM}", chainId=42161 }
-fantom = { key="${ETHERSCAN_API_KEY_FANTOM}", chainId=250 }
+mainnet = { key="${ETHERSCAN_API_KEY_MAINNET}", chain=1 }
+optimism = { key="${ETHERSCAN_API_KEY_OPTIMISM}", chain=10 }
+avalanche = { key="${ETHERSCAN_API_KEY_AVALANCHE}", chain=43114 }
+polygon = { key="${ETHERSCAN_API_KEY_POLYGON}", chain=137 }
+arbitrum = { key="${ETHERSCAN_API_KEY_ARBITRUM}", chain=42161 }
+fantom = { key="${ETHERSCAN_API_KEY_FANTOM}", chain=250 }
 metis = { key="any", chainId=1088, url='https://andromeda-explorer.metis.io/' }
 base = { key="${ETHERSCAN_API_KEY_BASE}", chainId=8453 }
 zkevm = { key="${ETHERSCAN_API_KEY_ZKEVM}", chainId=1101 }
 gnosis = { key="${ETHERSCAN_API_KEY_GNOSIS}", chainId=100 }
-bnb = { key="${ETHERSCAN_API_KEY_BNB}", chainId=56 }
+bnb= { key="${ETHERSCAN_API_KEY_BNB}",chainId=56,url='https://api.bscscan.com/api'}
+scroll={key="${ETHERSCAN_API_KEY_SCROLL}",chainId=534352}
 
 # See more config options https://github.com/gakonst/foundry/tree/master/config

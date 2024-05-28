@@ -6,7 +6,7 @@ import {fetchCollateralUpdate} from './collateralsUpdates';
 import {fetchCapsUpdate} from './capsUpdates';
 import {Listing, ListingWithCustomImpl, TokenImplementations} from './types';
 import {CHAIN_TO_CHAIN_ID, getPoolChain} from '../common';
-import {PublicClient, getContract} from 'viem';
+import {getContract} from 'viem';
 import {confirm} from '@inquirer/prompts';
 import {TEST_EXECUTE_PROPOSAL} from '../utils/constants';
 import {addressPrompt, translateJsAddressToSol} from '../prompts/addressPrompt';
@@ -14,7 +14,7 @@ import {stringPrompt} from '../prompts/stringPrompt';
 import {translateJsBoolToSol} from '../prompts/boolPrompt';
 import {transformNumberToPercent, translateJsPercentToSol} from '../prompts/percentPrompt';
 import {transformNumberToHumanReadable, translateJsNumberToSol} from '../prompts/numberPrompt';
-import {CHAIN_ID_CLIENT_MAP} from '@bgd-labs/aave-cli';
+import {CHAIN_ID_CLIENT_MAP} from '@bgd-labs/js-utils';
 
 async function fetchListing(pool: PoolIdentifier): Promise<Listing> {
   const asset = await addressPrompt({
@@ -49,7 +49,7 @@ async function fetchListing(pool: PoolIdentifier): Promise<Listing> {
         type: 'function',
       },
     ],
-    publicClient: CHAIN_ID_CLIENT_MAP[CHAIN_TO_CHAIN_ID[chain]] as PublicClient,
+    client: CHAIN_ID_CLIENT_MAP[CHAIN_TO_CHAIN_ID[chain]],
     address: asset,
   });
   let symbol = '';
@@ -111,33 +111,33 @@ function generateAssetListingSol(cfg: Listing) {
   rateStrategyParams: IV3RateStrategyFactory.RateStrategyParams({
      optimalUsageRatio: ${translateJsPercentToSol(
        cfg.rateStrategyParams.optimalUtilizationRate,
-       true
+       true,
      )},
      baseVariableBorrowRate: ${translateJsPercentToSol(
        cfg.rateStrategyParams.baseVariableBorrowRate,
-       true
+       true,
      )},
      variableRateSlope1: ${translateJsPercentToSol(
        cfg.rateStrategyParams.variableRateSlope1,
-       true
+       true,
      )},
      variableRateSlope2: ${translateJsPercentToSol(
        cfg.rateStrategyParams.variableRateSlope2,
-       true
+       true,
      )},
      stableRateSlope1: ${translateJsPercentToSol(cfg.rateStrategyParams.stableRateSlope1, true)},
      stableRateSlope2: ${translateJsPercentToSol(cfg.rateStrategyParams.stableRateSlope2, true)},
      baseStableRateOffset: ${translateJsPercentToSol(
        cfg.rateStrategyParams.baseStableRateOffset,
-       true
+       true,
      )},
      stableRateExcessOffset: ${translateJsPercentToSol(
        cfg.rateStrategyParams.stableRateExcessOffset,
-       true
+       true,
      )},
      optimalStableToTotalDebtRatio: ${translateJsPercentToSol(
        cfg.rateStrategyParams.optimalStableToTotalDebtRatio,
-       true
+       true,
      )}
   })`;
 }
@@ -167,7 +167,7 @@ export const assetListing: FeatureModule<Listing[]> = {
         execute: cfg.map(
           (cfg) =>
             `IERC20(${cfg.assetSymbol}).forceApprove(address(${pool}.POOL), ${cfg.assetSymbol}_SEED_AMOUNT);
-            ${pool}.POOL.supply(${cfg.assetSymbol}, ${cfg.assetSymbol}_SEED_AMOUNT, address(${pool}.COLLECTOR), 0);`
+            ${pool}.POOL.supply(${cfg.assetSymbol}, ${cfg.assetSymbol}_SEED_AMOUNT, address(${pool}.COLLECTOR), 0);`,
         ),
         fn: [
           `function newListings() public pure override returns (IAaveV3ConfigEngine.Listing[] memory) {
@@ -179,7 +179,7 @@ export const assetListing: FeatureModule<Listing[]> = {
             .map(
               (cfg, ix) => `listings[${ix}] = IAaveV3ConfigEngine.Listing({
                ${generateAssetListingSol(cfg)}
-             });`
+             });`,
             )
             .join('\n')}
 
@@ -193,7 +193,7 @@ export const assetListing: FeatureModule<Listing[]> = {
             ${TEST_EXECUTE_PROPOSAL}
             (address aTokenAddress, , ) = ${pool}.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(proposal.${cfg.assetSymbol}());
             assertGe(IERC20(aTokenAddress).balanceOf(address(${pool}.COLLECTOR)), 10 ** ${cfg.decimals});
-          }`
+          }`,
         ),
       },
       aip: {
@@ -205,50 +205,50 @@ export const assetListing: FeatureModule<Listing[]> = {
           listingTemplate += `| Borrowable | ${cfg.enabledToBorrow} |\n`;
           listingTemplate += `| Collateral Enabled | ${!!cfg.liqThreshold} |\n`;
           listingTemplate += `| Supply Cap (${cfg.assetSymbol}) | ${transformNumberToHumanReadable(
-            cfg.supplyCap
+            cfg.supplyCap,
           )} |\n`;
           listingTemplate += `| Borrow Cap (${cfg.assetSymbol}) | ${transformNumberToHumanReadable(
-            cfg.borrowCap
+            cfg.borrowCap,
           )} |\n`;
           listingTemplate += `| Debt Ceiling | USD ${transformNumberToHumanReadable(
-            cfg.debtCeiling
+            cfg.debtCeiling,
           )} |\n`;
           listingTemplate += `| LTV | ${transformNumberToPercent(cfg.ltv)} |\n`;
           listingTemplate += `| LT | ${transformNumberToPercent(cfg.liqThreshold)} |\n`;
           listingTemplate += `| Liquidation Bonus	| ${transformNumberToPercent(cfg.liqBonus)} |\n`;
           listingTemplate += `| Liquidation Protocol Fee | ${transformNumberToPercent(
-            cfg.liqProtocolFee
+            cfg.liqProtocolFee,
           )} |\n`;
           listingTemplate += `| Reserve Factor | ${transformNumberToPercent(
-            cfg.reserveFactor
+            cfg.reserveFactor,
           )} |\n`;
           listingTemplate += `| Base Variable Borrow Rate	| ${transformNumberToPercent(
-            cfg.rateStrategyParams.baseVariableBorrowRate
+            cfg.rateStrategyParams.baseVariableBorrowRate,
           )} |\n`;
           listingTemplate += `| Variable Slope 1 | ${transformNumberToPercent(
-            cfg.rateStrategyParams.variableRateSlope1
+            cfg.rateStrategyParams.variableRateSlope1,
           )} |\n`;
           listingTemplate += `| Variable Slope 2 | ${transformNumberToPercent(
-            cfg.rateStrategyParams.variableRateSlope2
+            cfg.rateStrategyParams.variableRateSlope2,
           )} |\n`;
           listingTemplate += `| Uoptimal | ${transformNumberToPercent(
-            cfg.rateStrategyParams.optimalUtilizationRate
+            cfg.rateStrategyParams.optimalUtilizationRate,
           )} |\n`;
           listingTemplate += `| Stable Borrowing | ${cfg.stableRateModeEnabled} |\n`;
           listingTemplate += `| Stable Slope1	| ${transformNumberToPercent(
-            cfg.rateStrategyParams.stableRateSlope1
+            cfg.rateStrategyParams.stableRateSlope1,
           )} |\n`;
           listingTemplate += `| Stable Slope2	| ${transformNumberToPercent(
-            cfg.rateStrategyParams.stableRateSlope2
+            cfg.rateStrategyParams.stableRateSlope2,
           )} |\n`;
           listingTemplate += `| Base Stable Rate Offset | ${transformNumberToPercent(
-            cfg.rateStrategyParams.baseStableRateOffset!
+            cfg.rateStrategyParams.baseStableRateOffset!,
           )} |\n`;
           listingTemplate += `| Stable Rate Excess Offset	| ${transformNumberToPercent(
-            cfg.rateStrategyParams.stableRateExcessOffset!
+            cfg.rateStrategyParams.stableRateExcessOffset!,
           )} |\n`;
           listingTemplate += `| Optimal Stable To Total Debt Ratio | ${transformNumberToPercent(
-            cfg.rateStrategyParams.optimalStableToTotalDebtRatio!
+            cfg.rateStrategyParams.optimalStableToTotalDebtRatio!,
           )} |\n`;
           listingTemplate += `| Flashloanable	| ${cfg.flashloanable} |\n`;
           listingTemplate += `| Siloed Borrowing	| ${cfg.withSiloedBorrowing} |\n`;
@@ -280,13 +280,13 @@ export const assetListingCustom: FeatureModule<ListingWithCustomImpl[]> = {
         constants: cfg.map(
           (cfg) =>
             `address public constant ${cfg.base.assetSymbol} = ${translateJsAddressToSol(
-              cfg.base.asset
-            )};`
+              cfg.base.asset,
+            )};`,
         ),
         execute: cfg.map(
           (cfg) =>
             `IERC20(${cfg.base.assetSymbol}).forceApprove(address(${pool}.POOL), 10 ** ${cfg.base.decimals});
-            ${pool}.POOL.supply(${cfg.base.assetSymbol}, 10 ** ${cfg.base.decimals}, ${pool}.COLLECTOR, 0);`
+            ${pool}.POOL.supply(${cfg.base.assetSymbol}, 10 ** ${cfg.base.decimals}, ${pool}.COLLECTOR, 0);`,
         ),
         fn: [
           `function newListingsCustom() public pure override returns (IAaveV3ConfigEngine.ListingWithCustomImpl[] memory) {
@@ -305,7 +305,7 @@ export const assetListingCustom: FeatureModule<ListingWithCustomImpl[]> = {
                     sToken: ${translateJsAddressToSol(cfg.implementations.sToken)}
                   })
                 })
-             );`
+             );`,
             )
             .join('\n')}
 
@@ -319,7 +319,7 @@ export const assetListingCustom: FeatureModule<ListingWithCustomImpl[]> = {
             ${TEST_EXECUTE_PROPOSAL}
             (address aTokenAddress, , ) = ${pool}.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(proposal.${cfg.base.assetSymbol}());
             assertGte(IERC20(aTokenAddress).balanceOf(${pool}.COLLECTOR), 10 ** ${cfg.base.decimals});
-          }`
+          }`,
         ),
       },
     };

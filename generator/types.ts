@@ -30,6 +30,8 @@ export const V3_POOLS = [
   'AaveV3Metis',
   'AaveV3Base',
   'AaveV3Gnosis',
+  'AaveV3Scroll',
+  'AaveV3BNB',
 ] as const satisfies readonly (keyof typeof addressBook)[];
 
 export const POOLS = [
@@ -44,6 +46,7 @@ export interface Options {
   force?: boolean;
   pools: PoolIdentifier[];
   title: string;
+  votingNetwork?: VOTING_NETWORK;
   // automatically generated shortName from title
   shortName: string;
   author: string;
@@ -83,6 +86,12 @@ export enum FEATURE {
   RATE_UPDATE_V2 = 'RATE_UPDATE_V2',
   FREEZE = 'FREEZE',
   OTHERS = 'OTHERS',
+}
+
+export enum VOTING_NETWORK {
+  POLYGON = 'POLYGON',
+  ETHEREUM = 'ETHEREUM',
+  AVALANCHE = 'AVALANCHE',
 }
 
 export interface FeatureModule<T extends {} = {}> {

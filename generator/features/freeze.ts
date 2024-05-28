@@ -31,8 +31,8 @@ export const freezeUpdates: FeatureModule<FreezeUpdate[]> = {
           (cfg) =>
             `${pool}.POOL_CONFIGURATOR.setReserveFreeze(${translateAssetToAssetLibUnderlying(
               cfg.asset,
-              pool
-            )}, false);`
+              pool,
+            )}, ${cfg.shouldBeFrozen});`,
         ),
       },
     };

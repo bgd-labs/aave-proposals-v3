@@ -1,10 +1,10 @@
 {
-  "name": "bgd-forge-template",
+  "name": "aave-proposals-v3",
   "version": "1.0.0",
   "scripts": {
     "test": "vitest generator",
-    "lint": "prettier ./",
-    "lint:fix": "npm run lint -- --write",
+    "lint": "prettier . --check",
+    "lint:fix": "prettier . --write",
     "generate": "tsx generator/cli",
     "generate:bgd": "tsx generator/cli -a 'BGD Labs @bgdlabs'",
     "prepare": "husky install"
@@ -25,22 +25,23 @@
   },
   "homepage": "https://github.com/bgd-labs/aave-proposals-v3#readme",
   "devDependencies": {
-    "@types/node": "^20.10.5",
-    "prettier": "2.8.7",
-    "prettier-plugin-solidity": "1.1.3",
-    "vitest": "^1.0.4"
+    "@types/node": "^20.11.10",
+    "prettier": "3.2.5",
+    "prettier-plugin-solidity": "1.3.1",
+    "vitest": "^1.4.0"
   },
   "dependencies": {
-    "@bgd-labs/aave-address-book": "^2.14.0",
-    "@bgd-labs/aave-cli": "0.2.1",
+    "@bgd-labs/aave-address-book": "^2.26.1",
+    "@bgd-labs/aave-cli": "0.12.0",
+    "@bgd-labs/js-utils": "^1.3.0",
     "@inquirer/prompts": "^3.3.0",
-    "@inquirer/testing": "^2.1.9",
-    "catapulta-verify": "^0.1.11",
+    "@inquirer/testing": "^2.1.13",
+    "catapulta-verify": "^1.1.1",
     "commander": "^11.1.0",
     "husky": "^8.0.3",
-    "lint-staged": "^15.2.0",
-    "tsx": "^4.6.2",
-    "viem": "^1.20.1"
+    "lint-staged": "^15.2.2",
+    "tsx": "^4.7.1",
+    "viem": "^2.9.25"
   },
   "lint-staged": {
     "*": "prettier --ignore-unknown --write"

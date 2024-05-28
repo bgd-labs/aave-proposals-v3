@@ -5,7 +5,9 @@ export function generateAIP(options: Options, configs: PoolConfigs) {
   return `---
 title: ${`"${options.title}"` || 'TODO'}
 author: ${`"${options.author}"` || 'TODO'}
-discussions: ${`"${options.discussion}"` || 'TODO'}
+discussions: ${`"${options.discussion}"` || 'TODO'}${
+    options.snapshot ? `\nsnapshot: "${options.snapshot}"\n` : ''
+  }
 ---
 
 ## Simple Summary
@@ -17,7 +19,7 @@ discussions: ${`"${options.discussion}"` || 'TODO'}
 ${Object.keys(configs)
   .map((pool) => {
     return configs[pool as keyof typeof configs]!.artifacts.filter(
-      (artifact) => artifact.aip?.specification
+      (artifact) => artifact.aip?.specification,
     ).map((artifact) => artifact.aip?.specification);
   })
   .filter((a) => a)
@@ -29,16 +31,16 @@ ${Object.keys(configs)
     .map(
       (pool) =>
         `[${pool}](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/${generateFolderName(
-          options
-        )}/${generateContractName(options, pool)}.sol)`
+          options,
+        )}/${generateContractName(options, pool)}.sol)`,
     )
     .join(', ')}
 - Tests: ${options.pools
     .map(
       (pool) =>
         `[${pool}](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/${generateFolderName(
-          options
-        )}/${generateContractName(options, pool)}.t.sol)`
+          options,
+        )}/${generateContractName(options, pool)}.t.sol)`,
     )
     .join(', ')}
 - [Snapshot](${options.snapshot || 'TODO'})

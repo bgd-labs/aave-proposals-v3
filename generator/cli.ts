@@ -1,7 +1,7 @@
 import path from 'path';
 import {Command, Option} from 'commander';
 import {CHAIN_TO_CHAIN_ID, getDate, getPoolChain, isV2Pool, pascalCase} from './common';
-import {input, checkbox} from '@inquirer/prompts';
+import {input, checkbox, select} from '@inquirer/prompts';
 import {
   CodeArtifact,
   ConfigFile,
@@ -12,6 +12,7 @@ import {
   PoolCache,
   PoolConfigs,
   PoolIdentifier,
+  VOTING_NETWORK,
 } from './types';
 import {flashBorrower} from './features/flashBorrower';
 import {capsUpdates} from './features/capsUpdates';
@@ -24,8 +25,8 @@ import {priceFeedsUpdates} from './features/priceFeedsUpdates';
 import {freezeUpdates} from './features/freeze';
 import {assetListing, assetListingCustom} from './features/assetListing';
 import {generateFiles, writeFiles} from './generator';
-import {PublicClient} from 'viem';
-import {CHAIN_ID_CLIENT_MAP} from '@bgd-labs/aave-cli';
+import {CHAIN_ID_CLIENT_MAP} from '@bgd-labs/js-utils';
+import {getBlockNumber} from 'viem/actions';
 
 const program = new Command();
 
@@ -39,6 +40,12 @@ program
   .addOption(new Option('-a, --author <string>', 'author'))
   .addOption(new Option('-d, --discussion <string>', 'forum link'))
   .addOption(new Option('-s, --snapshot <string>', 'snapshot link'))
+  .addOption(
+    new Option(
+      '-v, --votingNetwork <votingNetwork...>',
+      'network where voting should take place for the proposal',
+    ).choices(Object.values(VOTING_NETWORK)),
+  )
   .addOption(new Option('-c, --configFile <string>', 'path to config file'))
   .allowExcessArguments(false)
   .parse(process.argv);
@@ -75,6 +82,46 @@ const FEATURE_MODULES_V3 = [
   PLACEHOLDER_MODULE,
 ];
 
+async function generateDeterministicPoolCache(pool: PoolIdentifier): Promise<PoolCache> {
+  const chain = getPoolChain(pool);
+  const client = CHAIN_ID_CLIENT_MAP[CHAIN_TO_CHAIN_ID[chain]];
+  return {blockNumber: Number(await getBlockNumber(client))};
+}
+
+async function fetchPoolOptions(pool: PoolIdentifier) {
+  poolConfigs[pool] = {
+    configs: {},
+    artifacts: [],
+    cache: await generateDeterministicPoolCache(pool),
+  };
+
+  const v2 = isV2Pool(pool);
+  const features = await checkbox({
+    message: `What do you want to do on ${pool}?`,
+    choices: v2
+      ? FEATURE_MODULES_V2.map((m) => ({value: m.value, name: m.description}))
+      : FEATURE_MODULES_V3.map((m) => ({value: m.value, name: m.description})),
+  });
+  for (const feature of features) {
+    const module = v2
+      ? FEATURE_MODULES_V2.find((m) => m.value === feature)!
+      : FEATURE_MODULES_V3.find((m) => m.value === feature)!;
+    poolConfigs[pool]!.configs[feature] = await module.cli({
+      options,
+      pool,
+      cache: poolConfigs[pool]!.cache,
+    });
+    poolConfigs[pool]!.artifacts.push(
+      module.build({
+        options,
+        pool,
+        cfg: poolConfigs[pool]!.configs[feature],
+        cache: poolConfigs[pool]!.cache,
+      }),
+    );
+  }
+}
+
 if (options.configFile) {
   const {config: cfgFile}: {config: ConfigFile} = await import(
     path.join(process.cwd(), options.configFile)
@@ -83,19 +130,23 @@ if (options.configFile) {
   poolConfigs = cfgFile.poolOptions as any;
   for (const pool of options.pools) {
     const v2 = isV2Pool(pool);
-    poolConfigs[pool]!.artifacts = [];
-    for (const feature of Object.keys(poolConfigs[pool]!.configs)) {
-      const module = v2
-        ? FEATURE_MODULES_V2.find((m) => m.value === feature)!
-        : FEATURE_MODULES_V3.find((m) => m.value === feature)!;
-      poolConfigs[pool]!.artifacts.push(
-        module.build({
-          options,
-          pool,
-          cfg: poolConfigs[pool]!.configs[feature],
-          cache: poolConfigs[pool]!.cache,
-        })
-      );
+    if (poolConfigs[pool]) {
+      poolConfigs[pool]!.artifacts = [];
+      for (const feature of Object.keys(poolConfigs[pool]!.configs)) {
+        const module = v2
+          ? FEATURE_MODULES_V2.find((m) => m.value === feature)!
+          : FEATURE_MODULES_V3.find((m) => m.value === feature)!;
+        poolConfigs[pool]!.artifacts.push(
+          module.build({
+            options,
+            pool,
+            cfg: poolConfigs[pool]!.configs[feature],
+            cache: poolConfigs[pool]!.cache,
+          }),
+        );
+      }
+    } else {
+      await fetchPoolOptions(pool);
     }
   }
 } else {
@@ -112,9 +163,15 @@ if (options.configFile) {
 
   if (!options.title) {
     options.title = await input({
-      message: 'Title of your proposal',
+      message:
+        'Short title of your proposal that will be used as contract name(please refrain from including author or date)',
       validate(input) {
         if (input.length == 0) return "Your title can't be empty";
+        // this is no exact math
+        // fully qualified identifiers are not allowed to be longer then 300 chars on etherscan api
+        // the path is roughly src(3)/date(8)_title/title_date(8):title_date(8), so 3 + 3*8 + 3 title.length
+        // so 80 sounds like a reasonable upper bound to stay below 300 character limit
+        if (input.trim().length > 80) return 'Your title is to long';
         return true;
       },
     });
@@ -144,43 +201,19 @@ if (options.configFile) {
     });
   }
 
-  async function generateDeterministicPoolCache(pool: PoolIdentifier): Promise<PoolCache> {
-    const chain = getPoolChain(pool);
-    const client = CHAIN_ID_CLIENT_MAP[CHAIN_TO_CHAIN_ID[chain]] as PublicClient;
-    return {blockNumber: Number(await client.getBlockNumber())};
+  if (!options.votingNetwork) {
+    options.votingNetwork = await select({
+      message: 'Select network where voting should takes place for the proposal',
+      choices: Object.values(VOTING_NETWORK).map((v) => ({
+        name: v != VOTING_NETWORK.POLYGON ? v : VOTING_NETWORK.POLYGON + ' (DEFAULT)',
+        value: v,
+      })),
+      default: VOTING_NETWORK.POLYGON,
+    });
   }
 
   for (const pool of options.pools) {
-    poolConfigs[pool] = {
-      configs: {},
-      artifacts: [],
-      cache: await generateDeterministicPoolCache(pool),
-    };
-    const v2 = isV2Pool(pool);
-    const features = await checkbox({
-      message: `What do you want to do on ${pool}?`,
-      choices: v2
-        ? FEATURE_MODULES_V2.map((m) => ({value: m.value, name: m.description}))
-        : FEATURE_MODULES_V3.map((m) => ({value: m.value, name: m.description})),
-    });
-    for (const feature of features) {
-      const module = v2
-        ? FEATURE_MODULES_V2.find((m) => m.value === feature)!
-        : FEATURE_MODULES_V3.find((m) => m.value === feature)!;
-      poolConfigs[pool]!.configs[feature] = await module.cli({
-        options,
-        pool,
-        cache: poolConfigs[pool]!.cache,
-      });
-      poolConfigs[pool]!.artifacts.push(
-        module.build({
-          options,
-          pool,
-          cfg: poolConfigs[pool]!.configs[feature],
-          cache: poolConfigs[pool]!.cache,
-        })
-      );
-    }
+    await fetchPoolOptions(pool);
   }
 }
 
