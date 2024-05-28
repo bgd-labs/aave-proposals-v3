@@ -8,7 +8,8 @@ export const config: ConfigFile = {
     author: 'Chaos Labs',
     discussion:
       'https://governance.aave.com/t/arfc-chaos-labs-parameter-recommendations-susd-on-v3-optimism-05-232024/17779',
-    snapshot: '',
+    snapshot:
+      'https://snapshot.org/#/aave.eth/proposal/0xa66afef5e247d9369831e874a60d022ce6b12645b41d9a244077a3a279ef24f3',
     votingNetwork: 'POLYGON',
   },
   poolOptions: {

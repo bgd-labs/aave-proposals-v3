@@ -9,7 +9,7 @@ import {IAaveV3ConfigEngine} from 'aave-helpers/v3-config-engine/IAaveV3ConfigEn
 /**
  * @title Chaos Labs Parameter Recommendations sUSD on V3 Optimism
  * @author Chaos Labs
- * - Snapshot: TODO
+ * - Snapshot: https://snapshot.org/#/aave.eth/proposal/0xa66afef5e247d9369831e874a60d022ce6b12645b41d9a244077a3a279ef24f3
  * - Discussion: https://governance.aave.com/t/arfc-chaos-labs-parameter-recommendations-susd-on-v3-optimism-05-232024/17779
  */
 contract AaveV3Optimism_ChaosLabsParameterRecommendationsSUSDOnV3Optimism_20240528 is
