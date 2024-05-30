@@ -11,14 +11,14 @@
 | isFrozen | false |
 | supplyCap | 80,000,000 USDe |
 | borrowCap | 72,000,000 USDe |
-| debtCeiling | 0 $ |
+| debtCeiling | 40,000,000 $ |
 | isSiloed | false |
 | isFlashloanable | true |
 | eModeCategory | 0 |
 | oracle | [0x55B6C4D3E8A27b8A1F5a263321b602e0fdEEcC17](https://etherscan.io/address/0x55B6C4D3E8A27b8A1F5a263321b602e0fdEEcC17) |
 | oracleDecimals | 8 |
 | oracleDescription | Capped USDe / USD |
-| oracleLatestAnswer | 1.00035492 |
+| oracleLatestAnswer | 1.00079999 |
 | usageAsCollateralEnabled | true |
 | ltv | 72 % |
 | liquidationThreshold | 75 % |
@@ -75,7 +75,7 @@
         "borrowingEnabled": true,
         "currentLiquidityRate": 0,
         "currentVariableBorrowRate": 0,
-        "debtCeiling": 0,
+        "debtCeiling": 4000000000,
         "decimals": 18,
         "eModeCategory": 0,
         "interestRateStrategy": "0x4011fcd421b9E90f131B164EC1d162DBE269621C",
@@ -93,7 +93,7 @@
         "oracle": "0x55B6C4D3E8A27b8A1F5a263321b602e0fdEEcC17",
         "oracleDecimals": 8,
         "oracleDescription": "Capped USDe / USD",
-        "oracleLatestAnswer": 100035492,
+        "oracleLatestAnswer": 100079999,
         "reserveFactor": 2500,
         "stableBorrowRateEnabled": false,
         "stableDebtToken": "0x43Cc8AD0c223b38D9c04802bB184A2D97e497D38",

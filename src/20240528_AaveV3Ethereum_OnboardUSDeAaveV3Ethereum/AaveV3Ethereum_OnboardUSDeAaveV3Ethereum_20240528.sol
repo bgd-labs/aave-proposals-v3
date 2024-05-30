@@ -44,7 +44,7 @@ contract AaveV3Ethereum_OnboardUSDeAaveV3Ethereum_20240528 is AaveV3PayloadEther
       reserveFactor: 25_00,
       supplyCap: 80_000_000,
       borrowCap: 72_000_000,
-      debtCeiling: 0,
+      debtCeiling: 40_000_000,
       liqProtocolFee: 10_00,
       rateStrategyParams: IV3RateStrategyFactory.RateStrategyParams({
         optimalUsageRatio: _bpsToRay(80_00),

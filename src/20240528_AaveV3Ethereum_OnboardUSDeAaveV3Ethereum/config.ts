@@ -1,6 +1,7 @@
 import {ConfigFile} from '../../generator/types';
 export const config: ConfigFile = {
   rootOptions: {
+    configFile: 'src/20240528_AaveV3Ethereum_OnboardUSDeAaveV3Ethereum/config.ts',
     pools: ['AaveV3Ethereum'],
     title: 'Onboard USDe Aave V3 Ethereum',
     shortName: 'OnboardUSDeAaveV3Ethereum',
@@ -22,7 +23,7 @@ export const config: ConfigFile = {
             ltv: '72',
             liqThreshold: '75',
             liqBonus: '8.5',
-            debtCeiling: '0',
+            debtCeiling: '40000000',
             liqProtocolFee: '10',
             enabledToBorrow: 'ENABLED',
             flashloanable: 'ENABLED',

@@ -24,7 +24,7 @@ The table below illustrates the configured risk parameters for **USDe**
 | Collateral Enabled                 |                                       true |
 | Supply Cap (USDe)                  |                                 80,000,000 |
 | Borrow Cap (USDe)                  |                                 72,000,000 |
-| Debt Ceiling                       |                                      USD 0 |
+| Debt Ceiling                       |                             USD 40,000,000 |
 | LTV                                |                                       72 % |
 | LT                                 |                                       75 % |
 | Liquidation Bonus                  |                                      8.5 % |

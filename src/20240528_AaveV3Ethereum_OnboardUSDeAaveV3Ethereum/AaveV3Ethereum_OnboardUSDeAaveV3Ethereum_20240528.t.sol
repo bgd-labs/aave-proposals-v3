@@ -17,7 +17,7 @@ contract AaveV3Ethereum_OnboardUSDeAaveV3Ethereum_20240528_Test is ProtocolV3Tes
   AaveV3Ethereum_OnboardUSDeAaveV3Ethereum_20240528 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 19967878);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 19982323);
     proposal = new AaveV3Ethereum_OnboardUSDeAaveV3Ethereum_20240528();
   }
 
