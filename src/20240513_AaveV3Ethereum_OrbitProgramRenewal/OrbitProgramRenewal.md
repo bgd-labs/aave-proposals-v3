@@ -35,8 +35,8 @@ With the transition to Governance V3, a significant feature introduced is gasles
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240513_AaveV3Ethereum_OrbitProgramRenewal/AaveV3Ethereum_OrbitProgramRenewal_20240513.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240513_AaveV3Ethereum_OrbitProgramRenewal/AaveV3Ethereum_OrbitProgramRenewal_20240513.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/97b44a67ed311df87102abca1944712f56b14785/src/20240513_AaveV3Ethereum_OrbitProgramRenewal/AaveV3Ethereum_OrbitProgramRenewal_20240513.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/97b44a67ed311df87102abca1944712f56b14785/src/20240513_AaveV3Ethereum_OrbitProgramRenewal/AaveV3Ethereum_OrbitProgramRenewal_20240513.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x4a10e2a8ca95024d7cf0791aa82ed262c816ff0ee78bc2f3ab3487e70d731361)
 - [Discussion](https://governance.aave.com/t/arfc-orbit-program-renewal-may-2024/17683)
 
