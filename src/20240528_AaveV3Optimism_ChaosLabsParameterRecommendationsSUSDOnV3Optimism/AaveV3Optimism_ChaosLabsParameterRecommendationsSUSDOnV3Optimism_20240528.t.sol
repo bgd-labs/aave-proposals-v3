@@ -7,6 +7,7 @@ import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/ProtocolV3TestBase.sol';
 import {AaveV3Optimism_ChaosLabsParameterRecommendationsSUSDOnV3Optimism_20240528} from './AaveV3Optimism_ChaosLabsParameterRecommendationsSUSDOnV3Optimism_20240528.sol';
 import {AaveV3OptimismAssets} from 'aave-address-book/AaveV3Optimism.sol';
+import {DataTypes} from 'aave-address-book/AaveV3.sol';
 
 /**
  * @dev Test for AaveV3Optimism_ChaosLabsParameterRecommendationsSUSDOnV3Optimism_20240528
@@ -45,5 +46,11 @@ contract AaveV3Optimism_ChaosLabsParameterRecommendationsSUSDOnV3Optimism_202405
     assertEq(config.liquidationThreshold, 70_00);
     assertEq(config.borrowCap, 5_600_000);
     assertEq(config.supplyCap, 7_000_000);
+
+    DataTypes.EModeCategory memory eModeStablecoinCategory = AaveV3Optimism
+      .POOL
+      .getEModeCategoryData(1);
+    assertEq(eModeStablecoinCategory.ltv, 90_00);
+    assertEq(eModeStablecoinCategory.liquidationThreshold, 93_00);
   }
 }
