@@ -36,6 +36,7 @@ export const config: ConfigFile = {
             label: '',
           },
         ],
+        FREEZE: [{asset: 'sUSD', shouldBeFrozen: false}],
       },
       cache: {blockNumber: 120646741},
     },

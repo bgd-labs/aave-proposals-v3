@@ -42,6 +42,7 @@ contract AaveV3Optimism_ChaosLabsParameterRecommendationsSUSDOnV3Optimism_202405
       allConfigsAfter,
       AaveV3OptimismAssets.sUSD_UNDERLYING
     );
+    assertEq(config.isFrozen, false);
     assertEq(config.ltv, 60_00);
     assertEq(config.liquidationThreshold, 70_00);
     assertEq(config.borrowCap, 5_600_000);

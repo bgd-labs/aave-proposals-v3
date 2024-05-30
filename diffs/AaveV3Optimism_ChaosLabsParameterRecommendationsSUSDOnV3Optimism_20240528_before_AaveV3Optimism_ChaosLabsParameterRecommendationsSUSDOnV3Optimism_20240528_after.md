@@ -6,6 +6,7 @@
 
 | description | value before | value after |
 | --- | --- | --- |
+| isFrozen | true | false |
 | supplyCap | 20,000,000 sUSD | 7,000,000 sUSD |
 | borrowCap | 13,000,000 sUSD | 5,600,000 sUSD |
 | ltv | 0 % | 60 % |
@@ -33,6 +34,10 @@
       "borrowCap": {
         "from": 13000000,
         "to": 5600000
+      },
+      "isFrozen": {
+        "from": true,
+        "to": false
       },
       "liquidationThreshold": {
         "from": 7500,

@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {AaveV3OptimismAssets, AaveV3OptimismEModes} from 'aave-address-book/AaveV3Optimism.sol';
+import {AaveV3Optimism, AaveV3OptimismAssets, AaveV3OptimismEModes} from 'aave-address-book/AaveV3Optimism.sol';
 import {AaveV3PayloadOptimism} from 'aave-helpers/v3-config-engine/AaveV3PayloadOptimism.sol';
 import {EngineFlags} from 'aave-helpers/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-helpers/v3-config-engine/IAaveV3ConfigEngine.sol';
@@ -15,6 +15,10 @@ import {IAaveV3ConfigEngine} from 'aave-helpers/v3-config-engine/IAaveV3ConfigEn
 contract AaveV3Optimism_ChaosLabsParameterRecommendationsSUSDOnV3Optimism_20240528 is
   AaveV3PayloadOptimism
 {
+  function _postExecute() internal override {
+    AaveV3Optimism.POOL_CONFIGURATOR.setReserveFreeze(AaveV3OptimismAssets.sUSD_UNDERLYING, false);
+  }
+
   function capsUpdates() public pure override returns (IAaveV3ConfigEngine.CapsUpdate[] memory) {
     IAaveV3ConfigEngine.CapsUpdate[] memory capsUpdate = new IAaveV3ConfigEngine.CapsUpdate[](1);
 
