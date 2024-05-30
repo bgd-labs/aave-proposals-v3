@@ -28,7 +28,7 @@ export const config: ConfigFile = {
             enabledToBorrow: 'ENABLED',
             flashloanable: 'ENABLED',
             stableRateModeEnabled: 'DISABLED',
-            borrowableInIsolation: 'DISABLED',
+            borrowableInIsolation: 'ENABLED',
             withSiloedBorrowing: 'DISABLED',
             reserveFactor: '25',
             supplyCap: '80000000',

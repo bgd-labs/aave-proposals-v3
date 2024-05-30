@@ -33,7 +33,7 @@
 | stableDebtTokenImpl | [0x15C5620dfFaC7c7366EED66C20Ad222DDbB1eD57](https://etherscan.io/address/0x15C5620dfFaC7c7366EED66C20Ad222DDbB1eD57) |
 | borrowingEnabled | true |
 | stableBorrowRateEnabled | false |
-| isBorrowableInIsolation | false |
+| isBorrowableInIsolation | true |
 | interestRateStrategy | [0x4011fcd421b9E90f131B164EC1d162DBE269621C](https://etherscan.io/address/0x4011fcd421b9E90f131B164EC1d162DBE269621C) |
 | liquidityIndex | 1 |
 | variableBorrowIndex | 1 |
@@ -80,7 +80,7 @@
         "eModeCategory": 0,
         "interestRateStrategy": "0x4011fcd421b9E90f131B164EC1d162DBE269621C",
         "isActive": true,
-        "isBorrowableInIsolation": false,
+        "isBorrowableInIsolation": true,
         "isFlashloanable": true,
         "isFrozen": false,
         "isPaused": false,

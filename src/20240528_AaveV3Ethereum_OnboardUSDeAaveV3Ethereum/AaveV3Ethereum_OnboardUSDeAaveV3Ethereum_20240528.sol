@@ -35,7 +35,7 @@ contract AaveV3Ethereum_OnboardUSDeAaveV3Ethereum_20240528 is AaveV3PayloadEther
       eModeCategory: AaveV3EthereumEModes.NONE,
       enabledToBorrow: EngineFlags.ENABLED,
       stableRateModeEnabled: EngineFlags.DISABLED,
-      borrowableInIsolation: EngineFlags.DISABLED,
+      borrowableInIsolation: EngineFlags.ENABLED,
       withSiloedBorrowing: EngineFlags.DISABLED,
       flashloanable: EngineFlags.ENABLED,
       ltv: 72_00,

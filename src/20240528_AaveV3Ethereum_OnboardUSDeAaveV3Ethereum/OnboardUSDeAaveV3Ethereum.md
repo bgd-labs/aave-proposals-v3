@@ -42,7 +42,7 @@ The table below illustrates the configured risk parameters for **USDe**
 | Optimal Stable To Total Debt Ratio |                                        0 % |
 | Flashloanable                      |                                    ENABLED |
 | Siloed Borrowing                   |                                   DISABLED |
-| Borrowable in Isolation            |                                   DISABLED |
+| Borrowable in Isolation            |                                    ENABLED |
 | Oracle                             | 0x55B6C4D3E8A27b8A1F5a263321b602e0fdEEcC17 |
 
 ## References
