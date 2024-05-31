@@ -58,8 +58,8 @@ Stablecoin E-Mode Specifications
 
 ## References
 
-- Implementation: [AaveV3Optimism](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240528_AaveV3Optimism_ChaosLabsParameterRecommendationsSUSDOnV3Optimism/AaveV3Optimism_ChaosLabsParameterRecommendationsSUSDOnV3Optimism_20240528.sol)
-- Tests: [AaveV3Optimism](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240528_AaveV3Optimism_ChaosLabsParameterRecommendationsSUSDOnV3Optimism/AaveV3Optimism_ChaosLabsParameterRecommendationsSUSDOnV3Optimism_20240528.t.sol)
+- Implementation: [AaveV3Optimism](https://github.com/bgd-labs/aave-proposals-v3/blob/ad5c895c51906be7b3ab7d2e61e6570644f3cbf5/src/20240528_AaveV3Optimism_ChaosLabsParameterRecommendationsSUSDOnV3Optimism/AaveV3Optimism_ChaosLabsParameterRecommendationsSUSDOnV3Optimism_20240528.sol)
+- Tests: [AaveV3Optimism](https://github.com/bgd-labs/aave-proposals-v3/blob/ad5c895c51906be7b3ab7d2e61e6570644f3cbf5/src/20240528_AaveV3Optimism_ChaosLabsParameterRecommendationsSUSDOnV3Optimism/AaveV3Optimism_ChaosLabsParameterRecommendationsSUSDOnV3Optimism_20240528.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0xa66afef5e247d9369831e874a60d022ce6b12645b41d9a244077a3a279ef24f3)
 - [Discussion](https://governance.aave.com/t/arfc-chaos-labs-parameter-recommendations-susd-on-v3-optimism-05-232024/17779)
 
