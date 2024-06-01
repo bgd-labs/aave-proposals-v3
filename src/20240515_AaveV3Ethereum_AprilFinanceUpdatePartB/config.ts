@@ -8,7 +8,6 @@ export const config: ConfigFile = {
     author: '@karpatkey_TokenLogic',
     discussion: 'https://governance.aave.com/t/arfc-april-finance-update/17390',
     snapshot: 'Direct-to-AIP',
-    votingNetwork: 'POLYGON',
   },
   poolOptions: {AaveV3Ethereum: {configs: {OTHERS: {}}, cache: {blockNumber: 19879169}}},
 };
