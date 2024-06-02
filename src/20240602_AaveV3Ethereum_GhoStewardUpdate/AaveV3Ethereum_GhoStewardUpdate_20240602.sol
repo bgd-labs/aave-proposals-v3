@@ -14,7 +14,7 @@ import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
  * - Discussion: https://governance.aave.com/t/arfc-gho-stewards/16466/11
  */
 contract AaveV3Ethereum_GhoStewardUpdate_20240602 is IProposalGenericExecutor {
-  address public constant GHO_STEWARD = 0x586De14A41af900D6fdA3C57F1dACDDd5b2A2C97;
+  address public constant GHO_STEWARD = 0x138d0f32C4D2eD3d4eEB37B1A059e56aFde87AB5;
 
   function execute() external {
     // Give Risk admin role to the steward
