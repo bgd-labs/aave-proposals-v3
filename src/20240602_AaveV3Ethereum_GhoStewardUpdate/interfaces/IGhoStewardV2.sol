@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.10;
 
-import {Ownable} from '@openzeppelin/contracts/access/Ownable.sol';
+import {Ownable} from '@solidity-utils/contracts/oz-common/Ownable.sol';
 import {EnumerableSet} from '@openzeppelin/contracts/utils/structs/EnumerableSet.sol';
 import {IPoolAddressesProvider} from '@aave/core-v3/contracts/interfaces/IPoolAddressesProvider.sol';
 import {IPoolConfigurator} from '@aave/core-v3/contracts/interfaces/IPoolConfigurator.sol';
@@ -14,7 +14,7 @@ import {FixedFeeStrategy} from '../facilitators/gsm/feeStrategy/FixedFeeStrategy
 import {IGsm} from '../facilitators/gsm/interfaces/IGsm.sol';
 import {IGsmFeeStrategy} from '../facilitators/gsm/feeStrategy/interfaces/IGsmFeeStrategy.sol';
 import {IGhoToken} from '../gho/interfaces/IGhoToken.sol';
-import {IGhoStewardV2} from './interfaces/IGhoStewardV2.sol';
+//import {IGhoStewardV2} from './interfaces/IGhoStewardV2.sol';
 
 /**
  * @title GhoStewardV2

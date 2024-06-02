@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 import {IProposalGenericExecutor} from 'aave-helpers/interfaces/IProposalGenericExecutor.sol';
 import {IGhoStewardV2} from './interfaces/IGhoStewardV2.sol';
 import {IGhoToken} from './interfaces/IGho.sol';
-import {IGsm} from './interfaces/IGsm.sol';
+import {IGsm} from './interfaces/IGSM.sol';
 import {AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 
