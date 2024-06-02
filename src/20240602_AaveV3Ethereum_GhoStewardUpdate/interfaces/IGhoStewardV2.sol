@@ -1,302 +1,158 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.10;
 
-import {Ownable} from '@solidity-utils/contracts/oz-common/Ownable.sol';
-import {EnumerableSet} from '@openzeppelin/contracts/utils/structs/EnumerableSet.sol';
-import {IPoolAddressesProvider} from '@aave/core-v3/contracts/interfaces/IPoolAddressesProvider.sol';
-import {IPoolConfigurator} from '@aave/core-v3/contracts/interfaces/IPoolConfigurator.sol';
-import {IPool} from '@aave/core-v3/contracts/interfaces/IPool.sol';
-import {DataTypes} from '@aave/core-v3/contracts/protocol/libraries/types/DataTypes.sol';
-import {ReserveConfiguration} from '@aave/core-v3/contracts/protocol/libraries/configuration/ReserveConfiguration.sol';
-import {GhoInterestRateStrategy} from '../facilitators/aave/interestStrategy/GhoInterestRateStrategy.sol';
-import {IFixedRateStrategyFactory} from '../facilitators/aave/interestStrategy/interfaces/IFixedRateStrategyFactory.sol';
-import {FixedFeeStrategy} from '../facilitators/gsm/feeStrategy/FixedFeeStrategy.sol';
-import {IGsm} from '../facilitators/gsm/interfaces/IGsm.sol';
-import {IGsmFeeStrategy} from '../facilitators/gsm/feeStrategy/interfaces/IGsmFeeStrategy.sol';
-import {IGhoToken} from '../gho/interfaces/IGhoToken.sol';
-//import {IGhoStewardV2} from './interfaces/IGhoStewardV2.sol';
-
 /**
- * @title GhoStewardV2
+ * @title IGhoStewardV2
  * @author Aave Labs
- * @notice Helper contract for managing parameters of the GHO reserve and GSM
- * @dev This contract must be granted `RiskAdmin` in the Aave V3 Ethereum Pool, `BucketManager` in GHO Token and `Configurator` in every GSM asset to be managed.
- * @dev Only the Risk Council is able to action contract's functions, based on specific conditions that have been agreed upon with the community.
- * @dev Only the Aave DAO is able add or remove approved GSMs.
- * @dev When updating GSM fee strategy the method assumes that the current strategy is FixedFeeStrategy for enforcing parameters
- * @dev FixedFeeStrategy is used when creating a new strategy for GSM
- * @dev FixedRateStrategyFactory is used when creating a new borrow rate strategy for GHO
+ * @notice Defines the basic interface of the GhoStewardV2
  */
-contract GhoStewardV2 is Ownable, IGhoStewardV2 {
-  using EnumerableSet for EnumerableSet.AddressSet;
-  using ReserveConfiguration for DataTypes.ReserveConfigurationMap;
+interface IGhoStewardV2 {
+  struct GhoDebounce {
+    uint40 ghoBorrowCapLastUpdate;
+    uint40 ghoBorrowRateLastUpdate;
+  }
 
-  /// @inheritdoc IGhoStewardV2
-  uint256 public constant GHO_BORROW_RATE_MAX = 0.2500e27; // 25.00%
-
-  /// @inheritdoc IGhoStewardV2
-  uint256 public constant GHO_BORROW_RATE_CHANGE_MAX = 0.0500e27; // 5.00%
-
-  /// @inheritdoc IGhoStewardV2
-  uint256 public constant GSM_FEE_RATE_CHANGE_MAX = 0.0050e4; // 0.50%
-
-  /// @inheritdoc IGhoStewardV2
-  uint256 public constant MINIMUM_DELAY = 2 days;
-
-  /// @inheritdoc IGhoStewardV2
-  address public immutable POOL_ADDRESSES_PROVIDER;
-
-  /// @inheritdoc IGhoStewardV2
-  address public immutable GHO_TOKEN;
-
-  /// @inheritdoc IGhoStewardV2
-  address public immutable FIXED_RATE_STRATEGY_FACTORY;
-
-  /// @inheritdoc IGhoStewardV2
-  address public immutable RISK_COUNCIL;
-
-  GhoDebounce internal _ghoTimelocks;
-  mapping(address => uint40) _facilitatorsBucketCapacityTimelocks;
-  mapping(address => GsmDebounce) internal _gsmTimelocksByAddress;
-
-  mapping(address => bool) internal _controlledFacilitatorsByAddress;
-  EnumerableSet.AddressSet internal _controlledFacilitators;
-
-  mapping(uint256 => mapping(uint256 => address)) internal _gsmFeeStrategiesByRates;
-  EnumerableSet.AddressSet internal _gsmFeeStrategies;
-
-  /**
-   * @dev Only Risk Council can call functions marked by this modifier.
-   */
-  modifier onlyRiskCouncil() {
-    require(RISK_COUNCIL == msg.sender, 'INVALID_CALLER');
-    _;
+  struct GsmDebounce {
+    uint40 gsmExposureCapLastUpdated;
+    uint40 gsmFeeStrategyLastUpdated;
   }
 
   /**
-   * @dev Only methods that are not timelocked can be called if marked by this modifier.
+   * @notice Updates the bucket capacity of facilitator, only if:
+   * - respects `MINIMUM_DELAY`, the minimum time delay between updates
+   * - the update changes up to 100% upwards
+   * - the facilitator is controlled
+   * @dev Only callable by Risk Council
+   * @param facilitator The facilitator address
+   * @param newBucketCapacity The new facilitator bucket capacity
    */
-  modifier notTimelocked(uint40 timelock) {
-    require(block.timestamp - timelock > MINIMUM_DELAY, 'DEBOUNCE_NOT_RESPECTED');
-    _;
-  }
+  function updateFacilitatorBucketCapacity(address facilitator, uint128 newBucketCapacity) external;
 
   /**
-   * @dev Constructor
-   * @param owner The address of the owner of the contract
-   * @param addressesProvider The address of the PoolAddressesProvider of Aave V3 Ethereum Pool
-   * @param ghoToken The address of the GhoToken
-   * @param fixedRateStrategyFactory The address of the FixedRateStrategyFactory
-   * @param riskCouncil The address of the risk council
+   * @notice Updates the GHO borrow cap, only if:
+   * - respects `MINIMUM_DELAY`, the minimum time delay between updates
+   * - the update changes up to 100% upwards or downwards
+   * @dev Only callable by Risk Council
+   * @param newBorrowCap The new borrow cap (in whole tokens)
    */
-  constructor(
-    address owner,
-    address addressesProvider,
-    address ghoToken,
-    address fixedRateStrategyFactory,
-    address riskCouncil
-  ) {
-    require(owner != address(0), 'INVALID_OWNER');
-    require(addressesProvider != address(0), 'INVALID_ADDRESSES_PROVIDER');
-    require(ghoToken != address(0), 'INVALID_GHO_TOKEN');
-    require(fixedRateStrategyFactory != address(0), 'INVALID_FIXED_RATE_STRATEGY_FACTORY');
-    require(riskCouncil != address(0), 'INVALID_RISK_COUNCIL');
-
-    POOL_ADDRESSES_PROVIDER = addressesProvider;
-    GHO_TOKEN = ghoToken;
-    FIXED_RATE_STRATEGY_FACTORY = fixedRateStrategyFactory;
-    RISK_COUNCIL = riskCouncil;
-
-    _transferOwnership(owner);
-  }
-
-  /// @inheritdoc IGhoStewardV2
-  function updateFacilitatorBucketCapacity(
-    address facilitator,
-    uint128 newBucketCapacity
-  ) external onlyRiskCouncil notTimelocked(_facilitatorsBucketCapacityTimelocks[facilitator]) {
-    require(_controlledFacilitatorsByAddress[facilitator], 'FACILITATOR_NOT_CONTROLLED');
-    (uint256 currentBucketCapacity, ) = IGhoToken(GHO_TOKEN).getFacilitatorBucket(facilitator);
-    require(
-      _isIncreaseLowerThanMax(currentBucketCapacity, newBucketCapacity, currentBucketCapacity),
-      'INVALID_BUCKET_CAPACITY_UPDATE'
-    );
-
-    _facilitatorsBucketCapacityTimelocks[facilitator] = uint40(block.timestamp);
-
-    IGhoToken(GHO_TOKEN).setFacilitatorBucketCapacity(facilitator, newBucketCapacity);
-  }
-
-  /// @inheritdoc IGhoStewardV2
-  function updateGhoBorrowCap(
-    uint256 newBorrowCap
-  ) external onlyRiskCouncil notTimelocked(_ghoTimelocks.ghoBorrowCapLastUpdate) {
-    DataTypes.ReserveConfigurationMap memory configuration = IPool(
-      IPoolAddressesProvider(POOL_ADDRESSES_PROVIDER).getPool()
-    ).getConfiguration(GHO_TOKEN);
-    uint256 currentBorrowCap = configuration.getBorrowCap();
-    require(
-      _isDifferenceLowerThanMax(currentBorrowCap, newBorrowCap, currentBorrowCap),
-      'INVALID_BORROW_CAP_UPDATE'
-    );
-
-    _ghoTimelocks.ghoBorrowCapLastUpdate = uint40(block.timestamp);
-
-    IPoolConfigurator(IPoolAddressesProvider(POOL_ADDRESSES_PROVIDER).getPoolConfigurator())
-      .setBorrowCap(GHO_TOKEN, newBorrowCap);
-  }
-
-  /// @inheritdoc IGhoStewardV2
-  function updateGhoBorrowRate(
-    uint256 newBorrowRate
-  ) external onlyRiskCouncil notTimelocked(_ghoTimelocks.ghoBorrowRateLastUpdate) {
-    DataTypes.ReserveData memory ghoReserveData = IPool(
-      IPoolAddressesProvider(POOL_ADDRESSES_PROVIDER).getPool()
-    ).getReserveData(GHO_TOKEN);
-    require(
-      ghoReserveData.interestRateStrategyAddress != address(0),
-      'GHO_INTEREST_RATE_STRATEGY_NOT_FOUND'
-    );
-
-    uint256 currentBorrowRate = GhoInterestRateStrategy(ghoReserveData.interestRateStrategyAddress)
-      .getBaseVariableBorrowRate();
-    require(newBorrowRate <= GHO_BORROW_RATE_MAX, 'BORROW_RATE_HIGHER_THAN_MAX');
-    require(
-      _isDifferenceLowerThanMax(currentBorrowRate, newBorrowRate, GHO_BORROW_RATE_CHANGE_MAX),
-      'INVALID_BORROW_RATE_UPDATE'
-    );
-
-    IFixedRateStrategyFactory strategyFactory = IFixedRateStrategyFactory(
-      FIXED_RATE_STRATEGY_FACTORY
-    );
-    uint256[] memory borrowRateList = new uint256[](1);
-    borrowRateList[0] = newBorrowRate;
-    address strategy = strategyFactory.createStrategies(borrowRateList)[0];
-
-    _ghoTimelocks.ghoBorrowRateLastUpdate = uint40(block.timestamp);
-
-    IPoolConfigurator(IPoolAddressesProvider(POOL_ADDRESSES_PROVIDER).getPoolConfigurator())
-      .setReserveInterestRateStrategyAddress(GHO_TOKEN, strategy);
-  }
-
-  /// @inheritdoc IGhoStewardV2
-  function updateGsmExposureCap(
-    address gsm,
-    uint128 newExposureCap
-  ) external onlyRiskCouncil notTimelocked(_gsmTimelocksByAddress[gsm].gsmExposureCapLastUpdated) {
-    uint128 currentExposureCap = IGsm(gsm).getExposureCap();
-    require(
-      _isDifferenceLowerThanMax(currentExposureCap, newExposureCap, currentExposureCap),
-      'INVALID_EXPOSURE_CAP_UPDATE'
-    );
-
-    _gsmTimelocksByAddress[gsm].gsmExposureCapLastUpdated = uint40(block.timestamp);
-
-    IGsm(gsm).updateExposureCap(newExposureCap);
-  }
-
-  /// @inheritdoc IGhoStewardV2
-  function updateGsmBuySellFees(
-    address gsm,
-    uint256 buyFee,
-    uint256 sellFee
-  ) external onlyRiskCouncil notTimelocked(_gsmTimelocksByAddress[gsm].gsmFeeStrategyLastUpdated) {
-    address currentFeeStrategy = IGsm(gsm).getFeeStrategy();
-    require(currentFeeStrategy != address(0), 'GSM_FEE_STRATEGY_NOT_FOUND');
-
-    uint256 currentBuyFee = IGsmFeeStrategy(currentFeeStrategy).getBuyFee(1e4);
-    uint256 currentSellFee = IGsmFeeStrategy(currentFeeStrategy).getSellFee(1e4);
-    require(
-      _isDifferenceLowerThanMax(currentBuyFee, buyFee, GSM_FEE_RATE_CHANGE_MAX),
-      'INVALID_BUY_FEE_UPDATE'
-    );
-    require(
-      _isDifferenceLowerThanMax(currentSellFee, sellFee, GSM_FEE_RATE_CHANGE_MAX),
-      'INVALID_SELL_FEE_UPDATE'
-    );
-
-    address cachedStrategyAddress = _gsmFeeStrategiesByRates[buyFee][sellFee];
-    if (cachedStrategyAddress == address(0)) {
-      FixedFeeStrategy newRateStrategy = new FixedFeeStrategy(buyFee, sellFee);
-      cachedStrategyAddress = address(newRateStrategy);
-      _gsmFeeStrategiesByRates[buyFee][sellFee] = cachedStrategyAddress;
-      _gsmFeeStrategies.add(cachedStrategyAddress);
-    }
-
-    _gsmTimelocksByAddress[gsm].gsmFeeStrategyLastUpdated = uint40(block.timestamp);
-
-    IGsm(gsm).updateFeeStrategy(cachedStrategyAddress);
-  }
-
-  /// @inheritdoc IGhoStewardV2
-  function setControlledFacilitator(
-    address[] memory facilitatorList,
-    bool approve
-  ) external onlyOwner {
-    for (uint256 i = 0; i < facilitatorList.length; i++) {
-      _controlledFacilitatorsByAddress[facilitatorList[i]] = approve;
-      if (approve) {
-        _controlledFacilitators.add(facilitatorList[i]);
-      } else {
-        _controlledFacilitators.remove(facilitatorList[i]);
-      }
-    }
-  }
-
-  /// @inheritdoc IGhoStewardV2
-  function getControlledFacilitators() external view returns (address[] memory) {
-    return _controlledFacilitators.values();
-  }
-
-  /// @inheritdoc IGhoStewardV2
-  function getGhoTimelocks() external view returns (GhoDebounce memory) {
-    return _ghoTimelocks;
-  }
-
-  /// @inheritdoc IGhoStewardV2
-  function getGsmTimelocks(address gsm) external view returns (GsmDebounce memory) {
-    return _gsmTimelocksByAddress[gsm];
-  }
-
-  /// @inheritdoc IGhoStewardV2
-  function getFacilitatorBucketCapacityTimelock(
-    address facilitator
-  ) external view returns (uint40) {
-    return _facilitatorsBucketCapacityTimelocks[facilitator];
-  }
-
-  /// @inheritdoc IGhoStewardV2
-  function getGsmFeeStrategies() external view returns (address[] memory) {
-    return _gsmFeeStrategies.values();
-  }
+  function updateGhoBorrowCap(uint256 newBorrowCap) external;
 
   /**
-   * @dev Ensures that the change is positive and the difference is lower than max.
-   * @param from current value
-   * @param to new value
-   * @param max maximum difference between from and to
-   * @return bool true if difference between values is positive and lower than max, false otherwise
+   * @notice Updates the borrow rate of GHO, only if:
+   * - respects `MINIMUM_DELAY`, the minimum time delay between updates
+   * - the update changes up to `GHO_BORROW_RATE_CHANGE_MAX` upwards or downwards
+   * - the update is lower than `GHO_BORROW_RATE_MAX`
+   * @dev Only callable by Risk Council
+   * @param newBorrowRate The new variable borrow rate (expressed in ray) (e.g. 0.0150e27 results in 1.50%)
    */
-  function _isIncreaseLowerThanMax(
-    uint256 from,
-    uint256 to,
-    uint256 max
-  ) internal pure returns (bool) {
-    return to >= from && to - from <= max;
-  }
+  function updateGhoBorrowRate(uint256 newBorrowRate) external;
 
   /**
-   * @dev Ensures that the change difference is lower than max.
-   * @param from current value
-   * @param to new value
-   * @param max maximum difference between from and to
-   * @return bool true if difference between values lower than max, false otherwise
+   * @notice Updates the exposure cap of the GSM, only if:
+   * - respects `MINIMUM_DELAY`, the minimum time delay between updates
+   * - the update changes up to 100% upwards or downwards
+   * @dev Only callable by Risk Council
+   * @param gsm The gsm address to update
+   * @param newExposureCap The new exposure cap (in underlying asset terms)
    */
-  function _isDifferenceLowerThanMax(
-    uint256 from,
-    uint256 to,
-    uint256 max
-  ) internal pure returns (bool) {
-    return from < to ? to - from <= max : from - to <= max;
-  }
+  function updateGsmExposureCap(address gsm, uint128 newExposureCap) external;
+
+  /**
+   * @notice Updates the fixed percent fees of the GSM, only if:
+   * - respects `MINIMUM_DELAY`, the minimum time delay between updates
+   * - the update changes up to `GSM_FEE_RATE_CHANGE_MAX` upwards or downwards (for both buy and sell individually)
+   * @dev Only callable by Risk Council
+   * @param gsm The gsm address to update
+   * @param buyFee The new buy fee (expressed in bps) (e.g. 0.0150e4 results in 1.50%)
+   * @param sellFee The new sell fee (expressed in bps) (e.g. 0.0150e4 results in 1.50%)
+   */
+  function updateGsmBuySellFees(address gsm, uint256 buyFee, uint256 sellFee) external;
+
+  /**
+   * @notice Adds/Removes controlled facilitators
+   * @dev Only callable by owner
+   * @param facilitatorList A list of facilitators addresses to add to control
+   * @param approve True to add as controlled facilitators, false to remove
+   */
+  function setControlledFacilitator(address[] memory facilitatorList, bool approve) external;
+
+  /**
+   * @notice Returns the maximum increase/decrease for GHO borrow rate updates.
+   * @return The maximum increase change for borrow rate updates in ray (e.g. 0.010e27 results in 1.00%)
+   */
+  function GHO_BORROW_RATE_CHANGE_MAX() external view returns (uint256);
+
+  /**
+   * @notice Returns the maximum increase for GSM fee rates (buy or sell).
+   * @return The maximum increase change for GSM fee rates updates in bps (e.g. 0.010e4 results in 1.00%)
+   */
+  function GSM_FEE_RATE_CHANGE_MAX() external view returns (uint256);
+
+  /**
+   * @notice Returns maximum value that can be assigned to GHO borrow rate.
+   * @return The maximum value that can be assigned to GHO borrow rate in ray (e.g. 0.01e27 results in 1.0%)
+   */
+  function GHO_BORROW_RATE_MAX() external view returns (uint256);
+
+  /**
+   * @notice Returns the minimum delay that must be respected between parameters update.
+   * @return The minimum delay between parameter updates (in seconds)
+   */
+  function MINIMUM_DELAY() external view returns (uint256);
+
+  /**
+   * @notice Returns the address of the Pool Addresses Provider of the Aave V3 Ethereum Pool
+   * @return The address of the PoolAddressesProvider of Aave V3 Ethereum Pool
+   */
+  function POOL_ADDRESSES_PROVIDER() external view returns (address);
+
+  /**
+   * @notice Returns the address of the Gho Token
+   * @return The address of the GhoToken
+   */
+  function GHO_TOKEN() external view returns (address);
+
+  /**
+   * @notice Returns the address of the fixed rate strategy factory
+   * @return The address of the FixedRateStrategyFactory
+   */
+  function FIXED_RATE_STRATEGY_FACTORY() external view returns (address);
+
+  /**
+   * @notice Returns the address of the risk council
+   * @return The address of the RiskCouncil
+   */
+  function RISK_COUNCIL() external view returns (address);
+
+  /**
+   * @notice Returns the list of controlled facilitators by this steward.
+   * @return An array of facilitator addresses
+   */
+  function getControlledFacilitators() external view returns (address[] memory);
+
+  /**
+   * @notice Returns timestamp of the last update of GHO parameters
+   * @return The GhoDebounce struct describing the last update of GHO parameters
+   */
+  function getGhoTimelocks() external view returns (GhoDebounce memory);
+
+  /**
+   * @notice Returns timestamp of the last update of Gsm parameters
+   * @param gsm The GSM address
+   * @return The GsmDebounce struct describing the last update of GSM parameters
+   */
+  function getGsmTimelocks(address gsm) external view returns (GsmDebounce memory);
+
+  /**
+   * @notice Returns timestamp of the facilitators last bucket capacity update
+   * @param facilitator The facilitator address
+   * @return The unix time of the last bucket capacity (in seconds).
+   */
+  function getFacilitatorBucketCapacityTimelock(address facilitator) external view returns (uint40);
+
+  /**
+   * @notice Returns the list of Fixed Fee Strategies for GSM
+   * @return An array of FixedFeeStrategy addresses
+   */
+  function getGsmFeeStrategies() external view returns (address[] memory);
 }
