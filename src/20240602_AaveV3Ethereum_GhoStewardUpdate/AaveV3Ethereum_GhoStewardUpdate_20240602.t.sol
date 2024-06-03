@@ -13,7 +13,8 @@ import {AaveV3Ethereum_GhoStewardUpdate_20240602} from './AaveV3Ethereum_GhoStew
 
 /**
  * @dev Test for AaveV3Ethereum_GhoStewardUpdate_20240602
- * command: make test-contract filter=AaveV3Ethereum_GhoStewardUpdate_20240602
+ * command: FOUNDRY_PROFILE=mainnet forge test --match-path=src/20240602_AaveV3Ethereum_GhoStewardUpdate/AaveV3Ethereum_GhoStewardUpdate_20240602.t.sol
+ -vv
  */
 contract AaveV3Ethereum_GhoStewardUpdate_20240602_Test is ProtocolV3TestBase {
   AaveV3Ethereum_GhoStewardUpdate_20240602 internal proposal;
