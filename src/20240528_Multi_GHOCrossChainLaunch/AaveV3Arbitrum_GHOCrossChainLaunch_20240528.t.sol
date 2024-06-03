@@ -196,14 +196,6 @@ contract AaveV3Arbitrum_GHOCrossChainLaunch_20240528_Test is ProtocolV3TestBase 
     assertEq(level, 0);
   }
 
-  // function test_collectorHasGHOFunds() public {
-  //   GovV3Helpers.executePayload(vm, address(proposal));
-  //   (address aTokenAddress, , ) = AaveV3Arbitrum
-  //     .AAVE_PROTOCOL_DATA_PROVIDER
-  //     .getReserveTokensAddresses(proposal.GHO());
-  //   assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Arbitrum.COLLECTOR)), 10 ** 6);
-  // }
-
   // ---
   // Test Helpers
   // ---
