@@ -4,42 +4,21 @@ pragma solidity ^0.8.0;
 import {IProposalGenericExecutor} from 'aave-helpers/interfaces/IProposalGenericExecutor.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
-import {ITransparentProxyFactory} from 'solidity-utils/contracts/transparent-proxy/interfaces/ITransparentProxyFactory.sol';
 import {TransparentUpgradeableProxy} from 'solidity-utils/contracts/transparent-proxy/TransparentUpgradeableProxy.sol';
+import {ICreate3Factory} from 'solidity-utils/contracts/create3/interfaces/ICreate3Factory.sol';
 import {UpgradeableLockReleaseTokenPool} from 'ccip/v0.8/ccip/pools/GHO/UpgradeableLockReleaseTokenPool.sol';
 import {UpgradeableTokenPool} from 'ccip/v0.8/ccip/pools/GHO/UpgradeableTokenPool.sol';
 import {RateLimiter} from 'ccip/v0.8/ccip/libraries/RateLimiter.sol';
-
-/**
- * @title Factory for deploying contracts to deterministic addresses via Create3
- * @author BGD Labs
- * @notice Defines the methods implemented on Create3Factory contract
- */
-interface ICreate3Factory {
-  /**
-   * @notice Deploys a contract using Create3
-   * @dev The provided salt is hashed together with msg.sender to generate the final salt
-   * @param salt The deployer-specific salt for determining the deployed contract's address
-   * @param creationCode The creation code of the contract to deploy
-   * @return The address of the deployed contract
-   */
-  function create(bytes32 salt, bytes memory creationCode) external payable returns (address);
-
-  /**
-   * @notice Predicts the address of a deployed contract
-   * @dev The provided salt is hashed together with the deployer address to generate the final salt
-   * @param deployer The deployer account that will call deploy()
-   * @param salt The deployer-specific salt for determining the deployed contract's address
-   * @return The address of the contract that will be deployed
-   */
-  function predictAddress(address deployer, bytes32 salt) external view returns (address);
-}
 
 /**
  * @title GHO Cross-Chain Launch
  * @author Aave Labs
  * - Snapshot: https://snapshot.org/#/aave.eth/proposal/0x2a6ffbcff41a5ef98b7542f99b207af9c1e79e61f859d0a62f3bf52d3280877a
  * - Discussion: https://governance.aave.com/t/arfc-gho-cross-chain-launch/17616
+ * @dev This payload consists of the following set of actions:
+ * 1. Deploy LockReleaseTokenPool
+ * 2. Accept ownership of CCIP TokenPool
+ * 3. Configure CCIP TokenPool
  */
 contract AaveV3Ethereum_GHOCrossChainLaunch_20240528 is IProposalGenericExecutor {
   address public immutable CCIP_TOKEN_POOL;
@@ -67,6 +46,7 @@ contract AaveV3Ethereum_GHOCrossChainLaunch_20240528 is IProposalGenericExecutor
   function execute() external {
     // 1. Deploy LockReleaseTokenPool
     address tokenPool = _deployCcipTokenPool();
+    require(CCIP_TOKEN_POOL == tokenPool, 'UNEXPECTED_CCIP_TOKEN_POOL_ADDRESS');
     // 2. Accept TokenPool ownership
     UpgradeableLockReleaseTokenPool(tokenPool).acceptOwnership();
     // 3. Configure CCIP

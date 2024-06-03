@@ -10,10 +10,8 @@ import {IAaveV3ConfigEngine} from 'aave-helpers/v3-config-engine/IAaveV3ConfigEn
 import {IV3RateStrategyFactory} from 'aave-helpers/v3-config-engine/IV3RateStrategyFactory.sol';
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';
-
-import {ITransparentProxyFactory} from 'solidity-utils/contracts/transparent-proxy/interfaces/ITransparentProxyFactory.sol';
+import {ICreate3Factory} from 'solidity-utils/contracts/create3/interfaces/ICreate3Factory.sol';
 import {TransparentUpgradeableProxy} from 'solidity-utils/contracts/transparent-proxy/TransparentUpgradeableProxy.sol';
-import {UpgradeableLockReleaseTokenPool} from 'ccip/v0.8/ccip/pools/GHO/UpgradeableLockReleaseTokenPool.sol';
 import {UpgradeableBurnMintTokenPool} from 'ccip/v0.8/ccip/pools/GHO/UpgradeableBurnMintTokenPool.sol';
 import {UpgradeableTokenPool} from 'ccip/v0.8/ccip/pools/GHO/UpgradeableTokenPool.sol';
 import {RateLimiter} from 'ccip/v0.8/ccip/libraries/RateLimiter.sol';
@@ -21,43 +19,26 @@ import {UpgradeableGhoToken} from 'gho-core/gho/UpgradeableGhoToken.sol';
 import {IGhoToken} from 'gho-core/gho/interfaces/IGhoToken.sol';
 
 /**
- * @title Factory for deploying contracts to deterministic addresses via Create3
- * @author BGD Labs
- * @notice Defines the methods implemented on Create3Factory contract
- */
-interface ICreate3Factory {
-  /**
-   * @notice Deploys a contract using Create3
-   * @dev The provided salt is hashed together with msg.sender to generate the final salt
-   * @param salt The deployer-specific salt for determining the deployed contract's address
-   * @param creationCode The creation code of the contract to deploy
-   * @return The address of the deployed contract
-   */
-  function create(bytes32 salt, bytes memory creationCode) external payable returns (address);
-
-  /**
-   * @notice Predicts the address of a deployed contract
-   * @dev The provided salt is hashed together with the deployer address to generate the final salt
-   * @param deployer The deployer account that will call deploy()
-   * @param salt The deployer-specific salt for determining the deployed contract's address
-   * @return The address of the contract that will be deployed
-   */
-  function predictAddress(address deployer, bytes32 salt) external view returns (address);
-}
-
-/**
  * @title GHO Cross-Chain Launch
  * @author Aave Labs
  * - Snapshot: https://snapshot.org/#/aave.eth/proposal/0x2a6ffbcff41a5ef98b7542f99b207af9c1e79e61f859d0a62f3bf52d3280877a
  * - Discussion: https://governance.aave.com/t/arfc-gho-cross-chain-launch/17616
+ * @dev This payload consists of the following set of actions:
+ * 1. Deploy GHO
+ * 2. Deploy BurnMintTokenPool
+ * 3. Accept ownership of CCIP TokenPool
+ * 4. Configure CCIP TokenPool
+ * 5. Add CCIP TokenPool as GHO Facilitator
+ * 6. List GHO in Aave V3 Pool
+ * 7. Seed Aave Pool
  */
 contract AaveV3Arbitrum_GHOCrossChainLaunch_20240528 is AaveV3PayloadArbitrum {
   using SafeERC20 for IERC20;
 
   address public immutable GHO;
   address public immutable GHO_IMPL;
-  bytes32 public constant GHO_DEPLOY_SALT = bytes32(uint256(keccak256('gho.token')));
   bytes32 public constant GHO_IMPL_DEPLOY_SALT = bytes32(uint256(keccak256('gho.token.impl')));
+  bytes32 public constant GHO_DEPLOY_SALT = bytes32(uint256(keccak256('gho.token')));
   uint256 public constant GHO_SEED_AMOUNT = 1e18;
   address public immutable CCIP_TOKEN_POOL;
   address public immutable CCIP_TOKEN_POOL_IMPL;
@@ -90,6 +71,7 @@ contract AaveV3Arbitrum_GHOCrossChainLaunch_20240528 is AaveV3PayloadArbitrum {
     );
   }
 
+  /// @dev 6. List GHO in Aave V3 Pool
   function newListings() public view override returns (IAaveV3ConfigEngine.Listing[] memory) {
     IAaveV3ConfigEngine.Listing[] memory listings = new IAaveV3ConfigEngine.Listing[](1);
 
@@ -127,26 +109,18 @@ contract AaveV3Arbitrum_GHOCrossChainLaunch_20240528 is AaveV3PayloadArbitrum {
     return listings;
   }
 
-  // Steps
-  // 1. Deploy GHO
-  // 2. Deploy BurnMintTokenPool
-  // 3. Add Facilitator
-  // 4. Add Dummy Facilitator for Aave initial seed
-  // 5. List GHO
-  // 6. Seed Aave Pool
-
   function _preExecute() internal override {
-    // Deploy GHO
+    // 1. Deploy GHO
     address ghoToken = _deployGhoToken();
     require(ghoToken == GHO, 'UNEXPECTED_GHO_TOKEN_ADDRESS');
-    // Deploy BurnMintTokenPool
+    // 2. Deploy BurnMintTokenPool
     address tokenPool = _deployCcipTokenPool();
     require(tokenPool == CCIP_TOKEN_POOL, 'UNEXPECTED_CCIP_TOKEN_POOL_ADDRESS');
-    // Accept TokenPool ownership
+    // 3. Accept TokenPool ownership
     UpgradeableBurnMintTokenPool(tokenPool).acceptOwnership();
-    // Configure CCIP
+    // 4. Configure CCIP TokenPool
     _configureCcipTokenPool(tokenPool);
-    // Add Facilitator
+    // 5. Add CCIP TokenPool as GHO Facilitator
     IGhoToken(ghoToken).grantRole(
       IGhoToken(ghoToken).FACILITATOR_MANAGER_ROLE(),
       GovernanceV3Arbitrum.EXECUTOR_LVL_1
@@ -236,10 +210,11 @@ contract AaveV3Arbitrum_GHOCrossChainLaunch_20240528 is AaveV3PayloadArbitrum {
       outboundRateLimiterConfig: rateConfig,
       inboundRateLimiterConfig: rateConfig
     });
-    UpgradeableLockReleaseTokenPool(tokenPool).applyChainUpdates(chainUpdates);
+    UpgradeableBurnMintTokenPool(tokenPool).applyChainUpdates(chainUpdates);
   }
 
   function _postExecute() internal override {
+    // 7. Seed Aave Pool
     _defensiveSeed();
   }
 
