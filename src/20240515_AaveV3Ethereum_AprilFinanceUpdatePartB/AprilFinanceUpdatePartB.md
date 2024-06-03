@@ -28,8 +28,8 @@ and GSM funding [update](https://governance.aave.com/t/arfc-fund-usdc-usdt-gsm/1
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240515_AaveV3Ethereum_AprilFinanceUpdatePartB/AaveV3Ethereum_AprilFinanceUpdatePartB_20240515.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240515_AaveV3Ethereum_AprilFinanceUpdatePartB/AaveV3Ethereum_AprilFinanceUpdatePartB_20240515.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/1e89d862b2503c3d4cf90b1e258c1e542dcb5c15/src/20240515_AaveV3Ethereum_AprilFinanceUpdatePartB/AaveV3Ethereum_AprilFinanceUpdatePartB_20240515.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/1e89d862b2503c3d4cf90b1e258c1e542dcb5c15/src/20240515_AaveV3Ethereum_AprilFinanceUpdatePartB/AaveV3Ethereum_AprilFinanceUpdatePartB_20240515.t.sol)
 - [Discussion](https://governance.aave.com/t/arfc-april-finance-update/17390)
 
 ## Copyright
