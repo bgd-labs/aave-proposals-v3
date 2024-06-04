@@ -19,7 +19,7 @@ The upgraded Gho Steward can be found on the [gho-core github](https://github.co
 Changes:
 
 - GSM fee strategy can now be updated by 50 bps both ways
-- GHO Borrow rate can now be updated by 50 bps both ways
+- GHO Borrow cap can now be updated by 50 bps both ways
 - GHO exposure cap can now be updated both ways
 
 ## References
