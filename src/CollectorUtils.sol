@@ -7,16 +7,39 @@ import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';
 import {AaveSwapper} from 'aave-helpers/swaps/AaveSwapper.sol';
 
+/**
+ * @title CollectorUtils
+ * @author BGD Labs
+ * @notice Wraps up routine operations of the AaveCollector
+ */
 library CollectorUtils {
   error InvalidZeroAmount();
 
+  /**
+   * @notice object with stream parameters
+   * @param underlying ERC20 compatible asset
+   * @param receiver receiver of the stream
+   * @param amount streamed amount in wei
+   * @param start of the stream in seconds
+   * @param duration duration of the stream in seconds
+   */
   struct CreateStreamInput {
     address underlying;
     address receiver;
     uint256 amount;
+    uint256 start;
     uint256 duration;
   }
 
+  /**
+   * @notice object with stream parameters
+   * @param fromUnderlying input asset, ERC20 compatible
+   * @param toUnderlying output asset, ERC20 compatible
+   * @param fromUnderlyingPriceFeed price feed for the input asset
+   * @param toUnderlyingPriceFeed price feed for the output asset
+   * @param amount amount of input asset to swap, in wei
+   * @param slippage maximal swap slippage, where 100_00 is equal to 100%
+   */
   struct SwapInput {
     address milkman;
     address priceChecker;
@@ -29,6 +52,13 @@ library CollectorUtils {
   }
   using SafeERC20 for IERC20;
 
+  /**
+   * @notice Deposit funds of the collector to the Aave v3
+   * @param collector aave collector
+   * @param pool Aave v3 pool
+   * @param underlying ERC20 compatible asset, listed on the corresponding Aave v3 pool
+   * @param amount to be deposited
+   */
   function depositToV3(
     ICollector collector,
     IPool pool,
@@ -47,6 +77,12 @@ library CollectorUtils {
     pool.deposit(underlying, amount, address(collector), 0);
   }
 
+  /**
+   * @notice Open a funds stream to the receiver
+   * @param collector aave collector
+   * @param CreateStreamInput stream parameters
+   * @return the actual stream amount
+   */
   function stream(ICollector collector, CreateStreamInput memory input) internal returns (uint256) {
     if (input.amount == 0) {
       revert InvalidZeroAmount();
@@ -57,13 +93,19 @@ library CollectorUtils {
       input.underlying,
       actualAmount,
       input.underlying,
-      block.timestamp,
-      block.timestamp + input.duration
+      input.start,
+      input.start + input.duration
     );
 
     return actualAmount;
   }
 
+  /**
+   * @notice Open a swap order on AaveSwapper, to swap collector funds fromUnderlying to toUnderlying
+   * @param collector aave collector
+   * @param swapper AaveSwapper
+   * @param SwapInput swap parameters
+   */
   function swap(ICollector collector, AaveSwapper swapper, SwapInput memory input) internal {
     if (input.amount == 0) {
       revert InvalidZeroAmount();
