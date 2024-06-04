@@ -1,11 +1,12 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 
 import {OrbitProgramData} from './OrbitProgramData.sol';
 import {IProposalGenericExecutor} from 'aave-helpers/interfaces/IProposalGenericExecutor.sol';
+
+import {CollectorUtils, ICollector} from '../CollectorUtils.sol';
 
 /// Helper interface to withdraw ETH
 interface IWETH {
@@ -20,6 +21,9 @@ interface IWETH {
  */
 contract AaveV3Ethereum_OrbitProgramRenewal_20240513 is IProposalGenericExecutor {
   error EthTransferFailed(address account);
+
+  using CollectorUtils for ICollector;
+
   function execute() external {
     // custom code goes here
     AaveV3Ethereum.COLLECTOR.transfer(
@@ -37,18 +41,16 @@ contract AaveV3Ethereum_OrbitProgramRenewal_20240513 is IProposalGenericExecutor
       if (!ok) revert EthTransferFailed(usage[i].account);
     }
 
-    uint256 actualStreamAmount = (OrbitProgramData.STREAM_AMOUNT /
-      OrbitProgramData.STREAM_DURATION) * OrbitProgramData.STREAM_DURATION;
-
     address[] memory orbitAddresses = OrbitProgramData.getOrbitAddresses();
     uint256 orbitAddressesLength = orbitAddresses.length;
     for (uint256 i = 0; i < orbitAddressesLength; i++) {
-      AaveV3Ethereum.COLLECTOR.createStream(
-        orbitAddresses[i],
-        actualStreamAmount,
-        AaveV3EthereumAssets.GHO_UNDERLYING,
-        block.timestamp,
-        block.timestamp + OrbitProgramData.STREAM_DURATION
+      AaveV3Ethereum.COLLECTOR.stream(
+        CollectorUtils.CreateStreamInput({
+          underlying: AaveV3EthereumAssets.GHO_UNDERLYING,
+          receiver: orbitAddresses[i],
+          amount: OrbitProgramData.STREAM_AMOUNT,
+          duration: OrbitProgramData.STREAM_DURATION
+        })
       );
     }
   }
