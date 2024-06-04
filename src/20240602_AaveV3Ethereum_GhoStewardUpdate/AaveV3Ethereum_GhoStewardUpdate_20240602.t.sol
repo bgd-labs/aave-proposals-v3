@@ -21,7 +21,7 @@ contract AaveV3Ethereum_GhoStewardUpdate_20240602_Test is ProtocolV3TestBase {
   address public RISK_COUNCIL;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 20006716);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 20017052);
     proposal = new AaveV3Ethereum_GhoStewardUpdate_20240602();
     RISK_COUNCIL = IGhoStewardV2(proposal.GHO_STEWARD()).RISK_COUNCIL();
   }

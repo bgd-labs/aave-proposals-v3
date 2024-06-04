@@ -15,7 +15,7 @@ import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
  */
 contract AaveV3Ethereum_GhoStewardUpdate_20240602 is IProposalGenericExecutor {
   address public constant OLD_GHO_STEWARD = 0x8F2411a538381aae2b464499005F0211e867d84f;
-  address public constant GHO_STEWARD = 0x138d0f32C4D2eD3d4eEB37B1A059e56aFde87AB5;
+  address public constant GHO_STEWARD = 0xb9481a29f0f996BCAc759aB201FB3844c81866c4;
 
   function execute() external {
     // Remove Pool admin role to the old steward
