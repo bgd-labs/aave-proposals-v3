@@ -80,7 +80,7 @@ library CollectorUtils {
   /**
    * @notice Open a funds stream to the receiver
    * @param collector aave collector
-   * @param CreateStreamInput stream parameters
+   * @param input stream creation parameters wrapped as CreateStreamInput
    * @return the actual stream amount
    */
   function stream(ICollector collector, CreateStreamInput memory input) internal returns (uint256) {
@@ -104,7 +104,7 @@ library CollectorUtils {
    * @notice Open a swap order on AaveSwapper, to swap collector funds fromUnderlying to toUnderlying
    * @param collector aave collector
    * @param swapper AaveSwapper
-   * @param SwapInput swap parameters
+   * @param input swap parameters wrapped as SwapInput
    */
   function swap(ICollector collector, AaveSwapper swapper, SwapInput memory input) internal {
     if (input.amount == 0) {

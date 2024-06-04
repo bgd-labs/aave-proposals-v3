@@ -49,6 +49,7 @@ contract AaveV3Ethereum_OrbitProgramRenewal_20240513 is IProposalGenericExecutor
           underlying: AaveV3EthereumAssets.GHO_UNDERLYING,
           receiver: orbitAddresses[i],
           amount: OrbitProgramData.STREAM_AMOUNT,
+          start: block.timestamp,
           duration: OrbitProgramData.STREAM_DURATION
         })
       );
