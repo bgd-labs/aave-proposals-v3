@@ -36,7 +36,30 @@ contract AaveV3Ethereum_GhoStewardUpdate_20240602_Test is ProtocolV3TestBase {
   function test_adminPermissions() public {
     executePayload(vm, address(proposal));
 
+    // Check that the old steward has been removed from roles
+
     assertFalse(AaveV3Ethereum.ACL_MANAGER.isPoolAdmin(proposal.OLD_GHO_STEWARD()));
+
+    assertFalse(
+      IGhoToken(MiscEthereum.GHO_TOKEN).hasRole(
+        IGhoToken(MiscEthereum.GHO_TOKEN).BUCKET_MANAGER_ROLE(),
+        proposal.OLD_GHO_STEWARD()
+      )
+    );
+
+    assertFalse(
+      IGsm(MiscEthereum.GSM_USDT).hasRole(
+        IGsm(MiscEthereum.GSM_USDT).CONFIGURATOR_ROLE(),
+        proposal.OLD_GHO_STEWARD()
+      )
+    );
+
+    assertFalse(
+      IGsm(MiscEthereum.GSM_USDC).hasRole(
+        IGsm(MiscEthereum.GSM_USDC).CONFIGURATOR_ROLE(),
+        proposal.OLD_GHO_STEWARD()
+      )
+    );
 
     assertTrue(AaveV3Ethereum.ACL_MANAGER.isRiskAdmin(proposal.GHO_STEWARD()));
     assertTrue(

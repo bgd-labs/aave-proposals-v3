@@ -6,7 +6,7 @@ discussions: "https://governance.aave.com/t/arfc-gho-stewards/16466/11"
 
 ## Simple Summary
 
-This proposal seeks to update the GHO steward to an upgraded version, allowing more granular control over GHO to increase it’s efficiency
+This proposal seeks to update the GHO steward to an more efficient version, allowing more granular control over GHO to increase it’s efficiency
 
 ## Motivation
 
@@ -19,7 +19,7 @@ The upgraded Gho Steward can be found on the [gho-core github](https://github.co
 Changes:
 
 - GSM fee strategy can now be updated by 50 bps both ways
-- GHO Borrow cap can now be updated by 50 bps both ways
+- GHO Borrow cap can now be updated both ways
 - GHO exposure cap can now be updated both ways
 
 ## References

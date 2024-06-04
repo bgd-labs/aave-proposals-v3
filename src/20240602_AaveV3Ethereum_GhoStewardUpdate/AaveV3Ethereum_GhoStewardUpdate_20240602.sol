@@ -21,6 +21,25 @@ contract AaveV3Ethereum_GhoStewardUpdate_20240602 is IProposalGenericExecutor {
     // Remove Pool admin role to the old steward
     AaveV3Ethereum.ACL_MANAGER.removePoolAdmin(OLD_GHO_STEWARD);
 
+    // Revoke old steward's bucket manager role
+
+    IGhoToken(MiscEthereum.GHO_TOKEN).revokeRole(
+      IGhoToken(MiscEthereum.GHO_TOKEN).BUCKET_MANAGER_ROLE(),
+      OLD_GHO_STEWARD
+    );
+
+    // Revoke old steward's configurator role on usdc, usdt gsm
+
+    IGsm(MiscEthereum.GSM_USDC).revokeRole(
+      IGsm(MiscEthereum.GSM_USDC).CONFIGURATOR_ROLE(),
+      OLD_GHO_STEWARD
+    );
+
+    IGsm(MiscEthereum.GSM_USDT).revokeRole(
+      IGsm(MiscEthereum.GSM_USDT).CONFIGURATOR_ROLE(),
+      OLD_GHO_STEWARD
+    );
+
     // Give Risk admin role to the steward
     AaveV3Ethereum.ACL_MANAGER.addRiskAdmin(GHO_STEWARD);
 
