@@ -96,7 +96,7 @@ contract AaveV3Arbitrum_GHOCrossChainLaunch_20240528 is AaveV3PayloadArbitrum {
       rateStrategyParams: IV3RateStrategyFactory.RateStrategyParams({
         optimalUsageRatio: _bpsToRay(90_00),
         baseVariableBorrowRate: _bpsToRay(0),
-        variableRateSlope1: _bpsToRay(14_00),
+        variableRateSlope1: _bpsToRay(13_00),
         variableRateSlope2: _bpsToRay(65_00),
         stableRateSlope1: _bpsToRay(0),
         stableRateSlope2: _bpsToRay(0),
