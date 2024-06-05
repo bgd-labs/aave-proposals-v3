@@ -24,8 +24,8 @@ Changes:
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240602_AaveV3Ethereum_GhoStewardUpdate/AaveV3Ethereum_GhoStewardUpdate_20240602.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240602_AaveV3Ethereum_GhoStewardUpdate/AaveV3Ethereum_GhoStewardUpdate_20240602.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/a39a86866b72f8f8edb187b8ec453fc895faf9c3/src/20240602_AaveV3Ethereum_GhoStewardUpdate/AaveV3Ethereum_GhoStewardUpdate_20240602.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/a39a86866b72f8f8edb187b8ec453fc895faf9c3/src/20240602_AaveV3Ethereum_GhoStewardUpdate/AaveV3Ethereum_GhoStewardUpdate_20240602.t.sol)
 - [Discussion](https://governance.aave.com/t/arfc-gho-stewards/16466/11)
 
 ## Copyright
