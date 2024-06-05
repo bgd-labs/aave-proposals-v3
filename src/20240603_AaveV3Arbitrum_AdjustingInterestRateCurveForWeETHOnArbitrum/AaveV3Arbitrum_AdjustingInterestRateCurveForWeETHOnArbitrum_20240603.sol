@@ -30,11 +30,11 @@ contract AaveV3Arbitrum_AdjustingInterestRateCurveForWeETHOnArbitrum_20240603 is
         baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
         variableRateSlope1: EngineFlags.KEEP_CURRENT,
         variableRateSlope2: EngineFlags.KEEP_CURRENT,
-        stableRateSlope1: _bpsToRay(7_00),
-        stableRateSlope2: _bpsToRay(300_00),
-        baseStableRateOffset: _bpsToRay(0),
-        stableRateExcessOffset: _bpsToRay(0),
-        optimalStableToTotalDebtRatio: _bpsToRay(0)
+        stableRateSlope1: EngineFlags.KEEP_CURRENT,
+        stableRateSlope2: EngineFlags.KEEP_CURRENT,
+        baseStableRateOffset: EngineFlags.KEEP_CURRENT,
+        stableRateExcessOffset: EngineFlags.KEEP_CURRENT,
+        optimalStableToTotalDebtRatio: EngineFlags.KEEP_CURRENT
       })
     });
 
