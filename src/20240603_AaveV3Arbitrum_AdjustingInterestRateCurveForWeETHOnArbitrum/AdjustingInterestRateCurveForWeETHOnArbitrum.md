@@ -28,8 +28,8 @@ Change Arbitrum Risk Parameters for weETH to align with Mainnet & Base.
 
 ## References
 
-- Implementation: [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240603_AaveV3Arbitrum_AdjustingInterestRateCurveForWeETHOnArbitrum/AaveV3Arbitrum_AdjustingInterestRateCurveForWeETHOnArbitrum_20240603.sol)
-- Tests: [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240603_AaveV3Arbitrum_AdjustingInterestRateCurveForWeETHOnArbitrum/AaveV3Arbitrum_AdjustingInterestRateCurveForWeETHOnArbitrum_20240603.t.sol)
+- Implementation: [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/15298f4d41cd6165cc15d9c03d49c9affa7bbb4b/src/20240603_AaveV3Arbitrum_AdjustingInterestRateCurveForWeETHOnArbitrum/AaveV3Arbitrum_AdjustingInterestRateCurveForWeETHOnArbitrum_20240603.sol)
+- Tests: [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/15298f4d41cd6165cc15d9c03d49c9affa7bbb4b/src/20240603_AaveV3Arbitrum_AdjustingInterestRateCurveForWeETHOnArbitrum/AaveV3Arbitrum_AdjustingInterestRateCurveForWeETHOnArbitrum_20240603.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0xed2fd3dfee1f29f04b6cda4a5c4629fcca32a5c961b1b3e2a49ba6842367ce31)
 - [Discussion](https://governance.aave.com/t/arfc-adjusting-interest-rate-curve-for-weeth-on-arbitrum/17804)
 
