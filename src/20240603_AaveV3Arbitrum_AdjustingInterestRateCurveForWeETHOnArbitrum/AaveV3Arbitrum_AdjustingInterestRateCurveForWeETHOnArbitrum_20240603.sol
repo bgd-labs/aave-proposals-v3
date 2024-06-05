@@ -53,9 +53,9 @@ contract AaveV3Arbitrum_AdjustingInterestRateCurveForWeETHOnArbitrum_20240603 is
       asset: AaveV3ArbitrumAssets.weETH_UNDERLYING,
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
-      stableRateModeEnabled: EngineFlags.DISABLED,
-      borrowableInIsolation: EngineFlags.DISABLED,
-      withSiloedBorrowing: EngineFlags.DISABLED,
+      stableRateModeEnabled: EngineFlags.KEEP_CURRENT,
+      borrowableInIsolation: EngineFlags.KEEP_CURRENT,
+      withSiloedBorrowing: EngineFlags.KEEP_CURRENT,
       reserveFactor: 45_00
     });
 
