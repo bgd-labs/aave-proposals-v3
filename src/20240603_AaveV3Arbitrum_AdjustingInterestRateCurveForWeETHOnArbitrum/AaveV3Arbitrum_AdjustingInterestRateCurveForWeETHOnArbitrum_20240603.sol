@@ -27,9 +27,9 @@ contract AaveV3Arbitrum_AdjustingInterestRateCurveForWeETHOnArbitrum_20240603 is
       asset: AaveV3ArbitrumAssets.weETH_UNDERLYING,
       params: IV3RateStrategyFactory.RateStrategyParams({
         optimalUsageRatio: _bpsToRay(35_00),
-        baseVariableBorrowRate: _bpsToRay(0),
-        variableRateSlope1: _bpsToRay(7_00),
-        variableRateSlope2: _bpsToRay(300_00),
+        baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
+        variableRateSlope1: EngineFlags.KEEP_CURRENT,
+        variableRateSlope2: EngineFlags.KEEP_CURRENT,
         stableRateSlope1: _bpsToRay(7_00),
         stableRateSlope2: _bpsToRay(300_00),
         baseStableRateOffset: _bpsToRay(0),
