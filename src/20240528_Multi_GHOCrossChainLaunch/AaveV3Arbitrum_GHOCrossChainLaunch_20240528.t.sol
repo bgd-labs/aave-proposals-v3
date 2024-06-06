@@ -20,7 +20,7 @@ import {IPool} from 'ccip/v0.8/ccip/interfaces/pools/IPool.sol';
 import {UpgradeableBurnMintTokenPool} from 'ccip/v0.8/ccip/pools/GHO/UpgradeableBurnMintTokenPool.sol';
 import {IGhoToken} from 'gho-core/gho/interfaces/IGhoToken.sol';
 
-import {AaveV3Arbitrum_GHOCrossChainLaunch_20240528} from './AaveV3Arbitrum_GHOCrossChainLaunch_20240528.sol';
+import {AaveV3Arbitrum_GHOCrossChainLaunch_20240528, Utils} from './AaveV3Arbitrum_GHOCrossChainLaunch_20240528.sol';
 
 /**
  * @dev Test for AaveV3Arbitrum_GHOCrossChainLaunch_20240528
@@ -82,7 +82,7 @@ contract AaveV3Arbitrum_GHOCrossChainLaunch_20240528_Test is ProtocolV3TestBase 
 
     // Mint
     uint256 amount = 500_000e18; // 500K GHO
-    uint64 ethChainSelector = proposal.CCIP_ETH_CHAIN_SELECTOR();
+    uint64 ethChainSelector = Utils.CCIP_ETH_CHAIN_SELECTOR;
     assertEq(_getFacilitatorLevel(address(TOKEN_POOL)), 0);
     assertEq(GHO.balanceOf(address(TOKEN_POOL)), 0);
 
@@ -118,10 +118,10 @@ contract AaveV3Arbitrum_GHOCrossChainLaunch_20240528_Test is ProtocolV3TestBase 
   function test_ccipE2E() public {
     GovV3Helpers.executePayload(vm, address(proposal));
 
-    uint64 ethChainSelector = proposal.CCIP_ETH_CHAIN_SELECTOR();
+    uint64 ethChainSelector = Utils.CCIP_ETH_CHAIN_SELECTOR;
 
     // Chainlink config
-    Router router = Router(proposal.CCIP_ROUTER());
+    Router router = Router(Utils.CCIP_ROUTER);
 
     {
       Router.OnRamp[] memory onRampUpdates = new Router.OnRamp[](1);
@@ -182,7 +182,7 @@ contract AaveV3Arbitrum_GHOCrossChainLaunch_20240528_Test is ProtocolV3TestBase 
 
     assertEq(GHO.balanceOf(address(TOKEN_POOL)), 0);
     (uint256 capacity, uint256 level) = GHO.getFacilitatorBucket(address(TOKEN_POOL));
-    assertEq(capacity, proposal.CCIP_BUCKET_CAPACITY());
+    assertEq(capacity, Utils.CCIP_BUCKET_CAPACITY);
     assertEq(level, amount);
 
     vm.startPrank(user);
@@ -192,7 +192,7 @@ contract AaveV3Arbitrum_GHOCrossChainLaunch_20240528_Test is ProtocolV3TestBase 
     assertEq(GHO.balanceOf(user), 0);
     assertEq(GHO.balanceOf(address(TOKEN_POOL)), 0);
     (capacity, level) = GHO.getFacilitatorBucket(address(TOKEN_POOL));
-    assertEq(capacity, proposal.CCIP_BUCKET_CAPACITY());
+    assertEq(capacity, Utils.CCIP_BUCKET_CAPACITY);
     assertEq(level, 0);
   }
 
@@ -201,7 +201,7 @@ contract AaveV3Arbitrum_GHOCrossChainLaunch_20240528_Test is ProtocolV3TestBase 
   // ---
 
   function _validateGhoDeployment() internal {
-    assertEq(GHO.totalSupply(), proposal.GHO_SEED_AMOUNT());
+    assertEq(GHO.totalSupply(), Utils.GHO_SEED_AMOUNT);
     assertEq(GHO.getFacilitatorsList().length, 2);
     assertEq(_getProxyAdminAddress(address(GHO)), MiscArbitrum.PROXY_ADMIN);
     assertTrue(GHO.hasRole(bytes32(0), GovernanceV3Arbitrum.EXECUTOR_LVL_1));
@@ -214,22 +214,22 @@ contract AaveV3Arbitrum_GHOCrossChainLaunch_20240528_Test is ProtocolV3TestBase 
     assertEq(_getProxyAdminAddress(address(TOKEN_POOL)), MiscArbitrum.PROXY_ADMIN);
     assertEq(TOKEN_POOL.owner(), GovernanceV3Arbitrum.EXECUTOR_LVL_1);
     assertEq(address(TOKEN_POOL.getToken()), address(GHO));
-    assertEq(TOKEN_POOL.getArmProxy(), proposal.CCIP_ARM_PROXY());
-    assertEq(TOKEN_POOL.getRouter(), proposal.CCIP_ROUTER());
+    assertEq(TOKEN_POOL.getArmProxy(), Utils.CCIP_ARM_PROXY);
+    assertEq(TOKEN_POOL.getRouter(), Utils.CCIP_ROUTER);
 
     // Facilitator
     (uint256 capacity, uint256 level) = GHO.getFacilitatorBucket(address(TOKEN_POOL));
-    assertEq(capacity, proposal.CCIP_BUCKET_CAPACITY());
+    assertEq(capacity, Utils.CCIP_BUCKET_CAPACITY);
     assertEq(level, 0);
 
     // Config
     uint64[] memory supportedChains = TOKEN_POOL.getSupportedChains();
     assertEq(supportedChains.length, 1);
-    assertEq(supportedChains[0], proposal.CCIP_ETH_CHAIN_SELECTOR());
+    assertEq(supportedChains[0], Utils.CCIP_ETH_CHAIN_SELECTOR);
     RateLimiter.TokenBucket memory outboundRateLimit = TOKEN_POOL
-      .getCurrentOutboundRateLimiterState(proposal.CCIP_ETH_CHAIN_SELECTOR());
+      .getCurrentOutboundRateLimiterState(Utils.CCIP_ETH_CHAIN_SELECTOR);
     RateLimiter.TokenBucket memory inboundRateLimit = TOKEN_POOL.getCurrentInboundRateLimiterState(
-      proposal.CCIP_ETH_CHAIN_SELECTOR()
+      Utils.CCIP_ETH_CHAIN_SELECTOR
     );
     assertEq(outboundRateLimit.isEnabled, false);
     assertEq(inboundRateLimit.isEnabled, false);
@@ -275,7 +275,7 @@ contract AaveV3Arbitrum_GHOCrossChainLaunch_20240528_Test is ProtocolV3TestBase 
     address token,
     uint256 amount,
     address feeToken
-  ) public view returns (Client.EVM2AnyMessage memory) {
+  ) public pure returns (Client.EVM2AnyMessage memory) {
     Client.EVMTokenAmount[] memory tokenAmounts = new Client.EVMTokenAmount[](1);
     tokenAmounts[0] = Client.EVMTokenAmount({token: token, amount: amount});
     return

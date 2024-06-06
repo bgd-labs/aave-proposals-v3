@@ -26,7 +26,7 @@ import {UpgradeableBurnMintTokenPool} from 'ccip/v0.8/ccip/pools/GHO/Upgradeable
 import {IGhoToken} from 'gho-core/gho/interfaces/IGhoToken.sol';
 
 import {AaveV3Ethereum_GHOCrossChainLaunch_20240528} from './AaveV3Ethereum_GHOCrossChainLaunch_20240528.sol';
-import {AaveV3Arbitrum_GHOCrossChainLaunch_20240528} from './AaveV3Arbitrum_GHOCrossChainLaunch_20240528.sol';
+import {AaveV3Arbitrum_GHOCrossChainLaunch_20240528, Utils as ArbUtils} from './AaveV3Arbitrum_GHOCrossChainLaunch_20240528.sol';
 
 /**
  * @dev Test for AaveV3E2E_GHOCrossChainLaunch_20240528
@@ -80,8 +80,8 @@ contract AaveV3E2E_GHOCrossChainLaunch_20240528_Test is ProtocolV3TestBase {
     arbProposal = new AaveV3Arbitrum_GHOCrossChainLaunch_20240528();
     ARB_GHO = IGhoToken(arbProposal.GHO());
     ARB_TOKEN_POOL = UpgradeableBurnMintTokenPool(arbProposal.CCIP_TOKEN_POOL());
-    ARB_ROUTER = Router(arbProposal.CCIP_ROUTER());
-    ARB_ETH_CHAIN_SELECTOR = arbProposal.CCIP_ETH_CHAIN_SELECTOR();
+    ARB_ROUTER = Router(ArbUtils.CCIP_ROUTER);
+    ARB_ETH_CHAIN_SELECTOR = ArbUtils.CCIP_ETH_CHAIN_SELECTOR;
 
     // AIP execution
     vm.selectFork(ethereumFork);
@@ -246,7 +246,7 @@ contract AaveV3E2E_GHOCrossChainLaunch_20240528_Test is ProtocolV3TestBase {
 
     assertEq(ARB_GHO.balanceOf(address(ARB_TOKEN_POOL)), 0);
     (uint256 capacity, uint256 level) = ARB_GHO.getFacilitatorBucket(address(ARB_TOKEN_POOL));
-    assertEq(capacity, arbProposal.CCIP_BUCKET_CAPACITY());
+    assertEq(capacity, ArbUtils.CCIP_BUCKET_CAPACITY);
     assertEq(level, 0);
 
     // Mock off ramp
@@ -256,7 +256,7 @@ contract AaveV3E2E_GHOCrossChainLaunch_20240528_Test is ProtocolV3TestBase {
 
     assertEq(ARB_GHO.balanceOf(address(ARB_TOKEN_POOL)), 0);
     (capacity, level) = ARB_GHO.getFacilitatorBucket(address(ARB_TOKEN_POOL));
-    assertEq(capacity, arbProposal.CCIP_BUCKET_CAPACITY());
+    assertEq(capacity, ArbUtils.CCIP_BUCKET_CAPACITY);
     assertEq(level, amount);
 
     // CCIP Transfer from Arbitrum to Ethereum
@@ -266,7 +266,7 @@ contract AaveV3E2E_GHOCrossChainLaunch_20240528_Test is ProtocolV3TestBase {
 
     assertEq(ARB_GHO.balanceOf(address(ARB_TOKEN_POOL)), 0);
     (capacity, level) = ARB_GHO.getFacilitatorBucket(address(ARB_TOKEN_POOL));
-    assertEq(capacity, arbProposal.CCIP_BUCKET_CAPACITY());
+    assertEq(capacity, ArbUtils.CCIP_BUCKET_CAPACITY);
     assertEq(level, amount);
 
     vm.startPrank(user);
@@ -289,7 +289,7 @@ contract AaveV3E2E_GHOCrossChainLaunch_20240528_Test is ProtocolV3TestBase {
     assertEq(ARB_GHO.balanceOf(user), 0);
     assertEq(ARB_GHO.balanceOf(address(ARB_TOKEN_POOL)), 0);
     (capacity, level) = ARB_GHO.getFacilitatorBucket(address(ARB_TOKEN_POOL));
-    assertEq(capacity, arbProposal.CCIP_BUCKET_CAPACITY());
+    assertEq(capacity, ArbUtils.CCIP_BUCKET_CAPACITY);
     assertEq(level, 0);
 
     // Ethereum execution (destination)
@@ -368,7 +368,7 @@ contract AaveV3E2E_GHOCrossChainLaunch_20240528_Test is ProtocolV3TestBase {
     address token,
     uint256 amount,
     address feeToken
-  ) public view returns (Client.EVM2AnyMessage memory) {
+  ) public pure returns (Client.EVM2AnyMessage memory) {
     Client.EVMTokenAmount[] memory tokenAmounts = new Client.EVMTokenAmount[](1);
     tokenAmounts[0] = Client.EVMTokenAmount({token: token, amount: amount});
     return
@@ -389,7 +389,7 @@ contract AaveV3E2E_GHOCrossChainLaunch_20240528_Test is ProtocolV3TestBase {
     address originalSender,
     uint64 sourceChainSelector,
     bytes32 metadataHash
-  ) public view returns (Internal.EVM2EVMMessage memory) {
+  ) public pure returns (Internal.EVM2EVMMessage memory) {
     // Slicing is only available for calldata. So we have to build a new bytes array.
     bytes memory args = new bytes(message.extraArgs.length - 4);
     for (uint256 i = 4; i < message.extraArgs.length; ++i) {

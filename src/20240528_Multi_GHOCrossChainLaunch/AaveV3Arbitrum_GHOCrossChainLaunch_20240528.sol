@@ -18,6 +18,79 @@ import {RateLimiter} from 'ccip/v0.8/ccip/libraries/RateLimiter.sol';
 import {UpgradeableGhoToken} from 'gho-core/gho/UpgradeableGhoToken.sol';
 import {IGhoToken} from 'gho-core/gho/interfaces/IGhoToken.sol';
 
+library Utils {
+  bytes32 public constant GHO_IMPL_DEPLOY_SALT = bytes32(uint256(keccak256('gho.token.impl')));
+  bytes32 public constant GHO_DEPLOY_SALT = bytes32(uint256(keccak256('gho.token')));
+  uint256 public constant GHO_SEED_AMOUNT = 1e18;
+  bytes32 public constant CCIP_TOKEN_POOL_IMPL_DEPLOY_SALT =
+    bytes32(uint256(keccak256('gho.ccip.impl')));
+  bytes32 public constant CCIP_TOKEN_POOL_DEPLOY_SALT = bytes32(uint256(keccak256('gho.ccip')));
+  address public constant CCIP_ARM_PROXY = 0xC311a21e6fEf769344EB1515588B9d535662a145;
+  address public constant CCIP_ROUTER = 0x141fa059441E0ca23ce184B6A78bafD2A517DdE8;
+  uint256 public constant CCIP_BUCKET_CAPACITY = 1_000_000e18; // 1M
+  uint64 public constant CCIP_ETH_CHAIN_SELECTOR = 5009297550715157269;
+
+  function deployGhoToken() external returns (address imple, address proxy) {
+    // Deploy imple
+    imple = ICreate3Factory(MiscArbitrum.CREATE_3_FACTORY).create(
+      GHO_IMPL_DEPLOY_SALT,
+      type(UpgradeableGhoToken).creationCode
+    );
+
+    // proxy deploy and init
+    bytes memory ghoTokenInitParams = abi.encodeWithSignature(
+      'initialize(address)',
+      GovernanceV3Arbitrum.EXECUTOR_LVL_1 // owner
+    );
+    bytes memory creationCode = abi.encodePacked(
+      type(TransparentUpgradeableProxy).creationCode,
+      abi.encode(
+        imple,
+        MiscArbitrum.PROXY_ADMIN, // proxy admin
+        ghoTokenInitParams
+      )
+    );
+    proxy = ICreate3Factory(MiscArbitrum.CREATE_3_FACTORY).create(GHO_DEPLOY_SALT, creationCode);
+  }
+
+  function deployCcipTokenPool(address ghoToken) internal returns (address imple, address proxy) {
+    // Deploy imple
+    bytes memory implCreationCode = abi.encodePacked(
+      type(UpgradeableBurnMintTokenPool).creationCode,
+      abi.encode(
+        ghoToken, // token
+        CCIP_ARM_PROXY, // armProxy
+        false // allowlistEnabled
+      )
+    );
+    imple = ICreate3Factory(MiscArbitrum.CREATE_3_FACTORY).create(
+      CCIP_TOKEN_POOL_IMPL_DEPLOY_SALT,
+      implCreationCode
+    );
+
+    // proxy deploy and init
+    address[] memory emptyArray = new address[](0);
+    bytes memory tokenPoolInitParams = abi.encodeWithSignature(
+      'initialize(address,address[],address)',
+      GovernanceV3Arbitrum.EXECUTOR_LVL_1, // owner
+      emptyArray, // allowList
+      CCIP_ROUTER // router
+    );
+    bytes memory creationCode = abi.encodePacked(
+      type(TransparentUpgradeableProxy).creationCode,
+      abi.encode(
+        imple, // logic
+        MiscArbitrum.PROXY_ADMIN, // proxy admin
+        tokenPoolInitParams // data
+      )
+    );
+    proxy = ICreate3Factory(MiscArbitrum.CREATE_3_FACTORY).create(
+      CCIP_TOKEN_POOL_DEPLOY_SALT,
+      creationCode
+    );
+  }
+}
+
 /**
  * @title GHO Cross-Chain Launch
  * @author Aave Labs
@@ -37,37 +110,27 @@ contract AaveV3Arbitrum_GHOCrossChainLaunch_20240528 is AaveV3PayloadArbitrum {
 
   address public immutable GHO;
   address public immutable GHO_IMPL;
-  bytes32 public constant GHO_IMPL_DEPLOY_SALT = bytes32(uint256(keccak256('gho.token.impl')));
-  bytes32 public constant GHO_DEPLOY_SALT = bytes32(uint256(keccak256('gho.token')));
-  uint256 public constant GHO_SEED_AMOUNT = 1e18;
   address public immutable CCIP_TOKEN_POOL;
   address public immutable CCIP_TOKEN_POOL_IMPL;
-  bytes32 public constant CCIP_TOKEN_POOL_IMPL_DEPLOY_SALT =
-    bytes32(uint256(keccak256('gho.ccip.impl')));
-  bytes32 public constant CCIP_TOKEN_POOL_DEPLOY_SALT = bytes32(uint256(keccak256('gho.ccip')));
-  address public constant CCIP_ARM_PROXY = 0xC311a21e6fEf769344EB1515588B9d535662a145;
-  address public constant CCIP_ROUTER = 0x141fa059441E0ca23ce184B6A78bafD2A517DdE8;
-  uint256 public constant CCIP_BUCKET_CAPACITY = 1_000_000e18; // 1M
-  uint64 public constant CCIP_ETH_CHAIN_SELECTOR = 5009297550715157269;
 
   constructor() {
     // Predict GHO contract address
     GHO_IMPL = ICreate3Factory(MiscArbitrum.CREATE_3_FACTORY).predictAddress(
       GovernanceV3Arbitrum.EXECUTOR_LVL_1,
-      GHO_IMPL_DEPLOY_SALT
+      Utils.GHO_IMPL_DEPLOY_SALT
     );
     GHO = ICreate3Factory(MiscArbitrum.CREATE_3_FACTORY).predictAddress(
       GovernanceV3Arbitrum.EXECUTOR_LVL_1,
-      GHO_DEPLOY_SALT
+      Utils.GHO_DEPLOY_SALT
     );
     // Predict CCIP TokenPool contract address
     CCIP_TOKEN_POOL_IMPL = ICreate3Factory(MiscArbitrum.CREATE_3_FACTORY).predictAddress(
       GovernanceV3Arbitrum.EXECUTOR_LVL_1,
-      CCIP_TOKEN_POOL_IMPL_DEPLOY_SALT
+      Utils.CCIP_TOKEN_POOL_IMPL_DEPLOY_SALT
     );
     CCIP_TOKEN_POOL = ICreate3Factory(MiscArbitrum.CREATE_3_FACTORY).predictAddress(
       GovernanceV3Arbitrum.EXECUTOR_LVL_1,
-      CCIP_TOKEN_POOL_DEPLOY_SALT
+      Utils.CCIP_TOKEN_POOL_DEPLOY_SALT
     );
   }
 
@@ -111,91 +174,34 @@ contract AaveV3Arbitrum_GHOCrossChainLaunch_20240528 is AaveV3PayloadArbitrum {
 
   function _preExecute() internal override {
     // 1. Deploy GHO
-    address ghoToken = _deployGhoToken();
+    (address ghoTokenImpl, address ghoToken) = Utils.deployGhoToken();
+    require(ghoTokenImpl == GHO_IMPL, 'UNEXPECTED_GHO_TOKEN_IMPL_ADDRESS');
     require(ghoToken == GHO, 'UNEXPECTED_GHO_TOKEN_ADDRESS');
     // 2. Deploy BurnMintTokenPool
-    address tokenPool = _deployCcipTokenPool();
+    (address tokenPoolImpl, address tokenPool) = Utils.deployCcipTokenPool(GHO);
+    require(tokenPoolImpl == CCIP_TOKEN_POOL_IMPL, 'UNEXPECTED_CCIP_TOKEN_POOL_IMPL_ADDRESS');
     require(tokenPool == CCIP_TOKEN_POOL, 'UNEXPECTED_CCIP_TOKEN_POOL_ADDRESS');
     // 3. Accept TokenPool ownership
-    UpgradeableBurnMintTokenPool(tokenPool).acceptOwnership();
+    UpgradeableBurnMintTokenPool(CCIP_TOKEN_POOL).acceptOwnership();
     // 4. Configure CCIP TokenPool
-    _configureCcipTokenPool(tokenPool);
+    _configureCcipTokenPool();
     // 5. Add CCIP TokenPool as GHO Facilitator
-    IGhoToken(ghoToken).grantRole(
-      IGhoToken(ghoToken).FACILITATOR_MANAGER_ROLE(),
+    IGhoToken(GHO).grantRole(
+      IGhoToken(GHO).FACILITATOR_MANAGER_ROLE(),
       GovernanceV3Arbitrum.EXECUTOR_LVL_1
     );
-    IGhoToken(ghoToken).grantRole(
-      IGhoToken(ghoToken).BUCKET_MANAGER_ROLE(),
+    IGhoToken(GHO).grantRole(
+      IGhoToken(GHO).BUCKET_MANAGER_ROLE(),
       GovernanceV3Arbitrum.EXECUTOR_LVL_1
     );
-    IGhoToken(ghoToken).addFacilitator(tokenPool, 'CCIP TokenPool', uint128(CCIP_BUCKET_CAPACITY));
+    IGhoToken(GHO).addFacilitator(
+      CCIP_TOKEN_POOL,
+      'CCIP TokenPool',
+      uint128(Utils.CCIP_BUCKET_CAPACITY)
+    );
   }
 
-  function _deployGhoToken() internal returns (address) {
-    // Deploy imple
-    address ghoTokenImpl = ICreate3Factory(MiscArbitrum.CREATE_3_FACTORY).create(
-      GHO_IMPL_DEPLOY_SALT,
-      type(UpgradeableGhoToken).creationCode
-    );
-    require(ghoTokenImpl == GHO_IMPL, 'UNEXPECTED_GHO_TOKEN_IMPL_ADDRESS');
-
-    // proxy deploy and init
-    bytes memory ghoTokenInitParams = abi.encodeWithSignature(
-      'initialize(address)',
-      GovernanceV3Arbitrum.EXECUTOR_LVL_1 // owner
-    );
-    bytes memory creationCode = abi.encodePacked(
-      type(TransparentUpgradeableProxy).creationCode,
-      abi.encode(
-        GHO_IMPL,
-        MiscArbitrum.PROXY_ADMIN, // proxy admin
-        ghoTokenInitParams
-      )
-    );
-    return ICreate3Factory(MiscArbitrum.CREATE_3_FACTORY).create(GHO_DEPLOY_SALT, creationCode);
-  }
-
-  function _deployCcipTokenPool() internal returns (address) {
-    // Deploy imple
-    bytes memory implCreationCode = abi.encodePacked(
-      type(UpgradeableBurnMintTokenPool).creationCode,
-      abi.encode(
-        GHO, // token
-        CCIP_ARM_PROXY, // armProxy
-        false // allowlistEnabled
-      )
-    );
-    address tokenPoolImpl = ICreate3Factory(MiscArbitrum.CREATE_3_FACTORY).create(
-      CCIP_TOKEN_POOL_IMPL_DEPLOY_SALT,
-      implCreationCode
-    );
-    require(CCIP_TOKEN_POOL_IMPL == tokenPoolImpl, 'UNEXPECTED_CCIP_TOKEN_POOL_IMPL_ADDRESS');
-
-    // proxy deploy and init
-    address[] memory emptyArray = new address[](0);
-    bytes memory tokenPoolInitParams = abi.encodeWithSignature(
-      'initialize(address,address[],address)',
-      GovernanceV3Arbitrum.EXECUTOR_LVL_1, // owner
-      emptyArray, // allowList
-      CCIP_ROUTER // router
-    );
-    bytes memory creationCode = abi.encodePacked(
-      type(TransparentUpgradeableProxy).creationCode,
-      abi.encode(
-        tokenPoolImpl, // logic
-        MiscArbitrum.PROXY_ADMIN, // proxy admin
-        tokenPoolInitParams // data
-      )
-    );
-    return
-      ICreate3Factory(MiscArbitrum.CREATE_3_FACTORY).create(
-        CCIP_TOKEN_POOL_DEPLOY_SALT,
-        creationCode
-      );
-  }
-
-  function _configureCcipTokenPool(address tokenPool) internal {
+  function _configureCcipTokenPool() internal {
     UpgradeableTokenPool.ChainUpdate[] memory chainUpdates = new UpgradeableTokenPool.ChainUpdate[](
       1
     );
@@ -205,12 +211,12 @@ contract AaveV3Arbitrum_GHOCrossChainLaunch_20240528 is AaveV3PayloadArbitrum {
       rate: 0
     });
     chainUpdates[0] = UpgradeableTokenPool.ChainUpdate({
-      remoteChainSelector: CCIP_ETH_CHAIN_SELECTOR,
+      remoteChainSelector: Utils.CCIP_ETH_CHAIN_SELECTOR,
       allowed: true,
       outboundRateLimiterConfig: rateConfig,
       inboundRateLimiterConfig: rateConfig
     });
-    UpgradeableBurnMintTokenPool(tokenPool).applyChainUpdates(chainUpdates);
+    UpgradeableBurnMintTokenPool(CCIP_TOKEN_POOL).applyChainUpdates(chainUpdates);
   }
 
   function _postExecute() internal override {
@@ -220,11 +226,11 @@ contract AaveV3Arbitrum_GHOCrossChainLaunch_20240528 is AaveV3PayloadArbitrum {
 
   function _defensiveSeed() internal {
     // Add Governance as Facilitator
-    IGhoToken(GHO).addFacilitator(address(this), 'Governance', uint128(GHO_SEED_AMOUNT));
+    IGhoToken(GHO).addFacilitator(address(this), 'Governance', uint128(Utils.GHO_SEED_AMOUNT));
 
     // Mint GHO and supply
-    IGhoToken(GHO).mint(address(this), GHO_SEED_AMOUNT);
-    IERC20(GHO).forceApprove(address(AaveV3Arbitrum.POOL), GHO_SEED_AMOUNT);
-    AaveV3Arbitrum.POOL.supply(GHO, GHO_SEED_AMOUNT, address(0), 0);
+    IGhoToken(GHO).mint(address(this), Utils.GHO_SEED_AMOUNT);
+    IERC20(GHO).forceApprove(address(AaveV3Arbitrum.POOL), Utils.GHO_SEED_AMOUNT);
+    AaveV3Arbitrum.POOL.supply(GHO, Utils.GHO_SEED_AMOUNT, address(0), 0);
   }
 }

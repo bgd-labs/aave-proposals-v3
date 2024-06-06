@@ -250,7 +250,7 @@ contract AaveV3Ethereum_GHOCrossChainLaunch_20240528_Test is ProtocolV3TestBase 
     address token,
     uint256 amount,
     address feeToken
-  ) public view returns (Client.EVM2AnyMessage memory) {
+  ) public pure returns (Client.EVM2AnyMessage memory) {
     Client.EVMTokenAmount[] memory tokenAmounts = new Client.EVMTokenAmount[](1);
     tokenAmounts[0] = Client.EVMTokenAmount({token: token, amount: amount});
     return
