@@ -41,6 +41,12 @@ library Utils {
   }
 
   function deployGhoToken() internal returns (address imple, address proxy) {
+    // Deploy imple
+    imple = ICreate3Factory(MiscArbitrum.CREATE_3_FACTORY).create(
+      GHO_IMPL_DEPLOY_SALT,
+      type(UpgradeableGhoToken).creationCode
+    );
+
     // proxy deploy and init
     bytes memory ghoTokenInitParams = abi.encodeWithSignature(
       'initialize(address)',
@@ -54,13 +60,7 @@ library Utils {
         ghoTokenInitParams
       )
     );
-
-    (imple, proxy) = _deploy({
-      impleSalt: GHO_IMPL_DEPLOY_SALT,
-      impleCreationCode: type(UpgradeableGhoToken).creationCode,
-      proxySalt: GHO_DEPLOY_SALT,
-      proxyCreationCode: creationCode
-    });
+    proxy = ICreate3Factory(MiscArbitrum.CREATE_3_FACTORY).create(GHO_DEPLOY_SALT, creationCode);
   }
 
   function deployCcipTokenPool(address ghoToken) external returns (address imple, address proxy) {
@@ -72,6 +72,10 @@ library Utils {
         CCIP_ARM_PROXY, // armProxy
         false // allowlistEnabled
       )
+    );
+    imple = ICreate3Factory(MiscArbitrum.CREATE_3_FACTORY).create(
+      CCIP_TOKEN_POOL_IMPL_DEPLOY_SALT,
+      impleCreationCode
     );
 
     // proxy deploy and init
@@ -90,12 +94,10 @@ library Utils {
       )
     );
 
-    (imple, proxy) = _deploy({
-      impleSalt: CCIP_TOKEN_POOL_IMPL_DEPLOY_SALT,
-      impleCreationCode: impleCreationCode,
-      proxySalt: CCIP_TOKEN_POOL_DEPLOY_SALT,
-      proxyCreationCode: creationCode
-    });
+    proxy = ICreate3Factory(MiscArbitrum.CREATE_3_FACTORY).create(
+      CCIP_TOKEN_POOL_DEPLOY_SALT,
+      creationCode
+    );
   }
 }
 
