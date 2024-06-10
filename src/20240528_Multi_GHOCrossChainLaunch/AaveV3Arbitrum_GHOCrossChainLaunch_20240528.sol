@@ -30,13 +30,17 @@ library Utils {
   uint256 public constant CCIP_BUCKET_CAPACITY = 1_000_000e18; // 1M
   uint64 public constant CCIP_ETH_CHAIN_SELECTOR = 5009297550715157269;
 
-  function deployGhoToken() external returns (address imple, address proxy) {
-    // Deploy imple
-    imple = ICreate3Factory(MiscArbitrum.CREATE_3_FACTORY).create(
-      GHO_IMPL_DEPLOY_SALT,
-      type(UpgradeableGhoToken).creationCode
-    );
+  function _deploy(
+    bytes32 impleSalt,
+    bytes memory impleCreationCode,
+    bytes32 proxySalt,
+    bytes memory proxyCreationCode
+  ) internal returns (address imple, address proxy) {
+    imple = ICreate3Factory(MiscArbitrum.CREATE_3_FACTORY).create(impleSalt, impleCreationCode);
+    proxy = ICreate3Factory(MiscArbitrum.CREATE_3_FACTORY).create(proxySalt, proxyCreationCode);
+  }
 
+  function deployGhoToken() internal returns (address imple, address proxy) {
     // proxy deploy and init
     bytes memory ghoTokenInitParams = abi.encodeWithSignature(
       'initialize(address)',
@@ -50,12 +54,18 @@ library Utils {
         ghoTokenInitParams
       )
     );
-    proxy = ICreate3Factory(MiscArbitrum.CREATE_3_FACTORY).create(GHO_DEPLOY_SALT, creationCode);
+
+    (imple, proxy) = _deploy({
+      impleSalt: GHO_IMPL_DEPLOY_SALT,
+      impleCreationCode: type(UpgradeableGhoToken).creationCode,
+      proxySalt: GHO_DEPLOY_SALT,
+      proxyCreationCode: creationCode
+    });
   }
 
   function deployCcipTokenPool(address ghoToken) external returns (address imple, address proxy) {
     // Deploy imple
-    bytes memory implCreationCode = abi.encodePacked(
+    bytes memory impleCreationCode = abi.encodePacked(
       type(UpgradeableBurnMintTokenPool).creationCode,
       abi.encode(
         ghoToken, // token
@@ -63,17 +73,12 @@ library Utils {
         false // allowlistEnabled
       )
     );
-    imple = ICreate3Factory(MiscArbitrum.CREATE_3_FACTORY).create(
-      CCIP_TOKEN_POOL_IMPL_DEPLOY_SALT,
-      implCreationCode
-    );
 
     // proxy deploy and init
-    address[] memory emptyArray = new address[](0);
     bytes memory tokenPoolInitParams = abi.encodeWithSignature(
       'initialize(address,address[],address)',
       GovernanceV3Arbitrum.EXECUTOR_LVL_1, // owner
-      emptyArray, // allowList
+      new address[](0), // allowList
       CCIP_ROUTER // router
     );
     bytes memory creationCode = abi.encodePacked(
@@ -84,10 +89,13 @@ library Utils {
         tokenPoolInitParams // data
       )
     );
-    proxy = ICreate3Factory(MiscArbitrum.CREATE_3_FACTORY).create(
-      CCIP_TOKEN_POOL_DEPLOY_SALT,
-      creationCode
-    );
+
+    (imple, proxy) = _deploy({
+      impleSalt: CCIP_TOKEN_POOL_IMPL_DEPLOY_SALT,
+      impleCreationCode: impleCreationCode,
+      proxySalt: CCIP_TOKEN_POOL_DEPLOY_SALT,
+      proxyCreationCode: creationCode
+    });
   }
 }
 
