@@ -149,7 +149,7 @@ contract AaveV3Arbitrum_GHOCrossChainLaunch_20240528 is AaveV3PayloadArbitrum {
     listings[0] = IAaveV3ConfigEngine.Listing({
       asset: GHO,
       assetSymbol: 'GHO',
-      priceFeed: 0x3c786e934F23375Ca345C9b8D5aD54838796E8e7,
+      priceFeed: 0xB3Fe476e89C87aB9B10Eb4d457e86eB780ED7D2D, // Capped GHO / USD
       eModeCategory: AaveV3ArbitrumEModes.NONE,
       enabledToBorrow: EngineFlags.ENABLED,
       stableRateModeEnabled: EngineFlags.DISABLED,

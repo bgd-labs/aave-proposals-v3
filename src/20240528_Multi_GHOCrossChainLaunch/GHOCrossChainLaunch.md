@@ -39,7 +39,7 @@ The table below illustrates the configured risk parameters for **GHO**
 | Flashloanable                      |                                    ENABLED |
 | Siloed Borrowing                   |                                   DISABLED |
 | Borrowable in Isolation            |                                   DISABLED |
-| Oracle                             | 0x3c786e934F23375Ca345C9b8D5aD54838796E8e7 |
+| Oracle                             | 0xB3Fe476e89C87aB9B10Eb4d457e86eB780ED7D2D |
 
 ## References
 
