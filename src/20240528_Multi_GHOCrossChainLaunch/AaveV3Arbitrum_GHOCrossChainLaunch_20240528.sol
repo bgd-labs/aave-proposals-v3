@@ -53,7 +53,7 @@ library Utils {
     proxy = ICreate3Factory(MiscArbitrum.CREATE_3_FACTORY).create(GHO_DEPLOY_SALT, creationCode);
   }
 
-  function deployCcipTokenPool(address ghoToken) internal returns (address imple, address proxy) {
+  function deployCcipTokenPool(address ghoToken) external returns (address imple, address proxy) {
     // Deploy imple
     bytes memory implCreationCode = abi.encodePacked(
       type(UpgradeableBurnMintTokenPool).creationCode,
@@ -106,8 +106,6 @@ library Utils {
  * 7. Seed Aave Pool
  */
 contract AaveV3Arbitrum_GHOCrossChainLaunch_20240528 is AaveV3PayloadArbitrum {
-  using SafeERC20 for IERC20;
-
   address public immutable GHO;
   address public immutable GHO_IMPL;
   address public immutable CCIP_TOKEN_POOL;
@@ -225,12 +223,86 @@ contract AaveV3Arbitrum_GHOCrossChainLaunch_20240528 is AaveV3PayloadArbitrum {
   }
 
   function _defensiveSeed() internal {
-    // Add Governance as Facilitator
-    IGhoToken(GHO).addFacilitator(address(this), 'Governance', uint128(Utils.GHO_SEED_AMOUNT));
+    AaveDefensiveSeed defensiveSeed = new AaveDefensiveSeed(GHO, Utils.GHO_SEED_AMOUNT);
 
-    // Mint GHO and supply
-    IGhoToken(GHO).mint(address(this), Utils.GHO_SEED_AMOUNT);
-    IERC20(GHO).forceApprove(address(AaveV3Arbitrum.POOL), Utils.GHO_SEED_AMOUNT);
-    AaveV3Arbitrum.POOL.supply(GHO, Utils.GHO_SEED_AMOUNT, address(0), 0);
+    // Add Facilitator and remove just after the mint of seed amount
+    uint256 seedAmount = defensiveSeed.DEFENSIVE_SEED_AMOUNT();
+    IGhoToken(GHO).addFacilitator(address(defensiveSeed), 'DefensiveSeed', uint128(seedAmount));
+    defensiveSeed.mint();
+    IGhoToken(GHO).setFacilitatorBucketCapacity(address(defensiveSeed), 0);
+
+    // Give FacilitatorManager role so it can unwind
+    IGhoToken(GHO).grantRole(IGhoToken(GHO).FACILITATOR_MANAGER_ROLE(), address(defensiveSeed));
+  }
+}
+
+/**
+ * @dev This contract serves as a temporary holder for the initial seeding of the GHO reserve in the Aave V3 Pool.
+ * @dev Designed as an immutable interim GHO Facilitator, removed once the GHO reserve is adequately seeded.
+ */
+contract AaveDefensiveSeed {
+  using SafeERC20 for IERC20;
+
+  address public immutable GHO;
+  uint256 public immutable DEFENSIVE_SEED_AMOUNT;
+  bool public mintOnce;
+  bool public burnOnce;
+
+  /**
+   * @dev Constructor
+   * @param gho The address of GHO token
+   * @param seedAmount The initial seed amount to be supplied to the Aave Pool
+   */
+  constructor(address gho, uint256 seedAmount) {
+    GHO = gho;
+    DEFENSIVE_SEED_AMOUNT = seedAmount;
+  }
+
+  /**
+   * @dev Executes the initial seeding of the GHO reserve in the Aave V3 Pool.
+   * @dev It can only be called once.
+   */
+  function mint() external {
+    require(!mintOnce, 'NOT_ACTIVE');
+
+    // mint
+    IGhoToken(GHO).mint(address(this), DEFENSIVE_SEED_AMOUNT);
+
+    // supply
+    IERC20(GHO).forceApprove(address(AaveV3Arbitrum.POOL), DEFENSIVE_SEED_AMOUNT);
+    AaveV3Arbitrum.POOL.supply(GHO, DEFENSIVE_SEED_AMOUNT, address(this), 0);
+
+    mintOnce = true;
+  }
+
+  /**
+   * @dev Executes the withdrawal of the initial seeding from the GHO reserve in the Aave V3 Pool, effectively removing
+   * this contract as GHO Facilitator.
+   * @dev It can only be called once, and only if a sufficient amount of aGHO has been burned at the zero address
+   */
+  function burn() external {
+    require(!burnOnce, 'NOT_ACTIVE');
+
+    // Check address(0) is aGHO holder with sufficient amount
+    (address aGHO, , ) = AaveV3Arbitrum.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(GHO);
+    require(
+      IERC20(aGHO).balanceOf(address(0)) >= DEFENSIVE_SEED_AMOUNT,
+      'NOT_ENOUGH_DEFENSIVE_SEED'
+    );
+
+    // withdraw
+    uint256 amount = IERC20(aGHO).balanceOf(address(this));
+    AaveV3Arbitrum.POOL.withdraw(GHO, amount, address(this));
+
+    // burn
+    IGhoToken(GHO).burn(amount);
+
+    // Remove itself as facilitator
+    IGhoToken(GHO).removeFacilitator(address(this));
+
+    // resign FacilitatorManager role
+    IGhoToken(GHO).renounceRole(IGhoToken(GHO).FACILITATOR_MANAGER_ROLE(), address(this));
+
+    burnOnce = true;
   }
 }

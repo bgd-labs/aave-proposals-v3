@@ -20,7 +20,7 @@ import {IPool} from 'ccip/v0.8/ccip/interfaces/pools/IPool.sol';
 import {UpgradeableBurnMintTokenPool} from 'ccip/v0.8/ccip/pools/GHO/UpgradeableBurnMintTokenPool.sol';
 import {IGhoToken} from 'gho-core/gho/interfaces/IGhoToken.sol';
 
-import {AaveV3Arbitrum_GHOCrossChainLaunch_20240528, Utils} from './AaveV3Arbitrum_GHOCrossChainLaunch_20240528.sol';
+import {AaveV3Arbitrum_GHOCrossChainLaunch_20240528, Utils, AaveDefensiveSeed} from './AaveV3Arbitrum_GHOCrossChainLaunch_20240528.sol';
 
 /**
  * @dev Test for AaveV3Arbitrum_GHOCrossChainLaunch_20240528
@@ -57,6 +57,81 @@ contract AaveV3Arbitrum_GHOCrossChainLaunch_20240528_Test is ProtocolV3TestBase 
     );
     _validateGhoDeployment();
     _validateCcipTokenPool();
+  }
+
+  event Supply(
+    address indexed reserve,
+    address user,
+    address indexed onBehalfOf,
+    uint256 amount,
+    uint16 indexed referralCode
+  );
+  function test_defensiveAaveSeed() public {
+    vm.recordLogs();
+
+    GovV3Helpers.executePayload(vm, address(proposal));
+
+    // Fetch address
+    Vm.Log[] memory entries = vm.getRecordedLogs();
+    address defensiveSeed;
+    for (uint256 i = 0; i < entries.length; i++) {
+      if (entries[i].topics[0] == Supply.selector) {
+        (defensiveSeed, ) = abi.decode(entries[i].data, (address, uint256));
+        break;
+      }
+    }
+
+    // DefensiveSeed contract
+    assertEq(AaveDefensiveSeed(defensiveSeed).GHO(), address(GHO));
+    assertEq(AaveDefensiveSeed(defensiveSeed).DEFENSIVE_SEED_AMOUNT(), Utils.GHO_SEED_AMOUNT);
+    assertEq(AaveDefensiveSeed(defensiveSeed).mintOnce(), true);
+    assertEq(AaveDefensiveSeed(defensiveSeed).burnOnce(), false);
+    assertEq(GHO.hasRole(GHO.FACILITATOR_MANAGER_ROLE(), defensiveSeed), true);
+
+    vm.expectRevert('NOT_ACTIVE');
+    AaveDefensiveSeed(defensiveSeed).mint();
+
+    // Seed state
+    (address aGHO, , ) = AaveV3Arbitrum.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(
+      address(GHO)
+    );
+    assertEq(GHO.totalSupply(), Utils.GHO_SEED_AMOUNT);
+    assertEq(IERC20(aGHO).totalSupply(), Utils.GHO_SEED_AMOUNT);
+    assertEq(IERC20(aGHO).balanceOf(address(0)), 0);
+    assertEq(IERC20(aGHO).balanceOf(defensiveSeed), Utils.GHO_SEED_AMOUNT);
+
+    (uint256 capacity, uint256 level) = GHO.getFacilitatorBucket(defensiveSeed);
+    assertEq(capacity, 0);
+    assertEq(level, Utils.GHO_SEED_AMOUNT);
+
+    // Wind down
+    vm.expectRevert('NOT_ENOUGH_DEFENSIVE_SEED');
+    AaveDefensiveSeed(defensiveSeed).burn();
+
+    // Someone burns some aGHO
+    vm.prank(address(TOKEN_POOL));
+    GHO.mint(address(this), Utils.GHO_SEED_AMOUNT);
+    assertEq(GHO.totalSupply(), Utils.GHO_SEED_AMOUNT * 2);
+    GHO.approve(address(AaveV3Arbitrum.POOL), Utils.GHO_SEED_AMOUNT);
+    AaveV3Arbitrum.POOL.supply(address(GHO), Utils.GHO_SEED_AMOUNT, address(0), 0);
+
+    AaveDefensiveSeed(defensiveSeed).burn();
+
+    vm.expectRevert('NOT_ACTIVE');
+    AaveDefensiveSeed(defensiveSeed).burn();
+
+    assertEq(AaveDefensiveSeed(defensiveSeed).mintOnce(), true);
+    assertEq(AaveDefensiveSeed(defensiveSeed).burnOnce(), true);
+    assertEq(GHO.hasRole(GHO.FACILITATOR_MANAGER_ROLE(), defensiveSeed), false);
+
+    assertEq(GHO.totalSupply(), Utils.GHO_SEED_AMOUNT);
+    assertEq(IERC20(aGHO).totalSupply(), Utils.GHO_SEED_AMOUNT);
+    assertEq(IERC20(aGHO).balanceOf(address(0)), Utils.GHO_SEED_AMOUNT);
+    assertEq(IERC20(aGHO).balanceOf(defensiveSeed), 0);
+
+    (capacity, level) = GHO.getFacilitatorBucket(defensiveSeed);
+    assertEq(capacity, 0);
+    assertEq(level, 0);
   }
 
   /// @dev Test burn and mint actions, mocking CCIP calls
