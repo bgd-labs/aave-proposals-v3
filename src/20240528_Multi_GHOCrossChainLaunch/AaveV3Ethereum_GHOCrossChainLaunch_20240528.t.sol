@@ -43,7 +43,7 @@ contract AaveV3Ethereum_GHOCrossChainLaunch_20240528_Test is ProtocolV3TestBase 
   event Transfer(address indexed from, address indexed to, uint256 value);
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 19967293);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 20067000);
     proposal = new AaveV3Ethereum_GHOCrossChainLaunch_20240528();
     TOKEN_POOL = UpgradeableLockReleaseTokenPool(proposal.CCIP_TOKEN_POOL());
     GHO = IGhoToken(MiscEthereum.GHO_TOKEN);

@@ -40,7 +40,7 @@ contract AaveV3Arbitrum_GHOCrossChainLaunch_20240528_Test is ProtocolV3TestBase 
   event Transfer(address indexed from, address indexed to, uint256 value);
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('arbitrum'), 215853041);
+    vm.createSelectFork(vm.rpcUrl('arbitrum'), 220652440);
     proposal = new AaveV3Arbitrum_GHOCrossChainLaunch_20240528();
     GHO = IGhoToken(proposal.GHO());
     TOKEN_POOL = UpgradeableBurnMintTokenPool(proposal.CCIP_TOKEN_POOL());

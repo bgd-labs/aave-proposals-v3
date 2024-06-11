@@ -15,10 +15,10 @@
 | isSiloed | false |
 | isFlashloanable | true |
 | eModeCategory | 0 |
-| oracle | [0x3c786e934F23375Ca345C9b8D5aD54838796E8e7](https://arbiscan.io/address/0x3c786e934F23375Ca345C9b8D5aD54838796E8e7) |
+| oracle | [0xB3Fe476e89C87aB9B10Eb4d457e86eB780ED7D2D](https://arbiscan.io/address/0xB3Fe476e89C87aB9B10Eb4d457e86eB780ED7D2D) |
 | oracleDecimals | 8 |
-| oracleDescription | GHO / USD |
-| oracleLatestAnswer | 1.00055373 |
+| oracleDescription | Capped GHO / USD |
+| oracleLatestAnswer | 0.99885863 |
 | usageAsCollateralEnabled | false |
 | ltv | 0 % |
 | liquidationThreshold | 0 % |
@@ -34,7 +34,7 @@
 | borrowingEnabled | true |
 | stableBorrowRateEnabled | false |
 | isBorrowableInIsolation | false |
-| interestRateStrategy | [0x4011fcd421b9E90f131B164EC1d162DBE269621C](https://arbiscan.io/address/0x4011fcd421b9E90f131B164EC1d162DBE269621C) |
+| interestRateStrategy | [0x42ec99A020B78C449d17d93bC4c89e0189B5811d](https://arbiscan.io/address/0x42ec99A020B78C449d17d93bC4c89e0189B5811d) |
 | liquidityIndex | 1 |
 | variableBorrowIndex | 1 |
 | aTokenName | Aave Arbitrum GHO |
@@ -56,7 +56,7 @@
 | baseStableBorrowRate | 13 % |
 | stableRateSlope1 | 0 % |
 | stableRateSlope2 | 0 % |
-| interestRate | ![ir](/.assets/27f24261be79502c45933baaa28f73a9f1adae83.svg) |
+| interestRate | ![ir](/.assets/cccab0c572a5147e21f29095280318dc9096301b.svg) |
 
 
 ## Raw diff
@@ -78,7 +78,7 @@
         "debtCeiling": 0,
         "decimals": 18,
         "eModeCategory": 0,
-        "interestRateStrategy": "0x4011fcd421b9E90f131B164EC1d162DBE269621C",
+        "interestRateStrategy": "0x42ec99A020B78C449d17d93bC4c89e0189B5811d",
         "isActive": true,
         "isBorrowableInIsolation": false,
         "isFlashloanable": true,
@@ -90,10 +90,10 @@
         "liquidationThreshold": 0,
         "liquidityIndex": "1000000000000000000000000000",
         "ltv": 0,
-        "oracle": "0x3c786e934F23375Ca345C9b8D5aD54838796E8e7",
+        "oracle": "0xB3Fe476e89C87aB9B10Eb4d457e86eB780ED7D2D",
         "oracleDecimals": 8,
-        "oracleDescription": "GHO / USD",
-        "oracleLatestAnswer": 100055373,
+        "oracleDescription": "Capped GHO / USD",
+        "oracleLatestAnswer": 99885863,
         "reserveFactor": 1000,
         "stableBorrowRateEnabled": false,
         "stableDebtToken": "0x687871030477bf974725232F764aa04318A8b9c8",
@@ -116,7 +116,7 @@
     "0x9124bc807e1e9c79b3225b25D8B77BacB65FE622": {
       "from": null,
       "to": {
-        "address": "0x4011fcd421b9E90f131B164EC1d162DBE269621C",
+        "address": "0x42ec99A020B78C449d17d93bC4c89e0189B5811d",
         "baseStableBorrowRate": "130000000000000000000000000",
         "baseVariableBorrowRate": 0,
         "maxExcessStableToTotalDebtRatio": "1000000000000000000000000000",

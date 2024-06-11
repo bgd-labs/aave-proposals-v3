@@ -65,8 +65,8 @@ contract AaveV3E2E_GHOCrossChainLaunch_20240528_Test is ProtocolV3TestBase {
   uint256 internal arbitrumFork;
 
   function setUp() public {
-    ethereumFork = vm.createFork(vm.rpcUrl('mainnet'), 19967293);
-    arbitrumFork = vm.createFork(vm.rpcUrl('arbitrum'), 215853041);
+    ethereumFork = vm.createFork(vm.rpcUrl('mainnet'), 20067000);
+    arbitrumFork = vm.createFork(vm.rpcUrl('arbitrum'), 220652440);
 
     // Proposal creation
     vm.selectFork(ethereumFork);
