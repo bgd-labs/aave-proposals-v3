@@ -30,16 +30,6 @@ library Utils {
   uint256 public constant CCIP_BUCKET_CAPACITY = 1_000_000e18; // 1M
   uint64 public constant CCIP_ETH_CHAIN_SELECTOR = 5009297550715157269;
 
-  function _deploy(
-    bytes32 impleSalt,
-    bytes memory impleCreationCode,
-    bytes32 proxySalt,
-    bytes memory proxyCreationCode
-  ) internal returns (address imple, address proxy) {
-    imple = ICreate3Factory(MiscArbitrum.CREATE_3_FACTORY).create(impleSalt, impleCreationCode);
-    proxy = ICreate3Factory(MiscArbitrum.CREATE_3_FACTORY).create(proxySalt, proxyCreationCode);
-  }
-
   function deployGhoToken() internal returns (address imple, address proxy) {
     // Deploy imple
     imple = ICreate3Factory(MiscArbitrum.CREATE_3_FACTORY).create(
