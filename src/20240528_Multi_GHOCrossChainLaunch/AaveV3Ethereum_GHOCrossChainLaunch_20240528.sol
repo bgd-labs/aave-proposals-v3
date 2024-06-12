@@ -45,10 +45,10 @@ contract AaveV3Ethereum_GHOCrossChainLaunch_20240528 is IProposalGenericExecutor
     require(CCIP_TOKEN_POOL == tokenPool, 'UNEXPECTED_CCIP_TOKEN_POOL_ADDRESS');
 
     // 2. Accept TokenPool ownership
-    UpgradeableLockReleaseTokenPool(tokenPool).acceptOwnership();
+    UpgradeableLockReleaseTokenPool(CCIP_TOKEN_POOL).acceptOwnership();
 
     // 3. Configure CCIP
-    _configureCcipTokenPool(tokenPool);
+    _configureCcipTokenPool();
   }
 
   function _deployCcipTokenPool() internal returns (address imple, address proxy) {
@@ -88,7 +88,7 @@ contract AaveV3Ethereum_GHOCrossChainLaunch_20240528 is IProposalGenericExecutor
       );
   }
 
-  function _configureCcipTokenPool(address tokenPool) internal {
+  function _configureCcipTokenPool() internal {
     UpgradeableTokenPool.ChainUpdate[] memory chainUpdates = new UpgradeableTokenPool.ChainUpdate[](
       1
     );
@@ -103,6 +103,6 @@ contract AaveV3Ethereum_GHOCrossChainLaunch_20240528 is IProposalGenericExecutor
       outboundRateLimiterConfig: rateConfig,
       inboundRateLimiterConfig: rateConfig
     });
-    UpgradeableLockReleaseTokenPool(tokenPool).applyChainUpdates(chainUpdates);
+    UpgradeableLockReleaseTokenPool(CCIP_TOKEN_POOL).applyChainUpdates(chainUpdates);
   }
 }
