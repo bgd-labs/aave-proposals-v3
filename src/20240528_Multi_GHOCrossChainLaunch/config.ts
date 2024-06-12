@@ -19,7 +19,7 @@ export const config: ConfigFile = {
           {
             assetSymbol: 'GHO',
             decimals: 6,
-            priceFeed: '0xB3Fe476e89C87aB9B10Eb4d457e86eB780ED7D2D',
+            priceFeed: '0xB05984aD83C20b3ADE7bf97a9a0Cb539DDE28DBb',
             ltv: '0',
             liqThreshold: '0',
             liqBonus: '0',
@@ -45,7 +45,7 @@ export const config: ConfigFile = {
               optimalStableToTotalDebtRatio: '0',
             },
             eModeCategory: 'AaveV3ArbitrumEModes.NONE',
-            asset: '0x9124bc807e1e9c79b3225b25D8B77BacB65FE622',
+            asset: '0x74ba8077Aa469b72b5ebd7bDeC66b7d3A8204DAa',
           },
         ],
         OTHERS: {},

@@ -68,7 +68,7 @@ Arbitrum:
 | Flashloanable                      |                                    ENABLED |
 | Siloed Borrowing                   |                                   DISABLED |
 | Borrowable in Isolation            |                                   DISABLED |
-| Oracle                             | 0xB3Fe476e89C87aB9B10Eb4d457e86eB780ED7D2D |
+| Oracle                             | 0xB05984aD83C20b3ADE7bf97a9a0Cb539DDE28DBb |
 
 - Defensive seed of the GHO reserve in Aave V3 Pool: preventive measure for the GHO reserve within the Aave V3 Pool to mitigate an attack vector affecting the Aave Protocol. This involves minting 1 GHO, supplying it into the Aave Pool, and then redirecting it to the zero address, where it is effectively burned. This action serves as a defensive step to safeguard the integrity of the GHO reserve.
 
