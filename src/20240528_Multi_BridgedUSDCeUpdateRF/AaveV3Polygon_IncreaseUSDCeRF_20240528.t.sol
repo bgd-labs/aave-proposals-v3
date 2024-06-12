@@ -15,7 +15,7 @@ contract AaveV3Polygon_IncreaseUSDCeRF_20240528_Test is ProtocolV3TestBase {
   AaveV3Polygon_IncreaseUSDCeRF_20240528 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('polygon'), 57485864);
+    vm.createSelectFork(vm.rpcUrl('polygon'), 58078849);
     proposal = new AaveV3Polygon_IncreaseUSDCeRF_20240528();
   }
 

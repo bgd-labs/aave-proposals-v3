@@ -15,7 +15,7 @@ contract AaveV3Optimism_IncreaseUSDCeRF_20240528_Test is ProtocolV3TestBase {
   AaveV3Optimism_IncreaseUSDCeRF_20240528 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('optimism'), 120646754);
+    vm.createSelectFork(vm.rpcUrl('optimism'), 121307515);
     proposal = new AaveV3Optimism_IncreaseUSDCeRF_20240528();
   }
 

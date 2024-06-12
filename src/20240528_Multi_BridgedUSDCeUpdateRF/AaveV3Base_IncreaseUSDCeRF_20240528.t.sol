@@ -15,7 +15,7 @@ contract AaveV3Base_IncreaseUSDCeRF_20240528_Test is ProtocolV3TestBase {
   AaveV3Base_IncreaseUSDCeRF_20240528 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('base'), 15052532);
+    vm.createSelectFork(vm.rpcUrl('base'), 15714463);
     proposal = new AaveV3Base_IncreaseUSDCeRF_20240528();
   }
 

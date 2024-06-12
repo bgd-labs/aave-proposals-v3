@@ -15,7 +15,7 @@ contract AaveV3Arbitrum_IncreaseUSDCeRF_20240528_Test is ProtocolV3TestBase {
   AaveV3Arbitrum_IncreaseUSDCeRF_20240528 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('arbitrum'), 215884651);
+    vm.createSelectFork(vm.rpcUrl('arbitrum'), 221148973);
     proposal = new AaveV3Arbitrum_IncreaseUSDCeRF_20240528();
   }
 

@@ -2,11 +2,37 @@
 pragma solidity ^0.8.0;
 
 import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aave-helpers/GovV3Helpers.sol';
-import {EthereumScript, PolygonScript, OptimismScript, ArbitrumScript, BaseScript} from 'aave-helpers/ScriptUtils.sol';
+import {EthereumScript, PolygonScript, OptimismScript, ArbitrumScript, BaseScript, AvalancheScript} from 'aave-helpers/ScriptUtils.sol';
+import {AaveV2Avalanche_ReserveFactorUpgrades_20240528} from './AaveV2Avalanche_ReserveFactorUpgrades_20240528.sol';
+import {AaveV2Ethereum_ReserveFactorUpgrades_20240528} from './AaveV2Ethereum_ReserveFactorUpgrades_20240528.sol';
+import {AaveV2Polygon_BorrowRateUpdates_20240528} from './AaveV2Polygon_BorrowRateUpdates_20240528.sol';
 import {AaveV3Polygon_IncreaseUSDCeRF_20240528} from './AaveV3Polygon_IncreaseUSDCeRF_20240528.sol';
 import {AaveV3Optimism_IncreaseUSDCeRF_20240528} from './AaveV3Optimism_IncreaseUSDCeRF_20240528.sol';
 import {AaveV3Arbitrum_IncreaseUSDCeRF_20240528} from './AaveV3Arbitrum_IncreaseUSDCeRF_20240528.sol';
 import {AaveV3Base_IncreaseUSDCeRF_20240528} from './AaveV3Base_IncreaseUSDCeRF_20240528.sol';
+
+/**
+ * @dev Deploy Ethereum
+ * deploy-command: make deploy-ledger contract=src/20240528_Multi_BridgedUSDCeUpdateRF/IncreaseUSDCeRF_20240528.s.sol:DeployEthereum chain=mainnet
+ * verify-command: npx catapulta-verify -b broadcast/IncreaseUSDCeRF_20240528.s.sol/8453/run-latest.json
+ */
+contract DeployEthereum is EthereumScript {
+  function run() external broadcast {
+    // deploy payloads
+    address payload0 = GovV3Helpers.deployDeterministic(
+      type(AaveV2Ethereum_ReserveFactorUpgrades_20240528).creationCode
+    );
+
+    // compose action
+    IPayloadsControllerCore.ExecutionAction[]
+      memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
+    actions[0] = GovV3Helpers.buildAction(payload0);
+
+    // register action at payloadsController
+    GovV3Helpers.createPayload(actions);
+  }
+}
+
 /**
  * @dev Deploy Polygon
  * deploy-command: make deploy-ledger contract=src/20240528_Multi_BridgedUSDCeUpdateRF/IncreaseUSDCeRF_20240528.s.sol:DeployPolygon chain=polygon
@@ -17,6 +43,33 @@ contract DeployPolygon is PolygonScript {
     // deploy payloads
     address payload0 = GovV3Helpers.deployDeterministic(
       type(AaveV3Polygon_IncreaseUSDCeRF_20240528).creationCode
+    );
+
+    address payload1 = GovV3Helpers.deployDeterministic(
+      type(AaveV2Polygon_BorrowRateUpdates_20240528).creationCode
+    );
+
+    // compose action
+    IPayloadsControllerCore.ExecutionAction[]
+      memory actions = new IPayloadsControllerCore.ExecutionAction[](2);
+    actions[0] = GovV3Helpers.buildAction(payload0);
+    actions[1] = GovV3Helpers.buildAction(payload1);
+
+    // register action at payloadsController
+    GovV3Helpers.createPayload(actions);
+  }
+}
+
+/**
+ * @dev Deploy Avalanche
+ * deploy-command: make deploy-ledger contract=src/20240528_Multi_BridgedUSDCeUpdateRF/IncreaseUSDCeRF_20240528.s.sol:DeployAvalanche chain=avalanche
+ * verify-command: npx catapulta-verify -b broadcast/IncreaseUSDCeRF_20240528.s.sol/137/run-latest.json
+ */
+contract DeployAvalanche is AvalancheScript {
+  function run() external broadcast {
+    // deploy payloads
+    address payload0 = GovV3Helpers.deployDeterministic(
+      type(AaveV2Avalanche_ReserveFactorUpgrades_20240528).creationCode
     );
 
     // compose action
@@ -102,37 +155,54 @@ contract DeployBase is BaseScript {
 contract CreateProposal is EthereumScript {
   function run() external {
     // create payloads
-    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](4);
+    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](6);
 
     // compose actions for validation
 
     IPayloadsControllerCore.ExecutionAction[]
-      memory actionsPolygon = new IPayloadsControllerCore.ExecutionAction[](1);
+      memory actionsEthereum = new IPayloadsControllerCore.ExecutionAction[](1);
+    actionsEthereum[0] = GovV3Helpers.buildAction(
+      type(AaveV2Ethereum_ReserveFactorUpgrades_20240528).creationCode
+    );
+    payloads[0] = GovV3Helpers.buildMainnetPayload(vm, actionsEthereum);
+
+    IPayloadsControllerCore.ExecutionAction[]
+      memory actionsPolygon = new IPayloadsControllerCore.ExecutionAction[](2);
     actionsPolygon[0] = GovV3Helpers.buildAction(
       type(AaveV3Polygon_IncreaseUSDCeRF_20240528).creationCode
     );
-    payloads[0] = GovV3Helpers.buildPolygonPayload(vm, actionsPolygon);
+    actionsPolygon[1] = GovV3Helpers.buildAction(
+      type(AaveV2Polygon_BorrowRateUpdates_20240528).creationCode
+    );
+    payloads[1] = GovV3Helpers.buildPolygonPayload(vm, actionsPolygon);
+
+    IPayloadsControllerCore.ExecutionAction[]
+      memory actionsAvalanche = new IPayloadsControllerCore.ExecutionAction[](1);
+    actionsAvalanche[0] = GovV3Helpers.buildAction(
+      type(AaveV2Avalanche_ReserveFactorUpgrades_20240528).creationCode
+    );
+    payloads[2] = GovV3Helpers.buildAvalanchePayload(vm, actionsAvalanche);
 
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsOptimism = new IPayloadsControllerCore.ExecutionAction[](1);
     actionsOptimism[0] = GovV3Helpers.buildAction(
       type(AaveV3Optimism_IncreaseUSDCeRF_20240528).creationCode
     );
-    payloads[1] = GovV3Helpers.buildOptimismPayload(vm, actionsOptimism);
+    payloads[3] = GovV3Helpers.buildOptimismPayload(vm, actionsOptimism);
 
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsArbitrum = new IPayloadsControllerCore.ExecutionAction[](1);
     actionsArbitrum[0] = GovV3Helpers.buildAction(
       type(AaveV3Arbitrum_IncreaseUSDCeRF_20240528).creationCode
     );
-    payloads[2] = GovV3Helpers.buildArbitrumPayload(vm, actionsArbitrum);
+    payloads[4] = GovV3Helpers.buildArbitrumPayload(vm, actionsArbitrum);
 
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsBase = new IPayloadsControllerCore.ExecutionAction[](1);
     actionsBase[0] = GovV3Helpers.buildAction(
       type(AaveV3Base_IncreaseUSDCeRF_20240528).creationCode
     );
-    payloads[3] = GovV3Helpers.buildBasePayload(vm, actionsBase);
+    payloads[5] = GovV3Helpers.buildBasePayload(vm, actionsBase);
 
     // create proposal
     vm.startBroadcast();

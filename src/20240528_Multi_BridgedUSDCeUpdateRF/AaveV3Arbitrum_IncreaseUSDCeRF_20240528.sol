@@ -9,7 +9,7 @@ import {IV3RateStrategyFactory} from 'aave-helpers/v3-config-engine/IV3RateStrat
 /**
  * @title IncreaseUSDCeRF
  * @author karpatkey_TokenLogic
- * - Snapshot: Direct-to-AIP
+ * - Snapshot: https://snapshot.org/#/aave.eth/proposal/0x9cc7906f04f45cebeaa48a05ed281f49da00d89c4dd988a968272fa179f14d06
  * - Discussion: https://governance.aave.com/t/arfc-increase-bridged-usdc-reserve-factor-across-all-deployments/17787
  */
 contract AaveV3Arbitrum_IncreaseUSDCeRF_20240528 is AaveV3PayloadArbitrum {
