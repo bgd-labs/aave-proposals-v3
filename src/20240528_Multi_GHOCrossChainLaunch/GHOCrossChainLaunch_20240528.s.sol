@@ -6,6 +6,7 @@ import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {EthereumScript, ArbitrumScript} from 'aave-helpers/ScriptUtils.sol';
 import {AaveV3Ethereum_GHOCrossChainLaunch_20240528} from './AaveV3Ethereum_GHOCrossChainLaunch_20240528.sol';
 import {AaveV3Arbitrum_GHOCrossChainLaunch_20240528} from './AaveV3Arbitrum_GHOCrossChainLaunch_20240528.sol';
+import {AaveV3Arbitrum_GHOCrossChainListing_20240528} from './AaveV3Arbitrum_GHOCrossChainListing_20240528.sol';
 
 /**
  * @dev Deploy Ethereum
@@ -40,11 +41,15 @@ contract DeployArbitrum is ArbitrumScript {
     address payload0 = GovV3Helpers.deployDeterministic(
       type(AaveV3Arbitrum_GHOCrossChainLaunch_20240528).creationCode
     );
+    address payload1 = GovV3Helpers.deployDeterministic(
+      type(AaveV3Arbitrum_GHOCrossChainListing_20240528).creationCode
+    );
 
     // compose action
     IPayloadsControllerCore.ExecutionAction[]
-      memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
+      memory actions = new IPayloadsControllerCore.ExecutionAction[](2);
     actions[0] = GovV3Helpers.buildAction(payload0);
+    actions[1] = GovV3Helpers.buildAction(payload1);
 
     // register action at payloadsController
     GovV3Helpers.createPayload(actions);
