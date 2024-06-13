@@ -7,7 +7,7 @@ snapshot: "https://snapshot.org/#/aave.eth/proposal/0x9238b091250c739f5b5486ab8d
 
 ## Simple Summary
 
-This publication onboards Stader Lab's ETHx onto the Etherume Aave v3 deployment as collateral and includes it the ETH-correlated E-Mode category.
+This publication onboards Stader Lab's ETHx onto the Ethereum Aave v3 deployment as collateral and includes it the ETH-correlated E-Mode category.
 
 ## Motivation
 
