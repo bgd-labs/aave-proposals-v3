@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {IPool} from 'aave-address-book/AaveV3.sol';
+import {IPool, DataTypes} from 'aave-address-book/AaveV3.sol';
 import {ICollector} from 'aave-address-book/common/ICollector.sol';
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';
@@ -75,6 +75,29 @@ library CollectorUtils {
     collector.transfer(underlying, address(this), amount);
     IERC20(underlying).forceApprove(address(pool), amount);
     pool.deposit(underlying, amount, address(collector), 0);
+  }
+
+  function withdrawFromV3(
+    ICollector collector,
+    IPool pool,
+    address underlying,
+    uint256 amount
+  ) internal {
+    if (amount == 0) {
+      revert InvalidZeroAmount();
+    }
+    DataTypes.ReserveData memory reserveData = pool.getReserveData(underlying);
+
+    if (amount == type(uint256).max) {
+      amount = IERC20(reserveData.aTokenAddress).balanceOf(address(collector));
+    }
+    collector.transfer(reserveData.aTokenAddress, address(this), amount);
+
+    // in case of imprecision during the aTokenTransfer withdraw a bit less
+    uint256 balanceAfterTransfer = IERC20(reserveData.aTokenAddress).balanceOf(address(this));
+    amount = balanceAfterTransfer >= amount ? amount : balanceAfterTransfer;
+
+    pool.withdraw(underlying, amount, address(collector));
   }
 
   /**
