@@ -38,30 +38,78 @@ contract AaveV3Arbitrum_GHOCrossChainLaunch_20240528_Test is ProtocolV3TestBase 
   event Minted(address indexed sender, address indexed recipient, uint256 amount);
   event Burned(address indexed sender, uint256 amount);
   event Transfer(address indexed from, address indexed to, uint256 value);
+  event Initialized(uint8 version);
 
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('arbitrum'), 220652440);
     proposal = new AaveV3Arbitrum_GHOCrossChainLaunch_20240528();
-    GHO = IGhoToken(proposal.GHO());
-    TOKEN_POOL = UpgradeableBurnMintTokenPool(proposal.CCIP_TOKEN_POOL());
   }
 
   /**
    * @dev executes the generic test suite including e2e and config snapshots
    */
   function test_defaultProposalExecution() public {
+    vm.recordLogs();
+
     defaultTest(
       'AaveV3Arbitrum_GHOCrossChainLaunch_20240528',
       AaveV3Arbitrum.POOL,
       address(proposal)
     );
+
+    // Fetch addresses
+    Vm.Log[] memory entries = vm.getRecordedLogs();
+    address ghoAddress;
+    address ccipAddress;
+    for (uint256 i = 0; i < entries.length; i++) {
+      if (entries[i].topics[0] == Initialized.selector) {
+        uint8 version = abi.decode(entries[i].data, (uint8));
+        if (version == 1) {
+          if (ghoAddress == address(0)) {
+            // ghoAddress is the first one
+            ghoAddress = entries[i].emitter;
+          } else {
+            // ccip is the second one
+            ccipAddress = entries[i].emitter;
+            break;
+          }
+        }
+      }
+    }
+    GHO = IGhoToken(ghoAddress);
+    TOKEN_POOL = UpgradeableBurnMintTokenPool(ccipAddress);
+
     _validateGhoDeployment();
     _validateCcipTokenPool();
   }
 
   /// @dev Test burn and mint actions, mocking CCIP calls
   function test_ccipTokenPool() public {
+    vm.recordLogs();
+
     GovV3Helpers.executePayload(vm, address(proposal));
+
+    // Fetch addresses
+    Vm.Log[] memory entries = vm.getRecordedLogs();
+    address ghoAddress;
+    address ccipAddress;
+    for (uint256 i = 0; i < entries.length; i++) {
+      if (entries[i].topics[0] == Initialized.selector) {
+        uint8 version = abi.decode(entries[i].data, (uint8));
+        if (version == 1) {
+          if (ghoAddress == address(0)) {
+            // ghoAddress is the first one
+            ghoAddress = entries[i].emitter;
+          } else {
+            // ccip is the second one
+            ccipAddress = entries[i].emitter;
+            break;
+          }
+        }
+      }
+    }
+    GHO = IGhoToken(ghoAddress);
+    TOKEN_POOL = UpgradeableBurnMintTokenPool(ccipAddress);
 
     // Mock calls
     address router = TOKEN_POOL.getRouter();
@@ -116,7 +164,31 @@ contract AaveV3Arbitrum_GHOCrossChainLaunch_20240528_Test is ProtocolV3TestBase 
 
   /// @dev CCIP e2e
   function test_ccipE2E() public {
+    vm.recordLogs();
+
     GovV3Helpers.executePayload(vm, address(proposal));
+
+    // Fetch addresses
+    Vm.Log[] memory entries = vm.getRecordedLogs();
+    address ghoAddress;
+    address ccipAddress;
+    for (uint256 i = 0; i < entries.length; i++) {
+      if (entries[i].topics[0] == Initialized.selector) {
+        uint8 version = abi.decode(entries[i].data, (uint8));
+        if (version == 1) {
+          if (ghoAddress == address(0)) {
+            // ghoAddress is the first one
+            ghoAddress = entries[i].emitter;
+          } else {
+            // ccip is the second one
+            ccipAddress = entries[i].emitter;
+            break;
+          }
+        }
+      }
+    }
+    GHO = IGhoToken(ghoAddress);
+    TOKEN_POOL = UpgradeableBurnMintTokenPool(ccipAddress);
 
     uint64 ethChainSelector = Utils.CCIP_ETH_CHAIN_SELECTOR;
 

@@ -40,37 +40,6 @@ Arbitrum:
 - Deployment of CCIP BurnMintTokenPool contract: The contract handles the minting and burning processes, based on the liquidity backed from Ethereum.
 - Transfer of ownership of the CCIP BurnMintTokenPool contract to the DAO: The DAO will take control of the contract logic and configuration of outbound/inbound rate limit.
 - Configuration of CCIP BurnMintTokenPool contract: token pool rate limit will be disabled.
-- Configuration of GHO as Borrowable Asset on Aave V3 Pool with the following risk configuration parameters:
-
-| Parameter                          |                                      Value |
-| ---------------------------------- | -----------------------------------------: |
-| Isolation Mode                     |                                      false |
-| Borrowable                         |                                    ENABLED |
-| Collateral Enabled                 |                                      false |
-| Supply Cap (GHO)                   |                                  1,000,000 |
-| Borrow Cap (GHO)                   |                                    900,000 |
-| Debt Ceiling                       |                                      USD 0 |
-| LTV                                |                                        0 % |
-| LT                                 |                                        0 % |
-| Liquidation Bonus                  |                                        0 % |
-| Liquidation Protocol Fee           |                                        0 % |
-| Reserve Factor                     |                                       10 % |
-| Base Variable Borrow Rate          |                                        0 % |
-| Variable Slope 1                   |                                       13 % |
-| Variable Slope 2                   |                                       65 % |
-| Uoptimal                           |                                       90 % |
-| Stable Borrowing                   |                                   DISABLED |
-| Stable Slope1                      |                                        0 % |
-| Stable Slope2                      |                                        0 % |
-| Base Stable Rate Offset            |                                        0 % |
-| Stable Rate Excess Offset          |                                        0 % |
-| Optimal Stable To Total Debt Ratio |                                        0 % |
-| Flashloanable                      |                                    ENABLED |
-| Siloed Borrowing                   |                                   DISABLED |
-| Borrowable in Isolation            |                                   DISABLED |
-| Oracle                             | 0xB05984aD83C20b3ADE7bf97a9a0Cb539DDE28DBb |
-
-- Defensive seed of the GHO reserve in Aave V3 Pool: preventive measure for the GHO reserve within the Aave V3 Pool to mitigate an attack vector affecting the Aave Protocol. This involves minting 1 GHO, supplying it into the Aave Pool, and then redirecting it to the zero address, where it is effectively burned. This action serves as a defensive step to safeguard the integrity of the GHO reserve.
 
 ## References
 

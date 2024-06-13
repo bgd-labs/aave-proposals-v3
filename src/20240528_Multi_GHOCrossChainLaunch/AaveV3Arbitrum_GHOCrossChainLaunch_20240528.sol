@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {GovV3Helpers} from 'aave-helpers/GovV3Helpers.sol';
 import {IProposalGenericExecutor} from 'aave-helpers/interfaces/IProposalGenericExecutor.sol';
 import {GovernanceV3Arbitrum} from 'aave-address-book/GovernanceV3Arbitrum.sol';
 import {MiscArbitrum} from 'aave-address-book/MiscArbitrum.sol';
@@ -18,31 +17,20 @@ library Utils {
   uint256 public constant CCIP_BUCKET_CAPACITY = 1_000_000e18; // 1M
   uint64 public constant CCIP_ETH_CHAIN_SELECTOR = 5009297550715157269;
 
-  function deployGhoToken() internal returns (address imple, address proxy) {
-    imple = GovV3Helpers.deployDeterministic(getUpgradeableGhoImpleCreationCode());
-    proxy = GovV3Helpers.deployDeterministic(getUpgradeableGhoProxyCreationCode(imple));
-  }
+  function deployGhoToken() internal returns (address) {
+    address imple = address(new UpgradeableGhoToken());
 
-  function deployCcipTokenPool(address ghoToken) external returns (address imple, address proxy) {
-    imple = GovV3Helpers.deployDeterministic(getCcipTokenPoolImpleCreationCode(ghoToken));
-    proxy = GovV3Helpers.deployDeterministic(getCcipTokenPoolProxyCreationCode(imple));
-  }
-
-  function getCcipTokenPoolImpleCreationCode(
-    address ghoToken
-  ) internal pure returns (bytes memory) {
+    bytes memory ghoTokenInitParams = abi.encodeWithSignature(
+      'initialize(address)',
+      GovernanceV3Arbitrum.EXECUTOR_LVL_1 // owner
+    );
     return
-      abi.encodePacked(
-        type(UpgradeableBurnMintTokenPool).creationCode,
-        abi.encode(
-          ghoToken, // token
-          CCIP_ARM_PROXY, // armProxy
-          false // allowlistEnabled
-        )
-      );
+      address(new TransparentUpgradeableProxy(imple, MiscArbitrum.PROXY_ADMIN, ghoTokenInitParams));
   }
 
-  function getCcipTokenPoolProxyCreationCode(address imple) internal pure returns (bytes memory) {
+  function deployCcipTokenPool(address ghoToken) external returns (address) {
+    address imple = address(new UpgradeableBurnMintTokenPool(ghoToken, CCIP_ARM_PROXY, false));
+
     bytes memory tokenPoolInitParams = abi.encodeWithSignature(
       'initialize(address,address[],address)',
       GovernanceV3Arbitrum.EXECUTOR_LVL_1, // owner
@@ -50,32 +38,11 @@ library Utils {
       CCIP_ROUTER // router
     );
     return
-      abi.encodePacked(
-        type(TransparentUpgradeableProxy).creationCode,
-        abi.encode(
+      address(
+        new TransparentUpgradeableProxy(
           imple, // logic
           MiscArbitrum.PROXY_ADMIN, // proxy admin
           tokenPoolInitParams // data
-        )
-      );
-  }
-
-  function getUpgradeableGhoImpleCreationCode() internal pure returns (bytes memory) {
-    return type(UpgradeableGhoToken).creationCode;
-  }
-
-  function getUpgradeableGhoProxyCreationCode(address imple) internal pure returns (bytes memory) {
-    bytes memory ghoTokenInitParams = abi.encodeWithSignature(
-      'initialize(address)',
-      GovernanceV3Arbitrum.EXECUTOR_LVL_1 // owner
-    );
-    return
-      abi.encodePacked(
-        type(TransparentUpgradeableProxy).creationCode,
-        abi.encode(
-          imple,
-          MiscArbitrum.PROXY_ADMIN, // proxy admin
-          ghoTokenInitParams
         )
       );
   }
@@ -94,62 +61,36 @@ library Utils {
  * 5. Add CCIP TokenPool as GHO Facilitator
  */
 contract AaveV3Arbitrum_GHOCrossChainLaunch_20240528 is IProposalGenericExecutor {
-  address public immutable GHO;
-  address public immutable GHO_IMPLE;
-  address public immutable CCIP_TOKEN_POOL;
-  address public immutable CCIP_TOKEN_POOL_IMPLE;
-
-  constructor() {
-    // Predict GHO contract address
-    GHO_IMPLE = GovV3Helpers.predictDeterministicAddress(
-      Utils.getUpgradeableGhoImpleCreationCode()
-    );
-    GHO = GovV3Helpers.predictDeterministicAddress(
-      Utils.getUpgradeableGhoProxyCreationCode(GHO_IMPLE)
-    );
-    // Predict CCIP TokenPool contract address
-    CCIP_TOKEN_POOL_IMPLE = GovV3Helpers.predictDeterministicAddress(
-      Utils.getCcipTokenPoolImpleCreationCode(GHO)
-    );
-    CCIP_TOKEN_POOL = GovV3Helpers.predictDeterministicAddress(
-      Utils.getCcipTokenPoolProxyCreationCode(CCIP_TOKEN_POOL_IMPLE)
-    );
-  }
-
   function execute() external {
     // 1. Deploy GHO
-    (address ghoTokenImple, address ghoToken) = Utils.deployGhoToken();
-    require(GHO_IMPLE == ghoTokenImple, 'UNEXPECTED_GHO_TOKEN_IMPL_ADDRESS');
-    require(GHO == ghoToken, 'UNEXPECTED_GHO_TOKEN_ADDRESS');
+    address ghoToken = Utils.deployGhoToken();
 
     // 2. Deploy BurnMintTokenPool
-    (address tokenPoolImple, address tokenPool) = Utils.deployCcipTokenPool(GHO);
-    require(CCIP_TOKEN_POOL_IMPLE == tokenPoolImple, 'UNEXPECTED_CCIP_TOKEN_POOL_IMPL_ADDRESS');
-    require(CCIP_TOKEN_POOL == tokenPool, 'UNEXPECTED_CCIP_TOKEN_POOL_ADDRESS');
+    address tokenPool = Utils.deployCcipTokenPool(ghoToken);
 
     // 3. Accept TokenPool ownership
-    UpgradeableBurnMintTokenPool(CCIP_TOKEN_POOL).acceptOwnership();
+    UpgradeableBurnMintTokenPool(tokenPool).acceptOwnership();
 
     // 4. Configure CCIP TokenPool
-    _configureCcipTokenPool();
+    _configureCcipTokenPool(tokenPool);
 
     // 5. Add CCIP TokenPool as GHO Facilitator
-    IGhoToken(GHO).grantRole(
-      IGhoToken(GHO).FACILITATOR_MANAGER_ROLE(),
+    IGhoToken(ghoToken).grantRole(
+      IGhoToken(ghoToken).FACILITATOR_MANAGER_ROLE(),
       GovernanceV3Arbitrum.EXECUTOR_LVL_1
     );
-    IGhoToken(GHO).grantRole(
-      IGhoToken(GHO).BUCKET_MANAGER_ROLE(),
+    IGhoToken(ghoToken).grantRole(
+      IGhoToken(ghoToken).BUCKET_MANAGER_ROLE(),
       GovernanceV3Arbitrum.EXECUTOR_LVL_1
     );
-    IGhoToken(GHO).addFacilitator(
-      CCIP_TOKEN_POOL,
+    IGhoToken(ghoToken).addFacilitator(
+      tokenPool,
       'CCIP TokenPool',
       uint128(Utils.CCIP_BUCKET_CAPACITY)
     );
   }
 
-  function _configureCcipTokenPool() internal {
+  function _configureCcipTokenPool(address tokenPool) internal {
     UpgradeableTokenPool.ChainUpdate[] memory chainUpdates = new UpgradeableTokenPool.ChainUpdate[](
       1
     );
@@ -164,6 +105,6 @@ contract AaveV3Arbitrum_GHOCrossChainLaunch_20240528 is IProposalGenericExecutor
       outboundRateLimiterConfig: rateConfig,
       inboundRateLimiterConfig: rateConfig
     });
-    UpgradeableBurnMintTokenPool(CCIP_TOKEN_POOL).applyChainUpdates(chainUpdates);
+    UpgradeableBurnMintTokenPool(tokenPool).applyChainUpdates(chainUpdates);
   }
 }

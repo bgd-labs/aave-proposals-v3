@@ -60,6 +60,7 @@ contract AaveV3E2E_GHOCrossChainLaunch_20240528_Test is ProtocolV3TestBase {
   event Burned(address indexed sender, uint256 amount);
   event CCIPSendRequested(Internal.EVM2EVMMessage message);
   event Transfer(address indexed from, address indexed to, uint256 value);
+  event Initialized(uint8 version);
 
   uint256 internal ethereumFork;
   uint256 internal arbitrumFork;
@@ -71,24 +72,55 @@ contract AaveV3E2E_GHOCrossChainLaunch_20240528_Test is ProtocolV3TestBase {
     // Proposal creation
     vm.selectFork(ethereumFork);
     ethProposal = new AaveV3Ethereum_GHOCrossChainLaunch_20240528();
-    ETH_TOKEN_POOL = UpgradeableLockReleaseTokenPool(ethProposal.CCIP_TOKEN_POOL());
     ETH_GHO = IGhoToken(MiscEthereum.GHO_TOKEN);
     ETH_ROUTER = Router(ethProposal.CCIP_ROUTER());
     ETH_ARB_CHAIN_SELECTOR = ethProposal.CCIP_ARB_CHAIN_SELECTOR();
 
     vm.selectFork(arbitrumFork);
     arbProposal = new AaveV3Arbitrum_GHOCrossChainLaunch_20240528();
-    ARB_GHO = IGhoToken(arbProposal.GHO());
-    ARB_TOKEN_POOL = UpgradeableBurnMintTokenPool(arbProposal.CCIP_TOKEN_POOL());
     ARB_ROUTER = Router(ArbUtils.CCIP_ROUTER);
     ARB_ETH_CHAIN_SELECTOR = ArbUtils.CCIP_ETH_CHAIN_SELECTOR;
 
     // AIP execution
     vm.selectFork(ethereumFork);
+    vm.recordLogs();
+
     GovV3Helpers.executePayload(vm, address(ethProposal));
 
+    // Fetch addresses
+    Vm.Log[] memory entries = vm.getRecordedLogs();
+    for (uint256 i = 0; i < entries.length; i++) {
+      if (entries[i].topics[0] == Initialized.selector) {
+        uint8 version = abi.decode(entries[i].data, (uint8));
+        if (version == 1) {
+          ETH_TOKEN_POOL = UpgradeableLockReleaseTokenPool(entries[i].emitter);
+          break;
+        }
+      }
+    }
+
     vm.selectFork(arbitrumFork);
+    vm.recordLogs();
+
     GovV3Helpers.executePayload(vm, address(arbProposal));
+
+    // Fetch addresses
+    entries = vm.getRecordedLogs();
+    for (uint256 i = 0; i < entries.length; i++) {
+      if (entries[i].topics[0] == Initialized.selector) {
+        uint8 version = abi.decode(entries[i].data, (uint8));
+        if (version == 1) {
+          if (address(ARB_GHO) == address(0)) {
+            // ghoAddress is the first one
+            ARB_GHO = IGhoToken(entries[i].emitter);
+          } else {
+            // ccip is the second one
+            ARB_TOKEN_POOL = UpgradeableBurnMintTokenPool(entries[i].emitter);
+            break;
+          }
+        }
+      }
+    }
 
     // Chainlink execution
     vm.selectFork(ethereumFork);

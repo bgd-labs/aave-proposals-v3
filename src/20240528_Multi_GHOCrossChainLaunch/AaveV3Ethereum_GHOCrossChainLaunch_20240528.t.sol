@@ -41,28 +41,60 @@ contract AaveV3Ethereum_GHOCrossChainLaunch_20240528_Test is ProtocolV3TestBase 
   event Locked(address indexed sender, uint256 amount);
   event CCIPSendRequested(Internal.EVM2EVMMessage message);
   event Transfer(address indexed from, address indexed to, uint256 value);
+  event Initialized(uint8 version);
 
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('mainnet'), 20067000);
     proposal = new AaveV3Ethereum_GHOCrossChainLaunch_20240528();
-    TOKEN_POOL = UpgradeableLockReleaseTokenPool(proposal.CCIP_TOKEN_POOL());
     GHO = IGhoToken(MiscEthereum.GHO_TOKEN);
   }
 
   /// @dev General test of the proposal
   function test_defaultProposalExecution() public {
+    vm.recordLogs();
+
     defaultTest(
       'AaveV3Ethereum_GHOCrossChainLaunch_20240528',
       AaveV3Ethereum.POOL,
       address(proposal)
     );
 
+    // Fetch addresses
+    Vm.Log[] memory entries = vm.getRecordedLogs();
+    address ccipAddress;
+    for (uint256 i = 0; i < entries.length; i++) {
+      if (entries[i].topics[0] == Initialized.selector) {
+        uint8 version = abi.decode(entries[i].data, (uint8));
+        if (version == 1) {
+          ccipAddress = entries[i].emitter;
+          break;
+        }
+      }
+    }
+    TOKEN_POOL = UpgradeableLockReleaseTokenPool(ccipAddress);
+
     _validateCcipTokenPool();
   }
 
   /// @dev Test lock and release actions, mocking CCIP calls
   function test_ccipTokenPool() public {
+    vm.recordLogs();
+
     GovV3Helpers.executePayload(vm, address(proposal));
+
+    // Fetch addresses
+    Vm.Log[] memory entries = vm.getRecordedLogs();
+    address ccipAddress;
+    for (uint256 i = 0; i < entries.length; i++) {
+      if (entries[i].topics[0] == Initialized.selector) {
+        uint8 version = abi.decode(entries[i].data, (uint8));
+        if (version == 1) {
+          ccipAddress = entries[i].emitter;
+          break;
+        }
+      }
+    }
+    TOKEN_POOL = UpgradeableLockReleaseTokenPool(ccipAddress);
 
     // Mock calls
     address router = TOKEN_POOL.getRouter();
@@ -114,7 +146,23 @@ contract AaveV3Ethereum_GHOCrossChainLaunch_20240528_Test is ProtocolV3TestBase 
 
   /// @dev CCIP e2e
   function test_ccipE2E() public {
+    vm.recordLogs();
+
     GovV3Helpers.executePayload(vm, address(proposal));
+
+    // Fetch addresses
+    Vm.Log[] memory entries = vm.getRecordedLogs();
+    address ccipAddress;
+    for (uint256 i = 0; i < entries.length; i++) {
+      if (entries[i].topics[0] == Initialized.selector) {
+        uint8 version = abi.decode(entries[i].data, (uint8));
+        if (version == 1) {
+          ccipAddress = entries[i].emitter;
+          break;
+        }
+      }
+    }
+    TOKEN_POOL = UpgradeableLockReleaseTokenPool(ccipAddress);
 
     uint64 arbChainSelector = proposal.CCIP_ARB_CHAIN_SELECTOR();
 
