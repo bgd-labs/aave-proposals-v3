@@ -15,7 +15,7 @@ contract AaveV3Gnosis_OptimizeETHCorrelatedAssetParameters_20240612_Test is Prot
   AaveV3Gnosis_OptimizeETHCorrelatedAssetParameters_20240612 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('gnosis'), 34432968);
+    vm.createSelectFork(vm.rpcUrl('gnosis'), 34448387);
     proposal = new AaveV3Gnosis_OptimizeETHCorrelatedAssetParameters_20240612();
   }
 
