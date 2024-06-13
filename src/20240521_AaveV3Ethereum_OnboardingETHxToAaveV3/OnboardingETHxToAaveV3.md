@@ -7,15 +7,15 @@ snapshot: "https://snapshot.org/#/aave.eth/proposal/0x9238b091250c739f5b5486ab8d
 
 ## Simple Summary
 
-This publication onboards Stader Lab's ETHx onto the Etherume Aave v3 deployment as collateral and included in the ETH-correlated E-Mode category.
+This publication onboards Stader Lab's ETHx onto the Etherume Aave v3 deployment as collateral and includes it the ETH-correlated E-Mode category.
 
 ## Motivation
 
-Liquid staking tokens (LSTs) have proven to be popular collateral assets on Aave. The ETHx represents Stader’s staked ETH and provides its users with liquid staking benefits. Supporting ETHx on Aave V3 promotes LST diversity and compliments existing assets like stETH, cbETH and rETH.
+Liquid staking tokens (LSTs) have proven to be popular collateral assets on Aave. The ETHx represents Stader’s staked ETH and provides its users with liquid staking benefits. Supporting ETHx on Aave V3 promotes LST diversity and complements existing assets like stETH, cbETH and rETH.
 
-Given their high correlation to ETH, LSTs are commonly used as collateral to borrow ETH and engage in yield leveraged staking. Several communities having built products that automate such strategies on top of Aave. The inclusion of ETHx in the ETH-category E-Mode enables these strategies to maximise the yield potential of the recursive strategy.
+Given their high correlation to ETH, LSTs are commonly used as collateral to borrow ETH and engage in yield leveraged staking. Several communities have built products that automate such strategies on top of Aave. The inclusion of ETHx in the ETH-category E-Mode enables these strategies to maximize the yield potential of the recursive strategy.
 
-The risk parameters provided within have been provided by Chaos Labs and the smart contracts of ETHx reviewed by bgdlabs. Further details, including LlamaRisk's more qualitative assessment can be found on the Aave governance forum.
+The risk parameters have been provided by Chaos Labs, and the smart contracts of ETHx reviewed by BGD Labs. Further details, including LlamaRisk's more qualitative assessment, can be found on the Aave governance forum.
 
 ## Specification
 
@@ -23,7 +23,7 @@ The table below illustrates the configured risk parameters for **ETHx**
 
 | Parameter                          |                                      Value |
 | ---------------------------------- | -----------------------------------------: |
-| Isolation Mode                     |                                       true |
+| Isolation Mode                     |                                      false |
 | Borrowable                         |                                    ENABLED |
 | Collateral Enabled                 |                                       true |
 | Supply Cap (ETHx)                  |                                      3,200 |
