@@ -51,8 +51,8 @@ The table below illustrates the configured risk parameters for **ETHx**
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240521_AaveV3Ethereum_OnboardingETHxToAaveV3/AaveV3Ethereum_OnboardingETHxToAaveV3_20240521.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240521_AaveV3Ethereum_OnboardingETHxToAaveV3/AaveV3Ethereum_OnboardingETHxToAaveV3_20240521.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/e8968bac42771c0a782f8ec60c409affbab80a3e/src/20240521_AaveV3Ethereum_OnboardingETHxToAaveV3/AaveV3Ethereum_OnboardingETHxToAaveV3_20240521.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/e8968bac42771c0a782f8ec60c409affbab80a3e/src/20240521_AaveV3Ethereum_OnboardingETHxToAaveV3/AaveV3Ethereum_OnboardingETHxToAaveV3_20240521.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x9238b091250c739f5b5486ab8dbaa110b0b7ec0582698ea2c2d3721377e4b0bb)
 - [Discussion](https://governance.aave.com/t/arfc-onboarding-ethx-to-aave-v3-ethereum/15672)
 
