@@ -12,7 +12,7 @@ import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethe
  */
 contract AaveV3Ethereum_V4ALServiceProviderProposal_20240614 is IProposalGenericExecutor {
   // TODO: Find the appropriate recipient address for AAVE Labs
-  address public constant AAVE_LABS = address(0);
+  address public constant AAVE_LABS = 0xac140648435d03f784879cd789130F22Ef588Fcd;
 
   // 3 million GHO upfront
   uint256 public constant GHO_UPFRONT_AMOUNT = 3_000_000 ether;
@@ -27,7 +27,7 @@ contract AaveV3Ethereum_V4ALServiceProviderProposal_20240614 is IProposalGeneric
   function execute() external {
     AaveV3Ethereum.COLLECTOR.createStream(
       AAVE_LABS,
-      GHO_STREAM_AMOUNT,
+      ACTUAL_STREAM,
       AaveV3EthereumAssets.GHO_UNDERLYING,
       block.timestamp,
       block.timestamp + GHO_STREAM_DURATION

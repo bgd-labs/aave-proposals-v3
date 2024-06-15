@@ -4,18 +4,18 @@ pragma solidity ^0.8.0;
 import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aave-helpers/GovV3Helpers.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {EthereumScript} from 'aave-helpers/ScriptUtils.sol';
-import {AaveV3Ethereum_ALServiceProviderProposal_20240614} from './AaveV3Ethereum_ALServiceProviderProposal_20240614.sol';
+import {AaveV3Ethereum_V4ALServiceProviderProposal_20240614} from './AaveV3Ethereum_V4ALServiceProviderProposal_20240614.sol';
 
 /**
  * @dev Deploy Ethereum
- * deploy-command: make deploy-ledger contract=src/20240614_AaveV3Ethereum_ALServiceProviderProposal/ALServiceProviderProposal_20240614.s.sol:DeployEthereum chain=mainnet
- * verify-command: FOUNDRY_PROFILE=mainnet npx catapulta-verify -b broadcast/ALServiceProviderProposal_20240614.s.sol/1/run-latest.json
+ * deploy-command: make deploy-ledger contract=src/20240614_AaveV3Ethereum_V4ALServiceProviderProposal/V4ALServiceProviderProposal_20240614.s.sol:DeployEthereum chain=mainnet
+ * verify-command: FOUNDRY_PROFILE=mainnet npx catapulta-verify -b broadcast/V4ALServiceProviderProposal_20240614.s.sol/1/run-latest.json
  */
 contract DeployEthereum is EthereumScript {
   function run() external broadcast {
     // deploy payloads
     address payload0 = GovV3Helpers.deployDeterministic(
-      type(AaveV3Ethereum_ALServiceProviderProposal_20240614).creationCode
+      type(AaveV3Ethereum_V4ALServiceProviderProposal_20240614).creationCode
     );
 
     // compose action
@@ -30,7 +30,7 @@ contract DeployEthereum is EthereumScript {
 
 /**
  * @dev Create Proposal
- * command: make deploy-ledger contract=src/20240614_AaveV3Ethereum_ALServiceProviderProposal/ALServiceProviderProposal_20240614.s.sol:CreateProposal chain=mainnet
+ * command: make deploy-ledger contract=src/20240614_AaveV3Ethereum_V4ALServiceProviderProposal/V4ALServiceProviderProposal_20240614.s.sol:CreateProposal chain=mainnet
  */
 contract CreateProposal is EthereumScript {
   function run() external {
@@ -41,7 +41,7 @@ contract CreateProposal is EthereumScript {
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsEthereum = new IPayloadsControllerCore.ExecutionAction[](1);
     actionsEthereum[0] = GovV3Helpers.buildAction(
-      type(AaveV3Ethereum_ALServiceProviderProposal_20240614).creationCode
+      type(AaveV3Ethereum_V4ALServiceProviderProposal_20240614).creationCode
     );
     payloads[0] = GovV3Helpers.buildMainnetPayload(vm, actionsEthereum);
 
@@ -53,7 +53,7 @@ contract CreateProposal is EthereumScript {
       GovernanceV3Ethereum.VOTING_PORTAL_ETH_POL,
       GovV3Helpers.ipfsHashFile(
         vm,
-        'src/20240614_AaveV3Ethereum_ALServiceProviderProposal/ALServiceProviderProposal.md'
+        'src/20240614_AaveV3Ethereum_V4ALServiceProviderProposal/ALServiceProviderProposal.md'
       )
     );
   }
