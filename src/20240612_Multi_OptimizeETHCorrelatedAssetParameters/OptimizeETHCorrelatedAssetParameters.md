@@ -7,9 +7,30 @@ snapshot: "https://snapshot.org/#/aave.eth/proposal/0x3d79b416cfa6c70a85d03d0714
 
 ## Simple Summary
 
+This proposal seeks to update parameters on ETH-correlated assets and coordinate caps management to improve Aave efficiency.
+
 ## Motivation
 
+ETH and ETH-correlated assets are the largest reserves in the Aave protocol, leading to their usage as collateral and being one of the protocol’s largest revenue drivers.
+
+ETH is mainly used for two use cases:
+
+1. Collateral to borrow stablecoins
+2. Borrowed using ETH-correlated assets to leverage loop a staking/restaking yield.
+
+This second use case is very sensible to the borrowing cost of wETH and, if kept unchecked, can lead to a negative yield experience for some long-term users having significant leverage positions.
+
+To mitigate this, we propose to optimize the ETH-correlated assets parameters on all markets, and we seek governance greenlight on a cap management policy by risk stewards.
+
 ## Specification
+
+wETH Slope 1 is optimized to 2.7% on all Aave instances, ensuring LST/wETH loops profitability
+
+Caps & rate management policy (not enforced with this AIP payload):
+
+- Maintain a minimum 25 bps discount between stETH 30-day avg APR and Slope 1 wETH borrow cost with monthly AIPs to enforce this policy
+- Support research and development to create new InterestRateStrategy contracts for wETH implementing this policy algorithmically.
+- Keep wETH borrow cap increases ceiling at 90% of currently supplied wETH on all networks
 
 ## References
 
