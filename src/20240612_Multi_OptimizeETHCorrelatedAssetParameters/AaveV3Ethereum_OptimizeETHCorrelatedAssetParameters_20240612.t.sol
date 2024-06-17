@@ -15,7 +15,7 @@ contract AaveV3Ethereum_OptimizeETHCorrelatedAssetParameters_20240612_Test is Pr
   AaveV3Ethereum_OptimizeETHCorrelatedAssetParameters_20240612 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 20084932);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 20078561);
     proposal = new AaveV3Ethereum_OptimizeETHCorrelatedAssetParameters_20240612();
   }
 

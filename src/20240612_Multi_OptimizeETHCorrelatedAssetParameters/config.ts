@@ -4,9 +4,6 @@ export const config: ConfigFile = {
     configFile: './config.ts',
     author: 'Aave Chan Initiative',
     pools: [
-      'AaveV2Ethereum',
-      'AaveV2Polygon',
-      'AaveV2Avalanche',
       'AaveV3Ethereum',
       'AaveV3Polygon',
       'AaveV3Avalanche',
@@ -27,60 +24,6 @@ export const config: ConfigFile = {
     votingNetwork: 'POLYGON',
   },
   poolOptions: {
-    AaveV2Ethereum: {
-      configs: {
-        RATE_UPDATE_V2: [
-          {
-            asset: 'WETH',
-            params: {
-              optimalUtilizationRate: '',
-              baseVariableBorrowRate: '',
-              variableRateSlope1: '2.7',
-              variableRateSlope2: '',
-              stableRateSlope1: '',
-              stableRateSlope2: '',
-            },
-          },
-        ],
-      },
-      cache: {blockNumber: 20078542},
-    },
-    AaveV2Polygon: {
-      configs: {
-        RATE_UPDATE_V2: [
-          {
-            asset: 'WETH',
-            params: {
-              optimalUtilizationRate: '',
-              baseVariableBorrowRate: '',
-              variableRateSlope1: '2.7',
-              variableRateSlope2: '',
-              stableRateSlope1: '',
-              stableRateSlope2: '',
-            },
-          },
-        ],
-      },
-      cache: {blockNumber: 58085968},
-    },
-    AaveV2Avalanche: {
-      configs: {
-        RATE_UPDATE_V2: [
-          {
-            asset: 'WETHe',
-            params: {
-              optimalUtilizationRate: '',
-              baseVariableBorrowRate: '',
-              variableRateSlope1: '2.7',
-              variableRateSlope2: '',
-              stableRateSlope1: '',
-              stableRateSlope2: '',
-            },
-          },
-        ],
-      },
-      cache: {blockNumber: 46641030},
-    },
     AaveV3Ethereum: {
       configs: {
         RATE_UPDATE_V3: [
