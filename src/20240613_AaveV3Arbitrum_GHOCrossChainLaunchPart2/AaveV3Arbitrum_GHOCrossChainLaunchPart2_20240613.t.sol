@@ -8,18 +8,18 @@ import {AaveV3Arbitrum} from 'aave-address-book/AaveV3Arbitrum.sol';
 import {GovernanceV3Arbitrum} from 'aave-address-book/GovernanceV3Arbitrum.sol';
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 
-import {AaveV3Arbitrum_OnboardGHOAaveV3Arbitrum_20240613} from './AaveV3Arbitrum_OnboardGHOAaveV3Arbitrum_20240613.sol';
+import {AaveV3Arbitrum_GHOCrossChainLaunchPart2_20240613} from './AaveV3Arbitrum_GHOCrossChainLaunchPart2_20240613.sol';
 
 /**
- * @dev Test for AaveV3Arbitrum_OnboardGHOAaveV3Arbitrum_20240613
- * command: FOUNDRY_PROFILE=arbitrum forge test --match-path=src/20240613_AaveV3Arbitrum_OnboardGHOAaveV3Arbitrum/AaveV3Arbitrum_OnboardGHOAaveV3Arbitrum_20240613.t.sol -vv
+ * @dev Test for AaveV3Arbitrum_GHOCrossChainLaunchPart2_20240613
+ * command: FOUNDRY_PROFILE=arbitrum forge test --match-path=src/20240613_AaveV3Arbitrum_GHOCrossChainLaunchPart2/AaveV3Arbitrum_GHOCrossChainLaunchPart2_20240613.t.sol -vv
  */
-contract AaveV3Arbitrum_OnboardGHOAaveV3Arbitrum_20240613_Test is ProtocolV3TestBase {
-  AaveV3Arbitrum_OnboardGHOAaveV3Arbitrum_20240613 internal proposal;
+contract AaveV3Arbitrum_GHOCrossChainLaunchPart2_20240613_Test is ProtocolV3TestBase {
+  AaveV3Arbitrum_GHOCrossChainLaunchPart2_20240613 internal proposal;
 
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('arbitrum'), 221463835);
-    proposal = new AaveV3Arbitrum_OnboardGHOAaveV3Arbitrum_20240613();
+    proposal = new AaveV3Arbitrum_GHOCrossChainLaunchPart2_20240613();
   }
 
   /**
@@ -30,7 +30,7 @@ contract AaveV3Arbitrum_OnboardGHOAaveV3Arbitrum_20240613_Test is ProtocolV3Test
     deal(proposal.GHO(), GovernanceV3Arbitrum.EXECUTOR_LVL_1, proposal.GHO_SEED_AMOUNT());
 
     defaultTest(
-      'AaveV3Arbitrum_OnboardGHOAaveV3Arbitrum_20240613',
+      'AaveV3Arbitrum_GHOCrossChainLaunchPart2_20240613',
       AaveV3Arbitrum.POOL,
       address(proposal)
     );

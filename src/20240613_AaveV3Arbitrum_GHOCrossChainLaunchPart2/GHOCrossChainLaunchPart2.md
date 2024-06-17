@@ -1,5 +1,5 @@
 ---
-title: "Onboard GHO on Arbitrum Aave Pool"
+title: "GHO Cross-Chain - Part 2"
 author: "Aave Labs"
 discussions: "https://governance.aave.com/t/arfc-gho-cross-chain-launch/17616"
 snapshot: "https://snapshot.org/#/aave.eth/proposal/0x2a6ffbcff41a5ef98b7542f99b207af9c1e79e61f859d0a62f3bf52d3280877a"
@@ -7,7 +7,13 @@ snapshot: "https://snapshot.org/#/aave.eth/proposal/0x2a6ffbcff41a5ef98b7542f99b
 
 ## Simple Summary
 
+This AIP is the Part 2 for the GHO Cross-Chain proposal and proposes the configuration of GHO on Arbitrum Aave V3 Pool in connection with the cross-chain implementation strategy.
+
+Following the successful expansion of GHO to the Arbitrum network, this AIP proposes to onboard GHO into the Arbitrum Aave Pool as a borrowable asset, adopting risk parameters formulated by Chaos Labs.
+
 ## Motivation
+
+The implementation of the GHO Cross Chain proposal required the proposal AIP to be split into two separate AIPs. This proposal is the second AIP (“Part 2”) for configuration of GHO on Arbitrum Aave Pool adopting risk parameters formulated by Chaos Labs.
 
 ## Specification
 
@@ -43,8 +49,8 @@ The table below illustrates the configured risk parameters for **GHO**
 
 ## References
 
-- Implementation: [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240613_AaveV3Arbitrum_OnboardGHOAaveV3Arbitrum/AaveV3Arbitrum_OnboardGHOAaveV3Arbitrum_20240613.sol)
-- Tests: [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240613_AaveV3Arbitrum_OnboardGHOAaveV3Arbitrum/AaveV3Arbitrum_OnboardGHOAaveV3Arbitrum_20240613.t.sol)
+- Implementation: [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240613_AaveV3Arbitrum_GHOCrossChainLaunchPart2/AaveV3Arbitrum_GHOCrossChainLaunchPart2_20240613.sol)
+- Tests: [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240613_AaveV3Arbitrum_GHOCrossChainLaunchPart2/AaveV3Arbitrum_GHOCrossChainLaunchPart2_20240613.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x2a6ffbcff41a5ef98b7542f99b207af9c1e79e61f859d0a62f3bf52d3280877a)
 - [Discussion](https://governance.aave.com/t/arfc-gho-cross-chain-launch/17616)
 

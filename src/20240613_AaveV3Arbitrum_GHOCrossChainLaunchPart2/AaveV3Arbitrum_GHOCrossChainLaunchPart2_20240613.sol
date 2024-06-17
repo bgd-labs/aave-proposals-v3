@@ -9,12 +9,12 @@ import {IV3RateStrategyFactory} from 'aave-helpers/v3-config-engine/IV3RateStrat
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';
 /**
- * @title OnboardGHOAaveV3Arbitrum
+ * @title GHO Cross-Chain Launch Part 2
  * @author Aave Labs
  * - Snapshot: https://snapshot.org/#/aave.eth/proposal/0x2a6ffbcff41a5ef98b7542f99b207af9c1e79e61f859d0a62f3bf52d3280877a
  * - Discussion: https://governance.aave.com/t/arfc-gho-cross-chain-launch/17616
  */
-contract AaveV3Arbitrum_OnboardGHOAaveV3Arbitrum_20240613 is AaveV3PayloadArbitrum {
+contract AaveV3Arbitrum_GHOCrossChainLaunchPart2_20240613 is AaveV3PayloadArbitrum {
   using SafeERC20 for IERC20;
 
   address public constant GHO = 0x7dfF72693f6A4149b17e7C6314655f6A9F7c8B33; // TODO

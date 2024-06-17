@@ -2,8 +2,8 @@ import {ConfigFile} from '../../generator/types';
 export const config: ConfigFile = {
   rootOptions: {
     pools: ['AaveV3Arbitrum'],
-    title: 'OnboardGHOAaveV3Arbitrum',
-    shortName: 'OnboardGHOAaveV3Arbitrum',
+    title: 'GHOCrossChainLaunchPart2',
+    shortName: 'GHOCrossChainLaunchPart2',
     date: '20240613',
     author: 'Aave Labs',
     discussion: 'https://governance.aave.com/t/arfc-gho-cross-chain-launch/17616',
