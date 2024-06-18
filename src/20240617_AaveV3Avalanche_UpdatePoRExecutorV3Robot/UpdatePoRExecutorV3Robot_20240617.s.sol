@@ -23,14 +23,9 @@ contract DeployAvalanche is AvalancheScript {
       type(AaveV3Avalanche_UpdatePoRExecutorV3RobotRegister_20240617).creationCode
     );
 
-    // compose action
-    IPayloadsControllerCore.ExecutionAction[]
-      memory actions = new IPayloadsControllerCore.ExecutionAction[](2);
-    actions[0] = GovV3Helpers.buildAction(payload0);
-    actions[1] = GovV3Helpers.buildAction(payload1);
-
     // register action at payloadsController
-    GovV3Helpers.createPayload(actions);
+    GovV3Helpers.createPayload(GovV3Helpers.buildAction(payload0));
+    GovV3Helpers.createPayload(GovV3Helpers.buildAction(payload1));
   }
 }
 
