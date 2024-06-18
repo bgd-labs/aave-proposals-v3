@@ -159,16 +159,15 @@ contract AaveV3Ethereum_V4ALServiceProviderProposal_20240614_Test is ProtocolV3T
     vm.stopPrank();
   }
 
-  // TODO: Fuzz timestamp seconds, not just days
   function testProposalExecutionFuzzWithdrawalAmounts(
     uint256 withdrawalAmount,
     uint256 waitPeriod
   ) public {
-    waitPeriod = bound(waitPeriod, 1, GHO_STREAM_DURATION / 1 days);
+    waitPeriod = bound(waitPeriod, 1, GHO_STREAM_DURATION);
     withdrawalAmount = bound(
       withdrawalAmount,
       1,
-      (waitPeriod * 1 days) * (ACTUAL_STREAM_AMOUNT_GHO / GHO_STREAM_DURATION)
+      waitPeriod * (ACTUAL_STREAM_AMOUNT_GHO / GHO_STREAM_DURATION)
     );
 
     // TODO: V2 Collector doesn't have enough funds, so need to get funds
@@ -186,7 +185,7 @@ contract AaveV3Ethereum_V4ALServiceProviderProposal_20240614_Test is ProtocolV3T
     executePayload(vm, address(proposal));
 
     vm.startPrank(AAVE_LABS);
-    vm.warp(block.timestamp + waitPeriod * 1 days);
+    vm.warp(block.timestamp + waitPeriod);
 
     uint256 ALGHOBalanceBefore = IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(AAVE_LABS);
     AaveV3Ethereum.COLLECTOR.withdrawFromStream(nextCollectorStreamID, withdrawalAmount);
