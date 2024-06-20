@@ -1,5 +1,5 @@
 ---
-title: "Set ACI as Emission Manage for Aave Liquidity Mining programs"
+title: "Set ACI as Emission Manager for Aave Liquidity Mining programs"
 author: "ACI"
 discussions: "https://governance.aave.com/t/arfc-set-aci-as-emission-manager-for-liquidity-mining-programs/17898#arfc-set-aci-as-emission-manager-for-liquidity-mining-programs-1"
 snapshot: "https://snapshot.org/#/aave.eth/proposal/0x364de11d3a298f2c76721a8926cb32823cc29d0a95eadecbc0a98c628a38194b"
