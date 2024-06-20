@@ -13,7 +13,7 @@ The current ARFC proposes to appoint the Aave Chan Initiative (ACI) as the Emiss
 
 Liquidity mining programs are essential for attracting liquidity providers by offering rewards for their participation. Effective management of these programs is crucial for the sustained growth of the Aave Ecosystem. Therefore, ACI, with its extensive experience and strategic partnerships, is well-positioned to manage these emissions effectively.
 
-A recent example is the [Long Term Incentive Program (LTIPP) ](https://forum.arbitrum.foundation/t/aave-ltipp-application-final/21741) from Arbitrum DAO, where Aave DAO will receive 750,000 ARB tokens, illustrating the benefits of coordinated emission management.
+A recent example is the [Long Term Incentive Program (LTIPP)](https://forum.arbitrum.foundation/t/aave-ltipp-application-final/21741) from Arbitrum DAO, where Aave DAO will receive 750,000 ARB tokens, illustrating the benefits of coordinated emission management.
 
 ## Specification
 
