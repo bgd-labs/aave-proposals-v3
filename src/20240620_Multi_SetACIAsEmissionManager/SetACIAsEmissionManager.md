@@ -1,13 +1,13 @@
 ---
-title: "Set ACI as Emission Manager for Liquidity Mining Programs"
-author: "Aave Chan Initiative"
+title: "Set ACI as Emission Manager"
+author: "ACI"
 discussions: "https://governance.aave.com/t/arfc-set-aci-as-emission-manager-for-liquidity-mining-programs/17898#arfc-set-aci-as-emission-manager-for-liquidity-mining-programs-1"
 snapshot: "https://snapshot.org/#/aave.eth/proposal/0x364de11d3a298f2c76721a8926cb32823cc29d0a95eadecbc0a98c628a38194b"
 ---
 
 ## Simple Summary
 
-The current ARFC proposes to appoint the Aave Chan Initiative (ACI) as the Emission Manager for liquidity mining programs across Aave markets. This will enable ACI to manage incentive programs funded by different partners, with the purpose of stimulating market activity and growth.
+The current ARFC proposes to appoint the Aave Chan Initiative (ACI) as the Emission Manager for liquidity mining programs across Aave instances. This will enable ACI to manage incentive programs funded by different partners, with the purpose of stimulating market activity and growth.
 
 ## Motivation
 
@@ -25,11 +25,12 @@ A recent example is the [Long Term Incentive Program (LTIPP) ](https://forum.arb
 - Appointment of ACI as coordinator with ecosystem partners, to define and implement emission strategies, managing the distribution of rewards to liquidity providers, and monitor & adjust emissions based on market performance.
 - Integration of Liquidity mining program as part of “Dolce Vita” service of the ACI at no extra cost for the DAO.
 - Make the ACI multisig the emission manager for ARB on Arbitrum
+- Make the ACI multisig the emission manager for SD on Ethereum
 
 ## References
 
-- Implementation: [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240617_AaveV3Arbitrum_SetACIAsEmissionManagerForLiquidityMiningPrograms/AaveV3Arbitrum_SetACIAsEmissionManagerForLiquidityMiningPrograms_20240617.sol)
-- Tests: [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240617_AaveV3Arbitrum_SetACIAsEmissionManagerForLiquidityMiningPrograms/AaveV3Arbitrum_SetACIAsEmissionManagerForLiquidityMiningPrograms_20240617.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240620_Multi_SetACIAsEmissionManager/AaveV3Ethereum_SetACIAsEmissionManager_20240620.sol), [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240620_Multi_SetACIAsEmissionManager/AaveV3Arbitrum_SetACIAsEmissionManager_20240620.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240620_Multi_SetACIAsEmissionManager/AaveV3Ethereum_SetACIAsEmissionManager_20240620.t.sol), [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240620_Multi_SetACIAsEmissionManager/AaveV3Arbitrum_SetACIAsEmissionManager_20240620.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x364de11d3a298f2c76721a8926cb32823cc29d0a95eadecbc0a98c628a38194b)
 - [Discussion](https://governance.aave.com/t/arfc-set-aci-as-emission-manager-for-liquidity-mining-programs/17898#arfc-set-aci-as-emission-manager-for-liquidity-mining-programs-1)
 
