@@ -29,8 +29,8 @@ A recent example is the [Long Term Incentive Program (LTIPP)](https://forum.arbi
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240620_Multi_SetACIAsEmissionManager/AaveV3Ethereum_SetACIAsEmissionManager_20240620.sol), [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240620_Multi_SetACIAsEmissionManager/AaveV3Arbitrum_SetACIAsEmissionManager_20240620.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240620_Multi_SetACIAsEmissionManager/AaveV3Ethereum_SetACIAsEmissionManager_20240620.t.sol), [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240620_Multi_SetACIAsEmissionManager/AaveV3Arbitrum_SetACIAsEmissionManager_20240620.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/5c8993d5412d87ad14204f5e065c267b301cd5d1/src/20240620_Multi_SetACIAsEmissionManager/AaveV3Ethereum_SetACIAsEmissionManager_20240620.sol), [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/5c8993d5412d87ad14204f5e065c267b301cd5d1/src/20240620_Multi_SetACIAsEmissionManager/AaveV3Arbitrum_SetACIAsEmissionManager_20240620.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/5c8993d5412d87ad14204f5e065c267b301cd5d1/src/20240620_Multi_SetACIAsEmissionManager/AaveV3Ethereum_SetACIAsEmissionManager_20240620.t.sol), [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/5c8993d5412d87ad14204f5e065c267b301cd5d1/src/20240620_Multi_SetACIAsEmissionManager/AaveV3Arbitrum_SetACIAsEmissionManager_20240620.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x364de11d3a298f2c76721a8926cb32823cc29d0a95eadecbc0a98c628a38194b)
 - [Discussion](https://governance.aave.com/t/arfc-set-aci-as-emission-manager-for-liquidity-mining-programs/17898#arfc-set-aci-as-emission-manager-for-liquidity-mining-programs-1)
 
