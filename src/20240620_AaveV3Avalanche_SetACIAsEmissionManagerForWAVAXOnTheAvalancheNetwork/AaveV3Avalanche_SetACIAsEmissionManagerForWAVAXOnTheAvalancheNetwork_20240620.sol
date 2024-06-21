@@ -14,10 +14,19 @@ contract AaveV3Avalanche_SetACIAsEmissionManagerForWAVAXOnTheAvalancheNetwork_20
   IProposalGenericExecutor
 {
   address public constant AVAX_EMISSION_ADMIN = 0xac140648435d03f784879cd789130F22Ef588Fcd;
+  address public constant GGAVAX = 0xA25EaF2906FA1a3a13EdAc9B9657108Af7B703e3;
 
   function execute() external {
     IEmissionManager(AaveV3Avalanche.EMISSION_MANAGER).setEmissionAdmin(
       AaveV3AvalancheAssets.WAVAX_UNDERLYING,
+      AVAX_EMISSION_ADMIN
+    );
+    IEmissionManager(AaveV3Avalanche.EMISSION_MANAGER).setEmissionAdmin(
+      AaveV3AvalancheAssets.sAVAX_UNDERLYING,
+      AVAX_EMISSION_ADMIN
+    );
+    IEmissionManager(AaveV3Avalanche.EMISSION_MANAGER).setEmissionAdmin(
+      GGAVAX,
       AVAX_EMISSION_ADMIN
     );
   }

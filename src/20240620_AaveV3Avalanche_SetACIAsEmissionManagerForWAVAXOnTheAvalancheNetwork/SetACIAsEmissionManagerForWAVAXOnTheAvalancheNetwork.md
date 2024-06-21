@@ -6,7 +6,7 @@ discussions: "https://governance.aave.com/t/arfc-set-aci-as-emission-manager-for
 
 ## Simple Summary
 
-Following coordination with the Arbitrum Foundation, the ACI is requesting governance approval to appoint the ACI multisig to operate an LM program on the Arbitrum network on their behalf.
+Following coordination with the Avalanche Foundation, the ACI is requesting governance approval to appoint the ACI multisig to operate an LM program on the Avalanche network on their behalf.
 
 ## Motivation
 
@@ -20,7 +20,7 @@ The ACI multisig address will be set as the emission manager via the **`setEmiss
 
 ACI multisig address: `0xac140648435d03f784879cd789130F22Ef588Fcd`
 
-This method will appoint the Aave Chan Initiative (ACI) wallet as the emissions admin for the wAVAX asset on the Arbitrum network
+This method will appoint the Aave Chan Initiative (ACI) wallet as the emissions admin for the wAVAX, ggAVAX & sAVAX assets on the Avalanche network
 
 ## References
 
