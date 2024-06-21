@@ -11,8 +11,7 @@ import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethe
  * - Discussion: https://governance.aave.com/t/temp-check-service-provider-proposal/17866
  */
 contract AaveV3Ethereum_V4ALServiceProviderProposal_20240614 is IProposalGenericExecutor {
-  // TODO: Find the appropriate recipient address for AAVE Labs
-  address public constant AAVE_LABS = 0xac140648435d03f784879cd789130F22Ef588Fcd;
+  address public constant AAVE_LABS = 0x1c037b3C22240048807cC9d7111be5d455F640bd;
 
   // 3 million GHO upfront
   uint256 public constant GHO_UPFRONT_AMOUNT = 3_000_000 ether;

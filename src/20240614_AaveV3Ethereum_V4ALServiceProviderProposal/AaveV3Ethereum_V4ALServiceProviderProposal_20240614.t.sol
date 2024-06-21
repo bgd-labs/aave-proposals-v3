@@ -15,8 +15,7 @@ import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 contract AaveV3Ethereum_V4ALServiceProviderProposal_20240614_Test is ProtocolV3TestBase {
   AaveV3Ethereum_V4ALServiceProviderProposal_20240614 internal proposal;
 
-  // TODO: Determine appropriate Aave Labs address
-  address public constant AAVE_LABS = 0xac140648435d03f784879cd789130F22Ef588Fcd;
+  address public constant AAVE_LABS = 0x1c037b3C22240048807cC9d7111be5d455F640bd;
   uint256 public constant GHO_UPFRONT_AMOUNT = 3_000_000 ether;
   uint256 public constant GHO_STREAM_AMOUNT = 9_000_000 ether;
   uint256 public constant GHO_STREAM_DURATION = 365 days;
@@ -42,22 +41,24 @@ contract AaveV3Ethereum_V4ALServiceProviderProposal_20240614_Test is ProtocolV3T
   function testProposalExecution() public {
     uint256 nextCollectorStreamID = AaveV3Ethereum.COLLECTOR.getNextStreamId();
     uint256 ALGHOBalanceBefore = IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(AAVE_LABS);
-
-    // TODO: V2 Collector doesn't have enough funds, so need to get funds
-    vm.prank(0x1a88Df1cFe15Af22B3c4c783D4e6F7F9e0C1885d);
-    IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).transfer(
-      address(AaveV3Ethereum.COLLECTOR),
-      3_000_000 ether
-    );
-
     uint256 CollectorV3GHOBalanceBefore = IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(
       address(AaveV3Ethereum.COLLECTOR)
     );
 
     executePayload(vm, address(proposal));
 
+    // Check balances directly after proposal execution (upfront payment distributed to Aave Labs)
+    assertEq(
+      IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(AAVE_LABS),
+      ALGHOBalanceBefore + GHO_UPFRONT_AMOUNT
+    );
+    assertEq(
+      IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
+      CollectorV3GHOBalanceBefore - GHO_UPFRONT_AMOUNT
+    );
+
     // Checking if the streams have been created properly
-    // scoping to avoid the "stack too deep" error
+    // Scoping to avoid "stack too deep" error
     {
       (
         address senderGHO,
@@ -78,8 +79,87 @@ contract AaveV3Ethereum_V4ALServiceProviderProposal_20240614_Test is ProtocolV3T
       assertEq(remainingBalanceGHO, ACTUAL_STREAM_AMOUNT_GHO);
     }
 
-    // checking if Aave Labs can withdraw from the stream
+    // Checking if Aave Labs can withdraw from the stream
+    vm.startPrank(AAVE_LABS);
+    vm.warp(block.timestamp + GHO_STREAM_DURATION + 1 days);
 
+    // Currently Collector has less funds than stream amount
+    assertLe(
+      IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
+      ACTUAL_STREAM_AMOUNT_GHO
+    );
+
+    // Partial withdrawal of Collector's remaining balance
+    AaveV3Ethereum.COLLECTOR.withdrawFromStream(
+      nextCollectorStreamID,
+      CollectorV3GHOBalanceBefore - GHO_UPFRONT_AMOUNT
+    );
+    uint256 nextALGHOBalance = IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(AAVE_LABS);
+
+    // Aave Labs received the entirety of Collector's balance
+    assertEq(ALGHOBalanceBefore, nextALGHOBalance - CollectorV3GHOBalanceBefore);
+
+    // Check Collector balance after stream withdrawal
+    uint256 CollectorV3GHOBalanceAfter = IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(
+      address(AaveV3Ethereum.COLLECTOR)
+    );
+
+    assertEq(CollectorV3GHOBalanceAfter, 0);
+
+    vm.stopPrank();
+  }
+
+  // Test giving V2 Collector more funds and full withdrawing
+  function testProposalExecutionPrankFunds() public {
+    uint256 nextCollectorStreamID = AaveV3Ethereum.COLLECTOR.getNextStreamId();
+    uint256 ALGHOBalanceBefore = IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(AAVE_LABS);
+
+    // Giving the Collector enough funds to cover the stream
+    vm.prank(0x1a88Df1cFe15Af22B3c4c783D4e6F7F9e0C1885d);
+    IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).transfer(
+      address(AaveV3Ethereum.COLLECTOR),
+      3_000_000 ether
+    );
+
+    uint256 CollectorV3GHOBalanceBefore = IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(
+      address(AaveV3Ethereum.COLLECTOR)
+    );
+
+    executePayload(vm, address(proposal));
+
+    // Check balances directly after proposal execution (upfront payment distributed to Aave Labs)
+    assertEq(
+      IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(AAVE_LABS),
+      ALGHOBalanceBefore + GHO_UPFRONT_AMOUNT
+    );
+    assertEq(
+      IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
+      CollectorV3GHOBalanceBefore - GHO_UPFRONT_AMOUNT
+    );
+
+    // Checking if the streams have been created properly
+    // Scoping to avoid "stack too deep" error
+    {
+      (
+        address senderGHO,
+        address recipientGHO,
+        uint256 depositGHO,
+        address tokenAddressGHO,
+        uint256 startTimeGHO,
+        uint256 stopTimeGHO,
+        uint256 remainingBalanceGHO,
+
+      ) = AaveV3Ethereum.COLLECTOR.getStream(nextCollectorStreamID);
+
+      assertEq(senderGHO, address(AaveV3Ethereum.COLLECTOR));
+      assertEq(recipientGHO, AAVE_LABS);
+      assertEq(depositGHO, ACTUAL_STREAM_AMOUNT_GHO);
+      assertEq(tokenAddressGHO, AaveV3EthereumAssets.GHO_UNDERLYING);
+      assertEq(stopTimeGHO - startTimeGHO, GHO_STREAM_DURATION);
+      assertEq(remainingBalanceGHO, ACTUAL_STREAM_AMOUNT_GHO);
+    }
+
+    // Checking if Aave Labs can withdraw from the stream
     vm.startPrank(AAVE_LABS);
     vm.warp(block.timestamp + GHO_STREAM_DURATION + 1 days);
 
@@ -97,7 +177,6 @@ contract AaveV3Ethereum_V4ALServiceProviderProposal_20240614_Test is ProtocolV3T
     );
 
     // Check Collector balance after stream withdrawal
-
     uint256 CollectorV3GHOBalanceAfter = IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(
       address(AaveV3Ethereum.COLLECTOR)
     );
@@ -121,8 +200,18 @@ contract AaveV3Ethereum_V4ALServiceProviderProposal_20240614_Test is ProtocolV3T
 
     executePayload(vm, address(proposal));
 
+    // Check balances directly after proposal execution (upfront payment distributed to Aave Labs)
+    assertEq(
+      IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(AAVE_LABS),
+      ALGHOBalanceBefore + GHO_UPFRONT_AMOUNT
+    );
+    assertEq(
+      IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
+      CollectorV3GHOBalanceBefore - GHO_UPFRONT_AMOUNT
+    );
+
     // Checking if the streams have been created properly
-    // scoping to avoid the "stack too deep" error
+    // Ccoping to avoid "stack too deep" error
     {
       (
         address senderGHO,
@@ -143,8 +232,7 @@ contract AaveV3Ethereum_V4ALServiceProviderProposal_20240614_Test is ProtocolV3T
       assertEq(remainingBalanceGHO, ACTUAL_STREAM_AMOUNT_GHO);
     }
 
-    // checking if Aave Labs can withdraw from the stream
-
+    // Checking if Aave Labs can withdraw from the stream
     vm.startPrank(AAVE_LABS);
     vm.warp(block.timestamp + GHO_STREAM_DURATION + 1 days);
 
@@ -170,7 +258,7 @@ contract AaveV3Ethereum_V4ALServiceProviderProposal_20240614_Test is ProtocolV3T
       waitPeriod * (ACTUAL_STREAM_AMOUNT_GHO / GHO_STREAM_DURATION)
     );
 
-    // TODO: V2 Collector doesn't have enough funds, so need to get funds
+    // Giving the Collector enough funds to cover the stream
     vm.prank(0x1a88Df1cFe15Af22B3c4c783D4e6F7F9e0C1885d);
     IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).transfer(
       address(AaveV3Ethereum.COLLECTOR),
@@ -181,17 +269,40 @@ contract AaveV3Ethereum_V4ALServiceProviderProposal_20240614_Test is ProtocolV3T
       ACTUAL_STREAM_AMOUNT_GHO
     );
 
+    uint256 ALGHOBalanceBefore = IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(AAVE_LABS);
+    uint256 CollectorV3GHOBalanceBefore = IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(
+      address(AaveV3Ethereum.COLLECTOR)
+    );
+
     uint256 nextCollectorStreamID = AaveV3Ethereum.COLLECTOR.getNextStreamId();
     executePayload(vm, address(proposal));
+
+    // Check balances directly after proposal execution (upfront payment distributed to Aave Labs)
+    assertEq(
+      IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(AAVE_LABS),
+      ALGHOBalanceBefore + GHO_UPFRONT_AMOUNT
+    );
+    assertEq(
+      IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
+      CollectorV3GHOBalanceBefore - GHO_UPFRONT_AMOUNT
+    );
 
     vm.startPrank(AAVE_LABS);
     vm.warp(block.timestamp + waitPeriod);
 
-    uint256 ALGHOBalanceBefore = IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(AAVE_LABS);
+    // Withdraw fuzzed amount from stream
     AaveV3Ethereum.COLLECTOR.withdrawFromStream(nextCollectorStreamID, withdrawalAmount);
-    uint256 ALGHOBalanceAfter = IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(AAVE_LABS);
 
-    assertEq(ALGHOBalanceAfter - ALGHOBalanceBefore, withdrawalAmount);
+    uint256 ALGHOBalanceAfter = IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(AAVE_LABS);
+    uint256 CollectorV3GHOBalanceAfter = IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(
+      address(AaveV3Ethereum.COLLECTOR)
+    );
+
+    assertEq(ALGHOBalanceAfter - ALGHOBalanceBefore, withdrawalAmount + GHO_UPFRONT_AMOUNT);
+    assertEq(
+      CollectorV3GHOBalanceAfter,
+      CollectorV3GHOBalanceBefore - (withdrawalAmount + GHO_UPFRONT_AMOUNT)
+    );
 
     vm.stopPrank();
   }
