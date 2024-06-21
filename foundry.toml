@@ -37,6 +37,9 @@ evm_version = 'shanghai'
 [profile.gnosis]
 evm_version = 'shanghai'
 
+[profile.bnb]
+evm_version = 'shanghai'
+
 [rpc_endpoints]
 mainnet = "${RPC_MAINNET}"
 optimism = "${RPC_OPTIMISM}"
