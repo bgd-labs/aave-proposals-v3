@@ -1,5 +1,5 @@
 ---
-title: "Set ACI as Emission Manager for wAVAX on the Avalanche network"
+title: "Set ACI as Emission Manager on the Avalanche network"
 author: "ACI"
 discussions: "https://governance.aave.com/t/arfc-set-aci-as-emission-manager-for-liquidity-mining-programs/17898/4"
 ---
