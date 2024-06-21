@@ -211,7 +211,7 @@ contract AaveV3Ethereum_V4ALServiceProviderProposal_20240614_Test is ProtocolV3T
     );
 
     // Checking if the streams have been created properly
-    // Ccoping to avoid "stack too deep" error
+    // Scoping to avoid "stack too deep" error
     {
       (
         address senderGHO,
