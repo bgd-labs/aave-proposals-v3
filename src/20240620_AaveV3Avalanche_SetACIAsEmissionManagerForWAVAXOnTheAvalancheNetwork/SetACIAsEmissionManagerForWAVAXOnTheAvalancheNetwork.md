@@ -24,8 +24,8 @@ This method will appoint the Aave Chan Initiative (ACI) wallet as the emissions 
 
 ## References
 
-- Implementation: [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240620_AaveV3Avalanche_SetACIAsEmissionManagerForWAVAXOnTheAvalancheNetwork/AaveV3Avalanche_SetACIAsEmissionManagerForWAVAXOnTheAvalancheNetwork_20240620.sol)
-- Tests: [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240620_AaveV3Avalanche_SetACIAsEmissionManagerForWAVAXOnTheAvalancheNetwork/AaveV3Avalanche_SetACIAsEmissionManagerForWAVAXOnTheAvalancheNetwork_20240620.t.sol)
+- Implementation: [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/08854fc3e25d6934a737ea89b17b55a34fc3aa08/src/20240620_AaveV3Avalanche_SetACIAsEmissionManagerForWAVAXOnTheAvalancheNetwork/AaveV3Avalanche_SetACIAsEmissionManagerForWAVAXOnTheAvalancheNetwork_20240620.sol)
+- Tests: [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/08854fc3e25d6934a737ea89b17b55a34fc3aa08/src/20240620_AaveV3Avalanche_SetACIAsEmissionManagerForWAVAXOnTheAvalancheNetwork/AaveV3Avalanche_SetACIAsEmissionManagerForWAVAXOnTheAvalancheNetwork_20240620.t.sol)
 - [Discussion](https://governance.aave.com/t/arfc-set-aci-as-emission-manager-for-liquidity-mining-programs/17898/4)
 
 ## Copyright
