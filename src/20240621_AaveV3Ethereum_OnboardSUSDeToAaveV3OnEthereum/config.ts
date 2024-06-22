@@ -25,7 +25,7 @@ export const config: ConfigFile = {
             debtCeiling: '40000000',
             liqProtocolFee: '10',
             enabledToBorrow: 'DISABLED',
-            flashloanable: 'DISABLED',
+            flashloanable: 'ENABLED',
             stableRateModeEnabled: 'DISABLED',
             borrowableInIsolation: 'DISABLED',
             withSiloedBorrowing: 'DISABLED',

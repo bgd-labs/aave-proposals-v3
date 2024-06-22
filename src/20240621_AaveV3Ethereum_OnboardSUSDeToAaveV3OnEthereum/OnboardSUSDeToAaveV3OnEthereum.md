@@ -40,7 +40,7 @@ The table below illustrates the configured risk parameters for **sUSDe**
 | Base Stable Rate Offset            |                                        0 % |
 | Stable Rate Excess Offset          |                                        0 % |
 | Optimal Stable To Total Debt Ratio |                                        0 % |
-| Flashloanable                      |                                   DISABLED |
+| Flashloanable                      |                                    ENABLED |
 | Siloed Borrowing                   |                                   DISABLED |
 | Borrowable in Isolation            |                                   DISABLED |
 | Oracle                             | 0xb37aE8aBa6C0C1Bf2c509fc06E11aa4AF29B665A |

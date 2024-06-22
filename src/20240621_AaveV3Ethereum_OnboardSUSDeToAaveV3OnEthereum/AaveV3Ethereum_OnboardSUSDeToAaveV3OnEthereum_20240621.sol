@@ -38,7 +38,7 @@ contract AaveV3Ethereum_OnboardSUSDeToAaveV3OnEthereum_20240621 is AaveV3Payload
       stableRateModeEnabled: EngineFlags.DISABLED,
       borrowableInIsolation: EngineFlags.DISABLED,
       withSiloedBorrowing: EngineFlags.DISABLED,
-      flashloanable: EngineFlags.DISABLED,
+      flashloanable: EngineFlags.ENABLED,
       ltv: 72_00,
       liqThreshold: 75_00,
       liqBonus: 8_50,

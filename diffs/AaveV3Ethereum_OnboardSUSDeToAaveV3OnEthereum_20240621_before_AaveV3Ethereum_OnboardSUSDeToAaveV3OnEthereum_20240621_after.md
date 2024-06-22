@@ -13,7 +13,7 @@
 | borrowCap | 0 sUSDe |
 | debtCeiling | 40,000,000 $ |
 | isSiloed | false |
-| isFlashloanable | false |
+| isFlashloanable | true |
 | eModeCategory | 0 |
 | oracle | [0xb37aE8aBa6C0C1Bf2c509fc06E11aa4AF29B665A](https://etherscan.io/address/0xb37aE8aBa6C0C1Bf2c509fc06E11aa4AF29B665A) |
 | oracleDecimals | 8 |
@@ -81,7 +81,7 @@
         "interestRateStrategy": "0x42ec99A020B78C449d17d93bC4c89e0189B5811d",
         "isActive": true,
         "isBorrowableInIsolation": false,
-        "isFlashloanable": false,
+        "isFlashloanable": true,
         "isFrozen": false,
         "isPaused": false,
         "isSiloed": false,
