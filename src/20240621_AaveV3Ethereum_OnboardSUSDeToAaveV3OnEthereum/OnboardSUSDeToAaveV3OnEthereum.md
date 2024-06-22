@@ -11,7 +11,7 @@ This is an ARFC to seek approval for the addition of sUSDe to Aave V3 on Ethereu
 
 ## Motivation
 
-As discussed in the TEMP CHECK, Ethena's synthetic dollar, USDe, provides a stable crypto-native solution for a cash and carry structured product. The staked version of USDe, sUSDe, earns yield from the protocol and has high potential for strong borrow demand.
+As discussed in the TEMP CHECK, Ethena's synthetic dollar, USDe, provides a stable crypto-native solution for a cash and carry structured product. The staked version of USDe, sUSDe, earns yield from the protocol and has high potential for strong collateral demand.
 
 ## Specification
 
