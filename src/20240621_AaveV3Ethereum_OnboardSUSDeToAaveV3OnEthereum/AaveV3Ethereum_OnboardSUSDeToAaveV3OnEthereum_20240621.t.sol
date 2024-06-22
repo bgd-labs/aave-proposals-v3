@@ -17,7 +17,7 @@ contract AaveV3Ethereum_OnboardSUSDeToAaveV3OnEthereum_20240621_Test is Protocol
   AaveV3Ethereum_OnboardSUSDeToAaveV3OnEthereum_20240621 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 20142490);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 20145914);
     proposal = new AaveV3Ethereum_OnboardSUSDeToAaveV3OnEthereum_20240621();
   }
 
