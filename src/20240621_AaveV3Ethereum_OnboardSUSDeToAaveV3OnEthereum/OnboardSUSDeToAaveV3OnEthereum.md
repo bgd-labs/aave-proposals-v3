@@ -49,8 +49,8 @@ The table below illustrates the configured risk parameters for **sUSDe**
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240621_AaveV3Ethereum_OnboardSUSDeToAaveV3OnEthereum/AaveV3Ethereum_OnboardSUSDeToAaveV3OnEthereum_20240621.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240621_AaveV3Ethereum_OnboardSUSDeToAaveV3OnEthereum/AaveV3Ethereum_OnboardSUSDeToAaveV3OnEthereum_20240621.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/3166c85ff34b56b61cf9019b1dce97bf0a2141b2/src/20240621_AaveV3Ethereum_OnboardSUSDeToAaveV3OnEthereum/AaveV3Ethereum_OnboardSUSDeToAaveV3OnEthereum_20240621.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/3166c85ff34b56b61cf9019b1dce97bf0a2141b2/src/20240621_AaveV3Ethereum_OnboardSUSDeToAaveV3OnEthereum/AaveV3Ethereum_OnboardSUSDeToAaveV3OnEthereum_20240621.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x9c6dcf2af7d79467f34e52b505c25d5e4c89af77f00396307d42fc4816797cd9)
 - [Discussion](https://governance.aave.com/t/arfc-onboard-susde-to-aave-v3-on-ethereum/17191)
 
