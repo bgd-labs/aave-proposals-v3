@@ -7,7 +7,7 @@ snapshot: "https://snapshot.org/#/aave.eth/proposal/0x9c6dcf2af7d79467f34e52b505
 
 ## Simple Summary
 
-This is an ARFC to seek approval for the addition of sUSDe to Aave V3 on Ethereum, following the consensus reached in the [TEMP CHECK ](https://snapshot.org/#/aave.eth/proposal/0x3263dbee34f5afe513a1a6c5bcd5207684cee03473e1b3d7616993dbd87ab881) and [ARFC](https://snapshot.org/#/aave.eth/proposal/0x9c6dcf2af7d79467f34e52b505c25d5e4c89af77f00396307d42fc4816797cd9) stage.
+This is an ARFC to seek approval for the addition of sUSDe to Aave V3 on Ethereum, following the consensus reached in the [TEMP CHECK](https://snapshot.org/#/aave.eth/proposal/0x3263dbee34f5afe513a1a6c5bcd5207684cee03473e1b3d7616993dbd87ab881) and [ARFC](https://snapshot.org/#/aave.eth/proposal/0x9c6dcf2af7d79467f34e52b505c25d5e4c89af77f00396307d42fc4816797cd9) stage.
 
 ## Motivation
 
