@@ -15,6 +15,8 @@ As discussed in the TEMP CHECK, Ethena's synthetic dollar, USDe, provides a stab
 
 ## Specification
 
+Amendment: opposed to the initial snapshot the aip enables flashloaning to stay consistent with other assets on the network.
+
 The table below illustrates the configured risk parameters for **sUSDe**
 
 | Parameter                          |                                      Value |
