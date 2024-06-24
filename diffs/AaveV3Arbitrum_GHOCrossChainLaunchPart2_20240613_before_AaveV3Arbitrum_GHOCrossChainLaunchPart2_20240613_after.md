@@ -50,12 +50,12 @@
 | maxExcessUsageRatio | 10 % |
 | optimalStableToTotalDebtRatio | 0 % |
 | baseVariableBorrowRate | 0 % |
-| variableRateSlope1 | 13 % |
+| variableRateSlope1 | 12 % |
 | variableRateSlope2 | 65 % |
-| baseStableBorrowRate | 13 % |
+| baseStableBorrowRate | 12 % |
 | stableRateSlope1 | 0 % |
 | stableRateSlope2 | 0 % |
-| interestRate | ![ir](/.assets/784da1a9805fd87055e1267a067a410e2e539f95.svg) |
+| interestRate | ![ir](/.assets/014904fabcaa28d579bed688e1e3c35928c86f7c.svg) |
 
 
 ## Raw diff
@@ -115,7 +115,7 @@
       "from": null,
       "to": {
         "address": "0x36d32fD7a72AD600be60Ccb71D3718E455025CaA",
-        "baseStableBorrowRate": "130000000000000000000000000",
+        "baseStableBorrowRate": "120000000000000000000000000",
         "baseVariableBorrowRate": 0,
         "maxExcessStableToTotalDebtRatio": "1000000000000000000000000000",
         "maxExcessUsageRatio": "100000000000000000000000000",
@@ -123,7 +123,7 @@
         "optimalUsageRatio": "900000000000000000000000000",
         "stableRateSlope1": 0,
         "stableRateSlope2": 0,
-        "variableRateSlope1": "130000000000000000000000000",
+        "variableRateSlope1": "120000000000000000000000000",
         "variableRateSlope2": "650000000000000000000000000"
       }
     }
