@@ -17,7 +17,7 @@ import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';
 contract AaveV3Arbitrum_GHOCrossChainLaunchPart2_20240613 is AaveV3PayloadArbitrum {
   using SafeERC20 for IERC20;
 
-  address public constant GHO = 0x7dfF72693f6A4149b17e7C6314655f6A9F7c8B33; // TODO
+  address public constant GHO = 0x7dfF72693f6A4149b17e7C6314655f6A9F7c8B33;
   uint256 public constant GHO_SEED_AMOUNT = 1e18;
 
   function newListings() public pure override returns (IAaveV3ConfigEngine.Listing[] memory) {
@@ -44,7 +44,7 @@ contract AaveV3Arbitrum_GHOCrossChainLaunchPart2_20240613 is AaveV3PayloadArbitr
       rateStrategyParams: IV3RateStrategyFactory.RateStrategyParams({
         optimalUsageRatio: _bpsToRay(90_00),
         baseVariableBorrowRate: _bpsToRay(0),
-        variableRateSlope1: _bpsToRay(13_00),
+        variableRateSlope1: _bpsToRay(12_00),
         variableRateSlope2: _bpsToRay(65_00),
         stableRateSlope1: _bpsToRay(0),
         stableRateSlope2: _bpsToRay(0),

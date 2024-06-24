@@ -18,7 +18,7 @@ contract AaveV3Arbitrum_GHOCrossChainLaunchPart2_20240613_Test is ProtocolV3Test
   AaveV3Arbitrum_GHOCrossChainLaunchPart2_20240613 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('arbitrum'), 221463835);
+    vm.createSelectFork(vm.rpcUrl('arbitrum'), 225178100);
     proposal = new AaveV3Arbitrum_GHOCrossChainLaunchPart2_20240613();
   }
 
@@ -26,7 +26,7 @@ contract AaveV3Arbitrum_GHOCrossChainLaunchPart2_20240613_Test is ProtocolV3Test
    * @dev executes the generic test suite including e2e and config snapshots
    */
   function test_defaultProposalExecution() public {
-    // Executor receives GHO seed amount
+    // Mock Executor receives GHO seed amount
     deal(proposal.GHO(), GovernanceV3Arbitrum.EXECUTOR_LVL_1, proposal.GHO_SEED_AMOUNT());
 
     defaultTest(
@@ -34,7 +34,6 @@ contract AaveV3Arbitrum_GHOCrossChainLaunchPart2_20240613_Test is ProtocolV3Test
       AaveV3Arbitrum.POOL,
       address(proposal)
     );
-    GovV3Helpers.executePayload(vm, address(proposal));
 
     (address aTokenAddress, , ) = AaveV3Arbitrum
       .AAVE_PROTOCOL_DATA_PROVIDER
