@@ -14,6 +14,16 @@ import {IV2RateStrategyFactory} from 'aave-helpers/v2-config-engine/IV2RateStrat
  * - Discussion: https://governance.aave.com/t/arfc-polygon-v2-borrow-rate-adjustments/17252/3
  */
 contract AaveV2Polygon_BorrowRateUpdates_20240528 is AaveV2PayloadPolygon {
+  uint256 public constant DAI_RF = 99_99;
+  uint256 public constant USDC_RF = 99_99;
+  uint256 public constant USDT_RF = 99_99;
+
+  function _preExecute() internal override {
+    AaveV2Polygon.POOL_CONFIGURATOR.setReserveFactor(AaveV2PolygonAssets.DAI_UNDERLYING, DAI_RF);
+    AaveV2Polygon.POOL_CONFIGURATOR.setReserveFactor(AaveV2PolygonAssets.USDC_UNDERLYING, USDC_RF);
+    AaveV2Polygon.POOL_CONFIGURATOR.setReserveFactor(AaveV2PolygonAssets.USDT_UNDERLYING, USDT_RF);
+  }
+
   function rateStrategiesUpdates()
     public
     pure

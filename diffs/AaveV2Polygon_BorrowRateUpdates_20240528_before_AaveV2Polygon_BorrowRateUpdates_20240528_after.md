@@ -22,6 +22,7 @@
 
 | description | value before | value after |
 | --- | --- | --- |
+| reserveFactor | 98 % | 99.99 % |
 | interestRateStrategy | [0x15d31D8a5da6A57Ea8EaDc12261777768b1E8C60](https://polygonscan.com/address/0x15d31D8a5da6A57Ea8EaDc12261777768b1E8C60) | [0x7390a913B99fc3C0C064C2875709E9be7a183669](https://polygonscan.com/address/0x7390a913B99fc3C0C064C2875709E9be7a183669) |
 | variableRateSlope1 | 9.75 % | 11.25 % |
 | interestRate | ![before](/.assets/df4a7d9cc3f6a6d30ec065c93141fe49eee42c4d.svg) | ![after](/.assets/abedf4afd5084c01c3adcdc5b8f4eee6095dcfa8.svg) |
@@ -38,6 +39,7 @@
 
 | description | value before | value after |
 | --- | --- | --- |
+| reserveFactor | 96 % | 99.99 % |
 | interestRateStrategy | [0x08487E1EB852e06779634A176194192a36894313](https://polygonscan.com/address/0x08487E1EB852e06779634A176194192a36894313) | [0xEe9213B77eD95BDaDcE1aDA5812A3544b159E5E3](https://polygonscan.com/address/0xEe9213B77eD95BDaDcE1aDA5812A3544b159E5E3) |
 | variableRateSlope1 | 9.75 % | 11.25 % |
 | interestRate | ![before](/.assets/4bbdb7d641ac53393afda2d993e24109f61f61a1.svg) | ![after](/.assets/f8796b83937e1ee85d5683643bca20a8da92ece0.svg) |
@@ -46,6 +48,7 @@
 
 | description | value before | value after |
 | --- | --- | --- |
+| reserveFactor | 97 % | 99.99 % |
 | interestRateStrategy | [0xC22014C5159bcf56110414A9FB71971974294e98](https://polygonscan.com/address/0xC22014C5159bcf56110414A9FB71971974294e98) | [0x55F33b87f1c8F12DbE1322e841431bBce1572A75](https://polygonscan.com/address/0x55F33b87f1c8F12DbE1322e841431bBce1572A75) |
 | variableRateSlope1 | 9.75 % | 11.25 % |
 | interestRate | ![before](/.assets/629673f8cf1a36a93dc0ebfe1dd5da5b11ead5be.svg) | ![after](/.assets/cbb6d69c16e942f7a9716ce6235797558b476b47.svg) |
@@ -71,6 +74,10 @@
       "interestRateStrategy": {
         "from": "0x15d31D8a5da6A57Ea8EaDc12261777768b1E8C60",
         "to": "0x7390a913B99fc3C0C064C2875709E9be7a183669"
+      },
+      "reserveFactor": {
+        "from": 9800,
+        "to": 9999
       }
     },
     "0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619": {
@@ -83,12 +90,20 @@
       "interestRateStrategy": {
         "from": "0x08487E1EB852e06779634A176194192a36894313",
         "to": "0xEe9213B77eD95BDaDcE1aDA5812A3544b159E5E3"
+      },
+      "reserveFactor": {
+        "from": 9600,
+        "to": 9999
       }
     },
     "0xc2132D05D31c914a87C6611C10748AEb04B58e8F": {
       "interestRateStrategy": {
         "from": "0xC22014C5159bcf56110414A9FB71971974294e98",
         "to": "0x55F33b87f1c8F12DbE1322e841431bBce1572A75"
+      },
+      "reserveFactor": {
+        "from": 9700,
+        "to": 9999
       }
     }
   },

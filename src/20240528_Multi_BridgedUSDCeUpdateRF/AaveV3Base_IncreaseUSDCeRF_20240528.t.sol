@@ -9,7 +9,7 @@ import {AaveV3Base_IncreaseUSDCeRF_20240528} from './AaveV3Base_IncreaseUSDCeRF_
 
 /**
  * @dev Test for AaveV3Base_IncreaseUSDCeRF_20240528
- * command: make test-contract filter=AaveV3Base_IncreaseUSDCeRF_20240528
+ * command: FOUNDRY_PROFILE=base make test-contract filter=AaveV3Base_IncreaseUSDCeRF_20240528
  */
 contract AaveV3Base_IncreaseUSDCeRF_20240528_Test is ProtocolV3TestBase {
   AaveV3Base_IncreaseUSDCeRF_20240528 internal proposal;

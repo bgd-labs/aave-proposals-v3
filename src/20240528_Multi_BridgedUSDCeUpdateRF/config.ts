@@ -147,6 +147,35 @@ export const config: ConfigFile = {
     },
     AaveV2Polygon: {
       configs: {
+        BORROWS_UPDATE: [
+          {
+            enabledToBorrow: 'KEEP_CURRENT',
+            flashloanable: 'KEEP_CURRENT',
+            stableRateModeEnabled: 'KEEP_CURRENT',
+            borrowableInIsolation: 'KEEP_CURRENT',
+            withSiloedBorrowing: 'KEEP_CURRENT',
+            reserveFactor: '99.99',
+            asset: 'DAI',
+          },
+          {
+            enabledToBorrow: 'KEEP_CURRENT',
+            flashloanable: 'KEEP_CURRENT',
+            stableRateModeEnabled: 'KEEP_CURRENT',
+            borrowableInIsolation: 'KEEP_CURRENT',
+            withSiloedBorrowing: 'KEEP_CURRENT',
+            reserveFactor: '99.99',
+            asset: 'USDC',
+          },
+          {
+            enabledToBorrow: 'KEEP_CURRENT',
+            flashloanable: 'KEEP_CURRENT',
+            stableRateModeEnabled: 'KEEP_CURRENT',
+            borrowableInIsolation: 'KEEP_CURRENT',
+            withSiloedBorrowing: 'KEEP_CURRENT',
+            reserveFactor: '99.99',
+            asset: 'USDT',
+          },
+        ],
         RATE_UPDATE_V3: [
           {
             asset: 'USDC',

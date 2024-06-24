@@ -10,7 +10,7 @@ snapshot: "https://snapshot.org/#/aave.eth/proposal/0x9cc7906f04f45cebeaa48a05ed
 This AIP is composed of three actions:
 
 1. To start periodically increasing the Reserve Factor (RF) for Bridged USDC(USDC.e & USDbC) across Arbitrum, Optimism, Polygon and Base Aave deployments.
-2. A continuation of the proposals on Governance V3 that increases the Reserve Factor (RF) for assets on [Ethereum V2](https://governance.aave.com/t/arfc-ethereum-v2-reserve-factor-adjustment/16764) and [Avalanche V2](https://governance.aave.com/t/arfc-avalanche-v2-reserve-factor-adjustment/17040) by 5.00%, up to a maximum of 99.99%.
+2. A continuation of the proposals on Governance V3 that increases the Reserve Factor (RF) for assets on [Ethereum V2](https://governance.aave.com/t/arfc-ethereum-v2-reserve-factor-adjustment/16764), [Avalanche V2](https://governance.aave.com/t/arfc-avalanche-v2-reserve-factor-adjustment/17040), and [Polygon V2](https://governance.aave.com/t/arfc-reserve-factor-updates-polygon-aave-v2/13937/23?u=dd0sxx) by 5.00%, up to a maximum of 99.99%.
 3. A continuation of the [proposal](https://governance.aave.com/t/arfc-polygon-v2-borrow-rate-adjustments/17252) to adjust Polygon v2 Borrow Rate.
 
 ## Motivation
@@ -43,6 +43,9 @@ Increasing the RF routes a larger portion of the interest paid by users to Aave 
 | Avalanche V2 | WAVAX  | 50%        | 55%    |
 | Avalanche V2 | WBTCe  | 55%        | 60%    |
 | Avalanche V2 | WETHe  | 50%        | 55%    |
+| Polygon V2   | DAI    | 96%        | 99.99% |
+| Polygon V2   | USDC   | 98%        | 99.99% |
+| Polygon V2   | USDT   | 97%        | 99.99% |
 
 | Market     | Asset  | Current Slope1 | New Slope1 |
 | ---------- | ------ | -------------- | ---------- |
@@ -64,6 +67,7 @@ Increasing the RF routes a larger portion of the interest paid by users to Aave 
 - [Snapshot for Avalanche V2 Reserve Factor Updates](https://snapshot.org/#/aave.eth/proposal/0x770ff4e02634c77aaa09952345551168920f7878b32ab03fcef92763a5fb70ab)
 - [Discussion for Polygon V2 Borrow Rate Updates](https://governance.aave.com/t/arfc-polygon-v2-borrow-rate-adjustments/17252)
 - [Snapshot for Polygon V2 Borrow Rate Updates](https://snapshot.org/#/aave.eth/proposal/0x95643085ee16eb0eaa4110a9f0ea8223009f9521e596e1a958303705a5001363)
+- [Discussion for Polygon V2 RF update](https://governance.aave.com/t/arfc-reserve-factor-updates-polygon-aave-v2/13937/23?u=dd0sxx)
 
 ## Copyright
 
