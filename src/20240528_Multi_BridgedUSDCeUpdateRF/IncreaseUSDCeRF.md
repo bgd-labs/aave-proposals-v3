@@ -10,8 +10,8 @@ snapshot: "https://snapshot.org/#/aave.eth/proposal/0x9cc7906f04f45cebeaa48a05ed
 This AIP is composed of three actions:
 
 1. To start periodically increasing the Reserve Factor (RF) for Bridged USDC(USDC.e & USDbC) across Arbitrum, Optimism, Polygon and Base Aave deployments.
-2. A continuation of the proposals on Governance V3 that increases the Reserve Factor (RF) for assets on Ethereum V2 and Avalanche V2 by 5.00%, up to a maximum of 99.99%;
-3. A continuation of the proposal to adjust Polygon v2 Borrow Rate
+2. A continuation of the proposals on Governance V3 that increases the Reserve Factor (RF) for assets on [Ethereum V2](https://governance.aave.com/t/arfc-ethereum-v2-reserve-factor-adjustment/16764) and [Avalanche V2](https://governance.aave.com/t/arfc-avalanche-v2-reserve-factor-adjustment/17040) by 5.00%, up to a maximum of 99.99%.
+3. A continuation of the [proposal](https://governance.aave.com/t/arfc-polygon-v2-borrow-rate-adjustments/17252) to adjust Polygon v2 Borrow Rate.
 
 ## Motivation
 
