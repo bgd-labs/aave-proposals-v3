@@ -1,22 +1,23 @@
 ---
 title: "[ARFC] AL Service Provider Proposal"
 author: "Aave Labs"
-Date: 2024-06-14
+discussions: "https://governance.aave.com/t/arfc-al-service-provider-proposal/17974"
+snapshot: "https://snapshot.org/#/aave.eth/proposal/0x70dfd865b78c4c391e2b0729b907d152e6e8a0da683416d617d8f84782036349"
 ---
 
-# **Summary**
+## Summary
 
 This ARFC proposes a one-year technical contributor engagement for the Aave Labs to act as a service provider for development of Aave V4 and a new visual identity.
 
-# **Motivation**
+## Motivation
 
 Aave Labs seeks to be onboarded as a service provider to be one of the technical contributors to the Aave DAO. The specification below outlines the scope of the technical contributions of Aave Labs.
 
-# **Specification**
+## Specification
 
 The following are the key deliverables within the grant:
 
-## **Aave Protocol V4**
+### Aave Protocol V4
 
 Key deliverables for the 1 year scope of development include:
 
@@ -73,7 +74,7 @@ Key deliverables for the 1 year scope of development include:
   - Emergency Redemption Mechanism
     - A feature to handle prolonged and heavy depegging of GHO, ensuring stability and reliability.
 
-## **Visual Identity Assets**
+### Visual Identity Assets
 
 [Aave Visual Identity Guidelines | 2024](https://www.youtube.com/watch?v=TQHLCACwnbE)
 
@@ -85,34 +86,27 @@ Deliverables include:
 
 - Delivery: The assets will be delivered and packaged in a Github repository accessible to everyone and hosted within the Aave DAO Origin organization.
 
-# **Pospective Second and Third Year Scope**
+## Pospective Second and Third Year Scope
 
 The DAO may renew the engagement with Aave Labs as a service provider for a technical contributor for a second and third year with that scope of work to be determined at a later date and subject to community input and ARFC approval.
 
-# **Grant**
+## Grant
 
 $12m GHO, including $3m upfront and $9m streamed over the year.
 
-# **Evaluation Metrics**
+## Evaluation Metrics
 
 - Monthly reporting of contributions to the Aave DAO.
 - Solicitation of feedback from other service providers working as technical contributors and DAO members.
 - Direct and transparent engagement with the DAO via the governance forum.
 
-# **Principles**
+## Principles
 
 - Aave Labs shall strictly adhere to the scope of its designated role as one of the service providers working as a technical contributor, ensuring all decisions and actions remain within our areas of the engagement.
 - Aave Labs shall prioritize the security and robustness of its technical contributions.
 - Any production-ready code written within the scope of the proposal will be moved to the Aave DAO’s GitHub repository.
-- Any written software will be deployed by another Aave DAO service provider specializing in deployments, subject to the Aave DAO’s decision and approval.
 - Aave Labs shall engage with the DAO like all other contributors within the established working relationships and procedures of the Aave DAO. For example, decisions concerning risk configurations, DAO treasury, code audits, and other matters not covered by this proposal will need to be separately approved by the Aave DAO via TEMP CHECKs and Snapshots.
 
-# **Next Steps**
-
-- Engage with the community and other service providers to refine the proposal.
-- Incorporate feedback and escalate ARFC to a Snapshot vote.
-- If the ARFC Snapshot outcome is YAE, publish an AIP vote for final confirmation and enforcement of the proposal.
-
-# **Copyright**
+## Copyright
 
 The text of this ARFC is released under the [CC0 license](https://creativecommons.org/publicdomain/zero/1.0/). The visuals and the New Visual identity are subject to and governed by the license specified in the approved governance proposal by the Aave DAO (to be included in the ARFC at a later date).
