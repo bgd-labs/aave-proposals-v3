@@ -49,23 +49,24 @@ Increasing the RF routes a larger portion of the interest paid by users to Aave 
 
 | Market     | Asset  | Current Slope1 | New Slope1 |
 | ---------- | ------ | -------------- | ---------- |
-| Polygon V2 | DAI    | 10.50%         | 11.25%     |
-| Polygon V2 | USDT   | 10.50%         | 11.25%     |
-| Polygon V2 | wBTC   | 5.50%          | 6.25%      |
-| Polygon V2 | wETH   | 5.50%          | 6.25%      |
-| Polygon V2 | wUSDC  | 10.50%         | 11.25%     |
-| Polygon V2 | wMATIC | 7.50%          | 8.25%      |
+| Polygon V2 | DAI    | 9.75%          | 11.25%     |
+| Polygon V2 | USDT   | 9.75%          | 11.25%     |
+| Polygon V2 | wBTC   | 4.75%          | 6.25%      |
+| Polygon V2 | wETH   | 4.75%          | 6.25%      |
+| Polygon V2 | wUSDC  | 9.75%          | 11.25%     |
+| Polygon V2 | wMATIC | 4.75%          | 8.25%      |
 
 ## References
 
-- Implementation: [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/f123b71c8f30c55710f199d7f377960705dd7993/src/20240528_Multi_BridgedUSDCeUpdateRF/AaveV3Polygon_IncreaseUSDCeRF_20240528.sol),[AaveV3Optimism](https://github.com/bgd-labs/aave-proposals-v3/blob/f123b71c8f30c55710f199d7f377960705dd7993/src/20240528_Multi_BridgedUSDCeUpdateRF/AaveV3Optimism_IncreaseUSDCeRF_20240528.sol), [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/f123b71c8f30c55710f199d7f377960705dd7993/src/20240528_Multi_BridgedUSDCeUpdateRF/AaveV3Arbitrum_IncreaseUSDCeRF_20240528.sol), [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/f123b71c8f30c55710f199d7f377960705dd7993/src/20240528_Multi_BridgedUSDCeUpdateRF/AaveV3Base_IncreaseUSDCeRF_20240528.sol), [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/f123b71c8f30c55710f199d7f377960705dd7993/src/20240528_Multi_BridgedUSDCeUpdateRF/AaveV3Polygon_IncreaseUSDCeRF_20240528.t.sol),[AaveV3Optimism](https://github.com/bgd-labs/aave-proposals-v3/blob/f123b71c8f30c55710f199d7f377960705dd7993/src/20240528_Multi_BridgedUSDCeUpdateRF/AaveV3Optimism_IncreaseUSDCeRF_20240528.t.sol), [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/f123b71c8f30c55710f199d7f377960705dd7993/src/20240528_Multi_BridgedUSDCeUpdateRF/AaveV3Arbitrum_IncreaseUSDCeRF_20240528.t.sol)
+- Implementation: [AaveV2Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/bridged-usdc-update/src/20240528_Multi_BridgedUSDCeUpdateRF/AaveV2Avalanche_ReserveFactorUpgrades_20240528.sol),[AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/bridged-usdc-update/src/20240528_Multi_BridgedUSDCeUpdateRF/AaveV2Ethereum_ReserveFactorUpgrades_20240528.sol),[AaveV2Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/bridged-usdc-update/src/20240528_Multi_BridgedUSDCeUpdateRF/AaveV2Polygon_BorrowRateUpdates_20240528.sol),[AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/bridged-usdc-update/src/20240528_Multi_BridgedUSDCeUpdateRF/AaveV3Polygon_IncreaseUSDCeRF_20240528.sol),[AaveV3Optimism](https://github.com/bgd-labs/aave-proposals-v3/blob/bridged-usdc-update/src/20240528_Multi_BridgedUSDCeUpdateRF/AaveV3Optimism_IncreaseUSDCeRF_20240528.sol), [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/bridged-usdc-update/src/20240528_Multi_BridgedUSDCeUpdateRF/AaveV3Arbitrum_IncreaseUSDCeRF_20240528.sol), [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/bridged-usdc-update/src/20240528_Multi_BridgedUSDCeUpdateRF/AaveV3Base_IncreaseUSDCeRF_20240528.t.sol)
+- Tests: [AaveV2Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/bridged-usdc-update/src/20240528_Multi_BridgedUSDCeUpdateRF/AaveV2Avalanche_ReserveFactorUpgrades_20240528.t.sol),[AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/bridged-usdc-update/src/20240528_Multi_BridgedUSDCeUpdateRF/AaveV2Ethereum_ReserveFactorUpgrades_20240528.t.sol),[AaveV2Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/bridged-usdc-update/src/20240528_Multi_BridgedUSDCeUpdateRF/AaveV2Polygon_BorrowRateUpdates_20240528.t.sol),[AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/bridged-usdc-update/src/20240528_Multi_BridgedUSDCeUpdateRF/AaveV3Polygon_IncreaseUSDCeRF_20240528.t.sol),[AaveV3Optimism](https://github.com/bgd-labs/aave-proposals-v3/blob/bridged-usdc-update/src/20240528_Multi_BridgedUSDCeUpdateRF/AaveV3Optimism_IncreaseUSDCeRF_20240528.t.sol), [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/bridged-usdc-update/src/20240528_Multi_BridgedUSDCeUpdateRF/AaveV3Arbitrum_IncreaseUSDCeRF_20240528.t.sol), [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/bridged-usdc-update/src/20240528_Multi_BridgedUSDCeUpdateRF/AaveV3Base_IncreaseUSDCeRF_20240528.t.sol)
 - [Snapshot for USDCe updates](https://snapshot.org/#/aave.eth/proposal/0x9cc7906f04f45cebeaa48a05ed281f49da00d89c4dd988a968272fa179f14d06)
 - [Discussion for USDCe updates](https://governance.aave.com/t/arfc-increase-bridged-usdc-reserve-factor-across-all-deployments/17787)
-- [Discussion for Ethereum V2 Reserve Factor Updates](https://governance.aave.com/t/arfc-ethereum-v2-reserve-factor-adjustment/16764/8)
+- [Discussion for Ethereum V2 Reserve Factor Updates](https://governance.aave.com/t/arfc-ethereum-v2-reserve-factor-adjustment/16764/13?u=luigy)
 - [Snapshot for Ethereum V2 Reserve Factor Updates](https://snapshot.org/#/aave.eth/proposal/0x26a03c08359c340f63b78b0c3e96d37aa0adeda65814643b0886d4719048ea7e)
-- [Discussion for Avalanche V2 Reserve Factor Updates](https://governance.aave.com/t/arfc-avalanche-v2-reserve-factor-adjustment/17040/4)
+- [Discussion for Avalanche V2 Reserve Factor Updates](https://governance.aave.com/t/arfc-avalanche-v2-reserve-factor-adjustment/17040/8?u=luigy)
 - [Snapshot for Avalanche V2 Reserve Factor Updates](https://snapshot.org/#/aave.eth/proposal/0x770ff4e02634c77aaa09952345551168920f7878b32ab03fcef92763a5fb70ab)
-- [Discussion for Polygon V2 Borrow Rate Updates](https://governance.aave.com/t/arfc-polygon-v2-borrow-rate-adjustments/17252)
+- [Discussion for Polygon V2 Borrow Rate Updates](https://governance.aave.com/t/arfc-polygon-v2-borrow-rate-adjustments/17252/8?u=luigy)
 - [Snapshot for Polygon V2 Borrow Rate Updates](https://snapshot.org/#/aave.eth/proposal/0x95643085ee16eb0eaa4110a9f0ea8223009f9521e596e1a958303705a5001363)
 - [Discussion for Polygon V2 RF update](https://governance.aave.com/t/arfc-reserve-factor-updates-polygon-aave-v2/13937/23?u=dd0sxx)
 
