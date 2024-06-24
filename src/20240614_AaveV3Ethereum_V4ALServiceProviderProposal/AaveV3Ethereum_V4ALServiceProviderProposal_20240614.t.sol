@@ -4,6 +4,7 @@ pragma solidity ^0.8.0;
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 
 import 'forge-std/Test.sol';
+import 'forge-std/StdUtils.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/ProtocolV3TestBase.sol';
 import {AaveV3Ethereum_V4ALServiceProviderProposal_20240614} from './AaveV3Ethereum_V4ALServiceProviderProposal_20240614.sol';
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
@@ -81,7 +82,7 @@ contract AaveV3Ethereum_V4ALServiceProviderProposal_20240614_Test is ProtocolV3T
 
     // Checking if Aave Labs can withdraw from the stream
     vm.startPrank(AAVE_LABS);
-    vm.warp(block.timestamp + GHO_STREAM_DURATION + 1 days);
+    vm.warp(block.timestamp + GHO_STREAM_DURATION);
 
     // Currently Collector has less funds than stream amount
     assertLe(
@@ -115,10 +116,10 @@ contract AaveV3Ethereum_V4ALServiceProviderProposal_20240614_Test is ProtocolV3T
     uint256 ALGHOBalanceBefore = IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(AAVE_LABS);
 
     // Giving the Collector enough funds to cover the stream
-    vm.prank(0x1a88Df1cFe15Af22B3c4c783D4e6F7F9e0C1885d);
-    IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).transfer(
+    deal(
+      AaveV3EthereumAssets.GHO_UNDERLYING,
       address(AaveV3Ethereum.COLLECTOR),
-      3_000_000 ether
+      GHO_UPFRONT_AMOUNT + GHO_STREAM_AMOUNT
     );
 
     uint256 CollectorV3GHOBalanceBefore = IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(
@@ -161,7 +162,7 @@ contract AaveV3Ethereum_V4ALServiceProviderProposal_20240614_Test is ProtocolV3T
 
     // Checking if Aave Labs can withdraw from the stream
     vm.startPrank(AAVE_LABS);
-    vm.warp(block.timestamp + GHO_STREAM_DURATION + 1 days);
+    vm.warp(block.timestamp + GHO_STREAM_DURATION);
 
     assertGe(
       IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
@@ -234,7 +235,7 @@ contract AaveV3Ethereum_V4ALServiceProviderProposal_20240614_Test is ProtocolV3T
 
     // Checking if Aave Labs can withdraw from the stream
     vm.startPrank(AAVE_LABS);
-    vm.warp(block.timestamp + GHO_STREAM_DURATION + 1 days);
+    vm.warp(block.timestamp + GHO_STREAM_DURATION);
 
     assertLe(
       IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
@@ -259,11 +260,12 @@ contract AaveV3Ethereum_V4ALServiceProviderProposal_20240614_Test is ProtocolV3T
     );
 
     // Giving the Collector enough funds to cover the stream
-    vm.prank(0x1a88Df1cFe15Af22B3c4c783D4e6F7F9e0C1885d);
-    IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).transfer(
+    deal(
+      AaveV3EthereumAssets.GHO_UNDERLYING,
       address(AaveV3Ethereum.COLLECTOR),
-      3_000_000 ether
+      GHO_UPFRONT_AMOUNT + GHO_STREAM_AMOUNT
     );
+
     assertGe(
       IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
       ACTUAL_STREAM_AMOUNT_GHO

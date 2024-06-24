@@ -7,8 +7,8 @@ import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethe
 /**
  * @title V4 AL Service Provider Proposal
  * @author Aave Labs
- * - Snapshot: https://snapshot.org/#/aave.eth/proposal/0xbf901f4be94a4661dce8217b3b037a8607ea8953cbe32e7dbde6a882819d64b3
- * - Discussion: https://governance.aave.com/t/temp-check-service-provider-proposal/17866
+ * - Snapshot: https://snapshot.org/#/aave.eth/proposal/0x70dfd865b78c4c391e2b0729b907d152e6e8a0da683416d617d8f84782036349
+ * - Discussion: https://governance.aave.com/t/arfc-al-service-provider-proposal/17974
  */
 contract AaveV3Ethereum_V4ALServiceProviderProposal_20240614 is IProposalGenericExecutor {
   address public constant AAVE_LABS = 0x1c037b3C22240048807cC9d7111be5d455F640bd;
