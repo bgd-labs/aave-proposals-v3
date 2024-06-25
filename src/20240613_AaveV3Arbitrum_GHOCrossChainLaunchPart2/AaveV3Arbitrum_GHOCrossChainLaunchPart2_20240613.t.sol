@@ -26,14 +26,26 @@ contract AaveV3Arbitrum_GHOCrossChainLaunchPart2_20240613_Test is ProtocolV3Test
    * @dev executes the generic test suite including e2e and config snapshots
    */
   function test_defaultProposalExecution() public {
-    // Mock Executor receives GHO seed amount
-    deal(proposal.GHO(), GovernanceV3Arbitrum.EXECUTOR_LVL_1, proposal.GHO_SEED_AMOUNT());
+    // Mock Executor receives GHO, also makes sure total supply >= supply cap so e2e tests pass
+    deal(proposal.GHO(), GovernanceV3Arbitrum.EXECUTOR_LVL_1, 1_000_000e18, true);
 
     defaultTest(
       'AaveV3Arbitrum_GHOCrossChainLaunchPart2_20240613',
       AaveV3Arbitrum.POOL,
       address(proposal)
     );
+
+    (address aTokenAddress, , ) = AaveV3Arbitrum
+      .AAVE_PROTOCOL_DATA_PROVIDER
+      .getReserveTokensAddresses(proposal.GHO());
+    assertGe(IERC20(aTokenAddress).balanceOf(address(0)), proposal.GHO_SEED_AMOUNT());
+  }
+
+  function test_defaultProposalExecutionExactSeed() public {
+    // Mock Executor receives GHO seed amount
+    deal(proposal.GHO(), GovernanceV3Arbitrum.EXECUTOR_LVL_1, proposal.GHO_SEED_AMOUNT());
+
+    GovV3Helpers.executePayload(vm, address(proposal));
 
     (address aTokenAddress, , ) = AaveV3Arbitrum
       .AAVE_PROTOCOL_DATA_PROVIDER
