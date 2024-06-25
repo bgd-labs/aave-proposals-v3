@@ -1,5 +1,5 @@
 ---
-title: "[ARFC] AL Service Provider Proposal"
+title: "AL Service Provider Proposal"
 author: "Aave Labs"
 discussions: "https://governance.aave.com/t/arfc-al-service-provider-proposal/17974"
 snapshot: "https://snapshot.org/#/aave.eth/proposal/0x70dfd865b78c4c391e2b0729b907d152e6e8a0da683416d617d8f84782036349"
@@ -7,7 +7,7 @@ snapshot: "https://snapshot.org/#/aave.eth/proposal/0x70dfd865b78c4c391e2b0729b9
 
 ## Summary
 
-This ARFC proposes a one-year technical contributor engagement for the Aave Labs to act as a service provider for development of Aave V4 and a new visual identity.
+This AIP proposes a one-year technical contributor engagement for the Aave Labs to act as a service provider for development of Aave V4 and a new visual identity.
 
 ## Motivation
 
@@ -109,4 +109,4 @@ $12m GHO, including $3m upfront and $9m streamed over the year.
 
 ## Copyright
 
-The text of this ARFC is released under the [CC0 license](https://creativecommons.org/publicdomain/zero/1.0/). The visuals and the New Visual identity are subject to and governed by the license specified in the approved governance proposal by the Aave DAO (to be included in the ARFC at a later date).
+The text of this AIP is released under the [CC0 license](https://creativecommons.org/publicdomain/zero/1.0/). The visuals and the New Visual identity are subject to and governed by the license specified in the approved governance proposal by the Aave DAO (to be included in the ARFC at a later date).
