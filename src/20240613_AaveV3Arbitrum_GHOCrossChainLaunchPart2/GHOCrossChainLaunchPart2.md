@@ -23,7 +23,7 @@ The table below illustrates the configured risk parameters for **GHO**
 | ---------------------------------- | -----------------------------------------: |
 | Isolation Mode                     |                                       false |
 | Borrowable                         |                                    ENABLED |
-| Collateral Enabled                 |                                       true |
+| Collateral Enabled                 |                                       false |
 | Supply Cap (GHO)                   |                                  1,000,000 |
 | Borrow Cap (GHO)                   |                                    900,000 |
 | Debt Ceiling                       |                                      USD 0 |
