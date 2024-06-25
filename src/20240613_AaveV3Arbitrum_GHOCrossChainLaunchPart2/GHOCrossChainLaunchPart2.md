@@ -21,7 +21,7 @@ The table below illustrates the configured risk parameters for **GHO**
 
 | Parameter                          |                                      Value |
 | ---------------------------------- | -----------------------------------------: |
-| Isolation Mode                     |                                       true |
+| Isolation Mode                     |                                       false |
 | Borrowable                         |                                    ENABLED |
 | Collateral Enabled                 |                                       true |
 | Supply Cap (GHO)                   |                                  1,000,000 |
