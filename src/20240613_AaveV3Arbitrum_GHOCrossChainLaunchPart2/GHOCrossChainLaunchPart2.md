@@ -49,8 +49,8 @@ The table below illustrates the configured risk parameters for **GHO**
 
 ## References
 
-- Implementation: [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240613_AaveV3Arbitrum_GHOCrossChainLaunchPart2/AaveV3Arbitrum_GHOCrossChainLaunchPart2_20240613.sol)
-- Tests: [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240613_AaveV3Arbitrum_GHOCrossChainLaunchPart2/AaveV3Arbitrum_GHOCrossChainLaunchPart2_20240613.t.sol)
+- Implementation: [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/c7161d8c68339faa78dbb10d6c4d0fce1256306f/src/20240613_AaveV3Arbitrum_GHOCrossChainLaunchPart2/AaveV3Arbitrum_GHOCrossChainLaunchPart2_20240613.sol)
+- Tests: [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/c7161d8c68339faa78dbb10d6c4d0fce1256306f/src/20240613_AaveV3Arbitrum_GHOCrossChainLaunchPart2/AaveV3Arbitrum_GHOCrossChainLaunchPart2_20240613.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x2a6ffbcff41a5ef98b7542f99b207af9c1e79e61f859d0a62f3bf52d3280877a)
 - [Discussion](https://governance.aave.com/t/arfc-gho-cross-chain-launch/17616)
 
