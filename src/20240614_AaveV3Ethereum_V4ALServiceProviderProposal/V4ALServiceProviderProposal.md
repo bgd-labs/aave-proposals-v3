@@ -109,4 +109,4 @@ $12m GHO, including $3m upfront and $9m streamed over the year.
 
 ## Copyright
 
-The text of this AIP is released under the [CC0 license](https://creativecommons.org/publicdomain/zero/1.0/). The visuals and the New Visual identity are subject to and governed by the license specified in the approved governance proposal by the Aave DAO (to be included in the ARFC at a later date).
+The text of this AIP is released under the [CC0 license](https://creativecommons.org/publicdomain/zero/1.0/). The visuals and the New Visual identity are subject to and governed by the license specified in the approved governance proposal by the Aave DAO.
