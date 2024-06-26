@@ -109,8 +109,8 @@ $12m GHO, including $3m upfront and $9m streamed over the year.
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240614_AaveV3Ethereum_V4ALServiceProviderProposal/AaveV3Ethereum_V4ALServiceProviderProposal_20240614.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240614_AaveV3Ethereum_V4ALServiceProviderProposal/AaveV3Ethereum_V4ALServiceProviderProposal_20240614.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/02a12b149705d2ab32bdec871058d5b8a956c0f0/src/20240614_AaveV3Ethereum_V4ALServiceProviderProposal/AaveV3Ethereum_V4ALServiceProviderProposal_20240614.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/02a12b149705d2ab32bdec871058d5b8a956c0f0/src/20240614_AaveV3Ethereum_V4ALServiceProviderProposal/AaveV3Ethereum_V4ALServiceProviderProposal_20240614.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x70dfd865b78c4c391e2b0729b907d152e6e8a0da683416d617d8f84782036349)
 - [Discussion](https://governance.aave.com/t/arfc-al-service-provider-proposal/17974)
 
