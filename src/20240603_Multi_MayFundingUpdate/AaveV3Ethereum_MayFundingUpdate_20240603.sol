@@ -20,6 +20,7 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603 is IProposalGenericExecutor {
 
   AaveSwapper public constant SWAPPER = AaveSwapper(MiscEthereum.AAVE_SWAPPER);
 
+  address public constant GHO_USD_FEED = 0x3f12643D3f6f874d39C2a4c9f2Cd6f2DbAC877FC;
   address public constant MILKMAN = 0x11C76AD590ABDFFCD980afEC9ad951B160F02797;
   address public constant PRICE_CHECKER = 0xe80a1C615F75AFF7Ed8F08c9F21f9d00982D666c;
   address public constant FRONTIER_SAFE = 0xCDb4fA6ba08bF1FB7Aa9fDf6002E78EDc431a642;
@@ -67,9 +68,7 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603 is IProposalGenericExecutor {
       address(this)
     );
 
-    uint256 daiBalance = IERC20(AaveV3EthereumAssets.DAI_UNDERLYING).balanceOf(
-      address(AaveV3Ethereum.COLLECTOR)
-    );
+    uint256 daiBalance = IERC20(AaveV3EthereumAssets.DAI_UNDERLYING).balanceOf(address(this));
 
     IERC20(AaveV3EthereumAssets.DAI_UNDERLYING).transfer(address(SWAPPER), daiBalance);
 
@@ -79,7 +78,7 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603 is IProposalGenericExecutor {
       AaveV3EthereumAssets.DAI_UNDERLYING,
       AaveV3EthereumAssets.GHO_UNDERLYING,
       AaveV3EthereumAssets.DAI_ORACLE,
-      AaveV3EthereumAssets.GHO_ORACLE,
+      GHO_USD_FEED,
       address(AaveV3Ethereum.COLLECTOR),
       daiBalance,
       50
@@ -98,9 +97,7 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603 is IProposalGenericExecutor {
       address(this)
     );
 
-    uint256 lusdBalance = IERC20(AaveV3EthereumAssets.LUSD_UNDERLYING).balanceOf(
-      address(AaveV3Ethereum.COLLECTOR)
-    );
+    uint256 lusdBalance = IERC20(AaveV3EthereumAssets.LUSD_UNDERLYING).balanceOf(address(this));
 
     IERC20(AaveV3EthereumAssets.LUSD_UNDERLYING).transfer(address(SWAPPER), lusdBalance);
 
@@ -110,7 +107,7 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603 is IProposalGenericExecutor {
       AaveV3EthereumAssets.LUSD_UNDERLYING,
       AaveV3EthereumAssets.GHO_UNDERLYING,
       AaveV3EthereumAssets.LUSD_ORACLE,
-      AaveV3EthereumAssets.GHO_ORACLE,
+      GHO_USD_FEED,
       address(AaveV3Ethereum.COLLECTOR),
       lusdBalance,
       50
@@ -120,7 +117,7 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603 is IProposalGenericExecutor {
     AaveV3Ethereum.COLLECTOR.transfer(
       AaveV3EthereumAssets.PYUSD_A_TOKEN,
       address(this),
-      IERC20(AaveV3EthereumAssets.PYUSD_A_TOKEN).balanceOf(address(AaveV3Ethereum.COLLECTOR)) - 1e18
+      IERC20(AaveV3EthereumAssets.PYUSD_A_TOKEN).balanceOf(address(AaveV3Ethereum.COLLECTOR)) - 1e6
     );
 
     AaveV3Ethereum.POOL.withdraw(
@@ -129,9 +126,7 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603 is IProposalGenericExecutor {
       address(this)
     );
 
-    uint256 pyusdBalance = IERC20(AaveV3EthereumAssets.PYUSD_UNDERLYING).balanceOf(
-      address(AaveV3Ethereum.COLLECTOR)
-    );
+    uint256 pyusdBalance = IERC20(AaveV3EthereumAssets.PYUSD_UNDERLYING).balanceOf(address(this));
 
     IERC20(AaveV3EthereumAssets.PYUSD_UNDERLYING).transfer(address(SWAPPER), pyusdBalance);
 
@@ -141,7 +136,7 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603 is IProposalGenericExecutor {
       AaveV3EthereumAssets.PYUSD_UNDERLYING,
       AaveV3EthereumAssets.GHO_UNDERLYING,
       AaveV3EthereumAssets.PYUSD_ORACLE,
-      AaveV3EthereumAssets.GHO_ORACLE,
+      GHO_USD_FEED,
       address(AaveV3Ethereum.COLLECTOR),
       pyusdBalance,
       50
@@ -151,7 +146,7 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603 is IProposalGenericExecutor {
     AaveV3Ethereum.COLLECTOR.transfer(
       AaveV2EthereumAssets.USDC_A_TOKEN,
       address(this),
-      IERC20(AaveV2EthereumAssets.USDC_A_TOKEN).balanceOf(address(AaveV3Ethereum.COLLECTOR)) - 1e18
+      IERC20(AaveV2EthereumAssets.USDC_A_TOKEN).balanceOf(address(AaveV3Ethereum.COLLECTOR)) - 1e6
     );
 
     AaveV2Ethereum.POOL.withdraw(
@@ -160,9 +155,7 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603 is IProposalGenericExecutor {
       address(this)
     );
 
-    uint256 usdcBalance = IERC20(AaveV3EthereumAssets.USDC_UNDERLYING).balanceOf(
-      address(AaveV3Ethereum.COLLECTOR)
-    );
+    uint256 usdcBalance = IERC20(AaveV3EthereumAssets.USDC_UNDERLYING).balanceOf(address(this));
 
     IERC20(AaveV3EthereumAssets.USDC_UNDERLYING).transfer(address(SWAPPER), usdcBalance);
 
@@ -172,7 +165,7 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603 is IProposalGenericExecutor {
       AaveV3EthereumAssets.USDC_UNDERLYING,
       AaveV3EthereumAssets.GHO_UNDERLYING,
       AaveV3EthereumAssets.USDC_ORACLE,
-      AaveV3EthereumAssets.GHO_ORACLE,
+      GHO_USD_FEED,
       address(AaveV3Ethereum.COLLECTOR),
       usdcBalance,
       50
@@ -184,7 +177,11 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603 is IProposalGenericExecutor {
       address(AaveV3Ethereum.COLLECTOR)
     );
 
-    IERC20(AaveV2EthereumAssets.DPI_UNDERLYING).transfer(address(SWAPPER), dpiBalance);
+    AaveV3Ethereum.COLLECTOR.transfer(
+      AaveV2EthereumAssets.DPI_UNDERLYING,
+      address(SWAPPER),
+      dpiBalance
+    );
 
     SWAPPER.swap(
       MILKMAN,
@@ -192,7 +189,7 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603 is IProposalGenericExecutor {
       AaveV2EthereumAssets.DPI_UNDERLYING,
       AaveV3EthereumAssets.GHO_UNDERLYING,
       AaveV2EthereumAssets.DPI_ORACLE,
-      AaveV3EthereumAssets.GHO_ORACLE,
+      GHO_USD_FEED,
       address(AaveV3Ethereum.COLLECTOR),
       dpiBalance,
       50
@@ -209,14 +206,10 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603 is IProposalGenericExecutor {
     AaveV3Ethereum.POOL.withdraw(
       AaveV3EthereumAssets.USDT_UNDERLYING,
       type(uint256).max,
-      address(this)
+      address(SWAPPER)
     );
 
-    uint256 usdtBalance = IERC20(AaveV3EthereumAssets.USDT_UNDERLYING).balanceOf(
-      address(AaveV3Ethereum.COLLECTOR)
-    );
-
-    IERC20(AaveV3EthereumAssets.USDC_UNDERLYING).transfer(address(SWAPPER), usdtBalance);
+    uint256 usdtBalance = IERC20(AaveV3EthereumAssets.USDT_UNDERLYING).balanceOf(address(SWAPPER));
 
     SWAPPER.swap(
       MILKMAN,
@@ -224,7 +217,7 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603 is IProposalGenericExecutor {
       AaveV3EthereumAssets.USDT_UNDERLYING,
       AaveV3EthereumAssets.GHO_UNDERLYING,
       AaveV3EthereumAssets.USDT_ORACLE,
-      AaveV3EthereumAssets.GHO_ORACLE,
+      GHO_USD_FEED,
       address(AaveV3Ethereum.COLLECTOR),
       usdtBalance,
       50
@@ -273,18 +266,23 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603 is IProposalGenericExecutor {
   }
 
   function _depositAllLink() internal {
-    uint256 linkAmount = IERC20(AaveV2EthereumAssets.LINK_UNDERLYING).balanceOf(
+    uint256 linkAmount = IERC20(AaveV3EthereumAssets.LINK_UNDERLYING).balanceOf(
       address(AaveV3Ethereum.COLLECTOR)
     );
 
     AaveV3Ethereum.COLLECTOR.transfer(
-      AaveV2EthereumAssets.LINK_UNDERLYING,
+      AaveV3EthereumAssets.LINK_UNDERLYING,
       address(this),
       linkAmount
     );
 
+    IERC20(AaveV3EthereumAssets.LINK_UNDERLYING).approve(
+      address(AaveV3Ethereum.POOL),
+      type(uint256).max
+    );
+
     AaveV3Ethereum.POOL.deposit(
-      AaveV2EthereumAssets.LINK_UNDERLYING,
+      AaveV3EthereumAssets.LINK_UNDERLYING,
       linkAmount,
       address(AaveV3Ethereum.COLLECTOR),
       0
