@@ -1,5 +1,5 @@
 ---
-title: "GHO Cross-Chain"
+title: "GHO Cross-Chain - Part 1"
 author: "Aave Labs"
 discussions: "https://governance.aave.com/t/arfc-gho-cross-chain-launch/17616"
 snapshot: "https://snapshot.org/#/aave.eth/proposal/0x2a6ffbcff41a5ef98b7542f99b207af9c1e79e61f859d0a62f3bf52d3280877a"
@@ -11,7 +11,7 @@ This AIP proposes the cross-chain implementation for the GHO stablecoin, the nat
 
 The smart contracts have been refined through multiple stages of design, development, testing, and implementation. For security validations, collaborations with DAO service providers Certora and BGD Labs were established to conduct code reviews.
 
-Following extensive community discussion, this AIP proposes the deployment of cross-chain GHO, adopting risk parameters formulated by Chaos Labs.
+Following extensive community discussion, this AIP proposes the deployment of cross-chain GHO. This proposal was split into two separate AIPs, whereby, subject to approval of this proposal by the DAO, there will be a second AIP (“Part 2”) for configuration of GHO on Arbitrum Aave Pool adopting risk parameters formulated by Chaos Labs.
 
 ## Motivation
 
@@ -43,8 +43,8 @@ Arbitrum:
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/7725647f98f1ae815c207bf7f3d26f933f538baa/src/20240528_Multi_GHOCrossChainLaunch/AaveV3Ethereum_GHOCrossChainLaunch_20240528.sol), [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/7725647f98f1ae815c207bf7f3d26f933f538baa/src/20240528_Multi_GHOCrossChainLaunch/AaveV3Arbitrum_GHOCrossChainLaunch_20240528.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/7725647f98f1ae815c207bf7f3d26f933f538baa/src/20240528_Multi_GHOCrossChainLaunch/AaveV3Ethereum_GHOCrossChainLaunch_20240528.t.sol), [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/7725647f98f1ae815c207bf7f3d26f933f538baa/src/20240528_Multi_GHOCrossChainLaunch/AaveV3Arbitrum_GHOCrossChainLaunch_20240528.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/e0d12ee0493cab656f3928f9821880b66c3c553f/src/20240528_Multi_GHOCrossChainLaunch/AaveV3Ethereum_GHOCrossChainLaunch_20240528.sol), [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/e0d12ee0493cab656f3928f9821880b66c3c553f/src/20240528_Multi_GHOCrossChainLaunch/AaveV3Arbitrum_GHOCrossChainLaunch_20240528.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/e0d12ee0493cab656f3928f9821880b66c3c553f/src/20240528_Multi_GHOCrossChainLaunch/AaveV3Ethereum_GHOCrossChainLaunch_20240528.t.sol), [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/e0d12ee0493cab656f3928f9821880b66c3c553f/src/20240528_Multi_GHOCrossChainLaunch/AaveV3Arbitrum_GHOCrossChainLaunch_20240528.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x2a6ffbcff41a5ef98b7542f99b207af9c1e79e61f859d0a62f3bf52d3280877a)
 - [Discussion](https://governance.aave.com/t/arfc-gho-cross-chain-launch/17616)
 
