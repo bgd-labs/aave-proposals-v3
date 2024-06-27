@@ -7,9 +7,66 @@ snapshot: "Direct-to-AIP"
 
 ## Simple Summary
 
+This proposal presents May’s funding update, including the following key activities:
+
+- Migrating holdings from v2 to v3 (Polygon and Ethereum)
+- Extending the DAO’s GHO runway to cover upcoming expenses
+- Create Allowances for Frontier Program funding
+
 ## Motivation
 
+This proposal seeks to enhance the financial sustainability of the DAO and will follow the Direct-To-AIP as outlined in this [proposal](https://governance.aave.com/t/arfc-funding-update/16675).
+
 ## Specification
+
+### Consolidate GHO Funding and Migrate funds from V2 to V3
+
+Perform the following Swaps and migration of assets from Aave v2 to v3. Assets are to be swapped for GHO.
+
+| Withdraw & Swap to GHO | Migrate Eth v2 to v3 | Migrate Pol v2 to v3 |
+| :--------------------: | :------------------: | :------------------: |
+|    aEthDAI (All-1)     |    awETH (All-1)     |    amUSDT (All-1)    |
+|      aDAI (All-1)      |                      |    amwETH (All-1)    |
+|    aEthLUSD (All-1)    |                      |    amDAI (All-1)     |
+|   aEthPYUSD (All-1)    |                      |                      |
+|     aUSDC (All-1)      |                      |                      |
+|       DPI (All)        |                      |                      |
+|     aEthUSDT (1M)      |                      |                      |
+
+Transfer the following assets to Ethereum.
+
+|     Polygon      |     Arbitrum     |     Optimism     |
+| :--------------: | :--------------: | :--------------: |
+|   USDC.e (All)   |   USDC.e (All)   |   USDC.e (All)   |
+| aPolUSDC (All-1) | aArbUSDC (All-1) | aOptUSDC (All-1) |
+|  amUSDC (All-1)  |                  |                  |
+
+Deposit the following small holdings into there respective v3 deployment:
+
+| Deposit into Eth v3 |
+| :-----------------: |
+|        LINK         |
+
+### Frontier Funding
+
+The following LSTs are to be unstaked for ETH in order to fund the [Frontier initiative](https://snapshot.org/#/aave.eth/proposal/0x17da8b848323ed88b9c3ab391057c45a5737635dfe995ad66a84b389821b0867).
+
+| Unwrap Asset | Quantity |   Methodology   |
+| :----------: | :------: | :-------------: |
+|     rETH     |   All    | Use Rocket Pool |
+|    wstETH    |   350    |    Use Lido     |
+
+A description of how the ETH is to be deployed has been outlined by ACI [here](https://governance.aave.com/t/arfc-expansion-of-frontier/17749).
+
+| Quantity Deployed |  Provider  |
+| :---------------: | :--------: |
+|      248 ETH      |   Stader   |
+|     2,085 ETH     | RocketPool |
+|      160 ETH      | StakeWise  |
+
+The Frontier SAFE `0xCDb4fA6ba08bF1FB7Aa9fDf6002E78EDc431a642` will be able to use the allowance function on `0x464C71f6c2F760DdA6093dCB91C24c39e5d6e18c` to claim the equivalent to 2,493 ETH.
+
+Any residual ETH will be deposited into Aave v3.
 
 ## References
 
