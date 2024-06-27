@@ -215,7 +215,7 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603_Test is ProtocolV3TestBase {
       proposal.GHO_USD_FEED(),
       17592092283387856321514, // Hardcoded as dynamic
       address(AaveV3Ethereum.COLLECTOR),
-      50
+      100
     );
 
     vm.expectEmit(true, true, true, true, MiscEthereum.AAVE_SWAPPER);
@@ -227,7 +227,7 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603_Test is ProtocolV3TestBase {
       proposal.GHO_USD_FEED(),
       68302679124, // Hardcoded as dynamic
       address(AaveV3Ethereum.COLLECTOR),
-      50
+      100
     );
 
     vm.expectEmit(true, true, true, true, MiscEthereum.AAVE_SWAPPER);
@@ -251,7 +251,7 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603_Test is ProtocolV3TestBase {
       proposal.GHO_USD_FEED(),
       137080139851167463608, // Hardcoded as dynamic
       address(AaveV3Ethereum.COLLECTOR),
-      50
+      300
     );
 
     vm.expectEmit(true, true, true, true, MiscEthereum.AAVE_SWAPPER);
