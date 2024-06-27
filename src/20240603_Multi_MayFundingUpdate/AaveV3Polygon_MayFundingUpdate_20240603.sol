@@ -112,10 +112,9 @@ contract AaveV3Polygon_MayFundingUpdate_20240603 is IProposalGenericExecutor {
   }
 
   function _bridge() internal {
-    /// consolidate USDC here
     AaveV3Polygon.COLLECTOR.transfer(
       AaveV3PolygonAssets.USDC_UNDERLYING,
-      address(this),
+      address(BRIDGE),
       IERC20(AaveV3PolygonAssets.USDC_UNDERLYING).balanceOf(address(AaveV3Polygon.COLLECTOR))
     );
 
@@ -128,7 +127,7 @@ contract AaveV3Polygon_MayFundingUpdate_20240603 is IProposalGenericExecutor {
     AaveV3Polygon.POOL.withdraw(
       AaveV3PolygonAssets.USDC_UNDERLYING,
       type(uint256).max,
-      address(this)
+      address(BRIDGE)
     );
 
     AaveV3Polygon.COLLECTOR.transfer(
@@ -140,12 +139,10 @@ contract AaveV3Polygon_MayFundingUpdate_20240603 is IProposalGenericExecutor {
     AaveV2Polygon.POOL.withdraw(
       AaveV2PolygonAssets.USDC_UNDERLYING,
       type(uint256).max,
-      address(this)
+      address(BRIDGE)
     );
 
-    uint256 usdcBalance = IERC20(AaveV2PolygonAssets.USDC_UNDERLYING).balanceOf(address(this));
-
-    IERC20(AaveV2PolygonAssets.USDC_UNDERLYING).transfer(address(BRIDGE), usdcBalance);
+    uint256 usdcBalance = IERC20(AaveV2PolygonAssets.USDC_UNDERLYING).balanceOf(address(BRIDGE));
 
     BRIDGE.bridge(AaveV2PolygonAssets.USDC_UNDERLYING, usdcBalance);
   }

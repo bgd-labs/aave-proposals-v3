@@ -26,7 +26,7 @@ contract AaveV3Optimism_MayFundingUpdate_20240603 is IProposalGenericExecutor {
   function execute() external {
     AaveV3Optimism.COLLECTOR.transfer(
       AaveV3OptimismAssets.USDC_UNDERLYING,
-      address(this),
+      address(BRIDGE),
       IERC20(AaveV3OptimismAssets.USDC_UNDERLYING).balanceOf(address(AaveV3Optimism.COLLECTOR))
     );
 
@@ -39,12 +39,10 @@ contract AaveV3Optimism_MayFundingUpdate_20240603 is IProposalGenericExecutor {
     AaveV3Optimism.POOL.withdraw(
       AaveV3OptimismAssets.USDC_UNDERLYING,
       type(uint256).max,
-      address(this)
+      address(BRIDGE)
     );
 
-    uint256 usdcBalance = IERC20(AaveV3OptimismAssets.USDC_UNDERLYING).balanceOf(address(this));
-
-    IERC20(AaveV3OptimismAssets.USDC_UNDERLYING).transfer(address(BRIDGE), usdcBalance);
+    uint256 usdcBalance = IERC20(AaveV3OptimismAssets.USDC_UNDERLYING).balanceOf(address(BRIDGE));
 
     BRIDGE.bridge(
       AaveV3OptimismAssets.USDC_UNDERLYING,

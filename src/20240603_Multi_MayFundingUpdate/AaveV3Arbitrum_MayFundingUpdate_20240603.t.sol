@@ -31,7 +31,7 @@ contract AaveV3Arbitrum_MayFundingUpdate_20240603_Test is ProtocolV3TestBase {
     vm.createSelectFork(vm.rpcUrl('arbitrum'), 226121182);
     proposal = new AaveV3Arbitrum_MayFundingUpdate_20240603();
     GatewayMock mock = new GatewayMock();
-    vm.etch(proposal.GATEWAY(), address(mock).code);
+    vm.etch(proposal.USDC_GATEWAY(), address(mock).code);
     stdstore.target(address(proposal.BRIDGE())).sig('owner()').checked_write(
       GovernanceV3Arbitrum.EXECUTOR_LVL_1
     );

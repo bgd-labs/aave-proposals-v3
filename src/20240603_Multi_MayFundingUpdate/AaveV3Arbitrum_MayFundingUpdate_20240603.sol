@@ -22,12 +22,12 @@ contract AaveV3Arbitrum_MayFundingUpdate_20240603 is IProposalGenericExecutor {
 
   IAaveArbEthERC20Bridge public constant BRIDGE =
     IAaveArbEthERC20Bridge(0x0335ffa9af5CE05590d6C9A75B645470e07744a9);
-  address public constant GATEWAY = 0x096760F208390250649E3e8763348E783AEF5562;
+  address public constant USDC_GATEWAY = 0x096760F208390250649E3e8763348E783AEF5562;
 
   function execute() external {
     AaveV3Arbitrum.COLLECTOR.transfer(
       AaveV3ArbitrumAssets.USDC_UNDERLYING,
-      address(this),
+      address(BRIDGE),
       IERC20(AaveV3ArbitrumAssets.USDC_UNDERLYING).balanceOf(address(AaveV3Arbitrum.COLLECTOR))
     );
 
@@ -40,17 +40,15 @@ contract AaveV3Arbitrum_MayFundingUpdate_20240603 is IProposalGenericExecutor {
     AaveV3Arbitrum.POOL.withdraw(
       AaveV3ArbitrumAssets.USDC_UNDERLYING,
       type(uint256).max,
-      address(this)
+      address(BRIDGE)
     );
 
-    uint256 usdcBalance = IERC20(AaveV3ArbitrumAssets.USDC_UNDERLYING).balanceOf(address(this));
-
-    IERC20(AaveV3ArbitrumAssets.USDC_UNDERLYING).transfer(address(BRIDGE), usdcBalance);
+    uint256 usdcBalance = IERC20(AaveV3ArbitrumAssets.USDC_UNDERLYING).balanceOf(address(BRIDGE));
 
     BRIDGE.bridge(
       AaveV3ArbitrumAssets.USDC_UNDERLYING,
       AaveV3EthereumAssets.USDC_UNDERLYING,
-      GATEWAY,
+      USDC_GATEWAY,
       usdcBalance
     );
   }

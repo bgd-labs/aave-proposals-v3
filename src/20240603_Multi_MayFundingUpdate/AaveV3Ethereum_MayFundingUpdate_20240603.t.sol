@@ -225,7 +225,7 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603_Test is ProtocolV3TestBase {
       AaveV3EthereumAssets.GHO_UNDERLYING,
       AaveV3EthereumAssets.PYUSD_ORACLE,
       proposal.GHO_USD_FEED(),
-      68311679124, // Hardcoded as dynamic
+      68302679124, // Hardcoded as dynamic
       address(AaveV3Ethereum.COLLECTOR),
       50
     );

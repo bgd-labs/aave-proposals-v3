@@ -103,16 +103,6 @@ contract AaveV3Polygon_MayFundingUpdate_20240603_Test is ProtocolV3TestBase {
   }
 
   function test_bridge() public {
-    uint256 collectorAusdcv2BalanceBefore = IERC20(AaveV2PolygonAssets.USDC_A_TOKEN).balanceOf(
-      COLLECTOR
-    );
-    uint256 collectorAusdcv3BalanceBefore = IERC20(AaveV3PolygonAssets.USDC_A_TOKEN).balanceOf(
-      COLLECTOR
-    );
-    uint256 collectorUsdcBalanceBefore = IERC20(AaveV3PolygonAssets.USDC_UNDERLYING).balanceOf(
-      COLLECTOR
-    );
-
     vm.expectEmit(true, true, true, true, MiscPolygon.AAVE_POL_ETH_BRIDGE);
     emit Bridge(AaveV3PolygonAssets.USDC_UNDERLYING, 146173577275);
 
@@ -126,9 +116,6 @@ contract AaveV3Polygon_MayFundingUpdate_20240603_Test is ProtocolV3TestBase {
     );
     uint256 collectorUsdcBalanceAfter = IERC20(AaveV3PolygonAssets.USDC_UNDERLYING).balanceOf(
       COLLECTOR
-    );
-    uint256 bridgeUsdcBalanceAfter = IERC20(AaveV3PolygonAssets.USDC_UNDERLYING).balanceOf(
-      address(proposal.BRIDGE())
     );
 
     assertApproxEqAbs(collectorAusdcv2BalanceAfter, 1e6, 10e6);
