@@ -46,7 +46,7 @@ contract AaveV3Optimism_MayFundingUpdate_20240603_Test is ProtocolV3TestBase {
     );
 
     vm.expectEmit(address(proposal.BRIDGE()));
-    emit Bridge(AaveV3OptimismAssets.USDC_UNDERLYING, 770765492362);
+    emit Bridge(AaveV3OptimismAssets.USDC_UNDERLYING, 770765807687);
 
     executePayload(vm, address(proposal));
 

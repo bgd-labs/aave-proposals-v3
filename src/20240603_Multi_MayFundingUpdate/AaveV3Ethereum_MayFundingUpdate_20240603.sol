@@ -59,18 +59,16 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603 is IProposalGenericExecutor {
     AaveV3Ethereum.POOL.withdraw(
       AaveV3EthereumAssets.DAI_UNDERLYING,
       type(uint256).max,
-      address(this)
+      address(SWAPPER)
     );
 
     AaveV2Ethereum.POOL.withdraw(
       AaveV2EthereumAssets.DAI_UNDERLYING,
       type(uint256).max,
-      address(this)
+      address(SWAPPER)
     );
 
-    uint256 daiBalance = IERC20(AaveV3EthereumAssets.DAI_UNDERLYING).balanceOf(address(this));
-
-    IERC20(AaveV3EthereumAssets.DAI_UNDERLYING).transfer(address(SWAPPER), daiBalance);
+    uint256 daiBalance = IERC20(AaveV3EthereumAssets.DAI_UNDERLYING).balanceOf(address(SWAPPER));
 
     SWAPPER.swap(
       MILKMAN,
@@ -94,12 +92,10 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603 is IProposalGenericExecutor {
     AaveV3Ethereum.POOL.withdraw(
       AaveV3EthereumAssets.LUSD_UNDERLYING,
       type(uint256).max,
-      address(this)
+      address(SWAPPER)
     );
 
-    uint256 lusdBalance = IERC20(AaveV3EthereumAssets.LUSD_UNDERLYING).balanceOf(address(this));
-
-    IERC20(AaveV3EthereumAssets.LUSD_UNDERLYING).transfer(address(SWAPPER), lusdBalance);
+    uint256 lusdBalance = IERC20(AaveV3EthereumAssets.LUSD_UNDERLYING).balanceOf(address(SWAPPER));
 
     SWAPPER.swap(
       MILKMAN,
@@ -123,12 +119,12 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603 is IProposalGenericExecutor {
     AaveV3Ethereum.POOL.withdraw(
       AaveV3EthereumAssets.PYUSD_UNDERLYING,
       type(uint256).max,
-      address(this)
+      address(SWAPPER)
     );
 
-    uint256 pyusdBalance = IERC20(AaveV3EthereumAssets.PYUSD_UNDERLYING).balanceOf(address(this));
-
-    IERC20(AaveV3EthereumAssets.PYUSD_UNDERLYING).transfer(address(SWAPPER), pyusdBalance);
+    uint256 pyusdBalance = IERC20(AaveV3EthereumAssets.PYUSD_UNDERLYING).balanceOf(
+      address(SWAPPER)
+    );
 
     SWAPPER.swap(
       MILKMAN,
@@ -152,12 +148,10 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603 is IProposalGenericExecutor {
     AaveV2Ethereum.POOL.withdraw(
       AaveV2EthereumAssets.USDC_UNDERLYING,
       type(uint256).max,
-      address(this)
+      address(SWAPPER)
     );
 
-    uint256 usdcBalance = IERC20(AaveV3EthereumAssets.USDC_UNDERLYING).balanceOf(address(this));
-
-    IERC20(AaveV3EthereumAssets.USDC_UNDERLYING).transfer(address(SWAPPER), usdcBalance);
+    uint256 usdcBalance = IERC20(AaveV3EthereumAssets.USDC_UNDERLYING).balanceOf(address(SWAPPER));
 
     SWAPPER.swap(
       MILKMAN,
