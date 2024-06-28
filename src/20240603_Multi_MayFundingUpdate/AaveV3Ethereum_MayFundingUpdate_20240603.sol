@@ -8,6 +8,7 @@ import {AaveV2Ethereum, AaveV2EthereumAssets} from 'aave-address-book/AaveV2Ethe
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {AaveSwapper} from 'aave-helpers/swaps/AaveSwapper.sol';
+import {IAaveStethWithdrawer} from './IAaveStethWithdrawer.sol';
 
 /**
  * @title May Funding Update
@@ -19,6 +20,8 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603 is IProposalGenericExecutor {
   using SafeERC20 for IERC20;
 
   AaveSwapper public constant SWAPPER = AaveSwapper(MiscEthereum.AAVE_SWAPPER);
+  IAaveStethWithdrawer public constant AAVE_STETH_WITHDRAWER =
+    IAaveStethWithdrawer(0xEEF2A83C0e27525b11416a920cB663f9198D27bC);
 
   address public constant GHO_USD_FEED = 0x3f12643D3f6f874d39C2a4c9f2Cd6f2DbAC877FC;
   address public constant MILKMAN = 0x11C76AD590ABDFFCD980afEC9ad951B160F02797;
@@ -135,7 +138,7 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603 is IProposalGenericExecutor {
       GHO_USD_FEED,
       address(AaveV3Ethereum.COLLECTOR),
       pyusdBalance,
-      100
+      300
     );
 
     /// aUSDC
@@ -186,7 +189,7 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603 is IProposalGenericExecutor {
       GHO_USD_FEED,
       address(AaveV3Ethereum.COLLECTOR),
       dpiBalance,
-      300
+      500
     );
 
     /// aEthUSDT
@@ -230,9 +233,11 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603 is IProposalGenericExecutor {
 
     AaveV3Ethereum.COLLECTOR.transfer(
       AaveV3EthereumAssets.wstETH_UNDERLYING,
-      address(SWAPPER),
+      address(AAVE_STETH_WITHDRAWER),
       WSTETH_AMOUNT
     );
+
+    AAVE_STETH_WITHDRAWER.startWithdraw(WSTETH_AMOUNT);
 
     SWAPPER.swap(
       MILKMAN,
@@ -243,18 +248,6 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603 is IProposalGenericExecutor {
       AaveV3EthereumAssets.WETH_ORACLE,
       address(AaveV3Ethereum.COLLECTOR),
       rethBalance,
-      50
-    );
-
-    SWAPPER.swap(
-      MILKMAN,
-      PRICE_CHECKER,
-      AaveV3EthereumAssets.wstETH_UNDERLYING,
-      AaveV3EthereumAssets.WETH_UNDERLYING,
-      AaveV3EthereumAssets.wstETH_ORACLE,
-      AaveV3EthereumAssets.WETH_ORACLE,
-      address(AaveV3Ethereum.COLLECTOR),
-      WSTETH_AMOUNT,
       50
     );
   }

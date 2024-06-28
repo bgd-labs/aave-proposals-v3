@@ -51,10 +51,12 @@ Deposit the following small holdings into there respective v3 deployment:
 
 The following LSTs are to be unstaked for ETH in order to fund the [Frontier initiative](https://snapshot.org/#/aave.eth/proposal/0x17da8b848323ed88b9c3ab391057c45a5737635dfe995ad66a84b389821b0867).
 
-| Unwrap Asset | Quantity |   Methodology   |
-| :----------: | :------: | :-------------: |
-|     rETH     |   All    | Use Rocket Pool |
-|    wstETH    |   350    |    Use Lido     |
+| Unwrap Asset | Quantity | Methodology |
+| :----------: | :------: | :---------: |
+|     rETH     |   All    |   Cowswap   |
+|    wstETH    |   350    |  Use Lido   |
+
+Note that Cowswap solvers will use the underlying rETH redemptions mechanisms if required.
 
 A description of how the ETH is to be deployed has been outlined by ACI [here](https://governance.aave.com/t/arfc-expansion-of-frontier/17749).
 
