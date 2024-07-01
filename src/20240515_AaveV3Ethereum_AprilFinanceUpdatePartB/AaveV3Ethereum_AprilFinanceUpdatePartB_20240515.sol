@@ -8,6 +8,7 @@ import {AaveV2Ethereum, AaveV2EthereumAssets} from 'aave-address-book/AaveV2Ethe
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {AaveSwapper} from 'aave-helpers/swaps/AaveSwapper.sol';
 import {IProposalGenericExecutor} from 'aave-helpers/interfaces/IProposalGenericExecutor.sol';
+import {CollectorUtils, ICollector} from '../CollectorUtils.sol';
 
 /**
  * @title April Finance Update Part B
@@ -16,7 +17,7 @@ import {IProposalGenericExecutor} from 'aave-helpers/interfaces/IProposalGeneric
  * - Discussion: https://governance.aave.com/t/arfc-april-finance-update/17390
  */
 contract AaveV3Ethereum_AprilFinanceUpdatePartB_20240515 is IProposalGenericExecutor {
-  using SafeERC20 for IERC20;
+  using CollectorUtils for ICollector;
 
   AaveSwapper public constant SWAPPER = AaveSwapper(MiscEthereum.AAVE_SWAPPER);
 
@@ -30,22 +31,18 @@ contract AaveV3Ethereum_AprilFinanceUpdatePartB_20240515 is IProposalGenericExec
 
   function execute() external {
     // Swap DAI
-    AaveV3Ethereum.COLLECTOR.transfer(
-      AaveV3EthereumAssets.DAI_UNDERLYING,
-      address(SWAPPER),
-      IERC20(AaveV3EthereumAssets.DAI_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR))
-    );
-
-    SWAPPER.swap(
-      MILKMAN,
-      PRICE_CHECKER,
-      AaveV3EthereumAssets.DAI_UNDERLYING,
-      AaveV3EthereumAssets.GHO_UNDERLYING,
-      AaveV3EthereumAssets.DAI_ORACLE,
-      GHO_USD_FEED,
-      address(AaveV3Ethereum.COLLECTOR),
-      IERC20(AaveV3EthereumAssets.DAI_UNDERLYING).balanceOf(address(SWAPPER)),
-      150
+    AaveV3Ethereum.COLLECTOR.swap(
+      SWAPPER,
+      CollectorUtils.SwapInput({
+        milkman: MILKMAN,
+        priceChecker: PRICE_CHECKER,
+        fromUnderlying: AaveV3EthereumAssets.DAI_UNDERLYING,
+        toUnderlying: AaveV3EthereumAssets.GHO_UNDERLYING,
+        fromUnderlyingPriceFeed: AaveV3EthereumAssets.DAI_ORACLE,
+        toUnderlyingPriceFeed: GHO_USD_FEED,
+        amount: type(uint256).max,
+        slippage: 1_50
+      })
     );
 
     // ALC Allowances
@@ -57,55 +54,25 @@ contract AaveV3Ethereum_AprilFinanceUpdatePartB_20240515 is IProposalGenericExec
     AaveV3Ethereum.COLLECTOR.approve(AaveV3EthereumAssets.USDT_A_TOKEN, ALC_SAFE, ALC_ALLOWANCES);
 
     // Deposit into V3: USDC
-    AaveV3Ethereum.COLLECTOR.transfer(
+    AaveV3Ethereum.COLLECTOR.depositToV3(
+      AaveV3Ethereum.POOL,
       AaveV3EthereumAssets.USDC_UNDERLYING,
-      address(this),
       IERC20(AaveV3EthereumAssets.USDC_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR)) -
         ALC_ALLOWANCES
     );
-    IERC20(AaveV3EthereumAssets.USDC_UNDERLYING).forceApprove(
-      address(AaveV3Ethereum.POOL),
-      IERC20(AaveV3EthereumAssets.USDC_UNDERLYING).balanceOf(address(this))
-    );
-    AaveV3Ethereum.POOL.deposit(
-      AaveV3EthereumAssets.USDC_UNDERLYING,
-      IERC20(AaveV3EthereumAssets.USDC_UNDERLYING).balanceOf(address(this)),
-      address(AaveV3Ethereum.COLLECTOR),
-      0
-    );
 
     // Deposit into V3: wETH
-    AaveV3Ethereum.COLLECTOR.transfer(
+    AaveV3Ethereum.COLLECTOR.depositToV3(
+      AaveV3Ethereum.POOL,
       AaveV3EthereumAssets.WETH_UNDERLYING,
-      address(this),
-      IERC20(AaveV3EthereumAssets.WETH_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR))
-    );
-    IERC20(AaveV3EthereumAssets.WETH_UNDERLYING).forceApprove(
-      address(AaveV3Ethereum.POOL),
-      IERC20(AaveV3EthereumAssets.WETH_UNDERLYING).balanceOf(address(this))
-    );
-    AaveV3Ethereum.POOL.deposit(
-      AaveV3EthereumAssets.WETH_UNDERLYING,
-      IERC20(AaveV3EthereumAssets.WETH_UNDERLYING).balanceOf(address(this)),
-      address(AaveV3Ethereum.COLLECTOR),
-      0
+      type(uint256).max
     );
 
     // Deposit into V3: wBTC
-    AaveV3Ethereum.COLLECTOR.transfer(
+    AaveV3Ethereum.COLLECTOR.depositToV3(
+      AaveV3Ethereum.POOL,
       AaveV3EthereumAssets.WBTC_UNDERLYING,
-      address(this),
-      IERC20(AaveV3EthereumAssets.WBTC_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR))
-    );
-    IERC20(AaveV3EthereumAssets.WBTC_UNDERLYING).forceApprove(
-      address(AaveV3Ethereum.POOL),
-      IERC20(AaveV3EthereumAssets.WBTC_UNDERLYING).balanceOf(address(this))
-    );
-    AaveV3Ethereum.POOL.deposit(
-      AaveV3EthereumAssets.WBTC_UNDERLYING,
-      IERC20(AaveV3EthereumAssets.WBTC_UNDERLYING).balanceOf(address(this)),
-      address(AaveV3Ethereum.COLLECTOR),
-      0
+      type(uint256).max
     );
   }
 }
