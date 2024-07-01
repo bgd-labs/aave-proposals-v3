@@ -7,8 +7,8 @@ import {AaveV2Ethereum, AaveV2EthereumAssets, ILendingPoolConfigurator} from 'aa
 /**
  * @title Reserve Factor Upgrades
  * @author karpatkey_TokenLogic
- * - Snapshot: https://snapshot.org/#/aave.eth/proposal/0x770ff4e02634c77aaa09952345551168920f7878b32ab03fcef92763a5fb70ab
- * - Discussion: https://governance.aave.com/t/arfc-avalanche-v2-reserve-factor-adjustment/17040/4
+ * - Snapshot: https://snapshot.org/#/aave.eth/proposal/0x26a03c08359c340f63b78b0c3e96d37aa0adeda65814643b0886d4719048ea7e
+ * - Discussion: https://governance.aave.com/t/arfc-ethereum-v2-reserve-factor-adjustment/16764/13?u=luigy
  */
 contract AaveV2Ethereum_ReserveFactorUpgrades_20240528 is IProposalGenericExecutor {
   ILendingPoolConfigurator public constant POOL_CONFIGURATOR =

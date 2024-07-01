@@ -19,7 +19,7 @@ Presently, Bridged USDC (USDC.e & USDbC) competes with native USDC on the listed
 
 Upon implementing this proposal, a subsequent AIP will be submitted that increases the RF by 5.00% up to a maximum of 99.99% every 2 weeks, subject to market conditions. The RF amendments will be incorporated into the fortnightly RF and Borrow Rate adjustment AIP to reduce voting overhead.
 
-This AIP will also reduce deposit yield for assets on Ethereum & Avalanche V2 by increasing the RF. With this upgrade being passed, users will be further encouraged to migrate from Ethereum V2 to V3.
+This AIP will also reduce deposit yield for assets on Ethereum, Avalanche, and Polygon V2 deployments by increasing the RF. With this upgrade being passed, users will be further encouraged to migrate from Ethereum V2 to V3.
 
 Increasing the RF routes a larger portion of the interest paid by users to Aave DAO's Treasury. User's funds are not at risk of liquidation and the borrowing rate remains unchanged.
 
