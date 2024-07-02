@@ -26,8 +26,8 @@ The asset used for the transfers is GHO.
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240702_AaveV3Ethereum_RequestForBountyPayoutJune2024/AaveV3Ethereum_RequestForBountyPayoutJune2024_20240702.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240702_AaveV3Ethereum_RequestForBountyPayoutJune2024/AaveV3Ethereum_RequestForBountyPayoutJune2024_20240702.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/56155dcbb2ed31475502af7f4f39d8e64c5f6571/src/20240702_AaveV3Ethereum_RequestForBountyPayoutJune2024/AaveV3Ethereum_RequestForBountyPayoutJune2024_20240702.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/56155dcbb2ed31475502af7f4f39d8e64c5f6571/src/20240702_AaveV3Ethereum_RequestForBountyPayoutJune2024/AaveV3Ethereum_RequestForBountyPayoutJune2024_20240702.t.sol)
 - [Discussion](https://governance.aave.com/t/bgd-request-for-bounty-payout-june-2024/18119)
 
 ## Copyright
