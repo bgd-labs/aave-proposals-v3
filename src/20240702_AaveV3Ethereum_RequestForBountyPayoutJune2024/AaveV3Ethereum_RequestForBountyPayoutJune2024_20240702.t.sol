@@ -16,7 +16,7 @@ import {AaveV3Ethereum_RequestForBountyPayoutJune2024_20240702} from './AaveV3Et
 contract AaveV3Ethereum_RequestForBountyPayoutJune2024_20240702_Test is ProtocolV3TestBase {
   AaveV3Ethereum_RequestForBountyPayoutJune2024_20240702 internal proposal;
 
-  uint256 TOTAL_AMOUNT = 1_100e6;
+  uint256 TOTAL_AMOUNT = 1_100e18;
 
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('mainnet'), 20217051);

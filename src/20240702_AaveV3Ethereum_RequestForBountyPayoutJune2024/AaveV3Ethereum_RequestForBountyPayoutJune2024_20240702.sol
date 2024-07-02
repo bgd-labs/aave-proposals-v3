@@ -33,12 +33,12 @@ contract AaveV3Ethereum_RequestForBountyPayoutJune2024_20240702 is IProposalGene
       Bounty({
         asset: AaveV3EthereumAssets.GHO_UNDERLYING,
         recipient: 0xeD656e42612177D9c747A16604E07D5C5B031d30,
-        amount: 1_000e6
+        amount: 1_000e18
       }),
       Bounty({
         asset: AaveV3EthereumAssets.GHO_UNDERLYING,
         recipient: 0x7119f398b6C06095c6E8964C1f58e7C1BAa79E18,
-        amount: 100e6
+        amount: 100e18
       })
     ];
   }
