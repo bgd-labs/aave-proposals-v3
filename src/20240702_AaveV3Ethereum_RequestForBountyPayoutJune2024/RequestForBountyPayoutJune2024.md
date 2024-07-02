@@ -18,9 +18,9 @@ This proposal covers that bounty, cleaning up the pipeline until today July 1st 
 
 This proposal, following an approach similar to Direct-to-AIP, will go directly on-chain and will release the following funds to white-hat addresses and the Immunefi platform:
 
-$1’000 to 0xeD656e42612177D9c747A16604E07D5C5B031d30.
+- $1’000 to 0xeD656e42612177D9c747A16604E07D5C5B031d30.
 
-$100 to 0x7119f398b6C06095c6E8964C1f58e7C1BAa79E18 (immunefi.eth). This is the fee corresponding to the 10% of the previous bounty.
+- $100 to 0x7119f398b6C06095c6E8964C1f58e7C1BAa79E18 (immunefi.eth). This is the fee corresponding to the 10% of the previous bounty.
 
 The asset used for the transfers is GHO.
 
