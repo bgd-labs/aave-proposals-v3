@@ -24,6 +24,17 @@ contract AaveV3Ethereum_RequestForBountyPayoutJune2024_20240702_Test is Protocol
   }
 
   /**
+   * @dev executes the generic test suite including e2e and config snapshots
+   */
+  function test_defaultProposalExecution() public {
+    defaultTest(
+      'AaveV3Ethereum_RequestForBountyPayoutJune2024_20240702',
+      AaveV3Ethereum.POOL,
+      address(proposal)
+    );
+  }
+
+  /**
    * @dev Checking:
    * - Balances post-transfer are correct
    * - Collector has enough funds
