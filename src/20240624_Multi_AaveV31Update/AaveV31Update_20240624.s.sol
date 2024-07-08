@@ -6,16 +6,16 @@ import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {EthereumScript, PolygonScript, AvalancheScript, OptimismScript, ArbitrumScript, MetisScript, BaseScript, GnosisScript, ScrollScript, BNBScript} from 'aave-helpers/ScriptUtils.sol';
 
 library Payloads {
-  address public constant AaveV3Ethereum = 0x4D9BDcA8978b7b6EBa62815B8529Aa8a10fac4a4;
-  address public constant AaveV3Polygon = 0xC563b2c1600CFf529A0C1241DAa3364Cb27eDE0F;
-  address public constant AaveV3Avalanche = 0x7C521cE62971AE63aae01352bA7Dc2EC10d06D20;
-  address public constant AaveV3Optimism = 0x6134F654EddA20eaCCe3Ac49953EE74A8fF5c735;
-  address public constant AaveV3Arbitrum = 0x6134F654EddA20eaCCe3Ac49953EE74A8fF5c735;
-  address public constant AaveV3Metis = address(0);
-  address public constant AaveV3Base = 0x7a43bc8f885A12565610fa619e8d82FFDebc24a7;
-  address public constant AaveV3Gnosis = 0x50dEC67723575bC037E9957a4d582CB7616eB01F;
-  address public constant AaveV3Scroll = 0xF826087F0511C45aD6A9f4b5245bcb25B524cd43;
-  address public constant AaveV3BNB = 0x0abBFea3e6921B405Cb205648bff1236bbfA316A;
+  address public constant AaveV3Ethereum = 0x3bf13188225532Dbd685E2c61b78764F97082D7C;
+  address public constant AaveV3Polygon = 0xA90ea303522c0df5028687aF2aD6D9231325Abe1;
+  address public constant AaveV3Avalanche = 0x790B67496cB43b25527451Ff8f954e9198EC9bAb;
+  address public constant AaveV3Optimism = 0x9F6C2BC9464213b3C71B2b19A80fc3d56a48342F;
+  address public constant AaveV3Arbitrum = 0x9F6C2BC9464213b3C71B2b19A80fc3d56a48342F;
+  address public constant AaveV3Metis = 0x9720ce2Cd5742197D6793723B256282a8920Ed86;
+  address public constant AaveV3Base = 0x0Ec40C6dA8C7fc6E39BBCe8c6f24c894389a69A7;
+  address public constant AaveV3Gnosis = 0xb7F0202604eF32AaAbdD79053a8777e928EdF70E;
+  address public constant AaveV3Scroll = 0xa91a89a230568A86FC3E72610baeB0D917453790;
+  address public constant AaveV3BNB = 0xCa6dFc503f7024CB599Be40628232D74393C5d70;
 }
 
 /**
