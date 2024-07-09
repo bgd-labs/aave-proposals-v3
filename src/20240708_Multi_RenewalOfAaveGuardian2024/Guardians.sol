@@ -1,0 +1,13 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+library Guardians {
+  // https://etherscan.io/address/0x2CFe3ec4d5a6811f4B8067F0DE7e47DfA938Aa30
+  address public constant ETHEREUM_GUARDIAN = 0x2CFe3ec4d5a6811f4B8067F0DE7e47DfA938Aa30;
+
+  // https://snowtrace.io/address/0x56C1a4b54921DEA9A344967a8693C7E661D72968
+  address public constant AVALANCHE_GUARDIAN = 0x56C1a4b54921DEA9A344967a8693C7E661D72968;
+
+  // https://polygonscan.com/address/0xCb45E82419baeBCC9bA8b1e5c7858e48A3B26Ea6
+  address public constant POLYGON_GUARDIAN = 0xCb45E82419baeBCC9bA8b1e5c7858e48A3B26Ea6;
+}
