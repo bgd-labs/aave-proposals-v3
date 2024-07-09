@@ -40,7 +40,8 @@ contract AaveV2Avalanche_RenewalOfAaveGuardian2024_20240708_Test is RenewalV2Bas
         proposal: address(proposal),
         oldGuardian: MiscAvalanche.PROTOCOL_GUARDIAN,
         newGuardian: proposal.GUARDIAN(),
-        addressesProvider: AaveV2Avalanche.POOL_ADDRESSES_PROVIDER
+        addressesProvider: AaveV2Avalanche.POOL_ADDRESSES_PROVIDER,
+        poolConfigurator: AaveV2Avalanche.POOL_CONFIGURATOR
       })
     );
   }

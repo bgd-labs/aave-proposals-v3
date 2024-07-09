@@ -39,7 +39,8 @@ contract AaveV2Polygon_RenewalOfAaveGuardian2024_20240708_Test is RenewalV2BaseT
         proposal: address(proposal),
         oldGuardian: MiscPolygon.PROTOCOL_GUARDIAN,
         newGuardian: proposal.GUARDIAN(),
-        addressesProvider: AaveV2Polygon.POOL_ADDRESSES_PROVIDER
+        addressesProvider: AaveV2Polygon.POOL_ADDRESSES_PROVIDER,
+        poolConfigurator: AaveV2Polygon.POOL_CONFIGURATOR
       })
     );
   }

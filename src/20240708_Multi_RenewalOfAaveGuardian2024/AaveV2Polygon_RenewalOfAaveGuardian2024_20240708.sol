@@ -3,7 +3,7 @@ pragma solidity ^0.8.0;
 
 import {AaveV2Polygon} from 'aave-address-book/AaveV2Polygon.sol';
 import {RenewalV2Params, RenewalV2BasePayload} from './RenewalV2BasePayload.sol';
-import {Guardians} from './Guardians.sol';
+import {ProtocolGuardians} from './Guardians.sol';
 
 /**
  * @title Renewal of Aave Guardian 2024
@@ -16,7 +16,7 @@ contract AaveV2Polygon_RenewalOfAaveGuardian2024_20240708 is RenewalV2BasePayloa
     RenewalV2BasePayload(
       RenewalV2Params({
         addressesProvider: AaveV2Polygon.POOL_ADDRESSES_PROVIDER,
-        guardian: Guardians.POLYGON_GUARDIAN
+        guardian: ProtocolGuardians.POLYGON_GUARDIAN
       })
     )
   {}

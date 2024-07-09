@@ -28,7 +28,8 @@ contract AaveV2EthereumAMM_RenewalOfAaveGuardian2024_20240708_Test is RenewalV2B
         proposal: address(proposal),
         oldGuardian: MiscEthereum.PROTOCOL_GUARDIAN,
         newGuardian: proposal.GUARDIAN(),
-        addressesProvider: AaveV2EthereumAMM.POOL_ADDRESSES_PROVIDER
+        addressesProvider: AaveV2EthereumAMM.POOL_ADDRESSES_PROVIDER,
+        poolConfigurator: AaveV2EthereumAMM.POOL_CONFIGURATOR
       })
     );
   }
