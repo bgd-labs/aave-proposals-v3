@@ -3,6 +3,7 @@ pragma solidity ^0.8.0;
 
 import {AaveV3Arbitrum} from 'aave-address-book/AaveV3Arbitrum.sol';
 import {MiscArbitrum} from 'aave-address-book/MiscArbitrum.sol';
+import {GovernanceV3Arbitrum} from 'aave-address-book/GovernanceV3Arbitrum.sol';
 
 import 'forge-std/Test.sol';
 import {AaveV3Arbitrum_RenewalOfAaveGuardian2024_20240708} from './AaveV3Arbitrum_RenewalOfAaveGuardian2024_20240708.sol';
@@ -40,7 +41,9 @@ contract AaveV3Arbitrum_RenewalOfAaveGuardian2024_20240708_Test is RenewalV3Base
         oldGuardian: MiscArbitrum.PROTOCOL_GUARDIAN,
         newGuardian: proposal.NEW_GUARDIAN(),
         aclManager: AaveV3Arbitrum.ACL_MANAGER,
-        poolConfigurator: AaveV3Arbitrum.POOL_CONFIGURATOR
+        poolConfigurator: AaveV3Arbitrum.POOL_CONFIGURATOR,
+        governance: address(0),
+        payloadsController: address(GovernanceV3Arbitrum.PAYLOADS_CONTROLLER)
       })
     );
   }

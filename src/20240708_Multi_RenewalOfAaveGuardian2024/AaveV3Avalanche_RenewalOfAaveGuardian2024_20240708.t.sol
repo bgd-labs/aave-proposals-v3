@@ -3,6 +3,7 @@ pragma solidity ^0.8.0;
 
 import {AaveV3Avalanche} from 'aave-address-book/AaveV3Avalanche.sol';
 import {MiscAvalanche} from 'aave-address-book/MiscAvalanche.sol';
+import {GovernanceV3Avalanche} from 'aave-address-book/GovernanceV3Avalanche.sol';
 
 import 'forge-std/Test.sol';
 import {AaveV3Avalanche_RenewalOfAaveGuardian2024_20240708} from './AaveV3Avalanche_RenewalOfAaveGuardian2024_20240708.sol';
@@ -40,7 +41,9 @@ contract AaveV3Avalanche_RenewalOfAaveGuardian2024_20240708_Test is RenewalV3Bas
         oldGuardian: MiscAvalanche.PROTOCOL_GUARDIAN,
         newGuardian: proposal.NEW_GUARDIAN(),
         aclManager: AaveV3Avalanche.ACL_MANAGER,
-        poolConfigurator: AaveV3Avalanche.POOL_CONFIGURATOR
+        poolConfigurator: AaveV3Avalanche.POOL_CONFIGURATOR,
+        governance: address(0),
+        payloadsController: address(GovernanceV3Avalanche.PAYLOADS_CONTROLLER)
       })
     );
   }

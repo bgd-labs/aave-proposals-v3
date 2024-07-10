@@ -17,6 +17,8 @@ This proposal aims to start a renewal of the aave guardian, allowing for the rem
 
 ## Specification
 
+### Protocol Guardian
+
 This Guardian is the holder of EMERGENCY_ADMIN role in Aave v3, together with similar role in v2 and surrounding systems.
 Given that speed is mandatory in an emergency situation, the members recommended are entities really active within the Aave DAO, for example service providers and delegates.
 
@@ -51,6 +53,31 @@ List of created multi-sigs:
 
 - for Aave v2 pools `POOL_ADDRESS_PROVIDER.setEmergencyAdmin()` is called.
 - for Aave v3 `ACL_MANAGER.addEmergencyAdmin()` is called to add a new guardian and then `ACL_MANAGER.removeEmergencyAdmin()` to remove the existing one.
+
+### Governance Guardian
+
+This other Guardian has an even less frequent role: cancel governance proposal whenever detected as malicious or containing mistakes (detected on the on-chain verification stage by Certora).
+The rationale of being composed by different members than the Protocol emergency Guardian is that cancellation permissions whenever possible should be held by a different party than protocol-emergency ones. In addition, speed is not as critical as the Protocol emergency Guardian, given that Aave proposals happen during a period of 5 days, and problems can always be detected with enough time-margin.
+
+Its multi-sig configuration will be a 5-of-9.
+
+Members proposed (1 representative of each):
+
+- Fernando (Balancer).
+- Mounir (Paraswap)
+- Gavi Galloway (Standard Crypto)
+- Meltem Demirors (Coinshares)
+- Seb (Zapper)
+- Roger (Chainlink community)
+- Mariano Conti (DeFi OG)
+- Marin (Lido)
+- Certora (security service provider). In this governance given their role reviewing governance proposals.
+
+List of created multi-sigs:
+TBD
+
+- on all the networks `PAYLOADS_CONTROLLER.updateGuardian()` is called to update the guardian for payloads controller.
+- only on Ethereum `GOVERNANCE.updateGuardian()` is called update the guardian for the governance core.
 
 ## References
 

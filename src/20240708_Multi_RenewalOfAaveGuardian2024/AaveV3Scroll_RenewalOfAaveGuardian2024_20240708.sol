@@ -3,6 +3,7 @@ pragma solidity ^0.8.0;
 
 import {AaveV3Scroll} from 'aave-address-book/AaveV3Scroll.sol';
 import {MiscScroll} from 'aave-address-book/MiscScroll.sol';
+import {GovernanceV3Scroll} from 'aave-address-book/GovernanceV3Scroll.sol';
 import {RenewalV3Params, RenewalV3BasePayload} from './RenewalV3BasePayload.sol';
 import {ProtocolGuardians} from './Guardians.sol';
 /**
@@ -16,6 +17,8 @@ contract AaveV3Scroll_RenewalOfAaveGuardian2024_20240708 is RenewalV3BasePayload
     RenewalV3BasePayload(
       RenewalV3Params({
         aclManager: AaveV3Scroll.ACL_MANAGER,
+        governance: address(0),
+        payloadsController: address(GovernanceV3Scroll.PAYLOADS_CONTROLLER),
         newGuardian: ProtocolGuardians.SCROLL_GUARDIAN,
         oldGuardian: MiscScroll.PROTOCOL_GUARDIAN
       })

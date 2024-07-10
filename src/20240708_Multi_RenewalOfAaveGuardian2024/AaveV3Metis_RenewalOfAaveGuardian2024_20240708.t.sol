@@ -3,6 +3,7 @@ pragma solidity ^0.8.0;
 
 import {AaveV3Metis} from 'aave-address-book/AaveV3Metis.sol';
 import {MiscMetis} from 'aave-address-book/MiscMetis.sol';
+import {GovernanceV3Metis} from 'aave-address-book/GovernanceV3Metis.sol';
 
 import 'forge-std/Test.sol';
 import {AaveV3Metis_RenewalOfAaveGuardian2024_20240708} from './AaveV3Metis_RenewalOfAaveGuardian2024_20240708.sol';
@@ -41,7 +42,9 @@ contract AaveV3Metis_RenewalOfAaveGuardian2024_20240708_Test is RenewalV3BaseTes
         oldGuardian: MiscMetis.PROTOCOL_GUARDIAN,
         newGuardian: proposal.NEW_GUARDIAN(),
         aclManager: AaveV3Metis.ACL_MANAGER,
-        poolConfigurator: AaveV3Metis.POOL_CONFIGURATOR
+        poolConfigurator: AaveV3Metis.POOL_CONFIGURATOR,
+        governance: address(0),
+        payloadsController: address(GovernanceV3Metis.PAYLOADS_CONTROLLER)
       })
     );
   }

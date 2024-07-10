@@ -3,6 +3,7 @@ pragma solidity ^0.8.0;
 
 import {AaveV3Optimism} from 'aave-address-book/AaveV3Optimism.sol';
 import {MiscOptimism} from 'aave-address-book/MiscOptimism.sol';
+import {GovernanceV3Optimism} from 'aave-address-book/GovernanceV3Optimism.sol';
 
 import 'forge-std/Test.sol';
 import {AaveV3Optimism_RenewalOfAaveGuardian2024_20240708} from './AaveV3Optimism_RenewalOfAaveGuardian2024_20240708.sol';
@@ -41,7 +42,9 @@ contract AaveV3Optimism_RenewalOfAaveGuardian2024_20240708_Test is RenewalV3Base
         oldGuardian: MiscOptimism.PROTOCOL_GUARDIAN,
         newGuardian: proposal.NEW_GUARDIAN(),
         aclManager: AaveV3Optimism.ACL_MANAGER,
-        poolConfigurator: AaveV3Optimism.POOL_CONFIGURATOR
+        poolConfigurator: AaveV3Optimism.POOL_CONFIGURATOR,
+        governance: address(0),
+        payloadsController: address(GovernanceV3Optimism.PAYLOADS_CONTROLLER)
       })
     );
   }

@@ -3,6 +3,7 @@ pragma solidity ^0.8.0;
 
 import {AaveV3Avalanche} from 'aave-address-book/AaveV3Avalanche.sol';
 import {MiscAvalanche} from 'aave-address-book/MiscAvalanche.sol';
+import {GovernanceV3Avalanche} from 'aave-address-book/GovernanceV3Avalanche.sol';
 import {RenewalV3Params, RenewalV3BasePayload} from './RenewalV3BasePayload.sol';
 import {ProtocolGuardians} from './Guardians.sol';
 /**
@@ -16,6 +17,8 @@ contract AaveV3Avalanche_RenewalOfAaveGuardian2024_20240708 is RenewalV3BasePayl
     RenewalV3BasePayload(
       RenewalV3Params({
         aclManager: AaveV3Avalanche.ACL_MANAGER,
+        governance: address(0),
+        payloadsController: address(GovernanceV3Avalanche.PAYLOADS_CONTROLLER),
         newGuardian: ProtocolGuardians.AVALANCHE_GUARDIAN,
         oldGuardian: MiscAvalanche.PROTOCOL_GUARDIAN
       })

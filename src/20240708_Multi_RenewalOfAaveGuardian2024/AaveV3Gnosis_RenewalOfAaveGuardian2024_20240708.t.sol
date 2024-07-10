@@ -3,6 +3,7 @@ pragma solidity ^0.8.0;
 
 import {AaveV3Gnosis} from 'aave-address-book/AaveV3Gnosis.sol';
 import {MiscGnosis} from 'aave-address-book/MiscGnosis.sol';
+import {GovernanceV3Gnosis} from 'aave-address-book/GovernanceV3Gnosis.sol';
 
 import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/ProtocolV3TestBase.sol';
@@ -42,7 +43,9 @@ contract AaveV3Gnosis_RenewalOfAaveGuardian2024_20240708_Test is RenewalV3BaseTe
         oldGuardian: MiscGnosis.PROTOCOL_GUARDIAN,
         newGuardian: proposal.NEW_GUARDIAN(),
         aclManager: AaveV3Gnosis.ACL_MANAGER,
-        poolConfigurator: AaveV3Gnosis.POOL_CONFIGURATOR
+        poolConfigurator: AaveV3Gnosis.POOL_CONFIGURATOR,
+        governance: address(0),
+        payloadsController: address(GovernanceV3Gnosis.PAYLOADS_CONTROLLER)
       })
     );
   }

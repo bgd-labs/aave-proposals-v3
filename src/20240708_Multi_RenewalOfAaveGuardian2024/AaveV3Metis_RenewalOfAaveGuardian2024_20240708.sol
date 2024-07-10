@@ -3,6 +3,8 @@ pragma solidity ^0.8.0;
 
 import {AaveV3Metis} from 'aave-address-book/AaveV3Metis.sol';
 import {MiscMetis} from 'aave-address-book/MiscMetis.sol';
+import {GovernanceV3Metis} from 'aave-address-book/GovernanceV3Metis.sol';
+
 import {RenewalV3Params, RenewalV3BasePayload} from './RenewalV3BasePayload.sol';
 import {ProtocolGuardians} from './Guardians.sol';
 /**
@@ -16,6 +18,8 @@ contract AaveV3Metis_RenewalOfAaveGuardian2024_20240708 is RenewalV3BasePayload 
     RenewalV3BasePayload(
       RenewalV3Params({
         aclManager: AaveV3Metis.ACL_MANAGER,
+        governance: address(0),
+        payloadsController: address(GovernanceV3Metis.PAYLOADS_CONTROLLER),
         newGuardian: ProtocolGuardians.METIS_GUARDIAN,
         oldGuardian: MiscMetis.PROTOCOL_GUARDIAN
       })

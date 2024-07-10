@@ -5,29 +5,57 @@ import {IACLManager, IPoolConfigurator} from 'aave-address-book/AaveV3.sol';
 
 import 'forge-std/Test.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/ProtocolV3TestBase.sol';
+import {IOwnableWithGuardian} from './interfaces/IOwnableWithGuardian.sol';
 
 struct GuardianUpdateTestParams {
   address proposal;
   address oldGuardian;
   address newGuardian;
   IACLManager aclManager;
+  address governance;
+  address payloadsController;
   IPoolConfigurator poolConfigurator;
 }
 
 contract RenewalV3BaseTest is ProtocolV3TestBase {
+  event GuardianUpdated(address oldGuardian, address newGuardian);
+
   function _checkGuardianUpdate(GuardianUpdateTestParams memory params) internal {
-    // check old guardian
+    // check old protocol guardian
     assertTrue(params.aclManager.isEmergencyAdmin(params.oldGuardian));
+
+    // check old governance guardian
+    if (params.governance != address(0)) {
+      assertEq(IOwnableWithGuardian(params.governance).guardian(), params.oldGuardian);
+    }
+
+    assertEq(IOwnableWithGuardian(params.payloadsController).guardian(), params.oldGuardian);
+
+    // check governance gurdian update events
+    if (params.governance != address(0)) {
+      vm.expectEmit(true, true, false, false);
+      emit GuardianUpdated(params.oldGuardian, params.newGuardian);
+    }
+
+    vm.expectEmit(true, true, false, false);
+    emit GuardianUpdated(params.oldGuardian, params.newGuardian);
 
     // execute
     executePayload(vm, params.proposal);
 
-    // check guardian upate
+    // check protocol guardian upate
     assertFalse(params.aclManager.isEmergencyAdmin(params.oldGuardian));
     assertTrue(params.aclManager.isEmergencyAdmin(params.newGuardian));
 
     // check action
-    vm.prank(params.newGuardian);
+    vm.startPrank(params.newGuardian);
     params.poolConfigurator.setPoolPause(true);
+    vm.stopPrank();
+
+    // check governance guardian update
+    if (params.governance != address(0)) {
+      assertEq(IOwnableWithGuardian(params.governance).guardian(), params.newGuardian);
+    }
+    assertEq(IOwnableWithGuardian(params.payloadsController).guardian(), params.newGuardian);
   }
 }
