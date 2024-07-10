@@ -8,6 +8,8 @@ import {AaveV2Ethereum, AaveV2EthereumAssets} from 'aave-address-book/AaveV2Ethe
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {AaveSwapper} from 'aave-helpers/swaps/AaveSwapper.sol';
+// TODO change to aave-helpers
+//import {IAaveStethWithdrawer} from 'aave-helpers/asset-manager/IAaveStethWithdrawer.sol';
 import {IAaveStethWithdrawer} from './IAaveStethWithdrawer.sol';
 
 /**
@@ -21,7 +23,7 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603 is IProposalGenericExecutor {
 
   AaveSwapper public constant SWAPPER = AaveSwapper(MiscEthereum.AAVE_SWAPPER);
   IAaveStethWithdrawer public constant AAVE_STETH_WITHDRAWER =
-    IAaveStethWithdrawer(0xEEF2A83C0e27525b11416a920cB663f9198D27bC);
+    IAaveStethWithdrawer(0xb5e7b8BE5ab788044E70FE709E5BD24602e8C35d); // TODO
 
   address public constant GHO_USD_FEED = 0x3f12643D3f6f874d39C2a4c9f2Cd6f2DbAC877FC;
   address public constant MILKMAN = 0x11C76AD590ABDFFCD980afEC9ad951B160F02797;
@@ -237,7 +239,10 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603 is IProposalGenericExecutor {
       WSTETH_AMOUNT
     );
 
-    AAVE_STETH_WITHDRAWER.startWithdraw(WSTETH_AMOUNT);
+    uint256[] memory amounts = new uint256[](1);
+    amounts[0] = WSTETH_AMOUNT;
+
+    AAVE_STETH_WITHDRAWER.startWithdraw(amounts);
 
     SWAPPER.swap(
       MILKMAN,
