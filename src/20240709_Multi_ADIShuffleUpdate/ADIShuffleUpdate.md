@@ -45,6 +45,34 @@ By doing this:
 
 This proposal upgrades the a.DI on every supported network with the new implementation containing the Shuffle mechanism.
 
+The upgrade adds a new `_optimalBandwidthByChain` mapping on CrossChainForwarder that will store the optimal bandwidth for
+every supported chain. This will be used to determine how many adapters will be used to pass a message to a destination network
+
+The OptimalBandwidth used to update a.DI will be:
+
+| Origin Network | Ethereum | Polygon | Avalanche | Arbitrum | Optimism | Base | Gnosis | Metis | Binance | Scroll |
+| -------------- | -------- | ------- | --------- | -------- | -------- | ---- | ------ | ----- | ------- | ------ |
+| Ethereum       | -        | 4       | 2         | 1        | 1        | 1    | 2      | 1     | 2       | 1      |
+| Polygon        | 3        | -       | -         | -        | -        | -    | -      | -     | -       | -      |
+| Avalanche      | 2        | -       | -         | -        | -        | -    | -      | -     | -       | -      |
+| Arbitrum       | -        | -       | -         | -        | -        | -    | -      | -     | -       | -      |
+| Optimism       | -        | -       | -         | -        | -        | -    | -      | -     | -       | -      |
+| Base           | -        | -       | -         | -        | -        | -    | -      | -     | -       | -      |
+| Gnosis         | -        | -       | -         | -        | -        | -    | -      | -     | -       | -      |
+| Metis          | -        | -       | -         | -        | -        | -    | -      | -     | -       | -      |
+| Binance        | -        | -       | -         | -        | -        | -    | -      | -     | -       | -      |
+| Scroll         | -        | -       | -         | -        | -        | -    | -      | -     | -       | -      |
+
+The method used to initialize a.DI with the new bandwidth configurations is:
+
+```solidity
+function initializeRevision(
+  OptimalBandwidthByChain[] memory optimalBandwidthByChain
+) external reinitializer(3) {
+  _updateOptimalBandwidthByChain(optimalBandwidthByChain);
+}
+```
+
 ## References
 
 - Implementation: [AaveV3Ethereum](), [AaveV3Polygon](), [AaveV3Avalanche](), [AaveV3Optimism](), [AaveV3Arbitrum](), [AaveV3Metis](), [AaveV3Base](), [AaveV3Gnosis](), [AaveV3Scroll](), [AaveV3BNB]()
