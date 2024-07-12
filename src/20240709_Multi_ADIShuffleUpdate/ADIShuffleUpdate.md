@@ -90,14 +90,14 @@ These are the new CrossChainController implementations for every supported netwo
 
 ## Security
 
-Certora audit report on the Shuffle update can be found [here]()
+Certora audit report on the Shuffle update can be found [here](https://github.com/bgd-labs/aave-delivery-infrastructure/blob/3c842f4d0a484ea8f574ab31c4a50026e16691ec/security/certora/reports/aDI-Shuffle.pdf)
 
 ## References
 
-- Implementation: [AaveV3Ethereum](), [AaveV3Polygon](), [AaveV3Avalanche](), [AaveV3Optimism](), [AaveV3Arbitrum](), [AaveV3Metis](), [AaveV3Base](), [AaveV3Gnosis](), [AaveV3Scroll](), [AaveV3BNB]()
-- Tests: [AaveV3Ethereum](), [AaveV3Polygon](), [AaveV3Avalanche](), [AaveV3Optimism](), [AaveV3Arbitrum](), [AaveV3Metis](), [AaveV3Base](), [AaveV3Gnosis](), [AaveV3Scroll](), [AaveV3BNB]()
-- [Snapshot](TODO)
-- [Discussion](https://governance.aave.com/t/bgd-a-di-aave-delivery-infrastructure-v1-1/17838)
+- Implementation: CrossChainController Shuffle update payloads [implementation](https://github.com/bgd-labs/adi-deploy/blob/e33318258fedc3317949bb9f8c7c57966a3e3197/src/ccc_payloads/shuffle/ShuffleCCCUpdatePayload.sol)
+- Tests: CrossChainController Shuffle update [tests](https://github.com/bgd-labs/adi-deploy/blob/e33318258fedc3317949bb9f8c7c57966a3e3197/tests/ccc/shuffle/ShufflePayloadTests.t.sol)
+- Diffs: CrossChainController implementation address change [diffs](https://github.com/bgd-labs/adi-deploy/blob/e33318258fedc3317949bb9f8c7c57966a3e3197/diffs)
+- [Discussion](https://governance.aave.com/t/bgd-technical-maintenance-proposals/15274/39)
 
 ## Copyright
 
