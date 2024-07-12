@@ -6,7 +6,7 @@ import {MiscMetis} from 'aave-address-book/MiscMetis.sol';
 import {GovernanceV3Metis} from 'aave-address-book/GovernanceV3Metis.sol';
 
 import {RenewalV3Params, RenewalV3BasePayload} from './RenewalV3BasePayload.sol';
-import {ProtocolGuardians} from './Guardians.sol';
+import {ProtocolGuardians, GovernanceGuardians} from './Guardians.sol';
 /**
  * @title Renewal of Aave Guardian 2024
  * @author BGD Labs @bgdlabs
@@ -20,7 +20,8 @@ contract AaveV3Metis_RenewalOfAaveGuardian2024_20240708 is RenewalV3BasePayload 
         aclManager: AaveV3Metis.ACL_MANAGER,
         governance: address(0),
         payloadsController: address(GovernanceV3Metis.PAYLOADS_CONTROLLER),
-        newGuardian: ProtocolGuardians.METIS_GUARDIAN,
+        protocolGuardian: ProtocolGuardians.METIS_GUARDIAN,
+        governanceGuardian: GovernanceGuardians.METIS_GUARDIAN,
         oldGuardian: MiscMetis.PROTOCOL_GUARDIAN
       })
     )

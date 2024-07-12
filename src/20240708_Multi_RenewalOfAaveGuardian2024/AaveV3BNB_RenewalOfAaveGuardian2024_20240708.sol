@@ -5,7 +5,7 @@ import {AaveV3BNB} from 'aave-address-book/AaveV3BNB.sol';
 import {MiscBNB} from 'aave-address-book/MiscBNB.sol';
 import {GovernanceV3BNB} from 'aave-address-book/GovernanceV3BNB.sol';
 import {RenewalV3Params, RenewalV3BasePayload} from './RenewalV3BasePayload.sol';
-import {ProtocolGuardians} from './Guardians.sol';
+import {ProtocolGuardians, GovernanceGuardians} from './Guardians.sol';
 /**
  * @title Renewal of Aave Guardian 2024
  * @author BGD Labs @bgdlabs
@@ -19,7 +19,8 @@ contract AaveV3BNB_RenewalOfAaveGuardian2024_20240708 is RenewalV3BasePayload {
         aclManager: AaveV3BNB.ACL_MANAGER,
         governance: address(0),
         payloadsController: address(GovernanceV3BNB.PAYLOADS_CONTROLLER),
-        newGuardian: ProtocolGuardians.BNB_GUARDIAN,
+        protocolGuardian: ProtocolGuardians.BNB_GUARDIAN,
+        governanceGuardian: GovernanceGuardians.BNB_GUARDIAN,
         oldGuardian: MiscBNB.PROTOCOL_GUARDIAN
       })
     )

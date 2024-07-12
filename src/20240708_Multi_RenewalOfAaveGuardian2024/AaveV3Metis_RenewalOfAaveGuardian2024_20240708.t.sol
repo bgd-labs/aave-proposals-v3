@@ -40,7 +40,8 @@ contract AaveV3Metis_RenewalOfAaveGuardian2024_20240708_Test is RenewalV3BaseTes
       GuardianUpdateTestParams({
         proposal: address(proposal),
         oldGuardian: MiscMetis.PROTOCOL_GUARDIAN,
-        newGuardian: proposal.NEW_GUARDIAN(),
+        protocolGuardian: proposal.PROTOCOL_GUARDIAN(),
+        governanceGuardian: proposal.GOVERNANCE_GUARDIAN(),
         aclManager: AaveV3Metis.ACL_MANAGER,
         poolConfigurator: AaveV3Metis.POOL_CONFIGURATOR,
         governance: address(0),

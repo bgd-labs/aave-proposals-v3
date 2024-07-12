@@ -4,9 +4,8 @@ pragma solidity ^0.8.0;
 import {AaveV3Base} from 'aave-address-book/AaveV3Base.sol';
 import {MiscBase} from 'aave-address-book/MiscBase.sol';
 import {GovernanceV3Base} from 'aave-address-book/GovernanceV3Base.sol';
-
 import {RenewalV3Params, RenewalV3BasePayload} from './RenewalV3BasePayload.sol';
-import {ProtocolGuardians} from './Guardians.sol';
+import {ProtocolGuardians, GovernanceGuardians} from './Guardians.sol';
 /**
  * @title Renewal of Aave Guardian 2024
  * @author BGD Labs @bgdlabs
@@ -20,7 +19,8 @@ contract AaveV3Base_RenewalOfAaveGuardian2024_20240708 is RenewalV3BasePayload {
         aclManager: AaveV3Base.ACL_MANAGER,
         governance: address(0),
         payloadsController: address(GovernanceV3Base.PAYLOADS_CONTROLLER),
-        newGuardian: ProtocolGuardians.BASE_GUARDIAN,
+        protocolGuardian: ProtocolGuardians.BASE_GUARDIAN,
+        governanceGuardian: GovernanceGuardians.BASE_GUARDIAN,
         oldGuardian: MiscBase.PROTOCOL_GUARDIAN
       })
     )

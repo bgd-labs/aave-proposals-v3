@@ -36,7 +36,8 @@ contract AaveV3BNB_RenewalOfAaveGuardian2024_20240708_Test is RenewalV3BaseTest 
       GuardianUpdateTestParams({
         proposal: address(proposal),
         oldGuardian: MiscBNB.PROTOCOL_GUARDIAN,
-        newGuardian: proposal.NEW_GUARDIAN(),
+        protocolGuardian: proposal.PROTOCOL_GUARDIAN(),
+        governanceGuardian: proposal.GOVERNANCE_GUARDIAN(),
         aclManager: AaveV3BNB.ACL_MANAGER,
         poolConfigurator: AaveV3BNB.POOL_CONFIGURATOR,
         governance: address(0),

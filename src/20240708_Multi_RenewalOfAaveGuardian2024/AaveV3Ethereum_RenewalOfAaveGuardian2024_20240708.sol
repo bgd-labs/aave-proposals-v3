@@ -6,7 +6,7 @@ import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 
 import {RenewalV3Params, RenewalV3BasePayload} from './RenewalV3BasePayload.sol';
-import {ProtocolGuardians} from './Guardians.sol';
+import {ProtocolGuardians, GovernanceGuardians} from './Guardians.sol';
 /**
  * @title Renewal of Aave Guardian 2024
  * @author BGD Labs @bgdlabs
@@ -20,7 +20,8 @@ contract AaveV3Ethereum_RenewalOfAaveGuardian2024_20240708 is RenewalV3BasePaylo
         aclManager: AaveV3Ethereum.ACL_MANAGER,
         governance: address(GovernanceV3Ethereum.GOVERNANCE),
         payloadsController: address(GovernanceV3Ethereum.PAYLOADS_CONTROLLER),
-        newGuardian: ProtocolGuardians.ETHEREUM_GUARDIAN,
+        protocolGuardian: ProtocolGuardians.ETHEREUM_GUARDIAN,
+        governanceGuardian: GovernanceGuardians.ETHEREUM_GUARDIAN,
         oldGuardian: MiscEthereum.PROTOCOL_GUARDIAN
       })
     )

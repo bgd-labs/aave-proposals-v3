@@ -40,7 +40,8 @@ contract AaveV3Base_RenewalOfAaveGuardian2024_20240708_Test is RenewalV3BaseTest
       GuardianUpdateTestParams({
         proposal: address(proposal),
         oldGuardian: MiscBase.PROTOCOL_GUARDIAN,
-        newGuardian: proposal.NEW_GUARDIAN(),
+        protocolGuardian: proposal.PROTOCOL_GUARDIAN(),
+        governanceGuardian: proposal.GOVERNANCE_GUARDIAN(),
         aclManager: AaveV3Base.ACL_MANAGER,
         poolConfigurator: AaveV3Base.POOL_CONFIGURATOR,
         governance: address(0),

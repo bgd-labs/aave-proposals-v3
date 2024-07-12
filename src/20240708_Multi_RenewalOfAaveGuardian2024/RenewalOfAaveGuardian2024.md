@@ -74,7 +74,19 @@ Members proposed (1 representative of each):
 - Certora (security service provider). In this governance given their role reviewing governance proposals.
 
 List of created multi-sigs:
-TBD
+
+| Network   | Address                                                                                |
+| --------- | -------------------------------------------------------------------------------------- |
+| Ethereum  | https://etherscan.io/address/0xCe52ab41C40575B072A18C9700091Ccbe4A06710                |
+| Polygon   | https://polygonscan.com/address/0x1A0581dd5C7C3DA4Ba1CDa7e0BcA7286afc4973b             |
+| Avalanche | https://snowtrace.io/address/0x360c0a69Ed2912351227a0b745f890CB2eBDbcFe                |
+| Optimism  | https://optimistic.etherscan.io/address/0x360c0a69Ed2912351227a0b745f890CB2eBDbcFe     |
+| Arbitrum  | https://arbiscan.io/address/0x1A0581dd5C7C3DA4Ba1CDa7e0BcA7286afc4973b                 |
+| Base      | https://basescan.org/address/0x360c0a69Ed2912351227a0b745f890CB2eBDbcFe                |
+| Gnosis    | https://gnosisscan.io/address/0x1A0581dd5C7C3DA4Ba1CDa7e0BcA7286afc4973b               |
+| Scroll    | https://scrollscan.com/address/0x1A0581dd5C7C3DA4Ba1CDa7e0BcA7286afc4973b              |
+| Metis     | https://andromeda-explorer.metis.io/address/0x360c0a69Ed2912351227a0b745f890CB2eBDbcFe |
+| BNB       | https://bscscan.com/address/0x1A0581dd5C7C3DA4Ba1CDa7e0BcA7286afc4973b                 |
 
 - on all the networks `PAYLOADS_CONTROLLER.updateGuardian()` is called to update the guardian for payloads controller.
 - only on Ethereum `GOVERNANCE.updateGuardian()` is called update the guardian for the governance core.

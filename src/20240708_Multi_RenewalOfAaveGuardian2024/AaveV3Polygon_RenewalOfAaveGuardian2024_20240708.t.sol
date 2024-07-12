@@ -40,7 +40,8 @@ contract AaveV3Polygon_RenewalOfAaveGuardian2024_20240708_Test is RenewalV3BaseT
       GuardianUpdateTestParams({
         proposal: address(proposal),
         oldGuardian: MiscPolygon.PROTOCOL_GUARDIAN,
-        newGuardian: proposal.NEW_GUARDIAN(),
+        protocolGuardian: proposal.PROTOCOL_GUARDIAN(),
+        governanceGuardian: proposal.GOVERNANCE_GUARDIAN(),
         aclManager: AaveV3Polygon.ACL_MANAGER,
         poolConfigurator: AaveV3Polygon.POOL_CONFIGURATOR,
         governance: address(0),

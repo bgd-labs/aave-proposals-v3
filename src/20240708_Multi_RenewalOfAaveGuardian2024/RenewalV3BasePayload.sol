@@ -9,7 +9,8 @@ struct RenewalV3Params {
   IACLManager aclManager;
   address governance;
   address payloadsController;
-  address newGuardian;
+  address protocolGuardian;
+  address governanceGuardian;
   address oldGuardian;
 }
 
@@ -17,25 +18,27 @@ contract RenewalV3BasePayload is IProposalGenericExecutor {
   IACLManager public immutable ACL_MANAGER;
   address public immutable GOVERNANCE;
   address public immutable PAYLOADS_CONTROLLER;
-  address public immutable NEW_GUARDIAN;
+  address public immutable PROTOCOL_GUARDIAN;
+  address public immutable GOVERNANCE_GUARDIAN;
   address public immutable OLD_GUARDIAN;
 
   constructor(RenewalV3Params memory params) {
     ACL_MANAGER = params.aclManager;
     GOVERNANCE = params.governance;
     PAYLOADS_CONTROLLER = params.payloadsController;
-    NEW_GUARDIAN = params.newGuardian;
+    PROTOCOL_GUARDIAN = params.protocolGuardian;
+    GOVERNANCE_GUARDIAN = params.governanceGuardian;
     OLD_GUARDIAN = params.oldGuardian;
   }
 
   function execute() external {
     ACL_MANAGER.removeEmergencyAdmin(OLD_GUARDIAN);
-    ACL_MANAGER.addEmergencyAdmin(NEW_GUARDIAN);
+    ACL_MANAGER.addEmergencyAdmin(PROTOCOL_GUARDIAN);
 
     if (GOVERNANCE != address(0)) {
-      IOwnableWithGuardian(GOVERNANCE).updateGuardian(NEW_GUARDIAN);
+      IOwnableWithGuardian(GOVERNANCE).updateGuardian(GOVERNANCE_GUARDIAN);
     }
 
-    IOwnableWithGuardian(PAYLOADS_CONTROLLER).updateGuardian(NEW_GUARDIAN);
+    IOwnableWithGuardian(PAYLOADS_CONTROLLER).updateGuardian(GOVERNANCE_GUARDIAN);
   }
 }

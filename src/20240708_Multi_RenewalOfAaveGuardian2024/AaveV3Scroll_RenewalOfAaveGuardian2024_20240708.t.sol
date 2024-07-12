@@ -40,7 +40,8 @@ contract AaveV3Scroll_RenewalOfAaveGuardian2024_20240708_Test is RenewalV3BaseTe
       GuardianUpdateTestParams({
         proposal: address(proposal),
         oldGuardian: MiscScroll.PROTOCOL_GUARDIAN,
-        newGuardian: proposal.NEW_GUARDIAN(),
+        protocolGuardian: proposal.PROTOCOL_GUARDIAN(),
+        governanceGuardian: proposal.GOVERNANCE_GUARDIAN(),
         aclManager: AaveV3Scroll.ACL_MANAGER,
         poolConfigurator: AaveV3Scroll.POOL_CONFIGURATOR,
         governance: address(0),

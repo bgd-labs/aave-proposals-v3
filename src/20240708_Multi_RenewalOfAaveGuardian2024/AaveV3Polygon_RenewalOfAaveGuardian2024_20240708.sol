@@ -5,7 +5,7 @@ import {AaveV3Polygon} from 'aave-address-book/AaveV3Polygon.sol';
 import {MiscPolygon} from 'aave-address-book/MiscPolygon.sol';
 import {GovernanceV3Polygon} from 'aave-address-book/GovernanceV3Polygon.sol';
 import {RenewalV3Params, RenewalV3BasePayload} from './RenewalV3BasePayload.sol';
-import {ProtocolGuardians} from './Guardians.sol';
+import {ProtocolGuardians, GovernanceGuardians} from './Guardians.sol';
 /**
  * @title Renewal of Aave Guardian 2024
  * @author BGD Labs @bgdlabs
@@ -19,7 +19,8 @@ contract AaveV3Polygon_RenewalOfAaveGuardian2024_20240708 is RenewalV3BasePayloa
         aclManager: AaveV3Polygon.ACL_MANAGER,
         governance: address(0),
         payloadsController: address(GovernanceV3Polygon.PAYLOADS_CONTROLLER),
-        newGuardian: ProtocolGuardians.POLYGON_GUARDIAN,
+        protocolGuardian: ProtocolGuardians.POLYGON_GUARDIAN,
+        governanceGuardian: GovernanceGuardians.POLYGON_GUARDIAN,
         oldGuardian: MiscPolygon.PROTOCOL_GUARDIAN
       })
     )

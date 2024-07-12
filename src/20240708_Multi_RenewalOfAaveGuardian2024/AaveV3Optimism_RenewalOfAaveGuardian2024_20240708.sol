@@ -6,7 +6,7 @@ import {MiscOptimism} from 'aave-address-book/MiscOptimism.sol';
 import {GovernanceV3Optimism} from 'aave-address-book/GovernanceV3Optimism.sol';
 
 import {RenewalV3Params, RenewalV3BasePayload} from './RenewalV3BasePayload.sol';
-import {ProtocolGuardians} from './Guardians.sol';
+import {ProtocolGuardians, GovernanceGuardians} from './Guardians.sol';
 /**
  * @title Renewal of Aave Guardian 2024
  * @author BGD Labs @bgdlabs
@@ -20,7 +20,8 @@ contract AaveV3Optimism_RenewalOfAaveGuardian2024_20240708 is RenewalV3BasePaylo
         aclManager: AaveV3Optimism.ACL_MANAGER,
         governance: address(0),
         payloadsController: address(GovernanceV3Optimism.PAYLOADS_CONTROLLER),
-        newGuardian: ProtocolGuardians.OPTIMISM_GUARDIAN,
+        protocolGuardian: ProtocolGuardians.OPTIMISM_GUARDIAN,
+        governanceGuardian: GovernanceGuardians.OPTIMISM_GUARDIAN,
         oldGuardian: MiscOptimism.PROTOCOL_GUARDIAN
       })
     )
