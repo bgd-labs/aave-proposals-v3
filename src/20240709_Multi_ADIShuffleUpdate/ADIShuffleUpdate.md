@@ -73,6 +73,25 @@ function initializeRevision(
 }
 ```
 
+These are the new CrossChainController implementations for every supported network:
+
+| Network   | New CCC implementation with Shuffle support                                                                                      |
+| --------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| Ethereum  | [0x92f4736b72d131d836b3e4d4c3c23fe53150ce4d](https://etherscan.io/address/0x92f4736b72d131d836b3e4d4c3c23fe53150ce4d)            |
+| Polygon   | [0x191f2bd27f1ce4318f9a0c6b82688c66cd7ad3ba](https://polygonscan.com/address/0x191f2bd27f1ce4318f9a0c6b82688c66cd7ad3ba)         |
+| Avalanche | [0x23f5150ace7382c7160a2192c3f9f77444f420d9](https://snowscan.xyz/address/0x23f5150ace7382c7160a2192c3f9f77444f420d9)            |
+| Arbitrum  | [0x92f4736b72d131d836b3e4d4c3c23fe53150ce4d](https://arbiscan.io/address/0x92f4736b72d131d836b3e4d4c3c23fe53150ce4d)             |
+| Optimism  | [0x92f4736b72d131d836b3e4d4c3c23fe53150ce4d](https://optimistic.etherscan.io/address/0x92f4736b72d131d836b3e4d4c3c23fe53150ce4d) |
+| Base      | [0x92f4736b72d131d836b3e4d4c3c23fe53150ce4d](https://basescan.org/address/0x92f4736b72d131d836b3e4d4c3c23fe53150ce4d)            |
+| Gnosis    | [0x88e9f8e208ba5ae72b56861d63cbf70fd2320f5c](https://gnosisscan.io/address/0x88e9f8e208ba5ae72b56861d63cbf70fd2320f5c)           |
+| Metis     | [0x92f4736b72d131d836b3e4d4c3c23fe53150ce4d](https://explorer.metis.io/address/0x92f4736b72d131d836b3e4d4c3c23fe53150ce4d)       |
+| Binance   | [0xda81fb369942e43d4797e79f2c4cbef9fe58b90a](https://bscscan.com/address/0xda81fb369942e43d4797e79f2c4cbef9fe58b90a)             |
+| Scroll    | [0x92f4736b72d131d836b3e4d4c3c23fe53150ce4d](https://scrollscan.com/address/0x92f4736b72d131d836b3e4d4c3c23fe53150ce4d)          |
+
+## Security
+
+Certora audit report on the Shuffle update can be found [here]()
+
 ## References
 
 - Implementation: [AaveV3Ethereum](), [AaveV3Polygon](), [AaveV3Avalanche](), [AaveV3Optimism](), [AaveV3Arbitrum](), [AaveV3Metis](), [AaveV3Base](), [AaveV3Gnosis](), [AaveV3Scroll](), [AaveV3BNB]()
