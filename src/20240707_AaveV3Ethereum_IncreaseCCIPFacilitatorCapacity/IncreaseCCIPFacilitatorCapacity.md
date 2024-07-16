@@ -11,11 +11,12 @@ This publication proposes increasing the CCIP Facilitator Capacity on Arbitrum f
 
 ## Motivation
 
-GHO was successfully launched on Arbitrum and the CCIP GHO Facilitator Bucket Capacity is 65% utilized. With $3.41M of liquidity and a solid peg during launch, there is sufficient depth to facilitate increasing the CCIP GHO Facilitator Bucket Capacity from 1M to 2.5M in line with the initial risk parameters proposed prior to launch 3.
+GHO was successfully launched on Arbitrum and the CCIP GHO Facilitator Bucket Capacity is 65% utilized. With $3.41M of liquidity and a solid peg during launch, there is sufficient depth to facilitate increasing the CCIP GHO Facilitator Bucket Capacity from 1M to 2.5M in line with the initial risk parameters proposed prior to launch.
 
 ## Specification
 
 This proposal will increase the CCIP GHO Facilitator Bucket Capacity from 1M units to 2.5M units via the Direct-to-AIP process.
+The equivalent bridgeLimit is also being increased on Ethereum Mainnet to 2.5M units.
 
 ## References
 
