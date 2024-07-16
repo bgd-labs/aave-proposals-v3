@@ -21,8 +21,8 @@ Supply cap for weETH on Aave V3 Base will be increased to 20,000 weETH. The borr
 
 ## References
 
-- Implementation: [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240714_AaveV3Base_IncreaseWeETHCapsOnBase/AaveV3Base_IncreaseWeETHCapsOnBase_20240714.sol)
-- Tests: [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240714_AaveV3Base_IncreaseWeETHCapsOnBase/AaveV3Base_IncreaseWeETHCapsOnBase_20240714.t.sol)
+- Implementation: [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/0f12242e6f91659b8c2cf8cd7560c7eeb1b607aa/src/20240714_AaveV3Base_IncreaseWeETHCapsOnBase/AaveV3Base_IncreaseWeETHCapsOnBase_20240714.sol)
+- Tests: [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/0f12242e6f91659b8c2cf8cd7560c7eeb1b607aa/src/20240714_AaveV3Base_IncreaseWeETHCapsOnBase/AaveV3Base_IncreaseWeETHCapsOnBase_20240714.t.sol)
 - Snapshot: Direct-to-AIP
 - [Discussion](https://governance.aave.com/t/arfc-increase-supply-and-borrow-caps-for-weeth-on-base/18248)
 
