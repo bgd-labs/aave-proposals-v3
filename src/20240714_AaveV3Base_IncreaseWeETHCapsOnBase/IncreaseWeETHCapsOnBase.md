@@ -7,7 +7,7 @@ snapshot: "Direct-to-AIP"
 
 ## Simple Summary
 
-This is a straight-to-AIP proposal to raise the supply caps for weETH on Base to accommodate growing demand and participate in Superchain rewards programs.
+This is a Direct-to-AIP proposal to raise the supply caps for weETH on Base to accommodate growing demand and participate in Superchain rewards programs.
 
 ## Motivation
 
