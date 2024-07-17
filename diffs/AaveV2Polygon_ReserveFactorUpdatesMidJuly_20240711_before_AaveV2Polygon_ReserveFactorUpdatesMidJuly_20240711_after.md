@@ -7,8 +7,8 @@
 | description | value before | value after |
 | --- | --- | --- |
 | interestRateStrategy | [0x6a94A6FFbD550316d75741AB895e913F259FFA23](https://polygonscan.com/address/0x6a94A6FFbD550316d75741AB895e913F259FFA23) | [0x30F7E0862FFC80Ff4cA2D6d202c31364A8034A56](https://polygonscan.com/address/0x30F7E0862FFC80Ff4cA2D6d202c31364A8034A56) |
-| variableRateSlope1 | 8.25 % | 9.2 % |
-| interestRate | ![before](/.assets/f89c969005021ca7b9743d065391c57d66cc9be3.svg) | ![after](/.assets/05e0a915b5f990173c796d505beabae449a7ad03.svg) |
+| variableRateSlope1 | 8.25 % | 9 % |
+| interestRate | ![before](/.assets/f89c969005021ca7b9743d065391c57d66cc9be3.svg) | ![after](/.assets/2f41fc281dac8ff9d67952fd304c0639c1208481.svg) |
 
 #### WBTC ([0x1BFD67037B42Cf73acF2047067bd4F2C47D9BfD6](https://polygonscan.com/address/0x1BFD67037B42Cf73acF2047067bd4F2C47D9BfD6))
 
@@ -100,7 +100,7 @@
       },
       "variableRateSlope1": {
         "from": "82500000000000000000000000",
-        "to": "92000000000000000000000000"
+        "to": "90000000000000000000000000"
       }
     },
     "0x1BFD67037B42Cf73acF2047067bd4F2C47D9BfD6": {

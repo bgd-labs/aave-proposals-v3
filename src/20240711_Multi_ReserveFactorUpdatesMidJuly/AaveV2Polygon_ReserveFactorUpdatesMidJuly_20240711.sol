@@ -87,7 +87,7 @@ contract AaveV2Polygon_ReserveFactorUpdatesMidJuly_20240711 is AaveV2PayloadPoly
       params: IV2RateStrategyFactory.RateStrategyParams({
         optimalUtilizationRate: EngineFlags.KEEP_CURRENT,
         baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
-        variableRateSlope1: _bpsToRay(9_20),
+        variableRateSlope1: _bpsToRay(9_00),
         variableRateSlope2: EngineFlags.KEEP_CURRENT,
         stableRateSlope1: EngineFlags.KEEP_CURRENT,
         stableRateSlope2: EngineFlags.KEEP_CURRENT

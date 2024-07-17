@@ -33,7 +33,7 @@ Slope1 Parameter 75bps Increases:
 |  USDT  | Polygon v2 |     11.25%     |     12.00%      |
 |  wBTC  | Polygon v2 |     6.25%      |      7.00%      |
 |  wETH  | Polygon v2 |     6.25%      |      7.00%      |
-| wUSDC  | Polygon v2 |     11.25%     |     12.00%      |
+|  USDC  | Polygon v2 |     11.25%     |     12.00%      |
 | wMATIC | Polygon v2 |     8.25%      |      9.00%      |
 
 Reserve Factor 5.00% Increases:
