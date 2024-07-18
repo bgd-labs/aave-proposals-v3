@@ -2,6 +2,8 @@
 pragma solidity ^0.8.0;
 
 import {IProposalGenericExecutor} from 'aave-helpers/interfaces/IProposalGenericExecutor.sol';
+import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
+
 /**
  * @title Events Grant 2024
  * @author Aave Labs
@@ -9,7 +11,14 @@ import {IProposalGenericExecutor} from 'aave-helpers/interfaces/IProposalGeneric
  * - Discussion: https://governance.aave.com/t/arfc-aave-events-sponsorship-proposal-2024/18276
  */
 contract AaveV3Ethereum_EventsGrant2024_20240718 is IProposalGenericExecutor {
+  address public constant AAVE_LABS = 0x1c037b3C22240048807cC9d7111be5d455F640bd;
+  uint256 public constant GHO_GRANT_AMOUNT = 650_000 ether;
+
   function execute() external {
-    // custom code goes here
+    AaveV3Ethereum.COLLECTOR.transfer(
+      AaveV3EthereumAssets.GHO_UNDERLYING,
+      AAVE_LABS,
+      GHO_GRANT_AMOUNT
+    );
   }
 }
