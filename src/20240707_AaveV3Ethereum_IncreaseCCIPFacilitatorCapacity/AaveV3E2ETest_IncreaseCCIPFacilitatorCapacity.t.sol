@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 import {GovV3Helpers} from 'aave-helpers/GovV3Helpers.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/ProtocolV3TestBase.sol';
 import {AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
-import {AaveV3Arbitrum} from 'aave-address-book/AaveV3Arbitrum.sol';
+import {AaveV3Arbitrum, AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {MiscArbitrum} from 'aave-address-book/MiscArbitrum.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
@@ -37,17 +37,19 @@ contract AaveV3E2ETest_IncreaseCCIPFacilitatorCapacity is ProtocolV3TestBase {
   AaveV3Arbitrum_IncreaseCCIPFacilitatorCapacity_20240707 internal arbProposal;
   AaveV3Ethereum_IncreaseCCIPFacilitatorCapacity_20240707 internal ethProposal;
 
-  UpgradeableLockReleaseTokenPool internal ETH_TOKEN_POOL = MiscEthereum.GHO_CCIP_TOKEN_POOL;
-  UpgradeableBurnMintTokenPool internal ARB_TOKEN_POOL = MiscArbitrum.GHO_CCIP_TOKEN_POOL;
+  UpgradeableLockReleaseTokenPool internal ETH_TOKEN_POOL =
+    UpgradeableLockReleaseTokenPool(MiscEthereum.GHO_CCIP_TOKEN_POOL);
+  UpgradeableBurnMintTokenPool internal ARB_TOKEN_POOL =
+    UpgradeableBurnMintTokenPool(MiscArbitrum.GHO_CCIP_TOKEN_POOL);
   IGhoToken internal ETH_GHO;
   IGhoToken internal ARB_GHO;
 
-  Router internal ETH_ROUTER;
-  Router internal ARB_ROUTER;
+  Router internal ETH_ROUTER = Router(0x80226fc0Ee2b096224EeAc085Bb9a8cba1146f7D);
+  Router internal ARB_ROUTER = Router(0x141fa059441E0ca23ce184B6A78bafD2A517DdE8);
 
   uint256 public constant CURRENT_CCIP_BUCKET_CAPACITY = 1_000_000e18; // 1M
-  uint64 public constant ETH_ARB_CHAIN_SELECTOR = 5009297550715157269;
-  uint64 public constant ARB_ETH_CHAIN_SELECTOR = 4949039107694359620;
+  uint64 public constant ETH_ARB_CHAIN_SELECTOR = 4949039107694359620;
+  uint64 public constant ARB_ETH_CHAIN_SELECTOR = 5009297550715157269;
 
   address internal constant CCIP_ETH_ON_RAMP = 0x925228D7B82d883Dde340A55Fe8e6dA56244A22C;
   address internal constant CCIP_ETH_OFF_RAMP = 0xeFC4a18af59398FF23bfe7325F2401aD44286F4d;
@@ -66,147 +68,30 @@ contract AaveV3E2ETest_IncreaseCCIPFacilitatorCapacity is ProtocolV3TestBase {
   uint256 internal arbitrumFork;
 
   function setUp() public {
-    ethereumFork = vm.createFork(vm.rpcUrl('mainnet'), 20257789);
-    arbitrumFork = vm.createFork(vm.rpcUrl('arbitrum'), 230441155);
+    ethereumFork = vm.createFork(vm.rpcUrl('mainnet'), 20330677);
+    arbitrumFork = vm.createFork(vm.rpcUrl('arbitrum'), 233363817);
 
     // Proposal creation
     vm.selectFork(ethereumFork);
     ethProposal = new AaveV3Ethereum_IncreaseCCIPFacilitatorCapacity_20240707();
     ETH_GHO = IGhoToken(MiscEthereum.GHO_TOKEN);
-    ETH_ROUTER = Router(ethProposal.CCIP_ROUTER());
 
     vm.selectFork(arbitrumFork);
     arbProposal = new AaveV3Arbitrum_IncreaseCCIPFacilitatorCapacity_20240707();
-    ARB_ROUTER = Router(MiscArbitrum.CCIP_ROUTER);
-
-    // AIP execution
-    vm.selectFork(ethereumFork);
-    vm.recordLogs();
-
-    GovV3Helpers.executePayload(vm, address(ethProposal));
-
-    vm.selectFork(arbitrumFork);
-    vm.recordLogs();
-
-    GovV3Helpers.executePayload(vm, address(arbProposal));
-
-    // Chainlink execution
-    vm.selectFork(ethereumFork);
-    {
-      // OnRamp and OffRamp
-      Router.OnRamp[] memory onRampUpdates = new Router.OnRamp[](1);
-      Router.OffRamp[] memory offRampUpdates = new Router.OffRamp[](1);
-      // ARB -> ETH
-      onRampUpdates[0] = Router.OnRamp({
-        destChainSelector: ETH_ARB_CHAIN_SELECTOR,
-        onRamp: CCIP_ETH_ON_RAMP
-      });
-      // ETH -> ARB
-      offRampUpdates[0] = Router.OffRamp({
-        sourceChainSelector: ETH_ARB_CHAIN_SELECTOR,
-        offRamp: CCIP_ETH_OFF_RAMP
-      });
-      address routerOwner = ETH_ROUTER.owner();
-      vm.startPrank(routerOwner);
-      ETH_ROUTER.applyRampUpdates(onRampUpdates, new Router.OffRamp[](0), offRampUpdates);
-    }
-
-    {
-      // Add TokenPool to OnRamp
-      address[] memory tokens = new address[](1);
-      IPool[] memory pools = new IPool[](1);
-      tokens[0] = address(ETH_GHO);
-      pools[0] = IPool(address(ETH_TOKEN_POOL));
-      address onRampOwner = EVM2EVMOnRamp(CCIP_ETH_ON_RAMP).owner();
-      vm.startPrank(onRampOwner);
-      EVM2EVMOnRamp(CCIP_ETH_ON_RAMP).applyPoolUpdates(
-        new Internal.PoolUpdate[](0),
-        _getTokensAndPools(tokens, pools)
-      );
-
-      // Match Arbitrum GHO token with Ethereum TokenPool
-      tokens[0] = address(ARB_GHO);
-      EVM2EVMOffRamp(CCIP_ETH_OFF_RAMP).applyPoolUpdates(
-        new Internal.PoolUpdate[](0),
-        _getTokensAndPools(tokens, pools)
-      );
-    }
-
-    {
-      // OnRamp Price Registry
-      EVM2EVMOnRamp.DynamicConfig memory onRampDynamicConfig = EVM2EVMOnRamp(CCIP_ETH_ON_RAMP)
-        .getDynamicConfig();
-      Internal.PriceUpdates memory priceUpdate = _getSingleTokenPriceUpdateStruct(
-        address(ETH_GHO),
-        1e18
-      );
-
-      PriceRegistry(onRampDynamicConfig.priceRegistry).updatePrices(priceUpdate);
-      // OffRamp Price Registry
-      EVM2EVMOffRamp.DynamicConfig memory offRampDynamicConfig = EVM2EVMOffRamp(CCIP_ETH_OFF_RAMP)
-        .getDynamicConfig();
-      PriceRegistry(offRampDynamicConfig.priceRegistry).updatePrices(priceUpdate);
-    }
-
-    vm.selectFork(arbitrumFork);
-    {
-      Router.OnRamp[] memory onRampUpdates = new Router.OnRamp[](1);
-      Router.OffRamp[] memory offRampUpdates = new Router.OffRamp[](1);
-      // ETH -> ARB
-      onRampUpdates[0] = Router.OnRamp({
-        destChainSelector: ARB_ETH_CHAIN_SELECTOR,
-        onRamp: CCIP_ARB_ON_RAMP
-      });
-      // ARB -> ETH
-      offRampUpdates[0] = Router.OffRamp({
-        sourceChainSelector: ARB_ETH_CHAIN_SELECTOR,
-        offRamp: CCIP_ARB_OFF_RAMP
-      });
-      address routerOwner = ARB_ROUTER.owner();
-      vm.startPrank(routerOwner);
-      ARB_ROUTER.applyRampUpdates(onRampUpdates, new Router.OffRamp[](0), offRampUpdates);
-    }
-
-    {
-      // Add TokenPool to OnRamp
-      address[] memory tokens = new address[](1);
-      IPool[] memory pools = new IPool[](1);
-      tokens[0] = address(ARB_GHO);
-      pools[0] = IPool(address(ARB_TOKEN_POOL));
-      address onRampOwner = EVM2EVMOnRamp(CCIP_ARB_ON_RAMP).owner();
-      vm.startPrank(onRampOwner);
-      EVM2EVMOnRamp(CCIP_ARB_ON_RAMP).applyPoolUpdates(
-        new Internal.PoolUpdate[](0),
-        _getTokensAndPools(tokens, pools)
-      );
-
-      // Match Ethereum GHO token with Arbitrum TokenPool
-      tokens[0] = address(ETH_GHO);
-      EVM2EVMOffRamp(CCIP_ARB_OFF_RAMP).applyPoolUpdates(
-        new Internal.PoolUpdate[](0),
-        _getTokensAndPools(tokens, pools)
-      );
-    }
-
-    {
-      // OnRamp Price Registry
-      EVM2EVMOnRamp.DynamicConfig memory onRampDynamicConfig = EVM2EVMOnRamp(CCIP_ARB_ON_RAMP)
-        .getDynamicConfig();
-      Internal.PriceUpdates memory priceUpdate = _getSingleTokenPriceUpdateStruct(
-        address(ARB_GHO),
-        1e18
-      );
-
-      PriceRegistry(onRampDynamicConfig.priceRegistry).updatePrices(priceUpdate);
-      // OffRamp Price Registry
-      EVM2EVMOffRamp.DynamicConfig memory offRampDynamicConfig = EVM2EVMOffRamp(CCIP_ARB_OFF_RAMP)
-        .getDynamicConfig();
-      PriceRegistry(offRampDynamicConfig.priceRegistry).updatePrices(priceUpdate);
-    }
+    ARB_GHO = IGhoToken(AaveV3ArbitrumAssets.GHO_UNDERLYING);
   }
 
-  /// @dev Full E2E Test: transfer from Ethereum to Arbitrum and way back
-  function test_ccipFullE22() public {
+  /// @dev Full E2E Test: transfer from Ethereum to Arbitrum and way back, with limit
+  function test_ccipFullE2E() public {
+    uint256 currentBridgedAmount = 1_000_000e18;
+
+    vm.selectFork(arbitrumFork);
+
+    assertEq(ARB_GHO.balanceOf(address(ARB_TOKEN_POOL)), 0);
+    (uint256 capacity, uint256 level) = ARB_GHO.getFacilitatorBucket(address(ARB_TOKEN_POOL));
+    assertEq(capacity, CURRENT_CCIP_BUCKET_CAPACITY);
+    assertEq(level, currentBridgedAmount);
+
     // CCIP Transfer from Ethereum to Arbitrum
     // Ethereum execution (origin)
     vm.selectFork(ethereumFork);
@@ -215,99 +100,109 @@ contract AaveV3E2ETest_IncreaseCCIPFacilitatorCapacity is ProtocolV3TestBase {
     deal(user, 1e18); // 1 ETH
     deal(address(ETH_GHO), user, amount);
 
-    assertEq(ETH_GHO.balanceOf(address(ETH_TOKEN_POOL)), 0);
-    assertEq(ETH_TOKEN_POOL.getBridgeLimit(), ethProposal.CCIP_BRIDGE_LIMIT());
-    assertEq(ETH_TOKEN_POOL.getCurrentBridgedAmount(), 0);
+    assertEq(ETH_GHO.balanceOf(address(ETH_TOKEN_POOL)), currentBridgedAmount);
+    assertEq(ETH_TOKEN_POOL.getBridgeLimit(), 1_000_000e18);
+    assertEq(ETH_TOKEN_POOL.getCurrentBridgedAmount(), currentBridgedAmount);
 
     vm.startPrank(user);
-    // Use address(0) to use native token as fee token
-    Internal.EVM2EVMMessage memory message = _sendCcip(
-      SendCcipParams({
-        expectedSeqNum: 1,
-        router: ETH_ROUTER,
-        onRamp: CCIP_ETH_ON_RAMP,
-        token: address(ETH_GHO),
-        amount: amount,
-        feeToken: address(0),
-        sourceChainSelector: ARB_ETH_CHAIN_SELECTOR,
-        destChainSelector: ETH_ARB_CHAIN_SELECTOR,
-        sender: user,
-        receiver: user
-      })
-    );
+    SendCcipParams memory params = SendCcipParams({
+      expectedSeqNum: 1,
+      router: ETH_ROUTER,
+      onRamp: CCIP_ETH_ON_RAMP,
+      token: address(ETH_GHO),
+      amount: amount,
+      feeToken: address(0),
+      sourceChainSelector: ARB_ETH_CHAIN_SELECTOR,
+      destChainSelector: ETH_ARB_CHAIN_SELECTOR,
+      sender: user,
+      receiver: user
+    });
 
-    assertEq(ETH_GHO.balanceOf(user), 0);
-    assertEq(ETH_GHO.balanceOf(address(ETH_TOKEN_POOL)), amount);
-    assertEq(ETH_TOKEN_POOL.getBridgeLimit(), ethProposal.CCIP_BRIDGE_LIMIT());
-    assertEq(ETH_TOKEN_POOL.getCurrentBridgedAmount(), amount);
+    (
+      Client.EVM2AnyMessage memory message,
+      Internal.EVM2EVMMessage memory geEvent,
+      uint256 expectedFee
+    ) = _prepareCcip(params);
+
+    vm.expectRevert(
+      abi.encodeWithSelector(
+        UpgradeableLockReleaseTokenPool.BridgeLimitExceeded.selector,
+        1_000_000e18
+      )
+    );
+    params.router.ccipSend{value: expectedFee}(params.destChainSelector, message);
+
+    GovV3Helpers.executePayload(vm, address(ethProposal));
+
+    vm.selectFork(arbitrumFork);
+    GovV3Helpers.executePayload(vm, address(arbProposal));
+
+    vm.selectFork(ethereumFork);
+
+    assertEq(ETH_TOKEN_POOL.getBridgeLimit(), ethProposal.NEW_LIMIT());
+    assertEq(ETH_TOKEN_POOL.getCurrentBridgedAmount(), currentBridgedAmount);
+
+    params.router.ccipSend{value: expectedFee}(params.destChainSelector, message);
+
+    assertEq(ETH_TOKEN_POOL.getCurrentBridgedAmount(), currentBridgedAmount + amount);
 
     // Arbitrum execution (destination)
     vm.selectFork(arbitrumFork);
 
-    assertEq(ARB_GHO.balanceOf(address(ARB_TOKEN_POOL)), 0);
-    (uint256 capacity, uint256 level) = ARB_GHO.getFacilitatorBucket(address(ARB_TOKEN_POOL));
-    assertEq(capacity, CURRENT_CCIP_BUCKET_CAPACITY);
-    assertEq(level, 0);
-
     // Mock off ramp
     vm.startPrank(CCIP_ARB_OFF_RAMP);
     bytes[] memory emptyData = new bytes[](1);
-    EVM2EVMOffRamp(CCIP_ARB_OFF_RAMP).executeSingleMessage(message, emptyData);
+    EVM2EVMOffRamp(CCIP_ARB_OFF_RAMP).executeSingleMessage(geEvent, emptyData);
 
     assertEq(ARB_GHO.balanceOf(address(ARB_TOKEN_POOL)), 0);
     (capacity, level) = ARB_GHO.getFacilitatorBucket(address(ARB_TOKEN_POOL));
-    assertEq(capacity, CURRENT_CCIP_BUCKET_CAPACITY);
-    assertEq(level, amount);
+    assertEq(capacity, arbProposal.NEW_LIMIT());
+    assertEq(level, currentBridgedAmount + amount);
 
     // CCIP Transfer from Arbitrum to Ethereum
     // Arbitrum execution (origin)
     vm.selectFork(arbitrumFork);
     deal(user, 1e18); // 1 ETH
 
-    assertEq(ARB_GHO.balanceOf(address(ARB_TOKEN_POOL)), 0);
-    (capacity, level) = ARB_GHO.getFacilitatorBucket(address(ARB_TOKEN_POOL));
-    assertEq(capacity, CURRENT_CCIP_BUCKET_CAPACITY);
-    assertEq(level, amount);
-
     vm.startPrank(user);
     // Use address(0) to use native token as fee token
-    message = _sendCcip(
-      SendCcipParams({
-        expectedSeqNum: 1,
-        router: ARB_ROUTER,
-        onRamp: CCIP_ARB_ON_RAMP,
-        token: address(ARB_GHO),
-        amount: amount,
-        feeToken: address(0),
-        sourceChainSelector: ETH_ARB_CHAIN_SELECTOR,
-        destChainSelector: ARB_ETH_CHAIN_SELECTOR,
-        sender: user,
-        receiver: user
-      })
-    );
+    params = SendCcipParams({
+      expectedSeqNum: 1,
+      router: ARB_ROUTER,
+      onRamp: CCIP_ARB_ON_RAMP,
+      token: address(ARB_GHO),
+      amount: amount,
+      feeToken: address(0),
+      sourceChainSelector: ETH_ARB_CHAIN_SELECTOR,
+      destChainSelector: ARB_ETH_CHAIN_SELECTOR,
+      sender: user,
+      receiver: user
+    });
+    (message, geEvent, expectedFee) = _prepareCcip(params);
+    params.router.ccipSend{value: expectedFee}(params.destChainSelector, message);
 
     assertEq(ARB_GHO.balanceOf(user), 0);
     assertEq(ARB_GHO.balanceOf(address(ARB_TOKEN_POOL)), 0);
     (capacity, level) = ARB_GHO.getFacilitatorBucket(address(ARB_TOKEN_POOL));
-    assertEq(capacity, CURRENT_CCIP_BUCKET_CAPACITY);
-    assertEq(level, 0);
+    assertEq(capacity, arbProposal.NEW_LIMIT());
+    assertEq(level, currentBridgedAmount);
 
     // Ethereum execution (destination)
     vm.selectFork(ethereumFork);
 
     assertEq(ETH_GHO.balanceOf(user), 0);
-    assertEq(ETH_GHO.balanceOf(address(ETH_TOKEN_POOL)), amount);
-    assertEq(ETH_TOKEN_POOL.getBridgeLimit(), ethProposal.CCIP_BRIDGE_LIMIT());
-    assertEq(ETH_TOKEN_POOL.getCurrentBridgedAmount(), amount);
+    assertEq(ETH_GHO.balanceOf(address(ETH_TOKEN_POOL)), currentBridgedAmount + amount);
+    assertEq(ETH_TOKEN_POOL.getBridgeLimit(), ethProposal.NEW_LIMIT());
+    assertEq(ETH_TOKEN_POOL.getCurrentBridgedAmount(), currentBridgedAmount + amount);
 
     // Mock off ramp
     vm.startPrank(CCIP_ETH_OFF_RAMP);
-    EVM2EVMOffRamp(CCIP_ETH_OFF_RAMP).executeSingleMessage(message, emptyData);
+    EVM2EVMOffRamp(CCIP_ETH_OFF_RAMP).executeSingleMessage(geEvent, emptyData);
 
     assertEq(ETH_GHO.balanceOf(user), amount);
-    assertEq(ETH_GHO.balanceOf(address(ETH_TOKEN_POOL)), 0);
-    assertEq(ETH_TOKEN_POOL.getBridgeLimit(), ethProposal.CCIP_BRIDGE_LIMIT());
-    assertEq(ETH_TOKEN_POOL.getCurrentBridgedAmount(), 0);
+    assertEq(ETH_GHO.balanceOf(address(ETH_TOKEN_POOL)), currentBridgedAmount);
+    assertEq(ETH_TOKEN_POOL.getBridgeLimit(), ethProposal.NEW_LIMIT());
+    assertEq(ETH_TOKEN_POOL.getCurrentBridgedAmount(), currentBridgedAmount);
   }
 
   // ---
@@ -327,9 +222,9 @@ contract AaveV3E2ETest_IncreaseCCIPFacilitatorCapacity is ProtocolV3TestBase {
     address receiver;
   }
 
-  function _sendCcip(
+  function _prepareCcip(
     SendCcipParams memory params
-  ) internal returns (Internal.EVM2EVMMessage memory) {
+  ) internal returns (Client.EVM2AnyMessage memory, Internal.EVM2EVMMessage memory, uint256) {
     Client.EVM2AnyMessage memory message = _generateSingleTokenMessage(
       params.receiver,
       params.token,
@@ -358,9 +253,8 @@ contract AaveV3E2ETest_IncreaseCCIPFacilitatorCapacity is ProtocolV3TestBase {
     );
 
     IERC20(params.token).approve(address(params.router), params.amount);
-    params.router.ccipSend{value: expectedFee}(params.destChainSelector, message);
 
-    return geEvent;
+    return (message, geEvent, expectedFee);
   }
 
   function _generateSingleTokenMessage(

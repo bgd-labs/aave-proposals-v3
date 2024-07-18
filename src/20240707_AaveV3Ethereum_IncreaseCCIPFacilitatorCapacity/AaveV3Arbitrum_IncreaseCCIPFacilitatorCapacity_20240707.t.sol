@@ -23,17 +23,15 @@ contract AaveV3Arbitrum_IncreaseCCIPFacilitatorCapacity_20240707_Test is Protoco
    * @dev executes the generic test suite including e2e and config snapshots
    */
   function test_newLimitIsSet() public {
-    (uint128 currentLimit, , ) = IGhoToken(AaveV3ArbitrumAssets.GHO_UNDERLYING).getFacilitator(
-      proposal.FACILITATOR()
-    );
-    assertEq(currentLimit, 1_000_000 ether);
+    IGhoToken.Facilitator memory prevFacilitator = IGhoToken(AaveV3ArbitrumAssets.GHO_UNDERLYING)
+      .getFacilitator(proposal.FACILITATOR());
+    assertEq(prevFacilitator.bucketCapacity, 1_000_000 ether);
 
     executePayload(vm, address(proposal));
 
-    (uint128 newLimit, , ) = IGhoToken(AaveV3ArbitrumAssets.GHO_UNDERLYING).getFacilitator(
-      proposal.FACILITATOR()
-    );
+    IGhoToken.Facilitator memory facilitator = IGhoToken(AaveV3ArbitrumAssets.GHO_UNDERLYING)
+      .getFacilitator(proposal.FACILITATOR());
 
-    assertEq(newLimit, proposal.NEW_LIMIT());
+    assertEq(facilitator.bucketCapacity, proposal.NEW_LIMIT());
   }
 }

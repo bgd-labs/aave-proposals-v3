@@ -2,6 +2,7 @@
 pragma solidity ^0.8.0;
 
 import {AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
+import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 
 import {ProtocolV3TestBase} from 'aave-helpers/ProtocolV3TestBase.sol';
 import {AaveV3Ethereum_IncreaseCCIPFacilitatorCapacity_20240707} from './AaveV3Ethereum_IncreaseCCIPFacilitatorCapacity_20240707.sol';
@@ -30,14 +31,14 @@ contract AaveV3Ethereum_IncreaseCCIPFacilitatorCapacity_20240707_Test is Protoco
   function test_newLimitIsSet() public {
     // Current limit is 1M
     assertEq(
-      UpgradeableLockReleaseTokenPool(proposal.GHO_TOKEN_POOL()).getBridgeLimit(),
+      UpgradeableLockReleaseTokenPool(MiscEthereum.GHO_CCIP_TOKEN_POOL).getBridgeLimit(),
       1_000_000 ether
     );
 
     executePayload(vm, address(proposal));
 
     assertEq(
-      UpgradeableLockReleaseTokenPool(proposal.GHO_TOKEN_POOL()).getBridgeLimit(),
+      UpgradeableLockReleaseTokenPool(MiscEthereum.GHO_CCIP_TOKEN_POOL).getBridgeLimit(),
       proposal.NEW_LIMIT()
     );
   }
