@@ -2,6 +2,7 @@
 pragma solidity ^0.8.0;
 
 import {AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
+import {MiscArbitrum} from 'aave-address-book/MiscArbitrum.sol';
 import {IGhoToken} from 'gho-core/gho/interfaces/IGhoToken.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/ProtocolV3TestBase.sol';
 
@@ -24,13 +25,13 @@ contract AaveV3Arbitrum_IncreaseCCIPFacilitatorCapacity_20240707_Test is Protoco
    */
   function test_newLimitIsSet() public {
     IGhoToken.Facilitator memory prevFacilitator = IGhoToken(AaveV3ArbitrumAssets.GHO_UNDERLYING)
-      .getFacilitator(proposal.FACILITATOR());
+      .getFacilitator(MiscArbitrum.GHO_CCIP_TOKEN_POOL);
     assertEq(prevFacilitator.bucketCapacity, 1_000_000 ether);
 
     executePayload(vm, address(proposal));
 
     IGhoToken.Facilitator memory facilitator = IGhoToken(AaveV3ArbitrumAssets.GHO_UNDERLYING)
-      .getFacilitator(proposal.FACILITATOR());
+      .getFacilitator(MiscArbitrum.GHO_CCIP_TOKEN_POOL);
 
     assertEq(facilitator.bucketCapacity, proposal.NEW_LIMIT());
   }
