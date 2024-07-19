@@ -31,7 +31,7 @@ contract AaveV3Gnosis_OnboardUSDCEOnGnosis_20240717 is AaveV3PayloadGnosis {
     listings[0] = IAaveV3ConfigEngine.Listing({
       asset: USDCe,
       assetSymbol: 'USDCe',
-      priceFeed: 0x26C31ac71010aF62E6B486D1132E266D6298857D,
+      priceFeed: 0x0a2d05bc646C65A029e602c257DfA14adF8BfAd2,
       eModeCategory: AaveV3GnosisEModes.NONE,
       enabledToBorrow: EngineFlags.ENABLED,
       stableRateModeEnabled: EngineFlags.DISABLED,
