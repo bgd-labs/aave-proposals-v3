@@ -20,8 +20,8 @@ The equivalent bridgeLimit is also being increased on Ethereum Mainnet to 2.5M u
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240707_AaveV3Ethereum_IncreaseCCIPFacilitatorCapacity/AaveV3Ethereum_IncreaseCCIPFacilitatorCapacity_20240707.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240707_AaveV3Ethereum_IncreaseCCIPFacilitatorCapacity/AaveV3Ethereum_IncreaseCCIPFacilitatorCapacity_20240707.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/72deb3b4f6bce185788f5a702833d9bd73a720c7/src/20240707_AaveV3Ethereum_IncreaseCCIPFacilitatorCapacity/AaveV3Ethereum_IncreaseCCIPFacilitatorCapacity_20240707.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/72deb3b4f6bce185788f5a702833d9bd73a720c7/src/20240707_AaveV3Ethereum_IncreaseCCIPFacilitatorCapacity/AaveV3Ethereum_IncreaseCCIPFacilitatorCapacity_20240707.t.sol)
 - Snapshot: Direct-to-AIP
 - [Discussion](https://governance.aave.com/t/arfc-gho-arb-increase-ccip-facilitator-capacity/18169)
 
