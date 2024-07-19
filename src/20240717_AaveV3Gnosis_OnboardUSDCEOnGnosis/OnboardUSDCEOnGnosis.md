@@ -45,7 +45,7 @@ The table below illustrates the configured risk parameters for **USDCe**
 | Flashloanable                      |                                    ENABLED |
 | Siloed Borrowing                   |                                   DISABLED |
 | Borrowable in Isolation            |                                   DISABLED |
-| Oracle                             | 0x26C31ac71010aF62E6B486D1132E266D6298857D |
+| Oracle                             | 0x0a2d05bc646C65A029e602c257DfA14adF8BfAd2 |
 
 ## References
 
