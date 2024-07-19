@@ -21,7 +21,7 @@ describe('prefixWithImports', () => {
     );
 
     expect(prefixWithImports('IAaveV3ConfigEngine.CapsUpdate')).toContain(
-      `import {IAaveV3ConfigEngine} from 'aave-helpers/v3-config-engine/IAaveV3ConfigEngine.sol';`,
+      `import {IAaveV3ConfigEngine} from 'aave-v3-core/v3-config-engine/IAaveV3ConfigEngine.sol';`,
     );
   });
 
