@@ -21,7 +21,7 @@ The table below illustrates the configured risk parameters for **USDCe**
 
 | Parameter                          |                                      Value |
 | ---------------------------------- | -----------------------------------------: |
-| Isolation Mode                     |                                       true |
+| Isolation Mode                     |                                       false |
 | Borrowable                         |                                    ENABLED |
 | Collateral Enabled                 |                                       true |
 | Supply Cap (USDCe)                 |                                  1,500,000 |
