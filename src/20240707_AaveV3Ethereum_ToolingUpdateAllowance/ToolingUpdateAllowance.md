@@ -15,9 +15,15 @@ To ensure the Aave DAO's financial stability and the ability to transfer assets 
 
 ## Specification
 
-Set an allowance of 12,000 GHO to TokenLogic.
+Set an allowance of 12,430 GHO to TokenLogic.
 
 ## References
+
+The bridge work done can be found [here](https://github.com/bgd-labs/aave-helpers/tree/master/src/bridges):
+
+- [Polygon Plasma Bridge](https://github.com/bgd-labs/aave-helpers/blob/master/src/bridges/polygon/AavePolEthPlasmaBridge.sol)
+- [Arbitrum ERC20 Bridge](https://github.com/bgd-labs/aave-helpers/tree/master/src/bridges/arbitrum)
+- [Optimism ERC20 Bridge](https://github.com/bgd-labs/aave-helpers/tree/master/src/bridges/optimism)
 
 - Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240707_AaveV3Ethereum_ToolingUpdateAllowance/AaveV3Ethereum_ToolingUpdateAllowance_20240707.sol)
 - Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240707_AaveV3Ethereum_ToolingUpdateAllowance/AaveV3Ethereum_ToolingUpdateAllowance_20240707.t.sol)
