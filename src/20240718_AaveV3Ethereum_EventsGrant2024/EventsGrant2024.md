@@ -7,7 +7,7 @@ snapshot: "https://snapshot.org/#/aave.eth/proposal/0x5d4e3fba58f76f516afd0855a6
 
 ## Summary
 
-This ARFC proposes the Aave DAO budget allocation on events at key ecosystem initiatives at EthCC and Devcon to help to reinforce Aave Protocol’s unique and positive culture, share technical knowledge, and attract new community members. These initiatives are aimed at helping to continue the expansion of the DeFi ecosystem by showcasing Aave Protocol’s core values. Thank you for reviewing this proposal and for your earlier questions and positive vote in the snapshot.
+This AIP proposes the Aave DAO budget allocation on events at key ecosystem initiatives at EthCC and Devcon to help to reinforce Aave Protocol’s unique and positive culture, share technical knowledge, and attract new community members. These initiatives are aimed at helping to continue the expansion of the DeFi ecosystem by showcasing Aave Protocol’s core values. Thank you for reviewing this proposal and for your earlier questions and positive vote in the snapshot.
 
 ## Motivation
 
