@@ -25,9 +25,9 @@ contract AaveV3Base_ReduceReserveFactorOnWstETH_20240716 is AaveV3PayloadBase {
       asset: AaveV3BaseAssets.wstETH_UNDERLYING,
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
-      stableRateModeEnabled: EngineFlags.DISABLED,
-      borrowableInIsolation: EngineFlags.DISABLED,
-      withSiloedBorrowing: EngineFlags.DISABLED,
+      stableRateModeEnabled: EngineFlags. KEEP_CURRENT,
+      borrowableInIsolation: EngineFlags. KEEP_CURRENT,
+      withSiloedBorrowing: EngineFlags. KEEP_CURRENT,
       reserveFactor: 5_00
     });
 
