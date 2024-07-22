@@ -37,22 +37,22 @@
 | interestRateStrategy | [0x6642dcAaBc80807DD083c66a301d308568CBcA3D](https://etherscan.io/address/0x6642dcAaBc80807DD083c66a301d308568CBcA3D) |
 | liquidityIndex | 1 |
 | variableBorrowIndex | 1 |
-| aTokenName | Aave Ethereum wstETH |
-| aTokenSymbol | aEthwstETH |
+| aTokenName | Aave Ethereum LidoEthwstETH |
+| aTokenSymbol | aEthLidoEthwstETH |
 | currentLiquidityRate | 0 % |
 | currentVariableBorrowRate | 0 % |
 | isPaused | false |
-| stableDebtTokenName | Aave Ethereum Stable Debt wstETH |
-| stableDebtTokenSymbol | stableDebtEthwstETH |
-| variableDebtTokenName | Aave Ethereum Variable Debt wstETH |
-| variableDebtTokenSymbol | variableDebtEthwstETH |
+| stableDebtTokenName | Aave Ethereum Stable Debt LidoEthwstETH |
+| stableDebtTokenSymbol | stableDebtEthLidoEthwstETH |
+| variableDebtTokenName | Aave Ethereum Variable Debt LidoEthwstETH |
+| variableDebtTokenSymbol | variableDebtEthLidoEthwstETH |
 | optimalUsageRatio | 45 % |
 | maxVariableBorrowRate | 88.5 % |
 | baseVariableBorrowRate | 0 % |
 | variableRateSlope1 | 3.5 % |
 | variableRateSlope2 | 85 % |
 | interestRate | ![ir](/.assets/4f278d3e1c4335b98c92585fbeb92d263bdb8569.svg) |
-| eMode.label | ETH Lido EMode |
+| eMode.label | ETH correlated |
 | eMode.ltv | 93.5 % |
 | eMode.liquidationThreshold | 95.5 % |
 | eMode.liquidationBonus | 1 % |
@@ -94,22 +94,22 @@
 | interestRateStrategy | [0x6642dcAaBc80807DD083c66a301d308568CBcA3D](https://etherscan.io/address/0x6642dcAaBc80807DD083c66a301d308568CBcA3D) |
 | liquidityIndex | 1 |
 | variableBorrowIndex | 1 |
-| aTokenName | Aave Ethereum WETH |
-| aTokenSymbol | aEthWETH |
+| aTokenName | Aave Ethereum LidoEthWETH |
+| aTokenSymbol | aEthLidoEthWETH |
 | currentLiquidityRate | 0 % |
 | currentVariableBorrowRate | 0 % |
 | isPaused | false |
-| stableDebtTokenName | Aave Ethereum Stable Debt WETH |
-| stableDebtTokenSymbol | stableDebtEthWETH |
-| variableDebtTokenName | Aave Ethereum Variable Debt WETH |
-| variableDebtTokenSymbol | variableDebtEthWETH |
+| stableDebtTokenName | Aave Ethereum Stable Debt LidoEthWETH |
+| stableDebtTokenSymbol | stableDebtEthLidoEthWETH |
+| variableDebtTokenName | Aave Ethereum Variable Debt LidoEthWETH |
+| variableDebtTokenSymbol | variableDebtEthLidoEthWETH |
 | optimalUsageRatio | 90 % |
 | maxVariableBorrowRate | 87.5 % |
 | baseVariableBorrowRate | 0 % |
 | variableRateSlope1 | 2.5 % |
 | variableRateSlope2 | 85 % |
 | interestRate | ![ir](/.assets/a796dfa2aa6c13fc95e8d4cc38800ce1a1aa4517.svg) |
-| eMode.label | ETH Lido EMode |
+| eMode.label | ETH correlated |
 | eMode.ltv | 93.5 % |
 | eMode.liquidationThreshold | 95.5 % |
 | eMode.liquidationBonus | 1 % |
@@ -125,7 +125,7 @@
       "from": null,
       "to": {
         "eModeCategory": 1,
-        "label": "ETH Lido EMode",
+        "label": "ETH correlated",
         "liquidationBonus": 10100,
         "liquidationThreshold": 9550,
         "ltv": 9350,
@@ -139,8 +139,8 @@
       "to": {
         "aToken": "0xC035a7cf15375cE2706766804551791aD035E0C2",
         "aTokenImpl": "0x7F8Fc14D462bdF93c681c1f2Fd615389bF969Fb2",
-        "aTokenName": "Aave Ethereum wstETH",
-        "aTokenSymbol": "aEthwstETH",
+        "aTokenName": "Aave Ethereum LidoEthwstETH",
+        "aTokenSymbol": "aEthLidoEthwstETH",
         "borrowCap": 12000,
         "borrowingEnabled": true,
         "currentLiquidityRate": 0,
@@ -168,8 +168,8 @@
         "stableBorrowRateEnabled": false,
         "stableDebtToken": "0x3d0Fd161363b327C704b013a9E63a8Cc03Bec1c4",
         "stableDebtTokenImpl": "0x36284fED68f802c5733432c3306D8e92c504a243",
-        "stableDebtTokenName": "Aave Ethereum Stable Debt wstETH",
-        "stableDebtTokenSymbol": "stableDebtEthwstETH",
+        "stableDebtTokenName": "Aave Ethereum Stable Debt LidoEthwstETH",
+        "stableDebtTokenSymbol": "stableDebtEthLidoEthwstETH",
         "supplyCap": 650000,
         "symbol": "wstETH",
         "underlying": "0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0",
@@ -177,8 +177,8 @@
         "variableBorrowIndex": "1000000000000000000000000000",
         "variableDebtToken": "0xE439edd2625772AA635B437C099C607B6eb7d35f",
         "variableDebtTokenImpl": "0x3E59212c34588a63350142EFad594a20C88C2CEd",
-        "variableDebtTokenName": "Aave Ethereum Variable Debt wstETH",
-        "variableDebtTokenSymbol": "variableDebtEthwstETH"
+        "variableDebtTokenName": "Aave Ethereum Variable Debt LidoEthwstETH",
+        "variableDebtTokenSymbol": "variableDebtEthLidoEthwstETH"
       }
     },
     "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2": {
@@ -186,8 +186,8 @@
       "to": {
         "aToken": "0xfA1fDbBD71B0aA16162D76914d69cD8CB3Ef92da",
         "aTokenImpl": "0x7F8Fc14D462bdF93c681c1f2Fd615389bF969Fb2",
-        "aTokenName": "Aave Ethereum WETH",
-        "aTokenSymbol": "aEthWETH",
+        "aTokenName": "Aave Ethereum LidoEthWETH",
+        "aTokenSymbol": "aEthLidoEthWETH",
         "borrowCap": 810000,
         "borrowingEnabled": true,
         "currentLiquidityRate": 0,
@@ -215,8 +215,8 @@
         "stableBorrowRateEnabled": false,
         "stableDebtToken": "0x97D5Cd1a26243647ddEac87183236Cf215974d30",
         "stableDebtTokenImpl": "0x36284fED68f802c5733432c3306D8e92c504a243",
-        "stableDebtTokenName": "Aave Ethereum Stable Debt WETH",
-        "stableDebtTokenSymbol": "stableDebtEthWETH",
+        "stableDebtTokenName": "Aave Ethereum Stable Debt LidoEthWETH",
+        "stableDebtTokenSymbol": "stableDebtEthLidoEthWETH",
         "supplyCap": 900000,
         "symbol": "WETH",
         "underlying": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
@@ -224,8 +224,8 @@
         "variableBorrowIndex": "1000000000000000000000000000",
         "variableDebtToken": "0x91b7d78BF92db564221f6B5AeE744D1727d1Dd1e",
         "variableDebtTokenImpl": "0x3E59212c34588a63350142EFad594a20C88C2CEd",
-        "variableDebtTokenName": "Aave Ethereum Variable Debt WETH",
-        "variableDebtTokenSymbol": "variableDebtEthWETH"
+        "variableDebtTokenName": "Aave Ethereum Variable Debt LidoEthWETH",
+        "variableDebtTokenSymbol": "variableDebtEthLidoEthWETH"
       }
     }
   },
