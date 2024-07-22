@@ -19,7 +19,7 @@ export const config: ConfigFile = {
           {
             assetSymbol: 'USDCe',
             decimals: 6,
-            priceFeed: '0x26C31ac71010aF62E6B486D1132E266D6298857D',
+            priceFeed: '0x0a2d05bc646C65A029e602c257DfA14adF8BfAd2',
             ltv: '75',
             liqThreshold: '78',
             liqBonus: '5',
@@ -28,7 +28,7 @@ export const config: ConfigFile = {
             enabledToBorrow: 'ENABLED',
             flashloanable: 'ENABLED',
             stableRateModeEnabled: 'DISABLED',
-            borrowableInIsolation: 'DISABLED',
+            borrowableInIsolation: 'ENABLED',
             withSiloedBorrowing: 'DISABLED',
             reserveFactor: '10',
             supplyCap: '1500000',

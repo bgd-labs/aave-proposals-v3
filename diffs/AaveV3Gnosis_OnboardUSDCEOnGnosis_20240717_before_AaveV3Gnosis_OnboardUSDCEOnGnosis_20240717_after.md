@@ -15,9 +15,9 @@
 | isSiloed | false |
 | isFlashloanable | true |
 | eModeCategory | 0 |
-| oracle | [0x26C31ac71010aF62E6B486D1132E266D6298857D](https://gnosisscan.io/address/0x26C31ac71010aF62E6B486D1132E266D6298857D) |
+| oracle | [0x0a2d05bc646C65A029e602c257DfA14adF8BfAd2](https://gnosisscan.io/address/0x0a2d05bc646C65A029e602c257DfA14adF8BfAd2) |
 | oracleDecimals | 8 |
-| oracleDescription | USDC / USD |
+| oracleDescription | Capped USDC/USD |
 | oracleLatestAnswer | 1.0000457 |
 | usageAsCollateralEnabled | true |
 | ltv | 75 % |
@@ -33,7 +33,7 @@
 | stableDebtTokenImpl | [0x06C35Cfd3FC61eC2aC437f0d08840d5776b945af](https://gnosisscan.io/address/0x06C35Cfd3FC61eC2aC437f0d08840d5776b945af) |
 | borrowingEnabled | true |
 | stableBorrowRateEnabled | false |
-| isBorrowableInIsolation | false |
+| isBorrowableInIsolation | true |
 | interestRateStrategy | [0x4F29DA9DA689652827b7192B373B3eE71BC2Df2B](https://gnosisscan.io/address/0x4F29DA9DA689652827b7192B373B3eE71BC2Df2B) |
 | liquidityIndex | 1 |
 | variableBorrowIndex | 1 |
@@ -56,7 +56,7 @@
 | baseStableBorrowRate | 9 % |
 | stableRateSlope1 | 9 % |
 | stableRateSlope2 | 75 % |
-| interestRate | ![ir](/.assets/d7b7613b07b73e6e47d0e203c2f438aeef747a01.svg) |
+| interestRate | ![ir](/.assets/f894d0b7b1f854801d197c04b37bcf95f722af4f.svg) |
 
 
 ## Raw diff
@@ -80,7 +80,7 @@
         "eModeCategory": 0,
         "interestRateStrategy": "0x4F29DA9DA689652827b7192B373B3eE71BC2Df2B",
         "isActive": true,
-        "isBorrowableInIsolation": false,
+        "isBorrowableInIsolation": true,
         "isFlashloanable": true,
         "isFrozen": false,
         "isPaused": false,
@@ -90,9 +90,9 @@
         "liquidationThreshold": 7800,
         "liquidityIndex": "1000000000000000000000000000",
         "ltv": 7500,
-        "oracle": "0x26C31ac71010aF62E6B486D1132E266D6298857D",
+        "oracle": "0x0a2d05bc646C65A029e602c257DfA14adF8BfAd2",
         "oracleDecimals": 8,
-        "oracleDescription": "USDC / USD",
+        "oracleDescription": "Capped USDC/USD",
         "oracleLatestAnswer": 100004570,
         "reserveFactor": 1000,
         "stableBorrowRateEnabled": false,
@@ -118,10 +118,10 @@
       "to": {
         "address": "0x4F29DA9DA689652827b7192B373B3eE71BC2Df2B",
         "baseStableBorrowRate": "90000000000000000000000000",
-        "baseVariableBorrowRate": 0,
+        "baseVariableBorrowRate": "0",
         "maxExcessStableToTotalDebtRatio": "1000000000000000000000000000",
         "maxExcessUsageRatio": "100000000000000000000000000",
-        "optimalStableToTotalDebtRatio": 0,
+        "optimalStableToTotalDebtRatio": "0",
         "optimalUsageRatio": "900000000000000000000000000",
         "stableRateSlope1": "90000000000000000000000000",
         "stableRateSlope2": "750000000000000000000000000",

@@ -21,7 +21,7 @@ The table below illustrates the configured risk parameters for **USDCe**
 
 | Parameter                          |                                      Value |
 | ---------------------------------- | -----------------------------------------: |
-| Isolation Mode                     |                                       false |
+| Isolation Mode                     |                                      false |
 | Borrowable                         |                                    ENABLED |
 | Collateral Enabled                 |                                       true |
 | Supply Cap (USDCe)                 |                                  1,500,000 |
@@ -44,7 +44,7 @@ The table below illustrates the configured risk parameters for **USDCe**
 | Optimal Stable To Total Debt Ratio |                                        0 % |
 | Flashloanable                      |                                    ENABLED |
 | Siloed Borrowing                   |                                   DISABLED |
-| Borrowable in Isolation            |                                   DISABLED |
+| Borrowable in Isolation            |                                    ENABLED |
 | Oracle                             | 0x0a2d05bc646C65A029e602c257DfA14adF8BfAd2 |
 
 ## References

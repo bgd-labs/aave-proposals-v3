@@ -35,7 +35,7 @@ contract AaveV3Gnosis_OnboardUSDCEOnGnosis_20240717 is AaveV3PayloadGnosis {
       eModeCategory: AaveV3GnosisEModes.NONE,
       enabledToBorrow: EngineFlags.ENABLED,
       stableRateModeEnabled: EngineFlags.DISABLED,
-      borrowableInIsolation: EngineFlags.DISABLED,
+      borrowableInIsolation: EngineFlags.ENABLED,
       withSiloedBorrowing: EngineFlags.DISABLED,
       flashloanable: EngineFlags.ENABLED,
       ltv: 75_00,
