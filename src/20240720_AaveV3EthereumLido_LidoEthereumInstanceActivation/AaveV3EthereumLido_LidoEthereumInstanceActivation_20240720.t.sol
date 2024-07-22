@@ -23,11 +23,8 @@ contract AaveV3EthereumLido_LidoEthereumInstanceActivation_20240720_Test is Prot
     vm.createSelectFork(vm.rpcUrl('mainnet'), 20347071);
     proposal = new AaveV3EthereumLido_LidoEthereumInstanceActivation_20240720();
 
-    deal(proposal.WETH(), GovernanceV3Ethereum.EXECUTOR_LVL_1, 1 ether);
-    deal(proposal.wstETH(), GovernanceV3Ethereum.EXECUTOR_LVL_1, 1 ether);
-
-    console2.log(IERC20(proposal.WETH()).balanceOf(GovernanceV3Ethereum.EXECUTOR_LVL_1));
-    console2.log(IERC20(proposal.wstETH()).balanceOf(GovernanceV3Ethereum.EXECUTOR_LVL_1));
+    deal(proposal.WETH(), GovernanceV3Ethereum.EXECUTOR_LVL_1, 1e17);
+    deal(proposal.wstETH(), GovernanceV3Ethereum.EXECUTOR_LVL_1, 1e17);
   }
 
   /**
@@ -46,7 +43,7 @@ contract AaveV3EthereumLido_LidoEthereumInstanceActivation_20240720_Test is Prot
     (address aTokenAddress, , ) = AaveV3EthereumLido
       .AAVE_PROTOCOL_DATA_PROVIDER
       .getReserveTokensAddresses(proposal.wstETH());
-    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Ethereum.COLLECTOR)), 1 ether);
+    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Ethereum.COLLECTOR)), 1e17);
   }
 
   function test_collectorHasWETHFunds() public {
@@ -54,6 +51,6 @@ contract AaveV3EthereumLido_LidoEthereumInstanceActivation_20240720_Test is Prot
     (address aTokenAddress, , ) = AaveV3EthereumLido
       .AAVE_PROTOCOL_DATA_PROVIDER
       .getReserveTokensAddresses(proposal.WETH());
-    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Ethereum.COLLECTOR)), 1 ether);
+    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Ethereum.COLLECTOR)), 1e17);
   }
 }
