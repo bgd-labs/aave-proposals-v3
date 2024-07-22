@@ -81,10 +81,10 @@ contract AaveV3EthereumLido_LidoEthereumInstanceActivation_20240720 is AaveV3Pay
       debtCeiling: 0,
       liqProtocolFee: 10_00,
       rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
-        optimalUsageRatio: _bpsToRay(45_00),
-        baseVariableBorrowRate: _bpsToRay(0),
-        variableRateSlope1: _bpsToRay(3_50),
-        variableRateSlope2: _bpsToRay(85_00)
+        optimalUsageRatio: 45_00,
+        baseVariableBorrowRate: 0,
+        variableRateSlope1: 3_50,
+        variableRateSlope2: 85_00
       })
     });
     listings[1] = IAaveV3ConfigEngine.Listing({
@@ -106,10 +106,10 @@ contract AaveV3EthereumLido_LidoEthereumInstanceActivation_20240720 is AaveV3Pay
       debtCeiling: 0,
       liqProtocolFee: 10_00,
       rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
-        optimalUsageRatio: _bpsToRay(90_00),
-        baseVariableBorrowRate: _bpsToRay(0),
-        variableRateSlope1: _bpsToRay(2_50),
-        variableRateSlope2: _bpsToRay(85_00)
+        optimalUsageRatio: 90_00,
+        baseVariableBorrowRate: 0,
+        variableRateSlope1: 2_50,
+        variableRateSlope2: 85_00
       })
     });
 
