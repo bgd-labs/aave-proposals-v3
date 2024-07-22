@@ -5,12 +5,12 @@ import {GovV3Helpers} from 'aave-helpers/GovV3Helpers.sol';
 import {AaveV3EthereumLido} from 'aave-address-book/AaveV3EthereumLido.sol';
 import {AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
+import {IPoolAddressesProviderRegistry} from 'aave-v3-core/interfaces/IPoolAddressesProviderRegistry.sol';
 
 import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/ProtocolV3TestBase.sol';
 import {AaveV3EthereumLido_LidoEthereumInstanceActivation_20240720} from './AaveV3EthereumLido_LidoEthereumInstanceActivation_20240720.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
-import 'forge-std/console2.sol';
 
 /**
  * @dev Test for AaveV3EthereumLido_LidoEthereumInstanceActivation_20240720
@@ -52,5 +52,32 @@ contract AaveV3EthereumLido_LidoEthereumInstanceActivation_20240720_Test is Prot
       .AAVE_PROTOCOL_DATA_PROVIDER
       .getReserveTokensAddresses(proposal.WETH());
     assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Ethereum.COLLECTOR)), 1e17);
+  }
+
+  function test_lidoEthereumAddressesProvider_setAddress_incentivesController_Ethereum() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+    assertEq(
+      AaveV3EthereumLido.POOL_ADDRESSES_PROVIDER.getAddress(keccak256('INCENTIVES_CONTROLLER')),
+      address(AaveV3Ethereum.DEFAULT_INCENTIVES_CONTROLLER)
+    );
+  }
+
+  function test_ethereumAddressesProviderRegistry_registry_lidoAddressesProvider() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+    assertEq(
+      IPoolAddressesProviderRegistry(AaveV3Ethereum.POOL_ADDRESSES_PROVIDER_REGISTRY)
+        .getAddressesProviderIdByAddress(address(AaveV3EthereumLido.POOL_ADDRESSES_PROVIDER)),
+      43
+    );
+  }
+
+  function test_lidoAclManager_roles() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+    assertTrue(
+      AaveV3EthereumLido.ACL_MANAGER.isPoolAdmin(0x2CFe3ec4d5a6811f4B8067F0DE7e47DfA938Aa30)
+    );
+    assertTrue(
+      AaveV3EthereumLido.ACL_MANAGER.isRiskAdmin(AaveV3EthereumLido.CAPS_PLUS_RISK_STEWARD)
+    );
   }
 }

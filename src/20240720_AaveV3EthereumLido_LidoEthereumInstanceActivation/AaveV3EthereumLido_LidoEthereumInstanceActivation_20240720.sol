@@ -8,6 +8,7 @@ import {EngineFlags} from 'aave-v3-periphery/v3-config-engine/EngineFlags.sol';
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';
 import {IAaveV3ConfigEngine} from 'aave-v3-periphery/v3-config-engine/IAaveV3ConfigEngine.sol';
+import {IPoolAddressesProviderRegistry} from 'aave-v3-core/interfaces/IPoolAddressesProviderRegistry.sol';
 
 /**
  * @title Lido Ethereum Instance Activation
@@ -22,6 +23,17 @@ contract AaveV3EthereumLido_LidoEthereumInstanceActivation_20240720 is AaveV3Pay
   uint256 public constant wstETH_SEED_AMOUNT = 1e17;
   address public constant WETH = 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2;
   uint256 public constant WETH_SEED_AMOUNT = 1e17;
+
+  function _preExecute() internal override {
+    bytes32 incentivesControllerTagId = keccak256('INCENTIVES_CONTROLLER');
+    AaveV3EthereumLido.POOL_ADDRESSES_PROVIDER.setAddress(
+      incentivesControllerTagId,
+      address(AaveV3Ethereum.DEFAULT_INCENTIVES_CONTROLLER)
+    );
+
+    IPoolAddressesProviderRegistry(AaveV3Ethereum.POOL_ADDRESSES_PROVIDER_REGISTRY)
+      .registerAddressesProvider(address(AaveV3EthereumLido.POOL_ADDRESSES_PROVIDER), 43);
+  }
 
   function _postExecute() internal override {
     AaveV3EthereumLido.ACL_MANAGER.addPoolAdmin(0x2CFe3ec4d5a6811f4B8067F0DE7e47DfA938Aa30);
