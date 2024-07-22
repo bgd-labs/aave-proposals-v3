@@ -9,6 +9,8 @@ import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/ProtocolV3TestBase.sol';
 import {AaveV3EthereumLido_LidoEthereumInstanceActivation_20240720} from './AaveV3EthereumLido_LidoEthereumInstanceActivation_20240720.sol';
+import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
+import 'forge-std/console2.sol';
 
 /**
  * @dev Test for AaveV3EthereumLido_LidoEthereumInstanceActivation_20240720
@@ -20,6 +22,12 @@ contract AaveV3EthereumLido_LidoEthereumInstanceActivation_20240720_Test is Prot
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('mainnet'), 20347071);
     proposal = new AaveV3EthereumLido_LidoEthereumInstanceActivation_20240720();
+
+    deal(proposal.WETH(), GovernanceV3Ethereum.EXECUTOR_LVL_1, 1 ether);
+    deal(proposal.wstETH(), GovernanceV3Ethereum.EXECUTOR_LVL_1, 1 ether);
+
+    console2.log(IERC20(proposal.WETH()).balanceOf(GovernanceV3Ethereum.EXECUTOR_LVL_1));
+    console2.log(IERC20(proposal.wstETH()).balanceOf(GovernanceV3Ethereum.EXECUTOR_LVL_1));
   }
 
   /**
@@ -38,7 +46,7 @@ contract AaveV3EthereumLido_LidoEthereumInstanceActivation_20240720_Test is Prot
     (address aTokenAddress, , ) = AaveV3EthereumLido
       .AAVE_PROTOCOL_DATA_PROVIDER
       .getReserveTokensAddresses(proposal.wstETH());
-    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Ethereum.COLLECTOR)), 10 ** 18);
+    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Ethereum.COLLECTOR)), 1 ether);
   }
 
   function test_collectorHasWETHFunds() public {
@@ -46,6 +54,6 @@ contract AaveV3EthereumLido_LidoEthereumInstanceActivation_20240720_Test is Prot
     (address aTokenAddress, , ) = AaveV3EthereumLido
       .AAVE_PROTOCOL_DATA_PROVIDER
       .getReserveTokensAddresses(proposal.WETH());
-    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Ethereum.COLLECTOR)), 10 ** 18);
+    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Ethereum.COLLECTOR)), 1 ether);
   }
 }
