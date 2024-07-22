@@ -64,6 +64,7 @@ All the information about this upgrade can be found on the [payload repository](
 - New L2 pool implementation: [L2PoolInstanceWithCustomInitialize](https://github.com/bgd-labs/protocol-v3.1-upgrade/blob/main/src/contracts/L2PoolInstanceWithCustomInitialize.sol)
 - Payload tests: [Tests](https://github.com/bgd-labs/protocol-v3.1-upgrade/tree/main/tests)
 - Aave v3.1 and payloads security procedures: [v3.1 security section](https://github.com/aave-dao/aave-v3-origin?tab=readme-ov-file#security)
+- Configuration diffs pre/post proposal execution: [diffs](https://github.com/bgd-labs/protocol-v3.1-upgrade/tree/main/diffs)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x905264def5a1736097807e33b43bed5271844c6aed9d4f46e047fe6810e39160)
 - [Discussion](https://governance.aave.com/t/bgd-aave-v3-1-and-aave-origin/17305)
 
