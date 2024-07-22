@@ -11,7 +11,7 @@
 | isFrozen | false |
 | supplyCap | 650,000 wstETH |
 | borrowCap | 12,000 wstETH |
-| debtCeiling | 0 $ |
+| debtCeiling | 0 $ [0] |
 | isSiloed | false |
 | isFlashloanable | true |
 | eModeCategory | 1 |
@@ -20,11 +20,11 @@
 | oracleDescription | Capped wstETH / stETH(ETH) / USD |
 | oracleLatestAnswer | 4091.86272913 |
 | usageAsCollateralEnabled | true |
-| ltv | 80 % |
-| liquidationThreshold | 81 % |
+| ltv | 80 % [8000] |
+| liquidationThreshold | 81 % [8100] |
 | liquidationBonus | 6 % |
-| liquidationProtocolFee | 10 % |
-| reserveFactor | 5 % |
+| liquidationProtocolFee | 10 % [1000] |
+| reserveFactor | 5 % [500] |
 | aToken | [0xC035a7cf15375cE2706766804551791aD035E0C2](https://etherscan.io/address/0xC035a7cf15375cE2706766804551791aD035E0C2) |
 | aTokenImpl | [0x7F8Fc14D462bdF93c681c1f2Fd615389bF969Fb2](https://etherscan.io/address/0x7F8Fc14D462bdF93c681c1f2Fd615389bF969Fb2) |
 | variableDebtToken | [0xE439edd2625772AA635B437C099C607B6eb7d35f](https://etherscan.io/address/0xE439edd2625772AA635B437C099C607B6eb7d35f) |
@@ -35,17 +35,20 @@
 | stableBorrowRateEnabled | false |
 | isBorrowableInIsolation | false |
 | interestRateStrategy | [0x6642dcAaBc80807DD083c66a301d308568CBcA3D](https://etherscan.io/address/0x6642dcAaBc80807DD083c66a301d308568CBcA3D) |
-| liquidityIndex | 1 |
-| variableBorrowIndex | 1 |
+| liquidityIndex | 1 % [1000000000000000000000000000] |
+| variableBorrowIndex | 1 % [1000000000000000000000000000] |
+| aToken underlying balance | 0. |
 | aTokenName | Aave Ethereum LidoEthwstETH |
 | aTokenSymbol | aEthLidoEthwstETH |
-| currentLiquidityRate | 0 % |
-| currentVariableBorrowRate | 0 % |
+| currentLiquidityRate | 0 % [0] |
+| currentVariableBorrowRate | 0 % [0] |
 | isPaused | false |
 | stableDebtTokenName | Aave Ethereum Stable Debt LidoEthwstETH |
 | stableDebtTokenSymbol | stableDebtEthLidoEthwstETH |
 | variableDebtTokenName | Aave Ethereum Variable Debt LidoEthwstETH |
 | variableDebtTokenSymbol | variableDebtEthLidoEthwstETH |
+| virtual accounting active | true |
+| virtual balance | 0.1 |
 | optimalUsageRatio | 45 % |
 | maxVariableBorrowRate | 88.5 % |
 | baseVariableBorrowRate | 0 % |
@@ -68,7 +71,7 @@
 | isFrozen | false |
 | supplyCap | 900,000 WETH |
 | borrowCap | 810,000 WETH |
-| debtCeiling | 0 $ |
+| debtCeiling | 0 $ [0] |
 | isSiloed | false |
 | isFlashloanable | true |
 | eModeCategory | 1 |
@@ -77,11 +80,11 @@
 | oracleDescription | ETH / USD |
 | oracleLatestAnswer | 3487.769501 |
 | usageAsCollateralEnabled | true |
-| ltv | 82 % |
-| liquidationThreshold | 83 % |
+| ltv | 82 % [8200] |
+| liquidationThreshold | 83 % [8300] |
 | liquidationBonus | 5 % |
-| liquidationProtocolFee | 10 % |
-| reserveFactor | 10 % |
+| liquidationProtocolFee | 10 % [1000] |
+| reserveFactor | 10 % [1000] |
 | aToken | [0xfA1fDbBD71B0aA16162D76914d69cD8CB3Ef92da](https://etherscan.io/address/0xfA1fDbBD71B0aA16162D76914d69cD8CB3Ef92da) |
 | aTokenImpl | [0x7F8Fc14D462bdF93c681c1f2Fd615389bF969Fb2](https://etherscan.io/address/0x7F8Fc14D462bdF93c681c1f2Fd615389bF969Fb2) |
 | variableDebtToken | [0x91b7d78BF92db564221f6B5AeE744D1727d1Dd1e](https://etherscan.io/address/0x91b7d78BF92db564221f6B5AeE744D1727d1Dd1e) |
@@ -92,17 +95,20 @@
 | stableBorrowRateEnabled | false |
 | isBorrowableInIsolation | false |
 | interestRateStrategy | [0x6642dcAaBc80807DD083c66a301d308568CBcA3D](https://etherscan.io/address/0x6642dcAaBc80807DD083c66a301d308568CBcA3D) |
-| liquidityIndex | 1 |
-| variableBorrowIndex | 1 |
+| liquidityIndex | 1 % [1000000000000000000000000000] |
+| variableBorrowIndex | 1 % [1000000000000000000000000000] |
+| aToken underlying balance | 1085.396377012177434676 |
 | aTokenName | Aave Ethereum LidoEthWETH |
 | aTokenSymbol | aEthLidoEthWETH |
-| currentLiquidityRate | 0 % |
-| currentVariableBorrowRate | 0 % |
+| currentLiquidityRate | 0 % [0] |
+| currentVariableBorrowRate | 0 % [0] |
 | isPaused | false |
 | stableDebtTokenName | Aave Ethereum Stable Debt LidoEthWETH |
 | stableDebtTokenSymbol | stableDebtEthLidoEthWETH |
 | variableDebtTokenName | Aave Ethereum Variable Debt LidoEthWETH |
 | variableDebtTokenSymbol | variableDebtEthLidoEthWETH |
+| virtual accounting active | true |
+| virtual balance | 0.1 |
 | optimalUsageRatio | 90 % |
 | maxVariableBorrowRate | 87.5 % |
 | baseVariableBorrowRate | 0 % |
@@ -138,6 +144,7 @@
       "from": null,
       "to": {
         "aToken": "0xC035a7cf15375cE2706766804551791aD035E0C2",
+        "aToken underlying balance": "0.",
         "aTokenImpl": "0x7F8Fc14D462bdF93c681c1f2Fd615389bF969Fb2",
         "aTokenName": "Aave Ethereum LidoEthwstETH",
         "aTokenSymbol": "aEthLidoEthwstETH",
@@ -178,13 +185,16 @@
         "variableDebtToken": "0xE439edd2625772AA635B437C099C607B6eb7d35f",
         "variableDebtTokenImpl": "0x3E59212c34588a63350142EFad594a20C88C2CEd",
         "variableDebtTokenName": "Aave Ethereum Variable Debt LidoEthwstETH",
-        "variableDebtTokenSymbol": "variableDebtEthLidoEthwstETH"
+        "variableDebtTokenSymbol": "variableDebtEthLidoEthwstETH",
+        "virtual accounting active": true,
+        "virtual balance": "0.1"
       }
     },
     "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2": {
       "from": null,
       "to": {
         "aToken": "0xfA1fDbBD71B0aA16162D76914d69cD8CB3Ef92da",
+        "aToken underlying balance": "1085.396377012177434676",
         "aTokenImpl": "0x7F8Fc14D462bdF93c681c1f2Fd615389bF969Fb2",
         "aTokenName": "Aave Ethereum LidoEthWETH",
         "aTokenSymbol": "aEthLidoEthWETH",
@@ -225,7 +235,9 @@
         "variableDebtToken": "0x91b7d78BF92db564221f6B5AeE744D1727d1Dd1e",
         "variableDebtTokenImpl": "0x3E59212c34588a63350142EFad594a20C88C2CEd",
         "variableDebtTokenName": "Aave Ethereum Variable Debt LidoEthWETH",
-        "variableDebtTokenSymbol": "variableDebtEthLidoEthWETH"
+        "variableDebtTokenSymbol": "variableDebtEthLidoEthWETH",
+        "virtual accounting active": true,
+        "virtual balance": "0.1"
       }
     }
   },
