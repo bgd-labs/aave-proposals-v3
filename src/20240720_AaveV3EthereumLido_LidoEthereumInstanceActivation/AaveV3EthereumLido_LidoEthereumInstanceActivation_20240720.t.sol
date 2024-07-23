@@ -6,6 +6,8 @@ import {AaveV3EthereumLido} from 'aave-address-book/AaveV3EthereumLido.sol';
 import {AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {IPoolAddressesProviderRegistry} from 'aave-v3-core/interfaces/IPoolAddressesProviderRegistry.sol';
+import {IEmissionManager} from 'aave-v3-periphery/rewards/interfaces/IEmissionManager.sol';
+import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 
 import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/ProtocolV3TestBase.sol';
@@ -78,6 +80,30 @@ contract AaveV3EthereumLido_LidoEthereumInstanceActivation_20240720_Test is Prot
     );
     assertTrue(
       AaveV3EthereumLido.ACL_MANAGER.isRiskAdmin(AaveV3EthereumLido.CAPS_PLUS_RISK_STEWARD)
+    );
+  }
+
+  function test_emissions_admin() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+    (address aWETH, , ) = AaveV3EthereumLido.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(
+      proposal.WETH()
+    );
+    assertEq(
+      IEmissionManager(AaveV3Ethereum.EMISSION_MANAGER).getEmissionAdmin(aWETH),
+      0x47c71dFEB55Ebaa431Ae3fbF99Ea50e0D3d30fA8
+    );
+    assertEq(aWETH, 0xfA1fDbBD71B0aA16162D76914d69cD8CB3Ef92da);
+    assertEq(
+      IEmissionManager(AaveV3Ethereum.EMISSION_MANAGER).getEmissionAdmin(proposal.WETH()),
+      0x47c71dFEB55Ebaa431Ae3fbF99Ea50e0D3d30fA8
+    );
+  }
+
+  function test_deployment_service_fees() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+    assertEq(
+      IERC20(MiscEthereum.GHO_TOKEN).balanceOf(0x6D53be86136c3d4AA6448Ce4bF6178AD66e63661),
+      15000e18
     );
   }
 }

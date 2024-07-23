@@ -3,11 +3,13 @@ pragma solidity ^0.8.0;
 
 import {AaveV3EthereumLido} from 'aave-address-book/AaveV3EthereumLido.sol';
 import {AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
+import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {AaveV3PayloadEthereumLido} from 'aave-helpers/v3-config-engine/AaveV3PayloadEthereumLido.sol';
 import {EngineFlags} from 'aave-v3-periphery/v3-config-engine/EngineFlags.sol';
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';
 import {IAaveV3ConfigEngine} from 'aave-v3-periphery/v3-config-engine/IAaveV3ConfigEngine.sol';
+import {IEmissionManager} from 'aave-v3-periphery/rewards/interfaces/IEmissionManager.sol';
 import {IPoolAddressesProviderRegistry} from 'aave-v3-core/interfaces/IPoolAddressesProviderRegistry.sol';
 
 /**
@@ -39,6 +41,16 @@ contract AaveV3EthereumLido_LidoEthereumInstanceActivation_20240720 is AaveV3Pay
     AaveV3EthereumLido.ACL_MANAGER.addPoolAdmin(0x2CFe3ec4d5a6811f4B8067F0DE7e47DfA938Aa30);
     AaveV3EthereumLido.ACL_MANAGER.addRiskAdmin(AaveV3EthereumLido.CAPS_PLUS_RISK_STEWARD);
 
+    IEmissionManager(AaveV3Ethereum.EMISSION_MANAGER).setEmissionAdmin(
+      WETH,
+      0x47c71dFEB55Ebaa431Ae3fbF99Ea50e0D3d30fA8
+    );
+    IEmissionManager(AaveV3Ethereum.EMISSION_MANAGER).setEmissionAdmin(
+      0xfA1fDbBD71B0aA16162D76914d69cD8CB3Ef92da,
+      0x47c71dFEB55Ebaa431Ae3fbF99Ea50e0D3d30fA8
+    );
+
+    // Seed wstETH and WETH to the pool
     IERC20(wstETH).forceApprove(address(AaveV3EthereumLido.POOL), wstETH_SEED_AMOUNT);
     AaveV3EthereumLido.POOL.supply(
       wstETH,
@@ -48,6 +60,13 @@ contract AaveV3EthereumLido_LidoEthereumInstanceActivation_20240720 is AaveV3Pay
     );
     IERC20(WETH).forceApprove(address(AaveV3EthereumLido.POOL), WETH_SEED_AMOUNT);
     AaveV3EthereumLido.POOL.supply(WETH, WETH_SEED_AMOUNT, address(AaveV3Ethereum.COLLECTOR), 0);
+
+    // Catapulta service fee
+    AaveV3Ethereum.COLLECTOR.transfer(
+      MiscEthereum.GHO_TOKEN,
+      0x6D53be86136c3d4AA6448Ce4bF6178AD66e63661,
+      15000e18
+    );
   }
 
   function eModeCategoriesUpdates()
