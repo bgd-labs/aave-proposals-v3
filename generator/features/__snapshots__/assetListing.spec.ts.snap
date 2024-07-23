@@ -19,7 +19,7 @@ The table below illustrates the configured risk parameters for **PSP**
 
 | Parameter                          |                                      Value |
 | ---------------------------------- | -----------------------------------------: |
-| Isolation Mode                     |                                       true |
+| Isolation Mode                     |                                      false |
 | Borrowable                         |                                    ENABLED |
 | Collateral Enabled                 |                                       true |
 | Supply Cap (PSP)                   |                                     10,000 |

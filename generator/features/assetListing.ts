@@ -201,7 +201,7 @@ export const assetListing: FeatureModule<Listing[]> = {
           let listingTemplate = `The table below illustrates the configured risk parameters for **${cfg.assetSymbol}**\n\n`;
           listingTemplate += `| Parameter | Value |\n`;
           listingTemplate += `| --- | --: |\n`;
-          listingTemplate += `| Isolation Mode | ${!!cfg.debtCeiling} |\n`;
+          listingTemplate += `| Isolation Mode | ${cfg.debtCeiling !== '0'} |\n`;
           listingTemplate += `| Borrowable | ${cfg.enabledToBorrow} |\n`;
           listingTemplate += `| Collateral Enabled | ${!!cfg.liqThreshold} |\n`;
           listingTemplate += `| Supply Cap (${cfg.assetSymbol}) | ${transformNumberToHumanReadable(
