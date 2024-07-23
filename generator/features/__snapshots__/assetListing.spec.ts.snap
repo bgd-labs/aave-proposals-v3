@@ -394,9 +394,8 @@ pragma solidity ^0.8.0;
 
 import {AaveV3Ethereum, AaveV3EthereumEModes} from 'aave-address-book/AaveV3Ethereum.sol';
 import {AaveV3PayloadEthereum} from 'aave-helpers/v3-config-engine/AaveV3PayloadEthereum.sol';
-import {EngineFlags} from 'aave-helpers/v3-config-engine/EngineFlags.sol';
-import {IAaveV3ConfigEngine} from 'aave-helpers/v3-config-engine/IAaveV3ConfigEngine.sol';
-import {IV3RateStrategyFactory} from 'aave-helpers/v3-config-engine/IV3RateStrategyFactory.sol';
+import {EngineFlags} from 'aave-v3-core/v3-config-engine/EngineFlags.sol';
+import {IAaveV3ConfigEngine} from 'aave-v3-core/v3-config-engine/IAaveV3ConfigEngine.sol';
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';
 /**
