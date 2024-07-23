@@ -22,7 +22,6 @@ contract AaveV3EthereumLido_LidoEthereumInstanceActivation_20240720 is AaveV3Pay
   using SafeERC20 for IERC20;
 
   address public constant ACI_MULTISIG = 0x47c71dFEB55Ebaa431Ae3fbF99Ea50e0D3d30fA8;
-  address public constant AWETH_SIMULATED_ADDRESS = 0x47c71dFEB55Ebaa431Ae3fbF99Ea50e0D3d30fA8;
 
   address public constant wstETH = 0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0;
   uint256 public constant wstETH_SEED_AMOUNT = 1e17;
