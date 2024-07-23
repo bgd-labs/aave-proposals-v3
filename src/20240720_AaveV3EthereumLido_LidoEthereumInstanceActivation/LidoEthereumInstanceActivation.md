@@ -77,9 +77,9 @@ The Lido Alliance’s Aave v3 instance payload implements the following:
 
 ## References
 
-- Implementation: [payload](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240720_AaveV3EthereumLido_LidoEthereumInstanceActivation/AaveV3EthereumLido_LidoEthereumInstanceActivation_20240720.sol)
+- Implementation: [payload](https://github.com/bgd-labs/aave-proposals-v3/blob/cca3d21be3bea0c591ebab6bf48b61234c2fac88/src/20240720_AaveV3EthereumLido_LidoEthereumInstanceActivation/AaveV3EthereumLido_LidoEthereumInstanceActivation_20240720.sol)
 - Permissions: [Lido Instances Permissions Table](https://github.com/bgd-labs/aave-permissions-book/blob/23b6085a2c5b9342f0c72d205808e10655489c3c/out/MAINNET-LIDO.md)
-- Tests: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240720_AaveV3EthereumLido_LidoEthereumInstanceActivation/AaveV3EthereumLido_LidoEthereumInstanceActivation_20240720.t.sol)
+- Tests: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/cca3d21be3bea0c591ebab6bf48b61234c2fac88/src/20240720_AaveV3EthereumLido_LidoEthereumInstanceActivation/AaveV3EthereumLido_LidoEthereumInstanceActivation_20240720.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x9403b7f704ade0d6510591e4846fd85c84b19d134c0814511af914751ecfad5d)
 - [Discussion](https://governance.aave.com/t/arfc-deploy-a-lido-aave-v3-instance/18047)
 
