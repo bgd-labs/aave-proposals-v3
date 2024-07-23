@@ -7,7 +7,7 @@ snapshot: "Direct-to-AIP"
 
 ## Simple Summary
 
-This publication proposes increasing the CCIP Facilitator Capacity on Arbitrum from 1M units to 5M units via the Direct-to-AIP process.
+This publication proposes increasing the CCIP Facilitator Capacity on Arbitrum from 1M units to 5M units via the Direct-to-AIP process. This proposal is continuation of [the previous proposal](https://github.com/bgd-labs/aave-proposals-v3/tree/main/src/20240707_AaveV3Ethereum_IncreaseCCIPFacilitatorCapacity), which is to increase the capacity from 1M units to 2.5M units.
 
 ## Motivation
 
@@ -21,7 +21,7 @@ The equivalent bridgeLimit is also being increased on Ethereum Mainnet to 5M uni
 ## References
 
 - Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240722_Multi_IncreaseGHOFacilitatorCapacity/AaveV3Ethereum_IncreaseGHOFacilitatorCapacity_20240722.sol), [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240722_Multi_IncreaseGHOFacilitatorCapacity/AaveV3Arbitrum_IncreaseGHOFacilitatorCapacity_20240722.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240722_Multi_IncreaseGHOFacilitatorCapacity/AaveV3Ethereum_IncreaseGHOFacilitatorCapacity_20240722.t.sol), [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240722_Multi_IncreaseGHOFacilitatorCapacity/AaveV3Arbitrum_IncreaseGHOFacilitatorCapacity_20240722.t.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240722_Multi_IncreaseGHOFacilitatorCapacity/AaveV3Ethereum_IncreaseGHOFacilitatorCapacity_20240722.t.sol), [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240722_Multi_IncreaseGHOFacilitatorCapacity/AaveV3Arbitrum_IncreaseGHOFacilitatorCapacity_20240722.t.sol), [E2E](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240722_Multi_IncreaseGHOFacilitatorCapacity/AaveV3E2e_IncreaseGHOFacilitatorCapacity_20240722.t.sol)
 - Snapshot: Direct-to-AIP
 - [Discussion](https://governance.aave.com/t/arfc-gho-arb-increase-ccip-facilitator-capacity/18169)
 
