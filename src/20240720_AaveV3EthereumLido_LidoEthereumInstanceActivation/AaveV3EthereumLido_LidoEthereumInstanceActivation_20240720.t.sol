@@ -90,12 +90,12 @@ contract AaveV3EthereumLido_LidoEthereumInstanceActivation_20240720_Test is Prot
     );
     assertEq(
       IEmissionManager(AaveV3Ethereum.EMISSION_MANAGER).getEmissionAdmin(aWETH),
-      0x47c71dFEB55Ebaa431Ae3fbF99Ea50e0D3d30fA8
+      proposal.ACI_MULTISIG()
     );
     assertEq(aWETH, 0xfA1fDbBD71B0aA16162D76914d69cD8CB3Ef92da);
     assertEq(
       IEmissionManager(AaveV3Ethereum.EMISSION_MANAGER).getEmissionAdmin(proposal.WETH()),
-      0x47c71dFEB55Ebaa431Ae3fbF99Ea50e0D3d30fA8
+      proposal.ACI_MULTISIG()
     );
   }
 
