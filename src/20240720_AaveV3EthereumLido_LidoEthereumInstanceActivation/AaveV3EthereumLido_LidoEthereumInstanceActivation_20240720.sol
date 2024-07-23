@@ -95,7 +95,7 @@ contract AaveV3EthereumLido_LidoEthereumInstanceActivation_20240720 is AaveV3Pay
 
     listings[0] = IAaveV3ConfigEngine.Listing({
       asset: wstETH,
-      assetSymbol: 'LidoEthwstETH',
+      assetSymbol: 'wstETH',
       priceFeed: 0xB4aB0c94159bc2d8C133946E7241368fc2F2a010,
       eModeCategory: 1,
       enabledToBorrow: EngineFlags.ENABLED,
@@ -120,7 +120,7 @@ contract AaveV3EthereumLido_LidoEthereumInstanceActivation_20240720 is AaveV3Pay
     });
     listings[1] = IAaveV3ConfigEngine.Listing({
       asset: WETH,
-      assetSymbol: 'LidoEthWETH',
+      assetSymbol: 'WETH',
       priceFeed: 0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419,
       eModeCategory: 1,
       enabledToBorrow: EngineFlags.ENABLED,

@@ -38,15 +38,15 @@
 | liquidityIndex | 1 % [1000000000000000000000000000] |
 | variableBorrowIndex | 1 % [1000000000000000000000000000] |
 | aToken underlying balance | 0. |
-| aTokenName | Aave Ethereum LidoEthwstETH |
-| aTokenSymbol | aEthLidoEthwstETH |
+| aTokenName | Aave Ethereum Lido wstETH |
+| aTokenSymbol | aEthLidowstETH |
 | currentLiquidityRate | 0 % [0] |
 | currentVariableBorrowRate | 0 % [0] |
 | isPaused | false |
-| stableDebtTokenName | Aave Ethereum Stable Debt LidoEthwstETH |
-| stableDebtTokenSymbol | stableDebtEthLidoEthwstETH |
-| variableDebtTokenName | Aave Ethereum Variable Debt LidoEthwstETH |
-| variableDebtTokenSymbol | variableDebtEthLidoEthwstETH |
+| stableDebtTokenName | Aave Ethereum Lido Stable Debt wstETH |
+| stableDebtTokenSymbol | stableDebtEthLidowstETH |
+| variableDebtTokenName | Aave Ethereum Lido Variable Debt wstETH |
+| variableDebtTokenSymbol | variableDebtEthLidowstETH |
 | virtual accounting active | true |
 | virtual balance | 0.1 |
 | optimalUsageRatio | 45 % |
@@ -98,15 +98,15 @@
 | liquidityIndex | 1 % [1000000000000000000000000000] |
 | variableBorrowIndex | 1 % [1000000000000000000000000000] |
 | aToken underlying balance | 1085.396377012177434676 |
-| aTokenName | Aave Ethereum LidoEthWETH |
-| aTokenSymbol | aEthLidoEthWETH |
+| aTokenName | Aave Ethereum Lido WETH |
+| aTokenSymbol | aEthLidoWETH |
 | currentLiquidityRate | 0 % [0] |
 | currentVariableBorrowRate | 0 % [0] |
 | isPaused | false |
-| stableDebtTokenName | Aave Ethereum Stable Debt LidoEthWETH |
-| stableDebtTokenSymbol | stableDebtEthLidoEthWETH |
-| variableDebtTokenName | Aave Ethereum Variable Debt LidoEthWETH |
-| variableDebtTokenSymbol | variableDebtEthLidoEthWETH |
+| stableDebtTokenName | Aave Ethereum Lido Stable Debt WETH |
+| stableDebtTokenSymbol | stableDebtEthLidoWETH |
+| variableDebtTokenName | Aave Ethereum Lido Variable Debt WETH |
+| variableDebtTokenSymbol | variableDebtEthLidoWETH |
 | virtual accounting active | true |
 | virtual balance | 0.1 |
 | optimalUsageRatio | 90 % |
@@ -146,8 +146,8 @@
         "aToken": "0xC035a7cf15375cE2706766804551791aD035E0C2",
         "aToken underlying balance": "0.",
         "aTokenImpl": "0x7F8Fc14D462bdF93c681c1f2Fd615389bF969Fb2",
-        "aTokenName": "Aave Ethereum LidoEthwstETH",
-        "aTokenSymbol": "aEthLidoEthwstETH",
+        "aTokenName": "Aave Ethereum Lido wstETH",
+        "aTokenSymbol": "aEthLidowstETH",
         "borrowCap": 12000,
         "borrowingEnabled": true,
         "currentLiquidityRate": 0,
@@ -175,8 +175,8 @@
         "stableBorrowRateEnabled": false,
         "stableDebtToken": "0x3d0Fd161363b327C704b013a9E63a8Cc03Bec1c4",
         "stableDebtTokenImpl": "0x36284fED68f802c5733432c3306D8e92c504a243",
-        "stableDebtTokenName": "Aave Ethereum Stable Debt LidoEthwstETH",
-        "stableDebtTokenSymbol": "stableDebtEthLidoEthwstETH",
+        "stableDebtTokenName": "Aave Ethereum Lido Stable Debt wstETH",
+        "stableDebtTokenSymbol": "stableDebtEthLidowstETH",
         "supplyCap": 650000,
         "symbol": "wstETH",
         "underlying": "0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0",
@@ -184,8 +184,8 @@
         "variableBorrowIndex": "1000000000000000000000000000",
         "variableDebtToken": "0xE439edd2625772AA635B437C099C607B6eb7d35f",
         "variableDebtTokenImpl": "0x3E59212c34588a63350142EFad594a20C88C2CEd",
-        "variableDebtTokenName": "Aave Ethereum Variable Debt LidoEthwstETH",
-        "variableDebtTokenSymbol": "variableDebtEthLidoEthwstETH",
+        "variableDebtTokenName": "Aave Ethereum Lido Variable Debt wstETH",
+        "variableDebtTokenSymbol": "variableDebtEthLidowstETH",
         "virtual accounting active": true,
         "virtual balance": "0.1"
       }
@@ -196,8 +196,8 @@
         "aToken": "0xfA1fDbBD71B0aA16162D76914d69cD8CB3Ef92da",
         "aToken underlying balance": "1085.396377012177434676",
         "aTokenImpl": "0x7F8Fc14D462bdF93c681c1f2Fd615389bF969Fb2",
-        "aTokenName": "Aave Ethereum LidoEthWETH",
-        "aTokenSymbol": "aEthLidoEthWETH",
+        "aTokenName": "Aave Ethereum Lido WETH",
+        "aTokenSymbol": "aEthLidoWETH",
         "borrowCap": 810000,
         "borrowingEnabled": true,
         "currentLiquidityRate": 0,
@@ -225,8 +225,8 @@
         "stableBorrowRateEnabled": false,
         "stableDebtToken": "0x97D5Cd1a26243647ddEac87183236Cf215974d30",
         "stableDebtTokenImpl": "0x36284fED68f802c5733432c3306D8e92c504a243",
-        "stableDebtTokenName": "Aave Ethereum Stable Debt LidoEthWETH",
-        "stableDebtTokenSymbol": "stableDebtEthLidoEthWETH",
+        "stableDebtTokenName": "Aave Ethereum Lido Stable Debt WETH",
+        "stableDebtTokenSymbol": "stableDebtEthLidoWETH",
         "supplyCap": 900000,
         "symbol": "WETH",
         "underlying": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
@@ -234,8 +234,8 @@
         "variableBorrowIndex": "1000000000000000000000000000",
         "variableDebtToken": "0x91b7d78BF92db564221f6B5AeE744D1727d1Dd1e",
         "variableDebtTokenImpl": "0x3E59212c34588a63350142EFad594a20C88C2CEd",
-        "variableDebtTokenName": "Aave Ethereum Variable Debt LidoEthWETH",
-        "variableDebtTokenSymbol": "variableDebtEthLidoEthWETH",
+        "variableDebtTokenName": "Aave Ethereum Lido Variable Debt WETH",
+        "variableDebtTokenSymbol": "variableDebtEthLidoWETH",
         "virtual accounting active": true,
         "virtual balance": "0.1"
       }
