@@ -13,7 +13,7 @@ import {IProposalGenericExecutor} from 'aave-helpers/interfaces/IProposalGeneric
  */
 contract AaveV3Ethereum_ToolingUpdateAllowance_20240707 is IProposalGenericExecutor {
   address public constant TOKEN_LOGIC = 0x3e4A9f478C0c13A15137Fc81e9d8269F127b4B40;
-  uint256 public constant ALLOWANCE = 12_300 ether;
+  uint256 public constant ALLOWANCE = 12_430 ether;
 
   function execute() external {
     AaveV3Ethereum.COLLECTOR.approve(AaveV3EthereumAssets.GHO_UNDERLYING, TOKEN_LOGIC, ALLOWANCE);
