@@ -23,74 +23,57 @@ wETH suppliers will also be proposed to be eligible to a dedicated Merit Boost
 
 ## Specification
 
-The Lido Alliance’s Aave v3 instance implements the following:
+The Lido Alliance’s Aave v3 instance payload implements the following:
 
-The borrow cap of wETH will be set to 90% of supplied wETH, with updates tightly controlled by the risk steward. This will ensure that stETH/wETH loops are consistently profitable and can’t go into negative territory.
-E-Mode LTV & LT are set 50 bps above all other Aave implementations, making it the most efficient loop venue in the industry.
-For the first 6 months of the Lido Alliance Aave v3, wETH slope1 will be set at 2.50%, ((currently 2.7% on mainnet and on L2s) and wETH RF set at 10% (currently 15% on all markets). This will make it the most profitable venue to loop stETH & wETH.
-wstETH RF will be 5%.
+- Pre-execution:
+  - Sets Ethereum V3 Incentives Controller to manage Ethereum Lido incentives.
+  - Register Ethereum Lido instance in Ethereum V3 PoolAddressesProviderRegistry.
+- Execution:
 
-The deployment of the Aave V3.1 Lido Ecosystem Aave have been done by Catapulta deployments provider on behalf of the Aave DAO.
+  - Add eMode category for ETH correlated assets:
+    - LTV: 93.50%
+    - LQT: 95.50%
+    - LiqBonus: 1%
+    - Oracle: Not set
+    - Label : 'Eth correlated'
+  - Listing of wstETH and WETH tokens.
 
-The table below illustrates the configured risk parameters for **wstETH**
+    The table below illustrates the configured risk parameters for **wstETH** and **WETH** tokens.
 
-| Parameter                          |                                      Value |
-| ---------------------------------- | -----------------------------------------: |
-| Isolation Mode                     |                                       true |
-| Borrowable                         |                                    ENABLED |
-| Collateral Enabled                 |                                       true |
-| Supply Cap (wstETH)                |                                    650,000 |
-| Borrow Cap (wstETH)                |                                     12,000 |
-| Debt Ceiling                       |                                      USD 0 |
-| LTV                                |                                       80 % |
-| LT                                 |                                       81 % |
-| Liquidation Bonus                  |                                        6 % |
-| Liquidation Protocol Fee           |                                       10 % |
-| Reserve Factor                     |                                        5 % |
-| Base Variable Borrow Rate          |                                        0 % |
-| Variable Slope 1                   |                                      3.5 % |
-| Variable Slope 2                   |                                       85 % |
-| Uoptimal                           |                                       45 % |
-| Stable Borrowing                   |                                   DISABLED |
-| Stable Slope1                      |                                        0 % |
-| Stable Slope2                      |                                        0 % |
-| Base Stable Rate Offset            |                                        0 % |
-| Stable Rate Excess Offset          |                                        0 % |
-| Optimal Stable To Total Debt Ratio |                                        0 % |
-| Flashloanable                      |                                    ENABLED |
-| Siloed Borrowing                   |                                   DISABLED |
-| Borrowable in Isolation            |                                   DISABLED |
-| Oracle                             | 0xB4aB0c94159bc2d8C133946E7241368fc2F2a010 |
+| Parameter                          |                                     wstETH |                                       WETH |
+| ---------------------------------- | -----------------------------------------: | -----------------------------------------: |
+| Isolation Mode                     |                                      false |                                      false |
+| Borrowable                         |                                    ENABLED |                                    ENABLED |
+| Collateral Enabled                 |                                       true |                                       true |
+| Supply Cap (wstETH)                |                                    650,000 |                                    900,000 |
+| Borrow Cap (wstETH)                |                                     12,000 |                                    810,000 |
+| Debt Ceiling                       |                                      USD 0 |                                      USD 0 |
+| LTV                                |                                       80 % |                                       82 % |
+| LT                                 |                                       81 % |                                       83 % |
+| Liquidation Bonus                  |                                        6 % |                                        5 % |
+| Liquidation Protocol Fee           |                                       10 % |                                       10 % |
+| Reserve Factor                     |                                        5 % |                                       10 % |
+| Base Variable Borrow Rate          |                                        0 % |                                        0 % |
+| Variable Slope 1                   |                                      3.5 % |                                      2.5 % |
+| Variable Slope 2                   |                                       85 % |                                       85 % |
+| Uoptimal                           |                                       45 % |                                       90 % |
+| Stable Borrowing                   |                                   DISABLED |                                   DISABLED |
+| Stable Slope1                      |                                        0 % |                                        0 % |
+| Stable Slope2                      |                                        0 % |                                        0 % |
+| Base Stable Rate Offset            |                                        0 % |                                        0 % |
+| Stable Rate Excess Offset          |                                        0 % |                                        0 % |
+| Optimal Stable To Total Debt Ratio |                                        0 % |                                        0 % |
+| Flashloanable                      |                                    ENABLED |                                    ENABLED |
+| Siloed Borrowing                   |                                   DISABLED |                                   DISABLED |
+| Borrowable in Isolation            |                                   DISABLED |                                   DISABLED |
+| Oracle                             | 0xB4aB0c94159bc2d8C133946E7241368fc2F2a010 | 0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419 |
 
-,The table below illustrates the configured risk parameters for **WETH**
-
-| Parameter                          |                                      Value |
-| ---------------------------------- | -----------------------------------------: |
-| Isolation Mode                     |                                       true |
-| Borrowable                         |                                    ENABLED |
-| Collateral Enabled                 |                                       true |
-| Supply Cap (WETH)                  |                                    900,000 |
-| Borrow Cap (WETH)                  |                                    810,000 |
-| Debt Ceiling                       |                                      USD 0 |
-| LTV                                |                                       82 % |
-| LT                                 |                                       83 % |
-| Liquidation Bonus                  |                                        5 % |
-| Liquidation Protocol Fee           |                                       10 % |
-| Reserve Factor                     |                                       10 % |
-| Base Variable Borrow Rate          |                                        0 % |
-| Variable Slope 1                   |                                      2.5 % |
-| Variable Slope 2                   |                                       85 % |
-| Uoptimal                           |                                       90 % |
-| Stable Borrowing                   |                                   DISABLED |
-| Stable Slope1                      |                                        0 % |
-| Stable Slope2                      |                                        0 % |
-| Base Stable Rate Offset            |                                        0 % |
-| Stable Rate Excess Offset          |                                        0 % |
-| Optimal Stable To Total Debt Ratio |                                        0 % |
-| Flashloanable                      |                                    ENABLED |
-| Siloed Borrowing                   |                                   DISABLED |
-| Borrowable in Isolation            |                                   DISABLED |
-| Oracle                             | 0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419 |
+- Post-execution:
+  - Set Ethereum PROTOCOL_GUARDIAN as temporary Pool Admin of Ethereum Lido instance.
+  - Set Risk Admin to CapsPlusRisk Steward contract, with **ACI** as admin of this steward that can bump caps with a delay of 2 days per cap update.
+  - Set **ACI** as emission admin of WETH and aWETH rewards for LM program.
+  - Seed initial wstETH and WETH token liquidity for security measures.
+  - Send 15.000 GHO as service fee for Catapulta deployment service provider.
 
 ## References
 
