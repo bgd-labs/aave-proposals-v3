@@ -13,32 +13,32 @@ import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethe
 contract AaveV3Ethereum_TokenLogicKarpatkeyServiceProviderPartnershipPhase2_20240723 is
   IProposalGenericExecutor
 {
-  address public constant STREAM_ONE_RECEIVER = 0x58e6c7ab55Aa9012eAccA16d1ED4c15795669E1C;
-  address public constant STREAM_TWO_RECEIVER = 0x3e4A9f478C0c13A15137Fc81e9d8269F127b4B40;
+  address public constant KARPATKEY_RECEIVER = 0x58e6c7ab55Aa9012eAccA16d1ED4c15795669E1C;
+  address public constant TOKENLOGIC_RECEIVER = 0x3e4A9f478C0c13A15137Fc81e9d8269F127b4B40;
 
-  uint256 public constant STREAM_ONE_AMOUNT = 250_000 ether;
-  uint256 public constant STREAM_TWO_AMOUNT = 250_000 ether;
+  uint256 public constant KARPATKEY_AMOUNT = 250_000 ether;
+  uint256 public constant TOKENLOGIC_AMOUNT = 250_000 ether;
 
   uint256 public constant STREAM_DURATION = 180 days;
 
-  uint256 public constant ACTUAL_AMOUNT_ONE =
-    (STREAM_ONE_AMOUNT / STREAM_DURATION) * STREAM_DURATION;
+  uint256 public constant ACTUAL_AMOUNT_KARPATKEY =
+    (KARPATKEY_AMOUNT / STREAM_DURATION) * STREAM_DURATION;
 
-  uint256 public constant ACTUAL_AMOUNT_TWO =
-    (STREAM_TWO_AMOUNT / STREAM_DURATION) * STREAM_DURATION;
+  uint256 public constant ACTUAL_AMOUNT_TOKENLOGIC =
+    (TOKENLOGIC_AMOUNT / STREAM_DURATION) * STREAM_DURATION;
 
   function execute() external {
     AaveV3Ethereum.COLLECTOR.createStream(
-      STREAM_ONE_RECEIVER,
-      ACTUAL_AMOUNT_ONE,
+      KARPATKEY_RECEIVER,
+      ACTUAL_AMOUNT_KARPATKEY,
       AaveV3EthereumAssets.GHO_UNDERLYING,
       block.timestamp,
       block.timestamp + STREAM_DURATION
     );
 
     AaveV3Ethereum.COLLECTOR.createStream(
-      STREAM_TWO_RECEIVER,
-      ACTUAL_AMOUNT_TWO,
+      TOKENLOGIC_RECEIVER,
+      ACTUAL_AMOUNT_TOKENLOGIC,
       AaveV3EthereumAssets.GHO_UNDERLYING,
       block.timestamp,
       block.timestamp + STREAM_DURATION
