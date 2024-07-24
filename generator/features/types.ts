@@ -67,6 +67,11 @@ export interface RateStrategyParams {
   baseVariableBorrowRate: string;
   variableRateSlope1: string;
   variableRateSlope2: string;
+  stableRateSlope1?: string;
+  stableRateSlope2?: string;
+  baseStableRateOffset?: string;
+  stableRateExcessOffset?: string;
+  optimalStableToTotalDebtRatio?: string;
 }
 
 export interface RateStrategyUpdate extends AssetSelector {

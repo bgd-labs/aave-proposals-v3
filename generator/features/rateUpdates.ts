@@ -36,19 +36,21 @@ export async function fetchRateStrategyParamsV2(required?: boolean): Promise<Rat
 }
 
 export async function fetchRateStrategyParamsV3(required?: boolean) {
-  const params = await fetchRateStrategyParamsV2(required);
   return {
-    ...params,
-    baseStableRateOffset: await percentPrompt({
-      message: 'baseStableRateOffset',
+    optimalUtilizationRate: await percentPrompt({
+      message: 'optimalUtilizationRate',
       required,
     }),
-    stableRateExcessOffset: await percentPrompt({
-      message: 'stableRateExcessOffset',
+    baseVariableBorrowRate: await percentPrompt({
+      message: 'baseVariableBorrowRate',
       required,
     }),
-    optimalStableToTotalDebtRatio: await percentPrompt({
-      message: 'optimalStableToTotalDebtRatio',
+    variableRateSlope1: await percentPrompt({
+      message: 'variableRateSlope1',
+      required,
+    }),
+    variableRateSlope2: await percentPrompt({
+      message: 'variableRateSlope2',
       required,
     }),
   };
@@ -157,34 +159,12 @@ export const rateUpdatesV3: FeatureModule<RateStrategyUpdate[]> = {
                   params: IV3RateStrategyFactory.RateStrategyParams({
                     optimalUsageRatio: ${translateJsPercentToSol(
                       cfg.params.optimalUtilizationRate,
-                      true,
                     )},
                     baseVariableBorrowRate: ${translateJsPercentToSol(
                       cfg.params.baseVariableBorrowRate,
-                      true,
                     )},
-                    variableRateSlope1: ${translateJsPercentToSol(
-                      cfg.params.variableRateSlope1,
-                      true,
-                    )},
-                    variableRateSlope2: ${translateJsPercentToSol(
-                      cfg.params.variableRateSlope2,
-                      true,
-                    )},
-                    stableRateSlope1: ${translateJsPercentToSol(cfg.params.stableRateSlope1, true)},
-                    stableRateSlope2: ${translateJsPercentToSol(cfg.params.stableRateSlope2, true)},
-                    baseStableRateOffset: ${translateJsPercentToSol(
-                      cfg.params.baseStableRateOffset!,
-                      true,
-                    )},
-                    stableRateExcessOffset: ${translateJsPercentToSol(
-                      cfg.params.stableRateExcessOffset!,
-                      true,
-                    )},
-                    optimalStableToTotalDebtRatio: ${translateJsPercentToSol(
-                      cfg.params.optimalStableToTotalDebtRatio!,
-                      true,
-                    )}
+                    variableRateSlope1: ${translateJsPercentToSol(cfg.params.variableRateSlope1)},
+                    variableRateSlope2: ${translateJsPercentToSol(cfg.params.variableRateSlope2)}
                   })
                 });`,
             )
