@@ -31,8 +31,8 @@ TokenLogic: `0x3e4A9f478C0c13A15137Fc81e9d8269F127b4B40`
 
 # References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240707_AaveV3Ethereum_ToolingUpdateAllowance/AaveV3Ethereum_ToolingUpdateAllowance_20240707.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240707_AaveV3Ethereum_ToolingUpdateAllowance/AaveV3Ethereum_ToolingUpdateAllowance_20240707.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/ca87247401e8c2a38cf03f751ac197869c63daaf/src/20240707_AaveV3Ethereum_ToolingUpdateAllowance/AaveV3Ethereum_ToolingUpdateAllowance_20240707.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/ca87247401e8c2a38cf03f751ac197869c63daaf/src/20240707_AaveV3Ethereum_ToolingUpdateAllowance/AaveV3Ethereum_ToolingUpdateAllowance_20240707.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x461571b38365b12ebe39b80d4d9663daa9c7e574cd4bf190ec6fb48dec96371f)
 - [Discussion](https://governance.aave.com/t/arfc-treasury-management-tooling-upgrade/15201)
 
