@@ -54,7 +54,7 @@
 | baseVariableBorrowRate | 0 % |
 | variableRateSlope1 | 3.5 % |
 | variableRateSlope2 | 85 % |
-| interestRate | ![ir](/.assets/4f278d3e1c4335b98c92585fbeb92d263bdb8569.svg) |
+| interestRate | ![ir](/.assets/7ee157177b36f127c68a7672404db79216979260.svg) |
 | eMode.label | ETH correlated |
 | eMode.ltv | 93.5 % |
 | eMode.liquidationThreshold | 95.5 % |
@@ -114,7 +114,7 @@
 | baseVariableBorrowRate | 0 % |
 | variableRateSlope1 | 2.5 % |
 | variableRateSlope2 | 85 % |
-| interestRate | ![ir](/.assets/a796dfa2aa6c13fc95e8d4cc38800ce1a1aa4517.svg) |
+| interestRate | ![ir](/.assets/eb226d8c810d2872c9c4cc3c15a8fa7dbd79c373.svg) |
 | eMode.label | ETH correlated |
 | eMode.ltv | 93.5 % |
 | eMode.liquidationThreshold | 95.5 % |
@@ -187,7 +187,7 @@
         "variableDebtTokenName": "Aave Ethereum Lido Variable Debt wstETH",
         "variableDebtTokenSymbol": "variableDebtEthLidowstETH",
         "virtual accounting active": true,
-        "virtual balance": "0.1"
+        "virtual balance": 0.1
       }
     },
     "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2": {
@@ -237,7 +237,7 @@
         "variableDebtTokenName": "Aave Ethereum Lido Variable Debt WETH",
         "variableDebtTokenSymbol": "variableDebtEthLidoWETH",
         "virtual accounting active": true,
-        "virtual balance": "0.1"
+        "virtual balance": 0.1
       }
     }
   },
@@ -246,7 +246,7 @@
       "from": null,
       "to": {
         "address": "0x6642dcAaBc80807DD083c66a301d308568CBcA3D",
-        "baseVariableBorrowRate": "0",
+        "baseVariableBorrowRate": 0,
         "maxVariableBorrowRate": "885000000000000000000000000",
         "optimalUsageRatio": "450000000000000000000000000",
         "variableRateSlope1": "35000000000000000000000000",
@@ -257,7 +257,7 @@
       "from": null,
       "to": {
         "address": "0x6642dcAaBc80807DD083c66a301d308568CBcA3D",
-        "baseVariableBorrowRate": "0",
+        "baseVariableBorrowRate": 0,
         "maxVariableBorrowRate": "875000000000000000000000000",
         "optimalUsageRatio": "900000000000000000000000000",
         "variableRateSlope1": "25000000000000000000000000",
