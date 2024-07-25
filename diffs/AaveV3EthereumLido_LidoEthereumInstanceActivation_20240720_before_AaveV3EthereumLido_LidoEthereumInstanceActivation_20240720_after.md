@@ -37,7 +37,7 @@
 | interestRateStrategy | [0x6642dcAaBc80807DD083c66a301d308568CBcA3D](https://etherscan.io/address/0x6642dcAaBc80807DD083c66a301d308568CBcA3D) |
 | aTokenName | Aave Ethereum Lido wstETH |
 | aTokenSymbol | aEthLidowstETH |
-| aTokenUnderlyingBalance | 0 wstETH [0] |
+| aTokenUnderlyingBalance | 0.1 wstETH [100000000000000000] |
 | isPaused | false |
 | stableDebtTokenName | Aave Ethereum Lido Stable Debt wstETH |
 | stableDebtTokenSymbol | stableDebtEthLidowstETH |
@@ -93,7 +93,7 @@
 | interestRateStrategy | [0x6642dcAaBc80807DD083c66a301d308568CBcA3D](https://etherscan.io/address/0x6642dcAaBc80807DD083c66a301d308568CBcA3D) |
 | aTokenName | Aave Ethereum Lido WETH |
 | aTokenSymbol | aEthLidoWETH |
-| aTokenUnderlyingBalance | 1,085.3963 WETH [1085396377012177434676] |
+| aTokenUnderlyingBalance | 0.1 WETH [100000000000000000] |
 | isPaused | false |
 | stableDebtTokenName | Aave Ethereum Lido Stable Debt WETH |
 | stableDebtTokenSymbol | stableDebtEthLidoWETH |
@@ -139,7 +139,7 @@
         "aTokenImpl": "0x7F8Fc14D462bdF93c681c1f2Fd615389bF969Fb2",
         "aTokenName": "Aave Ethereum Lido wstETH",
         "aTokenSymbol": "aEthLidowstETH",
-        "aTokenUnderlyingBalance": 0,
+        "aTokenUnderlyingBalance": "100000000000000000",
         "borrowCap": 12000,
         "borrowingEnabled": true,
         "debtCeiling": 0,
@@ -185,7 +185,7 @@
         "aTokenImpl": "0x7F8Fc14D462bdF93c681c1f2Fd615389bF969Fb2",
         "aTokenName": "Aave Ethereum Lido WETH",
         "aTokenSymbol": "aEthLidoWETH",
-        "aTokenUnderlyingBalance": "1085396377012177434676",
+        "aTokenUnderlyingBalance": "100000000000000000",
         "borrowCap": 810000,
         "borrowingEnabled": true,
         "debtCeiling": 0,
