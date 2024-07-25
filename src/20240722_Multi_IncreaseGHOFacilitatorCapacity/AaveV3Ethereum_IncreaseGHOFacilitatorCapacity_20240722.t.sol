@@ -23,7 +23,7 @@ contract AaveV3Ethereum_IncreaseGHOFacilitatorCapacity_20240722_Test is Protocol
   AaveV3Ethereum_IncreaseGHOFacilitatorCapacity_20240722 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 20362522);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 20382965);
     proposal = new AaveV3Ethereum_IncreaseGHOFacilitatorCapacity_20240722();
   }
 
@@ -34,7 +34,7 @@ contract AaveV3Ethereum_IncreaseGHOFacilitatorCapacity_20240722_Test is Protocol
     // Current limit is 1M
     assertEq(
       UpgradeableLockReleaseTokenPool(MiscEthereum.GHO_CCIP_TOKEN_POOL).getBridgeLimit(),
-      1_000_000 ether
+      2_500_000 ether
     );
 
     executePayload(vm, address(proposal));

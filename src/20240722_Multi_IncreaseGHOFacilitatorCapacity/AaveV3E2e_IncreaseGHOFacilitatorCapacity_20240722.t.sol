@@ -29,7 +29,7 @@ import {AaveV3Ethereum_IncreaseGHOFacilitatorCapacity_20240722} from './AaveV3Et
 
 /**
  * @dev Test for AaveV3E2E_GHOCrossChainLaunch_20240528
- * command: FOUNDRY_PROFILE=mainnet forge test --match-path=src/20240722_AaveV3Ethereum_IncreaseGHOFacilitatorCapacity/AaveV3E2e_IncreaseGHOFacilitatorCapacity.t.sol -vv
+ * command: FOUNDRY_PROFILE=mainnet forge test --match-path=src/20240722_Multi_IncreaseGHOFacilitatorCapacity/AaveV3E2e_IncreaseGHOFacilitatorCapacity_20240722.t.sol -vv
  */
 contract AaveV3E2ETest_IncreaseGHOFacilitatorCapacity is ProtocolV3TestBase {
   using Internal for Internal.EVM2EVMMessage;
@@ -47,7 +47,7 @@ contract AaveV3E2ETest_IncreaseGHOFacilitatorCapacity is ProtocolV3TestBase {
   Router internal ETH_ROUTER = Router(0x80226fc0Ee2b096224EeAc085Bb9a8cba1146f7D);
   Router internal ARB_ROUTER = Router(0x141fa059441E0ca23ce184B6A78bafD2A517DdE8);
 
-  uint256 public constant CURRENT_CCIP_BUCKET_CAPACITY = 1_000_000e18; // 1M
+  uint256 public constant CURRENT_CCIP_BUCKET_CAPACITY = 2_500_000e18; // 1M
   uint64 public constant ETH_ARB_CHAIN_SELECTOR = 4949039107694359620;
   uint64 public constant ARB_ETH_CHAIN_SELECTOR = 5009297550715157269;
 
@@ -68,8 +68,8 @@ contract AaveV3E2ETest_IncreaseGHOFacilitatorCapacity is ProtocolV3TestBase {
   uint256 internal arbitrumFork;
 
   function setUp() public {
-    ethereumFork = vm.createFork(vm.rpcUrl('mainnet'), 20330677);
-    arbitrumFork = vm.createFork(vm.rpcUrl('arbitrum'), 233363817);
+    ethereumFork = vm.createFork(vm.rpcUrl('mainnet'), 20382965);
+    arbitrumFork = vm.createFork(vm.rpcUrl('arbitrum'), 235871975);
 
     // Proposal creation
     vm.selectFork(ethereumFork);
@@ -96,12 +96,12 @@ contract AaveV3E2ETest_IncreaseGHOFacilitatorCapacity is ProtocolV3TestBase {
     // Ethereum execution (origin)
     vm.selectFork(ethereumFork);
     address user = makeAddr('user');
-    uint256 amount = 500_000e18; // 500K ETH_GHO
+    uint256 amount = 4_000_000e18; // 4M ETH_GHO
     deal(user, 1e18); // 1 ETH
     deal(address(ETH_GHO), user, amount);
 
     assertEq(ETH_GHO.balanceOf(address(ETH_TOKEN_POOL)), currentBridgedAmount);
-    assertEq(ETH_TOKEN_POOL.getBridgeLimit(), 1_000_000e18);
+    assertEq(ETH_TOKEN_POOL.getBridgeLimit(), 2_500_000e18);
     assertEq(ETH_TOKEN_POOL.getCurrentBridgedAmount(), currentBridgedAmount);
 
     vm.startPrank(user);
@@ -127,7 +127,7 @@ contract AaveV3E2ETest_IncreaseGHOFacilitatorCapacity is ProtocolV3TestBase {
     vm.expectRevert(
       abi.encodeWithSelector(
         UpgradeableLockReleaseTokenPool.BridgeLimitExceeded.selector,
-        1_000_000e18
+        2_500_000e18
       )
     );
     params.router.ccipSend{value: expectedFee}(params.destChainSelector, message);

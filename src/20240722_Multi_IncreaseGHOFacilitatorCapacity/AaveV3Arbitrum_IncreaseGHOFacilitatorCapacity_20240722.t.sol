@@ -20,7 +20,7 @@ contract AaveV3Arbitrum_IncreaseGHOFacilitatorCapacity_20240722_Test is Protocol
   AaveV3Arbitrum_IncreaseGHOFacilitatorCapacity_20240722 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('arbitrum'), 234895360);
+    vm.createSelectFork(vm.rpcUrl('arbitrum'), 235871975);
     proposal = new AaveV3Arbitrum_IncreaseGHOFacilitatorCapacity_20240722();
   }
 
@@ -41,7 +41,7 @@ contract AaveV3Arbitrum_IncreaseGHOFacilitatorCapacity_20240722_Test is Protocol
   function test_newLimitIsSet() public {
     IGhoToken.Facilitator memory prevFacilitator = IGhoToken(AaveV3ArbitrumAssets.GHO_UNDERLYING)
       .getFacilitator(MiscArbitrum.GHO_CCIP_TOKEN_POOL);
-    assertEq(prevFacilitator.bucketCapacity, 1_000_000 ether);
+    assertEq(prevFacilitator.bucketCapacity, 2_500_000 ether);
 
     executePayload(vm, address(proposal));
 
