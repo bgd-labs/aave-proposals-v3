@@ -35,26 +35,22 @@
 | stableBorrowRateEnabled | false |
 | isBorrowableInIsolation | false |
 | interestRateStrategy | [0x6642dcAaBc80807DD083c66a301d308568CBcA3D](https://etherscan.io/address/0x6642dcAaBc80807DD083c66a301d308568CBcA3D) |
-| liquidityIndex | 1 % [1000000000000000000000000000] |
-| variableBorrowIndex | 1 % [1000000000000000000000000000] |
-| aToken underlying balance | 0. |
 | aTokenName | Aave Ethereum Lido wstETH |
 | aTokenSymbol | aEthLidowstETH |
-| currentLiquidityRate | 0 % [0] |
-| currentVariableBorrowRate | 0 % [0] |
+| aTokenUnderlyingBalance | 0 wstETH [0] |
 | isPaused | false |
 | stableDebtTokenName | Aave Ethereum Lido Stable Debt wstETH |
 | stableDebtTokenSymbol | stableDebtEthLidowstETH |
 | variableDebtTokenName | Aave Ethereum Lido Variable Debt wstETH |
 | variableDebtTokenSymbol | variableDebtEthLidowstETH |
-| virtual accounting active | true |
-| virtual balance | 0.1 |
+| virtualAccountingActive | true |
+| virtualBalance | 0.1 wstETH [100000000000000000] |
 | optimalUsageRatio | 45 % |
 | maxVariableBorrowRate | 88.5 % |
 | baseVariableBorrowRate | 0 % |
 | variableRateSlope1 | 3.5 % |
 | variableRateSlope2 | 85 % |
-| interestRate | ![ir](/.assets/7ee157177b36f127c68a7672404db79216979260.svg) |
+| interestRate | ![ir](/.assets/4f278d3e1c4335b98c92585fbeb92d263bdb8569.svg) |
 | eMode.label | ETH correlated |
 | eMode.ltv | 93.5 % |
 | eMode.liquidationThreshold | 95.5 % |
@@ -95,26 +91,22 @@
 | stableBorrowRateEnabled | false |
 | isBorrowableInIsolation | false |
 | interestRateStrategy | [0x6642dcAaBc80807DD083c66a301d308568CBcA3D](https://etherscan.io/address/0x6642dcAaBc80807DD083c66a301d308568CBcA3D) |
-| liquidityIndex | 1 % [1000000000000000000000000000] |
-| variableBorrowIndex | 1 % [1000000000000000000000000000] |
-| aToken underlying balance | 1085.396377012177434676 |
 | aTokenName | Aave Ethereum Lido WETH |
 | aTokenSymbol | aEthLidoWETH |
-| currentLiquidityRate | 0 % [0] |
-| currentVariableBorrowRate | 0 % [0] |
+| aTokenUnderlyingBalance | 1,085.3963 WETH [1085396377012177434676] |
 | isPaused | false |
 | stableDebtTokenName | Aave Ethereum Lido Stable Debt WETH |
 | stableDebtTokenSymbol | stableDebtEthLidoWETH |
 | variableDebtTokenName | Aave Ethereum Lido Variable Debt WETH |
 | variableDebtTokenSymbol | variableDebtEthLidoWETH |
-| virtual accounting active | true |
-| virtual balance | 0.1 |
+| virtualAccountingActive | true |
+| virtualBalance | 0.1 WETH [100000000000000000] |
 | optimalUsageRatio | 90 % |
 | maxVariableBorrowRate | 87.5 % |
 | baseVariableBorrowRate | 0 % |
 | variableRateSlope1 | 2.5 % |
 | variableRateSlope2 | 85 % |
-| interestRate | ![ir](/.assets/eb226d8c810d2872c9c4cc3c15a8fa7dbd79c373.svg) |
+| interestRate | ![ir](/.assets/a796dfa2aa6c13fc95e8d4cc38800ce1a1aa4517.svg) |
 | eMode.label | ETH correlated |
 | eMode.ltv | 93.5 % |
 | eMode.liquidationThreshold | 95.5 % |
@@ -144,14 +136,12 @@
       "from": null,
       "to": {
         "aToken": "0xC035a7cf15375cE2706766804551791aD035E0C2",
-        "aToken underlying balance": "0.",
         "aTokenImpl": "0x7F8Fc14D462bdF93c681c1f2Fd615389bF969Fb2",
         "aTokenName": "Aave Ethereum Lido wstETH",
         "aTokenSymbol": "aEthLidowstETH",
+        "aTokenUnderlyingBalance": 0,
         "borrowCap": 12000,
         "borrowingEnabled": true,
-        "currentLiquidityRate": 0,
-        "currentVariableBorrowRate": 0,
         "debtCeiling": 0,
         "decimals": 18,
         "eModeCategory": 1,
@@ -165,7 +155,6 @@
         "liquidationBonus": 10600,
         "liquidationProtocolFee": 1000,
         "liquidationThreshold": 8100,
-        "liquidityIndex": "1000000000000000000000000000",
         "ltv": 8000,
         "oracle": "0xB4aB0c94159bc2d8C133946E7241368fc2F2a010",
         "oracleDecimals": 8,
@@ -181,27 +170,24 @@
         "symbol": "wstETH",
         "underlying": "0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0",
         "usageAsCollateralEnabled": true,
-        "variableBorrowIndex": "1000000000000000000000000000",
         "variableDebtToken": "0xE439edd2625772AA635B437C099C607B6eb7d35f",
         "variableDebtTokenImpl": "0x3E59212c34588a63350142EFad594a20C88C2CEd",
         "variableDebtTokenName": "Aave Ethereum Lido Variable Debt wstETH",
         "variableDebtTokenSymbol": "variableDebtEthLidowstETH",
-        "virtual accounting active": true,
-        "virtual balance": 0.1
+        "virtualAccountingActive": true,
+        "virtualBalance": "100000000000000000"
       }
     },
     "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2": {
       "from": null,
       "to": {
         "aToken": "0xfA1fDbBD71B0aA16162D76914d69cD8CB3Ef92da",
-        "aToken underlying balance": "1085.396377012177434676",
         "aTokenImpl": "0x7F8Fc14D462bdF93c681c1f2Fd615389bF969Fb2",
         "aTokenName": "Aave Ethereum Lido WETH",
         "aTokenSymbol": "aEthLidoWETH",
+        "aTokenUnderlyingBalance": "1085396377012177434676",
         "borrowCap": 810000,
         "borrowingEnabled": true,
-        "currentLiquidityRate": 0,
-        "currentVariableBorrowRate": 0,
         "debtCeiling": 0,
         "decimals": 18,
         "eModeCategory": 1,
@@ -215,7 +201,6 @@
         "liquidationBonus": 10500,
         "liquidationProtocolFee": 1000,
         "liquidationThreshold": 8300,
-        "liquidityIndex": "1000000000000000000000000000",
         "ltv": 8200,
         "oracle": "0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419",
         "oracleDecimals": 8,
@@ -231,13 +216,12 @@
         "symbol": "WETH",
         "underlying": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
         "usageAsCollateralEnabled": true,
-        "variableBorrowIndex": "1000000000000000000000000000",
         "variableDebtToken": "0x91b7d78BF92db564221f6B5AeE744D1727d1Dd1e",
         "variableDebtTokenImpl": "0x3E59212c34588a63350142EFad594a20C88C2CEd",
         "variableDebtTokenName": "Aave Ethereum Lido Variable Debt WETH",
         "variableDebtTokenSymbol": "variableDebtEthLidoWETH",
-        "virtual accounting active": true,
-        "virtual balance": 0.1
+        "virtualAccountingActive": true,
+        "virtualBalance": "100000000000000000"
       }
     }
   },
@@ -246,7 +230,7 @@
       "from": null,
       "to": {
         "address": "0x6642dcAaBc80807DD083c66a301d308568CBcA3D",
-        "baseVariableBorrowRate": 0,
+        "baseVariableBorrowRate": "0",
         "maxVariableBorrowRate": "885000000000000000000000000",
         "optimalUsageRatio": "450000000000000000000000000",
         "variableRateSlope1": "35000000000000000000000000",
@@ -257,7 +241,7 @@
       "from": null,
       "to": {
         "address": "0x6642dcAaBc80807DD083c66a301d308568CBcA3D",
-        "baseVariableBorrowRate": 0,
+        "baseVariableBorrowRate": "0",
         "maxVariableBorrowRate": "875000000000000000000000000",
         "optimalUsageRatio": "900000000000000000000000000",
         "variableRateSlope1": "25000000000000000000000000",

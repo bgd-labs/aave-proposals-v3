@@ -1,7 +1,7 @@
 aave-address-book/=lib/aave-helpers/lib/aave-address-book/src/
 aave-helpers/=lib/aave-helpers/src/
-aave-v3-core/=lib/aave-helpers/lib/aave-address-book/lib/aave-v3-origin/src/core/contracts/
-aave-v3-periphery/=lib/aave-helpers/lib/aave-address-book/lib/aave-v3-origin/src/periphery/contracts/
+aave-v3-core/=lib/aave-helpers/lib/aave-address-book/lib/aave-v3-origin/src/core/
+aave-v3-periphery/=lib/aave-helpers/lib/aave-address-book/lib/aave-v3-origin/src/periphery/
 aave-v3-origin/=lib/aave-helpers/lib/aave-address-book/lib/aave-v3-origin/src/
 forge-std/=lib/aave-helpers/lib/forge-std/src/
 solidity-utils/=lib/aave-helpers/lib/solidity-utils/src/
