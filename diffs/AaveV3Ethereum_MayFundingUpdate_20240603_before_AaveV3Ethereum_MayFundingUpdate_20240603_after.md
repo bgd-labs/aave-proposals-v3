@@ -2,74 +2,572 @@
 
 ### Reserve altered
 
+#### 1INCH ([0x111111111117dC0aa78b770fA6A738034120C302](https://etherscan.io/address/0x111111111117dC0aa78b770fA6A738034120C302))
+
+| description | value before | value after |
+| --- | --- | --- |
+| address | null | [0xf6733B9842883BFE0e0a940eA2F572676af31bde](https://etherscan.io/address/0xf6733B9842883BFE0e0a940eA2F572676af31bde) |
+| baseStableBorrowRate | null | 120000000000000000000000000 |
+| baseVariableBorrowRate | null | 0 |
+| maxExcessStableToTotalDebtRatio | null | 800000000000000000000000000 |
+| maxExcessUsageRatio | null | 550000000000000000000000000 |
+| optimalStableToTotalDebtRatio | null | 200000000000000000000000000 |
+| optimalUsageRatio | null | 450000000000000000000000000 |
+| stableRateSlope1 | null | 130000000000000000000000000 |
+| stableRateSlope2 | null | 3000000000000000000000000000 |
+| variableRateSlope1 | null | 90000000000000000000000000 |
+| variableRateSlope2 | null | 3000000000000000000000000000 |
+
+
+#### UNI ([0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984](https://etherscan.io/address/0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984))
+
+| description | value before | value after |
+| --- | --- | --- |
+| address | null | [0x27eFE5db315b71753b2a38ED3d5dd7E9362ba93F](https://etherscan.io/address/0x27eFE5db315b71753b2a38ED3d5dd7E9362ba93F) |
+| baseStableBorrowRate | null | 100000000000000000000000000 |
+| baseVariableBorrowRate | null | 0 |
+| maxExcessStableToTotalDebtRatio | null | 800000000000000000000000000 |
+| maxExcessUsageRatio | null | 550000000000000000000000000 |
+| optimalStableToTotalDebtRatio | null | 200000000000000000000000000 |
+| optimalUsageRatio | null | 450000000000000000000000000 |
+| stableRateSlope1 | null | 130000000000000000000000000 |
+| stableRateSlope2 | null | 3000000000000000000000000000 |
+| variableRateSlope1 | null | 70000000000000000000000000 |
+| variableRateSlope2 | null | 3000000000000000000000000000 |
+
+
+#### WBTC ([0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599](https://etherscan.io/address/0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599))
+
+| description | value before | value after |
+| --- | --- | --- |
+| address | null | [0x07Fa3744FeC271F80c2EA97679823F65c13CCDf4](https://etherscan.io/address/0x07Fa3744FeC271F80c2EA97679823F65c13CCDf4) |
+| baseStableBorrowRate | null | 60000000000000000000000000 |
+| baseVariableBorrowRate | null | 0 |
+| maxExcessStableToTotalDebtRatio | null | 800000000000000000000000000 |
+| maxExcessUsageRatio | null | 550000000000000000000000000 |
+| optimalStableToTotalDebtRatio | null | 200000000000000000000000000 |
+| optimalUsageRatio | null | 450000000000000000000000000 |
+| stableRateSlope1 | null | 70000000000000000000000000 |
+| stableRateSlope2 | null | 3000000000000000000000000000 |
+| variableRateSlope1 | null | 40000000000000000000000000 |
+| variableRateSlope2 | null | 3000000000000000000000000000 |
+
+
+#### FXS ([0x3432B6A60D23Ca0dFCa7761B7ab56459D9C964D0](https://etherscan.io/address/0x3432B6A60D23Ca0dFCa7761B7ab56459D9C964D0))
+
+| description | value before | value after |
+| --- | --- | --- |
+| address | null | [0xf6733B9842883BFE0e0a940eA2F572676af31bde](https://etherscan.io/address/0xf6733B9842883BFE0e0a940eA2F572676af31bde) |
+| baseStableBorrowRate | null | 120000000000000000000000000 |
+| baseVariableBorrowRate | null | 0 |
+| maxExcessStableToTotalDebtRatio | null | 800000000000000000000000000 |
+| maxExcessUsageRatio | null | 550000000000000000000000000 |
+| optimalStableToTotalDebtRatio | null | 200000000000000000000000000 |
+| optimalUsageRatio | null | 450000000000000000000000000 |
+| stableRateSlope1 | null | 130000000000000000000000000 |
+| stableRateSlope2 | null | 3000000000000000000000000000 |
+| variableRateSlope1 | null | 90000000000000000000000000 |
+| variableRateSlope2 | null | 3000000000000000000000000000 |
+
+
+#### GHO ([0x40D16FC0246aD3160Ccc09B8D0D3A2cD28aE6C2f](https://etherscan.io/address/0x40D16FC0246aD3160Ccc09B8D0D3A2cD28aE6C2f))
+
+| description | value before | value after |
+| --- | --- | --- |
+| address | null | [0x741aE8b9f54b7DdE46C532f2c0F55B8776c93484](https://etherscan.io/address/0x741aE8b9f54b7DdE46C532f2c0F55B8776c93484) |
+| baseStableBorrowRate | null | 0 |
+| baseVariableBorrowRate | null | 70000000000000000000000000 |
+| maxExcessStableToTotalDebtRatio | null | 0 |
+| maxExcessUsageRatio | null | 0 |
+| optimalStableToTotalDebtRatio | null | 0 |
+| optimalUsageRatio | null | 0 |
+| stableRateSlope1 | null | 0 |
+| stableRateSlope2 | null | 0 |
+| variableRateSlope1 | null | 0 |
+| variableRateSlope2 | null | 0 |
+
+
+#### USDe ([0x4c9EDD5852cd905f086C759E8383e09bff1E68B3](https://etherscan.io/address/0x4c9EDD5852cd905f086C759E8383e09bff1E68B3))
+
+| description | value before | value after |
+| --- | --- | --- |
+| address | null | [0x4011fcd421b9E90f131B164EC1d162DBE269621C](https://etherscan.io/address/0x4011fcd421b9E90f131B164EC1d162DBE269621C) |
+| baseStableBorrowRate | null | 90000000000000000000000000 |
+| baseVariableBorrowRate | null | 0 |
+| maxExcessStableToTotalDebtRatio | null | 1000000000000000000000000000 |
+| maxExcessUsageRatio | null | 200000000000000000000000000 |
+| optimalStableToTotalDebtRatio | null | 0 |
+| optimalUsageRatio | null | 800000000000000000000000000 |
+| stableRateSlope1 | null | 90000000000000000000000000 |
+| stableRateSlope2 | null | 750000000000000000000000000 |
+| variableRateSlope1 | null | 90000000000000000000000000 |
+| variableRateSlope2 | null | 750000000000000000000000000 |
+
+
 #### LINK ([0x514910771AF9Ca656af840dff83E8264EcF986CA](https://etherscan.io/address/0x514910771AF9Ca656af840dff83E8264EcF986CA))
 
 | description | value before | value after |
 | --- | --- | --- |
-| liquidityIndex | 1.0004 % [1000476507219632357075724436] | 1.0004 % [1000476509770463093239036672] |
-| variableBorrowIndex | 1.0053 % [1005300806088987650591516548] | 1.0053 % [1005301037134511223603764665] |
-| currentLiquidityRate | 0.0023 % [23929965679435282273342] | 0.0023 % [23929108918841610351095] |
-| currentVariableBorrowRate | 0.2157 % [2157092692053917278208347] | 0.2157 % [2157054076692273741539073] |
+| aTokenUnderlyingBalance | 11,125,899.5309 LINK [11125899530945508596356169] | 11,126,104.0635 LINK [11126104063542685827584126] |
+| address | null | [0x24701A6368Ff6D2874d6b8cDadd461552B8A5283](https://etherscan.io/address/0x24701A6368Ff6D2874d6b8cDadd461552B8A5283) |
+| baseStableBorrowRate | null | 90000000000000000000000000 |
+| baseVariableBorrowRate | null | 0 |
+| maxExcessStableToTotalDebtRatio | null | 800000000000000000000000000 |
+| maxExcessUsageRatio | null | 550000000000000000000000000 |
+| optimalStableToTotalDebtRatio | null | 200000000000000000000000000 |
+| optimalUsageRatio | null | 450000000000000000000000000 |
+| stableRateSlope1 | null | 70000000000000000000000000 |
+| stableRateSlope2 | null | 3000000000000000000000000000 |
+| variableRateSlope1 | null | 70000000000000000000000000 |
+| variableRateSlope2 | null | 3000000000000000000000000000 |
+
+
+#### LDO ([0x5A98FcBEA516Cf06857215779Fd812CA3beF1B32](https://etherscan.io/address/0x5A98FcBEA516Cf06857215779Fd812CA3beF1B32))
+
+| description | value before | value after |
+| --- | --- | --- |
+| address | null | [0x27eFE5db315b71753b2a38ED3d5dd7E9362ba93F](https://etherscan.io/address/0x27eFE5db315b71753b2a38ED3d5dd7E9362ba93F) |
+| baseStableBorrowRate | null | 100000000000000000000000000 |
+| baseVariableBorrowRate | null | 0 |
+| maxExcessStableToTotalDebtRatio | null | 800000000000000000000000000 |
+| maxExcessUsageRatio | null | 550000000000000000000000000 |
+| optimalStableToTotalDebtRatio | null | 200000000000000000000000000 |
+| optimalUsageRatio | null | 450000000000000000000000000 |
+| stableRateSlope1 | null | 130000000000000000000000000 |
+| stableRateSlope2 | null | 3000000000000000000000000000 |
+| variableRateSlope1 | null | 70000000000000000000000000 |
+| variableRateSlope2 | null | 3000000000000000000000000000 |
 
 
 #### LUSD ([0x5f98805A4E8be255a32880FDeC7F6728C6568bA0](https://etherscan.io/address/0x5f98805A4E8be255a32880FDeC7F6728C6568bA0))
 
 | description | value before | value after |
 | --- | --- | --- |
-| liquidityIndex | 1.0680 % [1068058755391363426154357360] | 1.0681 % [1068132815710306212609184865] |
-| variableBorrowIndex | 1.1029 % [1102909422078773105393606308] | 1.1030 % [1103059415495146073509048813] |
-| currentLiquidityRate | 3.6562 % [36562658050195118765424627] | 3.6889 % [36889587497434255577091701] |
-| currentVariableBorrowRate | 7.1705 % [71705116890698174053888993] | 7.2024 % [72024983455927931164233958] |
+| aTokenUnderlyingBalance | 2,161,079.6517 LUSD [2161079651705465362890767] | 2,134,903.0420 LUSD [2134903042058712358109415] |
+| address | null | [0x2B3Ed91C6667d808b0401f439c4859ea635c6862](https://etherscan.io/address/0x2B3Ed91C6667d808b0401f439c4859ea635c6862) |
+| baseStableBorrowRate | null | 100000000000000000000000000 |
+| baseVariableBorrowRate | null | 0 |
+| maxExcessStableToTotalDebtRatio | null | 800000000000000000000000000 |
+| maxExcessUsageRatio | null | 200000000000000000000000000 |
+| optimalStableToTotalDebtRatio | null | 200000000000000000000000000 |
+| optimalUsageRatio | null | 800000000000000000000000000 |
+| stableRateSlope1 | null | 40000000000000000000000000 |
+| stableRateSlope2 | null | 870000000000000000000000000 |
+| variableRateSlope1 | null | 90000000000000000000000000 |
+| variableRateSlope2 | null | 870000000000000000000000000 |
 
 
 #### DAI ([0x6B175474E89094C44Da98b954EedeAC495271d0F](https://etherscan.io/address/0x6B175474E89094C44Da98b954EedeAC495271d0F))
 
 | description | value before | value after |
 | --- | --- | --- |
-| liquidityIndex | 1.0781 % [1078106785987825798753622528] | 1.0781 % [1078107490301938241028539490] |
-| variableBorrowIndex | 1.1094 % [1109401776119819634533411658] | 1.1094 % [1109402923698272228527942132] |
-| currentLiquidityRate | 5.2025 % [52025472338793979299880004] | 5.2879 % [52879339355516750243042819] |
-| currentVariableBorrowRate | 8.2376 % [82376763560031306001762728] | 8.3050 % [83050015853871284922317599] |
+| aTokenUnderlyingBalance | 21,971,804.3160 DAI [21971804316083981578633223] | 20,843,981.8022 DAI [20843981802212898363345750] |
+| address | null | [0x05F410A9EB94e0BEe0E47F12254E7Cb5F4E2A1f7](https://etherscan.io/address/0x05F410A9EB94e0BEe0E47F12254E7Cb5F4E2A1f7) |
+| baseStableBorrowRate | null | 100000000000000000000000000 |
+| baseVariableBorrowRate | null | 0 |
+| maxExcessStableToTotalDebtRatio | null | 800000000000000000000000000 |
+| maxExcessUsageRatio | null | 80000000000000000000000000 |
+| optimalStableToTotalDebtRatio | null | 200000000000000000000000000 |
+| optimalUsageRatio | null | 920000000000000000000000000 |
+| stableRateSlope1 | null | 5000000000000000000000000 |
+| stableRateSlope2 | null | 750000000000000000000000000 |
+| variableRateSlope1 | null | 90000000000000000000000000 |
+| variableRateSlope2 | null | 750000000000000000000000000 |
 
 
 #### PYUSD ([0x6c3ea9036406852006290770BEdFcAbA0e23A0e8](https://etherscan.io/address/0x6c3ea9036406852006290770BEdFcAbA0e23A0e8))
 
 | description | value before | value after |
 | --- | --- | --- |
-| liquidityIndex | 1.0201 % [1020178359565493042650645906] | 1.0203 % [1020312877208215114276575496] |
-| variableBorrowIndex | 1.0360 % [1036025023546649208723988086] | 1.0362 % [1036247870437238110254148285] |
-| currentLiquidityRate | 5.2855 % [52855423543918909864975449] | 5.3478 % [53478166891010390123318197] |
-| currentVariableBorrowRate | 8.6213 % [86213652839115897767829605] | 8.6720 % [86720050847819134054321943] |
+| aTokenUnderlyingBalance | 4,836,545.8135 PYUSD [4836545813514] | 4,716,686.9355 PYUSD [4716686935507] |
+| address | null | [0x22B409E1ab288DA6a895FE8251bEbfcA267f8805](https://etherscan.io/address/0x22B409E1ab288DA6a895FE8251bEbfcA267f8805) |
+| baseStableBorrowRate | null | 120000000000000000000000000 |
+| baseVariableBorrowRate | null | 0 |
+| maxExcessStableToTotalDebtRatio | null | 800000000000000000000000000 |
+| maxExcessUsageRatio | null | 200000000000000000000000000 |
+| optimalStableToTotalDebtRatio | null | 200000000000000000000000000 |
+| optimalUsageRatio | null | 800000000000000000000000000 |
+| stableRateSlope1 | null | 130000000000000000000000000 |
+| stableRateSlope2 | null | 3000000000000000000000000000 |
+| variableRateSlope1 | null | 90000000000000000000000000 |
+| variableRateSlope2 | null | 800000000000000000000000000 |
+
+
+#### AAVE ([0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9](https://etherscan.io/address/0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9))
+
+| description | value before | value after |
+| --- | --- | --- |
+| address | null | [0x24701A6368Ff6D2874d6b8cDadd461552B8A5283](https://etherscan.io/address/0x24701A6368Ff6D2874d6b8cDadd461552B8A5283) |
+| baseStableBorrowRate | null | 90000000000000000000000000 |
+| baseVariableBorrowRate | null | 0 |
+| maxExcessStableToTotalDebtRatio | null | 800000000000000000000000000 |
+| maxExcessUsageRatio | null | 550000000000000000000000000 |
+| optimalStableToTotalDebtRatio | null | 200000000000000000000000000 |
+| optimalUsageRatio | null | 450000000000000000000000000 |
+| stableRateSlope1 | null | 70000000000000000000000000 |
+| stableRateSlope2 | null | 3000000000000000000000000000 |
+| variableRateSlope1 | null | 70000000000000000000000000 |
+| variableRateSlope2 | null | 3000000000000000000000000000 |
+
+
+#### wstETH ([0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0](https://etherscan.io/address/0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0))
+
+| description | value before | value after |
+| --- | --- | --- |
+| address | null | [0x7b8Fa4540246554e77FCFf140f9114de00F8bB8D](https://etherscan.io/address/0x7b8Fa4540246554e77FCFf140f9114de00F8bB8D) |
+| baseStableBorrowRate | null | 75000000000000000000000000 |
+| baseVariableBorrowRate | null | 2500000000000000000000000 |
+| maxExcessStableToTotalDebtRatio | null | 800000000000000000000000000 |
+| maxExcessUsageRatio | null | 550000000000000000000000000 |
+| optimalStableToTotalDebtRatio | null | 200000000000000000000000000 |
+| optimalUsageRatio | null | 450000000000000000000000000 |
+| stableRateSlope1 | null | 40000000000000000000000000 |
+| stableRateSlope2 | null | 800000000000000000000000000 |
+| variableRateSlope1 | null | 45000000000000000000000000 |
+| variableRateSlope2 | null | 800000000000000000000000000 |
+
+
+#### sDAI ([0x83F20F44975D03b1b09e64809B757c47f942BEeA](https://etherscan.io/address/0x83F20F44975D03b1b09e64809B757c47f942BEeA))
+
+| description | value before | value after |
+| --- | --- | --- |
+| address | null | [0xdef8F50155A6cf21181E29E400E8CffAE2d50968](https://etherscan.io/address/0xdef8F50155A6cf21181E29E400E8CffAE2d50968) |
+| baseStableBorrowRate | null | 80000000000000000000000000 |
+| baseVariableBorrowRate | null | 0 |
+| maxExcessStableToTotalDebtRatio | null | 800000000000000000000000000 |
+| maxExcessUsageRatio | null | 100000000000000000000000000 |
+| optimalStableToTotalDebtRatio | null | 200000000000000000000000000 |
+| optimalUsageRatio | null | 900000000000000000000000000 |
+| stableRateSlope1 | null | 50000000000000000000000000 |
+| stableRateSlope2 | null | 750000000000000000000000000 |
+| variableRateSlope1 | null | 50000000000000000000000000 |
+| variableRateSlope2 | null | 750000000000000000000000000 |
+
+
+#### FRAX ([0x853d955aCEf822Db058eb8505911ED77F175b99e](https://etherscan.io/address/0x853d955aCEf822Db058eb8505911ED77F175b99e))
+
+| description | value before | value after |
+| --- | --- | --- |
+| address | null | [0xA7D9302346d4C35724821cf98966B2257c9683c6](https://etherscan.io/address/0xA7D9302346d4C35724821cf98966B2257c9683c6) |
+| baseStableBorrowRate | null | 100000000000000000000000000 |
+| baseVariableBorrowRate | null | 0 |
+| maxExcessStableToTotalDebtRatio | null | 800000000000000000000000000 |
+| maxExcessUsageRatio | null | 100000000000000000000000000 |
+| optimalStableToTotalDebtRatio | null | 200000000000000000000000000 |
+| optimalUsageRatio | null | 900000000000000000000000000 |
+| stableRateSlope1 | null | 5000000000000000000000000 |
+| stableRateSlope2 | null | 750000000000000000000000000 |
+| variableRateSlope1 | null | 90000000000000000000000000 |
+| variableRateSlope2 | null | 750000000000000000000000000 |
+
+
+#### sUSDe ([0x9D39A5DE30e57443BfF2A8307A4256c8797A3497](https://etherscan.io/address/0x9D39A5DE30e57443BfF2A8307A4256c8797A3497))
+
+| description | value before | value after |
+| --- | --- | --- |
+| address | null | [0x36d32fD7a72AD600be60Ccb71D3718E455025CaA](https://etherscan.io/address/0x36d32fD7a72AD600be60Ccb71D3718E455025CaA) |
+| baseStableBorrowRate | null | 0 |
+| baseVariableBorrowRate | null | 0 |
+| maxExcessStableToTotalDebtRatio | null | 1000000000000000000000000000 |
+| maxExcessUsageRatio | null | 100000000000000000000000000 |
+| optimalStableToTotalDebtRatio | null | 0 |
+| optimalUsageRatio | null | 900000000000000000000000000 |
+| stableRateSlope1 | null | 0 |
+| stableRateSlope2 | null | 0 |
+| variableRateSlope1 | null | 0 |
+| variableRateSlope2 | null | 0 |
+
+
+#### MKR ([0x9f8F72aA9304c8B593d555F12eF6589cC3A579A2](https://etherscan.io/address/0x9f8F72aA9304c8B593d555F12eF6589cC3A579A2))
+
+| description | value before | value after |
+| --- | --- | --- |
+| address | null | [0x27eFE5db315b71753b2a38ED3d5dd7E9362ba93F](https://etherscan.io/address/0x27eFE5db315b71753b2a38ED3d5dd7E9362ba93F) |
+| baseStableBorrowRate | null | 100000000000000000000000000 |
+| baseVariableBorrowRate | null | 0 |
+| maxExcessStableToTotalDebtRatio | null | 800000000000000000000000000 |
+| maxExcessUsageRatio | null | 550000000000000000000000000 |
+| optimalStableToTotalDebtRatio | null | 200000000000000000000000000 |
+| optimalUsageRatio | null | 450000000000000000000000000 |
+| stableRateSlope1 | null | 130000000000000000000000000 |
+| stableRateSlope2 | null | 3000000000000000000000000000 |
+| variableRateSlope1 | null | 70000000000000000000000000 |
+| variableRateSlope2 | null | 3000000000000000000000000000 |
 
 
 #### USDC ([0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48](https://etherscan.io/address/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48))
 
 | description | value before | value after |
 | --- | --- | --- |
-| liquidityIndex | 1.0794 % [1079466536607225072930110798] | 1.0794 % [1079466827867723458056269986] |
-| variableBorrowIndex | 1.1027 % [1102714763289105351198380579] | 1.1027 % [1102715149646487939300489732] |
-| currentLiquidityRate | 6.4462 % [64462193617992963206861395] | 6.4587 % [64587303166422565595638448] |
-| currentVariableBorrowRate | 8.3706 % [83706392682212750748817684] | 8.3787 % [83787582849898109103623227] |
+| aTokenUnderlyingBalance | 223,439,837.6862 USDC [223439837686233] | 221,939,837.6862 USDC [221939837686234] |
+| address | null | [0x0fc12Ad84210695dE8C0D5D8B6f720C37cEaB02f](https://etherscan.io/address/0x0fc12Ad84210695dE8C0D5D8B6f720C37cEaB02f) |
+| baseStableBorrowRate | null | 100000000000000000000000000 |
+| baseVariableBorrowRate | null | 0 |
+| maxExcessStableToTotalDebtRatio | null | 800000000000000000000000000 |
+| maxExcessUsageRatio | null | 80000000000000000000000000 |
+| optimalStableToTotalDebtRatio | null | 200000000000000000000000000 |
+| optimalUsageRatio | null | 920000000000000000000000000 |
+| stableRateSlope1 | null | 5000000000000000000000000 |
+| stableRateSlope2 | null | 600000000000000000000000000 |
+| variableRateSlope1 | null | 90000000000000000000000000 |
+| variableRateSlope2 | null | 600000000000000000000000000 |
+
+
+#### ETHx ([0xA35b1B31Ce002FBF2058D22F30f95D405200A15b](https://etherscan.io/address/0xA35b1B31Ce002FBF2058D22F30f95D405200A15b))
+
+| description | value before | value after |
+| --- | --- | --- |
+| address | null | [0x48AF11111764E710fcDcE2750db848C63edab57B](https://etherscan.io/address/0x48AF11111764E710fcDcE2750db848C63edab57B) |
+| baseStableBorrowRate | null | 70000000000000000000000000 |
+| baseVariableBorrowRate | null | 0 |
+| maxExcessStableToTotalDebtRatio | null | 1000000000000000000000000000 |
+| maxExcessUsageRatio | null | 550000000000000000000000000 |
+| optimalStableToTotalDebtRatio | null | 0 |
+| optimalUsageRatio | null | 450000000000000000000000000 |
+| stableRateSlope1 | null | 0 |
+| stableRateSlope2 | null | 0 |
+| variableRateSlope1 | null | 70000000000000000000000000 |
+| variableRateSlope2 | null | 3000000000000000000000000000 |
+
+
+#### STG ([0xAf5191B0De278C7286d6C7CC6ab6BB8A73bA2Cd6](https://etherscan.io/address/0xAf5191B0De278C7286d6C7CC6ab6BB8A73bA2Cd6))
+
+| description | value before | value after |
+| --- | --- | --- |
+| address | null | [0x27eFE5db315b71753b2a38ED3d5dd7E9362ba93F](https://etherscan.io/address/0x27eFE5db315b71753b2a38ED3d5dd7E9362ba93F) |
+| baseStableBorrowRate | null | 100000000000000000000000000 |
+| baseVariableBorrowRate | null | 0 |
+| maxExcessStableToTotalDebtRatio | null | 800000000000000000000000000 |
+| maxExcessUsageRatio | null | 550000000000000000000000000 |
+| optimalStableToTotalDebtRatio | null | 200000000000000000000000000 |
+| optimalUsageRatio | null | 450000000000000000000000000 |
+| stableRateSlope1 | null | 130000000000000000000000000 |
+| stableRateSlope2 | null | 3000000000000000000000000000 |
+| variableRateSlope1 | null | 70000000000000000000000000 |
+| variableRateSlope2 | null | 3000000000000000000000000000 |
+
+
+#### cbETH ([0xBe9895146f7AF43049ca1c1AE358B0541Ea49704](https://etherscan.io/address/0xBe9895146f7AF43049ca1c1AE358B0541Ea49704))
+
+| description | value before | value after |
+| --- | --- | --- |
+| address | null | [0x24701A6368Ff6D2874d6b8cDadd461552B8A5283](https://etherscan.io/address/0x24701A6368Ff6D2874d6b8cDadd461552B8A5283) |
+| baseStableBorrowRate | null | 90000000000000000000000000 |
+| baseVariableBorrowRate | null | 0 |
+| maxExcessStableToTotalDebtRatio | null | 800000000000000000000000000 |
+| maxExcessUsageRatio | null | 550000000000000000000000000 |
+| optimalStableToTotalDebtRatio | null | 200000000000000000000000000 |
+| optimalUsageRatio | null | 450000000000000000000000000 |
+| stableRateSlope1 | null | 70000000000000000000000000 |
+| stableRateSlope2 | null | 3000000000000000000000000000 |
+| variableRateSlope1 | null | 70000000000000000000000000 |
+| variableRateSlope2 | null | 3000000000000000000000000000 |
+
+
+#### SNX ([0xC011a73ee8576Fb46F5E1c5751cA3B9Fe0af2a6F](https://etherscan.io/address/0xC011a73ee8576Fb46F5E1c5751cA3B9Fe0af2a6F))
+
+| description | value before | value after |
+| --- | --- | --- |
+| address | null | [0xA6459195d60A797D278f58Ffbd2BA62Fb3F7FA1E](https://etherscan.io/address/0xA6459195d60A797D278f58Ffbd2BA62Fb3F7FA1E) |
+| baseStableBorrowRate | null | 180000000000000000000000000 |
+| baseVariableBorrowRate | null | 30000000000000000000000000 |
+| maxExcessStableToTotalDebtRatio | null | 800000000000000000000000000 |
+| maxExcessUsageRatio | null | 200000000000000000000000000 |
+| optimalStableToTotalDebtRatio | null | 200000000000000000000000000 |
+| optimalUsageRatio | null | 800000000000000000000000000 |
+| stableRateSlope1 | null | 150000000000000000000000000 |
+| stableRateSlope2 | null | 1000000000000000000000000000 |
+| variableRateSlope1 | null | 150000000000000000000000000 |
+| variableRateSlope2 | null | 1000000000000000000000000000 |
 
 
 #### WETH ([0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2](https://etherscan.io/address/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2))
 
 | description | value before | value after |
 | --- | --- | --- |
-| liquidityIndex | 1.0281 % [1028111106099941568803675190] | 1.0281 % [1028111334390948607739481808] |
-| variableBorrowIndex | 1.0474 % [1047469770575843320140020486] | 1.0474 % [1047470089058121910984106458] |
-| currentLiquidityRate | 1.8824 % [18824021938144147302849332] | 1.8819 % [18819154884100701747515292] |
-| currentVariableBorrowRate | 2.5775 % [25775516384268148880072429] | 2.5772 % [25772183968334383794950816] |
+| aTokenUnderlyingBalance | 138,560.7141 WETH [138560714113035891077908] | 138,687.9880 WETH [138687988094400170720313] |
+| address | null | [0x42ec99A020B78C449d17d93bC4c89e0189B5811d](https://etherscan.io/address/0x42ec99A020B78C449d17d93bC4c89e0189B5811d) |
+| baseStableBorrowRate | null | 57000000000000000000000000 |
+| baseVariableBorrowRate | null | 0 |
+| maxExcessStableToTotalDebtRatio | null | 800000000000000000000000000 |
+| maxExcessUsageRatio | null | 100000000000000000000000000 |
+| optimalStableToTotalDebtRatio | null | 200000000000000000000000000 |
+| optimalUsageRatio | null | 900000000000000000000000000 |
+| stableRateSlope1 | null | 40000000000000000000000000 |
+| stableRateSlope2 | null | 800000000000000000000000000 |
+| variableRateSlope1 | null | 27000000000000000000000000 |
+| variableRateSlope2 | null | 800000000000000000000000000 |
+
+
+#### ENS ([0xC18360217D8F7Ab5e7c516566761Ea12Ce7F9D72](https://etherscan.io/address/0xC18360217D8F7Ab5e7c516566761Ea12Ce7F9D72))
+
+| description | value before | value after |
+| --- | --- | --- |
+| address | null | [0xf6733B9842883BFE0e0a940eA2F572676af31bde](https://etherscan.io/address/0xf6733B9842883BFE0e0a940eA2F572676af31bde) |
+| baseStableBorrowRate | null | 120000000000000000000000000 |
+| baseVariableBorrowRate | null | 0 |
+| maxExcessStableToTotalDebtRatio | null | 800000000000000000000000000 |
+| maxExcessUsageRatio | null | 550000000000000000000000000 |
+| optimalStableToTotalDebtRatio | null | 200000000000000000000000000 |
+| optimalUsageRatio | null | 450000000000000000000000000 |
+| stableRateSlope1 | null | 130000000000000000000000000 |
+| stableRateSlope2 | null | 3000000000000000000000000000 |
+| variableRateSlope1 | null | 90000000000000000000000000 |
+| variableRateSlope2 | null | 3000000000000000000000000000 |
+
+
+#### weETH ([0xCd5fE23C85820F7B72D0926FC9b05b43E359b7ee](https://etherscan.io/address/0xCd5fE23C85820F7B72D0926FC9b05b43E359b7ee))
+
+| description | value before | value after |
+| --- | --- | --- |
+| address | null | [0xf1e5355cEcaA71036CE21cdF8F9d04061B1BC6E1](https://etherscan.io/address/0xf1e5355cEcaA71036CE21cdF8F9d04061B1BC6E1) |
+| baseStableBorrowRate | null | 70000000000000000000000000 |
+| baseVariableBorrowRate | null | 0 |
+| maxExcessStableToTotalDebtRatio | null | 1000000000000000000000000000 |
+| maxExcessUsageRatio | null | 650000000000000000000000000 |
+| optimalStableToTotalDebtRatio | null | 0 |
+| optimalUsageRatio | null | 350000000000000000000000000 |
+| stableRateSlope1 | null | 0 |
+| stableRateSlope2 | null | 0 |
+| variableRateSlope1 | null | 70000000000000000000000000 |
+| variableRateSlope2 | null | 3000000000000000000000000000 |
+
+
+#### RPL ([0xD33526068D116cE69F19A9ee46F0bd304F21A51f](https://etherscan.io/address/0xD33526068D116cE69F19A9ee46F0bd304F21A51f))
+
+| description | value before | value after |
+| --- | --- | --- |
+| address | null | [0xD87974E8ED49AB16d5053ba793F4e17078Be0426](https://etherscan.io/address/0xD87974E8ED49AB16d5053ba793F4e17078Be0426) |
+| baseStableBorrowRate | null | 95000000000000000000000000 |
+| baseVariableBorrowRate | null | 0 |
+| maxExcessStableToTotalDebtRatio | null | 800000000000000000000000000 |
+| maxExcessUsageRatio | null | 200000000000000000000000000 |
+| optimalStableToTotalDebtRatio | null | 200000000000000000000000000 |
+| optimalUsageRatio | null | 800000000000000000000000000 |
+| stableRateSlope1 | null | 85000000000000000000000000 |
+| stableRateSlope2 | null | 870000000000000000000000000 |
+| variableRateSlope1 | null | 85000000000000000000000000 |
+| variableRateSlope2 | null | 870000000000000000000000000 |
+
+
+#### CRV ([0xD533a949740bb3306d119CC777fa900bA034cd52](https://etherscan.io/address/0xD533a949740bb3306d119CC777fa900bA034cd52))
+
+| description | value before | value after |
+| --- | --- | --- |
+| address | null | [0x76884cAFeCf1f7d4146DA6C4053B18B76bf6ED14](https://etherscan.io/address/0x76884cAFeCf1f7d4146DA6C4053B18B76bf6ED14) |
+| baseStableBorrowRate | null | 170000000000000000000000000 |
+| baseVariableBorrowRate | null | 30000000000000000000000000 |
+| maxExcessStableToTotalDebtRatio | null | 800000000000000000000000000 |
+| maxExcessUsageRatio | null | 300000000000000000000000000 |
+| optimalStableToTotalDebtRatio | null | 200000000000000000000000000 |
+| optimalUsageRatio | null | 700000000000000000000000000 |
+| stableRateSlope1 | null | 80000000000000000000000000 |
+| stableRateSlope2 | null | 3000000000000000000000000000 |
+| variableRateSlope1 | null | 140000000000000000000000000 |
+| variableRateSlope2 | null | 3000000000000000000000000000 |
+
+
+#### rETH ([0xae78736Cd615f374D3085123A210448E74Fc6393](https://etherscan.io/address/0xae78736Cd615f374D3085123A210448E74Fc6393))
+
+| description | value before | value after |
+| --- | --- | --- |
+| address | null | [0x24701A6368Ff6D2874d6b8cDadd461552B8A5283](https://etherscan.io/address/0x24701A6368Ff6D2874d6b8cDadd461552B8A5283) |
+| baseStableBorrowRate | null | 90000000000000000000000000 |
+| baseVariableBorrowRate | null | 0 |
+| maxExcessStableToTotalDebtRatio | null | 800000000000000000000000000 |
+| maxExcessUsageRatio | null | 550000000000000000000000000 |
+| optimalStableToTotalDebtRatio | null | 200000000000000000000000000 |
+| optimalUsageRatio | null | 450000000000000000000000000 |
+| stableRateSlope1 | null | 70000000000000000000000000 |
+| stableRateSlope2 | null | 3000000000000000000000000000 |
+| variableRateSlope1 | null | 70000000000000000000000000 |
+| variableRateSlope2 | null | 3000000000000000000000000000 |
+
+
+#### BAL ([0xba100000625a3754423978a60c9317c58a424e3D](https://etherscan.io/address/0xba100000625a3754423978a60c9317c58a424e3D))
+
+| description | value before | value after |
+| --- | --- | --- |
+| address | null | [0xd9d85499449f26d2A2c240defd75314f23920089](https://etherscan.io/address/0xd9d85499449f26d2A2c240defd75314f23920089) |
+| baseStableBorrowRate | null | 270000000000000000000000000 |
+| baseVariableBorrowRate | null | 50000000000000000000000000 |
+| maxExcessStableToTotalDebtRatio | null | 800000000000000000000000000 |
+| maxExcessUsageRatio | null | 200000000000000000000000000 |
+| optimalStableToTotalDebtRatio | null | 200000000000000000000000000 |
+| optimalUsageRatio | null | 800000000000000000000000000 |
+| stableRateSlope1 | null | 220000000000000000000000000 |
+| stableRateSlope2 | null | 1500000000000000000000000000 |
+| variableRateSlope1 | null | 220000000000000000000000000 |
+| variableRateSlope2 | null | 1500000000000000000000000000 |
 
 
 #### USDT ([0xdAC17F958D2ee523a2206206994597C13D831ec7](https://etherscan.io/address/0xdAC17F958D2ee523a2206206994597C13D831ec7))
 
 | description | value before | value after |
 | --- | --- | --- |
-| liquidityIndex | 1.0793 % [1079349549959029958206352381] | 1.0793 % [1079350526137911808544713425] |
-| variableBorrowIndex | 1.1063 % [1106327753380427873681719076] | 1.1063 % [1106329123482920828251924494] |
-| currentLiquidityRate | 5.7970 % [57970733767276484557015805] | 5.8107 % [58107826422114125679914125] |
-| currentVariableBorrowRate | 7.9379 % [79379888598022109439719502] | 7.9473 % [79473694323091782721061630] |
+| aTokenUnderlyingBalance | 319,566,787.3040 USDT [319566787304072] | 317,566,787.3040 USDT [317566787304072] |
+| address | null | [0xca719585f2E07BDe82c4a05D6E7C0E446c2D6601](https://etherscan.io/address/0xca719585f2E07BDe82c4a05D6E7C0E446c2D6601) |
+| baseStableBorrowRate | null | 100000000000000000000000000 |
+| baseVariableBorrowRate | null | 0 |
+| maxExcessStableToTotalDebtRatio | null | 800000000000000000000000000 |
+| maxExcessUsageRatio | null | 80000000000000000000000000 |
+| optimalStableToTotalDebtRatio | null | 200000000000000000000000000 |
+| optimalUsageRatio | null | 920000000000000000000000000 |
+| stableRateSlope1 | null | 40000000000000000000000000 |
+| stableRateSlope2 | null | 720000000000000000000000000 |
+| variableRateSlope1 | null | 90000000000000000000000000 |
+| variableRateSlope2 | null | 750000000000000000000000000 |
+
+
+#### KNC ([0xdeFA4e8a7bcBA345F687a2f1456F5Edd9CE97202](https://etherscan.io/address/0xdeFA4e8a7bcBA345F687a2f1456F5Edd9CE97202))
+
+| description | value before | value after |
+| --- | --- | --- |
+| address | null | [0xf6733B9842883BFE0e0a940eA2F572676af31bde](https://etherscan.io/address/0xf6733B9842883BFE0e0a940eA2F572676af31bde) |
+| baseStableBorrowRate | null | 120000000000000000000000000 |
+| baseVariableBorrowRate | null | 0 |
+| maxExcessStableToTotalDebtRatio | null | 800000000000000000000000000 |
+| maxExcessUsageRatio | null | 550000000000000000000000000 |
+| optimalStableToTotalDebtRatio | null | 200000000000000000000000000 |
+| optimalUsageRatio | null | 450000000000000000000000000 |
+| stableRateSlope1 | null | 130000000000000000000000000 |
+| stableRateSlope2 | null | 3000000000000000000000000000 |
+| variableRateSlope1 | null | 90000000000000000000000000 |
+| variableRateSlope2 | null | 3000000000000000000000000000 |
+
+
+#### osETH ([0xf1C9acDc66974dFB6dEcB12aA385b9cD01190E38](https://etherscan.io/address/0xf1C9acDc66974dFB6dEcB12aA385b9cD01190E38))
+
+| description | value before | value after |
+| --- | --- | --- |
+| address | null | [0x48AF11111764E710fcDcE2750db848C63edab57B](https://etherscan.io/address/0x48AF11111764E710fcDcE2750db848C63edab57B) |
+| baseStableBorrowRate | null | 70000000000000000000000000 |
+| baseVariableBorrowRate | null | 0 |
+| maxExcessStableToTotalDebtRatio | null | 1000000000000000000000000000 |
+| maxExcessUsageRatio | null | 550000000000000000000000000 |
+| optimalStableToTotalDebtRatio | null | 0 |
+| optimalUsageRatio | null | 450000000000000000000000000 |
+| stableRateSlope1 | null | 0 |
+| stableRateSlope2 | null | 0 |
+| variableRateSlope1 | null | 70000000000000000000000000 |
+| variableRateSlope2 | null | 3000000000000000000000000000 |
+
+
+#### crvUSD ([0xf939E0A03FB07F59A73314E73794Be0E57ac1b4E](https://etherscan.io/address/0xf939E0A03FB07F59A73314E73794Be0E57ac1b4E))
+
+| description | value before | value after |
+| --- | --- | --- |
+| address | null | [0x22B409E1ab288DA6a895FE8251bEbfcA267f8805](https://etherscan.io/address/0x22B409E1ab288DA6a895FE8251bEbfcA267f8805) |
+| baseStableBorrowRate | null | 120000000000000000000000000 |
+| baseVariableBorrowRate | null | 0 |
+| maxExcessStableToTotalDebtRatio | null | 800000000000000000000000000 |
+| maxExcessUsageRatio | null | 200000000000000000000000000 |
+| optimalStableToTotalDebtRatio | null | 200000000000000000000000000 |
+| optimalUsageRatio | null | 800000000000000000000000000 |
+| stableRateSlope1 | null | 130000000000000000000000000 |
+| stableRateSlope2 | null | 3000000000000000000000000000 |
+| variableRateSlope1 | null | 90000000000000000000000000 |
+| variableRateSlope2 | null | 800000000000000000000000000 |
 
 
 ## Raw diff
@@ -77,130 +575,1550 @@
 ```json
 {
   "reserves": {
+    "0x111111111117dC0aa78b770fA6A738034120C302": {
+      "address": {
+        "from": null,
+        "to": "0xf6733B9842883BFE0e0a940eA2F572676af31bde"
+      },
+      "baseStableBorrowRate": {
+        "from": null,
+        "to": "120000000000000000000000000"
+      },
+      "baseVariableBorrowRate": {
+        "from": null,
+        "to": "0"
+      },
+      "maxExcessStableToTotalDebtRatio": {
+        "from": null,
+        "to": "800000000000000000000000000"
+      },
+      "maxExcessUsageRatio": {
+        "from": null,
+        "to": "550000000000000000000000000"
+      },
+      "optimalStableToTotalDebtRatio": {
+        "from": null,
+        "to": "200000000000000000000000000"
+      },
+      "optimalUsageRatio": {
+        "from": null,
+        "to": "450000000000000000000000000"
+      },
+      "stableRateSlope1": {
+        "from": null,
+        "to": "130000000000000000000000000"
+      },
+      "stableRateSlope2": {
+        "from": null,
+        "to": "3000000000000000000000000000"
+      },
+      "variableRateSlope1": {
+        "from": null,
+        "to": "90000000000000000000000000"
+      },
+      "variableRateSlope2": {
+        "from": null,
+        "to": "3000000000000000000000000000"
+      }
+    },
+    "0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984": {
+      "address": {
+        "from": null,
+        "to": "0x27eFE5db315b71753b2a38ED3d5dd7E9362ba93F"
+      },
+      "baseStableBorrowRate": {
+        "from": null,
+        "to": "100000000000000000000000000"
+      },
+      "baseVariableBorrowRate": {
+        "from": null,
+        "to": "0"
+      },
+      "maxExcessStableToTotalDebtRatio": {
+        "from": null,
+        "to": "800000000000000000000000000"
+      },
+      "maxExcessUsageRatio": {
+        "from": null,
+        "to": "550000000000000000000000000"
+      },
+      "optimalStableToTotalDebtRatio": {
+        "from": null,
+        "to": "200000000000000000000000000"
+      },
+      "optimalUsageRatio": {
+        "from": null,
+        "to": "450000000000000000000000000"
+      },
+      "stableRateSlope1": {
+        "from": null,
+        "to": "130000000000000000000000000"
+      },
+      "stableRateSlope2": {
+        "from": null,
+        "to": "3000000000000000000000000000"
+      },
+      "variableRateSlope1": {
+        "from": null,
+        "to": "70000000000000000000000000"
+      },
+      "variableRateSlope2": {
+        "from": null,
+        "to": "3000000000000000000000000000"
+      }
+    },
+    "0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599": {
+      "address": {
+        "from": null,
+        "to": "0x07Fa3744FeC271F80c2EA97679823F65c13CCDf4"
+      },
+      "baseStableBorrowRate": {
+        "from": null,
+        "to": "60000000000000000000000000"
+      },
+      "baseVariableBorrowRate": {
+        "from": null,
+        "to": "0"
+      },
+      "maxExcessStableToTotalDebtRatio": {
+        "from": null,
+        "to": "800000000000000000000000000"
+      },
+      "maxExcessUsageRatio": {
+        "from": null,
+        "to": "550000000000000000000000000"
+      },
+      "optimalStableToTotalDebtRatio": {
+        "from": null,
+        "to": "200000000000000000000000000"
+      },
+      "optimalUsageRatio": {
+        "from": null,
+        "to": "450000000000000000000000000"
+      },
+      "stableRateSlope1": {
+        "from": null,
+        "to": "70000000000000000000000000"
+      },
+      "stableRateSlope2": {
+        "from": null,
+        "to": "3000000000000000000000000000"
+      },
+      "variableRateSlope1": {
+        "from": null,
+        "to": "40000000000000000000000000"
+      },
+      "variableRateSlope2": {
+        "from": null,
+        "to": "3000000000000000000000000000"
+      }
+    },
+    "0x3432B6A60D23Ca0dFCa7761B7ab56459D9C964D0": {
+      "address": {
+        "from": null,
+        "to": "0xf6733B9842883BFE0e0a940eA2F572676af31bde"
+      },
+      "baseStableBorrowRate": {
+        "from": null,
+        "to": "120000000000000000000000000"
+      },
+      "baseVariableBorrowRate": {
+        "from": null,
+        "to": "0"
+      },
+      "maxExcessStableToTotalDebtRatio": {
+        "from": null,
+        "to": "800000000000000000000000000"
+      },
+      "maxExcessUsageRatio": {
+        "from": null,
+        "to": "550000000000000000000000000"
+      },
+      "optimalStableToTotalDebtRatio": {
+        "from": null,
+        "to": "200000000000000000000000000"
+      },
+      "optimalUsageRatio": {
+        "from": null,
+        "to": "450000000000000000000000000"
+      },
+      "stableRateSlope1": {
+        "from": null,
+        "to": "130000000000000000000000000"
+      },
+      "stableRateSlope2": {
+        "from": null,
+        "to": "3000000000000000000000000000"
+      },
+      "variableRateSlope1": {
+        "from": null,
+        "to": "90000000000000000000000000"
+      },
+      "variableRateSlope2": {
+        "from": null,
+        "to": "3000000000000000000000000000"
+      }
+    },
+    "0x40D16FC0246aD3160Ccc09B8D0D3A2cD28aE6C2f": {
+      "address": {
+        "from": null,
+        "to": "0x741aE8b9f54b7DdE46C532f2c0F55B8776c93484"
+      },
+      "baseStableBorrowRate": {
+        "from": null,
+        "to": "0"
+      },
+      "baseVariableBorrowRate": {
+        "from": null,
+        "to": "70000000000000000000000000"
+      },
+      "maxExcessStableToTotalDebtRatio": {
+        "from": null,
+        "to": "0"
+      },
+      "maxExcessUsageRatio": {
+        "from": null,
+        "to": "0"
+      },
+      "optimalStableToTotalDebtRatio": {
+        "from": null,
+        "to": "0"
+      },
+      "optimalUsageRatio": {
+        "from": null,
+        "to": "0"
+      },
+      "stableRateSlope1": {
+        "from": null,
+        "to": "0"
+      },
+      "stableRateSlope2": {
+        "from": null,
+        "to": "0"
+      },
+      "variableRateSlope1": {
+        "from": null,
+        "to": "0"
+      },
+      "variableRateSlope2": {
+        "from": null,
+        "to": "0"
+      }
+    },
+    "0x4c9EDD5852cd905f086C759E8383e09bff1E68B3": {
+      "address": {
+        "from": null,
+        "to": "0x4011fcd421b9E90f131B164EC1d162DBE269621C"
+      },
+      "baseStableBorrowRate": {
+        "from": null,
+        "to": "90000000000000000000000000"
+      },
+      "baseVariableBorrowRate": {
+        "from": null,
+        "to": "0"
+      },
+      "maxExcessStableToTotalDebtRatio": {
+        "from": null,
+        "to": "1000000000000000000000000000"
+      },
+      "maxExcessUsageRatio": {
+        "from": null,
+        "to": "200000000000000000000000000"
+      },
+      "optimalStableToTotalDebtRatio": {
+        "from": null,
+        "to": "0"
+      },
+      "optimalUsageRatio": {
+        "from": null,
+        "to": "800000000000000000000000000"
+      },
+      "stableRateSlope1": {
+        "from": null,
+        "to": "90000000000000000000000000"
+      },
+      "stableRateSlope2": {
+        "from": null,
+        "to": "750000000000000000000000000"
+      },
+      "variableRateSlope1": {
+        "from": null,
+        "to": "90000000000000000000000000"
+      },
+      "variableRateSlope2": {
+        "from": null,
+        "to": "750000000000000000000000000"
+      }
+    },
     "0x514910771AF9Ca656af840dff83E8264EcF986CA": {
-      "currentLiquidityRate": {
-        "from": "23929965679435282273342",
-        "to": "23929108918841610351095"
+      "aTokenUnderlyingBalance": {
+        "from": "11125899530945508596356169",
+        "to": "11126104063542685827584126"
       },
-      "currentVariableBorrowRate": {
-        "from": "2157092692053917278208347",
-        "to": "2157054076692273741539073"
+      "address": {
+        "from": null,
+        "to": "0x24701A6368Ff6D2874d6b8cDadd461552B8A5283"
       },
-      "liquidityIndex": {
-        "from": "1000476507219632357075724436",
-        "to": "1000476509770463093239036672"
+      "baseStableBorrowRate": {
+        "from": null,
+        "to": "90000000000000000000000000"
       },
-      "variableBorrowIndex": {
-        "from": "1005300806088987650591516548",
-        "to": "1005301037134511223603764665"
+      "baseVariableBorrowRate": {
+        "from": null,
+        "to": "0"
+      },
+      "maxExcessStableToTotalDebtRatio": {
+        "from": null,
+        "to": "800000000000000000000000000"
+      },
+      "maxExcessUsageRatio": {
+        "from": null,
+        "to": "550000000000000000000000000"
+      },
+      "optimalStableToTotalDebtRatio": {
+        "from": null,
+        "to": "200000000000000000000000000"
+      },
+      "optimalUsageRatio": {
+        "from": null,
+        "to": "450000000000000000000000000"
+      },
+      "stableRateSlope1": {
+        "from": null,
+        "to": "70000000000000000000000000"
+      },
+      "stableRateSlope2": {
+        "from": null,
+        "to": "3000000000000000000000000000"
+      },
+      "variableRateSlope1": {
+        "from": null,
+        "to": "70000000000000000000000000"
+      },
+      "variableRateSlope2": {
+        "from": null,
+        "to": "3000000000000000000000000000"
+      }
+    },
+    "0x5A98FcBEA516Cf06857215779Fd812CA3beF1B32": {
+      "address": {
+        "from": null,
+        "to": "0x27eFE5db315b71753b2a38ED3d5dd7E9362ba93F"
+      },
+      "baseStableBorrowRate": {
+        "from": null,
+        "to": "100000000000000000000000000"
+      },
+      "baseVariableBorrowRate": {
+        "from": null,
+        "to": "0"
+      },
+      "maxExcessStableToTotalDebtRatio": {
+        "from": null,
+        "to": "800000000000000000000000000"
+      },
+      "maxExcessUsageRatio": {
+        "from": null,
+        "to": "550000000000000000000000000"
+      },
+      "optimalStableToTotalDebtRatio": {
+        "from": null,
+        "to": "200000000000000000000000000"
+      },
+      "optimalUsageRatio": {
+        "from": null,
+        "to": "450000000000000000000000000"
+      },
+      "stableRateSlope1": {
+        "from": null,
+        "to": "130000000000000000000000000"
+      },
+      "stableRateSlope2": {
+        "from": null,
+        "to": "3000000000000000000000000000"
+      },
+      "variableRateSlope1": {
+        "from": null,
+        "to": "70000000000000000000000000"
+      },
+      "variableRateSlope2": {
+        "from": null,
+        "to": "3000000000000000000000000000"
       }
     },
     "0x5f98805A4E8be255a32880FDeC7F6728C6568bA0": {
-      "currentLiquidityRate": {
-        "from": "36562658050195118765424627",
-        "to": "36889587497434255577091701"
+      "aTokenUnderlyingBalance": {
+        "from": "2161079651705465362890767",
+        "to": "2134903042058712358109415"
       },
-      "currentVariableBorrowRate": {
-        "from": "71705116890698174053888993",
-        "to": "72024983455927931164233958"
+      "address": {
+        "from": null,
+        "to": "0x2B3Ed91C6667d808b0401f439c4859ea635c6862"
       },
-      "liquidityIndex": {
-        "from": "1068058755391363426154357360",
-        "to": "1068132815710306212609184865"
+      "baseStableBorrowRate": {
+        "from": null,
+        "to": "100000000000000000000000000"
       },
-      "variableBorrowIndex": {
-        "from": "1102909422078773105393606308",
-        "to": "1103059415495146073509048813"
+      "baseVariableBorrowRate": {
+        "from": null,
+        "to": "0"
+      },
+      "maxExcessStableToTotalDebtRatio": {
+        "from": null,
+        "to": "800000000000000000000000000"
+      },
+      "maxExcessUsageRatio": {
+        "from": null,
+        "to": "200000000000000000000000000"
+      },
+      "optimalStableToTotalDebtRatio": {
+        "from": null,
+        "to": "200000000000000000000000000"
+      },
+      "optimalUsageRatio": {
+        "from": null,
+        "to": "800000000000000000000000000"
+      },
+      "stableRateSlope1": {
+        "from": null,
+        "to": "40000000000000000000000000"
+      },
+      "stableRateSlope2": {
+        "from": null,
+        "to": "870000000000000000000000000"
+      },
+      "variableRateSlope1": {
+        "from": null,
+        "to": "90000000000000000000000000"
+      },
+      "variableRateSlope2": {
+        "from": null,
+        "to": "870000000000000000000000000"
       }
     },
     "0x6B175474E89094C44Da98b954EedeAC495271d0F": {
-      "currentLiquidityRate": {
-        "from": "52025472338793979299880004",
-        "to": "52879339355516750243042819"
+      "aTokenUnderlyingBalance": {
+        "from": "21971804316083981578633223",
+        "to": "20843981802212898363345750"
       },
-      "currentVariableBorrowRate": {
-        "from": "82376763560031306001762728",
-        "to": "83050015853871284922317599"
+      "address": {
+        "from": null,
+        "to": "0x05F410A9EB94e0BEe0E47F12254E7Cb5F4E2A1f7"
       },
-      "liquidityIndex": {
-        "from": "1078106785987825798753622528",
-        "to": "1078107490301938241028539490"
+      "baseStableBorrowRate": {
+        "from": null,
+        "to": "100000000000000000000000000"
       },
-      "variableBorrowIndex": {
-        "from": "1109401776119819634533411658",
-        "to": "1109402923698272228527942132"
+      "baseVariableBorrowRate": {
+        "from": null,
+        "to": "0"
+      },
+      "maxExcessStableToTotalDebtRatio": {
+        "from": null,
+        "to": "800000000000000000000000000"
+      },
+      "maxExcessUsageRatio": {
+        "from": null,
+        "to": "80000000000000000000000000"
+      },
+      "optimalStableToTotalDebtRatio": {
+        "from": null,
+        "to": "200000000000000000000000000"
+      },
+      "optimalUsageRatio": {
+        "from": null,
+        "to": "920000000000000000000000000"
+      },
+      "stableRateSlope1": {
+        "from": null,
+        "to": "5000000000000000000000000"
+      },
+      "stableRateSlope2": {
+        "from": null,
+        "to": "750000000000000000000000000"
+      },
+      "variableRateSlope1": {
+        "from": null,
+        "to": "90000000000000000000000000"
+      },
+      "variableRateSlope2": {
+        "from": null,
+        "to": "750000000000000000000000000"
       }
     },
     "0x6c3ea9036406852006290770BEdFcAbA0e23A0e8": {
-      "currentLiquidityRate": {
-        "from": "52855423543918909864975449",
-        "to": "53478166891010390123318197"
+      "aTokenUnderlyingBalance": {
+        "from": 4836545813514,
+        "to": 4716686935507
       },
-      "currentVariableBorrowRate": {
-        "from": "86213652839115897767829605",
-        "to": "86720050847819134054321943"
+      "address": {
+        "from": null,
+        "to": "0x22B409E1ab288DA6a895FE8251bEbfcA267f8805"
       },
-      "liquidityIndex": {
-        "from": "1020178359565493042650645906",
-        "to": "1020312877208215114276575496"
+      "baseStableBorrowRate": {
+        "from": null,
+        "to": "120000000000000000000000000"
       },
-      "variableBorrowIndex": {
-        "from": "1036025023546649208723988086",
-        "to": "1036247870437238110254148285"
+      "baseVariableBorrowRate": {
+        "from": null,
+        "to": "0"
+      },
+      "maxExcessStableToTotalDebtRatio": {
+        "from": null,
+        "to": "800000000000000000000000000"
+      },
+      "maxExcessUsageRatio": {
+        "from": null,
+        "to": "200000000000000000000000000"
+      },
+      "optimalStableToTotalDebtRatio": {
+        "from": null,
+        "to": "200000000000000000000000000"
+      },
+      "optimalUsageRatio": {
+        "from": null,
+        "to": "800000000000000000000000000"
+      },
+      "stableRateSlope1": {
+        "from": null,
+        "to": "130000000000000000000000000"
+      },
+      "stableRateSlope2": {
+        "from": null,
+        "to": "3000000000000000000000000000"
+      },
+      "variableRateSlope1": {
+        "from": null,
+        "to": "90000000000000000000000000"
+      },
+      "variableRateSlope2": {
+        "from": null,
+        "to": "800000000000000000000000000"
+      }
+    },
+    "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9": {
+      "address": {
+        "from": null,
+        "to": "0x24701A6368Ff6D2874d6b8cDadd461552B8A5283"
+      },
+      "baseStableBorrowRate": {
+        "from": null,
+        "to": "90000000000000000000000000"
+      },
+      "baseVariableBorrowRate": {
+        "from": null,
+        "to": "0"
+      },
+      "maxExcessStableToTotalDebtRatio": {
+        "from": null,
+        "to": "800000000000000000000000000"
+      },
+      "maxExcessUsageRatio": {
+        "from": null,
+        "to": "550000000000000000000000000"
+      },
+      "optimalStableToTotalDebtRatio": {
+        "from": null,
+        "to": "200000000000000000000000000"
+      },
+      "optimalUsageRatio": {
+        "from": null,
+        "to": "450000000000000000000000000"
+      },
+      "stableRateSlope1": {
+        "from": null,
+        "to": "70000000000000000000000000"
+      },
+      "stableRateSlope2": {
+        "from": null,
+        "to": "3000000000000000000000000000"
+      },
+      "variableRateSlope1": {
+        "from": null,
+        "to": "70000000000000000000000000"
+      },
+      "variableRateSlope2": {
+        "from": null,
+        "to": "3000000000000000000000000000"
+      }
+    },
+    "0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0": {
+      "address": {
+        "from": null,
+        "to": "0x7b8Fa4540246554e77FCFf140f9114de00F8bB8D"
+      },
+      "baseStableBorrowRate": {
+        "from": null,
+        "to": "75000000000000000000000000"
+      },
+      "baseVariableBorrowRate": {
+        "from": null,
+        "to": "2500000000000000000000000"
+      },
+      "maxExcessStableToTotalDebtRatio": {
+        "from": null,
+        "to": "800000000000000000000000000"
+      },
+      "maxExcessUsageRatio": {
+        "from": null,
+        "to": "550000000000000000000000000"
+      },
+      "optimalStableToTotalDebtRatio": {
+        "from": null,
+        "to": "200000000000000000000000000"
+      },
+      "optimalUsageRatio": {
+        "from": null,
+        "to": "450000000000000000000000000"
+      },
+      "stableRateSlope1": {
+        "from": null,
+        "to": "40000000000000000000000000"
+      },
+      "stableRateSlope2": {
+        "from": null,
+        "to": "800000000000000000000000000"
+      },
+      "variableRateSlope1": {
+        "from": null,
+        "to": "45000000000000000000000000"
+      },
+      "variableRateSlope2": {
+        "from": null,
+        "to": "800000000000000000000000000"
+      }
+    },
+    "0x83F20F44975D03b1b09e64809B757c47f942BEeA": {
+      "address": {
+        "from": null,
+        "to": "0xdef8F50155A6cf21181E29E400E8CffAE2d50968"
+      },
+      "baseStableBorrowRate": {
+        "from": null,
+        "to": "80000000000000000000000000"
+      },
+      "baseVariableBorrowRate": {
+        "from": null,
+        "to": "0"
+      },
+      "maxExcessStableToTotalDebtRatio": {
+        "from": null,
+        "to": "800000000000000000000000000"
+      },
+      "maxExcessUsageRatio": {
+        "from": null,
+        "to": "100000000000000000000000000"
+      },
+      "optimalStableToTotalDebtRatio": {
+        "from": null,
+        "to": "200000000000000000000000000"
+      },
+      "optimalUsageRatio": {
+        "from": null,
+        "to": "900000000000000000000000000"
+      },
+      "stableRateSlope1": {
+        "from": null,
+        "to": "50000000000000000000000000"
+      },
+      "stableRateSlope2": {
+        "from": null,
+        "to": "750000000000000000000000000"
+      },
+      "variableRateSlope1": {
+        "from": null,
+        "to": "50000000000000000000000000"
+      },
+      "variableRateSlope2": {
+        "from": null,
+        "to": "750000000000000000000000000"
+      }
+    },
+    "0x853d955aCEf822Db058eb8505911ED77F175b99e": {
+      "address": {
+        "from": null,
+        "to": "0xA7D9302346d4C35724821cf98966B2257c9683c6"
+      },
+      "baseStableBorrowRate": {
+        "from": null,
+        "to": "100000000000000000000000000"
+      },
+      "baseVariableBorrowRate": {
+        "from": null,
+        "to": "0"
+      },
+      "maxExcessStableToTotalDebtRatio": {
+        "from": null,
+        "to": "800000000000000000000000000"
+      },
+      "maxExcessUsageRatio": {
+        "from": null,
+        "to": "100000000000000000000000000"
+      },
+      "optimalStableToTotalDebtRatio": {
+        "from": null,
+        "to": "200000000000000000000000000"
+      },
+      "optimalUsageRatio": {
+        "from": null,
+        "to": "900000000000000000000000000"
+      },
+      "stableRateSlope1": {
+        "from": null,
+        "to": "5000000000000000000000000"
+      },
+      "stableRateSlope2": {
+        "from": null,
+        "to": "750000000000000000000000000"
+      },
+      "variableRateSlope1": {
+        "from": null,
+        "to": "90000000000000000000000000"
+      },
+      "variableRateSlope2": {
+        "from": null,
+        "to": "750000000000000000000000000"
+      }
+    },
+    "0x9D39A5DE30e57443BfF2A8307A4256c8797A3497": {
+      "address": {
+        "from": null,
+        "to": "0x36d32fD7a72AD600be60Ccb71D3718E455025CaA"
+      },
+      "baseStableBorrowRate": {
+        "from": null,
+        "to": "0"
+      },
+      "baseVariableBorrowRate": {
+        "from": null,
+        "to": "0"
+      },
+      "maxExcessStableToTotalDebtRatio": {
+        "from": null,
+        "to": "1000000000000000000000000000"
+      },
+      "maxExcessUsageRatio": {
+        "from": null,
+        "to": "100000000000000000000000000"
+      },
+      "optimalStableToTotalDebtRatio": {
+        "from": null,
+        "to": "0"
+      },
+      "optimalUsageRatio": {
+        "from": null,
+        "to": "900000000000000000000000000"
+      },
+      "stableRateSlope1": {
+        "from": null,
+        "to": "0"
+      },
+      "stableRateSlope2": {
+        "from": null,
+        "to": "0"
+      },
+      "variableRateSlope1": {
+        "from": null,
+        "to": "0"
+      },
+      "variableRateSlope2": {
+        "from": null,
+        "to": "0"
+      }
+    },
+    "0x9f8F72aA9304c8B593d555F12eF6589cC3A579A2": {
+      "address": {
+        "from": null,
+        "to": "0x27eFE5db315b71753b2a38ED3d5dd7E9362ba93F"
+      },
+      "baseStableBorrowRate": {
+        "from": null,
+        "to": "100000000000000000000000000"
+      },
+      "baseVariableBorrowRate": {
+        "from": null,
+        "to": "0"
+      },
+      "maxExcessStableToTotalDebtRatio": {
+        "from": null,
+        "to": "800000000000000000000000000"
+      },
+      "maxExcessUsageRatio": {
+        "from": null,
+        "to": "550000000000000000000000000"
+      },
+      "optimalStableToTotalDebtRatio": {
+        "from": null,
+        "to": "200000000000000000000000000"
+      },
+      "optimalUsageRatio": {
+        "from": null,
+        "to": "450000000000000000000000000"
+      },
+      "stableRateSlope1": {
+        "from": null,
+        "to": "130000000000000000000000000"
+      },
+      "stableRateSlope2": {
+        "from": null,
+        "to": "3000000000000000000000000000"
+      },
+      "variableRateSlope1": {
+        "from": null,
+        "to": "70000000000000000000000000"
+      },
+      "variableRateSlope2": {
+        "from": null,
+        "to": "3000000000000000000000000000"
       }
     },
     "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48": {
-      "currentLiquidityRate": {
-        "from": "64462193617992963206861395",
-        "to": "64587303166422565595638448"
+      "aTokenUnderlyingBalance": {
+        "from": 223439837686233,
+        "to": 221939837686234
       },
-      "currentVariableBorrowRate": {
-        "from": "83706392682212750748817684",
-        "to": "83787582849898109103623227"
+      "address": {
+        "from": null,
+        "to": "0x0fc12Ad84210695dE8C0D5D8B6f720C37cEaB02f"
       },
-      "liquidityIndex": {
-        "from": "1079466536607225072930110798",
-        "to": "1079466827867723458056269986"
+      "baseStableBorrowRate": {
+        "from": null,
+        "to": "100000000000000000000000000"
       },
-      "variableBorrowIndex": {
-        "from": "1102714763289105351198380579",
-        "to": "1102715149646487939300489732"
+      "baseVariableBorrowRate": {
+        "from": null,
+        "to": "0"
+      },
+      "maxExcessStableToTotalDebtRatio": {
+        "from": null,
+        "to": "800000000000000000000000000"
+      },
+      "maxExcessUsageRatio": {
+        "from": null,
+        "to": "80000000000000000000000000"
+      },
+      "optimalStableToTotalDebtRatio": {
+        "from": null,
+        "to": "200000000000000000000000000"
+      },
+      "optimalUsageRatio": {
+        "from": null,
+        "to": "920000000000000000000000000"
+      },
+      "stableRateSlope1": {
+        "from": null,
+        "to": "5000000000000000000000000"
+      },
+      "stableRateSlope2": {
+        "from": null,
+        "to": "600000000000000000000000000"
+      },
+      "variableRateSlope1": {
+        "from": null,
+        "to": "90000000000000000000000000"
+      },
+      "variableRateSlope2": {
+        "from": null,
+        "to": "600000000000000000000000000"
+      }
+    },
+    "0xA35b1B31Ce002FBF2058D22F30f95D405200A15b": {
+      "address": {
+        "from": null,
+        "to": "0x48AF11111764E710fcDcE2750db848C63edab57B"
+      },
+      "baseStableBorrowRate": {
+        "from": null,
+        "to": "70000000000000000000000000"
+      },
+      "baseVariableBorrowRate": {
+        "from": null,
+        "to": "0"
+      },
+      "maxExcessStableToTotalDebtRatio": {
+        "from": null,
+        "to": "1000000000000000000000000000"
+      },
+      "maxExcessUsageRatio": {
+        "from": null,
+        "to": "550000000000000000000000000"
+      },
+      "optimalStableToTotalDebtRatio": {
+        "from": null,
+        "to": "0"
+      },
+      "optimalUsageRatio": {
+        "from": null,
+        "to": "450000000000000000000000000"
+      },
+      "stableRateSlope1": {
+        "from": null,
+        "to": "0"
+      },
+      "stableRateSlope2": {
+        "from": null,
+        "to": "0"
+      },
+      "variableRateSlope1": {
+        "from": null,
+        "to": "70000000000000000000000000"
+      },
+      "variableRateSlope2": {
+        "from": null,
+        "to": "3000000000000000000000000000"
+      }
+    },
+    "0xAf5191B0De278C7286d6C7CC6ab6BB8A73bA2Cd6": {
+      "address": {
+        "from": null,
+        "to": "0x27eFE5db315b71753b2a38ED3d5dd7E9362ba93F"
+      },
+      "baseStableBorrowRate": {
+        "from": null,
+        "to": "100000000000000000000000000"
+      },
+      "baseVariableBorrowRate": {
+        "from": null,
+        "to": "0"
+      },
+      "maxExcessStableToTotalDebtRatio": {
+        "from": null,
+        "to": "800000000000000000000000000"
+      },
+      "maxExcessUsageRatio": {
+        "from": null,
+        "to": "550000000000000000000000000"
+      },
+      "optimalStableToTotalDebtRatio": {
+        "from": null,
+        "to": "200000000000000000000000000"
+      },
+      "optimalUsageRatio": {
+        "from": null,
+        "to": "450000000000000000000000000"
+      },
+      "stableRateSlope1": {
+        "from": null,
+        "to": "130000000000000000000000000"
+      },
+      "stableRateSlope2": {
+        "from": null,
+        "to": "3000000000000000000000000000"
+      },
+      "variableRateSlope1": {
+        "from": null,
+        "to": "70000000000000000000000000"
+      },
+      "variableRateSlope2": {
+        "from": null,
+        "to": "3000000000000000000000000000"
+      }
+    },
+    "0xBe9895146f7AF43049ca1c1AE358B0541Ea49704": {
+      "address": {
+        "from": null,
+        "to": "0x24701A6368Ff6D2874d6b8cDadd461552B8A5283"
+      },
+      "baseStableBorrowRate": {
+        "from": null,
+        "to": "90000000000000000000000000"
+      },
+      "baseVariableBorrowRate": {
+        "from": null,
+        "to": "0"
+      },
+      "maxExcessStableToTotalDebtRatio": {
+        "from": null,
+        "to": "800000000000000000000000000"
+      },
+      "maxExcessUsageRatio": {
+        "from": null,
+        "to": "550000000000000000000000000"
+      },
+      "optimalStableToTotalDebtRatio": {
+        "from": null,
+        "to": "200000000000000000000000000"
+      },
+      "optimalUsageRatio": {
+        "from": null,
+        "to": "450000000000000000000000000"
+      },
+      "stableRateSlope1": {
+        "from": null,
+        "to": "70000000000000000000000000"
+      },
+      "stableRateSlope2": {
+        "from": null,
+        "to": "3000000000000000000000000000"
+      },
+      "variableRateSlope1": {
+        "from": null,
+        "to": "70000000000000000000000000"
+      },
+      "variableRateSlope2": {
+        "from": null,
+        "to": "3000000000000000000000000000"
+      }
+    },
+    "0xC011a73ee8576Fb46F5E1c5751cA3B9Fe0af2a6F": {
+      "address": {
+        "from": null,
+        "to": "0xA6459195d60A797D278f58Ffbd2BA62Fb3F7FA1E"
+      },
+      "baseStableBorrowRate": {
+        "from": null,
+        "to": "180000000000000000000000000"
+      },
+      "baseVariableBorrowRate": {
+        "from": null,
+        "to": "30000000000000000000000000"
+      },
+      "maxExcessStableToTotalDebtRatio": {
+        "from": null,
+        "to": "800000000000000000000000000"
+      },
+      "maxExcessUsageRatio": {
+        "from": null,
+        "to": "200000000000000000000000000"
+      },
+      "optimalStableToTotalDebtRatio": {
+        "from": null,
+        "to": "200000000000000000000000000"
+      },
+      "optimalUsageRatio": {
+        "from": null,
+        "to": "800000000000000000000000000"
+      },
+      "stableRateSlope1": {
+        "from": null,
+        "to": "150000000000000000000000000"
+      },
+      "stableRateSlope2": {
+        "from": null,
+        "to": "1000000000000000000000000000"
+      },
+      "variableRateSlope1": {
+        "from": null,
+        "to": "150000000000000000000000000"
+      },
+      "variableRateSlope2": {
+        "from": null,
+        "to": "1000000000000000000000000000"
       }
     },
     "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2": {
-      "currentLiquidityRate": {
-        "from": "18824021938144147302849332",
-        "to": "18819154884100701747515292"
+      "aTokenUnderlyingBalance": {
+        "from": "138560714113035891077908",
+        "to": "138687988094400170720313"
       },
-      "currentVariableBorrowRate": {
-        "from": "25775516384268148880072429",
-        "to": "25772183968334383794950816"
+      "address": {
+        "from": null,
+        "to": "0x42ec99A020B78C449d17d93bC4c89e0189B5811d"
       },
-      "liquidityIndex": {
-        "from": "1028111106099941568803675190",
-        "to": "1028111334390948607739481808"
+      "baseStableBorrowRate": {
+        "from": null,
+        "to": "57000000000000000000000000"
       },
-      "variableBorrowIndex": {
-        "from": "1047469770575843320140020486",
-        "to": "1047470089058121910984106458"
+      "baseVariableBorrowRate": {
+        "from": null,
+        "to": "0"
+      },
+      "maxExcessStableToTotalDebtRatio": {
+        "from": null,
+        "to": "800000000000000000000000000"
+      },
+      "maxExcessUsageRatio": {
+        "from": null,
+        "to": "100000000000000000000000000"
+      },
+      "optimalStableToTotalDebtRatio": {
+        "from": null,
+        "to": "200000000000000000000000000"
+      },
+      "optimalUsageRatio": {
+        "from": null,
+        "to": "900000000000000000000000000"
+      },
+      "stableRateSlope1": {
+        "from": null,
+        "to": "40000000000000000000000000"
+      },
+      "stableRateSlope2": {
+        "from": null,
+        "to": "800000000000000000000000000"
+      },
+      "variableRateSlope1": {
+        "from": null,
+        "to": "27000000000000000000000000"
+      },
+      "variableRateSlope2": {
+        "from": null,
+        "to": "800000000000000000000000000"
+      }
+    },
+    "0xC18360217D8F7Ab5e7c516566761Ea12Ce7F9D72": {
+      "address": {
+        "from": null,
+        "to": "0xf6733B9842883BFE0e0a940eA2F572676af31bde"
+      },
+      "baseStableBorrowRate": {
+        "from": null,
+        "to": "120000000000000000000000000"
+      },
+      "baseVariableBorrowRate": {
+        "from": null,
+        "to": "0"
+      },
+      "maxExcessStableToTotalDebtRatio": {
+        "from": null,
+        "to": "800000000000000000000000000"
+      },
+      "maxExcessUsageRatio": {
+        "from": null,
+        "to": "550000000000000000000000000"
+      },
+      "optimalStableToTotalDebtRatio": {
+        "from": null,
+        "to": "200000000000000000000000000"
+      },
+      "optimalUsageRatio": {
+        "from": null,
+        "to": "450000000000000000000000000"
+      },
+      "stableRateSlope1": {
+        "from": null,
+        "to": "130000000000000000000000000"
+      },
+      "stableRateSlope2": {
+        "from": null,
+        "to": "3000000000000000000000000000"
+      },
+      "variableRateSlope1": {
+        "from": null,
+        "to": "90000000000000000000000000"
+      },
+      "variableRateSlope2": {
+        "from": null,
+        "to": "3000000000000000000000000000"
+      }
+    },
+    "0xCd5fE23C85820F7B72D0926FC9b05b43E359b7ee": {
+      "address": {
+        "from": null,
+        "to": "0xf1e5355cEcaA71036CE21cdF8F9d04061B1BC6E1"
+      },
+      "baseStableBorrowRate": {
+        "from": null,
+        "to": "70000000000000000000000000"
+      },
+      "baseVariableBorrowRate": {
+        "from": null,
+        "to": "0"
+      },
+      "maxExcessStableToTotalDebtRatio": {
+        "from": null,
+        "to": "1000000000000000000000000000"
+      },
+      "maxExcessUsageRatio": {
+        "from": null,
+        "to": "650000000000000000000000000"
+      },
+      "optimalStableToTotalDebtRatio": {
+        "from": null,
+        "to": "0"
+      },
+      "optimalUsageRatio": {
+        "from": null,
+        "to": "350000000000000000000000000"
+      },
+      "stableRateSlope1": {
+        "from": null,
+        "to": "0"
+      },
+      "stableRateSlope2": {
+        "from": null,
+        "to": "0"
+      },
+      "variableRateSlope1": {
+        "from": null,
+        "to": "70000000000000000000000000"
+      },
+      "variableRateSlope2": {
+        "from": null,
+        "to": "3000000000000000000000000000"
+      }
+    },
+    "0xD33526068D116cE69F19A9ee46F0bd304F21A51f": {
+      "address": {
+        "from": null,
+        "to": "0xD87974E8ED49AB16d5053ba793F4e17078Be0426"
+      },
+      "baseStableBorrowRate": {
+        "from": null,
+        "to": "95000000000000000000000000"
+      },
+      "baseVariableBorrowRate": {
+        "from": null,
+        "to": "0"
+      },
+      "maxExcessStableToTotalDebtRatio": {
+        "from": null,
+        "to": "800000000000000000000000000"
+      },
+      "maxExcessUsageRatio": {
+        "from": null,
+        "to": "200000000000000000000000000"
+      },
+      "optimalStableToTotalDebtRatio": {
+        "from": null,
+        "to": "200000000000000000000000000"
+      },
+      "optimalUsageRatio": {
+        "from": null,
+        "to": "800000000000000000000000000"
+      },
+      "stableRateSlope1": {
+        "from": null,
+        "to": "85000000000000000000000000"
+      },
+      "stableRateSlope2": {
+        "from": null,
+        "to": "870000000000000000000000000"
+      },
+      "variableRateSlope1": {
+        "from": null,
+        "to": "85000000000000000000000000"
+      },
+      "variableRateSlope2": {
+        "from": null,
+        "to": "870000000000000000000000000"
+      }
+    },
+    "0xD533a949740bb3306d119CC777fa900bA034cd52": {
+      "address": {
+        "from": null,
+        "to": "0x76884cAFeCf1f7d4146DA6C4053B18B76bf6ED14"
+      },
+      "baseStableBorrowRate": {
+        "from": null,
+        "to": "170000000000000000000000000"
+      },
+      "baseVariableBorrowRate": {
+        "from": null,
+        "to": "30000000000000000000000000"
+      },
+      "maxExcessStableToTotalDebtRatio": {
+        "from": null,
+        "to": "800000000000000000000000000"
+      },
+      "maxExcessUsageRatio": {
+        "from": null,
+        "to": "300000000000000000000000000"
+      },
+      "optimalStableToTotalDebtRatio": {
+        "from": null,
+        "to": "200000000000000000000000000"
+      },
+      "optimalUsageRatio": {
+        "from": null,
+        "to": "700000000000000000000000000"
+      },
+      "stableRateSlope1": {
+        "from": null,
+        "to": "80000000000000000000000000"
+      },
+      "stableRateSlope2": {
+        "from": null,
+        "to": "3000000000000000000000000000"
+      },
+      "variableRateSlope1": {
+        "from": null,
+        "to": "140000000000000000000000000"
+      },
+      "variableRateSlope2": {
+        "from": null,
+        "to": "3000000000000000000000000000"
+      }
+    },
+    "0xae78736Cd615f374D3085123A210448E74Fc6393": {
+      "address": {
+        "from": null,
+        "to": "0x24701A6368Ff6D2874d6b8cDadd461552B8A5283"
+      },
+      "baseStableBorrowRate": {
+        "from": null,
+        "to": "90000000000000000000000000"
+      },
+      "baseVariableBorrowRate": {
+        "from": null,
+        "to": "0"
+      },
+      "maxExcessStableToTotalDebtRatio": {
+        "from": null,
+        "to": "800000000000000000000000000"
+      },
+      "maxExcessUsageRatio": {
+        "from": null,
+        "to": "550000000000000000000000000"
+      },
+      "optimalStableToTotalDebtRatio": {
+        "from": null,
+        "to": "200000000000000000000000000"
+      },
+      "optimalUsageRatio": {
+        "from": null,
+        "to": "450000000000000000000000000"
+      },
+      "stableRateSlope1": {
+        "from": null,
+        "to": "70000000000000000000000000"
+      },
+      "stableRateSlope2": {
+        "from": null,
+        "to": "3000000000000000000000000000"
+      },
+      "variableRateSlope1": {
+        "from": null,
+        "to": "70000000000000000000000000"
+      },
+      "variableRateSlope2": {
+        "from": null,
+        "to": "3000000000000000000000000000"
+      }
+    },
+    "0xba100000625a3754423978a60c9317c58a424e3D": {
+      "address": {
+        "from": null,
+        "to": "0xd9d85499449f26d2A2c240defd75314f23920089"
+      },
+      "baseStableBorrowRate": {
+        "from": null,
+        "to": "270000000000000000000000000"
+      },
+      "baseVariableBorrowRate": {
+        "from": null,
+        "to": "50000000000000000000000000"
+      },
+      "maxExcessStableToTotalDebtRatio": {
+        "from": null,
+        "to": "800000000000000000000000000"
+      },
+      "maxExcessUsageRatio": {
+        "from": null,
+        "to": "200000000000000000000000000"
+      },
+      "optimalStableToTotalDebtRatio": {
+        "from": null,
+        "to": "200000000000000000000000000"
+      },
+      "optimalUsageRatio": {
+        "from": null,
+        "to": "800000000000000000000000000"
+      },
+      "stableRateSlope1": {
+        "from": null,
+        "to": "220000000000000000000000000"
+      },
+      "stableRateSlope2": {
+        "from": null,
+        "to": "1500000000000000000000000000"
+      },
+      "variableRateSlope1": {
+        "from": null,
+        "to": "220000000000000000000000000"
+      },
+      "variableRateSlope2": {
+        "from": null,
+        "to": "1500000000000000000000000000"
       }
     },
     "0xdAC17F958D2ee523a2206206994597C13D831ec7": {
-      "currentLiquidityRate": {
-        "from": "57970733767276484557015805",
-        "to": "58107826422114125679914125"
+      "aTokenUnderlyingBalance": {
+        "from": 319566787304072,
+        "to": 317566787304072
       },
-      "currentVariableBorrowRate": {
-        "from": "79379888598022109439719502",
-        "to": "79473694323091782721061630"
+      "address": {
+        "from": null,
+        "to": "0xca719585f2E07BDe82c4a05D6E7C0E446c2D6601"
       },
-      "liquidityIndex": {
-        "from": "1079349549959029958206352381",
-        "to": "1079350526137911808544713425"
+      "baseStableBorrowRate": {
+        "from": null,
+        "to": "100000000000000000000000000"
       },
-      "variableBorrowIndex": {
-        "from": "1106327753380427873681719076",
-        "to": "1106329123482920828251924494"
+      "baseVariableBorrowRate": {
+        "from": null,
+        "to": "0"
+      },
+      "maxExcessStableToTotalDebtRatio": {
+        "from": null,
+        "to": "800000000000000000000000000"
+      },
+      "maxExcessUsageRatio": {
+        "from": null,
+        "to": "80000000000000000000000000"
+      },
+      "optimalStableToTotalDebtRatio": {
+        "from": null,
+        "to": "200000000000000000000000000"
+      },
+      "optimalUsageRatio": {
+        "from": null,
+        "to": "920000000000000000000000000"
+      },
+      "stableRateSlope1": {
+        "from": null,
+        "to": "40000000000000000000000000"
+      },
+      "stableRateSlope2": {
+        "from": null,
+        "to": "720000000000000000000000000"
+      },
+      "variableRateSlope1": {
+        "from": null,
+        "to": "90000000000000000000000000"
+      },
+      "variableRateSlope2": {
+        "from": null,
+        "to": "750000000000000000000000000"
+      }
+    },
+    "0xdeFA4e8a7bcBA345F687a2f1456F5Edd9CE97202": {
+      "address": {
+        "from": null,
+        "to": "0xf6733B9842883BFE0e0a940eA2F572676af31bde"
+      },
+      "baseStableBorrowRate": {
+        "from": null,
+        "to": "120000000000000000000000000"
+      },
+      "baseVariableBorrowRate": {
+        "from": null,
+        "to": "0"
+      },
+      "maxExcessStableToTotalDebtRatio": {
+        "from": null,
+        "to": "800000000000000000000000000"
+      },
+      "maxExcessUsageRatio": {
+        "from": null,
+        "to": "550000000000000000000000000"
+      },
+      "optimalStableToTotalDebtRatio": {
+        "from": null,
+        "to": "200000000000000000000000000"
+      },
+      "optimalUsageRatio": {
+        "from": null,
+        "to": "450000000000000000000000000"
+      },
+      "stableRateSlope1": {
+        "from": null,
+        "to": "130000000000000000000000000"
+      },
+      "stableRateSlope2": {
+        "from": null,
+        "to": "3000000000000000000000000000"
+      },
+      "variableRateSlope1": {
+        "from": null,
+        "to": "90000000000000000000000000"
+      },
+      "variableRateSlope2": {
+        "from": null,
+        "to": "3000000000000000000000000000"
+      }
+    },
+    "0xf1C9acDc66974dFB6dEcB12aA385b9cD01190E38": {
+      "address": {
+        "from": null,
+        "to": "0x48AF11111764E710fcDcE2750db848C63edab57B"
+      },
+      "baseStableBorrowRate": {
+        "from": null,
+        "to": "70000000000000000000000000"
+      },
+      "baseVariableBorrowRate": {
+        "from": null,
+        "to": "0"
+      },
+      "maxExcessStableToTotalDebtRatio": {
+        "from": null,
+        "to": "1000000000000000000000000000"
+      },
+      "maxExcessUsageRatio": {
+        "from": null,
+        "to": "550000000000000000000000000"
+      },
+      "optimalStableToTotalDebtRatio": {
+        "from": null,
+        "to": "0"
+      },
+      "optimalUsageRatio": {
+        "from": null,
+        "to": "450000000000000000000000000"
+      },
+      "stableRateSlope1": {
+        "from": null,
+        "to": "0"
+      },
+      "stableRateSlope2": {
+        "from": null,
+        "to": "0"
+      },
+      "variableRateSlope1": {
+        "from": null,
+        "to": "70000000000000000000000000"
+      },
+      "variableRateSlope2": {
+        "from": null,
+        "to": "3000000000000000000000000000"
+      }
+    },
+    "0xf939E0A03FB07F59A73314E73794Be0E57ac1b4E": {
+      "address": {
+        "from": null,
+        "to": "0x22B409E1ab288DA6a895FE8251bEbfcA267f8805"
+      },
+      "baseStableBorrowRate": {
+        "from": null,
+        "to": "120000000000000000000000000"
+      },
+      "baseVariableBorrowRate": {
+        "from": null,
+        "to": "0"
+      },
+      "maxExcessStableToTotalDebtRatio": {
+        "from": null,
+        "to": "800000000000000000000000000"
+      },
+      "maxExcessUsageRatio": {
+        "from": null,
+        "to": "200000000000000000000000000"
+      },
+      "optimalStableToTotalDebtRatio": {
+        "from": null,
+        "to": "200000000000000000000000000"
+      },
+      "optimalUsageRatio": {
+        "from": null,
+        "to": "800000000000000000000000000"
+      },
+      "stableRateSlope1": {
+        "from": null,
+        "to": "130000000000000000000000000"
+      },
+      "stableRateSlope2": {
+        "from": null,
+        "to": "3000000000000000000000000000"
+      },
+      "variableRateSlope1": {
+        "from": null,
+        "to": "90000000000000000000000000"
+      },
+      "variableRateSlope2": {
+        "from": null,
+        "to": "800000000000000000000000000"
       }
     }
   }
