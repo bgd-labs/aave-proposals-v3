@@ -5,12 +5,12 @@ import {AaveV3EthereumLido} from 'aave-address-book/AaveV3EthereumLido.sol';
 import {AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {AaveV3PayloadEthereumLido} from 'aave-helpers/v3-config-engine/AaveV3PayloadEthereumLido.sol';
-import {EngineFlags} from 'aave-v3-periphery/v3-config-engine/EngineFlags.sol';
+import {EngineFlags} from 'aave-v3-periphery/contracts/v3-config-engine/EngineFlags.sol';
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';
-import {IAaveV3ConfigEngine} from 'aave-v3-periphery/v3-config-engine/IAaveV3ConfigEngine.sol';
-import {IEmissionManager} from 'aave-v3-periphery/rewards/interfaces/IEmissionManager.sol';
-import {IPoolAddressesProviderRegistry} from 'aave-v3-core/interfaces/IPoolAddressesProviderRegistry.sol';
+import {IAaveV3ConfigEngine} from 'aave-v3-periphery/contracts/v3-config-engine/IAaveV3ConfigEngine.sol';
+import {IEmissionManager} from 'aave-v3-periphery/contracts/rewards/interfaces/IEmissionManager.sol';
+import {IPoolAddressesProviderRegistry} from 'aave-v3-core/contracts/interfaces/IPoolAddressesProviderRegistry.sol';
 
 /**
  * @title Lido Ethereum Instance Activation
