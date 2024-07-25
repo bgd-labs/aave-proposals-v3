@@ -156,7 +156,7 @@ export const rateUpdatesV3: FeatureModule<RateStrategyUpdate[]> = {
             .map(
               (cfg, ix) => `rateStrategies[${ix}] = IAaveV3ConfigEngine.RateStrategyUpdate({
                   asset: ${translateAssetToAssetLibUnderlying(cfg.asset, pool)},
-                  params: IV3RateStrategyFactory.RateStrategyParams({
+                  params: IAaveV3ConfigEngine.InterestRateInputData({
                     optimalUsageRatio: ${translateJsPercentToSol(
                       cfg.params.optimalUtilizationRate,
                     )},
