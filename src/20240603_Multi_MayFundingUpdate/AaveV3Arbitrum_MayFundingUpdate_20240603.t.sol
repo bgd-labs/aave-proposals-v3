@@ -54,14 +54,14 @@ contract AaveV3Arbitrum_MayFundingUpdate_20240603_Test is ProtocolV3TestBase {
 
     /// code below should work, for some reason it doesn't, pls help
     /// from the logs here is the manual bridge event emitted and the actual bridge event emitted
-    ///   emit Bridge(token: 0xFF970A61A04b1cA14834A43f5dE4533eBDDB5CC8, amount: 342589958890 [3.425e11])
-    ///   emit Bridge(token: 0xFF970A61A04b1cA14834A43f5dE4533eBDDB5CC8, amount: 342589958890 [3.425e11])
+    ///   emit Bridge(token: 0xFF970A61A04b1cA14834A43f5dE4533eBDDB5CC8, amount: 342589968476 [3.425e11])
+    ///   emit Bridge(token: 0xFF970A61A04b1cA14834A43f5dE4533eBDDB5CC8, amount: 342589968476 [3.425e11])
     /// identical but test still reverts with "[Revert] log != expected log"
 
     // vm.expectEmit(address(proposal.BRIDGE()));
     // emit Bridge(
     //   AaveV3ArbitrumAssets.USDC_UNDERLYING,
-    //   342589958890
+    //   342589968476
     // );
 
     executePayload(vm, address(proposal));

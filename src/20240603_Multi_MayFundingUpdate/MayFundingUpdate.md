@@ -31,7 +31,8 @@ Perform the following Swaps and migration of assets from Aave v2 to v3. Assets a
 |   aEthPYUSD (All-1)    |                      |                      |
 |     aUSDC (All-1)      |                      |                      |
 |       DPI (All)        |                      |                      |
-|     aEthUSDT (1M)      |                      |                      |
+|     aEthUSDT (2M)      |                      |                      |
+|    aEthUSDC (1.5M)     |                      |                      |
 
 Transfer the following assets to Ethereum.
 

@@ -8,9 +8,7 @@ import {AaveV2Ethereum, AaveV2EthereumAssets} from 'aave-address-book/AaveV2Ethe
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {AaveSwapper} from 'aave-helpers/swaps/AaveSwapper.sol';
-// TODO change to aave-helpers
-//import {IAaveStethWithdrawer} from 'aave-helpers/asset-manager/IAaveStethWithdrawer.sol';
-import {IAaveStethWithdrawer} from './IAaveStethWithdrawer.sol';
+import {IAaveWstethWithdrawer} from 'aave-helpers/asset-manager/interfaces/IAaveWstethWithdrawer.sol';
 
 /**
  * @title May Funding Update
@@ -22,8 +20,8 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603 is IProposalGenericExecutor {
   using SafeERC20 for IERC20;
 
   AaveSwapper public constant SWAPPER = AaveSwapper(MiscEthereum.AAVE_SWAPPER);
-  IAaveStethWithdrawer public constant AAVE_STETH_WITHDRAWER =
-    IAaveStethWithdrawer(0xb5e7b8BE5ab788044E70FE709E5BD24602e8C35d); // TODO
+  IAaveWstethWithdrawer public constant AAVE_STETH_WITHDRAWER =
+    IAaveWstethWithdrawer(0x2C4d3C146b002079949d7EecD07f261A39c98c4d);
 
   address public constant GHO_USD_FEED = 0x3f12643D3f6f874d39C2a4c9f2Cd6f2DbAC877FC;
   address public constant MILKMAN = 0x11C76AD590ABDFFCD980afEC9ad951B160F02797;
@@ -31,7 +29,8 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603 is IProposalGenericExecutor {
   address public constant FRONTIER_SAFE = 0xCDb4fA6ba08bF1FB7Aa9fDf6002E78EDc431a642;
   uint256 public constant WSTETH_AMOUNT = 350 ether;
   uint256 public constant FRONTIER_ALLOWANCE_AMOUNT = 2493 ether;
-  uint256 public constant AETH_USDT_AMOUNT = 1_000_000e6;
+  uint256 public constant AETH_USDT_AMOUNT = 2_000_000e6;
+  uint256 public constant AETH_USDC_AMOUNT = 1_500_000e6;
 
   function execute() external {
     _withdrawAndSwapForGHO();
@@ -111,7 +110,7 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603 is IProposalGenericExecutor {
       GHO_USD_FEED,
       address(AaveV3Ethereum.COLLECTOR),
       lusdBalance,
-      100
+      150
     );
 
     /// aEthPYUSD
@@ -140,18 +139,30 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603 is IProposalGenericExecutor {
       GHO_USD_FEED,
       address(AaveV3Ethereum.COLLECTOR),
       pyusdBalance,
-      300
+      100
     );
 
-    /// aUSDC
+    /// aUSDC & aEthUSDC
     AaveV3Ethereum.COLLECTOR.transfer(
       AaveV2EthereumAssets.USDC_A_TOKEN,
       address(this),
       IERC20(AaveV2EthereumAssets.USDC_A_TOKEN).balanceOf(address(AaveV3Ethereum.COLLECTOR)) - 1e6
     );
 
+    AaveV3Ethereum.COLLECTOR.transfer(
+      AaveV3EthereumAssets.USDC_A_TOKEN,
+      address(this),
+      AETH_USDC_AMOUNT
+    );
+
     AaveV2Ethereum.POOL.withdraw(
       AaveV2EthereumAssets.USDC_UNDERLYING,
+      type(uint256).max,
+      address(SWAPPER)
+    );
+
+    AaveV3Ethereum.POOL.withdraw(
+      AaveV3EthereumAssets.USDC_UNDERLYING,
       type(uint256).max,
       address(SWAPPER)
     );
@@ -171,7 +182,6 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603 is IProposalGenericExecutor {
     );
 
     /// DPI
-
     uint256 dpiBalance = IERC20(AaveV2EthereumAssets.DPI_UNDERLYING).balanceOf(
       address(AaveV3Ethereum.COLLECTOR)
     );
@@ -195,7 +205,6 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603 is IProposalGenericExecutor {
     );
 
     /// aEthUSDT
-
     AaveV3Ethereum.COLLECTOR.transfer(
       AaveV3EthereumAssets.USDT_A_TOKEN,
       address(this),

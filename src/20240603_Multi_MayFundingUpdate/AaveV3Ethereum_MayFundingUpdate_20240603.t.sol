@@ -30,7 +30,7 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603_Test is ProtocolV3TestBase {
   address internal COLLECTOR = address(AaveV3Ethereum.COLLECTOR);
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 20186541);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 20369591);
     proposal = new AaveV3Ethereum_MayFundingUpdate_20240603();
   }
 
@@ -101,7 +101,7 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603_Test is ProtocolV3TestBase {
 
     /// DAI
     uint256 swapperDaiBalance = IERC20(AaveV3EthereumAssets.DAI_UNDERLYING).balanceOf(
-      0x65c8b1B571e14F9C3046FF8c910Cf2316B468060
+      0x33020117F0f3eB5E12361096a7631ba9Fe61FdAe
     );
 
     assertApproxEqAbs(collectorAdaiv2BalanceAfter, 1e18, 1000e18);
@@ -114,7 +114,7 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603_Test is ProtocolV3TestBase {
 
     /// LUSD
     uint256 swapperLusdBalance = IERC20(AaveV3EthereumAssets.LUSD_UNDERLYING).balanceOf(
-      0x625Fd2cC3C9b68cA48325ea1950A43bC244159aF
+      0xf799Cc3ee26230Cda22131433aDe1A3FC4F4c621
     );
 
     assertApproxEqAbs(collectorLusdBalanceAfter, 1e18, 1e18);
@@ -122,7 +122,7 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603_Test is ProtocolV3TestBase {
 
     /// PYUSD
     uint256 swapperPyusdBalance = IERC20(AaveV3EthereumAssets.PYUSD_UNDERLYING).balanceOf(
-      0x51aF1D6Efd7b5120B7c125d9de5e22F856C7BeC7
+      0xf40420092cdCD6981148cE2958387D13AEfB9379
     );
 
     assertApproxEqAbs(collectorPyusdBalanceAfter, 1e18, 1e18);
@@ -130,7 +130,7 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603_Test is ProtocolV3TestBase {
 
     /// USDC
     uint256 swapperUsdcBalance = IERC20(AaveV3EthereumAssets.USDC_UNDERLYING).balanceOf(
-      0x5ACEB37251d6EAEFCFC458B458FA186742543cDe
+      0xE0817A4B73ea8292aF9afF3C5666b915CA2851C9
     );
 
     assertApproxEqAbs(collectorUsdcBalanceAfter, 1e18, 1e18);
@@ -138,7 +138,7 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603_Test is ProtocolV3TestBase {
 
     /// DPI
     uint256 swapperDpiBalance = IERC20(AaveV2EthereumAssets.DPI_UNDERLYING).balanceOf(
-      0x53d08983f3Cd86E710c9B18f7cE348503BEEa148
+      0xffAA0B1c1e89739785f710D1249211b9323a997C
     );
 
     assertApproxEqAbs(collectorDpiBalanceAfter, 1e18, 1e18);
@@ -146,7 +146,7 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603_Test is ProtocolV3TestBase {
 
     /// USDT
     uint256 swapperUsdtBalance = IERC20(AaveV3EthereumAssets.USDT_UNDERLYING).balanceOf(
-      0xB60a3714f8c4dA11392d7c3FF6eEdA28250d401f
+      0x9EE16E27B90454ff9EFcED41b441a9588ae097Cd
     );
 
     assertApproxEqAbs(swapperUsdtBalance, proposal.AETH_USDT_AMOUNT(), 1e18);
@@ -161,6 +161,10 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603_Test is ProtocolV3TestBase {
       COLLECTOR
     );
 
+    uint256 withdrawerBalanceBefore = IERC20(AaveV3EthereumAssets.wstETH_UNDERLYING).balanceOf(
+      address(proposal.AAVE_STETH_WITHDRAWER())
+    );
+
     executePayload(vm, address(proposal));
 
     uint256 collectorRethBalanceAfter = IERC20(AaveV3EthereumAssets.rETH_UNDERLYING).balanceOf(
@@ -171,9 +175,13 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603_Test is ProtocolV3TestBase {
       COLLECTOR
     );
 
+    uint256 withdrawerBalanceAfter = IERC20(AaveV3EthereumAssets.wstETH_UNDERLYING).balanceOf(
+      address(proposal.AAVE_STETH_WITHDRAWER())
+    );
+
     /// RETH
     uint256 swapperRethBalance = IERC20(AaveV3EthereumAssets.rETH_UNDERLYING).balanceOf(
-      0x03E54fFcAab9FA199492b12dFCc4109a0Af9853a
+      0x50a6239f3d9b452E60273f28098D1BF22813b939
     );
 
     assertApproxEqAbs(collectorRethBalanceAfter, 0, 1e18);
@@ -185,6 +193,8 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603_Test is ProtocolV3TestBase {
       collectorWstethBalanceBefore - proposal.WSTETH_AMOUNT(),
       1e16
     );
+
+    assertEq(withdrawerBalanceAfter, withdrawerBalanceBefore);
   }
 
   function test_swapEvents() public {
@@ -195,7 +205,7 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603_Test is ProtocolV3TestBase {
       AaveV3EthereumAssets.GHO_UNDERLYING,
       AaveV3EthereumAssets.DAI_ORACLE,
       proposal.GHO_USD_FEED(),
-      1633441869011097825336963, // Hardcoded as dynamic
+      1931651887069694121996324, // Hardcoded as dynamic
       address(AaveV3Ethereum.COLLECTOR),
       50
     );
@@ -207,9 +217,9 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603_Test is ProtocolV3TestBase {
       AaveV3EthereumAssets.GHO_UNDERLYING,
       AaveV3EthereumAssets.LUSD_ORACLE,
       proposal.GHO_USD_FEED(),
-      22360165219453072346756, // Hardcoded as dynamic
+      26176609646753004781352, // Hardcoded as dynamic
       address(AaveV3Ethereum.COLLECTOR),
-      100
+      150
     );
 
     vm.expectEmit(true, true, true, true, MiscEthereum.AAVE_SWAPPER);
@@ -219,9 +229,9 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603_Test is ProtocolV3TestBase {
       AaveV3EthereumAssets.GHO_UNDERLYING,
       AaveV3EthereumAssets.PYUSD_ORACLE,
       proposal.GHO_USD_FEED(),
-      93350311212, // Hardcoded as dynamic
+      119858878007, // Hardcoded as dynamic
       address(AaveV3Ethereum.COLLECTOR),
-      300
+      100
     );
 
     vm.expectEmit(true, true, true, true, MiscEthereum.AAVE_SWAPPER);
@@ -231,7 +241,7 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603_Test is ProtocolV3TestBase {
       AaveV3EthereumAssets.GHO_UNDERLYING,
       AaveV3EthereumAssets.USDC_ORACLE,
       proposal.GHO_USD_FEED(),
-      1945746375112, // Hardcoded as dynamic
+      4039151285202, // Hardcoded as dynamic
       address(AaveV3Ethereum.COLLECTOR),
       50
     );
@@ -255,7 +265,7 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603_Test is ProtocolV3TestBase {
       AaveV3EthereumAssets.GHO_UNDERLYING,
       AaveV3EthereumAssets.USDT_ORACLE,
       proposal.GHO_USD_FEED(),
-      1000000000000, // Hardcoded as dynamic
+      2000000000000, // Hardcoded as dynamic
       address(AaveV3Ethereum.COLLECTOR),
       50
     );
@@ -271,30 +281,6 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603_Test is ProtocolV3TestBase {
       address(AaveV3Ethereum.COLLECTOR),
       50
     );
-
-    // vm.expectEmit(true, true, true, true, MiscEthereum.AAVE_SWAPPER);
-    // emit SwapRequested(
-    //   proposal.MILKMAN(),
-    //   AaveV3EthereumAssets.wstETH_UNDERLYING,
-    //   AaveV3EthereumAssets.WETH_UNDERLYING,
-    //   AaveV3EthereumAssets.wstETH_ORACLE,
-    //   AaveV3EthereumAssets.WETH_ORACLE,
-    //   175000000000000000000, // Hardcoded as dynamic
-    //   address(AaveV3Ethereum.COLLECTOR),
-    //   10
-    // );
-
-    // vm.expectEmit(true, true, true, true, MiscEthereum.AAVE_SWAPPER);
-    // emit SwapRequested(
-    //   proposal.MILKMAN(),
-    //   AaveV3EthereumAssets.wstETH_UNDERLYING,
-    //   AaveV3EthereumAssets.WETH_UNDERLYING,
-    //   AaveV3EthereumAssets.wstETH_ORACLE,
-    //   AaveV3EthereumAssets.WETH_ORACLE,
-    //   175000000000000000000, // Hardcoded as dynamic
-    //   address(AaveV3Ethereum.COLLECTOR),
-    //   10
-    // );
 
     executePayload(vm, address(proposal));
   }
