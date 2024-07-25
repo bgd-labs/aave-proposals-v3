@@ -9,7 +9,7 @@ import {AaveV3Arbitrum_IncreaseGHOCapsOnArbitrum_20240725} from './AaveV3Arbitru
 
 /**
  * @dev Test for AaveV3Arbitrum_IncreaseGHOCapsOnArbitrum_20240725
- * command: FOUNDRY_PROFILE=arbitrum forge test --match-path=src/20240725_AaveV3Arbitrum_IncreaseGHOCapsOnArbitrum/AaveV3Arbitrum_IncreaseGHOCapsOnArbitrum_20240725.t.sol -vv
+ * command: FOUNDRY_PROFILE=arbitrum forge test --match-path=src/20240722_Multi_IncreaseGHOFacilitatorCapacity/AaveV3Arbitrum_IncreaseGHOCapsOnArbitrum_20240725.t.sol -vv
  */
 contract AaveV3Arbitrum_IncreaseGHOCapsOnArbitrum_20240725_Test is ProtocolV3TestBase {
   AaveV3Arbitrum_IncreaseGHOCapsOnArbitrum_20240725 internal proposal;
