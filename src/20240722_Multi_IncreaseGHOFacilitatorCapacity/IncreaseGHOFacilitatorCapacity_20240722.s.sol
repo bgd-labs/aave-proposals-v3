@@ -6,6 +6,7 @@ import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {EthereumScript, ArbitrumScript} from 'aave-helpers/ScriptUtils.sol';
 import {AaveV3Ethereum_IncreaseGHOFacilitatorCapacity_20240722} from './AaveV3Ethereum_IncreaseGHOFacilitatorCapacity_20240722.sol';
 import {AaveV3Arbitrum_IncreaseGHOFacilitatorCapacity_20240722} from './AaveV3Arbitrum_IncreaseGHOFacilitatorCapacity_20240722.sol';
+import {AaveV3Arbitrum_IncreaseGHOCapsOnArbitrum_20240725} from './AaveV3Arbitrum_IncreaseGHOCapsOnArbitrum_20240725.sol';
 
 /**
  * @dev Deploy Ethereum
@@ -40,11 +41,15 @@ contract DeployArbitrum is ArbitrumScript {
     address payload0 = GovV3Helpers.deployDeterministic(
       type(AaveV3Arbitrum_IncreaseGHOFacilitatorCapacity_20240722).creationCode
     );
+    address payload1 = GovV3Helpers.deployDeterministic(
+      type(AaveV3Arbitrum_IncreaseGHOCapsOnArbitrum_20240725).creationCode
+    );
 
     // compose action
     IPayloadsControllerCore.ExecutionAction[]
-      memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
+      memory actions = new IPayloadsControllerCore.ExecutionAction[](2);
     actions[0] = GovV3Helpers.buildAction(payload0);
+    actions[1] = GovV3Helpers.buildAction(payload1);
 
     // register action at payloadsController
     GovV3Helpers.createPayload(actions);
@@ -58,7 +63,7 @@ contract DeployArbitrum is ArbitrumScript {
 contract CreateProposal is EthereumScript {
   function run() external {
     // create payloads
-    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](2);
+    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](3);
 
     // compose actions for validation
     IPayloadsControllerCore.ExecutionAction[]
@@ -69,9 +74,12 @@ contract CreateProposal is EthereumScript {
     payloads[0] = GovV3Helpers.buildMainnetPayload(vm, actionsEthereum);
 
     IPayloadsControllerCore.ExecutionAction[]
-      memory actionsArbitrum = new IPayloadsControllerCore.ExecutionAction[](1);
+      memory actionsArbitrum = new IPayloadsControllerCore.ExecutionAction[](2);
     actionsArbitrum[0] = GovV3Helpers.buildAction(
       type(AaveV3Arbitrum_IncreaseGHOFacilitatorCapacity_20240722).creationCode
+    );
+    actionsArbitrum[1] = GovV3Helpers.buildAction(
+      type(AaveV3Arbitrum_IncreaseGHOCapsOnArbitrum_20240725).creationCode
     );
     payloads[1] = GovV3Helpers.buildArbitrumPayload(vm, actionsArbitrum);
 
