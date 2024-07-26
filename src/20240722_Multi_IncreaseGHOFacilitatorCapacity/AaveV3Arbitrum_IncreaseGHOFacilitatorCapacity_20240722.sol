@@ -14,7 +14,7 @@ import {IAaveV3ConfigEngine} from 'aave-helpers/v3-config-engine/IAaveV3ConfigEn
  * - Discussion: https://governance.aave.com/t/arfc-gho-arb-increase-ccip-facilitator-capacity/18169
  */
 contract AaveV3Arbitrum_IncreaseGHOFacilitatorCapacity_20240722 is AaveV3PayloadArbitrum {
-  uint128 public constant NEW_LIMIT = 5_000_000 ether;
+  uint128 public constant NEW_LIMIT = 20_000_000 ether;
 
   function _postExecute() internal override {
     IGhoToken(AaveV3ArbitrumAssets.GHO_UNDERLYING).setFacilitatorBucketCapacity(
