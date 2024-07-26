@@ -17,8 +17,6 @@ With better than anticipated liquidity conditions and ARB liquidity mining on Aa
 
 The parameter adjustments presented below are endorsed by Chaos Labs as an Aave DAO Risk Service Provider.
 
-This AIP will also active the GHO Stewards on Arbitrum to facilitate further streamlining GHO's growth.
-
 ## Specification
 
 This proposal will implement the following parameter adjustments.
@@ -29,23 +27,6 @@ This proposal will implement the following parameter adjustments.
 | Arb GHO Facilitator Capacity |  2.5M   |  20.0M   |
 | Arb GHO Supply Cap           |  1.0M   |   5.0M   |
 | Arb GHO Borrow Cap           |  0.9M   |   4.5M   |
-
-The GHO Steward admin role has the permission to adjust the following parameters.
-
-**Bridge Facilitator and CCIP Rates**
-On Ethereum:
-
-1. `CCIP BridgeLimitAdmin` role to adjust the bridge limit up to 100% both ways
-2. `CCIP RateLimitAdmin` role to adjust the `TokenPool Rate Limit` by 100% both ways, and the `TokenPool Rate Limit Refill Rate` by 100% both ways
-3. `Facilitator Borrow Capacity` can be updated by up to 100% both ways
-4. `Facilitator Bucket Capacity` can be updated by up to 100% both ways
-
-On Arbitrum:
-
-1. `CCIP BucketCapacityManager` role to adjust the facilitator bucket capacity by 100% both ways
-2. `CCIP RateLimitAdmin` role to adjust the `TokenPool Rate Limit` by 100% both ways, and the `TokenPool Rate Limit Refill Rate` by 100% both ways
-
-GHO Steward Arbitrum SAFE: `0x8513e6F37dBc52De87b166980Fa3F50639694B60`
 
 ## References
 
