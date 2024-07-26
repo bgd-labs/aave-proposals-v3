@@ -108,37 +108,13 @@ function generateAssetListingSol(cfg: Listing) {
   borrowCap: ${translateJsNumberToSol(cfg.borrowCap)},
   debtCeiling: ${translateJsNumberToSol(cfg.debtCeiling)},
   liqProtocolFee: ${translateJsPercentToSol(cfg.liqProtocolFee)},
-  rateStrategyParams: IV3RateStrategyFactory.RateStrategyParams({
-     optimalUsageRatio: ${translateJsPercentToSol(
-       cfg.rateStrategyParams.optimalUtilizationRate,
-       true,
-     )},
+  rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
+     optimalUsageRatio: ${translateJsPercentToSol(cfg.rateStrategyParams.optimalUtilizationRate)},
      baseVariableBorrowRate: ${translateJsPercentToSol(
        cfg.rateStrategyParams.baseVariableBorrowRate,
-       true,
      )},
-     variableRateSlope1: ${translateJsPercentToSol(
-       cfg.rateStrategyParams.variableRateSlope1,
-       true,
-     )},
-     variableRateSlope2: ${translateJsPercentToSol(
-       cfg.rateStrategyParams.variableRateSlope2,
-       true,
-     )},
-     stableRateSlope1: ${translateJsPercentToSol(cfg.rateStrategyParams.stableRateSlope1, true)},
-     stableRateSlope2: ${translateJsPercentToSol(cfg.rateStrategyParams.stableRateSlope2, true)},
-     baseStableRateOffset: ${translateJsPercentToSol(
-       cfg.rateStrategyParams.baseStableRateOffset,
-       true,
-     )},
-     stableRateExcessOffset: ${translateJsPercentToSol(
-       cfg.rateStrategyParams.stableRateExcessOffset,
-       true,
-     )},
-     optimalStableToTotalDebtRatio: ${translateJsPercentToSol(
-       cfg.rateStrategyParams.optimalStableToTotalDebtRatio,
-       true,
-     )}
+     variableRateSlope1: ${translateJsPercentToSol(cfg.rateStrategyParams.variableRateSlope1)},
+     variableRateSlope2: ${translateJsPercentToSol(cfg.rateStrategyParams.variableRateSlope2)}
   })`;
 }
 
@@ -201,7 +177,7 @@ export const assetListing: FeatureModule<Listing[]> = {
           let listingTemplate = `The table below illustrates the configured risk parameters for **${cfg.assetSymbol}**\n\n`;
           listingTemplate += `| Parameter | Value |\n`;
           listingTemplate += `| --- | --: |\n`;
-          listingTemplate += `| Isolation Mode | ${!!cfg.debtCeiling} |\n`;
+          listingTemplate += `| Isolation Mode | ${cfg.debtCeiling !== '0'} |\n`;
           listingTemplate += `| Borrowable | ${cfg.enabledToBorrow} |\n`;
           listingTemplate += `| Collateral Enabled | ${!!cfg.liqThreshold} |\n`;
           listingTemplate += `| Supply Cap (${cfg.assetSymbol}) | ${transformNumberToHumanReadable(
@@ -235,21 +211,6 @@ export const assetListing: FeatureModule<Listing[]> = {
             cfg.rateStrategyParams.optimalUtilizationRate,
           )} |\n`;
           listingTemplate += `| Stable Borrowing | ${cfg.stableRateModeEnabled} |\n`;
-          listingTemplate += `| Stable Slope1	| ${transformNumberToPercent(
-            cfg.rateStrategyParams.stableRateSlope1,
-          )} |\n`;
-          listingTemplate += `| Stable Slope2	| ${transformNumberToPercent(
-            cfg.rateStrategyParams.stableRateSlope2,
-          )} |\n`;
-          listingTemplate += `| Base Stable Rate Offset | ${transformNumberToPercent(
-            cfg.rateStrategyParams.baseStableRateOffset!,
-          )} |\n`;
-          listingTemplate += `| Stable Rate Excess Offset	| ${transformNumberToPercent(
-            cfg.rateStrategyParams.stableRateExcessOffset!,
-          )} |\n`;
-          listingTemplate += `| Optimal Stable To Total Debt Ratio | ${transformNumberToPercent(
-            cfg.rateStrategyParams.optimalStableToTotalDebtRatio!,
-          )} |\n`;
           listingTemplate += `| Flashloanable	| ${cfg.flashloanable} |\n`;
           listingTemplate += `| Siloed Borrowing	| ${cfg.withSiloedBorrowing} |\n`;
           listingTemplate += `| Borrowable in Isolation | ${cfg.borrowableInIsolation} |\n`;

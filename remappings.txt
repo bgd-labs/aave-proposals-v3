@@ -1,11 +1,10 @@
-@aave/core-v3/=lib/aave-helpers/lib/aave-address-book/lib/aave-v3-core/
-@aave/periphery-v3/=lib/aave-helpers/lib/aave-address-book/lib/aave-v3-periphery/
 aave-address-book/=lib/aave-helpers/lib/aave-address-book/src/
 aave-helpers/=lib/aave-helpers/src/
-aave-v3-core/=lib/aave-helpers/lib/aave-address-book/lib/aave-v3-core/
-aave-v3-periphery/=lib/aave-helpers/lib/aave-address-book/lib/aave-v3-periphery/
-ds-test/=lib/aave-helpers/lib/forge-std/lib/ds-test/src/
+aave-v3-core/=lib/aave-helpers/lib/aave-address-book/lib/aave-v3-origin/src/core/
+aave-v3-periphery/=lib/aave-helpers/lib/aave-address-book/lib/aave-v3-origin/src/periphery/
+aave-v3-origin/=lib/aave-helpers/lib/aave-address-book/lib/aave-v3-origin/src/
 forge-std/=lib/aave-helpers/lib/forge-std/src/
 solidity-utils/=lib/aave-helpers/lib/solidity-utils/src/
 ccip/=lib/ccip/contracts/src/
 gho-core/=lib/gho-core/src/contracts/
+aave-v3-origin/=lib/aave-helpers/lib/aave-address-book/lib/aave-v3-origin/src/
