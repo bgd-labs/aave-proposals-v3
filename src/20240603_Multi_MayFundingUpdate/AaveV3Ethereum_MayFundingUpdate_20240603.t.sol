@@ -215,7 +215,7 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603_Test is ProtocolV3TestBase {
       proposal.MILKMAN(),
       AaveV3EthereumAssets.LUSD_UNDERLYING,
       AaveV3EthereumAssets.GHO_UNDERLYING,
-      AaveV3EthereumAssets.LUSD_ORACLE,
+      proposal.LUSD_FEED(),
       proposal.GHO_USD_FEED(),
       26176609646753004781352, // Hardcoded as dynamic
       address(AaveV3Ethereum.COLLECTOR),
@@ -227,7 +227,7 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603_Test is ProtocolV3TestBase {
       proposal.MILKMAN(),
       AaveV3EthereumAssets.PYUSD_UNDERLYING,
       AaveV3EthereumAssets.GHO_UNDERLYING,
-      AaveV3EthereumAssets.PYUSD_ORACLE,
+      proposal.PYUSD_FEED(),
       proposal.GHO_USD_FEED(),
       119858878007, // Hardcoded as dynamic
       address(AaveV3Ethereum.COLLECTOR),
@@ -239,7 +239,7 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603_Test is ProtocolV3TestBase {
       proposal.MILKMAN(),
       AaveV3EthereumAssets.USDC_UNDERLYING,
       AaveV3EthereumAssets.GHO_UNDERLYING,
-      AaveV3EthereumAssets.USDC_ORACLE,
+      proposal.USDC_FEED(),
       proposal.GHO_USD_FEED(),
       4039151285202, // Hardcoded as dynamic
       address(AaveV3Ethereum.COLLECTOR),
@@ -251,7 +251,7 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603_Test is ProtocolV3TestBase {
       proposal.MILKMAN(),
       AaveV2EthereumAssets.DPI_UNDERLYING,
       AaveV3EthereumAssets.GHO_UNDERLYING,
-      AaveV2EthereumAssets.DPI_ORACLE,
+      proposal.DPI_FEED(),
       proposal.GHO_USD_FEED(),
       137080139851167463608, // Hardcoded as dynamic
       address(AaveV3Ethereum.COLLECTOR),

@@ -24,6 +24,10 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603 is IProposalGenericExecutor {
     IAaveWstethWithdrawer(0x2C4d3C146b002079949d7EecD07f261A39c98c4d);
 
   address public constant GHO_USD_FEED = 0x3f12643D3f6f874d39C2a4c9f2Cd6f2DbAC877FC;
+  address public constant LUSD_FEED = 0x3D7aE7E594f2f2091Ad8798313450130d0Aba3a0;
+  address public constant PYUSD_FEED = 0x8f1dF6D7F2db73eECE86a18b4381F4707b918FB1;
+  address public constant USDC_FEED = 0x8fFfFfd4AfB6115b954Bd326cbe7B4BA576818f6;
+  address public constant DPI_FEED = 0xD2A593BF7594aCE1faD597adb697b5645d5edDB2;
   address public constant MILKMAN = 0x11C76AD590ABDFFCD980afEC9ad951B160F02797;
   address public constant PRICE_CHECKER = 0xe80a1C615F75AFF7Ed8F08c9F21f9d00982D666c;
   address public constant FRONTIER_SAFE = 0xCDb4fA6ba08bF1FB7Aa9fDf6002E78EDc431a642;
@@ -106,7 +110,7 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603 is IProposalGenericExecutor {
       PRICE_CHECKER,
       AaveV3EthereumAssets.LUSD_UNDERLYING,
       AaveV3EthereumAssets.GHO_UNDERLYING,
-      AaveV3EthereumAssets.LUSD_ORACLE,
+      LUSD_FEED,
       GHO_USD_FEED,
       address(AaveV3Ethereum.COLLECTOR),
       lusdBalance,
@@ -135,7 +139,7 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603 is IProposalGenericExecutor {
       PRICE_CHECKER,
       AaveV3EthereumAssets.PYUSD_UNDERLYING,
       AaveV3EthereumAssets.GHO_UNDERLYING,
-      AaveV3EthereumAssets.PYUSD_ORACLE,
+      PYUSD_FEED,
       GHO_USD_FEED,
       address(AaveV3Ethereum.COLLECTOR),
       pyusdBalance,
@@ -174,7 +178,7 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603 is IProposalGenericExecutor {
       PRICE_CHECKER,
       AaveV3EthereumAssets.USDC_UNDERLYING,
       AaveV3EthereumAssets.GHO_UNDERLYING,
-      AaveV3EthereumAssets.USDC_ORACLE,
+      USDC_FEED,
       GHO_USD_FEED,
       address(AaveV3Ethereum.COLLECTOR),
       usdcBalance,
@@ -197,7 +201,7 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603 is IProposalGenericExecutor {
       PRICE_CHECKER,
       AaveV2EthereumAssets.DPI_UNDERLYING,
       AaveV3EthereumAssets.GHO_UNDERLYING,
-      AaveV2EthereumAssets.DPI_ORACLE,
+      DPI_FEED,
       GHO_USD_FEED,
       address(AaveV3Ethereum.COLLECTOR),
       dpiBalance,
