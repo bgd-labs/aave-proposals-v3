@@ -23,7 +23,7 @@ contract AaveV3Ethereum_IncreaseGHOFacilitatorCapacity_20240722_Test is Protocol
   AaveV3Ethereum_IncreaseGHOFacilitatorCapacity_20240722 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 20382965);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 20390936);
     proposal = new AaveV3Ethereum_IncreaseGHOFacilitatorCapacity_20240722();
   }
 

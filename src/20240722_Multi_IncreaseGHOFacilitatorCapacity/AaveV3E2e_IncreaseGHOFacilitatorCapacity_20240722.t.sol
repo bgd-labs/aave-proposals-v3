@@ -47,7 +47,7 @@ contract AaveV3E2ETest_IncreaseGHOFacilitatorCapacity is ProtocolV3TestBase {
   Router internal ETH_ROUTER = Router(0x80226fc0Ee2b096224EeAc085Bb9a8cba1146f7D);
   Router internal ARB_ROUTER = Router(0x141fa059441E0ca23ce184B6A78bafD2A517DdE8);
 
-  uint256 public constant CURRENT_CCIP_BUCKET_CAPACITY = 2_500_000e18; // 1M
+  uint256 public constant CURRENT_CCIP_BUCKET_CAPACITY = 2_500_000e18; // 2.5M
   uint64 public constant ETH_ARB_CHAIN_SELECTOR = 4949039107694359620;
   uint64 public constant ARB_ETH_CHAIN_SELECTOR = 5009297550715157269;
 
@@ -68,8 +68,8 @@ contract AaveV3E2ETest_IncreaseGHOFacilitatorCapacity is ProtocolV3TestBase {
   uint256 internal arbitrumFork;
 
   function setUp() public {
-    ethereumFork = vm.createFork(vm.rpcUrl('mainnet'), 20382965);
-    arbitrumFork = vm.createFork(vm.rpcUrl('arbitrum'), 235871975);
+    ethereumFork = vm.createFork(vm.rpcUrl('mainnet'), 20390936);
+    arbitrumFork = vm.createFork(vm.rpcUrl('arbitrum'), 236255425);
 
     // Proposal creation
     vm.selectFork(ethereumFork);
@@ -83,7 +83,7 @@ contract AaveV3E2ETest_IncreaseGHOFacilitatorCapacity is ProtocolV3TestBase {
 
   /// @dev Full E2E Test: transfer from Ethereum to Arbitrum and way back, with limit
   function test_ccipFullE2E() public {
-    uint256 currentBridgedAmount = 1_000_000e18;
+    uint256 currentBridgedAmount = 2499999999437443624531410;
 
     vm.selectFork(arbitrumFork);
 
@@ -101,7 +101,7 @@ contract AaveV3E2ETest_IncreaseGHOFacilitatorCapacity is ProtocolV3TestBase {
     deal(address(ETH_GHO), user, amount);
 
     assertEq(ETH_GHO.balanceOf(address(ETH_TOKEN_POOL)), currentBridgedAmount);
-    assertEq(ETH_TOKEN_POOL.getBridgeLimit(), 2_500_000e18);
+    assertEq(ETH_TOKEN_POOL.getBridgeLimit(), CURRENT_CCIP_BUCKET_CAPACITY);
     assertEq(ETH_TOKEN_POOL.getCurrentBridgedAmount(), currentBridgedAmount);
 
     vm.startPrank(user);

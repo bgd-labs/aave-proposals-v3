@@ -20,7 +20,7 @@ contract AaveV3Arbitrum_IncreaseGHOFacilitatorCapacity_20240722_Test is Protocol
   AaveV3Arbitrum_IncreaseGHOFacilitatorCapacity_20240722 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('arbitrum'), 235871975);
+    vm.createSelectFork(vm.rpcUrl('arbitrum'), 236255425);
     proposal = new AaveV3Arbitrum_IncreaseGHOFacilitatorCapacity_20240722();
   }
 
