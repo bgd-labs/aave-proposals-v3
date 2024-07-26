@@ -6,7 +6,6 @@ import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {EthereumScript, ArbitrumScript} from 'aave-helpers/ScriptUtils.sol';
 import {AaveV3Ethereum_IncreaseGHOFacilitatorCapacity_20240722} from './AaveV3Ethereum_IncreaseGHOFacilitatorCapacity_20240722.sol';
 import {AaveV3Arbitrum_IncreaseGHOFacilitatorCapacity_20240722} from './AaveV3Arbitrum_IncreaseGHOFacilitatorCapacity_20240722.sol';
-import {AaveV3Arbitrum_IncreaseGHOCapsOnArbitrum_20240725} from './AaveV3Arbitrum_IncreaseGHOCapsOnArbitrum_20240725.sol';
 
 /**
  * @dev Deploy Ethereum
@@ -41,15 +40,11 @@ contract DeployArbitrum is ArbitrumScript {
     address payload0 = GovV3Helpers.deployDeterministic(
       type(AaveV3Arbitrum_IncreaseGHOFacilitatorCapacity_20240722).creationCode
     );
-    address payload1 = GovV3Helpers.deployDeterministic(
-      type(AaveV3Arbitrum_IncreaseGHOCapsOnArbitrum_20240725).creationCode
-    );
 
     // compose action
     IPayloadsControllerCore.ExecutionAction[]
-      memory actions = new IPayloadsControllerCore.ExecutionAction[](2);
+      memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
     actions[0] = GovV3Helpers.buildAction(payload0);
-    actions[1] = GovV3Helpers.buildAction(payload1);
 
     // register action at payloadsController
     GovV3Helpers.createPayload(actions);
@@ -74,12 +69,9 @@ contract CreateProposal is EthereumScript {
     payloads[0] = GovV3Helpers.buildMainnetPayload(vm, actionsEthereum);
 
     IPayloadsControllerCore.ExecutionAction[]
-      memory actionsArbitrum = new IPayloadsControllerCore.ExecutionAction[](2);
+      memory actionsArbitrum = new IPayloadsControllerCore.ExecutionAction[](1);
     actionsArbitrum[0] = GovV3Helpers.buildAction(
       type(AaveV3Arbitrum_IncreaseGHOFacilitatorCapacity_20240722).creationCode
-    );
-    actionsArbitrum[1] = GovV3Helpers.buildAction(
-      type(AaveV3Arbitrum_IncreaseGHOCapsOnArbitrum_20240725).creationCode
     );
     payloads[1] = GovV3Helpers.buildArbitrumPayload(vm, actionsArbitrum);
 
