@@ -203,7 +203,7 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603_Test is ProtocolV3TestBase {
       proposal.MILKMAN(),
       AaveV3EthereumAssets.DAI_UNDERLYING,
       AaveV3EthereumAssets.GHO_UNDERLYING,
-      AaveV3EthereumAssets.DAI_ORACLE,
+      proposal.DAI_FEED(),
       proposal.GHO_USD_FEED(),
       1931651887069694121996324, // Hardcoded as dynamic
       address(AaveV3Ethereum.COLLECTOR),
@@ -263,7 +263,7 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603_Test is ProtocolV3TestBase {
       proposal.MILKMAN(),
       AaveV3EthereumAssets.USDT_UNDERLYING,
       AaveV3EthereumAssets.GHO_UNDERLYING,
-      AaveV3EthereumAssets.USDT_ORACLE,
+      proposal.USDT_FEED(),
       proposal.GHO_USD_FEED(),
       2000000000000, // Hardcoded as dynamic
       address(AaveV3Ethereum.COLLECTOR),
@@ -275,7 +275,7 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603_Test is ProtocolV3TestBase {
       proposal.MILKMAN(),
       AaveV3EthereumAssets.rETH_UNDERLYING,
       AaveV3EthereumAssets.WETH_UNDERLYING,
-      AaveV3EthereumAssets.rETH_ORACLE,
+      proposal.RETH_FEED(),
       AaveV3EthereumAssets.WETH_ORACLE,
       1883870013343165667402, // Hardcoded as dynamic
       address(AaveV3Ethereum.COLLECTOR),

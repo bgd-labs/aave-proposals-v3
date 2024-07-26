@@ -42,7 +42,7 @@ Transfer the following assets to Ethereum.
 | aPolUSDC (All-1) | aArbUSDC (All-1) | aOptUSDC (All-1) |
 |  amUSDC (All-1)  |                  |                  |
 
-Deposit the following small holdings into there respective v3 deployment:
+Deposit the following small holdings into the respective v3 deployment:
 
 | Deposit into Eth v3 |
 | :-----------------: |

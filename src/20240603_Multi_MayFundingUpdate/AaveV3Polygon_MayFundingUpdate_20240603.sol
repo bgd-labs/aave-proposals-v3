@@ -12,14 +12,6 @@ interface IAavePolEthERC20Bridge {
   function bridge(address token, uint256 amount) external;
 }
 
-interface IWMatic {
-  function withdraw(uint256 amount) external;
-}
-
-interface IAavePolEthPlasmaBridge {
-  function bridge(uint256 amount) external;
-}
-
 /**
  * @title May Funding Update
  * @author karpatkey_TokenLogic

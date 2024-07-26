@@ -24,10 +24,13 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603 is IProposalGenericExecutor {
     IAaveWstethWithdrawer(0x2C4d3C146b002079949d7EecD07f261A39c98c4d);
 
   address public constant GHO_USD_FEED = 0x3f12643D3f6f874d39C2a4c9f2Cd6f2DbAC877FC;
+  address public constant DAI_FEED = 0xAed0c38402a5d19df6E4c03F4E2DceD6e29c1ee9;
   address public constant LUSD_FEED = 0x3D7aE7E594f2f2091Ad8798313450130d0Aba3a0;
   address public constant PYUSD_FEED = 0x8f1dF6D7F2db73eECE86a18b4381F4707b918FB1;
   address public constant USDC_FEED = 0x8fFfFfd4AfB6115b954Bd326cbe7B4BA576818f6;
   address public constant DPI_FEED = 0xD2A593BF7594aCE1faD597adb697b5645d5edDB2;
+  address public constant USDT_FEED = 0x3E7d1eAB13ad0104d2750B8863b489D65364e32D;
+  address public constant RETH_FEED = 0x536218f9E9Eb48863970252233c8F271f554C2d0;
   address public constant MILKMAN = 0x11C76AD590ABDFFCD980afEC9ad951B160F02797;
   address public constant PRICE_CHECKER = 0xe80a1C615F75AFF7Ed8F08c9F21f9d00982D666c;
   address public constant FRONTIER_SAFE = 0xCDb4fA6ba08bF1FB7Aa9fDf6002E78EDc431a642;
@@ -83,7 +86,7 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603 is IProposalGenericExecutor {
       PRICE_CHECKER,
       AaveV3EthereumAssets.DAI_UNDERLYING,
       AaveV3EthereumAssets.GHO_UNDERLYING,
-      AaveV3EthereumAssets.DAI_ORACLE,
+      DAI_FEED,
       GHO_USD_FEED,
       address(AaveV3Ethereum.COLLECTOR),
       daiBalance,
@@ -228,7 +231,7 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603 is IProposalGenericExecutor {
       PRICE_CHECKER,
       AaveV3EthereumAssets.USDT_UNDERLYING,
       AaveV3EthereumAssets.GHO_UNDERLYING,
-      AaveV3EthereumAssets.USDT_ORACLE,
+      USDT_FEED,
       GHO_USD_FEED,
       address(AaveV3Ethereum.COLLECTOR),
       usdtBalance,
@@ -262,7 +265,7 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603 is IProposalGenericExecutor {
       PRICE_CHECKER,
       AaveV3EthereumAssets.rETH_UNDERLYING,
       AaveV3EthereumAssets.WETH_UNDERLYING,
-      AaveV3EthereumAssets.rETH_ORACLE,
+      RETH_FEED,
       AaveV3EthereumAssets.WETH_ORACLE,
       address(AaveV3Ethereum.COLLECTOR),
       rethBalance,
@@ -281,7 +284,7 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603 is IProposalGenericExecutor {
       linkAmount
     );
 
-    IERC20(AaveV3EthereumAssets.LINK_UNDERLYING).approve(
+    IERC20(AaveV3EthereumAssets.LINK_UNDERLYING).forceApprove(
       address(AaveV3Ethereum.POOL),
       type(uint256).max
     );
