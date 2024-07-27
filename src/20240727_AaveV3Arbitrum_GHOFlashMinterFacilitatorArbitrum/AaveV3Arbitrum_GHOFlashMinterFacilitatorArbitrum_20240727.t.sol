@@ -49,10 +49,11 @@ contract AaveV3Arbitrum_GHOFlashMinterFacilitatorArbitrum_20240727_Test is Proto
 
   AaveV3Arbitrum_GHOFlashMinterFacilitatorArbitrum_20240727 internal proposal;
   IFlashMinter internal minter;
-  Borrower internal borrower;
+  address internal borrower;
 
   uint256 internal constant EXPECTED_FEE = 0;
   uint256 internal constant FLASHLOAN_AMOUNT = 1000;
+  address internal constant GHO = AaveV3ArbitrumAssets.GHO_UNDERLYING;
 
   event FlashMint(
     address indexed receiver,
@@ -66,7 +67,7 @@ contract AaveV3Arbitrum_GHOFlashMinterFacilitatorArbitrum_20240727_Test is Proto
     vm.createSelectFork(vm.rpcUrl('arbitrum'), 236414103);
     proposal = new AaveV3Arbitrum_GHOFlashMinterFacilitatorArbitrum_20240727();
     minter = IFlashMinter(proposal.GHO_FLASH_MINTER());
-    borrower = new Borrower(address(minter));
+    borrower = address(new Borrower(address(minter)));
   }
 
   /**
@@ -76,27 +77,20 @@ contract AaveV3Arbitrum_GHOFlashMinterFacilitatorArbitrum_20240727_Test is Proto
     executePayload(vm, address(proposal));
 
     /// Verify bucket capacity is correct
-    (uint256 bucketCapacity, ) = IGhoToken(AaveV3ArbitrumAssets.GHO_UNDERLYING)
-      .getFacilitatorBucket(proposal.GHO_FLASH_MINTER());
+    (uint256 bucketCapacity, ) = IGhoToken(GHO).getFacilitatorBucket(proposal.GHO_FLASH_MINTER());
     assertEq(bucketCapacity, proposal.BUCKET_CAPACITY());
 
     /// Verify that the new Flash Minter was properly deployed
     assertEq(minter.getFee(), EXPECTED_FEE);
     assertEq(minter.getGhoTreasury(), address(AaveV3Arbitrum.COLLECTOR));
-    assertEq(minter.GHO_TOKEN(), AaveV3ArbitrumAssets.GHO_UNDERLYING);
+    assertEq(minter.GHO_TOKEN(), GHO);
     assertEq(minter.ADDRESSES_PROVIDER(), address(AaveV3Arbitrum.POOL_ADDRESSES_PROVIDER));
   }
 
   function test_flashMint() public {
     executePayload(vm, address(proposal));
     vm.expectEmit(address(minter));
-    emit FlashMint(
-      address(borrower),
-      address(this),
-      AaveV3ArbitrumAssets.GHO_UNDERLYING,
-      FLASHLOAN_AMOUNT,
-      EXPECTED_FEE
-    );
-    minter.flashLoan(address(borrower), AaveV3ArbitrumAssets.GHO_UNDERLYING, FLASHLOAN_AMOUNT, '');
+    emit FlashMint(borrower, address(this), GHO, FLASHLOAN_AMOUNT, EXPECTED_FEE);
+    minter.flashLoan(borrower, GHO, FLASHLOAN_AMOUNT, '');
   }
 }
