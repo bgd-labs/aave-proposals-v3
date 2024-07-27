@@ -5,11 +5,39 @@ import {AaveV3Arbitrum, AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbi
 
 import {Test, stdStorage, StdStorage} from 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/ProtocolV3TestBase.sol';
+import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
+// import {IERC3156FlashBorrower} from '@openzeppelin/contracts/interfaces/IERC3156FlashBorrower.sol';
+// import {IERC3156FlashLender} from '@openzeppelin/contracts/interfaces/IERC3156FlashLender.sol';
+
 import {AaveV3Arbitrum_GHOFlashMinterFacilitatorArbitrum_20240727, IGhoToken} from './AaveV3Arbitrum_GHOFlashMinterFacilitatorArbitrum_20240727.sol';
 
 interface IFlashMinter {
-  function ADDRESSES_PROVIDER() external returns (address);
-  function GHO_TOKEN() external returns (address);
+  function getGhoTreasury() external view returns (address);
+  function getFee() external view returns (uint256);
+  function ADDRESSES_PROVIDER() external view returns (address);
+  function GHO_TOKEN() external view returns (address);
+  function flashLoan(
+    address receiver,
+    address token,
+    uint256 amount,
+    bytes calldata data
+  ) external returns (bool);
+}
+
+contract Borrower {
+  constructor(address minter) {
+    IERC20(AaveV3ArbitrumAssets.GHO_UNDERLYING).approve(minter, type(uint256).max);
+  }
+
+  function onFlashLoan(
+    address initiator,
+    address token,
+    uint256 amount,
+    uint256 fee,
+    bytes calldata data
+  ) external returns (bytes32) {
+    return keccak256('ERC3156FlashBorrower.onFlashLoan');
+  }
 }
 
 /**
@@ -21,11 +49,24 @@ contract AaveV3Arbitrum_GHOFlashMinterFacilitatorArbitrum_20240727_Test is Proto
 
   AaveV3Arbitrum_GHOFlashMinterFacilitatorArbitrum_20240727 internal proposal;
   IFlashMinter internal minter;
+  Borrower internal borrower;
+
+  uint256 internal constant EXPECTED_FEE = 0;
+  uint256 internal constant FLASHLOAN_AMOUNT = 1000;
+
+  event FlashMint(
+    address indexed receiver,
+    address indexed initiator,
+    address asset,
+    uint256 indexed amount,
+    uint256 fee
+  );
 
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('arbitrum'), 236414103);
     proposal = new AaveV3Arbitrum_GHOFlashMinterFacilitatorArbitrum_20240727();
     minter = IFlashMinter(proposal.GHO_FLASH_MINTER());
+    borrower = new Borrower(address(minter));
   }
 
   /**
@@ -34,24 +75,28 @@ contract AaveV3Arbitrum_GHOFlashMinterFacilitatorArbitrum_20240727_Test is Proto
   function test_defaultProposalExecution() public {
     executePayload(vm, address(proposal));
 
+    /// Verify bucket capacity is correct
     (uint256 bucketCapacity, ) = IGhoToken(AaveV3ArbitrumAssets.GHO_UNDERLYING)
       .getFacilitatorBucket(proposal.GHO_FLASH_MINTER());
     assertEq(bucketCapacity, proposal.BUCKET_CAPACITY());
 
     /// Verify that the new Flash Minter was properly deployed
-    /// since _fee and _ghoTreasury are private variables we have to
-    /// cheat a little in order to read them
-    /// ➜  gho-core git:(main) ✗ forge inspect --pretty GhoFlashMinter storage
-    /// | Name         | Type    | Slot | Offset | Bytes | Contract                                                                 |
-    /// |--------------|---------|------|--------|-------|--------------------------------------------------------------------------|
-    /// | _fee         | uint256 | 0    | 0      | 32    | src/contracts/facilitators/flashMinter/GhoFlashMinter.sol:GhoFlashMinter |
-    /// | _ghoTreasury | address | 1    | 0      | 20    | src/contracts/facilitators/flashMinter/GhoFlashMinter.sol:GhoFlashMinter |
-    bytes32 fee = vm.load(proposal.GHO_FLASH_MINTER(), bytes32(uint256(0)));
-    bytes32 ghoTreasury = vm.load(proposal.GHO_FLASH_MINTER(), bytes32(uint256(1)));
-
-    assertEq(uint256(fee), 0);
-    assertEq(address(uint160(uint256(ghoTreasury))), address(AaveV3Arbitrum.COLLECTOR));
+    assertEq(minter.getFee(), EXPECTED_FEE);
+    assertEq(minter.getGhoTreasury(), address(AaveV3Arbitrum.COLLECTOR));
     assertEq(minter.GHO_TOKEN(), AaveV3ArbitrumAssets.GHO_UNDERLYING);
     assertEq(minter.ADDRESSES_PROVIDER(), address(AaveV3Arbitrum.POOL_ADDRESSES_PROVIDER));
+  }
+
+  function test_flashMint() public {
+    executePayload(vm, address(proposal));
+    vm.expectEmit(address(minter));
+    emit FlashMint(
+      address(borrower),
+      address(this),
+      AaveV3ArbitrumAssets.GHO_UNDERLYING,
+      FLASHLOAN_AMOUNT,
+      EXPECTED_FEE
+    );
+    minter.flashLoan(address(borrower), AaveV3ArbitrumAssets.GHO_UNDERLYING, FLASHLOAN_AMOUNT, '');
   }
 }
