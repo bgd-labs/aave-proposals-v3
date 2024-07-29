@@ -10,6 +10,8 @@ import {IProposalGenericExecutor} from 'aave-helpers/interfaces/IProposalGeneric
  */
 contract AaveV3Ethereum_GhoStewardCCIPExtension_20240726 is IProposalGenericExecutor {
   function execute() external {
-    // custom code goes here
+    // TODO: Assume existing stewards
+    // TODO: Revoke roles of other stewards
+    // TODO: Grant roles to new stewards
   }
 }

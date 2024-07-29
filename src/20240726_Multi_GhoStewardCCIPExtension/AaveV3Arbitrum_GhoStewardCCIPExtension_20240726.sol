@@ -10,6 +10,23 @@ import {IProposalGenericExecutor} from 'aave-helpers/interfaces/IProposalGeneric
  */
 contract AaveV3Arbitrum_GhoStewardCCIPExtension_20240726 is IProposalGenericExecutor {
   function execute() external {
-    // custom code goes here
+    // Existing remote pool
+    UpgradeableBurnMintTokenPool remotePool = UpgradeableBurnMintTokenPool(
+      0xF168B83598516A532a85995b52504a2Fa058C068
+    );
+    // TODO: Get address
+    // Assume new implementation deployed
+    UpgradeableBurnMintTokenPool tokenPoolImpl = UpgradeableBurnMintTokenPool(
+      0x1F168B83598516A532a85995b52504a2Fa058C068
+    );
+
+    // Upgrade remote pool to new implementation
+    TransparentUpgradeableProxy(payable(address(remotePool))).upgradeTo(address(tokenPoolImpl));
+
+    // TODO: Grant appropriate access to remote pool
+
+    // TODO: Deploy steward(s)
+
+    // TODO: Grant ratelimitadmin to appropriate steward
   }
 }
