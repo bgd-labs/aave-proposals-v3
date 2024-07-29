@@ -7,7 +7,7 @@ snapshot: "https://snapshot.org/#/aave.eth/proposal/0x5d4e3fba58f76f516afd0855a6
 
 ## Summary
 
-This AIP proposes the Aave DAO budget allocation on events at key ecosystem initiatives at EthCC and Devcon to help to reinforce Aave Protocol’s unique and positive culture, share technical knowledge, and attract new community members. These initiatives are aimed at helping to continue the expansion of the DeFi ecosystem by showcasing Aave Protocol’s core values. Thank you for reviewing this proposal and for your earlier questions and positive vote in the snapshot.
+This AIP proposes the Aave DAO budget allocation on events at key ecosystem initiatives at EthCC and Devcon to help to reinforce Aave Protocol’s unique and positive culture, share technical knowledge, and attract new community members. These initiatives are aimed at helping to continue the expansion of the DeFi ecosystem by showcasing Aave Protocol’s core values.
 
 ## Motivation
 
@@ -17,7 +17,9 @@ Although the Aave Protocol has emerged as a leader within DeFi, the sector at la
 
 ## Specification
 
-Aave Labs is requesting a budget allocation for 650,000 GHO for events for the remainder of 2024 for EthCC Brussels (45%) and Devcon Bangkok (55%). These initiatives will serve multiple purposes:
+Aave Labs is requesting a budget allocation for 650,000 GHO for events for the remainder of 2024 for EthCC Brussels (45%) and Devcon Bangkok (55%). This proposal will transfer 650,000 GHO from the Aave DAO treasury to a wallet controlled by Aave Labs (0x1c037b3C22240048807cC9d7111be5d455F640bd).
+
+These initiatives will serve multiple purposes:
 
 1. Hackathons & Bounties: We want to encourage developers to build on Aave Protocol, as well as GHO. These hackathons not only provide a platform for the Aave community to connect with talented developers in both web3 and web2, and to remain visible and competitive in a growing industry, but also lead to the creation of innovative DeFi projects that enhance the Aave ecosystem. We propose to sponsor one ETHGlobal hackathon in Q4 in Bangkok.
 
