@@ -5,7 +5,7 @@ import {AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
 import {MiscArbitrum} from 'aave-address-book/MiscArbitrum.sol';
 import {IGhoToken} from 'gho-core/gho/interfaces/IGhoToken.sol';
 import {AaveV3PayloadArbitrum} from 'aave-helpers/v3-config-engine/AaveV3PayloadArbitrum.sol';
-import {IAaveV3ConfigEngine} from 'aave-helpers/v3-config-engine/IAaveV3ConfigEngine.sol';
+import {IAaveV3ConfigEngine} from 'aave-v3-origin/periphery/contracts/v3-config-engine/IAaveV3ConfigEngine.sol';
 
 /**
  * @title Increase GHO Facilitator Capacity

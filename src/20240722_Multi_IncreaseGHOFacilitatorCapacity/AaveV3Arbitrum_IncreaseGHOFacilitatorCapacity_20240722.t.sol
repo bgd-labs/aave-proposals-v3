@@ -3,7 +3,6 @@ pragma solidity ^0.8.0;
 
 import {AaveV3Arbitrum} from 'aave-address-book/AaveV3Arbitrum.sol';
 
-import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/ProtocolV3TestBase.sol';
 import {AaveV3Arbitrum_IncreaseGHOFacilitatorCapacity_20240722} from './AaveV3Arbitrum_IncreaseGHOFacilitatorCapacity_20240722.sol';
 
