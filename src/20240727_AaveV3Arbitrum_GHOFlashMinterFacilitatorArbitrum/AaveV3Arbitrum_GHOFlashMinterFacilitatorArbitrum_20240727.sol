@@ -13,7 +13,7 @@ interface IGhoToken {
  * @title GHO Flash Minter Facilitator Arbitrum
  * @author karpatkey_TokenLogic
  * - Snapshot: TODO
- * - Discussion: TODO
+ * - Discussion: https://governance.aave.com/t/arfc-gho-flash-minter-facilitator-arbitrum/18445
  */
 contract AaveV3Arbitrum_GHOFlashMinterFacilitatorArbitrum_20240727 is IProposalGenericExecutor {
   uint128 public constant BUCKET_CAPACITY = 2_000_000e18;

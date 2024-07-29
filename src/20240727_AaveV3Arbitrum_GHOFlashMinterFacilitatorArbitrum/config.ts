@@ -6,7 +6,7 @@ export const config: ConfigFile = {
     shortName: 'GHOFlashMinterFacilitatorArbitrum',
     date: '20240727',
     author: 'karpatkey_TokenLogic',
-    discussion: 'TODO',
+    discussion: 'https://governance.aave.com/t/arfc-gho-flash-minter-facilitator-arbitrum/18445',
     snapshot: 'TODO',
     votingNetwork: 'POLYGON',
   },
