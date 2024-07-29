@@ -133,7 +133,7 @@ contract AaveV3Ethereum_JulyFundingUpdate_20240729 is IProposalGenericExecutor {
       GHO_USD_FEED,
       COLLECTOR,
       fraxBalance,
-      150
+      100
     );
 
     /// aDPI
@@ -160,7 +160,7 @@ contract AaveV3Ethereum_JulyFundingUpdate_20240729 is IProposalGenericExecutor {
       GHO_USD_FEED,
       COLLECTOR,
       dpiBalance,
-      150
+      250
     );
   }
 }
