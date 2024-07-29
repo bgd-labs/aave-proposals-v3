@@ -6,7 +6,7 @@ export const config: ConfigFile = {
     shortName: 'JulyFundingUpdate',
     date: '20240729',
     author: 'karpatkey_TokenLogic',
-    discussion: 'TODO',
+    discussion: 'https://governance.aave.com/t/arfc-july-funding-update/18447',
     snapshot: 'Direct-to-AIP',
     votingNetwork: 'POLYGON',
   },

@@ -1,7 +1,7 @@
 ---
 title: "July Funding Update"
 author: "karpatkey_TokenLogic"
-discussions: "TODO"
+discussions: "https://governance.aave.com/t/arfc-july-funding-update/18447"
 snapshot: "Direct-to-AIP"
 ---
 
@@ -42,7 +42,7 @@ Swap the following asset for GHO via the Aave Swapper.
 - Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240729_AaveV3Ethereum_JulyFundingUpdate/AaveV3Ethereum_JulyFundingUpdate_20240729.sol)
 - Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240729_AaveV3Ethereum_JulyFundingUpdate/AaveV3Ethereum_JulyFundingUpdate_20240729.t.sol)
 - [Snapshot](Direct-to-AIP)
-- [Discussion](TODO)
+- [Discussion](https://governance.aave.com/t/arfc-july-funding-update/18447)
 
 # Disclosure
 

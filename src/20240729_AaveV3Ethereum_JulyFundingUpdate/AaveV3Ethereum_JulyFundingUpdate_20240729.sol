@@ -13,7 +13,7 @@ import {AaveSwapper} from 'aave-helpers/swaps/AaveSwapper.sol';
  * @title July Funding Update
  * @author karpatkey_TokenLogic
  * - Snapshot: Direct-to-AIP
- * - Discussion: TODO
+ * - Discussion: https://governance.aave.com/t/arfc-july-funding-update/18447
  */
 contract AaveV3Ethereum_JulyFundingUpdate_20240729 is IProposalGenericExecutor {
   using SafeERC20 for IERC20;
