@@ -1,5 +1,5 @@
 ---
-title: "[AIP] Arbitrum - GHO Stewards & Parameter Adjustments"
+title: "[AIP] Arbitrum - Parameter Adjustments"
 author: "@karpatkey_TokenLogic"
 discussions: "https://governance.aave.com/t/arfc-gho-arbitrum-parameter-adjustments/18386"
 snapshot: "Direct-to-AIP"
@@ -7,7 +7,7 @@ snapshot: "Direct-to-AIP"
 
 ## Simple Summary
 
-This AIP will activate the GHO Steward and adjust several GHO related parameters on Arbitrum.
+This AIP will adjust several GHO related parameters on Arbitrum.
 
 ## Motivation
 

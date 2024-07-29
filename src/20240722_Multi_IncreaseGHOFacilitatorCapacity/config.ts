@@ -7,7 +7,7 @@ export const config: ConfigFile = {
     date: '20240722',
     author: '@karpatkey_TokenLogic',
     discussion:
-      'https://governance.aave.com/t/arfc-gho-arb-increase-ccip-facilitator-capacity/18169',
+      'https://governance.aave.com/t/arfc-gho-arb-increase-ccip-facilitator-capacity/18386',
     snapshot: 'Direct-to-AIP',
     votingNetwork: 'POLYGON',
   },
