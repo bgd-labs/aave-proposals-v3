@@ -36,6 +36,12 @@ contract Borrower {
     uint256 fee,
     bytes calldata data
   ) external returns (bytes32) {
+    require(
+      token == AaveV3ArbitrumAssets.GHO_UNDERLYING &&
+        amount == 1000 &&
+        fee == 0 &&
+        keccak256(data) == keccak256('')
+    );
     return keccak256('ERC3156FlashBorrower.onFlashLoan');
   }
 }
@@ -70,17 +76,13 @@ contract AaveV3Arbitrum_GHOFlashMinterFacilitatorArbitrum_20240727_Test is Proto
     borrower = address(new Borrower(address(minter)));
   }
 
-  /**
-   * @dev executes the generic test suite including e2e and config snapshots
-   */
-  function test_defaultProposalExecution() public {
+  function test_bucketCapacity() public {
     executePayload(vm, address(proposal));
-
-    /// Verify bucket capacity is correct
     (uint256 bucketCapacity, ) = IGhoToken(GHO).getFacilitatorBucket(proposal.GHO_FLASH_MINTER());
     assertEq(bucketCapacity, proposal.BUCKET_CAPACITY());
+  }
 
-    /// Verify that the new Flash Minter was properly deployed
+  function test_minterProperties() public {
     assertEq(minter.getFee(), EXPECTED_FEE);
     assertEq(minter.getGhoTreasury(), address(AaveV3Arbitrum.COLLECTOR));
     assertEq(minter.GHO_TOKEN(), GHO);

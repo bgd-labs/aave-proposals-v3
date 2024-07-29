@@ -41,7 +41,7 @@ This publication proposes deploying a FlashMinter Facilitator on Arbitrum.
    This Facilitator Capacity would be used to allow users to FlashMint.
 
 3. **Revenue Streams**
-   To start, it is proposed that the fee for FlashMint would be set at 0%. In the early stages, GHO’s ability to maintain its peg would be enhanced by the presence of low fees, which incentivize arbitrage. However, at the same time the 0% fee would mean that in the short run the FlashMint Facilitator would not create revenue for the DAO.
+   To start, it is proposed that the fee for FlashMint be set at 0%. In the early stages, GHO’s ability to maintain its peg would be enhanced by the presence of low fees, which incentivize arbitrage. However, at the same time, the 0% fee would mean that in the short run, the FlashMint Facilitator would not create revenue for the DAO.
 
 4. **Revenue Split/Interest Terms**
    If the DAO decides to add a fee for this Facilitator, all revenue will go to the Aave DAO Treasury.
@@ -55,7 +55,7 @@ This publication proposes deploying a FlashMinter Facilitator on Arbitrum.
 ## Mechanism & Risk Details
 
 1. **Detailed Description of the Facilitator**
-   The FlashMinter Facilitator would allow users to FlashMint and borrow GHO if they repay the borrowed GHO in the same transaction. The FlashMinter would have a beneficial influence on GHO’s ability to maintain its peg because it enables more efficient arbitrage.
+   The FlashMinter Facilitator would allow users to FlashMint and borrow GHO if they repay the borrowed GHO in the same transaction. The FlashMinter would positively influence GHO’s ability to maintain its peg by enabling more efficient arbitrage.
 
 2. **How Facilitator is backing GHO**
    Since no GHO is effectively entering circulating supply, no backing is needed.
