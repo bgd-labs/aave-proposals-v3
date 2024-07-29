@@ -16,7 +16,7 @@ Increasing the liquidation threshold and LTV for assets allows Aave to enhance u
 ### sAVAX
 
 sAVAX’s LTV and LT are currently set to 30% and 40%, respectively (its E-Mode parameters are 92.5% and 95%). The top suppliers are primarily looping sAVAX and WAVAX, reducing the risk of large-scale liquidations in this market.
-However, there are is a small amount of non-WAVAX borrows against sAVAX, primarily WETH.e and stablecoins.
+However, there is a small amount of non-WAVAX borrows against sAVAX, primarily WETH.e and stablecoins.
 Moreover, sAVAX maintains strong liquidity against AVAX, meaning that potential liquidations of sAVAX collateralized debt are likely to be completed efficiently.
 Given user distribution and liquidity, we recommend increasing LTV to 40% and LT to 45%.
 
