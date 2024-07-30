@@ -40,6 +40,9 @@ contract AaveV3Ethereum_TokenLogicKarpatkeyServiceProviderPartnershipPhase2_2024
       address(AaveV3Ethereum.COLLECTOR)
     );
 
+    uint256 backdatedAmount = (proposal.ACTUAL_AMOUNT_KARPATKEY() / proposal.STREAM_DURATION()) *
+      (block.timestamp - proposal.ORIGINAL_STARTDATE());
+
     executePayload(vm, address(proposal));
 
     {
@@ -56,10 +59,13 @@ contract AaveV3Ethereum_TokenLogicKarpatkeyServiceProviderPartnershipPhase2_2024
 
       assertEq(senderGHO, address(AaveV3Ethereum.COLLECTOR));
       assertEq(recipientGHO, proposal.KARPATKEY_RECEIVER());
-      assertEq(depositGHO, proposal.ACTUAL_AMOUNT_KARPATKEY());
+      assertEq(depositGHO + backdatedAmount, proposal.ACTUAL_AMOUNT_KARPATKEY());
       assertEq(tokenAddressGHO, AaveV3EthereumAssets.GHO_UNDERLYING);
-      assertEq(stopTimeGHO - startTimeGHO, proposal.STREAM_DURATION());
-      assertEq(remainingBalanceGHO, proposal.ACTUAL_AMOUNT_KARPATKEY());
+      assertEq(
+        stopTimeGHO - startTimeGHO,
+        proposal.STREAM_DURATION() + proposal.ORIGINAL_STARTDATE() - block.timestamp
+      );
+      assertEq(remainingBalanceGHO + backdatedAmount, proposal.ACTUAL_AMOUNT_KARPATKEY());
     }
 
     {
@@ -76,10 +82,13 @@ contract AaveV3Ethereum_TokenLogicKarpatkeyServiceProviderPartnershipPhase2_2024
 
       assertEq(senderGHO, address(AaveV3Ethereum.COLLECTOR));
       assertEq(recipientGHO, proposal.TOKENLOGIC_RECEIVER());
-      assertEq(depositGHO, proposal.ACTUAL_AMOUNT_TOKENLOGIC());
+      assertEq(depositGHO + backdatedAmount, proposal.ACTUAL_AMOUNT_TOKENLOGIC());
       assertEq(tokenAddressGHO, AaveV3EthereumAssets.GHO_UNDERLYING);
-      assertEq(stopTimeGHO - startTimeGHO, proposal.STREAM_DURATION());
-      assertEq(remainingBalanceGHO, proposal.ACTUAL_AMOUNT_TOKENLOGIC());
+      assertEq(
+        stopTimeGHO - startTimeGHO,
+        proposal.STREAM_DURATION() + proposal.ORIGINAL_STARTDATE() - block.timestamp
+      );
+      assertEq(remainingBalanceGHO + backdatedAmount, proposal.ACTUAL_AMOUNT_TOKENLOGIC());
     }
 
     // Can withdraw during stream

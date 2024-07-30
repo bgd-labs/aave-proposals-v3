@@ -46,18 +46,18 @@ contract AaveV3Ethereum_TokenLogicKarpatkeyServiceProviderPartnershipPhase2_2024
 
     AaveV3Ethereum.COLLECTOR.createStream(
       KARPATKEY_RECEIVER,
-      ACTUAL_AMOUNT_KARPATKEY,
+      ACTUAL_AMOUNT_KARPATKEY - backdatedAmount,
       AaveV3EthereumAssets.GHO_UNDERLYING,
       block.timestamp,
-      block.timestamp + STREAM_DURATION
+      ORIGINAL_STARTDATE + STREAM_DURATION
     );
 
     AaveV3Ethereum.COLLECTOR.createStream(
       TOKENLOGIC_RECEIVER,
-      ACTUAL_AMOUNT_TOKENLOGIC,
+      ACTUAL_AMOUNT_TOKENLOGIC - backdatedAmount,
       AaveV3EthereumAssets.GHO_UNDERLYING,
       block.timestamp,
-      block.timestamp + STREAM_DURATION
+      ORIGINAL_STARTDATE + STREAM_DURATION
     );
   }
 }
