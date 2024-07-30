@@ -7,7 +7,7 @@ import {EthereumScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
 import {AaveV3EthereumLido_WETHLTV0AaveV3LidoInstance_20240729} from './AaveV3EthereumLido_WETHLTV0AaveV3LidoInstance_20240729.sol';
 /**
  * @dev Deploy Ethereum
- * deploy-command: make deploy-ledger contract=src/20240729_AaveV3Ethereum_WETHLTV0AaveV3LidoInstance/WETHLTV0AaveV3LidoInstance_20240729.s.sol:DeployEthereum chain=mainnet
+ * deploy-command: make deploy-ledger contract=src/AaveV3EthereumLido_WETHLTV0AaveV3LidoInstance_20240729/AaveV3EthereumLido_WETHLTV0AaveV3LidoInstance_20240729.s.sol:DeployEthereum chain=mainnet
  * verify-command: FOUNDRY_PROFILE=mainnet npx catapulta-verify -b broadcast/AaveV3EthereumLido_WETHLTV0AaveV3LidoInstance_20240729.s.sol/1/run-latest.json
  */
 contract DeployEthereum is EthereumScript {
