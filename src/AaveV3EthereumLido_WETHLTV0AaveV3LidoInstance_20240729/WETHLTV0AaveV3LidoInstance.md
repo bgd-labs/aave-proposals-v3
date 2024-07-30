@@ -26,21 +26,9 @@ This AIP proposes the following changes to the Lido Aave v3 instance for wETH:
 
 All other parameters for wETH will remain unchanged:
 
-| Parameter             | Current Value | Proposed Value |
-| --------------------- | ------------- | -------------- |
-| LTV                   | 82%           | 0%             |
-| Liquidation Threshold | 83%           | 83%            |
-| Liquidation Bonus     | 5%            | 5%             |
-| Reserve Factor        | 10%           | 10%            |
-| Variable Base         | 0.0%          | 0.0%           |
-| Variable Slope1       | 2.50%         | 2.50%          |
-| Variable Slope2       | 85%           | 85%            |
-| Uoptimal              | 93%           | 93%            |
-| Stable Borrowing      | Disabled      | Disabled       |
-| Borrowable            | Yes           | Yes            |
-| Collateral Enabled    | Yes           | No             |
-| Supply Cap            | 900K          | 900K           |
-| Borrow Cap            | 810K          | 810K           |
+| Parameter | Current Value | Proposed Value |
+| --------- | ------------- | -------------- |
+| LTV       | 82%           | 0%             |
 
 ## References
 
