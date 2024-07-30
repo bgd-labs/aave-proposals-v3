@@ -138,3 +138,15 @@ export interface PoolConfig {
   };
   cache: PoolCache;
 }
+
+export type Scripts = {
+  defaultScript: string;
+  zkSyncScript?: string;
+};
+
+export type Files = {
+  jsonConfig: string;
+  scripts: Scripts;
+  aip: string;
+  payloads: {pool: PoolIdentifier; payload: string; test: string; contractName: string}[];
+};

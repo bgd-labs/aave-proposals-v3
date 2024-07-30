@@ -4,7 +4,7 @@ import {generateContractName, generateFolderName} from './common';
 import {proposalTemplate} from './templates/proposal.template';
 import {testTemplate} from './templates/test.template';
 import {confirm} from '@inquirer/prompts';
-import {ConfigFile, Options, PoolConfigs, PoolIdentifier} from './types';
+import {ConfigFile, Options, PoolConfigs, PoolIdentifier, Scripts, Files} from './types';
 import prettier from 'prettier';
 import {generateScript} from './templates/script.template';
 import {generateZkSyncScript} from './templates/zksync.script.template';
@@ -13,18 +13,6 @@ import {generateAIP} from './templates/aip.template';
 const prettierSolCfg = await prettier.resolveConfig('foo.sol');
 const prettierMDCfg = await prettier.resolveConfig('foo.md');
 const prettierTsCfg = await prettier.resolveConfig('foo.ts');
-
-type Scripts = {
-  defaultScript: string;
-  zkSyncScript?: string;
-};
-
-type Files = {
-  jsonConfig: string;
-  scripts: Scripts;
-  aip: string;
-  payloads: {pool: PoolIdentifier; payload: string; test: string; contractName: string}[];
-};
 
 /**
  * Generates all the file contents for aip/tests/payloads & script
