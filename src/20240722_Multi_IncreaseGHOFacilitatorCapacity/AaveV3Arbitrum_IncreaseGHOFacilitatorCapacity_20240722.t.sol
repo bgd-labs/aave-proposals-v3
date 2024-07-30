@@ -2,14 +2,13 @@
 pragma solidity ^0.8.0;
 
 import {AaveV3Arbitrum} from 'aave-address-book/AaveV3Arbitrum.sol';
-
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/ProtocolV3TestBase.sol';
 import {AaveV3Arbitrum_IncreaseGHOFacilitatorCapacity_20240722} from './AaveV3Arbitrum_IncreaseGHOFacilitatorCapacity_20240722.sol';
-
 import {AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
 import {MiscArbitrum} from 'aave-address-book/MiscArbitrum.sol';
-import {IGhoToken} from 'gho-core/gho/interfaces/IGhoToken.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/ProtocolV3TestBase.sol';
+
+import {IGhoToken} from 'src/interfaces/IGhoToken.sol';
 
 /**
  * @dev Test for AaveV3Arbitrum_IncreaseGHOFacilitatorCapacity_20240722
@@ -32,6 +31,24 @@ contract AaveV3Arbitrum_IncreaseGHOFacilitatorCapacity_20240722_Test is Protocol
       AaveV3Arbitrum.POOL,
       address(proposal)
     );
+  }
+
+  function test_capsUpdates() public {
+    ReserveConfig[] memory configs = _getReservesConfigs(AaveV3Arbitrum.POOL);
+
+    ReserveConfig memory GHO = _findReserveConfig(configs, AaveV3ArbitrumAssets.GHO_UNDERLYING);
+
+    assertEq(GHO.supplyCap, 1_000_000);
+    assertEq(GHO.borrowCap, 900_000);
+
+    executePayload(vm, address(proposal));
+
+    ReserveConfig[] memory configsAfter = _getReservesConfigs(AaveV3Arbitrum.POOL);
+
+    GHO = _findReserveConfig(configsAfter, AaveV3ArbitrumAssets.GHO_UNDERLYING);
+
+    assertEq(GHO.supplyCap, proposal.NEW_SUPPLY_CAP());
+    assertEq(GHO.borrowCap, proposal.NEW_BORROW_CAP());
   }
 
   /**

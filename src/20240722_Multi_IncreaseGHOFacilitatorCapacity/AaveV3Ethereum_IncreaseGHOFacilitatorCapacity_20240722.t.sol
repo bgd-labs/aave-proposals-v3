@@ -2,17 +2,11 @@
 pragma solidity ^0.8.0;
 
 import {AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
-
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/ProtocolV3TestBase.sol';
-import {AaveV3Ethereum_IncreaseGHOFacilitatorCapacity_20240722} from './AaveV3Ethereum_IncreaseGHOFacilitatorCapacity_20240722.sol';
-
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 
-interface UpgradeableLockReleaseTokenPool {
-  function getBridgeLimit() external returns (uint256);
-
-  function setBridgeLimit(uint256 limit) external;
-}
+import {IUpgradeableLockReleaseTokenPool} from 'src/interfaces/ccip/IUpgradeableLockReleaseTokenPool.sol';
+import {AaveV3Ethereum_IncreaseGHOFacilitatorCapacity_20240722} from './AaveV3Ethereum_IncreaseGHOFacilitatorCapacity_20240722.sol';
 
 /**
  * @dev Test for AaveV3Ethereum_IncreaseGHOFacilitatorCapacity_20240722
@@ -32,14 +26,14 @@ contract AaveV3Ethereum_IncreaseGHOFacilitatorCapacity_20240722_Test is Protocol
   function test_newLimitIsSet() public {
     // Current limit is 1M
     assertEq(
-      UpgradeableLockReleaseTokenPool(MiscEthereum.GHO_CCIP_TOKEN_POOL).getBridgeLimit(),
+      IUpgradeableLockReleaseTokenPool(MiscEthereum.GHO_CCIP_TOKEN_POOL).getBridgeLimit(),
       2_500_000 ether
     );
 
     executePayload(vm, address(proposal));
 
     assertEq(
-      UpgradeableLockReleaseTokenPool(MiscEthereum.GHO_CCIP_TOKEN_POOL).getBridgeLimit(),
+      IUpgradeableLockReleaseTokenPool(MiscEthereum.GHO_CCIP_TOKEN_POOL).getBridgeLimit(),
       proposal.NEW_LIMIT()
     );
   }

@@ -15,10 +15,8 @@ import {IClient} from 'src/interfaces/ccip/IClient.sol';
 import {IInternal} from 'src/interfaces/ccip/IInternal.sol';
 import {IRouter} from 'src/interfaces/ccip/IRouter.sol';
 import {IEVM2EVMOffRamp} from 'src/interfaces/ccip/IEVM2EVMOffRamp.sol';
-
 import {IUpgradeableLockReleaseTokenPool} from 'src/interfaces/ccip/IUpgradeableLockReleaseTokenPool.sol';
-
-import {IGhoToken} from 'gho-core/gho/interfaces/IGhoToken.sol';
+import {IGhoToken} from 'src/interfaces/IGhoToken.sol';
 
 import {AaveV3Arbitrum_IncreaseGHOFacilitatorCapacity_20240722} from './AaveV3Arbitrum_IncreaseGHOFacilitatorCapacity_20240722.sol';
 import {AaveV3Ethereum_IncreaseGHOFacilitatorCapacity_20240722} from './AaveV3Ethereum_IncreaseGHOFacilitatorCapacity_20240722.sol';
