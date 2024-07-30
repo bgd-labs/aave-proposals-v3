@@ -29,7 +29,7 @@ contract DeployEthereum is EthereumScript {
 
 /**
  * @dev Create Proposal
- * command: make deploy-ledger contract=src/20240729_AaveV3Ethereum_WETHLTV0AaveV3LidoInstance/WETHLTV0AaveV3LidoInstance_20240729.s.sol:CreateProposal chain=mainnet
+ * command: make deploy-ledger contract=src/AaveV3EthereumLido_WETHLTV0AaveV3LidoInstance_20240729/AaveV3EthereumLido_WETHLTV0AaveV3LidoInstance_20240729.s.sol:CreateProposal chain=mainnet
  */
 contract CreateProposal is EthereumScript {
   function run() external {
