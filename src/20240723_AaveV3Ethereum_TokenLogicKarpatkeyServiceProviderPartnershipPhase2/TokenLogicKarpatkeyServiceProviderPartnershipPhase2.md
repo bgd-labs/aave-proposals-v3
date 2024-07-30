@@ -1,11 +1,8 @@
-# TokenLogic + karpatkey Service Provider - Phase II
-
 ---
-
-Title: TokenLogic + karpatkey - Phase II
-Author: TokenLogic karpatkey
-Date: 2024-07-29
-
+title: "TokenLogic + karpatkey - Phase II"
+author: "TokenLogic karpatkey"
+discussions: "https://governance.aave.com/t/arfc-tokenlogic-karpatkey-financial-service-providers-phase-ii/18285"
+snapshot: "https://snapshot.org/#/aave.eth/proposal/0xc44ec840f8f7f6ca3ef2f2a4289882c4cdc1a8b3e6e9ad6b811a640097a8016a"
 ---
 
 ![TL + kpk 2](https://hackmd.io/_uploads/Bkwva6C80.jpg)
@@ -106,7 +103,7 @@ By addressing these challenges, our team aims to support the DAO in achieving su
 
 # Specification
 
-The createStream() method of the IAaveEcosystemReserveController will be called to create two streams with a start time block 1718673864:
+The createStream() method of the IAaveEcosystemReserveController will be called to create two streams when the payload gets executed:
 
 **karpatkey**
 Stream: 250k GHO over 180 days
