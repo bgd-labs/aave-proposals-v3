@@ -15,7 +15,7 @@ contract AaveV3Base_ReserveFactorUpdatesMidJuly_20240711_Test is ProtocolV3TestB
   AaveV3Base_ReserveFactorUpdatesMidJuly_20240711 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('base'), 16931946);
+    vm.createSelectFork(vm.rpcUrl('base'), 17790944);
     proposal = new AaveV3Base_ReserveFactorUpdatesMidJuly_20240711();
   }
 

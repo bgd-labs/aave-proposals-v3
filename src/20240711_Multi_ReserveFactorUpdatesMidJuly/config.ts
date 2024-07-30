@@ -80,7 +80,7 @@ export const config: ConfigFile = {
           },
         ],
       },
-      cache: {blockNumber: 20279308},
+      cache: {blockNumber: 20421735},
     },
     AaveV2Polygon: {
       configs: {
@@ -171,7 +171,7 @@ export const config: ConfigFile = {
           },
         ],
       },
-      cache: {blockNumber: 59207291},
+      cache: {blockNumber: 60001252},
     },
     AaveV2Avalanche: {
       configs: {
@@ -232,7 +232,7 @@ export const config: ConfigFile = {
           },
         ],
       },
-      cache: {blockNumber: 47809783},
+      cache: {blockNumber: 48640210},
     },
     AaveV3Polygon: {
       configs: {
@@ -248,7 +248,7 @@ export const config: ConfigFile = {
           },
         ],
       },
-      cache: {blockNumber: 59207294},
+      cache: {blockNumber: 60001252},
     },
     AaveV3Optimism: {
       configs: {
@@ -264,7 +264,7 @@ export const config: ConfigFile = {
           },
         ],
       },
-      cache: {blockNumber: 122527226},
+      cache: {blockNumber: 123386244},
     },
     AaveV3Arbitrum: {
       configs: {
@@ -280,7 +280,7 @@ export const config: ConfigFile = {
           },
         ],
       },
-      cache: {blockNumber: 230891571},
+      cache: {blockNumber: 237736989},
     },
     AaveV3Base: {
       configs: {
@@ -296,7 +296,7 @@ export const config: ConfigFile = {
           },
         ],
       },
-      cache: {blockNumber: 16931946},
+      cache: {blockNumber: 17790944},
     },
   },
 };

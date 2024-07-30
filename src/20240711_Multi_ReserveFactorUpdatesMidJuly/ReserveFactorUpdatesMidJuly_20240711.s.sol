@@ -3,7 +3,7 @@ pragma solidity ^0.8.0;
 
 import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aave-helpers/GovV3Helpers.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
-import {EthereumScript, PolygonScript, AvalancheScript, OptimismScript, ArbitrumScript, BaseScript} from 'aave-helpers/ScriptUtils.sol';
+import {EthereumScript, PolygonScript, AvalancheScript, OptimismScript, ArbitrumScript, BaseScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
 import {AaveV2Ethereum_ReserveFactorUpdatesMidJuly_20240711} from './AaveV2Ethereum_ReserveFactorUpdatesMidJuly_20240711.sol';
 import {AaveV2Polygon_ReserveFactorUpdatesMidJuly_20240711} from './AaveV2Polygon_ReserveFactorUpdatesMidJuly_20240711.sol';
 import {AaveV2Avalanche_ReserveFactorUpdatesMidJuly_20240711} from './AaveV2Avalanche_ReserveFactorUpdatesMidJuly_20240711.sol';

@@ -15,7 +15,7 @@ contract AaveV3Optimism_ReserveFactorUpdatesMidJuly_20240711_Test is ProtocolV3T
   AaveV3Optimism_ReserveFactorUpdatesMidJuly_20240711 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('optimism'), 122527226);
+    vm.createSelectFork(vm.rpcUrl('optimism'), 123386244);
     proposal = new AaveV3Optimism_ReserveFactorUpdatesMidJuly_20240711();
   }
 
