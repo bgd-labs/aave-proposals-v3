@@ -1,5 +1,5 @@
 ---
-title: "[AIP] Arbitrum - Parameter Adjustments"
+title: "GHO Arbitrum Parameter Adjustments"
 author: "@karpatkey_TokenLogic"
 discussions: "https://governance.aave.com/t/arfc-gho-arbitrum-parameter-adjustments/18386"
 snapshot: "Direct-to-AIP"
@@ -23,7 +23,7 @@ This proposal will implement the following parameter adjustments.
 
 | Parameter                    | Current | Proposed |
 | ---------------------------- | :-----: | :------: |
-| Eth GHO Bucket Capacity      |  2.5M   |  20.0M   |
+| Eth GHO Bridge Limit         |  2.5M   |  20.0M   |
 | Arb GHO Facilitator Capacity |  2.5M   |  20.0M   |
 | Arb GHO Supply Cap           |  1.0M   |   5.0M   |
 | Arb GHO Borrow Cap           |  0.9M   |   4.5M   |

@@ -11,7 +11,7 @@ import {IAaveV3ConfigEngine} from 'aave-v3-origin/periphery/contracts/v3-config-
  * @title Increase GHO Facilitator Capacity
  * @author @karpatkey_TokenLogic
  * - Snapshot: Direct-to-AIP
- * - Discussion: https://governance.aave.com/t/arfc-gho-arb-increase-ccip-facilitator-capacity/18169
+ * - Discussion: https://governance.aave.com/t/arfc-gho-arb-increase-ccip-facilitator-capacity/18386
  */
 contract AaveV3Arbitrum_IncreaseGHOFacilitatorCapacity_20240722 is AaveV3PayloadArbitrum {
   uint128 public constant NEW_LIMIT = 20_000_000 ether;

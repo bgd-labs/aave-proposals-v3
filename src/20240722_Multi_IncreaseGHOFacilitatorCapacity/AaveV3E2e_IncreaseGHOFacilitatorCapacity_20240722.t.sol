@@ -10,17 +10,13 @@ import {MiscArbitrum} from 'aave-address-book/MiscArbitrum.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {GovernanceV3Arbitrum} from 'aave-address-book/GovernanceV3Arbitrum.sol';
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
-import {RateLimiter} from 'ccip/v0.8/ccip/libraries/RateLimiter.sol';
-import {Internal} from 'ccip/v0.8/ccip/libraries/Internal.sol';
-import {Client} from 'ccip/v0.8/ccip/libraries/Client.sol';
-import {Router} from 'ccip/v0.8/ccip/Router.sol';
-import {PriceRegistry} from 'ccip/v0.8/ccip/PriceRegistry.sol';
-import {EVM2EVMOnRamp} from 'ccip/v0.8/ccip/onRamp/EVM2EVMOnRamp.sol';
-import {EVM2EVMOffRamp} from 'ccip/v0.8/ccip/offRamp/EVM2EVMOffRamp.sol';
-import {IPool} from 'ccip/v0.8/ccip/interfaces/pools/IPool.sol';
 
-import {UpgradeableLockReleaseTokenPool} from 'ccip/v0.8/ccip/pools/GHO/UpgradeableLockReleaseTokenPool.sol';
-import {UpgradeableBurnMintTokenPool} from 'ccip/v0.8/ccip/pools/GHO/UpgradeableBurnMintTokenPool.sol';
+import {IClient} from 'src/interfaces/ccip/IClient.sol';
+import {IInternal} from 'src/interfaces/ccip/IInternal.sol';
+import {IRouter} from 'src/interfaces/ccip/IRouter.sol';
+import {IEVM2EVMOffRamp} from 'src/interfaces/ccip/IEVM2EVMOffRamp.sol';
+
+import {IUpgradeableLockReleaseTokenPool} from 'src/interfaces/ccip/IUpgradeableLockReleaseTokenPool.sol';
 
 import {IGhoToken} from 'gho-core/gho/interfaces/IGhoToken.sol';
 
@@ -32,20 +28,26 @@ import {AaveV3Ethereum_IncreaseGHOFacilitatorCapacity_20240722} from './AaveV3Et
  * command: FOUNDRY_PROFILE=mainnet forge test --match-path=src/20240722_Multi_IncreaseGHOFacilitatorCapacity/AaveV3E2e_IncreaseGHOFacilitatorCapacity_20240722.t.sol -vv
  */
 contract AaveV3E2ETest_IncreaseGHOFacilitatorCapacity is ProtocolV3TestBase {
-  using Internal for Internal.EVM2EVMMessage;
+  /// @notice Leaf domain separator, should be used as the first 32 bytes of a leaf's preimage.
+  bytes32 internal constant LEAF_DOMAIN_SEPARATOR =
+    0x0000000000000000000000000000000000000000000000000000000000000000;
+
+  bytes32 internal constant EVM_2_EVM_MESSAGE_HASH = keccak256('EVM2EVMMessageHashV2');
+
+  // bytes4(keccak256("CCIP EVMExtraArgsV1"));
+  bytes4 internal constant EVM_EXTRA_ARGS_V1_TAG = 0x97a657c9;
 
   AaveV3Arbitrum_IncreaseGHOFacilitatorCapacity_20240722 internal arbProposal;
   AaveV3Ethereum_IncreaseGHOFacilitatorCapacity_20240722 internal ethProposal;
 
-  UpgradeableLockReleaseTokenPool internal ETH_TOKEN_POOL =
-    UpgradeableLockReleaseTokenPool(MiscEthereum.GHO_CCIP_TOKEN_POOL);
-  UpgradeableBurnMintTokenPool internal ARB_TOKEN_POOL =
-    UpgradeableBurnMintTokenPool(MiscArbitrum.GHO_CCIP_TOKEN_POOL);
+  IUpgradeableLockReleaseTokenPool internal ETH_TOKEN_POOL =
+    IUpgradeableLockReleaseTokenPool(MiscEthereum.GHO_CCIP_TOKEN_POOL);
+  address internal ARB_TOKEN_POOL = MiscArbitrum.GHO_CCIP_TOKEN_POOL;
   IGhoToken internal ETH_GHO;
   IGhoToken internal ARB_GHO;
 
-  Router internal ETH_ROUTER = Router(0x80226fc0Ee2b096224EeAc085Bb9a8cba1146f7D);
-  Router internal ARB_ROUTER = Router(0x141fa059441E0ca23ce184B6A78bafD2A517DdE8);
+  IRouter internal ETH_ROUTER = IRouter(0x80226fc0Ee2b096224EeAc085Bb9a8cba1146f7D);
+  IRouter internal ARB_ROUTER = IRouter(0x141fa059441E0ca23ce184B6A78bafD2A517DdE8);
 
   uint256 public constant CURRENT_CCIP_BUCKET_CAPACITY = 2_500_000e18; // 2.5M
   uint64 public constant ETH_ARB_CHAIN_SELECTOR = 4949039107694359620;
@@ -60,7 +62,7 @@ contract AaveV3E2ETest_IncreaseGHOFacilitatorCapacity is ProtocolV3TestBase {
   event Locked(address indexed sender, uint256 amount);
   event Minted(address indexed sender, address indexed recipient, uint256 amount);
   event Burned(address indexed sender, uint256 amount);
-  event CCIPSendRequested(Internal.EVM2EVMMessage message);
+  event CCIPSendRequested(IInternal.EVM2EVMMessage message);
   event Transfer(address indexed from, address indexed to, uint256 value);
   event Initialized(uint8 version);
 
@@ -83,14 +85,13 @@ contract AaveV3E2ETest_IncreaseGHOFacilitatorCapacity is ProtocolV3TestBase {
 
   /// @dev Full E2E Test: transfer from Ethereum to Arbitrum and way back, with limit
   function test_ccipFullE2E() public {
-    uint256 currentBridgedAmount = 2499999999437443624531410;
-
     vm.selectFork(arbitrumFork);
 
     assertEq(ARB_GHO.balanceOf(address(ARB_TOKEN_POOL)), 0);
     (uint256 capacity, uint256 level) = ARB_GHO.getFacilitatorBucket(address(ARB_TOKEN_POOL));
     assertEq(capacity, CURRENT_CCIP_BUCKET_CAPACITY);
-    assertEq(level, currentBridgedAmount);
+
+    uint256 currentBridgedAmount = level;
 
     // CCIP Transfer from Ethereum to Arbitrum
     // Ethereum execution (origin)
@@ -119,14 +120,14 @@ contract AaveV3E2ETest_IncreaseGHOFacilitatorCapacity is ProtocolV3TestBase {
     });
 
     (
-      Client.EVM2AnyMessage memory message,
-      Internal.EVM2EVMMessage memory geEvent,
+      IClient.EVM2AnyMessage memory message,
+      IInternal.EVM2EVMMessage memory geEvent,
       uint256 expectedFee
     ) = _prepareCcip(params);
 
     vm.expectRevert(
       abi.encodeWithSelector(
-        UpgradeableLockReleaseTokenPool.BridgeLimitExceeded.selector,
+        IUpgradeableLockReleaseTokenPool.BridgeLimitExceeded.selector,
         2_500_000e18
       )
     );
@@ -152,7 +153,7 @@ contract AaveV3E2ETest_IncreaseGHOFacilitatorCapacity is ProtocolV3TestBase {
     // Mock off ramp
     vm.startPrank(CCIP_ARB_OFF_RAMP);
     bytes[] memory emptyData = new bytes[](1);
-    EVM2EVMOffRamp(CCIP_ARB_OFF_RAMP).executeSingleMessage(geEvent, emptyData);
+    IEVM2EVMOffRamp(CCIP_ARB_OFF_RAMP).executeSingleMessage(geEvent, emptyData);
 
     assertEq(ARB_GHO.balanceOf(address(ARB_TOKEN_POOL)), 0);
     (capacity, level) = ARB_GHO.getFacilitatorBucket(address(ARB_TOKEN_POOL));
@@ -197,7 +198,7 @@ contract AaveV3E2ETest_IncreaseGHOFacilitatorCapacity is ProtocolV3TestBase {
 
     // Mock off ramp
     vm.startPrank(CCIP_ETH_OFF_RAMP);
-    EVM2EVMOffRamp(CCIP_ETH_OFF_RAMP).executeSingleMessage(geEvent, emptyData);
+    IEVM2EVMOffRamp(CCIP_ETH_OFF_RAMP).executeSingleMessage(geEvent, emptyData);
 
     assertEq(ETH_GHO.balanceOf(user), amount);
     assertEq(ETH_GHO.balanceOf(address(ETH_TOKEN_POOL)), currentBridgedAmount);
@@ -211,7 +212,7 @@ contract AaveV3E2ETest_IncreaseGHOFacilitatorCapacity is ProtocolV3TestBase {
 
   struct SendCcipParams {
     uint64 expectedSeqNum;
-    Router router;
+    IRouter router;
     address onRamp;
     address token;
     uint256 amount;
@@ -224,8 +225,8 @@ contract AaveV3E2ETest_IncreaseGHOFacilitatorCapacity is ProtocolV3TestBase {
 
   function _prepareCcip(
     SendCcipParams memory params
-  ) internal returns (Client.EVM2AnyMessage memory, Internal.EVM2EVMMessage memory, uint256) {
-    Client.EVM2AnyMessage memory message = _generateSingleTokenMessage(
+  ) internal returns (IClient.EVM2AnyMessage memory, IInternal.EVM2EVMMessage memory, uint256) {
+    IClient.EVM2AnyMessage memory message = _generateSingleTokenMessage(
       params.receiver,
       params.token,
       params.amount,
@@ -235,14 +236,14 @@ contract AaveV3E2ETest_IncreaseGHOFacilitatorCapacity is ProtocolV3TestBase {
 
     bytes32 metadataHash = keccak256(
       abi.encode(
-        Internal.EVM_2_EVM_MESSAGE_HASH,
+        EVM_2_EVM_MESSAGE_HASH,
         params.sourceChainSelector,
         params.destChainSelector,
         params.onRamp
       )
     );
 
-    Internal.EVM2EVMMessage memory geEvent = _messageToEvent(
+    IInternal.EVM2EVMMessage memory geEvent = _messageToEvent(
       message,
       params.expectedSeqNum,
       params.expectedSeqNum,
@@ -262,35 +263,35 @@ contract AaveV3E2ETest_IncreaseGHOFacilitatorCapacity is ProtocolV3TestBase {
     address token,
     uint256 amount,
     address feeToken
-  ) public pure returns (Client.EVM2AnyMessage memory) {
-    Client.EVMTokenAmount[] memory tokenAmounts = new Client.EVMTokenAmount[](1);
-    tokenAmounts[0] = Client.EVMTokenAmount({token: token, amount: amount});
+  ) public pure returns (IClient.EVM2AnyMessage memory) {
+    IClient.EVMTokenAmount[] memory tokenAmounts = new IClient.EVMTokenAmount[](1);
+    tokenAmounts[0] = IClient.EVMTokenAmount({token: token, amount: amount});
     return
-      Client.EVM2AnyMessage({
+      IClient.EVM2AnyMessage({
         receiver: abi.encode(receiver),
         data: '',
         tokenAmounts: tokenAmounts,
         feeToken: feeToken,
-        extraArgs: Client._argsToBytes(Client.EVMExtraArgsV1({gasLimit: 200_000}))
+        extraArgs: _argsToBytes(IClient.EVMExtraArgsV1({gasLimit: 200_000}))
       });
   }
 
   function _messageToEvent(
-    Client.EVM2AnyMessage memory message,
+    IClient.EVM2AnyMessage memory message,
     uint64 seqNum,
     uint64 nonce,
     uint256 feeTokenAmount,
     address originalSender,
     uint64 sourceChainSelector,
     bytes32 metadataHash
-  ) public pure returns (Internal.EVM2EVMMessage memory) {
+  ) public pure returns (IInternal.EVM2EVMMessage memory) {
     // Slicing is only available for calldata. So we have to build a new bytes array.
     bytes memory args = new bytes(message.extraArgs.length - 4);
     for (uint256 i = 4; i < message.extraArgs.length; ++i) {
       args[i - 4] = message.extraArgs[i];
     }
-    Client.EVMExtraArgsV1 memory extraArgs = abi.decode(args, (Client.EVMExtraArgsV1));
-    Internal.EVM2EVMMessage memory messageEvent = Internal.EVM2EVMMessage({
+    IClient.EVMExtraArgsV1 memory extraArgs = abi.decode(args, (IClient.EVMExtraArgsV1));
+    IInternal.EVM2EVMMessage memory messageEvent = IInternal.EVM2EVMMessage({
       sequenceNumber: seqNum,
       feeTokenAmount: feeTokenAmount,
       sender: originalSender,
@@ -306,38 +307,43 @@ contract AaveV3E2ETest_IncreaseGHOFacilitatorCapacity is ProtocolV3TestBase {
       messageId: ''
     });
 
-    messageEvent.messageId = Internal._hash(messageEvent, metadataHash);
+    messageEvent.messageId = _hash(messageEvent, metadataHash);
     return messageEvent;
   }
 
-  function _getTokensAndPools(
-    address[] memory tokens,
-    IPool[] memory pools
-  ) internal pure returns (Internal.PoolUpdate[] memory) {
-    Internal.PoolUpdate[] memory tokensAndPools = new Internal.PoolUpdate[](tokens.length);
-    for (uint256 i = 0; i < tokens.length; ++i) {
-      tokensAndPools[i] = Internal.PoolUpdate({token: tokens[i], pool: address(pools[i])});
-    }
-    return tokensAndPools;
+  function _argsToBytes(
+    IClient.EVMExtraArgsV1 memory extraArgs
+  ) internal pure returns (bytes memory bts) {
+    return abi.encodeWithSelector(EVM_EXTRA_ARGS_V1_TAG, extraArgs);
   }
 
-  function _getSingleTokenPriceUpdateStruct(
-    address token,
-    uint224 price
-  ) internal pure returns (Internal.PriceUpdates memory) {
-    Internal.TokenPriceUpdate[] memory tokenPriceUpdates = new Internal.TokenPriceUpdate[](1);
-    tokenPriceUpdates[0] = Internal.TokenPriceUpdate({sourceToken: token, usdPerToken: price});
-
-    Internal.PriceUpdates memory priceUpdates = Internal.PriceUpdates({
-      tokenPriceUpdates: tokenPriceUpdates,
-      gasPriceUpdates: new Internal.GasPriceUpdate[](0)
-    });
-
-    return priceUpdates;
-  }
-
-  function _getFacilitatorLevel(address f) internal view returns (uint256) {
-    (, uint256 level) = ARB_GHO.getFacilitatorBucket(f);
-    return level;
+  function _hash(
+    IInternal.EVM2EVMMessage memory original,
+    bytes32 metadataHash
+  ) internal pure returns (bytes32) {
+    // Fixed-size message fields are included in nested hash to reduce stack pressure.
+    // This hashing scheme is also used by RMN. If changing it, please notify the RMN maintainers.
+    return
+      keccak256(
+        abi.encode(
+          LEAF_DOMAIN_SEPARATOR,
+          metadataHash,
+          keccak256(
+            abi.encode(
+              original.sender,
+              original.receiver,
+              original.sequenceNumber,
+              original.gasLimit,
+              original.strict,
+              original.nonce,
+              original.feeToken,
+              original.feeTokenAmount
+            )
+          ),
+          keccak256(original.data),
+          keccak256(abi.encode(original.tokenAmounts)),
+          keccak256(abi.encode(original.sourceTokenData))
+        )
+      );
   }
 }
