@@ -47,7 +47,7 @@ All other parameters for wETH will remain unchanged:
 - Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240729_AaveV3Ethereum_WETHLTV0AaveV3LidoInstance/AaveV3Ethereum_WETHLTV0AaveV3LidoInstance_20240729.sol)
 - Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240729_AaveV3Ethereum_WETHLTV0AaveV3LidoInstance/AaveV3Ethereum_WETHLTV0AaveV3LidoInstance_20240729.t.sol)
 - [Snapshot](TODO)
-- [Discussion](TODO)
+- [Discussion](https://governance.aave.com/t/arfc-deploy-a-lido-aave-v3-instance/18047/18)
 
 ## Copyright
 
