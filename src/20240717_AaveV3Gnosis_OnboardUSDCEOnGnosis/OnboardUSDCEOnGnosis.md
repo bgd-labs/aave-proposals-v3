@@ -19,33 +19,28 @@ This proposal aims to onboard USDC.e into the Aave V3 pools on Gnosis in support
 
 The table below illustrates the configured risk parameters for **USDCe**
 
-| Parameter                          |                                      Value |
-| ---------------------------------- | -----------------------------------------: |
-| Isolation Mode                     |                                      false |
-| Borrowable                         |                                    ENABLED |
-| Collateral Enabled                 |                                       true |
-| Supply Cap (USDCe)                 |                                  1,500,000 |
-| Borrow Cap (USDCe)                 |                                  1,400,000 |
-| Debt Ceiling                       |                                      USD 0 |
-| LTV                                |                                       75 % |
-| LT                                 |                                       78 % |
-| Liquidation Bonus                  |                                        5 % |
-| Liquidation Protocol Fee           |                                       10 % |
-| Reserve Factor                     |                                       10 % |
-| Base Variable Borrow Rate          |                                        0 % |
-| Variable Slope 1                   |                                        9 % |
-| Variable Slope 2                   |                                       75 % |
-| Uoptimal                           |                                       90 % |
-| Stable Borrowing                   |                                   DISABLED |
-| Stable Slope1                      |                                        9 % |
-| Stable Slope2                      |                                       75 % |
-| Base Stable Rate Offset            |                                        0 % |
-| Stable Rate Excess Offset          |                                        0 % |
-| Optimal Stable To Total Debt Ratio |                                        0 % |
-| Flashloanable                      |                                    ENABLED |
-| Siloed Borrowing                   |                                   DISABLED |
-| Borrowable in Isolation            |                                    ENABLED |
-| Oracle                             | 0x0a2d05bc646C65A029e602c257DfA14adF8BfAd2 |
+| Parameter                 |                                      Value |
+| ------------------------- | -----------------------------------------: |
+| Isolation Mode            |                                      false |
+| Borrowable                |                                    ENABLED |
+| Collateral Enabled        |                                       true |
+| Supply Cap (USDCe)        |                                  1,500,000 |
+| Borrow Cap (USDCe)        |                                  1,400,000 |
+| Debt Ceiling              |                                      USD 0 |
+| LTV                       |                                       75 % |
+| LT                        |                                       78 % |
+| Liquidation Bonus         |                                        5 % |
+| Liquidation Protocol Fee  |                                       10 % |
+| Reserve Factor            |                                       10 % |
+| Base Variable Borrow Rate |                                        0 % |
+| Variable Slope 1          |                                        9 % |
+| Variable Slope 2          |                                       75 % |
+| Uoptimal                  |                                       90 % |
+| Stable Borrowing          |                                   DISABLED |
+| Flashloanable             |                                    ENABLED |
+| Siloed Borrowing          |                                   DISABLED |
+| Borrowable in Isolation   |                                    ENABLED |
+| Oracle                    | 0x0a2d05bc646C65A029e602c257DfA14adF8BfAd2 |
 
 ## References
 

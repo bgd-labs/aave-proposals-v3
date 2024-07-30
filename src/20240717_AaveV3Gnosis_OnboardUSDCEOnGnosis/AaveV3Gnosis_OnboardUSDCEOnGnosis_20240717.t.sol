@@ -17,7 +17,7 @@ contract AaveV3Gnosis_OnboardUSDCEOnGnosis_20240717_Test is ProtocolV3TestBase {
   AaveV3Gnosis_OnboardUSDCEOnGnosis_20240717 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('gnosis'), 35030051);
+    vm.createSelectFork(vm.rpcUrl('gnosis'), 35231842);
     proposal = new AaveV3Gnosis_OnboardUSDCEOnGnosis_20240717();
   }
 
@@ -33,6 +33,6 @@ contract AaveV3Gnosis_OnboardUSDCEOnGnosis_20240717_Test is ProtocolV3TestBase {
     (address aTokenAddress, , ) = AaveV3Gnosis
       .AAVE_PROTOCOL_DATA_PROVIDER
       .getReserveTokensAddresses(proposal.USDCe());
-    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Gnosis.COLLECTOR)), 10 ** 6);
+    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Gnosis.COLLECTOR)), 1e6);
   }
 }

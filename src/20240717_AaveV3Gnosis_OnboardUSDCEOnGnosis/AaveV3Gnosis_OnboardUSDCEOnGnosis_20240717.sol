@@ -3,9 +3,8 @@ pragma solidity ^0.8.0;
 
 import {AaveV3Gnosis, AaveV3GnosisEModes} from 'aave-address-book/AaveV3Gnosis.sol';
 import {AaveV3PayloadGnosis} from 'aave-helpers/v3-config-engine/AaveV3PayloadGnosis.sol';
-import {EngineFlags} from 'aave-helpers/v3-config-engine/EngineFlags.sol';
-import {IAaveV3ConfigEngine} from 'aave-helpers/v3-config-engine/IAaveV3ConfigEngine.sol';
-import {IV3RateStrategyFactory} from 'aave-helpers/v3-config-engine/IV3RateStrategyFactory.sol';
+import {EngineFlags} from 'aave-v3-periphery/contracts/v3-config-engine/EngineFlags.sol';
+import {IAaveV3ConfigEngine} from 'aave-v3-periphery/contracts/v3-config-engine/IAaveV3ConfigEngine.sol';
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';
 /**
@@ -46,16 +45,11 @@ contract AaveV3Gnosis_OnboardUSDCEOnGnosis_20240717 is AaveV3PayloadGnosis {
       borrowCap: 1_400_000,
       debtCeiling: 0,
       liqProtocolFee: 10_00,
-      rateStrategyParams: IV3RateStrategyFactory.RateStrategyParams({
-        optimalUsageRatio: _bpsToRay(90_00),
-        baseVariableBorrowRate: _bpsToRay(0),
-        variableRateSlope1: _bpsToRay(9_00),
-        variableRateSlope2: _bpsToRay(75_00),
-        stableRateSlope1: _bpsToRay(9_00),
-        stableRateSlope2: _bpsToRay(75_00),
-        baseStableRateOffset: _bpsToRay(0),
-        stableRateExcessOffset: _bpsToRay(0),
-        optimalStableToTotalDebtRatio: _bpsToRay(0)
+      rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
+        optimalUsageRatio: 90_00,
+        baseVariableBorrowRate: 0,
+        variableRateSlope1: 9_00,
+        variableRateSlope2: 75_00
       })
     });
 
