@@ -10,7 +10,6 @@ remappings = [
 ]
 ffi = true
 fs_permissions = [{ access = "write", path = "./reports" }, { access = "read", path = "./zkout" }]
-evm_version = 'shanghai'
 
 [profile.zksync]
 compile = true
