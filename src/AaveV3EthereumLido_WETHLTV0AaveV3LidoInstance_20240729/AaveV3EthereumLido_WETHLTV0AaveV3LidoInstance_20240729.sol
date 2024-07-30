@@ -10,8 +10,8 @@ import {EngineFlags} from 'aave-v3-periphery/contracts/v3-config-engine/EngineFl
 /**
  * @title wETH LTV0 Aave V3 Lido Instance
  * @author ACI
- * - Snapshot: TODO
- * - Discussion: TODO
+ * - Snapshot: Direct-to-AIP
+ * - Discussion: https://governance.aave.com/t/arfc-deploy-a-lido-aave-v3-instance/18047/18
  */
 contract AaveV3EthereumLido_WETHLTV0AaveV3LidoInstance_20240729 is AaveV3PayloadEthereumLido {
   function collateralsUpdates()
