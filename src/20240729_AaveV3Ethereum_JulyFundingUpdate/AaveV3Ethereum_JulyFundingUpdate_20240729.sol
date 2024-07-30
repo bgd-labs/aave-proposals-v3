@@ -40,7 +40,7 @@ contract AaveV3Ethereum_JulyFundingUpdate_20240729 is IProposalGenericExecutor {
     /// ALLOWANCES
     AaveV3Ethereum.COLLECTOR.approve(AaveV3EthereumAssets.GHO_UNDERLYING, MERIT_SAFE, GHO_AMOUNT);
 
-    AaveV3Ethereum.COLLECTOR.approve(AaveV3EthereumAssets.WETH_UNDERLYING, MERIT_SAFE, WETH_AMOUNT);
+    AaveV3Ethereum.COLLECTOR.approve(AaveV3EthereumAssets.WETH_A_TOKEN, MERIT_SAFE, WETH_AMOUNT);
 
     /// SWAPS
     /// aEthUSDe
