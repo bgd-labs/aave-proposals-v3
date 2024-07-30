@@ -78,14 +78,11 @@ export function prefixWithImports(code: string) {
   }
   // shared config engine imports
   if (findMatch(code, 'EngineFlags')) {
-    imports += `import {EngineFlags} from 'aave-helpers/v3-config-engine/EngineFlags.sol';\n`;
+    imports += `import {EngineFlags} from 'aave-v3-periphery/contracts/v3-config-engine/EngineFlags.sol';\n`;
   }
   // v3 config engine imports
   if (findMatch(code, 'IAaveV3ConfigEngine')) {
-    imports += `import {IAaveV3ConfigEngine} from 'aave-helpers/v3-config-engine/IAaveV3ConfigEngine.sol';\n`;
-  }
-  if (findMatch(code, 'IV3RateStrategyFactory')) {
-    imports += `import {IV3RateStrategyFactory} from 'aave-helpers/v3-config-engine/IV3RateStrategyFactory.sol';\n`;
+    imports += `import {IAaveV3ConfigEngine} from 'aave-v3-periphery/contracts/v3-config-engine/IAaveV3ConfigEngine.sol';\n`;
   }
   // v2 config engine imports
   if (findMatch(code, 'IAaveV2ConfigEngine')) {

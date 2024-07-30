@@ -20,7 +20,7 @@ export function generateScript(options: Options) {
   // generate imports
   template += `import {${['Ethereum', ...chains.filter((c) => c !== 'Ethereum')]
     .map((chain) => `${chain}Script`)
-    .join(', ')}} from 'aave-helpers/ScriptUtils.sol';\n`;
+    .join(', ')}} from 'solidity-utils/contracts/utils/ScriptUtils.sol';\n`;
   template += options.pools
     .map((pool) => {
       const name = generateContractName(options, pool);
