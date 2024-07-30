@@ -31,8 +31,8 @@ Given these observations, we recommend making the following changes:
 
 ## References
 
-- Implementation: [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240724_AaveV3Avalanche_RiskParameterUpdatesSAVAXOnAaveV3Avalanche/AaveV3Avalanche_RiskParameterUpdatesSAVAXOnAaveV3Avalanche_20240724.sol)
-- Tests: [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240724_AaveV3Avalanche_RiskParameterUpdatesSAVAXOnAaveV3Avalanche/AaveV3Avalanche_RiskParameterUpdatesSAVAXOnAaveV3Avalanche_20240724.t.sol)
+- Implementation: [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/1391ea39052a0d35fbd843bd49edaf6ea7eb1c73/src/20240724_AaveV3Avalanche_RiskParameterUpdatesSAVAXOnAaveV3Avalanche/AaveV3Avalanche_RiskParameterUpdatesSAVAXOnAaveV3Avalanche_20240724.sol)
+- Tests: [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/1391ea39052a0d35fbd843bd49edaf6ea7eb1c73/src/20240724_AaveV3Avalanche_RiskParameterUpdatesSAVAXOnAaveV3Avalanche/AaveV3Avalanche_RiskParameterUpdatesSAVAXOnAaveV3Avalanche_20240724.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x471ab55b0091043963c744f228befd842aeb354b0d04c76da3c9eb2b401934a4)
 - [Discussion](https://governance.aave.com/t/arfc-chaos-labs-risk-parameter-updates-savax-on-aave-v3-avalanche-07-16-2024/18277)
 
