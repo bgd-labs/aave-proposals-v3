@@ -7,7 +7,7 @@ import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethe
 /**
  * @title TokenLogic & karpatkey Service Provider Partnership-phase 2
  * @author TokenLogic & karpatkey
- * - Snapshot: TODO
+ * - Snapshot: https://snapshot.org/#/aave.eth/proposal/0xc44ec840f8f7f6ca3ef2f2a4289882c4cdc1a8b3e6e9ad6b811a640097a8016a
  * - Discussion: https://governance.aave.com/t/arfc-tokenlogic-karpatkey-financial-service-providers-phase-ii/18285
  */
 contract AaveV3Ethereum_TokenLogicKarpatkeyServiceProviderPartnershipPhase2_20240723 is
