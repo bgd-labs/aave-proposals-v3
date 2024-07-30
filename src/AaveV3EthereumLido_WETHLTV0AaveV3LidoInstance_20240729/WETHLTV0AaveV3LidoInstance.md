@@ -20,19 +20,16 @@ The motivation for this change includes:
 2. Reducing potential risks associated with using wETH as collateral in this specialized instance.
 3. Encouraging users to migrate towards wstETH for collateral, aligning with the Lido ecosystem focus.
 
-## Specification
-
 This AIP proposes the following changes to the Lido Aave v3 instance for wETH:
 
 - Set wETH LTV (Loan-to-Value) from 82% to 0%
-- Set wETH Liquidation Threshold from 83% to 0%
 
 All other parameters for wETH will remain unchanged:
 
 | Parameter             | Current Value | Proposed Value |
 | --------------------- | ------------- | -------------- |
 | LTV                   | 82%           | 0%             |
-| Liquidation Threshold | 83%           | 0%             |
+| Liquidation Threshold | 83%           | 83%            |
 | Liquidation Bonus     | 5%            | 5%             |
 | Reserve Factor        | 10%           | 10%            |
 | Variable Base         | 0.0%          | 0.0%           |
