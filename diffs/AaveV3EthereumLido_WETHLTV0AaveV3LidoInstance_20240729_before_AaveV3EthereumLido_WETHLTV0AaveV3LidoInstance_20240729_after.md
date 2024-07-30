@@ -18,6 +18,7 @@
 
 | description | value before | value after |
 | --- | --- | --- |
+| ltv | 82 % [8200] | 0 % [0] |
 | address | null | [0x6642dcAaBc80807DD083c66a301d308568CBcA3D](https://etherscan.io/address/0x6642dcAaBc80807DD083c66a301d308568CBcA3D) |
 | baseVariableBorrowRate | null | 0 |
 | maxVariableBorrowRate | null | 875000000000000000000000000 |
@@ -58,6 +59,10 @@
       }
     },
     "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2": {
+      "ltv": {
+        "from": 8200,
+        "to": 0
+      },
       "address": {
         "from": null,
         "to": "0x6642dcAaBc80807DD083c66a301d308568CBcA3D"
