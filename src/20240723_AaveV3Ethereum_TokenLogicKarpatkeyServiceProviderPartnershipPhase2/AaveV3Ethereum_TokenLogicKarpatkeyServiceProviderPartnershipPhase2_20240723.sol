@@ -17,20 +17,15 @@ contract AaveV3Ethereum_TokenLogicKarpatkeyServiceProviderPartnershipPhase2_2024
   address public constant KARPATKEY_RECEIVER = 0x58e6c7ab55Aa9012eAccA16d1ED4c15795669E1C;
   address public constant TOKENLOGIC_RECEIVER = 0x3e4A9f478C0c13A15137Fc81e9d8269F127b4B40;
 
-  uint256 public constant KARPATKEY_AMOUNT = 250_000 ether;
-  uint256 public constant TOKENLOGIC_AMOUNT = 250_000 ether;
+  uint256 public constant AMOUNT = 250_000 ether;
 
   uint256 public constant STREAM_DURATION = 180 days;
   uint256 public constant ORIGINAL_STARTDATE = 1718673864;
 
-  uint256 public constant ACTUAL_AMOUNT_KARPATKEY =
-    (KARPATKEY_AMOUNT / STREAM_DURATION) * STREAM_DURATION;
-
-  uint256 public constant ACTUAL_AMOUNT_TOKENLOGIC =
-    (TOKENLOGIC_AMOUNT / STREAM_DURATION) * STREAM_DURATION;
+  uint256 public constant ACTUAL_AMOUNT = (AMOUNT / STREAM_DURATION) * STREAM_DURATION;
 
   function execute() external {
-    uint256 backdatedAmount = (ACTUAL_AMOUNT_KARPATKEY / STREAM_DURATION) *
+    uint256 backdatedAmount = (ACTUAL_AMOUNT / STREAM_DURATION) *
       (block.timestamp - ORIGINAL_STARTDATE);
 
     AaveV3Ethereum.COLLECTOR.transfer(
@@ -46,7 +41,7 @@ contract AaveV3Ethereum_TokenLogicKarpatkeyServiceProviderPartnershipPhase2_2024
 
     AaveV3Ethereum.COLLECTOR.createStream(
       KARPATKEY_RECEIVER,
-      ACTUAL_AMOUNT_KARPATKEY - backdatedAmount,
+      ACTUAL_AMOUNT - backdatedAmount,
       AaveV3EthereumAssets.GHO_UNDERLYING,
       block.timestamp,
       ORIGINAL_STARTDATE + STREAM_DURATION
@@ -54,7 +49,7 @@ contract AaveV3Ethereum_TokenLogicKarpatkeyServiceProviderPartnershipPhase2_2024
 
     AaveV3Ethereum.COLLECTOR.createStream(
       TOKENLOGIC_RECEIVER,
-      ACTUAL_AMOUNT_TOKENLOGIC - backdatedAmount,
+      ACTUAL_AMOUNT - backdatedAmount,
       AaveV3EthereumAssets.GHO_UNDERLYING,
       block.timestamp,
       ORIGINAL_STARTDATE + STREAM_DURATION

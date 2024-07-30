@@ -40,7 +40,7 @@ contract AaveV3Ethereum_TokenLogicKarpatkeyServiceProviderPartnershipPhase2_2024
       address(AaveV3Ethereum.COLLECTOR)
     );
 
-    uint256 backdatedAmount = (proposal.ACTUAL_AMOUNT_KARPATKEY() / proposal.STREAM_DURATION()) *
+    uint256 backdatedAmount = (proposal.ACTUAL_AMOUNT() / proposal.STREAM_DURATION()) *
       (block.timestamp - proposal.ORIGINAL_STARTDATE());
 
     executePayload(vm, address(proposal));
@@ -59,13 +59,13 @@ contract AaveV3Ethereum_TokenLogicKarpatkeyServiceProviderPartnershipPhase2_2024
 
       assertEq(senderGHO, address(AaveV3Ethereum.COLLECTOR));
       assertEq(recipientGHO, proposal.KARPATKEY_RECEIVER());
-      assertEq(depositGHO + backdatedAmount, proposal.ACTUAL_AMOUNT_KARPATKEY());
+      assertEq(depositGHO + backdatedAmount, proposal.ACTUAL_AMOUNT());
       assertEq(tokenAddressGHO, AaveV3EthereumAssets.GHO_UNDERLYING);
       assertEq(
         stopTimeGHO - startTimeGHO,
         proposal.STREAM_DURATION() + proposal.ORIGINAL_STARTDATE() - block.timestamp
       );
-      assertEq(remainingBalanceGHO + backdatedAmount, proposal.ACTUAL_AMOUNT_KARPATKEY());
+      assertEq(remainingBalanceGHO + backdatedAmount, proposal.ACTUAL_AMOUNT());
     }
 
     {
@@ -82,13 +82,13 @@ contract AaveV3Ethereum_TokenLogicKarpatkeyServiceProviderPartnershipPhase2_2024
 
       assertEq(senderGHO, address(AaveV3Ethereum.COLLECTOR));
       assertEq(recipientGHO, proposal.TOKENLOGIC_RECEIVER());
-      assertEq(depositGHO + backdatedAmount, proposal.ACTUAL_AMOUNT_TOKENLOGIC());
+      assertEq(depositGHO + backdatedAmount, proposal.ACTUAL_AMOUNT());
       assertEq(tokenAddressGHO, AaveV3EthereumAssets.GHO_UNDERLYING);
       assertEq(
         stopTimeGHO - startTimeGHO,
         proposal.STREAM_DURATION() + proposal.ORIGINAL_STARTDATE() - block.timestamp
       );
-      assertEq(remainingBalanceGHO + backdatedAmount, proposal.ACTUAL_AMOUNT_TOKENLOGIC());
+      assertEq(remainingBalanceGHO + backdatedAmount, proposal.ACTUAL_AMOUNT());
     }
 
     // Can withdraw during stream
@@ -97,7 +97,7 @@ contract AaveV3Ethereum_TokenLogicKarpatkeyServiceProviderPartnershipPhase2_2024
     vm.startPrank(proposal.KARPATKEY_RECEIVER());
     AaveV3Ethereum.COLLECTOR.withdrawFromStream(
       nextCollectorStreamID,
-      proposal.ACTUAL_AMOUNT_KARPATKEY() / 30 days
+      proposal.ACTUAL_AMOUNT() / 30 days
     );
     vm.stopPrank();
 
@@ -109,7 +109,7 @@ contract AaveV3Ethereum_TokenLogicKarpatkeyServiceProviderPartnershipPhase2_2024
     vm.startPrank(proposal.TOKENLOGIC_RECEIVER());
     AaveV3Ethereum.COLLECTOR.withdrawFromStream(
       nextCollectorStreamIDTwo,
-      proposal.ACTUAL_AMOUNT_TOKENLOGIC() / 30 days
+      proposal.ACTUAL_AMOUNT() / 30 days
     );
     vm.stopPrank();
 
@@ -144,17 +144,15 @@ contract AaveV3Ethereum_TokenLogicKarpatkeyServiceProviderPartnershipPhase2_2024
 
     assertEq(
       IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(proposal.KARPATKEY_RECEIVER()),
-      receiverOneBalanceBefore + proposal.ACTUAL_AMOUNT_KARPATKEY()
+      receiverOneBalanceBefore + proposal.ACTUAL_AMOUNT()
     );
     assertEq(
       IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(proposal.TOKENLOGIC_RECEIVER()),
-      receiverTwoBalanceBefore + proposal.ACTUAL_AMOUNT_TOKENLOGIC()
+      receiverTwoBalanceBefore + proposal.ACTUAL_AMOUNT()
     );
     assertEq(
       IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
-      collectorBalanceBefore -
-        proposal.ACTUAL_AMOUNT_KARPATKEY() -
-        proposal.ACTUAL_AMOUNT_TOKENLOGIC()
+      collectorBalanceBefore - proposal.ACTUAL_AMOUNT() - proposal.ACTUAL_AMOUNT()
     );
   }
 }
