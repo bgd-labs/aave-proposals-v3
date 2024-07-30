@@ -52,7 +52,7 @@ contract CreateProposal is EthereumScript {
       GovernanceV3Ethereum.VOTING_PORTAL_ETH_POL,
       GovV3Helpers.ipfsHashFile(
         vm,
-        'src/20240729_AaveV3Ethereum_WETHLTV0AaveV3LidoInstance/WETHLTV0AaveV3LidoInstance.md'
+        'src/AaveV3EthereumLido_WETHLTV0AaveV3LidoInstance_20240729/WETHLTV0AaveV3LidoInstance.md'
       )
     );
   }
