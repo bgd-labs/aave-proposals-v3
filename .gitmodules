@@ -1,6 +1,7 @@
 [submodule "lib/aave-helpers"]
 	path = lib/aave-helpers
 	url = https://github.com/bgd-labs/aave-helpers
+  branch = feat/zksync-updates
 [submodule "lib/ccip"]
 	path = lib/ccip
 	url = https://github.com/aave/ccip
