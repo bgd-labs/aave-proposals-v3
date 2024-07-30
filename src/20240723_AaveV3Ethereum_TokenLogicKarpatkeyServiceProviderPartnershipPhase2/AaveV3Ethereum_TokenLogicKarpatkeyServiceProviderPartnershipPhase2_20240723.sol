@@ -3,6 +3,7 @@ pragma solidity ^0.8.0;
 
 import {IProposalGenericExecutor} from 'aave-helpers/interfaces/IProposalGenericExecutor.sol';
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
+import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 
 /**
  * @title TokenLogic & karpatkey Service Provider Partnership-phase 2
@@ -20,6 +21,7 @@ contract AaveV3Ethereum_TokenLogicKarpatkeyServiceProviderPartnershipPhase2_2024
   uint256 public constant TOKENLOGIC_AMOUNT = 250_000 ether;
 
   uint256 public constant STREAM_DURATION = 180 days;
+  uint256 public constant ORIGINAL_STARTDATE = 1718673864;
 
   uint256 public constant ACTUAL_AMOUNT_KARPATKEY =
     (KARPATKEY_AMOUNT / STREAM_DURATION) * STREAM_DURATION;
@@ -28,6 +30,20 @@ contract AaveV3Ethereum_TokenLogicKarpatkeyServiceProviderPartnershipPhase2_2024
     (TOKENLOGIC_AMOUNT / STREAM_DURATION) * STREAM_DURATION;
 
   function execute() external {
+    uint256 backdatedAmount = (ACTUAL_AMOUNT_KARPATKEY / STREAM_DURATION) *
+      (block.timestamp - ORIGINAL_STARTDATE);
+
+    AaveV3Ethereum.COLLECTOR.transfer(
+      AaveV3EthereumAssets.GHO_UNDERLYING,
+      KARPATKEY_RECEIVER,
+      backdatedAmount
+    );
+    AaveV3Ethereum.COLLECTOR.transfer(
+      AaveV3EthereumAssets.GHO_UNDERLYING,
+      TOKENLOGIC_RECEIVER,
+      backdatedAmount
+    );
+
     AaveV3Ethereum.COLLECTOR.createStream(
       KARPATKEY_RECEIVER,
       ACTUAL_AMOUNT_KARPATKEY,
