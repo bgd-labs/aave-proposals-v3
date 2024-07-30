@@ -2,7 +2,7 @@
 
 ### Reserves altered
 
-#### sAVAX ([0x2b2C81e08f1Af8835a78Bb2A90AE924ACE0eA4bE](https://snowscan.xyz/address/0x2b2C81e08f1Af8835a78Bb2A90AE924ACE0eA4bE))
+#### sAVAX ([0x2b2C81e08f1Af8835a78Bb2A90AE924ACE0eA4bE](https://snowtrace.io/address/0x2b2C81e08f1Af8835a78Bb2A90AE924ACE0eA4bE))
 
 | description | value before | value after |
 | --- | --- | --- |
