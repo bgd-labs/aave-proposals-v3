@@ -3,7 +3,7 @@ pragma solidity ^0.8.0;
 
 import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aave-helpers/GovV3Helpers.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
-import {EthereumScript} from 'aave-helpers/ScriptUtils.sol';
+import {EthereumScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
 import {AaveV3Ethereum_ToolingUpdateAllowance_20240707} from './AaveV3Ethereum_ToolingUpdateAllowance_20240707.sol';
 
 /**
