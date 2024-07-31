@@ -103,14 +103,14 @@ By addressing these challenges, our team aims to support the DAO in achieving su
 
 # Specification
 
-The createStream() method of the IAaveEcosystemReserveController will be called to create two streams when the payload gets executed:
+The transfer method of the Collector will sent backdated token to next two address and the createStream() method of the Collector will be called to create two streams when the payload gets executed:
 
 **karpatkey**
-Stream: 250k GHO over 180 days
+Stream: 250k GHO over 180 days from 1718673864
 Address: `0x58e6c7ab55aa9012eacca16d1ed4c15795669e1c`
 
 **TokenLogic**
-Stream: 250k GHO over 180 days
+Stream: 250k GHO over 180 days from 1718673864
 Address: `0x3e4A9f478C0c13A15137Fc81e9d8269F127b4B40`
 
 TokenLogic and karpatkey are to be included in the Gas Rebate program that reimburses deployment and testings costs.
