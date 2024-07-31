@@ -19,7 +19,7 @@ contract AaveV3Avalanche_UpdatePoRExecutorV3RobotCancel_20240617_Test is Protoco
     0x7aE2930B50CFEbc99FE6DB16CE5B9C7D8d09332C;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('avalanche'), 46823054);
+    vm.createSelectFork(vm.rpcUrl('avalanche'), 48662670);
     proposal = new AaveV3Avalanche_UpdatePoRExecutorV3RobotCancel_20240617();
   }
 

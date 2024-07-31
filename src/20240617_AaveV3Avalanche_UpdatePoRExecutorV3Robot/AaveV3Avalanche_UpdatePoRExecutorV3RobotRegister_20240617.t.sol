@@ -20,7 +20,7 @@ contract AaveV3Avalanche_UpdatePoRExecutorV3RobotRegister_20240617_Test is Proto
   event KeeperRegistered(uint256 indexed id, address indexed upkeep, uint96 indexed amount);
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('avalanche'), 46823054);
+    vm.createSelectFork(vm.rpcUrl('avalanche'), 48662670);
     cancelProposal = new AaveV3Avalanche_UpdatePoRExecutorV3RobotCancel_20240617();
     proposal = new AaveV3Avalanche_UpdatePoRExecutorV3RobotRegister_20240617();
 
