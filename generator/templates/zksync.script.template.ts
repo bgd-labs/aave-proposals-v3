@@ -12,7 +12,7 @@ import {prefixWithPragma} from '../utils/constants';
 export function generateZkSyncScript(options: Options) {
   const folderName = generateFolderName(options);
   const fileName = generateContractName(options);
-  options.pools = options.pools.filter((c) => c == 'AaveV3ZkSync');
+  const zkSyncPools = options.pools.filter((c) => c == 'AaveV3ZkSync');
 
   const chain = 'ZkSync';
   let template = '';
@@ -20,7 +20,7 @@ export function generateZkSyncScript(options: Options) {
   // generate imports
   template += `import {ZkSyncScript} from 'aave-helpers/ScriptUtils.sol';\n`;
 
-  template += options.pools
+  template += zkSyncPools
     .map((pool) => {
       const name = generateContractName(options, pool);
       return `import {${name}} from './${name}.sol';`;
@@ -28,7 +28,7 @@ export function generateZkSyncScript(options: Options) {
     .join('\n');
   template += '\n\n';
 
-  const poolsToChainsMap = options.pools.reduce((acc, pool) => {
+  const poolsToChainsMap = zkSyncPools.reduce((acc, pool) => {
     const chain = getPoolChain(pool);
     const contractName = generateContractName(options, pool);
     if (!acc[chain]) acc[chain] = [];
