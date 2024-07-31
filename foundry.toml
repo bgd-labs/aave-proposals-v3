@@ -10,6 +10,7 @@ remappings = [
 ]
 ffi = true
 fs_permissions = [{ access = "write", path = "./reports" }, { access = "read", path = "./zkout" }]
+evm_version = 'shanghai'
 
 [profile.zksync]
 compile = true
@@ -18,6 +19,9 @@ mode = '3'
 src = 'zksync/src'
 test = 'zksync/tests'
 libs = ['lib']
+fs_permissions = [{ access = "write", path = "./reports" }]
+evm_version = 'paris'
+zksolc = '0.5.1'
 solc = '0.8.19'
 ffi = true
 
