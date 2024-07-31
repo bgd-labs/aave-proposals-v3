@@ -6,8 +6,6 @@ import {AaveV3Arbitrum, AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbi
 import {Test, stdStorage, StdStorage} from 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/ProtocolV3TestBase.sol';
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
-// import {IERC3156FlashBorrower} from '@openzeppelin/contracts/interfaces/IERC3156FlashBorrower.sol';
-// import {IERC3156FlashLender} from '@openzeppelin/contracts/interfaces/IERC3156FlashLender.sol';
 
 import {AaveV3Arbitrum_GHOFlashMinterFacilitatorArbitrum_20240727, IGhoToken} from './AaveV3Arbitrum_GHOFlashMinterFacilitatorArbitrum_20240727.sol';
 
