@@ -117,7 +117,7 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603 is IProposalGenericExecutor {
       GHO_USD_FEED,
       address(AaveV3Ethereum.COLLECTOR),
       lusdBalance,
-      150
+      500
     );
 
     /// aEthPYUSD
@@ -146,7 +146,7 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603 is IProposalGenericExecutor {
       GHO_USD_FEED,
       address(AaveV3Ethereum.COLLECTOR),
       pyusdBalance,
-      100
+      500
     );
 
     /// aUSDC & aEthUSDC
