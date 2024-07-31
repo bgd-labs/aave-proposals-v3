@@ -51,8 +51,6 @@ export async function generateFiles(options: Options, poolConfigs: PoolConfigs):
     };
   }
 
-  console.log('before', options, poolConfigs);
-
   console.log('generating script');
   let scripts: Scripts = {
     defaultScript: await prettier.format(generateScript(options), {
@@ -66,8 +64,6 @@ export async function generateFiles(options: Options, poolConfigs: PoolConfigs):
       filepath: 'foo.sol',
     });
   }
-
-  console.log('after', options, poolConfigs);
 
   console.log('generating aip');
   const aip = await prettier.format(generateAIP(options, poolConfigs), {

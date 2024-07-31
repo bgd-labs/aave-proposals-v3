@@ -29,14 +29,16 @@ import {${contractName}} from './${contractName}.sol';
 
 /**
  * @dev Test for ${contractName}
- * command: FOUNDRY_PROFILE=${getChainAlias(chain)} forge test --match-path=src/${folderName}/${contractName}.t.sol -vv
+ * command: FOUNDRY_PROFILE=${getChainAlias(chain)} forge test ${chain === 'ZkSync' ? '--zksync --match-path=zksync/src/' : '--match-path=src/'}${folderName}/${contractName}.t.sol -vv
  */
 contract ${contractName}_Test is ${testBase} {
   ${contractName} internal proposal;
 
-  function setUp() public {
+  function setUp() public ${chain === 'ZkSync' ? 'override' : ''} {
     vm.createSelectFork(vm.rpcUrl('${getChainAlias(chain)}'), ${poolConfig.cache.blockNumber});
     proposal = new ${contractName}();
+
+    ${chain === 'ZkSync' ? 'super.setUp();' : ''}
   }
 
   /**
