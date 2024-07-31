@@ -49,13 +49,13 @@ library GovernanceGuardians {
   // https://arbiscan.io/address/0x1A0581dd5C7C3DA4Ba1CDa7e0BcA7286afc4973b
   address public constant ARBITRUM_GUARDIAN = 0x1A0581dd5C7C3DA4Ba1CDa7e0BcA7286afc4973b;
 
-  // ttps://basescan.org/address/0x360c0a69Ed2912351227a0b745f890CB2eBDbcFe
+  // https://basescan.org/address/0x360c0a69Ed2912351227a0b745f890CB2eBDbcFe
   address public constant BASE_GUARDIAN = 0x360c0a69Ed2912351227a0b745f890CB2eBDbcFe;
 
   // https://gnosisscan.io/address/0x1A0581dd5C7C3DA4Ba1CDa7e0BcA7286afc4973b
   address public constant GNOSIS_GUARDIAN = 0x1A0581dd5C7C3DA4Ba1CDa7e0BcA7286afc4973b;
 
-  // ttps://scrollscan.com/address/0x1A0581dd5C7C3DA4Ba1CDa7e0BcA7286afc4973b
+  // https://scrollscan.com/address/0x1A0581dd5C7C3DA4Ba1CDa7e0BcA7286afc4973b
   address public constant SCROLL_GUARDIAN = 0x1A0581dd5C7C3DA4Ba1CDa7e0BcA7286afc4973b;
 
   // https://andromeda-explorer.metis.io/address/0x360c0a69Ed2912351227a0b745f890CB2eBDbcFe

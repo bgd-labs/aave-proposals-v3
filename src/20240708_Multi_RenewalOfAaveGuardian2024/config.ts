@@ -23,7 +23,7 @@ export const config: ConfigFile = {
     date: '20240708',
     discussion: 'https://governance.aave.com/t/arfc-renewal-of-aave-guardian-2024/17523',
     snapshot:
-      'https://snapshot.org/#/aave.eth/proposal/0x51cde0e183bd250839ef1fc4feb04a592263f848d44d1f67618504f98fa80865',
+      'https://snapshot.org/#/aave.eth/proposal/0x003ce30676805f71e5b356745fb3f01e5f82b8d1655750aaef46c7ed4a0a3578',
     votingNetwork: 'POLYGON',
   },
   poolOptions: {

@@ -9,7 +9,7 @@ import {ProtocolGuardians, GovernanceGuardians} from './Guardians.sol';
 /**
  * @title Renewal of Aave Guardian 2024
  * @author BGD Labs @bgdlabs
- * - Snapshot: https://snapshot.org/#/aave.eth/proposal/0x51cde0e183bd250839ef1fc4feb04a592263f848d44d1f67618504f98fa80865
+ * - Snapshot: https://snapshot.org/#/aave.eth/proposal/0x003ce30676805f71e5b356745fb3f01e5f82b8d1655750aaef46c7ed4a0a3578
  * - Discussion: https://governance.aave.com/t/arfc-renewal-of-aave-guardian-2024/17523
  */
 contract AaveV3Gnosis_RenewalOfAaveGuardian2024_20240708 is RenewalV3BasePayload {
