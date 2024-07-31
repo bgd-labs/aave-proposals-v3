@@ -3,8 +3,8 @@ pragma solidity ^0.8.0;
 
 import {AaveV3BaseAssets} from 'aave-address-book/AaveV3Base.sol';
 import {AaveV3PayloadBase} from 'aave-helpers/v3-config-engine/AaveV3PayloadBase.sol';
-import {EngineFlags} from 'aave-helpers/v3-config-engine/EngineFlags.sol';
-import {IAaveV3ConfigEngine} from 'aave-helpers/v3-config-engine/IAaveV3ConfigEngine.sol';
+import {EngineFlags} from 'aave-v3-periphery/contracts/v3-config-engine/EngineFlags.sol';
+import {IAaveV3ConfigEngine} from 'aave-v3-periphery/contracts/v3-config-engine/IAaveV3ConfigEngine.sol';
 /**
  * @title Reduce Reserve Factor on wstETH
  * @author Aave Chan Initiative
@@ -25,9 +25,9 @@ contract AaveV3Base_ReduceReserveFactorOnWstETH_20240716 is AaveV3PayloadBase {
       asset: AaveV3BaseAssets.wstETH_UNDERLYING,
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
-      stableRateModeEnabled: EngineFlags. KEEP_CURRENT,
-      borrowableInIsolation: EngineFlags. KEEP_CURRENT,
-      withSiloedBorrowing: EngineFlags. KEEP_CURRENT,
+      stableRateModeEnabled: EngineFlags.KEEP_CURRENT,
+      borrowableInIsolation: EngineFlags.KEEP_CURRENT,
+      withSiloedBorrowing: EngineFlags.KEEP_CURRENT,
       reserveFactor: 5_00
     });
 

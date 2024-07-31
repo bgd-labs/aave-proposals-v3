@@ -6,7 +6,7 @@
 
 | description | value before | value after |
 | --- | --- | --- |
-| reserveFactor | 15 % | 5 % |
+| reserveFactor | 15 % [1500] | 5 % [500] |
 
 
 ## Raw diff
