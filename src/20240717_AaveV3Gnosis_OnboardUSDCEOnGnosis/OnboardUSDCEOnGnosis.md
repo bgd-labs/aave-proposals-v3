@@ -44,8 +44,8 @@ The table below illustrates the configured risk parameters for **USDCe**
 
 ## References
 
-- Implementation: [AaveV3Gnosis](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240717_AaveV3Gnosis_OnboardUSDCEOnGnosis/AaveV3Gnosis_OnboardUSDCEOnGnosis_20240717.sol)
-- Tests: [AaveV3Gnosis](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240717_AaveV3Gnosis_OnboardUSDCEOnGnosis/AaveV3Gnosis_OnboardUSDCEOnGnosis_20240717.t.sol)
+- Implementation: [AaveV3Gnosis](https://github.com/bgd-labs/aave-proposals-v3/blob/dd3747ccd18dafcdba7e286aa972f74426b1625e/src/20240717_AaveV3Gnosis_OnboardUSDCEOnGnosis/AaveV3Gnosis_OnboardUSDCEOnGnosis_20240717.sol)
+- Tests: [AaveV3Gnosis](https://github.com/bgd-labs/aave-proposals-v3/blob/dd3747ccd18dafcdba7e286aa972f74426b1625e/src/20240717_AaveV3Gnosis_OnboardUSDCEOnGnosis/AaveV3Gnosis_OnboardUSDCEOnGnosis_20240717.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0xefdd7d915acc3a179c756295ad6583645dfc491424cda08916e80c8551e30943)
 - [Discussion](https://governance.aave.com/t/arfc-onboard-usdc-e-to-aave-v3-gnosis-chain/17948/3)
 
