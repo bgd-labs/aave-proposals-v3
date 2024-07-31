@@ -20,7 +20,7 @@ export function generateScript(options: Options) {
   // generate imports
   template += `import {${['Ethereum', ...chains.filter((c) => c !== 'Ethereum' && c !== 'ZkSync')]
     .map((chain) => `${chain}Script`)
-    .join(', ')}} from 'aave-helpers/ScriptUtils.sol';\n`;
+    .join(', ')}} from 'aave-helpers/src/ScriptUtils.sol';\n`;
 
   template += options.pools
     .filter((c) => c !== 'AaveV3ZkSync')

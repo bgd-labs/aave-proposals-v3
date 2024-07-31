@@ -1,14 +1,14 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {IProposalGenericExecutor} from 'aave-helpers/interfaces/IProposalGenericExecutor.sol';
+import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';
 import {AaveV2Ethereum, AaveV2EthereumAssets} from 'aave-address-book/AaveV2Ethereum.sol';
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
-import {AaveSwapper} from 'aave-helpers/swaps/AaveSwapper.sol';
-import {IAaveWstethWithdrawer} from 'aave-helpers/asset-manager/interfaces/IAaveWstethWithdrawer.sol';
+import {AaveSwapper} from 'aave-helpers/src/swaps/AaveSwapper.sol';
+import {IAaveWstethWithdrawer} from 'aave-helpers/src/asset-manager/interfaces/IAaveWstethWithdrawer.sol';
 
 /**
  * @title May Funding Update

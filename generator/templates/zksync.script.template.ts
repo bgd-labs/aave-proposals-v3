@@ -18,7 +18,7 @@ export function generateZkSyncScript(options: Options) {
   let template = '';
 
   // generate imports
-  template += `import {ZkSyncScript} from 'aave-helpers/ScriptUtils.sol';\n`;
+  template += `import {ZkSyncScript} from 'aave-helpers/src/ScriptUtils.sol';\n`;
 
   template += zkSyncPools
     .map((pool) => {
