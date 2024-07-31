@@ -17,7 +17,7 @@ contract AaveV3Polygon_RenewalOfAaveGuardian2024_20240708_Test is RenewalV3BaseT
   AaveV3Polygon_RenewalOfAaveGuardian2024_20240708 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('polygon'), 59118571);
+    vm.createSelectFork(vm.rpcUrl('polygon'), 60023363);
     proposal = new AaveV3Polygon_RenewalOfAaveGuardian2024_20240708();
   }
 

@@ -18,7 +18,7 @@ contract AaveV3Gnosis_RenewalOfAaveGuardian2024_20240708_Test is RenewalV3BaseTe
   AaveV3Gnosis_RenewalOfAaveGuardian2024_20240708 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('gnosis'), 34865326);
+    vm.createSelectFork(vm.rpcUrl('gnosis'), 35244008);
     proposal = new AaveV3Gnosis_RenewalOfAaveGuardian2024_20240708();
   }
 

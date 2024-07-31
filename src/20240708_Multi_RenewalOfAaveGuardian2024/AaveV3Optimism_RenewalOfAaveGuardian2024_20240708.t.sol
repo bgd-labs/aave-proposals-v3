@@ -17,7 +17,7 @@ contract AaveV3Optimism_RenewalOfAaveGuardian2024_20240708_Test is RenewalV3Base
   AaveV3Optimism_RenewalOfAaveGuardian2024_20240708 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('optimism'), 122432287);
+    vm.createSelectFork(vm.rpcUrl('optimism'), 123410917);
     proposal = new AaveV3Optimism_RenewalOfAaveGuardian2024_20240708();
   }
 

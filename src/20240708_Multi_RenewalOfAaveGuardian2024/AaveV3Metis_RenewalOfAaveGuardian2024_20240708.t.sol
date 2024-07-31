@@ -17,7 +17,7 @@ contract AaveV3Metis_RenewalOfAaveGuardian2024_20240708_Test is RenewalV3BaseTes
   AaveV3Metis_RenewalOfAaveGuardian2024_20240708 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('metis'), 17597358);
+    vm.createSelectFork(vm.rpcUrl('metis'), 17882779);
     proposal = new AaveV3Metis_RenewalOfAaveGuardian2024_20240708();
   }
 

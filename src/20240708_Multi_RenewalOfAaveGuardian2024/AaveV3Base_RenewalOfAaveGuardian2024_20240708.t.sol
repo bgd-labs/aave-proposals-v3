@@ -17,7 +17,7 @@ contract AaveV3Base_RenewalOfAaveGuardian2024_20240708_Test is RenewalV3BaseTest
   AaveV3Base_RenewalOfAaveGuardian2024_20240708 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('base'), 16837004);
+    vm.createSelectFork(vm.rpcUrl('base'), 17815584);
     proposal = new AaveV3Base_RenewalOfAaveGuardian2024_20240708();
   }
 

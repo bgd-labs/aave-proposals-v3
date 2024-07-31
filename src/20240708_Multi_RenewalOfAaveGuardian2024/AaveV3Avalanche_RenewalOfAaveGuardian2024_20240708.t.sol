@@ -16,7 +16,7 @@ contract AaveV3Avalanche_RenewalOfAaveGuardian2024_20240708_Test is RenewalV3Bas
   AaveV3Avalanche_RenewalOfAaveGuardian2024_20240708 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('avalanche'), 47718399);
+    vm.createSelectFork(vm.rpcUrl('avalanche'), 48662670);
     proposal = new AaveV3Avalanche_RenewalOfAaveGuardian2024_20240708();
   }
 

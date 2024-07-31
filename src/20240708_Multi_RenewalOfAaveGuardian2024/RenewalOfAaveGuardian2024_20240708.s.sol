@@ -3,7 +3,7 @@ pragma solidity ^0.8.0;
 
 import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aave-helpers/GovV3Helpers.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
-import {EthereumScript, PolygonScript, AvalancheScript, OptimismScript, ArbitrumScript, MetisScript, BaseScript, GnosisScript, ScrollScript, BNBScript} from 'aave-helpers/ScriptUtils.sol';
+import {EthereumScript, PolygonScript, AvalancheScript, OptimismScript, ArbitrumScript, MetisScript, BaseScript, GnosisScript, ScrollScript, BNBScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
 import {AaveV2Ethereum_RenewalOfAaveGuardian2024_20240708} from './AaveV2Ethereum_RenewalOfAaveGuardian2024_20240708.sol';
 import {AaveV2EthereumAMM_RenewalOfAaveGuardian2024_20240708} from './AaveV2EthereumAMM_RenewalOfAaveGuardian2024_20240708.sol';
 import {AaveV2Polygon_RenewalOfAaveGuardian2024_20240708} from './AaveV2Polygon_RenewalOfAaveGuardian2024_20240708.sol';
