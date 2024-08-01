@@ -47,8 +47,8 @@ The table below illustrates the configured risk parameters for **weETH**
 
 ## References
 
-- Implementation: [AaveV3Scroll](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240731_AaveV3Scroll_OnboardingWeETHToAaveV3OnScroll/AaveV3Scroll_OnboardingWeETHToAaveV3OnScroll_20240731.sol)
-- Tests: [AaveV3Scroll](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240731_AaveV3Scroll_OnboardingWeETHToAaveV3OnScroll/AaveV3Scroll_OnboardingWeETHToAaveV3OnScroll_20240731.t.sol)
+- Implementation: [AaveV3Scroll](https://github.com/bgd-labs/aave-proposals-v3/blob/443541cf27fddd1e4c2ac409c2acfbbd0137ac2e/src/20240731_AaveV3Scroll_OnboardingWeETHToAaveV3OnScroll/AaveV3Scroll_OnboardingWeETHToAaveV3OnScroll_20240731.sol)
+- Tests: [AaveV3Scroll](https://github.com/bgd-labs/aave-proposals-v3/blob/443541cf27fddd1e4c2ac409c2acfbbd0137ac2e/src/20240731_AaveV3Scroll_OnboardingWeETHToAaveV3OnScroll/AaveV3Scroll_OnboardingWeETHToAaveV3OnScroll_20240731.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x252bafcf8ead0bf1869b7ba9fef430caf3977dfd1e1f84e2e4bc1842e83520b4)
 - [Discussion](https://governance.aave.com/t/arfc-onboarding-weeth-to-aave-v3-on-scroll/18301)
 
