@@ -5,6 +5,7 @@ import {IProposalGenericExecutor} from 'aave-helpers/interfaces/IProposalGeneric
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {AaveV2Ethereum, AaveV2EthereumAssets} from 'aave-address-book/AaveV2Ethereum.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
+import {IScaledBalanceToken} from 'aave-v3-origin/core/contracts/interfaces/IScaledBalanceToken.sol';
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';
 import {AaveSwapper} from 'aave-helpers/swaps/AaveSwapper.sol';
@@ -47,7 +48,7 @@ contract AaveV3Ethereum_JulyFundingUpdate_20240729 is IProposalGenericExecutor {
     AaveV3Ethereum.COLLECTOR.transfer(
       AaveV3EthereumAssets.USDe_A_TOKEN,
       address(this),
-      IERC20(AaveV3EthereumAssets.USDe_A_TOKEN).balanceOf(COLLECTOR) - 1e18
+      IScaledBalanceToken(AaveV3EthereumAssets.USDe_A_TOKEN).scaledBalanceOf(COLLECTOR) - 1e18
     );
 
     AaveV3Ethereum.POOL.withdraw(
@@ -101,13 +102,13 @@ contract AaveV3Ethereum_JulyFundingUpdate_20240729 is IProposalGenericExecutor {
     AaveV2Ethereum.COLLECTOR.transfer(
       AaveV2EthereumAssets.FRAX_A_TOKEN,
       address(this),
-      IERC20(AaveV2EthereumAssets.FRAX_A_TOKEN).balanceOf(COLLECTOR) - 1e18
+      IScaledBalanceToken(AaveV2EthereumAssets.FRAX_A_TOKEN).scaledBalanceOf(COLLECTOR) - 1e18
     );
 
     AaveV3Ethereum.COLLECTOR.transfer(
       AaveV3EthereumAssets.FRAX_A_TOKEN,
       address(this),
-      IERC20(AaveV3EthereumAssets.FRAX_A_TOKEN).balanceOf(COLLECTOR) - 1e18
+      IScaledBalanceToken(AaveV3EthereumAssets.FRAX_A_TOKEN).scaledBalanceOf(COLLECTOR) - 1e18
     );
 
     AaveV2Ethereum.POOL.withdraw(
@@ -140,7 +141,7 @@ contract AaveV3Ethereum_JulyFundingUpdate_20240729 is IProposalGenericExecutor {
     AaveV2Ethereum.COLLECTOR.transfer(
       AaveV2EthereumAssets.DPI_A_TOKEN,
       address(this),
-      IERC20(AaveV2EthereumAssets.DPI_A_TOKEN).balanceOf(COLLECTOR) - 1e18
+      IScaledBalanceToken(AaveV2EthereumAssets.DPI_A_TOKEN).scaledBalanceOf(COLLECTOR) - 1e18
     );
 
     AaveV2Ethereum.POOL.withdraw(
@@ -160,7 +161,7 @@ contract AaveV3Ethereum_JulyFundingUpdate_20240729 is IProposalGenericExecutor {
       GHO_USD_FEED,
       COLLECTOR,
       dpiBalance,
-      250
+      500
     );
   }
 }

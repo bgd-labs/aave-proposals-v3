@@ -9,6 +9,7 @@ import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethe
 import {AaveV2EthereumAssets} from 'aave-address-book/AaveV2Ethereum.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
+import {IScaledBalanceToken} from 'aave-v3-origin/core/contracts/interfaces/IScaledBalanceToken.sol';
 
 /**
  * @dev Test for AaveV3Ethereum_JulyFundingUpdate_20240729
@@ -71,7 +72,7 @@ contract AaveV3Ethereum_JulyFundingUpdate_20240729_Test is ProtocolV3TestBase {
       AaveV3EthereumAssets.GHO_UNDERLYING,
       proposal.USDE_FEED(),
       proposal.GHO_USD_FEED(),
-      112644652744967714472600, // Hardcoded as dynamic
+      112014478259269445050414, // Hardcoded as dynamic
       address(AaveV3Ethereum.COLLECTOR),
       50
     );
@@ -95,7 +96,7 @@ contract AaveV3Ethereum_JulyFundingUpdate_20240729_Test is ProtocolV3TestBase {
       AaveV3EthereumAssets.GHO_UNDERLYING,
       proposal.FRAX_FEED(),
       proposal.GHO_USD_FEED(),
-      34886946817839953023682, // Hardcoded as dynamic
+      31935428199756049088619, // Hardcoded as dynamic
       address(AaveV3Ethereum.COLLECTOR),
       100
     );
@@ -107,62 +108,52 @@ contract AaveV3Ethereum_JulyFundingUpdate_20240729_Test is ProtocolV3TestBase {
       AaveV3EthereumAssets.GHO_UNDERLYING,
       proposal.DPI_FEED(),
       proposal.GHO_USD_FEED(),
-      171583840050805654601, // Hardcoded as dynamic
+      133444159197713527567, // Hardcoded as dynamic
       address(AaveV3Ethereum.COLLECTOR),
-      250
+      500
     );
 
     executePayload(vm, address(proposal));
   }
 
   function test_withdrawAndSwapForGho() public {
-    uint256 collectorAusdev3BalanceBefore = IERC20(AaveV3EthereumAssets.USDe_A_TOKEN).balanceOf(
-      COLLECTOR
-    );
+    uint256 collectorAusdev3BalanceBefore = IScaledBalanceToken(AaveV3EthereumAssets.USDe_A_TOKEN)
+      .scaledBalanceOf(COLLECTOR);
 
-    uint256 collectorAusdtv2BalanceBefore = IERC20(AaveV2EthereumAssets.USDT_A_TOKEN).balanceOf(
-      COLLECTOR
-    );
+    uint256 collectorAusdtv2BalanceBefore = IScaledBalanceToken(AaveV2EthereumAssets.USDT_A_TOKEN)
+      .scaledBalanceOf(COLLECTOR);
 
-    uint256 collectorAfraxv2BalanceBefore = IERC20(AaveV2EthereumAssets.FRAX_A_TOKEN).balanceOf(
-      COLLECTOR
-    );
+    uint256 collectorAfraxv2BalanceBefore = IScaledBalanceToken(AaveV2EthereumAssets.FRAX_A_TOKEN)
+      .scaledBalanceOf(COLLECTOR);
 
-    uint256 collectorAfraxv3BalanceBefore = IERC20(AaveV3EthereumAssets.FRAX_A_TOKEN).balanceOf(
-      COLLECTOR
-    );
+    uint256 collectorAfraxv3BalanceBefore = IScaledBalanceToken(AaveV3EthereumAssets.FRAX_A_TOKEN)
+      .scaledBalanceOf(COLLECTOR);
 
-    uint256 collectorAdpiv2BalanceBefore = IERC20(AaveV2EthereumAssets.DPI_A_TOKEN).balanceOf(
-      COLLECTOR
-    );
+    uint256 collectorAdpiv2BalanceBefore = IScaledBalanceToken(AaveV2EthereumAssets.DPI_A_TOKEN)
+      .scaledBalanceOf(COLLECTOR);
 
     executePayload(vm, address(proposal));
 
-    uint256 collectorAusdev3BalanceAfter = IERC20(AaveV3EthereumAssets.USDe_A_TOKEN).balanceOf(
-      COLLECTOR
-    );
+    uint256 collectorAusdev3BalanceAfter = IScaledBalanceToken(AaveV3EthereumAssets.USDe_A_TOKEN)
+      .scaledBalanceOf(COLLECTOR);
 
-    uint256 collectorAusdtv2BalanceAfter = IERC20(AaveV2EthereumAssets.USDT_A_TOKEN).balanceOf(
-      COLLECTOR
-    );
+    uint256 collectorAusdtv2BalanceAfter = IScaledBalanceToken(AaveV2EthereumAssets.USDT_A_TOKEN)
+      .scaledBalanceOf(COLLECTOR);
 
-    uint256 collectorAfraxv2BalanceAfter = IERC20(AaveV2EthereumAssets.FRAX_A_TOKEN).balanceOf(
-      COLLECTOR
-    );
+    uint256 collectorAfraxv2BalanceAfter = IScaledBalanceToken(AaveV2EthereumAssets.FRAX_A_TOKEN)
+      .scaledBalanceOf(COLLECTOR);
 
-    uint256 collectorAfraxv3BalanceAfter = IERC20(AaveV3EthereumAssets.FRAX_A_TOKEN).balanceOf(
-      COLLECTOR
-    );
+    uint256 collectorAfraxv3BalanceAfter = IScaledBalanceToken(AaveV3EthereumAssets.FRAX_A_TOKEN)
+      .scaledBalanceOf(COLLECTOR);
 
-    uint256 collectorAdpiv2BalanceAfter = IERC20(AaveV2EthereumAssets.DPI_A_TOKEN).balanceOf(
-      COLLECTOR
-    );
+    uint256 collectorAdpiv2BalanceAfter = IScaledBalanceToken(AaveV2EthereumAssets.DPI_A_TOKEN)
+      .scaledBalanceOf(COLLECTOR);
 
     /// USDe
     uint256 swapperUsdeBalance = IERC20(AaveV3EthereumAssets.USDe_UNDERLYING).balanceOf(
       0x6c4b03Baa6465ec8878eDcA9b7F8f284656877a4
     );
-    assertApproxEqAbs(collectorAusdev3BalanceAfter, 1e18, 1e18);
+    assertApproxEqAbs(collectorAusdev3BalanceAfter, 1e18, 700e18);
     assertApproxEqAbs(swapperUsdeBalance, collectorAusdev3BalanceBefore, 1e18);
 
     /// USDT
@@ -178,8 +169,8 @@ contract AaveV3Ethereum_JulyFundingUpdate_20240729_Test is ProtocolV3TestBase {
       0x31B7607AdAeBb069F7d0367080297095ADCbAE0A
     );
 
-    assertApproxEqAbs(collectorAfraxv2BalanceAfter, 1e18, 1000e18);
-    assertApproxEqAbs(collectorAfraxv3BalanceAfter, 1e18, 1e18);
+    assertApproxEqAbs(collectorAfraxv2BalanceAfter, 1e18, 2200e18);
+    assertApproxEqAbs(collectorAfraxv3BalanceAfter, 1e18, 600e18);
     assertApproxEqAbs(
       swapperFraxBalance,
       collectorAfraxv2BalanceBefore + collectorAfraxv3BalanceBefore,
@@ -191,7 +182,7 @@ contract AaveV3Ethereum_JulyFundingUpdate_20240729_Test is ProtocolV3TestBase {
       0xC0d8a993Cb1f4246491783a9C75289C52B7c4f4f
     );
 
-    assertApproxEqAbs(collectorAdpiv2BalanceAfter, 1e18, 1e18);
-    assertApproxEqAbs(swapperDpiBalance, collectorAdpiv2BalanceBefore, 1e18);
+    assertApproxEqAbs(collectorAdpiv2BalanceAfter, 1e18, 50e18);
+    assertApproxEqAbs(swapperDpiBalance, collectorAdpiv2BalanceBefore, 50e18);
   }
 }
