@@ -3,7 +3,6 @@ pragma solidity ^0.8.0;
 
 import {IProposalGenericExecutor} from 'aave-helpers/interfaces/IProposalGenericExecutor.sol';
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
-import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 
 /**
  * @title TokenLogic & karpatkey Service Provider Partnership-phase 2
