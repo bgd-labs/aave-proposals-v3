@@ -117,8 +117,8 @@ TokenLogic and karpatkey are to be included in the Gas Rebate program that reimb
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240723_AaveV3Ethereum_TokenLogicKarpatkeyServiceProviderPartnershipPhase2/AaveV3Ethereum_TokenLogicKarpatkeyServiceProviderPartnershipPhase2_20240723.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240723_AaveV3Ethereum_TokenLogicKarpatkeyServiceProviderPartnershipPhase2/AaveV3Ethereum_TokenLogicKarpatkeyServiceProviderPartnershipPhase2_20240723.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/70b12def0769deca4e39058c4df53ddfb389f95a/src/20240723_AaveV3Ethereum_TokenLogicKarpatkeyServiceProviderPartnershipPhase2/AaveV3Ethereum_TokenLogicKarpatkeyServiceProviderPartnershipPhase2_20240723.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/70b12def0769deca4e39058c4df53ddfb389f95a/src/20240723_AaveV3Ethereum_TokenLogicKarpatkeyServiceProviderPartnershipPhase2/AaveV3Ethereum_TokenLogicKarpatkeyServiceProviderPartnershipPhase2_20240723.t.sol)
 - [Snapshot for TokenLogic + karpatkey - Phase II](https://snapshot.org/#/aave.eth/proposal/0xc44ec840f8f7f6ca3ef2f2a4289882c4cdc1a8b3e6e9ad6b811a640097a8016a)
 - [Discussion](https://governance.aave.com/t/arfc-tokenlogic-karpatkey-financial-service-providers-phase-ii/18285)
 
