@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 import {ILendingPoolAddressesProvider, ILendingPoolConfigurator} from 'aave-address-book/AaveV2.sol';
 
 import 'forge-std/Test.sol';
-import {ProtocolV2TestBase} from 'aave-helpers/ProtocolV2TestBase.sol';
+import {ProtocolV2TestBase} from 'aave-helpers/src/ProtocolV2TestBase.sol';
 
 struct GuardianUpdateTestParams {
   address proposal;
