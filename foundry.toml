@@ -2,7 +2,7 @@
 src = 'src'
 test = 'tests'
 script = 'scripts'
-solc = '0.8.19'
+solc = '0.8.20'
 out = 'out'
 bytecode_hash = 'none'
 libs = ['lib']
