@@ -7,134 +7,36 @@ snapshot: "https://snapshot.org/#/aave.eth/proposal/0xb74537a0528f484e9cc76d8c79
 
 ## Simple Summary
 
+This proposal allows the Aave governance to activate the Aave V3 zkSync pool (3.1) by completing all the initial setup and listing WETH, USDC, USDT, wstETH, ZK as suggested by the risk service providers engaged with the DAO on the [governance forum](https://governance.aave.com/t/arfc-deployment-of-aave-on-zksync/17937/7).
+
+All the Aave zkSync V3 addresses can be found in the [aave-address-book](https://github.com/bgd-labs/aave-address-book/blob/main/src/AaveV3ZkSync.sol).
+
 ## Motivation
 
 ## Specification
 
-The table below illustrates the configured risk parameters for **USDC**
-
-| Parameter                 |                                      Value |
-| ------------------------- | -----------------------------------------: |
-| Isolation Mode            |                                      false |
-| Borrowable                |                                    ENABLED |
-| Collateral Enabled        |                                       true |
-| Supply Cap (USDC)         |                                  1,000,000 |
-| Borrow Cap (USDC)         |                                    900,000 |
-| Debt Ceiling              |                                      USD 0 |
-| LTV                       |                                       75 % |
-| LT                        |                                       78 % |
-| Liquidation Bonus         |                                        5 % |
-| Liquidation Protocol Fee  |                                       10 % |
-| Reserve Factor            |                                       10 % |
-| Base Variable Borrow Rate |                                        0 % |
-| Variable Slope 1          |                                        9 % |
-| Variable Slope 2          |                                        7 % |
-| Uoptimal                  |                                       90 % |
-| Stable Borrowing          |                                   DISABLED |
-| Flashloanable             |                                    ENABLED |
-| Siloed Borrowing          |                                   DISABLED |
-| Borrowable in Isolation   |                                    ENABLED |
-| Oracle                    | 0xA715ED3eC1C078EEf8437Cf717Cf76004f29eAED |
-
-,The table below illustrates the configured risk parameters for **USDT**
-
-| Parameter                 |                                      Value |
-| ------------------------- | -----------------------------------------: |
-| Isolation Mode            |                                      false |
-| Borrowable                |                                    ENABLED |
-| Collateral Enabled        |                                       true |
-| Supply Cap (USDT)         |                                  3,000,000 |
-| Borrow Cap (USDT)         |                                  2,700,000 |
-| Debt Ceiling              |                                      USD 0 |
-| LTV                       |                                       75 % |
-| LT                        |                                       78 % |
-| Liquidation Bonus         |                                        5 % |
-| Liquidation Protocol Fee  |                                       10 % |
-| Reserve Factor            |                                       10 % |
-| Base Variable Borrow Rate |                                        0 % |
-| Variable Slope 1          |                                        9 % |
-| Variable Slope 2          |                                       75 % |
-| Uoptimal                  |                                       90 % |
-| Stable Borrowing          |                                   DISABLED |
-| Flashloanable             |                                    ENABLED |
-| Siloed Borrowing          |                                   DISABLED |
-| Borrowable in Isolation   |                                    ENABLED |
-| Oracle                    | 0x336EC4bcb65C1A141318fBd3f8E7379c085E8B15 |
-
-,The table below illustrates the configured risk parameters for **WETH**
-
-| Parameter                 |                                      Value |
-| ------------------------- | -----------------------------------------: |
-| Isolation Mode            |                                      false |
-| Borrowable                |                                    ENABLED |
-| Collateral Enabled        |                                       true |
-| Supply Cap (WETH)         |                                      1,000 |
-| Borrow Cap (WETH)         |                                        800 |
-| Debt Ceiling              |                                      USD 0 |
-| LTV                       |                                       75 % |
-| LT                        |                                       78 % |
-| Liquidation Bonus         |                                        6 % |
-| Liquidation Protocol Fee  |                                       10 % |
-| Reserve Factor            |                                       15 % |
-| Base Variable Borrow Rate |                                        0 % |
-| Variable Slope 1          |                                      3.3 % |
-| Variable Slope 2          |                                       80 % |
-| Uoptimal                  |                                       80 % |
-| Stable Borrowing          |                                   DISABLED |
-| Flashloanable             |                                    ENABLED |
-| Siloed Borrowing          |                                   DISABLED |
-| Borrowable in Isolation   |                                   DISABLED |
-| Oracle                    | 0x6D41d1dc818112880b40e26BD6FD347E41008eDA |
-
-,The table below illustrates the configured risk parameters for **wstETH**
-
-| Parameter                 |                                      Value |
-| ------------------------- | -----------------------------------------: |
-| Isolation Mode            |                                      false |
-| Borrowable                |                                    ENABLED |
-| Collateral Enabled        |                                       true |
-| Supply Cap (wstETH)       |                                        500 |
-| Borrow Cap (wstETH)       |                                         50 |
-| Debt Ceiling              |                                      USD 0 |
-| LTV                       |                                       71 % |
-| LT                        |                                       76 % |
-| Liquidation Bonus         |                                        7 % |
-| Liquidation Protocol Fee  |                                       10 % |
-| Reserve Factor            |                                       15 % |
-| Base Variable Borrow Rate |                                        0 % |
-| Variable Slope 1          |                                      4.5 % |
-| Variable Slope 2          |                                       80 % |
-| Uoptimal                  |                                       45 % |
-| Stable Borrowing          |                                   DISABLED |
-| Flashloanable             |                                    ENABLED |
-| Siloed Borrowing          |                                   DISABLED |
-| Borrowable in Isolation   |                                   DISABLED |
-| Oracle                    | 0x624FEc7DDeb62Dcbce1fc456D7cc5c6A47cC69aF |
-
-,The table below illustrates the configured risk parameters for **ZK**
-
-| Parameter                 |                                      Value |
-| ------------------------- | -----------------------------------------: |
-| Isolation Mode            |                                       true |
-| Borrowable                |                                    ENABLED |
-| Collateral Enabled        |                                       true |
-| Supply Cap (ZK)           |                                 24,000,000 |
-| Borrow Cap (ZK)           |                                 10,000,000 |
-| Debt Ceiling              |                              USD 1,000,000 |
-| LTV                       |                                       40 % |
-| LT                        |                                       45 % |
-| Liquidation Bonus         |                                       10 % |
-| Liquidation Protocol Fee  |                                       20 % |
-| Reserve Factor            |                                       20 % |
-| Base Variable Borrow Rate |                                        0 % |
-| Variable Slope 1          |                                        9 % |
-| Variable Slope 2          |                                      300 % |
-| Uoptimal                  |                                       45 % |
-| Stable Borrowing          |                                   DISABLED |
-| Flashloanable             |                                    ENABLED |
-| Siloed Borrowing          |                                   DISABLED |
-| Borrowable in Isolation   |                                   DISABLED |
-| Oracle                    | 0xD1ce60dc8AE060DDD17cA8716C96f193bC88DD13 |
+| Parameter                 |            [USDC](https://era.zksync.network/address/0x1d17CBcF0D6D143135aE902365D2E5e2A16538D4) |            [USDT](https://era.zksync.network/address/0x493257fD37EDB34451f62EDf8D2a0C418852bA4C) |     [WETH](https://era.zksync.network/address/0x5AEa5775959fBC2557Cc8789bC1bf90A239D9a91) | [wstETH](https://era.zksync.network/address/0x703b52F2b28fEbcB60E1372858AF5b18849FE867) |      [ZK](https://era.zksync.network/address/0x5A7d6b2F92C77FAD6CCaBd7EE0624E64907Eaf3E) |
+| ------------------------- | -----------------------------------------------------------------------------------------------: | -----------------------------------------------------------------------------------------------: | ----------------------------------------------------------------------------------------: | --------------------------------------------------------------------------------------: | ---------------------------------------------------------------------------------------: |
+| Supply Cap                |                                                                                        1,000,000 |                                                                                        3,000,000 |                                                                                     1,000 |                                                                                     500 |                                                                               24,000,000 |
+| Borrow Cap                |                                                                                          900,000 |                                                                                        2,700,000 |                                                                                       800 |                                                                                      50 |                                                                               10,000,000 |
+| Borrowable                |                                                                                          ENABLED |                                                                                          ENABLED |                                                                                   ENABLED |                                                                                 ENABLED |                                                                                  ENABLED |
+| Collateral Enabled        |                                                                                             true |                                                                                             true |                                                                                      true |                                                                                    true |                                                                                     true |
+| LTV                       |                                                                                             75 % |                                                                                             75 % |                                                                                      75 % |                                                                                    71 % |                                                                                     40 % |
+| LT                        |                                                                                             78 % |                                                                                             78 % |                                                                                      78 % |                                                                                    76 % |                                                                                     45 % |
+| Liquidation Bonus         |                                                                                              5 % |                                                                                              5 % |                                                                                       6 % |                                                                                     7 % |                                                                                     10 % |
+| Liquidation Protocol Fee  |                                                                                             10 % |                                                                                             10 % |                                                                                      10 % |                                                                                    10 % |                                                                                     20 % |
+| Reserve Factor            |                                                                                             10 % |                                                                                             10 % |                                                                                      15 % |                                                                                    15 % |                                                                                     20 % |
+| Base Variable Borrow Rate |                                                                                              0 % |                                                                                              0 % |                                                                                       0 % |                                                                                     0 % |                                                                                      0 % |
+| Variable Slope 1          |                                                                                              9 % |                                                                                              9 % |                                                                                     3.3 % |                                                                                   4.5 % |                                                                                      9 % |
+| Variable Slope 2          |                                                                                             75 % |                                                                                             75 % |                                                                                      80 % |                                                                                    80 % |                                                                                    300 % |
+| Uoptimal                  |                                                                                             90 % |                                                                                             90 % |                                                                                      80 % |                                                                                    45 % |                                                                                     45 % |
+| Oracle                    | [Capped USDC/USD](https://era.zksync.network/address/0xA715ED3eC1C078EEf8437Cf717Cf76004f29eAED) | [Capped USDT/USD](https://era.zksync.network/address/0x336EC4bcb65C1A141318fBd3f8E7379c085E8B15) | [ETH/USD](https://era.zksync.network//address/0x6D41d1dc818112880b40e26BD6FD347E41008eDA) |                     [Capped wstETH/ETH/USD](0x624FEc7DDeb62Dcbce1fc456D7cc5c6A47cC69aF) | [ZK/USD](https://era.zksync.network//address/0xD1ce60dc8AE060DDD17cA8716C96f193bC88DD13) |
+| Flashloanable             |                                                                                          ENABLED |                                                                                          ENABLED |                                                                                   ENABLED |                                                                                 ENABLED |                                                                                  ENABLED |
+| Isolation Mode            |                                                                                            false |                                                                                            false |                                                                                     false |                                                                                   false |                                                                                     true |
+| Debt Ceiling              |                                                                                            USD 0 |                                                                                            USD 0 |                                                                                     USD 0 |                                                                                   USD 0 |                                                                            USD 1,000,000 |
+| Borrowable in Isolation   |                                                                                          ENABLED |                                                                                          ENABLED |                                                                                  DISABLED |                                                                                DISABLED |                                                                                 DISABLED |
+| Siloed Borrowing          |                                                                                         DISABLED |                                                                                         DISABLED |                                                                                  DISABLED |                                                                                DISABLED |                                                                                 DISABLED |
+| Stable Borrowing          |                                                                                         DISABLED |                                                                                         DISABLED |                                                                                  DISABLED |                                                                                DISABLED |                                                                                 DISABLED |
 
 ## References
 

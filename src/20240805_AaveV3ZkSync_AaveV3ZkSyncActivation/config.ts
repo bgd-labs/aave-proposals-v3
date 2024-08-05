@@ -36,7 +36,7 @@ export const config: ConfigFile = {
               optimalUtilizationRate: '90',
               baseVariableBorrowRate: '0',
               variableRateSlope1: '9',
-              variableRateSlope2: '7',
+              variableRateSlope2: '75',
             },
             eModeCategory: '0',
             asset: '0x1d17CBcF0D6D143135aE902365D2E5e2A16538D4',
