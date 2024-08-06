@@ -1,7 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {AaveV3ZkSync} from 'aave-address-book/AaveV3ZkSync.sol';
+import {AaveV3ZkSync, IPool} from 'aave-address-book/AaveV3ZkSync.sol';
+import {MiscZkSync} from 'aave-address-book/MiscZkSync.sol';
 import {AaveV3PayloadZkSync} from 'aave-helpers/src/v3-config-engine/AaveV3PayloadZkSync.sol';
 import {EngineFlags} from 'aave-v3-periphery/contracts/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-v3-periphery/contracts/v3-config-engine/IAaveV3ConfigEngine.sol';
@@ -29,16 +30,13 @@ contract AaveV3ZkSync_AaveV3ZkSyncActivation_20240805 is AaveV3PayloadZkSync {
   uint256 public constant ZK_SEED_AMOUNT = 10 ether;
 
   function _postExecute() internal override {
-    IERC20(USDC).forceApprove(address(AaveV3ZkSync.POOL), USDC_SEED_AMOUNT);
-    AaveV3ZkSync.POOL.supply(USDC, USDC_SEED_AMOUNT, address(AaveV3ZkSync.COLLECTOR), 0);
-    IERC20(USDT).forceApprove(address(AaveV3ZkSync.POOL), USDT_SEED_AMOUNT);
-    AaveV3ZkSync.POOL.supply(USDT, USDT_SEED_AMOUNT, address(AaveV3ZkSync.COLLECTOR), 0);
-    IERC20(WETH).forceApprove(address(AaveV3ZkSync.POOL), WETH_SEED_AMOUNT);
-    AaveV3ZkSync.POOL.supply(WETH, WETH_SEED_AMOUNT, address(AaveV3ZkSync.COLLECTOR), 0);
-    IERC20(wstETH).forceApprove(address(AaveV3ZkSync.POOL), wstETH_SEED_AMOUNT);
-    AaveV3ZkSync.POOL.supply(wstETH, wstETH_SEED_AMOUNT, address(AaveV3ZkSync.COLLECTOR), 0);
-    IERC20(ZK).forceApprove(address(AaveV3ZkSync.POOL), ZK_SEED_AMOUNT);
-    AaveV3ZkSync.POOL.supply(ZK, ZK_SEED_AMOUNT, address(AaveV3ZkSync.COLLECTOR), 0);
+    AaveV3ZkSync.ACL_MANAGER.addPoolAdmin(MiscZkSync.PROTOCOL_GUARDIAN);
+
+    _supply(AaveV3ZkSync.POOL, USDC, USDC_SEED_AMOUNT, address(AaveV3ZkSync.COLLECTOR));
+    _supply(AaveV3ZkSync.POOL, USDT, USDT_SEED_AMOUNT, address(AaveV3ZkSync.COLLECTOR));
+    _supply(AaveV3ZkSync.POOL, WETH, WETH_SEED_AMOUNT, address(AaveV3ZkSync.COLLECTOR));
+    _supply(AaveV3ZkSync.POOL, wstETH, wstETH_SEED_AMOUNT, address(AaveV3ZkSync.COLLECTOR));
+    _supply(AaveV3ZkSync.POOL, ZK, ZK_SEED_AMOUNT, address(AaveV3ZkSync.COLLECTOR));
   }
 
   function newListings() public pure override returns (IAaveV3ConfigEngine.Listing[] memory) {
@@ -175,5 +173,10 @@ contract AaveV3ZkSync_AaveV3ZkSyncActivation_20240805 is AaveV3PayloadZkSync {
     });
 
     return listings;
+  }
+
+  function _supply(IPool pool, address asset, uint256 amount, address onBehalfOf) internal {
+    IERC20(asset).forceApprove(address(pool), amount);
+    pool.supply(asset, amount, onBehalfOf, 0);
   }
 }

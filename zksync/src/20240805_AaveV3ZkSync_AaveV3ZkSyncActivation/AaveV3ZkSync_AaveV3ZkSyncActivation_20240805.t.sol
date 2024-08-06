@@ -4,6 +4,7 @@ pragma solidity ^0.8.0;
 import {ProtocolV3TestBase} from 'aave-helpers/zksync/src/ProtocolV3TestBase.sol';
 import {AaveV3ZkSync_AaveV3ZkSyncActivation_20240805} from './AaveV3ZkSync_AaveV3ZkSyncActivation_20240805.sol';
 import {AaveV3ZkSync} from 'aave-address-book/AaveV3ZkSync.sol';
+import {MiscZkSync} from 'aave-address-book/MiscZkSync.sol';
 import {GovernanceV3ZkSync} from 'aave-address-book/GovernanceV3ZkSync.sol';
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {IOwnable} from 'aave-address-book/common/IOwnable.sol';
@@ -33,6 +34,13 @@ contract AaveV3ZkSync_AaveV3ZkSyncActivation_20240805_Test is ProtocolV3TestBase
       AaveV3ZkSync.POOL,
       address(proposal)
     );
+  }
+
+  function test_permissions() public {
+    assertFalse(AaveV3ZkSync.ACL_MANAGER.isPoolAdmin(MiscZkSync.PROTOCOL_GUARDIAN));
+    executePayload(vm, address(proposal));
+
+    assertTrue(AaveV3ZkSync.ACL_MANAGER.isPoolAdmin(MiscZkSync.PROTOCOL_GUARDIAN));
   }
 
   function test_collectorHasUSDCFunds() public {

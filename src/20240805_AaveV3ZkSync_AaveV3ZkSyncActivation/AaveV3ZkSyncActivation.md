@@ -7,13 +7,26 @@ snapshot: "https://snapshot.org/#/aave.eth/proposal/0xb74537a0528f484e9cc76d8c79
 
 ## Simple Summary
 
-This proposal allows the Aave governance to activate the Aave V3 zkSync pool (3.1) by completing all the initial setup and listing WETH, USDC, USDT, wstETH, ZK as suggested by the risk service providers engaged with the DAO on the [governance forum](https://governance.aave.com/t/arfc-deployment-of-aave-on-zksync/17937/7).
+This proposal allows the Aave governance to activate the Aave V3 zkSync pool (3.1) by completing all the initial setup and listing USDC, USDT, WETH, wstETH, ZK as suggested by the risk service providers engaged with the DAO on the [governance forum](https://governance.aave.com/t/arfc-deployment-of-aave-on-zksync/17937/7).
 
 All the Aave zkSync V3 addresses can be found in the [aave-address-book](https://github.com/bgd-labs/aave-address-book/blob/main/src/AaveV3ZkSync.sol).
 
 ## Motivation
 
+All the governance procedures for the expansion of Aave v3 to zkSync have been finished, said:
+
+- Positive signaling and approval regarding the expansion on the [governance forum](https://governance.aave.com/t/temp-check-aave-v3-deployment-on-zksync-era-mainnet/12477), [temp check snapshot](https://snapshot.org/#/aave.eth/proposal/0x46cf72da892eb216edc1b7fe2f24f7491d8c37344b2b1f67632fa6950be034f7), and [final snapshot](https://snapshot.org/#/aave.eth/proposal/0xb74537a0528f484e9cc76d8c7931eedef7b6290e7d2dc725b2c98e623a214f95).
+- Positive technical evaluation done by BGD Labs of the zkSync network, as described in the [forum](https://governance.aave.com/t/bgd-aave-zksync-infrastructure-technical-evaluation/18503) in detail.
+- Positive risk analysis and assets/parameters recommendation by the risk service providers.
+
 ## Specification
+
+The proposal will do the following:
+
+- List the following assets on Aave V3 zkSync: USDC, USDT, WETH, wstETH, ZK
+- Set the guardian address as the pool admin by executing `ACL_MANAGER.addPoolAdmin()`. This is following the standard procedure of keeping pool admin on the Aave Guardian during the bootstrap period, for security.
+
+The table below illustrates the initial suggested risk parameters for each asset:
 
 | Parameter                 |            [USDC](https://era.zksync.network/address/0x1d17CBcF0D6D143135aE902365D2E5e2A16538D4) |            [USDT](https://era.zksync.network/address/0x493257fD37EDB34451f62EDf8D2a0C418852bA4C) |     [WETH](https://era.zksync.network/address/0x5AEa5775959fBC2557Cc8789bC1bf90A239D9a91) | [wstETH](https://era.zksync.network/address/0x703b52F2b28fEbcB60E1372858AF5b18849FE867) |      [ZK](https://era.zksync.network/address/0x5A7d6b2F92C77FAD6CCaBd7EE0624E64907Eaf3E) |
 | ------------------------- | -----------------------------------------------------------------------------------------------: | -----------------------------------------------------------------------------------------------: | ----------------------------------------------------------------------------------------: | --------------------------------------------------------------------------------------: | ---------------------------------------------------------------------------------------: |
