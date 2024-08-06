@@ -48,7 +48,7 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603_Test is ProtocolV3TestBase {
     assertEq(allowanceAmount, proposal.FRONTIER_ALLOWANCE_AMOUNT());
   }
 
-  function test_withdrawAndSwapForGho() public {
+  function test_withdrawAndSwapForGhoBalances() public {
     uint256 collectorAdaiv2BalanceBefore = IERC20(AaveV2EthereumAssets.DAI_A_TOKEN).balanceOf(
       COLLECTOR
     );
@@ -198,6 +198,15 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603_Test is ProtocolV3TestBase {
   }
 
   function test_swapEvents() public {
+    // Hardcoded as dynamic
+    uint256 expectedInDai = 1931651887069694121996324;
+    uint256 expectedInLusd = 26176609646753004781352;
+    uint256 expectedInPyusd = 119858878007;
+    uint256 expectedInUsdc = 4039151285202;
+    uint256 expectedInDpi = 137080139851167463608;
+    uint256 expectedInUsdt = 2000000000000;
+    uint256 expectedInReth = 1883870013343165667402;
+
     vm.expectEmit(true, true, true, true, MiscEthereum.AAVE_SWAPPER);
     emit SwapRequested(
       proposal.MILKMAN(),
@@ -205,7 +214,7 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603_Test is ProtocolV3TestBase {
       AaveV3EthereumAssets.GHO_UNDERLYING,
       proposal.DAI_FEED(),
       proposal.GHO_USD_FEED(),
-      1931651887069694121996324, // Hardcoded as dynamic
+      expectedInDai,
       address(AaveV3Ethereum.COLLECTOR),
       50
     );
@@ -217,7 +226,7 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603_Test is ProtocolV3TestBase {
       AaveV3EthereumAssets.GHO_UNDERLYING,
       proposal.LUSD_FEED(),
       proposal.GHO_USD_FEED(),
-      26176609646753004781352, // Hardcoded as dynamic
+      expectedInLusd,
       address(AaveV3Ethereum.COLLECTOR),
       500
     );
@@ -229,7 +238,7 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603_Test is ProtocolV3TestBase {
       AaveV3EthereumAssets.GHO_UNDERLYING,
       proposal.PYUSD_FEED(),
       proposal.GHO_USD_FEED(),
-      119858878007, // Hardcoded as dynamic
+      expectedInPyusd,
       address(AaveV3Ethereum.COLLECTOR),
       500
     );
@@ -241,7 +250,7 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603_Test is ProtocolV3TestBase {
       AaveV3EthereumAssets.GHO_UNDERLYING,
       proposal.USDC_FEED(),
       proposal.GHO_USD_FEED(),
-      4039151285202, // Hardcoded as dynamic
+      expectedInUsdc,
       address(AaveV3Ethereum.COLLECTOR),
       50
     );
@@ -253,7 +262,7 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603_Test is ProtocolV3TestBase {
       AaveV3EthereumAssets.GHO_UNDERLYING,
       proposal.DPI_FEED(),
       proposal.GHO_USD_FEED(),
-      137080139851167463608, // Hardcoded as dynamic
+      expectedInDpi,
       address(AaveV3Ethereum.COLLECTOR),
       500
     );
@@ -265,7 +274,7 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603_Test is ProtocolV3TestBase {
       AaveV3EthereumAssets.GHO_UNDERLYING,
       proposal.USDT_FEED(),
       proposal.GHO_USD_FEED(),
-      2000000000000, // Hardcoded as dynamic
+      expectedInUsdt,
       address(AaveV3Ethereum.COLLECTOR),
       50
     );
@@ -277,12 +286,78 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603_Test is ProtocolV3TestBase {
       AaveV3EthereumAssets.WETH_UNDERLYING,
       proposal.RETH_FEED(),
       AaveV3EthereumAssets.WETH_ORACLE,
-      1883870013343165667402, // Hardcoded as dynamic
+      expectedInReth,
       address(AaveV3Ethereum.COLLECTOR),
       50
     );
 
     executePayload(vm, address(proposal));
+
+    _baseSwapTest(
+      proposal.PRICE_CHECKER(),
+      expectedInDai, // DAI/USD ~ 1.0 exchange rate on  23/07/2024
+      expectedInDai,
+      3e14, // 1e18 is 100%, 3e14 is 0.03%
+      AaveV3EthereumAssets.DAI_UNDERLYING,
+      AaveV3EthereumAssets.GHO_UNDERLYING,
+      proposal.DAI_FEED(),
+      AaveV3EthereumAssets.GHO_ORACLE
+    );
+
+    _baseSwapTest(
+      proposal.PRICE_CHECKER(),
+      expectedInLusd, // LUSD/USD ~ 1.0 exchange rate on  23/07/2024
+      expectedInLusd,
+      3e15, // 1e18 is 100%, 3e15 is 0.3%
+      AaveV3EthereumAssets.LUSD_UNDERLYING,
+      AaveV3EthereumAssets.GHO_UNDERLYING,
+      proposal.LUSD_FEED(),
+      AaveV3EthereumAssets.GHO_ORACLE
+    );
+
+    _baseSwapTest(
+      proposal.PRICE_CHECKER(),
+      119840e18, // pyusd is 6 decimals we get 18 out
+      expectedInPyusd, // PYUSD/USD ~ 1.0 exchange rate on  23/07/2024
+      1e15, // 1e18 is 100%, 3e15 is 0.3%
+      AaveV3EthereumAssets.PYUSD_UNDERLYING,
+      AaveV3EthereumAssets.GHO_UNDERLYING,
+      proposal.PYUSD_FEED(),
+      AaveV3EthereumAssets.GHO_ORACLE
+    );
+
+    _baseSwapTest(
+      proposal.PRICE_CHECKER(),
+      4039151e18, // USDC is 6 decimals we get 18 out
+      expectedInUsdc, // USDC/USD ~ 1.0 exchange rate on  23/07/2024
+      1e14, // 1e18 is 100%, 1e14 is 0.01%
+      AaveV3EthereumAssets.USDC_UNDERLYING,
+      AaveV3EthereumAssets.GHO_UNDERLYING,
+      proposal.USDC_FEED(),
+      AaveV3EthereumAssets.GHO_ORACLE
+    );
+
+    _baseSwapTest(
+      proposal.PRICE_CHECKER(),
+      12_400e18, // DPI/USD ~ 91 exchange rate on  23/07/2024
+      expectedInDpi,
+      3e16, // 1e18 is 100%, 3e16 is 3%
+      AaveV2EthereumAssets.DPI_UNDERLYING,
+      AaveV3EthereumAssets.GHO_UNDERLYING,
+      proposal.DPI_FEED(),
+      AaveV3EthereumAssets.GHO_ORACLE
+    );
+
+    _baseSwapTest(
+      proposal.PRICE_CHECKER(),
+      2000000e18, // USDT is 6 decimals we get 18 out
+      expectedInUsdt, // USDT/USD ~ 91 exchange rate on  23/07/2024
+      3e14, // 1e18 is 100%, 3e14 is 0.03%
+      AaveV3EthereumAssets.USDT_UNDERLYING,
+      AaveV3EthereumAssets.GHO_UNDERLYING,
+      proposal.USDT_FEED(),
+      AaveV3EthereumAssets.GHO_ORACLE
+    );
 
     _baseSwapTest(
       proposal.PRICE_CHECKER(),
