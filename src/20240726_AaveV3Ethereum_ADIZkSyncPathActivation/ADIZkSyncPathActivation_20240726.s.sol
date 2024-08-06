@@ -3,7 +3,7 @@ pragma solidity ^0.8.0;
 
 import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aave-helpers/GovV3Helpers.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
-import {EthereumScript} from 'aave-helpers/ScriptUtils.sol';
+import {EthereumScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
 
 address constant ETHEREUM_PAYLOAD = 0x65Cf9DE21c5F4377BF7E4d1421cEde57d9D5962A;
 
