@@ -17,11 +17,11 @@ contract AaveV3ZkSync_AaveV3ZkSyncActivation_20240805_Test is ProtocolV3TestBase
   AaveV3ZkSync_AaveV3ZkSyncActivation_20240805 internal proposal;
 
   function setUp() public override {
-    vm.createSelectFork(vm.rpcUrl('zksync'), 40933332);
+    vm.createSelectFork(vm.rpcUrl('zksync'), 41015158);
     proposal = new AaveV3ZkSync_AaveV3ZkSyncActivation_20240805();
 
-    // TODO: remove seeding after funding
-    _seedAmountToExecutor();
+    // TODO: remove later
+    _transferPermission();
     super.setUp();
   }
 
@@ -98,13 +98,7 @@ contract AaveV3ZkSync_AaveV3ZkSyncActivation_20240805_Test is ProtocolV3TestBase
     );
   }
 
-  function _seedAmountToExecutor() internal {
-    deal(proposal.USDC(), GovernanceV3ZkSync.EXECUTOR_LVL_1, proposal.USDC_SEED_AMOUNT());
-    deal(proposal.USDT(), GovernanceV3ZkSync.EXECUTOR_LVL_1, proposal.USDT_SEED_AMOUNT());
-    deal(proposal.WETH(), GovernanceV3ZkSync.EXECUTOR_LVL_1, proposal.WETH_SEED_AMOUNT());
-    deal(proposal.wstETH(), GovernanceV3ZkSync.EXECUTOR_LVL_1, proposal.wstETH_SEED_AMOUNT());
-    deal(proposal.ZK(), GovernanceV3ZkSync.EXECUTOR_LVL_1, proposal.ZK_SEED_AMOUNT());
-
+  function _transferPermission() internal {
     // transfer executor ownership to payloads controller
     vm.startPrank(0x6ec33534BE07d45cc4E02Fbd127F8ed2aE919a6b);
     IOwnable(0x04cE39789e11a49595cD0ECEf6f4Bd54ABF4d020).transferOwnership(

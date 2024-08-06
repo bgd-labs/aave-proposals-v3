@@ -2,7 +2,7 @@
 pragma solidity ^0.8.0;
 
 import {GovV3Helpers, IPayloadsControllerCore} from 'aave-helpers/src/GovV3Helpers.sol';
-import {ZkSyncScript} from 'aave-helpers/src/ScriptUtils.sol';
+import {ZkSyncScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
 import {AaveV3ZkSync_AaveV3ZkSyncActivation_20240805} from './AaveV3ZkSync_AaveV3ZkSyncActivation_20240805.sol';
 
 // @dev wrapper factory contract for deploying the payload
