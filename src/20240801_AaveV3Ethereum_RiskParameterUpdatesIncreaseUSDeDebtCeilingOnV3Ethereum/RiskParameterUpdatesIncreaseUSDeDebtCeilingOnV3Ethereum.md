@@ -49,8 +49,8 @@ While this concentration does not affect the current recommendation, it is somet
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240801_AaveV3Ethereum_RiskParameterUpdatesIncreaseUSDeDebtCeilingOnV3Ethereum/AaveV3Ethereum_RiskParameterUpdatesIncreaseUSDeDebtCeilingOnV3Ethereum_20240801.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240801_AaveV3Ethereum_RiskParameterUpdatesIncreaseUSDeDebtCeilingOnV3Ethereum/AaveV3Ethereum_RiskParameterUpdatesIncreaseUSDeDebtCeilingOnV3Ethereum_20240801.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/d541744da4859996032914b5f1771ff46bd49ab2/src/20240801_AaveV3Ethereum_RiskParameterUpdatesIncreaseUSDeDebtCeilingOnV3Ethereum/AaveV3Ethereum_RiskParameterUpdatesIncreaseUSDeDebtCeilingOnV3Ethereum_20240801.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/d541744da4859996032914b5f1771ff46bd49ab2/src/20240801_AaveV3Ethereum_RiskParameterUpdatesIncreaseUSDeDebtCeilingOnV3Ethereum/AaveV3Ethereum_RiskParameterUpdatesIncreaseUSDeDebtCeilingOnV3Ethereum_20240801.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0xea1012aaf1fe660148cfe6265cbadf23b19bb44af609caaa51ab8d7194259c28)
 - [Discussion](https://governance.aave.com/t/arfc-chaos-labs-risk-parameter-updates-increase-usde-debt-ceiling-on-v3-ethereum-07-22-2024/18325)
 
