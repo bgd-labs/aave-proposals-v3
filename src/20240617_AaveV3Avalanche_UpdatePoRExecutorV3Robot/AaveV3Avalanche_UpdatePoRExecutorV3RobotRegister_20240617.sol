@@ -28,6 +28,9 @@ contract AaveV3Avalanche_UpdatePoRExecutorV3RobotRegister_20240617 is IProposalG
   uint256 public constant LINK_AMOUNT = 15 ether;
 
   function execute() external {
+    AaveV3Avalanche.ACL_MANAGER.addRiskAdmin(PROOF_OF_RESERVE_EXECUTOR_V3);
+
+    // register new PoR robot
     IAaveCLRobotOperator(ROBOT_OPERATOR).withdrawLink(OLD_POR_ROBOT_ID);
 
     AaveV3Avalanche.COLLECTOR.transfer(

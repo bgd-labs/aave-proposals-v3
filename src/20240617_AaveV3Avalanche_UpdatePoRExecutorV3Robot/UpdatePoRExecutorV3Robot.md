@@ -6,7 +6,7 @@ discussions: ""
 
 ## Simple Summary
 
-Proposal to register the new robot for the updated version of Proof of Reserve Executor V3 on Avalanche.
+Proposal to give new Proof of Reserve Executor V3 risk admin role on Avalanche and register the new robot.
 
 ## Motivation
 
@@ -14,7 +14,11 @@ With the release of Aave V3.1, it is no longer necessary to set the asset's LTV 
 
 The robot for the updated version of [Proof of Reserve Executor](https://snowscan.xyz/address/0xb94e515615c244ab25f7a6e592e3cb7ee31e99f4) is registered in this proposal and the existing one is being canceled.
 
+The new version of the Proof of Reserve Executor is granted the risk admin role.
+
 ## Specification
+
+ACL Manager's `addRiskAdmin()` will be called to add the new executor as a risk admin.
 
 The current robot will be canceled by calling the `cancel()` method by the first payload on the robot operator contract. After the delay, the second payload will be executed to `withdrawLink()` on the robot operator contract to withdraw the unused funds on the previous robot to the collector and then call the `register()` method to register the new keeper.
 
