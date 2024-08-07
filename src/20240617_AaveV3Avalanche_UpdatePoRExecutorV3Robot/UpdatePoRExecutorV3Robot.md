@@ -10,7 +10,7 @@ Proposal to re-enable Aave Proof of Reserve on Avalanche, after temporarily halt
 
 ## Motivation
 
-With the release of Aave V3.1, it is no longer necessary to set the asset's LTV to zero before freezing during the execution of an emergency action on a Proof of Reserve alert. Moreover setting LTV to zero will break the setting of LTV back to normal value on unfreeze.
+With the release of Aave V3.1, it is no longer necessary to set the asset's LTV to zero before freezing during the execution of an emergency action on a Proof of Reserve alert, as the protocol does it both actions in batch. Moreover setting LTV to zero that way would break the "rollback" mechanism (pendingLtv) of LTV back to normal value on unfreeze.
 
 The robot for the updated version of [Proof of Reserve Executor](https://snowscan.xyz/address/0xb94e515615c244ab25f7a6e592e3cb7ee31e99f4) is registered in this proposal and the existing one is being canceled.
 
