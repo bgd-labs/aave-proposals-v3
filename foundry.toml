@@ -15,17 +15,19 @@ fs_permissions = [
 evm_version = 'shanghai'
 
 [profile.zksync]
-compile = true
-fallback_oz = true
-mode = '3'
 src = 'zksync'
 test = 'zksync'
 libs = ['lib']
+solc = '0.8.20'
 fs_permissions = [{ access = "write", path = "./reports" }]
-evm_version = 'paris'
-zksolc = '0.5.1'
-solc = '0.8.19'
 ffi = true
+evm_version = 'shanghai'
+
+[profile.zksync.zksync]
+compile = true
+fallback_oz = true
+mode = '3'
+zksolc = '1.5.1'
 
 # incomplete list at https://www.evmdiff.com/features?name=PUSH0&kind=opcode
 [profile.metis]
