@@ -8,7 +8,7 @@ import {IAaveCLRobotOperator} from './interfaces/IAaveCLRobotOperator.sol';
 /**
  * @title Update PoR Executor V3 Robot
  * @author BGD Labs (@bgdlabs)
- * - Discussion: TODO
+ * - Discussion: https://governance.aave.com/t/bgd-technical-maintenance-proposals/15274/42
  */
 contract AaveV3Avalanche_UpdatePoRExecutorV3RobotCancel_20240617 is IProposalGenericExecutor {
   uint256 public constant OLD_POR_ROBOT_ID =

@@ -12,7 +12,7 @@ import {SafeCast} from 'solidity-utils/contracts/oz-common/SafeCast.sol';
 /**
  * @title Update PoR Executor V3 Robot
  * @author BGD Labs (@bgdlabs)
- * - Discussion: TODO
+ * - Discussion: https://governance.aave.com/t/bgd-technical-maintenance-proposals/15274/42
  */
 contract AaveV3Avalanche_UpdatePoRExecutorV3RobotRegister_20240617 is IProposalGenericExecutor {
   using SafeERC20 for IERC20;
