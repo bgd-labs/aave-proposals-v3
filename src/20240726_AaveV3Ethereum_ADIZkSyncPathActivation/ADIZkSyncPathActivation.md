@@ -44,10 +44,9 @@ The new Aave Governance deployments on ZkSync network are as follows:
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/fac71a7a436feaea5a2b01021fa40286fc8bb58e/src/20240726_AaveV3Ethereum_ADIZkSyncPathActivation/AaveV3Ethereum_ADIZkSyncPathActivation_20240726.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/fac71a7a436feaea5a2b01021fa40286fc8bb58e/src/20240726_AaveV3Ethereum_ADIZkSyncPathActivation/AaveV3Ethereum_ADIZkSyncPathActivation_20240726.t.sol)
-- [Discussion](https://governance.aave.com/t/bgd-technical-maintenance-proposals/15274/40)
+- [Implementation](https://github.com/bgd-labs/adi-deploy/blob/0362a18614325de76fa1ab4b9ae5c3172d382ec6/src/templates/SimpleAddForwarderAdapter.sol)
 - [Tests](https://github.com/bgd-labs/adi-deploy/blob/0362a18614325de76fa1ab4b9ae5c3172d382ec6/tests/payloads/zksync/AddZkSyncPathTest.t.sol)
+- [Discussion](https://governance.aave.com/t/bgd-technical-maintenance-proposals/15274/40)
 - [Diffs](https://github.com/bgd-labs/adi-deploy/blob/06de05532d37a480b008fc70a4f2569c4a812161/diffs/adi_add_zksync_path_to_adiethereum_before_adi_add_zksync_path_to_adiethereum_after.md)
 
 ## Copyright
