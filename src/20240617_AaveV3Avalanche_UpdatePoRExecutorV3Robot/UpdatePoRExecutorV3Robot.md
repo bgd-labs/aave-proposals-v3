@@ -6,7 +6,7 @@ discussions: ""
 
 ## Simple Summary
 
-Proposal to give new Proof of Reserve Executor V3 risk admin role on Avalanche and register the new robot.
+Proposal to re-enable Aave Proof of Reserve on Avalanche, after temporarily halting the system during the Aave v3.1 upgrade.
 
 ## Motivation
 
