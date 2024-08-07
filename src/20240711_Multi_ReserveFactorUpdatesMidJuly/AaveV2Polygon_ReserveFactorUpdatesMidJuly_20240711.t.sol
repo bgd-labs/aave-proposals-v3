@@ -15,7 +15,7 @@ contract AaveV2Polygon_ReserveFactorUpdatesMidJuly_20240711_Test is ProtocolV2Te
   AaveV2Polygon_ReserveFactorUpdatesMidJuly_20240711 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('polygon'), 60001252);
+    vm.createSelectFork(vm.rpcUrl('polygon'), 60300335);
     proposal = new AaveV2Polygon_ReserveFactorUpdatesMidJuly_20240711();
   }
 

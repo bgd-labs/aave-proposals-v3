@@ -20,7 +20,7 @@ contract AaveV2Avalanche_ReserveFactorUpdatesMidJuly_20240711_Test is ProtocolV2
   }
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('avalanche'), 48640210);
+    vm.createSelectFork(vm.rpcUrl('avalanche'), 48960949);
     proposal = new AaveV2Avalanche_ReserveFactorUpdatesMidJuly_20240711();
   }
 

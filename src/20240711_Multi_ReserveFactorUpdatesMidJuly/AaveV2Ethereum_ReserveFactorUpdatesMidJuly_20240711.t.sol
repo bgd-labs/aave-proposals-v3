@@ -20,7 +20,7 @@ contract AaveV2Ethereum_ReserveFactorUpdatesMidJuly_20240711_Test is ProtocolV2T
   }
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 20421735);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 20476600);
     proposal = new AaveV2Ethereum_ReserveFactorUpdatesMidJuly_20240711();
   }
 
