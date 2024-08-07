@@ -2,6 +2,7 @@
 pragma solidity ^0.8.0;
 
 import {AaveV3Avalanche, AaveV3AvalancheAssets} from 'aave-address-book/AaveV3Avalanche.sol';
+import {MiscAvalanche} from 'aave-address-book/MiscAvalanche.sol';
 
 import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/ProtocolV3TestBase.sol';
@@ -37,9 +38,6 @@ contract AaveV3Avalanche_UpdatePoRExecutorV3RobotRegister_20240617_Test is Proto
 
     // after robot cancel we need to wait for some blocks to withdraw so we fast-forward
     vm.roll(block.number + 50);
-    IAaveCLRobotOperator(cancelProposal.ROBOT_OPERATOR()).withdrawLink(
-      cancelProposal.OLD_POR_ROBOT_ID()
-    );
   }
 
   /**
