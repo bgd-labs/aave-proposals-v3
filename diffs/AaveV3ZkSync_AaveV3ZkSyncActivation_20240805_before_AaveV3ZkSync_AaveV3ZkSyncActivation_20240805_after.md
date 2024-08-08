@@ -18,7 +18,7 @@
 | oracle | [0xA715ED3eC1C078EEf8437Cf717Cf76004f29eAED](https://era.zksync.network//address/0xA715ED3eC1C078EEf8437Cf717Cf76004f29eAED) |
 | oracleDecimals | 8 |
 | oracleDescription | Capped USDC/USD |
-| oracleLatestAnswer | 1.00002911 |
+| oracleLatestAnswer | 1.00011498 |
 | usageAsCollateralEnabled | true |
 | ltv | 75 % [7500] |
 | liquidationThreshold | 78 % [7800] |
@@ -69,7 +69,7 @@
 | oracle | [0x336EC4bcb65C1A141318fBd3f8E7379c085E8B15](https://era.zksync.network//address/0x336EC4bcb65C1A141318fBd3f8E7379c085E8B15) |
 | oracleDecimals | 8 |
 | oracleDescription | Capped USDT/USD |
-| oracleLatestAnswer | 1.00026668 |
+| oracleLatestAnswer | 1.0004925 |
 | usageAsCollateralEnabled | true |
 | ltv | 75 % [7500] |
 | liquidationThreshold | 78 % [7800] |
@@ -120,7 +120,7 @@
 | oracle | [0xD1ce60dc8AE060DDD17cA8716C96f193bC88DD13](https://era.zksync.network//address/0xD1ce60dc8AE060DDD17cA8716C96f193bC88DD13) |
 | oracleDecimals | 8 |
 | oracleDescription | ZK / USD |
-| oracleLatestAnswer | 0.09628174 |
+| oracleLatestAnswer | 0.10447644 |
 | usageAsCollateralEnabled | true |
 | ltv | 40 % [4000] |
 | liquidationThreshold | 45 % [4500] |
@@ -171,7 +171,7 @@
 | oracle | [0x6D41d1dc818112880b40e26BD6FD347E41008eDA](https://era.zksync.network//address/0x6D41d1dc818112880b40e26BD6FD347E41008eDA) |
 | oracleDecimals | 8 |
 | oracleDescription | ETH / USD |
-| oracleLatestAnswer | 2481.9792 |
+| oracleLatestAnswer | 2528.5 |
 | usageAsCollateralEnabled | true |
 | ltv | 75 % [7500] |
 | liquidationThreshold | 78 % [7800] |
@@ -222,7 +222,7 @@
 | oracle | [0x624FEc7DDeb62Dcbce1fc456D7cc5c6A47cC69aF](https://era.zksync.network//address/0x624FEc7DDeb62Dcbce1fc456D7cc5c6A47cC69aF) |
 | oracleDecimals | 8 |
 | oracleDescription | Capped wstETH / stETH(ETH) / USD |
-| oracleLatestAnswer | 2915.63788878 |
+| oracleLatestAnswer | 2971.092768 |
 | usageAsCollateralEnabled | true |
 | ltv | 71 % [7100] |
 | liquidationThreshold | 76 % [7600] |
@@ -289,7 +289,7 @@
         "oracle": "0xA715ED3eC1C078EEf8437Cf717Cf76004f29eAED",
         "oracleDecimals": 8,
         "oracleDescription": "Capped USDC/USD",
-        "oracleLatestAnswer": 100002911,
+        "oracleLatestAnswer": 100011498,
         "reserveFactor": 1000,
         "stableBorrowRateEnabled": false,
         "stableDebtToken": "0xF81a3aCe2D6749e39513D8Ee11e6deb12DAaE9B4",
@@ -335,7 +335,7 @@
         "oracle": "0x336EC4bcb65C1A141318fBd3f8E7379c085E8B15",
         "oracleDecimals": 8,
         "oracleDescription": "Capped USDT/USD",
-        "oracleLatestAnswer": 100026668,
+        "oracleLatestAnswer": 100049250,
         "reserveFactor": 1000,
         "stableBorrowRateEnabled": false,
         "stableDebtToken": "0x13B8Dfcf2B988Cb478f071bdeA93CaFb1DaE6Ddb",
@@ -381,7 +381,7 @@
         "oracle": "0xD1ce60dc8AE060DDD17cA8716C96f193bC88DD13",
         "oracleDecimals": 8,
         "oracleDescription": "ZK / USD",
-        "oracleLatestAnswer": 9628174,
+        "oracleLatestAnswer": 10447644,
         "reserveFactor": 2000,
         "stableBorrowRateEnabled": false,
         "stableDebtToken": "0x4A0d0b401F5D6286287a21AC35471B00FB81D834",
@@ -427,7 +427,7 @@
         "oracle": "0x6D41d1dc818112880b40e26BD6FD347E41008eDA",
         "oracleDecimals": 8,
         "oracleDescription": "ETH / USD",
-        "oracleLatestAnswer": 248197920000,
+        "oracleLatestAnswer": 252850000000,
         "reserveFactor": 1500,
         "stableBorrowRateEnabled": false,
         "stableDebtToken": "0xFf9195a048C189a20197595BDb7136ab064AC5EB",
@@ -473,7 +473,7 @@
         "oracle": "0x624FEc7DDeb62Dcbce1fc456D7cc5c6A47cC69aF",
         "oracleDecimals": 8,
         "oracleDescription": "Capped wstETH / stETH(ETH) / USD",
-        "oracleLatestAnswer": 291563788878,
+        "oracleLatestAnswer": 297109276800,
         "reserveFactor": 1500,
         "stableBorrowRateEnabled": false,
         "stableDebtToken": "0xA64a78343420de2d03800081CB87429F8dfAFd58",
