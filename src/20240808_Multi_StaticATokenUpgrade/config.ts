@@ -1,0 +1,36 @@
+import {ConfigFile} from '../../generator/types';
+export const config: ConfigFile = {
+  rootOptions: {
+    author: 'BGD Labs @bgdlabs',
+    pools: [
+      'AaveV3Ethereum',
+      'AaveV3Polygon',
+      'AaveV3Avalanche',
+      'AaveV3Optimism',
+      'AaveV3Arbitrum',
+      'AaveV3Metis',
+      'AaveV3Base',
+      'AaveV3Gnosis',
+      'AaveV3Scroll',
+      'AaveV3BNB',
+    ],
+    title: 'Static A Token Upgrade',
+    shortName: 'StaticATokenUpgrade',
+    date: '20240808',
+    discussion: '',
+    snapshot: '',
+    votingNetwork: 'POLYGON',
+  },
+  poolOptions: {
+    AaveV3Ethereum: {configs: {OTHERS: {}}, cache: {blockNumber: 20485632}},
+    AaveV3Polygon: {configs: {OTHERS: {}}, cache: {blockNumber: 60349501}},
+    AaveV3Avalanche: {configs: {OTHERS: {}}, cache: {blockNumber: 49012757}},
+    AaveV3Optimism: {configs: {OTHERS: {}}, cache: {blockNumber: 123771299}},
+    AaveV3Arbitrum: {configs: {OTHERS: {}}, cache: {blockNumber: 240801689}},
+    AaveV3Metis: {configs: {OTHERS: {}}, cache: {blockNumber: 18015405}},
+    AaveV3Base: {configs: {OTHERS: {}}, cache: {blockNumber: 18176016}},
+    AaveV3Gnosis: {configs: {OTHERS: {}}, cache: {blockNumber: 35383306}},
+    AaveV3Scroll: {configs: {OTHERS: {}}, cache: {blockNumber: 8195953}},
+    AaveV3BNB: {configs: {OTHERS: {}}, cache: {blockNumber: 41190696}},
+  },
+};
