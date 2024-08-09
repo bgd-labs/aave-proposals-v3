@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 import {AaveV3Optimism} from 'aave-address-book/AaveV3Optimism.sol';
 
 import 'forge-std/Test.sol';
-import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/ProtocolV3TestBase.sol';
+import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Optimism_ReduceReserveFactorOnWstETH_20240716} from './AaveV3Optimism_ReduceReserveFactorOnWstETH_20240716.sol';
 
 /**

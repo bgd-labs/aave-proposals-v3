@@ -2,7 +2,7 @@
 pragma solidity ^0.8.0;
 
 import {AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
-import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/ProtocolV3TestBase.sol';
+import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 
 import {IUpgradeableLockReleaseTokenPool} from 'src/interfaces/ccip/IUpgradeableLockReleaseTokenPool.sol';

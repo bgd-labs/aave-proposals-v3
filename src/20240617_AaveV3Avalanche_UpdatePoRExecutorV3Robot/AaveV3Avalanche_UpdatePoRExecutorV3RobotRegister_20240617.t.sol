@@ -5,7 +5,7 @@ import {AaveV3Avalanche, AaveV3AvalancheAssets} from 'aave-address-book/AaveV3Av
 import {MiscAvalanche} from 'aave-address-book/MiscAvalanche.sol';
 
 import 'forge-std/Test.sol';
-import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/ProtocolV3TestBase.sol';
+import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Avalanche_UpdatePoRExecutorV3RobotCancel_20240617} from './AaveV3Avalanche_UpdatePoRExecutorV3RobotCancel_20240617.sol';
 import {AaveV3Avalanche_UpdatePoRExecutorV3RobotRegister_20240617} from './AaveV3Avalanche_UpdatePoRExecutorV3RobotRegister_20240617.sol';
 import {IAaveCLRobotOperator} from './interfaces/IAaveCLRobotOperator.sol';

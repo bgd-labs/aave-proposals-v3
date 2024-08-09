@@ -24,7 +24,7 @@ export const testTemplate = (options: Options, poolConfig: PoolConfig, pool: Poo
 
   let template = `
 import 'forge-std/Test.sol';
-import {${testBase}, ReserveConfig} from 'aave-helpers/${testBase}.sol';
+import {${testBase}, ReserveConfig} from 'aave-helpers/src/${testBase}.sol';
 import {${contractName}} from './${contractName}.sol';
 
 /**

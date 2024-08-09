@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 
 import 'forge-std/Test.sol';
-import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/ProtocolV3TestBase.sol';
+import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Ethereum_RiskParameterUpdatesIncreaseUSDeDebtCeilingOnV3Ethereum_20240801} from './AaveV3Ethereum_RiskParameterUpdatesIncreaseUSDeDebtCeilingOnV3Ethereum_20240801.sol';
 
 /**
