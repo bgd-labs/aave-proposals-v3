@@ -40,8 +40,8 @@ The new contracts involved are the following:
 
 ## References
 
-- Implementation: [AaveV3Avalanche - Cancel existing robot](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240617_AaveV3Avalanche_UpdatePoRExecutorV3Robot/AaveV3Avalanche_UpdatePoRExecutorV3RobotCancel_20240617.sol), [AaveV3Avalanche - Register new robot](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240617_AaveV3Avalanche_UpdatePoRExecutorV3Robot/AaveV3Avalanche_UpdatePoRExecutorV3RobotRegister_20240617.sol)
-- Tests: [AaveV3Avalanche - Cancel](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240617_AaveV3Avalanche_UpdatePoRExecutorV3Robot/AaveV3Avalanche_UpdatePoRExecutorV3RobotCancel_20240617.t.sol), [AaveV3Avalanche - Register](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240617_AaveV3Avalanche_UpdatePoRExecutorV3Robot/AaveV3Avalanche_UpdatePoRExecutorV3RobotRegister_20240617.t.sol)
+- Implementation: [AaveV3Avalanche - Cancel existing robot](https://github.com/bgd-labs/aave-proposals-v3/blob/71b114678f8b5ec17a6342fe546bfb4bcea24755/src/20240617_AaveV3Avalanche_UpdatePoRExecutorV3Robot/AaveV3Avalanche_UpdatePoRExecutorV3RobotCancel_20240617.sol), [AaveV3Avalanche - Register new robot](https://github.com/bgd-labs/aave-proposals-v3/blob/71b114678f8b5ec17a6342fe546bfb4bcea24755/src/20240617_AaveV3Avalanche_UpdatePoRExecutorV3Robot/AaveV3Avalanche_UpdatePoRExecutorV3RobotRegister_20240617.sol)
+- Tests: [AaveV3Avalanche - Cancel](https://github.com/bgd-labs/aave-proposals-v3/blob/71b114678f8b5ec17a6342fe546bfb4bcea24755/src/20240617_AaveV3Avalanche_UpdatePoRExecutorV3Robot/AaveV3Avalanche_UpdatePoRExecutorV3RobotCancel_20240617.t.sol), [AaveV3Avalanche - Register](https://github.com/bgd-labs/aave-proposals-v3/blob/71b114678f8b5ec17a6342fe546bfb4bcea24755/src/20240617_AaveV3Avalanche_UpdatePoRExecutorV3Robot/AaveV3Avalanche_UpdatePoRExecutorV3RobotRegister_20240617.t.sol)
 - [New Proof of Reserve Executor](https://snowscan.xyz/address/0xb94e515615c244ab25f7a6e592e3cb7ee31e99f4)
 - [Discussion](https://governance.aave.com/t/bgd-technical-maintenance-proposals/15274/42)
 
