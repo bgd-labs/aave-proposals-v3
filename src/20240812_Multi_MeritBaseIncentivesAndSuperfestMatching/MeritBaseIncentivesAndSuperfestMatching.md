@@ -10,7 +10,7 @@ snapshot: "https://snapshot.org/#/aave.eth/proposal/0x15cbc6b6c5b4ef76a1fb8cf874
 This ARFC seeks to plan and implement an incentive program on Base with the goal of increasing Aave’s market share and matching additional incentives from Optimism foundation. The program will involve the following key actions:
 
 1. Inclusion of Base in Merit boosters for round 7
-2. Incentives matching, up to 150k OP, (at max $2 per OP) paid in GHO
+2. Incentives matching, up to 150k OP, (at max $2 per OP)
 
 These will be in service of the eventual launch of GHO on Base and Umbrella coverage of aUSD and awETH for Aave v3 Base.
 
@@ -37,7 +37,7 @@ Incentives will be set up as follows:
 
 2. **Incentives Matching:**
 
-- Match incentives up to 150k OP (Optimism tokens), with a maximum value of $2 per OP, to be paid in GHO. This will provide additional motivation for users to engage with Aave on Base and align Aave DAO with the Superchain ecosystem.
+- Match incentives up to 150k OP (Optimism tokens), with a maximum value of $2 per OP. This will provide additional motivation for users to engage with Aave on Base and align Aave DAO with the Superchain ecosystem.
 - This will be funded with 100,000 USDC first batch, sourced from the Aave Collector on Base to be “reinvested” in the ecosystem.
 - The ACI treasury will receive allowance for a total of 200,000 USDC from the Mainnet collector contract, and will be responsible from claim and bridging this funds to match futher incentives from the superfest program up to a total of 300k$
 - to allow this LM program, the AIP will appoint the ACI multisig `0xac140648435d03f784879cd789130F22Ef588Fcd` as emission_admin to handle the distribution on behalf of the DAO
