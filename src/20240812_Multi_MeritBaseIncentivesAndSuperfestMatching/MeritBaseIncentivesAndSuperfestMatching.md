@@ -7,7 +7,7 @@ snapshot: "https://snapshot.org/#/aave.eth/proposal/0x15cbc6b6c5b4ef76a1fb8cf874
 
 ## Simple Summary
 
-This ARFC seeks to plan and implement an incentive program on Base with the goal of increasing Aave’s market share and matching additional incentives from Optimism foundation. The program will involve the following key actions:
+This AIP seeks to plan and implement an incentive program on Base with the goal of increasing Aave’s market share and matching additional incentives from Optimism foundation. The program will involve the following key actions:
 
 1. Inclusion of Base in Merit boosters for round 7
 2. Incentives matching, up to 150k OP, (at max $2 per OP)
