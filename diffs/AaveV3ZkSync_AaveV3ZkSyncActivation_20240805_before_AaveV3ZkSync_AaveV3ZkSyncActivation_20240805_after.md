@@ -18,23 +18,23 @@
 | oracle | [0xA715ED3eC1C078EEf8437Cf717Cf76004f29eAED](https://era.zksync.network//address/0xA715ED3eC1C078EEf8437Cf717Cf76004f29eAED) |
 | oracleDecimals | 8 |
 | oracleDescription | Capped USDC/USD |
-| oracleLatestAnswer | 0.99996085 |
+| oracleLatestAnswer | 0.99995 |
 | usageAsCollateralEnabled | true |
 | ltv | 75 % [7500] |
 | liquidationThreshold | 78 % [7800] |
 | liquidationBonus | 5 % |
 | liquidationProtocolFee | 10 % [1000] |
 | reserveFactor | 10 % [1000] |
-| aToken | [0xe936ab81A5132e4B6E5327da7ff627bf917c28D3](https://era.zksync.network//address/0xe936ab81A5132e4B6E5327da7ff627bf917c28D3) |
-| aTokenImpl | [0xC2769946125F117B66EB30eE0c2E69C3FE5dF4Cc](https://era.zksync.network//address/0xC2769946125F117B66EB30eE0c2E69C3FE5dF4Cc) |
-| variableDebtToken | [0x459cb9f9eb4e5dbFb17dfC3A0A0acF4ab69d2f28](https://era.zksync.network//address/0x459cb9f9eb4e5dbFb17dfC3A0A0acF4ab69d2f28) |
-| variableDebtTokenImpl | [0x7b9bF948D5925a8FCF5193C34DBEaca318028115](https://era.zksync.network//address/0x7b9bF948D5925a8FCF5193C34DBEaca318028115) |
-| stableDebtToken | [0xF81a3aCe2D6749e39513D8Ee11e6deb12DAaE9B4](https://era.zksync.network//address/0xF81a3aCe2D6749e39513D8Ee11e6deb12DAaE9B4) |
-| stableDebtTokenImpl | [0xB0349F079C04b953DD9704c29dc631D5cBA1a52f](https://era.zksync.network//address/0xB0349F079C04b953DD9704c29dc631D5cBA1a52f) |
+| aToken | [0x97448808a366BDCC3A0fF84E36573dD8Ef1Ff5Fb](https://era.zksync.network//address/0x97448808a366BDCC3A0fF84E36573dD8Ef1Ff5Fb) |
+| aTokenImpl | [0x58C1F5d7Ea1F419588CF8eC9D22cB982C7C630D4](https://era.zksync.network//address/0x58C1F5d7Ea1F419588CF8eC9D22cB982C7C630D4) |
+| variableDebtToken | [0xb30d45038b1373827A0336cD6EB0b94723C76783](https://era.zksync.network//address/0xb30d45038b1373827A0336cD6EB0b94723C76783) |
+| variableDebtTokenImpl | [0x7c310e97Bdba5E7603D772df324B8dd33771c094](https://era.zksync.network//address/0x7c310e97Bdba5E7603D772df324B8dd33771c094) |
+| stableDebtToken | [0x9bC045f0aB33a498dA84F09fDAbd0C3c8Ed278c0](https://era.zksync.network//address/0x9bC045f0aB33a498dA84F09fDAbd0C3c8Ed278c0) |
+| stableDebtTokenImpl | [0xc25037446067240880b7B6d81fae544309a5fE02](https://era.zksync.network//address/0xc25037446067240880b7B6d81fae544309a5fE02) |
 | borrowingEnabled | true |
 | stableBorrowRateEnabled | false |
 | isBorrowableInIsolation | true |
-| interestRateStrategy | [0xFdc36aDC8185324ecD9d2b472F517dd659f6aC19](https://era.zksync.network//address/0xFdc36aDC8185324ecD9d2b472F517dd659f6aC19) |
+| interestRateStrategy | [0x7BcE25db0C430059C4277D6A747d7fd0C1214beA](https://era.zksync.network//address/0x7BcE25db0C430059C4277D6A747d7fd0C1214beA) |
 | aTokenName | Aave ZkSync USDC |
 | aTokenSymbol | aZksUSDC |
 | aTokenUnderlyingBalance | 0 USDC [0] |
@@ -50,7 +50,7 @@
 | baseVariableBorrowRate | 0 % |
 | variableRateSlope1 | 9 % |
 | variableRateSlope2 | 75 % |
-| interestRate | ![ir](/.assets/a427bce2afef0a53df5a79f7e2a51154a9555f1d.svg) |
+| interestRate | ![ir](/.assets/ce5d4c6896eb052b00970c76b158b98e600860c7.svg) |
 
 
 #### USDT ([0x493257fD37EDB34451f62EDf8D2a0C418852bA4C](https://era.zksync.network//address/0x493257fD37EDB34451f62EDf8D2a0C418852bA4C))
@@ -69,23 +69,23 @@
 | oracle | [0x336EC4bcb65C1A141318fBd3f8E7379c085E8B15](https://era.zksync.network//address/0x336EC4bcb65C1A141318fBd3f8E7379c085E8B15) |
 | oracleDecimals | 8 |
 | oracleDescription | Capped USDT/USD |
-| oracleLatestAnswer | 1.00023636 |
+| oracleLatestAnswer | 1.00020062 |
 | usageAsCollateralEnabled | true |
 | ltv | 75 % [7500] |
 | liquidationThreshold | 78 % [7800] |
 | liquidationBonus | 5 % |
 | liquidationProtocolFee | 10 % [1000] |
 | reserveFactor | 10 % [1000] |
-| aToken | [0x60D6453103f561398A41aA61f0C863f34C532a64](https://era.zksync.network//address/0x60D6453103f561398A41aA61f0C863f34C532a64) |
-| aTokenImpl | [0xC2769946125F117B66EB30eE0c2E69C3FE5dF4Cc](https://era.zksync.network//address/0xC2769946125F117B66EB30eE0c2E69C3FE5dF4Cc) |
-| variableDebtToken | [0x5f1bA085DA9335a6037dBAdDb2c23Cbbb36924d6](https://era.zksync.network//address/0x5f1bA085DA9335a6037dBAdDb2c23Cbbb36924d6) |
-| variableDebtTokenImpl | [0x7b9bF948D5925a8FCF5193C34DBEaca318028115](https://era.zksync.network//address/0x7b9bF948D5925a8FCF5193C34DBEaca318028115) |
-| stableDebtToken | [0x13B8Dfcf2B988Cb478f071bdeA93CaFb1DaE6Ddb](https://era.zksync.network//address/0x13B8Dfcf2B988Cb478f071bdeA93CaFb1DaE6Ddb) |
-| stableDebtTokenImpl | [0xB0349F079C04b953DD9704c29dc631D5cBA1a52f](https://era.zksync.network//address/0xB0349F079C04b953DD9704c29dc631D5cBA1a52f) |
+| aToken | [0xa7d6B2dFe6cDB4c2D017294636065ac77265114c](https://era.zksync.network//address/0xa7d6B2dFe6cDB4c2D017294636065ac77265114c) |
+| aTokenImpl | [0x58C1F5d7Ea1F419588CF8eC9D22cB982C7C630D4](https://era.zksync.network//address/0x58C1F5d7Ea1F419588CF8eC9D22cB982C7C630D4) |
+| variableDebtToken | [0x02C39C4Ed5D7345fD96E9f83805467B9D3c33252](https://era.zksync.network//address/0x02C39C4Ed5D7345fD96E9f83805467B9D3c33252) |
+| variableDebtTokenImpl | [0x7c310e97Bdba5E7603D772df324B8dd33771c094](https://era.zksync.network//address/0x7c310e97Bdba5E7603D772df324B8dd33771c094) |
+| stableDebtToken | [0x3d58EC46eE7b50ff54E5277Bbb02A8fdE774F193](https://era.zksync.network//address/0x3d58EC46eE7b50ff54E5277Bbb02A8fdE774F193) |
+| stableDebtTokenImpl | [0xc25037446067240880b7B6d81fae544309a5fE02](https://era.zksync.network//address/0xc25037446067240880b7B6d81fae544309a5fE02) |
 | borrowingEnabled | true |
 | stableBorrowRateEnabled | false |
 | isBorrowableInIsolation | true |
-| interestRateStrategy | [0xFdc36aDC8185324ecD9d2b472F517dd659f6aC19](https://era.zksync.network//address/0xFdc36aDC8185324ecD9d2b472F517dd659f6aC19) |
+| interestRateStrategy | [0x7BcE25db0C430059C4277D6A747d7fd0C1214beA](https://era.zksync.network//address/0x7BcE25db0C430059C4277D6A747d7fd0C1214beA) |
 | aTokenName | Aave ZkSync USDT |
 | aTokenSymbol | aZksUSDT |
 | aTokenUnderlyingBalance | 0 USDT [0] |
@@ -101,7 +101,7 @@
 | baseVariableBorrowRate | 0 % |
 | variableRateSlope1 | 9 % |
 | variableRateSlope2 | 75 % |
-| interestRate | ![ir](/.assets/a427bce2afef0a53df5a79f7e2a51154a9555f1d.svg) |
+| interestRate | ![ir](/.assets/ce5d4c6896eb052b00970c76b158b98e600860c7.svg) |
 
 
 #### ZK ([0x5A7d6b2F92C77FAD6CCaBd7EE0624E64907Eaf3E](https://era.zksync.network//address/0x5A7d6b2F92C77FAD6CCaBd7EE0624E64907Eaf3E))
@@ -120,23 +120,23 @@
 | oracle | [0xD1ce60dc8AE060DDD17cA8716C96f193bC88DD13](https://era.zksync.network//address/0xD1ce60dc8AE060DDD17cA8716C96f193bC88DD13) |
 | oracleDecimals | 8 |
 | oracleDescription | ZK / USD |
-| oracleLatestAnswer | 0.11266546 |
+| oracleLatestAnswer | 0.11515727 |
 | usageAsCollateralEnabled | true |
 | ltv | 40 % [4000] |
 | liquidationThreshold | 45 % [4500] |
 | liquidationBonus | 10 % |
 | liquidationProtocolFee | 20 % [2000] |
 | reserveFactor | 20 % [2000] |
-| aToken | [0x9bFEd9D6d668240aD4647C7e92E626FCA45D5dD7](https://era.zksync.network//address/0x9bFEd9D6d668240aD4647C7e92E626FCA45D5dD7) |
-| aTokenImpl | [0xC2769946125F117B66EB30eE0c2E69C3FE5dF4Cc](https://era.zksync.network//address/0xC2769946125F117B66EB30eE0c2E69C3FE5dF4Cc) |
-| variableDebtToken | [0xa0591987F9c8FF423CE5652Ec5977844b836F34e](https://era.zksync.network//address/0xa0591987F9c8FF423CE5652Ec5977844b836F34e) |
-| variableDebtTokenImpl | [0x7b9bF948D5925a8FCF5193C34DBEaca318028115](https://era.zksync.network//address/0x7b9bF948D5925a8FCF5193C34DBEaca318028115) |
-| stableDebtToken | [0x4A0d0b401F5D6286287a21AC35471B00FB81D834](https://era.zksync.network//address/0x4A0d0b401F5D6286287a21AC35471B00FB81D834) |
-| stableDebtTokenImpl | [0xB0349F079C04b953DD9704c29dc631D5cBA1a52f](https://era.zksync.network//address/0xB0349F079C04b953DD9704c29dc631D5cBA1a52f) |
+| aToken | [0xFA8789719Ff34325362FF901bb3B34f34Ce4768A](https://era.zksync.network//address/0xFA8789719Ff34325362FF901bb3B34f34Ce4768A) |
+| aTokenImpl | [0x58C1F5d7Ea1F419588CF8eC9D22cB982C7C630D4](https://era.zksync.network//address/0x58C1F5d7Ea1F419588CF8eC9D22cB982C7C630D4) |
+| variableDebtToken | [0xfaa231f2B7D0De0644b38a36deF591B3B8c7a409](https://era.zksync.network//address/0xfaa231f2B7D0De0644b38a36deF591B3B8c7a409) |
+| variableDebtTokenImpl | [0x7c310e97Bdba5E7603D772df324B8dd33771c094](https://era.zksync.network//address/0x7c310e97Bdba5E7603D772df324B8dd33771c094) |
+| stableDebtToken | [0x9EAAc5b543258E44a189D1dF02dD2CEAAb8Af7B0](https://era.zksync.network//address/0x9EAAc5b543258E44a189D1dF02dD2CEAAb8Af7B0) |
+| stableDebtTokenImpl | [0xc25037446067240880b7B6d81fae544309a5fE02](https://era.zksync.network//address/0xc25037446067240880b7B6d81fae544309a5fE02) |
 | borrowingEnabled | true |
 | stableBorrowRateEnabled | false |
 | isBorrowableInIsolation | false |
-| interestRateStrategy | [0xFdc36aDC8185324ecD9d2b472F517dd659f6aC19](https://era.zksync.network//address/0xFdc36aDC8185324ecD9d2b472F517dd659f6aC19) |
+| interestRateStrategy | [0x7BcE25db0C430059C4277D6A747d7fd0C1214beA](https://era.zksync.network//address/0x7BcE25db0C430059C4277D6A747d7fd0C1214beA) |
 | aTokenName | Aave ZkSync ZK |
 | aTokenSymbol | aZksZK |
 | aTokenUnderlyingBalance | 0 ZK [0] |
@@ -152,7 +152,7 @@
 | baseVariableBorrowRate | 0 % |
 | variableRateSlope1 | 9 % |
 | variableRateSlope2 | 300 % |
-| interestRate | ![ir](/.assets/900b816212f77f91a6fcc3960556051a7c943163.svg) |
+| interestRate | ![ir](/.assets/58f4a1b3f320382c7f08eefe6f122b4561e5515b.svg) |
 
 
 #### WETH ([0x5AEa5775959fBC2557Cc8789bC1bf90A239D9a91](https://era.zksync.network//address/0x5AEa5775959fBC2557Cc8789bC1bf90A239D9a91))
@@ -171,23 +171,23 @@
 | oracle | [0x6D41d1dc818112880b40e26BD6FD347E41008eDA](https://era.zksync.network//address/0x6D41d1dc818112880b40e26BD6FD347E41008eDA) |
 | oracleDecimals | 8 |
 | oracleDescription | ETH / USD |
-| oracleLatestAnswer | 2625.76781654 |
+| oracleLatestAnswer | 2635.57 |
 | usageAsCollateralEnabled | true |
 | ltv | 75 % [7500] |
 | liquidationThreshold | 78 % [7800] |
 | liquidationBonus | 6 % |
 | liquidationProtocolFee | 10 % [1000] |
 | reserveFactor | 15 % [1500] |
-| aToken | [0x3eeCdFf61D1715A7E85F60375D428Dfa9c4CF1Ef](https://era.zksync.network//address/0x3eeCdFf61D1715A7E85F60375D428Dfa9c4CF1Ef) |
-| aTokenImpl | [0xC2769946125F117B66EB30eE0c2E69C3FE5dF4Cc](https://era.zksync.network//address/0xC2769946125F117B66EB30eE0c2E69C3FE5dF4Cc) |
-| variableDebtToken | [0x9097e3D266C686030e6a81f2a5a56E9F87D1C671](https://era.zksync.network//address/0x9097e3D266C686030e6a81f2a5a56E9F87D1C671) |
-| variableDebtTokenImpl | [0x7b9bF948D5925a8FCF5193C34DBEaca318028115](https://era.zksync.network//address/0x7b9bF948D5925a8FCF5193C34DBEaca318028115) |
-| stableDebtToken | [0xFf9195a048C189a20197595BDb7136ab064AC5EB](https://era.zksync.network//address/0xFf9195a048C189a20197595BDb7136ab064AC5EB) |
-| stableDebtTokenImpl | [0xB0349F079C04b953DD9704c29dc631D5cBA1a52f](https://era.zksync.network//address/0xB0349F079C04b953DD9704c29dc631D5cBA1a52f) |
+| aToken | [0xe471A799FA3DC0738Cf9FB7346574843f5219C30](https://era.zksync.network//address/0xe471A799FA3DC0738Cf9FB7346574843f5219C30) |
+| aTokenImpl | [0x58C1F5d7Ea1F419588CF8eC9D22cB982C7C630D4](https://era.zksync.network//address/0x58C1F5d7Ea1F419588CF8eC9D22cB982C7C630D4) |
+| variableDebtToken | [0x912413f4Ab1fBFD31414DE2fB1b63816c95e4d91](https://era.zksync.network//address/0x912413f4Ab1fBFD31414DE2fB1b63816c95e4d91) |
+| variableDebtTokenImpl | [0x7c310e97Bdba5E7603D772df324B8dd33771c094](https://era.zksync.network//address/0x7c310e97Bdba5E7603D772df324B8dd33771c094) |
+| stableDebtToken | [0x415BeF014E69564Fe68f6b8d5fBbDE4310794C5d](https://era.zksync.network//address/0x415BeF014E69564Fe68f6b8d5fBbDE4310794C5d) |
+| stableDebtTokenImpl | [0xc25037446067240880b7B6d81fae544309a5fE02](https://era.zksync.network//address/0xc25037446067240880b7B6d81fae544309a5fE02) |
 | borrowingEnabled | true |
 | stableBorrowRateEnabled | false |
 | isBorrowableInIsolation | false |
-| interestRateStrategy | [0xFdc36aDC8185324ecD9d2b472F517dd659f6aC19](https://era.zksync.network//address/0xFdc36aDC8185324ecD9d2b472F517dd659f6aC19) |
+| interestRateStrategy | [0x7BcE25db0C430059C4277D6A747d7fd0C1214beA](https://era.zksync.network//address/0x7BcE25db0C430059C4277D6A747d7fd0C1214beA) |
 | aTokenName | Aave ZkSync WETH |
 | aTokenSymbol | aZksWETH |
 | aTokenUnderlyingBalance | 0 WETH [0] |
@@ -203,7 +203,7 @@
 | baseVariableBorrowRate | 0 % |
 | variableRateSlope1 | 3.3 % |
 | variableRateSlope2 | 80 % |
-| interestRate | ![ir](/.assets/53cf36c18e39a84e3129395265872a44bdc7cde1.svg) |
+| interestRate | ![ir](/.assets/b0908dc3387a090004c454c4cb24a52bf6bf1406.svg) |
 
 
 #### wstETH ([0x703b52F2b28fEbcB60E1372858AF5b18849FE867](https://era.zksync.network//address/0x703b52F2b28fEbcB60E1372858AF5b18849FE867))
@@ -222,23 +222,23 @@
 | oracle | [0x624FEc7DDeb62Dcbce1fc456D7cc5c6A47cC69aF](https://era.zksync.network//address/0x624FEc7DDeb62Dcbce1fc456D7cc5c6A47cC69aF) |
 | oracleDecimals | 8 |
 | oracleDescription | Capped wstETH / stETH(ETH) / USD |
-| oracleLatestAnswer | 3086.20360684 |
+| oracleLatestAnswer | 3098.72007943 |
 | usageAsCollateralEnabled | true |
 | ltv | 71 % [7100] |
 | liquidationThreshold | 76 % [7600] |
 | liquidationBonus | 7 % |
 | liquidationProtocolFee | 10 % [1000] |
 | reserveFactor | 15 % [1500] |
-| aToken | [0xb0a82Ddea56dC6C24EC9947955707Eb271f00cb8](https://era.zksync.network//address/0xb0a82Ddea56dC6C24EC9947955707Eb271f00cb8) |
-| aTokenImpl | [0xC2769946125F117B66EB30eE0c2E69C3FE5dF4Cc](https://era.zksync.network//address/0xC2769946125F117B66EB30eE0c2E69C3FE5dF4Cc) |
-| variableDebtToken | [0x20aeA5abF51A1367Eec8225A02c5aAbCe5FC7b75](https://era.zksync.network//address/0x20aeA5abF51A1367Eec8225A02c5aAbCe5FC7b75) |
-| variableDebtTokenImpl | [0x7b9bF948D5925a8FCF5193C34DBEaca318028115](https://era.zksync.network//address/0x7b9bF948D5925a8FCF5193C34DBEaca318028115) |
-| stableDebtToken | [0xA64a78343420de2d03800081CB87429F8dfAFd58](https://era.zksync.network//address/0xA64a78343420de2d03800081CB87429F8dfAFd58) |
-| stableDebtTokenImpl | [0xB0349F079C04b953DD9704c29dc631D5cBA1a52f](https://era.zksync.network//address/0xB0349F079C04b953DD9704c29dc631D5cBA1a52f) |
+| aToken | [0x318CfbA2CDDBF6522d855A589938EC6f5B990Fc1](https://era.zksync.network//address/0x318CfbA2CDDBF6522d855A589938EC6f5B990Fc1) |
+| aTokenImpl | [0x58C1F5d7Ea1F419588CF8eC9D22cB982C7C630D4](https://era.zksync.network//address/0x58C1F5d7Ea1F419588CF8eC9D22cB982C7C630D4) |
+| variableDebtToken | [0x29191BEa63b15E70E2f4c2647695aD1C8EdCb3d5](https://era.zksync.network//address/0x29191BEa63b15E70E2f4c2647695aD1C8EdCb3d5) |
+| variableDebtTokenImpl | [0x7c310e97Bdba5E7603D772df324B8dd33771c094](https://era.zksync.network//address/0x7c310e97Bdba5E7603D772df324B8dd33771c094) |
+| stableDebtToken | [0x60a6E8f92482Fe6F11B57697Ca4f962c0cDA3369](https://era.zksync.network//address/0x60a6E8f92482Fe6F11B57697Ca4f962c0cDA3369) |
+| stableDebtTokenImpl | [0xc25037446067240880b7B6d81fae544309a5fE02](https://era.zksync.network//address/0xc25037446067240880b7B6d81fae544309a5fE02) |
 | borrowingEnabled | true |
 | stableBorrowRateEnabled | false |
 | isBorrowableInIsolation | false |
-| interestRateStrategy | [0xFdc36aDC8185324ecD9d2b472F517dd659f6aC19](https://era.zksync.network//address/0xFdc36aDC8185324ecD9d2b472F517dd659f6aC19) |
+| interestRateStrategy | [0x7BcE25db0C430059C4277D6A747d7fd0C1214beA](https://era.zksync.network//address/0x7BcE25db0C430059C4277D6A747d7fd0C1214beA) |
 | aTokenName | Aave ZkSync wstETH |
 | aTokenSymbol | aZkswstETH |
 | aTokenUnderlyingBalance | 0 wstETH [0] |
@@ -254,7 +254,7 @@
 | baseVariableBorrowRate | 0 % |
 | variableRateSlope1 | 4.5 % |
 | variableRateSlope2 | 80 % |
-| interestRate | ![ir](/.assets/8db97a8de172cee1d49909a8cc9d1cfbc3ce7e1a.svg) |
+| interestRate | ![ir](/.assets/c9f918d8a93b461c97687576892631a71339aaaa.svg) |
 
 
 ## Raw diff
@@ -265,8 +265,8 @@
     "0x1d17CBcF0D6D143135aE902365D2E5e2A16538D4": {
       "from": null,
       "to": {
-        "aToken": "0xe936ab81A5132e4B6E5327da7ff627bf917c28D3",
-        "aTokenImpl": "0xC2769946125F117B66EB30eE0c2E69C3FE5dF4Cc",
+        "aToken": "0x97448808a366BDCC3A0fF84E36573dD8Ef1Ff5Fb",
+        "aTokenImpl": "0x58C1F5d7Ea1F419588CF8eC9D22cB982C7C630D4",
         "aTokenName": "Aave ZkSync USDC",
         "aTokenSymbol": "aZksUSDC",
         "aTokenUnderlyingBalance": 0,
@@ -275,7 +275,7 @@
         "debtCeiling": 0,
         "decimals": 6,
         "eModeCategory": 0,
-        "interestRateStrategy": "0xFdc36aDC8185324ecD9d2b472F517dd659f6aC19",
+        "interestRateStrategy": "0x7BcE25db0C430059C4277D6A747d7fd0C1214beA",
         "isActive": true,
         "isBorrowableInIsolation": true,
         "isFlashloanable": true,
@@ -289,19 +289,19 @@
         "oracle": "0xA715ED3eC1C078EEf8437Cf717Cf76004f29eAED",
         "oracleDecimals": 8,
         "oracleDescription": "Capped USDC/USD",
-        "oracleLatestAnswer": 99996085,
+        "oracleLatestAnswer": 99995000,
         "reserveFactor": 1000,
         "stableBorrowRateEnabled": false,
-        "stableDebtToken": "0xF81a3aCe2D6749e39513D8Ee11e6deb12DAaE9B4",
-        "stableDebtTokenImpl": "0xB0349F079C04b953DD9704c29dc631D5cBA1a52f",
+        "stableDebtToken": "0x9bC045f0aB33a498dA84F09fDAbd0C3c8Ed278c0",
+        "stableDebtTokenImpl": "0xc25037446067240880b7B6d81fae544309a5fE02",
         "stableDebtTokenName": "Aave ZkSync Stable Debt USDC",
         "stableDebtTokenSymbol": "stableDebtZksUSDC",
         "supplyCap": 1000000,
         "symbol": "USDC",
         "underlying": "0x1d17CBcF0D6D143135aE902365D2E5e2A16538D4",
         "usageAsCollateralEnabled": true,
-        "variableDebtToken": "0x459cb9f9eb4e5dbFb17dfC3A0A0acF4ab69d2f28",
-        "variableDebtTokenImpl": "0x7b9bF948D5925a8FCF5193C34DBEaca318028115",
+        "variableDebtToken": "0xb30d45038b1373827A0336cD6EB0b94723C76783",
+        "variableDebtTokenImpl": "0x7c310e97Bdba5E7603D772df324B8dd33771c094",
         "variableDebtTokenName": "Aave ZkSync Variable Debt USDC",
         "variableDebtTokenSymbol": "variableDebtZksUSDC",
         "virtualAccountingActive": false,
@@ -311,8 +311,8 @@
     "0x493257fD37EDB34451f62EDf8D2a0C418852bA4C": {
       "from": null,
       "to": {
-        "aToken": "0x60D6453103f561398A41aA61f0C863f34C532a64",
-        "aTokenImpl": "0xC2769946125F117B66EB30eE0c2E69C3FE5dF4Cc",
+        "aToken": "0xa7d6B2dFe6cDB4c2D017294636065ac77265114c",
+        "aTokenImpl": "0x58C1F5d7Ea1F419588CF8eC9D22cB982C7C630D4",
         "aTokenName": "Aave ZkSync USDT",
         "aTokenSymbol": "aZksUSDT",
         "aTokenUnderlyingBalance": 0,
@@ -321,7 +321,7 @@
         "debtCeiling": 0,
         "decimals": 6,
         "eModeCategory": 0,
-        "interestRateStrategy": "0xFdc36aDC8185324ecD9d2b472F517dd659f6aC19",
+        "interestRateStrategy": "0x7BcE25db0C430059C4277D6A747d7fd0C1214beA",
         "isActive": true,
         "isBorrowableInIsolation": true,
         "isFlashloanable": true,
@@ -335,19 +335,19 @@
         "oracle": "0x336EC4bcb65C1A141318fBd3f8E7379c085E8B15",
         "oracleDecimals": 8,
         "oracleDescription": "Capped USDT/USD",
-        "oracleLatestAnswer": 100023636,
+        "oracleLatestAnswer": 100020062,
         "reserveFactor": 1000,
         "stableBorrowRateEnabled": false,
-        "stableDebtToken": "0x13B8Dfcf2B988Cb478f071bdeA93CaFb1DaE6Ddb",
-        "stableDebtTokenImpl": "0xB0349F079C04b953DD9704c29dc631D5cBA1a52f",
+        "stableDebtToken": "0x3d58EC46eE7b50ff54E5277Bbb02A8fdE774F193",
+        "stableDebtTokenImpl": "0xc25037446067240880b7B6d81fae544309a5fE02",
         "stableDebtTokenName": "Aave ZkSync Stable Debt USDT",
         "stableDebtTokenSymbol": "stableDebtZksUSDT",
         "supplyCap": 3000000,
         "symbol": "USDT",
         "underlying": "0x493257fD37EDB34451f62EDf8D2a0C418852bA4C",
         "usageAsCollateralEnabled": true,
-        "variableDebtToken": "0x5f1bA085DA9335a6037dBAdDb2c23Cbbb36924d6",
-        "variableDebtTokenImpl": "0x7b9bF948D5925a8FCF5193C34DBEaca318028115",
+        "variableDebtToken": "0x02C39C4Ed5D7345fD96E9f83805467B9D3c33252",
+        "variableDebtTokenImpl": "0x7c310e97Bdba5E7603D772df324B8dd33771c094",
         "variableDebtTokenName": "Aave ZkSync Variable Debt USDT",
         "variableDebtTokenSymbol": "variableDebtZksUSDT",
         "virtualAccountingActive": false,
@@ -357,8 +357,8 @@
     "0x5A7d6b2F92C77FAD6CCaBd7EE0624E64907Eaf3E": {
       "from": null,
       "to": {
-        "aToken": "0x9bFEd9D6d668240aD4647C7e92E626FCA45D5dD7",
-        "aTokenImpl": "0xC2769946125F117B66EB30eE0c2E69C3FE5dF4Cc",
+        "aToken": "0xFA8789719Ff34325362FF901bb3B34f34Ce4768A",
+        "aTokenImpl": "0x58C1F5d7Ea1F419588CF8eC9D22cB982C7C630D4",
         "aTokenName": "Aave ZkSync ZK",
         "aTokenSymbol": "aZksZK",
         "aTokenUnderlyingBalance": 0,
@@ -367,7 +367,7 @@
         "debtCeiling": 100000000,
         "decimals": 18,
         "eModeCategory": 0,
-        "interestRateStrategy": "0xFdc36aDC8185324ecD9d2b472F517dd659f6aC19",
+        "interestRateStrategy": "0x7BcE25db0C430059C4277D6A747d7fd0C1214beA",
         "isActive": true,
         "isBorrowableInIsolation": false,
         "isFlashloanable": true,
@@ -381,19 +381,19 @@
         "oracle": "0xD1ce60dc8AE060DDD17cA8716C96f193bC88DD13",
         "oracleDecimals": 8,
         "oracleDescription": "ZK / USD",
-        "oracleLatestAnswer": 11266546,
+        "oracleLatestAnswer": 11515727,
         "reserveFactor": 2000,
         "stableBorrowRateEnabled": false,
-        "stableDebtToken": "0x4A0d0b401F5D6286287a21AC35471B00FB81D834",
-        "stableDebtTokenImpl": "0xB0349F079C04b953DD9704c29dc631D5cBA1a52f",
+        "stableDebtToken": "0x9EAAc5b543258E44a189D1dF02dD2CEAAb8Af7B0",
+        "stableDebtTokenImpl": "0xc25037446067240880b7B6d81fae544309a5fE02",
         "stableDebtTokenName": "Aave ZkSync Stable Debt ZK",
         "stableDebtTokenSymbol": "stableDebtZksZK",
         "supplyCap": 24000000,
         "symbol": "ZK",
         "underlying": "0x5A7d6b2F92C77FAD6CCaBd7EE0624E64907Eaf3E",
         "usageAsCollateralEnabled": true,
-        "variableDebtToken": "0xa0591987F9c8FF423CE5652Ec5977844b836F34e",
-        "variableDebtTokenImpl": "0x7b9bF948D5925a8FCF5193C34DBEaca318028115",
+        "variableDebtToken": "0xfaa231f2B7D0De0644b38a36deF591B3B8c7a409",
+        "variableDebtTokenImpl": "0x7c310e97Bdba5E7603D772df324B8dd33771c094",
         "variableDebtTokenName": "Aave ZkSync Variable Debt ZK",
         "variableDebtTokenSymbol": "variableDebtZksZK",
         "virtualAccountingActive": false,
@@ -403,8 +403,8 @@
     "0x5AEa5775959fBC2557Cc8789bC1bf90A239D9a91": {
       "from": null,
       "to": {
-        "aToken": "0x3eeCdFf61D1715A7E85F60375D428Dfa9c4CF1Ef",
-        "aTokenImpl": "0xC2769946125F117B66EB30eE0c2E69C3FE5dF4Cc",
+        "aToken": "0xe471A799FA3DC0738Cf9FB7346574843f5219C30",
+        "aTokenImpl": "0x58C1F5d7Ea1F419588CF8eC9D22cB982C7C630D4",
         "aTokenName": "Aave ZkSync WETH",
         "aTokenSymbol": "aZksWETH",
         "aTokenUnderlyingBalance": 0,
@@ -413,7 +413,7 @@
         "debtCeiling": 0,
         "decimals": 18,
         "eModeCategory": 0,
-        "interestRateStrategy": "0xFdc36aDC8185324ecD9d2b472F517dd659f6aC19",
+        "interestRateStrategy": "0x7BcE25db0C430059C4277D6A747d7fd0C1214beA",
         "isActive": true,
         "isBorrowableInIsolation": false,
         "isFlashloanable": true,
@@ -427,19 +427,19 @@
         "oracle": "0x6D41d1dc818112880b40e26BD6FD347E41008eDA",
         "oracleDecimals": 8,
         "oracleDescription": "ETH / USD",
-        "oracleLatestAnswer": 262576781654,
+        "oracleLatestAnswer": 263557000000,
         "reserveFactor": 1500,
         "stableBorrowRateEnabled": false,
-        "stableDebtToken": "0xFf9195a048C189a20197595BDb7136ab064AC5EB",
-        "stableDebtTokenImpl": "0xB0349F079C04b953DD9704c29dc631D5cBA1a52f",
+        "stableDebtToken": "0x415BeF014E69564Fe68f6b8d5fBbDE4310794C5d",
+        "stableDebtTokenImpl": "0xc25037446067240880b7B6d81fae544309a5fE02",
         "stableDebtTokenName": "Aave ZkSync Stable Debt WETH",
         "stableDebtTokenSymbol": "stableDebtZksWETH",
         "supplyCap": 1000,
         "symbol": "WETH",
         "underlying": "0x5AEa5775959fBC2557Cc8789bC1bf90A239D9a91",
         "usageAsCollateralEnabled": true,
-        "variableDebtToken": "0x9097e3D266C686030e6a81f2a5a56E9F87D1C671",
-        "variableDebtTokenImpl": "0x7b9bF948D5925a8FCF5193C34DBEaca318028115",
+        "variableDebtToken": "0x912413f4Ab1fBFD31414DE2fB1b63816c95e4d91",
+        "variableDebtTokenImpl": "0x7c310e97Bdba5E7603D772df324B8dd33771c094",
         "variableDebtTokenName": "Aave ZkSync Variable Debt WETH",
         "variableDebtTokenSymbol": "variableDebtZksWETH",
         "virtualAccountingActive": false,
@@ -449,8 +449,8 @@
     "0x703b52F2b28fEbcB60E1372858AF5b18849FE867": {
       "from": null,
       "to": {
-        "aToken": "0xb0a82Ddea56dC6C24EC9947955707Eb271f00cb8",
-        "aTokenImpl": "0xC2769946125F117B66EB30eE0c2E69C3FE5dF4Cc",
+        "aToken": "0x318CfbA2CDDBF6522d855A589938EC6f5B990Fc1",
+        "aTokenImpl": "0x58C1F5d7Ea1F419588CF8eC9D22cB982C7C630D4",
         "aTokenName": "Aave ZkSync wstETH",
         "aTokenSymbol": "aZkswstETH",
         "aTokenUnderlyingBalance": 0,
@@ -459,7 +459,7 @@
         "debtCeiling": 0,
         "decimals": 18,
         "eModeCategory": 0,
-        "interestRateStrategy": "0xFdc36aDC8185324ecD9d2b472F517dd659f6aC19",
+        "interestRateStrategy": "0x7BcE25db0C430059C4277D6A747d7fd0C1214beA",
         "isActive": true,
         "isBorrowableInIsolation": false,
         "isFlashloanable": true,
@@ -473,19 +473,19 @@
         "oracle": "0x624FEc7DDeb62Dcbce1fc456D7cc5c6A47cC69aF",
         "oracleDecimals": 8,
         "oracleDescription": "Capped wstETH / stETH(ETH) / USD",
-        "oracleLatestAnswer": 308620360684,
+        "oracleLatestAnswer": 309872007943,
         "reserveFactor": 1500,
         "stableBorrowRateEnabled": false,
-        "stableDebtToken": "0xA64a78343420de2d03800081CB87429F8dfAFd58",
-        "stableDebtTokenImpl": "0xB0349F079C04b953DD9704c29dc631D5cBA1a52f",
+        "stableDebtToken": "0x60a6E8f92482Fe6F11B57697Ca4f962c0cDA3369",
+        "stableDebtTokenImpl": "0xc25037446067240880b7B6d81fae544309a5fE02",
         "stableDebtTokenName": "Aave ZkSync Stable Debt wstETH",
         "stableDebtTokenSymbol": "stableDebtZkswstETH",
         "supplyCap": 500,
         "symbol": "wstETH",
         "underlying": "0x703b52F2b28fEbcB60E1372858AF5b18849FE867",
         "usageAsCollateralEnabled": true,
-        "variableDebtToken": "0x20aeA5abF51A1367Eec8225A02c5aAbCe5FC7b75",
-        "variableDebtTokenImpl": "0x7b9bF948D5925a8FCF5193C34DBEaca318028115",
+        "variableDebtToken": "0x29191BEa63b15E70E2f4c2647695aD1C8EdCb3d5",
+        "variableDebtTokenImpl": "0x7c310e97Bdba5E7603D772df324B8dd33771c094",
         "variableDebtTokenName": "Aave ZkSync Variable Debt wstETH",
         "variableDebtTokenSymbol": "variableDebtZkswstETH",
         "virtualAccountingActive": false,
@@ -497,7 +497,7 @@
     "0x1d17CBcF0D6D143135aE902365D2E5e2A16538D4": {
       "from": null,
       "to": {
-        "address": "0xFdc36aDC8185324ecD9d2b472F517dd659f6aC19",
+        "address": "0x7BcE25db0C430059C4277D6A747d7fd0C1214beA",
         "baseVariableBorrowRate": 0,
         "maxVariableBorrowRate": "840000000000000000000000000",
         "optimalUsageRatio": "900000000000000000000000000",
@@ -508,7 +508,7 @@
     "0x493257fD37EDB34451f62EDf8D2a0C418852bA4C": {
       "from": null,
       "to": {
-        "address": "0xFdc36aDC8185324ecD9d2b472F517dd659f6aC19",
+        "address": "0x7BcE25db0C430059C4277D6A747d7fd0C1214beA",
         "baseVariableBorrowRate": 0,
         "maxVariableBorrowRate": "840000000000000000000000000",
         "optimalUsageRatio": "900000000000000000000000000",
@@ -519,7 +519,7 @@
     "0x5A7d6b2F92C77FAD6CCaBd7EE0624E64907Eaf3E": {
       "from": null,
       "to": {
-        "address": "0xFdc36aDC8185324ecD9d2b472F517dd659f6aC19",
+        "address": "0x7BcE25db0C430059C4277D6A747d7fd0C1214beA",
         "baseVariableBorrowRate": 0,
         "maxVariableBorrowRate": "3090000000000000000000000000",
         "optimalUsageRatio": "450000000000000000000000000",
@@ -530,7 +530,7 @@
     "0x5AEa5775959fBC2557Cc8789bC1bf90A239D9a91": {
       "from": null,
       "to": {
-        "address": "0xFdc36aDC8185324ecD9d2b472F517dd659f6aC19",
+        "address": "0x7BcE25db0C430059C4277D6A747d7fd0C1214beA",
         "baseVariableBorrowRate": 0,
         "maxVariableBorrowRate": "833000000000000000000000000",
         "optimalUsageRatio": "800000000000000000000000000",
@@ -541,7 +541,7 @@
     "0x703b52F2b28fEbcB60E1372858AF5b18849FE867": {
       "from": null,
       "to": {
-        "address": "0xFdc36aDC8185324ecD9d2b472F517dd659f6aC19",
+        "address": "0x7BcE25db0C430059C4277D6A747d7fd0C1214beA",
         "baseVariableBorrowRate": 0,
         "maxVariableBorrowRate": "845000000000000000000000000",
         "optimalUsageRatio": "450000000000000000000000000",

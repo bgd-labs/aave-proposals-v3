@@ -15,7 +15,7 @@ contract AaveV3ZkSync_AaveV3ZkSyncActivation_20240805_Test is ProtocolV3TestBase
   AaveV3ZkSync_AaveV3ZkSyncActivation_20240805 internal proposal;
 
   function setUp() public override {
-    vm.createSelectFork(vm.rpcUrl('zksync'), 41251040);
+    vm.createSelectFork(vm.rpcUrl('zksync'), 41592552);
     proposal = new AaveV3ZkSync_AaveV3ZkSyncActivation_20240805();
 
     super.setUp();
