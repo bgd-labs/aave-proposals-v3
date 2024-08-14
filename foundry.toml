@@ -9,7 +9,7 @@ libs = ['lib']
 remappings = [
 ]
 ffi = true
-fs_permissions = [{ access = "write", path = "./reports" }, { access = "read", path = "./zkout" },]
+fs_permissions = [{ access = "write", path = "./reports" }, { access = "read", path = "./zkout" }]
 evm_version = 'shanghai'
 
 [profile.zksync]
@@ -22,6 +22,7 @@ ffi = true
 evm_version = 'shanghai'
 
 [profile.zksync.zksync]
+bytecode_hash = 'none'
 compile = true
 fallback_oz = true
 mode = '3'
@@ -82,8 +83,8 @@ metis = { key="any", chainId=1088, url='https://andromeda-explorer.metis.io/' }
 base = { key="${ETHERSCAN_API_KEY_BASE}", chainId=8453 }
 zkevm = { key="${ETHERSCAN_API_KEY_ZKEVM}", chainId=1101 }
 gnosis = { key="${ETHERSCAN_API_KEY_GNOSIS}", chainId=100 }
-bnb= { key="${ETHERSCAN_API_KEY_BNB}",chainId=56,url='https://api.bscscan.com/api' }
-scroll = { key="${ETHERSCAN_API_KEY_SCROLL}",chainId=534352 }
+bnb = { key="${ETHERSCAN_API_KEY_BNB}", chainId=56, url='https://api.bscscan.com/api'}
+scroll = { key="${ETHERSCAN_API_KEY_SCROLL}", chainId=534352 }
 zksync = { key="${ETHERSCAN_API_KEY_ZKSYNC}", chain = 324 }
 
 # See more config options https://github.com/gakonst/foundry/tree/master/config

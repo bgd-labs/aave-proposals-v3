@@ -83,6 +83,7 @@ contract AaveV3Ethereum_Test_20231023 is AaveV3PayloadEthereum {
   }
 }
 ",
+      "pool": "AaveV3Ethereum",
       "test": "// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
@@ -114,7 +115,8 @@ contract AaveV3Ethereum_Test_20231023_Test is ProtocolV3TestBase {
 ",
     },
   ],
-  "script": "// SPDX-License-Identifier: MIT
+  "scripts": {
+    "defaultScript": "// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
 import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aave-helpers/src/GovV3Helpers.sol';
@@ -170,6 +172,7 @@ contract CreateProposal is EthereumScript {
   }
 }
 ",
+  },
 }
 `;
 
