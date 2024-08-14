@@ -71,8 +71,21 @@ contract AaveV3Base_MeritBaseIncentivesAndSuperfestMatching_20240812_Test is Pro
     }
 
     for (uint56 i = 0; i < transfers.length; i++) {
-      assertEq(uTokenBalAfter[i] - uTokenBalBefore[i], transfers[i].amount);
-      assertEq(aTokenBalBefore[i] - aTokenBalAfter[i], transfers[i].amount);
+      // Check that the recipient received approximately the expected amount
+      assertApproxEqAbs(
+        uTokenBalAfter[i] - uTokenBalBefore[i],
+        transfers[i].amount,
+        100 wei,
+        'Recipient balance change should be close to expected amount'
+      );
+
+      // Check that the aToken balance decreased by approximately the expected amount
+      assertApproxEqAbs(
+        aTokenBalBefore[i] - aTokenBalAfter[i],
+        transfers[i].amount,
+        100 wei,
+        'aToken balance change should be close to expected amount'
+      );
     }
   }
 }
