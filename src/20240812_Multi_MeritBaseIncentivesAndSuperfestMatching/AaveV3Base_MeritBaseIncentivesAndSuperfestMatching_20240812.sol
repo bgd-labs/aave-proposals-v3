@@ -52,11 +52,7 @@ contract AaveV3Base_MeritBaseIncentivesAndSuperfestMatching_20240812 is IProposa
         address(this),
         transfers[i].amount
       );
-      AaveV3Base.POOL.withdraw(
-        transfers[i].asset,
-        transfers[i].amount - 10 wei,
-        transfers[i].recipient
-      );
+      AaveV3Base.POOL.withdraw(transfers[i].asset, type(uint256).max, transfers[i].recipient);
     }
   }
 

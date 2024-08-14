@@ -75,7 +75,7 @@ contract AaveV3Base_MeritBaseIncentivesAndSuperfestMatching_20240812_Test is Pro
       assertApproxEqAbs(
         uTokenBalAfter[i] - uTokenBalBefore[i],
         transfers[i].amount,
-        100 wei,
+        1 wei,
         'Recipient balance change should be close to expected amount'
       );
 
@@ -83,7 +83,7 @@ contract AaveV3Base_MeritBaseIncentivesAndSuperfestMatching_20240812_Test is Pro
       assertApproxEqAbs(
         aTokenBalBefore[i] - aTokenBalAfter[i],
         transfers[i].amount,
-        100 wei,
+        1 wei,
         'aToken balance change should be close to expected amount'
       );
     }
