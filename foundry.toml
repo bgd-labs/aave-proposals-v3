@@ -30,7 +30,7 @@ zksolc = '1.5.1'
 
 # incomplete list at https://www.evmdiff.com/features?name=PUSH0&kind=opcode
 [profile.metis]
-evm_version = 'paris'
+evm_version = 'shanghai'
 
 [profile.mainnet]
 evm_version = 'shanghai'
