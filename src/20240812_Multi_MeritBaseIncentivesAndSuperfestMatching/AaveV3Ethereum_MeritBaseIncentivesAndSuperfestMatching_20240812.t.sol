@@ -2,9 +2,9 @@
 pragma solidity ^0.8.0;
 
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
-import {GovV3Helpers} from 'aave-helpers/GovV3Helpers.sol';
+import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 import 'forge-std/Test.sol';
-import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/ProtocolV3TestBase.sol';
+import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Ethereum_MeritBaseIncentivesAndSuperfestMatching_20240812} from './AaveV3Ethereum_MeritBaseIncentivesAndSuperfestMatching_20240812.sol';
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';
