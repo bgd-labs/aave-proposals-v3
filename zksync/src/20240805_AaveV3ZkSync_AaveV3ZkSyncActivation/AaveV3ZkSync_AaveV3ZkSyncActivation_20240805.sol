@@ -28,7 +28,7 @@ contract AaveV3ZkSync_AaveV3ZkSyncActivation_20240805 is AaveV3PayloadZkSync {
   address public constant wstETH = 0x703b52F2b28fEbcB60E1372858AF5b18849FE867;
   uint256 public constant wstETH_SEED_AMOUNT = 0.01 ether;
   address public constant ZK = 0x5A7d6b2F92C77FAD6CCaBd7EE0624E64907Eaf3E;
-  uint256 public constant ZK_SEED_AMOUNT = 10 ether;
+  uint256 public constant ZK_SEED_AMOUNT = 100 ether;
   address public constant ACI_MULTISIG = 0x95Cbff6e45C499d45dd8627f3ce179057B5Fbfcc;
 
   function _postExecute() internal override {
@@ -48,7 +48,7 @@ contract AaveV3ZkSync_AaveV3ZkSyncActivation_20240805 is AaveV3PayloadZkSync {
     listings[0] = IAaveV3ConfigEngine.Listing({
       asset: USDC,
       assetSymbol: 'USDC',
-      priceFeed: 0xA715ED3eC1C078EEf8437Cf717Cf76004f29eAED,
+      priceFeed: 0x162C97F6B4FA5a915A44D430bb7AE0eE716b3b87,
       eModeCategory: 0,
       enabledToBorrow: EngineFlags.ENABLED,
       stableRateModeEnabled: EngineFlags.DISABLED,
@@ -74,7 +74,7 @@ contract AaveV3ZkSync_AaveV3ZkSyncActivation_20240805 is AaveV3PayloadZkSync {
     listings[1] = IAaveV3ConfigEngine.Listing({
       asset: USDT,
       assetSymbol: 'USDT',
-      priceFeed: 0x336EC4bcb65C1A141318fBd3f8E7379c085E8B15,
+      priceFeed: 0x92DaB7275859C5399a326874897daddb0F4ed7A4,
       eModeCategory: 0,
       enabledToBorrow: EngineFlags.ENABLED,
       stableRateModeEnabled: EngineFlags.DISABLED,
@@ -126,7 +126,7 @@ contract AaveV3ZkSync_AaveV3ZkSyncActivation_20240805 is AaveV3PayloadZkSync {
     listings[3] = IAaveV3ConfigEngine.Listing({
       asset: wstETH,
       assetSymbol: 'wstETH',
-      priceFeed: 0x624FEc7DDeb62Dcbce1fc456D7cc5c6A47cC69aF,
+      priceFeed: 0xfba43A6b73649F002d37274663CC971BF7d215D9,
       eModeCategory: 0,
       enabledToBorrow: EngineFlags.ENABLED,
       stableRateModeEnabled: EngineFlags.DISABLED,
