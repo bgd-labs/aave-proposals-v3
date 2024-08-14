@@ -18,10 +18,11 @@ export function generateScript(options: Options) {
   const chains = [...new Set(options.pools.map((pool) => getPoolChain(pool)!))];
 
   // generate imports
-  template += `import {${['Ethereum', ...chains.filter((c) => c !== 'Ethereum')]
+  template += `import {${['Ethereum', ...chains.filter((c) => c !== 'Ethereum' && c !== 'ZkSync')]
     .map((chain) => `${chain}Script`)
     .join(', ')}} from 'solidity-utils/contracts/utils/ScriptUtils.sol';\n`;
   template += options.pools
+    .filter((c) => c !== 'AaveV3ZkSync')
     .map((pool) => {
       const name = generateContractName(options, pool);
       return `import {${name}} from './${name}.sol';`;
@@ -39,6 +40,7 @@ export function generateScript(options: Options) {
 
   // generate chain scripts
   template += Object.keys(poolsToChainsMap)
+    .filter((c) => c !== 'ZkSync')
     .map((chain) => {
       return `/**
     * @dev Deploy ${chain}
@@ -95,7 +97,9 @@ contract CreateProposal is EthereumScript {
         let template = `IPayloadsControllerCore.ExecutionAction[] memory actions${chain} = new IPayloadsControllerCore.ExecutionAction[](${poolsToChainsMap[chain].length});\n`;
         template += poolsToChainsMap[chain]
           .map(({contractName, pool}, ix) => {
-            return `actions${chain}[${ix}] = GovV3Helpers.buildAction(type(${contractName}).creationCode);`;
+            return pool == 'AaveV3ZkSync'
+              ? `actions${chain}[${ix}] = GovV3Helpers.buildActionZkSync(vm, '${contractName}');`
+              : `actions${chain}[${ix}] = GovV3Helpers.buildAction(type(${contractName}).creationCode);`;
           })
           .join('\n');
         template += `payloads[${ix}] = GovV3Helpers.build${

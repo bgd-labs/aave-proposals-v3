@@ -6,7 +6,7 @@ import {MiscGnosis} from 'aave-address-book/MiscGnosis.sol';
 import {GovernanceV3Gnosis} from 'aave-address-book/GovernanceV3Gnosis.sol';
 
 import 'forge-std/Test.sol';
-import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/ProtocolV3TestBase.sol';
+import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Gnosis_RenewalOfAaveGuardian2024_20240708} from './AaveV3Gnosis_RenewalOfAaveGuardian2024_20240708.sol';
 import {RenewalV3BaseTest, GuardianUpdateTestParams} from './RenewalV3BaseTest.sol';
 

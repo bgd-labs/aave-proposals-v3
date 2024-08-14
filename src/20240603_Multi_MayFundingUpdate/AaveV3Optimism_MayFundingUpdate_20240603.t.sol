@@ -7,7 +7,7 @@ import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 
 import 'forge-std/Test.sol';
 import {stdStorage, StdStorage} from 'forge-std/Test.sol';
-import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/ProtocolV3TestBase.sol';
+import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Optimism_MayFundingUpdate_20240603} from './AaveV3Optimism_MayFundingUpdate_20240603.sol';
 
 /**

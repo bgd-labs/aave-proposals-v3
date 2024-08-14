@@ -3,7 +3,7 @@ pragma solidity ^0.8.0;
 
 import {MiscAvalanche} from 'aave-address-book/MiscAvalanche.sol';
 
-import {IProposalGenericExecutor} from 'aave-helpers/interfaces/IProposalGenericExecutor.sol';
+import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
 import {IAaveCLRobotOperator} from './interfaces/IAaveCLRobotOperator.sol';
 /**
  * @title Update PoR Executor V3 Robot

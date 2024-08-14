@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 import {AaveV2Ethereum, AaveV2EthereumAssets} from 'aave-address-book/AaveV2Ethereum.sol';
 
 import 'forge-std/Test.sol';
-import {ProtocolV2TestBase, ReserveConfig} from 'aave-helpers/ProtocolV2TestBase.sol';
+import {ProtocolV2TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV2TestBase.sol';
 import {AaveV2Ethereum_ReserveFactorUpdatesMidJuly_20240711} from './AaveV2Ethereum_ReserveFactorUpdatesMidJuly_20240711.sol';
 
 /**

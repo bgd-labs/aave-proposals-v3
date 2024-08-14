@@ -2,7 +2,7 @@
 pragma solidity ^0.8.0;
 
 import {AaveV3Optimism, AaveV3OptimismAssets, IPoolConfigurator} from 'aave-address-book/AaveV3Optimism.sol';
-import {AaveV3PayloadOptimism} from 'aave-helpers/v3-config-engine/AaveV3PayloadOptimism.sol';
+import {AaveV3PayloadOptimism} from 'aave-helpers/src/v3-config-engine/AaveV3PayloadOptimism.sol';
 import {EngineFlags} from 'aave-v3-periphery/contracts/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-v3-periphery/contracts/v3-config-engine/IAaveV3ConfigEngine.sol';
 
