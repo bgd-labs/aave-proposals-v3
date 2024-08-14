@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 import {AaveV2Polygon} from 'aave-address-book/AaveV2Polygon.sol';
 
 import 'forge-std/Test.sol';
-import {ProtocolV2TestBase, ReserveConfig} from 'aave-helpers/ProtocolV2TestBase.sol';
+import {ProtocolV2TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV2TestBase.sol';
 import {AaveV2Polygon_ReserveFactorUpdatesAugust_20240726} from './AaveV2Polygon_ReserveFactorUpdatesAugust_20240726.sol';
 
 /**
@@ -15,7 +15,7 @@ contract AaveV2Polygon_ReserveFactorUpdatesAugust_20240726_Test is ProtocolV2Tes
   AaveV2Polygon_ReserveFactorUpdatesAugust_20240726 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('polygon'), 59810070);
+    vm.createSelectFork(vm.rpcUrl('polygon'), 60583790);
     proposal = new AaveV2Polygon_ReserveFactorUpdatesAugust_20240726();
   }
 

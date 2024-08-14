@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 import {AaveV2Ethereum, AaveV2EthereumAssets} from 'aave-address-book/AaveV2Ethereum.sol';
 
 import 'forge-std/Test.sol';
-import {ProtocolV2TestBase, ReserveConfig} from 'aave-helpers/ProtocolV2TestBase.sol';
+import {ProtocolV2TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV2TestBase.sol';
 import {AaveV2Ethereum_ReserveFactorUpdatesAugust_20240726} from './AaveV2Ethereum_ReserveFactorUpdatesAugust_20240726.sol';
 
 /**
@@ -20,7 +20,7 @@ contract AaveV2Ethereum_ReserveFactorUpdatesAugust_20240726_Test is ProtocolV2Te
   }
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 20386913);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 20527680);
     proposal = new AaveV2Ethereum_ReserveFactorUpdatesAugust_20240726();
   }
 

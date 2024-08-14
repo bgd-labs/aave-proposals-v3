@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 import {AaveV2Avalanche, AaveV2AvalancheAssets} from 'aave-address-book/AaveV2Avalanche.sol';
 
 import 'forge-std/Test.sol';
-import {ProtocolV2TestBase, ReserveConfig} from 'aave-helpers/ProtocolV2TestBase.sol';
+import {ProtocolV2TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV2TestBase.sol';
 import {AaveV2Avalanche_ReserveFactorUpdatesAugust_20240726} from './AaveV2Avalanche_ReserveFactorUpdatesAugust_20240726.sol';
 
 /**
@@ -20,7 +20,7 @@ contract AaveV2Avalanche_ReserveFactorUpdatesAugust_20240726_Test is ProtocolV2T
   }
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('avalanche'), 48439109);
+    vm.createSelectFork(vm.rpcUrl('avalanche'), 49251980);
     proposal = new AaveV2Avalanche_ReserveFactorUpdatesAugust_20240726();
   }
 

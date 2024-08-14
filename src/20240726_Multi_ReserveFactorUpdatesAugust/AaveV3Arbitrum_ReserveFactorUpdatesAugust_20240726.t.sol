@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 import {AaveV3Arbitrum} from 'aave-address-book/AaveV3Arbitrum.sol';
 
 import 'forge-std/Test.sol';
-import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/ProtocolV3TestBase.sol';
+import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Arbitrum_ReserveFactorUpdatesAugust_20240726} from './AaveV3Arbitrum_ReserveFactorUpdatesAugust_20240726.sol';
 
 /**
@@ -15,7 +15,7 @@ contract AaveV3Arbitrum_ReserveFactorUpdatesAugust_20240726_Test is ProtocolV3Te
   AaveV3Arbitrum_ReserveFactorUpdatesAugust_20240726 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('arbitrum'), 236063473);
+    vm.createSelectFork(vm.rpcUrl('arbitrum'), 242816390);
     proposal = new AaveV3Arbitrum_ReserveFactorUpdatesAugust_20240726();
   }
 

@@ -21,7 +21,7 @@ export const config: ConfigFile = {
     votingNetwork: 'POLYGON',
   },
   poolOptions: {
-    AaveV2Ethereum: {configs: {OTHERS: {}}, cache: {blockNumber: 20386913}},
+    AaveV2Ethereum: {configs: {OTHERS: {}}, cache: {blockNumber: 20527680}},
     AaveV2Polygon: {
       configs: {
         RATE_UPDATE_V2: [
@@ -93,9 +93,9 @@ export const config: ConfigFile = {
           },
         ],
       },
-      cache: {blockNumber: 59810070},
+      cache: {blockNumber: 60583790},
     },
-    AaveV2Avalanche: {configs: {OTHERS: {}}, cache: {blockNumber: 48439109}},
+    AaveV2Avalanche: {configs: {OTHERS: {}}, cache: {blockNumber: 49251980}},
     AaveV3Polygon: {
       configs: {
         BORROWS_UPDATE: [
@@ -110,7 +110,7 @@ export const config: ConfigFile = {
           },
         ],
       },
-      cache: {blockNumber: 59810182},
+      cache: {blockNumber: 60583790},
     },
     AaveV3Optimism: {
       configs: {
@@ -126,7 +126,7 @@ export const config: ConfigFile = {
           },
         ],
       },
-      cache: {blockNumber: 123176265},
+      cache: {blockNumber: 124024860},
     },
     AaveV3Arbitrum: {
       configs: {
@@ -142,7 +142,7 @@ export const config: ConfigFile = {
           },
         ],
       },
-      cache: {blockNumber: 236063473},
+      cache: {blockNumber: 242816390},
     },
     AaveV3Base: {
       configs: {
@@ -158,7 +158,7 @@ export const config: ConfigFile = {
           },
         ],
       },
-      cache: {blockNumber: 17581001},
+      cache: {blockNumber: 18429550},
     },
   },
 };
