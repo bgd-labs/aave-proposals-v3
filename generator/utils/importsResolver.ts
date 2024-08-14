@@ -39,7 +39,7 @@ function generateAddressBookImports(code: string) {
 function generateEngineImport(code: string) {
   const matches = [...code.matchAll(/Aave(V[2..3])Payload([A-Za-z]+)/g)].flat();
   if (matches.length > 0)
-    return `import {${matches[0]}} from 'aave-helpers/${matches[1].toLowerCase()}-config-engine/${
+    return `import {${matches[0]}} from 'aave-helpers/src/${matches[1].toLowerCase()}-config-engine/${
       matches[0]
     }.sol';\n`;
 }
@@ -62,7 +62,7 @@ export function prefixWithImports(code: string) {
   const govMatches = findMatches(code, GovernanceImports);
   // gov related imports
   if (govMatches.length > 0)
-    imports += `import {${govMatches}} from 'aave-helpers/GovV3Helpers.sol';\n`;
+    imports += `import {${govMatches}} from 'aave-helpers/src/GovV3Helpers.sol';\n`;
   // address book imports
   const addressBookImports = generateAddressBookImports(code);
   if (addressBookImports) {
@@ -70,7 +70,7 @@ export function prefixWithImports(code: string) {
   }
   // generic Executor
   if (findMatch(code, 'IProposalGenericExecutor')) {
-    imports += `import {IProposalGenericExecutor} from 'aave-helpers/interfaces/IProposalGenericExecutor.sol';\n`;
+    imports += `import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';\n`;
   }
   const configEngineImport = generateEngineImport(code);
   if (configEngineImport) {
@@ -86,10 +86,10 @@ export function prefixWithImports(code: string) {
   }
   // v2 config engine imports
   if (findMatch(code, 'IAaveV2ConfigEngine')) {
-    imports += `import {IAaveV2ConfigEngine} from 'aave-helpers/v2-config-engine/IAaveV2ConfigEngine.sol';\n`;
+    imports += `import {IAaveV2ConfigEngine} from 'aave-helpers/src/v2-config-engine/IAaveV2ConfigEngine.sol';\n`;
   }
   if (findMatch(code, 'IV2RateStrategyFactory')) {
-    imports += `import {IV2RateStrategyFactory} from 'aave-helpers/v2-config-engine/IV2RateStrategyFactory.sol';\n`;
+    imports += `import {IV2RateStrategyFactory} from 'aave-helpers/src/v2-config-engine/IV2RateStrategyFactory.sol';\n`;
   }
   // common imports
   if (findMatch(code, 'IERC20')) {

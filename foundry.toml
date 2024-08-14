@@ -9,8 +9,24 @@ libs = ['lib']
 remappings = [
 ]
 ffi = true
-fs_permissions = [{ access = "write", path = "./reports" }]
+fs_permissions = [{ access = "write", path = "./reports" }, { access = "read", path = "./zkout" }]
 evm_version = 'shanghai'
+
+[profile.zksync]
+src = 'zksync'
+test = 'zksync'
+libs = ['lib']
+solc = '0.8.20'
+fs_permissions = [{ access = "write", path = "./reports" }]
+ffi = true
+evm_version = 'shanghai'
+
+[profile.zksync.zksync]
+bytecode_hash = 'none'
+compile = true
+fallback_oz = true
+mode = '3'
+zksolc = '1.5.1'
 
 # incomplete list at https://www.evmdiff.com/features?name=PUSH0&kind=opcode
 [profile.metis]
@@ -53,7 +69,8 @@ base = "${RPC_BASE}"
 zkevm = "${RPC_ZKEVM}"
 gnosis = "${RPC_GNOSIS}"
 bnb = "${RPC_BNB}"
-scroll="${RPC_SCROLL}"
+scroll = "${RPC_SCROLL}"
+zksync = "${RPC_ZK_SYNC}"
 
 [etherscan]
 mainnet = { key="${ETHERSCAN_API_KEY_MAINNET}", chain=1 }
@@ -66,7 +83,8 @@ metis = { key="any", chainId=1088, url='https://andromeda-explorer.metis.io/' }
 base = { key="${ETHERSCAN_API_KEY_BASE}", chainId=8453 }
 zkevm = { key="${ETHERSCAN_API_KEY_ZKEVM}", chainId=1101 }
 gnosis = { key="${ETHERSCAN_API_KEY_GNOSIS}", chainId=100 }
-bnb= { key="${ETHERSCAN_API_KEY_BNB}",chainId=56,url='https://api.bscscan.com/api'}
-scroll={key="${ETHERSCAN_API_KEY_SCROLL}",chainId=534352}
+bnb = { key="${ETHERSCAN_API_KEY_BNB}", chainId=56, url='https://api.bscscan.com/api'}
+scroll = { key="${ETHERSCAN_API_KEY_SCROLL}", chainId=534352 }
+zksync = { key="${ETHERSCAN_API_KEY_ZK_SYNC}", chain = 324 }
 
 # See more config options https://github.com/gakonst/foundry/tree/master/config

@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 import {AaveV3Base} from 'aave-address-book/AaveV3Base.sol';
 
 import 'forge-std/Test.sol';
-import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/ProtocolV3TestBase.sol';
+import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Base_ReserveFactorUpdatesMidJuly_20240711} from './AaveV3Base_ReserveFactorUpdatesMidJuly_20240711.sol';
 
 /**
