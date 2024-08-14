@@ -6,11 +6,21 @@ discussions: "https://governance.aave.com/t/gho-stewards-adjustments-gho-borrow-
 
 ## Simple Summary
 
-Update the GHO borrow rate to 6%
+This AIP aims to decrease the GHO borrow rate from its current level to 6% to enhance its competitiveness in the current market conditions.
 
 ## Motivation
 
-Following current market conditions and the overall low borrowing demand for stablecoin in DeFi, this AIP seeks to decrease the GHO borrow rate to maintain attractiveness and growth.
+The DeFi landscape is constantly evolving, and stablecoin protocols must adapt to remain competitive. Recent market analysis indicates:
+
+1. A general decrease in borrowing demand for stablecoins across DeFi platforms.
+2. Competing stablecoins offering more attractive rates, potentially drawing users away from GHO.
+3. An opportunity to increase GHO's market share by offering more competitive rates.
+
+By reducing the borrow rate, we aim to:
+
+- Increase the attractiveness of GHO for borrowers
+- Stimulate the growth of GHO's total supply
+- Enhance GHO's position in the stablecoin market
 
 ## Specification
 
