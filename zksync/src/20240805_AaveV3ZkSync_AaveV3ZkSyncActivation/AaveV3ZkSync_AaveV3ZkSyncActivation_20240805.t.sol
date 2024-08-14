@@ -44,57 +44,43 @@ contract AaveV3ZkSync_AaveV3ZkSyncActivation_20240805_Test is ProtocolV3TestBase
     );
   }
 
-  function test_collectorHasUSDCFunds() public {
+  function test_collectorHasFunds() public {
     executePayload(vm, address(proposal));
-    (address aTokenAddress, , ) = AaveV3ZkSync
-      .AAVE_PROTOCOL_DATA_PROVIDER
-      .getReserveTokensAddresses(proposal.USDC());
-    assertGe(
-      IERC20(aTokenAddress).balanceOf(address(AaveV3ZkSync.COLLECTOR)),
-      proposal.USDC_SEED_AMOUNT()
-    );
-  }
 
-  function test_collectorHasUSDTFunds() public {
-    executePayload(vm, address(proposal));
-    (address aTokenAddress, , ) = AaveV3ZkSync
-      .AAVE_PROTOCOL_DATA_PROVIDER
-      .getReserveTokensAddresses(proposal.USDT());
-    assertGe(
-      IERC20(aTokenAddress).balanceOf(address(AaveV3ZkSync.COLLECTOR)),
-      proposal.USDT_SEED_AMOUNT()
+    (address aUsdcAddress, , ) = AaveV3ZkSync.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(
+      proposal.USDC()
     );
-  }
-
-  function test_collectorHasWETHFunds() public {
-    executePayload(vm, address(proposal));
-    (address aTokenAddress, , ) = AaveV3ZkSync
-      .AAVE_PROTOCOL_DATA_PROVIDER
-      .getReserveTokensAddresses(proposal.WETH());
-    assertGe(
-      IERC20(aTokenAddress).balanceOf(address(AaveV3ZkSync.COLLECTOR)),
-      proposal.WETH_SEED_AMOUNT()
+    (address aUsdtAddress, , ) = AaveV3ZkSync.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(
+      proposal.USDT()
     );
-  }
-
-  function test_collectorHaswstETHFunds() public {
-    executePayload(vm, address(proposal));
-    (address aTokenAddress, , ) = AaveV3ZkSync
+    (address aWethAddress, , ) = AaveV3ZkSync.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(
+      proposal.WETH()
+    );
+    (address aWstEthAddress, , ) = AaveV3ZkSync
       .AAVE_PROTOCOL_DATA_PROVIDER
       .getReserveTokensAddresses(proposal.wstETH());
+    (address aZkAddress, , ) = AaveV3ZkSync.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(
+      proposal.ZK()
+    );
+
     assertGe(
-      IERC20(aTokenAddress).balanceOf(address(AaveV3ZkSync.COLLECTOR)),
+      IERC20(aUsdcAddress).balanceOf(address(AaveV3ZkSync.COLLECTOR)),
+      proposal.USDC_SEED_AMOUNT()
+    );
+    assertGe(
+      IERC20(aUsdtAddress).balanceOf(address(AaveV3ZkSync.COLLECTOR)),
+      proposal.USDT_SEED_AMOUNT()
+    );
+    assertGe(
+      IERC20(aWethAddress).balanceOf(address(AaveV3ZkSync.COLLECTOR)),
+      proposal.WETH_SEED_AMOUNT()
+    );
+    assertGe(
+      IERC20(aWstEthAddress).balanceOf(address(AaveV3ZkSync.COLLECTOR)),
       proposal.wstETH_SEED_AMOUNT()
     );
-  }
-
-  function test_collectorHasZKFunds() public {
-    executePayload(vm, address(proposal));
-    (address aTokenAddress, , ) = AaveV3ZkSync
-      .AAVE_PROTOCOL_DATA_PROVIDER
-      .getReserveTokensAddresses(proposal.ZK());
     assertGe(
-      IERC20(aTokenAddress).balanceOf(address(AaveV3ZkSync.COLLECTOR)),
+      IERC20(aZkAddress).balanceOf(address(AaveV3ZkSync.COLLECTOR)),
       proposal.ZK_SEED_AMOUNT()
     );
   }
