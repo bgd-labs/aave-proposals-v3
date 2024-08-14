@@ -25,6 +25,7 @@ The proposal will do the following:
 
 - List the following assets on Aave V3 zkSync: USDC, USDT, WETH, wstETH, ZK
 - Set the guardian address as the pool admin by executing `ACL_MANAGER.addPoolAdmin()`. This is following the standard procedure of keeping pool admin on the Aave Guardian during the bootstrap period, for security.
+- Set ACI as liquidity mining admin for the ZK token by calling `EMISSION_MANAGER.setEmissionAdmin()` method.
 
 The table below illustrates the initial suggested risk parameters for each asset:
 

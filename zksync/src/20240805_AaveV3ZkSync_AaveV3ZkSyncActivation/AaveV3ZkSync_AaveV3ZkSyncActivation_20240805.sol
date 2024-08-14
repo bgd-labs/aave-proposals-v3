@@ -8,6 +8,7 @@ import {EngineFlags} from 'aave-v3-periphery/contracts/v3-config-engine/EngineFl
 import {IAaveV3ConfigEngine} from 'aave-v3-periphery/contracts/v3-config-engine/IAaveV3ConfigEngine.sol';
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';
+import {IEmissionManager} from 'aave-v3-periphery/contracts/rewards/interfaces/IEmissionManager.sol';
 
 /**
  * @title Aave v3 zkSync Activation
@@ -28,9 +29,11 @@ contract AaveV3ZkSync_AaveV3ZkSyncActivation_20240805 is AaveV3PayloadZkSync {
   uint256 public constant wstETH_SEED_AMOUNT = 0.01 ether;
   address public constant ZK = 0x5A7d6b2F92C77FAD6CCaBd7EE0624E64907Eaf3E;
   uint256 public constant ZK_SEED_AMOUNT = 10 ether;
+  address public constant ACI_MULTISIG = 0x95Cbff6e45C499d45dd8627f3ce179057B5Fbfcc;
 
   function _postExecute() internal override {
     AaveV3ZkSync.ACL_MANAGER.addPoolAdmin(MiscZkSync.PROTOCOL_GUARDIAN);
+    IEmissionManager(AaveV3ZkSync.EMISSION_MANAGER).setEmissionAdmin(ZK, ACI_MULTISIG);
 
     _supply(AaveV3ZkSync.POOL, USDC, USDC_SEED_AMOUNT, address(AaveV3ZkSync.COLLECTOR));
     _supply(AaveV3ZkSync.POOL, USDT, USDT_SEED_AMOUNT, address(AaveV3ZkSync.COLLECTOR));

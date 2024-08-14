@@ -6,6 +6,7 @@ import {AaveV3ZkSync_AaveV3ZkSyncActivation_20240805} from './AaveV3ZkSync_AaveV
 import {AaveV3ZkSync} from 'aave-address-book/AaveV3ZkSync.sol';
 import {MiscZkSync} from 'aave-address-book/MiscZkSync.sol';
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
+import {IEmissionManager} from 'aave-v3-periphery/contracts/rewards/interfaces/IEmissionManager.sol';
 
 /**
  * @dev Test for AaveV3ZkSync_AaveV3ZkSyncActivation_20240805
@@ -37,6 +38,10 @@ contract AaveV3ZkSync_AaveV3ZkSyncActivation_20240805_Test is ProtocolV3TestBase
     executePayload(vm, address(proposal));
 
     assertTrue(AaveV3ZkSync.ACL_MANAGER.isPoolAdmin(MiscZkSync.PROTOCOL_GUARDIAN));
+    assertEq(
+      IEmissionManager(AaveV3ZkSync.EMISSION_MANAGER).getEmissionAdmin(proposal.ZK()),
+      proposal.ACI_MULTISIG()
+    );
   }
 
   function test_collectorHasUSDCFunds() public {
