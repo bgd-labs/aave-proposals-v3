@@ -51,6 +51,59 @@ The table below illustrates the initial suggested risk parameters for each asset
 | Siloed Borrowing          |                                                                                         DISABLED |                                                                                         DISABLED |                                                                                  DISABLED |                                                                                DISABLED |                                                                                 DISABLED |
 | Stable Borrowing          |                                                                                         DISABLED |                                                                                         DISABLED |                                                                                  DISABLED |                                                                                DISABLED |                                                                                 DISABLED |
 
+### Security procedures
+
+- The proposal execution is simulated within the tests and the resulting pool configuration is tested for correctness.
+
+- The deployed pool and other permissions have been programmatically verified, which can be found on the [aave-permissions-book](https://github.com/bgd-labs/aave-permissions-book/blob/4ce5f4a0c40818e5b837eb035243f7b729279553/out/ZK_SYNC-V3.md#contracts)
+
+- In addition, we have also checked the code diffs of the deployed zkSync contracts with the deployed contracts on Ethereum, which can be found [here](https://github.com/bgd-labs/aave-v3-origin/pull/10)
+
+<details close>
+<summary>Below is the comparative diffs of contract modifications relative to Ethereum network, with accompanying link to the diffs</summary>
+<br>
+
+[Collector](https://github.com/bgd-labs/aave-v3-origin/pull/10/files#diff-2d2e4b82a1481118e886d5dd780cc16200b579d7ad65e2050cf2a6cea8bf80ed):
+
+- Removal of `_initGuard()` method, as it was added specific to collector unification before.
+- Removal of `receive()` method to discourage native tokens on collector and to use wrapped tokens instead.
+
+[AToken](https://github.com/bgd-labs/aave-v3-origin/pull/10/files#diff-ce2e23d83d458b9427a925ad95f53364290f070923aebcee09c5aa6e80f5e675)
+
+- Renaming constructor params in its dependency contract `IncentivizedERC20`.
+- Change in inheritance structure for easier modification of revisions and better abstraction.
+
+[StableDebtToken](https://github.com/bgd-labs/aave-v3-origin/pull/10/files#diff-e842d4a31b7539548dd24872dd8b81f0175bdcd7e7ca951495ec5439afa84e8a)
+
+- Renaming constructor params in its dependency contract `IncentivizedERC20`.
+- Change in inheritance structure for easier modification of revisions and better abstraction.
+- Change to revert in most methods or return 0, as part of stable rate deprecation.
+
+[VariableDebtToken](https://github.com/bgd-labs/aave-v3-origin/pull/10/files#diff-8b0c737dd51a790145194cb5b1bf11a46a9db6049f2a914093bd754303dd3999)
+
+- Renaming constructor params in its dependency contract `IncentivizedERC20`.
+- Change in inheritance structure for easier modification of revisions and better abstraction.
+
+[IncentivesController](https://github.com/bgd-labs/aave-v3-origin/pull/10/files#diff-96c59cb2f1cc1468419446aa859acf21ddd24cd75a87636fc4a3003bdc288d8f)
+
+- Change in some `public` methods to `external` on the `RewardsDistributor`.
+
+[PoolAddressesProvider](https://github.com/bgd-labs/aave-v3-origin/pull/10/files#diff-9b575a3437ceb6c996f29c77aff78de0f201be0d9993154566ee3c91863a0f38)
+
+- Renaming constructor params in its dependency contract `BaseImmutableAdminUpgradeabilityProxy`.
+- Addition of `receive()` method with fallback in its dependency contract `Proxy`
+
+[UIIncentiveDataProvider](https://github.com/bgd-labs/aave-v3-origin/pull/10/files#diff-c4fa9d74a0a751ca38905d10e309cf5ae9425b31101c508ea0c453db18c0e042)
+
+- Renaming constructor params in its dependency contract `IncentivizedERC20`.
+- Renaming of structs to use `DataTypes.ReserveDataLegacy` instead of `DataTypes.ReserveData` following v3.1 changes.
+
+[WETH Gateway](https://github.com/bgd-labs/aave-v3-origin/pull/10/files#diff-b89e24fe08c06cb9f120c2981abc18a998bf971c9052dc309729599a63e6293f)
+
+- Refactoring the `WETH` `POOL` immutable variables as internal.
+
+</details>
+
 ## References
 
 - Implementation: [AaveV3ZkSync](https://github.com/bgd-labs/aave-proposals-v3/blob/main/zksync/src/20240805_AaveV3ZkSync_AaveV3ZkSyncActivation/AaveV3ZkSync_AaveV3ZkSyncActivation_20240805.sol)
