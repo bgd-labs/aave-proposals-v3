@@ -2,7 +2,6 @@
 title: "GHO Borrow Rate Update"
 author: "ACI"
 discussions: "https://governance.aave.com/t/gho-stewards-adjustments-gho-borrow-rate/18649"
-snapshot: "Direct-to-AIP"
 ---
 
 ## Simple Summary
