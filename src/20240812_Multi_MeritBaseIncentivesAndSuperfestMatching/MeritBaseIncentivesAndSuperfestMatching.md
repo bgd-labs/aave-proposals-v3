@@ -47,8 +47,8 @@ We invite Aave Finance service providers to finance the remaining amount accordi
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240812_Multi_MeritBaseIncentivesAndSuperfestMatching/AaveV3Ethereum_MeritBaseIncentivesAndSuperfestMatching_20240812.sol), [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240812_Multi_MeritBaseIncentivesAndSuperfestMatching/AaveV3Base_MeritBaseIncentivesAndSuperfestMatching_20240812.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240812_Multi_MeritBaseIncentivesAndSuperfestMatching/AaveV3Ethereum_MeritBaseIncentivesAndSuperfestMatching_20240812.t.sol), [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240812_Multi_MeritBaseIncentivesAndSuperfestMatching/AaveV3Base_MeritBaseIncentivesAndSuperfestMatching_20240812.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/5c2397e4f7acf16aea0a7f86a21fdebfaf74986e/src/20240812_Multi_MeritBaseIncentivesAndSuperfestMatching/AaveV3Ethereum_MeritBaseIncentivesAndSuperfestMatching_20240812.sol), [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/5c2397e4f7acf16aea0a7f86a21fdebfaf74986e/src/20240812_Multi_MeritBaseIncentivesAndSuperfestMatching/AaveV3Base_MeritBaseIncentivesAndSuperfestMatching_20240812.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/5c2397e4f7acf16aea0a7f86a21fdebfaf74986e/src/20240812_Multi_MeritBaseIncentivesAndSuperfestMatching/AaveV3Ethereum_MeritBaseIncentivesAndSuperfestMatching_20240812.t.sol), [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/5c2397e4f7acf16aea0a7f86a21fdebfaf74986e/src/20240812_Multi_MeritBaseIncentivesAndSuperfestMatching/AaveV3Base_MeritBaseIncentivesAndSuperfestMatching_20240812.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x15cbc6b6c5b4ef76a1fb8cf8747460bf327c459fa01b69907fab0119457939a8)
 - [Discussion](https://governance.aave.com/t/arfc-merit-base-incentives-and-superfest-matching/18450)
 
