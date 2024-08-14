@@ -30,8 +30,8 @@ The proposed risk parameters for incorporating Metis as collateral are outlined 
 
 ## References
 
-- Implementation: [AaveV3Metis](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240814_AaveV3Metis_EnableMetisAsCollateralOnMetisChain/AaveV3Metis_EnableMetisAsCollateralOnMetisChain_20240814.sol)
-- Tests: [AaveV3Metis](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240814_AaveV3Metis_EnableMetisAsCollateralOnMetisChain/AaveV3Metis_EnableMetisAsCollateralOnMetisChain_20240814.t.sol)
+- Implementation: [AaveV3Metis](https://github.com/bgd-labs/aave-proposals-v3/blob/7e9aaa019afed78f36b3f87c3c8c1bbc069053a5/src/20240814_AaveV3Metis_EnableMetisAsCollateralOnMetisChain/AaveV3Metis_EnableMetisAsCollateralOnMetisChain_20240814.sol)
+- Tests: [AaveV3Metis](https://github.com/bgd-labs/aave-proposals-v3/blob/7e9aaa019afed78f36b3f87c3c8c1bbc069053a5/src/20240814_AaveV3Metis_EnableMetisAsCollateralOnMetisChain/AaveV3Metis_EnableMetisAsCollateralOnMetisChain_20240814.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x2e15c7011a6696de1be8fb3476db30395225eb533f849b63bdbff2b33a605ffd)
 - [Discussion](https://governance.aave.com/t/arfc-enable-metis-as-collateral-on-metis-chain/16658)
 
