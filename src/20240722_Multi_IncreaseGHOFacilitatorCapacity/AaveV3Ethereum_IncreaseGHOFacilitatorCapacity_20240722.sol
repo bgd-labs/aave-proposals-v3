@@ -2,7 +2,7 @@
 pragma solidity ^0.8.0;
 
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
-import {IProposalGenericExecutor} from 'aave-helpers/interfaces/IProposalGenericExecutor.sol';
+import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
 
 interface UpgradeableLockReleaseTokenPool {
   function setBridgeLimit(uint256 limit) external;

@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 import {AaveV3Avalanche, AaveV3AvalancheAssets} from 'aave-address-book/AaveV3Avalanche.sol';
 
 import 'forge-std/Test.sol';
-import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/ProtocolV3TestBase.sol';
+import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Avalanche_RiskParameterUpdatesSAVAXOnAaveV3Avalanche_20240724} from './AaveV3Avalanche_RiskParameterUpdatesSAVAXOnAaveV3Avalanche_20240724.sol';
 
 /**
