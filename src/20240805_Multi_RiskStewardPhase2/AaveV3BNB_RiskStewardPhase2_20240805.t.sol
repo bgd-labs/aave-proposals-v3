@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 import {AaveV3BNB} from 'aave-address-book/AaveV3BNB.sol';
 
 import 'forge-std/Test.sol';
-import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/ProtocolV3TestBase.sol';
+import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3BNB_RiskStewardPhase2_20240805} from './AaveV3BNB_RiskStewardPhase2_20240805.sol';
 
 /**
