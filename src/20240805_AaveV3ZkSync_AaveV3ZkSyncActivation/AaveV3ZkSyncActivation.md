@@ -27,6 +27,8 @@ The proposal will do the following:
 - Set the guardian address as the pool admin by executing `ACL_MANAGER.addPoolAdmin()`. This is following the standard procedure of keeping pool admin on the Aave Guardian during the bootstrap period, for security.
 - Set ACI as liquidity mining admin for the ZK token by calling `EMISSION_MANAGER.setEmissionAdmin()` method.
 
+_Note: The risk params suggested by risk service providers have changed post-snapshot, and the updated one's from the [forum](https://governance.aave.com/t/arfc-deployment-of-aave-on-zksync/17937/7) are being used._
+
 The table below illustrates the initial suggested risk parameters for each asset:
 
 | Emode Category Id  | LTV | Liquidation Threshold | Liquidation Bonus |
