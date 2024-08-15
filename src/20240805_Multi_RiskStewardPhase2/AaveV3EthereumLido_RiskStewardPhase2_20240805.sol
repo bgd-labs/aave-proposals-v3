@@ -14,7 +14,6 @@ contract AaveV3EthereumLido_RiskStewardPhase2_20240805 is IProposalGenericExecut
   address public constant NEW_RISK_STEWARD = 0x45C4f8b32927eFFdf1dA3cA42498504947dd4d0D;
 
   function execute() external {
-    AaveV3EthereumLido.ACL_MANAGER.removeRiskAdmin(AaveV3EthereumLido.CAPS_PLUS_RISK_STEWARD);
     AaveV3EthereumLido.ACL_MANAGER.addRiskAdmin(NEW_RISK_STEWARD);
   }
 }

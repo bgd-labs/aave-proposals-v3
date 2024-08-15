@@ -14,7 +14,6 @@ contract AaveV3Avalanche_RiskStewardPhase2_20240805 is IProposalGenericExecutor 
   address public constant NEW_RISK_STEWARD = 0x5d7e9a32E0c3db609089186bEBC4B9d8Eb86ad2c;
 
   function execute() external {
-    AaveV3Avalanche.ACL_MANAGER.removeRiskAdmin(AaveV3Avalanche.CAPS_PLUS_RISK_STEWARD);
     AaveV3Avalanche.ACL_MANAGER.addRiskAdmin(NEW_RISK_STEWARD);
   }
 }

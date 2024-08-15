@@ -14,7 +14,6 @@ contract AaveV3BNB_RiskStewardPhase2_20240805 is IProposalGenericExecutor {
   address public constant NEW_RISK_STEWARD = 0x45918bB1D3F73904a30Ffc3eD11CdB1c05eBF726;
 
   function execute() external {
-    AaveV3BNB.ACL_MANAGER.removeRiskAdmin(AaveV3BNB.CAPS_PLUS_RISK_STEWARD);
     AaveV3BNB.ACL_MANAGER.addRiskAdmin(NEW_RISK_STEWARD);
   }
 }

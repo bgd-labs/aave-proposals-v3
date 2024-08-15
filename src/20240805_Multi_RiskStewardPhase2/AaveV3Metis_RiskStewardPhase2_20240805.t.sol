@@ -27,10 +27,8 @@ contract AaveV3Metis_RiskStewardPhase2_20240805_Test is ProtocolV3TestBase {
   }
 
   function test_permissions() public {
-    assertEq(AaveV3Metis.ACL_MANAGER.isRiskAdmin(AaveV3Metis.CAPS_PLUS_RISK_STEWARD), true);
     executePayload(vm, address(proposal));
 
-    assertEq(AaveV3Metis.ACL_MANAGER.isRiskAdmin(AaveV3Metis.CAPS_PLUS_RISK_STEWARD), false);
     assertEq(AaveV3Metis.ACL_MANAGER.isRiskAdmin(proposal.NEW_RISK_STEWARD()), true);
   }
 }
