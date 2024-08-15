@@ -1,14 +1,14 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {IProposalGenericExecutor} from 'aave-helpers/interfaces/IProposalGenericExecutor.sol';
+import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';
 import {AaveV2Ethereum, AaveV2EthereumAssets} from 'aave-address-book/AaveV2Ethereum.sol';
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
-import {AaveSwapper} from 'aave-helpers/swaps/AaveSwapper.sol';
-import {IAaveWstethWithdrawer} from 'aave-helpers/asset-manager/interfaces/IAaveWstethWithdrawer.sol';
+import {AaveSwapper} from 'aave-helpers/src/swaps/AaveSwapper.sol';
+import {IAaveWstethWithdrawer} from 'aave-helpers/src/asset-manager/interfaces/IAaveWstethWithdrawer.sol';
 
 /**
  * @title May Funding Update
@@ -30,7 +30,7 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603 is IProposalGenericExecutor {
   address public constant USDC_FEED = 0x8fFfFfd4AfB6115b954Bd326cbe7B4BA576818f6;
   address public constant DPI_FEED = 0xD2A593BF7594aCE1faD597adb697b5645d5edDB2;
   address public constant USDT_FEED = 0x3E7d1eAB13ad0104d2750B8863b489D65364e32D;
-  address public constant RETH_FEED = 0x536218f9E9Eb48863970252233c8F271f554C2d0;
+  address public constant RETH_FEED = 0xb031a238940e8051852b156f3efDc462fc34f37B;
   address public constant MILKMAN = 0x11C76AD590ABDFFCD980afEC9ad951B160F02797;
   address public constant PRICE_CHECKER = 0xe80a1C615F75AFF7Ed8F08c9F21f9d00982D666c;
   address public constant FRONTIER_SAFE = 0xCDb4fA6ba08bF1FB7Aa9fDf6002E78EDc431a642;
@@ -117,7 +117,7 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603 is IProposalGenericExecutor {
       GHO_USD_FEED,
       address(AaveV3Ethereum.COLLECTOR),
       lusdBalance,
-      150
+      500
     );
 
     /// aEthPYUSD
@@ -146,7 +146,7 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603 is IProposalGenericExecutor {
       GHO_USD_FEED,
       address(AaveV3Ethereum.COLLECTOR),
       pyusdBalance,
-      100
+      500
     );
 
     /// aUSDC & aEthUSDC

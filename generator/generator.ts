@@ -4,21 +4,15 @@ import {generateContractName, generateFolderName} from './common';
 import {proposalTemplate} from './templates/proposal.template';
 import {testTemplate} from './templates/test.template';
 import {confirm} from '@inquirer/prompts';
-import {ConfigFile, Options, PoolConfigs, PoolIdentifier} from './types';
+import {ConfigFile, Options, PoolConfigs, PoolIdentifier, Scripts, Files} from './types';
 import prettier from 'prettier';
 import {generateScript} from './templates/script.template';
+import {generateZkSyncScript} from './templates/zksync.script.template';
 import {generateAIP} from './templates/aip.template';
 
 const prettierSolCfg = await prettier.resolveConfig('foo.sol');
 const prettierMDCfg = await prettier.resolveConfig('foo.md');
 const prettierTsCfg = await prettier.resolveConfig('foo.ts');
-
-type Files = {
-  jsonConfig: string;
-  script: string;
-  aip: string;
-  payloads: {payload: string; test: string; contractName: string}[];
-};
 
 /**
  * Generates all the file contents for aip/tests/payloads & script
@@ -42,7 +36,9 @@ export async function generateFiles(options: Options, poolConfigs: PoolConfigs):
   async function createPayloadAndTest(options: Options, pool: PoolIdentifier) {
     const contractName = generateContractName(options, pool);
     const testCode = testTemplate(options, poolConfigs[pool]!, pool);
+
     return {
+      pool,
       payload: await prettier.format(proposalTemplate(options, poolConfigs[pool]!, pool), {
         ...prettierSolCfg,
         filepath: 'foo.sol',
@@ -56,10 +52,19 @@ export async function generateFiles(options: Options, poolConfigs: PoolConfigs):
   }
 
   console.log('generating script');
-  const script = await prettier.format(generateScript(options), {
-    ...prettierSolCfg,
-    filepath: 'foo.sol',
-  });
+  let scripts: Scripts = {
+    defaultScript: await prettier.format(generateScript(options), {
+      ...prettierSolCfg,
+      filepath: 'foo.sol',
+    }),
+  };
+  if (Object.keys(poolConfigs).includes('AaveV3ZkSync')) {
+    scripts.zkSyncScript = await prettier.format(generateZkSyncScript(options), {
+      ...prettierSolCfg,
+      filepath: 'foo.sol',
+    });
+  }
+
   console.log('generating aip');
   const aip = await prettier.format(generateAIP(options, poolConfigs), {
     ...prettierMDCfg,
@@ -68,7 +73,7 @@ export async function generateFiles(options: Options, poolConfigs: PoolConfigs):
 
   return {
     jsonConfig,
-    script,
+    scripts,
     aip,
     payloads: await Promise.all(options.pools.map((pool) => createPayloadAndTest(options, pool))),
   };
@@ -93,10 +98,12 @@ async function askBeforeWrite(options: Options, path: string, content: string) {
  * @param options
  * @param param1
  */
-export async function writeFiles(options: Options, {jsonConfig, script, aip, payloads}: Files) {
+export async function writeFiles(options: Options, {jsonConfig, scripts, aip, payloads}: Files) {
   const baseName = generateFolderName(options);
   const baseFolder = path.join(process.cwd(), 'src', baseName);
-  if (fs.existsSync(baseFolder)) {
+  const zkSyncBaseFolder = path.join(process.cwd(), 'zksync/src', baseName);
+
+  if (fs.existsSync(baseFolder) || (scripts.zkSyncScript && fs.existsSync(zkSyncBaseFolder))) {
     if (!options.force && fs.existsSync(baseFolder)) {
       const force = await confirm({
         message: 'A proposal already exists at that location, do you want to continue?',
@@ -106,6 +113,7 @@ export async function writeFiles(options: Options, {jsonConfig, script, aip, pay
     }
   } else {
     fs.mkdirSync(baseFolder, {recursive: true});
+    if (scripts.zkSyncScript) fs.mkdirSync(zkSyncBaseFolder, {recursive: true});
   }
 
   // write config
@@ -116,11 +124,26 @@ export async function writeFiles(options: Options, {jsonConfig, script, aip, pay
   await askBeforeWrite(
     options,
     path.join(baseFolder, `${generateContractName(options)}.s.sol`),
-    script,
+    scripts.defaultScript,
   );
+  if (scripts.zkSyncScript) {
+    await askBeforeWrite(
+      options,
+      path.join(zkSyncBaseFolder, `${generateContractName(options)}.s.sol`),
+      scripts.zkSyncScript,
+    );
+  }
 
-  for (const {payload, test, contractName} of payloads) {
-    await askBeforeWrite(options, path.join(baseFolder, `${contractName}.sol`), payload);
-    await askBeforeWrite(options, path.join(baseFolder, `${contractName}.t.sol`), test);
+  for (const {pool, payload, test, contractName} of payloads) {
+    await askBeforeWrite(
+      options,
+      path.join(pool === 'AaveV3ZkSync' ? zkSyncBaseFolder : baseFolder, `${contractName}.sol`),
+      payload,
+    );
+    await askBeforeWrite(
+      options,
+      path.join(pool === 'AaveV3ZkSync' ? zkSyncBaseFolder : baseFolder, `${contractName}.t.sol`),
+      test,
+    );
   }
 }

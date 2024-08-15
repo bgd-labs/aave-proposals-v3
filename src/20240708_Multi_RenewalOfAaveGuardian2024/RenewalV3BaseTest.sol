@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 import {IACLManager, IPoolConfigurator} from 'aave-address-book/AaveV3.sol';
 
 import 'forge-std/Test.sol';
-import {ProtocolV3TestBase} from 'aave-helpers/ProtocolV3TestBase.sol';
+import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {IOwnableWithGuardian} from './interfaces/IOwnableWithGuardian.sol';
 
 struct GuardianUpdateTestParams {
