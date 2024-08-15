@@ -46,11 +46,11 @@
 | virtualAccountingActive | false |
 | virtualBalance | 0 USDC [0] |
 | optimalUsageRatio | 90 % |
-| maxVariableBorrowRate | 84 % |
+| maxVariableBorrowRate | 65.5 % |
 | baseVariableBorrowRate | 0 % |
-| variableRateSlope1 | 9 % |
-| variableRateSlope2 | 75 % |
-| interestRate | ![ir](/.assets/ce5d4c6896eb052b00970c76b158b98e600860c7.svg) |
+| variableRateSlope1 | 5.5 % |
+| variableRateSlope2 | 60 % |
+| interestRate | ![ir](/.assets/acc49025799ee26cec000a04cbf5a83eef41844f.svg) |
 
 
 #### USDT ([0x493257fD37EDB34451f62EDf8D2a0C418852bA4C](https://era.zksync.network//address/0x493257fD37EDB34451f62EDf8D2a0C418852bA4C))
@@ -97,11 +97,11 @@
 | virtualAccountingActive | false |
 | virtualBalance | 0 USDT [0] |
 | optimalUsageRatio | 90 % |
-| maxVariableBorrowRate | 84 % |
+| maxVariableBorrowRate | 65.5 % |
 | baseVariableBorrowRate | 0 % |
-| variableRateSlope1 | 9 % |
-| variableRateSlope2 | 75 % |
-| interestRate | ![ir](/.assets/ce5d4c6896eb052b00970c76b158b98e600860c7.svg) |
+| variableRateSlope1 | 5.5 % |
+| variableRateSlope2 | 60 % |
+| interestRate | ![ir](/.assets/acc49025799ee26cec000a04cbf5a83eef41844f.svg) |
 
 
 #### ZK ([0x5A7d6b2F92C77FAD6CCaBd7EE0624E64907Eaf3E](https://era.zksync.network//address/0x5A7d6b2F92C77FAD6CCaBd7EE0624E64907Eaf3E))
@@ -111,9 +111,9 @@
 | decimals | 18 |
 | isActive | true |
 | isFrozen | false |
-| supplyCap | 24,000,000 ZK |
+| supplyCap | 18,000,000 ZK |
 | borrowCap | 10,000,000 ZK |
-| debtCeiling | 1,000,000 $ [100000000] |
+| debtCeiling | 800,000 $ [80000000] |
 | isSiloed | false |
 | isFlashloanable | true |
 | eModeCategory | 0 |
@@ -152,7 +152,7 @@
 | baseVariableBorrowRate | 0 % |
 | variableRateSlope1 | 9 % |
 | variableRateSlope2 | 300 % |
-| interestRate | ![ir](/.assets/58f4a1b3f320382c7f08eefe6f122b4561e5515b.svg) |
+| interestRate | ![ir](/.assets/cea8c0626de986f85fcd11e86a47637bc7444e08.svg) |
 
 
 #### WETH ([0x5AEa5775959fBC2557Cc8789bC1bf90A239D9a91](https://era.zksync.network//address/0x5AEa5775959fBC2557Cc8789bC1bf90A239D9a91))
@@ -163,11 +163,11 @@
 | isActive | true |
 | isFrozen | false |
 | supplyCap | 1,000 WETH |
-| borrowCap | 800 WETH |
+| borrowCap | 900 WETH |
 | debtCeiling | 0 $ [0] |
 | isSiloed | false |
 | isFlashloanable | true |
-| eModeCategory | 0 |
+| eModeCategory | 1 |
 | oracle | [0x6D41d1dc818112880b40e26BD6FD347E41008eDA](https://era.zksync.network//address/0x6D41d1dc818112880b40e26BD6FD347E41008eDA) |
 | oracleDecimals | 8 |
 | oracleDescription | ETH / USD |
@@ -198,12 +198,17 @@
 | variableDebtTokenSymbol | variableDebtZksWETH |
 | virtualAccountingActive | false |
 | virtualBalance | 0 WETH [0] |
-| optimalUsageRatio | 80 % |
-| maxVariableBorrowRate | 83.3 % |
+| optimalUsageRatio | 90 % |
+| maxVariableBorrowRate | 82.7 % |
 | baseVariableBorrowRate | 0 % |
-| variableRateSlope1 | 3.3 % |
+| variableRateSlope1 | 2.7 % |
 | variableRateSlope2 | 80 % |
-| interestRate | ![ir](/.assets/b0908dc3387a090004c454c4cb24a52bf6bf1406.svg) |
+| interestRate | ![ir](/.assets/ac70b8faf360fc5de364fb5d60d51c16bdba173f.svg) |
+| eMode.label | ETH correlated |
+| eMode.ltv | 90 % |
+| eMode.liquidationThreshold | 93 % |
+| eMode.liquidationBonus | 1 % |
+| eMode.priceSource | 0x0000000000000000000000000000000000000000 |
 
 
 #### wstETH ([0x703b52F2b28fEbcB60E1372858AF5b18849FE867](https://era.zksync.network//address/0x703b52F2b28fEbcB60E1372858AF5b18849FE867))
@@ -213,12 +218,12 @@
 | decimals | 18 |
 | isActive | true |
 | isFrozen | false |
-| supplyCap | 500 wstETH |
-| borrowCap | 50 wstETH |
+| supplyCap | 300 wstETH |
+| borrowCap | 30 wstETH |
 | debtCeiling | 0 $ [0] |
 | isSiloed | false |
 | isFlashloanable | true |
-| eModeCategory | 0 |
+| eModeCategory | 1 |
 | oracle | [0xfba43A6b73649F002d37274663CC971BF7d215D9](https://era.zksync.network//address/0xfba43A6b73649F002d37274663CC971BF7d215D9) |
 | oracleDecimals | 8 |
 | oracleDescription | Capped wstETH / stETH(ETH) / USD |
@@ -228,7 +233,7 @@
 | liquidationThreshold | 76 % [7600] |
 | liquidationBonus | 7 % |
 | liquidationProtocolFee | 10 % [1000] |
-| reserveFactor | 15 % [1500] |
+| reserveFactor | 5 % [500] |
 | aToken | [0x318CfbA2CDDBF6522d855A589938EC6f5B990Fc1](https://era.zksync.network//address/0x318CfbA2CDDBF6522d855A589938EC6f5B990Fc1) |
 | aTokenImpl | [0x58C1F5d7Ea1F419588CF8eC9D22cB982C7C630D4](https://era.zksync.network//address/0x58C1F5d7Ea1F419588CF8eC9D22cB982C7C630D4) |
 | variableDebtToken | [0x29191BEa63b15E70E2f4c2647695aD1C8EdCb3d5](https://era.zksync.network//address/0x29191BEa63b15E70E2f4c2647695aD1C8EdCb3d5) |
@@ -254,13 +259,31 @@
 | baseVariableBorrowRate | 0 % |
 | variableRateSlope1 | 4.5 % |
 | variableRateSlope2 | 80 % |
-| interestRate | ![ir](/.assets/c9f918d8a93b461c97687576892631a71339aaaa.svg) |
+| interestRate | ![ir](/.assets/9d6d1cd7ab99074fae610258d10d06e999d7a83c.svg) |
+| eMode.label | ETH correlated |
+| eMode.ltv | 90 % |
+| eMode.liquidationThreshold | 93 % |
+| eMode.liquidationBonus | 1 % |
+| eMode.priceSource | 0x0000000000000000000000000000000000000000 |
 
 
 ## Raw diff
 
 ```json
 {
+  "eModes": {
+    "1": {
+      "from": null,
+      "to": {
+        "eModeCategory": 1,
+        "label": "ETH correlated",
+        "liquidationBonus": 10100,
+        "liquidationThreshold": 9300,
+        "ltv": 9000,
+        "priceSource": "0x0000000000000000000000000000000000000000"
+      }
+    }
+  },
   "reserves": {
     "0x1d17CBcF0D6D143135aE902365D2E5e2A16538D4": {
       "from": null,
@@ -364,7 +387,7 @@
         "aTokenUnderlyingBalance": 0,
         "borrowCap": 10000000,
         "borrowingEnabled": true,
-        "debtCeiling": 100000000,
+        "debtCeiling": 80000000,
         "decimals": 18,
         "eModeCategory": 0,
         "interestRateStrategy": "0x7BcE25db0C430059C4277D6A747d7fd0C1214beA",
@@ -388,7 +411,7 @@
         "stableDebtTokenImpl": "0xc25037446067240880b7B6d81fae544309a5fE02",
         "stableDebtTokenName": "Aave ZkSync Stable Debt ZK",
         "stableDebtTokenSymbol": "stableDebtZksZK",
-        "supplyCap": 24000000,
+        "supplyCap": 18000000,
         "symbol": "ZK",
         "underlying": "0x5A7d6b2F92C77FAD6CCaBd7EE0624E64907Eaf3E",
         "usageAsCollateralEnabled": true,
@@ -408,11 +431,11 @@
         "aTokenName": "Aave ZkSync WETH",
         "aTokenSymbol": "aZksWETH",
         "aTokenUnderlyingBalance": 0,
-        "borrowCap": 800,
+        "borrowCap": 900,
         "borrowingEnabled": true,
         "debtCeiling": 0,
         "decimals": 18,
-        "eModeCategory": 0,
+        "eModeCategory": 1,
         "interestRateStrategy": "0x7BcE25db0C430059C4277D6A747d7fd0C1214beA",
         "isActive": true,
         "isBorrowableInIsolation": false,
@@ -454,11 +477,11 @@
         "aTokenName": "Aave ZkSync wstETH",
         "aTokenSymbol": "aZkswstETH",
         "aTokenUnderlyingBalance": 0,
-        "borrowCap": 50,
+        "borrowCap": 30,
         "borrowingEnabled": true,
         "debtCeiling": 0,
         "decimals": 18,
-        "eModeCategory": 0,
+        "eModeCategory": 1,
         "interestRateStrategy": "0x7BcE25db0C430059C4277D6A747d7fd0C1214beA",
         "isActive": true,
         "isBorrowableInIsolation": false,
@@ -474,13 +497,13 @@
         "oracleDecimals": 8,
         "oracleDescription": "Capped wstETH / stETH(ETH) / USD",
         "oracleLatestAnswer": 324262012394,
-        "reserveFactor": 1500,
+        "reserveFactor": 500,
         "stableBorrowRateEnabled": false,
         "stableDebtToken": "0x60a6E8f92482Fe6F11B57697Ca4f962c0cDA3369",
         "stableDebtTokenImpl": "0xc25037446067240880b7B6d81fae544309a5fE02",
         "stableDebtTokenName": "Aave ZkSync Stable Debt wstETH",
         "stableDebtTokenSymbol": "stableDebtZkswstETH",
-        "supplyCap": 500,
+        "supplyCap": 300,
         "symbol": "wstETH",
         "underlying": "0x703b52F2b28fEbcB60E1372858AF5b18849FE867",
         "usageAsCollateralEnabled": true,
@@ -498,29 +521,29 @@
       "from": null,
       "to": {
         "address": "0x7BcE25db0C430059C4277D6A747d7fd0C1214beA",
-        "baseVariableBorrowRate": 0,
-        "maxVariableBorrowRate": "840000000000000000000000000",
+        "baseVariableBorrowRate": "0",
+        "maxVariableBorrowRate": "655000000000000000000000000",
         "optimalUsageRatio": "900000000000000000000000000",
-        "variableRateSlope1": "90000000000000000000000000",
-        "variableRateSlope2": "750000000000000000000000000"
+        "variableRateSlope1": "55000000000000000000000000",
+        "variableRateSlope2": "600000000000000000000000000"
       }
     },
     "0x493257fD37EDB34451f62EDf8D2a0C418852bA4C": {
       "from": null,
       "to": {
         "address": "0x7BcE25db0C430059C4277D6A747d7fd0C1214beA",
-        "baseVariableBorrowRate": 0,
-        "maxVariableBorrowRate": "840000000000000000000000000",
+        "baseVariableBorrowRate": "0",
+        "maxVariableBorrowRate": "655000000000000000000000000",
         "optimalUsageRatio": "900000000000000000000000000",
-        "variableRateSlope1": "90000000000000000000000000",
-        "variableRateSlope2": "750000000000000000000000000"
+        "variableRateSlope1": "55000000000000000000000000",
+        "variableRateSlope2": "600000000000000000000000000"
       }
     },
     "0x5A7d6b2F92C77FAD6CCaBd7EE0624E64907Eaf3E": {
       "from": null,
       "to": {
         "address": "0x7BcE25db0C430059C4277D6A747d7fd0C1214beA",
-        "baseVariableBorrowRate": 0,
+        "baseVariableBorrowRate": "0",
         "maxVariableBorrowRate": "3090000000000000000000000000",
         "optimalUsageRatio": "450000000000000000000000000",
         "variableRateSlope1": "90000000000000000000000000",
@@ -531,10 +554,10 @@
       "from": null,
       "to": {
         "address": "0x7BcE25db0C430059C4277D6A747d7fd0C1214beA",
-        "baseVariableBorrowRate": 0,
-        "maxVariableBorrowRate": "833000000000000000000000000",
-        "optimalUsageRatio": "800000000000000000000000000",
-        "variableRateSlope1": "33000000000000000000000000",
+        "baseVariableBorrowRate": "0",
+        "maxVariableBorrowRate": "827000000000000000000000000",
+        "optimalUsageRatio": "900000000000000000000000000",
+        "variableRateSlope1": "27000000000000000000000000",
         "variableRateSlope2": "800000000000000000000000000"
       }
     },
@@ -542,7 +565,7 @@
       "from": null,
       "to": {
         "address": "0x7BcE25db0C430059C4277D6A747d7fd0C1214beA",
-        "baseVariableBorrowRate": 0,
+        "baseVariableBorrowRate": "0",
         "maxVariableBorrowRate": "845000000000000000000000000",
         "optimalUsageRatio": "450000000000000000000000000",
         "variableRateSlope1": "45000000000000000000000000",
