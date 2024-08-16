@@ -93,8 +93,8 @@ zkSync uses the Aave v3.1 version, and there are some minor diffs because produc
 
 ## References
 
-- Implementation: [AaveV3ZkSync](https://github.com/bgd-labs/aave-proposals-v3/blob/main/zksync/src/20240805_AaveV3ZkSync_AaveV3ZkSyncActivation/AaveV3ZkSync_AaveV3ZkSyncActivation_20240805.sol)
-- Tests: [AaveV3ZkSync](https://github.com/bgd-labs/aave-proposals-v3/blob/main/zksync/src/20240805_AaveV3ZkSync_AaveV3ZkSyncActivation/AaveV3ZkSync_AaveV3ZkSyncActivation_20240805.t.sol)
+- Implementation: [AaveV3ZkSync](https://github.com/bgd-labs/aave-proposals-v3/blob/91fdcd8b5a82fcafb2feff88746e23f1d1bf4d72/zksync/src/20240805_AaveV3ZkSync_AaveV3ZkSyncActivation/AaveV3ZkSync_AaveV3ZkSyncActivation_20240805.sol)
+- Tests: [AaveV3ZkSync](https://github.com/bgd-labs/aave-proposals-v3/blob/91fdcd8b5a82fcafb2feff88746e23f1d1bf4d72/zksync/src/20240805_AaveV3ZkSync_AaveV3ZkSyncActivation/AaveV3ZkSync_AaveV3ZkSyncActivation_20240805.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0xb74537a0528f484e9cc76d8c7931eedef7b6290e7d2dc725b2c98e623a214f95)
 - [Discussion](https://governance.aave.com/t/arfc-deployment-of-aave-on-zksync/17937)
 
