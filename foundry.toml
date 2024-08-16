@@ -6,10 +6,12 @@ solc = '0.8.20'
 out = 'out'
 bytecode_hash = 'none'
 libs = ['lib']
-remappings = [
-]
+remappings = []
 ffi = true
-fs_permissions = [{ access = "write", path = "./reports" }, { access = "read", path = "./zkout" }]
+fs_permissions = [
+    { access = "write", path = "./reports" },
+    { access = "read", path = "./zkout" },
+]
 evm_version = 'shanghai'
 
 [profile.zksync]
