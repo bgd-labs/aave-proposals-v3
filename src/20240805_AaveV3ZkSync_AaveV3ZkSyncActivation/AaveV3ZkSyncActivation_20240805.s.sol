@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aave-helpers/src/GovV3Helpers.sol';
-import {AaveV3ZkSync} from 'aave-address-book/AaveV3ZkSync.sol';
+import {GovV3Helpers, PayloadsControllerUtils} from 'aave-helpers/src/GovV3Helpers.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
-import {EthereumScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
+import {GovernanceV3ZkSync} from 'aave-address-book/GovernanceV3ZkSync.sol';
+import {EthereumScript, ChainIds} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
 
 /**
  * @dev Create Proposal
@@ -16,13 +16,12 @@ contract CreateProposal is EthereumScript {
     PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](1);
 
     // compose actions for validation
-    IPayloadsControllerCore.ExecutionAction[]
-      memory actionsZkSync = new IPayloadsControllerCore.ExecutionAction[](1);
-    actionsZkSync[0] = GovV3Helpers.buildActionZkSync(
-      vm,
-      'AaveV3ZkSync_AaveV3ZkSyncActivation_20240805'
-    );
-    payloads[0] = GovV3Helpers.buildZkSyncPayload(vm, actionsZkSync);
+    payloads[0] = PayloadsControllerUtils.Payload({
+      chain: ChainIds.ZKSYNC,
+      accessLevel: PayloadsControllerUtils.AccessControl.Level_1,
+      payloadsController: address(GovernanceV3ZkSync.PAYLOADS_CONTROLLER),
+      payloadId: 2
+    });
 
     // create proposal
     vm.startBroadcast();
