@@ -147,7 +147,7 @@ contract AaveV3ZkSync_AaveV3ZkSyncActivation_20240805 is AaveV3PayloadZkSync {
     listings[3] = IAaveV3ConfigEngine.Listing({
       asset: wstETH,
       assetSymbol: 'wstETH',
-      priceFeed: 0xfba43A6b73649F002d37274663CC971BF7d215D9,
+      priceFeed: 0xB19d366dC599904Aa026440d4E805F0E13512682,
       eModeCategory: 1,
       enabledToBorrow: EngineFlags.ENABLED,
       stableRateModeEnabled: EngineFlags.DISABLED,
