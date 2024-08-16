@@ -50,7 +50,7 @@ The table below illustrates the initial suggested risk parameters for each asset
 | Variable Slope 1          |                                                                                            5.5 % |                                                                                            5.5 % |                                                                                     2.7 % |                                                                                                   4.5 % |                                                                                      9 % |
 | Variable Slope 2          |                                                                                             60 % |                                                                                             60 % |                                                                                      80 % |                                                                                                    80 % |                                                                                    300 % |
 | Uoptimal                  |                                                                                             90 % |                                                                                             90 % |                                                                                      90 % |                                                                                                    45 % |                                                                                     45 % |
-| Oracle                    | [Capped USDC/USD](https://era.zksync.network/address/0x162C97F6B4FA5a915A44D430bb7AE0eE716b3b87) | [Capped USDT/USD](https://era.zksync.network/address/0x92DaB7275859C5399a326874897daddb0F4ed7A4) | [ETH/USD](https://era.zksync.network//address/0x6D41d1dc818112880b40e26BD6FD347E41008eDA) | [Capped wstETH/ETH/USD](https://era.zksync.network//address/0xfba43A6b73649F002d37274663CC971BF7d215D9) | [ZK/USD](https://era.zksync.network//address/0xD1ce60dc8AE060DDD17cA8716C96f193bC88DD13) |
+| Oracle                    | [Capped USDC/USD](https://era.zksync.network/address/0x162C97F6B4FA5a915A44D430bb7AE0eE716b3b87) | [Capped USDT/USD](https://era.zksync.network/address/0x92DaB7275859C5399a326874897daddb0F4ed7A4) | [ETH/USD](https://era.zksync.network//address/0x6D41d1dc818112880b40e26BD6FD347E41008eDA) | [Capped wstETH/ETH/USD](https://era.zksync.network//address/0xB19d366dC599904Aa026440d4E805F0E13512682) | [ZK/USD](https://era.zksync.network//address/0xD1ce60dc8AE060DDD17cA8716C96f193bC88DD13) |
 | Flashloanable             |                                                                                          ENABLED |                                                                                          ENABLED |                                                                                   ENABLED |                                                                                                 ENABLED |                                                                                  ENABLED |
 | Isolation Mode            |                                                                                            false |                                                                                            false |                                                                                     false |                                                                                                   false |                                                                                     true |
 | Debt Ceiling              |                                                                                            USD 0 |                                                                                            USD 0 |                                                                                     USD 0 |                                                                                                   USD 0 |                                                                              USD 800,000 |
@@ -65,13 +65,9 @@ The table below illustrates the initial suggested risk parameters for each asset
 
 - The deployed pool and other permissions have been programmatically verified, which can be found on the [aave-permissions-book](https://github.com/bgd-labs/aave-permissions-book/blob/4ce5f4a0c40818e5b837eb035243f7b729279553/out/ZK_SYNC-V3.md#contracts)
 
-- In addition, we have also checked the code diffs of the deployed zkSync contracts with the deployed contracts on Ethereum, which can be found [here](https://github.com/bgd-labs/aave-v3-origin/pull/10).
+- In addition, we have also checked the code diffs of the deployed zkSync contracts with the deployed contracts on Ethereum, which can be found [here](https://github.com/bgd-labs/aave-v3-origin/pull/10). zkSync uses the Aave v3.1 version, and there are some minor diffs because production instances (e.g. Ethereum) didn't require this change to be applied
 
-<details close>
-<summary>Below are the per contract comparative diffs of the contract modifications relative to Ethereum network</summary>
-<br>
-
-zkSync uses the Aave v3.1 version, and there are some minor diffs because production instances (e.g. Ethereum) didn't require this change to be applied
+Below are the per contract comparative diffs of the contract modifications relative to Ethereum network:
 
 - [Collector](https://github.com/bgd-labs/aave-v3-origin/pull/10/files#diff-2d2e4b82a1481118e886d5dd780cc16200b579d7ad65e2050cf2a6cea8bf80ed)
 
@@ -89,12 +85,10 @@ zkSync uses the Aave v3.1 version, and there are some minor diffs because produc
 
 - [WETH Gateway](https://github.com/bgd-labs/aave-v3-origin/pull/10/files#diff-b89e24fe08c06cb9f120c2981abc18a998bf971c9052dc309729599a63e6293f)
 
-</details>
-
 ## References
 
-- Implementation: [AaveV3ZkSync](https://github.com/bgd-labs/aave-proposals-v3/blob/91fdcd8b5a82fcafb2feff88746e23f1d1bf4d72/zksync/src/20240805_AaveV3ZkSync_AaveV3ZkSyncActivation/AaveV3ZkSync_AaveV3ZkSyncActivation_20240805.sol)
-- Tests: [AaveV3ZkSync](https://github.com/bgd-labs/aave-proposals-v3/blob/91fdcd8b5a82fcafb2feff88746e23f1d1bf4d72/zksync/src/20240805_AaveV3ZkSync_AaveV3ZkSyncActivation/AaveV3ZkSync_AaveV3ZkSyncActivation_20240805.t.sol)
+- Implementation: [AaveV3ZkSync](https://github.com/bgd-labs/aave-proposals-v3/blob/main/zksync/src/20240805_AaveV3ZkSync_AaveV3ZkSyncActivation/AaveV3ZkSync_AaveV3ZkSyncActivation_20240805.sol)
+- Tests: [AaveV3ZkSync](https://github.com/bgd-labs/aave-proposals-v3/blob/main/zksync/src/20240805_AaveV3ZkSync_AaveV3ZkSyncActivation/AaveV3ZkSync_AaveV3ZkSyncActivation_20240805.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0xb74537a0528f484e9cc76d8c7931eedef7b6290e7d2dc725b2c98e623a214f95)
 - [Discussion](https://governance.aave.com/t/arfc-deployment-of-aave-on-zksync/17937)
 
