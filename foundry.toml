@@ -6,10 +6,12 @@ solc = '0.8.20'
 out = 'out'
 bytecode_hash = 'none'
 libs = ['lib']
-remappings = [
-]
+remappings = []
 ffi = true
-fs_permissions = [{ access = "write", path = "./reports" }, { access = "read", path = "./zkout" }]
+fs_permissions = [
+    { access = "write", path = "./reports" },
+    { access = "read", path = "./zkout" },
+]
 evm_version = 'shanghai'
 
 [profile.zksync]
@@ -70,7 +72,7 @@ zkevm = "${RPC_ZKEVM}"
 gnosis = "${RPC_GNOSIS}"
 bnb = "${RPC_BNB}"
 scroll = "${RPC_SCROLL}"
-zksync = "${RPC_ZK_SYNC}"
+zksync = "${RPC_ZKSYNC}"
 
 [etherscan]
 mainnet = { key="${ETHERSCAN_API_KEY_MAINNET}", chain=1 }
@@ -85,6 +87,6 @@ zkevm = { key="${ETHERSCAN_API_KEY_ZKEVM}", chainId=1101 }
 gnosis = { key="${ETHERSCAN_API_KEY_GNOSIS}", chainId=100 }
 bnb = { key="${ETHERSCAN_API_KEY_BNB}", chainId=56, url='https://api.bscscan.com/api'}
 scroll = { key="${ETHERSCAN_API_KEY_SCROLL}", chainId=534352 }
-zksync = { key="${ETHERSCAN_API_KEY_ZK_SYNC}", chain = 324 }
+zksync = { key="${ETHERSCAN_API_KEY_ZKSYNC}", chain = 324 }
 
 # See more config options https://github.com/gakonst/foundry/tree/master/config
