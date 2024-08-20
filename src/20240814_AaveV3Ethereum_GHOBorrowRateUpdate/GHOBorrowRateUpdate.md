@@ -28,8 +28,8 @@ BaseVariableBorrowRate of GHO is decreased to 6%
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240814_AaveV3Ethereum_GHOBorrowRateUpdate/AaveV3Ethereum_GHOBorrowRateUpdate_20240814.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240814_AaveV3Ethereum_GHOBorrowRateUpdate/AaveV3Ethereum_GHOBorrowRateUpdate_20240814.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/a0ddfdc8504eec2e76d47e918cb7ff3741a4b7b4/src/20240814_AaveV3Ethereum_GHOBorrowRateUpdate/AaveV3Ethereum_GHOBorrowRateUpdate_20240814.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/a0ddfdc8504eec2e76d47e918cb7ff3741a4b7b4/src/20240814_AaveV3Ethereum_GHOBorrowRateUpdate/AaveV3Ethereum_GHOBorrowRateUpdate_20240814.t.sol)
 - [Discussion](https://governance.aave.com/t/gho-stewards-adjustments-gho-borrow-rate/18649)
 
 ## Copyright
