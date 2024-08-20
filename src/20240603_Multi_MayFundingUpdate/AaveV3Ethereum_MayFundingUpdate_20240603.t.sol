@@ -5,7 +5,7 @@ import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethe
 import {AaveV2Ethereum, AaveV2EthereumAssets} from 'aave-address-book/AaveV2Ethereum.sol';
 
 import 'forge-std/Test.sol';
-import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/ProtocolV3TestBase.sol';
+import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Ethereum_MayFundingUpdate_20240603} from './AaveV3Ethereum_MayFundingUpdate_20240603.sol';
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
@@ -48,7 +48,7 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603_Test is ProtocolV3TestBase {
     assertEq(allowanceAmount, proposal.FRONTIER_ALLOWANCE_AMOUNT());
   }
 
-  function test_withdrawAndSwapForGho() public {
+  function test_withdrawAndSwapForGhoBalances() public {
     uint256 collectorAdaiv2BalanceBefore = IERC20(AaveV2EthereumAssets.DAI_A_TOKEN).balanceOf(
       COLLECTOR
     );
@@ -198,6 +198,15 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603_Test is ProtocolV3TestBase {
   }
 
   function test_swapEvents() public {
+    // Hardcoded as dynamic
+    uint256 expectedInDai = 1931651887069694121996324;
+    uint256 expectedInLusd = 26176609646753004781352;
+    uint256 expectedInPyusd = 119858878007;
+    uint256 expectedInUsdc = 4039151285202;
+    uint256 expectedInDpi = 137080139851167463608;
+    uint256 expectedInUsdt = 2000000000000;
+    uint256 expectedInReth = 1883870013343165667402;
+
     vm.expectEmit(true, true, true, true, MiscEthereum.AAVE_SWAPPER);
     emit SwapRequested(
       proposal.MILKMAN(),
@@ -205,7 +214,7 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603_Test is ProtocolV3TestBase {
       AaveV3EthereumAssets.GHO_UNDERLYING,
       proposal.DAI_FEED(),
       proposal.GHO_USD_FEED(),
-      1931651887069694121996324, // Hardcoded as dynamic
+      expectedInDai,
       address(AaveV3Ethereum.COLLECTOR),
       50
     );
@@ -217,9 +226,9 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603_Test is ProtocolV3TestBase {
       AaveV3EthereumAssets.GHO_UNDERLYING,
       proposal.LUSD_FEED(),
       proposal.GHO_USD_FEED(),
-      26176609646753004781352, // Hardcoded as dynamic
+      expectedInLusd,
       address(AaveV3Ethereum.COLLECTOR),
-      150
+      500
     );
 
     vm.expectEmit(true, true, true, true, MiscEthereum.AAVE_SWAPPER);
@@ -229,9 +238,9 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603_Test is ProtocolV3TestBase {
       AaveV3EthereumAssets.GHO_UNDERLYING,
       proposal.PYUSD_FEED(),
       proposal.GHO_USD_FEED(),
-      119858878007, // Hardcoded as dynamic
+      expectedInPyusd,
       address(AaveV3Ethereum.COLLECTOR),
-      100
+      500
     );
 
     vm.expectEmit(true, true, true, true, MiscEthereum.AAVE_SWAPPER);
@@ -241,7 +250,7 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603_Test is ProtocolV3TestBase {
       AaveV3EthereumAssets.GHO_UNDERLYING,
       proposal.USDC_FEED(),
       proposal.GHO_USD_FEED(),
-      4039151285202, // Hardcoded as dynamic
+      expectedInUsdc,
       address(AaveV3Ethereum.COLLECTOR),
       50
     );
@@ -253,7 +262,7 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603_Test is ProtocolV3TestBase {
       AaveV3EthereumAssets.GHO_UNDERLYING,
       proposal.DPI_FEED(),
       proposal.GHO_USD_FEED(),
-      137080139851167463608, // Hardcoded as dynamic
+      expectedInDpi,
       address(AaveV3Ethereum.COLLECTOR),
       500
     );
@@ -265,7 +274,7 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603_Test is ProtocolV3TestBase {
       AaveV3EthereumAssets.GHO_UNDERLYING,
       proposal.USDT_FEED(),
       proposal.GHO_USD_FEED(),
-      2000000000000, // Hardcoded as dynamic
+      expectedInUsdt,
       address(AaveV3Ethereum.COLLECTOR),
       50
     );
@@ -277,12 +286,89 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603_Test is ProtocolV3TestBase {
       AaveV3EthereumAssets.WETH_UNDERLYING,
       proposal.RETH_FEED(),
       AaveV3EthereumAssets.WETH_ORACLE,
-      1883870013343165667402, // Hardcoded as dynamic
+      expectedInReth,
       address(AaveV3Ethereum.COLLECTOR),
       50
     );
 
     executePayload(vm, address(proposal));
+
+    _baseSwapTest(
+      proposal.PRICE_CHECKER(),
+      expectedInDai, // DAI/USD ~ 1.0 exchange rate on  23/07/2024
+      expectedInDai,
+      3e14, // 1e18 is 100%, 3e14 is 0.03%
+      AaveV3EthereumAssets.DAI_UNDERLYING,
+      AaveV3EthereumAssets.GHO_UNDERLYING,
+      proposal.DAI_FEED(),
+      AaveV3EthereumAssets.GHO_ORACLE
+    );
+
+    _baseSwapTest(
+      proposal.PRICE_CHECKER(),
+      expectedInLusd, // LUSD/USD ~ 1.0 exchange rate on  23/07/2024
+      expectedInLusd,
+      3e15, // 1e18 is 100%, 3e15 is 0.3%
+      AaveV3EthereumAssets.LUSD_UNDERLYING,
+      AaveV3EthereumAssets.GHO_UNDERLYING,
+      proposal.LUSD_FEED(),
+      AaveV3EthereumAssets.GHO_ORACLE
+    );
+
+    _baseSwapTest(
+      proposal.PRICE_CHECKER(),
+      119840e18, // pyusd is 6 decimals we get 18 out
+      expectedInPyusd, // PYUSD/USD ~ 1.0 exchange rate on  23/07/2024
+      1e15, // 1e18 is 100%, 3e15 is 0.3%
+      AaveV3EthereumAssets.PYUSD_UNDERLYING,
+      AaveV3EthereumAssets.GHO_UNDERLYING,
+      proposal.PYUSD_FEED(),
+      AaveV3EthereumAssets.GHO_ORACLE
+    );
+
+    _baseSwapTest(
+      proposal.PRICE_CHECKER(),
+      4039151e18, // USDC is 6 decimals we get 18 out
+      expectedInUsdc, // USDC/USD ~ 1.0 exchange rate on  23/07/2024
+      1e14, // 1e18 is 100%, 1e14 is 0.01%
+      AaveV3EthereumAssets.USDC_UNDERLYING,
+      AaveV3EthereumAssets.GHO_UNDERLYING,
+      proposal.USDC_FEED(),
+      AaveV3EthereumAssets.GHO_ORACLE
+    );
+
+    _baseSwapTest(
+      proposal.PRICE_CHECKER(),
+      12_400e18, // DPI/USD ~ 91 exchange rate on  23/07/2024
+      expectedInDpi,
+      3e16, // 1e18 is 100%, 3e16 is 3%
+      AaveV2EthereumAssets.DPI_UNDERLYING,
+      AaveV3EthereumAssets.GHO_UNDERLYING,
+      proposal.DPI_FEED(),
+      AaveV3EthereumAssets.GHO_ORACLE
+    );
+
+    _baseSwapTest(
+      proposal.PRICE_CHECKER(),
+      2000000e18, // USDT is 6 decimals we get 18 out
+      expectedInUsdt, // USDT/USD ~ 91 exchange rate on  23/07/2024
+      3e14, // 1e18 is 100%, 3e14 is 0.03%
+      AaveV3EthereumAssets.USDT_UNDERLYING,
+      AaveV3EthereumAssets.GHO_UNDERLYING,
+      proposal.USDT_FEED(),
+      AaveV3EthereumAssets.GHO_ORACLE
+    );
+
+    _baseSwapTest(
+      proposal.PRICE_CHECKER(),
+      2094486680834931589017, // rETH/ETH ~ 1.1118 exchange rate on  23/07/2024
+      1883870013343165667402,
+      1e14, // 1e18 is 100%, 1e14 is 0.01%
+      AaveV3EthereumAssets.rETH_UNDERLYING,
+      AaveV3EthereumAssets.WETH_UNDERLYING,
+      proposal.RETH_FEED(),
+      AaveV3EthereumAssets.WETH_ORACLE
+    );
   }
 
   function test_wethMigration() public {
@@ -338,4 +424,76 @@ contract AaveV3Ethereum_MayFundingUpdate_20240603_Test is ProtocolV3TestBase {
       3e18
     );
   }
+
+  /// Basic test for swaps that checks the prices returned make sense.
+  /// For example, if both oracles are the same base (USD or ETH), then
+  /// getting prices from tradingview.com and using them as `expectedOut`
+  /// should work with this test and the other parameters.
+  ///
+  /// Example: On August 3, 2024, I want to swap 3013 USDC for 1 WETH. If
+  /// both oracles have the same base USD, then this is going to work. However,
+  /// if for example USDC has base ETH, it's going to fail because:
+  /// USDC/ETH = 1 / 3013, rather than USDC/USD = 1 / 1. If the opposite oracle
+  /// is ETH/USD then it's going to be 3013 / 1. Sending expected out of 1 ETH
+  /// will fail this test because the actual oracles are going to return 1/3013 ETH.
+  ///
+  /// This test will also ensure the oracles have the necessary functions or it will
+  /// revert. For example, if the oracle does not have the `decimals()` function as
+  /// some oracles do, then it will fail ahead of time.
+  ///
+  /// @param priceChecker The price checker used by Milkman
+  /// @param expectedOut The amount we've manually checked we should be getting
+  /// @param amountIn The amount of from token to be swapped
+  /// @param maxDelta The maximum amount of difference in % between expectedOut and calculatedOut
+  /// @param from The token to swap from
+  /// @param to The token to swap to
+  /// @param fromOracle The oracle of the token to swap from
+  /// @param toOracle The oracle of the token to swap to
+  function _baseSwapTest(
+    address priceChecker,
+    uint256 expectedOut,
+    uint256 amountIn,
+    uint256 maxDelta,
+    address from,
+    address to,
+    address fromOracle,
+    address toOracle
+  ) internal {
+    address calc = IPriceChecker(priceChecker).EXPECTED_OUT_CALCULATOR();
+    uint256 outCalc = ICalculator(calc).getExpectedOut(
+      amountIn,
+      from,
+      to,
+      _encodeOracles(fromOracle, toOracle)
+    );
+
+    assertApproxEqRel(outCalc, expectedOut, maxDelta);
+  }
+
+  function _encodeOracles(
+    address fromOracle,
+    address toOracle
+  ) internal pure returns (bytes memory) {
+    address[] memory paths = new address[](2);
+    paths[0] = fromOracle;
+    paths[1] = toOracle;
+
+    bool[] memory reverses = new bool[](2);
+    reverses[1] = true;
+
+    return abi.encode(paths, reverses);
+  }
+}
+
+interface IPriceChecker {
+  function EXPECTED_OUT_CALCULATOR() external returns (address);
+}
+
+interface ICalculator {
+  function getExpectedOut(
+    uint256 _amountIn,
+    address _fromToken,
+    address _toToken,
+    bytes calldata _data
+  ) external view returns (uint256);
 }
