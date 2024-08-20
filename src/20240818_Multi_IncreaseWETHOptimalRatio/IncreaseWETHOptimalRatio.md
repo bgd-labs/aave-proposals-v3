@@ -7,7 +7,7 @@ snapshot: "https://snapshot.org/#/aave.eth/proposal/0x2930599cae3cec0a16bd0aef13
 
 ## Simple Summary
 
-The current proposal seeks to increase the WETH Optimal Ratio across all Aave markets where it is below 90%. This adjustment aims to enhance capital efficiency and ensure a more effective utilization of liquidity within the Aave protocol.
+This proposal will increase the optimal usageRatio from 80% to 90% across all aave v3 deployments including Gnosis, Polygon, Metis, Base, Avalanche and Scroll
 
 ## Motivation
 
