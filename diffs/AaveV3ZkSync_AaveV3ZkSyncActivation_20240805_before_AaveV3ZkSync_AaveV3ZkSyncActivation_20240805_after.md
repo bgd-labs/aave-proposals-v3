@@ -43,8 +43,8 @@
 | stableDebtTokenSymbol | stableDebtZksUSDC |
 | variableDebtTokenName | Aave ZkSync Variable Debt USDC |
 | variableDebtTokenSymbol | variableDebtZksUSDC |
-| virtualAccountingActive | false |
-| virtualBalance | 0 USDC [0] |
+| virtualAccountingActive | true |
+| virtualBalance | 10 USDC [10000000] |
 | optimalUsageRatio | 90 % |
 | maxVariableBorrowRate | 65.5 % |
 | baseVariableBorrowRate | 0 % |
@@ -94,8 +94,8 @@
 | stableDebtTokenSymbol | stableDebtZksUSDT |
 | variableDebtTokenName | Aave ZkSync Variable Debt USDT |
 | variableDebtTokenSymbol | variableDebtZksUSDT |
-| virtualAccountingActive | false |
-| virtualBalance | 0 USDT [0] |
+| virtualAccountingActive | true |
+| virtualBalance | 10 USDT [10000000] |
 | optimalUsageRatio | 90 % |
 | maxVariableBorrowRate | 65.5 % |
 | baseVariableBorrowRate | 0 % |
@@ -145,8 +145,8 @@
 | stableDebtTokenSymbol | stableDebtZksZK |
 | variableDebtTokenName | Aave ZkSync Variable Debt ZK |
 | variableDebtTokenSymbol | variableDebtZksZK |
-| virtualAccountingActive | false |
-| virtualBalance | 0 ZK [0] |
+| virtualAccountingActive | true |
+| virtualBalance | 100 ZK [100000000000000000000] |
 | optimalUsageRatio | 45 % |
 | maxVariableBorrowRate | 309 % |
 | baseVariableBorrowRate | 0 % |
@@ -196,8 +196,8 @@
 | stableDebtTokenSymbol | stableDebtZksWETH |
 | variableDebtTokenName | Aave ZkSync Variable Debt WETH |
 | variableDebtTokenSymbol | variableDebtZksWETH |
-| virtualAccountingActive | false |
-| virtualBalance | 0 WETH [0] |
+| virtualAccountingActive | true |
+| virtualBalance | 0.01 WETH [10000000000000000] |
 | optimalUsageRatio | 90 % |
 | maxVariableBorrowRate | 82.7 % |
 | baseVariableBorrowRate | 0 % |
@@ -252,8 +252,8 @@
 | stableDebtTokenSymbol | stableDebtZkswstETH |
 | variableDebtTokenName | Aave ZkSync Variable Debt wstETH |
 | variableDebtTokenSymbol | variableDebtZkswstETH |
-| virtualAccountingActive | false |
-| virtualBalance | 0 wstETH [0] |
+| virtualAccountingActive | true |
+| virtualBalance | 0.01 wstETH [10000000000000000] |
 | optimalUsageRatio | 45 % |
 | maxVariableBorrowRate | 84.5 % |
 | baseVariableBorrowRate | 0 % |
@@ -327,8 +327,8 @@
         "variableDebtTokenImpl": "0x7c310e97Bdba5E7603D772df324B8dd33771c094",
         "variableDebtTokenName": "Aave ZkSync Variable Debt USDC",
         "variableDebtTokenSymbol": "variableDebtZksUSDC",
-        "virtualAccountingActive": false,
-        "virtualBalance": 0
+        "virtualAccountingActive": true,
+        "virtualBalance": 10000000
       }
     },
     "0x493257fD37EDB34451f62EDf8D2a0C418852bA4C": {
@@ -373,8 +373,8 @@
         "variableDebtTokenImpl": "0x7c310e97Bdba5E7603D772df324B8dd33771c094",
         "variableDebtTokenName": "Aave ZkSync Variable Debt USDT",
         "variableDebtTokenSymbol": "variableDebtZksUSDT",
-        "virtualAccountingActive": false,
-        "virtualBalance": 0
+        "virtualAccountingActive": true,
+        "virtualBalance": 10000000
       }
     },
     "0x5A7d6b2F92C77FAD6CCaBd7EE0624E64907Eaf3E": {
@@ -419,8 +419,8 @@
         "variableDebtTokenImpl": "0x7c310e97Bdba5E7603D772df324B8dd33771c094",
         "variableDebtTokenName": "Aave ZkSync Variable Debt ZK",
         "variableDebtTokenSymbol": "variableDebtZksZK",
-        "virtualAccountingActive": false,
-        "virtualBalance": 0
+        "virtualAccountingActive": true,
+        "virtualBalance": "100000000000000000000"
       }
     },
     "0x5AEa5775959fBC2557Cc8789bC1bf90A239D9a91": {
@@ -465,8 +465,8 @@
         "variableDebtTokenImpl": "0x7c310e97Bdba5E7603D772df324B8dd33771c094",
         "variableDebtTokenName": "Aave ZkSync Variable Debt WETH",
         "variableDebtTokenSymbol": "variableDebtZksWETH",
-        "virtualAccountingActive": false,
-        "virtualBalance": 0
+        "virtualAccountingActive": true,
+        "virtualBalance": "10000000000000000"
       }
     },
     "0x703b52F2b28fEbcB60E1372858AF5b18849FE867": {
@@ -511,8 +511,8 @@
         "variableDebtTokenImpl": "0x7c310e97Bdba5E7603D772df324B8dd33771c094",
         "variableDebtTokenName": "Aave ZkSync Variable Debt wstETH",
         "variableDebtTokenSymbol": "variableDebtZkswstETH",
-        "virtualAccountingActive": false,
-        "virtualBalance": 0
+        "virtualAccountingActive": true,
+        "virtualBalance": "10000000000000000"
       }
     }
   },
