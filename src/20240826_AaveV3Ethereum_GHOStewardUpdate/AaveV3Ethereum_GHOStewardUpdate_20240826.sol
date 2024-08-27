@@ -38,16 +38,16 @@ contract AaveV3Ethereum_GHOStewardUpdate_20240826 is IProposalGenericExecutor {
       OLD_GHO_STEWARD
     );
 
-    // Give Risk admin role to the steward
+    // Give Risk admin role to the new steward
     AaveV3Ethereum.ACL_MANAGER.addRiskAdmin(GHO_STEWARD);
 
-    // Give bucket manager role to the steward
+    // Give bucket manager role to the new steward
     IGhoToken(MiscEthereum.GHO_TOKEN).grantRole(
       IGhoToken(MiscEthereum.GHO_TOKEN).BUCKET_MANAGER_ROLE(),
       GHO_STEWARD
     );
 
-    // Give configurator role on usdc, usdt gsm to the stewards
+    // Give configurator role on usdc, usdt gsm to the new steward
     IGsm(MiscEthereum.GSM_USDC).grantRole(
       IGsm(MiscEthereum.GSM_USDC).CONFIGURATOR_ROLE(),
       GHO_STEWARD
