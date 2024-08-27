@@ -39,6 +39,7 @@ _Note: The params for the GHO Stewards will be exactly the same as on the earlie
 - Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240826_AaveV3Ethereum_GHOStewardUpdate/AaveV3Ethereum_GHOStewardUpdate_20240826.sol)
 - Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240826_AaveV3Ethereum_GHOStewardUpdate/AaveV3Ethereum_GHOStewardUpdate_20240826.t.sol)
 - [Discussion](TODO)
+- Snapshot: Direct To AIP
 
 ## Copyright
 

@@ -11,7 +11,7 @@ import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 /**
  * @title GHO Steward Update
  * @author BGD Labs (@bgdlabs)
- * - Snapshot: TODO
+ * - Snapshot: Direct To AIP
  * - Discussion: TODO
  */
 contract AaveV3Ethereum_GHOStewardUpdate_20240826 is IProposalGenericExecutor {
