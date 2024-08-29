@@ -8,7 +8,7 @@ import {IAaveV3ConfigEngine} from 'aave-v3-periphery/contracts/v3-config-engine/
 /**
  * @title Stablecoin IR Curve Amendment
  * @author Aave Chan Initiative
- * - Snapshot: TODO
+ * - Snapshot: Direct-to-AIP
  * - Discussion: https://governance.aave.com/t/arfc-chaos-labs-stablecoin-ir-curve-amendment-on-aave-v2-and-v3-2024-08-15/18669
  */
 contract AaveV3Polygon_StablecoinIRCurveAmendment_20240829 is AaveV3PayloadPolygon {

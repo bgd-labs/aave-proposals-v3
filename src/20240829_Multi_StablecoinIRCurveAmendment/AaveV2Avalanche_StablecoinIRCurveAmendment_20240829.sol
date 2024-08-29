@@ -9,7 +9,7 @@ import {IV2RateStrategyFactory} from 'aave-helpers/src/v2-config-engine/IV2RateS
 /**
  * @title Stablecoin IR Curve Amendment
  * @author Aave Chan Initiative
- * - Snapshot: TODO
+ * - Snapshot: Direct-to-AIP
  * - Discussion: https://governance.aave.com/t/arfc-chaos-labs-stablecoin-ir-curve-amendment-on-aave-v2-and-v3-2024-08-15/18669
  */
 contract AaveV2Avalanche_StablecoinIRCurveAmendment_20240829 is AaveV2PayloadAvalanche {

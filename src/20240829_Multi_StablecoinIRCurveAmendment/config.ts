@@ -20,7 +20,7 @@ export const config: ConfigFile = {
     date: '20240829',
     discussion:
       'https://governance.aave.com/t/arfc-chaos-labs-stablecoin-ir-curve-amendment-on-aave-v2-and-v3-2024-08-15/18669',
-    snapshot: 'TODO',
+    snapshot: 'Direct-to-AIP',
     votingNetwork: 'POLYGON',
   },
   poolOptions: {
