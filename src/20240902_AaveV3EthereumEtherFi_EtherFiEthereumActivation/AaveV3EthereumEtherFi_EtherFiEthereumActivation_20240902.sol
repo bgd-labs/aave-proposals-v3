@@ -35,8 +35,8 @@ contract AaveV3EthereumEtherFi_EtherFiEthereumActivation_20240902 is AaveV3Paylo
 
   function _postExecute() internal override {
     // Roles
-    AaveV3EthereumLido.ACL_MANAGER.addPoolAdmin(0x2CFe3ec4d5a6811f4B8067F0DE7e47DfA938Aa30);
-    AaveV3EthereumLido.ACL_MANAGER.addRiskAdmin(AaveV3EthereumEtherFi.CAPS_PLUS_RISK_STEWARD);
+    AaveV3EthereumEtherFi.ACL_MANAGER.addPoolAdmin(0x2CFe3ec4d5a6811f4B8067F0DE7e47DfA938Aa30);
+    AaveV3EthereumEtherFi.ACL_MANAGER.addRiskAdmin(AaveV3EthereumEtherFi.CAPS_PLUS_RISK_STEWARD);
     // AaveV3EthereumEtherFi.ACL_MANAGER.addFlashBorrower(FLASH_BORROWER);
 
     // Seed amounts
