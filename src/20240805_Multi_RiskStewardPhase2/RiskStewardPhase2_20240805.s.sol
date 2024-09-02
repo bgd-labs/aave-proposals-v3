@@ -247,7 +247,7 @@ contract DeployBNB is BNBScript {
 contract CreateProposal is EthereumScript {
   function run() external {
     // create payloads
-    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](11);
+    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](10);
 
     // compose actions for validation
     IPayloadsControllerCore.ExecutionAction[]
@@ -322,14 +322,6 @@ contract CreateProposal is EthereumScript {
       type(AaveV3BNB_RiskStewardPhase2_20240805).creationCode
     );
     payloads[9] = GovV3Helpers.buildBNBPayload(vm, actionsBNB);
-
-    IPayloadsControllerCore.ExecutionAction[]
-      memory actionsZkSync = new IPayloadsControllerCore.ExecutionAction[](1);
-    actionsZkSync[0] = GovV3Helpers.buildActionZkSync(
-      vm,
-      'AaveV3ZkSync_RiskStewardPhase2_20240805'
-    );
-    payloads[10] = GovV3Helpers.buildZkSyncPayload(vm, actionsZkSync);
 
     // create proposal
     vm.startBroadcast();
