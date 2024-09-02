@@ -3,11 +3,13 @@ pragma solidity ^0.8.0;
 
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 import {AaveV3EthereumEtherFi} from 'aave-address-book/AaveV3EthereumEtherFi.sol';
+import {AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 
 import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3EthereumEtherFi_EtherFiEthereumActivation_20240902} from './AaveV3EthereumEtherFi_EtherFiEthereumActivation_20240902.sol';
+import {IPoolAddressesProviderRegistry} from 'aave-v3-core/contracts/interfaces/IPoolAddressesProviderRegistry.sol';
 
 /**
  * @dev Test for AaveV3EthereumEtherFi_EtherFiEthereumActivation_20240902
@@ -70,23 +72,23 @@ contract AaveV3EthereumEtherFi_EtherFiEthereumActivation_20240902_Test is Protoc
       .getReserveTokensAddresses(proposal.FRAX());
     assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3EthereumEtherFi.COLLECTOR)), 10 ** 18);
   }
-}
 
-function test_ethereumAddressesProviderRegistry_registry_EtherFiAddressesProvider() public {
-  GovV3Helpers.executePayload(vm, address(proposal));
-  assertEq(
-    IPoolAddressesProviderRegistry(AaveV3Ethereum.POOL_ADDRESSES_PROVIDER_REGISTRY)
-      .getAddressesProviderIdByAddress(address(AaveV3EthereumEtherFi.POOL_ADDRESSES_PROVIDER)),
-    45
-  );
-}
+  function test_ethereumAddressesProviderRegistry_registry_EtherFiAddressesProvider() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+    assertEq(
+      IPoolAddressesProviderRegistry(AaveV3Ethereum.POOL_ADDRESSES_PROVIDER_REGISTRY)
+        .getAddressesProviderIdByAddress(address(AaveV3EthereumEtherFi.POOL_ADDRESSES_PROVIDER)),
+      45
+    );
+  }
 
-function test_EtherFiAclManager_roles() public {
-  GovV3Helpers.executePayload(vm, address(proposal));
-  assertTrue(
-    AaveV3EthereumEtherFi.ACL_MANAGER.isPoolAdmin(0x2CFe3ec4d5a6811f4B8067F0DE7e47DfA938Aa30)
-  );
-  assertTrue(
-    AaveV3EthereumEtherFi.ACL_MANAGER.isRiskAdmin(AaveV3EthereumEtherFi.CAPS_PLUS_RISK_STEWARD)
-  );
+  function test_EtherFiAclManager_roles() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+    assertTrue(
+      AaveV3EthereumEtherFi.ACL_MANAGER.isPoolAdmin(0x2CFe3ec4d5a6811f4B8067F0DE7e47DfA938Aa30)
+    );
+    assertTrue(
+      AaveV3EthereumEtherFi.ACL_MANAGER.isRiskAdmin(AaveV3EthereumEtherFi.CAPS_PLUS_RISK_STEWARD)
+    );
+  }
 }

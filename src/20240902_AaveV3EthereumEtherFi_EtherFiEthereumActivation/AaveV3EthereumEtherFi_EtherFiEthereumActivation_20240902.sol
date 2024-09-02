@@ -2,11 +2,14 @@
 pragma solidity ^0.8.0;
 
 import {AaveV3EthereumEtherFi, AaveV3EthereumEtherFiEModes} from 'aave-address-book/AaveV3EthereumEtherFi.sol';
+import {AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
 import {AaveV3PayloadEthereumEtherFi} from 'aave-helpers/src/v3-config-engine/AaveV3PayloadEthereumEtherFi.sol';
 import {EngineFlags} from 'aave-v3-periphery/contracts/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-v3-periphery/contracts/v3-config-engine/IAaveV3ConfigEngine.sol';
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';
+import {IPoolAddressesProviderRegistry} from 'aave-v3-core/contracts/interfaces/IPoolAddressesProviderRegistry.sol';
+
 /**
  * @title EtherFi Ethereum Activation
  * @author Catapulta @catapulta_sh
