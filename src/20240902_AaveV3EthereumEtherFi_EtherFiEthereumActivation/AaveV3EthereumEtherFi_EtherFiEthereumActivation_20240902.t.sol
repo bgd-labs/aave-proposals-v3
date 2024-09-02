@@ -72,7 +72,7 @@ contract AaveV3EthereumEtherFi_EtherFiEthereumActivation_20240902_Test is Protoc
   }
 }
 
-function test_ethereumAddressesProviderRegistry_registry_lidoAddressesProvider() public {
+function test_ethereumAddressesProviderRegistry_registry_EtherFiAddressesProvider() public {
   GovV3Helpers.executePayload(vm, address(proposal));
   assertEq(
     IPoolAddressesProviderRegistry(AaveV3Ethereum.POOL_ADDRESSES_PROVIDER_REGISTRY)
@@ -81,7 +81,7 @@ function test_ethereumAddressesProviderRegistry_registry_lidoAddressesProvider()
   );
 }
 
-function test_lidoAclManager_roles() public {
+function test_EtherFiAclManager_roles() public {
   GovV3Helpers.executePayload(vm, address(proposal));
   assertTrue(
     AaveV3EthereumEtherFi.ACL_MANAGER.isPoolAdmin(0x2CFe3ec4d5a6811f4B8067F0DE7e47DfA938Aa30)
