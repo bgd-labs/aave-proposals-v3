@@ -144,4 +144,25 @@ contract AaveV3EthereumEtherFi_EtherFiEthereumActivation_20240902_Test is Protoc
       IAaveV3ConfigEngine(AaveV3EthereumLido.CONFIG_ENGINE).RATE_ENGINE()
     );
   }
+
+  function test_check_oracle_feeds_from_etherfi_same_as_main_v3() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+
+    assertEq(
+      AaveV3EthereumEtherFi.ORACLE.getSourceOfAsset(proposal.USDC()),
+      AaveV3Ethereum.ORACLE.getSourceOfAsset(proposal.USDC())
+    );
+    assertEq(
+      AaveV3EthereumEtherFi.ORACLE.getSourceOfAsset(proposal.PYUSD()),
+      AaveV3Ethereum.ORACLE.getSourceOfAsset(proposal.PYUSD())
+    );
+    assertEq(
+      AaveV3EthereumEtherFi.ORACLE.getSourceOfAsset(proposal.FRAX()),
+      AaveV3Ethereum.ORACLE.getSourceOfAsset(proposal.FRAX())
+    );
+    assertEq(
+      AaveV3EthereumEtherFi.ORACLE.getSourceOfAsset(proposal.weETH()),
+      AaveV3Ethereum.ORACLE.getSourceOfAsset(proposal.weETH())
+    );
+  }
 }
