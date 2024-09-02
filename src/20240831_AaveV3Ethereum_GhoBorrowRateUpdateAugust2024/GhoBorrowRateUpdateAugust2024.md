@@ -24,7 +24,7 @@ By reducing the borrow rate, we aim to:
 
 ## Specification
 
-BaseVariableBorrowRate of GHO is decreased to 5%
+`BaseVariableBorrowRate` of GHO is decreased to 5%
 
 ## References
 
