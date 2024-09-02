@@ -53,7 +53,10 @@ contract AaveV3EthereumEtherFi_EtherFiEthereumActivation_20240902_Test is Protoc
     (address aTokenAddress, , ) = AaveV3EthereumEtherFi
       .AAVE_PROTOCOL_DATA_PROVIDER
       .getReserveTokensAddresses(proposal.USDC());
-    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3EthereumEtherFi.COLLECTOR)), 10 ** 6);
+    assertGe(
+      IERC20(aTokenAddress).balanceOf(address(AaveV3EthereumEtherFi.COLLECTOR)),
+      (10 ** 6) * 100
+    );
   }
 
   function test_collectorHasPYUSDFunds() public {
@@ -61,7 +64,10 @@ contract AaveV3EthereumEtherFi_EtherFiEthereumActivation_20240902_Test is Protoc
     (address aTokenAddress, , ) = AaveV3EthereumEtherFi
       .AAVE_PROTOCOL_DATA_PROVIDER
       .getReserveTokensAddresses(proposal.PYUSD());
-    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3EthereumEtherFi.COLLECTOR)), 10 ** 6);
+    assertGe(
+      IERC20(aTokenAddress).balanceOf(address(AaveV3EthereumEtherFi.COLLECTOR)),
+      (10 ** 6) * 100
+    );
   }
 
   function test_collectorHasFRAXFunds() public {

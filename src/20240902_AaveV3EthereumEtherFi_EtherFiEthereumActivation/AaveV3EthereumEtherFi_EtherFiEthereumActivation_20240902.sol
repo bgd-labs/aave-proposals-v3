@@ -20,14 +20,12 @@ import {IPoolAddressesProviderRegistry} from 'aave-v3-core/contracts/interfaces/
 contract AaveV3EthereumEtherFi_EtherFiEthereumActivation_20240902 is AaveV3PayloadEthereumEtherFi {
   using SafeERC20 for IERC20;
 
-  address public constant ACI_MULTISIG = 0xac140648435d03f784879cd789130F22Ef588Fcd;
-
   address public constant weETH = 0xCd5fE23C85820F7B72D0926FC9b05b43E359b7ee;
   uint256 public constant weETH_SEED_AMOUNT = 1e17;
   address public constant USDC = 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48;
-  uint256 public constant USDC_SEED_AMOUNT = 1e6;
+  uint256 public constant USDC_SEED_AMOUNT = 100e6;
   address public constant PYUSD = 0x6c3ea9036406852006290770BEdFcAbA0e23A0e8;
-  uint256 public constant PYUSD_SEED_AMOUNT = 1e6;
+  uint256 public constant PYUSD_SEED_AMOUNT = 100e6;
   address public constant FRAX = 0x853d955aCEf822Db058eb8505911ED77F175b99e;
   uint256 public constant FRAX_SEED_AMOUNT = 1e18;
 

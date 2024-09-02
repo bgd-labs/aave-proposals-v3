@@ -37,14 +37,14 @@
 | interestRateStrategy | [0x5024e947ef81B9184Faf0CfF9b485446f01c8eD2](https://etherscan.io/address/0x5024e947ef81B9184Faf0CfF9b485446f01c8eD2) |
 | aTokenName | Aave Ethereum EtherFi PYUSD |
 | aTokenSymbol | aEthEtherFiPYUSD |
-| aTokenUnderlyingBalance | 1 PYUSD [1000000] |
+| aTokenUnderlyingBalance | 100 PYUSD [100000000] |
 | isPaused | false |
 | stableDebtTokenName | Aave Ethereum EtherFi Stable Debt PYUSD |
 | stableDebtTokenSymbol | stableDebtEthEtherFiPYUSD |
 | variableDebtTokenName | Aave Ethereum EtherFi Variable Debt PYUSD |
 | variableDebtTokenSymbol | variableDebtEthEtherFiPYUSD |
 | virtualAccountingActive | true |
-| virtualBalance | 1 PYUSD [1000000] |
+| virtualBalance | 100 PYUSD [100000000] |
 | optimalUsageRatio | 90 % |
 | maxVariableBorrowRate | 85.5 % |
 | baseVariableBorrowRate | 0 % |
@@ -139,14 +139,14 @@
 | interestRateStrategy | [0x5024e947ef81B9184Faf0CfF9b485446f01c8eD2](https://etherscan.io/address/0x5024e947ef81B9184Faf0CfF9b485446f01c8eD2) |
 | aTokenName | Aave Ethereum EtherFi USDC |
 | aTokenSymbol | aEthEtherFiUSDC |
-| aTokenUnderlyingBalance | 1 USDC [1000000] |
+| aTokenUnderlyingBalance | 100 USDC [100000000] |
 | isPaused | false |
 | stableDebtTokenName | Aave Ethereum EtherFi Stable Debt USDC |
 | stableDebtTokenSymbol | stableDebtEthEtherFiUSDC |
 | variableDebtTokenName | Aave Ethereum EtherFi Variable Debt USDC |
 | variableDebtTokenSymbol | variableDebtEthEtherFiUSDC |
 | virtualAccountingActive | true |
-| virtualBalance | 1 USDC [1000000] |
+| virtualBalance | 100 USDC [100000000] |
 | optimalUsageRatio | 90 % |
 | maxVariableBorrowRate | 66.5 % |
 | baseVariableBorrowRate | 0 % |
@@ -218,7 +218,7 @@
         "aTokenImpl": "0xaFFA06528Bd92625de2e7A0cfa0119319265Ea4b",
         "aTokenName": "Aave Ethereum EtherFi PYUSD",
         "aTokenSymbol": "aEthEtherFiPYUSD",
-        "aTokenUnderlyingBalance": 1000000,
+        "aTokenUnderlyingBalance": 100000000,
         "borrowCap": 15000000,
         "borrowingEnabled": true,
         "debtCeiling": 0,
@@ -254,7 +254,7 @@
         "variableDebtTokenName": "Aave Ethereum EtherFi Variable Debt PYUSD",
         "variableDebtTokenSymbol": "variableDebtEthEtherFiPYUSD",
         "virtualAccountingActive": true,
-        "virtualBalance": 1000000
+        "virtualBalance": 100000000
       }
     },
     "0x853d955aCEf822Db058eb8505911ED77F175b99e": {
@@ -310,7 +310,7 @@
         "aTokenImpl": "0xaFFA06528Bd92625de2e7A0cfa0119319265Ea4b",
         "aTokenName": "Aave Ethereum EtherFi USDC",
         "aTokenSymbol": "aEthEtherFiUSDC",
-        "aTokenUnderlyingBalance": 1000000,
+        "aTokenUnderlyingBalance": 100000000,
         "borrowCap": 135000000,
         "borrowingEnabled": true,
         "debtCeiling": 0,
@@ -346,7 +346,7 @@
         "variableDebtTokenName": "Aave Ethereum EtherFi Variable Debt USDC",
         "variableDebtTokenSymbol": "variableDebtEthEtherFiUSDC",
         "virtualAccountingActive": true,
-        "virtualBalance": 1000000
+        "virtualBalance": 100000000
       }
     },
     "0xCd5fE23C85820F7B72D0926FC9b05b43E359b7ee": {
