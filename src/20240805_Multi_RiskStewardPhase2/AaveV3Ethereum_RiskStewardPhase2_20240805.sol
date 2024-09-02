@@ -2,7 +2,8 @@
 pragma solidity ^0.8.0;
 
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
-import {AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
+import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
+import {IRiskSteward} from './interfaces/IRiskSteward.sol';
 
 /**
  * @title Risk Steward Phase 2
@@ -15,5 +16,6 @@ contract AaveV3Ethereum_RiskStewardPhase2_20240805 is IProposalGenericExecutor {
 
   function execute() external {
     AaveV3Ethereum.ACL_MANAGER.addRiskAdmin(NEW_RISK_STEWARD);
+    IRiskSteward(NEW_RISK_STEWARD).setAddressRestricted(AaveV3EthereumAssets.GHO_UNDERLYING, true);
   }
 }

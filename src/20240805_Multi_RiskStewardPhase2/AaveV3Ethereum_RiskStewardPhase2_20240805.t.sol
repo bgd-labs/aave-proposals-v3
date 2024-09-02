@@ -1,11 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
-
-import 'forge-std/Test.sol';
-import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
+import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
+import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Ethereum_RiskStewardPhase2_20240805} from './AaveV3Ethereum_RiskStewardPhase2_20240805.sol';
+import {IRiskSteward} from './interfaces/IRiskSteward.sol';
 
 /**
  * @dev Test for AaveV3Ethereum_RiskStewardPhase2_20240805
@@ -34,5 +33,11 @@ contract AaveV3Ethereum_RiskStewardPhase2_20240805_Test is ProtocolV3TestBase {
     executePayload(vm, address(proposal));
 
     assertEq(AaveV3Ethereum.ACL_MANAGER.isRiskAdmin(proposal.NEW_RISK_STEWARD()), true);
+    assertEq(
+      IRiskSteward(proposal.NEW_RISK_STEWARD()).isAddressRestricted(
+        AaveV3EthereumAssets.GHO_UNDERLYING
+      ),
+      true
+    );
   }
 }
