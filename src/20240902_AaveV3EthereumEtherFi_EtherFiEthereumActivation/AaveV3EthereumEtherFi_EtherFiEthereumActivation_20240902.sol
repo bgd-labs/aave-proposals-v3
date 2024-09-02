@@ -40,7 +40,6 @@ contract AaveV3EthereumEtherFi_EtherFiEthereumActivation_20240902 is AaveV3Paylo
     // Roles
     AaveV3EthereumEtherFi.ACL_MANAGER.addPoolAdmin(0x2CFe3ec4d5a6811f4B8067F0DE7e47DfA938Aa30);
     AaveV3EthereumEtherFi.ACL_MANAGER.addRiskAdmin(AaveV3EthereumEtherFi.CAPS_PLUS_RISK_STEWARD);
-    // AaveV3EthereumEtherFi.ACL_MANAGER.addFlashBorrower(FLASH_BORROWER);
 
     // Seed amounts
     IERC20(weETH).forceApprove(address(AaveV3EthereumEtherFi.POOL), weETH_SEED_AMOUNT);
@@ -75,7 +74,6 @@ contract AaveV3EthereumEtherFi_EtherFiEthereumActivation_20240902 is AaveV3Paylo
 
   function newListings() public pure override returns (IAaveV3ConfigEngine.Listing[] memory) {
     IAaveV3ConfigEngine.Listing[] memory listings = new IAaveV3ConfigEngine.Listing[](4);
-
     listings[0] = IAaveV3ConfigEngine.Listing({
       asset: weETH,
       assetSymbol: 'weETH',
@@ -89,16 +87,16 @@ contract AaveV3EthereumEtherFi_EtherFiEthereumActivation_20240902 is AaveV3Paylo
       ltv: 78_00,
       liqThreshold: 81_00,
       liqBonus: 6_00,
-      reserveFactor: 0,
+      reserveFactor: 45_00,
       supplyCap: 50_000,
       borrowCap: 0,
       debtCeiling: 0,
       liqProtocolFee: 10_00,
       rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
-        optimalUsageRatio: 0,
+        optimalUsageRatio: 35_00,
         baseVariableBorrowRate: 0,
-        variableRateSlope1: 0,
-        variableRateSlope2: 0
+        variableRateSlope1: 7_00,
+        variableRateSlope2: 300_00
       })
     });
     listings[1] = IAaveV3ConfigEngine.Listing({

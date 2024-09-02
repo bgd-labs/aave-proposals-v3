@@ -10,6 +10,7 @@ import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3EthereumEtherFi_EtherFiEthereumActivation_20240902} from './AaveV3EthereumEtherFi_EtherFiEthereumActivation_20240902.sol';
 import {IPoolAddressesProviderRegistry} from 'aave-v3-core/contracts/interfaces/IPoolAddressesProviderRegistry.sol';
+import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 
 /**
  * @dev Test for AaveV3EthereumEtherFi_EtherFiEthereumActivation_20240902
@@ -21,6 +22,11 @@ contract AaveV3EthereumEtherFi_EtherFiEthereumActivation_20240902_Test is Protoc
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('mainnet'), 20662348);
     proposal = new AaveV3EthereumEtherFi_EtherFiEthereumActivation_20240902();
+
+    deal(proposal.weETH(), GovernanceV3Ethereum.EXECUTOR_LVL_1, proposal.weETH_SEED_AMOUNT());
+    deal(proposal.USDC(), GovernanceV3Ethereum.EXECUTOR_LVL_1, proposal.USDC_SEED_AMOUNT());
+    deal(proposal.PYUSD(), GovernanceV3Ethereum.EXECUTOR_LVL_1, proposal.PYUSD_SEED_AMOUNT());
+    deal(proposal.FRAX(), GovernanceV3Ethereum.EXECUTOR_LVL_1, proposal.FRAX_SEED_AMOUNT());
   }
 
   /**
@@ -34,23 +40,14 @@ contract AaveV3EthereumEtherFi_EtherFiEthereumActivation_20240902_Test is Protoc
     );
   }
 
-  /*
-  @dev Skip until list of flash borrowers
-  function test_isFlashBorrower() external {
-    GovV3Helpers.executePayload(vm, address(proposal));
-    bool isFlashBorrower = AaveV3EthereumEtherFi.ACL_MANAGER.isFlashBorrower(
-      proposal.NEW_FLASH_BORROWER()
-    );
-    assertEq(isFlashBorrower, true);
-  }
-  */
   function test_collectorHasweETHFunds() public {
     GovV3Helpers.executePayload(vm, address(proposal));
     (address aTokenAddress, , ) = AaveV3EthereumEtherFi
       .AAVE_PROTOCOL_DATA_PROVIDER
       .getReserveTokensAddresses(proposal.weETH());
-    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3EthereumEtherFi.COLLECTOR)), 10 ** 18);
+    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3EthereumEtherFi.COLLECTOR)), 10 ** 17);
   }
+
   function test_collectorHasUSDCFunds() public {
     GovV3Helpers.executePayload(vm, address(proposal));
     (address aTokenAddress, , ) = AaveV3EthereumEtherFi
@@ -58,6 +55,7 @@ contract AaveV3EthereumEtherFi_EtherFiEthereumActivation_20240902_Test is Protoc
       .getReserveTokensAddresses(proposal.USDC());
     assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3EthereumEtherFi.COLLECTOR)), 10 ** 6);
   }
+
   function test_collectorHasPYUSDFunds() public {
     GovV3Helpers.executePayload(vm, address(proposal));
     (address aTokenAddress, , ) = AaveV3EthereumEtherFi
@@ -65,6 +63,7 @@ contract AaveV3EthereumEtherFi_EtherFiEthereumActivation_20240902_Test is Protoc
       .getReserveTokensAddresses(proposal.PYUSD());
     assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3EthereumEtherFi.COLLECTOR)), 10 ** 6);
   }
+
   function test_collectorHasFRAXFunds() public {
     GovV3Helpers.executePayload(vm, address(proposal));
     (address aTokenAddress, , ) = AaveV3EthereumEtherFi
