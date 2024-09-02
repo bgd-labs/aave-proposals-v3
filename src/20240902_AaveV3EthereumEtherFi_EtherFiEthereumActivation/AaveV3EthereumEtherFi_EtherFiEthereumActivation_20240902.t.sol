@@ -114,7 +114,7 @@ contract AaveV3EthereumEtherFi_EtherFiEthereumActivation_20240902_Test is Protoc
     assertEq(AaveV3EthereumEtherFi.POOL.getPoolLogic(), AaveV3EthereumLido.POOL.getPoolLogic());
     assertEq(AaveV3EthereumEtherFi.POOL.getSupplyLogic(), AaveV3EthereumLido.POOL.getSupplyLogic());
 
-    // Check AaveV3Engine libraries
+    // Check AaveV3ConfigEngine libraries
     assertEq(
       IAaveV3ConfigEngine(AaveV3EthereumEtherFi.CONFIG_ENGINE).BORROW_ENGINE(),
       IAaveV3ConfigEngine(AaveV3EthereumLido.CONFIG_ENGINE).BORROW_ENGINE()
