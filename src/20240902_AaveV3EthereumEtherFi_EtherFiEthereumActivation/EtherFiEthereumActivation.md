@@ -144,6 +144,7 @@ The table below illustrates the configured risk parameters for **FRAX**
 - [Catapulta deployment report](https://catapulta.sh/report/719c68e7-9829-455d-a580-b5c93b25812a)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x4acd11c6100a6b85a553e21359f3720fa5cd4783a76c77857436ace134f88c05)
 - [Discussion](https://governance.aave.com/t/arfc-deploy-an-etherfi-stablecoin-aave-v3-instance/18440)
+- [Code diff between EtherFi and Lido Aave V3 instances](https://diffy.org/diff/499d8ea81137d)
 
 ## Copyright
 
