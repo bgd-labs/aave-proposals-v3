@@ -68,7 +68,7 @@ The table below illustrates the configured risk parameters for **USDC**
 | ------------------------- | -----------------------------------------: |
 | Isolation Mode            |                                      false |
 | Borrowable                |                                    ENABLED |
-| Collateral Enabled        |                                       true |
+| Collateral Enabled        |                                      false |
 | Supply Cap (USDC)         |                                140,000,000 |
 | Borrow Cap (USDC)         |                                135,000,000 |
 | Debt Ceiling              |                                      USD 0 |
@@ -93,7 +93,7 @@ The table below illustrates the configured risk parameters for **PYUSD**
 | ------------------------- | -----------------------------------------: |
 | Isolation Mode            |                                      false |
 | Borrowable                |                                    ENABLED |
-| Collateral Enabled        |                                       true |
+| Collateral Enabled        |                                      false |
 | Supply Cap (PYUSD)        |                                 60,000,000 |
 | Borrow Cap (PYUSD)        |                                 15,000,000 |
 | Debt Ceiling              |                                      USD 0 |
@@ -118,7 +118,7 @@ The table below illustrates the configured risk parameters for **FRAX**
 | ------------------------- | -----------------------------------------: |
 | Isolation Mode            |                                      false |
 | Borrowable                |                                    ENABLED |
-| Collateral Enabled        |                                       true |
+| Collateral Enabled        |                                      false |
 | Supply Cap (FRAX)         |                                 54,000,000 |
 | Borrow Cap (FRAX)         |                                 12,000,000 |
 | Debt Ceiling              |                                      USD 0 |
