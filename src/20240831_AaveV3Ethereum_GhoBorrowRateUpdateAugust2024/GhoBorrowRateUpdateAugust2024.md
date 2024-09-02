@@ -28,8 +28,8 @@ By reducing the borrow rate, we aim to:
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240831_AaveV3Ethereum_GhoBorrowRateUpdateAugust2024/AaveV3Ethereum_GhoBorrowRateUpdateAugust2024_20240831.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240831_AaveV3Ethereum_GhoBorrowRateUpdateAugust2024/AaveV3Ethereum_GhoBorrowRateUpdateAugust2024_20240831.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/db37727bbc89deedeb3792227ecbecca9172eb6e/src/20240831_AaveV3Ethereum_GhoBorrowRateUpdateAugust2024/AaveV3Ethereum_GhoBorrowRateUpdateAugust2024_20240831.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/db37727bbc89deedeb3792227ecbecca9172eb6e/src/20240831_AaveV3Ethereum_GhoBorrowRateUpdateAugust2024/AaveV3Ethereum_GhoBorrowRateUpdateAugust2024_20240831.t.sol)
 - [Discussion](https://governance.aave.com/t/arfc-gho-stewards-gho-parameter-adjustments/17289/29)
 
 ## Copyright
