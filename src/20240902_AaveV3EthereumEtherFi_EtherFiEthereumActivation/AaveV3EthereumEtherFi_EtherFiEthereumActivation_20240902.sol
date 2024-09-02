@@ -3,6 +3,7 @@ pragma solidity ^0.8.0;
 
 import {AaveV3EthereumEtherFi, AaveV3EthereumEtherFiEModes} from 'aave-address-book/AaveV3EthereumEtherFi.sol';
 import {AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
+import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {AaveV3PayloadEthereumEtherFi} from 'aave-helpers/src/v3-config-engine/AaveV3PayloadEthereumEtherFi.sol';
 import {EngineFlags} from 'aave-v3-periphery/contracts/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-v3-periphery/contracts/v3-config-engine/IAaveV3ConfigEngine.sol';
@@ -69,6 +70,13 @@ contract AaveV3EthereumEtherFi_EtherFiEthereumActivation_20240902 is AaveV3Paylo
       FRAX_SEED_AMOUNT,
       address(AaveV3EthereumEtherFi.COLLECTOR),
       0
+    );
+
+    // Catapulta service fee
+    AaveV3Ethereum.COLLECTOR.transfer(
+      MiscEthereum.GHO_TOKEN,
+      0x6D53be86136c3d4AA6448Ce4bF6178AD66e63661,
+      15000e18
     );
   }
 
