@@ -7,7 +7,7 @@ snapshot: "https://snapshot.org/#/aave.eth/proposal/0x4acd11c6100a6b85a553e21359
 
 ## Simple Summary
 
-This AIP activates the EtherFi and Stables Aave V3 instance in Ethereum network, following [ARFQ request](https://governance.aave.com/t/arfc-deploy-an-etherfi-stablecoin-aave-v3-instance/18440).
+This AIP activates an Aave v3 EtherFi instance in the Ethereum network, following [ARFQ request](https://governance.aave.com/t/arfc-deploy-an-etherfi-stablecoin-aave-v3-instance/18440), focused on weETH holders borrowing stablecoins.
 
 ## Motivation
 
