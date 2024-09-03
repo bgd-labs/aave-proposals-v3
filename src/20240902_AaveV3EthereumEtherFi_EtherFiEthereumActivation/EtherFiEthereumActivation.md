@@ -48,7 +48,7 @@ The table below illustrates the configured risk parameters for Aave v3 EtherFi E
 | LTV                       |                                       78 % |                                        0 % |                                        0 % |                                        0 % |
 | LT                        |                                       81 % |                                        0 % |                                        0 % |                                        0 % |
 | Liquidation Bonus         |                                        6 % |                                        0 % |                                        0 % |                                        0 % |
-| Liquidation Protocol Fee  |                                       10 % |                                        0 % |                                       10 % |                                       10 % |
+| Liquidation Protocol Fee  |                                       10 % |                                \*\*\* 10 % |                                       10 % |                                       10 % |
 | Reserve Factor            |                                  \*\* 45 % |                                       10 % |                                       20 % |                                       20 % |
 | Base Variable Borrow Rate |                                        0 % |                                        0 % |                                        0 % |                                        0 % |
 | Variable Slope 1          |                                   \*\* 7 % |                                      6.5 % |                                      5.5 % |                                      5.5 % |
@@ -61,6 +61,7 @@ The table below illustrates the configured risk parameters for Aave v3 EtherFi E
 | Oracle                    | 0xf112aF6F0A332B815fbEf3Ff932c057E570b62d3 | 0x736bF902680e68989886e9807CD7Db4B3E015d3C | 0x150bAe7Ce224555D39AfdBc6Cb4B8204E594E022 | 0x45D270263BBee500CF8adcf2AbC0aC227097b036 |
 
 \*\* Deviation of risk params for `weETH` from original ARFQ due "0" is not a valid value for `RESERVE_FACTOR, Uoptimal, Variable Slope 1, Variable Slope 2` and causes payload to fail due validation errors. The updates values are from Aave V3 Ethereum Mainnet market and this does NOT enable the token as borrowable.
+\*\*\* Deviation of risk param "Liquidation Protocol Fee" for `USDC`, set to "10%" to keep constistency from the rest of tokens. This change does not affect due USDC token will not have collateral enabled.
 
 ## References
 

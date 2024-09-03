@@ -122,7 +122,7 @@ contract AaveV3EthereumEtherFi_EtherFiEthereumActivation_20240902 is AaveV3Paylo
       supplyCap: 140_000_000,
       borrowCap: 135_000_000,
       debtCeiling: 0,
-      liqProtocolFee: 0,
+      liqProtocolFee: 10_00,
       rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
         optimalUsageRatio: 90_00,
         baseVariableBorrowRate: 0,
