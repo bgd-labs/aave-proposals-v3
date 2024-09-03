@@ -6,6 +6,7 @@ import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {EthereumScript, PolygonScript, AvalancheScript, OptimismScript, ArbitrumScript, MetisScript, BaseScript, GnosisScript, ScrollScript, BNBScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
 import {AaveV3Ethereum_RiskStewardPhase2_20240805} from './AaveV3Ethereum_RiskStewardPhase2_20240805.sol';
 import {AaveV3EthereumLido_RiskStewardPhase2_20240805} from './AaveV3EthereumLido_RiskStewardPhase2_20240805.sol';
+import {AaveV3EthereumEtherFi_RiskStewardPhase2_20240805} from './AaveV3EthereumEtherFi_RiskStewardPhase2_20240805.sol';
 import {AaveV3Polygon_RiskStewardPhase2_20240805} from './AaveV3Polygon_RiskStewardPhase2_20240805.sol';
 import {AaveV3Avalanche_RiskStewardPhase2_20240805} from './AaveV3Avalanche_RiskStewardPhase2_20240805.sol';
 import {AaveV3Optimism_RiskStewardPhase2_20240805} from './AaveV3Optimism_RiskStewardPhase2_20240805.sol';
@@ -30,12 +31,16 @@ contract DeployEthereum is EthereumScript {
     address payload1 = GovV3Helpers.deployDeterministic(
       type(AaveV3EthereumLido_RiskStewardPhase2_20240805).creationCode
     );
+    address payload2 = GovV3Helpers.deployDeterministic(
+      type(AaveV3EthereumEtherFi_RiskStewardPhase2_20240805).creationCode
+    );
 
     // compose action
     IPayloadsControllerCore.ExecutionAction[]
-      memory actions = new IPayloadsControllerCore.ExecutionAction[](2);
+      memory actions = new IPayloadsControllerCore.ExecutionAction[](3);
     actions[0] = GovV3Helpers.buildAction(payload0);
     actions[1] = GovV3Helpers.buildAction(payload1);
+    actions[2] = GovV3Helpers.buildAction(payload2);
 
     // register action at payloadsController
     GovV3Helpers.createPayload(actions);
@@ -251,12 +256,15 @@ contract CreateProposal is EthereumScript {
 
     // compose actions for validation
     IPayloadsControllerCore.ExecutionAction[]
-      memory actionsEthereum = new IPayloadsControllerCore.ExecutionAction[](2);
+      memory actionsEthereum = new IPayloadsControllerCore.ExecutionAction[](3);
     actionsEthereum[0] = GovV3Helpers.buildAction(
       type(AaveV3Ethereum_RiskStewardPhase2_20240805).creationCode
     );
     actionsEthereum[1] = GovV3Helpers.buildAction(
       type(AaveV3EthereumLido_RiskStewardPhase2_20240805).creationCode
+    );
+    actionsEthereum[2] = GovV3Helpers.buildAction(
+      type(AaveV3EthereumEtherFi_RiskStewardPhase2_20240805).creationCode
     );
     payloads[0] = GovV3Helpers.buildMainnetPayload(vm, actionsEthereum);
 
