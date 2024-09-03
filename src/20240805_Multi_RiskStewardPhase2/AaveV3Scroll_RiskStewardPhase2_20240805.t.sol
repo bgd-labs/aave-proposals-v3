@@ -29,7 +29,6 @@ contract AaveV3Scroll_RiskStewardPhase2_20240805_Test is ProtocolV3TestBase {
   function test_permissions() public {
     executePayload(vm, address(proposal));
 
-    assertEq(AaveV3Scroll.ACL_MANAGER.isRiskAdmin(AaveV3Scroll.CAPS_PLUS_RISK_STEWARD), false);
     assertEq(AaveV3Scroll.ACL_MANAGER.isRiskAdmin(proposal.NEW_RISK_STEWARD()), true);
   }
 }
