@@ -31,8 +31,8 @@ Slope1 Parameter 75bps Increases:
 | :----: | :--------: | :------------: | :-------------: |
 |  DAI   | Polygon v2 |     12.75%     |     13.50%      |
 |  USDT  | Polygon v2 |     12.75%     |     13.50%      |
-|  wBTC  | Polygon v2 |     7.75%      |      9.50%      |
-|  wETH  | Polygon v2 |     7.75%      |      9.50%      |
+|  wBTC  | Polygon v2 |     7.75%      |      8.50%      |
+|  wETH  | Polygon v2 |     7.75%      |      8.50%      |
 |  USDC  | Polygon v2 |     12.75%     |     13.50%      |
 | wMATIC | Polygon v2 |     9.75%      |     10.50%      |
 
