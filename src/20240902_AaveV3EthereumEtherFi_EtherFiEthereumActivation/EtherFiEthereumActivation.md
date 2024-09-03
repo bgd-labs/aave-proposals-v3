@@ -1,5 +1,5 @@
 ---
-title: "EtherFi Ethereum Activation"
+title: "Aave v3 EtherFi Ethereum Activation"
 author: "Catapulta"
 discussions: "https://governance.aave.com/t/arfc-deploy-an-etherfi-stablecoin-aave-v3-instance/18440"
 snapshot: "https://snapshot.org/#/aave.eth/proposal/0x4acd11c6100a6b85a553e21359f3720fa5cd4783a76c77857436ace134f88c05"
