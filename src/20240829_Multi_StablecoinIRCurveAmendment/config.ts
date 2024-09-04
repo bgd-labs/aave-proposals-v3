@@ -4,7 +4,6 @@ export const config: ConfigFile = {
     author: 'Aave Chan Initiative',
     pools: [
       'AaveV2Ethereum',
-      'AaveV2Avalanche',
       'AaveV3Ethereum',
       'AaveV3Polygon',
       'AaveV3Avalanche',
@@ -63,35 +62,6 @@ export const config: ConfigFile = {
         ],
       },
       cache: {blockNumber: 20633700},
-    },
-    AaveV2Avalanche: {
-      configs: {
-        RATE_UPDATE_V2: [
-          {
-            asset: 'DAIe',
-            params: {
-              optimalUtilizationRate: '',
-              baseVariableBorrowRate: '',
-              variableRateSlope1: '5.5',
-              variableRateSlope2: '',
-              stableRateSlope1: '',
-              stableRateSlope2: '',
-            },
-          },
-          {
-            asset: 'USDTe',
-            params: {
-              optimalUtilizationRate: '',
-              baseVariableBorrowRate: '',
-              variableRateSlope1: '5.5',
-              variableRateSlope2: '',
-              stableRateSlope1: '',
-              stableRateSlope2: '',
-            },
-          },
-        ],
-      },
-      cache: {blockNumber: 49860032},
     },
     AaveV3Ethereum: {
       configs: {

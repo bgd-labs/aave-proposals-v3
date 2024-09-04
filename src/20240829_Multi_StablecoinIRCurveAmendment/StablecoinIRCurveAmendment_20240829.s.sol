@@ -5,7 +5,6 @@ import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aa
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {EthereumScript, PolygonScript, AvalancheScript, OptimismScript, ArbitrumScript, BaseScript, GnosisScript, ScrollScript, BNBScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
 import {AaveV2Ethereum_StablecoinIRCurveAmendment_20240829} from './AaveV2Ethereum_StablecoinIRCurveAmendment_20240829.sol';
-import {AaveV2Avalanche_StablecoinIRCurveAmendment_20240829} from './AaveV2Avalanche_StablecoinIRCurveAmendment_20240829.sol';
 import {AaveV3Ethereum_StablecoinIRCurveAmendment_20240829} from './AaveV3Ethereum_StablecoinIRCurveAmendment_20240829.sol';
 import {AaveV3Polygon_StablecoinIRCurveAmendment_20240829} from './AaveV3Polygon_StablecoinIRCurveAmendment_20240829.sol';
 import {AaveV3Avalanche_StablecoinIRCurveAmendment_20240829} from './AaveV3Avalanche_StablecoinIRCurveAmendment_20240829.sol';
@@ -73,17 +72,13 @@ contract DeployAvalanche is AvalancheScript {
   function run() external broadcast {
     // deploy payloads
     address payload0 = GovV3Helpers.deployDeterministic(
-      type(AaveV2Avalanche_StablecoinIRCurveAmendment_20240829).creationCode
-    );
-    address payload1 = GovV3Helpers.deployDeterministic(
       type(AaveV3Avalanche_StablecoinIRCurveAmendment_20240829).creationCode
     );
 
     // compose action
     IPayloadsControllerCore.ExecutionAction[]
-      memory actions = new IPayloadsControllerCore.ExecutionAction[](2);
+      memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
     actions[0] = GovV3Helpers.buildAction(payload0);
-    actions[1] = GovV3Helpers.buildAction(payload1);
 
     // register action at payloadsController
     GovV3Helpers.createPayload(actions);
@@ -250,11 +245,8 @@ contract CreateProposal is EthereumScript {
     payloads[1] = GovV3Helpers.buildPolygonPayload(vm, actionsPolygon);
 
     IPayloadsControllerCore.ExecutionAction[]
-      memory actionsAvalanche = new IPayloadsControllerCore.ExecutionAction[](2);
+      memory actionsAvalanche = new IPayloadsControllerCore.ExecutionAction[](1);
     actionsAvalanche[0] = GovV3Helpers.buildAction(
-      type(AaveV2Avalanche_StablecoinIRCurveAmendment_20240829).creationCode
-    );
-    actionsAvalanche[1] = GovV3Helpers.buildAction(
       type(AaveV3Avalanche_StablecoinIRCurveAmendment_20240829).creationCode
     );
     payloads[2] = GovV3Helpers.buildAvalanchePayload(vm, actionsAvalanche);
