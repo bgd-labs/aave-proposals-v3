@@ -68,8 +68,8 @@ The table below illustrates the configured risk parameters\* for Aave v3 EtherFi
 
 ## References
 
-- Implementation: [AaveV3EthereumEtherFi](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240902_AaveV3EthereumEtherFi_EtherFiEthereumActivation/AaveV3EthereumEtherFi_EtherFiEthereumActivation_20240902.sol)
-- Tests: [AaveV3EthereumEtherFi](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240902_AaveV3EthereumEtherFi_EtherFiEthereumActivation/AaveV3EthereumEtherFi_EtherFiEthereumActivation_20240902.t.sol)
+- Implementation: [AaveV3EthereumEtherFi](https://github.com/bgd-labs/aave-proposals-v3/blob/3190d5b947d8e5185260a1d2ed93049a81fa3d26/src/20240902_AaveV3EthereumEtherFi_EtherFiEthereumActivation/AaveV3EthereumEtherFi_EtherFiEthereumActivation_20240902.sol)
+- Tests: [AaveV3EthereumEtherFi](https://github.com/bgd-labs/aave-proposals-v3/blob/3190d5b947d8e5185260a1d2ed93049a81fa3d26/src/20240902_AaveV3EthereumEtherFi_EtherFiEthereumActivation/AaveV3EthereumEtherFi_EtherFiEthereumActivation_20240902.t.sol)
 - [Catapulta deployment report](https://catapulta.sh/report/719c68e7-9829-455d-a580-b5c93b25812a)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x4acd11c6100a6b85a553e21359f3720fa5cd4783a76c77857436ace134f88c05)
 - [Discussion](https://governance.aave.com/t/arfc-deploy-an-etherfi-stablecoin-aave-v3-instance/18440)
