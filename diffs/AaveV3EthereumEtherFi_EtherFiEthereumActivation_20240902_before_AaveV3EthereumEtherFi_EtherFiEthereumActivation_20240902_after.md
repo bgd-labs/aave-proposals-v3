@@ -10,7 +10,7 @@
 | isActive | true |
 | isFrozen | false |
 | supplyCap | 60,000,000 PYUSD |
-| borrowCap | 15,000,000 PYUSD |
+| borrowCap | 54,000,000 PYUSD |
 | debtCeiling | 0 $ [0] |
 | isSiloed | false |
 | isFlashloanable | true |
@@ -60,7 +60,7 @@
 | decimals | 18 |
 | isActive | true |
 | isFrozen | false |
-| supplyCap | 54,000,000 FRAX |
+| supplyCap | 15,000,000 FRAX |
 | borrowCap | 12,000,000 FRAX |
 | debtCeiling | 0 $ [0] |
 | isSiloed | false |
@@ -219,7 +219,7 @@
         "aTokenName": "Aave Ethereum EtherFi PYUSD",
         "aTokenSymbol": "aEthEtherFiPYUSD",
         "aTokenUnderlyingBalance": 100000000,
-        "borrowCap": 15000000,
+        "borrowCap": 54000000,
         "borrowingEnabled": true,
         "debtCeiling": 0,
         "decimals": 6,
@@ -291,7 +291,7 @@
         "stableDebtTokenImpl": "0xb53F0547722AE5fa5b433a7acc44571aD68CEdAA",
         "stableDebtTokenName": "Aave Ethereum EtherFi Stable Debt FRAX",
         "stableDebtTokenSymbol": "stableDebtEthEtherFiFRAX",
-        "supplyCap": 54000000,
+        "supplyCap": 15000000,
         "symbol": "FRAX",
         "underlying": "0x853d955aCEf822Db058eb8505911ED77F175b99e",
         "usageAsCollateralEnabled": false,

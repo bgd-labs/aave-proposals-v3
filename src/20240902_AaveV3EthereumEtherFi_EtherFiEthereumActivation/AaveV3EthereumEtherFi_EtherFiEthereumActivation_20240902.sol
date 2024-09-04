@@ -145,7 +145,7 @@ contract AaveV3EthereumEtherFi_EtherFiEthereumActivation_20240902 is AaveV3Paylo
       liqBonus: 0,
       reserveFactor: 20_00,
       supplyCap: 60_000_000,
-      borrowCap: 15_000_000,
+      borrowCap: 54_000_000,
       debtCeiling: 0,
       liqProtocolFee: 10_00,
       rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
@@ -169,7 +169,7 @@ contract AaveV3EthereumEtherFi_EtherFiEthereumActivation_20240902 is AaveV3Paylo
       liqThreshold: 0,
       liqBonus: 0,
       reserveFactor: 20_00,
-      supplyCap: 54_000_000,
+      supplyCap: 15_000_000,
       borrowCap: 12_000_000,
       debtCeiling: 0,
       liqProtocolFee: 10_00,
