@@ -35,7 +35,7 @@ The Etherfi/Stables Aave v3 instance activation payload implements the following
   - Seed amounts
   - Pay Catapulta service fee
 
-The table below illustrates the configured risk parameters for Aave v3 EtherFi Ethereum instance:
+The table below illustrates the configured risk parameters\* for Aave v3 EtherFi Ethereum instance:
 
 | Parameter                 |                                      weETH |                                       USDC |                                      PYUSD |                                       FRAX |
 | ------------------------- | -----------------------------------------: | -----------------------------------------: | -----------------------------------------: | -----------------------------------------: |
@@ -60,7 +60,10 @@ The table below illustrates the configured risk parameters for Aave v3 EtherFi E
 | Borrowable in Isolation   |                                   DISABLED |                                   DISABLED |                                   DISABLED |                                   DISABLED |
 | Oracle                    | 0xf112aF6F0A332B815fbEf3Ff932c057E570b62d3 | 0x736bF902680e68989886e9807CD7Db4B3E015d3C | 0x150bAe7Ce224555D39AfdBc6Cb4B8204E594E022 | 0x45D270263BBee500CF8adcf2AbC0aC227097b036 |
 
+\* The risk parameters follows latest [Chaos Labs recommendation](https://governance.aave.com/t/arfc-deploy-an-etherfi-stablecoin-aave-v3-instance/18440/10).
+
 \*\* Deviation of risk params for `weETH` from original ARFQ due "0" is not a valid value for `RESERVE_FACTOR, Uoptimal, Variable Slope 1, Variable Slope 2` and causes payload to fail due validation errors. The updates values are from Aave V3 Ethereum Mainnet market and this does NOT enable the token as borrowable.
+
 \*\*\* Deviation of risk param "Liquidation Protocol Fee" for `USDC`, set to "10%" to keep constistency from the rest of tokens. This change does not affect due USDC token will not have collateral enabled.
 
 ## References
