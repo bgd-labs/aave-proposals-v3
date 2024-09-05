@@ -3,7 +3,7 @@ pragma solidity ^0.8.0;
 
 import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aave-helpers/src/GovV3Helpers.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
-import {EthereumScript, PolygonScript, AvalancheScript, OptimismScript, ArbitrumScript, BaseScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
+import {EthereumScript, PolygonScript, AvalancheScript, OptimismScript, ArbitrumScript, BaseScript, GnosisScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
 import {AaveV2Ethereum_ReserveFactorUpdatesLateAugust_20240821} from './AaveV2Ethereum_ReserveFactorUpdatesLateAugust_20240821.sol';
 import {AaveV2Polygon_ReserveFactorUpdatesLateAugust_20240821} from './AaveV2Polygon_ReserveFactorUpdatesLateAugust_20240821.sol';
 import {AaveV2Avalanche_ReserveFactorUpdatesLateAugust_20240821} from './AaveV2Avalanche_ReserveFactorUpdatesLateAugust_20240821.sol';
@@ -11,6 +11,7 @@ import {AaveV3Polygon_ReserveFactorUpdatesLateAugust_20240821} from './AaveV3Pol
 import {AaveV3Optimism_ReserveFactorUpdatesLateAugust_20240821} from './AaveV3Optimism_ReserveFactorUpdatesLateAugust_20240821.sol';
 import {AaveV3Arbitrum_ReserveFactorUpdatesLateAugust_20240821} from './AaveV3Arbitrum_ReserveFactorUpdatesLateAugust_20240821.sol';
 import {AaveV3Base_ReserveFactorUpdatesLateAugust_20240821} from './AaveV3Base_ReserveFactorUpdatesLateAugust_20240821.sol';
+import {AaveV3Gnosis_ReserveFactorUpdatesLateAugust_20240821} from './AaveV3Gnosis_ReserveFactorUpdatesLateAugust_20240821.sol';
 
 /**
  * @dev Deploy Ethereum
@@ -149,13 +150,35 @@ contract DeployBase is BaseScript {
 }
 
 /**
+ * @dev Deploy Gnosis
+ * deploy-command: make deploy-ledger contract=src/20240821_Multi_ReserveFactorUpdatesLateAugust/ReserveFactorUpdatesLateAugust_20240821.s.sol:DeployGnosis chain=gnosis
+ * verify-command: FOUNDRY_PROFILE=gnosis npx catapulta-verify -b broadcast/ReserveFactorUpdatesLateAugust_20240821.s.sol/100/run-latest.json
+ */
+contract DeployGnosis is GnosisScript {
+  function run() external broadcast {
+    // deploy payloads
+    address payload0 = GovV3Helpers.deployDeterministic(
+      type(AaveV3Gnosis_ReserveFactorUpdatesLateAugust_20240821).creationCode
+    );
+
+    // compose action
+    IPayloadsControllerCore.ExecutionAction[]
+      memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
+    actions[0] = GovV3Helpers.buildAction(payload0);
+
+    // register action at payloadsController
+    GovV3Helpers.createPayload(actions);
+  }
+}
+
+/**
  * @dev Create Proposal
  * command: make deploy-ledger contract=src/20240821_Multi_ReserveFactorUpdatesLateAugust/ReserveFactorUpdatesLateAugust_20240821.s.sol:CreateProposal chain=mainnet
  */
 contract CreateProposal is EthereumScript {
   function run() external {
     // create payloads
-    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](6);
+    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](7);
 
     // compose actions for validation
     IPayloadsControllerCore.ExecutionAction[]
@@ -202,6 +225,13 @@ contract CreateProposal is EthereumScript {
       type(AaveV3Base_ReserveFactorUpdatesLateAugust_20240821).creationCode
     );
     payloads[5] = GovV3Helpers.buildBasePayload(vm, actionsBase);
+
+    IPayloadsControllerCore.ExecutionAction[]
+      memory actionsGnosis = new IPayloadsControllerCore.ExecutionAction[](1);
+    actionsGnosis[0] = GovV3Helpers.buildAction(
+      type(AaveV3Gnosis_ReserveFactorUpdatesLateAugust_20240821).creationCode
+    );
+    payloads[6] = GovV3Helpers.buildGnosisPayload(vm, actionsGnosis);
 
     // create proposal
     vm.startBroadcast();
