@@ -160,5 +160,21 @@ export const config: ConfigFile = {
       },
       cache: {blockNumber: 18819884},
     },
+    AaveV3Gnosis: {
+      configs: {
+        BORROWS_UPDATE: [
+          {
+            enabledToBorrow: 'KEEP_CURRENT',
+            flashloanable: 'KEEP_CURRENT',
+            stableRateModeEnabled: 'KEEP_CURRENT',
+            borrowableInIsolation: 'KEEP_CURRENT',
+            withSiloedBorrowing: 'KEEP_CURRENT',
+            reserveFactor: '15',
+            asset: 'USDC',
+          },
+        ],
+      },
+      cache: {blockNumber: 35846510},
+    },
   },
 };
