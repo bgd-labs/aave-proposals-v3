@@ -1,7 +1,7 @@
 import {ConfigFile} from '../../generator/types';
 export const config: ConfigFile = {
   rootOptions: {
-    author: 'Aave Chan Initiative',
+    author: 'Chaos Labs',
     pools: ['AaveV3Ethereum', 'AaveV3Optimism', 'AaveV3BNB'],
     title: 'Chaos Labs Risk Parameter Updates - Decrease Supply and Borrow Caps on Aave V3 ',
     shortName: 'ChaosLabsRiskParameterUpdatesDecreaseSupplyAndBorrowCapsOnAaveV3',
