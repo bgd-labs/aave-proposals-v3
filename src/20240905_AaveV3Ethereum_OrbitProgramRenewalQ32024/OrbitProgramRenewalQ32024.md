@@ -34,7 +34,7 @@ Gas reimbursements from service providers activity are proposed to be managed by
   - ACI : 2.91 ETH
   - Catapulta: 0.67 ETH
   - TokenLogic: 0.72 ETH
-- **Budget:** 60000 GHO and 4.3 ETH
+- **Budget:** 68800 GHO and 4.3 ETH
 - **Relevant Links:**
   - [Script output ](https://www.notion.so/Gov-V3-August-2024-script-Output-55c7ee78d48a4126a295f74a0dbf883c?pvs=21)
   - [ACI’s Orbit tracker ](https://dapps.aavechan.com/orbit-tracker)
