@@ -69,7 +69,7 @@ contract AaveV3Ethereum_OrbitProgramRenewalQ32024_20240905_Test is ProtocolV3Tes
     for (uint256 i = 0; i < ghoPaymentAddresses.length; i++) {
       assertEq(
         IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(ghoPaymentAddresses[i]),
-        ghoBalancesBeforeUsers[i],
+        ghoBalancesBeforeUsers[i] + OrbitProgramData.OVERDUE_AMOUNT,
         'GHO balance of Orbit recipient is not greater than before'
       );
 
@@ -77,7 +77,7 @@ contract AaveV3Ethereum_OrbitProgramRenewalQ32024_20240905_Test is ProtocolV3Tes
       AaveV3Ethereum.COLLECTOR.withdrawFromStream(nextStreamId + i, 1);
       assertEq(
         IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(ghoPaymentAddresses[i]),
-        ghoBalancesBeforeUsers[i] + 1
+        ghoBalancesBeforeUsers[i] + OrbitProgramData.OVERDUE_AMOUNT + 1
       );
     }
   }

@@ -12,6 +12,7 @@ Proposing the renewal of the Orbit program for recognized delegates, compensatin
 ## Motivation
 
 Orbit recognizes the added value of the Delegates in the decentralization & diversity of the Aave DAO. This compensation allows them to focus on aave and keep their contribution efforts to our governance. The ACI proposes the extension of Orbit for a new quarter, Q3 2024, from 2024-05-13 to 2024-08-30.
+An additional compensation is provided to account for the gap in distribution.
 
 **Gas Rebate:**
 

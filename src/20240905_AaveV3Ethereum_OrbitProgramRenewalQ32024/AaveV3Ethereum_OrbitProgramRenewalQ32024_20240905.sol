@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
+import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
 import {CollectorUtils} from 'aave-helpers/src/CollectorUtils.sol';
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
@@ -40,6 +41,11 @@ contract AaveV3Ethereum_OrbitProgramRenewalQ32024_20240905 is IProposalGenericEx
     address[] memory orbitAddresses = OrbitProgramData.getOrbitAddresses();
     uint256 orbitAddressesLength = orbitAddresses.length;
     for (uint256 i = 0; i < orbitAddressesLength; i++) {
+      AaveV3Ethereum.COLLECTOR.transfer(
+        AaveV3EthereumAssets.GHO_UNDERLYING,
+        orbitAddresses[i],
+        OrbitProgramData.OVERDUE_AMOUNT
+      );
       CollectorUtils.stream(
         AaveV3Ethereum.COLLECTOR,
         CollectorUtils.CreateStreamInput({

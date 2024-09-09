@@ -11,6 +11,7 @@ library OrbitProgramData {
   // stream information
   uint256 public constant STREAM_DURATION = 90 days;
   uint256 public constant STREAM_AMOUNT = 15_000 ether;
+  uint256 public constant OVERDUE_AMOUNT = 2_200 ether;
   // stream receivers
   address public constant EZREAL = 0x8659D0BB123Da6D16D9394C7838BA286c2207d0E;
   address public constant STABLE_LABS = 0xECC2a9240268BC7a26386ecB49E1Befca2706AC9;
