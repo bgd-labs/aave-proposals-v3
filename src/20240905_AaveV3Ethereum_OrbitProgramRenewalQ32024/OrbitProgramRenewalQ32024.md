@@ -9,6 +9,8 @@ snapshot: "https://snapshot.org/#/aave.eth/proposal/0xea325542397fce607755f6c14b
 
 Proposing the renewal of the Orbit program for recognized delegates, compensating them with GHO and ETH reimbursement of Gas costs , associated with their governance activity during part of Q3 2024 ( From 2024-05-13 to 2024-08-30).
 
+To compensate the missed compensation between the previous round of Orbit and the current one, a one-off compensation of 2200 GHO (worth 13 days of steam) is implemented.
+
 ## Motivation
 
 Orbit recognizes the added value of the Delegates in the decentralization & diversity of the Aave DAO. This compensation allows them to focus on aave and keep their contribution efforts to our governance. The ACI proposes the extension of Orbit for a new quarter, Q3 2024, from 2024-05-13 to 2024-08-30.
