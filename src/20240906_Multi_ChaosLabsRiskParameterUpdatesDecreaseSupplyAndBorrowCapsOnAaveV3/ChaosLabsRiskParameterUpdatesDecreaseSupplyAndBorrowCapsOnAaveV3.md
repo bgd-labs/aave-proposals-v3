@@ -1,6 +1,6 @@
 ---
 title: "Chaos Labs Risk Parameter Updates - Decrease Supply and Borrow Caps on Aave V3 "
-author: "Aave Chan Initiative"
+author: "Chaos Labs"
 discussions: "https://governance.aave.com/t/arfc-chaos-labs-risk-parameter-updates-decrease-supply-and-borrow-caps-on-aave-v3-08-28-2024/18793"
 snapshot: "https://snapshot.org/#/aave.eth/proposal/0x1ea388307b70d30c040f63e8a09d49276c5c8c9ef2fd809809f253654e5f5f06"
 ---
