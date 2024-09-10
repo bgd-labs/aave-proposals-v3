@@ -9,7 +9,9 @@ snapshot: "https://snapshot.org/#/aave.eth/proposal/0xb74537a0528f484e9cc76d8c79
 
 This proposal allows the Aave governance to activate the Aave V3 zkSync pool (3.1) by completing all the initial setup and listing USDC, USDT, WETH, wstETH, ZK as suggested by the risk service providers engaged with the DAO on the [governance forum](https://governance.aave.com/t/arfc-deployment-of-aave-on-zksync/17937/7).
 
-All the Aave zkSync V3 addresses can be found in the [aave-address-book](https://github.com/bgd-labs/aave-address-book/blob/4ddb4646a8c743a0bad578675279cde9723d7b91/src/AaveV3ZkSync.sol).
+_Please note: Due to [issue on the dependencies of the ZkSync Era compiler](https://governance.aave.com/t/bgd-aave-v3-zksync-activation-issue-report/18819), the instance has been re-deployed with the fixed compiler version zksolc `1.5.3`._
+
+All the Aave zkSync V3 addresses can be found in the [aave-address-book](TODO).
 
 ## Motivation
 
@@ -63,8 +65,8 @@ The table below illustrates the initial suggested risk parameters for each asset
 
 - The proposal execution is simulated within the tests and the resulting pool configuration is tested for correctness.
 
-- The deployed pool and other permissions have been programmatically verified, which can be found on the [aave-permissions-book](https://github.com/bgd-labs/aave-permissions-book/blob/4ce5f4a0c40818e5b837eb035243f7b729279553/out/ZK_SYNC-V3.md#contracts)
-
+- The deployed pool and other permissions have been programmatically verified, which can be found on the [aave-permissions-book](TODO)
+- TODO: update diffs
 - In addition, we have also checked the code diffs of the deployed zkSync contracts with the deployed contracts on Ethereum, which can be found [here](https://github.com/bgd-labs/aave-v3-origin/pull/10). zkSync uses the Aave v3.1 version, and there are some minor diffs because production instances (e.g. Ethereum) didn't require this change to be applied
 
 Below are the per contract comparative diffs of the contract modifications relative to Ethereum network:
