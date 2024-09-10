@@ -46,15 +46,15 @@ contract AaveV3Ethereum_OrbitProgramRenewalQ32024_20240905 is IProposalGenericEx
         orbitAddresses[i],
         OrbitProgramData.OVERDUE_AMOUNT
       );
-      uint256 actualStreamAmount = (OrbitProgramData.STREAM_AMOUNT /
-        OrbitProgramData.STREAM_DURATION) * OrbitProgramData.STREAM_DURATION;
-
-      AaveV3Ethereum.COLLECTOR.createStream(
-        orbitAddresses[i],
-        actualStreamAmount,
-        AaveV3EthereumAssets.GHO_UNDERLYING,
-        block.timestamp,
-        block.timestamp + OrbitProgramData.STREAM_DURATION
+      CollectorUtils.stream(
+        AaveV3Ethereum.COLLECTOR,
+        CollectorUtils.CreateStreamInput({
+          underlying: AaveV3EthereumAssets.GHO_UNDERLYING,
+          receiver: orbitAddresses[i],
+          amount: OrbitProgramData.STREAM_AMOUNT,
+          start: block.timestamp,
+          duration: OrbitProgramData.STREAM_DURATION
+        })
       );
     }
   }
