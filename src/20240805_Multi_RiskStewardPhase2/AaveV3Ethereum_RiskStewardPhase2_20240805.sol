@@ -16,6 +16,5 @@ contract AaveV3Ethereum_RiskStewardPhase2_20240805 is IProposalGenericExecutor {
 
   function execute() external {
     AaveV3Ethereum.ACL_MANAGER.addRiskAdmin(NEW_RISK_STEWARD);
-    IRiskSteward(NEW_RISK_STEWARD).setAddressRestricted(AaveV3EthereumAssets.GHO_UNDERLYING, true);
   }
 }

@@ -33,11 +33,5 @@ contract AaveV3Ethereum_RiskStewardPhase2_20240805_Test is ProtocolV3TestBase {
     executePayload(vm, address(proposal));
 
     assertEq(AaveV3Ethereum.ACL_MANAGER.isRiskAdmin(proposal.NEW_RISK_STEWARD()), true);
-    assertEq(
-      IRiskSteward(proposal.NEW_RISK_STEWARD()).isAddressRestricted(
-        AaveV3EthereumAssets.GHO_UNDERLYING
-      ),
-      true
-    );
   }
 }
