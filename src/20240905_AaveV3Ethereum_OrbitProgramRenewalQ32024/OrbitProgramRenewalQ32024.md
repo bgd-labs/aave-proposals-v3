@@ -41,8 +41,8 @@ Gas reimbursements from service providers activity are proposed to be managed by
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240905_AaveV3Ethereum_OrbitProgramRenewalQ32024/AaveV3Ethereum_OrbitProgramRenewalQ32024_20240905.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240905_AaveV3Ethereum_OrbitProgramRenewalQ32024/AaveV3Ethereum_OrbitProgramRenewalQ32024_20240905.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/fb4a864dbc7d3048fa2c22437ab082e77bf4552a/src/20240905_AaveV3Ethereum_OrbitProgramRenewalQ32024/AaveV3Ethereum_OrbitProgramRenewalQ32024_20240905.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/fb4a864dbc7d3048fa2c22437ab082e77bf4552a/src/20240905_AaveV3Ethereum_OrbitProgramRenewalQ32024/AaveV3Ethereum_OrbitProgramRenewalQ32024_20240905.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0xea325542397fce607755f6c14be407f60a71a81f3a23c6b3a67e298b9dd8c091)
 - [Discussion](https://governance.aave.com/t/arfc-orbit-program-renewal-q3-2024/18834)
 
