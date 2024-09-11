@@ -34,6 +34,14 @@ jobs:
     with:
       mode: "CHANGED"
 
+  test-sol-zksync:
+    uses: bgd-labs/github-workflows/.github/workflows/foundry-test.yml@main
+    secrets: inherit
+    with:
+      mode: "CHANGED"
+      zksync: true
+      ROOT_DIR: "zksync"
+
   test-js:
     uses: bgd-labs/github-workflows/.github/workflows/test-node.yml@main
     secrets: inherit
