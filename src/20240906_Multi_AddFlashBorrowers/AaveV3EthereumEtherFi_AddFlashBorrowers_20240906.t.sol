@@ -16,7 +16,7 @@ contract AaveV3EthereumEtherFi_AddFlashBorrowers_20240906_Test is ProtocolV3Test
   AaveV3EthereumEtherFi_AddFlashBorrowers_20240906 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 20692301);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 20723989);
     proposal = new AaveV3EthereumEtherFi_AddFlashBorrowers_20240906();
   }
 
