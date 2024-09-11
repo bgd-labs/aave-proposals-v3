@@ -7,3 +7,6 @@
 [submodule "lib/gho-core"]
 	path = lib/gho-core
 	url = https://github.com/aave/gho-core
+[submodule "lib/aave-debt-swap"]
+	path = lib/aave-debt-swap
+	url = https://github.com/aave/aave-debt-swap
