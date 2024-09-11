@@ -29,6 +29,23 @@ The new RiskSteward we propose follows the same design as the CapsPlusRiskStewar
 
 To give some extra buffer and protection, we would remove the `RISK_ADMIN` role from the old `CapsPlusRiskSteward` once risk providers have adapted to use the new Risk Stewards.
 
+Deployed Risk Steward Contracts:
+
+| Network Instance | Risk Steward Contract                                                                                                      |
+| ---------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| Ethereum         | [0xF3911922bd054Bf6f4d6A02B8ADAC444921B0c51](https://etherscan.io/address/0xF3911922bd054Bf6f4d6A02B8ADAC444921B0c51)      |
+| Ethereum Lido    | [0x45C4f8b32927eFFdf1dA3cA42498504947dd4d0D](https://etherscan.io/address/0x45C4f8b32927eFFdf1dA3cA42498504947dd4d0D)      |
+| Ethereum EtherFi | [0x7FbBCCFB548c110226fEF5BEc816Ea04B5170EA3](https://etherscan.io/address/0x7FbBCCFB548c110226fEF5BEc816Ea04B5170EA3)      |
+| Arbitrum         | [0x9EEa1Ba822d204077e9f90a92D30432417184587](https://arbiscan.io/address/0x9EEa1Ba822d204077e9f90a92D30432417184587)       |
+| Optimism         | [0x9062F78b631f33D24Ed058cBc116A653452ea82A](https://optimistic.etherscan.io/address/)                                     |
+| Polygon          | [0xfF33BEcB9ECFE4328D4f9C37bE0F07b2CFe976E3](https://polygonscan.com/address/0xfF33BEcB9ECFE4328D4f9C37bE0F07b2CFe976E3)   |
+| Avalanche        | [0x5d7e9a32E0c3db609089186bEBC4B9d8Eb86ad2c](https://snowscan.xyz/address/0x5d7e9a32E0c3db609089186bEBC4B9d8Eb86ad2c)      |
+| Scroll           | [0x5E27B8EfDe76814795a07c8a378FcdF09715850b](https://scrollscan.com/address/0x5E27B8EfDe76814795a07c8a378FcdF09715850b)    |
+| Metis            | [0xF73F2634b43344d86921DA3391d4EF0d5675Dd63](https://explorer.metis.io/address/0xF73F2634b43344d86921DA3391d4EF0d5675Dd63) |
+| Base             | [0x963C0b3dFF5C35b171CcC11DAC006a605E42BeD2](https://basescan.org/address/0x963C0b3dFF5C35b171CcC11DAC006a605E42BeD2)      |
+| BNB              | [0x45918bB1D3F73904a30Ffc3eD11CdB1c05eBF726](https://bscscan.com/address/0x45918bB1D3F73904a30Ffc3eD11CdB1c05eBF726)       |
+| Gnosis           | [0x0b9cA640284cf2636577703f785D5aEEc466BC56](https://gnosisscan.io/address/0x0b9cA640284cf2636577703f785D5aEEc466BC56)     |
+
 The new risk stewards have been configured with the following risk params on all Aave instances:
 
 | Parameter                 | Percent change allowed | minimumDelay |
