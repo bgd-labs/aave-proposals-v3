@@ -37,9 +37,11 @@ contract AaveV3ZkSync_AaveV3ZkSyncActivation_20240805_Test is ProtocolV3TestBase
 
   function test_permissions() public {
     assertFalse(AaveV3ZkSync.ACL_MANAGER.isPoolAdmin(MiscZkSync.PROTOCOL_GUARDIAN));
+    assertFalse(AaveV3ZkSync.ACL_MANAGER.isRiskAdmin(AaveV3ZkSync.RISK_STEWARD));
     executePayload(vm, address(proposal));
 
     assertTrue(AaveV3ZkSync.ACL_MANAGER.isPoolAdmin(MiscZkSync.PROTOCOL_GUARDIAN));
+    assertTrue(AaveV3ZkSync.ACL_MANAGER.isRiskAdmin(AaveV3ZkSync.RISK_STEWARD));
     assertEq(
       IEmissionManager(AaveV3ZkSync.EMISSION_MANAGER).getEmissionAdmin(proposal.ZK()),
       proposal.ACI_MULTISIG()

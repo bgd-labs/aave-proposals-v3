@@ -33,6 +33,7 @@ contract AaveV3ZkSync_AaveV3ZkSyncActivation_20240805 is AaveV3PayloadZkSync {
 
   function _postExecute() internal override {
     AaveV3ZkSync.ACL_MANAGER.addPoolAdmin(MiscZkSync.PROTOCOL_GUARDIAN);
+    AaveV3ZkSync.ACL_MANAGER.addRiskAdmin(AaveV3ZkSync.RISK_STEWARD);
     IEmissionManager(AaveV3ZkSync.EMISSION_MANAGER).setEmissionAdmin(ZK, ACI_MULTISIG);
 
     _supply(AaveV3ZkSync.POOL, USDC, USDC_SEED_AMOUNT, address(AaveV3ZkSync.COLLECTOR));
@@ -69,7 +70,7 @@ contract AaveV3ZkSync_AaveV3ZkSyncActivation_20240805 is AaveV3PayloadZkSync {
     listings[0] = IAaveV3ConfigEngine.Listing({
       asset: USDC,
       assetSymbol: 'USDC',
-      priceFeed: 0x162C97F6B4FA5a915A44D430bb7AE0eE716b3b87,
+      priceFeed: 0x22A46593A7f93Aaec788bE3e27C1838E15781222,
       eModeCategory: 0,
       enabledToBorrow: EngineFlags.ENABLED,
       stableRateModeEnabled: EngineFlags.DISABLED,
@@ -80,8 +81,8 @@ contract AaveV3ZkSync_AaveV3ZkSyncActivation_20240805 is AaveV3PayloadZkSync {
       liqThreshold: 78_00,
       liqBonus: 5_00,
       reserveFactor: 10_00,
-      supplyCap: 1_000_000,
-      borrowCap: 900_000,
+      supplyCap: 250_000,
+      borrowCap: 225_000,
       debtCeiling: 0,
       liqProtocolFee: 10_00,
       rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
@@ -95,7 +96,7 @@ contract AaveV3ZkSync_AaveV3ZkSyncActivation_20240805 is AaveV3PayloadZkSync {
     listings[1] = IAaveV3ConfigEngine.Listing({
       asset: USDT,
       assetSymbol: 'USDT',
-      priceFeed: 0x92DaB7275859C5399a326874897daddb0F4ed7A4,
+      priceFeed: 0xE8D6d2dffCFfFc6b1f3606b7552e80319D01A8E9,
       eModeCategory: 0,
       enabledToBorrow: EngineFlags.ENABLED,
       stableRateModeEnabled: EngineFlags.DISABLED,
@@ -106,8 +107,8 @@ contract AaveV3ZkSync_AaveV3ZkSyncActivation_20240805 is AaveV3PayloadZkSync {
       liqThreshold: 78_00,
       liqBonus: 5_00,
       reserveFactor: 10_00,
-      supplyCap: 3_000_000,
-      borrowCap: 2_700_000,
+      supplyCap: 750_000,
+      borrowCap: 675_000,
       debtCeiling: 0,
       liqProtocolFee: 10_00,
       rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
@@ -132,8 +133,8 @@ contract AaveV3ZkSync_AaveV3ZkSyncActivation_20240805 is AaveV3PayloadZkSync {
       liqThreshold: 78_00,
       liqBonus: 6_00,
       reserveFactor: 15_00,
-      supplyCap: 1_000,
-      borrowCap: 900,
+      supplyCap: 250,
+      borrowCap: 225,
       debtCeiling: 0,
       liqProtocolFee: 10_00,
       rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
@@ -147,7 +148,7 @@ contract AaveV3ZkSync_AaveV3ZkSyncActivation_20240805 is AaveV3PayloadZkSync {
     listings[3] = IAaveV3ConfigEngine.Listing({
       asset: wstETH,
       assetSymbol: 'wstETH',
-      priceFeed: 0xB19d366dC599904Aa026440d4E805F0E13512682,
+      priceFeed: 0xdea7DE07B8275564Af6135F7E9340411246EB7A2,
       eModeCategory: 1,
       enabledToBorrow: EngineFlags.ENABLED,
       stableRateModeEnabled: EngineFlags.DISABLED,
@@ -158,8 +159,8 @@ contract AaveV3ZkSync_AaveV3ZkSyncActivation_20240805 is AaveV3PayloadZkSync {
       liqThreshold: 76_00,
       liqBonus: 7_00,
       reserveFactor: 5_00,
-      supplyCap: 300,
-      borrowCap: 30,
+      supplyCap: 75,
+      borrowCap: 10,
       debtCeiling: 0,
       liqProtocolFee: 10_00,
       rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
@@ -184,9 +185,9 @@ contract AaveV3ZkSync_AaveV3ZkSyncActivation_20240805 is AaveV3PayloadZkSync {
       liqThreshold: 45_00,
       liqBonus: 10_00,
       reserveFactor: 20_00,
-      supplyCap: 18_000_000,
-      borrowCap: 10_000_000,
-      debtCeiling: 800_000,
+      supplyCap: 4_500_000,
+      borrowCap: 2_500_000,
+      debtCeiling: 200_000,
       liqProtocolFee: 20_00,
       rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
         optimalUsageRatio: 45_00,
