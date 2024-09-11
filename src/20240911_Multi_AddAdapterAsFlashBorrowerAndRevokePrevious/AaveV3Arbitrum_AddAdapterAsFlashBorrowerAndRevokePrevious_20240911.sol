@@ -3,6 +3,8 @@ pragma solidity ^0.8.0;
 
 import {AaveV3Arbitrum} from 'aave-address-book/AaveV3Arbitrum.sol';
 import {IProposalGenericExecutor} from 'aave-helpers/interfaces/IProposalGenericExecutor.sol';
+
+import 'forge-std/console2.sol';
 /**
  * @title AddAdapterAsFlashBorrowerAndRevokePrevious
  * @author Aave Labs
@@ -13,10 +15,9 @@ contract AaveV3Arbitrum_AddAdapterAsFlashBorrowerAndRevokePrevious_20240911 is
   IProposalGenericExecutor
 {
   address public constant NEW_FLASH_BORROWER = 0x0000000000000000000000000000000000000001;
-  address public constant OLD_FLASH_BORROWER = 0x0000000000000000000000000000000000000002;
 
   function execute() external {
     AaveV3Arbitrum.ACL_MANAGER.addFlashBorrower(NEW_FLASH_BORROWER);
-    AaveV3Arbitrum.ACL_MANAGER.removeFlashBorrower(OLD_FLASH_BORROWER);
+    AaveV3Arbitrum.ACL_MANAGER.removeFlashBorrower(AaveV3Arbitrum.DEBT_SWAP_ADAPTER);
   }
 }

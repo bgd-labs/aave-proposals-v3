@@ -13,10 +13,9 @@ contract AaveV3Base_AddAdapterAsFlashBorrowerAndRevokePrevious_20240911 is
   IProposalGenericExecutor
 {
   address public constant NEW_FLASH_BORROWER = 0x0000000000000000000000000000000000000001;
-  address public constant OLD_FLASH_BORROWER = 0x0000000000000000000000000000000000000002;
 
   function execute() external {
     AaveV3Base.ACL_MANAGER.addFlashBorrower(NEW_FLASH_BORROWER);
-    AaveV3Base.ACL_MANAGER.removeFlashBorrower(OLD_FLASH_BORROWER);
+    AaveV3Base.ACL_MANAGER.removeFlashBorrower(AaveV3Base.DEBT_SWAP_ADAPTER);
   }
 }

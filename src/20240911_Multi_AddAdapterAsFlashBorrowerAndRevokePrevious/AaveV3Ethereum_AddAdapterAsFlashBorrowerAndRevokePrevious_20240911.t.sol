@@ -40,7 +40,7 @@ contract AaveV3Ethereum_AddAdapterAsFlashBorrowerAndRevokePrevious_20240911_Test
     );
     assertEq(isFlashBorrower, true);
     bool isFlashBorrowerPrevious = AaveV3Ethereum.ACL_MANAGER.isFlashBorrower(
-      proposal.OLD_FLASH_BORROWER()
+      AaveV3Ethereum.DEBT_SWAP_ADAPTER
     );
     assertEq(isFlashBorrowerPrevious, false);
   }
