@@ -39,5 +39,9 @@ contract AaveV3Avalanche_AddAdapterAsFlashBorrowerAndRevokePrevious_20240911_Tes
       proposal.NEW_FLASH_BORROWER()
     );
     assertEq(isFlashBorrower, true);
+    bool isFlashBorrowerPrevious = AaveV3Avalanche.ACL_MANAGER.isFlashBorrower(
+      proposal.OLD_FLASH_BORROWER()
+    );
+    assertEq(isFlashBorrowerPrevious, false);
   }
 }

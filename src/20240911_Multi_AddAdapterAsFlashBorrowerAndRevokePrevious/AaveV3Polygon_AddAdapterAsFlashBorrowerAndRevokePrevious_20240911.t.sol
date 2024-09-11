@@ -37,5 +37,9 @@ contract AaveV3Polygon_AddAdapterAsFlashBorrowerAndRevokePrevious_20240911_Test 
     GovV3Helpers.executePayload(vm, address(proposal));
     bool isFlashBorrower = AaveV3Polygon.ACL_MANAGER.isFlashBorrower(proposal.NEW_FLASH_BORROWER());
     assertEq(isFlashBorrower, true);
+    bool isFlashBorrowerPrevious = AaveV3Polygon.ACL_MANAGER.isFlashBorrower(
+      proposal.OLD_FLASH_BORROWER()
+    );
+    assertEq(isFlashBorrowerPrevious, false);
   }
 }

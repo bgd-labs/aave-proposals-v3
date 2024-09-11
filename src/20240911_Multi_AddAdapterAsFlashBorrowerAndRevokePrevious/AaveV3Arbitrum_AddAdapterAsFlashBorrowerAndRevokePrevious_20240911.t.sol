@@ -39,5 +39,9 @@ contract AaveV3Arbitrum_AddAdapterAsFlashBorrowerAndRevokePrevious_20240911_Test
       proposal.NEW_FLASH_BORROWER()
     );
     assertEq(isFlashBorrower, true);
+    bool isFlashBorrowerPrevious = AaveV3Arbitrum.ACL_MANAGER.isFlashBorrower(
+      proposal.OLD_FLASH_BORROWER()
+    );
+    assertEq(isFlashBorrowerPrevious, false);
   }
 }
