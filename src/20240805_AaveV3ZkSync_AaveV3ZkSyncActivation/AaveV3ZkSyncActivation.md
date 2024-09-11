@@ -90,6 +90,12 @@ Below are the per contract comparative diffs of the contract modifications relat
 
 - [StaticATokenFactory](https://github.com/bgd-labs/aave-v3-origin/pull/22/files#diff-f1f9ded6ed1a429f70c7d6304120886b631191b5ad92342c4a5fa644bfc378cc)
 
+Following the issue on the dependencies of the ZkSync Era compiler during [previous activation](https://vote.onaave.com/proposal/?proposalId=153), as a matter of extra security procedures we have:
+
+- Improved the coverage on the tests, adding some more fork test scenarios covering the issue of bitmap corruption and verifying that the zksolc `1.5.3` fixes the issue.
+
+- Reduced the supply and borrow caps further, allowing the new risk steward to slowly increase it over time.
+
 ## References
 
 - Implementation: [AaveV3ZkSync](https://github.com/bgd-labs/aave-proposals-v3/blob/main/zksync/src/20240805_AaveV3ZkSync_AaveV3ZkSyncActivation/AaveV3ZkSync_AaveV3ZkSyncActivation_20240805.sol)
