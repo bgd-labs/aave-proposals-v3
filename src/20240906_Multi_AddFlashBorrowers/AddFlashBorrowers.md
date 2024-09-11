@@ -7,9 +7,24 @@ snapshot: "Direct-to-AIP"
 
 ## Simple Summary
 
+This AIP updated and extends existing whitelisted flashBorrowers addresses to recently deployed instances of Aave v3 on Ethereum.
+
 ## Motivation
 
+This AIP will waive the flash loan fee for one new CIAN Protocol address and extend the waiver to cover recently deployed instances of Aave v3 for existing beneficiaries who have expressed interest integrating the new instances of Aave v3.
+
 ## Specification
+
+This AIP, will call addFlashBorrower() on the ACL_MANAGER contract to whitelist the following contract address on all instances of Aave v3 on the mentioned network:
+
+| Network  | Protocol      | Address                                                                                                                            | Contract Name           |
+| -------- | ------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ----------------------- |
+| Ethereum | CIAN Protocol | [`0x49d9409111a6363d82c4371ffa43faea660c917b`](https://etherscan.io/address/0x49d9409111a6363d82c4371ffa43faea660c917b)            | FlashloanHelper         |
+| Arbitrum | CIAN Protocol | [`0x49d9409111a6363d82c4371ffa43faea660c917b`](https://arbiscan.io/address/0x49d9409111a6363d82c4371ffa43faea660c917b)             | FlashloanHelper         |
+| Optimism | CIAN Protocol | [`0x49d9409111a6363d82c4371ffa43faea660c917b`](https://optimistic.etherscan.io/address/0x49d9409111a6363d82c4371ffa43faea660c917b) | FlashloanHelper         |
+| Ethereum | Index Coop    | [`0x45c00508C14601fd1C1e296eB3C0e3eEEdCa45D0`](https://etherscan.io/address/0x45c00508C14601fd1C1e296eB3C0e3eEEdCa45D0)            | FlashMintLeveraged      |
+| Ethereum | Contango      | [`0xab515542d621574f9b5212d50593cD0C07e641bD`](https://etherscan.io/address/0xab515542d621574f9b5212d50593cD0C07e641bD)            | PermissionedAaveWrapper |
+| Ethereum | Seven Seas    | [`0xf0bb20865277aBd641a307eCe5Ee04E79073416C`](https://etherscan.io/address/0xf0bb20865277aBd641a307eCe5Ee04E79073416C)            | Ether.Fi Liquid ETH     |
 
 ## References
 
