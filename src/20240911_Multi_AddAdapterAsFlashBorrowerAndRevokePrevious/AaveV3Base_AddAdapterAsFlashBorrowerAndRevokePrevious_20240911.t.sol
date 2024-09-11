@@ -2,11 +2,12 @@
 pragma solidity ^0.8.0;
 
 import {GovV3Helpers} from 'aave-helpers/GovV3Helpers.sol';
-import {AaveV3Base} from 'aave-address-book/AaveV3Base.sol';
+import {AaveV3Base, AaveV3BaseAssets} from 'aave-address-book/AaveV3Base.sol';
 
 import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/ProtocolV3TestBase.sol';
 import {AaveV3Base_AddAdapterAsFlashBorrowerAndRevokePrevious_20240911} from './AaveV3Base_AddAdapterAsFlashBorrowerAndRevokePrevious_20240911.sol';
+import {IERC20} from 'aave-v3-core/contracts/dependencies/openzeppelin/contracts/IERC20.sol';
 
 /**
  * @dev Test for AaveV3Base_AddAdapterAsFlashBorrowerAndRevokePrevious_20240911
@@ -39,5 +40,15 @@ contract AaveV3Base_AddAdapterAsFlashBorrowerAndRevokePrevious_20240911_Test is 
       AaveV3Base.DEBT_SWAP_ADAPTER
     );
     assertEq(isFlashBorrowerPrevious, false);
+  }
+
+  function test_isTokensRescued() external {
+    GovV3Helpers.executePayload(vm, address(proposal));
+
+    assertEq(
+      IERC20(AaveV3BaseAssets.USDC_UNDERLYING).balanceOf(AaveV3Base.DEBT_SWAP_ADAPTER),
+      0,
+      'Unexpected USDC_UNDERLYING remaining'
+    );
   }
 }
