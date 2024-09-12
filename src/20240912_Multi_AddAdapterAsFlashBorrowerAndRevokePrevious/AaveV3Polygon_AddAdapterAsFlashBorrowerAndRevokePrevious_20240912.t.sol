@@ -31,4 +31,24 @@ contract AaveV3Polygon_AddAdapterAsFlashBorrowerAndRevokePrevious_20240912_Test 
       address(proposal)
     );
   }
+
+  function test_isFlashBorrower() external {
+    GovV3Helpers.executePayload(vm, address(proposal));
+    bool isFlashBorrower = AaveV3Polygon.ACL_MANAGER.isFlashBorrower(proposal.NEW_FLASH_BORROWER());
+    assertEq(isFlashBorrower, true);
+    bool isFlashBorrowerPrevious = AaveV3Polygon.ACL_MANAGER.isFlashBorrower(
+      AaveV3Polygon.DEBT_SWAP_ADAPTER
+    );
+    assertEq(isFlashBorrowerPrevious, false);
+  }
+
+  function test_isTokensRescued() external {
+    GovV3Helpers.executePayload(vm, address(proposal));
+
+    assertEq(
+      IERC20(AaveV3PolygonAssets.USDT_UNDERLYING).balanceOf(AaveV3Polygon.DEBT_SWAP_ADAPTER),
+      0,
+      'Unexpected USDT_UNDERLYING remaining'
+    );
+  }
 }

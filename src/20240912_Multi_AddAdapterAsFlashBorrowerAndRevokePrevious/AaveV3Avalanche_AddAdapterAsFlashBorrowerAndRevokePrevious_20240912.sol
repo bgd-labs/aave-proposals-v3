@@ -2,6 +2,10 @@
 pragma solidity ^0.8.0;
 
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
+import {AaveV3Avalanche, AaveV3AvalancheAssets} from 'aave-address-book/AaveV3Avalanche.sol';
+import {IBaseParaSwapAdapter} from './interfaces/IBaseParaSwapAdapter.sol';
+import {IERC20} from 'aave-v3-core/contracts/dependencies/openzeppelin/contracts/IERC20.sol';
+
 /**
  * @title AddAdapterAsFlashBorrowerAndRevokePrevious
  * @author Aave Labs
@@ -10,4 +14,16 @@ import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGen
  */
 contract AaveV3Avalanche_AddAdapterAsFlashBorrowerAndRevokePrevious_20240912 is
   IProposalGenericExecutor
-{}
+{
+  address public constant NEW_FLASH_BORROWER = 0x0000000000000000000000000000000000000001;
+
+  function execute() external {
+    AaveV3Avalanche.ACL_MANAGER.addFlashBorrower(NEW_FLASH_BORROWER);
+
+    IBaseParaSwapAdapter(AaveV3Avalanche.DEBT_SWAP_ADAPTER).rescueTokens(
+      IERC20(AaveV3AvalancheAssets.USDt_UNDERLYING)
+    );
+
+    AaveV3Avalanche.ACL_MANAGER.removeFlashBorrower(AaveV3Avalanche.DEBT_SWAP_ADAPTER);
+  }
+}
