@@ -1,7 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {AaveV3Avalanche} from 'aave-address-book/AaveV3Avalanche.sol';
+import {AaveV3Avalanche, AaveV3AvalancheAssets} from 'aave-address-book/AaveV3Avalanche.sol';
+import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
+import {IERC20} from 'aave-v3-core/contracts/dependencies/openzeppelin/contracts/IERC20.sol';
 
 import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
@@ -29,6 +31,63 @@ contract AaveV3Avalanche_AddAdapterAsFlashBorrowerAndRevokePrevious_20240912_Tes
       'AaveV3Avalanche_AddAdapterAsFlashBorrowerAndRevokePrevious_20240912',
       AaveV3Avalanche.POOL,
       address(proposal)
+    );
+  }
+
+  function test_isFlashBorrower() external {
+    GovV3Helpers.executePayload(vm, address(proposal));
+    bool isFlashBorrower = AaveV3Avalanche.ACL_MANAGER.isFlashBorrower(
+      proposal.NEW_FLASH_BORROWER()
+    );
+    assertEq(isFlashBorrower, true);
+    bool isFlashBorrowerPrevious = AaveV3Avalanche.ACL_MANAGER.isFlashBorrower(
+      AaveV3Avalanche.DEBT_SWAP_ADAPTER
+    );
+    assertEq(isFlashBorrowerPrevious, false);
+  }
+
+  function test_isTokensRescued() external {
+    GovV3Helpers.executePayload(vm, address(proposal));
+
+    assertEq(
+      IERC20(AaveV3AvalancheAssets.USDC_UNDERLYING).balanceOf(AaveV3Avalanche.DEBT_SWAP_ADAPTER),
+      0,
+      'Unexpected USDC_UNDERLYING remaining'
+    );
+    assertEq(
+      IERC20(AaveV3AvalancheAssets.USDt_UNDERLYING).balanceOf(AaveV3Avalanche.DEBT_SWAP_ADAPTER),
+      0,
+      'Unexpected USDt_UNDERLYING remaining'
+    );
+    assertEq(
+      IERC20(AaveV3AvalancheAssets.WAVAX_UNDERLYING).balanceOf(AaveV3Avalanche.DEBT_SWAP_ADAPTER),
+      0,
+      'Unexpected WAVAX_UNDERLYING remaining'
+    );
+    assertEq(
+      IERC20(AaveV3AvalancheAssets.BTCb_UNDERLYING).balanceOf(AaveV3Avalanche.DEBT_SWAP_ADAPTER),
+      0,
+      'Unexpected BTCb_UNDERLYING remaining'
+    );
+    assertEq(
+      IERC20(AaveV3AvalancheAssets.WETHe_UNDERLYING).balanceOf(AaveV3Avalanche.DEBT_SWAP_ADAPTER),
+      0,
+      'Unexpected WETHe_UNDERLYING remaining'
+    );
+    assertEq(
+      IERC20(AaveV3AvalancheAssets.DAIe_UNDERLYING).balanceOf(AaveV3Avalanche.DEBT_SWAP_ADAPTER),
+      0,
+      'Unexpected DAIe_UNDERLYING remaining'
+    );
+    assertEq(
+      IERC20(AaveV3AvalancheAssets.FRAX_UNDERLYING).balanceOf(AaveV3Avalanche.DEBT_SWAP_ADAPTER),
+      0,
+      'Unexpected FRAX_UNDERLYING remaining'
+    );
+    assertEq(
+      IERC20(AaveV3AvalancheAssets.LINKe_UNDERLYING).balanceOf(AaveV3Avalanche.DEBT_SWAP_ADAPTER),
+      0,
+      'Unexpected LINKe_UNDERLYING remaining'
     );
   }
 }
