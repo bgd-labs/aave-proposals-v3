@@ -8,8 +8,8 @@ import {IAaveV3ConfigEngine} from 'aave-v3-periphery/contracts/v3-config-engine/
 /**
  * @title Gho Borrow Rate Update September 2024
  * @author karpatkey_TokenLogic
- * - Snapshot: TODO
- * - Discussion: TODO
+ * - Snapshot: Direct-to-AIP
+ * - Discussion: https://governance.aave.com/t/arfc-gho-stewards-gho-parameter-adjustments/17289/32
  */
 contract AaveV3Ethereum_GhoBorrowRateUpdateSeptember2024_20240912 is AaveV3PayloadEthereum {
   function rateStrategiesUpdates()

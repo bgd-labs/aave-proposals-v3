@@ -6,8 +6,9 @@ export const config: ConfigFile = {
     shortName: 'GhoBorrowRateUpdateSeptember2024',
     date: '20240912',
     author: 'karpatkey_TokenLogic',
-    discussion: 'TODO',
-    snapshot: 'TODO',
+    discussion:
+      'https://governance.aave.com/t/arfc-gho-stewards-gho-parameter-adjustments/17289/32',
+    snapshot: 'Direct-to-AIP',
     votingNetwork: 'POLYGON',
   },
   poolOptions: {

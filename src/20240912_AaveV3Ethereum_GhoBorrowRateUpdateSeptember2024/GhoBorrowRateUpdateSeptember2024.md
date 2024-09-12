@@ -1,8 +1,8 @@
 ---
 title: "Gho Borrow Rate Update September 2024"
 author: "karpatkey_TokenLogic"
-discussions: "TODO"
-snapshot: "TODO"
+discussions: "https://governance.aave.com/t/arfc-gho-stewards-gho-parameter-adjustments/17289/32"
+snapshot: "Direct-to-AIP"
 ---
 
 ## Simple Summary
@@ -31,8 +31,8 @@ By reducing the borrow rate, we aim to:
 
 - Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240912_AaveV3Ethereum_GhoBorrowRateUpdateSeptember2024/AaveV3Ethereum_GhoBorrowRateUpdateSeptember2024_20240912.sol)
 - Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240912_AaveV3Ethereum_GhoBorrowRateUpdateSeptember2024/AaveV3Ethereum_GhoBorrowRateUpdateSeptember2024_20240912.t.sol)
-- [Snapshot](TODO)
-- [Discussion](TODO)
+- [Snapshot](Direct-to-AIP)
+- [Discussion](https://governance.aave.com/t/arfc-gho-stewards-gho-parameter-adjustments/17289/32)
 
 ## Copyright
 
