@@ -51,16 +51,6 @@ contract AaveV3Arbitrum_AddAdapterAsFlashBorrowerAndRevokePrevious_20240912_Test
     GovV3Helpers.executePayload(vm, address(proposal));
 
     assertEq(
-      IERC20(AaveV3ArbitrumAssets.DAI_UNDERLYING).balanceOf(AaveV3Arbitrum.DEBT_SWAP_ADAPTER),
-      0,
-      'Unexpected DAI_UNDERLYING remaining'
-    );
-    assertEq(
-      IERC20(AaveV3ArbitrumAssets.LINK_UNDERLYING).balanceOf(AaveV3Arbitrum.DEBT_SWAP_ADAPTER),
-      0,
-      'Unexpected LINK_UNDERLYING remaining'
-    );
-    assertEq(
       IERC20(AaveV3ArbitrumAssets.USDC_UNDERLYING).balanceOf(AaveV3Arbitrum.DEBT_SWAP_ADAPTER),
       0,
       'Unexpected USDC_UNDERLYING remaining'
@@ -71,9 +61,14 @@ contract AaveV3Arbitrum_AddAdapterAsFlashBorrowerAndRevokePrevious_20240912_Test
       'Unexpected WBTC_UNDERLYING remaining'
     );
     assertEq(
-      IERC20(AaveV3ArbitrumAssets.WETH_UNDERLYING).balanceOf(AaveV3Arbitrum.DEBT_SWAP_ADAPTER),
+      IERC20(AaveV3ArbitrumAssets.LINK_UNDERLYING).balanceOf(AaveV3Arbitrum.DEBT_SWAP_ADAPTER),
       0,
-      'Unexpected WETH_UNDERLYING remaining'
+      'Unexpected LINK_UNDERLYING remaining'
+    );
+    assertEq(
+      IERC20(AaveV3ArbitrumAssets.DAI_UNDERLYING).balanceOf(AaveV3Arbitrum.DEBT_SWAP_ADAPTER),
+      0,
+      'Unexpected DAI_UNDERLYING remaining'
     );
     assertEq(
       IERC20(AaveV3ArbitrumAssets.USDT_UNDERLYING).balanceOf(AaveV3Arbitrum.DEBT_SWAP_ADAPTER),
@@ -81,14 +76,14 @@ contract AaveV3Arbitrum_AddAdapterAsFlashBorrowerAndRevokePrevious_20240912_Test
       'Unexpected USDT_UNDERLYING remaining'
     );
     assertEq(
-      IERC20(AaveV3ArbitrumAssets.wstETH_UNDERLYING).balanceOf(AaveV3Arbitrum.DEBT_SWAP_ADAPTER),
+      IERC20(AaveV3ArbitrumAssets.weETH_UNDERLYING).balanceOf(AaveV3Arbitrum.DEBT_SWAP_ADAPTER),
       0,
-      'Unexpected wstETH_UNDERLYING remaining'
+      'Unexpected weETH_UNDERLYING remaining'
     );
     assertEq(
-      IERC20(AaveV3ArbitrumAssets.LUSD_UNDERLYING).balanceOf(AaveV3Arbitrum.DEBT_SWAP_ADAPTER),
+      IERC20(AaveV3ArbitrumAssets.WETH_UNDERLYING).balanceOf(AaveV3Arbitrum.DEBT_SWAP_ADAPTER),
       0,
-      'Unexpected LUSD_UNDERLYING remaining'
+      'Unexpected WETH_UNDERLYING remaining'
     );
     assertEq(
       IERC20(AaveV3ArbitrumAssets.ARB_UNDERLYING).balanceOf(AaveV3Arbitrum.DEBT_SWAP_ADAPTER),
@@ -96,9 +91,14 @@ contract AaveV3Arbitrum_AddAdapterAsFlashBorrowerAndRevokePrevious_20240912_Test
       'Unexpected ARB_UNDERLYING remaining'
     );
     assertEq(
-      IERC20(AaveV3ArbitrumAssets.weETH_UNDERLYING).balanceOf(AaveV3Arbitrum.DEBT_SWAP_ADAPTER),
+      IERC20(AaveV3ArbitrumAssets.LUSD_UNDERLYING).balanceOf(AaveV3Arbitrum.DEBT_SWAP_ADAPTER),
       0,
-      'Unexpected weETH_UNDERLYING remaining'
+      'Unexpected LUSD_UNDERLYING remaining'
+    );
+    assertEq(
+      IERC20(AaveV3ArbitrumAssets.wstETH_UNDERLYING).balanceOf(AaveV3Arbitrum.DEBT_SWAP_ADAPTER),
+      0,
+      'Unexpected wstETH_UNDERLYING remaining'
     );
   }
 }

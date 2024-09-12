@@ -19,34 +19,34 @@ contract AaveV3Arbitrum_AddAdapterAsFlashBorrowerAndRevokePrevious_20240912 is
 
   function execute() external {
     IBaseParaSwapAdapter(AaveV3Arbitrum.DEBT_SWAP_ADAPTER).rescueTokens(
-      IERC20(AaveV3ArbitrumAssets.DAI_UNDERLYING)
-    );
-    IBaseParaSwapAdapter(AaveV3Arbitrum.DEBT_SWAP_ADAPTER).rescueTokens(
-      IERC20(AaveV3ArbitrumAssets.LINK_UNDERLYING)
-    );
-    IBaseParaSwapAdapter(AaveV3Arbitrum.DEBT_SWAP_ADAPTER).rescueTokens(
       IERC20(AaveV3ArbitrumAssets.USDC_UNDERLYING)
     );
     IBaseParaSwapAdapter(AaveV3Arbitrum.DEBT_SWAP_ADAPTER).rescueTokens(
       IERC20(AaveV3ArbitrumAssets.WBTC_UNDERLYING)
     );
     IBaseParaSwapAdapter(AaveV3Arbitrum.DEBT_SWAP_ADAPTER).rescueTokens(
-      IERC20(AaveV3ArbitrumAssets.WETH_UNDERLYING)
+      IERC20(AaveV3ArbitrumAssets.LINK_UNDERLYING)
+    );
+    IBaseParaSwapAdapter(AaveV3Arbitrum.DEBT_SWAP_ADAPTER).rescueTokens(
+      IERC20(AaveV3ArbitrumAssets.DAI_UNDERLYING)
     );
     IBaseParaSwapAdapter(AaveV3Arbitrum.DEBT_SWAP_ADAPTER).rescueTokens(
       IERC20(AaveV3ArbitrumAssets.USDT_UNDERLYING)
     );
     IBaseParaSwapAdapter(AaveV3Arbitrum.DEBT_SWAP_ADAPTER).rescueTokens(
-      IERC20(AaveV3ArbitrumAssets.wstETH_UNDERLYING)
+      IERC20(AaveV3ArbitrumAssets.weETH_UNDERLYING)
     );
     IBaseParaSwapAdapter(AaveV3Arbitrum.DEBT_SWAP_ADAPTER).rescueTokens(
-      IERC20(AaveV3ArbitrumAssets.LUSD_UNDERLYING)
+      IERC20(AaveV3ArbitrumAssets.WETH_UNDERLYING)
     );
     IBaseParaSwapAdapter(AaveV3Arbitrum.DEBT_SWAP_ADAPTER).rescueTokens(
       IERC20(AaveV3ArbitrumAssets.ARB_UNDERLYING)
     );
     IBaseParaSwapAdapter(AaveV3Arbitrum.DEBT_SWAP_ADAPTER).rescueTokens(
-      IERC20(AaveV3ArbitrumAssets.weETH_UNDERLYING)
+      IERC20(AaveV3ArbitrumAssets.LUSD_UNDERLYING)
+    );
+    IBaseParaSwapAdapter(AaveV3Arbitrum.DEBT_SWAP_ADAPTER).rescueTokens(
+      IERC20(AaveV3ArbitrumAssets.wstETH_UNDERLYING)
     );
 
     AaveV3Arbitrum.ACL_MANAGER.addFlashBorrower(NEW_FLASH_BORROWER);
