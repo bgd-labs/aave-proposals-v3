@@ -38,10 +38,6 @@ The GHO borrow rate is to be revised as follows:
 - [Snapshot](Direct-to-AIP)
 - [Discussion](https://governance.aave.com/t/arfc-gho-stewards-gho-parameter-adjustments/17289/32)
 
-## Disclaimer
-
-Chaos Labs, ACI, TokenLogic and karpatkey have not been compensated by any third party for publishing this ARFC.
-
 ## Copyright
 
 Copyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).
