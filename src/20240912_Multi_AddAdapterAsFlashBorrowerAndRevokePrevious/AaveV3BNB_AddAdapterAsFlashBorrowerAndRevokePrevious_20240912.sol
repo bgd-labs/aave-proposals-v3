@@ -21,6 +21,15 @@ contract AaveV3BNB_AddAdapterAsFlashBorrowerAndRevokePrevious_20240912 is IPropo
     IBaseParaSwapAdapter(AaveV3BNB.DEBT_SWAP_ADAPTER).rescueTokens(
       IERC20(AaveV3BNBAssets.USDT_UNDERLYING)
     );
+    IBaseParaSwapAdapter(AaveV3BNB.DEBT_SWAP_ADAPTER).rescueTokens(
+      IERC20(AaveV3BNBAssets.BTCB_UNDERLYING)
+    );
+    IBaseParaSwapAdapter(AaveV3BNB.DEBT_SWAP_ADAPTER).rescueTokens(
+      IERC20(AaveV3BNBAssets.ETH_UNDERLYING)
+    );
+    IBaseParaSwapAdapter(AaveV3BNB.DEBT_SWAP_ADAPTER).rescueTokens(
+      IERC20(AaveV3BNBAssets.USDC_UNDERLYING)
+    );
 
     AaveV3BNB.ACL_MANAGER.removeFlashBorrower(AaveV3BNB.DEBT_SWAP_ADAPTER);
   }
