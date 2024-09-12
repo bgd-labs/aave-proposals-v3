@@ -5,13 +5,13 @@ import {prefixWithImports} from './importsResolver';
 describe('prefixWithImports', () => {
   it('should resolve IProposalGenericExecutor', () => {
     expect(prefixWithImports(`is IProposalGenericExecutor {`)).toContain(
-      `import {IProposalGenericExecutor} from 'aave-helpers/interfaces/IProposalGenericExecutor.sol';`,
+      `import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';`,
     );
   });
 
   it('should resolve Engine imports', () => {
     expect(prefixWithImports(`GovV3Helpers.createPayload`)).toContain(
-      `import {GovV3Helpers} from 'aave-helpers/GovV3Helpers.sol';`,
+      `import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';`,
     );
   });
 
@@ -28,7 +28,7 @@ describe('prefixWithImports', () => {
   it('should detect v2 Engine imports', () => {
     const result = prefixWithImports('IAaveV2ConfigEngine.RateStrategyUpdate');
     expect(result).toContain(
-      `import {IAaveV2ConfigEngine} from 'aave-helpers/v2-config-engine/IAaveV2ConfigEngine.sol';`,
+      `import {IAaveV2ConfigEngine} from 'aave-helpers/src/v2-config-engine/IAaveV2ConfigEngine.sol';`,
     );
   });
 

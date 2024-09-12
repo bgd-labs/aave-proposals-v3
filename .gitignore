@@ -4,6 +4,7 @@
 # build and cache
 cache/
 out/
+zkout/
 
 # general
 .env
@@ -23,3 +24,5 @@ reports/
 
 # tooling download folder
 etherscan
+
+verify.json
