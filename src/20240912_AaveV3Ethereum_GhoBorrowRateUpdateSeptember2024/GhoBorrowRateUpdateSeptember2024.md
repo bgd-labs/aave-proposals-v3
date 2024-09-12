@@ -7,7 +7,7 @@ snapshot: "Direct-to-AIP"
 
 ## Simple Summary
 
-This AIP aims to decrease the GHO borrow rate from its current level to 5% to enhance its competitiveness in the current market conditions.
+This AIP aims to decrease the GHO borrow rate from its current level to 4.25% to enhance its competitiveness in the current market conditions.
 
 ## Motivation
 
@@ -25,7 +25,11 @@ By reducing the borrow rate, we aim to:
 
 ## Specification
 
-`BaseVariableBorrowRate` of GHO is decreased to 4.25% from 5%.
+The GHO borrow rate is to be revised as follows:
+
+| Description | Current | Proposed | Reduction |
+| ----------- | ------- | -------- | --------- |
+| Borrow Rate | 5.00%   | 4.25%    | 0.75%     |
 
 ## References
 
@@ -33,6 +37,10 @@ By reducing the borrow rate, we aim to:
 - Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240912_AaveV3Ethereum_GhoBorrowRateUpdateSeptember2024/AaveV3Ethereum_GhoBorrowRateUpdateSeptember2024_20240912.t.sol)
 - [Snapshot](Direct-to-AIP)
 - [Discussion](https://governance.aave.com/t/arfc-gho-stewards-gho-parameter-adjustments/17289/32)
+
+## Disclaimer
+
+Chaos Labs, ACI, TokenLogic and karpatkey have not been compensated by any third party for publishing this ARFC.
 
 ## Copyright
 
