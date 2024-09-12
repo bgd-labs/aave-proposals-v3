@@ -21,7 +21,28 @@ contract AaveV3Optimism_AddAdapterAsFlashBorrowerAndRevokePrevious_20240912 is
     AaveV3Optimism.ACL_MANAGER.addFlashBorrower(NEW_FLASH_BORROWER);
 
     IBaseParaSwapAdapter(AaveV3Optimism.DEBT_SWAP_ADAPTER).rescueTokens(
-      IERC20(AaveV3OptimismAssets.USDT_UNDERLYING)
+      IERC20(AaveV3OptimismAssets.WBTC_UNDERLYING)
+    );
+    IBaseParaSwapAdapter(AaveV3Optimism.DEBT_SWAP_ADAPTER).rescueTokens(
+      IERC20(AaveV3OptimismAssets.LINK_UNDERLYING)
+    );
+    IBaseParaSwapAdapter(AaveV3Optimism.DEBT_SWAP_ADAPTER).rescueTokens(
+      IERC20(AaveV3OptimismAssets.DAI_UNDERLYING)
+    );
+    IBaseParaSwapAdapter(AaveV3Optimism.DEBT_SWAP_ADAPTER).rescueTokens(
+      IERC20(AaveV3OptimismAssets.USDC_UNDERLYING)
+    );
+    IBaseParaSwapAdapter(AaveV3Optimism.DEBT_SWAP_ADAPTER).rescueTokens(
+      IERC20(AaveV3OptimismAssets.WETH_UNDERLYING)
+    );
+    IBaseParaSwapAdapter(AaveV3Optimism.DEBT_SWAP_ADAPTER).rescueTokens(
+      IERC20(AaveV3OptimismAssets.wstETH_UNDERLYING)
+    );
+    IBaseParaSwapAdapter(AaveV3Optimism.DEBT_SWAP_ADAPTER).rescueTokens(
+      IERC20(AaveV3OptimismAssets.OP_UNDERLYING)
+    );
+    IBaseParaSwapAdapter(AaveV3Optimism.DEBT_SWAP_ADAPTER).rescueTokens(
+      IERC20(AaveV3OptimismAssets.rETH_UNDERLYING)
     );
 
     AaveV3Optimism.ACL_MANAGER.removeFlashBorrower(AaveV3Optimism.DEBT_SWAP_ADAPTER);
