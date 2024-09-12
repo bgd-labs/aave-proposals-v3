@@ -13,9 +13,9 @@ This AIP aims to decrease the GHO borrow rate from its current level to 4.25% to
 
 The DeFi landscape is constantly evolving, and stablecoin protocols must adapt to remain competitive. Recent market analysis indicates:
 
-1. A general decrease in borrowing demand for stablecoins across DeFi platforms.
-2. Competing stablecoins offering more attractive rates, potentially drawing users away from GHO.
-3. An opportunity to increase GHO's market share by offering more competitive rates.
+- A general decrease in borrowing demand for stablecoins across DeFi platforms.
+- Competing stablecoins offering more attractive rates, potentially drawing users away from GHO.
+- An opportunity to increase GHO's market share by offering more competitive rates.
 
 By reducing the borrow rate, we aim to:
 
