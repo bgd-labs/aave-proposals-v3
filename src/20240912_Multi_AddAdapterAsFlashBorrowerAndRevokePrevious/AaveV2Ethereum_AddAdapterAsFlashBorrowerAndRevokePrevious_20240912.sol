@@ -19,6 +19,15 @@ contract AaveV2Ethereum_AddAdapterAsFlashBorrowerAndRevokePrevious_20240912 is
 
   function execute() external {
     IBaseParaSwapAdapter(AaveV2Ethereum.DEBT_SWAP_ADAPTER).rescueTokens(
+      IERC20(AaveV2EthereumAssets.sUSD_UNDERLYING)
+    );
+    IBaseParaSwapAdapter(AaveV2Ethereum.DEBT_SWAP_ADAPTER).rescueTokens(
+      IERC20(AaveV2EthereumAssets.USDC_UNDERLYING)
+    );
+    IBaseParaSwapAdapter(AaveV2Ethereum.DEBT_SWAP_ADAPTER).rescueTokens(
+      IERC20(AaveV2EthereumAssets.DAI_UNDERLYING)
+    );
+    IBaseParaSwapAdapter(AaveV2Ethereum.DEBT_SWAP_ADAPTER).rescueTokens(
       IERC20(AaveV2EthereumAssets.USDT_UNDERLYING)
     );
   }
