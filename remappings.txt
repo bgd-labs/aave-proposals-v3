@@ -1,5 +1,5 @@
 aave-address-book/=lib/aave-helpers/lib/aave-address-book/src/
-aave-helpers/=lib/aave-helpers/src/
+aave-helpers/=lib/aave-helpers/
 aave-v3-core/=lib/aave-helpers/lib/aave-address-book/lib/aave-v3-origin/src/core/
 aave-v3-periphery/=lib/aave-helpers/lib/aave-address-book/lib/aave-v3-origin/src/periphery/
 aave-v3-origin/=lib/aave-helpers/lib/aave-address-book/lib/aave-v3-origin/src/
