@@ -21,6 +21,15 @@ contract AaveV3Base_AddAdapterAsFlashBorrowerAndRevokePrevious_20240912 is
     AaveV3Base.ACL_MANAGER.addFlashBorrower(NEW_FLASH_BORROWER);
 
     IBaseParaSwapAdapter(AaveV3Base.DEBT_SWAP_ADAPTER).rescueTokens(
+      IERC20(AaveV3BaseAssets.USDbC_UNDERLYING)
+    );
+    IBaseParaSwapAdapter(AaveV3Base.DEBT_SWAP_ADAPTER).rescueTokens(
+      IERC20(AaveV3BaseAssets.WETH_UNDERLYING)
+    );
+    IBaseParaSwapAdapter(AaveV3Base.DEBT_SWAP_ADAPTER).rescueTokens(
+      IERC20(AaveV3BaseAssets.wstETH_UNDERLYING)
+    );
+    IBaseParaSwapAdapter(AaveV3Base.DEBT_SWAP_ADAPTER).rescueTokens(
       IERC20(AaveV3BaseAssets.USDC_UNDERLYING)
     );
 
