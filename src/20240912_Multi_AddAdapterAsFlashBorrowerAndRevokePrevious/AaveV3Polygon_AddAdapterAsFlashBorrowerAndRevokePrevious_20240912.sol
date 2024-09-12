@@ -21,7 +21,34 @@ contract AaveV3Polygon_AddAdapterAsFlashBorrowerAndRevokePrevious_20240912 is
     AaveV3Polygon.ACL_MANAGER.addFlashBorrower(NEW_FLASH_BORROWER);
 
     IBaseParaSwapAdapter(AaveV3Polygon.DEBT_SWAP_ADAPTER).rescueTokens(
+      IERC20(AaveV3PolygonAssets.WBTC_UNDERLYING)
+    );
+    IBaseParaSwapAdapter(AaveV3Polygon.DEBT_SWAP_ADAPTER).rescueTokens(
+      IERC20(AaveV3PolygonAssets.DAI_UNDERLYING)
+    );
+    IBaseParaSwapAdapter(AaveV3Polygon.DEBT_SWAP_ADAPTER).rescueTokens(
+      IERC20(AaveV3PolygonAssets.BAL_UNDERLYING)
+    );
+    IBaseParaSwapAdapter(AaveV3Polygon.DEBT_SWAP_ADAPTER).rescueTokens(
+      IERC20(AaveV3PolygonAssets.USDC_UNDERLYING)
+    );
+    IBaseParaSwapAdapter(AaveV3Polygon.DEBT_SWAP_ADAPTER).rescueTokens(
+      IERC20(AaveV3PolygonAssets.WETH_UNDERLYING)
+    );
+    IBaseParaSwapAdapter(AaveV3Polygon.DEBT_SWAP_ADAPTER).rescueTokens(
       IERC20(AaveV3PolygonAssets.USDT_UNDERLYING)
+    );
+    IBaseParaSwapAdapter(AaveV3Polygon.DEBT_SWAP_ADAPTER).rescueTokens(
+      IERC20(AaveV3PolygonAssets.LINK_UNDERLYING)
+    );
+    IBaseParaSwapAdapter(AaveV3Polygon.DEBT_SWAP_ADAPTER).rescueTokens(
+      IERC20(AaveV3PolygonAssets.DPI_UNDERLYING)
+    );
+    IBaseParaSwapAdapter(AaveV3Polygon.DEBT_SWAP_ADAPTER).rescueTokens(
+      IERC20(AaveV3PolygonAssets.MaticX_UNDERLYING)
+    );
+    IBaseParaSwapAdapter(AaveV3Polygon.DEBT_SWAP_ADAPTER).rescueTokens(
+      IERC20(AaveV3PolygonAssets.wstETH_UNDERLYING)
     );
 
     AaveV3Polygon.ACL_MANAGER.removeFlashBorrower(AaveV3Polygon.DEBT_SWAP_ADAPTER);
