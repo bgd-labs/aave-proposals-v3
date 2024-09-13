@@ -2,22 +2,7 @@
 pragma solidity ^0.8.0;
 
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
-import {AaveV3Base, AaveV3BaseAssets} from 'aave-address-book/AaveV3Base.sol';
-import {IERC20} from 'aave-v3-core/contracts/dependencies/openzeppelin/contracts/IERC20.sol';
-
-/**
- * @title Minimal IRescuable
- * @notice Defines the minimal basic interface for rescuable tokens mechanism
- **/
-interface IRescuable {
-  /**
-   * @notice Emergency rescue for token stucked on this contract, as failsafe mechanism
-   * @dev Funds should never remain in this contract more time than during transactions
-   * @dev Only callable by the owner
-   * @param token The address of the stucked token to rescue
-   */
-  function rescueTokens(IERC20 token) external;
-}
+import {AaveV3Base} from 'aave-address-book/AaveV3Base.sol';
 
 /**
  * @title AddAdapterAsFlashBorrowerAndRevokePrevious
@@ -31,15 +16,6 @@ contract AaveV3Base_AddAdapterAsFlashBorrowerAndRevokePrevious_20240912 is
   address public constant NEW_FLASH_BORROWER = 0x0000000000000000000000000000000000000001;
 
   function execute() external {
-    IRescuable(AaveV3Base.DEBT_SWAP_ADAPTER).rescueTokens(
-      IERC20(AaveV3BaseAssets.USDbC_UNDERLYING)
-    );
-    IRescuable(AaveV3Base.DEBT_SWAP_ADAPTER).rescueTokens(IERC20(AaveV3BaseAssets.WETH_UNDERLYING));
-    IRescuable(AaveV3Base.DEBT_SWAP_ADAPTER).rescueTokens(
-      IERC20(AaveV3BaseAssets.wstETH_UNDERLYING)
-    );
-    IRescuable(AaveV3Base.DEBT_SWAP_ADAPTER).rescueTokens(IERC20(AaveV3BaseAssets.USDC_UNDERLYING));
-
     AaveV3Base.ACL_MANAGER.removeFlashBorrower(AaveV3Base.DEBT_SWAP_ADAPTER);
     AaveV3Base.ACL_MANAGER.addFlashBorrower(NEW_FLASH_BORROWER);
   }
