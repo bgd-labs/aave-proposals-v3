@@ -49,7 +49,7 @@ contract AaveV3Arbitrum_AddAdapterAsFlashBorrowerAndRevokePrevious_20240912 is
       IERC20(AaveV3ArbitrumAssets.wstETH_UNDERLYING)
     );
 
-    AaveV3Arbitrum.ACL_MANAGER.addFlashBorrower(NEW_FLASH_BORROWER);
     AaveV3Arbitrum.ACL_MANAGER.removeFlashBorrower(AaveV3Arbitrum.DEBT_SWAP_ADAPTER);
+    AaveV3Arbitrum.ACL_MANAGER.addFlashBorrower(NEW_FLASH_BORROWER);
   }
 }

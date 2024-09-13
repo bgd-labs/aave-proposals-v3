@@ -18,8 +18,6 @@ contract AaveV3Polygon_AddAdapterAsFlashBorrowerAndRevokePrevious_20240912 is
   address public constant NEW_FLASH_BORROWER = 0x0000000000000000000000000000000000000001;
 
   function execute() external {
-    AaveV3Polygon.ACL_MANAGER.addFlashBorrower(NEW_FLASH_BORROWER);
-
     IBaseParaSwapAdapter(AaveV3Polygon.DEBT_SWAP_ADAPTER).rescueTokens(
       IERC20(AaveV3PolygonAssets.WBTC_UNDERLYING)
     );
@@ -52,5 +50,6 @@ contract AaveV3Polygon_AddAdapterAsFlashBorrowerAndRevokePrevious_20240912 is
     );
 
     AaveV3Polygon.ACL_MANAGER.removeFlashBorrower(AaveV3Polygon.DEBT_SWAP_ADAPTER);
+    AaveV3Polygon.ACL_MANAGER.addFlashBorrower(NEW_FLASH_BORROWER);
   }
 }

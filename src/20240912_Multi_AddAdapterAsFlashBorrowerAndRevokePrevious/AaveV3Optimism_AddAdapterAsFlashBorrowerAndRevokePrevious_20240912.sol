@@ -18,8 +18,6 @@ contract AaveV3Optimism_AddAdapterAsFlashBorrowerAndRevokePrevious_20240912 is
   address public constant NEW_FLASH_BORROWER = 0x0000000000000000000000000000000000000001;
 
   function execute() external {
-    AaveV3Optimism.ACL_MANAGER.addFlashBorrower(NEW_FLASH_BORROWER);
-
     IBaseParaSwapAdapter(AaveV3Optimism.DEBT_SWAP_ADAPTER).rescueTokens(
       IERC20(AaveV3OptimismAssets.WBTC_UNDERLYING)
     );
@@ -46,5 +44,6 @@ contract AaveV3Optimism_AddAdapterAsFlashBorrowerAndRevokePrevious_20240912 is
     );
 
     AaveV3Optimism.ACL_MANAGER.removeFlashBorrower(AaveV3Optimism.DEBT_SWAP_ADAPTER);
+    AaveV3Optimism.ACL_MANAGER.addFlashBorrower(NEW_FLASH_BORROWER);
   }
 }
