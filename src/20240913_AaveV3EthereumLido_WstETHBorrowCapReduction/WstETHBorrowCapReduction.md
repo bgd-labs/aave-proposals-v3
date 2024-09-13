@@ -29,8 +29,8 @@ When the first LRT is onboarded, the wstETH Borrow Cap will be increased to 12,0
 
 ## References
 
-- Implementation: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240913_AaveV3EthereumLido_WstETHBorrowCapReduction/AaveV3EthereumLido_WstETHBorrowCapReduction_20240913.sol)
-- Tests: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240913_AaveV3EthereumLido_WstETHBorrowCapReduction/AaveV3EthereumLido_WstETHBorrowCapReduction_20240913.t.sol)
+- Implementation: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/96388eed7be2ddcd287cf2abf08bc221e63a56bc/src/20240913_AaveV3EthereumLido_WstETHBorrowCapReduction/AaveV3EthereumLido_WstETHBorrowCapReduction_20240913.sol)
+- Tests: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/96388eed7be2ddcd287cf2abf08bc221e63a56bc/src/20240913_AaveV3EthereumLido_WstETHBorrowCapReduction/AaveV3EthereumLido_WstETHBorrowCapReduction_20240913.t.sol)
 - [Discussion](https://governance.aave.com/t/arfc-lido-instance-reduce-wsteth-borrow-cap/19016)
 
 ## Copyright
