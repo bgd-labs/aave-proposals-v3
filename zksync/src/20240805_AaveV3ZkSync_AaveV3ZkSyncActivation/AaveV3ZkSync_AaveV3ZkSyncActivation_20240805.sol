@@ -33,7 +33,6 @@ contract AaveV3ZkSync_AaveV3ZkSyncActivation_20240805 is AaveV3PayloadZkSync {
 
   function _postExecute() internal override {
     AaveV3ZkSync.ACL_MANAGER.addPoolAdmin(MiscZkSync.PROTOCOL_GUARDIAN);
-    AaveV3ZkSync.ACL_MANAGER.addRiskAdmin(AaveV3ZkSync.RISK_STEWARD);
     IEmissionManager(AaveV3ZkSync.EMISSION_MANAGER).setEmissionAdmin(ZK, ACI_MULTISIG);
 
     _supply(AaveV3ZkSync.POOL, USDC, USDC_SEED_AMOUNT, address(AaveV3ZkSync.COLLECTOR));

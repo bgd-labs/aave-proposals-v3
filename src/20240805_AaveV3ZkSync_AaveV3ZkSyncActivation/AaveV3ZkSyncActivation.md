@@ -27,7 +27,6 @@ The proposal will do the following:
 
 - List the following assets on Aave V3 zkSync: USDC, USDT, WETH, wstETH, ZK
 - Set the guardian address as the pool admin by executing `ACL_MANAGER.addPoolAdmin()`. This is following the standard procedure of keeping pool admin on the Aave Guardian during the bootstrap period, for security.
-- Set the risk steward as the risk admin by executing `ACL_MANAGER.addRiskAdmin()`.
 - Set ACI as liquidity mining admin for the ZK token by calling `EMISSION_MANAGER.setEmissionAdmin()` method.
 
 _Note: The risk params suggested by risk service providers have changed post-snapshot, and the updated one's from the [forum](https://governance.aave.com/t/arfc-deployment-of-aave-on-zksync/17937/7) are being used. As a matter of extra caution the supply and borrow caps have been further reduced._
@@ -94,7 +93,7 @@ Following the issue on the dependencies of the ZkSync Era compiler during [previ
 
 - Improved the coverage on the tests, adding some more fork test scenarios covering the issue of bitmap corruption and verifying that the zksolc `1.5.3` fixes the issue.
 
-- Reduced the supply and borrow caps further, allowing the new risk steward to slowly increase it over time.
+- Reduced the supply and borrow caps further, allowing the guardian to slowly increase it over time.
 
 ## References
 
