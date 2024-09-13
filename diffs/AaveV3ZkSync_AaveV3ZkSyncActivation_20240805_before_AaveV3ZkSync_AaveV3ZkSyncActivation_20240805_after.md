@@ -9,8 +9,8 @@
 | decimals | 6 |
 | isActive | true |
 | isFrozen | false |
-| supplyCap | 250,000 USDC |
-| borrowCap | 225,000 USDC |
+| supplyCap | 10,000 USDC |
+| borrowCap | 9,000 USDC |
 | debtCeiling | 0 $ [0] |
 | isSiloed | false |
 | isFlashloanable | true |
@@ -60,8 +60,8 @@
 | decimals | 6 |
 | isActive | true |
 | isFrozen | false |
-| supplyCap | 750,000 USDT |
-| borrowCap | 675,000 USDT |
+| supplyCap | 10,000 USDT |
+| borrowCap | 9,000 USDT |
 | debtCeiling | 0 $ [0] |
 | isSiloed | false |
 | isFlashloanable | true |
@@ -111,9 +111,9 @@
 | decimals | 18 |
 | isActive | true |
 | isFrozen | false |
-| supplyCap | 4,500,000 ZK |
-| borrowCap | 2,500,000 ZK |
-| debtCeiling | 200,000 $ [20000000] |
+| supplyCap | 100,000 ZK |
+| borrowCap | 55,000 ZK |
+| debtCeiling | 10,000 $ [1000000] |
 | isSiloed | false |
 | isFlashloanable | true |
 | eModeCategory | 0 |
@@ -162,8 +162,8 @@
 | decimals | 18 |
 | isActive | true |
 | isFrozen | false |
-| supplyCap | 250 WETH |
-| borrowCap | 225 WETH |
+| supplyCap | 5 WETH |
+| borrowCap | 4 WETH |
 | debtCeiling | 0 $ [0] |
 | isSiloed | false |
 | isFlashloanable | true |
@@ -218,8 +218,8 @@
 | decimals | 18 |
 | isActive | true |
 | isFrozen | false |
-| supplyCap | 75 wstETH |
-| borrowCap | 10 wstETH |
+| supplyCap | 3 wstETH |
+| borrowCap | 1 wstETH |
 | debtCeiling | 0 $ [0] |
 | isSiloed | false |
 | isFlashloanable | true |
@@ -293,7 +293,7 @@
         "aTokenName": "Aave ZkSync USDC",
         "aTokenSymbol": "aZksUSDC",
         "aTokenUnderlyingBalance": 10000000,
-        "borrowCap": 225000,
+        "borrowCap": 9000,
         "borrowingEnabled": true,
         "debtCeiling": 0,
         "decimals": 6,
@@ -319,7 +319,7 @@
         "stableDebtTokenImpl": "0x4dF950Ff1352B22dA739c33C35C6f0c81B5d9d19",
         "stableDebtTokenName": "Aave ZkSync Stable Debt USDC",
         "stableDebtTokenSymbol": "stableDebtZksUSDC",
-        "supplyCap": 250000,
+        "supplyCap": 10000,
         "symbol": "USDC",
         "underlying": "0x1d17CBcF0D6D143135aE902365D2E5e2A16538D4",
         "usageAsCollateralEnabled": true,
@@ -339,7 +339,7 @@
         "aTokenName": "Aave ZkSync USDT",
         "aTokenSymbol": "aZksUSDT",
         "aTokenUnderlyingBalance": 10000000,
-        "borrowCap": 675000,
+        "borrowCap": 9000,
         "borrowingEnabled": true,
         "debtCeiling": 0,
         "decimals": 6,
@@ -365,7 +365,7 @@
         "stableDebtTokenImpl": "0x4dF950Ff1352B22dA739c33C35C6f0c81B5d9d19",
         "stableDebtTokenName": "Aave ZkSync Stable Debt USDT",
         "stableDebtTokenSymbol": "stableDebtZksUSDT",
-        "supplyCap": 750000,
+        "supplyCap": 10000,
         "symbol": "USDT",
         "underlying": "0x493257fD37EDB34451f62EDf8D2a0C418852bA4C",
         "usageAsCollateralEnabled": true,
@@ -385,9 +385,9 @@
         "aTokenName": "Aave ZkSync ZK",
         "aTokenSymbol": "aZksZK",
         "aTokenUnderlyingBalance": "100000000000000000000",
-        "borrowCap": 2500000,
+        "borrowCap": 55000,
         "borrowingEnabled": true,
-        "debtCeiling": 20000000,
+        "debtCeiling": 1000000,
         "decimals": 18,
         "eModeCategory": 0,
         "interestRateStrategy": "0x73E2D854e809504b8e6d4e29ddae4ac5b40d5be1",
@@ -411,7 +411,7 @@
         "stableDebtTokenImpl": "0x4dF950Ff1352B22dA739c33C35C6f0c81B5d9d19",
         "stableDebtTokenName": "Aave ZkSync Stable Debt ZK",
         "stableDebtTokenSymbol": "stableDebtZksZK",
-        "supplyCap": 4500000,
+        "supplyCap": 100000,
         "symbol": "ZK",
         "underlying": "0x5A7d6b2F92C77FAD6CCaBd7EE0624E64907Eaf3E",
         "usageAsCollateralEnabled": true,
@@ -431,7 +431,7 @@
         "aTokenName": "Aave ZkSync WETH",
         "aTokenSymbol": "aZksWETH",
         "aTokenUnderlyingBalance": "10000000000000000",
-        "borrowCap": 225,
+        "borrowCap": 4,
         "borrowingEnabled": true,
         "debtCeiling": 0,
         "decimals": 18,
@@ -457,7 +457,7 @@
         "stableDebtTokenImpl": "0x4dF950Ff1352B22dA739c33C35C6f0c81B5d9d19",
         "stableDebtTokenName": "Aave ZkSync Stable Debt WETH",
         "stableDebtTokenSymbol": "stableDebtZksWETH",
-        "supplyCap": 250,
+        "supplyCap": 5,
         "symbol": "WETH",
         "underlying": "0x5AEa5775959fBC2557Cc8789bC1bf90A239D9a91",
         "usageAsCollateralEnabled": true,
@@ -477,7 +477,7 @@
         "aTokenName": "Aave ZkSync wstETH",
         "aTokenSymbol": "aZkswstETH",
         "aTokenUnderlyingBalance": "10000000000000000",
-        "borrowCap": 10,
+        "borrowCap": 1,
         "borrowingEnabled": true,
         "debtCeiling": 0,
         "decimals": 18,
@@ -503,7 +503,7 @@
         "stableDebtTokenImpl": "0x4dF950Ff1352B22dA739c33C35C6f0c81B5d9d19",
         "stableDebtTokenName": "Aave ZkSync Stable Debt wstETH",
         "stableDebtTokenSymbol": "stableDebtZkswstETH",
-        "supplyCap": 75,
+        "supplyCap": 3,
         "symbol": "wstETH",
         "underlying": "0x703b52F2b28fEbcB60E1372858AF5b18849FE867",
         "usageAsCollateralEnabled": true,
