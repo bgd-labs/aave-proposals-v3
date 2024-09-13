@@ -2,6 +2,7 @@
 pragma solidity ^0.8.0;
 
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
+import {AaveV2Ethereum, AaveV2EthereumAssets} from 'aave-address-book/AaveV2Ethereum.sol';
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 import {IERC20} from 'aave-v3-core/contracts/dependencies/openzeppelin/contracts/IERC20.sol';
 
@@ -48,6 +49,27 @@ contract AaveV3Ethereum_AddAdapterAsFlashBorrowerAndRevokePrevious_20240912_Test
 
   function test_isTokensRescued() external {
     GovV3Helpers.executePayload(vm, address(proposal));
+
+    assertEq(
+      IERC20(AaveV2EthereumAssets.sUSD_UNDERLYING).balanceOf(AaveV2Ethereum.DEBT_SWAP_ADAPTER),
+      0,
+      'Unexpected sUSD_UNDERLYING remaining'
+    );
+    assertEq(
+      IERC20(AaveV2EthereumAssets.USDC_UNDERLYING).balanceOf(AaveV2Ethereum.DEBT_SWAP_ADAPTER),
+      0,
+      'Unexpected USDC_UNDERLYING remaining'
+    );
+    assertEq(
+      IERC20(AaveV2EthereumAssets.DAI_UNDERLYING).balanceOf(AaveV2Ethereum.DEBT_SWAP_ADAPTER),
+      0,
+      'Unexpected DAI_UNDERLYING remaining'
+    );
+    assertEq(
+      IERC20(AaveV2EthereumAssets.USDT_UNDERLYING).balanceOf(AaveV2Ethereum.DEBT_SWAP_ADAPTER),
+      0,
+      'Unexpected USDT_UNDERLYING remaining'
+    );
 
     assertEq(
       IERC20(AaveV3EthereumAssets.USDT_UNDERLYING).balanceOf(AaveV3Ethereum.DEBT_SWAP_ADAPTER),
