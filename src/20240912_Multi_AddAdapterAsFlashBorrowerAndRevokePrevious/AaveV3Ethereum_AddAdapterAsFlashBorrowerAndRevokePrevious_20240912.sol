@@ -38,36 +38,12 @@ contract AaveV3Ethereum_AddAdapterAsFlashBorrowerAndRevokePrevious_20240912 is
     IRescuable(AaveV2Ethereum.DEBT_SWAP_ADAPTER).rescueTokens(
       IERC20(AaveV2EthereumAssets.USDC_UNDERLYING)
     );
-    IRescuable(AaveV2Ethereum.DEBT_SWAP_ADAPTER).rescueTokens(
-      IERC20(AaveV2EthereumAssets.DAI_UNDERLYING)
-    );
-    IRescuable(AaveV2Ethereum.DEBT_SWAP_ADAPTER).rescueTokens(
-      IERC20(AaveV2EthereumAssets.USDT_UNDERLYING)
-    );
 
     IRescuable(AaveV3Ethereum.DEBT_SWAP_ADAPTER).rescueTokens(
       IERC20(AaveV3EthereumAssets.USDT_UNDERLYING)
     );
     IRescuable(AaveV3Ethereum.DEBT_SWAP_ADAPTER).rescueTokens(
       IERC20(AaveV3EthereumAssets.crvUSD_UNDERLYING)
-    );
-    IRescuable(AaveV3Ethereum.DEBT_SWAP_ADAPTER).rescueTokens(
-      IERC20(AaveV3EthereumAssets.WBTC_UNDERLYING)
-    );
-    IRescuable(AaveV3Ethereum.DEBT_SWAP_ADAPTER).rescueTokens(
-      IERC20(AaveV3EthereumAssets.LINK_UNDERLYING)
-    );
-    IRescuable(AaveV3Ethereum.DEBT_SWAP_ADAPTER).rescueTokens(
-      IERC20(AaveV3EthereumAssets.cbETH_UNDERLYING)
-    );
-    IRescuable(AaveV3Ethereum.DEBT_SWAP_ADAPTER).rescueTokens(
-      IERC20(AaveV3EthereumAssets.GHO_UNDERLYING)
-    );
-    IRescuable(AaveV3Ethereum.DEBT_SWAP_ADAPTER).rescueTokens(
-      IERC20(AaveV3EthereumAssets.ENS_UNDERLYING)
-    );
-    IRescuable(AaveV3Ethereum.DEBT_SWAP_ADAPTER).rescueTokens(
-      IERC20(AaveV3EthereumAssets.wstETH_UNDERLYING)
     );
 
     AaveV3Ethereum.ACL_MANAGER.removeFlashBorrower(AaveV3Ethereum.DEBT_SWAP_ADAPTER);

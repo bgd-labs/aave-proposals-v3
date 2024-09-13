@@ -60,16 +60,6 @@ contract AaveV3Ethereum_AddAdapterAsFlashBorrowerAndRevokePrevious_20240912_Test
       0,
       'Unexpected USDC_UNDERLYING remaining'
     );
-    assertEq(
-      IERC20(AaveV2EthereumAssets.DAI_UNDERLYING).balanceOf(AaveV2Ethereum.DEBT_SWAP_ADAPTER),
-      0,
-      'Unexpected DAI_UNDERLYING remaining'
-    );
-    assertEq(
-      IERC20(AaveV2EthereumAssets.USDT_UNDERLYING).balanceOf(AaveV2Ethereum.DEBT_SWAP_ADAPTER),
-      0,
-      'Unexpected USDT_UNDERLYING remaining'
-    );
 
     assertEq(
       IERC20(AaveV3EthereumAssets.USDT_UNDERLYING).balanceOf(AaveV3Ethereum.DEBT_SWAP_ADAPTER),
@@ -80,36 +70,6 @@ contract AaveV3Ethereum_AddAdapterAsFlashBorrowerAndRevokePrevious_20240912_Test
       IERC20(AaveV3EthereumAssets.crvUSD_UNDERLYING).balanceOf(AaveV3Ethereum.DEBT_SWAP_ADAPTER),
       0,
       'Unexpected crvUSD_UNDERLYING remaining'
-    );
-    assertEq(
-      IERC20(AaveV3EthereumAssets.WBTC_UNDERLYING).balanceOf(AaveV3Ethereum.DEBT_SWAP_ADAPTER),
-      0,
-      'Unexpected WBTC_UNDERLYING remaining'
-    );
-    assertEq(
-      IERC20(AaveV3EthereumAssets.LINK_UNDERLYING).balanceOf(AaveV3Ethereum.DEBT_SWAP_ADAPTER),
-      0,
-      'Unexpected LINK_UNDERLYING remaining'
-    );
-    assertEq(
-      IERC20(AaveV3EthereumAssets.cbETH_UNDERLYING).balanceOf(AaveV3Ethereum.DEBT_SWAP_ADAPTER),
-      0,
-      'Unexpected cbETH_UNDERLYING remaining'
-    );
-    assertEq(
-      IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(AaveV3Ethereum.DEBT_SWAP_ADAPTER),
-      0,
-      'Unexpected GHO_UNDERLYING remaining'
-    );
-    assertEq(
-      IERC20(AaveV3EthereumAssets.ENS_UNDERLYING).balanceOf(AaveV3Ethereum.DEBT_SWAP_ADAPTER),
-      0,
-      'Unexpected ENS_UNDERLYING remaining'
-    );
-    assertEq(
-      IERC20(AaveV3EthereumAssets.wstETH_UNDERLYING).balanceOf(AaveV3Ethereum.DEBT_SWAP_ADAPTER),
-      0,
-      'Unexpected wstETH_UNDERLYING remaining'
     );
   }
 }
