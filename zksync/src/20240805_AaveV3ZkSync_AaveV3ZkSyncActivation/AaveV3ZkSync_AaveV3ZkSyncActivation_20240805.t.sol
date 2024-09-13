@@ -17,11 +17,10 @@ contract AaveV3ZkSync_AaveV3ZkSyncActivation_20240805_Test is ProtocolV3TestBase
   AaveV3ZkSync_AaveV3ZkSyncActivation_20240805 internal proposal;
 
   function setUp() public override {
-    vm.createSelectFork(vm.rpcUrl('zksync'), 43928110);
+    vm.createSelectFork(vm.rpcUrl('zksync'), 44104311);
     proposal = new AaveV3ZkSync_AaveV3ZkSyncActivation_20240805();
 
     super.setUp();
-    _seedExecutor();
   }
 
   /**
@@ -85,13 +84,5 @@ contract AaveV3ZkSync_AaveV3ZkSyncActivation_20240805_Test is ProtocolV3TestBase
       IERC20(aZkAddress).balanceOf(address(AaveV3ZkSync.COLLECTOR)),
       proposal.ZK_SEED_AMOUNT()
     );
-  }
-
-  function _seedExecutor() internal {
-    deal(proposal.USDC(), GovernanceV3ZkSync.EXECUTOR_LVL_1, proposal.USDC_SEED_AMOUNT());
-    deal(proposal.USDT(), GovernanceV3ZkSync.EXECUTOR_LVL_1, proposal.USDT_SEED_AMOUNT());
-    deal(proposal.WETH(), GovernanceV3ZkSync.EXECUTOR_LVL_1, proposal.WETH_SEED_AMOUNT());
-    deal(proposal.wstETH(), GovernanceV3ZkSync.EXECUTOR_LVL_1, proposal.wstETH_SEED_AMOUNT());
-    deal(proposal.ZK(), GovernanceV3ZkSync.EXECUTOR_LVL_1, proposal.ZK_SEED_AMOUNT());
   }
 }
