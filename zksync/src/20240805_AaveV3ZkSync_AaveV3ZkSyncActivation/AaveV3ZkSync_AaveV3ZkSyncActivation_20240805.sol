@@ -186,7 +186,7 @@ contract AaveV3ZkSync_AaveV3ZkSyncActivation_20240805 is AaveV3PayloadZkSync {
       reserveFactor: 20_00,
       supplyCap: 100_000,
       borrowCap: 55_000,
-      debtCeiling: 10_000,
+      debtCeiling: 800_000,
       liqProtocolFee: 20_00,
       rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
         optimalUsageRatio: 45_00,

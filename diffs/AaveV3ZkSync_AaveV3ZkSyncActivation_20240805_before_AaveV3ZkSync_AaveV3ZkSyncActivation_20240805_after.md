@@ -113,7 +113,7 @@
 | isFrozen | false |
 | supplyCap | 100,000 ZK |
 | borrowCap | 55,000 ZK |
-| debtCeiling | 10,000 $ [1000000] |
+| debtCeiling | 800,000 $ [80000000] |
 | isSiloed | false |
 | isFlashloanable | true |
 | eModeCategory | 0 |
@@ -387,7 +387,7 @@
         "aTokenUnderlyingBalance": "1000000000000000000000",
         "borrowCap": 55000,
         "borrowingEnabled": true,
-        "debtCeiling": 1000000,
+        "debtCeiling": 80000000,
         "decimals": 18,
         "eModeCategory": 0,
         "interestRateStrategy": "0x73E2D854e809504b8e6d4e29ddae4ac5b40d5be1",
