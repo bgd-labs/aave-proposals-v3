@@ -23,7 +23,7 @@ All the governance procedures for the expansion of Aave v3 to zkSync have been f
 
 ## Specification
 
-**For extra caution and security, the zkSync instance is being activated with low supply and borrow caps to allow for extensive internal testing for few days, post which the caps would be raised by the guardian after being communicated on the governance forum.**
+**For extra caution and security, the zkSync instance is being activated with low supply and borrow caps to allow for extensive internal testing for a few days, post which the caps would be raised by the guardian after being communicated on the governance forum.**
 
 The proposal will do the following:
 
