@@ -23,6 +23,8 @@ All the governance procedures for the expansion of Aave v3 to zkSync have been f
 
 ## Specification
 
+**For extra caution and security, the zkSync instance is being activated with low supply and borrow caps to allow for extensive internal testing for initial weeks, post which the caps would be raised by the guardian after being communicated on the governance forum.**
+
 The proposal will do the following:
 
 - List the following assets on Aave V3 zkSync: USDC, USDT, WETH, wstETH, ZK

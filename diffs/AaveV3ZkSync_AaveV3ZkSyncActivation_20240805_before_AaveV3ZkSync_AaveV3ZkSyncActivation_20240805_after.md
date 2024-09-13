@@ -37,14 +37,14 @@
 | interestRateStrategy | [0x73E2D854e809504b8e6d4e29ddae4ac5b40d5be1](https://era.zksync.network//address/0x73E2D854e809504b8e6d4e29ddae4ac5b40d5be1) |
 | aTokenName | Aave ZkSync USDC |
 | aTokenSymbol | aZksUSDC |
-| aTokenUnderlyingBalance | 10 USDC [10000000] |
+| aTokenUnderlyingBalance | 100 USDC [100000000] |
 | isPaused | false |
 | stableDebtTokenName | Aave ZkSync Stable Debt USDC |
 | stableDebtTokenSymbol | stableDebtZksUSDC |
 | variableDebtTokenName | Aave ZkSync Variable Debt USDC |
 | variableDebtTokenSymbol | variableDebtZksUSDC |
 | virtualAccountingActive | true |
-| virtualBalance | 10 USDC [10000000] |
+| virtualBalance | 100 USDC [100000000] |
 | optimalUsageRatio | 90 % |
 | maxVariableBorrowRate | 65.5 % |
 | baseVariableBorrowRate | 0 % |
@@ -88,14 +88,14 @@
 | interestRateStrategy | [0x73E2D854e809504b8e6d4e29ddae4ac5b40d5be1](https://era.zksync.network//address/0x73E2D854e809504b8e6d4e29ddae4ac5b40d5be1) |
 | aTokenName | Aave ZkSync USDT |
 | aTokenSymbol | aZksUSDT |
-| aTokenUnderlyingBalance | 10 USDT [10000000] |
+| aTokenUnderlyingBalance | 100 USDT [100000000] |
 | isPaused | false |
 | stableDebtTokenName | Aave ZkSync Stable Debt USDT |
 | stableDebtTokenSymbol | stableDebtZksUSDT |
 | variableDebtTokenName | Aave ZkSync Variable Debt USDT |
 | variableDebtTokenSymbol | variableDebtZksUSDT |
 | virtualAccountingActive | true |
-| virtualBalance | 10 USDT [10000000] |
+| virtualBalance | 100 USDT [100000000] |
 | optimalUsageRatio | 90 % |
 | maxVariableBorrowRate | 65.5 % |
 | baseVariableBorrowRate | 0 % |
@@ -139,14 +139,14 @@
 | interestRateStrategy | [0x73E2D854e809504b8e6d4e29ddae4ac5b40d5be1](https://era.zksync.network//address/0x73E2D854e809504b8e6d4e29ddae4ac5b40d5be1) |
 | aTokenName | Aave ZkSync ZK |
 | aTokenSymbol | aZksZK |
-| aTokenUnderlyingBalance | 100 ZK [100000000000000000000] |
+| aTokenUnderlyingBalance | 1,000 ZK [1000000000000000000000] |
 | isPaused | false |
 | stableDebtTokenName | Aave ZkSync Stable Debt ZK |
 | stableDebtTokenSymbol | stableDebtZksZK |
 | variableDebtTokenName | Aave ZkSync Variable Debt ZK |
 | variableDebtTokenSymbol | variableDebtZksZK |
 | virtualAccountingActive | true |
-| virtualBalance | 100 ZK [100000000000000000000] |
+| virtualBalance | 1,000 ZK [1000000000000000000000] |
 | optimalUsageRatio | 45 % |
 | maxVariableBorrowRate | 309 % |
 | baseVariableBorrowRate | 0 % |
@@ -190,14 +190,14 @@
 | interestRateStrategy | [0x73E2D854e809504b8e6d4e29ddae4ac5b40d5be1](https://era.zksync.network//address/0x73E2D854e809504b8e6d4e29ddae4ac5b40d5be1) |
 | aTokenName | Aave ZkSync WETH |
 | aTokenSymbol | aZksWETH |
-| aTokenUnderlyingBalance | 0.01 WETH [10000000000000000] |
+| aTokenUnderlyingBalance | 0.1 WETH [100000000000000000] |
 | isPaused | false |
 | stableDebtTokenName | Aave ZkSync Stable Debt WETH |
 | stableDebtTokenSymbol | stableDebtZksWETH |
 | variableDebtTokenName | Aave ZkSync Variable Debt WETH |
 | variableDebtTokenSymbol | variableDebtZksWETH |
 | virtualAccountingActive | true |
-| virtualBalance | 0.01 WETH [10000000000000000] |
+| virtualBalance | 0.1 WETH [100000000000000000] |
 | optimalUsageRatio | 90 % |
 | maxVariableBorrowRate | 82.7 % |
 | baseVariableBorrowRate | 0 % |
@@ -246,14 +246,14 @@
 | interestRateStrategy | [0x73E2D854e809504b8e6d4e29ddae4ac5b40d5be1](https://era.zksync.network//address/0x73E2D854e809504b8e6d4e29ddae4ac5b40d5be1) |
 | aTokenName | Aave ZkSync wstETH |
 | aTokenSymbol | aZkswstETH |
-| aTokenUnderlyingBalance | 0.01 wstETH [10000000000000000] |
+| aTokenUnderlyingBalance | 0.1 wstETH [100000000000000000] |
 | isPaused | false |
 | stableDebtTokenName | Aave ZkSync Stable Debt wstETH |
 | stableDebtTokenSymbol | stableDebtZkswstETH |
 | variableDebtTokenName | Aave ZkSync Variable Debt wstETH |
 | variableDebtTokenSymbol | variableDebtZkswstETH |
 | virtualAccountingActive | true |
-| virtualBalance | 0.01 wstETH [10000000000000000] |
+| virtualBalance | 0.1 wstETH [100000000000000000] |
 | optimalUsageRatio | 45 % |
 | maxVariableBorrowRate | 84.5 % |
 | baseVariableBorrowRate | 0 % |
@@ -292,7 +292,7 @@
         "aTokenImpl": "0x34be365Fd01ac224F21490aaC6dFd65D25434bbB",
         "aTokenName": "Aave ZkSync USDC",
         "aTokenSymbol": "aZksUSDC",
-        "aTokenUnderlyingBalance": 10000000,
+        "aTokenUnderlyingBalance": 100000000,
         "borrowCap": 9000,
         "borrowingEnabled": true,
         "debtCeiling": 0,
@@ -328,7 +328,7 @@
         "variableDebtTokenName": "Aave ZkSync Variable Debt USDC",
         "variableDebtTokenSymbol": "variableDebtZksUSDC",
         "virtualAccountingActive": true,
-        "virtualBalance": 10000000
+        "virtualBalance": 100000000
       }
     },
     "0x493257fD37EDB34451f62EDf8D2a0C418852bA4C": {
@@ -338,7 +338,7 @@
         "aTokenImpl": "0x34be365Fd01ac224F21490aaC6dFd65D25434bbB",
         "aTokenName": "Aave ZkSync USDT",
         "aTokenSymbol": "aZksUSDT",
-        "aTokenUnderlyingBalance": 10000000,
+        "aTokenUnderlyingBalance": 100000000,
         "borrowCap": 9000,
         "borrowingEnabled": true,
         "debtCeiling": 0,
@@ -374,7 +374,7 @@
         "variableDebtTokenName": "Aave ZkSync Variable Debt USDT",
         "variableDebtTokenSymbol": "variableDebtZksUSDT",
         "virtualAccountingActive": true,
-        "virtualBalance": 10000000
+        "virtualBalance": 100000000
       }
     },
     "0x5A7d6b2F92C77FAD6CCaBd7EE0624E64907Eaf3E": {
@@ -384,7 +384,7 @@
         "aTokenImpl": "0x34be365Fd01ac224F21490aaC6dFd65D25434bbB",
         "aTokenName": "Aave ZkSync ZK",
         "aTokenSymbol": "aZksZK",
-        "aTokenUnderlyingBalance": "100000000000000000000",
+        "aTokenUnderlyingBalance": "1000000000000000000000",
         "borrowCap": 55000,
         "borrowingEnabled": true,
         "debtCeiling": 1000000,
@@ -420,7 +420,7 @@
         "variableDebtTokenName": "Aave ZkSync Variable Debt ZK",
         "variableDebtTokenSymbol": "variableDebtZksZK",
         "virtualAccountingActive": true,
-        "virtualBalance": "100000000000000000000"
+        "virtualBalance": "1000000000000000000000"
       }
     },
     "0x5AEa5775959fBC2557Cc8789bC1bf90A239D9a91": {
@@ -430,7 +430,7 @@
         "aTokenImpl": "0x34be365Fd01ac224F21490aaC6dFd65D25434bbB",
         "aTokenName": "Aave ZkSync WETH",
         "aTokenSymbol": "aZksWETH",
-        "aTokenUnderlyingBalance": "10000000000000000",
+        "aTokenUnderlyingBalance": "100000000000000000",
         "borrowCap": 4,
         "borrowingEnabled": true,
         "debtCeiling": 0,
@@ -466,7 +466,7 @@
         "variableDebtTokenName": "Aave ZkSync Variable Debt WETH",
         "variableDebtTokenSymbol": "variableDebtZksWETH",
         "virtualAccountingActive": true,
-        "virtualBalance": "10000000000000000"
+        "virtualBalance": "100000000000000000"
       }
     },
     "0x703b52F2b28fEbcB60E1372858AF5b18849FE867": {
@@ -476,7 +476,7 @@
         "aTokenImpl": "0x34be365Fd01ac224F21490aaC6dFd65D25434bbB",
         "aTokenName": "Aave ZkSync wstETH",
         "aTokenSymbol": "aZkswstETH",
-        "aTokenUnderlyingBalance": "10000000000000000",
+        "aTokenUnderlyingBalance": "100000000000000000",
         "borrowCap": 1,
         "borrowingEnabled": true,
         "debtCeiling": 0,
@@ -512,7 +512,7 @@
         "variableDebtTokenName": "Aave ZkSync Variable Debt wstETH",
         "variableDebtTokenSymbol": "variableDebtZkswstETH",
         "virtualAccountingActive": true,
-        "virtualBalance": "10000000000000000"
+        "virtualBalance": "100000000000000000"
       }
     }
   },
