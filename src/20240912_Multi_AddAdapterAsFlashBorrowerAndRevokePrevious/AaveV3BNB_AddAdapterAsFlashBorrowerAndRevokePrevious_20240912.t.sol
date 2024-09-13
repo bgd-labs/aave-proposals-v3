@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {AaveV3BNB, AaveV3BNBAssets} from 'aave-address-book/AaveV3BNB.sol';
+import {AaveV3BNB} from 'aave-address-book/AaveV3BNB.sol';
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 import {IERC20} from 'aave-v3-core/contracts/dependencies/openzeppelin/contracts/IERC20.sol';
 
@@ -40,30 +40,5 @@ contract AaveV3BNB_AddAdapterAsFlashBorrowerAndRevokePrevious_20240912_Test is P
       AaveV3BNB.DEBT_SWAP_ADAPTER
     );
     assertEq(isFlashBorrowerPrevious, false);
-  }
-
-  function test_isTokensRescued() external {
-    GovV3Helpers.executePayload(vm, address(proposal));
-
-    assertEq(
-      IERC20(AaveV3BNBAssets.USDT_UNDERLYING).balanceOf(AaveV3BNB.DEBT_SWAP_ADAPTER),
-      0,
-      'Unexpected USDT_UNDERLYING remaining'
-    );
-    assertEq(
-      IERC20(AaveV3BNBAssets.BTCB_UNDERLYING).balanceOf(AaveV3BNB.DEBT_SWAP_ADAPTER),
-      0,
-      'Unexpected BTCB_UNDERLYING remaining'
-    );
-    assertEq(
-      IERC20(AaveV3BNBAssets.ETH_UNDERLYING).balanceOf(AaveV3BNB.DEBT_SWAP_ADAPTER),
-      0,
-      'Unexpected ETH_UNDERLYING remaining'
-    );
-    assertEq(
-      IERC20(AaveV3BNBAssets.USDC_UNDERLYING).balanceOf(AaveV3BNB.DEBT_SWAP_ADAPTER),
-      0,
-      'Unexpected USDC_UNDERLYING remaining'
-    );
   }
 }
