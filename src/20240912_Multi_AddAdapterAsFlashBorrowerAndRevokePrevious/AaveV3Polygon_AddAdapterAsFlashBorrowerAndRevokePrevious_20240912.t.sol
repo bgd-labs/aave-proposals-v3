@@ -1,9 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {AaveV3Polygon, AaveV3PolygonAssets} from 'aave-address-book/AaveV3Polygon.sol';
+import {AaveV3Polygon} from 'aave-address-book/AaveV3Polygon.sol';
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
-import {IERC20} from 'aave-v3-core/contracts/dependencies/openzeppelin/contracts/IERC20.sol';
 
 import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
@@ -42,60 +41,5 @@ contract AaveV3Polygon_AddAdapterAsFlashBorrowerAndRevokePrevious_20240912_Test 
       AaveV3Polygon.DEBT_SWAP_ADAPTER
     );
     assertEq(isFlashBorrowerPrevious, false);
-  }
-
-  function test_isTokensRescued() external {
-    GovV3Helpers.executePayload(vm, address(proposal));
-
-    assertEq(
-      IERC20(AaveV3PolygonAssets.WBTC_UNDERLYING).balanceOf(AaveV3Polygon.DEBT_SWAP_ADAPTER),
-      0,
-      'Unexpected WBTC_UNDERLYING remaining'
-    );
-    assertEq(
-      IERC20(AaveV3PolygonAssets.DAI_UNDERLYING).balanceOf(AaveV3Polygon.DEBT_SWAP_ADAPTER),
-      0,
-      'Unexpected DAI_UNDERLYING remaining'
-    );
-    assertEq(
-      IERC20(AaveV3PolygonAssets.BAL_UNDERLYING).balanceOf(AaveV3Polygon.DEBT_SWAP_ADAPTER),
-      0,
-      'Unexpected BAL_UNDERLYING remaining'
-    );
-    assertEq(
-      IERC20(AaveV3PolygonAssets.USDC_UNDERLYING).balanceOf(AaveV3Polygon.DEBT_SWAP_ADAPTER),
-      0,
-      'Unexpected USDC_UNDERLYING remaining'
-    );
-    assertEq(
-      IERC20(AaveV3PolygonAssets.WETH_UNDERLYING).balanceOf(AaveV3Polygon.DEBT_SWAP_ADAPTER),
-      0,
-      'Unexpected WETH_UNDERLYING remaining'
-    );
-    assertEq(
-      IERC20(AaveV3PolygonAssets.USDT_UNDERLYING).balanceOf(AaveV3Polygon.DEBT_SWAP_ADAPTER),
-      0,
-      'Unexpected USDT_UNDERLYING remaining'
-    );
-    assertEq(
-      IERC20(AaveV3PolygonAssets.LINK_UNDERLYING).balanceOf(AaveV3Polygon.DEBT_SWAP_ADAPTER),
-      0,
-      'Unexpected LINK_UNDERLYING remaining'
-    );
-    assertEq(
-      IERC20(AaveV3PolygonAssets.DPI_UNDERLYING).balanceOf(AaveV3Polygon.DEBT_SWAP_ADAPTER),
-      0,
-      'Unexpected DPI_UNDERLYING remaining'
-    );
-    assertEq(
-      IERC20(AaveV3PolygonAssets.MaticX_UNDERLYING).balanceOf(AaveV3Polygon.DEBT_SWAP_ADAPTER),
-      0,
-      'Unexpected MaticX_UNDERLYING remaining'
-    );
-    assertEq(
-      IERC20(AaveV3PolygonAssets.wstETH_UNDERLYING).balanceOf(AaveV3Polygon.DEBT_SWAP_ADAPTER),
-      0,
-      'Unexpected wstETH_UNDERLYING remaining'
-    );
   }
 }

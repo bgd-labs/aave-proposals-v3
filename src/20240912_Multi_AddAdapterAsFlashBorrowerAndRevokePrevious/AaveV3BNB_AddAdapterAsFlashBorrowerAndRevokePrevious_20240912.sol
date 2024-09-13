@@ -2,7 +2,7 @@
 pragma solidity ^0.8.0;
 
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
-import {AaveV3BNB, AaveV3BNBAssets} from 'aave-address-book/AaveV3BNB.sol';
+import {AaveV3BNB} from 'aave-address-book/AaveV3BNB.sol';
 
 /**
  * @title AddAdapterAsFlashBorrowerAndRevokePrevious

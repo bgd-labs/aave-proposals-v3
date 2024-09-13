@@ -3,7 +3,6 @@ pragma solidity ^0.8.0;
 
 import {AaveV3BNB} from 'aave-address-book/AaveV3BNB.sol';
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
-import {IERC20} from 'aave-v3-core/contracts/dependencies/openzeppelin/contracts/IERC20.sol';
 
 import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
