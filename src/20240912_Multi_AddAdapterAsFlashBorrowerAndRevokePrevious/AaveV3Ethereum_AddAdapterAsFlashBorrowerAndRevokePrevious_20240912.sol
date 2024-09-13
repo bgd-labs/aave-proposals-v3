@@ -4,8 +4,21 @@ pragma solidity ^0.8.0;
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {AaveV2Ethereum, AaveV2EthereumAssets} from 'aave-address-book/AaveV2Ethereum.sol';
-import {IBaseParaSwapAdapter} from './interfaces/IBaseParaSwapAdapter.sol';
 import {IERC20} from 'aave-v3-core/contracts/dependencies/openzeppelin/contracts/IERC20.sol';
+
+/**
+ * @title Minimal IRescuable
+ * @notice Defines the minimal basic interface for rescuable tokens mechanism
+ **/
+interface IRescuable {
+  /**
+   * @notice Emergency rescue for token stucked on this contract, as failsafe mechanism
+   * @dev Funds should never remain in this contract more time than during transactions
+   * @dev Only callable by the owner
+   * @param token The address of the stucked token to rescue
+   */
+  function rescueTokens(IERC20 token) external;
+}
 
 /**
  * @title AddAdapterAsFlashBorrowerAndRevokePrevious
@@ -19,41 +32,41 @@ contract AaveV3Ethereum_AddAdapterAsFlashBorrowerAndRevokePrevious_20240912 is
   address public constant NEW_FLASH_BORROWER = 0x0000000000000000000000000000000000000001;
 
   function execute() external {
-    IBaseParaSwapAdapter(AaveV2Ethereum.DEBT_SWAP_ADAPTER).rescueTokens(
+    IRescuable(AaveV2Ethereum.DEBT_SWAP_ADAPTER).rescueTokens(
       IERC20(AaveV2EthereumAssets.sUSD_UNDERLYING)
     );
-    IBaseParaSwapAdapter(AaveV2Ethereum.DEBT_SWAP_ADAPTER).rescueTokens(
+    IRescuable(AaveV2Ethereum.DEBT_SWAP_ADAPTER).rescueTokens(
       IERC20(AaveV2EthereumAssets.USDC_UNDERLYING)
     );
-    IBaseParaSwapAdapter(AaveV2Ethereum.DEBT_SWAP_ADAPTER).rescueTokens(
+    IRescuable(AaveV2Ethereum.DEBT_SWAP_ADAPTER).rescueTokens(
       IERC20(AaveV2EthereumAssets.DAI_UNDERLYING)
     );
-    IBaseParaSwapAdapter(AaveV2Ethereum.DEBT_SWAP_ADAPTER).rescueTokens(
+    IRescuable(AaveV2Ethereum.DEBT_SWAP_ADAPTER).rescueTokens(
       IERC20(AaveV2EthereumAssets.USDT_UNDERLYING)
     );
 
-    IBaseParaSwapAdapter(AaveV3Ethereum.DEBT_SWAP_ADAPTER).rescueTokens(
+    IRescuable(AaveV3Ethereum.DEBT_SWAP_ADAPTER).rescueTokens(
       IERC20(AaveV3EthereumAssets.USDT_UNDERLYING)
     );
-    IBaseParaSwapAdapter(AaveV3Ethereum.DEBT_SWAP_ADAPTER).rescueTokens(
+    IRescuable(AaveV3Ethereum.DEBT_SWAP_ADAPTER).rescueTokens(
       IERC20(AaveV3EthereumAssets.crvUSD_UNDERLYING)
     );
-    IBaseParaSwapAdapter(AaveV3Ethereum.DEBT_SWAP_ADAPTER).rescueTokens(
+    IRescuable(AaveV3Ethereum.DEBT_SWAP_ADAPTER).rescueTokens(
       IERC20(AaveV3EthereumAssets.WBTC_UNDERLYING)
     );
-    IBaseParaSwapAdapter(AaveV3Ethereum.DEBT_SWAP_ADAPTER).rescueTokens(
+    IRescuable(AaveV3Ethereum.DEBT_SWAP_ADAPTER).rescueTokens(
       IERC20(AaveV3EthereumAssets.LINK_UNDERLYING)
     );
-    IBaseParaSwapAdapter(AaveV3Ethereum.DEBT_SWAP_ADAPTER).rescueTokens(
+    IRescuable(AaveV3Ethereum.DEBT_SWAP_ADAPTER).rescueTokens(
       IERC20(AaveV3EthereumAssets.cbETH_UNDERLYING)
     );
-    IBaseParaSwapAdapter(AaveV3Ethereum.DEBT_SWAP_ADAPTER).rescueTokens(
+    IRescuable(AaveV3Ethereum.DEBT_SWAP_ADAPTER).rescueTokens(
       IERC20(AaveV3EthereumAssets.GHO_UNDERLYING)
     );
-    IBaseParaSwapAdapter(AaveV3Ethereum.DEBT_SWAP_ADAPTER).rescueTokens(
+    IRescuable(AaveV3Ethereum.DEBT_SWAP_ADAPTER).rescueTokens(
       IERC20(AaveV3EthereumAssets.ENS_UNDERLYING)
     );
-    IBaseParaSwapAdapter(AaveV3Ethereum.DEBT_SWAP_ADAPTER).rescueTokens(
+    IRescuable(AaveV3Ethereum.DEBT_SWAP_ADAPTER).rescueTokens(
       IERC20(AaveV3EthereumAssets.wstETH_UNDERLYING)
     );
 
