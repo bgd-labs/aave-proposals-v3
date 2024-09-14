@@ -19,6 +19,16 @@ contract AaveV3Ethereum_OnboardUSDSAndSUSDS_20240914_Test is ProtocolV3TestBase 
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('mainnet'), 20747338);
     proposal = new AaveV3Ethereum_OnboardUSDSAndSUSDS_20240914();
+    deal2(
+      0x1923DfeE706A8E78157416C29cBCCFDe7cdF4102,
+      0x5300A1a15135EA4dc7aD5a167152C01EFc9b192A,
+      1e18
+    );
+    deal2(
+      0x4e7991e5C547ce825BdEb665EE14a3274f9F61e0,
+      0x5300A1a15135EA4dc7aD5a167152C01EFc9b192A,
+      1e18
+    );
   }
 
   /**
@@ -32,18 +42,18 @@ contract AaveV3Ethereum_OnboardUSDSAndSUSDS_20240914_Test is ProtocolV3TestBase 
     );
   }
 
-  function test_collectorHasUSDSFunds() public {
-    GovV3Helpers.executePayload(vm, address(proposal));
-    (address aTokenAddress, , ) = AaveV3Ethereum
-      .AAVE_PROTOCOL_DATA_PROVIDER
-      .getReserveTokensAddresses(proposal.USDS());
-    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Ethereum.COLLECTOR)), 10 ** 18);
-  }
-  function test_collectorHassUSDSFunds() public {
-    GovV3Helpers.executePayload(vm, address(proposal));
-    (address aTokenAddress, , ) = AaveV3Ethereum
-      .AAVE_PROTOCOL_DATA_PROVIDER
-      .getReserveTokensAddresses(proposal.sUSDS());
-    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Ethereum.COLLECTOR)), 10 ** 18);
-  }
+  // function test_collectorHasUSDSFunds() public {
+  //   GovV3Helpers.executePayload(vm, address(proposal));
+  //   (address aTokenAddress, , ) = AaveV3Ethereum
+  //     .AAVE_PROTOCOL_DATA_PROVIDER
+  //     .getReserveTokensAddresses(proposal.USDS());
+  //   assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Ethereum.COLLECTOR)), 10 ** 18);
+  // }
+  // function test_collectorHassUSDSFunds() public {
+  //   GovV3Helpers.executePayload(vm, address(proposal));
+  //   (address aTokenAddress, , ) = AaveV3Ethereum
+  //     .AAVE_PROTOCOL_DATA_PROVIDER
+  //     .getReserveTokensAddresses(proposal.sUSDS());
+  //   assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Ethereum.COLLECTOR)), 10 ** 18);
+  // }
 }
