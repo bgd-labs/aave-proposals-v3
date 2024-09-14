@@ -42,18 +42,18 @@ contract AaveV3Ethereum_OnboardUSDSAndSUSDS_20240914_Test is ProtocolV3TestBase 
     );
   }
 
-  // function test_collectorHasUSDSFunds() public {
-  //   GovV3Helpers.executePayload(vm, address(proposal));
-  //   (address aTokenAddress, , ) = AaveV3Ethereum
-  //     .AAVE_PROTOCOL_DATA_PROVIDER
-  //     .getReserveTokensAddresses(proposal.USDS());
-  //   assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Ethereum.COLLECTOR)), 10 ** 18);
-  // }
-  // function test_collectorHassUSDSFunds() public {
-  //   GovV3Helpers.executePayload(vm, address(proposal));
-  //   (address aTokenAddress, , ) = AaveV3Ethereum
-  //     .AAVE_PROTOCOL_DATA_PROVIDER
-  //     .getReserveTokensAddresses(proposal.sUSDS());
-  //   assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Ethereum.COLLECTOR)), 10 ** 18);
-  // }
+  function test_collectorHasUSDSFunds() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+    (address aTokenAddress, , ) = AaveV3Ethereum
+      .AAVE_PROTOCOL_DATA_PROVIDER
+      .getReserveTokensAddresses(proposal.USDS());
+    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Ethereum.COLLECTOR)), 10 ** 18);
+  }
+  function test_collectorHassUSDSFunds() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+    (address aTokenAddress, , ) = AaveV3Ethereum
+      .AAVE_PROTOCOL_DATA_PROVIDER
+      .getReserveTokensAddresses(proposal.sUSDS());
+    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Ethereum.COLLECTOR)), 10 ** 18);
+  }
 }
