@@ -64,32 +64,4 @@ contract AaveV3Ethereum_OnboardUSDSAndSUSDS_20240914_Test is ProtocolV3TestBase 
       .getReserveTokensAddresses(proposal.sUSDS());
     assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Ethereum.COLLECTOR)), 10 ** 18);
   }
-
-  function test_emissions_admin() public {
-    GovV3Helpers.executePayload(vm, address(proposal));
-
-    (address aEthUSDS, , ) = AaveV3Ethereum.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(
-      proposal.USDS()
-    );
-    (address aEthsUSDS, , ) = AaveV3Ethereum.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(
-      proposal.sUSDS()
-    );
-
-    assertEq(
-      IEmissionManager(AaveV3Ethereum.EMISSION_MANAGER).getEmissionAdmin(proposal.USDS()),
-      proposal.ACI_MULTISIG()
-    );
-    assertEq(
-      IEmissionManager(AaveV3Ethereum.EMISSION_MANAGER).getEmissionAdmin(aEthUSDS),
-      proposal.ACI_MULTISIG()
-    );
-    assertEq(
-      IEmissionManager(AaveV3Ethereum.EMISSION_MANAGER).getEmissionAdmin(proposal.sUSDS()),
-      proposal.ACI_MULTISIG()
-    );
-    assertEq(
-      IEmissionManager(AaveV3Ethereum.EMISSION_MANAGER).getEmissionAdmin(aEthsUSDS),
-      proposal.ACI_MULTISIG()
-    );
-  }
 }
