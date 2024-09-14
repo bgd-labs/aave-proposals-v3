@@ -1,5 +1,5 @@
 ---
-title: "Onboard USDS and SUSDS"
+title: "Onboard USDS and SUSDS Part I"
 author: "ACI"
 discussions: "https://governance.aave.com/t/arfc-onboard-usds-and-susds-to-aave-v3/18987"
 snapshot: "Direct-to-AIP"
@@ -7,7 +7,7 @@ snapshot: "Direct-to-AIP"
 
 ## Simple Summary
 
-This proposal aims to onboard USDS and sUSDS, the rebranded DAI and sDAI tokens to Aave v3.
+This proposal aims to onboard USDS and sUSDS, the rebranded DAI and sDAI tokens to Aave v3 Main Pool.
 
 ## Motivation
 
@@ -18,6 +18,12 @@ By integrating USDS and sUSDS into Aave v3, we aim to maintain continuity for us
 ### Benefits of listing USDS and sUSDS
 
 DAI and sDAI have been a success and in order to not lose marketshare to other protocols as some DAI holders migrate to the new tokens, it is in the DAO’s interest to capture this demand. As there will be incentive programs running this also provides the opportunity for Aave users to benefit from these.
+
+### Two Part AIP
+
+For easier integration & implementation, this AIP only seeks to onboard USDS & sUSDS on the Aave Ethereum Main pool.
+
+A second part will consider onboarding them on the Lido Instance alongside other stablecoins.
 
 ## Specification
 
