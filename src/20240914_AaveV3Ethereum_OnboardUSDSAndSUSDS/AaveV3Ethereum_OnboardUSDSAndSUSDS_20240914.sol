@@ -7,6 +7,8 @@ import {EngineFlags} from 'aave-v3-periphery/contracts/v3-config-engine/EngineFl
 import {IAaveV3ConfigEngine} from 'aave-v3-periphery/contracts/v3-config-engine/IAaveV3ConfigEngine.sol';
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';
+import {IPoolAddressesProviderRegistry} from 'aave-v3-core/contracts/interfaces/IPoolAddressesProviderRegistry.sol';
+import {IEmissionManager} from 'aave-v3-periphery/contracts/rewards/interfaces/IEmissionManager.sol';
 /**
  * @title Onboard USDS and SUSDS
  * @author ACI
@@ -17,15 +19,28 @@ contract AaveV3Ethereum_OnboardUSDSAndSUSDS_20240914 is AaveV3PayloadEthereum {
   using SafeERC20 for IERC20;
 
   address public constant USDS = 0x1923DfeE706A8E78157416C29cBCCFDe7cdF4102;
-  uint256 public constant USDS_SEED_AMOUNT = 1e18;
+  uint256 public constant USDS_SEED_AMOUNT = 100e18;
   address public constant sUSDS = 0x4e7991e5C547ce825BdEb665EE14a3274f9F61e0;
-  uint256 public constant sUSDS_SEED_AMOUNT = 1e18;
+  uint256 public constant sUSDS_SEED_AMOUNT = 100e18;
+  address public constant ACI_MULTISIG = 0xac140648435d03f784879cd789130F22Ef588Fcd;
 
   function _postExecute() internal override {
     IERC20(USDS).forceApprove(address(AaveV3Ethereum.POOL), USDS_SEED_AMOUNT);
     AaveV3Ethereum.POOL.supply(USDS, USDS_SEED_AMOUNT, address(AaveV3Ethereum.COLLECTOR), 0);
     IERC20(sUSDS).forceApprove(address(AaveV3Ethereum.POOL), sUSDS_SEED_AMOUNT);
     AaveV3Ethereum.POOL.supply(sUSDS, sUSDS_SEED_AMOUNT, address(AaveV3Ethereum.COLLECTOR), 0);
+
+    (address aEthsUSDS, , ) = AaveV3Ethereum.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(
+      sUSDS
+    );
+    (address aEthUSDS, , ) = AaveV3Ethereum.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(
+      USDS
+    );
+
+    IEmissionManager(AaveV3Ethereum.EMISSION_MANAGER).setEmissionAdmin(sUSDS, ACI_MULTISIG);
+    IEmissionManager(AaveV3Ethereum.EMISSION_MANAGER).setEmissionAdmin(USDS, ACI_MULTISIG);
+    IEmissionManager(AaveV3Ethereum.EMISSION_MANAGER).setEmissionAdmin(aEthsUSDS, ACI_MULTISIG);
+    IEmissionManager(AaveV3Ethereum.EMISSION_MANAGER).setEmissionAdmin(aEthUSDS, ACI_MULTISIG);
   }
 
   function newListings() public pure override returns (IAaveV3ConfigEngine.Listing[] memory) {

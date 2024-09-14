@@ -37,14 +37,14 @@
 | interestRateStrategy | [0x847A3364Cc5fE389283bD821cfC8A477288D9e82](https://etherscan.io/address/0x847A3364Cc5fE389283bD821cfC8A477288D9e82) |
 | aTokenName | Aave Ethereum USDS |
 | aTokenSymbol | aEthUSDS |
-| aTokenUnderlyingBalance | 1 USDS [1000000000000000000] |
+| aTokenUnderlyingBalance | 100 USDS [100000000000000000000] |
 | isPaused | false |
 | stableDebtTokenName | Aave Ethereum Stable Debt USDS |
 | stableDebtTokenSymbol | stableDebtEthUSDS |
 | variableDebtTokenName | Aave Ethereum Variable Debt USDS |
 | variableDebtTokenSymbol | variableDebtEthUSDS |
 | virtualAccountingActive | true |
-| virtualBalance | 1 USDS [1000000000000000000] |
+| virtualBalance | 100 USDS [100000000000000000000] |
 | optimalUsageRatio | 90 % |
 | maxVariableBorrowRate | 80.5 % |
 | baseVariableBorrowRate | 0 % |
@@ -88,14 +88,14 @@
 | interestRateStrategy | [0x847A3364Cc5fE389283bD821cfC8A477288D9e82](https://etherscan.io/address/0x847A3364Cc5fE389283bD821cfC8A477288D9e82) |
 | aTokenName | Aave Ethereum sUSDS |
 | aTokenSymbol | aEthsUSDS |
-| aTokenUnderlyingBalance | 1 sUSDS [1000000000000000000] |
+| aTokenUnderlyingBalance | 100 sUSDS [100000000000000000000] |
 | isPaused | false |
 | stableDebtTokenName | Aave Ethereum Stable Debt sUSDS |
 | stableDebtTokenSymbol | stableDebtEthsUSDS |
 | variableDebtTokenName | Aave Ethereum Variable Debt sUSDS |
 | variableDebtTokenSymbol | variableDebtEthsUSDS |
 | virtualAccountingActive | true |
-| virtualBalance | 1 sUSDS [1000000000000000000] |
+| virtualBalance | 100 sUSDS [100000000000000000000] |
 | optimalUsageRatio | 90 % |
 | maxVariableBorrowRate | 80.5 % |
 | baseVariableBorrowRate | 0 % |
@@ -116,7 +116,7 @@
         "aTokenImpl": "0x7EfFD7b47Bfd17e52fB7559d3f924201b9DbfF3d",
         "aTokenName": "Aave Ethereum USDS",
         "aTokenSymbol": "aEthUSDS",
-        "aTokenUnderlyingBalance": "1000000000000000000",
+        "aTokenUnderlyingBalance": "100000000000000000000",
         "borrowCap": 45000000,
         "borrowingEnabled": true,
         "debtCeiling": 0,
@@ -152,7 +152,7 @@
         "variableDebtTokenName": "Aave Ethereum Variable Debt USDS",
         "variableDebtTokenSymbol": "variableDebtEthUSDS",
         "virtualAccountingActive": true,
-        "virtualBalance": "1000000000000000000"
+        "virtualBalance": "100000000000000000000"
       }
     },
     "0x4e7991e5C547ce825BdEb665EE14a3274f9F61e0": {
@@ -162,7 +162,7 @@
         "aTokenImpl": "0x7EfFD7b47Bfd17e52fB7559d3f924201b9DbfF3d",
         "aTokenName": "Aave Ethereum sUSDS",
         "aTokenSymbol": "aEthsUSDS",
-        "aTokenUnderlyingBalance": "1000000000000000000",
+        "aTokenUnderlyingBalance": "100000000000000000000",
         "borrowCap": 0,
         "borrowingEnabled": false,
         "debtCeiling": 0,
@@ -198,7 +198,7 @@
         "variableDebtTokenName": "Aave Ethereum Variable Debt sUSDS",
         "variableDebtTokenSymbol": "variableDebtEthsUSDS",
         "virtualAccountingActive": true,
-        "virtualBalance": "1000000000000000000"
+        "virtualBalance": "100000000000000000000"
       }
     }
   },
