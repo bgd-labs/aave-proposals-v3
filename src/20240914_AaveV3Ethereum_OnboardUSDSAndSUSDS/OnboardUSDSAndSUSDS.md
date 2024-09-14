@@ -7,7 +7,7 @@ snapshot: "Direct-to-AIP"
 
 ## Simple Summary
 
-This proposal aims to onboard USDS and sUSDS, the rebranded DAI and sDAI tokens to Aave v3 Main Pool.
+This proposal aims to onboard USDS and sUSDS, the rebranded DAI and sDAI tokens to Aave v3 Ethereum Main Pool.
 
 ## Motivation
 
