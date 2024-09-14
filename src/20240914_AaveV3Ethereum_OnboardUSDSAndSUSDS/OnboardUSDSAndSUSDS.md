@@ -75,10 +75,6 @@ The table below illustrates the configured risk parameters for **USDS**
 
 \*\* Similarly as with USDS, sUSDS will use a CAPO DAI/USD combined with the USDS <> sUSDS exchange rate
 
-### Note on Incentives
-
-To coordinate and implement incentives for these new assets, the ACI Multisig has been assigned the role of emission manager for USDS, sUSDS, and their respective aTokens.
-
 ## References
 
 - Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240914_AaveV3Ethereum_OnboardUSDSAndSUSDS/AaveV3Ethereum_OnboardUSDSAndSUSDS_20240914.sol)
