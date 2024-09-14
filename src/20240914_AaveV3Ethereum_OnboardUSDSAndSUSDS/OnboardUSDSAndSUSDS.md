@@ -44,7 +44,9 @@ The table below illustrates the configured risk parameters for **USDS**
 | Flashloanable             |                                    ENABLED |
 | Siloed Borrowing          |                                   DISABLED |
 | Borrowable in Isolation   |                                   DISABLED |
-| Oracle                    | 0x4F01b76391A05d32B20FA2d05dD5963eE8db20E6 |
+| Oracle\*                  | 0x4F01b76391A05d32B20FA2d05dD5963eE8db20E6 |
+
+- Due to expected liquidity conditions on launch of USDS and bidirectional migration venus with DAI, a CAPO DAI/USD feed is used
 
 ,The table below illustrates the configured risk parameters for **sUSDS**
 
@@ -69,7 +71,9 @@ The table below illustrates the configured risk parameters for **USDS**
 | Flashloanable             |                                    ENABLED |
 | Siloed Borrowing          |                                   DISABLED |
 | Borrowable in Isolation   |                                   DISABLED |
-| Oracle                    | 0x408e905577653430Bb80d91e0ca433b338CEA7C6 |
+| Oracle\*                  | 0x408e905577653430Bb80d91e0ca433b338CEA7C6 |
+
+\*\* Similarly as with USDS, sUSDS will use a CAPO DAI/USD combined with the USDS <> sUSDS exchange rate
 
 ## References
 
