@@ -19,15 +19,19 @@ contract AaveV3Ethereum_OnboardUSDSAndSUSDS_20240914_Test is ProtocolV3TestBase 
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('mainnet'), 20747338);
     proposal = new AaveV3Ethereum_OnboardUSDSAndSUSDS_20240914();
-    deal2(
-      0x1923DfeE706A8E78157416C29cBCCFDe7cdF4102,
-      0x5300A1a15135EA4dc7aD5a167152C01EFc9b192A,
-      1e18
+    deal2(proposal.USDS(), 0x5300A1a15135EA4dc7aD5a167152C01EFc9b192A, 1e18);
+    deal2(proposal.sUSDS(), 0x5300A1a15135EA4dc7aD5a167152C01EFc9b192A, 1e18);
+
+    vm.mockCall(
+      proposal.USDS(),
+      abi.encodeWithSelector(IERC20.totalSupply.selector),
+      abi.encode(100_000_000 * 1 ether)
     );
-    deal2(
-      0x4e7991e5C547ce825BdEb665EE14a3274f9F61e0,
-      0x5300A1a15135EA4dc7aD5a167152C01EFc9b192A,
-      1e18
+
+    vm.mockCall(
+      proposal.sUSDS(),
+      abi.encodeWithSelector(IERC20.totalSupply.selector),
+      abi.encode(100_000_000 * 1 ether)
     );
   }
 
