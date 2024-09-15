@@ -93,7 +93,7 @@ Below are the per contract comparative diffs of the contract modifications relat
 
 Following the issue on the dependencies of the ZkSync Era compiler during [previous activation](https://vote.onaave.com/proposal/?proposalId=153), as a matter of extra security procedures we have:
 
-- Improved the coverage on the tests, adding some more fork test scenarios covering the issue of bitmap corruption and verifying that the zksolc `1.5.3` fixes the issue. The tests can be found [here](https://github.com/bgd-labs/aave-v3-origin/tree/7795b1518c30dc51db5708d66c2e43521c36aa92/tests).
+- Improved the coverage on the tests, adding some more fork test scenarios covering the issue of bitmap corruption and verifying that the zksolc `1.5.3` fixes the issue. The tests can be found [here](https://github.com/bgd-labs/aave-v3-origin/blob/feat/zksync-tests/tests/core/Pool.E2e.t.sol).
 
 - Reduced the supply and borrow caps further, allowing the guardian to slowly increase it over time.
 
