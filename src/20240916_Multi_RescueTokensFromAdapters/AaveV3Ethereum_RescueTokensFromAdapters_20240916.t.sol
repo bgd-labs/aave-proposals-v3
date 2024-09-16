@@ -31,12 +31,6 @@ contract AaveV3Ethereum_RescueTokensFromAdapters_20240916_Test is ProtocolV3Test
       AaveV3Ethereum.POOL,
       address(proposal)
     );
-
-    defaultTest(
-      'AaveV3Ethereum_RescueTokensFromAdapters_20240916',
-      AaveV2Ethereum.POOL,
-      address(proposal)
-    );
   }
 
   function test_isTokensRescued() external {
