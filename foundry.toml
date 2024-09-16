@@ -28,7 +28,7 @@ bytecode_hash = 'none'
 compile = true
 fallback_oz = true
 mode = '3'
-zksolc = '1.5.1'
+zksolc = '1.5.3'
 
 # incomplete list at https://www.evmdiff.com/features?name=PUSH0&kind=opcode
 [profile.metis]
