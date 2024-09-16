@@ -45,49 +45,4 @@ contract AaveV3Avalanche_AddAdapterAsFlashBorrowerAndRevokePrevious_20240912_Tes
     );
     assertEq(isFlashBorrowerPrevious, false);
   }
-
-  function test_isTokensRescued() external {
-    GovV3Helpers.executePayload(vm, address(proposal));
-
-    assertEq(
-      IERC20(AaveV3AvalancheAssets.USDC_UNDERLYING).balanceOf(AaveV3Avalanche.DEBT_SWAP_ADAPTER),
-      0,
-      'Unexpected USDC_UNDERLYING remaining'
-    );
-    assertEq(
-      IERC20(AaveV3AvalancheAssets.USDt_UNDERLYING).balanceOf(AaveV3Avalanche.DEBT_SWAP_ADAPTER),
-      0,
-      'Unexpected USDt_UNDERLYING remaining'
-    );
-    assertEq(
-      IERC20(AaveV3AvalancheAssets.WAVAX_UNDERLYING).balanceOf(AaveV3Avalanche.DEBT_SWAP_ADAPTER),
-      0,
-      'Unexpected WAVAX_UNDERLYING remaining'
-    );
-    assertEq(
-      IERC20(AaveV3AvalancheAssets.BTCb_UNDERLYING).balanceOf(AaveV3Avalanche.DEBT_SWAP_ADAPTER),
-      0,
-      'Unexpected BTCb_UNDERLYING remaining'
-    );
-    assertEq(
-      IERC20(AaveV3AvalancheAssets.WETHe_UNDERLYING).balanceOf(AaveV3Avalanche.DEBT_SWAP_ADAPTER),
-      0,
-      'Unexpected WETHe_UNDERLYING remaining'
-    );
-    assertEq(
-      IERC20(AaveV3AvalancheAssets.DAIe_UNDERLYING).balanceOf(AaveV3Avalanche.DEBT_SWAP_ADAPTER),
-      0,
-      'Unexpected DAIe_UNDERLYING remaining'
-    );
-    assertEq(
-      IERC20(AaveV3AvalancheAssets.FRAX_UNDERLYING).balanceOf(AaveV3Avalanche.DEBT_SWAP_ADAPTER),
-      0,
-      'Unexpected FRAX_UNDERLYING remaining'
-    );
-    assertEq(
-      IERC20(AaveV3AvalancheAssets.LINKe_UNDERLYING).balanceOf(AaveV3Avalanche.DEBT_SWAP_ADAPTER),
-      0,
-      'Unexpected LINKe_UNDERLYING remaining'
-    );
-  }
 }

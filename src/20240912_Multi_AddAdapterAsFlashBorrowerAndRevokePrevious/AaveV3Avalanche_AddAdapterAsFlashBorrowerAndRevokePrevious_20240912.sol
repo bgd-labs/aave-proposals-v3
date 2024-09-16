@@ -31,31 +31,6 @@ contract AaveV3Avalanche_AddAdapterAsFlashBorrowerAndRevokePrevious_20240912 is
   address public constant NEW_FLASH_BORROWER = 0x0000000000000000000000000000000000000001;
 
   function execute() external {
-    IRescuable(AaveV3Avalanche.DEBT_SWAP_ADAPTER).rescueTokens(
-      IERC20(AaveV3AvalancheAssets.USDC_UNDERLYING)
-    );
-    IRescuable(AaveV3Avalanche.DEBT_SWAP_ADAPTER).rescueTokens(
-      IERC20(AaveV3AvalancheAssets.USDt_UNDERLYING)
-    );
-    IRescuable(AaveV3Avalanche.DEBT_SWAP_ADAPTER).rescueTokens(
-      IERC20(AaveV3AvalancheAssets.WAVAX_UNDERLYING)
-    );
-    IRescuable(AaveV3Avalanche.DEBT_SWAP_ADAPTER).rescueTokens(
-      IERC20(AaveV3AvalancheAssets.BTCb_UNDERLYING)
-    );
-    IRescuable(AaveV3Avalanche.DEBT_SWAP_ADAPTER).rescueTokens(
-      IERC20(AaveV3AvalancheAssets.WETHe_UNDERLYING)
-    );
-    IRescuable(AaveV3Avalanche.DEBT_SWAP_ADAPTER).rescueTokens(
-      IERC20(AaveV3AvalancheAssets.DAIe_UNDERLYING)
-    );
-    IRescuable(AaveV3Avalanche.DEBT_SWAP_ADAPTER).rescueTokens(
-      IERC20(AaveV3AvalancheAssets.FRAX_UNDERLYING)
-    );
-    IRescuable(AaveV3Avalanche.DEBT_SWAP_ADAPTER).rescueTokens(
-      IERC20(AaveV3AvalancheAssets.LINKe_UNDERLYING)
-    );
-
     AaveV3Avalanche.ACL_MANAGER.removeFlashBorrower(AaveV3Avalanche.DEBT_SWAP_ADAPTER);
     AaveV3Avalanche.ACL_MANAGER.addFlashBorrower(NEW_FLASH_BORROWER);
   }

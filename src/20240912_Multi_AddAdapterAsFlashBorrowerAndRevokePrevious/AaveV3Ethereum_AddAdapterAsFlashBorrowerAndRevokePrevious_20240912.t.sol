@@ -46,30 +46,4 @@ contract AaveV3Ethereum_AddAdapterAsFlashBorrowerAndRevokePrevious_20240912_Test
     );
     assertEq(isFlashBorrowerPrevious, false);
   }
-
-  function test_isTokensRescued() external {
-    GovV3Helpers.executePayload(vm, address(proposal));
-
-    assertEq(
-      IERC20(AaveV2EthereumAssets.sUSD_UNDERLYING).balanceOf(AaveV2Ethereum.DEBT_SWAP_ADAPTER),
-      0,
-      'Unexpected sUSD_UNDERLYING remaining'
-    );
-    assertEq(
-      IERC20(AaveV2EthereumAssets.USDC_UNDERLYING).balanceOf(AaveV2Ethereum.DEBT_SWAP_ADAPTER),
-      0,
-      'Unexpected USDC_UNDERLYING remaining'
-    );
-
-    assertEq(
-      IERC20(AaveV3EthereumAssets.USDT_UNDERLYING).balanceOf(AaveV3Ethereum.DEBT_SWAP_ADAPTER),
-      0,
-      'Unexpected USDT_UNDERLYING remaining'
-    );
-    assertEq(
-      IERC20(AaveV3EthereumAssets.crvUSD_UNDERLYING).balanceOf(AaveV3Ethereum.DEBT_SWAP_ADAPTER),
-      0,
-      'Unexpected crvUSD_UNDERLYING remaining'
-    );
-  }
 }

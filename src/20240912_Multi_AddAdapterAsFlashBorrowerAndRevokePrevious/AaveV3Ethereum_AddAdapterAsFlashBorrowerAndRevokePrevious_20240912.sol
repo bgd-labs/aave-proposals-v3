@@ -32,20 +32,6 @@ contract AaveV3Ethereum_AddAdapterAsFlashBorrowerAndRevokePrevious_20240912 is
   address public constant NEW_FLASH_BORROWER = 0x0000000000000000000000000000000000000001;
 
   function execute() external {
-    IRescuable(AaveV2Ethereum.DEBT_SWAP_ADAPTER).rescueTokens(
-      IERC20(AaveV2EthereumAssets.sUSD_UNDERLYING)
-    );
-    IRescuable(AaveV2Ethereum.DEBT_SWAP_ADAPTER).rescueTokens(
-      IERC20(AaveV2EthereumAssets.USDC_UNDERLYING)
-    );
-
-    IRescuable(AaveV3Ethereum.DEBT_SWAP_ADAPTER).rescueTokens(
-      IERC20(AaveV3EthereumAssets.USDT_UNDERLYING)
-    );
-    IRescuable(AaveV3Ethereum.DEBT_SWAP_ADAPTER).rescueTokens(
-      IERC20(AaveV3EthereumAssets.crvUSD_UNDERLYING)
-    );
-
     AaveV3Ethereum.ACL_MANAGER.removeFlashBorrower(AaveV3Ethereum.DEBT_SWAP_ADAPTER);
     AaveV3Ethereum.ACL_MANAGER.addFlashBorrower(NEW_FLASH_BORROWER);
   }
