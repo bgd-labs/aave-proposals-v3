@@ -18,9 +18,9 @@ import {IEmissionManager} from 'aave-v3-periphery/contracts/rewards/interfaces/I
 contract AaveV3Ethereum_OnboardUSDSAndSUSDS_20240914 is AaveV3PayloadEthereum {
   using SafeERC20 for IERC20;
 
-  address public constant USDS = 0x1923DfeE706A8E78157416C29cBCCFDe7cdF4102;
+  address public constant USDS = 0xdC035D45d973E3EC169d2276DDab16f1e407384F;
   uint256 public constant USDS_SEED_AMOUNT = 100e18;
-  address public constant sUSDS = 0x4e7991e5C547ce825BdEb665EE14a3274f9F61e0;
+  address public constant sUSDS = 0xa3931d71877C0E7a3148CB7Eb4463524FEc27fbD;
   uint256 public constant sUSDS_SEED_AMOUNT = 100e18;
 
   function _postExecute() internal override {
