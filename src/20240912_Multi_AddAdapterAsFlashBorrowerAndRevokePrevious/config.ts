@@ -2,9 +2,6 @@ import {ConfigFile} from '../../generator/types';
 export const config: ConfigFile = {
   rootOptions: {
     pools: [
-      'AaveV2Ethereum',
-      'AaveV2Polygon',
-      'AaveV2Avalanche',
       'AaveV3Ethereum',
       'AaveV3Polygon',
       'AaveV3Avalanche',
@@ -22,9 +19,6 @@ export const config: ConfigFile = {
     votingNetwork: 'POLYGON',
   },
   poolOptions: {
-    AaveV2Ethereum: {configs: {}, cache: {blockNumber: 20734906}},
-    AaveV2Polygon: {configs: {}, cache: {blockNumber: 61736270}},
-    AaveV2Avalanche: {configs: {}, cache: {blockNumber: 50442196}},
     AaveV3Ethereum: {configs: {}, cache: {blockNumber: 20734906}},
     AaveV3Polygon: {configs: {}, cache: {blockNumber: 61736283}},
     AaveV3Avalanche: {configs: {}, cache: {blockNumber: 50442202}},
