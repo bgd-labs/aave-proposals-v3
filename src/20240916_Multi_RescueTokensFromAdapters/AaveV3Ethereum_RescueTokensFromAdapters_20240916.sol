@@ -23,12 +23,9 @@ interface IRescuable {
 /**
  * @title RescueTokensFromAdapters
  * @author Aave Labs
- * - Snapshot: TODO
  * - Discussion: https://governance.aave.com/t/periphery-contracts-incident-august-28-2024/18821
  */
 contract AaveV3Ethereum_RescueTokensFromAdapters_20240916 is IProposalGenericExecutor {
-  address public constant NEW_FLASH_BORROWER = 0x0000000000000000000000000000000000000001;
-
   function execute() external {
     IRescuable(AaveV2Ethereum.DEBT_SWAP_ADAPTER).rescueTokens(
       IERC20(AaveV2EthereumAssets.sUSD_UNDERLYING)

@@ -20,7 +20,6 @@ The Paraswap debt swap adapters have an emergency method for rescuing tokens stu
 
 - Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240916_Multi_RescueTokensFromAdapters/AaveV3Ethereum_RescueTokensFromAdapters_20240916.sol)
 - Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240916_Multi_RescueTokensFromAdapters/AaveV3Ethereum_RescueTokensFromAdapters_20240916.t.sol)
-- [Snapshot](TODO)
 - [Discussion](https://governance.aave.com/t/periphery-contracts-incident-august-28-2024/18821)
 
 ## Copyright
