@@ -1,5 +1,5 @@
 ---
-title: "add flash borrowers"
+title: "Update flashBorrowers"
 author: "Karpatkey_TokenLogic"
 discussions: "https://governance.aave.com/t/arfc-add-cian-protocol-to-flashborrowers/18731"
 snapshot: "Direct-to-AIP"
@@ -7,24 +7,29 @@ snapshot: "Direct-to-AIP"
 
 ## Simple Summary
 
-This AIP updated and extends existing whitelisted flashBorrowers addresses to recently deployed instances of Aave v3 on Ethereum.
+This AIP updates whitelisted flashBorrowers addresses across various instances of Aave v3.
 
 ## Motivation
 
-This AIP will waive the flash loan fee for one new CIAN Protocol address and extend the waiver to cover recently deployed instances of Aave v3 for existing beneficiaries who have expressed interest integrating the new instances of Aave v3.
+Upon execution, this AIP will implement will waiver flash loan fees for the following:
+
+- A new address associated with CIAN Protocol across all instances of Aave v3 on Ethereum, Optimism and Arbitrum; and,
+- Existing addresses associated with Index Coop, Contango and Seven Seas on the Lido and EtherFi instances only.
+
+Each of the mentioned team has expressed interest in integrating with these new instances of Aave v3.
 
 ## Specification
 
-This AIP, will call addFlashBorrower() on the ACL_MANAGER contract to whitelist the following contract address on all instances of Aave v3 on the mentioned network:
+This AIP, will call addFlashBorrower() on the ACL_MANAGER contract to whitelist the addresses as outlined below:
 
-| Network  | Protocol      | Address                                                                                                                            | Contract Name           |
-| -------- | ------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ----------------------- |
-| Ethereum | CIAN Protocol | [`0x49d9409111a6363d82c4371ffa43faea660c917b`](https://etherscan.io/address/0x49d9409111a6363d82c4371ffa43faea660c917b)            | FlashloanHelper         |
-| Arbitrum | CIAN Protocol | [`0x49d9409111a6363d82c4371ffa43faea660c917b`](https://arbiscan.io/address/0x49d9409111a6363d82c4371ffa43faea660c917b)             | FlashloanHelper         |
-| Optimism | CIAN Protocol | [`0x49d9409111a6363d82c4371ffa43faea660c917b`](https://optimistic.etherscan.io/address/0x49d9409111a6363d82c4371ffa43faea660c917b) | FlashloanHelper         |
-| Ethereum | Index Coop    | [`0x45c00508C14601fd1C1e296eB3C0e3eEEdCa45D0`](https://etherscan.io/address/0x45c00508C14601fd1C1e296eB3C0e3eEEdCa45D0)            | FlashMintLeveraged      |
-| Ethereum | Contango      | [`0xab515542d621574f9b5212d50593cD0C07e641bD`](https://etherscan.io/address/0xab515542d621574f9b5212d50593cD0C07e641bD)            | PermissionedAaveWrapper |
-| Ethereum | Seven Seas    | [`0xf0bb20865277aBd641a307eCe5Ee04E79073416C`](https://etherscan.io/address/0xf0bb20865277aBd641a307eCe5Ee04E79073416C)            | Ether.Fi Liquid ETH     |
+| Network  | Instance                   | Protocol      | Address                                                                                                                            | Contract Name           |
+| -------- | -------------------------- | ------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ----------------------- |
+| Ethereum | Main Market, Lido, EtherFi | CIAN Protocol | [`0x49d9409111a6363d82c4371ffa43faea660c917b`](https://etherscan.io/address/0x49d9409111a6363d82c4371ffa43faea660c917b)            | FlashloanHelper         |
+| Arbitrum | Main Market                | CIAN Protocol | [`0x49d9409111a6363d82c4371ffa43faea660c917b`](https://arbiscan.io/address/0x49d9409111a6363d82c4371ffa43faea660c917b)             | FlashloanHelper         |
+| Optimism | Main Market                | CIAN Protocol | [`0x49d9409111a6363d82c4371ffa43faea660c917b`](https://optimistic.etherscan.io/address/0x49d9409111a6363d82c4371ffa43faea660c917b) | FlashloanHelper         |
+| Ethereum | Lido, EtherFi              | Index Coop    | [`0x45c00508C14601fd1C1e296eB3C0e3eEEdCa45D0`](https://etherscan.io/address/0x45c00508C14601fd1C1e296eB3C0e3eEEdCa45D0)            | FlashMintLeveraged      |
+| Ethereum | Lido, EtherFi              | Contango      | [`0xab515542d621574f9b5212d50593cD0C07e641bD`](https://etherscan.io/address/0xab515542d621574f9b5212d50593cD0C07e641bD)            | PermissionedAaveWrapper |
+| Ethereum | Lido, EtherFi              | Seven Seas    | [`0xf0bb20865277aBd641a307eCe5Ee04E79073416C`](https://etherscan.io/address/0xf0bb20865277aBd641a307eCe5Ee04E79073416C)            | Ether.Fi Liquid ETH     |
 
 ## References
 
