@@ -13,7 +13,7 @@ The proposal aims to onboard Coinbase’s cbBTC, to the Aave v3 protocol on Main
 
 cbBTC, a new Bitcoin wrapper offering from Coinbase, is marking Coinbase’s entry into the wrapped Bitcoin market with cbBTC brings a unique value proposition to the Aave ecosystem.
 
-This new asset will diversify the options available for Bitcoin holders looking to participate in DeFi activities on Aave v3. The introduction of cbBTC to Aave v3 will provide users with more choices for utilizing their Bitcoin holdings, increasing liquidity and engagement within the protocol.
+This new asset will diversify the options available for Bitcoin holders looking to participate in DeFi activities on Aave v3.
 
 Furthermore, cbBTC’s integration aligns with Aave’s commitment to offering a wide range of high-quality assets. It will enable users to tap into Coinbase’s liquidity and reputation while benefiting from Aave’s established lending and borrowing functionalities. This synergy between a major centralized exchange and a leading DeFi protocol could attract more mainstream users to Aave, contributing to the overall growth and adoption of the platform.
 
