@@ -34,6 +34,32 @@ contract AaveV3Ethereum_RescueTokensFromAdapters_20240916_Test is ProtocolV3Test
   }
 
   function test_isTokensRescued() external {
+    uint256 sUSDPoolAdminInitialBalance = IERC20(AaveV2EthereumAssets.sUSD_UNDERLYING).balanceOf(
+      AaveV2Ethereum.POOL_ADMIN
+    );
+    uint256 USDCPoolAdminInitialBalance = IERC20(AaveV2EthereumAssets.USDC_UNDERLYING).balanceOf(
+      AaveV2Ethereum.POOL_ADMIN
+    );
+    uint256 USDTACLAdminInitialBalance = IERC20(AaveV3EthereumAssets.USDT_UNDERLYING).balanceOf(
+      AaveV3Ethereum.ACL_ADMIN
+    );
+    uint256 crvUSDACLAdminInitialBalance = IERC20(AaveV3EthereumAssets.crvUSD_UNDERLYING).balanceOf(
+      AaveV3Ethereum.ACL_ADMIN
+    );
+
+    uint256 sUSDTransferred = IERC20(AaveV2EthereumAssets.sUSD_UNDERLYING).balanceOf(
+      AaveV2Ethereum.DEBT_SWAP_ADAPTER
+    );
+    uint256 USDCTransferred = IERC20(AaveV2EthereumAssets.USDC_UNDERLYING).balanceOf(
+      AaveV2Ethereum.DEBT_SWAP_ADAPTER
+    );
+    uint256 USDTTransferred = IERC20(AaveV3EthereumAssets.USDT_UNDERLYING).balanceOf(
+      AaveV3Ethereum.DEBT_SWAP_ADAPTER
+    );
+    uint256 crvUSDTransferred = IERC20(AaveV3EthereumAssets.crvUSD_UNDERLYING).balanceOf(
+      AaveV3Ethereum.DEBT_SWAP_ADAPTER
+    );
+
     GovV3Helpers.executePayload(vm, address(proposal));
 
     assertEq(
@@ -42,9 +68,19 @@ contract AaveV3Ethereum_RescueTokensFromAdapters_20240916_Test is ProtocolV3Test
       'Unexpected sUSD_UNDERLYING remaining'
     );
     assertEq(
+      sUSDPoolAdminInitialBalance + sUSDTransferred,
+      IERC20(AaveV2EthereumAssets.sUSD_UNDERLYING).balanceOf(AaveV2Ethereum.POOL_ADMIN),
+      'Unexpected sUSD_UNDERLYING final treasury balance'
+    );
+    assertEq(
       IERC20(AaveV2EthereumAssets.USDC_UNDERLYING).balanceOf(AaveV2Ethereum.DEBT_SWAP_ADAPTER),
       0,
       'Unexpected USDC_UNDERLYING remaining'
+    );
+    assertEq(
+      USDCPoolAdminInitialBalance + USDCTransferred,
+      IERC20(AaveV2EthereumAssets.USDC_UNDERLYING).balanceOf(AaveV2Ethereum.POOL_ADMIN),
+      'Unexpected USDC_UNDERLYING final treasury balance'
     );
 
     assertEq(
@@ -53,9 +89,19 @@ contract AaveV3Ethereum_RescueTokensFromAdapters_20240916_Test is ProtocolV3Test
       'Unexpected USDT_UNDERLYING remaining'
     );
     assertEq(
+      USDTACLAdminInitialBalance + USDTTransferred,
+      IERC20(AaveV3EthereumAssets.USDT_UNDERLYING).balanceOf(AaveV3Ethereum.ACL_ADMIN),
+      'Unexpected USDT_UNDERLYING final treasury balance'
+    );
+    assertEq(
       IERC20(AaveV3EthereumAssets.crvUSD_UNDERLYING).balanceOf(AaveV3Ethereum.DEBT_SWAP_ADAPTER),
       0,
       'Unexpected crvUSD_UNDERLYING remaining'
+    );
+    assertEq(
+      crvUSDACLAdminInitialBalance + crvUSDTransferred,
+      IERC20(AaveV3EthereumAssets.crvUSD_UNDERLYING).balanceOf(AaveV3Ethereum.ACL_ADMIN),
+      'Unexpected crvUSD_UNDERLYING final treasury balance'
     );
   }
 }
