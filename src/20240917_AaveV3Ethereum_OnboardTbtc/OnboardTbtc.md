@@ -44,8 +44,8 @@ The table below illustrates the configured risk parameters for **tBTC**
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240917_AaveV3Ethereum_OnboardTbtc/AaveV3Ethereum_OnboardTbtc_20240917.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240917_AaveV3Ethereum_OnboardTbtc/AaveV3Ethereum_OnboardTbtc_20240917.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/7d06b33b64400eba3fa9841de0a61d74db949f11/src/20240917_AaveV3Ethereum_OnboardTbtc/AaveV3Ethereum_OnboardTbtc_20240917.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/7d06b33b64400eba3fa9841de0a61d74db949f11/src/20240917_AaveV3Ethereum_OnboardTbtc/AaveV3Ethereum_OnboardTbtc_20240917.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x9e2e3bd26866212d0cbd8e7cefcfa21eec9522202fd25b02456b8ff59371db08)
 - [Discussion](https://governance.aave.com/t/arfc-onboard-tbtc-to-aave-v3-on-ethereum-arbitrum-and-optimism/17686)
 
