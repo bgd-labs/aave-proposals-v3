@@ -23,7 +23,9 @@ The success of the CapsPlusRiskStewards experiment demonstrates the viability of
 
 ## Specification
 
-The new RiskSteward we propose follows the same design as the CapsPlusRiskSteward, an smart contract to which the Aave Governance gives `RISK_ADMIN` role over all v3 instances, controlled by a 2-of-2 multisig of the risk providers, and heavily constrained on what can do and how by its own logic.
+The new RiskSteward we propose follows the same design as the CapsPlusRiskSteward, an smart contract to which the Aave Governance gives `RISK_ADMIN` role over all v3 instances, controlled by a 2-of-2 multisig, and heavily constrained on what can do and how by its own logic.
+
+The 2-of-2 multisig controlling the RiskSteward will have Chaos and BGD Labs as signers, with the inclusion of BGD Labs as a matter of extra security procedure.
 
 `ACL_MANAGER.addRiskAdmin()` is called to add a the new risk steward.
 
