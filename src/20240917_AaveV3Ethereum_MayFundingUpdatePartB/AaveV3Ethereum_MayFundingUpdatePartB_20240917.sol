@@ -3,6 +3,7 @@ pragma solidity ^0.8.0;
 
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
+import {IScaledBalanceToken} from 'aave-v3-origin/core/contracts/interfaces/IScaledBalanceToken.sol';
 import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';
 import {AaveV2Ethereum, AaveV2EthereumAssets} from 'aave-address-book/AaveV2Ethereum.sol';
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
@@ -15,6 +16,8 @@ import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethe
  */
 contract AaveV3Ethereum_MayFundingUpdatePartB_20240917 is IProposalGenericExecutor {
   using SafeERC20 for IERC20;
+
+  address public constant COLLECTOR = address(AaveV3Ethereum.COLLECTOR);
 
   struct Migration {
     address underlying;
@@ -50,7 +53,7 @@ contract AaveV3Ethereum_MayFundingUpdatePartB_20240917 is IProposalGenericExecut
       AaveV3Ethereum.COLLECTOR.transfer(
         migrations[i].aToken,
         address(this),
-        IERC20(migrations[i].aToken).balanceOf(address(AaveV3Ethereum.COLLECTOR)) -
+        IScaledBalanceToken(migrations[i].aToken).scaledBalanceOf(COLLECTOR) -
           migrations[i].leaveBehind
       );
 
@@ -58,7 +61,7 @@ contract AaveV3Ethereum_MayFundingUpdatePartB_20240917 is IProposalGenericExecut
       AaveV3Ethereum.COLLECTOR.transfer(
         migrations[i].underlying,
         address(this),
-        IERC20(migrations[i].underlying).balanceOf(address(AaveV3Ethereum.COLLECTOR))
+        IERC20(migrations[i].underlying).balanceOf(COLLECTOR)
       );
 
       /// withdraw underlying
@@ -69,12 +72,7 @@ contract AaveV3Ethereum_MayFundingUpdatePartB_20240917 is IProposalGenericExecut
       IERC20(migrations[i].underlying).forceApprove(address(AaveV3Ethereum.POOL), balance);
 
       /// deposit
-      AaveV3Ethereum.POOL.deposit(
-        migrations[i].underlying,
-        balance,
-        address(AaveV3Ethereum.COLLECTOR),
-        0
-      );
+      AaveV3Ethereum.POOL.deposit(migrations[i].underlying, balance, COLLECTOR, 0);
     }
   }
 }
