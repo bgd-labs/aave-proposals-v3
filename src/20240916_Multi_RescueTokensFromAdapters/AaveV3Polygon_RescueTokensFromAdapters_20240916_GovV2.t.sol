@@ -54,6 +54,12 @@ contract AaveV3Polygon_RescueTokensFromAdapters_20240916_GovV2_Test is ProtocolV
     uint256 CRVTransferred = IERC20(AaveV3PolygonAssets.CRV_UNDERLYING).balanceOf(
       proposal.ADAPTER_0()
     );
+    uint256 miMATICAdminInitialBalance = IERC20(AaveV3PolygonAssets.miMATIC_UNDERLYING).balanceOf(
+      AaveGovernanceV2.POLYGON_BRIDGE_EXECUTOR
+    );
+    uint256 miMATICTransferred = IERC20(AaveV3PolygonAssets.miMATIC_UNDERLYING).balanceOf(
+      proposal.ADAPTER_0()
+    );
 
     GovHelpers.executePayload(vm, address(proposal), AaveGovernanceV2.POLYGON_BRIDGE_EXECUTOR);
 
@@ -76,11 +82,11 @@ contract AaveV3Polygon_RescueTokensFromAdapters_20240916_GovV2_Test is ProtocolV
       'Unexpected CRV_UNDERLYING remaining'
     );
     assertEq(
-      CRVAdminInitialBalance + CRVTransferred,
-      IERC20(AaveV3PolygonAssets.CRV_UNDERLYING).balanceOf(
+      miMATICAdminInitialBalance + miMATICTransferred,
+      IERC20(AaveV3PolygonAssets.miMATIC_UNDERLYING).balanceOf(
         AaveGovernanceV2.POLYGON_BRIDGE_EXECUTOR
       ),
-      'Unexpected CRV_UNDERLYING final treasury balance'
+      'Unexpected miMATIC_UNDERLYING final treasury balance'
     );
   }
 }
