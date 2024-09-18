@@ -37,15 +37,13 @@ contract AaveV3Arbitrum_RescueTokensFromAdapters_20240916_Test is ProtocolV3Test
     );
 
     uint256 weETHTransferred = IERC20(AaveV3ArbitrumAssets.weETH_UNDERLYING).balanceOf(
-      proposal.REPAY_WITH_COLLATERAL_ADAPTER_0()
+      proposal.ADAPTER_0()
     );
 
     GovV3Helpers.executePayload(vm, address(proposal));
 
     assertEq(
-      IERC20(AaveV3ArbitrumAssets.weETH_UNDERLYING).balanceOf(
-        proposal.REPAY_WITH_COLLATERAL_ADAPTER_0()
-      ),
+      IERC20(AaveV3ArbitrumAssets.weETH_UNDERLYING).balanceOf(proposal.ADAPTER_0()),
       0,
       'Unexpected weETH_UNDERLYING remaining'
     );

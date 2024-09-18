@@ -46,15 +46,13 @@ contract AaveV3Arbitrum_RescueTokensFromAdapters_20240916_GovV2_Test is Protocol
     );
 
     uint256 MAITransferred = IERC20(AaveV3ArbitrumAssets.MAI_UNDERLYING).balanceOf(
-      proposal.REPAY_WITH_COLLATERAL_ADAPTER_0()
+      proposal.ADAPTER_0()
     );
 
     GovHelpers.executePayload(vm, address(proposal), AaveGovernanceV2.ARBITRUM_BRIDGE_EXECUTOR);
 
     assertEq(
-      IERC20(AaveV3ArbitrumAssets.MAI_UNDERLYING).balanceOf(
-        proposal.REPAY_WITH_COLLATERAL_ADAPTER_0()
-      ),
+      IERC20(AaveV3ArbitrumAssets.MAI_UNDERLYING).balanceOf(proposal.ADAPTER_0()),
       0,
       'Unexpected MAI_UNDERLYING remaining'
     );

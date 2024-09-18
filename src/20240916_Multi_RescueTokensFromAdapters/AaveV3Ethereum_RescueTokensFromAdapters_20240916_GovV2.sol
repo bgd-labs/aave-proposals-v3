@@ -26,13 +26,10 @@ interface IRescuable {
  */
 contract AaveV3Ethereum_RescueTokensFromAdapters_20240916_GovV2 is IProposalGenericExecutor {
   /// @dev previous versions of the adapters
-  address public constant REPAY_WITH_COLLATERAL_ADAPTER_0 =
-    0x1809f186D680f239420B56948C58F8DbbCdf1E18;
+  address public constant ADAPTER_0 = 0x1809f186D680f239420B56948C58F8DbbCdf1E18;
 
   function execute() external {
     // AaveV3Ethereum previous
-    IRescuable(REPAY_WITH_COLLATERAL_ADAPTER_0).rescueTokens(
-      IERC20(AaveV3EthereumAssets.LUSD_UNDERLYING)
-    );
+    IRescuable(ADAPTER_0).rescueTokens(IERC20(AaveV3EthereumAssets.LUSD_UNDERLYING));
   }
 }

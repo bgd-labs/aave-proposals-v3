@@ -47,16 +47,14 @@ contract AaveV3Ethereum_RescueTokensFromAdapters_20240916_GovV2_Test is Protocol
     );
 
     uint256 LUSDTransferred = IERC20(AaveV3EthereumAssets.crvUSD_UNDERLYING).balanceOf(
-      proposal.REPAY_WITH_COLLATERAL_ADAPTER_0()
+      proposal.ADAPTER_0()
     );
 
     GovHelpers.executePayload(vm, address(proposal), AaveGovernanceV2.SHORT_EXECUTOR);
 
     // AaveV3Ethereum previous
     assertEq(
-      IERC20(AaveV3EthereumAssets.LUSD_UNDERLYING).balanceOf(
-        proposal.REPAY_WITH_COLLATERAL_ADAPTER_0()
-      ),
+      IERC20(AaveV3EthereumAssets.LUSD_UNDERLYING).balanceOf(proposal.ADAPTER_0()),
       0,
       'Unexpected LUSD_UNDERLYING remaining'
     );

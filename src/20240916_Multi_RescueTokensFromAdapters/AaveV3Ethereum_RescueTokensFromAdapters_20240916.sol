@@ -27,10 +27,9 @@ interface IRescuable {
  */
 contract AaveV3Ethereum_RescueTokensFromAdapters_20240916 is IProposalGenericExecutor {
   /// @dev previous versions of the adapters
-  // address public constant REPAY_WITH_COLLATERAL_ADAPTER_0 =
+  // address public constant ADAPTER_0 =
   //   0x1809f186D680f239420B56948C58F8DbbCdf1E18;
-  address public constant REPAY_WITH_COLLATERAL_ADAPTER_1 =
-    0x02e7B8511831B1b02d9018215a0f8f500Ea5c6B3;
+  address public constant ADAPTER_1 = 0x02e7B8511831B1b02d9018215a0f8f500Ea5c6B3;
 
   function execute() external {
     // AaveV2Ethereum current
@@ -50,17 +49,11 @@ contract AaveV3Ethereum_RescueTokensFromAdapters_20240916 is IProposalGenericExe
     );
 
     // AaveV3Ethereum previous
-    // IRescuable(REPAY_WITH_COLLATERAL_ADAPTER_0).rescueTokens(
+    // IRescuable(ADAPTER_0).rescueTokens(
     //   IERC20(AaveV3EthereumAssets.LUSD_UNDERLYING)
     // );
-    IRescuable(REPAY_WITH_COLLATERAL_ADAPTER_1).rescueTokens(
-      IERC20(AaveV3EthereumAssets.GHO_UNDERLYING)
-    );
-    IRescuable(REPAY_WITH_COLLATERAL_ADAPTER_1).rescueTokens(
-      IERC20(AaveV3EthereumAssets.rETH_UNDERLYING)
-    );
-    IRescuable(REPAY_WITH_COLLATERAL_ADAPTER_1).rescueTokens(
-      IERC20(AaveV3EthereumAssets.WBTC_UNDERLYING)
-    );
+    IRescuable(ADAPTER_1).rescueTokens(IERC20(AaveV3EthereumAssets.GHO_UNDERLYING));
+    IRescuable(ADAPTER_1).rescueTokens(IERC20(AaveV3EthereumAssets.rETH_UNDERLYING));
+    IRescuable(ADAPTER_1).rescueTokens(IERC20(AaveV3EthereumAssets.WBTC_UNDERLYING));
   }
 }

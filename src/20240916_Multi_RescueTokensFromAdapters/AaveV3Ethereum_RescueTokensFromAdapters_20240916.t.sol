@@ -128,16 +128,16 @@ contract AaveV3Ethereum_RescueTokensFromAdapters_20240916_Test is ProtocolV3Test
     );
 
     // uint256 LUSDTransferred = IERC20(AaveV3EthereumAssets.crvUSD_UNDERLYING).balanceOf(
-    //   proposal.REPAY_WITH_COLLATERAL_ADAPTER_0()
+    //   proposal.ADAPTER_0()
     // );
     uint256 GHOTransferred = IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(
-      proposal.REPAY_WITH_COLLATERAL_ADAPTER_1()
+      proposal.ADAPTER_1()
     );
     uint256 rETHTransferred = IERC20(AaveV3EthereumAssets.rETH_UNDERLYING).balanceOf(
-      proposal.REPAY_WITH_COLLATERAL_ADAPTER_1()
+      proposal.ADAPTER_1()
     );
     uint256 WBTCTransferred = IERC20(AaveV3EthereumAssets.WBTC_UNDERLYING).balanceOf(
-      proposal.REPAY_WITH_COLLATERAL_ADAPTER_1()
+      proposal.ADAPTER_1()
     );
 
     GovV3Helpers.executePayload(vm, address(proposal));
@@ -145,7 +145,7 @@ contract AaveV3Ethereum_RescueTokensFromAdapters_20240916_Test is ProtocolV3Test
     // AaveV3Ethereum previous
     // assertEq(
     //   IERC20(AaveV3EthereumAssets.LUSD_UNDERLYING).balanceOf(
-    //     proposal.REPAY_WITH_COLLATERAL_ADAPTER_0()
+    //     proposal.ADAPTER_0()
     //   ),
     //   0,
     //   'Unexpected LUSD_UNDERLYING remaining'
@@ -156,9 +156,7 @@ contract AaveV3Ethereum_RescueTokensFromAdapters_20240916_Test is ProtocolV3Test
     //   'Unexpected LUSD_UNDERLYING final treasury balance'
     // );
     assertEq(
-      IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(
-        proposal.REPAY_WITH_COLLATERAL_ADAPTER_1()
-      ),
+      IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(proposal.ADAPTER_1()),
       0,
       'Unexpected GHO_UNDERLYING remaining'
     );
@@ -168,9 +166,7 @@ contract AaveV3Ethereum_RescueTokensFromAdapters_20240916_Test is ProtocolV3Test
       'Unexpected GHO_UNDERLYING final treasury balance'
     );
     assertEq(
-      IERC20(AaveV3EthereumAssets.rETH_UNDERLYING).balanceOf(
-        proposal.REPAY_WITH_COLLATERAL_ADAPTER_1()
-      ),
+      IERC20(AaveV3EthereumAssets.rETH_UNDERLYING).balanceOf(proposal.ADAPTER_1()),
       0,
       'Unexpected rETH_UNDERLYING remaining'
     );
@@ -180,9 +176,7 @@ contract AaveV3Ethereum_RescueTokensFromAdapters_20240916_Test is ProtocolV3Test
       'Unexpected rETH_UNDERLYING final treasury balance'
     );
     assertEq(
-      IERC20(AaveV3EthereumAssets.WBTC_UNDERLYING).balanceOf(
-        proposal.REPAY_WITH_COLLATERAL_ADAPTER_1()
-      ),
+      IERC20(AaveV3EthereumAssets.WBTC_UNDERLYING).balanceOf(proposal.ADAPTER_1()),
       0,
       'Unexpected WBTC_UNDERLYING remaining'
     );
