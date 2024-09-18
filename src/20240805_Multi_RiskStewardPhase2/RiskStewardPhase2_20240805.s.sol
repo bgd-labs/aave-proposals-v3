@@ -3,7 +3,8 @@ pragma solidity ^0.8.0;
 
 import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aave-helpers/src/GovV3Helpers.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
-import {EthereumScript, PolygonScript, AvalancheScript, OptimismScript, ArbitrumScript, MetisScript, BaseScript, GnosisScript, ScrollScript, BNBScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
+import {GovernanceV3ZkSync} from 'aave-address-book/GovernanceV3ZkSync.sol';
+import {EthereumScript, PolygonScript, AvalancheScript, OptimismScript, ArbitrumScript, MetisScript, BaseScript, GnosisScript, ScrollScript, BNBScript, ChainIds} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
 import {AaveV3Ethereum_RiskStewardPhase2_20240805} from './AaveV3Ethereum_RiskStewardPhase2_20240805.sol';
 import {AaveV3EthereumLido_RiskStewardPhase2_20240805} from './AaveV3EthereumLido_RiskStewardPhase2_20240805.sol';
 import {AaveV3EthereumEtherFi_RiskStewardPhase2_20240805} from './AaveV3EthereumEtherFi_RiskStewardPhase2_20240805.sol';
@@ -252,7 +253,7 @@ contract DeployBNB is BNBScript {
 contract CreateProposal is EthereumScript {
   function run() external {
     // create payloads
-    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](10);
+    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](11);
 
     // compose actions for validation
     IPayloadsControllerCore.ExecutionAction[]
@@ -330,6 +331,13 @@ contract CreateProposal is EthereumScript {
       type(AaveV3BNB_RiskStewardPhase2_20240805).creationCode
     );
     payloads[9] = GovV3Helpers.buildBNBPayload(vm, actionsBNB);
+
+    payloads[10] = PayloadsControllerUtils.Payload({
+      chain: ChainIds.ZKSYNC,
+      accessLevel: PayloadsControllerUtils.AccessControl.Level_1,
+      payloadsController: address(GovernanceV3ZkSync.PAYLOADS_CONTROLLER),
+      payloadId: 5
+    });
 
     // create proposal
     vm.startBroadcast();
