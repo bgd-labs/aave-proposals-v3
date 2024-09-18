@@ -74,10 +74,19 @@ contract AaveV3Ethereum_RescueTokensFromAdapters_20240916_Test is ProtocolV3Test
   }
 
   function test_isTokensRescuedV3Current() external {
-    uint256 USDTACLAdminInitialBalance = IERC20(AaveV3EthereumAssets.USDT_UNDERLYING).balanceOf(
+    uint256 USDTAdminInitialBalance = IERC20(AaveV3EthereumAssets.USDT_UNDERLYING).balanceOf(
       AaveV3Ethereum.ACL_ADMIN
     );
-    uint256 crvUSDACLAdminInitialBalance = IERC20(AaveV3EthereumAssets.crvUSD_UNDERLYING).balanceOf(
+    uint256 crvUSDAdminInitialBalance = IERC20(AaveV3EthereumAssets.crvUSD_UNDERLYING).balanceOf(
+      AaveV3Ethereum.ACL_ADMIN
+    );
+    uint256 GHOAdminInitialBalance = IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(
+      AaveV3Ethereum.ACL_ADMIN
+    );
+    uint256 rETHAdminInitialBalance = IERC20(AaveV3EthereumAssets.rETH_UNDERLYING).balanceOf(
+      AaveV3Ethereum.ACL_ADMIN
+    );
+    uint256 WBTCAdminInitialBalance = IERC20(AaveV3EthereumAssets.WBTC_UNDERLYING).balanceOf(
       AaveV3Ethereum.ACL_ADMIN
     );
 
@@ -86,6 +95,15 @@ contract AaveV3Ethereum_RescueTokensFromAdapters_20240916_Test is ProtocolV3Test
     );
     uint256 crvUSDTransferred = IERC20(AaveV3EthereumAssets.crvUSD_UNDERLYING).balanceOf(
       AaveV3Ethereum.DEBT_SWAP_ADAPTER
+    );
+    uint256 GHOTransferred = IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(
+      AaveV3Ethereum.REPAY_WITH_COLLATERAL_ADAPTER
+    );
+    uint256 rETHTransferred = IERC20(AaveV3EthereumAssets.rETH_UNDERLYING).balanceOf(
+      AaveV3Ethereum.REPAY_WITH_COLLATERAL_ADAPTER
+    );
+    uint256 WBTCTransferred = IERC20(AaveV3EthereumAssets.WBTC_UNDERLYING).balanceOf(
+      AaveV3Ethereum.REPAY_WITH_COLLATERAL_ADAPTER
     );
 
     GovV3Helpers.executePayload(vm, address(proposal));
@@ -97,7 +115,7 @@ contract AaveV3Ethereum_RescueTokensFromAdapters_20240916_Test is ProtocolV3Test
       'Unexpected USDT_UNDERLYING remaining'
     );
     assertEq(
-      USDTACLAdminInitialBalance + USDTTransferred,
+      USDTAdminInitialBalance + USDTTransferred,
       IERC20(AaveV3EthereumAssets.USDT_UNDERLYING).balanceOf(AaveV3Ethereum.ACL_ADMIN),
       'Unexpected USDT_UNDERLYING final treasury balance'
     );
@@ -107,81 +125,43 @@ contract AaveV3Ethereum_RescueTokensFromAdapters_20240916_Test is ProtocolV3Test
       'Unexpected crvUSD_UNDERLYING remaining'
     );
     assertEq(
-      crvUSDACLAdminInitialBalance + crvUSDTransferred,
+      crvUSDAdminInitialBalance + crvUSDTransferred,
       IERC20(AaveV3EthereumAssets.crvUSD_UNDERLYING).balanceOf(AaveV3Ethereum.ACL_ADMIN),
       'Unexpected crvUSD_UNDERLYING final treasury balance'
     );
-  }
-
-  function test_isTokensRescuedV3Previous() external {
-    // uint256 LUSDACLAdminInitialBalance = IERC20(AaveV3EthereumAssets.LUSD_UNDERLYING).balanceOf(
-    //   AaveV3Ethereum.ACL_ADMIN
-    // );
-    uint256 GHOACLAdminInitialBalance = IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(
-      AaveV3Ethereum.ACL_ADMIN
-    );
-    uint256 rETHACLAdminInitialBalance = IERC20(AaveV3EthereumAssets.rETH_UNDERLYING).balanceOf(
-      AaveV3Ethereum.ACL_ADMIN
-    );
-    uint256 WBTCACLAdminInitialBalance = IERC20(AaveV3EthereumAssets.WBTC_UNDERLYING).balanceOf(
-      AaveV3Ethereum.ACL_ADMIN
-    );
-
-    // uint256 LUSDTransferred = IERC20(AaveV3EthereumAssets.crvUSD_UNDERLYING).balanceOf(
-    //   proposal.ADAPTER_0()
-    // );
-    uint256 GHOTransferred = IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(
-      proposal.ADAPTER_1()
-    );
-    uint256 rETHTransferred = IERC20(AaveV3EthereumAssets.rETH_UNDERLYING).balanceOf(
-      proposal.ADAPTER_1()
-    );
-    uint256 WBTCTransferred = IERC20(AaveV3EthereumAssets.WBTC_UNDERLYING).balanceOf(
-      proposal.ADAPTER_1()
-    );
-
-    GovV3Helpers.executePayload(vm, address(proposal));
-
-    // AaveV3Ethereum previous
-    // assertEq(
-    //   IERC20(AaveV3EthereumAssets.LUSD_UNDERLYING).balanceOf(
-    //     proposal.ADAPTER_0()
-    //   ),
-    //   0,
-    //   'Unexpected LUSD_UNDERLYING remaining'
-    // );
-    // assertEq(
-    //   LUSDACLAdminInitialBalance + LUSDTransferred,
-    //   IERC20(AaveV3EthereumAssets.LUSD_UNDERLYING).balanceOf(AaveV3Ethereum.ACL_ADMIN),
-    //   'Unexpected LUSD_UNDERLYING final treasury balance'
-    // );
     assertEq(
-      IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(proposal.ADAPTER_1()),
+      IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(
+        AaveV3Ethereum.REPAY_WITH_COLLATERAL_ADAPTER
+      ),
       0,
       'Unexpected GHO_UNDERLYING remaining'
     );
     assertEq(
-      GHOACLAdminInitialBalance + GHOTransferred,
+      GHOAdminInitialBalance + GHOTransferred,
       IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(AaveV3Ethereum.ACL_ADMIN),
       'Unexpected GHO_UNDERLYING final treasury balance'
     );
     assertEq(
-      IERC20(AaveV3EthereumAssets.rETH_UNDERLYING).balanceOf(proposal.ADAPTER_1()),
+      IERC20(AaveV3EthereumAssets.rETH_UNDERLYING).balanceOf(
+        AaveV3Ethereum.REPAY_WITH_COLLATERAL_ADAPTER
+      ),
       0,
       'Unexpected rETH_UNDERLYING remaining'
     );
     assertEq(
-      rETHACLAdminInitialBalance + rETHTransferred,
+      rETHAdminInitialBalance + rETHTransferred,
       IERC20(AaveV3EthereumAssets.rETH_UNDERLYING).balanceOf(AaveV3Ethereum.ACL_ADMIN),
       'Unexpected rETH_UNDERLYING final treasury balance'
     );
     assertEq(
-      IERC20(AaveV3EthereumAssets.WBTC_UNDERLYING).balanceOf(proposal.ADAPTER_1()),
+      IERC20(AaveV3EthereumAssets.WBTC_UNDERLYING).balanceOf(
+        AaveV3Ethereum.REPAY_WITH_COLLATERAL_ADAPTER
+      ),
       0,
       'Unexpected WBTC_UNDERLYING remaining'
     );
     assertEq(
-      WBTCACLAdminInitialBalance + WBTCTransferred,
+      WBTCAdminInitialBalance + WBTCTransferred,
       IERC20(AaveV3EthereumAssets.WBTC_UNDERLYING).balanceOf(AaveV3Ethereum.ACL_ADMIN),
       'Unexpected WBTC_UNDERLYING final treasury balance'
     );
