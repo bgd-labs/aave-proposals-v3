@@ -7,6 +7,7 @@ import {AaveV3ZkSync} from 'aave-address-book/AaveV3ZkSync.sol';
 import {MiscZkSync} from 'aave-address-book/MiscZkSync.sol';
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {IEmissionManager} from 'aave-v3-periphery/contracts/rewards/interfaces/IEmissionManager.sol';
+import {GovernanceV3ZkSync} from 'aave-address-book/GovernanceV3ZkSync.sol';
 
 /**
  * @dev Test for AaveV3ZkSync_AaveV3ZkSyncActivation_20240805
@@ -16,7 +17,7 @@ contract AaveV3ZkSync_AaveV3ZkSyncActivation_20240805_Test is ProtocolV3TestBase
   AaveV3ZkSync_AaveV3ZkSyncActivation_20240805 internal proposal;
 
   function setUp() public override {
-    vm.createSelectFork(vm.rpcUrl('zksync'), 41829358);
+    vm.createSelectFork(vm.rpcUrl('zksync'), 44104311);
     proposal = new AaveV3ZkSync_AaveV3ZkSyncActivation_20240805();
 
     super.setUp();

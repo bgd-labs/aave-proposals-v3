@@ -20,15 +20,15 @@ contract AaveV3ZkSync_AaveV3ZkSyncActivation_20240805 is AaveV3PayloadZkSync {
   using SafeERC20 for IERC20;
 
   address public constant USDC = 0x1d17CBcF0D6D143135aE902365D2E5e2A16538D4;
-  uint256 public constant USDC_SEED_AMOUNT = 10e6;
+  uint256 public constant USDC_SEED_AMOUNT = 100e6;
   address public constant USDT = 0x493257fD37EDB34451f62EDf8D2a0C418852bA4C;
-  uint256 public constant USDT_SEED_AMOUNT = 10e6;
+  uint256 public constant USDT_SEED_AMOUNT = 100e6;
   address public constant WETH = 0x5AEa5775959fBC2557Cc8789bC1bf90A239D9a91;
-  uint256 public constant WETH_SEED_AMOUNT = 0.01 ether;
+  uint256 public constant WETH_SEED_AMOUNT = 0.1 ether;
   address public constant wstETH = 0x703b52F2b28fEbcB60E1372858AF5b18849FE867;
-  uint256 public constant wstETH_SEED_AMOUNT = 0.01 ether;
+  uint256 public constant wstETH_SEED_AMOUNT = 0.1 ether;
   address public constant ZK = 0x5A7d6b2F92C77FAD6CCaBd7EE0624E64907Eaf3E;
-  uint256 public constant ZK_SEED_AMOUNT = 100 ether;
+  uint256 public constant ZK_SEED_AMOUNT = 1_000 ether;
   address public constant ACI_MULTISIG = 0x95Cbff6e45C499d45dd8627f3ce179057B5Fbfcc;
 
   function _postExecute() internal override {
@@ -69,7 +69,7 @@ contract AaveV3ZkSync_AaveV3ZkSyncActivation_20240805 is AaveV3PayloadZkSync {
     listings[0] = IAaveV3ConfigEngine.Listing({
       asset: USDC,
       assetSymbol: 'USDC',
-      priceFeed: 0x162C97F6B4FA5a915A44D430bb7AE0eE716b3b87,
+      priceFeed: 0x22A46593A7f93Aaec788bE3e27C1838E15781222,
       eModeCategory: 0,
       enabledToBorrow: EngineFlags.ENABLED,
       stableRateModeEnabled: EngineFlags.DISABLED,
@@ -80,8 +80,8 @@ contract AaveV3ZkSync_AaveV3ZkSyncActivation_20240805 is AaveV3PayloadZkSync {
       liqThreshold: 78_00,
       liqBonus: 5_00,
       reserveFactor: 10_00,
-      supplyCap: 1_000_000,
-      borrowCap: 900_000,
+      supplyCap: 10_000,
+      borrowCap: 9_000,
       debtCeiling: 0,
       liqProtocolFee: 10_00,
       rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
@@ -95,7 +95,7 @@ contract AaveV3ZkSync_AaveV3ZkSyncActivation_20240805 is AaveV3PayloadZkSync {
     listings[1] = IAaveV3ConfigEngine.Listing({
       asset: USDT,
       assetSymbol: 'USDT',
-      priceFeed: 0x92DaB7275859C5399a326874897daddb0F4ed7A4,
+      priceFeed: 0xE8D6d2dffCFfFc6b1f3606b7552e80319D01A8E9,
       eModeCategory: 0,
       enabledToBorrow: EngineFlags.ENABLED,
       stableRateModeEnabled: EngineFlags.DISABLED,
@@ -106,8 +106,8 @@ contract AaveV3ZkSync_AaveV3ZkSyncActivation_20240805 is AaveV3PayloadZkSync {
       liqThreshold: 78_00,
       liqBonus: 5_00,
       reserveFactor: 10_00,
-      supplyCap: 3_000_000,
-      borrowCap: 2_700_000,
+      supplyCap: 10_000,
+      borrowCap: 9_000,
       debtCeiling: 0,
       liqProtocolFee: 10_00,
       rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
@@ -132,8 +132,8 @@ contract AaveV3ZkSync_AaveV3ZkSyncActivation_20240805 is AaveV3PayloadZkSync {
       liqThreshold: 78_00,
       liqBonus: 6_00,
       reserveFactor: 15_00,
-      supplyCap: 1_000,
-      borrowCap: 900,
+      supplyCap: 5,
+      borrowCap: 4,
       debtCeiling: 0,
       liqProtocolFee: 10_00,
       rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
@@ -147,7 +147,7 @@ contract AaveV3ZkSync_AaveV3ZkSyncActivation_20240805 is AaveV3PayloadZkSync {
     listings[3] = IAaveV3ConfigEngine.Listing({
       asset: wstETH,
       assetSymbol: 'wstETH',
-      priceFeed: 0xB19d366dC599904Aa026440d4E805F0E13512682,
+      priceFeed: 0xdea7DE07B8275564Af6135F7E9340411246EB7A2,
       eModeCategory: 1,
       enabledToBorrow: EngineFlags.ENABLED,
       stableRateModeEnabled: EngineFlags.DISABLED,
@@ -158,8 +158,8 @@ contract AaveV3ZkSync_AaveV3ZkSyncActivation_20240805 is AaveV3PayloadZkSync {
       liqThreshold: 76_00,
       liqBonus: 7_00,
       reserveFactor: 5_00,
-      supplyCap: 300,
-      borrowCap: 30,
+      supplyCap: 3,
+      borrowCap: 1,
       debtCeiling: 0,
       liqProtocolFee: 10_00,
       rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
@@ -184,8 +184,8 @@ contract AaveV3ZkSync_AaveV3ZkSyncActivation_20240805 is AaveV3PayloadZkSync {
       liqThreshold: 45_00,
       liqBonus: 10_00,
       reserveFactor: 20_00,
-      supplyCap: 18_000_000,
-      borrowCap: 10_000_000,
+      supplyCap: 100_000,
+      borrowCap: 55_000,
       debtCeiling: 800_000,
       liqProtocolFee: 20_00,
       rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
