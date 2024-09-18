@@ -46,8 +46,8 @@ The table below illustrates the configured risk parameters for **cbBTC** on Ethe
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240917_Multi_OnboardCbBTCOnMainnetAndBase/AaveV3Ethereum_OnboardCbBTCOnMainnetAndBase_20240917.sol), [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240917_Multi_OnboardCbBTCOnMainnetAndBase/AaveV3Base_OnboardCbBTCOnMainnetAndBase_20240917.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240917_Multi_OnboardCbBTCOnMainnetAndBase/AaveV3Ethereum_OnboardCbBTCOnMainnetAndBase_20240917.t.sol), [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240917_Multi_OnboardCbBTCOnMainnetAndBase/AaveV3Base_OnboardCbBTCOnMainnetAndBase_20240917.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/c22b3826ab26493f46310656fd2adbce146ba36a/src/20240917_Multi_OnboardCbBTCOnMainnetAndBase/AaveV3Ethereum_OnboardCbBTCOnMainnetAndBase_20240917.sol), [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/c22b3826ab26493f46310656fd2adbce146ba36a/src/20240917_Multi_OnboardCbBTCOnMainnetAndBase/AaveV3Base_OnboardCbBTCOnMainnetAndBase_20240917.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/c22b3826ab26493f46310656fd2adbce146ba36a/src/20240917_Multi_OnboardCbBTCOnMainnetAndBase/AaveV3Ethereum_OnboardCbBTCOnMainnetAndBase_20240917.t.sol), [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/c22b3826ab26493f46310656fd2adbce146ba36a/src/20240917_Multi_OnboardCbBTCOnMainnetAndBase/AaveV3Base_OnboardCbBTCOnMainnetAndBase_20240917.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x7dd65a983a069e9e4def961e116b78acef6965ecb63aebfb26e34a1dcd97b060)
 - [Discussion](https://governance.aave.com/t/arfc-onboard-cbbtc-to-aave-v3-on-base-and-mainnet/18988)
 
