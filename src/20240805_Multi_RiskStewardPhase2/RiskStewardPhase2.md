@@ -29,7 +29,7 @@ The 2-of-2 multisig controlling the RiskSteward will have Chaos and BGD Labs as 
 
 `ACL_MANAGER.addRiskAdmin()` is called to add a the new risk steward.
 
-To give some extra buffer and protection, we would remove the `RISK_ADMIN` role from the old `CapsPlusRiskSteward` once risk providers have adapted to use the new Risk Stewards.
+To give some extra buffer and protection, we will remove the `RISK_ADMIN` role from the old `CapsPlusRiskSteward` once risk providers have adapted to use the new Risk Stewards.
 
 Deployed Risk Steward Contracts:
 
