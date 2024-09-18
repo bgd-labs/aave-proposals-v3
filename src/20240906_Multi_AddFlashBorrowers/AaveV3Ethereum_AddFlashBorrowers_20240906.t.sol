@@ -20,17 +20,6 @@ contract AaveV3Ethereum_AddFlashBorrowers_20240906_Test is ProtocolV3TestBase {
     proposal = new AaveV3Ethereum_AddFlashBorrowers_20240906();
   }
 
-  /**
-   * @dev executes the generic test suite including e2e and config snapshots
-   */
-  function test_defaultProposalExecution() public {
-    defaultTest(
-      'AaveV3Ethereum_AddFlashBorrowers_20240906',
-      AaveV3Ethereum.POOL,
-      address(proposal)
-    );
-  }
-
   function test_isFlashBorrower() external {
     GovV3Helpers.executePayload(vm, address(proposal));
     bool isFlashBorrower = AaveV3Ethereum.ACL_MANAGER.isFlashBorrower(

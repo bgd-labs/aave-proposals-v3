@@ -15,13 +15,10 @@ contract AaveV3EthereumEtherFi_AddFlashBorrowers_20240906 is IProposalGenericExe
     0x45c00508C14601fd1C1e296eB3C0e3eEEdCa45D0;
   address public constant CONTANGO_PERMISSIONED_AAVE_WRAPPER =
     0xab515542d621574f9b5212d50593cD0C07e641bD;
-  address public constant SEVEN_SEAS_ETHER_FI_LIQUID_ETH =
-    0xf0bb20865277aBd641a307eCe5Ee04E79073416C;
 
   function execute() external {
     AaveV3EthereumEtherFi.ACL_MANAGER.addFlashBorrower(CIAN_FLASH_LOAN_HELPER);
     AaveV3EthereumEtherFi.ACL_MANAGER.addFlashBorrower(INDEX_COOP_FLASH_MINT_LEVERAGED);
     AaveV3EthereumEtherFi.ACL_MANAGER.addFlashBorrower(CONTANGO_PERMISSIONED_AAVE_WRAPPER);
-    AaveV3EthereumEtherFi.ACL_MANAGER.addFlashBorrower(SEVEN_SEAS_ETHER_FI_LIQUID_ETH);
   }
 }

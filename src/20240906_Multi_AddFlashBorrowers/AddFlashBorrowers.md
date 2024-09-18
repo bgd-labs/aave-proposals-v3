@@ -14,7 +14,7 @@ This AIP updates whitelisted flashBorrowers addresses across various instances o
 Upon execution, this AIP will implement will waiver flash loan fees for the following:
 
 - A new address associated with CIAN Protocol across all instances of Aave v3 on Ethereum, Optimism and Arbitrum; and,
-- Existing addresses associated with Index Coop, Contango and Seven Seas on the Lido and EtherFi instances only.
+- Existing addresses associated with Index Coop and Contango on the Lido and EtherFi instances only.
 
 Each of the mentioned team has expressed interest in integrating with these new instances of Aave v3.
 
@@ -29,7 +29,6 @@ This AIP, will call addFlashBorrower() on the ACL_MANAGER contract to whitelist 
 | Optimism | Main Market                | CIAN Protocol | [`0x49d9409111a6363d82c4371ffa43faea660c917b`](https://optimistic.etherscan.io/address/0x49d9409111a6363d82c4371ffa43faea660c917b) | FlashloanHelper         |
 | Ethereum | Lido, EtherFi              | Index Coop    | [`0x45c00508C14601fd1C1e296eB3C0e3eEEdCa45D0`](https://etherscan.io/address/0x45c00508C14601fd1C1e296eB3C0e3eEEdCa45D0)            | FlashMintLeveraged      |
 | Ethereum | Lido, EtherFi              | Contango      | [`0xab515542d621574f9b5212d50593cD0C07e641bD`](https://etherscan.io/address/0xab515542d621574f9b5212d50593cD0C07e641bD)            | PermissionedAaveWrapper |
-| Ethereum | Lido, EtherFi              | Seven Seas    | [`0xf0bb20865277aBd641a307eCe5Ee04E79073416C`](https://etherscan.io/address/0xf0bb20865277aBd641a307eCe5Ee04E79073416C)            | Ether.Fi Liquid ETH     |
 
 ## References
 

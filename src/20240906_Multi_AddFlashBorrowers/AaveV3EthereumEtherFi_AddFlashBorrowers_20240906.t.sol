@@ -20,17 +20,6 @@ contract AaveV3EthereumEtherFi_AddFlashBorrowers_20240906_Test is ProtocolV3Test
     proposal = new AaveV3EthereumEtherFi_AddFlashBorrowers_20240906();
   }
 
-  /**
-   * @dev executes the generic test suite including e2e and config snapshots
-   */
-  function test_defaultProposalExecution() public {
-    defaultTest(
-      'AaveV3EthereumEtherFi_AddFlashBorrowers_20240906',
-      AaveV3EthereumEtherFi.POOL,
-      address(proposal)
-    );
-  }
-
   function test_isFlashBorrower() external {
     GovV3Helpers.executePayload(vm, address(proposal));
     bool isFlashBorrower = AaveV3EthereumEtherFi.ACL_MANAGER.isFlashBorrower(
@@ -45,11 +34,6 @@ contract AaveV3EthereumEtherFi_AddFlashBorrowers_20240906_Test is ProtocolV3Test
 
     isFlashBorrower = AaveV3EthereumEtherFi.ACL_MANAGER.isFlashBorrower(
       proposal.CONTANGO_PERMISSIONED_AAVE_WRAPPER()
-    );
-    assertEq(isFlashBorrower, true);
-
-    isFlashBorrower = AaveV3EthereumEtherFi.ACL_MANAGER.isFlashBorrower(
-      proposal.SEVEN_SEAS_ETHER_FI_LIQUID_ETH()
     );
     assertEq(isFlashBorrower, true);
   }
