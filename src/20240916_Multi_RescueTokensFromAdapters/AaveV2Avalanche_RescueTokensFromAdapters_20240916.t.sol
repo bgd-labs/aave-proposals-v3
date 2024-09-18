@@ -29,4 +29,28 @@ contract AaveV2Avalanche_RescueTokensFromAdapters_20240916_Test is ProtocolV2Tes
       address(proposal)
     );
   }
+
+  // Failing test atm
+  function test_isTokensRescuedV3Previous() external {
+    uint256 WBTCeAdminInitialBalance = IERC20(AaveV2AvalancheAssets.WBTCe_UNDERLYING).balanceOf(
+      AaveV2Avalanche.ACL_ADMIN
+    );
+
+    uint256 WBTCeTransferred = IERC20(AaveV2AvalancheAssets.WBTCe_UNDERLYING).balanceOf(
+      proposal.ADAPTER_0()
+    );
+
+    GovV3Helpers.executePayload(vm, address(proposal));
+
+    assertEq(
+      IERC20(AaveV2AvalancheAssets.WBTCe_UNDERLYING).balanceOf(proposal.ADAPTER_0()),
+      0,
+      'Unexpected WBTCe_UNDERLYING remaining'
+    );
+    assertEq(
+      WBTCeAdminInitialBalance + WBTCeTransferred,
+      IERC20(AaveV2AvalancheAssets.WBTCe_UNDERLYING).balanceOf(AaveV2Avalanche.ACL_ADMIN),
+      'Unexpected WBTCe_UNDERLYING final treasury balance'
+    );
+  }
 }
