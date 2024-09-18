@@ -19,55 +19,30 @@ Furthermore, cbBTC’s integration aligns with Aave’s commitment to offering a
 
 ## Specification
 
-The table below illustrates the configured risk parameters for **cbBTC**
+The table below illustrates the configured risk parameters for **cbBTC** on Ethereum main pool and Base pool:
 
-| Parameter                 |                                      Value |
-| ------------------------- | -----------------------------------------: |
-| Isolation Mode            |                                      false |
-| Borrowable                |                                    ENABLED |
-| Collateral Enabled        |                                       true |
-| Supply Cap (cbBTC)        |                                        450 |
-| Borrow Cap (cbBTC)        |                                         45 |
-| Debt Ceiling              |                                      USD 0 |
-| LTV                       |                                       73 % |
-| LT                        |                                       78 % |
-| Liquidation Bonus         |                                      7.5 % |
-| Liquidation Protocol Fee  |                                       10 % |
-| Reserve Factor            |                                       20 % |
-| Base Variable Borrow Rate |                                        0 % |
-| Variable Slope 1          |                                        4 % |
-| Variable Slope 2          |                                      300 % |
-| Uoptimal                  |                                       45 % |
-| Stable Borrowing          |                                   DISABLED |
-| Flashloanable             |                                    ENABLED |
-| Siloed Borrowing          |                                   DISABLED |
-| Borrowable in Isolation   |                                   DISABLED |
-| Oracle                    | 0xF4030086522a5bEEa4988F8cA5B36dbC97BeE88c |
-
-The table below illustrates the configured risk parameters for **cbBTC**
-
-| Parameter                 |                                      Value |
-| ------------------------- | -----------------------------------------: |
-| Isolation Mode            |                                      false |
-| Borrowable                |                                    ENABLED |
-| Collateral Enabled        |                                       true |
-| Supply Cap (cbBTC)        |                                        200 |
-| Borrow Cap (cbBTC)        |                                         20 |
-| Debt Ceiling              |                                      USD 0 |
-| LTV                       |                                       73 % |
-| LT                        |                                       78 % |
-| Liquidation Bonus         |                                      7.5 % |
-| Liquidation Protocol Fee  |                                       10 % |
-| Reserve Factor            |                                       20 % |
-| Base Variable Borrow Rate |                                        0 % |
-| Variable Slope 1          |                                        4 % |
-| Variable Slope 2          |                                      300 % |
-| Uoptimal                  |                                       45 % |
-| Stable Borrowing          |                                   DISABLED |
-| Flashloanable             |                                    ENABLED |
-| Siloed Borrowing          |                                   DISABLED |
-| Borrowable in Isolation   |                                   DISABLED |
-| Oracle                    | 0x64c911996D3c6aC71f9b455B1E8E7266BcbD848F |
+| Parameter                 | Ethereum Main Pool                         | Base Pool                                  |
+| ------------------------- | ------------------------------------------ | ------------------------------------------ |
+| Isolation Mode            | false                                      | false                                      |
+| Borrowable                | ENABLED                                    | ENABLED                                    |
+| Collateral Enabled        | true                                       | true                                       |
+| Supply Cap (cbBTC)        | 450                                        | 200                                        |
+| Borrow Cap (cbBTC)        | 45                                         | 20                                         |
+| Debt Ceiling              | USD 0                                      | USD 0                                      |
+| LTV                       | 73 %                                       | 73 %                                       |
+| LT                        | 78 %                                       | 78 %                                       |
+| Liquidation Bonus         | 7.5 %                                      | 7.5 %                                      |
+| Liquidation Protocol Fee  | 10 %                                       | 10 %                                       |
+| Reserve Factor            | 20 %                                       | 20 %                                       |
+| Base Variable Borrow Rate | 0 %                                        | 0 %                                        |
+| Variable Slope 1          | 4 %                                        | 4 %                                        |
+| Variable Slope 2          | 300 %                                      | 300 %                                      |
+| Uoptimal                  | 45 %                                       | 45 %                                       |
+| Stable Borrowing          | DISABLED                                   | DISABLED                                   |
+| Flashloanable             | ENABLED                                    | ENABLED                                    |
+| Siloed Borrowing          | DISABLED                                   | DISABLED                                   |
+| Borrowable in Isolation   | DISABLED                                   | DISABLED                                   |
+| Oracle                    | 0xF4030086522a5bEEa4988F8cA5B36dbC97BeE88c | 0x64c911996D3c6aC71f9b455B1E8E7266BcbD848F |
 
 ## References
 
