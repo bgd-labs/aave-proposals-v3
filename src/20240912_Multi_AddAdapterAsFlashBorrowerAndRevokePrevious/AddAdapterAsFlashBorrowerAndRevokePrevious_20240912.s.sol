@@ -48,7 +48,7 @@ contract DeployPolygon is PolygonScript {
 
     // compose action
     IPayloadsControllerCore.ExecutionAction[]
-      memory actions = new IPayloadsControllerCore.ExecutionAction[](2);
+      memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
     actions[0] = GovV3Helpers.buildAction(payload0);
 
     // register action at payloadsController
@@ -70,7 +70,7 @@ contract DeployAvalanche is AvalancheScript {
 
     // compose action
     IPayloadsControllerCore.ExecutionAction[]
-      memory actions = new IPayloadsControllerCore.ExecutionAction[](2);
+      memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
     actions[0] = GovV3Helpers.buildAction(payload0);
 
     // register action at payloadsController
@@ -177,21 +177,21 @@ contract CreateProposal is EthereumScript {
 
     // compose actions for validation
     IPayloadsControllerCore.ExecutionAction[]
-      memory actionsEthereum = new IPayloadsControllerCore.ExecutionAction[](2);
+      memory actionsEthereum = new IPayloadsControllerCore.ExecutionAction[](1);
     actionsEthereum[0] = GovV3Helpers.buildAction(
       type(AaveV3Ethereum_AddAdapterAsFlashBorrowerAndRevokePrevious_20240912).creationCode
     );
     payloads[0] = GovV3Helpers.buildMainnetPayload(vm, actionsEthereum);
 
     IPayloadsControllerCore.ExecutionAction[]
-      memory actionsPolygon = new IPayloadsControllerCore.ExecutionAction[](2);
+      memory actionsPolygon = new IPayloadsControllerCore.ExecutionAction[](1);
     actionsPolygon[0] = GovV3Helpers.buildAction(
       type(AaveV3Polygon_AddAdapterAsFlashBorrowerAndRevokePrevious_20240912).creationCode
     );
     payloads[1] = GovV3Helpers.buildPolygonPayload(vm, actionsPolygon);
 
     IPayloadsControllerCore.ExecutionAction[]
-      memory actionsAvalanche = new IPayloadsControllerCore.ExecutionAction[](2);
+      memory actionsAvalanche = new IPayloadsControllerCore.ExecutionAction[](1);
     actionsAvalanche[0] = GovV3Helpers.buildAction(
       type(AaveV3Avalanche_AddAdapterAsFlashBorrowerAndRevokePrevious_20240912).creationCode
     );
