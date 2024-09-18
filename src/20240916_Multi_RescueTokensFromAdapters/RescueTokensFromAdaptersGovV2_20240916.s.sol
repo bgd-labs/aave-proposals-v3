@@ -3,30 +3,8 @@ pragma solidity ^0.8.0;
 
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 import {GovHelpers} from 'aave-helpers/src/GovHelpers.sol';
-import {EthereumScript, ArbitrumScript, PolygonScript, AvalancheScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
-import {AaveV3Ethereum_RescueTokensFromAdapters_20240916_GovV2} from './AaveV3Ethereum_RescueTokensFromAdapters_20240916_GovV2.sol';
-import {AaveV3Arbitrum_RescueTokensFromAdapters_20240916_GovV2} from './AaveV3Arbitrum_RescueTokensFromAdapters_20240916_GovV2.sol';
+import {EthereumScript, PolygonScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
 import {AaveV3Polygon_RescueTokensFromAdapters_20240916_GovV2} from './AaveV3Polygon_RescueTokensFromAdapters_20240916_GovV2.sol';
-
-/**
- * @dev Deploy AaveV3Ethereum_RescueTokensFromAdapters_20240916_GovV2
- * command: make deploy-ledger contract=src/20240916_Multi_RescueTokensFromAdapters/RescueTokensFromAdaptersGovV2_20240916.s.sol:DeployEthereum chain=mainnet
- */
-contract DeployEthereum is EthereumScript {
-  function run() external broadcast {
-    new AaveV3Ethereum_RescueTokensFromAdapters_20240916_GovV2();
-  }
-}
-
-/**
- * @dev Deploy AaveV3Arbitrum_RescueTokensFromAdapters_20240916_GovV2
- * command: make deploy-ledger contract=src/20240916_Multi_RescueTokensFromAdapters/RescueTokensFromAdaptersGovV2_20240916.s.sol:DeployArbitrum chain=arbitrum
- */
-contract DeployArbitrum is ArbitrumScript {
-  function run() external broadcast {
-    new AaveV3Arbitrum_RescueTokensFromAdapters_20240916_GovV2();
-  }
-}
 
 /**
  * @dev Deploy AaveV3Polygon_RescueTokensFromAdapters_20240916_GovV2
@@ -44,10 +22,8 @@ contract DeployPolygon is PolygonScript {
  */
 contract CreateProposal is EthereumScript {
   function run() external broadcast {
-    GovHelpers.Payload[] memory payloads = new GovHelpers.Payload[](2);
-    payloads[0] = GovHelpers.buildMainnet(0xbCb167bDCF14a8F791d6f4A6EDd964aed2F8813B); //TODO: fill in proposal address
-    payloads[1] = GovHelpers.buildArbitrum(0xbCb167bDCF14a8F791d6f4A6EDd964aed2F8813B); //TODO: fill in proposal address
-    payloads[2] = GovHelpers.buildPolygon(0xbCb167bDCF14a8F791d6f4A6EDd964aed2F8813B); //TODO: fill in proposal address
+    GovHelpers.Payload[] memory payloads = new GovHelpers.Payload[](1);
+    payloads[0] = GovHelpers.buildPolygon(0xbCb167bDCF14a8F791d6f4A6EDd964aed2F8813B); //TODO: fill in proposal address
     // GovV3Helpers.createProposal(
     //   vm,
     //   payloads,
