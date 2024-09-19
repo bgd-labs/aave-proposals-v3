@@ -42,15 +42,32 @@ By integrating USDS and sUSDS into Aave v3, we aim to maintain continuity for us
 | Borrowable in Isolation   |                                   DISABLED |                                   DISABLED |
 | Oracle\*                  | 0x408e905577653430Bb80d91e0ca433b338CEA7C6 | 0x4F01b76391A05d32B20FA2d05dD5963eE8db20E6 |
 
-#### Oracle Comments:
+## USDS (Lido Pool) and sUSDS (Aave V3 Main Instance) Changes
 
-- For **USDS** (Lido Pool): Due to expected liquidity conditions on launch of USDS and bidirectional migration with DAI, a CAPO DAI/USD feed is used.
-- For **sUSDS** (Aave V3 Main Instance): Similarly to USDS, sUSDS will use a CAPO DAI/USD feed combined with the USDS <> sUSDS exchange rate.
+### Oracle Updates:
 
-#### Interest Curve Comments
+- **USDS (Lido Pool)**: Implementing a CAPO DAI/USD feed due to expected liquidity conditions on launch and bidirectional migration with DAI.
+- **sUSDS (Aave V3 Main Instance)**: Using a CAPO DAI/USD feed combined with the USDS <> sUSDS exchange rate.
 
-Following discussion with Sky teams and service providers of the Aave DAO, interests curve and reserve factors parameters have been modified to be more suitable for expected usecases of this integration.
-No change have been made to other risk parameters.
+### Interest Curve and Reserve Factor Modifications:
+
+Following discussions with Sky teams and Aave DAO service providers, the following parameters have been adjusted to better suit the expected use cases of this integration:
+
+#### USDS (Lido Pool):
+
+- Reserve Factor: Decreased from 25% to 10%
+- Base Variable Borrow Rate: Increased from 0% to 0.75%
+- Variable Rate Slope 1: Increased from 5.5% to 6.25%
+- Optimal Usage Ratio: Increased from 90% to 92%
+- Collateral Usage: Disabled
+- LTV, Liquidation Threshold, and Liquidation Bonus: All reduced to 0%.
+
+#### sUSDS (Aave V3 Main Instance):
+
+- Reserve Factor: Increased from 25% to 50%
+- Variable Rate Slope 1: Decreased from 5.5% to 2%
+- Variable Rate Slope 2: Decreased from 75% to 50%
+- Optimal Usage Ratio: Increased from 90% to 92%
 
 ## References
 
