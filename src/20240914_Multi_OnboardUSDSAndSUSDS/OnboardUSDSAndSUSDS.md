@@ -49,8 +49,8 @@ By integrating USDS and sUSDS into Aave v3, we aim to maintain continuity for us
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240914_Multi_OnboardUSDSAndSUSDS/AaveV3Ethereum_OnboardUSDSAndSUSDS_20240914.sol), [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240914_Multi_OnboardUSDSAndSUSDS/AaveV3EthereumLido_OnboardUSDSAndSUSDS_20240914.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240914_Multi_OnboardUSDSAndSUSDS/AaveV3Ethereum_OnboardUSDSAndSUSDS_20240914.t.sol), [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240914_Multi_OnboardUSDSAndSUSDS/AaveV3EthereumLido_OnboardUSDSAndSUSDS_20240914.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/e9edd80c08c55d72fafb599167964a81532a987e/src/20240914_Multi_OnboardUSDSAndSUSDS/AaveV3Ethereum_OnboardUSDSAndSUSDS_20240914.sol), [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/e9edd80c08c55d72fafb599167964a81532a987e/src/20240914_Multi_OnboardUSDSAndSUSDS/AaveV3EthereumLido_OnboardUSDSAndSUSDS_20240914.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/e9edd80c08c55d72fafb599167964a81532a987e/src/20240914_Multi_OnboardUSDSAndSUSDS/AaveV3Ethereum_OnboardUSDSAndSUSDS_20240914.t.sol), [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/e9edd80c08c55d72fafb599167964a81532a987e/src/20240914_Multi_OnboardUSDSAndSUSDS/AaveV3EthereumLido_OnboardUSDSAndSUSDS_20240914.t.sol)
 - [Discussion](https://governance.aave.com/t/arfc-onboard-usds-and-susds-to-aave-v3/18987)
 - [Risk Recommendation 1](https://governance.aave.com/t/arfc-onboard-usds-and-susds-to-aave-v3/18987/2)
 - [Risk Recommendation 2](https://governance.aave.com/t/arfc-onboard-usds-and-susds-to-aave-v3/18987/3)
