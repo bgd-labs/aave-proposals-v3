@@ -9,34 +9,16 @@ import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Ethereum_OnboardUSDSAndSUSDS_20240914} from './AaveV3Ethereum_OnboardUSDSAndSUSDS_20240914.sol';
 
-import {IPoolAddressesProviderRegistry} from 'aave-v3-core/contracts/interfaces/IPoolAddressesProviderRegistry.sol';
-import {IEmissionManager} from 'aave-v3-periphery/contracts/rewards/interfaces/IEmissionManager.sol';
-
 /**
  * @dev Test for AaveV3Ethereum_OnboardUSDSAndSUSDS_20240914
- * command: FOUNDRY_PROFILE=mainnet forge test --match-path=src/20240914_AaveV3Ethereum_OnboardUSDSAndSUSDS/AaveV3Ethereum_OnboardUSDSAndSUSDS_20240914.t.sol -vv
+ * command: FOUNDRY_PROFILE=mainnet forge test --match-path=src/20240914_Multi_OnboardUSDSAndSUSDS/AaveV3Ethereum_OnboardUSDSAndSUSDS_20240914.t.sol -vv
  */
 contract AaveV3Ethereum_OnboardUSDSAndSUSDS_20240914_Test is ProtocolV3TestBase {
   AaveV3Ethereum_OnboardUSDSAndSUSDS_20240914 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 20747338);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 20776605);
     proposal = new AaveV3Ethereum_OnboardUSDSAndSUSDS_20240914();
-    deal2(proposal.USDS(), 0x5300A1a15135EA4dc7aD5a167152C01EFc9b192A, 100e18);
-    deal2(proposal.sUSDS(), 0x5300A1a15135EA4dc7aD5a167152C01EFc9b192A, 100e18);
-
-    //
-    vm.mockCall(
-      proposal.USDS(),
-      abi.encodeWithSelector(IERC20.totalSupply.selector),
-      abi.encode(100_000_000 * 1 ether)
-    );
-
-    vm.mockCall(
-      proposal.sUSDS(),
-      abi.encodeWithSelector(IERC20.totalSupply.selector),
-      abi.encode(100_000_000 * 1 ether)
-    );
   }
 
   /**
@@ -50,18 +32,11 @@ contract AaveV3Ethereum_OnboardUSDSAndSUSDS_20240914_Test is ProtocolV3TestBase 
     );
   }
 
-  function test_collectorHasUSDSFunds() public {
-    GovV3Helpers.executePayload(vm, address(proposal));
-    (address aTokenAddress, , ) = AaveV3Ethereum
-      .AAVE_PROTOCOL_DATA_PROVIDER
-      .getReserveTokensAddresses(proposal.USDS());
-    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Ethereum.COLLECTOR)), 10 ** 18);
-  }
   function test_collectorHassUSDSFunds() public {
     GovV3Helpers.executePayload(vm, address(proposal));
     (address aTokenAddress, , ) = AaveV3Ethereum
       .AAVE_PROTOCOL_DATA_PROVIDER
       .getReserveTokensAddresses(proposal.sUSDS());
-    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Ethereum.COLLECTOR)), 10 ** 18);
+    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Ethereum.COLLECTOR)), 100e18);
   }
 }
