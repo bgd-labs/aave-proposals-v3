@@ -32,7 +32,7 @@ contract AaveV3Ethereum_OnboardUSDSAndSUSDS_20240914 is AaveV3PayloadEthereum {
       assetSymbol: 'sUSDS',
       priceFeed: 0x408e905577653430Bb80d91e0ca433b338CEA7C6,
       eModeCategory: AaveV3EthereumEModes.NONE,
-      enabledToBorrow: EngineFlags.DISABLED,
+      enabledToBorrow: EngineFlags.ENABLED,
       stableRateModeEnabled: EngineFlags.DISABLED,
       borrowableInIsolation: EngineFlags.DISABLED,
       withSiloedBorrowing: EngineFlags.DISABLED,
@@ -47,8 +47,8 @@ contract AaveV3Ethereum_OnboardUSDSAndSUSDS_20240914 is AaveV3PayloadEthereum {
       liqProtocolFee: 10_00,
       rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
         optimalUsageRatio: 92_00,
-        baseVariableBorrowRate: 2_00,
-        variableRateSlope1: 0,
+        baseVariableBorrowRate: 0,
+        variableRateSlope1: 2_00,
         variableRateSlope2: 50_00
       })
     });

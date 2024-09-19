@@ -31,7 +31,7 @@
 | variableDebtTokenImpl | [0xaC725CB59D16C81061BDeA61041a8A5e73DA9EC6](https://etherscan.io/address/0xaC725CB59D16C81061BDeA61041a8A5e73DA9EC6) |
 | stableDebtToken | [0xCcf8413F9cA3bAE07EEF05E265D238d60abCb8Ca](https://etherscan.io/address/0xCcf8413F9cA3bAE07EEF05E265D238d60abCb8Ca) |
 | stableDebtTokenImpl | [0x15C5620dfFaC7c7366EED66C20Ad222DDbB1eD57](https://etherscan.io/address/0x15C5620dfFaC7c7366EED66C20Ad222DDbB1eD57) |
-| borrowingEnabled | false |
+| borrowingEnabled | true |
 | stableBorrowRateEnabled | false |
 | isBorrowableInIsolation | false |
 | interestRateStrategy | [0x847A3364Cc5fE389283bD821cfC8A477288D9e82](https://etherscan.io/address/0x847A3364Cc5fE389283bD821cfC8A477288D9e82) |
@@ -47,10 +47,10 @@
 | virtualBalance | 100 sUSDS [100000000000000000000] |
 | optimalUsageRatio | 92 % |
 | maxVariableBorrowRate | 52 % |
-| baseVariableBorrowRate | 2 % |
-| variableRateSlope1 | 0 % |
+| baseVariableBorrowRate | 0 % |
+| variableRateSlope1 | 2 % |
 | variableRateSlope2 | 50 % |
-| interestRate | ![ir](/.assets/c03a6caca3d1167c9704136581d04e0cd54833d9.svg) |
+| interestRate | ![ir](/.assets/fc7f883d8a739b22ace4c67d3706a29ce94462e8.svg) |
 
 
 ## Raw diff
@@ -67,7 +67,7 @@
         "aTokenSymbol": "aEthsUSDS",
         "aTokenUnderlyingBalance": "100000000000000000000",
         "borrowCap": 0,
-        "borrowingEnabled": false,
+        "borrowingEnabled": true,
         "debtCeiling": 0,
         "decimals": 18,
         "eModeCategory": 0,
@@ -110,10 +110,10 @@
       "from": null,
       "to": {
         "address": "0x847A3364Cc5fE389283bD821cfC8A477288D9e82",
-        "baseVariableBorrowRate": "20000000000000000000000000",
+        "baseVariableBorrowRate": "0",
         "maxVariableBorrowRate": "520000000000000000000000000",
         "optimalUsageRatio": "920000000000000000000000000",
-        "variableRateSlope1": "0",
+        "variableRateSlope1": "20000000000000000000000000",
         "variableRateSlope2": "500000000000000000000000000"
       }
     }

@@ -45,15 +45,15 @@ contract AaveV3EthereumLido_OnboardUSDSAndSUSDS_20240914 is AaveV3PayloadEthereu
       ltv: 0,
       liqThreshold: 0,
       liqBonus: 0,
-      reserveFactor: 5_00,
+      reserveFactor: 10_00,
       supplyCap: 50_000_000,
       borrowCap: 45_000_000,
       debtCeiling: 0,
       liqProtocolFee: 10_00,
       rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
         optimalUsageRatio: 92_00,
-        baseVariableBorrowRate: 6_50,
-        variableRateSlope1: 0,
+        baseVariableBorrowRate: 75,
+        variableRateSlope1: 6_25,
         variableRateSlope2: 75_00
       })
     });
