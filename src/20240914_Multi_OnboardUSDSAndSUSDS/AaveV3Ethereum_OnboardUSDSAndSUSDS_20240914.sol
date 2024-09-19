@@ -42,7 +42,7 @@ contract AaveV3Ethereum_OnboardUSDSAndSUSDS_20240914 is AaveV3PayloadEthereum {
       liqBonus: 7_50,
       reserveFactor: 50_00,
       supplyCap: 35_000_000,
-      borrowCap: 0,
+      borrowCap: 32_500_000,
       debtCeiling: 0,
       liqProtocolFee: 10_00,
       rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({

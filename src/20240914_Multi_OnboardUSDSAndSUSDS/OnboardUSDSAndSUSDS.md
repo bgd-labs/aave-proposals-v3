@@ -25,7 +25,7 @@ By integrating USDS and sUSDS into Aave v3, we aim to maintain continuity for us
 | Borrowable                |                                    ENABLED |                                    ENABLED |
 | Collateral Enabled        |                                       true |                                      false |
 | Supply Cap                |                                 35,000,000 |                                 50,000,000 |
-| Borrow Cap                |                                          0 |                                 45,000,000 |
+| Borrow Cap                |                                 32,500,000 |                                 45,000,000 |
 | Debt Ceiling              |                                      USD 0 |                                      USD 0 |
 | LTV                       |                                       75 % |                                        0 % |
 | LT                        |                                       78 % |                                        0 % |

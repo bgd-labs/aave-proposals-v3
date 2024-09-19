@@ -10,7 +10,7 @@
 | isActive | true |
 | isFrozen | false |
 | supplyCap | 35,000,000 sUSDS |
-| borrowCap | 0 sUSDS |
+| borrowCap | 32,500,000 sUSDS |
 | debtCeiling | 0 $ [0] |
 | isSiloed | false |
 | isFlashloanable | true |
@@ -66,7 +66,7 @@
         "aTokenName": "Aave Ethereum sUSDS",
         "aTokenSymbol": "aEthsUSDS",
         "aTokenUnderlyingBalance": "100000000000000000000",
-        "borrowCap": 0,
+        "borrowCap": 32500000,
         "borrowingEnabled": true,
         "debtCeiling": 0,
         "decimals": 18,
