@@ -19,6 +19,7 @@
 | oracleDecimals | 8 |
 | oracleDescription | Capped sUSDS / USDS <-> DAI / USD |
 | oracleLatestAnswer | 1.00006144 |
+| oracleLatestAnswer | 1.00006144 |
 | usageAsCollateralEnabled | true |
 | ltv | 75 % [7500] |
 | liquidationThreshold | 78 % [7800] |
@@ -28,7 +29,9 @@
 | aToken | [0x10Ac93971cdb1F5c778144084242374473c350Da](https://etherscan.io/address/0x10Ac93971cdb1F5c778144084242374473c350Da) |
 | aTokenImpl | [0x7EfFD7b47Bfd17e52fB7559d3f924201b9DbfF3d](https://etherscan.io/address/0x7EfFD7b47Bfd17e52fB7559d3f924201b9DbfF3d) |
 | variableDebtToken | [0xAC50890a80A2731eb1eA2e9B4F29569CeB06D960](https://etherscan.io/address/0xAC50890a80A2731eb1eA2e9B4F29569CeB06D960) |
+| variableDebtToken | [0xAC50890a80A2731eb1eA2e9B4F29569CeB06D960](https://etherscan.io/address/0xAC50890a80A2731eb1eA2e9B4F29569CeB06D960) |
 | variableDebtTokenImpl | [0xaC725CB59D16C81061BDeA61041a8A5e73DA9EC6](https://etherscan.io/address/0xaC725CB59D16C81061BDeA61041a8A5e73DA9EC6) |
+| stableDebtToken | [0xCcf8413F9cA3bAE07EEF05E265D238d60abCb8Ca](https://etherscan.io/address/0xCcf8413F9cA3bAE07EEF05E265D238d60abCb8Ca) |
 | stableDebtToken | [0xCcf8413F9cA3bAE07EEF05E265D238d60abCb8Ca](https://etherscan.io/address/0xCcf8413F9cA3bAE07EEF05E265D238d60abCb8Ca) |
 | stableDebtTokenImpl | [0x15C5620dfFaC7c7366EED66C20Ad222DDbB1eD57](https://etherscan.io/address/0x15C5620dfFaC7c7366EED66C20Ad222DDbB1eD57) |
 | borrowingEnabled | true |
@@ -62,6 +65,7 @@
       "from": null,
       "to": {
         "aToken": "0x10Ac93971cdb1F5c778144084242374473c350Da",
+        "aToken": "0x10Ac93971cdb1F5c778144084242374473c350Da",
         "aTokenImpl": "0x7EfFD7b47Bfd17e52fB7559d3f924201b9DbfF3d",
         "aTokenName": "Aave Ethereum sUSDS",
         "aTokenSymbol": "aEthsUSDS",
@@ -89,6 +93,7 @@
         "reserveFactor": 5000,
         "stableBorrowRateEnabled": false,
         "stableDebtToken": "0xCcf8413F9cA3bAE07EEF05E265D238d60abCb8Ca",
+        "stableDebtToken": "0xCcf8413F9cA3bAE07EEF05E265D238d60abCb8Ca",
         "stableDebtTokenImpl": "0x15C5620dfFaC7c7366EED66C20Ad222DDbB1eD57",
         "stableDebtTokenName": "Aave Ethereum Stable Debt sUSDS",
         "stableDebtTokenSymbol": "stableDebtEthsUSDS",
@@ -96,6 +101,7 @@
         "symbol": "sUSDS",
         "underlying": "0xa3931d71877C0E7a3148CB7Eb4463524FEc27fbD",
         "usageAsCollateralEnabled": true,
+        "variableDebtToken": "0xAC50890a80A2731eb1eA2e9B4F29569CeB06D960",
         "variableDebtToken": "0xAC50890a80A2731eb1eA2e9B4F29569CeB06D960",
         "variableDebtTokenImpl": "0xaC725CB59D16C81061BDeA61041a8A5e73DA9EC6",
         "variableDebtTokenName": "Aave Ethereum Variable Debt sUSDS",
