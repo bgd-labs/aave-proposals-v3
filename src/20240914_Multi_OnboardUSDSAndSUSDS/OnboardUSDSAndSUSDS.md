@@ -22,20 +22,20 @@ By integrating USDS and sUSDS into Aave v3, we aim to maintain continuity for us
 | Parameter                 |          **sUSDS** (Aave V3 Main Instance) |                       **USDS** (Lido Pool) |
 | ------------------------- | -----------------------------------------: | -----------------------------------------: |
 | Isolation Mode            |                                      false |                                      false |
-| Borrowable                |                                   DISABLED |                                    ENABLED |
-| Collateral Enabled        |                                       true |                                       true |
+| Borrowable                |                                    ENABLED |                                    ENABLED |
+| Collateral Enabled        |                                       true |                                      false |
 | Supply Cap                |                                 35,000,000 |                                 50,000,000 |
 | Borrow Cap                |                                          0 |                                 45,000,000 |
 | Debt Ceiling              |                                      USD 0 |                                      USD 0 |
-| LTV                       |                                       75 % |                                       63 % |
-| LT                        |                                       78 % |                                       72 % |
-| Liquidation Bonus         |                                      7.5 % |                                      7.5 % |
+| LTV                       |                                       75 % |                                        0 % |
+| LT                        |                                       78 % |                                        0 % |
+| Liquidation Bonus         |                                      7.5 % |                                         0% |
 | Liquidation Protocol Fee  |                                       10 % |                                       10 % |
 | Reserve Factor            |                                       25 % |                                       25 % |
-| Base Variable Borrow Rate |                                        0 % |                                        0 % |
-| Variable Slope 1          |                                      5.5 % |                                      5.5 % |
-| Variable Slope 2          |                                       75 % |                                       75 % |
-| Uoptimal                  |                                       90 % |                                       90 % |
+| Base Variable Borrow Rate |                                        0 % |                                     0.75 % |
+| Variable Slope 1          |                                        2 % |                                     6.25 % |
+| Variable Slope 2          |                                       50 % |                                       75 % |
+| Uoptimal                  |                                       92 % |                                       92 % |
 | Stable Borrowing          |                                   DISABLED |                                   DISABLED |
 | Flashloanable             |                                    ENABLED |                                    ENABLED |
 | Siloed Borrowing          |                                   DISABLED |                                   DISABLED |
@@ -46,6 +46,11 @@ By integrating USDS and sUSDS into Aave v3, we aim to maintain continuity for us
 
 - For **USDS** (Lido Pool): Due to expected liquidity conditions on launch of USDS and bidirectional migration with DAI, a CAPO DAI/USD feed is used.
 - For **sUSDS** (Aave V3 Main Instance): Similarly to USDS, sUSDS will use a CAPO DAI/USD feed combined with the USDS <> sUSDS exchange rate.
+
+#### Interest Curve Comments
+
+Following discussion with Sky teams and service providers of the Aave DAO, interests curve and reserve factors parameters have been modified to be more suitable for expected usecases of this integration.
+No change have been made to other risk parameters.
 
 ## References
 
