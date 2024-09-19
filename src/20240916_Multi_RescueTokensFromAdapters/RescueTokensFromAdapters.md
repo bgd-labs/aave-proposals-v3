@@ -14,7 +14,31 @@ Due to the previous issue from August 28, 2024 where peripheral contracts used t
 
 ## Specification
 
-The Paraswap debt swap adapters have an emergency method for rescuing tokens stuck in the contract as a failsafe mechanism. Tokens will be transferred to the contract owner upon execution.
+The Paraswap debt swap adapters have an emergency method for rescuing tokens stuck in the contract as a failsafe mechanism. Tokens will be rescued to the contract owner, then transferred to the treasury upon execution.
+
+Summary (values approximate):
+
+V2Ethereum - DEBT_SWAP_ADAPTER ([0x6A6FA664D4Fa49a6a780a1D6143f079f8dd7C33d](https://etherscan.io/address/0x6A6FA664D4Fa49a6a780a1D6143f079f8dd7C33d))
+
+- Owner: [0x5300A1a15135EA4dc7aD5a167152C01EFc9b192A](https://etherscan.io/address/0x5300A1a15135EA4dc7aD5a167152C01EFc9b192A)
+- Tokens to rescue:
+  - sUSD: $52
+  - USDC: $10
+
+V3Ethereum - DEBT_SWAP_ADAPTER ([0x8761e0370f94f68Db8EaA731f4fC581f6AD0Bd68](https://etherscan.io/address/0x8761e0370f94f68Db8EaA731f4fC581f6AD0Bd68))
+
+- Owner: [0x5300A1a15135EA4dc7aD5a167152C01EFc9b192A](https://etherscan.io/address/0x5300A1a15135EA4dc7aD5a167152C01EFc9b192A)
+- Tokens to rescue:
+  - USDT: $78
+  - crvUSD: $33
+
+V3Ethereum - REPAY_WITH_COLLATERAL_ADAPTER ([0x02e7B8511831B1b02d9018215a0f8f500Ea5c6B3](https://etherscan.io/address/0x02e7B8511831B1b02d9018215a0f8f500Ea5c6B3))
+
+- Owner: [0x5300A1a15135EA4dc7aD5a167152C01EFc9b192A](https://etherscan.io/address/0x5300A1a15135EA4dc7aD5a167152C01EFc9b192A)
+- Tokens to rescue:
+  - GHO: $3,120
+  - rETH: $31
+  - WBTC: $23
 
 ## References
 
