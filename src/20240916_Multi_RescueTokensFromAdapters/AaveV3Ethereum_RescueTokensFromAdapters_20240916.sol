@@ -26,10 +26,41 @@ interface IRescuable {
  * - Discussion: https://governance.aave.com/t/periphery-contracts-incident-august-28-2024/18821
  */
 contract AaveV3Ethereum_RescueTokensFromAdapters_20240916 is IProposalGenericExecutor {
-  /// @dev previous versions of the adapters
-  address public constant ADAPTER_0 = 0x02e7B8511831B1b02d9018215a0f8f500Ea5c6B3;
+  struct Balance {
+    uint256 sUSD;
+    uint256 USDC;
+    uint256 USDT;
+    uint256 crvUSD;
+    uint256 GHO;
+    uint256 rETH;
+    uint256 WBTC;
+  }
 
   function execute() external {
+    Balance memory balanceToRescue = Balance({
+      sUSD: IERC20(AaveV2EthereumAssets.sUSD_UNDERLYING).balanceOf(
+        AaveV2Ethereum.DEBT_SWAP_ADAPTER
+      ),
+      USDC: IERC20(AaveV2EthereumAssets.USDC_UNDERLYING).balanceOf(
+        AaveV2Ethereum.DEBT_SWAP_ADAPTER
+      ),
+      USDT: IERC20(AaveV3EthereumAssets.USDT_UNDERLYING).balanceOf(
+        AaveV3Ethereum.DEBT_SWAP_ADAPTER
+      ),
+      crvUSD: IERC20(AaveV3EthereumAssets.crvUSD_UNDERLYING).balanceOf(
+        AaveV3Ethereum.DEBT_SWAP_ADAPTER
+      ),
+      GHO: IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(
+        AaveV3Ethereum.REPAY_WITH_COLLATERAL_ADAPTER
+      ),
+      rETH: IERC20(AaveV3EthereumAssets.rETH_UNDERLYING).balanceOf(
+        AaveV3Ethereum.REPAY_WITH_COLLATERAL_ADAPTER
+      ),
+      WBTC: IERC20(AaveV3EthereumAssets.WBTC_UNDERLYING).balanceOf(
+        AaveV3Ethereum.REPAY_WITH_COLLATERAL_ADAPTER
+      )
+    });
+
     // AaveV2Ethereum current
     IRescuable(AaveV2Ethereum.DEBT_SWAP_ADAPTER).rescueTokens(
       IERC20(AaveV2EthereumAssets.sUSD_UNDERLYING)
@@ -53,6 +84,36 @@ contract AaveV3Ethereum_RescueTokensFromAdapters_20240916 is IProposalGenericExe
     );
     IRescuable(AaveV3Ethereum.REPAY_WITH_COLLATERAL_ADAPTER).rescueTokens(
       IERC20(AaveV3EthereumAssets.WBTC_UNDERLYING)
+    );
+
+    // Transfer to COLLECTOR
+    IERC20(AaveV2EthereumAssets.sUSD_UNDERLYING).transfer(
+      address(AaveV3Ethereum.COLLECTOR),
+      balanceToRescue.sUSD
+    );
+    IERC20(AaveV2EthereumAssets.USDC_UNDERLYING).transfer(
+      address(AaveV3Ethereum.COLLECTOR),
+      balanceToRescue.USDC
+    );
+    // IERC20(AaveV3EthereumAssets.USDT_UNDERLYING).transfer(
+    //   address(AaveV3Ethereum.COLLECTOR),
+    //   balanceToRescue.USDT
+    // );
+    IERC20(AaveV3EthereumAssets.crvUSD_UNDERLYING).transfer(
+      address(AaveV3Ethereum.COLLECTOR),
+      balanceToRescue.crvUSD
+    );
+    IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).transfer(
+      address(AaveV3Ethereum.COLLECTOR),
+      balanceToRescue.GHO
+    );
+    IERC20(AaveV3EthereumAssets.rETH_UNDERLYING).transfer(
+      address(AaveV3Ethereum.COLLECTOR),
+      balanceToRescue.rETH
+    );
+    IERC20(AaveV3EthereumAssets.WBTC_UNDERLYING).transfer(
+      address(AaveV3Ethereum.COLLECTOR),
+      balanceToRescue.WBTC
     );
   }
 }
