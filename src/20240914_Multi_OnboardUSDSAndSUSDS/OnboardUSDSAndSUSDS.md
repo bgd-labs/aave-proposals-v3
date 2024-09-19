@@ -31,7 +31,7 @@ By integrating USDS and sUSDS into Aave v3, we aim to maintain continuity for us
 | LT                        |                                       78 % |                                        0 % |
 | Liquidation Bonus         |                                      7.5 % |                                         0% |
 | Liquidation Protocol Fee  |                                       10 % |                                       10 % |
-| Reserve Factor            |                                       25 % |                                       25 % |
+| Reserve Factor            |                                       50 % |                                       10 % |
 | Base Variable Borrow Rate |                                        0 % |                                     0.75 % |
 | Variable Slope 1          |                                        2 % |                                     6.25 % |
 | Variable Slope 2          |                                       50 % |                                       75 % |
