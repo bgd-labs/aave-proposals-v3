@@ -113,11 +113,11 @@ contract AaveV3Ethereum_RescueTokensFromAdapters_20240916_Test is ProtocolV3Test
       0,
       'Unexpected USDT_UNDERLYING remaining'
     );
-    // assertEq(
-    //   USDTCollectorInitialBalance + USDTTransferred,
-    //   IERC20(AaveV3EthereumAssets.USDT_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
-    //   'Unexpected USDT_UNDERLYING final treasury balance'
-    // );
+    assertEq(
+      USDTCollectorInitialBalance + USDTTransferred,
+      IERC20(AaveV3EthereumAssets.USDT_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
+      'Unexpected USDT_UNDERLYING final treasury balance'
+    );
     assertEq(
       IERC20(AaveV3EthereumAssets.crvUSD_UNDERLYING).balanceOf(AaveV3Ethereum.DEBT_SWAP_ADAPTER),
       0,
