@@ -11,7 +11,7 @@ import {AaveV3Ethereum_RescueTokensFromAdapters_20240916} from './AaveV3Ethereum
  * @dev Test for AaveV2Ethereum_RescueTokensFromAdapters_20240916
  * command: FOUNDRY_PROFILE=mainnet forge test --match-path=src/20240916_Multi_RescueTokensFromAdapters/AaveV2Ethereum_RescueTokensFromAdapters_20240916.t.sol -vv
  */
-contract AaveV3Ethereum_RescueTokensFromAdapters_20240916_Test is ProtocolV2TestBase {
+contract AaveV2Ethereum_RescueTokensFromAdapters_20240916_Test is ProtocolV2TestBase {
   AaveV3Ethereum_RescueTokensFromAdapters_20240916 internal proposal;
 
   function setUp() public {
