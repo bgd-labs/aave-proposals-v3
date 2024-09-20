@@ -20,7 +20,8 @@ export const config: ConfigFile = {
     date: '20240913',
     discussion:
       'https://governance.aave.com/t/arfc-chaos-labs-risk-parameter-updates-ltv-and-lt-alignment/18997',
-    snapshot: 'TODO',
+    snapshot:
+      'https://snapshot.org/#/aave.eth/proposal/0x153c14691fb5056bc30f53be19f04647c24d206149d2bc5a6752d7548f72ca0b',
     votingNetwork: 'POLYGON',
   },
   poolOptions: {

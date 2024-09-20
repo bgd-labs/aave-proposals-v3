@@ -8,7 +8,7 @@ import {IAaveV3ConfigEngine} from 'aave-v3-periphery/contracts/v3-config-engine/
 /**
  * @title  Chaos Labs Risk Parameter Updates - LTV and LT Alignment
  * @author Aave Chan Initiative
- * - Snapshot: TODO
+ * - Snapshot: https://snapshot.org/#/aave.eth/proposal/0x153c14691fb5056bc30f53be19f04647c24d206149d2bc5a6752d7548f72ca0b
  * - Discussion: https://governance.aave.com/t/arfc-chaos-labs-risk-parameter-updates-ltv-and-lt-alignment/18997
  */
 contract AaveV3Polygon_ChaosLabsRiskParameterUpdatesLTVAndLTAlignment_20240913 is
