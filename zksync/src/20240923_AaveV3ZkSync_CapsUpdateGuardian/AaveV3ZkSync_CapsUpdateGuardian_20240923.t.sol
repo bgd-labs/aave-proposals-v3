@@ -2,15 +2,19 @@
 pragma solidity ^0.8.0;
 
 import {AaveV3ZkSync} from 'aave-address-book/AaveV3ZkSync.sol';
+import {Address} from 'solidity-utils/contracts/oz-common/Address.sol';
 import {MiscZkSync} from 'aave-address-book/MiscZkSync.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/zksync/src/ProtocolV3TestBase.sol';
 import {AaveV3ZkSync_CapsUpdateGuardian_20240923} from './AaveV3ZkSync_CapsUpdateGuardian_20240923.sol';
+import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
 
 /**
  * @dev Test for AaveV3ZkSync_CapsUpdateGuardian_20240923
  * command: FOUNDRY_PROFILE=zksync forge test --zksync --match-path=zksync/src/20240923_AaveV3ZkSync_CapsUpdateGuardian/AaveV3ZkSync_CapsUpdateGuardian_20240923.t.sol -vv
  */
 contract AaveV3ZkSync_CapsUpdateGuardian_20240923_Test is ProtocolV3TestBase {
+  using Address for address;
+
   AaveV3ZkSync_CapsUpdateGuardian_20240923 internal proposal;
 
   function setUp() public override {
@@ -24,12 +28,19 @@ contract AaveV3ZkSync_CapsUpdateGuardian_20240923_Test is ProtocolV3TestBase {
    * @dev executes the generic test suite including e2e and config snapshots
    */
   function test_defaultProposalExecution() public {
-    defaultTest('AaveV3ZkSync_CapsUpdateGuardian_20240923', AaveV3ZkSync.POOL, address(proposal));
+    defaultTest(
+      'AaveV3ZkSync_CapsUpdateGuardian_20240923',
+      AaveV3ZkSync.POOL,
+      address(proposal),
+      false
+    );
   }
 
   function test_executionByGuardian() public {
     vm.startPrank(MiscZkSync.PROTOCOL_GUARDIAN);
-    proposal.execute();
+    address(proposal).functionDelegateCall(
+      abi.encodeWithSelector(IProposalGenericExecutor.execute.selector)
+    );
     vm.stopPrank();
   }
 }
