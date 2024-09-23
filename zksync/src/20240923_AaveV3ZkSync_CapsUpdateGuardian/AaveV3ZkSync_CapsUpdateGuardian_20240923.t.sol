@@ -2,8 +2,7 @@
 pragma solidity ^0.8.0;
 
 import {AaveV3ZkSync} from 'aave-address-book/AaveV3ZkSync.sol';
-
-import 'forge-std/Test.sol';
+import {MiscZkSync} from 'aave-address-book/MiscZkSync.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/zksync/src/ProtocolV3TestBase.sol';
 import {AaveV3ZkSync_CapsUpdateGuardian_20240923} from './AaveV3ZkSync_CapsUpdateGuardian_20240923.sol';
 
@@ -26,5 +25,11 @@ contract AaveV3ZkSync_CapsUpdateGuardian_20240923_Test is ProtocolV3TestBase {
    */
   function test_defaultProposalExecution() public {
     defaultTest('AaveV3ZkSync_CapsUpdateGuardian_20240923', AaveV3ZkSync.POOL, address(proposal));
+  }
+
+  function test_executionByGuardian() public {
+    vm.startPrank(MiscZkSync.PROTOCOL_GUARDIAN);
+    proposal.execute();
+    vm.stopPrank();
   }
 }
