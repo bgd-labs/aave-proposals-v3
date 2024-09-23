@@ -17,11 +17,9 @@ contract AaveV3Ethereum_TBTCSeed_20240923_Test is ProtocolV3TestBase {
   address public constant TBTC_ATOKEN = 0x10Ac93971cdb1F5c778144084242374473c350Da;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 20812119);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 20812822);
     proposal = new AaveV3Ethereum_TBTCSeed_20240923();
     vm.warp(1727090472);
-
-    deal(proposal.TBTC(), address(proposal), proposal.SEED_AMOUNT());
   }
 
   /**
