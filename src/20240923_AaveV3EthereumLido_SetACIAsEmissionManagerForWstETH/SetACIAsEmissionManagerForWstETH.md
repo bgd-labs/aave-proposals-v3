@@ -1,7 +1,7 @@
 ---
 title: "Set ACI as Emission Manager for wstETH"
 author: "Aave Chan Initiative"
-discussions: "https://governance.aave.com/t/arfc-set-aci-as-emission-manager-for-liquidity-mining-programs/17898"
+discussions: "https://governance.aave.com/t/arfc-set-aci-as-emission-manager-for-liquidity-mining-programs/17898/16"
 ---
 
 ## Simple Summary
