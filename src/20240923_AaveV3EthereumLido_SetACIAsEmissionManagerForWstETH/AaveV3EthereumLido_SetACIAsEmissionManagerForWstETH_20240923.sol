@@ -8,7 +8,7 @@ import {IEmissionManager} from 'aave-v3-periphery/contracts/rewards/interfaces/I
  * @title Set ACI as Emission Manager for wstETH
  * @author Aave Chan Initiative
  * - Snapshot: Direct-to-AIP
- * - Discussion: https://governance.aave.com/t/arfc-set-aci-as-emission-manager-for-liquidity-mining-programs/17898
+ * - Discussion: https://governance.aave.com/t/arfc-set-aci-as-emission-manager-for-liquidity-mining-programs/17898/16
  */
 contract AaveV3EthereumLido_SetACIAsEmissionManagerForWstETH_20240923 is IProposalGenericExecutor {
   address public constant ACI_MULTISIG = 0xac140648435d03f784879cd789130F22Ef588Fcd;
