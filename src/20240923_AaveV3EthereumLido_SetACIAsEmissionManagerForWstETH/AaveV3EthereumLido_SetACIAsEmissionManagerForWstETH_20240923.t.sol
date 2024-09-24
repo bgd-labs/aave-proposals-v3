@@ -40,5 +40,9 @@ contract AaveV3EthereumLido_SetACIAsEmissionManagerForWstETH_20240923_Test is Pr
       ),
       proposal.ACI_MULTISIG()
     );
+    assertEq(
+      IEmissionManager(AaveV3EthereumLido.EMISSION_MANAGER).getEmissionAdmin(proposal.tBTC()),
+      proposal.ACI_MULTISIG()
+    );
   }
 }
