@@ -33,8 +33,8 @@ Given these observations, we recommend increasing sAVAX’s LTV and LT and incre
 
 ## References
 
-- Implementation: [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240920_AaveV3Avalanche_ChaosLabsRiskParameterUpdatesSAVAXLTLTVAdjustment/AaveV3Avalanche_ChaosLabsRiskParameterUpdatesSAVAXLTLTVAdjustment_20240920.sol)
-- Tests: [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240920_AaveV3Avalanche_ChaosLabsRiskParameterUpdatesSAVAXLTLTVAdjustment/AaveV3Avalanche_ChaosLabsRiskParameterUpdatesSAVAXLTLTVAdjustment_20240920.t.sol)
+- Implementation: [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/e87585b08712d5df242eb2efabcde526f67a32df/src/20240920_AaveV3Avalanche_ChaosLabsRiskParameterUpdatesSAVAXLTLTVAdjustment/AaveV3Avalanche_ChaosLabsRiskParameterUpdatesSAVAXLTLTVAdjustment_20240920.sol)
+- Tests: [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/e87585b08712d5df242eb2efabcde526f67a32df/src/20240920_AaveV3Avalanche_ChaosLabsRiskParameterUpdatesSAVAXLTLTVAdjustment/AaveV3Avalanche_ChaosLabsRiskParameterUpdatesSAVAXLTLTVAdjustment_20240920.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x79d53b646cbada43fca9468df9c9ecbbaab42f9f4f17691cbdf216b21f6c21bb)
 - [Discussion](https://governance.aave.com/t/arfc-chaos-labs-risk-parameter-updates-savax-lt-ltv-adjustment/18995)
 
