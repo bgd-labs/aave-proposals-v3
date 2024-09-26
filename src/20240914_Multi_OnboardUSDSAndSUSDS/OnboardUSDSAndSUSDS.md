@@ -42,7 +42,7 @@ By integrating USDS into Aave v3, we aim to maintain continuity for users who ha
 | Borrowable in Isolation   |                                   DISABLED |                                   DISABLED |
 | Oracle\*                  | 0x4F01b76391A05d32B20FA2d05dD5963eE8db20E6 | 0x4F01b76391A05d32B20FA2d05dD5963eE8db20E6 |
 
-## USDS (Lido Pool) and sUSDS (Aave V3 Main Instance) Changes
+## USDS (Lido and Main Instances) Changes
 
 ### Oracle Updates:
 
