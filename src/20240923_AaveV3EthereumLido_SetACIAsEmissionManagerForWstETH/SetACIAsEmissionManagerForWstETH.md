@@ -14,7 +14,7 @@ Liquidity mining programs are essential for attracting liquidity providers by of
 
 To extend Lido Instance growth, the ACI proposes setting its multisig as the emission manager for wstETH on the Lido instance. This is meant to kickstart a wstETH supply incentives program to prepare the ground for Liquid e-mode with LRTs on this instance.
 
-This AIP also seek to whitelist the ACI for tBTC on the Aave V3 Ethereum main instance to kickstart this asset growth.
+This AIP also seeks to whitelist the ACI for tBTC on the Aave V3 Ethereum main instance to kickstart this asset growth.
 
 ## Specification
 
