@@ -24,8 +24,8 @@ By integrating USDS into Aave v3, we aim to maintain continuity for users who ha
 | Isolation Mode            |                                      false |                                      false |
 | Borrowable                |                                    ENABLED |                                    ENABLED |
 | Collateral Enabled        |                                       true |                                      false |
-| Supply Cap                |                                 35,000,000 |                                 50,000,000 |
-| Borrow Cap                |                                 32,500,000 |                                 45,000,000 |
+| Supply Cap                |                                 50,000,000 |                                 50,000,000 |
+| Borrow Cap                |                                 45,000,000 |                                 45,000,000 |
 | Debt Ceiling              |                                      USD 0 |                                      USD 0 |
 | LTV                       |                                       75 % |                                        0 % |
 | LT                        |                                       78 % |                                        0 % |
@@ -67,6 +67,8 @@ Following discussions with Sky teams and Aave DAO service providers, the followi
 - Base Variable Borrow Rate: Increased from 0% to 0.75%
 - Variable Rate Slope 1: Increased from 5.5% to 6.25%
 - Optimal Usage Ratio: Increased from 90% to 92%
+- Supply cap improved to 50M
+- Borrow cap improved to 45M
 
 ## References
 

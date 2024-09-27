@@ -9,8 +9,8 @@
 | decimals | 18 |
 | isActive | true |
 | isFrozen | false |
-| supplyCap | 35,000,000 USDS |
-| borrowCap | 32,500,000 USDS |
+| supplyCap | 50,000,000 USDS |
+| borrowCap | 45,000,000 USDS |
 | debtCeiling | 0 $ [0] |
 | isSiloed | false |
 | isFlashloanable | true |
@@ -66,7 +66,7 @@
         "aTokenName": "Aave Ethereum USDS",
         "aTokenSymbol": "aEthUSDS",
         "aTokenUnderlyingBalance": "100000000000000000000",
-        "borrowCap": 32500000,
+        "borrowCap": 45000000,
         "borrowingEnabled": true,
         "debtCeiling": 0,
         "decimals": 18,
@@ -92,7 +92,7 @@
         "stableDebtTokenImpl": "0x15C5620dfFaC7c7366EED66C20Ad222DDbB1eD57",
         "stableDebtTokenName": "Aave Ethereum Stable Debt USDS",
         "stableDebtTokenSymbol": "stableDebtEthUSDS",
-        "supplyCap": 35000000,
+        "supplyCap": 50000000,
         "symbol": "USDS",
         "underlying": "0xdC035D45d973E3EC169d2276DDab16f1e407384F",
         "usageAsCollateralEnabled": true,
