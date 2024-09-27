@@ -8,7 +8,7 @@ import {IAaveV3ConfigEngine} from 'aave-v3-periphery/contracts/v3-config-engine/
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';
 /**
- * @title Onboard USDS and sUSDS
+ * @title Onboard USDS
  * @author ACI
  * - Snapshot: Direct-to-AIP
  * - Discussion: https://governance.aave.com/t/arfc-onboard-usds-and-susds-to-aave-v3/18987
