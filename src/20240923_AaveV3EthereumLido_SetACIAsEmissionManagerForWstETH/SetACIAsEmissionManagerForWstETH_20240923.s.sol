@@ -8,7 +8,7 @@ import {AaveV3EthereumLido_SetACIAsEmissionManagerForWstETH_20240923} from './Aa
 
 /**
  * @dev Deploy Ethereum
- * deploy-command: make deploy-ledger contract=src/20240923_AaveV3EthereumLido_SetACIAsEmissionManagerForWstETH/SetACIAsEmissionManagerForWstETH_20240923.s.sol:DeployEthereum chain=mainnet
+ * deploy-command: make deploy-pk contract=src/20240923_AaveV3EthereumLido_SetACIAsEmissionManagerForWstETH/SetACIAsEmissionManagerForWstETH_20240923.s.sol:DeployEthereum chain=mainnet
  * verify-command: FOUNDRY_PROFILE=mainnet npx catapulta-verify -b broadcast/SetACIAsEmissionManagerForWstETH_20240923.s.sol/1/run-latest.json
  */
 contract DeployEthereum is EthereumScript {

@@ -16,7 +16,7 @@ export const config: ConfigFile = {
       configs: {
         ASSET_LISTING: [
           {
-            assetSymbol: 'sUSDS',
+            assetSymbol: 'USDS',
             decimals: 18,
             priceFeed: '0x408e905577653430Bb80d91e0ca433b338CEA7C6',
             ltv: '75',
@@ -29,21 +29,21 @@ export const config: ConfigFile = {
             stableRateModeEnabled: 'DISABLED',
             borrowableInIsolation: 'DISABLED',
             withSiloedBorrowing: 'DISABLED',
-            reserveFactor: '50',
-            supplyCap: '35000000',
-            borrowCap: '32500000',
+            reserveFactor: '10',
+            supplyCap: '50000000',
+            borrowCap: '45000000',
             rateStrategyParams: {
               optimalUtilizationRate: '92',
-              baseVariableBorrowRate: '0',
-              variableRateSlope1: '2',
-              variableRateSlope2: '50',
+              baseVariableBorrowRate: '0.75',
+              variableRateSlope1: '6.25',
+              variableRateSlope2: '75',
             },
             eModeCategory: 'AaveV3EthereumEModes.NONE',
             asset: '0xa3931d71877C0E7a3148CB7Eb4463524FEc27fbD',
           },
         ],
       },
-      cache: {blockNumber: 20747338},
+      cache: {blockNumber: 20837297},
     },
     AaveV3EthereumLido: {
       configs: {
@@ -76,7 +76,7 @@ export const config: ConfigFile = {
           },
         ],
       },
-      cache: {blockNumber: 20747338},
+      cache: {blockNumber: 20837297},
     },
   },
 };
