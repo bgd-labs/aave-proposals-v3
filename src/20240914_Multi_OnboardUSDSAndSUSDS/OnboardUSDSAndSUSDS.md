@@ -1,5 +1,5 @@
 ---
-title: "Onboard USDS "
+title: "Onboard USDS on Aave V3 Ethereum Main and Lido Instance"
 author: "ACI"
 discussions: "https://governance.aave.com/t/arfc-onboard-usds-and-susds-to-aave-v3/18987"
 snapshot: "Direct-to-AIP"
