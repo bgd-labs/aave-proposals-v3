@@ -35,6 +35,15 @@ The proposal will execute to following operations on each active Aave v3 pool:
 - Migrate all assets currently in eMode to be both borrowable & collateral in eMode
 - Migrate the InterestRateStrategy to a new version without stable rate calculations
 
+## Security procedures
+
+In addition to unit tests & integration test suites, the changes have been audited by 4 independent auditors:
+
+- TODO
+- TODO
+- TODO
+- TODO
+
 ## References
 
 - [Payload Implementation](https://github.com/bgd-labs/protocol-v3.2-upgrade/blob/main/src/contracts/UpgradePayload.sol)
@@ -45,6 +54,7 @@ The proposal will execute to following operations on each active Aave v3 pool:
 - [Code and post execution state diffs](https://github.com/bgd-labs/protocol-v3.2-upgrade/tree/main/diffs)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x68ce69b5e71df1d77c2ad814a5d41162a40be54473576ff590d0b1bb5afde4a7)
 - [Discussion](https://governance.aave.com/t/bgd-aave-v3-2-liquid-emodes/19037/3)
+- [Migration guide](https://github.com/aave-dao/aave-v3-origin/blob/main/changelog/3.2.md)
 
 ## Copyright
 
