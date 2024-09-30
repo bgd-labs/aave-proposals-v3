@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {AaveV3Ethereum, AaveV3EthereumASSETS} from 'aave-address-book/AaveV3Ethereum.sol';
+import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
@@ -49,10 +49,12 @@ contract AaveV3Ethereum_AaveLiquidityCommitteeFundingPhaseIV_20240930_Test is Pr
       proposal.AMOUNT()
     );
 
-    vm.prank(proposal.ALC_SAFE());
-    IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).transfer(
+    vm.startPrank(proposal.ALC_SAFE());
+    IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).transferFrom(
       address(AaveV3Ethereum.COLLECTOR),
+      proposal.ALC_SAFE(),
       proposal.AMOUNT()
     );
+    vm.stopPrank();
   }
 }

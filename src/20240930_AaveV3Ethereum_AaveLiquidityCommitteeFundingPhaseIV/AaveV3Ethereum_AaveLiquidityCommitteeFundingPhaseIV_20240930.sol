@@ -6,7 +6,7 @@ import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGen
 /**
  * @title Aave Liquidity Committee Funding Phase IV
  * @author @karpatkey_TokenLogic
- * - Snapshot: TODO
+ * - Snapshot: https://snapshot.org/#/aave.eth/proposal/0x7b59c555f5a51a3377b1aee0f5f21fc205958f1388926efb94172644bacfa1d6
  * - Discussion: https://governance.aave.com/t/arfc-aave-liquidity-committee-funding-phase-iv/19188
  */
 contract AaveV3Ethereum_AaveLiquidityCommitteeFundingPhaseIV_20240930 is IProposalGenericExecutor {
