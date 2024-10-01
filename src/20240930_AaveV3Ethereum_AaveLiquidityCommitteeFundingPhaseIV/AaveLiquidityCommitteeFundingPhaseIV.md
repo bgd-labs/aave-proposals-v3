@@ -6,15 +6,30 @@ discussions: "https://governance.aave.com/t/arfc-aave-liquidity-committee-fundin
 
 ## Simple Summary
 
-This publication presents the Aave Liquidity Committee (ALC) Phase IV request.
+Upon implementation, this AIP will make available 950,000 GHO to the Aave Liquidity Committee (ALC).
 
 ## Motivation
 
-In the near future we expect GHO to be listed on InstadApp with several curated vaults providing additional utility and yield opportunites that use GHO.
+Phase IV of the ALC focuses on sustaining and improving GHO liquidity across the Ethereum and Arbitrum networks, while also encouraging broader adoption of GHO through various integrations with other protocols.
 
-A sUSDS/GHO strategy vault is expected to launch on Contango with support from the Contango team. Early stage discussions with prospective investors is promising.
+In the near future, we expect GHO to be listed on InstadApp, with several curated vaults providing additional utility and yield opportunities for GHO.
 
-We also expect GHO to feature in the upcoming Royco launch with the intent to drive flows into several yield strategies across Ethereum and Arbitrum.
+GHO is also expected to feature in the upcoming Royco launch, aimed at driving flows into several yield strategies across Ethereum and Arbitrum.
+
+We anticipate achieving the first perpetual market integration for GHO with a strataGHO listing on Synthetix on Arbitrum.
+
+Each integration is expected to provide a use case that strengthens GHO's on-chain liquidity.
+
+The table below presents the performance metrics for the ALC.
+
+| Description | Ethereum Value | Arbitrum Value |
+| --------  | :--------:  | :--------:  |
+| TVL DEX Liquidity Pools | 50M | 30M |
+| TVL Utility Liquidity Pools (Excl. stkGHO)  | 15M  | 10M |
+| DEX Liquidity Composition | < 50% GHO (< 33% for 3pools)  | < 50% GHO (< 33% for 3pools)  |
+| Swap Price Impact $5M Swap (GHO to USDC) | < 0.10%  | < 0.25%  |
+| Annualised Peg Volatility | < 5.00%  | < 5.00%  |
+| Price level for >90% time | $0.995 using [Redstone Medium Price](https://app.redstone.finance/#/app/token/GHO)  | $0.995 using [Redstone Medium Price](https://app.redstone.finance/#/app/token/GHO) |
 
 Achieving 50M of DEX liquidity on Ethereum across various integrations remains a key focus. Whilst we are yet to acheive this target, we are currently very well positioned for current market conditions.
 
