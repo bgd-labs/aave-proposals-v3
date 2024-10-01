@@ -5,6 +5,7 @@ import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aa
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {GovernanceV3ZkSync} from 'aave-address-book/GovernanceV3ZkSync.sol';
 import {EthereumScript, PolygonScript, AvalancheScript, OptimismScript, ArbitrumScript, MetisScript, BaseScript, GnosisScript, ScrollScript, BNBScript, ChainIds} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
+import {AaveV3Ethereum_UpgradeAllAaveInstancesTo32_20240924} from './AaveV3Ethereum_UpgradeAllAaveInstancesTo32_20240924.sol';
 
 library Payloads {
   address internal constant POLYGON = 0x78DFB8b12bbCc65f415284f3C1ffA412678a725d;
@@ -29,12 +30,17 @@ library Payloads {
  */
 contract DeployEthereum is EthereumScript {
   function run() external broadcast {
+    address payload4 = GovV3Helpers.deployDeterministic(
+      type(AaveV3Ethereum_UpgradeAllAaveInstancesTo32_20240924).creationCode
+    );
+
     // compose action
     IPayloadsControllerCore.ExecutionAction[]
-      memory actions = new IPayloadsControllerCore.ExecutionAction[](3);
+      memory actions = new IPayloadsControllerCore.ExecutionAction[](4);
     actions[0] = GovV3Helpers.buildAction(Payloads.PROTO);
     actions[1] = GovV3Helpers.buildAction(Payloads.LIDO);
     actions[2] = GovV3Helpers.buildAction(Payloads.ETHERFI);
+    actions[3] = GovV3Helpers.buildAction(payload4);
 
     // register action at payloadsController
     GovV3Helpers.createPayload(actions);
@@ -205,10 +211,13 @@ contract CreateProposal is EthereumScript {
 
     // compose actions for validation
     IPayloadsControllerCore.ExecutionAction[]
-      memory actionsEthereum = new IPayloadsControllerCore.ExecutionAction[](3);
+      memory actionsEthereum = new IPayloadsControllerCore.ExecutionAction[](4);
     actionsEthereum[0] = GovV3Helpers.buildAction(Payloads.PROTO);
     actionsEthereum[1] = GovV3Helpers.buildAction(Payloads.LIDO);
     actionsEthereum[2] = GovV3Helpers.buildAction(Payloads.ETHERFI);
+    actionsEthereum[3] = GovV3Helpers.buildAction(
+      type(AaveV3Ethereum_UpgradeAllAaveInstancesTo32_20240924).creationCode
+    );
     payloads[0] = GovV3Helpers.buildMainnetPayload(vm, actionsEthereum);
 
     IPayloadsControllerCore.ExecutionAction[]

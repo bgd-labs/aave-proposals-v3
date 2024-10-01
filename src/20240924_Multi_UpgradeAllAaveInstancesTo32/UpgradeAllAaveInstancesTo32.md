@@ -18,6 +18,8 @@ At the same time, it's possible to granularly control which assets are collatera
 Stable debt has been off-boarded from Aave v3 for quite some time. What was remaining on the protocol code were merely artifacts that increased gas consumption and code size.
 Therefore the 3.2 release removes these artifacts in a backwards compatible way.
 
+_In addition to the upgrade itself, the proposal payload includes reimbursement of $76’000 denominated in GHO, to cover the cost of extra external security procedures incurred._
+
 ## Specification
 
 Aave 3.2 focuses on two main areas of the aave protocol:
@@ -32,6 +34,8 @@ The proposal will execute to following operations on each active Aave v3 pool:
 - Deploy new ProtocolDataProvider compatible with v3.2, and set it on the addresses provider contract
 - Migrate all assets currently in eMode to be both borrowable & collateral in eMode
 - Migrate the InterestRateStrategy to a new version without stable rate calculations
+
+An additional payload will transfer `76,000.00` GHO to the BGD-controlled address `0xb812d0944f8F581DfAA3a93Dda0d22EcEf51A9CF`.
 
 ## Security procedures
 
