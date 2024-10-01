@@ -25,11 +25,9 @@ Aave 3.2 focuses on two main areas of the aave protocol:
 - The final deprecation of stable borrowing
 - Improvements on the eModes, introducing "Liquid eModes"
 
-_Please note: For existing users, the upgrade is 100% backwards compatible and no migration or similar is required. With introduction of liquid emode, entering and leaving an eMode still works via setUserEMode(categoryId) and getUserEMode(address user) like in previous versions of the protocol._
-
 The proposal will execute to following operations on each active Aave v3 pool:
 
-- Upgrade the Pool/L2Pool implementation to 3.2
+- Upgrade the Pool/L2Pool implementation to 3.2, which will internally set the stableDebtToken address to `address(0)` on all assets
 - Upgrade the PoolConfigurator implementation to 3.2
 - Deploy new ProtocolDataProvider compatible with v3.2, and set it on the addresses provider contract
 - Migrate all assets currently in eMode to be both borrowable & collateral in eMode
@@ -37,12 +35,18 @@ The proposal will execute to following operations on each active Aave v3 pool:
 
 ## Security procedures
 
-In addition to unit tests & integration test suites, the changes have been audited by 4 independent auditors:
+In addition to unit tests & integration test suites, the changes have been audited in 5 audits by 4 independent auditors:
 
-- TODO
-- TODO
-- TODO
-- TODO
+### Stable Rate and Liquid eModes
+
+- [Certora](https://github.com/aave-dao/aave-v3-origin/blob/v3.2.0/audits/2024-09-10_Certora_Aave-v3.2_Stable_Rate_Removal.pdf)
+- [Enigma Dark](https://github.com/aave-dao/aave-v3-origin/blob/v3.2.0/audits/2024-09-30_Enigma_Aave-v3.2.pdf)
+
+### Liquid eModes
+
+- [Certora](https://github.com/aave-dao/aave-v3-origin/blob/v3.2.0/audits/2024-09-19_Certora_Aave-v3.2_Liquid_eModes.pdf)
+- [Oxorio](https://github.com/aave-dao/aave-v3-origin/blob/v3.2.0/audits/2024-09-12_Oxorio_Aav3-v3.2.pdf)
+- [Pashov](https://github.com/aave-dao/aave-v3-origin/blob/v3.2.0/audits/2024-09-15_Pashov_Aave-v3.2.pdf)
 
 ## References
 
@@ -51,10 +55,11 @@ In addition to unit tests & integration test suites, the changes have been audit
 - [New L1 pool implementation](https://github.com/bgd-labs/protocol-v3.2-upgrade/blob/main/src/contracts/PoolInstance.sol)
 - [New L2 pool implementation](https://github.com/bgd-labs/protocol-v3.2-upgrade/blob/main/src/contracts/L2PoolInstance.sol)
 - [Payload Tests](https://github.com/bgd-labs/protocol-v3.2-upgrade/tree/main/tests)
-- [Code and post execution state diffs](https://github.com/bgd-labs/protocol-v3.2-upgrade/tree/main/diffs)
+- [Live-code and post execution state diffs](https://github.com/bgd-labs/protocol-v3.2-upgrade/tree/main/diffs)
+- [PoolDiff](https://github.com/aave-dao/aave-v3-origin/blob/v3.2.0/docs/3.2/3.1_3.2_L2PoolDiff.md), [PoolConfiguratorDiff](https://github.com/aave-dao/aave-v3-origin/blob/v3.2.0/docs/3.2/3.1-3.2_PoolConfiguratorDiff.md)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x68ce69b5e71df1d77c2ad814a5d41162a40be54473576ff590d0b1bb5afde4a7)
 - [Discussion](https://governance.aave.com/t/bgd-aave-v3-2-liquid-emodes/19037/3)
-- [Migration guide](https://github.com/aave-dao/aave-v3-origin/blob/main/changelog/3.2.md)
+- [Migration guide](https://github.com/aave-dao/aave-v3-origin/blob/v3.2.0/docs/3.2/Aave-3.2-features.md)
 
 ## Copyright
 
