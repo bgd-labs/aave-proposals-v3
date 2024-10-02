@@ -17,7 +17,7 @@ contract AaveV3EthereumLido_OnboardUSDSAndSUSDS_20240914_Test is ProtocolV3TestB
   AaveV3EthereumLido_OnboardUSDSAndSUSDS_20240914 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 20776605);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 20837297);
     proposal = new AaveV3EthereumLido_OnboardUSDSAndSUSDS_20240914();
   }
 
