@@ -56,5 +56,9 @@ contract AaveV3Ethereum_SetACIAsEmissionManagerForUSDSAndAUSDS_20240929_Test is 
       IEmissionManager(AaveV3Ethereum.EMISSION_MANAGER).getEmissionAdmin(lidoUSDS.aTokenAddress),
       proposal.ACI_MULTISIG()
     );
+    assertEq(
+      IEmissionManager(AaveV3Ethereum.EMISSION_MANAGER).getEmissionAdmin(proposal.awstETH()),
+      proposal.ACI_MULTISIG()
+    );
   }
 }
