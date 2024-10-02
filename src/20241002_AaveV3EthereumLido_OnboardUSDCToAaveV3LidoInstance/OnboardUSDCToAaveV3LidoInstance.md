@@ -46,8 +46,8 @@ The table below illustrates the configured risk parameters for **USDC**
 
 ## References
 
-- Implementation: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241002_AaveV3EthereumLido_OnboardUSDCToAaveV3LidoInstance/AaveV3EthereumLido_OnboardUSDCToAaveV3LidoInstance_20241002.sol)
-- Tests: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241002_AaveV3EthereumLido_OnboardUSDCToAaveV3LidoInstance/AaveV3EthereumLido_OnboardUSDCToAaveV3LidoInstance_20241002.t.sol)
+- Implementation: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/5e1fb9724df8c6724f88c2fcecb59f1fc2f8b795/src/20241002_AaveV3EthereumLido_OnboardUSDCToAaveV3LidoInstance/AaveV3EthereumLido_OnboardUSDCToAaveV3LidoInstance_20241002.sol)
+- Tests: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/5e1fb9724df8c6724f88c2fcecb59f1fc2f8b795/src/20241002_AaveV3EthereumLido_OnboardUSDCToAaveV3LidoInstance/AaveV3EthereumLido_OnboardUSDCToAaveV3LidoInstance_20241002.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x6146daa40066e4000333f628f94263101ae03731ccd9a64303013a26172c9eef)
 - [Discussion](https://governance.aave.com/t/arfc-onboard-usdc-to-aave-v3-lido-instance/19201)
 
