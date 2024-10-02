@@ -21,27 +21,27 @@ The integration of USDC into the Aave v3 Lido Instance is driven by the followin
 
 The table below illustrates the configured risk parameters for **USDC**
 
-| Parameter                 |                                      Value |
-| ------------------------- | -----------------------------------------: |
-| Isolation Mode            |                                      false |
-| Borrowable                |                                    ENABLED |
-| Collateral Enabled        |                                       false |
-| Supply Cap (USDC)         |                                 30,000,000 |
-| Borrow Cap (USDC)         |                                 27,600,000 |
-| Debt Ceiling              |                                      USD 0 |
-| LTV                       |                                        0 % |
-| LT                        |                                        0 % |
-| Liquidation Bonus         |                                        0 % |
-| Liquidation Protocol Fee  |                                       10 % |
-| Reserve Factor            |                                       10 % |
-| Base Variable Borrow Rate |                                        0 % |
-| Variable Slope 1          |                                      5.5 % |
-| Variable Slope 2          |                                       60 % |
-| Uoptimal                  |                                       92 % |
-| Stable Borrowing          |                                   DISABLED |
-| Flashloanable             |                                    ENABLED |
-| Siloed Borrowing          |                                   DISABLED |
-| Borrowable in Isolation   |                                   DISABLED |
+| Parameter                 |                                                                                                                 Value |
+| ------------------------- | --------------------------------------------------------------------------------------------------------------------: |
+| Isolation Mode            |                                                                                                                 false |
+| Borrowable                |                                                                                                               ENABLED |
+| Collateral Enabled        |                                                                                                                 false |
+| Supply Cap (USDC)         |                                                                                                            30,000,000 |
+| Borrow Cap (USDC)         |                                                                                                            27,600,000 |
+| Debt Ceiling              |                                                                                                                 USD 0 |
+| LTV                       |                                                                                                                   0 % |
+| LT                        |                                                                                                                   0 % |
+| Liquidation Bonus         |                                                                                                                   0 % |
+| Liquidation Protocol Fee  |                                                                                                                  10 % |
+| Reserve Factor            |                                                                                                                  10 % |
+| Base Variable Borrow Rate |                                                                                                                   0 % |
+| Variable Slope 1          |                                                                                                                 5.5 % |
+| Variable Slope 2          |                                                                                                                  60 % |
+| Uoptimal                  |                                                                                                                  92 % |
+| Stable Borrowing          |                                                                                                              DISABLED |
+| Flashloanable             |                                                                                                               ENABLED |
+| Siloed Borrowing          |                                                                                                              DISABLED |
+| Borrowable in Isolation   |                                                                                                              DISABLED |
 | Oracle                    | [0x736bF902680e68989886e9807CD7Db4B3E015d3C](https://etherscan.io/address/0x736bF902680e68989886e9807CD7Db4B3E015d3C) |
 
 ## References

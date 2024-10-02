@@ -2,6 +2,7 @@
 pragma solidity ^0.8.0;
 
 import {AaveV3EthereumLido, AaveV3EthereumLidoEModes} from 'aave-address-book/AaveV3EthereumLido.sol';
+import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {AaveV3PayloadEthereumLido} from 'aave-helpers/src/v3-config-engine/AaveV3PayloadEthereumLido.sol';
 import {EngineFlags} from 'aave-v3-periphery/contracts/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-v3-periphery/contracts/v3-config-engine/IAaveV3ConfigEngine.sol';
@@ -35,7 +36,7 @@ contract AaveV3EthereumLido_OnboardUSDCToAaveV3LidoInstance_20241002 is AaveV3Pa
     listings[0] = IAaveV3ConfigEngine.Listing({
       asset: USDC,
       assetSymbol: 'USDC',
-      priceFeed: 0x736bF902680e68989886e9807CD7Db4B3E015d3C,
+      priceFeed: AaveV3EthereumAssets.USDC_ORACLE,
       eModeCategory: AaveV3EthereumLidoEModes.NONE,
       enabledToBorrow: EngineFlags.ENABLED,
       stableRateModeEnabled: EngineFlags.DISABLED,
