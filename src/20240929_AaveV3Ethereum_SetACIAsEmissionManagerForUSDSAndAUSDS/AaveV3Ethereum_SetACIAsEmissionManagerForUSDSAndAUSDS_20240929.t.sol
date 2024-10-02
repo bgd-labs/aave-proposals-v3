@@ -2,8 +2,9 @@
 pragma solidity ^0.8.0;
 
 import {AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
+import {AaveV3EthereumLido} from 'aave-address-book/AaveV3EthereumLido.sol';
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
-
+import {DataTypes} from 'aave-v3-origin/core/contracts/protocol/libraries/types/DataTypes.sol';
 import {IEmissionManager} from 'aave-v3-periphery/contracts/rewards/interfaces/IEmissionManager.sol';
 
 import 'forge-std/Test.sol';
@@ -26,6 +27,7 @@ contract AaveV3Ethereum_SetACIAsEmissionManagerForUSDSAndAUSDS_20240929_Test is 
    * @dev executes the generic test suite including e2e and config snapshots
    */
   function test_defaultProposalExecution() public {
+    GovV3Helpers.executePayload(vm, 183);
     defaultTest(
       'AaveV3Ethereum_SetACIAsEmissionManagerForUSDSAndAUSDS_20240929',
       AaveV3Ethereum.POOL,
@@ -34,17 +36,24 @@ contract AaveV3Ethereum_SetACIAsEmissionManagerForUSDSAndAUSDS_20240929_Test is 
   }
 
   function test_emissions_admin() public {
+    GovV3Helpers.executePayload(vm, 183);
     GovV3Helpers.executePayload(vm, address(proposal));
     assertEq(
       IEmissionManager(AaveV3Ethereum.EMISSION_MANAGER).getEmissionAdmin(proposal.USDS()),
       proposal.ACI_MULTISIG()
     );
-    assertEq(
-      IEmissionManager(AaveV3Ethereum.EMISSION_MANAGER).getEmissionAdmin(proposal.aEthUSDS()),
-      proposal.ACI_MULTISIG()
+    DataTypes.ReserveDataLegacy memory protoUSDS = AaveV3Ethereum.POOL.getReserveData(
+      proposal.USDS()
     );
     assertEq(
-      IEmissionManager(AaveV3Ethereum.EMISSION_MANAGER).getEmissionAdmin(proposal.aEthLidoUSDS()),
+      IEmissionManager(AaveV3Ethereum.EMISSION_MANAGER).getEmissionAdmin(protoUSDS.aTokenAddress),
+      proposal.ACI_MULTISIG()
+    );
+    DataTypes.ReserveDataLegacy memory lidoUSDS = AaveV3EthereumLido.POOL.getReserveData(
+      proposal.USDS()
+    );
+    assertEq(
+      IEmissionManager(AaveV3Ethereum.EMISSION_MANAGER).getEmissionAdmin(lidoUSDS.aTokenAddress),
       proposal.ACI_MULTISIG()
     );
   }
