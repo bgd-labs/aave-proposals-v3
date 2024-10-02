@@ -3,10 +3,10 @@ pragma solidity ^0.8.0;
 
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
-import {IScaledBalanceToken} from 'aave-v3-origin/core/contracts/interfaces/IScaledBalanceToken.sol';
 import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';
 import {AaveV2Ethereum, AaveV2EthereumAssets} from 'aave-address-book/AaveV2Ethereum.sol';
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
+import {CollectorUtils} from 'aave-helpers/src/CollectorUtils.sol';
 
 /**
  * @title May Funding Update Part B
@@ -18,6 +18,14 @@ contract AaveV3Ethereum_MayFundingUpdatePartB_20240917 is IProposalGenericExecut
   using SafeERC20 for IERC20;
 
   address public constant COLLECTOR = address(AaveV3Ethereum.COLLECTOR);
+  address public constant POOL_V2 = address(AaveV2Ethereum.POOL);
+  address public constant POOL_V3 = address(AaveV3Ethereum.POOL);
+  address public constant RECIPIENT_500 = 0x1770776deB0A5CA58439759FAdb5cAA014501241;
+  address public constant RECIPIENT_1000 = 0x7dF98A6e1895fd247aD4e75B8EDa59889fa7310b;
+  address public constant IMMUNEFY = 0x7119f398b6C06095c6E8964C1f58e7C1BAa79E18;
+  uint256 public constant RECIPIENT_500_AMOUNT = 500e18;
+  uint256 public constant RECIPIENT_1000_AMOUNT = 1000e18;
+  uint256 public constant IMMUNEFY_AMOUNT = 150e18;
 
   struct Migration {
     address underlying;
@@ -26,6 +34,24 @@ contract AaveV3Ethereum_MayFundingUpdatePartB_20240917 is IProposalGenericExecut
   }
 
   function execute() external {
+    AaveV3Ethereum.COLLECTOR.transfer(
+      AaveV3EthereumAssets.GHO_UNDERLYING,
+      RECIPIENT_500,
+      RECIPIENT_500_AMOUNT
+    );
+
+    AaveV3Ethereum.COLLECTOR.transfer(
+      AaveV3EthereumAssets.GHO_UNDERLYING,
+      RECIPIENT_1000,
+      RECIPIENT_1000_AMOUNT
+    );
+
+    AaveV3Ethereum.COLLECTOR.transfer(
+      AaveV3EthereumAssets.GHO_UNDERLYING,
+      IMMUNEFY,
+      IMMUNEFY_AMOUNT
+    );
+
     Migration[] memory migrations = new Migration[](4);
     migrations[0] = Migration({
       underlying: AaveV2EthereumAssets.USDT_UNDERLYING,
@@ -49,30 +75,20 @@ contract AaveV3Ethereum_MayFundingUpdatePartB_20240917 is IProposalGenericExecut
     });
 
     for (uint i = 0; i < migrations.length; i++) {
-      /// transfer aToken
-      AaveV3Ethereum.COLLECTOR.transfer(
-        migrations[i].aToken,
-        address(this),
-        IScaledBalanceToken(migrations[i].aToken).scaledBalanceOf(COLLECTOR) -
-          migrations[i].leaveBehind
-      );
-
-      /// transfer underlying
-      AaveV3Ethereum.COLLECTOR.transfer(
+      // withdraw underlying
+      uint256 withdrawAmount = IERC20(migrations[i].aToken).balanceOf(COLLECTOR) -
+        migrations[i].leaveBehind;
+      CollectorUtils.IOInput memory input = CollectorUtils.IOInput(
+        POOL_V2,
         migrations[i].underlying,
-        address(this),
-        IERC20(migrations[i].underlying).balanceOf(COLLECTOR)
+        withdrawAmount
       );
-
-      /// withdraw underlying
-      AaveV2Ethereum.POOL.withdraw(migrations[i].underlying, type(uint256).max, address(this));
-
-      uint256 balance = IERC20(migrations[i].underlying).balanceOf(address(this));
-
-      IERC20(migrations[i].underlying).forceApprove(address(AaveV3Ethereum.POOL), balance);
+      CollectorUtils.withdrawFromV2(AaveV3Ethereum.COLLECTOR, input, COLLECTOR);
 
       /// deposit
-      AaveV3Ethereum.POOL.deposit(migrations[i].underlying, balance, COLLECTOR, 0);
+      uint256 balance = IERC20(migrations[i].underlying).balanceOf(COLLECTOR);
+      input = CollectorUtils.IOInput(POOL_V3, migrations[i].underlying, balance);
+      CollectorUtils.depositToV3(AaveV3Ethereum.COLLECTOR, input);
     }
   }
 }
