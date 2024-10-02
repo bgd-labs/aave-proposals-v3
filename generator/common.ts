@@ -122,6 +122,20 @@ export const CHAIN_TO_CHAIN_ID = {
   ZkSync: zkSync.id,
 };
 
+export const CHAIN_TO_CHAIN_SCAN = {
+  Ethereum: 'https://etherscan.io',
+  Polygon: 'https://polygonscan.com',
+  Optimism: 'https://optimistic.etherscan.io',
+  Arbitrum: 'https://arbiscan.io',
+  Avalanche: 'https://snowtrace.io',
+  Metis: 'https://explorer.metis.io',
+  Base: 'https://basescan.org',
+  BNB: 'https://bscscan.com',
+  Gnosis: 'https://gnosisscan.io',
+  Scroll: 'https://scrollscan.com',
+  ZkSync: 'https://explorer.zksync.io',
+};
+
 export function flagAsRequired(message: string, required?: boolean) {
   return required ? `${message}*` : message;
 }
