@@ -41,7 +41,7 @@ The table below illustrates the configured risk parameters for **USDC**
 | Stable Borrowing          |                                                                                                              DISABLED |
 | Flashloanable             |                                                                                                               ENABLED |
 | Siloed Borrowing          |                                                                                                              DISABLED |
-| Borrowable in Isolation   |                                                                                                              DISABLED |
+| Borrowable in Isolation   |                                                                                                               ENABLED |
 | Oracle                    | [0x736bF902680e68989886e9807CD7Db4B3E015d3C](https://etherscan.io/address/0x736bF902680e68989886e9807CD7Db4B3E015d3C) |
 
 ## References

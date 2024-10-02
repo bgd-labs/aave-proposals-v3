@@ -33,7 +33,7 @@
 | stableDebtTokenImpl | [0x36284fED68f802c5733432c3306D8e92c504a243](https://etherscan.io/address/0x36284fED68f802c5733432c3306D8e92c504a243) |
 | borrowingEnabled | true |
 | stableBorrowRateEnabled | false |
-| isBorrowableInIsolation | false |
+| isBorrowableInIsolation | true |
 | interestRateStrategy | [0x6642dcAaBc80807DD083c66a301d308568CBcA3D](https://etherscan.io/address/0x6642dcAaBc80807DD083c66a301d308568CBcA3D) |
 | aTokenName | Aave Ethereum Lido USDC |
 | aTokenSymbol | aEthLidoUSDC |
@@ -73,7 +73,7 @@
         "eModeCategory": 0,
         "interestRateStrategy": "0x6642dcAaBc80807DD083c66a301d308568CBcA3D",
         "isActive": true,
-        "isBorrowableInIsolation": false,
+        "isBorrowableInIsolation": true,
         "isFlashloanable": true,
         "isFrozen": false,
         "isPaused": false,

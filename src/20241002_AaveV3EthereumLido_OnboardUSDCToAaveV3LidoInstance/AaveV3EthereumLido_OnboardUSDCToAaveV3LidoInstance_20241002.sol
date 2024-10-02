@@ -40,7 +40,7 @@ contract AaveV3EthereumLido_OnboardUSDCToAaveV3LidoInstance_20241002 is AaveV3Pa
       eModeCategory: AaveV3EthereumLidoEModes.NONE,
       enabledToBorrow: EngineFlags.ENABLED,
       stableRateModeEnabled: EngineFlags.DISABLED,
-      borrowableInIsolation: EngineFlags.DISABLED,
+      borrowableInIsolation: EngineFlags.ENABLED,
       withSiloedBorrowing: EngineFlags.DISABLED,
       flashloanable: EngineFlags.ENABLED,
       ltv: 0,
