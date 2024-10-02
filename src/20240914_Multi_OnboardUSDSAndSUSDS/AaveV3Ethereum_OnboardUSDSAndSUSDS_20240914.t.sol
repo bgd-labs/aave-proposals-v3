@@ -17,7 +17,7 @@ contract AaveV3Ethereum_OnboardUSDSAndSUSDS_20240914_Test is ProtocolV3TestBase 
   AaveV3Ethereum_OnboardUSDSAndSUSDS_20240914 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 20776605);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 20837297);
     proposal = new AaveV3Ethereum_OnboardUSDSAndSUSDS_20240914();
   }
 
@@ -36,7 +36,7 @@ contract AaveV3Ethereum_OnboardUSDSAndSUSDS_20240914_Test is ProtocolV3TestBase 
     GovV3Helpers.executePayload(vm, address(proposal));
     (address aTokenAddress, , ) = AaveV3Ethereum
       .AAVE_PROTOCOL_DATA_PROVIDER
-      .getReserveTokensAddresses(proposal.sUSDS());
+      .getReserveTokensAddresses(proposal.USDS());
     assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Ethereum.COLLECTOR)), 100e18);
   }
 }
