@@ -25,7 +25,7 @@ The table below illustrates the configured risk parameters for **USDC**
 | ------------------------- | -----------------------------------------: |
 | Isolation Mode            |                                      false |
 | Borrowable                |                                    ENABLED |
-| Collateral Enabled        |                                       true |
+| Collateral Enabled        |                                       false |
 | Supply Cap (USDC)         |                                 30,000,000 |
 | Borrow Cap (USDC)         |                                 27,600,000 |
 | Debt Ceiling              |                                      USD 0 |
