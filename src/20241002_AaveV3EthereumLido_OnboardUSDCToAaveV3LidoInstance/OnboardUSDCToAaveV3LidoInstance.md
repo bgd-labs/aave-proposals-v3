@@ -1,0 +1,48 @@
+---
+title: "Onboard USDC to Aave V3 Lido Instance"
+author: "ACI"
+discussions: "https://governance.aave.com/t/arfc-onboard-usdc-to-aave-v3-lido-instance/19201"
+snapshot: "https://snapshot.org/#/aave.eth/proposal/0x6146daa40066e4000333f628f94263101ae03731ccd9a64303013a26172c9eef"
+---
+
+## Simple Summary
+
+## Motivation
+
+## Specification
+
+The table below illustrates the configured risk parameters for **USDC**
+
+| Parameter                 |                                      Value |
+| ------------------------- | -----------------------------------------: |
+| Isolation Mode            |                                      false |
+| Borrowable                |                                    ENABLED |
+| Collateral Enabled        |                                       true |
+| Supply Cap (USDC)         |                                 30,000,000 |
+| Borrow Cap (USDC)         |                                 27,600,000 |
+| Debt Ceiling              |                                      USD 0 |
+| LTV                       |                                        0 % |
+| LT                        |                                        0 % |
+| Liquidation Bonus         |                                        0 % |
+| Liquidation Protocol Fee  |                                       10 % |
+| Reserve Factor            |                                       10 % |
+| Base Variable Borrow Rate |                                        0 % |
+| Variable Slope 1          |                                      5.5 % |
+| Variable Slope 2          |                                       60 % |
+| Uoptimal                  |                                       92 % |
+| Stable Borrowing          |                                   DISABLED |
+| Flashloanable             |                                    ENABLED |
+| Siloed Borrowing          |                                   DISABLED |
+| Borrowable in Isolation   |                                   DISABLED |
+| Oracle                    | 0x736bF902680e68989886e9807CD7Db4B3E015d3C |
+
+## References
+
+- Implementation: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241002_AaveV3EthereumLido_OnboardUSDCToAaveV3LidoInstance/AaveV3EthereumLido_OnboardUSDCToAaveV3LidoInstance_20241002.sol)
+- Tests: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241002_AaveV3EthereumLido_OnboardUSDCToAaveV3LidoInstance/AaveV3EthereumLido_OnboardUSDCToAaveV3LidoInstance_20241002.t.sol)
+- [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x6146daa40066e4000333f628f94263101ae03731ccd9a64303013a26172c9eef)
+- [Discussion](https://governance.aave.com/t/arfc-onboard-usdc-to-aave-v3-lido-instance/19201)
+
+## Copyright
+
+Copyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).
