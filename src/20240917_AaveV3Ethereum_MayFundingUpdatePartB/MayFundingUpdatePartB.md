@@ -7,7 +7,7 @@ snapshot: "Direct-to-AIP"
 
 ## Simple Summary
 
-This AIP will deposit idle assets and migrate v2 treasury holdings to Aave v3 on Ethereum.
+This AIP will deposit idle assets and migrate v2 treasury holdings to Aave v3 on Ethereum. This AIP also executes the [Request for Bounty Payout - September 2024](https://governance.aave.com/t/bgd-request-for-bounty-payout-september-2024/19256).
 
 ## Motivation
 
