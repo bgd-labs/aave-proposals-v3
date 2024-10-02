@@ -32,8 +32,8 @@ Aave Emission Manager contract on Ethereum: [0x223d844fc4B006D67c0cDbd39371A9F73
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240929_AaveV3Ethereum_SetACIAsEmissionManagerForUSDSAndAUSDS/AaveV3Ethereum_SetACIAsEmissionManagerForUSDSAndAUSDS_20240929.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240929_AaveV3Ethereum_SetACIAsEmissionManagerForUSDSAndAUSDS/AaveV3Ethereum_SetACIAsEmissionManagerForUSDSAndAUSDS_20240929.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/3f83bdb76c9596e8b63500c30b9c95a42a4a248c/src/20240929_AaveV3Ethereum_SetACIAsEmissionManagerForUSDSAndAUSDS/AaveV3Ethereum_SetACIAsEmissionManagerForUSDSAndAUSDS_20240929.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/3f83bdb76c9596e8b63500c30b9c95a42a4a248c/src/20240929_AaveV3Ethereum_SetACIAsEmissionManagerForUSDSAndAUSDS/AaveV3Ethereum_SetACIAsEmissionManagerForUSDSAndAUSDS_20240929.t.sol)
 - [Discussion](https://governance.aave.com/t/arfc-set-aci-as-emission-manager-for-liquidity-mining-programs/17898/18)
 
 ## Copyright
