@@ -104,5 +104,6 @@ export function prefixWithImports(code: string) {
   if (findMatch(code, 'IEmissionManager')) {
     imports += `import {IEmissionManager} from 'aave-v3-periphery/contracts/rewards/interfaces/IEmissionManager.sol';\n`;
   }
+
   return imports + code;
 }
