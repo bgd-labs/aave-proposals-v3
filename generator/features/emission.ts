@@ -1,7 +1,7 @@
 import {confirm} from '@inquirer/prompts';
 import {CodeArtifact, FEATURE, FeatureModule, PoolIdentifier} from '../types';
 import {getContract} from 'viem';
-import {CHAIN_TO_CHAIN_ID, CHAIN_TO_CHAIN_SCAN, getPoolChain} from '../common';
+import {CHAIN_TO_CHAIN_ID, getPoolChain, getExplorerLink} from '../common';
 import {TEST_EXECUTE_PROPOSAL} from '../utils/constants';
 import {EmissionUpdate} from './types';
 import {addressPrompt, translateJsAddressToSol} from '../prompts/addressPrompt';
@@ -88,7 +88,7 @@ export const emissionUpdates: FeatureModule<EmissionUpdate[]> = {
       aip: {
         specification: cfg.map(
           (cfg) =>
-            `The emission admin role for [${cfg.symbol}](${CHAIN_TO_CHAIN_SCAN[getPoolChain(pool)]}/address/${cfg.asset}) is granted to [${cfg.admin}](${CHAIN_TO_CHAIN_SCAN[getPoolChain(pool)]}/address/${cfg.admin}).\n`,
+            `The emission admin role for [${cfg.symbol}](${getExplorerLink(CHAIN_TO_CHAIN_ID[getPoolChain(pool)], cfg.asset)}) is granted to [${cfg.admin}](${getExplorerLink(CHAIN_TO_CHAIN_ID[getPoolChain(pool)], cfg.admin)}).\n`,
         ),
       },
     };

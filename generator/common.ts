@@ -13,6 +13,8 @@ import {
   scroll,
   zkSync,
 } from 'viem/chains';
+import {Client, Hex, getAddress} from 'viem';
+import {CHAIN_ID_CLIENT_MAP} from '@bgd-labs/js-utils';
 
 export const AVAILABLE_CHAINS = [
   'Ethereum',
@@ -52,6 +54,15 @@ export function getPoolChain(pool: PoolIdentifier) {
   const chain = AVAILABLE_CHAINS.find((chain) => pool.indexOf(chain) !== -1);
   if (!chain) throw new Error('cannot find chain for pool');
   return chain;
+}
+
+export function getExplorerLink(chainId: number, address: Hex) {
+  const client = CHAIN_ID_CLIENT_MAP[chainId];
+  let url = client.chain?.blockExplorers?.default.url;
+  if (url && url.endsWith('/')) {
+    url = url.slice(0, -1); // sanitize explorer url
+  }
+  return `${url}/address/${getAddress(address)}`;
 }
 
 export function getDate() {
@@ -120,20 +131,6 @@ export const CHAIN_TO_CHAIN_ID = {
   Gnosis: gnosis.id,
   Scroll: scroll.id,
   ZkSync: zkSync.id,
-};
-
-export const CHAIN_TO_CHAIN_SCAN = {
-  Ethereum: 'https://etherscan.io',
-  Polygon: 'https://polygonscan.com',
-  Optimism: 'https://optimistic.etherscan.io',
-  Arbitrum: 'https://arbiscan.io',
-  Avalanche: 'https://snowtrace.io',
-  Metis: 'https://explorer.metis.io',
-  Base: 'https://basescan.org',
-  BNB: 'https://bscscan.com',
-  Gnosis: 'https://gnosisscan.io',
-  Scroll: 'https://scrollscan.com',
-  ZkSync: 'https://explorer.zksync.io',
 };
 
 export function flagAsRequired(message: string, required?: boolean) {
