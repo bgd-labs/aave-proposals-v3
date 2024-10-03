@@ -22,14 +22,14 @@ Each integration is expected to provide a use case that strengthens GHO's on-cha
 
 The table below presents the performance metrics for the ALC.
 
-| Description | Ethereum Value | Arbitrum Value |
-| --------  | :--------:  | :--------:  |
-| TVL DEX Liquidity Pools | 50M | 30M |
-| TVL Utility Liquidity Pools (Excl. stkGHO)  | 15M  | 10M |
-| DEX Liquidity Composition | < 50% GHO (< 33% for 3pools)  | < 50% GHO (< 33% for 3pools)  |
-| Swap Price Impact $5M Swap (GHO to USDC) | < 0.10%  | < 0.25%  |
-| Annualised Peg Volatility | < 5.00%  | < 5.00%  |
-| Price level for >90% time | $0.995 using [Redstone Medium Price](https://app.redstone.finance/#/app/token/GHO)  | $0.995 using [Redstone Medium Price](https://app.redstone.finance/#/app/token/GHO) |
+| Description                                |                                   Ethereum Value                                   |                                   Arbitrum Value                                   |
+| ------------------------------------------ | :--------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------: |
+| TVL DEX Liquidity Pools                    |                                        50M                                         |                                        30M                                         |
+| TVL Utility Liquidity Pools (Excl. stkGHO) |                                        15M                                         |                                        10M                                         |
+| DEX Liquidity Composition                  |                            < 50% GHO (< 33% for 3pools)                            |                            < 50% GHO (< 33% for 3pools)                            |
+| Swap Price Impact $5M Swap (GHO to USDC)   |                                      < 0.10%                                       |                                      < 0.25%                                       |
+| Annualised Peg Volatility                  |                                      < 5.00%                                       |                                      < 5.00%                                       |
+| Price level for >90% time                  | $0.995 using [Redstone Medium Price](https://app.redstone.finance/#/app/token/GHO) | $0.995 using [Redstone Medium Price](https://app.redstone.finance/#/app/token/GHO) |
 
 Achieving 50M of DEX liquidity on Ethereum across various integrations remains a key focus. Whilst we are yet to acheive this target, we are currently very well positioned for current market conditions.
 
