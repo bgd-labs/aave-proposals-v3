@@ -22,10 +22,7 @@ contract AaveV3Ethereum_MayFundingUpdatePartB_20240917 is IProposalGenericExecut
   address public constant POOL_V3 = address(AaveV3Ethereum.POOL);
   address public constant RECIPIENT_500 = 0x1770776deB0A5CA58439759FAdb5cAA014501241;
   address public constant RECIPIENT_1000 = 0x7dF98A6e1895fd247aD4e75B8EDa59889fa7310b;
-  address public constant IMMUNEFY = 0x7119f398b6C06095c6E8964C1f58e7C1BAa79E18;
-  uint256 public constant RECIPIENT_500_AMOUNT = 500e18;
-  uint256 public constant RECIPIENT_1000_AMOUNT = 1000e18;
-  uint256 public constant IMMUNEFY_AMOUNT = 150e18;
+  address public constant IMMUNEFI = 0x7119f398b6C06095c6E8964C1f58e7C1BAa79E18;
 
   struct Migration {
     address underlying;
@@ -34,23 +31,11 @@ contract AaveV3Ethereum_MayFundingUpdatePartB_20240917 is IProposalGenericExecut
   }
 
   function execute() external {
-    AaveV3Ethereum.COLLECTOR.transfer(
-      AaveV3EthereumAssets.GHO_UNDERLYING,
-      RECIPIENT_500,
-      RECIPIENT_500_AMOUNT
-    );
+    AaveV3Ethereum.COLLECTOR.transfer(AaveV3EthereumAssets.GHO_UNDERLYING, RECIPIENT_500, 500e18);
 
-    AaveV3Ethereum.COLLECTOR.transfer(
-      AaveV3EthereumAssets.GHO_UNDERLYING,
-      RECIPIENT_1000,
-      RECIPIENT_1000_AMOUNT
-    );
+    AaveV3Ethereum.COLLECTOR.transfer(AaveV3EthereumAssets.GHO_UNDERLYING, RECIPIENT_1000, 1000e18);
 
-    AaveV3Ethereum.COLLECTOR.transfer(
-      AaveV3EthereumAssets.GHO_UNDERLYING,
-      IMMUNEFY,
-      IMMUNEFY_AMOUNT
-    );
+    AaveV3Ethereum.COLLECTOR.transfer(AaveV3EthereumAssets.GHO_UNDERLYING, IMMUNEFI, 150e18);
 
     Migration[] memory migrations = new Migration[](4);
     migrations[0] = Migration({

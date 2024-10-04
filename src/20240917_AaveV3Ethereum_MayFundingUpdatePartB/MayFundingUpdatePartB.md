@@ -27,6 +27,10 @@ This AIP will implement the following when executes:
   - All aDAI excluding 1
   - All aUSDC excluding 1
   - All awETH excluding 1
+- Pay the following bug bounties:
+  - $500 to 0x1770776deB0A5CA58439759FAdb5cAA014501241
+  - $1’000 to 0x7dF98A6e1895fd247aD4e75B8EDa59889fa7310b
+  - $150 to 0x7119f398b6C06095c6E8964C1f58e7C1BAa79E18 (immunefi.eth). This is the fee corresponding to the 10% of the previous bounties.
 
 ## References
 

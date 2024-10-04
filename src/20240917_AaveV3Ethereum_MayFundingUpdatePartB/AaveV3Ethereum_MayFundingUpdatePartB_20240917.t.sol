@@ -42,7 +42,7 @@ contract AaveV3Ethereum_MayFundingUpdatePartB_20240917_Test is ProtocolV3TestBas
       proposal.RECIPIENT_1000()
     );
     uint256 balanceBeforeImmunefy = IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(
-      proposal.IMMUNEFY()
+      proposal.IMMUNEFI()
     );
 
     executePayload(vm, address(proposal));
@@ -54,7 +54,7 @@ contract AaveV3Ethereum_MayFundingUpdatePartB_20240917_Test is ProtocolV3TestBas
       proposal.RECIPIENT_1000()
     );
     uint256 balanceAfterImmunefy = IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(
-      proposal.IMMUNEFY()
+      proposal.IMMUNEFI()
     );
 
     assertEq(balanceAfter500, balanceBefore500 + 500e18);
