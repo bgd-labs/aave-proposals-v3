@@ -33,8 +33,8 @@ This AIP will implement the following when executes:
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240917_AaveV3Ethereum_MayFundingUpdatePartB/AaveV3Ethereum_MayFundingUpdatePartB_20240917.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20240917_AaveV3Ethereum_MayFundingUpdatePartB/AaveV3Ethereum_MayFundingUpdatePartB_20240917.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/6b9228328a9aee78b9a1706862c01a593ca80cc6/src/20240917_AaveV3Ethereum_MayFundingUpdatePartB/AaveV3Ethereum_MayFundingUpdatePartB_20240917.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/6b9228328a9aee78b9a1706862c01a593ca80cc6/src/20240917_AaveV3Ethereum_MayFundingUpdatePartB/AaveV3Ethereum_MayFundingUpdatePartB_20240917.t.sol)
 - [Discussion](https://governance.aave.com/t/arfc-may-funding-update/17768/5)
 
 ## Copyright
