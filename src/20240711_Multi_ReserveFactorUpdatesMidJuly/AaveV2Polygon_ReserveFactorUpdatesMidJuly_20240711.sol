@@ -83,7 +83,7 @@ contract AaveV2Polygon_ReserveFactorUpdatesMidJuly_20240711 is AaveV2PayloadPoly
       })
     });
     rateStrategies[5] = IAaveV2ConfigEngine.RateStrategyUpdate({
-      asset: AaveV2PolygonAssets.WMATIC_UNDERLYING,
+      asset: AaveV2PolygonAssets.WPOL_UNDERLYING,
       params: IV2RateStrategyFactory.RateStrategyParams({
         optimalUtilizationRate: EngineFlags.KEEP_CURRENT,
         baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,

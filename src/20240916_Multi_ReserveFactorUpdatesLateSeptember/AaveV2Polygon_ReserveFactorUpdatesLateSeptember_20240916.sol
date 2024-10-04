@@ -77,7 +77,7 @@ contract AaveV2Polygon_ReserveFactorUpdatesLateSeptember_20240916 is AaveV2Paylo
       })
     });
     rateStrategies[5] = IAaveV2ConfigEngine.RateStrategyUpdate({
-      asset: AaveV2PolygonAssets.WMATIC_UNDERLYING,
+      asset: AaveV2PolygonAssets.WPOL_UNDERLYING,
       params: IV2RateStrategyFactory.RateStrategyParams({
         optimalUtilizationRate: EngineFlags.KEEP_CURRENT,
         baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
