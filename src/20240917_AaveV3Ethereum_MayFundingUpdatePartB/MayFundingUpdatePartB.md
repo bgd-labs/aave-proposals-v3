@@ -2,7 +2,6 @@
 title: "May Funding Update Part B"
 author: "karpatkey_TokenLogic"
 discussions: "https://governance.aave.com/t/arfc-may-funding-update/17768/5"
-snapshot: "Direct-to-AIP"
 ---
 
 ## Simple Summary
