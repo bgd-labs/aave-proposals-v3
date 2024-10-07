@@ -88,6 +88,7 @@ export interface Listing
   rateStrategyParams: RateStrategyParams;
   eModeCategory: string;
   decimals: number;
+  admin?: Hex | '';
 }
 
 export interface ListingWithCustomImpl {

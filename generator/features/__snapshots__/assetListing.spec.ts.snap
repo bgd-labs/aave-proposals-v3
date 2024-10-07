@@ -571,12 +571,14 @@ exports[`feature: assetListing > should return reasonable code 1`] = `
   },
   "code": {
     "constants": [
-      "address public constant PSP = 0xcAfE001067cDEF266AfB7Eb5A286dCFD277f3dE5;",
-      "uint256 public constant PSP_SEED_AMOUNT = 1e18;",
+      "address public constant PSP = 0xcAfE001067cDEF266AfB7Eb5A286dCFD277f3dE5;
+uint256 public constant PSP_SEED_AMOUNT = 1e18;
+",
     ],
     "execute": [
       "IERC20(PSP).forceApprove(address(AaveV3Ethereum.POOL), PSP_SEED_AMOUNT);
-            AaveV3Ethereum.POOL.supply(PSP, PSP_SEED_AMOUNT, address(AaveV3Ethereum.COLLECTOR), 0);",
+AaveV3Ethereum.POOL.supply(PSP, PSP_SEED_AMOUNT, address(AaveV3Ethereum.COLLECTOR), 0);
+",
     ],
     "fn": [
       "function newListings() public pure override returns (IAaveV3ConfigEngine.Listing[] memory) {
@@ -618,7 +620,8 @@ exports[`feature: assetListing > should return reasonable code 1`] = `
             GovV3Helpers.executePayload(vm,address(proposal));
             (address aTokenAddress, , ) = AaveV3Ethereum.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(proposal.PSP());
             assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Ethereum.COLLECTOR)), 10 ** 18);
-          }",
+          }
+",
     ],
   },
 }
