@@ -139,7 +139,7 @@ export const assetListing: FeatureModule<Listing[]> = {
           let listingConstant = `address public constant ${cfg.assetSymbol} = ${translateJsAddressToSol(cfg.asset)};\n`;
           listingConstant += `uint256 public constant ${cfg.assetSymbol}_SEED_AMOUNT = 1e${cfg.decimals};\n`;
           if (isAddress(cfg.admin)) {
-            listingConstant += `address public constant ${cfg.assetSymbol}_ADMIN = ${translateJsAddressToSol(cfg.admin)};\n`;
+            listingConstant += `address public constant ${cfg.assetSymbol}_LM_ADMIN = ${translateJsAddressToSol(cfg.admin)};\n`;
           }
           return listingConstant;
         }),
