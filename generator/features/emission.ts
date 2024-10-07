@@ -9,7 +9,7 @@ import {CHAIN_ID_CLIENT_MAP} from '@bgd-labs/js-utils';
 
 async function fetchEmission(pool: PoolIdentifier): Promise<EmissionUpdate> {
   const asset = await addressPrompt({
-    message: 'Address of the asset that will receive an admin',
+    message: 'Address of the reward asset for which emission admin will be set',
     required: true,
   });
 
