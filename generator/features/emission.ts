@@ -38,7 +38,7 @@ async function fetchEmission(pool: PoolIdentifier): Promise<EmissionUpdate> {
   }
 
   const admin = await addressPrompt({
-    message: `Address of the admin for the selected asset (${symbol})`,
+    message: `Address of the emission admin for the selected reward asset (${symbol})`,
     required: true,
   });
   return {
