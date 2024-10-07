@@ -57,7 +57,7 @@ export const emissionUpdates: FeatureModule<EmissionUpdate[]> = {
     while (more) {
       response.push(await fetchEmission(pool));
       more = await confirm({
-        message: 'Do you want to asign an admin to another asset?',
+        message: 'Do you want to assign an emission admin to another asset?',
         default: false,
       });
     }
