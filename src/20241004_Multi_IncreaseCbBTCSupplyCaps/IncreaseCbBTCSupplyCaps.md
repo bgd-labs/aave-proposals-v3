@@ -30,7 +30,7 @@ We propose to Increase Supply Caps on Mainnet to 3000 cbBTC and to Increase Supp
 
 | cbBTC                | Ethereum V3 | Base       |
 | -------------------- | ----------- | ---------- |
-| Increase Supply Caps | 3000 cbBTC  | 1700 cbBTC |
+| Increase Supply Caps | 10000 cbBTC  | 5000 cbBTC |
 
 ## References
 
