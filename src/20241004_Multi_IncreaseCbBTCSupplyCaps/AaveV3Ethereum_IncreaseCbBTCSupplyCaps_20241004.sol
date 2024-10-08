@@ -17,7 +17,7 @@ contract AaveV3Ethereum_IncreaseCbBTCSupplyCaps_20241004 is AaveV3PayloadEthereu
 
     capsUpdate[0] = IAaveV3ConfigEngine.CapsUpdate({
       asset: AaveV3EthereumAssets.cbBTC_UNDERLYING,
-      supplyCap: 3_000,
+      supplyCap: 10_000,
       borrowCap: EngineFlags.KEEP_CURRENT
     });
 
