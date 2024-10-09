@@ -22,9 +22,9 @@ By increasing these caps, we can:
 
 Ticker: cbBTC (cbBTC)
 
-Mainnet: 0x5c647cE0Ae10658ec44FA4E11A51c96e94efd1Dd
+Mainnet: 0xcbB7C0000aB88B473b1f5aFd9ef808440eed33Bf
 
-Base: 0xBdb9300b7CDE636d9cD4AFF00f6F009fFBBc8EE6
+Base: 0xcbB7C0000aB88B473b1f5aFd9ef808440eed33Bf
 
 We propose to Increase Supply Caps on Mainnet to 10000 cbBTC and to Increase Supply Caps on Base to 5000 cbBTC.
 
