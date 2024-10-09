@@ -6,7 +6,7 @@
 
 | description | value before | value after |
 | --- | --- | --- |
-| supplyCap | 800 cbBTC | 1,700 cbBTC |
+| supplyCap | 800 cbBTC | 5,000 cbBTC |
 
 
 ## Raw diff
@@ -17,7 +17,7 @@
     "0xcbB7C0000aB88B473b1f5aFd9ef808440eed33Bf": {
       "supplyCap": {
         "from": 800,
-        "to": 1700
+        "to": 5000
       }
     }
   }
