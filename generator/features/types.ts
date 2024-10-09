@@ -88,6 +88,7 @@ export interface Listing
   rateStrategyParams: RateStrategyParams;
   eModeCategory: string;
   decimals: number;
+  admin?: Hex | '';
 }
 
 export interface ListingWithCustomImpl {
@@ -104,4 +105,10 @@ export interface TokenStream {
 
 export interface FreezeUpdate extends AssetSelector {
   shouldBeFrozen: boolean;
+}
+
+export interface EmissionUpdate {
+  asset: Hex;
+  symbol: string;
+  admin: Hex;
 }
