@@ -26,7 +26,7 @@ Mainnet: 0x5c647cE0Ae10658ec44FA4E11A51c96e94efd1Dd
 
 Base: 0xBdb9300b7CDE636d9cD4AFF00f6F009fFBBc8EE6
 
-We propose to Increase Supply Caps on Mainnet to 3000 cbBTC and to Increase Supply Caps on Base to 1700 cbBTC.
+We propose to Increase Supply Caps on Mainnet to 10000 cbBTC and to Increase Supply Caps on Base to 5000 cbBTC.
 
 | cbBTC                | Ethereum V3 | Base       |
 | -------------------- | ----------- | ---------- |
