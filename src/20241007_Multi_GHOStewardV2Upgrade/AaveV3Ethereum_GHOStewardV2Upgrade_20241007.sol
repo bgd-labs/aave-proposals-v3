@@ -7,6 +7,7 @@ import {IACLManager} from 'aave-address-book/AaveV3.sol';
 import {IAccessControl} from '@openzeppelin/contracts/access/IAccessControl.sol';
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
 
+import {IGhoBucketSteward} from 'src/interfaces/IGhoBucketSteward.sol';
 import {IGhoToken} from 'src/interfaces/IGhoToken.sol';
 import {IGsm} from 'src/interfaces/IGsm.sol';
 import {IUpgradeableLockReleaseTokenPool} from 'src/interfaces/ccip/IUpgradeableLockReleaseTokenPool.sol';
@@ -27,7 +28,8 @@ contract AaveV3Ethereum_GHOStewardV2Upgrade_20241007 is IProposalGenericExecutor
   // https://etherscan.io/address/0x101efb7b9beb073b1219cd5473a7c8a2f2eb84f4
   address public constant GHO_CCIP_STEWARD = 0x101Efb7b9Beb073B1219Cd5473a7C8A2f2EB84f4;
 
-  address public constant GHO_GSM_STEWARD = address(0); // TODO
+  // https://etherscan.io/address/0xd1e856a947cdf56b4f000ee29d34f5808e0a6848
+  address public constant GHO_GSM_STEWARD = 0xD1E856a947CdF56b4f000ee29d34F5808E0A6848;
 
   function execute() external {
     address ACL_MANAGER = AaveV3Ethereum.POOL_ADDRESSES_PROVIDER.getACLManager();
@@ -35,13 +37,19 @@ contract AaveV3Ethereum_GHOStewardV2Upgrade_20241007 is IProposalGenericExecutor
     // Gho Bucket Steward
     IGhoToken(AaveV3EthereumAssets.GHO_UNDERLYING).grantRole(
       IGhoToken(AaveV3EthereumAssets.GHO_UNDERLYING).BUCKET_MANAGER_ROLE(),
-      address(GHO_BUCKET_STEWARD)
+      GHO_BUCKET_STEWARD
     );
+
+    address[] memory controlledFacilitators = new address[](3);
+    controlledFacilitators[0] = AaveV3EthereumAssets.GHO_A_TOKEN;
+    controlledFacilitators[1] = MiscEthereum.GSM_USDC;
+    controlledFacilitators[2] = MiscEthereum.GSM_USDT;
+    IGhoBucketSteward(GHO_BUCKET_STEWARD).setControlledFacilitator(controlledFacilitators, true);
 
     // Gho Aave Steward
     IAccessControl(ACL_MANAGER).grantRole(
       IACLManager(ACL_MANAGER).RISK_ADMIN_ROLE(),
-      address(GHO_AAVE_STEWARD)
+      GHO_AAVE_STEWARD
     );
 
     // Gho CCIP Steward

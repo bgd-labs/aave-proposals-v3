@@ -8,6 +8,7 @@ import {TransparentUpgradeableProxy} from 'solidity-utils/contracts/transparent-
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
 import {IAccessControl} from '@openzeppelin/contracts/access/IAccessControl.sol';
 
+import {IGhoBucketSteward} from 'src/interfaces/IGhoBucketSteward.sol';
 import {IGhoToken} from 'src/interfaces/IGhoToken.sol';
 import {IUpgradeableLockReleaseTokenPool} from 'src/interfaces/ccip/IUpgradeableLockReleaseTokenPool.sol';
 
@@ -21,11 +22,14 @@ contract AaveV3Arbitrum_GHOStewardV2Upgrade_20241007 is IProposalGenericExecutor
   // https://arbiscan.io/address/0xb78eda33eb5493d56f14a81023ce69438a562a2c#code
   address public constant NEW_CCIP_POOL_TOKEN = 0xb78eDA33EB5493d56f14a81023CE69438a562A2c;
 
-  address public constant GHO_BUCKET_STEWARD = address(0); // TODO
+  // https://arbiscan.io/address/0x7658a0eae448c8b7714044f959faea13f5e202fa
+  address public constant GHO_BUCKET_STEWARD = 0x7658A0EAe448c8b7714044F959fAeA13f5E202FA;
 
-  address public constant GHO_AAVE_STEWARD = address(0); // TODO
+  // https://arbiscan.io/address/0xcd04d93bea13921dad05240d577090b5ac36dfca
+  address public constant GHO_AAVE_STEWARD = 0xCd04D93bEA13921DaD05240D577090b5AC36DfCA;
 
-  address public constant GHO_CCIP_STEWARD = address(0); // TODO
+  // https://arbiscan.io/address/0x7484eabea5306eb616ca448cbf442a617dd22869
+  address public constant GHO_CCIP_STEWARD = 0x7484eaBeA5306eB616CA448CBF442a617Dd22869;
 
   function execute() external {
     address ACL_MANAGER = AaveV3Arbitrum.POOL_ADDRESSES_PROVIDER.getACLManager();
@@ -38,13 +42,17 @@ contract AaveV3Arbitrum_GHOStewardV2Upgrade_20241007 is IProposalGenericExecutor
     // Gho Bucket Steward
     IGhoToken(AaveV3ArbitrumAssets.GHO_UNDERLYING).grantRole(
       IGhoToken(AaveV3ArbitrumAssets.GHO_UNDERLYING).BUCKET_MANAGER_ROLE(),
-      address(GHO_BUCKET_STEWARD)
+      GHO_BUCKET_STEWARD
     );
+
+    address[] memory controlledFacilitators = new address[](1);
+    controlledFacilitators[0] = NEW_CCIP_POOL_TOKEN;
+    IGhoBucketSteward(GHO_BUCKET_STEWARD).setControlledFacilitator(controlledFacilitators, true);
 
     // Gho Aave Steward
     IAccessControl(ACL_MANAGER).grantRole(
       IACLManager(ACL_MANAGER).RISK_ADMIN_ROLE(),
-      address(GHO_AAVE_STEWARD)
+      GHO_AAVE_STEWARD
     );
 
     // Gho CCIP Steward

@@ -10,6 +10,7 @@ import {TransparentUpgradeableProxy} from 'solidity-utils/contracts/transparent-
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 
 import {AaveV3Arbitrum_GHOStewardV2Upgrade_20241007} from './AaveV3Arbitrum_GHOStewardV2Upgrade_20241007.sol';
+import {IGhoBucketSteward} from 'src/interfaces/IGhoBucketSteward.sol';
 import {IGhoToken} from 'src/interfaces/IGhoToken.sol';
 import {IGsm} from 'src/interfaces/IGsm.sol';
 import {IUpgradeableLockReleaseTokenPool} from 'src/interfaces/ccip/IUpgradeableLockReleaseTokenPool.sol';
@@ -22,13 +23,12 @@ contract AaveV3Arbitrum_GHOStewardV2Upgrade_20241007_Test is ProtocolV3TestBase 
   AaveV3Arbitrum_GHOStewardV2Upgrade_20241007 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('arbitrum'), 261341067);
+    vm.createSelectFork(vm.rpcUrl('arbitrum'), 261869513);
     proposal = new AaveV3Arbitrum_GHOStewardV2Upgrade_20241007();
   }
 
   function test_roles() public {
-    // address ACL_MANAGER = AaveV3MiscArbitrum.POOL_ADDRESSES_PROVIDER.getACLManager();
-    address ACL_MANAGER = 0xc2aaCf6553D20d1e9d78E365AAba8032af9c85b0;
+    address ACL_MANAGER = AaveV3Arbitrum.POOL_ADDRESSES_PROVIDER.getACLManager();
 
     // Gho Bucket Steward
     assertEq(
@@ -49,10 +49,8 @@ contract AaveV3Arbitrum_GHOStewardV2Upgrade_20241007_Test is ProtocolV3TestBase 
     );
 
     // Gho CCIP Steward
-    assertEq(
-      IUpgradeableLockReleaseTokenPool(MiscArbitrum.GHO_CCIP_TOKEN_POOL).getRateLimitAdmin(),
-      address(0)
-    );
+    vm.expectRevert(); // getRateLimitAdmin doesn't exist yet
+    IUpgradeableLockReleaseTokenPool(MiscArbitrum.GHO_CCIP_TOKEN_POOL).getRateLimitAdmin();
 
     executePayload(vm, address(proposal));
 
@@ -70,6 +68,8 @@ contract AaveV3Arbitrum_GHOStewardV2Upgrade_20241007_Test is ProtocolV3TestBase 
       ),
       true
     );
+
+    assertTrue(_isControlledFacilitator(proposal.NEW_CCIP_POOL_TOKEN()));
 
     // Gho Aave Steward
     assertEq(
@@ -95,5 +95,16 @@ contract AaveV3Arbitrum_GHOStewardV2Upgrade_20241007_Test is ProtocolV3TestBase 
       AaveV3Arbitrum.POOL,
       address(proposal)
     );
+  }
+
+  function _isControlledFacilitator(address target) internal view returns (bool) {
+    address[] memory controlledFacilitators = IGhoBucketSteward(proposal.GHO_BUCKET_STEWARD())
+      .getControlledFacilitators();
+    for (uint256 i = 0; i < controlledFacilitators.length; i++) {
+      if (controlledFacilitators[i] == target) {
+        return true;
+      }
+    }
+    return false;
   }
 }
