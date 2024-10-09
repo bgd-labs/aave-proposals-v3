@@ -35,7 +35,8 @@ contract AaveV3Arbitrum_GHOStewardV2Upgrade_20241007 is IProposalGenericExecutor
     address ACL_MANAGER = AaveV3Arbitrum.POOL_ADDRESSES_PROVIDER.getACLManager();
 
     // New CCIP Token Pool
-    TransparentUpgradeableProxy(payable(MiscArbitrum.GHO_CCIP_TOKEN_POOL)).upgradeTo(
+    IProxyAdmin(MiscArbitrum.PROXY_ADMIN).upgrade(
+      TransparentUpgradeableProxy(payable(MiscArbitrum.GHO_CCIP_TOKEN_POOL)),
       NEW_CCIP_POOL_TOKEN
     );
 
@@ -56,6 +57,19 @@ contract AaveV3Arbitrum_GHOStewardV2Upgrade_20241007 is IProposalGenericExecutor
     );
 
     // Gho CCIP Steward
-    IUpgradeableLockReleaseTokenPool(NEW_CCIP_POOL_TOKEN).setRateLimitAdmin(GHO_CCIP_STEWARD);
+    IUpgradeableLockReleaseTokenPool(MiscArbitrum.GHO_CCIP_TOKEN_POOL).setRateLimitAdmin(
+      GHO_CCIP_STEWARD
+    );
   }
+}
+
+interface IProxyAdmin {
+  /**
+   * @dev Upgrades `proxy` to `implementation`. See {TransparentUpgradeableProxy-upgradeTo}.
+   *
+   * Requirements:
+   *
+   * - This contract must be the admin of `proxy`.
+   */
+  function upgrade(TransparentUpgradeableProxy proxy, address implementation) external;
 }

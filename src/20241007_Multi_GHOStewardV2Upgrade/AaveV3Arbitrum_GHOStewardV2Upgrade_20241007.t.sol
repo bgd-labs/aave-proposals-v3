@@ -54,7 +54,7 @@ contract AaveV3Arbitrum_GHOStewardV2Upgrade_20241007_Test is ProtocolV3TestBase 
 
     executePayload(vm, address(proposal));
 
-    vm.prank(GovernanceV3Arbitrum.EXECUTOR_LVL_1);
+    vm.prank(MiscArbitrum.PROXY_ADMIN);
     address impl = TransparentUpgradeableProxy(payable(MiscArbitrum.GHO_CCIP_TOKEN_POOL))
       .implementation();
 
