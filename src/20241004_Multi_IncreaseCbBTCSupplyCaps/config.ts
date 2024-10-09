@@ -17,7 +17,7 @@ export const config: ConfigFile = {
       cache: {blockNumber: 20893050},
     },
     AaveV3Base: {
-      configs: {CAPS_UPDATE: [{asset: 'cbBTC', supplyCap: '1700', borrowCap: ''}]},
+      configs: {CAPS_UPDATE: [{asset: 'cbBTC', supplyCap: '5000', borrowCap: ''}]},
       cache: {blockNumber: 20633209},
     },
   },
