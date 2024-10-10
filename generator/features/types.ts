@@ -22,7 +22,6 @@ export interface CapsUpdate extends CapsUpdatePartial, AssetSelector {}
 export interface BorrowUpdatePartial {
   enabledToBorrow: BooleanSelectValues;
   flashloanable: BooleanSelectValues;
-  stableRateModeEnabled: BooleanSelectValues;
   borrowableInIsolation: BooleanSelectValues;
   withSiloedBorrowing: BooleanSelectValues;
   reserveFactor: PercentInputValues;

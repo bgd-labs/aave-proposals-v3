@@ -42,10 +42,10 @@
     chalk "^2.4.2"
     js-tokens "^4.0.0"
 
-"@bgd-labs/aave-address-book@3.2.1":
-  version "3.2.1"
-  resolved "https://registry.yarnpkg.com/@bgd-labs/aave-address-book/-/aave-address-book-3.2.1.tgz#9ecdb92303170e754e048d25f7d6cd27312c530b"
-  integrity sha512-IlXHWYAhcgbiteTU50I6v8Awl7PBAHfXGz2IyjR5MPXy4xvW4UXYKbCRUtOCFxY/sdLtu/Gb+GgypyF76sd4Qg==
+"@bgd-labs/aave-address-book@4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@bgd-labs/aave-address-book/-/aave-address-book-4.0.0.tgz#3084117c33102bc9de718d47d6a48a2aae698543"
+  integrity sha512-OCeLg2Q4vL45SVU/nkBETGheYnUbbj1LvCwNR3TeI7MboESIcspoXJbiQWOeyJA6f9Uzo6+k3pa/KtK329gMww==
 
 "@bgd-labs/aave-address-book@^3.0.0":
   version "3.0.0"
