@@ -15,7 +15,7 @@ contract AaveV3Arbitrum_ReserveFactorUpdatesMidOctober_20241004_Test is Protocol
   AaveV3Arbitrum_ReserveFactorUpdatesMidOctober_20241004 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('arbitrum'), 260311654);
+    vm.createSelectFork(vm.rpcUrl('arbitrum'), 262378595);
     proposal = new AaveV3Arbitrum_ReserveFactorUpdatesMidOctober_20241004();
   }
 

@@ -15,7 +15,7 @@ contract AaveV3Optimism_ReserveFactorUpdatesMidOctober_20241004_Test is Protocol
   AaveV3Optimism_ReserveFactorUpdatesMidOctober_20241004 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('optimism'), 126225277);
+    vm.createSelectFork(vm.rpcUrl('optimism'), 126486102);
     proposal = new AaveV3Optimism_ReserveFactorUpdatesMidOctober_20241004();
   }
 

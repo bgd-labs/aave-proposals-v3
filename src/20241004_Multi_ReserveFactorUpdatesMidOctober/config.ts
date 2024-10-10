@@ -103,7 +103,6 @@ export const config: ConfigFile = {
           {
             enabledToBorrow: 'KEEP_CURRENT',
             flashloanable: 'KEEP_CURRENT',
-            stableRateModeEnabled: 'KEEP_CURRENT',
             borrowableInIsolation: 'KEEP_CURRENT',
             withSiloedBorrowing: 'KEEP_CURRENT',
             reserveFactor: '50',
@@ -119,7 +118,6 @@ export const config: ConfigFile = {
           {
             enabledToBorrow: 'KEEP_CURRENT',
             flashloanable: 'KEEP_CURRENT',
-            stableRateModeEnabled: 'KEEP_CURRENT',
             borrowableInIsolation: 'KEEP_CURRENT',
             withSiloedBorrowing: 'KEEP_CURRENT',
             reserveFactor: '50',
@@ -135,7 +133,6 @@ export const config: ConfigFile = {
           {
             enabledToBorrow: 'KEEP_CURRENT',
             flashloanable: 'KEEP_CURRENT',
-            stableRateModeEnabled: 'KEEP_CURRENT',
             borrowableInIsolation: 'KEEP_CURRENT',
             withSiloedBorrowing: 'KEEP_CURRENT',
             reserveFactor: '50',
@@ -151,7 +148,6 @@ export const config: ConfigFile = {
           {
             enabledToBorrow: 'KEEP_CURRENT',
             flashloanable: 'KEEP_CURRENT',
-            stableRateModeEnabled: 'KEEP_CURRENT',
             borrowableInIsolation: 'KEEP_CURRENT',
             withSiloedBorrowing: 'KEEP_CURRENT',
             reserveFactor: '50',
@@ -167,7 +163,6 @@ export const config: ConfigFile = {
           {
             enabledToBorrow: 'KEEP_CURRENT',
             flashloanable: 'KEEP_CURRENT',
-            stableRateModeEnabled: 'KEEP_CURRENT',
             borrowableInIsolation: 'KEEP_CURRENT',
             withSiloedBorrowing: 'KEEP_CURRENT',
             reserveFactor: '25',

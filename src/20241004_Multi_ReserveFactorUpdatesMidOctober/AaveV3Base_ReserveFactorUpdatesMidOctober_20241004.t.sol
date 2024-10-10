@@ -15,7 +15,7 @@ contract AaveV3Base_ReserveFactorUpdatesMidOctober_20241004_Test is ProtocolV3Te
   AaveV3Base_ReserveFactorUpdatesMidOctober_20241004 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('base'), 20630027);
+    vm.createSelectFork(vm.rpcUrl('base'), 20890766);
     proposal = new AaveV3Base_ReserveFactorUpdatesMidOctober_20241004();
   }
 

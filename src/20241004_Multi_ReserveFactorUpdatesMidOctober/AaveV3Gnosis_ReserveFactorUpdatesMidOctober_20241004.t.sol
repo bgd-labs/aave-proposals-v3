@@ -15,7 +15,7 @@ contract AaveV3Gnosis_ReserveFactorUpdatesMidOctober_20241004_Test is ProtocolV3
   AaveV3Gnosis_ReserveFactorUpdatesMidOctober_20241004 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('gnosis'), 36333914);
+    vm.createSelectFork(vm.rpcUrl('gnosis'), 36435033);
     proposal = new AaveV3Gnosis_ReserveFactorUpdatesMidOctober_20241004();
   }
 

@@ -3,8 +3,8 @@ pragma solidity ^0.8.0;
 
 import {AaveV3PolygonAssets} from 'aave-address-book/AaveV3Polygon.sol';
 import {AaveV3PayloadPolygon} from 'aave-helpers/src/v3-config-engine/AaveV3PayloadPolygon.sol';
-import {EngineFlags} from 'aave-v3-periphery/contracts/v3-config-engine/EngineFlags.sol';
-import {IAaveV3ConfigEngine} from 'aave-v3-periphery/contracts/v3-config-engine/IAaveV3ConfigEngine.sol';
+import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
+import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
 /**
  * @title Reserve Factor Updates Mid October
  * @author karpatkey_TokenLogic
@@ -25,7 +25,6 @@ contract AaveV3Polygon_ReserveFactorUpdatesMidOctober_20241004 is AaveV3PayloadP
       asset: AaveV3PolygonAssets.USDC_UNDERLYING,
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
-      stableRateModeEnabled: EngineFlags.KEEP_CURRENT,
       borrowableInIsolation: EngineFlags.KEEP_CURRENT,
       withSiloedBorrowing: EngineFlags.KEEP_CURRENT,
       reserveFactor: 50_00
