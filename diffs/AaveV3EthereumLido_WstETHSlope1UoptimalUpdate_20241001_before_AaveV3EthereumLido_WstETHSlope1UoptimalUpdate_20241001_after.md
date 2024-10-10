@@ -9,7 +9,9 @@
 | optimalUsageRatio | 45 % | 80 % |
 | maxVariableBorrowRate | 88.5 % | 87.25 % |
 | variableRateSlope1 | 3.5 % | 2.25 % |
-| interestRate | ![before](/.assets/4f278d3e1c4335b98c92585fbeb92d263bdb8569.svg) | ![after](/.assets/5e92a6663aeee25254a2740f3a545f211faeacbf.svg) |
+| interestRate | ![before](/.assets/20b02c78bc8b99547929074a8d98940dc76ac4e3.svg) | ![after](/.assets/76125e3a0b338875aa6ae2af0ba3fb1ee003880c.svg) |
+
+## Emodes changes
 
 ## Raw diff
 

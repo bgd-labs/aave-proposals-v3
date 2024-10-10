@@ -15,7 +15,7 @@ contract AaveV3EthereumLido_WstETHSlope1UoptimalUpdate_20241001_Test is Protocol
   AaveV3EthereumLido_WstETHSlope1UoptimalUpdate_20241001 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 20874549);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 20936571);
     proposal = new AaveV3EthereumLido_WstETHSlope1UoptimalUpdate_20241001();
   }
 
