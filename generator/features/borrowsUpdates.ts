@@ -17,11 +17,6 @@ export async function fetchBorrowUpdate<T extends boolean>(required?: T) {
       message: 'flashloanable',
       required,
     }),
-    stableRateModeEnabled: await boolPrompt({
-      message: 'stable rate mode enabled',
-      required,
-      defaultValue: ENGINE_FLAGS.DISABLED,
-    }),
     borrowableInIsolation: await boolPrompt({
       message: 'borrowable in isolation',
       required,
@@ -44,7 +39,7 @@ type BorrowUpdates = BorrowUpdate[];
 export const borrowsUpdates: FeatureModule<BorrowUpdates> = {
   value: FEATURE.BORROWS_UPDATE,
   description:
-    'BorrowsUpdates (enabledToBorrow, flashloanable, stableRateModeEnabled, borrowableInIsolation, withSiloedBorrowing, reserveFactor)',
+    'BorrowsUpdates (enabledToBorrow, flashloanable, borrowableInIsolation, withSiloedBorrowing, reserveFactor)',
   async cli({pool}) {
     const assets = await assetsSelectPrompt({
       message: 'Select the assets you want to amend',
@@ -72,7 +67,6 @@ export const borrowsUpdates: FeatureModule<BorrowUpdates> = {
                asset: ${translateAssetToAssetLibUnderlying(cfg.asset, pool)},
                enabledToBorrow: ${translateJsBoolToSol(cfg.enabledToBorrow)},
                flashloanable: ${translateJsBoolToSol(cfg.flashloanable)},
-               stableRateModeEnabled: ${translateJsBoolToSol(cfg.stableRateModeEnabled)},
                borrowableInIsolation: ${translateJsBoolToSol(cfg.borrowableInIsolation)},
                withSiloedBorrowing: ${translateJsBoolToSol(cfg.withSiloedBorrowing)},
                reserveFactor: ${translateJsPercentToSol(cfg.reserveFactor)}
