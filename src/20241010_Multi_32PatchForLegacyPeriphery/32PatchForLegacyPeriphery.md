@@ -30,6 +30,7 @@ The proposal was tested via unit tests and Certora [checked the upgrade and prop
 
 - [Proposal Implementation](https://github.com/bgd-labs/protocol-v3.2-pdp-patch/blob/main/src/contracts/UpgradePayload.sol)
 - [Protocol Upgrade Implementation](https://github.com/aave-dao/aave-v3-origin/pull/64)
+- [Pool implementation diff](https://github.com/bgd-labs/protocol-v3.2-pdp-patch/blob/main/diffs/1_poolImpl_0x1f64488c2C4686771dafA75915274d27878B667a_0xeF434E4573b90b6ECd4a00f4888381e4D0CC5Ccd.diff)
 - [Tests](https://github.com/bgd-labs/protocol-v3.2-pdp-patch/tree/main/tests)
 - [Discussion](https://governance.aave.com/t/bgd-technical-maintenance-proposals/15274/45)
 - [Upgrade repository](https://github.com/bgd-labs/protocol-v3.2-pdp-patch)
