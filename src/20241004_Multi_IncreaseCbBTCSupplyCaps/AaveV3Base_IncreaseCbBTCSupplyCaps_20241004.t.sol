@@ -15,7 +15,7 @@ contract AaveV3Base_IncreaseCbBTCSupplyCaps_20241004_Test is ProtocolV3TestBase 
   AaveV3Base_IncreaseCbBTCSupplyCaps_20241004 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('base'), 20633209);
+    vm.createSelectFork(vm.rpcUrl('base'), 20884619);
     proposal = new AaveV3Base_IncreaseCbBTCSupplyCaps_20241004();
   }
 

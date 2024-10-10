@@ -15,7 +15,7 @@ contract AaveV3Ethereum_IncreaseCbBTCSupplyCaps_20241004_Test is ProtocolV3TestB
   AaveV3Ethereum_IncreaseCbBTCSupplyCaps_20241004 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 20893050);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 20934819);
     proposal = new AaveV3Ethereum_IncreaseCbBTCSupplyCaps_20241004();
   }
 

@@ -14,11 +14,11 @@ export const config: ConfigFile = {
   poolOptions: {
     AaveV3Ethereum: {
       configs: {CAPS_UPDATE: [{asset: 'cbBTC', supplyCap: '10000', borrowCap: ''}]},
-      cache: {blockNumber: 20893050},
+      cache: {blockNumber: 20934819},
     },
     AaveV3Base: {
       configs: {CAPS_UPDATE: [{asset: 'cbBTC', supplyCap: '5000', borrowCap: ''}]},
-      cache: {blockNumber: 20633209},
+      cache: {blockNumber: 20884619},
     },
   },
 };
