@@ -5,7 +5,7 @@ import {
   assetsSelectPrompt,
   translateAssetToAssetLibUnderlying,
 } from '../prompts/assetsSelectPrompt';
-import {boolPrompt} from '../prompts/boolPrompt';
+import {boolPrompt, translateJsBoolToSol} from '../prompts/boolPrompt';
 
 async function subCli(pool: PoolIdentifier) {
   console.log(`Fetching information for Emode assets on ${pool}`);
@@ -57,8 +57,8 @@ export const eModeAssets: FeatureModule<EmodeAssetUpdates> = {
               (cfg, ix) => `assetEModeUpdates[${ix}] = IAaveV3ConfigEngine.AssetEModeUpdate({
                asset: ${translateAssetToAssetLibUnderlying(cfg.asset, pool)},
                eModeCategory: ${cfg.eModeCategory},
-               borrowable: ${cfg.borrowable},
-               collateral: ${cfg.collateral}
+               borrowable: ${translateJsBoolToSol(cfg.borrowable)},
+               collateral: ${translateJsBoolToSol(cfg.collateral)}
              });`,
             )
             .join('\n')}

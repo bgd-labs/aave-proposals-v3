@@ -42,7 +42,7 @@ async function subCli(pool: PoolIdentifier) {
   if (shouldAddNewCategory) {
     let more: boolean = true;
     const eModes = getEModes(pool as any);
-    let highestEmode = Object.values(eModes).length > 0 ? Math.max(...Object.values(eModes)) : 0;
+    let highestEmode = Object.values(eModes).length > 0 ? Math.max(...eModes.map((e) => e.id)) : 0;
 
     while (more) {
       answers.push(await fetchEmodeCategoryUpdate(++highestEmode, true));
