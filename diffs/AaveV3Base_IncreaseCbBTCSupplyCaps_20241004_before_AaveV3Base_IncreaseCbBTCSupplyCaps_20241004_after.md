@@ -6,8 +6,10 @@
 
 | description | value before | value after |
 | --- | --- | --- |
-| supplyCap | 800 cbBTC | 5,000 cbBTC |
+| supplyCap | 1,600 cbBTC | 5,000 cbBTC |
 
+
+## Emodes changes
 
 ## Raw diff
 
@@ -16,7 +18,7 @@
   "reserves": {
     "0xcbB7C0000aB88B473b1f5aFd9ef808440eed33Bf": {
       "supplyCap": {
-        "from": 800,
+        "from": 1600,
         "to": 5000
       }
     }
