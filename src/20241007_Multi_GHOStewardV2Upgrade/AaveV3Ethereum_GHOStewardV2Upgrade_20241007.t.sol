@@ -21,7 +21,7 @@ contract AaveV3Ethereum_GHOStewardV2Upgrade_20241007_Test is ProtocolV3TestBase 
   AaveV3Ethereum_GHOStewardV2Upgrade_20241007 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 20925231);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 20936571);
     proposal = new AaveV3Ethereum_GHOStewardV2Upgrade_20241007();
   }
 

@@ -23,7 +23,7 @@ contract AaveV3Arbitrum_GHOStewardV2Upgrade_20241007_Test is ProtocolV3TestBase 
   AaveV3Arbitrum_GHOStewardV2Upgrade_20241007 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('arbitrum'), 261869513);
+    vm.createSelectFork(vm.rpcUrl('arbitrum'), 262414534);
     proposal = new AaveV3Arbitrum_GHOStewardV2Upgrade_20241007();
   }
 
