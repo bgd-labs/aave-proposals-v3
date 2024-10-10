@@ -22,7 +22,6 @@ export interface CapsUpdate extends CapsUpdatePartial, AssetSelector {}
 export interface BorrowUpdatePartial {
   enabledToBorrow: BooleanSelectValues;
   flashloanable: BooleanSelectValues;
-  stableRateModeEnabled: BooleanSelectValues;
   borrowableInIsolation: BooleanSelectValues;
   withSiloedBorrowing: BooleanSelectValues;
   reserveFactor: PercentInputValues;
@@ -48,6 +47,8 @@ export interface PriceFeedUpdate extends PriceFeedUpdatePartial, AssetSelector {
 
 export interface AssetEModeUpdatePartial {
   eModeCategory: string;
+  collateral: BooleanSelectValues;
+  borrowable: BooleanSelectValues;
 }
 
 export interface AssetEModeUpdate extends AssetEModeUpdatePartial, AssetSelector {}
