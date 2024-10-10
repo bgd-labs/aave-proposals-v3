@@ -37,9 +37,12 @@ export function getAssets(pool: PoolIdentifier): string[] {
   return Object.keys(assets);
 }
 
-export function getEModes(pool: PoolIdentifierV3) {
-  const eModes = addressBook[pool].E_MODES;
-  return eModes;
+export function getEModes(pool: PoolIdentifierV3): {value: string; id: number}[] {
+  return Object.keys(addressBook[pool].E_MODES).map((key) => ({
+    // map the complex type to a string as used in the sol libs
+    value: addressBook[pool].E_MODES[key].label.toUpperCase().replace('-', '_').replace(' ', '_'),
+    id: key as unknown as number,
+  }));
 }
 
 export function isV2Pool(pool: PoolIdentifier) {

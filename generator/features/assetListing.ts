@@ -1,5 +1,4 @@
 import {CodeArtifact, FEATURE, FeatureModule, PoolIdentifier} from '../types';
-import {eModeSelect} from '../prompts';
 import {fetchBorrowUpdate} from './borrowsUpdates';
 import {fetchRateStrategyParamsV3} from './rateUpdates';
 import {fetchCollateralUpdate} from './collateralsUpdates';
@@ -15,6 +14,7 @@ import {translateJsBoolToSol} from '../prompts/boolPrompt';
 import {transformNumberToPercent, translateJsPercentToSol} from '../prompts/percentPrompt';
 import {transformNumberToHumanReadable, translateJsNumberToSol} from '../prompts/numberPrompt';
 import {CHAIN_ID_CLIENT_MAP} from '@bgd-labs/js-utils';
+import {IERC20Detailed_ABI} from '@bgd-labs/aave-address-book/abis';
 
 async function fetchListing(pool: PoolIdentifier): Promise<Listing> {
   const asset = await addressPrompt({
@@ -24,31 +24,7 @@ async function fetchListing(pool: PoolIdentifier): Promise<Listing> {
 
   const chain = getPoolChain(pool);
   const erc20 = getContract({
-    abi: [
-      {
-        constant: true,
-        inputs: [],
-        name: 'symbol',
-        outputs: [{internalType: 'string', name: '', type: 'string'}],
-        payable: false,
-        stateMutability: 'view',
-        type: 'function',
-      },
-      {
-        constant: true,
-        inputs: [],
-        name: 'decimals',
-        outputs: [
-          {
-            name: '',
-            type: 'uint8',
-          },
-        ],
-        payable: false,
-        stateMutability: 'view',
-        type: 'function',
-      },
-    ],
+    abi: IERC20Detailed_ABI,
     client: CHAIN_ID_CLIENT_MAP[CHAIN_TO_CHAIN_ID[chain]],
     address: asset,
   });
@@ -73,11 +49,6 @@ async function fetchListing(pool: PoolIdentifier): Promise<Listing> {
     ...(await fetchBorrowUpdate(true)),
     ...(await fetchCapsUpdate(true)),
     rateStrategyParams: await fetchRateStrategyParamsV3(true),
-    eModeCategory: await eModeSelect({
-      message: `Select the eMode you want to assign to ${asset}`,
-      disableKeepCurrent: true,
-      pool,
-    }),
     asset,
     admin: await addressPrompt({message: 'Emission admin address (optional)', required: false}),
   };
@@ -95,9 +66,7 @@ function generateAssetListingSol(cfg: Listing) {
   return `asset: ${cfg.assetSymbol},
   assetSymbol: "${cfg.assetSymbol}",
   priceFeed: ${translateJsAddressToSol(cfg.priceFeed)},
-  eModeCategory: ${cfg.eModeCategory},
   enabledToBorrow: ${translateJsBoolToSol(cfg.enabledToBorrow)},
-  stableRateModeEnabled: ${translateJsBoolToSol(cfg.stableRateModeEnabled)},
   borrowableInIsolation: ${translateJsBoolToSol(cfg.borrowableInIsolation)},
   withSiloedBorrowing: ${translateJsBoolToSol(cfg.withSiloedBorrowing)},
   flashloanable: ${translateJsBoolToSol(cfg.flashloanable)},
@@ -227,7 +196,6 @@ export const assetListing: FeatureModule<Listing[]> = {
           listingTemplate += `| Uoptimal | ${transformNumberToPercent(
             cfg.rateStrategyParams.optimalUtilizationRate,
           )} |\n`;
-          listingTemplate += `| Stable Borrowing | ${cfg.stableRateModeEnabled} |\n`;
           listingTemplate += `| Flashloanable	| ${cfg.flashloanable} |\n`;
           listingTemplate += `| Siloed Borrowing	| ${cfg.withSiloedBorrowing} |\n`;
           listingTemplate += `| Borrowable in Isolation | ${cfg.borrowableInIsolation} |\n`;
