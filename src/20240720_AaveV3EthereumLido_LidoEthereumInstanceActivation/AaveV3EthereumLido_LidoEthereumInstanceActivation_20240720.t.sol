@@ -5,8 +5,8 @@ import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 import {AaveV3EthereumLido} from 'aave-address-book/AaveV3EthereumLido.sol';
 import {AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
-import {IPoolAddressesProviderRegistry} from 'aave-v3-core/contracts/interfaces/IPoolAddressesProviderRegistry.sol';
-import {IEmissionManager} from 'aave-v3-periphery/contracts/rewards/interfaces/IEmissionManager.sol';
+import {IPoolAddressesProviderRegistry} from 'aave-v3-origin/contracts/interfaces/IPoolAddressesProviderRegistry.sol';
+import {IEmissionManager} from 'aave-v3-origin/contracts/rewards/interfaces/IEmissionManager.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 
 import 'forge-std/Test.sol';

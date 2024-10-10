@@ -3,7 +3,8 @@ pragma solidity ^0.8.0;
 
 import {AaveV3BNBAssets} from 'aave-address-book/AaveV3BNB.sol';
 import {AaveV3PayloadBNB} from 'aave-helpers/src/v3-config-engine/AaveV3PayloadBNB.sol';
-import {IAaveV3ConfigEngine} from 'aave-v3-periphery/contracts/v3-config-engine/IAaveV3ConfigEngine.sol';
+import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
+
 /**
  * @title Chaos Labs Risk Parameter Updates - Decrease Supply and Borrow Caps on Aave V3
  * @author Aave Chan Initiative

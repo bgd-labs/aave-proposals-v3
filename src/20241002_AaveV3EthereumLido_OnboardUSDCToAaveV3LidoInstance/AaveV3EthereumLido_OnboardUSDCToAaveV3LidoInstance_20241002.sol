@@ -4,10 +4,11 @@ pragma solidity ^0.8.0;
 import {AaveV3EthereumLido, AaveV3EthereumLidoEModes} from 'aave-address-book/AaveV3EthereumLido.sol';
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {AaveV3PayloadEthereumLido} from 'aave-helpers/src/v3-config-engine/AaveV3PayloadEthereumLido.sol';
-import {EngineFlags} from 'aave-v3-periphery/contracts/v3-config-engine/EngineFlags.sol';
-import {IAaveV3ConfigEngine} from 'aave-v3-periphery/contracts/v3-config-engine/IAaveV3ConfigEngine.sol';
+import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
+import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';
+
 /**
  * @title Onboard USDC to Aave V3 Lido Instance
  * @author ACI
@@ -37,9 +38,7 @@ contract AaveV3EthereumLido_OnboardUSDCToAaveV3LidoInstance_20241002 is AaveV3Pa
       asset: USDC,
       assetSymbol: 'USDC',
       priceFeed: AaveV3EthereumAssets.USDC_ORACLE,
-      eModeCategory: AaveV3EthereumLidoEModes.NONE,
       enabledToBorrow: EngineFlags.ENABLED,
-      stableRateModeEnabled: EngineFlags.DISABLED,
       borrowableInIsolation: EngineFlags.ENABLED,
       withSiloedBorrowing: EngineFlags.DISABLED,
       flashloanable: EngineFlags.ENABLED,

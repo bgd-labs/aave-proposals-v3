@@ -3,8 +3,9 @@ pragma solidity ^0.8.0;
 
 import {AaveV3ScrollAssets} from 'aave-address-book/AaveV3Scroll.sol';
 import {AaveV3PayloadScroll} from 'aave-helpers/src/v3-config-engine/AaveV3PayloadScroll.sol';
-import {EngineFlags} from 'aave-v3-periphery/contracts/v3-config-engine/EngineFlags.sol';
-import {IAaveV3ConfigEngine} from 'aave-v3-periphery/contracts/v3-config-engine/IAaveV3ConfigEngine.sol';
+import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
+import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
+
 /**
  * @title Harmonize WeETH Parameters
  * @author ACI
@@ -32,6 +33,7 @@ contract AaveV3Scroll_HarmonizeWeETHParameters_20240911 is AaveV3PayloadScroll {
 
     return rateStrategies;
   }
+
   function borrowsUpdates()
     public
     pure

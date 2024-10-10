@@ -3,8 +3,9 @@ pragma solidity ^0.8.0;
 
 import {AaveV3GnosisAssets} from 'aave-address-book/AaveV3Gnosis.sol';
 import {AaveV3PayloadGnosis} from 'aave-helpers/src/v3-config-engine/AaveV3PayloadGnosis.sol';
-import {EngineFlags} from 'aave-v3-periphery/contracts/v3-config-engine/EngineFlags.sol';
-import {IAaveV3ConfigEngine} from 'aave-v3-periphery/contracts/v3-config-engine/IAaveV3ConfigEngine.sol';
+import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
+import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
+
 /**
  * @title Reserve Factor Updates Late September
  * @author karpatkey_TokenLogic
@@ -25,7 +26,6 @@ contract AaveV3Gnosis_ReserveFactorUpdatesLateSeptember_20240916 is AaveV3Payloa
       asset: AaveV3GnosisAssets.USDC_UNDERLYING,
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
-      stableRateModeEnabled: EngineFlags.KEEP_CURRENT,
       borrowableInIsolation: EngineFlags.KEEP_CURRENT,
       withSiloedBorrowing: EngineFlags.KEEP_CURRENT,
       reserveFactor: 20_00

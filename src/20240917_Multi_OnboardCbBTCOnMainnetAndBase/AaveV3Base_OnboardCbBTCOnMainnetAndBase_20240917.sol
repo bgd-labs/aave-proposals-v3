@@ -3,10 +3,11 @@ pragma solidity ^0.8.0;
 
 import {AaveV3Base, AaveV3BaseEModes} from 'aave-address-book/AaveV3Base.sol';
 import {AaveV3PayloadBase} from 'aave-helpers/src/v3-config-engine/AaveV3PayloadBase.sol';
-import {EngineFlags} from 'aave-v3-periphery/contracts/v3-config-engine/EngineFlags.sol';
-import {IAaveV3ConfigEngine} from 'aave-v3-periphery/contracts/v3-config-engine/IAaveV3ConfigEngine.sol';
+import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
+import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';
+
 /**
  * @title Onboard CbBTC on Mainnet and Base
  * @author ACI
@@ -31,9 +32,7 @@ contract AaveV3Base_OnboardCbBTCOnMainnetAndBase_20240917 is AaveV3PayloadBase {
       asset: cbBTC,
       assetSymbol: 'cbBTC',
       priceFeed: 0x64c911996D3c6aC71f9b455B1E8E7266BcbD848F,
-      eModeCategory: AaveV3BaseEModes.NONE,
       enabledToBorrow: EngineFlags.ENABLED,
-      stableRateModeEnabled: EngineFlags.DISABLED,
       borrowableInIsolation: EngineFlags.DISABLED,
       withSiloedBorrowing: EngineFlags.DISABLED,
       flashloanable: EngineFlags.ENABLED,

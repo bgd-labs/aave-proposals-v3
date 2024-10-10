@@ -3,9 +3,9 @@ pragma solidity ^0.8.0;
 
 import {AaveV3Base} from 'aave-address-book/AaveV3Base.sol';
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
-import {IEmissionManager} from 'aave-v3-periphery/contracts/rewards/interfaces/IEmissionManager.sol';
-import {ICollector} from 'aave-v3-periphery/contracts/treasury/ICollector.sol';
-import {IPool} from 'aave-v3-core/contracts/interfaces/IPool.sol';
+import {IEmissionManager} from 'aave-v3-origin/contracts/rewards/interfaces/IEmissionManager.sol';
+import {ICollector} from 'aave-v3-origin/contracts/treasury/ICollector.sol';
+import {IPool} from 'aave-v3-origin/contracts/interfaces/IPool.sol';
 import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Base_MeritBaseIncentivesAndSuperfestMatching_20240812} from './AaveV3Base_MeritBaseIncentivesAndSuperfestMatching_20240812.sol';

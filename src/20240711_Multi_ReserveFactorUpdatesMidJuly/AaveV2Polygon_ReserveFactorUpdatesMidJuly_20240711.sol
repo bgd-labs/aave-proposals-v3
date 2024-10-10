@@ -3,7 +3,7 @@ pragma solidity ^0.8.0;
 
 import {AaveV2Polygon, AaveV2PolygonAssets} from 'aave-address-book/AaveV2Polygon.sol';
 import {AaveV2PayloadPolygon} from 'aave-helpers/src/v2-config-engine/AaveV2PayloadPolygon.sol';
-import {EngineFlags} from 'aave-v3-periphery/contracts/v3-config-engine/EngineFlags.sol';
+import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
 import {IAaveV2ConfigEngine} from 'aave-helpers/src/v2-config-engine/IAaveV2ConfigEngine.sol';
 import {IV2RateStrategyFactory} from 'aave-helpers/src/v2-config-engine/IV2RateStrategyFactory.sol';
 
@@ -83,7 +83,7 @@ contract AaveV2Polygon_ReserveFactorUpdatesMidJuly_20240711 is AaveV2PayloadPoly
       })
     });
     rateStrategies[5] = IAaveV2ConfigEngine.RateStrategyUpdate({
-      asset: AaveV2PolygonAssets.WMATIC_UNDERLYING,
+      asset: AaveV2PolygonAssets.WPOL_UNDERLYING,
       params: IV2RateStrategyFactory.RateStrategyParams({
         optimalUtilizationRate: EngineFlags.KEEP_CURRENT,
         baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,

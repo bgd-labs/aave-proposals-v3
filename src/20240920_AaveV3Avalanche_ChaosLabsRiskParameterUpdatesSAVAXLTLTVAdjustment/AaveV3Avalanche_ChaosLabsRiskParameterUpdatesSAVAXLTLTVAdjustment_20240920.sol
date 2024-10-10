@@ -3,8 +3,9 @@ pragma solidity ^0.8.0;
 
 import {AaveV3AvalancheAssets, AaveV3AvalancheEModes} from 'aave-address-book/AaveV3Avalanche.sol';
 import {AaveV3PayloadAvalanche} from 'aave-helpers/src/v3-config-engine/AaveV3PayloadAvalanche.sol';
-import {EngineFlags} from 'aave-v3-periphery/contracts/v3-config-engine/EngineFlags.sol';
-import {IAaveV3ConfigEngine} from 'aave-v3-periphery/contracts/v3-config-engine/IAaveV3ConfigEngine.sol';
+import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
+import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
+
 /**
  * @title Chaos Labs Risk Parameter Updates - sAVAX LT/LTV Adjustment
  * @author Aave Chan Initiative
@@ -34,6 +35,7 @@ contract AaveV3Avalanche_ChaosLabsRiskParameterUpdatesSAVAXLTLTVAdjustment_20240
 
     return collateralUpdate;
   }
+
   function eModeCategoriesUpdates()
     public
     pure
@@ -48,7 +50,6 @@ contract AaveV3Avalanche_ChaosLabsRiskParameterUpdatesSAVAXLTLTVAdjustment_20240
       ltv: 93_00,
       liqThreshold: EngineFlags.KEEP_CURRENT,
       liqBonus: EngineFlags.KEEP_CURRENT,
-      priceSource: EngineFlags.KEEP_CURRENT_ADDRESS,
       label: EngineFlags.KEEP_CURRENT_STRING
     });
 

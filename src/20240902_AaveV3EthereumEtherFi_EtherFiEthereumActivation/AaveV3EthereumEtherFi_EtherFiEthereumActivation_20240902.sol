@@ -5,11 +5,11 @@ import {AaveV3EthereumEtherFi, AaveV3EthereumEtherFiEModes} from 'aave-address-b
 import {AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {AaveV3PayloadEthereumEtherFi} from 'aave-helpers/src/v3-config-engine/AaveV3PayloadEthereumEtherFi.sol';
-import {EngineFlags} from 'aave-v3-periphery/contracts/v3-config-engine/EngineFlags.sol';
-import {IAaveV3ConfigEngine} from 'aave-v3-periphery/contracts/v3-config-engine/IAaveV3ConfigEngine.sol';
+import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
+import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';
-import {IPoolAddressesProviderRegistry} from 'aave-v3-core/contracts/interfaces/IPoolAddressesProviderRegistry.sol';
+import {IPoolAddressesProviderRegistry} from 'aave-v3-origin/contracts/interfaces/IPoolAddressesProviderRegistry.sol';
 
 /**
  * @title EtherFi Ethereum Activation
@@ -134,9 +134,7 @@ contract AaveV3EthereumEtherFi_EtherFiEthereumActivation_20240902 is AaveV3Paylo
       asset: PYUSD,
       assetSymbol: 'PYUSD',
       priceFeed: 0x150bAe7Ce224555D39AfdBc6Cb4B8204E594E022,
-      eModeCategory: AaveV3EthereumEtherFiEModes.NONE,
       enabledToBorrow: EngineFlags.ENABLED,
-      stableRateModeEnabled: EngineFlags.DISABLED,
       borrowableInIsolation: EngineFlags.DISABLED,
       withSiloedBorrowing: EngineFlags.DISABLED,
       flashloanable: EngineFlags.ENABLED,
@@ -159,9 +157,7 @@ contract AaveV3EthereumEtherFi_EtherFiEthereumActivation_20240902 is AaveV3Paylo
       asset: FRAX,
       assetSymbol: 'FRAX',
       priceFeed: 0x45D270263BBee500CF8adcf2AbC0aC227097b036,
-      eModeCategory: AaveV3EthereumEtherFiEModes.NONE,
       enabledToBorrow: EngineFlags.ENABLED,
-      stableRateModeEnabled: EngineFlags.DISABLED,
       borrowableInIsolation: EngineFlags.DISABLED,
       withSiloedBorrowing: EngineFlags.DISABLED,
       flashloanable: EngineFlags.ENABLED,
