@@ -38,8 +38,8 @@ The Lido instance wstETH Slope1 and Uoptimal are to be revised as follows:
 
 ## References
 
-- Implementation: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241001_AaveV3EthereumLido_WstETHSlope1UoptimalUpdate/AaveV3EthereumLido_WstETHSlope1UoptimalUpdate_20241001.sol)
-- Tests: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241001_AaveV3EthereumLido_WstETHSlope1UoptimalUpdate/AaveV3EthereumLido_WstETHSlope1UoptimalUpdate_20241001.t.sol)
+- Implementation: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/ec1290f171a1159708fc9be059f669f5231dc835/src/20241001_AaveV3EthereumLido_WstETHSlope1UoptimalUpdate/AaveV3EthereumLido_WstETHSlope1UoptimalUpdate_20241001.sol)
+- Tests: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/ec1290f171a1159708fc9be059f669f5231dc835/src/20241001_AaveV3EthereumLido_WstETHSlope1UoptimalUpdate/AaveV3EthereumLido_WstETHSlope1UoptimalUpdate_20241001.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x80a2e4e23afa0536c198acc18bb90f2cbb9a28d06e5ab9f2999eb49503232c5f)
 - [Discussion](https://governance.aave.com/t/arfc-lido-instance-wsteth-slope1-uoptimal-update/19069)
 
