@@ -24,7 +24,7 @@ contract AaveV3Ethereum_ChaosLabsAaveRiskManagementServiceRenewal_20241012 is
         underlying: AaveV3EthereumAssets.GHO_UNDERLYING,
         receiver: CHAOS_LABS_RECEIVER,
         amount: 1_000_000 ether,
-        start: block.timestamp,
+        start: 1731405180, // 12 november, last stream end + 1 second
         duration: 365 days
       })
     );
@@ -35,7 +35,7 @@ contract AaveV3Ethereum_ChaosLabsAaveRiskManagementServiceRenewal_20241012 is
         underlying: AaveV3EthereumAssets.USDC_A_TOKEN,
         receiver: CHAOS_LABS_RECEIVER,
         amount: 1_000_000 ether,
-        start: block.timestamp,
+        start: 1731405180,
         duration: 365 days
       })
     );
