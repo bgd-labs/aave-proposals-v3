@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
+import {IERC20Metadata} from 'solidity-utils/contracts/oz-common/interfaces/IERC20Metadata.sol';
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
 import {CollectorUtils} from 'aave-helpers/src/CollectorUtils.sol';
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
@@ -21,9 +21,9 @@ contract AaveV3Ethereum_RenewLlamaRiskAsRiskServiceProvider_20241013 is IProposa
       CollectorUtils.CreateStreamInput({
         underlying: AaveV3EthereumAssets.GHO_UNDERLYING,
         receiver: LLAMA_RISK_RECEIVER,
-        amount: 400_000 ether,
+        amount: 400_000 * 10 ** IERC20Metadata(AaveV3EthereumAssets.GHO_UNDERLYING).decimals(),
         start: 1730098043, // 28 october 2024
-        duration: 182 days
+        duration: 182 days // 6 month, 28 april 2025
       })
     );
   }

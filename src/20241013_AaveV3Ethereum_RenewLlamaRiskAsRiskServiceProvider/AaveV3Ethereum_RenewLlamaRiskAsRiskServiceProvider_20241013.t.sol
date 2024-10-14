@@ -4,6 +4,7 @@ pragma solidity ^0.8.0;
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
+import {IERC20Metadata} from 'solidity-utils/contracts/oz-common/interfaces/IERC20Metadata.sol';
 import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Ethereum_RenewLlamaRiskAsRiskServiceProvider_20241013} from './AaveV3Ethereum_RenewLlamaRiskAsRiskServiceProvider_20241013.sol';
@@ -42,6 +43,20 @@ contract AaveV3Ethereum_RenewLlamaRiskAsRiskServiceProvider_20241013_Test is Pro
     assertEq(
       IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(receiverAddress),
       ghoBalanceBefore + 1
+    );
+
+    vm.warp(block.timestamp + 303 days); // 28 april 2025 is quite far in the future
+
+    AaveV3Ethereum.COLLECTOR.withdrawFromStream(
+      nextStreamId,
+      AaveV3Ethereum.COLLECTOR.balanceOf(nextStreamId, receiverAddress)
+    );
+    assertApproxEqAbs(
+      IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(receiverAddress),
+      ghoBalanceBefore +
+        400_000 *
+        10 ** IERC20Metadata(AaveV3EthereumAssets.GHO_UNDERLYING).decimals(),
+      1 * 10 ** IERC20Metadata(AaveV3EthereumAssets.GHO_UNDERLYING).decimals()
     );
   }
 }
