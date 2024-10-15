@@ -80,7 +80,6 @@ We offer real-time monitoring and alerting services through the [Chaos Labs Risk
 
 As part of our commitment to delivering a world-class risk management solution for the DeFi ecosystem, we constantly iterate and improve the platform with additional features and enhancements. The Aave community will continue to gain access to the newest feature additions and enhancements continuously, allowing users to stay ahead of the curve and make informed decisions while optimizing their overall portfolio performance.
 
-![Screenshot 2024-09-27 at 15.50.34|1408x1710](upload://Aqu3IuxgoK2aEjL54oW9WkwpmnG)
 
 ### Risk Stewards and Guardians
 
