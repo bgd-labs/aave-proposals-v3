@@ -37,8 +37,8 @@ Create a payment stream of 400,000 GHO to the address `0xE8555F05b3f5a1F4566CD7d
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241013_AaveV3Ethereum_RenewLlamaRiskAsRiskServiceProvider/AaveV3Ethereum_RenewLlamaRiskAsRiskServiceProvider_20241013.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241013_AaveV3Ethereum_RenewLlamaRiskAsRiskServiceProvider/AaveV3Ethereum_RenewLlamaRiskAsRiskServiceProvider_20241013.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/91a9c28bd302c0e162a34a1d8968f0d5b09745c7/src/20241013_AaveV3Ethereum_RenewLlamaRiskAsRiskServiceProvider/AaveV3Ethereum_RenewLlamaRiskAsRiskServiceProvider_20241013.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/91a9c28bd302c0e162a34a1d8968f0d5b09745c7/src/20241013_AaveV3Ethereum_RenewLlamaRiskAsRiskServiceProvider/AaveV3Ethereum_RenewLlamaRiskAsRiskServiceProvider_20241013.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x3c8116f97f990bf61fe63c636c1ae85630ad355e26881285aa4fefaebd8c9c0d)
 - [Discussion](https://governance.aave.com/t/arfc-renew-llamarisk-as-risk-service-provider/19277)
 
