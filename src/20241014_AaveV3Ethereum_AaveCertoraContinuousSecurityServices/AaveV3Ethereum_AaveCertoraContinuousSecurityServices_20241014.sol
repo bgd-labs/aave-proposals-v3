@@ -5,6 +5,7 @@ import {IERC20Metadata} from 'solidity-utils/contracts/oz-common/interfaces/IERC
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
 import {CollectorUtils} from 'aave-helpers/src/CollectorUtils.sol';
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
+import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 
 /**
  * @title Aave <> Certora Continuous Security Services
@@ -14,7 +15,8 @@ import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethe
  */
 contract AaveV3Ethereum_AaveCertoraContinuousSecurityServices_20241014 is IProposalGenericExecutor {
   address public constant CERTORA_RECEIVER = 0xE8555F05b3f5a1F4566CD7da98c4e5F195258B65;
-  uint256 public constant AAVE_PRICE = 100_00000000; //TODO: sets aave price
+  uint256 public constant AAVE_PRICE = 152_38026736; // from https://dune.com/queries/4163180/7006698 with timestamp 2024-10-15
+  uint256 public constant STOP_TIME = 1757548800; // ends on 11 september 2025
 
   function execute() external {
     CollectorUtils.stream(
@@ -24,21 +26,23 @@ contract AaveV3Ethereum_AaveCertoraContinuousSecurityServices_20241014 is IPropo
         receiver: CERTORA_RECEIVER,
         amount: 1_150_000 * 10 ** IERC20Metadata(AaveV3EthereumAssets.GHO_UNDERLYING).decimals(),
         start: block.timestamp,
-        duration: 1757548800000 - block.timestamp // ends on 11 september 2025
+        duration: STOP_TIME - block.timestamp // ends on 11 september 2025
       })
     );
 
-    CollectorUtils.stream(
-      AaveV3Ethereum.COLLECTOR,
-      CollectorUtils.CreateStreamInput({
-        underlying: AaveV3EthereumAssets.AAVE_UNDERLYING,
-        receiver: CERTORA_RECEIVER,
-        amount: (550_000 *
-          10 ** IERC20Metadata(AaveV3EthereumAssets.AAVE_UNDERLYING).decimals() *
-          10 ** 8) / AAVE_PRICE,
-        start: block.timestamp,
-        duration: 1757548800000 - block.timestamp // ends on 11 september 2025
-      })
+    uint256 DURATION = STOP_TIME - block.timestamp;
+    uint256 AAVE_AMOUNT = (550_000 *
+      10 ** IERC20Metadata(AaveV3EthereumAssets.AAVE_UNDERLYING).decimals() *
+      10 ** 8) / AAVE_PRICE;
+    uint256 ACTUAL_AMOUNT = (AAVE_AMOUNT / DURATION) * DURATION;
+
+    MiscEthereum.AAVE_ECOSYSTEM_RESERVE_CONTROLLER.createStream(
+      MiscEthereum.ECOSYSTEM_RESERVE,
+      CERTORA_RECEIVER,
+      ACTUAL_AMOUNT,
+      AaveV3EthereumAssets.AAVE_UNDERLYING,
+      block.timestamp,
+      STOP_TIME
     );
   }
 }

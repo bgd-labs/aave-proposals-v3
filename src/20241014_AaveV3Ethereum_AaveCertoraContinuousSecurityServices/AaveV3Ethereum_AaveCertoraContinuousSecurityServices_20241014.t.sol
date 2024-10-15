@@ -3,8 +3,10 @@ pragma solidity ^0.8.0;
 
 import {AggregatorInterface} from 'aave-v3-origin/contracts/dependencies/chainlink/AggregatorInterface.sol';
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
+import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {IERC20Metadata} from 'solidity-utils/contracts/oz-common/interfaces/IERC20Metadata.sol';
+import {IStreamable} from 'aave-address-book/common/IStreamable.sol';
 import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Ethereum_AaveCertoraContinuousSecurityServices_20241014} from './AaveV3Ethereum_AaveCertoraContinuousSecurityServices_20241014.sol';
@@ -28,6 +30,7 @@ contract AaveV3Ethereum_AaveCertoraContinuousSecurityServices_20241014_Test is P
 
   function test_defaultProposalExecution() public {
     address receiverAddress = proposal.CERTORA_RECEIVER();
+    IStreamable reserve = IStreamable(MiscEthereum.ECOSYSTEM_RESERVE);
     uint256 ghoBalanceBefore = IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(
       receiverAddress
     );
@@ -36,6 +39,10 @@ contract AaveV3Ethereum_AaveCertoraContinuousSecurityServices_20241014_Test is P
     );
 
     uint256 nextStreamId = AaveV3Ethereum.COLLECTOR.getNextStreamId();
+    vm.expectRevert();
+    AaveV3Ethereum.COLLECTOR.getStream(nextStreamId);
+
+    uint256 nextStreamId_reserve = reserve.getNextStreamId();
     vm.expectRevert();
     AaveV3Ethereum.COLLECTOR.getStream(nextStreamId);
 
@@ -50,13 +57,13 @@ contract AaveV3Ethereum_AaveCertoraContinuousSecurityServices_20241014_Test is P
       ghoBalanceBefore + 1
     );
 
-    AaveV3Ethereum.COLLECTOR.withdrawFromStream(nextStreamId + 1, 1);
+    reserve.withdrawFromStream(nextStreamId_reserve, 1);
     assertEq(
       IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING).balanceOf(receiverAddress),
       aaveBalanceBefore + 1
     );
 
-    vm.warp(block.timestamp + 360 days); // 11 september 2025 is quite far in the future
+    vm.warp(proposal.STOP_TIME() + 7 days); // 11 september 2025 is quite far in the future
 
     AaveV3Ethereum.COLLECTOR.withdrawFromStream(
       nextStreamId,
@@ -65,17 +72,17 @@ contract AaveV3Ethereum_AaveCertoraContinuousSecurityServices_20241014_Test is P
     assertApproxEqAbs(
       IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(receiverAddress),
       ghoBalanceBefore +
-        400_000 *
+        1_150_000 *
         10 ** IERC20Metadata(AaveV3EthereumAssets.GHO_UNDERLYING).decimals(),
       1 * 10 ** IERC20Metadata(AaveV3EthereumAssets.GHO_UNDERLYING).decimals()
     );
 
-    AaveV3Ethereum.COLLECTOR.withdrawFromStream(
-      nextStreamId + 1,
-      AaveV3Ethereum.COLLECTOR.balanceOf(nextStreamId + 1, receiverAddress)
+    reserve.withdrawFromStream(
+      nextStreamId_reserve,
+      reserve.balanceOf(nextStreamId_reserve, receiverAddress)
     );
     assertApproxEqAbs(
-      IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(receiverAddress),
+      IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING).balanceOf(receiverAddress),
       aaveBalanceBefore +
         (550_000 *
           10 ** IERC20Metadata(AaveV3EthereumAssets.AAVE_UNDERLYING).decimals() *
@@ -85,7 +92,7 @@ contract AaveV3Ethereum_AaveCertoraContinuousSecurityServices_20241014_Test is P
     );
     console.log(
       'AAVE received amount',
-      IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(receiverAddress) - aaveBalanceBefore
+      IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING).balanceOf(receiverAddress) - aaveBalanceBefore
     );
   }
 }
