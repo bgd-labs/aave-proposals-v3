@@ -29,8 +29,8 @@ contract AaveV3Arbitrum_GHOStewardV2Upgrade_20241007 is IProposalGenericExecutor
   // https://arbiscan.io/address/0xcd04d93bea13921dad05240d577090b5ac36dfca
   address public constant GHO_AAVE_STEWARD = 0xCd04D93bEA13921DaD05240D577090b5AC36DfCA;
 
-  // https://arbiscan.io/address/0x7484eabea5306eb616ca448cbf442a617dd22869
-  address public constant GHO_CCIP_STEWARD = 0x7484eaBeA5306eB616CA448CBF442a617Dd22869;
+  // https://arbiscan.io/address/0xb329CEFF2c362F315900d245eC88afd24C4949D5
+  address public constant GHO_CCIP_STEWARD = 0xb329CEFF2c362F315900d245eC88afd24C4949D5;
 
   function execute() external {
     // New CCIP Token Pool
