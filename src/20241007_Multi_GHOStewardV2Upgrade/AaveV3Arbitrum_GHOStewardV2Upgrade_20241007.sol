@@ -4,6 +4,7 @@ pragma solidity ^0.8.0;
 import {AaveV3Arbitrum, AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
 import {IACLManager} from 'aave-address-book/AaveV3.sol';
 import {MiscArbitrum} from 'aave-address-book/MiscArbitrum.sol';
+import {ProxyAdmin} from 'solidity-utils/contracts/transparent-proxy/ProxyAdmin.sol';
 import {TransparentUpgradeableProxy} from 'solidity-utils/contracts/transparent-proxy/TransparentUpgradeableProxy.sol';
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
 import {IAccessControl} from '@openzeppelin/contracts/access/IAccessControl.sol';
@@ -22,8 +23,8 @@ contract AaveV3Arbitrum_GHOStewardV2Upgrade_20241007 is IProposalGenericExecutor
   // https://arbiscan.io/address/0xb78eda33eb5493d56f14a81023ce69438a562a2c#code
   address public constant NEW_CCIP_POOL_TOKEN = 0xb78eDA33EB5493d56f14a81023CE69438a562A2c;
 
-  // https://arbiscan.io/address/0x7658a0eae448c8b7714044f959faea13f5e202fa
-  address public constant GHO_BUCKET_STEWARD = 0x7658A0EAe448c8b7714044F959fAeA13f5E202FA;
+  // https://arbiscan.io/address/0xa9afaE6A53E90f9E4CE0717162DF5Bc3d9aBe7B2
+  address public constant GHO_BUCKET_STEWARD = 0xa9afaE6A53E90f9E4CE0717162DF5Bc3d9aBe7B2;
 
   // https://arbiscan.io/address/0xcd04d93bea13921dad05240d577090b5ac36dfca
   address public constant GHO_AAVE_STEWARD = 0xCd04D93bEA13921DaD05240D577090b5AC36DfCA;
@@ -32,10 +33,8 @@ contract AaveV3Arbitrum_GHOStewardV2Upgrade_20241007 is IProposalGenericExecutor
   address public constant GHO_CCIP_STEWARD = 0x7484eaBeA5306eB616CA448CBF442a617Dd22869;
 
   function execute() external {
-    address ACL_MANAGER = AaveV3Arbitrum.POOL_ADDRESSES_PROVIDER.getACLManager();
-
     // New CCIP Token Pool
-    IProxyAdmin(MiscArbitrum.PROXY_ADMIN).upgrade(
+    ProxyAdmin(MiscArbitrum.PROXY_ADMIN).upgrade(
       TransparentUpgradeableProxy(payable(MiscArbitrum.GHO_CCIP_TOKEN_POOL)),
       NEW_CCIP_POOL_TOKEN
     );
@@ -47,12 +46,12 @@ contract AaveV3Arbitrum_GHOStewardV2Upgrade_20241007 is IProposalGenericExecutor
     );
 
     address[] memory controlledFacilitators = new address[](1);
-    controlledFacilitators[0] = NEW_CCIP_POOL_TOKEN;
+    controlledFacilitators[0] = MiscArbitrum.GHO_CCIP_TOKEN_POOL;
     IGhoBucketSteward(GHO_BUCKET_STEWARD).setControlledFacilitator(controlledFacilitators, true);
 
     // Gho Aave Steward
-    IAccessControl(ACL_MANAGER).grantRole(
-      IACLManager(ACL_MANAGER).RISK_ADMIN_ROLE(),
+    IAccessControl(address(AaveV3Arbitrum.ACL_MANAGER)).grantRole(
+      IACLManager(address(AaveV3Arbitrum.ACL_MANAGER)).RISK_ADMIN_ROLE(),
       GHO_AAVE_STEWARD
     );
 
@@ -61,15 +60,4 @@ contract AaveV3Arbitrum_GHOStewardV2Upgrade_20241007 is IProposalGenericExecutor
       GHO_CCIP_STEWARD
     );
   }
-}
-
-interface IProxyAdmin {
-  /**
-   * @dev Upgrades `proxy` to `implementation`. See {TransparentUpgradeableProxy-upgradeTo}.
-   *
-   * Requirements:
-   *
-   * - This contract must be the admin of `proxy`.
-   */
-  function upgrade(TransparentUpgradeableProxy proxy, address implementation) external;
 }

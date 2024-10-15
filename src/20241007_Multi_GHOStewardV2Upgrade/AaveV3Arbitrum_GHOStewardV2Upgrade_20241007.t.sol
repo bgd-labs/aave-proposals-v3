@@ -23,13 +23,11 @@ contract AaveV3Arbitrum_GHOStewardV2Upgrade_20241007_Test is ProtocolV3TestBase 
   AaveV3Arbitrum_GHOStewardV2Upgrade_20241007 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('arbitrum'), 262414534);
+    vm.createSelectFork(vm.rpcUrl('arbitrum'), 263919610);
     proposal = new AaveV3Arbitrum_GHOStewardV2Upgrade_20241007();
   }
 
   function test_roles() public {
-    address ACL_MANAGER = AaveV3Arbitrum.POOL_ADDRESSES_PROVIDER.getACLManager();
-
     // Gho Bucket Steward
     assertEq(
       IGhoToken(AaveV3ArbitrumAssets.GHO_UNDERLYING).hasRole(
@@ -41,8 +39,8 @@ contract AaveV3Arbitrum_GHOStewardV2Upgrade_20241007_Test is ProtocolV3TestBase 
 
     // Gho Aave Steward
     assertEq(
-      IAccessControl(ACL_MANAGER).hasRole(
-        IACLManager(ACL_MANAGER).RISK_ADMIN_ROLE(),
+      IAccessControl(address(AaveV3Arbitrum.ACL_MANAGER)).hasRole(
+        IACLManager(address(AaveV3Arbitrum.ACL_MANAGER)).RISK_ADMIN_ROLE(),
         proposal.GHO_AAVE_STEWARD()
       ),
       false
@@ -58,7 +56,19 @@ contract AaveV3Arbitrum_GHOStewardV2Upgrade_20241007_Test is ProtocolV3TestBase 
     address impl = TransparentUpgradeableProxy(payable(MiscArbitrum.GHO_CCIP_TOKEN_POOL))
       .implementation();
 
+    IUpgradeableLockReleaseTokenPool poolToken = IUpgradeableLockReleaseTokenPool(
+      proposal.NEW_CCIP_POOL_TOKEN()
+    );
+
     assertEq(impl, proposal.NEW_CCIP_POOL_TOKEN());
+    assertTrue(poolToken.owner() != address(0));
+
+    address owner = makeAddr('owner');
+    address router = makeAddr('router');
+    address[] memory list = new address[](0);
+
+    vm.expectRevert();
+    poolToken.initialize(owner, list, router);
 
     // Gho Bucket Steward
     assertEq(
@@ -69,12 +79,12 @@ contract AaveV3Arbitrum_GHOStewardV2Upgrade_20241007_Test is ProtocolV3TestBase 
       true
     );
 
-    assertTrue(_isControlledFacilitator(proposal.NEW_CCIP_POOL_TOKEN()));
+    assertTrue(_isControlledFacilitator(MiscArbitrum.GHO_CCIP_TOKEN_POOL));
 
     // Gho Aave Steward
     assertEq(
-      IAccessControl(ACL_MANAGER).hasRole(
-        IACLManager(ACL_MANAGER).RISK_ADMIN_ROLE(),
+      IAccessControl(address(AaveV3Arbitrum.ACL_MANAGER)).hasRole(
+        IACLManager(address(AaveV3Arbitrum.ACL_MANAGER)).RISK_ADMIN_ROLE(),
         proposal.GHO_AAVE_STEWARD()
       ),
       true
@@ -84,6 +94,20 @@ contract AaveV3Arbitrum_GHOStewardV2Upgrade_20241007_Test is ProtocolV3TestBase 
       IUpgradeableLockReleaseTokenPool(MiscArbitrum.GHO_CCIP_TOKEN_POOL).getRateLimitAdmin(),
       proposal.GHO_CCIP_STEWARD()
     );
+  }
+
+  function test_poolTokenFunctionality() public {
+    executePayload(vm, address(proposal));
+
+    IUpgradeableLockReleaseTokenPool poolToken = IUpgradeableLockReleaseTokenPool(
+      MiscArbitrum.GHO_CCIP_TOKEN_POOL
+    );
+
+    poolToken.getRateLimitAdmin();
+    poolToken.owner();
+
+    vm.startPrank(GovernanceV3Arbitrum.EXECUTOR_LVL_1);
+    poolToken.setRateLimitAdmin(proposal.GHO_CCIP_STEWARD());
   }
 
   /**

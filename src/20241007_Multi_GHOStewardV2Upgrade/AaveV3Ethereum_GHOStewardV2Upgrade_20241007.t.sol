@@ -21,13 +21,11 @@ contract AaveV3Ethereum_GHOStewardV2Upgrade_20241007_Test is ProtocolV3TestBase 
   AaveV3Ethereum_GHOStewardV2Upgrade_20241007 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 20936571);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 20967884);
     proposal = new AaveV3Ethereum_GHOStewardV2Upgrade_20241007();
   }
 
   function test_roles() public {
-    address ACL_MANAGER = AaveV3Ethereum.POOL_ADDRESSES_PROVIDER.getACLManager();
-
     // Gho Bucket Steward
     assertEq(
       IGhoToken(AaveV3EthereumAssets.GHO_UNDERLYING).hasRole(
@@ -39,8 +37,8 @@ contract AaveV3Ethereum_GHOStewardV2Upgrade_20241007_Test is ProtocolV3TestBase 
 
     // Gho Aave Steward
     assertEq(
-      IAccessControl(ACL_MANAGER).hasRole(
-        IACLManager(ACL_MANAGER).RISK_ADMIN_ROLE(),
+      IAccessControl(address(AaveV3Ethereum.ACL_MANAGER)).hasRole(
+        IACLManager(address(AaveV3Ethereum.ACL_MANAGER)).RISK_ADMIN_ROLE(),
         proposal.GHO_AAVE_STEWARD()
       ),
       false
@@ -83,14 +81,26 @@ contract AaveV3Ethereum_GHOStewardV2Upgrade_20241007_Test is ProtocolV3TestBase 
       true
     );
 
-    assertTrue(_isControlledFacilitator(AaveV3EthereumAssets.GHO_A_TOKEN));
-    assertTrue(_isControlledFacilitator(MiscEthereum.GSM_USDC));
-    assertTrue(_isControlledFacilitator(MiscEthereum.GSM_USDT));
+    assertTrue(
+      IGhoBucketSteward(proposal.GHO_BUCKET_STEWARD()).isControlledFacilitator(
+        AaveV3EthereumAssets.GHO_A_TOKEN
+      )
+    );
+    assertTrue(
+      IGhoBucketSteward(proposal.GHO_BUCKET_STEWARD()).isControlledFacilitator(
+        MiscEthereum.GSM_USDC
+      )
+    );
+    assertTrue(
+      IGhoBucketSteward(proposal.GHO_BUCKET_STEWARD()).isControlledFacilitator(
+        MiscEthereum.GSM_USDT
+      )
+    );
 
     // Gho Aave Steward
     assertEq(
-      IAccessControl(ACL_MANAGER).hasRole(
-        IACLManager(ACL_MANAGER).RISK_ADMIN_ROLE(),
+      IAccessControl(address(AaveV3Ethereum.ACL_MANAGER)).hasRole(
+        IACLManager(address(AaveV3Ethereum.ACL_MANAGER)).RISK_ADMIN_ROLE(),
         proposal.GHO_AAVE_STEWARD()
       ),
       true

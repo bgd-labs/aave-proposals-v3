@@ -19,8 +19,8 @@ import {IUpgradeableLockReleaseTokenPool} from 'src/interfaces/ccip/IUpgradeable
  * - Discussion: https://governance.aave.com/t/arfc-gho-steward-v2-upgrade/19116
  */
 contract AaveV3Ethereum_GHOStewardV2Upgrade_20241007 is IProposalGenericExecutor {
-  // https://etherscan.io/address/0x5b31304e24287e31873ffda82e6f1956ec61c74c
-  address public constant GHO_BUCKET_STEWARD = 0x5b31304e24287E31873FFdA82e6f1956EC61c74c;
+  // https://etherscan.io/address/0x46Aa1063e5265b43663E81329333B47c517A5409
+  address public constant GHO_BUCKET_STEWARD = 0x46Aa1063e5265b43663E81329333B47c517A5409;
 
   // https://etherscan.io/address/0xfeb4e54591660f42288312ae8eb59e9f2b746b66
   address public constant GHO_AAVE_STEWARD = 0xFEb4e54591660F42288312AE8eB59e9f2B746b66;
@@ -32,8 +32,6 @@ contract AaveV3Ethereum_GHOStewardV2Upgrade_20241007 is IProposalGenericExecutor
   address public constant GHO_GSM_STEWARD = 0xD1E856a947CdF56b4f000ee29d34F5808E0A6848;
 
   function execute() external {
-    address ACL_MANAGER = AaveV3Ethereum.POOL_ADDRESSES_PROVIDER.getACLManager();
-
     // Gho Bucket Steward
     IGhoToken(AaveV3EthereumAssets.GHO_UNDERLYING).grantRole(
       IGhoToken(AaveV3EthereumAssets.GHO_UNDERLYING).BUCKET_MANAGER_ROLE(),
@@ -47,8 +45,8 @@ contract AaveV3Ethereum_GHOStewardV2Upgrade_20241007 is IProposalGenericExecutor
     IGhoBucketSteward(GHO_BUCKET_STEWARD).setControlledFacilitator(controlledFacilitators, true);
 
     // Gho Aave Steward
-    IAccessControl(ACL_MANAGER).grantRole(
-      IACLManager(ACL_MANAGER).RISK_ADMIN_ROLE(),
+    IAccessControl(address(AaveV3Ethereum.ACL_MANAGER)).grantRole(
+      IACLManager(address(AaveV3Ethereum.ACL_MANAGER)).RISK_ADMIN_ROLE(),
       GHO_AAVE_STEWARD
     );
 
