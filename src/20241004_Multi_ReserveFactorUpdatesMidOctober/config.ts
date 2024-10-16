@@ -82,7 +82,7 @@ export const config: ConfigFile = {
             },
           },
           {
-            asset: 'WMATIC',
+            asset: 'WPOL',
             params: {
               optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
