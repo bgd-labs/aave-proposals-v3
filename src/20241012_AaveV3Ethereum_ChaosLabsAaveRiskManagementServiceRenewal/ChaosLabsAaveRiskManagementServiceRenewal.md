@@ -80,7 +80,6 @@ We offer real-time monitoring and alerting services through the [Chaos Labs Risk
 
 As part of our commitment to delivering a world-class risk management solution for the DeFi ecosystem, we constantly iterate and improve the platform with additional features and enhancements. The Aave community will continue to gain access to the newest feature additions and enhancements continuously, allowing users to stay ahead of the curve and make informed decisions while optimizing their overall portfolio performance.
 
-
 ### Risk Stewards and Guardians
 
 We act as Risk Stewards, carefully managing risk while adjusting supply and borrow caps according to predefined rules. This enables us to continually raise caps, fostering protocol growth without compromising safety. A current [governance proposal ](https://governance.aave.com/t/arfc-aave-generalized-risk-stewards-agrs-activation/19178) aims to expand the Risk Stewards’ authority to encompass a broader range of risk parameters, allowing for more agile and timely adjustments based on market conditions. Additionally, we serve as signers on the Aave Protocol Guardians, ensuring protocol security in critical situations, and as GHO Stewards.
