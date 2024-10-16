@@ -14,11 +14,13 @@ import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
  * - Discussion: https://governance.aave.com/t/arfc-aave-certora-continuous-security-services/19262
  */
 contract AaveV3Ethereum_AaveCertoraContinuousSecurityServices_20241014 is IProposalGenericExecutor {
-  address public constant CERTORA_RECEIVER = 0xE8555F05b3f5a1F4566CD7da98c4e5F195258B65;
+  address public constant CERTORA_RECEIVER = 0x0F11640BF66e2D9352d9c41434A5C6E597c5e4c8;
   uint256 public constant AAVE_PRICE = 152_38026736; // from https://dune.com/queries/4163180/7006698 with timestamp 2024-10-15
   uint256 public constant STOP_TIME = 1757548800; // ends on 11 september 2025
 
   function execute() external {
+    uint256 DURATION = STOP_TIME - block.timestamp;
+
     CollectorUtils.stream(
       AaveV3Ethereum.COLLECTOR,
       CollectorUtils.CreateStreamInput({
@@ -26,14 +28,13 @@ contract AaveV3Ethereum_AaveCertoraContinuousSecurityServices_20241014 is IPropo
         receiver: CERTORA_RECEIVER,
         amount: 1_150_000 * 10 ** IERC20Metadata(AaveV3EthereumAssets.GHO_UNDERLYING).decimals(),
         start: block.timestamp,
-        duration: STOP_TIME - block.timestamp // ends on 11 september 2025
+        duration: DURATION // ends on 11 september 2025
       })
     );
 
-    uint256 DURATION = STOP_TIME - block.timestamp;
     uint256 AAVE_AMOUNT = (550_000 *
       10 ** IERC20Metadata(AaveV3EthereumAssets.AAVE_UNDERLYING).decimals() *
-      10 ** 8) / AAVE_PRICE;
+      10 ** 8) / AAVE_PRICE; // oracle is 8 decimals
     uint256 ACTUAL_AMOUNT = (AAVE_AMOUNT / DURATION) * DURATION;
 
     MiscEthereum.AAVE_ECOSYSTEM_RESERVE_CONTROLLER.createStream(
