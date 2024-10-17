@@ -49,7 +49,7 @@ In addition to conducting security reviews and formal verification, we also:
 1. Conducted several focused research and investigation efforts of components and features within the ecosystem, reporting to the developing entities about the results and recommending actions to be taken.
 2. Led 6 community efforts to review and formally verify new and existing Aave code. This included extensive education of the independent researchers community on the protocol and ecosystem as a whole.
 3. Took full ownership of on-chain governance proposal reviews, reviewing so far 153 proposals, finding 4 bugs since February.
-4. We’re also continuously working with BGD Labs to improve their AIP review tooling - [Seatbelt ](https://github.com/bgd-labs/seatbelt-gov-v3).
+4. We’re also continuously working with BGD Labs to improve their AIP review tooling - [Seatbelt](https://github.com/bgd-labs/seatbelt-gov-v3).
 5. In addition to developing a complementary tool that helps highlight potential failure points and ensure the robustness of the layered review process.
 6. Assist with incident response investigations and mitigations.
 7. Following successful voting, on August 2024 we admitted our roles as signers for both the governance guardian and protocol emergency guardian.
