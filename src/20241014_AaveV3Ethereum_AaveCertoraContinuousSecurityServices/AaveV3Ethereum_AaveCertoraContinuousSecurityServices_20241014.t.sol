@@ -17,7 +17,6 @@ import {AaveV3Ethereum_AaveCertoraContinuousSecurityServices_20241014} from './A
  */
 contract AaveV3Ethereum_AaveCertoraContinuousSecurityServices_20241014_Test is ProtocolV3TestBase {
   AaveV3Ethereum_AaveCertoraContinuousSecurityServices_20241014 internal proposal;
-  uint256 public constant BLOCKS_IN_FOUR_HOURS = (4 * 3600) / 12; //number of blocks in 4h
 
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('mainnet'), 20965854);
