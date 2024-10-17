@@ -9,7 +9,6 @@ import {ProtocolGuardians, GovernanceGuardians} from './Guardians.sol';
 /**
  * @title Update legacy guardian
  * @author BGD Labs @bgdlabs
- * - Snapshot: TODO
  * - Discussion: https://governance.aave.com/t/bgd-technical-maintenance-proposals/15274/48
  */
 contract AaveV3Scroll_UpdateLegacyGuardian_20241016 is RenewalV3BasePayload {
