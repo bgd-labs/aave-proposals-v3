@@ -143,8 +143,8 @@ Regarding technical implementation, the AIP will call the `createStream()` metho
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241012_AaveV3Ethereum_ChaosLabsAaveRiskManagementServiceRenewal/AaveV3Ethereum_ChaosLabsAaveRiskManagementServiceRenewal_20241012.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241012_AaveV3Ethereum_ChaosLabsAaveRiskManagementServiceRenewal/AaveV3Ethereum_ChaosLabsAaveRiskManagementServiceRenewal_20241012.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/17f32f018e6b5d8cba81e1c37485e7636c25be86/src/20241012_AaveV3Ethereum_ChaosLabsAaveRiskManagementServiceRenewal/AaveV3Ethereum_ChaosLabsAaveRiskManagementServiceRenewal_20241012.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/17f32f018e6b5d8cba81e1c37485e7636c25be86/src/20241012_AaveV3Ethereum_ChaosLabsAaveRiskManagementServiceRenewal/AaveV3Ethereum_ChaosLabsAaveRiskManagementServiceRenewal_20241012.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0xa8ec5cf2568691144861b38af1b2cef4f95d33d0912fea28438132cabf4b6c28)
 - [Discussion](https://governance.aave.com/t/arfc-chaos-labs-aave-risk-management-service-renewal/19306)
 
