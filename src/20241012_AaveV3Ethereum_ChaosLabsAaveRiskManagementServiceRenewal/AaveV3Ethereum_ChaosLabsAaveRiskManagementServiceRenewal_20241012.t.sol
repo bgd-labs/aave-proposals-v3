@@ -23,15 +23,12 @@ contract AaveV3Ethereum_ChaosLabsAaveRiskManagementServiceRenewal_20241012_Test 
     proposal = new AaveV3Ethereum_ChaosLabsAaveRiskManagementServiceRenewal_20241012();
   }
 
-  /**
-   * @dev executes the generic test suite including e2e and config snapshots
-   */
   function test_defaultProposalExecution() public {
     address receiverAddress = proposal.CHAOS_LABS_RECEIVER();
     uint256 ghoBalanceBefore = IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(
       receiverAddress
     );
-    uint256 aUsdcBalanceBefore = IERC20(AaveV3EthereumAssets.USDC_A_TOKEN).balanceOf(
+    uint256 aUsdtBalanceBefore = IERC20(AaveV3EthereumAssets.USDT_A_TOKEN).balanceOf(
       receiverAddress
     );
 
@@ -52,8 +49,8 @@ contract AaveV3Ethereum_ChaosLabsAaveRiskManagementServiceRenewal_20241012_Test 
 
     AaveV3Ethereum.COLLECTOR.withdrawFromStream(nextStreamId + 1, 1);
     assertEq(
-      IERC20(AaveV3EthereumAssets.USDC_A_TOKEN).balanceOf(receiverAddress),
-      aUsdcBalanceBefore + 1
+      IERC20(AaveV3EthereumAssets.USDT_A_TOKEN).balanceOf(receiverAddress),
+      aUsdtBalanceBefore + 1
     );
 
     vm.warp(block.timestamp + 400 days); // November 13 2025 is in a long time
@@ -75,11 +72,11 @@ contract AaveV3Ethereum_ChaosLabsAaveRiskManagementServiceRenewal_20241012_Test 
       AaveV3Ethereum.COLLECTOR.balanceOf(nextStreamId + 1, receiverAddress)
     );
     assertApproxEqAbs(
-      IERC20(AaveV3EthereumAssets.USDC_A_TOKEN).balanceOf(receiverAddress),
-      aUsdcBalanceBefore +
+      IERC20(AaveV3EthereumAssets.USDT_A_TOKEN).balanceOf(receiverAddress),
+      aUsdtBalanceBefore +
         1_000_000 *
-        10 ** IERC20Metadata(AaveV3EthereumAssets.USDC_A_TOKEN).decimals(),
-      25 * 10 ** IERC20Metadata(AaveV3EthereumAssets.USDC_A_TOKEN).decimals() //due to rounding and low decimals error is of ~25 $
+        10 ** IERC20Metadata(AaveV3EthereumAssets.USDT_A_TOKEN).decimals(),
+      25 * 10 ** IERC20Metadata(AaveV3EthereumAssets.USDT_A_TOKEN).decimals() //due to rounding and low decimals error is of ~25 $
     );
   }
 }

@@ -32,9 +32,9 @@ contract AaveV3Ethereum_ChaosLabsAaveRiskManagementServiceRenewal_20241012 is
     CollectorUtils.stream(
       AaveV3Ethereum.COLLECTOR,
       CollectorUtils.CreateStreamInput({
-        underlying: AaveV3EthereumAssets.USDC_A_TOKEN,
+        underlying: AaveV3EthereumAssets.USDT_A_TOKEN,
         receiver: CHAOS_LABS_RECEIVER,
-        amount: 1_000_000 * 10 ** IERC20Metadata(AaveV3EthereumAssets.USDC_A_TOKEN).decimals(),
+        amount: 1_000_000 * 10 ** IERC20Metadata(AaveV3EthereumAssets.USDT_A_TOKEN).decimals(),
         start: 1731405180,
         duration: 365 days
       })
