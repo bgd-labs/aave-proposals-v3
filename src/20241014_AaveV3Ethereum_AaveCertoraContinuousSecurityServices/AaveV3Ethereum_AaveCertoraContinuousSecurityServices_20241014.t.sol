@@ -23,9 +23,6 @@ contract AaveV3Ethereum_AaveCertoraContinuousSecurityServices_20241014_Test is P
     proposal = new AaveV3Ethereum_AaveCertoraContinuousSecurityServices_20241014();
   }
 
-  /**
-   * @dev executes the generic test suite including e2e and config snapshots
-   */
 
   function test_defaultProposalExecution() public {
     address receiverAddress = proposal.CERTORA_RECEIVER();
