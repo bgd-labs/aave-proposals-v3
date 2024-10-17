@@ -23,8 +23,8 @@ All other parameters remain unchanged.
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241016_AaveV3Ethereum_IncreaseUSDSBorrowRateToMatchSkySavingsRate/AaveV3Ethereum_IncreaseUSDSBorrowRateToMatchSkySavingsRate_20241016.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241016_AaveV3Ethereum_IncreaseUSDSBorrowRateToMatchSkySavingsRate/AaveV3Ethereum_IncreaseUSDSBorrowRateToMatchSkySavingsRate_20241016.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/22dd4067af320e6cdce9b6fcaad937bb41e98472/src/20241016_AaveV3Ethereum_IncreaseUSDSBorrowRateToMatchSkySavingsRate/AaveV3Ethereum_IncreaseUSDSBorrowRateToMatchSkySavingsRate_20241016.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/22dd4067af320e6cdce9b6fcaad937bb41e98472/src/20241016_AaveV3Ethereum_IncreaseUSDSBorrowRateToMatchSkySavingsRate/AaveV3Ethereum_IncreaseUSDSBorrowRateToMatchSkySavingsRate_20241016.t.sol)
 - Snapshot: Direct-to-AIP
 - [Discussion](https://governance.aave.com/t/arfc-increase-usds-borrow-rate-to-match-sky-savings-rate/19494)
 
