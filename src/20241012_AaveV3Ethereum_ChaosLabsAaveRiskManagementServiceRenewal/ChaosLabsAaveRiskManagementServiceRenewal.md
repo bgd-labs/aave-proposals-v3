@@ -133,18 +133,18 @@ Our team of experts brings a wealth of experience in risk management and data an
 - 12-month engagement, November 13th 2024-November 13th, 2025
 - $2M, streamed linearly throughout the engagement.
   - $1,000,000 in GHO
-  - $1,000,000 in aUSDT
+  - $1,000,000 in aUSDC
 
 ## Specification
 
 If this proposal is approved, a stream of the allocated budget will be activated, with a Chaos Labs-controlled account (`0xbC540e0729B732fb14afA240aA5A047aE9ba7dF0`) as the recipient.
 
-Regarding technical implementation, the AIP will call the `createStream()` method of the `IAaveEcosystemReserveController` interface to create a stream of 1,000,000 aUSDT and 1,000,000 GHO for a 12-month duration.
+Regarding technical implementation, the AIP will call the `createStream()` method of the `IAaveEcosystemReserveController` interface to create a stream of 1,000,000 aUSDC and 1,000,000 GHO for a 12-month duration.
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/1a4ae0ce293c667c62786d69813688813e9801fc/src/20241012_AaveV3Ethereum_ChaosLabsAaveRiskManagementServiceRenewal/AaveV3Ethereum_ChaosLabsAaveRiskManagementServiceRenewal_20241012.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/1a4ae0ce293c667c62786d69813688813e9801fc/src/20241012_AaveV3Ethereum_ChaosLabsAaveRiskManagementServiceRenewal/AaveV3Ethereum_ChaosLabsAaveRiskManagementServiceRenewal_20241012.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241012_AaveV3Ethereum_ChaosLabsAaveRiskManagementServiceRenewal/AaveV3Ethereum_ChaosLabsAaveRiskManagementServiceRenewal_20241012.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241012_AaveV3Ethereum_ChaosLabsAaveRiskManagementServiceRenewal/AaveV3Ethereum_ChaosLabsAaveRiskManagementServiceRenewal_20241012.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0xa8ec5cf2568691144861b38af1b2cef4f95d33d0912fea28438132cabf4b6c28)
 - [Discussion](https://governance.aave.com/t/arfc-chaos-labs-aave-risk-management-service-renewal/19306)
 
