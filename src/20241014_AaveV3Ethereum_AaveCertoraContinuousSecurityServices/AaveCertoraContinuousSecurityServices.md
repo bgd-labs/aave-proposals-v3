@@ -42,7 +42,7 @@ As in previous years, we request a ⅔-⅓ price breakdown of stablecoin and AAV
 
 In March 2022, we presented [a proposal to serve as a DAO security provider ](https://governance.aave.com/t/continuous-formal-verification/6308), collaborating with the other technical contributors to help Aave deploy the finest and most secure product on the market. In the next six months, we collaborated with both BGD Labs and Aave Labs on several high-profile projects, including the AAVE token V3, governance cross-chain bridge, and Gho token.
 
-Since then, we have continuously served the DAO as a security provider, assisting with dozens of new feature deployments and protocol improvement upgrades ([Sept 2022 - Sept 2023](https://governance.aave.com/t/security-and-agility-of-aave-smart-contracts-via-continuous-formal-verification/10181/19), [Sept 2023 - Sept 24 ](https://docs.google.com/document/d/1RoJPYxxf_9MAlJ6hWdl5JRHHwMW8aXGjTBGX2c3PQv0/edit?usp=sharing)), preventing several critical bugs from going live and assisting with mitigation of live bugs upon emergence.
+Since then, we have continuously served the DAO as a security provider, assisting with dozens of new feature deployments and protocol improvement upgrades ([Sept 2022 - Sept 2023](https://governance.aave.com/t/security-and-agility-of-aave-smart-contracts-via-continuous-formal-verification/10181/19), [Sept 2023 - Sept 24](https://docs.google.com/document/d/1RoJPYxxf_9MAlJ6hWdl5JRHHwMW8aXGjTBGX2c3PQv0/edit?usp=sharing)), preventing several critical bugs from going live and assisting with mitigation of live bugs upon emergence.
 
 In addition to conducting security reviews and formal verification, we also:
 
