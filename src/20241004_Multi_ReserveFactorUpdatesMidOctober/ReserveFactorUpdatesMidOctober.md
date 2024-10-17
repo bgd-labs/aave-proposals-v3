@@ -56,7 +56,7 @@ Reserve Factor 5.00% Increases:
 | USDC.e |   Optimism   |   45.00%   |   50.00%    |
 | USDC.e |   Polygon    |   45.00%   |   50.00%    |
 | USDbC  |     Base     |   45.00%   |   50.00%    |
-| USDC.e |    Gnosis    |   20.00%   |   25.00%    |
+| USD//C |    Gnosis    |   20.00%   |   25.00%    |
 
 ## References
 
