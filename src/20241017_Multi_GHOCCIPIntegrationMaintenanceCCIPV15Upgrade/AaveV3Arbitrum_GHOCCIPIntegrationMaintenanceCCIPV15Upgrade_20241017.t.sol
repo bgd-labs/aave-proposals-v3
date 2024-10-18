@@ -60,6 +60,9 @@ contract AaveV3Arbitrum_GHOCCIPIntegrationMaintenanceCCIPV15Upgrade_20241017_Tes
     address alice = makeAddr('alice');
     uint256 amount = 1337e18;
 
+    // mock previously bridged gho on token pool
+    deal(address(tokenPoolProxy.getToken()), address(tokenPoolProxy), amount);
+
     vm.expectRevert(abi.encodeWithSelector(CallerIsNotARampOnRouter.selector, proxyPool));
     vm.prank(proxyPool);
     tokenPoolProxy.lockOrBurn(
