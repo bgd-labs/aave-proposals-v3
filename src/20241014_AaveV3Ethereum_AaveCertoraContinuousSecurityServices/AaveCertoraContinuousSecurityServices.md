@@ -24,9 +24,9 @@ Note that the scope includes all existing V3 instances and all future EVM-based 
 
 The price for the above scope is $1.7M. ⅔ of the price, $1.15M, will be made in Gho and ⅓, $0.55M, in AAVE.
 
-2. Safeguarding transactions against unknown attacks
-3. We will develop Safeguard, a modified Ethereum client based on geth client for real-time monitoring and invariant checking for Aave V3.
-4. We will write and monitor the invariants in real time to add another layer of security to the protocol and collaborate with the relevant entities to investigate and mitigate any suspicious transactions.
+1. Safeguarding transactions against unknown attacks
+2. We will develop Safeguard, a modified Ethereum client based on geth client for real-time monitoring and invariant checking for Aave V3.
+3. We will write and monitor the invariants in real time to add another layer of security to the protocol and collaborate with the relevant entities to investigate and mitigate any suspicious transactions.
 
 Note that Safeguard is a complementary security service we provide free of charge for all existing AAVE V3 instances and all future EVM-based V3 instances.
 

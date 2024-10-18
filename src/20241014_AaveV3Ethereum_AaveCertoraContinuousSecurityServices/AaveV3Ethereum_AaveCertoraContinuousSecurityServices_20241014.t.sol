@@ -23,7 +23,6 @@ contract AaveV3Ethereum_AaveCertoraContinuousSecurityServices_20241014_Test is P
     proposal = new AaveV3Ethereum_AaveCertoraContinuousSecurityServices_20241014();
   }
 
-
   function test_defaultProposalExecution() public {
     address receiverAddress = proposal.CERTORA_RECEIVER();
     IStreamable reserve = IStreamable(MiscEthereum.ECOSYSTEM_RESERVE);
