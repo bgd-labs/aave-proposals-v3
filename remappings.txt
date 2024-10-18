@@ -5,3 +5,4 @@ aave-v3-periphery/=lib/aave-helpers/lib/aave-address-book/lib/aave-v3-origin/src
 aave-v3-origin/=lib/aave-helpers/lib/aave-address-book/lib/aave-v3-origin/src/
 forge-std/=lib/aave-helpers/lib/forge-std/src/
 solidity-utils/=lib/aave-helpers/lib/solidity-utils/src/
+aave-ccip/=lib/aave-ccip/contracts/src/
