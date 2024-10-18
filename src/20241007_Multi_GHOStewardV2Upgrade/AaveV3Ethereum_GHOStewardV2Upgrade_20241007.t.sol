@@ -7,8 +7,14 @@ import {IACLManager} from 'aave-address-book/AaveV3.sol';
 import {IAccessControl} from '@openzeppelin/contracts/access/IAccessControl.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 
+import {IDefaultInterestRateStrategyV2} from './AaveV3.sol';
+import {ReserveConfiguration} from './ReserveConfiguration.sol';
+import {DataTypes} from 'aave-v3-origin/contracts/protocol/libraries/types/DataTypes.sol';
+
 import {AaveV3Ethereum_GHOStewardV2Upgrade_20241007} from './AaveV3Ethereum_GHOStewardV2Upgrade_20241007.sol';
+import {IGhoAaveSteward} from 'src/interfaces/IGhoAaveSteward.sol';
 import {IGhoBucketSteward} from 'src/interfaces/IGhoBucketSteward.sol';
+import {IGhoCcipSteward} from 'src/interfaces/IGhoCcipSteward.sol';
 import {IGhoToken} from 'src/interfaces/IGhoToken.sol';
 import {IGsm} from 'src/interfaces/IGsm.sol';
 import {IUpgradeableLockReleaseTokenPool} from 'src/interfaces/ccip/IUpgradeableLockReleaseTokenPool.sol';
@@ -18,7 +24,11 @@ import {IUpgradeableLockReleaseTokenPool} from 'src/interfaces/ccip/IUpgradeable
  * command: FOUNDRY_PROFILE=mainnet forge test --match-path=src/20241007_Multi_GHOStewardV2Upgrade/AaveV3Ethereum_GHOStewardV2Upgrade_20241007.t.sol -vv
  */
 contract AaveV3Ethereum_GHOStewardV2Upgrade_20241007_Test is ProtocolV3TestBase {
+  using ReserveConfiguration for DataTypes.ReserveConfigurationMap;
+
   AaveV3Ethereum_GHOStewardV2Upgrade_20241007 internal proposal;
+  address public RISK_COUNCIL = 0x8513e6F37dBc52De87b166980Fa3F50639694B60;
+  uint64 public remoteChainSelector = 4949039107694359620;
 
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('mainnet'), 20967884);
@@ -132,6 +142,14 @@ contract AaveV3Ethereum_GHOStewardV2Upgrade_20241007_Test is ProtocolV3TestBase 
     );
   }
 
+  function test_ghoAaveSteward_updateGhoBorrowCap() public {
+    uint256 currentBorrowCap = _getGhoBorrowCap();
+    uint256 newBorrowCap = currentBorrowCap + 1;
+    vm.startPrank(RISK_COUNCIL);
+    IGhoAaveSteward(proposal.GHO_AAVE_STEWARD()).updateGhoBorrowCap(newBorrowCap);
+    assertEq(_getGhoBorrowCap(), newBorrowCap);
+  }
+
   /**
    * @dev executes the generic test suite including e2e and config snapshots
    */
@@ -143,14 +161,53 @@ contract AaveV3Ethereum_GHOStewardV2Upgrade_20241007_Test is ProtocolV3TestBase 
     );
   }
 
-  function _isControlledFacilitator(address target) internal view returns (bool) {
-    address[] memory controlledFacilitators = IGhoBucketSteward(proposal.GHO_BUCKET_STEWARD())
-      .getControlledFacilitators();
-    for (uint256 i = 0; i < controlledFacilitators.length; i++) {
-      if (controlledFacilitators[i] == target) {
-        return true;
-      }
-    }
-    return false;
+  // Helpers
+
+  function _getGhoBorrowCap() internal view returns (uint256) {
+    DataTypes.ReserveConfigurationMap memory configuration = AaveV3Ethereum.POOL.getConfiguration(
+      AaveV3EthereumAssets.GHO_UNDERLYING
+    );
+    return configuration.getBorrowCap();
+  }
+
+  function _getGhoSupplyCap() internal view returns (uint256) {
+    DataTypes.ReserveConfigurationMap memory configuration = AaveV3Ethereum.POOL.getConfiguration(
+      AaveV3EthereumAssets.GHO_UNDERLYING
+    );
+    return configuration.getSupplyCap();
+  }
+
+  function _getOptimalUsageRatio() internal view returns (uint16) {
+    IDefaultInterestRateStrategyV2.InterestRateData memory currentRates = _getGhoBorrowRates();
+    return currentRates.optimalUsageRatio;
+  }
+
+  function _getBaseVariableBorrowRate() internal view returns (uint32) {
+    IDefaultInterestRateStrategyV2.InterestRateData memory currentRates = _getGhoBorrowRates();
+    return currentRates.baseVariableBorrowRate;
+  }
+
+  function _getVariableRateSlope1() internal view returns (uint32) {
+    IDefaultInterestRateStrategyV2.InterestRateData memory currentRates = _getGhoBorrowRates();
+    return currentRates.variableRateSlope1;
+  }
+
+  function _getVariableRateSlope2() internal view returns (uint32) {
+    IDefaultInterestRateStrategyV2.InterestRateData memory currentRates = _getGhoBorrowRates();
+    return currentRates.variableRateSlope2;
+  }
+
+  function _getGhoBorrowRates()
+    internal
+    view
+    returns (IDefaultInterestRateStrategyV2.InterestRateData memory)
+  {
+    address rateStrategyAddress = AaveV3Ethereum
+      .AAVE_PROTOCOL_DATA_PROVIDER
+      .getInterestRateStrategyAddress(AaveV3EthereumAssets.GHO_UNDERLYING);
+    return
+      IDefaultInterestRateStrategyV2(rateStrategyAddress).getInterestRateDataBps(
+        AaveV3EthereumAssets.GHO_UNDERLYING
+      );
   }
 }

@@ -20,8 +20,8 @@ import {IUpgradeableLockReleaseTokenPool} from 'src/interfaces/ccip/IUpgradeable
  * - Discussion: https://governance.aave.com/t/arfc-gho-steward-v2-upgrade/19116
  */
 contract AaveV3Arbitrum_GHOStewardV2Upgrade_20241007 is IProposalGenericExecutor {
-  // https://arbiscan.io/address/0xb78eda33eb5493d56f14a81023ce69438a562a2c#code
-  address public constant NEW_CCIP_POOL_TOKEN = 0xb78eDA33EB5493d56f14a81023CE69438a562A2c;
+  // https://arbiscan.io/address/0xb78eda33eb5493d56f14a81023ce69438a562a2c
+  address public constant NEW_CCIP_POOL_IMPL = 0xb78eDA33EB5493d56f14a81023CE69438a562A2c;
 
   // https://arbiscan.io/address/0xa9afaE6A53E90f9E4CE0717162DF5Bc3d9aBe7B2
   address public constant GHO_BUCKET_STEWARD = 0xa9afaE6A53E90f9E4CE0717162DF5Bc3d9aBe7B2;
@@ -36,7 +36,7 @@ contract AaveV3Arbitrum_GHOStewardV2Upgrade_20241007 is IProposalGenericExecutor
     // New CCIP Token Pool
     ProxyAdmin(MiscArbitrum.PROXY_ADMIN).upgrade(
       TransparentUpgradeableProxy(payable(MiscArbitrum.GHO_CCIP_TOKEN_POOL)),
-      NEW_CCIP_POOL_TOKEN
+      NEW_CCIP_POOL_IMPL
     );
 
     // Gho Bucket Steward
