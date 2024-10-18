@@ -9,6 +9,19 @@ interface IGsm {
   function CONFIGURATOR_ROLE() external view returns (bytes32);
 
   /**
+   * @notice Returns the exposure limit to the underlying asset
+   * @return The maximum amount of underlying asset that can be sold to the GSM
+   */
+  function getExposureCap() external view returns (uint128);
+
+  /**
+   * @notice Returns the Fee Strategy for the GSM
+   * @dev It returns 0x0 in case of no fee strategy
+   * @return The address of the FeeStrategy
+   */
+  function getFeeStrategy() external view returns (address);
+
+  /**
    * @dev Grants `role` to `account`.
    *
    * If `account` had not been already granted `role`, emits a {RoleGranted}

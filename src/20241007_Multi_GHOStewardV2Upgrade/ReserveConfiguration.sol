@@ -2,7 +2,7 @@
 pragma solidity ^0.8.0;
 
 import {Errors} from './Errors.sol';
-import {DataTypes} from './DataTypes.sol';
+import {DataTypes} from 'aave-v3-origin/contracts/protocol/libraries/types/DataTypes.sol';
 
 /**
  * @title ReserveConfiguration library

@@ -113,8 +113,8 @@ contract AaveV3Arbitrum_GHOStewardV2Upgrade_20241007_Test is ProtocolV3TestBase 
       MiscArbitrum.GHO_CCIP_TOKEN_POOL
     );
 
-    poolToken.getRateLimitAdmin();
-    poolToken.owner();
+    assertEq(proposal.GHO_CCIP_STEWARD(), poolToken.getRateLimitAdmin());
+    assertEq(GovernanceV3Arbitrum.EXECUTOR_LVL_1, poolToken.owner());
 
     vm.startPrank(GovernanceV3Arbitrum.EXECUTOR_LVL_1);
     poolToken.setRateLimitAdmin(proposal.GHO_CCIP_STEWARD());
