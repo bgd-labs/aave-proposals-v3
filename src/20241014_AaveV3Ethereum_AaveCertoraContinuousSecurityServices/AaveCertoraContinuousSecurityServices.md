@@ -84,8 +84,8 @@ Price of AAVE will be determined using a 30-days average.
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241014_AaveV3Ethereum_AaveCertoraContinuousSecurityServices/AaveV3Ethereum_AaveCertoraContinuousSecurityServices_20241014.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241014_AaveV3Ethereum_AaveCertoraContinuousSecurityServices/AaveV3Ethereum_AaveCertoraContinuousSecurityServices_20241014.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/b18fe56abfc87578423a9884627070cc23f342e9/src/20241014_AaveV3Ethereum_AaveCertoraContinuousSecurityServices/AaveV3Ethereum_AaveCertoraContinuousSecurityServices_20241014.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/b18fe56abfc87578423a9884627070cc23f342e9/src/20241014_AaveV3Ethereum_AaveCertoraContinuousSecurityServices/AaveV3Ethereum_AaveCertoraContinuousSecurityServices_20241014.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0xebf0b33be0c3784b2928112414f08e31ac57705f49d46668bfef6fa6f761141d)
 - [Discussion](https://governance.aave.com/t/arfc-aave-certora-continuous-security-services/19262)
 
