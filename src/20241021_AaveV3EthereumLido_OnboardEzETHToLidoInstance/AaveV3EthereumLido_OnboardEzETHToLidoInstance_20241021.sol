@@ -11,7 +11,7 @@ import {IEmissionManager} from 'aave-v3-origin/contracts/rewards/interfaces/IEmi
 
 /**
  * @title Onboard ezETH to Lido Instance
- * @author BGD Labs (@bgdlabs)
+ * @author Aave Chan Initiative
  * - Snapshot: https://snapshot.org/#/aave.eth/proposal/0x7ef22a28cb6729ea4a978b02332ff1af8ed924a726915f9a6debf835d8bf8048
  * - Discussion: https://governance.aave.com/t/arfc-onboard-ezeth-to-aave-v3-lido-instance/18504/11
  */
