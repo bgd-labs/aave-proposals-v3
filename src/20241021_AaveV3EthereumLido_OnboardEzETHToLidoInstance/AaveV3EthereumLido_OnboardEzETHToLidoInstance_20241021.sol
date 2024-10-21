@@ -82,14 +82,14 @@ contract AaveV3EthereumLido_OnboardEzETHToLidoInstance_20241021 is AaveV3Payload
       ltv: 75_00,
       liqThreshold: 78_00,
       liqBonus: 7_50,
-      label: 'ezETH / USDS'
+      label: 'ezETH USDS correlated'
     });
     eModeUpdates[1] = IAaveV3ConfigEngine.EModeCategoryUpdate({
       eModeCategory: 3,
       ltv: 93_00,
       liqThreshold: 95_00,
       liqBonus: 1_00,
-      label: 'ezETH / wstETH'
+      label: 'ezETH wstETH correlated'
     });
 
     return eModeUpdates;

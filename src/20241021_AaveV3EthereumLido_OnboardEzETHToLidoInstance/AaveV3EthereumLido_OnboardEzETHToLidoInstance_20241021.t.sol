@@ -2,9 +2,10 @@
 pragma solidity ^0.8.0;
 
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
-import {AaveV3EthereumLido} from 'aave-address-book/AaveV3EthereumLido.sol';
+import {AaveV3EthereumLido, AaveV3EthereumLidoAssets} from 'aave-address-book/AaveV3EthereumLido.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
+import {Errors} from 'aave-v3-origin/contracts/protocol/libraries/helpers/Errors.sol';
 import {IEmissionManager} from 'aave-v3-origin/contracts/rewards/interfaces/IEmissionManager.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3EthereumLido_OnboardEzETHToLidoInstance_20241021} from './AaveV3EthereumLido_OnboardEzETHToLidoInstance_20241021.sol';
@@ -15,12 +16,14 @@ import {AaveV3EthereumLido_OnboardEzETHToLidoInstance_20241021} from './AaveV3Et
  */
 contract AaveV3EthereumLido_OnboardEzETHToLidoInstance_20241021_Test is ProtocolV3TestBase {
   AaveV3EthereumLido_OnboardEzETHToLidoInstance_20241021 internal proposal;
+  address internal ezETH;
 
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('mainnet'), 21011916);
     proposal = new AaveV3EthereumLido_OnboardEzETHToLidoInstance_20241021();
+    ezETH = proposal.ezETH();
 
-    deal(proposal.ezETH(), GovernanceV3Ethereum.EXECUTOR_LVL_1, proposal.ezETH_SEED_AMOUNT());
+    deal(ezETH, GovernanceV3Ethereum.EXECUTOR_LVL_1, proposal.ezETH_SEED_AMOUNT());
   }
 
   /**
@@ -38,24 +41,91 @@ contract AaveV3EthereumLido_OnboardEzETHToLidoInstance_20241021_Test is Protocol
     GovV3Helpers.executePayload(vm, address(proposal));
     (address aTokenAddress, , ) = AaveV3EthereumLido
       .AAVE_PROTOCOL_DATA_PROVIDER
-      .getReserveTokensAddresses(proposal.ezETH());
+      .getReserveTokensAddresses(ezETH);
     assertGe(
       IERC20(aTokenAddress).balanceOf(address(AaveV3EthereumLido.COLLECTOR)),
       proposal.ezETH_SEED_AMOUNT()
     );
   }
 
-  function test_ezETH_USDS_emode() public {}
+  function test_ezETH_USDS_emode() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
 
-  function test_ezETH_wstETH_emode() public {}
+    address user = address(5);
+    deal(ezETH, user, 1 ether);
+    deal(AaveV3EthereumLidoAssets.USDS_UNDERLYING, user, 3000 ether);
+
+    vm.startPrank(user);
+    AaveV3EthereumLido.POOL.setUserEMode(2);
+
+    IERC20(ezETH).approve(address(AaveV3EthereumLido.POOL), 1 ether);
+    IERC20(AaveV3EthereumLidoAssets.USDS_UNDERLYING).approve(
+      address(AaveV3EthereumLido.POOL),
+      3000 ether
+    );
+
+    // USDS as collateral and ezETH as borrowable - reverts
+    AaveV3EthereumLido.POOL.supply(AaveV3EthereumLidoAssets.USDS_UNDERLYING, 3000 ether, user, 0);
+    vm.expectRevert(bytes(Errors.BORROWING_NOT_ENABLED));
+    AaveV3EthereumLido.POOL.borrow(ezETH, 0.1 ether, 2, 0, user);
+
+    // ezETH as collateral and USDS as borrowable
+    AaveV3EthereumLido.POOL.supply(ezETH, 1 ether, user, 0);
+    AaveV3EthereumLido.POOL.borrow(
+      AaveV3EthereumLidoAssets.USDS_UNDERLYING,
+      1500 ether,
+      2,
+      0,
+      user
+    );
+  }
+
+  function test_ezETH_wstETH_emode() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+
+    vm.prank(GovernanceV3Ethereum.EXECUTOR_LVL_1);
+    // as caps have been reached
+    AaveV3EthereumLido.POOL_CONFIGURATOR.setBorrowCap(
+      AaveV3EthereumLidoAssets.wstETH_UNDERLYING,
+      350_000
+    );
+
+    address user = address(8);
+    deal(ezETH, user, 1 ether);
+    deal(AaveV3EthereumLidoAssets.wstETH_UNDERLYING, user, 1 ether);
+
+    vm.startPrank(user);
+    AaveV3EthereumLido.POOL.setUserEMode(3);
+
+    IERC20(ezETH).approve(address(AaveV3EthereumLido.POOL), 1 ether);
+    IERC20(AaveV3EthereumLidoAssets.wstETH_UNDERLYING).approve(
+      address(AaveV3EthereumLido.POOL),
+      1 ether
+    );
+
+    // wstETH as collateral and ezETH as borrowable - reverts
+    AaveV3EthereumLido.POOL.supply(AaveV3EthereumLidoAssets.wstETH_UNDERLYING, 1 ether, user, 0);
+    vm.expectRevert(bytes(Errors.BORROWING_NOT_ENABLED));
+    AaveV3EthereumLido.POOL.borrow(ezETH, 0.9 ether, 2, 0, user);
+
+    // ezETH as collateral and wstETH as borrowable
+    AaveV3EthereumLido.POOL.supply(ezETH, 1 ether, user, 0);
+    AaveV3EthereumLido.POOL.borrow(
+      AaveV3EthereumLidoAssets.wstETH_UNDERLYING,
+      0.9 ether,
+      2,
+      0,
+      user
+    );
+  }
 
   function test_ezETHAdmin() public {
     GovV3Helpers.executePayload(vm, address(proposal));
     (address aezETH, , ) = AaveV3EthereumLido.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(
-      proposal.ezETH()
+      ezETH
     );
     assertEq(
-      IEmissionManager(AaveV3EthereumLido.EMISSION_MANAGER).getEmissionAdmin(proposal.ezETH()),
+      IEmissionManager(AaveV3EthereumLido.EMISSION_MANAGER).getEmissionAdmin(ezETH),
       proposal.ezETH_LM_ADMIN()
     );
     assertEq(
