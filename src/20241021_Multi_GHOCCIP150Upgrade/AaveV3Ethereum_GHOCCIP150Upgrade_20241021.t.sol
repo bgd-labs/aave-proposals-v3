@@ -1,24 +1,21 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
-
 import 'forge-std/Test.sol';
+import {AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
-import {AaveV3Ethereum_GHOCCIPIntegrationMaintenanceCCIPV15Upgrade_20241017} from './AaveV3Ethereum_GHOCCIPIntegrationMaintenanceCCIPV15Upgrade_20241017.sol';
 import {UpgradeableLockReleaseTokenPool} from 'aave-ccip/v0.8/ccip/pools/GHO/UpgradeableLockReleaseTokenPool.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
+import {AaveV3Ethereum_GHOCCIP150Upgrade_20241021} from './AaveV3Ethereum_GHOCCIP150Upgrade_20241021.sol';
 
 /**
- * @dev Test for AaveV3Ethereum_GHOCCIPIntegrationMaintenanceCCIPV15Upgrade_20241017
- * command: FOUNDRY_PROFILE=mainnet forge test --match-path=src/20241017_Multi_GHOCCIPIntegrationMaintenanceCCIPV15Upgrade/AaveV3Ethereum_GHOCCIPIntegrationMaintenanceCCIPV15Upgrade_20241017.t.sol -vv --contracts src/20241017_Multi_GHOCCIPIntegrationMaintenanceCCIPV15Upgrade
+ * @dev Test for AaveV3Ethereum_GHOCCIP150Upgrade_20241021
+ * command: FOUNDRY_PROFILE=mainnet forge test --match-path=src/20241021_Multi_GHOCCIP150Upgrade/AaveV3Ethereum_GHOCCIP150Upgrade_20241021.t.sol -vv
  */
-contract AaveV3Ethereum_GHOCCIPIntegrationMaintenanceCCIPV15Upgrade_20241017_Test is
-  ProtocolV3TestBase
-{
-  AaveV3Ethereum_GHOCCIPIntegrationMaintenanceCCIPV15Upgrade_20241017 internal proposal;
-  address internal proxyPool;
+contract AaveV3Ethereum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
+  AaveV3Ethereum_GHOCCIP150Upgrade_20241021 internal proposal;
   UpgradeableLockReleaseTokenPool internal tokenPoolProxy;
+  address internal proxyPool;
 
   uint64 internal constant ETH_ARB_CHAIN_SELECTOR = 4949039107694359620;
 
@@ -27,12 +24,10 @@ contract AaveV3Ethereum_GHOCCIPIntegrationMaintenanceCCIPV15Upgrade_20241017_Tes
   error CallerIsNotARampOnRouter(address caller);
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 20985823);
-    proposal = new AaveV3Ethereum_GHOCCIPIntegrationMaintenanceCCIPV15Upgrade_20241017();
-
-    // ProxyPool deployed by chainlink
-    proxyPool = address(1337); // todo: MiscEthereum.GHO_CCIP_PROXY_POOL
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 21015645);
+    proposal = new AaveV3Ethereum_GHOCCIP150Upgrade_20241021();
     tokenPoolProxy = UpgradeableLockReleaseTokenPool(MiscEthereum.GHO_CCIP_TOKEN_POOL);
+    proxyPool = proposal.GHO_CCIP_PROXY_POOL();
   }
 
   /**
@@ -40,7 +35,7 @@ contract AaveV3Ethereum_GHOCCIPIntegrationMaintenanceCCIPV15Upgrade_20241017_Tes
    */
   function test_defaultProposalExecution() public {
     defaultTest(
-      'AaveV3Ethereum_GHOCCIPIntegrationMaintenanceCCIPV15Upgrade_20241017',
+      'AaveV3Ethereum_GHOCCIP150Upgrade_20241021',
       AaveV3Ethereum.POOL,
       address(proposal)
     );

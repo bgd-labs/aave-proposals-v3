@@ -1,24 +1,21 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {AaveV3Arbitrum} from 'aave-address-book/AaveV3Arbitrum.sol';
-
 import 'forge-std/Test.sol';
+import {AaveV3Arbitrum} from 'aave-address-book/AaveV3Arbitrum.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
-import {AaveV3Arbitrum_GHOCCIPIntegrationMaintenanceCCIPV15Upgrade_20241017} from './AaveV3Arbitrum_GHOCCIPIntegrationMaintenanceCCIPV15Upgrade_20241017.sol';
 import {UpgradeableBurnMintTokenPool} from 'aave-ccip/v0.8/ccip/pools/GHO/UpgradeableBurnMintTokenPool.sol';
 import {MiscArbitrum} from 'aave-address-book/MiscArbitrum.sol';
+import {AaveV3Arbitrum_GHOCCIP150Upgrade_20241021} from './AaveV3Arbitrum_GHOCCIP150Upgrade_20241021.sol';
 
 /**
- * @dev Test for AaveV3Arbitrum_GHOCCIPIntegrationMaintenanceCCIPV15Upgrade_20241017
- * command: FOUNDRY_PROFILE=arbitrum forge test --match-path=src/20241017_Multi_GHOCCIPIntegrationMaintenanceCCIPV15Upgrade/AaveV3Arbitrum_GHOCCIPIntegrationMaintenanceCCIPV15Upgrade_20241017.t.sol -vv --contracts src/20241017_Multi_GHOCCIPIntegrationMaintenanceCCIPV15Upgrade
+ * @dev Test for AaveV3Arbitrum_GHOCCIP150Upgrade_20241021
+ * command: FOUNDRY_PROFILE=arbitrum forge test --match-path=src/20241021_Multi_GHOCCIP150Upgrade/AaveV3Arbitrum_GHOCCIP150Upgrade_20241021.t.sol -vv
  */
-contract AaveV3Arbitrum_GHOCCIPIntegrationMaintenanceCCIPV15Upgrade_20241017_Test is
-  ProtocolV3TestBase
-{
-  AaveV3Arbitrum_GHOCCIPIntegrationMaintenanceCCIPV15Upgrade_20241017 internal proposal;
-  address internal proxyPool;
+contract AaveV3Arbitrum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
+  AaveV3Arbitrum_GHOCCIP150Upgrade_20241021 internal proposal;
   UpgradeableBurnMintTokenPool internal tokenPoolProxy;
+  address internal proxyPool;
 
   uint64 internal constant ARB_ETH_CHAIN_SELECTOR = 5009297550715157269;
 
@@ -27,12 +24,10 @@ contract AaveV3Arbitrum_GHOCCIPIntegrationMaintenanceCCIPV15Upgrade_20241017_Tes
   error CallerIsNotARampOnRouter(address caller);
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('arbitrum'), 264780207);
-    proposal = new AaveV3Arbitrum_GHOCCIPIntegrationMaintenanceCCIPV15Upgrade_20241017();
-
-    // ProxyPool deployed by chainlink
-    proxyPool = address(1337); // todo: MiscArbitrum.GHO_CCIP_PROXY_POOL
+    vm.createSelectFork(vm.rpcUrl('arbitrum'), 266210927);
+    proposal = new AaveV3Arbitrum_GHOCCIP150Upgrade_20241021();
     tokenPoolProxy = UpgradeableBurnMintTokenPool(MiscArbitrum.GHO_CCIP_TOKEN_POOL);
+    proxyPool = proposal.GHO_CCIP_PROXY_POOL();
   }
 
   /**
@@ -40,7 +35,7 @@ contract AaveV3Arbitrum_GHOCCIPIntegrationMaintenanceCCIPV15Upgrade_20241017_Tes
    */
   function test_defaultProposalExecution() public {
     defaultTest(
-      'AaveV3Arbitrum_GHOCCIPIntegrationMaintenanceCCIPV15Upgrade_20241017',
+      'AaveV3Arbitrum_GHOCCIP150Upgrade_20241021',
       AaveV3Arbitrum.POOL,
       address(proposal)
     );
