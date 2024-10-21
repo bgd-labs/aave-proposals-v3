@@ -78,11 +78,11 @@ export function prefixWithImports(code: string) {
   }
   // shared config engine imports
   if (findMatch(code, 'EngineFlags')) {
-    imports += `import {EngineFlags} from 'aave-v3-periphery/contracts/v3-config-engine/EngineFlags.sol';\n`;
+    imports += `import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';\n`;
   }
   // v3 config engine imports
   if (findMatch(code, 'IAaveV3ConfigEngine')) {
-    imports += `import {IAaveV3ConfigEngine} from 'aave-v3-periphery/contracts/v3-config-engine/IAaveV3ConfigEngine.sol';\n`;
+    imports += `import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';\n`;
   }
   // v2 config engine imports
   if (findMatch(code, 'IAaveV2ConfigEngine')) {
@@ -100,6 +100,9 @@ export function prefixWithImports(code: string) {
   }
   if (findMatch(code, 'GovernanceV3Ethereum')) {
     imports += `import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';\n`;
+  }
+  if (findMatch(code, 'IEmissionManager')) {
+    imports += `import {IEmissionManager} from 'aave-v3-origin/contracts/rewards/interfaces/IEmissionManager.sol';\n`;
   }
 
   return imports + code;

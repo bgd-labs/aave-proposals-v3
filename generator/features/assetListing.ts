@@ -1,12 +1,11 @@
 import {CodeArtifact, FEATURE, FeatureModule, PoolIdentifier} from '../types';
-import {eModeSelect} from '../prompts';
 import {fetchBorrowUpdate} from './borrowsUpdates';
 import {fetchRateStrategyParamsV3} from './rateUpdates';
 import {fetchCollateralUpdate} from './collateralsUpdates';
 import {fetchCapsUpdate} from './capsUpdates';
 import {Listing, ListingWithCustomImpl, TokenImplementations} from './types';
-import {CHAIN_TO_CHAIN_ID, getPoolChain} from '../common';
-import {getContract} from 'viem';
+import {CHAIN_TO_CHAIN_ID, getPoolChain, getExplorerLink} from '../common';
+import {getContract, isAddress} from 'viem';
 import {confirm} from '@inquirer/prompts';
 import {TEST_EXECUTE_PROPOSAL} from '../utils/constants';
 import {addressPrompt, translateJsAddressToSol} from '../prompts/addressPrompt';
@@ -15,6 +14,7 @@ import {translateJsBoolToSol} from '../prompts/boolPrompt';
 import {transformNumberToPercent, translateJsPercentToSol} from '../prompts/percentPrompt';
 import {transformNumberToHumanReadable, translateJsNumberToSol} from '../prompts/numberPrompt';
 import {CHAIN_ID_CLIENT_MAP} from '@bgd-labs/js-utils';
+import {IERC20Detailed_ABI} from '@bgd-labs/aave-address-book/abis';
 
 async function fetchListing(pool: PoolIdentifier): Promise<Listing> {
   const asset = await addressPrompt({
@@ -24,31 +24,7 @@ async function fetchListing(pool: PoolIdentifier): Promise<Listing> {
 
   const chain = getPoolChain(pool);
   const erc20 = getContract({
-    abi: [
-      {
-        constant: true,
-        inputs: [],
-        name: 'symbol',
-        outputs: [{internalType: 'string', name: '', type: 'string'}],
-        payable: false,
-        stateMutability: 'view',
-        type: 'function',
-      },
-      {
-        constant: true,
-        inputs: [],
-        name: 'decimals',
-        outputs: [
-          {
-            name: '',
-            type: 'uint8',
-          },
-        ],
-        payable: false,
-        stateMutability: 'view',
-        type: 'function',
-      },
-    ],
+    abi: IERC20Detailed_ABI,
     client: CHAIN_ID_CLIENT_MAP[CHAIN_TO_CHAIN_ID[chain]],
     address: asset,
   });
@@ -73,12 +49,8 @@ async function fetchListing(pool: PoolIdentifier): Promise<Listing> {
     ...(await fetchBorrowUpdate(true)),
     ...(await fetchCapsUpdate(true)),
     rateStrategyParams: await fetchRateStrategyParamsV3(true),
-    eModeCategory: await eModeSelect({
-      message: `Select the eMode you want to assign to ${asset}`,
-      disableKeepCurrent: true,
-      pool,
-    }),
     asset,
+    admin: await addressPrompt({message: 'Emission admin address (optional)', required: false}),
   };
 }
 
@@ -94,9 +66,7 @@ function generateAssetListingSol(cfg: Listing) {
   return `asset: ${cfg.assetSymbol},
   assetSymbol: "${cfg.assetSymbol}",
   priceFeed: ${translateJsAddressToSol(cfg.priceFeed)},
-  eModeCategory: ${cfg.eModeCategory},
   enabledToBorrow: ${translateJsBoolToSol(cfg.enabledToBorrow)},
-  stableRateModeEnabled: ${translateJsBoolToSol(cfg.stableRateModeEnabled)},
   borrowableInIsolation: ${translateJsBoolToSol(cfg.borrowableInIsolation)},
   withSiloedBorrowing: ${translateJsBoolToSol(cfg.withSiloedBorrowing)},
   flashloanable: ${translateJsBoolToSol(cfg.flashloanable)},
@@ -134,17 +104,24 @@ export const assetListing: FeatureModule<Listing[]> = {
   build({pool, cfg}) {
     const response: CodeArtifact = {
       code: {
-        constants: cfg
-          .map((cfg) => [
-            `address public constant ${cfg.assetSymbol} = ${translateJsAddressToSol(cfg.asset)};`,
-            `uint256 public constant ${cfg.assetSymbol}_SEED_AMOUNT = 1e${cfg.decimals};`,
-          ])
-          .flat(),
-        execute: cfg.map(
-          (cfg) =>
-            `IERC20(${cfg.assetSymbol}).forceApprove(address(${pool}.POOL), ${cfg.assetSymbol}_SEED_AMOUNT);
-            ${pool}.POOL.supply(${cfg.assetSymbol}, ${cfg.assetSymbol}_SEED_AMOUNT, address(${pool}.COLLECTOR), 0);`,
-        ),
+        constants: cfg.map((cfg) => {
+          let listingConstant = `address public constant ${cfg.assetSymbol} = ${translateJsAddressToSol(cfg.asset)};\n`;
+          listingConstant += `uint256 public constant ${cfg.assetSymbol}_SEED_AMOUNT = 1e${cfg.decimals};\n`;
+          if (isAddress(cfg.admin)) {
+            listingConstant += `address public constant ${cfg.assetSymbol}_LM_ADMIN = ${translateJsAddressToSol(cfg.admin)};\n`;
+          }
+          return listingConstant;
+        }),
+        execute: cfg.map((cfg) => {
+          let listingExe = `IERC20(${cfg.assetSymbol}).forceApprove(address(${pool}.POOL), ${cfg.assetSymbol}_SEED_AMOUNT);\n`;
+          listingExe += `${pool}.POOL.supply(${cfg.assetSymbol}, ${cfg.assetSymbol}_SEED_AMOUNT, address(${pool}.COLLECTOR), 0);\n`;
+          if (isAddress(cfg.admin)) {
+            listingExe += `\n(address a${cfg.assetSymbol}, , ) = ${pool}.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(${cfg.assetSymbol});\n`;
+            listingExe += `IEmissionManager(${pool}.EMISSION_MANAGER).setEmissionAdmin(${cfg.assetSymbol}, ${cfg.assetSymbol}_ADMIN);\n`;
+            listingExe += `IEmissionManager(${pool}.EMISSION_MANAGER).setEmissionAdmin(a${cfg.assetSymbol}, ${cfg.assetSymbol}_ADMIN);\n`;
+          }
+          return listingExe;
+        }),
         fn: [
           `function newListings() public pure override returns (IAaveV3ConfigEngine.Listing[] memory) {
           IAaveV3ConfigEngine.Listing[] memory listings = new IAaveV3ConfigEngine.Listing[](${
@@ -164,13 +141,22 @@ export const assetListing: FeatureModule<Listing[]> = {
         ],
       },
       test: {
-        fn: cfg.map(
-          (cfg) => `function test_collectorHas${cfg.assetSymbol}Funds() public {
+        fn: cfg.map((cfg) => {
+          let listingTest = `function test_collectorHas${cfg.assetSymbol}Funds() public {
             ${TEST_EXECUTE_PROPOSAL}
             (address aTokenAddress, , ) = ${pool}.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(proposal.${cfg.assetSymbol}());
             assertGe(IERC20(aTokenAddress).balanceOf(address(${pool}.COLLECTOR)), 10 ** ${cfg.decimals});
-          }`,
-        ),
+          }\n`;
+          if (isAddress(cfg.admin)) {
+            listingTest += `\nfunction test_${cfg.assetSymbol}Admin() public {
+	      ${TEST_EXECUTE_PROPOSAL}
+              (address a${cfg.assetSymbol}, , ) = ${pool}.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(proposal.${cfg.assetSymbol}());
+	      assertEq(IEmissionManager(${pool}.EMISSION_MANAGER).getEmissionAdmin(proposal.${cfg.assetSymbol}()), proposal.${cfg.assetSymbol}_ADMIN());
+	      assertEq(IEmissionManager(${pool}.EMISSION_MANAGER).getEmissionAdmin(a${cfg.assetSymbol}), proposal.${cfg.assetSymbol}_ADMIN());
+	    }\n`;
+          }
+          return listingTest;
+        }),
       },
       aip: {
         specification: cfg.map((cfg) => {
@@ -210,11 +196,13 @@ export const assetListing: FeatureModule<Listing[]> = {
           listingTemplate += `| Uoptimal | ${transformNumberToPercent(
             cfg.rateStrategyParams.optimalUtilizationRate,
           )} |\n`;
-          listingTemplate += `| Stable Borrowing | ${cfg.stableRateModeEnabled} |\n`;
           listingTemplate += `| Flashloanable	| ${cfg.flashloanable} |\n`;
           listingTemplate += `| Siloed Borrowing	| ${cfg.withSiloedBorrowing} |\n`;
           listingTemplate += `| Borrowable in Isolation | ${cfg.borrowableInIsolation} |\n`;
           listingTemplate += `| Oracle | ${cfg.priceFeed} |\n`;
+          if (isAddress(cfg.admin)) {
+            listingTemplate += `\nAdditionaly [${cfg.admin}](${getExplorerLink(CHAIN_TO_CHAIN_ID[getPoolChain(pool)], cfg.admin)}) has been set as the emission admin for ${cfg.assetSymbol} and the corresponding aToken.\n`;
+          }
           return listingTemplate;
         }),
       },
