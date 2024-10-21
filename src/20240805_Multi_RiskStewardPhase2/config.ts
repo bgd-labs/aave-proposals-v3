@@ -1,0 +1,38 @@
+import {ConfigFile} from '../../generator/types';
+export const config: ConfigFile = {
+  rootOptions: {
+    pools: [
+      'AaveV3Ethereum',
+      'AaveV3EthereumLido',
+      'AaveV3Polygon',
+      'AaveV3Avalanche',
+      'AaveV3Optimism',
+      'AaveV3Arbitrum',
+      'AaveV3Metis',
+      'AaveV3Base',
+      'AaveV3Gnosis',
+      'AaveV3Scroll',
+      'AaveV3BNB',
+    ],
+    title: 'Risk Steward Phase 2',
+    shortName: 'RiskStewardPhase2',
+    date: '20240805',
+    author: 'BGD Labs (@bgdlabs)',
+    discussion: 'https://governance.aave.com/t/arfc-bgd-risk-steward-phase-2-risksteward/16204',
+    snapshot: 'Direct To AIP',
+    votingNetwork: 'POLYGON',
+  },
+  poolOptions: {
+    AaveV3Ethereum: {configs: {OTHERS: {}}, cache: {blockNumber: 20460200}},
+    AaveV3EthereumLido: {configs: {OTHERS: {}}, cache: {blockNumber: 20460202}},
+    AaveV3Polygon: {configs: {OTHERS: {}}, cache: {blockNumber: 60210763}},
+    AaveV3Avalanche: {configs: {OTHERS: {}}, cache: {blockNumber: 48863700}},
+    AaveV3Optimism: {configs: {OTHERS: {}}, cache: {blockNumber: 123618024}},
+    AaveV3Arbitrum: {configs: {OTHERS: {}}, cache: {blockNumber: 239583893}},
+    AaveV3Metis: {configs: {OTHERS: {}}, cache: {blockNumber: 17959349}},
+    AaveV3Base: {configs: {OTHERS: {}}, cache: {blockNumber: 18022742}},
+    AaveV3Gnosis: {configs: {OTHERS: {}}, cache: {blockNumber: 35324260}},
+    AaveV3Scroll: {configs: {OTHERS: {}}, cache: {blockNumber: 8079683}},
+    AaveV3BNB: {configs: {OTHERS: {}}, cache: {blockNumber: 41088826}},
+  },
+};
