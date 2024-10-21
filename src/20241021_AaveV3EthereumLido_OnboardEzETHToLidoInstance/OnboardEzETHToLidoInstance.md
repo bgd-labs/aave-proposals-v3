@@ -72,6 +72,15 @@ With liquid eModes live on all instances, we now configure two new E-Mode catego
 | Liquidation Threshold |   95% |    95% |
 | Liquidation Penalty   |    1% |     1% |
 
+#### CAPO parameters configuration:
+
+| Parameter             |                    Value |
+| --------------------- | -----------------------: |
+| min snapshot delay    |                   7 days |
+| snapshot ratio        |      1019883708003361006 |
+| snapshot timestamp    | 1727172839 (Sep-24-2024) |
+| max yearly growth (%) |                    7.39% |
+
 Additionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://etherscan.io/address/0xac140648435d03f784879cd789130F22Ef588Fcd) has been set as the emission admin for ezETH and the corresponding aToken.
 
 ## References
