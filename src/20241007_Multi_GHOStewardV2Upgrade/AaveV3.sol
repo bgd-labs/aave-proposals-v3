@@ -31,7 +31,7 @@ library Errors {
   string public constant INVALID_ADDRESSES_PROVIDER = '12'; // 'The address of the pool addresses provider is invalid'
   string public constant ZERO_ADDRESS_NOT_VALID = '77'; // 'Zero address not valid'
   string public constant INVALID_OPTIMAL_USAGE_RATIO = '83'; // 'Invalid optimal usage ratio'
-  string public constant INVALID_MAX_RATE = '92'; // The expect maximum borrow rate is invalid
+  string public constant INVALID_BORROW_RATE = '92'; // Exceeded the maximum allowed borrow rate
   string public constant SLOPE_2_MUST_BE_GTE_SLOPE_1 = '95'; // Variable interest rate slope 2 can not be lower than slope 1
 }
 
@@ -657,7 +657,7 @@ contract DefaultReserveInterestRateStrategyV2 is IDefaultInterestRateStrategyV2 
         uint256(rateData.variableRateSlope1) +
         uint256(rateData.variableRateSlope2) <=
         MAX_BORROW_RATE,
-      Errors.INVALID_MAX_RATE
+      Errors.INVALID_BORROW_RATE
     );
 
     _interestRateData[reserve] = rateData;

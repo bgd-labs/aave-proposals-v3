@@ -156,11 +156,37 @@ contract AaveV3Ethereum_GHOStewardV2Upgrade_20241007_Test is ProtocolV3TestBase 
   }
 
   function test_ghoAaveSteward_updateGhoSupplyCap() public {
+    // Current config value is: 181338872942194741560446170431488
+    // existingConfig |= (10 << 116); turns into 830948836238514615306439858845646848
+    // this gives a value of 10 for the current supplyCap
+    uint256 configValue = 830948836238514615306439858845646848;
+    vm.mockCall(
+      address(AaveV3Ethereum.POOL),
+      abi.encodeWithSelector(AaveV3Ethereum.POOL.getConfiguration.selector),
+      abi.encode(configValue)
+    );
+
+    uint256 currentSupplyCap = _getGhoSupplyCap();
+    assertEq(currentSupplyCap, 10);
+    uint256 newSupplyCap = currentSupplyCap + 1;
+
+    executePayload(vm, address(proposal));
+
+    IGhoAaveSteward steward = IGhoAaveSteward(proposal.GHO_AAVE_STEWARD());
+
+    vm.startPrank(RISK_COUNCIL);
+    steward.updateGhoSupplyCap(newSupplyCap);
+    vm.stopPrank();
+  }
+
+  function test_ghoAaveSteward_revertsChangeFromZero() public {
     uint256 currentSupplyCap = _getGhoSupplyCap();
     assertEq(currentSupplyCap, 0);
     uint256 newSupplyCap = currentSupplyCap + 1;
 
     IGhoAaveSteward steward = IGhoAaveSteward(proposal.GHO_AAVE_STEWARD());
+
+    // Can't update supply cap even by 1 since it's 0, and 100% of 0 is 0
     vm.expectRevert('INVALID_SUPPLY_CAP_UPDATE');
     vm.startPrank(RISK_COUNCIL);
     steward.updateGhoSupplyCap(newSupplyCap);
@@ -260,6 +286,7 @@ contract AaveV3Ethereum_GHOStewardV2Upgrade_20241007_Test is ProtocolV3TestBase 
 
     IGhoCcipSteward steward = IGhoCcipSteward(proposal.GHO_CCIP_STEWARD());
 
+    // Currently rate limit set to 0, so can't even change by 1 because 100% of 0 is 0
     vm.expectRevert('INVALID_RATE_LIMIT_UPDATE');
     vm.startPrank(RISK_COUNCIL);
     steward.updateRateLimit(

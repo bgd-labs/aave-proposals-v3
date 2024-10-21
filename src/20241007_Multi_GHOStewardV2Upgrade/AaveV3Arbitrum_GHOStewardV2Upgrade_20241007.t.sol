@@ -33,7 +33,7 @@ contract AaveV3Arbitrum_GHOStewardV2Upgrade_20241007_Test is ProtocolV3TestBase 
     proposal = new AaveV3Arbitrum_GHOStewardV2Upgrade_20241007();
   }
 
-  function test_roles() public {
+  function test_rolesAreSet_cannotReinitializePoolToken() public {
     // Gho Bucket Steward
     assertEq(
       IGhoToken(AaveV3ArbitrumAssets.GHO_UNDERLYING).hasRole(
@@ -116,8 +116,12 @@ contract AaveV3Arbitrum_GHOStewardV2Upgrade_20241007_Test is ProtocolV3TestBase 
     assertEq(proposal.GHO_CCIP_STEWARD(), poolToken.getRateLimitAdmin());
     assertEq(GovernanceV3Arbitrum.EXECUTOR_LVL_1, poolToken.owner());
 
+    address newAdmin = makeAddr('new-admin');
+
     vm.startPrank(GovernanceV3Arbitrum.EXECUTOR_LVL_1);
-    poolToken.setRateLimitAdmin(proposal.GHO_CCIP_STEWARD());
+    poolToken.setRateLimitAdmin(newAdmin);
+
+    assertEq(newAdmin, poolToken.getRateLimitAdmin());
   }
 
   function test_ghoAaveSteward_updateGhoBorrowRate() public {
@@ -201,7 +205,7 @@ contract AaveV3Arbitrum_GHOStewardV2Upgrade_20241007_Test is ProtocolV3TestBase 
     );
   }
 
-  function test_ghoCcipSteward_pdateRateLimit() public {
+  function test_ghoCcipSteward_updateRateLimit() public {
     executePayload(vm, address(proposal));
 
     RateLimiter.TokenBucket memory outboundConfig = IUpgradeableLockReleaseTokenPool(
@@ -225,6 +229,7 @@ contract AaveV3Arbitrum_GHOStewardV2Upgrade_20241007_Test is ProtocolV3TestBase 
 
     IGhoCcipSteward steward = IGhoCcipSteward(proposal.GHO_CCIP_STEWARD());
 
+    // Currently rate limit set to 0, so can't even change by 1 because 100% of 0 is 0
     vm.startPrank(RISK_COUNCIL);
     vm.expectRevert('INVALID_RATE_LIMIT_UPDATE');
     steward.updateRateLimit(
