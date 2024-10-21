@@ -13,7 +13,7 @@
 | borrowCap | 100 ezETH |
 | debtCeiling | 0 $ [0] |
 | isSiloed | false |
-| isFlashloanable | true |
+| isFlashloanable | false |
 | oracle | [0xcBc95f18d2D9019AaE596C82094E724fA2213224](https://etherscan.io/address/0xcBc95f18d2D9019AaE596C82094E724fA2213224) |
 | oracleDecimals | 8 |
 | oracleDescription | Capped ezETH / ezETH(ETH) / USD |
@@ -133,7 +133,7 @@
         "interestRateStrategy": "0x8958b1C39269167527821f8c276Ef7504883f2fa",
         "isActive": true,
         "isBorrowableInIsolation": false,
-        "isFlashloanable": true,
+        "isFlashloanable": false,
         "isFrozen": false,
         "isPaused": false,
         "isSiloed": false,

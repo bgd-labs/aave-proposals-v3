@@ -48,7 +48,7 @@ contract AaveV3EthereumLido_OnboardEzETHToLidoInstance_20241021 is AaveV3Payload
       enabledToBorrow: EngineFlags.DISABLED,
       borrowableInIsolation: EngineFlags.DISABLED,
       withSiloedBorrowing: EngineFlags.DISABLED,
-      flashloanable: EngineFlags.ENABLED,
+      flashloanable: EngineFlags.DISABLED,
       ltv: 5,
       liqThreshold: 10,
       liqBonus: 7_50,

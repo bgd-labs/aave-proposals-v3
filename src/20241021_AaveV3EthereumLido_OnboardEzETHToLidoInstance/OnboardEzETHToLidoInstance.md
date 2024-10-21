@@ -37,7 +37,7 @@ The table below illustrates the configured risk parameters for **[ezETH](https:/
 | Variable Slope 1          |                                                                                                                   7 % |
 | Variable Slope 2          |                                                                                                                 300 % |
 | Uoptimal                  |                                                                                                                  45 % |
-| Flashloanable             |                                                                                                                  true |
+| Flashloanable             |                                                                                                                 false |
 | Siloed Borrowing          |                                                                                                                 false |
 | Isolation Mode            |                                                                                                                 false |
 | Borrowable in Isolation   |                                                                                                                 false |
