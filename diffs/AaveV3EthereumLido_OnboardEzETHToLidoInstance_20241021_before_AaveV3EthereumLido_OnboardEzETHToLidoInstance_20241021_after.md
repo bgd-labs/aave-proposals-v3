@@ -62,11 +62,11 @@
 | eMode.collateralBitmap (unchanged) | wstETH, WETH | wstETH, WETH |
 
 
-### EMode: ezETH USDS correlated(id: 2)
+### EMode: LRT Stablecoins main(id: 2)
 
 | description | value before | value after |
 | --- | --- | --- |
-| eMode.label | - | ezETH USDS correlated |
+| eMode.label | - | LRT Stablecoins main |
 | eMode.ltv | - | 75 % |
 | eMode.liquidationThreshold | - | 78 % |
 | eMode.liquidationBonus | - | 7.5 % |
@@ -74,11 +74,11 @@
 | eMode.collateralBitmap | - | ezETH |
 
 
-### EMode: ezETH wstETH correlated(id: 3)
+### EMode: LRT wstETH main(id: 3)
 
 | description | value before | value after |
 | --- | --- | --- |
-| eMode.label | - | ezETH wstETH correlated |
+| eMode.label | - | LRT wstETH main |
 | eMode.ltv | - | 93 % |
 | eMode.liquidationThreshold | - | 95 % |
 | eMode.liquidationBonus | - | 1 % |
@@ -97,7 +97,7 @@
         "borrowableBitmap": "4",
         "collateralBitmap": "16",
         "eModeCategory": 2,
-        "label": "ezETH USDS correlated",
+        "label": "LRT Stablecoins main",
         "liquidationBonus": 10750,
         "liquidationThreshold": 7800,
         "ltv": 7500
@@ -109,7 +109,7 @@
         "borrowableBitmap": "1",
         "collateralBitmap": "16",
         "eModeCategory": 3,
-        "label": "ezETH wstETH correlated",
+        "label": "LRT wstETH main",
         "liquidationBonus": 10100,
         "liquidationThreshold": 9500,
         "ltv": 9300

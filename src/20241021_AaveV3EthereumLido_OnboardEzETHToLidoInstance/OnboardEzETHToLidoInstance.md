@@ -42,13 +42,13 @@ The table below illustrates the configured risk parameters for **[ezETH](https:/
 | Isolation Mode            |                                                                                                                 false |
 | Borrowable in Isolation   |                                                                                                                 false |
 | Oracle                    | [0xcbc95f18d2d9019aae596c82094e724fa2213224](https://etherscan.io/address/0xcbc95f18d2d9019aae596c82094e724fa2213224) |
-| E-Modes                   |                                                                        ezETH USDS correlated, ezETH wstETH correlated |
+| E-Modes                   |                                                                                 LRT Stablecoins main, LRT wstETH main |
 
 _Please Note: Low LTV, LT values have been configured to only allow for collateral use of ezETH on E-Modes._
 
-With liquid eModes live on all instances, we now configure two new E-Mode categories: ezETH USDS correlated, ezETH wstETH correlated and add the respective assets to these categories.
+With liquid eModes live on all instances, we now configure two new E-Mode categories: LRT Stablecoins main, LRT wstETH main and add the respective assets to these categories.
 
-#### E-mode Category: ezETH USDS correlated
+#### E-mode Category: LRT Stablecoins main
 
 | Parameter             | Value | Value |
 | --------------------- | ----: | ----: |
@@ -60,7 +60,7 @@ With liquid eModes live on all instances, we now configure two new E-Mode catego
 | Liquidation Threshold |   78% |   78% |
 | Liquidation Penalty   |  7.5% |  7.5% |
 
-#### E-mode Category: ezETH wstETH correlated
+#### E-mode Category: LRT wstETH main
 
 | Parameter             | Value |  Value |
 | --------------------- | ----: | -----: |
