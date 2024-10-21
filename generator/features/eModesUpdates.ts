@@ -2,9 +2,8 @@ import {CodeArtifact, FEATURE, FeatureModule, PoolIdentifier} from '../types';
 import {eModesSelect} from '../prompts';
 import {EModeCategoryUpdate} from './types';
 import {confirm} from '@inquirer/prompts';
-import {addressPrompt, translateJsAddressToSol} from '../prompts/addressPrompt';
+import {translateJsAddressToSol} from '../prompts/addressPrompt';
 import {stringOrKeepCurrent, stringPrompt} from '../prompts/stringPrompt';
-import {zeroAddress} from 'viem';
 import {getEModes} from '../common';
 import {percentPrompt, translateJsPercentToSol} from '../prompts/percentPrompt';
 
@@ -26,11 +25,6 @@ async function fetchEmodeCategoryUpdate<T extends boolean>(
       message: 'liqBonus',
       required,
     }),
-    priceSource: await addressPrompt({
-      message: 'Price Source',
-      required,
-      defaultValue: required ? zeroAddress : '',
-    }),
     label: await stringPrompt({
       message: 'label',
       required,
@@ -48,7 +42,7 @@ async function subCli(pool: PoolIdentifier) {
   if (shouldAddNewCategory) {
     let more: boolean = true;
     const eModes = getEModes(pool as any);
-    let highestEmode = Object.values(eModes).length > 0 ? Math.max(...Object.values(eModes)) : 0;
+    let highestEmode = Object.values(eModes).length > 0 ? Math.max(...eModes.map((e) => e.id)) : 0;
 
     while (more) {
       answers.push(await fetchEmodeCategoryUpdate(++highestEmode, true));
@@ -102,7 +96,6 @@ export const eModeUpdates: FeatureModule<EmodeUpdates> = {
                ltv: ${translateJsPercentToSol(cfg.ltv)},
                liqThreshold: ${translateJsPercentToSol(cfg.liqThreshold)},
                liqBonus: ${translateJsPercentToSol(cfg.liqBonus)},
-               priceSource: ${translateJsAddressToSol(cfg.priceSource)},
                label: ${stringOrKeepCurrent(cfg.label)}
              });`,
             )
