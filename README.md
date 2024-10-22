@@ -1,6 +1,6 @@
 # Aave proposals v3
 
-This repository contains various proposals targeting the Aave governance.
+This repository contains various proposals targeting Aave governance.
 In addition to the actual proposals this repository also contains tooling to standardize certain protocol tasks.
 The tooling documentation is co-located with the relevant smart contracts.
 
@@ -68,7 +68,7 @@ make test-contract filter=ENS
 
 ### Deploy
 
-The makefile contains some generic templates for proposal deployments.
+The Makefile contains some generic templates for proposal deployments.
 To deploy a contract you can run `make deploy-ledger contract=pathToContract:Contract chain=chainAlias`.
 The generator will inline exact instructions on the generated scripts.
 
@@ -89,7 +89,7 @@ The address creating the mainnet proposal(3) requires 80k AAVE of proposition po
 
 The payload is always deployed on the chain it affects.
 Therefore you need to adjust the relevant script accordingly.
-The generated scripts include exact instrauctions on what to execute.
+The generated scripts include exact instructions on what to execute.
 
 ### 2. Create an aip
 
