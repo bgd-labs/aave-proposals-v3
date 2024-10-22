@@ -14,10 +14,10 @@
 | debtCeiling | 0 $ [0] |
 | isSiloed | false |
 | isFlashloanable | false |
-| oracle | [0xcBc95f18d2D9019AaE596C82094E724fA2213224](https://etherscan.io/address/0xcBc95f18d2D9019AaE596C82094E724fA2213224) |
+| oracle | [0x68C9c7Bf43DBd0EBab102116bc7C3C9f7d9297Ee](https://etherscan.io/address/0x68C9c7Bf43DBd0EBab102116bc7C3C9f7d9297Ee) |
 | oracleDecimals | 8 |
 | oracleDescription | Capped ezETH / ezETH(ETH) / USD |
-| oracleLatestAnswer | 2801.35743384 |
+| oracleLatestAnswer | 2714.95678736 |
 | usageAsCollateralEnabled | true |
 | ltv | 0.05 % [5] |
 | liquidationThreshold | 0.1 % [10] |
@@ -162,10 +162,10 @@
         "liquidationProtocolFee": 1000,
         "liquidationThreshold": 10,
         "ltv": 5,
-        "oracle": "0xcBc95f18d2D9019AaE596C82094E724fA2213224",
+        "oracle": "0x68C9c7Bf43DBd0EBab102116bc7C3C9f7d9297Ee",
         "oracleDecimals": 8,
         "oracleDescription": "Capped ezETH / ezETH(ETH) / USD",
-        "oracleLatestAnswer": "280135743384",
+        "oracleLatestAnswer": "271495678736",
         "reserveFactor": 1500,
         "supplyCap": 15000,
         "symbol": "ezETH",

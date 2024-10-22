@@ -44,7 +44,7 @@ contract AaveV3EthereumLido_OnboardEzETHToLidoInstance_20241021 is AaveV3Payload
     listings[0] = IAaveV3ConfigEngine.Listing({
       asset: ezETH,
       assetSymbol: 'ezETH',
-      priceFeed: 0xcBc95f18d2D9019AaE596C82094E724fA2213224,
+      priceFeed: 0x68C9c7Bf43DBd0EBab102116bc7C3C9f7d9297Ee,
       enabledToBorrow: EngineFlags.DISABLED,
       borrowableInIsolation: EngineFlags.DISABLED,
       withSiloedBorrowing: EngineFlags.DISABLED,

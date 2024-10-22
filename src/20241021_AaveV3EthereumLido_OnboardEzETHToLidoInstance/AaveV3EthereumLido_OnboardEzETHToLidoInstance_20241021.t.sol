@@ -19,7 +19,7 @@ contract AaveV3EthereumLido_OnboardEzETHToLidoInstance_20241021_Test is Protocol
   address internal ezETH;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 21011916);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 21019869);
     proposal = new AaveV3EthereumLido_OnboardEzETHToLidoInstance_20241021();
     ezETH = proposal.ezETH();
 

@@ -19,7 +19,7 @@ export const config: ConfigFile = {
           {
             assetSymbol: 'ezETH',
             decimals: 18,
-            priceFeed: '0xcbc95f18d2d9019aae596c82094e724fa2213224',
+            priceFeed: '0x68C9c7Bf43DBd0EBab102116bc7C3C9f7d9297Ee',
             ltv: '0.05',
             liqThreshold: '0.100',
             liqBonus: '7.5',
