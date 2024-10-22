@@ -4,6 +4,7 @@ pragma solidity ^0.8.0;
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 import {AaveV3BNB} from 'aave-address-book/AaveV3BNB.sol';
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
+import {IEmissionManager} from 'aave-v3-origin/contracts/rewards/interfaces/IEmissionManager.sol';
 
 import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
@@ -17,7 +18,7 @@ contract AaveV3BNB_OnboardWstETHToAaveV3OnBNBChain_20241002_Test is ProtocolV3Te
   AaveV3BNB_OnboardWstETHToAaveV3OnBNBChain_20241002 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('bnb'), 42769525);
+    vm.createSelectFork(vm.rpcUrl('bnb'), 43345165);
     proposal = new AaveV3BNB_OnboardWstETHToAaveV3OnBNBChain_20241002();
   }
 
@@ -38,5 +39,20 @@ contract AaveV3BNB_OnboardWstETHToAaveV3OnBNBChain_20241002_Test is ProtocolV3Te
       proposal.wstETH()
     );
     assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3BNB.COLLECTOR)), 10 ** 16);
+  }
+
+  function test_wstETHAdmin() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+    (address awstETH, , ) = AaveV3BNB.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(
+      proposal.wstETH()
+    );
+    assertEq(
+      IEmissionManager(AaveV3BNB.EMISSION_MANAGER).getEmissionAdmin(proposal.wstETH()),
+      proposal.wstETH_LM_ADMIN()
+    );
+    assertEq(
+      IEmissionManager(AaveV3BNB.EMISSION_MANAGER).getEmissionAdmin(awstETH),
+      proposal.wstETH_LM_ADMIN()
+    );
   }
 }

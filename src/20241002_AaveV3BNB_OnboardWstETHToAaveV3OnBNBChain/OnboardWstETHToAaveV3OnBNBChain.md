@@ -7,7 +7,13 @@ snapshot: "https://snapshot.org/#/aave.eth/proposal/0x752c396a86f1f9b60d3e43b7ed
 
 ## Simple Summary
 
+This ARFC proposes the onboard of wstETH (wrapped staked ETH) to Aave V3 on BNB Chain to improve Aave’s reach across alternative chains and provide increased choice for Aave users on BNB Chain.
+
+This proposal is presented under the Direct-to-AIP framework.
+
 ## Motivation
+
+wstETH is one of the most popular collateral and borrow tokens on Aave, with over $4 billion in deposits and $100m in borrows across Aave deployments. The onboarding of wstETH to the Aave V3 on BNB Chain will give Aave users more options for generating staking yield on their collateral and increase dominance of Aave on BNB Chain.
 
 ## Specification
 
@@ -30,11 +36,12 @@ The table below illustrates the configured risk parameters for **wstETH**
 | Variable Slope 1          |                                        7 % |
 | Variable Slope 2          |                                      300 % |
 | Uoptimal                  |                                       45 % |
-| Stable Borrowing          |                                   DISABLED |
 | Flashloanable             |                                    ENABLED |
 | Siloed Borrowing          |                                   DISABLED |
 | Borrowable in Isolation   |                                   DISABLED |
 | Oracle                    | 0xc1377B4cdF9116bf7b3d7F72A4f8A7Be8506cE80 |
+
+Additionaly [0xac140648435d03f784879cd789130F22Ef588Fcd](https://bscscan.com/address/0xac140648435d03f784879cd789130F22Ef588Fcd) has been set as the emission admin for wstETH and the corresponding aToken.
 
 ## References
 

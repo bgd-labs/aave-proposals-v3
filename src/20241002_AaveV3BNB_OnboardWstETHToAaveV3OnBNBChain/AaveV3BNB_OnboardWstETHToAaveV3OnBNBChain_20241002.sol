@@ -1,12 +1,13 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {AaveV3BNB, AaveV3BNBEModes} from 'aave-address-book/AaveV3BNB.sol';
+import {AaveV3BNB} from 'aave-address-book/AaveV3BNB.sol';
 import {AaveV3PayloadBNB} from 'aave-helpers/src/v3-config-engine/AaveV3PayloadBNB.sol';
-import {EngineFlags} from 'aave-v3-periphery/contracts/v3-config-engine/EngineFlags.sol';
-import {IAaveV3ConfigEngine} from 'aave-v3-periphery/contracts/v3-config-engine/IAaveV3ConfigEngine.sol';
+import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
+import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';
+import {IEmissionManager} from 'aave-v3-origin/contracts/rewards/interfaces/IEmissionManager.sol';
 /**
  * @title Onboard wstETH to Aave V3 on BNB Chain
  * @author Aave Chan Initiative
@@ -18,10 +19,16 @@ contract AaveV3BNB_OnboardWstETHToAaveV3OnBNBChain_20241002 is AaveV3PayloadBNB 
 
   address public constant wstETH = 0x26c5e01524d2E6280A48F2c50fF6De7e52E9611C;
   uint256 public constant wstETH_SEED_AMOUNT = 1e16;
+  address public constant wstETH_LM_ADMIN = 0xac140648435d03f784879cd789130F22Ef588Fcd;
 
   function _postExecute() internal override {
+    AaveV3BNB.COLLECTOR.transfer(wstETH, address(this), wstETH_SEED_AMOUNT);
     IERC20(wstETH).forceApprove(address(AaveV3BNB.POOL), wstETH_SEED_AMOUNT);
     AaveV3BNB.POOL.supply(wstETH, wstETH_SEED_AMOUNT, address(AaveV3BNB.COLLECTOR), 0);
+
+    (address awstETH, , ) = AaveV3BNB.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(wstETH);
+    IEmissionManager(AaveV3BNB.EMISSION_MANAGER).setEmissionAdmin(wstETH, wstETH_LM_ADMIN);
+    IEmissionManager(AaveV3BNB.EMISSION_MANAGER).setEmissionAdmin(awstETH, wstETH_LM_ADMIN);
   }
 
   function newListings() public pure override returns (IAaveV3ConfigEngine.Listing[] memory) {
@@ -31,9 +38,7 @@ contract AaveV3BNB_OnboardWstETHToAaveV3OnBNBChain_20241002 is AaveV3PayloadBNB 
       asset: wstETH,
       assetSymbol: 'wstETH',
       priceFeed: 0xc1377B4cdF9116bf7b3d7F72A4f8A7Be8506cE80,
-      eModeCategory: AaveV3BNBEModes.NONE,
       enabledToBorrow: EngineFlags.ENABLED,
-      stableRateModeEnabled: EngineFlags.DISABLED,
       borrowableInIsolation: EngineFlags.DISABLED,
       withSiloedBorrowing: EngineFlags.DISABLED,
       flashloanable: EngineFlags.ENABLED,

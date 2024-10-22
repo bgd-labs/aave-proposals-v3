@@ -1,6 +1,8 @@
 import {ConfigFile} from '../../generator/types';
 export const config: ConfigFile = {
   rootOptions: {
+    configFile: 'src/20241002_AaveV3BNB_OnboardWstETHToAaveV3OnBNBChain/config.ts',
+    force: true,
     author: 'Aave Chan Initiative',
     pools: ['AaveV3BNB'],
     title: 'Onboard wstETH to Aave V3 on BNB Chain',
@@ -40,10 +42,11 @@ export const config: ConfigFile = {
             },
             eModeCategory: 'AaveV3BNBEModes.NONE',
             asset: '0x26c5e01524d2E6280A48F2c50fF6De7e52E9611C',
+            admin: '0xac140648435d03f784879cd789130F22Ef588Fcd',
           },
         ],
       },
-      cache: {blockNumber: 42769525},
+      cache: {blockNumber: 43345165},
     },
   },
 };
