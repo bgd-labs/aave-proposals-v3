@@ -27,7 +27,7 @@ contract AaveV3Ethereum_IncreaseUSDSBorrowRateToMatchSkySavingsRate_20241016 is
       params: IAaveV3ConfigEngine.InterestRateInputData({
         optimalUsageRatio: EngineFlags.KEEP_CURRENT,
         baseVariableBorrowRate: 6_25,
-        variableRateSlope1: EngineFlags.KEEP_CURRENT,
+        variableRateSlope1: 75,
         variableRateSlope2: EngineFlags.KEEP_CURRENT
       })
     });
