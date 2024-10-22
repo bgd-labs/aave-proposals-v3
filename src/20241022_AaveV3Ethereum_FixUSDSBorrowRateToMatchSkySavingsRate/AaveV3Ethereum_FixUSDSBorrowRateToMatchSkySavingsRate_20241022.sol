@@ -24,7 +24,7 @@ contract AaveV3Ethereum_FixUSDSBorrowRateToMatchSkySavingsRate_20241022 is AaveV
       asset: AaveV3EthereumAssets.USDS_UNDERLYING,
       params: IAaveV3ConfigEngine.InterestRateInputData({
         optimalUsageRatio: EngineFlags.KEEP_CURRENT,
-        baseVariableBorrowRate: 6_25,
+        baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
         variableRateSlope1: 75,
         variableRateSlope2: EngineFlags.KEEP_CURRENT
       })
