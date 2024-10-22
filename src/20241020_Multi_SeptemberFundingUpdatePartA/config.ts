@@ -12,8 +12,5 @@ export const config: ConfigFile = {
   },
   poolOptions: {
     AaveV2Ethereum: {configs: {OTHERS: {}}, cache: {blockNumber: 21010553}},
-    AaveV3Polygon: {configs: {OTHERS: {}}, cache: {blockNumber: 63291551}},
-    AaveV3Avalanche: {configs: {OTHERS: {}}, cache: {blockNumber: 52040278}},
-    AaveV3Optimism: {configs: {OTHERS: {}}, cache: {blockNumber: 126936973}},
   },
 };
