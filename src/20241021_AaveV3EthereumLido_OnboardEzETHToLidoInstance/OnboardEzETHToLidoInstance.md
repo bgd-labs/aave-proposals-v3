@@ -15,7 +15,7 @@ Liquid Restaking tokens (LRTs) have proven to be popular collateral assets on Aa
 
 Given LRTs high correlation to ETH, they are commonly used as collateral to borrow ETH and engage in yield leveraged staking, with several communities having built products that automate such strategies on top of Aave. The inclusion of ezETH in E-Mode enables these strategies to maximize the yield potential of the recursive strategy. The onboarding of ezETH will consequently create increased ezETH demand and increased revenues for both Aave and Renzo Protocol, whilst also bolstering the liquidity and peg stability of ezETH.
 
-With the listing of ezETH and the introduction of an ezETH/wstETH E-Mode, Chaos Labs anticipates that ezETH’s primary use case will be as collateral for borrowing wstETH to leverage ezETH’s yield. And with the borrow cap currently reached for wstETH, we aim to increase its borrow cap.
+With the listing of ezETH and the introduction of an LRT wstETH E-Mode, Chaos Labs anticipates that ezETH’s primary use case will be as collateral for borrowing wstETH to leverage ezETH’s yield. And with the borrow cap currently reached for wstETH, we aim to increase its borrow cap.
 
 The risk parameters have been provided by Chaos Labs, and positive technical evaluation of ezETH is done by BGD Labs, all of which including LlamaRisk's qualitative assessment, can be found on the [forum](https://governance.aave.com/t/arfc-onboard-ezeth-to-aave-v3-lido-instance/18504).
 
