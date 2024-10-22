@@ -83,13 +83,6 @@ contract AaveV3EthereumLido_OnboardEzETHToLidoInstance_20241021_Test is Protocol
   function test_ezETH_wstETH_emode() public {
     GovV3Helpers.executePayload(vm, address(proposal));
 
-    vm.prank(GovernanceV3Ethereum.EXECUTOR_LVL_1);
-    // as caps have been reached
-    AaveV3EthereumLido.POOL_CONFIGURATOR.setBorrowCap(
-      AaveV3EthereumLidoAssets.wstETH_UNDERLYING,
-      350_000
-    );
-
     address user = address(8);
     deal(ezETH, user, 1 ether);
     deal(AaveV3EthereumLidoAssets.wstETH_UNDERLYING, user, 1 ether);
