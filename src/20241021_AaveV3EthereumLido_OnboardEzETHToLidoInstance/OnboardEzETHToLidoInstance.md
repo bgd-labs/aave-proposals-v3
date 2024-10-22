@@ -81,7 +81,9 @@ With liquid eModes live on all instances, we now configure two new E-Mode catego
 | snapshot timestamp    | 1727172839 (Sep-24-2024) |
 | max yearly growth (%) |                    7.39% |
 
-Additionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://etherscan.io/address/0xac140648435d03f784879cd789130F22Ef588Fcd) has been set as the emission admin for ezETH and the corresponding aToken.
+The [price capo adapter](https://etherscan.io/address/0xcbc95f18d2d9019aae596c82094e724fa2213224) has been verified by Certora (more info on [forum](https://governance.aave.com/t/arfc-onboard-ezeth-to-aave-v3-lido-instance/18504/12)), validating that the price cap adapter is robust against donation-based price manipulation and poses no risk to the protocol.
+
+Additionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://etherscan.io/address/0xac140648435d03f784879cd789130F22Ef588Fcd) (ACI multi-sig) has been set as the emission admin for ezETH and the corresponding aToken.
 
 ## References
 
