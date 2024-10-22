@@ -119,6 +119,52 @@ contract AaveV3EthereumLido_OnboardEzETHToLidoInstance_20241021_Test is Protocol
     );
   }
 
+  function test_wstETH_removalFromBorroableOnEmodeOne() public {
+    address user = address(8);
+    deal(user, 1 ether);
+    deal(AaveV3EthereumLidoAssets.wstETH_UNDERLYING, user, 2 ether);
+
+    vm.prank(GovernanceV3Ethereum.EXECUTOR_LVL_1);
+    // as caps have been reached
+    AaveV3EthereumLido.POOL_CONFIGURATOR.setBorrowCap(
+      AaveV3EthereumLidoAssets.wstETH_UNDERLYING,
+      350_000
+    );
+
+    vm.startPrank(user);
+    AaveV3EthereumLido.POOL.setUserEMode(1);
+
+    IERC20(AaveV3EthereumLidoAssets.wstETH_UNDERLYING).approve(
+      address(AaveV3EthereumLido.POOL),
+      1 ether
+    );
+    AaveV3EthereumLido.POOL.supply(AaveV3EthereumLidoAssets.wstETH_UNDERLYING, 1 ether, user, 0);
+    AaveV3EthereumLido.POOL.borrow(
+      AaveV3EthereumLidoAssets.wstETH_UNDERLYING,
+      0.92 ether,
+      2,
+      0,
+      user
+    );
+
+    (, , , , , uint256 prevHealthFactor) = AaveV3EthereumLido.POOL.getUserAccountData(user);
+
+    GovV3Helpers.executePayload(vm, address(proposal));
+
+    (, , , , , uint256 currentHealthFactor) = AaveV3EthereumLido.POOL.getUserAccountData(user);
+    assertEq(prevHealthFactor, currentHealthFactor);
+
+    // wstETH cannot be borrowed in EModeId 1
+    vm.expectRevert(bytes(Errors.NOT_BORROWABLE_IN_EMODE));
+    AaveV3EthereumLido.POOL.borrow(
+      AaveV3EthereumLidoAssets.wstETH_UNDERLYING,
+      0.01 ether,
+      2,
+      0,
+      user
+    );
+  }
+
   function test_ezETHAdmin() public {
     GovV3Helpers.executePayload(vm, address(proposal));
     (address aezETH, , ) = AaveV3EthereumLido.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(

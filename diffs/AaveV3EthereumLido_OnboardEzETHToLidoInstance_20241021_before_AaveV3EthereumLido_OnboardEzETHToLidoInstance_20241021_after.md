@@ -48,6 +48,15 @@
 | interestRate | ![ir](/.assets/3b30aea0d7ed061d9d9b0eeecb2e4835c7844ba5.svg) |
 
 
+### Reserves altered
+
+#### wstETH ([0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0](https://etherscan.io/address/0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0))
+
+| description | value before | value after |
+| --- | --- | --- |
+| borrowCap | 100 wstETH | 14,000 wstETH |
+
+
 ## Emodes changed
 
 ### EMode: ETH correlated(id: 1)
@@ -58,7 +67,7 @@
 | eMode.ltv (unchanged) | 93.5 % | 93.5 % |
 | eMode.liquidationThreshold (unchanged) | 95.5 % | 95.5 % |
 | eMode.liquidationBonus (unchanged) | 1 % | 1 % |
-| eMode.borrowableBitmap (unchanged) | wstETH, WETH | wstETH, WETH |
+| eMode.borrowableBitmap | wstETH, WETH | WETH |
 | eMode.collateralBitmap (unchanged) | wstETH, WETH | wstETH, WETH |
 
 
@@ -91,6 +100,12 @@
 ```json
 {
   "eModes": {
+    "1": {
+      "borrowableBitmap": {
+        "from": "3",
+        "to": "2"
+      }
+    },
     "2": {
       "from": null,
       "to": {
@@ -117,6 +132,12 @@
     }
   },
   "reserves": {
+    "0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0": {
+      "borrowCap": {
+        "from": 100,
+        "to": 14000
+      }
+    },
     "0xbf5495Efe5DB9ce00f80364C8B423567e58d2110": {
       "from": null,
       "to": {
