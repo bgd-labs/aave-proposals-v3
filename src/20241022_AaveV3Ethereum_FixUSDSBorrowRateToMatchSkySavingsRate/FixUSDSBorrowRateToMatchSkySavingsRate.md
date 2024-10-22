@@ -11,7 +11,7 @@ Proposal to update the USDS Slope1 to .75%
 
 ## Motivation
 
-While the latest AIP for USDS borrow rate has intended effect of disincentivizing USDS borrows and looping on Main instance, the current slope1 is too aggressive compared to other stables. A new AIP to address unnecessarily high borrow rate for USDS has been created with an updated slope1 at 0.75%.
+While the latest AIP for USDS borrow rate has the intended effect of disincentivizing USDS borrows and looping on Main instance, the current slope1 is too aggressive compared to other stables. A new AIP to address the unnecessarily high borrow rate for USDS has been created with an updated slope1 at 0.75%.
 
 ## Specification
 
