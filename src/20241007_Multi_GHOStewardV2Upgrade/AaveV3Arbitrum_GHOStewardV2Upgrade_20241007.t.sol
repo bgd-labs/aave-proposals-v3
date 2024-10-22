@@ -4,12 +4,10 @@ pragma solidity ^0.8.0;
 import {AaveV3Arbitrum, AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
 import {MiscArbitrum} from 'aave-address-book/MiscArbitrum.sol';
 import {GovernanceV3Arbitrum} from 'aave-address-book/GovernanceV3Arbitrum.sol';
-import {IACLManager} from 'aave-address-book/AaveV3.sol';
+import {IACLManager, IDefaultInterestRateStrategyV2} from 'aave-address-book/AaveV3.sol';
 import {IAccessControl} from '@openzeppelin/contracts/access/IAccessControl.sol';
 import {TransparentUpgradeableProxy} from 'solidity-utils/contracts/transparent-proxy/TransparentUpgradeableProxy.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
-
-import {IDefaultInterestRateStrategyV2} from './AaveV3.sol';
 
 import {AaveV3Arbitrum_GHOStewardV2Upgrade_20241007} from './AaveV3Arbitrum_GHOStewardV2Upgrade_20241007.sol';
 import {IGhoAaveSteward} from 'src/interfaces/IGhoAaveSteward.sol';
@@ -62,19 +60,28 @@ contract AaveV3Arbitrum_GHOStewardV2Upgrade_20241007_Test is ProtocolV3TestBase 
     address impl = TransparentUpgradeableProxy(payable(MiscArbitrum.GHO_CCIP_TOKEN_POOL))
       .implementation();
 
-    IUpgradeableLockReleaseTokenPool poolToken = IUpgradeableLockReleaseTokenPool(
+    IUpgradeableLockReleaseTokenPool poolTokenImpl = IUpgradeableLockReleaseTokenPool(
       proposal.NEW_CCIP_POOL_IMPL()
     );
 
     assertEq(impl, proposal.NEW_CCIP_POOL_IMPL());
-    assertTrue(poolToken.owner() != address(0));
+    assertTrue(poolTokenImpl.owner() != address(0));
 
     address owner = makeAddr('owner');
     address router = makeAddr('router');
     address[] memory list = new address[](0);
 
+    // Implementation cannot be re-initialized
     vm.expectRevert();
-    poolToken.initialize(owner, list, router);
+    poolTokenImpl.initialize(owner, list, router);
+
+    // Proxy cannot be re-initialized
+    vm.expectRevert();
+    IUpgradeableLockReleaseTokenPool(MiscArbitrum.GHO_CCIP_TOKEN_POOL).initialize(
+      owner,
+      list,
+      router
+    );
 
     // Gho Bucket Steward
     assertEq(
