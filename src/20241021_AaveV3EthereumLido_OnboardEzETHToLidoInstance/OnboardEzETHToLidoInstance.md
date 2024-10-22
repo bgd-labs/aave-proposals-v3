@@ -46,7 +46,7 @@ The table below illustrates the configured risk parameters for **[ezETH](https:/
 | Oracle                    | [0x68C9c7Bf43DBd0EBab102116bc7C3C9f7d9297Ee](https://etherscan.io/address/0x68C9c7Bf43DBd0EBab102116bc7C3C9f7d9297Ee) |
 | E-Modes                   |                                                                                 LRT Stablecoins main, LRT wstETH main |
 
-_Please Note: Low LTV, LT values have been configured to only allow for collateral use of ezETH on E-Modes._
+_Please Note: Low LTV, LT values have been configured to only allow for collateral use of ezETH on E-Modes. Additionally low borrow cap has been configured as a matter of extra safety as borrow cap of 0 represents no cap at all._
 
 The borrow for wstETH on Lido Instance has been increased, more info on the [forum](https://governance.aave.com/t/arfc-onboard-ezeth-to-aave-v3-lido-instance/18504/14).
 
@@ -90,6 +90,8 @@ With liquid eModes live on all instances, we now configure two new E-Mode catego
 | max yearly growth (%) |                   10.89% |
 
 The [price capo adapter](https://etherscan.io/address/0x68C9c7Bf43DBd0EBab102116bc7C3C9f7d9297Ee) has been verified by Certora (more info on [forum](https://governance.aave.com/t/arfc-onboard-ezeth-to-aave-v3-lido-instance/18504/12)), validating that the price cap adapter is robust against donation-based price manipulation and poses no risk to the protocol.
+
+wstETH on the Lido Instance has been disabled from being borrowable in the ETH Correlated E-Mode (categoryId: 1). Users current positions will remain intact, but borrow exposure of wstETH in ETH Correlated E-Mode cannot be increased.
 
 Additionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://etherscan.io/address/0xac140648435d03f784879cd789130F22Ef588Fcd) (ACI multi-sig) has been set as the emission admin for ezETH and the corresponding aToken.
 
