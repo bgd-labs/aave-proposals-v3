@@ -1,14 +1,13 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {console2} from 'forge-std/Test.sol';
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';
 import {AaveV2Avalanche, AaveV2AvalancheAssets} from 'aave-address-book/AaveV2Avalanche.sol';
-import {AaveV3Avalanche, AaveV3AvalancheAssets} from 'aave-address-book/AaveV3Avalanche.sol';
+import {AaveV3Avalanche} from 'aave-address-book/AaveV3Avalanche.sol';
 import {CollectorUtils} from 'aave-helpers/src/CollectorUtils.sol';
-
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
+
 /**
  * @title September Funding Update Part A
  * @author @karpatkey_TokenLogic
@@ -25,7 +24,6 @@ contract AaveV3Avalanche_SeptemberFundingUpdatePartA_20241020 is IProposalGeneri
   uint256 public constant BALANCE_LEFT_DAI = 400_000 ether;
   uint256 public constant BALANCE_LEFT_WAVAX = 50 ether;
   uint256 public constant BALANCE_LEFT_WETH = 2 ether;
-  uint256 public constant BALANCE_LEFT_WBTC = 100000;
 
   function execute() external {
     Migration[] memory migrations = new Migration[](3);
