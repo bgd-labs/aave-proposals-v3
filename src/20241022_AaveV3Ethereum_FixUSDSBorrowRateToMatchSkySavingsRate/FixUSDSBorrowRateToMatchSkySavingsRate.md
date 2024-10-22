@@ -1,7 +1,7 @@
 ---
 title: "Fix USDS Borrow Rate to Match Sky Savings Rate"
 author: "ACI"
-discussions: "https://governance.aave.com/t/arfc-increase-usds-borrow-rate-to-match-sky-savings-rate/19494"
+discussions: "https://governance.aave.com/t/arfc-increase-usds-borrow-rate-to-match-sky-savings-rate/19494/2"
 snapshot: "Direct-to-AIP"
 ---
 
