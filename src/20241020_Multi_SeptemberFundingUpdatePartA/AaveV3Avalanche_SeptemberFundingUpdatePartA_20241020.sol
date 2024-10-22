@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
+import {console2} from 'forge-std/Test.sol';
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';
 import {AaveV2Avalanche, AaveV2AvalancheAssets} from 'aave-address-book/AaveV2Avalanche.sol';
@@ -21,29 +22,27 @@ contract AaveV3Avalanche_SeptemberFundingUpdatePartA_20241020 is IProposalGeneri
     uint256 leaveBehind;
   }
 
-  uint256 public minBalanceLeft = 1 ether;
+  uint256 public constant BALANCE_LEFT_DAI = 400_000 ether;
+  uint256 public constant BALANCE_LEFT_WAVAX = 50 ether;
+  uint256 public constant BALANCE_LEFT_WETH = 2 ether;
+  uint256 public constant BALANCE_LEFT_WBTC = 100000;
 
   function execute() external {
-    Migration[] memory migrations = new Migration[](4);
+    Migration[] memory migrations = new Migration[](3);
     migrations[0] = Migration({
       underlying: AaveV2AvalancheAssets.DAIe_UNDERLYING,
       aToken: AaveV2AvalancheAssets.DAIe_A_TOKEN,
-      leaveBehind: 300_000 ether
+      leaveBehind: BALANCE_LEFT_DAI
     });
     migrations[1] = Migration({
       underlying: AaveV2AvalancheAssets.WAVAX_UNDERLYING,
       aToken: AaveV2AvalancheAssets.WAVAX_A_TOKEN,
-      leaveBehind: minBalanceLeft
+      leaveBehind: BALANCE_LEFT_WAVAX
     });
     migrations[2] = Migration({
       underlying: AaveV2AvalancheAssets.WETHe_UNDERLYING,
       aToken: AaveV2AvalancheAssets.WETHe_A_TOKEN,
-      leaveBehind: minBalanceLeft
-    });
-    migrations[3] = Migration({
-      underlying: AaveV2AvalancheAssets.WBTCe_UNDERLYING,
-      aToken: AaveV2AvalancheAssets.WBTCe_A_TOKEN,
-      leaveBehind: minBalanceLeft
+      leaveBehind: BALANCE_LEFT_WETH
     });
 
     for (uint i = 0; i < migrations.length; i++) {

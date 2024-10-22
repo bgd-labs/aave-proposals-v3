@@ -31,6 +31,19 @@ contract AaveV2Ethereum_SeptemberFundingUpdatePartA_20241020_Test is ProtocolV3T
     );
   }
 
+  function test_gasRebate() public {
+    uint256 balanceKpkBefore = IERC20(AaveV3EthereumAssets.WETH_A_TOKEN).balanceOf(
+      proposal.KARPATKEY()
+    );
+
+    executePayload(vm, address(proposal));
+
+    assertEq(
+      IERC20(AaveV3EthereumAssets.WETH_A_TOKEN).balanceOf(proposal.KARPATKEY()),
+      balanceKpkBefore + proposal.GAS_REBATE_AMOUNT()
+    );
+  }
+
   function test_isTokensRescuedV2() external {
     uint256 sUSDCollectorInitialBalance = IERC20(AaveV2EthereumAssets.sUSD_UNDERLYING).balanceOf(
       address(AaveV3Ethereum.COLLECTOR)
@@ -40,10 +53,10 @@ contract AaveV2Ethereum_SeptemberFundingUpdatePartA_20241020_Test is ProtocolV3T
     );
 
     uint256 sUSDTransferred = IERC20(AaveV2EthereumAssets.sUSD_UNDERLYING).balanceOf(
-      AaveV2Ethereum.DEBT_SWAP_ADAPTER
+      proposal.DEBT_SWAP_ADAPTER()
     );
     uint256 USDCTransferred = IERC20(AaveV2EthereumAssets.USDC_UNDERLYING).balanceOf(
-      AaveV2Ethereum.DEBT_SWAP_ADAPTER
+      proposal.DEBT_SWAP_ADAPTER()
     );
 
     executePayload(vm, address(proposal));
@@ -112,11 +125,6 @@ contract AaveV2Ethereum_SeptemberFundingUpdatePartA_20241020_Test is ProtocolV3T
       'Unexpected USDT_UNDERLYING remaining'
     );
     assertEq(
-      USDTCollectorInitialBalance + USDTTransferred,
-      IERC20(AaveV3EthereumAssets.USDT_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
-      'Unexpected USDT_UNDERLYING final treasury balance'
-    );
-    assertEq(
       IERC20(AaveV3EthereumAssets.crvUSD_UNDERLYING).balanceOf(proposal.DEBT_SWAP_ADAPTER_V3()),
       0,
       'Unexpected crvUSD_UNDERLYING remaining'
@@ -161,6 +169,11 @@ contract AaveV2Ethereum_SeptemberFundingUpdatePartA_20241020_Test is ProtocolV3T
       WBTCCollectorInitialBalance + WBTCTransferred,
       IERC20(AaveV3EthereumAssets.WBTC_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
       'Unexpected WBTC_UNDERLYING final treasury balance'
+    );
+    assertEq(
+      USDTCollectorInitialBalance + USDTTransferred,
+      IERC20(AaveV3EthereumAssets.USDT_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
+      'Unexpected USDT_UNDERLYING final treasury balance'
     );
   }
 }

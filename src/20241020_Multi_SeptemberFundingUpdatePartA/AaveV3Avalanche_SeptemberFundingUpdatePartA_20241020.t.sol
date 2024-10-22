@@ -16,7 +16,7 @@ contract AaveV3Avalanche_SeptemberFundingUpdatePartA_20241020_Test is ProtocolV3
   AaveV3Avalanche_SeptemberFundingUpdatePartA_20241020 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('avalanche'), 52040278);
+    vm.createSelectFork(vm.rpcUrl('avalanche'), 52083371);
     proposal = new AaveV3Avalanche_SeptemberFundingUpdatePartA_20241020();
   }
 
@@ -65,17 +65,6 @@ contract AaveV3Avalanche_SeptemberFundingUpdatePartA_20241020_Test is ProtocolV3
       address(AaveV3Avalanche.COLLECTOR)
     );
 
-    /// wBTC
-    uint256 aWbtcV2Before = IERC20(AaveV2AvalancheAssets.WBTCe_A_TOKEN).balanceOf(
-      address(AaveV3Avalanche.COLLECTOR)
-    );
-    uint256 aWbtcV3Before = IERC20(AaveV3AvalancheAssets.WBTCe_A_TOKEN).balanceOf(
-      address(AaveV3Avalanche.COLLECTOR)
-    );
-    uint256 wbtcBefore = IERC20(AaveV2AvalancheAssets.WBTCe_UNDERLYING).balanceOf(
-      address(AaveV3Avalanche.COLLECTOR)
-    );
-
     executePayload(vm, address(proposal));
 
     /// DAI
@@ -91,7 +80,7 @@ contract AaveV3Avalanche_SeptemberFundingUpdatePartA_20241020_Test is ProtocolV3
       daiBefore,
       v3After,
       underlyingAfter,
-      200_000 ether,
+      proposal.BALANCE_LEFT_DAI(),
       0.05e18
     );
 
@@ -108,7 +97,7 @@ contract AaveV3Avalanche_SeptemberFundingUpdatePartA_20241020_Test is ProtocolV3
       wavaxBefore,
       v3After,
       underlyingAfter,
-      proposal.minBalanceLeft(),
+      proposal.BALANCE_LEFT_WAVAX(),
       0.10e18
     );
 
@@ -125,25 +114,8 @@ contract AaveV3Avalanche_SeptemberFundingUpdatePartA_20241020_Test is ProtocolV3
       wethBefore,
       v3After,
       underlyingAfter,
-      proposal.minBalanceLeft(),
+      proposal.BALANCE_LEFT_WETH(),
       0.10e18
-    );
-
-    /// wBTC
-    v3After = IERC20(AaveV3AvalancheAssets.WBTCe_A_TOKEN).balanceOf(
-      address(AaveV3Avalanche.COLLECTOR)
-    );
-    underlyingAfter = IERC20(AaveV2AvalancheAssets.WBTCe_UNDERLYING).balanceOf(
-      address(AaveV3Avalanche.COLLECTOR)
-    );
-    verifyBalances(
-      aWbtcV2Before,
-      aWbtcV3Before,
-      wbtcBefore,
-      v3After,
-      underlyingAfter,
-      proposal.minBalanceLeft(),
-      0.02e18
     );
   }
 

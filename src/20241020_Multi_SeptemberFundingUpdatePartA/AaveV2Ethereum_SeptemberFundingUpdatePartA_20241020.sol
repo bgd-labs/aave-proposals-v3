@@ -19,8 +19,22 @@ contract AaveV2Ethereum_SeptemberFundingUpdatePartA_20241020 is IProposalGeneric
   address public constant DEBT_SWAP_ADAPTER_V3 = 0x8761e0370f94f68Db8EaA731f4fC581f6AD0Bd68;
   address public constant REPAY_WITH_COLLATERAL_ADAPTER =
     0x02e7B8511831B1b02d9018215a0f8f500Ea5c6B3;
+  address public constant KARPATKEY = 0x818C277dBE886b934e60aa047250A73529E26A99;
+
+  uint256 public constant GAS_REBATE_AMOUNT = 0.264 ether;
 
   function execute() external {
+    _rescueParaswap();
+
+    // Gas Rebase Karpatkey
+    AaveV3Ethereum.COLLECTOR.transfer(
+      AaveV3EthereumAssets.WETH_A_TOKEN,
+      KARPATKEY,
+      GAS_REBATE_AMOUNT
+    );
+  }
+
+  function _rescueParaswap() internal {
     IRescuable(DEBT_SWAP_ADAPTER).rescueTokens(IERC20(AaveV2EthereumAssets.sUSD_UNDERLYING));
     IRescuable(DEBT_SWAP_ADAPTER).rescueTokens(IERC20(AaveV2EthereumAssets.USDC_UNDERLYING));
     IRescuable(DEBT_SWAP_ADAPTER_V3).rescueTokens(IERC20(AaveV3EthereumAssets.USDT_UNDERLYING));
@@ -43,10 +57,6 @@ contract AaveV2Ethereum_SeptemberFundingUpdatePartA_20241020 is IProposalGeneric
       address(AaveV3Ethereum.COLLECTOR),
       IERC20(AaveV2EthereumAssets.USDC_UNDERLYING).balanceOf(address(this))
     );
-    IERC20(AaveV3EthereumAssets.USDT_UNDERLYING).transfer(
-      address(AaveV3Ethereum.COLLECTOR),
-      IERC20(AaveV3EthereumAssets.USDT_UNDERLYING).balanceOf(address(this))
-    );
     IERC20(AaveV3EthereumAssets.crvUSD_UNDERLYING).transfer(
       address(AaveV3Ethereum.COLLECTOR),
       IERC20(AaveV3EthereumAssets.crvUSD_UNDERLYING).balanceOf(address(this))
@@ -62,6 +72,10 @@ contract AaveV2Ethereum_SeptemberFundingUpdatePartA_20241020 is IProposalGeneric
     IERC20(AaveV3EthereumAssets.WBTC_UNDERLYING).transfer(
       address(AaveV3Ethereum.COLLECTOR),
       IERC20(AaveV3EthereumAssets.WBTC_UNDERLYING).balanceOf(address(this))
+    );
+    IERC20(AaveV3EthereumAssets.USDT_UNDERLYING).safeTransfer(
+      address(AaveV3Ethereum.COLLECTOR),
+      IERC20(AaveV3EthereumAssets.USDT_UNDERLYING).balanceOf(address(this))
     );
   }
 }
