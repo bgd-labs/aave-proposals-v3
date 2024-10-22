@@ -10,7 +10,7 @@ This publication proposes rescuing funds from Paraswap as per the incident in Au
 
 ## Motivation
 
-In response to the events in August of 2024, funds currently locked in the Paraswap adapter contracts will be send to the DAOs Treasury. Due to size of these holding, this will only be performed on Mainnet.
+In response to the events in August of 2024, funds currently locked in the Paraswap adapter contracts on Mainnet will be sent to the Collector. Other chains don't hold enough to justify claiming.
 
 The gas rebate is part of the Aave Guardian Signers as can be found [here](https://governance.aave.com/t/arfc-renewal-of-aave-guardian-2024/17523/32).
 
