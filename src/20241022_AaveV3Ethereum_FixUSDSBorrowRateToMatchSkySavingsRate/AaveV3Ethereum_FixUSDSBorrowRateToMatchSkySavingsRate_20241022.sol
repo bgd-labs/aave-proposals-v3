@@ -9,7 +9,7 @@ import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config
  * @title Fix USDS Borrow Rate to Match Sky Savings Rate
  * @author ACI
  * - Snapshot: Direct-to-AIP
- * - Discussion: https://governance.aave.com/t/arfc-increase-usds-borrow-rate-to-match-sky-savings-rate/19494
+ * - Discussion: https://governance.aave.com/t/arfc-increase-usds-borrow-rate-to-match-sky-savings-rate/19494/2
  */
 contract AaveV3Ethereum_FixUSDSBorrowRateToMatchSkySavingsRate_20241022 is AaveV3PayloadEthereum {
   function rateStrategiesUpdates()
