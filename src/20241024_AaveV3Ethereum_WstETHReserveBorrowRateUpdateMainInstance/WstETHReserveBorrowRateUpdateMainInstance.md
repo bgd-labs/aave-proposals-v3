@@ -23,7 +23,7 @@ The Main instance the wstETH Slope1 parameter is to be revised as follows:
 
 | Asset  | Parameter | Current | Proposed | Change |
 | :----: | :-------: | :-----: | :------: | :----: |
-| wstETH |  Slope1   |  4.75%  |  2.00%   | -2.75% |
+| wstETH |  Slope1   |  4.50%  |  2.00%   | -2.50% |
 
 ## References
 
