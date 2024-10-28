@@ -17,6 +17,7 @@ interface IEVM2EVMOffRamp_1_2 {
     bytes[] memory offchainTokenData
   ) external;
 }
+
 interface IEVM2EVMOffRamp_1_5 {
   /// @notice Execute a single message.
   /// @param message The message that will be executed.

@@ -13,7 +13,6 @@ interface IRouter {
     uint64 destChainSelector;
     address onRamp;
   }
-
   struct OffRamp {
     uint64 sourceChainSelector;
     address offRamp;

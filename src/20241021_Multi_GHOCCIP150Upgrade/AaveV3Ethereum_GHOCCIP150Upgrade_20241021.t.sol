@@ -117,9 +117,9 @@ contract AaveV3Ethereum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
       IInternal.EVM2EVMMessage memory eventArg
     ) = _getTokenMessage(CCIPSendParams({router: router, amount: amount, migrated: false}));
 
-    vm.expectEmit();
+    vm.expectEmit(address(ghoTokenPool));
     emit Locked(ON_RAMP_1_2, amount);
-    vm.expectEmit();
+    vm.expectEmit(ON_RAMP_1_2);
     emit CCIPSendRequested(eventArg);
     vm.prank(alice);
     router.ccipSend{value: eventArg.feeTokenAmount}(ARB_CHAIN_SELECTOR, message);
@@ -148,9 +148,11 @@ contract AaveV3Ethereum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
       IInternal.EVM2EVMMessage memory eventArg
     ) = _getTokenMessage(CCIPSendParams({router: router, amount: amount, migrated: true}));
 
-    vm.expectEmit();
+    vm.expectEmit(address(ghoTokenPool));
+    emit Locked(address(proxyPool), amount);
+    vm.expectEmit(address(proxyPool));
     emit Locked(ON_RAMP_1_5, amount);
-    vm.expectEmit();
+    vm.expectEmit(ON_RAMP_1_5);
     emit CCIPSendRequested(eventArg);
     vm.prank(alice);
     router.ccipSend{value: eventArg.feeTokenAmount}(ARB_CHAIN_SELECTOR, message);
@@ -170,7 +172,7 @@ contract AaveV3Ethereum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
 
     address offRamp = _getOffRamp({router: router, migrated: false});
 
-    vm.expectEmit();
+    vm.expectEmit(address(ghoTokenPool));
     emit Released(offRamp, alice, amount);
     vm.prank(offRamp);
     ghoTokenPool.releaseOrMint(abi.encode(alice), alice, amount, ARB_CHAIN_SELECTOR, '');
@@ -191,7 +193,7 @@ contract AaveV3Ethereum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
 
     address offRamp = _getOffRamp({router: router, migrated: true});
 
-    vm.expectEmit();
+    vm.expectEmit(address(ghoTokenPool));
     emit Released(offRamp, alice, amount);
     vm.prank(offRamp);
     ghoTokenPool.releaseOrMint(abi.encode(alice), alice, amount, ARB_CHAIN_SELECTOR, '');
@@ -210,7 +212,7 @@ contract AaveV3Ethereum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
 
     executePayload(vm, address(proposal));
 
-    vm.expectEmit();
+    vm.expectEmit(address(ghoTokenPool));
     emit Locked(address(proxyPool), amount);
     vm.prank(address(proxyPool));
     ghoTokenPool.lockOrBurn(alice, abi.encode(alice), amount, ARB_CHAIN_SELECTOR, new bytes(0));

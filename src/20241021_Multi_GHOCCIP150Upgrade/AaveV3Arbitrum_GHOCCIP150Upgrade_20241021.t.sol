@@ -118,9 +118,9 @@ contract AaveV3Arbitrum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
       IInternal.EVM2EVMMessage memory eventArg
     ) = _getTokenMessage(CCIPSendParams({router: router, amount: amount, migrated: false}));
 
-    vm.expectEmit();
+    vm.expectEmit(address(ghoTokenPool));
     emit Burned(ON_RAMP_1_2, amount);
-    vm.expectEmit();
+    vm.expectEmit(ON_RAMP_1_2);
     emit CCIPSendRequested(eventArg);
     vm.prank(alice);
     router.ccipSend{value: eventArg.feeTokenAmount}(ETH_CHAIN_SELECTOR, message);
@@ -145,9 +145,11 @@ contract AaveV3Arbitrum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
       IInternal.EVM2EVMMessage memory eventArg
     ) = _getTokenMessage(CCIPSendParams({router: router, amount: amount, migrated: true}));
 
-    vm.expectEmit();
+    vm.expectEmit(address(ghoTokenPool));
+    emit Burned(address(proxyPool), amount);
+    vm.expectEmit(address(proxyPool));
     emit Burned(ON_RAMP_1_5, amount);
-    vm.expectEmit();
+    vm.expectEmit(ON_RAMP_1_5);
     emit CCIPSendRequested(eventArg);
     vm.prank(alice);
     router.ccipSend{value: eventArg.feeTokenAmount}(ETH_CHAIN_SELECTOR, message);
@@ -160,10 +162,8 @@ contract AaveV3Arbitrum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
 
     IERC20 gho = IERC20(address(ghoTokenPool.getToken()));
     uint256 amount = 500_000e18;
-    // router is responsible for transferring liquidity, so we mock router.token.transferFrom(user, tokenPool)
-    deal(address(gho), address(ghoTokenPool), amount);
 
-    vm.expectEmit();
+    vm.expectEmit(address(ghoTokenPool));
     emit Minted(OFF_RAMP_1_2, alice, amount);
     vm.prank(OFF_RAMP_1_2);
     ghoTokenPool.releaseOrMint(abi.encode(alice), alice, amount, ETH_CHAIN_SELECTOR, '');
@@ -178,10 +178,8 @@ contract AaveV3Arbitrum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
 
     IERC20 gho = IERC20(address(ghoTokenPool.getToken()));
     uint256 amount = 500_000e18;
-    // router is responsible for transferring liquidity, so we mock router.token.transferFrom(user, tokenPool)
-    deal(address(gho), address(ghoTokenPool), amount);
 
-    vm.expectEmit();
+    vm.expectEmit(address(ghoTokenPool));
     emit Minted(OFF_RAMP_1_5, alice, amount);
     vm.prank(OFF_RAMP_1_5);
     ghoTokenPool.releaseOrMint(abi.encode(alice), alice, amount, ETH_CHAIN_SELECTOR, '');
@@ -200,7 +198,7 @@ contract AaveV3Arbitrum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
     // router is responsible for transferring liquidity, so we mock router.token.transferFrom(user, tokenPool)
     deal(ARB_GHO_TOKEN, address(ghoTokenPool), amount);
 
-    vm.expectEmit();
+    vm.expectEmit(address(ghoTokenPool));
     emit Burned(address(proxyPool), amount);
     vm.prank(address(proxyPool));
     ghoTokenPool.lockOrBurn(alice, abi.encode(alice), amount, ETH_CHAIN_SELECTOR, new bytes(0));

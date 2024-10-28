@@ -3,6 +3,7 @@
 pragma solidity ^0.8.0;
 
 import {IInternal} from './IInternal.sol';
+
 interface IEVM2EVMOnRamp {
   /// @notice Gets the next sequence number to be used in the onRamp
   /// @return the next sequence number to be used

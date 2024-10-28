@@ -1,8 +1,9 @@
-// SPDX-License-Identifier: BUSL-1.1
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
 import {ITypeAndVersion} from './ITypeAndVersion.sol';
 import {IRateLimiter} from './IRateLimiter.sol';
+
 interface IProxyPool is ITypeAndVersion {
   struct ChainUpdate {
     uint64 remoteChainSelector;
