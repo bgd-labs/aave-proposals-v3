@@ -18,7 +18,7 @@ contract AaveV3BNB_OnboardWstETHToAaveV3OnBNBChain_20241002 is AaveV3PayloadBNB 
   using SafeERC20 for IERC20;
 
   address public constant wstETH = 0x26c5e01524d2E6280A48F2c50fF6De7e52E9611C;
-  uint256 public constant wstETH_SEED_AMOUNT = 1e16;
+  uint256 public constant wstETH_SEED_AMOUNT = 4e16;
   address public constant wstETH_LM_ADMIN = 0xac140648435d03f784879cd789130F22Ef588Fcd;
 
   function _postExecute() internal override {
