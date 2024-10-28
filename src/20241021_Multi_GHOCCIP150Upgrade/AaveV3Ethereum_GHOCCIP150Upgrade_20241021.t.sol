@@ -220,6 +220,23 @@ contract AaveV3Ethereum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
     assertEq(ghoTokenPool.getCurrentBridgedAmount(), bridgedAmount + amount);
   }
 
+  function test_proxyPoolCanOffRamp() public {
+    uint256 amount = 1337e18;
+
+    vm.expectRevert(abi.encodeWithSelector(CallerIsNotARampOnRouter.selector, proxyPool));
+    vm.prank(address(proxyPool));
+    ghoTokenPool.releaseOrMint(abi.encode(alice), alice, amount, ARB_CHAIN_SELECTOR, new bytes(0));
+
+    executePayload(vm, address(proposal));
+    // mock previously locked gho
+    deal(MiscEthereum.GHO_TOKEN, address(ghoTokenPool), amount);
+
+    vm.expectEmit(address(ghoTokenPool));
+    emit Released(address(proxyPool), alice, amount);
+    vm.prank(address(proxyPool));
+    ghoTokenPool.releaseOrMint(abi.encode(alice), alice, amount, ARB_CHAIN_SELECTOR, new bytes(0));
+  }
+
   function _mockCCIPMigration() private {
     IRouter router = IRouter(ghoTokenPool.getRouter());
     // token registry not set for 1.5 migration
@@ -346,8 +363,9 @@ contract AaveV3Ethereum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
       );
   }
 
-  function _validateConstants() private pure {
+  function _validateConstants() private view {
     assertEq(TOKEN_ADMIN_REGISTRY.typeAndVersion(), 'TokenAdminRegistry 1.5.0');
+    assertEq(proxyPool.typeAndVersion(), 'LockReleaseTokenPoolAndProxy 1.5.0');
     assertEq(ITypeAndVersion(ON_RAMP_1_2).typeAndVersion(), 'EVM2EVMOnRamp 1.2.0');
     assertEq(ITypeAndVersion(ON_RAMP_1_5).typeAndVersion(), 'EVM2EVMOnRamp 1.5.0');
     assertEq(ITypeAndVersion(OFF_RAMP_1_2).typeAndVersion(), 'EVM2EVMOffRamp 1.2.0');
