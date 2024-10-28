@@ -14,7 +14,7 @@ import {UpgradeableLockReleaseTokenPool} from 'aave-ccip/v0.8/ccip/pools/GHO/Upg
  * - Discussion: https://governance.aave.com/t/bgd-technical-maintenance-proposals/15274/51
  */
 contract AaveV3Ethereum_GHOCCIP150Upgrade_20241021 is IProposalGenericExecutor {
-  address public constant GHO_CCIP_PROXY_POOL = address(1337); // placeholder: pending chainlink deployment
+  address public constant GHO_CCIP_PROXY_POOL = 0x9Ec9F9804733df96D1641666818eFb5198eC50f0;
 
   function execute() external {
     UpgradeableLockReleaseTokenPool tokenPoolProxy = UpgradeableLockReleaseTokenPool(

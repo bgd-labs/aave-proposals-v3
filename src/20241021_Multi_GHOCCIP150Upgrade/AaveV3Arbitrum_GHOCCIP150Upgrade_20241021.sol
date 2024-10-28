@@ -14,7 +14,7 @@ import {UpgradeableBurnMintTokenPool} from 'aave-ccip/v0.8/ccip/pools/GHO/Upgrad
  * - Discussion: https://governance.aave.com/t/bgd-technical-maintenance-proposals/15274/51
  */
 contract AaveV3Arbitrum_GHOCCIP150Upgrade_20241021 is IProposalGenericExecutor {
-  address public constant GHO_CCIP_PROXY_POOL = address(1337); // placeholder: pending chainlink deployment
+  address public constant GHO_CCIP_PROXY_POOL = 0x26329558f08cbb40d6a4CCA0E0C67b29D64A8c50;
 
   function execute() external {
     UpgradeableBurnMintTokenPool tokenPoolProxy = UpgradeableBurnMintTokenPool(
