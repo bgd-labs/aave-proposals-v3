@@ -22,6 +22,12 @@ Any future change to the GHO Steward functionality will require only the corresp
 
 In addition, some new features have been added to allow for controlling parameters related to CCIP.
 
+The GHO Stewards implementations can be found [here](https://github.com/aave/gho-core/tree/main/src/contracts/misc)
+
+The original PR introducing the Stewards to GHO-CORE can be found [here](https://github.com/aave/gho-core/pull/414/files)
+
+The Certora review of the Stewards can be found [here](https://github.com/aave/gho-core/pull/423)
+
 ## Specification
 
 The following contracts must be granted these roles by the DAO:
