@@ -31,7 +31,28 @@ contract AaveV3Ethereum_GHOStewardV2Upgrade_20241007 is IProposalGenericExecutor
   // https://etherscan.io/address/0xd1e856a947cdf56b4f000ee29d34f5808e0a6848
   address public constant GHO_GSM_STEWARD = 0xD1E856a947CdF56b4f000ee29d34F5808E0A6848;
 
+  // https://etherscan.io/address/0xb9481a29f0f996BCAc759aB201FB3844c81866c4
+  address public constant OLD_STEWARD = 0xb9481a29f0f996BCAc759aB201FB3844c81866c4;
+
   function execute() external {
+    // Old Gho Steward
+    AaveV3Ethereum.ACL_MANAGER.removeRiskAdmin(OLD_STEWARD);
+
+    IGhoToken(AaveV3EthereumAssets.GHO_UNDERLYING).revokeRole(
+      IGhoToken(AaveV3EthereumAssets.GHO_UNDERLYING).BUCKET_MANAGER_ROLE(),
+      OLD_STEWARD
+    );
+
+    IGsm(MiscEthereum.GSM_USDC).revokeRole(
+      IGsm(MiscEthereum.GSM_USDC).CONFIGURATOR_ROLE(),
+      OLD_STEWARD
+    );
+
+    IGsm(MiscEthereum.GSM_USDT).revokeRole(
+      IGsm(MiscEthereum.GSM_USDT).CONFIGURATOR_ROLE(),
+      OLD_STEWARD
+    );
+
     // Gho Bucket Steward
     IGhoToken(AaveV3EthereumAssets.GHO_UNDERLYING).grantRole(
       IGhoToken(AaveV3EthereumAssets.GHO_UNDERLYING).BUCKET_MANAGER_ROLE(),

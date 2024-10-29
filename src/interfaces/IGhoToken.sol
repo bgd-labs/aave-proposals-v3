@@ -55,4 +55,15 @@ interface IGhoToken {
    * @dev Returns `true` if `account` has been granted `role`.
    */
   function hasRole(bytes32 role, address account) external view returns (bool);
+
+  /**
+   * @dev Revokes `role` from `account`.
+   *
+   * If `account` had been granted `role`, emits a {RoleRevoked} event.
+   *
+   * Requirements:
+   *
+   * - the caller must have ``role``'s admin role.
+   */
+  function revokeRole(bytes32 role, address account) external;
 }

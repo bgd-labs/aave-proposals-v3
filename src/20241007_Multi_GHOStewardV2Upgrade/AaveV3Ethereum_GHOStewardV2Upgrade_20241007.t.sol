@@ -38,6 +38,35 @@ contract AaveV3Ethereum_GHOStewardV2Upgrade_20241007_Test is ProtocolV3TestBase 
   }
 
   function test_roles() public {
+    assertTrue(AaveV3Ethereum.ACL_MANAGER.isRiskAdmin(proposal.OLD_STEWARD()));
+
+    assertEq(
+      IGhoToken(AaveV3EthereumAssets.GHO_UNDERLYING).hasRole(
+        IGhoToken(AaveV3EthereumAssets.GHO_UNDERLYING).BUCKET_MANAGER_ROLE(),
+        proposal.OLD_STEWARD()
+      ),
+      true,
+      'Did not have bucket manager role'
+    );
+
+    assertEq(
+      IGsm(MiscEthereum.GSM_USDC).hasRole(
+        IGsm(MiscEthereum.GSM_USDC).CONFIGURATOR_ROLE(),
+        proposal.OLD_STEWARD()
+      ),
+      true,
+      'Did not have USDC GSM Configurator role'
+    );
+
+    assertEq(
+      IGsm(MiscEthereum.GSM_USDT).hasRole(
+        IGsm(MiscEthereum.GSM_USDT).CONFIGURATOR_ROLE(),
+        proposal.OLD_STEWARD()
+      ),
+      true,
+      'Did not have USDT GSM Configurator role'
+    );
+
     // Gho Bucket Steward
     assertEq(
       IGhoToken(AaveV3EthereumAssets.GHO_UNDERLYING).hasRole(
@@ -83,6 +112,32 @@ contract AaveV3Ethereum_GHOStewardV2Upgrade_20241007_Test is ProtocolV3TestBase 
     );
 
     executePayload(vm, address(proposal));
+
+    assertFalse(AaveV3Ethereum.ACL_MANAGER.isRiskAdmin(proposal.OLD_STEWARD()));
+
+    assertEq(
+      IGhoToken(AaveV3EthereumAssets.GHO_UNDERLYING).hasRole(
+        IGhoToken(AaveV3EthereumAssets.GHO_UNDERLYING).BUCKET_MANAGER_ROLE(),
+        proposal.OLD_STEWARD()
+      ),
+      false
+    );
+
+    assertEq(
+      IGsm(MiscEthereum.GSM_USDC).hasRole(
+        IGsm(MiscEthereum.GSM_USDC).CONFIGURATOR_ROLE(),
+        proposal.OLD_STEWARD()
+      ),
+      false
+    );
+
+    assertEq(
+      IGsm(MiscEthereum.GSM_USDT).hasRole(
+        IGsm(MiscEthereum.GSM_USDT).CONFIGURATOR_ROLE(),
+        proposal.OLD_STEWARD()
+      ),
+      false
+    );
 
     // Gho Bucket Steward
     assertEq(

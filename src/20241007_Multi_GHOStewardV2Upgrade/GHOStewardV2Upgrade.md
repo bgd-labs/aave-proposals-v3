@@ -22,12 +22,6 @@ Any future change to the GHO Steward functionality will require only the corresp
 
 In addition, some new features have been added to allow for controlling parameters related to CCIP.
 
-The GHO Stewards implementations can be found [here](https://github.com/aave/gho-core/tree/main/src/contracts/misc)
-
-The original PR introducing the Stewards to GHO-CORE can be found [here](https://github.com/aave/gho-core/pull/414/files)
-
-The Certora review of the Stewards can be found [here](https://github.com/aave/gho-core/pull/423)
-
 ## Specification
 
 The following contracts must be granted these roles by the DAO:
@@ -43,12 +37,25 @@ The following contracts must be granted these roles by the DAO:
 
 To facilitate the CCIP Steward, a new CCIP token pool implementation will be implemented on Arbitrum to allow setting of rateLimitAdmin.
 
+List of new addresses:
+
+| Contract           | Arbitrum                                   | Ethereum                                   |
+| ------------------ | ------------------------------------------ | ------------------------------------------ |
+| New CCIP Token     | 0xb78eDA33EB5493d56f14a81023CE69438a562A2c |                                            |
+| Gho Bucket Steward | 0xa9afaE6A53E90f9E4CE0717162DF5Bc3d9aBe7B2 | 0x46Aa1063e5265b43663E81329333B47c517A5409 |
+| Gho Aave Steward   | 0xCd04D93bEA13921DaD05240D577090b5AC36DfCA | 0xFEb4e54591660F42288312AE8eB59e9f2B746b66 |
+| Gho CCIP Steward   | 0xb329CEFF2c362F315900d245eC88afd24C4949D5 | 0x101Efb7b9Beb073B1219Cd5473a7C8A2f2EB84f4 |
+| Gho GSM Steward    |                                            | 0xD1E856a947CdF56b4f000ee29d34F5808E0A6848 |
+
 ## References
 
 - Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241007_Multi_GHOStewardV2Upgrade/AaveV3Ethereum_GHOStewardV2Upgrade_20241007.sol), [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241007_Multi_GHOStewardV2Upgrade/AaveV3Arbitrum_GHOStewardV2Upgrade_20241007.sol)
 - Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241007_Multi_GHOStewardV2Upgrade/AaveV3Ethereum_GHOStewardV2Upgrade_20241007.t.sol), [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241007_Multi_GHOStewardV2Upgrade/AaveV3Arbitrum_GHOStewardV2Upgrade_20241007.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0xc5e7df1536ef9fc71a7d2e2f6fee6e4e20e37a50b4e0f1646616d066b8697da5)
 - [Discussion](https://governance.aave.com/t/arfc-gho-steward-v2-upgrade/19116)
+- The GHO Stewards implementations can be found [here](https://github.com/aave/gho-core/tree/main/src/contracts/misc)
+- The original PR introducing the Stewards to GHO-CORE can be found [here](https://github.com/aave/gho-core/pull/414/files)
+- The Certora review of the Stewards can be found [here](https://github.com/aave/gho-core/pull/423)
 
 ## Copyright
 
