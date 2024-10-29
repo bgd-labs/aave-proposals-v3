@@ -10,7 +10,6 @@ import {UpgradeableBurnMintTokenPool} from 'aave-ccip/v0.8/ccip/pools/GHO/Upgrad
 /**
  * @title GHO CCIP 1.50 Upgrade
  * @author Aave Labs
- * - Snapshot: TODO
  * - Discussion: https://governance.aave.com/t/bgd-technical-maintenance-proposals/15274/51
  */
 contract AaveV3Arbitrum_GHOCCIP150Upgrade_20241021 is IProposalGenericExecutor {

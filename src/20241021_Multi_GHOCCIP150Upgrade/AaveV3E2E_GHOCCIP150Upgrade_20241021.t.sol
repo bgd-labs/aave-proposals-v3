@@ -2,6 +2,7 @@
 pragma solidity ^0.8.0;
 
 import 'forge-std/Test.sol';
+import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {MiscArbitrum} from 'aave-address-book/MiscArbitrum.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
@@ -15,7 +16,6 @@ import {ITypeAndVersion} from 'src/interfaces/ccip/ITypeAndVersion.sol';
 import {IProxyPool} from 'src/interfaces/ccip/IProxyPool.sol';
 import {IRateLimiter} from 'src/interfaces/ccip/IRateLimiter.sol';
 import {IEVM2EVMOffRamp_1_2, IEVM2EVMOffRamp_1_5} from 'src/interfaces/ccip/IEVM2EVMOffRamp.sol';
-import {IERC20} from 'src/interfaces/IERC20.sol';
 import {ITokenAdminRegistry} from 'src/interfaces/ccip/ITokenAdminRegistry.sol';
 import {CCIPUtils} from './utils/CCIPUtils.sol';
 import {AaveV3Ethereum_GHOCCIP150Upgrade_20241021} from './AaveV3Ethereum_GHOCCIP150Upgrade_20241021.sol';
@@ -26,9 +26,6 @@ import {AaveV3Arbitrum_GHOCCIP150Upgrade_20241021} from './AaveV3Arbitrum_GHOCCI
  * command: FOUNDRY_PROFILE=mainnet forge test --match-path=src/20241021_Multi_GHOCCIP150Upgrade/AaveV3E2E_GHOCCIP150Upgrade_20241021.t.sol -vv
  */
 contract AaveV3E2E_GHOCCIP150Upgrade_20241021_Base is ProtocolV3TestBase {
-  error CallerIsNotARampOnRouter(address caller);
-  error NotACompatiblePool(address pool);
-
   struct CCIPSendParams {
     IRouter router;
     IERC20 token;
@@ -73,6 +70,9 @@ contract AaveV3E2E_GHOCCIP150Upgrade_20241021_Base is ProtocolV3TestBase {
   event Burned(address indexed sender, uint256 amount);
   event Released(address indexed sender, address indexed recipient, uint256 amount);
   event Minted(address indexed sender, address indexed recipient, uint256 amount);
+
+  error CallerIsNotARampOnRouter(address caller);
+  error NotACompatiblePool(address pool);
 
   function setUp() public virtual {
     l1.c.forkId = vm.createFork(vm.rpcUrl('mainnet'), 21045560);
@@ -607,6 +607,7 @@ contract AaveV3E2E_GHOCCIP150Upgrade_20241021_PostCCIPMigration is
       );
     }
   }
+
   function _mockCCIPMigration(Common memory src, Common memory dest) internal {
     vm.selectFork(src.forkId);
 

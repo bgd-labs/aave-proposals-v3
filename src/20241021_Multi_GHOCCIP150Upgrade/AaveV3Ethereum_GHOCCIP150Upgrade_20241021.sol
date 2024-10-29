@@ -3,14 +3,13 @@ pragma solidity ^0.8.0;
 
 import {TransparentUpgradeableProxy} from 'solidity-utils/contracts/transparent-proxy/TransparentUpgradeableProxy.sol';
 import {ProxyAdmin} from 'solidity-utils/contracts/transparent-proxy/ProxyAdmin.sol';
-import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
+import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
 import {UpgradeableLockReleaseTokenPool} from 'aave-ccip/v0.8/ccip/pools/GHO/UpgradeableLockReleaseTokenPool.sol';
 
 /**
  * @title GHO CCIP 1.50 Upgrade
  * @author Aave Labs
- * - Snapshot: TODO
  * - Discussion: https://governance.aave.com/t/bgd-technical-maintenance-proposals/15274/51
  */
 contract AaveV3Ethereum_GHOCCIP150Upgrade_20241021 is IProposalGenericExecutor {
