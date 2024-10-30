@@ -231,6 +231,10 @@ contract AaveV3Ethereum_GHOStewardV2Upgrade_20241007_Test is ProtocolV3TestBase 
     vm.startPrank(RISK_COUNCIL);
     steward.updateGhoSupplyCap(newSupplyCap);
     vm.stopPrank();
+
+    vm.clearMockedCalls();
+
+    assertEq(_getGhoSupplyCap(), newSupplyCap);
   }
 
   function test_ghoAaveSteward_revertsChangeFromZero() public {

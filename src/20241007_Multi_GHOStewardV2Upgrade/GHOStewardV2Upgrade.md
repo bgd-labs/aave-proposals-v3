@@ -39,13 +39,13 @@ To facilitate the CCIP Steward, a new CCIP token pool implementation will be imp
 
 List of new addresses:
 
-| Contract           | Arbitrum                                   | Ethereum                                   |
-| ------------------ | ------------------------------------------ | ------------------------------------------ |
-| New CCIP Token     | 0xb78eDA33EB5493d56f14a81023CE69438a562A2c |                                            |
-| Gho Bucket Steward | 0xa9afaE6A53E90f9E4CE0717162DF5Bc3d9aBe7B2 | 0x46Aa1063e5265b43663E81329333B47c517A5409 |
-| Gho Aave Steward   | 0xCd04D93bEA13921DaD05240D577090b5AC36DfCA | 0xFEb4e54591660F42288312AE8eB59e9f2B746b66 |
-| Gho CCIP Steward   | 0xb329CEFF2c362F315900d245eC88afd24C4949D5 | 0x101Efb7b9Beb073B1219Cd5473a7C8A2f2EB84f4 |
-| Gho GSM Steward    |                                            | 0xD1E856a947CdF56b4f000ee29d34F5808E0A6848 |
+| Contract            | Arbitrum                                   | Ethereum                                   |
+| ------------------- | ------------------------------------------ | ------------------------------------------ |
+| New CCIP Token Pool | 0xb78eDA33EB5493d56f14a81023CE69438a562A2c |                                            |
+| Gho Bucket Steward  | 0xa9afaE6A53E90f9E4CE0717162DF5Bc3d9aBe7B2 | 0x46Aa1063e5265b43663E81329333B47c517A5409 |
+| Gho Aave Steward    | 0xCd04D93bEA13921DaD05240D577090b5AC36DfCA | 0xFEb4e54591660F42288312AE8eB59e9f2B746b66 |
+| Gho CCIP Steward    | 0xb329CEFF2c362F315900d245eC88afd24C4949D5 | 0x101Efb7b9Beb073B1219Cd5473a7C8A2f2EB84f4 |
+| Gho GSM Steward     |                                            | 0xD1E856a947CdF56b4f000ee29d34F5808E0A6848 |
 
 ## References
 
