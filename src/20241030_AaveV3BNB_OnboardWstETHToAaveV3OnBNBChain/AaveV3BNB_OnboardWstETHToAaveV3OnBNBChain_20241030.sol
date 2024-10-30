@@ -54,14 +54,14 @@ contract AaveV3BNB_OnboardWstETHToAaveV3OnBNBChain_20241030 is AaveV3PayloadBNB 
 
     assetEModeUpdates[0] = IAaveV3ConfigEngine.AssetEModeUpdate({
       asset: AaveV3BNBAssets.ETH_UNDERLYING,
-      eModeCategory: 0,
+      eModeCategory: 1,
       borrowable: EngineFlags.ENABLED,
       collateral: EngineFlags.DISABLED
     });
 
     assetEModeUpdates[1] = IAaveV3ConfigEngine.AssetEModeUpdate({
       asset: wstETH,
-      eModeCategory: 0,
+      eModeCategory: 1,
       borrowable: EngineFlags.DISABLED,
       collateral: EngineFlags.ENABLED
     });
