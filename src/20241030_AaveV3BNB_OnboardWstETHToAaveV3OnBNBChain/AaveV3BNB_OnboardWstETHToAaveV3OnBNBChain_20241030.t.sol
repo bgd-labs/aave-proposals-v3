@@ -37,6 +37,6 @@ contract AaveV3BNB_OnboardWstETHToAaveV3OnBNBChain_20241030_Test is ProtocolV3Te
     (address aTokenAddress, , ) = AaveV3BNB.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(
       proposal.wstETH()
     );
-    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3BNB.COLLECTOR)), 10 ** 18);
+    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3BNB.COLLECTOR)), 4 * 10 ** 16);
   }
 }
