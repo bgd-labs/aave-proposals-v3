@@ -700,7 +700,8 @@ contract AaveV3E2E_GHOCCIP150Upgrade_20241021_PostCCIPMigration is
   }
 }
 
-contract AaveV3E2E_GHOCCIP150Upgrade_20241021_InBetweenCCIPMigration is
+// sendMsg => CCIP Migration => executeMsg
+contract AaveV3E2E_GHOCCIP150Upgrade_20241021_InFlightCCIPMigration is
   AaveV3E2E_GHOCCIP150Upgrade_20241021_Base
 {
   function setUp() public override {
@@ -715,7 +716,7 @@ contract AaveV3E2E_GHOCCIP150Upgrade_20241021_InBetweenCCIPMigration is
     _validateConfig({migrated: false});
   }
 
-  function test_sendFlowInBetweenCCIPMigrationFromEth() public {
+  function test_sendFlowInFlightCCIPMigrationFromEth() public {
     // ETH => ARB, ccipSend 1.4; CCIP migration, Destination executeMessage
     {
       vm.selectFork(l1.c.forkId);
@@ -751,9 +752,11 @@ contract AaveV3E2E_GHOCCIP150Upgrade_20241021_InBetweenCCIPMigration is
 
       assertEq(l1.c.token.balanceOf(alice), 0);
 
-      vm.selectFork(l2.c.forkId);
-      // CCIP Migration on L2
+      // CCIP Migration
+      _mockCCIPMigration(l1.c, l2.c);
       _mockCCIPMigration(l2.c, l1.c);
+
+      vm.selectFork(l2.c.forkId);
 
       uint128 inBoundRate = l2.proposal.getInBoundRateLimiterConfig().rate;
       // wait for the rate limiter to refill
@@ -779,7 +782,7 @@ contract AaveV3E2E_GHOCCIP150Upgrade_20241021_InBetweenCCIPMigration is
     }
   }
 
-  function test_sendFlowInBetweenCCIPMigrationFromArb() public {
+  function test_sendFlowInFlightCCIPMigrationFromArb() public {
     // ARB => ETH, ccipSend 1.4; CCIP migration, Destination executeMessage
     {
       vm.selectFork(l2.c.forkId);
@@ -815,9 +818,11 @@ contract AaveV3E2E_GHOCCIP150Upgrade_20241021_InBetweenCCIPMigration is
 
       assertEq(l2.c.token.balanceOf(alice), 0);
 
-      vm.selectFork(l1.c.forkId);
-      // CCIP Migration on L2
+      // CCIP Migration
       _mockCCIPMigration(l1.c, l1.c);
+      _mockCCIPMigration(l2.c, l1.c);
+
+      vm.selectFork(l1.c.forkId);
 
       uint128 inBoundRate = l1.proposal.getInBoundRateLimiterConfig().rate;
       // wait for the rate limiter to refill
