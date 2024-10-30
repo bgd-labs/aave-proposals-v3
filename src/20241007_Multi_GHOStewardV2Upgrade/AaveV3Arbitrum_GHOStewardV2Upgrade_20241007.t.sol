@@ -224,7 +224,7 @@ contract AaveV3Arbitrum_GHOStewardV2Upgrade_20241007_Test is ProtocolV3TestBase 
 
     RateLimiter.Config memory newOutboundConfig = RateLimiter.Config({
       isEnabled: outboundConfig.isEnabled,
-      capacity: outboundConfig.capacity + 10000,
+      capacity: outboundConfig.capacity + 1,
       rate: outboundConfig.rate
     });
 
@@ -236,6 +236,7 @@ contract AaveV3Arbitrum_GHOStewardV2Upgrade_20241007_Test is ProtocolV3TestBase 
 
     IGhoCcipSteward steward = IGhoCcipSteward(proposal.GHO_CCIP_STEWARD());
 
+    // Currently rate limit set to 0, so can't even change by 1 because 100% of 0 is 0
     vm.startPrank(RISK_COUNCIL);
     vm.expectRevert('INVALID_RATE_LIMIT_UPDATE');
     steward.updateRateLimit(
