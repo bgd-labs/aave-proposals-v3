@@ -15,6 +15,7 @@ import {ITypeAndVersion} from 'src/interfaces/ccip/ITypeAndVersion.sol';
 import {IProxyPool} from 'src/interfaces/ccip/IProxyPool.sol';
 import {IRateLimiter} from 'src/interfaces/ccip/IRateLimiter.sol';
 import {ITokenAdminRegistry} from 'src/interfaces/ccip/ITokenAdminRegistry.sol';
+import {IGhoCcipSteward} from 'src/interfaces/IGhoCcipSteward.sol';
 import {CCIPUtils} from './utils/CCIPUtils.sol';
 import {AaveV3Ethereum_GHOCCIP150Upgrade_20241021} from './AaveV3Ethereum_GHOCCIP150Upgrade_20241021.sol';
 
@@ -41,10 +42,14 @@ contract AaveV3Ethereum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
   address internal constant ARB_PROXY_POOL = 0x26329558f08cbb40d6a4CCA0E0C67b29D64A8c50;
   ITokenAdminRegistry internal constant TOKEN_ADMIN_REGISTRY =
     ITokenAdminRegistry(0xb22764f98dD05c789929716D677382Df22C05Cb6);
+
   address internal constant ON_RAMP_1_2 = 0x925228D7B82d883Dde340A55Fe8e6dA56244A22C;
   address internal constant ON_RAMP_1_5 = 0x69eCC4E2D8ea56E2d0a05bF57f4Fd6aEE7f2c284;
   address internal constant OFF_RAMP_1_2 = 0xeFC4a18af59398FF23bfe7325F2401aD44286F4d;
   address internal constant OFF_RAMP_1_5 = 0xdf615eF8D4C64d0ED8Fd7824BBEd2f6a10245aC9;
+
+  IGhoCcipSteward internal constant GHO_CCIP_STEWARD =
+    IGhoCcipSteward(0x101Efb7b9Beb073B1219Cd5473a7C8A2f2EB84f4);
 
   event Locked(address indexed sender, uint256 amount);
   event Released(address indexed sender, address indexed recipient, uint256 amount);
@@ -301,6 +306,29 @@ contract AaveV3Ethereum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
     ghoTokenPool.releaseOrMint(abi.encode(alice), alice, amount, ARB_CHAIN_SELECTOR, new bytes(0));
   }
 
+  function test_stewardDisableRateLimit() public {
+    executePayload(vm, address(proposal));
+
+    vm.prank(ghoTokenPool.owner());
+    ghoTokenPool.setRateLimitAdmin(address(GHO_CCIP_STEWARD));
+
+    vm.prank(_readRiskAdmin());
+    GHO_CCIP_STEWARD.updateRateLimit(ARB_CHAIN_SELECTOR, false, 0, 0, false, 0, 0);
+
+    assertEq(
+      abi.encode(
+        _tokenBucketToConfig(ghoTokenPool.getCurrentInboundRateLimiterState(ARB_CHAIN_SELECTOR))
+      ),
+      abi.encode(_getDisabledConfig())
+    );
+    assertEq(
+      abi.encode(
+        _tokenBucketToConfig(ghoTokenPool.getCurrentOutboundRateLimiterState(ARB_CHAIN_SELECTOR))
+      ),
+      abi.encode(_getDisabledConfig())
+    );
+  }
+
   function _mockCCIPMigration() private {
     IRouter router = IRouter(ghoTokenPool.getRouter());
     // token registry not set for 1.5 migration
@@ -383,6 +411,15 @@ contract AaveV3Ethereum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
     return uint8(uint256(vm.load(proxy, bytes32(0))));
   }
 
+  function _readRiskAdmin() private view returns (address riskAdmin) {
+    // private immutable at offset 144
+    address steward = address(GHO_CCIP_STEWARD);
+    assembly {
+      extcodecopy(steward, 0, 144, 20) // use scratch space
+      riskAdmin := shr(96, mload(0)) // correct padding
+    }
+  }
+
   function _getStaticParams() private view returns (bytes memory) {
     return
       abi.encode(
@@ -416,6 +453,9 @@ contract AaveV3Ethereum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
     assertEq(ITypeAndVersion(ON_RAMP_1_5).typeAndVersion(), 'EVM2EVMOnRamp 1.5.0');
     assertEq(ITypeAndVersion(OFF_RAMP_1_2).typeAndVersion(), 'EVM2EVMOffRamp 1.2.0');
     assertEq(ITypeAndVersion(OFF_RAMP_1_5).typeAndVersion(), 'EVM2EVMOffRamp 1.5.0');
+
+    assertEq(GHO_CCIP_STEWARD.GHO_TOKEN(), MiscEthereum.GHO_TOKEN);
+    assertEq(GHO_CCIP_STEWARD.GHO_TOKEN_POOL(), address(ghoTokenPool));
   }
 
   function _getOutboundRefillTime(uint256 amount) private view returns (uint256) {

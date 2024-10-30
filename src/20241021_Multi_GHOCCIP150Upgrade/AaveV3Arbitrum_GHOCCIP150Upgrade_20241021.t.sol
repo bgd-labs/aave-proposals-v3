@@ -17,6 +17,7 @@ import {IProxyPool} from 'src/interfaces/ccip/IProxyPool.sol';
 import {IRateLimiter} from 'src/interfaces/ccip/IRateLimiter.sol';
 import {ITokenAdminRegistry} from 'src/interfaces/ccip/ITokenAdminRegistry.sol';
 import {IGhoToken} from 'src/interfaces/IGhoToken.sol';
+import {IGhoCcipSteward} from 'src/interfaces/IGhoCcipSteward.sol';
 import {CCIPUtils} from './utils/CCIPUtils.sol';
 
 import {AaveV3Arbitrum_GHOCCIP150Upgrade_20241021} from './AaveV3Arbitrum_GHOCCIP150Upgrade_20241021.sol';
@@ -49,6 +50,9 @@ contract AaveV3Arbitrum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
   address internal constant ON_RAMP_1_5 = 0x67761742ac8A21Ec4D76CA18cbd701e5A6F3Bef3;
   address internal constant OFF_RAMP_1_2 = 0x542ba1902044069330e8c5b36A84EC503863722f;
   address internal constant OFF_RAMP_1_5 = 0x91e46cc5590A4B9182e47f40006140A7077Dec31;
+
+  IGhoCcipSteward internal constant GHO_CCIP_STEWARD =
+    IGhoCcipSteward(0xb329CEFF2c362F315900d245eC88afd24C4949D5);
 
   event Burned(address indexed sender, uint256 amount);
   event Minted(address indexed sender, address indexed recipient, uint256 amount);
@@ -314,6 +318,29 @@ contract AaveV3Arbitrum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
     assertEq(_getFacilitatorLevel(address(ghoTokenPool)), facilitatorLevelBefore + amount);
   }
 
+  function test_stewardCanDisableRateLimit() public {
+    executePayload(vm, address(proposal));
+
+    vm.prank(ghoTokenPool.owner());
+    ghoTokenPool.setRateLimitAdmin(address(GHO_CCIP_STEWARD));
+
+    vm.prank(_readRiskAdmin());
+    GHO_CCIP_STEWARD.updateRateLimit(ETH_CHAIN_SELECTOR, false, 0, 0, false, 0, 0);
+
+    assertEq(
+      abi.encode(
+        _tokenBucketToConfig(ghoTokenPool.getCurrentInboundRateLimiterState(ETH_CHAIN_SELECTOR))
+      ),
+      abi.encode(_getDisabledConfig())
+    );
+    assertEq(
+      abi.encode(
+        _tokenBucketToConfig(ghoTokenPool.getCurrentOutboundRateLimiterState(ETH_CHAIN_SELECTOR))
+      ),
+      abi.encode(_getDisabledConfig())
+    );
+  }
+
   function _mockCCIPMigration() private {
     IRouter router = IRouter(ghoTokenPool.getRouter());
     // token registry not set for 1.5 migration
@@ -393,6 +420,15 @@ contract AaveV3Arbitrum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
     return uint8(uint256(vm.load(proxy, bytes32(0))));
   }
 
+  function _readRiskAdmin() private view returns (address riskAdmin) {
+    // private immutable at offset 144
+    address steward = address(GHO_CCIP_STEWARD);
+    assembly {
+      extcodecopy(steward, 0, 144, 20) // use scratch space
+      riskAdmin := shr(96, mload(0)) // correct padding
+    }
+  }
+
   function _getFacilitatorLevel(address f) internal view returns (uint256) {
     (, uint256 level) = IGhoToken(ARB_GHO_TOKEN).getFacilitatorBucket(f);
     return level;
@@ -424,6 +460,9 @@ contract AaveV3Arbitrum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
     assertEq(ITypeAndVersion(ON_RAMP_1_5).typeAndVersion(), 'EVM2EVMOnRamp 1.5.0');
     assertEq(ITypeAndVersion(OFF_RAMP_1_2).typeAndVersion(), 'EVM2EVMOffRamp 1.2.0');
     assertEq(ITypeAndVersion(OFF_RAMP_1_5).typeAndVersion(), 'EVM2EVMOffRamp 1.5.0');
+
+    assertEq(GHO_CCIP_STEWARD.GHO_TOKEN(), ARB_GHO_TOKEN);
+    assertEq(GHO_CCIP_STEWARD.GHO_TOKEN_POOL(), address(ghoTokenPool));
   }
 
   function _getOutboundRefillTime(uint256 amount) private view returns (uint256) {
