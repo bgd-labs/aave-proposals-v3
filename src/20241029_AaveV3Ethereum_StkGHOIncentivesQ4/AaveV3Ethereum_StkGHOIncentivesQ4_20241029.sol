@@ -13,7 +13,7 @@ import {IStakeToken} from 'aave-address-book/common/IStakeToken.sol';
  * @title stkGHO Incentives
  * @author karpatkey_TokenLogic_ACI
  * - Snapshot: https://snapshot.org/#/aave.eth/proposal/0x0f73500d0f65c72482d352080ea9aa0aa92264eb059b8f646cf6f0e86556bc3d
- * - Discussion: https://governance.aave.com/t/arfc-amend-safety-module-emissions/16640
+ * - Discussion: https://governance.aave.com/t/arfc-safety-module-stkgho-re-enable-rewards/19626
  */
 contract AaveV3Ethereum_StkGHOIncentivesQ4_20241029 is IProposalGenericExecutor {
   uint256 public constant DISTRIBUTION_DURATION = 180 days;
