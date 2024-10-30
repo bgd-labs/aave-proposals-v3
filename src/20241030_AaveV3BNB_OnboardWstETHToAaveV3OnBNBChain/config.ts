@@ -43,7 +43,7 @@ export const config: ConfigFile = {
               variableRateSlope1: '7',
               variableRateSlope2: '300',
             },
-            asset: '0x26c5e01524d2E6280A48F2c50fF6De7e52E9611C',
+            asset: '0x2Bbbdf97295F73175b12CC087cF446765931e1C3',
             admin: '',
           },
         ],
