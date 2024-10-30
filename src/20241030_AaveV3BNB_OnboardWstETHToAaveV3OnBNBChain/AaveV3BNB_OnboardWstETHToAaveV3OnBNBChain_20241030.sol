@@ -59,6 +59,13 @@ contract AaveV3BNB_OnboardWstETHToAaveV3OnBNBChain_20241030 is AaveV3PayloadBNB 
       collateral: EngineFlags.DISABLED
     });
 
+    assetEModeUpdates[1] = IAaveV3ConfigEngine.AssetEModeUpdate({
+      asset: wstETH,
+      eModeCategory: 0,
+      borrowable: EngineFlags.DISABLED,
+      collateral: EngineFlags.ENABLED
+    });
+
     return assetEModeUpdates;
   }
   function newListings() public pure override returns (IAaveV3ConfigEngine.Listing[] memory) {
