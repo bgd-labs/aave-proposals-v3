@@ -57,10 +57,11 @@ contract AaveV3Arbitrum_GHOCCIP150Upgrade_20241021 is IProposalGenericExecutor {
   }
 
   /// @notice Returns the rate limiter configuration for the inbound rate limiter
-  /// The offramp capacity for ETH => ARB will be disabled, as the outbound rate limit
-  /// will be set on ETH token pool
+  /// The offRamp rate limit for ETH => ARB will be as follows:
+  /// Capacity: 350_000 GHO
+  /// Rate: 100 GHO per second (=> 360_000 GHO per hour)
   /// @return The rate limiter configuration
   function getInBoundRateLimiterConfig() public pure returns (RateLimiter.Config memory) {
-    return RateLimiter.Config({isEnabled: false, capacity: 0, rate: 0});
+    return RateLimiter.Config({isEnabled: true, capacity: 350_000e18, rate: 100e18});
   }
 }

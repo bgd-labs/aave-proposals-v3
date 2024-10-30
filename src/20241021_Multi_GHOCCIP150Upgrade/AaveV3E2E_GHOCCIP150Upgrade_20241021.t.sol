@@ -288,9 +288,9 @@ contract AaveV3E2E_GHOCCIP150Upgrade_20241021_PreCCIPMigration is
       vm.prank(alice);
       l1.c.token.approve(address(l1.c.router), amount);
 
-      uint128 rate = l1.proposal.getOutBoundRateLimiterConfig().rate;
+      uint128 outBoundRate = l1.proposal.getOutBoundRateLimiterConfig().rate;
       // wait for the rate limiter to refill
-      skip(amount / uint256(rate) + 1); // rate is non zero
+      skip(amount / uint256(outBoundRate) + 1); // rate is non zero
 
       uint256 tokenPoolBalance = l1.c.token.balanceOf(address(l1.tokenPool));
       uint256 bridgedAmount = l1.tokenPool.getCurrentBridgedAmount();
@@ -325,6 +325,10 @@ contract AaveV3E2E_GHOCCIP150Upgrade_20241021_PreCCIPMigration is
 
       uint256 aliceBalanceBefore = l2.c.token.balanceOf(alice);
 
+      uint128 inBoundRate = l2.proposal.getInBoundRateLimiterConfig().rate;
+      // wait for the rate limiter to refill
+      skip(amount / uint256(inBoundRate) + 1); // rate is non zero
+
       vm.expectEmit(address(l2.tokenPool));
       emit Minted(address(l2.c.EVM2EVMOffRamp1_2), alice, amount);
       vm.prank(address(l2.c.EVM2EVMOffRamp1_2));
@@ -342,9 +346,9 @@ contract AaveV3E2E_GHOCCIP150Upgrade_20241021_PreCCIPMigration is
 
       vm.prank(alice);
       l2.c.token.approve(address(l2.c.router), amount);
-      uint128 rate = l2.proposal.getOutBoundRateLimiterConfig().rate;
+      uint128 outBoundRate = l2.proposal.getOutBoundRateLimiterConfig().rate;
       // wait for the rate limiter to refill
-      skip(amount / uint256(rate) + 1); // rate is non zero
+      skip(amount / uint256(outBoundRate) + 1); // rate is non zero
 
       (
         IClient.EVM2AnyMessage memory message,
@@ -374,6 +378,10 @@ contract AaveV3E2E_GHOCCIP150Upgrade_20241021_PreCCIPMigration is
       vm.selectFork(l1.c.forkId);
 
       uint256 tokenPoolBalanceBefore = l1.c.token.balanceOf(address(l1.tokenPool));
+
+      uint128 inBoundRate = l1.proposal.getInBoundRateLimiterConfig().rate;
+      // wait for the rate limiter to refill
+      skip(amount / uint256(inBoundRate) + 1); // rate is non zero
 
       vm.expectEmit(address(l1.tokenPool));
       emit Released(address(l1.c.EVM2EVMOffRamp1_2), alice, amount);
@@ -416,9 +424,9 @@ contract AaveV3E2E_GHOCCIP150Upgrade_20241021_PostCCIPMigration is
       vm.prank(alice);
       l1.c.token.approve(address(l1.c.router), amount);
 
-      uint128 rate = l1.proposal.getOutBoundRateLimiterConfig().rate;
+      uint128 outBoundRate = l1.proposal.getOutBoundRateLimiterConfig().rate;
       // wait for the rate limiter to refill
-      skip(amount / uint256(rate) + 1); // rate is non zero
+      skip(amount / uint256(outBoundRate) + 1); // rate is non zero
 
       uint256 tokenPoolBalance = l1.c.token.balanceOf(address(l1.tokenPool));
       uint256 bridgedAmount = l1.tokenPool.getCurrentBridgedAmount();
@@ -456,6 +464,10 @@ contract AaveV3E2E_GHOCCIP150Upgrade_20241021_PostCCIPMigration is
       // ARB executeMessage
       vm.selectFork(l2.c.forkId);
 
+      uint128 inBoundRate = l2.proposal.getInBoundRateLimiterConfig().rate;
+      // wait for the rate limiter to refill
+      skip(amount / uint256(inBoundRate) + 1); // rate is non zero
+
       vm.expectEmit(address(l2.tokenPool));
       emit Minted(address(l2.c.EVM2EVMOffRamp1_2), alice, amount);
       vm.prank(address(l2.c.EVM2EVMOffRamp1_2));
@@ -463,6 +475,9 @@ contract AaveV3E2E_GHOCCIP150Upgrade_20241021_PostCCIPMigration is
         eventArg,
         new bytes[](message.tokenAmounts.length)
       );
+
+      // wait for the rate limiter to refill
+      skip(amount / uint256(inBoundRate) + 1); // rate is non zero
 
       vm.expectEmit(address(l2.c.proxyPool)); // emitter is proxyPool for 1.5 on ramp
       emit Minted(address(l2.c.EVM2EVMOffRamp1_5), alice, amount);
@@ -480,9 +495,9 @@ contract AaveV3E2E_GHOCCIP150Upgrade_20241021_PostCCIPMigration is
 
       vm.prank(alice);
       l2.c.token.approve(address(l2.c.router), amount);
-      uint128 rate = l2.proposal.getOutBoundRateLimiterConfig().rate;
+      uint128 outBoundRate = l2.proposal.getOutBoundRateLimiterConfig().rate;
       // wait for the rate limiter to refill
-      skip(amount / uint256(rate) + 1); // rate is non zero
+      skip(amount / uint256(outBoundRate) + 1); // rate is non zero
 
       (
         IClient.EVM2AnyMessage memory message,
@@ -515,6 +530,10 @@ contract AaveV3E2E_GHOCCIP150Upgrade_20241021_PostCCIPMigration is
       vm.selectFork(l1.c.forkId);
 
       uint256 tokenPoolBalanceBefore = l1.c.token.balanceOf(address(l1.tokenPool));
+
+      uint128 inBoundRate = l1.proposal.getInBoundRateLimiterConfig().rate;
+      // wait for the rate limiter to refill
+      skip(amount / uint256(inBoundRate) + 1); // rate is non zero
 
       vm.expectEmit(address(l1.c.proxyPool)); // emitter is proxyPool for 1.5 off ramp
       emit Released(address(l1.c.EVM2EVMOffRamp1_5), alice, amount);
@@ -608,6 +627,10 @@ contract AaveV3E2E_GHOCCIP150Upgrade_20241021_PostCCIPMigration is
       vm.prank(alice);
       l1.c.token.approve(address(l1.c.router), amount);
 
+      uint128 inBoundRate = l1.proposal.getInBoundRateLimiterConfig().rate;
+      // wait for the rate limiter to refill
+      skip(amount / uint256(inBoundRate) + 1); // rate is non zero
+
       (
         IClient.EVM2AnyMessage memory message,
         IInternal.EVM2EVMMessage memory eventArg
@@ -642,6 +665,10 @@ contract AaveV3E2E_GHOCCIP150Upgrade_20241021_PostCCIPMigration is
       deal(address(l2.c.token), alice, amount, true);
       vm.prank(alice);
       l2.c.token.approve(address(l2.c.router), amount);
+
+      uint128 inBoundRate = l2.proposal.getInBoundRateLimiterConfig().rate;
+      // wait for the rate limiter to refill
+      skip(amount / uint256(inBoundRate) + 1); // rate is non zero
 
       (
         IClient.EVM2AnyMessage memory message,
@@ -728,6 +755,10 @@ contract AaveV3E2E_GHOCCIP150Upgrade_20241021_InBetweenCCIPMigration is
       // CCIP Migration on L2
       _mockCCIPMigration(l2.c, l1.c);
 
+      uint128 inBoundRate = l2.proposal.getInBoundRateLimiterConfig().rate;
+      // wait for the rate limiter to refill
+      skip(amount / uint256(inBoundRate) + 1); // rate is non zero
+
       // reverts with 1.5 off ramp
       vm.expectRevert();
       vm.prank(address(l2.c.EVM2EVMOffRamp1_5));
@@ -756,9 +787,9 @@ contract AaveV3E2E_GHOCCIP150Upgrade_20241021_InBetweenCCIPMigration is
       deal(address(l2.c.token), alice, amount, true);
       vm.prank(alice);
       l2.c.token.approve(address(l2.c.router), amount);
-      uint128 rate = l2.proposal.getOutBoundRateLimiterConfig().rate;
+      uint128 outBoundRate = l2.proposal.getOutBoundRateLimiterConfig().rate;
       // wait for the rate limiter to refill
-      skip(amount / uint256(rate) + 1); // rate is non zero
+      skip(amount / uint256(outBoundRate) + 1); // rate is non zero
 
       (
         IClient.EVM2AnyMessage memory message,
@@ -787,6 +818,10 @@ contract AaveV3E2E_GHOCCIP150Upgrade_20241021_InBetweenCCIPMigration is
       vm.selectFork(l1.c.forkId);
       // CCIP Migration on L2
       _mockCCIPMigration(l1.c, l1.c);
+
+      uint128 inBoundRate = l1.proposal.getInBoundRateLimiterConfig().rate;
+      // wait for the rate limiter to refill
+      skip(amount / uint256(inBoundRate) + 1); // rate is non zero
 
       // reverts with 1.5 off ramp
       vm.expectRevert();

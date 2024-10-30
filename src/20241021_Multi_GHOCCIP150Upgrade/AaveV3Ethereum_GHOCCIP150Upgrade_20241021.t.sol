@@ -205,7 +205,7 @@ contract AaveV3Ethereum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
     uint256 amount = 350_000e18;
 
     // wait for the rate limiter to refill
-    skip(_getOutboundRefillTime(amount));
+    skip(_getInboundRefillTime(amount));
     // mock previously locked gho
     deal(address(gho), address(ghoTokenPool), amount);
 
@@ -225,7 +225,7 @@ contract AaveV3Ethereum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
     IERC20 gho = IERC20(address(ghoTokenPool.getToken()));
     uint256 amount = 350_000e18;
     // wait for the rate limiter to refill
-    skip(_getOutboundRefillTime(amount));
+    skip(_getInboundRefillTime(amount));
     // mock previously locked gho
     deal(address(gho), address(ghoTokenPool), amount);
 
@@ -269,6 +269,8 @@ contract AaveV3Ethereum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
     executePayload(vm, address(proposal));
     // mock previously locked gho
     deal(MiscEthereum.GHO_TOKEN, address(ghoTokenPool), amount);
+    // wait for the rate limiter to refill
+    skip(_getInboundRefillTime(amount));
 
     vm.expectEmit(address(ghoTokenPool));
     emit Released(address(proxyPool), alice, amount);
@@ -395,6 +397,12 @@ contract AaveV3Ethereum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
 
   function _getOutboundRefillTime(uint256 amount) private view returns (uint256) {
     uint128 rate = proposal.getOutBoundRateLimiterConfig().rate;
+    assertNotEq(rate, 0);
+    return amount / uint256(rate) + 1; // account for rounding
+  }
+
+  function _getInboundRefillTime(uint256 amount) private view returns (uint256) {
+    uint128 rate = proposal.getInBoundRateLimiterConfig().rate;
     assertNotEq(rate, 0);
     return amount / uint256(rate) + 1; // account for rounding
   }

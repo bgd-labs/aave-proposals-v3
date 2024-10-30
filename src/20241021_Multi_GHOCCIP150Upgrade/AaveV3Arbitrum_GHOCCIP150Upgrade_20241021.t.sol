@@ -143,6 +143,66 @@ contract AaveV3Arbitrum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
     assertEq(_readInitialized(_getImplementation(address(ghoTokenPool))), 255);
   }
 
+  // function test_fuzzOutBoundRateLimit(uint256 amount) public {
+  //   // executePayload(vm, address(proposal));
+
+  //   (uint256 bucketCapacity, ) = IGhoToken(ARB_GHO_TOKEN).getFacilitatorBucket(
+  //     address(ghoTokenPool)
+  //   );
+  //   amount = bound(amount, 0, bucketCapacity);
+  //   deal(ARB_GHO_TOKEN, alice, amount);
+
+  //   IRouter router = IRouter(ghoTokenPool.getRouter());
+  //   vm.prank(alice);
+  //   IERC20(ARB_GHO_TOKEN).approve(address(router), amount);
+  //   uint256 capacity = proposal.getOutBoundRateLimiterConfig().capacity;
+
+  //   (
+  //     IClient.EVM2AnyMessage memory message,
+  //     IInternal.EVM2EVMMessage memory eventArg
+  //   ) = _getTokenMessage(CCIPSendParams({router: router, amount: amount, migrated: false}));
+
+  //   if (amount > capacity) {
+  //     vm.expectRevert(
+  //       abi.encodeWithSelector(
+  //         RateLimiter.AggregateValueMaxCapacityExceeded.selector,
+  //         capacity,
+  //         amount
+  //       )
+  //     );
+  //   } else {
+  //     vm.expectRevert(
+  //       abi.encodeWithSelector(
+  //         RateLimiter.TokenRateLimitReached.selector,
+  //         1 /* minWaitInSeconds */,
+  //         0 /* available */,
+  //         ARB_GHO_TOKEN
+  //       ) // since the upgrade has just happened this block
+  //     );
+  //   }
+  //   vm.prank(alice);
+  //   router.ccipSend{value: eventArg.feeTokenAmount}(ETH_CHAIN_SELECTOR, message);
+
+  //   skip(_getOutboundRefillTime(amount));
+
+  //   if (amount > capacity) {
+  //     vm.expectRevert(
+  //       abi.encodeWithSelector(
+  //         RateLimiter.AggregateValueMaxCapacityExceeded.selector,
+  //         capacity,
+  //         amount
+  //       )
+  //     );
+  //   } else {
+  //     vm.expectEmit(address(ghoTokenPool));
+  //     emit Burned(ON_RAMP_1_2, amount);
+  //     vm.expectEmit(ON_RAMP_1_2);
+  //     emit CCIPSendRequested(eventArg);
+  //   }
+  //   vm.prank(alice);
+  //   router.ccipSend{value: eventArg.feeTokenAmount}(ETH_CHAIN_SELECTOR, message);
+  // }
+
   function test_sendMessagePreCCIPMigration() public {
     executePayload(vm, address(proposal));
 
@@ -214,7 +274,7 @@ contract AaveV3Arbitrum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
     uint256 facilitatorLevelBefore = _getFacilitatorLevel(address(ghoTokenPool));
 
     // wait for the rate limiter to refill
-    skip(_getOutboundRefillTime(amount));
+    skip(_getInboundRefillTime(amount));
 
     vm.expectEmit(address(ghoTokenPool));
     emit Minted(OFF_RAMP_1_2, alice, amount);
@@ -234,7 +294,7 @@ contract AaveV3Arbitrum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
     uint256 facilitatorLevelBefore = _getFacilitatorLevel(address(ghoTokenPool));
 
     // wait for the rate limiter to refill
-    skip(_getOutboundRefillTime(amount));
+    skip(_getInboundRefillTime(amount));
 
     vm.expectEmit(address(ghoTokenPool));
     emit Minted(OFF_RAMP_1_5, alice, amount);
@@ -279,6 +339,9 @@ contract AaveV3Arbitrum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
     executePayload(vm, address(proposal));
     uint256 facilitatorLevelBefore = _getFacilitatorLevel(address(ghoTokenPool));
 
+    // wait for the rate limiter to refill
+    skip(_getInboundRefillTime(amount));
+
     vm.expectEmit(address(ghoTokenPool));
     emit Minted(address(proxyPool), alice, amount);
     vm.prank(address(proxyPool));
@@ -286,6 +349,10 @@ contract AaveV3Arbitrum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
 
     assertEq(IERC20(ARB_GHO_TOKEN).balanceOf(alice), amount);
     assertEq(_getFacilitatorLevel(address(ghoTokenPool)), facilitatorLevelBefore + amount);
+  }
+
+  function test_sendRevertOnInvalidMessageFormat() public {
+    // invalid message format: 1.2 after migration, 1.5 before migration
   }
 
   function _mockCCIPMigration() private {
@@ -402,6 +469,12 @@ contract AaveV3Arbitrum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
 
   function _getOutboundRefillTime(uint256 amount) private view returns (uint256) {
     uint128 rate = proposal.getOutBoundRateLimiterConfig().rate;
+    assertNotEq(rate, 0);
+    return amount / uint256(rate) + 1; // account for rounding
+  }
+
+  function _getInboundRefillTime(uint256 amount) private view returns (uint256) {
+    uint128 rate = proposal.getInBoundRateLimiterConfig().rate;
     assertNotEq(rate, 0);
     return amount / uint256(rate) + 1; // account for rounding
   }
