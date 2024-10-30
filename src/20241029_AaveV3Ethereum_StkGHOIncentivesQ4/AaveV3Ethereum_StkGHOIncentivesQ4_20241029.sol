@@ -33,16 +33,17 @@ contract AaveV3Ethereum_StkGHOIncentivesQ4_20241029 is IProposalGenericExecutor 
       block.timestamp + DISTRIBUTION_DURATION
     );
 
+    uint256 remainingAllowance = IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING).allowance(
+      address(MiscEthereum.ECOSYSTEM_RESERVE),
+      AaveSafetyModule.STK_GHO
+    );
+
+    // Approval needs to be reset in order to increase it
     MiscEthereum.AAVE_ECOSYSTEM_RESERVE_CONTROLLER.approve(
       MiscEthereum.ECOSYSTEM_RESERVE,
       AaveV3EthereumAssets.AAVE_UNDERLYING,
       AaveSafetyModule.STK_GHO,
       0
-    );
-
-    uint256 remainingAllowance = IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING).allowance(
-      address(MiscEthereum.AAVE_ECOSYSTEM_RESERVE_CONTROLLER),
-      AaveSafetyModule.STK_GHO
     );
 
     MiscEthereum.AAVE_ECOSYSTEM_RESERVE_CONTROLLER.approve(
