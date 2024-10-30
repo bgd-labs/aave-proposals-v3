@@ -4,6 +4,7 @@ pragma solidity ^0.8.0;
 import 'forge-std/Test.sol';
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
+import {AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {UpgradeableLockReleaseTokenPool} from 'aave-ccip/v0.8/ccip/pools/GHO/UpgradeableLockReleaseTokenPool.sol';
@@ -38,7 +39,6 @@ contract AaveV3Ethereum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
 
   uint64 internal constant ETH_CHAIN_SELECTOR = 5009297550715157269;
   uint64 internal constant ARB_CHAIN_SELECTOR = 4949039107694359620;
-  address internal constant ARB_GHO_TOKEN = 0x7dfF72693f6A4149b17e7C6314655f6A9F7c8B33;
   address internal constant ARB_PROXY_POOL = 0x26329558f08cbb40d6a4CCA0E0C67b29D64A8c50;
   ITokenAdminRegistry internal constant TOKEN_ADMIN_REGISTRY =
     ITokenAdminRegistry(0xb22764f98dD05c789929716D677382Df22C05Cb6);
@@ -346,7 +346,7 @@ contract AaveV3Ethereum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
     chains[0] = IProxyPool.ChainUpdate({
       remoteChainSelector: ARB_CHAIN_SELECTOR,
       remotePoolAddress: abi.encode(ARB_PROXY_POOL),
-      remoteTokenAddress: abi.encode(address(ARB_GHO_TOKEN)),
+      remoteTokenAddress: abi.encode(address(AaveV3ArbitrumAssets.GHO_UNDERLYING)),
       allowed: true,
       outboundRateLimiterConfig: IRateLimiter.Config({isEnabled: false, capacity: 0, rate: 0}),
       inboundRateLimiterConfig: IRateLimiter.Config({isEnabled: false, capacity: 0, rate: 0})
@@ -391,7 +391,7 @@ contract AaveV3Ethereum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
         sourceChainSelector: ETH_CHAIN_SELECTOR,
         feeTokenAmount: feeAmount,
         originalSender: alice,
-        destinationToken: ARB_GHO_TOKEN,
+        destinationToken: AaveV3ArbitrumAssets.GHO_UNDERLYING,
         migrated: params.migrated
       })
     );
