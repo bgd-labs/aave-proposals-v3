@@ -8,6 +8,8 @@ snapshot: "https://snapshot.org/#/aave.eth/proposal/0x0f73500d0f65c72482d352080e
 ## Simple Summary
 
 Re-enable stkGHO incentives emissions for 180 days after previous period ended.
+On the previous proposal to enable stkGHO emissions (Proposal 91 on the forum), an error in accounting made it so ~2,750 in emissions were not distributed during the last period. This current proposal includes that approval to give out those emissions in addition to the 100 per day.
+The previous proposal can be found [here](https://vote.onaave.com/proposal/?proposalId=91&ipfsHash=0x633733ef9b80afd497fd1a25d848fbe91ef694fab798dbbc27617ca07407454c).
 
 ## Motivation
 
@@ -18,6 +20,7 @@ To support the GHO peg and to pave the way for future GHO supply expansion, this
 For stkGHO:
 
 - Set new allowance to 100 AAVE per day for 180 days
+- Include prior ~2,750 AAVE in allowance
 - Set distribution end for 180 days from Execution date
 
 ## References
