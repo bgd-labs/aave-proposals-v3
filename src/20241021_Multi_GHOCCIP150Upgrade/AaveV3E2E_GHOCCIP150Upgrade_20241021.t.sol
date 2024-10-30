@@ -716,7 +716,7 @@ contract AaveV3E2E_GHOCCIP150Upgrade_20241021_InFlightCCIPMigration is
     _validateConfig({migrated: false});
   }
 
-  function test_sendFlowInFlightCCIPMigrationFromEth() public {
+  function test_SendFlowInFlightCCIPMigrationFromEth() public {
     // ETH => ARB, ccipSend 1.4; CCIP migration, Destination executeMessage
     {
       vm.selectFork(l1.c.forkId);
@@ -782,7 +782,7 @@ contract AaveV3E2E_GHOCCIP150Upgrade_20241021_InFlightCCIPMigration is
     }
   }
 
-  function test_sendFlowInFlightCCIPMigrationFromArb() public {
+  function test_SendFlowInFlightCCIPMigrationFromArb() public {
     // ARB => ETH, ccipSend 1.4; CCIP migration, Destination executeMessage
     {
       vm.selectFork(l2.c.forkId);
@@ -819,7 +819,7 @@ contract AaveV3E2E_GHOCCIP150Upgrade_20241021_InFlightCCIPMigration is
       assertEq(l2.c.token.balanceOf(alice), 0);
 
       // CCIP Migration
-      _mockCCIPMigration(l1.c, l1.c);
+      _mockCCIPMigration(l1.c, l2.c);
       _mockCCIPMigration(l2.c, l1.c);
 
       vm.selectFork(l1.c.forkId);
