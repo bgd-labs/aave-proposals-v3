@@ -14,12 +14,12 @@ contract AaveV2Ethereum_RFAndSlope1UpdatesLateOctober_20241023 is IProposalGener
   ILendingPoolConfigurator public constant POOL_CONFIGURATOR =
     ILendingPoolConfigurator(AaveV2Ethereum.POOL_CONFIGURATOR);
 
-  uint256 public constant DAI_RF = 85_00;
-  uint256 public constant LINK_RF = 90_00;
-  uint256 public constant USDC_RF = 85_00;
-  uint256 public constant USDT_RF = 85_00;
-  uint256 public constant WBTC_RF = 90_00;
-  uint256 public constant WETH_RF = 85_00;
+  uint256 public constant DAI_RF = 90_00;
+  uint256 public constant LINK_RF = 95_00;
+  uint256 public constant USDC_RF = 90_00;
+  uint256 public constant USDT_RF = 90_00;
+  uint256 public constant WBTC_RF = 95_00;
+  uint256 public constant WETH_RF = 90_00;
 
   function execute() external {
     POOL_CONFIGURATOR.setReserveFactor(AaveV2EthereumAssets.DAI_UNDERLYING, DAI_RF);
