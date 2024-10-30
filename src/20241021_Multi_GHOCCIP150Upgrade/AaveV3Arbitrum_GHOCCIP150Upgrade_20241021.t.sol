@@ -17,6 +17,7 @@ import {IProxyPool} from 'src/interfaces/ccip/IProxyPool.sol';
 import {IRateLimiter} from 'src/interfaces/ccip/IRateLimiter.sol';
 import {ITokenAdminRegistry} from 'src/interfaces/ccip/ITokenAdminRegistry.sol';
 import {IGhoToken} from 'src/interfaces/IGhoToken.sol';
+import {IEVM2EVMOffRamp_1_2, IEVM2EVMOffRamp_1_5} from 'src/interfaces/ccip/IEVM2EVMOffRamp.sol';
 import {CCIPUtils} from './utils/CCIPUtils.sol';
 
 import {AaveV3Arbitrum_GHOCCIP150Upgrade_20241021} from './AaveV3Arbitrum_GHOCCIP150Upgrade_20241021.sol';
@@ -38,6 +39,8 @@ contract AaveV3Arbitrum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
 
   address internal alice = makeAddr('alice');
 
+  bytes32 internal constant CCIP_SEND_EVENT_SIG =
+    0xd0c3c799bf9e2639de44391e7f524d229b2b55f5b1ea94b2bf7da42f7243dddd;
   uint64 internal constant ETH_CHAIN_SELECTOR = 5009297550715157269;
   uint64 internal constant ARB_CHAIN_SELECTOR = 4949039107694359620;
   address internal constant ARB_GHO_TOKEN = AaveV3ArbitrumAssets.GHO_UNDERLYING;
@@ -55,6 +58,7 @@ contract AaveV3Arbitrum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
   event CCIPSendRequested(IInternal.EVM2EVMMessage message);
 
   error CallerIsNotARampOnRouter(address caller);
+  error NotACompatiblePool(address pool);
 
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('arbitrum'), 267660907);
@@ -142,66 +146,6 @@ contract AaveV3Arbitrum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
     /// proxy implementation is initialized
     assertEq(_readInitialized(_getImplementation(address(ghoTokenPool))), 255);
   }
-
-  // function test_fuzzOutBoundRateLimit(uint256 amount) public {
-  //   // executePayload(vm, address(proposal));
-
-  //   (uint256 bucketCapacity, ) = IGhoToken(ARB_GHO_TOKEN).getFacilitatorBucket(
-  //     address(ghoTokenPool)
-  //   );
-  //   amount = bound(amount, 0, bucketCapacity);
-  //   deal(ARB_GHO_TOKEN, alice, amount);
-
-  //   IRouter router = IRouter(ghoTokenPool.getRouter());
-  //   vm.prank(alice);
-  //   IERC20(ARB_GHO_TOKEN).approve(address(router), amount);
-  //   uint256 capacity = proposal.getOutBoundRateLimiterConfig().capacity;
-
-  //   (
-  //     IClient.EVM2AnyMessage memory message,
-  //     IInternal.EVM2EVMMessage memory eventArg
-  //   ) = _getTokenMessage(CCIPSendParams({router: router, amount: amount, migrated: false}));
-
-  //   if (amount > capacity) {
-  //     vm.expectRevert(
-  //       abi.encodeWithSelector(
-  //         RateLimiter.AggregateValueMaxCapacityExceeded.selector,
-  //         capacity,
-  //         amount
-  //       )
-  //     );
-  //   } else {
-  //     vm.expectRevert(
-  //       abi.encodeWithSelector(
-  //         RateLimiter.TokenRateLimitReached.selector,
-  //         1 /* minWaitInSeconds */,
-  //         0 /* available */,
-  //         ARB_GHO_TOKEN
-  //       ) // since the upgrade has just happened this block
-  //     );
-  //   }
-  //   vm.prank(alice);
-  //   router.ccipSend{value: eventArg.feeTokenAmount}(ETH_CHAIN_SELECTOR, message);
-
-  //   skip(_getOutboundRefillTime(amount));
-
-  //   if (amount > capacity) {
-  //     vm.expectRevert(
-  //       abi.encodeWithSelector(
-  //         RateLimiter.AggregateValueMaxCapacityExceeded.selector,
-  //         capacity,
-  //         amount
-  //       )
-  //     );
-  //   } else {
-  //     vm.expectEmit(address(ghoTokenPool));
-  //     emit Burned(ON_RAMP_1_2, amount);
-  //     vm.expectEmit(ON_RAMP_1_2);
-  //     emit CCIPSendRequested(eventArg);
-  //   }
-  //   vm.prank(alice);
-  //   router.ccipSend{value: eventArg.feeTokenAmount}(ETH_CHAIN_SELECTOR, message);
-  // }
 
   function test_sendMessagePreCCIPMigration() public {
     executePayload(vm, address(proposal));
@@ -349,10 +293,6 @@ contract AaveV3Arbitrum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
 
     assertEq(IERC20(ARB_GHO_TOKEN).balanceOf(alice), amount);
     assertEq(_getFacilitatorLevel(address(ghoTokenPool)), facilitatorLevelBefore + amount);
-  }
-
-  function test_sendRevertOnInvalidMessageFormat() public {
-    // invalid message format: 1.2 after migration, 1.5 before migration
   }
 
   function _mockCCIPMigration() private {
