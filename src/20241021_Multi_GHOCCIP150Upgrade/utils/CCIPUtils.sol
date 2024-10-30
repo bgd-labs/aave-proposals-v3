@@ -87,7 +87,7 @@ library CCIPUtils {
             ),
             destTokenAddress: abi.encode(params.destinationToken),
             extraData: '',
-            destGasAmount: 90000
+            destGasAmount: getDestGasAmount(onRamp, params.message.tokenAmounts[i].token)
           })
         );
       }
@@ -149,5 +149,13 @@ library CCIPUtils {
           keccak256(abi.encode(original.sourceTokenData))
         )
       );
+  }
+
+  function getDestGasAmount(IEVM2EVMOnRamp onRamp, address token) internal view returns (uint32) {
+    IEVM2EVMOnRamp.TokenTransferFeeConfig memory config = onRamp.getTokenTransferFeeConfig(token);
+    return
+      config.isEnabled
+        ? config.destGasOverhead
+        : onRamp.getDynamicConfig().defaultTokenDestGasOverhead;
   }
 }
