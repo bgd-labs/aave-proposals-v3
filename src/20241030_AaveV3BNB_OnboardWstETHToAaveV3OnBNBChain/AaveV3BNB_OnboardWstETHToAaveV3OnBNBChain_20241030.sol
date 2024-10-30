@@ -50,7 +50,7 @@ contract AaveV3BNB_OnboardWstETHToAaveV3OnBNBChain_20241030 is AaveV3PayloadBNB 
     returns (IAaveV3ConfigEngine.AssetEModeUpdate[] memory)
   {
     IAaveV3ConfigEngine.AssetEModeUpdate[]
-      memory assetEModeUpdates = new IAaveV3ConfigEngine.AssetEModeUpdate[](1);
+      memory assetEModeUpdates = new IAaveV3ConfigEngine.AssetEModeUpdate[](2);
 
     assetEModeUpdates[0] = IAaveV3ConfigEngine.AssetEModeUpdate({
       asset: AaveV3BNBAssets.ETH_UNDERLYING,
