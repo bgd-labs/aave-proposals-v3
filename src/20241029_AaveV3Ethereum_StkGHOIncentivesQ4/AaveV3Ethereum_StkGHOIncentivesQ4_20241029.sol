@@ -18,6 +18,7 @@ import {IStakeToken} from 'aave-address-book/common/IStakeToken.sol';
 contract AaveV3Ethereum_StkGHOIncentivesQ4_20241029 is IProposalGenericExecutor {
   uint256 public constant DISTRIBUTION_DURATION = 180 days;
   uint128 public constant AAVE_EMISSION_PER_SECOND_STK_GHO = uint128(100e18) / 1 days;
+  uint256 internal constant ALLOWANCE_BUFFER = 2752e18; // 2751836379823642455614 in block 19778176
 
   function execute() external {
     // configure with same settings to update internal state
@@ -50,7 +51,7 @@ contract AaveV3Ethereum_StkGHOIncentivesQ4_20241029 is IProposalGenericExecutor 
       MiscEthereum.ECOSYSTEM_RESERVE,
       AaveV3EthereumAssets.AAVE_UNDERLYING,
       AaveSafetyModule.STK_GHO,
-      remainingAllowance + (AAVE_EMISSION_PER_SECOND_STK_GHO * DISTRIBUTION_DURATION)
+      remainingAllowance + (AAVE_EMISSION_PER_SECOND_STK_GHO * DISTRIBUTION_DURATION) + ALLOWANCE_BUFFER
     );
   }
 }
