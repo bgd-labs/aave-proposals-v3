@@ -117,6 +117,7 @@ contract AaveV3Ethereum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
   function test_tokenPoolCannotBeInitializedAgain() public {
     vm.expectRevert('Initializable: contract is already initialized');
     ghoTokenPool.initialize(makeAddr('owner'), new address[](0), makeAddr('router'), 0);
+    assertEq(_readInitialized(address(ghoTokenPool)), 1);
     /// proxy implementation is initialized
     assertEq(_readInitialized(_getImplementation(address(ghoTokenPool))), 255);
 
@@ -124,6 +125,7 @@ contract AaveV3Ethereum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
 
     vm.expectRevert('Initializable: contract is already initialized');
     ghoTokenPool.initialize(makeAddr('owner'), new address[](0), makeAddr('router'), 0);
+    assertEq(_readInitialized(address(ghoTokenPool)), 1);
     /// proxy implementation is initialized
     assertEq(_readInitialized(_getImplementation(address(ghoTokenPool))), 255);
   }

@@ -17,7 +17,6 @@ import {IProxyPool} from 'src/interfaces/ccip/IProxyPool.sol';
 import {IRateLimiter} from 'src/interfaces/ccip/IRateLimiter.sol';
 import {ITokenAdminRegistry} from 'src/interfaces/ccip/ITokenAdminRegistry.sol';
 import {IGhoToken} from 'src/interfaces/IGhoToken.sol';
-import {IEVM2EVMOffRamp_1_2, IEVM2EVMOffRamp_1_5} from 'src/interfaces/ccip/IEVM2EVMOffRamp.sol';
 import {CCIPUtils} from './utils/CCIPUtils.sol';
 
 import {AaveV3Arbitrum_GHOCCIP150Upgrade_20241021} from './AaveV3Arbitrum_GHOCCIP150Upgrade_20241021.sol';
@@ -39,8 +38,6 @@ contract AaveV3Arbitrum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
 
   address internal alice = makeAddr('alice');
 
-  bytes32 internal constant CCIP_SEND_EVENT_SIG =
-    0xd0c3c799bf9e2639de44391e7f524d229b2b55f5b1ea94b2bf7da42f7243dddd;
   uint64 internal constant ETH_CHAIN_SELECTOR = 5009297550715157269;
   uint64 internal constant ARB_CHAIN_SELECTOR = 4949039107694359620;
   address internal constant ARB_GHO_TOKEN = AaveV3ArbitrumAssets.GHO_UNDERLYING;
@@ -137,12 +134,14 @@ contract AaveV3Arbitrum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
     vm.expectRevert('Initializable: contract is already initialized');
     ghoTokenPool.initialize(makeAddr('owner'), new address[](0), makeAddr('router'));
     /// proxy implementation is initialized
+    assertEq(_readInitialized(address(ghoTokenPool)), 1);
     assertEq(_readInitialized(_getImplementation(address(ghoTokenPool))), 255);
 
     executePayload(vm, address(proposal));
 
     vm.expectRevert('Initializable: contract is already initialized');
     ghoTokenPool.initialize(makeAddr('owner'), new address[](0), makeAddr('router'));
+    assertEq(_readInitialized(address(ghoTokenPool)), 1);
     /// proxy implementation is initialized
     assertEq(_readInitialized(_getImplementation(address(ghoTokenPool))), 255);
   }
