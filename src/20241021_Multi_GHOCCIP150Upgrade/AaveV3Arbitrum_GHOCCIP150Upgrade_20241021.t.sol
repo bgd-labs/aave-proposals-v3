@@ -248,6 +248,26 @@ contract AaveV3Arbitrum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
     assertEq(_getFacilitatorLevel(address(ghoTokenPool)), facilitatorLevelBefore + amount);
   }
 
+  function test_executeMessagePostCCIPMigrationViaLegacyOffRamp() public {
+    executePayload(vm, address(proposal));
+
+    _mockCCIPMigration();
+
+    uint256 amount = 350_000e18;
+    uint256 facilitatorLevelBefore = _getFacilitatorLevel(address(ghoTokenPool));
+
+    // wait for the rate limiter to refill
+    skip(_getInboundRefillTime(amount));
+
+    vm.expectEmit(address(ghoTokenPool));
+    emit Minted(OFF_RAMP_1_2, alice, amount);
+    vm.prank(OFF_RAMP_1_2);
+    ghoTokenPool.releaseOrMint(abi.encode(alice), alice, amount, ETH_CHAIN_SELECTOR, '');
+
+    assertEq(IERC20(ARB_GHO_TOKEN).balanceOf(alice), amount);
+    assertEq(_getFacilitatorLevel(address(ghoTokenPool)), facilitatorLevelBefore + amount);
+  }
+
   function test_proxyPoolCanOnRamp() public {
     uint256 amount = 1337e18;
 

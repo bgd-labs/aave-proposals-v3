@@ -239,6 +239,27 @@ contract AaveV3Ethereum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
     assertEq(gho.balanceOf(alice), amount);
   }
 
+  function test_executeMessagePostCCIPMigrationViaLegacyOffRamp() public {
+    executePayload(vm, address(proposal));
+
+    _mockCCIPMigration();
+
+    IERC20 gho = IERC20(address(ghoTokenPool.getToken()));
+    uint256 amount = 350_000e18;
+
+    // wait for the rate limiter to refill
+    skip(_getInboundRefillTime(amount));
+    // mock previously locked gho
+    deal(address(gho), address(ghoTokenPool), amount);
+
+    vm.expectEmit(address(ghoTokenPool));
+    emit Released(OFF_RAMP_1_2, alice, amount);
+    vm.prank(OFF_RAMP_1_2);
+    ghoTokenPool.releaseOrMint(abi.encode(alice), alice, amount, ARB_CHAIN_SELECTOR, '');
+
+    assertEq(gho.balanceOf(alice), amount);
+  }
+
   function test_proxyPoolCanOnRamp() public {
     uint256 amount = 1337e18;
 
