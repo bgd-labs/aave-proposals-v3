@@ -6,6 +6,7 @@ import {ProxyAdmin} from 'solidity-utils/contracts/transparent-proxy/ProxyAdmin.
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
 import {UpgradeableLockReleaseTokenPool} from 'aave-ccip/v0.8/ccip/pools/GHO/UpgradeableLockReleaseTokenPool.sol';
+import {RateLimiter} from 'aave-ccip/v0.8/ccip/libraries/RateLimiter.sol';
 
 /**
  * @title GHO CCIP 1.50 Upgrade
@@ -14,6 +15,7 @@ import {UpgradeableLockReleaseTokenPool} from 'aave-ccip/v0.8/ccip/pools/GHO/Upg
  */
 contract AaveV3Ethereum_GHOCCIP150Upgrade_20241021 is IProposalGenericExecutor {
   address public constant GHO_CCIP_PROXY_POOL = 0x9Ec9F9804733df96D1641666818eFb5198eC50f0;
+  uint64 public constant ARB_CHAIN_SELECTOR = 4949039107694359620;
 
   function execute() external {
     UpgradeableLockReleaseTokenPool tokenPoolProxy = UpgradeableLockReleaseTokenPool(
@@ -37,5 +39,29 @@ contract AaveV3Ethereum_GHOCCIP150Upgrade_20241021 is IProposalGenericExecutor {
 
     // Update proxyPool address
     tokenPoolProxy.setProxyPool(GHO_CCIP_PROXY_POOL);
+
+    // Set rate limit
+    tokenPoolProxy.setChainRateLimiterConfig(
+      ARB_CHAIN_SELECTOR,
+      getOutBoundRateLimiterConfig(),
+      getInBoundRateLimiterConfig()
+    );
+  }
+
+  /// @notice Returns the rate limiter configuration for the outbound rate limiter
+  /// The onRamp rate limit for ETH => ARB will be as follows:
+  /// Capacity: 350_000 GHO
+  /// Rate: 100 GHO per second (=> 360_000 GHO per hour)
+  /// @return The rate limiter configuration
+  function getOutBoundRateLimiterConfig() public pure returns (RateLimiter.Config memory) {
+    return RateLimiter.Config({isEnabled: true, capacity: 350_000e18, rate: 100e18});
+  }
+
+  /// @notice Returns the rate limiter configuration for the inbound rate limiter
+  /// The offramp capacity for ARB => ETH will be disabled, as the outbound rate limit
+  /// will be set on ARB token pool
+  /// @return The rate limiter configuration
+  function getInBoundRateLimiterConfig() public pure returns (RateLimiter.Config memory) {
+    return RateLimiter.Config({isEnabled: false, capacity: 0, rate: 0});
   }
 }

@@ -7,6 +7,7 @@ import {AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {UpgradeableLockReleaseTokenPool} from 'aave-ccip/v0.8/ccip/pools/GHO/UpgradeableLockReleaseTokenPool.sol';
+import {RateLimiter} from 'aave-ccip/v0.8/ccip/libraries/RateLimiter.sol';
 import {IClient} from 'src/interfaces/ccip/IClient.sol';
 import {IInternal} from 'src/interfaces/ccip/IInternal.sol';
 import {IRouter} from 'src/interfaces/ccip/IRouter.sol';
@@ -64,15 +65,43 @@ contract AaveV3Ethereum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
    * @dev executes the generic test suite including e2e and config snapshots
    */
   function test_defaultProposalExecution() public {
+    assertEq(
+      abi.encode(
+        _tokenBucketToConfig(ghoTokenPool.getCurrentInboundRateLimiterState(ARB_CHAIN_SELECTOR))
+      ),
+      abi.encode(_getDisabledConfig())
+    );
+    assertEq(
+      abi.encode(
+        _tokenBucketToConfig(ghoTokenPool.getCurrentOutboundRateLimiterState(ARB_CHAIN_SELECTOR))
+      ),
+      abi.encode(_getDisabledConfig())
+    );
+
     bytes memory dynamicParamsBefore = _getDynamicParams();
     bytes memory staticParamsBefore = _getStaticParams();
+
     defaultTest(
       'AaveV3Ethereum_GHOCCIP150Upgrade_20241021',
       AaveV3Ethereum.POOL,
       address(proposal)
     );
+
     assertEq(keccak256(_getDynamicParams()), keccak256(dynamicParamsBefore));
     assertEq(keccak256(_getStaticParams()), keccak256(staticParamsBefore));
+
+    assertEq(
+      abi.encode(
+        _tokenBucketToConfig(ghoTokenPool.getCurrentInboundRateLimiterState(ARB_CHAIN_SELECTOR))
+      ),
+      abi.encode(proposal.getInBoundRateLimiterConfig())
+    );
+    assertEq(
+      abi.encode(
+        _tokenBucketToConfig(ghoTokenPool.getCurrentOutboundRateLimiterState(ARB_CHAIN_SELECTOR))
+      ),
+      abi.encode(proposal.getOutBoundRateLimiterConfig())
+    );
   }
 
   function test_getProxyPool() public {
@@ -104,7 +133,11 @@ contract AaveV3Ethereum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
 
     IERC20 gho = IERC20(address(ghoTokenPool.getToken()));
     IRouter router = IRouter(ghoTokenPool.getRouter());
-    uint256 amount = 500_000e18;
+    uint256 amount = 150_000e18;
+
+    // wait for the rate limiter to refill
+    skip(_getOutboundRefillTime(amount));
+
     vm.prank(alice);
     gho.approve(address(router), amount);
     deal(address(gho), alice, amount);
@@ -135,7 +168,11 @@ contract AaveV3Ethereum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
 
     IERC20 gho = IERC20(address(ghoTokenPool.getToken()));
     IRouter router = IRouter(ghoTokenPool.getRouter());
-    uint256 amount = 500_000e18;
+    uint256 amount = 350_000e18;
+
+    // wait for the rate limiter to refill
+    skip(_getOutboundRefillTime(amount));
+
     vm.prank(alice);
     gho.approve(address(router), amount);
     deal(address(gho), alice, amount);
@@ -165,16 +202,16 @@ contract AaveV3Ethereum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
     executePayload(vm, address(proposal));
 
     IERC20 gho = IERC20(address(ghoTokenPool.getToken()));
-    IRouter router = IRouter(ghoTokenPool.getRouter());
-    uint256 amount = 500_000e18;
+    uint256 amount = 350_000e18;
+
+    // wait for the rate limiter to refill
+    skip(_getOutboundRefillTime(amount));
     // mock previously locked gho
     deal(address(gho), address(ghoTokenPool), amount);
 
-    address offRamp = _getOffRamp({router: router, migrated: false});
-
     vm.expectEmit(address(ghoTokenPool));
-    emit Released(offRamp, alice, amount);
-    vm.prank(offRamp);
+    emit Released(OFF_RAMP_1_2, alice, amount);
+    vm.prank(OFF_RAMP_1_2);
     ghoTokenPool.releaseOrMint(abi.encode(alice), alice, amount, ARB_CHAIN_SELECTOR, '');
 
     assertEq(gho.balanceOf(alice), amount);
@@ -186,16 +223,15 @@ contract AaveV3Ethereum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
     _mockCCIPMigration();
 
     IERC20 gho = IERC20(address(ghoTokenPool.getToken()));
-    IRouter router = IRouter(ghoTokenPool.getRouter());
-    uint256 amount = 500_000e18;
+    uint256 amount = 350_000e18;
+    // wait for the rate limiter to refill
+    skip(_getOutboundRefillTime(amount));
     // mock previously locked gho
     deal(address(gho), address(ghoTokenPool), amount);
 
-    address offRamp = _getOffRamp({router: router, migrated: true});
-
     vm.expectEmit(address(ghoTokenPool));
-    emit Released(offRamp, alice, amount);
-    vm.prank(offRamp);
+    emit Released(OFF_RAMP_1_5, alice, amount);
+    vm.prank(OFF_RAMP_1_5);
     ghoTokenPool.releaseOrMint(abi.encode(alice), alice, amount, ARB_CHAIN_SELECTOR, '');
 
     assertEq(gho.balanceOf(alice), amount);
@@ -211,6 +247,9 @@ contract AaveV3Ethereum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
     ghoTokenPool.lockOrBurn(alice, abi.encode(alice), amount, ARB_CHAIN_SELECTOR, new bytes(0));
 
     executePayload(vm, address(proposal));
+
+    // wait for the rate limiter to refill
+    skip(_getOutboundRefillTime(amount));
 
     vm.expectEmit(address(ghoTokenPool));
     emit Locked(address(proxyPool), amount);
@@ -307,23 +346,6 @@ contract AaveV3Ethereum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
     return (message, eventArg);
   }
 
-  function _getOffRamp(IRouter router, bool migrated) internal view returns (address) {
-    IRouter.OffRamp[] memory offRamps = router.getOffRamps();
-    for (uint256 i; i < offRamps.length; ++i) {
-      IRouter.OffRamp memory config = offRamps[i];
-      if (config.sourceChainSelector == ARB_CHAIN_SELECTOR) {
-        address offRamp = config.offRamp;
-        if (
-          keccak256(bytes(ITypeAndVersion(offRamp).typeAndVersion())) ==
-          keccak256(bytes(migrated ? 'EVM2EVMOffRamp 1.5.0' : 'EVM2EVMOffRamp 1.2.0'))
-        ) {
-          return offRamp;
-        }
-      }
-    }
-    assert(false);
-  }
-
   function _getImplementation(address proxy) private view returns (address) {
     bytes32 slot = bytes32(uint256(keccak256('eip1967.proxy.implementation')) - 1);
     return address(uint160(uint256(vm.load(proxy, slot))));
@@ -358,8 +380,7 @@ contract AaveV3Ethereum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
         ghoTokenPool.getLockReleaseInterfaceId(),
         ghoTokenPool.getBridgeLimit(),
         ghoTokenPool.getCurrentBridgedAmount(),
-        ghoTokenPool.getCurrentOutboundRateLimiterState(ETH_CHAIN_SELECTOR),
-        ghoTokenPool.getCurrentInboundRateLimiterState(ARB_CHAIN_SELECTOR)
+        ghoTokenPool.getRateLimitAdmin()
       );
   }
 
@@ -370,5 +391,26 @@ contract AaveV3Ethereum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
     assertEq(ITypeAndVersion(ON_RAMP_1_5).typeAndVersion(), 'EVM2EVMOnRamp 1.5.0');
     assertEq(ITypeAndVersion(OFF_RAMP_1_2).typeAndVersion(), 'EVM2EVMOffRamp 1.2.0');
     assertEq(ITypeAndVersion(OFF_RAMP_1_5).typeAndVersion(), 'EVM2EVMOffRamp 1.5.0');
+  }
+
+  function _getOutboundRefillTime(uint256 amount) private view returns (uint256) {
+    uint128 rate = proposal.getOutBoundRateLimiterConfig().rate;
+    assertNotEq(rate, 0);
+    return amount / uint256(rate) + 1; // account for rounding
+  }
+
+  function _tokenBucketToConfig(
+    RateLimiter.TokenBucket memory bucket
+  ) private pure returns (RateLimiter.Config memory) {
+    return
+      RateLimiter.Config({
+        isEnabled: bucket.isEnabled,
+        capacity: bucket.capacity,
+        rate: bucket.rate
+      });
+  }
+
+  function _getDisabledConfig() private pure returns (RateLimiter.Config memory) {
+    return RateLimiter.Config({isEnabled: false, capacity: 0, rate: 0});
   }
 }

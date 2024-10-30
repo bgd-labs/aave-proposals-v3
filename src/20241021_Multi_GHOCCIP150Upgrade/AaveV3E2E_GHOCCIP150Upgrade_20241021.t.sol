@@ -219,6 +219,50 @@ contract AaveV3E2E_GHOCCIP150Upgrade_20241021_Base is ProtocolV3TestBase {
       assertEq(l2.c.router.getOnRamp(l1.c.chainSelector), address(l2.c.EVM2EVMOnRamp1_2));
     }
   }
+
+  function _mockCCIPMigration(Common memory src, Common memory dest) internal {
+    vm.selectFork(src.forkId);
+
+    // token registry not set for 1.5 migration
+    assertEq(src.tokenAdminRegistry.getPool(address(src.token)), address(0));
+    vm.startPrank(src.tokenAdminRegistry.owner());
+    src.tokenAdminRegistry.proposeAdministrator(address(src.token), src.tokenAdminRegistry.owner());
+    src.tokenAdminRegistry.acceptAdminRole(address(src.token));
+    src.tokenAdminRegistry.setPool(address(src.token), address(src.proxyPool));
+    vm.stopPrank();
+    assertEq(src.tokenAdminRegistry.getPool(address(src.token)), address(src.proxyPool));
+
+    assertEq(src.proxyPool.getRouter(), address(src.router));
+
+    IProxyPool.ChainUpdate[] memory chains = new IProxyPool.ChainUpdate[](1);
+    chains[0] = IProxyPool.ChainUpdate({
+      remoteChainSelector: dest.chainSelector,
+      remotePoolAddress: abi.encode(address(dest.proxyPool)),
+      remoteTokenAddress: abi.encode(address(dest.token)),
+      allowed: true,
+      outboundRateLimiterConfig: IRateLimiter.Config({isEnabled: false, capacity: 0, rate: 0}),
+      inboundRateLimiterConfig: IRateLimiter.Config({isEnabled: false, capacity: 0, rate: 0})
+    });
+
+    vm.prank(src.proxyPool.owner());
+    src.proxyPool.applyChainUpdates(chains);
+
+    assertTrue(src.proxyPool.isSupportedChain(dest.chainSelector));
+
+    IRouter.OnRamp[] memory onRampUpdates = new IRouter.OnRamp[](1);
+    onRampUpdates[0] = IRouter.OnRamp({
+      destChainSelector: dest.chainSelector,
+      onRamp: address(src.EVM2EVMOnRamp1_5) // new onRamp
+    });
+    IRouter.OffRamp[] memory offRampUpdates = new IRouter.OffRamp[](1);
+    offRampUpdates[0] = IRouter.OffRamp({
+      sourceChainSelector: dest.chainSelector,
+      offRamp: address(src.EVM2EVMOffRamp1_5) // new offRamp
+    });
+
+    vm.prank(src.router.owner());
+    src.router.applyRampUpdates(onRampUpdates, new IRouter.OffRamp[](0), offRampUpdates);
+  }
 }
 
 contract AaveV3E2E_GHOCCIP150Upgrade_20241021_PreCCIPMigration is
@@ -243,6 +287,10 @@ contract AaveV3E2E_GHOCCIP150Upgrade_20241021_PreCCIPMigration is
       deal(address(l1.c.token), alice, amount, true);
       vm.prank(alice);
       l1.c.token.approve(address(l1.c.router), amount);
+
+      uint128 rate = l1.proposal.getOutBoundRateLimiterConfig().rate;
+      // wait for the rate limiter to refill
+      skip(amount / uint256(rate) + 1); // rate is non zero
 
       uint256 tokenPoolBalance = l1.c.token.balanceOf(address(l1.tokenPool));
       uint256 bridgedAmount = l1.tokenPool.getCurrentBridgedAmount();
@@ -294,6 +342,9 @@ contract AaveV3E2E_GHOCCIP150Upgrade_20241021_PreCCIPMigration is
 
       vm.prank(alice);
       l2.c.token.approve(address(l2.c.router), amount);
+      uint128 rate = l2.proposal.getOutBoundRateLimiterConfig().rate;
+      // wait for the rate limiter to refill
+      skip(amount / uint256(rate) + 1); // rate is non zero
 
       (
         IClient.EVM2AnyMessage memory message,
@@ -365,6 +416,10 @@ contract AaveV3E2E_GHOCCIP150Upgrade_20241021_PostCCIPMigration is
       vm.prank(alice);
       l1.c.token.approve(address(l1.c.router), amount);
 
+      uint128 rate = l1.proposal.getOutBoundRateLimiterConfig().rate;
+      // wait for the rate limiter to refill
+      skip(amount / uint256(rate) + 1); // rate is non zero
+
       uint256 tokenPoolBalance = l1.c.token.balanceOf(address(l1.tokenPool));
       uint256 bridgedAmount = l1.tokenPool.getCurrentBridgedAmount();
 
@@ -425,6 +480,9 @@ contract AaveV3E2E_GHOCCIP150Upgrade_20241021_PostCCIPMigration is
 
       vm.prank(alice);
       l2.c.token.approve(address(l2.c.router), amount);
+      uint128 rate = l2.proposal.getOutBoundRateLimiterConfig().rate;
+      // wait for the rate limiter to refill
+      skip(amount / uint256(rate) + 1); // rate is non zero
 
       (
         IClient.EVM2AnyMessage memory message,
@@ -479,6 +537,9 @@ contract AaveV3E2E_GHOCCIP150Upgrade_20241021_PostCCIPMigration is
       deal(address(l1.c.token), alice, amount, true);
       vm.prank(alice);
       l1.c.token.approve(address(l1.c.router), amount);
+      uint128 rate = l1.proposal.getOutBoundRateLimiterConfig().rate;
+      // wait for the rate limiter to refill
+      skip(amount / uint256(rate) + 1); // rate is non zero
 
       (
         IClient.EVM2AnyMessage memory message,
@@ -510,6 +571,9 @@ contract AaveV3E2E_GHOCCIP150Upgrade_20241021_PostCCIPMigration is
       deal(address(l2.c.token), alice, amount, true);
       vm.prank(alice);
       l2.c.token.approve(address(l2.c.router), amount);
+      uint128 rate = l2.proposal.getOutBoundRateLimiterConfig().rate;
+      // wait for the rate limiter to refill
+      skip(amount / uint256(rate) + 1); // rate is non zero
 
       (
         IClient.EVM2AnyMessage memory message,
@@ -607,48 +671,140 @@ contract AaveV3E2E_GHOCCIP150Upgrade_20241021_PostCCIPMigration is
       );
     }
   }
+}
 
-  function _mockCCIPMigration(Common memory src, Common memory dest) internal {
-    vm.selectFork(src.forkId);
+contract AaveV3E2E_GHOCCIP150Upgrade_20241021_InBetweenCCIPMigration is
+  AaveV3E2E_GHOCCIP150Upgrade_20241021_Base
+{
+  function setUp() public override {
+    super.setUp();
 
-    // token registry not set for 1.5 migration
-    assertEq(src.tokenAdminRegistry.getPool(address(src.token)), address(0));
-    vm.startPrank(src.tokenAdminRegistry.owner());
-    src.tokenAdminRegistry.proposeAdministrator(address(src.token), src.tokenAdminRegistry.owner());
-    src.tokenAdminRegistry.acceptAdminRole(address(src.token));
-    src.tokenAdminRegistry.setPool(address(src.token), address(src.proxyPool));
-    vm.stopPrank();
-    assertEq(src.tokenAdminRegistry.getPool(address(src.token)), address(src.proxyPool));
+    // execute proposal
+    vm.selectFork(l1.c.forkId);
+    executePayload(vm, address(l1.proposal));
+    vm.selectFork(l2.c.forkId);
+    executePayload(vm, address(l2.proposal));
 
-    assertEq(src.proxyPool.getRouter(), address(src.router));
+    _validateConfig({migrated: false});
+  }
 
-    IProxyPool.ChainUpdate[] memory chains = new IProxyPool.ChainUpdate[](1);
-    chains[0] = IProxyPool.ChainUpdate({
-      remoteChainSelector: dest.chainSelector,
-      remotePoolAddress: abi.encode(address(dest.proxyPool)),
-      remoteTokenAddress: abi.encode(address(dest.token)),
-      allowed: true,
-      outboundRateLimiterConfig: IRateLimiter.Config({isEnabled: false, capacity: 0, rate: 0}),
-      inboundRateLimiterConfig: IRateLimiter.Config({isEnabled: false, capacity: 0, rate: 0})
-    });
+  function test_sendFlowInBetweenCCIPMigrationFromEth() public {
+    // ETH => ARB, ccipSend 1.4; CCIP migration, Destination executeMessage
+    {
+      vm.selectFork(l1.c.forkId);
+      uint256 amount = 500e18;
+      deal(address(l1.c.token), alice, amount, true);
+      vm.prank(alice);
+      l1.c.token.approve(address(l1.c.router), amount);
+      uint128 rate = l1.proposal.getOutBoundRateLimiterConfig().rate;
+      // wait for the rate limiter to refill
+      skip(amount / uint256(rate) + 1); // rate is non zero
 
-    vm.prank(src.proxyPool.owner());
-    src.proxyPool.applyChainUpdates(chains);
+      (
+        IClient.EVM2AnyMessage memory message,
+        IInternal.EVM2EVMMessage memory eventArg
+      ) = _getTokenMessage(
+          CCIPSendParams({
+            router: l1.c.router,
+            token: l1.c.token,
+            amount: amount,
+            sourceChainSelector: l1.c.chainSelector,
+            destinationChainSelector: l2.c.chainSelector,
+            sender: alice,
+            migrated: false
+          })
+        );
 
-    assertTrue(src.proxyPool.isSupportedChain(dest.chainSelector));
+      vm.expectEmit(address(l1.tokenPool));
+      emit Locked(address(l1.c.EVM2EVMOnRamp1_2), amount);
+      vm.expectEmit(address(l1.c.EVM2EVMOnRamp1_2));
+      emit CCIPSendRequested(eventArg);
+      vm.prank(alice);
+      l1.c.router.ccipSend{value: eventArg.feeTokenAmount}(l2.c.chainSelector, message);
 
-    IRouter.OnRamp[] memory onRampUpdates = new IRouter.OnRamp[](1);
-    onRampUpdates[0] = IRouter.OnRamp({
-      destChainSelector: dest.chainSelector,
-      onRamp: address(src.EVM2EVMOnRamp1_5) // new onRamp
-    });
-    IRouter.OffRamp[] memory offRampUpdates = new IRouter.OffRamp[](1);
-    offRampUpdates[0] = IRouter.OffRamp({
-      sourceChainSelector: dest.chainSelector,
-      offRamp: address(src.EVM2EVMOffRamp1_5) // new offRamp
-    });
+      assertEq(l1.c.token.balanceOf(alice), 0);
 
-    vm.prank(src.router.owner());
-    src.router.applyRampUpdates(onRampUpdates, new IRouter.OffRamp[](0), offRampUpdates);
+      vm.selectFork(l2.c.forkId);
+      // CCIP Migration on L2
+      _mockCCIPMigration(l2.c, l1.c);
+
+      // reverts with 1.5 off ramp
+      vm.expectRevert();
+      vm.prank(address(l2.c.EVM2EVMOffRamp1_5));
+      l2.c.EVM2EVMOffRamp1_5.executeSingleMessage(
+        eventArg,
+        new bytes[](message.tokenAmounts.length),
+        new uint32[](0) // tokenGasOverrides
+      );
+
+      // system can use legacy 1.2 off ramp after migration
+      vm.expectEmit(address(l2.tokenPool));
+      emit Minted(address(l2.c.EVM2EVMOffRamp1_2), alice, amount);
+      vm.prank(address(l2.c.EVM2EVMOffRamp1_2));
+      l2.c.EVM2EVMOffRamp1_2.executeSingleMessage(
+        eventArg,
+        new bytes[](message.tokenAmounts.length)
+      );
+    }
+  }
+
+  function test_sendFlowInBetweenCCIPMigrationFromArb() public {
+    // ARB => ETH, ccipSend 1.4; CCIP migration, Destination executeMessage
+    {
+      vm.selectFork(l2.c.forkId);
+      uint256 amount = 500e18;
+      deal(address(l2.c.token), alice, amount, true);
+      vm.prank(alice);
+      l2.c.token.approve(address(l2.c.router), amount);
+      uint128 rate = l2.proposal.getOutBoundRateLimiterConfig().rate;
+      // wait for the rate limiter to refill
+      skip(amount / uint256(rate) + 1); // rate is non zero
+
+      (
+        IClient.EVM2AnyMessage memory message,
+        IInternal.EVM2EVMMessage memory eventArg
+      ) = _getTokenMessage(
+          CCIPSendParams({
+            router: l2.c.router,
+            token: l2.c.token,
+            amount: amount,
+            sourceChainSelector: l2.c.chainSelector,
+            destinationChainSelector: l1.c.chainSelector,
+            sender: alice,
+            migrated: false
+          })
+        );
+
+      vm.expectEmit(address(l2.tokenPool));
+      emit Burned(address(l2.c.EVM2EVMOnRamp1_2), amount);
+      vm.expectEmit(address(l2.c.EVM2EVMOnRamp1_2));
+      emit CCIPSendRequested(eventArg);
+      vm.prank(alice);
+      l2.c.router.ccipSend{value: eventArg.feeTokenAmount}(l1.c.chainSelector, message);
+
+      assertEq(l2.c.token.balanceOf(alice), 0);
+
+      vm.selectFork(l1.c.forkId);
+      // CCIP Migration on L2
+      _mockCCIPMigration(l1.c, l1.c);
+
+      // reverts with 1.5 off ramp
+      vm.expectRevert();
+      vm.prank(address(l1.c.EVM2EVMOffRamp1_5));
+      l1.c.EVM2EVMOffRamp1_5.executeSingleMessage(
+        eventArg,
+        new bytes[](message.tokenAmounts.length),
+        new uint32[](0) // tokenGasOverrides
+      );
+
+      // system can use legacy 1.2 off ramp after migration
+      vm.expectEmit(address(l1.tokenPool));
+      emit Released(address(l1.c.EVM2EVMOffRamp1_2), alice, amount);
+      vm.prank(address(l1.c.EVM2EVMOffRamp1_2));
+      l1.c.EVM2EVMOffRamp1_2.executeSingleMessage(
+        eventArg,
+        new bytes[](message.tokenAmounts.length)
+      );
+    }
   }
 }
