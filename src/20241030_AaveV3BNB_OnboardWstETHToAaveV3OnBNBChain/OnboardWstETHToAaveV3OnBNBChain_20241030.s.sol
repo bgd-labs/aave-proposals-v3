@@ -2,7 +2,6 @@
 pragma solidity ^0.8.0;
 
 import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aave-helpers/src/GovV3Helpers.sol';
-import {AaveV3OnBNBChain} from 'aave-address-book/AaveV3OnBNBChain.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {EthereumScript, BNBScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
 import {AaveV3BNB_OnboardWstETHToAaveV3OnBNBChain_20241030} from './AaveV3BNB_OnboardWstETHToAaveV3OnBNBChain_20241030.sol';
