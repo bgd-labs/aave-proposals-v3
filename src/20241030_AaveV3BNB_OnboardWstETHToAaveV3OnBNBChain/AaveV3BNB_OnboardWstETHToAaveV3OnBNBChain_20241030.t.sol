@@ -7,6 +7,7 @@ import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3BNB_OnboardWstETHToAaveV3OnBNBChain_20241030} from './AaveV3BNB_OnboardWstETHToAaveV3OnBNBChain_20241030.sol';
+import {IEmissionManager} from 'aave-v3-origin/contracts/rewards/interfaces/IEmissionManager.sol';
 
 /**
  * @dev Test for AaveV3BNB_OnboardWstETHToAaveV3OnBNBChain_20241030
@@ -37,5 +38,20 @@ contract AaveV3BNB_OnboardWstETHToAaveV3OnBNBChain_20241030_Test is ProtocolV3Te
       proposal.wstETH()
     );
     assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3BNB.COLLECTOR)), 4 * 10 ** 16);
+  }
+
+  function test_wstETHAdmin() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+    (address awstETH, , ) = AaveV3BNB.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(
+      proposal.wstETH()
+    );
+    assertEq(
+      IEmissionManager(AaveV3BNB.EMISSION_MANAGER).getEmissionAdmin(proposal.wstETH()),
+      proposal.wstETH_LM_ADMIN()
+    );
+    assertEq(
+      IEmissionManager(AaveV3BNB.EMISSION_MANAGER).getEmissionAdmin(awstETH),
+      proposal.wstETH_LM_ADMIN()
+    );
   }
 }

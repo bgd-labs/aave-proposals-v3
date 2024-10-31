@@ -49,6 +49,8 @@ The table below illustrate the configured "ETH-Correlated" E-mode
 | Liquidation Threshold | 95%    | 95%   |
 | Liquidation Penalty   | 1.00%  | 1.00% |
 
+Additionaly [0xac140648435d03f784879cd789130F22Ef588Fcd](https://bscscan.com/address/0xac140648435d03f784879cd789130F22Ef588Fcd) has been set as the emission admin for wstETH and the corresponding aToken.
+
 ## References
 
 - Implementation: [AaveV3BNB](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241030_AaveV3BNB_OnboardWstETHToAaveV3OnBNBChain/AaveV3BNB_OnboardWstETHToAaveV3OnBNBChain_20241030.sol)
