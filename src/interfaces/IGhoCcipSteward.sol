@@ -48,4 +48,10 @@ interface IGhoCcipSteward {
    * @return The address of the Gho CCIP Token Pool
    */
   function GHO_TOKEN_POOL() external view returns (address);
+
+  /**
+   * @notice Returns the address of the Risk Council
+   * @return The address of the Risk Council
+   */
+  function RISK_COUNCIL() external view returns (address);
 }

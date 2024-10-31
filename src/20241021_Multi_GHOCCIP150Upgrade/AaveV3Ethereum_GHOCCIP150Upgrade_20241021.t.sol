@@ -312,7 +312,7 @@ contract AaveV3Ethereum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
     vm.prank(ghoTokenPool.owner());
     ghoTokenPool.setRateLimitAdmin(address(GHO_CCIP_STEWARD));
 
-    vm.prank(_readRiskAdmin());
+    vm.prank(GHO_CCIP_STEWARD.RISK_COUNCIL());
     GHO_CCIP_STEWARD.updateRateLimit(ARB_CHAIN_SELECTOR, false, 0, 0, false, 0, 0);
 
     assertEq(
@@ -456,6 +456,7 @@ contract AaveV3Ethereum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
 
     assertEq(GHO_CCIP_STEWARD.GHO_TOKEN(), MiscEthereum.GHO_TOKEN);
     assertEq(GHO_CCIP_STEWARD.GHO_TOKEN_POOL(), address(ghoTokenPool));
+    assertEq(GHO_CCIP_STEWARD.RISK_COUNCIL(), _readRiskAdmin());
   }
 
   function _getOutboundRefillTime(uint256 amount) private view returns (uint256) {

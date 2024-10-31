@@ -161,6 +161,7 @@ contract AaveV3E2E_GHOCCIP150Upgrade_20241021_Base is ProtocolV3TestBase {
     assertTrue(l1.c.router.isOffRamp(l2.c.chainSelector, address(l1.c.EVM2EVMOffRamp1_2)));
     assertTrue(l1.c.router.isOffRamp(l2.c.chainSelector, address(l1.c.EVM2EVMOffRamp1_5)));
 
+    // ensure only 1.2 & 1.5 offRamps are configured
     IRouter.OffRamp[] memory offRamps = l1.c.router.getOffRamps();
     for (uint256 i; i < offRamps.length; ++i) {
       if (offRamps[i].sourceChainSelector == l2.c.chainSelector) {
@@ -203,6 +204,7 @@ contract AaveV3E2E_GHOCCIP150Upgrade_20241021_Base is ProtocolV3TestBase {
     assertTrue(l2.c.router.isOffRamp(l1.c.chainSelector, address(l2.c.EVM2EVMOffRamp1_2)));
     assertTrue(l2.c.router.isOffRamp(l1.c.chainSelector, address(l2.c.EVM2EVMOffRamp1_5)));
 
+    // ensure only 1.2 & 1.5 offRamps are configured
     offRamps = l2.c.router.getOffRamps();
     for (uint256 i; i < offRamps.length; ++i) {
       if (offRamps[i].sourceChainSelector == l1.c.chainSelector) {
@@ -762,7 +764,7 @@ contract AaveV3E2E_GHOCCIP150Upgrade_20241021_InFlightCCIPMigration is
       // wait for the rate limiter to refill
       skip(amount / uint256(inBoundRate) + 1); // rate is non zero
 
-      // reverts with 1.5 off ramp
+      // reverts with 1.5 off ramp because eventArg is in CCIP 1.4 message format
       vm.expectRevert();
       vm.prank(address(l2.c.EVM2EVMOffRamp1_5));
       l2.c.EVM2EVMOffRamp1_5.executeSingleMessage(
