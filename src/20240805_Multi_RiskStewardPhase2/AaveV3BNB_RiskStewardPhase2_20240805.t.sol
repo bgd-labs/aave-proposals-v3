@@ -2,9 +2,7 @@
 pragma solidity ^0.8.0;
 
 import {AaveV3BNB} from 'aave-address-book/AaveV3BNB.sol';
-
-import 'forge-std/Test.sol';
-import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
+import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3BNB_RiskStewardPhase2_20240805} from './AaveV3BNB_RiskStewardPhase2_20240805.sol';
 
 /**
@@ -15,7 +13,7 @@ contract AaveV3BNB_RiskStewardPhase2_20240805_Test is ProtocolV3TestBase {
   AaveV3BNB_RiskStewardPhase2_20240805 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('bnb'), 41088826);
+    vm.createSelectFork(vm.rpcUrl('bnb'), 43597598);
     proposal = new AaveV3BNB_RiskStewardPhase2_20240805();
   }
 
@@ -29,6 +27,6 @@ contract AaveV3BNB_RiskStewardPhase2_20240805_Test is ProtocolV3TestBase {
   function test_permissions() public {
     executePayload(vm, address(proposal));
 
-    assertEq(AaveV3BNB.ACL_MANAGER.isRiskAdmin(proposal.NEW_RISK_STEWARD()), true);
+    assertEq(AaveV3BNB.ACL_MANAGER.isRiskAdmin(AaveV3BNB.RISK_STEWARD), true);
   }
 }

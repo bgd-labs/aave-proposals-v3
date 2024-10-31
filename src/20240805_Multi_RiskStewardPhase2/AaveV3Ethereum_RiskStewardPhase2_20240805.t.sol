@@ -14,7 +14,7 @@ contract AaveV3Ethereum_RiskStewardPhase2_20240805_Test is ProtocolV3TestBase {
   AaveV3Ethereum_RiskStewardPhase2_20240805 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 20460200);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 21085127);
     proposal = new AaveV3Ethereum_RiskStewardPhase2_20240805();
   }
 
@@ -30,8 +30,18 @@ contract AaveV3Ethereum_RiskStewardPhase2_20240805_Test is ProtocolV3TestBase {
   }
 
   function test_permissions() public {
+    assertFalse(
+      IRiskSteward(AaveV3Ethereum.RISK_STEWARD).isAddressRestricted(
+        AaveV3EthereumAssets.GHO_UNDERLYING
+      )
+    );
     executePayload(vm, address(proposal));
 
-    assertEq(AaveV3Ethereum.ACL_MANAGER.isRiskAdmin(proposal.NEW_RISK_STEWARD()), true);
+    assertEq(AaveV3Ethereum.ACL_MANAGER.isRiskAdmin(AaveV3Ethereum.RISK_STEWARD), true);
+    assertTrue(
+      IRiskSteward(AaveV3Ethereum.RISK_STEWARD).isAddressRestricted(
+        AaveV3EthereumAssets.GHO_UNDERLYING
+      )
+    );
   }
 }

@@ -2,9 +2,7 @@
 pragma solidity ^0.8.0;
 
 import {AaveV3EthereumLido} from 'aave-address-book/AaveV3EthereumLido.sol';
-
-import 'forge-std/Test.sol';
-import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
+import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3EthereumLido_RiskStewardPhase2_20240805} from './AaveV3EthereumLido_RiskStewardPhase2_20240805.sol';
 
 /**
@@ -15,7 +13,7 @@ contract AaveV3EthereumLido_RiskStewardPhase2_20240805_Test is ProtocolV3TestBas
   AaveV3EthereumLido_RiskStewardPhase2_20240805 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 20460202);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 21085127);
     proposal = new AaveV3EthereumLido_RiskStewardPhase2_20240805();
   }
 
@@ -33,6 +31,6 @@ contract AaveV3EthereumLido_RiskStewardPhase2_20240805_Test is ProtocolV3TestBas
   function test_permissions() public {
     executePayload(vm, address(proposal));
 
-    assertEq(AaveV3EthereumLido.ACL_MANAGER.isRiskAdmin(proposal.NEW_RISK_STEWARD()), true);
+    assertEq(AaveV3EthereumLido.ACL_MANAGER.isRiskAdmin(AaveV3EthereumLido.RISK_STEWARD), true);
   }
 }

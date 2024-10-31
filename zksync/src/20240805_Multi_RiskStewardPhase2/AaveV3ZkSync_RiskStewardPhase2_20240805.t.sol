@@ -2,8 +2,6 @@
 pragma solidity ^0.8.0;
 
 import {AaveV3ZkSync} from 'aave-address-book/AaveV3ZkSync.sol';
-
-import 'forge-std/Test.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/zksync/src/ProtocolV3TestBase.sol';
 import {AaveV3ZkSync_RiskStewardPhase2_20240805} from './AaveV3ZkSync_RiskStewardPhase2_20240805.sol';
 
@@ -15,7 +13,7 @@ contract AaveV3ZkSync_RiskStewardPhase2_20240805_Test is ProtocolV3TestBase {
   AaveV3ZkSync_RiskStewardPhase2_20240805 internal proposal;
 
   function setUp() public override {
-    vm.createSelectFork(vm.rpcUrl('zksync'), 44487314);
+    vm.createSelectFork(vm.rpcUrl('zksync'), 47823875);
     proposal = new AaveV3ZkSync_RiskStewardPhase2_20240805();
 
     super.setUp();
@@ -36,6 +34,6 @@ contract AaveV3ZkSync_RiskStewardPhase2_20240805_Test is ProtocolV3TestBase {
   function test_permissions() public {
     executePayload(vm, address(proposal));
 
-    assertEq(AaveV3ZkSync.ACL_MANAGER.isRiskAdmin(proposal.NEW_RISK_STEWARD()), true);
+    assertEq(AaveV3ZkSync.ACL_MANAGER.isRiskAdmin(AaveV3ZkSync.RISK_STEWARD), true);
   }
 }

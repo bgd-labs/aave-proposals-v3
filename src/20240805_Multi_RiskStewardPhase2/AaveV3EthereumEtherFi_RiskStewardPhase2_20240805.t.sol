@@ -13,7 +13,7 @@ contract AaveV3EthereumEtherFi_RiskStewardPhase2_20240805_Test is ProtocolV3Test
   AaveV3EthereumEtherFi_RiskStewardPhase2_20240805 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 20718865);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 21085127);
     proposal = new AaveV3EthereumEtherFi_RiskStewardPhase2_20240805();
   }
 
@@ -31,6 +31,9 @@ contract AaveV3EthereumEtherFi_RiskStewardPhase2_20240805_Test is ProtocolV3Test
   function test_permissions() public {
     executePayload(vm, address(proposal));
 
-    assertEq(AaveV3EthereumEtherFi.ACL_MANAGER.isRiskAdmin(proposal.NEW_RISK_STEWARD()), true);
+    assertEq(
+      AaveV3EthereumEtherFi.ACL_MANAGER.isRiskAdmin(AaveV3EthereumEtherFi.RISK_STEWARD),
+      true
+    );
   }
 }

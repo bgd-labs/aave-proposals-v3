@@ -7,13 +7,11 @@ import {AaveV3Scroll} from 'aave-address-book/AaveV3Scroll.sol';
 /**
  * @title Risk Steward Phase 2
  * @author BGD Labs (@bgdlabs)
- * - Snapshot: Direct To AIP
+ * - Snapshot: https://snapshot.org/#/aave.eth/proposal/0x4809f179e517e5745ec13eba8f40d98dab73ca65f8a141bd2f18cc16dcd0cc16
  * - Discussion: https://governance.aave.com/t/arfc-bgd-risk-steward-phase-2-risksteward/16204
  */
 contract AaveV3Scroll_RiskStewardPhase2_20240805 is IProposalGenericExecutor {
-  address public constant NEW_RISK_STEWARD = 0x5E27B8EfDe76814795a07c8a378FcdF09715850b;
-
   function execute() external {
-    AaveV3Scroll.ACL_MANAGER.addRiskAdmin(NEW_RISK_STEWARD);
+    AaveV3Scroll.ACL_MANAGER.addRiskAdmin(AaveV3Scroll.RISK_STEWARD);
   }
 }

@@ -1,10 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {AaveV3Arbitrum} from 'aave-address-book/AaveV3Arbitrum.sol';
-
-import 'forge-std/Test.sol';
-import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
+import {AaveV3Arbitrum, AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
+import {IRiskSteward} from './interfaces/IRiskSteward.sol';
+import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Arbitrum_RiskStewardPhase2_20240805} from './AaveV3Arbitrum_RiskStewardPhase2_20240805.sol';
 
 /**
@@ -15,7 +14,7 @@ contract AaveV3Arbitrum_RiskStewardPhase2_20240805_Test is ProtocolV3TestBase {
   AaveV3Arbitrum_RiskStewardPhase2_20240805 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('arbitrum'), 239583893);
+    vm.createSelectFork(vm.rpcUrl('arbitrum'), 269547589);
     proposal = new AaveV3Arbitrum_RiskStewardPhase2_20240805();
   }
 
@@ -31,8 +30,18 @@ contract AaveV3Arbitrum_RiskStewardPhase2_20240805_Test is ProtocolV3TestBase {
   }
 
   function test_permissions() public {
+    assertFalse(
+      IRiskSteward(AaveV3Arbitrum.RISK_STEWARD).isAddressRestricted(
+        AaveV3ArbitrumAssets.GHO_UNDERLYING
+      )
+    );
     executePayload(vm, address(proposal));
 
-    assertEq(AaveV3Arbitrum.ACL_MANAGER.isRiskAdmin(proposal.NEW_RISK_STEWARD()), true);
+    assertEq(AaveV3Arbitrum.ACL_MANAGER.isRiskAdmin(AaveV3Arbitrum.RISK_STEWARD), true);
+    assertTrue(
+      IRiskSteward(AaveV3Arbitrum.RISK_STEWARD).isAddressRestricted(
+        AaveV3ArbitrumAssets.GHO_UNDERLYING
+      )
+    );
   }
 }
