@@ -7,7 +7,11 @@ snapshot: "https://snapshot.org/#/aave.eth/proposal/0x752c396a86f1f9b60d3e43b7ed
 
 ## Simple Summary
 
+This AIP proposes the onboard of wstETH (wrapped staked ETH) to Aave V3 on BNB Chain to improve Aave’s reach across alternative chains and provide increased choice for Aave users on BNB Chain.
+
 ## Motivation
+
+wstETH is one of the most popular collateral and borrow tokens on Aave, with over $4 billion in deposits and $100m in borrows across Aave deployments. The onboarding of wstETH to the Aave V3 on BNB Chain will give Aave users more options for generating staking yield on their collateral and increase dominance of Aave on BNB Chain.
 
 ## Specification
 
