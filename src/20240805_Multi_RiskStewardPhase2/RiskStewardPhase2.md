@@ -30,7 +30,7 @@ The 2-of-2 multisig controlling the RiskSteward will have Chaos and BGD Labs as 
 
 `ACL_MANAGER.addRiskAdmin()` is called to add a the new risk steward.
 
-Additionally params on GHO on Arbitrum and Ethereum cannot be changed by this RiskStewards, as the params would be updated by the GhoStewards instead, this is done by setting the GHO asset as restricted via the following method: `RISK_STEWARD.setAddressRestricted();`
+Additionally, params for GHO on Arbitrum and Ethereum cannot be changed by this RiskStewards, as the params will be updated by the GhoStewards instead, this is done by setting the GHO asset as restricted via the following method: `RISK_STEWARD.setAddressRestricted();`
 
 To give some extra buffer and protection, we will remove the `RISK_ADMIN` role from the old `CapsPlusRiskSteward` once risk providers have adapted to use the new Risk Stewards.
 
