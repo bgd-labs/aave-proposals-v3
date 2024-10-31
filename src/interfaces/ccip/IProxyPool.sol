@@ -15,6 +15,8 @@ interface IProxyPool is ITypeAndVersion {
   }
 
   function owner() external view returns (address);
+  function transferOwnership(address newOwner) external;
+  function acceptOwnership() external;
   function getRouter() external view returns (address);
   function setRouter(address router) external;
   function getRemotePool(uint64 chainSelector) external view returns (bytes memory);

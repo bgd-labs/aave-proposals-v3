@@ -341,6 +341,28 @@ contract AaveV3Arbitrum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
     );
   }
 
+  function test_ownershipTransferOfGhoProxyPool() public {
+    executePayload(vm, address(proposal));
+    _mockCCIPMigration();
+
+    assertEq(ghoTokenPool.owner(), AaveV3Arbitrum.ACL_ADMIN);
+
+    // CLL team transfers ownership of proxyPool and GHO token in TokenAdminRegistry
+    vm.prank(proxyPool.owner());
+    proxyPool.transferOwnership(AaveV3Arbitrum.ACL_ADMIN);
+    vm.prank(TOKEN_ADMIN_REGISTRY.owner());
+    TOKEN_ADMIN_REGISTRY.transferAdminRole(ARB_GHO_TOKEN, AaveV3Arbitrum.ACL_ADMIN);
+
+    // new AIP to accept ownership
+    vm.startPrank(AaveV3Arbitrum.ACL_ADMIN);
+    proxyPool.acceptOwnership();
+    TOKEN_ADMIN_REGISTRY.acceptAdminRole(ARB_GHO_TOKEN);
+    vm.stopPrank();
+
+    assertEq(proxyPool.owner(), AaveV3Arbitrum.ACL_ADMIN);
+    assertTrue(TOKEN_ADMIN_REGISTRY.isAdministrator(ARB_GHO_TOKEN, AaveV3Arbitrum.ACL_ADMIN));
+  }
+
   function _mockCCIPMigration() private {
     IRouter router = IRouter(ghoTokenPool.getRouter());
     // token registry not set for 1.5 migration

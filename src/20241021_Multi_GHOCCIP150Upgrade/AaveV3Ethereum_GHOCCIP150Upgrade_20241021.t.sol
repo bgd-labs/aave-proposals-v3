@@ -306,7 +306,7 @@ contract AaveV3Ethereum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
     ghoTokenPool.releaseOrMint(abi.encode(alice), alice, amount, ARB_CHAIN_SELECTOR, new bytes(0));
   }
 
-  function test_stewardDisableRateLimit() public {
+  function test_stewardCanDisableRateLimit() public {
     executePayload(vm, address(proposal));
 
     vm.prank(ghoTokenPool.owner());
@@ -326,6 +326,30 @@ contract AaveV3Ethereum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
         _tokenBucketToConfig(ghoTokenPool.getCurrentOutboundRateLimiterState(ARB_CHAIN_SELECTOR))
       ),
       abi.encode(_getDisabledConfig())
+    );
+  }
+
+  function test_ownershipTransferOfGhoProxyPool() public {
+    executePayload(vm, address(proposal));
+    _mockCCIPMigration();
+
+    assertEq(ghoTokenPool.owner(), AaveV3Ethereum.ACL_ADMIN);
+
+    // CLL team transfers ownership of proxyPool and GHO token in TokenAdminRegistry
+    vm.prank(proxyPool.owner());
+    proxyPool.transferOwnership(AaveV3Ethereum.ACL_ADMIN);
+    vm.prank(TOKEN_ADMIN_REGISTRY.owner());
+    TOKEN_ADMIN_REGISTRY.transferAdminRole(MiscEthereum.GHO_TOKEN, AaveV3Ethereum.ACL_ADMIN);
+
+    // new AIP to accept ownership
+    vm.startPrank(AaveV3Ethereum.ACL_ADMIN);
+    proxyPool.acceptOwnership();
+    TOKEN_ADMIN_REGISTRY.acceptAdminRole(MiscEthereum.GHO_TOKEN);
+    vm.stopPrank();
+
+    assertEq(proxyPool.owner(), AaveV3Ethereum.ACL_ADMIN);
+    assertTrue(
+      TOKEN_ADMIN_REGISTRY.isAdministrator(MiscEthereum.GHO_TOKEN, AaveV3Ethereum.ACL_ADMIN)
     );
   }
 
