@@ -5,6 +5,7 @@ import {
   assetsSelectPrompt,
   translateAssetToAssetLibUnderlying,
 } from '../prompts/assetsSelectPrompt';
+import {boolPrompt, translateJsBoolToSol} from '../prompts/boolPrompt';
 
 async function subCli(pool: PoolIdentifier) {
   console.log(`Fetching information for Emode assets on ${pool}`);
@@ -21,6 +22,12 @@ async function subCli(pool: PoolIdentifier) {
         message: `Select the eMode you want to assign to ${asset}`,
         disableKeepCurrent: true,
         pool,
+      }),
+      collateral: await boolPrompt({
+        message: `Should the asset ${asset} be enabled as collateral inside the EMode?`,
+      }),
+      borrowable: await boolPrompt({
+        message: `Should the asset ${asset} be enabled as borrowable inside the EMode?`,
       }),
     });
   }
@@ -49,7 +56,9 @@ export const eModeAssets: FeatureModule<EmodeAssetUpdates> = {
             .map(
               (cfg, ix) => `assetEModeUpdates[${ix}] = IAaveV3ConfigEngine.AssetEModeUpdate({
                asset: ${translateAssetToAssetLibUnderlying(cfg.asset, pool)},
-               eModeCategory: ${cfg.eModeCategory}
+               eModeCategory: ${cfg.eModeCategory},
+               borrowable: ${translateJsBoolToSol(cfg.borrowable)},
+               collateral: ${translateJsBoolToSol(cfg.collateral)}
              });`,
             )
             .join('\n')}

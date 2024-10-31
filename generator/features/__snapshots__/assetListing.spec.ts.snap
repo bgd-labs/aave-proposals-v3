@@ -34,7 +34,6 @@ The table below illustrates the configured risk parameters for **PSP**
 | Variable Slope 1          |                                       10 % |
 | Variable Slope 2          |                                      100 % |
 | Uoptimal                  |                                       80 % |
-| Stable Borrowing          |                                   DISABLED |
 | Flashloanable             |                                    ENABLED |
 | Siloed Borrowing          |                                   DISABLED |
 | Borrowable in Isolation   |                                   DISABLED |
@@ -110,10 +109,10 @@ export const config: ConfigFile = {
       "payload": "// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {AaveV3Ethereum, AaveV3EthereumEModes} from 'aave-address-book/AaveV3Ethereum.sol';
+import {AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
 import {AaveV3PayloadEthereum} from 'aave-helpers/src/v3-config-engine/AaveV3PayloadEthereum.sol';
-import {EngineFlags} from 'aave-v3-periphery/contracts/v3-config-engine/EngineFlags.sol';
-import {IAaveV3ConfigEngine} from 'aave-v3-periphery/contracts/v3-config-engine/IAaveV3ConfigEngine.sol';
+import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
+import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';
 /**
@@ -140,9 +139,7 @@ contract AaveV3Ethereum_Test_20231023 is AaveV3PayloadEthereum {
       asset: PSP,
       assetSymbol: 'PSP',
       priceFeed: 0x72AFAECF99C9d9C8215fF44C77B94B99C28741e8,
-      eModeCategory: AaveV3EthereumEModes.NONE,
       enabledToBorrow: EngineFlags.ENABLED,
-      stableRateModeEnabled: EngineFlags.DISABLED,
       borrowableInIsolation: EngineFlags.DISABLED,
       withSiloedBorrowing: EngineFlags.DISABLED,
       flashloanable: EngineFlags.ENABLED,
@@ -303,7 +300,6 @@ The table below illustrates the configured risk parameters for **PSP**
 | Variable Slope 1          |                                       10 % |
 | Variable Slope 2          |                                      100 % |
 | Uoptimal                  |                                       80 % |
-| Stable Borrowing          |                                   DISABLED |
 | Flashloanable             |                                    ENABLED |
 | Siloed Borrowing          |                                   DISABLED |
 | Borrowable in Isolation   |                                   DISABLED |
@@ -379,10 +375,10 @@ export const config: ConfigFile = {
       "payload": "// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {AaveV3Ethereum, AaveV3EthereumEModes} from 'aave-address-book/AaveV3Ethereum.sol';
+import {AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
 import {AaveV3PayloadEthereum} from 'aave-helpers/src/v3-config-engine/AaveV3PayloadEthereum.sol';
-import {EngineFlags} from 'aave-v3-periphery/contracts/v3-config-engine/EngineFlags.sol';
-import {IAaveV3ConfigEngine} from 'aave-v3-periphery/contracts/v3-config-engine/IAaveV3ConfigEngine.sol';
+import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
+import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';
 /**
@@ -409,9 +405,7 @@ contract AaveV3Ethereum_Test_20231023 is AaveV3PayloadEthereum {
       asset: PSP,
       assetSymbol: 'PSP',
       priceFeed: 0x72AFAECF99C9d9C8215fF44C77B94B99C28741e8,
-      eModeCategory: AaveV3EthereumEModes.NONE,
       enabledToBorrow: EngineFlags.ENABLED,
-      stableRateModeEnabled: EngineFlags.DISABLED,
       borrowableInIsolation: EngineFlags.DISABLED,
       withSiloedBorrowing: EngineFlags.DISABLED,
       flashloanable: EngineFlags.ENABLED,
@@ -561,7 +555,6 @@ exports[`feature: assetListing > should return reasonable code 1`] = `
 | Variable Slope 1 | 10 % |
 | Variable Slope 2 | 100 % |
 | Uoptimal | 80 % |
-| Stable Borrowing | DISABLED |
 | Flashloanable	| ENABLED |
 | Siloed Borrowing	| DISABLED |
 | Borrowable in Isolation | DISABLED |
@@ -571,12 +564,14 @@ exports[`feature: assetListing > should return reasonable code 1`] = `
   },
   "code": {
     "constants": [
-      "address public constant PSP = 0xcAfE001067cDEF266AfB7Eb5A286dCFD277f3dE5;",
-      "uint256 public constant PSP_SEED_AMOUNT = 1e18;",
+      "address public constant PSP = 0xcAfE001067cDEF266AfB7Eb5A286dCFD277f3dE5;
+uint256 public constant PSP_SEED_AMOUNT = 1e18;
+",
     ],
     "execute": [
       "IERC20(PSP).forceApprove(address(AaveV3Ethereum.POOL), PSP_SEED_AMOUNT);
-            AaveV3Ethereum.POOL.supply(PSP, PSP_SEED_AMOUNT, address(AaveV3Ethereum.COLLECTOR), 0);",
+AaveV3Ethereum.POOL.supply(PSP, PSP_SEED_AMOUNT, address(AaveV3Ethereum.COLLECTOR), 0);
+",
     ],
     "fn": [
       "function newListings() public pure override returns (IAaveV3ConfigEngine.Listing[] memory) {
@@ -586,9 +581,7 @@ exports[`feature: assetListing > should return reasonable code 1`] = `
                asset: PSP,
   assetSymbol: "PSP",
   priceFeed: 0x72AFAECF99C9d9C8215fF44C77B94B99C28741e8,
-  eModeCategory: AaveV3EthereumEModes.NONE,
   enabledToBorrow: EngineFlags.ENABLED,
-  stableRateModeEnabled: EngineFlags.DISABLED,
   borrowableInIsolation: EngineFlags.DISABLED,
   withSiloedBorrowing: EngineFlags.DISABLED,
   flashloanable: EngineFlags.ENABLED,
@@ -618,7 +611,8 @@ exports[`feature: assetListing > should return reasonable code 1`] = `
             GovV3Helpers.executePayload(vm,address(proposal));
             (address aTokenAddress, , ) = AaveV3Ethereum.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(proposal.PSP());
             assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Ethereum.COLLECTOR)), 10 ** 18);
-          }",
+          }
+",
     ],
   },
 }
