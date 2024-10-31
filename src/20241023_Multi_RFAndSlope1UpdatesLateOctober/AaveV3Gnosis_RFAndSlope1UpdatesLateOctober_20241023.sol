@@ -9,7 +9,7 @@ import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config
  * @title RF and Slope1 Updates Late October
  * @author karpatkey_TokenLogic
  * - Snapshot: https://snapshot.org/#/aave.eth/proposal/0x9cc7906f04f45cebeaa48a05ed281f49da00d89c4dd988a968272fa179f14d06
- * - Discussion: https://governance.aave.com/t/arfc-increase-bridged-usdc-reserve-factor-across-all-deployments/17787
+ * - Discussion: https://governance.aave.com/t/arfc-increase-bridged-usdc-reserve-factor-across-all-deployments/17787/11
  */
 contract AaveV3Gnosis_RFAndSlope1UpdatesLateOctober_20241023 is AaveV3PayloadGnosis {
   function borrowsUpdates()

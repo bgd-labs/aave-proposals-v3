@@ -7,8 +7,8 @@ import {AaveV2Ethereum, AaveV2EthereumAssets, ILendingPoolConfigurator} from 'aa
 /**
  * @title RF and Slope1 Updates Late October
  * @author karpatkey_TokenLogic
- * - Snapshot: https://snapshot.org/#/aave.eth/proposal/0x9cc7906f04f45cebeaa48a05ed281f49da00d89c4dd988a968272fa179f14d06
- * - Discussion: https://governance.aave.com/t/arfc-increase-bridged-usdc-reserve-factor-across-all-deployments/17787
+ * - Snapshot: https://snapshot.org/#/aave.eth/proposal/0x26a03c08359c340f63b78b0c3e96d37aa0adeda65814643b0886d4719048ea7e
+ * - Discussion: https://governance.aave.com/t/arfc-ethereum-v2-reserve-factor-adjustment/16764/19
  */
 contract AaveV2Ethereum_RFAndSlope1UpdatesLateOctober_20241023 is IProposalGenericExecutor {
   ILendingPoolConfigurator public constant POOL_CONFIGURATOR =

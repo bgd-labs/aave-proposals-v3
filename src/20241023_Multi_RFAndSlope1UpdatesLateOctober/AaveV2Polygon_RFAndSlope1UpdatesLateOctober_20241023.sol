@@ -9,8 +9,8 @@ import {IV2RateStrategyFactory} from 'aave-helpers/src/v2-config-engine/IV2RateS
 /**
  * @title RF and Slope1 Updates Late October
  * @author karpatkey_TokenLogic
- * - Snapshot: https://snapshot.org/#/aave.eth/proposal/0x9cc7906f04f45cebeaa48a05ed281f49da00d89c4dd988a968272fa179f14d06
- * - Discussion: https://governance.aave.com/t/arfc-increase-bridged-usdc-reserve-factor-across-all-deployments/17787
+ * - Snapshot: https://snapshot.org/#/aave.eth/proposal/0x95643085ee16eb0eaa4110a9f0ea8223009f9521e596e1a958303705a5001363
+ * - Discussion: https://governance.aave.com/t/arfc-polygon-v2-borrow-rate-adjustments/17252/14
  */
 contract AaveV2Polygon_RFAndSlope1UpdatesLateOctober_20241023 is AaveV2PayloadPolygon {
   function rateStrategiesUpdates()
