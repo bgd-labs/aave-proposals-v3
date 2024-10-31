@@ -18,7 +18,7 @@ export const config: ConfigFile = {
             asset: 'wstETH',
             params: {
               optimalUtilizationRate: '',
-              baseVariableBorrowRate: '',
+              baseVariableBorrowRate: '0.00',
               variableRateSlope1: '2.00',
               variableRateSlope2: '',
             },
