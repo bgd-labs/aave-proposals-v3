@@ -25,8 +25,8 @@ For stkGHO:
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241029_AaveV3Ethereum_StkGHOIncentivesQ4/AaveV3Ethereum_StkGHOIncentives_20240424.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241029_AaveV3Ethereum_StkGHOIncentivesQ4/AaveV3Ethereum_StkGHOIncentives_20240424.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/c4837d92cdc0cd819db9b6c2e43e8cda3dcc96e0/src/20241029_AaveV3Ethereum_StkGHOIncentivesQ4/AaveV3Ethereum_StkGHOIncentives_20240424.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/c4837d92cdc0cd819db9b6c2e43e8cda3dcc96e0/src/20241029_AaveV3Ethereum_StkGHOIncentivesQ4/AaveV3Ethereum_StkGHOIncentives_20240424.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x0f73500d0f65c72482d352080ea9aa0aa92264eb059b8f646cf6f0e86556bc3d)
 - [Discussion](https://governance.aave.com/t/arfc-safety-module-stkgho-re-enable-rewards/19626)
 
