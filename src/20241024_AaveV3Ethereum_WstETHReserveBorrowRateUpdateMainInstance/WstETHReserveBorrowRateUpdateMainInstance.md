@@ -19,10 +19,11 @@ After monitoring how the market responds, future borrow rate adjustments across 
 
 ## Specification
 
-The Main instance the wstETH Slope1 parameter is to be revised as follows:
+The Main instance the wstETH Slope1 and base parameter is to be revised as follows:
 
 | Asset  | Parameter | Current | Proposed | Change |
 | :----: | :-------: | :-----: | :------: | :----: |
+| wstETH |   Base    |  0.25%  |  0.00%   | -0.25% |
 | wstETH |  Slope1   |  4.50%  |  2.00%   | -2.50% |
 
 ## References

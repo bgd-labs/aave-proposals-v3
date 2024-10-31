@@ -26,7 +26,7 @@ contract AaveV3Ethereum_WstETHReserveBorrowRateUpdateMainInstance_20241024 is
       asset: AaveV3EthereumAssets.wstETH_UNDERLYING,
       params: IAaveV3ConfigEngine.InterestRateInputData({
         optimalUsageRatio: EngineFlags.KEEP_CURRENT,
-        baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
+        baseVariableBorrowRate: 0,
         variableRateSlope1: 2_00,
         variableRateSlope2: EngineFlags.KEEP_CURRENT
       })
