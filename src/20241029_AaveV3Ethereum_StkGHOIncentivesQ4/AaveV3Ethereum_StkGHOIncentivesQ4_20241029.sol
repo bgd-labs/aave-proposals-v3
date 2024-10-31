@@ -51,7 +51,9 @@ contract AaveV3Ethereum_StkGHOIncentivesQ4_20241029 is IProposalGenericExecutor 
       MiscEthereum.ECOSYSTEM_RESERVE,
       AaveV3EthereumAssets.AAVE_UNDERLYING,
       AaveSafetyModule.STK_GHO,
-      remainingAllowance + (AAVE_EMISSION_PER_SECOND_STK_GHO * DISTRIBUTION_DURATION) + ALLOWANCE_BUFFER
+      remainingAllowance +
+        (AAVE_EMISSION_PER_SECOND_STK_GHO * DISTRIBUTION_DURATION) +
+        ALLOWANCE_BUFFER
     );
   }
 }
