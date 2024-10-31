@@ -39,6 +39,16 @@ The table below illustrates the configured risk parameters for **wstETH**
 | Borrowable in Isolation   |                                   DISABLED |
 | Oracle                    | 0xc1377B4cdF9116bf7b3d7F72A4f8A7Be8506cE80 |
 
+The table below illustrate the configured "ETH-Correlated" E-mode
+
+| Parameter             | wstETH | WETH  |
+| --------------------- | ------ | ----- |
+| Collateral            | Yes    | No    |
+| Borrowable            | No     | Yes   |
+| Max LTV               | 93%    | 93%   |
+| Liquidation Threshold | 95%    | 95%   |
+| Liquidation Penalty   | 1.00%  | 1.00% |
+
 ## References
 
 - Implementation: [AaveV3BNB](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241030_AaveV3BNB_OnboardWstETHToAaveV3OnBNBChain/AaveV3BNB_OnboardWstETHToAaveV3OnBNBChain_20241030.sol)
