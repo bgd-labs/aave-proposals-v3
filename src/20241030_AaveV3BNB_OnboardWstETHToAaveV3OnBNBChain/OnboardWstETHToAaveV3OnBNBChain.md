@@ -53,8 +53,8 @@ Additionaly [0xac140648435d03f784879cd789130F22Ef588Fcd](https://bscscan.com/add
 
 ## References
 
-- Implementation: [AaveV3BNB](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241030_AaveV3BNB_OnboardWstETHToAaveV3OnBNBChain/AaveV3BNB_OnboardWstETHToAaveV3OnBNBChain_20241030.sol)
-- Tests: [AaveV3BNB](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241030_AaveV3BNB_OnboardWstETHToAaveV3OnBNBChain/AaveV3BNB_OnboardWstETHToAaveV3OnBNBChain_20241030.t.sol)
+- Implementation: [AaveV3BNB](https://github.com/bgd-labs/aave-proposals-v3/blob/4d2ca786411ef6f1207f81498ee298142721ddfd/src/20241030_AaveV3BNB_OnboardWstETHToAaveV3OnBNBChain/AaveV3BNB_OnboardWstETHToAaveV3OnBNBChain_20241030.sol)
+- Tests: [AaveV3BNB](https://github.com/bgd-labs/aave-proposals-v3/blob/4d2ca786411ef6f1207f81498ee298142721ddfd/src/20241030_AaveV3BNB_OnboardWstETHToAaveV3OnBNBChain/AaveV3BNB_OnboardWstETHToAaveV3OnBNBChain_20241030.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x752c396a86f1f9b60d3e43b7ed223d9d2f66014e03b6b3eb7ac59e8a169d1fe5)
 - [Discussion](https://governance.aave.com/t/arfc-onboard-wsteth-to-aave-v3-on-bnb-chain/18501)
 
