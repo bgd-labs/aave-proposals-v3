@@ -11,9 +11,9 @@ This publication proposes reducing wstETH Slope1 parameter on the Main instance 
 
 ## Motivation
 
-Users with leverage long wstETH and short ETH positions are expected to generate a return exceeding pre-wstETH liquidity mining rewards being initiated.
+With the goal of encouraging user to borrow wstETH on the Main instance of Aave v3, the wstETH borrow rate will be lowered.
 
-With the goal of encouraging user to borrow wstETH on the Main instance of Aave v3, the wstETH borrow rate will be lowered. The anticipated rsETH collateral and wETH debt eMode category is expected to create demand for wstETH debt. Given the size of the wstETH reserve the Uoptimal is not being increased by this propsoal.
+The anticipated rsETH collateral and wETH debt eMode category is expected to create demand for wstETH debt. Given the size of the wstETH reserve the Uoptimal is not being increased by this propsoal.
 
 After monitoring how the market responds, future borrow rate adjustments across the Aave v3 instances on Ethereum will be assessed and any change presented for discussion.
 
