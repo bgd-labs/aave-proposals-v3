@@ -2,7 +2,7 @@ import {ConfigFile} from '../../generator/types';
 export const config: ConfigFile = {
   rootOptions: {
     pools: ['AaveV3Ethereum', 'AaveV3Arbitrum'],
-    title: 'GHO CCIP 1.50 Upgrade',
+    title: 'GHO CCIP 1.5.0 Upgrade',
     shortName: 'GHOCCIP150Upgrade',
     date: '20241021',
     author: 'Aave Labs',
@@ -11,7 +11,7 @@ export const config: ConfigFile = {
     votingNetwork: 'POLYGON',
   },
   poolOptions: {
-    AaveV3Ethereum: {configs: {OTHERS: {}}, cache: {blockNumber: 21015645}},
-    AaveV3Arbitrum: {configs: {OTHERS: {}}, cache: {blockNumber: 266210927}},
+    AaveV3Ethereum: {configs: {OTHERS: {}}, cache: {blockNumber: 21045560}},
+    AaveV3Arbitrum: {configs: {OTHERS: {}}, cache: {blockNumber: 267660907}},
   },
 };

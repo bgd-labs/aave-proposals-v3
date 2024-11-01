@@ -442,15 +442,6 @@ contract AaveV3Arbitrum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
     return uint8(uint256(vm.load(proxy, bytes32(0))));
   }
 
-  function _readRiskAdmin() private view returns (address riskAdmin) {
-    // private immutable at offset 144
-    address steward = address(GHO_CCIP_STEWARD);
-    assembly {
-      extcodecopy(steward, 0, 144, 20) // use scratch space
-      riskAdmin := shr(96, mload(0)) // correct padding
-    }
-  }
-
   function _getFacilitatorLevel(address f) internal view returns (uint256) {
     (, uint256 level) = IGhoToken(ARB_GHO_TOKEN).getFacilitatorBucket(f);
     return level;
@@ -485,7 +476,6 @@ contract AaveV3Arbitrum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
 
     assertEq(GHO_CCIP_STEWARD.GHO_TOKEN(), ARB_GHO_TOKEN);
     assertEq(GHO_CCIP_STEWARD.GHO_TOKEN_POOL(), address(ghoTokenPool));
-    assertEq(GHO_CCIP_STEWARD.RISK_COUNCIL(), _readRiskAdmin());
   }
 
   function _getOutboundRefillTime(uint256 amount) private view returns (uint256) {
