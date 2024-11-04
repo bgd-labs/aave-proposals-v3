@@ -32,4 +32,38 @@ interface IGhoToken {
    * @return The level of the facilitator's bucket
    */
   function getFacilitatorBucket(address facilitator) external view returns (uint256, uint256);
+
+  /**
+   * @notice Returns the identifier of the Bucket Manager Role
+   * @return The bytes32 id hash of the BucketManager role
+   */
+  function BUCKET_MANAGER_ROLE() external view returns (bytes32);
+
+  /**
+   * @dev Grants `role` to `account`.
+   *
+   * If `account` had not been already granted `role`, emits a {RoleGranted}
+   * event.
+   *
+   * Requirements:
+   *
+   * - the caller must have ``role``'s admin role.
+   */
+  function grantRole(bytes32 role, address account) external;
+
+  /**
+   * @dev Returns `true` if `account` has been granted `role`.
+   */
+  function hasRole(bytes32 role, address account) external view returns (bool);
+
+  /**
+   * @dev Revokes `role` from `account`.
+   *
+   * If `account` had been granted `role`, emits a {RoleRevoked} event.
+   *
+   * Requirements:
+   *
+   * - the caller must have ``role``'s admin role.
+   */
+  function revokeRole(bytes32 role, address account) external;
 }

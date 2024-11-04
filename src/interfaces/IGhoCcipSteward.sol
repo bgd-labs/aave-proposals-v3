@@ -1,7 +1,17 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.10;
 
+/**
+ * @title IGhoCcipSteward
+ * @author Aave Labs
+ * @notice Defines the basic interface of the GhoCcipSteward
+ */
 interface IGhoCcipSteward {
+  struct CcipDebounce {
+    uint40 bridgeLimitLastUpdate;
+    uint40 rateLimitLastUpdate;
+  }
+
   /**
    * @notice Updates the CCIP bridge limit
    * @dev Only callable by Risk Council
@@ -50,8 +60,14 @@ interface IGhoCcipSteward {
   function GHO_TOKEN_POOL() external view returns (address);
 
   /**
-   * @notice Returns the address of the Risk Council
-   * @return The address of the Risk Council
+   * @notice Returns whether the bridge limit feature is supported in the GhoTokenPool
+   * @return True if bridge limit is enabled in the CCIP GhoTokenPool, false otherwise
+   */
+  function BRIDGE_LIMIT_ENABLED() external view returns (bool);
+
+  /**
+   * @notice Returns the address of the risk council
+   * @return The address of the RiskCouncil
    */
   function RISK_COUNCIL() external view returns (address);
 }
