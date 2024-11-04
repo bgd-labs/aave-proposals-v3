@@ -5,8 +5,8 @@ import {TransparentUpgradeableProxy} from 'solidity-utils/contracts/transparent-
 import {ProxyAdmin} from 'solidity-utils/contracts/transparent-proxy/ProxyAdmin.sol';
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
 import {MiscArbitrum} from 'aave-address-book/MiscArbitrum.sol';
-import {UpgradeableBurnMintTokenPool} from 'aave-ccip/v0.8/ccip/pools/GHO/UpgradeableBurnMintTokenPool.sol';
-import {RateLimiter} from 'aave-ccip/v0.8/ccip/libraries/RateLimiter.sol';
+import {IUpgradeableBurnMintTokenPool} from 'src/interfaces/ccip/IUpgradeableBurnMintTokenPool.sol';
+import {IRateLimiter} from 'src/interfaces/ccip/IRateLimiter.sol';
 
 /**
  * @title GHO CCIP 1.50 Upgrade
@@ -14,26 +14,21 @@ import {RateLimiter} from 'aave-ccip/v0.8/ccip/libraries/RateLimiter.sol';
  * - Discussion: https://governance.aave.com/t/bgd-technical-maintenance-proposals/15274/51
  */
 contract AaveV3Arbitrum_GHOCCIP150Upgrade_20241021 is IProposalGenericExecutor {
-  address public constant GHO_CCIP_PROXY_POOL = 0x26329558f08cbb40d6a4CCA0E0C67b29D64A8c50;
   uint64 public constant ETH_CHAIN_SELECTOR = 5009297550715157269;
 
-  function execute() external {
-    UpgradeableBurnMintTokenPool tokenPoolProxy = UpgradeableBurnMintTokenPool(
-      MiscArbitrum.GHO_CCIP_TOKEN_POOL
-    );
+  // https://arbiscan.io/address/0xb0e1c7830aA781362f79225559Aa068E6bDaF1d1
+  address public constant TOKEN_POOL_IMPL = 0xb0e1c7830aA781362f79225559Aa068E6bDaF1d1;
+  // https://arbiscan.io/address/0x26329558f08cbb40d6a4CCA0E0C67b29D64A8c50
+  address public constant GHO_CCIP_PROXY_POOL = 0x26329558f08cbb40d6a4CCA0E0C67b29D64A8c50;
 
-    // Deploy new tokenPool implementation, retain existing immutable configuration
-    address tokenPoolImpl = address(
-      new UpgradeableBurnMintTokenPool(
-        address(tokenPoolProxy.getToken()),
-        tokenPoolProxy.getArmProxy(),
-        tokenPoolProxy.getAllowListEnabled()
-      )
+  function execute() external {
+    IUpgradeableBurnMintTokenPool tokenPoolProxy = IUpgradeableBurnMintTokenPool(
+      MiscArbitrum.GHO_CCIP_TOKEN_POOL
     );
 
     ProxyAdmin(MiscArbitrum.PROXY_ADMIN).upgrade(
       TransparentUpgradeableProxy(payable(address(tokenPoolProxy))),
-      tokenPoolImpl
+      TOKEN_POOL_IMPL
     );
 
     // Update proxyPool address
@@ -52,8 +47,8 @@ contract AaveV3Arbitrum_GHOCCIP150Upgrade_20241021 is IProposalGenericExecutor {
   /// Capacity: 350_000 GHO
   /// Rate: 100 GHO per second (=> 360_000 GHO per hour)
   /// @return The rate limiter configuration
-  function getOutBoundRateLimiterConfig() public pure returns (RateLimiter.Config memory) {
-    return RateLimiter.Config({isEnabled: true, capacity: 350_000e18, rate: 100e18});
+  function getOutBoundRateLimiterConfig() public pure returns (IRateLimiter.Config memory) {
+    return IRateLimiter.Config({isEnabled: true, capacity: 350_000e18, rate: 100e18});
   }
 
   /// @notice Returns the rate limiter configuration for the inbound rate limiter
@@ -61,7 +56,7 @@ contract AaveV3Arbitrum_GHOCCIP150Upgrade_20241021 is IProposalGenericExecutor {
   /// Capacity: 350_000 GHO
   /// Rate: 100 GHO per second (=> 360_000 GHO per hour)
   /// @return The rate limiter configuration
-  function getInBoundRateLimiterConfig() public pure returns (RateLimiter.Config memory) {
-    return RateLimiter.Config({isEnabled: true, capacity: 350_000e18, rate: 100e18});
+  function getInBoundRateLimiterConfig() public pure returns (IRateLimiter.Config memory) {
+    return IRateLimiter.Config({isEnabled: true, capacity: 350_000e18, rate: 100e18});
   }
 }

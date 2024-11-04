@@ -7,8 +7,6 @@ import {AaveV3Arbitrum, AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbi
 import {MiscArbitrum} from 'aave-address-book/MiscArbitrum.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
-import {UpgradeableBurnMintTokenPool} from 'aave-ccip/v0.8/ccip/pools/GHO/UpgradeableBurnMintTokenPool.sol';
-import {RateLimiter} from 'aave-ccip/v0.8/ccip/libraries/RateLimiter.sol';
 import {IClient} from 'src/interfaces/ccip/IClient.sol';
 import {IInternal} from 'src/interfaces/ccip/IInternal.sol';
 import {IRouter} from 'src/interfaces/ccip/IRouter.sol';
@@ -18,6 +16,7 @@ import {IRateLimiter} from 'src/interfaces/ccip/IRateLimiter.sol';
 import {ITokenAdminRegistry} from 'src/interfaces/ccip/ITokenAdminRegistry.sol';
 import {IGhoToken} from 'src/interfaces/IGhoToken.sol';
 import {IGhoCcipSteward} from 'src/interfaces/IGhoCcipSteward.sol';
+import {IUpgradeableBurnMintTokenPool} from 'src/interfaces/ccip/IUpgradeableBurnMintTokenPool.sol';
 import {CCIPUtils} from './utils/CCIPUtils.sol';
 
 import {AaveV3Arbitrum_GHOCCIP150Upgrade_20241021} from './AaveV3Arbitrum_GHOCCIP150Upgrade_20241021.sol';
@@ -34,7 +33,7 @@ contract AaveV3Arbitrum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
   }
 
   AaveV3Arbitrum_GHOCCIP150Upgrade_20241021 internal proposal;
-  UpgradeableBurnMintTokenPool internal ghoTokenPool;
+  IUpgradeableBurnMintTokenPool internal ghoTokenPool;
   IProxyPool internal proxyPool;
 
   address internal alice = makeAddr('alice');
@@ -62,9 +61,9 @@ contract AaveV3Arbitrum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
   error NotACompatiblePool(address pool);
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('arbitrum'), 267660907);
+    vm.createSelectFork(vm.rpcUrl('arbitrum'), 271012501);
     proposal = new AaveV3Arbitrum_GHOCCIP150Upgrade_20241021();
-    ghoTokenPool = UpgradeableBurnMintTokenPool(MiscArbitrum.GHO_CCIP_TOKEN_POOL);
+    ghoTokenPool = IUpgradeableBurnMintTokenPool(MiscArbitrum.GHO_CCIP_TOKEN_POOL);
     proxyPool = IProxyPool(proposal.GHO_CCIP_PROXY_POOL());
 
     _validateConstants();
@@ -75,16 +74,12 @@ contract AaveV3Arbitrum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
    */
   function test_defaultProposalExecution() public {
     assertEq(
-      abi.encode(
-        _tokenBucketToConfig(ghoTokenPool.getCurrentInboundRateLimiterState(ETH_CHAIN_SELECTOR))
-      ),
-      abi.encode(_getDisabledConfig())
+      ghoTokenPool.getCurrentInboundRateLimiterState(ETH_CHAIN_SELECTOR),
+      _getDisabledConfig()
     );
     assertEq(
-      abi.encode(
-        _tokenBucketToConfig(ghoTokenPool.getCurrentOutboundRateLimiterState(ETH_CHAIN_SELECTOR))
-      ),
-      abi.encode(_getDisabledConfig())
+      ghoTokenPool.getCurrentOutboundRateLimiterState(ETH_CHAIN_SELECTOR),
+      _getDisabledConfig()
     );
 
     bytes memory dynamicParamsBefore = _getDynamicParams();
@@ -100,16 +95,12 @@ contract AaveV3Arbitrum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
     assertEq(keccak256(_getStaticParams()), keccak256(staticParamsBefore));
 
     assertEq(
-      abi.encode(
-        _tokenBucketToConfig(ghoTokenPool.getCurrentInboundRateLimiterState(ETH_CHAIN_SELECTOR))
-      ),
-      abi.encode(proposal.getInBoundRateLimiterConfig())
+      ghoTokenPool.getCurrentInboundRateLimiterState(ETH_CHAIN_SELECTOR),
+      proposal.getInBoundRateLimiterConfig()
     );
     assertEq(
-      abi.encode(
-        _tokenBucketToConfig(ghoTokenPool.getCurrentOutboundRateLimiterState(ETH_CHAIN_SELECTOR))
-      ),
-      abi.encode(proposal.getOutBoundRateLimiterConfig())
+      ghoTokenPool.getCurrentOutboundRateLimiterState(ETH_CHAIN_SELECTOR),
+      proposal.getOutBoundRateLimiterConfig()
     );
   }
 
@@ -365,31 +356,19 @@ contract AaveV3Arbitrum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
 
   function _mockCCIPMigration() private {
     IRouter router = IRouter(ghoTokenPool.getRouter());
-    // token registry not set for 1.5 migration
-    assertEq(TOKEN_ADMIN_REGISTRY.getPool(ARB_GHO_TOKEN), address(0));
-    vm.startPrank(TOKEN_ADMIN_REGISTRY.owner());
-    TOKEN_ADMIN_REGISTRY.proposeAdministrator(ARB_GHO_TOKEN, TOKEN_ADMIN_REGISTRY.owner());
-    TOKEN_ADMIN_REGISTRY.acceptAdminRole(ARB_GHO_TOKEN);
-    TOKEN_ADMIN_REGISTRY.setPool(ARB_GHO_TOKEN, address(proxyPool));
-    vm.stopPrank();
+
     assertEq(TOKEN_ADMIN_REGISTRY.getPool(ARB_GHO_TOKEN), address(proxyPool));
 
     assertEq(proxyPool.getRouter(), address(router));
 
-    IProxyPool.ChainUpdate[] memory chains = new IProxyPool.ChainUpdate[](1);
-    chains[0] = IProxyPool.ChainUpdate({
-      remoteChainSelector: ETH_CHAIN_SELECTOR,
-      remotePoolAddress: abi.encode(ETH_PROXY_POOL),
-      remoteTokenAddress: abi.encode(address(MiscEthereum.GHO_TOKEN)),
-      allowed: true,
-      outboundRateLimiterConfig: IRateLimiter.Config({isEnabled: false, capacity: 0, rate: 0}),
-      inboundRateLimiterConfig: IRateLimiter.Config({isEnabled: false, capacity: 0, rate: 0})
-    });
-
-    vm.prank(proxyPool.owner());
-    proxyPool.applyChainUpdates(chains);
-
     assertTrue(proxyPool.isSupportedChain(ETH_CHAIN_SELECTOR));
+    assertEq(proxyPool.getCurrentInboundRateLimiterState(ETH_CHAIN_SELECTOR), _getDisabledConfig());
+    assertEq(
+      proxyPool.getCurrentOutboundRateLimiterState(ETH_CHAIN_SELECTOR),
+      _getDisabledConfig()
+    );
+    assertEq(proxyPool.getRemotePool(ETH_CHAIN_SELECTOR), abi.encode(ETH_PROXY_POOL));
+    assertEq(proxyPool.getRemoteToken(ETH_CHAIN_SELECTOR), abi.encode(MiscEthereum.GHO_TOKEN));
 
     IRouter.OnRamp[] memory onRampUpdates = new IRouter.OnRamp[](1);
     onRampUpdates[0] = IRouter.OnRamp({
@@ -476,6 +455,8 @@ contract AaveV3Arbitrum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
 
     assertEq(GHO_CCIP_STEWARD.GHO_TOKEN(), ARB_GHO_TOKEN);
     assertEq(GHO_CCIP_STEWARD.GHO_TOKEN_POOL(), address(ghoTokenPool));
+
+    assertEq(proxyPool.getPreviousPool(), address(ghoTokenPool));
   }
 
   function _getOutboundRefillTime(uint256 amount) private view returns (uint256) {
@@ -491,17 +472,24 @@ contract AaveV3Arbitrum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
   }
 
   function _tokenBucketToConfig(
-    RateLimiter.TokenBucket memory bucket
-  ) private pure returns (RateLimiter.Config memory) {
+    IRateLimiter.TokenBucket memory bucket
+  ) private pure returns (IRateLimiter.Config memory) {
     return
-      RateLimiter.Config({
+      IRateLimiter.Config({
         isEnabled: bucket.isEnabled,
         capacity: bucket.capacity,
         rate: bucket.rate
       });
   }
 
-  function _getDisabledConfig() private pure returns (RateLimiter.Config memory) {
-    return RateLimiter.Config({isEnabled: false, capacity: 0, rate: 0});
+  function _getDisabledConfig() private pure returns (IRateLimiter.Config memory) {
+    return IRateLimiter.Config({isEnabled: false, capacity: 0, rate: 0});
+  }
+
+  function assertEq(
+    IRateLimiter.TokenBucket memory bucket,
+    IRateLimiter.Config memory config
+  ) internal pure {
+    assertEq(abi.encode(_tokenBucketToConfig(bucket)), abi.encode(config));
   }
 }

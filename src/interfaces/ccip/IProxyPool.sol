@@ -19,7 +19,15 @@ interface IProxyPool is ITypeAndVersion {
   function acceptOwnership() external;
   function getRouter() external view returns (address);
   function setRouter(address router) external;
-  function getRemotePool(uint64 chainSelector) external view returns (bytes memory);
   function applyChainUpdates(ChainUpdate[] memory updates) external;
   function isSupportedChain(uint64 chainSelector) external view returns (bool);
+  function getPreviousPool() external view returns (address);
+  function getCurrentInboundRateLimiterState(
+    uint64 chainSelector
+  ) external view returns (IRateLimiter.TokenBucket memory);
+  function getCurrentOutboundRateLimiterState(
+    uint64 chainSelector
+  ) external view returns (IRateLimiter.TokenBucket memory);
+  function getRemotePool(uint64 remoteChainSelector) external view returns (bytes memory);
+  function getRemoteToken(uint64 remoteChainSelector) external view returns (bytes memory);
 }
