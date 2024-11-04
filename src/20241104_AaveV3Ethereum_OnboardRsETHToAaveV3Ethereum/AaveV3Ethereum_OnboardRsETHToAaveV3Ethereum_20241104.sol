@@ -67,6 +67,38 @@ contract AaveV3Ethereum_OnboardRsETHToAaveV3Ethereum_20241104 is AaveV3PayloadEt
 
     return eModeUpdates;
   }
+  function assetsEModeUpdates()
+    public
+    pure
+    override
+    returns (IAaveV3ConfigEngine.AssetEModeUpdate[] memory)
+  {
+    IAaveV3ConfigEngine.AssetEModeUpdate[]
+      memory assetEModeUpdates = new IAaveV3ConfigEngine.AssetEModeUpdate[](3);
+
+    assetEModeUpdates[0] = IAaveV3ConfigEngine.AssetEModeUpdate({
+      asset: rsETH,
+      eModeCategory: 2,
+      borrowable: EngineFlags.DISABLED,
+      collateral: EngineFlags.ENABLED
+    });
+
+    assetEModeUpdates[1] = IAaveV3ConfigEngine.AssetEModeUpdate({
+      asset: AaveV3EthereumAssets.wstETH_UNDERLYING,
+      eModeCategory: 2,
+      borrowable: EngineFlags.ENABLED,
+      collateral: EngineFlags.DISABLED
+    });
+
+    assetEModeUpdates[2] = IAaveV3ConfigEngine.AssetEModeUpdate({
+      asset: AaveV3EthereumAssets.ETHx_UNDERLYING,
+      eModeCategory: 2,
+      borrowable: EngineFlags.ENABLED,
+      collateral: EngineFlags.DISABLED
+    });
+
+    return assetEModeUpdates;
+  }
   function newListings() public pure override returns (IAaveV3ConfigEngine.Listing[] memory) {
     IAaveV3ConfigEngine.Listing[] memory listings = new IAaveV3ConfigEngine.Listing[](1);
 
