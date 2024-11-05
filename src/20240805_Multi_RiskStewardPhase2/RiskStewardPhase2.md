@@ -30,7 +30,7 @@ The success of the CapsPlusRiskStewards experiment demonstrates the viability of
 
 The new Manual AGRS we propose follows the same design as the CapsPlusRiskSteward, a smart contract to which the Aave Governance gives `RISK_ADMIN` role over all v3 instances, controlled by a 2-of-2 multisig, and heavily constrained on what can do and how by its own logic.
 
-The 2-of-2 multisig controlling the Manual AGRS will have Chaos and BGD Labs as signers, with the inclusion of BGD Labs as a matter of extra security procedure.
+The 2-of-2 multisig controlling the Manual AGRS will have Chaos and BGD Labs as signers, temporarily including BGD Labs as a matter of extra security procedure.
 
 `ACL_MANAGER.addRiskAdmin()` is called to add the new Manual AGRS.
 
