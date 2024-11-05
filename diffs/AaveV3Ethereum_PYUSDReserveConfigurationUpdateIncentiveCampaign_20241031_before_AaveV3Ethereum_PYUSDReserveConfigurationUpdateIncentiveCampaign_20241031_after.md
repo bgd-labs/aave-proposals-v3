@@ -24,26 +24,14 @@
 | eMode.ltv (unchanged) | 93 % | 93 % |
 | eMode.liquidationThreshold (unchanged) | 95 % | 95 % |
 | eMode.liquidationBonus (unchanged) | 1 % | 1 % |
-| eMode.borrowableBitmap | WETH, wstETH, cbETH, rETH, weETH, osETH, ETHx | WETH, wstETH, cbETH, rETH, PYUSD, weETH, osETH, ETHx |
-| eMode.collateralBitmap | WETH, wstETH, cbETH, rETH, weETH, osETH, ETHx | WETH, wstETH, cbETH, rETH, PYUSD, weETH, osETH, ETHx |
+| eMode.borrowableBitmap (unchanged) | WETH, wstETH, cbETH, rETH, weETH, osETH, ETHx | WETH, wstETH, cbETH, rETH, weETH, osETH, ETHx |
+| eMode.collateralBitmap (unchanged) | WETH, wstETH, cbETH, rETH, weETH, osETH, ETHx | WETH, wstETH, cbETH, rETH, weETH, osETH, ETHx |
 
 
 ## Raw diff
 
 ```json
 {
-  "eModes": {
-    "1": {
-      "borrowableBitmap": {
-        "from": "2952790659",
-        "to": "3087008387"
-      },
-      "collateralBitmap": {
-        "from": "2952790659",
-        "to": "3087008387"
-      }
-    }
-  },
   "reserves": {
     "0x6c3ea9036406852006290770BEdFcAbA0e23A0e8": {
       "borrowCap": {
