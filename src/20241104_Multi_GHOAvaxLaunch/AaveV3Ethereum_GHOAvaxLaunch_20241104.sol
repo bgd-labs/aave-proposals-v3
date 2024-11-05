@@ -2,14 +2,75 @@
 pragma solidity ^0.8.0;
 
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
+import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
+import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
+import {TransparentUpgradeableProxy} from 'solidity-utils/contracts/transparent-proxy/TransparentUpgradeableProxy.sol';
+import {UpgradeableLockReleaseTokenPool} from 'ccip/pools/GHO/UpgradeableLockReleaseTokenPool.sol';
+import {UpgradeableTokenPool} from 'ccip/pools/GHO/UpgradeableTokenPool.sol';
+import {RateLimiter} from 'ccip/libraries/RateLimiter.sol';
+
 /**
- * @title GHOAvaxLaunch
+ * @title GHO Avax Launch
  * @author Aave Labs
  * - Snapshot: https://snapshot.org/#/aave.eth/proposal/0x2aed7eb8b03cb3f961cbf790bf2e2e1e449f841a4ad8bdbcdd223bb6ac69e719
  * - Discussion: https://governance.aave.com/t/arfc-launch-gho-on-avalanche-set-aci-as-emissions-manager-for-rewards/19339
+ * @dev This payload consists of the following set of actions:
+ * 1. Deploy LockReleaseTokenPool
+ * 2. Accept ownership of CCIP TokenPool
+ * 3. Configure CCIP TokenPool
  */
 contract AaveV3Ethereum_GHOAvaxLaunch_20241104 is IProposalGenericExecutor {
+  address public constant CCIP_RMN_PROXY = 0x411dE17f12D1A34ecC7F45f49844626267c75e81;
+  address public constant CCIP_ROUTER = 0xF4c7E640EdA248ef95972845a62bdC74237805dB;
+  uint256 public constant CCIP_BRIDGE_LIMIT = 25_000_000e18; // 25M
+  uint64 public constant CCIP_AVAX_CHAIN_SELECTOR = 6433500567565415381;
+
   function execute() external {
-    // custom code goes here
+    // 1. Deploy LockReleaseTokenPool
+    address tokenPool = _deployCcipTokenPool();
+
+    // 2. Accept TokenPool ownership
+    UpgradeableLockReleaseTokenPool(tokenPool).acceptOwnership();
+
+    // 3. Configure CCIP
+    _configureCcipTokenPool(tokenPool);
+  }
+
+  function _deployCcipTokenPool() internal returns (address) {
+    address imple = address(
+      new UpgradeableLockReleaseTokenPool(MiscEthereum.GHO_TOKEN, CCIP_RMN_PROXY, false, true)
+    );
+
+    bytes memory tokenPoolInitParams = abi.encodeWithSignature(
+      'initialize(address,address[],address,uint256)',
+      GovernanceV3Ethereum.EXECUTOR_LVL_1, // owner
+      new address[](0), // allowList
+      CCIP_ROUTER, // router
+      CCIP_BRIDGE_LIMIT // bridgeLimit
+    );
+    return
+      address(
+        new TransparentUpgradeableProxy(imple, MiscEthereum.PROXY_ADMIN, tokenPoolInitParams)
+      );
+  }
+
+  function _configureCcipTokenPool(address tokenPool) internal {
+    UpgradeableTokenPool.ChainUpdate[] memory chainUpdates = new UpgradeableTokenPool.ChainUpdate[](
+      1
+    );
+    RateLimiter.Config memory rateConfig = RateLimiter.Config({
+      isEnabled: false,
+      capacity: 0,
+      rate: 0
+    });
+    chainUpdates[0] = UpgradeableTokenPool.ChainUpdate({
+      remoteChainSelector: CCIP_AVAX_CHAIN_SELECTOR,
+      allowed: true,
+      remotePoolAddress: abi.encode(address(0)), // TODO: Set after deployment?
+      remoteTokenAddress: abi.encode(address(0)), // TODO: Set after deployment?
+      outboundRateLimiterConfig: rateConfig,
+      inboundRateLimiterConfig: rateConfig
+    });
+    UpgradeableLockReleaseTokenPool(tokenPool).applyChainUpdates(chainUpdates);
   }
 }
