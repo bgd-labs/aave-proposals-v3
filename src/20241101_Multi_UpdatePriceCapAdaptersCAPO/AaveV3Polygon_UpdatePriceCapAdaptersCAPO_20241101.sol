@@ -6,7 +6,7 @@ import {IPoolConfiguratorV2} from './interfaces/IPoolConfiguratorV2.sol';
 import {ConfiguratorInputTypes} from 'aave-v3-origin/contracts/protocol/libraries/types/ConfiguratorInputTypes.sol';
 import {AaveV3Polygon, AaveV3PolygonAssets} from 'aave-address-book/AaveV3Polygon.sol';
 import {AaveV2Polygon, AaveV2PolygonAssets, ILendingPoolConfigurator} from 'aave-address-book/AaveV2Polygon.sol';
-import {TokenImpls} from './Constants.sol';
+import {TokenImpls, PriceFeeds} from './Constants.sol';
 
 /**
  * @title Update Price Cap Adapters (CAPO)
@@ -16,10 +16,14 @@ import {TokenImpls} from './Constants.sol';
  */
 contract AaveV3Polygon_UpdatePriceCapAdaptersCAPO_20241101 is IProposalGenericExecutor {
   function execute() external {
+    _updateV2PriceAdapters();
+    _updateV3PriceAdapters();
     _updateMaticTokensNameAndSymbol();
   }
 
-  // we change the name and symbol of aToken and variableDebtToken to use WPOL instead of WMATIC
+  /**
+   * @dev we change the name and symbol of aToken and variableDebtToken to use WPOL instead of WMATIC
+   */
   function _updateMaticTokensNameAndSymbol() internal {
     AaveV3Polygon.POOL_CONFIGURATOR.updateAToken(
       ConfiguratorInputTypes.UpdateATokenInput({
@@ -64,5 +68,43 @@ contract AaveV3Polygon_UpdatePriceCapAdaptersCAPO_20241101 is IProposalGenericEx
         params: ''
       })
     );
+  }
+
+  function _updateV3PriceAdapters() internal {
+    address[] memory assets = new address[](5);
+    address[] memory sources = new address[](5);
+
+    assets[0] = AaveV3PolygonAssets.USDC_UNDERLYING;
+    sources[0] = PriceFeeds.POLYGON_V3_USDC_FEED;
+
+    assets[1] = AaveV3PolygonAssets.USDCn_UNDERLYING;
+    sources[1] = PriceFeeds.POLYGON_V3_USDC_FEED;
+
+    assets[2] = AaveV3PolygonAssets.USDT_UNDERLYING;
+    sources[2] = PriceFeeds.POLYGON_V3_USDT_FEED;
+
+    assets[3] = AaveV3PolygonAssets.DAI_UNDERLYING;
+    sources[3] = PriceFeeds.POLYGON_V3_DAI_FEED;
+
+    assets[4] = AaveV3PolygonAssets.miMATIC_UNDERLYING;
+    sources[4] = PriceFeeds.POLYGON_V3_MIMATIC_FEED;
+
+    AaveV3Polygon.ORACLE.setAssetSources(assets, sources);
+  }
+
+  function _updateV2PriceAdapters() internal {
+    address[] memory assets = new address[](3);
+    address[] memory sources = new address[](3);
+
+    assets[0] = AaveV2PolygonAssets.USDC_UNDERLYING;
+    sources[0] = PriceFeeds.POLYGON_V2_USDC_FEED;
+
+    assets[1] = AaveV2PolygonAssets.USDT_UNDERLYING;
+    sources[1] = PriceFeeds.POLYGON_V2_USDT_FEED;
+
+    assets[2] = AaveV2PolygonAssets.DAI_UNDERLYING;
+    sources[2] = PriceFeeds.POLYGON_V2_DAI_FEED;
+
+    AaveV2Polygon.ORACLE.setAssetSources(assets, sources);
   }
 }
