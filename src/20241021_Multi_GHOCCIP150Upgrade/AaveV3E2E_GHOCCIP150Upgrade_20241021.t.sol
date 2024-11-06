@@ -77,8 +77,8 @@ contract AaveV3E2E_GHOCCIP150Upgrade_20241021_Base is ProtocolV3TestBase {
   error NotACompatiblePool(address pool);
 
   function setUp() public virtual {
-    l1.c.forkId = vm.createFork(vm.rpcUrl('mainnet'), 21115706);
-    l2.c.forkId = vm.createFork(vm.rpcUrl('arbitrum'), 271012501);
+    l1.c.forkId = vm.createFork(vm.rpcUrl('mainnet'), 21128760);
+    l2.c.forkId = vm.createFork(vm.rpcUrl('arbitrum'), 271638492);
 
     vm.selectFork(l1.c.forkId);
     l1.proposal = new AaveV3Ethereum_GHOCCIP150Upgrade_20241021();
@@ -303,7 +303,7 @@ contract AaveV3E2E_GHOCCIP150Upgrade_20241021_PreCCIPMigration is
   }
 
   function test_E2E() public {
-    uint256 amount = 500e18;
+    uint256 amount = l1.rateLimitConfig.capacity;
     // ETH (=> ARB) sendMessage
     {
       vm.selectFork(l1.c.forkId);
@@ -439,7 +439,7 @@ contract AaveV3E2E_GHOCCIP150Upgrade_20241021_PostCCIPMigration is
   }
 
   function test_E2E() public {
-    uint256 amount = 500e18;
+    uint256 amount = l1.rateLimitConfig.capacity;
     // ETH (=> ARB) sendMessage
     {
       vm.selectFork(l1.c.forkId);
@@ -575,7 +575,7 @@ contract AaveV3E2E_GHOCCIP150Upgrade_20241021_PostCCIPMigration is
   function test_SendRevertsWithoutUpgrade() public {
     {
       vm.selectFork(l1.c.forkId);
-      uint256 amount = 500e18;
+      uint256 amount = l1.rateLimitConfig.capacity;
       deal(address(l1.c.token), alice, amount, true);
       vm.prank(alice);
       l1.c.token.approve(address(l1.c.router), amount);
@@ -609,7 +609,7 @@ contract AaveV3E2E_GHOCCIP150Upgrade_20241021_PostCCIPMigration is
 
     {
       vm.selectFork(l2.c.forkId);
-      uint256 amount = 500e18;
+      uint256 amount = l1.rateLimitConfig.capacity;
       deal(address(l2.c.token), alice, amount, true);
       vm.prank(alice);
       l2.c.token.approve(address(l2.c.router), amount);
@@ -645,7 +645,7 @@ contract AaveV3E2E_GHOCCIP150Upgrade_20241021_PostCCIPMigration is
   function test_ExecuteRevertsWithoutUpgrade() public {
     {
       vm.selectFork(l1.c.forkId);
-      uint256 amount = 500e18;
+      uint256 amount = l1.rateLimitConfig.capacity;
       deal(address(l1.c.token), alice, amount, true);
       vm.prank(alice);
       l1.c.token.approve(address(l1.c.router), amount);
@@ -684,7 +684,7 @@ contract AaveV3E2E_GHOCCIP150Upgrade_20241021_PostCCIPMigration is
 
     {
       vm.selectFork(l2.c.forkId);
-      uint256 amount = 500e18;
+      uint256 amount = l1.rateLimitConfig.capacity;
       deal(address(l2.c.token), alice, amount, true);
       vm.prank(alice);
       l2.c.token.approve(address(l2.c.router), amount);
@@ -743,7 +743,7 @@ contract AaveV3E2E_GHOCCIP150Upgrade_20241021_InFlightCCIPMigration is
     // ETH => ARB, ccipSend 1.4; CCIP migration, Destination executeMessage
     {
       vm.selectFork(l1.c.forkId);
-      uint256 amount = 500e18;
+      uint256 amount = l1.rateLimitConfig.capacity;
       deal(address(l1.c.token), alice, amount, true);
       vm.prank(alice);
       l1.c.token.approve(address(l1.c.router), amount);
@@ -809,7 +809,7 @@ contract AaveV3E2E_GHOCCIP150Upgrade_20241021_InFlightCCIPMigration is
     // ARB => ETH, ccipSend 1.4; CCIP migration, Destination executeMessage
     {
       vm.selectFork(l2.c.forkId);
-      uint256 amount = 500e18;
+      uint256 amount = l1.rateLimitConfig.capacity;
       deal(address(l2.c.token), alice, amount, true);
       vm.prank(alice);
       l2.c.token.approve(address(l2.c.router), amount);

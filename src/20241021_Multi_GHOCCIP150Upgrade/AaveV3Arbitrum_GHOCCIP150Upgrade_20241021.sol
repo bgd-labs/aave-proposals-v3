@@ -16,8 +16,8 @@ import {IRateLimiter} from 'src/interfaces/ccip/IRateLimiter.sol';
 contract AaveV3Arbitrum_GHOCCIP150Upgrade_20241021 is IProposalGenericExecutor {
   uint64 public constant ETH_CHAIN_SELECTOR = 5009297550715157269;
 
-  // https://arbiscan.io/address/0xb0e1c7830aA781362f79225559Aa068E6bDaF1d1
-  address public constant TOKEN_POOL_IMPL = 0xb0e1c7830aA781362f79225559Aa068E6bDaF1d1;
+  // https://arbiscan.io/address/0xfc421aD3C883Bf9E7C4f42dE845C4e4405799e73
+  address public constant TOKEN_POOL_IMPL = 0xfc421aD3C883Bf9E7C4f42dE845C4e4405799e73;
   // https://arbiscan.io/address/0x26329558f08cbb40d6a4CCA0E0C67b29D64A8c50
   address public constant GHO_CCIP_PROXY_POOL = 0x26329558f08cbb40d6a4CCA0E0C67b29D64A8c50;
 

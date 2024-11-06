@@ -57,7 +57,7 @@ contract AaveV3Ethereum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
   error CallerIsNotARampOnRouter(address caller);
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 21115706);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 21128760);
     proposal = new AaveV3Ethereum_GHOCCIP150Upgrade_20241021();
     ghoTokenPool = IUpgradeableLockReleaseTokenPool(MiscEthereum.GHO_CCIP_TOKEN_POOL);
     proxyPool = IProxyPool(proposal.GHO_CCIP_PROXY_POOL());

@@ -61,7 +61,7 @@ contract AaveV3Arbitrum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
   error NotACompatiblePool(address pool);
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('arbitrum'), 271012501);
+    vm.createSelectFork(vm.rpcUrl('arbitrum'), 271638492);
     proposal = new AaveV3Arbitrum_GHOCCIP150Upgrade_20241021();
     ghoTokenPool = IUpgradeableBurnMintTokenPool(MiscArbitrum.GHO_CCIP_TOKEN_POOL);
     proxyPool = IProxyPool(proposal.GHO_CCIP_PROXY_POOL());
@@ -263,8 +263,8 @@ contract AaveV3Arbitrum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
     assertEq(_getFacilitatorLevel(address(ghoTokenPool)), facilitatorLevelBefore + amount);
   }
 
-  function test_proxyPoolCanOnRamp() public {
-    uint256 amount = 1337e18;
+  function test_proxyPoolCanOnRamp(uint256 amount) public {
+    amount = bound(amount, 1, _getRateLimiterConfig().capacity);
 
     vm.expectRevert(abi.encodeWithSelector(CallerIsNotARampOnRouter.selector, proxyPool));
     vm.prank(address(proxyPool));
@@ -287,8 +287,8 @@ contract AaveV3Arbitrum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
     assertEq(_getFacilitatorLevel(address(ghoTokenPool)), facilitatorLevelBefore - amount);
   }
 
-  function test_proxyPoolCanOffRamp() public {
-    uint256 amount = 1337e18;
+  function test_proxyPoolCanOffRamp(uint256 amount) public {
+    amount = bound(amount, 1, _getRateLimiterConfig().capacity);
 
     vm.expectRevert(abi.encodeWithSelector(CallerIsNotARampOnRouter.selector, proxyPool));
     vm.prank(address(proxyPool));
