@@ -256,8 +256,8 @@ contract AaveV3Ethereum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
     assertEq(gho.balanceOf(alice), amount);
   }
 
-  function test_proxyPoolCanOnRamp() public {
-    uint256 amount = 1337e18;
+  function test_proxyPoolCanOnRamp(uint256 amount) public {
+    amount = bound(amount, 1, _getRateLimiterConfig().capacity);
 
     uint256 bridgedAmount = ghoTokenPool.getCurrentBridgedAmount();
 
@@ -278,8 +278,8 @@ contract AaveV3Ethereum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
     assertEq(ghoTokenPool.getCurrentBridgedAmount(), bridgedAmount + amount);
   }
 
-  function test_proxyPoolCanOffRamp() public {
-    uint256 amount = 1337e18;
+  function test_proxyPoolCanOffRamp(uint256 amount) public {
+    amount = bound(amount, 1, _getRateLimiterConfig().capacity);
 
     vm.expectRevert(abi.encodeWithSelector(CallerIsNotARampOnRouter.selector, proxyPool));
     vm.prank(address(proxyPool));
