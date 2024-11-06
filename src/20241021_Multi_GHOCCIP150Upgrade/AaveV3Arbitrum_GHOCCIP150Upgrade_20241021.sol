@@ -22,7 +22,7 @@ contract AaveV3Arbitrum_GHOCCIP150Upgrade_20241021 is IProposalGenericExecutor {
   address public constant GHO_CCIP_PROXY_POOL = 0x26329558f08cbb40d6a4CCA0E0C67b29D64A8c50;
 
   /// @dev Token Rate Limit Capacity: 300_000 GHO
-  uint128 public constant CCIP_RATE_LIMIT_CAPACITY = 300e18;
+  uint128 public constant CCIP_RATE_LIMIT_CAPACITY = 300_000e18;
 
   /// @dev Token Rate Limit Refill Rate: 60 GHO per second (=> 216_000 GHO per hour)
   uint128 public constant CCIP_RATE_LIMIT_REFILL_RATE = 60e18;
