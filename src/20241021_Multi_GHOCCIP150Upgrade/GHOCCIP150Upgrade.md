@@ -17,9 +17,10 @@ Aave Labs will provide technical support to ensure that GHO CCIP Token Pools rem
 ## Specification
 
 Below actions are taken in order to make GHO token pools work with the new CCIP 1.5 protocol by allowing the "Intermediary Contract" (proxyPool) to translate the interface between 1.4 & 1.5 OnRamps and OffRamps:
-Configure an Intermediary Contract: This contract translates execution calls between the new OnRamp and the existing GHO Token Pools. It was developed and deployed by the Chainlink CCIP team on behalf of the Aave DAO.
-Upgrade the Existing GHO Token Pools: The existing Token Pools are adjusted to allow calls from both the old and new versions of the OnRamp and OffRamp, through the intermediary contract.
-Setup a Token Rate Limit: A token rate limit of 300.000 GHO as limit capacity and 60 GHO per second as refill rate is set for both directions of Ethereum <> Arbitrum lane. This is a temporary security measure that can be lifted later via AIP or by GHO Stewards.
+
+- Configure an Intermediary Contract: This contract translates execution calls between the new OnRamp and the existing GHO Token Pools. It was developed and deployed by the Chainlink CCIP team on behalf of the Aave DAO.
+- Upgrade the Existing GHO Token Pools: The existing Token Pools are adjusted to allow calls from both the old and new versions of the OnRamp and OffRamp, through the intermediary contract.
+- Setup a Token Rate Limit: A token rate limit of 300.000 GHO as limit capacity and 60 GHO per second as refill rate is set for both directions of Ethereum <> Arbitrum lane. This is a temporary security measure that can be lifted later via AIP or by GHO Stewards.
 
 ## References
 
