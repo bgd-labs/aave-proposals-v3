@@ -126,12 +126,12 @@ contract AaveV3Ethereum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
     assertEq(_readInitialized(_getImplementation(address(ghoTokenPool))), 255);
   }
 
-  function test_sendMessagePreCCIPMigration() public {
+  function test_sendMessagePreCCIPMigration(uint256 amount) public {
     executePayload(vm, address(proposal));
 
     IERC20 gho = IERC20(address(ghoTokenPool.getToken()));
     IRouter router = IRouter(ghoTokenPool.getRouter());
-    uint256 amount = 150_000e18;
+    amount = bound(amount, 1, proposal.getOutBoundRateLimiterConfig().capacity);
 
     // wait for the rate limiter to refill
     skip(_getOutboundRefillTime(amount));
@@ -159,14 +159,14 @@ contract AaveV3Ethereum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
     assertEq(ghoTokenPool.getCurrentBridgedAmount(), bridgedAmount + amount);
   }
 
-  function test_sendMessagePostCCIPMigration() public {
+  function test_sendMessagePostCCIPMigration(uint256 amount) public {
     executePayload(vm, address(proposal));
 
     _mockCCIPMigration();
 
     IERC20 gho = IERC20(address(ghoTokenPool.getToken()));
     IRouter router = IRouter(ghoTokenPool.getRouter());
-    uint256 amount = 350_000e18;
+    amount = bound(amount, 1, proposal.getOutBoundRateLimiterConfig().capacity);
 
     // wait for the rate limiter to refill
     skip(_getOutboundRefillTime(amount));
@@ -196,11 +196,11 @@ contract AaveV3Ethereum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
     assertEq(ghoTokenPool.getCurrentBridgedAmount(), bridgedAmount + amount);
   }
 
-  function test_executeMessagePreCCIPMigration() public {
+  function test_executeMessagePreCCIPMigration(uint256 amount) public {
     executePayload(vm, address(proposal));
 
     IERC20 gho = IERC20(address(ghoTokenPool.getToken()));
-    uint256 amount = 350_000e18;
+    amount = bound(amount, 1, proposal.getOutBoundRateLimiterConfig().capacity);
 
     // wait for the rate limiter to refill
     skip(_getInboundRefillTime(amount));
@@ -215,13 +215,13 @@ contract AaveV3Ethereum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
     assertEq(gho.balanceOf(alice), amount);
   }
 
-  function test_executeMessagePostCCIPMigration() public {
+  function test_executeMessagePostCCIPMigration(uint256 amount) public {
     executePayload(vm, address(proposal));
 
     _mockCCIPMigration();
 
     IERC20 gho = IERC20(address(ghoTokenPool.getToken()));
-    uint256 amount = 350_000e18;
+    amount = bound(amount, 1, proposal.getOutBoundRateLimiterConfig().capacity);
     // wait for the rate limiter to refill
     skip(_getInboundRefillTime(amount));
     // mock previously locked gho
@@ -235,13 +235,13 @@ contract AaveV3Ethereum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
     assertEq(gho.balanceOf(alice), amount);
   }
 
-  function test_executeMessagePostCCIPMigrationViaLegacyOffRamp() public {
+  function test_executeMessagePostCCIPMigrationViaLegacyOffRamp(uint256 amount) public {
     executePayload(vm, address(proposal));
 
     _mockCCIPMigration();
 
     IERC20 gho = IERC20(address(ghoTokenPool.getToken()));
-    uint256 amount = 350_000e18;
+    amount = bound(amount, 1, proposal.getOutBoundRateLimiterConfig().capacity);
 
     // wait for the rate limiter to refill
     skip(_getInboundRefillTime(amount));
