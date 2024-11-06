@@ -21,6 +21,9 @@ contract AaveV3Arbitrum_GHOCCIP150Upgrade_20241021 is IProposalGenericExecutor {
   // https://arbiscan.io/address/0x26329558f08cbb40d6a4CCA0E0C67b29D64A8c50
   address public constant GHO_CCIP_PROXY_POOL = 0x26329558f08cbb40d6a4CCA0E0C67b29D64A8c50;
 
+  uint256 internal constant CAPACITY = 300e18;
+  uint256 internal constant RATE = 60e18;
+
   function execute() external {
     IUpgradeableBurnMintTokenPool tokenPoolProxy = IUpgradeableBurnMintTokenPool(
       MiscArbitrum.GHO_CCIP_TOKEN_POOL
@@ -48,15 +51,15 @@ contract AaveV3Arbitrum_GHOCCIP150Upgrade_20241021 is IProposalGenericExecutor {
   /// Rate: 60 GHO per second (=> 216_000 GHO per hour)
   /// @return The rate limiter configuration
   function getOutBoundRateLimiterConfig() public pure returns (IRateLimiter.Config memory) {
-    return IRateLimiter.Config({isEnabled: true, capacity: 300_000e18, rate: 60e18});
+    return IRateLimiter.Config({isEnabled: true, capacity: CAPACITY, rate: RATE});
   }
 
   /// @notice Returns the rate limiter configuration for the inbound rate limiter
   /// The offRamp rate limit for ETH => ARB will be as follows:
-  /// Capacity: 350_000 GHO
+  /// Capacity: 300_000 GHO
   /// Rate: 60 GHO per second (=> 216_000 GHO per hour)
   /// @return The rate limiter configuration
   function getInBoundRateLimiterConfig() public pure returns (IRateLimiter.Config memory) {
-    return IRateLimiter.Config({isEnabled: true, capacity: 300_000e18, rate: 60e18});
+    return IRateLimiter.Config({isEnabled: true, capacity: CAPACITY, rate: RATE});
   }
 }
