@@ -1,5 +1,5 @@
 ---
-title: "GHO CCIP 1.50 Upgrade"
+title: "GHO CCIP Integration Maintenance (CCIP v1.5 upgrade)"
 author: "Aave Labs"
 discussions: "https://governance.aave.com/t/bgd-technical-maintenance-proposals/15274/51"
 ---
