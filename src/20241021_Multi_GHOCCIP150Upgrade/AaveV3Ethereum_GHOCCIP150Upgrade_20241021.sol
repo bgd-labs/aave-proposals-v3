@@ -44,19 +44,19 @@ contract AaveV3Ethereum_GHOCCIP150Upgrade_20241021 is IProposalGenericExecutor {
 
   /// @notice Returns the rate limiter configuration for the outbound rate limiter
   /// The onRamp rate limit for ETH => ARB will be as follows:
-  /// Capacity: 350_000 GHO
-  /// Rate: 100 GHO per second (=> 360_000 GHO per hour)
+  /// Capacity: 300_000 GHO
+  /// Rate: 60 GHO per second (=> 216_000 GHO per hour)
   /// @return The rate limiter configuration
   function getOutBoundRateLimiterConfig() public pure returns (IRateLimiter.Config memory) {
-    return IRateLimiter.Config({isEnabled: true, capacity: 350_000e18, rate: 100e18});
+    return IRateLimiter.Config({isEnabled: true, capacity: 300_000e18, rate: 60e18});
   }
 
   /// @notice Returns the rate limiter configuration for the inbound rate limiter
   /// The offRamp rate limit for ARB=>ETH will be as follows:
   /// Capacity: 350_000 GHO
-  /// Rate: 100 GHO per second (=> 360_000 GHO per hour)
+  /// Rate: 60 GHO per second (=> 216_000 GHO per hour)
   /// @return The rate limiter configuration
   function getInBoundRateLimiterConfig() public pure returns (IRateLimiter.Config memory) {
-    return IRateLimiter.Config({isEnabled: true, capacity: 350_000e18, rate: 100e18});
+    return IRateLimiter.Config({isEnabled: true, capacity: 300_000e18, rate: 60e18});
   }
 }
