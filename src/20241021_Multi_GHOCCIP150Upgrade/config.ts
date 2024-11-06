@@ -7,7 +7,7 @@ export const config: ConfigFile = {
     date: '20241021',
     author: 'Aave Labs',
     discussion: 'https://governance.aave.com/t/bgd-technical-maintenance-proposals/15274/51',
-    snapshot: '',
+    snapshot: 'Direct-to-AIP',
     votingNetwork: 'POLYGON',
   },
   poolOptions: {

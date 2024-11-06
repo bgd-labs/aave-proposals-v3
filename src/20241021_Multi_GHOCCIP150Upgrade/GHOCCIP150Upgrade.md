@@ -14,7 +14,7 @@ discussions: "https://governance.aave.com/t/bgd-technical-maintenance-proposals/
 
 - Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241021_Multi_GHOCCIP150Upgrade/AaveV3Ethereum_GHOCCIP150Upgrade_20241021.sol), [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241021_Multi_GHOCCIP150Upgrade/AaveV3Arbitrum_GHOCCIP150Upgrade_20241021.sol)
 - Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241021_Multi_GHOCCIP150Upgrade/AaveV3Ethereum_GHOCCIP150Upgrade_20241021.t.sol), [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241021_Multi_GHOCCIP150Upgrade/AaveV3Arbitrum_GHOCCIP150Upgrade_20241021.t.sol)
-- [Snapshot](TODO)
+- Snapshot - Direct-to-AIP
 - [Discussion](https://governance.aave.com/t/bgd-technical-maintenance-proposals/15274/51)
 
 ## Copyright
