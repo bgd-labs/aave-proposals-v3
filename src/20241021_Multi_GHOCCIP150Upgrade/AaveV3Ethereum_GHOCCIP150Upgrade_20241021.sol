@@ -21,8 +21,8 @@ contract AaveV3Ethereum_GHOCCIP150Upgrade_20241021 is IProposalGenericExecutor {
   // https://etherscan.io/address/0x9Ec9F9804733df96D1641666818eFb5198eC50f0
   address public constant GHO_CCIP_PROXY_POOL = 0x9Ec9F9804733df96D1641666818eFb5198eC50f0;
 
-  uint256 internal constant CAPACITY = 300e18;
-  uint256 internal constant RATE = 60e18;
+  uint128 internal constant CAPACITY = 300e18;
+  uint128 internal constant RATE = 60e18;
 
   function execute() external {
     IUpgradeableLockReleaseTokenPool tokenPoolProxy = IUpgradeableLockReleaseTokenPool(

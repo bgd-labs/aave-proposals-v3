@@ -21,8 +21,8 @@ contract AaveV3Arbitrum_GHOCCIP150Upgrade_20241021 is IProposalGenericExecutor {
   // https://arbiscan.io/address/0x26329558f08cbb40d6a4CCA0E0C67b29D64A8c50
   address public constant GHO_CCIP_PROXY_POOL = 0x26329558f08cbb40d6a4CCA0E0C67b29D64A8c50;
 
-  uint256 internal constant CAPACITY = 300e18;
-  uint256 internal constant RATE = 60e18;
+  uint128 internal constant CAPACITY = 300e18;
+  uint128 internal constant RATE = 60e18;
 
   function execute() external {
     IUpgradeableBurnMintTokenPool tokenPoolProxy = IUpgradeableBurnMintTokenPool(
