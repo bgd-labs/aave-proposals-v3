@@ -21,8 +21,11 @@ contract AaveV3Ethereum_GHOCCIP150Upgrade_20241021 is IProposalGenericExecutor {
   // https://etherscan.io/address/0x9Ec9F9804733df96D1641666818eFb5198eC50f0
   address public constant GHO_CCIP_PROXY_POOL = 0x9Ec9F9804733df96D1641666818eFb5198eC50f0;
 
-  uint128 internal constant CAPACITY = 300e18;
-  uint128 internal constant RATE = 60e18;
+  /// @dev Token Rate Limit Capacity: 300_000 GHO
+  uint128 public constant CCIP_RATE_LIMIT_CAPACITY = 300e18;
+
+  /// @dev Token Rate Limit Refill Rate: 60 GHO per second (=> 216_000 GHO per hour)
+  uint128 public constant CCIP_RATE_LIMIT_REFILL_RATE = 60e18;
 
   function execute() external {
     IUpgradeableLockReleaseTokenPool tokenPoolProxy = IUpgradeableLockReleaseTokenPool(
@@ -38,28 +41,11 @@ contract AaveV3Ethereum_GHOCCIP150Upgrade_20241021 is IProposalGenericExecutor {
     tokenPoolProxy.setProxyPool(GHO_CCIP_PROXY_POOL);
 
     // Set rate limit
-    tokenPoolProxy.setChainRateLimiterConfig(
-      ARB_CHAIN_SELECTOR,
-      getOutBoundRateLimiterConfig(),
-      getInBoundRateLimiterConfig()
-    );
-  }
-
-  /// @notice Returns the rate limiter configuration for the outbound rate limiter
-  /// The onRamp rate limit for ETH => ARB will be as follows:
-  /// Capacity: 300_000 GHO
-  /// Rate: 60 GHO per second (=> 216_000 GHO per hour)
-  /// @return The rate limiter configuration
-  function getOutBoundRateLimiterConfig() public pure returns (IRateLimiter.Config memory) {
-    return IRateLimiter.Config({isEnabled: true, capacity: CAPACITY, rate: RATE});
-  }
-
-  /// @notice Returns the rate limiter configuration for the inbound rate limiter
-  /// The offRamp rate limit for ARB=>ETH will be as follows:
-  /// Capacity: 300_000 GHO
-  /// Rate: 60 GHO per second (=> 216_000 GHO per hour)
-  /// @return The rate limiter configuration
-  function getInBoundRateLimiterConfig() public pure returns (IRateLimiter.Config memory) {
-    return IRateLimiter.Config({isEnabled: true, capacity: CAPACITY, rate: RATE});
+    IRateLimiter.Config memory rateLimitConfig = IRateLimiter.Config({
+      isEnabled: true,
+      capacity: CCIP_RATE_LIMIT_CAPACITY,
+      rate: CCIP_RATE_LIMIT_REFILL_RATE
+    });
+    tokenPoolProxy.setChainRateLimiterConfig(ARB_CHAIN_SELECTOR, rateLimitConfig, rateLimitConfig);
   }
 }

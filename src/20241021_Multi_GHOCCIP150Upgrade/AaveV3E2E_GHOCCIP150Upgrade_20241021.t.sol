@@ -52,12 +52,14 @@ contract AaveV3E2E_GHOCCIP150Upgrade_20241021_Base is ProtocolV3TestBase {
   struct L1 {
     AaveV3Ethereum_GHOCCIP150Upgrade_20241021 proposal;
     IUpgradeableLockReleaseTokenPool tokenPool;
+    IRateLimiter.Config rateLimitConfig;
     Common c;
   }
 
   struct L2 {
     AaveV3Arbitrum_GHOCCIP150Upgrade_20241021 proposal;
     IUpgradeableBurnMintTokenPool tokenPool;
+    IRateLimiter.Config rateLimitConfig;
     Common c;
   }
 
@@ -82,6 +84,11 @@ contract AaveV3E2E_GHOCCIP150Upgrade_20241021_Base is ProtocolV3TestBase {
     l1.proposal = new AaveV3Ethereum_GHOCCIP150Upgrade_20241021();
     l1.c.proxyPool = IProxyPool(l1.proposal.GHO_CCIP_PROXY_POOL());
     l1.tokenPool = IUpgradeableLockReleaseTokenPool(MiscEthereum.GHO_CCIP_TOKEN_POOL);
+    l1.rateLimitConfig = IRateLimiter.Config({
+      isEnabled: true,
+      capacity: l1.proposal.CCIP_RATE_LIMIT_CAPACITY(),
+      rate: l1.proposal.CCIP_RATE_LIMIT_REFILL_RATE()
+    });
     l1.c.router = IRouter(l1.tokenPool.getRouter());
     l2.c.chainSelector = l1.tokenPool.getSupportedChains()[0];
     l1.c.token = IERC20(address(l1.tokenPool.getToken()));
@@ -95,6 +102,11 @@ contract AaveV3E2E_GHOCCIP150Upgrade_20241021_Base is ProtocolV3TestBase {
     l2.proposal = new AaveV3Arbitrum_GHOCCIP150Upgrade_20241021();
     l2.c.proxyPool = IProxyPool(l2.proposal.GHO_CCIP_PROXY_POOL());
     l2.tokenPool = IUpgradeableBurnMintTokenPool(MiscArbitrum.GHO_CCIP_TOKEN_POOL);
+    l2.rateLimitConfig = IRateLimiter.Config({
+      isEnabled: true,
+      capacity: l2.proposal.CCIP_RATE_LIMIT_CAPACITY(),
+      rate: l2.proposal.CCIP_RATE_LIMIT_REFILL_RATE()
+    });
     l2.c.router = IRouter(l2.tokenPool.getRouter());
     l1.c.chainSelector = l2.tokenPool.getSupportedChains()[0];
     l2.c.token = IERC20(address(l2.tokenPool.getToken()));
@@ -299,7 +311,7 @@ contract AaveV3E2E_GHOCCIP150Upgrade_20241021_PreCCIPMigration is
       vm.prank(alice);
       l1.c.token.approve(address(l1.c.router), amount);
 
-      uint128 outBoundRate = l1.proposal.getOutBoundRateLimiterConfig().rate;
+      uint128 outBoundRate = l1.rateLimitConfig.rate;
       // wait for the rate limiter to refill
       skip(amount / uint256(outBoundRate) + 1); // rate is non zero
 
@@ -336,7 +348,7 @@ contract AaveV3E2E_GHOCCIP150Upgrade_20241021_PreCCIPMigration is
 
       uint256 aliceBalanceBefore = l2.c.token.balanceOf(alice);
 
-      uint128 inBoundRate = l2.proposal.getInBoundRateLimiterConfig().rate;
+      uint128 inBoundRate = l2.rateLimitConfig.rate;
       // wait for the rate limiter to refill
       skip(amount / uint256(inBoundRate) + 1); // rate is non zero
 
@@ -357,7 +369,7 @@ contract AaveV3E2E_GHOCCIP150Upgrade_20241021_PreCCIPMigration is
 
       vm.prank(alice);
       l2.c.token.approve(address(l2.c.router), amount);
-      uint128 outBoundRate = l2.proposal.getOutBoundRateLimiterConfig().rate;
+      uint128 outBoundRate = l2.rateLimitConfig.rate;
       // wait for the rate limiter to refill
       skip(amount / uint256(outBoundRate) + 1); // rate is non zero
 
@@ -390,7 +402,7 @@ contract AaveV3E2E_GHOCCIP150Upgrade_20241021_PreCCIPMigration is
 
       uint256 tokenPoolBalanceBefore = l1.c.token.balanceOf(address(l1.tokenPool));
 
-      uint128 inBoundRate = l1.proposal.getInBoundRateLimiterConfig().rate;
+      uint128 inBoundRate = l1.rateLimitConfig.rate;
       // wait for the rate limiter to refill
       skip(amount / uint256(inBoundRate) + 1); // rate is non zero
 
@@ -435,7 +447,7 @@ contract AaveV3E2E_GHOCCIP150Upgrade_20241021_PostCCIPMigration is
       vm.prank(alice);
       l1.c.token.approve(address(l1.c.router), amount);
 
-      uint128 outBoundRate = l1.proposal.getOutBoundRateLimiterConfig().rate;
+      uint128 outBoundRate = l1.rateLimitConfig.rate;
       // wait for the rate limiter to refill
       skip(amount / uint256(outBoundRate) + 1); // rate is non zero
 
@@ -475,7 +487,7 @@ contract AaveV3E2E_GHOCCIP150Upgrade_20241021_PostCCIPMigration is
       // ARB executeMessage
       vm.selectFork(l2.c.forkId);
 
-      uint128 inBoundRate = l2.proposal.getInBoundRateLimiterConfig().rate;
+      uint128 inBoundRate = l2.rateLimitConfig.rate;
       // wait for the rate limiter to refill
       skip(amount / uint256(inBoundRate) + 1); // rate is non zero
 
@@ -506,7 +518,7 @@ contract AaveV3E2E_GHOCCIP150Upgrade_20241021_PostCCIPMigration is
 
       vm.prank(alice);
       l2.c.token.approve(address(l2.c.router), amount);
-      uint128 outBoundRate = l2.proposal.getOutBoundRateLimiterConfig().rate;
+      uint128 outBoundRate = l2.rateLimitConfig.rate;
       // wait for the rate limiter to refill
       skip(amount / uint256(outBoundRate) + 1); // rate is non zero
 
@@ -542,7 +554,7 @@ contract AaveV3E2E_GHOCCIP150Upgrade_20241021_PostCCIPMigration is
 
       uint256 tokenPoolBalanceBefore = l1.c.token.balanceOf(address(l1.tokenPool));
 
-      uint128 inBoundRate = l1.proposal.getInBoundRateLimiterConfig().rate;
+      uint128 inBoundRate = l1.rateLimitConfig.rate;
       // wait for the rate limiter to refill
       skip(amount / uint256(inBoundRate) + 1); // rate is non zero
 
@@ -567,7 +579,7 @@ contract AaveV3E2E_GHOCCIP150Upgrade_20241021_PostCCIPMigration is
       deal(address(l1.c.token), alice, amount, true);
       vm.prank(alice);
       l1.c.token.approve(address(l1.c.router), amount);
-      uint128 rate = l1.proposal.getOutBoundRateLimiterConfig().rate;
+      uint128 rate = l1.rateLimitConfig.rate;
       // wait for the rate limiter to refill
       skip(amount / uint256(rate) + 1); // rate is non zero
 
@@ -601,7 +613,7 @@ contract AaveV3E2E_GHOCCIP150Upgrade_20241021_PostCCIPMigration is
       deal(address(l2.c.token), alice, amount, true);
       vm.prank(alice);
       l2.c.token.approve(address(l2.c.router), amount);
-      uint128 rate = l2.proposal.getOutBoundRateLimiterConfig().rate;
+      uint128 rate = l2.rateLimitConfig.rate;
       // wait for the rate limiter to refill
       skip(amount / uint256(rate) + 1); // rate is non zero
 
@@ -638,7 +650,7 @@ contract AaveV3E2E_GHOCCIP150Upgrade_20241021_PostCCIPMigration is
       vm.prank(alice);
       l1.c.token.approve(address(l1.c.router), amount);
 
-      uint128 inBoundRate = l1.proposal.getInBoundRateLimiterConfig().rate;
+      uint128 inBoundRate = l1.rateLimitConfig.rate;
       // wait for the rate limiter to refill
       skip(amount / uint256(inBoundRate) + 1); // rate is non zero
 
@@ -677,7 +689,7 @@ contract AaveV3E2E_GHOCCIP150Upgrade_20241021_PostCCIPMigration is
       vm.prank(alice);
       l2.c.token.approve(address(l2.c.router), amount);
 
-      uint128 inBoundRate = l2.proposal.getInBoundRateLimiterConfig().rate;
+      uint128 inBoundRate = l2.rateLimitConfig.rate;
       // wait for the rate limiter to refill
       skip(amount / uint256(inBoundRate) + 1); // rate is non zero
 
@@ -735,7 +747,7 @@ contract AaveV3E2E_GHOCCIP150Upgrade_20241021_InFlightCCIPMigration is
       deal(address(l1.c.token), alice, amount, true);
       vm.prank(alice);
       l1.c.token.approve(address(l1.c.router), amount);
-      uint128 rate = l1.proposal.getOutBoundRateLimiterConfig().rate;
+      uint128 rate = l1.rateLimitConfig.rate;
       // wait for the rate limiter to refill
       skip(amount / uint256(rate) + 1); // rate is non zero
 
@@ -769,7 +781,7 @@ contract AaveV3E2E_GHOCCIP150Upgrade_20241021_InFlightCCIPMigration is
 
       vm.selectFork(l2.c.forkId);
 
-      uint128 inBoundRate = l2.proposal.getInBoundRateLimiterConfig().rate;
+      uint128 inBoundRate = l2.rateLimitConfig.rate;
       // wait for the rate limiter to refill
       skip(amount / uint256(inBoundRate) + 1); // rate is non zero
 
@@ -801,7 +813,7 @@ contract AaveV3E2E_GHOCCIP150Upgrade_20241021_InFlightCCIPMigration is
       deal(address(l2.c.token), alice, amount, true);
       vm.prank(alice);
       l2.c.token.approve(address(l2.c.router), amount);
-      uint128 outBoundRate = l2.proposal.getOutBoundRateLimiterConfig().rate;
+      uint128 outBoundRate = l2.rateLimitConfig.rate;
       // wait for the rate limiter to refill
       skip(amount / uint256(outBoundRate) + 1); // rate is non zero
 
@@ -835,7 +847,7 @@ contract AaveV3E2E_GHOCCIP150Upgrade_20241021_InFlightCCIPMigration is
 
       vm.selectFork(l1.c.forkId);
 
-      uint128 inBoundRate = l1.proposal.getInBoundRateLimiterConfig().rate;
+      uint128 inBoundRate = l1.rateLimitConfig.rate;
       // wait for the rate limiter to refill
       skip(amount / uint256(inBoundRate) + 1); // rate is non zero
 

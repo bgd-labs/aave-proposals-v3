@@ -92,11 +92,11 @@ contract AaveV3Ethereum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
 
     assertEq(
       ghoTokenPool.getCurrentInboundRateLimiterState(ARB_CHAIN_SELECTOR),
-      proposal.getInBoundRateLimiterConfig()
+      _getRateLimiterConfig()
     );
     assertEq(
       ghoTokenPool.getCurrentOutboundRateLimiterState(ARB_CHAIN_SELECTOR),
-      proposal.getOutBoundRateLimiterConfig()
+      _getRateLimiterConfig()
     );
   }
 
@@ -131,7 +131,7 @@ contract AaveV3Ethereum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
 
     IERC20 gho = IERC20(address(ghoTokenPool.getToken()));
     IRouter router = IRouter(ghoTokenPool.getRouter());
-    amount = bound(amount, 1, proposal.getOutBoundRateLimiterConfig().capacity);
+    amount = bound(amount, 1, _getRateLimiterConfig().capacity);
 
     // wait for the rate limiter to refill
     skip(_getOutboundRefillTime(amount));
@@ -166,7 +166,7 @@ contract AaveV3Ethereum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
 
     IERC20 gho = IERC20(address(ghoTokenPool.getToken()));
     IRouter router = IRouter(ghoTokenPool.getRouter());
-    amount = bound(amount, 1, proposal.getOutBoundRateLimiterConfig().capacity);
+    amount = bound(amount, 1, _getRateLimiterConfig().capacity);
 
     // wait for the rate limiter to refill
     skip(_getOutboundRefillTime(amount));
@@ -200,7 +200,7 @@ contract AaveV3Ethereum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
     executePayload(vm, address(proposal));
 
     IERC20 gho = IERC20(address(ghoTokenPool.getToken()));
-    amount = bound(amount, 1, proposal.getOutBoundRateLimiterConfig().capacity);
+    amount = bound(amount, 1, _getRateLimiterConfig().capacity);
 
     // wait for the rate limiter to refill
     skip(_getInboundRefillTime(amount));
@@ -221,7 +221,7 @@ contract AaveV3Ethereum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
     _mockCCIPMigration();
 
     IERC20 gho = IERC20(address(ghoTokenPool.getToken()));
-    amount = bound(amount, 1, proposal.getOutBoundRateLimiterConfig().capacity);
+    amount = bound(amount, 1, _getRateLimiterConfig().capacity);
     // wait for the rate limiter to refill
     skip(_getInboundRefillTime(amount));
     // mock previously locked gho
@@ -241,7 +241,7 @@ contract AaveV3Ethereum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
     _mockCCIPMigration();
 
     IERC20 gho = IERC20(address(ghoTokenPool.getToken()));
-    amount = bound(amount, 1, proposal.getOutBoundRateLimiterConfig().capacity);
+    amount = bound(amount, 1, _getRateLimiterConfig().capacity);
 
     // wait for the rate limiter to refill
     skip(_getInboundRefillTime(amount));
@@ -458,13 +458,13 @@ contract AaveV3Ethereum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
   }
 
   function _getOutboundRefillTime(uint256 amount) private view returns (uint256) {
-    uint128 rate = proposal.getOutBoundRateLimiterConfig().rate;
+    uint128 rate = _getRateLimiterConfig().rate;
     assertNotEq(rate, 0);
     return amount / uint256(rate) + 1; // account for rounding
   }
 
   function _getInboundRefillTime(uint256 amount) private view returns (uint256) {
-    uint128 rate = proposal.getInBoundRateLimiterConfig().rate;
+    uint128 rate = _getRateLimiterConfig().rate;
     assertNotEq(rate, 0);
     return amount / uint256(rate) + 1; // account for rounding
   }
@@ -489,5 +489,14 @@ contract AaveV3Ethereum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
     IRateLimiter.Config memory config
   ) internal pure {
     assertEq(abi.encode(_tokenBucketToConfig(bucket)), abi.encode(config));
+  }
+
+  function _getRateLimiterConfig() internal view returns (IRateLimiter.Config memory) {
+    return
+      IRateLimiter.Config({
+        isEnabled: true,
+        capacity: proposal.CCIP_RATE_LIMIT_CAPACITY(),
+        rate: proposal.CCIP_RATE_LIMIT_REFILL_RATE()
+      });
   }
 }

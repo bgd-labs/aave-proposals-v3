@@ -96,11 +96,11 @@ contract AaveV3Arbitrum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
 
     assertEq(
       ghoTokenPool.getCurrentInboundRateLimiterState(ETH_CHAIN_SELECTOR),
-      proposal.getInBoundRateLimiterConfig()
+      _getRateLimiterConfig()
     );
     assertEq(
       ghoTokenPool.getCurrentOutboundRateLimiterState(ETH_CHAIN_SELECTOR),
-      proposal.getOutBoundRateLimiterConfig()
+      _getRateLimiterConfig()
     );
   }
 
@@ -145,7 +145,7 @@ contract AaveV3Arbitrum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
     executePayload(vm, address(proposal));
 
     IRouter router = IRouter(ghoTokenPool.getRouter());
-    amount = bound(amount, 1, proposal.getOutBoundRateLimiterConfig().capacity);
+    amount = bound(amount, 1, _getRateLimiterConfig().capacity);
     uint256 facilitatorLevelBefore = _getFacilitatorLevel(address(ghoTokenPool));
 
     // wait for the rate limiter to refill
@@ -177,7 +177,7 @@ contract AaveV3Arbitrum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
     _mockCCIPMigration();
 
     IRouter router = IRouter(ghoTokenPool.getRouter());
-    amount = bound(amount, 1, proposal.getOutBoundRateLimiterConfig().capacity);
+    amount = bound(amount, 1, _getRateLimiterConfig().capacity);
     uint256 facilitatorLevelBefore = _getFacilitatorLevel(address(ghoTokenPool));
 
     // wait for the rate limiter to refill
@@ -208,7 +208,7 @@ contract AaveV3Arbitrum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
   function test_executeMessagePreCCIPMigration(uint256 amount) public {
     executePayload(vm, address(proposal));
 
-    amount = bound(amount, 1, proposal.getOutBoundRateLimiterConfig().capacity);
+    amount = bound(amount, 1, _getRateLimiterConfig().capacity);
     uint256 facilitatorLevelBefore = _getFacilitatorLevel(address(ghoTokenPool));
 
     // wait for the rate limiter to refill
@@ -228,7 +228,7 @@ contract AaveV3Arbitrum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
 
     _mockCCIPMigration();
 
-    amount = bound(amount, 1, proposal.getOutBoundRateLimiterConfig().capacity);
+    amount = bound(amount, 1, _getRateLimiterConfig().capacity);
     uint256 facilitatorLevelBefore = _getFacilitatorLevel(address(ghoTokenPool));
 
     // wait for the rate limiter to refill
@@ -248,7 +248,7 @@ contract AaveV3Arbitrum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
 
     _mockCCIPMigration();
 
-    amount = bound(amount, 1, proposal.getOutBoundRateLimiterConfig().capacity);
+    amount = bound(amount, 1, _getRateLimiterConfig().capacity);
     uint256 facilitatorLevelBefore = _getFacilitatorLevel(address(ghoTokenPool));
 
     // wait for the rate limiter to refill
@@ -460,13 +460,13 @@ contract AaveV3Arbitrum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
   }
 
   function _getOutboundRefillTime(uint256 amount) private view returns (uint256) {
-    uint128 rate = proposal.getOutBoundRateLimiterConfig().rate;
+    uint128 rate = _getRateLimiterConfig().rate;
     assertNotEq(rate, 0);
     return amount / uint256(rate) + 1; // account for rounding
   }
 
   function _getInboundRefillTime(uint256 amount) private view returns (uint256) {
-    uint128 rate = proposal.getInBoundRateLimiterConfig().rate;
+    uint128 rate = _getRateLimiterConfig().rate;
     assertNotEq(rate, 0);
     return amount / uint256(rate) + 1; // account for rounding
   }
@@ -491,5 +491,14 @@ contract AaveV3Arbitrum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
     IRateLimiter.Config memory config
   ) internal pure {
     assertEq(abi.encode(_tokenBucketToConfig(bucket)), abi.encode(config));
+  }
+
+  function _getRateLimiterConfig() internal view returns (IRateLimiter.Config memory) {
+    return
+      IRateLimiter.Config({
+        isEnabled: true,
+        capacity: proposal.CCIP_RATE_LIMIT_CAPACITY(),
+        rate: proposal.CCIP_RATE_LIMIT_REFILL_RATE()
+      });
   }
 }
