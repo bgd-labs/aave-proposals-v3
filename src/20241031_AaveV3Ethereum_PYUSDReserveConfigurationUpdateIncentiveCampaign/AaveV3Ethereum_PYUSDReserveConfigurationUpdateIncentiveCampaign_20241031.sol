@@ -24,6 +24,10 @@ contract AaveV3Ethereum_PYUSDReserveConfigurationUpdateIncentiveCampaign_2024103
     AaveV3Ethereum.COLLECTOR.approve(AaveV3EthereumAssets.GHO_UNDERLYING, ALC_SAFE, GHO_AMOUNT);
 
     IEmissionManager(AaveV3Ethereum.EMISSION_MANAGER).setEmissionAdmin(
+      AaveV3EthereumAssets.PYUSD_UNDERLYING,
+      ACI_TREASURY
+    );
+    IEmissionManager(AaveV3Ethereum.EMISSION_MANAGER).setEmissionAdmin(
       AaveV3EthereumAssets.PYUSD_A_TOKEN,
       ACI_TREASURY
     );

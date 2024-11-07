@@ -51,8 +51,11 @@ contract AaveV3Ethereum_PYUSDReserveConfigurationUpdateIncentiveCampaign_2024103
     assertEq(allowanceAfter - allowanceBefore, proposal.GHO_AMOUNT());
 
     address pyusdEmissionAdmin = IEmissionManager(AaveV3Ethereum.EMISSION_MANAGER).getEmissionAdmin(
-      AaveV3EthereumAssets.PYUSD_A_TOKEN
+      AaveV3EthereumAssets.PYUSD_UNDERLYING
     );
     assertEq(pyusdEmissionAdmin, proposal.ACI_TREASURY());
+    address pyusdAEmissionAdmin = IEmissionManager(AaveV3Ethereum.EMISSION_MANAGER)
+      .getEmissionAdmin(AaveV3EthereumAssets.PYUSD_A_TOKEN);
+    assertEq(pyusdAEmissionAdmin, proposal.ACI_TREASURY());
   }
 }
