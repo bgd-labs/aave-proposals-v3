@@ -34,7 +34,7 @@ Furthermore, this proposal sets LTV to 0% as there is no use-case for FRAX to ac
 | Liquidation Bonus        | 6.00%          |
 | Reserve Factor           | 10.00%         |
 | Liquidation Protocol Fee | 20.00%         |
-| Supply Cap(sFRAX)        | 10.00M         |
+| Supply Cap        | 10.00M         |
 | Borrow Cap(sFRAX)        | N/A            |
 | Uoptimal                 | N/A            |
 | Base                     | N/A            |
