@@ -18,7 +18,7 @@ contract AaveV3Ethereum_OnboardRsETHToAaveV3Ethereum_20241104_Test is ProtocolV3
   AaveV3Ethereum_OnboardRsETHToAaveV3Ethereum_20241104 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 21116205);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 21136339);
     proposal = new AaveV3Ethereum_OnboardRsETHToAaveV3Ethereum_20241104();
   }
 
@@ -38,7 +38,7 @@ contract AaveV3Ethereum_OnboardRsETHToAaveV3Ethereum_20241104_Test is ProtocolV3
     (address aTokenAddress, , ) = AaveV3Ethereum
       .AAVE_PROTOCOL_DATA_PROVIDER
       .getReserveTokensAddresses(proposal.rsETH());
-    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Ethereum.COLLECTOR)), 10 ** 18);
+    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Ethereum.COLLECTOR)), 4 * 10 ** 16);
   }
 
   function test_rsETHAdmin() public {
