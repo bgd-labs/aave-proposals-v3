@@ -77,8 +77,8 @@ contract AaveV3E2E_GHOCCIP150Upgrade_20241021_Base is ProtocolV3TestBase {
   error NotACompatiblePool(address pool);
 
   function setUp() public virtual {
-    l1.c.forkId = vm.createFork(vm.rpcUrl('mainnet'), 21128760);
-    l2.c.forkId = vm.createFork(vm.rpcUrl('arbitrum'), 271638492);
+    l1.c.forkId = vm.createFork(vm.rpcUrl('mainnet'), 21131872);
+    l2.c.forkId = vm.createFork(vm.rpcUrl('arbitrum'), 271788784);
 
     vm.selectFork(l1.c.forkId);
     l1.proposal = new AaveV3Ethereum_GHOCCIP150Upgrade_20241021();

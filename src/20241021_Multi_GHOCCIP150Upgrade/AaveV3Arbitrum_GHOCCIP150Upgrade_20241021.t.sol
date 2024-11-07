@@ -61,7 +61,7 @@ contract AaveV3Arbitrum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
   error NotACompatiblePool(address pool);
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('arbitrum'), 271638492);
+    vm.createSelectFork(vm.rpcUrl('arbitrum'), 271788784);
     proposal = new AaveV3Arbitrum_GHOCCIP150Upgrade_20241021();
     ghoTokenPool = IUpgradeableBurnMintTokenPool(MiscArbitrum.GHO_CCIP_TOKEN_POOL);
     proxyPool = IProxyPool(proposal.GHO_CCIP_PROXY_POOL());
@@ -112,17 +112,6 @@ contract AaveV3Arbitrum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
     executePayload(vm, address(proposal));
 
     assertEq(ghoTokenPool.getProxyPool(), address(proxyPool));
-  }
-
-  function test_getRateLimitAdmin() public {
-    // rateLimitAdmin getter does not exist before the upgrade on BurnMintTokenPool
-    vm.expectRevert();
-    ghoTokenPool.getRateLimitAdmin();
-
-    executePayload(vm, address(proposal));
-
-    // we currently do not set the rate limit admin
-    assertEq(ghoTokenPool.getRateLimitAdmin(), address(0));
   }
 
   function test_tokenPoolCannotBeInitializedAgain() public {
@@ -312,8 +301,7 @@ contract AaveV3Arbitrum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
   function test_stewardCanDisableRateLimit() public {
     executePayload(vm, address(proposal));
 
-    vm.prank(ghoTokenPool.owner());
-    ghoTokenPool.setRateLimitAdmin(address(GHO_CCIP_STEWARD));
+    assertEq(ghoTokenPool.getRateLimitAdmin(), address(GHO_CCIP_STEWARD));
 
     vm.prank(GHO_CCIP_STEWARD.RISK_COUNCIL());
     GHO_CCIP_STEWARD.updateRateLimit(ETH_CHAIN_SELECTOR, false, 0, 0, false, 0, 0);
@@ -441,7 +429,8 @@ contract AaveV3Arbitrum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
       abi.encode(
         ghoTokenPool.owner(),
         ghoTokenPool.getSupportedChains(),
-        ghoTokenPool.getAllowListEnabled()
+        ghoTokenPool.getAllowListEnabled(),
+        ghoTokenPool.getRateLimitAdmin()
       );
   }
 

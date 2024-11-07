@@ -6,6 +6,10 @@ import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {EthereumScript, ArbitrumScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
 import {AaveV3Ethereum_GHOCCIP150Upgrade_20241021} from './AaveV3Ethereum_GHOCCIP150Upgrade_20241021.sol';
 import {AaveV3Arbitrum_GHOCCIP150Upgrade_20241021} from './AaveV3Arbitrum_GHOCCIP150Upgrade_20241021.sol';
+import {Script} from 'forge-std/Script.sol';
+
+import {IUpgradeableBurnMintTokenPool} from 'src/interfaces/ccip/IUpgradeableBurnMintTokenPool.sol';
+import {IRateLimiter} from 'src/interfaces/ccip/IRateLimiter.sol';
 
 /**
  * @dev Deploy Ethereum
@@ -83,5 +87,34 @@ contract CreateProposal is EthereumScript {
       GovernanceV3Ethereum.VOTING_PORTAL_ETH_POL,
       GovV3Helpers.ipfsHashFile(vm, 'src/20241021_Multi_GHOCCIP150Upgrade/GHOCCIP150Upgrade.md')
     );
+  }
+}
+
+contract EthConfigurator is Script {
+  function run() external {
+    vm.startBroadcast();
+    // Set rate limit
+    IRateLimiter.Config memory rateLimitConfig = IRateLimiter.Config({
+      isEnabled: true,
+      capacity: 10_000e18,
+      rate: 60e18
+    });
+    IUpgradeableBurnMintTokenPool(0x7768248E1Ff75612c18324bad06bb393c1206980)
+      .setChainRateLimiterConfig(3478487238524512106, rateLimitConfig, rateLimitConfig);
+    vm.stopBroadcast();
+  }
+}
+contract ArbConfigurator is Script {
+  function run() external {
+    vm.startBroadcast();
+    // Set rate limit
+    IRateLimiter.Config memory rateLimitConfig = IRateLimiter.Config({
+      isEnabled: true,
+      capacity: 10_000e18,
+      rate: 60e18
+    });
+    IUpgradeableBurnMintTokenPool(0x3eC2b6F818B72442fc36561e9F930DD2b60957D2)
+      .setChainRateLimiterConfig(16015286601757825753, rateLimitConfig, rateLimitConfig);
+    vm.stopBroadcast();
   }
 }

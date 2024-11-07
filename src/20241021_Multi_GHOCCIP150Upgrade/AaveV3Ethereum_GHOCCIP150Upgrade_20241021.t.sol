@@ -57,7 +57,7 @@ contract AaveV3Ethereum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
   error CallerIsNotARampOnRouter(address caller);
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 21128760);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 21131872);
     proposal = new AaveV3Ethereum_GHOCCIP150Upgrade_20241021();
     ghoTokenPool = IUpgradeableLockReleaseTokenPool(MiscEthereum.GHO_CCIP_TOKEN_POOL);
     proxyPool = IProxyPool(proposal.GHO_CCIP_PROXY_POOL());
@@ -300,8 +300,7 @@ contract AaveV3Ethereum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
   function test_stewardCanDisableRateLimit() public {
     executePayload(vm, address(proposal));
 
-    vm.prank(ghoTokenPool.owner());
-    ghoTokenPool.setRateLimitAdmin(address(GHO_CCIP_STEWARD));
+    assertEq(ghoTokenPool.getRateLimitAdmin(), address(GHO_CCIP_STEWARD));
 
     vm.prank(GHO_CCIP_STEWARD.RISK_COUNCIL());
     GHO_CCIP_STEWARD.updateRateLimit(ARB_CHAIN_SELECTOR, false, 0, 0, false, 0, 0);
@@ -432,14 +431,14 @@ contract AaveV3Ethereum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
     return
       abi.encode(
         ghoTokenPool.owner(),
-        ghoTokenPool.getBridgeLimitAdmin(),
-        ghoTokenPool.getRateLimitAdmin(),
-        ghoTokenPool.getRebalancer(),
         ghoTokenPool.getSupportedChains(),
+        ghoTokenPool.getAllowListEnabled(),
+        ghoTokenPool.getRateLimitAdmin(),
+        ghoTokenPool.getBridgeLimitAdmin(),
+        ghoTokenPool.getRebalancer(),
         ghoTokenPool.getLockReleaseInterfaceId(),
         ghoTokenPool.getBridgeLimit(),
-        ghoTokenPool.getCurrentBridgedAmount(),
-        ghoTokenPool.getRateLimitAdmin()
+        ghoTokenPool.getCurrentBridgedAmount()
       );
   }
 
