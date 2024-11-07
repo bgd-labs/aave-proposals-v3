@@ -51,7 +51,7 @@ contract AaveV3Ethereum_GHOAvaxLaunch_20241104 is IProposalGenericExecutor {
     TokenAdminRegistry(CCIP_TOKEN_ADMIN_REGISTRY).acceptAdminRole(MiscEthereum.GHO_TOKEN);
 
     // 6. Link token to pool on Chainlink token admin registry
-    // TODO
+    TokenAdminRegistry(CCIP_TOKEN_ADMIN_REGISTRY).setPool(MiscEthereum.GHO_TOKEN, tokenPool);
 
     // TODO: Migrate funds?
   }

@@ -109,7 +109,7 @@ contract AaveV3Avalanche_GHOAvaxLaunch_20241104 is IProposalGenericExecutor {
     TokenAdminRegistry(Utils.CCIP_TOKEN_ADMIN_REGISTRY).acceptAdminRole(ghoToken);
 
     // 8. Link token to pool on Chainlink token admin registry
-    // TODO
+    TokenAdminRegistry(Utils.CCIP_TOKEN_ADMIN_REGISTRY).setPool(ghoToken, tokenPool);
 
     // 9. List GHO on Avax in separate payload
     // TODO
