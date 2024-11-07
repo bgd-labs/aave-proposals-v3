@@ -1,37 +1,43 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
+import {AaveV3PayloadGnosis} from 'aave-helpers/src/v3-config-engine/AaveV3PayloadGnosis.sol';
+import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
 import {AaveV3Gnosis, AaveV3GnosisAssets} from 'aave-address-book/AaveV3Gnosis.sol';
 import {PriceFeeds} from './Constants.sol';
 
 /**
  * @title Update Price Cap Adapters (CAPO)
  * @author BGD Labs (@bgdlabs)
- * - Snapshot: TODO
  * - Discussion: TODO
  */
-contract AaveV3Gnosis_UpdatePriceCapAdaptersCAPO_20241101 is IProposalGenericExecutor {
-  function execute() external {
-    _updateV3PriceAdapters();
-  }
+contract AaveV3Gnosis_UpdatePriceCapAdaptersCAPO_20241101 is AaveV3PayloadGnosis {
+  function priceFeedsUpdates()
+    public
+    pure
+    override
+    returns (IAaveV3ConfigEngine.PriceFeedUpdate[] memory)
+  {
+    IAaveV3ConfigEngine.PriceFeedUpdate[]
+      memory feedsUpdate = new IAaveV3ConfigEngine.PriceFeedUpdate[](4);
 
-  function _updateV3PriceAdapters() internal {
-    address[] memory assets = new address[](4);
-    address[] memory sources = new address[](4);
+    feedsUpdate[0] = IAaveV3ConfigEngine.PriceFeedUpdate({
+      asset: AaveV3GnosisAssets.USDC_UNDERLYING,
+      priceFeed: PriceFeeds.GNOSIS_V3_USDC_FEED
+    });
+    feedsUpdate[1] = IAaveV3ConfigEngine.PriceFeedUpdate({
+      asset: AaveV3GnosisAssets.USDCe_UNDERLYING,
+      priceFeed: PriceFeeds.GNOSIS_V3_USDC_FEED
+    });
+    feedsUpdate[2] = IAaveV3ConfigEngine.PriceFeedUpdate({
+      asset: AaveV3GnosisAssets.WXDAI_UNDERLYING,
+      priceFeed: PriceFeeds.GNOSIS_V3_WXDAI_FEED
+    });
+    feedsUpdate[3] = IAaveV3ConfigEngine.PriceFeedUpdate({
+      asset: AaveV3GnosisAssets.sDAI_UNDERLYING,
+      priceFeed: PriceFeeds.GNOSIS_V3_SDAI_FEED
+    });
 
-    assets[0] = AaveV3GnosisAssets.USDC_UNDERLYING;
-    sources[0] = PriceFeeds.GNOSIS_V3_USDC_FEED;
-
-    assets[1] = AaveV3GnosisAssets.USDCe_UNDERLYING;
-    sources[1] = PriceFeeds.GNOSIS_V3_USDC_FEED;
-
-    assets[2] = AaveV3GnosisAssets.WXDAI_UNDERLYING;
-    sources[2] = PriceFeeds.GNOSIS_V3_WXDAI_FEED;
-
-    assets[3] = AaveV3GnosisAssets.sDAI_UNDERLYING;
-    sources[3] = PriceFeeds.GNOSIS_V3_SDAI_FEED;
-
-    AaveV3Gnosis.ORACLE.setAssetSources(assets, sources);
+    return feedsUpdate;
   }
 }

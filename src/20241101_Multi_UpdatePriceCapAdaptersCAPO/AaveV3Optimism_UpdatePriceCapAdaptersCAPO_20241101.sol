@@ -1,7 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
+import {AaveV3PayloadOptimism} from 'aave-helpers/src/v3-config-engine/AaveV3PayloadOptimism.sol';
+import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
 import {AaveV3Optimism, AaveV3OptimismAssets} from 'aave-address-book/AaveV3Optimism.sol';
 import {PriceFeeds} from './Constants.sol';
 
@@ -11,36 +12,45 @@ import {PriceFeeds} from './Constants.sol';
  * - Snapshot: TODO
  * - Discussion: TODO
  */
-contract AaveV3Optimism_UpdatePriceCapAdaptersCAPO_20241101 is IProposalGenericExecutor {
-  function execute() external {
-    _updateV3PriceAdapters();
-  }
+contract AaveV3Optimism_UpdatePriceCapAdaptersCAPO_20241101 is AaveV3PayloadOptimism {
+  function priceFeedsUpdates()
+    public
+    pure
+    override
+    returns (IAaveV3ConfigEngine.PriceFeedUpdate[] memory)
+  {
+    IAaveV3ConfigEngine.PriceFeedUpdate[]
+      memory feedsUpdate = new IAaveV3ConfigEngine.PriceFeedUpdate[](7);
 
-  function _updateV3PriceAdapters() internal {
-    address[] memory assets = new address[](7);
-    address[] memory sources = new address[](7);
+    feedsUpdate[0] = IAaveV3ConfigEngine.PriceFeedUpdate({
+      asset: AaveV3OptimismAssets.USDC_UNDERLYING,
+      priceFeed: PriceFeeds.OPTIMISM_V3_USDC_FEED
+    });
+    feedsUpdate[1] = IAaveV3ConfigEngine.PriceFeedUpdate({
+      asset: AaveV3OptimismAssets.USDCn_UNDERLYING,
+      priceFeed: PriceFeeds.OPTIMISM_V3_USDC_FEED
+    });
+    feedsUpdate[2] = IAaveV3ConfigEngine.PriceFeedUpdate({
+      asset: AaveV3OptimismAssets.USDT_UNDERLYING,
+      priceFeed: PriceFeeds.OPTIMISM_V3_USDT_FEED
+    });
+    feedsUpdate[3] = IAaveV3ConfigEngine.PriceFeedUpdate({
+      asset: AaveV3OptimismAssets.DAI_UNDERLYING,
+      priceFeed: PriceFeeds.OPTIMISM_V3_DAI_FEED
+    });
+    feedsUpdate[4] = IAaveV3ConfigEngine.PriceFeedUpdate({
+      asset: AaveV3OptimismAssets.MAI_UNDERLYING,
+      priceFeed: PriceFeeds.OPTIMISM_V3_MAI_FEED
+    });
+    feedsUpdate[5] = IAaveV3ConfigEngine.PriceFeedUpdate({
+      asset: AaveV3OptimismAssets.LUSD_UNDERLYING,
+      priceFeed: PriceFeeds.OPTIMISM_V3_LUSD_FEED
+    });
+    feedsUpdate[6] = IAaveV3ConfigEngine.PriceFeedUpdate({
+      asset: AaveV3OptimismAssets.sUSD_UNDERLYING,
+      priceFeed: PriceFeeds.OPTIMISM_V3_SUSD_FEED
+    });
 
-    assets[0] = AaveV3OptimismAssets.USDC_UNDERLYING;
-    sources[0] = PriceFeeds.OPTIMISM_V3_USDC_FEED;
-
-    assets[1] = AaveV3OptimismAssets.USDCn_UNDERLYING;
-    sources[1] = PriceFeeds.OPTIMISM_V3_USDC_FEED;
-
-    assets[2] = AaveV3OptimismAssets.USDT_UNDERLYING;
-    sources[2] = PriceFeeds.OPTIMISM_V3_USDT_FEED;
-
-    assets[3] = AaveV3OptimismAssets.DAI_UNDERLYING;
-    sources[3] = PriceFeeds.OPTIMISM_V3_DAI_FEED;
-
-    assets[4] = AaveV3OptimismAssets.MAI_UNDERLYING;
-    sources[4] = PriceFeeds.OPTIMISM_V3_MAI_FEED;
-
-    assets[5] = AaveV3OptimismAssets.LUSD_UNDERLYING;
-    sources[5] = PriceFeeds.OPTIMISM_V3_LUSD_FEED;
-
-    assets[6] = AaveV3OptimismAssets.sUSD_UNDERLYING;
-    sources[6] = PriceFeeds.OPTIMISM_V3_SUSD_FEED;
-
-    AaveV3Optimism.ORACLE.setAssetSources(assets, sources);
+    return feedsUpdate;
   }
 }

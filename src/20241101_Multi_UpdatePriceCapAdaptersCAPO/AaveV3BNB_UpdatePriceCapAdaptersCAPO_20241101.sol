@@ -1,34 +1,39 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
+import {AaveV3PayloadBNB} from 'aave-helpers/src/v3-config-engine/AaveV3PayloadBNB.sol';
+import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
 import {AaveV3BNB, AaveV3BNBAssets} from 'aave-address-book/AaveV3BNB.sol';
 import {PriceFeeds} from './Constants.sol';
 
 /**
  * @title Update Price Cap Adapters (CAPO)
  * @author BGD Labs (@bgdlabs)
- * - Snapshot: TODO
  * - Discussion: TODO
  */
-contract AaveV3BNB_UpdatePriceCapAdaptersCAPO_20241101 is IProposalGenericExecutor {
-  function execute() external {
-    _updateV3PriceAdapters();
-  }
+contract AaveV3BNB_UpdatePriceCapAdaptersCAPO_20241101 is AaveV3PayloadBNB {
+  function priceFeedsUpdates()
+    public
+    pure
+    override
+    returns (IAaveV3ConfigEngine.PriceFeedUpdate[] memory)
+  {
+    IAaveV3ConfigEngine.PriceFeedUpdate[]
+      memory feedsUpdate = new IAaveV3ConfigEngine.PriceFeedUpdate[](3);
 
-  function _updateV3PriceAdapters() internal {
-    address[] memory assets = new address[](3);
-    address[] memory sources = new address[](3);
+    feedsUpdate[0] = IAaveV3ConfigEngine.PriceFeedUpdate({
+      asset: AaveV3BNBAssets.USDC_UNDERLYING,
+      priceFeed: PriceFeeds.BNB_V3_USDC_FEED
+    });
+    feedsUpdate[1] = IAaveV3ConfigEngine.PriceFeedUpdate({
+      asset: AaveV3BNBAssets.USDT_UNDERLYING,
+      priceFeed: PriceFeeds.BNB_V3_USDT_FEED
+    });
+    feedsUpdate[2] = IAaveV3ConfigEngine.PriceFeedUpdate({
+      asset: AaveV3BNBAssets.FDUSD_UNDERLYING,
+      priceFeed: PriceFeeds.BNB_V3_FDUSD_FEED
+    });
 
-    assets[0] = AaveV3BNBAssets.USDC_UNDERLYING;
-    sources[0] = PriceFeeds.BNB_V3_USDC_FEED;
-
-    assets[1] = AaveV3BNBAssets.USDT_UNDERLYING;
-    sources[1] = PriceFeeds.BNB_V3_USDT_FEED;
-
-    assets[2] = AaveV3BNBAssets.FDUSD_UNDERLYING;
-    sources[2] = PriceFeeds.BNB_V3_FDUSD_FEED;
-
-    AaveV3BNB.ORACLE.setAssetSources(assets, sources);
+    return feedsUpdate;
   }
 }

@@ -1,34 +1,39 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
+import {AaveV3PayloadMetis} from 'aave-helpers/src/v3-config-engine/AaveV3PayloadMetis.sol';
+import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
 import {AaveV3Metis, AaveV3MetisAssets} from 'aave-address-book/AaveV3Metis.sol';
 import {PriceFeeds} from './Constants.sol';
 
 /**
  * @title Update Price Cap Adapters (CAPO)
  * @author BGD Labs (@bgdlabs)
- * - Snapshot: TODO
  * - Discussion: TODO
  */
-contract AaveV3Metis_UpdatePriceCapAdaptersCAPO_20241101 is IProposalGenericExecutor {
-  function execute() external {
-    _updateV3PriceAdapters();
-  }
+contract AaveV3Metis_UpdatePriceCapAdaptersCAPO_20241101 is AaveV3PayloadMetis {
+  function priceFeedsUpdates()
+    public
+    pure
+    override
+    returns (IAaveV3ConfigEngine.PriceFeedUpdate[] memory)
+  {
+    IAaveV3ConfigEngine.PriceFeedUpdate[]
+      memory feedsUpdate = new IAaveV3ConfigEngine.PriceFeedUpdate[](3);
 
-  function _updateV3PriceAdapters() internal {
-    address[] memory assets = new address[](3);
-    address[] memory sources = new address[](3);
+    feedsUpdate[0] = IAaveV3ConfigEngine.PriceFeedUpdate({
+      asset: AaveV3MetisAssets.mUSDC_UNDERLYING,
+      priceFeed: PriceFeeds.METIS_V3_USDC_FEED
+    });
+    feedsUpdate[1] = IAaveV3ConfigEngine.PriceFeedUpdate({
+      asset: AaveV3MetisAssets.mUSDT_UNDERLYING,
+      priceFeed: PriceFeeds.METIS_V3_USDT_FEED
+    });
+    feedsUpdate[2] = IAaveV3ConfigEngine.PriceFeedUpdate({
+      asset: AaveV3MetisAssets.mDAI_UNDERLYING,
+      priceFeed: PriceFeeds.METIS_V3_DAI_FEED
+    });
 
-    assets[0] = AaveV3MetisAssets.mUSDC_UNDERLYING;
-    sources[0] = PriceFeeds.METIS_V3_USDC_FEED;
-
-    assets[1] = AaveV3MetisAssets.mUSDT_UNDERLYING;
-    sources[1] = PriceFeeds.METIS_V3_USDT_FEED;
-
-    assets[2] = AaveV3MetisAssets.mDAI_UNDERLYING;
-    sources[2] = PriceFeeds.METIS_V3_DAI_FEED;
-
-    AaveV3Metis.ORACLE.setAssetSources(assets, sources);
+    return feedsUpdate;
   }
 }

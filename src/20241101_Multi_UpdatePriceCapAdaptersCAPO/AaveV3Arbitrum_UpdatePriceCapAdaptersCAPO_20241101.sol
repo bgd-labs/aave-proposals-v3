@@ -1,46 +1,55 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
+import {AaveV3PayloadArbitrum} from 'aave-helpers/src/v3-config-engine/AaveV3PayloadArbitrum.sol';
+import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
 import {AaveV3Arbitrum, AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
 import {PriceFeeds} from './Constants.sol';
 
 /**
  * @title Update Price Cap Adapters (CAPO)
  * @author BGD Labs (@bgdlabs)
- * - Snapshot: TODO
  * - Discussion: TODO
  */
-contract AaveV3Arbitrum_UpdatePriceCapAdaptersCAPO_20241101 is IProposalGenericExecutor {
-  function execute() external {
-    _updateV3PriceAdapters();
-  }
+contract AaveV3Arbitrum_UpdatePriceCapAdaptersCAPO_20241101 is AaveV3PayloadArbitrum {
+  function priceFeedsUpdates()
+    public
+    pure
+    override
+    returns (IAaveV3ConfigEngine.PriceFeedUpdate[] memory)
+  {
+    IAaveV3ConfigEngine.PriceFeedUpdate[]
+      memory feedsUpdate = new IAaveV3ConfigEngine.PriceFeedUpdate[](7);
 
-  function _updateV3PriceAdapters() internal {
-    address[] memory assets = new address[](7);
-    address[] memory sources = new address[](7);
+    feedsUpdate[0] = IAaveV3ConfigEngine.PriceFeedUpdate({
+      asset: AaveV3ArbitrumAssets.USDC_UNDERLYING,
+      priceFeed: PriceFeeds.ARBITRUM_V3_USDC_FEED
+    });
+    feedsUpdate[1] = IAaveV3ConfigEngine.PriceFeedUpdate({
+      asset: AaveV3ArbitrumAssets.USDCn_UNDERLYING,
+      priceFeed: PriceFeeds.ARBITRUM_V3_USDC_FEED
+    });
+    feedsUpdate[2] = IAaveV3ConfigEngine.PriceFeedUpdate({
+      asset: AaveV3ArbitrumAssets.USDT_UNDERLYING,
+      priceFeed: PriceFeeds.ARBITRUM_V3_USDT_FEED
+    });
+    feedsUpdate[3] = IAaveV3ConfigEngine.PriceFeedUpdate({
+      asset: AaveV3ArbitrumAssets.DAI_UNDERLYING,
+      priceFeed: PriceFeeds.ARBITRUM_V3_DAI_FEED
+    });
+    feedsUpdate[4] = IAaveV3ConfigEngine.PriceFeedUpdate({
+      asset: AaveV3ArbitrumAssets.MAI_UNDERLYING,
+      priceFeed: PriceFeeds.ARBITRUM_V3_MAI_FEED
+    });
+    feedsUpdate[5] = IAaveV3ConfigEngine.PriceFeedUpdate({
+      asset: AaveV3ArbitrumAssets.LUSD_UNDERLYING,
+      priceFeed: PriceFeeds.ARBITRUM_V3_LUSD_FEED
+    });
+    feedsUpdate[6] = IAaveV3ConfigEngine.PriceFeedUpdate({
+      asset: AaveV3ArbitrumAssets.FRAX_UNDERLYING,
+      priceFeed: PriceFeeds.ARBITRUM_V3_FRAX_FEED
+    });
 
-    assets[0] = AaveV3ArbitrumAssets.USDC_UNDERLYING;
-    sources[0] = PriceFeeds.ARBITRUM_V3_USDC_FEED;
-
-    assets[1] = AaveV3ArbitrumAssets.USDCn_UNDERLYING;
-    sources[1] = PriceFeeds.ARBITRUM_V3_USDC_FEED;
-
-    assets[2] = AaveV3ArbitrumAssets.USDT_UNDERLYING;
-    sources[2] = PriceFeeds.ARBITRUM_V3_USDT_FEED;
-
-    assets[3] = AaveV3ArbitrumAssets.DAI_UNDERLYING;
-    sources[3] = PriceFeeds.ARBITRUM_V3_DAI_FEED;
-
-    assets[4] = AaveV3ArbitrumAssets.MAI_UNDERLYING;
-    sources[4] = PriceFeeds.ARBITRUM_V3_MAI_FEED;
-
-    assets[5] = AaveV3ArbitrumAssets.LUSD_UNDERLYING;
-    sources[5] = PriceFeeds.ARBITRUM_V3_LUSD_FEED;
-
-    assets[6] = AaveV3ArbitrumAssets.FRAX_UNDERLYING;
-    sources[6] = PriceFeeds.ARBITRUM_V3_FRAX_FEED;
-
-    AaveV3Arbitrum.ORACLE.setAssetSources(assets, sources);
+    return feedsUpdate;
   }
 }

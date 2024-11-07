@@ -8,6 +8,7 @@ import {AaveV3Ethereum_UpdatePriceCapAdaptersCAPO_20241101} from './AaveV3Ethere
 import {PriceFeeds} from './Constants.sol';
 import {BasePayloadUSDFeedTest} from './BasePayloadUSDFeedTest.t.sol';
 import {BasePayloadETHFeedTest} from './BasePayloadETHFeedTest.t.sol';
+import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 
 /**
  * @dev Test for AaveV3Ethereum_UpdatePriceCapAdaptersCAPO_20241101
@@ -143,6 +144,29 @@ contract AaveV3Ethereum_UpdatePriceCapAdaptersCAPO_20241101_Test is
       PriceFeeds.ETHEREUM_V2_UST_FEED,
       0x049971FAAF0E4474A883979a9696AfDa390abF0c // UST/USD capo feed
     );
+  }
+
+  function test_maticPolMigration() public {
+    uint256 maticBalanceBefore = IERC20(proposal.MATIC_UNDERLYING()).balanceOf(
+      address(AaveV3Ethereum.COLLECTOR)
+    );
+    uint256 polBalanceBefore = IERC20(proposal.POL_UNDERLYING()).balanceOf(
+      address(AaveV3Ethereum.COLLECTOR)
+    );
+
+    assertGt(maticBalanceBefore, 0);
+    assertEq(polBalanceBefore, 0);
+
+    executePayload(vm, address(proposal));
+    uint256 maticBalanceAfter = IERC20(proposal.MATIC_UNDERLYING()).balanceOf(
+      address(AaveV3Ethereum.COLLECTOR)
+    );
+    uint256 polBalanceAfter = IERC20(proposal.POL_UNDERLYING()).balanceOf(
+      address(AaveV3Ethereum.COLLECTOR)
+    );
+
+    assertEq(polBalanceAfter, maticBalanceBefore);
+    assertEq(maticBalanceAfter, 0);
   }
 
   function getAaveOracle()
