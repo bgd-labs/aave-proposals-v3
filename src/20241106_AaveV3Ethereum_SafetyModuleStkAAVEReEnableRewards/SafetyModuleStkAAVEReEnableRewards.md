@@ -30,7 +30,7 @@ The distribution end for 180 days from Execution date.
 - Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241106_AaveV3Ethereum_SafetyModuleStkAAVEReEnableRewards/AaveV3Ethereum_SafetyModuleStkAAVEReEnableRewards_20241106.sol)
 - Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241106_AaveV3Ethereum_SafetyModuleStkAAVEReEnableRewards/AaveV3Ethereum_SafetyModuleStkAAVEReEnableRewards_20241106.t.sol)
 - [Snapshot](Direct-to-AIP)
-- [Discussion](TODO)
+- [Discussion](https://governance.aave.com/t/arfc-amend-safety-module-emissions/16640/12)
 
 ## Copyright
 

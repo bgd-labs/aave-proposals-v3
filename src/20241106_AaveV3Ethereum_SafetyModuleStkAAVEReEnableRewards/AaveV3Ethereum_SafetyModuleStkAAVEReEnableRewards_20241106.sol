@@ -13,7 +13,7 @@ import {IStakeToken} from 'aave-address-book/common/IStakeToken.sol';
  * @title Safety Module stkAAVE - Re-enable Rewards
  * @author @karpatkey_TokenLogic
  * - Snapshot: Direct-to-AIP
- * - Discussion: TODO
+ * - Discussion: https://governance.aave.com/t/arfc-amend-safety-module-emissions/16640/12
  */
 contract AaveV3Ethereum_SafetyModuleStkAAVEReEnableRewards_20241106 is IProposalGenericExecutor {
   uint256 public constant DISTRIBUTION_DURATION = 180 days;
