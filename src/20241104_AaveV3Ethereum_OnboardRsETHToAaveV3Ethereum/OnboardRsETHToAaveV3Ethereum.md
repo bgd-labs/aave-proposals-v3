@@ -7,7 +7,11 @@ snapshot: "https://snapshot.org/#/aave.eth/proposal/0xe83b67dfdddd469c298ce6133f
 
 ## Simple Summary
 
+Kelp DAO is seeking community support for adding its Liquid Restaking Token, rsETH, to Aave V3 on Ethereum. In addition, rsETH depositors into Aave will accumulate additional Kelp miles and EigenLayer points.
+
 ## Motivation
+
+KelpDAO (https://www.kelpdao.xyz/restake/) is one of the largest liquid restaking protocol built on top of the Eigen Layer. Restakers on Kelp get access to multiple benefits like restaking rewards, staking rewards and DeFi yields.
 
 ## Specification
 
