@@ -17,12 +17,14 @@ import {RateLimiter} from 'ccip/libraries/RateLimiter.sol';
  * @dev This payload consists of the following set of actions:
  * 1. Deploy LockReleaseTokenPool
  * 2. Accept ownership of CCIP TokenPool
- * 3. Configure CCIP TokenPool
+ * 3. Configure CCIP TokenPool for Arbitrum
+ * 4. Configure CCIP TokenPool for Avalanche
  */
 contract AaveV3Ethereum_GHOAvaxLaunch_20241104 is IProposalGenericExecutor {
   address public constant CCIP_RMN_PROXY = 0x411dE17f12D1A34ecC7F45f49844626267c75e81;
   address public constant CCIP_ROUTER = 0xF4c7E640EdA248ef95972845a62bdC74237805dB;
   uint256 public constant CCIP_BRIDGE_LIMIT = 25_000_000e18; // 25M
+  uint64 public constant CCIP_ARB_CHAIN_SELECTOR = 4949039107694359620;
   uint64 public constant CCIP_AVAX_CHAIN_SELECTOR = 6433500567565415381;
 
   function execute() external {
@@ -32,8 +34,15 @@ contract AaveV3Ethereum_GHOAvaxLaunch_20241104 is IProposalGenericExecutor {
     // 2. Accept TokenPool ownership
     UpgradeableLockReleaseTokenPool(tokenPool).acceptOwnership();
 
-    // 3. Configure CCIP
-    _configureCcipTokenPool(tokenPool);
+    // 3. Configure CCIP for Arbitrum
+    // TODO: Set remote pool and token addresses after deployment?
+    _configureCcipTokenPool(tokenPool, CCIP_ARB_CHAIN_SELECTOR, address(0), address(0));
+
+    // 4. Configure CCIP for Avalanche
+    // TODO: Set remote pool and token addresses after deployment?
+    _configureCcipTokenPool(tokenPool, CCIP_AVAX_CHAIN_SELECTOR, address(0), address(0));
+
+    // TODO: Migrate funds?
   }
 
   function _deployCcipTokenPool() internal returns (address) {
@@ -54,7 +63,12 @@ contract AaveV3Ethereum_GHOAvaxLaunch_20241104 is IProposalGenericExecutor {
       );
   }
 
-  function _configureCcipTokenPool(address tokenPool) internal {
+  function _configureCcipTokenPool(
+    address tokenPool,
+    uint64 chainSelector,
+    address remotePool,
+    address remoteToken
+  ) internal {
     UpgradeableTokenPool.ChainUpdate[] memory chainUpdates = new UpgradeableTokenPool.ChainUpdate[](
       1
     );
@@ -64,10 +78,10 @@ contract AaveV3Ethereum_GHOAvaxLaunch_20241104 is IProposalGenericExecutor {
       rate: 0
     });
     chainUpdates[0] = UpgradeableTokenPool.ChainUpdate({
-      remoteChainSelector: CCIP_AVAX_CHAIN_SELECTOR,
+      remoteChainSelector: chainSelector,
       allowed: true,
-      remotePoolAddress: abi.encode(address(0)), // TODO: Set after deployment?
-      remoteTokenAddress: abi.encode(address(0)), // TODO: Set after deployment?
+      remotePoolAddress: abi.encode(remotePool),
+      remoteTokenAddress: abi.encode(remoteToken),
       outboundRateLimiterConfig: rateConfig,
       inboundRateLimiterConfig: rateConfig
     });

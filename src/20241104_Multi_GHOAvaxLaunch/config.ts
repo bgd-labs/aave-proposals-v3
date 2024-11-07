@@ -1,7 +1,7 @@
 import {ConfigFile} from '../../generator/types';
 export const config: ConfigFile = {
   rootOptions: {
-    title: 'GHOAvaxLaunch',
+    title: 'GHO Avax Launch',
     author: 'Aave Labs',
     discussion:
       'https://governance.aave.com/t/arfc-launch-gho-on-avalanche-set-aci-as-emissions-manager-for-rewards/19339',

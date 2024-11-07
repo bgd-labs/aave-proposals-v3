@@ -16,6 +16,7 @@ library Utils {
   address public constant CCIP_ROUTER = 0xF4c7E640EdA248ef95972845a62bdC74237805dB;
   uint256 public constant CCIP_BUCKET_CAPACITY = 25_000_000e18; // 25M
   uint64 public constant CCIP_ETH_CHAIN_SELECTOR = 5009297550715157269;
+  uint64 public constant CCIP_ARB_CHAIN_SELECTOR = 4949039107694359620;
 
   function deployGhoToken() internal returns (address) {
     address imple = address(new UpgradeableGhoToken());
@@ -59,8 +60,12 @@ library Utils {
  * 1. Deploy GHO
  * 2. Deploy BurnMintTokenPool
  * 3. Accept ownership of CCIP TokenPool
- * 4. Configure CCIP TokenPool
- * 5. Add CCIP TokenPool as GHO Facilitator
+ * 4. Configure CCIP TokenPool for Ethereum
+ * 5. Configure CCIP TokenPool for Arbitrum
+ * 6. Add CCIP TokenPool as GHO Facilitator
+ * 7. Accept administrator role from Chainlink token manager
+ * 8. List GHO on Avax in separate payload - because there is a delay to activate lane
+ * 9. Supply GHO to the Aave protocol
  */
 contract AaveV3Avalanche_GHOAvaxLaunch_20241104 is IProposalGenericExecutor {
   function execute() external {
@@ -73,10 +78,15 @@ contract AaveV3Avalanche_GHOAvaxLaunch_20241104 is IProposalGenericExecutor {
     // 3. Accept TokenPool ownership
     UpgradeableBurnMintTokenPool(tokenPool).acceptOwnership();
 
-    // 4. Configure CCIP TokenPool
-    _configureCcipTokenPool(tokenPool);
+    // 4. Configure CCIP TokenPool for Ethereum
+    // TODO: Set remote pool and token addresses after deployment?
+    _configureCcipTokenPool(tokenPool, Utils.CCIP_ETH_CHAIN_SELECTOR, address(0), address(0));
 
-    // 5. Add CCIP TokenPool as GHO Facilitator
+    // 5. Configure CCIP TokenPool for Arbitrum
+    // TODO: Set remote pool and token addresses after deployment?
+    _configureCcipTokenPool(tokenPool, Utils.CCIP_ARB_CHAIN_SELECTOR, address(0), address(0));
+
+    // 6. Add CCIP TokenPool as GHO Facilitator
     IGhoToken(ghoToken).grantRole(
       IGhoToken(ghoToken).FACILITATOR_MANAGER_ROLE(),
       GovernanceV3Avalanche.EXECUTOR_LVL_1
@@ -90,9 +100,23 @@ contract AaveV3Avalanche_GHOAvaxLaunch_20241104 is IProposalGenericExecutor {
       'CCIP TokenPool',
       uint128(Utils.CCIP_BUCKET_CAPACITY)
     );
+
+    // 7. Accept administrator role from Chainlink token manager
+    // TODO
+
+    // 8. List GHO on Avax in separate payload
+    // TODO
+
+    // 9. Supply GHO to the Aave protocol
+    // TODO
   }
 
-  function _configureCcipTokenPool(address tokenPool) internal {
+  function _configureCcipTokenPool(
+    address tokenPool,
+    uint64 chainSelector,
+    address remotePool,
+    address remoteToken
+  ) internal {
     UpgradeableTokenPool.ChainUpdate[] memory chainUpdates = new UpgradeableTokenPool.ChainUpdate[](
       1
     );
@@ -102,10 +126,10 @@ contract AaveV3Avalanche_GHOAvaxLaunch_20241104 is IProposalGenericExecutor {
       rate: 0
     });
     chainUpdates[0] = UpgradeableTokenPool.ChainUpdate({
-      remoteChainSelector: Utils.CCIP_ETH_CHAIN_SELECTOR,
+      remoteChainSelector: chainSelector,
       allowed: true,
-      remotePoolAddress: abi.encode(address(0)), // TODO: Set after deployment?
-      remoteTokenAddress: abi.encode(address(0)), // TODO: Set after deployment?
+      remotePoolAddress: abi.encode(remotePool),
+      remoteTokenAddress: abi.encode(remoteToken),
       outboundRateLimiterConfig: rateConfig,
       inboundRateLimiterConfig: rateConfig
     });
