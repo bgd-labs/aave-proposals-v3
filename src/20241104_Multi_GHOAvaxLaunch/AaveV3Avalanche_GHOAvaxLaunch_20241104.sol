@@ -8,12 +8,15 @@ import {TransparentUpgradeableProxy} from 'solidity-utils/contracts/transparent-
 import {UpgradeableBurnMintTokenPool} from 'ccip/pools/GHO/UpgradeableBurnMintTokenPool.sol';
 import {UpgradeableTokenPool} from 'ccip/pools/GHO/UpgradeableTokenPool.sol';
 import {RateLimiter} from 'ccip/libraries/RateLimiter.sol';
+import {TokenAdminRegistry} from 'ccip/tokenAdminRegistry/TokenAdminRegistry.sol';
 import {UpgradeableGhoToken} from 'gho-core/gho/UpgradeableGhoToken.sol';
 import {IGhoToken} from 'gho-core/gho/interfaces/IGhoToken.sol';
 
 library Utils {
   address public constant CCIP_RMN_PROXY = 0xcBD48A8eB077381c3c4Eb36b402d7283aB2b11Bc;
   address public constant CCIP_ROUTER = 0xF4c7E640EdA248ef95972845a62bdC74237805dB;
+  // TODO: Wait for token admin registry to be deployed, and get proper address
+  address public constant CCIP_TOKEN_ADMIN_REGISTRY = 0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419;
   uint256 public constant CCIP_BUCKET_CAPACITY = 25_000_000e18; // 25M
   uint64 public constant CCIP_ETH_CHAIN_SELECTOR = 5009297550715157269;
   uint64 public constant CCIP_ARB_CHAIN_SELECTOR = 4949039107694359620;
@@ -62,10 +65,11 @@ library Utils {
  * 3. Accept ownership of CCIP TokenPool
  * 4. Configure CCIP TokenPool for Ethereum
  * 5. Configure CCIP TokenPool for Arbitrum
- * 6. Add CCIP TokenPool as GHO Facilitator
- * 7. Accept administrator role from Chainlink token manager
- * 8. List GHO on Avax in separate payload - because there is a delay to activate lane
- * 9. Supply GHO to the Aave protocol
+ * 6. Add CCIP TokenPool as GHO Facilitator (allowing burn and mint)
+ * 7. Accept administrator role from Chainlink token admin registry
+ * 8. Link token to pool on Chainlink token admin registry
+ * 9. List GHO on Avax in separate payload - because there is a delay to activate lane
+ * 10. Supply GHO to the Aave protocol
  */
 contract AaveV3Avalanche_GHOAvaxLaunch_20241104 is IProposalGenericExecutor {
   function execute() external {
@@ -102,12 +106,15 @@ contract AaveV3Avalanche_GHOAvaxLaunch_20241104 is IProposalGenericExecutor {
     );
 
     // 7. Accept administrator role from Chainlink token manager
+    TokenAdminRegistry(Utils.CCIP_TOKEN_ADMIN_REGISTRY).acceptAdminRole(ghoToken);
+
+    // 8. Link token to pool on Chainlink token admin registry
     // TODO
 
-    // 8. List GHO on Avax in separate payload
+    // 9. List GHO on Avax in separate payload
     // TODO
 
-    // 9. Supply GHO to the Aave protocol
+    // 10. Supply GHO to the Aave protocol
     // TODO
   }
 

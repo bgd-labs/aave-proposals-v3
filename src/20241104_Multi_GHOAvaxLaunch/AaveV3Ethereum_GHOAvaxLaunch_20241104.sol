@@ -8,6 +8,7 @@ import {TransparentUpgradeableProxy} from 'solidity-utils/contracts/transparent-
 import {UpgradeableLockReleaseTokenPool} from 'ccip/pools/GHO/UpgradeableLockReleaseTokenPool.sol';
 import {UpgradeableTokenPool} from 'ccip/pools/GHO/UpgradeableTokenPool.sol';
 import {RateLimiter} from 'ccip/libraries/RateLimiter.sol';
+import {TokenAdminRegistry} from 'ccip/tokenAdminRegistry/TokenAdminRegistry.sol';
 
 /**
  * @title GHO Avax Launch
@@ -19,10 +20,14 @@ import {RateLimiter} from 'ccip/libraries/RateLimiter.sol';
  * 2. Accept ownership of CCIP TokenPool
  * 3. Configure CCIP TokenPool for Arbitrum
  * 4. Configure CCIP TokenPool for Avalanche
+ * 5. Accept administrator role from Chainlink token manager
+ * 6. Link token to pool on Chainlink token admin registry
  */
 contract AaveV3Ethereum_GHOAvaxLaunch_20241104 is IProposalGenericExecutor {
   address public constant CCIP_RMN_PROXY = 0x411dE17f12D1A34ecC7F45f49844626267c75e81;
   address public constant CCIP_ROUTER = 0xF4c7E640EdA248ef95972845a62bdC74237805dB;
+  // TODO: Wait for token admin registry to be deployed, and get proper address
+  address public constant CCIP_TOKEN_ADMIN_REGISTRY = 0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419;
   uint256 public constant CCIP_BRIDGE_LIMIT = 25_000_000e18; // 25M
   uint64 public constant CCIP_ARB_CHAIN_SELECTOR = 4949039107694359620;
   uint64 public constant CCIP_AVAX_CHAIN_SELECTOR = 6433500567565415381;
@@ -41,6 +46,12 @@ contract AaveV3Ethereum_GHOAvaxLaunch_20241104 is IProposalGenericExecutor {
     // 4. Configure CCIP for Avalanche
     // TODO: Set remote pool and token addresses after deployment?
     _configureCcipTokenPool(tokenPool, CCIP_AVAX_CHAIN_SELECTOR, address(0), address(0));
+
+    // 5. Accept Administrator role from Chainlink token manager
+    TokenAdminRegistry(CCIP_TOKEN_ADMIN_REGISTRY).acceptAdminRole(MiscEthereum.GHO_TOKEN);
+
+    // 6. Link token to pool on Chainlink token admin registry
+    // TODO
 
     // TODO: Migrate funds?
   }
