@@ -26,14 +26,6 @@ export const config: ConfigFile = {
             liqProtocolFee: '10',
           },
         ],
-        EMODES_ASSETS: [
-          {
-            asset: 'PYUSD',
-            eModeCategory: 'AaveV3EthereumEModes.ETH_CORRELATED',
-            collateral: 'ENABLED',
-            borrowable: 'ENABLED',
-          },
-        ],
       },
       cache: {blockNumber: 21085967},
     },
