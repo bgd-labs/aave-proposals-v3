@@ -44,8 +44,10 @@ GHO: `0x40D16FC0246aD3160Ccc09B8D0D3A2cD28aE6C2f`
 
 Whilst not expected to be needed, in case aEthPYUSD Liquidity Mining rewards are to be distributed across Aave v3, the ACI is to be granted sufficient permission to do so.
 
+EMISSION_MANAGER.setEmissionAdmin(`PYUSD`,`ACI Treasury`)
 EMISSION_MANAGER.setEmissionAdmin(`aEthPYUSD`,`ACI Treasury`)
 
+PYUSD: `0x6c3ea9036406852006290770BEdFcAbA0e23A0e8`
 aEthPYUSD: `0x0C0d01AbF3e6aDfcA0989eBbA9d6e85dD58EaB1E`
 ACI Treasury: `0xac140648435d03f784879cd789130F22Ef588Fcd`
 
