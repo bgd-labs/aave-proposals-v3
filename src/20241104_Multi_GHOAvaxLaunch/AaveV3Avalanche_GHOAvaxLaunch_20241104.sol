@@ -1,7 +1,12 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
+import {AaveV3Avalanche, AaveV3AvalancheEModes} from 'aave-address-book/AaveV3Avalanche.sol';
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
+import {AaveV3PayloadAvalanche} from 'aave-helpers/src/v3-config-engine/AaveV3PayloadAvalanche.sol';
+import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
+import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
+import {IV3RateStrategyFactory} from 'lib/gho-core/lib/aave-stk-v1-5/lib/aave-helpers/src/v3-config-engine/IV3RateStrategyFactory.sol';
 import {GovernanceV3Avalanche} from 'aave-address-book/GovernanceV3Avalanche.sol';
 import {MiscAvalanche} from 'aave-address-book/MiscAvalanche.sol';
 import {TransparentUpgradeableProxy} from 'solidity-utils/contracts/transparent-proxy/TransparentUpgradeableProxy.sol';
@@ -11,6 +16,8 @@ import {RateLimiter} from 'ccip/libraries/RateLimiter.sol';
 import {TokenAdminRegistry} from 'ccip/tokenAdminRegistry/TokenAdminRegistry.sol';
 import {UpgradeableGhoToken} from 'gho-core/gho/UpgradeableGhoToken.sol';
 import {IGhoToken} from 'gho-core/gho/interfaces/IGhoToken.sol';
+import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
+import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';
 
 library Utils {
   address public constant CCIP_RMN_PROXY = 0xcBD48A8eB077381c3c4Eb36b402d7283aB2b11Bc;
@@ -68,8 +75,6 @@ library Utils {
  * 6. Add CCIP TokenPool as GHO Facilitator (allowing burn and mint)
  * 7. Accept administrator role from Chainlink token admin registry
  * 8. Link token to pool on Chainlink token admin registry
- * 9. List GHO on Avax in separate payload - because there is a delay to activate lane
- * 10. Supply GHO to the Aave protocol
  */
 contract AaveV3Avalanche_GHOAvaxLaunch_20241104 is IProposalGenericExecutor {
   function execute() external {
@@ -110,12 +115,6 @@ contract AaveV3Avalanche_GHOAvaxLaunch_20241104 is IProposalGenericExecutor {
 
     // 8. Link token to pool on Chainlink token admin registry
     TokenAdminRegistry(Utils.CCIP_TOKEN_ADMIN_REGISTRY).setPool(ghoToken, tokenPool);
-
-    // 9. List GHO on Avax in separate payload
-    // TODO
-
-    // 10. Supply GHO to the Aave protocol
-    // TODO
   }
 
   function _configureCcipTokenPool(
@@ -141,5 +140,57 @@ contract AaveV3Avalanche_GHOAvaxLaunch_20241104 is IProposalGenericExecutor {
       inboundRateLimiterConfig: rateConfig
     });
     UpgradeableBurnMintTokenPool(tokenPool).applyChainUpdates(chainUpdates);
+  }
+}
+
+// TODO: Determine appropriate procedure to have these 2 as separate payload, same AIP
+/*
+ * @dev This payload consists of the following set of actions:
+ * 1. List GHO on Avax in separate payload - because there is a delay to activate lane
+ * 2. Supply GHO to the Aave protocol
+ */
+contract GhoAvaxListing is AaveV3PayloadAvalanche {
+  using SafeERC20 for IERC20;
+
+  uint256 constant GHO_SEED_AMOUNT = 1_000_000e18; // TODO: Determine appropriate seed amount
+  address ghoToken;
+
+  constructor(address ghoToken) {
+    ghoToken = ghoToken;
+  }
+
+  function newListings() public view override returns (IAaveV3ConfigEngine.Listing[] memory) {
+    IAaveV3ConfigEngine.Listing[] memory listings = new IAaveV3ConfigEngine.Listing[](1);
+
+    listings[0] = IAaveV3ConfigEngine.Listing({
+      asset: ghoToken,
+      assetSymbol: 'GHO',
+      priceFeed: 0xB05984aD83C20b3ADE7bf97a9a0Cb539DDE28DBb, // TODO: Correct price feed
+      enabledToBorrow: EngineFlags.ENABLED,
+      borrowableInIsolation: EngineFlags.DISABLED,
+      withSiloedBorrowing: EngineFlags.DISABLED,
+      flashloanable: EngineFlags.ENABLED,
+      ltv: 0,
+      liqThreshold: 0,
+      liqBonus: 0,
+      reserveFactor: 10_00,
+      supplyCap: 5_000_000,
+      borrowCap: 4_500_000,
+      debtCeiling: 0,
+      liqProtocolFee: 0,
+      rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
+        optimalUsageRatio: _bpsToRay(90_00),
+        baseVariableBorrowRate: _bpsToRay(0),
+        variableRateSlope1: _bpsToRay(12_00),
+        variableRateSlope2: _bpsToRay(65_00)
+      })
+    });
+
+    return listings;
+  }
+
+  function _postExecute() internal override {
+    IERC20(ghoToken).forceApprove(address(AaveV3Avalanche.POOL), GHO_SEED_AMOUNT);
+    AaveV3Avalanche.POOL.supply(ghoToken, GHO_SEED_AMOUNT, address(0), 0);
   }
 }
