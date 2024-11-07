@@ -29,7 +29,7 @@ The Lido instance wETH Slope1 is to be revised as follows:
 
 - Implementation: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241024_AaveV3EthereumLido_WETHReserveBorrowRateUpdateLidoInstance/AaveV3EthereumLido_WETHReserveBorrowRateUpdateLidoInstance_20241024.sol)
 - Tests: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241024_AaveV3EthereumLido_WETHReserveBorrowRateUpdateLidoInstance/AaveV3EthereumLido_WETHReserveBorrowRateUpdateLidoInstance_20241024.t.sol)
-- [Snapshot](Direct-to-AIP)
+- Snapshot: Direct-to-AIP
 - [Discussion](https://governance.aave.com/t/arfc-weth-wsteth-borrow-rate-updates/19550)
 
 ## Copyright
