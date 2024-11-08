@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 import {AaveV3Optimism, AaveV3OptimismAssets} from 'aave-address-book/AaveV3Optimism.sol';
 import {PriceFeeds} from './Constants.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
-import {BasePayloadUSDFeedTest} from './BasePayloadUSDFeedTest.t.sol';
+import {BasePayloadUSDFeedTest} from './BasePayloadUSDFeedTest.sol';
 import {AaveV3Optimism_UpdatePriceCapAdaptersCAPO_20241101} from './AaveV3Optimism_UpdatePriceCapAdaptersCAPO_20241101.sol';
 
 /**
@@ -36,37 +36,37 @@ contract AaveV3Optimism_UpdatePriceCapAdaptersCAPO_20241101_Test is
   function test_priceFeeds() public {
     executePayload(vm, address(proposal));
 
-    _validateV3PriceFeed(
+    _validateUSDPriceFeed(
       AaveV3OptimismAssets.USDC_UNDERLYING,
       AaveV3OptimismAssets.USDC_ORACLE,
       PriceFeeds.OPTIMISM_V3_USDC_FEED
     );
-    _validateV3PriceFeed(
+    _validateUSDPriceFeed(
       AaveV3OptimismAssets.USDCn_UNDERLYING,
       AaveV3OptimismAssets.USDC_ORACLE,
       PriceFeeds.OPTIMISM_V3_USDC_FEED
     );
-    _validateV3PriceFeed(
+    _validateUSDPriceFeed(
       AaveV3OptimismAssets.USDT_UNDERLYING,
       AaveV3OptimismAssets.USDT_ORACLE,
       PriceFeeds.OPTIMISM_V3_USDT_FEED
     );
-    _validateV3PriceFeed(
+    _validateUSDPriceFeed(
       AaveV3OptimismAssets.DAI_UNDERLYING,
       AaveV3OptimismAssets.DAI_ORACLE,
       PriceFeeds.OPTIMISM_V3_DAI_FEED
     );
-    _validateV3PriceFeed(
+    _validateUSDPriceFeed(
       AaveV3OptimismAssets.MAI_UNDERLYING,
       AaveV3OptimismAssets.MAI_ORACLE,
       PriceFeeds.OPTIMISM_V3_MAI_FEED
     );
-    _validateV3PriceFeed(
+    _validateUSDPriceFeed(
       AaveV3OptimismAssets.LUSD_UNDERLYING,
       AaveV3OptimismAssets.LUSD_ORACLE,
       PriceFeeds.OPTIMISM_V3_LUSD_FEED
     );
-    _validateV3PriceFeed(
+    _validateUSDPriceFeed(
       AaveV3OptimismAssets.sUSD_UNDERLYING,
       AaveV3OptimismAssets.sUSD_ORACLE,
       PriceFeeds.OPTIMISM_V3_SUSD_FEED

@@ -5,7 +5,7 @@ import {AaveV3EthereumLido, AaveV3EthereumLidoAssets} from 'aave-address-book/Aa
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3EthereumLido_UpdatePriceCapAdaptersCAPO_20241101} from './AaveV3EthereumLido_UpdatePriceCapAdaptersCAPO_20241101.sol';
 import {PriceFeeds} from './Constants.sol';
-import {BasePayloadUSDFeedTest} from './BasePayloadUSDFeedTest.t.sol';
+import {BasePayloadUSDFeedTest} from './BasePayloadUSDFeedTest.sol';
 
 /**
  * @dev Test for AaveV3EthereumLido_UpdatePriceCapAdaptersCAPO_20241101
@@ -36,7 +36,7 @@ contract AaveV3EthereumLido_UpdatePriceCapAdaptersCAPO_20241101_Test is
   function test_priceFeeds() public {
     executePayload(vm, address(proposal));
 
-    _validateV3PriceFeed(
+    _validateUSDPriceFeed(
       AaveV3EthereumLidoAssets.USDC_UNDERLYING,
       AaveV3EthereumLidoAssets.USDC_ORACLE,
       PriceFeeds.ETHEREUM_V3_USDC_FEED

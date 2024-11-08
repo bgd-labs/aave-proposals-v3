@@ -5,7 +5,7 @@ import {AaveV3EthereumEtherFi, AaveV3EthereumEtherFiAssets} from 'aave-address-b
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3EthereumEtherFi_UpdatePriceCapAdaptersCAPO_20241101} from './AaveV3EthereumEtherFi_UpdatePriceCapAdaptersCAPO_20241101.sol';
 import {PriceFeeds} from './Constants.sol';
-import {BasePayloadUSDFeedTest} from './BasePayloadUSDFeedTest.t.sol';
+import {BasePayloadUSDFeedTest} from './BasePayloadUSDFeedTest.sol';
 
 /**
  * @dev Test for AaveV3EthereumEtherFi_UpdatePriceCapAdaptersCAPO_20241101
@@ -36,17 +36,17 @@ contract AaveV3EthereumEtherFi_UpdatePriceCapAdaptersCAPO_20241101_Test is
   function test_priceFeeds() public {
     executePayload(vm, address(proposal));
 
-    _validateV3PriceFeed(
+    _validateUSDPriceFeed(
       AaveV3EthereumEtherFiAssets.USDC_UNDERLYING,
       AaveV3EthereumEtherFiAssets.USDC_ORACLE,
       PriceFeeds.ETHEREUM_V3_USDC_FEED
     );
-    _validateV3PriceFeed(
+    _validateUSDPriceFeed(
       AaveV3EthereumEtherFiAssets.PYUSD_UNDERLYING,
       AaveV3EthereumEtherFiAssets.PYUSD_ORACLE,
       PriceFeeds.ETHEREUM_V3_PYUSD_FEED
     );
-    _validateV3PriceFeed(
+    _validateUSDPriceFeed(
       AaveV3EthereumEtherFiAssets.FRAX_UNDERLYING,
       AaveV3EthereumEtherFiAssets.FRAX_ORACLE,
       PriceFeeds.ETHEREUM_V3_FRAX_FEED

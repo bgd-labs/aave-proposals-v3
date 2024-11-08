@@ -7,7 +7,7 @@ import {IPriceCapAdapterStable} from './interfaces/IPriceCapAdapterStable.sol';
 import {ICLSynchronicityPriceAdapterBaseToPeg} from './interfaces/ICLSynchronicityPriceAdapterBaseToPeg.sol';
 
 abstract contract BasePayloadETHFeedTest is Test {
-  function _validateV2PriceFeed(
+  function _validateETHPriceFeed(
     address underlying,
     address previousFeed,
     address newFeed,

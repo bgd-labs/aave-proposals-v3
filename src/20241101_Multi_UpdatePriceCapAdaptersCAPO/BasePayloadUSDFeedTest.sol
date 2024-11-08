@@ -6,7 +6,7 @@ import {IAaveOracle} from 'aave-v3-origin/contracts/interfaces/IAaveOracle.sol';
 import {IPriceCapAdapterStable} from './interfaces/IPriceCapAdapterStable.sol';
 
 abstract contract BasePayloadUSDFeedTest is Test {
-  function _validateV3PriceFeed(address underlying, address previousFeed, address newFeed) public {
+  function _validateUSDPriceFeed(address underlying, address previousFeed, address newFeed) public {
     assertEq(
       IPriceCapAdapterStable(previousFeed).latestAnswer(),
       IPriceCapAdapterStable(newFeed).latestAnswer()

@@ -6,8 +6,8 @@ import {AaveV2Polygon, AaveV2PolygonAssets} from 'aave-address-book/AaveV2Polygo
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Polygon_UpdatePriceCapAdaptersCAPO_20241101} from './AaveV3Polygon_UpdatePriceCapAdaptersCAPO_20241101.sol';
 import {PriceFeeds} from './Constants.sol';
-import {BasePayloadUSDFeedTest} from './BasePayloadUSDFeedTest.t.sol';
-import {BasePayloadETHFeedTest} from './BasePayloadETHFeedTest.t.sol';
+import {BasePayloadUSDFeedTest} from './BasePayloadUSDFeedTest.sol';
+import {BasePayloadETHFeedTest} from './BasePayloadETHFeedTest.sol';
 import {IERC20Detailed} from 'aave-v3-origin/contracts/dependencies/openzeppelin/contracts/IERC20Detailed.sol';
 
 /**
@@ -42,27 +42,27 @@ contract AaveV3Polygon_UpdatePriceCapAdaptersCAPO_20241101_Test is
   function test_priceFeeds() public {
     executePayload(vm, address(proposal));
 
-    _validateV3PriceFeed(
+    _validateUSDPriceFeed(
       AaveV3PolygonAssets.USDC_UNDERLYING,
       AaveV3PolygonAssets.USDC_ORACLE,
       PriceFeeds.POLYGON_V3_USDC_FEED
     );
-    _validateV3PriceFeed(
+    _validateUSDPriceFeed(
       AaveV3PolygonAssets.USDCn_UNDERLYING,
       AaveV3PolygonAssets.USDC_ORACLE,
       PriceFeeds.POLYGON_V3_USDC_FEED
     );
-    _validateV3PriceFeed(
+    _validateUSDPriceFeed(
       AaveV3PolygonAssets.USDT_UNDERLYING,
       AaveV3PolygonAssets.USDT_ORACLE,
       PriceFeeds.POLYGON_V3_USDT_FEED
     );
-    _validateV3PriceFeed(
+    _validateUSDPriceFeed(
       AaveV3PolygonAssets.DAI_UNDERLYING,
       AaveV3PolygonAssets.DAI_ORACLE,
       PriceFeeds.POLYGON_V3_DAI_FEED
     );
-    _validateV3PriceFeed(
+    _validateUSDPriceFeed(
       AaveV3PolygonAssets.miMATIC_UNDERLYING,
       AaveV3PolygonAssets.miMATIC_ORACLE,
       PriceFeeds.POLYGON_V3_MIMATIC_FEED
@@ -70,19 +70,19 @@ contract AaveV3Polygon_UpdatePriceCapAdaptersCAPO_20241101_Test is
 
     switchToV2Oracle = true;
 
-    _validateV2PriceFeed(
+    _validateETHPriceFeed(
       AaveV2PolygonAssets.USDC_UNDERLYING,
       AaveV2PolygonAssets.USDC_ORACLE,
       PriceFeeds.POLYGON_V2_USDC_FEED,
       PriceFeeds.POLYGON_V3_USDC_FEED // assetToPeg feed is the same as v3
     );
-    _validateV2PriceFeed(
+    _validateETHPriceFeed(
       AaveV2PolygonAssets.USDT_UNDERLYING,
       AaveV2PolygonAssets.USDT_ORACLE,
       PriceFeeds.POLYGON_V2_USDT_FEED,
       PriceFeeds.POLYGON_V3_USDT_FEED
     );
-    _validateV2PriceFeed(
+    _validateETHPriceFeed(
       AaveV2PolygonAssets.DAI_UNDERLYING,
       AaveV2PolygonAssets.DAI_ORACLE,
       PriceFeeds.POLYGON_V2_DAI_FEED,

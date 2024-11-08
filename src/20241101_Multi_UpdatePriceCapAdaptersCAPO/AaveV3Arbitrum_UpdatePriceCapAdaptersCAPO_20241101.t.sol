@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 import {AaveV3Arbitrum, AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Arbitrum_UpdatePriceCapAdaptersCAPO_20241101} from './AaveV3Arbitrum_UpdatePriceCapAdaptersCAPO_20241101.sol';
-import {BasePayloadUSDFeedTest} from './BasePayloadUSDFeedTest.t.sol';
+import {BasePayloadUSDFeedTest} from './BasePayloadUSDFeedTest.sol';
 import {PriceFeeds} from './Constants.sol';
 
 /**
@@ -36,37 +36,37 @@ contract AaveV3Arbitrum_UpdatePriceCapAdaptersCAPO_20241101_Test is
   function test_priceFeeds() public {
     executePayload(vm, address(proposal));
 
-    _validateV3PriceFeed(
+    _validateUSDPriceFeed(
       AaveV3ArbitrumAssets.USDC_UNDERLYING,
       AaveV3ArbitrumAssets.USDC_ORACLE,
       PriceFeeds.ARBITRUM_V3_USDC_FEED
     );
-    _validateV3PriceFeed(
+    _validateUSDPriceFeed(
       AaveV3ArbitrumAssets.USDCn_UNDERLYING,
       AaveV3ArbitrumAssets.USDC_ORACLE,
       PriceFeeds.ARBITRUM_V3_USDC_FEED
     );
-    _validateV3PriceFeed(
+    _validateUSDPriceFeed(
       AaveV3ArbitrumAssets.USDT_UNDERLYING,
       AaveV3ArbitrumAssets.USDT_ORACLE,
       PriceFeeds.ARBITRUM_V3_USDT_FEED
     );
-    _validateV3PriceFeed(
+    _validateUSDPriceFeed(
       AaveV3ArbitrumAssets.DAI_UNDERLYING,
       AaveV3ArbitrumAssets.DAI_ORACLE,
       PriceFeeds.ARBITRUM_V3_DAI_FEED
     );
-    _validateV3PriceFeed(
+    _validateUSDPriceFeed(
       AaveV3ArbitrumAssets.MAI_UNDERLYING,
       AaveV3ArbitrumAssets.MAI_ORACLE,
       PriceFeeds.ARBITRUM_V3_MAI_FEED
     );
-    _validateV3PriceFeed(
+    _validateUSDPriceFeed(
       AaveV3ArbitrumAssets.LUSD_UNDERLYING,
       AaveV3ArbitrumAssets.LUSD_ORACLE,
       PriceFeeds.ARBITRUM_V3_LUSD_FEED
     );
-    _validateV3PriceFeed(
+    _validateUSDPriceFeed(
       AaveV3ArbitrumAssets.FRAX_UNDERLYING,
       AaveV3ArbitrumAssets.FRAX_ORACLE,
       PriceFeeds.ARBITRUM_V3_FRAX_FEED
