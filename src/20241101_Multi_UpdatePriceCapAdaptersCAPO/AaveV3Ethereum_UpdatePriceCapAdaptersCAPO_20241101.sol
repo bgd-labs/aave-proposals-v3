@@ -64,7 +64,7 @@ contract AaveV3Ethereum_UpdatePriceCapAdaptersCAPO_20241101 is AaveV3PayloadEthe
       asset: AaveV3EthereumAssets.PYUSD_UNDERLYING,
       priceFeed: PriceFeeds.ETHEREUM_V3_PYUSD_FEED
     });
-    feedsUpdate[6] = IAaveV3ConfigEngine.PriceFeedUpdate({
+    feedsUpdate[7] = IAaveV3ConfigEngine.PriceFeedUpdate({
       asset: AaveV3EthereumAssets.sDAI_UNDERLYING,
       priceFeed: PriceFeeds.ETHEREUM_V3_SDAI_FEED
     });

@@ -10,11 +10,11 @@ Maintenance proposal to update stable price cap adapters across all v2 and v3 in
 
 ## Motivation
 
-Correlated-assets price oracle (CAPO) which introduced extra upper price protections for assets highly correlated with an underlying like LST's or stablecoins was activated earlier this year. With the Aave Generalized Risk Stewards (AGRS) being activated, it is important to update the CAPO adapters for stablecoins across both Aave V2 and V3 instances for it to work seamlessly with the AGRS system. The AGRS system can be used to update the price caps of the CAPO adapters, currently the stablecoin CAPO adapters are missing a getter method `getPriceCap()` which prevents the AGRS system to update the price caps. Updating the stablecoin CAPO adapters to the latest version enables AGRS system to update the price caps.
+Correlated-assets price oracle (CAPO) which introduced extra upper price protections for assets highly correlated with an underlying like LST's or stablecoins was activated earlier this year. With the Aave Generalized Risk Stewards (AGRS) being activated, it is important to update the CAPO adapters for stablecoins across both Aave V2 and V3 instances for it to work seamlessly with the AGRS system. The AGRS system can be used to update the price caps of the CAPO adapters, currently the stablecoin CAPO adapters are missing a getter method `getPriceCap()` which prevents the AGRS system from updating the price caps. Updating the stablecoin CAPO adapters to the latest version enables the AGRS system to update the price caps.
 
 The Polygon ecosystem has migrated its MATIC token to POL token on both Ethereum and Polygon PoS chains. POL is the upgraded native token of Polygon 2.0 and has replaced MATIC as the native gas and staking token of the Polygon PoS network playing a crucial role in the network’s AggLayer. With the MATIC to POL migration complete, we think its a good idea to rename Aave contracts such as aToken and variableDebtToken from WMATIC to WPOL for consistency (more on the [forum](https://governance.aave.com/t/bgd-technical-analysis-matic-pol-migration/18811)). The collector on Ethereum holds around ~580'000 MATIC tokens and it seems reasonable to also migrate it to the new POL token.
 
-CAPO adapter for sDAI was not activated before due to its un-stability on its growth rate, but with positive signaling from Chaos Labs it seems fair to update it to CAPO on Aave V3 Ethereum and Aave V3 Gnosis instances.
+CAPO adapter for sDAI was not activated before due to its un-stability on its growth rate, but with positive signaling from Chaos Labs, it seems fair to update it to CAPO on Aave V3 Ethereum and Aave V3 Gnosis instances.
 
 ## Specification
 
@@ -40,7 +40,7 @@ The following stable-coin CAPO feeds are being updated across all networks and i
 
 Price Feeds will be updated using AAVE\_`ORACLE.setAssetSource()` method on Aave V2 Instances and using config-engine on Aave V3 Instances.
 
-_Please note that the configurations for the Price Caps adapters and the underlying chainlink feeds are exactly the same as before. Also price feeds of AaveV2 instances are updated as their underlying feed used ASSET/USD could also be updated via the Stewards using the AaveV3 ACL_MANAGER contract_
+_Please note that the configurations for the Price Caps adapters and the underlying chainlink feeds are exactly the same as before. Also, price feeds of AaveV2 instances are updated as their underlying feed used ASSET/USD could also be updated via the Stewards using the AaveV3 ACL_MANAGER contract_
 
 As suggested by Risk Contributors (Chaos Labs), the following configuration for CAPO has been set for sDAI on Aave V3 Ethereum and Gnosis instances:
 | maxYearlyRatioGrowthPercent | MINIMUM_SNAPSHOT_DELAY |
