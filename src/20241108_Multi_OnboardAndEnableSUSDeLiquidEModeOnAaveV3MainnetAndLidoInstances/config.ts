@@ -79,11 +79,11 @@ export const config: ConfigFile = {
             flashloanable: 'ENABLED',
             borrowableInIsolation: 'DISABLED',
             withSiloedBorrowing: 'DISABLED',
-            reserveFactor: '0',
+            reserveFactor: '10',
             supplyCap: '20000000',
             borrowCap: '0',
             rateStrategyParams: {
-              optimalUtilizationRate: '0',
+              optimalUtilizationRate: '1',
               baseVariableBorrowRate: '0',
               variableRateSlope1: '0',
               variableRateSlope2: '0',

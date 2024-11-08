@@ -102,13 +102,13 @@ contract AaveV3EthereumLido_OnboardAndEnableSUSDeLiquidEModeOnAaveV3MainnetAndLi
       ltv: 5,
       liqThreshold: 10,
       liqBonus: 7_50,
-      reserveFactor: 0,
+      reserveFactor: 10_00,
       supplyCap: 20_000_000,
       borrowCap: 0,
       debtCeiling: 0,
       liqProtocolFee: 10_00,
       rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
-        optimalUsageRatio: 0,
+        optimalUsageRatio: 1_00,
         baseVariableBorrowRate: 0,
         variableRateSlope1: 0,
         variableRateSlope2: 0
