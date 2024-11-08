@@ -22,25 +22,11 @@ Furthermore, this proposal sets LTV to 0% as there is no use-case for FRAX to ac
 - FRAX will be removed from Isolation Mode on Aave v3 instances.
 - FRAX will receive same parameters as DAI, a Reserve Factor as other stables, and LTV of 0%.
 
-| Parameter                | Recommendation |
-| ------------------------ | -------------- |
-| Isolation Mode           | NO             |
-| Borrowable in Isolation  | NO             |
-| Stable Borrow            | NO             |
-| Enable Borrow            | NO             |
-| Enable Collateral        | YES            |
-| Loan To Value            | 0%             |
-| Liquidation Threshold    | 75.00%         |
-| Liquidation Bonus        | 6.00%          |
-| Reserve Factor           | 10.00%         |
-| Liquidation Protocol Fee | 20.00%         |
-| Supply Cap        | 10.00M         |
-| Borrow Cap        | 10.00M            |
-| Uoptimal                 | N/A            |
-| Base                     | N/A            |
-| Slope1                   | N/A            |
-| Slope2                   | N/A            |
-| Debt Ceiling             | -              |
+| **Parameter**  | FRAX |
+| -------------- | ---- |
+| Isolation Mode | No   |
+| LTV            | 0%   |
+| Debt Ceiling   | -    |
 
 ## References
 

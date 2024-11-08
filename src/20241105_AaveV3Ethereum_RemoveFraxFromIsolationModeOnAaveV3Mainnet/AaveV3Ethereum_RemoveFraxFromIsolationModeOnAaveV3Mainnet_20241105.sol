@@ -14,17 +14,6 @@ import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config
 contract AaveV3Ethereum_RemoveFraxFromIsolationModeOnAaveV3Mainnet_20241105 is
   AaveV3PayloadEthereum
 {
-  function capsUpdates() public pure override returns (IAaveV3ConfigEngine.CapsUpdate[] memory) {
-    IAaveV3ConfigEngine.CapsUpdate[] memory capsUpdate = new IAaveV3ConfigEngine.CapsUpdate[](1);
-
-    capsUpdate[0] = IAaveV3ConfigEngine.CapsUpdate({
-      asset: AaveV3EthereumAssets.FRAX_UNDERLYING,
-      supplyCap: 10_000_000,
-      borrowCap: 10_000_000
-    });
-
-    return capsUpdate;
-  }
   function collateralsUpdates()
     public
     pure
@@ -36,11 +25,11 @@ contract AaveV3Ethereum_RemoveFraxFromIsolationModeOnAaveV3Mainnet_20241105 is
 
     collateralUpdate[0] = IAaveV3ConfigEngine.CollateralUpdate({
       asset: AaveV3EthereumAssets.FRAX_UNDERLYING,
-      ltv: EngineFlags.KEEP_CURRENT,
-      liqThreshold: 75_00,
+      ltv: 0,
+      liqThreshold: EngineFlags.KEEP_CURRENT,
       liqBonus: EngineFlags.KEEP_CURRENT,
-      debtCeiling: 0,
-      liqProtocolFee: 20_00
+      debtCeiling: EngineFlags.KEEP_CURRENT,
+      liqProtocolFee: EngineFlags.KEEP_CURRENT
     });
 
     return collateralUpdate;
@@ -60,7 +49,7 @@ contract AaveV3Ethereum_RemoveFraxFromIsolationModeOnAaveV3Mainnet_20241105 is
       flashloanable: EngineFlags.KEEP_CURRENT,
       borrowableInIsolation: EngineFlags.DISABLED,
       withSiloedBorrowing: EngineFlags.KEEP_CURRENT,
-      reserveFactor: 10_00
+      reserveFactor: EngineFlags.KEEP_CURRENT
     });
 
     return borrowUpdates;

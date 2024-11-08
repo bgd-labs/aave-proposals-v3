@@ -15,15 +15,14 @@ export const config: ConfigFile = {
   poolOptions: {
     AaveV3Ethereum: {
       configs: {
-        CAPS_UPDATE: [{asset: 'FRAX', supplyCap: '10000000', borrowCap: '10000000'}],
         COLLATERALS_UPDATE: [
           {
             asset: 'FRAX',
-            ltv: '',
-            liqThreshold: '75',
-            liqBonus: '',
-            debtCeiling: '0',
-            liqProtocolFee: '20',
+            ltv: '0',
+            liqThreshold: 'KEEP_CURRENT',
+            liqBonus: 'KEEP_CURRENT',
+            debtCeiling: 'KEEP_CURRENT',
+            liqProtocolFee: 'KEEP_CURRENT',
           },
         ],
         BORROWS_UPDATE: [
@@ -32,7 +31,7 @@ export const config: ConfigFile = {
             flashloanable: 'KEEP_CURRENT',
             borrowableInIsolation: 'DISABLED',
             withSiloedBorrowing: 'KEEP_CURRENT',
-            reserveFactor: '10',
+            reserveFactor: 'KEEP_CURRENT',
             asset: 'FRAX',
           },
         ],
