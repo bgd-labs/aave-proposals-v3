@@ -7,7 +7,17 @@ snapshot: "Direct-to-AIP"
 
 ## Simple Summary
 
+This proposal aims to enable sUSDe liquid E-Mode on Aave v3 Mainnet for the Main and Lido instances. By implementing this change, we seek to enhance capital efficiency for borrowers using sUSDe as collateral, particularly for borrowing other stablecoins and GHO. This is a Direct to AIP proposal.
+
 ## Motivation
+
+The motivation behind this proposal stems from several key factors:
+
+- High Utilization: sUSDe has demonstrated significant usage as collateral for borrowing stablecoins on the platform.
+  Capital Efficiency: Enabling liquid E-Mode for sUSDe will allow borrowers to substantially improve their capital efficiency when using this asset as collateral.
+- Controlled Growth: Liquid E-Mode provides a mechanism for more precise control over the growth and borrow demand in relation to the overall stablecoin liquidity within Aave v3 on Mainnet.
+- Enhanced Borrowing Capacity: This change will enable users to borrow larger amounts of other stablecoins against their sUSDe collateral, potentially increasing platform utilization and revenue.
+  By implementing this proposal, we aim to optimize the use of sUSDe within the Aave ecosystem, attracting more liquidity for stablecoins and demand for GHO.
 
 ## Specification
 
@@ -36,6 +46,17 @@ The table below illustrates the configured risk parameters for **sUSDe**
 | Oracle                    | 0xb37aE8aBa6C0C1Bf2c509fc06E11aa4AF29B665A |
 
 Additionaly [0xac140648435d03f784879cd789130F22Ef588Fcd](https://etherscan.io/address/0xac140648435d03f784879cd789130F22Ef588Fcd) has been set as the emission admin for sUSDe and the corresponding aToken.
+
+The table below illustrate the configured "sUSDe" Liquid E-mode
+
+| Parameter             | Value | Value | Value |
+| --------------------- | ----- | ----- | ----- |
+| Asset                 | sUSDe | USDS  | USDC  |
+| Collateral            | Yes   | No    | No    |
+| Borrowable            | No    | Yes   | Yes   |
+| Max LTV               | 90%   | -     | -     |
+| Liquidation Threshold | 92%   | -     | -     |
+| Liquidation Bonus     | 3.0%  | -     | -     |
 
 ## References
 
