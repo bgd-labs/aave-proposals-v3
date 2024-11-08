@@ -28,7 +28,7 @@ contract AaveV3Ethereum_OnboardAndEnableSUSDeLiquidEModeOnAaveV3MainnetAndLidoIn
       ltv: 90_00,
       liqThreshold: 92_00,
       liqBonus: 3_00,
-      label: 'sUSDe Liquid'
+      label: 'sUSDe'
     });
 
     return eModeUpdates;

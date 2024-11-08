@@ -15,7 +15,7 @@ export const config: ConfigFile = {
     AaveV3Ethereum: {
       configs: {
         EMODES_UPDATES: [
-          {eModeCategory: 2, ltv: '90', liqThreshold: '92', liqBonus: '3', label: 'sUSDe Liquid'},
+          {eModeCategory: 2, ltv: '90', liqThreshold: '92', liqBonus: '3', label: 'sUSDe'},
         ],
         EMODES_ASSETS: [
           {
@@ -43,7 +43,7 @@ export const config: ConfigFile = {
     AaveV3EthereumLido: {
       configs: {
         EMODES_UPDATES: [
-          {eModeCategory: 2, ltv: '90', liqThreshold: '92', liqBonus: '3', label: 'sUSDe Liquid'},
+          {eModeCategory: 2, ltv: '90', liqThreshold: '92', liqBonus: '3', label: 'sUSDe'},
         ],
         EMODES_ASSETS: [
           {
