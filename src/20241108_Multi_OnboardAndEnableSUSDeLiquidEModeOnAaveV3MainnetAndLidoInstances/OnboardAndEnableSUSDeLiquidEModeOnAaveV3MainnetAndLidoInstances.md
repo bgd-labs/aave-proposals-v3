@@ -1,0 +1,49 @@
+---
+title: "Onboard and Enable sUSDe liquid E-Mode on Aave v3 Mainnet and Lido Instances"
+author: "ACI"
+discussions: "https://governance.aave.com/t/arfc-enable-susde-liquid-e-mode-on-aave-v3-mainnet-and-lido-instance/1970"
+snapshot: "Direct-to-AIP"
+---
+
+## Simple Summary
+
+## Motivation
+
+## Specification
+
+The table below illustrates the configured risk parameters for **sUSDe**
+
+| Parameter                 |                                      Value |
+| ------------------------- | -----------------------------------------: |
+| Isolation Mode            |                                      false |
+| Borrowable                |                                   DISABLED |
+| Collateral Enabled        |                                       true |
+| Supply Cap (sUSDe)        |                                 20,000,000 |
+| Borrow Cap (sUSDe)        |                                          0 |
+| Debt Ceiling              |                                      USD 0 |
+| LTV                       |                                     0.05 % |
+| LT                        |                                      0.1 % |
+| Liquidation Bonus         |                                      7.5 % |
+| Liquidation Protocol Fee  |                                       10 % |
+| Reserve Factor            |                                        0 % |
+| Base Variable Borrow Rate |                                        0 % |
+| Variable Slope 1          |                                        0 % |
+| Variable Slope 2          |                                        0 % |
+| Uoptimal                  |                                        0 % |
+| Flashloanable             |                                    ENABLED |
+| Siloed Borrowing          |                                   DISABLED |
+| Borrowable in Isolation   |                                   DISABLED |
+| Oracle                    | 0xb37aE8aBa6C0C1Bf2c509fc06E11aa4AF29B665A |
+
+Additionaly [0xac140648435d03f784879cd789130F22Ef588Fcd](https://etherscan.io/address/0xac140648435d03f784879cd789130F22Ef588Fcd) has been set as the emission admin for sUSDe and the corresponding aToken.
+
+## References
+
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241108_Multi_OnboardAndEnableSUSDeLiquidEModeOnAaveV3MainnetAndLidoInstances/AaveV3Ethereum_OnboardAndEnableSUSDeLiquidEModeOnAaveV3MainnetAndLidoInstances_20241108.sol), [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241108_Multi_OnboardAndEnableSUSDeLiquidEModeOnAaveV3MainnetAndLidoInstances/AaveV3EthereumLido_OnboardAndEnableSUSDeLiquidEModeOnAaveV3MainnetAndLidoInstances_20241108.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241108_Multi_OnboardAndEnableSUSDeLiquidEModeOnAaveV3MainnetAndLidoInstances/AaveV3Ethereum_OnboardAndEnableSUSDeLiquidEModeOnAaveV3MainnetAndLidoInstances_20241108.t.sol), [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241108_Multi_OnboardAndEnableSUSDeLiquidEModeOnAaveV3MainnetAndLidoInstances/AaveV3EthereumLido_OnboardAndEnableSUSDeLiquidEModeOnAaveV3MainnetAndLidoInstances_20241108.t.sol)
+- [Snapshot](Direct-to-AIP)
+- [Discussion](https://governance.aave.com/t/arfc-enable-susde-liquid-e-mode-on-aave-v3-mainnet-and-lido-instance/1970)
+
+## Copyright
+
+Copyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).
