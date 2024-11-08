@@ -41,7 +41,10 @@ contract AaveV3EthereumLido_OnboardAndEnableSUSDeLiquidEModeOnAaveV3MainnetAndLi
     (address aTokenAddress, , ) = AaveV3EthereumLido
       .AAVE_PROTOCOL_DATA_PROVIDER
       .getReserveTokensAddresses(proposal.sUSDe());
-    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3EthereumLido.COLLECTOR)), 10 ** 18);
+    assertGe(
+      IERC20(aTokenAddress).balanceOf(address(AaveV3EthereumLido.COLLECTOR)),
+      100 * 10 ** 18
+    );
   }
 
   function test_sUSDeAdmin() public {
