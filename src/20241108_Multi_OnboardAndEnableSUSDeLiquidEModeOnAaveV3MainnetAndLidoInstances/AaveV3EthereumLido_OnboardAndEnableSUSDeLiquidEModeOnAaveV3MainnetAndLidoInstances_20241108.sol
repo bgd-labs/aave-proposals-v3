@@ -21,7 +21,7 @@ contract AaveV3EthereumLido_OnboardAndEnableSUSDeLiquidEModeOnAaveV3MainnetAndLi
 
   address public constant sUSDe = 0x9D39A5DE30e57443BfF2A8307A4256c8797A3497;
   uint256 public constant sUSDe_SEED_AMOUNT = 1e18;
-  address public constant sUSDe_LM_ADMIN = 0xac140648435d03f784879cd789130F22Ef588Fcd;
+  address public constant sUSDe_ADMIN = 0xac140648435d03f784879cd789130F22Ef588Fcd;
 
   function _postExecute() internal override {
     IERC20(sUSDe).forceApprove(address(AaveV3EthereumLido.POOL), sUSDe_SEED_AMOUNT);
