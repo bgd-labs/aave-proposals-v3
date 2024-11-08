@@ -10,7 +10,7 @@ import {RateLimiter} from 'ccip/libraries/RateLimiter.sol';
 import {TokenAdminRegistry} from 'ccip/tokenAdminRegistry/TokenAdminRegistry.sol';
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
 import {AaveV3PayloadAvalanche} from 'aave-helpers/src/v3-config-engine/AaveV3PayloadAvalanche.sol';
-import {AaveV3Avalanche, AaveV3AvalancheEModes} from 'aave-address-book/AaveV3Avalanche.sol';
+import {AaveV3Avalanche} from 'aave-address-book/AaveV3Avalanche.sol';
 import {GovernanceV3Avalanche} from 'aave-address-book/GovernanceV3Avalanche.sol';
 import {MiscAvalanche} from 'aave-address-book/MiscAvalanche.sol';
 import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
@@ -25,19 +25,20 @@ import {IGhoToken} from 'gho-core/gho/interfaces/IGhoToken.sol';
  * - Discussion: https://governance.aave.com/t/arfc-launch-gho-on-avalanche-set-aci-as-emissions-manager-for-rewards/19339
  * @dev This payload consists of the following set of actions:
  * 1. Deploy GHO
- * 2. Deploy BurnMintTokenPool
- * 3. Accept ownership of CCIP TokenPool
- * 4. Configure CCIP TokenPool for Ethereum
- * 5. Configure CCIP TokenPool for Arbitrum
- * 6. Add CCIP TokenPool as GHO Facilitator (allowing burn and mint)
- * 7. Accept administrator role from Chainlink token admin registry
- * 8. Link token to pool on Chainlink token admin registry
+ * 2. Accept ownership of CCIP TokenPool
+ * 3. Configure CCIP TokenPool for Ethereum
+ * 4. Configure CCIP TokenPool for Arbitrum
+ * 5. Add CCIP TokenPool as GHO Facilitator (allowing burn and mint)
+ * 6. Accept administrator role from Chainlink token admin registry
+ * 7. Link token to pool on Chainlink token admin registry
  */
 contract AaveV3Avalanche_GHOAvaxLaunch_20241106 is IProposalGenericExecutor {
   address public constant CCIP_RMN_PROXY = 0xcBD48A8eB077381c3c4Eb36b402d7283aB2b11Bc;
   address public constant CCIP_ROUTER = 0xF4c7E640EdA248ef95972845a62bdC74237805dB;
   // TODO: Wait for token admin registry to be deployed, and get proper address
   address public constant CCIP_TOKEN_ADMIN_REGISTRY = 0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419;
+  // TODO: Wait until new token pool is deployed on Avalanche, then use corresponding address
+  address public constant CCIP_TOKEN_POOL = 0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419;
   uint256 public constant CCIP_BUCKET_CAPACITY = 25_000_000e18; // 25M
   uint64 public constant CCIP_ETH_CHAIN_SELECTOR = 5009297550715157269;
   uint64 public constant CCIP_ARB_CHAIN_SELECTOR = 4949039107694359620;
@@ -46,21 +47,18 @@ contract AaveV3Avalanche_GHOAvaxLaunch_20241106 is IProposalGenericExecutor {
     // 1. Deploy GHO
     address ghoToken = _deployGhoToken();
 
-    // 2. Deploy BurnMintTokenPool
-    address tokenPool = _deployCcipTokenPool(ghoToken);
+    // 2. Accept TokenPool ownership
+    UpgradeableBurnMintTokenPool(CCIP_TOKEN_POOL).acceptOwnership();
 
-    // 3. Accept TokenPool ownership
-    UpgradeableBurnMintTokenPool(tokenPool).acceptOwnership();
-
-    // 4. Configure CCIP TokenPool for Ethereum
+    // 3. Configure CCIP TokenPool for Ethereum
     // TODO: Set remote pool and token addresses after deployment?
-    _configureCcipTokenPool(tokenPool, CCIP_ETH_CHAIN_SELECTOR, address(0), address(0));
+    _configureCcipTokenPool(CCIP_TOKEN_POOL, CCIP_ETH_CHAIN_SELECTOR, address(0), address(0));
 
-    // 5. Configure CCIP TokenPool for Arbitrum
+    // 4. Configure CCIP TokenPool for Arbitrum
     // TODO: Set remote pool and token addresses after deployment?
-    _configureCcipTokenPool(tokenPool, CCIP_ARB_CHAIN_SELECTOR, address(0), address(0));
+    _configureCcipTokenPool(CCIP_TOKEN_POOL, CCIP_ARB_CHAIN_SELECTOR, address(0), address(0));
 
-    // 6. Add CCIP TokenPool as GHO Facilitator
+    // 5. Add CCIP TokenPool as GHO Facilitator
     IGhoToken(ghoToken).grantRole(
       IGhoToken(ghoToken).FACILITATOR_MANAGER_ROLE(),
       GovernanceV3Avalanche.EXECUTOR_LVL_1
@@ -69,13 +67,17 @@ contract AaveV3Avalanche_GHOAvaxLaunch_20241106 is IProposalGenericExecutor {
       IGhoToken(ghoToken).BUCKET_MANAGER_ROLE(),
       GovernanceV3Avalanche.EXECUTOR_LVL_1
     );
-    IGhoToken(ghoToken).addFacilitator(tokenPool, 'CCIP TokenPool', uint128(CCIP_BUCKET_CAPACITY));
+    IGhoToken(ghoToken).addFacilitator(
+      CCIP_TOKEN_POOL,
+      'CCIP TokenPool',
+      uint128(CCIP_BUCKET_CAPACITY)
+    );
 
-    // 7. Accept administrator role from Chainlink token manager
+    // 6. Accept administrator role from Chainlink token manager
     TokenAdminRegistry(CCIP_TOKEN_ADMIN_REGISTRY).acceptAdminRole(ghoToken);
 
-    // 8. Link token to pool on Chainlink token admin registry
-    TokenAdminRegistry(CCIP_TOKEN_ADMIN_REGISTRY).setPool(ghoToken, tokenPool);
+    // 7. Link token to pool on Chainlink token admin registry
+    TokenAdminRegistry(CCIP_TOKEN_ADMIN_REGISTRY).setPool(ghoToken, CCIP_TOKEN_POOL);
   }
 
   function _deployGhoToken() internal returns (address) {
@@ -88,25 +90,6 @@ contract AaveV3Avalanche_GHOAvaxLaunch_20241106 is IProposalGenericExecutor {
     return
       address(
         new TransparentUpgradeableProxy(imple, MiscAvalanche.PROXY_ADMIN, ghoTokenInitParams)
-      );
-  }
-
-  function _deployCcipTokenPool(address ghoToken) internal returns (address) {
-    address imple = address(new UpgradeableBurnMintTokenPool(ghoToken, CCIP_RMN_PROXY, false));
-
-    bytes memory tokenPoolInitParams = abi.encodeWithSignature(
-      'initialize(address,address[],address)',
-      GovernanceV3Avalanche.EXECUTOR_LVL_1, // owner
-      new address[](0), // allowList
-      CCIP_ROUTER // router
-    );
-    return
-      address(
-        new TransparentUpgradeableProxy(
-          imple, // logic
-          MiscAvalanche.PROXY_ADMIN, // proxy admin
-          tokenPoolInitParams // data
-        )
       );
   }
 
@@ -145,11 +128,11 @@ contract AaveV3Avalanche_GHOAvaxLaunch_20241106 is IProposalGenericExecutor {
 contract GhoAvaxListing is AaveV3PayloadAvalanche {
   using SafeERC20 for IERC20;
 
-  uint256 public constant GHO_SEED_AMOUNT = 1_000_000e18; // TODO: Determine appropriate seed amount
+  uint256 public constant GHO_SEED_AMOUNT = 1_000_000e18;
   address public ghoToken;
 
-  constructor(address ghoToken) {
-    ghoToken = ghoToken;
+  constructor(address gho) {
+    ghoToken = gho;
   }
 
   function newListings() public view override returns (IAaveV3ConfigEngine.Listing[] memory) {
