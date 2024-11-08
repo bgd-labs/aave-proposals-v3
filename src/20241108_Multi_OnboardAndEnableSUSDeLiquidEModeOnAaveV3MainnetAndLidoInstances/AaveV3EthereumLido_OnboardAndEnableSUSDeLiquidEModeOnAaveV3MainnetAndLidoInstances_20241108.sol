@@ -68,20 +68,20 @@ contract AaveV3EthereumLido_OnboardAndEnableSUSDeLiquidEModeOnAaveV3MainnetAndLi
       memory assetEModeUpdates = new IAaveV3ConfigEngine.AssetEModeUpdate[](3);
 
     assetEModeUpdates[0] = IAaveV3ConfigEngine.AssetEModeUpdate({
-      asset: AaveV3EthereumLidoAssets.WETH_UNDERLYING,
-      eModeCategory: AaveV3EthereumLidoEModes.ETH_CORRELATED,
+      asset: sUSDe,
+      eModeCategory: 2,
       borrowable: EngineFlags.DISABLED,
       collateral: EngineFlags.ENABLED
     });
     assetEModeUpdates[1] = IAaveV3ConfigEngine.AssetEModeUpdate({
       asset: AaveV3EthereumLidoAssets.USDS_UNDERLYING,
-      eModeCategory: AaveV3EthereumLidoEModes.ETH_CORRELATED,
+      eModeCategory: 2,
       borrowable: EngineFlags.ENABLED,
       collateral: EngineFlags.DISABLED
     });
     assetEModeUpdates[2] = IAaveV3ConfigEngine.AssetEModeUpdate({
       asset: AaveV3EthereumLidoAssets.USDC_UNDERLYING,
-      eModeCategory: AaveV3EthereumLidoEModes.ETH_CORRELATED,
+      eModeCategory: 2,
       borrowable: EngineFlags.ENABLED,
       collateral: EngineFlags.DISABLED
     });
