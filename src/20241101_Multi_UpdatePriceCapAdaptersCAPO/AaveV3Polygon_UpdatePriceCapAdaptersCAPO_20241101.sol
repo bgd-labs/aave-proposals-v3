@@ -95,8 +95,8 @@ contract AaveV3Polygon_UpdatePriceCapAdaptersCAPO_20241101 is AaveV3PayloadPolyg
       IPoolConfiguratorV2.UpdateDebtTokenInput({
         asset: AaveV2PolygonAssets.WPOL_UNDERLYING,
         incentivesController: AaveV2Polygon.DEFAULT_INCENTIVES_CONTROLLER,
-        name: 'Aave Matic Market WPOL',
-        symbol: 'amWPOL',
+        name: 'Aave Matic Market variable debt mWPOL',
+        symbol: 'variableDebtmWPOL',
         implementation: TokenImpls.POLYGON_V_TOKEN_IMPL_V2,
         params: ''
       })

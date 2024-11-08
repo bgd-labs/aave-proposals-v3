@@ -8,6 +8,7 @@ import {AaveV3Polygon_UpdatePriceCapAdaptersCAPO_20241101} from './AaveV3Polygon
 import {PriceFeeds} from './Constants.sol';
 import {BasePayloadUSDFeedTest} from './BasePayloadUSDFeedTest.t.sol';
 import {BasePayloadETHFeedTest} from './BasePayloadETHFeedTest.t.sol';
+import {IERC20Detailed} from 'aave-v3-origin/contracts/dependencies/openzeppelin/contracts/IERC20Detailed.sol';
 
 /**
  * @dev Test for AaveV3Polygon_UpdatePriceCapAdaptersCAPO_20241101
@@ -87,6 +88,42 @@ contract AaveV3Polygon_UpdatePriceCapAdaptersCAPO_20241101_Test is
       PriceFeeds.POLYGON_V2_DAI_FEED,
       PriceFeeds.POLYGON_V3_DAI_FEED
     );
+  }
+
+  function test_wmaticToPolMigration() public {
+    assertEq(IERC20Detailed(AaveV3PolygonAssets.WPOL_A_TOKEN).name(), 'Aave Polygon WMATIC');
+    assertEq(IERC20Detailed(AaveV3PolygonAssets.WPOL_A_TOKEN).symbol(), 'aPolWMATIC');
+    assertEq(
+      IERC20Detailed(AaveV3PolygonAssets.WPOL_V_TOKEN).name(),
+      'Aave Polygon Variable Debt WMATIC'
+    );
+    assertEq(IERC20Detailed(AaveV3PolygonAssets.WPOL_V_TOKEN).symbol(), 'variableDebtPolWMATIC');
+
+    assertEq(IERC20Detailed(AaveV2PolygonAssets.WPOL_A_TOKEN).name(), 'Aave Matic Market WMATIC');
+    assertEq(IERC20Detailed(AaveV2PolygonAssets.WPOL_A_TOKEN).symbol(), 'amWMATIC');
+    assertEq(
+      IERC20Detailed(AaveV2PolygonAssets.WPOL_V_TOKEN).name(),
+      'Aave Matic Market variable debt mWMATIC'
+    );
+    assertEq(IERC20Detailed(AaveV2PolygonAssets.WPOL_V_TOKEN).symbol(), 'variableDebtmWMATIC');
+
+    executePayload(vm, address(proposal));
+
+    assertEq(IERC20Detailed(AaveV3PolygonAssets.WPOL_A_TOKEN).name(), 'Aave Polygon WPOL');
+    assertEq(IERC20Detailed(AaveV3PolygonAssets.WPOL_A_TOKEN).symbol(), 'aPolWPOL');
+    assertEq(
+      IERC20Detailed(AaveV3PolygonAssets.WPOL_V_TOKEN).name(),
+      'Aave Polygon Variable Debt WPOL'
+    );
+    assertEq(IERC20Detailed(AaveV3PolygonAssets.WPOL_V_TOKEN).symbol(), 'variableDebtPolWPOL');
+
+    assertEq(IERC20Detailed(AaveV2PolygonAssets.WPOL_A_TOKEN).name(), 'Aave Matic Market WPOL');
+    assertEq(IERC20Detailed(AaveV2PolygonAssets.WPOL_A_TOKEN).symbol(), 'amWPOL');
+    assertEq(
+      IERC20Detailed(AaveV2PolygonAssets.WPOL_V_TOKEN).name(),
+      'Aave Matic Market variable debt mWPOL'
+    );
+    assertEq(IERC20Detailed(AaveV2PolygonAssets.WPOL_V_TOKEN).symbol(), 'variableDebtmWPOL');
   }
 
   function getAaveOracle()
