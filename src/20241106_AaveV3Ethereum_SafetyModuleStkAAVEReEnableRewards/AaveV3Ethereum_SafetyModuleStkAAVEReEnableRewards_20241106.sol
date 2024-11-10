@@ -20,14 +20,6 @@ contract AaveV3Ethereum_SafetyModuleStkAAVEReEnableRewards_20241106 is IProposal
   uint128 public constant AAVE_EMISSION_PER_SECOND_STK_AAVE = uint128(360e18) / 1 days; // 360 AAVE per day
 
   function execute() external {
-    IStakeToken.AssetConfigInput[] memory aaveConfigs = new IStakeToken.AssetConfigInput[](1);
-    aaveConfigs[0] = IStakeToken.AssetConfigInput({
-      emissionPerSecond: AAVE_EMISSION_PER_SECOND_STK_AAVE,
-      totalStaked: 0, // it's overwritten internally
-      underlyingAsset: AaveSafetyModule.STK_AAVE
-    });
-    IStakeToken(AaveSafetyModule.STK_AAVE).configureAssets(aaveConfigs);
-
     uint256 remainingAllowance = IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING).allowance(
       address(MiscEthereum.ECOSYSTEM_RESERVE),
       AaveSafetyModule.STK_AAVE
