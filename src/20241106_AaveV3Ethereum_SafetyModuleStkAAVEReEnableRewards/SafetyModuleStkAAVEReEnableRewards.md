@@ -23,8 +23,6 @@ This proposal will implement the following changes to the AAVE emissions across 
 | ------- | ---------------- | ----------------- |
 | stkAAVE | 360              | 360               |
 
-The distribution end for 180 days from Execution date.
-
 ## References
 
 - Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241106_AaveV3Ethereum_SafetyModuleStkAAVEReEnableRewards/AaveV3Ethereum_SafetyModuleStkAAVEReEnableRewards_20241106.sol)
