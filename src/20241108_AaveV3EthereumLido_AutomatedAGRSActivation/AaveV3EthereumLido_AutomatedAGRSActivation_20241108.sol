@@ -6,6 +6,7 @@ import {IAaveCLRobotOperator} from './interfaces/IAaveCLRobotOperator.sol';
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {AaveV3EthereumLido} from 'aave-address-book/AaveV3EthereumLido.sol';
+import {CollectorUtils} from 'aave-helpers/src/CollectorUtils.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';
 import {SafeCast} from 'solidity-utils/contracts/oz-common/SafeCast.sol';
@@ -22,19 +23,18 @@ contract AaveV3EthereumLido_AutomatedAGRSActivation_20241108 is IProposalGeneric
 
   address public constant EDGE_RISK_STEWARD = 0x81aFd0F99c2Afa2f2DD7E387c2Ef9CD2a29b6E1A;
   address public constant AAVE_STEWARD_INJECTOR = 0x834a5aC6e9D05b92F599A031941262F761c34859;
-  uint256 public constant LINK_AMOUNT = 1500 ether;
+  uint256 public constant LINK_AMOUNT = 600 ether;
 
   function execute() external {
     AaveV3EthereumLido.ACL_MANAGER.addRiskAdmin(EDGE_RISK_STEWARD);
 
-    AaveV3EthereumLido.COLLECTOR.transfer(
-      AaveV3EthereumAssets.LINK_A_TOKEN,
-      address(this),
-      LINK_AMOUNT
-    );
-    uint256 linkAmount = AaveV3Ethereum.POOL.withdraw(
-      AaveV3EthereumAssets.LINK_UNDERLYING,
-      type(uint256).max,
+    uint256 linkAmount = CollectorUtils.withdrawFromV3(
+      AaveV3Ethereum.COLLECTOR,
+      CollectorUtils.IOInput({
+        pool: address(AaveV3Ethereum.POOL),
+        underlying: AaveV3EthereumAssets.LINK_UNDERLYING,
+        amount: LINK_AMOUNT
+      }),
       address(this)
     );
 
