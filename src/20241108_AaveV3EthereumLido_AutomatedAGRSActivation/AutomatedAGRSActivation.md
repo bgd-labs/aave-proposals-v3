@@ -29,7 +29,7 @@ The automated AGRS will use another instance of AGRS (exactly the same codebase 
   - Enforce that only the WETH asset can be acted upon.
   - Given the protections (percentage constraints and time delay) on the AGRS side and that it is an assumption that risk recommendation will be the time correct on the Edge Risk Oracle, the propagation will be permissionless.
 
-The [AaveStewardsInjector](https://etherscan.io/address/0x834a5aC6e9D05b92F599A031941262F761c34859) middle-ware contract will run on Chainlink Automation, and similar to other Aave Robots will be registered using the [AaveCLRobotOperator](https://etherscan.io/address/0x1cDF8879eC8bE012bA959EB515b11008E0cb6323) contract with 1500 LINK from the Ethereum Collector.
+The [AaveStewardsInjector](https://etherscan.io/address/0x834a5aC6e9D05b92F599A031941262F761c34859) middleware, technically being part of the Aave Robot infrastructure, will run on Chainlink Automation and will be registered using the [AaveCLRobotOperator](https://etherscan.io/address/0x1cDF8879eC8bE012bA959EB515b11008E0cb6323) contract with 1500 LINK from the Ethereum Collector.
 
 The new instance of the [RiskSteward](https://etherscan.io/address/0x81aFd0F99c2Afa2f2DD7E387c2Ef9CD2a29b6E1A) will be given the RiskAdmin role with the following method: `ACL_MANAGER.addRiskAdmin()`
 
