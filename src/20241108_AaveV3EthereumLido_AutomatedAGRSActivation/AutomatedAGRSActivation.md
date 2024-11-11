@@ -66,8 +66,8 @@ The automated AGRS system will be configured with the following params:
 
 ## References
 
-- Implementation: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241108_AaveV3EthereumLido_AutomatedAGRSActivation/AaveV3EthereumLido_AutomatedAGRSActivation_20241108.sol)
-- Tests: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241108_AaveV3EthereumLido_AutomatedAGRSActivation/AaveV3EthereumLido_AutomatedAGRSActivation_20241108.t.sol)
+- Implementation: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/d7f260e226e42cf6b87e348ab5601aec27f48d1d/src/20241108_AaveV3EthereumLido_AutomatedAGRSActivation/AaveV3EthereumLido_AutomatedAGRSActivation_20241108.sol)
+- Tests: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/d7f260e226e42cf6b87e348ab5601aec27f48d1d/src/20241108_AaveV3EthereumLido_AutomatedAGRSActivation/AaveV3EthereumLido_AutomatedAGRSActivation_20241108.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x4809f179e517e5745ec13eba8f40d98dab73ca65f8a141bd2f18cc16dcd0cc16)
 - [Discussion](https://governance.aave.com/t/arfc-aave-generalized-risk-stewards-agrs-activation/19178/3)
 - AaveStewardsInjector: [github](https://github.com/aave-dao/aave-v3-risk-stewards/blob/650d51e2ec6bb1f4d9ae56da5a341436ef9bb8a1/src/contracts/AaveStewardInjector.sol), [deployed-contract](https://etherscan.io/address/0x834a5aC6e9D05b92F599A031941262F761c34859)
