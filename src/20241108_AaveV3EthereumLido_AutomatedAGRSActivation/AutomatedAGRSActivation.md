@@ -1,5 +1,5 @@
 ---
-title: "Automated AGRS Activation"
+title: "Automated (Edge) AGRS Activation"
 author: "BGD Labs (@bgdlabs)"
 discussions: "https://governance.aave.com/t/arfc-aave-generalized-risk-stewards-agrs-activation/19178/3"
 snapshot: "https://snapshot.org/#/aave.eth/proposal/0x4809f179e517e5745ec13eba8f40d98dab73ca65f8a141bd2f18cc16dcd0cc16"
