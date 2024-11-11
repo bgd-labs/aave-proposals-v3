@@ -1,7 +1,7 @@
 ---
 title: "Safety Module stkAAVE - Re-enable Rewards"
 author: "@karpatkey_TokenLogic"
-discussions: ""
+discussions: "https://governance.aave.com/t/arfc-amend-safety-module-emissions/16640/13"
 snapshot: "Direct-to-AIP"
 ---
 
@@ -27,8 +27,8 @@ This proposal will implement the following changes to the AAVE emissions across 
 
 - Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241106_AaveV3Ethereum_SafetyModuleStkAAVEReEnableRewards/AaveV3Ethereum_SafetyModuleStkAAVEReEnableRewards_20241106.sol)
 - Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241106_AaveV3Ethereum_SafetyModuleStkAAVEReEnableRewards/AaveV3Ethereum_SafetyModuleStkAAVEReEnableRewards_20241106.t.sol)
-- [Snapshot](Direct-to-AIP)
-- [Discussion](https://governance.aave.com/t/arfc-amend-safety-module-emissions/16640/12)
+- [Snapshot]: Direct-to-AIP
+- [Discussion](https://governance.aave.com/t/arfc-amend-safety-module-emissions/16640/13)
 
 ## Copyright
 
