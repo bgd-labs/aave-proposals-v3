@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "@bgd-labs/aave-address-book": "4.0.0",
-    "@bgd-labs/aave-cli": "1.1.9-4bc145ed68ab0bd9aadcc46b80106d622377fee7.0",
+    "@bgd-labs/aave-cli": "^1.1.10",
     "@bgd-labs/js-utils": "^1.4.2",
     "@inquirer/prompts": "^3.3.0",
     "@inquirer/testing": "^2.1.13",
