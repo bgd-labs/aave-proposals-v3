@@ -8,6 +8,7 @@ snapshot: "https://snapshot.org/#/aave.eth/proposal/0x4809f179e517e5745ec13eba8f
 ## Simple Summary
 
 This proposal activates the automated Aave Generalized Risk Stewards (AGRS) system on the Aave Ethereum Lido Instance to perform automated interest rate updates for the WETH asset.
+Under the hood, the AGRS consumes the Edge infrastructure by Chaos Labs.
 
 ## Motivation
 
