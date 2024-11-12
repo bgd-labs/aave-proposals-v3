@@ -53,8 +53,8 @@ ACI Treasury: `0xac140648435d03f784879cd789130F22Ef588Fcd`
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241031_AaveV3Ethereum_PYUSDReserveConfigurationUpdateIncentiveCampaign/AaveV3Ethereum_PYUSDReserveConfigurationUpdateIncentiveCampaign_20241031.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241031_AaveV3Ethereum_PYUSDReserveConfigurationUpdateIncentiveCampaign/AaveV3Ethereum_PYUSDReserveConfigurationUpdateIncentiveCampaign_20241031.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/b1d68042df145fd28071478bad0c980a835af5d4/src/20241031_AaveV3Ethereum_PYUSDReserveConfigurationUpdateIncentiveCampaign/AaveV3Ethereum_PYUSDReserveConfigurationUpdateIncentiveCampaign_20241031.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/b1d68042df145fd28071478bad0c980a835af5d4/src/20241031_AaveV3Ethereum_PYUSDReserveConfigurationUpdateIncentiveCampaign/AaveV3Ethereum_PYUSDReserveConfigurationUpdateIncentiveCampaign_20241031.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0xcd73f17361c7757cd94ec758b4d9f160b7cecefa7f4cb23b0b4ee49b5eb1b8b2)
 - [Discussion](https://governance.aave.com/t/arfc-pyusd-reserve-configuration-update-incentive-campaign/19573)
 
