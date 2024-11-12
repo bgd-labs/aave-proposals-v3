@@ -109,9 +109,9 @@ contract AaveV3EthereumLido_OnboardAndEnableSUSDeLiquidEModeOnAaveV3MainnetAndLi
       liqProtocolFee: 10_00,
       rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
         optimalUsageRatio: 1_00,
-        baseVariableBorrowRate: 0,
-        variableRateSlope1: 0,
-        variableRateSlope2: 0
+        baseVariableBorrowRate: 5,
+        variableRateSlope1: 10,
+        variableRateSlope2: 300
       })
     });
 
