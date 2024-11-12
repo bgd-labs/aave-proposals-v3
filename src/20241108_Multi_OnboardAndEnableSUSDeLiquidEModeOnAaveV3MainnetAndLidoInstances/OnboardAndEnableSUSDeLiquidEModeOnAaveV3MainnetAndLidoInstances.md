@@ -1,7 +1,7 @@
 ---
 title: "Onboard and Enable sUSDe liquid E-Mode on Aave v3 Mainnet and Lido Instances"
 author: "ACI"
-discussions: "https://governance.aave.com/t/arfc-enable-susde-liquid-e-mode-on-aave-v3-mainnet-and-lido-instance/1970"
+discussions: "https://governance.aave.com/t/arfc-enable-susde-liquid-e-mode-on-aave-v3-mainnet-and-lido-instance/19703"
 snapshot: "Direct-to-AIP"
 ---
 
