@@ -15,7 +15,7 @@ After onboarding ezETH, the Lido instance is experiencing strong demand for borr
 
 This proposal increases the wETH deposit rate by increasing the wETH Borrow Rate (Slope1). Increasing the wETH borrow rate offsets a portion of the wstETH deposit rate and passes the yield from the yield-maximizing strategy to ETH depositors. 
 
-The resulting increase in wETH deposit rate is expected to enable the DAO to revise lower the ETH deposit liquidity mining rewards.
+The resulting increase in wETH deposit rate is expected to enable the DAO to revise and lower the ETH deposit liquidity mining rewards.
 
 ## Specification
 
