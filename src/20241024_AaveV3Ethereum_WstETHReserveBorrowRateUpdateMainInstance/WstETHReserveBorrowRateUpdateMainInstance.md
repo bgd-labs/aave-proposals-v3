@@ -28,8 +28,8 @@ The Main instance the wstETH Slope1 and base parameter is to be revised as follo
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241024_AaveV3Ethereum_WstETHReserveBorrowRateUpdateMainInstance/AaveV3Ethereum_WstETHReserveBorrowRateUpdateMainInstance_20241024.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241024_AaveV3Ethereum_WstETHReserveBorrowRateUpdateMainInstance/AaveV3Ethereum_WstETHReserveBorrowRateUpdateMainInstance_20241024.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/3a0085b8e9db515f846ee6fd54f7801e47b64d90/src/20241024_AaveV3Ethereum_WstETHReserveBorrowRateUpdateMainInstance/AaveV3Ethereum_WstETHReserveBorrowRateUpdateMainInstance_20241024.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/3a0085b8e9db515f846ee6fd54f7801e47b64d90/src/20241024_AaveV3Ethereum_WstETHReserveBorrowRateUpdateMainInstance/AaveV3Ethereum_WstETHReserveBorrowRateUpdateMainInstance_20241024.t.sol)
 - [Snapshot](Direct-to-AIP)
 - [Discussion](https://governance.aave.com/t/arfc-weth-wsteth-borrow-rate-updates/19550)
 
