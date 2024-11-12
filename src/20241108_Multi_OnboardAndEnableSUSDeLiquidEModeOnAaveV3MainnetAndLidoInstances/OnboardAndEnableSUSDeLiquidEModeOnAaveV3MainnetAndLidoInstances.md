@@ -7,7 +7,7 @@ snapshot: "Direct-to-AIP"
 
 ## Simple Summary
 
-This proposal aims to enable sUSDe liquid E-Mode on Aave v3 Mainnet for the Main and Lido instances. By implementing this change, we seek to enhance capital efficiency for borrowers using sUSDe as collateral, particularly for borrowing other stablecoins and GHO. This is a Direct to AIP proposal.
+This proposal aims to enable sUSDe liquid E-Mode on Aave v3 Mainnet for the Main and Lido instances. By implementing this change, we seek to enhance capital efficiency for borrowers using sUSDe as collateral, particularly for borrowing other stablecoins. This is a Direct to AIP proposal.
 
 ## Motivation
 
