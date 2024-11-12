@@ -21,7 +21,7 @@ contract AaveV3EthereumLido_OnboardAndEnableSUSDeLiquidEModeOnAaveV3MainnetAndLi
     internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 21142900);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 21171005);
     proposal = new AaveV3EthereumLido_OnboardAndEnableSUSDeLiquidEModeOnAaveV3MainnetAndLidoInstances_20241108();
   }
 
