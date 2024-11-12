@@ -12,7 +12,7 @@ import {IEmissionManager} from 'aave-v3-origin/contracts/rewards/interfaces/IEmi
  * @title Onboard and Enable sUSDe liquid E-Mode on Aave v3 Mainnet and Lido Instances
  * @author ACI
  * - Snapshot: Direct-to-AIP
- * - Discussion: https://governance.aave.com/t/arfc-enable-susde-liquid-e-mode-on-aave-v3-mainnet-and-lido-instance/1970
+ * - Discussion: https://governance.aave.com/t/arfc-enable-susde-liquid-e-mode-on-aave-v3-mainnet-and-lido-instance/19703
  */
 contract AaveV3EthereumLido_OnboardAndEnableSUSDeLiquidEModeOnAaveV3MainnetAndLidoInstances_20241108 is
   AaveV3PayloadEthereumLido
