@@ -104,7 +104,7 @@ contract AaveV3EthereumLido_OnboardAndEnableSUSDeLiquidEModeOnAaveV3MainnetAndLi
       liqBonus: 7_50,
       reserveFactor: 10_00,
       supplyCap: 20_000_000,
-      borrowCap: 0,
+      borrowCap: 1000,
       debtCeiling: 0,
       liqProtocolFee: 10_00,
       rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
