@@ -47,7 +47,7 @@ The table below illustrates the configured risk parameters for **sUSDe**
 
 Additionaly [0xac140648435d03f784879cd789130F22Ef588Fcd](https://etherscan.io/address/0xac140648435d03f784879cd789130F22Ef588Fcd) has been set as the emission admin for sUSDe and the corresponding aToken.
 
-The table below illustrate the configured "sUSDe" Liquid E-mode
+The table below illustrate the configured "sUSDe Stablecoins" Liquid E-mode
 
 | Parameter             | Value | Value | Value |
 | --------------------- | ----- | ----- | ----- |
