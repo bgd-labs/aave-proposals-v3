@@ -4,11 +4,11 @@
 
 
 
-### EMode: sUSDe(id: 2)
+### EMode: sUSDe Stablecoins(id: 2)
 
 | description | value before | value after |
 | --- | --- | --- |
-| eMode.label | - | sUSDe |
+| eMode.label | - | sUSDe Stablecoins |
 | eMode.ltv | - | 90 % |
 | eMode.liquidationThreshold | - | 92 % |
 | eMode.liquidationBonus | - | 3 % |
@@ -27,7 +27,7 @@
         "borrowableBitmap": 34359738376,
         "collateralBitmap": 4294967296,
         "eModeCategory": 2,
-        "label": "sUSDe",
+        "label": "sUSDe Stablecoins",
         "liquidationBonus": 10300,
         "liquidationThreshold": 9200,
         "ltv": 9000
