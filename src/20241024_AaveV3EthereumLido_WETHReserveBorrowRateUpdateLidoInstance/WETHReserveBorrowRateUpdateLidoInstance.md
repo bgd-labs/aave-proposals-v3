@@ -13,7 +13,7 @@ This publication proposes increasing the Slope1 parameter by 25bps for wETH on L
 
 After onboarding ezETH, the Lido instance is experiencing strong demand for borrowing wstETH.
 
-This proposal increases the wETH deposits rate by increasing the wETH Borrow Rate (Slope1). By increasing the wETH borrow rate, this offsets a portion of the wstETH deposit rate and passes through the yield from the yield maximising strategy to ETH depositors. 
+This proposal increases the wETH deposit rate by increasing the wETH Borrow Rate (Slope1). Increasing the wETH borrow rate offsets a portion of the wstETH deposit rate and passes the yield from the yield-maximizing strategy to ETH depositors. 
 
 The resulting increase in wETH deposit rate is expected to enable the DAO to revise lower the ETH deposit liquidity mining rewards.
 
