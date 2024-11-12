@@ -63,7 +63,7 @@ The table below illustrate the configured "sUSDe" Liquid E-mode
 - Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241108_Multi_OnboardAndEnableSUSDeLiquidEModeOnAaveV3MainnetAndLidoInstances/AaveV3Ethereum_OnboardAndEnableSUSDeLiquidEModeOnAaveV3MainnetAndLidoInstances_20241108.sol), [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241108_Multi_OnboardAndEnableSUSDeLiquidEModeOnAaveV3MainnetAndLidoInstances/AaveV3EthereumLido_OnboardAndEnableSUSDeLiquidEModeOnAaveV3MainnetAndLidoInstances_20241108.sol)
 - Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241108_Multi_OnboardAndEnableSUSDeLiquidEModeOnAaveV3MainnetAndLidoInstances/AaveV3Ethereum_OnboardAndEnableSUSDeLiquidEModeOnAaveV3MainnetAndLidoInstances_20241108.t.sol), [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241108_Multi_OnboardAndEnableSUSDeLiquidEModeOnAaveV3MainnetAndLidoInstances/AaveV3EthereumLido_OnboardAndEnableSUSDeLiquidEModeOnAaveV3MainnetAndLidoInstances_20241108.t.sol)
 - [Snapshot](Direct-to-AIP)
-- [Discussion](https://governance.aave.com/t/arfc-enable-susde-liquid-e-mode-on-aave-v3-mainnet-and-lido-instance/1970)
+- [Discussion](https://governance.aave.com/t/arfc-enable-susde-liquid-e-mode-on-aave-v3-mainnet-and-lido-instance/19703)
 
 ## Copyright
 
