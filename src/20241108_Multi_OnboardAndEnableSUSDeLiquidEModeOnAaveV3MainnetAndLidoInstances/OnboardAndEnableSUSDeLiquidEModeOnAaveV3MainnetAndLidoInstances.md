@@ -17,7 +17,7 @@ The motivation behind this proposal stems from several key factors:
   Capital Efficiency: Enabling liquid E-Mode for sUSDe will allow borrowers to substantially improve their capital efficiency when using this asset as collateral.
 - Controlled Growth: Liquid E-Mode provides a mechanism for more precise control over the growth and borrow demand in relation to the overall stablecoin liquidity within Aave v3 on Mainnet.
 - Enhanced Borrowing Capacity: This change will enable users to borrow larger amounts of other stablecoins against their sUSDe collateral, potentially increasing platform utilization and revenue.
-  By implementing this proposal, we aim to optimize the use of sUSDe within the Aave ecosystem, attracting more liquidity for stablecoins and demand for GHO.
+  By implementing this proposal, we aim to optimize the use of sUSDe within the Aave ecosystem, attracting more liquidity for stablecoins.
 
 ## Specification
 
