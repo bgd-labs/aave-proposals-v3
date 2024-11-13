@@ -29,17 +29,17 @@ The table below illustrates the configured risk parameters for **sUSDe** on Aave
 | Borrowable                |                                   DISABLED |
 | Collateral Enabled        |                                       true |
 | Supply Cap (sUSDe)        |                                 20,000,000 |
-| Borrow Cap (sUSDe)        |                                          0 |
+| Borrow Cap (sUSDe)        |                                       1000 |
 | Debt Ceiling              |                                      USD 0 |
 | LTV                       |                                     0.05 % |
 | LT                        |                                      0.1 % |
 | Liquidation Bonus         |                                      7.5 % |
 | Liquidation Protocol Fee  |                                       10 % |
 | Reserve Factor            |                                       10 % |
-| Base Variable Borrow Rate |                                        0 % |
-| Variable Slope 1          |                                        0 % |
-| Variable Slope 2          |                                        0 % |
-| Uoptimal                  |                                        0 % |
+| Base Variable Borrow Rate |                                        5 % |
+| Variable Slope 1          |                                       10 % |
+| Variable Slope 2          |                                      300 % |
+| Uoptimal                  |                                        1 % |
 | Flashloanable             |                                    ENABLED |
 | Siloed Borrowing          |                                   DISABLED |
 | Borrowable in Isolation   |                                   DISABLED |
