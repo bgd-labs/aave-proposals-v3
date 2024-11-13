@@ -36,7 +36,7 @@ The table below illustrates the configured risk parameters for **sUSDe** on Aave
 | Liquidation Bonus         |                                      7.5 % |
 | Liquidation Protocol Fee  |                                       10 % |
 | Reserve Factor            |                                       10 % |
-| Base Variable Borrow Rate |                                        5 % |
+| Base Variable Borrow Rate |                                        0.05 % |
 | Variable Slope 1          |                                       10 % |
 | Variable Slope 2          |                                      300 % |
 | Uoptimal                  |                                        1 % |
