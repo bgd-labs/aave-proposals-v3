@@ -63,6 +63,26 @@ contract AaveV3Ethereum_OnboardAndEnableSUSDeLiquidEModeOnAaveV3MainnetAndLidoIn
 
     return assetEModeUpdates;
   }
+  function collateralsUpdates()
+    public
+    pure
+    override
+    returns (IAaveV3ConfigEngine.CollateralUpdate[] memory)
+  {
+    IAaveV3ConfigEngine.CollateralUpdate[]
+      memory collateralUpdate = new IAaveV3ConfigEngine.CollateralUpdate[](1);
+
+    collateralUpdate[0] = IAaveV3ConfigEngine.CollateralUpdate({
+      asset: AaveV3EthereumAssets.sUSDe_UNDERLYING,
+      ltv: EngineFlags.KEEP_CURRENT,
+      liqThreshold: EngineFlags.KEEP_CURRENT,
+      liqBonus: EngineFlags.KEEP_CURRENT,
+      debtCeiling: 0,
+      liqProtocolFee: EngineFlags.KEEP_CURRENT
+    });
+
+    return collateralUpdate;
+  }
   function borrowsUpdates()
     public
     pure
