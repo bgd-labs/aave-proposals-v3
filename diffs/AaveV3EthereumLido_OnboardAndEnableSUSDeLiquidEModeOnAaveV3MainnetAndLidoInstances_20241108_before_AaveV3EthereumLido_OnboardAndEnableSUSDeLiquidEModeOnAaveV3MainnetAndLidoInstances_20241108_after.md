@@ -54,20 +54,24 @@
 
 
 
-### EMode: sUSDe Stablecoins(id: 2)
+### EMode: LRT Stablecoins main(id: 2)
 
-| description | value before | value after |
-| --- | --- | --- |
-| eMode.label | LRT Stablecoins main | sUSDe Stablecoins |
-| eMode.ltv | 75 % | 90 % |
-| eMode.liquidationThreshold | 78 % | 92 % |
-| eMode.liquidationBonus | 7.5 % | 3 % |
-| eMode.borrowableBitmap | USDS | USDS, USDC |
-| eMode.collateralBitmap | ezETH | ezETH, sUSDe |
 
 
 ### EMode: LRT wstETH main(id: 3)
 
+
+
+### EMode: sUSDe Stablecoins(id: 4)
+
+| description | value before | value after |
+| --- | --- | --- |
+| eMode.label | - | sUSDe Stablecoins |
+| eMode.ltv | - | 90 % |
+| eMode.liquidationThreshold | - | 92 % |
+| eMode.liquidationBonus | - | 3 % |
+| eMode.borrowableBitmap | - | USDS, USDC |
+| eMode.collateralBitmap | - | sUSDe |
 
 
 ## Raw diff
@@ -75,30 +79,16 @@
 ```json
 {
   "eModes": {
-    "2": {
-      "borrowableBitmap": {
-        "from": 4,
-        "to": 12
-      },
-      "collateralBitmap": {
-        "from": 16,
-        "to": 48
-      },
-      "label": {
-        "from": "LRT Stablecoins main",
-        "to": "sUSDe Stablecoins"
-      },
-      "liquidationBonus": {
-        "from": 10750,
-        "to": 10300
-      },
-      "liquidationThreshold": {
-        "from": 7800,
-        "to": 9200
-      },
-      "ltv": {
-        "from": 7500,
-        "to": 9000
+    "4": {
+      "from": null,
+      "to": {
+        "borrowableBitmap": 12,
+        "collateralBitmap": 32,
+        "eModeCategory": 4,
+        "label": "sUSDe Stablecoins",
+        "liquidationBonus": 10300,
+        "liquidationThreshold": 9200,
+        "ltv": 9000
       }
     }
   },
