@@ -49,7 +49,7 @@ contract AaveV3EthereumLido_OnboardAndEnableSUSDeLiquidEModeOnAaveV3MainnetAndLi
       memory eModeUpdates = new IAaveV3ConfigEngine.EModeCategoryUpdate[](1);
 
     eModeUpdates[0] = IAaveV3ConfigEngine.EModeCategoryUpdate({
-      eModeCategory: 2,
+      eModeCategory: 4,
       ltv: 90_00,
       liqThreshold: 92_00,
       liqBonus: 3_00,
@@ -69,19 +69,19 @@ contract AaveV3EthereumLido_OnboardAndEnableSUSDeLiquidEModeOnAaveV3MainnetAndLi
 
     assetEModeUpdates[0] = IAaveV3ConfigEngine.AssetEModeUpdate({
       asset: sUSDe,
-      eModeCategory: 2,
+      eModeCategory: 4,
       borrowable: EngineFlags.DISABLED,
       collateral: EngineFlags.ENABLED
     });
     assetEModeUpdates[1] = IAaveV3ConfigEngine.AssetEModeUpdate({
       asset: AaveV3EthereumLidoAssets.USDS_UNDERLYING,
-      eModeCategory: 2,
+      eModeCategory: 4,
       borrowable: EngineFlags.ENABLED,
       collateral: EngineFlags.DISABLED
     });
     assetEModeUpdates[2] = IAaveV3ConfigEngine.AssetEModeUpdate({
       asset: AaveV3EthereumLidoAssets.USDC_UNDERLYING,
-      eModeCategory: 2,
+      eModeCategory: 4,
       borrowable: EngineFlags.ENABLED,
       collateral: EngineFlags.DISABLED
     });
