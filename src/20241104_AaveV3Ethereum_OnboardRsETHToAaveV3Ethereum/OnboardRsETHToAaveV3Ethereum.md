@@ -41,6 +41,24 @@ The table below illustrates the configured risk parameters for **rsETH**
 
 Additionaly [0xac140648435d03f784879cd789130F22Ef588Fcd](https://etherscan.io/address/0xac140648435d03f784879cd789130F22Ef588Fcd) has been set as the emission admin for rsETH and the corresponding aToken.
 
+A new rsETH-Correlated e-mode has also been added:
+
+| Parameter             | Value | Value  | Value |
+| --------------------- | ----- | ------ | ----- |
+| Asset                 | rsETH | wstETH | ETHx  |
+| Collateral            | Yes   | No     | No    |
+| Borrowable            | No    | Yes    | Yes   |
+| Max LTV               | 92.5% | -      | -     |
+| Liquidation Threshold | 94.5% | -      | -     |
+| Liquidation Penalty   | 1.00% | -      | -     |
+
+The caps of the e-mode related assets have also been updated:
+
+|        | Current Borrow Cap | Recommended Borrow Cap |
+| ------ | ------------------ | ---------------------- |
+| wstETH | 48,000             | 60,000                 |
+| ETHx   | 320                | 5,000                  |
+
 ## References
 
 - Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241104_AaveV3Ethereum_OnboardRsETHToAaveV3Ethereum/AaveV3Ethereum_OnboardRsETHToAaveV3Ethereum_20241104.sol)
