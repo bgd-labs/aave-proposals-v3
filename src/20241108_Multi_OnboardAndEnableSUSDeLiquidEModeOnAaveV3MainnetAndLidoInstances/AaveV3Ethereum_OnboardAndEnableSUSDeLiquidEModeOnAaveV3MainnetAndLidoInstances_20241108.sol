@@ -63,4 +63,24 @@ contract AaveV3Ethereum_OnboardAndEnableSUSDeLiquidEModeOnAaveV3MainnetAndLidoIn
 
     return assetEModeUpdates;
   }
+  function borrowsUpdates()
+    public
+    pure
+    override
+    returns (IAaveV3ConfigEngine.BorrowUpdate[] memory)
+  {
+    IAaveV3ConfigEngine.BorrowUpdate[]
+      memory borrowUpdates = new IAaveV3ConfigEngine.BorrowUpdate[](1);
+
+    borrowUpdates[0] = IAaveV3ConfigEngine.BorrowUpdate({
+      asset: AaveV3EthereumAssets.sUSDe_UNDERLYING,
+      enabledToBorrow: EngineFlags.KEEP_CURRENT,
+      flashloanable: EngineFlags.KEEP_CURRENT,
+      borrowableInIsolation: EngineFlags.DISABLED,
+      withSiloedBorrowing: EngineFlags.KEEP_CURRENT,
+      reserveFactor: EngineFlags.KEEP_CURRENT
+    });
+
+    return borrowUpdates;
+  }
 }

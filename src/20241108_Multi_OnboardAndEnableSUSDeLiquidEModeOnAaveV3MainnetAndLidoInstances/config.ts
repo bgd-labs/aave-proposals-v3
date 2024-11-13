@@ -37,6 +37,16 @@ export const config: ConfigFile = {
             borrowable: 'ENABLED',
           },
         ],
+        BORROWS_UPDATE: [
+          {
+            enabledToBorrow: 'KEEP_CURRENT',
+            flashloanable: 'KEEP_CURRENT',
+            borrowableInIsolation: 'DISABLED',
+            withSiloedBorrowing: 'KEEP_CURRENT',
+            reserveFactor: 'KEEP_CURRENT',
+            asset: 'sUSDe',
+          },
+        ],
       },
       cache: {blockNumber: 21142896},
     },

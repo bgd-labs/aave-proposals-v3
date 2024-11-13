@@ -21,7 +21,7 @@ The motivation behind this proposal stems from several key factors:
 
 ## Specification
 
-The table below illustrates the configured risk parameters for **sUSDe**
+The table below illustrates the configured risk parameters for **sUSDe** on Aave V3 Lido Instance:
 
 | Parameter                 |                                      Value |
 | ------------------------- | -----------------------------------------: |
@@ -35,7 +35,7 @@ The table below illustrates the configured risk parameters for **sUSDe**
 | LT                        |                                      0.1 % |
 | Liquidation Bonus         |                                      7.5 % |
 | Liquidation Protocol Fee  |                                       10 % |
-| Reserve Factor            |                                        10 % |
+| Reserve Factor            |                                       10 % |
 | Base Variable Borrow Rate |                                        0 % |
 | Variable Slope 1          |                                        0 % |
 | Variable Slope 2          |                                        0 % |
@@ -57,6 +57,8 @@ The table below illustrate the configured "sUSDe Stablecoins" Liquid E-mode
 | Max LTV               | 90%   | -     | -     |
 | Liquidation Threshold | 92%   | -     | -     |
 | Liquidation Bonus     | 3.0%  | -     | -     |
+
+Finally, sUSDe on Aave V3 Mainnet will be removed from Isolation Mode on Aave v3 instance.
 
 ## References
 
