@@ -21,13 +21,22 @@ contract AaveV3EthereumLido_WETHReserveBorrowRateUpdateLidoInstance_20241024 is
     returns (IAaveV3ConfigEngine.RateStrategyUpdate[] memory)
   {
     IAaveV3ConfigEngine.RateStrategyUpdate[]
-      memory rateStrategies = new IAaveV3ConfigEngine.RateStrategyUpdate[](1);
+      memory rateStrategies = new IAaveV3ConfigEngine.RateStrategyUpdate[](2);
     rateStrategies[0] = IAaveV3ConfigEngine.RateStrategyUpdate({
       asset: AaveV3EthereumLidoAssets.WETH_UNDERLYING,
       params: IAaveV3ConfigEngine.InterestRateInputData({
         optimalUsageRatio: EngineFlags.KEEP_CURRENT,
         baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
         variableRateSlope1: 2_75,
+        variableRateSlope2: EngineFlags.KEEP_CURRENT
+      })
+    });
+    rateStrategies[1] = IAaveV3ConfigEngine.RateStrategyUpdate({
+      asset: AaveV3EthereumLidoAssets.wstETH_UNDERLYING,
+      params: IAaveV3ConfigEngine.InterestRateInputData({
+        optimalUsageRatio: EngineFlags.KEEP_CURRENT,
+        baseVariableBorrowRate: 50,
+        variableRateSlope1: EngineFlags.KEEP_CURRENT,
         variableRateSlope2: EngineFlags.KEEP_CURRENT
       })
     });

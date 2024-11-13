@@ -1,5 +1,5 @@
 ---
-title: "wETH Reserve Borrow Rate Update - Lido Instance"
+title: "wstETH and wETH Borrow Rate Update - Lido Instance"
 author: "karpatkey_TokenLogic"
 discussions: "https://governance.aave.com/t/arfc-weth-wsteth-borrow-rate-updates/19550"
 snapshot: "Direct-to-AIP"
@@ -7,23 +7,24 @@ snapshot: "Direct-to-AIP"
 
 ## Simple Summary
 
-This publication proposes increasing the Slope1 parameter by 25bps for wETH on Lido instance.
+This AIP when implemented will increase the wETH Slope1 and wstETH Base parameters on the Lido instance of Aave v3.
 
 ## Motivation
 
-After onboarding ezETH, the Lido instance is experiencing strong demand for borrowing wstETH.
+After onboarding ezETH, the demand for wstETH debt has increased significantly.
 
-This proposal increases the wETH deposits rate by increasing the wETH Borrow Rate (Slope1). By increasing the wETH borrow rate, this offsets a portion of the wstETH deposit rate and passes through the yield from the yield maximising strategy to ETH depositors. 
+This AIP increases the wstETH borrow rate by adjusting the Base parameter from 0 bps to 50bps to better reflect prevailing market conditions.
 
-The resulting increase in wETH deposit rate is expected to enable the DAO to revise lower the ETH deposit liquidity mining rewards.
+The wETH borrow rate will be increased by raising Slope1 by 25bps. This is expected to lead to a higher wETH deposit rate and reduce dependency on rewards being emitted to wETH deposits.
 
 ## Specification
 
-The Lido instance wETH Slope1 is to be revised as follows:
+The Lido instance wETH Slope1 and wstETH Base are to be revised as follows:
 
-| Asset | Parameter | Current | Proposed | Change |
-| :---: | :-------: | :-----: | :------: | :----: |
-| wETH  |  Slope1   |  2.50%  |  2.75%   | +0.25% |
+| Asset  | Parameter | Current | Proposed | Change |
+| :----: | :-------: | :-----: | :------: | :----: |
+|  wETH  |  Slope1   |  2.50%  |  2.75%   | +0.25% |
+| wstETH |   Base    |  0.00%  |  0.50%   | +0.50% |
 
 ## References
 

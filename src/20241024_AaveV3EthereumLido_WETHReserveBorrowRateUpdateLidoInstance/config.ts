@@ -23,6 +23,15 @@ export const config: ConfigFile = {
               variableRateSlope2: '',
             },
           },
+          {
+            asset: 'wstETH',
+            params: {
+              optimalUtilizationRate: '',
+              baseVariableBorrowRate: '0.5',
+              variableRateSlope1: '',
+              variableRateSlope2: '',
+            },
+          },
         ],
       },
       cache: {blockNumber: 21036516},
