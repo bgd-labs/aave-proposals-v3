@@ -19,7 +19,13 @@ export const config: ConfigFile = {
           {asset: 'ETHx', supplyCap: '', borrowCap: '5000'},
         ],
         EMODES_UPDATES: [
-          {eModeCategory: 2, ltv: '92.5', liqThreshold: '94.5', liqBonus: '1', label: 'rsETH'},
+          {
+            eModeCategory: 2,
+            ltv: '92.5',
+            liqThreshold: '94.5',
+            liqBonus: '1',
+            label: 'rsETH-Correlated',
+          },
         ],
         ASSET_LISTING: [
           {
