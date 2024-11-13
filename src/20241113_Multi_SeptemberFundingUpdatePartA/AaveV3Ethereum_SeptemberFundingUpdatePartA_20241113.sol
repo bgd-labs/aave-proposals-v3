@@ -34,6 +34,10 @@ contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113 is IProposalGeneric
   address public constant KARPATKEY = 0x818C277dBE886b934e60aa047250A73529E26A99;
   uint256 public constant GAS_REBATE_AMOUNT = 0.264 ether;
 
+  address public constant MERIT_SAFE = 0xdeadD8aB03075b7FBA81864202a2f59EE25B312b;
+  uint256 public constant GHO_ALLOWANCE = 3_000_000 ether;
+  uint256 public constant WETH_A_ALLOWANCE = 800 ether;
+
   function execute() external override {
     _rescueParaswap();
 
@@ -41,6 +45,17 @@ contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113 is IProposalGeneric
       AaveV3EthereumAssets.WETH_A_TOKEN,
       KARPATKEY,
       GAS_REBATE_AMOUNT
+    );
+
+    AaveV3Ethereum.COLLECTOR.approve(
+      AaveV3EthereumAssets.GHO_UNDERLYING,
+      MERIT_SAFE,
+      GHO_ALLOWANCE
+    );
+    AaveV3Ethereum.COLLECTOR.approve(
+      AaveV3EthereumAssets.WETH_A_TOKEN,
+      MERIT_SAFE,
+      WETH_A_ALLOWANCE
     );
   }
 

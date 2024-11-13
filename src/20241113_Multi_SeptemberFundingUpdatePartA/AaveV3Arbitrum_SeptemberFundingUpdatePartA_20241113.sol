@@ -40,7 +40,6 @@ contract AaveV3Arbitrum_SeptemberFundingUpdatePartA_20241113 is IProposalGeneric
 
   function execute() external {
     _bridge();
-    _rescueTokens();
   }
 
   function _bridge() internal {

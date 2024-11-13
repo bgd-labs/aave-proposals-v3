@@ -35,6 +35,25 @@ contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113_Test is ProtocolV3T
     );
   }
 
+  function test_meritAllowance() public {
+    executePayload(vm, address(proposal));
+
+    assertEq(
+      IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).allowance(
+        address(AaveV3Ethereum.COLLECTOR),
+        proposal.MERIT_SAFE()
+      ),
+      proposal.GHO_ALLOWANCE()
+    );
+    assertEq(
+      IERC20(AaveV3EthereumAssets.WETH_A_TOKEN).allowance(
+        address(AaveV3Ethereum.COLLECTOR),
+        proposal.MERIT_SAFE()
+      ),
+      proposal.WETH_A_ALLOWANCE()
+    );
+  }
+
   function test_isTokensRescuedV2() external {
     uint256 sUSDCollectorInitialBalance = IERC20(AaveV2EthereumAssets.sUSD_UNDERLYING).balanceOf(
       address(AaveV3Ethereum.COLLECTOR)
