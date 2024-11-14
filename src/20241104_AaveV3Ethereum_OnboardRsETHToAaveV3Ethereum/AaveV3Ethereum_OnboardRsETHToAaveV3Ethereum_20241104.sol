@@ -62,7 +62,7 @@ contract AaveV3Ethereum_OnboardRsETHToAaveV3Ethereum_20241104 is AaveV3PayloadEt
       ltv: 92_50,
       liqThreshold: 94_50,
       liqBonus: 1_00,
-      label: 'rsETH-Correlated'
+      label: 'rsETH LST main'
     });
 
     return eModeUpdates;

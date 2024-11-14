@@ -70,11 +70,11 @@
 
 
 
-### EMode: rsETH(id: 2)
+### EMode: rsETH LST main(id: 2)
 
 | description | value before | value after |
 | --- | --- | --- |
-| eMode.label | - | rsETH |
+| eMode.label | - | rsETH LST main |
 | eMode.ltv | - | 92.5 % |
 | eMode.liquidationThreshold | - | 94.5 % |
 | eMode.liquidationBonus | - | 1 % |
@@ -93,7 +93,7 @@
         "borrowableBitmap": 2147483650,
         "collateralBitmap": 68719476736,
         "eModeCategory": 2,
-        "label": "rsETH",
+        "label": "rsETH LST main",
         "liquidationBonus": 10100,
         "liquidationThreshold": 9450,
         "ltv": 9250

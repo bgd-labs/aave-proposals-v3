@@ -41,7 +41,7 @@ The table below illustrates the configured risk parameters for **rsETH**
 
 Additionaly [0xac140648435d03f784879cd789130F22Ef588Fcd](https://etherscan.io/address/0xac140648435d03f784879cd789130F22Ef588Fcd) has been set as the emission admin for rsETH and the corresponding aToken.
 
-A new rsETH-Correlated e-mode has also been added:
+A new rsETH LST main e-mode has also been added:
 
 | Parameter             | Value | Value  | Value |
 | --------------------- | ----- | ------ | ----- |

@@ -24,7 +24,7 @@ export const config: ConfigFile = {
             ltv: '92.5',
             liqThreshold: '94.5',
             liqBonus: '1',
-            label: 'rsETH-Correlated',
+            label: 'rsETH LST main',
           },
         ],
         ASSET_LISTING: [
