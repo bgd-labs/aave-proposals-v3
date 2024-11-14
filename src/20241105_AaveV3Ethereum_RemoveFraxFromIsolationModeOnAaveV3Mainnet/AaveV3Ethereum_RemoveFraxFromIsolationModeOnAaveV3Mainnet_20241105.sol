@@ -28,7 +28,7 @@ contract AaveV3Ethereum_RemoveFraxFromIsolationModeOnAaveV3Mainnet_20241105 is
       ltv: 0,
       liqThreshold: EngineFlags.KEEP_CURRENT,
       liqBonus: EngineFlags.KEEP_CURRENT,
-      debtCeiling: EngineFlags.KEEP_CURRENT,
+      debtCeiling: 0,
       liqProtocolFee: EngineFlags.KEEP_CURRENT
     });
 
@@ -47,7 +47,7 @@ contract AaveV3Ethereum_RemoveFraxFromIsolationModeOnAaveV3Mainnet_20241105 is
       asset: AaveV3EthereumAssets.FRAX_UNDERLYING,
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
-      borrowableInIsolation: EngineFlags.DISABLED,
+      borrowableInIsolation: EngineFlags.KEEP_CURRENT,
       withSiloedBorrowing: EngineFlags.KEEP_CURRENT,
       reserveFactor: EngineFlags.KEEP_CURRENT
     });

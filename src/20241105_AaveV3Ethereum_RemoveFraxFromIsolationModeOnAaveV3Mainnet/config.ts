@@ -21,7 +21,7 @@ export const config: ConfigFile = {
             ltv: '0',
             liqThreshold: 'KEEP_CURRENT',
             liqBonus: 'KEEP_CURRENT',
-            debtCeiling: 'KEEP_CURRENT',
+            debtCeiling: '0',
             liqProtocolFee: 'KEEP_CURRENT',
           },
         ],
@@ -29,7 +29,7 @@ export const config: ConfigFile = {
           {
             enabledToBorrow: 'KEEP_CURRENT',
             flashloanable: 'KEEP_CURRENT',
-            borrowableInIsolation: 'DISABLED',
+            borrowableInIsolation: 'KEEP_CURRENT',
             withSiloedBorrowing: 'KEEP_CURRENT',
             reserveFactor: 'KEEP_CURRENT',
             asset: 'FRAX',
