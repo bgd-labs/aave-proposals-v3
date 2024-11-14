@@ -70,7 +70,7 @@
 
 
 
-### EMode: rsETH LST main(id: 2)
+### EMode: rsETH LST main(id: 3)
 
 | description | value before | value after |
 | --- | --- | --- |
@@ -87,12 +87,12 @@
 ```json
 {
   "eModes": {
-    "2": {
+    "3": {
       "from": null,
       "to": {
         "borrowableBitmap": 2147483650,
         "collateralBitmap": 68719476736,
-        "eModeCategory": 2,
+        "eModeCategory": 3,
         "label": "rsETH LST main",
         "liquidationBonus": 10100,
         "liquidationThreshold": 9450,

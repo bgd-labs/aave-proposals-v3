@@ -58,7 +58,7 @@ contract AaveV3Ethereum_OnboardRsETHToAaveV3Ethereum_20241104 is AaveV3PayloadEt
       memory eModeUpdates = new IAaveV3ConfigEngine.EModeCategoryUpdate[](1);
 
     eModeUpdates[0] = IAaveV3ConfigEngine.EModeCategoryUpdate({
-      eModeCategory: 2,
+      eModeCategory: 3,
       ltv: 92_50,
       liqThreshold: 94_50,
       liqBonus: 1_00,
@@ -78,21 +78,21 @@ contract AaveV3Ethereum_OnboardRsETHToAaveV3Ethereum_20241104 is AaveV3PayloadEt
 
     assetEModeUpdates[0] = IAaveV3ConfigEngine.AssetEModeUpdate({
       asset: rsETH,
-      eModeCategory: 2,
+      eModeCategory: 3,
       borrowable: EngineFlags.DISABLED,
       collateral: EngineFlags.ENABLED
     });
 
     assetEModeUpdates[1] = IAaveV3ConfigEngine.AssetEModeUpdate({
       asset: AaveV3EthereumAssets.wstETH_UNDERLYING,
-      eModeCategory: 2,
+      eModeCategory: 3,
       borrowable: EngineFlags.ENABLED,
       collateral: EngineFlags.DISABLED
     });
 
     assetEModeUpdates[2] = IAaveV3ConfigEngine.AssetEModeUpdate({
       asset: AaveV3EthereumAssets.ETHx_UNDERLYING,
-      eModeCategory: 2,
+      eModeCategory: 3,
       borrowable: EngineFlags.ENABLED,
       collateral: EngineFlags.DISABLED
     });

@@ -20,7 +20,7 @@ export const config: ConfigFile = {
         ],
         EMODES_UPDATES: [
           {
-            eModeCategory: 2,
+            eModeCategory: 3,
             ltv: '92.5',
             liqThreshold: '94.5',
             liqBonus: '1',
