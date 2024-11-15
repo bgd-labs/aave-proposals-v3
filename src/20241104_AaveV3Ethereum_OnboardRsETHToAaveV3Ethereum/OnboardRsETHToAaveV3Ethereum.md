@@ -61,8 +61,8 @@ The caps of the e-mode related assets have also been updated:
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241104_AaveV3Ethereum_OnboardRsETHToAaveV3Ethereum/AaveV3Ethereum_OnboardRsETHToAaveV3Ethereum_20241104.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241104_AaveV3Ethereum_OnboardRsETHToAaveV3Ethereum/AaveV3Ethereum_OnboardRsETHToAaveV3Ethereum_20241104.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/7a55e9d529097bedca83167e2dfd5c82380e2ab6/src/20241104_AaveV3Ethereum_OnboardRsETHToAaveV3Ethereum/AaveV3Ethereum_OnboardRsETHToAaveV3Ethereum_20241104.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/7a55e9d529097bedca83167e2dfd5c82380e2ab6/src/20241104_AaveV3Ethereum_OnboardRsETHToAaveV3Ethereum/AaveV3Ethereum_OnboardRsETHToAaveV3Ethereum_20241104.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0xe83b67dfdddd469c298ce6133f4fdb84c9796c671c023b88617d5a25b5933c7f)
 - [Discussion](https://governance.aave.com/t/arfc-add-rseth-to-aave-v3-ethereum/17696)
 
