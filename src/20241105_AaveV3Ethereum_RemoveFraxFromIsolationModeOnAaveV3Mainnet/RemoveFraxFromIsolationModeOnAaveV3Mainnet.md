@@ -7,7 +7,7 @@ snapshot: "https://snapshot.org/#/aave.eth/proposal/0x9bc3f3d8e38d70f55887f2f249
 
 ## Simple Summary
 
-This is an ARFC to remove FRAX from isolation mode, and set LTV to 0%. This is a reboot with minor changes of a [previous ARFC](https://governance.aave.com/t/arfc-remove-frax-from-isolation-mode-and-onboard-sfrax-to-aave-v3-mainnet/18506) which passed Snapshot but has not yet been implemented.
+This is an AIP to remove FRAX from isolation mode. This is a reboot with minor changes of a [previous ARFC](https://governance.aave.com/t/arfc-remove-frax-from-isolation-mode-and-onboard-sfrax-to-aave-v3-mainnet/18506) which passed Snapshot but has not yet been implemented.
 
 ## Motivation
 
@@ -15,18 +15,14 @@ FRAX and Aave DAO have found more synergies over the last months. The FRAX team 
 
 This proposal suggests removing FRAX from isolation mode to facilitate further AMO deployments.
 
-Furthermore, this proposal sets LTV to 0% as there is no use-case for FRAX to act as collateral.
-
 ## Specification
 
 - FRAX will be removed from Isolation Mode on Aave v3 instances.
-- FRAX will receive same parameters as DAI, a Reserve Factor as other stables, and LTV of 0%.
 
 | **Parameter**  | FRAX |
 | -------------- | ---- |
 | Isolation Mode | No   |
-| LTV            | 0%   |
-| Debt Ceiling   | -    |
+| Debt Ceiling   | 0    |
 
 ## References
 

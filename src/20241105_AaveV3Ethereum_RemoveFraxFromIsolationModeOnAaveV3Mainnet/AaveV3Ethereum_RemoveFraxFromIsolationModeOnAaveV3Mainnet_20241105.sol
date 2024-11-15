@@ -25,7 +25,7 @@ contract AaveV3Ethereum_RemoveFraxFromIsolationModeOnAaveV3Mainnet_20241105 is
 
     collateralUpdate[0] = IAaveV3ConfigEngine.CollateralUpdate({
       asset: AaveV3EthereumAssets.FRAX_UNDERLYING,
-      ltv: 0,
+      ltv: EngineFlags.KEEP_CURRENT,
       liqThreshold: EngineFlags.KEEP_CURRENT,
       liqBonus: EngineFlags.KEEP_CURRENT,
       debtCeiling: 0,
@@ -33,25 +33,5 @@ contract AaveV3Ethereum_RemoveFraxFromIsolationModeOnAaveV3Mainnet_20241105 is
     });
 
     return collateralUpdate;
-  }
-  function borrowsUpdates()
-    public
-    pure
-    override
-    returns (IAaveV3ConfigEngine.BorrowUpdate[] memory)
-  {
-    IAaveV3ConfigEngine.BorrowUpdate[]
-      memory borrowUpdates = new IAaveV3ConfigEngine.BorrowUpdate[](1);
-
-    borrowUpdates[0] = IAaveV3ConfigEngine.BorrowUpdate({
-      asset: AaveV3EthereumAssets.FRAX_UNDERLYING,
-      enabledToBorrow: EngineFlags.KEEP_CURRENT,
-      flashloanable: EngineFlags.KEEP_CURRENT,
-      borrowableInIsolation: EngineFlags.KEEP_CURRENT,
-      withSiloedBorrowing: EngineFlags.KEEP_CURRENT,
-      reserveFactor: EngineFlags.KEEP_CURRENT
-    });
-
-    return borrowUpdates;
   }
 }
