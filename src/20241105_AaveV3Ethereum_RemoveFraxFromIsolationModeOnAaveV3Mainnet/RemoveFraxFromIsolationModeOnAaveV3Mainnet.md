@@ -26,8 +26,8 @@ This proposal suggests removing FRAX from isolation mode to facilitate further A
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241105_AaveV3Ethereum_RemoveFraxFromIsolationModeOnAaveV3Mainnet/AaveV3Ethereum_RemoveFraxFromIsolationModeOnAaveV3Mainnet_20241105.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241105_AaveV3Ethereum_RemoveFraxFromIsolationModeOnAaveV3Mainnet/AaveV3Ethereum_RemoveFraxFromIsolationModeOnAaveV3Mainnet_20241105.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/b81d0fbc70b75e3fc601d8ca3f0ad1df87c84a44/src/20241105_AaveV3Ethereum_RemoveFraxFromIsolationModeOnAaveV3Mainnet/AaveV3Ethereum_RemoveFraxFromIsolationModeOnAaveV3Mainnet_20241105.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/b81d0fbc70b75e3fc601d8ca3f0ad1df87c84a44/src/20241105_AaveV3Ethereum_RemoveFraxFromIsolationModeOnAaveV3Mainnet/AaveV3Ethereum_RemoveFraxFromIsolationModeOnAaveV3Mainnet_20241105.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x9bc3f3d8e38d70f55887f2f2498e1b39f59467489158923488aceab73cd4f144)
 - [Discussion](https://governance.aave.com/t/arfc-remove-frax-from-isolation-mode-on-aave-v3-mainnet/19337)
 
