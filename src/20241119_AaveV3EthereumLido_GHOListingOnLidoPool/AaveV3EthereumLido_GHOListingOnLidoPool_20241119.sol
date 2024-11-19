@@ -13,13 +13,13 @@ import {IGhoToken} from '../interfaces/IGhoToken.sol';
  * @title GHO listing on Lido pool
  * @author BGD Labs @bgdlabs
  * - Snapshot: TODO
- * - Discussion: TODO
+ * - Discussion: https://governance.aave.com/t/arfc-mint-deploy-10m-gho-into-aave-v3-lido-instance/19700/3
  */
 contract AaveV3EthereumLido_GHOListingOnLidoPool_20241119 is AaveV3PayloadEthereumLido {
   using SafeERC20 for IERC20;
 
   address public constant GHO = 0x40D16FC0246aD3160Ccc09B8D0D3A2cD28aE6C2f;
-  uint128 public constant GHO_AMOUNT = 2_000_000e18;
+  uint128 public constant GHO_AMOUNT = 10_000_000e18;
 
   function _preExecute() internal override {
     IGhoToken(GHO).addFacilitator(address(this), 'DDM', GHO_AMOUNT);

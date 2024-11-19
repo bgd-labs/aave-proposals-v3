@@ -9,8 +9,8 @@
 | decimals | 18 |
 | isActive | true |
 | isFrozen | false |
-| supplyCap | 2,000,000 GHO |
-| borrowCap | 2,000,000 GHO |
+| supplyCap | 10,000,000 GHO |
+| borrowCap | 10,000,000 GHO |
 | debtCeiling | 0 $ [0] |
 | isSiloed | false |
 | isFlashloanable | true |
@@ -32,13 +32,13 @@
 | interestRateStrategy | [0x8958b1C39269167527821f8c276Ef7504883f2fa](https://etherscan.io/address/0x8958b1C39269167527821f8c276Ef7504883f2fa) |
 | aTokenName | Aave Ethereum Lido GHO |
 | aTokenSymbol | aEthLidoGHO |
-| aTokenUnderlyingBalance | 2,000,000 GHO [2000000000000000000000000] |
+| aTokenUnderlyingBalance | 10,000,000 GHO [10000000000000000000000000] |
 | id | 6 |
 | isPaused | false |
 | variableDebtTokenName | Aave Ethereum Lido Variable Debt GHO |
 | variableDebtTokenSymbol | variableDebtEthLidoGHO |
 | virtualAccountingActive | true |
-| virtualBalance | 2,000,000 GHO [2000000000000000000000000] |
+| virtualBalance | 10,000,000 GHO [10000000000000000000000000] |
 | optimalUsageRatio | 50 % |
 | maxVariableBorrowRate | 4 % |
 | baseVariableBorrowRate | 4 % |
@@ -77,8 +77,8 @@
         "aTokenImpl": "0x7F8Fc14D462bdF93c681c1f2Fd615389bF969Fb2",
         "aTokenName": "Aave Ethereum Lido GHO",
         "aTokenSymbol": "aEthLidoGHO",
-        "aTokenUnderlyingBalance": "2000000000000000000000000",
-        "borrowCap": 2000000,
+        "aTokenUnderlyingBalance": "10000000000000000000000000",
+        "borrowCap": 10000000,
         "borrowingEnabled": true,
         "debtCeiling": 0,
         "decimals": 18,
@@ -98,7 +98,7 @@
         "oracleDecimals": 8,
         "oracleLatestAnswer": "100000000",
         "reserveFactor": 2000,
-        "supplyCap": 2000000,
+        "supplyCap": 10000000,
         "symbol": "GHO",
         "underlying": "0x40D16FC0246aD3160Ccc09B8D0D3A2cD28aE6C2f",
         "usageAsCollateralEnabled": false,
@@ -107,7 +107,7 @@
         "variableDebtTokenName": "Aave Ethereum Lido Variable Debt GHO",
         "variableDebtTokenSymbol": "variableDebtEthLidoGHO",
         "virtualAccountingActive": true,
-        "virtualBalance": "2000000000000000000000000"
+        "virtualBalance": "10000000000000000000000000"
       }
     }
   },
