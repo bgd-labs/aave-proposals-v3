@@ -29,6 +29,9 @@ contract AaveV3EthereumLido_GHOListingOnLidoPool_20241119 is AaveV3PayloadEthere
   function _postExecute() internal override {
     IERC20(GHO).forceApprove(address(AaveV3EthereumLido.POOL), GHO_AMOUNT);
     AaveV3EthereumLido.POOL.supply(GHO, GHO_AMOUNT, address(AaveV3EthereumLido.COLLECTOR), 0);
+    // after supplying, set the supply cap close to zero (not zero as zero means no cap)
+    // to prevent supply even if aTokens are burned
+    AaveV3EthereumLido.POOL_CONFIGURATOR.setSupplyCap(GHO, 1);
   }
 
   function newListings() public pure override returns (IAaveV3ConfigEngine.Listing[] memory) {
@@ -45,8 +48,9 @@ contract AaveV3EthereumLido_GHOListingOnLidoPool_20241119 is AaveV3PayloadEthere
       ltv: 0,
       liqThreshold: 0,
       liqBonus: 0,
+      // reserveFactor is arbitrary, as all GHO is supplied by the DAO
       reserveFactor: 20_00,
-      supplyCap: GHO_AMOUNT / 1e18,
+      supplyCap: 0,
       borrowCap: GHO_AMOUNT / 1e18,
       debtCeiling: 0,
       liqProtocolFee: 20_00,
