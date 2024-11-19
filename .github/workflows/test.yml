@@ -14,19 +14,12 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 20
-          registry-url: "https://registry.npmjs.org"
-          cache: "yarn"
-
-      - name: Install dependencies
-        run: yarn install --frozen-lockfile
+      - uses: bgd-labs/github-workflows/.github/actions/setup-node@main
 
       - name: Enforce linting
-        run: yarn lint --check
+        run: npm run lint --check
 
   test-sol:
     name: Foundry build n test

@@ -22,19 +22,18 @@ The template ships with sensible default so you can use default `foundry` comman
 ```sh
 cp .env.example .env
 forge install
-yarn
+npm i
 ```
 
 ### Create an aip
 
 This repository includes a generator to help you bootstrap the required files for an `AIP`.
-To generate a proposal you need to run: `yarn generate`
+To generate a proposal you need to run: `npm run generate`
 
-To get a full list of available commands run `yarn generate --help`
+To get a full list of available commands run `npm run generate -- --help`
 
 ```sh
-yarn generate --help
-yarn run v1.22.19
+npm run generate -- --help
 $ tsx generator/cli --help
 Usage: proposal-generator [options]
 

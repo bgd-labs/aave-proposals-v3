@@ -48,6 +48,7 @@ program
     ).choices(Object.values(VOTING_NETWORK)),
   )
   .addOption(new Option('-c, --configFile <string>', 'path to config file'))
+  .addOption(new Option('-u, --update', 'when used with -c update block height'))
   .allowExcessArguments(false)
   .parse(process.argv);
 
@@ -138,6 +139,9 @@ if (options.configFile) {
         const module = v2
           ? FEATURE_MODULES_V2.find((m) => m.value === feature)!
           : FEATURE_MODULES_V3.find((m) => m.value === feature)!;
+        if (options.update) {
+          poolConfigs[pool]!.cache = await generateDeterministicPoolCache(pool);
+        }
         poolConfigs[pool]!.artifacts.push(
           module.build({
             options,
