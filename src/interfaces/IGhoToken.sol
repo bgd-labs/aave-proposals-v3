@@ -8,6 +8,42 @@ interface IGhoToken {
     string label;
   }
 
+  /**
+   * @notice Returns the identifier of the Facilitator Manager Role
+   * @return The bytes32 id hash of the FacilitatorManager role
+   */
+  function FACILITATOR_MANAGER_ROLE() external pure returns (bytes32);
+
+  /**
+   * @notice Add the facilitator passed with the parameters to the facilitators list.
+   * @dev Only accounts with `FACILITATOR_MANAGER_ROLE` role can call this function
+   * @param facilitatorAddress The address of the facilitator to add
+   * @param facilitatorLabel A human readable identifier for the facilitator
+   * @param bucketCapacity The upward limit of GHO can be minted by the facilitator
+   */
+  function addFacilitator(
+    address facilitatorAddress,
+    string calldata facilitatorLabel,
+    uint128 bucketCapacity
+  ) external;
+
+  /**
+   * @notice Mints the requested amount of tokens to the account address.
+   * @dev Only facilitators with enough bucket capacity available can mint.
+   * @dev The bucket level is increased upon minting.
+   * @param account The address receiving the GHO tokens
+   * @param amount The amount to mint
+   */
+  function mint(address account, uint256 amount) external;
+
+  /**
+   * @notice Burns the requested amount of tokens from the account address.
+   * @dev Only active facilitators (bucket level > 0) can burn.
+   * @dev The bucket level is decreased upon burning.
+   * @param amount The amount to burn
+   */
+  function burn(uint256 amount) external;
+
   function balanceOf(address user) external returns (uint256);
 
   /**
