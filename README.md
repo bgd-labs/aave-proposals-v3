@@ -30,10 +30,10 @@ npm i
 This repository includes a generator to help you bootstrap the required files for an `AIP`.
 To generate a proposal you need to run: `npm run generate`
 
-To get a full list of available commands run `npm run generate --help`
+To get a full list of available commands run `npm run generate -- --help`
 
 ```sh
-npm run generate --help
+npm run generate -- --help
 $ tsx generator/cli --help
 Usage: proposal-generator [options]
 
