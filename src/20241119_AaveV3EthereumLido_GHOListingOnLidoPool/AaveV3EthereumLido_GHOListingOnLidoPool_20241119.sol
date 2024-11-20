@@ -49,7 +49,8 @@ contract AaveV3EthereumLido_GHOListingOnLidoPool_20241119 is AaveV3PayloadEthere
       liqThreshold: 0,
       liqBonus: 0,
       // reserveFactor is arbitrary, as all GHO is supplied by the DAO
-      reserveFactor: 20_00,
+      // setting it to 100_00 will prevent index growth on the aToken
+      reserveFactor: 100_00,
       supplyCap: 0,
       borrowCap: GHO_AMOUNT / 1e18,
       debtCeiling: 0,

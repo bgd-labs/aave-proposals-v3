@@ -22,7 +22,7 @@
 | liquidationThreshold | 0 % [0] |
 | liquidationBonus | 0 % |
 | liquidationProtocolFee | 0 % [0] |
-| reserveFactor | 20 % [2000] |
+| reserveFactor | 100 % [10000] |
 | aToken | [0x18eFE565A5373f430e2F809b97De30335B3ad96A](https://etherscan.io/address/0x18eFE565A5373f430e2F809b97De30335B3ad96A) |
 | aTokenImpl | [0x7F8Fc14D462bdF93c681c1f2Fd615389bF969Fb2](https://etherscan.io/address/0x7F8Fc14D462bdF93c681c1f2Fd615389bF969Fb2) |
 | variableDebtToken | [0x18577F0f4A0B2Ee6F4048dB51c7acd8699F97DB8](https://etherscan.io/address/0x18577F0f4A0B2Ee6F4048dB51c7acd8699F97DB8) |
@@ -97,7 +97,7 @@
         "oracle": "0xD110cac5d8682A3b045D5524a9903E031d70FCCd",
         "oracleDecimals": 8,
         "oracleLatestAnswer": "100000000",
-        "reserveFactor": 2000,
+        "reserveFactor": 10000,
         "supplyCap": 1,
         "symbol": "GHO",
         "underlying": "0x40D16FC0246aD3160Ccc09B8D0D3A2cD28aE6C2f",
