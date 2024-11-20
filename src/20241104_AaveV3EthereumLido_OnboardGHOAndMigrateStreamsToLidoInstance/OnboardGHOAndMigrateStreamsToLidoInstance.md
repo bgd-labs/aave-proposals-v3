@@ -55,16 +55,16 @@ The below details the parameter configuration of the GHO Reserve on the Lido ins
 | Isolation Mode            |                                      false |
 | Borrowable                |                                    ENABLED |
 | Collateral Enabled        |                                       true |
-| Supply Cap (GHO)          |                                 11,000,000 |
-| Borrow Cap (GHO)          |                                 10,000,000 |
+| Supply Cap (GHO)          |                                 20,000,000 |
+| Borrow Cap (GHO)          |                                  2,500,000 |
 | Debt Ceiling              |                                      USD 0 |
 | LTV                       |                                       75 % |
 | LT                        |                                       78 % |
 | Liquidation Bonus         |                                      7.5 % |
 | Liquidation Protocol Fee  |                                       10 % |
-| Reserve Factor            |                                     0.01 % |
-| Base Variable Borrow Rate |                                     5.75 % |
-| Variable Slope 1          |                                     0.75 % |
+| Reserve Factor            |                                       10 % |
+| Base Variable Borrow Rate |                                     4.50 % |
+| Variable Slope 1          |                                     3.00 % |
 | Variable Slope 2          |                                       50 % |
 | Uoptimal                  |                                       92 % |
 | Flashloanable             |                                    ENABLED |
