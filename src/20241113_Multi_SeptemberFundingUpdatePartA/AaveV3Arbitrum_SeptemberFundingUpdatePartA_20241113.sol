@@ -96,24 +96,5 @@ contract AaveV3Arbitrum_SeptemberFundingUpdatePartA_20241113 is IProposalGeneric
       LUSD_GATEWAY,
       lusdBalance
     );
-
-    // AaveV3Arbitrum.COLLECTOR.transfer(
-    //   AaveV3ArbitrumAssets.FRAX_A_TOKEN,
-    //   address(this),
-    //   IERC20(AaveV3ArbitrumAssets.FRAX_A_TOKEN).balanceOf(address(AaveV3Arbitrum.COLLECTOR)) - 1
-    // );
-
-    // AaveV3Arbitrum.POOL.withdraw(
-    //   AaveV3ArbitrumAssets.FRAX_UNDERLYING,
-    //   type(uint256).max,
-    //   address(this)
-    // );
-
-    // BRIDGE.bridge(
-    //   AaveV3ArbitrumAssets.FRAX_UNDERLYING,
-    //   AaveV3EthereumAssets.FRAX_UNDERLYING,
-    //   LUSD_GATEWAY,
-    //   fraxBalance
-    // );
   }
 }

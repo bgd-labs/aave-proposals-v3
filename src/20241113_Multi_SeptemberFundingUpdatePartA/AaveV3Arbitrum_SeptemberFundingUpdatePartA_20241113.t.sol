@@ -98,30 +98,4 @@ contract AaveV3Arbitrum_SeptemberFundingUpdatePartA_20241113_Test is ProtocolV3T
     assertEq(collectorLusdBalanceAfter, 0);
     assertEq(collectorAlusdBalanceAfter, 1);
   }
-
-  // function test_bridgeFRAX() public {
-  //   uint256 collectorFraxBalanceBefore = IERC20(AaveV3ArbitrumAssets.FRAX_UNDERLYING).balanceOf(
-  //     COLLECTOR
-  //   );
-  //   uint256 collectorAfraxBalanceBefore = IERC20(AaveV3ArbitrumAssets.FRAX_A_TOKEN).balanceOf(
-  //     COLLECTOR
-  //   );
-
-  //   vm.expectEmit(address(proposal.BRIDGE()));
-  //   emit Bridge(
-  //     AaveV3ArbitrumAssets.FRAX_UNDERLYING,
-  //     collectorFraxBalanceBefore + collectorAfraxBalanceBefore
-  //   );
-  //   executePayload(vm, address(proposal));
-
-  //   uint256 collectorFraxBalanceAfter = IERC20(AaveV3ArbitrumAssets.FRAX_UNDERLYING).balanceOf(
-  //     COLLECTOR
-  //   );
-  //   uint256 collectorAfraxBalanceAfter = IERC20(AaveV3ArbitrumAssets.FRAX_A_TOKEN).balanceOf(
-  //     COLLECTOR
-  //   );
-
-  //   assertApproxEqAbs(collectorFraxBalanceAfter, 0, 1);
-  //   assertApproxEqAbs(collectorAfraxBalanceAfter, 1, 1);
-  // }
 }
