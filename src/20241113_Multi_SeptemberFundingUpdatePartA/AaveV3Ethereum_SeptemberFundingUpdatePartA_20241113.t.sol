@@ -186,7 +186,7 @@ contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113_Test is ProtocolV3T
       proposal.GHO_USD_FEED(),
       1250000000000, // Hardcoded as dynamic
       address(AaveV3Ethereum.COLLECTOR),
-      100
+      50
     );
 
     vm.expectEmit(true, true, true, true, MiscEthereum.AAVE_SWAPPER);
@@ -222,7 +222,7 @@ contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113_Test is ProtocolV3T
       proposal.GHO_USD_FEED(),
       77005726881994500402653, // Hardcoded as dynamic
       address(AaveV3Ethereum.COLLECTOR),
-      150
+      50
     );
 
     vm.expectEmit(true, true, true, true, MiscEthereum.AAVE_SWAPPER);
@@ -234,7 +234,7 @@ contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113_Test is ProtocolV3T
       proposal.GHO_USD_FEED(),
       4502853064638196697507, // Hardcoded as dynamic
       address(AaveV3Ethereum.COLLECTOR),
-      500
+      50
     );
 
     executePayload(vm, address(proposal));

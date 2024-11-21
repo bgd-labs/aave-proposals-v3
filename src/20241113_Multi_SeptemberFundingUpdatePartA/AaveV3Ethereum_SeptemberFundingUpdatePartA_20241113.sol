@@ -112,7 +112,7 @@ contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113 is IProposalGeneric
       GHO_USD_FEED,
       address(AaveV3Ethereum.COLLECTOR),
       IERC20(AaveV3EthereumAssets.USDC_UNDERLYING).balanceOf(address(SWAPPER)),
-      100
+      50
     );
 
     // usdt
@@ -205,7 +205,7 @@ contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113 is IProposalGeneric
       GHO_USD_FEED,
       address(AaveV3Ethereum.COLLECTOR),
       IERC20(AaveV3EthereumAssets.LUSD_UNDERLYING).balanceOf(address(SWAPPER)),
-      150
+      50
     );
 
     // frax
@@ -234,7 +234,7 @@ contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113 is IProposalGeneric
       GHO_USD_FEED,
       address(AaveV3Ethereum.COLLECTOR),
       IERC20(AaveV3EthereumAssets.FRAX_UNDERLYING).balanceOf(address(SWAPPER)),
-      500
+      50
     );
   }
 
