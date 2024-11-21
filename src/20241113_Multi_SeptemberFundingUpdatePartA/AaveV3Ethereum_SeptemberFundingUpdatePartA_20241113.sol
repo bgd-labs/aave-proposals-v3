@@ -178,7 +178,7 @@ contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113 is IProposalGeneric
         fromUnderlyingPriceFeed: DAI_FEED,
         toUnderlyingPriceFeed: GHO_USD_FEED,
         amount: type(uint256).max,
-        slippage: 50
+        slippage: 100
       })
     );
 
