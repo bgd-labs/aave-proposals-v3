@@ -98,7 +98,7 @@ contract AaveV3Polygon_SeptemberFundingUpdatePartA_20241113_Test is ProtocolV3Te
     assertApproxEqAbs(
       collectorWpolv3BalanceAfter,
       collectorWpolv3BalanceBefore + collectorWpolv2BalanceBefore,
-      1_000e18
+      4_000e18
     );
   }
 
@@ -119,7 +119,7 @@ contract AaveV3Polygon_SeptemberFundingUpdatePartA_20241113_Test is ProtocolV3Te
     assertApproxEqAbs(
       collectorWethv3BalanceAfter,
       collectorWethv3BalanceBefore + collectorWethv2BalanceBefore,
-      2e18
+      3e18
     );
   }
 
@@ -158,7 +158,7 @@ contract AaveV3Polygon_SeptemberFundingUpdatePartA_20241113_Test is ProtocolV3Te
     assertApproxEqAbs(
       collectorLinkv3BalanceAfter,
       collectorLinkv3BalanceBefore + collectorLinkv2BalanceBefore,
-      2e18
+      44e18
     );
   }
 

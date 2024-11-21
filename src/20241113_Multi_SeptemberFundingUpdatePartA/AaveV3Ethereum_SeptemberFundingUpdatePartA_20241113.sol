@@ -31,8 +31,6 @@ contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113 is IProposalGeneric
   using SafeERC20 for IERC20;
   using CollectorUtils for ICollector;
 
-  AaveSwapper public constant SWAPPER = AaveSwapper(MiscEthereum.AAVE_SWAPPER);
-
   // https://etherscan.io/address/0x6A6FA664D4Fa49a6a780a1D6143f079f8dd7C33d
   address public constant DEBT_SWAP_ADAPTER = 0x6A6FA664D4Fa49a6a780a1D6143f079f8dd7C33d;
   // https://etherscan.io/address/0x8761e0370f94f68Db8EaA731f4fC581f6AD0Bd68
@@ -50,8 +48,10 @@ contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113 is IProposalGeneric
   uint256 public constant GHO_ALLOWANCE = 3_000_000 ether;
   uint256 public constant WETH_A_ALLOWANCE = 800 ether;
 
+  // todo updated this address
   // https://etherscan.io/address/0x11C76AD590ABDFFCD980afEC9ad951B160F02797
   address public constant MILKMAN = 0x11C76AD590ABDFFCD980afEC9ad951B160F02797;
+
   // https://etherscan.io/address/0xe80a1C615F75AFF7Ed8F08c9F21f9d00982D666c
   address public constant PRICE_CHECKER = 0xe80a1C615F75AFF7Ed8F08c9F21f9d00982D666c;
   // https://etherscan.io/address/0x3f12643D3f6f874d39C2a4c9f2Cd6f2DbAC877FC
@@ -66,13 +66,13 @@ contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113 is IProposalGeneric
   address public constant FRAX_FEED = 0x45D270263BBee500CF8adcf2AbC0aC227097b036;
   // https://etherscan.io/address/0x3D7aE7E594f2f2091Ad8798313450130d0Aba3a0
   address public constant LUSD_FEED = 0x3D7aE7E594f2f2091Ad8798313450130d0Aba3a0;
-  uint256 public constant USDC_A_AMOUNT = 1_250_000_000_000;
-  uint256 public constant USDT_A_AMOUNT = 1_250_000_000_000;
-  uint256 public constant DAI_A_AMOUNT = 500_000_000_000_000_000_000_000;
+  uint256 public constant USDC_A_AMOUNT = 1_250_000e6;
+  uint256 public constant USDT_A_AMOUNT = 1_250_000e6;
+  uint256 public constant DAI_A_AMOUNT = 500_000e18;
 
   function execute() external override {
-    _rescueParaswap();
     _withdrawAndSwapForGHO();
+    _rescueParaswap();
 
     AaveV3Ethereum.COLLECTOR.transfer(
       AaveV3EthereumAssets.WETH_A_TOKEN,
@@ -100,19 +100,21 @@ contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113 is IProposalGeneric
         underlying: AaveV3EthereumAssets.USDC_UNDERLYING,
         amount: USDC_A_AMOUNT
       }),
-      address(SWAPPER)
+      address(AaveV3Ethereum.COLLECTOR)
     );
 
-    SWAPPER.swap(
-      MILKMAN,
-      PRICE_CHECKER,
-      AaveV3EthereumAssets.USDC_UNDERLYING,
-      AaveV3EthereumAssets.GHO_UNDERLYING,
-      USDC_FEED,
-      GHO_USD_FEED,
-      address(AaveV3Ethereum.COLLECTOR),
-      IERC20(AaveV3EthereumAssets.USDC_UNDERLYING).balanceOf(address(SWAPPER)),
-      50
+    AaveV3Ethereum.COLLECTOR.swap(
+      MiscEthereum.AAVE_SWAPPER,
+      CollectorUtils.SwapInput({
+        milkman: MILKMAN,
+        priceChecker: PRICE_CHECKER,
+        fromUnderlying: AaveV3EthereumAssets.USDC_UNDERLYING,
+        toUnderlying: AaveV3EthereumAssets.GHO_UNDERLYING,
+        fromUnderlyingPriceFeed: USDC_FEED,
+        toUnderlyingPriceFeed: GHO_USD_FEED,
+        amount: type(uint256).max,
+        slippage: 50
+      })
     );
 
     // usdt
@@ -122,25 +124,27 @@ contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113 is IProposalGeneric
         underlying: AaveV3EthereumAssets.USDT_UNDERLYING,
         amount: USDT_A_AMOUNT
       }),
-      address(SWAPPER)
+      address(AaveV3Ethereum.COLLECTOR)
     );
 
-    SWAPPER.swap(
-      MILKMAN,
-      PRICE_CHECKER,
-      AaveV3EthereumAssets.USDT_UNDERLYING,
-      AaveV3EthereumAssets.GHO_UNDERLYING,
-      USDT_FEED,
-      GHO_USD_FEED,
-      address(AaveV3Ethereum.COLLECTOR),
-      IERC20(AaveV3EthereumAssets.USDT_UNDERLYING).balanceOf(address(SWAPPER)),
-      50
+    AaveV3Ethereum.COLLECTOR.swap(
+      MiscEthereum.AAVE_SWAPPER,
+      CollectorUtils.SwapInput({
+        milkman: MILKMAN,
+        priceChecker: PRICE_CHECKER,
+        fromUnderlying: AaveV3EthereumAssets.USDT_UNDERLYING,
+        toUnderlying: AaveV3EthereumAssets.GHO_UNDERLYING,
+        fromUnderlyingPriceFeed: USDT_FEED,
+        toUnderlyingPriceFeed: GHO_USD_FEED,
+        amount: type(uint256).max,
+        slippage: 50
+      })
     );
 
     // dai
     AaveV3Ethereum.COLLECTOR.transfer(
       AaveV3EthereumAssets.DAI_UNDERLYING,
-      address(SWAPPER),
+      address(AaveV3Ethereum.COLLECTOR),
       IERC20(AaveV3EthereumAssets.DAI_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR))
     );
     // aDai
@@ -152,7 +156,7 @@ contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113 is IProposalGeneric
           address(AaveV2Ethereum.COLLECTOR)
         ) - 1e18
       }),
-      address(SWAPPER)
+      address(AaveV3Ethereum.COLLECTOR)
     );
     // aEthDai
     AaveV3Ethereum.COLLECTOR.withdrawFromV3(
@@ -161,24 +165,27 @@ contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113 is IProposalGeneric
         underlying: AaveV3EthereumAssets.DAI_UNDERLYING,
         amount: DAI_A_AMOUNT
       }),
-      address(SWAPPER)
+      address(AaveV3Ethereum.COLLECTOR)
     );
-    SWAPPER.swap(
-      MILKMAN,
-      PRICE_CHECKER,
-      AaveV3EthereumAssets.DAI_UNDERLYING,
-      AaveV3EthereumAssets.GHO_UNDERLYING,
-      DAI_FEED,
-      GHO_USD_FEED,
-      address(AaveV3Ethereum.COLLECTOR),
-      IERC20(AaveV3EthereumAssets.DAI_UNDERLYING).balanceOf(address(SWAPPER)),
-      50
+
+    AaveV3Ethereum.COLLECTOR.swap(
+      MiscEthereum.AAVE_SWAPPER,
+      CollectorUtils.SwapInput({
+        milkman: MILKMAN,
+        priceChecker: PRICE_CHECKER,
+        fromUnderlying: AaveV3EthereumAssets.DAI_UNDERLYING,
+        toUnderlying: AaveV3EthereumAssets.GHO_UNDERLYING,
+        fromUnderlyingPriceFeed: DAI_FEED,
+        toUnderlyingPriceFeed: GHO_USD_FEED,
+        amount: type(uint256).max,
+        slippage: 50
+      })
     );
 
     // lusd
     AaveV3Ethereum.COLLECTOR.transfer(
       address(AaveV3EthereumAssets.LUSD_UNDERLYING),
-      address(SWAPPER),
+      address(AaveV3Ethereum.COLLECTOR),
       IERC20(AaveV3EthereumAssets.LUSD_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR))
     );
     // aLusd
@@ -194,26 +201,23 @@ contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113 is IProposalGeneric
         underlying: AaveV2EthereumAssets.LUSD_UNDERLYING,
         amount: (aLusdBalance > aLusdAvailableBalance ? aLusdAvailableBalance : aLusdBalance) - 1e18
       }),
-      address(SWAPPER)
-    );
-    SWAPPER.swap(
-      MILKMAN,
-      PRICE_CHECKER,
-      AaveV3EthereumAssets.LUSD_UNDERLYING,
-      AaveV3EthereumAssets.GHO_UNDERLYING,
-      LUSD_FEED,
-      GHO_USD_FEED,
-      address(AaveV3Ethereum.COLLECTOR),
-      IERC20(AaveV3EthereumAssets.LUSD_UNDERLYING).balanceOf(address(SWAPPER)),
-      50
+      address(AaveV3Ethereum.COLLECTOR)
     );
 
-    // frax
-    AaveV3Ethereum.COLLECTOR.transfer(
-      address(AaveV3EthereumAssets.FRAX_UNDERLYING),
-      address(SWAPPER),
-      IERC20(AaveV3EthereumAssets.FRAX_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR))
+    AaveV3Ethereum.COLLECTOR.swap(
+      MiscEthereum.AAVE_SWAPPER,
+      CollectorUtils.SwapInput({
+        milkman: MILKMAN,
+        priceChecker: PRICE_CHECKER,
+        fromUnderlying: AaveV3EthereumAssets.LUSD_UNDERLYING,
+        toUnderlying: AaveV3EthereumAssets.GHO_UNDERLYING,
+        fromUnderlyingPriceFeed: LUSD_FEED,
+        toUnderlyingPriceFeed: GHO_USD_FEED,
+        amount: type(uint256).max,
+        slippage: 300
+      })
     );
+
     // aFrax
     AaveV2Ethereum.COLLECTOR.withdrawFromV2(
       CollectorUtils.IOInput({
@@ -223,18 +227,21 @@ contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113 is IProposalGeneric
           address(AaveV2Ethereum.COLLECTOR)
         ) - 1e18
       }),
-      address(SWAPPER)
+      address(AaveV3Ethereum.COLLECTOR)
     );
-    SWAPPER.swap(
-      MILKMAN,
-      PRICE_CHECKER,
-      AaveV3EthereumAssets.FRAX_UNDERLYING,
-      AaveV3EthereumAssets.GHO_UNDERLYING,
-      FRAX_FEED,
-      GHO_USD_FEED,
-      address(AaveV3Ethereum.COLLECTOR),
-      IERC20(AaveV3EthereumAssets.FRAX_UNDERLYING).balanceOf(address(SWAPPER)),
-      50
+
+    AaveV3Ethereum.COLLECTOR.swap(
+      MiscEthereum.AAVE_SWAPPER,
+      CollectorUtils.SwapInput({
+        milkman: MILKMAN,
+        priceChecker: PRICE_CHECKER,
+        fromUnderlying: AaveV3EthereumAssets.FRAX_UNDERLYING,
+        toUnderlying: AaveV3EthereumAssets.GHO_UNDERLYING,
+        fromUnderlyingPriceFeed: FRAX_FEED,
+        toUnderlyingPriceFeed: GHO_USD_FEED,
+        amount: type(uint256).max,
+        slippage: 500
+      })
     );
   }
 

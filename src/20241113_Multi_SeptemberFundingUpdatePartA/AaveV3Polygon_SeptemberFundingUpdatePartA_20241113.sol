@@ -24,44 +24,83 @@ contract AaveV3Polygon_SeptemberFundingUpdatePartA_20241113 is IProposalGenericE
   using SafeERC20 for IERC20;
   using CollectorUtils for ICollector;
 
+  struct Migration {
+    address underlying;
+    address aToken;
+    uint256 leaveBehind;
+  }
+
   IAavePolEthERC20Bridge public constant BRIDGE =
     IAavePolEthERC20Bridge(MiscPolygon.AAVE_POL_ETH_BRIDGE);
 
   function execute() external override {
-    _migrateToken(AaveV3PolygonAssets.USDT_UNDERLYING, AaveV2PolygonAssets.USDT_A_TOKEN, 6);
-    _migrateToken(AaveV3PolygonAssets.DAI_UNDERLYING, AaveV2PolygonAssets.DAI_A_TOKEN, 18);
-    _migrateToken(AaveV3PolygonAssets.WPOL_UNDERLYING, AaveV2PolygonAssets.WPOL_A_TOKEN, 18);
-    _migrateToken(AaveV3PolygonAssets.WETH_UNDERLYING, AaveV2PolygonAssets.WETH_A_TOKEN, 18);
-    _migrateToken(AaveV3PolygonAssets.WBTC_UNDERLYING, AaveV2PolygonAssets.WBTC_A_TOKEN, 8);
-    _migrateToken(AaveV3PolygonAssets.LINK_UNDERLYING, AaveV2PolygonAssets.LINK_A_TOKEN, 18);
-
+    _migrateToken();
     _bridge();
   }
 
-  function _migrateToken(address underlying, address atoken, uint8 decimal) internal {
-    uint256 unit = 10 ** decimal;
-    uint256 aTokenBalance = IScaledBalanceToken(atoken).scaledBalanceOf(
-      address(AaveV3Polygon.COLLECTOR)
-    );
+  function _migrateToken() internal {
+    Migration[] memory migrations = new Migration[](6);
 
-    if (aTokenBalance < unit) {
-      return;
+    migrations[0] = Migration({
+      underlying: AaveV3PolygonAssets.USDT_UNDERLYING,
+      aToken: AaveV2PolygonAssets.USDT_A_TOKEN,
+      leaveBehind: 10 ** AaveV3PolygonAssets.USDT_DECIMALS
+    });
+    migrations[1] = Migration({
+      underlying: AaveV3PolygonAssets.DAI_UNDERLYING,
+      aToken: AaveV2PolygonAssets.DAI_A_TOKEN,
+      leaveBehind: 10 ** AaveV3PolygonAssets.DAI_DECIMALS
+    });
+    migrations[2] = Migration({
+      underlying: AaveV3PolygonAssets.WPOL_UNDERLYING,
+      aToken: AaveV2PolygonAssets.WPOL_A_TOKEN,
+      leaveBehind: 10 ** AaveV3PolygonAssets.WPOL_DECIMALS
+    });
+    migrations[3] = Migration({
+      underlying: AaveV3PolygonAssets.WETH_UNDERLYING,
+      aToken: AaveV2PolygonAssets.WETH_A_TOKEN,
+      leaveBehind: 10 ** AaveV3PolygonAssets.WETH_DECIMALS
+    });
+    migrations[4] = Migration({
+      underlying: AaveV3PolygonAssets.WBTC_UNDERLYING,
+      aToken: AaveV2PolygonAssets.WBTC_A_TOKEN,
+      leaveBehind: 10 ** AaveV3PolygonAssets.WBTC_DECIMALS
+    });
+    migrations[5] = Migration({
+      underlying: AaveV3PolygonAssets.LINK_UNDERLYING,
+      aToken: AaveV2PolygonAssets.LINK_A_TOKEN,
+      leaveBehind: 10 ** AaveV3PolygonAssets.LINK_DECIMALS
+    });
+
+    for (uint256 i = 0; i < 6; ) {
+      uint256 aTokenBalance = IScaledBalanceToken(migrations[i].aToken).scaledBalanceOf(
+        address(AaveV3Polygon.COLLECTOR)
+      );
+
+      if (aTokenBalance > migrations[i].leaveBehind) {
+        AaveV3Polygon.COLLECTOR.withdrawFromV2(
+          CollectorUtils.IOInput({
+            pool: address(AaveV2Polygon.POOL),
+            underlying: migrations[i].underlying,
+            amount: aTokenBalance - migrations[i].leaveBehind
+          }),
+          address(AaveV3Polygon.COLLECTOR)
+        );
+
+        /// deposit
+        AaveV3Polygon.COLLECTOR.depositToV3(
+          CollectorUtils.IOInput({
+            pool: address(AaveV3Polygon.POOL),
+            underlying: migrations[i].underlying,
+            amount: type(uint256).max
+          })
+        );
+      }
+
+      unchecked {
+        ++i;
+      }
     }
-
-    AaveV3Polygon.COLLECTOR.withdrawFromV2(
-      CollectorUtils.IOInput({
-        pool: address(AaveV2Polygon.POOL),
-        underlying: underlying,
-        amount: aTokenBalance - unit
-      }),
-      address(this)
-    );
-
-    uint256 amount = IERC20(underlying).balanceOf(address(this));
-
-    IERC20(underlying).forceApprove(address(AaveV3Polygon.POOL), amount);
-
-    AaveV3Polygon.POOL.deposit(underlying, amount, address(AaveV3Polygon.COLLECTOR), 0);
   }
 
   function _bridge() internal {

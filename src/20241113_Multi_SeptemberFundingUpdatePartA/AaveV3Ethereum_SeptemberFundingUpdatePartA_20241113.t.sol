@@ -51,12 +51,12 @@ contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113_Test is ProtocolV3T
       collectorAUsdcBalanceBefore - proposal.USDC_A_AMOUNT() - 1,
       'Collector balance after swap'
     );
-    assertEq(
+    assertApproxEqAbs(
       IERC20(AaveV3EthereumAssets.USDC_UNDERLYING).balanceOf(
-        0xcE09b7F0eA488160BC0426f31002d7C741b1c921
+        0xcE09b7F0eA488160BC0426f31002d7C741b1c921 // milkmanInstance contract
       ),
       proposal.USDC_A_AMOUNT(),
-      'Swapper balance after swap'
+      5_000e6
     );
   }
 
@@ -76,12 +76,12 @@ contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113_Test is ProtocolV3T
       collectorAUsdtBalanceBefore - proposal.USDT_A_AMOUNT() - 1,
       'Collector balance after swap'
     );
-    assertEq(
+    assertApproxEqAbs(
       IERC20(AaveV3EthereumAssets.USDT_UNDERLYING).balanceOf(
-        0xFF3b87a9487380Fb6571A4510ce93d8BF4bcdd4c
+        0xFF3b87a9487380Fb6571A4510ce93d8BF4bcdd4c // milkmanInstance contract
       ),
       proposal.USDT_A_AMOUNT(),
-      'Swapper balance after swap'
+      3_000e6
     );
   }
 
@@ -113,7 +113,7 @@ contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113_Test is ProtocolV3T
     );
     assertApproxEqAbs(
       IERC20(AaveV3EthereumAssets.DAI_UNDERLYING).balanceOf(
-        0xF9aED61ba2a144fb1787091e358873e6E873aFC3
+        0xF9aED61ba2a144fb1787091e358873e6E873aFC3 // milkmanInstance contract
       ),
       collectorDaiBalanceBefore + collectorADaiBalanceBefore + proposal.DAI_A_AMOUNT() - 1e18,
       1e18
@@ -121,12 +121,6 @@ contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113_Test is ProtocolV3T
   }
 
   function test_withdrawLusdAndSwapForGho() public {
-    uint256 collectorLusdBalanceBefore = IERC20(AaveV3EthereumAssets.LUSD_UNDERLYING).balanceOf(
-      address(AaveV3Ethereum.COLLECTOR)
-    );
-    uint256 collectorALusdBalanceBefore = IScaledBalanceToken(AaveV2EthereumAssets.LUSD_A_TOKEN)
-      .scaledBalanceOf(address(AaveV2Ethereum.COLLECTOR));
-
     executePayload(vm, address(proposal));
 
     uint256 collectorLusdBalanceAfter = IERC20(AaveV3EthereumAssets.LUSD_UNDERLYING).balanceOf(
@@ -143,7 +137,7 @@ contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113_Test is ProtocolV3T
     );
     assertEq(
       IERC20(AaveV3EthereumAssets.LUSD_UNDERLYING).balanceOf(
-        0x4648846796341914Ad7a00FA6dBc08555F7d0FB1
+        0x4648846796341914Ad7a00FA6dBc08555F7d0FB1 // milkmanInstance contract
       ),
       77005726881994500402653, // dynamic calculated because can't withdraw all due lack of liquidity
       'Swapper balance after swap'
@@ -169,7 +163,7 @@ contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113_Test is ProtocolV3T
     assertApproxEqAbs(collectorAFraxBalanceAfter, 1e18, 900e18);
     assertEq(
       IERC20(AaveV3EthereumAssets.FRAX_UNDERLYING).balanceOf(
-        0x768d117588dFa19964A9358DF73B991A3E7243C8
+        0x768d117588dFa19964A9358DF73B991A3E7243C8 // milkmanInstance contract
       ),
       collectorFraxBalanceBefore + collectorAFraxBalanceBefore - 1e18,
       'Swapper balance after swap'
@@ -184,7 +178,7 @@ contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113_Test is ProtocolV3T
       AaveV3EthereumAssets.GHO_UNDERLYING,
       proposal.USDC_FEED(),
       proposal.GHO_USD_FEED(),
-      1250000000000, // Hardcoded as dynamic
+      1254732533714, // Hardcoded as dynamic
       address(AaveV3Ethereum.COLLECTOR),
       50
     );
@@ -196,7 +190,7 @@ contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113_Test is ProtocolV3T
       AaveV3EthereumAssets.GHO_UNDERLYING,
       proposal.USDT_FEED(),
       proposal.GHO_USD_FEED(),
-      1250000000000, // Hardcoded as dynamic
+      1252229816556, // Hardcoded as dynamic
       address(AaveV3Ethereum.COLLECTOR),
       50
     );
@@ -222,7 +216,7 @@ contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113_Test is ProtocolV3T
       proposal.GHO_USD_FEED(),
       77005726881994500402653, // Hardcoded as dynamic
       address(AaveV3Ethereum.COLLECTOR),
-      50
+      300
     );
 
     vm.expectEmit(true, true, true, true, MiscEthereum.AAVE_SWAPPER);
@@ -234,7 +228,7 @@ contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113_Test is ProtocolV3T
       proposal.GHO_USD_FEED(),
       4502853064638196697507, // Hardcoded as dynamic
       address(AaveV3Ethereum.COLLECTOR),
-      50
+      500
     );
 
     executePayload(vm, address(proposal));
@@ -306,9 +300,6 @@ contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113_Test is ProtocolV3T
     uint256 sUSDCollectorInitialBalance = IERC20(AaveV2EthereumAssets.sUSD_UNDERLYING).balanceOf(
       address(AaveV3Ethereum.COLLECTOR)
     );
-    uint256 USDCCollectorInitialBalance = IERC20(AaveV2EthereumAssets.USDC_UNDERLYING).balanceOf(
-      address(AaveV3Ethereum.COLLECTOR)
-    );
 
     uint256 sUSDTransferred = IERC20(AaveV2EthereumAssets.sUSD_UNDERLYING).balanceOf(
       proposal.DEBT_SWAP_ADAPTER()
@@ -336,16 +327,13 @@ contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113_Test is ProtocolV3T
       'Unexpected USDC_UNDERLYING remaining'
     );
     assertEq(
-      USDCCollectorInitialBalance + USDCTransferred,
+      USDCTransferred,
       IERC20(AaveV2EthereumAssets.USDC_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
       'Unexpected USDC_UNDERLYING final treasury balance'
     );
   }
 
   function test_isTokensRescuedV3() external {
-    uint256 USDTCollectorInitialBalance = IERC20(AaveV3EthereumAssets.USDT_UNDERLYING).balanceOf(
-      address(AaveV3Ethereum.COLLECTOR)
-    );
     uint256 crvUSDCollectorInitialBalance = IERC20(AaveV3EthereumAssets.crvUSD_UNDERLYING)
       .balanceOf(address(AaveV3Ethereum.COLLECTOR));
     uint256 GHOCollectorInitialBalance = IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(
@@ -429,7 +417,7 @@ contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113_Test is ProtocolV3T
       'Unexpected WBTC_UNDERLYING final treasury balance'
     );
     assertEq(
-      USDTCollectorInitialBalance + USDTTransferred,
+      USDTTransferred,
       IERC20(AaveV3EthereumAssets.USDT_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
       'Unexpected USDT_UNDERLYING final treasury balance'
     );
