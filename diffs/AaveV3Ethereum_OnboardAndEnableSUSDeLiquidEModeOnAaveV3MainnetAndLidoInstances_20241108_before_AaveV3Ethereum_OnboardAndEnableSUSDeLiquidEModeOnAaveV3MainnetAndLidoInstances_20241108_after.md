@@ -35,8 +35,8 @@
     "2": {
       "from": null,
       "to": {
-        "borrowableBitmap": 34359738376,
-        "collateralBitmap": 4294967296,
+        "borrowableBitmap": "34359738376",
+        "collateralBitmap": "4294967296",
         "eModeCategory": 2,
         "label": "sUSDe Stablecoins",
         "liquidationBonus": 10300,
