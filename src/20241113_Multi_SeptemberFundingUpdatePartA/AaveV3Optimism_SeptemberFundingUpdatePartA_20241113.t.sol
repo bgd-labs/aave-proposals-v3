@@ -37,54 +37,34 @@ contract AaveV3Optimism_SeptemberFundingUpdatePartA_20241113_Test is ProtocolV3T
   }
 
   function test_bridgeUSDC() public {
-    uint256 collectorUsdcBalanceBefore = IERC20(AaveV3OptimismAssets.USDC_UNDERLYING).balanceOf(
-      COLLECTOR
-    );
     uint256 collectorAusdcBalanceBefore = IERC20(AaveV3OptimismAssets.USDC_A_TOKEN).balanceOf(
       COLLECTOR
     );
 
     vm.expectEmit(address(proposal.BRIDGE()));
-    emit Bridge(
-      AaveV3OptimismAssets.USDC_UNDERLYING,
-      collectorUsdcBalanceBefore + collectorAusdcBalanceBefore - 1
-    );
+    emit Bridge(AaveV3OptimismAssets.USDC_UNDERLYING, collectorAusdcBalanceBefore - 1);
     executePayload(vm, address(proposal));
 
-    uint256 collectorUsdcBalanceAfter = IERC20(AaveV3OptimismAssets.USDC_UNDERLYING).balanceOf(
-      COLLECTOR
-    );
     uint256 collectorAusdcBalanceAfter = IERC20(AaveV3OptimismAssets.USDC_A_TOKEN).balanceOf(
       COLLECTOR
     );
 
-    assertEq(collectorUsdcBalanceAfter, 0);
     assertEq(collectorAusdcBalanceAfter, 1);
   }
 
   function test_bridgeLUSD() public {
-    uint256 collectorLusdBalanceBefore = IERC20(AaveV3OptimismAssets.LUSD_UNDERLYING).balanceOf(
-      COLLECTOR
-    );
     uint256 collectorAlusdBalanceBefore = IERC20(AaveV3OptimismAssets.LUSD_A_TOKEN).balanceOf(
       COLLECTOR
     );
 
     vm.expectEmit(address(proposal.BRIDGE()));
-    emit Bridge(
-      AaveV3OptimismAssets.LUSD_UNDERLYING,
-      collectorLusdBalanceBefore + collectorAlusdBalanceBefore - 1
-    );
+    emit Bridge(AaveV3OptimismAssets.LUSD_UNDERLYING, collectorAlusdBalanceBefore - 1);
     executePayload(vm, address(proposal));
 
-    uint256 collectorLusdBalanceAfter = IERC20(AaveV3OptimismAssets.LUSD_UNDERLYING).balanceOf(
-      COLLECTOR
-    );
     uint256 collectorAlusdBalanceAfter = IERC20(AaveV3OptimismAssets.LUSD_A_TOKEN).balanceOf(
       COLLECTOR
     );
 
-    assertEq(collectorLusdBalanceAfter, 0);
     assertEq(collectorAlusdBalanceAfter, 1);
   }
 }

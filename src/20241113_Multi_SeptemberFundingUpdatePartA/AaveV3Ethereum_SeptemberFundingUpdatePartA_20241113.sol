@@ -3,9 +3,12 @@ pragma solidity ^0.8.0;
 
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';
-import {AaveV2EthereumAssets} from 'aave-address-book/AaveV2Ethereum.sol';
+import {AaveV2Ethereum, AaveV2EthereumAssets} from 'aave-address-book/AaveV2Ethereum.sol';
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
+import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
+import {AaveSwapper} from 'aave-helpers/src/swaps/AaveSwapper.sol';
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
+import {CollectorUtils, ICollector} from 'aave-helpers/src/CollectorUtils.sol';
 
 interface IRescuable {
   /**
@@ -25,21 +28,50 @@ interface IRescuable {
  */
 contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113 is IProposalGenericExecutor {
   using SafeERC20 for IERC20;
+  using CollectorUtils for ICollector;
 
+  AaveSwapper public constant SWAPPER = AaveSwapper(MiscEthereum.AAVE_SWAPPER);
+
+  // https://etherscan.io/address/0x6A6FA664D4Fa49a6a780a1D6143f079f8dd7C33d
   address public constant DEBT_SWAP_ADAPTER = 0x6A6FA664D4Fa49a6a780a1D6143f079f8dd7C33d;
+  // https://etherscan.io/address/0x8761e0370f94f68Db8EaA731f4fC581f6AD0Bd68
   address public constant DEBT_SWAP_ADAPTER_V3 = 0x8761e0370f94f68Db8EaA731f4fC581f6AD0Bd68;
+  // https://etherscan.io/address/0x02e7B8511831B1b02d9018215a0f8f500Ea5c6B3
   address public constant REPAY_WITH_COLLATERAL_ADAPTER =
     0x02e7B8511831B1b02d9018215a0f8f500Ea5c6B3;
 
+  // https://etherscan.io/address/0x818C277dBE886b934e60aa047250A73529E26A99
   address public constant KARPATKEY = 0x818C277dBE886b934e60aa047250A73529E26A99;
   uint256 public constant GAS_REBATE_AMOUNT = 0.264 ether;
 
+  // https://etherscan.io/address/0xdeadD8aB03075b7FBA81864202a2f59EE25B312b
   address public constant MERIT_SAFE = 0xdeadD8aB03075b7FBA81864202a2f59EE25B312b;
   uint256 public constant GHO_ALLOWANCE = 3_000_000 ether;
   uint256 public constant WETH_A_ALLOWANCE = 800 ether;
 
+  // https://etherscan.io/address/0x11C76AD590ABDFFCD980afEC9ad951B160F02797
+  address public constant MILKMAN = 0x11C76AD590ABDFFCD980afEC9ad951B160F02797;
+  // https://etherscan.io/address/0xe80a1C615F75AFF7Ed8F08c9F21f9d00982D666c
+  address public constant PRICE_CHECKER = 0xe80a1C615F75AFF7Ed8F08c9F21f9d00982D666c;
+  // https://etherscan.io/address/0x3f12643D3f6f874d39C2a4c9f2Cd6f2DbAC877FC
+  address public constant GHO_USD_FEED = 0x3f12643D3f6f874d39C2a4c9f2Cd6f2DbAC877FC;
+  // https://etherscan.io/address/0x8fFfFfd4AfB6115b954Bd326cbe7B4BA576818f6
+  address public constant USDC_FEED = 0x8fFfFfd4AfB6115b954Bd326cbe7B4BA576818f6;
+  // https://etherscan.io/address/0x3E7d1eAB13ad0104d2750B8863b489D65364e32D
+  address public constant USDT_FEED = 0x3E7d1eAB13ad0104d2750B8863b489D65364e32D;
+  // https://etherscan.io/address/0xAed0c38402a5d19df6E4c03F4E2DceD6e29c1ee9
+  address public constant DAI_FEED = 0xAed0c38402a5d19df6E4c03F4E2DceD6e29c1ee9;
+  // https://etherscan.io/address/0x45D270263BBee500CF8adcf2AbC0aC227097b036
+  address public constant FRAX_FEED = 0x45D270263BBee500CF8adcf2AbC0aC227097b036;
+  // https://etherscan.io/address/0x3D7aE7E594f2f2091Ad8798313450130d0Aba3a0
+  address public constant LUSD_FEED = 0x3D7aE7E594f2f2091Ad8798313450130d0Aba3a0;
+  uint256 public constant USDC_A_AMOUNT = 1_250_000_000_000;
+  uint256 public constant USDT_A_AMOUNT = 1_250_000_000_000;
+  uint256 public constant DAI_A_AMOUNT = 500_000_000_000_000_000_000_000;
+
   function execute() external override {
     _rescueParaswap();
+    _withdrawAndSwapForGHO();
 
     AaveV3Ethereum.COLLECTOR.transfer(
       AaveV3EthereumAssets.WETH_A_TOKEN,
@@ -56,6 +88,176 @@ contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113 is IProposalGeneric
       AaveV3EthereumAssets.WETH_A_TOKEN,
       MERIT_SAFE,
       WETH_A_ALLOWANCE
+    );
+  }
+
+  function _withdrawAndSwapForGHO() internal {
+    // usdc
+    AaveV3Ethereum.COLLECTOR.withdrawFromV3(
+      CollectorUtils.IOInput({
+        pool: address(AaveV3Ethereum.POOL),
+        underlying: AaveV3EthereumAssets.USDC_UNDERLYING,
+        amount: USDC_A_AMOUNT
+      }),
+      address(SWAPPER)
+    );
+
+    SWAPPER.swap(
+      MILKMAN,
+      PRICE_CHECKER,
+      AaveV3EthereumAssets.USDC_UNDERLYING,
+      AaveV3EthereumAssets.GHO_UNDERLYING,
+      USDC_FEED,
+      GHO_USD_FEED,
+      address(AaveV3Ethereum.COLLECTOR),
+      IERC20(AaveV3EthereumAssets.USDC_UNDERLYING).balanceOf(address(SWAPPER)),
+      100
+    );
+
+    // usdt
+    AaveV3Ethereum.COLLECTOR.withdrawFromV3(
+      CollectorUtils.IOInput({
+        pool: address(AaveV3Ethereum.POOL),
+        underlying: AaveV3EthereumAssets.USDT_UNDERLYING,
+        amount: USDT_A_AMOUNT
+      }),
+      address(SWAPPER)
+    );
+
+    SWAPPER.swap(
+      MILKMAN,
+      PRICE_CHECKER,
+      AaveV3EthereumAssets.USDT_UNDERLYING,
+      AaveV3EthereumAssets.GHO_UNDERLYING,
+      USDT_FEED,
+      GHO_USD_FEED,
+      address(AaveV3Ethereum.COLLECTOR),
+      IERC20(AaveV3EthereumAssets.USDT_UNDERLYING).balanceOf(address(SWAPPER)),
+      50
+    );
+
+    // dai
+    AaveV3Ethereum.COLLECTOR.transfer(
+      AaveV3EthereumAssets.DAI_UNDERLYING,
+      address(SWAPPER),
+      IERC20(AaveV3EthereumAssets.DAI_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR))
+    );
+    // aDai
+    AaveV2Ethereum.COLLECTOR.withdrawFromV2(
+      CollectorUtils.IOInput({
+        pool: address(AaveV2Ethereum.POOL),
+        underlying: AaveV2EthereumAssets.DAI_UNDERLYING,
+        amount: IERC20(AaveV2EthereumAssets.DAI_A_TOKEN).balanceOf(
+          address(AaveV2Ethereum.COLLECTOR)
+        ) - 1
+      }),
+      address(SWAPPER)
+    );
+    AaveV2Ethereum.COLLECTOR.withdrawFromV2(
+      CollectorUtils.IOInput({
+        pool: address(AaveV2Ethereum.POOL),
+        underlying: AaveV2EthereumAssets.DAI_UNDERLYING,
+        amount: IERC20(AaveV2EthereumAssets.DAI_A_TOKEN).balanceOf(
+          address(AaveV2Ethereum.COLLECTOR)
+        ) - 1
+      }),
+      address(SWAPPER)
+    );
+    // aEthDai
+    AaveV3Ethereum.COLLECTOR.withdrawFromV3(
+      CollectorUtils.IOInput({
+        pool: address(AaveV3Ethereum.POOL),
+        underlying: AaveV3EthereumAssets.DAI_UNDERLYING,
+        amount: DAI_A_AMOUNT
+      }),
+      address(SWAPPER)
+    );
+    SWAPPER.swap(
+      MILKMAN,
+      PRICE_CHECKER,
+      AaveV3EthereumAssets.DAI_UNDERLYING,
+      AaveV3EthereumAssets.GHO_UNDERLYING,
+      DAI_FEED,
+      GHO_USD_FEED,
+      address(AaveV3Ethereum.COLLECTOR),
+      IERC20(AaveV3EthereumAssets.DAI_UNDERLYING).balanceOf(address(SWAPPER)),
+      50
+    );
+
+    // lusd
+    AaveV3Ethereum.COLLECTOR.transfer(
+      address(AaveV3EthereumAssets.LUSD_UNDERLYING),
+      address(SWAPPER),
+      IERC20(AaveV3EthereumAssets.LUSD_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR))
+    );
+    // aLusd
+    uint256 aLusdAvailableLiquidity = IERC20(AaveV2EthereumAssets.LUSD_UNDERLYING).balanceOf(
+      AaveV2EthereumAssets.LUSD_A_TOKEN
+    );
+    uint256 aLusdCollectorLiquidity = IERC20(AaveV2EthereumAssets.LUSD_A_TOKEN).balanceOf(
+      address(AaveV2Ethereum.COLLECTOR)
+    );
+    AaveV2Ethereum.COLLECTOR.withdrawFromV2(
+      CollectorUtils.IOInput({
+        pool: address(AaveV2Ethereum.POOL),
+        underlying: AaveV2EthereumAssets.LUSD_UNDERLYING,
+        amount: (
+          aLusdAvailableLiquidity > aLusdCollectorLiquidity
+            ? aLusdCollectorLiquidity
+            : aLusdAvailableLiquidity
+        ) - 1
+      }),
+      address(SWAPPER)
+    );
+    SWAPPER.swap(
+      MILKMAN,
+      PRICE_CHECKER,
+      AaveV3EthereumAssets.LUSD_UNDERLYING,
+      AaveV3EthereumAssets.GHO_UNDERLYING,
+      LUSD_FEED,
+      GHO_USD_FEED,
+      address(AaveV3Ethereum.COLLECTOR),
+      IERC20(AaveV3EthereumAssets.LUSD_UNDERLYING).balanceOf(address(SWAPPER)),
+      150
+    );
+
+    // frax
+    AaveV3Ethereum.COLLECTOR.transfer(
+      address(AaveV3EthereumAssets.FRAX_UNDERLYING),
+      address(SWAPPER),
+      IERC20(AaveV3EthereumAssets.FRAX_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR))
+    );
+    // aFrax
+    AaveV2Ethereum.COLLECTOR.withdrawFromV2(
+      CollectorUtils.IOInput({
+        pool: address(AaveV2Ethereum.POOL),
+        underlying: AaveV2EthereumAssets.FRAX_UNDERLYING,
+        amount: IERC20(AaveV2EthereumAssets.FRAX_A_TOKEN).balanceOf(
+          address(AaveV2Ethereum.COLLECTOR)
+        ) - 1
+      }),
+      address(SWAPPER)
+    );
+    AaveV2Ethereum.COLLECTOR.withdrawFromV2(
+      CollectorUtils.IOInput({
+        pool: address(AaveV2Ethereum.POOL),
+        underlying: AaveV2EthereumAssets.FRAX_UNDERLYING,
+        amount: IERC20(AaveV2EthereumAssets.FRAX_A_TOKEN).balanceOf(
+          address(AaveV2Ethereum.COLLECTOR)
+        ) - 1
+      }),
+      address(SWAPPER)
+    );
+    SWAPPER.swap(
+      MILKMAN,
+      PRICE_CHECKER,
+      AaveV3EthereumAssets.FRAX_UNDERLYING,
+      AaveV3EthereumAssets.GHO_UNDERLYING,
+      FRAX_FEED,
+      GHO_USD_FEED,
+      address(AaveV3Ethereum.COLLECTOR),
+      IERC20(AaveV3EthereumAssets.FRAX_UNDERLYING).balanceOf(address(SWAPPER)),
+      500
     );
   }
 

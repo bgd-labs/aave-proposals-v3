@@ -181,13 +181,17 @@ contract AaveV3Polygon_SeptemberFundingUpdatePartA_20241113_Test is ProtocolV3Te
 
   function test_bridge() public {
     vm.expectEmit(true, true, true, true, MiscPolygon.AAVE_POL_ETH_BRIDGE);
-    emit Bridge(AaveV3PolygonAssets.USDC_UNDERLYING, 287474631580);
+    emit Bridge(AaveV3PolygonAssets.USDC_UNDERLYING, 287_401_938_514);
     executePayload(vm, address(proposal));
 
+    uint256 collectorAusdcv2BalanceAfter = IERC20(AaveV2PolygonAssets.USDC_A_TOKEN).balanceOf(
+      COLLECTOR
+    );
     uint256 collectorAusdcv3BalanceAfter = IERC20(AaveV3PolygonAssets.USDC_A_TOKEN).balanceOf(
       COLLECTOR
     );
 
+    assertEq(collectorAusdcv2BalanceAfter, 1);
     assertEq(collectorAusdcv3BalanceAfter, 1);
   }
 }

@@ -7,6 +7,7 @@ import {MiscPolygon} from 'aave-address-book/MiscPolygon.sol';
 import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';
 import {AaveV2Polygon, AaveV2PolygonAssets} from 'aave-address-book/AaveV2Polygon.sol';
 import {AaveV3Polygon, AaveV3PolygonAssets} from 'aave-address-book/AaveV3Polygon.sol';
+import {CollectorUtils, ICollector} from 'aave-helpers/src/CollectorUtils.sol';
 
 interface IAavePolEthERC20Bridge {
   function bridge(address token, uint256 amount) external;
@@ -20,6 +21,7 @@ interface IAavePolEthERC20Bridge {
  */
 contract AaveV3Polygon_SeptemberFundingUpdatePartA_20241113 is IProposalGenericExecutor {
   using SafeERC20 for IERC20;
+  using CollectorUtils for ICollector;
 
   IAavePolEthERC20Bridge public constant BRIDGE =
     IAavePolEthERC20Bridge(MiscPolygon.AAVE_POL_ETH_BRIDGE);
@@ -60,38 +62,40 @@ contract AaveV3Polygon_SeptemberFundingUpdatePartA_20241113 is IProposalGenericE
   }
 
   function _bridge() internal {
-    AaveV3Polygon.COLLECTOR.transfer(
-      AaveV3PolygonAssets.USDC_UNDERLYING,
-      address(BRIDGE),
-      IERC20(AaveV3PolygonAssets.USDC_UNDERLYING).balanceOf(address(AaveV3Polygon.COLLECTOR))
-    );
-
-    AaveV3Polygon.COLLECTOR.transfer(
-      AaveV3PolygonAssets.USDC_A_TOKEN,
-      address(this),
-      IERC20(AaveV3PolygonAssets.USDC_A_TOKEN).balanceOf(address(AaveV3Polygon.COLLECTOR)) - 1
-    );
-
-    AaveV3Polygon.POOL.withdraw(
-      AaveV3PolygonAssets.USDC_UNDERLYING,
-      type(uint256).max,
+    AaveV3Polygon.COLLECTOR.withdrawFromV3(
+      CollectorUtils.IOInput({
+        pool: address(AaveV3Polygon.POOL),
+        underlying: AaveV3PolygonAssets.USDC_UNDERLYING,
+        amount: IERC20(AaveV3PolygonAssets.USDC_A_TOKEN).balanceOf(
+          address(AaveV3Polygon.COLLECTOR)
+        ) - 1
+      }),
       address(BRIDGE)
     );
 
-    AaveV3Polygon.COLLECTOR.transfer(
-      AaveV2PolygonAssets.USDC_A_TOKEN,
-      address(this),
-      IERC20(AaveV2PolygonAssets.USDC_A_TOKEN).balanceOf(address(AaveV3Polygon.COLLECTOR)) - 1
+    AaveV2Polygon.COLLECTOR.withdrawFromV2(
+      CollectorUtils.IOInput({
+        pool: address(AaveV2Polygon.POOL),
+        underlying: AaveV2PolygonAssets.USDC_UNDERLYING,
+        amount: IERC20(AaveV2PolygonAssets.USDC_A_TOKEN).balanceOf(address(AaveV2Polygon.COLLECTOR))
+      }),
+      address(BRIDGE)
     );
 
-    AaveV2Polygon.POOL.withdraw(
+    AaveV2Polygon.COLLECTOR.withdrawFromV2(
+      CollectorUtils.IOInput({
+        pool: address(AaveV2Polygon.POOL),
+        underlying: AaveV2PolygonAssets.USDC_UNDERLYING,
+        amount: IERC20(AaveV2PolygonAssets.USDC_A_TOKEN).balanceOf(
+          address(AaveV2Polygon.COLLECTOR)
+        ) - 1
+      }),
+      address(BRIDGE)
+    );
+
+    BRIDGE.bridge(
       AaveV2PolygonAssets.USDC_UNDERLYING,
-      type(uint256).max,
-      address(BRIDGE)
+      IERC20(AaveV2PolygonAssets.USDC_UNDERLYING).balanceOf(address(BRIDGE))
     );
-
-    uint256 usdcBalance = IERC20(AaveV2PolygonAssets.USDC_UNDERLYING).balanceOf(address(BRIDGE));
-
-    BRIDGE.bridge(AaveV2PolygonAssets.USDC_UNDERLYING, usdcBalance);
   }
 }
