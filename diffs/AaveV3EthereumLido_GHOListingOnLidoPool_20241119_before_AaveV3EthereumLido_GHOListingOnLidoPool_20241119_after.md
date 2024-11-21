@@ -9,7 +9,7 @@
 | decimals | 18 |
 | isActive | true |
 | isFrozen | false |
-| supplyCap | 1 GHO |
+| supplyCap | 0 GHO |
 | borrowCap | 10,000,000 GHO |
 | debtCeiling | 0 $ [0] |
 | isSiloed | false |
@@ -98,7 +98,7 @@
         "oracleDecimals": 8,
         "oracleLatestAnswer": "100000000",
         "reserveFactor": 10000,
-        "supplyCap": 1,
+        "supplyCap": 0,
         "symbol": "GHO",
         "underlying": "0x40D16FC0246aD3160Ccc09B8D0D3A2cD28aE6C2f",
         "usageAsCollateralEnabled": false,

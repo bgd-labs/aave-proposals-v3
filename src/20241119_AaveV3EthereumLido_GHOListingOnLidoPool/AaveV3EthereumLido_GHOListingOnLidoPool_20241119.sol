@@ -2,12 +2,16 @@
 pragma solidity ^0.8.0;
 
 import {AaveV3EthereumLido} from 'aave-address-book/AaveV3EthereumLido.sol';
+import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {AaveV3PayloadEthereumLido} from 'aave-helpers/src/v3-config-engine/AaveV3PayloadEthereumLido.sol';
 import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';
+import {ITransparentProxyFactory} from 'solidity-utils/contracts/transparent-proxy/interfaces/ITransparentProxyFactory.sol';
+
 import {IGhoToken} from '../interfaces/IGhoToken.sol';
+import {D3MVault} from './D3MVault.sol';
 
 /**
  * @title GHO listing on Lido pool
@@ -21,17 +25,17 @@ contract AaveV3EthereumLido_GHOListingOnLidoPool_20241119 is AaveV3PayloadEthere
   address public constant GHO = 0x40D16FC0246aD3160Ccc09B8D0D3A2cD28aE6C2f;
   uint128 public constant GHO_AMOUNT = 10_000_000e18;
 
-  function _preExecute() internal override {
-    IGhoToken(GHO).addFacilitator(address(this), 'DDM', GHO_AMOUNT);
-    IGhoToken(GHO).mint(address(this), GHO_AMOUNT);
-  }
-
   function _postExecute() internal override {
-    IERC20(GHO).forceApprove(address(AaveV3EthereumLido.POOL), GHO_AMOUNT);
-    AaveV3EthereumLido.POOL.supply(GHO, GHO_AMOUNT, address(AaveV3EthereumLido.COLLECTOR), 0);
-    // after supplying, set the supply cap close to zero (not zero as zero means no cap)
-    // to prevent supply even if aTokens are burned
-    AaveV3EthereumLido.POOL_CONFIGURATOR.setSupplyCap(GHO, 1);
+    address vaultImpl = address(
+      new D3MVault(AaveV3EthereumLido.POOL, address(AaveV3EthereumLido.COLLECTOR), GHO)
+    );
+    address vault = ITransparentProxyFactory(MiscEthereum.TRANSPARENT_PROXY_FACTORY).create(
+      vaultImpl,
+      MiscEthereum.PROXY_ADMIN,
+      abi.encodeWithSelector(D3MVault.initialize.selector, address(this))
+    );
+    IGhoToken(GHO).addFacilitator(vault, 'LidoD3MVault', GHO_AMOUNT);
+    D3MVault(vault).mintAndSupply(GHO_AMOUNT);
   }
 
   function newListings() public pure override returns (IAaveV3ConfigEngine.Listing[] memory) {
