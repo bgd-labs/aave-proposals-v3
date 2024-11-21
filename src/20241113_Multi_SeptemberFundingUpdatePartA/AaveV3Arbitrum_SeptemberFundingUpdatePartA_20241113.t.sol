@@ -2,6 +2,7 @@
 pragma solidity ^0.8.0;
 
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
+import {IScaledBalanceToken} from 'aave-v3-origin/contracts/interfaces/IScaledBalanceToken.sol';
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 import {AaveV3Arbitrum, AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
 
@@ -48,34 +49,30 @@ contract AaveV3Arbitrum_SeptemberFundingUpdatePartA_20241113_Test is ProtocolV3T
   }
 
   function test_bridgeUSDC() public {
-    uint256 collectorAusdcBalanceBefore = IERC20(AaveV3ArbitrumAssets.USDC_A_TOKEN).balanceOf(
-      COLLECTOR
-    );
+    uint256 collectorAUsdcBalanceBefore = IScaledBalanceToken(AaveV3ArbitrumAssets.USDC_A_TOKEN)
+      .scaledBalanceOf(COLLECTOR);
 
     vm.expectEmit(address(proposal.BRIDGE()));
-    emit Bridge(AaveV3ArbitrumAssets.USDC_UNDERLYING, collectorAusdcBalanceBefore - 1);
+    emit Bridge(AaveV3ArbitrumAssets.USDC_UNDERLYING, collectorAUsdcBalanceBefore - 1e6);
     executePayload(vm, address(proposal));
 
-    uint256 collectorAusdcBalanceAfter = IERC20(AaveV3ArbitrumAssets.USDC_A_TOKEN).balanceOf(
-      COLLECTOR
-    );
+    uint256 collectorAUsdcBalanceAfter = IScaledBalanceToken(AaveV3ArbitrumAssets.USDC_A_TOKEN)
+      .scaledBalanceOf(COLLECTOR);
 
-    assertEq(collectorAusdcBalanceAfter, 1);
+    assertApproxEqAbs(collectorAUsdcBalanceAfter, 1e6, 5_000e6);
   }
 
   function test_bridgeLUSD() public {
-    uint256 collectorAlusdBalanceBefore = IERC20(AaveV3ArbitrumAssets.LUSD_A_TOKEN).balanceOf(
-      COLLECTOR
-    );
+    uint256 collectorALusdBalanceBefore = IScaledBalanceToken(AaveV3ArbitrumAssets.LUSD_A_TOKEN)
+      .scaledBalanceOf(COLLECTOR);
 
     vm.expectEmit(address(proposal.BRIDGE()));
-    emit Bridge(AaveV3ArbitrumAssets.LUSD_UNDERLYING, collectorAlusdBalanceBefore - 1);
+    emit Bridge(AaveV3ArbitrumAssets.LUSD_UNDERLYING, collectorALusdBalanceBefore - 1e18);
     executePayload(vm, address(proposal));
 
-    uint256 collectorAlusdBalanceAfter = IERC20(AaveV3ArbitrumAssets.LUSD_A_TOKEN).balanceOf(
-      COLLECTOR
-    );
+    uint256 collectorALusdBalanceAfter = IScaledBalanceToken(AaveV3ArbitrumAssets.LUSD_A_TOKEN)
+      .scaledBalanceOf(COLLECTOR);
 
-    assertEq(collectorAlusdBalanceAfter, 1);
+    assertApproxEqAbs(collectorALusdBalanceAfter, 1e18, 2_000e18);
   }
 }

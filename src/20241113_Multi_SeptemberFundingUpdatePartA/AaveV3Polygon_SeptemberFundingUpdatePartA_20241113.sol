@@ -8,6 +8,7 @@ import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';
 import {AaveV2Polygon, AaveV2PolygonAssets} from 'aave-address-book/AaveV2Polygon.sol';
 import {AaveV3Polygon, AaveV3PolygonAssets} from 'aave-address-book/AaveV3Polygon.sol';
 import {CollectorUtils, ICollector} from 'aave-helpers/src/CollectorUtils.sol';
+import {IScaledBalanceToken} from 'aave-v3-origin/contracts/interfaces/IScaledBalanceToken.sol';
 
 interface IAavePolEthERC20Bridge {
   function bridge(address token, uint256 amount) external;
@@ -27,32 +28,34 @@ contract AaveV3Polygon_SeptemberFundingUpdatePartA_20241113 is IProposalGenericE
     IAavePolEthERC20Bridge(MiscPolygon.AAVE_POL_ETH_BRIDGE);
 
   function execute() external override {
-    _migrateToken(AaveV3PolygonAssets.USDT_UNDERLYING, AaveV2PolygonAssets.USDT_A_TOKEN);
-    _migrateToken(AaveV3PolygonAssets.DAI_UNDERLYING, AaveV2PolygonAssets.DAI_A_TOKEN);
-    _migrateToken(AaveV3PolygonAssets.WPOL_UNDERLYING, AaveV2PolygonAssets.WPOL_A_TOKEN);
-    _migrateToken(AaveV3PolygonAssets.WETH_UNDERLYING, AaveV2PolygonAssets.WETH_A_TOKEN);
-    _migrateToken(AaveV3PolygonAssets.WBTC_UNDERLYING, AaveV2PolygonAssets.WBTC_A_TOKEN);
-    _migrateToken(AaveV3PolygonAssets.LINK_UNDERLYING, AaveV2PolygonAssets.LINK_A_TOKEN);
+    _migrateToken(AaveV3PolygonAssets.USDT_UNDERLYING, AaveV2PolygonAssets.USDT_A_TOKEN, 6);
+    _migrateToken(AaveV3PolygonAssets.DAI_UNDERLYING, AaveV2PolygonAssets.DAI_A_TOKEN, 18);
+    _migrateToken(AaveV3PolygonAssets.WPOL_UNDERLYING, AaveV2PolygonAssets.WPOL_A_TOKEN, 18);
+    _migrateToken(AaveV3PolygonAssets.WETH_UNDERLYING, AaveV2PolygonAssets.WETH_A_TOKEN, 18);
+    _migrateToken(AaveV3PolygonAssets.WBTC_UNDERLYING, AaveV2PolygonAssets.WBTC_A_TOKEN, 8);
+    _migrateToken(AaveV3PolygonAssets.LINK_UNDERLYING, AaveV2PolygonAssets.LINK_A_TOKEN, 18);
 
     _bridge();
   }
 
-  function _migrateToken(address underlying, address atoken) internal {
-    AaveV3Polygon.COLLECTOR.transfer(
-      atoken,
-      address(this),
-      IERC20(atoken).balanceOf(address(AaveV3Polygon.COLLECTOR)) - 1
+  function _migrateToken(address underlying, address atoken, uint8 decimal) internal {
+    uint256 unit = 10 ** decimal;
+    uint256 aTokenBalance = IScaledBalanceToken(atoken).scaledBalanceOf(
+      address(AaveV3Polygon.COLLECTOR)
     );
 
-    AaveV2Polygon.POOL.withdraw(underlying, type(uint256).max, address(this));
+    if (aTokenBalance < unit) {
+      return;
+    }
 
-    AaveV3Polygon.COLLECTOR.transfer(
-      atoken,
-      address(this),
-      IERC20(atoken).balanceOf(address(AaveV3Polygon.COLLECTOR)) - 1
+    AaveV3Polygon.COLLECTOR.withdrawFromV2(
+      CollectorUtils.IOInput({
+        pool: address(AaveV2Polygon.POOL),
+        underlying: underlying,
+        amount: aTokenBalance - unit
+      }),
+      address(this)
     );
-
-    AaveV2Polygon.POOL.withdraw(underlying, type(uint256).max, address(this));
 
     uint256 amount = IERC20(underlying).balanceOf(address(this));
 
@@ -66,9 +69,9 @@ contract AaveV3Polygon_SeptemberFundingUpdatePartA_20241113 is IProposalGenericE
       CollectorUtils.IOInput({
         pool: address(AaveV3Polygon.POOL),
         underlying: AaveV3PolygonAssets.USDC_UNDERLYING,
-        amount: IERC20(AaveV3PolygonAssets.USDC_A_TOKEN).balanceOf(
+        amount: IScaledBalanceToken(AaveV3PolygonAssets.USDC_A_TOKEN).scaledBalanceOf(
           address(AaveV3Polygon.COLLECTOR)
-        ) - 1
+        ) - 1e6
       }),
       address(BRIDGE)
     );
@@ -77,18 +80,9 @@ contract AaveV3Polygon_SeptemberFundingUpdatePartA_20241113 is IProposalGenericE
       CollectorUtils.IOInput({
         pool: address(AaveV2Polygon.POOL),
         underlying: AaveV2PolygonAssets.USDC_UNDERLYING,
-        amount: IERC20(AaveV2PolygonAssets.USDC_A_TOKEN).balanceOf(address(AaveV2Polygon.COLLECTOR))
-      }),
-      address(BRIDGE)
-    );
-
-    AaveV2Polygon.COLLECTOR.withdrawFromV2(
-      CollectorUtils.IOInput({
-        pool: address(AaveV2Polygon.POOL),
-        underlying: AaveV2PolygonAssets.USDC_UNDERLYING,
-        amount: IERC20(AaveV2PolygonAssets.USDC_A_TOKEN).balanceOf(
+        amount: IScaledBalanceToken(AaveV2PolygonAssets.USDC_A_TOKEN).scaledBalanceOf(
           address(AaveV2Polygon.COLLECTOR)
-        ) - 1
+        ) - 1e6
       }),
       address(BRIDGE)
     );

@@ -7,19 +7,10 @@ import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';
 import {AaveV3Arbitrum, AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
 import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {CollectorUtils, ICollector} from 'aave-helpers/src/CollectorUtils.sol';
+import {IScaledBalanceToken} from 'aave-v3-origin/contracts/interfaces/IScaledBalanceToken.sol';
 
 interface IAaveArbEthERC20Bridge {
   function bridge(address token, address l1token, address gateway, uint256 amount) external;
-}
-
-interface IRescuable {
-  /**
-   * @notice Emergency rescue for token stuck on this contract, as failsafe mechanism
-   * @dev Funds should never remain in this contract more time than during transactions
-   * @dev Only callable by the owner
-   * @param token The address of the stuck token to rescue
-   */
-  function rescueTokens(IERC20 token) external;
 }
 
 /**
@@ -49,9 +40,9 @@ contract AaveV3Arbitrum_SeptemberFundingUpdatePartA_20241113 is IProposalGeneric
       CollectorUtils.IOInput({
         pool: address(AaveV3Arbitrum.POOL),
         underlying: AaveV3ArbitrumAssets.USDC_UNDERLYING,
-        amount: IERC20(AaveV3ArbitrumAssets.USDC_A_TOKEN).balanceOf(
+        amount: IScaledBalanceToken(AaveV3ArbitrumAssets.USDC_A_TOKEN).scaledBalanceOf(
           address(AaveV3Arbitrum.COLLECTOR)
-        ) - 1
+        ) - 1e6
       }),
       address(BRIDGE)
     );
@@ -67,9 +58,9 @@ contract AaveV3Arbitrum_SeptemberFundingUpdatePartA_20241113 is IProposalGeneric
       CollectorUtils.IOInput({
         pool: address(AaveV3Arbitrum.POOL),
         underlying: AaveV3ArbitrumAssets.LUSD_UNDERLYING,
-        amount: IERC20(AaveV3ArbitrumAssets.LUSD_A_TOKEN).balanceOf(
+        amount: IScaledBalanceToken(AaveV3ArbitrumAssets.LUSD_A_TOKEN).scaledBalanceOf(
           address(AaveV3Arbitrum.COLLECTOR)
-        ) - 1
+        ) - 1e18
       }),
       address(BRIDGE)
     );

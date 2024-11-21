@@ -9,6 +9,7 @@ import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {AaveSwapper} from 'aave-helpers/src/swaps/AaveSwapper.sol';
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
 import {CollectorUtils, ICollector} from 'aave-helpers/src/CollectorUtils.sol';
+import {IScaledBalanceToken} from 'aave-v3-origin/contracts/interfaces/IScaledBalanceToken.sol';
 
 interface IRescuable {
   /**
@@ -147,19 +148,9 @@ contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113 is IProposalGeneric
       CollectorUtils.IOInput({
         pool: address(AaveV2Ethereum.POOL),
         underlying: AaveV2EthereumAssets.DAI_UNDERLYING,
-        amount: IERC20(AaveV2EthereumAssets.DAI_A_TOKEN).balanceOf(
+        amount: IScaledBalanceToken(AaveV2EthereumAssets.DAI_A_TOKEN).scaledBalanceOf(
           address(AaveV2Ethereum.COLLECTOR)
-        ) - 1
-      }),
-      address(SWAPPER)
-    );
-    AaveV2Ethereum.COLLECTOR.withdrawFromV2(
-      CollectorUtils.IOInput({
-        pool: address(AaveV2Ethereum.POOL),
-        underlying: AaveV2EthereumAssets.DAI_UNDERLYING,
-        amount: IERC20(AaveV2EthereumAssets.DAI_A_TOKEN).balanceOf(
-          address(AaveV2Ethereum.COLLECTOR)
-        ) - 1
+        ) - 1e18
       }),
       address(SWAPPER)
     );
@@ -191,21 +182,17 @@ contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113 is IProposalGeneric
       IERC20(AaveV3EthereumAssets.LUSD_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR))
     );
     // aLusd
-    uint256 aLusdAvailableLiquidity = IERC20(AaveV2EthereumAssets.LUSD_UNDERLYING).balanceOf(
+    uint256 aLusdAvailableBalance = IERC20(AaveV2EthereumAssets.LUSD_UNDERLYING).balanceOf(
       AaveV2EthereumAssets.LUSD_A_TOKEN
     );
-    uint256 aLusdCollectorLiquidity = IERC20(AaveV2EthereumAssets.LUSD_A_TOKEN).balanceOf(
+    uint256 aLusdBalance = IScaledBalanceToken(AaveV2EthereumAssets.LUSD_A_TOKEN).scaledBalanceOf(
       address(AaveV2Ethereum.COLLECTOR)
     );
     AaveV2Ethereum.COLLECTOR.withdrawFromV2(
       CollectorUtils.IOInput({
         pool: address(AaveV2Ethereum.POOL),
         underlying: AaveV2EthereumAssets.LUSD_UNDERLYING,
-        amount: (
-          aLusdAvailableLiquidity > aLusdCollectorLiquidity
-            ? aLusdCollectorLiquidity
-            : aLusdAvailableLiquidity
-        ) - 1
+        amount: (aLusdBalance > aLusdAvailableBalance ? aLusdAvailableBalance : aLusdBalance) - 1e18
       }),
       address(SWAPPER)
     );
@@ -232,19 +219,9 @@ contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113 is IProposalGeneric
       CollectorUtils.IOInput({
         pool: address(AaveV2Ethereum.POOL),
         underlying: AaveV2EthereumAssets.FRAX_UNDERLYING,
-        amount: IERC20(AaveV2EthereumAssets.FRAX_A_TOKEN).balanceOf(
+        amount: IScaledBalanceToken(AaveV2EthereumAssets.FRAX_A_TOKEN).scaledBalanceOf(
           address(AaveV2Ethereum.COLLECTOR)
-        ) - 1
-      }),
-      address(SWAPPER)
-    );
-    AaveV2Ethereum.COLLECTOR.withdrawFromV2(
-      CollectorUtils.IOInput({
-        pool: address(AaveV2Ethereum.POOL),
-        underlying: AaveV2EthereumAssets.FRAX_UNDERLYING,
-        amount: IERC20(AaveV2EthereumAssets.FRAX_A_TOKEN).balanceOf(
-          address(AaveV2Ethereum.COLLECTOR)
-        ) - 1
+        ) - 1e18
       }),
       address(SWAPPER)
     );

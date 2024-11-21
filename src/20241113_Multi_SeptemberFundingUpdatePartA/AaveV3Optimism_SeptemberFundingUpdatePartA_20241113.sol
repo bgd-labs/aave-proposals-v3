@@ -7,6 +7,7 @@ import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';
 import {CollectorUtils, ICollector} from 'aave-helpers/src/CollectorUtils.sol';
+import {IScaledBalanceToken} from 'aave-v3-origin/contracts/interfaces/IScaledBalanceToken.sol';
 
 interface IAaveOpEthERC20Bridge {
   function bridge(address token, address l1Token, uint256 amount) external;
@@ -31,9 +32,9 @@ contract AaveV3Optimism_SeptemberFundingUpdatePartA_20241113 is IProposalGeneric
       CollectorUtils.IOInput({
         pool: address(AaveV3Optimism.POOL),
         underlying: AaveV3OptimismAssets.USDC_UNDERLYING,
-        amount: IERC20(AaveV3OptimismAssets.USDC_A_TOKEN).balanceOf(
+        amount: IScaledBalanceToken(AaveV3OptimismAssets.USDC_A_TOKEN).scaledBalanceOf(
           address(AaveV3Optimism.COLLECTOR)
-        ) - 1
+        ) - 1e6
       }),
       address(BRIDGE)
     );
@@ -48,9 +49,9 @@ contract AaveV3Optimism_SeptemberFundingUpdatePartA_20241113 is IProposalGeneric
       CollectorUtils.IOInput({
         pool: address(AaveV3Optimism.POOL),
         underlying: AaveV3OptimismAssets.LUSD_UNDERLYING,
-        amount: IERC20(AaveV3OptimismAssets.LUSD_A_TOKEN).balanceOf(
+        amount: IScaledBalanceToken(AaveV3OptimismAssets.LUSD_A_TOKEN).scaledBalanceOf(
           address(AaveV3Optimism.COLLECTOR)
-        ) - 1
+        ) - 1e18
       }),
       address(BRIDGE)
     );
