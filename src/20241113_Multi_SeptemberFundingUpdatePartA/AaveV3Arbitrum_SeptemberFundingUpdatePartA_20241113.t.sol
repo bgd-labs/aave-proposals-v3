@@ -52,7 +52,7 @@ contract AaveV3Arbitrum_SeptemberFundingUpdatePartA_20241113_Test is ProtocolV3T
     uint256 collectorAUsdcBalanceBefore = IScaledBalanceToken(AaveV3ArbitrumAssets.USDC_A_TOKEN)
       .scaledBalanceOf(COLLECTOR);
 
-    vm.expectEmit(address(proposal.BRIDGE()));
+    vm.expectEmit(true, false, false, true, address(proposal.BRIDGE()));
     emit Bridge(AaveV3ArbitrumAssets.USDC_UNDERLYING, collectorAUsdcBalanceBefore - 1e6);
     executePayload(vm, address(proposal));
 
@@ -66,7 +66,7 @@ contract AaveV3Arbitrum_SeptemberFundingUpdatePartA_20241113_Test is ProtocolV3T
     uint256 collectorALusdBalanceBefore = IScaledBalanceToken(AaveV3ArbitrumAssets.LUSD_A_TOKEN)
       .scaledBalanceOf(COLLECTOR);
 
-    vm.expectEmit(address(proposal.BRIDGE()));
+    vm.expectEmit(true, false, false, true, address(proposal.BRIDGE()));
     emit Bridge(AaveV3ArbitrumAssets.LUSD_UNDERLYING, collectorALusdBalanceBefore - 1e18);
     executePayload(vm, address(proposal));
 
