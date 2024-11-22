@@ -141,12 +141,6 @@ contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113 is IProposalGeneric
       })
     );
 
-    // dai
-    AaveV3Ethereum.COLLECTOR.transfer(
-      AaveV3EthereumAssets.DAI_UNDERLYING,
-      address(AaveV3Ethereum.COLLECTOR),
-      IERC20(AaveV3EthereumAssets.DAI_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR))
-    );
     // aDai
     AaveV2Ethereum.COLLECTOR.withdrawFromV2(
       CollectorUtils.IOInput({
@@ -182,12 +176,6 @@ contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113 is IProposalGeneric
       })
     );
 
-    // lusd
-    AaveV3Ethereum.COLLECTOR.transfer(
-      address(AaveV3EthereumAssets.LUSD_UNDERLYING),
-      address(AaveV3Ethereum.COLLECTOR),
-      IERC20(AaveV3EthereumAssets.LUSD_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR))
-    );
     // aLusd
     uint256 aLusdAvailableBalance = IERC20(AaveV2EthereumAssets.LUSD_UNDERLYING).balanceOf(
       AaveV2EthereumAssets.LUSD_A_TOKEN

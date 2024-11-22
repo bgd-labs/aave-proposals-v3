@@ -35,6 +35,17 @@ contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113_Test is ProtocolV3T
     proposal = new AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113();
   }
 
+  /**
+   * @dev executes the generic test suite including e2e and config snapshots
+   */
+  function test_defaultProposalExecution() public {
+    defaultTest(
+      'AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113',
+      AaveV3Ethereum.POOL,
+      address(proposal)
+    );
+  }
+
   function test_withdrawUsdcAndSwapForGho() public {
     uint256 collectorAUsdcBalanceBefore = IERC20(AaveV3EthereumAssets.USDC_A_TOKEN).balanceOf(
       address(AaveV3Ethereum.COLLECTOR)

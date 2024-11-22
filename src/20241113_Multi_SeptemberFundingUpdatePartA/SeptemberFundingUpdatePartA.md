@@ -17,21 +17,21 @@ As part of our ongoing Treasury asset rebalancing, this proposal when implemente
 
 - Migrate the following assets from Aave v2 to v3 Polygon.
 
-amUSDT (All-1.0x10^-18)
-amDAI (All-1.0x10^-18)
-amWMATIC (All-1.0x10^-18)
-amWETH (All-1.0x10^-18)
-amWBTC (All-1.0x10^-18)
-amLINK (All-1.0x10^-18)
+amUSDT (All-1.0x10^6)
+amDAI (All-1.0x10^18)
+amWMATIC (All-1.0x10^18)
+amWETH (All-1.0x10^18)
+amWBTC (All-1.0x10^8)
+amLINK (All-1.0x10^18)
 
 - Transfer the following assets to Ethereum.
 
-| Polygon                  | Arbitrum                  | Optimism                  |
-| ------------------------ | ------------------------- | ------------------------- |
-| amUSDC.e (All-1.0x10^-6) | aArbUSDC (All-1.0x10^-6)  | aOptUSDC (All-1.0x10^-6)  |
-| aPolUSDC (All-1.0x10^-6) | aArbLUSD (All-1.0x10^-18) | aOptLUSD (All-1.0x10^-18) |
+| Polygon                 | Arbitrum                 | Optimism                 |
+| ----------------------- | ------------------------ | ------------------------ |
+| amUSDC.e (All-1.0x10^6) | aArbUSDC (All-1.0x10^6)  | aOptUSDC (All-1.0x10^6)  |
+| aPolUSDC (All-1.0x10^6) | aArbLUSD (All-1.0x10^18) | aOptLUSD (All-1.0x10^18) |
 
-| aArbFRAX (All-1.0x10^-18)
+| aArbFRAX (All-1.0x10^18)
 
 - Rescue Paraswap Funds
 
