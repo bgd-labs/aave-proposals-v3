@@ -38,30 +38,30 @@ contract AaveV3Optimism_SeptemberFundingUpdatePartA_20241113_Test is ProtocolV3T
   }
 
   function test_bridgeUSDC() public {
-    uint256 collectorAusdcBalanceBefore = IScaledBalanceToken(AaveV3OptimismAssets.USDC_A_TOKEN)
+    uint256 collectorAUsdcBalanceBefore = IScaledBalanceToken(AaveV3OptimismAssets.USDC_A_TOKEN)
       .scaledBalanceOf(COLLECTOR);
 
     vm.expectEmit(true, false, false, true, address(proposal.BRIDGE()));
-    emit Bridge(AaveV3OptimismAssets.USDC_UNDERLYING, collectorAusdcBalanceBefore - 1e6);
+    emit Bridge(AaveV3OptimismAssets.USDC_UNDERLYING, collectorAUsdcBalanceBefore - 1e6);
     executePayload(vm, address(proposal));
 
-    uint256 collectorAusdcBalanceAfter = IScaledBalanceToken(AaveV3OptimismAssets.USDC_A_TOKEN)
+    uint256 collectorAUsdcBalanceAfter = IScaledBalanceToken(AaveV3OptimismAssets.USDC_A_TOKEN)
       .scaledBalanceOf(COLLECTOR);
 
-    assertApproxEqAbs(collectorAusdcBalanceAfter, 1e6, 4_500e6);
+    assertApproxEqAbs(collectorAUsdcBalanceAfter, 1e6, 4_500e6);
   }
 
   function test_bridgeLUSD() public {
-    uint256 collectorAlusdBalanceBefore = IScaledBalanceToken(AaveV3OptimismAssets.LUSD_A_TOKEN)
+    uint256 collectorALusdBalanceBefore = IScaledBalanceToken(AaveV3OptimismAssets.LUSD_A_TOKEN)
       .scaledBalanceOf(COLLECTOR);
 
     vm.expectEmit(true, false, false, true, address(proposal.BRIDGE()));
-    emit Bridge(AaveV3OptimismAssets.LUSD_UNDERLYING, collectorAlusdBalanceBefore - 1e18 - 1);
+    emit Bridge(AaveV3OptimismAssets.LUSD_UNDERLYING, collectorALusdBalanceBefore - 1e18 - 1);
     executePayload(vm, address(proposal));
 
-    uint256 collectorAlusdBalanceAfter = IScaledBalanceToken(AaveV3OptimismAssets.LUSD_A_TOKEN)
+    uint256 collectorALusdBalanceAfter = IScaledBalanceToken(AaveV3OptimismAssets.LUSD_A_TOKEN)
       .scaledBalanceOf(COLLECTOR);
 
-    assertApproxEqAbs(collectorAlusdBalanceAfter, 1e18, 300e18);
+    assertApproxEqAbs(collectorALusdBalanceAfter, 1e18, 300e18);
   }
 }

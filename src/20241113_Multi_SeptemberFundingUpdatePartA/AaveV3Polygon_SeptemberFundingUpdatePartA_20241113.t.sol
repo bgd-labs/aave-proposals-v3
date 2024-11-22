@@ -40,124 +40,124 @@ contract AaveV3Polygon_SeptemberFundingUpdatePartA_20241113_Test is ProtocolV3Te
   }
 
   function test_migrate_USDT() public {
-    uint256 collectorUsdtv2BalanceBefore = IScaledBalanceToken(AaveV2PolygonAssets.USDT_A_TOKEN)
+    uint256 collectorUsdtV2BalanceBefore = IScaledBalanceToken(AaveV2PolygonAssets.USDT_A_TOKEN)
       .scaledBalanceOf(COLLECTOR);
-    uint256 collectorUsdtv3BalanceBefore = IScaledBalanceToken(AaveV3PolygonAssets.USDT_A_TOKEN)
+    uint256 collectorUsdtV3BalanceBefore = IScaledBalanceToken(AaveV3PolygonAssets.USDT_A_TOKEN)
       .scaledBalanceOf(COLLECTOR);
 
     executePayload(vm, address(proposal));
 
-    uint256 collectorUsdtv2BalanceAfter = IScaledBalanceToken(AaveV2PolygonAssets.USDT_A_TOKEN)
+    uint256 collectorUsdtV2BalanceAfter = IScaledBalanceToken(AaveV2PolygonAssets.USDT_A_TOKEN)
       .scaledBalanceOf(COLLECTOR);
-    uint256 collectorUsdtv3BalanceAfter = IScaledBalanceToken(AaveV3PolygonAssets.USDT_A_TOKEN)
+    uint256 collectorUsdtV3BalanceAfter = IScaledBalanceToken(AaveV3PolygonAssets.USDT_A_TOKEN)
       .scaledBalanceOf(COLLECTOR);
 
-    assertApproxEqAbs(collectorUsdtv2BalanceAfter, 1e6, 45_000e6);
+    assertApproxEqAbs(collectorUsdtV2BalanceAfter, 1e6, 45_000e6);
     assertApproxEqAbs(
-      collectorUsdtv3BalanceAfter,
-      collectorUsdtv3BalanceBefore + collectorUsdtv2BalanceBefore,
+      collectorUsdtV3BalanceAfter,
+      collectorUsdtV3BalanceBefore + collectorUsdtV2BalanceBefore,
       45_000e6
     );
   }
 
   function test_migrate_DAI() public {
-    uint256 collectorDaiv2BalanceBefore = IScaledBalanceToken(AaveV2PolygonAssets.DAI_A_TOKEN)
+    uint256 collectorDaiV2BalanceBefore = IScaledBalanceToken(AaveV2PolygonAssets.DAI_A_TOKEN)
       .scaledBalanceOf(COLLECTOR);
-    uint256 collectorDaiv3BalanceBefore = IScaledBalanceToken(AaveV3PolygonAssets.DAI_A_TOKEN)
+    uint256 collectorDaiV3BalanceBefore = IScaledBalanceToken(AaveV3PolygonAssets.DAI_A_TOKEN)
       .scaledBalanceOf(COLLECTOR);
 
     executePayload(vm, address(proposal));
 
-    uint256 collectorDaiv2BalanceAfter = IScaledBalanceToken(AaveV2PolygonAssets.DAI_A_TOKEN)
+    uint256 collectorDaiV2BalanceAfter = IScaledBalanceToken(AaveV2PolygonAssets.DAI_A_TOKEN)
       .scaledBalanceOf(COLLECTOR);
-    uint256 collectorDaiv3BalanceAfter = IScaledBalanceToken(AaveV3PolygonAssets.DAI_A_TOKEN)
+    uint256 collectorDaiV3BalanceAfter = IScaledBalanceToken(AaveV3PolygonAssets.DAI_A_TOKEN)
       .scaledBalanceOf(COLLECTOR);
 
-    assertApproxEqAbs(collectorDaiv2BalanceAfter, 1e18, 19_000e18);
+    assertApproxEqAbs(collectorDaiV2BalanceAfter, 1e18, 19_000e18);
     assertApproxEqAbs(
-      collectorDaiv3BalanceAfter,
-      collectorDaiv3BalanceBefore + collectorDaiv2BalanceBefore,
+      collectorDaiV3BalanceAfter,
+      collectorDaiV3BalanceBefore + collectorDaiV2BalanceBefore,
       26_000e18
     );
   }
 
   function test_migrate_WPOL() public {
-    uint256 collectorWpolv2BalanceBefore = IScaledBalanceToken(AaveV2PolygonAssets.WPOL_A_TOKEN)
+    uint256 collectorWPolV2BalanceBefore = IScaledBalanceToken(AaveV2PolygonAssets.WPOL_A_TOKEN)
       .scaledBalanceOf(COLLECTOR);
-    uint256 collectorWpolv3BalanceBefore = IScaledBalanceToken(AaveV3PolygonAssets.WPOL_A_TOKEN)
+    uint256 collectorWPolV3BalanceBefore = IScaledBalanceToken(AaveV3PolygonAssets.WPOL_A_TOKEN)
       .scaledBalanceOf(COLLECTOR);
 
     executePayload(vm, address(proposal));
 
-    uint256 collectorWpolv2BalanceAfter = IScaledBalanceToken(AaveV2PolygonAssets.WPOL_A_TOKEN)
+    uint256 collectorWPolV2BalanceAfter = IScaledBalanceToken(AaveV2PolygonAssets.WPOL_A_TOKEN)
       .scaledBalanceOf(COLLECTOR);
-    uint256 collectorWpolv3BalanceAfter = IScaledBalanceToken(AaveV3PolygonAssets.WPOL_A_TOKEN)
+    uint256 collectorWPolV3BalanceAfter = IScaledBalanceToken(AaveV3PolygonAssets.WPOL_A_TOKEN)
       .scaledBalanceOf(COLLECTOR);
 
-    assertApproxEqAbs(collectorWpolv2BalanceAfter, 1e18, 400e18);
+    assertApproxEqAbs(collectorWPolV2BalanceAfter, 1e18, 400e18);
     assertApproxEqAbs(
-      collectorWpolv3BalanceAfter,
-      collectorWpolv3BalanceBefore + collectorWpolv2BalanceBefore,
+      collectorWPolV3BalanceAfter,
+      collectorWPolV3BalanceBefore + collectorWPolV2BalanceBefore,
       4_000e18
     );
   }
 
   function test_migrate_WETH() public {
-    uint256 collectorWethv2BalanceBefore = IScaledBalanceToken(AaveV2PolygonAssets.WETH_A_TOKEN)
+    uint256 collectorWEthV2BalanceBefore = IScaledBalanceToken(AaveV2PolygonAssets.WETH_A_TOKEN)
       .scaledBalanceOf(COLLECTOR);
-    uint256 collectorWethv3BalanceBefore = IScaledBalanceToken(AaveV3PolygonAssets.WETH_A_TOKEN)
+    uint256 collectorWEthV3BalanceBefore = IScaledBalanceToken(AaveV3PolygonAssets.WETH_A_TOKEN)
       .scaledBalanceOf(COLLECTOR);
 
     executePayload(vm, address(proposal));
 
-    uint256 collectorWethv2BalanceAfter = IScaledBalanceToken(AaveV2PolygonAssets.WETH_A_TOKEN)
+    uint256 collectorWEthV2BalanceAfter = IScaledBalanceToken(AaveV2PolygonAssets.WETH_A_TOKEN)
       .scaledBalanceOf(COLLECTOR);
-    uint256 collectorWethv3BalanceAfter = IScaledBalanceToken(AaveV3PolygonAssets.WETH_A_TOKEN)
+    uint256 collectorWEthV3BalanceAfter = IScaledBalanceToken(AaveV3PolygonAssets.WETH_A_TOKEN)
       .scaledBalanceOf(COLLECTOR);
 
-    assertApproxEqAbs(collectorWethv2BalanceAfter, 1e18, 1e18);
+    assertApproxEqAbs(collectorWEthV2BalanceAfter, 1e18, 1e18);
     assertApproxEqAbs(
-      collectorWethv3BalanceAfter,
-      collectorWethv3BalanceBefore + collectorWethv2BalanceBefore,
+      collectorWEthV3BalanceAfter,
+      collectorWEthV3BalanceBefore + collectorWEthV2BalanceBefore,
       3e18
     );
   }
 
   function test_migrate_WBTC() public {
-    uint256 collectorWbtcv2BalanceBefore = IScaledBalanceToken(AaveV2PolygonAssets.WBTC_A_TOKEN)
+    uint256 collectorWBtcV2BalanceBefore = IScaledBalanceToken(AaveV2PolygonAssets.WBTC_A_TOKEN)
       .scaledBalanceOf(COLLECTOR);
-    uint256 collectorWbtcv3BalanceBefore = IScaledBalanceToken(AaveV3PolygonAssets.WBTC_A_TOKEN)
+    uint256 collectorWBtcV3BalanceBefore = IScaledBalanceToken(AaveV3PolygonAssets.WBTC_A_TOKEN)
       .scaledBalanceOf(COLLECTOR);
 
     executePayload(vm, address(proposal));
 
-    uint256 collectorWbtcv2BalanceAfter = IScaledBalanceToken(AaveV2PolygonAssets.WBTC_A_TOKEN)
+    uint256 collectorWBtcV2BalanceAfter = IScaledBalanceToken(AaveV2PolygonAssets.WBTC_A_TOKEN)
       .scaledBalanceOf(COLLECTOR);
-    uint256 collectorWbtcv3BalanceAfter = IScaledBalanceToken(AaveV3PolygonAssets.WBTC_A_TOKEN)
+    uint256 collectorWBtcV3BalanceAfter = IScaledBalanceToken(AaveV3PolygonAssets.WBTC_A_TOKEN)
       .scaledBalanceOf(COLLECTOR);
 
     // doesn't migrated because balance is below than unit
-    assertEq(collectorWbtcv2BalanceBefore, collectorWbtcv2BalanceAfter);
-    assertEq(collectorWbtcv3BalanceAfter, collectorWbtcv3BalanceBefore);
+    assertEq(collectorWBtcV2BalanceBefore, collectorWBtcV2BalanceAfter);
+    assertEq(collectorWBtcV3BalanceAfter, collectorWBtcV3BalanceBefore);
   }
 
   function test_migrate_LINK() public {
-    uint256 collectorLinkv2BalanceBefore = IScaledBalanceToken(AaveV2PolygonAssets.LINK_A_TOKEN)
+    uint256 collectorLinkV2BalanceBefore = IScaledBalanceToken(AaveV2PolygonAssets.LINK_A_TOKEN)
       .scaledBalanceOf(COLLECTOR);
-    uint256 collectorLinkv3BalanceBefore = IScaledBalanceToken(AaveV3PolygonAssets.LINK_A_TOKEN)
+    uint256 collectorLinkV3BalanceBefore = IScaledBalanceToken(AaveV3PolygonAssets.LINK_A_TOKEN)
       .scaledBalanceOf(COLLECTOR);
 
     executePayload(vm, address(proposal));
 
-    uint256 collectorLinkv2BalanceAfter = IScaledBalanceToken(AaveV2PolygonAssets.LINK_A_TOKEN)
+    uint256 collectorLinkV2BalanceAfter = IScaledBalanceToken(AaveV2PolygonAssets.LINK_A_TOKEN)
       .scaledBalanceOf(COLLECTOR);
-    uint256 collectorLinkv3BalanceAfter = IScaledBalanceToken(AaveV3PolygonAssets.LINK_A_TOKEN)
+    uint256 collectorLinkV3BalanceAfter = IScaledBalanceToken(AaveV3PolygonAssets.LINK_A_TOKEN)
       .scaledBalanceOf(COLLECTOR);
 
-    assertApproxEqAbs(collectorLinkv2BalanceAfter, 1e18, 1e18);
+    assertApproxEqAbs(collectorLinkV2BalanceAfter, 1e18, 1e18);
     assertApproxEqAbs(
-      collectorLinkv3BalanceAfter,
-      collectorLinkv3BalanceBefore + collectorLinkv2BalanceBefore,
+      collectorLinkV3BalanceAfter,
+      collectorLinkV3BalanceBefore + collectorLinkV2BalanceBefore,
       44e18
     );
   }
@@ -167,12 +167,12 @@ contract AaveV3Polygon_SeptemberFundingUpdatePartA_20241113_Test is ProtocolV3Te
     emit Bridge(AaveV3PolygonAssets.USDC_UNDERLYING, 261_594_781_988); // dynamically calculated
     executePayload(vm, address(proposal));
 
-    uint256 collectorAusdcv2BalanceAfter = IScaledBalanceToken(AaveV2PolygonAssets.USDC_A_TOKEN)
+    uint256 collectorAUsdcV2BalanceAfter = IScaledBalanceToken(AaveV2PolygonAssets.USDC_A_TOKEN)
       .scaledBalanceOf(COLLECTOR);
-    uint256 collectorAusdcv3BalanceAfter = IScaledBalanceToken(AaveV3PolygonAssets.USDC_A_TOKEN)
+    uint256 collectorAUsdcV3BalanceAfter = IScaledBalanceToken(AaveV3PolygonAssets.USDC_A_TOKEN)
       .scaledBalanceOf(COLLECTOR);
 
-    assertApproxEqAbs(collectorAusdcv2BalanceAfter, 1e6, 15_000e6);
-    assertApproxEqAbs(collectorAusdcv3BalanceAfter, 1e6, 10_000e6);
+    assertApproxEqAbs(collectorAUsdcV2BalanceAfter, 1e6, 15_000e6);
+    assertApproxEqAbs(collectorAUsdcV3BalanceAfter, 1e6, 10_000e6);
   }
 }
