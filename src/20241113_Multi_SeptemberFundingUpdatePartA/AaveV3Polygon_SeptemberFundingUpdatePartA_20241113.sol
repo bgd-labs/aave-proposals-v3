@@ -76,13 +76,20 @@ contract AaveV3Polygon_SeptemberFundingUpdatePartA_20241113 is IProposalGenericE
       uint256 aTokenBalance = IScaledBalanceToken(migrations[i].aToken).scaledBalanceOf(
         address(AaveV3Polygon.COLLECTOR)
       );
+      uint256 aTokenAvailableBalance = IERC20(migrations[i].underlying).balanceOf(
+        migrations[i].aToken
+      );
 
-      if (aTokenBalance > migrations[i].leaveBehind) {
+      aTokenAvailableBalance = aTokenAvailableBalance > aTokenBalance
+        ? aTokenBalance
+        : aTokenAvailableBalance;
+
+      if (aTokenAvailableBalance > migrations[i].leaveBehind) {
         AaveV3Polygon.COLLECTOR.withdrawFromV2(
           CollectorUtils.IOInput({
             pool: address(AaveV2Polygon.POOL),
             underlying: migrations[i].underlying,
-            amount: aTokenBalance - migrations[i].leaveBehind
+            amount: aTokenAvailableBalance - migrations[i].leaveBehind
           }),
           address(AaveV3Polygon.COLLECTOR)
         );
@@ -115,13 +122,17 @@ contract AaveV3Polygon_SeptemberFundingUpdatePartA_20241113 is IProposalGenericE
       address(BRIDGE)
     );
 
+    uint256 aUsdcAvailableBalance = IERC20(AaveV2PolygonAssets.USDC_UNDERLYING).balanceOf(
+      AaveV2PolygonAssets.USDC_A_TOKEN
+    );
+    uint256 aUsdcBalance = IScaledBalanceToken(AaveV2PolygonAssets.USDC_A_TOKEN).scaledBalanceOf(
+      address(AaveV2Polygon.COLLECTOR)
+    );
     AaveV2Polygon.COLLECTOR.withdrawFromV2(
       CollectorUtils.IOInput({
         pool: address(AaveV2Polygon.POOL),
         underlying: AaveV2PolygonAssets.USDC_UNDERLYING,
-        amount: IScaledBalanceToken(AaveV2PolygonAssets.USDC_A_TOKEN).scaledBalanceOf(
-          address(AaveV2Polygon.COLLECTOR)
-        ) - 1e6
+        amount: (aUsdcBalance > aUsdcAvailableBalance ? aUsdcAvailableBalance : aUsdcBalance) - 1e6
       }),
       address(BRIDGE)
     );

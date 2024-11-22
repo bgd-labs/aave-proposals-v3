@@ -142,13 +142,17 @@ contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113 is IProposalGeneric
     );
 
     // aDai
+    uint256 aDaiAvailableBalance = IERC20(AaveV2EthereumAssets.DAI_UNDERLYING).balanceOf(
+      AaveV2EthereumAssets.DAI_A_TOKEN
+    );
+    uint256 aDaiBalance = IScaledBalanceToken(AaveV2EthereumAssets.DAI_A_TOKEN).scaledBalanceOf(
+      address(AaveV2Ethereum.COLLECTOR)
+    );
     AaveV2Ethereum.COLLECTOR.withdrawFromV2(
       CollectorUtils.IOInput({
         pool: address(AaveV2Ethereum.POOL),
         underlying: AaveV2EthereumAssets.DAI_UNDERLYING,
-        amount: IScaledBalanceToken(AaveV2EthereumAssets.DAI_A_TOKEN).scaledBalanceOf(
-          address(AaveV2Ethereum.COLLECTOR)
-        ) - 1e18
+        amount: (aDaiBalance > aDaiAvailableBalance ? aDaiAvailableBalance : aDaiBalance) - 1e18
       }),
       address(AaveV3Ethereum.COLLECTOR)
     );
@@ -207,13 +211,17 @@ contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113 is IProposalGeneric
     );
 
     // aFrax
+    uint256 aFraxAvailableBalance = IERC20(AaveV2EthereumAssets.FRAX_UNDERLYING).balanceOf(
+      AaveV2EthereumAssets.FRAX_A_TOKEN
+    );
+    uint256 aFraxBalance = IScaledBalanceToken(AaveV2EthereumAssets.FRAX_A_TOKEN).scaledBalanceOf(
+      address(AaveV2Ethereum.COLLECTOR)
+    );
     AaveV2Ethereum.COLLECTOR.withdrawFromV2(
       CollectorUtils.IOInput({
         pool: address(AaveV2Ethereum.POOL),
         underlying: AaveV2EthereumAssets.FRAX_UNDERLYING,
-        amount: IScaledBalanceToken(AaveV2EthereumAssets.FRAX_A_TOKEN).scaledBalanceOf(
-          address(AaveV2Ethereum.COLLECTOR)
-        ) - 1e18
+        amount: (aFraxBalance > aFraxAvailableBalance ? aFraxAvailableBalance : aFraxBalance) - 1e18
       }),
       address(AaveV3Ethereum.COLLECTOR)
     );
