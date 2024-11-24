@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {TransparentUpgradeableProxy} from 'solidity-utils/contracts/transparent-proxy/TransparentUpgradeableProxy.sol';
-import {ProxyAdmin} from 'solidity-utils/contracts/transparent-proxy/ProxyAdmin.sol';
+import {ITransparentUpgradeableProxy} from 'solidity-utils/contracts/transparent-proxy/TransparentUpgradeableProxy.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
 import {IUpgradeableLockReleaseTokenPool} from 'src/interfaces/ccip/IUpgradeableLockReleaseTokenPool.sol';
 import {IRateLimiter} from 'src/interfaces/ccip/IRateLimiter.sol';
+import {ILegacyProxyAdmin} from '../interfaces/ILegacyProxyAdmin.sol';
 
 /**
  * @title GHO CCIP 1.50 Upgrade
@@ -32,8 +32,8 @@ contract AaveV3Ethereum_GHOCCIP150Upgrade_20241021 is IProposalGenericExecutor {
       MiscEthereum.GHO_CCIP_TOKEN_POOL
     );
 
-    ProxyAdmin(MiscEthereum.PROXY_ADMIN).upgrade(
-      TransparentUpgradeableProxy(payable(address(tokenPoolProxy))),
+    ILegacyProxyAdmin(MiscEthereum.PROXY_ADMIN).upgrade(
+      ITransparentUpgradeableProxy(address(tokenPoolProxy)),
       TOKEN_POOL_IMPL
     );
 

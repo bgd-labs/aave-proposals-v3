@@ -8,9 +8,7 @@
 | --- | --- | --- |
 | maxVariableBorrowRate | 87.5 % | 82 % |
 | variableRateSlope1 | 6.25 % | 0.75 % |
-| interestRate | ![before](/.assets/59f72276d32ba1eeba45953b23c84ea37048e299.svg) | ![after](/.assets/237c21391c0b67eb1236e3875c882cd6115a3758.svg) |
-
-## Emodes changes
+| interestRate | ![before](https://dash.onaave.com/api/static?variableRateSlope1=62500000000000000000000000&variableRateSlope2=750000000000000000000000000&optimalUsageRatio=920000000000000000000000000&baseVariableBorrowRate=62500000000000000000000000&maxVariableBorrowRate=875000000000000000000000000) | ![after](https://dash.onaave.com/api/static?variableRateSlope1=7500000000000000000000000&variableRateSlope2=750000000000000000000000000&optimalUsageRatio=920000000000000000000000000&baseVariableBorrowRate=62500000000000000000000000&maxVariableBorrowRate=820000000000000000000000000) |
 
 ## Raw diff
 
