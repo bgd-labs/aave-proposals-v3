@@ -9,8 +9,6 @@
 | supplyCap | 2,400 cbBTC | 10,000 cbBTC |
 
 
-## Emodes changes
-
 ## Raw diff
 
 ```json

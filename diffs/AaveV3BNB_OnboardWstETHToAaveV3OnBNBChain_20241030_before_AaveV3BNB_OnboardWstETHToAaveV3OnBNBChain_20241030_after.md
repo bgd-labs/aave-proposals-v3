@@ -70,8 +70,8 @@
     "1": {
       "from": null,
       "to": {
-        "borrowableBitmap": 8,
-        "collateralBitmap": 128,
+        "borrowableBitmap": "8",
+        "collateralBitmap": "128",
         "eModeCategory": 1,
         "label": "ETH-Correlated",
         "liquidationBonus": 10100,
@@ -108,7 +108,7 @@
         "oracle": "0xc1377B4cdF9116bf7b3d7F72A4f8A7Be8506cE80",
         "oracleDecimals": 8,
         "oracleDescription": "Capped wstETH / stETH(ETH) / USD",
-        "oracleLatestAnswer": 317984965150,
+        "oracleLatestAnswer": "317984965150",
         "reserveFactor": 1500,
         "supplyCap": 1900,
         "symbol": "wstETH",
@@ -128,7 +128,7 @@
       "from": null,
       "to": {
         "address": "0x86AB1C62A8bf868E1b3E1ab87d587Aba6fbCbDC5",
-        "baseVariableBorrowRate": 0,
+        "baseVariableBorrowRate": "0",
         "maxVariableBorrowRate": "3070000000000000000000000000",
         "optimalUsageRatio": "450000000000000000000000000",
         "variableRateSlope1": "70000000000000000000000000",

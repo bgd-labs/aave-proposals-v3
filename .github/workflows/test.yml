@@ -65,4 +65,3 @@ jobs:
 
   test-js:
     uses: bgd-labs/github-workflows/.github/workflows/test-node.yml@main
-    secrets: inherit
