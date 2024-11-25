@@ -17,11 +17,11 @@ export const config: ConfigFile = {
     AaveV3Ethereum: {
       configs: {
         EMODES_UPDATES: [
-          {eModeCategory: 3, ltv: '93', liqThreshold: '95', liqBonus: '1', label: 'cbBTC WBTC'},
+          {eModeCategory: 5, ltv: '93', liqThreshold: '95', liqBonus: '1', label: 'cbBTC WBTC'},
         ],
         EMODES_ASSETS: [
-          {asset: 'WBTC', eModeCategory: '3', collateral: 'DISABLED', borrowable: 'ENABLED'},
-          {asset: 'cbBTC', eModeCategory: '3', collateral: 'ENABLED', borrowable: 'DISABLED'},
+          {asset: 'WBTC', eModeCategory: '5', collateral: 'DISABLED', borrowable: 'ENABLED'},
+          {asset: 'cbBTC', eModeCategory: '5', collateral: 'ENABLED', borrowable: 'DISABLED'},
         ],
       },
       cache: {blockNumber: 21231401},

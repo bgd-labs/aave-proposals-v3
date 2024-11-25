@@ -8,7 +8,7 @@
 
 
 
-### EMode: cbBTC WBTC(id: 3)
+### EMode: cbBTC WBTC(id: 4)
 
 | description | value before | value after |
 | --- | --- | --- |
@@ -25,12 +25,12 @@
 ```json
 {
   "eModes": {
-    "3": {
+    "4": {
       "from": null,
       "to": {
         "borrowableBitmap": "4",
         "collateralBitmap": "17179869184",
-        "eModeCategory": 3,
+        "eModeCategory": 4,
         "label": "cbBTC WBTC",
         "liquidationBonus": 10100,
         "liquidationThreshold": 9500,

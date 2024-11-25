@@ -24,7 +24,7 @@ contract AaveV3Ethereum_EnableCbBTCWBTCLiquidEModeOnAaveV3Mainnet_20241120 is
       memory eModeUpdates = new IAaveV3ConfigEngine.EModeCategoryUpdate[](1);
 
     eModeUpdates[0] = IAaveV3ConfigEngine.EModeCategoryUpdate({
-      eModeCategory: 3,
+      eModeCategory: 4,
       ltv: 93_00,
       liqThreshold: 95_00,
       liqBonus: 1_00,
@@ -44,13 +44,13 @@ contract AaveV3Ethereum_EnableCbBTCWBTCLiquidEModeOnAaveV3Mainnet_20241120 is
 
     assetEModeUpdates[0] = IAaveV3ConfigEngine.AssetEModeUpdate({
       asset: AaveV3EthereumAssets.WBTC_UNDERLYING,
-      eModeCategory: 3,
+      eModeCategory: 4,
       borrowable: EngineFlags.ENABLED,
       collateral: EngineFlags.DISABLED
     });
     assetEModeUpdates[1] = IAaveV3ConfigEngine.AssetEModeUpdate({
       asset: AaveV3EthereumAssets.cbBTC_UNDERLYING,
-      eModeCategory: 3,
+      eModeCategory: 4,
       borrowable: EngineFlags.DISABLED,
       collateral: EngineFlags.ENABLED
     });
