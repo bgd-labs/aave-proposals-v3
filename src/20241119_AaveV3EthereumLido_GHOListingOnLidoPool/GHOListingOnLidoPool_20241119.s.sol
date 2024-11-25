@@ -1,10 +1,33 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
+import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
+import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
+import {AaveV3EthereumLido} from 'aave-address-book/AaveV3EthereumLido.sol';
 import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aave-helpers/src/GovV3Helpers.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {EthereumScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
+import {ITransparentProxyFactory, ProxyAdmin} from 'solidity-utils/contracts/transparent-proxy/interfaces/ITransparentProxyFactory.sol';
+import {D3MVault} from './D3MVault.sol';
 import {AaveV3EthereumLido_GHOListingOnLidoPool_20241119} from './AaveV3EthereumLido_GHOListingOnLidoPool_20241119.sol';
+
+library D3MDeploymentLib {
+  function _deploy() internal returns (address) {
+    address vaultImpl = address(
+      new D3MVault(
+        AaveV3EthereumLido.POOL,
+        address(AaveV3EthereumLido.COLLECTOR),
+        AaveV3EthereumAssets.GHO_UNDERLYING
+      )
+    );
+    return
+      ITransparentProxyFactory(MiscEthereum.TRANSPARENT_PROXY_FACTORY).create(
+        vaultImpl,
+        ProxyAdmin(MiscEthereum.PROXY_ADMIN),
+        abi.encodeWithSelector(D3MVault.initialize.selector, GovernanceV3Ethereum.EXECUTOR_LVL_1)
+      );
+  }
+}
 
 /**
  * @dev Deploy Ethereum

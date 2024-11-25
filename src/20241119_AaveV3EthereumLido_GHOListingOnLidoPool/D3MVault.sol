@@ -8,6 +8,10 @@ import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';
 import {IGhoToken} from '../interfaces/IGhoToken.sol';
 
+/**
+ * @title Direct deposit module for GHO
+ * @author BGD Labs @bgdlabs
+ */
 contract D3MVault is Initializable, OwnableUpgradeable {
   using SafeERC20 for IERC20;
   IPool public immutable POOL;

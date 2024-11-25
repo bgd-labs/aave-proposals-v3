@@ -47,24 +47,6 @@
 | interestRate | ![ir](https://dash.onaave.com/api/static?variableRateSlope1=0&variableRateSlope2=0&optimalUsageRatio=500000000000000000000000000&baseVariableBorrowRate=40000000000000000000000000&maxVariableBorrowRate=40000000000000000000000000) |
 
 
-## Emodes changed
-
-### EMode: ETH correlated(id: 1)
-
-
-
-### EMode: LRT Stablecoins main(id: 2)
-
-
-
-### EMode: LRT wstETH main(id: 3)
-
-
-
-### EMode: sUSDe Stablecoins(id: 4)
-
-
-
 ## Raw diff
 
 ```json
