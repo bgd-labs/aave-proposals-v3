@@ -10,7 +10,7 @@ import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';
 
 import {IGhoToken} from '../interfaces/IGhoToken.sol';
-import {D3MVault} from './D3MVault.sol';
+import {GHODirectMinter} from './GHODirectMinter.sol';
 
 /**
  * @title GHO listing on Lido pool
@@ -35,7 +35,7 @@ contract AaveV3EthereumLido_GHOListingOnLidoPool_20241119 is AaveV3PayloadEthere
       'LidoD3MVault',
       GHO_MINT_AMOUNT
     );
-    D3MVault(VAULT).mintAndSupply(GHO_MINT_AMOUNT);
+    GHODirectMinter(VAULT).mintAndSupply(GHO_MINT_AMOUNT);
   }
 
   function newListings() public pure override returns (IAaveV3ConfigEngine.Listing[] memory) {

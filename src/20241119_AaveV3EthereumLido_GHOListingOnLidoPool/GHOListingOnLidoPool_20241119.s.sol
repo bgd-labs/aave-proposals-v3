@@ -8,13 +8,13 @@ import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aa
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {EthereumScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
 import {ITransparentProxyFactory, ProxyAdmin} from 'solidity-utils/contracts/transparent-proxy/interfaces/ITransparentProxyFactory.sol';
-import {D3MVault} from './D3MVault.sol';
+import {GHODirectMinter} from './GHODirectMinter.sol';
 import {AaveV3EthereumLido_GHOListingOnLidoPool_20241119} from './AaveV3EthereumLido_GHOListingOnLidoPool_20241119.sol';
 
-library D3MDeploymentLib {
+library GHODirectMinterDeploymentLib {
   function _deploy() internal returns (address) {
     address vaultImpl = address(
-      new D3MVault(
+      new GHODirectMinter(
         AaveV3EthereumLido.POOL,
         address(AaveV3EthereumLido.COLLECTOR),
         AaveV3EthereumAssets.GHO_UNDERLYING
@@ -24,7 +24,10 @@ library D3MDeploymentLib {
       ITransparentProxyFactory(MiscEthereum.TRANSPARENT_PROXY_FACTORY).create(
         vaultImpl,
         ProxyAdmin(MiscEthereum.PROXY_ADMIN),
-        abi.encodeWithSelector(D3MVault.initialize.selector, GovernanceV3Ethereum.EXECUTOR_LVL_1)
+        abi.encodeWithSelector(
+          GHODirectMinter.initialize.selector,
+          GovernanceV3Ethereum.EXECUTOR_LVL_1
+        )
       );
   }
 }

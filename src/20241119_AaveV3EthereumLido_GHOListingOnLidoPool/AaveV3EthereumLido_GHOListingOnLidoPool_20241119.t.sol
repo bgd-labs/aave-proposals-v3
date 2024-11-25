@@ -10,7 +10,7 @@ import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3EthereumLido_GHOListingOnLidoPool_20241119} from './AaveV3EthereumLido_GHOListingOnLidoPool_20241119.sol';
-import {D3MDeploymentLib} from './GHOListingOnLidoPool_20241119.s.sol';
+import {GHODirectMinterDeploymentLib} from './GHOListingOnLidoPool_20241119.s.sol';
 
 /**
  * @dev Test for AaveV3EthereumLido_GHOListingOnLidoPool_20241119
@@ -22,14 +22,15 @@ contract AaveV3EthereumLido_GHOListingOnLidoPool_20241119_Test is ProtocolV3Test
 
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('mainnet'), 21265036);
+
+    vault = GHODirectMinterDeploymentLib._deploy();
+    proposal = new AaveV3EthereumLido_GHOListingOnLidoPool_20241119(vault);
   }
 
   /**
    * @dev executes the generic test suite including e2e and config snapshots
    */
   function test_defaultProposalExecution() public {
-    vault = D3MDeploymentLib._deploy();
-    proposal = new AaveV3EthereumLido_GHOListingOnLidoPool_20241119(vault);
     defaultTest(
       'AaveV3EthereumLido_GHOListingOnLidoPool_20241119',
       AaveV3EthereumLido.POOL,
