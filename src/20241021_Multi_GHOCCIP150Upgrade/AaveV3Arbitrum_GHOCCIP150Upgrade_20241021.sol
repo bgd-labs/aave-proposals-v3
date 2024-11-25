@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {TransparentUpgradeableProxy} from 'solidity-utils/contracts/transparent-proxy/TransparentUpgradeableProxy.sol';
-import {ProxyAdmin} from 'solidity-utils/contracts/transparent-proxy/ProxyAdmin.sol';
+import {ITransparentUpgradeableProxy} from 'solidity-utils/contracts/transparent-proxy/TransparentUpgradeableProxy.sol';
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
 import {MiscArbitrum} from 'aave-address-book/MiscArbitrum.sol';
 import {IUpgradeableBurnMintTokenPool} from 'src/interfaces/ccip/IUpgradeableBurnMintTokenPool.sol';
 import {IRateLimiter} from 'src/interfaces/ccip/IRateLimiter.sol';
+import {ILegacyProxyAdmin} from '../interfaces/ILegacyProxyAdmin.sol';
 
 /**
  * @title GHO CCIP 1.50 Upgrade
@@ -32,8 +32,8 @@ contract AaveV3Arbitrum_GHOCCIP150Upgrade_20241021 is IProposalGenericExecutor {
       MiscArbitrum.GHO_CCIP_TOKEN_POOL
     );
 
-    ProxyAdmin(MiscArbitrum.PROXY_ADMIN).upgrade(
-      TransparentUpgradeableProxy(payable(address(tokenPoolProxy))),
+    ILegacyProxyAdmin(MiscArbitrum.PROXY_ADMIN).upgrade(
+      ITransparentUpgradeableProxy(payable(address(tokenPoolProxy))),
       TOKEN_POOL_IMPL
     );
 

@@ -82,8 +82,8 @@
     "4": {
       "from": null,
       "to": {
-        "borrowableBitmap": 12,
-        "collateralBitmap": 32,
+        "borrowableBitmap": "12",
+        "collateralBitmap": "32",
         "eModeCategory": 4,
         "label": "sUSDe Stablecoins",
         "liquidationBonus": 10300,
@@ -120,7 +120,7 @@
         "oracle": "0xb37aE8aBa6C0C1Bf2c509fc06E11aa4AF29B665A",
         "oracleDecimals": 8,
         "oracleDescription": "Capped sUSDe / USDe / USD",
-        "oracleLatestAnswer": 111869905,
+        "oracleLatestAnswer": "111869905",
         "reserveFactor": 1000,
         "supplyCap": 20000000,
         "symbol": "sUSDe",
