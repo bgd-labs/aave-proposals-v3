@@ -23,8 +23,7 @@ import {TokenAdminRegistry} from 'ccip/tokenAdminRegistry/TokenAdminRegistry.sol
 contract AaveV3Ethereum_GHOAvaxLaunch_20241106 is IProposalGenericExecutor {
   address public constant CCIP_RMN_PROXY = 0x411dE17f12D1A34ecC7F45f49844626267c75e81;
   address public constant CCIP_ROUTER = 0xF4c7E640EdA248ef95972845a62bdC74237805dB;
-  // TODO: Wait for token admin registry to be deployed, and get proper address
-  address public constant CCIP_TOKEN_ADMIN_REGISTRY = 0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419;
+  address public constant CCIP_TOKEN_ADMIN_REGISTRY = 0xb22764f98dD05c789929716D677382Df22C05Cb6;
   // TODO: Wait until new token pool is deployed on Ethereum, then use corresponding address
   address public constant CCIP_TOKEN_POOL = 0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419;
   uint256 public constant CCIP_BRIDGE_LIMIT = 25_000_000e18; // 25M
