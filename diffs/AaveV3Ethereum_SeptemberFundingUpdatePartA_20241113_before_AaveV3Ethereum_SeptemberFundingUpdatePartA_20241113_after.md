@@ -26,6 +26,44 @@
 | virtualBalance | 199,666,071.9160 USDT [199666071916049] | 198,416,071.9160 USDT [198416071916049] |
 
 
+## Emodes changed
+
+### EMode: ETH correlated(id: 1)
+
+| description | value before | value after |
+| --- | --- | --- |
+| eMode.label (unchanged) | ETH correlated | ETH correlated |
+| eMode.ltv (unchanged) | 93 % | 93 % |
+| eMode.liquidationThreshold (unchanged) | 95 % | 95 % |
+| eMode.liquidationBonus (unchanged) | 1 % | 1 % |
+| eMode.borrowableBitmap (unchanged) | WETH, wstETH, cbETH, rETH, weETH, osETH, ETHx | WETH, wstETH, cbETH, rETH, weETH, osETH, ETHx |
+| eMode.collateralBitmap (unchanged) | WETH, wstETH, cbETH, rETH, weETH, osETH, ETHx | WETH, wstETH, cbETH, rETH, weETH, osETH, ETHx |
+
+
+### EMode: sUSDe Stablecoins(id: 2)
+
+| description | value before | value after |
+| --- | --- | --- |
+| eMode.label (unchanged) | sUSDe Stablecoins | sUSDe Stablecoins |
+| eMode.ltv (unchanged) | 90 % | 90 % |
+| eMode.liquidationThreshold (unchanged) | 92 % | 92 % |
+| eMode.liquidationBonus (unchanged) | 3 % | 3 % |
+| eMode.borrowableBitmap (unchanged) | USDC, USDS | USDC, USDS |
+| eMode.collateralBitmap (unchanged) | sUSDe | sUSDe |
+
+
+### EMode: rsETH LST main(id: 3)
+
+| description | value before | value after |
+| --- | --- | --- |
+| eMode.label (unchanged) | rsETH LST main | rsETH LST main |
+| eMode.ltv (unchanged) | 92.5 % | 92.5 % |
+| eMode.liquidationThreshold (unchanged) | 94.5 % | 94.5 % |
+| eMode.liquidationBonus (unchanged) | 1 % | 1 % |
+| eMode.borrowableBitmap (unchanged) | wstETH, ETHx | wstETH, ETHx |
+| eMode.collateralBitmap (unchanged) | rsETH | rsETH |
+
+
 ## Raw diff
 
 ```json

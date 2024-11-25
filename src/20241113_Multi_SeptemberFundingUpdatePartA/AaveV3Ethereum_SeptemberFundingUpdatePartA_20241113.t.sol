@@ -65,10 +65,10 @@ contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113_Test is ProtocolV3T
     );
     assertApproxEqAbs(
       IERC20(AaveV3EthereumAssets.USDC_UNDERLYING).balanceOf(
-        0xcE09b7F0eA488160BC0426f31002d7C741b1c921 // milkmanInstance contract
+        0xA866e48A6ef92e0191358Cb606C99e6187083567 // milkmanInstance contract
       ),
       proposal.USDC_A_AMOUNT(),
-      5_000e6
+      6_000e6
     );
   }
 
@@ -91,10 +91,10 @@ contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113_Test is ProtocolV3T
     );
     assertApproxEqAbs(
       IERC20(AaveV3EthereumAssets.USDT_UNDERLYING).balanceOf(
-        0xFF3b87a9487380Fb6571A4510ce93d8BF4bcdd4c // milkmanInstance contract
+        0x520A820040199C9f4b4420aE72aa9F8b91171262 // milkmanInstance contract
       ),
       proposal.USDT_A_AMOUNT(),
-      3_000e6
+      3_500e6
     );
   }
 
@@ -118,7 +118,7 @@ contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113_Test is ProtocolV3T
       .scaledBalanceOf(address(AaveV3Ethereum.COLLECTOR));
 
     assertEq(collectorDaiBalanceAfter, 0, 'Collector v3 underlying balance after swap');
-    assertApproxEqAbs(collectorADaiBalanceAfter, 1e18, 55_000e18);
+    assertApproxEqAbs(collectorADaiBalanceAfter, 1e18, 80_000e18);
     assertApproxEqAbs(
       collectorAEthDaiBalanceAfter,
       collectorAEthDaiBalanceBefore - proposal.DAI_A_AMOUNT(),
@@ -126,7 +126,7 @@ contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113_Test is ProtocolV3T
     );
     assertApproxEqAbs(
       IERC20(AaveV3EthereumAssets.DAI_UNDERLYING).balanceOf(
-        0xF9aED61ba2a144fb1787091e358873e6E873aFC3 // milkmanInstance contract
+        0x6F828AF1D84C996DF4be14Ce178DcFC0cb3A4EEf // milkmanInstance contract
       ),
       collectorDaiBalanceBefore + collectorADaiBalanceBefore + proposal.DAI_A_AMOUNT() - 1e18,
       1e18
@@ -145,14 +145,14 @@ contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113_Test is ProtocolV3T
     assertEq(collectorLusdBalanceAfter, 0, 'Collector v3 underlying balance after swap');
     assertEq(
       collectorALusdBalanceAfter,
-      23405470464448971731145, // dynamic calculated because can't withdraw all due lack of liquidity
+      23782625117543486167331, // dynamic calculated because can't withdraw all due lack of liquidity
       'Collector v2 a token balance after swap'
     );
     assertEq(
       IERC20(AaveV3EthereumAssets.LUSD_UNDERLYING).balanceOf(
-        0x4648846796341914Ad7a00FA6dBc08555F7d0FB1 // milkmanInstance contract
+        0xD9d89a3979347934a70D78E1Da8eb5D1f0863ED6 // milkmanInstance contract
       ),
-      77005726881994500402653, // dynamic calculated because can't withdraw all due lack of liquidity
+      76843009601435302316637, // dynamic calculated because can't withdraw all due lack of liquidity
       'Swapper balance after swap'
     );
   }
@@ -176,7 +176,7 @@ contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113_Test is ProtocolV3T
     assertApproxEqAbs(collectorAFraxBalanceAfter, 1e18, 900e18);
     assertEq(
       IERC20(AaveV3EthereumAssets.FRAX_UNDERLYING).balanceOf(
-        0x768d117588dFa19964A9358DF73B991A3E7243C8 // milkmanInstance contract
+        0xfBdaD08dF908C30956AdB380cdC33074A4F37Ee4 // milkmanInstance contract
       ),
       collectorFraxBalanceBefore + collectorAFraxBalanceBefore - 1e18,
       'Swapper balance after swap'

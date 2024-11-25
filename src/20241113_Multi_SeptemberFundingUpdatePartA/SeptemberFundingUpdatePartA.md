@@ -41,6 +41,20 @@ Rescue funds held in the Paraswap adapter contracts and send back to Treasury in
 
 Transfer 0.264 ETH to 0x818C277dBE886b934e60aa047250A73529E26A99 (karpatkey) reimbursing for the [funding of Guardian signers](https://governance.aave.com/t/arfc-renewal-of-aave-guardian-2024/17523/32).
 
+- Swap funds to GHO
+
+|        Ethereum        |
+| :--------------------: |
+|     aUSDC (1.25M)      |
+|     aUSDT (1.25M)      |
+|       DAI (All)        |
+| aDAI (All-1.0x10^-18)  |
+|     aEthDAI (0.5M)     |
+| aLUSD (All-1.0x10^-18) |
+|       LUSD (All)       |
+|       FRAX (All)       |
+| aFRAX (All-1.0x10^-18) |
+
 - Merit + Ahab Programs
 
 Create allowances to the Merit and Ahab, 3M GHO and 800 aEthWETH from Aave v3 Ethereum:
