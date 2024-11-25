@@ -90,8 +90,8 @@
     "3": {
       "from": null,
       "to": {
-        "borrowableBitmap": 2147483650,
-        "collateralBitmap": 68719476736,
+        "borrowableBitmap": "2147483650",
+        "collateralBitmap": "68719476736",
         "eModeCategory": 3,
         "label": "rsETH LST main",
         "liquidationBonus": 10100,
@@ -140,7 +140,7 @@
         "oracle": "0x47F52B2e43D0386cF161e001835b03Ad49889e3b",
         "oracleDecimals": 8,
         "oracleDescription": "Capped rsETH / ETH / USD",
-        "oracleLatestAnswer": 289203476952,
+        "oracleLatestAnswer": "289203476952",
         "reserveFactor": 1500,
         "supplyCap": 19000,
         "symbol": "rsETH",
@@ -160,7 +160,7 @@
       "from": null,
       "to": {
         "address": "0x9ec6F08190DeA04A54f8Afc53Db96134e5E3FdFB",
-        "baseVariableBorrowRate": 0,
+        "baseVariableBorrowRate": "0",
         "maxVariableBorrowRate": "3070000000000000000000000000",
         "optimalUsageRatio": "450000000000000000000000000",
         "variableRateSlope1": "70000000000000000000000000",

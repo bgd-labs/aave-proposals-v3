@@ -107,7 +107,8 @@ If for whatever reason verification fails, there's a good chance the error is on
 To retry a specific verification you can follow the following steps:
 
 1. copy verify.example.json to verify.json
-2. replace the `chain` with the appropriate chainId
-3. replace the `hash` with the transaction hash of the deployment transaction (make sure it's the deployment transaction, not the one registering the payload on the payloadscontroller)
-4. run `FOUNDRY_PROFILE=<chainAlias> forge build --force`
-5. run `FOUNDRY_PROFILE=<chainAlias> npx catapulta-verify -b verify.json`
+2. enter an `ETHERSCAN_API_KEY` in your `.env`
+3. replace the `chain` with the appropriate chainId
+4. replace the `hash` with the transaction hash of the deployment transaction (make sure it's the deployment transaction, not the one registering the payload on the payloadscontroller)
+5. run `FOUNDRY_PROFILE=<chainAlias> forge build --force`
+6. run `FOUNDRY_PROFILE=<chainAlias> npx catapulta-verify -b verify.json`
