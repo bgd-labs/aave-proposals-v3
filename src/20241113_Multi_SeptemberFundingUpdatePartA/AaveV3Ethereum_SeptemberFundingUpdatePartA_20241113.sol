@@ -3,6 +3,8 @@ pragma solidity ^0.8.0;
 
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';
+import {ProxyAdmin} from 'solidity-utils/contracts/transparent-proxy/ProxyAdmin.sol';
+import {TransparentUpgradeableProxy} from 'solidity-utils/contracts/transparent-proxy/TransparentUpgradeableProxy.sol';
 import {AaveV2Ethereum, AaveV2EthereumAssets} from 'aave-address-book/AaveV2Ethereum.sol';
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
@@ -48,9 +50,8 @@ contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113 is IProposalGeneric
   uint256 public constant GHO_ALLOWANCE = 3_000_000 ether;
   uint256 public constant WETH_A_ALLOWANCE = 800 ether;
 
-  // todo updated this address
-  // https://etherscan.io/address/0x11C76AD590ABDFFCD980afEC9ad951B160F02797
-  address public constant MILKMAN = 0x11C76AD590ABDFFCD980afEC9ad951B160F02797;
+  // https://etherscan.io/address/0x060373D064d0168931dE2AB8DDA7410923d06E88
+  address public constant MILKMAN = 0x060373D064d0168931dE2AB8DDA7410923d06E88;
 
   // https://etherscan.io/address/0xe80a1C615F75AFF7Ed8F08c9F21f9d00982D666c
   address public constant PRICE_CHECKER = 0xe80a1C615F75AFF7Ed8F08c9F21f9d00982D666c;
@@ -71,6 +72,13 @@ contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113 is IProposalGeneric
   uint256 public constant DAI_A_AMOUNT = 500_000e18;
 
   function execute() external override {
+    // New AaveSwapper implementation:
+    // https://etherscan.io/address/0xD80F4cE4Df649d8D6A88cf365f0560Bed9aE688F
+    ProxyAdmin(MiscEthereum.PROXY_ADMIN).upgrade(
+      TransparentUpgradeableProxy(payable(MiscEthereum.AAVE_SWAPPER)),
+      0xD80F4cE4Df649d8D6A88cf365f0560Bed9aE688F
+    );
+
     _withdrawAndSwapForGHO();
     _rescueParaswap();
 

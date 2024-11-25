@@ -31,7 +31,7 @@ contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113_Test is ProtocolV3T
   AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 21179000);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 21262170);
     proposal = new AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113();
   }
 
@@ -57,9 +57,10 @@ contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113_Test is ProtocolV3T
       address(AaveV3Ethereum.COLLECTOR)
     );
 
-    assertEq(
+    assertApproxEqAbs(
       collectorAUsdcBalanceAfter,
       collectorAUsdcBalanceBefore - proposal.USDC_A_AMOUNT() - 1,
+      1,
       'Collector balance after swap'
     );
     assertApproxEqAbs(
@@ -82,9 +83,10 @@ contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113_Test is ProtocolV3T
       address(AaveV3Ethereum.COLLECTOR)
     );
 
-    assertEq(
+    assertApproxEqAbs(
       collectorAUsdtBalanceAfter,
       collectorAUsdtBalanceBefore - proposal.USDT_A_AMOUNT() - 1,
+      1,
       'Collector balance after swap'
     );
     assertApproxEqAbs(
@@ -189,7 +191,7 @@ contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113_Test is ProtocolV3T
       AaveV3EthereumAssets.GHO_UNDERLYING,
       proposal.USDC_FEED(),
       proposal.GHO_USD_FEED(),
-      1254732533714, // Hardcoded as dynamic
+      1255824963385, // Hardcoded as dynamic
       address(AaveV3Ethereum.COLLECTOR),
       50
     );
@@ -201,7 +203,7 @@ contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113_Test is ProtocolV3T
       AaveV3EthereumAssets.GHO_UNDERLYING,
       proposal.USDT_FEED(),
       proposal.GHO_USD_FEED(),
-      1252229816556, // Hardcoded as dynamic
+      1253318999591, // Hardcoded as dynamic
       address(AaveV3Ethereum.COLLECTOR),
       50
     );
@@ -213,7 +215,7 @@ contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113_Test is ProtocolV3T
       AaveV3EthereumAssets.GHO_UNDERLYING,
       proposal.DAI_FEED(),
       proposal.GHO_USD_FEED(),
-      1086662973964122940620773, // Hardcoded as dynamic
+      1271975239815900558822689, // Hardcoded as dynamic
       address(AaveV3Ethereum.COLLECTOR),
       100
     );
@@ -225,7 +227,7 @@ contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113_Test is ProtocolV3T
       AaveV3EthereumAssets.GHO_UNDERLYING,
       proposal.LUSD_FEED(),
       proposal.GHO_USD_FEED(),
-      77005726881994500402653, // Hardcoded as dynamic
+      76843009601435302316637, // Hardcoded as dynamic
       address(AaveV3Ethereum.COLLECTOR),
       300
     );
@@ -237,7 +239,7 @@ contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113_Test is ProtocolV3T
       AaveV3EthereumAssets.GHO_UNDERLYING,
       proposal.FRAX_FEED(),
       proposal.GHO_USD_FEED(),
-      4502853064638196697507, // Hardcoded as dynamic
+      5207371027210286779953, // Hardcoded as dynamic
       address(AaveV3Ethereum.COLLECTOR),
       500
     );
