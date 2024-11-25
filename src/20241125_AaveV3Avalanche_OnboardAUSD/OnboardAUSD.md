@@ -7,7 +7,17 @@ snapshot: "https://snapshot.org/#/aave.eth/proposal/0x021b40c7042ce770c0ce1ee5ff
 
 ## Simple Summary
 
+This proposal seeks to onboard AUSD, a secure digital dollar backed 1:1 by USD fiat, to Aave V3 on Avalanche. AUSD, issued by Agora, serves as a stable and liquid alternative to USDT and USDC. With a growing AUM and robust liquidity, AUSD will enhance Aave’s liquidity pool, offering users a reliable and efficient stablecoin option with strong institutional backing.
+
 ## Motivation
+
+Agora offers AUSD, a digital dollar minted 1:1 with USD fiat. AUSD is designed to be a secure digital currency, utilizing one of the world’s largest custodian banks to safeguard assets. AUSD enables users to participate in trading, lending and payments. It is the most cost-efficient stablecoin to transact with due to its gas-optimized smart contract, making it ideal for traders and payments.
+
+Agora operates an open partnership model, allowing collaboration with a diverse range of customers who meet KYB (Know Your Business) requirements and operate in jurisdictions we can serve. This approach contrasts with single partnership models (eg. Exchange-Backed Stables), ensuring that AUSD can be widely adopted across different ecosystems, providing liquidity and stability without conflicts of interest.
+
+AUSD is currently available on Ethereum, Avalanche, Sui and Mantle, garnering $70+ million in TVL and $12+ million in daily DEX volume since contract deployment. The reserve assets are managed by VanEck ($100B+ asset manager) and custodied with one of the largest global banks, ensuring security and safety. AUSD’s unique value proposition also includes zero-fee minting and redemption facilities, making it an attractive asset for all ecosystem participants.
+
+By integrating AUSD into Aave, users will gain access to a stable, liquid asset that supports trading, lending, and other decentralized finance activities. This integration aligns with Aave’s mission to decentralize finance while offering secure and reliable stablecoin options.
 
 ## Specification
 
