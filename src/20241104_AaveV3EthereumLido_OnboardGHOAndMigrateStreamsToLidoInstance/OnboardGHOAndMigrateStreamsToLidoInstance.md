@@ -2,7 +2,7 @@
 title: "Onboard GHO and Migrate Streams to Lido Instance"
 author: "karpatkey_TokenLogic"
 discussions: "https://governance.aave.com/t/arfc-onboard-gho-and-migrate-streams-to-lido-instance/19686"
-snapshot: "TBD"
+snapshot: "https://snapshot.org/#/aave.eth/proposal/0x5c27aa8f1de66a3e56f535d60e4c1666a5617a36f8f81c09df2b0ea184a90290"
 ---
 
 ## Simple Summary
@@ -97,7 +97,7 @@ Cancel Aave Grants DAO GHO [Allowance](https://governance.aave.com/t/update-from
 
 - Implementation: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241104_AaveV3EthereumLido_OnboardGHOAndMigrateStreamsToLidoInstance/AaveV3EthereumLido_OnboardGHOAndMigrateStreamsToLidoInstance_20241104.sol)
 - Tests: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241104_AaveV3EthereumLido_OnboardGHOAndMigrateStreamsToLidoInstance/AaveV3EthereumLido_OnboardGHOAndMigrateStreamsToLidoInstance_20241104.t.sol)
-- [Snapshot](TBD)
+- [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x5c27aa8f1de66a3e56f535d60e4c1666a5617a36f8f81c09df2b0ea184a90290)
 - [Discussion](https://governance.aave.com/t/arfc-onboard-gho-and-migrate-streams-to-lido-instance/19686)
 
 ## Copyright

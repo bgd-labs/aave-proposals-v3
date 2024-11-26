@@ -13,7 +13,7 @@ import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';
 /**
  * @title Onboard GHO and Migrate Streams to Lido Instance
  * @author karpatkey_TokenLogic
- * - Snapshot: TBD
+ * - Snapshot: https://snapshot.org/#/aave.eth/proposal/0x5c27aa8f1de66a3e56f535d60e4c1666a5617a36f8f81c09df2b0ea184a90290
  * - Discussion: https://governance.aave.com/t/arfc-onboard-gho-and-migrate-streams-to-lido-instance/19686
  */
 contract AaveV3EthereumLido_OnboardGHOAndMigrateStreamsToLidoInstance_20241104 is

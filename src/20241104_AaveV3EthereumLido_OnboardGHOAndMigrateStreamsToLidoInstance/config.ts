@@ -8,7 +8,8 @@ export const config: ConfigFile = {
     author: 'karpatkey_TokenLogic',
     discussion:
       'https://governance.aave.com/t/arfc-onboard-gho-and-migrate-streams-to-lido-instance/19686',
-    snapshot: 'TBD',
+    snapshot:
+      'https://snapshot.org/#/aave.eth/proposal/0x5c27aa8f1de66a3e56f535d60e4c1666a5617a36f8f81c09df2b0ea184a90290',
     votingNetwork: 'POLYGON',
   },
   poolOptions: {
