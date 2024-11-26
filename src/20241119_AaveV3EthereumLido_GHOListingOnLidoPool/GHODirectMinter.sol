@@ -19,14 +19,25 @@ contract GHODirectMinter is Initializable, OwnableUpgradeable {
   IPool public immutable POOL;
   address public immutable COLLECTOR;
   IGhoToken public immutable GHO;
-  address public immutable GHO_A_TOKEN;
+
+  struct GHODirectMinterStorage {
+    uint256 amountMinted;
+  }
+
+  // keccak256(abi.encode(uint256(keccak256("aave.storage.GHODirectMinterStorageLocation")) - 1)) & ~bytes32(uint256(0xff))
+  bytes32 private constant GHODirectMinterStorageLocation =
+    0x6bf88133411bc3f7568ae2901946a9d52d421a01a138a2f0b6a52a1b7c899d00; // TODO: update this
+
+  function _getGHODirectMinterStorage() private pure returns (GHODirectMinterStorage storage $) {
+    assembly {
+      $.slot := GHODirectMinterStorageLocation
+    }
+  }
 
   constructor(IPool pool, address collector, address gho) {
     POOL = pool;
     COLLECTOR = collector;
     GHO = IGhoToken(gho);
-    DataTypes.ReserveDataLegacy memory reserveData = POOL.getReserveData(address(GHO));
-    GHO_A_TOKEN = reserveData.aTokenAddress;
     _disableInitializers();
   }
 
@@ -39,6 +50,8 @@ contract GHODirectMinter is Initializable, OwnableUpgradeable {
    * @param amount Amount of GHO to mint and supply to the pool
    */
   function mintAndSupply(uint256 amount) external onlyOwner {
+    _getGHODirectMinterStorage().amountMinted += amount;
+
     GHO.mint(address(this), amount);
     IERC20(address(GHO)).forceApprove(address(POOL), amount);
     POOL.supply(address(GHO), amount, address(this), 0);
@@ -49,7 +62,9 @@ contract GHODirectMinter is Initializable, OwnableUpgradeable {
    * @param amount Amount of GHO to withdraw and burn from the pool
    */
   function withdrawAndBurn(uint256 amount) external onlyOwner {
+    // violating CEI because there might be rounding on the withdrawal, but we want exact accounting on amountMinted
     uint256 amountWithdrawn = POOL.withdraw(address(GHO), amount, address(this));
+    _getGHODirectMinterStorage().amountMinted -= amount;
 
     GHO.burn(amountWithdrawn);
   }
@@ -58,8 +73,9 @@ contract GHODirectMinter is Initializable, OwnableUpgradeable {
    * @dev Transfers excess GHO to the treasury
    */
   function transferExcessToTreasury() external {
-    (uint256 capacity, ) = GHO.getFacilitatorBucket(address(this));
-    uint256 balanceIncrease = IERC20(GHO_A_TOKEN).balanceOf(address(this)) - capacity;
-    IERC20(GHO_A_TOKEN).transfer(address(COLLECTOR), balanceIncrease);
+    DataTypes.ReserveDataLegacy memory reserveData = POOL.getReserveData(address(GHO));
+    uint256 balanceIncrease = IERC20(reserveData.aTokenAddress).balanceOf(address(this)) -
+      _getGHODirectMinterStorage().amountMinted;
+    IERC20(reserveData.aTokenAddress).transfer(address(COLLECTOR), balanceIncrease);
   }
 }

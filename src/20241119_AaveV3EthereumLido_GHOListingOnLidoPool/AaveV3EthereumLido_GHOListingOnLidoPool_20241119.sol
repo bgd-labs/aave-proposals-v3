@@ -22,7 +22,8 @@ contract AaveV3EthereumLido_GHOListingOnLidoPool_20241119 is AaveV3PayloadEthere
   using SafeERC20 for IERC20;
 
   // could be significantly more
-  uint128 public constant GHO_MINT_AMOUNT = 10_000_000e18;
+  uint128 public constant GHO_MINT_AMOUNT = 100_000_000e18;
+  uint256 public constant GHO_BORROW_CAP = 10_000_000e18;
   address public immutable VAULT;
 
   constructor(address vault) {
@@ -54,9 +55,9 @@ contract AaveV3EthereumLido_GHOListingOnLidoPool_20241119 is AaveV3PayloadEthere
       liqThreshold: 0,
       liqBonus: 0,
       // TODO: consult risk teams
-      reserveFactor: 100_00,
-      supplyCap: 0,
-      borrowCap: 10_000_000,
+      reserveFactor: 20_00,
+      supplyCap: GHO_MINT_AMOUNT / 1e18,
+      borrowCap: GHO_BORROW_CAP / 1e18,
       debtCeiling: 0,
       liqProtocolFee: 20_00,
       rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
