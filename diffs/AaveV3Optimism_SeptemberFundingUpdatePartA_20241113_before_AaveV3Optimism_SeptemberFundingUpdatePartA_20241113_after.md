@@ -6,16 +6,16 @@
 
 | description | value before | value after |
 | --- | --- | --- |
-| aTokenUnderlyingBalance | 546,549.4039 USDC [546549403932] | 500,025.5539 USDC [500025553970] |
-| virtualBalance | 546,472.3570 USDC [546472357070] | 499,948.5071 USDC [499948507108] |
+| aTokenUnderlyingBalance | 546,549.4039 USDC [546549403932] | 495,182.6742 USDC [495182674219] |
+| virtualBalance | 546,472.3570 USDC [546472357070] | 495,105.6273 USDC [495105627357] |
 
 
 #### LUSD ([0xc40F949F8a4e094D1b49a23ea9241D289B7b2819](https://optimistic.etherscan.io/address/0xc40F949F8a4e094D1b49a23ea9241D289B7b2819))
 
 | description | value before | value after |
 | --- | --- | --- |
-| aTokenUnderlyingBalance | 50,745.9305 LUSD [50745930580778611947683] | 47,655.2558 LUSD [47655255883422205911590] |
-| virtualBalance | 50,745.9305 LUSD [50745930580778611947683] | 47,655.2558 LUSD [47655255883422205911590] |
+| aTokenUnderlyingBalance | 50,745.9305 LUSD [50745930580778611947683] | 47,352.8754 LUSD [47352875460535625271531] |
+| virtualBalance | 50,745.9305 LUSD [50745930580778611947683] | 47,352.8754 LUSD [47352875460535625271531] |
 
 
 ## Raw diff
@@ -26,21 +26,21 @@
     "0x7F5c764cBc14f9669B88837ca1490cCa17c31607": {
       "aTokenUnderlyingBalance": {
         "from": "546549403932",
-        "to": "500025553970"
+        "to": "495182674219"
       },
       "virtualBalance": {
         "from": "546472357070",
-        "to": "499948507108"
+        "to": "495105627357"
       }
     },
     "0xc40F949F8a4e094D1b49a23ea9241D289B7b2819": {
       "aTokenUnderlyingBalance": {
         "from": "50745930580778611947683",
-        "to": "47655255883422205911590"
+        "to": "47352875460535625271531"
       },
       "virtualBalance": {
         "from": "50745930580778611947683",
-        "to": "47655255883422205911590"
+        "to": "47352875460535625271531"
       }
     }
   }

@@ -10,7 +10,6 @@ import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113} from './AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113.sol';
-import {IScaledBalanceToken} from 'aave-v3-origin/contracts/interfaces/IScaledBalanceToken.sol';
 
 /**
  * @dev Test for AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113
@@ -102,20 +101,24 @@ contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113_Test is ProtocolV3T
     uint256 collectorDaiBalanceBefore = IERC20(AaveV3EthereumAssets.DAI_UNDERLYING).balanceOf(
       address(AaveV3Ethereum.COLLECTOR)
     );
-    uint256 collectorADaiBalanceBefore = IScaledBalanceToken(AaveV2EthereumAssets.DAI_A_TOKEN)
-      .scaledBalanceOf(address(AaveV2Ethereum.COLLECTOR));
-    uint256 collectorAEthDaiBalanceBefore = IScaledBalanceToken(AaveV3EthereumAssets.DAI_A_TOKEN)
-      .scaledBalanceOf(address(AaveV3Ethereum.COLLECTOR));
+    uint256 collectorADaiBalanceBefore = IERC20(AaveV2EthereumAssets.DAI_A_TOKEN).balanceOf(
+      address(AaveV2Ethereum.COLLECTOR)
+    );
+    uint256 collectorAEthDaiBalanceBefore = IERC20(AaveV3EthereumAssets.DAI_A_TOKEN).balanceOf(
+      address(AaveV3Ethereum.COLLECTOR)
+    );
 
     executePayload(vm, address(proposal));
 
     uint256 collectorDaiBalanceAfter = IERC20(AaveV3EthereumAssets.DAI_UNDERLYING).balanceOf(
       address(AaveV3Ethereum.COLLECTOR)
     );
-    uint256 collectorADaiBalanceAfter = IScaledBalanceToken(AaveV2EthereumAssets.DAI_A_TOKEN)
-      .scaledBalanceOf(address(AaveV2Ethereum.COLLECTOR));
-    uint256 collectorAEthDaiBalanceAfter = IScaledBalanceToken(AaveV3EthereumAssets.DAI_A_TOKEN)
-      .scaledBalanceOf(address(AaveV3Ethereum.COLLECTOR));
+    uint256 collectorADaiBalanceAfter = IERC20(AaveV2EthereumAssets.DAI_A_TOKEN).balanceOf(
+      address(AaveV2Ethereum.COLLECTOR)
+    );
+    uint256 collectorAEthDaiBalanceAfter = IERC20(AaveV3EthereumAssets.DAI_A_TOKEN).balanceOf(
+      address(AaveV3Ethereum.COLLECTOR)
+    );
 
     assertEq(collectorDaiBalanceAfter, 0, 'Collector v3 underlying balance after swap');
     assertApproxEqAbs(collectorADaiBalanceAfter, 1e18, 80_000e18);
@@ -139,13 +142,14 @@ contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113_Test is ProtocolV3T
     uint256 collectorLusdBalanceAfter = IERC20(AaveV3EthereumAssets.LUSD_UNDERLYING).balanceOf(
       address(AaveV3Ethereum.COLLECTOR)
     );
-    uint256 collectorALusdBalanceAfter = IScaledBalanceToken(AaveV2EthereumAssets.LUSD_A_TOKEN)
-      .scaledBalanceOf(address(AaveV2Ethereum.COLLECTOR));
+    uint256 collectorALusdBalanceAfter = IERC20(AaveV2EthereumAssets.LUSD_A_TOKEN).balanceOf(
+      address(AaveV2Ethereum.COLLECTOR)
+    );
 
     assertEq(collectorLusdBalanceAfter, 0, 'Collector v3 underlying balance after swap');
     assertEq(
       collectorALusdBalanceAfter,
-      23782625117543486167331, // dynamic calculated because can't withdraw all due lack of liquidity
+      27626783961961316333562, // dynamic calculated because can't withdraw all due lack of liquidity
       'Collector v2 a token balance after swap'
     );
     assertEq(
@@ -161,16 +165,18 @@ contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113_Test is ProtocolV3T
     uint256 collectorFraxBalanceBefore = IERC20(AaveV3EthereumAssets.FRAX_UNDERLYING).balanceOf(
       address(AaveV3Ethereum.COLLECTOR)
     );
-    uint256 collectorAFraxBalanceBefore = IScaledBalanceToken(AaveV2EthereumAssets.FRAX_A_TOKEN)
-      .scaledBalanceOf(address(AaveV2Ethereum.COLLECTOR));
+    uint256 collectorAFraxBalanceBefore = IERC20(AaveV2EthereumAssets.FRAX_A_TOKEN).balanceOf(
+      address(AaveV2Ethereum.COLLECTOR)
+    );
 
     executePayload(vm, address(proposal));
 
     uint256 collectorFraxBalanceAfter = IERC20(AaveV3EthereumAssets.FRAX_UNDERLYING).balanceOf(
       address(AaveV3Ethereum.COLLECTOR)
     );
-    uint256 collectorAFraxBalanceAfter = IScaledBalanceToken(AaveV2EthereumAssets.FRAX_A_TOKEN)
-      .scaledBalanceOf(address(AaveV2Ethereum.COLLECTOR));
+    uint256 collectorAFraxBalanceAfter = IERC20(AaveV2EthereumAssets.FRAX_A_TOKEN).balanceOf(
+      address(AaveV2Ethereum.COLLECTOR)
+    );
 
     assertEq(collectorFraxBalanceAfter, 0, 'Collector v3 underlying balance after swap');
     assertApproxEqAbs(collectorAFraxBalanceAfter, 1e18, 900e18);
@@ -215,7 +221,7 @@ contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113_Test is ProtocolV3T
       AaveV3EthereumAssets.GHO_UNDERLYING,
       proposal.DAI_FEED(),
       proposal.GHO_USD_FEED(),
-      1271975239815900558822689, // Hardcoded as dynamic
+      1362327582832050751435002, // Hardcoded as dynamic
       address(AaveV3Ethereum.COLLECTOR),
       100
     );
@@ -239,7 +245,7 @@ contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113_Test is ProtocolV3T
       AaveV3EthereumAssets.GHO_UNDERLYING,
       proposal.FRAX_FEED(),
       proposal.GHO_USD_FEED(),
-      5207371027210286779953, // Hardcoded as dynamic
+      5725614971954349972007, // Hardcoded as dynamic
       address(AaveV3Ethereum.COLLECTOR),
       500
     );

@@ -11,7 +11,6 @@ import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {AaveSwapper} from 'aave-helpers/src/swaps/AaveSwapper.sol';
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
 import {CollectorUtils, ICollector} from 'aave-helpers/src/CollectorUtils.sol';
-import {IScaledBalanceToken} from 'aave-v3-origin/contracts/interfaces/IScaledBalanceToken.sol';
 
 interface IRescuable {
   /**
@@ -153,7 +152,7 @@ contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113 is IProposalGeneric
     uint256 aDaiAvailableBalance = IERC20(AaveV2EthereumAssets.DAI_UNDERLYING).balanceOf(
       AaveV2EthereumAssets.DAI_A_TOKEN
     );
-    uint256 aDaiBalance = IScaledBalanceToken(AaveV2EthereumAssets.DAI_A_TOKEN).scaledBalanceOf(
+    uint256 aDaiBalance = IERC20(AaveV2EthereumAssets.DAI_A_TOKEN).balanceOf(
       address(AaveV2Ethereum.COLLECTOR)
     );
     AaveV2Ethereum.COLLECTOR.withdrawFromV2(
@@ -192,7 +191,7 @@ contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113 is IProposalGeneric
     uint256 aLusdAvailableBalance = IERC20(AaveV2EthereumAssets.LUSD_UNDERLYING).balanceOf(
       AaveV2EthereumAssets.LUSD_A_TOKEN
     );
-    uint256 aLusdBalance = IScaledBalanceToken(AaveV2EthereumAssets.LUSD_A_TOKEN).scaledBalanceOf(
+    uint256 aLusdBalance = IERC20(AaveV2EthereumAssets.LUSD_A_TOKEN).balanceOf(
       address(AaveV2Ethereum.COLLECTOR)
     );
     AaveV2Ethereum.COLLECTOR.withdrawFromV2(
@@ -222,7 +221,7 @@ contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113 is IProposalGeneric
     uint256 aFraxAvailableBalance = IERC20(AaveV2EthereumAssets.FRAX_UNDERLYING).balanceOf(
       AaveV2EthereumAssets.FRAX_A_TOKEN
     );
-    uint256 aFraxBalance = IScaledBalanceToken(AaveV2EthereumAssets.FRAX_A_TOKEN).scaledBalanceOf(
+    uint256 aFraxBalance = IERC20(AaveV2EthereumAssets.FRAX_A_TOKEN).balanceOf(
       address(AaveV2Ethereum.COLLECTOR)
     );
     AaveV2Ethereum.COLLECTOR.withdrawFromV2(
