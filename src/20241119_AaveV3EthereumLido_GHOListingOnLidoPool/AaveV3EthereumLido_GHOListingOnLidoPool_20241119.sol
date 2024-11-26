@@ -32,7 +32,7 @@ contract AaveV3EthereumLido_GHOListingOnLidoPool_20241119 is AaveV3PayloadEthere
   function _postExecute() internal override {
     IGhoToken(AaveV3EthereumAssets.GHO_UNDERLYING).addFacilitator(
       VAULT,
-      'LidoD3MVault',
+      'LidoGHODirectMinter',
       GHO_MINT_AMOUNT
     );
     GHODirectMinter(VAULT).mintAndSupply(GHO_MINT_AMOUNT);

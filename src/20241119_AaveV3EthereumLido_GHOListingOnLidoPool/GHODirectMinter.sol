@@ -19,11 +19,14 @@ contract GHODirectMinter is Initializable, OwnableUpgradeable {
   IPool public immutable POOL;
   address public immutable COLLECTOR;
   IGhoToken public immutable GHO;
+  address public immutable GHO_A_TOKEN;
 
   constructor(IPool pool, address collector, address gho) {
     POOL = pool;
     COLLECTOR = collector;
     GHO = IGhoToken(gho);
+    DataTypes.ReserveDataLegacy memory reserveData = POOL.getReserveData(address(GHO));
+    GHO_A_TOKEN = reserveData.aTokenAddress;
     _disableInitializers();
   }
 
@@ -32,7 +35,8 @@ contract GHODirectMinter is Initializable, OwnableUpgradeable {
   }
 
   /**
-   * @dev mints GHO and supplies it to the pool
+   * @dev Mints GHO and supplies it to the pool
+   * @param amount Amount of GHO to mint and supply to the pool
    */
   function mintAndSupply(uint256 amount) external onlyOwner {
     GHO.mint(address(this), amount);
@@ -42,6 +46,7 @@ contract GHODirectMinter is Initializable, OwnableUpgradeable {
 
   /**
    * @dev withdraws GHO from the pool and burns it
+   * @param amount Amount of GHO to withdraw and burn from the pool
    */
   function withdrawAndBurn(uint256 amount) external onlyOwner {
     uint256 amountWithdrawn = POOL.withdraw(address(GHO), amount, address(this));
@@ -49,11 +54,12 @@ contract GHODirectMinter is Initializable, OwnableUpgradeable {
     GHO.burn(amountWithdrawn);
   }
 
+  /**
+   * @dev Transfers excess GHO to the treasury
+   */
   function transferExcessToTreasury() external {
     (uint256 capacity, ) = GHO.getFacilitatorBucket(address(this));
-    DataTypes.ReserveDataLegacy memory reserveData = POOL.getReserveData(address(GHO));
-    uint256 balanceIncrease = IERC20(reserveData.aTokenAddress).balanceOf(address(this)) - capacity;
-
-    IERC20(reserveData.aTokenAddress).transfer(address(COLLECTOR), balanceIncrease);
+    uint256 balanceIncrease = IERC20(GHO_A_TOKEN).balanceOf(address(this)) - capacity;
+    IERC20(GHO_A_TOKEN).transfer(address(COLLECTOR), balanceIncrease);
   }
 }
