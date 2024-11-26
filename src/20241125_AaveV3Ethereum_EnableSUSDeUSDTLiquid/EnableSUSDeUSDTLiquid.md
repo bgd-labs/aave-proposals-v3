@@ -17,7 +17,7 @@ By implementing this proposal, we aim to optimize the use of sUSDe within the Aa
 
 ## Specification
 
-USDT on the Core instance will be added to the sUSDS stablecoin E-Mode
+USDT on the Core instance will be added to the sUSDe stablecoin E-Mode
 
 ## References
 
