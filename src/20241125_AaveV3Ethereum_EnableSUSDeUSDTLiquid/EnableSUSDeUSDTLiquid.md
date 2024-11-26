@@ -23,7 +23,7 @@ USDT on the Core instance will be added to the sUSDS stablecoin E-Mode
 
 - Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241125_AaveV3Ethereum_EnableSUSDeUSDTLiquid/AaveV3Ethereum_EnableSUSDeUSDTLiquid_20241125.sol)
 - Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241125_AaveV3Ethereum_EnableSUSDeUSDTLiquid/AaveV3Ethereum_EnableSUSDeUSDTLiquid_20241125.t.sol)
-- [Snapshot](Direct-to-AIP)
+- Snapshot: Direct-to-AIP
 - [Discussion](https://governance.aave.com/t/arfc-enable-susde-usdt-liquid-e-mode-on-core-instance/19939)
 
 ## Copyright
