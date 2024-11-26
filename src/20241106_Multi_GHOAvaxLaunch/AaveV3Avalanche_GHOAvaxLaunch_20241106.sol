@@ -39,7 +39,7 @@ contract AaveV3Avalanche_GHOAvaxLaunch_20241106 is IProposalGenericExecutor {
   // TODO: Remove this and deploy in contract once we Chainlink sets executor as pending Admin
   address public constant GHO_TOKEN = 0x2e234DAe75C793f67A35089C9d99245E1C58470b;
   // TODO: Wait until new token pool is deployed on Avalanche, then use corresponding address
-  address public constant CCIP_TOKEN_POOL = 0xF62849F9A0B5Bf2913b396098F7c7019b51A820a;
+  address public constant CCIP_TOKEN_POOL = 0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9;
   uint256 public constant CCIP_BUCKET_CAPACITY = 25_000_000e18; // 25M
   uint64 public constant CCIP_ETH_CHAIN_SELECTOR = 5009297550715157269;
   uint64 public constant CCIP_ARB_CHAIN_SELECTOR = 4949039107694359620;

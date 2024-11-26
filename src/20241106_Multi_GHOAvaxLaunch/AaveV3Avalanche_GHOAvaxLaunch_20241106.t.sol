@@ -8,6 +8,7 @@ import {GovernanceV3Avalanche} from 'aave-address-book/GovernanceV3Avalanche.sol
 import {MiscAvalanche} from 'aave-address-book/MiscAvalanche.sol';
 import {TokenAdminRegistry} from 'ccip/tokenAdminRegistry/TokenAdminRegistry.sol';
 import {UpgradeableBurnMintTokenPool} from 'ccip/pools/GHO/UpgradeableBurnMintTokenPool.sol';
+import {RateLimiter} from 'ccip/libraries/RateLimiter.sol';
 import {UpgradeableGhoToken} from 'gho-core/gho/UpgradeableGhoToken.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Avalanche_GHOAvaxLaunch_20241106} from './AaveV3Avalanche_GHOAvaxLaunch_20241106.sol';
@@ -24,15 +25,20 @@ contract AaveV3Avalanche_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
   // TODO: Remove these constants once we have deployed pool address
   address public constant CCIP_RMN_PROXY = 0xcBD48A8eB077381c3c4Eb36b402d7283aB2b11Bc;
   address public constant CCIP_ROUTER = 0xF4c7E640EdA248ef95972845a62bdC74237805dB;
+  address public ghoToken;
+  UpgradeableGhoToken public GHO;
+  UpgradeableBurnMintTokenPool public TOKEN_POOL;
 
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('avalanche'), 53559217);
 
     // TODO: Remove this and put back in proposal after Chainlink sets executor as pending admin
-    address ghoToken = _deployGhoToken();
+    ghoToken = _deployGhoToken();
+    GHO = UpgradeableGhoToken(ghoToken);
 
     // TODO: Remove this deployment once we have deployed pool address
     address tokenPool = _deployCcipTokenPool(ghoToken);
+    TOKEN_POOL = UpgradeableBurnMintTokenPool(tokenPool);
 
     // TODO: Remove this (will be done on chainlink's side)
     // Prank chainlink and set up admin role to be accepted on token registry
@@ -51,6 +57,9 @@ contract AaveV3Avalanche_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
    */
   function test_defaultProposalExecution() public {
     defaultTest('AaveV3Avalanche_GHOAvaxLaunch_20241106', AaveV3Avalanche.POOL, address(proposal));
+
+    _validateGhoDeployment();
+    _validateCcipTokenPool();
   }
 
   function _deployGhoToken() internal returns (address) {
@@ -68,7 +77,6 @@ contract AaveV3Avalanche_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
 
   function _deployCcipTokenPool(address ghoToken) internal returns (address) {
     address imple = address(new UpgradeableBurnMintTokenPool(ghoToken, CCIP_RMN_PROXY, false));
-    UpgradeableBurnMintTokenPool(imple).transferOwnership(GovernanceV3Avalanche.EXECUTOR_LVL_1);
 
     bytes memory tokenPoolInitParams = abi.encodeWithSignature(
       'initialize(address,address[],address)',
@@ -84,5 +92,59 @@ contract AaveV3Avalanche_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
           tokenPoolInitParams // data
         )
       );
+  }
+
+  function _getProxyAdminAddress(address proxy) internal view returns (address) {
+    bytes32 ERC1967_ADMIN_SLOT = 0xb53127684a568b3173ae13b9f8a6016e243e63b6e8ee1178d6a717850b5d6103;
+    bytes32 adminSlot = vm.load(proxy, ERC1967_ADMIN_SLOT);
+    return address(uint160(uint256(adminSlot)));
+  }
+
+  function _validateGhoDeployment() internal {
+    assertEq(GHO.totalSupply(), 0);
+    assertEq(GHO.getFacilitatorsList().length, 1);
+    assertEq(_getProxyAdminAddress(address(GHO)), MiscAvalanche.PROXY_ADMIN);
+    assertTrue(GHO.hasRole(bytes32(0), GovernanceV3Avalanche.EXECUTOR_LVL_1));
+    assertTrue(GHO.hasRole(GHO.FACILITATOR_MANAGER_ROLE(), GovernanceV3Avalanche.EXECUTOR_LVL_1));
+    assertTrue(GHO.hasRole(GHO.BUCKET_MANAGER_ROLE(), GovernanceV3Avalanche.EXECUTOR_LVL_1));
+  }
+
+  function _validateCcipTokenPool() internal {
+    // Deployment
+    assertEq(_getProxyAdminAddress(address(TOKEN_POOL)), MiscAvalanche.PROXY_ADMIN);
+    assertEq(TOKEN_POOL.owner(), GovernanceV3Avalanche.EXECUTOR_LVL_1);
+    assertEq(address(TOKEN_POOL.getToken()), address(GHO));
+    assertEq(TOKEN_POOL.getRmnProxy(), CCIP_RMN_PROXY);
+    assertEq(TOKEN_POOL.getRouter(), CCIP_ROUTER);
+
+    // Facilitator
+    (uint256 capacity, uint256 level) = GHO.getFacilitatorBucket(address(TOKEN_POOL));
+    assertEq(capacity, proposal.CCIP_BUCKET_CAPACITY());
+    assertEq(level, 0);
+
+    // Configs
+    uint64[] memory supportedChains = TOKEN_POOL.getSupportedChains();
+    assertEq(supportedChains.length, 2);
+
+    // ETH
+    assertEq(supportedChains[0], proposal.CCIP_ETH_CHAIN_SELECTOR());
+    RateLimiter.TokenBucket memory outboundRateLimit = TOKEN_POOL
+      .getCurrentOutboundRateLimiterState(proposal.CCIP_ETH_CHAIN_SELECTOR());
+    RateLimiter.TokenBucket memory inboundRateLimit = TOKEN_POOL.getCurrentInboundRateLimiterState(
+      proposal.CCIP_ETH_CHAIN_SELECTOR()
+    );
+    assertEq(outboundRateLimit.isEnabled, false);
+    assertEq(inboundRateLimit.isEnabled, false);
+
+    // ARB
+    assertEq(supportedChains[1], proposal.CCIP_ARB_CHAIN_SELECTOR());
+    outboundRateLimit = TOKEN_POOL.getCurrentOutboundRateLimiterState(
+      proposal.CCIP_ARB_CHAIN_SELECTOR()
+    );
+    inboundRateLimit = TOKEN_POOL.getCurrentInboundRateLimiterState(
+      proposal.CCIP_ARB_CHAIN_SELECTOR()
+    );
+    assertEq(outboundRateLimit.isEnabled, false);
+    assertEq(inboundRateLimit.isEnabled, false);
   }
 }
