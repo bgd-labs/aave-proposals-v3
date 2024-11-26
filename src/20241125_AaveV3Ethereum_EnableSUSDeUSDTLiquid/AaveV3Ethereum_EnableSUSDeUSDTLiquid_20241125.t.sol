@@ -15,7 +15,7 @@ contract AaveV3Ethereum_EnableSUSDeUSDTLiquid_20241125_Test is ProtocolV3TestBas
   AaveV3Ethereum_EnableSUSDeUSDTLiquid_20241125 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 21266484);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 21271611);
     proposal = new AaveV3Ethereum_EnableSUSDeUSDTLiquid_20241125();
   }
 
