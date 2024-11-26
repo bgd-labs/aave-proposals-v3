@@ -13,6 +13,7 @@ import {AaveV3PayloadAvalanche} from 'aave-helpers/src/v3-config-engine/AaveV3Pa
 import {AaveV3Avalanche} from 'aave-address-book/AaveV3Avalanche.sol';
 import {GovernanceV3Avalanche} from 'aave-address-book/GovernanceV3Avalanche.sol';
 import {MiscAvalanche} from 'aave-address-book/MiscAvalanche.sol';
+import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
 import {UpgradeableGhoToken} from 'gho-core/gho/UpgradeableGhoToken.sol';
@@ -40,6 +41,8 @@ contract AaveV3Avalanche_GHOAvaxLaunch_20241106 is IProposalGenericExecutor {
   address public constant GHO_TOKEN = 0x2e234DAe75C793f67A35089C9d99245E1C58470b;
   // TODO: Wait until new token pool is deployed on Avalanche, then use corresponding address
   address public constant CCIP_TOKEN_POOL = 0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9;
+  address public constant ETH_TOKEN_POOL = MiscEthereum.GHO_CCIP_TOKEN_POOL;
+  address public constant ETH_GHO = MiscEthereum.GHO_TOKEN;
   uint256 public constant CCIP_BUCKET_CAPACITY = 25_000_000e18; // 25M
   uint64 public constant CCIP_ETH_CHAIN_SELECTOR = 5009297550715157269;
   uint64 public constant CCIP_ARB_CHAIN_SELECTOR = 4949039107694359620;
@@ -54,7 +57,7 @@ contract AaveV3Avalanche_GHOAvaxLaunch_20241106 is IProposalGenericExecutor {
 
     // 3. Configure CCIP TokenPool for Ethereum
     // TODO: Set remote pool and token addresses after deployment?
-    _configureCcipTokenPool(CCIP_TOKEN_POOL, CCIP_ETH_CHAIN_SELECTOR, address(0), address(0));
+    _configureCcipTokenPool(CCIP_TOKEN_POOL, CCIP_ETH_CHAIN_SELECTOR, ETH_TOKEN_POOL, ETH_GHO);
 
     // 4. Configure CCIP TokenPool for Arbitrum
     // TODO: Set remote pool and token addresses after deployment?

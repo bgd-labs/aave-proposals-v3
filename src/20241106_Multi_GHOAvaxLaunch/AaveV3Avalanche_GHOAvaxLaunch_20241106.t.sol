@@ -3,9 +3,12 @@ pragma solidity ^0.8.0;
 
 import 'forge-std/Test.sol';
 import {TransparentUpgradeableProxy} from 'solidity-utils/contracts/transparent-proxy/TransparentUpgradeableProxy.sol';
+import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 import {AaveV3Avalanche} from 'aave-address-book/AaveV3Avalanche.sol';
 import {GovernanceV3Avalanche} from 'aave-address-book/GovernanceV3Avalanche.sol';
 import {MiscAvalanche} from 'aave-address-book/MiscAvalanche.sol';
+import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
+import {Pool} from 'ccip/libraries/Pool.sol';
 import {TokenAdminRegistry} from 'ccip/tokenAdminRegistry/TokenAdminRegistry.sol';
 import {UpgradeableBurnMintTokenPool} from 'ccip/pools/GHO/UpgradeableBurnMintTokenPool.sol';
 import {RateLimiter} from 'ccip/libraries/RateLimiter.sol';
@@ -25,9 +28,14 @@ contract AaveV3Avalanche_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
   // TODO: Remove these constants once we have deployed pool address
   address public constant CCIP_RMN_PROXY = 0xcBD48A8eB077381c3c4Eb36b402d7283aB2b11Bc;
   address public constant CCIP_ROUTER = 0xF4c7E640EdA248ef95972845a62bdC74237805dB;
+  address public constant ETH_TOKEN_POOL = MiscEthereum.GHO_CCIP_TOKEN_POOL;
   address public ghoToken;
   UpgradeableGhoToken public GHO;
   UpgradeableBurnMintTokenPool public TOKEN_POOL;
+
+  event Minted(address indexed sender, address indexed recipient, uint256 amount);
+  event Burned(address indexed sender, uint256 amount);
+  event Transfer(address indexed from, address indexed to, uint256 value);
 
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('avalanche'), 53559217);
@@ -62,6 +70,86 @@ contract AaveV3Avalanche_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
     _validateCcipTokenPool();
   }
 
+  /// @dev Test burn and mint actions, mocking CCIP calls
+  function test_ccipTokenPool() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+
+    // Mock calls
+    address router = TOKEN_POOL.getRouter();
+    address ramp = makeAddr('ramp');
+    vm.mockCall(
+      router,
+      abi.encodeWithSelector(bytes4(keccak256('getOnRamp(uint64)'))),
+      abi.encode(ramp)
+    );
+    vm.mockCall(
+      router,
+      abi.encodeWithSelector(bytes4(keccak256('isOffRamp(uint64,address)'))),
+      abi.encode(true)
+    );
+
+    // Prank user
+    address user = makeAddr('user');
+
+    // Mint
+    uint256 amount = 500_000e18; // 500K GHO
+    uint64 ethChainSelector = proposal.CCIP_ETH_CHAIN_SELECTOR();
+    assertEq(_getFacilitatorLevel(address(TOKEN_POOL)), 0);
+    assertEq(GHO.balanceOf(address(TOKEN_POOL)), 0);
+
+    Pool.ReleaseOrMintInV1 memory releaseOrMintIn = Pool.ReleaseOrMintInV1({
+      originalSender: bytes(''),
+      remoteChainSelector: ethChainSelector,
+      receiver: user,
+      amount: amount,
+      localToken: address(GHO),
+      sourcePoolAddress: abi.encode(ETH_TOKEN_POOL),
+      sourcePoolData: bytes(''),
+      offchainTokenData: bytes('')
+    });
+
+    vm.expectEmit(true, true, true, true, address(GHO));
+    emit Transfer(address(0), user, amount);
+
+    vm.expectEmit(false, true, true, true, address(TOKEN_POOL));
+    emit Minted(address(0), user, amount);
+
+    TOKEN_POOL.releaseOrMint(releaseOrMintIn);
+
+    assertEq(_getFacilitatorLevel(address(TOKEN_POOL)), amount);
+    assertEq(GHO.balanceOf(address(TOKEN_POOL)), 0);
+    assertEq(GHO.balanceOf(user), amount);
+
+    // Burn
+    // mock router transfer of funds from user to token pool
+    vm.prank(user);
+    GHO.transfer(address(TOKEN_POOL), amount);
+
+    Pool.LockOrBurnInV1 memory lockOrBurnIn = Pool.LockOrBurnInV1({
+      receiver: bytes(''),
+      remoteChainSelector: ethChainSelector,
+      originalSender: user,
+      amount: amount,
+      localToken: address(GHO)
+    });
+
+    vm.expectEmit(true, true, true, true, address(GHO));
+    emit Transfer(address(TOKEN_POOL), address(0), amount);
+
+    vm.expectEmit(false, true, false, true, address(TOKEN_POOL));
+    emit Burned(address(0), amount);
+
+    vm.prank(ramp);
+    TOKEN_POOL.lockOrBurn(lockOrBurnIn);
+
+    assertEq(_getFacilitatorLevel(address(TOKEN_POOL)), 0);
+    assertEq(GHO.balanceOf(address(TOKEN_POOL)), 0);
+  }
+
+  // ---
+  // Deployment
+  // ---
+
   function _deployGhoToken() internal returns (address) {
     address imple = address(new UpgradeableGhoToken());
 
@@ -94,11 +182,9 @@ contract AaveV3Avalanche_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
       );
   }
 
-  function _getProxyAdminAddress(address proxy) internal view returns (address) {
-    bytes32 ERC1967_ADMIN_SLOT = 0xb53127684a568b3173ae13b9f8a6016e243e63b6e8ee1178d6a717850b5d6103;
-    bytes32 adminSlot = vm.load(proxy, ERC1967_ADMIN_SLOT);
-    return address(uint160(uint256(adminSlot)));
-  }
+  // ---
+  // Test Helpers
+  // ---
 
   function _validateGhoDeployment() internal {
     assertEq(GHO.totalSupply(), 0);
@@ -146,5 +232,20 @@ contract AaveV3Avalanche_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
     );
     assertEq(outboundRateLimit.isEnabled, false);
     assertEq(inboundRateLimit.isEnabled, false);
+  }
+
+  // ---
+  // Utils
+  // ---
+
+  function _getProxyAdminAddress(address proxy) internal view returns (address) {
+    bytes32 ERC1967_ADMIN_SLOT = 0xb53127684a568b3173ae13b9f8a6016e243e63b6e8ee1178d6a717850b5d6103;
+    bytes32 adminSlot = vm.load(proxy, ERC1967_ADMIN_SLOT);
+    return address(uint160(uint256(adminSlot)));
+  }
+
+  function _getFacilitatorLevel(address f) internal view returns (uint256) {
+    (, uint256 level) = GHO.getFacilitatorBucket(f);
+    return level;
   }
 }
