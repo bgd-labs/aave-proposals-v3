@@ -195,7 +195,7 @@ contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113_Test is ProtocolV3T
       proposal.MILKMAN(),
       AaveV3EthereumAssets.USDC_UNDERLYING,
       AaveV3EthereumAssets.GHO_UNDERLYING,
-      proposal.USDC_FEED(),
+      AaveV3EthereumAssets.USDC_ORACLE,
       proposal.GHO_USD_FEED(),
       1255824963385, // Hardcoded as dynamic
       address(AaveV3Ethereum.COLLECTOR),
@@ -207,7 +207,7 @@ contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113_Test is ProtocolV3T
       proposal.MILKMAN(),
       AaveV3EthereumAssets.USDT_UNDERLYING,
       AaveV3EthereumAssets.GHO_UNDERLYING,
-      proposal.USDT_FEED(),
+      AaveV3EthereumAssets.USDT_ORACLE,
       proposal.GHO_USD_FEED(),
       1253318999591, // Hardcoded as dynamic
       address(AaveV3Ethereum.COLLECTOR),
@@ -219,7 +219,7 @@ contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113_Test is ProtocolV3T
       proposal.MILKMAN(),
       AaveV3EthereumAssets.DAI_UNDERLYING,
       AaveV3EthereumAssets.GHO_UNDERLYING,
-      proposal.DAI_FEED(),
+      AaveV3EthereumAssets.DAI_ORACLE,
       proposal.GHO_USD_FEED(),
       1362327582832050751435002, // Hardcoded as dynamic
       address(AaveV3Ethereum.COLLECTOR),
@@ -231,7 +231,7 @@ contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113_Test is ProtocolV3T
       proposal.MILKMAN(),
       AaveV3EthereumAssets.LUSD_UNDERLYING,
       AaveV3EthereumAssets.GHO_UNDERLYING,
-      proposal.LUSD_FEED(),
+      AaveV3EthereumAssets.LUSD_ORACLE,
       proposal.GHO_USD_FEED(),
       76843009601435302316637, // Hardcoded as dynamic
       address(AaveV3Ethereum.COLLECTOR),
@@ -243,7 +243,7 @@ contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113_Test is ProtocolV3T
       proposal.MILKMAN(),
       AaveV2EthereumAssets.FRAX_UNDERLYING,
       AaveV3EthereumAssets.GHO_UNDERLYING,
-      proposal.FRAX_FEED(),
+      AaveV3EthereumAssets.FRAX_ORACLE,
       proposal.GHO_USD_FEED(),
       5725614971954349972007, // Hardcoded as dynamic
       address(AaveV3Ethereum.COLLECTOR),

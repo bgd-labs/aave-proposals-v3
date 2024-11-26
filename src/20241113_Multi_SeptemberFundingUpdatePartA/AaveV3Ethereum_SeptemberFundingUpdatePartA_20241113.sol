@@ -32,6 +32,9 @@ contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113 is IProposalGeneric
   using SafeERC20 for IERC20;
   using CollectorUtils for ICollector;
 
+  // https://etherscan.io/address/0xD80F4cE4Df649d8D6A88cf365f0560Bed9aE688F
+  address public constant NEW_AAVE_SWAPPER_IMPL = 0xD80F4cE4Df649d8D6A88cf365f0560Bed9aE688F;
+
   // https://etherscan.io/address/0x6A6FA664D4Fa49a6a780a1D6143f079f8dd7C33d
   address public constant DEBT_SWAP_ADAPTER = 0x6A6FA664D4Fa49a6a780a1D6143f079f8dd7C33d;
   // https://etherscan.io/address/0x8761e0370f94f68Db8EaA731f4fC581f6AD0Bd68
@@ -56,26 +59,15 @@ contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113 is IProposalGeneric
   address public constant PRICE_CHECKER = 0xe80a1C615F75AFF7Ed8F08c9F21f9d00982D666c;
   // https://etherscan.io/address/0x3f12643D3f6f874d39C2a4c9f2Cd6f2DbAC877FC
   address public constant GHO_USD_FEED = 0x3f12643D3f6f874d39C2a4c9f2Cd6f2DbAC877FC;
-  // https://etherscan.io/address/0x8fFfFfd4AfB6115b954Bd326cbe7B4BA576818f6
-  address public constant USDC_FEED = 0x8fFfFfd4AfB6115b954Bd326cbe7B4BA576818f6;
-  // https://etherscan.io/address/0x3E7d1eAB13ad0104d2750B8863b489D65364e32D
-  address public constant USDT_FEED = 0x3E7d1eAB13ad0104d2750B8863b489D65364e32D;
-  // https://etherscan.io/address/0xAed0c38402a5d19df6E4c03F4E2DceD6e29c1ee9
-  address public constant DAI_FEED = 0xAed0c38402a5d19df6E4c03F4E2DceD6e29c1ee9;
-  // https://etherscan.io/address/0x45D270263BBee500CF8adcf2AbC0aC227097b036
-  address public constant FRAX_FEED = 0x45D270263BBee500CF8adcf2AbC0aC227097b036;
-  // https://etherscan.io/address/0x3D7aE7E594f2f2091Ad8798313450130d0Aba3a0
-  address public constant LUSD_FEED = 0x3D7aE7E594f2f2091Ad8798313450130d0Aba3a0;
   uint256 public constant USDC_A_AMOUNT = 1_250_000e6;
   uint256 public constant USDT_A_AMOUNT = 1_250_000e6;
   uint256 public constant DAI_A_AMOUNT = 500_000e18;
 
   function execute() external override {
     // New AaveSwapper implementation:
-    // https://etherscan.io/address/0xD80F4cE4Df649d8D6A88cf365f0560Bed9aE688F
     ILegacyProxyAdmin(MiscEthereum.PROXY_ADMIN).upgrade(
       ITransparentUpgradeableProxy(payable(MiscEthereum.AAVE_SWAPPER)),
-      0xD80F4cE4Df649d8D6A88cf365f0560Bed9aE688F
+      NEW_AAVE_SWAPPER_IMPL
     );
 
     _withdrawAndSwapForGHO();
@@ -117,7 +109,7 @@ contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113 is IProposalGeneric
         priceChecker: PRICE_CHECKER,
         fromUnderlying: AaveV3EthereumAssets.USDC_UNDERLYING,
         toUnderlying: AaveV3EthereumAssets.GHO_UNDERLYING,
-        fromUnderlyingPriceFeed: USDC_FEED,
+        fromUnderlyingPriceFeed: AaveV3EthereumAssets.USDC_ORACLE,
         toUnderlyingPriceFeed: GHO_USD_FEED,
         amount: type(uint256).max,
         slippage: 50
@@ -141,7 +133,7 @@ contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113 is IProposalGeneric
         priceChecker: PRICE_CHECKER,
         fromUnderlying: AaveV3EthereumAssets.USDT_UNDERLYING,
         toUnderlying: AaveV3EthereumAssets.GHO_UNDERLYING,
-        fromUnderlyingPriceFeed: USDT_FEED,
+        fromUnderlyingPriceFeed: AaveV3EthereumAssets.USDT_ORACLE,
         toUnderlyingPriceFeed: GHO_USD_FEED,
         amount: type(uint256).max,
         slippage: 50
@@ -180,7 +172,7 @@ contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113 is IProposalGeneric
         priceChecker: PRICE_CHECKER,
         fromUnderlying: AaveV3EthereumAssets.DAI_UNDERLYING,
         toUnderlying: AaveV3EthereumAssets.GHO_UNDERLYING,
-        fromUnderlyingPriceFeed: DAI_FEED,
+        fromUnderlyingPriceFeed: AaveV3EthereumAssets.DAI_ORACLE,
         toUnderlyingPriceFeed: GHO_USD_FEED,
         amount: type(uint256).max,
         slippage: 100
@@ -210,7 +202,7 @@ contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113 is IProposalGeneric
         priceChecker: PRICE_CHECKER,
         fromUnderlying: AaveV3EthereumAssets.LUSD_UNDERLYING,
         toUnderlying: AaveV3EthereumAssets.GHO_UNDERLYING,
-        fromUnderlyingPriceFeed: LUSD_FEED,
+        fromUnderlyingPriceFeed: AaveV3EthereumAssets.LUSD_ORACLE,
         toUnderlyingPriceFeed: GHO_USD_FEED,
         amount: type(uint256).max,
         slippage: 300
@@ -240,7 +232,7 @@ contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113 is IProposalGeneric
         priceChecker: PRICE_CHECKER,
         fromUnderlying: AaveV3EthereumAssets.FRAX_UNDERLYING,
         toUnderlying: AaveV3EthereumAssets.GHO_UNDERLYING,
-        fromUnderlyingPriceFeed: FRAX_FEED,
+        fromUnderlyingPriceFeed: AaveV3EthereumAssets.FRAX_ORACLE,
         toUnderlyingPriceFeed: GHO_USD_FEED,
         amount: type(uint256).max,
         slippage: 500
