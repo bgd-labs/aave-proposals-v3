@@ -36,15 +36,18 @@ contract AaveV3Avalanche_GHOAvaxLaunch_20241106 is IProposalGenericExecutor {
   address public constant CCIP_RMN_PROXY = 0xcBD48A8eB077381c3c4Eb36b402d7283aB2b11Bc;
   address public constant CCIP_ROUTER = 0xF4c7E640EdA248ef95972845a62bdC74237805dB;
   address public constant CCIP_TOKEN_ADMIN_REGISTRY = 0xc8df5D618c6a59Cc6A311E96a39450381001464F;
+  // TODO: Remove this and deploy in contract once we Chainlink sets executor as pending Admin
+  address public constant GHO_TOKEN = 0x2e234DAe75C793f67A35089C9d99245E1C58470b;
   // TODO: Wait until new token pool is deployed on Avalanche, then use corresponding address
-  address public constant CCIP_TOKEN_POOL = 0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419;
+  address public constant CCIP_TOKEN_POOL = 0xF62849F9A0B5Bf2913b396098F7c7019b51A820a;
   uint256 public constant CCIP_BUCKET_CAPACITY = 25_000_000e18; // 25M
   uint64 public constant CCIP_ETH_CHAIN_SELECTOR = 5009297550715157269;
   uint64 public constant CCIP_ARB_CHAIN_SELECTOR = 4949039107694359620;
 
   function execute() external {
+    // TODO: Put this back in proposal
     // 1. Deploy GHO
-    address ghoToken = _deployGhoToken();
+    //address ghoToken = _deployGhoToken();
 
     // 2. Accept TokenPool ownership
     UpgradeableBurnMintTokenPool(CCIP_TOKEN_POOL).acceptOwnership();
@@ -58,25 +61,25 @@ contract AaveV3Avalanche_GHOAvaxLaunch_20241106 is IProposalGenericExecutor {
     _configureCcipTokenPool(CCIP_TOKEN_POOL, CCIP_ARB_CHAIN_SELECTOR, address(0), address(0));
 
     // 5. Add CCIP TokenPool as GHO Facilitator
-    IGhoToken(ghoToken).grantRole(
-      IGhoToken(ghoToken).FACILITATOR_MANAGER_ROLE(),
+    IGhoToken(GHO_TOKEN).grantRole(
+      IGhoToken(GHO_TOKEN).FACILITATOR_MANAGER_ROLE(),
       GovernanceV3Avalanche.EXECUTOR_LVL_1
     );
-    IGhoToken(ghoToken).grantRole(
-      IGhoToken(ghoToken).BUCKET_MANAGER_ROLE(),
+    IGhoToken(GHO_TOKEN).grantRole(
+      IGhoToken(GHO_TOKEN).BUCKET_MANAGER_ROLE(),
       GovernanceV3Avalanche.EXECUTOR_LVL_1
     );
-    IGhoToken(ghoToken).addFacilitator(
+    IGhoToken(GHO_TOKEN).addFacilitator(
       CCIP_TOKEN_POOL,
       'CCIP TokenPool',
       uint128(CCIP_BUCKET_CAPACITY)
     );
 
     // 6. Accept administrator role from Chainlink token manager
-    TokenAdminRegistry(CCIP_TOKEN_ADMIN_REGISTRY).acceptAdminRole(ghoToken);
+    TokenAdminRegistry(CCIP_TOKEN_ADMIN_REGISTRY).acceptAdminRole(GHO_TOKEN);
 
     // 7. Link token to pool on Chainlink token admin registry
-    TokenAdminRegistry(CCIP_TOKEN_ADMIN_REGISTRY).setPool(ghoToken, CCIP_TOKEN_POOL);
+    TokenAdminRegistry(CCIP_TOKEN_ADMIN_REGISTRY).setPool(GHO_TOKEN, CCIP_TOKEN_POOL);
   }
 
   function _deployGhoToken() internal returns (address) {
