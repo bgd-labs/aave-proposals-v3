@@ -10,8 +10,7 @@ import {IGhoToken} from '../interfaces/IGhoToken.sol';
 
 /**
  * @title GHODirectMinter
- * @notice Acts as a facilitator
- * Instead of minting and burning on demand on each user interaction, the facilitator mints an amount upfront and makes it available via supply.
+ * @notice The GHODirectMinter is a GHO facilitator, that can inject(mint) and remove(burn) GHO from an AAVE pool that has GHO listed as a non-custom AToken.
  * @author BGD Labs @bgdlabs
  */
 contract GHODirectMinter is Initializable, OwnableUpgradeable {
