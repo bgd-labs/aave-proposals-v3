@@ -6,7 +6,7 @@ import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGen
 /**
  * @title Fluid Alignment
  * @author ACI
- * - Snapshot: TODO
+ * - Snapshot: Direct-to-AIP
  * - Discussion: https://governance.aave.com/t/arfc-fluid-alignment-with-inst-purchase/19921
  */
 contract AaveV3Ethereum_FluidAlignment_TokenTransfers_20241127 is IProposalGenericExecutor {
