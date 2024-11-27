@@ -18,7 +18,7 @@ contract AaveV3Avalanche_OnboardAUSD_20241125_Test is ProtocolV3TestBase {
   AaveV3Avalanche_OnboardAUSD_20241125 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('avalanche'), 53530511);
+    vm.createSelectFork(vm.rpcUrl('avalanche'), 53616852);
     proposal = new AaveV3Avalanche_OnboardAUSD_20241125();
   }
 

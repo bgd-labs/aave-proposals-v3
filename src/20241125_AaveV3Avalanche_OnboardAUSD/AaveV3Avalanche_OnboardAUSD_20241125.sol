@@ -2,6 +2,7 @@
 pragma solidity ^0.8.0;
 
 import {AaveV3Avalanche} from 'aave-address-book/AaveV3Avalanche.sol';
+import {GovernanceV3Avalanche} from 'aave-address-book/GovernanceV3Avalanche.sol';
 import {AaveV3PayloadAvalanche} from 'aave-helpers/src/v3-config-engine/AaveV3PayloadAvalanche.sol';
 import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
@@ -22,6 +23,13 @@ contract AaveV3Avalanche_OnboardAUSD_20241125 is AaveV3PayloadAvalanche {
   address public constant AUSD_ADMIN = 0xac140648435d03f784879cd789130F22Ef588Fcd;
 
   function _postExecute() internal override {
+    // transfer AUSD seed amount from collector to executor (fix the mistakes of wrong AUSD seed amount reicipient)
+    AaveV3Avalanche.COLLECTOR.transfer(
+      AUSD,
+      GovernanceV3Avalanche.EXECUTOR_LVL_1,
+      AUSD_SEED_AMOUNT
+    );
+
     IERC20(AUSD).forceApprove(address(AaveV3Avalanche.POOL), AUSD_SEED_AMOUNT);
     AaveV3Avalanche.POOL.supply(AUSD, AUSD_SEED_AMOUNT, address(AaveV3Avalanche.COLLECTOR), 0);
 
