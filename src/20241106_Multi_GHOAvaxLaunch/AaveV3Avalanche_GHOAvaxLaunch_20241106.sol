@@ -11,9 +11,11 @@ import {TokenAdminRegistry} from 'ccip/tokenAdminRegistry/TokenAdminRegistry.sol
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
 import {AaveV3PayloadAvalanche} from 'aave-helpers/src/v3-config-engine/AaveV3PayloadAvalanche.sol';
 import {AaveV3Avalanche} from 'aave-address-book/AaveV3Avalanche.sol';
+import {AaveV3Arbitrum} from 'aave-address-book/AaveV3Arbitrum.sol';
 import {GovernanceV3Avalanche} from 'aave-address-book/GovernanceV3Avalanche.sol';
 import {MiscAvalanche} from 'aave-address-book/MiscAvalanche.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
+import {MiscArbitrum} from 'aave-address-book/MiscArbitrum.sol';
 import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
 import {UpgradeableGhoToken} from 'gho-core/gho/UpgradeableGhoToken.sol';
@@ -43,6 +45,8 @@ contract AaveV3Avalanche_GHOAvaxLaunch_20241106 is IProposalGenericExecutor {
   address public constant CCIP_TOKEN_POOL = 0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9;
   address public constant ETH_TOKEN_POOL = MiscEthereum.GHO_CCIP_TOKEN_POOL;
   address public constant ETH_GHO = MiscEthereum.GHO_TOKEN;
+  address public constant ARB_TOKEN_POOL = MiscArbitrum.GHO_CCIP_TOKEN_POOL;
+  address public constant ARB_GHO = 0x7dfF72693f6A4149b17e7C6314655f6A9F7c8B33; // AaveV3Arbitrum.GHO_UNDERLYING;
   uint256 public constant CCIP_BUCKET_CAPACITY = 25_000_000e18; // 25M
   uint64 public constant CCIP_ETH_CHAIN_SELECTOR = 5009297550715157269;
   uint64 public constant CCIP_ARB_CHAIN_SELECTOR = 4949039107694359620;
@@ -61,7 +65,7 @@ contract AaveV3Avalanche_GHOAvaxLaunch_20241106 is IProposalGenericExecutor {
 
     // 4. Configure CCIP TokenPool for Arbitrum
     // TODO: Set remote pool and token addresses after deployment?
-    _configureCcipTokenPool(CCIP_TOKEN_POOL, CCIP_ARB_CHAIN_SELECTOR, address(0), address(0));
+    _configureCcipTokenPool(CCIP_TOKEN_POOL, CCIP_ARB_CHAIN_SELECTOR, ARB_TOKEN_POOL, ARB_GHO);
 
     // 5. Add CCIP TokenPool as GHO Facilitator
     IGhoToken(GHO_TOKEN).grantRole(

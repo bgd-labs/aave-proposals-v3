@@ -8,6 +8,7 @@ import {AaveV3Avalanche} from 'aave-address-book/AaveV3Avalanche.sol';
 import {GovernanceV3Avalanche} from 'aave-address-book/GovernanceV3Avalanche.sol';
 import {MiscAvalanche} from 'aave-address-book/MiscAvalanche.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
+import {MiscArbitrum} from 'aave-address-book/MiscArbitrum.sol';
 import {Pool} from 'ccip/libraries/Pool.sol';
 import {TokenAdminRegistry} from 'ccip/tokenAdminRegistry/TokenAdminRegistry.sol';
 import {UpgradeableBurnMintTokenPool} from 'ccip/pools/GHO/UpgradeableBurnMintTokenPool.sol';
@@ -29,6 +30,7 @@ contract AaveV3Avalanche_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
   address public constant CCIP_RMN_PROXY = 0xcBD48A8eB077381c3c4Eb36b402d7283aB2b11Bc;
   address public constant CCIP_ROUTER = 0xF4c7E640EdA248ef95972845a62bdC74237805dB;
   address public constant ETH_TOKEN_POOL = MiscEthereum.GHO_CCIP_TOKEN_POOL;
+  address public constant ARB_TOKEN_POOL = MiscArbitrum.GHO_CCIP_TOKEN_POOL;
   address public ghoToken;
   UpgradeableGhoToken public GHO;
   UpgradeableBurnMintTokenPool public TOKEN_POOL;
@@ -91,6 +93,8 @@ contract AaveV3Avalanche_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
     // Prank user
     address user = makeAddr('user');
 
+    // AVAX <> ETH
+
     // Mint
     uint256 amount = 500_000e18; // 500K GHO
     uint64 ethChainSelector = proposal.CCIP_ETH_CHAIN_SELECTOR();
@@ -128,6 +132,61 @@ contract AaveV3Avalanche_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
     Pool.LockOrBurnInV1 memory lockOrBurnIn = Pool.LockOrBurnInV1({
       receiver: bytes(''),
       remoteChainSelector: ethChainSelector,
+      originalSender: user,
+      amount: amount,
+      localToken: address(GHO)
+    });
+
+    vm.expectEmit(true, true, true, true, address(GHO));
+    emit Transfer(address(TOKEN_POOL), address(0), amount);
+
+    vm.expectEmit(false, true, false, true, address(TOKEN_POOL));
+    emit Burned(address(0), amount);
+
+    vm.prank(ramp);
+    TOKEN_POOL.lockOrBurn(lockOrBurnIn);
+
+    assertEq(_getFacilitatorLevel(address(TOKEN_POOL)), 0);
+    assertEq(GHO.balanceOf(address(TOKEN_POOL)), 0);
+
+    // AVAX <> ARB
+
+    // Mint
+    uint64 arbChainSelector = proposal.CCIP_ARB_CHAIN_SELECTOR();
+    assertEq(_getFacilitatorLevel(address(TOKEN_POOL)), 0);
+    assertEq(GHO.balanceOf(address(TOKEN_POOL)), 0);
+
+    releaseOrMintIn = Pool.ReleaseOrMintInV1({
+      originalSender: bytes(''),
+      remoteChainSelector: arbChainSelector,
+      receiver: user,
+      amount: amount,
+      localToken: address(GHO),
+      sourcePoolAddress: abi.encode(ARB_TOKEN_POOL),
+      sourcePoolData: bytes(''),
+      offchainTokenData: bytes('')
+    });
+
+    vm.expectEmit(true, true, true, true, address(GHO));
+    emit Transfer(address(0), user, amount);
+
+    vm.expectEmit(false, true, true, true, address(TOKEN_POOL));
+    emit Minted(address(0), user, amount);
+
+    TOKEN_POOL.releaseOrMint(releaseOrMintIn);
+
+    assertEq(_getFacilitatorLevel(address(TOKEN_POOL)), amount);
+    assertEq(GHO.balanceOf(address(TOKEN_POOL)), 0);
+    assertEq(GHO.balanceOf(user), amount);
+
+    // Burn
+    // mock router transfer of funds from user to token pool
+    vm.prank(user);
+    GHO.transfer(address(TOKEN_POOL), amount);
+
+    lockOrBurnIn = Pool.LockOrBurnInV1({
+      receiver: bytes(''),
+      remoteChainSelector: arbChainSelector,
       originalSender: user,
       amount: amount,
       localToken: address(GHO)
