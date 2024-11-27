@@ -50,10 +50,10 @@ While at same time there is substantial **Untapped Demand in the Core Instance**
 | -------------- | ----------- | ------------ | ---------- |
 | _Prime Market_ |             |              |            |
 | Base           | 0.75%       | 0.75%        | No change  |
-| Slope1         | 6.25%       | 8.25%        | +2%        |
+| Slope1         | 6.25%       | 9.25%        | +3%        |
 | Slope2         | 75%         | 75%          | No change  |
 | _Core Market_  |             |              |            |
-| Base           | 6.25%       | 8.25%        | +2%        |
+| Base           | 6.25%       | 9.25%        | +3%        |
 | Slope1         | 0.75%       | 0.75%        | No change  |
 | Slope2         | 75%         | 75%          | No change  |
 
@@ -61,7 +61,7 @@ While at same time there is substantial **Untapped Demand in the Core Instance**
 
 - Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241122_Multi_USDSBorrowRateUpdateOnCoreAndPrimeInstances/AaveV3Ethereum_USDSBorrowRateUpdateOnCoreAndPrimeInstances_20241122.sol), [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241122_Multi_USDSBorrowRateUpdateOnCoreAndPrimeInstances/AaveV3EthereumLido_USDSBorrowRateUpdateOnCoreAndPrimeInstances_20241122.sol)
 - Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241122_Multi_USDSBorrowRateUpdateOnCoreAndPrimeInstances/AaveV3Ethereum_USDSBorrowRateUpdateOnCoreAndPrimeInstances_20241122.t.sol), [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241122_Multi_USDSBorrowRateUpdateOnCoreAndPrimeInstances/AaveV3EthereumLido_USDSBorrowRateUpdateOnCoreAndPrimeInstances_20241122.t.sol)
-- Snapshot: Direct-to-AIP
+- [Snapshot](Direct-to-AIP)
 - [Discussion](https://governance.aave.com/t/arfc-usds-borrow-rate-update-on-core-and-prime-instances/19901)
 
 ## Copyright

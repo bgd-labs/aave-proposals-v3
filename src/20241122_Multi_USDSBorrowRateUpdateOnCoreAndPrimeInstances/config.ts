@@ -20,7 +20,7 @@ export const config: ConfigFile = {
             asset: 'USDS',
             params: {
               optimalUtilizationRate: '',
-              baseVariableBorrowRate: '8.25',
+              baseVariableBorrowRate: '9.25',
               variableRateSlope1: '',
               variableRateSlope2: '',
             },
@@ -37,7 +37,7 @@ export const config: ConfigFile = {
             params: {
               optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
-              variableRateSlope1: '8.25',
+              variableRateSlope1: '9.25',
               variableRateSlope2: '',
             },
           },

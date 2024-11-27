@@ -26,7 +26,7 @@ contract AaveV3Ethereum_USDSBorrowRateUpdateOnCoreAndPrimeInstances_20241122 is
       asset: AaveV3EthereumAssets.USDS_UNDERLYING,
       params: IAaveV3ConfigEngine.InterestRateInputData({
         optimalUsageRatio: EngineFlags.KEEP_CURRENT,
-        baseVariableBorrowRate: 8_25,
+        baseVariableBorrowRate: 9_25,
         variableRateSlope1: EngineFlags.KEEP_CURRENT,
         variableRateSlope2: EngineFlags.KEEP_CURRENT
       })

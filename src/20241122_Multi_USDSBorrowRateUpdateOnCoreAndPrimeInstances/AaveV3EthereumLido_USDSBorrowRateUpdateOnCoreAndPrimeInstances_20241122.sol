@@ -34,7 +34,7 @@ contract AaveV3EthereumLido_USDSBorrowRateUpdateOnCoreAndPrimeInstances_20241122
       params: IAaveV3ConfigEngine.InterestRateInputData({
         optimalUsageRatio: EngineFlags.KEEP_CURRENT,
         baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
-        variableRateSlope1: 8_25,
+        variableRateSlope1: 9_25,
         variableRateSlope2: EngineFlags.KEEP_CURRENT
       })
     });
