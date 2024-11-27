@@ -27,7 +27,7 @@ The table below illustrates the configured risk parameters for **AUSD**
 | ------------------------- | -----------------------------------------: |
 | Isolation Mode            |                                      false |
 | Borrowable                |                                    ENABLED |
-| Collateral Enabled        |                                       true |
+| Collateral Enabled        |                                      false |
 | Supply Cap (AUSD)         |                                 19,000,000 |
 | Borrow Cap (AUSD)         |                                 17,400,000 |
 | Debt Ceiling              |                                      USD 0 |
