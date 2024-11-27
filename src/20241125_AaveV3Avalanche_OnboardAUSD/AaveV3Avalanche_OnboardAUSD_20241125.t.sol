@@ -34,7 +34,7 @@ contract AaveV3Avalanche_OnboardAUSD_20241125_Test is ProtocolV3TestBase {
     (address aTokenAddress, , ) = AaveV3Avalanche
       .AAVE_PROTOCOL_DATA_PROVIDER
       .getReserveTokensAddresses(proposal.AUSD());
-    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Avalanche.COLLECTOR)), 10 ** 6);
+    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Avalanche.COLLECTOR)), 100 * 10 ** 6);
   }
 
   function test_AUSDAdmin() public {

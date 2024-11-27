@@ -18,7 +18,7 @@ contract AaveV3Avalanche_OnboardAUSD_20241125 is AaveV3PayloadAvalanche {
   using SafeERC20 for IERC20;
 
   address public constant AUSD = 0x00000000eFE302BEAA2b3e6e1b18d08D69a9012a;
-  uint256 public constant AUSD_SEED_AMOUNT = 1e6;
+  uint256 public constant AUSD_SEED_AMOUNT = 100e6;
   address public constant AUSD_ADMIN = 0xac140648435d03f784879cd789130F22Ef588Fcd;
 
   function _postExecute() internal override {
