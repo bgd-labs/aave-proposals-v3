@@ -5,6 +5,7 @@ import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGen
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';
 import {AaveV3Arbitrum, AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
+import {MiscArbitrum} from 'aave-address-book/MiscArbitrum.sol';
 import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {CollectorUtils, ICollector} from 'aave-helpers/src/CollectorUtils.sol';
 
@@ -22,9 +23,8 @@ contract AaveV3Arbitrum_SeptemberFundingUpdatePartA_20241113 is IProposalGeneric
   using SafeERC20 for IERC20;
   using CollectorUtils for ICollector;
 
-  // https://arbiscan.io/address/0x0335ffa9af5CE05590d6C9A75B645470e07744a9
   IAaveArbEthERC20Bridge public constant BRIDGE =
-    IAaveArbEthERC20Bridge(0x0335ffa9af5CE05590d6C9A75B645470e07744a9);
+    IAaveArbEthERC20Bridge(MiscArbitrum.AAVE_ARB_ETH_BRIDGE);
   // https://arbiscan.io/address/0x096760F208390250649E3e8763348E783AEF5562
   address public constant USDC_GATEWAY = 0x096760F208390250649E3e8763348E783AEF5562;
   // https://arbiscan.io/address/0x09e9222E96E7B4AE2a407B98d48e330053351EEe

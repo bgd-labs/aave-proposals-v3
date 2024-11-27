@@ -4,6 +4,7 @@ pragma solidity ^0.8.0;
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
 import {AaveV3Optimism, AaveV3OptimismAssets} from 'aave-address-book/AaveV3Optimism.sol';
 import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
+import {MiscOptimism} from 'aave-address-book/MiscOptimism.sol';
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';
 import {CollectorUtils, ICollector} from 'aave-helpers/src/CollectorUtils.sol';
@@ -22,9 +23,8 @@ contract AaveV3Optimism_SeptemberFundingUpdatePartA_20241113 is IProposalGeneric
   using SafeERC20 for IERC20;
   using CollectorUtils for ICollector;
 
-  // https://optimistic.etherscan.io/address/0xc3250A20F8a7BbDd23adE87737EE46A45Fe5543E
   IAaveOpEthERC20Bridge public constant BRIDGE =
-    IAaveOpEthERC20Bridge(0xc3250A20F8a7BbDd23adE87737EE46A45Fe5543E);
+    IAaveOpEthERC20Bridge(MiscOptimism.AAVE_OPT_ETH_BRIDGE);
 
   function execute() external override {
     AaveV3Optimism.COLLECTOR.withdrawFromV3(
