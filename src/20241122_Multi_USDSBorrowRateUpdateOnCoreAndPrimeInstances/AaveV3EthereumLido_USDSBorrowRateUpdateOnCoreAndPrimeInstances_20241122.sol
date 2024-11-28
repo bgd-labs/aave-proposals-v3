@@ -14,13 +14,6 @@ import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config
 contract AaveV3EthereumLido_USDSBorrowRateUpdateOnCoreAndPrimeInstances_20241122 is
   AaveV3PayloadEthereumLido
 {
-  function _postExecute() internal override {
-    AaveV3EthereumLido.POOL_CONFIGURATOR.setReserveFreeze(
-      AaveV3EthereumLidoAssets.sUSDe_UNDERLYING,
-      true
-    );
-  }
-
   function rateStrategiesUpdates()
     public
     pure
