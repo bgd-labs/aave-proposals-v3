@@ -14,8 +14,8 @@
 
 | description | value before | value after |
 | --- | --- | --- |
-| aTokenUnderlyingBalance | 1,707,045.0579 USDC [1707045057954] | 1,609,515.1753 USDC [1609515175343] |
-| virtualBalance | 1,706,866.8345 USDC [1706866834534] | 1,609,336.9519 USDC [1609336951923] |
+| aTokenUnderlyingBalance | 1,707,045.0579 USDC [1707045057954] | 1,609,614.1753 USDC [1609614175343] |
+| virtualBalance | 1,706,866.8345 USDC [1706866834534] | 1,609,435.9519 USDC [1609435951923] |
 
 
 #### LINK ([0x53E0bca35eC356BD5ddDFebbD1Fc0fD03FaBad39](https://polygonscan.com/address/0x53E0bca35eC356BD5ddDFebbD1Fc0fD03FaBad39))
@@ -46,8 +46,8 @@
 
 | description | value before | value after |
 | --- | --- | --- |
-| aTokenUnderlyingBalance | 3,912,929.3134 USDT [3912929313459] | 4,296,100.3224 USDT [4296100322403] |
-| virtualBalance | 3,912,857.1847 USDT [3912857184739] | 4,296,028.1936 USDT [4296028193683] |
+| aTokenUnderlyingBalance | 3,912,929.3134 USDT [3912929313459] | 4,296,001.3224 USDT [4296001322402] |
+| virtualBalance | 3,912,857.1847 USDT [3912857184739] | 4,295,929.1936 USDT [4295929193682] |
 
 
 ## Raw diff
@@ -68,11 +68,11 @@
     "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174": {
       "aTokenUnderlyingBalance": {
         "from": "1707045057954",
-        "to": "1609515175343"
+        "to": "1609614175343"
       },
       "virtualBalance": {
         "from": "1706866834534",
-        "to": "1609336951923"
+        "to": "1609435951923"
       }
     },
     "0x53E0bca35eC356BD5ddDFebbD1Fc0fD03FaBad39": {
@@ -108,11 +108,11 @@
     "0xc2132D05D31c914a87C6611C10748AEb04B58e8F": {
       "aTokenUnderlyingBalance": {
         "from": "3912929313459",
-        "to": "4296100322403"
+        "to": "4296001322402"
       },
       "virtualBalance": {
         "from": "3912857184739",
-        "to": "4296028193683"
+        "to": "4295929193682"
       }
     }
   }
