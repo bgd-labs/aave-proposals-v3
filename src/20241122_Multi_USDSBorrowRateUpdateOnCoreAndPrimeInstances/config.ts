@@ -42,7 +42,6 @@ export const config: ConfigFile = {
             },
           },
         ],
-        FREEZE: [{asset: 'sUSDe', shouldBeFrozen: true}],
       },
       cache: {blockNumber: 21243125},
     },
