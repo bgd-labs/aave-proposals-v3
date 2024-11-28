@@ -1,8 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {CollectorUtils} from 'aave-helpers/src/CollectorUtils.sol';
-import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
+import {CollectorUtils, ICollector} from 'aave-helpers/src/CollectorUtils.sol';
+import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
+import {AaveV2Ethereum, AaveV2EthereumAssets} from 'aave-address-book/AaveV2Ethereum.sol';
+import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {AaveV3EthereumLido} from 'aave-address-book/AaveV3EthereumLido.sol';
 import {AaveV3PayloadEthereumLido} from 'aave-helpers/src/v3-config-engine/AaveV3PayloadEthereumLido.sol';
 import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
@@ -20,63 +22,25 @@ contract AaveV3EthereumLido_OnboardGHOAndMigrateStreamsToLidoInstance_20241104 i
   AaveV3PayloadEthereumLido
 {
   using SafeERC20 for IERC20;
+  using CollectorUtils for ICollector;
 
-  uint256 public constant STREAM_0 = 100034;
-  uint256 public constant STREAM_1 = 100039;
-  uint256 public constant STREAM_2 = 100046;
-  uint256 public constant STREAM_3 = 100048;
+  uint256 public constant A_USDT_SWAP_AMOUNT = 1_500_000e6;
+  uint256 public constant A_USDC_SWAP_AMOUNT = 500_000e6;
+  uint256 public constant A_ETH_USDT_SWAP_AMOUNT = 500_000e6;
+  uint256 public constant A_ETH_USDC_SWAP_AMOUNT = 500_000e6;
+
+  // https://etherscan.io/address/0x060373D064d0168931dE2AB8DDA7410923d06E88
+  address public constant MILKMAN = 0x060373D064d0168931dE2AB8DDA7410923d06E88;
+  // https://etherscan.io/address/0xe80a1C615F75AFF7Ed8F08c9F21f9d00982D666c
+  address public constant PRICE_CHECKER = 0xe80a1C615F75AFF7Ed8F08c9F21f9d00982D666c;
+  // https://etherscan.io/address/0x3f12643D3f6f874d39C2a4c9f2Cd6f2DbAC877FC
+  address public constant GHO_USD_FEED = 0x3f12643D3f6f874d39C2a4c9f2Cd6f2DbAC877FC;
 
   address public constant AGD_MULTISIG = 0x89C51828427F70D77875C6747759fB17Ba10Ceb0;
 
   uint256 public GHO_SEED_AMOUNT;
 
   function _postExecute() internal override {
-    (address aTokenAddress, , ) = AaveV3EthereumLido
-      .AAVE_PROTOCOL_DATA_PROVIDER
-      .getReserveTokensAddresses(AaveV3EthereumAssets.GHO_UNDERLYING);
-
-    uint256[] memory streamIds = new uint256[](4);
-    streamIds[0] = STREAM_0;
-    streamIds[1] = STREAM_1;
-    streamIds[2] = STREAM_2;
-    streamIds[3] = STREAM_3;
-    // sends all remaining balances to receiver of stream
-    for (uint256 i = 0; i < 4; ) {
-      (
-        ,
-        address recipient,
-        uint256 deposit,
-        ,
-        uint256 startTime,
-        uint256 stopTime,
-        uint256 remainingBalance,
-        uint256 ratePerSecond
-      ) = AaveV3EthereumLido.COLLECTOR.getStream(streamIds[i]);
-
-      uint256 withdrawalBalance = AaveV3EthereumLido.COLLECTOR.balanceOf(streamIds[i], recipient);
-      AaveV3EthereumLido.COLLECTOR.cancelStream(streamIds[i]);
-
-      if (remainingBalance > withdrawalBalance) {
-        // create streams with a token
-        CollectorUtils.stream(
-          AaveV3EthereumLido.COLLECTOR,
-          CollectorUtils.CreateStreamInput({
-            underlying: aTokenAddress,
-            receiver: recipient,
-            amount: remainingBalance - withdrawalBalance,
-            start: startTime < block.timestamp ? block.timestamp : startTime,
-            duration: startTime < block.timestamp
-              ? stopTime - block.timestamp
-              : stopTime - startTime
-          })
-        );
-      }
-
-      unchecked {
-        ++i;
-      }
-    }
-
     GHO_SEED_AMOUNT = IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(
       address(AaveV3EthereumLido.COLLECTOR)
     );
@@ -104,6 +68,71 @@ contract AaveV3EthereumLido_OnboardGHOAndMigrateStreamsToLidoInstance_20241104 i
     ) {
       AaveV3EthereumLido.COLLECTOR.approve(AaveV3EthereumAssets.GHO_UNDERLYING, AGD_MULTISIG, 0);
     }
+
+    // swap
+    // usdt
+    AaveV3Ethereum.COLLECTOR.withdrawFromV2(
+      CollectorUtils.IOInput({
+        pool: address(AaveV2Ethereum.POOL),
+        underlying: AaveV3EthereumAssets.USDT_UNDERLYING,
+        amount: A_USDT_SWAP_AMOUNT
+      }),
+      address(AaveV3Ethereum.COLLECTOR)
+    );
+    AaveV3Ethereum.COLLECTOR.withdrawFromV3(
+      CollectorUtils.IOInput({
+        pool: address(AaveV2Ethereum.POOL),
+        underlying: AaveV3EthereumAssets.USDT_UNDERLYING,
+        amount: A_ETH_USDT_SWAP_AMOUNT
+      }),
+      address(AaveV3Ethereum.COLLECTOR)
+    );
+
+    AaveV3Ethereum.COLLECTOR.swap(
+      MiscEthereum.AAVE_SWAPPER,
+      CollectorUtils.SwapInput({
+        milkman: MILKMAN,
+        priceChecker: PRICE_CHECKER,
+        fromUnderlying: AaveV3EthereumAssets.USDT_UNDERLYING,
+        toUnderlying: AaveV3EthereumAssets.GHO_UNDERLYING,
+        fromUnderlyingPriceFeed: AaveV3EthereumAssets.USDT_ORACLE,
+        toUnderlyingPriceFeed: GHO_USD_FEED,
+        amount: type(uint256).max,
+        slippage: 100
+      })
+    );
+
+    // usdc
+    AaveV3Ethereum.COLLECTOR.withdrawFromV2(
+      CollectorUtils.IOInput({
+        pool: address(AaveV2Ethereum.POOL),
+        underlying: AaveV3EthereumAssets.USDC_UNDERLYING,
+        amount: A_USDC_SWAP_AMOUNT
+      }),
+      address(AaveV3Ethereum.COLLECTOR)
+    );
+    AaveV3Ethereum.COLLECTOR.withdrawFromV3(
+      CollectorUtils.IOInput({
+        pool: address(AaveV2Ethereum.POOL),
+        underlying: AaveV3EthereumAssets.USDC_UNDERLYING,
+        amount: A_ETH_USDC_SWAP_AMOUNT
+      }),
+      address(AaveV3Ethereum.COLLECTOR)
+    );
+
+    AaveV3Ethereum.COLLECTOR.swap(
+      MiscEthereum.AAVE_SWAPPER,
+      CollectorUtils.SwapInput({
+        milkman: MILKMAN,
+        priceChecker: PRICE_CHECKER,
+        fromUnderlying: AaveV3EthereumAssets.USDC_UNDERLYING,
+        toUnderlying: AaveV3EthereumAssets.GHO_UNDERLYING,
+        fromUnderlyingPriceFeed: AaveV3EthereumAssets.USDC_ORACLE,
+        toUnderlyingPriceFeed: GHO_USD_FEED,
+        amount: type(uint256).max,
+        slippage: 100
+      })
+    );
   }
 
   function newListings() public pure override returns (IAaveV3ConfigEngine.Listing[] memory) {
