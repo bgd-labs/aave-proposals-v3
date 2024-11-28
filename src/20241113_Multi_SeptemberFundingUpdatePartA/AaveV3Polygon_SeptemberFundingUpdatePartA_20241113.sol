@@ -41,34 +41,34 @@ contract AaveV3Polygon_SeptemberFundingUpdatePartA_20241113 is IProposalGenericE
     Migration[] memory migrations = new Migration[](6);
 
     migrations[0] = Migration({
-      underlying: AaveV3PolygonAssets.USDT_UNDERLYING,
+      underlying: AaveV2PolygonAssets.USDT_UNDERLYING,
       aToken: AaveV2PolygonAssets.USDT_A_TOKEN,
-      leaveBehind: 10 ** AaveV3PolygonAssets.USDT_DECIMALS
+      leaveBehind: 100 * 10 ** AaveV2PolygonAssets.USDT_DECIMALS
     });
     migrations[1] = Migration({
-      underlying: AaveV3PolygonAssets.DAI_UNDERLYING,
+      underlying: AaveV2PolygonAssets.DAI_UNDERLYING,
       aToken: AaveV2PolygonAssets.DAI_A_TOKEN,
-      leaveBehind: 10 ** AaveV3PolygonAssets.DAI_DECIMALS
+      leaveBehind: 10 ** AaveV2PolygonAssets.DAI_DECIMALS
     });
     migrations[2] = Migration({
-      underlying: AaveV3PolygonAssets.WPOL_UNDERLYING,
+      underlying: AaveV2PolygonAssets.WPOL_UNDERLYING,
       aToken: AaveV2PolygonAssets.WPOL_A_TOKEN,
-      leaveBehind: 10 ** AaveV3PolygonAssets.WPOL_DECIMALS
+      leaveBehind: 10 ** AaveV2PolygonAssets.WPOL_DECIMALS
     });
     migrations[3] = Migration({
-      underlying: AaveV3PolygonAssets.WETH_UNDERLYING,
+      underlying: AaveV2PolygonAssets.WETH_UNDERLYING,
       aToken: AaveV2PolygonAssets.WETH_A_TOKEN,
-      leaveBehind: 10 ** AaveV3PolygonAssets.WETH_DECIMALS
+      leaveBehind: 10 ** AaveV2PolygonAssets.WETH_DECIMALS
     });
     migrations[4] = Migration({
-      underlying: AaveV3PolygonAssets.WBTC_UNDERLYING,
+      underlying: AaveV2PolygonAssets.WBTC_UNDERLYING,
       aToken: AaveV2PolygonAssets.WBTC_A_TOKEN,
-      leaveBehind: 10 ** AaveV3PolygonAssets.WBTC_DECIMALS
+      leaveBehind: 10 ** AaveV2PolygonAssets.WBTC_DECIMALS
     });
     migrations[5] = Migration({
-      underlying: AaveV3PolygonAssets.LINK_UNDERLYING,
+      underlying: AaveV2PolygonAssets.LINK_UNDERLYING,
       aToken: AaveV2PolygonAssets.LINK_A_TOKEN,
-      leaveBehind: 10 ** AaveV3PolygonAssets.LINK_DECIMALS
+      leaveBehind: 10 ** AaveV2PolygonAssets.LINK_DECIMALS
     });
 
     for (uint256 i = 0; i < 6; ) {
@@ -116,7 +116,7 @@ contract AaveV3Polygon_SeptemberFundingUpdatePartA_20241113 is IProposalGenericE
         underlying: AaveV3PolygonAssets.USDC_UNDERLYING,
         amount: IERC20(AaveV3PolygonAssets.USDC_A_TOKEN).balanceOf(
           address(AaveV3Polygon.COLLECTOR)
-        ) - 1e6
+        ) - 100e6
       }),
       address(BRIDGE)
     );
@@ -131,7 +131,8 @@ contract AaveV3Polygon_SeptemberFundingUpdatePartA_20241113 is IProposalGenericE
       CollectorUtils.IOInput({
         pool: address(AaveV2Polygon.POOL),
         underlying: AaveV2PolygonAssets.USDC_UNDERLYING,
-        amount: (aUsdcBalance > aUsdcAvailableBalance ? aUsdcAvailableBalance : aUsdcBalance) - 1e6
+        amount: (aUsdcBalance > aUsdcAvailableBalance ? aUsdcAvailableBalance : aUsdcBalance) -
+          100e6
       }),
       address(BRIDGE)
     );

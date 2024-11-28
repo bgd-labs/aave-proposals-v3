@@ -35,7 +35,7 @@ amLINK (All-1.0x10^18)
 
 - Rescue Paraswap Funds
 
-Rescue funds held in the Paraswap adapter contracts and send back to Treasury in line with this [PR 454](https://github.com/bgd-labs/aave-proposals-v3/pull/454) on Polygon, Arbitrum, Optimism and Ethereum.
+Rescue funds held in the Paraswap adapter contracts and send back to Treasury in line with this [PR 454](https://github.com/bgd-labs/aave-proposals-v3/pull/454) on Ethereum.
 
 - Gas Rebate
 

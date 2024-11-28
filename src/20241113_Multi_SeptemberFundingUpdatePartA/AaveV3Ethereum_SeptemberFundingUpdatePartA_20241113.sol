@@ -243,16 +243,8 @@ contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113 is IProposalGeneric
   function _rescueParaswap() internal {
     IRescuable(DEBT_SWAP_ADAPTER).rescueTokens(IERC20(AaveV2EthereumAssets.sUSD_UNDERLYING));
     IRescuable(DEBT_SWAP_ADAPTER).rescueTokens(IERC20(AaveV2EthereumAssets.USDC_UNDERLYING));
-    IRescuable(DEBT_SWAP_ADAPTER_V3).rescueTokens(IERC20(AaveV3EthereumAssets.USDT_UNDERLYING));
-    IRescuable(DEBT_SWAP_ADAPTER_V3).rescueTokens(IERC20(AaveV3EthereumAssets.crvUSD_UNDERLYING));
     IRescuable(REPAY_WITH_COLLATERAL_ADAPTER).rescueTokens(
       IERC20(AaveV3EthereumAssets.GHO_UNDERLYING)
-    );
-    IRescuable(REPAY_WITH_COLLATERAL_ADAPTER).rescueTokens(
-      IERC20(AaveV3EthereumAssets.rETH_UNDERLYING)
-    );
-    IRescuable(REPAY_WITH_COLLATERAL_ADAPTER).rescueTokens(
-      IERC20(AaveV3EthereumAssets.WBTC_UNDERLYING)
     );
 
     IERC20(AaveV2EthereumAssets.sUSD_UNDERLYING).transfer(
