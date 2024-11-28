@@ -4,6 +4,7 @@ pragma solidity ^0.8.0;
 import {ITransparentUpgradeableProxy} from 'solidity-utils/contracts/transparent-proxy/TransparentUpgradeableProxy.sol';
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
 import {MiscArbitrum} from 'aave-address-book/MiscArbitrum.sol';
+import {GhoArbitrum} from 'aave-address-book/GhoArbitrum.sol';
 import {IUpgradeableBurnMintTokenPool} from 'src/interfaces/ccip/IUpgradeableBurnMintTokenPool.sol';
 import {IRateLimiter} from 'src/interfaces/ccip/IRateLimiter.sol';
 import {ILegacyProxyAdmin} from '../interfaces/ILegacyProxyAdmin.sol';
@@ -29,7 +30,7 @@ contract AaveV3Arbitrum_GHOCCIP150Upgrade_20241021 is IProposalGenericExecutor {
 
   function execute() external {
     IUpgradeableBurnMintTokenPool tokenPoolProxy = IUpgradeableBurnMintTokenPool(
-      MiscArbitrum.GHO_CCIP_TOKEN_POOL
+      GhoArbitrum.GHO_CCIP_TOKEN_POOL
     );
 
     ILegacyProxyAdmin(MiscArbitrum.PROXY_ADMIN).upgrade(

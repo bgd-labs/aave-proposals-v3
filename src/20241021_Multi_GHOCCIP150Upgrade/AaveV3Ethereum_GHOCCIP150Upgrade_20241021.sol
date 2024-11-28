@@ -3,6 +3,7 @@ pragma solidity ^0.8.0;
 
 import {ITransparentUpgradeableProxy} from 'solidity-utils/contracts/transparent-proxy/TransparentUpgradeableProxy.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
+import {GhoEthereum} from 'aave-address-book/GhoEthereum.sol';
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
 import {IUpgradeableLockReleaseTokenPool} from 'src/interfaces/ccip/IUpgradeableLockReleaseTokenPool.sol';
 import {IRateLimiter} from 'src/interfaces/ccip/IRateLimiter.sol';
@@ -29,7 +30,7 @@ contract AaveV3Ethereum_GHOCCIP150Upgrade_20241021 is IProposalGenericExecutor {
 
   function execute() external {
     IUpgradeableLockReleaseTokenPool tokenPoolProxy = IUpgradeableLockReleaseTokenPool(
-      MiscEthereum.GHO_CCIP_TOKEN_POOL
+      GhoEthereum.GHO_CCIP_TOKEN_POOL
     );
 
     ILegacyProxyAdmin(MiscEthereum.PROXY_ADMIN).upgrade(
