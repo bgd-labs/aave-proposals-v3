@@ -2,6 +2,7 @@
 pragma solidity ^0.8.0;
 
 import {CollectorUtils, ICollector} from 'aave-helpers/src/CollectorUtils.sol';
+import {AaveSwapper} from 'aave-helpers/src/swaps/AaveSwapper.sol';
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {AaveV2Ethereum, AaveV2EthereumAssets} from 'aave-address-book/AaveV2Ethereum.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
@@ -11,6 +12,10 @@ import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/
 import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';
+
+// todo this import also should be removed
+import {ILegacyProxyAdmin} from 'src/interfaces/ILegacyProxyAdmin.sol';
+import {ITransparentUpgradeableProxy} from 'solidity-utils/contracts/transparent-proxy/TransparentUpgradeableProxy.sol';
 
 /**
  * @title Onboard GHO and Migrate Streams to Lido Instance
@@ -23,6 +28,10 @@ contract AaveV3EthereumLido_OnboardGHOAndMigrateStreamsToLidoInstance_20241104 i
 {
   using SafeERC20 for IERC20;
   using CollectorUtils for ICollector;
+
+  event DepositedInttoLido(address indexed token, uint256 amount);
+
+  address public immutable SELF;
 
   uint256 public constant A_USDT_SWAP_AMOUNT = 1_500_000e6;
   uint256 public constant A_USDC_SWAP_AMOUNT = 500_000e6;
@@ -38,26 +47,15 @@ contract AaveV3EthereumLido_OnboardGHOAndMigrateStreamsToLidoInstance_20241104 i
 
   address public constant AGD_MULTISIG = 0x89C51828427F70D77875C6747759fB17Ba10Ceb0;
 
-  uint256 public GHO_SEED_AMOUNT;
+  constructor() {
+    SELF = address(this);
+  }
 
   function _postExecute() internal override {
-    GHO_SEED_AMOUNT = IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(
-      address(AaveV3EthereumLido.COLLECTOR)
-    );
-    AaveV3EthereumLido.COLLECTOR.transfer(
-      AaveV3EthereumAssets.GHO_UNDERLYING,
-      address(this),
-      GHO_SEED_AMOUNT
-    );
-    IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).forceApprove(
-      address(AaveV3EthereumLido.POOL),
-      GHO_SEED_AMOUNT
-    );
-    AaveV3EthereumLido.POOL.supply(
-      AaveV3EthereumAssets.GHO_UNDERLYING,
-      GHO_SEED_AMOUNT,
-      address(AaveV3EthereumLido.COLLECTOR),
-      0
+    // todo this part should be removed if september funding part merged
+    ILegacyProxyAdmin(MiscEthereum.PROXY_ADMIN).upgrade(
+      ITransparentUpgradeableProxy(payable(MiscEthereum.AAVE_SWAPPER)),
+      0xD80F4cE4Df649d8D6A88cf365f0560Bed9aE688F
     );
 
     if (
@@ -69,6 +67,14 @@ contract AaveV3EthereumLido_OnboardGHOAndMigrateStreamsToLidoInstance_20241104 i
       AaveV3EthereumLido.COLLECTOR.approve(AaveV3EthereumAssets.GHO_UNDERLYING, AGD_MULTISIG, 0);
     }
 
+    AaveV3EthereumLido.COLLECTOR.depositToV3(
+      CollectorUtils.IOInput({
+        pool: address(AaveV3EthereumLido.POOL),
+        underlying: AaveV3EthereumAssets.GHO_UNDERLYING,
+        amount: type(uint256).max
+      })
+    );
+
     // swap
     // usdt
     AaveV3Ethereum.COLLECTOR.withdrawFromV2(
@@ -77,29 +83,27 @@ contract AaveV3EthereumLido_OnboardGHOAndMigrateStreamsToLidoInstance_20241104 i
         underlying: AaveV3EthereumAssets.USDT_UNDERLYING,
         amount: A_USDT_SWAP_AMOUNT
       }),
-      address(AaveV3Ethereum.COLLECTOR)
+      MiscEthereum.AAVE_SWAPPER
     );
     AaveV3Ethereum.COLLECTOR.withdrawFromV3(
       CollectorUtils.IOInput({
-        pool: address(AaveV2Ethereum.POOL),
+        pool: address(AaveV3Ethereum.POOL),
         underlying: AaveV3EthereumAssets.USDT_UNDERLYING,
         amount: A_ETH_USDT_SWAP_AMOUNT
       }),
-      address(AaveV3Ethereum.COLLECTOR)
+      MiscEthereum.AAVE_SWAPPER
     );
 
-    AaveV3Ethereum.COLLECTOR.swap(
-      MiscEthereum.AAVE_SWAPPER,
-      CollectorUtils.SwapInput({
-        milkman: MILKMAN,
-        priceChecker: PRICE_CHECKER,
-        fromUnderlying: AaveV3EthereumAssets.USDT_UNDERLYING,
-        toUnderlying: AaveV3EthereumAssets.GHO_UNDERLYING,
-        fromUnderlyingPriceFeed: AaveV3EthereumAssets.USDT_ORACLE,
-        toUnderlyingPriceFeed: GHO_USD_FEED,
-        amount: type(uint256).max,
-        slippage: 100
-      })
+    AaveSwapper(MiscEthereum.AAVE_SWAPPER).swap(
+      MILKMAN,
+      PRICE_CHECKER,
+      AaveV3EthereumAssets.USDT_UNDERLYING,
+      AaveV3EthereumAssets.GHO_UNDERLYING,
+      AaveV3EthereumAssets.USDT_ORACLE,
+      GHO_USD_FEED,
+      SELF,
+      IERC20(AaveV3EthereumAssets.USDT_UNDERLYING).balanceOf(MiscEthereum.AAVE_SWAPPER),
+      100
     );
 
     // usdc
@@ -109,29 +113,27 @@ contract AaveV3EthereumLido_OnboardGHOAndMigrateStreamsToLidoInstance_20241104 i
         underlying: AaveV3EthereumAssets.USDC_UNDERLYING,
         amount: A_USDC_SWAP_AMOUNT
       }),
-      address(AaveV3Ethereum.COLLECTOR)
+      MiscEthereum.AAVE_SWAPPER
     );
     AaveV3Ethereum.COLLECTOR.withdrawFromV3(
       CollectorUtils.IOInput({
-        pool: address(AaveV2Ethereum.POOL),
+        pool: address(AaveV3Ethereum.POOL),
         underlying: AaveV3EthereumAssets.USDC_UNDERLYING,
         amount: A_ETH_USDC_SWAP_AMOUNT
       }),
-      address(AaveV3Ethereum.COLLECTOR)
+      MiscEthereum.AAVE_SWAPPER
     );
 
-    AaveV3Ethereum.COLLECTOR.swap(
-      MiscEthereum.AAVE_SWAPPER,
-      CollectorUtils.SwapInput({
-        milkman: MILKMAN,
-        priceChecker: PRICE_CHECKER,
-        fromUnderlying: AaveV3EthereumAssets.USDC_UNDERLYING,
-        toUnderlying: AaveV3EthereumAssets.GHO_UNDERLYING,
-        fromUnderlyingPriceFeed: AaveV3EthereumAssets.USDC_ORACLE,
-        toUnderlyingPriceFeed: GHO_USD_FEED,
-        amount: type(uint256).max,
-        slippage: 100
-      })
+    AaveSwapper(MiscEthereum.AAVE_SWAPPER).swap(
+      MILKMAN,
+      PRICE_CHECKER,
+      AaveV3EthereumAssets.USDC_UNDERLYING,
+      AaveV3EthereumAssets.GHO_UNDERLYING,
+      AaveV3EthereumAssets.USDC_ORACLE,
+      GHO_USD_FEED,
+      SELF,
+      IERC20(AaveV3EthereumAssets.USDC_UNDERLYING).balanceOf(MiscEthereum.AAVE_SWAPPER),
+      100
     );
   }
 
@@ -163,5 +165,16 @@ contract AaveV3EthereumLido_OnboardGHOAndMigrateStreamsToLidoInstance_20241104 i
     });
 
     return listings;
+  }
+
+  /**
+   * @notice deposit token to AaveV3EthereumLido pool
+   * @param token The address of token to deposit
+   */
+  function deposit(address token) external {
+    uint256 amount = IERC20(token).balanceOf(SELF);
+    IERC20(token).forceApprove(address(AaveV3EthereumLido.POOL), amount);
+    AaveV3EthereumLido.POOL.deposit(token, amount, address(AaveV3EthereumLido.COLLECTOR), 0);
+    emit DepositedInttoLido(token, amount);
   }
 }
