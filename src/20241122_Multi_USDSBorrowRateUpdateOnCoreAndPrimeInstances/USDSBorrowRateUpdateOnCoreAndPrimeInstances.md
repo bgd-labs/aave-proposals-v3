@@ -2,7 +2,6 @@
 title: "USDS borrow rate update on Core and Prime Instances"
 author: "Aave Chan Initiative"
 discussions: "https://governance.aave.com/t/arfc-usds-borrow-rate-update-on-core-and-prime-instances/19901"
-snapshot: "Direct-to-AIP"
 ---
 
 ## Simple Summary
