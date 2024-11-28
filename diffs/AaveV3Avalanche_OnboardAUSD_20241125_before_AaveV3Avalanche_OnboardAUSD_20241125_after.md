@@ -60,7 +60,7 @@
         "aTokenImpl": "0x1E81af09001aD208BDa68FF022544dB2102A752d",
         "aTokenName": "Aave Avalanche AUSD",
         "aTokenSymbol": "aAvaAUSD",
-        "aTokenUnderlyingBalance": 100000000,
+        "aTokenUnderlyingBalance": "100000000",
         "borrowCap": 17400000,
         "borrowingEnabled": true,
         "debtCeiling": 0,
@@ -80,7 +80,7 @@
         "oracle": "0x5C2d58627Fbe746f5ea24Ef6D618f09f8e3f0122",
         "oracleDecimals": 8,
         "oracleDescription": "AUSD / USD",
-        "oracleLatestAnswer": 99891756,
+        "oracleLatestAnswer": "99891756",
         "reserveFactor": 1000,
         "supplyCap": 19000000,
         "symbol": "AUSD",
@@ -91,7 +91,7 @@
         "variableDebtTokenName": "Aave Avalanche Variable Debt AUSD",
         "variableDebtTokenSymbol": "variableDebtAvaAUSD",
         "virtualAccountingActive": true,
-        "virtualBalance": 100000000
+        "virtualBalance": "100000000"
       }
     }
   },
@@ -100,7 +100,7 @@
       "from": null,
       "to": {
         "address": "0xCe1C5509f2f4d755aA64B8D135B15ec6F12a93da",
-        "baseVariableBorrowRate": 0,
+        "baseVariableBorrowRate": "0",
         "maxVariableBorrowRate": "805000000000000000000000000",
         "optimalUsageRatio": "900000000000000000000000000",
         "variableRateSlope1": "55000000000000000000000000",
