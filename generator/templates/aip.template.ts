@@ -3,10 +3,14 @@ import {Options, PoolConfigs, PoolIdentifier} from '../types';
 
 export function generateAIP(options: Options, configs: PoolConfigs) {
   return `---
-title: ${`"${options.title}"` || 'TODO'}
-author: ${`"${options.author}"` || 'TODO'}
-discussions: ${`"${options.discussion}"` || 'TODO'}${
-    options.snapshot ? `\nsnapshot: "${options.snapshot}"\n` : ''
+title: ${options.title ? `"${options.title}"` : 'TODO'}
+author: ${options.author ? `"${options.author}"` : 'TODO'}
+discussions: ${options.discussion ? `"${options.discussion}"` : 'TODO'}${
+    options.snapshot
+      ? options.snapshot.toLowerCase() != 'direct-to-aip'
+        ? `\nsnapshot: "${options.snapshot}"\n`
+        : ''
+      : '\nsnapshot: TODO'
   }
 ---
 
@@ -42,8 +46,13 @@ ${Object.keys(configs)
           options,
         )}/${generateContractName(options, pool)}.t.sol)`,
     )
-    .join(', ')}
-- [Snapshot](${options.snapshot || 'TODO'})
+    .join(', ')}${
+    options.snapshot
+      ? options.snapshot.toLowerCase() != 'direct-to-aip'
+        ? `\n- [Snapshot](${options.snapshot})`
+        : '\n- Snapshot: Direct-to-AIP'
+      : '\n[Snapshot](TODO)'
+  }
 - [Discussion](${options.discussion || 'TODO'})
 
 ## Copyright
