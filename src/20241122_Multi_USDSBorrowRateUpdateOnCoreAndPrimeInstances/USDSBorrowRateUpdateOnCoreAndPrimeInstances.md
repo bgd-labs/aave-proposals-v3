@@ -53,8 +53,8 @@ While at same time there is substantial **Untapped Demand in the Core Instance**
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241122_Multi_USDSBorrowRateUpdateOnCoreAndPrimeInstances/AaveV3Ethereum_USDSBorrowRateUpdateOnCoreAndPrimeInstances_20241122.sol), [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241122_Multi_USDSBorrowRateUpdateOnCoreAndPrimeInstances/AaveV3EthereumLido_USDSBorrowRateUpdateOnCoreAndPrimeInstances_20241122.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241122_Multi_USDSBorrowRateUpdateOnCoreAndPrimeInstances/AaveV3Ethereum_USDSBorrowRateUpdateOnCoreAndPrimeInstances_20241122.t.sol), [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241122_Multi_USDSBorrowRateUpdateOnCoreAndPrimeInstances/AaveV3EthereumLido_USDSBorrowRateUpdateOnCoreAndPrimeInstances_20241122.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/e2930ccf4ebec53708aec1b09e430430c701a24e/src/20241122_Multi_USDSBorrowRateUpdateOnCoreAndPrimeInstances/AaveV3Ethereum_USDSBorrowRateUpdateOnCoreAndPrimeInstances_20241122.sol), [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/e2930ccf4ebec53708aec1b09e430430c701a24e/src/20241122_Multi_USDSBorrowRateUpdateOnCoreAndPrimeInstances/AaveV3EthereumLido_USDSBorrowRateUpdateOnCoreAndPrimeInstances_20241122.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/e2930ccf4ebec53708aec1b09e430430c701a24e/src/20241122_Multi_USDSBorrowRateUpdateOnCoreAndPrimeInstances/AaveV3Ethereum_USDSBorrowRateUpdateOnCoreAndPrimeInstances_20241122.t.sol), [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/e2930ccf4ebec53708aec1b09e430430c701a24e/src/20241122_Multi_USDSBorrowRateUpdateOnCoreAndPrimeInstances/AaveV3EthereumLido_USDSBorrowRateUpdateOnCoreAndPrimeInstances_20241122.t.sol)
 - Snapshot : Direct-to-AIP
 - [Discussion](https://governance.aave.com/t/arfc-usds-borrow-rate-update-on-core-and-prime-instances/19901)
 
