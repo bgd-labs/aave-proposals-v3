@@ -14,10 +14,10 @@ Instadapp has been a long-standing partner in the Aave ecosystem, providing valu
 
 The partnership would benefit both protocols by:
 
-Strengthening the relationship between two major DeFi protocols
-Supporting GHO adoption through Fluid integration
-Ensuring priority support for Aave protocol integrations
-Creating mutual value through governance participation
+- Strengthening the relationship between two major DeFi protocols
+- Supporting GHO adoption through Fluid integration
+- Ensuring priority support for Aave protocol integrations
+- Creating mutual value through governance participation
 
 ## Specification
 
@@ -31,8 +31,8 @@ With these tokens Aave DAO will allocate up to 1/3 of acquired INST tokens to su
 
 Considering the time sensitive nature of the transaction, this proposal can proceed in a direct-to-AIP vote that will allow for the following:
 
-Allocation of $4m GHO from the treasury for purchase of $INST tokens with the provision for ACI to facilitate the purchase transaction.
-AIP to whitelist InstaDapp to flash loans
+- Allocation of $4m GHO from the treasury for purchase of $INST tokens with the provision for ACI to facilitate the purchase transaction.
+- AIP to whitelist InstaDapp to flash loans
 
 ## References
 
