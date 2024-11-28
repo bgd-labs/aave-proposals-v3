@@ -40,7 +40,6 @@ While at same time there is substantial **Untapped Demand in the Core Instance**
 - Adjusting the borrow rate is a necessary step to manage the borrowing cost dynamics and balance the market risk posed by sUSDe.
 - This adjustment should be implemented across both the Prime and Core Instances.
 
-
 | **Parameter**  | **Current** | **Proposed** | **Change** |
 | -------------- | ----------- | ------------ | ---------- |
 | _Prime Market_ |             |              |            |
