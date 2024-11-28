@@ -3,7 +3,7 @@
 pragma solidity ^0.8.0;
 
 library FlashBorrowersDataArbitrum {
-  function getFlashBorrowers() internal returns (address[] memory) {
+  function getFlashBorrowers() internal pure returns (address[] memory) {
     address[] memory flashBorrowers = new address[](11);
     flashBorrowers[0] = 0x27D8FDb0251B48D8EdD1Ad7bEDf553cF99AbE7B0;
     flashBorrowers[1] = 0xe3254397f5D9C0B69917EBb49B49e103367B406f;
@@ -22,7 +22,7 @@ library FlashBorrowersDataArbitrum {
 }
 
 library FlashBorrowersDataBase {
-  function getFlashBorrowers() internal returns (address[] memory) {
+  function getFlashBorrowers() internal pure returns (address[] memory) {
     address[] memory flashBorrowers = new address[](10);
     flashBorrowers[0] = 0xA672e882aCBB96486393D43E0efdab5EBEbDDC1d;
     flashBorrowers[1] = 0x15E2F06138aed58ca2A6AfB5A1333bBC5f728f80;
@@ -40,7 +40,7 @@ library FlashBorrowersDataBase {
 }
 
 library FlashBorrowersDataOptimism {
-  function getFlashBorrowers() internal returns (address[] memory) {
+  function getFlashBorrowers() internal pure returns (address[] memory) {
     address[] memory flashBorrowers = new address[](14);
     flashBorrowers[0] = 0x83d1Fa384EC44C2769A3562EDe372484f26E141B;
     flashBorrowers[1] = 0x32Ad28356EF70adC3EC051D8AAcdEEaA10135296;
@@ -62,7 +62,7 @@ library FlashBorrowersDataOptimism {
 }
 
 library FlashBorrowersDataPolygon {
-  function getFlashBorrowers() internal returns (address[] memory) {
+  function getFlashBorrowers() internal pure returns (address[] memory) {
     address[] memory flashBorrowers = new address[](4);
     flashBorrowers[0] = 0x86C3Dd18bAF4370495d9228b58fD959771285C55;
     flashBorrowers[1] = 0xdB88AB5b485b38EDbEEf866314F9E49d095BCe39;
