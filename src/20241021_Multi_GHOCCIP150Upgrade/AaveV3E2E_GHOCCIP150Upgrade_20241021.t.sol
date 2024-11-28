@@ -4,7 +4,9 @@ pragma solidity ^0.8.0;
 import 'forge-std/Test.sol';
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
+import {GhoEthereum} from 'aave-address-book/GhoEthereum.sol';
 import {MiscArbitrum} from 'aave-address-book/MiscArbitrum.sol';
+import {GhoArbitrum} from 'aave-address-book/GhoArbitrum.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {IClient} from 'src/interfaces/ccip/IClient.sol';
 import {IInternal} from 'src/interfaces/ccip/IInternal.sol';
@@ -83,7 +85,7 @@ contract AaveV3E2E_GHOCCIP150Upgrade_20241021_Base is ProtocolV3TestBase {
     vm.selectFork(l1.c.forkId);
     l1.proposal = new AaveV3Ethereum_GHOCCIP150Upgrade_20241021();
     l1.c.proxyPool = IProxyPool(l1.proposal.GHO_CCIP_PROXY_POOL());
-    l1.tokenPool = IUpgradeableLockReleaseTokenPool(MiscEthereum.GHO_CCIP_TOKEN_POOL);
+    l1.tokenPool = IUpgradeableLockReleaseTokenPool(GhoEthereum.GHO_CCIP_TOKEN_POOL);
     l1.rateLimitConfig = IRateLimiter.Config({
       isEnabled: true,
       capacity: l1.proposal.CCIP_RATE_LIMIT_CAPACITY(),
@@ -101,7 +103,7 @@ contract AaveV3E2E_GHOCCIP150Upgrade_20241021_Base is ProtocolV3TestBase {
     vm.selectFork(l2.c.forkId);
     l2.proposal = new AaveV3Arbitrum_GHOCCIP150Upgrade_20241021();
     l2.c.proxyPool = IProxyPool(l2.proposal.GHO_CCIP_PROXY_POOL());
-    l2.tokenPool = IUpgradeableBurnMintTokenPool(MiscArbitrum.GHO_CCIP_TOKEN_POOL);
+    l2.tokenPool = IUpgradeableBurnMintTokenPool(GhoArbitrum.GHO_CCIP_TOKEN_POOL);
     l2.rateLimitConfig = IRateLimiter.Config({
       isEnabled: true,
       capacity: l2.proposal.CCIP_RATE_LIMIT_CAPACITY(),
@@ -149,7 +151,7 @@ contract AaveV3E2E_GHOCCIP150Upgrade_20241021_Base is ProtocolV3TestBase {
   function _validateConfig(bool migrated) internal {
     vm.selectFork(l1.c.forkId);
     assertEq(l1.c.chainSelector, 5009297550715157269);
-    assertEq(address(l1.c.token), MiscEthereum.GHO_TOKEN);
+    assertEq(address(l1.c.token), GhoEthereum.GHO_TOKEN);
     assertEq(ITypeAndVersion(address(l1.c.router)).typeAndVersion(), 'Router 1.2.0');
     assertEq(
       ITypeAndVersion(address(l1.c.EVM2EVMOnRamp1_2)).typeAndVersion(),

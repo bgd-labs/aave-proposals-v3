@@ -5,7 +5,9 @@ import 'forge-std/Test.sol';
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {AaveV3Arbitrum, AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
 import {MiscArbitrum} from 'aave-address-book/MiscArbitrum.sol';
+import {GhoArbitrum} from 'aave-address-book/GhoArbitrum.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
+import {GhoEthereum} from 'aave-address-book/GhoEthereum.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {IClient} from 'src/interfaces/ccip/IClient.sol';
 import {IInternal} from 'src/interfaces/ccip/IInternal.sol';
@@ -63,7 +65,7 @@ contract AaveV3Arbitrum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('arbitrum'), 271788784);
     proposal = new AaveV3Arbitrum_GHOCCIP150Upgrade_20241021();
-    ghoTokenPool = IUpgradeableBurnMintTokenPool(MiscArbitrum.GHO_CCIP_TOKEN_POOL);
+    ghoTokenPool = IUpgradeableBurnMintTokenPool(GhoArbitrum.GHO_CCIP_TOKEN_POOL);
     proxyPool = IProxyPool(proposal.GHO_CCIP_PROXY_POOL());
 
     _validateConstants();
@@ -356,7 +358,7 @@ contract AaveV3Arbitrum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
       _getDisabledConfig()
     );
     assertEq(proxyPool.getRemotePool(ETH_CHAIN_SELECTOR), abi.encode(ETH_PROXY_POOL));
-    assertEq(proxyPool.getRemoteToken(ETH_CHAIN_SELECTOR), abi.encode(MiscEthereum.GHO_TOKEN));
+    assertEq(proxyPool.getRemoteToken(ETH_CHAIN_SELECTOR), abi.encode(GhoEthereum.GHO_TOKEN));
 
     IRouter.OnRamp[] memory onRampUpdates = new IRouter.OnRamp[](1);
     onRampUpdates[0] = IRouter.OnRamp({
@@ -389,7 +391,7 @@ contract AaveV3Arbitrum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
         sourceChainSelector: ARB_CHAIN_SELECTOR,
         feeTokenAmount: feeAmount,
         originalSender: alice,
-        destinationToken: MiscEthereum.GHO_TOKEN,
+        destinationToken: GhoEthereum.GHO_TOKEN,
         migrated: params.migrated
       })
     );

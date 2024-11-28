@@ -4,6 +4,7 @@ pragma solidity ^0.8.0;
 import {ProxyHelpers} from 'aave-v3-origin-tests/utils/ProxyHelpers.sol';
 import {AaveV3Arbitrum, AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
 import {MiscArbitrum} from 'aave-address-book/MiscArbitrum.sol';
+import {GhoArbitrum} from 'aave-address-book/GhoArbitrum.sol';
 import {GovernanceV3Arbitrum} from 'aave-address-book/GovernanceV3Arbitrum.sol';
 import {IACLManager, IDefaultInterestRateStrategyV2} from 'aave-address-book/AaveV3.sol';
 import {IAccessControl} from '@openzeppelin/contracts/access/IAccessControl.sol';
@@ -53,14 +54,14 @@ contract AaveV3Arbitrum_GHOStewardV2Upgrade_20241007_Test is ProtocolV3TestBase 
 
     // Gho CCIP Steward
     vm.expectRevert(); // getRateLimitAdmin doesn't exist yet
-    IUpgradeableLockReleaseTokenPool(MiscArbitrum.GHO_CCIP_TOKEN_POOL).getRateLimitAdmin();
+    IUpgradeableLockReleaseTokenPool(GhoArbitrum.GHO_CCIP_TOKEN_POOL).getRateLimitAdmin();
 
     executePayload(vm, address(proposal));
 
     vm.prank(MiscArbitrum.PROXY_ADMIN);
     address impl = ProxyHelpers.getInitializableAdminUpgradeabilityProxyImplementation(
       vm,
-      MiscArbitrum.GHO_CCIP_TOKEN_POOL
+      GhoArbitrum.GHO_CCIP_TOKEN_POOL
     );
 
     IUpgradeableLockReleaseTokenPool poolTokenImpl = IUpgradeableLockReleaseTokenPool(
@@ -80,7 +81,7 @@ contract AaveV3Arbitrum_GHOStewardV2Upgrade_20241007_Test is ProtocolV3TestBase 
 
     // Proxy cannot be re-initialized
     vm.expectRevert();
-    IUpgradeableLockReleaseTokenPool(MiscArbitrum.GHO_CCIP_TOKEN_POOL).initialize(
+    IUpgradeableLockReleaseTokenPool(GhoArbitrum.GHO_CCIP_TOKEN_POOL).initialize(
       owner,
       list,
       router
@@ -97,7 +98,7 @@ contract AaveV3Arbitrum_GHOStewardV2Upgrade_20241007_Test is ProtocolV3TestBase 
 
     assertTrue(
       IGhoBucketSteward(proposal.GHO_BUCKET_STEWARD()).isControlledFacilitator(
-        MiscArbitrum.GHO_CCIP_TOKEN_POOL
+        GhoArbitrum.GHO_CCIP_TOKEN_POOL
       )
     );
 
@@ -111,7 +112,7 @@ contract AaveV3Arbitrum_GHOStewardV2Upgrade_20241007_Test is ProtocolV3TestBase 
     );
 
     assertEq(
-      IUpgradeableLockReleaseTokenPool(MiscArbitrum.GHO_CCIP_TOKEN_POOL).getRateLimitAdmin(),
+      IUpgradeableLockReleaseTokenPool(GhoArbitrum.GHO_CCIP_TOKEN_POOL).getRateLimitAdmin(),
       proposal.GHO_CCIP_STEWARD()
     );
   }
@@ -120,7 +121,7 @@ contract AaveV3Arbitrum_GHOStewardV2Upgrade_20241007_Test is ProtocolV3TestBase 
     executePayload(vm, address(proposal));
 
     IUpgradeableLockReleaseTokenPool poolToken = IUpgradeableLockReleaseTokenPool(
-      MiscArbitrum.GHO_CCIP_TOKEN_POOL
+      GhoArbitrum.GHO_CCIP_TOKEN_POOL
     );
 
     assertEq(proposal.GHO_CCIP_STEWARD(), poolToken.getRateLimitAdmin());
@@ -184,15 +185,15 @@ contract AaveV3Arbitrum_GHOStewardV2Upgrade_20241007_Test is ProtocolV3TestBase 
     executePayload(vm, address(proposal));
 
     (uint256 currentBucketCapacity, ) = IGhoToken(AaveV3ArbitrumAssets.GHO_UNDERLYING)
-      .getFacilitatorBucket(MiscArbitrum.GHO_CCIP_TOKEN_POOL);
+      .getFacilitatorBucket(GhoArbitrum.GHO_CCIP_TOKEN_POOL);
     vm.startPrank(RISK_COUNCIL);
     uint128 newBucketCapacity = uint128(currentBucketCapacity) + 1;
     IGhoBucketSteward(proposal.GHO_BUCKET_STEWARD()).updateFacilitatorBucketCapacity(
-      MiscArbitrum.GHO_CCIP_TOKEN_POOL,
+      GhoArbitrum.GHO_CCIP_TOKEN_POOL,
       newBucketCapacity
     );
     (uint256 bucketCapacity, ) = IGhoToken(AaveV3ArbitrumAssets.GHO_UNDERLYING)
-      .getFacilitatorBucket(MiscArbitrum.GHO_CCIP_TOKEN_POOL);
+      .getFacilitatorBucket(GhoArbitrum.GHO_CCIP_TOKEN_POOL);
     assertEq(bucketCapacity, newBucketCapacity);
   }
 
@@ -219,10 +220,10 @@ contract AaveV3Arbitrum_GHOStewardV2Upgrade_20241007_Test is ProtocolV3TestBase 
     executePayload(vm, address(proposal));
 
     RateLimiter.TokenBucket memory outboundConfig = IUpgradeableLockReleaseTokenPool(
-      MiscArbitrum.GHO_CCIP_TOKEN_POOL
+      GhoArbitrum.GHO_CCIP_TOKEN_POOL
     ).getCurrentOutboundRateLimiterState(remoteChainSelector);
     RateLimiter.TokenBucket memory inboundConfig = IUpgradeableLockReleaseTokenPool(
-      MiscArbitrum.GHO_CCIP_TOKEN_POOL
+      GhoArbitrum.GHO_CCIP_TOKEN_POOL
     ).getCurrentInboundRateLimiterState(remoteChainSelector);
 
     RateLimiter.Config memory newOutboundConfig = RateLimiter.Config({
@@ -263,9 +264,9 @@ contract AaveV3Arbitrum_GHOStewardV2Upgrade_20241007_Test is ProtocolV3TestBase 
     });
     // Mocking response due to rate limit currently being 0
     vm.mockCall(
-      MiscArbitrum.GHO_CCIP_TOKEN_POOL,
+      GhoArbitrum.GHO_CCIP_TOKEN_POOL,
       abi.encodeWithSelector(
-        IUpgradeableLockReleaseTokenPool(MiscArbitrum.GHO_CCIP_TOKEN_POOL)
+        IUpgradeableLockReleaseTokenPool(GhoArbitrum.GHO_CCIP_TOKEN_POOL)
           .getCurrentOutboundRateLimiterState
           .selector,
         remoteChainSelector
@@ -274,10 +275,10 @@ contract AaveV3Arbitrum_GHOStewardV2Upgrade_20241007_Test is ProtocolV3TestBase 
     );
 
     RateLimiter.TokenBucket memory outboundConfig = IUpgradeableLockReleaseTokenPool(
-      MiscArbitrum.GHO_CCIP_TOKEN_POOL
+      GhoArbitrum.GHO_CCIP_TOKEN_POOL
     ).getCurrentOutboundRateLimiterState(remoteChainSelector);
     RateLimiter.TokenBucket memory inboundConfig = IUpgradeableLockReleaseTokenPool(
-      MiscArbitrum.GHO_CCIP_TOKEN_POOL
+      GhoArbitrum.GHO_CCIP_TOKEN_POOL
     ).getCurrentInboundRateLimiterState(remoteChainSelector);
 
     RateLimiter.Config memory newOutboundConfig = RateLimiter.Config({
@@ -320,9 +321,9 @@ contract AaveV3Arbitrum_GHOStewardV2Upgrade_20241007_Test is ProtocolV3TestBase 
 
     // Mocking response due to rate limit currently being 0
     vm.mockCall(
-      MiscArbitrum.GHO_CCIP_TOKEN_POOL,
+      GhoArbitrum.GHO_CCIP_TOKEN_POOL,
       abi.encodeWithSelector(
-        IUpgradeableLockReleaseTokenPool(MiscArbitrum.GHO_CCIP_TOKEN_POOL)
+        IUpgradeableLockReleaseTokenPool(GhoArbitrum.GHO_CCIP_TOKEN_POOL)
           .getCurrentOutboundRateLimiterState
           .selector,
         remoteChainSelector
@@ -330,9 +331,9 @@ contract AaveV3Arbitrum_GHOStewardV2Upgrade_20241007_Test is ProtocolV3TestBase 
       abi.encode(mockConfig)
     );
     vm.mockCall(
-      MiscArbitrum.GHO_CCIP_TOKEN_POOL,
+      GhoArbitrum.GHO_CCIP_TOKEN_POOL,
       abi.encodeWithSelector(
-        IUpgradeableLockReleaseTokenPool(MiscArbitrum.GHO_CCIP_TOKEN_POOL)
+        IUpgradeableLockReleaseTokenPool(GhoArbitrum.GHO_CCIP_TOKEN_POOL)
           .getCurrentInboundRateLimiterState
           .selector,
         remoteChainSelector
@@ -341,10 +342,10 @@ contract AaveV3Arbitrum_GHOStewardV2Upgrade_20241007_Test is ProtocolV3TestBase 
     );
 
     RateLimiter.TokenBucket memory outboundConfig = IUpgradeableLockReleaseTokenPool(
-      MiscArbitrum.GHO_CCIP_TOKEN_POOL
+      GhoArbitrum.GHO_CCIP_TOKEN_POOL
     ).getCurrentOutboundRateLimiterState(remoteChainSelector);
     RateLimiter.TokenBucket memory inboundConfig = IUpgradeableLockReleaseTokenPool(
-      MiscArbitrum.GHO_CCIP_TOKEN_POOL
+      GhoArbitrum.GHO_CCIP_TOKEN_POOL
     ).getCurrentInboundRateLimiterState(remoteChainSelector);
 
     RateLimiter.Config memory newOutboundConfig = RateLimiter.Config({

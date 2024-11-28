@@ -3,6 +3,7 @@ pragma solidity ^0.8.0;
 
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
+import {GhoEthereum} from 'aave-address-book/GhoEthereum.sol';
 import {IACLManager} from 'aave-address-book/AaveV3.sol';
 import {IAccessControl} from '@openzeppelin/contracts/access/IAccessControl.sol';
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
@@ -43,13 +44,13 @@ contract AaveV3Ethereum_GHOStewardV2Upgrade_20241007 is IProposalGenericExecutor
       OLD_STEWARD
     );
 
-    IGsm(MiscEthereum.GSM_USDC).revokeRole(
-      IGsm(MiscEthereum.GSM_USDC).CONFIGURATOR_ROLE(),
+    IGsm(GhoEthereum.GSM_USDC).revokeRole(
+      IGsm(GhoEthereum.GSM_USDC).CONFIGURATOR_ROLE(),
       OLD_STEWARD
     );
 
-    IGsm(MiscEthereum.GSM_USDT).revokeRole(
-      IGsm(MiscEthereum.GSM_USDT).CONFIGURATOR_ROLE(),
+    IGsm(GhoEthereum.GSM_USDT).revokeRole(
+      IGsm(GhoEthereum.GSM_USDT).CONFIGURATOR_ROLE(),
       OLD_STEWARD
     );
 
@@ -61,8 +62,8 @@ contract AaveV3Ethereum_GHOStewardV2Upgrade_20241007 is IProposalGenericExecutor
 
     address[] memory controlledFacilitators = new address[](3);
     controlledFacilitators[0] = AaveV3EthereumAssets.GHO_A_TOKEN;
-    controlledFacilitators[1] = MiscEthereum.GSM_USDC;
-    controlledFacilitators[2] = MiscEthereum.GSM_USDT;
+    controlledFacilitators[1] = GhoEthereum.GSM_USDC;
+    controlledFacilitators[2] = GhoEthereum.GSM_USDT;
     IGhoBucketSteward(GHO_BUCKET_STEWARD).setControlledFacilitator(controlledFacilitators, true);
 
     // Gho Aave Steward
@@ -72,20 +73,20 @@ contract AaveV3Ethereum_GHOStewardV2Upgrade_20241007 is IProposalGenericExecutor
     );
 
     // Gho CCIP Steward
-    IUpgradeableLockReleaseTokenPool(MiscEthereum.GHO_CCIP_TOKEN_POOL).setRateLimitAdmin(
+    IUpgradeableLockReleaseTokenPool(GhoEthereum.GHO_CCIP_TOKEN_POOL).setRateLimitAdmin(
       GHO_CCIP_STEWARD
     );
-    IUpgradeableLockReleaseTokenPool(MiscEthereum.GHO_CCIP_TOKEN_POOL).setBridgeLimitAdmin(
+    IUpgradeableLockReleaseTokenPool(GhoEthereum.GHO_CCIP_TOKEN_POOL).setBridgeLimitAdmin(
       GHO_CCIP_STEWARD
     );
 
     // GHO GSM Steward
-    IGsm(MiscEthereum.GSM_USDC).grantRole(
-      IGsm(MiscEthereum.GSM_USDC).CONFIGURATOR_ROLE(),
+    IGsm(GhoEthereum.GSM_USDC).grantRole(
+      IGsm(GhoEthereum.GSM_USDC).CONFIGURATOR_ROLE(),
       GHO_GSM_STEWARD
     );
-    IGsm(MiscEthereum.GSM_USDT).grantRole(
-      IGsm(MiscEthereum.GSM_USDT).CONFIGURATOR_ROLE(),
+    IGsm(GhoEthereum.GSM_USDT).grantRole(
+      IGsm(GhoEthereum.GSM_USDT).CONFIGURATOR_ROLE(),
       GHO_GSM_STEWARD
     );
   }

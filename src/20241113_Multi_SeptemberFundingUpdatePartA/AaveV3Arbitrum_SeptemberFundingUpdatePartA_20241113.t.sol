@@ -53,14 +53,14 @@ contract AaveV3Arbitrum_SeptemberFundingUpdatePartA_20241113_Test is ProtocolV3T
     );
 
     vm.expectEmit(true, false, false, true, address(proposal.BRIDGE()));
-    emit Bridge(AaveV3ArbitrumAssets.USDC_UNDERLYING, collectorAUsdcBalanceBefore - 1e6);
+    emit Bridge(AaveV3ArbitrumAssets.USDC_UNDERLYING, collectorAUsdcBalanceBefore - 100e6);
     executePayload(vm, address(proposal));
 
     uint256 collectorAUsdcBalanceAfter = IERC20(AaveV3ArbitrumAssets.USDC_A_TOKEN).balanceOf(
       COLLECTOR
     );
 
-    assertApproxEqAbs(collectorAUsdcBalanceAfter, 1e6, 5_000e6);
+    assertApproxEqAbs(collectorAUsdcBalanceAfter, 100e6, 5_000e6);
   }
 
   function test_bridgeLUSD() public {

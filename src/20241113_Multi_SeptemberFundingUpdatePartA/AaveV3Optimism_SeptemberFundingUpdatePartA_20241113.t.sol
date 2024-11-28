@@ -42,7 +42,7 @@ contract AaveV3Optimism_SeptemberFundingUpdatePartA_20241113_Test is ProtocolV3T
     );
 
     vm.expectEmit(true, false, false, true, address(proposal.BRIDGE()));
-    emit Bridge(AaveV3OptimismAssets.USDC_UNDERLYING, collectorAUsdcBalanceBefore - 1e6);
+    emit Bridge(AaveV3OptimismAssets.USDC_UNDERLYING, collectorAUsdcBalanceBefore - 100e6);
     executePayload(vm, address(proposal));
 
     uint256 collectorAUsdcBalanceAfter = IERC20(AaveV3OptimismAssets.USDC_A_TOKEN).balanceOf(

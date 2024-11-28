@@ -31,17 +31,13 @@ contract AaveV3Arbitrum_SeptemberFundingUpdatePartA_20241113 is IProposalGeneric
   address public constant LUSD_GATEWAY = 0x09e9222E96E7B4AE2a407B98d48e330053351EEe;
 
   function execute() external {
-    _bridge();
-  }
-
-  function _bridge() internal {
     AaveV3Arbitrum.COLLECTOR.withdrawFromV3(
       CollectorUtils.IOInput({
         pool: address(AaveV3Arbitrum.POOL),
         underlying: AaveV3ArbitrumAssets.USDC_UNDERLYING,
         amount: IERC20(AaveV3ArbitrumAssets.USDC_A_TOKEN).balanceOf(
           address(AaveV3Arbitrum.COLLECTOR)
-        ) - 1e6
+        ) - 100e6
       }),
       address(BRIDGE)
     );

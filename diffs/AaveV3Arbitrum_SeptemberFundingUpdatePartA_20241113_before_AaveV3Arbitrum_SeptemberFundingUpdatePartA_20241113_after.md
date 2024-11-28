@@ -14,8 +14,8 @@
 
 | description | value before | value after |
 | --- | --- | --- |
-| aTokenUnderlyingBalance | 523,273.5575 USDC [523273557554] | 470,942.9823 USDC [470942982302] |
-| virtualBalance | 523,161.0279 USDC [523161027996] | 470,830.4527 USDC [470830452744] |
+| aTokenUnderlyingBalance | 523,273.5575 USDC [523273557554] | 471,041.9823 USDC [471041982302] |
+| virtualBalance | 523,161.0279 USDC [523161027996] | 470,929.4527 USDC [470929452744] |
 
 
 ## Raw diff
@@ -36,11 +36,11 @@
     "0xFF970A61A04b1cA14834A43f5dE4533eBDDB5CC8": {
       "aTokenUnderlyingBalance": {
         "from": "523273557554",
-        "to": "470942982302"
+        "to": "471041982302"
       },
       "virtualBalance": {
         "from": "523161027996",
-        "to": "470830452744"
+        "to": "470929452744"
       }
     }
   }

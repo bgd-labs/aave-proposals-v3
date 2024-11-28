@@ -6,8 +6,8 @@
 
 | description | value before | value after |
 | --- | --- | --- |
-| aTokenUnderlyingBalance | 546,549.4039 USDC [546549403932] | 495,182.6742 USDC [495182674219] |
-| virtualBalance | 546,472.3570 USDC [546472357070] | 495,105.6273 USDC [495105627357] |
+| aTokenUnderlyingBalance | 546,549.4039 USDC [546549403932] | 495,281.6742 USDC [495281674219] |
+| virtualBalance | 546,472.3570 USDC [546472357070] | 495,204.6273 USDC [495204627357] |
 
 
 #### LUSD ([0xc40F949F8a4e094D1b49a23ea9241D289B7b2819](https://optimistic.etherscan.io/address/0xc40F949F8a4e094D1b49a23ea9241D289B7b2819))
@@ -26,11 +26,11 @@
     "0x7F5c764cBc14f9669B88837ca1490cCa17c31607": {
       "aTokenUnderlyingBalance": {
         "from": "546549403932",
-        "to": "495182674219"
+        "to": "495281674219"
       },
       "virtualBalance": {
         "from": "546472357070",
-        "to": "495105627357"
+        "to": "495204627357"
       }
     },
     "0xc40F949F8a4e094D1b49a23ea9241D289B7b2819": {
