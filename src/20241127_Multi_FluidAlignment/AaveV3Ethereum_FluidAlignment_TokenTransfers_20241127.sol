@@ -13,7 +13,7 @@ import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 contract AaveV3Ethereum_FluidAlignment_TokenTransfers_20241127 is IProposalGenericExecutor {
   address public constant INST_TOKEN = 0x6f40d4A6237C257fff2dB00FA0510DeEECd303eb;
 
-  address public INSTADAPP_TREASURY = 0x28849D2b63fA8D361e5fc15cB8aBB13019884d09;
+  address public constant INSTADAPP_TREASURY = 0x28849D2b63fA8D361e5fc15cB8aBB13019884d09;
 
   uint256 public constant INST_AMOUNT = 1_145_000 ether; // 1.145M
 
