@@ -40,10 +40,6 @@ While at same time there is substantial **Untapped Demand in the Core Instance**
 - Adjusting the borrow rate is a necessary step to manage the borrowing cost dynamics and balance the market risk posed by sUSDe.
 - This adjustment should be implemented across both the Prime and Core Instances.
 
-### 2. **Pause sUSDe on Prime Instance**
-
-- Temporarily halt sUSDe operations in the Prime stance to stabilize the market and focus on optimizing the Core Instance.
-- This pause will allow time to reassess the sizing of sUSDe based on available liquidity and market condition.
 
 | **Parameter**  | **Current** | **Proposed** | **Change** |
 | -------------- | ----------- | ------------ | ---------- |
