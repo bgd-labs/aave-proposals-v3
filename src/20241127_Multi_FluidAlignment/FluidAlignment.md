@@ -31,7 +31,7 @@ With these tokens Aave DAO will allocate up to 1/3 of acquired INST tokens to su
 
 Considering the time sensitive nature of the transaction, this proposal can proceed in a direct-to-AIP vote that will allow for the following:
 
-- Allocation of $4m GHO from the treasury for purchase of $INST tokens with the provision for ACI to facilitate the purchase transaction.
+- Allocation of $4m GHO from the treasury for purchase of $INST tokens.
 - AIP to whitelist InstaDapp to flash loans
 
 ## References
