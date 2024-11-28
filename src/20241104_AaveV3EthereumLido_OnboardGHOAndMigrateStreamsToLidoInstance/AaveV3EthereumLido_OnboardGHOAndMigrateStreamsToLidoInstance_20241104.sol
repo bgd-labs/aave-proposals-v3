@@ -29,7 +29,7 @@ contract AaveV3EthereumLido_OnboardGHOAndMigrateStreamsToLidoInstance_20241104 i
   using SafeERC20 for IERC20;
   using CollectorUtils for ICollector;
 
-  event DepositedInttoLido(address indexed token, uint256 amount);
+  event DepositedIntoLido(address indexed token, uint256 amount);
 
   address public immutable SELF;
 
@@ -175,6 +175,6 @@ contract AaveV3EthereumLido_OnboardGHOAndMigrateStreamsToLidoInstance_20241104 i
     uint256 amount = IERC20(token).balanceOf(SELF);
     IERC20(token).forceApprove(address(AaveV3EthereumLido.POOL), amount);
     AaveV3EthereumLido.POOL.deposit(token, amount, address(AaveV3EthereumLido.COLLECTOR), 0);
-    emit DepositedInttoLido(token, amount);
+    emit DepositedIntoLido(token, amount);
   }
 }
