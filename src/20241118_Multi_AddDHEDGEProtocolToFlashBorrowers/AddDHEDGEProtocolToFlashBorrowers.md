@@ -2,7 +2,6 @@
 title: "Add dHEDGE Protocol to flashBorrowers"
 author: "Aave Chan Initiative"
 discussions: "https://governance.aave.com/t/arfc-add-dhedge-protocol-to-flashborrowers/19547"
-snapshot: "Direct-to-AIP"
 ---
 
 ## Simple Summary
