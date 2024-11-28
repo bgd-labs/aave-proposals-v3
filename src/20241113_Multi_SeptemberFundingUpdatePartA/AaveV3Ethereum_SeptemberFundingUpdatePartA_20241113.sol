@@ -255,25 +255,9 @@ contract AaveV3Ethereum_SeptemberFundingUpdatePartA_20241113 is IProposalGeneric
       address(AaveV3Ethereum.COLLECTOR),
       IERC20(AaveV2EthereumAssets.USDC_UNDERLYING).balanceOf(address(this))
     );
-    IERC20(AaveV3EthereumAssets.crvUSD_UNDERLYING).transfer(
-      address(AaveV3Ethereum.COLLECTOR),
-      IERC20(AaveV3EthereumAssets.crvUSD_UNDERLYING).balanceOf(address(this))
-    );
     IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).transfer(
       address(AaveV3Ethereum.COLLECTOR),
       IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(address(this))
-    );
-    IERC20(AaveV3EthereumAssets.rETH_UNDERLYING).transfer(
-      address(AaveV3Ethereum.COLLECTOR),
-      IERC20(AaveV3EthereumAssets.rETH_UNDERLYING).balanceOf(address(this))
-    );
-    IERC20(AaveV3EthereumAssets.WBTC_UNDERLYING).transfer(
-      address(AaveV3Ethereum.COLLECTOR),
-      IERC20(AaveV3EthereumAssets.WBTC_UNDERLYING).balanceOf(address(this))
-    );
-    IERC20(AaveV3EthereumAssets.USDT_UNDERLYING).safeTransfer(
-      address(AaveV3Ethereum.COLLECTOR),
-      IERC20(AaveV3EthereumAssets.USDT_UNDERLYING).balanceOf(address(this))
     );
   }
 }
