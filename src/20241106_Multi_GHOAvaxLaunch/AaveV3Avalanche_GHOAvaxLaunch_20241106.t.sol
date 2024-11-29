@@ -44,8 +44,8 @@ contract AaveV3Avalanche_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
   address public constant CCIP_ROUTER = 0xF4c7E640EdA248ef95972845a62bdC74237805dB;
   address public constant ETH_TOKEN_POOL = MiscEthereum.GHO_CCIP_TOKEN_POOL;
   address public constant ARB_TOKEN_POOL = MiscArbitrum.GHO_CCIP_TOKEN_POOL;
-  address public ghoToken;
-  UpgradeableGhoToken public GHO;
+  address public constant GHO_TOKEN = 0xb025950B02b9cfe851C6a4C041f9D6c0942f0eB1;
+  UpgradeableGhoToken public GHO = UpgradeableGhoToken(GHO_TOKEN);
   UpgradeableBurnMintTokenPool public TOKEN_POOL;
 
   event Minted(address indexed sender, address indexed recipient, uint256 amount);
@@ -55,19 +55,15 @@ contract AaveV3Avalanche_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('avalanche'), 53559217);
 
-    // TODO: Remove this and put back in proposal after Chainlink sets executor as pending admin
-    ghoToken = _deployGhoToken();
-    GHO = UpgradeableGhoToken(ghoToken);
-
     // TODO: Remove this deployment once we have deployed pool address
-    address tokenPool = _deployCcipTokenPool(ghoToken);
+    address tokenPool = _deployCcipTokenPool(GHO_TOKEN);
     TOKEN_POOL = UpgradeableBurnMintTokenPool(tokenPool);
 
     // TODO: Remove this (will be done on chainlink's side)
     // Prank chainlink and set up admin role to be accepted on token registry
     vm.startPrank(REGISTRY_ADMIN);
     TokenAdminRegistry(TOKEN_ADMIN_REGISTRY).proposeAdministrator(
-      ghoToken,
+      GHO_TOKEN,
       GovernanceV3Avalanche.EXECUTOR_LVL_1
     );
     vm.stopPrank();
