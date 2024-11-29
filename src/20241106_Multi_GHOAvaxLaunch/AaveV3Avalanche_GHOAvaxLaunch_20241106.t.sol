@@ -34,6 +34,8 @@ contract AaveV3Avalanche_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
 
   address internal constant CCIP_AVAX_ETH_ON_RAMP = 0xe8784c29c583C52FA89144b9e5DD91Df2a1C2587;
   address internal constant CCIP_AVAX_ETH_OFF_RAMP = 0xE5F21F43937199D4D57876A83077b3923F68EB76;
+  address internal constant CCIP_AVAX_ARB_ON_RAMP = 0x4e910c8Bbe88DaDF90baa6c1B7850DbeA32c5B29;
+  address internal constant CCIP_AVAX_ARB_OFF_RAMP = 0x508Ea280D46E4796Ce0f1Acf8BEDa610c4238dB3;
 
   address public constant TOKEN_ADMIN_REGISTRY = 0xc8df5D618c6a59Cc6A311E96a39450381001464F;
   address public constant REGISTRY_ADMIN = 0xA3f32a07CCd8569f49cf350D4e61C016CA484644;
@@ -216,8 +218,8 @@ contract AaveV3Avalanche_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
     assertEq(GHO.balanceOf(address(TOKEN_POOL)), 0);
   }
 
-  /// @dev CCIP e2e
-  function test_ccipE2E() public {
+  /// @dev CCIP e2e eth <> avax
+  function test_ccipE2E_ETH_AVAX() public {
     GovV3Helpers.executePayload(vm, address(proposal));
 
     uint64 ethChainSelector = proposal.CCIP_ETH_CHAIN_SELECTOR();
@@ -277,6 +279,75 @@ contract AaveV3Avalanche_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
     vm.startPrank(user);
     // Use address(0) to use native token as fee token
     _sendCcip(router, address(GHO), amount, address(0), ethChainSelector, user);
+
+    assertEq(GHO.balanceOf(user), 0);
+    assertEq(GHO.balanceOf(address(TOKEN_POOL)), 0);
+    (capacity, level) = GHO.getFacilitatorBucket(address(TOKEN_POOL));
+    assertEq(capacity, proposal.CCIP_BUCKET_CAPACITY());
+    assertEq(level, 0);
+  }
+
+  /// @dev CCIP e2e arb <> avax
+  function test_ccipE2E_ARB_AVAX() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+
+    uint64 arbChainSelector = proposal.CCIP_ARB_CHAIN_SELECTOR();
+
+    // Chainlink config
+    Router router = Router(TOKEN_POOL.getRouter());
+
+    {
+      Router.OnRamp[] memory onRampUpdates = new Router.OnRamp[](1);
+      Router.OffRamp[] memory offRampUpdates = new Router.OffRamp[](1);
+      // ARB -> AVAX
+      onRampUpdates[0] = Router.OnRamp({
+        destChainSelector: arbChainSelector,
+        onRamp: CCIP_AVAX_ARB_ON_RAMP
+      });
+      // AVAX -> ARB
+      offRampUpdates[0] = Router.OffRamp({
+        sourceChainSelector: arbChainSelector,
+        offRamp: CCIP_AVAX_ARB_OFF_RAMP
+      });
+      address routerOwner = router.owner();
+      vm.startPrank(routerOwner);
+      router.applyRampUpdates(onRampUpdates, new Router.OffRamp[](0), offRampUpdates);
+    }
+
+    {
+      // OnRamp Price Registry
+      EVM2EVMOnRamp.DynamicConfig memory onRampDynamicConfig = EVM2EVMOnRamp(CCIP_AVAX_ARB_ON_RAMP)
+        .getDynamicConfig();
+      Internal.PriceUpdates memory priceUpdate = _getSingleTokenPriceUpdateStruct(
+        address(GHO),
+        1e18
+      );
+
+      IPriceRegistry(onRampDynamicConfig.priceRegistry).updatePrices(priceUpdate);
+      // OffRamp Price Registry
+      EVM2EVMOffRamp.DynamicConfig memory offRampDynamicConfig = EVM2EVMOffRamp(
+        CCIP_AVAX_ARB_OFF_RAMP
+      ).getDynamicConfig();
+      IPriceRegistry(offRampDynamicConfig.priceRegistry).updatePrices(priceUpdate);
+    }
+
+    // User executes ccipSend
+    address user = makeAddr('user');
+    uint256 amount = 500_000e18; // 500K GHO
+    deal(user, 1e18); // 1 ETH
+
+    // Mint tokens to user so can burn and bridge out
+    vm.startPrank(address(TOKEN_POOL));
+    GHO.mint(user, amount);
+
+    assertEq(GHO.balanceOf(address(TOKEN_POOL)), 0);
+    (uint256 capacity, uint256 level) = GHO.getFacilitatorBucket(address(TOKEN_POOL));
+    assertEq(capacity, proposal.CCIP_BUCKET_CAPACITY());
+    assertEq(level, amount);
+
+    vm.startPrank(user);
+    // Use address(0) to use native token as fee token
+    _sendCcip(router, address(GHO), amount, address(0), arbChainSelector, user);
 
     assertEq(GHO.balanceOf(user), 0);
     assertEq(GHO.balanceOf(address(TOKEN_POOL)), 0);
