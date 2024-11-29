@@ -40,17 +40,65 @@
 | virtualAccountingActive | true |
 | virtualBalance | 1,000 GHO [1000000000000000000000] |
 | optimalUsageRatio | 92 % |
-| maxVariableBorrowRate | 59.5 % |
-| baseVariableBorrowRate | 6.5 % |
+| maxVariableBorrowRate | 60.5 % |
+| baseVariableBorrowRate | 7.5 % |
 | variableRateSlope1 | 3 % |
 | variableRateSlope2 | 50 % |
-| interestRate | ![ir](https://dash.onaave.com/api/static?variableRateSlope1=30000000000000000000000000&variableRateSlope2=500000000000000000000000000&optimalUsageRatio=920000000000000000000000000&baseVariableBorrowRate=65000000000000000000000000&maxVariableBorrowRate=595000000000000000000000000) |
+| interestRate | ![ir](https://dash.onaave.com/api/static?variableRateSlope1=30000000000000000000000000&variableRateSlope2=500000000000000000000000000&optimalUsageRatio=920000000000000000000000000&baseVariableBorrowRate=75000000000000000000000000&maxVariableBorrowRate=605000000000000000000000000) |
+
+
+## Emodes changed
+
+### EMode: ETH correlated(id: 1)
+
+
+
+### EMode: LRT Stablecoins main(id: 2)
+
+| description | value before | value after |
+| --- | --- | --- |
+| eMode.label (unchanged) | LRT Stablecoins main | LRT Stablecoins main |
+| eMode.ltv (unchanged) | 75 % | 75 % |
+| eMode.liquidationThreshold (unchanged) | 78 % | 78 % |
+| eMode.liquidationBonus (unchanged) | 7.5 % | 7.5 % |
+| eMode.borrowableBitmap | USDS | USDS, USDC, GHO |
+| eMode.collateralBitmap (unchanged) | ezETH | ezETH |
+
+
+### EMode: LRT wstETH main(id: 3)
+
+
+
+### EMode: sUSDe Stablecoins(id: 4)
+
+| description | value before | value after |
+| --- | --- | --- |
+| eMode.label (unchanged) | sUSDe Stablecoins | sUSDe Stablecoins |
+| eMode.ltv (unchanged) | 90 % | 90 % |
+| eMode.liquidationThreshold (unchanged) | 92 % | 92 % |
+| eMode.liquidationBonus (unchanged) | 3 % | 3 % |
+| eMode.borrowableBitmap | USDS, USDC | USDS, USDC, GHO |
+| eMode.collateralBitmap (unchanged) | sUSDe | sUSDe |
 
 
 ## Raw diff
 
 ```json
 {
+  "eModes": {
+    "2": {
+      "borrowableBitmap": {
+        "from": "4",
+        "to": "76"
+      }
+    },
+    "4": {
+      "borrowableBitmap": {
+        "from": "12",
+        "to": "76"
+      }
+    }
+  },
   "reserves": {
     "0x40D16FC0246aD3160Ccc09B8D0D3A2cD28aE6C2f": {
       "from": null,
@@ -98,8 +146,8 @@
       "from": null,
       "to": {
         "address": "0x8958b1C39269167527821f8c276Ef7504883f2fa",
-        "baseVariableBorrowRate": "65000000000000000000000000",
-        "maxVariableBorrowRate": "595000000000000000000000000",
+        "baseVariableBorrowRate": "75000000000000000000000000",
+        "maxVariableBorrowRate": "605000000000000000000000000",
         "optimalUsageRatio": "920000000000000000000000000",
         "variableRateSlope1": "30000000000000000000000000",
         "variableRateSlope2": "500000000000000000000000000"

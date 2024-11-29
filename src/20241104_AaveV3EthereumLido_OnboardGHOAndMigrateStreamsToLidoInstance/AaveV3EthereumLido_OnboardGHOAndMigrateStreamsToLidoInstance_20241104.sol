@@ -6,7 +6,7 @@ import {AaveSwapper} from 'aave-helpers/src/swaps/AaveSwapper.sol';
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {AaveV2Ethereum, AaveV2EthereumAssets} from 'aave-address-book/AaveV2Ethereum.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
-import {AaveV3EthereumLido} from 'aave-address-book/AaveV3EthereumLido.sol';
+import {AaveV3EthereumLido, AaveV3EthereumLidoEModes} from 'aave-address-book/AaveV3EthereumLido.sol';
 import {AaveV3PayloadEthereumLido} from 'aave-helpers/src/v3-config-engine/AaveV3PayloadEthereumLido.sol';
 import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
@@ -165,6 +165,39 @@ contract AaveV3EthereumLido_OnboardGHOAndMigrateStreamsToLidoInstance_20241104 i
     });
 
     return listings;
+  }
+
+  function assetsEModeUpdates()
+    public
+    pure
+    override
+    returns (IAaveV3ConfigEngine.AssetEModeUpdate[] memory)
+  {
+    IAaveV3ConfigEngine.AssetEModeUpdate[]
+      memory assetEModeUpdates = new IAaveV3ConfigEngine.AssetEModeUpdate[](3);
+
+    assetEModeUpdates[0] = IAaveV3ConfigEngine.AssetEModeUpdate({
+      asset: AaveV3EthereumAssets.GHO_UNDERLYING,
+      eModeCategory: AaveV3EthereumLidoEModes.SUSDE_STABLECOINS,
+      borrowable: EngineFlags.ENABLED,
+      collateral: EngineFlags.DISABLED
+    });
+
+    assetEModeUpdates[1] = IAaveV3ConfigEngine.AssetEModeUpdate({
+      asset: AaveV3EthereumAssets.USDC_UNDERLYING,
+      eModeCategory: AaveV3EthereumLidoEModes.LRT_STABLECOINS_MAIN,
+      borrowable: EngineFlags.ENABLED,
+      collateral: EngineFlags.DISABLED
+    });
+
+    assetEModeUpdates[2] = IAaveV3ConfigEngine.AssetEModeUpdate({
+      asset: AaveV3EthereumAssets.GHO_UNDERLYING,
+      eModeCategory: AaveV3EthereumLidoEModes.LRT_STABLECOINS_MAIN,
+      borrowable: EngineFlags.ENABLED,
+      collateral: EngineFlags.DISABLED
+    });
+
+    return assetEModeUpdates;
   }
 
   /**
