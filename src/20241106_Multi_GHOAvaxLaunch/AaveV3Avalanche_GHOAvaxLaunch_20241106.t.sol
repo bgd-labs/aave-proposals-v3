@@ -3,16 +3,24 @@ pragma solidity ^0.8.0;
 
 import 'forge-std/Test.sol';
 import {TransparentUpgradeableProxy} from 'solidity-utils/contracts/transparent-proxy/TransparentUpgradeableProxy.sol';
+import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 import {AaveV3Avalanche} from 'aave-address-book/AaveV3Avalanche.sol';
 import {GovernanceV3Avalanche} from 'aave-address-book/GovernanceV3Avalanche.sol';
 import {MiscAvalanche} from 'aave-address-book/MiscAvalanche.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {MiscArbitrum} from 'aave-address-book/MiscArbitrum.sol';
+import {IPoolV1} from 'ccip/interfaces/IPool.sol';
 import {Pool} from 'ccip/libraries/Pool.sol';
+import {Internal} from 'ccip/libraries/Internal.sol';
 import {TokenAdminRegistry} from 'ccip/tokenAdminRegistry/TokenAdminRegistry.sol';
 import {UpgradeableBurnMintTokenPool} from 'ccip/pools/GHO/UpgradeableBurnMintTokenPool.sol';
 import {RateLimiter} from 'ccip/libraries/RateLimiter.sol';
+import {EVM2EVMOnRamp} from 'ccip/onRamp/EVM2EVMOnRamp.sol';
+import {EVM2EVMOffRamp} from 'ccip/offRamp/EVM2EVMOffRamp.sol';
+import {Client} from 'ccip/libraries/Client.sol';
+import {Router} from 'ccip/Router.sol';
+import {IPriceRegistry} from 'ccip/interfaces/IPriceRegistry.sol';
 import {UpgradeableGhoToken} from 'gho-core/gho/UpgradeableGhoToken.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Avalanche_GHOAvaxLaunch_20241106} from './AaveV3Avalanche_GHOAvaxLaunch_20241106.sol';
@@ -23,6 +31,9 @@ import {AaveV3Avalanche_GHOAvaxLaunch_20241106} from './AaveV3Avalanche_GHOAvaxL
  */
 contract AaveV3Avalanche_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
   AaveV3Avalanche_GHOAvaxLaunch_20241106 internal proposal;
+
+  address internal constant CCIP_AVAX_ETH_ON_RAMP = 0xe8784c29c583C52FA89144b9e5DD91Df2a1C2587;
+  address internal constant CCIP_AVAX_ETH_OFF_RAMP = 0xE5F21F43937199D4D57876A83077b3923F68EB76;
 
   address public constant TOKEN_ADMIN_REGISTRY = 0xc8df5D618c6a59Cc6A311E96a39450381001464F;
   address public constant REGISTRY_ADMIN = 0xA3f32a07CCd8569f49cf350D4e61C016CA484644;
@@ -205,6 +216,75 @@ contract AaveV3Avalanche_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
     assertEq(GHO.balanceOf(address(TOKEN_POOL)), 0);
   }
 
+  /// @dev CCIP e2e
+  function test_ccipE2E() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+
+    uint64 ethChainSelector = proposal.CCIP_ETH_CHAIN_SELECTOR();
+
+    // Chainlink config
+    Router router = Router(TOKEN_POOL.getRouter());
+
+    {
+      Router.OnRamp[] memory onRampUpdates = new Router.OnRamp[](1);
+      Router.OffRamp[] memory offRampUpdates = new Router.OffRamp[](1);
+      // ETH -> AVAX
+      onRampUpdates[0] = Router.OnRamp({
+        destChainSelector: ethChainSelector,
+        onRamp: CCIP_AVAX_ETH_ON_RAMP
+      });
+      // AVAX -> ETH
+      offRampUpdates[0] = Router.OffRamp({
+        sourceChainSelector: ethChainSelector,
+        offRamp: CCIP_AVAX_ETH_OFF_RAMP
+      });
+      address routerOwner = router.owner();
+      vm.startPrank(routerOwner);
+      router.applyRampUpdates(onRampUpdates, new Router.OffRamp[](0), offRampUpdates);
+    }
+
+    {
+      // OnRamp Price Registry
+      EVM2EVMOnRamp.DynamicConfig memory onRampDynamicConfig = EVM2EVMOnRamp(CCIP_AVAX_ETH_ON_RAMP)
+        .getDynamicConfig();
+      Internal.PriceUpdates memory priceUpdate = _getSingleTokenPriceUpdateStruct(
+        address(GHO),
+        1e18
+      );
+
+      IPriceRegistry(onRampDynamicConfig.priceRegistry).updatePrices(priceUpdate);
+      // OffRamp Price Registry
+      EVM2EVMOffRamp.DynamicConfig memory offRampDynamicConfig = EVM2EVMOffRamp(
+        CCIP_AVAX_ETH_OFF_RAMP
+      ).getDynamicConfig();
+      IPriceRegistry(offRampDynamicConfig.priceRegistry).updatePrices(priceUpdate);
+    }
+
+    // User executes ccipSend
+    address user = makeAddr('user');
+    uint256 amount = 500_000e18; // 500K GHO
+    deal(user, 1e18); // 1 ETH
+
+    // Mint tokens to user so can burn and bridge out
+    vm.startPrank(address(TOKEN_POOL));
+    GHO.mint(user, amount);
+
+    assertEq(GHO.balanceOf(address(TOKEN_POOL)), 0);
+    (uint256 capacity, uint256 level) = GHO.getFacilitatorBucket(address(TOKEN_POOL));
+    assertEq(capacity, proposal.CCIP_BUCKET_CAPACITY());
+    assertEq(level, amount);
+
+    vm.startPrank(user);
+    // Use address(0) to use native token as fee token
+    _sendCcip(router, address(GHO), amount, address(0), ethChainSelector, user);
+
+    assertEq(GHO.balanceOf(user), 0);
+    assertEq(GHO.balanceOf(address(TOKEN_POOL)), 0);
+    (capacity, level) = GHO.getFacilitatorBucket(address(TOKEN_POOL));
+    assertEq(capacity, proposal.CCIP_BUCKET_CAPACITY());
+    assertEq(level, 0);
+  }
+
   // ---
   // Deployment
   // ---
@@ -306,5 +386,69 @@ contract AaveV3Avalanche_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
   function _getFacilitatorLevel(address f) internal view returns (uint256) {
     (, uint256 level) = GHO.getFacilitatorBucket(f);
     return level;
+  }
+
+  function _sendCcip(
+    Router router,
+    address token,
+    uint256 amount,
+    address feeToken,
+    uint64 destChainSelector,
+    address receiver
+  ) internal {
+    Client.EVM2AnyMessage memory message = _generateSingleTokenMessage(
+      receiver,
+      token,
+      amount,
+      feeToken
+    );
+    uint256 expectedFee = router.getFee(destChainSelector, message);
+
+    IERC20(token).approve(address(router), amount);
+    router.ccipSend{value: expectedFee}(destChainSelector, message);
+  }
+
+  function _generateSingleTokenMessage(
+    address receiver,
+    address token,
+    uint256 amount,
+    address feeToken
+  ) public pure returns (Client.EVM2AnyMessage memory) {
+    Client.EVMTokenAmount[] memory tokenAmounts = new Client.EVMTokenAmount[](1);
+    tokenAmounts[0] = Client.EVMTokenAmount({token: token, amount: amount});
+    return
+      Client.EVM2AnyMessage({
+        receiver: abi.encode(receiver),
+        data: '',
+        tokenAmounts: tokenAmounts,
+        feeToken: feeToken,
+        extraArgs: Client._argsToBytes(Client.EVMExtraArgsV1({gasLimit: 200_000}))
+      });
+  }
+
+  function _getTokensAndPools(
+    address[] memory tokens,
+    IPoolV1[] memory pools
+  ) internal pure returns (Internal.PoolUpdate[] memory) {
+    Internal.PoolUpdate[] memory tokensAndPools = new Internal.PoolUpdate[](tokens.length);
+    for (uint256 i = 0; i < tokens.length; ++i) {
+      tokensAndPools[i] = Internal.PoolUpdate({token: tokens[i], pool: address(pools[i])});
+    }
+    return tokensAndPools;
+  }
+
+  function _getSingleTokenPriceUpdateStruct(
+    address token,
+    uint224 price
+  ) internal pure returns (Internal.PriceUpdates memory) {
+    Internal.TokenPriceUpdate[] memory tokenPriceUpdates = new Internal.TokenPriceUpdate[](1);
+    tokenPriceUpdates[0] = Internal.TokenPriceUpdate({sourceToken: token, usdPerToken: price});
+
+    Internal.PriceUpdates memory priceUpdates = Internal.PriceUpdates({
+      tokenPriceUpdates: tokenPriceUpdates,
+      gasPriceUpdates: new Internal.GasPriceUpdate[](0)
+    });
+
+    return priceUpdates;
   }
 }
