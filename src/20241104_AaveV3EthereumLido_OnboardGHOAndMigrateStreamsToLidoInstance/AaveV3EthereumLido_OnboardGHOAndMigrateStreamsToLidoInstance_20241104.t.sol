@@ -185,6 +185,14 @@ contract AaveV3EthereumLido_OnboardGHOAndMigrateStreamsToLidoInstance_20241104_T
     uint256 balanceCollectorBefore = IERC20(aTokenAddress).balanceOf(
       address(AaveV3EthereumLido.COLLECTOR)
     );
+    uint256 meritGhoAllowanceBefore = IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).allowance(
+      address(AaveV3EthereumLido.COLLECTOR),
+      proposal.MERIT_MULTISIG()
+    );
+    uint256 meritAEthGhoAllowanceBefore = IERC20(aTokenAddress).allowance(
+      address(AaveV3EthereumLido.COLLECTOR),
+      proposal.MERIT_MULTISIG()
+    );
 
     assertEq(IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(address(proposal)), amount);
 
@@ -197,5 +205,18 @@ contract AaveV3EthereumLido_OnboardGHOAndMigrateStreamsToLidoInstance_20241104_T
       IERC20(aTokenAddress).balanceOf(address(AaveV3EthereumLido.COLLECTOR)),
       balanceCollectorBefore
     );
+
+    uint256 meritGhoAllowanceAfter = IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).allowance(
+      address(AaveV3EthereumLido.COLLECTOR),
+      proposal.MERIT_MULTISIG()
+    );
+    uint256 meritAEthGhoAllowanceAfter = IERC20(aTokenAddress).allowance(
+      address(AaveV3EthereumLido.COLLECTOR),
+      proposal.MERIT_MULTISIG()
+    );
+
+    assertEq(meritAEthGhoAllowanceBefore, 0);
+    assertEq(meritGhoAllowanceBefore, meritAEthGhoAllowanceAfter);
+    assertEq(meritGhoAllowanceAfter, 0);
   }
 }

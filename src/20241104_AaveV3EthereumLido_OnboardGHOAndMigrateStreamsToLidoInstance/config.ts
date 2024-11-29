@@ -42,6 +42,26 @@ export const config: ConfigFile = {
             admin: '',
           },
         ],
+        EMODES_ASSETS: [
+          {
+            asset: 'GHO',
+            eModeCategory: 'AaveV3EthereumLidoEModes.SUSDE_STABLECOINS',
+            collateral: 'DISABLED',
+            borrowable: 'ENABLED',
+          },
+          {
+            asset: 'USDC',
+            eModeCategory: 'AaveV3EthereumLidoEModes.LRT_STABLECOINS_MAIN',
+            collateral: 'DISABLED',
+            borrowable: 'ENABLED',
+          },
+          {
+            asset: 'GHO',
+            eModeCategory: 'AaveV3EthereumLidoEModes.LRT_STABLECOINS_MAIN',
+            collateral: 'DISABLED',
+            borrowable: 'ENABLED',
+          },
+        ],
       },
       cache: {blockNumber: 21118528},
     },

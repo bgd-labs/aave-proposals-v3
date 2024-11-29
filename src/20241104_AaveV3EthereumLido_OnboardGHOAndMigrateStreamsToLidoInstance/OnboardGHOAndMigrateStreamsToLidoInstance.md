@@ -49,7 +49,7 @@ The below details the parameter configuration of the GHO Reserve on the Lido ins
 | Liquidation Bonus         |                                      7.5 % |
 | Liquidation Protocol Fee  |                                       10 % |
 | Reserve Factor            |                                       10 % |
-| Base Variable Borrow Rate |                                     6.50 % |
+| Base Variable Borrow Rate |                                     7.50 % |
 | Variable Slope 1          |                                     3.00 % |
 | Variable Slope 2          |                                       50 % |
 | Uoptimal                  |                                       92 % |
@@ -57,6 +57,30 @@ The below details the parameter configuration of the GHO Reserve on the Lido ins
 | Siloed Borrowing          |                                   DISABLED |
 | Borrowable in Isolation   |                                   DISABLED |
 | Oracle                    | 0xD110cac5d8682A3b045D5524a9903E031d70FCCd |
+
+GHO is to be included in the sUSDe and ezETH eMode as shown below:
+
+**sUSDe eMode**
+
+|       Parameter       | Value | Value | Value | Value |
+| :-------------------: | :---: | :---: | :---: | :---: |
+|         Asset         | sUSDe | USDS  | USDC  |  GHO  |
+|      Collateral       |  Yes  |  No   |  No   |  No   |
+|      Borrowable       |  No   |  Yes  |  Yes  |  Yes  |
+|        Max LTV        |  90%  |   -   |   -   |   -   |
+| Liquidation Threshold |  92%  |   -   |   -   |   -   |
+|   Liquidation Bonus   | 3.0%  |   -   |   -   |   -   |
+
+**ezETH eMode**
+
+|       Parameter       | Value | Value | Value | Value |
+| :-------------------: | :---: | :---: | :---: | :---: |
+|         Asset         | ezETH | USDS  | USDC  |  GHO  |
+|      Collateral       |  Yes  |  No   |  No   |  No   |
+|      Borrowable       |  No   |  Yes  |  Yes  |  Yes  |
+|        Max LTV        |  75%  |   -   |   -   |   -   |
+| Liquidation Threshold |  80%  |   -   |   -   |   -   |
+|   Liquidation Bonus   | 7.5%  |   -   |   -   |   -   |
 
 This proposal includes the following asset swaps:
 
