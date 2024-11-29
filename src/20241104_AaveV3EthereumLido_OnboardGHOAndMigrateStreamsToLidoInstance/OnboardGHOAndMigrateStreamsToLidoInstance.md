@@ -28,7 +28,7 @@ Each of these options offers clear advantages for the Aave DAO and GHO users. GH
 
 ### Seed GHO Reserve on Prime
 
-With the recent proposal to acquire INST, we recommend acquiring GHO from spot markets to seed the GHO Reserve on Prime. The acquired GHO should be sufficient to sustain two months of Merit and any near-term Service Provider funding requests, with a sufficient buffer to ensure timely fund withdrawals.
+With the recent proposal to acquire INST, we recommend acquiring GHO from spot markets to seed the GHO Reserve on Prime. The acquired GHO should be sufficient to sustain two months of Merit and any near-term Service Provider funding requests, with a sufficient buffer to ensure timely fund withdrawals. Allowance will be migrated from Core to Prime market accordingly.
 
 Within this publication, the Aave Grants DAO GHO Allowance is to be cancelled.
 
