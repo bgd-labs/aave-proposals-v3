@@ -71,7 +71,7 @@ contract AaveV3EthereumLido_OnboardGHOAndMigrateStreamsToLidoInstance_20241104 i
       CollectorUtils.IOInput({
         pool: address(AaveV3EthereumLido.POOL),
         underlying: AaveV3EthereumAssets.GHO_UNDERLYING,
-        amount: type(uint256).max
+        amount: 1_000e18
       })
     );
 
@@ -143,7 +143,7 @@ contract AaveV3EthereumLido_OnboardGHOAndMigrateStreamsToLidoInstance_20241104 i
     listings[0] = IAaveV3ConfigEngine.Listing({
       asset: AaveV3EthereumAssets.GHO_UNDERLYING,
       assetSymbol: 'GHO',
-      priceFeed: 0xD110cac5d8682A3b045D5524a9903E031d70FCCd,
+      priceFeed: AaveV3EthereumAssets.GHO_ORACLE,
       enabledToBorrow: EngineFlags.ENABLED,
       borrowableInIsolation: EngineFlags.DISABLED,
       withSiloedBorrowing: EngineFlags.DISABLED,
@@ -158,7 +158,7 @@ contract AaveV3EthereumLido_OnboardGHOAndMigrateStreamsToLidoInstance_20241104 i
       liqProtocolFee: 10_00,
       rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
         optimalUsageRatio: 92_00,
-        baseVariableBorrowRate: 4_50,
+        baseVariableBorrowRate: 7_50,
         variableRateSlope1: 3_00,
         variableRateSlope2: 50_00
       })

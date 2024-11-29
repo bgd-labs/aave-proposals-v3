@@ -150,12 +150,9 @@ contract AaveV3EthereumLido_OnboardGHOAndMigrateStreamsToLidoInstance_20241104_T
 
     assertEq(
       IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(address(AaveV3EthereumLido.COLLECTOR)),
-      0
+      initialGhoFund - 1_000e18
     );
-    assertEq(
-      IERC20(aTokenAddress).balanceOf(address(AaveV3EthereumLido.COLLECTOR)),
-      initialGhoFund
-    );
+    assertEq(IERC20(aTokenAddress).balanceOf(address(AaveV3EthereumLido.COLLECTOR)), 1_000e18);
   }
 
   function test_agdAllowance() public {

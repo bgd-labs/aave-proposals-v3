@@ -34,7 +34,7 @@ export const config: ConfigFile = {
             borrowCap: '2500000',
             rateStrategyParams: {
               optimalUtilizationRate: '92',
-              baseVariableBorrowRate: '4.50',
+              baseVariableBorrowRate: '7.50',
               variableRateSlope1: '3.00',
               variableRateSlope2: '50',
             },

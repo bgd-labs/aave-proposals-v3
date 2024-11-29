@@ -10,8 +10,7 @@ snapshot: "https://snapshot.org/#/aave.eth/proposal/0x5c27aa8f1de66a3e56f535d60e
 This publication proposes the following:
 
 - Onboarding GHO to the Lido instance of Aave v3;
-- Providing initial GHO liquidity from the Treasury; and,
-- Migrating Service Providers streams to GHO from Lido instance.
+- Acquire GHO from spot market to seed the GHO Reserve on Prime
 
 ## Motivation
 
@@ -27,22 +26,9 @@ Adding GHO to the Lido instance of Aave v3 would provide the DAO with several op
 
 Each of these options offers clear advantages for the Aave DAO and GHO users. GHO is to be onboarded as a borrow-only asset, similar to the current configurations of USDC and USDS.
 
-### Deploy GHO from Treasury
+### Seed GHO Reserve on Prime
 
-From observing the USDC reserve on the Lido instance, it is apparent that GHO would benefit from some initial liquidity. With passive GHO held in the Treasury, this publication proposes depositing available GHO into the new Reserve. With the GHO expected to earn a yield the DAO will benefit from a new revenue source.
-
-A separate proposal will recommend minting and depositing GHO into the new reserve via a new Facilitator on Ethereum to futher help bootstrap the reserve. The addition of sUSDe to the Lido instance is expected to provide strong demand for stablecoin debt.
-
-### Migrate Service Provider Streams
-
-With the GHO being deployed into Lido, several Aave DAO service provider streams are to be amended to draw GHO from Lido instance.
-
-- Chaos Labs;
-- Aave Labs;
-- LlamaRisk; and,
-- Aave Chan Initiative.
-
-When the AIP is submitted, new streams will be created to replace the streams being cancelled. With several streams are soon to expire during December, these streams are not migrated to Lido instance and sufficient GHO will remain in the treasury to facilitate payment to these teams.
+With the recent proposal to acquire INST, we recommend acquiring GHO from spot markets to seed the GHO Reserve on Prime. The acquired GHO should be sufficient to sustain two months of Merit and any near-term Service Provider funding requests, with a sufficient buffer to ensure timely fund withdrawals.
 
 Within this publication, the Aave Grants DAO GHO Allowance is to be cancelled.
 
@@ -63,7 +49,7 @@ The below details the parameter configuration of the GHO Reserve on the Lido ins
 | Liquidation Bonus         |                                      7.5 % |
 | Liquidation Protocol Fee  |                                       10 % |
 | Reserve Factor            |                                       10 % |
-| Base Variable Borrow Rate |                                     4.50 % |
+| Base Variable Borrow Rate |                                     6.50 % |
 | Variable Slope 1          |                                     3.00 % |
 | Variable Slope 2          |                                       50 % |
 | Uoptimal                  |                                       92 % |
@@ -72,24 +58,14 @@ The below details the parameter configuration of the GHO Reserve on the Lido ins
 | Borrowable in Isolation   |                                   DISABLED |
 | Oracle                    | 0xD110cac5d8682A3b045D5524a9903E031d70FCCd |
 
-The below table shows the GHO balance at time of writing for reference only:
+This proposal includes the following asset swaps:
 
-| Treasury Assert |                                                              Holding                                                               |
-| :-------------- | :--------------------------------------------------------------------------------------------------------------------------------: |
-| GHO             | [7,295,678.65](https://etherscan.io/token/0x40D16FC0246aD3160Ccc09B8D0D3A2cD28aE6C2f?a=0x464C71f6c2F760DdA6093dCB91C24c39e5d6e18c) |
-
-Note: The September funding update is to acquire GHO and transfer 5M GHO to Arbitrum to be deployed into the GHO reserve to earn yield.
-
-Sufficient GHO shall remain in the Treasury to support streams with a 2024 expiry date, with the balance to be deposited into the Lido instance of Aave v3. This will be confirmed and detailed in the comments just prior to submission of the AIP.
-
-The following Service Provider streams are to be migrated to using GHO from the Lido instance.
-
-| Service Provider     | StreamID |
-| :------------------- | :------: |
-| Aave Chan Initiative |  100034  |
-| Aave Labs            |  100039  |
-| Chaos Labs           |  100046  |
-| LlamaRisk            |  100048  |
+|  Asset Holding  |
+| :-------------: |
+|  aUSDT (1.5M)   |
+|  aUSDC (0.5M)   |
+| aEthUSDT (0.5M) |
+| aEthUSDC (0.5M) |
 
 Cancel Aave Grants DAO GHO [Allowance](https://governance.aave.com/t/update-from-aave-grants-winding-down-agd-1-0-and-what-s-next/18707).
 

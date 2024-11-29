@@ -32,19 +32,19 @@
 | interestRateStrategy | [0x8958b1C39269167527821f8c276Ef7504883f2fa](https://etherscan.io/address/0x8958b1C39269167527821f8c276Ef7504883f2fa) |
 | aTokenName | Aave Ethereum Lido GHO |
 | aTokenSymbol | aEthLidoGHO |
-| aTokenUnderlyingBalance | 7,337,808.2450 GHO [7337808245040489153084990] |
+| aTokenUnderlyingBalance | 1,000 GHO [1000000000000000000000] |
 | id | 6 |
 | isPaused | false |
 | variableDebtTokenName | Aave Ethereum Lido Variable Debt GHO |
 | variableDebtTokenSymbol | variableDebtEthLidoGHO |
 | virtualAccountingActive | true |
-| virtualBalance | 7,337,808.2450 GHO [7337808245040489153084990] |
+| virtualBalance | 1,000 GHO [1000000000000000000000] |
 | optimalUsageRatio | 92 % |
-| maxVariableBorrowRate | 57.5 % |
-| baseVariableBorrowRate | 4.5 % |
+| maxVariableBorrowRate | 59.5 % |
+| baseVariableBorrowRate | 6.5 % |
 | variableRateSlope1 | 3 % |
 | variableRateSlope2 | 50 % |
-| interestRate | ![ir](https://dash.onaave.com/api/static?variableRateSlope1=30000000000000000000000000&variableRateSlope2=500000000000000000000000000&optimalUsageRatio=920000000000000000000000000&baseVariableBorrowRate=45000000000000000000000000&maxVariableBorrowRate=575000000000000000000000000) |
+| interestRate | ![ir](https://dash.onaave.com/api/static?variableRateSlope1=30000000000000000000000000&variableRateSlope2=500000000000000000000000000&optimalUsageRatio=920000000000000000000000000&baseVariableBorrowRate=65000000000000000000000000&maxVariableBorrowRate=595000000000000000000000000) |
 
 
 ## Raw diff
@@ -59,7 +59,7 @@
         "aTokenImpl": "0x7F8Fc14D462bdF93c681c1f2Fd615389bF969Fb2",
         "aTokenName": "Aave Ethereum Lido GHO",
         "aTokenSymbol": "aEthLidoGHO",
-        "aTokenUnderlyingBalance": "7337808245040489153084990",
+        "aTokenUnderlyingBalance": "1000000000000000000000",
         "borrowCap": 2500000,
         "borrowingEnabled": true,
         "debtCeiling": 0,
@@ -89,7 +89,7 @@
         "variableDebtTokenName": "Aave Ethereum Lido Variable Debt GHO",
         "variableDebtTokenSymbol": "variableDebtEthLidoGHO",
         "virtualAccountingActive": true,
-        "virtualBalance": "7337808245040489153084990"
+        "virtualBalance": "1000000000000000000000"
       }
     }
   },
@@ -98,8 +98,8 @@
       "from": null,
       "to": {
         "address": "0x8958b1C39269167527821f8c276Ef7504883f2fa",
-        "baseVariableBorrowRate": "45000000000000000000000000",
-        "maxVariableBorrowRate": "575000000000000000000000000",
+        "baseVariableBorrowRate": "65000000000000000000000000",
+        "maxVariableBorrowRate": "595000000000000000000000000",
         "optimalUsageRatio": "920000000000000000000000000",
         "variableRateSlope1": "30000000000000000000000000",
         "variableRateSlope2": "500000000000000000000000000"
