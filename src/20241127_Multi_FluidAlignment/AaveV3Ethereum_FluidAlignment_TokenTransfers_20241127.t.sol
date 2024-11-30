@@ -11,7 +11,7 @@ import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 
 /**
  * @dev Test for AaveV3Ethereum_FluidAlignment_TokenTransfers_20241127
- * command: FOUNDRY_PROFILE=mainnet forge test --match-path=src/20241127_Multi_FluidAlignment/AaveV3Ethereum_FluidAlignment_20241127.t.sol -vv
+ * command: FOUNDRY_PROFILE=mainnet forge test --match-path=src/20241127_Multi_FluidAlignment/AaveV3Ethereum_FluidAlignment_TokenTransfers_20241127.t.sol -vv
  */
 contract AaveV3Ethereum_FluidAlignment_TokenTransfers_20241127_Test is ProtocolV3TestBase {
   AaveV3Ethereum_FluidAlignment_TokenTransfers_20241127 internal proposal;
