@@ -19,6 +19,9 @@ contract AaveV3Ethereum_FluidAlignment_TokenTransfers_20241127_Test is ProtocolV
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('mainnet'), 21280537);
     proposal = new AaveV3Ethereum_FluidAlignment_TokenTransfers_20241127();
+    vm.startPrank(proposal.INSTADAPP_TREASURY());
+    IERC20(proposal.INST_TOKEN()).approve(AaveV3Ethereum.ACL_ADMIN, proposal.INST_AMOUNT());
+    vm.stopPrank();
   }
 
   /**
