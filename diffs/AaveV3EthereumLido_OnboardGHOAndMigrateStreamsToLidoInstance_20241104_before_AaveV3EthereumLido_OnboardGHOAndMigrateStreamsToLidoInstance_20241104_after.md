@@ -17,11 +17,11 @@
 | oracle | [0xD110cac5d8682A3b045D5524a9903E031d70FCCd](https://etherscan.io/address/0xD110cac5d8682A3b045D5524a9903E031d70FCCd) |
 | oracleDecimals | 8 |
 | oracleLatestAnswer | 1 |
-| usageAsCollateralEnabled | true |
-| ltv | 75 % [7500] |
-| liquidationThreshold | 78 % [7800] |
-| liquidationBonus | 7.5 % |
-| liquidationProtocolFee | 10 % [1000] |
+| usageAsCollateralEnabled | false |
+| ltv | 0 % [0] |
+| liquidationThreshold | 0 % [0] |
+| liquidationBonus | 0 % |
+| liquidationProtocolFee | 0 % [0] |
 | reserveFactor | 10 % [1000] |
 | aToken | [0x18eFE565A5373f430e2F809b97De30335B3ad96A](https://etherscan.io/address/0x18eFE565A5373f430e2F809b97De30335B3ad96A) |
 | aTokenImpl | [0x7F8Fc14D462bdF93c681c1f2Fd615389bF969Fb2](https://etherscan.io/address/0x7F8Fc14D462bdF93c681c1f2Fd615389bF969Fb2) |
@@ -120,10 +120,10 @@
         "isFrozen": false,
         "isPaused": false,
         "isSiloed": false,
-        "liquidationBonus": 10750,
-        "liquidationProtocolFee": 1000,
-        "liquidationThreshold": 7800,
-        "ltv": 7500,
+        "liquidationBonus": 0,
+        "liquidationProtocolFee": 0,
+        "liquidationThreshold": 0,
+        "ltv": 0,
         "oracle": "0xD110cac5d8682A3b045D5524a9903E031d70FCCd",
         "oracleDecimals": 8,
         "oracleLatestAnswer": "100000000",
@@ -131,7 +131,7 @@
         "supplyCap": 20000000,
         "symbol": "GHO",
         "underlying": "0x40D16FC0246aD3160Ccc09B8D0D3A2cD28aE6C2f",
-        "usageAsCollateralEnabled": true,
+        "usageAsCollateralEnabled": false,
         "variableDebtToken": "0x18577F0f4A0B2Ee6F4048dB51c7acd8699F97DB8",
         "variableDebtTokenImpl": "0x3E59212c34588a63350142EFad594a20C88C2CEd",
         "variableDebtTokenName": "Aave Ethereum Lido Variable Debt GHO",
