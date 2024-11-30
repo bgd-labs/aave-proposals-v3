@@ -11,6 +11,8 @@ This publication proposes the following:
 
 - Onboarding GHO to the Lido instance of Aave v3;
 - Acquire GHO from spot market to seed the GHO Reserve on Prime
+- Migrate Merit allowance
+- Cancel AGD GHO allowance
 
 ## Motivation
 
@@ -82,7 +84,7 @@ GHO is to be included in the sUSDe and ezETH eMode as shown below:
 | Liquidation Threshold |  80%  |   -   |   -   |   -   |
 |   Liquidation Bonus   | 7.5%  |   -   |   -   |   -   |
 
-This proposal includes the following asset swaps:
+This proposal includes swap the following asset for GHO:
 
 |  Asset Holding  |
 | :-------------: |
@@ -92,6 +94,8 @@ This proposal includes the following asset swaps:
 | aEthUSDC (0.5M) |
 
 Cancel Aave Grants DAO GHO [Allowance](https://governance.aave.com/t/update-from-aave-grants-winding-down-agd-1-0-and-what-s-next/18707).
+
+Migrate Merit allowance from Core to Prime market.
 
 ## References
 
