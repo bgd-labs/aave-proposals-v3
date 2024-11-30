@@ -70,7 +70,7 @@ contract AaveV3EthereumLido_OnboardGHOAndMigrateStreamsToLidoInstance_20241104_T
       AaveV3EthereumAssets.GHO_UNDERLYING,
       AaveV3EthereumAssets.USDT_ORACLE,
       proposal.GHO_USD_FEED(),
-      2000000000000, // Hardcoded as dynamic
+      proposal.A_USDT_WITHDRAW_AMOUNT() + proposal.A_ETH_USDT_WITHDRAW_AMOUNT(),
       address(proposal),
       100
     );
@@ -82,7 +82,7 @@ contract AaveV3EthereumLido_OnboardGHOAndMigrateStreamsToLidoInstance_20241104_T
       AaveV3EthereumAssets.GHO_UNDERLYING,
       AaveV3EthereumAssets.USDC_ORACLE,
       proposal.GHO_USD_FEED(),
-      1000000000000, // Hardcoded as dynamic
+      proposal.A_USDC_WITHDRAW_AMOUNT() + proposal.A_ETH_USDC_WITHDRAW_AMOUNT(),
       address(proposal),
       100
     );
@@ -104,22 +104,22 @@ contract AaveV3EthereumLido_OnboardGHOAndMigrateStreamsToLidoInstance_20241104_T
 
     assertApproxEqAbs(
       collectorAUsdtBalanceBefore,
-      collectorAUsdtBalanceAfter + proposal.A_USDT_SWAP_AMOUNT(),
+      collectorAUsdtBalanceAfter + proposal.A_USDT_WITHDRAW_AMOUNT(),
       1_000e6
     );
     assertApproxEqAbs(
       collectorAUsdcBalanceBefore,
-      collectorAUsdcBalanceAfter + proposal.A_USDC_SWAP_AMOUNT(),
+      collectorAUsdcBalanceAfter + proposal.A_USDC_WITHDRAW_AMOUNT(),
       600e6
     );
     assertApproxEqAbs(
       collectorAEthUsdtBalanceBefore,
-      collectorAEthUsdtBalanceAfter + proposal.A_ETH_USDT_SWAP_AMOUNT(),
+      collectorAEthUsdtBalanceAfter + proposal.A_ETH_USDT_WITHDRAW_AMOUNT(),
       1e6
     );
     assertApproxEqAbs(
       collectorAEthUsdcBalanceBefore,
-      collectorAEthUsdcBalanceAfter + proposal.A_ETH_USDC_SWAP_AMOUNT(),
+      collectorAEthUsdcBalanceAfter + proposal.A_ETH_USDC_WITHDRAW_AMOUNT(),
       1e6
     );
 
@@ -127,13 +127,13 @@ contract AaveV3EthereumLido_OnboardGHOAndMigrateStreamsToLidoInstance_20241104_T
       IERC20(AaveV3EthereumAssets.USDT_UNDERLYING).balanceOf(
         0xA866e48A6ef92e0191358Cb606C99e6187083567 // milkmanInstance contract
       ),
-      proposal.A_USDT_SWAP_AMOUNT() + proposal.A_ETH_USDT_SWAP_AMOUNT()
+      proposal.A_USDT_WITHDRAW_AMOUNT() + proposal.A_ETH_USDT_WITHDRAW_AMOUNT()
     );
     assertEq(
       IERC20(AaveV3EthereumAssets.USDC_UNDERLYING).balanceOf(
         0x520A820040199C9f4b4420aE72aa9F8b91171262 // milkmanInstance contract
       ),
-      proposal.A_USDC_SWAP_AMOUNT() + proposal.A_ETH_USDC_SWAP_AMOUNT()
+      proposal.A_USDC_WITHDRAW_AMOUNT() + proposal.A_ETH_USDC_WITHDRAW_AMOUNT()
     );
   }
 
@@ -156,9 +156,11 @@ contract AaveV3EthereumLido_OnboardGHOAndMigrateStreamsToLidoInstance_20241104_T
   }
 
   function test_agdAllowance() public {
+    address agdMultiSig = proposal.AGD_MULTISIG();
+
     uint256 allowance = IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).allowance(
       address(AaveV3EthereumLido.COLLECTOR),
-      proposal.AGD_MULTISIG()
+      agdMultiSig
     );
     assertGt(allowance, 0);
 
@@ -166,9 +168,19 @@ contract AaveV3EthereumLido_OnboardGHOAndMigrateStreamsToLidoInstance_20241104_T
 
     allowance = IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).allowance(
       address(AaveV3EthereumLido.COLLECTOR),
-      proposal.AGD_MULTISIG()
+      agdMultiSig
     );
     assertEq(allowance, 0);
+
+    vm.startPrank(agdMultiSig);
+
+    vm.expectRevert(stdError.arithmeticError);
+    IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).transferFrom(
+      address(AaveV3Ethereum.COLLECTOR),
+      agdMultiSig,
+      1e18
+    );
+    vm.stopPrank();
   }
 
   function test_deposit() public {
