@@ -1,19 +1,19 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
+import 'forge-std/Test.sol';
 import {TransparentUpgradeableProxy} from 'solidity-utils/contracts/transparent-proxy/TransparentUpgradeableProxy.sol';
+import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
+import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 import {AaveV3Arbitrum} from 'aave-address-book/AaveV3Arbitrum.sol';
 import {MiscArbitrum} from 'aave-address-book/MiscArbitrum.sol';
 import {GovernanceV3Arbitrum} from 'aave-address-book/GovernanceV3Arbitrum.sol';
 import {AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
 import {GovernanceV3Avalanche} from 'aave-address-book/GovernanceV3Avalanche.sol';
 import {MiscAvalanche} from 'aave-address-book/MiscAvalanche.sol';
-
-import 'forge-std/Test.sol';
-import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
-import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 import {TokenAdminRegistry} from 'ccip/tokenAdminRegistry/TokenAdminRegistry.sol';
 import {UpgradeableBurnMintTokenPool} from 'ccip/pools/GHO/UpgradeableBurnMintTokenPool.sol';
+import {RateLimiter} from 'ccip/libraries/RateLimiter.sol';
 import {AaveV3Arbitrum_GHOAvaxLaunch_20241106} from './AaveV3Arbitrum_GHOAvaxLaunch_20241106.sol';
 import {AaveV3Avalanche_GHOAvaxLaunch_20241106} from './AaveV3Avalanche_GHOAvaxLaunch_20241106.sol';
 
@@ -62,6 +62,8 @@ contract AaveV3Arbitrum_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
    */
   function test_defaultProposalExecution() public {
     defaultTest('AaveV3Arbitrum_GHOAvaxLaunch_20241106', AaveV3Arbitrum.POOL, address(proposal));
+
+    _validateCcipTokenPool();
   }
 
   function _deployCcipTokenPool() internal returns (address) {
@@ -83,5 +85,23 @@ contract AaveV3Arbitrum_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
           tokenPoolInitParams // data
         )
       );
+  }
+
+  function _validateCcipTokenPool() internal {
+    // Configs
+    uint64[] memory supportedChains = UpgradeableBurnMintTokenPool(TOKEN_POOL).getSupportedChains();
+    assertEq(supportedChains.length, 2);
+
+    // ETH
+    assertEq(supportedChains[0], proposal.CCIP_ETH_CHAIN_SELECTOR());
+
+    // AVAX
+    assertEq(supportedChains[1], proposal.CCIP_AVAX_CHAIN_SELECTOR());
+    RateLimiter.TokenBucket memory outboundRateLimit = UpgradeableBurnMintTokenPool(TOKEN_POOL)
+      .getCurrentOutboundRateLimiterState(proposal.CCIP_AVAX_CHAIN_SELECTOR());
+    RateLimiter.TokenBucket memory inboundRateLimit = UpgradeableBurnMintTokenPool(TOKEN_POOL)
+      .getCurrentInboundRateLimiterState(proposal.CCIP_AVAX_CHAIN_SELECTOR());
+    assertEq(outboundRateLimit.isEnabled, false);
+    assertEq(inboundRateLimit.isEnabled, false);
   }
 }
