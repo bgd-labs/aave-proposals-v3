@@ -23,12 +23,16 @@ contract DeployEthereum is EthereumScript {
     address payload1 = GovV3Helpers.deployDeterministic(
       type(AaveV3EthereumLido_FluidAlignment_20241127).creationCode
     );
+    address payload2 = GovV3Helpers.deployDeterministic(
+      type(AaveV3Ethereum_FluidAlignment_TokenTransfers_20241127).creationCode
+    );
 
     // compose action
     IPayloadsControllerCore.ExecutionAction[]
       memory actions = new IPayloadsControllerCore.ExecutionAction[](2);
     actions[0] = GovV3Helpers.buildAction(payload0);
     actions[1] = GovV3Helpers.buildAction(payload1);
+    actions[2] = GovV3Helpers.buildAction(payload2);
 
     // register action at payloadsController
     GovV3Helpers.createPayload(actions);
@@ -96,6 +100,9 @@ contract CreateProposal is EthereumScript {
     );
     actionsEthereum[1] = GovV3Helpers.buildAction(
       type(AaveV3EthereumLido_FluidAlignment_20241127).creationCode
+    );
+    actionsEthereum[2] = GovV3Helpers.buildAction(
+      type(AaveV3Ethereum_FluidAlignment_TokenTransfers_20241127).creationCode
     );
     payloads[0] = GovV3Helpers.buildMainnetPayload(vm, actionsEthereum);
 
