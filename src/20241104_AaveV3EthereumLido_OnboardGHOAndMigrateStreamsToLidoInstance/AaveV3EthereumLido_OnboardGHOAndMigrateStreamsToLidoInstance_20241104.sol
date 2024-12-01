@@ -59,6 +59,7 @@ contract AaveV3EthereumLido_OnboardGHOAndMigrateStreamsToLidoInstance_20241104 i
       0xD80F4cE4Df649d8D6A88cf365f0560Bed9aE688F
     );
 
+    // agd
     if (
       IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).allowance(
         address(AaveV3EthereumLido.COLLECTOR),
@@ -66,6 +67,19 @@ contract AaveV3EthereumLido_OnboardGHOAndMigrateStreamsToLidoInstance_20241104 i
       ) > 0
     ) {
       AaveV3EthereumLido.COLLECTOR.approve(AaveV3EthereumAssets.GHO_UNDERLYING, AGD_MULTISIG, 0);
+    }
+
+    // merit
+    uint256 meritAllownace = IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).allowance(
+      address(AaveV3EthereumLido.COLLECTOR),
+      MERIT_MULTISIG
+    );
+    if (meritAllownace > 0) {
+      (address aTokenAddress, , ) = AaveV3EthereumLido
+        .AAVE_PROTOCOL_DATA_PROVIDER
+        .getReserveTokensAddresses(AaveV3EthereumAssets.GHO_UNDERLYING);
+      AaveV3EthereumLido.COLLECTOR.approve(AaveV3EthereumAssets.GHO_UNDERLYING, MERIT_MULTISIG, 0);
+      AaveV3EthereumLido.COLLECTOR.approve(aTokenAddress, MERIT_MULTISIG, meritAllownace);
     }
 
     AaveV3EthereumLido.COLLECTOR.depositToV3(
@@ -210,18 +224,5 @@ contract AaveV3EthereumLido_OnboardGHOAndMigrateStreamsToLidoInstance_20241104 i
     IERC20(token).forceApprove(address(AaveV3EthereumLido.POOL), amount);
     AaveV3EthereumLido.POOL.deposit(token, amount, address(AaveV3EthereumLido.COLLECTOR), 0);
     emit DepositedIntoLido(token, amount);
-
-    // cancel merit
-    uint256 meritAllownace = IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).allowance(
-      address(AaveV3EthereumLido.COLLECTOR),
-      MERIT_MULTISIG
-    );
-    if (meritAllownace > 0) {
-      (address aTokenAddress, , ) = AaveV3EthereumLido
-        .AAVE_PROTOCOL_DATA_PROVIDER
-        .getReserveTokensAddresses(AaveV3EthereumAssets.GHO_UNDERLYING);
-      AaveV3EthereumLido.COLLECTOR.approve(AaveV3EthereumAssets.GHO_UNDERLYING, MERIT_MULTISIG, 0);
-      AaveV3EthereumLido.COLLECTOR.approve(aTokenAddress, MERIT_MULTISIG, meritAllownace);
-    }
   }
 }
