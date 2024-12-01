@@ -6,6 +6,7 @@ import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {EthereumScript, ArbitrumScript, BaseScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
 import {AaveV3Ethereum_FluidAlignment_20241127} from './AaveV3Ethereum_FluidAlignment_20241127.sol';
 import {AaveV3EthereumLido_FluidAlignment_20241127} from './AaveV3EthereumLido_FluidAlignment_20241127.sol';
+import {AaveV3Ethereum_FluidAlignment_TokenTransfers_20241127} from './AaveV3Ethereum_FluidAlignment_TokenTransfers_20241127.sol';
 import {AaveV3Arbitrum_FluidAlignment_20241127} from './AaveV3Arbitrum_FluidAlignment_20241127.sol';
 import {AaveV3Base_FluidAlignment_20241127} from './AaveV3Base_FluidAlignment_20241127.sol';
 
