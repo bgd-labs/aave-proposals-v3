@@ -94,7 +94,7 @@ contract CreateProposal is EthereumScript {
 
     // compose actions for validation
     IPayloadsControllerCore.ExecutionAction[]
-      memory actionsEthereum = new IPayloadsControllerCore.ExecutionAction[](2);
+      memory actionsEthereum = new IPayloadsControllerCore.ExecutionAction[](3);
     actionsEthereum[0] = GovV3Helpers.buildAction(
       type(AaveV3Ethereum_FluidAlignment_20241127).creationCode
     );
