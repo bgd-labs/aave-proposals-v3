@@ -148,22 +148,9 @@ contract AaveV3Arbitrum_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
     assertEq(GHO.balanceOf(address(TOKEN_POOL)), startingGhoBalance);
 
     // ARB <> AVAX
-    /*
-    // Mint
-    uint64 arbChainSelector = proposal.CCIP_ARB_CHAIN_SELECTOR();
-    assertEq(_getFacilitatorLevel(address(TOKEN_POOL)), 0);
-    assertEq(GHO.balanceOf(address(TOKEN_POOL)), 0);
 
-    releaseOrMintIn = Pool.ReleaseOrMintInV1({
-      originalSender: bytes(''),
-      remoteChainSelector: arbChainSelector,
-      receiver: user,
-      amount: amount,
-      localToken: address(GHO),
-      sourcePoolAddress: abi.encode(ARB_TOKEN_POOL),
-      sourcePoolData: bytes(''),
-      offchainTokenData: bytes('')
-    });
+    // Mint
+    uint64 avaxChainSelector = proposal.CCIP_AVAX_CHAIN_SELECTOR();
 
     vm.expectEmit(true, true, true, true, address(GHO));
     emit Transfer(address(0), user, amount);
@@ -171,24 +158,22 @@ contract AaveV3Arbitrum_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
     vm.expectEmit(false, true, true, true, address(TOKEN_POOL));
     emit Minted(address(0), user, amount);
 
-    TOKEN_POOL.releaseOrMint(releaseOrMintIn);
+    IPoolPriorTo1_5(address(TOKEN_POOL)).releaseOrMint(
+      bytes(''),
+      user,
+      amount,
+      avaxChainSelector,
+      bytes('')
+    );
 
-    assertEq(_getFacilitatorLevel(address(TOKEN_POOL)), amount);
-    assertEq(GHO.balanceOf(address(TOKEN_POOL)), 0);
+    assertEq(_getFacilitatorLevel(address(TOKEN_POOL)), startingFacilitatorLevel + amount);
+    assertEq(GHO.balanceOf(address(TOKEN_POOL)), startingGhoBalance);
     assertEq(GHO.balanceOf(user), amount);
 
     // Burn
     // mock router transfer of funds from user to token pool
     vm.prank(user);
     GHO.transfer(address(TOKEN_POOL), amount);
-
-    lockOrBurnIn = Pool.LockOrBurnInV1({
-      receiver: bytes(''),
-      remoteChainSelector: arbChainSelector,
-      originalSender: user,
-      amount: amount,
-      localToken: address(GHO)
-    });
 
     vm.expectEmit(true, true, true, true, address(GHO));
     emit Transfer(address(TOKEN_POOL), address(0), amount);
@@ -197,11 +182,16 @@ contract AaveV3Arbitrum_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
     emit Burned(address(0), amount);
 
     vm.prank(ramp);
-    TOKEN_POOL.lockOrBurn(lockOrBurnIn);
+    IPoolPriorTo1_5(address(TOKEN_POOL)).lockOrBurn(
+      user,
+      bytes(''),
+      amount,
+      avaxChainSelector,
+      bytes('')
+    );
 
-    assertEq(_getFacilitatorLevel(address(TOKEN_POOL)), 0);
-    assertEq(GHO.balanceOf(address(TOKEN_POOL)), 0);
-    */
+    assertEq(_getFacilitatorLevel(address(TOKEN_POOL)), startingFacilitatorLevel);
+    assertEq(GHO.balanceOf(address(TOKEN_POOL)), startingGhoBalance);
   }
 
   function _deployCcipTokenPool() internal returns (address) {
