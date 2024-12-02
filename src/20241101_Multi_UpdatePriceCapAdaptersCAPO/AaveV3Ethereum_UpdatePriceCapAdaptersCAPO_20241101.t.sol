@@ -23,7 +23,7 @@ contract AaveV3Ethereum_UpdatePriceCapAdaptersCAPO_20241101_Test is
   bool switchToV2Oracle;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 21092620);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 21314813);
     proposal = new AaveV3Ethereum_UpdatePriceCapAdaptersCAPO_20241101();
   }
 
@@ -80,6 +80,11 @@ contract AaveV3Ethereum_UpdatePriceCapAdaptersCAPO_20241101_Test is
       AaveV3EthereumAssets.sDAI_UNDERLYING,
       AaveV3EthereumAssets.sDAI_ORACLE,
       PriceFeeds.ETHEREUM_V3_SDAI_FEED
+    );
+    _validateUSDPriceFeed(
+      AaveV3EthereumAssets.USDS_UNDERLYING,
+      AaveV3EthereumAssets.USDS_ORACLE,
+      PriceFeeds.ETHEREUM_V3_USDS_FEED
     );
 
     switchToV2Oracle = true;
@@ -144,29 +149,6 @@ contract AaveV3Ethereum_UpdatePriceCapAdaptersCAPO_20241101_Test is
       PriceFeeds.ETHEREUM_V2_UST_FEED,
       0x049971FAAF0E4474A883979a9696AfDa390abF0c // UST/USD capo feed
     );
-  }
-
-  function test_maticPolMigration() public {
-    uint256 maticBalanceBefore = IERC20(proposal.MATIC_UNDERLYING()).balanceOf(
-      address(AaveV3Ethereum.COLLECTOR)
-    );
-    uint256 polBalanceBefore = IERC20(proposal.POL_UNDERLYING()).balanceOf(
-      address(AaveV3Ethereum.COLLECTOR)
-    );
-
-    assertGt(maticBalanceBefore, 0);
-    assertEq(polBalanceBefore, 0);
-
-    executePayload(vm, address(proposal));
-    uint256 maticBalanceAfter = IERC20(proposal.MATIC_UNDERLYING()).balanceOf(
-      address(AaveV3Ethereum.COLLECTOR)
-    );
-    uint256 polBalanceAfter = IERC20(proposal.POL_UNDERLYING()).balanceOf(
-      address(AaveV3Ethereum.COLLECTOR)
-    );
-
-    assertEq(polBalanceAfter, maticBalanceBefore);
-    assertEq(maticBalanceAfter, 0);
   }
 
   function getAaveOracle()

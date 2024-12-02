@@ -18,7 +18,7 @@ contract AaveV3EthereumLido_UpdatePriceCapAdaptersCAPO_20241101_Test is
   AaveV3EthereumLido_UpdatePriceCapAdaptersCAPO_20241101 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 21092620);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 21314750);
     proposal = new AaveV3EthereumLido_UpdatePriceCapAdaptersCAPO_20241101();
   }
 
@@ -40,6 +40,11 @@ contract AaveV3EthereumLido_UpdatePriceCapAdaptersCAPO_20241101_Test is
       AaveV3EthereumLidoAssets.USDC_UNDERLYING,
       AaveV3EthereumLidoAssets.USDC_ORACLE,
       PriceFeeds.ETHEREUM_V3_USDC_FEED
+    );
+    _validateUSDPriceFeed(
+      AaveV3EthereumLidoAssets.USDS_UNDERLYING,
+      AaveV3EthereumLidoAssets.USDS_ORACLE,
+      PriceFeeds.ETHEREUM_V3_USDS_FEED
     );
   }
 

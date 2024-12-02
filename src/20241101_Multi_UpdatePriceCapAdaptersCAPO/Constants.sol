@@ -1,14 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-library TokenImpls {
-  address public constant POLYGON_A_TOKEN_IMPL_V3 = 0xd1955bd270093B4983F0a11421B294D5672ea46d;
-  address public constant POLYGON_V_TOKEN_IMPL_V3 = 0x1996c281235D99bB3c6B8d2afbEb8ac6c7A39C11;
-
-  address public constant POLYGON_A_TOKEN_IMPL_V2 = 0xda82148a3944BBe442116f41cDb329b0edF11d41;
-  address public constant POLYGON_V_TOKEN_IMPL_V2 = 0xC3fD2C1005208F07Fff0265Cda06E4464A4b23B3;
-}
-
 library PriceFeeds {
   address public constant ETHEREUM_V3_USDC_FEED = 0xB6557F02F0a5dA7b9D3C2d979cc19e00e756F6dA;
   address public constant ETHEREUM_V3_USDT_FEED = 0x260326c220E469358846b187eE53328303Efe19C;
@@ -18,6 +10,7 @@ library PriceFeeds {
   address public constant ETHEREUM_V3_CRVUSD_FEED = 0x9Dc30dc58c72f5B669aEa01d02A2e4da194eE893;
   address public constant ETHEREUM_V3_PYUSD_FEED = 0x36964C0579D02E0a5AaAb89E24Cf8d7CDF3549EE;
   address public constant ETHEREUM_V3_SDAI_FEED = 0xE94Fe9f83CB113d3e95941fa5eAa49bFaBF340C7;
+  address public constant ETHEREUM_V3_USDS_FEED = 0x94C7FD62fd0506e71d8142E9D36687fC72A86B02;
 
   address public constant ETHEREUM_V2_USDC_FEED = 0x0B9a09cc52afc0d38ACcbd649aca1Da299d34454;
   address public constant ETHEREUM_V2_USDT_FEED = 0xCB45B5c861a6468145b1720A620C38f55f736B74;

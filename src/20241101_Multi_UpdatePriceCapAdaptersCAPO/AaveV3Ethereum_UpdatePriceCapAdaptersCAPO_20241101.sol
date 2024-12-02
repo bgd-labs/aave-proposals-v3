@@ -3,10 +3,7 @@ pragma solidity ^0.8.0;
 
 import {AaveV3PayloadEthereum} from 'aave-helpers/src/v3-config-engine/AaveV3PayloadEthereum.sol';
 import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
-import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
-import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';
-import {IPolygonMigration} from './interfaces/IPolygonMigration.sol';
-import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
+import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {AaveV2Ethereum, AaveV2EthereumAssets} from 'aave-address-book/AaveV2Ethereum.sol';
 import {PriceFeeds} from './Constants.sol';
 
@@ -16,15 +13,8 @@ import {PriceFeeds} from './Constants.sol';
  * - Discussion: TODO
  */
 contract AaveV3Ethereum_UpdatePriceCapAdaptersCAPO_20241101 is AaveV3PayloadEthereum {
-  using SafeERC20 for IERC20;
-
-  address public constant MATIC_POL_MIGRATION_CONTRACT = 0x29e7DF7b6A1B2b07b731457f499E1696c60E2C4e;
-  address public constant MATIC_UNDERLYING = 0x7D1AfA7B718fb893dB30A3aBc0Cfc608AaCfeBB0;
-  address public constant POL_UNDERLYING = 0x455e53CBB86018Ac2B8092FdCd39d8444aFFC3F6;
-
   function _postExecute() internal override {
     _updateV2PriceAdapters();
-    _migrateCollectorMaticToPol();
   }
 
   function priceFeedsUpdates()
@@ -34,7 +24,7 @@ contract AaveV3Ethereum_UpdatePriceCapAdaptersCAPO_20241101 is AaveV3PayloadEthe
     returns (IAaveV3ConfigEngine.PriceFeedUpdate[] memory)
   {
     IAaveV3ConfigEngine.PriceFeedUpdate[]
-      memory feedsUpdate = new IAaveV3ConfigEngine.PriceFeedUpdate[](8);
+      memory feedsUpdate = new IAaveV3ConfigEngine.PriceFeedUpdate[](9);
 
     feedsUpdate[0] = IAaveV3ConfigEngine.PriceFeedUpdate({
       asset: AaveV3EthereumAssets.USDC_UNDERLYING,
@@ -67,6 +57,10 @@ contract AaveV3Ethereum_UpdatePriceCapAdaptersCAPO_20241101 is AaveV3PayloadEthe
     feedsUpdate[7] = IAaveV3ConfigEngine.PriceFeedUpdate({
       asset: AaveV3EthereumAssets.sDAI_UNDERLYING,
       priceFeed: PriceFeeds.ETHEREUM_V3_SDAI_FEED
+    });
+    feedsUpdate[8] = IAaveV3ConfigEngine.PriceFeedUpdate({
+      asset: AaveV3EthereumAssets.USDS_UNDERLYING,
+      priceFeed: PriceFeeds.ETHEREUM_V3_USDS_FEED
     });
 
     return feedsUpdate;
@@ -107,19 +101,5 @@ contract AaveV3Ethereum_UpdatePriceCapAdaptersCAPO_20241101 is AaveV3PayloadEthe
     sources[9] = PriceFeeds.ETHEREUM_V2_UST_FEED;
 
     AaveV2Ethereum.ORACLE.setAssetSources(assets, sources);
-  }
-
-  function _migrateCollectorMaticToPol() internal {
-    uint256 maticAmount = IERC20(MATIC_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR));
-
-    AaveV3Ethereum.COLLECTOR.transfer(
-      MATIC_UNDERLYING,
-      address(this),
-      IERC20(MATIC_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR))
-    );
-    IERC20(MATIC_UNDERLYING).forceApprove(MATIC_POL_MIGRATION_CONTRACT, maticAmount);
-    IPolygonMigration(MATIC_POL_MIGRATION_CONTRACT).migrate(maticAmount);
-
-    IERC20(POL_UNDERLYING).transfer(address(AaveV3Ethereum.COLLECTOR), maticAmount);
   }
 }

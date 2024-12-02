@@ -52,25 +52,20 @@
 | oracle | [0xC26D4a1c46d884cfF6dE9800B6aE7A8Cf48B4Ff8](https://etherscan.io/address/0xC26D4a1c46d884cfF6dE9800B6aE7A8Cf48B4Ff8) | [0x260326c220E469358846b187eE53328303Efe19C](https://etherscan.io/address/0x260326c220E469358846b187eE53328303Efe19C) |
 
 
+#### USDS ([0xdC035D45d973E3EC169d2276DDab16f1e407384F](https://etherscan.io/address/0xdC035D45d973E3EC169d2276DDab16f1e407384F))
+
+| description | value before | value after |
+| --- | --- | --- |
+| oracle | [0x4F01b76391A05d32B20FA2d05dD5963eE8db20E6](https://etherscan.io/address/0x4F01b76391A05d32B20FA2d05dD5963eE8db20E6) | [0x94C7FD62fd0506e71d8142E9D36687fC72A86B02](https://etherscan.io/address/0x94C7FD62fd0506e71d8142E9D36687fC72A86B02) |
+| oracleDescription | Capped USDS <-> DAI / USD | Capped USDS/USD |
+| oracleLatestAnswer | 0.99978249 | 0.99870375 |
+
+
 #### crvUSD ([0xf939E0A03FB07F59A73314E73794Be0E57ac1b4E](https://etherscan.io/address/0xf939E0A03FB07F59A73314E73794Be0E57ac1b4E))
 
 | description | value before | value after |
 | --- | --- | --- |
 | oracle | [0x02AeE5b225366302339748951E1a924617b8814F](https://etherscan.io/address/0x02AeE5b225366302339748951E1a924617b8814F) | [0x9Dc30dc58c72f5B669aEa01d02A2e4da194eE893](https://etherscan.io/address/0x9Dc30dc58c72f5B669aEa01d02A2e4da194eE893) |
-
-
-## Emodes changed
-
-### EMode: ETH correlated(id: 1)
-
-| description | value before | value after |
-| --- | --- | --- |
-| eMode.label (unchanged) | ETH correlated | ETH correlated |
-| eMode.ltv (unchanged) | 93 % | 93 % |
-| eMode.liquidationThreshold (unchanged) | 95 % | 95 % |
-| eMode.liquidationBonus (unchanged) | 1 % | 1 % |
-| eMode.borrowableBitmap (unchanged) | WETH, wstETH, cbETH, rETH, weETH, osETH, ETHx | WETH, wstETH, cbETH, rETH, weETH, osETH, ETHx |
-| eMode.collateralBitmap (unchanged) | WETH, wstETH, cbETH, rETH, weETH, osETH, ETHx | WETH, wstETH, cbETH, rETH, weETH, osETH, ETHx |
 
 
 ## Raw diff
@@ -122,6 +117,20 @@
       "oracle": {
         "from": "0xC26D4a1c46d884cfF6dE9800B6aE7A8Cf48B4Ff8",
         "to": "0x260326c220E469358846b187eE53328303Efe19C"
+      }
+    },
+    "0xdC035D45d973E3EC169d2276DDab16f1e407384F": {
+      "oracle": {
+        "from": "0x4F01b76391A05d32B20FA2d05dD5963eE8db20E6",
+        "to": "0x94C7FD62fd0506e71d8142E9D36687fC72A86B02"
+      },
+      "oracleDescription": {
+        "from": "Capped USDS <-> DAI / USD",
+        "to": "Capped USDS/USD"
+      },
+      "oracleLatestAnswer": {
+        "from": "99978249",
+        "to": "99870375"
       }
     },
     "0xf939E0A03FB07F59A73314E73794Be0E57ac1b4E": {
