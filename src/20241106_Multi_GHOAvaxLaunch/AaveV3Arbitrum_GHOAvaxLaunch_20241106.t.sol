@@ -124,19 +124,10 @@ contract AaveV3Arbitrum_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
     assertEq(GHO.balanceOf(address(TOKEN_POOL)), startingGhoBalance);
     assertEq(GHO.balanceOf(user), amount);
 
-    /*
     // Burn
     // mock router transfer of funds from user to token pool
     vm.prank(user);
     GHO.transfer(address(TOKEN_POOL), amount);
-
-    Pool.LockOrBurnInV1 memory lockOrBurnIn = Pool.LockOrBurnInV1({
-      receiver: bytes(''),
-      remoteChainSelector: ethChainSelector,
-      originalSender: user,
-      amount: amount,
-      localToken: address(GHO)
-    });
 
     vm.expectEmit(true, true, true, true, address(GHO));
     emit Transfer(address(TOKEN_POOL), address(0), amount);
@@ -145,14 +136,18 @@ contract AaveV3Arbitrum_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
     emit Burned(address(0), amount);
 
     vm.prank(ramp);
-    TOKEN_POOL.lockOrBurn(lockOrBurnIn);
+    IPoolPriorTo1_5(address(TOKEN_POOL)).lockOrBurn(
+      user,
+      bytes(''),
+      amount,
+      ethChainSelector,
+      bytes('')
+    );
 
-    assertEq(_getFacilitatorLevel(address(TOKEN_POOL)), 0);
-    assertEq(GHO.balanceOf(address(TOKEN_POOL)), 0);
-    */
+    assertEq(_getFacilitatorLevel(address(TOKEN_POOL)), startingFacilitatorLevel);
+    assertEq(GHO.balanceOf(address(TOKEN_POOL)), startingGhoBalance);
 
     // ARB <> AVAX
-
     /*
     // Mint
     uint64 arbChainSelector = proposal.CCIP_ARB_CHAIN_SELECTOR();
