@@ -7,7 +7,29 @@ snapshot: "https://snapshot.org/#/aave.eth/proposal/0xef7dfa4e96e5f6a7337648d2dd
 
 ## Simple Summary
 
+The current ARFC aims to onboard SCR, the native token of Scroll, on the Aave V3 Scroll Instance. This onboarding will allow Aave users to supply and borrow SCR, thereby enhancing the utility and liquidity of the Scroll token within the DeFi ecosystem and more specifically, within the Aave ecosystem.
+
 ## Motivation
+
+Scroll is an Ethereum Layer 2 chain which already has an Aave instance deployment and SCR is the governance token for the Scroll L2. By onboarding SCR to Aave V3, we aim to create new opportunities for Aave users to engage with this emerging staking ecosystem, while expanding SCR’s liquidity.
+
+**Benefits of listing this token:**
+
+Provide opportunities for Aave users to borrow against their SCR to unlock liquidity, or alternatively to borrow SCR against other collateral allowing them to participate in Scroll governance.
+
+**Market Impact:**
+
+We see no significant market impact from onboarding SCR except for providing new opportunities to Aave users which may cause users to switch from borrowing other tokens against their collateral. Overall we see onboarding SCR as net good for Aave users as it expands opportunities for them to engage in a new L2 ecosystem.
+
+**Chain to be deployed/listed:**
+
+Scroll.
+
+**Proof of Liquidity (POL) and Deposit Commitments:**
+
+POL and Deposit Commitments will be discussed at the ARFC stage.
+
+As disclosed by Marc Zeller, founder of ACI, the ACI Multisig has received 510K SCR on behalf of Aave DAO. Those funds will be coordinated with Karpatkey and Tokenlogic to define best usage of this airdrop.
 
 ## Specification
 
