@@ -9,8 +9,6 @@
 | reserveFactor | 20 % [2000] | 25 % [2500] |
 
 
-## Emodes changes
-
 ## Raw diff
 
 ```json

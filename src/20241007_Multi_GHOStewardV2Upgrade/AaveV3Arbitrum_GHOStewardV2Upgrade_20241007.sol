@@ -4,14 +4,15 @@ pragma solidity ^0.8.0;
 import {AaveV3Arbitrum, AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
 import {IACLManager} from 'aave-address-book/AaveV3.sol';
 import {MiscArbitrum} from 'aave-address-book/MiscArbitrum.sol';
-import {ProxyAdmin} from 'solidity-utils/contracts/transparent-proxy/ProxyAdmin.sol';
-import {TransparentUpgradeableProxy} from 'solidity-utils/contracts/transparent-proxy/TransparentUpgradeableProxy.sol';
+import {GhoArbitrum} from 'aave-address-book/GhoArbitrum.sol';
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
 import {IAccessControl} from '@openzeppelin/contracts/access/IAccessControl.sol';
+import {ITransparentUpgradeableProxy} from 'solidity-utils/contracts/transparent-proxy/TransparentUpgradeableProxy.sol';
 
-import {IGhoBucketSteward} from 'src/interfaces/IGhoBucketSteward.sol';
-import {IGhoToken} from 'src/interfaces/IGhoToken.sol';
-import {IUpgradeableLockReleaseTokenPool} from 'src/interfaces/ccip/IUpgradeableLockReleaseTokenPool.sol';
+import {IGhoBucketSteward} from '../interfaces/IGhoBucketSteward.sol';
+import {IGhoToken} from '../interfaces/IGhoToken.sol';
+import {IUpgradeableLockReleaseTokenPool} from '../interfaces/ccip/IUpgradeableLockReleaseTokenPool.sol';
+import {ILegacyProxyAdmin} from '../interfaces/ILegacyProxyAdmin.sol';
 
 /**
  * @title GHO Steward v2 Upgrade
@@ -34,8 +35,8 @@ contract AaveV3Arbitrum_GHOStewardV2Upgrade_20241007 is IProposalGenericExecutor
 
   function execute() external {
     // New CCIP Token Pool
-    ProxyAdmin(MiscArbitrum.PROXY_ADMIN).upgrade(
-      TransparentUpgradeableProxy(payable(MiscArbitrum.GHO_CCIP_TOKEN_POOL)),
+    ILegacyProxyAdmin(MiscArbitrum.PROXY_ADMIN).upgrade(
+      ITransparentUpgradeableProxy(payable(GhoArbitrum.GHO_CCIP_TOKEN_POOL)),
       NEW_CCIP_POOL_IMPL
     );
 
@@ -46,7 +47,7 @@ contract AaveV3Arbitrum_GHOStewardV2Upgrade_20241007 is IProposalGenericExecutor
     );
 
     address[] memory controlledFacilitators = new address[](1);
-    controlledFacilitators[0] = MiscArbitrum.GHO_CCIP_TOKEN_POOL;
+    controlledFacilitators[0] = GhoArbitrum.GHO_CCIP_TOKEN_POOL;
     IGhoBucketSteward(GHO_BUCKET_STEWARD).setControlledFacilitator(controlledFacilitators, true);
 
     // Gho Aave Steward
@@ -56,7 +57,7 @@ contract AaveV3Arbitrum_GHOStewardV2Upgrade_20241007 is IProposalGenericExecutor
     );
 
     // Gho CCIP Steward
-    IUpgradeableLockReleaseTokenPool(MiscArbitrum.GHO_CCIP_TOKEN_POOL).setRateLimitAdmin(
+    IUpgradeableLockReleaseTokenPool(GhoArbitrum.GHO_CCIP_TOKEN_POOL).setRateLimitAdmin(
       GHO_CCIP_STEWARD
     );
   }
