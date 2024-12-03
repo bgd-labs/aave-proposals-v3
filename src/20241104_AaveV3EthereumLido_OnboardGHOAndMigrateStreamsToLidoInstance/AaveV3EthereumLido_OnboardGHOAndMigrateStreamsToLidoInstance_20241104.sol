@@ -34,9 +34,8 @@ contract AaveV3EthereumLido_OnboardGHOAndMigrateStreamsToLidoInstance_20241104 i
   address public immutable SELF;
 
   uint256 public constant A_USDT_WITHDRAW_AMOUNT = 1_500_000e6;
-  uint256 public constant A_USDC_WITHDRAW_AMOUNT = 500_000e6;
   uint256 public constant A_ETH_USDT_WITHDRAW_AMOUNT = 500_000e6;
-  uint256 public constant A_ETH_USDC_WITHDRAW_AMOUNT = 500_000e6;
+  uint256 public constant A_ETH_USDC_WITHDRAW_AMOUNT = 1_000_000e6;
 
   // https://etherscan.io/address/0x060373D064d0168931dE2AB8DDA7410923d06E88
   address public constant MILKMAN = 0x060373D064d0168931dE2AB8DDA7410923d06E88;
@@ -122,14 +121,6 @@ contract AaveV3EthereumLido_OnboardGHOAndMigrateStreamsToLidoInstance_20241104 i
     );
 
     // usdc
-    AaveV3Ethereum.COLLECTOR.withdrawFromV2(
-      CollectorUtils.IOInput({
-        pool: address(AaveV2Ethereum.POOL),
-        underlying: AaveV3EthereumAssets.USDC_UNDERLYING,
-        amount: A_USDC_WITHDRAW_AMOUNT
-      }),
-      MiscEthereum.AAVE_SWAPPER
-    );
     AaveV3Ethereum.COLLECTOR.withdrawFromV3(
       CollectorUtils.IOInput({
         pool: address(AaveV3Ethereum.POOL),

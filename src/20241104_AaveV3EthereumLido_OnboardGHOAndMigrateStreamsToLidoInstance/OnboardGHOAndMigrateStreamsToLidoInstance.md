@@ -89,9 +89,8 @@ This proposal includes swap the following asset for GHO:
 |  Asset Holding  |
 | :-------------: |
 |  aUSDT (1.5M)   |
-|  aUSDC (0.5M)   |
 | aEthUSDT (0.5M) |
-| aEthUSDC (0.5M) |
+| aEthUSDC (1.0M) |
 
 Cancel Aave Grants DAO GHO [Allowance](https://governance.aave.com/t/update-from-aave-grants-winding-down-agd-1-0-and-what-s-next/18707).
 

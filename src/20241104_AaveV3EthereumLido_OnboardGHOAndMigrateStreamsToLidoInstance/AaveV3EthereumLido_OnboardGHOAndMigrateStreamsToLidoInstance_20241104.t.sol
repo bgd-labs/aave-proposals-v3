@@ -53,9 +53,6 @@ contract AaveV3EthereumLido_OnboardGHOAndMigrateStreamsToLidoInstance_20241104_T
     uint256 collectorAUsdtBalanceBefore = IERC20(AaveV2EthereumAssets.USDT_A_TOKEN).balanceOf(
       address(AaveV3Ethereum.COLLECTOR)
     );
-    uint256 collectorAUsdcBalanceBefore = IERC20(AaveV2EthereumAssets.USDC_A_TOKEN).balanceOf(
-      address(AaveV3Ethereum.COLLECTOR)
-    );
     uint256 collectorAEthUsdtBalanceBefore = IERC20(AaveV3EthereumAssets.USDT_A_TOKEN).balanceOf(
       address(AaveV3Ethereum.COLLECTOR)
     );
@@ -82,7 +79,7 @@ contract AaveV3EthereumLido_OnboardGHOAndMigrateStreamsToLidoInstance_20241104_T
       AaveV3EthereumAssets.GHO_UNDERLYING,
       AaveV3EthereumAssets.USDC_ORACLE,
       proposal.GHO_USD_FEED(),
-      proposal.A_USDC_WITHDRAW_AMOUNT() + proposal.A_ETH_USDC_WITHDRAW_AMOUNT(),
+      proposal.A_ETH_USDC_WITHDRAW_AMOUNT(),
       address(proposal),
       100
     );
@@ -90,9 +87,6 @@ contract AaveV3EthereumLido_OnboardGHOAndMigrateStreamsToLidoInstance_20241104_T
     executePayload(vm, address(proposal));
 
     uint256 collectorAUsdtBalanceAfter = IERC20(AaveV2EthereumAssets.USDT_A_TOKEN).balanceOf(
-      address(AaveV3Ethereum.COLLECTOR)
-    );
-    uint256 collectorAUsdcBalanceAfter = IERC20(AaveV2EthereumAssets.USDC_A_TOKEN).balanceOf(
       address(AaveV3Ethereum.COLLECTOR)
     );
     uint256 collectorAEthUsdtBalanceAfter = IERC20(AaveV3EthereumAssets.USDT_A_TOKEN).balanceOf(
@@ -106,11 +100,6 @@ contract AaveV3EthereumLido_OnboardGHOAndMigrateStreamsToLidoInstance_20241104_T
       collectorAUsdtBalanceBefore,
       collectorAUsdtBalanceAfter + proposal.A_USDT_WITHDRAW_AMOUNT(),
       1_000e6
-    );
-    assertApproxEqAbs(
-      collectorAUsdcBalanceBefore,
-      collectorAUsdcBalanceAfter + proposal.A_USDC_WITHDRAW_AMOUNT(),
-      600e6
     );
     assertApproxEqAbs(
       collectorAEthUsdtBalanceBefore,
@@ -133,7 +122,7 @@ contract AaveV3EthereumLido_OnboardGHOAndMigrateStreamsToLidoInstance_20241104_T
       IERC20(AaveV3EthereumAssets.USDC_UNDERLYING).balanceOf(
         0x520A820040199C9f4b4420aE72aa9F8b91171262 // milkmanInstance contract
       ),
-      proposal.A_USDC_WITHDRAW_AMOUNT() + proposal.A_ETH_USDC_WITHDRAW_AMOUNT()
+      proposal.A_ETH_USDC_WITHDRAW_AMOUNT()
     );
   }
 
