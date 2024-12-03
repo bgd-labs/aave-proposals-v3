@@ -18,8 +18,8 @@ contract AaveV3Scroll_OnboardSCRToAaveV3Scroll_20241203 is AaveV3PayloadScroll {
   using SafeERC20 for IERC20;
 
   address public constant SCR = 0xd29687c813D741E2F938F4aC377128810E217b1b;
-  uint256 public constant SCR_SEED_AMOUNT = 1e18;
-  address public constant SCR_LM_ADMIN = 0xac140648435d03f784879cd789130F22Ef588Fcd;
+  uint256 public constant SCR_SEED_AMOUNT = 100 * 1e18;
+  address public constant SCR_ADMIN = 0xac140648435d03f784879cd789130F22Ef588Fcd;
 
   function _postExecute() internal override {
     IERC20(SCR).forceApprove(address(AaveV3Scroll.POOL), SCR_SEED_AMOUNT);

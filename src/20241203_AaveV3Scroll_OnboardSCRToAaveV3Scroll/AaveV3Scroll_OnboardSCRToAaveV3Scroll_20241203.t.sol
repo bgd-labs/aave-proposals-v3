@@ -3,6 +3,7 @@ pragma solidity ^0.8.0;
 
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 import {AaveV3Scroll} from 'aave-address-book/AaveV3Scroll.sol';
+import {GovernanceV3Scroll} from 'aave-address-book/GovernanceV3Scroll.sol';
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {IEmissionManager} from 'aave-v3-origin/contracts/rewards/interfaces/IEmissionManager.sol';
 
@@ -20,6 +21,12 @@ contract AaveV3Scroll_OnboardSCRToAaveV3Scroll_20241203_Test is ProtocolV3TestBa
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('scroll'), 11609572);
     proposal = new AaveV3Scroll_OnboardSCRToAaveV3Scroll_20241203();
+
+    // Simulate SEED funds
+    address SCR_WHALE = 0x212499E4E77484E565E1965Ea220D30B1c469233;
+    vm.startPrank(SCR_WHALE);
+    IERC20(proposal.SCR()).transfer(GovernanceV3Scroll.EXECUTOR_LVL_1, proposal.SCR_SEED_AMOUNT());
+    vm.stopPrank();
   }
 
   /**
@@ -38,7 +45,7 @@ contract AaveV3Scroll_OnboardSCRToAaveV3Scroll_20241203_Test is ProtocolV3TestBa
     (address aTokenAddress, , ) = AaveV3Scroll
       .AAVE_PROTOCOL_DATA_PROVIDER
       .getReserveTokensAddresses(proposal.SCR());
-    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Scroll.COLLECTOR)), 10 ** 18);
+    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Scroll.COLLECTOR)), 100 * 10 ** 18);
   }
 
   function test_SCRAdmin() public {
