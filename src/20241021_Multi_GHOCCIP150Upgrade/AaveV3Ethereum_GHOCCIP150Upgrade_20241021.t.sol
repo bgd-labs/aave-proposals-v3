@@ -6,6 +6,7 @@ import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
 import {AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
+import {GhoEthereum} from 'aave-address-book/GhoEthereum.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {IClient} from 'src/interfaces/ccip/IClient.sol';
 import {IInternal} from 'src/interfaces/ccip/IInternal.sol';
@@ -59,7 +60,7 @@ contract AaveV3Ethereum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('mainnet'), 21131872);
     proposal = new AaveV3Ethereum_GHOCCIP150Upgrade_20241021();
-    ghoTokenPool = IUpgradeableLockReleaseTokenPool(MiscEthereum.GHO_CCIP_TOKEN_POOL);
+    ghoTokenPool = IUpgradeableLockReleaseTokenPool(GhoEthereum.GHO_CCIP_TOKEN_POOL);
     proxyPool = IProxyPool(proposal.GHO_CCIP_PROXY_POOL());
 
     _validateConstants();
@@ -287,7 +288,7 @@ contract AaveV3Ethereum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
 
     executePayload(vm, address(proposal));
     // mock previously locked gho
-    deal(MiscEthereum.GHO_TOKEN, address(ghoTokenPool), amount);
+    deal(GhoEthereum.GHO_TOKEN, address(ghoTokenPool), amount);
     // wait for the rate limiter to refill
     skip(_getInboundRefillTime(amount));
 
@@ -329,24 +330,24 @@ contract AaveV3Ethereum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
     vm.prank(proxyPool.owner());
     proxyPool.transferOwnership(AaveV3Ethereum.ACL_ADMIN);
     vm.prank(TOKEN_ADMIN_REGISTRY.owner());
-    TOKEN_ADMIN_REGISTRY.transferAdminRole(MiscEthereum.GHO_TOKEN, AaveV3Ethereum.ACL_ADMIN);
+    TOKEN_ADMIN_REGISTRY.transferAdminRole(GhoEthereum.GHO_TOKEN, AaveV3Ethereum.ACL_ADMIN);
 
     // new AIP to accept ownership
     vm.startPrank(AaveV3Ethereum.ACL_ADMIN);
     proxyPool.acceptOwnership();
-    TOKEN_ADMIN_REGISTRY.acceptAdminRole(MiscEthereum.GHO_TOKEN);
+    TOKEN_ADMIN_REGISTRY.acceptAdminRole(GhoEthereum.GHO_TOKEN);
     vm.stopPrank();
 
     assertEq(proxyPool.owner(), AaveV3Ethereum.ACL_ADMIN);
     assertTrue(
-      TOKEN_ADMIN_REGISTRY.isAdministrator(MiscEthereum.GHO_TOKEN, AaveV3Ethereum.ACL_ADMIN)
+      TOKEN_ADMIN_REGISTRY.isAdministrator(GhoEthereum.GHO_TOKEN, AaveV3Ethereum.ACL_ADMIN)
     );
   }
 
   function _mockCCIPMigration() private {
     IRouter router = IRouter(ghoTokenPool.getRouter());
 
-    assertEq(TOKEN_ADMIN_REGISTRY.getPool(MiscEthereum.GHO_TOKEN), address(proxyPool));
+    assertEq(TOKEN_ADMIN_REGISTRY.getPool(GhoEthereum.GHO_TOKEN), address(proxyPool));
 
     assertEq(proxyPool.getRouter(), address(router));
 
@@ -382,7 +383,7 @@ contract AaveV3Ethereum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
   ) internal returns (IClient.EVM2AnyMessage memory, IInternal.EVM2EVMMessage memory) {
     IClient.EVM2AnyMessage memory message = CCIPUtils.generateMessage(alice, 1);
     message.tokenAmounts[0] = IClient.EVMTokenAmount({
-      token: MiscEthereum.GHO_TOKEN,
+      token: GhoEthereum.GHO_TOKEN,
       amount: params.amount
     });
 
@@ -450,7 +451,7 @@ contract AaveV3Ethereum_GHOCCIP150Upgrade_20241021_Test is ProtocolV3TestBase {
     assertEq(ITypeAndVersion(OFF_RAMP_1_2).typeAndVersion(), 'EVM2EVMOffRamp 1.2.0');
     assertEq(ITypeAndVersion(OFF_RAMP_1_5).typeAndVersion(), 'EVM2EVMOffRamp 1.5.0');
 
-    assertEq(GHO_CCIP_STEWARD.GHO_TOKEN(), MiscEthereum.GHO_TOKEN);
+    assertEq(GHO_CCIP_STEWARD.GHO_TOKEN(), GhoEthereum.GHO_TOKEN);
     assertEq(GHO_CCIP_STEWARD.GHO_TOKEN_POOL(), address(ghoTokenPool));
 
     assertEq(proxyPool.getPreviousPool(), address(ghoTokenPool));
