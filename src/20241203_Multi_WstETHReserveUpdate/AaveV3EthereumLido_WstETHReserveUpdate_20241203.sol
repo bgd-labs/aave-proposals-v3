@@ -7,7 +7,7 @@ import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config
 /**
  * @title wstETH Reserve Update
  * @author ACI
- * - Snapshot: TODO
+ * - Snapshot: Direct-to-AIP
  * - Discussion: https://governance.aave.com/t/arfc-prime-core-instance-wsteth-reserve-update/19973
  */
 contract AaveV3EthereumLido_WstETHReserveUpdate_20241203 is AaveV3PayloadEthereumLido {
