@@ -22,7 +22,7 @@ The following stable-coin CAPO feeds are being updated across all networks and i
 
 | Aave Instances        | Underlying assets for which CAPO feed is updated         |
 | --------------------- | -------------------------------------------------------- |
-| AaveV3Ethereum        | USDC, USDT, USDS, DAI, LUSD, FRAX, crvUSD, pyUSD, sDAI    |
+| AaveV3Ethereum        | USDC, USDT, USDS, DAI, LUSD, FRAX, crvUSD, pyUSD, sDAI   |
 | AaveV3EthereumLido    | USDC, USDS                                               |
 | AaveV3EthereumEtherFi | USDC, pyUSD, FRAX                                        |
 | AaveV2Ethereum        | USDC, USDT, DAI, FRAX, LUSD, USDP, sUSD, BUSD, TUSD, UST |
