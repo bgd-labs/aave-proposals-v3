@@ -1,5 +1,5 @@
 ---
-title: "Onboard GHO and Migrate Streams to Lido Instance"
+title: "Onboard GHO and Migrate Streams to Prime Instance"
 author: "karpatkey_TokenLogic"
 discussions: "https://governance.aave.com/t/arfc-onboard-gho-and-migrate-streams-to-lido-instance/19686"
 snapshot: "https://snapshot.org/#/aave.eth/proposal/0x5c27aa8f1de66a3e56f535d60e4c1666a5617a36f8f81c09df2b0ea184a90290"
@@ -9,18 +9,18 @@ snapshot: "https://snapshot.org/#/aave.eth/proposal/0x5c27aa8f1de66a3e56f535d60e
 
 This publication proposes the following:
 
-- Onboarding GHO to the Lido instance of Aave v3;
+- Onboarding GHO to the Prime instance of Aave v3;
 - Acquire GHO from spot market to seed the GHO Reserve on Prime
 - Migrate Merit allowance
 - Cancel AGD GHO allowance
 
 ## Motivation
 
-### Onboard GHO Lido Instance
+### Onboard GHO Prime Instance
 
-With the circulating supply nearing 180M and nearly 50M in DEX liquidity on Ethereum, this publication proposes adding GHO to the Lido instance of Aave v3.
+With the circulating supply nearing 180M and nearly 50M in DEX liquidity on Ethereum, this publication proposes adding GHO to the Prime instance of Aave v3.
 
-Adding GHO to the Lido instance of Aave v3 would provide the DAO with several opportunities:
+Adding GHO to the Prime instance of Aave v3 would provide the DAO with several opportunities:
 
 - Mint GHO through a Facilitator and deposit it into the Reserve to generate revenue;
 - Enable Aave DAO to earn yield on existing GHO holdings; and,
@@ -36,7 +36,7 @@ Within this publication, the Aave Grants DAO GHO Allowance is to be cancelled.
 
 ## Specification
 
-The below details the parameter configuration of the GHO Reserve on the Lido instance of Aave v3.
+The below details the parameter configuration of the GHO Reserve on the Prime instance of Aave v3.
 
 | Parameter                 |                                      Value |
 | ------------------------- | -----------------------------------------: |
