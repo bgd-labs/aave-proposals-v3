@@ -6,9 +6,9 @@
 
 | description | value before | value after |
 | --- | --- | --- |
-| maxVariableBorrowRate | 90 % | 89.5 % |
-| variableRateSlope1 | 10 % | 9.5 % |
-| interestRate | ![before](https://dash.onaave.com/api/static?variableRateSlope1=100000000000000000000000000&variableRateSlope2=800000000000000000000000000&optimalUsageRatio=900000000000000000000000000&baseVariableBorrowRate=0&maxVariableBorrowRate=900000000000000000000000000) | ![after](https://dash.onaave.com/api/static?variableRateSlope1=95000000000000000000000000&variableRateSlope2=800000000000000000000000000&optimalUsageRatio=900000000000000000000000000&baseVariableBorrowRate=0&maxVariableBorrowRate=895000000000000000000000000) |
+| maxVariableBorrowRate | 90 % | 90.5 % |
+| variableRateSlope1 | 10 % | 10.5 % |
+| interestRate | ![before](https://dash.onaave.com/api/static?variableRateSlope1=100000000000000000000000000&variableRateSlope2=800000000000000000000000000&optimalUsageRatio=900000000000000000000000000&baseVariableBorrowRate=0&maxVariableBorrowRate=900000000000000000000000000) | ![after](https://dash.onaave.com/api/static?variableRateSlope1=105000000000000000000000000&variableRateSlope2=800000000000000000000000000&optimalUsageRatio=900000000000000000000000000&baseVariableBorrowRate=0&maxVariableBorrowRate=905000000000000000000000000) |
 
 #### USDC ([0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359](https://polygonscan.com/address/0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359))
 
@@ -50,11 +50,11 @@
     "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174": {
       "maxVariableBorrowRate": {
         "from": "900000000000000000000000000",
-        "to": "895000000000000000000000000"
+        "to": "905000000000000000000000000"
       },
       "variableRateSlope1": {
         "from": "100000000000000000000000000",
-        "to": "95000000000000000000000000"
+        "to": "105000000000000000000000000"
       }
     },
     "0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359": {

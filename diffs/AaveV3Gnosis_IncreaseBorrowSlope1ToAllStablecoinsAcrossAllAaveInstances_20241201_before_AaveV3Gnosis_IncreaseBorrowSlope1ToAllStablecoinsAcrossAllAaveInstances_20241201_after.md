@@ -6,9 +6,9 @@
 
 | description | value before | value after |
 | --- | --- | --- |
-| maxVariableBorrowRate | 84 % | 84.5 % |
-| variableRateSlope1 | 9 % | 9.5 % |
-| interestRate | ![before](https://dash.onaave.com/api/static?variableRateSlope1=90000000000000000000000000&variableRateSlope2=750000000000000000000000000&optimalUsageRatio=900000000000000000000000000&baseVariableBorrowRate=0&maxVariableBorrowRate=840000000000000000000000000) | ![after](https://dash.onaave.com/api/static?variableRateSlope1=95000000000000000000000000&variableRateSlope2=750000000000000000000000000&optimalUsageRatio=900000000000000000000000000&baseVariableBorrowRate=0&maxVariableBorrowRate=845000000000000000000000000) |
+| maxVariableBorrowRate | 84 % | 85.5 % |
+| variableRateSlope1 | 9 % | 10.5 % |
+| interestRate | ![before](https://dash.onaave.com/api/static?variableRateSlope1=90000000000000000000000000&variableRateSlope2=750000000000000000000000000&optimalUsageRatio=900000000000000000000000000&baseVariableBorrowRate=0&maxVariableBorrowRate=840000000000000000000000000) | ![after](https://dash.onaave.com/api/static?variableRateSlope1=105000000000000000000000000&variableRateSlope2=750000000000000000000000000&optimalUsageRatio=900000000000000000000000000&baseVariableBorrowRate=0&maxVariableBorrowRate=855000000000000000000000000) |
 
 #### USDC ([0xDDAfbb505ad214D7b80b1f830fcCc89B60fb7A83](https://gnosisscan.io/address/0xDDAfbb505ad214D7b80b1f830fcCc89B60fb7A83))
 
@@ -42,11 +42,11 @@
     "0x2a22f9c3b484c3629090FeED35F17Ff8F88f76F0": {
       "maxVariableBorrowRate": {
         "from": "840000000000000000000000000",
-        "to": "845000000000000000000000000"
+        "to": "855000000000000000000000000"
       },
       "variableRateSlope1": {
         "from": "90000000000000000000000000",
-        "to": "95000000000000000000000000"
+        "to": "105000000000000000000000000"
       }
     },
     "0xDDAfbb505ad214D7b80b1f830fcCc89B60fb7A83": {

@@ -38,9 +38,9 @@
 
 | description | value before | value after |
 | --- | --- | --- |
-| maxVariableBorrowRate | 86.5 % | 89.5 % |
-| variableRateSlope1 | 6.5 % | 9.5 % |
-| interestRate | ![before](https://dash.onaave.com/api/static?variableRateSlope1=65000000000000000000000000&variableRateSlope2=800000000000000000000000000&optimalUsageRatio=900000000000000000000000000&baseVariableBorrowRate=0&maxVariableBorrowRate=865000000000000000000000000) | ![after](https://dash.onaave.com/api/static?variableRateSlope1=95000000000000000000000000&variableRateSlope2=800000000000000000000000000&optimalUsageRatio=900000000000000000000000000&baseVariableBorrowRate=0&maxVariableBorrowRate=895000000000000000000000000) |
+| maxVariableBorrowRate | 86.5 % | 90.5 % |
+| variableRateSlope1 | 6.5 % | 10.5 % |
+| interestRate | ![before](https://dash.onaave.com/api/static?variableRateSlope1=65000000000000000000000000&variableRateSlope2=800000000000000000000000000&optimalUsageRatio=900000000000000000000000000&baseVariableBorrowRate=0&maxVariableBorrowRate=865000000000000000000000000) | ![after](https://dash.onaave.com/api/static?variableRateSlope1=105000000000000000000000000&variableRateSlope2=800000000000000000000000000&optimalUsageRatio=900000000000000000000000000&baseVariableBorrowRate=0&maxVariableBorrowRate=905000000000000000000000000) |
 
 #### USDT ([0xFd086bC7CD5C481DCC9C85ebE478A1C0b69FCbb9](https://arbiscan.io/address/0xFd086bC7CD5C481DCC9C85ebE478A1C0b69FCbb9))
 
@@ -106,11 +106,11 @@
     "0xFF970A61A04b1cA14834A43f5dE4533eBDDB5CC8": {
       "maxVariableBorrowRate": {
         "from": "865000000000000000000000000",
-        "to": "895000000000000000000000000"
+        "to": "905000000000000000000000000"
       },
       "variableRateSlope1": {
         "from": "65000000000000000000000000",
-        "to": "95000000000000000000000000"
+        "to": "105000000000000000000000000"
       }
     },
     "0xFd086bC7CD5C481DCC9C85ebE478A1C0b69FCbb9": {

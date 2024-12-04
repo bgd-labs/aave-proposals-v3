@@ -14,9 +14,9 @@
 
 | description | value before | value after |
 | --- | --- | --- |
-| maxVariableBorrowRate | 86.5 % | 89.5 % |
-| variableRateSlope1 | 6.5 % | 9.5 % |
-| interestRate | ![before](https://dash.onaave.com/api/static?variableRateSlope1=65000000000000000000000000&variableRateSlope2=800000000000000000000000000&optimalUsageRatio=900000000000000000000000000&baseVariableBorrowRate=0&maxVariableBorrowRate=865000000000000000000000000) | ![after](https://dash.onaave.com/api/static?variableRateSlope1=95000000000000000000000000&variableRateSlope2=800000000000000000000000000&optimalUsageRatio=900000000000000000000000000&baseVariableBorrowRate=0&maxVariableBorrowRate=895000000000000000000000000) |
+| maxVariableBorrowRate | 86.5 % | 90.5 % |
+| variableRateSlope1 | 6.5 % | 10.5 % |
+| interestRate | ![before](https://dash.onaave.com/api/static?variableRateSlope1=65000000000000000000000000&variableRateSlope2=800000000000000000000000000&optimalUsageRatio=900000000000000000000000000&baseVariableBorrowRate=0&maxVariableBorrowRate=865000000000000000000000000) | ![after](https://dash.onaave.com/api/static?variableRateSlope1=105000000000000000000000000&variableRateSlope2=800000000000000000000000000&optimalUsageRatio=900000000000000000000000000&baseVariableBorrowRate=0&maxVariableBorrowRate=905000000000000000000000000) |
 
 #### sUSD ([0x8c6f28f2F1A3C87F0f938b96d27520d9751ec8d9](https://optimistic.etherscan.io/address/0x8c6f28f2F1A3C87F0f938b96d27520d9751ec8d9))
 
@@ -68,11 +68,11 @@
     "0x7F5c764cBc14f9669B88837ca1490cCa17c31607": {
       "maxVariableBorrowRate": {
         "from": "865000000000000000000000000",
-        "to": "895000000000000000000000000"
+        "to": "905000000000000000000000000"
       },
       "variableRateSlope1": {
         "from": "65000000000000000000000000",
-        "to": "95000000000000000000000000"
+        "to": "105000000000000000000000000"
       }
     },
     "0x8c6f28f2F1A3C87F0f938b96d27520d9751ec8d9": {

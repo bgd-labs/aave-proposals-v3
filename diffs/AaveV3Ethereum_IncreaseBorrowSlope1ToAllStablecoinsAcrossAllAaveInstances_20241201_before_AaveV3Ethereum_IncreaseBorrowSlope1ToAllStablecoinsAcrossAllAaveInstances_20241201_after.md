@@ -58,14 +58,6 @@
 | variableRateSlope1 | 5.5 % | 9.5 % |
 | interestRate | ![before](https://dash.onaave.com/api/static?variableRateSlope1=55000000000000000000000000&variableRateSlope2=750000000000000000000000000&optimalUsageRatio=920000000000000000000000000&baseVariableBorrowRate=0&maxVariableBorrowRate=805000000000000000000000000) | ![after](https://dash.onaave.com/api/static?variableRateSlope1=95000000000000000000000000&variableRateSlope2=750000000000000000000000000&optimalUsageRatio=920000000000000000000000000&baseVariableBorrowRate=0&maxVariableBorrowRate=845000000000000000000000000) |
 
-#### USDS ([0xdC035D45d973E3EC169d2276DDab16f1e407384F](https://etherscan.io/address/0xdC035D45d973E3EC169d2276DDab16f1e407384F))
-
-| description | value before | value after |
-| --- | --- | --- |
-| maxVariableBorrowRate | 82 % | 90.75 % |
-| variableRateSlope1 | 0.75 % | 9.5 % |
-| interestRate | ![before](https://dash.onaave.com/api/static?variableRateSlope1=7500000000000000000000000&variableRateSlope2=750000000000000000000000000&optimalUsageRatio=920000000000000000000000000&baseVariableBorrowRate=62500000000000000000000000&maxVariableBorrowRate=820000000000000000000000000) | ![after](https://dash.onaave.com/api/static?variableRateSlope1=95000000000000000000000000&variableRateSlope2=750000000000000000000000000&optimalUsageRatio=920000000000000000000000000&baseVariableBorrowRate=62500000000000000000000000&maxVariableBorrowRate=907500000000000000000000000) |
-
 #### crvUSD ([0xf939E0A03FB07F59A73314E73794Be0E57ac1b4E](https://etherscan.io/address/0xf939E0A03FB07F59A73314E73794Be0E57ac1b4E))
 
 | description | value before | value after |
@@ -146,16 +138,6 @@
       },
       "variableRateSlope1": {
         "from": "55000000000000000000000000",
-        "to": "95000000000000000000000000"
-      }
-    },
-    "0xdC035D45d973E3EC169d2276DDab16f1e407384F": {
-      "maxVariableBorrowRate": {
-        "from": "820000000000000000000000000",
-        "to": "907500000000000000000000000"
-      },
-      "variableRateSlope1": {
-        "from": "7500000000000000000000000",
         "to": "95000000000000000000000000"
       }
     },
