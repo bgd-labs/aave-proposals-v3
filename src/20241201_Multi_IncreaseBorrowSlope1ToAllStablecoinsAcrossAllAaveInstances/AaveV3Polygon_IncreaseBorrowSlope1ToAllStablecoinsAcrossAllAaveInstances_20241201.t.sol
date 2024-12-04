@@ -18,7 +18,7 @@ contract AaveV3Polygon_IncreaseBorrowSlope1ToAllStablecoinsAcrossAllAaveInstance
     internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('polygon'), 65081639);
+    vm.createSelectFork(vm.rpcUrl('polygon'), 65083281);
     proposal = new AaveV3Polygon_IncreaseBorrowSlope1ToAllStablecoinsAcrossAllAaveInstances_20241201();
   }
 

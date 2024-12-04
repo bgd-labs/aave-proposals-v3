@@ -18,7 +18,7 @@ contract AaveV3EthereumLido_IncreaseBorrowSlope1ToAllStablecoinsAcrossAllAaveIns
     internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 21330714);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 21331005);
     proposal = new AaveV3EthereumLido_IncreaseBorrowSlope1ToAllStablecoinsAcrossAllAaveInstances_20241201();
   }
 

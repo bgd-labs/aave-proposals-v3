@@ -18,7 +18,7 @@ contract AaveV3Avalanche_IncreaseBorrowSlope1ToAllStablecoinsAcrossAllAaveInstan
     internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('avalanche'), 53924839);
+    vm.createSelectFork(vm.rpcUrl('avalanche'), 53926606);
     proposal = new AaveV3Avalanche_IncreaseBorrowSlope1ToAllStablecoinsAcrossAllAaveInstances_20241201();
   }
 

@@ -27,7 +27,7 @@ contract AaveV3BNB_IncreaseBorrowSlope1ToAllStablecoinsAcrossAllAaveInstances_20
       params: IAaveV3ConfigEngine.InterestRateInputData({
         optimalUsageRatio: EngineFlags.KEEP_CURRENT,
         baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
-        variableRateSlope1: 9_50,
+        variableRateSlope1: 12_50,
         variableRateSlope2: EngineFlags.KEEP_CURRENT
       })
     });
@@ -36,7 +36,7 @@ contract AaveV3BNB_IncreaseBorrowSlope1ToAllStablecoinsAcrossAllAaveInstances_20
       params: IAaveV3ConfigEngine.InterestRateInputData({
         optimalUsageRatio: EngineFlags.KEEP_CURRENT,
         baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
-        variableRateSlope1: 9_50,
+        variableRateSlope1: 12_50,
         variableRateSlope2: EngineFlags.KEEP_CURRENT
       })
     });
@@ -45,7 +45,7 @@ contract AaveV3BNB_IncreaseBorrowSlope1ToAllStablecoinsAcrossAllAaveInstances_20
       params: IAaveV3ConfigEngine.InterestRateInputData({
         optimalUsageRatio: EngineFlags.KEEP_CURRENT,
         baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
-        variableRateSlope1: 9_50,
+        variableRateSlope1: 12_50,
         variableRateSlope2: EngineFlags.KEEP_CURRENT
       })
     });

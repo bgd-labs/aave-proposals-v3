@@ -17,7 +17,7 @@ contract AaveV3Base_IncreaseBorrowSlope1ToAllStablecoinsAcrossAllAaveInstances_2
   AaveV3Base_IncreaseBorrowSlope1ToAllStablecoinsAcrossAllAaveInstances_20241201 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('base'), 23272506);
+    vm.createSelectFork(vm.rpcUrl('base'), 23274262);
     proposal = new AaveV3Base_IncreaseBorrowSlope1ToAllStablecoinsAcrossAllAaveInstances_20241201();
   }
 

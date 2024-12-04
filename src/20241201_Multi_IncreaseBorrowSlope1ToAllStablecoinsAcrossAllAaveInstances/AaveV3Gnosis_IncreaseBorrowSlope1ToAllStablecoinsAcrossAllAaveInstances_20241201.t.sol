@@ -18,7 +18,7 @@ contract AaveV3Gnosis_IncreaseBorrowSlope1ToAllStablecoinsAcrossAllAaveInstances
     internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('gnosis'), 37357068);
+    vm.createSelectFork(vm.rpcUrl('gnosis'), 37357744);
     proposal = new AaveV3Gnosis_IncreaseBorrowSlope1ToAllStablecoinsAcrossAllAaveInstances_20241201();
   }
 
