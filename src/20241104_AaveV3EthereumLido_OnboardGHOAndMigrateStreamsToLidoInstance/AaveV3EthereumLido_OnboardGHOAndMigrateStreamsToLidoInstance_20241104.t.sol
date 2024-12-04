@@ -34,7 +34,7 @@ contract AaveV3EthereumLido_OnboardGHOAndMigrateStreamsToLidoInstance_20241104_T
   AaveV3EthereumLido_OnboardGHOAndMigrateStreamsToLidoInstance_20241104 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 21287749);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 21328964);
     proposal = new AaveV3EthereumLido_OnboardGHOAndMigrateStreamsToLidoInstance_20241104();
   }
 
@@ -114,13 +114,13 @@ contract AaveV3EthereumLido_OnboardGHOAndMigrateStreamsToLidoInstance_20241104_T
 
     assertEq(
       IERC20(AaveV3EthereumAssets.USDT_UNDERLYING).balanceOf(
-        0xA866e48A6ef92e0191358Cb606C99e6187083567 // milkmanInstance contract
+        0x1D18380041Ba52ef4011e8264E2F9605D7a023Fe // milkmanInstance contract
       ),
       proposal.A_USDT_WITHDRAW_AMOUNT() + proposal.A_ETH_USDT_WITHDRAW_AMOUNT()
     );
     assertEq(
       IERC20(AaveV3EthereumAssets.USDC_UNDERLYING).balanceOf(
-        0x520A820040199C9f4b4420aE72aa9F8b91171262 // milkmanInstance contract
+        0xe798354288DB1A06da83beF6e2915325a16A300a // milkmanInstance contract
       ),
       proposal.A_ETH_USDC_WITHDRAW_AMOUNT()
     );

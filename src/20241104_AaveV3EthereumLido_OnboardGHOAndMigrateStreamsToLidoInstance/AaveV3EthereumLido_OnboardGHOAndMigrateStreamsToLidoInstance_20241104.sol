@@ -13,10 +13,6 @@ import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';
 
-// todo this import also should be removed
-import {ILegacyProxyAdmin} from 'src/interfaces/ILegacyProxyAdmin.sol';
-import {ITransparentUpgradeableProxy} from 'solidity-utils/contracts/transparent-proxy/TransparentUpgradeableProxy.sol';
-
 /**
  * @title Onboard GHO and Migrate Streams to Lido Instance
  * @author karpatkey_TokenLogic
@@ -52,12 +48,6 @@ contract AaveV3EthereumLido_OnboardGHOAndMigrateStreamsToLidoInstance_20241104 i
   }
 
   function _postExecute() internal override {
-    // todo this part should be removed if september funding part merged
-    ILegacyProxyAdmin(MiscEthereum.PROXY_ADMIN).upgrade(
-      ITransparentUpgradeableProxy(payable(MiscEthereum.AAVE_SWAPPER)),
-      0xD80F4cE4Df649d8D6A88cf365f0560Bed9aE688F
-    );
-
     // agd
     if (
       IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).allowance(
