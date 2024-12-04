@@ -1,14 +1,15 @@
 import {ConfigFile} from '../../generator/types';
 export const config: ConfigFile = {
   rootOptions: {
+    configFile:
+      'src/20241201_Multi_IncreaseBorrowSlope1ToAllStablecoinsAcrossAllAaveInstances/config.ts',
+    update: true,
+    force: true,
     author: 'Aave Chan Initiative',
     pools: [
       'AaveV2Ethereum',
-      'AaveV2Polygon',
-      'AaveV2Avalanche',
       'AaveV3Ethereum',
       'AaveV3EthereumLido',
-      'AaveV3EthereumEtherFi',
       'AaveV3Polygon',
       'AaveV3Avalanche',
       'AaveV3Optimism',
@@ -67,87 +68,7 @@ export const config: ConfigFile = {
           },
         ],
       },
-      cache: {blockNumber: 21309616},
-    },
-    AaveV2Polygon: {
-      configs: {
-        RATE_UPDATE_V2: [
-          {
-            asset: 'DAI',
-            params: {
-              optimalUtilizationRate: '',
-              baseVariableBorrowRate: '',
-              variableRateSlope1: '9.5',
-              variableRateSlope2: '',
-              stableRateSlope1: '',
-              stableRateSlope2: '',
-            },
-          },
-          {
-            asset: 'USDC',
-            params: {
-              optimalUtilizationRate: '',
-              baseVariableBorrowRate: '',
-              variableRateSlope1: '9.5',
-              variableRateSlope2: '',
-              stableRateSlope1: '',
-              stableRateSlope2: '',
-            },
-          },
-          {
-            asset: 'USDT',
-            params: {
-              optimalUtilizationRate: '',
-              baseVariableBorrowRate: '',
-              variableRateSlope1: '9.5',
-              variableRateSlope2: '',
-              stableRateSlope1: '',
-              stableRateSlope2: '',
-            },
-          },
-        ],
-      },
-      cache: {blockNumber: 64964081},
-    },
-    AaveV2Avalanche: {
-      configs: {
-        RATE_UPDATE_V2: [
-          {
-            asset: 'DAIe',
-            params: {
-              optimalUtilizationRate: '',
-              baseVariableBorrowRate: '',
-              variableRateSlope1: '9.5',
-              variableRateSlope2: '',
-              stableRateSlope1: '',
-              stableRateSlope2: '',
-            },
-          },
-          {
-            asset: 'USDTe',
-            params: {
-              optimalUtilizationRate: '',
-              baseVariableBorrowRate: '',
-              variableRateSlope1: '9.5',
-              variableRateSlope2: '',
-              stableRateSlope1: '',
-              stableRateSlope2: '',
-            },
-          },
-          {
-            asset: 'USDCe',
-            params: {
-              optimalUtilizationRate: '',
-              baseVariableBorrowRate: '',
-              variableRateSlope1: '9.5',
-              variableRateSlope2: '',
-              stableRateSlope1: '',
-              stableRateSlope2: '',
-            },
-          },
-        ],
-      },
-      cache: {blockNumber: 53797597},
+      cache: {blockNumber: 21330714},
     },
     AaveV3Ethereum: {
       configs: {
@@ -224,32 +145,14 @@ export const config: ConfigFile = {
               variableRateSlope2: '',
             },
           },
-          {
-            asset: 'USDS',
-            params: {
-              optimalUtilizationRate: '',
-              baseVariableBorrowRate: '',
-              variableRateSlope1: '9.5',
-              variableRateSlope2: '',
-            },
-          },
         ],
       },
-      cache: {blockNumber: 21309860},
+      cache: {blockNumber: 21330714},
     },
     AaveV3EthereumLido: {
       configs: {
         RATE_UPDATE_V3: [
           {
-            asset: 'USDS',
-            params: {
-              optimalUtilizationRate: '',
-              baseVariableBorrowRate: '',
-              variableRateSlope1: '9.5',
-              variableRateSlope2: '',
-            },
-          },
-          {
             asset: 'USDC',
             params: {
               optimalUtilizationRate: '',
@@ -260,41 +163,7 @@ export const config: ConfigFile = {
           },
         ],
       },
-      cache: {blockNumber: 21309958},
-    },
-    AaveV3EthereumEtherFi: {
-      configs: {
-        RATE_UPDATE_V3: [
-          {
-            asset: 'USDC',
-            params: {
-              optimalUtilizationRate: '',
-              baseVariableBorrowRate: '',
-              variableRateSlope1: '9.5',
-              variableRateSlope2: '',
-            },
-          },
-          {
-            asset: 'PYUSD',
-            params: {
-              optimalUtilizationRate: '',
-              baseVariableBorrowRate: '',
-              variableRateSlope1: '9.5',
-              variableRateSlope2: '',
-            },
-          },
-          {
-            asset: 'FRAX',
-            params: {
-              optimalUtilizationRate: '',
-              baseVariableBorrowRate: '',
-              variableRateSlope1: '9.5',
-              variableRateSlope2: '',
-            },
-          },
-        ],
-      },
-      cache: {blockNumber: 21309961},
+      cache: {blockNumber: 21330714},
     },
     AaveV3Polygon: {
       configs: {
@@ -313,7 +182,7 @@ export const config: ConfigFile = {
             params: {
               optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
-              variableRateSlope1: '9.5',
+              variableRateSlope1: '10.5',
               variableRateSlope2: '',
             },
           },
@@ -346,7 +215,7 @@ export const config: ConfigFile = {
           },
         ],
       },
-      cache: {blockNumber: 64965941},
+      cache: {blockNumber: 65081639},
     },
     AaveV3Avalanche: {
       configs: {
@@ -389,7 +258,7 @@ export const config: ConfigFile = {
           },
         ],
       },
-      cache: {blockNumber: 53799626},
+      cache: {blockNumber: 53924839},
     },
     AaveV3Optimism: {
       configs: {
@@ -408,7 +277,7 @@ export const config: ConfigFile = {
             params: {
               optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
-              variableRateSlope1: '9.5',
+              variableRateSlope1: '10.5',
               variableRateSlope2: '',
             },
           },
@@ -450,7 +319,7 @@ export const config: ConfigFile = {
           },
         ],
       },
-      cache: {blockNumber: 128742634},
+      cache: {blockNumber: 128867791},
     },
     AaveV3Arbitrum: {
       configs: {
@@ -469,7 +338,7 @@ export const config: ConfigFile = {
             params: {
               optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
-              variableRateSlope1: '9.5',
+              variableRateSlope1: '10.5',
               variableRateSlope2: '',
             },
           },
@@ -520,7 +389,7 @@ export const config: ConfigFile = {
           },
         ],
       },
-      cache: {blockNumber: 280332171},
+      cache: {blockNumber: 281325776},
     },
     AaveV3Metis: {
       configs: {
@@ -554,7 +423,7 @@ export const config: ConfigFile = {
           },
         ],
       },
-      cache: {blockNumber: 19090067},
+      cache: {blockNumber: 19108051},
     },
     AaveV3Base: {
       configs: {
@@ -564,7 +433,7 @@ export const config: ConfigFile = {
             params: {
               optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
-              variableRateSlope1: '9.5',
+              variableRateSlope1: '10.5',
               variableRateSlope2: '',
             },
           },
@@ -579,7 +448,7 @@ export const config: ConfigFile = {
           },
         ],
       },
-      cache: {blockNumber: 23147457},
+      cache: {blockNumber: 23272506},
     },
     AaveV3Gnosis: {
       configs: {
@@ -616,13 +485,13 @@ export const config: ConfigFile = {
             params: {
               optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
-              variableRateSlope1: '9.5',
+              variableRateSlope1: '10.5',
               variableRateSlope2: '',
             },
           },
         ],
       },
-      cache: {blockNumber: 37308300},
+      cache: {blockNumber: 37357068},
     },
     AaveV3Scroll: {
       configs: {
@@ -638,7 +507,7 @@ export const config: ConfigFile = {
           },
         ],
       },
-      cache: {blockNumber: 11565449},
+      cache: {blockNumber: 11644843},
     },
     AaveV3BNB: {
       configs: {
@@ -672,7 +541,7 @@ export const config: ConfigFile = {
           },
         ],
       },
-      cache: {blockNumber: 44501491},
+      cache: {blockNumber: 44584511},
     },
     AaveV3ZkSync: {
       configs: {
@@ -697,7 +566,7 @@ export const config: ConfigFile = {
           },
         ],
       },
-      cache: {blockNumber: 50263640},
+      cache: {blockNumber: 50494922},
     },
   },
 };

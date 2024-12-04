@@ -18,7 +18,7 @@ contract AaveV3ZkSync_IncreaseBorrowSlope1ToAllStablecoinsAcrossAllAaveInstances
     internal proposal;
 
   function setUp() public override {
-    vm.createSelectFork(vm.rpcUrl('zksync'), 50263640);
+    vm.createSelectFork(vm.rpcUrl('zksync'), 50494922);
     proposal = new AaveV3ZkSync_IncreaseBorrowSlope1ToAllStablecoinsAcrossAllAaveInstances_20241201();
 
     super.setUp();

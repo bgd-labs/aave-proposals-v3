@@ -17,7 +17,7 @@ contract AaveV3Metis_IncreaseBorrowSlope1ToAllStablecoinsAcrossAllAaveInstances_
   AaveV3Metis_IncreaseBorrowSlope1ToAllStablecoinsAcrossAllAaveInstances_20241201 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('metis'), 19090067);
+    vm.createSelectFork(vm.rpcUrl('metis'), 19108051);
     proposal = new AaveV3Metis_IncreaseBorrowSlope1ToAllStablecoinsAcrossAllAaveInstances_20241201();
   }
 

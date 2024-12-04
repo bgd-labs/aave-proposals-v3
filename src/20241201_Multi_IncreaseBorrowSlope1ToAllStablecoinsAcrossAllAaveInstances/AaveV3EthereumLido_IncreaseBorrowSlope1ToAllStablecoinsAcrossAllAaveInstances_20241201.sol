@@ -21,17 +21,8 @@ contract AaveV3EthereumLido_IncreaseBorrowSlope1ToAllStablecoinsAcrossAllAaveIns
     returns (IAaveV3ConfigEngine.RateStrategyUpdate[] memory)
   {
     IAaveV3ConfigEngine.RateStrategyUpdate[]
-      memory rateStrategies = new IAaveV3ConfigEngine.RateStrategyUpdate[](2);
+      memory rateStrategies = new IAaveV3ConfigEngine.RateStrategyUpdate[](1);
     rateStrategies[0] = IAaveV3ConfigEngine.RateStrategyUpdate({
-      asset: AaveV3EthereumLidoAssets.USDS_UNDERLYING,
-      params: IAaveV3ConfigEngine.InterestRateInputData({
-        optimalUsageRatio: EngineFlags.KEEP_CURRENT,
-        baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
-        variableRateSlope1: 9_50,
-        variableRateSlope2: EngineFlags.KEEP_CURRENT
-      })
-    });
-    rateStrategies[1] = IAaveV3ConfigEngine.RateStrategyUpdate({
       asset: AaveV3EthereumLidoAssets.USDC_UNDERLYING,
       params: IAaveV3ConfigEngine.InterestRateInputData({
         optimalUsageRatio: EngineFlags.KEEP_CURRENT,

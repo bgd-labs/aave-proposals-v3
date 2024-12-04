@@ -21,7 +21,7 @@ contract AaveV3Ethereum_IncreaseBorrowSlope1ToAllStablecoinsAcrossAllAaveInstanc
     returns (IAaveV3ConfigEngine.RateStrategyUpdate[] memory)
   {
     IAaveV3ConfigEngine.RateStrategyUpdate[]
-      memory rateStrategies = new IAaveV3ConfigEngine.RateStrategyUpdate[](9);
+      memory rateStrategies = new IAaveV3ConfigEngine.RateStrategyUpdate[](8);
     rateStrategies[0] = IAaveV3ConfigEngine.RateStrategyUpdate({
       asset: AaveV3EthereumAssets.USDC_UNDERLYING,
       params: IAaveV3ConfigEngine.InterestRateInputData({
@@ -87,15 +87,6 @@ contract AaveV3Ethereum_IncreaseBorrowSlope1ToAllStablecoinsAcrossAllAaveInstanc
     });
     rateStrategies[7] = IAaveV3ConfigEngine.RateStrategyUpdate({
       asset: AaveV3EthereumAssets.USDe_UNDERLYING,
-      params: IAaveV3ConfigEngine.InterestRateInputData({
-        optimalUsageRatio: EngineFlags.KEEP_CURRENT,
-        baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
-        variableRateSlope1: 9_50,
-        variableRateSlope2: EngineFlags.KEEP_CURRENT
-      })
-    });
-    rateStrategies[8] = IAaveV3ConfigEngine.RateStrategyUpdate({
-      asset: AaveV3EthereumAssets.USDS_UNDERLYING,
       params: IAaveV3ConfigEngine.InterestRateInputData({
         optimalUsageRatio: EngineFlags.KEEP_CURRENT,
         baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,

@@ -18,7 +18,7 @@ contract AaveV2Ethereum_IncreaseBorrowSlope1ToAllStablecoinsAcrossAllAaveInstanc
     internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 21309616);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 21330714);
     proposal = new AaveV2Ethereum_IncreaseBorrowSlope1ToAllStablecoinsAcrossAllAaveInstances_20241201();
   }
 
