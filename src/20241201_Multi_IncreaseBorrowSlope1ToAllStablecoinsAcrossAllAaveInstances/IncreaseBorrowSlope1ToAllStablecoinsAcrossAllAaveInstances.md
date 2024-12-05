@@ -21,55 +21,55 @@ Additionally, this change will ensure appropriate risk compensation for stableco
 
 | **Market**        | **Asset** | **Current Slope1** | **Recommended Slope1** |
 | ----------------- | --------- | ------------------ | ---------------------- |
-| Ethereum V2       | USDC      | 5.5%               | 9.5%                   |
-| Ethereum V2       | USDT      | 5.5%               | 9.5%                   |
-| Ethereum V2       | DAI       | 5.5%               | 9.5%                   |
-| Ethereum V3 Core  | USDC      | 5.5%               | 9.5%                   |
-| Ethereum V3 Core  | USDT      | 5.5%               | 9.5%                   |
-| Ethereum V3 Core  | USDe      | 9.0%               | 9.5%                   |
-| Ethereum V3 Core  | FRAX      | 5.5%               | 9.5%                   |
-| Ethereum V3 Core  | DAI       | 5.5%               | 9.5%                   |
-| Ethereum V3 Core  | LUSD      | 5.5%               | 9.5%                   |
-| Ethereum V3 Core  | PYUSD     | 5.5%               | 9.5%                   |
-| Ethereum V3 Core  | crvUSD    | 5.5%               | 9.5%                   |
-| Ethereum V3 Prime | USDC      | 5.5%               | 9.5%                   |
-| Avalanche V3      | USDC      | 5.5%               | 9.5%                   |
-| Avalanche V3      | USDT      | 5.5%               | 9.5%                   |
-| Avalanche V3      | DAI       | 5.5%               | 9.5%                   |
-| Avalanche V3      | FRAX      | 5.5%               | 9.5%                   |
-| Polygon V3        | USDC      | 5.5%               | 9.5%                   |
-| Polygon V3        | USDC.e    | 10.0%              | 10.5%                  |
-| Polygon V3        | USDT      | 5.5%               | 9.5%                   |
-| Polygon V3        | DAI       | 5.5%               | 9.5%                   |
-| Polygon V3        | EURS      | 5.5%               | 9.5%                   |
-| Optimism V3       | USDC      | 5.5%               | 9.5%                   |
-| Optimism V3       | USDT      | 5.5%               | 9.5%                   |
-| Optimism V3       | DAI       | 5.5%               | 9.5%                   |
-| Optimism V3       | sUSD      | 5.5%               | 9.5%                   |
-| Optimism V3       | LUSD      | 5.5%               | 9.5%                   |
-| Optimism V3       | USDC.e    | 6.5%               | 10.5%                  |
-| Arbitrum V3       | USDC      | 5.5%               | 9.5%                   |
-| Arbitrum V3       | USDC.e    | 6.5%               | 10.5%                  |
-| Arbitrum V3       | USDT      | 5.5%               | 9.5%                   |
-| Arbitrum V3       | DAI       | 5.5%               | 9.5%                   |
-| Arbitrum V3       | LUSD      | 5.5%               | 9.5%                   |
-| Arbitrum V3       | FRAX      | 5.5%               | 9.5%                   |
-| Arbitrum V3       | GHO       | 12%                | 9.5%                   |
-| Base V3           | USDC      | 5.5%               | 9.5%                   |
-| Base V3           | USDbC     | 10.0%              | 10.5%                  |
-| Metis V3          | m.USDC    | 6.0%               | 9.5%                   |
-| Metis V3          | m.USDT    | 6.0%               | 9.5%                   |
-| Metis V3          | m.DAI     | 7.0%               | 9.5%                   |
-| BNB Chain V3      | USDT      | 5.5%               | 9.5%                   |
-| BNB Chain V3      | USDC      | 5.5%               | 9.5%                   |
-| BNB Chain V3      | FDUSD     | 5.5%               | 9.5%                   |
-| Scroll V3         | USDC      | 5.5%               | 9.5%                   |
-| Gnosis V3         | WXDAI     | 5.5%               | 9.5%                   |
-| Gnosis V3         | USDC      | 5.5%               | 9.5%                   |
-| Gnosis V3         | EURe      | 5.5%               | 9.5%                   |
-| Gnosis V3         | USDC.e    | 9%                 | 10.5%                  |
-| ZKSync V3         | USDC      | 5.5%               | 9.5%                   |
-| ZKSync V3         | USDT      | 5.5%               | 9.5%                   |
+| Ethereum V2       | USDC      | 5.5%               | 12.5%                   |
+| Ethereum V2       | USDT      | 5.5%               | 12.5%                   |
+| Ethereum V2       | DAI       | 5.5%               | 12.5%                   |
+| Ethereum V3 Core  | USDC      | 5.5%               | 12.5%                   |
+| Ethereum V3 Core  | USDT      | 5.5%               | 12.5%                   |
+| Ethereum V3 Core  | USDe      | 9.0%               | 12.5%                   |
+| Ethereum V3 Core  | FRAX      | 5.5%               | 12.5%                   |
+| Ethereum V3 Core  | DAI       | 5.5%               | 12.5%                   |
+| Ethereum V3 Core  | LUSD      | 5.5%               | 12.5%                   |
+| Ethereum V3 Core  | PYUSD     | 5.5%               | 12.5%                   |
+| Ethereum V3 Core  | crvUSD    | 5.5%               | 12.5%                   |
+| Ethereum V3 Prime | USDC      | 5.5%               | 12.5%                   |
+| Avalanche V3      | USDC      | 5.5%               | 12.5%                   |
+| Avalanche V3      | USDT      | 5.5%               | 12.5%                   |
+| Avalanche V3      | DAI       | 5.5%               | 12.5%                   |
+| Avalanche V3      | FRAX      | 5.5%               | 12.5%                   |
+| Polygon V3        | USDC      | 5.5%               | 12.5%                   |
+| Polygon V3        | USDC.e    | 10.0%              | 13.5%                  |
+| Polygon V3        | USDT      | 5.5%               | 12.5%                   |
+| Polygon V3        | DAI       | 5.5%               | 12.5%                   |
+| Polygon V3        | EURS      | 5.5%               | 12.5%                   |
+| Optimism V3       | USDC      | 5.5%               | 12.5%                   |
+| Optimism V3       | USDT      | 5.5%               | 12.5%                   |
+| Optimism V3       | DAI       | 5.5%               | 12.5%                   |
+| Optimism V3       | sUSD      | 5.5%               | 12.5%                   |
+| Optimism V3       | LUSD      | 5.5%               | 12.5%                   |
+| Optimism V3       | USDC.e    | 6.5%               | 13.5%                  |
+| Arbitrum V3       | USDC      | 5.5%               | 12.5%                   |
+| Arbitrum V3       | USDC.e    | 6.5%               | 13.5%                  |
+| Arbitrum V3       | USDT      | 5.5%               | 12.5%                   |
+| Arbitrum V3       | DAI       | 5.5%               | 12.5%                   |
+| Arbitrum V3       | LUSD      | 5.5%               | 12.5%                   |
+| Arbitrum V3       | FRAX      | 5.5%               | 12.5%                   |
+| Arbitrum V3       | GHO       | 12%                | 12.5%                   |
+| Base V3           | USDC      | 5.5%               | 12.5%                   |
+| Base V3           | USDbC     | 10.0%              | 13.5%                  |
+| Metis V3          | m.USDC    | 6.0%               | 12.5%                   |
+| Metis V3          | m.USDT    | 6.0%               | 12.5%                   |
+| Metis V3          | m.DAI     | 7.0%               | 12.5%                   |
+| BNB Chain V3      | USDT      | 5.5%               | 12.5%                   |
+| BNB Chain V3      | USDC      | 5.5%               | 12.5%                   |
+| BNB Chain V3      | FDUSD     | 5.5%               | 12.5%                   |
+| Scroll V3         | USDC      | 5.5%               | 12.5%                   |
+| Gnosis V3         | WXDAI     | 5.5%               | 12.5%                   |
+| Gnosis V3         | USDC      | 5.5%               | 12.5%                   |
+| Gnosis V3         | EURe      | 5.5%               | 12.5%                   |
+| Gnosis V3         | USDC.e    | 9%                 | 13.5%                  |
+| ZKSync V3         | USDC      | 5.5%               | 12.5%                   |
+| ZKSync V3         | USDT      | 5.5%               | 12.5%                   |
 
 ## References
 
