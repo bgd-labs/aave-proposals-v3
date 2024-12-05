@@ -10,6 +10,8 @@ import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3EthereumLido_OnboardRsETHToLidoInstance_20241205} from './AaveV3EthereumLido_OnboardRsETHToLidoInstance_20241205.sol';
 
+import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
+
 /**
  * @dev Test for AaveV3EthereumLido_OnboardRsETHToLidoInstance_20241205
  * command: FOUNDRY_PROFILE=mainnet forge test --match-path=src/20241205_AaveV3EthereumLido_OnboardRsETHToLidoInstance/AaveV3EthereumLido_OnboardRsETHToLidoInstance_20241205.t.sol -vv
@@ -19,6 +21,13 @@ contract AaveV3EthereumLido_OnboardRsETHToLidoInstance_20241205_Test is Protocol
 
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('mainnet'), 21335607);
+
+    address rsethHolder = 0x43594da5d6A03b2137a04DF5685805C676dEf7cB;
+    address rsETH = 0xA1290d69c65A6Fe4DF752f95823fae25cB99e5A7;
+    vm.startPrank(rsethHolder);
+    IERC20(rsETH).transfer(GovernanceV3Ethereum.EXECUTOR_LVL_1, 0.03 * 1e18);
+    vm.stopPrank();
+
     proposal = new AaveV3EthereumLido_OnboardRsETHToLidoInstance_20241205();
   }
 
