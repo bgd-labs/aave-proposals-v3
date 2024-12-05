@@ -7,7 +7,13 @@ snapshot: TODO
 
 ## Simple Summary
 
+The current ARFC Addendum seeks to onboard rsETH to Lido Instance. This integration aligns with the recent support for rsETH in Aave Mainnet Instance, as outlined in the ARFC proposal and the AIP that is live.
+
+This will be a Direct to Direct AIP Proposal so we can align with the final AIP and onboarding of rsETH in Mainnet Instance.
+
 ## Motivation
+
+With rsETH set to become a reality on Aave v3 Ethereum, integrating it into the Lido Instance offers deeper liquidity, higher composability, and more strategic borrowing opportunities for users. Given the synergy between wstETH and rsETH as liquid staking derivatives (LSDs), enabling eMode will maximize capital efficiency for borrowers while maintaining a conservative risk approach.
 
 ## Specification
 
