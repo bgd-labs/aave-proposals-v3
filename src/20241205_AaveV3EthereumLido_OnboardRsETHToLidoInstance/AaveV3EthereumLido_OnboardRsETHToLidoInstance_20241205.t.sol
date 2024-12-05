@@ -38,7 +38,10 @@ contract AaveV3EthereumLido_OnboardRsETHToLidoInstance_20241205_Test is Protocol
     (address aTokenAddress, , ) = AaveV3EthereumLido
       .AAVE_PROTOCOL_DATA_PROVIDER
       .getReserveTokensAddresses(proposal.rsETH());
-    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3EthereumLido.COLLECTOR)), 10 ** 18);
+    assertGe(
+      IERC20(aTokenAddress).balanceOf(address(AaveV3EthereumLido.COLLECTOR)),
+      0.03 * 10 ** 18
+    );
   }
 
   function test_rsETHAdmin() public {

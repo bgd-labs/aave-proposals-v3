@@ -18,7 +18,7 @@ contract AaveV3EthereumLido_OnboardRsETHToLidoInstance_20241205 is AaveV3Payload
   using SafeERC20 for IERC20;
 
   address public constant rsETH = 0xA1290d69c65A6Fe4DF752f95823fae25cB99e5A7;
-  uint256 public constant rsETH_SEED_AMOUNT = 1e18;
+  uint256 public constant rsETH_SEED_AMOUNT = 0.03 * 1e18;
   address public constant rsETH_ADMIN = 0xac140648435d03f784879cd789130F22Ef588Fcd;
 
   function _postExecute() internal override {
