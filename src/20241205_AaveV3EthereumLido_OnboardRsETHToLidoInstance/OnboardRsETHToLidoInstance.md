@@ -31,7 +31,7 @@ The table below illustrates the configured risk parameters for **rsETH**
 | LT                        |                                      0.1 % |
 | Liquidation Bonus         |                                      7.5 % |
 | Liquidation Protocol Fee  |                                       10 % |
-| Reserve Factor            |                                        0 % |
+| Reserve Factor            |                                       15 % |
 | Base Variable Borrow Rate |                                        0 % |
 | Variable Slope 1          |                                       10 % |
 | Variable Slope 2          |                                      100 % |

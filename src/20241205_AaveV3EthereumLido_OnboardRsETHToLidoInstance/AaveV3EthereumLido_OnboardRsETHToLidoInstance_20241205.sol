@@ -94,7 +94,7 @@ contract AaveV3EthereumLido_OnboardRsETHToLidoInstance_20241205 is AaveV3Payload
       ltv: 5,
       liqThreshold: 10,
       liqBonus: 7_50,
-      reserveFactor: 0,
+      reserveFactor: 15,
       supplyCap: 10_000,
       borrowCap: 1,
       debtCeiling: 0,

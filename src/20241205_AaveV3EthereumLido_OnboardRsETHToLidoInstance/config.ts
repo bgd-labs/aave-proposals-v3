@@ -50,7 +50,7 @@ export const config: ConfigFile = {
             flashloanable: 'ENABLED',
             borrowableInIsolation: 'DISABLED',
             withSiloedBorrowing: 'DISABLED',
-            reserveFactor: '0',
+            reserveFactor: '15',
             supplyCap: '10000',
             borrowCap: '1',
             rateStrategyParams: {
