@@ -356,13 +356,6 @@ contract CreateProposal is EthereumScript {
     );
     payloads[9] = GovV3Helpers.buildBNBPayload(vm, actionsBNB);
 
-    // IPayloadsControllerCore.ExecutionAction[]
-    //   memory actionsZkSync = new IPayloadsControllerCore.ExecutionAction[](1);
-    // actionsZkSync[0] = GovV3Helpers.buildActionZkSync(
-    //   vm,
-    //   'AaveV3ZkSync_IncreaseBorrowSlope1ToAllStablecoinsAcrossAllAaveInstances_20241201'
-    // );
-    // payloads[10] = GovV3Helpers.buildZkSyncPayload(vm, actionsZkSync);
     payloads[10] = PayloadsControllerUtils.Payload({
       chain: ChainIds.ZKSYNC,
       accessLevel: PayloadsControllerUtils.AccessControl.Level_1,
