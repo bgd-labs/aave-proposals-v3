@@ -10,6 +10,7 @@ export const config: ConfigFile = {
       'AaveV2Ethereum',
       'AaveV3Ethereum',
       'AaveV3EthereumLido',
+      'AaveV3EthereumEtherFi',
       'AaveV3Polygon',
       'AaveV3Avalanche',
       'AaveV3Optimism',
@@ -68,7 +69,7 @@ export const config: ConfigFile = {
           },
         ],
       },
-      cache: {blockNumber: 21331005},
+      cache: {blockNumber: 21346502},
     },
     AaveV3Ethereum: {
       configs: {
@@ -79,7 +80,7 @@ export const config: ConfigFile = {
               optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '12.5',
-              variableRateSlope2: '',
+              variableRateSlope2: '35',
             },
           },
           {
@@ -88,7 +89,7 @@ export const config: ConfigFile = {
               optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '12.5',
-              variableRateSlope2: '',
+              variableRateSlope2: '35',
             },
           },
           {
@@ -97,7 +98,7 @@ export const config: ConfigFile = {
               optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '12.5',
-              variableRateSlope2: '',
+              variableRateSlope2: '35',
             },
           },
           {
@@ -106,7 +107,7 @@ export const config: ConfigFile = {
               optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '12.5',
-              variableRateSlope2: '',
+              variableRateSlope2: '50',
             },
           },
           {
@@ -115,7 +116,7 @@ export const config: ConfigFile = {
               optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '12.5',
-              variableRateSlope2: '',
+              variableRateSlope2: '40',
             },
           },
           {
@@ -124,7 +125,7 @@ export const config: ConfigFile = {
               optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '12.5',
-              variableRateSlope2: '',
+              variableRateSlope2: '50',
             },
           },
           {
@@ -133,7 +134,7 @@ export const config: ConfigFile = {
               optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '12.5',
-              variableRateSlope2: '',
+              variableRateSlope2: '50',
             },
           },
           {
@@ -142,12 +143,12 @@ export const config: ConfigFile = {
               optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '12.5',
-              variableRateSlope2: '',
+              variableRateSlope2: '50',
             },
           },
         ],
       },
-      cache: {blockNumber: 21331005},
+      cache: {blockNumber: 21346502},
     },
     AaveV3EthereumLido: {
       configs: {
@@ -158,12 +159,28 @@ export const config: ConfigFile = {
               optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '12.5',
-              variableRateSlope2: '',
+              variableRateSlope2: '35',
             },
           },
         ],
       },
-      cache: {blockNumber: 21331005},
+      cache: {blockNumber: 21346502},
+    },
+    AaveV3EthereumEtherFi: {
+      configs: {
+        RATE_UPDATE_V3: [
+          {
+            asset: 'PYUSD',
+            params: {
+              optimalUtilizationRate: '',
+              baseVariableBorrowRate: '',
+              variableRateSlope1: '12.5',
+              variableRateSlope2: '40',
+            },
+          },
+        ],
+      },
+      cache: {blockNumber: 21346502},
     },
     AaveV3Polygon: {
       configs: {
@@ -174,7 +191,7 @@ export const config: ConfigFile = {
               optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '12.5',
-              variableRateSlope2: '',
+              variableRateSlope2: '40',
             },
           },
           {
@@ -183,7 +200,7 @@ export const config: ConfigFile = {
               optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '13.5',
-              variableRateSlope2: '',
+              variableRateSlope2: '40',
             },
           },
           {
@@ -192,7 +209,7 @@ export const config: ConfigFile = {
               optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '12.5',
-              variableRateSlope2: '',
+              variableRateSlope2: '40',
             },
           },
           {
@@ -201,7 +218,7 @@ export const config: ConfigFile = {
               optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '12.5',
-              variableRateSlope2: '',
+              variableRateSlope2: '50',
             },
           },
           {
@@ -210,12 +227,12 @@ export const config: ConfigFile = {
               optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '12.5',
-              variableRateSlope2: '',
+              variableRateSlope2: '40',
             },
           },
         ],
       },
-      cache: {blockNumber: 65083281},
+      cache: {blockNumber: 65170205},
     },
     AaveV3Avalanche: {
       configs: {
@@ -226,7 +243,7 @@ export const config: ConfigFile = {
               optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '12.5',
-              variableRateSlope2: '',
+              variableRateSlope2: '40',
             },
           },
           {
@@ -235,7 +252,7 @@ export const config: ConfigFile = {
               optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '12.5',
-              variableRateSlope2: '',
+              variableRateSlope2: '40',
             },
           },
           {
@@ -244,7 +261,7 @@ export const config: ConfigFile = {
               optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '12.5',
-              variableRateSlope2: '',
+              variableRateSlope2: '40',
             },
           },
           {
@@ -253,12 +270,12 @@ export const config: ConfigFile = {
               optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '12.5',
-              variableRateSlope2: '',
+              variableRateSlope2: '40',
             },
           },
         ],
       },
-      cache: {blockNumber: 53926606},
+      cache: {blockNumber: 54018606},
     },
     AaveV3Optimism: {
       configs: {
@@ -269,7 +286,7 @@ export const config: ConfigFile = {
               optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '12.5',
-              variableRateSlope2: '',
+              variableRateSlope2: '40',
             },
           },
           {
@@ -278,7 +295,7 @@ export const config: ConfigFile = {
               optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '13.5',
-              variableRateSlope2: '',
+              variableRateSlope2: '40',
             },
           },
           {
@@ -287,7 +304,7 @@ export const config: ConfigFile = {
               optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '12.5',
-              variableRateSlope2: '',
+              variableRateSlope2: '40',
             },
           },
           {
@@ -296,7 +313,7 @@ export const config: ConfigFile = {
               optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '12.5',
-              variableRateSlope2: '',
+              variableRateSlope2: '50',
             },
           },
           {
@@ -305,7 +322,7 @@ export const config: ConfigFile = {
               optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '12.5',
-              variableRateSlope2: '',
+              variableRateSlope2: '50',
             },
           },
           {
@@ -314,12 +331,12 @@ export const config: ConfigFile = {
               optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '12.5',
-              variableRateSlope2: '',
+              variableRateSlope2: '40',
             },
           },
         ],
       },
-      cache: {blockNumber: 128869546},
+      cache: {blockNumber: 128963066},
     },
     AaveV3Arbitrum: {
       configs: {
@@ -330,7 +347,7 @@ export const config: ConfigFile = {
               optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '12.5',
-              variableRateSlope2: '',
+              variableRateSlope2: '40',
             },
           },
           {
@@ -339,7 +356,7 @@ export const config: ConfigFile = {
               optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '13.5',
-              variableRateSlope2: '',
+              variableRateSlope2: '40',
             },
           },
           {
@@ -348,7 +365,7 @@ export const config: ConfigFile = {
               optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '12.5',
-              variableRateSlope2: '',
+              variableRateSlope2: '40',
             },
           },
           {
@@ -357,7 +374,7 @@ export const config: ConfigFile = {
               optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '12.5',
-              variableRateSlope2: '',
+              variableRateSlope2: '50',
             },
           },
           {
@@ -366,7 +383,7 @@ export const config: ConfigFile = {
               optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '12.5',
-              variableRateSlope2: '',
+              variableRateSlope2: '40',
             },
           },
           {
@@ -375,7 +392,7 @@ export const config: ConfigFile = {
               optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '12.5',
-              variableRateSlope2: '',
+              variableRateSlope2: '40',
             },
           },
           {
@@ -384,12 +401,12 @@ export const config: ConfigFile = {
               optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '12.5',
-              variableRateSlope2: '',
+              variableRateSlope2: '40',
             },
           },
         ],
       },
-      cache: {blockNumber: 281339809},
+      cache: {blockNumber: 282086445},
     },
     AaveV3Metis: {
       configs: {
@@ -400,7 +417,7 @@ export const config: ConfigFile = {
               optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '12.5',
-              variableRateSlope2: '',
+              variableRateSlope2: '50',
             },
           },
           {
@@ -409,7 +426,7 @@ export const config: ConfigFile = {
               optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '12.5',
-              variableRateSlope2: '',
+              variableRateSlope2: '40',
             },
           },
           {
@@ -418,12 +435,12 @@ export const config: ConfigFile = {
               optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '12.5',
-              variableRateSlope2: '',
+              variableRateSlope2: '40',
             },
           },
         ],
       },
-      cache: {blockNumber: 19108315},
+      cache: {blockNumber: 19121761},
     },
     AaveV3Base: {
       configs: {
@@ -434,7 +451,7 @@ export const config: ConfigFile = {
               optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '13.5',
-              variableRateSlope2: '',
+              variableRateSlope2: '40',
             },
           },
           {
@@ -443,12 +460,12 @@ export const config: ConfigFile = {
               optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '12.5',
-              variableRateSlope2: '',
+              variableRateSlope2: '40',
             },
           },
         ],
       },
-      cache: {blockNumber: 23274262},
+      cache: {blockNumber: 23367782},
     },
     AaveV3Gnosis: {
       configs: {
@@ -459,7 +476,7 @@ export const config: ConfigFile = {
               optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '12.5',
-              variableRateSlope2: '',
+              variableRateSlope2: '40',
             },
           },
           {
@@ -468,7 +485,7 @@ export const config: ConfigFile = {
               optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '12.5',
-              variableRateSlope2: '',
+              variableRateSlope2: '40',
             },
           },
           {
@@ -477,7 +494,7 @@ export const config: ConfigFile = {
               optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '12.5',
-              variableRateSlope2: '',
+              variableRateSlope2: '50',
             },
           },
           {
@@ -486,12 +503,12 @@ export const config: ConfigFile = {
               optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '13.5',
-              variableRateSlope2: '',
+              variableRateSlope2: '40',
             },
           },
         ],
       },
-      cache: {blockNumber: 37357744},
+      cache: {blockNumber: 37394270},
     },
     AaveV3Scroll: {
       configs: {
@@ -502,12 +519,12 @@ export const config: ConfigFile = {
               optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '12.5',
-              variableRateSlope2: '',
+              variableRateSlope2: '40',
             },
           },
         ],
       },
-      cache: {blockNumber: 11646005},
+      cache: {blockNumber: 11705779},
     },
     AaveV3BNB: {
       configs: {
@@ -518,7 +535,7 @@ export const config: ConfigFile = {
               optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '12.5',
-              variableRateSlope2: '',
+              variableRateSlope2: '40',
             },
           },
           {
@@ -527,7 +544,7 @@ export const config: ConfigFile = {
               optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '12.5',
-              variableRateSlope2: '',
+              variableRateSlope2: '40',
             },
           },
           {
@@ -536,12 +553,12 @@ export const config: ConfigFile = {
               optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '12.5',
-              variableRateSlope2: '',
+              variableRateSlope2: '40',
             },
           },
         ],
       },
-      cache: {blockNumber: 44585681},
+      cache: {blockNumber: 44648014},
     },
     AaveV3ZkSync: {
       configs: {
@@ -552,7 +569,7 @@ export const config: ConfigFile = {
               optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '12.5',
-              variableRateSlope2: '',
+              variableRateSlope2: '40',
             },
           },
           {
@@ -561,12 +578,12 @@ export const config: ConfigFile = {
               optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '12.5',
-              variableRateSlope2: '',
+              variableRateSlope2: '40',
             },
           },
         ],
       },
-      cache: {blockNumber: 50498292},
+      cache: {blockNumber: 50675012},
     },
   },
 };

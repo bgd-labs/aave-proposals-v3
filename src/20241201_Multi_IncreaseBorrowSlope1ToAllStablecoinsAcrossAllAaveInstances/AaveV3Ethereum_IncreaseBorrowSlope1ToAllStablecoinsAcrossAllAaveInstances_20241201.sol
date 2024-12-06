@@ -28,7 +28,7 @@ contract AaveV3Ethereum_IncreaseBorrowSlope1ToAllStablecoinsAcrossAllAaveInstanc
         optimalUsageRatio: EngineFlags.KEEP_CURRENT,
         baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
         variableRateSlope1: 12_50,
-        variableRateSlope2: EngineFlags.KEEP_CURRENT
+        variableRateSlope2: 35_00
       })
     });
     rateStrategies[1] = IAaveV3ConfigEngine.RateStrategyUpdate({
@@ -37,7 +37,7 @@ contract AaveV3Ethereum_IncreaseBorrowSlope1ToAllStablecoinsAcrossAllAaveInstanc
         optimalUsageRatio: EngineFlags.KEEP_CURRENT,
         baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
         variableRateSlope1: 12_50,
-        variableRateSlope2: EngineFlags.KEEP_CURRENT
+        variableRateSlope2: 35_00
       })
     });
     rateStrategies[2] = IAaveV3ConfigEngine.RateStrategyUpdate({
@@ -46,7 +46,7 @@ contract AaveV3Ethereum_IncreaseBorrowSlope1ToAllStablecoinsAcrossAllAaveInstanc
         optimalUsageRatio: EngineFlags.KEEP_CURRENT,
         baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
         variableRateSlope1: 12_50,
-        variableRateSlope2: EngineFlags.KEEP_CURRENT
+        variableRateSlope2: 35_00
       })
     });
     rateStrategies[3] = IAaveV3ConfigEngine.RateStrategyUpdate({
@@ -55,7 +55,7 @@ contract AaveV3Ethereum_IncreaseBorrowSlope1ToAllStablecoinsAcrossAllAaveInstanc
         optimalUsageRatio: EngineFlags.KEEP_CURRENT,
         baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
         variableRateSlope1: 12_50,
-        variableRateSlope2: EngineFlags.KEEP_CURRENT
+        variableRateSlope2: 50_00
       })
     });
     rateStrategies[4] = IAaveV3ConfigEngine.RateStrategyUpdate({
@@ -64,7 +64,7 @@ contract AaveV3Ethereum_IncreaseBorrowSlope1ToAllStablecoinsAcrossAllAaveInstanc
         optimalUsageRatio: EngineFlags.KEEP_CURRENT,
         baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
         variableRateSlope1: 12_50,
-        variableRateSlope2: EngineFlags.KEEP_CURRENT
+        variableRateSlope2: 40_00
       })
     });
     rateStrategies[5] = IAaveV3ConfigEngine.RateStrategyUpdate({
@@ -73,7 +73,7 @@ contract AaveV3Ethereum_IncreaseBorrowSlope1ToAllStablecoinsAcrossAllAaveInstanc
         optimalUsageRatio: EngineFlags.KEEP_CURRENT,
         baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
         variableRateSlope1: 12_50,
-        variableRateSlope2: EngineFlags.KEEP_CURRENT
+        variableRateSlope2: 50_00
       })
     });
     rateStrategies[6] = IAaveV3ConfigEngine.RateStrategyUpdate({
@@ -82,7 +82,7 @@ contract AaveV3Ethereum_IncreaseBorrowSlope1ToAllStablecoinsAcrossAllAaveInstanc
         optimalUsageRatio: EngineFlags.KEEP_CURRENT,
         baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
         variableRateSlope1: 12_50,
-        variableRateSlope2: EngineFlags.KEEP_CURRENT
+        variableRateSlope2: 50_00
       })
     });
     rateStrategies[7] = IAaveV3ConfigEngine.RateStrategyUpdate({
@@ -91,7 +91,7 @@ contract AaveV3Ethereum_IncreaseBorrowSlope1ToAllStablecoinsAcrossAllAaveInstanc
         optimalUsageRatio: EngineFlags.KEEP_CURRENT,
         baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
         variableRateSlope1: 12_50,
-        variableRateSlope2: EngineFlags.KEEP_CURRENT
+        variableRateSlope2: 50_00
       })
     });
 

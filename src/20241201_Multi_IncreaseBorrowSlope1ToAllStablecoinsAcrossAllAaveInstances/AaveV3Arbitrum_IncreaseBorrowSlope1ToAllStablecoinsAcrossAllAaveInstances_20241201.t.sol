@@ -18,7 +18,7 @@ contract AaveV3Arbitrum_IncreaseBorrowSlope1ToAllStablecoinsAcrossAllAaveInstanc
     internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('arbitrum'), 281339809);
+    vm.createSelectFork(vm.rpcUrl('arbitrum'), 282086445);
     proposal = new AaveV3Arbitrum_IncreaseBorrowSlope1ToAllStablecoinsAcrossAllAaveInstances_20241201();
   }
 

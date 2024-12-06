@@ -4,10 +4,12 @@ pragma solidity ^0.8.0;
 import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aave-helpers/src/GovV3Helpers.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {GovernanceV3ZkSync} from 'aave-address-book/GovernanceV3ZkSync.sol';
+
 import {EthereumScript, PolygonScript, AvalancheScript, OptimismScript, ArbitrumScript, MetisScript, BaseScript, GnosisScript, ScrollScript, BNBScript, ChainIds} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
 import {AaveV2Ethereum_IncreaseBorrowSlope1ToAllStablecoinsAcrossAllAaveInstances_20241201} from './AaveV2Ethereum_IncreaseBorrowSlope1ToAllStablecoinsAcrossAllAaveInstances_20241201.sol';
 import {AaveV3Ethereum_IncreaseBorrowSlope1ToAllStablecoinsAcrossAllAaveInstances_20241201} from './AaveV3Ethereum_IncreaseBorrowSlope1ToAllStablecoinsAcrossAllAaveInstances_20241201.sol';
 import {AaveV3EthereumLido_IncreaseBorrowSlope1ToAllStablecoinsAcrossAllAaveInstances_20241201} from './AaveV3EthereumLido_IncreaseBorrowSlope1ToAllStablecoinsAcrossAllAaveInstances_20241201.sol';
+import {AaveV3EthereumEtherFi_IncreaseBorrowSlope1ToAllStablecoinsAcrossAllAaveInstances_20241201} from './AaveV3EthereumEtherFi_IncreaseBorrowSlope1ToAllStablecoinsAcrossAllAaveInstances_20241201.sol';
 import {AaveV3Polygon_IncreaseBorrowSlope1ToAllStablecoinsAcrossAllAaveInstances_20241201} from './AaveV3Polygon_IncreaseBorrowSlope1ToAllStablecoinsAcrossAllAaveInstances_20241201.sol';
 import {AaveV3Avalanche_IncreaseBorrowSlope1ToAllStablecoinsAcrossAllAaveInstances_20241201} from './AaveV3Avalanche_IncreaseBorrowSlope1ToAllStablecoinsAcrossAllAaveInstances_20241201.sol';
 import {AaveV3Optimism_IncreaseBorrowSlope1ToAllStablecoinsAcrossAllAaveInstances_20241201} from './AaveV3Optimism_IncreaseBorrowSlope1ToAllStablecoinsAcrossAllAaveInstances_20241201.sol';
@@ -38,13 +40,19 @@ contract DeployEthereum is EthereumScript {
       type(AaveV3EthereumLido_IncreaseBorrowSlope1ToAllStablecoinsAcrossAllAaveInstances_20241201)
         .creationCode
     );
+    address payload3 = GovV3Helpers.deployDeterministic(
+      type(
+        AaveV3EthereumEtherFi_IncreaseBorrowSlope1ToAllStablecoinsAcrossAllAaveInstances_20241201
+      ).creationCode
+    );
 
     // compose action
     IPayloadsControllerCore.ExecutionAction[]
-      memory actions = new IPayloadsControllerCore.ExecutionAction[](3);
+      memory actions = new IPayloadsControllerCore.ExecutionAction[](4);
     actions[0] = GovV3Helpers.buildAction(payload0);
     actions[1] = GovV3Helpers.buildAction(payload1);
     actions[2] = GovV3Helpers.buildAction(payload2);
+    actions[3] = GovV3Helpers.buildAction(payload3);
 
     // register action at payloadsController
     GovV3Helpers.createPayload(actions);
@@ -269,7 +277,7 @@ contract CreateProposal is EthereumScript {
 
     // compose actions for validation
     IPayloadsControllerCore.ExecutionAction[]
-      memory actionsEthereum = new IPayloadsControllerCore.ExecutionAction[](3);
+      memory actionsEthereum = new IPayloadsControllerCore.ExecutionAction[](4);
     actionsEthereum[0] = GovV3Helpers.buildAction(
       type(AaveV2Ethereum_IncreaseBorrowSlope1ToAllStablecoinsAcrossAllAaveInstances_20241201)
         .creationCode
@@ -281,6 +289,11 @@ contract CreateProposal is EthereumScript {
     actionsEthereum[2] = GovV3Helpers.buildAction(
       type(AaveV3EthereumLido_IncreaseBorrowSlope1ToAllStablecoinsAcrossAllAaveInstances_20241201)
         .creationCode
+    );
+    actionsEthereum[3] = GovV3Helpers.buildAction(
+      type(
+        AaveV3EthereumEtherFi_IncreaseBorrowSlope1ToAllStablecoinsAcrossAllAaveInstances_20241201
+      ).creationCode
     );
     payloads[0] = GovV3Helpers.buildMainnetPayload(vm, actionsEthereum);
 

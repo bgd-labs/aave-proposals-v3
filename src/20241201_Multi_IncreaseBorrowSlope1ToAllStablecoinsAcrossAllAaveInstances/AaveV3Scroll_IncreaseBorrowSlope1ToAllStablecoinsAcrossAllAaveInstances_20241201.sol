@@ -28,7 +28,7 @@ contract AaveV3Scroll_IncreaseBorrowSlope1ToAllStablecoinsAcrossAllAaveInstances
         optimalUsageRatio: EngineFlags.KEEP_CURRENT,
         baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
         variableRateSlope1: 12_50,
-        variableRateSlope2: EngineFlags.KEEP_CURRENT
+        variableRateSlope2: 40_00
       })
     });
 

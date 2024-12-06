@@ -18,7 +18,7 @@ contract AaveV3Optimism_IncreaseBorrowSlope1ToAllStablecoinsAcrossAllAaveInstanc
     internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('optimism'), 128869546);
+    vm.createSelectFork(vm.rpcUrl('optimism'), 128963066);
     proposal = new AaveV3Optimism_IncreaseBorrowSlope1ToAllStablecoinsAcrossAllAaveInstances_20241201();
   }
 
