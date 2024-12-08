@@ -170,7 +170,25 @@ export const config: ConfigFile = {
       configs: {
         RATE_UPDATE_V3: [
           {
+            asset: 'USDC',
+            params: {
+              optimalUtilizationRate: '',
+              baseVariableBorrowRate: '',
+              variableRateSlope1: '12.5',
+              variableRateSlope2: '40',
+            },
+          },
+          {
             asset: 'PYUSD',
+            params: {
+              optimalUtilizationRate: '',
+              baseVariableBorrowRate: '',
+              variableRateSlope1: '12.5',
+              variableRateSlope2: '40',
+            },
+          },
+          {
+            asset: 'FRAX',
             params: {
               optimalUtilizationRate: '',
               baseVariableBorrowRate: '',

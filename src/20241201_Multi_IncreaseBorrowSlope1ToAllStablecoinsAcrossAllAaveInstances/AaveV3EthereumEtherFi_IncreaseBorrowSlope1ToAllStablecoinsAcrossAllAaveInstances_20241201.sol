@@ -21,9 +21,29 @@ contract AaveV3EthereumEtherFi_IncreaseBorrowSlope1ToAllStablecoinsAcrossAllAave
     returns (IAaveV3ConfigEngine.RateStrategyUpdate[] memory)
   {
     IAaveV3ConfigEngine.RateStrategyUpdate[]
-      memory rateStrategies = new IAaveV3ConfigEngine.RateStrategyUpdate[](1);
+      memory rateStrategies = new IAaveV3ConfigEngine.RateStrategyUpdate[](3);
     rateStrategies[0] = IAaveV3ConfigEngine.RateStrategyUpdate({
+      asset: AaveV3EthereumEtherFiAssets.USDC_UNDERLYING,
+      params: IAaveV3ConfigEngine.InterestRateInputData({
+        optimalUsageRatio: EngineFlags.KEEP_CURRENT,
+        baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
+        variableRateSlope1: 12_50,
+        variableRateSlope2: 40_00
+      })
+    });
+
+    rateStrategies[1] = IAaveV3ConfigEngine.RateStrategyUpdate({
       asset: AaveV3EthereumEtherFiAssets.PYUSD_UNDERLYING,
+      params: IAaveV3ConfigEngine.InterestRateInputData({
+        optimalUsageRatio: EngineFlags.KEEP_CURRENT,
+        baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
+        variableRateSlope1: 12_50,
+        variableRateSlope2: 40_00
+      })
+    });
+
+    rateStrategies[2] = IAaveV3ConfigEngine.RateStrategyUpdate({
+      asset: AaveV3EthereumEtherFiAssets.FRAX_UNDERLYING,
       params: IAaveV3ConfigEngine.InterestRateInputData({
         optimalUsageRatio: EngineFlags.KEEP_CURRENT,
         baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
