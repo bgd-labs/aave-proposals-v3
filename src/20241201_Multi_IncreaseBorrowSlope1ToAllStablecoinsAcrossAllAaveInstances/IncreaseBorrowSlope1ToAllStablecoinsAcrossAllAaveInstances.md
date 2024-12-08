@@ -6,7 +6,7 @@ discussions: "https://governance.aave.com/t/arfc-increase-borrow-slope1-to-all-s
 
 ## Simple Summary
 
-This proposal recommends increasing the **borrow slope1** parameter for stablecoins across all Aave V3 Instances to **12.5%**. This adjustment aims to align interest rate models with the updated **Stable Debt Reserve (SDR)** strategy, promoting sustainability, better risk management, and optimal utilization of the protocol’s resources.
+This proposal recommends increasing the **borrow slope1** parameter for stablecoins across all Aave V3 Instances and Aave V2 on mainnet to **12.5%**. This adjustment aims to align interest rate models with the updated **Stable Debt Reserve (SDR)** strategy, promoting sustainability, better risk management, and optimal utilization of the protocol’s resources.
 
 ## Motivation
 
