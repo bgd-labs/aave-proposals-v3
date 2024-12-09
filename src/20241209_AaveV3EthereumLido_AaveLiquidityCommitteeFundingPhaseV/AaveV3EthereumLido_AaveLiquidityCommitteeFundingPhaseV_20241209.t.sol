@@ -49,6 +49,11 @@ contract AaveV3EthereumLido_AaveLiquidityCommitteeFundingPhaseV_20241209_Test is
   }
 
   function test_aclAllowance() public {
+    uint256 alcAllowanceBefore = IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).allowance(
+      address(AaveV3EthereumLido.COLLECTOR),
+      proposal.ALC_SAFE()
+    );
+
     executePayload(vm, address(proposal));
 
     uint256 alcAllowanceAfter = IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).allowance(
@@ -56,7 +61,7 @@ contract AaveV3EthereumLido_AaveLiquidityCommitteeFundingPhaseV_20241209_Test is
       proposal.ALC_SAFE()
     );
 
-    assertEq(alcAllowanceAfter, proposal.ALC_ALLOWANCE());
+    assertEq(alcAllowanceAfter, alcAllowanceBefore + proposal.ALC_ALLOWANCE());
   }
 
   function test_swap() public {
