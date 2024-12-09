@@ -17,7 +17,7 @@
 | oracle | [0x47F52B2e43D0386cF161e001835b03Ad49889e3b](https://etherscan.io/address/0x47F52B2e43D0386cF161e001835b03Ad49889e3b) |
 | oracleDecimals | 8 |
 | oracleDescription | Capped rsETH / ETH / USD |
-| oracleLatestAnswer | 4041.72807442 |
+| oracleLatestAnswer | 4023.47907549 |
 | usageAsCollateralEnabled | true |
 | ltv | 0.05 % [5] |
 | liquidationThreshold | 0.1 % [10] |
@@ -124,7 +124,7 @@
         "oracle": "0x47F52B2e43D0386cF161e001835b03Ad49889e3b",
         "oracleDecimals": 8,
         "oracleDescription": "Capped rsETH / ETH / USD",
-        "oracleLatestAnswer": "404172807442",
+        "oracleLatestAnswer": "402347907549",
         "reserveFactor": 15,
         "supplyCap": 10000,
         "symbol": "rsETH",
