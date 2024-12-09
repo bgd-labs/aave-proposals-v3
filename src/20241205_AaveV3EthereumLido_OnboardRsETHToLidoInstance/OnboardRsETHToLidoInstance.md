@@ -43,6 +43,17 @@ The table below illustrates the configured risk parameters for **rsETH**
 
 Additionaly [0xac140648435d03f784879cd789130F22Ef588Fcd](https://etherscan.io/address/0xac140648435d03f784879cd789130F22Ef588Fcd) has been set as the emission admin for rsETH and the corresponding aToken.
 
+### E-mode Specification
+
+| **Parameter**         | Value  | **Value** |
+| --------------------- | ------ | --------- |
+| Asset                 | rsETH  | wstETH    |
+| Collateral            | Yes    | No        |
+| Borrowable            | No     | Yes       |
+| Max LTV               | 92.50% | -         |
+| Liquidation Threshold | 94.50% | -         |
+| Liquidation Bonus     | 1.00%  | -         |
+
 ## References
 
 - Implementation: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241205_AaveV3EthereumLido_OnboardRsETHToLidoInstance/AaveV3EthereumLido_OnboardRsETHToLidoInstance_20241205.sol)
