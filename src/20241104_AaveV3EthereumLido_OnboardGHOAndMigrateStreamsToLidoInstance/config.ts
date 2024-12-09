@@ -24,7 +24,7 @@ export const config: ConfigFile = {
             liqThreshold: '0',
             liqBonus: '0',
             debtCeiling: '0',
-            liqProtocolFee: '10',
+            liqProtocolFee: '0',
             enabledToBorrow: 'ENABLED',
             flashloanable: 'ENABLED',
             borrowableInIsolation: 'DISABLED',
@@ -34,7 +34,7 @@ export const config: ConfigFile = {
             borrowCap: '2500000',
             rateStrategyParams: {
               optimalUtilizationRate: '92',
-              baseVariableBorrowRate: '7.50',
+              baseVariableBorrowRate: '10.50',
               variableRateSlope1: '3.00',
               variableRateSlope2: '50',
             },

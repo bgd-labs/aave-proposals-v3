@@ -49,9 +49,9 @@ The below details the parameter configuration of the GHO Reserve on the Prime in
 | LTV                       |                                        0 % |
 | LT                        |                                        0 % |
 | Liquidation Bonus         |                                        0 % |
-| Liquidation Protocol Fee  |                                       10 % |
+| Liquidation Protocol Fee  |                                        0 % |
 | Reserve Factor            |                                       10 % |
-| Base Variable Borrow Rate |                                     7.50 % |
+| Base Variable Borrow Rate |                                    10.50 % |
 | Variable Slope 1          |                                     3.00 % |
 | Variable Slope 2          |                                       50 % |
 | Uoptimal                  |                                       92 % |

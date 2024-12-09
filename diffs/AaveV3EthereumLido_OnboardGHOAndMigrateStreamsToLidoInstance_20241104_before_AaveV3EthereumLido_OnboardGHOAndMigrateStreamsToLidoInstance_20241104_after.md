@@ -40,11 +40,11 @@
 | virtualAccountingActive | true |
 | virtualBalance | 1,000 GHO [1000000000000000000000] |
 | optimalUsageRatio | 92 % |
-| maxVariableBorrowRate | 60.5 % |
-| baseVariableBorrowRate | 7.5 % |
+| maxVariableBorrowRate | 63.5 % |
+| baseVariableBorrowRate | 10.5 % |
 | variableRateSlope1 | 3 % |
 | variableRateSlope2 | 50 % |
-| interestRate | ![ir](https://dash.onaave.com/api/static?variableRateSlope1=30000000000000000000000000&variableRateSlope2=500000000000000000000000000&optimalUsageRatio=920000000000000000000000000&baseVariableBorrowRate=75000000000000000000000000&maxVariableBorrowRate=605000000000000000000000000) |
+| interestRate | ![ir](https://dash.onaave.com/api/static?variableRateSlope1=30000000000000000000000000&variableRateSlope2=500000000000000000000000000&optimalUsageRatio=920000000000000000000000000&baseVariableBorrowRate=105000000000000000000000000&maxVariableBorrowRate=635000000000000000000000000) |
 
 
 ## Emodes changed
@@ -146,8 +146,8 @@
       "from": null,
       "to": {
         "address": "0x8958b1C39269167527821f8c276Ef7504883f2fa",
-        "baseVariableBorrowRate": "75000000000000000000000000",
-        "maxVariableBorrowRate": "605000000000000000000000000",
+        "baseVariableBorrowRate": "105000000000000000000000000",
+        "maxVariableBorrowRate": "635000000000000000000000000",
         "optimalUsageRatio": "920000000000000000000000000",
         "variableRateSlope1": "30000000000000000000000000",
         "variableRateSlope2": "500000000000000000000000000"

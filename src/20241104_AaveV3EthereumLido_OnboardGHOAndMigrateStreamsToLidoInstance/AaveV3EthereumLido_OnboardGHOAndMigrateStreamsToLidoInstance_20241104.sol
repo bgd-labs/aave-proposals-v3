@@ -151,10 +151,10 @@ contract AaveV3EthereumLido_OnboardGHOAndMigrateStreamsToLidoInstance_20241104 i
       supplyCap: 20_000_000,
       borrowCap: 2_500_000,
       debtCeiling: 0,
-      liqProtocolFee: 10_00,
+      liqProtocolFee: 0,
       rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
         optimalUsageRatio: 92_00,
-        baseVariableBorrowRate: 7_50,
+        baseVariableBorrowRate: 10_50,
         variableRateSlope1: 3_00,
         variableRateSlope2: 50_00
       })
