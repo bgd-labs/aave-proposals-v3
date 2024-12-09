@@ -2,7 +2,7 @@
 title: "Onboard rsETH to Lido Instance"
 author: "ACI"
 discussions: "https://governance.aave.com/t/arfc-add-rseth-to-aave-v3-ethereum/17696/18"
-snapshot: TODO
+snapshot: Direct-to-AIP
 ---
 
 ## Simple Summary

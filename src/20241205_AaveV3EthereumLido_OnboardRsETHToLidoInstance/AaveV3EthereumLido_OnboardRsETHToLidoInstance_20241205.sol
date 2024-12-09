@@ -11,7 +11,7 @@ import {IEmissionManager} from 'aave-v3-origin/contracts/rewards/interfaces/IEmi
 /**
  * @title Onboard rsETH to Lido Instance
  * @author ACI
- * - Snapshot: TODO
+ * - Snapshot: Direct-to-AIP
  * - Discussion: https://governance.aave.com/t/arfc-add-rseth-to-aave-v3-ethereum/17696/18
  */
 contract AaveV3EthereumLido_OnboardRsETHToLidoInstance_20241205 is AaveV3PayloadEthereumLido {
