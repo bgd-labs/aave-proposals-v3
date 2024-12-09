@@ -72,7 +72,7 @@ contract AaveV3EthereumLido_OnboardRsETHToLidoInstance_20241205 is AaveV3Payload
       collateral: EngineFlags.DISABLED
     });
     assetEModeUpdates[1] = IAaveV3ConfigEngine.AssetEModeUpdate({
-      asset: AaveV3EthereumLidoAssets.ezETH_UNDERLYING,
+      asset: rsETH,
       eModeCategory: 5,
       borrowable: EngineFlags.DISABLED,
       collateral: EngineFlags.ENABLED

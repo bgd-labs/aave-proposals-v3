@@ -75,7 +75,7 @@
 | eMode.liquidationThreshold | - | 94.5 % |
 | eMode.liquidationBonus | - | 1 % |
 | eMode.borrowableBitmap | - | wstETH |
-| eMode.collateralBitmap | - | ezETH |
+| eMode.collateralBitmap | - | rsETH |
 
 
 ## Raw diff
@@ -87,7 +87,7 @@
       "from": null,
       "to": {
         "borrowableBitmap": "1",
-        "collateralBitmap": "16",
+        "collateralBitmap": "64",
         "eModeCategory": 5,
         "label": "rsETH LST main",
         "liquidationBonus": 10100,
