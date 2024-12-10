@@ -33,7 +33,8 @@ contract AaveV3Ethereum_OrbitProgramRenewal_20241210_Test is ProtocolV3TestBase 
   }
 
   function test_wholeProcess() public {
-    uint256 maxDeltaStreamBalance = 0.001e18; // 0.1%
+    // 0.001% tolerance due to stream computation inaccuracy
+    uint256 maxDeltaStreamBalance = 0.00001e18; // 0.001%
 
     uint256[] memory ghoBalancesBeforeUsers = new uint256[](4);
     address[] memory ghoPaymentAddresses = OrbitProgramRenewalData.getOrbitAddresses();
@@ -138,7 +139,8 @@ contract AaveV3Ethereum_OrbitProgramRenewal_20241210_Test is ProtocolV3TestBase 
   }
 
   function test_streamEndBalance() public {
-    uint256 maxDeltaStreamBalance = 0.001e18; // 0.1%
+    // 0.001% tolerance due to stream computation inaccuracy
+    uint256 maxDeltaStreamBalance = 0.00001e18; // 0.001%
 
     address[] memory ghoPaymentAddresses = OrbitProgramRenewalData.getOrbitAddresses();
 
@@ -151,7 +153,6 @@ contract AaveV3Ethereum_OrbitProgramRenewal_20241210_Test is ProtocolV3TestBase 
 
     vm.warp(block.timestamp + 80 days);
 
-    /// Their GHO balance has increased and call also withdraw from stream as it now exists
     for (uint256 i = 0; i < ghoPaymentAddresses.length; i++) {
       uint256 finalBalanceToWithdraw = AaveV3Ethereum.COLLECTOR.balanceOf(
         nextStreamId + i,

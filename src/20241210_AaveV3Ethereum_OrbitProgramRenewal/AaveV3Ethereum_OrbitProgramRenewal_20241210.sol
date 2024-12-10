@@ -16,9 +16,7 @@ contract AaveV3Ethereum_OrbitProgramRenewal_20241210 is IProposalGenericExecutor
   function execute() external {
     address[] memory orbitAddresses = OrbitProgramRenewalData.getOrbitAddresses();
 
-    uint256 orbitAddressesLength = orbitAddresses.length;
-
-    for (uint256 i = 0; i < orbitAddressesLength; i++) {
+    for (uint256 i = 0; i < orbitAddresses.length; i++) {
       AaveV3Ethereum.COLLECTOR.transfer(
         AaveV3EthereumAssets.GHO_UNDERLYING,
         orbitAddresses[i],
