@@ -9,14 +9,14 @@ snapshot: "https://snapshot.org/#/aave.eth/proposal/0x5c27aa8f1de66a3e56f535d60e
 
 This publication proposes the following:
 
-- Onboarding GHO to the Prime instance of Aave v3;
-- Acquire GHO from spot market to seed the GHO Reserve on Prime
+- Onboarding GHO to the Prime instance of Aave v3 with 3M seed from Collector;
+- Acquire 3M GHO from spot market and send to the Collector
 - Migrate Merit allowance
 - Cancel AGD GHO allowance
 
 ## Motivation
 
-### Onboard GHO Prime Instance
+### Onboard GHO Prime Instance with 3M seed from Collector
 
 With the circulating supply nearing 180M and nearly 50M in DEX liquidity on Ethereum, this publication proposes adding GHO to the Prime instance of Aave v3.
 
@@ -28,9 +28,11 @@ Adding GHO to the Prime instance of Aave v3 would provide the DAO with several o
 
 Each of these options offers clear advantages for the Aave DAO and GHO users. GHO is to be onboarded as a borrow-only asset, similar to the current configurations of USDC and USDS.
 
-### Seed GHO Reserve on Prime
+The seeded 3M GHO should be sufficient to sustain two months of Merit, with a sufficient buffer to ensure timely fund withdrawals. Allowance will be migrated from Core to Prime market.
 
-With the recent proposal to acquire INST, we recommend acquiring GHO from spot markets to seed the GHO Reserve on Prime. The acquired GHO should be sufficient to sustain two months of Merit and any near-term Service Provider funding requests, with a sufficient buffer to ensure timely fund withdrawals. The swapped amount will be deposited right after it's settled. Allowance will be migrated from Core to Prime market accordingly.
+### Acquire GHO from spot market and send to the collector
+
+3M GHO is to be acquired from spot market and sent to the Collector.
 
 Within this publication, the Aave Grants DAO GHO Allowance is to be cancelled.
 
