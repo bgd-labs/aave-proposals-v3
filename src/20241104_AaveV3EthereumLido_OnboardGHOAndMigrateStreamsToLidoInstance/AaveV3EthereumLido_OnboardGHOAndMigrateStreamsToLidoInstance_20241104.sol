@@ -25,9 +25,7 @@ contract AaveV3EthereumLido_OnboardGHOAndMigrateStreamsToLidoInstance_20241104 i
   using SafeERC20 for IERC20;
   using CollectorUtils for ICollector;
 
-  event DepositedIntoLido(address indexed token, uint256 amount);
-
-  address public immutable SELF;
+  uint256 public constant INITIAL_GHO_SUPPLY = 3_000_000e18;
 
   uint256 public constant A_USDT_WITHDRAW_AMOUNT = 1_500_000e6;
   uint256 public constant A_ETH_USDT_WITHDRAW_AMOUNT = 500_000e6;
@@ -43,10 +41,6 @@ contract AaveV3EthereumLido_OnboardGHOAndMigrateStreamsToLidoInstance_20241104 i
   address public constant AGD_MULTISIG = 0x89C51828427F70D77875C6747759fB17Ba10Ceb0;
   address public constant MERIT_MULTISIG = 0xdeadD8aB03075b7FBA81864202a2f59EE25B312b;
 
-  constructor() {
-    SELF = address(this);
-  }
-
   function _postExecute() internal override {
     // agd
     if (
@@ -59,23 +53,23 @@ contract AaveV3EthereumLido_OnboardGHOAndMigrateStreamsToLidoInstance_20241104 i
     }
 
     // merit
-    uint256 meritAllownace = IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).allowance(
+    uint256 meritAllowance = IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).allowance(
       address(AaveV3EthereumLido.COLLECTOR),
       MERIT_MULTISIG
     );
-    if (meritAllownace > 0) {
+    if (meritAllowance > 0) {
       (address aTokenAddress, , ) = AaveV3EthereumLido
         .AAVE_PROTOCOL_DATA_PROVIDER
         .getReserveTokensAddresses(AaveV3EthereumAssets.GHO_UNDERLYING);
       AaveV3EthereumLido.COLLECTOR.approve(AaveV3EthereumAssets.GHO_UNDERLYING, MERIT_MULTISIG, 0);
-      AaveV3EthereumLido.COLLECTOR.approve(aTokenAddress, MERIT_MULTISIG, meritAllownace);
+      AaveV3EthereumLido.COLLECTOR.approve(aTokenAddress, MERIT_MULTISIG, meritAllowance);
     }
 
     AaveV3EthereumLido.COLLECTOR.depositToV3(
       CollectorUtils.IOInput({
         pool: address(AaveV3EthereumLido.POOL),
         underlying: AaveV3EthereumAssets.GHO_UNDERLYING,
-        amount: 1_000e18
+        amount: INITIAL_GHO_SUPPLY
       })
     );
 
@@ -105,7 +99,7 @@ contract AaveV3EthereumLido_OnboardGHOAndMigrateStreamsToLidoInstance_20241104 i
       AaveV3EthereumAssets.GHO_UNDERLYING,
       AaveV3EthereumAssets.USDT_ORACLE,
       GHO_USD_FEED,
-      SELF,
+      address(AaveV3EthereumLido.COLLECTOR),
       IERC20(AaveV3EthereumAssets.USDT_UNDERLYING).balanceOf(MiscEthereum.AAVE_SWAPPER),
       100
     );
@@ -127,7 +121,7 @@ contract AaveV3EthereumLido_OnboardGHOAndMigrateStreamsToLidoInstance_20241104 i
       AaveV3EthereumAssets.GHO_UNDERLYING,
       AaveV3EthereumAssets.USDC_ORACLE,
       GHO_USD_FEED,
-      SELF,
+      address(AaveV3EthereumLido.COLLECTOR),
       IERC20(AaveV3EthereumAssets.USDC_UNDERLYING).balanceOf(MiscEthereum.AAVE_SWAPPER),
       100
     );
@@ -194,16 +188,5 @@ contract AaveV3EthereumLido_OnboardGHOAndMigrateStreamsToLidoInstance_20241104 i
     });
 
     return assetEModeUpdates;
-  }
-
-  /**
-   * @notice deposit token to AaveV3EthereumLido pool
-   * @param token The address of token to deposit
-   */
-  function deposit(address token) external {
-    uint256 amount = IERC20(token).balanceOf(SELF);
-    IERC20(token).forceApprove(address(AaveV3EthereumLido.POOL), amount);
-    AaveV3EthereumLido.POOL.deposit(token, amount, address(AaveV3EthereumLido.COLLECTOR), 0);
-    emit DepositedIntoLido(token, amount);
   }
 }

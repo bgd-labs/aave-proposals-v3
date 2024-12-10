@@ -32,13 +32,13 @@
 | interestRateStrategy | [0x8958b1C39269167527821f8c276Ef7504883f2fa](https://etherscan.io/address/0x8958b1C39269167527821f8c276Ef7504883f2fa) |
 | aTokenName | Aave Ethereum Lido GHO |
 | aTokenSymbol | aEthLidoGHO |
-| aTokenUnderlyingBalance | 1,000 GHO [1000000000000000000000] |
+| aTokenUnderlyingBalance | 3,000,000 GHO [3000000000000000000000000] |
 | id | 6 |
 | isPaused | false |
 | variableDebtTokenName | Aave Ethereum Lido Variable Debt GHO |
 | variableDebtTokenSymbol | variableDebtEthLidoGHO |
 | virtualAccountingActive | true |
-| virtualBalance | 1,000 GHO [1000000000000000000000] |
+| virtualBalance | 3,000,000 GHO [3000000000000000000000000] |
 | optimalUsageRatio | 92 % |
 | maxVariableBorrowRate | 63.5 % |
 | baseVariableBorrowRate | 10.5 % |
@@ -107,7 +107,7 @@
         "aTokenImpl": "0x7F8Fc14D462bdF93c681c1f2Fd615389bF969Fb2",
         "aTokenName": "Aave Ethereum Lido GHO",
         "aTokenSymbol": "aEthLidoGHO",
-        "aTokenUnderlyingBalance": "1000000000000000000000",
+        "aTokenUnderlyingBalance": "3000000000000000000000000",
         "borrowCap": 2500000,
         "borrowingEnabled": true,
         "debtCeiling": 0,
@@ -137,7 +137,7 @@
         "variableDebtTokenName": "Aave Ethereum Lido Variable Debt GHO",
         "variableDebtTokenSymbol": "variableDebtEthLidoGHO",
         "virtualAccountingActive": true,
-        "virtualBalance": "1000000000000000000000"
+        "virtualBalance": "3000000000000000000000000"
       }
     }
   },
