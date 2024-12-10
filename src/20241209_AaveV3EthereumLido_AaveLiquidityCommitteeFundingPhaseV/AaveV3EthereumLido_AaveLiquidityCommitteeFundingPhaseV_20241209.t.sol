@@ -156,4 +156,9 @@ contract AaveV3EthereumLido_AaveLiquidityCommitteeFundingPhaseV_20241209_Test is
       balanceCollectorBefore
     );
   }
+
+  function test_rescuable() public {
+    assertEq(proposal.whoCanRescue(), MiscEthereum.PROTOCOL_GUARDIAN);
+    assertEq(proposal.maxRescue(address(0)), type(uint256).max);
+  }
 }

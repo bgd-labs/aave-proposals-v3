@@ -5,6 +5,8 @@ import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGen
 
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';
+import {Rescuable} from 'solidity-utils/contracts/utils/Rescuable.sol';
+import {RescuableBase, IRescuableBase} from 'solidity-utils/contracts/utils/RescuableBase.sol';
 import {CollectorUtils, ICollector} from 'aave-helpers/src/CollectorUtils.sol';
 import {AaveSwapper} from 'aave-helpers/src/swaps/AaveSwapper.sol';
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
@@ -18,7 +20,8 @@ import {AaveV3EthereumLido} from 'aave-address-book/AaveV3EthereumLido.sol';
  * - Discussion: https://governance.aave.com/t/arfc-aave-liquidity-committee-funding-phase-v/20043
  */
 contract AaveV3EthereumLido_AaveLiquidityCommitteeFundingPhaseV_20241209 is
-  IProposalGenericExecutor
+  IProposalGenericExecutor,
+  Rescuable
 {
   using SafeERC20 for IERC20;
   using CollectorUtils for ICollector;
@@ -115,5 +118,17 @@ contract AaveV3EthereumLido_AaveLiquidityCommitteeFundingPhaseV_20241209 is
     IERC20(token).forceApprove(address(AaveV3EthereumLido.POOL), amount);
     AaveV3EthereumLido.POOL.deposit(token, amount, address(AaveV3EthereumLido.COLLECTOR), 0);
     emit DepositedIntoLido(token, amount);
+  }
+
+  /// @inheritdoc Rescuable
+  function whoCanRescue() public view override returns (address) {
+    return MiscEthereum.PROTOCOL_GUARDIAN;
+  }
+
+  /// @inheritdoc IRescuableBase
+  function maxRescue(
+    address
+  ) public pure override(RescuableBase, IRescuableBase) returns (uint256) {
+    return type(uint256).max;
   }
 }
