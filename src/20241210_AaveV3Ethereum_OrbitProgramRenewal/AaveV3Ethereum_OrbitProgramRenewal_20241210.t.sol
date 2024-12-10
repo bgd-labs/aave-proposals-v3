@@ -121,7 +121,6 @@ contract AaveV3Ethereum_OrbitProgramRenewal_20241210_Test is ProtocolV3TestBase 
 
     vm.warp(block.timestamp + 1 days);
 
-    /// Their GHO balance has increased and call also withdraw from stream as it now exists
     for (uint256 i = 0; i < ghoPaymentAddresses.length; i++) {
       uint256 ghoBalanceBefore = IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(
         ghoPaymentAddresses[i]
