@@ -2,6 +2,10 @@
 pragma solidity ^0.8.0;
 
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
+import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
+import {CollectorUtils} from 'aave-helpers/src/CollectorUtils.sol';
+import {OrbitProgramRenewalData} from './AaveV3Ethereum_OrbitProgramRenewalData_20241210.sol';
+
 /**
  * @title Orbit Program Renewal
  * @author ACI
@@ -10,6 +14,26 @@ import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGen
  */
 contract AaveV3Ethereum_OrbitProgramRenewal_20241210 is IProposalGenericExecutor {
   function execute() external {
-    // custom code goes here
+    address[] memory orbitAddresses = OrbitProgramRenewalData.getOrbitAddresses();
+
+    uint256 orbitAddressesLength = orbitAddresses.length;
+
+    for (uint256 i = 0; i < orbitAddressesLength; i++) {
+      AaveV3Ethereum.COLLECTOR.transfer(
+        AaveV3EthereumAssets.GHO_UNDERLYING,
+        orbitAddresses[i],
+        OrbitProgramRenewalData.DIRECT_TRANSFER_AMOUNT
+      );
+      CollectorUtils.stream(
+        AaveV3Ethereum.COLLECTOR,
+        CollectorUtils.CreateStreamInput({
+          underlying: AaveV3EthereumAssets.GHO_UNDERLYING,
+          receiver: orbitAddresses[i],
+          amount: OrbitProgramRenewalData.STREAM_AMOUNT,
+          start: block.timestamp,
+          duration: OrbitProgramRenewalData.STREAM_DURATION
+        })
+      );
+    }
   }
 }
