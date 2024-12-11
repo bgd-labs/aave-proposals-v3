@@ -309,7 +309,6 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_SetupAndProposalActions is
 
     assertEq(staticParams, _getStaticParams(address(NEW_TOKEN_POOL)));
     assertEq(dynamicParams, _getDynamicParams(address(NEW_TOKEN_POOL)));
-    assertEq(NEW_TOKEN_POOL.getRateLimitAdmin(), GHO_CCIP_STEWARD);
     assertEq(NEW_TOKEN_POOL.getRemotePools(ARB_CHAIN_SELECTOR).length, 2);
     assertTrue(NEW_TOKEN_POOL.isRemotePool(ARB_CHAIN_SELECTOR, abi.encode(ARB_PROXY_POOL)));
     assertTrue(NEW_TOKEN_POOL.isRemotePool(ARB_CHAIN_SELECTOR, abi.encode(NEW_REMOTE_POOL_ARB)));

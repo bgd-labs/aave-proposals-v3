@@ -172,27 +172,31 @@ contract AaveV3E2E_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
     assertEq(address(l1.proposal.NEW_REMOTE_POOL_ARB()), address(l2.newTokenPool));
 
     if (upgraded) {
-      assertEq(l1.c.tokenAdminRegistry.getPool(MiscEthereum.GHO_TOKEN), address(l1.newTokenPool));
+      assertEq(l1.c.tokenAdminRegistry.getPool(address(l1.c.token)), address(l1.newTokenPool));
 
       assertEq(l1.c.token.balanceOf(address(l1.existingTokenPool)), 0);
       // ! todo upgrade existing pool to reset bridgedAmount? not necessary since we reset bridgeLimit
       // assertEq(l1.existingTokenPool.getCurrentBridgedAmount(), 0);
+      assertEq(l1.existingTokenPool.getBridgeLimit(), 0);
 
       assertGt(l1.c.token.balanceOf(address(l1.newTokenPool)), 0);
       assertGt(l1.newTokenPool.getCurrentBridgedAmount(), 0);
+      assertGt(l1.newTokenPool.getBridgeLimit(), 0);
     } else {
-      assertEq(l1.c.tokenAdminRegistry.getPool(MiscEthereum.GHO_TOKEN), l1.c.proxyPool);
+      assertEq(l1.c.tokenAdminRegistry.getPool(address(l1.c.token)), l1.c.proxyPool);
 
       assertGt(l1.c.token.balanceOf(address(l1.existingTokenPool)), 0);
       assertGt(l1.existingTokenPool.getCurrentBridgedAmount(), 0);
+      assertGt(l1.existingTokenPool.getBridgeLimit(), 0);
 
       assertEq(l1.c.token.balanceOf(address(l1.newTokenPool)), 0);
       assertEq(l1.newTokenPool.getCurrentBridgedAmount(), 0);
+      assertGt(l1.newTokenPool.getBridgeLimit(), 0);
     }
 
     vm.selectFork(l2.c.forkId);
     assertEq(l2.c.chainSelector, 4949039107694359620);
-    assertEq(address(l2.c.token), 0x7dfF72693f6A4149b17e7C6314655f6A9F7c8B33);
+    assertEq(address(l2.c.token), AaveV3ArbitrumAssets.GHO_UNDERLYING);
     assertEq(l2.c.router.typeAndVersion(), 'Router 1.2.0');
     assertEq(l2.c.EVM2EVMOnRamp.typeAndVersion(), 'EVM2EVMOnRamp 1.5.0');
     assertEq(l2.c.EVM2EVMOffRamp.typeAndVersion(), 'EVM2EVMOffRamp 1.5.0');
@@ -212,17 +216,11 @@ contract AaveV3E2E_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
     assertEq(address(l2.proposal.NEW_REMOTE_POOL_ETH()), address(l1.newTokenPool));
 
     if (upgraded) {
-      assertEq(
-        l2.c.tokenAdminRegistry.getPool(AaveV3ArbitrumAssets.GHO_UNDERLYING),
-        address(l2.newTokenPool)
-      );
+      assertEq(l2.c.tokenAdminRegistry.getPool(address(l2.c.token)), address(l2.newTokenPool));
       assertEq(bytes(l2.c.token.getFacilitator(address(l2.existingTokenPool)).label).length, 0);
       assertEq(l2.c.token.getFacilitator(address(l2.newTokenPool)).label, 'CCIP v1.5.1 TokenPool');
     } else {
-      assertEq(
-        l2.c.tokenAdminRegistry.getPool(AaveV3ArbitrumAssets.GHO_UNDERLYING),
-        l2.c.proxyPool
-      );
+      assertEq(l2.c.tokenAdminRegistry.getPool(address(l2.c.token)), l2.c.proxyPool);
       assertEq(l2.c.token.getFacilitator(address(l2.existingTokenPool)).label, 'CCIP TokenPool');
       assertEq(bytes(l2.c.token.getFacilitator(address(l2.newTokenPool)).label).length, 0);
     }
