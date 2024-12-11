@@ -11,12 +11,7 @@ import {ITokenAdminRegistry} from 'src/interfaces/ccip/ITokenAdminRegistry.sol';
 import {IUpgradeableBurnMintTokenPool_1_4, IUpgradeableBurnMintTokenPool_1_5_1} from 'src/interfaces/ccip/tokenPool/IUpgradeableBurnMintTokenPool.sol';
 import {IGhoToken} from 'src/interfaces/IGhoToken.sol';
 import {IRateLimiter} from 'src/interfaces/ccip/IRateLimiter.sol';
-
-contract Burner {
-  function burn(address token, uint256 amount) external {
-    IGhoToken(token).burn(amount);
-  }
-}
+import {UpgradeableBurnMintTokenPool} from './utils/UpgradeableBurnMintTokenPool_1_4_WithdrawLiq.sol';
 
 /**
  * @title GHO CCIP 1.5.1 Upgrade
@@ -67,20 +62,10 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209 is IProposalGenericExecutor {
     );
 
     GHO.addFacilitator(address(NEW_TOKEN_POOL), 'CCIP v1.5.1 TokenPool', uint128(bucketCapacity));
-    NEW_TOKEN_POOL.transferLiquidity(address(EXISTING_TOKEN_POOL), bucketLevel);
+    NEW_TOKEN_POOL.transferLiquidity(address(EXISTING_TOKEN_POOL), bucketLevel); // mintTo
 
-    address existingTokenPoolImpl = PROXY_ADMIN.getProxyImplementation(
-      TransparentUpgradeableProxy(payable(address(EXISTING_TOKEN_POOL)))
-    );
-    PROXY_ADMIN.upgrade(
-      TransparentUpgradeableProxy(payable(address(EXISTING_TOKEN_POOL))),
-      address(new Burner())
-    );
-    Burner(address(EXISTING_TOKEN_POOL)).burn(address(GHO), bucketLevel);
-    PROXY_ADMIN.upgrade(
-      TransparentUpgradeableProxy(payable(address(EXISTING_TOKEN_POOL))),
-      existingTokenPoolImpl
-    );
+    _upgradeExistingTokenPool();
+    UpgradeableBurnMintTokenPool(address(EXISTING_TOKEN_POOL)).withdrawLiquidity(bucketLevel); // burn
 
     GHO.removeFacilitator(address(EXISTING_TOKEN_POOL));
   }
@@ -113,5 +98,20 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209 is IProposalGenericExecutor {
 
     // register new pool
     TOKEN_ADMIN_REGISTRY.setPool(address(GHO), address(NEW_TOKEN_POOL));
+  }
+
+  function _upgradeExistingTokenPool() internal {
+    address newImplementation = address(
+      new UpgradeableBurnMintTokenPool(
+        EXISTING_TOKEN_POOL.getToken(),
+        EXISTING_TOKEN_POOL.getArmProxy(),
+        EXISTING_TOKEN_POOL.getAllowListEnabled()
+      )
+    );
+
+    PROXY_ADMIN.upgrade(
+      TransparentUpgradeableProxy(payable(address(EXISTING_TOKEN_POOL))),
+      newImplementation
+    );
   }
 }
