@@ -89,17 +89,6 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
     _validateConstants();
   }
 
-  /**
-   * @dev executes the generic test suite including e2e and config snapshots
-   */
-  function skip_test_defaultProposalExecution() public {
-    defaultTest(
-      'AaveV3Ethereum_GHOCCIP151Upgrade_20241209',
-      AaveV3Ethereum.POOL,
-      address(proposal)
-    );
-  }
-
   function _deployNewTokenPoolEth() private returns (address) {
     IUpgradeableLockReleaseTokenPool_1_4 existingTokenPool = IUpgradeableLockReleaseTokenPool_1_4(
       MiscEthereum.GHO_CCIP_TOKEN_POOL
@@ -252,6 +241,17 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_SetupAndProposalActions is
 {
   function setUp() public override {
     super.setUp();
+  }
+
+  /**
+   * @dev executes the generic test suite including e2e and config snapshots
+   */
+  function test_defaultProposalExecution() public {
+    defaultTest(
+      'AaveV3Ethereum_GHOCCIP151Upgrade_20241209',
+      AaveV3Ethereum.POOL,
+      address(proposal)
+    );
   }
 
   function test_tokenPoolOwnershipTransfer() public {

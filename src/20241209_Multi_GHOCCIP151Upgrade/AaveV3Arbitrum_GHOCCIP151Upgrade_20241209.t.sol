@@ -83,17 +83,6 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
     _validateConstants();
   }
 
-  /**
-   * @dev executes the generic test suite including e2e and config snapshots
-   */
-  function skip_test_defaultProposalExecution() public {
-    defaultTest(
-      'AaveV3Arbitrum_GHOCCIP151Upgrade_20241209',
-      AaveV3Arbitrum.POOL,
-      address(proposal)
-    );
-  }
-
   function _deployNewTokenPoolArb() private returns (address) {
     IUpgradeableBurnMintTokenPool_1_4 existingTokenPool = IUpgradeableBurnMintTokenPool_1_4(
       MiscArbitrum.GHO_CCIP_TOKEN_POOL
@@ -235,6 +224,14 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209_SetupAndProposalActions is
 {
   function setUp() public override {
     super.setUp();
+  }
+
+  function test_defaultProposalExecution() public {
+    defaultTest(
+      'AaveV3Arbitrum_GHOCCIP151Upgrade_20241209',
+      AaveV3Arbitrum.POOL,
+      address(proposal)
+    );
   }
 
   function test_tokenPoolOwnershipTransfer() public {

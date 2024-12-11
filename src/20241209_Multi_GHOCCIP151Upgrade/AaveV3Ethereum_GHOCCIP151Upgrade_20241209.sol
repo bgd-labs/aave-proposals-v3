@@ -23,7 +23,7 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209 is IProposalGenericExecutor {
 
   // https://etherscan.io/address/0x5756880B6a1EAba0175227bf02a7E87c1e02B28C
   IUpgradeableLockReleaseTokenPool_1_4 public constant EXISTING_TOKEN_POOL =
-    IUpgradeableLockReleaseTokenPool_1_4(0x5756880B6a1EAba0175227bf02a7E87c1e02B28C); // MiscEthereum.GHO_CCIP_TOKEN_POOL; -> not using since this will be overwritten with new token pool address
+    IUpgradeableLockReleaseTokenPool_1_4(0x5756880B6a1EAba0175227bf02a7E87c1e02B28C); // MiscEthereum.GHO_CCIP_TOKEN_POOL; will be updated in address-book after AIP
   IUpgradeableLockReleaseTokenPool_1_5_1 public immutable NEW_TOKEN_POOL;
 
   // https://arbiscan.io/address/0x26329558f08cbb40d6a4CCA0E0C67b29D64A8c50

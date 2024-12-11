@@ -28,7 +28,7 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209 is IProposalGenericExecutor {
 
   // https://arbiscan.io/address/0xF168B83598516A532a85995b52504a2Fa058C068
   IUpgradeableBurnMintTokenPool_1_4 public constant EXISTING_TOKEN_POOL =
-    IUpgradeableBurnMintTokenPool_1_4(0xF168B83598516A532a85995b52504a2Fa058C068); // MiscArbitrum.GHO_CCIP_TOKEN_POOL; -> not using since this will be overwritten with new token pool address
+    IUpgradeableBurnMintTokenPool_1_4(0xF168B83598516A532a85995b52504a2Fa058C068); // MiscArbitrum.GHO_CCIP_TOKEN_POOL; will be updated in address-book after AIP
   IUpgradeableBurnMintTokenPool_1_5_1 public immutable NEW_TOKEN_POOL;
 
   // https://etherscan.io/address/0x9Ec9F9804733df96D1641666818eFb5198eC50f0
