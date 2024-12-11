@@ -17,6 +17,11 @@ library CCIPUtils {
   bytes32 internal constant EVM_2_EVM_MESSAGE_HASH = keccak256('EVM2EVMMessageHashV2');
   bytes4 public constant EVM_EXTRA_ARGS_V1_TAG = 0x97a657c9;
 
+  enum PoolVersion {
+    V1_5_0,
+    V1_5_1
+  }
+
   struct SourceTokenData {
     bytes sourcePoolAddress;
     bytes destTokenAddress;
@@ -30,7 +35,9 @@ library CCIPUtils {
     uint64 sourceChainSelector;
     uint256 feeTokenAmount;
     address originalSender;
+    address sourceToken;
     address destinationToken;
+    PoolVersion poolVersion;
   }
 
   function generateMessage(
@@ -83,7 +90,9 @@ library CCIPUtils {
             onRamp.getPoolBySourceToken(destChainSelector, params.message.tokenAmounts[i].token)
           ),
           destTokenAddress: abi.encode(params.destinationToken),
-          extraData: '',
+          extraData: params.poolVersion == PoolVersion.V1_5_1
+            ? abi.encode(getTokenDecimals(params.sourceToken))
+            : new bytes(0),
           destGasAmount: getDestGasAmount(onRamp, params.message.tokenAmounts[i].token)
         })
       );
@@ -153,5 +162,11 @@ library CCIPUtils {
       config.isEnabled
         ? config.destGasOverhead
         : onRamp.getDynamicConfig().defaultTokenDestGasOverhead;
+  }
+
+  function getTokenDecimals(address token) internal view returns (uint8) {
+    (bool success, bytes memory data) = token.staticcall(abi.encodeWithSignature('decimals()'));
+    require(success, 'CCIPUtils: failed to get token decimals');
+    return abi.decode(data, (uint8));
   }
 }

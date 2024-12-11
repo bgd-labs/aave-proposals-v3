@@ -5,6 +5,11 @@ pragma solidity ^0.8.0;
 import {IClient} from 'src/interfaces/ccip/IClient.sol';
 
 interface IInternal {
+  struct PoolUpdate {
+    address token; // The IERC20 token address
+    address pool; // The token pool address
+  }
+
   /// @notice The cross chain message that gets committed to EVM chains.
   /// @dev RMN depends on this struct, if changing, please notify the RMN maintainers.
   struct EVM2EVMMessage {
