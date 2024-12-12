@@ -3,7 +3,8 @@ pragma solidity ^0.8.0;
 
 import 'forge-std/Test.sol';
 
-import {IGhoToken} from 'src/interfaces/IGhoToken.sol';
+import {IUpgradeableLockReleaseTokenPool_1_4, IUpgradeableLockReleaseTokenPool_1_5_1} from 'src/interfaces/ccip/tokenPool/IUpgradeableLockReleaseTokenPool.sol';
+import {IPool as IPool_CCIP} from 'src/interfaces/ccip/tokenPool/IPool.sol';
 import {IClient} from 'src/interfaces/ccip/IClient.sol';
 import {IInternal} from 'src/interfaces/ccip/IInternal.sol';
 import {IRouter} from 'src/interfaces/ccip/IRouter.sol';
@@ -12,8 +13,7 @@ import {IEVM2EVMOnRamp} from 'src/interfaces/ccip/IEVM2EVMOnRamp.sol';
 import {ITypeAndVersion} from 'src/interfaces/ccip/ITypeAndVersion.sol';
 import {IEVM2EVMOffRamp_1_5} from 'src/interfaces/ccip/IEVM2EVMOffRamp.sol';
 import {ITokenAdminRegistry} from 'src/interfaces/ccip/ITokenAdminRegistry.sol';
-import {IPool as IPool_CCIP} from 'src/interfaces/ccip/tokenPool/IPool.sol';
-import {IUpgradeableLockReleaseTokenPool_1_4, IUpgradeableLockReleaseTokenPool_1_5_1} from 'src/interfaces/ccip/tokenPool/IUpgradeableLockReleaseTokenPool.sol';
+import {IGhoToken} from 'src/interfaces/IGhoToken.sol';
 
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
@@ -21,7 +21,6 @@ import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {AaveV3Arbitrum} from 'aave-address-book/AaveV3Arbitrum.sol';
 import {AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
-import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 
 import {TransparentUpgradeableProxy} from 'solidity-utils/contracts/transparent-proxy/TransparentUpgradeableProxy.sol';
 import {UpgradeableLockReleaseTokenPool} from 'aave-ccip/pools/GHO/UpgradeableLockReleaseTokenPool.sol';

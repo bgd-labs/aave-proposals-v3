@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
+import {IUpgradeableLockReleaseTokenPool_1_4, IUpgradeableLockReleaseTokenPool_1_5_1} from 'src/interfaces/ccip/tokenPool/IUpgradeableLockReleaseTokenPool.sol';
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
+import {ITokenAdminRegistry} from 'src/interfaces/ccip/ITokenAdminRegistry.sol';
+import {IRateLimiter} from 'src/interfaces/ccip/IRateLimiter.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
-import {ITokenAdminRegistry} from 'src/interfaces/ccip/ITokenAdminRegistry.sol';
-import {IUpgradeableLockReleaseTokenPool_1_4, IUpgradeableLockReleaseTokenPool_1_5_1} from 'src/interfaces/ccip/tokenPool/IUpgradeableLockReleaseTokenPool.sol';
-import {IRateLimiter} from 'src/interfaces/ccip/IRateLimiter.sol';
 
 /**
  * @title GHO CCIP 1.5.1 Upgrade
