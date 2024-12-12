@@ -61,8 +61,8 @@ Additionaly [0xac140648435d03f784879cd789130F22Ef588Fcd](https://scrollscan.com/
 
 ## References
 
-- Implementation: [AaveV3Scroll](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241203_AaveV3Scroll_OnboardSCRToAaveV3Scroll/AaveV3Scroll_OnboardSCRToAaveV3Scroll_20241203.sol)
-- Tests: [AaveV3Scroll](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241203_AaveV3Scroll_OnboardSCRToAaveV3Scroll/AaveV3Scroll_OnboardSCRToAaveV3Scroll_20241203.t.sol)
+- Implementation: [AaveV3Scroll](https://github.com/bgd-labs/aave-proposals-v3/blob/954b89856136225da3f868e651cc9462b58c76cb/src/20241203_AaveV3Scroll_OnboardSCRToAaveV3Scroll/AaveV3Scroll_OnboardSCRToAaveV3Scroll_20241203.sol)
+- Tests: [AaveV3Scroll](https://github.com/bgd-labs/aave-proposals-v3/blob/954b89856136225da3f868e651cc9462b58c76cb/src/20241203_AaveV3Scroll_OnboardSCRToAaveV3Scroll/AaveV3Scroll_OnboardSCRToAaveV3Scroll_20241203.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0xef7dfa4e96e5f6a7337648d2dd3882f7b10e969c9564c118a34ce99eccec9383)
 - [Discussion](https://governance.aave.com/t/arfc-onboard-scr-to-aave-v3-scroll-instance/19688)
 
