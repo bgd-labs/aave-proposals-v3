@@ -33,7 +33,7 @@ The new a.DI deployments on Linea network are as follows:
 | Contract             | Address                                                                                                                     |
 | -------------------- | --------------------------------------------------------------------------------------------------------------------------- |
 | CrossChainController | [0x0D3f821e9741C8a8Bcac231162320251Db0cdf52](https://era.zksync.network/address/0x0D3f821e9741C8a8Bcac231162320251Db0cdf52) |
-| Granular Guardian    | [0x8CAdaAE6cd278c7C8FBaD5d6F55Ca6129A627E10](https://lineascan.build/address/0x8CAdaAE6cd278c7C8FBaD5d6F55Ca6129A627E10)    |
+| Granular Guardian    | [0xc1cd6faF6e9138b4e6C21d438f9ebF2bd6F6cA16](https://lineascan.build/address/0xc1cd6faF6e9138b4e6C21d438f9ebF2bd6F6cA16)    |
 
 The new Aave Governance deployments on Linea network are as follows:
 
