@@ -28,7 +28,6 @@ contract AaveV3EthereumLido_AaveLiquidityCommitteeFundingPhaseV_20241209_Test is
     address indexed recipient,
     uint256 slippage
   );
-  event DepositedIntoLido(address indexed token, uint256 amount);
 
   AaveV3EthereumLido_AaveLiquidityCommitteeFundingPhaseV_20241209 internal proposal;
 
@@ -80,7 +79,7 @@ contract AaveV3EthereumLido_AaveLiquidityCommitteeFundingPhaseV_20241209_Test is
       AaveV3EthereumAssets.USDT_ORACLE,
       proposal.GHO_USD_FEED(),
       proposal.A_ETH_USDT_WITHDRAW_AMOUNT(),
-      address(proposal),
+      address(AaveV3EthereumLido.COLLECTOR),
       100
     );
 
@@ -92,7 +91,7 @@ contract AaveV3EthereumLido_AaveLiquidityCommitteeFundingPhaseV_20241209_Test is
       AaveV3EthereumAssets.USDC_ORACLE,
       proposal.GHO_USD_FEED(),
       proposal.A_ETH_USDC_WITHDRAW_AMOUNT(),
-      address(proposal),
+      address(AaveV3EthereumLido.COLLECTOR),
       100
     );
 
@@ -131,34 +130,27 @@ contract AaveV3EthereumLido_AaveLiquidityCommitteeFundingPhaseV_20241209_Test is
   }
 
   function test_deposit() public {
-    executePayload(vm, address(proposal));
-
-    uint256 amount = 1_000e18;
-
     (address aTokenAddress, , ) = AaveV3EthereumLido
       .AAVE_PROTOCOL_DATA_PROVIDER
       .getReserveTokensAddresses(AaveV3EthereumAssets.GHO_UNDERLYING);
 
-    deal2(AaveV3EthereumAssets.GHO_UNDERLYING, address(proposal), amount);
-
-    uint256 balanceCollectorBefore = IERC20(aTokenAddress).balanceOf(
+    uint256 collectorGhoBalanceBefore = IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(
       address(AaveV3EthereumLido.COLLECTOR)
     );
-    assertEq(IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(address(proposal)), amount);
-
-    vm.expectEmit();
-    emit DepositedIntoLido(AaveV3EthereumAssets.GHO_UNDERLYING, amount);
-    proposal.deposit(AaveV3EthereumAssets.GHO_UNDERLYING);
-
-    assertEq(IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(address(proposal)), 0);
-    assertGt(
-      IERC20(aTokenAddress).balanceOf(address(AaveV3EthereumLido.COLLECTOR)),
-      balanceCollectorBefore
+    uint256 collectorAGhoBalanceBefore = IERC20(aTokenAddress).balanceOf(
+      address(AaveV3EthereumLido.COLLECTOR)
     );
-  }
 
-  function test_rescuable() public {
-    assertEq(proposal.whoCanRescue(), MiscEthereum.PROTOCOL_GUARDIAN);
-    assertEq(proposal.maxRescue(address(0)), type(uint256).max);
+    executePayload(vm, address(proposal));
+
+    uint256 collectorGhoBalanceAfter = IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(
+      address(AaveV3EthereumLido.COLLECTOR)
+    );
+    uint256 collectorAGhoBalanceAfter = IERC20(aTokenAddress).balanceOf(
+      address(AaveV3EthereumLido.COLLECTOR)
+    );
+
+    assertEq(collectorGhoBalanceBefore - collectorGhoBalanceAfter, proposal.DEPOSIT_AMOUNT());
+    assertEq(collectorAGhoBalanceAfter - collectorAGhoBalanceBefore, proposal.DEPOSIT_AMOUNT());
   }
 }
