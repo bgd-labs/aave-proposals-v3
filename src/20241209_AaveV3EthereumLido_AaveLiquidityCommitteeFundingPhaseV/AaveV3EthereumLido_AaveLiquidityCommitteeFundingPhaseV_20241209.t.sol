@@ -32,7 +32,7 @@ contract AaveV3EthereumLido_AaveLiquidityCommitteeFundingPhaseV_20241209_Test is
   AaveV3EthereumLido_AaveLiquidityCommitteeFundingPhaseV_20241209 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 21365006);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 21365006); // todo blocknumber should be updated after gho listing proposal is executed
     proposal = new AaveV3EthereumLido_AaveLiquidityCommitteeFundingPhaseV_20241209();
   }
 
