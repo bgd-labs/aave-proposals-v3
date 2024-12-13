@@ -117,8 +117,8 @@ export const assetListing: FeatureModule<Listing[]> = {
           listingExe += `${pool}.POOL.supply(${cfg.assetSymbol}, ${cfg.assetSymbol}_SEED_AMOUNT, address(${pool}.COLLECTOR), 0);\n`;
           if (isAddress(cfg.admin)) {
             listingExe += `\n(address a${cfg.assetSymbol}, , ) = ${pool}.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(${cfg.assetSymbol});\n`;
-            listingExe += `IEmissionManager(${pool}.EMISSION_MANAGER).setEmissionAdmin(${cfg.assetSymbol}, ${cfg.assetSymbol}_ADMIN);\n`;
-            listingExe += `IEmissionManager(${pool}.EMISSION_MANAGER).setEmissionAdmin(a${cfg.assetSymbol}, ${cfg.assetSymbol}_ADMIN);\n`;
+            listingExe += `IEmissionManager(${pool}.EMISSION_MANAGER).setEmissionAdmin(${cfg.assetSymbol}, ${cfg.assetSymbol}_LM_ADMIN);\n`;
+            listingExe += `IEmissionManager(${pool}.EMISSION_MANAGER).setEmissionAdmin(a${cfg.assetSymbol}, ${cfg.assetSymbol}_LM_ADMIN);\n`;
           }
           return listingExe;
         }),
@@ -151,8 +151,8 @@ export const assetListing: FeatureModule<Listing[]> = {
             listingTest += `\nfunction test_${cfg.assetSymbol}Admin() public {
 	      ${TEST_EXECUTE_PROPOSAL}
               (address a${cfg.assetSymbol}, , ) = ${pool}.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(proposal.${cfg.assetSymbol}());
-	      assertEq(IEmissionManager(${pool}.EMISSION_MANAGER).getEmissionAdmin(proposal.${cfg.assetSymbol}()), proposal.${cfg.assetSymbol}_ADMIN());
-	      assertEq(IEmissionManager(${pool}.EMISSION_MANAGER).getEmissionAdmin(a${cfg.assetSymbol}), proposal.${cfg.assetSymbol}_ADMIN());
+	      assertEq(IEmissionManager(${pool}.EMISSION_MANAGER).getEmissionAdmin(proposal.${cfg.assetSymbol}()), proposal.${cfg.assetSymbol}_LM_ADMIN());
+	      assertEq(IEmissionManager(${pool}.EMISSION_MANAGER).getEmissionAdmin(a${cfg.assetSymbol}), proposal.${cfg.assetSymbol}_LM_ADMIN());
 	    }\n`;
           }
           return listingTest;
