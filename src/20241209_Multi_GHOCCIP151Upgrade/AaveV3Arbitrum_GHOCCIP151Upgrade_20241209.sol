@@ -6,8 +6,8 @@ import {ProxyAdmin} from 'solidity-utils/contracts/transparent-proxy/ProxyAdmin.
 import {IUpgradeableBurnMintTokenPool_1_4, IUpgradeableBurnMintTokenPool_1_5_1} from 'src/interfaces/ccip/tokenPool/IUpgradeableBurnMintTokenPool.sol';
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
 import {ITokenAdminRegistry} from 'src/interfaces/ccip/ITokenAdminRegistry.sol';
-import {IGhoToken} from 'src/interfaces/IGhoToken.sol';
 import {IRateLimiter} from 'src/interfaces/ccip/IRateLimiter.sol';
+import {IGhoToken} from 'src/interfaces/IGhoToken.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {MiscArbitrum} from 'aave-address-book/MiscArbitrum.sol';
 import {AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
