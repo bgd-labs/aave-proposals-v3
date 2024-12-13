@@ -384,7 +384,7 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_PostUpgrade is
   function test_lockOrBurnRevertsOnExistingPool() public {
     uint256 amount = 100_000e18;
 
-    // prank router.gho.transferFrom(user, EXISTING_TOKEN_POOL, amount)
+    // router pulls tokens from the user & sends to the token pool during onRamps
     deal(address(GHO), address(EXISTING_TOKEN_POOL), amount);
 
     vm.prank(EXISTING_TOKEN_POOL.getProxyPool());
@@ -402,7 +402,7 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_PostUpgrade is
   function test_lockOrBurnSucceedsOnNewPool() public {
     uint256 amount = 100_000e18;
 
-    // prank router.gho.transferFrom(user, NEW_TOKEN_POOL, amount)
+    // router pulls tokens from the user & sends to the token pool during onRamps
     // we don't override NEW_TOKEN_POOL balance here & instead transfer because we want
     // to check the invariant GHO.balanceOf(tokenPool) == tokenPool.currentBridgedAmount()
     deal(address(GHO), address(alice), amount);

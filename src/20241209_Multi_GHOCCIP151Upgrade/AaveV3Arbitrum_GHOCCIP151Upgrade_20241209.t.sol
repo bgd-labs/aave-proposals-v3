@@ -363,7 +363,7 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209_PostUpgrade is
   function test_lockOrBurnRevertsOnExistingPool() public {
     uint256 amount = 100_000e18;
 
-    // prank router.gho.transferFrom(user, EXISTING_TOKEN_POOL, amount)
+    // router pulls tokens from the user & sends to the token pool during onRamps
     deal(address(GHO), address(EXISTING_TOKEN_POOL), amount);
 
     vm.prank(EXISTING_TOKEN_POOL.getProxyPool());
@@ -382,7 +382,7 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209_PostUpgrade is
   function test_lockOrBurnSucceedsOnNewPool() public {
     uint256 amount = 100_000e18;
 
-    // prank router.gho.transferFrom(user, NEW_TOKEN_POOL, amount)
+    // router pulls tokens from the user & sends to the token pool during onRamps
     deal(address(GHO), address(NEW_TOKEN_POOL), amount);
 
     uint256 bucketLevel = GHO.getFacilitator(address(NEW_TOKEN_POOL)).bucketLevel;
