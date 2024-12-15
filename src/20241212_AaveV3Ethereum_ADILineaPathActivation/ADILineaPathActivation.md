@@ -1,8 +1,8 @@
 ---
 title: "a.DI Linea path activation"
 author: "BGD Labs @bgdlabs"
-discussions: TODO
-snapshot: TODO
+discussions: https://governance.aave.com/t/technical-maintenance-proposals/15274/56
+snapshot: Direct-to-AIP
 ---
 
 ## Simple Summary
@@ -51,8 +51,8 @@ The new Aave Governance deployments on Linea network are as follows:
 - Adapter Tests: [Linea Bridge Adapter tests](https://github.com/bgd-labs/aave-delivery-infrastructure/blob/239475f03956173abb5e09df31ed748f996c5944/tests/adapters/LineaAdapter.t.sol)
 - Payload Tests: [tests](https://github.com/bgd-labs/adi-deploy/blob/e75bde29ab3824fd7533d111651c8c108010723b/tests/payloads/ethereum/AddLineaPathTest.t.sol)
 - Diffs: [a.DI diffs](https://github.com/bgd-labs/adi-deploy/commit/bf1b830150ec38138d6ffb39d287bc889054c65f#diff-7918ccb77189a37fc1206fa85d2b01945dc79e5f5224c8850018da970c556756)
-  [Snapshot](TODO)
-- [Discussion](TODO)
+- Snapshot: Direct-to-AIP
+- [Discussion](https://governance.aave.com/t/technical-maintenance-proposals/15274/56)
 
 ## Copyright
 
