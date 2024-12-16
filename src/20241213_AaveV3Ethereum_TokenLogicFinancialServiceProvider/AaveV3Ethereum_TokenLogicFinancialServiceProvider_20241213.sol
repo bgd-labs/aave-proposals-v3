@@ -69,14 +69,14 @@ contract AaveV3Ethereum_TokenLogicFinancialServiceProvider_20241213 is IProposal
       200
     );
 
-    uint256 backedAmount = (ACTUAL_STREAM_AMOUNT * (block.timestamp - STREAM_START_TIME)) /
+    uint256 backDatedAmount = (ACTUAL_STREAM_AMOUNT * (block.timestamp - STREAM_START_TIME)) /
       STREAM_DURATION;
 
     // transfer backend amount
     AaveV3Ethereum.COLLECTOR.transfer(
       AaveV3EthereumAssets.GHO_UNDERLYING,
       TOKENLOGIC_SAFE,
-      backedAmount
+      backDatedAmount
     );
 
     // stream
@@ -84,7 +84,7 @@ contract AaveV3Ethereum_TokenLogicFinancialServiceProvider_20241213 is IProposal
       CollectorUtils.CreateStreamInput({
         underlying: AaveV3EthereumAssets.GHO_UNDERLYING,
         receiver: TOKENLOGIC_SAFE,
-        amount: ACTUAL_STREAM_AMOUNT - backedAmount,
+        amount: ACTUAL_STREAM_AMOUNT - backDatedAmount,
         start: block.timestamp,
         duration: STREAM_DURATION + STREAM_START_TIME - block.timestamp
       })

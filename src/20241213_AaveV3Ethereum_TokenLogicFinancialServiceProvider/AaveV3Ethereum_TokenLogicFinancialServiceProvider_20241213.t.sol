@@ -65,12 +65,12 @@ contract AaveV3Ethereum_TokenLogicFinancialServiceProvider_20241213_Test is Prot
       address(AaveV3EthereumLido.COLLECTOR)
     );
 
-    uint256 backedAmount = (proposal.ACTUAL_STREAM_AMOUNT() *
+    uint256 backDatedAmount = (proposal.ACTUAL_STREAM_AMOUNT() *
       (block.timestamp - proposal.STREAM_START_TIME())) / proposal.STREAM_DURATION();
 
     assertEq(
       collectorGhoBalanceBefore - collectorGhoBalanceAfter,
-      proposal.GHO_DEPOSIT_AMOUNT() + backedAmount
+      proposal.GHO_DEPOSIT_AMOUNT() + backDatedAmount
     );
     assertEq(collectorAGhoBalanceAfter - collectorAGhoBalanceBefore, proposal.GHO_DEPOSIT_AMOUNT());
   }
@@ -113,7 +113,7 @@ contract AaveV3Ethereum_TokenLogicFinancialServiceProvider_20241213_Test is Prot
   }
 
   function test_stream() public {
-    uint256 backedAmount = (proposal.ACTUAL_STREAM_AMOUNT() *
+    uint256 backDatedAmount = (proposal.ACTUAL_STREAM_AMOUNT() *
       (block.timestamp - proposal.STREAM_START_TIME())) / proposal.STREAM_DURATION();
 
     uint256 nextCollectorStreamID = AaveV3Ethereum.COLLECTOR.getNextStreamId();
@@ -133,11 +133,11 @@ contract AaveV3Ethereum_TokenLogicFinancialServiceProvider_20241213_Test is Prot
 
     assertEq(sender, address(AaveV3Ethereum.COLLECTOR));
     assertEq(recipient, proposal.TOKENLOGIC_SAFE());
-    assertEq(deposit, proposal.ACTUAL_STREAM_AMOUNT() - backedAmount);
+    assertEq(deposit, proposal.ACTUAL_STREAM_AMOUNT() - backDatedAmount);
     assertEq(tokenAddress, AaveV3EthereumAssets.GHO_UNDERLYING);
     assertEq(startTime, block.timestamp);
     assertEq(stopTime, proposal.STREAM_START_TIME() + proposal.STREAM_DURATION());
-    assertEq(remainingBalance, proposal.ACTUAL_STREAM_AMOUNT() - backedAmount);
+    assertEq(remainingBalance, proposal.ACTUAL_STREAM_AMOUNT() - backDatedAmount);
 
     // Can withdraw during stream
     vm.warp(block.timestamp + 35 days);
@@ -177,7 +177,7 @@ contract AaveV3Ethereum_TokenLogicFinancialServiceProvider_20241213_Test is Prot
 
     assertEq(
       IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(proposal.TOKENLOGIC_SAFE()),
-      receiverGhoBalanceBefore + proposal.ACTUAL_STREAM_AMOUNT() - backedAmount
+      receiverGhoBalanceBefore + proposal.ACTUAL_STREAM_AMOUNT() - backDatedAmount
     );
   }
 }
