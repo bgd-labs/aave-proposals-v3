@@ -18,7 +18,7 @@ contract AaveV3Base_UpdatePriceCapAdaptersCAPO_20241101_Test is
   AaveV3Base_UpdatePriceCapAdaptersCAPO_20241101 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('base'), 22012756);
+    vm.createSelectFork(vm.rpcUrl('base'), 23772801);
     proposal = new AaveV3Base_UpdatePriceCapAdaptersCAPO_20241101();
   }
 

@@ -18,7 +18,7 @@ contract AaveV3Arbitrum_UpdatePriceCapAdaptersCAPO_20241101_Test is
   AaveV3Arbitrum_UpdatePriceCapAdaptersCAPO_20241101 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('arbitrum'), 271305655);
+    vm.createSelectFork(vm.rpcUrl('arbitrum'), 285287812);
     proposal = new AaveV3Arbitrum_UpdatePriceCapAdaptersCAPO_20241101();
   }
 

@@ -18,7 +18,7 @@ contract AaveV3Metis_UpdatePriceCapAdaptersCAPO_20241101_Test is
   AaveV3Metis_UpdatePriceCapAdaptersCAPO_20241101 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('metis'), 18882880);
+    vm.createSelectFork(vm.rpcUrl('metis'), 19201936);
     proposal = new AaveV3Metis_UpdatePriceCapAdaptersCAPO_20241101();
   }
 

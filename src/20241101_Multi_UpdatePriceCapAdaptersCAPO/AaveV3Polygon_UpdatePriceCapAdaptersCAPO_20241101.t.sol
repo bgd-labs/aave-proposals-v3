@@ -23,7 +23,7 @@ contract AaveV3Polygon_UpdatePriceCapAdaptersCAPO_20241101_Test is
   bool switchToV2Oracle;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('polygon'), 63865004);
+    vm.createSelectFork(vm.rpcUrl('polygon'), 65544393);
     proposal = new AaveV3Polygon_UpdatePriceCapAdaptersCAPO_20241101();
   }
 

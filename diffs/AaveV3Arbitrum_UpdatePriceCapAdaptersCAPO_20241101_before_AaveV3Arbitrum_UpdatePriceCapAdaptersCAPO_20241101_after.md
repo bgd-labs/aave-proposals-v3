@@ -51,32 +51,6 @@
 | oracle | [0xDe25a88F87FEd9F8999fAbF6729dCB121893623C](https://arbiscan.io/address/0xDe25a88F87FEd9F8999fAbF6729dCB121893623C) | [0x6200A5122Af8D5D9e69f4d526311Cd85241ACeC9](https://arbiscan.io/address/0x6200A5122Af8D5D9e69f4d526311Cd85241ACeC9) |
 
 
-## Emodes changed
-
-### EMode: Stablecoins(id: 1)
-
-| description | value before | value after |
-| --- | --- | --- |
-| eMode.label (unchanged) | Stablecoins | Stablecoins |
-| eMode.ltv (unchanged) | 93 % | 93 % |
-| eMode.liquidationThreshold (unchanged) | 95 % | 95 % |
-| eMode.liquidationBonus (unchanged) | 1 % | 1 % |
-| eMode.borrowableBitmap (unchanged) | DAI, USDC, USDT, EURS, USDC | DAI, USDC, USDT, EURS, USDC |
-| eMode.collateralBitmap (unchanged) | DAI, USDC, USDT, EURS, USDC | DAI, USDC, USDT, EURS, USDC |
-
-
-### EMode: ETH correlated(id: 2)
-
-| description | value before | value after |
-| --- | --- | --- |
-| eMode.label (unchanged) | ETH correlated | ETH correlated |
-| eMode.ltv (unchanged) | 93 % | 93 % |
-| eMode.liquidationThreshold (unchanged) | 95 % | 95 % |
-| eMode.liquidationBonus (unchanged) | 1 % | 1 % |
-| eMode.borrowableBitmap (unchanged) | WETH, wstETH, weETH | WETH, wstETH, weETH |
-| eMode.collateralBitmap (unchanged) | WETH, wstETH, weETH | WETH, wstETH, weETH |
-
-
 ## Raw diff
 
 ```json

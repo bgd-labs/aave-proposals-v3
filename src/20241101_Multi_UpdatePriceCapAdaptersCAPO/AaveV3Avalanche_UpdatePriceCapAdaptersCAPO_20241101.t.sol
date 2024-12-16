@@ -20,7 +20,7 @@ contract AaveV3Avalanche_UpdatePriceCapAdaptersCAPO_20241101_Test is
   bool switchToV2Oracle;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('avalanche'), 52687284);
+    vm.createSelectFork(vm.rpcUrl('avalanche'), 54411933);
     proposal = new AaveV3Avalanche_UpdatePriceCapAdaptersCAPO_20241101();
   }
 

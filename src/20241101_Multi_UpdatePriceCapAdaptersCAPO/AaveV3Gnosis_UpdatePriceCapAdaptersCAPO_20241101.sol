@@ -9,7 +9,7 @@ import {PriceFeeds} from './Constants.sol';
 /**
  * @title Update Price Cap Adapters (CAPO)
  * @author BGD Labs (@bgdlabs)
- * - Discussion: TODO
+ * - Discussion: https://governance.aave.com/t/technical-maintenance-proposals/15274/55
  */
 contract AaveV3Gnosis_UpdatePriceCapAdaptersCAPO_20241101 is AaveV3PayloadGnosis {
   function priceFeedsUpdates()

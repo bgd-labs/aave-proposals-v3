@@ -18,7 +18,7 @@ contract AaveV3EthereumLido_UpdatePriceCapAdaptersCAPO_20241101_Test is
   AaveV3EthereumLido_UpdatePriceCapAdaptersCAPO_20241101 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 21314750);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 21413537);
     proposal = new AaveV3EthereumLido_UpdatePriceCapAdaptersCAPO_20241101();
   }
 

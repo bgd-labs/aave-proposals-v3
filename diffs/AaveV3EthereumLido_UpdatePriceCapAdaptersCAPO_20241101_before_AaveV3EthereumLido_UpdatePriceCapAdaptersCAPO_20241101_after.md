@@ -15,7 +15,7 @@
 | --- | --- | --- |
 | oracle | [0x4F01b76391A05d32B20FA2d05dD5963eE8db20E6](https://etherscan.io/address/0x4F01b76391A05d32B20FA2d05dD5963eE8db20E6) | [0x94C7FD62fd0506e71d8142E9D36687fC72A86B02](https://etherscan.io/address/0x94C7FD62fd0506e71d8142E9D36687fC72A86B02) |
 | oracleDescription | Capped USDS <-> DAI / USD | Capped USDS/USD |
-| oracleLatestAnswer | 0.99978249 | 0.99870375 |
+| oracleLatestAnswer | 1.00002917 | 0.99804349 |
 
 
 ## Raw diff
@@ -39,8 +39,8 @@
         "to": "Capped USDS/USD"
       },
       "oracleLatestAnswer": {
-        "from": "99978249",
-        "to": "99870375"
+        "from": "100002917",
+        "to": "99804349"
       }
     }
   }

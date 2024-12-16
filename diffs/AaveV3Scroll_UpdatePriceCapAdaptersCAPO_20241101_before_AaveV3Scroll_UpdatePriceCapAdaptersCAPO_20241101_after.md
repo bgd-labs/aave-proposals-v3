@@ -9,20 +9,6 @@
 | oracle | [0x427Fd98dbD1DbC2D4e792350caBe7c9665F35bee](https://scrollscan.com/address/0x427Fd98dbD1DbC2D4e792350caBe7c9665F35bee) | [0x1685D81212580DD4cDA287616C2f6F4794927e18](https://scrollscan.com/address/0x1685D81212580DD4cDA287616C2f6F4794927e18) |
 
 
-## Emodes changed
-
-### EMode: ETH correlated(id: 1)
-
-| description | value before | value after |
-| --- | --- | --- |
-| eMode.label (unchanged) | ETH correlated | ETH correlated |
-| eMode.ltv (unchanged) | 90 % | 90 % |
-| eMode.liquidationThreshold (unchanged) | 93 % | 93 % |
-| eMode.liquidationBonus (unchanged) | 1 % | 1 % |
-| eMode.borrowableBitmap (unchanged) | WETH, wstETH, weETH | WETH, wstETH, weETH |
-| eMode.collateralBitmap (unchanged) | WETH, wstETH, weETH | WETH, wstETH, weETH |
-
-
 ## Raw diff
 
 ```json

@@ -18,7 +18,7 @@ contract AaveV3BNB_UpdatePriceCapAdaptersCAPO_20241101_Test is
   AaveV3BNB_UpdatePriceCapAdaptersCAPO_20241101 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('bnb'), 43745061);
+    vm.createSelectFork(vm.rpcUrl('bnb'), 44917997);
     proposal = new AaveV3BNB_UpdatePriceCapAdaptersCAPO_20241101();
   }
 

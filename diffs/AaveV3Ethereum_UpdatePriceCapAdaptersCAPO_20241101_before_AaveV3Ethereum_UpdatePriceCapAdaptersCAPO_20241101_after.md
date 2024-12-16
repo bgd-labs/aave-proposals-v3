@@ -27,7 +27,7 @@
 
 | description | value before | value after |
 | --- | --- | --- |
-| oracle | [0x29081f7aB5a644716EfcDC10D5c926c5fEe9F72B](https://etherscan.io/address/0x29081f7aB5a644716EfcDC10D5c926c5fEe9F72B) | [0xE94Fe9f83CB113d3e95941fa5eAa49bFaBF340C7](https://etherscan.io/address/0xE94Fe9f83CB113d3e95941fa5eAa49bFaBF340C7) |
+| oracle | [0x29081f7aB5a644716EfcDC10D5c926c5fEe9F72B](https://etherscan.io/address/0x29081f7aB5a644716EfcDC10D5c926c5fEe9F72B) | [0xf14f501863F5db3A6D5b7e37af24e2Ca25d7Aea8](https://etherscan.io/address/0xf14f501863F5db3A6D5b7e37af24e2Ca25d7Aea8) |
 | oracleDescription | sDAI/DAI/USD | Capped sDAI / DAI / USD |
 
 
@@ -58,7 +58,7 @@
 | --- | --- | --- |
 | oracle | [0x4F01b76391A05d32B20FA2d05dD5963eE8db20E6](https://etherscan.io/address/0x4F01b76391A05d32B20FA2d05dD5963eE8db20E6) | [0x94C7FD62fd0506e71d8142E9D36687fC72A86B02](https://etherscan.io/address/0x94C7FD62fd0506e71d8142E9D36687fC72A86B02) |
 | oracleDescription | Capped USDS <-> DAI / USD | Capped USDS/USD |
-| oracleLatestAnswer | 0.99978249 | 0.99870375 |
+| oracleLatestAnswer | 1.00002917 | 0.99804349 |
 
 
 #### crvUSD ([0xf939E0A03FB07F59A73314E73794Be0E57ac1b4E](https://etherscan.io/address/0xf939E0A03FB07F59A73314E73794Be0E57ac1b4E))
@@ -94,7 +94,7 @@
     "0x83F20F44975D03b1b09e64809B757c47f942BEeA": {
       "oracle": {
         "from": "0x29081f7aB5a644716EfcDC10D5c926c5fEe9F72B",
-        "to": "0xE94Fe9f83CB113d3e95941fa5eAa49bFaBF340C7"
+        "to": "0xf14f501863F5db3A6D5b7e37af24e2Ca25d7Aea8"
       },
       "oracleDescription": {
         "from": "sDAI/DAI/USD",
@@ -129,8 +129,8 @@
         "to": "Capped USDS/USD"
       },
       "oracleLatestAnswer": {
-        "from": "99978249",
-        "to": "99870375"
+        "from": "100002917",
+        "to": "99804349"
       }
     },
     "0xf939E0A03FB07F59A73314E73794Be0E57ac1b4E": {

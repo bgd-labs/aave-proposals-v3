@@ -18,7 +18,7 @@ contract AaveV3Optimism_UpdatePriceCapAdaptersCAPO_20241101_Test is
   AaveV3Optimism_UpdatePriceCapAdaptersCAPO_20241101 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('optimism'), 127607760);
+    vm.createSelectFork(vm.rpcUrl('optimism'), 129368356);
     proposal = new AaveV3Optimism_UpdatePriceCapAdaptersCAPO_20241101();
   }
 
