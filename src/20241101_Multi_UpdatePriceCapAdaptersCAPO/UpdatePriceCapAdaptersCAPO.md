@@ -6,15 +6,16 @@ discussions: "https://governance.aave.com/t/technical-maintenance-proposals/1527
 
 ## Simple Summary
 
-Maintenance proposal to update stable price cap adapters across all v2 and v3 instances to the latest version. The sDAI adapters on Ethereum and Gnosis Aave instances are also updated from non-capo to capo adapters, and USDS adapters updated to use USDS/USD feed from the previous DAI/USD feed.
+Maintenance proposal to update stable price cap adapters across all v2 and v3 instances to the latest version.
+The sDAI adapters on Ethereum and Gnosis Aave instances are also updated from non-capo to capo adapters, and USDS adapters are updated to use USDS/USD feed from the previous DAI/USD feed, given that liquidity of USDS is perfectly normalized.
 
 ## Motivation
 
-Correlated-assets price oracle (CAPO) which introduced extra upper price protections for assets highly correlated with an underlying like LST's or stablecoins was activated earlier this year. With the Aave Generalized Risk Stewards (AGRS) being activated, it is important to update the CAPO adapters for stablecoins across both Aave V2 and V3 instances for it to work seamlessly with the AGRS system. The AGRS system can be used to update the price caps of the CAPO adapters, currently the stablecoin CAPO adapters are missing a getter method `getPriceCap()` which prevents the AGRS system from updating the price caps. Updating the stablecoin CAPO adapters to the latest version enables the AGRS system to update the price caps.
+With the Aave Generalized Risk Stewards (AGRS) being activated on proposal 197 it is important to update the CAPO adapters for stablecoins across both Aave V2 and V3 instances for it to work seamlessly with the new system. Currently this is not possible, because certain CAPOs are missing a getter method getPriceCap() which prevents the AGRS system from updating the price caps.
 
-CAPO adapter for sDAI was not activated before due to its un-stability on its growth rate, but with positive signaling from Chaos Labs, it seems fair to update it to CAPO on Aave V3 Ethereum and Aave V3 Gnosis instances.
+The CAPO adapter for sDAI was not activated before due to its un-stability on its growth rate, but with positive signaling from Chaos Labs, it is now to be enabled on Aave V3 Ethereum and Aave V3 Gnosis instances.
 
-USDS asset was listed with chainlink DAI/USD underlying feed as a matter of security procedure. Since liquidity has improved for USDS now, we think its fair to migrate to USDS/USD feed for the asset.
+USDS asset was listed with a Chainlink DAI/USD underlying feed as given the asset was just released, and its underlying equivalence with DAI. Since USDS is totally stable now, it is reasonable to migrate to an USDS/USD feed.
 
 ## Specification
 
@@ -38,9 +39,20 @@ The following stable-coin CAPO feeds are being updated across all networks and i
 | AaveV3Metis           | USDC, USDT, DAI                                          |
 | AaveV3Scroll          | USDC                                                     |
 
-Price Feeds will be updated using AAVE\_`ORACLE.setAssetSource()` method on Aave V2 Instances and using config-engine on Aave V3 Instances.
+Price Feeds will be updated using `AAVE_ORACLE.setAssetSource()` method on Aave V2 Instances and using config-engine on Aave V3 Instances.
 
 _Please note that the configurations for the Price Caps adapters and the underlying chainlink feeds are exactly the same as before. Also, price feeds of AaveV2 instances are updated as their underlying feed used ASSET/USD could also be updated via the Stewards using the AaveV3 ACL_MANAGER contract_
+
+To be more explicit on the code changes between the previous stablecoin CAPO feed and the new one on v3 markets, the following method is being added on the new stablecoin CAPO feed:
+
+```
+/// @inheritdoc IPriceCapAdapterStable
+function getPriceCap() external view returns (int256) {
+	return _priceCap;
+}
+```
+
+On v2 markets, the code diff between the previous feed and the new feed is zero, however the `ASSET_TO_PEG` underlying feed of the `CLSynchronicityPriceAdapterBaseToPeg` contract uses the new CAPO feed than the previous.
 
 As suggested by Risk Contributors (Chaos Labs), the following configuration for CAPO has been set for sDAI on Aave V3 Ethereum and Gnosis instances:
 | maxYearlyRatioGrowthPercent | MINIMUM_SNAPSHOT_DELAY |
