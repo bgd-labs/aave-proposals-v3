@@ -39,13 +39,13 @@ contract AaveV3Ethereum_TokenLogicFinancialServiceProvider_20241213 is IProposal
 
   function execute() external override {
     // deposit gho
-    // AaveV3EthereumLido.COLLECTOR.depositToV3(
-    //   CollectorUtils.IOInput({
-    //     pool: address(AaveV3EthereumLido.POOL),
-    //     underlying: AaveV3EthereumAssets.GHO_UNDERLYING,
-    //     amount: GHO_DEPOSIT_AMOUNT
-    //   })
-    // );
+    AaveV3EthereumLido.COLLECTOR.depositToV3(
+      CollectorUtils.IOInput({
+        pool: address(AaveV3EthereumLido.POOL),
+        underlying: AaveV3EthereumAssets.GHO_UNDERLYING,
+        amount: GHO_DEPOSIT_AMOUNT
+      })
+    );
 
     // withdraw usdc
     AaveV3Ethereum.COLLECTOR.withdrawFromV3(
