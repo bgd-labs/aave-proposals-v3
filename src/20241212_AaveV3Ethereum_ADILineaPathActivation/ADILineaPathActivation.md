@@ -39,7 +39,7 @@ The new Aave Governance deployments on Linea network are as follows:
 
 | Contract            | Address                                                                                                                  |
 | ------------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| PayloadsController  | [0x61308f66DEF56EffFa25C8CB5408D6dDdB450149](https://lineascan.build/address/0x61308f66DEF56EffFa25C8CB5408D6dDdB450149) |
+| PayloadsController  | [0x3BcE23a1363728091bc57A58a226CF2940C2e074](https://lineascan.build/address/0x3BcE23a1363728091bc57A58a226CF2940C2e074) |
 | Executor Lvl 1      | [0x8c2d95FE7aeB57b86961F3abB296A54f0ADb7F88](https://lineascan.build/address/0x8c2d95FE7aeB57b86961F3abB296A54f0ADb7F88) |
 | Governance Guardian | [0x056E4C4E80D1D14a637ccbD0412CDAAEc5B51F4E](https://lineascan.build/address/0x056E4C4E80D1D14a637ccbD0412CDAAEc5B51F4E) |
 | BGD Labs Guardian   | [0xfD3a6E65e470a7D7D730FFD5D36a9354E8F9F4Ea](https://lineascan.build/address/0xfD3a6E65e470a7D7D730FFD5D36a9354E8F9F4Ea) |
