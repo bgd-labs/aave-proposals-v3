@@ -33,7 +33,6 @@ Orbit recognizes the added value of the Delegates in the decentralization & dive
 As a reminder, Service Providers will not be considered elegible to Orbit Program.
 
 A new vote rate will apply, starting next Orbit Renewal, where a minimum of 20k voting power and 85% vote ratio on all Snapshots and AIP will be considered in order to be elegible to Orbit Program.
-[/quote]
 
 ## References
 
