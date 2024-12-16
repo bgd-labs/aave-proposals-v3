@@ -32,7 +32,7 @@ contract AaveV3EthereumLido_AaveLiquidityCommitteeFundingPhaseV_20241209_Test is
   AaveV3EthereumLido_AaveLiquidityCommitteeFundingPhaseV_20241209 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 21365006); // todo blocknumber should be updated after gho listing proposal is executed
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 21414994);
     proposal = new AaveV3EthereumLido_AaveLiquidityCommitteeFundingPhaseV_20241209();
   }
 
@@ -117,13 +117,13 @@ contract AaveV3EthereumLido_AaveLiquidityCommitteeFundingPhaseV_20241209_Test is
 
     assertEq(
       IERC20(AaveV3EthereumAssets.USDT_UNDERLYING).balanceOf(
-        0x1D18380041Ba52ef4011e8264E2F9605D7a023Fe // milkmanInstance contract
+        0x61De0d8d9D49Ec452dd325c1AB746BF113957c98 // milkmanInstance contract
       ),
       proposal.A_ETH_USDT_WITHDRAW_AMOUNT()
     );
     assertEq(
       IERC20(AaveV3EthereumAssets.USDC_UNDERLYING).balanceOf(
-        0xe798354288DB1A06da83beF6e2915325a16A300a // milkmanInstance contract
+        0x778cD71c0bcc862A633Dd683e85A4a6536469738 // milkmanInstance contract
       ),
       proposal.A_ETH_USDC_WITHDRAW_AMOUNT()
     );
