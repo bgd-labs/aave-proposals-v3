@@ -33,7 +33,7 @@ contract AaveV3Ethereum_TokenLogicFinancialServiceProvider_20241213 is IProposal
   uint256 public constant TOKENLOGIC_STREAM_AMOUNT = 1_000_000e18;
   address public constant TOKENLOGIC_SAFE = 0x3e4A9f478C0c13A15137Fc81e9d8269F127b4B40;
   uint256 public constant STREAM_DURATION = 365 days;
-  uint256 public constant STREAM_START_TIME = 1734220800; // Sun Dec 15 2024 00:00:00 GMT+0000
+  uint256 public constant STREAM_START_TIME = 1734225865; // Sun Dec 15 2024 01:24:25 GMT+0000
   uint256 public constant ACTUAL_STREAM_AMOUNT =
     (TOKENLOGIC_STREAM_AMOUNT / STREAM_DURATION) * STREAM_DURATION;
 
@@ -69,14 +69,24 @@ contract AaveV3Ethereum_TokenLogicFinancialServiceProvider_20241213 is IProposal
       200
     );
 
+    uint256 backedAmount = (ACTUAL_STREAM_AMOUNT * (block.timestamp - STREAM_START_TIME)) /
+      STREAM_DURATION;
+
+    // transfer backend amount
+    AaveV3Ethereum.COLLECTOR.transfer(
+      AaveV3EthereumAssets.GHO_UNDERLYING,
+      TOKENLOGIC_SAFE,
+      backedAmount
+    );
+
     // stream
     AaveV3Ethereum.COLLECTOR.stream(
       CollectorUtils.CreateStreamInput({
         underlying: AaveV3EthereumAssets.GHO_UNDERLYING,
         receiver: TOKENLOGIC_SAFE,
-        amount: ACTUAL_STREAM_AMOUNT,
-        start: STREAM_START_TIME,
-        duration: STREAM_DURATION
+        amount: ACTUAL_STREAM_AMOUNT - backedAmount,
+        start: block.timestamp,
+        duration: STREAM_DURATION + STREAM_START_TIME - block.timestamp
       })
     );
   }

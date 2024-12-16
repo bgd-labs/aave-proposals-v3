@@ -65,7 +65,13 @@ contract AaveV3Ethereum_TokenLogicFinancialServiceProvider_20241213_Test is Prot
       address(AaveV3EthereumLido.COLLECTOR)
     );
 
-    assertEq(collectorGhoBalanceBefore - collectorGhoBalanceAfter, proposal.GHO_DEPOSIT_AMOUNT());
+    uint256 backedAmount = (proposal.ACTUAL_STREAM_AMOUNT() *
+      (block.timestamp - proposal.STREAM_START_TIME())) / proposal.STREAM_DURATION();
+
+    assertEq(
+      collectorGhoBalanceBefore - collectorGhoBalanceAfter,
+      proposal.GHO_DEPOSIT_AMOUNT() + backedAmount
+    );
     assertEq(collectorAGhoBalanceAfter - collectorAGhoBalanceBefore, proposal.GHO_DEPOSIT_AMOUNT());
   }
 
@@ -100,13 +106,16 @@ contract AaveV3Ethereum_TokenLogicFinancialServiceProvider_20241213_Test is Prot
 
     assertEq(
       IERC20(AaveV3EthereumAssets.USDC_UNDERLYING).balanceOf(
-        0x1D18380041Ba52ef4011e8264E2F9605D7a023Fe // milkmanInstance contract
+        0x61De0d8d9D49Ec452dd325c1AB746BF113957c98 // milkmanInstance contract
       ),
       proposal.A_ETH_USDC_WITHDRAW_AMOUNT()
     );
   }
 
   function test_stream() public {
+    uint256 backedAmount = (proposal.ACTUAL_STREAM_AMOUNT() *
+      (block.timestamp - proposal.STREAM_START_TIME())) / proposal.STREAM_DURATION();
+
     uint256 nextCollectorStreamID = AaveV3Ethereum.COLLECTOR.getNextStreamId();
 
     executePayload(vm, address(proposal));
@@ -124,11 +133,11 @@ contract AaveV3Ethereum_TokenLogicFinancialServiceProvider_20241213_Test is Prot
 
     assertEq(sender, address(AaveV3Ethereum.COLLECTOR));
     assertEq(recipient, proposal.TOKENLOGIC_SAFE());
-    assertEq(deposit, proposal.ACTUAL_STREAM_AMOUNT());
+    assertEq(deposit, proposal.ACTUAL_STREAM_AMOUNT() - backedAmount);
     assertEq(tokenAddress, AaveV3EthereumAssets.GHO_UNDERLYING);
-    assertEq(startTime, proposal.STREAM_START_TIME());
-    assertEq(stopTime - startTime, proposal.STREAM_DURATION());
-    assertEq(remainingBalance, proposal.ACTUAL_STREAM_AMOUNT());
+    assertEq(startTime, block.timestamp);
+    assertEq(stopTime, proposal.STREAM_START_TIME() + proposal.STREAM_DURATION());
+    assertEq(remainingBalance, proposal.ACTUAL_STREAM_AMOUNT() - backedAmount);
 
     // Can withdraw during stream
     vm.warp(block.timestamp + 35 days);
@@ -168,7 +177,7 @@ contract AaveV3Ethereum_TokenLogicFinancialServiceProvider_20241213_Test is Prot
 
     assertEq(
       IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(proposal.TOKENLOGIC_SAFE()),
-      receiverGhoBalanceBefore + proposal.ACTUAL_STREAM_AMOUNT()
+      receiverGhoBalanceBefore + proposal.ACTUAL_STREAM_AMOUNT() - backedAmount
     );
   }
 }
