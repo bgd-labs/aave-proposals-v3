@@ -18,14 +18,14 @@ contract AaveV3EthereumLido_OrbitProgramRenewal_20241210 is IProposalGenericExec
 
     for (uint256 i = 0; i < orbitAddresses.length; i++) {
       AaveV3EthereumLido.COLLECTOR.transfer(
-        AaveV3EthereumLidoAssets.GHO_UNDERLYING,
+        AaveV3EthereumLidoAssets.GHO_A_TOKEN,
         orbitAddresses[i],
         OrbitProgramRenewalData.DIRECT_TRANSFER_AMOUNT
       );
       CollectorUtils.stream(
         AaveV3EthereumLido.COLLECTOR,
         CollectorUtils.CreateStreamInput({
-          underlying: AaveV3EthereumLidoAssets.GHO_UNDERLYING,
+          underlying: AaveV3EthereumLidoAssets.GHO_A_TOKEN,
           receiver: orbitAddresses[i],
           amount: OrbitProgramRenewalData.STREAM_AMOUNT,
           start: block.timestamp,
