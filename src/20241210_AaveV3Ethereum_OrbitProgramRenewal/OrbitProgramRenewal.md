@@ -17,11 +17,14 @@ Orbit recognizes the added value of the Delegates in the decentralization & dive
 
 - **Period Coverage:** Q4 2024 from August 31th 2024 to December 14th 2024
 - **Eligible Platforms:**
-  - EzR3al
-  - Areta
-  - StableLab
-  - IgnasDefi
-- **Budget:** 60,000 GHO
+  - EzR3al: [0x8659d0bb123da6d16d9394c7838ba286c2207d0e](https://etherscan.io/address/0x8659d0bb123da6d16d9394c7838ba286c2207d0e)
+  - areta: [0x8b37a5af68d315cf5a64097d96621f64b5502a22](https://etherscan.io/address/0x8b37a5af68d315cf5a64097d96621f64b5502a22)
+  - stablelabs: [0xecc2a9240268bc7a26386ecb49e1befca2706ac9](https://etherscan.io/address/0xecc2a9240268bc7a26386ecb49e1befca2706ac9)
+  - IgnasDefi: [0x3DDC7d25c7a1dc381443e491Bbf1Caa8928A05B0](https://etherscan.io/address/0x3DDC7d25c7a1dc381443e491Bbf1Caa8928A05B0)
+- **Budget:** 60,000 GHO (aEthLidoGHO)
+  - 15k total budget per platform
+  - 1667 aGHO transfer ((15000/90)\*10)
+  - 13333 aGHO stream through 80 days
 - **Relevant Links:**
   - [ACI’s Orbit tracker](https://dapps.aavechan.com/orbit-tracker)
 
