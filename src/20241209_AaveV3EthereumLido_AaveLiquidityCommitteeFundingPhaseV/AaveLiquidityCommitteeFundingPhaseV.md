@@ -13,9 +13,9 @@ This publication presents the Aave Liquidity Committee (ALC) Phase V request.
 
 Phase V focuses on reinforcing GHO’s peg stability and enhancing liquidity to enable seamless large swaps with minimal price impact.
 It also involves GHO's growth by expanding GHO to new networks, such as Base and Avalanche.
-New integrations aim to drive adoption by partnering with protocols such as Synthetix on Arbitrum, Fluid, and Gearbox on the mainnet. Additionally, innovative liquidity incentives, like Royco Quests, will further enhance user engagement and ecosystem participation. These initiatives are designed to boost GHO’s utility, broaden its ecosystem reach, and ensure stability across chains, all while being guided by clear and measurable performance metrics.
+New integrations aim to drive adoption by partnering with protocols such as Synthetix on Arbitrum, Fluid, and Gearbox on Mainnet. Additionally, innovative liquidity incentives, like Royco Quests, will further enhance user engagement and ecosystem participation. These initiatives are designed to boost GHO’s utility, broaden its ecosystem reach, and ensure stability across chains, all while being guided by clear and measurable performance metrics.
 
-Some high-level GHO performance metrics phase V aims to acheive:
+Some high-level GHO performance metrics Phase V aims to achieve:
 
 | Description                                |        Ethereum Value        |        Arbitrum Value        |       Avalanche Value        |          Base Value          |
 | ------------------------------------------ | :--------------------------: | :--------------------------: | :--------------------------: | :--------------------------: |
