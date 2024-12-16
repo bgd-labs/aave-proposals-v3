@@ -48,16 +48,19 @@ contract AaveV3EthereumLido_AaveLiquidityCommitteeFundingPhaseV_20241209 is
     );
 
     // alc allowance
-    uint256 initialAlcAllowance = IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).allowance(
+    (address aTokenAddress, , ) = AaveV3EthereumLido
+      .AAVE_PROTOCOL_DATA_PROVIDER
+      .getReserveTokensAddresses(AaveV3EthereumAssets.GHO_UNDERLYING);
+    uint256 initialAlcAllowance = IERC20(aTokenAddress).allowance(
       address(AaveV3EthereumLido.COLLECTOR),
       ALC_SAFE
     );
     if (initialAlcAllowance > 0) {
       // clear initial allowance
-      AaveV3EthereumLido.COLLECTOR.approve(AaveV3EthereumAssets.GHO_UNDERLYING, ALC_SAFE, 0);
+      AaveV3EthereumLido.COLLECTOR.approve(aTokenAddress, ALC_SAFE, 0);
     }
     AaveV3EthereumLido.COLLECTOR.approve(
-      AaveV3EthereumAssets.GHO_UNDERLYING,
+      aTokenAddress,
       ALC_SAFE,
       initialAlcAllowance + ALC_ALLOWANCE
     );
