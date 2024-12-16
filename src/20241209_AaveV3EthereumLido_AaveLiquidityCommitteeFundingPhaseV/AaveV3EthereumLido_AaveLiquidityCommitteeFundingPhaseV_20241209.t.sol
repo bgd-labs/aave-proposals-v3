@@ -32,7 +32,7 @@ contract AaveV3EthereumLido_AaveLiquidityCommitteeFundingPhaseV_20241209_Test is
   AaveV3EthereumLido_AaveLiquidityCommitteeFundingPhaseV_20241209 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 21414994);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 21415862);
     proposal = new AaveV3EthereumLido_AaveLiquidityCommitteeFundingPhaseV_20241209();
   }
 
