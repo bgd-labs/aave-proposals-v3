@@ -6,7 +6,7 @@ export const config: ConfigFile = {
     shortName: 'TokenLogicFinancialServiceProvider',
     date: '20241213',
     author: 'TokenLogic',
-    discussion: '',
+    discussion: 'https://governance.aave.com/t/arfc-tokenlogic-financial-services-provider/20182',
     snapshot: '',
     votingNetwork: 'POLYGON',
   },

@@ -1,13 +1,13 @@
 ---
 title: "TokenLogic Financial Service Provider"
 author: "TokenLogic"
-discussions: TODO
+discussions: https://governance.aave.com/t/arfc-tokenlogic-financial-services-provider/20182
 snapshot: TODO
 ---
 
 ## Simple Summary
 
-TokenLogic proposes to renew our engagement with the Aave DAO for 1 year from the 15th December 2024 when our current stream ends.
+TokenLogic proposes to renew our engagement with the Aave DAO for 1 year from the date 15th December 2024 when our current stream ends.
 
 TokenLogic is to provide the following services to the DAO.
 
@@ -83,7 +83,7 @@ In addition, we will support the adaptation of Aave’s tokenomics to meet the r
 
 - 12-month engagement, December 15th 2024 to December 15th 2025;
 - $1M, streamed linearly throughout the engagement; and,
-- $1,000,000 in GHO
+- $1,000,000 in aEthLidoGHO
 
 ## Specification
 
@@ -93,10 +93,10 @@ To support funding the streams, the following is to be performed:
 - 0.75M aEthUSDC swapped to GHO; and,
 - GHO from swap sent to Treasury.
 
-Create the following stream allowing TokenLogic to withdraw GHO from the Prime instance.
+Create the following stream allowing TokenLogic to withdraw aEthLidoGHO from the Prime instance.
 
 TokenLogic
-Stream: 1M GHO over 365 days
+Stream: 1M aEthLidoGHO over 365 days
 Address: `0x3e4A9f478C0c13A15137Fc81e9d8269F127b4B40`
 
 The stream shall commence the next block from when the previous stream finishes.
@@ -106,7 +106,7 @@ The stream shall commence the next block from when the previous stream finishes.
 - Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241213_AaveV3Ethereum_TokenLogicFinancialServiceProvider/AaveV3Ethereum_TokenLogicFinancialServiceProvider_20241213.sol)
 - Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241213_AaveV3Ethereum_TokenLogicFinancialServiceProvider/AaveV3Ethereum_TokenLogicFinancialServiceProvider_20241213.t.sol)
   [Snapshot](TODO)
-- [Discussion](TODO)
+- [Discussion](https://governance.aave.com/t/arfc-tokenlogic-financial-services-provider/20182)
 
 ## Copyright
 

@@ -14,7 +14,7 @@ import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';
  * @title TokenLogic Financial Service Provider
  * @author TokenLogic
  * - Snapshot: TODO
- * - Discussion: TODO
+ * - Discussion: https://governance.aave.com/t/arfc-tokenlogic-financial-services-provider/20182
  */
 contract AaveV3Ethereum_TokenLogicFinancialServiceProvider_20241213 is IProposalGenericExecutor {
   using SafeERC20 for IERC20;
@@ -69,20 +69,19 @@ contract AaveV3Ethereum_TokenLogicFinancialServiceProvider_20241213 is IProposal
       200
     );
 
+    (address aEthLidoGho, , ) = AaveV3EthereumLido
+      .AAVE_PROTOCOL_DATA_PROVIDER
+      .getReserveTokensAddresses(AaveV3EthereumAssets.GHO_UNDERLYING);
     uint256 backDatedAmount = (ACTUAL_STREAM_AMOUNT * (block.timestamp - STREAM_START_TIME)) /
       STREAM_DURATION;
 
     // transfer backend amount
-    AaveV3Ethereum.COLLECTOR.transfer(
-      AaveV3EthereumAssets.GHO_UNDERLYING,
-      TOKENLOGIC_SAFE,
-      backDatedAmount
-    );
+    AaveV3Ethereum.COLLECTOR.transfer(aEthLidoGho, TOKENLOGIC_SAFE, backDatedAmount);
 
     // stream
     AaveV3Ethereum.COLLECTOR.stream(
       CollectorUtils.CreateStreamInput({
-        underlying: AaveV3EthereumAssets.GHO_UNDERLYING,
+        underlying: aEthLidoGho,
         receiver: TOKENLOGIC_SAFE,
         amount: ACTUAL_STREAM_AMOUNT - backDatedAmount,
         start: block.timestamp,

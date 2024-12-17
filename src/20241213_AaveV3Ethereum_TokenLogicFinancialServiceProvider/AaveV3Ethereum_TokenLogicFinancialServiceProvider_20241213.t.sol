@@ -45,14 +45,14 @@ contract AaveV3Ethereum_TokenLogicFinancialServiceProvider_20241213_Test is Prot
   }
 
   function test_deposit() public {
-    (address aTokenAddress, , ) = AaveV3EthereumLido
+    (address aEthLidoGho, , ) = AaveV3EthereumLido
       .AAVE_PROTOCOL_DATA_PROVIDER
       .getReserveTokensAddresses(AaveV3EthereumAssets.GHO_UNDERLYING);
 
     uint256 collectorGhoBalanceBefore = IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(
       address(AaveV3EthereumLido.COLLECTOR)
     );
-    uint256 collectorAGhoBalanceBefore = IERC20(aTokenAddress).balanceOf(
+    uint256 collectorAEthLidoGhoBalanceBefore = IERC20(aEthLidoGho).balanceOf(
       address(AaveV3EthereumLido.COLLECTOR)
     );
 
@@ -61,18 +61,18 @@ contract AaveV3Ethereum_TokenLogicFinancialServiceProvider_20241213_Test is Prot
     uint256 collectorGhoBalanceAfter = IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(
       address(AaveV3EthereumLido.COLLECTOR)
     );
-    uint256 collectorAGhoBalanceAfter = IERC20(aTokenAddress).balanceOf(
+    uint256 collectorAEthLidoGhoBalanceAfter = IERC20(aEthLidoGho).balanceOf(
       address(AaveV3EthereumLido.COLLECTOR)
     );
 
     uint256 backDatedAmount = (proposal.ACTUAL_STREAM_AMOUNT() *
       (block.timestamp - proposal.STREAM_START_TIME())) / proposal.STREAM_DURATION();
 
+    assertEq(collectorGhoBalanceBefore - collectorGhoBalanceAfter, proposal.GHO_DEPOSIT_AMOUNT());
     assertEq(
-      collectorGhoBalanceBefore - collectorGhoBalanceAfter,
-      proposal.GHO_DEPOSIT_AMOUNT() + backDatedAmount
+      collectorAEthLidoGhoBalanceAfter - collectorAEthLidoGhoBalanceBefore,
+      proposal.GHO_DEPOSIT_AMOUNT() - backDatedAmount
     );
-    assertEq(collectorAGhoBalanceAfter - collectorAGhoBalanceBefore, proposal.GHO_DEPOSIT_AMOUNT());
   }
 
   function test_swap() public {
@@ -113,6 +113,10 @@ contract AaveV3Ethereum_TokenLogicFinancialServiceProvider_20241213_Test is Prot
   }
 
   function test_stream() public {
+    (address aEthLidoGho, , ) = AaveV3EthereumLido
+      .AAVE_PROTOCOL_DATA_PROVIDER
+      .getReserveTokensAddresses(AaveV3EthereumAssets.GHO_UNDERLYING);
+
     uint256 backDatedAmount = (proposal.ACTUAL_STREAM_AMOUNT() *
       (block.timestamp - proposal.STREAM_START_TIME())) / proposal.STREAM_DURATION();
 
@@ -134,7 +138,7 @@ contract AaveV3Ethereum_TokenLogicFinancialServiceProvider_20241213_Test is Prot
     assertEq(sender, address(AaveV3Ethereum.COLLECTOR));
     assertEq(recipient, proposal.TOKENLOGIC_SAFE());
     assertEq(deposit, proposal.ACTUAL_STREAM_AMOUNT() - backDatedAmount);
-    assertEq(tokenAddress, AaveV3EthereumAssets.GHO_UNDERLYING);
+    assertEq(tokenAddress, aEthLidoGho);
     assertEq(startTime, block.timestamp);
     assertEq(stopTime, proposal.STREAM_START_TIME() + proposal.STREAM_DURATION());
     assertEq(remainingBalance, proposal.ACTUAL_STREAM_AMOUNT() - backDatedAmount);
@@ -142,12 +146,10 @@ contract AaveV3Ethereum_TokenLogicFinancialServiceProvider_20241213_Test is Prot
     // Can withdraw during stream
     vm.warp(block.timestamp + 35 days);
 
-    uint256 collectorGhoBalanceBefore = IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(
+    uint256 collectorGhoBalanceBefore = IERC20(aEthLidoGho).balanceOf(
       address(AaveV3Ethereum.COLLECTOR)
     );
-    uint256 receiverGhoBalanceBefore = IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(
-      proposal.TOKENLOGIC_SAFE()
-    );
+    uint256 receiverGhoBalanceBefore = IERC20(aEthLidoGho).balanceOf(proposal.TOKENLOGIC_SAFE());
 
     vm.startPrank(proposal.TOKENLOGIC_SAFE());
     AaveV3Ethereum.COLLECTOR.withdrawFromStream(
@@ -156,13 +158,10 @@ contract AaveV3Ethereum_TokenLogicFinancialServiceProvider_20241213_Test is Prot
     );
     vm.stopPrank();
 
-    assertGt(
-      IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(proposal.TOKENLOGIC_SAFE()),
-      receiverGhoBalanceBefore
-    );
+    assertGt(IERC20(aEthLidoGho).balanceOf(proposal.TOKENLOGIC_SAFE()), receiverGhoBalanceBefore);
 
     assertLt(
-      IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
+      IERC20(aEthLidoGho).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
       collectorGhoBalanceBefore
     );
 
@@ -176,7 +175,7 @@ contract AaveV3Ethereum_TokenLogicFinancialServiceProvider_20241213_Test is Prot
     vm.stopPrank();
 
     assertEq(
-      IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(proposal.TOKENLOGIC_SAFE()),
+      IERC20(aEthLidoGho).balanceOf(proposal.TOKENLOGIC_SAFE()),
       receiverGhoBalanceBefore + proposal.ACTUAL_STREAM_AMOUNT() - backDatedAmount
     );
   }
