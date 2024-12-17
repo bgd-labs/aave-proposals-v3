@@ -36,8 +36,8 @@ A new vote rate will apply, starting next Orbit Renewal, where a minimum of 20k 
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241210_AaveV3Ethereum_OrbitProgramRenewal/AaveV3Ethereum_OrbitProgramRenewal_20241210.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241210_AaveV3Ethereum_OrbitProgramRenewal/AaveV3Ethereum_OrbitProgramRenewal_20241210.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/3740774ff40cb11fda29f882b86197d902f7e16f/src/20241210_AaveV3Ethereum_OrbitProgramRenewal/AaveV3Ethereum_OrbitProgramRenewal_20241210.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/3740774ff40cb11fda29f882b86197d902f7e16f/src/20241210_AaveV3Ethereum_OrbitProgramRenewal/AaveV3Ethereum_OrbitProgramRenewal_20241210.t.sol)
 - [Snapshot](https://snapshot.box/#/s:aave.eth/proposal/0x60613deb2c662057cc8028b431df84fe6e763d38f48f70594a7cb7fd91a8cb93)
 - [Discussion](https://governance.aave.com/t/arfc-orbit-program-renewal-q4-2024/20084)
 
