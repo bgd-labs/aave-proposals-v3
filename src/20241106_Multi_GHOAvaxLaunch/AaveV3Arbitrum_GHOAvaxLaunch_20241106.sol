@@ -10,7 +10,7 @@ import {AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
 import {GovernanceV3Arbitrum} from 'aave-address-book/GovernanceV3Arbitrum.sol';
 import {MiscArbitrum} from 'aave-address-book/MiscArbitrum.sol';
 import {IGhoToken} from 'gho-core/gho/interfaces/IGhoToken.sol';
-import {IUpgradeablePool} from 'src/interfaces/ccip/IUpgradeablePool.sol';
+import {IUpgradeableTokenPool} from 'src/interfaces/ccip/IUpgradeableTokenPool.sol';
 
 /**
  * @title GHOAvaxLaunch
@@ -83,18 +83,19 @@ contract AaveV3Arbitrum_GHOAvaxLaunch_20241106 is IProposalGenericExecutor {
   }
 
   function _configureCcipTokenPool(address tokenPool, uint64 chainSelector) internal {
-    IUpgradeablePool.ChainUpdate[] memory chainUpdates = new IUpgradeablePool.ChainUpdate[](1);
+    IUpgradeableTokenPool.ChainUpdate[]
+      memory chainUpdates = new IUpgradeableTokenPool.ChainUpdate[](1);
     RateLimiter.Config memory rateConfig = RateLimiter.Config({
       isEnabled: false,
       capacity: 0,
       rate: 0
     });
-    chainUpdates[0] = IUpgradeablePool.ChainUpdate({
+    chainUpdates[0] = IUpgradeableTokenPool.ChainUpdate({
       remoteChainSelector: chainSelector,
       allowed: true,
       outboundRateLimiterConfig: rateConfig,
       inboundRateLimiterConfig: rateConfig
     });
-    IUpgradeablePool(tokenPool).applyChainUpdates(chainUpdates);
+    IUpgradeableTokenPool(tokenPool).applyChainUpdates(chainUpdates);
   }
 }

@@ -25,7 +25,7 @@ import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {GovernanceV3Avalanche} from 'aave-address-book/GovernanceV3Avalanche.sol';
 import {MiscAvalanche} from 'aave-address-book/MiscAvalanche.sol';
 import {UpgradeableGhoToken} from 'gho-core/gho/UpgradeableGhoToken.sol';
-import {IUpgradeablePool14} from 'src/interfaces/ccip/IUpgradeablePool14.sol';
+import {IUpgradeableTokenPool_1_4} from 'src/interfaces/ccip/IUpgradeableTokenPool_1_4.sol';
 import {AaveV3Arbitrum_GHOAvaxLaunch_20241106} from './AaveV3Arbitrum_GHOAvaxLaunch_20241106.sol';
 import {AaveV3Avalanche_GHOAvaxLaunch_20241106} from './AaveV3Avalanche_GHOAvaxLaunch_20241106.sol';
 
@@ -421,13 +421,14 @@ contract AaveV3Arbitrum_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
   // ---
 
   function _configureCcipTokenPool(address tokenPool, uint64 chainSelector) internal {
-    IUpgradeablePool14.ChainUpdate[] memory chainUpdates = new IUpgradeablePool14.ChainUpdate[](1);
+    IUpgradeableTokenPool_1_4.ChainUpdate[]
+      memory chainUpdates = new IUpgradeableTokenPool_1_4.ChainUpdate[](1);
     RateLimiter.Config memory rateConfig = RateLimiter.Config({
       isEnabled: false,
       capacity: 0,
       rate: 0
     });
-    chainUpdates[0] = IUpgradeablePool14.ChainUpdate({
+    chainUpdates[0] = IUpgradeableTokenPool_1_4.ChainUpdate({
       remoteChainSelector: chainSelector,
       allowed: true,
       remotePoolAddress: abi.encode(AVAX_TOKEN_POOL),
@@ -435,7 +436,7 @@ contract AaveV3Arbitrum_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
       outboundRateLimiterConfig: rateConfig,
       inboundRateLimiterConfig: rateConfig
     });
-    IUpgradeablePool14(tokenPool).applyChainUpdates(chainUpdates);
+    IUpgradeableTokenPool_1_4(tokenPool).applyChainUpdates(chainUpdates);
   }
 
   function _getFacilitatorLevel(address f) internal view returns (uint256) {
