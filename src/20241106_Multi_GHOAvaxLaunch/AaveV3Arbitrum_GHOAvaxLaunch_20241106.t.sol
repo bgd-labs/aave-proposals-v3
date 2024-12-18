@@ -25,6 +25,7 @@ import {Client} from 'ccip/libraries/Client.sol';
 import {Router} from 'ccip/Router.sol';
 import {IPriceRegistry} from 'ccip/interfaces/IPriceRegistry.sol';
 import {UpgradeableGhoToken} from 'gho-core/gho/UpgradeableGhoToken.sol';
+import {IUpgradeablePool14} from 'src/interfaces/ccip/IUpgradeablePool14.sol';
 import {AaveV3Arbitrum_GHOAvaxLaunch_20241106} from './AaveV3Arbitrum_GHOAvaxLaunch_20241106.sol';
 import {AaveV3Avalanche_GHOAvaxLaunch_20241106} from './AaveV3Avalanche_GHOAvaxLaunch_20241106.sol';
 
@@ -41,7 +42,8 @@ contract AaveV3Arbitrum_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
   UpgradeableGhoToken public GHO = UpgradeableGhoToken(GHO_TOKEN);
   address public constant TOKEN_ADMIN_REGISTRY = 0x39AE1032cF4B334a1Ed41cdD0833bdD7c7E7751E;
   address public constant REGISTRY_ADMIN = 0x8a89770722c84B60cE02989Aedb22Ac4791F8C7f;
-  address public constant AVAX_GHO_TOKEN = 0xb025950B02b9cfe851C6a4C041f9D6c0942f0eB1;
+  address public constant AVAX_GHO_TOKEN = 0x2e234DAe75C793f67A35089C9d99245E1C58470b;
+  address public constant AVAX_TOKEN_POOL = 0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9;
   address public constant AVAX_REGISTRY_ADMIN = 0xA3f32a07CCd8569f49cf350D4e61C016CA484644;
   address public constant AVAX_TOKEN_ADMIN_REGISTRY = 0xc8df5D618c6a59Cc6A311E96a39450381001464F;
   address public constant AVAX_RMN_PROXY = 0xcBD48A8eB077381c3c4Eb36b402d7283aB2b11Bc;
@@ -51,6 +53,8 @@ contract AaveV3Arbitrum_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
   address public constant CCIP_ARB_ETH_OFF_RAMP = 0x91e46cc5590A4B9182e47f40006140A7077Dec31;
   address public constant CCIP_ARB_AVAX_ON_RAMP = 0xe80cC83B895ada027b722b78949b296Bd1fC5639;
   address public constant CCIP_ARB_AVAX_OFF_RAMP = 0x95095007d5Cc3E7517A1A03c9e228adA5D0bc376;
+  address public constant TOKEN_POOL_AND_PROXY = 0x26329558f08cbb40d6a4CCA0E0C67b29D64A8c50;
+  uint64 public constant CCIP_AVAX_CHAIN_SELECTOR = 6433500567565415381;
 
   event Minted(address indexed sender, address indexed recipient, uint256 amount);
   event Burned(address indexed sender, uint256 amount);
@@ -59,6 +63,10 @@ contract AaveV3Arbitrum_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
   function setUp() public {
     // Execute Avax proposal to deploy Avax token pool
     vm.createSelectFork(vm.rpcUrl('avalanche'), 53559217);
+
+    // TODO: Decide if we want to deploy this beforehand or in AIP
+    _deployGhoToken();
+
     // TODO: Remove this deployment once we have deployed pool address
     _deployCcipTokenPool();
 
@@ -76,6 +84,12 @@ contract AaveV3Arbitrum_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
 
     // Switch to Arbitrum and create proposal
     vm.createSelectFork(vm.rpcUrl('arbitrum'), 279521658);
+
+    // Configure TokenPoolAndProxy for Avalanche
+    // Prank Registry owner
+    vm.startPrank(REGISTRY_ADMIN);
+    _configureCcipTokenPool(TOKEN_POOL_AND_PROXY, CCIP_AVAX_CHAIN_SELECTOR);
+    vm.stopPrank();
     proposal = new AaveV3Arbitrum_GHOAvaxLaunch_20241106();
   }
 
@@ -273,12 +287,9 @@ contract AaveV3Arbitrum_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
     assertEq(_getFacilitatorLevel(address(TOKEN_POOL)), startingFacilitatorLevel);
   }
 
-  // TODO: This behaves differently on our current pools, which require chainUpdate on tokenPoolAndProxy
   /// @dev CCIP e2e avax <> arb
   function test_ccipE2E_AVAX_ARB() public {
     GovV3Helpers.executePayload(vm, address(proposal));
-
-    //assertEq(TOKEN_POOL.isSupportedChain(proposal.CCIP_AVAX_CHAIN_SELECTOR()), true);
 
     uint64 avaxChainSelector = proposal.CCIP_AVAX_CHAIN_SELECTOR();
 
@@ -344,6 +355,19 @@ contract AaveV3Arbitrum_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
     assertEq(_getFacilitatorLevel(address(TOKEN_POOL)), startingFacilitatorLevel);
   }
 
+  function _deployGhoToken() internal returns (address) {
+    address imple = address(new UpgradeableGhoToken());
+
+    bytes memory ghoTokenInitParams = abi.encodeWithSignature(
+      'initialize(address)',
+      GovernanceV3Avalanche.EXECUTOR_LVL_1 // owner
+    );
+    return
+      address(
+        new TransparentUpgradeableProxy(imple, MiscAvalanche.PROXY_ADMIN, ghoTokenInitParams)
+      );
+  }
+
   function _deployCcipTokenPool() internal returns (address) {
     address imple = address(
       new UpgradeableBurnMintTokenPool(AVAX_GHO_TOKEN, 18, AVAX_RMN_PROXY, false)
@@ -363,6 +387,24 @@ contract AaveV3Arbitrum_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
           tokenPoolInitParams // data
         )
       );
+  }
+
+  function _configureCcipTokenPool(address tokenPool, uint64 chainSelector) internal {
+    IUpgradeablePool14.ChainUpdate[] memory chainUpdates = new IUpgradeablePool14.ChainUpdate[](1);
+    RateLimiter.Config memory rateConfig = RateLimiter.Config({
+      isEnabled: false,
+      capacity: 0,
+      rate: 0
+    });
+    chainUpdates[0] = IUpgradeablePool14.ChainUpdate({
+      remoteChainSelector: chainSelector,
+      allowed: true,
+      remotePoolAddress: abi.encode(AVAX_TOKEN_POOL),
+      remoteTokenAddress: abi.encode(AVAX_GHO_TOKEN),
+      outboundRateLimiterConfig: rateConfig,
+      inboundRateLimiterConfig: rateConfig
+    });
+    IUpgradeablePool14(tokenPool).applyChainUpdates(chainUpdates);
   }
 
   function _validateCcipTokenPool() internal view {

@@ -10,18 +10,7 @@ import {AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
 import {GovernanceV3Arbitrum} from 'aave-address-book/GovernanceV3Arbitrum.sol';
 import {MiscArbitrum} from 'aave-address-book/MiscArbitrum.sol';
 import {IGhoToken} from 'gho-core/gho/interfaces/IGhoToken.sol';
-
-/// @dev Minimal interface for exiting ETH and ARB pools
-interface IUpgradeablePool {
-  struct ChainUpdate {
-    uint64 remoteChainSelector;
-    bool allowed;
-    RateLimiter.Config outboundRateLimiterConfig;
-    RateLimiter.Config inboundRateLimiterConfig;
-  }
-
-  function applyChainUpdates(ChainUpdate[] calldata updates) external;
-}
+import {IUpgradeablePool} from 'src/interfaces/ccip/IUpgradeablePool.sol';
 
 /**
  * @title GHOAvaxLaunch
@@ -42,8 +31,8 @@ contract AaveV3Arbitrum_GHOAvaxLaunch_20241106 is IProposalGenericExecutor {
   address public constant CCIP_TOKEN_ADMIN_REGISTRY = 0x39AE1032cF4B334a1Ed41cdD0833bdD7c7E7751E;
   // TODO: Update pool address if we deploy new one
   address public constant CCIP_TOKEN_POOL = MiscArbitrum.GHO_CCIP_TOKEN_POOL;
-  address public constant AVAX_TOKEN_POOL = 0x2e234DAe75C793f67A35089C9d99245E1C58470b;
-  address public constant AVAX_GHO = 0xb025950B02b9cfe851C6a4C041f9D6c0942f0eB1;
+  address public constant AVAX_TOKEN_POOL = 0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9;
+  address public constant AVAX_GHO = 0x2e234DAe75C793f67A35089C9d99245E1C58470b;
   uint256 public constant CCIP_BUCKET_CAPACITY = 1_000_000e18; // 1M
   uint64 public constant CCIP_ETH_CHAIN_SELECTOR = 5009297550715157269;
   uint64 public constant CCIP_AVAX_CHAIN_SELECTOR = 6433500567565415381;
