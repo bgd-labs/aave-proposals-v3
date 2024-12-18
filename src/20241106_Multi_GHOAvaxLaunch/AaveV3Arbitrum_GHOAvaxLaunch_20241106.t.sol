@@ -49,6 +49,8 @@ contract AaveV3Arbitrum_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
   address public constant ETH_TOKEN_POOL = MiscEthereum.GHO_CCIP_TOKEN_POOL;
   address public constant CCIP_ARB_ETH_ON_RAMP = 0x67761742ac8A21Ec4D76CA18cbd701e5A6F3Bef3;
   address public constant CCIP_ARB_ETH_OFF_RAMP = 0x91e46cc5590A4B9182e47f40006140A7077Dec31;
+  address public constant CCIP_ARB_AVAX_ON_RAMP = 0xe80cC83B895ada027b722b78949b296Bd1fC5639;
+  address public constant CCIP_ARB_AVAX_OFF_RAMP = 0x95095007d5Cc3E7517A1A03c9e228adA5D0bc376;
 
   event Minted(address indexed sender, address indexed recipient, uint256 amount);
   event Burned(address indexed sender, uint256 amount);
@@ -271,6 +273,77 @@ contract AaveV3Arbitrum_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
     assertEq(_getFacilitatorLevel(address(TOKEN_POOL)), startingFacilitatorLevel);
   }
 
+  // TODO: This behaves differently on our current pools, which require chainUpdate on tokenPoolAndProxy
+  /// @dev CCIP e2e avax <> arb
+  function test_ccipE2E_AVAX_ARB() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+
+    //assertEq(TOKEN_POOL.isSupportedChain(proposal.CCIP_AVAX_CHAIN_SELECTOR()), true);
+
+    uint64 avaxChainSelector = proposal.CCIP_AVAX_CHAIN_SELECTOR();
+
+    // Chainlink config
+    Router router = Router(TOKEN_POOL.getRouter());
+
+    {
+      Router.OnRamp[] memory onRampUpdates = new Router.OnRamp[](1);
+      Router.OffRamp[] memory offRampUpdates = new Router.OffRamp[](1);
+      // AVAX -> ARB
+      onRampUpdates[0] = Router.OnRamp({
+        destChainSelector: avaxChainSelector,
+        onRamp: CCIP_ARB_AVAX_ON_RAMP
+      });
+      // ARB -> AVAX
+      offRampUpdates[0] = Router.OffRamp({
+        sourceChainSelector: avaxChainSelector,
+        offRamp: CCIP_ARB_AVAX_OFF_RAMP
+      });
+      address routerOwner = router.owner();
+      vm.startPrank(routerOwner);
+      router.applyRampUpdates(onRampUpdates, new Router.OffRamp[](0), offRampUpdates);
+    }
+
+    {
+      // OnRamp Price Registry
+      EVM2EVMOnRamp.DynamicConfig memory onRampDynamicConfig = EVM2EVMOnRamp(CCIP_ARB_AVAX_ON_RAMP)
+        .getDynamicConfig();
+      Internal.PriceUpdates memory priceUpdate = _getSingleTokenPriceUpdateStruct(
+        address(GHO),
+        1e18
+      );
+
+      IPriceRegistry(onRampDynamicConfig.priceRegistry).updatePrices(priceUpdate);
+      // OffRamp Price Registry
+      EVM2EVMOffRamp.DynamicConfig memory offRampDynamicConfig = EVM2EVMOffRamp(
+        CCIP_ARB_AVAX_OFF_RAMP
+      ).getDynamicConfig();
+      IPriceRegistry(offRampDynamicConfig.priceRegistry).updatePrices(priceUpdate);
+    }
+
+    // User executes ccipSend
+    address user = makeAddr('user');
+    uint256 amount = 100e18; // 100 GHO
+    deal(user, 1e18); // 1 ETH
+
+    uint256 startingGhoBalance = GHO.balanceOf(address(TOKEN_POOL));
+    uint256 startingFacilitatorLevel = _getFacilitatorLevel(address(TOKEN_POOL));
+
+    // Mint tokens to user so can burn and bridge out
+    vm.startPrank(address(TOKEN_POOL));
+    GHO.mint(user, amount);
+
+    assertEq(GHO.balanceOf(address(TOKEN_POOL)), startingGhoBalance);
+    assertEq(_getFacilitatorLevel(address(TOKEN_POOL)), startingFacilitatorLevel + amount);
+
+    vm.startPrank(user);
+    // Use address(0) to use native token as fee token
+    _sendCcip(router, address(GHO), amount, address(0), avaxChainSelector, user);
+
+    assertEq(GHO.balanceOf(user), 0);
+    assertEq(GHO.balanceOf(address(TOKEN_POOL)), startingGhoBalance);
+    assertEq(_getFacilitatorLevel(address(TOKEN_POOL)), startingFacilitatorLevel);
+  }
+
   function _deployCcipTokenPool() internal returns (address) {
     address imple = address(
       new UpgradeableBurnMintTokenPool(AVAX_GHO_TOKEN, AVAX_RMN_PROXY, false)
@@ -350,7 +423,7 @@ contract AaveV3Arbitrum_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
         data: '',
         tokenAmounts: tokenAmounts,
         feeToken: feeToken,
-        extraArgs: Client._argsToBytes(Client.EVMExtraArgsV1({gasLimit: 200_000}))
+        extraArgs: '' //Client._argsToBytes(Client.EVMExtraArgsV1({gasLimit: 200_000}))
       });
   }
 

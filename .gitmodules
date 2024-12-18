@@ -4,7 +4,7 @@
 [submodule "lib/ccip"]
 	path = lib/ccip
 	url = https://github.com/aave/ccip.git
-	branch = feat/1_5_token_pool
+	branch = feat/1_5_1_token_pool
 [submodule "lib/gho-core"]
 	path = lib/gho-core
 	url = https://github.com/aave/gho-core.git
