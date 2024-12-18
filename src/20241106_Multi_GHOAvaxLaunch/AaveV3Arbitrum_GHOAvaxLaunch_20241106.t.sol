@@ -4,6 +4,17 @@ pragma solidity ^0.8.0;
 import 'forge-std/Test.sol';
 import {TransparentUpgradeableProxy} from 'solidity-utils/contracts/transparent-proxy/TransparentUpgradeableProxy.sol';
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
+import {UpgradeableBurnMintTokenPool} from 'ccip/pools/GHO/UpgradeableBurnMintTokenPool.sol';
+import {IPoolPriorTo1_5} from 'ccip/interfaces/IPoolPriorTo1_5.sol';
+import {IPriceRegistry} from 'ccip/interfaces/IPriceRegistry.sol';
+import {Internal} from 'ccip/libraries/Internal.sol';
+import {Pool} from 'ccip/libraries/Pool.sol';
+import {RateLimiter} from 'ccip/libraries/RateLimiter.sol';
+import {Client} from 'ccip/libraries/Client.sol';
+import {TokenAdminRegistry} from 'ccip/tokenAdminRegistry/TokenAdminRegistry.sol';
+import {EVM2EVMOnRamp} from 'ccip/onRamp/EVM2EVMOnRamp.sol';
+import {EVM2EVMOffRamp} from 'ccip/offRamp/EVM2EVMOffRamp.sol';
+import {Router} from 'ccip/Router.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 import {AaveV3Arbitrum} from 'aave-address-book/AaveV3Arbitrum.sol';
@@ -13,17 +24,6 @@ import {AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {GovernanceV3Avalanche} from 'aave-address-book/GovernanceV3Avalanche.sol';
 import {MiscAvalanche} from 'aave-address-book/MiscAvalanche.sol';
-import {Pool} from 'ccip/libraries/Pool.sol';
-import {IPoolPriorTo1_5} from 'ccip/interfaces/IPoolPriorTo1_5.sol';
-import {Internal} from 'ccip/libraries/Internal.sol';
-import {TokenAdminRegistry} from 'ccip/tokenAdminRegistry/TokenAdminRegistry.sol';
-import {UpgradeableBurnMintTokenPool} from 'ccip/pools/GHO/UpgradeableBurnMintTokenPool.sol';
-import {RateLimiter} from 'ccip/libraries/RateLimiter.sol';
-import {EVM2EVMOnRamp} from 'ccip/onRamp/EVM2EVMOnRamp.sol';
-import {EVM2EVMOffRamp} from 'ccip/offRamp/EVM2EVMOffRamp.sol';
-import {Client} from 'ccip/libraries/Client.sol';
-import {Router} from 'ccip/Router.sol';
-import {IPriceRegistry} from 'ccip/interfaces/IPriceRegistry.sol';
 import {UpgradeableGhoToken} from 'gho-core/gho/UpgradeableGhoToken.sol';
 import {IUpgradeablePool14} from 'src/interfaces/ccip/IUpgradeablePool14.sol';
 import {AaveV3Arbitrum_GHOAvaxLaunch_20241106} from './AaveV3Arbitrum_GHOAvaxLaunch_20241106.sol';
@@ -355,6 +355,10 @@ contract AaveV3Arbitrum_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
     assertEq(_getFacilitatorLevel(address(TOKEN_POOL)), startingFacilitatorLevel);
   }
 
+  // ---
+  // Deployment
+  // ---
+
   function _deployGhoToken() internal returns (address) {
     address imple = address(new UpgradeableGhoToken());
 
@@ -389,23 +393,9 @@ contract AaveV3Arbitrum_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
       );
   }
 
-  function _configureCcipTokenPool(address tokenPool, uint64 chainSelector) internal {
-    IUpgradeablePool14.ChainUpdate[] memory chainUpdates = new IUpgradeablePool14.ChainUpdate[](1);
-    RateLimiter.Config memory rateConfig = RateLimiter.Config({
-      isEnabled: false,
-      capacity: 0,
-      rate: 0
-    });
-    chainUpdates[0] = IUpgradeablePool14.ChainUpdate({
-      remoteChainSelector: chainSelector,
-      allowed: true,
-      remotePoolAddress: abi.encode(AVAX_TOKEN_POOL),
-      remoteTokenAddress: abi.encode(AVAX_GHO_TOKEN),
-      outboundRateLimiterConfig: rateConfig,
-      inboundRateLimiterConfig: rateConfig
-    });
-    IUpgradeablePool14(tokenPool).applyChainUpdates(chainUpdates);
-  }
+  // ---
+  // Test Helpers
+  // ---
 
   function _validateCcipTokenPool() internal view {
     // Configs
@@ -424,6 +414,28 @@ contract AaveV3Arbitrum_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
     );
     assertEq(outboundRateLimit.isEnabled, false);
     assertEq(inboundRateLimit.isEnabled, false);
+  }
+
+  // ---
+  // Utils
+  // ---
+
+  function _configureCcipTokenPool(address tokenPool, uint64 chainSelector) internal {
+    IUpgradeablePool14.ChainUpdate[] memory chainUpdates = new IUpgradeablePool14.ChainUpdate[](1);
+    RateLimiter.Config memory rateConfig = RateLimiter.Config({
+      isEnabled: false,
+      capacity: 0,
+      rate: 0
+    });
+    chainUpdates[0] = IUpgradeablePool14.ChainUpdate({
+      remoteChainSelector: chainSelector,
+      allowed: true,
+      remotePoolAddress: abi.encode(AVAX_TOKEN_POOL),
+      remoteTokenAddress: abi.encode(AVAX_GHO_TOKEN),
+      outboundRateLimiterConfig: rateConfig,
+      inboundRateLimiterConfig: rateConfig
+    });
+    IUpgradeablePool14(tokenPool).applyChainUpdates(chainUpdates);
   }
 
   function _getFacilitatorLevel(address f) internal view returns (uint256) {

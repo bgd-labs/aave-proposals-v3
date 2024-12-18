@@ -18,8 +18,8 @@ import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {MiscArbitrum} from 'aave-address-book/MiscArbitrum.sol';
 import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
-import {UpgradeableGhoToken} from 'gho-core/gho/UpgradeableGhoToken.sol';
 import {IGhoToken} from 'gho-core/gho/interfaces/IGhoToken.sol';
+import {UpgradeableGhoToken} from 'gho-core/gho/UpgradeableGhoToken.sol';
 
 /**
  * @title GHO Avax Launch
