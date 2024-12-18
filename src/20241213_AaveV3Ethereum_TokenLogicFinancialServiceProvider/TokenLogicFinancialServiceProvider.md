@@ -2,7 +2,7 @@
 title: "TokenLogic Financial Service Provider"
 author: "TokenLogic"
 discussions: https://governance.aave.com/t/arfc-tokenlogic-financial-services-provider/20182
-snapshot: TODO
+snapshot: https://snapshot.box/#/s:aave.eth/proposal/0xd1fdca5d69b03ed57848180d62a812ab1a1ff72f85d671c417b5ff8fb2bd0a7c
 ---
 
 ## Simple Summary
@@ -18,9 +18,7 @@ TokenLogic is to provide the following services to the DAO.
 
 ## Motivation
 
-### What to Expect
-
-#### Treasury and Runway Management
+### Treasury and Runway Management
 
 **Asset Management & Financial Security**
 
@@ -33,7 +31,7 @@ Key components of this objective include:
 - Migrating funds from Aave v2 to Aave v3, and between Aave v3 markets;
 - Swapping assets to align expenses with holdings.
 
-#### Analytics and Performance metrics
+### Analytics and Performance metrics
 
 TokenLogic is establishing itself as the definitive hub for all Aave Protocol and GHO-related data via the [Aave Portal](https://aave.tokenlogic.xyz/). This initiative will be continuously developed and expanded throughout the year, providing access to key metrics on protocol performance, health, GHO dynamics, and market analysis.
 
@@ -41,7 +39,7 @@ Transparency, analytics, and reporting are at the core of this effort, ensuring 
 
 To further engage and educate the community, this initiative will be complemented by detailed threads/articles released throughout the mandate, promoting awareness and understanding of the platform’s developments.
 
-#### GHO Adoption
+### GHO Adoption
 
 **Oversight**
 
@@ -73,7 +71,7 @@ The Aave Portal will provide insights into the impact of the parameter adjustmen
 
 The TokenLogic team will collaborate closely with other service providers to create balanced, effective solutions that benefit the protocol as a whole.
 
-#### Aave Protocol
+### Aave Protocol
 
 The evolution of the Aave protocol, including updates to Aave v4, the deployment of Umbrella, and the launch of new Aave markets, will bring transformative changes to the protocol’s operations. Our proposal focuses on providing the financial planning and management essential for navigating these developments and ensuring smooth integration within the broader ecosystem.
 
@@ -105,7 +103,7 @@ The stream shall commence the next block from when the previous stream finishes.
 
 - Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241213_AaveV3Ethereum_TokenLogicFinancialServiceProvider/AaveV3Ethereum_TokenLogicFinancialServiceProvider_20241213.sol)
 - Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241213_AaveV3Ethereum_TokenLogicFinancialServiceProvider/AaveV3Ethereum_TokenLogicFinancialServiceProvider_20241213.t.sol)
-  [Snapshot](TODO)
+  [Snapshot](https://snapshot.box/#/s:aave.eth/proposal/0xd1fdca5d69b03ed57848180d62a812ab1a1ff72f85d671c417b5ff8fb2bd0a7c)
 - [Discussion](https://governance.aave.com/t/arfc-tokenlogic-financial-services-provider/20182)
 
 ## Copyright

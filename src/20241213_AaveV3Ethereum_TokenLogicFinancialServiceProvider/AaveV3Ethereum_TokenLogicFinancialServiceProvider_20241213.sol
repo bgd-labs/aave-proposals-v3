@@ -13,7 +13,7 @@ import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';
 /**
  * @title TokenLogic Financial Service Provider
  * @author TokenLogic
- * - Snapshot: TODO
+ * - Snapshot: https://snapshot.box/#/s:aave.eth/proposal/0xd1fdca5d69b03ed57848180d62a812ab1a1ff72f85d671c417b5ff8fb2bd0a7c
  * - Discussion: https://governance.aave.com/t/arfc-tokenlogic-financial-services-provider/20182
  */
 contract AaveV3Ethereum_TokenLogicFinancialServiceProvider_20241213 is IProposalGenericExecutor {
