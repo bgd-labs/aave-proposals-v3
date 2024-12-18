@@ -370,7 +370,7 @@ contract AaveV3Avalanche_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
   }
 
   function _deployCcipTokenPool(address ghoToken) internal returns (address) {
-    address imple = address(new UpgradeableBurnMintTokenPool(ghoToken, CCIP_RMN_PROXY, false));
+    address imple = address(new UpgradeableBurnMintTokenPool(ghoToken, 18, CCIP_RMN_PROXY, false));
 
     bytes memory tokenPoolInitParams = abi.encodeWithSignature(
       'initialize(address,address[],address)',
@@ -392,7 +392,7 @@ contract AaveV3Avalanche_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
   // Test Helpers
   // ---
 
-  function _validateGhoDeployment() internal {
+  function _validateGhoDeployment() internal view {
     assertEq(GHO.totalSupply(), 0);
     assertEq(GHO.getFacilitatorsList().length, 1);
     assertEq(_getProxyAdminAddress(address(GHO)), MiscAvalanche.PROXY_ADMIN);
@@ -401,7 +401,7 @@ contract AaveV3Avalanche_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
     assertTrue(GHO.hasRole(GHO.BUCKET_MANAGER_ROLE(), GovernanceV3Avalanche.EXECUTOR_LVL_1));
   }
 
-  function _validateCcipTokenPool() internal {
+  function _validateCcipTokenPool() internal view {
     // Deployment
     assertEq(_getProxyAdminAddress(address(TOKEN_POOL)), MiscAvalanche.PROXY_ADMIN);
     assertEq(TOKEN_POOL.owner(), GovernanceV3Avalanche.EXECUTOR_LVL_1);

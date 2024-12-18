@@ -115,15 +115,16 @@ contract AaveV3Avalanche_GHOAvaxLaunch_20241106 is IProposalGenericExecutor {
       capacity: 0,
       rate: 0
     });
+    bytes[] memory remotePools = new bytes[](1);
+    remotePools[0] = abi.encode(remotePool);
     chainUpdates[0] = UpgradeableTokenPool.ChainUpdate({
       remoteChainSelector: chainSelector,
-      allowed: true,
-      remotePoolAddress: abi.encode(remotePool),
+      remotePoolAddresses: remotePools,
       remoteTokenAddress: abi.encode(remoteToken),
       outboundRateLimiterConfig: rateConfig,
       inboundRateLimiterConfig: rateConfig
     });
-    UpgradeableBurnMintTokenPool(tokenPool).applyChainUpdates(chainUpdates);
+    UpgradeableBurnMintTokenPool(tokenPool).applyChainUpdates(new uint64[](0), chainUpdates);
   }
 }
 

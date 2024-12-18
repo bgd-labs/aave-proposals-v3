@@ -346,7 +346,7 @@ contract AaveV3Arbitrum_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
 
   function _deployCcipTokenPool() internal returns (address) {
     address imple = address(
-      new UpgradeableBurnMintTokenPool(AVAX_GHO_TOKEN, AVAX_RMN_PROXY, false)
+      new UpgradeableBurnMintTokenPool(AVAX_GHO_TOKEN, 18, AVAX_RMN_PROXY, false)
     );
 
     bytes memory tokenPoolInitParams = abi.encodeWithSignature(
@@ -365,7 +365,7 @@ contract AaveV3Arbitrum_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
       );
   }
 
-  function _validateCcipTokenPool() internal {
+  function _validateCcipTokenPool() internal view {
     // Configs
     uint64[] memory supportedChains = TOKEN_POOL.getSupportedChains();
     assertEq(supportedChains.length, 2);
