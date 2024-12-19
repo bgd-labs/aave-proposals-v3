@@ -8,18 +8,16 @@ import {UpgradeableBurnMintTokenPool} from 'ccip/pools/GHO/UpgradeableBurnMintTo
 import {IPoolPriorTo1_5} from 'ccip/interfaces/IPoolPriorTo1_5.sol';
 import {IPriceRegistry} from 'ccip/interfaces/IPriceRegistry.sol';
 import {Internal} from 'ccip/libraries/Internal.sol';
-import {Pool} from 'ccip/libraries/Pool.sol';
 import {RateLimiter} from 'ccip/libraries/RateLimiter.sol';
 import {Client} from 'ccip/libraries/Client.sol';
 import {TokenAdminRegistry} from 'ccip/tokenAdminRegistry/TokenAdminRegistry.sol';
 import {EVM2EVMOnRamp} from 'ccip/onRamp/EVM2EVMOnRamp.sol';
 import {EVM2EVMOffRamp} from 'ccip/offRamp/EVM2EVMOffRamp.sol';
 import {Router} from 'ccip/Router.sol';
-import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
+import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 import {AaveV3Arbitrum} from 'aave-address-book/AaveV3Arbitrum.sol';
 import {MiscArbitrum} from 'aave-address-book/MiscArbitrum.sol';
-import {GovernanceV3Arbitrum} from 'aave-address-book/GovernanceV3Arbitrum.sol';
 import {AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {GovernanceV3Avalanche} from 'aave-address-book/GovernanceV3Avalanche.sol';
@@ -56,6 +54,7 @@ contract AaveV3Arbitrum_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
   address public constant CCIP_ARB_AVAX_OFF_RAMP = 0x95095007d5Cc3E7517A1A03c9e228adA5D0bc376;
   address public constant TOKEN_POOL_AND_PROXY = 0x26329558f08cbb40d6a4CCA0E0C67b29D64A8c50;
   uint64 public constant CCIP_AVAX_CHAIN_SELECTOR = 6433500567565415381;
+  uint64 public constant CCIP_ETH_CHAIN_SELECTOR = 5009297550715157269;
 
   event Minted(address indexed sender, address indexed recipient, uint256 amount);
   event Burned(address indexed sender, uint256 amount);
@@ -128,7 +127,6 @@ contract AaveV3Arbitrum_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
 
     // Mint
     uint256 amount = 100e18;
-    uint64 ethChainSelector = proposal.CCIP_ETH_CHAIN_SELECTOR();
     uint256 startingFacilitatorLevel = _getFacilitatorLevel(address(TOKEN_POOL));
     uint256 startingGhoBalance = GHO.balanceOf(address(TOKEN_POOL));
 
@@ -142,7 +140,7 @@ contract AaveV3Arbitrum_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
       bytes(''),
       user,
       amount,
-      ethChainSelector,
+      CCIP_ETH_CHAIN_SELECTOR,
       bytes('')
     );
 
@@ -166,7 +164,7 @@ contract AaveV3Arbitrum_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
       user,
       bytes(''),
       amount,
-      ethChainSelector,
+      CCIP_ETH_CHAIN_SELECTOR,
       bytes('')
     );
 
@@ -176,8 +174,6 @@ contract AaveV3Arbitrum_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
     // ARB <> AVAX
 
     // Mint
-    uint64 avaxChainSelector = proposal.CCIP_AVAX_CHAIN_SELECTOR();
-
     vm.expectEmit(true, true, true, true, address(GHO));
     emit Transfer(address(0), user, amount);
 
@@ -188,7 +184,7 @@ contract AaveV3Arbitrum_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
       bytes(''),
       user,
       amount,
-      avaxChainSelector,
+      CCIP_AVAX_CHAIN_SELECTOR,
       bytes('')
     );
 
@@ -212,7 +208,7 @@ contract AaveV3Arbitrum_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
       user,
       bytes(''),
       amount,
-      avaxChainSelector,
+      CCIP_AVAX_CHAIN_SELECTOR,
       bytes('')
     );
 
@@ -224,8 +220,6 @@ contract AaveV3Arbitrum_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
   function test_ccipE2E_ETH_ARB() public {
     GovV3Helpers.executePayload(vm, address(proposal));
 
-    uint64 ethChainSelector = proposal.CCIP_ETH_CHAIN_SELECTOR();
-
     // Chainlink config
     Router router = Router(TOKEN_POOL.getRouter());
 
@@ -234,12 +228,12 @@ contract AaveV3Arbitrum_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
       Router.OffRamp[] memory offRampUpdates = new Router.OffRamp[](1);
       // ETH -> ARB
       onRampUpdates[0] = Router.OnRamp({
-        destChainSelector: ethChainSelector,
+        destChainSelector: CCIP_ETH_CHAIN_SELECTOR,
         onRamp: CCIP_ARB_ETH_ON_RAMP
       });
       // ARB -> ETH
       offRampUpdates[0] = Router.OffRamp({
-        sourceChainSelector: ethChainSelector,
+        sourceChainSelector: CCIP_ETH_CHAIN_SELECTOR,
         offRamp: CCIP_ARB_ETH_OFF_RAMP
       });
       address routerOwner = router.owner();
@@ -281,7 +275,7 @@ contract AaveV3Arbitrum_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
 
     vm.startPrank(user);
     // Use address(0) to use native token as fee token
-    _sendCcip(router, address(GHO), amount, address(0), ethChainSelector, user);
+    _sendCcip(router, address(GHO), amount, address(0), CCIP_ETH_CHAIN_SELECTOR, user);
 
     assertEq(GHO.balanceOf(user), 0);
     assertEq(GHO.balanceOf(address(TOKEN_POOL)), startingGhoBalance);
@@ -292,8 +286,6 @@ contract AaveV3Arbitrum_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
   function test_ccipE2E_AVAX_ARB() public {
     GovV3Helpers.executePayload(vm, address(proposal));
 
-    uint64 avaxChainSelector = proposal.CCIP_AVAX_CHAIN_SELECTOR();
-
     // Chainlink config
     Router router = Router(TOKEN_POOL.getRouter());
 
@@ -302,12 +294,12 @@ contract AaveV3Arbitrum_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
       Router.OffRamp[] memory offRampUpdates = new Router.OffRamp[](1);
       // AVAX -> ARB
       onRampUpdates[0] = Router.OnRamp({
-        destChainSelector: avaxChainSelector,
+        destChainSelector: CCIP_AVAX_CHAIN_SELECTOR,
         onRamp: CCIP_ARB_AVAX_ON_RAMP
       });
       // ARB -> AVAX
       offRampUpdates[0] = Router.OffRamp({
-        sourceChainSelector: avaxChainSelector,
+        sourceChainSelector: CCIP_AVAX_CHAIN_SELECTOR,
         offRamp: CCIP_ARB_AVAX_OFF_RAMP
       });
       address routerOwner = router.owner();
@@ -349,7 +341,7 @@ contract AaveV3Arbitrum_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
 
     vm.startPrank(user);
     // Use address(0) to use native token as fee token
-    _sendCcip(router, address(GHO), amount, address(0), avaxChainSelector, user);
+    _sendCcip(router, address(GHO), amount, address(0), CCIP_AVAX_CHAIN_SELECTOR, user);
 
     assertEq(GHO.balanceOf(user), 0);
     assertEq(GHO.balanceOf(address(TOKEN_POOL)), startingGhoBalance);
@@ -404,14 +396,14 @@ contract AaveV3Arbitrum_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
     assertEq(supportedChains.length, 2);
 
     // ETH
-    assertEq(supportedChains[0], proposal.CCIP_ETH_CHAIN_SELECTOR());
+    assertEq(supportedChains[0], CCIP_ETH_CHAIN_SELECTOR);
 
     // AVAX
-    assertEq(supportedChains[1], proposal.CCIP_AVAX_CHAIN_SELECTOR());
+    assertEq(supportedChains[1], CCIP_AVAX_CHAIN_SELECTOR);
     RateLimiter.TokenBucket memory outboundRateLimit = TOKEN_POOL
-      .getCurrentOutboundRateLimiterState(proposal.CCIP_AVAX_CHAIN_SELECTOR());
+      .getCurrentOutboundRateLimiterState(CCIP_AVAX_CHAIN_SELECTOR);
     RateLimiter.TokenBucket memory inboundRateLimit = TOKEN_POOL.getCurrentInboundRateLimiterState(
-      proposal.CCIP_AVAX_CHAIN_SELECTOR()
+      CCIP_AVAX_CHAIN_SELECTOR
     );
     assertEq(outboundRateLimit.isEnabled, false);
     assertEq(inboundRateLimit.isEnabled, false);
