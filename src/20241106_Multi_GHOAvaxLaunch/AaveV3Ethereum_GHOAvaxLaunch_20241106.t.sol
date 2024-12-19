@@ -87,7 +87,7 @@ contract AaveV3Ethereum_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
     GovV3Helpers.executePayload(vm, address(avaxProposal));
 
     // Switch to Ethereum and create proposal
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 21133428);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 21436313);
 
     // Configure TokenPoolAndProxy for Avalanche
     // Prank Registry owner
@@ -253,43 +253,6 @@ contract AaveV3Ethereum_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
     // Chainlink config
     Router router = Router(TOKEN_POOL.getRouter());
 
-    /*
-    {
-      Router.OnRamp[] memory onRampUpdates = new Router.OnRamp[](1);
-      Router.OffRamp[] memory offRampUpdates = new Router.OffRamp[](1);
-      // AVAX -> ETH
-      onRampUpdates[0] = Router.OnRamp({
-        destChainSelector: avaxChainSelector,
-        onRamp: CCIP_ETH_AVAX_ON_RAMP
-      });
-      // ETH -> AVAX
-      offRampUpdates[0] = Router.OffRamp({
-        sourceChainSelector: avaxChainSelector,
-        offRamp: CCIP_ETH_AVAX_OFF_RAMP
-      });
-      address routerOwner = router.owner();
-      vm.startPrank(routerOwner);
-      router.applyRampUpdates(onRampUpdates, new Router.OffRamp[](0), offRampUpdates);
-    }
-    
-    {
-      // OnRamp Price Registry
-      EVM2EVMOnRamp.DynamicConfig memory onRampDynamicConfig = EVM2EVMOnRamp(CCIP_ETH_AVAX_ON_RAMP)
-        .getDynamicConfig();
-      Internal.PriceUpdates memory priceUpdate = _getSingleTokenPriceUpdateStruct(
-        address(GHO),
-        1e18
-      );
-
-      IPriceRegistry(onRampDynamicConfig.priceRegistry).updatePrices(priceUpdate);
-      // OffRamp Price Registry
-      EVM2EVMOffRamp.DynamicConfig memory offRampDynamicConfig = EVM2EVMOffRamp(
-        CCIP_ETH_AVAX_OFF_RAMP
-      ).getDynamicConfig();
-      IPriceRegistry(offRampDynamicConfig.priceRegistry).updatePrices(priceUpdate);
-    }
-    */
-
     // User executes ccipSend
     address user = makeAddr('user');
     uint256 amount = 100e18; // 100 GHO
@@ -375,6 +338,25 @@ contract AaveV3Ethereum_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
   // Utils
   // ---
 
+  function _configureCcipTokenPool(address tokenPool, uint64 chainSelector) internal {
+    IUpgradeableTokenPool_1_4.ChainUpdate[]
+      memory chainUpdates = new IUpgradeableTokenPool_1_4.ChainUpdate[](1);
+    RateLimiter.Config memory rateConfig = RateLimiter.Config({
+      isEnabled: false,
+      capacity: 0,
+      rate: 0
+    });
+    chainUpdates[0] = IUpgradeableTokenPool_1_4.ChainUpdate({
+      remoteChainSelector: chainSelector,
+      allowed: true,
+      remotePoolAddress: abi.encode(AVAX_TOKEN_POOL),
+      remoteTokenAddress: abi.encode(AVAX_GHO_TOKEN),
+      outboundRateLimiterConfig: rateConfig,
+      inboundRateLimiterConfig: rateConfig
+    });
+    IUpgradeableTokenPool_1_4(tokenPool).applyChainUpdates(chainUpdates);
+  }
+
   function _sendCcip(
     Router router,
     address token,
@@ -411,25 +393,6 @@ contract AaveV3Ethereum_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
         feeToken: feeToken,
         extraArgs: '' //Client._argsToBytes(Client.EVMExtraArgsV1({gasLimit: 200_000}))
       });
-  }
-
-  function _configureCcipTokenPool(address tokenPool, uint64 chainSelector) internal {
-    IUpgradeableTokenPool_1_4.ChainUpdate[]
-      memory chainUpdates = new IUpgradeableTokenPool_1_4.ChainUpdate[](1);
-    RateLimiter.Config memory rateConfig = RateLimiter.Config({
-      isEnabled: false,
-      capacity: 0,
-      rate: 0
-    });
-    chainUpdates[0] = IUpgradeableTokenPool_1_4.ChainUpdate({
-      remoteChainSelector: chainSelector,
-      allowed: true,
-      remotePoolAddress: abi.encode(AVAX_TOKEN_POOL),
-      remoteTokenAddress: abi.encode(AVAX_GHO_TOKEN),
-      outboundRateLimiterConfig: rateConfig,
-      inboundRateLimiterConfig: rateConfig
-    });
-    IUpgradeableTokenPool_1_4(tokenPool).applyChainUpdates(chainUpdates);
   }
 
   function _getSingleTokenPriceUpdateStruct(

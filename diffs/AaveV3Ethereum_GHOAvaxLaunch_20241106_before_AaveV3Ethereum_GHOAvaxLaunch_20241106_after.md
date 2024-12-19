@@ -4,6 +4,14 @@
 
 
 
+### EMode: sUSDe Stablecoins(id: 2)
+
+
+
+### EMode: rsETH LST main(id: 3)
+
+
+
 ## Raw diff
 
 ```json
