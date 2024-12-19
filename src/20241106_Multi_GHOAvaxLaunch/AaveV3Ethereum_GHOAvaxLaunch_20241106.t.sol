@@ -7,6 +7,7 @@ import 'forge-std/Test.sol';
 import {TransparentUpgradeableProxy} from 'solidity-utils/contracts/transparent-proxy/TransparentUpgradeableProxy.sol';
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {UpgradeableBurnMintTokenPool} from 'ccip/pools/GHO/UpgradeableBurnMintTokenPool.sol';
+import {UpgradeableLockReleaseTokenPool} from 'ccip/pools/GHO/UpgradeableLockReleaseTokenPool.sol';
 import {IPoolPriorTo1_5} from 'ccip/interfaces/IPoolPriorTo1_5.sol';
 import {IPriceRegistry} from 'ccip/interfaces/IPriceRegistry.sol';
 import {Internal} from 'ccip/libraries/Internal.sol';
@@ -22,7 +23,7 @@ import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 import {AaveV3Arbitrum} from 'aave-address-book/AaveV3Arbitrum.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {GovernanceV3Arbitrum} from 'aave-address-book/GovernanceV3Arbitrum.sol';
-import {AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
+import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {GovernanceV3Avalanche} from 'aave-address-book/GovernanceV3Avalanche.sol';
 import {MiscAvalanche} from 'aave-address-book/MiscAvalanche.sol';
@@ -38,8 +39,10 @@ import {AaveV3Ethereum_GHOAvaxLaunch_20241106} from './AaveV3Ethereum_GHOAvaxLau
 contract AaveV3Ethereum_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
   AaveV3Ethereum_GHOAvaxLaunch_20241106 internal proposal;
 
-  UpgradeableBurnMintTokenPool public constant TOKEN_POOL =
-    UpgradeableBurnMintTokenPool(MiscEthereum.GHO_CCIP_TOKEN_POOL);
+  UpgradeableLockReleaseTokenPool public constant TOKEN_POOL =
+    UpgradeableLockReleaseTokenPool(MiscEthereum.GHO_CCIP_TOKEN_POOL);
+  address public constant GHO_TOKEN = AaveV3EthereumAssets.GHO_UNDERLYING;
+  UpgradeableGhoToken public GHO = UpgradeableGhoToken(GHO_TOKEN);
 
   address public constant AVAX_GHO_TOKEN = 0x2e234DAe75C793f67A35089C9d99245E1C58470b;
   address public constant AVAX_TOKEN_POOL = 0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9;
@@ -50,8 +53,9 @@ contract AaveV3Ethereum_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
   uint64 public constant CCIP_AVAX_CHAIN_SELECTOR = 6433500567565415381;
   uint64 public constant CCIP_ARB_CHAIN_SELECTOR = 4949039107694359620;
 
-  event Minted(address indexed sender, address indexed recipient, uint256 amount);
-  event Burned(address indexed sender, uint256 amount);
+  event Released(address indexed sender, address indexed recipient, uint256 amount);
+  event Locked(address indexed sender, uint256 amount);
+  event CCIPSendRequested(Internal.EVM2EVMMessage message);
   event Transfer(address indexed from, address indexed to, uint256 value);
 
   function setUp() public {
@@ -97,6 +101,115 @@ contract AaveV3Ethereum_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
     defaultTest('AaveV3Ethereum_GHOAvaxLaunch_20241106', AaveV3Ethereum.POOL, address(proposal));
 
     _validateCcipTokenPool();
+  }
+
+  /// @dev Test burn and mint actions, mocking CCIP calls
+  function test_ccipTokenPool() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+
+    // Mock calls
+    address router = TOKEN_POOL.getRouter();
+    address ramp = makeAddr('ramp');
+    vm.mockCall(
+      router,
+      abi.encodeWithSelector(bytes4(keccak256('getOnRamp(uint64)'))),
+      abi.encode(ramp)
+    );
+    vm.mockCall(
+      router,
+      abi.encodeWithSelector(bytes4(keccak256('isOffRamp(uint64,address)'))),
+      abi.encode(true)
+    );
+
+    // Prank user
+    address user = makeAddr('user');
+
+    // ETH <> ARB
+
+    // Lock
+    uint256 amount = 100e18; // 100 GHO
+    deal(address(GHO), user, amount);
+    uint64 arbChainSelector = proposal.CCIP_ARB_CHAIN_SELECTOR();
+
+    uint256 startingGhoBalance = GHO.balanceOf(address(TOKEN_POOL));
+
+    // mock router transfer of funds from user to token pool
+    vm.prank(user);
+    GHO.transfer(address(TOKEN_POOL), amount);
+
+    vm.expectEmit(false, true, false, true, address(TOKEN_POOL));
+    emit Locked(address(0), amount);
+
+    vm.prank(ramp);
+    IPoolPriorTo1_5(address(TOKEN_POOL)).lockOrBurn(
+      user,
+      bytes(''),
+      amount,
+      arbChainSelector,
+      bytes('')
+    );
+    assertEq(GHO.balanceOf(address(TOKEN_POOL)), startingGhoBalance + amount);
+    assertEq(GHO.balanceOf(user), 0);
+
+    // Release
+    vm.expectEmit(true, true, true, true, address(GHO));
+    emit Transfer(address(TOKEN_POOL), user, amount);
+
+    vm.expectEmit(false, true, true, true, address(TOKEN_POOL));
+    emit Released(address(0), user, amount);
+
+    IPoolPriorTo1_5(address(TOKEN_POOL)).releaseOrMint(
+      bytes(''),
+      user,
+      amount,
+      arbChainSelector,
+      bytes('')
+    );
+    assertEq(GHO.balanceOf(address(TOKEN_POOL)), startingGhoBalance);
+    assertEq(GHO.balanceOf(user), amount);
+
+    // ETH <> AVAX
+
+    // Lock
+    deal(address(GHO), user, amount);
+    uint64 avaxChainSelector = proposal.CCIP_AVAX_CHAIN_SELECTOR();
+
+    startingGhoBalance = GHO.balanceOf(address(TOKEN_POOL));
+
+    // mock router transfer of funds from user to token pool
+    vm.prank(user);
+    GHO.transfer(address(TOKEN_POOL), amount);
+
+    vm.expectEmit(false, true, false, true, address(TOKEN_POOL));
+    emit Locked(address(0), amount);
+
+    vm.prank(ramp);
+    IPoolPriorTo1_5(address(TOKEN_POOL)).lockOrBurn(
+      user,
+      bytes(''),
+      amount,
+      arbChainSelector,
+      bytes('')
+    );
+    assertEq(GHO.balanceOf(address(TOKEN_POOL)), startingGhoBalance + amount);
+    assertEq(GHO.balanceOf(user), 0);
+
+    // Release
+    vm.expectEmit(true, true, true, true, address(GHO));
+    emit Transfer(address(TOKEN_POOL), user, amount);
+
+    vm.expectEmit(false, true, true, true, address(TOKEN_POOL));
+    emit Released(address(0), user, amount);
+
+    IPoolPriorTo1_5(address(TOKEN_POOL)).releaseOrMint(
+      bytes(''),
+      user,
+      amount,
+      arbChainSelector,
+      bytes('')
+    );
+    assertEq(GHO.balanceOf(address(TOKEN_POOL)), startingGhoBalance);
+    assertEq(GHO.balanceOf(user), amount);
   }
 
   // ---
@@ -158,5 +271,28 @@ contract AaveV3Ethereum_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
     );
     assertEq(outboundRateLimit.isEnabled, false);
     assertEq(inboundRateLimit.isEnabled, false);
+  }
+
+  // ---
+  // Utils
+  // ---
+
+  function _configureCcipTokenPool(address tokenPool, uint64 chainSelector) internal {
+    IUpgradeableTokenPool_1_4.ChainUpdate[]
+      memory chainUpdates = new IUpgradeableTokenPool_1_4.ChainUpdate[](1);
+    RateLimiter.Config memory rateConfig = RateLimiter.Config({
+      isEnabled: false,
+      capacity: 0,
+      rate: 0
+    });
+    chainUpdates[0] = IUpgradeableTokenPool_1_4.ChainUpdate({
+      remoteChainSelector: chainSelector,
+      allowed: true,
+      remotePoolAddress: abi.encode(AVAX_TOKEN_POOL),
+      remoteTokenAddress: abi.encode(AVAX_GHO_TOKEN),
+      outboundRateLimiterConfig: rateConfig,
+      inboundRateLimiterConfig: rateConfig
+    });
+    IUpgradeableTokenPool_1_4(tokenPool).applyChainUpdates(chainUpdates);
   }
 }

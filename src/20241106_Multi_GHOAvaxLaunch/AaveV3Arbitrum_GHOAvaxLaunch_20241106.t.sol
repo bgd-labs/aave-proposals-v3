@@ -36,10 +36,11 @@ import {AaveV3Avalanche_GHOAvaxLaunch_20241106} from './AaveV3Avalanche_GHOAvaxL
 contract AaveV3Arbitrum_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
   AaveV3Arbitrum_GHOAvaxLaunch_20241106 internal proposal;
 
-  address public constant GHO_TOKEN = AaveV3ArbitrumAssets.GHO_UNDERLYING;
   UpgradeableBurnMintTokenPool public constant TOKEN_POOL =
     UpgradeableBurnMintTokenPool(MiscArbitrum.GHO_CCIP_TOKEN_POOL);
+  address public constant GHO_TOKEN = AaveV3ArbitrumAssets.GHO_UNDERLYING;
   UpgradeableGhoToken public GHO = UpgradeableGhoToken(GHO_TOKEN);
+
   address public constant TOKEN_ADMIN_REGISTRY = 0x39AE1032cF4B334a1Ed41cdD0833bdD7c7E7751E;
   address public constant REGISTRY_ADMIN = 0x8a89770722c84B60cE02989Aedb22Ac4791F8C7f;
   address public constant AVAX_GHO_TOKEN = 0x2e234DAe75C793f67A35089C9d99245E1C58470b;
