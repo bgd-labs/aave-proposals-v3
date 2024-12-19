@@ -36,8 +36,8 @@ contract AaveV3Ethereum_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
   address public constant GHO_TOKEN = AaveV3EthereumAssets.GHO_UNDERLYING;
   UpgradeableGhoToken public GHO = UpgradeableGhoToken(GHO_TOKEN);
 
-  address public constant AVAX_GHO_TOKEN = 0x2e234DAe75C793f67A35089C9d99245E1C58470b;
-  address public constant AVAX_TOKEN_POOL = 0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9;
+  address public constant AVAX_GHO_TOKEN = 0xb025950B02b9cfe851C6a4C041f9D6c0942f0eB1;
+  address public constant AVAX_TOKEN_POOL = 0x2e234DAe75C793f67A35089C9d99245E1C58470b;
   address public constant AVAX_REGISTRY_ADMIN = 0xA3f32a07CCd8569f49cf350D4e61C016CA484644;
   address public constant AVAX_TOKEN_ADMIN_REGISTRY = 0xc8df5D618c6a59Cc6A311E96a39450381001464F;
   address public constant AVAX_RMN_PROXY = 0xcBD48A8eB077381c3c4Eb36b402d7283aB2b11Bc;
@@ -60,9 +60,7 @@ contract AaveV3Ethereum_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
     // Execute Avax proposal to deploy Avax token pool
     vm.createSelectFork(vm.rpcUrl('avalanche'), 53559217);
 
-    // TODO: Move this back to AIP
-    _deployGhoToken();
-
+    // Assume token pool deployed on Avalanche
     _deployCcipTokenPool();
 
     // TODO: Remove this (will be done on chainlink's side)

@@ -53,6 +53,8 @@ contract AaveV3Avalanche_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
 
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('avalanche'), 53559217);
+
+    // Assume token pool deployed on Avalanche
     address tokenPool = _deployCcipTokenPool(GHO_TOKEN);
     TOKEN_POOL = UpgradeableBurnMintTokenPool(tokenPool);
 
