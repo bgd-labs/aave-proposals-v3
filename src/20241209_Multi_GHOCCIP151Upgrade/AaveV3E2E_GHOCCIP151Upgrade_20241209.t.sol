@@ -93,7 +93,9 @@ contract AaveV3E2E_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
 
     vm.selectFork(l1.c.forkId);
     l1.proposal = new AaveV3Ethereum_GHOCCIP151Upgrade_20241209(newTokenPoolEth, newTokenPoolArb);
-    l1.existingTokenPool = IUpgradeableLockReleaseTokenPool_1_4(MiscEthereum.GHO_CCIP_TOKEN_POOL);
+    l1.existingTokenPool = IUpgradeableLockReleaseTokenPool_1_4(
+      0x5756880B6a1EAba0175227bf02a7E87c1e02B28C
+    ); // MiscEthereum.GHO_CCIP_TOKEN_POOL; will be updated in address-book after AIP
     l1.newTokenPool = IUpgradeableLockReleaseTokenPool_1_5_1(newTokenPoolEth);
     l1.c.router = IRouter(l1.existingTokenPool.getRouter());
     l2.c.chainSelector = l1.existingTokenPool.getSupportedChains()[0];
@@ -105,7 +107,9 @@ contract AaveV3E2E_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
 
     vm.selectFork(l2.c.forkId);
     l2.proposal = new AaveV3Arbitrum_GHOCCIP151Upgrade_20241209(newTokenPoolArb, newTokenPoolEth);
-    l2.existingTokenPool = IUpgradeableBurnMintTokenPool_1_4(MiscArbitrum.GHO_CCIP_TOKEN_POOL);
+    l2.existingTokenPool = IUpgradeableBurnMintTokenPool_1_4(
+      0xF168B83598516A532a85995b52504a2Fa058C068
+    ); // MiscArbitrum.GHO_CCIP_TOKEN_POOL; will be updated in address-book after AIP
     l2.newTokenPool = IUpgradeableBurnMintTokenPool_1_5_1(newTokenPoolArb);
     l2.c.router = IRouter(l2.existingTokenPool.getRouter());
     l1.c.chainSelector = l2.existingTokenPool.getSupportedChains()[0];

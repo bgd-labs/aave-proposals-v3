@@ -54,7 +54,7 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
   address internal constant GHO_CCIP_STEWARD = 0x101Efb7b9Beb073B1219Cd5473a7C8A2f2EB84f4;
 
   IUpgradeableLockReleaseTokenPool_1_4 internal constant EXISTING_TOKEN_POOL =
-    IUpgradeableLockReleaseTokenPool_1_4(MiscEthereum.GHO_CCIP_TOKEN_POOL); // will be changed to 1.5.1 after AIP execution
+    IUpgradeableLockReleaseTokenPool_1_4(0x5756880B6a1EAba0175227bf02a7E87c1e02B28C); // MiscEthereum.GHO_CCIP_TOKEN_POOL; will be updated in address-book after AIP
   IUpgradeableLockReleaseTokenPool_1_5_1 internal NEW_TOKEN_POOL;
 
   AaveV3Ethereum_GHOCCIP151Upgrade_20241209 internal proposal;
@@ -290,11 +290,12 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_SetupAndProposalActions is
     assertEq(EXISTING_TOKEN_POOL.getRebalancer(), address(NEW_TOKEN_POOL));
 
     assertEq(GHO.balanceOf(address(EXISTING_TOKEN_POOL)), 0);
-    // ! todo upgrade existing pool to reset bridgedAmount? not necessary since we reset bridgeLimit
-    // assertEq(EXISTING_TOKEN_POOL.getCurrentBridgedAmount(), 0);
+    // we do not reset bridgedAmount in the existing token pool, since bridge limit is reset
+    assertNotEq(EXISTING_TOKEN_POOL.getCurrentBridgedAmount(), 0);
+    assertEq(EXISTING_TOKEN_POOL.getBridgeLimit(), 0);
 
-    assertEq(balance, GHO.balanceOf(address(NEW_TOKEN_POOL)));
-    assertEq(bridgedAmount, NEW_TOKEN_POOL.getCurrentBridgedAmount());
+    assertEq(GHO.balanceOf(address(NEW_TOKEN_POOL)), balance);
+    assertEq(NEW_TOKEN_POOL.getCurrentBridgedAmount(), bridgedAmount);
   }
 
   function test_newTokenPoolSetupAndRegistration() public {

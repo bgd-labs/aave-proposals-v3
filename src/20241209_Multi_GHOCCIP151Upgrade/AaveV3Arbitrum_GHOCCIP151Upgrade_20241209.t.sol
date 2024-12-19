@@ -54,7 +54,7 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
   address internal constant GHO_CCIP_STEWARD = 0xb329CEFF2c362F315900d245eC88afd24C4949D5;
 
   IUpgradeableBurnMintTokenPool_1_4 internal constant EXISTING_TOKEN_POOL =
-    IUpgradeableBurnMintTokenPool_1_4(MiscArbitrum.GHO_CCIP_TOKEN_POOL); // will be changed to 1.5.1 after AIP execution
+    IUpgradeableBurnMintTokenPool_1_4(0xF168B83598516A532a85995b52504a2Fa058C068); // MiscArbitrum.GHO_CCIP_TOKEN_POOL; will be updated in address-book after AIP
   IUpgradeableBurnMintTokenPool_1_5_1 internal NEW_TOKEN_POOL;
 
   AaveV3Arbitrum_GHOCCIP151Upgrade_20241209 internal proposal;
