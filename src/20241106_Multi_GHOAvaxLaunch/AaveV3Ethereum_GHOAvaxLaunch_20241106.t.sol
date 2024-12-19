@@ -223,43 +223,7 @@ contract AaveV3Ethereum_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
 
     uint64 arbChainSelector = proposal.CCIP_ARB_CHAIN_SELECTOR();
 
-    // Chainlink config
     Router router = Router(TOKEN_POOL.getRouter());
-
-    {
-      Router.OnRamp[] memory onRampUpdates = new Router.OnRamp[](1);
-      Router.OffRamp[] memory offRampUpdates = new Router.OffRamp[](1);
-      // ARB -> ETH
-      onRampUpdates[0] = Router.OnRamp({
-        destChainSelector: arbChainSelector,
-        onRamp: CCIP_ETH_ARB_ON_RAMP
-      });
-      // ETH -> ARB
-      offRampUpdates[0] = Router.OffRamp({
-        sourceChainSelector: arbChainSelector,
-        offRamp: CCIP_ETH_ARB_OFF_RAMP
-      });
-      address routerOwner = router.owner();
-      vm.startPrank(routerOwner);
-      router.applyRampUpdates(onRampUpdates, new Router.OffRamp[](0), offRampUpdates);
-    }
-
-    {
-      // OnRamp Price Registry
-      EVM2EVMOnRamp.DynamicConfig memory onRampDynamicConfig = EVM2EVMOnRamp(CCIP_ETH_ARB_ON_RAMP)
-        .getDynamicConfig();
-      Internal.PriceUpdates memory priceUpdate = _getSingleTokenPriceUpdateStruct(
-        address(GHO),
-        1e18
-      );
-
-      IPriceRegistry(onRampDynamicConfig.priceRegistry).updatePrices(priceUpdate);
-      // OffRamp Price Registry
-      EVM2EVMOffRamp.DynamicConfig memory offRampDynamicConfig = EVM2EVMOffRamp(
-        CCIP_ETH_ARB_OFF_RAMP
-      ).getDynamicConfig();
-      IPriceRegistry(offRampDynamicConfig.priceRegistry).updatePrices(priceUpdate);
-    }
 
     // User executes ccipSend
     address user = makeAddr('user');
