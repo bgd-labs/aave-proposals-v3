@@ -15,7 +15,7 @@ import {Client} from 'ccip/libraries/Client.sol';
 import {EVM2EVMOnRamp} from 'ccip/onRamp/EVM2EVMOnRamp.sol';
 import {EVM2EVMOffRamp} from 'ccip/offRamp/EVM2EVMOffRamp.sol';
 import {Router} from 'ccip/Router.sol';
-import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
+import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 import {AaveV3Avalanche} from 'aave-address-book/AaveV3Avalanche.sol';
 import {GovernanceV3Avalanche} from 'aave-address-book/GovernanceV3Avalanche.sol';
@@ -39,7 +39,6 @@ contract AaveV3Avalanche_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
 
   address public constant TOKEN_ADMIN_REGISTRY = 0xc8df5D618c6a59Cc6A311E96a39450381001464F;
   address public constant REGISTRY_ADMIN = 0xA3f32a07CCd8569f49cf350D4e61C016CA484644;
-  // TODO: Remove these constants once we have deployed pool address
   address public constant CCIP_RMN_PROXY = 0xcBD48A8eB077381c3c4Eb36b402d7283aB2b11Bc;
   address public constant CCIP_ROUTER = 0xF4c7E640EdA248ef95972845a62bdC74237805dB;
   address public constant ETH_TOKEN_POOL = MiscEthereum.GHO_CCIP_TOKEN_POOL;
@@ -55,10 +54,9 @@ contract AaveV3Avalanche_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('avalanche'), 53559217);
 
-    // TODO: Decide if we want to deploy this beforehand or in AIP
+    // TODO: Move this back to AIP
     _deployGhoToken();
 
-    // TODO: Remove this deployment once we have deployed pool address
     address tokenPool = _deployCcipTokenPool(GHO_TOKEN);
     TOKEN_POOL = UpgradeableBurnMintTokenPool(tokenPool);
 
@@ -494,17 +492,6 @@ contract AaveV3Avalanche_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
         feeToken: feeToken,
         extraArgs: Client._argsToBytes(Client.EVMExtraArgsV1({gasLimit: 200_000}))
       });
-  }
-
-  function _getTokensAndPools(
-    address[] memory tokens,
-    IPoolV1[] memory pools
-  ) internal pure returns (Internal.PoolUpdate[] memory) {
-    Internal.PoolUpdate[] memory tokensAndPools = new Internal.PoolUpdate[](tokens.length);
-    for (uint256 i = 0; i < tokens.length; ++i) {
-      tokensAndPools[i] = Internal.PoolUpdate({token: tokens[i], pool: address(pools[i])});
-    }
-    return tokensAndPools;
   }
 
   function _getSingleTokenPriceUpdateStruct(
