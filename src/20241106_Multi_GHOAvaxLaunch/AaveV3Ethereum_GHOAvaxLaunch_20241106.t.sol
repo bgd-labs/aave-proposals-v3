@@ -1,30 +1,22 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
-
 import 'forge-std/Test.sol';
 import {TransparentUpgradeableProxy} from 'solidity-utils/contracts/transparent-proxy/TransparentUpgradeableProxy.sol';
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {UpgradeableBurnMintTokenPool} from 'ccip/pools/GHO/UpgradeableBurnMintTokenPool.sol';
 import {UpgradeableLockReleaseTokenPool} from 'ccip/pools/GHO/UpgradeableLockReleaseTokenPool.sol';
 import {IPoolPriorTo1_5} from 'ccip/interfaces/IPoolPriorTo1_5.sol';
-import {IPriceRegistry} from 'ccip/interfaces/IPriceRegistry.sol';
 import {Internal} from 'ccip/libraries/Internal.sol';
-import {Pool} from 'ccip/libraries/Pool.sol';
 import {RateLimiter} from 'ccip/libraries/RateLimiter.sol';
 import {Client} from 'ccip/libraries/Client.sol';
 import {TokenAdminRegistry} from 'ccip/tokenAdminRegistry/TokenAdminRegistry.sol';
-import {EVM2EVMOnRamp} from 'ccip/onRamp/EVM2EVMOnRamp.sol';
-import {EVM2EVMOffRamp} from 'ccip/offRamp/EVM2EVMOffRamp.sol';
 import {Router} from 'ccip/Router.sol';
-import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
+import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
-import {AaveV3Arbitrum} from 'aave-address-book/AaveV3Arbitrum.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {GovernanceV3Arbitrum} from 'aave-address-book/GovernanceV3Arbitrum.sol';
-import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
-import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
+import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {GovernanceV3Avalanche} from 'aave-address-book/GovernanceV3Avalanche.sol';
 import {MiscAvalanche} from 'aave-address-book/MiscAvalanche.sol';
 import {UpgradeableGhoToken} from 'gho-core/gho/UpgradeableGhoToken.sol';
@@ -68,10 +60,9 @@ contract AaveV3Ethereum_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
     // Execute Avax proposal to deploy Avax token pool
     vm.createSelectFork(vm.rpcUrl('avalanche'), 53559217);
 
-    // TODO: Decide if we want to deploy this beforehand or in AIP
+    // TODO: Move this back to AIP
     _deployGhoToken();
 
-    // TODO: Remove this deployment once we have deployed pool address
     _deployCcipTokenPool();
 
     // TODO: Remove this (will be done on chainlink's side)
@@ -133,7 +124,6 @@ contract AaveV3Ethereum_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
     // Lock
     uint256 amount = 100e18; // 100 GHO
     deal(address(GHO), user, amount);
-    uint64 arbChainSelector = proposal.CCIP_ARB_CHAIN_SELECTOR();
 
     uint256 startingGhoBalance = GHO.balanceOf(address(TOKEN_POOL));
 
@@ -149,7 +139,7 @@ contract AaveV3Ethereum_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
       user,
       bytes(''),
       amount,
-      arbChainSelector,
+      CCIP_ARB_CHAIN_SELECTOR,
       bytes('')
     );
     assertEq(GHO.balanceOf(address(TOKEN_POOL)), startingGhoBalance + amount);
@@ -166,7 +156,7 @@ contract AaveV3Ethereum_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
       bytes(''),
       user,
       amount,
-      arbChainSelector,
+      CCIP_ARB_CHAIN_SELECTOR,
       bytes('')
     );
     assertEq(GHO.balanceOf(address(TOKEN_POOL)), startingGhoBalance);
@@ -176,7 +166,6 @@ contract AaveV3Ethereum_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
 
     // Lock
     deal(address(GHO), user, amount);
-    uint64 avaxChainSelector = proposal.CCIP_AVAX_CHAIN_SELECTOR();
 
     startingGhoBalance = GHO.balanceOf(address(TOKEN_POOL));
 
@@ -192,7 +181,7 @@ contract AaveV3Ethereum_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
       user,
       bytes(''),
       amount,
-      avaxChainSelector,
+      CCIP_AVAX_CHAIN_SELECTOR,
       bytes('')
     );
     assertEq(GHO.balanceOf(address(TOKEN_POOL)), startingGhoBalance + amount);
@@ -209,7 +198,7 @@ contract AaveV3Ethereum_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
       bytes(''),
       user,
       amount,
-      avaxChainSelector,
+      CCIP_AVAX_CHAIN_SELECTOR,
       bytes('')
     );
     assertEq(GHO.balanceOf(address(TOKEN_POOL)), startingGhoBalance);
@@ -219,8 +208,6 @@ contract AaveV3Ethereum_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
   /// @dev CCIP e2e arb <> eth
   function test_ccipE2E_ARB_ETH() public {
     GovV3Helpers.executePayload(vm, address(proposal));
-
-    uint64 arbChainSelector = proposal.CCIP_ARB_CHAIN_SELECTOR();
 
     Router router = Router(TOKEN_POOL.getRouter());
 
@@ -236,7 +223,7 @@ contract AaveV3Ethereum_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
 
     vm.startPrank(user);
     // Use address(0) to use native token as fee token
-    _sendCcip(router, address(GHO), amount, address(0), arbChainSelector, user);
+    _sendCcip(router, address(GHO), amount, address(0), CCIP_ARB_CHAIN_SELECTOR, user);
 
     assertEq(GHO.balanceOf(user), 0);
     assertEq(GHO.balanceOf(address(TOKEN_POOL)), startingGhoBalance + amount);
@@ -247,8 +234,6 @@ contract AaveV3Ethereum_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
   /// @dev CCIP e2e avax <> eth
   function test_ccipE2E_AVAX_ETH() public {
     GovV3Helpers.executePayload(vm, address(proposal));
-
-    uint64 avaxChainSelector = proposal.CCIP_AVAX_CHAIN_SELECTOR();
 
     // Chainlink config
     Router router = Router(TOKEN_POOL.getRouter());
@@ -265,7 +250,7 @@ contract AaveV3Ethereum_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
 
     vm.startPrank(user);
     // Use address(0) to use native token as fee token
-    _sendCcip(router, address(GHO), amount, address(0), avaxChainSelector, user);
+    _sendCcip(router, address(GHO), amount, address(0), CCIP_AVAX_CHAIN_SELECTOR, user);
 
     assertEq(GHO.balanceOf(user), 0);
     assertEq(GHO.balanceOf(address(TOKEN_POOL)), startingGhoBalance + amount);
@@ -321,14 +306,14 @@ contract AaveV3Ethereum_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
     assertEq(supportedChains.length, 2);
 
     // ARB
-    assertEq(supportedChains[0], proposal.CCIP_ARB_CHAIN_SELECTOR());
+    assertEq(supportedChains[0], CCIP_ARB_CHAIN_SELECTOR);
 
     // AVAX
-    assertEq(supportedChains[1], proposal.CCIP_AVAX_CHAIN_SELECTOR());
+    assertEq(supportedChains[1], CCIP_AVAX_CHAIN_SELECTOR);
     RateLimiter.TokenBucket memory outboundRateLimit = TOKEN_POOL
-      .getCurrentOutboundRateLimiterState(proposal.CCIP_AVAX_CHAIN_SELECTOR());
+      .getCurrentOutboundRateLimiterState(CCIP_AVAX_CHAIN_SELECTOR);
     RateLimiter.TokenBucket memory inboundRateLimit = TOKEN_POOL.getCurrentInboundRateLimiterState(
-      proposal.CCIP_AVAX_CHAIN_SELECTOR()
+      CCIP_AVAX_CHAIN_SELECTOR
     );
     assertEq(outboundRateLimit.isEnabled, false);
     assertEq(inboundRateLimit.isEnabled, false);
