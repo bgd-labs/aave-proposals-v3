@@ -167,7 +167,6 @@ interface IUpgradeableBurnMintTokenPool_1_5_1 {
   event RouterUpdated(address oldRouter, address newRouter);
   event TokensConsumed(uint256 tokens);
 
-  function transferLiquidity(address to, uint256 amount) external;
   function acceptOwnership() external;
   function addRemotePool(uint64 remoteChainSelector, bytes memory remotePoolAddress) external;
   function applyAllowListUpdates(address[] memory removes, address[] memory adds) external;
@@ -201,6 +200,7 @@ interface IUpgradeableBurnMintTokenPool_1_5_1 {
   function lockOrBurn(
     IPool.LockOrBurnInV1 memory lockOrBurnIn
   ) external returns (IPool.LockOrBurnOutV1 memory);
+  function mintAndTransferLiquidity(address to, uint256 amount) external;
   function owner() external view returns (address);
   function releaseOrMint(
     IPool.ReleaseOrMintInV1 memory releaseOrMintIn

@@ -49,10 +49,9 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209 is IProposalGenericExecutor {
 
   function _migrateLiquidity() internal {
     EXISTING_TOKEN_POOL.setRebalancer(address(NEW_TOKEN_POOL));
-    NEW_TOKEN_POOL.transferLiquidity({
-      from: address(EXISTING_TOKEN_POOL),
-      amount: EXISTING_TOKEN_POOL.getCurrentBridgedAmount()
-    });
+    uint256 bridgeAmount = EXISTING_TOKEN_POOL.getCurrentBridgedAmount();
+    NEW_TOKEN_POOL.transferLiquidity(address(EXISTING_TOKEN_POOL), bridgeAmount);
+    NEW_TOKEN_POOL.setCurrentBridgedAmount(bridgeAmount);
 
     // disable existing pool
     EXISTING_TOKEN_POOL.setBridgeLimit(0);

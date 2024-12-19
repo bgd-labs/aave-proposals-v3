@@ -175,8 +175,9 @@ contract AaveV3E2E_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
       assertEq(l1.c.tokenAdminRegistry.getPool(address(l1.c.token)), address(l1.newTokenPool));
 
       assertEq(l1.c.token.balanceOf(address(l1.existingTokenPool)), 0);
-      // ! todo upgrade existing pool to reset bridgedAmount? not necessary since we reset bridgeLimit
-      // assertEq(l1.existingTokenPool.getCurrentBridgedAmount(), 0);
+      // we are not resetting currentBridgedAmount on the existing pool, the pool is deprecated by
+      // resetting the bridge limit
+      assertNotEq(l1.existingTokenPool.getCurrentBridgedAmount(), 0);
       assertEq(l1.existingTokenPool.getBridgeLimit(), 0);
 
       assertGt(l1.c.token.balanceOf(address(l1.newTokenPool)), 0);

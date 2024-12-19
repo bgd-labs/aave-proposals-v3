@@ -63,10 +63,10 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209 is IProposalGenericExecutor {
     );
 
     GHO.addFacilitator(address(NEW_TOKEN_POOL), 'CCIP v1.5.1 TokenPool', uint128(bucketCapacity));
-    NEW_TOKEN_POOL.transferLiquidity(address(EXISTING_TOKEN_POOL), bucketLevel); // mintTo
+    NEW_TOKEN_POOL.mintAndTransferLiquidity(address(EXISTING_TOKEN_POOL), bucketLevel); // mintTo
 
     _upgradeExistingTokenPool();
-    UpgradeableBurnMintTokenPool(address(EXISTING_TOKEN_POOL)).withdrawLiquidity(bucketLevel); // burn
+    UpgradeableBurnMintTokenPool(address(EXISTING_TOKEN_POOL)).burnLiquidity(bucketLevel); // burn
 
     GHO.removeFacilitator(address(EXISTING_TOKEN_POOL));
   }

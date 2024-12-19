@@ -1,4 +1,4 @@
-/// Flattened UpgradeableBurnMintTokenPool from https://github.com/aave/ccip/pull/21
+/// Flattened UpgradeableBurnMintTokenPool from https://github.com/aave/ccip/pull/21 (last commit 0c15ea8abfff732f921329b19ebe8f2c81d0b692)
 /// Will be removed once PR is merged and contract implementation is deployed
 
 // SPDX-License-Identifier: BUSL-1.1
@@ -1800,15 +1800,15 @@ contract UpgradeableBurnMintTokenPool is
   }
 
   /// @notice This function allows the owner to burn `amount` of the pool's token. This is
-  /// expected to be called while migrating liquidity to another pool and offboarding this
-  /// facilitator.
-  /// @dev New token pool should mint and transfer liquidity to this pool (since it does not
-  /// hold tokens any point in point, only mints/burns) which can be burnt and hence will reset
-  /// the facilitator bucket level GHO. This is needed to migrate facilitators, by offboarding
-  /// this token pool subsequently.
+  /// expected to be called while migrating facilitators by offboarding this facilitator in
+  /// favor of a new token pool.
+  /// @dev New token pool should mint and transfer liquidity to this pool (since this pool
+  /// does not hold tokens at any point in time) which can be burnt and hence will reduce
+  /// the facilitator bucket level on GHO. The naming convention is inspired from  that in
+  /// LockRelease type token pools for the sake of consistency.
   /// @param amount The amount of tokens to burn.
-  function withdrawLiquidity(uint256 amount) external onlyOwner {
-    IBurnMintERC20(address(i_token)).burn(amount);
+  function burnLiquidity(uint256 amount) external onlyOwner {
+    _burn(amount);
   }
 
   /// @inheritdoc UpgradeableBurnMintTokenPoolAbstract

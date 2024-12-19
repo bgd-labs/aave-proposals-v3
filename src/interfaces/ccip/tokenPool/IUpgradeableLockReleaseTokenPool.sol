@@ -250,6 +250,7 @@ interface IUpgradeableLockReleaseTokenPool_1_5_1 {
   ) external returns (IPool.ReleaseOrMintOutV1 memory);
   function removeRemotePool(uint64 remoteChainSelector, bytes memory remotePoolAddress) external;
   function setBridgeLimit(uint256 newBridgeLimit) external;
+  function setCurrentBridgedAmount(uint256 newBridgedAmount) external;
   function setBridgeLimitAdmin(address bridgeLimitAdmin) external;
   function setChainRateLimiterConfig(
     uint64 remoteChainSelector,
