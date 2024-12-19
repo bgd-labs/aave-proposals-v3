@@ -52,6 +52,8 @@ contract AaveV3Ethereum_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
   address public constant AVAX_ROUTER = 0xF4c7E640EdA248ef95972845a62bdC74237805dB;
   address public constant CCIP_ETH_ARB_ON_RAMP = 0x69eCC4E2D8ea56E2d0a05bF57f4Fd6aEE7f2c284;
   address public constant CCIP_ETH_ARB_OFF_RAMP = 0xdf615eF8D4C64d0ED8Fd7824BBEd2f6a10245aC9;
+  address public constant CCIP_ETH_AVAX_ON_RAMP = 0xaFd31C0C78785aDF53E4c185670bfd5376249d8A;
+  address public constant CCIP_ETH_AVAX_OFF_RAMP = 0xd98E80C79a15E4dbaF4C40B6cCDF690fe619BFBb;
   address public constant TOKEN_POOL_AND_PROXY = 0x9Ec9F9804733df96D1641666818eFb5198eC50f0;
   address public constant REGISTRY_ADMIN = 0x44835bBBA9D40DEDa9b64858095EcFB2693c9449;
   uint64 public constant CCIP_AVAX_CHAIN_SELECTOR = 6433500567565415381;
@@ -87,14 +89,11 @@ contract AaveV3Ethereum_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
     // Switch to Ethereum and create proposal
     vm.createSelectFork(vm.rpcUrl('mainnet'), 21133428);
 
-    // TODO: Unsure if this is needed
-    /*
     // Configure TokenPoolAndProxy for Avalanche
     // Prank Registry owner
     vm.startPrank(REGISTRY_ADMIN);
     _configureCcipTokenPool(TOKEN_POOL_AND_PROXY, CCIP_AVAX_CHAIN_SELECTOR);
     vm.stopPrank();
-    */
 
     proposal = new AaveV3Ethereum_GHOAvaxLaunch_20241106();
   }
@@ -238,6 +237,72 @@ contract AaveV3Ethereum_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
     vm.startPrank(user);
     // Use address(0) to use native token as fee token
     _sendCcip(router, address(GHO), amount, address(0), arbChainSelector, user);
+
+    assertEq(GHO.balanceOf(user), 0);
+    assertEq(GHO.balanceOf(address(TOKEN_POOL)), startingGhoBalance + amount);
+    assertEq(TOKEN_POOL.getBridgeLimit(), startingBridgeLimit);
+    assertEq(TOKEN_POOL.getCurrentBridgedAmount(), startingBridgedAmount + amount);
+  }
+
+  /// @dev CCIP e2e avax <> eth
+  function test_ccipE2E_AVAX_ETH() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+
+    uint64 avaxChainSelector = proposal.CCIP_AVAX_CHAIN_SELECTOR();
+
+    // Chainlink config
+    Router router = Router(TOKEN_POOL.getRouter());
+
+    /*
+    {
+      Router.OnRamp[] memory onRampUpdates = new Router.OnRamp[](1);
+      Router.OffRamp[] memory offRampUpdates = new Router.OffRamp[](1);
+      // AVAX -> ETH
+      onRampUpdates[0] = Router.OnRamp({
+        destChainSelector: avaxChainSelector,
+        onRamp: CCIP_ETH_AVAX_ON_RAMP
+      });
+      // ETH -> AVAX
+      offRampUpdates[0] = Router.OffRamp({
+        sourceChainSelector: avaxChainSelector,
+        offRamp: CCIP_ETH_AVAX_OFF_RAMP
+      });
+      address routerOwner = router.owner();
+      vm.startPrank(routerOwner);
+      router.applyRampUpdates(onRampUpdates, new Router.OffRamp[](0), offRampUpdates);
+    }
+    
+    {
+      // OnRamp Price Registry
+      EVM2EVMOnRamp.DynamicConfig memory onRampDynamicConfig = EVM2EVMOnRamp(CCIP_ETH_AVAX_ON_RAMP)
+        .getDynamicConfig();
+      Internal.PriceUpdates memory priceUpdate = _getSingleTokenPriceUpdateStruct(
+        address(GHO),
+        1e18
+      );
+
+      IPriceRegistry(onRampDynamicConfig.priceRegistry).updatePrices(priceUpdate);
+      // OffRamp Price Registry
+      EVM2EVMOffRamp.DynamicConfig memory offRampDynamicConfig = EVM2EVMOffRamp(
+        CCIP_ETH_AVAX_OFF_RAMP
+      ).getDynamicConfig();
+      IPriceRegistry(offRampDynamicConfig.priceRegistry).updatePrices(priceUpdate);
+    }
+    */
+
+    // User executes ccipSend
+    address user = makeAddr('user');
+    uint256 amount = 100e18; // 100 GHO
+    deal(user, 1e18); // 1 ETH
+    deal(address(GHO), user, amount);
+
+    uint256 startingGhoBalance = GHO.balanceOf(address(TOKEN_POOL));
+    uint256 startingBridgeLimit = TOKEN_POOL.getBridgeLimit();
+    uint256 startingBridgedAmount = TOKEN_POOL.getCurrentBridgedAmount();
+
+    vm.startPrank(user);
+    // Use address(0) to use native token as fee token
+    _sendCcip(router, address(GHO), amount, address(0), avaxChainSelector, user);
 
     assertEq(GHO.balanceOf(user), 0);
     assertEq(GHO.balanceOf(address(TOKEN_POOL)), startingGhoBalance + amount);
