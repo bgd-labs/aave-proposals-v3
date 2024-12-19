@@ -7,14 +7,14 @@ snapshot: https://snapshot.box/#/s:aave.eth/proposal/0xd1fdca5d69b03ed57848180d6
 
 ## Simple Summary
 
-TokenLogic proposes to renew our engagement with the Aave DAO for 1 year from the date 15th December 2024 when our current stream ends.
+TokenLogic proposes to renew its engagement with the Aave DAO for one year, starting on December 15, 2024, upon the conclusion of the current stream.
 
 TokenLogic is to provide the following services to the DAO.
 
 - Treasury and Runway Management;
 - Analytics and Performance Metrics;
 - GHO's growth across DeFi and CeFi; and,
-- Support Aave protocol parameter optimization.
+- Support Aave protocol parameter optimizations.
 
 ## Motivation
 
@@ -31,7 +31,7 @@ Key components of this objective include:
 - Migrating funds from Aave v2 to Aave v3, and between Aave v3 markets;
 - Swapping assets to align expenses with holdings.
 
-### Analytics and Performance metrics
+### Analytics and Performance Metrics
 
 TokenLogic is establishing itself as the definitive hub for all Aave Protocol and GHO-related data via the [Aave Portal](https://aave.tokenlogic.xyz/). This initiative will be continuously developed and expanded throughout the year, providing access to key metrics on protocol performance, health, GHO dynamics, and market analysis.
 
@@ -73,23 +73,23 @@ The TokenLogic team will collaborate closely with other service providers to cre
 
 ### Aave Protocol
 
-The evolution of the Aave protocol, including updates to Aave v4, the deployment of Umbrella, and the launch of new Aave markets, will bring transformative changes to the protocol’s operations. Our proposal focuses on providing the financial planning and management essential for navigating these developments and ensuring smooth integration within the broader ecosystem.
+The evolution of the Aave protocol, including updates to Aave V4, the deployment of Umbrella, and the launch of new Aave markets, will bring transformative changes to the protocol’s operations. Our proposal focuses on providing the financial planning and management essential for navigating these developments and ensuring smooth integration within the broader ecosystem.
 
 In addition, we will support the adaptation of Aave’s tokenomics to meet the requirements of Umbrella and the introduction of new staking pools. Through proactive collaboration, strategic guidance, and consultation, we are committed to ensuring these updates are implemented seamlessly and positioned for long-term success.
 
 ## Terms
 
 - 12-month engagement, December 15th 2024 to December 15th 2025;
-- $1M, streamed linearly throughout the engagement; and,
-- $1,000,000 in aEthLidoGHO
+- $1M, streamed linearly throughout the engagement;
+- $1,000,000 is to be withdrawn in aEthLidoGHO (Aave V3 Lido GHO)
 
 ## Specification
 
 To support funding the streams, the following is to be performed:
 
-- 0.75M GHO deposited Prime instance;
-- 0.75M aEthUSDC swapped to GHO; and,
-- GHO from swap sent to Treasury.
+- 0.75M GHO from the Collector deposited into the Lido Prime instance;
+- 0.75M aEthUSDC withdrawn from Aave V3 Mainnet and swapped for GHO; and,
+- GHO from above swap is to be sent to Collector (Treasury).
 
 Create the following stream allowing TokenLogic to withdraw aEthLidoGHO from the Prime instance.
 

@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 import {CollectorUtils, ICollector} from 'aave-helpers/src/CollectorUtils.sol';
 import {AaveSwapper} from 'aave-helpers/src/swaps/AaveSwapper.sol';
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
-import {AaveV3EthereumLido} from 'aave-address-book/AaveV3EthereumLido.sol';
+import {AaveV3EthereumLido, AaveV3EthereumLidoAssets} from 'aave-address-book/AaveV3EthereumLido.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
@@ -66,22 +66,23 @@ contract AaveV3Ethereum_TokenLogicFinancialServiceProvider_20241213 is IProposal
       GHO_USD_FEED,
       address(AaveV3EthereumLido.COLLECTOR),
       IERC20(AaveV3EthereumAssets.USDC_UNDERLYING).balanceOf(MiscEthereum.AAVE_SWAPPER),
-      200
+      100
     );
 
-    (address aEthLidoGho, , ) = AaveV3EthereumLido
-      .AAVE_PROTOCOL_DATA_PROVIDER
-      .getReserveTokensAddresses(AaveV3EthereumAssets.GHO_UNDERLYING);
     uint256 backDatedAmount = (ACTUAL_STREAM_AMOUNT * (block.timestamp - STREAM_START_TIME)) /
       STREAM_DURATION;
 
     // transfer backend amount
-    AaveV3Ethereum.COLLECTOR.transfer(aEthLidoGho, TOKENLOGIC_SAFE, backDatedAmount);
+    AaveV3Ethereum.COLLECTOR.transfer(
+      AaveV3EthereumLidoAssets.GHO_A_TOKEN,
+      TOKENLOGIC_SAFE,
+      backDatedAmount
+    );
 
     // stream
     AaveV3Ethereum.COLLECTOR.stream(
       CollectorUtils.CreateStreamInput({
-        underlying: aEthLidoGho,
+        underlying: AaveV3EthereumLidoAssets.GHO_A_TOKEN,
         receiver: TOKENLOGIC_SAFE,
         amount: ACTUAL_STREAM_AMOUNT - backDatedAmount,
         start: block.timestamp,
