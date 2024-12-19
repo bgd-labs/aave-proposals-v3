@@ -39,8 +39,8 @@ contract AaveV3Avalanche_GHOAvaxLaunch_20241106 is IProposalGenericExecutor {
   address public constant CCIP_RMN_PROXY = 0xcBD48A8eB077381c3c4Eb36b402d7283aB2b11Bc;
   address public constant CCIP_ROUTER = 0xF4c7E640EdA248ef95972845a62bdC74237805dB;
   address public constant CCIP_TOKEN_ADMIN_REGISTRY = 0xc8df5D618c6a59Cc6A311E96a39450381001464F;
-  address public constant GHO_TOKEN = 0x2e234DAe75C793f67A35089C9d99245E1C58470b;
-  address public constant CCIP_TOKEN_POOL = 0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9;
+  address public constant GHO_TOKEN = 0xb025950B02b9cfe851C6a4C041f9D6c0942f0eB1;
+  address public constant CCIP_TOKEN_POOL = 0x2e234DAe75C793f67A35089C9d99245E1C58470b;
   address public constant ETH_TOKEN_POOL = MiscEthereum.GHO_CCIP_TOKEN_POOL;
   address public constant ETH_GHO = MiscEthereum.GHO_TOKEN;
   address public constant ARB_TOKEN_POOL = MiscArbitrum.GHO_CCIP_TOKEN_POOL;
@@ -50,11 +50,8 @@ contract AaveV3Avalanche_GHOAvaxLaunch_20241106 is IProposalGenericExecutor {
   uint64 public constant CCIP_ARB_CHAIN_SELECTOR = 4949039107694359620;
 
   function execute() external {
-    // For now, deploying GHO token separately
-    /* 
     // 1. Deploy GHO
     _deployGhoToken();
-    */
 
     // 2. Accept TokenPool ownership
     UpgradeableBurnMintTokenPool(CCIP_TOKEN_POOL).acceptOwnership();
@@ -137,7 +134,7 @@ contract GhoAvaxListing is AaveV3PayloadAvalanche {
   using SafeERC20 for IERC20;
 
   uint256 public constant GHO_SEED_AMOUNT = 1_000_000e18;
-  address public ghoToken;
+  address public immutable ghoToken;
 
   constructor(address gho) {
     ghoToken = gho;
