@@ -50,6 +50,10 @@ contract AaveV3Ethereum_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
   address public constant AVAX_TOKEN_ADMIN_REGISTRY = 0xc8df5D618c6a59Cc6A311E96a39450381001464F;
   address public constant AVAX_RMN_PROXY = 0xcBD48A8eB077381c3c4Eb36b402d7283aB2b11Bc;
   address public constant AVAX_ROUTER = 0xF4c7E640EdA248ef95972845a62bdC74237805dB;
+  address public constant CCIP_ETH_ARB_ON_RAMP = 0x69eCC4E2D8ea56E2d0a05bF57f4Fd6aEE7f2c284;
+  address public constant CCIP_ETH_ARB_OFF_RAMP = 0xdf615eF8D4C64d0ED8Fd7824BBEd2f6a10245aC9;
+  address public constant TOKEN_POOL_AND_PROXY = 0x9Ec9F9804733df96D1641666818eFb5198eC50f0;
+  address public constant REGISTRY_ADMIN = 0x44835bBBA9D40DEDa9b64858095EcFB2693c9449;
   uint64 public constant CCIP_AVAX_CHAIN_SELECTOR = 6433500567565415381;
   uint64 public constant CCIP_ARB_CHAIN_SELECTOR = 4949039107694359620;
 
@@ -83,14 +87,15 @@ contract AaveV3Ethereum_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
     // Switch to Ethereum and create proposal
     vm.createSelectFork(vm.rpcUrl('mainnet'), 21133428);
 
-    // TODO: Find tokenPoolAndProxy address on Eth pool
+    // TODO: Unsure if this is needed
+    /*
     // Configure TokenPoolAndProxy for Avalanche
     // Prank Registry owner
-    /*
     vm.startPrank(REGISTRY_ADMIN);
     _configureCcipTokenPool(TOKEN_POOL_AND_PROXY, CCIP_AVAX_CHAIN_SELECTOR);
     vm.stopPrank();
     */
+
     proposal = new AaveV3Ethereum_GHOAvaxLaunch_20241106();
   }
 
@@ -188,7 +193,7 @@ contract AaveV3Ethereum_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
       user,
       bytes(''),
       amount,
-      arbChainSelector,
+      avaxChainSelector,
       bytes('')
     );
     assertEq(GHO.balanceOf(address(TOKEN_POOL)), startingGhoBalance + amount);
@@ -205,11 +210,75 @@ contract AaveV3Ethereum_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
       bytes(''),
       user,
       amount,
-      arbChainSelector,
+      avaxChainSelector,
       bytes('')
     );
     assertEq(GHO.balanceOf(address(TOKEN_POOL)), startingGhoBalance);
     assertEq(GHO.balanceOf(user), amount);
+  }
+
+  /// @dev CCIP e2e arb <> eth
+  function test_ccipE2E_ARB_ETH() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+
+    uint64 arbChainSelector = proposal.CCIP_ARB_CHAIN_SELECTOR();
+
+    // Chainlink config
+    Router router = Router(TOKEN_POOL.getRouter());
+
+    {
+      Router.OnRamp[] memory onRampUpdates = new Router.OnRamp[](1);
+      Router.OffRamp[] memory offRampUpdates = new Router.OffRamp[](1);
+      // ARB -> ETH
+      onRampUpdates[0] = Router.OnRamp({
+        destChainSelector: arbChainSelector,
+        onRamp: CCIP_ETH_ARB_ON_RAMP
+      });
+      // ETH -> ARB
+      offRampUpdates[0] = Router.OffRamp({
+        sourceChainSelector: arbChainSelector,
+        offRamp: CCIP_ETH_ARB_OFF_RAMP
+      });
+      address routerOwner = router.owner();
+      vm.startPrank(routerOwner);
+      router.applyRampUpdates(onRampUpdates, new Router.OffRamp[](0), offRampUpdates);
+    }
+
+    {
+      // OnRamp Price Registry
+      EVM2EVMOnRamp.DynamicConfig memory onRampDynamicConfig = EVM2EVMOnRamp(CCIP_ETH_ARB_ON_RAMP)
+        .getDynamicConfig();
+      Internal.PriceUpdates memory priceUpdate = _getSingleTokenPriceUpdateStruct(
+        address(GHO),
+        1e18
+      );
+
+      IPriceRegistry(onRampDynamicConfig.priceRegistry).updatePrices(priceUpdate);
+      // OffRamp Price Registry
+      EVM2EVMOffRamp.DynamicConfig memory offRampDynamicConfig = EVM2EVMOffRamp(
+        CCIP_ETH_ARB_OFF_RAMP
+      ).getDynamicConfig();
+      IPriceRegistry(offRampDynamicConfig.priceRegistry).updatePrices(priceUpdate);
+    }
+
+    // User executes ccipSend
+    address user = makeAddr('user');
+    uint256 amount = 100e18; // 100 GHO
+    deal(user, 1e18); // 1 ETH
+    deal(address(GHO), user, amount);
+
+    uint256 startingGhoBalance = GHO.balanceOf(address(TOKEN_POOL));
+    uint256 startingBridgeLimit = TOKEN_POOL.getBridgeLimit();
+    uint256 startingBridgedAmount = TOKEN_POOL.getCurrentBridgedAmount();
+
+    vm.startPrank(user);
+    // Use address(0) to use native token as fee token
+    _sendCcip(router, address(GHO), amount, address(0), arbChainSelector, user);
+
+    assertEq(GHO.balanceOf(user), 0);
+    assertEq(GHO.balanceOf(address(TOKEN_POOL)), startingGhoBalance + amount);
+    assertEq(TOKEN_POOL.getBridgeLimit(), startingBridgeLimit);
+    assertEq(TOKEN_POOL.getCurrentBridgedAmount(), startingBridgedAmount + amount);
   }
 
   // ---
@@ -277,6 +346,44 @@ contract AaveV3Ethereum_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
   // Utils
   // ---
 
+  function _sendCcip(
+    Router router,
+    address token,
+    uint256 amount,
+    address feeToken,
+    uint64 destChainSelector,
+    address receiver
+  ) internal {
+    Client.EVM2AnyMessage memory message = _generateSingleTokenMessage(
+      receiver,
+      token,
+      amount,
+      feeToken
+    );
+    uint256 expectedFee = router.getFee(destChainSelector, message);
+
+    IERC20(token).approve(address(router), amount);
+    router.ccipSend{value: expectedFee}(destChainSelector, message);
+  }
+
+  function _generateSingleTokenMessage(
+    address receiver,
+    address token,
+    uint256 amount,
+    address feeToken
+  ) public pure returns (Client.EVM2AnyMessage memory) {
+    Client.EVMTokenAmount[] memory tokenAmounts = new Client.EVMTokenAmount[](1);
+    tokenAmounts[0] = Client.EVMTokenAmount({token: token, amount: amount});
+    return
+      Client.EVM2AnyMessage({
+        receiver: abi.encode(receiver),
+        data: '',
+        tokenAmounts: tokenAmounts,
+        feeToken: feeToken,
+        extraArgs: '' //Client._argsToBytes(Client.EVMExtraArgsV1({gasLimit: 200_000}))
+      });
+  }
+
   function _configureCcipTokenPool(address tokenPool, uint64 chainSelector) internal {
     IUpgradeableTokenPool_1_4.ChainUpdate[]
       memory chainUpdates = new IUpgradeableTokenPool_1_4.ChainUpdate[](1);
@@ -294,5 +401,20 @@ contract AaveV3Ethereum_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
       inboundRateLimiterConfig: rateConfig
     });
     IUpgradeableTokenPool_1_4(tokenPool).applyChainUpdates(chainUpdates);
+  }
+
+  function _getSingleTokenPriceUpdateStruct(
+    address token,
+    uint224 price
+  ) internal pure returns (Internal.PriceUpdates memory) {
+    Internal.TokenPriceUpdate[] memory tokenPriceUpdates = new Internal.TokenPriceUpdate[](1);
+    tokenPriceUpdates[0] = Internal.TokenPriceUpdate({sourceToken: token, usdPerToken: price});
+
+    Internal.PriceUpdates memory priceUpdates = Internal.PriceUpdates({
+      tokenPriceUpdates: tokenPriceUpdates,
+      gasPriceUpdates: new Internal.GasPriceUpdate[](0)
+    });
+
+    return priceUpdates;
   }
 }
