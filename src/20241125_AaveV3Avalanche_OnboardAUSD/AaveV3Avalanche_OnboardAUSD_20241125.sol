@@ -46,7 +46,7 @@ contract AaveV3Avalanche_OnboardAUSD_20241125 is AaveV3PayloadAvalanche {
     listings[0] = IAaveV3ConfigEngine.Listing({
       asset: AUSD,
       assetSymbol: 'AUSD',
-      priceFeed: 0x5C2d58627Fbe746f5ea24Ef6D618f09f8e3f0122,
+      priceFeed: 0x83f32c0882B12Ef16214c417efF11FD9e764bf34,
       enabledToBorrow: EngineFlags.ENABLED,
       borrowableInIsolation: EngineFlags.DISABLED,
       withSiloedBorrowing: EngineFlags.DISABLED,

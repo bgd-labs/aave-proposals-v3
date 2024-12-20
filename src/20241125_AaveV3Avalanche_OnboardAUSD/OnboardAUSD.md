@@ -43,7 +43,7 @@ The table below illustrates the configured risk parameters for **AUSD**
 | Flashloanable             |                                    ENABLED |
 | Siloed Borrowing          |                                   DISABLED |
 | Borrowable in Isolation   |                                   DISABLED |
-| Oracle                    | 0x5C2d58627Fbe746f5ea24Ef6D618f09f8e3f0122 |
+| Oracle                    | 0x83f32c0882B12Ef16214c417efF11FD9e764bf34 |
 
 Additionaly [0xac140648435d03f784879cd789130F22Ef588Fcd](https://snowtrace.io/address/0xac140648435d03f784879cd789130F22Ef588Fcd) has been set as the emission admin for AUSD and the corresponding aToken.
 

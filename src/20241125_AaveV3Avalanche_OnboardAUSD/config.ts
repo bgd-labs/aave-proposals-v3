@@ -18,7 +18,7 @@ export const config: ConfigFile = {
           {
             assetSymbol: 'AUSD',
             decimals: 6,
-            priceFeed: '0x5C2d58627Fbe746f5ea24Ef6D618f09f8e3f0122',
+            priceFeed: '0x83f32c0882B12Ef16214c417efF11FD9e764bf34',
             ltv: '0',
             liqThreshold: '0',
             liqBonus: '0',

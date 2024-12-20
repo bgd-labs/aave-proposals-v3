@@ -14,10 +14,10 @@
 | debtCeiling | 0 $ [0] |
 | isSiloed | false |
 | isFlashloanable | true |
-| oracle | [0x5C2d58627Fbe746f5ea24Ef6D618f09f8e3f0122](https://snowtrace.io/address/0x5C2d58627Fbe746f5ea24Ef6D618f09f8e3f0122) |
+| oracle | [0x83f32c0882B12Ef16214c417efF11FD9e764bf34](https://snowtrace.io/address/0x83f32c0882B12Ef16214c417efF11FD9e764bf34) |
 | oracleDecimals | 8 |
-| oracleDescription | AUSD / USD |
-| oracleLatestAnswer | 0.99891756 |
+| oracleDescription | Capped AUSD / USD |
+| oracleLatestAnswer | 0.99925546 |
 | usageAsCollateralEnabled | false |
 | ltv | 0 % [0] |
 | liquidationThreshold | 0 % [0] |
@@ -77,10 +77,10 @@
         "liquidationProtocolFee": 0,
         "liquidationThreshold": 0,
         "ltv": 0,
-        "oracle": "0x5C2d58627Fbe746f5ea24Ef6D618f09f8e3f0122",
+        "oracle": "0x83f32c0882B12Ef16214c417efF11FD9e764bf34",
         "oracleDecimals": 8,
-        "oracleDescription": "AUSD / USD",
-        "oracleLatestAnswer": "99891756",
+        "oracleDescription": "Capped AUSD / USD",
+        "oracleLatestAnswer": "99925546",
         "reserveFactor": 1000,
         "supplyCap": 19000000,
         "symbol": "AUSD",
