@@ -10,6 +10,12 @@ import {AaveV3Ethereum_ClaimZKSyncAirdrop_20241219} from './AaveV3Ethereum_Claim
 
 contract TestGetETHFromCollector is AaveV3Ethereum_ClaimZKSyncAirdrop_20241219 {
   function _getETHFromCollector(uint256 amount) public {
+    // prank the executor
+    vm.startPrank(GovernanceV3Ethereum.EXECUTOR_LVL_1);
+
+    emit log_named_address('bbb address(this)', address(this));
+    emit log_named_address('bbb msg.sender', msg.sender);
+
     return getETHFromCollector(amount);
   }
 }
@@ -25,6 +31,8 @@ contract AaveV3Ethereum_ClaimZKSyncAirdrop_20241219_Test is ProtocolV3TestBase {
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('mainnet'), 21437605);
     proposal = new AaveV3Ethereum_ClaimZKSyncAirdrop_20241219();
+
+    // only use to test the getETHFromCollector function of the proposal
     testGetETHFromCollector = new TestGetETHFromCollector();
   }
 
@@ -32,11 +40,6 @@ contract AaveV3Ethereum_ClaimZKSyncAirdrop_20241219_Test is ProtocolV3TestBase {
    * @dev executes the generic test suite including e2e and config snapshots
    */
   function test_defaultProposalExecution() public {
-    uint256 mintValueClaim = 786432000000000;
-    uint256 mintValueTransfer = 1328196266668064768;
-
-    vm.assertGe(GovernanceV3Ethereum.EXECUTOR_LVL_1.balance, mintValueClaim + mintValueTransfer);
-
     defaultTest(
       'AaveV3Ethereum_ClaimZKSyncAirdrop_20241219',
       AaveV3Ethereum.POOL,
@@ -45,17 +48,19 @@ contract AaveV3Ethereum_ClaimZKSyncAirdrop_20241219_Test is ProtocolV3TestBase {
   }
 
   function test_ETHTransfer() public {
-    uint256 mintValueClaim = 786432000000000;
-    uint256 mintValueTransfer = 1328196266668064768;
-
     vm.assertEq(GovernanceV3Ethereum.EXECUTOR_LVL_1.balance, 0);
 
-    testGetETHFromCollector._getETHFromCollector(mintValueClaim + mintValueTransfer);
+    testGetETHFromCollector._getETHFromCollector(
+      proposal.mintValueClaim() + proposal.mintValueTransfer()
+    );
 
-    vm.assertEq(GovernanceV3Ethereum.EXECUTOR_LVL_1.balance, mintValueClaim + mintValueTransfer);
+    vm.assertEq(
+      GovernanceV3Ethereum.EXECUTOR_LVL_1.balance,
+      proposal.mintValueClaim() + proposal.mintValueTransfer()
+    );
 
-    emit log_uint(GovernanceV3Ethereum.EXECUTOR_LVL_1.balance);
-    emit log_uint(mintValueClaim);
-    emit log_uint(mintValueTransfer);
+    // emit log_uint(GovernanceV3Ethereum.EXECUTOR_LVL_1.balance);
+    // emit log_uint(mintValueClaim);
+    // emit log_uint(mintValueTransfer);
   }
 }

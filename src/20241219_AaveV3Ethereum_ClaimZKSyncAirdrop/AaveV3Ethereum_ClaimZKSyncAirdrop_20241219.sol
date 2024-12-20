@@ -8,8 +8,6 @@ import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 
-import 'forge-std/Test.sol';
-
 /**
  * @title Claim ZKSync airdrop
  * @author ACI
@@ -30,14 +28,12 @@ contract AaveV3Ethereum_ClaimZKSyncAirdrop_20241219 is
   uint256 public constant mintValueTransfer = 1328196266668064768;
 
   function execute() external {
-    emit log_uint(123);
-    emit log_named_address('address(this)', address(this));
-    emit log_named_address('msg.sender', msg.sender);
-
-    // Get ETH to claim and transfer ZK tokens
+    // get ETH from the collector
     getETHFromCollector(mintValueClaim + mintValueTransfer);
+
     // Claim ZK tokens on ZKSync chain
     claimZKTokens();
+
     // Transfer ZK tokens to final recipient
     transferZKTokens();
   }
@@ -66,12 +62,6 @@ contract AaveV3Ethereum_ClaimZKSyncAirdrop_20241219 is
       factoryDeps: new bytes[](0),
       refundRecipient: address(this)
     });
-
-    bytes memory data = abi.encodeWithSelector(
-      IBridgehub.requestL2TransactionDirect.selector,
-      request
-    );
-    emit log_bytes(data);
 
     // call
     IBridgehub(claimContractL1).requestL2TransactionDirect{value: mintValueClaim}(request);
@@ -108,9 +98,6 @@ contract AaveV3Ethereum_ClaimZKSyncAirdrop_20241219 is
   }
 
   function getETHFromCollector(uint256 amount) internal {
-    emit log_named_address('address(this)', address(this));
-    emit log_named_address('msg.sender', msg.sender);
-
     AaveV3Ethereum.COLLECTOR.transfer(
       AaveV3EthereumAssets.WETH_UNDERLYING,
       GovernanceV3Ethereum.EXECUTOR_LVL_1,
