@@ -43,7 +43,7 @@ contract AaveV3Avalanche_GHOAvaxLaunch_20241106_Test is ProtocolV3TestBase {
   address public constant CCIP_ROUTER = 0xF4c7E640EdA248ef95972845a62bdC74237805dB;
   address public constant ETH_TOKEN_POOL = MiscEthereum.GHO_CCIP_TOKEN_POOL;
   address public constant ARB_TOKEN_POOL = MiscArbitrum.GHO_CCIP_TOKEN_POOL;
-  address public constant GHO_TOKEN = 0xb025950B02b9cfe851C6a4C041f9D6c0942f0eB1;
+  address public constant GHO_TOKEN = 0xc0F850AfdeFF8E0292C638C3e237fB2168E703d0;
   UpgradeableGhoToken public GHO = UpgradeableGhoToken(GHO_TOKEN);
   UpgradeableBurnMintTokenPool public TOKEN_POOL;
 

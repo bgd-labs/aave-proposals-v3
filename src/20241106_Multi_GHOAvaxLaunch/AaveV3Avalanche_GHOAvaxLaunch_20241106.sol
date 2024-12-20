@@ -39,7 +39,7 @@ contract AaveV3Avalanche_GHOAvaxLaunch_20241106 is IProposalGenericExecutor {
   address public constant CCIP_RMN_PROXY = 0xcBD48A8eB077381c3c4Eb36b402d7283aB2b11Bc;
   address public constant CCIP_ROUTER = 0xF4c7E640EdA248ef95972845a62bdC74237805dB;
   address public constant CCIP_TOKEN_ADMIN_REGISTRY = 0xc8df5D618c6a59Cc6A311E96a39450381001464F;
-  address public constant GHO_TOKEN = 0xb025950B02b9cfe851C6a4C041f9D6c0942f0eB1;
+  address public constant GHO_TOKEN = 0xc0F850AfdeFF8E0292C638C3e237fB2168E703d0;
   address public constant CCIP_TOKEN_POOL = 0x2e234DAe75C793f67A35089C9d99245E1C58470b;
   address public constant ETH_TOKEN_POOL = MiscEthereum.GHO_CCIP_TOKEN_POOL;
   address public constant ETH_GHO = MiscEthereum.GHO_TOKEN;
@@ -85,16 +85,32 @@ contract AaveV3Avalanche_GHOAvaxLaunch_20241106 is IProposalGenericExecutor {
   }
 
   function _deployGhoToken() internal returns (address) {
-    address imple = address(new UpgradeableGhoToken());
+    // Deterministically deploy the gho token using create2
+    bytes memory bytecode = type(UpgradeableGhoToken).creationCode;
+    bytes32 salt = keccak256(abi.encodePacked(GovernanceV3Avalanche.EXECUTOR_LVL_1, 'AVAX-GHO'));
+    address imple;
+    assembly {
+      imple := create2(0, add(bytecode, 0x20), mload(bytecode), salt)
+    }
 
+    // Deterministically deploy the proxy
     bytes memory ghoTokenInitParams = abi.encodeWithSignature(
       'initialize(address)',
       GovernanceV3Avalanche.EXECUTOR_LVL_1 // owner
     );
-    return
-      address(
-        new TransparentUpgradeableProxy(imple, MiscAvalanche.PROXY_ADMIN, ghoTokenInitParams)
-      );
+    bytes memory proxyBytecode = abi.encodePacked(
+      type(TransparentUpgradeableProxy).creationCode,
+      abi.encode(imple, MiscAvalanche.PROXY_ADMIN, ghoTokenInitParams)
+    );
+    bytes32 proxySalt = keccak256(
+      abi.encodePacked(GovernanceV3Avalanche.EXECUTOR_LVL_1, 'AVAX-GHO-PROXY')
+    );
+    address proxy;
+    assembly {
+      proxy := create2(0, add(proxyBytecode, 0x20), mload(proxyBytecode), proxySalt)
+    }
+
+    return proxy;
   }
 
   function _configureCcipTokenPool(
