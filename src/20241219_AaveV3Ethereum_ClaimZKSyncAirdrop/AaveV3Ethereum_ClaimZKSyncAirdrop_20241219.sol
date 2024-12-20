@@ -72,8 +72,8 @@ contract AaveV3Ethereum_ClaimZKSyncAirdrop_20241219 is
    */
   function transferZKTokens() internal {
     // Parameters have been generated using the official project: https://github.com/ZKsync-Association/zknation-data/blob/main/README.md#l1-smart-contracts-addresses
-    // yarn generate-l1-contract-transfer-tx --to 0xdef1FA4CEfe67365ba046a7C630D6B885298E210 --amount 8301475000000000000 --l1-gas-price 10
-    // claim amount (8301475000000000000) have been found by decoding the l2Calldata of the claim function
+    // yarn generate-l1-contract-transfer-tx --to 0xdef1FA4CEfe67365ba046a7C630D6B885298E210 --amount 8301475000000000000000000 --l1-gas-price 10
+    // claim amount (8301475000000000000000000) have been found by decoding the l2Calldata of the claim function
 
     address transferContractL2 = 0x5A7d6b2F92C77FAD6CCaBd7EE0624E64907Eaf3E;
 
