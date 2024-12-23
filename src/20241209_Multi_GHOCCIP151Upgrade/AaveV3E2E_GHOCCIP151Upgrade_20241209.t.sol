@@ -475,9 +475,11 @@ contract AaveV3E2E_GHOCCIP151Upgrade_20241209_PostUpgrade is
 
   function test_E2E_FromEth(uint256 amount) public {
     vm.selectFork(l1.c.forkId);
-    uint256 currentBridgedAmount = l1.newTokenPool.getCurrentBridgedAmount();
-
-    amount = bound(amount, 1, currentBridgedAmount);
+    amount = bound(
+      amount,
+      1,
+      l1.newTokenPool.getBridgeLimit() - l1.newTokenPool.getCurrentBridgedAmount()
+    );
     deal(address(l1.c.token), alice, amount);
 
     _runEthToArb(alice, amount);

@@ -82,7 +82,10 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209 is IProposalGenericExecutor {
     });
 
     // setup new pool
-    NEW_TOKEN_POOL.applyChainUpdates(new uint64[](0), chains);
+    NEW_TOKEN_POOL.applyChainUpdates({
+      remoteChainSelectorsToRemove: new uint64[](0),
+      chainsToAdd: chains
+    });
     NEW_TOKEN_POOL.setRateLimitAdmin(NEW_GHO_CCIP_STEWARD);
     NEW_TOKEN_POOL.setBridgeLimitAdmin(NEW_GHO_CCIP_STEWARD);
 
