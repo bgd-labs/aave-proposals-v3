@@ -57,6 +57,7 @@ interface IUpgradeableBurnMintTokenPool_1_4 {
   function acceptOwnership() external;
   function applyAllowListUpdates(address[] memory removes, address[] memory adds) external;
   function applyChainUpdates(ChainUpdate[] memory chains) external;
+  function directBurn(uint256 amount) external;
   function getAllowList() external view returns (address[] memory);
   function getAllowListEnabled() external view returns (bool);
   function getArmProxy() external view returns (address armProxy);

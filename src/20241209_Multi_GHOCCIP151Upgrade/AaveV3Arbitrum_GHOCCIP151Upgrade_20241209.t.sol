@@ -74,7 +74,7 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
   event CCIPSendRequested(IInternal.EVM2EVMMessage message);
 
   function setUp() public virtual {
-    vm.createSelectFork(vm.rpcUrl('arbitrum'), 283036001);
+    vm.createSelectFork(vm.rpcUrl('arbitrum'), 287752362);
     NEW_TOKEN_POOL = IUpgradeableBurnMintTokenPool_1_5_1(_deployNewTokenPoolArb());
     NEW_GHO_CCIP_STEWARD = IGhoCcipSteward(_deployNewGhoCcipSteward(address(NEW_TOKEN_POOL)));
     proposal = new AaveV3Arbitrum_GHOCCIP151Upgrade_20241209(
