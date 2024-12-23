@@ -101,8 +101,8 @@ The stream shall commence the next block from when the previous stream finishes.
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241213_AaveV3Ethereum_TokenLogicFinancialServiceProvider/AaveV3Ethereum_TokenLogicFinancialServiceProvider_20241213.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241213_AaveV3Ethereum_TokenLogicFinancialServiceProvider/AaveV3Ethereum_TokenLogicFinancialServiceProvider_20241213.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/8894f1b6ebc87f5e81d8e7cc196e7c43ea5855dc/src/20241213_AaveV3Ethereum_TokenLogicFinancialServiceProvider/AaveV3Ethereum_TokenLogicFinancialServiceProvider_20241213.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/8894f1b6ebc87f5e81d8e7cc196e7c43ea5855dc/src/20241213_AaveV3Ethereum_TokenLogicFinancialServiceProvider/AaveV3Ethereum_TokenLogicFinancialServiceProvider_20241213.t.sol)
   [Snapshot](https://snapshot.box/#/s:aave.eth/proposal/0xd1fdca5d69b03ed57848180d62a812ab1a1ff72f85d671c417b5ff8fb2bd0a7c)
 - [Discussion](https://governance.aave.com/t/arfc-tokenlogic-financial-services-provider/20182)
 
