@@ -174,6 +174,7 @@ interface IUpgradeableBurnMintTokenPool_1_5_1 {
     uint64[] memory remoteChainSelectorsToRemove,
     ChainUpdate[] memory chainsToAdd
   ) external;
+  function directMint(address to, uint256 amount) external;
   function getAllowList() external view returns (address[] memory);
   function getAllowListEnabled() external view returns (bool);
   function getCurrentInboundRateLimiterState(
@@ -200,7 +201,6 @@ interface IUpgradeableBurnMintTokenPool_1_5_1 {
   function lockOrBurn(
     IPool.LockOrBurnInV1 memory lockOrBurnIn
   ) external returns (IPool.LockOrBurnOutV1 memory);
-  function mintAndTransferLiquidity(address to, uint256 amount) external;
   function owner() external view returns (address);
   function releaseOrMint(
     IPool.ReleaseOrMintInV1 memory releaseOrMintIn

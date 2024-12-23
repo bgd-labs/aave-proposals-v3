@@ -1,4 +1,4 @@
-/// Flattened UpgradeableBurnMintTokenPool from https://github.com/aave/ccip/pull/21 (last commit 0c15ea8abfff732f921329b19ebe8f2c81d0b692)
+/// Flattened UpgradeableBurnMintTokenPool from https://github.com/aave/ccip/pull/21 (commit e8bf9ad6e9967ce4f6a06d916d8ea4af8c07a595)
 /// Will be removed once PR is merged and contract implementation is deployed
 
 // SPDX-License-Identifier: BUSL-1.1
@@ -1724,6 +1724,7 @@ abstract contract UpgradeableBurnMintTokenPoolAbstract is UpgradeableTokenPool {
 /// - Implementation of Initializable to allow upgrades
 /// - Move of allowlist and router definition to initialization stage
 /// - Inclusion of rate limit admin who may configure rate limits in addition to owner
+/// - Add GHO-Specific onlyOwner `directBurn` which burns liquidity & reduces facilitator level.
 /// - Modifications from inherited contract (see contract for more details):
 ///   - UpgradeableTokenPool: Modify `onlyOnRamp` & `onlyOffRamp` modifier to accept transactions from ProxyPool
 contract UpgradeableBurnMintTokenPool is
@@ -1807,7 +1808,7 @@ contract UpgradeableBurnMintTokenPool is
   /// the facilitator bucket level on GHO. The naming convention is inspired from  that in
   /// LockRelease type token pools for the sake of consistency.
   /// @param amount The amount of tokens to burn.
-  function burnLiquidity(uint256 amount) external onlyOwner {
+  function directBurn(uint256 amount) external onlyOwner {
     _burn(amount);
   }
 
