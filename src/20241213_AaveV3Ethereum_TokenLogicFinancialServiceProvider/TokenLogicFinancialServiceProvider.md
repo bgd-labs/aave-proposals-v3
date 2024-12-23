@@ -1,5 +1,5 @@
 ---
-title: "TokenLogic Financial Service Provider"
+title: "Funding Proposal: TokenLogic Financial Service Provider"
 author: "TokenLogic"
 discussions: https://governance.aave.com/t/arfc-tokenlogic-financial-services-provider/20182
 snapshot: https://snapshot.box/#/s:aave.eth/proposal/0xd1fdca5d69b03ed57848180d62a812ab1a1ff72f85d671c417b5ff8fb2bd0a7c
@@ -93,9 +93,9 @@ To support funding the streams, the following is to be performed:
 
 Create the following stream allowing TokenLogic to withdraw aEthLidoGHO from the Prime instance.
 
-TokenLogic
-Stream: 1M aEthLidoGHO over 365 days
-Address: `0x3e4A9f478C0c13A15137Fc81e9d8269F127b4B40`
+- TokenLogic
+- Stream: 1M aEthLidoGHO over 365 days
+- Address: `0x3e4A9f478C0c13A15137Fc81e9d8269F127b4B40`
 
 The stream shall commence the next block from when the previous stream finishes.
 
