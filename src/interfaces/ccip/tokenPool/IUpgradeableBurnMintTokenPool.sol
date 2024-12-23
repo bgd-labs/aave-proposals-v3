@@ -88,7 +88,7 @@ interface IUpgradeableBurnMintTokenPool_1_4 {
     uint64 remoteChainSelector,
     bytes memory
   ) external;
-  function setChainIRateLimiterConfig(
+  function setChainRateLimiterConfig(
     uint64 remoteChainSelector,
     IRateLimiter.Config memory outboundConfig,
     IRateLimiter.Config memory inboundConfig
@@ -206,7 +206,7 @@ interface IUpgradeableBurnMintTokenPool_1_5_1 {
     IPool.ReleaseOrMintInV1 memory releaseOrMintIn
   ) external returns (IPool.ReleaseOrMintOutV1 memory);
   function removeRemotePool(uint64 remoteChainSelector, bytes memory remotePoolAddress) external;
-  function setChainIRateLimiterConfig(
+  function setChainRateLimiterConfig(
     uint64 remoteChainSelector,
     IRateLimiter.Config memory outboundConfig,
     IRateLimiter.Config memory inboundConfig
