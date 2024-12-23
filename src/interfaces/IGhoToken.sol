@@ -71,6 +71,12 @@ interface IGhoToken is IERC20 {
   function getFacilitatorBucket(address facilitator) external view returns (uint256, uint256);
 
   /**
+   * @notice Returns the identifier of the Facilitator Manager Role
+   * @return The bytes32 id hash of the FacilitatorManager role
+   */
+  function FACILITATOR_MANAGER_ROLE() external pure returns (bytes32);
+
+  /**
    * @notice Returns the identifier of the Bucket Manager Role
    * @return The bytes32 id hash of the BucketManager role
    */
