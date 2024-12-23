@@ -93,7 +93,7 @@ To support funding the streams, the following is to be performed:
 
 Create the following stream allowing TokenLogic to withdraw aEthLidoGHO from the Prime instance.
 
-- TokenLogic
+- Recipient: TokenLogic
 - Stream: 1M aEthLidoGHO over 365 days
 - Address: `0x3e4A9f478C0c13A15137Fc81e9d8269F127b4B40`
 
