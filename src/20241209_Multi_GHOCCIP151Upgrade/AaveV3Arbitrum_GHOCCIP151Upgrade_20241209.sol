@@ -32,6 +32,8 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209 is IProposalGenericExecutor {
     IUpgradeableBurnMintTokenPool_1_4(0xF168B83598516A532a85995b52504a2Fa058C068); // MiscArbitrum.GHO_CCIP_TOKEN_POOL; will be updated in address-book after AIP
   IUpgradeableBurnMintTokenPool_1_5_1 public immutable NEW_TOKEN_POOL;
 
+  address public immutable NEW_GHO_CCIP_STEWARD;
+
   // https://etherscan.io/address/0x9Ec9F9804733df96D1641666818eFb5198eC50f0
   address public constant EXISTING_REMOTE_POOL_ETH = 0x9Ec9F9804733df96D1641666818eFb5198eC50f0; // ProxyPool on ETH
   address public immutable NEW_REMOTE_POOL_ETH;
@@ -39,9 +41,10 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209 is IProposalGenericExecutor {
   ProxyAdmin public constant PROXY_ADMIN = ProxyAdmin(MiscArbitrum.PROXY_ADMIN);
   IGhoToken public constant GHO = IGhoToken(AaveV3ArbitrumAssets.GHO_UNDERLYING);
 
-  constructor(address newTokenPoolArb, address newTokenPoolEth) {
+  constructor(address newTokenPoolArb, address newTokenPoolEth, address newGhoCcipSteward) {
     NEW_TOKEN_POOL = IUpgradeableBurnMintTokenPool_1_5_1(newTokenPoolArb);
     NEW_REMOTE_POOL_ETH = newTokenPoolEth;
+    NEW_GHO_CCIP_STEWARD = newGhoCcipSteward;
   }
 
   function execute() external {
@@ -95,7 +98,7 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209 is IProposalGenericExecutor {
 
     // setup new pool
     NEW_TOKEN_POOL.applyChainUpdates(new uint64[](0), chains);
-    NEW_TOKEN_POOL.setRateLimitAdmin(EXISTING_TOKEN_POOL.getRateLimitAdmin()); // GhoCcipSteward
+    NEW_TOKEN_POOL.setRateLimitAdmin(NEW_GHO_CCIP_STEWARD);
 
     // register new pool
     TOKEN_ADMIN_REGISTRY.setPool(address(GHO), address(NEW_TOKEN_POOL));

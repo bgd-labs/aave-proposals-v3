@@ -12,6 +12,7 @@ import {IEVM2EVMOnRamp} from 'src/interfaces/ccip/IEVM2EVMOnRamp.sol';
 import {IEVM2EVMOffRamp_1_5} from 'src/interfaces/ccip/IEVM2EVMOffRamp.sol';
 import {ITokenAdminRegistry} from 'src/interfaces/ccip/ITokenAdminRegistry.sol';
 import {IGhoToken} from 'src/interfaces/IGhoToken.sol';
+import {IGhoCcipSteward} from 'src/interfaces/IGhoCcipSteward.sol';
 
 import {AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
@@ -22,6 +23,7 @@ import {GovernanceV3Arbitrum} from 'aave-address-book/GovernanceV3Arbitrum.sol';
 import {TransparentUpgradeableProxy} from 'solidity-utils/contracts/transparent-proxy/TransparentUpgradeableProxy.sol';
 import {UpgradeableLockReleaseTokenPool} from 'aave-ccip/pools/GHO/UpgradeableLockReleaseTokenPool.sol';
 import {UpgradeableBurnMintTokenPool} from 'aave-ccip/pools/GHO/UpgradeableBurnMintTokenPool.sol';
+import {GhoCcipSteward} from 'gho-core/misc/GhoCcipSteward.sol';
 
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 
@@ -50,6 +52,7 @@ contract AaveV3E2E_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
     IEVM2EVMOnRamp EVM2EVMOnRamp;
     IEVM2EVMOffRamp_1_5 EVM2EVMOffRamp;
     ITokenAdminRegistry tokenAdminRegistry;
+    IGhoCcipSteward newGhoCcipSteward;
     address proxyPool;
     uint64 chainSelector;
     uint256 forkId;
@@ -88,11 +91,27 @@ contract AaveV3E2E_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
 
     vm.selectFork(l1.c.forkId);
     address newTokenPoolEth = _deployNewTokenPoolEth();
+    address newGhoCcipStewardEth = _deployNewGhoCcipSteward(
+      newTokenPoolEth,
+      MiscEthereum.GHO_TOKEN,
+      GovernanceV3Ethereum.EXECUTOR_LVL_1, // riskAdmin, set as executor for convenience
+      true // bridgeLimitEnabled
+    );
     vm.selectFork(l2.c.forkId);
     address newTokenPoolArb = _deployNewTokenPoolArb();
+    address newGhoCcipStewardArb = _deployNewGhoCcipSteward(
+      newTokenPoolArb,
+      AaveV3ArbitrumAssets.GHO_UNDERLYING,
+      GovernanceV3Arbitrum.EXECUTOR_LVL_1, // riskAdmin, set as executor for convenience
+      false // bridgeLimitEnabled
+    );
 
     vm.selectFork(l1.c.forkId);
-    l1.proposal = new AaveV3Ethereum_GHOCCIP151Upgrade_20241209(newTokenPoolEth, newTokenPoolArb);
+    l1.proposal = new AaveV3Ethereum_GHOCCIP151Upgrade_20241209(
+      newTokenPoolEth,
+      newTokenPoolArb,
+      newGhoCcipStewardEth
+    );
     l1.existingTokenPool = IUpgradeableLockReleaseTokenPool_1_4(
       0x5756880B6a1EAba0175227bf02a7E87c1e02B28C
     ); // MiscEthereum.GHO_CCIP_TOKEN_POOL; will be updated in address-book after AIP
@@ -106,7 +125,11 @@ contract AaveV3E2E_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
     l1.c.proxyPool = l1.existingTokenPool.getProxyPool();
 
     vm.selectFork(l2.c.forkId);
-    l2.proposal = new AaveV3Arbitrum_GHOCCIP151Upgrade_20241209(newTokenPoolArb, newTokenPoolEth);
+    l2.proposal = new AaveV3Arbitrum_GHOCCIP151Upgrade_20241209(
+      newTokenPoolArb,
+      newTokenPoolEth,
+      newGhoCcipStewardArb
+    );
     l2.existingTokenPool = IUpgradeableBurnMintTokenPool_1_4(
       0xF168B83598516A532a85995b52504a2Fa058C068
     ); // MiscArbitrum.GHO_CCIP_TOKEN_POOL; will be updated in address-book after AIP
@@ -313,6 +336,15 @@ contract AaveV3E2E_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
           )
         )
       );
+  }
+
+  function _deployNewGhoCcipSteward(
+    address newTokenPool,
+    address ghoToken,
+    address riskCouncil,
+    bool bridgeLimitEnabled
+  ) internal returns (address) {
+    return address(new GhoCcipSteward(ghoToken, newTokenPool, riskCouncil, bridgeLimitEnabled));
   }
 
   // post upgrade

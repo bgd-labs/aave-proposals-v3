@@ -26,13 +26,16 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209 is IProposalGenericExecutor {
     IUpgradeableLockReleaseTokenPool_1_4(0x5756880B6a1EAba0175227bf02a7E87c1e02B28C); // MiscEthereum.GHO_CCIP_TOKEN_POOL; will be updated in address-book after AIP
   IUpgradeableLockReleaseTokenPool_1_5_1 public immutable NEW_TOKEN_POOL;
 
+  address public immutable NEW_GHO_CCIP_STEWARD;
+
   // https://arbiscan.io/address/0x26329558f08cbb40d6a4CCA0E0C67b29D64A8c50
   address public constant EXISTING_REMOTE_POOL_ARB = 0x26329558f08cbb40d6a4CCA0E0C67b29D64A8c50; // ProxyPool on Arb
   address public immutable NEW_REMOTE_POOL_ARB;
 
-  constructor(address newTokenPoolEth, address newTokenPoolArb) {
+  constructor(address newTokenPoolEth, address newTokenPoolArb, address newGhoCcipSteward) {
     NEW_TOKEN_POOL = IUpgradeableLockReleaseTokenPool_1_5_1(newTokenPoolEth);
     NEW_REMOTE_POOL_ARB = newTokenPoolArb;
+    NEW_GHO_CCIP_STEWARD = newGhoCcipSteward;
   }
 
   function execute() external {
@@ -80,8 +83,8 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209 is IProposalGenericExecutor {
 
     // setup new pool
     NEW_TOKEN_POOL.applyChainUpdates(new uint64[](0), chains);
-    NEW_TOKEN_POOL.setRateLimitAdmin(EXISTING_TOKEN_POOL.getRateLimitAdmin()); // GhoCcipSteward
-    NEW_TOKEN_POOL.setBridgeLimitAdmin(EXISTING_TOKEN_POOL.getBridgeLimitAdmin()); // GhoCcipSteward
+    NEW_TOKEN_POOL.setRateLimitAdmin(NEW_GHO_CCIP_STEWARD);
+    NEW_TOKEN_POOL.setBridgeLimitAdmin(NEW_GHO_CCIP_STEWARD);
 
     // register new pool
     TOKEN_ADMIN_REGISTRY.setPool(MiscEthereum.GHO_TOKEN, address(NEW_TOKEN_POOL));

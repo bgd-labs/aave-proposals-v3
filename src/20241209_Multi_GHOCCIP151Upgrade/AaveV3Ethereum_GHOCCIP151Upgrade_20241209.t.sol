@@ -14,6 +14,7 @@ import {ITypeAndVersion} from 'src/interfaces/ccip/ITypeAndVersion.sol';
 import {IEVM2EVMOffRamp_1_5} from 'src/interfaces/ccip/IEVM2EVMOffRamp.sol';
 import {ITokenAdminRegistry} from 'src/interfaces/ccip/ITokenAdminRegistry.sol';
 import {IGhoToken} from 'src/interfaces/IGhoToken.sol';
+import {IGhoCcipSteward} from 'src/interfaces/IGhoCcipSteward.sol';
 
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
@@ -24,6 +25,7 @@ import {AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
 
 import {TransparentUpgradeableProxy} from 'solidity-utils/contracts/transparent-proxy/TransparentUpgradeableProxy.sol';
 import {UpgradeableLockReleaseTokenPool} from 'aave-ccip/pools/GHO/UpgradeableLockReleaseTokenPool.sol';
+import {GhoCcipSteward} from 'gho-core/misc/GhoCcipSteward.sol';
 
 import {CCIPUtils} from './utils/CCIPUtils.sol';
 import {AaveV3Ethereum_GHOCCIP151Upgrade_20241209} from './AaveV3Ethereum_GHOCCIP151Upgrade_20241209.sol';
@@ -51,7 +53,10 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
   IEVM2EVMOffRamp_1_5 internal constant OFF_RAMP =
     IEVM2EVMOffRamp_1_5(0xdf615eF8D4C64d0ED8Fd7824BBEd2f6a10245aC9);
   IRouter internal constant ROUTER = IRouter(0x80226fc0Ee2b096224EeAc085Bb9a8cba1146f7D);
-  address internal constant GHO_CCIP_STEWARD = 0x101Efb7b9Beb073B1219Cd5473a7C8A2f2EB84f4;
+
+  IGhoCcipSteward internal constant EXISTING_GHO_CCIP_STEWARD =
+    IGhoCcipSteward(0x101Efb7b9Beb073B1219Cd5473a7C8A2f2EB84f4);
+  IGhoCcipSteward internal NEW_GHO_CCIP_STEWARD;
 
   IUpgradeableLockReleaseTokenPool_1_4 internal constant EXISTING_TOKEN_POOL =
     IUpgradeableLockReleaseTokenPool_1_4(0x5756880B6a1EAba0175227bf02a7E87c1e02B28C); // MiscEthereum.GHO_CCIP_TOKEN_POOL; will be updated in address-book after AIP
@@ -73,9 +78,11 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
   function setUp() public virtual {
     vm.createSelectFork(vm.rpcUrl('mainnet'), 21366260);
     NEW_TOKEN_POOL = IUpgradeableLockReleaseTokenPool_1_5_1(_deployNewTokenPoolEth());
+    NEW_GHO_CCIP_STEWARD = IGhoCcipSteward(_deployNewGhoCcipSteward(address(NEW_TOKEN_POOL)));
     proposal = new AaveV3Ethereum_GHOCCIP151Upgrade_20241209(
       address(NEW_TOKEN_POOL),
-      NEW_REMOTE_POOL_ARB
+      NEW_REMOTE_POOL_ARB,
+      address(NEW_GHO_CCIP_STEWARD)
     );
 
     // pre-req - chainlink transfers gho token pool ownership on token admin registry
@@ -120,6 +127,18 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
       );
   }
 
+  function _deployNewGhoCcipSteward(address newTokenPool) internal returns (address) {
+    return
+      address(
+        new GhoCcipSteward(
+          address(GHO),
+          newTokenPool,
+          EXISTING_GHO_CCIP_STEWARD.RISK_COUNCIL(),
+          true // bridgeLimitEnabled Whether the bridge limit feature is supported in the GhoTokenPool
+        )
+      );
+  }
+
   function _validateConstants() private view {
     assertEq(address(proposal.TOKEN_ADMIN_REGISTRY()), address(TOKEN_ADMIN_REGISTRY));
     assertEq(proposal.ARB_CHAIN_SELECTOR(), ARB_CHAIN_SELECTOR);
@@ -143,6 +162,13 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
 
     assertEq(ROUTER.getOnRamp(ARB_CHAIN_SELECTOR), address(ON_RAMP));
     assertTrue(ROUTER.isOffRamp(ARB_CHAIN_SELECTOR, address(OFF_RAMP)));
+
+    assertEq(EXISTING_TOKEN_POOL.getRateLimitAdmin(), address(EXISTING_GHO_CCIP_STEWARD));
+
+    assertEq(NEW_GHO_CCIP_STEWARD.RISK_COUNCIL(), EXISTING_GHO_CCIP_STEWARD.RISK_COUNCIL());
+    assertEq(NEW_GHO_CCIP_STEWARD.GHO_TOKEN(), MiscEthereum.GHO_TOKEN);
+    assertEq(NEW_GHO_CCIP_STEWARD.GHO_TOKEN_POOL(), address(NEW_TOKEN_POOL));
+    assertTrue(NEW_GHO_CCIP_STEWARD.BRIDGE_LIMIT_ENABLED()); // *present* on eth token pool
   }
 
   function _getTokenMessage(
@@ -196,8 +222,6 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
         ghoTokenPool.owner(),
         ghoTokenPool.getSupportedChains(),
         ghoTokenPool.getAllowListEnabled(),
-        ghoTokenPool.getRateLimitAdmin(),
-        ghoTokenPool.getBridgeLimitAdmin(),
         ghoTokenPool.getRebalancer(),
         ghoTokenPool.getBridgeLimit()
       );
@@ -301,7 +325,7 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_SetupAndProposalActions is
   function test_newTokenPoolSetupAndRegistration() public {
     bytes memory staticParams = _getStaticParams(address(EXISTING_TOKEN_POOL));
     bytes memory dynamicParams = _getDynamicParams(address(EXISTING_TOKEN_POOL));
-    assertEq(EXISTING_TOKEN_POOL.getRateLimitAdmin(), GHO_CCIP_STEWARD);
+    assertEq(EXISTING_TOKEN_POOL.getRateLimitAdmin(), address(EXISTING_GHO_CCIP_STEWARD));
 
     assertEq(TOKEN_ADMIN_REGISTRY.getPool(address(GHO)), EXISTING_TOKEN_POOL.getProxyPool());
 
@@ -309,6 +333,10 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_SetupAndProposalActions is
 
     assertEq(staticParams, _getStaticParams(address(NEW_TOKEN_POOL)));
     assertEq(dynamicParams, _getDynamicParams(address(NEW_TOKEN_POOL)));
+    assertEq(NEW_TOKEN_POOL.getRateLimitAdmin(), address(NEW_GHO_CCIP_STEWARD));
+
+    assertEq(TOKEN_ADMIN_REGISTRY.getPool(address(GHO)), address(NEW_TOKEN_POOL));
+
     assertEq(NEW_TOKEN_POOL.getRemotePools(ARB_CHAIN_SELECTOR).length, 2);
     assertTrue(NEW_TOKEN_POOL.isRemotePool(ARB_CHAIN_SELECTOR, abi.encode(ARB_PROXY_POOL)));
     assertTrue(NEW_TOKEN_POOL.isRemotePool(ARB_CHAIN_SELECTOR, abi.encode(NEW_REMOTE_POOL_ARB)));
@@ -318,6 +346,7 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_SetupAndProposalActions is
     );
     assertEq(NEW_TOKEN_POOL.getSupportedChains().length, 1);
     assertTrue(NEW_TOKEN_POOL.isSupportedChain(ARB_CHAIN_SELECTOR));
+
     assertEq(
       NEW_TOKEN_POOL.getCurrentInboundRateLimiterState(ARB_CHAIN_SELECTOR),
       _getDisabledConfig()
@@ -326,10 +355,6 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_SetupAndProposalActions is
       NEW_TOKEN_POOL.getCurrentOutboundRateLimiterState(ARB_CHAIN_SELECTOR),
       _getDisabledConfig()
     );
-    assertEq(NEW_TOKEN_POOL.getRateLimitAdmin(), GHO_CCIP_STEWARD); // sanity check
-    assertEq(NEW_TOKEN_POOL.getBridgeLimitAdmin(), GHO_CCIP_STEWARD); // sanity check
-
-    assertEq(TOKEN_ADMIN_REGISTRY.getPool(address(GHO)), address(NEW_TOKEN_POOL));
   }
 
   function test_newTokenPoolInitialization() public {
@@ -507,5 +532,93 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_PostUpgrade is
     assertEq(GHO.balanceOf(alice), aliceBalance + amount);
     assertEq(GHO.balanceOf(address(NEW_TOKEN_POOL)), tokenPoolBalance - amount);
     assertEq(NEW_TOKEN_POOL.getCurrentBridgedAmount(), bridgedAmount - amount);
+  }
+
+  function test_stewardCanSetAndDisableRateLimit() public {
+    assertEq(NEW_TOKEN_POOL.getRateLimitAdmin(), address(NEW_GHO_CCIP_STEWARD)); // sanity
+
+    // currently disabled
+    assertEq(
+      NEW_TOKEN_POOL.getCurrentInboundRateLimiterState(ARB_CHAIN_SELECTOR),
+      _getDisabledConfig()
+    );
+    assertEq(
+      NEW_TOKEN_POOL.getCurrentOutboundRateLimiterState(ARB_CHAIN_SELECTOR),
+      _getDisabledConfig()
+    );
+
+    IRateLimiter.Config memory outboundConfig = IRateLimiter.Config({
+      isEnabled: true,
+      capacity: 500_000e18,
+      rate: 100e18
+    });
+    IRateLimiter.Config memory inboundConfig = IRateLimiter.Config({
+      isEnabled: true,
+      capacity: 100_000e18,
+      rate: 50e18
+    });
+
+    // since only the DAO can re-enable disabled rate limit,
+    // first we set the rate limit through an AIP directly on the token pool
+    vm.prank(GovernanceV3Ethereum.EXECUTOR_LVL_1);
+    NEW_TOKEN_POOL.setChainRateLimiterConfig(ARB_CHAIN_SELECTOR, outboundConfig, inboundConfig);
+
+    skip(NEW_GHO_CCIP_STEWARD.MINIMUM_DELAY() + 1);
+
+    // change capacity
+    outboundConfig.capacity += 1;
+    outboundConfig.rate += 1;
+    inboundConfig.capacity += 1;
+    inboundConfig.rate += 1;
+
+    // now we assert the new steward can change the rate limit
+    vm.prank(NEW_GHO_CCIP_STEWARD.RISK_COUNCIL());
+    NEW_GHO_CCIP_STEWARD.updateRateLimit(
+      ARB_CHAIN_SELECTOR,
+      outboundConfig.isEnabled,
+      outboundConfig.capacity,
+      outboundConfig.rate,
+      inboundConfig.isEnabled,
+      inboundConfig.capacity,
+      inboundConfig.rate
+    );
+
+    assertEq(NEW_TOKEN_POOL.getCurrentOutboundRateLimiterState(ARB_CHAIN_SELECTOR), outboundConfig);
+    assertEq(NEW_TOKEN_POOL.getCurrentInboundRateLimiterState(ARB_CHAIN_SELECTOR), inboundConfig);
+
+    skip(NEW_GHO_CCIP_STEWARD.MINIMUM_DELAY() + 1);
+
+    // now we assert the new steward can disable the rate limit
+    vm.prank(NEW_GHO_CCIP_STEWARD.RISK_COUNCIL());
+    NEW_GHO_CCIP_STEWARD.updateRateLimit(ARB_CHAIN_SELECTOR, false, 0, 0, false, 0, 0);
+
+    assertEq(
+      NEW_TOKEN_POOL.getCurrentOutboundRateLimiterState(ARB_CHAIN_SELECTOR),
+      _getDisabledConfig()
+    );
+    assertEq(
+      NEW_TOKEN_POOL.getCurrentInboundRateLimiterState(ARB_CHAIN_SELECTOR),
+      _getDisabledConfig()
+    );
+  }
+
+  function test_stewardCanSetBridgeLimit(uint256 newBridgeLimit) public {
+    uint256 currentBridgeLimit = NEW_TOKEN_POOL.getBridgeLimit();
+    vm.assume(
+      newBridgeLimit != currentBridgeLimit &&
+        _isDifferenceLowerThanMax(currentBridgeLimit, newBridgeLimit, currentBridgeLimit)
+    );
+    vm.prank(NEW_GHO_CCIP_STEWARD.RISK_COUNCIL());
+    NEW_GHO_CCIP_STEWARD.updateBridgeLimit(newBridgeLimit);
+
+    assertEq(NEW_TOKEN_POOL.getBridgeLimit(), newBridgeLimit);
+  }
+
+  function _isDifferenceLowerThanMax(
+    uint256 from,
+    uint256 to,
+    uint256 max
+  ) internal pure returns (bool) {
+    return from < to ? to - from <= max : from - to <= max;
   }
 }
