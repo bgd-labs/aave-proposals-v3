@@ -49,8 +49,8 @@ Additionaly [0xac140648435d03f784879cd789130F22Ef588Fcd](https://snowtrace.io/ad
 
 ## References
 
-- Implementation: [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241125_AaveV3Avalanche_OnboardAUSD/AaveV3Avalanche_OnboardAUSD_20241125.sol)
-- Tests: [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241125_AaveV3Avalanche_OnboardAUSD/AaveV3Avalanche_OnboardAUSD_20241125.t.sol)
+- Implementation: [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/b368d236cc385cba56cee2009278e67145e10325/src/20241125_AaveV3Avalanche_OnboardAUSD/AaveV3Avalanche_OnboardAUSD_20241125.sol)
+- Tests: [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/b368d236cc385cba56cee2009278e67145e10325/src/20241125_AaveV3Avalanche_OnboardAUSD/AaveV3Avalanche_OnboardAUSD_20241125.t.sol)
 - [Snapshot](https://snapshot.org/#/aave.eth/proposal/0x021b40c7042ce770c0ce1ee5ff63591c132a9f0f12e3a1cb92fa209299793dec)
 - [Discussion](https://governance.aave.com/t/arfc-onboard-ausd-to-aave-v3-on-avalanche/19689)
 
