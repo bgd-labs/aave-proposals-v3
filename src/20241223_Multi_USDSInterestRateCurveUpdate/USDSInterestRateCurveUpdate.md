@@ -25,8 +25,8 @@ The frequent spikes have coincided with a decrease in borrows, as a result of la
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241223_Multi_USDSInterestRateCurveUpdate/AaveV3Ethereum_USDSInterestRateCurveUpdate_20241223.sol), [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241223_Multi_USDSInterestRateCurveUpdate/AaveV3EthereumLido_USDSInterestRateCurveUpdate_20241223.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241223_Multi_USDSInterestRateCurveUpdate/AaveV3Ethereum_USDSInterestRateCurveUpdate_20241223.t.sol), [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241223_Multi_USDSInterestRateCurveUpdate/AaveV3EthereumLido_USDSInterestRateCurveUpdate_20241223.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/e4948e240d625cf70b0e2d44b1de1d5b2b5e9cc0/src/20241223_Multi_USDSInterestRateCurveUpdate/AaveV3Ethereum_USDSInterestRateCurveUpdate_20241223.sol), [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/e4948e240d625cf70b0e2d44b1de1d5b2b5e9cc0/src/20241223_Multi_USDSInterestRateCurveUpdate/AaveV3EthereumLido_USDSInterestRateCurveUpdate_20241223.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/e4948e240d625cf70b0e2d44b1de1d5b2b5e9cc0/src/20241223_Multi_USDSInterestRateCurveUpdate/AaveV3Ethereum_USDSInterestRateCurveUpdate_20241223.t.sol), [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/e4948e240d625cf70b0e2d44b1de1d5b2b5e9cc0/src/20241223_Multi_USDSInterestRateCurveUpdate/AaveV3EthereumLido_USDSInterestRateCurveUpdate_20241223.t.sol)
 - Snapshot: Direct-to-AIP
 - [Discussion](https://governance.aave.com/t/arfc-usds-interest-rate-curve-update/20243)
 
