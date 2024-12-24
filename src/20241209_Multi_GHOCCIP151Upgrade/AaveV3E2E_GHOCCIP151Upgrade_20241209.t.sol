@@ -87,7 +87,7 @@ contract AaveV3E2E_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
 
   function setUp() public virtual {
     l1.c.forkId = vm.createFork(vm.rpcUrl('mainnet'), 21366260);
-    l2.c.forkId = vm.createFork(vm.rpcUrl('arbitrum'), 287752362);
+    l2.c.forkId = vm.createFork(vm.rpcUrl('arbitrum'), 288070365);
 
     vm.selectFork(l1.c.forkId);
     address newTokenPoolEth = _deployNewTokenPoolEth();
@@ -521,10 +521,6 @@ contract AaveV3E2E_GHOCCIP151Upgrade_20241209_PostUpgrade is
 contract AaveV3E2E_GHOCCIP151Upgrade_20241209_InFlightUpgrade is
   AaveV3E2E_GHOCCIP151Upgrade_20241209_Base
 {
-  function setUp() public override {
-    super.setUp();
-  }
-
   function test_E2E_InFlightMsg_FromEth() public {
     vm.selectFork(l1.c.forkId);
 
