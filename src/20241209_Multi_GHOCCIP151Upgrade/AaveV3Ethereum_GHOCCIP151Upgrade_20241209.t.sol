@@ -222,7 +222,6 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
       abi.encode(
         ghoTokenPool.owner(),
         ghoTokenPool.getSupportedChains(),
-        ghoTokenPool.getAllowListEnabled(),
         ghoTokenPool.getRebalancer(),
         ghoTokenPool.getBridgeLimit()
       );

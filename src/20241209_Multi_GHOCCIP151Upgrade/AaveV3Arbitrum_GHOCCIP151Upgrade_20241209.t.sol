@@ -204,12 +204,7 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
 
   function _getDynamicParams(address tokenPool) internal view returns (bytes memory) {
     IUpgradeableBurnMintTokenPool_1_4 ghoTokenPool = IUpgradeableBurnMintTokenPool_1_4(tokenPool);
-    return
-      abi.encode(
-        ghoTokenPool.owner(),
-        ghoTokenPool.getSupportedChains(),
-        ghoTokenPool.getAllowListEnabled()
-      );
+    return abi.encode(ghoTokenPool.owner(), ghoTokenPool.getSupportedChains());
   }
 
   function _tokenBucketToConfig(
