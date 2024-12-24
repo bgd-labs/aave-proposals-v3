@@ -3,6 +3,8 @@ pragma solidity ^0.8.0;
 
 import 'forge-std/Test.sol';
 
+import {TransparentUpgradeableProxy} from 'solidity-utils/contracts/transparent-proxy/TransparentUpgradeableProxy.sol';
+
 import {IUpgradeableLockReleaseTokenPool_1_4, IUpgradeableLockReleaseTokenPool_1_5_1} from 'src/interfaces/ccip/tokenPool/IUpgradeableLockReleaseTokenPool.sol';
 import {IUpgradeableBurnMintTokenPool_1_4, IUpgradeableBurnMintTokenPool_1_5_1} from 'src/interfaces/ccip/tokenPool/IUpgradeableBurnMintTokenPool.sol';
 import {IRateLimiter} from 'src/interfaces/ccip/IRateLimiter.sol';
@@ -116,7 +118,7 @@ contract AaveV3Base_GHOBaseLaunch_20241223_Base is ProtocolV3TestBase {
 
     vm.selectFork(base.c.forkId);
     address ghoTokenImplBase = _deployGhoTokenImpl();
-    address ghoTokenBase = _computeCreateAddress(GovernanceV3Base.EXECUTOR_LVL_1);
+    address ghoTokenBase = _predictGhoTokenAddressBase(ghoTokenImplBase);
     address newTokenPoolBase = _deployNewBurnMintTokenPool(
       ghoTokenBase,
       RMN_PROXY_BASE,
@@ -256,8 +258,35 @@ contract AaveV3Base_GHOBaseLaunch_20241223_Base is ProtocolV3TestBase {
     return address(new UpgradeableGhoToken());
   }
 
-  function _computeCreateAddress(address deployer) internal view returns (address) {
-    return vm.computeCreateAddress(deployer, vm.getNonce(deployer));
+  function _predictGhoTokenAddressBase(address logic) internal pure returns (address) {
+    return
+      _predictCreate2Address({
+        creator: GovernanceV3Base.EXECUTOR_LVL_1,
+        salt: keccak256('based-GHO'),
+        creationCode: type(TransparentUpgradeableProxy).creationCode,
+        constructorArgs: abi.encode(
+          logic,
+          address(MiscBase.PROXY_ADMIN),
+          abi.encodeWithSignature('initialize(address)', GovernanceV3Base.EXECUTOR_LVL_1)
+        )
+      });
+  }
+
+  function _predictCreate2Address(
+    address creator,
+    bytes32 salt,
+    bytes memory creationCode,
+    bytes memory constructorArgs
+  ) internal pure returns (address) {
+    bytes32 hash = keccak256(
+      abi.encodePacked(
+        bytes1(0xff),
+        creator,
+        salt,
+        keccak256(abi.encodePacked(creationCode, constructorArgs))
+      )
+    );
+    return address(uint160(uint256(hash)));
   }
 
   function _deployNewBurnMintTokenPool(
@@ -800,6 +829,109 @@ contract AaveV3Base_GHOBaseLaunch_20241223_PostExecution is AaveV3Base_GHOBaseLa
         arb.c.token.getFacilitator(address(arb.tokenPool)).bucketLevel,
         facilitatorLevel + amount
       );
+    }
+  }
+
+  function test_E2E_Eth_Arb(uint256 amount) public {
+    {
+      vm.selectFork(eth.c.forkId);
+      uint256 bridgeableAmount = eth.tokenPool.getBridgeLimit() -
+        eth.tokenPool.getCurrentBridgedAmount();
+      amount = bound(amount, 1, bridgeableAmount);
+
+      vm.prank(alice);
+      eth.c.token.approve(address(eth.c.router), amount);
+      deal(address(eth.c.token), alice, amount);
+
+      uint256 tokenPoolBalance = eth.c.token.balanceOf(address(eth.tokenPool));
+      uint256 aliceBalance = eth.c.token.balanceOf(alice);
+      uint256 bridgedAmount = eth.tokenPool.getCurrentBridgedAmount();
+
+      (
+        IClient.EVM2AnyMessage memory message,
+        IInternal.EVM2EVMMessage memory eventArg
+      ) = _getTokenMessage(CCIPSendParams({src: eth.c, dst: arb.c, sender: alice, amount: amount}));
+
+      vm.expectEmit(address(eth.tokenPool));
+      emit Locked(address(eth.c.arbOnRamp), amount);
+      vm.expectEmit(address(eth.c.arbOnRamp));
+      emit CCIPSendRequested(eventArg);
+
+      vm.prank(alice);
+      eth.c.router.ccipSend{value: eventArg.feeTokenAmount}(arb.c.chainSelector, message);
+
+      assertEq(eth.c.token.balanceOf(address(eth.tokenPool)), tokenPoolBalance + amount);
+      assertEq(eth.c.token.balanceOf(alice), aliceBalance - amount);
+      assertEq(eth.tokenPool.getCurrentBridgedAmount(), bridgedAmount + amount);
+
+      // arb execute message
+      vm.selectFork(arb.c.forkId);
+
+      aliceBalance = arb.c.token.balanceOf(alice);
+      uint256 bucketLevel = arb.c.token.getFacilitator(address(arb.tokenPool)).bucketLevel;
+
+      vm.expectEmit(address(arb.tokenPool));
+      emit Minted(address(arb.c.ethOffRamp), alice, amount);
+
+      vm.prank(address(arb.c.ethOffRamp));
+      arb.c.ethOffRamp.executeSingleMessage({
+        message: eventArg,
+        offchainTokenData: new bytes[](message.tokenAmounts.length),
+        tokenGasOverrides: new uint32[](0)
+      });
+
+      assertEq(arb.c.token.balanceOf(alice), aliceBalance + amount);
+      assertEq(
+        arb.c.token.getFacilitator(address(arb.tokenPool)).bucketLevel,
+        bucketLevel + amount
+      );
+    }
+
+    // send amount back to eth
+    {
+      // send back from arb
+      vm.selectFork(arb.c.forkId);
+      vm.prank(alice);
+      arb.c.token.approve(address(arb.c.router), amount);
+
+      uint256 aliceBalance = arb.c.token.balanceOf(alice);
+      uint256 bucketLevel = arb.c.token.getFacilitator(address(arb.tokenPool)).bucketLevel;
+
+      (
+        IClient.EVM2AnyMessage memory message,
+        IInternal.EVM2EVMMessage memory eventArg
+      ) = _getTokenMessage(CCIPSendParams({src: arb.c, dst: eth.c, sender: alice, amount: amount}));
+
+      vm.expectEmit(address(arb.tokenPool));
+      emit Burned(address(arb.c.ethOnRamp), amount);
+      vm.expectEmit(address(arb.c.ethOnRamp));
+      emit CCIPSendRequested(eventArg);
+
+      vm.prank(alice);
+      arb.c.router.ccipSend{value: eventArg.feeTokenAmount}(eth.c.chainSelector, message);
+
+      assertEq(arb.c.token.balanceOf(alice), aliceBalance - amount);
+      assertEq(
+        arb.c.token.getFacilitator(address(arb.tokenPool)).bucketLevel,
+        bucketLevel - amount
+      );
+
+      // eth execute message
+      vm.selectFork(eth.c.forkId);
+
+      uint256 bridgedAmount = eth.tokenPool.getCurrentBridgedAmount();
+
+      vm.expectEmit(address(eth.tokenPool));
+      emit Released(address(eth.c.arbOffRamp), alice, amount);
+      vm.prank(address(eth.c.arbOffRamp));
+      eth.c.arbOffRamp.executeSingleMessage({
+        message: eventArg,
+        offchainTokenData: new bytes[](message.tokenAmounts.length),
+        tokenGasOverrides: new uint32[](0)
+      });
+
+      assertEq(eth.c.token.balanceOf(alice), amount);
+      assertEq(eth.tokenPool.getCurrentBridgedAmount(), bridgedAmount - amount);
     }
   }
 }
