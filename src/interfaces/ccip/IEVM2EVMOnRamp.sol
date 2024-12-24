@@ -17,6 +17,17 @@ interface IEVM2EVMOnRamp is ITypeAndVersion {
     bool isEnabled; // ─────────────────╯ Whether this token has custom transfer fees
   }
 
+  struct StaticConfig {
+    address linkToken; // ────────╮ Link token address
+    uint64 chainSelector; // ─────╯ Source chainSelector
+    uint64 destChainSelector; // ─╮ Destination chainSelector
+    uint64 defaultTxGasLimit; //  │ Default gas limit for a tx
+    uint96 maxNopFeesJuels; // ───╯ Max nop fee balance onramp can have
+    address prevOnRamp; //          Address of previous-version OnRamp
+    address rmnProxy; //            Address of RMN proxy
+    address tokenAdminRegistry; //  Address of the token admin registry
+  }
+
   struct DynamicConfig {
     address router; // ──────────────────────────╮ Router address
     uint16 maxNumberOfTokensPerMsg; //           │ Maximum number of distinct ERC20 token transferred per message
@@ -69,4 +80,10 @@ interface IEVM2EVMOnRamp is ITypeAndVersion {
   /// @notice Returns the dynamic onRamp config.
   /// @return dynamicConfig the configuration.
   function getDynamicConfig() external view returns (DynamicConfig memory dynamicConfig);
+
+  /// @notice Returns the static onRamp config.
+  /// @dev RMN depends on this function, if changing, please notify the RMN maintainers.
+  /// @return the configuration.
+
+  function getStaticConfig() external view returns (StaticConfig memory);
 }

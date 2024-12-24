@@ -5,13 +5,15 @@ import 'forge-std/Test.sol';
 
 import {IUpgradeableLockReleaseTokenPool_1_4, IUpgradeableLockReleaseTokenPool_1_5_1} from 'src/interfaces/ccip/tokenPool/IUpgradeableLockReleaseTokenPool.sol';
 import {IUpgradeableBurnMintTokenPool_1_4, IUpgradeableBurnMintTokenPool_1_5_1} from 'src/interfaces/ccip/tokenPool/IUpgradeableBurnMintTokenPool.sol';
-import {IClient} from 'src/interfaces/ccip/IClient.sol';
+import {IRateLimiter} from 'src/interfaces/ccip/IRateLimiter.sol';
 import {IInternal} from 'src/interfaces/ccip/IInternal.sol';
+import {IClient} from 'src/interfaces/ccip/IClient.sol';
 import {IRouter} from 'src/interfaces/ccip/IRouter.sol';
 import {IEVM2EVMOnRamp} from 'src/interfaces/ccip/IEVM2EVMOnRamp.sol';
 import {IEVM2EVMOffRamp_1_5} from 'src/interfaces/ccip/IEVM2EVMOffRamp.sol';
 import {ITokenAdminRegistry} from 'src/interfaces/ccip/ITokenAdminRegistry.sol';
 import {IGhoToken} from 'src/interfaces/IGhoToken.sol';
+import {IGhoCcipSteward} from 'src/interfaces/IGhoCcipSteward.sol';
 
 import {AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
 import {MiscArbitrum} from 'aave-address-book/MiscArbitrum.sol';
@@ -173,7 +175,7 @@ contract AaveV3Base_GHOBaseLaunch_20241223_Base is ProtocolV3TestBase {
 
     _performCLLPreReq(base.c, GovernanceV3Base.EXECUTOR_LVL_1);
 
-    _validateConstants({executed: false});
+    _validateConfig({executed: false});
   }
 
   function _upgradeEthArbTo1_5_1() internal returns (address, address) {
@@ -374,19 +376,212 @@ contract AaveV3Base_GHOBaseLaunch_20241223_Base is ProtocolV3TestBase {
     return (message, eventArg);
   }
 
-  // todo: expand
-  function _validateConstants(bool executed) internal {
+  function _validateConfig(bool executed) internal {
+    vm.selectFork(arb.c.forkId);
+    assertEq(arb.c.chainSelector, 4949039107694359620);
+    assertEq(address(arb.c.token), AaveV3ArbitrumAssets.GHO_UNDERLYING);
+    assertEq(arb.c.router.typeAndVersion(), 'Router 1.2.0');
+    _assertOnRamp(arb.c.baseOnRamp, arb.c.chainSelector, base.c.chainSelector, arb.c.router);
+    _assertOnRamp(arb.c.ethOnRamp, arb.c.chainSelector, eth.c.chainSelector, arb.c.router);
+    _assertOffRamp(arb.c.baseOffRamp, base.c.chainSelector, arb.c.chainSelector, arb.c.router);
+    _assertOffRamp(arb.c.ethOffRamp, eth.c.chainSelector, arb.c.chainSelector, arb.c.router);
+
+    // proposal constants
+    assertEq(arb.proposal.BASE_CHAIN_SELECTOR(), base.c.chainSelector);
+    assertEq(address(arb.proposal.TOKEN_POOL()), address(arb.tokenPool));
+    assertEq(arb.proposal.REMOTE_TOKEN_POOL_BASE(), address(base.tokenPool));
+    assertEq(arb.proposal.REMOTE_GHO_TOKEN_BASE(), address(base.c.token));
+
+    vm.selectFork(base.c.forkId);
+    assertEq(base.c.chainSelector, 15971525489660198786);
+    assertEq(base.c.router.typeAndVersion(), 'Router 1.2.0');
+    _assertOnRamp(base.c.arbOnRamp, base.c.chainSelector, arb.c.chainSelector, base.c.router);
+    _assertOnRamp(base.c.ethOnRamp, base.c.chainSelector, eth.c.chainSelector, base.c.router);
+    _assertOffRamp(base.c.arbOffRamp, arb.c.chainSelector, base.c.chainSelector, base.c.router);
+    _assertOffRamp(base.c.ethOffRamp, eth.c.chainSelector, base.c.chainSelector, base.c.router);
+
+    // proposal constants
+    assertEq(base.proposal.ETH_CHAIN_SELECTOR(), eth.c.chainSelector);
+    assertEq(base.proposal.ARB_CHAIN_SELECTOR(), arb.c.chainSelector);
+    assertEq(base.proposal.CCIP_BUCKET_CAPACITY(), 25_000_000e18);
+    assertEq(address(base.proposal.TOKEN_ADMIN_REGISTRY()), address(base.c.tokenAdminRegistry));
+    assertEq(address(base.proposal.TOKEN_POOL()), address(base.tokenPool));
+    IGhoCcipSteward ghoCcipSteward = IGhoCcipSteward(base.proposal.GHO_CCIP_STEWARD());
+    assertEq(ghoCcipSteward.GHO_TOKEN_POOL(), address(base.tokenPool));
+    assertEq(ghoCcipSteward.GHO_TOKEN(), address(base.c.token));
+    assertEq(base.proposal.REMOTE_TOKEN_POOL_ETH(), address(eth.tokenPool));
+    assertEq(base.proposal.REMOTE_TOKEN_POOL_ARB(), address(arb.tokenPool));
+
+    vm.selectFork(eth.c.forkId);
+    assertEq(eth.c.chainSelector, 5009297550715157269);
+    assertEq(address(eth.c.token), MiscEthereum.GHO_TOKEN);
+    assertEq(eth.c.router.typeAndVersion(), 'Router 1.2.0');
+    _assertOnRamp(eth.c.arbOnRamp, eth.c.chainSelector, arb.c.chainSelector, eth.c.router);
+    _assertOnRamp(eth.c.baseOnRamp, eth.c.chainSelector, base.c.chainSelector, eth.c.router);
+    _assertOffRamp(eth.c.arbOffRamp, arb.c.chainSelector, eth.c.chainSelector, eth.c.router);
+    _assertOffRamp(eth.c.baseOffRamp, base.c.chainSelector, eth.c.chainSelector, eth.c.router);
+
+    // proposal constants
+    assertEq(eth.proposal.BASE_CHAIN_SELECTOR(), base.c.chainSelector);
+    assertEq(address(eth.proposal.TOKEN_POOL()), address(eth.tokenPool));
+    assertEq(eth.proposal.REMOTE_TOKEN_POOL_BASE(), address(base.tokenPool));
+    assertEq(eth.proposal.REMOTE_GHO_TOKEN_BASE(), address(base.c.token));
+
     if (executed) {
+      vm.selectFork(arb.c.forkId);
+      assertEq(arb.c.tokenAdminRegistry.getPool(address(arb.c.token)), address(arb.tokenPool));
+      assertEq(arb.tokenPool.getSupportedChains()[0], eth.c.chainSelector);
+      assertEq(arb.tokenPool.getSupportedChains()[1], base.c.chainSelector);
+      assertEq(arb.tokenPool.getRemoteToken(eth.c.chainSelector), abi.encode(address(eth.c.token)));
+      assertEq(
+        arb.tokenPool.getRemoteToken(base.c.chainSelector),
+        abi.encode(address(base.c.token))
+      );
+      assertEq(arb.tokenPool.getRemotePools(base.c.chainSelector).length, 1);
+      assertEq(
+        arb.tokenPool.getRemotePools(base.c.chainSelector)[0],
+        abi.encode(address(base.tokenPool))
+      );
+      assertEq(arb.tokenPool.getRemotePools(eth.c.chainSelector).length, 2);
+      assertEq(
+        arb.tokenPool.getRemotePools(eth.c.chainSelector)[1], // 0th is the 1.4 token pool
+        abi.encode(address(eth.tokenPool))
+      );
+      _assertDisabledRateLimit(arb.c, address(arb.tokenPool));
+
       vm.selectFork(base.c.forkId);
-      assertEq(base.proposal.REMOTE_TOKEN_POOL_ETH(), address(eth.tokenPool));
-      assertEq(base.proposal.REMOTE_TOKEN_POOL_ARB(), address(arb.tokenPool));
-      assertTrue(
-        base.tokenPool.isRemotePool(eth.c.chainSelector, abi.encode(address(eth.tokenPool)))
+      assertEq(base.proposal.GHO_TOKEN_IMPL(), _getImplementation(address(base.c.token)));
+      assertEq(base.c.tokenAdminRegistry.getPool(address(base.c.token)), address(base.tokenPool));
+      assertEq(base.tokenPool.getSupportedChains()[0], eth.c.chainSelector);
+      assertEq(base.tokenPool.getSupportedChains()[1], arb.c.chainSelector);
+      assertEq(
+        base.tokenPool.getRemoteToken(arb.c.chainSelector),
+        abi.encode(address(arb.c.token))
       );
-      assertTrue(
-        base.tokenPool.isRemotePool(arb.c.chainSelector, abi.encode(address(arb.tokenPool)))
+      assertEq(
+        base.tokenPool.getRemoteToken(eth.c.chainSelector),
+        abi.encode(address(eth.c.token))
       );
+      assertEq(base.tokenPool.getRemotePools(arb.c.chainSelector).length, 1);
+      assertEq(
+        base.tokenPool.getRemotePools(arb.c.chainSelector)[0],
+        abi.encode(address(arb.tokenPool))
+      );
+      assertEq(base.tokenPool.getRemotePools(eth.c.chainSelector).length, 1);
+      assertEq(
+        base.tokenPool.getRemotePools(eth.c.chainSelector)[0],
+        abi.encode(address(eth.tokenPool))
+      );
+      _assertDisabledRateLimit(base.c, address(base.tokenPool));
+
+      vm.selectFork(eth.c.forkId);
+      assertEq(eth.c.tokenAdminRegistry.getPool(address(eth.c.token)), address(eth.tokenPool));
+      assertEq(eth.tokenPool.getSupportedChains()[0], arb.c.chainSelector);
+      assertEq(eth.tokenPool.getSupportedChains()[1], base.c.chainSelector);
+      assertEq(eth.tokenPool.getRemoteToken(arb.c.chainSelector), abi.encode(address(arb.c.token)));
+      assertEq(
+        eth.tokenPool.getRemoteToken(base.c.chainSelector),
+        abi.encode(address(base.c.token))
+      );
+      assertEq(eth.tokenPool.getRemotePools(arb.c.chainSelector).length, 2);
+      assertEq(
+        eth.tokenPool.getRemotePools(arb.c.chainSelector)[1], // 0th is the 1.4 token pool
+        abi.encode(address(arb.tokenPool))
+      );
+      assertEq(eth.tokenPool.getRemotePools(base.c.chainSelector).length, 1);
+      assertEq(
+        eth.tokenPool.getRemotePools(base.c.chainSelector)[0],
+        abi.encode(address(base.tokenPool))
+      );
+      _assertDisabledRateLimit(eth.c, address(eth.tokenPool));
     }
+  }
+
+  function _assertOnRamp(
+    IEVM2EVMOnRamp onRamp,
+    uint64 srcSelector,
+    uint64 dstSelector,
+    IRouter router
+  ) internal view {
+    assertEq(onRamp.typeAndVersion(), 'EVM2EVMOnRamp 1.5.0');
+    assertEq(onRamp.getStaticConfig().chainSelector, srcSelector);
+    assertEq(onRamp.getStaticConfig().destChainSelector, dstSelector);
+    assertEq(onRamp.getDynamicConfig().router, address(router));
+    assertEq(router.getOnRamp(dstSelector), address(onRamp));
+  }
+
+  function _assertOffRamp(
+    IEVM2EVMOffRamp_1_5 offRamp,
+    uint64 srcSelector,
+    uint64 dstSelector,
+    IRouter router
+  ) internal view {
+    assertEq(offRamp.typeAndVersion(), 'EVM2EVMOffRamp 1.5.0');
+    assertEq(offRamp.getStaticConfig().sourceChainSelector, srcSelector);
+    assertEq(offRamp.getStaticConfig().chainSelector, dstSelector);
+    assertEq(offRamp.getDynamicConfig().router, address(router));
+    assertTrue(router.isOffRamp(srcSelector, address(offRamp)));
+  }
+
+  function _assertDisabledRateLimit(Common memory src, address tokenPool) internal view {
+    (Common memory dst1, Common memory dst2) = _getDestination(src);
+    IUpgradeableLockReleaseTokenPool_1_5_1 _tokenPool = IUpgradeableLockReleaseTokenPool_1_5_1(
+      tokenPool
+    );
+    assertEq(
+      _tokenPool.getCurrentInboundRateLimiterState(dst1.chainSelector),
+      _getDisabledConfig()
+    );
+    assertEq(
+      _tokenPool.getCurrentOutboundRateLimiterState(dst1.chainSelector),
+      _getDisabledConfig()
+    );
+
+    assertEq(
+      _tokenPool.getCurrentInboundRateLimiterState(dst2.chainSelector),
+      _getDisabledConfig()
+    );
+    assertEq(
+      _tokenPool.getCurrentOutboundRateLimiterState(dst2.chainSelector),
+      _getDisabledConfig()
+    );
+  }
+
+  function _getDestination(Common memory src) internal view returns (Common memory, Common memory) {
+    if (src.forkId == arb.c.forkId) return (base.c, eth.c);
+    else if (src.forkId == base.c.forkId) return (arb.c, eth.c);
+    else return (arb.c, base.c);
+  }
+
+  function _tokenBucketToConfig(
+    IRateLimiter.TokenBucket memory bucket
+  ) internal pure returns (IRateLimiter.Config memory) {
+    return
+      IRateLimiter.Config({
+        isEnabled: bucket.isEnabled,
+        capacity: bucket.capacity,
+        rate: bucket.rate
+      });
+  }
+
+  function _getDisabledConfig() internal pure returns (IRateLimiter.Config memory) {
+    return IRateLimiter.Config({isEnabled: false, capacity: 0, rate: 0});
+  }
+
+  function _getImplementation(address proxy) internal view returns (address) {
+    bytes32 slot = bytes32(uint256(keccak256('eip1967.proxy.implementation')) - 1);
+    return address(uint160(uint256(vm.load(proxy, slot))));
+  }
+
+  function _readInitialized(address proxy) internal view returns (uint8) {
+    return uint8(uint256(vm.load(proxy, bytes32(0))));
+  }
+
+  function assertEq(
+    IRateLimiter.TokenBucket memory bucket,
+    IRateLimiter.Config memory config
+  ) internal pure {
+    assertEq(abi.encode(_tokenBucketToConfig(bucket)), abi.encode(config));
   }
 }
 
@@ -403,7 +598,7 @@ contract AaveV3Base_GHOBaseLaunch_20241223_PostExecution is AaveV3Base_GHOBaseLa
     vm.selectFork(base.c.forkId);
     executePayload(vm, address(base.proposal));
 
-    _validateConstants({executed: true});
+    _validateConfig({executed: true});
   }
 
   function test_E2E_Eth_Base(uint256 amount) public {
