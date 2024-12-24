@@ -18,6 +18,7 @@ import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
  * @title GHO Base Launch
  * @author Aave Labs
  * - Discussion: https://governance.aave.com/t/arfc-launch-gho-on-base-set-aci-as-emissions-manager-for-rewards/19338
+ * - Snapshot: https://snapshot.box/#/s:aave.eth/proposal/0x03dc21e0423c60082dc23317af6ebaf997610cbc2cbb0f5a385653bd99a524fe
  */
 contract AaveV3Base_GHOBaseLaunch_20241223 is IProposalGenericExecutor {
   uint64 public constant ETH_CHAIN_SELECTOR = 5009297550715157269;

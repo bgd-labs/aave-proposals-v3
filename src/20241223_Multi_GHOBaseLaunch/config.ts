@@ -8,7 +8,8 @@ export const config: ConfigFile = {
     author: 'Aave Labs',
     discussion:
       'https://governance.aave.com/t/arfc-launch-gho-on-base-set-aci-as-emissions-manager-for-rewards/19338',
-    snapshot: 'Direct-to-AIP',
+    snapshot:
+      'https://snapshot.box/#/s:aave.eth/proposal/0x03dc21e0423c60082dc23317af6ebaf997610cbc2cbb0f5a385653bd99a524fe',
     votingNetwork: 'POLYGON',
   },
   poolOptions: {

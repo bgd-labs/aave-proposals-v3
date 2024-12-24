@@ -42,9 +42,9 @@ contract AaveV3Ethereum_GHOBaseLaunch_20241223_Test is ProtocolV3TestBase {
     uint64 destChainSelector;
   }
 
-  uint64 internal constant ARB_CHAIN_SELECTOR = 4949039107694359620;
-  uint64 internal constant BASE_CHAIN_SELECTOR = 15971525489660198786;
-  uint64 internal constant ETH_CHAIN_SELECTOR = 5009297550715157269;
+  uint64 internal constant ARB_CHAIN_SELECTOR = CCIPUtils.ARB_CHAIN_SELECTOR;
+  uint64 internal constant BASE_CHAIN_SELECTOR = CCIPUtils.BASE_CHAIN_SELECTOR;
+  uint64 internal constant ETH_CHAIN_SELECTOR = CCIPUtils.ETH_CHAIN_SELECTOR;
 
   IGhoToken internal constant GHO = IGhoToken(AaveV3EthereumAssets.GHO_UNDERLYING);
   ITokenAdminRegistry internal constant TOKEN_ADMIN_REGISTRY =
