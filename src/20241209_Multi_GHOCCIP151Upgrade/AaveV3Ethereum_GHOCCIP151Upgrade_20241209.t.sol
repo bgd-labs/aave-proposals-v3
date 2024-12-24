@@ -262,10 +262,6 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
 contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_SetupAndProposalActions is
   AaveV3Ethereum_GHOCCIP151Upgrade_20241209_Base
 {
-  function setUp() public override {
-    super.setUp();
-  }
-
   /**
    * @dev executes the generic test suite including e2e and config snapshots
    */
@@ -374,8 +370,10 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_PostUpgrade is
     executePayload(vm, address(proposal));
   }
 
-  function test_sendMessageSucceedsAndRoutesViaNewPool() public {
-    uint256 amount = 100_000e18;
+  function test_sendMessageSucceedsAndRoutesViaNewPool(uint256 amount) public {
+    uint256 bridgeableAmount = NEW_TOKEN_POOL.getBridgeLimit() -
+      NEW_TOKEN_POOL.getCurrentBridgedAmount();
+    amount = bound(amount, 1, bridgeableAmount);
 
     deal(address(GHO), alice, amount);
     vm.prank(alice);
@@ -425,8 +423,10 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_PostUpgrade is
   }
 
   // on-ramp via new pool
-  function test_lockOrBurnSucceedsOnNewPool() public {
-    uint256 amount = 100_000e18;
+  function test_lockOrBurnSucceedsOnNewPool(uint256 amount) public {
+    uint256 bridgeableAmount = NEW_TOKEN_POOL.getBridgeLimit() -
+      NEW_TOKEN_POOL.getCurrentBridgedAmount();
+    amount = bound(amount, 1, bridgeableAmount);
 
     // router pulls tokens from the user & sends to the token pool during onRamps
     // we don't override NEW_TOKEN_POOL balance here & instead transfer because we want
@@ -475,8 +475,9 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_PostUpgrade is
   }
 
   // off-ramp messages sent from new eth token pool (v1.5.1)
-  function test_releaseOrMintSucceedsOnNewPoolOffRampedViaNewTokenPoolEth() public {
-    uint256 amount = 100_000e18;
+  function test_releaseOrMintSucceedsOnNewPoolOffRampedViaNewTokenPoolEth(uint256 amount) public {
+    uint256 bridgeableAmount = NEW_TOKEN_POOL.getCurrentBridgedAmount();
+    amount = bound(amount, 1, bridgeableAmount);
 
     uint256 aliceBalance = GHO.balanceOf(alice);
     uint256 tokenPoolBalance = GHO.balanceOf(address(NEW_TOKEN_POOL));
@@ -505,8 +506,11 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_PostUpgrade is
   }
 
   // off-ramp messages sent from existing eth token pool (v1.4) ie ProxyPool
-  function test_releaseOrMintSucceedsOnNewPoolOffRampedViaExistingTokenPoolEth() public {
-    uint256 amount = 100_000e18;
+  function test_releaseOrMintSucceedsOnNewPoolOffRampedViaExistingTokenPoolEth(
+    uint256 amount
+  ) public {
+    uint256 bridgeableAmount = NEW_TOKEN_POOL.getCurrentBridgedAmount();
+    amount = bound(amount, 1, bridgeableAmount);
 
     uint256 aliceBalance = GHO.balanceOf(alice);
     uint256 tokenPoolBalance = GHO.balanceOf(address(NEW_TOKEN_POOL));
