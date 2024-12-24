@@ -261,6 +261,46 @@ contract AaveV3Ethereum_GHOBaseLaunch_20241223_Test is ProtocolV3TestBase {
     return uint8(uint256(vm.load(proxy, bytes32(0))));
   }
 
+  function test_BasePoolConfig() public view {
+    assertEq(NEW_TOKEN_POOL.getSupportedChains().length, 2);
+    assertEq(NEW_TOKEN_POOL.getSupportedChains()[0], ARB_CHAIN_SELECTOR);
+    assertEq(NEW_TOKEN_POOL.getSupportedChains()[1], BASE_CHAIN_SELECTOR);
+    assertEq(
+      NEW_TOKEN_POOL.getRemoteToken(ARB_CHAIN_SELECTOR),
+      abi.encode(address(AaveV3ArbitrumAssets.GHO_UNDERLYING))
+    );
+    assertEq(
+      NEW_TOKEN_POOL.getRemoteToken(BASE_CHAIN_SELECTOR),
+      abi.encode(address(NEW_REMOTE_TOKEN_BASE))
+    );
+    assertEq(NEW_TOKEN_POOL.getRemotePools(BASE_CHAIN_SELECTOR).length, 1);
+    assertEq(
+      NEW_TOKEN_POOL.getRemotePools(BASE_CHAIN_SELECTOR)[0],
+      abi.encode(address(NEW_REMOTE_POOL_BASE))
+    );
+    assertEq(NEW_TOKEN_POOL.getRemotePools(ARB_CHAIN_SELECTOR).length, 2);
+    assertEq(
+      NEW_TOKEN_POOL.getRemotePools(ARB_CHAIN_SELECTOR)[1], // 0th is the 1.4 token pool
+      abi.encode(address(NEW_REMOTE_POOL_ARB))
+    );
+    assertEq(
+      NEW_TOKEN_POOL.getCurrentInboundRateLimiterState(ARB_CHAIN_SELECTOR),
+      _getDisabledConfig()
+    );
+    assertEq(
+      NEW_TOKEN_POOL.getCurrentOutboundRateLimiterState(ARB_CHAIN_SELECTOR),
+      _getDisabledConfig()
+    );
+    assertEq(
+      NEW_TOKEN_POOL.getCurrentInboundRateLimiterState(BASE_CHAIN_SELECTOR),
+      _getDisabledConfig()
+    );
+    assertEq(
+      NEW_TOKEN_POOL.getCurrentOutboundRateLimiterState(BASE_CHAIN_SELECTOR),
+      _getDisabledConfig()
+    );
+  }
+
   function test_sendMessageToBaseSucceeds(uint256 amount) public {
     uint256 bridgeableAmount = NEW_TOKEN_POOL.getBridgeLimit() -
       NEW_TOKEN_POOL.getCurrentBridgedAmount();
