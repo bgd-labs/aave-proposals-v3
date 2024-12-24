@@ -18,9 +18,9 @@ import {IGhoCcipSteward} from 'src/interfaces/IGhoCcipSteward.sol';
 
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Arbitrum} from 'aave-address-book/AaveV3Arbitrum.sol';
+import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
 import {MiscArbitrum} from 'aave-address-book/MiscArbitrum.sol';
-import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {GovernanceV3Arbitrum} from 'aave-address-book/GovernanceV3Arbitrum.sol';
 
 import {TransparentUpgradeableProxy} from 'solidity-utils/contracts/transparent-proxy/TransparentUpgradeableProxy.sol';
@@ -183,7 +183,7 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
         feeTokenAmount: feeAmount,
         originalSender: params.sender,
         sourceToken: AaveV3ArbitrumAssets.GHO_UNDERLYING,
-        destinationToken: MiscEthereum.GHO_TOKEN,
+        destinationToken: AaveV3EthereumAssets.GHO_UNDERLYING,
         poolVersion: params.poolVersion
       })
     );
@@ -321,7 +321,10 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209_SetupAndProposalActions is
     assertEq(NEW_TOKEN_POOL.getRemotePools(ETH_CHAIN_SELECTOR).length, 2);
     assertTrue(NEW_TOKEN_POOL.isRemotePool(ETH_CHAIN_SELECTOR, abi.encode(ETH_PROXY_POOL)));
     assertTrue(NEW_TOKEN_POOL.isRemotePool(ETH_CHAIN_SELECTOR, abi.encode(NEW_REMOTE_POOL_ETH)));
-    assertEq(NEW_TOKEN_POOL.getRemoteToken(ETH_CHAIN_SELECTOR), abi.encode(MiscEthereum.GHO_TOKEN));
+    assertEq(
+      NEW_TOKEN_POOL.getRemoteToken(ETH_CHAIN_SELECTOR),
+      abi.encode(AaveV3EthereumAssets.GHO_UNDERLYING)
+    );
     assertEq(NEW_TOKEN_POOL.getSupportedChains().length, 1);
     assertTrue(NEW_TOKEN_POOL.isSupportedChain(ETH_CHAIN_SELECTOR));
 

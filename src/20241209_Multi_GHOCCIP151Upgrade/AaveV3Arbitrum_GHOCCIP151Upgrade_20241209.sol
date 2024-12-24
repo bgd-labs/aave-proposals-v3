@@ -8,8 +8,8 @@ import {ITokenAdminRegistry} from 'src/interfaces/ccip/ITokenAdminRegistry.sol';
 import {IRateLimiter} from 'src/interfaces/ccip/IRateLimiter.sol';
 import {IGhoToken} from 'src/interfaces/IGhoToken.sol';
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
-import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {MiscArbitrum} from 'aave-address-book/MiscArbitrum.sol';
+import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
 
 /**
@@ -92,7 +92,7 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209 is IProposalGenericExecutor {
     chains[0] = IUpgradeableBurnMintTokenPool_1_5_1.ChainUpdate({
       remoteChainSelector: ETH_CHAIN_SELECTOR,
       remotePoolAddresses: remotePoolAddresses,
-      remoteTokenAddress: abi.encode(MiscEthereum.GHO_TOKEN),
+      remoteTokenAddress: abi.encode(AaveV3EthereumAssets.GHO_UNDERLYING),
       outboundRateLimiterConfig: emptyRateLimiterConfig,
       inboundRateLimiterConfig: emptyRateLimiterConfig
     });
