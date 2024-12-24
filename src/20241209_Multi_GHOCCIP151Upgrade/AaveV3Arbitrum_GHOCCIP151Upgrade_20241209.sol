@@ -36,9 +36,9 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209 is IProposalGenericExecutor {
   address public constant EXISTING_REMOTE_POOL_ETH = 0x9Ec9F9804733df96D1641666818eFb5198eC50f0; // ProxyPool on ETH
   address public immutable NEW_REMOTE_POOL_ETH;
 
-  // https://arbiscan.io/address/0x360d8aa8F6b09B7BC57aF34db2Eb84dD87bf4d12
+  // https://arbiscan.io/address/0xA5Ba213867E175A182a5dd6A9193C6158738105A
   address public constant EXISTING_TOKEN_POOL_UPGRADE_IMPL =
-    0x360d8aa8F6b09B7BC57aF34db2Eb84dD87bf4d12; // from https://github.com/aave/ccip/pull/21 (commit f684d950178fbdc95f543382fac472cf47434d55)
+    0xA5Ba213867E175A182a5dd6A9193C6158738105A; // https://github.com/aave/ccip/commit/ca73ec8c4f7dc0f6a99ae1ea0acde43776c7b9bb
 
   ProxyAdmin public constant PROXY_ADMIN = ProxyAdmin(MiscArbitrum.PROXY_ADMIN);
   IGhoToken public constant GHO = IGhoToken(AaveV3ArbitrumAssets.GHO_UNDERLYING);
