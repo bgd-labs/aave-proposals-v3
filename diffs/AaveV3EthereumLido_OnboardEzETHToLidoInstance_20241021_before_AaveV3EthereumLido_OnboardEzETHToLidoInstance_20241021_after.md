@@ -45,7 +45,7 @@
 | baseVariableBorrowRate | 0 % |
 | variableRateSlope1 | 7 % |
 | variableRateSlope2 | 300 % |
-| interestRate | ![ir](/.assets/3b30aea0d7ed061d9d9b0eeecb2e4835c7844ba5.svg) |
+| interestRate | ![ir](https://dash.onaave.com/api/static?variableRateSlope1=70000000000000000000000000&variableRateSlope2=3000000000000000000000000000&optimalUsageRatio=450000000000000000000000000&baseVariableBorrowRate=0&maxVariableBorrowRate=3070000000000000000000000000) |
 
 
 ### Reserves altered
