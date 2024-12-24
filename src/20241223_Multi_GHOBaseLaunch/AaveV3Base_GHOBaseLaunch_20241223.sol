@@ -67,12 +67,16 @@ contract AaveV3Base_GHOBaseLaunch_20241223 is IProposalGenericExecutor {
   }
 
   function _deployAndInitializeGhoToken() internal returns (IGhoToken) {
-    TransparentUpgradeableProxy tokenProxy = new TransparentUpgradeableProxy(
-      GHO_TOKEN_IMPL,
-      MiscBase.PROXY_ADMIN,
-      abi.encodeWithSignature('initialize(address)', GovernanceV3Base.EXECUTOR_LVL_1)
-    );
-    return IGhoToken(address(tokenProxy));
+    return
+      IGhoToken(
+        address(
+          new TransparentUpgradeableProxy{salt: keccak256('based-GHO')}(
+            GHO_TOKEN_IMPL,
+            MiscBase.PROXY_ADMIN,
+            abi.encodeWithSignature('initialize(address)', GovernanceV3Base.EXECUTOR_LVL_1)
+          )
+        )
+      );
   }
 
   function _setupRemoteTokenPools() internal {
