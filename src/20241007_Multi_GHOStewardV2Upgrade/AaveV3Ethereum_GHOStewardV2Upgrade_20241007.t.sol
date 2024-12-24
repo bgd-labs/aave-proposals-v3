@@ -4,6 +4,7 @@ pragma solidity ^0.8.0;
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
+import {GhoEthereum} from 'aave-address-book/GhoEthereum.sol';
 import {IACLManager, IDefaultInterestRateStrategyV2} from 'aave-address-book/AaveV3.sol';
 import {IAccessControl} from '@openzeppelin/contracts/access/IAccessControl.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
@@ -50,8 +51,8 @@ contract AaveV3Ethereum_GHOStewardV2Upgrade_20241007_Test is ProtocolV3TestBase 
     );
 
     assertEq(
-      IGsm(MiscEthereum.GSM_USDC).hasRole(
-        IGsm(MiscEthereum.GSM_USDC).CONFIGURATOR_ROLE(),
+      IGsm(GhoEthereum.GSM_USDC).hasRole(
+        IGsm(GhoEthereum.GSM_USDC).CONFIGURATOR_ROLE(),
         proposal.OLD_STEWARD()
       ),
       true,
@@ -59,8 +60,8 @@ contract AaveV3Ethereum_GHOStewardV2Upgrade_20241007_Test is ProtocolV3TestBase 
     );
 
     assertEq(
-      IGsm(MiscEthereum.GSM_USDT).hasRole(
-        IGsm(MiscEthereum.GSM_USDT).CONFIGURATOR_ROLE(),
+      IGsm(GhoEthereum.GSM_USDT).hasRole(
+        IGsm(GhoEthereum.GSM_USDT).CONFIGURATOR_ROLE(),
         proposal.OLD_STEWARD()
       ),
       true,
@@ -87,25 +88,25 @@ contract AaveV3Ethereum_GHOStewardV2Upgrade_20241007_Test is ProtocolV3TestBase 
 
     // Gho CCIP Steward
     assertEq(
-      IUpgradeableLockReleaseTokenPool(MiscEthereum.GHO_CCIP_TOKEN_POOL).getBridgeLimitAdmin(),
+      IUpgradeableLockReleaseTokenPool(GhoEthereum.GHO_CCIP_TOKEN_POOL).getBridgeLimitAdmin(),
       address(0)
     );
     assertEq(
-      IUpgradeableLockReleaseTokenPool(MiscEthereum.GHO_CCIP_TOKEN_POOL).getRateLimitAdmin(),
+      IUpgradeableLockReleaseTokenPool(GhoEthereum.GHO_CCIP_TOKEN_POOL).getRateLimitAdmin(),
       address(0)
     );
 
     // GHO GSM Steward
     assertEq(
-      IGsm(MiscEthereum.GSM_USDC).hasRole(
-        IGsm(MiscEthereum.GSM_USDC).CONFIGURATOR_ROLE(),
+      IGsm(GhoEthereum.GSM_USDC).hasRole(
+        IGsm(GhoEthereum.GSM_USDC).CONFIGURATOR_ROLE(),
         proposal.GHO_GSM_STEWARD()
       ),
       false
     );
     assertEq(
-      IGsm(MiscEthereum.GSM_USDT).hasRole(
-        IGsm(MiscEthereum.GSM_USDT).CONFIGURATOR_ROLE(),
+      IGsm(GhoEthereum.GSM_USDT).hasRole(
+        IGsm(GhoEthereum.GSM_USDT).CONFIGURATOR_ROLE(),
         proposal.GHO_GSM_STEWARD()
       ),
       false
@@ -124,16 +125,16 @@ contract AaveV3Ethereum_GHOStewardV2Upgrade_20241007_Test is ProtocolV3TestBase 
     );
 
     assertEq(
-      IGsm(MiscEthereum.GSM_USDC).hasRole(
-        IGsm(MiscEthereum.GSM_USDC).CONFIGURATOR_ROLE(),
+      IGsm(GhoEthereum.GSM_USDC).hasRole(
+        IGsm(GhoEthereum.GSM_USDC).CONFIGURATOR_ROLE(),
         proposal.OLD_STEWARD()
       ),
       false
     );
 
     assertEq(
-      IGsm(MiscEthereum.GSM_USDT).hasRole(
-        IGsm(MiscEthereum.GSM_USDT).CONFIGURATOR_ROLE(),
+      IGsm(GhoEthereum.GSM_USDT).hasRole(
+        IGsm(GhoEthereum.GSM_USDT).CONFIGURATOR_ROLE(),
         proposal.OLD_STEWARD()
       ),
       false
@@ -154,14 +155,10 @@ contract AaveV3Ethereum_GHOStewardV2Upgrade_20241007_Test is ProtocolV3TestBase 
       )
     );
     assertTrue(
-      IGhoBucketSteward(proposal.GHO_BUCKET_STEWARD()).isControlledFacilitator(
-        MiscEthereum.GSM_USDC
-      )
+      IGhoBucketSteward(proposal.GHO_BUCKET_STEWARD()).isControlledFacilitator(GhoEthereum.GSM_USDC)
     );
     assertTrue(
-      IGhoBucketSteward(proposal.GHO_BUCKET_STEWARD()).isControlledFacilitator(
-        MiscEthereum.GSM_USDT
-      )
+      IGhoBucketSteward(proposal.GHO_BUCKET_STEWARD()).isControlledFacilitator(GhoEthereum.GSM_USDT)
     );
 
     // Gho Aave Steward
@@ -174,25 +171,25 @@ contract AaveV3Ethereum_GHOStewardV2Upgrade_20241007_Test is ProtocolV3TestBase 
     );
 
     assertEq(
-      IUpgradeableLockReleaseTokenPool(MiscEthereum.GHO_CCIP_TOKEN_POOL).getBridgeLimitAdmin(),
+      IUpgradeableLockReleaseTokenPool(GhoEthereum.GHO_CCIP_TOKEN_POOL).getBridgeLimitAdmin(),
       proposal.GHO_CCIP_STEWARD()
     );
     assertEq(
-      IUpgradeableLockReleaseTokenPool(MiscEthereum.GHO_CCIP_TOKEN_POOL).getRateLimitAdmin(),
+      IUpgradeableLockReleaseTokenPool(GhoEthereum.GHO_CCIP_TOKEN_POOL).getRateLimitAdmin(),
       proposal.GHO_CCIP_STEWARD()
     );
 
     // GHO GSM Steward
     assertEq(
-      IGsm(MiscEthereum.GSM_USDC).hasRole(
-        IGsm(MiscEthereum.GSM_USDC).CONFIGURATOR_ROLE(),
+      IGsm(GhoEthereum.GSM_USDC).hasRole(
+        IGsm(GhoEthereum.GSM_USDC).CONFIGURATOR_ROLE(),
         proposal.GHO_GSM_STEWARD()
       ),
       true
     );
     assertEq(
-      IGsm(MiscEthereum.GSM_USDT).hasRole(
-        IGsm(MiscEthereum.GSM_USDT).CONFIGURATOR_ROLE(),
+      IGsm(GhoEthereum.GSM_USDT).hasRole(
+        IGsm(GhoEthereum.GSM_USDT).CONFIGURATOR_ROLE(),
         proposal.GHO_GSM_STEWARD()
       ),
       true
@@ -289,33 +286,29 @@ contract AaveV3Ethereum_GHOStewardV2Upgrade_20241007_Test is ProtocolV3TestBase 
     executePayload(vm, address(proposal));
 
     address[] memory newGsmList = new address[](1);
-    newGsmList[0] = MiscEthereum.GSM_USDC;
+    newGsmList[0] = GhoEthereum.GSM_USDC;
 
     vm.startPrank(GovernanceV3Ethereum.EXECUTOR_LVL_1);
     IGhoBucketSteward(proposal.GHO_BUCKET_STEWARD()).setControlledFacilitator(newGsmList, true);
     assertTrue(
-      IGhoBucketSteward(proposal.GHO_BUCKET_STEWARD()).isControlledFacilitator(
-        MiscEthereum.GSM_USDC
-      )
+      IGhoBucketSteward(proposal.GHO_BUCKET_STEWARD()).isControlledFacilitator(GhoEthereum.GSM_USDC)
     );
 
     IGhoBucketSteward(proposal.GHO_BUCKET_STEWARD()).setControlledFacilitator(newGsmList, false);
     assertFalse(
-      IGhoBucketSteward(proposal.GHO_BUCKET_STEWARD()).isControlledFacilitator(
-        MiscEthereum.GSM_USDC
-      )
+      IGhoBucketSteward(proposal.GHO_BUCKET_STEWARD()).isControlledFacilitator(GhoEthereum.GSM_USDC)
     );
   }
 
   function test_ghoCcipSteward_updateBridgeLimit() public {
     executePayload(vm, address(proposal));
 
-    uint256 oldBridgeLimit = IUpgradeableLockReleaseTokenPool(MiscEthereum.GHO_CCIP_TOKEN_POOL)
+    uint256 oldBridgeLimit = IUpgradeableLockReleaseTokenPool(GhoEthereum.GHO_CCIP_TOKEN_POOL)
       .getBridgeLimit();
     uint256 newBridgeLimit = oldBridgeLimit + 1;
     vm.startPrank(RISK_COUNCIL);
     IGhoCcipSteward(proposal.GHO_CCIP_STEWARD()).updateBridgeLimit(newBridgeLimit);
-    uint256 currentBridgeLimit = IUpgradeableLockReleaseTokenPool(MiscEthereum.GHO_CCIP_TOKEN_POOL)
+    uint256 currentBridgeLimit = IUpgradeableLockReleaseTokenPool(GhoEthereum.GHO_CCIP_TOKEN_POOL)
       .getBridgeLimit();
     assertEq(currentBridgeLimit, newBridgeLimit);
   }
@@ -324,10 +317,10 @@ contract AaveV3Ethereum_GHOStewardV2Upgrade_20241007_Test is ProtocolV3TestBase 
     executePayload(vm, address(proposal));
 
     RateLimiter.TokenBucket memory outboundConfig = IUpgradeableLockReleaseTokenPool(
-      MiscEthereum.GHO_CCIP_TOKEN_POOL
+      GhoEthereum.GHO_CCIP_TOKEN_POOL
     ).getCurrentOutboundRateLimiterState(remoteChainSelector);
     RateLimiter.TokenBucket memory inboundConfig = IUpgradeableLockReleaseTokenPool(
-      MiscEthereum.GHO_CCIP_TOKEN_POOL
+      GhoEthereum.GHO_CCIP_TOKEN_POOL
     ).getCurrentInboundRateLimiterState(remoteChainSelector);
 
     RateLimiter.Config memory newOutboundConfig = RateLimiter.Config({
@@ -361,32 +354,32 @@ contract AaveV3Ethereum_GHOStewardV2Upgrade_20241007_Test is ProtocolV3TestBase 
   function test_ghoGsmSteward_pdateExposureCap() public {
     executePayload(vm, address(proposal));
 
-    uint128 oldExposureCap = IGsm(MiscEthereum.GSM_USDC).getExposureCap();
+    uint128 oldExposureCap = IGsm(GhoEthereum.GSM_USDC).getExposureCap();
     uint128 newExposureCap = oldExposureCap + 1;
 
     vm.startPrank(RISK_COUNCIL);
     IGsmSteward(proposal.GHO_GSM_STEWARD()).updateGsmExposureCap(
-      MiscEthereum.GSM_USDC,
+      GhoEthereum.GSM_USDC,
       newExposureCap
     );
-    uint128 currentExposureCap = IGsm(MiscEthereum.GSM_USDC).getExposureCap();
+    uint128 currentExposureCap = IGsm(GhoEthereum.GSM_USDC).getExposureCap();
     assertEq(currentExposureCap, newExposureCap);
   }
 
   function test_ghoGsmSteward_updateGsmBuySellFees() public {
     executePayload(vm, address(proposal));
 
-    address feeStrategy = IGsm(MiscEthereum.GSM_USDC).getFeeStrategy();
+    address feeStrategy = IGsm(GhoEthereum.GSM_USDC).getFeeStrategy();
     uint256 buyFee = IGsmFeeStrategy(feeStrategy).getBuyFee(1e4);
     uint256 sellFee = IGsmFeeStrategy(feeStrategy).getSellFee(1e4);
 
     vm.startPrank(RISK_COUNCIL);
     IGsmSteward(proposal.GHO_GSM_STEWARD()).updateGsmBuySellFees(
-      MiscEthereum.GSM_USDC,
+      GhoEthereum.GSM_USDC,
       buyFee + 1,
       sellFee
     );
-    address newStrategy = IGsm(MiscEthereum.GSM_USDC).getFeeStrategy();
+    address newStrategy = IGsm(GhoEthereum.GSM_USDC).getFeeStrategy();
     uint256 newBuyFee = IGsmFeeStrategy(newStrategy).getBuyFee(1e4);
     assertEq(newBuyFee, buyFee + 1);
   }
