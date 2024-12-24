@@ -21,6 +21,7 @@ import {AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {AaveV3Arbitrum} from 'aave-address-book/AaveV3Arbitrum.sol';
+import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
 
 import {TransparentUpgradeableProxy} from 'solidity-utils/contracts/transparent-proxy/TransparentUpgradeableProxy.sol';
@@ -44,7 +45,7 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
   uint64 internal constant ETH_CHAIN_SELECTOR = 5009297550715157269;
   uint64 internal constant ARB_CHAIN_SELECTOR = 4949039107694359620;
 
-  IGhoToken internal constant GHO = IGhoToken(MiscEthereum.GHO_TOKEN);
+  IGhoToken internal constant GHO = IGhoToken(AaveV3EthereumAssets.GHO_UNDERLYING);
   ITokenAdminRegistry internal constant TOKEN_ADMIN_REGISTRY =
     ITokenAdminRegistry(0xb22764f98dD05c789929716D677382Df22C05Cb6);
   address internal constant ARB_PROXY_POOL = 0x26329558f08cbb40d6a4CCA0E0C67b29D64A8c50;
@@ -88,7 +89,7 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
     // pre-req - chainlink transfers gho token pool ownership on token admin registry
     vm.prank(TOKEN_ADMIN_REGISTRY.owner());
     TOKEN_ADMIN_REGISTRY.transferAdminRole(
-      MiscEthereum.GHO_TOKEN,
+      AaveV3EthereumAssets.GHO_UNDERLYING,
       GovernanceV3Ethereum.EXECUTOR_LVL_1
     );
 
@@ -166,7 +167,7 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
     assertEq(EXISTING_TOKEN_POOL.getRateLimitAdmin(), address(EXISTING_GHO_CCIP_STEWARD));
 
     assertEq(NEW_GHO_CCIP_STEWARD.RISK_COUNCIL(), EXISTING_GHO_CCIP_STEWARD.RISK_COUNCIL());
-    assertEq(NEW_GHO_CCIP_STEWARD.GHO_TOKEN(), MiscEthereum.GHO_TOKEN);
+    assertEq(NEW_GHO_CCIP_STEWARD.GHO_TOKEN(), AaveV3EthereumAssets.GHO_UNDERLYING);
     assertEq(NEW_GHO_CCIP_STEWARD.GHO_TOKEN_POOL(), address(NEW_TOKEN_POOL));
     assertTrue(NEW_GHO_CCIP_STEWARD.BRIDGE_LIMIT_ENABLED()); // *present* on eth token pool
   }
@@ -176,7 +177,7 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
   ) internal returns (IClient.EVM2AnyMessage memory, IInternal.EVM2EVMMessage memory) {
     IClient.EVM2AnyMessage memory message = CCIPUtils.generateMessage(params.sender, 1);
     message.tokenAmounts[0] = IClient.EVMTokenAmount({
-      token: MiscEthereum.GHO_TOKEN,
+      token: AaveV3EthereumAssets.GHO_UNDERLYING,
       amount: params.amount
     });
 
@@ -190,7 +191,7 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
         sourceChainSelector: ETH_CHAIN_SELECTOR,
         feeTokenAmount: feeAmount,
         originalSender: params.sender,
-        sourceToken: MiscEthereum.GHO_TOKEN,
+        sourceToken: AaveV3EthereumAssets.GHO_UNDERLYING,
         destinationToken: AaveV3ArbitrumAssets.GHO_UNDERLYING,
         poolVersion: params.poolVersion
       })

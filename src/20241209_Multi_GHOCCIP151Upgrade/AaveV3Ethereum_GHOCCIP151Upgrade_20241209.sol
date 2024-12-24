@@ -6,6 +6,7 @@ import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGen
 import {ITokenAdminRegistry} from 'src/interfaces/ccip/ITokenAdminRegistry.sol';
 import {IRateLimiter} from 'src/interfaces/ccip/IRateLimiter.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
+import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
 
 /**
@@ -46,7 +47,7 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209 is IProposalGenericExecutor {
   // pre-req - chainlink transfers gho token pool ownership on token admin registry
   function _acceptOwnership() internal {
     NEW_TOKEN_POOL.acceptOwnership();
-    TOKEN_ADMIN_REGISTRY.acceptAdminRole(MiscEthereum.GHO_TOKEN);
+    TOKEN_ADMIN_REGISTRY.acceptAdminRole(AaveV3EthereumAssets.GHO_UNDERLYING);
   }
 
   function _migrateLiquidity() internal {
@@ -89,6 +90,6 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209 is IProposalGenericExecutor {
     NEW_TOKEN_POOL.setBridgeLimitAdmin(NEW_GHO_CCIP_STEWARD);
 
     // register new pool
-    TOKEN_ADMIN_REGISTRY.setPool(MiscEthereum.GHO_TOKEN, address(NEW_TOKEN_POOL));
+    TOKEN_ADMIN_REGISTRY.setPool(AaveV3EthereumAssets.GHO_UNDERLYING, address(NEW_TOKEN_POOL));
   }
 }
