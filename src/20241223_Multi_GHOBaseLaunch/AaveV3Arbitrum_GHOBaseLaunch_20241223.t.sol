@@ -68,7 +68,7 @@ contract AaveV3Arbitrum_GHOBaseLaunch_20241223_Test is ProtocolV3TestBase {
   AaveV3Arbitrum_GHOBaseLaunch_20241223 internal proposal;
 
   address internal NEW_REMOTE_POOL_ETH = makeAddr('ETH: LockReleaseTokenPool 1.5.1');
-  address internal NEW_REMOTE_POOL_BASE = makeAddr('BASE: LockReleaseTokenPool 1.5.1');
+  address internal NEW_REMOTE_POOL_BASE = makeAddr('BASE: BurnMintTokenPool 1.5.1');
   address internal NEW_REMOTE_TOKEN_BASE = makeAddr('BASE: GhoToken');
   address internal alice = makeAddr('alice');
   address internal bob = makeAddr('bob');
