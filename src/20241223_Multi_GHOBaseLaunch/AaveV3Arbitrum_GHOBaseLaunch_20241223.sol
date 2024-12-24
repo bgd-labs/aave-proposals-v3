@@ -8,8 +8,7 @@ import {IRateLimiter} from 'src/interfaces/ccip/IRateLimiter.sol';
 /**
  * @title GHO Base Launch
  * @author Aave Labs
- * - Snapshot: TODO
- * - Discussion: TODO
+ * - Discussion: https://governance.aave.com/t/arfc-launch-gho-on-base-set-aci-as-emissions-manager-for-rewards/19338
  */
 contract AaveV3Arbitrum_GHOBaseLaunch_20241223 is IProposalGenericExecutor {
   uint64 public constant BASE_CHAIN_SELECTOR = 15971525489660198786;

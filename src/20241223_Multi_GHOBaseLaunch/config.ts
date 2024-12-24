@@ -6,8 +6,9 @@ export const config: ConfigFile = {
     shortName: 'GHOBaseLaunch',
     date: '20241223',
     author: 'Aave Labs',
-    discussion: '',
-    snapshot: '',
+    discussion:
+      'https://governance.aave.com/t/arfc-launch-gho-on-base-set-aci-as-emissions-manager-for-rewards/19338',
+    snapshot: 'Direct-to-AIP',
     votingNetwork: 'POLYGON',
   },
   poolOptions: {
