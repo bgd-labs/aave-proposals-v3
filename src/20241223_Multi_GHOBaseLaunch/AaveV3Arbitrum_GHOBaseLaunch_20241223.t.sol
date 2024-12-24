@@ -18,8 +18,8 @@ import {IGhoCcipSteward} from 'src/interfaces/IGhoCcipSteward.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Arbitrum} from 'aave-address-book/AaveV3Arbitrum.sol';
 import {AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
+import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {MiscArbitrum} from 'aave-address-book/MiscArbitrum.sol';
-import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {GovernanceV3Arbitrum} from 'aave-address-book/GovernanceV3Arbitrum.sol';
 
 import {TransparentUpgradeableProxy} from 'solidity-utils/contracts/transparent-proxy/TransparentUpgradeableProxy.sol';
@@ -223,7 +223,7 @@ contract AaveV3Arbitrum_GHOBaseLaunch_20241223_Test is ProtocolV3TestBase {
         destinationToken: address(
           params.destChainSelector == BASE_CHAIN_SELECTOR
             ? NEW_REMOTE_TOKEN_BASE
-            : MiscEthereum.GHO_TOKEN
+            : AaveV3EthereumAssets.GHO_UNDERLYING
         )
       })
     );
@@ -268,7 +268,7 @@ contract AaveV3Arbitrum_GHOBaseLaunch_20241223_Test is ProtocolV3TestBase {
     assertEq(NEW_TOKEN_POOL.getSupportedChains()[1], BASE_CHAIN_SELECTOR);
     assertEq(
       NEW_TOKEN_POOL.getRemoteToken(ETH_CHAIN_SELECTOR),
-      abi.encode(address(MiscEthereum.GHO_TOKEN))
+      abi.encode(address(AaveV3EthereumAssets.GHO_UNDERLYING))
     );
     assertEq(
       NEW_TOKEN_POOL.getRemoteToken(BASE_CHAIN_SELECTOR),

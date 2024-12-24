@@ -16,6 +16,7 @@ import {IGhoToken} from 'src/interfaces/IGhoToken.sol';
 import {IGhoCcipSteward} from 'src/interfaces/IGhoCcipSteward.sol';
 
 import {AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
+import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {MiscArbitrum} from 'aave-address-book/MiscArbitrum.sol';
 import {MiscBase} from 'aave-address-book/MiscBase.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
@@ -106,7 +107,7 @@ contract AaveV3Base_GHOBaseLaunch_20241223_Base is ProtocolV3TestBase {
     arb.c.tokenAdminRegistry = ITokenAdminRegistry(0x39AE1032cF4B334a1Ed41cdD0833bdD7c7E7751E);
     arb.c.token = IGhoToken(AaveV3ArbitrumAssets.GHO_UNDERLYING);
     eth.c.tokenAdminRegistry = ITokenAdminRegistry(0xb22764f98dD05c789929716D677382Df22C05Cb6);
-    eth.c.token = IGhoToken(MiscEthereum.GHO_TOKEN);
+    eth.c.token = IGhoToken(AaveV3EthereumAssets.GHO_UNDERLYING);
     (address newTokenPoolEth, address newTokenPoolArb) = _upgradeEthArbTo1_5_1();
 
     arb.c.chainSelector = 4949039107694359620;
@@ -185,7 +186,7 @@ contract AaveV3Base_GHOBaseLaunch_20241223_Base is ProtocolV3TestBase {
       MiscEthereum.GHO_CCIP_TOKEN_POOL
     );
     address newTokenPoolEth = _deployNewLockReleaseTokenPool(
-      MiscEthereum.GHO_TOKEN,
+      AaveV3EthereumAssets.GHO_UNDERLYING,
       existingPoolEth.getArmProxy(),
       existingPoolEth.getRouter(),
       existingPoolEth.getBridgeLimit(),
@@ -194,7 +195,7 @@ contract AaveV3Base_GHOBaseLaunch_20241223_Base is ProtocolV3TestBase {
     );
     address newGhoCcipStewardEth = _deployNewGhoCcipSteward(
       newTokenPoolEth,
-      MiscEthereum.GHO_TOKEN,
+      AaveV3EthereumAssets.GHO_UNDERLYING,
       GovernanceV3Ethereum.EXECUTOR_LVL_1, // riskAdmin, set as executor for convenience
       true // bridgeLimitEnabled
     );
@@ -414,7 +415,7 @@ contract AaveV3Base_GHOBaseLaunch_20241223_Base is ProtocolV3TestBase {
 
     vm.selectFork(eth.c.forkId);
     assertEq(eth.c.chainSelector, 5009297550715157269);
-    assertEq(address(eth.c.token), MiscEthereum.GHO_TOKEN);
+    assertEq(address(eth.c.token), AaveV3EthereumAssets.GHO_UNDERLYING);
     assertEq(eth.c.router.typeAndVersion(), 'Router 1.2.0');
     _assertOnRamp(eth.c.arbOnRamp, eth.c.chainSelector, arb.c.chainSelector, eth.c.router);
     _assertOnRamp(eth.c.baseOnRamp, eth.c.chainSelector, base.c.chainSelector, eth.c.router);

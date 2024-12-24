@@ -11,8 +11,8 @@ import {IGhoToken} from 'src/interfaces/IGhoToken.sol';
 
 import {MiscBase} from 'aave-address-book/MiscBase.sol';
 import {GovernanceV3Base} from 'aave-address-book/GovernanceV3Base.sol';
-import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
+import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 
 /**
  * @title GHO Base Launch
@@ -91,7 +91,7 @@ contract AaveV3Base_GHOBaseLaunch_20241223 is IProposalGenericExecutor {
       chains[0] = IUpgradeableBurnMintTokenPool_1_5_1.ChainUpdate({
         remoteChainSelector: ETH_CHAIN_SELECTOR,
         remotePoolAddresses: remotePoolAddresses,
-        remoteTokenAddress: abi.encode(MiscEthereum.GHO_TOKEN),
+        remoteTokenAddress: abi.encode(AaveV3EthereumAssets.GHO_UNDERLYING),
         outboundRateLimiterConfig: emptyRateLimiterConfig,
         inboundRateLimiterConfig: emptyRateLimiterConfig
       });
