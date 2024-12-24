@@ -82,7 +82,7 @@ contract AaveV3Arbitrum_GHOBaseLaunch_20241223_Test is ProtocolV3TestBase {
   error InvalidSourcePoolAddress(bytes);
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('arbitrum'), 287752362);
+    vm.createSelectFork(vm.rpcUrl('arbitrum'), 288070365);
     NEW_TOKEN_POOL = IUpgradeableBurnMintTokenPool_1_5_1(_deployNewTokenPoolArb());
     NEW_GHO_CCIP_STEWARD = IGhoCcipSteward(_deployNewGhoCcipSteward(address(NEW_TOKEN_POOL)));
     _upgradeArbTo1_5_1();
