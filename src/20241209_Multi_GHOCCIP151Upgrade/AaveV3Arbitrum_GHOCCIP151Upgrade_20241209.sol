@@ -65,7 +65,7 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209 is IProposalGenericExecutor {
       address(EXISTING_TOKEN_POOL)
     );
 
-    GHO.addFacilitator(address(NEW_TOKEN_POOL), 'CCIP v1.5.1 TokenPool', uint128(bucketCapacity));
+    GHO.addFacilitator(address(NEW_TOKEN_POOL), 'CCIP TokenPool v1.5.1 ', uint128(bucketCapacity));
     NEW_TOKEN_POOL.directMint(address(EXISTING_TOKEN_POOL), bucketLevel); // increase facilitator level
 
     _upgradeExistingTokenPool(); // introduce `directBurn` method
