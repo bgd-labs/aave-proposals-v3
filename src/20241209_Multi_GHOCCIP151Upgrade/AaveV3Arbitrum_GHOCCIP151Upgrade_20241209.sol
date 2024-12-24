@@ -39,7 +39,6 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209 is IProposalGenericExecutor {
   address public constant EXISTING_TOKEN_POOL_UPGRADE_IMPL =
     0xA5Ba213867E175A182a5dd6A9193C6158738105A; // https://github.com/aave/ccip/commit/ca73ec8c4f7dc0f6a99ae1ea0acde43776c7b9bb
 
-  ProxyAdmin public constant PROXY_ADMIN = ProxyAdmin(MiscArbitrum.PROXY_ADMIN);
   IGhoToken public constant GHO = IGhoToken(AaveV3ArbitrumAssets.GHO_UNDERLYING);
 
   constructor(address newTokenPoolArb, address newTokenPoolEth, address newGhoCcipSteward) {
@@ -109,7 +108,7 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209 is IProposalGenericExecutor {
   }
 
   function _upgradeExistingTokenPool() internal {
-    PROXY_ADMIN.upgrade(
+    ProxyAdmin(MiscArbitrum.PROXY_ADMIN).upgrade(
       TransparentUpgradeableProxy(payable(address(EXISTING_TOKEN_POOL))),
       EXISTING_TOKEN_POOL_UPGRADE_IMPL
     );
