@@ -247,7 +247,7 @@ contract AaveV3E2E_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
     if (upgraded) {
       assertEq(l2.c.tokenAdminRegistry.getPool(address(l2.c.token)), address(l2.newTokenPool));
       assertEq(bytes(l2.c.token.getFacilitator(address(l2.existingTokenPool)).label).length, 0);
-      assertEq(l2.c.token.getFacilitator(address(l2.newTokenPool)).label, 'CCIP v1.5.1 TokenPool');
+      assertEq(l2.c.token.getFacilitator(address(l2.newTokenPool)).label, 'CCIP TokenPool v1.5.1 ');
     } else {
       assertEq(l2.c.tokenAdminRegistry.getPool(address(l2.c.token)), l2.c.proxyPool);
       assertEq(l2.c.token.getFacilitator(address(l2.existingTokenPool)).label, 'CCIP TokenPool');

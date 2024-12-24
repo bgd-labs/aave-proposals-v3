@@ -292,7 +292,7 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209_SetupAndProposalActions is
 
     newFacilitator = GHO.getFacilitator(address(NEW_TOKEN_POOL));
 
-    assertEq(newFacilitator.label, 'CCIP v1.5.1 TokenPool');
+    assertEq(newFacilitator.label, 'CCIP TokenPool v1.5.1 ');
     assertEq(newFacilitator.bucketCapacity, existingFacilitator.bucketCapacity);
     assertEq(newFacilitator.bucketLevel, existingFacilitator.bucketLevel);
 
