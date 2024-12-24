@@ -247,10 +247,6 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
 contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209_SetupAndProposalActions is
   AaveV3Arbitrum_GHOCCIP151Upgrade_20241209_Base
 {
-  function setUp() public override {
-    super.setUp();
-  }
-
   function test_defaultProposalExecution() public {
     defaultTest(
       'AaveV3Arbitrum_GHOCCIP151Upgrade_20241209',
@@ -356,8 +352,9 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209_PostUpgrade is
     executePayload(vm, address(proposal));
   }
 
-  function test_sendMessageSucceedsAndRoutesViaNewPool() public {
-    uint256 amount = 100_000e18;
+  function test_sendMessageSucceedsAndRoutesViaNewPool(uint256 amount) public {
+    uint256 bridgeableAmount = GHO.getFacilitator(address(NEW_TOKEN_POOL)).bucketLevel;
+    amount = bound(amount, 1, bridgeableAmount);
 
     deal(address(GHO), alice, amount);
     vm.prank(alice);
@@ -406,8 +403,9 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209_PostUpgrade is
   }
 
   // on-ramp via new pool
-  function test_lockOrBurnSucceedsOnNewPool() public {
-    uint256 amount = 100_000e18;
+  function test_lockOrBurnSucceedsOnNewPool(uint256 amount) public {
+    uint256 bridgeableAmount = GHO.getFacilitator(address(NEW_TOKEN_POOL)).bucketLevel;
+    amount = bound(amount, 1, bridgeableAmount);
 
     // router pulls tokens from the user & sends to the token pool during onRamps
     deal(address(GHO), address(NEW_TOKEN_POOL), amount);
@@ -448,10 +446,13 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209_PostUpgrade is
   }
 
   // off-ramp messages sent from new eth token pool (v1.5.1)
-  function test_releaseOrMintSucceedsOnNewPoolOffRampedViaNewTokenPoolEth() public {
-    uint256 amount = 100_000e18;
+  function test_releaseOrMintSucceedsOnNewPoolOffRampedViaNewTokenPoolEth(uint256 amount) public {
+    (uint256 bucketCapacity, uint256 bucketLevel) = GHO.getFacilitatorBucket(
+      address(NEW_TOKEN_POOL)
+    );
+    uint256 mintAbleAmount = bucketCapacity - bucketLevel;
+    amount = bound(amount, 1, mintAbleAmount);
 
-    uint256 bucketLevel = GHO.getFacilitator(address(NEW_TOKEN_POOL)).bucketLevel;
     uint256 aliceBalance = GHO.balanceOf(alice);
 
     vm.expectEmit(address(NEW_TOKEN_POOL));
@@ -476,10 +477,15 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209_PostUpgrade is
   }
 
   // off-ramp messages sent from existing eth token pool (v1.4) ie ProxyPool
-  function test_releaseOrMintSucceedsOnNewPoolOffRampedViaExistingTokenPoolEth() public {
-    uint256 amount = 100_000e18;
+  function test_releaseOrMintSucceedsOnNewPoolOffRampedViaExistingTokenPoolEth(
+    uint256 amount
+  ) public {
+    (uint256 bucketCapacity, uint256 bucketLevel) = GHO.getFacilitatorBucket(
+      address(NEW_TOKEN_POOL)
+    );
+    uint256 mintAbleAmount = bucketCapacity - bucketLevel;
+    amount = bound(amount, 1, mintAbleAmount);
 
-    uint256 bucketLevel = GHO.getFacilitator(address(NEW_TOKEN_POOL)).bucketLevel;
     uint256 aliceBalance = GHO.balanceOf(alice);
 
     vm.expectEmit(address(NEW_TOKEN_POOL));
