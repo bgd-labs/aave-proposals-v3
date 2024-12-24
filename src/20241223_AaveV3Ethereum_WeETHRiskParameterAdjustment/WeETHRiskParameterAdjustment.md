@@ -10,7 +10,6 @@ A proposal to adjust weETH’s LTV, LT, and LB on the Ethereum Core instance.
 
 ## Motivation
 
-[quote="ChaosLabs, post:1, topic:20167"]
 weETH’s collateral parameters are currently set to 72.5%, 75%, and 7.5% for LTV, LT, and LB, respectively, on Ethereum — Core. Following observations of user behavior and on-chain liquidity, we are able to recommend adjusting these parameters to make the asset more efficient as collateral. The vast majority of debt against weETH is WETH, making these positions low-risk due to weETH’s utilization of the ETH/USD oracle augmented with its exchange rate.
 
 Additionally, as displayed above, 96% of borrowing is done in E-Mode, relying on different collateral values.
