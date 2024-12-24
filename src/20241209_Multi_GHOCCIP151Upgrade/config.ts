@@ -7,7 +7,7 @@ export const config: ConfigFile = {
     date: '20241209',
     author: 'Aave Labs',
     discussion: '',
-    snapshot: '',
+    snapshot: 'Direct-to-AIP',
     votingNetwork: 'POLYGON',
   },
   poolOptions: {
