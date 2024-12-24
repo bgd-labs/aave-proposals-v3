@@ -55,7 +55,7 @@ contract AaveV3Base_GHOBaseLaunch_20241223 is IProposalGenericExecutor {
 
     GHO_TOKEN.grantRole(GHO_TOKEN.FACILITATOR_MANAGER_ROLE(), GovernanceV3Base.EXECUTOR_LVL_1);
     GHO_TOKEN.grantRole(GHO_TOKEN.BUCKET_MANAGER_ROLE(), GovernanceV3Base.EXECUTOR_LVL_1);
-    GHO_TOKEN.addFacilitator(address(TOKEN_POOL), 'CCIP TokenPool', CCIP_BUCKET_CAPACITY);
+    GHO_TOKEN.addFacilitator(address(TOKEN_POOL), 'CCIP TokenPool v1.5.1', CCIP_BUCKET_CAPACITY);
 
     TOKEN_ADMIN_REGISTRY.acceptAdminRole(address(GHO_TOKEN));
     TOKEN_POOL.acceptOwnership();
