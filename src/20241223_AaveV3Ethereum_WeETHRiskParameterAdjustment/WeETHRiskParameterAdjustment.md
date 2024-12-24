@@ -28,8 +28,8 @@ When reducing LB, it is also critical to note that the asset has not experienced
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241223_AaveV3Ethereum_WeETHRiskParameterAdjustment/AaveV3Ethereum_WeETHRiskParameterAdjustment_20241223.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241223_AaveV3Ethereum_WeETHRiskParameterAdjustment/AaveV3Ethereum_WeETHRiskParameterAdjustment_20241223.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/18db65171fa37d4e0de8bcb7c3477cfde4f4ba36/src/20241223_AaveV3Ethereum_WeETHRiskParameterAdjustment/AaveV3Ethereum_WeETHRiskParameterAdjustment_20241223.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/18db65171fa37d4e0de8bcb7c3477cfde4f4ba36/src/20241223_AaveV3Ethereum_WeETHRiskParameterAdjustment/AaveV3Ethereum_WeETHRiskParameterAdjustment_20241223.t.sol)
 - Snapshot: Direct-to-AIP
 - [Discussion](https://governance.aave.com/t/arfc-weeth-risk-parameter-adjustment/20167)
 
