@@ -15,7 +15,6 @@ import {AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
 /**
  * @title GHO CCIP 1.5.1 Upgrade
  * @author Aave Labs
- * - Snapshot: TODO
  * - Discussion: TODO
  */
 contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209 is IProposalGenericExecutor {
