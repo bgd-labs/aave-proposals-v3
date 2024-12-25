@@ -18,6 +18,7 @@ import {IGhoCcipSteward} from 'src/interfaces/IGhoCcipSteward.sol';
 
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
+import {GhoEthereum} from 'aave-address-book/GhoEthereum.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {AaveV3Arbitrum} from 'aave-address-book/AaveV3Arbitrum.sol';
@@ -25,6 +26,7 @@ import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
 
 import {TransparentUpgradeableProxy} from 'solidity-utils/contracts/transparent-proxy/TransparentUpgradeableProxy.sol';
+import {ProxyAdmin} from 'solidity-utils/contracts/transparent-proxy/ProxyAdmin.sol';
 import {UpgradeableLockReleaseTokenPool} from 'aave-ccip/pools/GHO/UpgradeableLockReleaseTokenPool.sol';
 import {GhoCcipSteward} from 'gho-core/misc/GhoCcipSteward.sol';
 
@@ -42,8 +44,8 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
     CCIPUtils.PoolVersion poolVersion;
   }
 
-  uint64 internal constant ETH_CHAIN_SELECTOR = 5009297550715157269;
-  uint64 internal constant ARB_CHAIN_SELECTOR = 4949039107694359620;
+  uint64 internal constant ETH_CHAIN_SELECTOR = CCIPUtils.ETH_CHAIN_SELECTOR;
+  uint64 internal constant ARB_CHAIN_SELECTOR = CCIPUtils.ARB_CHAIN_SELECTOR;
 
   IGhoToken internal constant GHO = IGhoToken(AaveV3EthereumAssets.GHO_UNDERLYING);
   ITokenAdminRegistry internal constant TOKEN_ADMIN_REGISTRY =
@@ -98,7 +100,7 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
 
   function _deployNewTokenPoolEth() private returns (address) {
     IUpgradeableLockReleaseTokenPool_1_4 existingTokenPool = IUpgradeableLockReleaseTokenPool_1_4(
-      MiscEthereum.GHO_CCIP_TOKEN_POOL
+      GhoEthereum.GHO_CCIP_TOKEN_POOL
     );
     address newTokenPoolImpl = address(
       new UpgradeableLockReleaseTokenPool(
@@ -114,7 +116,7 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
       address(
         new TransparentUpgradeableProxy(
           newTokenPoolImpl,
-          MiscEthereum.PROXY_ADMIN,
+          ProxyAdmin(MiscEthereum.PROXY_ADMIN),
           abi.encodeCall(
             IUpgradeableLockReleaseTokenPool_1_5_1.initialize,
             (
@@ -412,6 +414,7 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_PostUpgrade is
     deal(address(GHO), address(EXISTING_TOKEN_POOL), amount);
 
     vm.prank(EXISTING_TOKEN_POOL.getProxyPool());
+    // since we disable the bridge by resetting the bridge limit to 0
     vm.expectRevert(abi.encodeWithSelector(BridgeLimitExceeded.selector, 0));
     EXISTING_TOKEN_POOL.lockOrBurn(
       alice,
@@ -430,7 +433,7 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_PostUpgrade is
 
     // router pulls tokens from the user & sends to the token pool during onRamps
     // we don't override NEW_TOKEN_POOL balance here & instead transfer because we want
-    // to check the invariant GHO.balanceOf(tokenPool) == tokenPool.currentBridgedAmount()
+    // to check the invariant GHO.balanceOf(tokenPool) >= tokenPool.currentBridgedAmount()
     deal(address(GHO), address(alice), amount);
     vm.prank(alice);
     GHO.transfer(address(NEW_TOKEN_POOL), amount);

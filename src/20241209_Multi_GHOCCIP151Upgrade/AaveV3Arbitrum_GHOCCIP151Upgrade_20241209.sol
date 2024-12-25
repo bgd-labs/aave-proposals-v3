@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {TransparentUpgradeableProxy} from 'solidity-utils/contracts/transparent-proxy/TransparentUpgradeableProxy.sol';
-import {ProxyAdmin} from 'solidity-utils/contracts/transparent-proxy/ProxyAdmin.sol';
+import {ITransparentUpgradeableProxy} from 'solidity-utils/contracts/transparent-proxy/TransparentUpgradeableProxy.sol';
 import {IUpgradeableBurnMintTokenPool_1_4, IUpgradeableBurnMintTokenPool_1_5_1} from 'src/interfaces/ccip/tokenPool/IUpgradeableBurnMintTokenPool.sol';
 import {ITokenAdminRegistry} from 'src/interfaces/ccip/ITokenAdminRegistry.sol';
 import {IRateLimiter} from 'src/interfaces/ccip/IRateLimiter.sol';
+import {ILegacyProxyAdmin} from 'src/interfaces/ILegacyProxyAdmin.sol';
 import {IGhoToken} from 'src/interfaces/IGhoToken.sol';
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
 import {MiscArbitrum} from 'aave-address-book/MiscArbitrum.sol';
@@ -108,8 +108,8 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209 is IProposalGenericExecutor {
   }
 
   function _upgradeExistingTokenPool() internal {
-    ProxyAdmin(MiscArbitrum.PROXY_ADMIN).upgrade(
-      TransparentUpgradeableProxy(payable(address(EXISTING_TOKEN_POOL))),
+    ILegacyProxyAdmin(MiscArbitrum.PROXY_ADMIN).upgrade(
+      ITransparentUpgradeableProxy(payable(address(EXISTING_TOKEN_POOL))),
       EXISTING_TOKEN_POOL_UPGRADE_IMPL
     );
   }

@@ -22,19 +22,18 @@ The template ships with sensible default so you can use default `foundry` comman
 ```sh
 cp .env.example .env
 forge install
-yarn
+npm i
 ```
 
 ### Create an aip
 
 This repository includes a generator to help you bootstrap the required files for an `AIP`.
-To generate a proposal you need to run: `yarn generate`
+To generate a proposal you need to run: `npm run generate`
 
-To get a full list of available commands run `yarn generate --help`
+To get a full list of available commands run `npm run generate -- --help`
 
 ```sh
-yarn generate --help
-yarn run v1.22.19
+npm run generate -- --help
 $ tsx generator/cli --help
 Usage: proposal-generator [options]
 
@@ -108,7 +107,8 @@ If for whatever reason verification fails, there's a good chance the error is on
 To retry a specific verification you can follow the following steps:
 
 1. copy verify.example.json to verify.json
-2. replace the `chain` with the appropriate chainId
-3. replace the `hash` with the transaction hash of the deployment transaction (make sure it's the deployment transaction, not the one registering the payload on the payloadscontroller)
-4. run `FOUNDRY_PROFILE=<chainAlias> forge build --force`
-5. run `FOUNDRY_PROFILE=<chainAlias> npx catapulta-verify -b verify.json`
+2. enter an `ETHERSCAN_API_KEY` in your `.env`
+3. replace the `chain` with the appropriate chainId
+4. replace the `hash` with the transaction hash of the deployment transaction (make sure it's the deployment transaction, not the one registering the payload on the payloadscontroller)
+5. run `FOUNDRY_PROFILE=<chainAlias> forge build --force`
+6. run `FOUNDRY_PROFILE=<chainAlias> npx catapulta-verify -b verify.json`
