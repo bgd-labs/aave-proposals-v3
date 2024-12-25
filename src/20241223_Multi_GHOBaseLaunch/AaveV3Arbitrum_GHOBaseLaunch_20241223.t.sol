@@ -60,6 +60,7 @@ contract AaveV3Arbitrum_GHOBaseLaunch_20241223_Test is ProtocolV3TestBase {
     IEVM2EVMOffRamp_1_5(0xb62178f8198905D0Fa6d640Bdb188E4E8143Ac4b);
 
   IRouter internal constant ROUTER = IRouter(0x141fa059441E0ca23ce184B6A78bafD2A517DdE8);
+  address public constant NEW_REMOTE_TOKEN_BASE = 0x888053142E093BcB4D8c3c1B79ce92DBa9C2E910; // predicted
 
   IGhoCcipSteward internal NEW_GHO_CCIP_STEWARD;
 
@@ -69,7 +70,6 @@ contract AaveV3Arbitrum_GHOBaseLaunch_20241223_Test is ProtocolV3TestBase {
 
   address internal NEW_REMOTE_POOL_ETH = makeAddr('ETH: LockReleaseTokenPool 1.5.1');
   address internal NEW_REMOTE_POOL_BASE = makeAddr('BASE: BurnMintTokenPool 1.5.1');
-  address internal NEW_REMOTE_TOKEN_BASE = makeAddr('BASE: GhoToken');
   address internal alice = makeAddr('alice');
   address internal bob = makeAddr('bob');
   address internal carol = makeAddr('carol');
@@ -88,8 +88,7 @@ contract AaveV3Arbitrum_GHOBaseLaunch_20241223_Test is ProtocolV3TestBase {
     _upgradeArbTo1_5_1();
     proposal = new AaveV3Arbitrum_GHOBaseLaunch_20241223(
       address(NEW_TOKEN_POOL),
-      NEW_REMOTE_POOL_BASE,
-      NEW_REMOTE_TOKEN_BASE
+      NEW_REMOTE_POOL_BASE
     );
 
     _validateConstants();

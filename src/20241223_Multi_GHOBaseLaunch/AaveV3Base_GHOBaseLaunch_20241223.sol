@@ -24,14 +24,17 @@ contract AaveV3Base_GHOBaseLaunch_20241223 is IProposalGenericExecutor {
   uint64 public constant ETH_CHAIN_SELECTOR = 5009297550715157269;
   uint64 public constant ARB_CHAIN_SELECTOR = 4949039107694359620;
 
-  uint128 public constant CCIP_BUCKET_CAPACITY = 25_000_000e18; // 25M GHO
+  uint128 public constant CCIP_BUCKET_CAPACITY = 20_000_000e18; // 20M GHO
 
   ITokenAdminRegistry public constant TOKEN_ADMIN_REGISTRY =
     ITokenAdminRegistry(0x6f6C373d09C07425BaAE72317863d7F6bb731e37);
 
   IUpgradeableBurnMintTokenPool_1_5_1 public immutable TOKEN_POOL;
 
-  address public immutable GHO_TOKEN_IMPL;
+  // https://basescan.org/address/0x26d595dddbad81bf976ef6f24686a12a800b141f
+  address public constant GHO_TOKEN_IMPL = 0xb0e1c7830aA781362f79225559Aa068E6bDaF1d1;
+  // predicted address, will be deployed in the AIP
+  IGhoToken public constant GHO_TOKEN_PROXY = IGhoToken(0x888053142E093BcB4D8c3c1B79ce92DBa9C2E910);
   address public immutable GHO_CCIP_STEWARD;
 
   address public immutable REMOTE_TOKEN_POOL_ETH;
@@ -39,42 +42,53 @@ contract AaveV3Base_GHOBaseLaunch_20241223 is IProposalGenericExecutor {
 
   constructor(
     address tokenPool,
-    address ghoTokenImpl,
     address ghoCcipSteward,
     address tokenPoolEth,
     address tokenPoolArb
   ) {
     TOKEN_POOL = IUpgradeableBurnMintTokenPool_1_5_1(tokenPool);
-    GHO_TOKEN_IMPL = ghoTokenImpl;
     GHO_CCIP_STEWARD = ghoCcipSteward;
     REMOTE_TOKEN_POOL_ETH = tokenPoolEth;
     REMOTE_TOKEN_POOL_ARB = tokenPoolArb;
   }
 
   function execute() external {
-    IGhoToken GHO_TOKEN = _deployAndInitializeGhoToken();
+    _acceptOwnership();
+    if (_deployAndInitializeGhoToken() != address(GHO_TOKEN_PROXY)) revert();
 
-    GHO_TOKEN.grantRole(GHO_TOKEN.FACILITATOR_MANAGER_ROLE(), GovernanceV3Base.EXECUTOR_LVL_1);
-    GHO_TOKEN.grantRole(GHO_TOKEN.BUCKET_MANAGER_ROLE(), GovernanceV3Base.EXECUTOR_LVL_1);
-    GHO_TOKEN.addFacilitator(address(TOKEN_POOL), 'CCIP TokenPool v1.5.1', CCIP_BUCKET_CAPACITY);
+    GHO_TOKEN_PROXY.grantRole(
+      GHO_TOKEN_PROXY.FACILITATOR_MANAGER_ROLE(),
+      GovernanceV3Base.EXECUTOR_LVL_1
+    );
+    GHO_TOKEN_PROXY.grantRole(
+      GHO_TOKEN_PROXY.BUCKET_MANAGER_ROLE(),
+      GovernanceV3Base.EXECUTOR_LVL_1
+    );
+    GHO_TOKEN_PROXY.addFacilitator(
+      address(TOKEN_POOL),
+      'CCIP TokenPool v1.5.1',
+      CCIP_BUCKET_CAPACITY
+    );
 
-    TOKEN_ADMIN_REGISTRY.acceptAdminRole(address(GHO_TOKEN));
-    TOKEN_POOL.acceptOwnership();
+    TOKEN_POOL.setRateLimitAdmin(address(GHO_CCIP_STEWARD));
 
     _setupRemoteTokenPools();
 
-    TOKEN_ADMIN_REGISTRY.setPool(address(GHO_TOKEN), address(TOKEN_POOL));
+    TOKEN_ADMIN_REGISTRY.setPool(address(GHO_TOKEN_PROXY), address(TOKEN_POOL));
   }
 
-  function _deployAndInitializeGhoToken() internal returns (IGhoToken) {
+  function _acceptOwnership() internal {
+    TOKEN_ADMIN_REGISTRY.acceptAdminRole(address(GHO_TOKEN_PROXY));
+    TOKEN_POOL.acceptOwnership();
+  }
+
+  function _deployAndInitializeGhoToken() internal returns (address) {
     return
-      IGhoToken(
-        address(
-          new TransparentUpgradeableProxy{salt: keccak256('based-GHO')}(
-            GHO_TOKEN_IMPL,
-            MiscBase.PROXY_ADMIN,
-            abi.encodeWithSignature('initialize(address)', GovernanceV3Base.EXECUTOR_LVL_1)
-          )
+      address(
+        new TransparentUpgradeableProxy{salt: keccak256('based-GHO')}(
+          GHO_TOKEN_IMPL,
+          MiscBase.PROXY_ADMIN,
+          abi.encodeWithSignature('initialize(address)', GovernanceV3Base.EXECUTOR_LVL_1)
         )
       );
   }

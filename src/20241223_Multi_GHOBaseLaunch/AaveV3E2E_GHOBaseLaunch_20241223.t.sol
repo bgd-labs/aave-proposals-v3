@@ -94,6 +94,8 @@ contract AaveV3Base_GHOBaseLaunch_20241223_Base is ProtocolV3TestBase {
 
   address internal constant RMN_PROXY_BASE = 0xC842c69d54F83170C42C4d556B4F6B2ca53Dd3E8;
   address internal constant ROUTER_BASE = 0x881e3A65B4d4a04dD529061dd0071cf975F58bCD;
+  address public constant GHO_TOKEN_IMPL_BASE = 0xb0e1c7830aA781362f79225559Aa068E6bDaF1d1;
+  IGhoToken public constant GHO_TOKEN_BASE = IGhoToken(0x888053142E093BcB4D8c3c1B79ce92DBa9C2E910); // predicted address, will be deployed in the AIP
 
   event CCIPSendRequested(IInternal.EVM2EVMMessage message);
   event Locked(address indexed sender, uint256 amount);
@@ -103,7 +105,7 @@ contract AaveV3Base_GHOBaseLaunch_20241223_Base is ProtocolV3TestBase {
 
   function setUp() public virtual {
     arb.c.forkId = vm.createFork(vm.rpcUrl('arbitrum'), 288070365);
-    base.c.forkId = vm.createFork(vm.rpcUrl('base'), 24072751);
+    base.c.forkId = vm.createFork(vm.rpcUrl('base'), 24139320);
     eth.c.forkId = vm.createFork(vm.rpcUrl('mainnet'), 21463360);
 
     arb.c.tokenAdminRegistry = ITokenAdminRegistry(0x39AE1032cF4B334a1Ed41cdD0833bdD7c7E7751E);
@@ -117,10 +119,8 @@ contract AaveV3Base_GHOBaseLaunch_20241223_Base is ProtocolV3TestBase {
     eth.c.chainSelector = 5009297550715157269;
 
     vm.selectFork(base.c.forkId);
-    address ghoTokenImplBase = _deployGhoTokenImpl();
-    address ghoTokenBase = _predictGhoTokenAddressBase(ghoTokenImplBase);
     address newTokenPoolBase = _deployNewBurnMintTokenPool(
-      ghoTokenBase,
+      address(GHO_TOKEN_BASE),
       RMN_PROXY_BASE,
       ROUTER_BASE,
       GovernanceV3Base.EXECUTOR_LVL_1, // owner
@@ -128,17 +128,13 @@ contract AaveV3Base_GHOBaseLaunch_20241223_Base is ProtocolV3TestBase {
     );
     address ghoCcipStewardBase = _deployNewGhoCcipSteward(
       newTokenPoolBase,
-      ghoTokenBase,
+      address(GHO_TOKEN_BASE),
       GovernanceV3Base.EXECUTOR_LVL_1, // riskCouncil, using executor for convenience
       false // bridgeLimitEnabled, *not present* in remote (burnMint) pools
     );
 
     vm.selectFork(arb.c.forkId);
-    arb.proposal = new AaveV3Arbitrum_GHOBaseLaunch_20241223(
-      newTokenPoolArb,
-      newTokenPoolBase,
-      ghoTokenBase
-    );
+    arb.proposal = new AaveV3Arbitrum_GHOBaseLaunch_20241223(newTokenPoolArb, newTokenPoolBase);
     arb.tokenPool = IUpgradeableBurnMintTokenPool_1_5_1(newTokenPoolArb);
     arb.c.router = IRouter(arb.tokenPool.getRouter());
     arb.c.baseOnRamp = IEVM2EVMOnRamp(arb.c.router.getOnRamp(base.c.chainSelector));
@@ -149,14 +145,13 @@ contract AaveV3Base_GHOBaseLaunch_20241223_Base is ProtocolV3TestBase {
     vm.selectFork(base.c.forkId);
     base.proposal = new AaveV3Base_GHOBaseLaunch_20241223(
       newTokenPoolBase,
-      ghoTokenImplBase,
       ghoCcipStewardBase,
       newTokenPoolEth,
       newTokenPoolArb
     );
     base.tokenPool = IUpgradeableBurnMintTokenPool_1_5_1(newTokenPoolBase);
     base.c.tokenAdminRegistry = ITokenAdminRegistry(0x6f6C373d09C07425BaAE72317863d7F6bb731e37);
-    base.c.token = IGhoToken(ghoTokenBase);
+    base.c.token = GHO_TOKEN_BASE;
     base.c.router = IRouter(base.tokenPool.getRouter());
     base.c.arbOnRamp = IEVM2EVMOnRamp(base.c.router.getOnRamp(arb.c.chainSelector));
     base.c.ethOnRamp = IEVM2EVMOnRamp(base.c.router.getOnRamp(eth.c.chainSelector));
@@ -164,11 +159,7 @@ contract AaveV3Base_GHOBaseLaunch_20241223_Base is ProtocolV3TestBase {
     base.c.ethOffRamp = IEVM2EVMOffRamp_1_5(0xCA04169671A81E4fB8768cfaD46c347ae65371F1);
 
     vm.selectFork(eth.c.forkId);
-    eth.proposal = new AaveV3Ethereum_GHOBaseLaunch_20241223(
-      newTokenPoolEth,
-      newTokenPoolBase,
-      ghoTokenBase
-    );
+    eth.proposal = new AaveV3Ethereum_GHOBaseLaunch_20241223(newTokenPoolEth, newTokenPoolBase);
     eth.tokenPool = IUpgradeableLockReleaseTokenPool_1_5_1(newTokenPoolEth);
     eth.c.router = IRouter(eth.tokenPool.getRouter());
     eth.c.arbOnRamp = IEVM2EVMOnRamp(eth.c.router.getOnRamp(arb.c.chainSelector));
@@ -433,7 +424,7 @@ contract AaveV3Base_GHOBaseLaunch_20241223_Base is ProtocolV3TestBase {
     // proposal constants
     assertEq(base.proposal.ETH_CHAIN_SELECTOR(), eth.c.chainSelector);
     assertEq(base.proposal.ARB_CHAIN_SELECTOR(), arb.c.chainSelector);
-    assertEq(base.proposal.CCIP_BUCKET_CAPACITY(), 25_000_000e18);
+    assertEq(base.proposal.CCIP_BUCKET_CAPACITY(), 20_000_000e18);
     assertEq(address(base.proposal.TOKEN_ADMIN_REGISTRY()), address(base.c.tokenAdminRegistry));
     assertEq(address(base.proposal.TOKEN_POOL()), address(base.tokenPool));
     IGhoCcipSteward ghoCcipSteward = IGhoCcipSteward(base.proposal.GHO_CCIP_STEWARD());

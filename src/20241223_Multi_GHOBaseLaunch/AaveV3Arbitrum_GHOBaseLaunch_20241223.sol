@@ -14,15 +14,15 @@ import {IRateLimiter} from 'src/interfaces/ccip/IRateLimiter.sol';
 contract AaveV3Arbitrum_GHOBaseLaunch_20241223 is IProposalGenericExecutor {
   uint64 public constant BASE_CHAIN_SELECTOR = 15971525489660198786;
 
-  IUpgradeableBurnMintTokenPool_1_5_1 public immutable TOKEN_POOL; // replace with MiscArbitrum.GHO_CCIP_TOKEN_POOL once address-book is updated
+  IUpgradeableBurnMintTokenPool_1_5_1 public immutable TOKEN_POOL;
 
   address public immutable REMOTE_TOKEN_POOL_BASE;
-  address public immutable REMOTE_GHO_TOKEN_BASE; // new deployment, not present in address-book
+  // https://basescan.org/address/0x888053142E093BcB4D8c3c1B79ce92DBa9C2E910
+  address public constant REMOTE_GHO_TOKEN_BASE = 0x888053142E093BcB4D8c3c1B79ce92DBa9C2E910; // predicted
 
-  constructor(address tokenPoolArb, address tokenPoolBase, address ghoTokenBase) {
+  constructor(address tokenPoolArb, address tokenPoolBase) {
     TOKEN_POOL = IUpgradeableBurnMintTokenPool_1_5_1(tokenPoolArb);
     REMOTE_TOKEN_POOL_BASE = tokenPoolBase;
-    REMOTE_GHO_TOKEN_BASE = ghoTokenBase;
   }
 
   function execute() external {

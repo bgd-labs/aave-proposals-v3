@@ -64,7 +64,8 @@ contract AaveV3Base_GHOBaseLaunch_20241223_Test is ProtocolV3TestBase {
   IRouter internal constant ROUTER = IRouter(0x881e3A65B4d4a04dD529061dd0071cf975F58bCD);
   address internal constant RMN_PROXY = 0xC842c69d54F83170C42C4d556B4F6B2ca53Dd3E8;
 
-  IGhoToken internal GHO;
+  address public constant GHO_TOKEN_IMPL = 0xb0e1c7830aA781362f79225559Aa068E6bDaF1d1;
+  IGhoToken public constant GHO = IGhoToken(0x888053142E093BcB4D8c3c1B79ce92DBa9C2E910); // predicted address, will be deployed in the AIP
   IGhoCcipSteward internal NEW_GHO_CCIP_STEWARD;
   IUpgradeableBurnMintTokenPool_1_5_1 internal NEW_TOKEN_POOL;
   AaveV3Base_GHOBaseLaunch_20241223 internal proposal;
@@ -83,10 +84,8 @@ contract AaveV3Base_GHOBaseLaunch_20241223_Test is ProtocolV3TestBase {
   error InvalidSourcePoolAddress(bytes);
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('base'), 24072751);
+    vm.createSelectFork(vm.rpcUrl('base'), 24139320);
 
-    address ghoTokenImpl = _deployGhoTokenImpl();
-    GHO = IGhoToken(_predictGhoTokenAddress(ghoTokenImpl));
     NEW_TOKEN_POOL = IUpgradeableBurnMintTokenPool_1_5_1(
       _deployNewBurnMintTokenPool(
         address(GHO),
@@ -107,7 +106,6 @@ contract AaveV3Base_GHOBaseLaunch_20241223_Test is ProtocolV3TestBase {
 
     proposal = new AaveV3Base_GHOBaseLaunch_20241223(
       address(NEW_TOKEN_POOL),
-      ghoTokenImpl,
       address(NEW_GHO_CCIP_STEWARD),
       NEW_REMOTE_POOL_ETH,
       NEW_REMOTE_POOL_ARB
@@ -119,41 +117,6 @@ contract AaveV3Base_GHOBaseLaunch_20241223_Test is ProtocolV3TestBase {
   function _performCcipPreReq() internal {
     vm.prank(TOKEN_ADMIN_REGISTRY.owner());
     TOKEN_ADMIN_REGISTRY.proposeAdministrator(address(GHO), GovernanceV3Base.EXECUTOR_LVL_1);
-  }
-
-  function _deployGhoTokenImpl() internal returns (address) {
-    return address(new UpgradeableGhoToken());
-  }
-
-  function _predictGhoTokenAddress(address logic) internal view returns (address) {
-    return
-      _predictCreate2Address({
-        creator: GovernanceV3Base.EXECUTOR_LVL_1,
-        salt: keccak256('based-GHO'),
-        creationCode: type(TransparentUpgradeableProxy).creationCode,
-        constructorArgs: abi.encode(
-          logic,
-          address(MiscBase.PROXY_ADMIN),
-          abi.encodeWithSignature('initialize(address)', GovernanceV3Base.EXECUTOR_LVL_1)
-        )
-      });
-  }
-
-  function _predictCreate2Address(
-    address creator,
-    bytes32 salt,
-    bytes memory creationCode,
-    bytes memory constructorArgs
-  ) internal pure returns (address) {
-    bytes32 hash = keccak256(
-      abi.encodePacked(
-        bytes1(0xff),
-        creator,
-        salt,
-        keccak256(abi.encodePacked(creationCode, constructorArgs))
-      )
-    );
-    return address(uint160(uint256(hash)));
   }
 
   function _deployNewBurnMintTokenPool(
