@@ -43,8 +43,8 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
     CCIPUtils.PoolVersion poolVersion;
   }
 
-  uint64 internal constant ETH_CHAIN_SELECTOR = 5009297550715157269;
-  uint64 internal constant ARB_CHAIN_SELECTOR = 4949039107694359620;
+  uint64 internal constant ETH_CHAIN_SELECTOR = CCIPUtils.ETH_CHAIN_SELECTOR;
+  uint64 internal constant ARB_CHAIN_SELECTOR = CCIPUtils.ARB_CHAIN_SELECTOR;
 
   IGhoToken internal constant GHO = IGhoToken(AaveV3ArbitrumAssets.GHO_UNDERLYING);
   ITokenAdminRegistry internal constant TOKEN_ADMIN_REGISTRY =

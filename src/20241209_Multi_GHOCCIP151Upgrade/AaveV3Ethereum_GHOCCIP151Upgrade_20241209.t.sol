@@ -44,8 +44,8 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
     CCIPUtils.PoolVersion poolVersion;
   }
 
-  uint64 internal constant ETH_CHAIN_SELECTOR = 5009297550715157269;
-  uint64 internal constant ARB_CHAIN_SELECTOR = 4949039107694359620;
+  uint64 internal constant ETH_CHAIN_SELECTOR = CCIPUtils.ETH_CHAIN_SELECTOR;
+  uint64 internal constant ARB_CHAIN_SELECTOR = CCIPUtils.ETH_CHAIN_SELECTOR;
 
   IGhoToken internal constant GHO = IGhoToken(AaveV3EthereumAssets.GHO_UNDERLYING);
   ITokenAdminRegistry internal constant TOKEN_ADMIN_REGISTRY =
@@ -414,6 +414,7 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_PostUpgrade is
     deal(address(GHO), address(EXISTING_TOKEN_POOL), amount);
 
     vm.prank(EXISTING_TOKEN_POOL.getProxyPool());
+    // since we disable the bridge by resetting the bridge limit to 0
     vm.expectRevert(abi.encodeWithSelector(BridgeLimitExceeded.selector, 0));
     EXISTING_TOKEN_POOL.lockOrBurn(
       alice,
@@ -432,7 +433,7 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_PostUpgrade is
 
     // router pulls tokens from the user & sends to the token pool during onRamps
     // we don't override NEW_TOKEN_POOL balance here & instead transfer because we want
-    // to check the invariant GHO.balanceOf(tokenPool) == tokenPool.currentBridgedAmount()
+    // to check the invariant GHO.balanceOf(tokenPool) >= tokenPool.currentBridgedAmount()
     deal(address(GHO), address(alice), amount);
     vm.prank(alice);
     GHO.transfer(address(NEW_TOKEN_POOL), amount);
