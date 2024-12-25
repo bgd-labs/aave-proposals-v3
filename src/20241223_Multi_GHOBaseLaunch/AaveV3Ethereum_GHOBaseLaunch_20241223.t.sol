@@ -17,12 +17,14 @@ import {IGhoCcipSteward} from 'src/interfaces/IGhoCcipSteward.sol';
 
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
+import {GhoEthereum} from 'aave-address-book/GhoEthereum.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {AaveV3Arbitrum} from 'aave-address-book/AaveV3Arbitrum.sol';
 import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
 
 import {TransparentUpgradeableProxy} from 'solidity-utils/contracts/transparent-proxy/TransparentUpgradeableProxy.sol';
+import {ProxyAdmin} from 'solidity-utils/contracts/transparent-proxy/ProxyAdmin.sol';
 import {UpgradeableLockReleaseTokenPool} from 'aave-ccip/pools/GHO/UpgradeableLockReleaseTokenPool.sol';
 import {GhoCcipSteward} from 'gho-core/misc/GhoCcipSteward.sol';
 
@@ -59,7 +61,7 @@ contract AaveV3Ethereum_GHOBaseLaunch_20241223_Test is ProtocolV3TestBase {
     IEVM2EVMOffRamp_1_5(0x6B4B6359Dd5B47Cdb030E5921456D2a0625a9EbD);
 
   IRouter internal constant ROUTER = IRouter(0x80226fc0Ee2b096224EeAc085Bb9a8cba1146f7D);
-  address public constant NEW_REMOTE_TOKEN_BASE = 0x888053142E093BcB4D8c3c1B79ce92DBa9C2E910; // predicted
+  address public constant NEW_REMOTE_TOKEN_BASE = 0x6F2216CB3Ca97b8756C5fD99bE27986f04CBd81D; // predicted
 
   IGhoCcipSteward internal NEW_GHO_CCIP_STEWARD;
 
@@ -115,7 +117,7 @@ contract AaveV3Ethereum_GHOBaseLaunch_20241223_Test is ProtocolV3TestBase {
 
   function _deployNewTokenPoolEth() private returns (address) {
     IUpgradeableLockReleaseTokenPool_1_4 existingTokenPool = IUpgradeableLockReleaseTokenPool_1_4(
-      MiscEthereum.GHO_CCIP_TOKEN_POOL
+      GhoEthereum.GHO_CCIP_TOKEN_POOL
     );
     address newTokenPoolImpl = address(
       new UpgradeableLockReleaseTokenPool(
@@ -131,7 +133,7 @@ contract AaveV3Ethereum_GHOBaseLaunch_20241223_Test is ProtocolV3TestBase {
       address(
         new TransparentUpgradeableProxy(
           newTokenPoolImpl,
-          MiscEthereum.PROXY_ADMIN,
+          ProxyAdmin(MiscEthereum.PROXY_ADMIN),
           abi.encodeCall(
             IUpgradeableLockReleaseTokenPool_1_5_1.initialize,
             (

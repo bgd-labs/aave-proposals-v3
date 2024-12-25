@@ -2,6 +2,7 @@
 pragma solidity ^0.8.0;
 
 import {TransparentUpgradeableProxy} from 'solidity-utils/contracts/transparent-proxy/TransparentUpgradeableProxy.sol';
+import {ProxyAdmin} from 'solidity-utils/contracts/transparent-proxy/ProxyAdmin.sol';
 
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
 import {IUpgradeableBurnMintTokenPool_1_5_1} from 'src/interfaces/ccip/tokenPool/IUpgradeableBurnMintTokenPool.sol';
@@ -34,7 +35,7 @@ contract AaveV3Base_GHOBaseLaunch_20241223 is IProposalGenericExecutor {
   // https://basescan.org/address/0x26d595dddbad81bf976ef6f24686a12a800b141f
   address public constant GHO_TOKEN_IMPL = 0xb0e1c7830aA781362f79225559Aa068E6bDaF1d1;
   // predicted address, will be deployed in the AIP
-  IGhoToken public constant GHO_TOKEN_PROXY = IGhoToken(0x888053142E093BcB4D8c3c1B79ce92DBa9C2E910);
+  IGhoToken public constant GHO_TOKEN_PROXY = IGhoToken(0x6F2216CB3Ca97b8756C5fD99bE27986f04CBd81D);
   address public immutable GHO_CCIP_STEWARD;
 
   address public immutable REMOTE_TOKEN_POOL_ETH;
@@ -87,7 +88,7 @@ contract AaveV3Base_GHOBaseLaunch_20241223 is IProposalGenericExecutor {
       address(
         new TransparentUpgradeableProxy{salt: keccak256('based-GHO')}(
           GHO_TOKEN_IMPL,
-          MiscBase.PROXY_ADMIN,
+          ProxyAdmin(MiscBase.PROXY_ADMIN),
           abi.encodeWithSignature('initialize(address)', GovernanceV3Base.EXECUTOR_LVL_1)
         )
       );

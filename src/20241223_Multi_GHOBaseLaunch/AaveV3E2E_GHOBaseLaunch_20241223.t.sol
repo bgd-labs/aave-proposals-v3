@@ -22,11 +22,14 @@ import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {MiscArbitrum} from 'aave-address-book/MiscArbitrum.sol';
 import {MiscBase} from 'aave-address-book/MiscBase.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
+import {GhoArbitrum} from 'aave-address-book/GhoArbitrum.sol';
+import {GhoEthereum} from 'aave-address-book/GhoEthereum.sol';
 import {GovernanceV3Arbitrum} from 'aave-address-book/GovernanceV3Arbitrum.sol';
 import {GovernanceV3Base} from 'aave-address-book/GovernanceV3Base.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 
 import {TransparentUpgradeableProxy} from 'solidity-utils/contracts/transparent-proxy/TransparentUpgradeableProxy.sol';
+import {ProxyAdmin} from 'solidity-utils/contracts/transparent-proxy/ProxyAdmin.sol';
 import {UpgradeableLockReleaseTokenPool} from 'aave-ccip/pools/GHO/UpgradeableLockReleaseTokenPool.sol';
 import {UpgradeableBurnMintTokenPool} from 'aave-ccip/pools/GHO/UpgradeableBurnMintTokenPool.sol';
 import {UpgradeableGhoToken} from 'gho-core/gho/UpgradeableGhoToken.sol';
@@ -95,7 +98,7 @@ contract AaveV3Base_GHOBaseLaunch_20241223_Base is ProtocolV3TestBase {
   address internal constant RMN_PROXY_BASE = 0xC842c69d54F83170C42C4d556B4F6B2ca53Dd3E8;
   address internal constant ROUTER_BASE = 0x881e3A65B4d4a04dD529061dd0071cf975F58bCD;
   address public constant GHO_TOKEN_IMPL_BASE = 0xb0e1c7830aA781362f79225559Aa068E6bDaF1d1;
-  IGhoToken public constant GHO_TOKEN_BASE = IGhoToken(0x888053142E093BcB4D8c3c1B79ce92DBa9C2E910); // predicted address, will be deployed in the AIP
+  IGhoToken public constant GHO_TOKEN_BASE = IGhoToken(0x6F2216CB3Ca97b8756C5fD99bE27986f04CBd81D); // predicted address, will be deployed in the AIP
 
   event CCIPSendRequested(IInternal.EVM2EVMMessage message);
   event Locked(address indexed sender, uint256 amount);
@@ -176,7 +179,7 @@ contract AaveV3Base_GHOBaseLaunch_20241223_Base is ProtocolV3TestBase {
     // deploy new token pools and ghoCcipStewards
     vm.selectFork(eth.c.forkId);
     IUpgradeableLockReleaseTokenPool_1_4 existingPoolEth = IUpgradeableLockReleaseTokenPool_1_4(
-      MiscEthereum.GHO_CCIP_TOKEN_POOL
+      GhoEthereum.GHO_CCIP_TOKEN_POOL
     );
     address newTokenPoolEth = _deployNewLockReleaseTokenPool(
       AaveV3EthereumAssets.GHO_UNDERLYING,
@@ -195,7 +198,7 @@ contract AaveV3Base_GHOBaseLaunch_20241223_Base is ProtocolV3TestBase {
 
     vm.selectFork(arb.c.forkId);
     IUpgradeableBurnMintTokenPool_1_4 existingPoolArb = IUpgradeableBurnMintTokenPool_1_4(
-      MiscArbitrum.GHO_CCIP_TOKEN_POOL
+      GhoArbitrum.GHO_CCIP_TOKEN_POOL
     );
     address newTokenPoolArb = _deployNewBurnMintTokenPool(
       AaveV3ArbitrumAssets.GHO_UNDERLYING,
@@ -300,7 +303,7 @@ contract AaveV3Base_GHOBaseLaunch_20241223_Base is ProtocolV3TestBase {
       address(
         new TransparentUpgradeableProxy(
           newTokenPoolImpl,
-          address(proxyAdmin),
+          ProxyAdmin(proxyAdmin),
           abi.encodeCall(
             IUpgradeableBurnMintTokenPool_1_5_1.initialize,
             (
@@ -335,7 +338,7 @@ contract AaveV3Base_GHOBaseLaunch_20241223_Base is ProtocolV3TestBase {
       address(
         new TransparentUpgradeableProxy(
           newTokenPoolImpl,
-          address(proxyAdmin),
+          ProxyAdmin(proxyAdmin),
           abi.encodeCall(
             IUpgradeableLockReleaseTokenPool_1_5_1.initialize,
             (

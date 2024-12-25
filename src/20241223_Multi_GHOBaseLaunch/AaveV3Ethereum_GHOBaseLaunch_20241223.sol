@@ -17,8 +17,8 @@ contract AaveV3Ethereum_GHOBaseLaunch_20241223 is IProposalGenericExecutor {
   IUpgradeableLockReleaseTokenPool_1_5_1 public immutable TOKEN_POOL;
 
   address public immutable REMOTE_TOKEN_POOL_BASE;
-  // https://basescan.org/address/0x888053142E093BcB4D8c3c1B79ce92DBa9C2E910
-  address public constant REMOTE_GHO_TOKEN_BASE = 0x888053142E093BcB4D8c3c1B79ce92DBa9C2E910; // predicted
+  // https://basescan.org/address/0x6F2216CB3Ca97b8756C5fD99bE27986f04CBd81D
+  address public constant REMOTE_GHO_TOKEN_BASE = 0x6F2216CB3Ca97b8756C5fD99bE27986f04CBd81D; // predicted
 
   constructor(address tokenPoolEth, address tokenPoolBase) {
     TOKEN_POOL = IUpgradeableLockReleaseTokenPool_1_5_1(tokenPoolEth);

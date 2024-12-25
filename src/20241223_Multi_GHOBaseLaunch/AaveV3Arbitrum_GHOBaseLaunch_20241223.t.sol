@@ -20,9 +20,11 @@ import {AaveV3Arbitrum} from 'aave-address-book/AaveV3Arbitrum.sol';
 import {AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
 import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {MiscArbitrum} from 'aave-address-book/MiscArbitrum.sol';
+import {GhoArbitrum} from 'aave-address-book/GhoArbitrum.sol';
 import {GovernanceV3Arbitrum} from 'aave-address-book/GovernanceV3Arbitrum.sol';
 
 import {TransparentUpgradeableProxy} from 'solidity-utils/contracts/transparent-proxy/TransparentUpgradeableProxy.sol';
+import {ProxyAdmin} from 'solidity-utils/contracts/transparent-proxy/ProxyAdmin.sol';
 import {UpgradeableBurnMintTokenPool} from 'aave-ccip/pools/GHO/UpgradeableBurnMintTokenPool.sol';
 import {GhoCcipSteward} from 'gho-core/misc/GhoCcipSteward.sol';
 
@@ -60,7 +62,7 @@ contract AaveV3Arbitrum_GHOBaseLaunch_20241223_Test is ProtocolV3TestBase {
     IEVM2EVMOffRamp_1_5(0xb62178f8198905D0Fa6d640Bdb188E4E8143Ac4b);
 
   IRouter internal constant ROUTER = IRouter(0x141fa059441E0ca23ce184B6A78bafD2A517DdE8);
-  address public constant NEW_REMOTE_TOKEN_BASE = 0x888053142E093BcB4D8c3c1B79ce92DBa9C2E910; // predicted
+  address public constant NEW_REMOTE_TOKEN_BASE = 0x6F2216CB3Ca97b8756C5fD99bE27986f04CBd81D; // predicted
 
   IGhoCcipSteward internal NEW_GHO_CCIP_STEWARD;
 
@@ -115,7 +117,7 @@ contract AaveV3Arbitrum_GHOBaseLaunch_20241223_Test is ProtocolV3TestBase {
 
   function _deployNewTokenPoolArb() private returns (address) {
     IUpgradeableBurnMintTokenPool_1_4 existingTokenPool = IUpgradeableBurnMintTokenPool_1_4(
-      MiscArbitrum.GHO_CCIP_TOKEN_POOL
+      GhoArbitrum.GHO_CCIP_TOKEN_POOL
     );
     address newTokenPoolImpl = address(
       new UpgradeableBurnMintTokenPool(
@@ -129,7 +131,7 @@ contract AaveV3Arbitrum_GHOBaseLaunch_20241223_Test is ProtocolV3TestBase {
       address(
         new TransparentUpgradeableProxy(
           newTokenPoolImpl,
-          address(MiscArbitrum.PROXY_ADMIN),
+          ProxyAdmin(MiscArbitrum.PROXY_ADMIN),
           abi.encodeCall(
             IUpgradeableBurnMintTokenPool_1_5_1.initialize,
             (

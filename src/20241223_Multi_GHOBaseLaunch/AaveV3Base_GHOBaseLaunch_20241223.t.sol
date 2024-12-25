@@ -26,6 +26,7 @@ import {GovernanceV3Arbitrum} from 'aave-address-book/GovernanceV3Arbitrum.sol';
 import {GovernanceV3Base} from 'aave-address-book/GovernanceV3Base.sol';
 
 import {TransparentUpgradeableProxy} from 'solidity-utils/contracts/transparent-proxy/TransparentUpgradeableProxy.sol';
+import {ProxyAdmin} from 'solidity-utils/contracts/transparent-proxy/ProxyAdmin.sol';
 import {UpgradeableBurnMintTokenPool} from 'aave-ccip/pools/GHO/UpgradeableBurnMintTokenPool.sol';
 import {UpgradeableGhoToken} from 'gho-core/gho/UpgradeableGhoToken.sol';
 import {GhoCcipSteward} from 'gho-core/misc/GhoCcipSteward.sol';
@@ -65,7 +66,7 @@ contract AaveV3Base_GHOBaseLaunch_20241223_Test is ProtocolV3TestBase {
   address internal constant RMN_PROXY = 0xC842c69d54F83170C42C4d556B4F6B2ca53Dd3E8;
 
   address public constant GHO_TOKEN_IMPL = 0xb0e1c7830aA781362f79225559Aa068E6bDaF1d1;
-  IGhoToken public constant GHO = IGhoToken(0x888053142E093BcB4D8c3c1B79ce92DBa9C2E910); // predicted address, will be deployed in the AIP
+  IGhoToken public constant GHO = IGhoToken(0x6F2216CB3Ca97b8756C5fD99bE27986f04CBd81D); // predicted address, will be deployed in the AIP
   IGhoCcipSteward internal NEW_GHO_CCIP_STEWARD;
   IUpgradeableBurnMintTokenPool_1_5_1 internal NEW_TOKEN_POOL;
   AaveV3Base_GHOBaseLaunch_20241223 internal proposal;
@@ -139,7 +140,7 @@ contract AaveV3Base_GHOBaseLaunch_20241223_Test is ProtocolV3TestBase {
       address(
         new TransparentUpgradeableProxy(
           newTokenPoolImpl,
-          address(proxyAdmin),
+          ProxyAdmin(proxyAdmin),
           abi.encodeCall(
             IUpgradeableBurnMintTokenPool_1_5_1.initialize,
             (
