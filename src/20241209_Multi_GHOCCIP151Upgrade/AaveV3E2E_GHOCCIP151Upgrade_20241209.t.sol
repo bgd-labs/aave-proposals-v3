@@ -16,12 +16,15 @@ import {IGhoCcipSteward} from 'src/interfaces/IGhoCcipSteward.sol';
 
 import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
+import {GhoEthereum} from 'aave-address-book/GhoEthereum.sol';
+import {GhoArbitrum} from 'aave-address-book/GhoArbitrum.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {MiscArbitrum} from 'aave-address-book/MiscArbitrum.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {GovernanceV3Arbitrum} from 'aave-address-book/GovernanceV3Arbitrum.sol';
 
 import {TransparentUpgradeableProxy} from 'solidity-utils/contracts/transparent-proxy/TransparentUpgradeableProxy.sol';
+import {ProxyAdmin} from 'solidity-utils/contracts/transparent-proxy/ProxyAdmin.sol';
 import {UpgradeableLockReleaseTokenPool} from 'aave-ccip/pools/GHO/UpgradeableLockReleaseTokenPool.sol';
 import {UpgradeableBurnMintTokenPool} from 'aave-ccip/pools/GHO/UpgradeableBurnMintTokenPool.sol';
 import {GhoCcipSteward} from 'gho-core/misc/GhoCcipSteward.sol';
@@ -280,7 +283,7 @@ contract AaveV3E2E_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
 
   function _deployNewTokenPoolEth() private returns (address) {
     IUpgradeableLockReleaseTokenPool_1_4 existingTokenPool = IUpgradeableLockReleaseTokenPool_1_4(
-      MiscEthereum.GHO_CCIP_TOKEN_POOL
+      GhoEthereum.GHO_CCIP_TOKEN_POOL
     );
     address newTokenPoolImpl = address(
       new UpgradeableLockReleaseTokenPool(
@@ -296,7 +299,7 @@ contract AaveV3E2E_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
       address(
         new TransparentUpgradeableProxy(
           newTokenPoolImpl,
-          MiscEthereum.PROXY_ADMIN,
+          ProxyAdmin(MiscEthereum.PROXY_ADMIN),
           abi.encodeCall(
             IUpgradeableLockReleaseTokenPool_1_5_1.initialize,
             (
@@ -312,7 +315,7 @@ contract AaveV3E2E_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
 
   function _deployNewTokenPoolArb() private returns (address) {
     IUpgradeableBurnMintTokenPool_1_4 existingTokenPool = IUpgradeableBurnMintTokenPool_1_4(
-      MiscArbitrum.GHO_CCIP_TOKEN_POOL
+      GhoArbitrum.GHO_CCIP_TOKEN_POOL
     );
     address newTokenPoolImpl = address(
       new UpgradeableBurnMintTokenPool(
@@ -326,7 +329,7 @@ contract AaveV3E2E_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
       address(
         new TransparentUpgradeableProxy(
           newTokenPoolImpl,
-          address(MiscArbitrum.PROXY_ADMIN),
+          ProxyAdmin(MiscArbitrum.PROXY_ADMIN),
           abi.encodeCall(
             IUpgradeableBurnMintTokenPool_1_5_1.initialize,
             (
