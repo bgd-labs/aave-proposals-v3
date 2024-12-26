@@ -383,10 +383,10 @@ contract AaveV3Base_GHOBaseLaunch_20241223_Base is ProtocolV3TestBase {
         ghoToken: address(GHO_TOKEN_BASE),
         riskCouncil: RISK_COUNCIL_BASE,
         borrowRateConfig: IGhoAaveSteward.BorrowRateConfig({
-          optimalUsageRatioMaxChange: 0,
-          baseVariableBorrowRateMaxChange: 0,
-          variableRateSlope1MaxChange: 0,
-          variableRateSlope2MaxChange: 0
+          optimalUsageRatioMaxChange: 500,
+          baseVariableBorrowRateMaxChange: 500,
+          variableRateSlope1MaxChange: 500,
+          variableRateSlope2MaxChange: 500
         })
       })
     );

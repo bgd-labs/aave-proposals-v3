@@ -167,10 +167,10 @@ contract AaveV3Base_GHOBaseLaunch_20241223_Base is ProtocolV3TestBase {
         ghoToken: address(GHO),
         riskCouncil: RISK_COUNCIL,
         borrowRateConfig: IGhoAaveSteward.BorrowRateConfig({
-          optimalUsageRatioMaxChange: 0,
-          baseVariableBorrowRateMaxChange: 0,
-          variableRateSlope1MaxChange: 0,
-          variableRateSlope2MaxChange: 0
+          optimalUsageRatioMaxChange: 500,
+          baseVariableBorrowRateMaxChange: 500,
+          variableRateSlope1MaxChange: 500,
+          variableRateSlope2MaxChange: 500
         })
       })
     );
@@ -328,10 +328,10 @@ contract AaveV3Base_GHOBaseLaunch_20241223_PreExecution is AaveV3Base_GHOBaseLau
     assertEq(NEW_GHO_AAVE_STEWARD.POOL_DATA_PROVIDER(), address(AaveV3Base.UI_POOL_DATA_PROVIDER));
     assertEq(NEW_GHO_AAVE_STEWARD.RISK_COUNCIL(), RISK_COUNCIL);
     IGhoAaveSteward.BorrowRateConfig memory config = NEW_GHO_AAVE_STEWARD.getBorrowRateConfig();
-    assertEq(config.optimalUsageRatioMaxChange, 0);
-    assertEq(config.baseVariableBorrowRateMaxChange, 0);
-    assertEq(config.variableRateSlope1MaxChange, 0);
-    assertEq(config.variableRateSlope2MaxChange, 0);
+    assertEq(config.optimalUsageRatioMaxChange, 500);
+    assertEq(config.baseVariableBorrowRateMaxChange, 500);
+    assertEq(config.variableRateSlope1MaxChange, 500);
+    assertEq(config.variableRateSlope2MaxChange, 500);
 
     assertEq(IOwnable(address(NEW_GHO_BUCKET_STEWARD)).owner(), GovernanceV3Base.EXECUTOR_LVL_1);
     assertEq(NEW_GHO_BUCKET_STEWARD.GHO_TOKEN(), address(GHO));
