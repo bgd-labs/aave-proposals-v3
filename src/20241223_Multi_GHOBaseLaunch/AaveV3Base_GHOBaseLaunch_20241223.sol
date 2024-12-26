@@ -29,21 +29,27 @@ contract AaveV3Base_GHOBaseLaunch_20241223 is IProposalGenericExecutor {
 
   uint128 public constant CCIP_BUCKET_CAPACITY = 20_000_000e18; // 20M GHO
 
+  // https://basescan.org/address/0x6f6C373d09C07425BaAE72317863d7F6bb731e37
   ITokenAdminRegistry public constant TOKEN_ADMIN_REGISTRY =
     ITokenAdminRegistry(0x6f6C373d09C07425BaAE72317863d7F6bb731e37);
-
+  // https://basescan.org/address/
   IUpgradeableBurnMintTokenPool_1_5_1 public immutable TOKEN_POOL;
 
   // https://basescan.org/address/0x26d595dddbad81bf976ef6f24686a12a800b141f
   address public constant GHO_TOKEN_IMPL = 0xb0e1c7830aA781362f79225559Aa068E6bDaF1d1;
-  // predicted address, will be deployed in the AIP
+  // predicted address, will be deployed in the AIP, https://basescan.org/address/0x6F2216CB3Ca97b8756C5fD99bE27986f04CBd81D
   IGhoToken public constant GHO_TOKEN_PROXY = IGhoToken(0x6F2216CB3Ca97b8756C5fD99bE27986f04CBd81D);
 
+  // https://basescan.org/address/
   address public immutable GHO_AAVE_STEWARD;
+  // https://basescan.org/address/
   address public immutable GHO_BUCKET_STEWARD;
+  // https://basescan.org/address/
   address public immutable GHO_CCIP_STEWARD;
 
+  // https://etherscan.io/address/
   address public immutable REMOTE_TOKEN_POOL_ETH;
+  // https://arbiscan.io/address/
   address public immutable REMOTE_TOKEN_POOL_ARB;
 
   constructor(

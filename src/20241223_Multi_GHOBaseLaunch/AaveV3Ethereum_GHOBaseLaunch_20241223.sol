@@ -14,8 +14,10 @@ import {IRateLimiter} from 'src/interfaces/ccip/IRateLimiter.sol';
 contract AaveV3Ethereum_GHOBaseLaunch_20241223 is IProposalGenericExecutor {
   uint64 public constant BASE_CHAIN_SELECTOR = 15971525489660198786;
 
+  // https://etherscan.io/address/
   IUpgradeableLockReleaseTokenPool_1_5_1 public immutable TOKEN_POOL;
 
+  // https://basescan.org/address/
   address public immutable REMOTE_TOKEN_POOL_BASE;
   // https://basescan.org/address/0x6F2216CB3Ca97b8756C5fD99bE27986f04CBd81D
   address public constant REMOTE_GHO_TOKEN_BASE = 0x6F2216CB3Ca97b8756C5fD99bE27986f04CBd81D; // predicted
