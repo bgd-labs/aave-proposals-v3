@@ -15,10 +15,13 @@ import {IEVM2EVMOnRamp} from 'src/interfaces/ccip/IEVM2EVMOnRamp.sol';
 import {IEVM2EVMOffRamp_1_5} from 'src/interfaces/ccip/IEVM2EVMOffRamp.sol';
 import {ITokenAdminRegistry} from 'src/interfaces/ccip/ITokenAdminRegistry.sol';
 import {IGhoToken} from 'src/interfaces/IGhoToken.sol';
-import {IGhoCcipSteward} from 'src/interfaces/IGhoCcipSteward.sol';
+import {IGhoAaveSteward} from 'gho-core/misc/interfaces/IGhoAaveSteward.sol';
+import {IGhoBucketSteward} from 'gho-core/misc/interfaces/IGhoBucketSteward.sol';
+import {IGhoCcipSteward} from 'gho-core/misc/interfaces/IGhoCcipSteward.sol';
 
 import {AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
 import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
+import {AaveV3Base} from 'aave-address-book/AaveV3Base.sol';
 import {MiscArbitrum} from 'aave-address-book/MiscArbitrum.sol';
 import {MiscBase} from 'aave-address-book/MiscBase.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
@@ -32,7 +35,8 @@ import {TransparentUpgradeableProxy} from 'solidity-utils/contracts/transparent-
 import {ProxyAdmin} from 'solidity-utils/contracts/transparent-proxy/ProxyAdmin.sol';
 import {UpgradeableLockReleaseTokenPool} from 'aave-ccip/pools/GHO/UpgradeableLockReleaseTokenPool.sol';
 import {UpgradeableBurnMintTokenPool} from 'aave-ccip/pools/GHO/UpgradeableBurnMintTokenPool.sol';
-import {UpgradeableGhoToken} from 'gho-core/gho/UpgradeableGhoToken.sol';
+import {GhoAaveSteward} from 'gho-core/misc/GhoAaveSteward.sol';
+import {GhoBucketSteward} from 'gho-core/misc/GhoBucketSteward.sol';
 import {GhoCcipSteward} from 'gho-core/misc/GhoCcipSteward.sol';
 
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
@@ -87,6 +91,13 @@ contract AaveV3Base_GHOBaseLaunch_20241223_Base is ProtocolV3TestBase {
     Common c;
   }
 
+  address internal constant RMN_PROXY_BASE = 0xC842c69d54F83170C42C4d556B4F6B2ca53Dd3E8;
+  address internal constant ROUTER_BASE = 0x881e3A65B4d4a04dD529061dd0071cf975F58bCD;
+  address internal RISK_COUNCIL_BASE = makeAddr('BASE: riskCouncil');
+  address internal constant GHO_TOKEN_IMPL_BASE = 0xb0e1c7830aA781362f79225559Aa068E6bDaF1d1;
+  IGhoToken internal constant GHO_TOKEN_BASE =
+    IGhoToken(0x6F2216CB3Ca97b8756C5fD99bE27986f04CBd81D); // predicted address, will be deployed in the AIP
+
   ARB internal arb;
   BASE internal base;
   ETH internal eth;
@@ -95,10 +106,9 @@ contract AaveV3Base_GHOBaseLaunch_20241223_Base is ProtocolV3TestBase {
   address internal bob = makeAddr('bob');
   address internal carol = makeAddr('carol');
 
-  address internal constant RMN_PROXY_BASE = 0xC842c69d54F83170C42C4d556B4F6B2ca53Dd3E8;
-  address internal constant ROUTER_BASE = 0x881e3A65B4d4a04dD529061dd0071cf975F58bCD;
-  address public constant GHO_TOKEN_IMPL_BASE = 0xb0e1c7830aA781362f79225559Aa068E6bDaF1d1;
-  IGhoToken public constant GHO_TOKEN_BASE = IGhoToken(0x6F2216CB3Ca97b8756C5fD99bE27986f04CBd81D); // predicted address, will be deployed in the AIP
+  IGhoAaveSteward internal GHO_AAVE_STEWARD_BASE;
+  IGhoBucketSteward internal GHO_BUCKET_STEWARD_BASE;
+  IGhoCcipSteward internal GHO_CCIP_STEWARD_BASE;
 
   event CCIPSendRequested(IInternal.EVM2EVMMessage message);
   event Locked(address indexed sender, uint256 amount);
@@ -129,11 +139,8 @@ contract AaveV3Base_GHOBaseLaunch_20241223_Base is ProtocolV3TestBase {
       GovernanceV3Base.EXECUTOR_LVL_1, // owner
       MiscBase.PROXY_ADMIN
     );
-    address ghoCcipStewardBase = _deployNewGhoCcipSteward(
-      newTokenPoolBase,
-      address(GHO_TOKEN_BASE),
-      GovernanceV3Base.EXECUTOR_LVL_1, // riskCouncil, using executor for convenience
-      false // bridgeLimitEnabled, *not present* in remote (burnMint) pools
+    (GHO_AAVE_STEWARD_BASE, GHO_BUCKET_STEWARD_BASE, GHO_CCIP_STEWARD_BASE) = _deployStewardsBase(
+      newTokenPoolBase
     );
 
     vm.selectFork(arb.c.forkId);
@@ -148,9 +155,11 @@ contract AaveV3Base_GHOBaseLaunch_20241223_Base is ProtocolV3TestBase {
     vm.selectFork(base.c.forkId);
     base.proposal = new AaveV3Base_GHOBaseLaunch_20241223(
       newTokenPoolBase,
-      ghoCcipStewardBase,
       newTokenPoolEth,
-      newTokenPoolArb
+      newTokenPoolArb,
+      address(GHO_AAVE_STEWARD_BASE),
+      address(GHO_BUCKET_STEWARD_BASE),
+      address(GHO_CCIP_STEWARD_BASE)
     );
     base.tokenPool = IUpgradeableBurnMintTokenPool_1_5_1(newTokenPoolBase);
     base.c.tokenAdminRegistry = ITokenAdminRegistry(0x6f6C373d09C07425BaAE72317863d7F6bb731e37);
@@ -189,11 +198,13 @@ contract AaveV3Base_GHOBaseLaunch_20241223_Base is ProtocolV3TestBase {
       GovernanceV3Ethereum.EXECUTOR_LVL_1, // owner
       MiscEthereum.PROXY_ADMIN
     );
-    address newGhoCcipStewardEth = _deployNewGhoCcipSteward(
-      newTokenPoolEth,
-      AaveV3EthereumAssets.GHO_UNDERLYING,
-      GovernanceV3Ethereum.EXECUTOR_LVL_1, // riskAdmin, set as executor for convenience
-      true // bridgeLimitEnabled
+    address newGhoCcipStewardEth = address(
+      new GhoCcipSteward({
+        ghoTokenPool: newTokenPoolEth,
+        ghoToken: AaveV3EthereumAssets.GHO_UNDERLYING,
+        riskCouncil: makeAddr('ETH: riskAdmin'),
+        bridgeLimitEnabled: true
+      })
     );
 
     vm.selectFork(arb.c.forkId);
@@ -207,11 +218,13 @@ contract AaveV3Base_GHOBaseLaunch_20241223_Base is ProtocolV3TestBase {
       GovernanceV3Arbitrum.EXECUTOR_LVL_1, // owner
       MiscArbitrum.PROXY_ADMIN
     );
-    address newGhoCcipStewardArb = _deployNewGhoCcipSteward(
-      newTokenPoolArb,
-      AaveV3ArbitrumAssets.GHO_UNDERLYING,
-      GovernanceV3Arbitrum.EXECUTOR_LVL_1, // riskAdmin, set as executor for convenience
-      false // bridgeLimitEnabled
+    address newGhoCcipStewardArb = address(
+      new GhoCcipSteward({
+        ghoTokenPool: newTokenPoolArb,
+        ghoToken: AaveV3ArbitrumAssets.GHO_UNDERLYING,
+        riskCouncil: makeAddr('ARB: riskAdmin'),
+        bridgeLimitEnabled: false
+      })
     );
 
     // execute CLL pre-requisites for the proposal
@@ -246,10 +259,6 @@ contract AaveV3Base_GHOBaseLaunch_20241223_Base is ProtocolV3TestBase {
     }
 
     return (newTokenPoolEth, newTokenPoolArb);
-  }
-
-  function _deployGhoTokenImpl() internal returns (address) {
-    return address(new UpgradeableGhoToken());
   }
 
   function _predictGhoTokenAddressBase(address logic) internal pure returns (address) {
@@ -363,15 +372,45 @@ contract AaveV3Base_GHOBaseLaunch_20241223_Base is ProtocolV3TestBase {
     }
   }
 
-  function _deployNewGhoCcipSteward(
-    address newTokenPool,
-    address ghoToken,
-    address riskCouncil,
-    bool bridgeLimitEnabled
-  ) internal returns (address) {
-    return address(new GhoCcipSteward(ghoToken, newTokenPool, riskCouncil, bridgeLimitEnabled));
+  function _deployStewardsBase(
+    address ghoTokenPool
+  ) internal returns (IGhoAaveSteward, IGhoBucketSteward, IGhoCcipSteward) {
+    address aaveSteward = address(
+      new GhoAaveSteward({
+        owner: GovernanceV3Base.EXECUTOR_LVL_1,
+        addressesProvider: address(AaveV3Base.POOL_ADDRESSES_PROVIDER),
+        poolDataProvider: address(AaveV3Base.UI_POOL_DATA_PROVIDER),
+        ghoToken: address(GHO_TOKEN_BASE),
+        riskCouncil: RISK_COUNCIL_BASE,
+        borrowRateConfig: IGhoAaveSteward.BorrowRateConfig({
+          optimalUsageRatioMaxChange: 0,
+          baseVariableBorrowRateMaxChange: 0,
+          variableRateSlope1MaxChange: 0,
+          variableRateSlope2MaxChange: 0
+        })
+      })
+    );
+    address bucketSteward = address(
+      new GhoBucketSteward({
+        owner: GovernanceV3Base.EXECUTOR_LVL_1,
+        ghoToken: address(GHO_TOKEN_BASE),
+        riskCouncil: RISK_COUNCIL_BASE
+      })
+    );
+    address ccipSteward = address(
+      new GhoCcipSteward({
+        ghoToken: address(GHO_TOKEN_BASE),
+        ghoTokenPool: ghoTokenPool,
+        riskCouncil: RISK_COUNCIL_BASE,
+        bridgeLimitEnabled: false
+      })
+    );
+    return (
+      IGhoAaveSteward(aaveSteward),
+      IGhoBucketSteward(bucketSteward),
+      IGhoCcipSteward(ccipSteward)
+    );
   }
-
   function _getTokenMessage(
     CCIPSendParams memory params
   ) internal returns (IClient.EVM2AnyMessage memory, IInternal.EVM2EVMMessage memory) {
