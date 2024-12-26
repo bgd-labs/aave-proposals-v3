@@ -115,6 +115,7 @@ contract AaveV3Base_GHOBaseLaunch_20241223_Base is ProtocolV3TestBase {
     );
 
     _performCcipPreReq();
+    _validateConstants();
   }
 
   function _performCcipPreReq() internal {
@@ -194,6 +195,56 @@ contract AaveV3Base_GHOBaseLaunch_20241223_Base is ProtocolV3TestBase {
       IGhoBucketSteward(bucketSteward),
       IGhoCcipSteward(ccipSteward)
     );
+  }
+
+  function _validateConstants() private view {
+    assertEq(proposal.ETH_CHAIN_SELECTOR(), ETH_CHAIN_SELECTOR);
+    assertEq(proposal.ARB_CHAIN_SELECTOR(), ARB_CHAIN_SELECTOR);
+    assertEq(proposal.CCIP_BUCKET_CAPACITY(), 20_000_000e18);
+    assertEq(address(proposal.TOKEN_ADMIN_REGISTRY()), address(TOKEN_ADMIN_REGISTRY));
+    assertEq(address(proposal.TOKEN_POOL()), address(NEW_TOKEN_POOL));
+    assertEq(proposal.GHO_TOKEN_IMPL(), GHO_TOKEN_IMPL);
+    assertEq(address(proposal.GHO_TOKEN_PROXY()), address(GHO));
+    assertEq(proposal.GHO_AAVE_STEWARD(), address(NEW_GHO_AAVE_STEWARD));
+    assertEq(proposal.GHO_BUCKET_STEWARD(), address(NEW_GHO_BUCKET_STEWARD));
+    assertEq(proposal.GHO_CCIP_STEWARD(), address(NEW_GHO_CCIP_STEWARD));
+    assertEq(proposal.REMOTE_TOKEN_POOL_ARB(), NEW_REMOTE_POOL_ARB);
+    assertEq(proposal.REMOTE_TOKEN_POOL_ETH(), NEW_REMOTE_POOL_ETH);
+
+    assertEq(TOKEN_ADMIN_REGISTRY.typeAndVersion(), 'TokenAdminRegistry 1.5.0');
+    assertEq(NEW_TOKEN_POOL.typeAndVersion(), 'BurnMintTokenPool 1.5.1');
+    assertEq(ROUTER.typeAndVersion(), 'Router 1.2.0');
+
+    _assertOnRamp(ARB_ON_RAMP, BASE_CHAIN_SELECTOR, ARB_CHAIN_SELECTOR, ROUTER);
+    _assertOnRamp(ETH_ON_RAMP, BASE_CHAIN_SELECTOR, ETH_CHAIN_SELECTOR, ROUTER);
+    _assertOffRamp(ARB_OFF_RAMP, ARB_CHAIN_SELECTOR, BASE_CHAIN_SELECTOR, ROUTER);
+    _assertOffRamp(ETH_OFF_RAMP, ETH_CHAIN_SELECTOR, BASE_CHAIN_SELECTOR, ROUTER);
+  }
+
+  function _assertOnRamp(
+    IEVM2EVMOnRamp onRamp,
+    uint64 srcSelector,
+    uint64 dstSelector,
+    IRouter router
+  ) internal view {
+    assertEq(onRamp.typeAndVersion(), 'EVM2EVMOnRamp 1.5.0');
+    assertEq(onRamp.getStaticConfig().chainSelector, srcSelector);
+    assertEq(onRamp.getStaticConfig().destChainSelector, dstSelector);
+    assertEq(onRamp.getDynamicConfig().router, address(router));
+    assertEq(router.getOnRamp(dstSelector), address(onRamp));
+  }
+
+  function _assertOffRamp(
+    IEVM2EVMOffRamp_1_5 offRamp,
+    uint64 srcSelector,
+    uint64 dstSelector,
+    IRouter router
+  ) internal view {
+    assertEq(offRamp.typeAndVersion(), 'EVM2EVMOffRamp 1.5.0');
+    assertEq(offRamp.getStaticConfig().sourceChainSelector, srcSelector);
+    assertEq(offRamp.getStaticConfig().chainSelector, dstSelector);
+    assertEq(offRamp.getDynamicConfig().router, address(router));
+    assertTrue(router.isOffRamp(srcSelector, address(offRamp)));
   }
 
   function _getTokenMessage(
