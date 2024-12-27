@@ -91,7 +91,7 @@ contract AaveV3Base_GHOBaseLaunch_20241223 is IProposalGenericExecutor {
         new TransparentUpgradeableProxy{salt: keccak256('based-GHO')}(
           GHO_TOKEN_IMPL,
           ProxyAdmin(MiscBase.PROXY_ADMIN),
-          abi.encodeWithSignature('initialize(address)', GovernanceV3Base.EXECUTOR_LVL_1)
+          abi.encodeCall(IGhoToken.initialize, (GovernanceV3Base.EXECUTOR_LVL_1))
         )
       );
   }

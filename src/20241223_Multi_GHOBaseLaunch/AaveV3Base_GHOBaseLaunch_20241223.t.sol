@@ -316,7 +316,7 @@ contract AaveV3Base_GHOBaseLaunch_20241223_PreExecution is AaveV3Base_GHOBaseLau
     defaultTest('AaveV3Base_GHOBaseLaunch_20241223', AaveV3Base.POOL, address(proposal));
   }
 
-  function test_stewardRolesAndConfig() public {
+  function test_stewardRoles() public {
     // gho token is deployed in the AIP, does not existing before
 
     assertFalse(
@@ -355,21 +355,6 @@ contract AaveV3Base_GHOBaseLaunch_20241223_PreExecution is AaveV3Base_GHOBaseLau
     assertEq(NEW_TOKEN_POOL.getRateLimitAdmin(), address(NEW_GHO_CCIP_STEWARD));
   }
 
-  function test_newTokenPoolInitialization() public {
-    vm.expectRevert('Initializable: contract is already initialized');
-    NEW_TOKEN_POOL.initialize(makeAddr('owner'), new address[](0), makeAddr('router'));
-    assertEq(_readInitialized(address(NEW_TOKEN_POOL)), 1);
-
-    address IMPL = _getImplementation(address(NEW_TOKEN_POOL));
-    vm.expectRevert('Initializable: contract is already initialized');
-    IUpgradeableBurnMintTokenPool_1_5_1(IMPL).initialize(
-      makeAddr('owner'),
-      new address[](0),
-      makeAddr('router')
-    );
-    assertEq(_readInitialized(IMPL), 255);
-  }
-
   function test_stewardsConfig() public view {
     assertEq(IOwnable(address(NEW_GHO_AAVE_STEWARD)).owner(), GovernanceV3Base.EXECUTOR_LVL_1);
     assertEq(
@@ -400,6 +385,71 @@ contract AaveV3Base_GHOBaseLaunch_20241223_PreExecution is AaveV3Base_GHOBaseLau
     });
     assertEq(ccipDebounce.bridgeLimitLastUpdate, 0);
     assertEq(ccipDebounce.rateLimitLastUpdate, 0);
+  }
+
+  function test_newTokenPoolInitialization() public {
+    vm.expectRevert('Initializable: contract is already initialized');
+    NEW_TOKEN_POOL.initialize(makeAddr('owner'), new address[](0), makeAddr('router'));
+    assertEq(_readInitialized(address(NEW_TOKEN_POOL)), 1);
+
+    address IMPL = _getImplementation(address(NEW_TOKEN_POOL));
+    vm.expectRevert('Initializable: contract is already initialized');
+    IUpgradeableBurnMintTokenPool_1_5_1(IMPL).initialize(
+      makeAddr('owner'),
+      new address[](0),
+      makeAddr('router')
+    );
+    assertEq(_readInitialized(IMPL), 255);
+  }
+
+  function test_tokenPoolConfig() public {
+    executePayload(vm, address(proposal));
+
+    assertEq(NEW_TOKEN_POOL.owner(), GovernanceV3Base.EXECUTOR_LVL_1);
+    assertEq(
+      address(uint160(uint256(vm.load(address(NEW_TOKEN_POOL), bytes32(0))) >> 2)), // pending owner
+      address(0)
+    );
+    console.logBytes32(vm.load(address(NEW_TOKEN_POOL), bytes32(0)));
+    assertEq(NEW_TOKEN_POOL.getToken(), address(GHO));
+    assertEq(NEW_TOKEN_POOL.getTokenDecimals(), GHO.decimals());
+    assertEq(NEW_TOKEN_POOL.getRmnProxy(), RMN_PROXY);
+    assertFalse(NEW_TOKEN_POOL.getAllowListEnabled());
+    assertEq(abi.encode(NEW_TOKEN_POOL.getAllowList()), abi.encode(new address[](0)));
+    assertEq(NEW_TOKEN_POOL.getRouter(), address(ROUTER));
+
+    assertEq(NEW_TOKEN_POOL.getSupportedChains().length, 2);
+    assertEq(NEW_TOKEN_POOL.getSupportedChains()[0], ETH_CHAIN_SELECTOR);
+    assertEq(NEW_TOKEN_POOL.getSupportedChains()[1], ARB_CHAIN_SELECTOR);
+    assertEq(
+      NEW_TOKEN_POOL.getRemoteToken(ETH_CHAIN_SELECTOR),
+      abi.encode(AaveV3EthereumAssets.GHO_UNDERLYING)
+    );
+    assertEq(
+      NEW_TOKEN_POOL.getRemoteToken(ARB_CHAIN_SELECTOR),
+      abi.encode(AaveV3ArbitrumAssets.GHO_UNDERLYING)
+    );
+    assertEq(NEW_TOKEN_POOL.getRemotePools(ETH_CHAIN_SELECTOR).length, 1);
+    assertEq(NEW_TOKEN_POOL.getRemotePools(ETH_CHAIN_SELECTOR)[0], abi.encode(NEW_REMOTE_POOL_ETH));
+    assertEq(NEW_TOKEN_POOL.getRemotePools(ARB_CHAIN_SELECTOR).length, 1);
+    assertEq(NEW_TOKEN_POOL.getRemotePools(ARB_CHAIN_SELECTOR)[0], abi.encode(NEW_REMOTE_POOL_ARB));
+
+    assertEq(
+      NEW_TOKEN_POOL.getCurrentInboundRateLimiterState(ETH_CHAIN_SELECTOR),
+      _getDisabledConfig()
+    );
+    assertEq(
+      NEW_TOKEN_POOL.getCurrentOutboundRateLimiterState(ETH_CHAIN_SELECTOR),
+      _getDisabledConfig()
+    );
+    assertEq(
+      NEW_TOKEN_POOL.getCurrentInboundRateLimiterState(ARB_CHAIN_SELECTOR),
+      _getDisabledConfig()
+    );
+    assertEq(
+      NEW_TOKEN_POOL.getCurrentOutboundRateLimiterState(ARB_CHAIN_SELECTOR),
+      _getDisabledConfig()
+    );
   }
 }
 

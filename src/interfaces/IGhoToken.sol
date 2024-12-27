@@ -10,6 +10,8 @@ interface IGhoToken is IERC20 {
     string label;
   }
 
+  function initialize(address admin) external;
+
   /**
    * @notice Mints the requested amount of tokens to the account address.
    * @dev Only facilitators with enough bucket capacity available can mint.
