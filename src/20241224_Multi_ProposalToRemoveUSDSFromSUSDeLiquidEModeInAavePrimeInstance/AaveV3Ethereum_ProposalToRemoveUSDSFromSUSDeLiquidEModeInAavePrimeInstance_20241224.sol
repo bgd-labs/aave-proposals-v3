@@ -33,15 +33,4 @@ contract AaveV3Ethereum_ProposalToRemoveUSDSFromSUSDeLiquidEModeInAavePrimeInsta
 
     return eModeUpdates;
   }
-  function assetsEModeUpdates()
-    public
-    pure
-    override
-    returns (IAaveV3ConfigEngine.AssetEModeUpdate[] memory)
-  {
-    IAaveV3ConfigEngine.AssetEModeUpdate[]
-      memory assetEModeUpdates = new IAaveV3ConfigEngine.AssetEModeUpdate[](0);
-
-    return assetEModeUpdates;
-  }
 }
