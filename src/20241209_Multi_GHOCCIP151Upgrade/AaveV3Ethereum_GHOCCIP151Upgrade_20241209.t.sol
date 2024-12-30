@@ -9,6 +9,7 @@ import {IClient} from 'src/interfaces/ccip/IClient.sol';
 import {IInternal} from 'src/interfaces/ccip/IInternal.sol';
 import {IRouter} from 'src/interfaces/ccip/IRouter.sol';
 import {IRateLimiter} from 'src/interfaces/ccip/IRateLimiter.sol';
+import {IProxyPool} from 'src/interfaces/ccip/IProxyPool.sol';
 import {IEVM2EVMOnRamp} from 'src/interfaces/ccip/IEVM2EVMOnRamp.sol';
 import {ITypeAndVersion} from 'src/interfaces/ccip/ITypeAndVersion.sol';
 import {IEVM2EVMOffRamp_1_5} from 'src/interfaces/ccip/IEVM2EVMOffRamp.sol';
@@ -61,8 +62,10 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
     IGhoCcipSteward(0x101Efb7b9Beb073B1219Cd5473a7C8A2f2EB84f4);
   IGhoCcipSteward internal NEW_GHO_CCIP_STEWARD;
 
+  IProxyPool internal constant EXISTING_PROXY_POOL =
+    IProxyPool(0x9Ec9F9804733df96D1641666818eFb5198eC50f0);
   IUpgradeableLockReleaseTokenPool_1_4 internal constant EXISTING_TOKEN_POOL =
-    IUpgradeableLockReleaseTokenPool_1_4(0x5756880B6a1EAba0175227bf02a7E87c1e02B28C); // MiscEthereum.GHO_CCIP_TOKEN_POOL; will be updated in address-book after AIP
+    IUpgradeableLockReleaseTokenPool_1_4(0x5756880B6a1EAba0175227bf02a7E87c1e02B28C); // GhoEthereum.GHO_CCIP_TOKEN_POOL; will be updated in address-book after AIP
   IUpgradeableLockReleaseTokenPool_1_5_1 internal NEW_TOKEN_POOL;
 
   AaveV3Ethereum_GHOCCIP151Upgrade_20241209 internal proposal;
@@ -89,11 +92,11 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
     );
 
     // pre-req - chainlink transfers gho token pool ownership on token admin registry
-    vm.prank(TOKEN_ADMIN_REGISTRY.owner());
-    TOKEN_ADMIN_REGISTRY.transferAdminRole(
-      AaveV3EthereumAssets.GHO_UNDERLYING,
-      GovernanceV3Ethereum.EXECUTOR_LVL_1
-    );
+    address CLL_OWNER = TOKEN_ADMIN_REGISTRY.owner();
+    vm.startPrank(CLL_OWNER);
+    TOKEN_ADMIN_REGISTRY.transferAdminRole(address(GHO), GovernanceV3Ethereum.EXECUTOR_LVL_1);
+    EXISTING_PROXY_POOL.transferOwnership(GovernanceV3Ethereum.EXECUTOR_LVL_1);
+    vm.stopPrank();
 
     _validateConstants();
   }
@@ -145,10 +148,13 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
   function _validateConstants() private view {
     assertEq(address(proposal.TOKEN_ADMIN_REGISTRY()), address(TOKEN_ADMIN_REGISTRY));
     assertEq(proposal.ARB_CHAIN_SELECTOR(), ARB_CHAIN_SELECTOR);
+    assertEq(address(proposal.EXISTING_PROXY_POOL()), address(EXISTING_PROXY_POOL));
     assertEq(address(proposal.EXISTING_TOKEN_POOL()), address(EXISTING_TOKEN_POOL));
     assertEq(address(proposal.EXISTING_REMOTE_POOL_ARB()), ARB_PROXY_POOL);
     assertEq(address(proposal.NEW_TOKEN_POOL()), address(NEW_TOKEN_POOL));
     assertEq(address(proposal.NEW_REMOTE_POOL_ARB()), NEW_REMOTE_POOL_ARB);
+
+    assertEq(address(proposal.EXISTING_PROXY_POOL()), EXISTING_TOKEN_POOL.getProxyPool());
 
     assertEq(TOKEN_ADMIN_REGISTRY.typeAndVersion(), 'TokenAdminRegistry 1.5.0');
     assertEq(NEW_TOKEN_POOL.typeAndVersion(), 'LockReleaseTokenPool 1.5.1');
@@ -284,7 +290,11 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_SetupAndProposalActions is
     );
     assertNotEq(tokenConfig.administrator, GovernanceV3Ethereum.EXECUTOR_LVL_1);
     assertEq(tokenConfig.pendingAdministrator, GovernanceV3Ethereum.EXECUTOR_LVL_1);
-    assertEq(tokenConfig.tokenPool, EXISTING_TOKEN_POOL.getProxyPool());
+    assertEq(tokenConfig.tokenPool, address(EXISTING_PROXY_POOL));
+
+    assertEq(EXISTING_TOKEN_POOL.owner(), GovernanceV3Ethereum.EXECUTOR_LVL_1);
+    assertEq(EXISTING_PROXY_POOL.owner(), TOKEN_ADMIN_REGISTRY.owner());
+    assertEq(NEW_TOKEN_POOL.owner(), address(0));
 
     executePayload(vm, address(proposal));
 
@@ -292,6 +302,10 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_SetupAndProposalActions is
     assertEq(tokenConfig.administrator, GovernanceV3Ethereum.EXECUTOR_LVL_1);
     assertEq(tokenConfig.pendingAdministrator, address(0));
     assertEq(tokenConfig.tokenPool, address(NEW_TOKEN_POOL));
+
+    assertEq(EXISTING_TOKEN_POOL.owner(), GovernanceV3Ethereum.EXECUTOR_LVL_1);
+    assertEq(EXISTING_PROXY_POOL.owner(), GovernanceV3Ethereum.EXECUTOR_LVL_1);
+    assertEq(NEW_TOKEN_POOL.owner(), GovernanceV3Ethereum.EXECUTOR_LVL_1);
   }
 
   function test_tokenPoolLiquidityMigration() public {
@@ -508,8 +522,8 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_PostUpgrade is
     assertEq(NEW_TOKEN_POOL.getCurrentBridgedAmount(), bridgedAmount - amount);
   }
 
-  // off-ramp messages sent from existing eth token pool (v1.4) ie ProxyPool
-  function test_releaseOrMintSucceedsOnNewPoolOffRampedViaExistingTokenPoolEth(
+  // off-ramp messages sent from existing arb token pool (v1.4) ie ProxyPool
+  function test_releaseOrMintSucceedsOnNewPoolOffRampedViaExistingTokenPoolArb(
     uint256 amount
   ) public {
     uint256 bridgeableAmount = NEW_TOKEN_POOL.getCurrentBridgedAmount();

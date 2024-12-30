@@ -9,6 +9,7 @@ import {IClient} from 'src/interfaces/ccip/IClient.sol';
 import {IInternal} from 'src/interfaces/ccip/IInternal.sol';
 import {IRouter} from 'src/interfaces/ccip/IRouter.sol';
 import {IRateLimiter} from 'src/interfaces/ccip/IRateLimiter.sol';
+import {IProxyPool} from 'src/interfaces/ccip/IProxyPool.sol';
 import {IEVM2EVMOnRamp} from 'src/interfaces/ccip/IEVM2EVMOnRamp.sol';
 import {ITypeAndVersion} from 'src/interfaces/ccip/ITypeAndVersion.sol';
 import {IEVM2EVMOffRamp_1_5} from 'src/interfaces/ccip/IEVM2EVMOffRamp.sol';
@@ -60,8 +61,10 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
     IGhoCcipSteward(0xb329CEFF2c362F315900d245eC88afd24C4949D5);
   IGhoCcipSteward internal NEW_GHO_CCIP_STEWARD;
 
+  IProxyPool internal constant EXISTING_PROXY_POOL =
+    IProxyPool(0x26329558f08cbb40d6a4CCA0E0C67b29D64A8c50);
   IUpgradeableBurnMintTokenPool_1_4 internal constant EXISTING_TOKEN_POOL =
-    IUpgradeableBurnMintTokenPool_1_4(0xF168B83598516A532a85995b52504a2Fa058C068); // MiscArbitrum.GHO_CCIP_TOKEN_POOL; will be updated in address-book after AIP
+    IUpgradeableBurnMintTokenPool_1_4(0xF168B83598516A532a85995b52504a2Fa058C068); // GhoArbitrum.GHO_CCIP_TOKEN_POOL; will be updated in address-book after AIP
   IUpgradeableBurnMintTokenPool_1_5_1 internal NEW_TOKEN_POOL;
 
   AaveV3Arbitrum_GHOCCIP151Upgrade_20241209 internal proposal;
@@ -86,8 +89,11 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
     );
 
     // pre-req - chainlink transfers gho token pool ownership on token admin registry
-    vm.prank(TOKEN_ADMIN_REGISTRY.owner());
+    address CLL_OWNER = TOKEN_ADMIN_REGISTRY.owner();
+    vm.startPrank(CLL_OWNER);
     TOKEN_ADMIN_REGISTRY.transferAdminRole(address(GHO), GovernanceV3Arbitrum.EXECUTOR_LVL_1);
+    EXISTING_PROXY_POOL.transferOwnership(GovernanceV3Arbitrum.EXECUTOR_LVL_1);
+    vm.stopPrank();
 
     _validateConstants();
   }
@@ -136,10 +142,13 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
   function _validateConstants() private view {
     assertEq(address(proposal.TOKEN_ADMIN_REGISTRY()), address(TOKEN_ADMIN_REGISTRY));
     assertEq(proposal.ETH_CHAIN_SELECTOR(), ETH_CHAIN_SELECTOR);
+    assertEq(address(proposal.EXISTING_PROXY_POOL()), address(EXISTING_PROXY_POOL));
     assertEq(address(proposal.EXISTING_TOKEN_POOL()), address(EXISTING_TOKEN_POOL));
     assertEq(address(proposal.EXISTING_REMOTE_POOL_ETH()), ETH_PROXY_POOL);
     assertEq(address(proposal.NEW_TOKEN_POOL()), address(NEW_TOKEN_POOL));
     assertEq(address(proposal.NEW_REMOTE_POOL_ETH()), NEW_REMOTE_POOL_ETH);
+
+    assertEq(address(proposal.EXISTING_PROXY_POOL()), EXISTING_TOKEN_POOL.getProxyPool());
 
     assertEq(TOKEN_ADMIN_REGISTRY.typeAndVersion(), 'TokenAdminRegistry 1.5.0');
     assertEq(NEW_TOKEN_POOL.typeAndVersion(), 'BurnMintTokenPool 1.5.1');
@@ -261,7 +270,11 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209_SetupAndProposalActions is
     );
     assertNotEq(tokenConfig.administrator, GovernanceV3Arbitrum.EXECUTOR_LVL_1);
     assertEq(tokenConfig.pendingAdministrator, GovernanceV3Arbitrum.EXECUTOR_LVL_1);
-    assertEq(tokenConfig.tokenPool, EXISTING_TOKEN_POOL.getProxyPool());
+    assertEq(tokenConfig.tokenPool, address(EXISTING_PROXY_POOL));
+
+    assertEq(EXISTING_TOKEN_POOL.owner(), GovernanceV3Arbitrum.EXECUTOR_LVL_1);
+    assertEq(EXISTING_PROXY_POOL.owner(), TOKEN_ADMIN_REGISTRY.owner());
+    assertEq(NEW_TOKEN_POOL.owner(), address(0));
 
     executePayload(vm, address(proposal));
 
@@ -269,6 +282,10 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209_SetupAndProposalActions is
     assertEq(tokenConfig.administrator, GovernanceV3Arbitrum.EXECUTOR_LVL_1);
     assertEq(tokenConfig.pendingAdministrator, address(0));
     assertEq(tokenConfig.tokenPool, address(NEW_TOKEN_POOL));
+
+    assertEq(EXISTING_TOKEN_POOL.owner(), GovernanceV3Arbitrum.EXECUTOR_LVL_1);
+    assertEq(EXISTING_PROXY_POOL.owner(), GovernanceV3Arbitrum.EXECUTOR_LVL_1);
+    assertEq(NEW_TOKEN_POOL.owner(), GovernanceV3Arbitrum.EXECUTOR_LVL_1);
   }
 
   function test_tokenPoolLiquidityMigration() public {

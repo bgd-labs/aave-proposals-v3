@@ -4,8 +4,10 @@ pragma solidity ^0.8.0;
 import {IUpgradeableLockReleaseTokenPool_1_4, IUpgradeableLockReleaseTokenPool_1_5_1} from 'src/interfaces/ccip/tokenPool/IUpgradeableLockReleaseTokenPool.sol';
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
 import {ITokenAdminRegistry} from 'src/interfaces/ccip/ITokenAdminRegistry.sol';
+import {IProxyPool} from 'src/interfaces/ccip/IProxyPool.sol';
 import {IRateLimiter} from 'src/interfaces/ccip/IRateLimiter.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
+import {GhoEthereum} from 'aave-address-book/GhoEthereum.sol';
 import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
 
@@ -21,9 +23,12 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209 is IProposalGenericExecutor {
   ITokenAdminRegistry public constant TOKEN_ADMIN_REGISTRY =
     ITokenAdminRegistry(0xb22764f98dD05c789929716D677382Df22C05Cb6);
 
+  // https://etherscan.io/address/0x9Ec9F9804733df96D1641666818eFb5198eC50f0
+  IProxyPool public constant EXISTING_PROXY_POOL =
+    IProxyPool(0x9Ec9F9804733df96D1641666818eFb5198eC50f0);
   // https://etherscan.io/address/0x5756880B6a1EAba0175227bf02a7E87c1e02B28C
   IUpgradeableLockReleaseTokenPool_1_4 public constant EXISTING_TOKEN_POOL =
-    IUpgradeableLockReleaseTokenPool_1_4(0x5756880B6a1EAba0175227bf02a7E87c1e02B28C); // MiscEthereum.GHO_CCIP_TOKEN_POOL; will be updated in address-book after AIP
+    IUpgradeableLockReleaseTokenPool_1_4(GhoEthereum.GHO_CCIP_TOKEN_POOL); // will be updated in address-book after AIP
   IUpgradeableLockReleaseTokenPool_1_5_1 public immutable NEW_TOKEN_POOL;
 
   address public immutable NEW_GHO_CCIP_STEWARD;
@@ -46,6 +51,7 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209 is IProposalGenericExecutor {
 
   // pre-req - chainlink transfers gho token pool ownership on token admin registry
   function _acceptOwnership() internal {
+    EXISTING_PROXY_POOL.acceptOwnership();
     NEW_TOKEN_POOL.acceptOwnership();
     TOKEN_ADMIN_REGISTRY.acceptAdminRole(AaveV3EthereumAssets.GHO_UNDERLYING);
   }

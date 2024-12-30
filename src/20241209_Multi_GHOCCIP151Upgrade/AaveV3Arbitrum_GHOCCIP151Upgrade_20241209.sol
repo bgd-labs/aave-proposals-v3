@@ -3,12 +3,14 @@ pragma solidity ^0.8.0;
 
 import {ITransparentUpgradeableProxy} from 'solidity-utils/contracts/transparent-proxy/TransparentUpgradeableProxy.sol';
 import {IUpgradeableBurnMintTokenPool_1_4, IUpgradeableBurnMintTokenPool_1_5_1} from 'src/interfaces/ccip/tokenPool/IUpgradeableBurnMintTokenPool.sol';
+import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
 import {ITokenAdminRegistry} from 'src/interfaces/ccip/ITokenAdminRegistry.sol';
 import {IRateLimiter} from 'src/interfaces/ccip/IRateLimiter.sol';
+import {IProxyPool} from 'src/interfaces/ccip/IProxyPool.sol';
 import {ILegacyProxyAdmin} from 'src/interfaces/ILegacyProxyAdmin.sol';
 import {IGhoToken} from 'src/interfaces/IGhoToken.sol';
-import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
 import {MiscArbitrum} from 'aave-address-book/MiscArbitrum.sol';
+import {GhoArbitrum} from 'aave-address-book/GhoArbitrum.sol';
 import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
 
@@ -24,9 +26,12 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209 is IProposalGenericExecutor {
   ITokenAdminRegistry public constant TOKEN_ADMIN_REGISTRY =
     ITokenAdminRegistry(0x39AE1032cF4B334a1Ed41cdD0833bdD7c7E7751E);
 
+  // https://arbiscan.io/address/0x26329558f08cbb40d6a4CCA0E0C67b29D64A8c50
+  IProxyPool public constant EXISTING_PROXY_POOL =
+    IProxyPool(0x26329558f08cbb40d6a4CCA0E0C67b29D64A8c50);
   // https://arbiscan.io/address/0xF168B83598516A532a85995b52504a2Fa058C068
   IUpgradeableBurnMintTokenPool_1_4 public constant EXISTING_TOKEN_POOL =
-    IUpgradeableBurnMintTokenPool_1_4(0xF168B83598516A532a85995b52504a2Fa058C068); // MiscArbitrum.GHO_CCIP_TOKEN_POOL; will be updated in address-book after AIP
+    IUpgradeableBurnMintTokenPool_1_4(GhoArbitrum.GHO_CCIP_TOKEN_POOL); // will be updated in address-book after AIP
   IUpgradeableBurnMintTokenPool_1_5_1 public immutable NEW_TOKEN_POOL;
 
   address public immutable NEW_GHO_CCIP_STEWARD;
@@ -55,6 +60,7 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209 is IProposalGenericExecutor {
 
   // pre-req - chainlink transfers gho token pool ownership on token admin registry
   function _acceptOwnership() internal {
+    EXISTING_PROXY_POOL.acceptOwnership();
     NEW_TOKEN_POOL.acceptOwnership();
     TOKEN_ADMIN_REGISTRY.acceptAdminRole(AaveV3ArbitrumAssets.GHO_UNDERLYING);
   }

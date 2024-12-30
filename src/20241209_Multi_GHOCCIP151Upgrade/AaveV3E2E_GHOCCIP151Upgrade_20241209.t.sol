@@ -11,6 +11,7 @@ import {IRouter} from 'src/interfaces/ccip/IRouter.sol';
 import {IEVM2EVMOnRamp} from 'src/interfaces/ccip/IEVM2EVMOnRamp.sol';
 import {IEVM2EVMOffRamp_1_5} from 'src/interfaces/ccip/IEVM2EVMOffRamp.sol';
 import {ITokenAdminRegistry} from 'src/interfaces/ccip/ITokenAdminRegistry.sol';
+import {IProxyPool} from 'src/interfaces/ccip/IProxyPool.sol';
 import {IGhoToken} from 'src/interfaces/IGhoToken.sol';
 import {IGhoCcipSteward} from 'src/interfaces/IGhoCcipSteward.sol';
 
@@ -197,12 +198,16 @@ contract AaveV3E2E_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
     // proposal constants
     assertEq(address(l1.proposal.TOKEN_ADMIN_REGISTRY()), address(l1.c.tokenAdminRegistry));
     assertEq(l1.proposal.ARB_CHAIN_SELECTOR(), l2.c.chainSelector);
+    assertEq(address(l1.proposal.EXISTING_PROXY_POOL()), l1.c.proxyPool);
     assertEq(address(l1.proposal.EXISTING_TOKEN_POOL()), address(l1.existingTokenPool));
     assertEq(address(l1.proposal.EXISTING_REMOTE_POOL_ARB()), l2.c.proxyPool);
     assertEq(address(l1.proposal.NEW_TOKEN_POOL()), address(l1.newTokenPool));
     assertEq(address(l1.proposal.NEW_REMOTE_POOL_ARB()), address(l2.newTokenPool));
 
     if (upgraded) {
+      assertEq(IProxyPool(l1.c.proxyPool).owner(), GovernanceV3Ethereum.EXECUTOR_LVL_1);
+      assertEq(l1.newTokenPool.owner(), GovernanceV3Ethereum.EXECUTOR_LVL_1);
+
       assertEq(l1.c.tokenAdminRegistry.getPool(address(l1.c.token)), address(l1.newTokenPool));
 
       assertEq(l1.c.token.balanceOf(address(l1.existingTokenPool)), 0);
@@ -242,12 +247,16 @@ contract AaveV3E2E_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
     // proposal constants
     assertEq(address(l2.proposal.TOKEN_ADMIN_REGISTRY()), address(l2.c.tokenAdminRegistry));
     assertEq(l2.proposal.ETH_CHAIN_SELECTOR(), l1.c.chainSelector);
+    assertEq(address(l2.proposal.EXISTING_PROXY_POOL()), l2.c.proxyPool);
     assertEq(address(l2.proposal.EXISTING_TOKEN_POOL()), address(l2.existingTokenPool));
     assertEq(address(l2.proposal.EXISTING_REMOTE_POOL_ETH()), l1.c.proxyPool);
     assertEq(address(l2.proposal.NEW_TOKEN_POOL()), address(l2.newTokenPool));
     assertEq(address(l2.proposal.NEW_REMOTE_POOL_ETH()), address(l1.newTokenPool));
 
     if (upgraded) {
+      assertEq(IProxyPool(l2.c.proxyPool).owner(), GovernanceV3Arbitrum.EXECUTOR_LVL_1);
+      assertEq(l2.newTokenPool.owner(), GovernanceV3Arbitrum.EXECUTOR_LVL_1);
+
       assertEq(l2.c.tokenAdminRegistry.getPool(address(l2.c.token)), address(l2.newTokenPool));
       assertEq(bytes(l2.c.token.getFacilitator(address(l2.existingTokenPool)).label).length, 0);
       assertEq(l2.c.token.getFacilitator(address(l2.newTokenPool)).label, 'CCIP TokenPool v1.5.1 ');
@@ -267,18 +276,22 @@ contract AaveV3E2E_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
 
   function _performPoolTransferCLLPreReq() private {
     vm.selectFork(l1.c.forkId);
-    vm.prank(l1.c.tokenAdminRegistry.owner());
+    vm.startPrank(l1.c.tokenAdminRegistry.owner());
     l1.c.tokenAdminRegistry.transferAdminRole(
       AaveV3EthereumAssets.GHO_UNDERLYING,
       GovernanceV3Ethereum.EXECUTOR_LVL_1
     );
+    IProxyPool(l1.c.proxyPool).transferOwnership(GovernanceV3Ethereum.EXECUTOR_LVL_1);
+    vm.stopPrank();
 
     vm.selectFork(l2.c.forkId);
-    vm.prank(l2.c.tokenAdminRegistry.owner());
+    vm.startPrank(l2.c.tokenAdminRegistry.owner());
     l2.c.tokenAdminRegistry.transferAdminRole(
       AaveV3ArbitrumAssets.GHO_UNDERLYING,
       GovernanceV3Arbitrum.EXECUTOR_LVL_1
     );
+    IProxyPool(l2.c.proxyPool).transferOwnership(GovernanceV3Arbitrum.EXECUTOR_LVL_1);
+    vm.stopPrank();
   }
 
   function _deployNewTokenPoolEth() private returns (address) {
