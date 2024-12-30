@@ -3,7 +3,7 @@ pragma solidity ^0.8.0;
 
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
-import {AaveV3EthereumLido} from 'aave-address-book/AaveV3EthereumLido.sol';
+import {AaveV3EthereumLido, AaveV3EthereumLidoAssets} from 'aave-address-book/AaveV3EthereumLido.sol';
 import {IAccessControl} from 'openzeppelin-contracts/contracts/access/IAccessControl.sol';
 import {IGhoBucketSteward} from '../interfaces/IGhoBucketSteward.sol';
 import {IGhoToken} from '../interfaces/IGhoToken.sol';
@@ -20,7 +20,7 @@ contract AaveV3EthereumLido_Deploy10MGHOIntoAaveV3LidoInstance_20241229_Test is 
   AaveV3EthereumLido_Deploy10MGHOIntoAaveV3LidoInstance_20241229 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 21510730);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 21516467);
     proposal = new AaveV3EthereumLido_Deploy10MGHOIntoAaveV3LidoInstance_20241229();
   }
 
@@ -68,14 +68,25 @@ contract AaveV3EthereumLido_Deploy10MGHOIntoAaveV3LidoInstance_20241229_Test is 
 
   function test_supplyIncreases() public {
     uint256 ghoBalanceBefore = IGhoToken(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(
-      address(AaveV3EthereumLido.POOL)
+      AaveV3EthereumLidoAssets.GHO_A_TOKEN
+    );
+
+    uint256 aGhoBalanceBefore = IERC20(AaveV3EthereumLidoAssets.GHO_A_TOKEN).balanceOf(
+      proposal.FACILITATOR()
     );
 
     executePayload(vm, address(proposal));
 
     assertEq(
-      IGhoToken(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(address(AaveV3EthereumLido.POOL)),
-      ghoBalanceBefore + proposal.MINT_AMOUNT()
+      IGhoToken(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(
+        AaveV3EthereumLidoAssets.GHO_A_TOKEN
+      ),
+      ghoBalanceBefore + proposal.GHO_MINT_AMOUNT()
+    );
+
+    assertEq(
+      IERC20(AaveV3EthereumLidoAssets.GHO_A_TOKEN).balanceOf(proposal.FACILITATOR()),
+      aGhoBalanceBefore + proposal.GHO_MINT_AMOUNT()
     );
   }
 }

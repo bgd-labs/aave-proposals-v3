@@ -20,8 +20,8 @@ contract AaveV3EthereumLido_Deploy10MGHOIntoAaveV3LidoInstance_20241229 is
 {
   uint128 public constant GHO_MINT_AMOUNT = 10_000_000e18;
 
-  // https://etherscan.io/address/0xc8ce8e5217969E2bEA887d2D523FA54dC6D17eb4
-  address public constant FACILITATOR = 0xc8ce8e5217969E2bEA887d2D523FA54dC6D17eb4;
+  // https://etherscan.io/address/0x2cE01c87Fec1b71A9041c52CaED46Fc5f4807285
+  address public constant FACILITATOR = 0x2cE01c87Fec1b71A9041c52CaED46Fc5f4807285;
 
   function execute() external {
     IAccessControl(address(AaveV3EthereumLido.ACL_MANAGER)).grantRole(
