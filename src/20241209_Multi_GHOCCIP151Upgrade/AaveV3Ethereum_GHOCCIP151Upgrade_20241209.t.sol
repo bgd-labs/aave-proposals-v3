@@ -47,6 +47,8 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
 
   uint64 internal constant ETH_CHAIN_SELECTOR = CCIPUtils.ETH_CHAIN_SELECTOR;
   uint64 internal constant ARB_CHAIN_SELECTOR = CCIPUtils.ARB_CHAIN_SELECTOR;
+  uint256 internal constant CCIP_RATE_LIMIT_CAPACITY = 300_000e18;
+  uint256 internal constant CCIP_RATE_LIMIT_REFILL_RATE = 60e18;
 
   IGhoToken internal constant GHO = IGhoToken(AaveV3EthereumAssets.GHO_UNDERLYING);
   ITokenAdminRegistry internal constant TOKEN_ADMIN_REGISTRY =
@@ -153,6 +155,8 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
     assertEq(address(proposal.EXISTING_REMOTE_POOL_ARB()), ARB_PROXY_POOL);
     assertEq(address(proposal.NEW_TOKEN_POOL()), address(NEW_TOKEN_POOL));
     assertEq(address(proposal.NEW_REMOTE_POOL_ARB()), NEW_REMOTE_POOL_ARB);
+    assertEq(proposal.CCIP_RATE_LIMIT_CAPACITY(), CCIP_RATE_LIMIT_CAPACITY);
+    assertEq(proposal.CCIP_RATE_LIMIT_REFILL_RATE(), CCIP_RATE_LIMIT_REFILL_RATE);
 
     assertEq(address(proposal.EXISTING_PROXY_POOL()), EXISTING_TOKEN_POOL.getProxyPool());
 
@@ -248,6 +252,35 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
 
   function _getDisabledConfig() internal pure returns (IRateLimiter.Config memory) {
     return IRateLimiter.Config({isEnabled: false, capacity: 0, rate: 0});
+  }
+
+  function _getRateLimiterConfig() internal view returns (IRateLimiter.Config memory) {
+    return
+      IRateLimiter.Config({
+        isEnabled: true,
+        capacity: proposal.CCIP_RATE_LIMIT_CAPACITY(),
+        rate: proposal.CCIP_RATE_LIMIT_REFILL_RATE()
+      });
+  }
+
+  function _getOutboundRefillTime(uint256 amount) internal pure returns (uint256) {
+    return amount / CCIP_RATE_LIMIT_REFILL_RATE + 1; // account for rounding
+  }
+
+  function _getInboundRefillTime(uint256 amount) internal pure returns (uint256) {
+    return amount / CCIP_RATE_LIMIT_REFILL_RATE + 1; // account for rounding
+  }
+
+  function _min(uint256 a, uint256 b) internal pure returns (uint256) {
+    return a < b ? a : b;
+  }
+
+  function _isDifferenceLowerThanMax(
+    uint256 from,
+    uint256 to,
+    uint256 max
+  ) internal pure returns (bool) {
+    return from < to ? to - from <= max : from - to <= max;
   }
 
   function assertEq(
@@ -361,11 +394,11 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_SetupAndProposalActions is
 
     assertEq(
       NEW_TOKEN_POOL.getCurrentInboundRateLimiterState(ARB_CHAIN_SELECTOR),
-      _getDisabledConfig()
+      _getRateLimiterConfig()
     );
     assertEq(
       NEW_TOKEN_POOL.getCurrentOutboundRateLimiterState(ARB_CHAIN_SELECTOR),
-      _getDisabledConfig()
+      _getRateLimiterConfig()
     );
   }
 
@@ -387,9 +420,12 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_PostUpgrade is
   }
 
   function test_sendMessageSucceedsAndRoutesViaNewPool(uint256 amount) public {
-    uint256 bridgeableAmount = NEW_TOKEN_POOL.getBridgeLimit() -
-      NEW_TOKEN_POOL.getCurrentBridgedAmount();
+    uint256 bridgeableAmount = _min(
+      NEW_TOKEN_POOL.getBridgeLimit() - NEW_TOKEN_POOL.getCurrentBridgedAmount(),
+      CCIP_RATE_LIMIT_CAPACITY
+    );
     amount = bound(amount, 1, bridgeableAmount);
+    skip(_getOutboundRefillTime(amount)); // wait for the rate limiter to refill
 
     deal(address(GHO), alice, amount);
     vm.prank(alice);
@@ -423,6 +459,7 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_PostUpgrade is
   // existing pool can no longer on ramp
   function test_lockOrBurnRevertsOnExistingPool() public {
     uint256 amount = 100_000e18;
+    skip(_getOutboundRefillTime(amount));
 
     // router pulls tokens from the user & sends to the token pool during onRamps
     deal(address(GHO), address(EXISTING_TOKEN_POOL), amount);
@@ -441,9 +478,12 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_PostUpgrade is
 
   // on-ramp via new pool
   function test_lockOrBurnSucceedsOnNewPool(uint256 amount) public {
-    uint256 bridgeableAmount = NEW_TOKEN_POOL.getBridgeLimit() -
-      NEW_TOKEN_POOL.getCurrentBridgedAmount();
+    uint256 bridgeableAmount = _min(
+      NEW_TOKEN_POOL.getBridgeLimit() - NEW_TOKEN_POOL.getCurrentBridgedAmount(),
+      CCIP_RATE_LIMIT_CAPACITY
+    );
     amount = bound(amount, 1, bridgeableAmount);
+    skip(_getOutboundRefillTime(amount)); // wait for the rate limiter to refill
 
     // router pulls tokens from the user & sends to the token pool during onRamps
     // we don't override NEW_TOKEN_POOL balance here & instead transfer because we want
@@ -475,6 +515,7 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_PostUpgrade is
   // existing pool can no longer off ramp
   function test_releaseOrMintRevertsOnExistingPool() public {
     uint256 amount = 100_000e18;
+    skip(_getInboundRefillTime(amount));
 
     assertEq(GHO.balanceOf(address(EXISTING_TOKEN_POOL)), 0);
 
@@ -493,8 +534,12 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_PostUpgrade is
 
   // off-ramp messages sent from new eth token pool (v1.5.1)
   function test_releaseOrMintSucceedsOnNewPoolOffRampedViaNewTokenPoolEth(uint256 amount) public {
-    uint256 bridgeableAmount = NEW_TOKEN_POOL.getCurrentBridgedAmount();
+    uint256 bridgeableAmount = _min(
+      NEW_TOKEN_POOL.getCurrentBridgedAmount(),
+      CCIP_RATE_LIMIT_CAPACITY
+    );
     amount = bound(amount, 1, bridgeableAmount);
+    skip(_getInboundRefillTime(amount));
 
     uint256 aliceBalance = GHO.balanceOf(alice);
     uint256 tokenPoolBalance = GHO.balanceOf(address(NEW_TOKEN_POOL));
@@ -526,8 +571,12 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_PostUpgrade is
   function test_releaseOrMintSucceedsOnNewPoolOffRampedViaExistingTokenPoolArb(
     uint256 amount
   ) public {
-    uint256 bridgeableAmount = NEW_TOKEN_POOL.getCurrentBridgedAmount();
+    uint256 bridgeableAmount = _min(
+      NEW_TOKEN_POOL.getCurrentBridgedAmount(),
+      CCIP_RATE_LIMIT_CAPACITY
+    );
     amount = bound(amount, 1, bridgeableAmount);
+    skip(_getInboundRefillTime(amount));
 
     uint256 aliceBalance = GHO.balanceOf(alice);
     uint256 tokenPoolBalance = GHO.balanceOf(address(NEW_TOKEN_POOL));
@@ -555,18 +604,8 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_PostUpgrade is
     assertEq(NEW_TOKEN_POOL.getCurrentBridgedAmount(), bridgedAmount - amount);
   }
 
-  function test_stewardCanSetAndDisableRateLimit() public {
+  function test_stewardCanChangeAndDisableRateLimit() public {
     assertEq(NEW_TOKEN_POOL.getRateLimitAdmin(), address(NEW_GHO_CCIP_STEWARD)); // sanity
-
-    // currently disabled
-    assertEq(
-      NEW_TOKEN_POOL.getCurrentInboundRateLimiterState(ARB_CHAIN_SELECTOR),
-      _getDisabledConfig()
-    );
-    assertEq(
-      NEW_TOKEN_POOL.getCurrentOutboundRateLimiterState(ARB_CHAIN_SELECTOR),
-      _getDisabledConfig()
-    );
 
     IRateLimiter.Config memory outboundConfig = IRateLimiter.Config({
       isEnabled: true,
@@ -579,20 +618,7 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_PostUpgrade is
       rate: 50e18
     });
 
-    // since only the DAO can re-enable disabled rate limit,
-    // first we set the rate limit through an AIP directly on the token pool
-    vm.prank(GovernanceV3Ethereum.EXECUTOR_LVL_1);
-    NEW_TOKEN_POOL.setChainRateLimiterConfig(ARB_CHAIN_SELECTOR, outboundConfig, inboundConfig);
-
-    skip(NEW_GHO_CCIP_STEWARD.MINIMUM_DELAY() + 1);
-
-    // change capacity
-    outboundConfig.capacity += 1;
-    outboundConfig.rate += 1;
-    inboundConfig.capacity += 1;
-    inboundConfig.rate += 1;
-
-    // now we assert the new steward can change the rate limit
+    // we assert the new steward can change the rate limit
     vm.prank(NEW_GHO_CCIP_STEWARD.RISK_COUNCIL());
     NEW_GHO_CCIP_STEWARD.updateRateLimit(
       ARB_CHAIN_SELECTOR,
@@ -633,13 +659,5 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_PostUpgrade is
     NEW_GHO_CCIP_STEWARD.updateBridgeLimit(newBridgeLimit);
 
     assertEq(NEW_TOKEN_POOL.getBridgeLimit(), newBridgeLimit);
-  }
-
-  function _isDifferenceLowerThanMax(
-    uint256 from,
-    uint256 to,
-    uint256 max
-  ) internal pure returns (bool) {
-    return from < to ? to - from <= max : from - to <= max;
   }
 }

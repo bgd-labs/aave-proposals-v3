@@ -6,7 +6,6 @@ import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGen
 import {ITokenAdminRegistry} from 'src/interfaces/ccip/ITokenAdminRegistry.sol';
 import {IProxyPool} from 'src/interfaces/ccip/IProxyPool.sol';
 import {IRateLimiter} from 'src/interfaces/ccip/IRateLimiter.sol';
-import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {GhoEthereum} from 'aave-address-book/GhoEthereum.sol';
 import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
@@ -36,6 +35,11 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209 is IProposalGenericExecutor {
   // https://arbiscan.io/address/0x26329558f08cbb40d6a4CCA0E0C67b29D64A8c50
   address public constant EXISTING_REMOTE_POOL_ARB = 0x26329558f08cbb40d6a4CCA0E0C67b29D64A8c50; // ProxyPool on Arb
   address public immutable NEW_REMOTE_POOL_ARB;
+
+  // Token Rate Limit Capacity: 300_000 GHO
+  uint128 public constant CCIP_RATE_LIMIT_CAPACITY = 300_000e18;
+  // Token Rate Limit Refill Rate: 60 GHO per second (=> 216_000 GHO per hour)
+  uint128 public constant CCIP_RATE_LIMIT_REFILL_RATE = 60e18;
 
   constructor(address newTokenPoolEth, address newTokenPoolArb, address newGhoCcipSteward) {
     NEW_TOKEN_POOL = IUpgradeableLockReleaseTokenPool_1_5_1(newTokenPoolEth);
@@ -67,24 +71,25 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209 is IProposalGenericExecutor {
   }
 
   function _setupAndRegisterNewPool() internal {
-    bytes[] memory remotePoolAddresses = new bytes[](2);
-    remotePoolAddresses[0] = abi.encode(EXISTING_REMOTE_POOL_ARB);
-    remotePoolAddresses[1] = abi.encode(NEW_REMOTE_POOL_ARB);
-    IRateLimiter.Config memory emptyRateLimiterConfig = IRateLimiter.Config({
-      isEnabled: false,
-      capacity: 0,
-      rate: 0
+    IRateLimiter.Config memory rateLimiterConfig = IRateLimiter.Config({
+      isEnabled: true,
+      capacity: CCIP_RATE_LIMIT_CAPACITY,
+      rate: CCIP_RATE_LIMIT_REFILL_RATE
     });
 
     IUpgradeableLockReleaseTokenPool_1_5_1.ChainUpdate[]
       memory chains = new IUpgradeableLockReleaseTokenPool_1_5_1.ChainUpdate[](1);
 
+    bytes[] memory remotePoolAddresses = new bytes[](2);
+    remotePoolAddresses[0] = abi.encode(EXISTING_REMOTE_POOL_ARB);
+    remotePoolAddresses[1] = abi.encode(NEW_REMOTE_POOL_ARB);
+
     chains[0] = IUpgradeableLockReleaseTokenPool_1_5_1.ChainUpdate({
       remoteChainSelector: ARB_CHAIN_SELECTOR,
       remotePoolAddresses: remotePoolAddresses,
       remoteTokenAddress: abi.encode(AaveV3ArbitrumAssets.GHO_UNDERLYING),
-      outboundRateLimiterConfig: emptyRateLimiterConfig,
-      inboundRateLimiterConfig: emptyRateLimiterConfig
+      outboundRateLimiterConfig: rateLimiterConfig,
+      inboundRateLimiterConfig: rateLimiterConfig
     });
 
     // setup new pool

@@ -35,6 +35,17 @@ interface IEVM2EVMOnRamp is ITypeAndVersion {
     bool enforceOutOfOrder; // ──────────────────╯ Whether to enforce the allowOutOfOrderExecution extraArg value to be true.
   }
 
+  struct StaticConfig {
+    address linkToken; // ────────╮ Link token address
+    uint64 chainSelector; // ─────╯ Source chainSelector
+    uint64 destChainSelector; // ─╮ Destination chainSelector
+    uint64 defaultTxGasLimit; //  │ Default gas limit for a tx
+    uint96 maxNopFeesJuels; // ───╯ Max nop fee balance onramp can have
+    address prevOnRamp; //          Address of previous-version OnRamp
+    address rmnProxy; //            Address of RMN proxy
+    address tokenAdminRegistry; //  Address of the token admin registry
+  }
+
   /// @notice Gets the next sequence number to be used in the onRamp
   /// @return the next sequence number to be used
   function getExpectedNextSequenceNumber() external view returns (uint64);
@@ -69,4 +80,8 @@ interface IEVM2EVMOnRamp is ITypeAndVersion {
   /// @notice Returns the dynamic onRamp config.
   /// @return dynamicConfig the configuration.
   function getDynamicConfig() external view returns (DynamicConfig memory dynamicConfig);
+
+  /// @notice Returns the static onRamp config.
+  /// @return the configuration.
+  function getStaticConfig() external view returns (StaticConfig memory);
 }

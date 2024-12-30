@@ -46,6 +46,8 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
 
   uint64 internal constant ETH_CHAIN_SELECTOR = CCIPUtils.ETH_CHAIN_SELECTOR;
   uint64 internal constant ARB_CHAIN_SELECTOR = CCIPUtils.ARB_CHAIN_SELECTOR;
+  uint256 internal constant CCIP_RATE_LIMIT_CAPACITY = 300_000e18;
+  uint256 internal constant CCIP_RATE_LIMIT_REFILL_RATE = 60e18;
 
   IGhoToken internal constant GHO = IGhoToken(AaveV3ArbitrumAssets.GHO_UNDERLYING);
   ITokenAdminRegistry internal constant TOKEN_ADMIN_REGISTRY =
@@ -147,6 +149,8 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
     assertEq(address(proposal.EXISTING_REMOTE_POOL_ETH()), ETH_PROXY_POOL);
     assertEq(address(proposal.NEW_TOKEN_POOL()), address(NEW_TOKEN_POOL));
     assertEq(address(proposal.NEW_REMOTE_POOL_ETH()), NEW_REMOTE_POOL_ETH);
+    assertEq(proposal.CCIP_RATE_LIMIT_CAPACITY(), CCIP_RATE_LIMIT_CAPACITY);
+    assertEq(proposal.CCIP_RATE_LIMIT_REFILL_RATE(), CCIP_RATE_LIMIT_REFILL_RATE);
 
     assertEq(address(proposal.EXISTING_PROXY_POOL()), EXISTING_TOKEN_POOL.getProxyPool());
 
@@ -242,6 +246,27 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
     return uint8(uint256(vm.load(proxy, bytes32(0))));
   }
 
+  function _getRateLimiterConfig() internal view returns (IRateLimiter.Config memory) {
+    return
+      IRateLimiter.Config({
+        isEnabled: true,
+        capacity: proposal.CCIP_RATE_LIMIT_CAPACITY(),
+        rate: proposal.CCIP_RATE_LIMIT_REFILL_RATE()
+      });
+  }
+
+  function _getOutboundRefillTime(uint256 amount) internal pure returns (uint256) {
+    return (amount / CCIP_RATE_LIMIT_REFILL_RATE) + 1; // account for rounding
+  }
+
+  function _getInboundRefillTime(uint256 amount) internal pure returns (uint256) {
+    return amount / CCIP_RATE_LIMIT_REFILL_RATE + 1; // account for rounding
+  }
+
+  function _min(uint256 a, uint256 b) internal pure returns (uint256) {
+    return a < b ? a : b;
+  }
+
   function assertEq(
     IRateLimiter.TokenBucket memory bucket,
     IRateLimiter.Config memory config
@@ -306,7 +331,7 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209_SetupAndProposalActions is
 
     newFacilitator = GHO.getFacilitator(address(NEW_TOKEN_POOL));
 
-    assertEq(newFacilitator.label, 'CCIP TokenPool v1.5.1 ');
+    assertEq(newFacilitator.label, 'CCIP TokenPool v1.5.1');
     assertEq(newFacilitator.bucketCapacity, existingFacilitator.bucketCapacity);
     assertEq(newFacilitator.bucketLevel, existingFacilitator.bucketLevel);
 
@@ -344,11 +369,11 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209_SetupAndProposalActions is
 
     assertEq(
       NEW_TOKEN_POOL.getCurrentInboundRateLimiterState(ETH_CHAIN_SELECTOR),
-      _getDisabledConfig()
+      _getRateLimiterConfig()
     );
     assertEq(
       NEW_TOKEN_POOL.getCurrentOutboundRateLimiterState(ETH_CHAIN_SELECTOR),
-      _getDisabledConfig()
+      _getRateLimiterConfig()
     );
   }
 
@@ -370,8 +395,12 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209_PostUpgrade is
   }
 
   function test_sendMessageSucceedsAndRoutesViaNewPool(uint256 amount) public {
-    uint256 bridgeableAmount = GHO.getFacilitator(address(NEW_TOKEN_POOL)).bucketLevel;
+    uint256 bridgeableAmount = _min(
+      GHO.getFacilitator(address(NEW_TOKEN_POOL)).bucketLevel,
+      CCIP_RATE_LIMIT_CAPACITY
+    );
     amount = bound(amount, 1, bridgeableAmount);
+    skip(_getOutboundRefillTime(amount)); // wait for the rate limiter to refill
 
     deal(address(GHO), alice, amount);
     vm.prank(alice);
@@ -403,6 +432,7 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209_PostUpgrade is
   // existing pool can no longer on ramp
   function test_lockOrBurnRevertsOnExistingPool() public {
     uint256 amount = 100_000e18;
+    skip(_getOutboundRefillTime(amount));
 
     // router pulls tokens from the user & sends to the token pool during onRamps
     deal(address(GHO), address(EXISTING_TOKEN_POOL), amount);
@@ -421,8 +451,12 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209_PostUpgrade is
 
   // on-ramp via new pool
   function test_lockOrBurnSucceedsOnNewPool(uint256 amount) public {
-    uint256 bridgeableAmount = GHO.getFacilitator(address(NEW_TOKEN_POOL)).bucketLevel;
+    uint256 bridgeableAmount = _min(
+      GHO.getFacilitator(address(NEW_TOKEN_POOL)).bucketLevel,
+      CCIP_RATE_LIMIT_CAPACITY
+    );
     amount = bound(amount, 1, bridgeableAmount);
+    skip(_getOutboundRefillTime(amount));
 
     // router pulls tokens from the user & sends to the token pool during onRamps
     deal(address(GHO), address(NEW_TOKEN_POOL), amount);
@@ -450,6 +484,7 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209_PostUpgrade is
   // existing pool can no longer off ramp
   function test_releaseOrMintRevertsOnExistingPool() public {
     uint256 amount = 100_000e18;
+    skip(_getInboundRefillTime(amount)); // wait for the rate limiter to refill
 
     vm.prank(EXISTING_TOKEN_POOL.getProxyPool());
     vm.expectRevert('FACILITATOR_BUCKET_CAPACITY_EXCEEDED');
@@ -467,8 +502,9 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209_PostUpgrade is
     (uint256 bucketCapacity, uint256 bucketLevel) = GHO.getFacilitatorBucket(
       address(NEW_TOKEN_POOL)
     );
-    uint256 mintAbleAmount = bucketCapacity - bucketLevel;
+    uint256 mintAbleAmount = _min(bucketCapacity - bucketLevel, CCIP_RATE_LIMIT_CAPACITY);
     amount = bound(amount, 1, mintAbleAmount);
+    skip(_getInboundRefillTime(amount)); // wait for the rate limiter to refill
 
     uint256 aliceBalance = GHO.balanceOf(alice);
 
@@ -500,8 +536,9 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209_PostUpgrade is
     (uint256 bucketCapacity, uint256 bucketLevel) = GHO.getFacilitatorBucket(
       address(NEW_TOKEN_POOL)
     );
-    uint256 mintAbleAmount = bucketCapacity - bucketLevel;
+    uint256 mintAbleAmount = _min(bucketCapacity - bucketLevel, CCIP_RATE_LIMIT_CAPACITY);
     amount = bound(amount, 1, mintAbleAmount);
+    skip(_getInboundRefillTime(amount));
 
     uint256 aliceBalance = GHO.balanceOf(alice);
 
@@ -526,18 +563,8 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209_PostUpgrade is
     assertEq(GHO.balanceOf(alice), aliceBalance + amount);
   }
 
-  function test_stewardCanSetAndDisableRateLimit() public {
+  function test_stewardCanChangeAndDisableRateLimit() public {
     assertEq(NEW_TOKEN_POOL.getRateLimitAdmin(), address(NEW_GHO_CCIP_STEWARD)); // sanity
-
-    // currently disabled
-    assertEq(
-      NEW_TOKEN_POOL.getCurrentInboundRateLimiterState(ETH_CHAIN_SELECTOR),
-      _getDisabledConfig()
-    );
-    assertEq(
-      NEW_TOKEN_POOL.getCurrentOutboundRateLimiterState(ETH_CHAIN_SELECTOR),
-      _getDisabledConfig()
-    );
 
     IRateLimiter.Config memory outboundConfig = IRateLimiter.Config({
       isEnabled: true,
@@ -550,20 +577,7 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209_PostUpgrade is
       rate: 50e18
     });
 
-    // since only the DAO can re-enable disabled rate limit,
-    // first we set the rate limit through an AIP directly on the token pool
-    vm.prank(GovernanceV3Arbitrum.EXECUTOR_LVL_1);
-    NEW_TOKEN_POOL.setChainRateLimiterConfig(ETH_CHAIN_SELECTOR, outboundConfig, inboundConfig);
-
-    skip(NEW_GHO_CCIP_STEWARD.MINIMUM_DELAY() + 1);
-
-    // change capacity
-    outboundConfig.capacity += 1;
-    outboundConfig.rate += 1;
-    inboundConfig.capacity += 1;
-    inboundConfig.rate += 1;
-
-    // now we assert the steward can change the rate limit
+    // we assert the steward can change the rate limit
     vm.prank(NEW_GHO_CCIP_STEWARD.RISK_COUNCIL());
     NEW_GHO_CCIP_STEWARD.updateRateLimit(
       ETH_CHAIN_SELECTOR,

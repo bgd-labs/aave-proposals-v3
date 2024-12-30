@@ -44,7 +44,13 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209 is IProposalGenericExecutor {
   address public constant EXISTING_TOKEN_POOL_UPGRADE_IMPL =
     0xA5Ba213867E175A182a5dd6A9193C6158738105A; // https://github.com/aave/ccip/commit/ca73ec8c4f7dc0f6a99ae1ea0acde43776c7b9bb
 
+  // https://arbiscan.io/address/0x7dfF72693f6A4149b17e7C6314655f6A9F7c8B33
   IGhoToken public constant GHO = IGhoToken(AaveV3ArbitrumAssets.GHO_UNDERLYING);
+
+  // Token Rate Limit Capacity: 300_000 GHO
+  uint128 public constant CCIP_RATE_LIMIT_CAPACITY = 300_000e18;
+  // Token Rate Limit Refill Rate: 60 GHO per second (=> 216_000 GHO per hour)
+  uint128 public constant CCIP_RATE_LIMIT_REFILL_RATE = 60e18;
 
   constructor(address newTokenPoolArb, address newTokenPoolEth, address newGhoCcipSteward) {
     NEW_TOKEN_POOL = IUpgradeableBurnMintTokenPool_1_5_1(newTokenPoolArb);
@@ -71,7 +77,7 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209 is IProposalGenericExecutor {
       address(EXISTING_TOKEN_POOL)
     );
 
-    GHO.addFacilitator(address(NEW_TOKEN_POOL), 'CCIP TokenPool v1.5.1 ', uint128(bucketCapacity));
+    GHO.addFacilitator(address(NEW_TOKEN_POOL), 'CCIP TokenPool v1.5.1', uint128(bucketCapacity));
     NEW_TOKEN_POOL.directMint(address(EXISTING_TOKEN_POOL), bucketLevel); // increase facilitator level
 
     _upgradeExistingTokenPool(); // introduce `directBurn` method
@@ -81,10 +87,10 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209 is IProposalGenericExecutor {
   }
 
   function _setupAndRegisterNewPool() internal {
-    IRateLimiter.Config memory emptyRateLimiterConfig = IRateLimiter.Config({
-      isEnabled: false,
-      capacity: 0,
-      rate: 0
+    IRateLimiter.Config memory rateLimiterConfig = IRateLimiter.Config({
+      isEnabled: true,
+      capacity: CCIP_RATE_LIMIT_CAPACITY,
+      rate: CCIP_RATE_LIMIT_REFILL_RATE
     });
 
     IUpgradeableBurnMintTokenPool_1_5_1.ChainUpdate[]
@@ -98,8 +104,8 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209 is IProposalGenericExecutor {
       remoteChainSelector: ETH_CHAIN_SELECTOR,
       remotePoolAddresses: remotePoolAddresses,
       remoteTokenAddress: abi.encode(AaveV3EthereumAssets.GHO_UNDERLYING),
-      outboundRateLimiterConfig: emptyRateLimiterConfig,
-      inboundRateLimiterConfig: emptyRateLimiterConfig
+      outboundRateLimiterConfig: rateLimiterConfig,
+      inboundRateLimiterConfig: rateLimiterConfig
     });
 
     // setup new pool
