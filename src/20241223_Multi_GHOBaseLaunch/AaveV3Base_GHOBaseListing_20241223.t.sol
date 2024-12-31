@@ -8,11 +8,13 @@ import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {IGhoAaveSteward} from 'gho-core/misc/interfaces/IGhoAaveSteward.sol';
 import {IGhoBucketSteward} from 'gho-core/misc/interfaces/IGhoBucketSteward.sol';
 import {IGhoCcipSteward} from 'gho-core/misc/interfaces/IGhoCcipSteward.sol';
+import {DataTypes, IDefaultInterestRateStrategyV2, IPoolAddressesProvider, IPool} from 'aave-address-book/AaveV3.sol';
 import {IUpgradeableBurnMintTokenPool_1_5_1} from 'src/interfaces/ccip/tokenPool/IUpgradeableBurnMintTokenPool.sol';
 import {ITokenAdminRegistry} from 'src/interfaces/ccip/ITokenAdminRegistry.sol';
 import {IGhoToken} from 'src/interfaces/IGhoToken.sol';
 import {IGhoOracle} from 'src/interfaces/IGhoOracle.sol';
 
+import {ReserveConfiguration} from 'aave-v3-origin/contracts/protocol/libraries/configuration/ReserveConfiguration.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 import {AaveV3Base} from 'aave-address-book/AaveV3Base.sol';
@@ -90,6 +92,7 @@ contract AaveV3Base_GHOBaseListing_20241223_Base is ProtocolV3TestBase {
     vm.prank(TOKEN_ADMIN_REGISTRY.owner());
     TOKEN_ADMIN_REGISTRY.proposeAdministrator(address(GHO_TOKEN), GovernanceV3Base.EXECUTOR_LVL_1);
   }
+
   function _deployNewBurnMintTokenPool(
     address ghoToken,
     address rmnProxy,
@@ -122,6 +125,7 @@ contract AaveV3Base_GHOBaseListing_20241223_Base is ProtocolV3TestBase {
         )
       );
   }
+
   function _deployStewards()
     internal
     returns (IGhoAaveSteward, IGhoBucketSteward, IGhoCcipSteward)
@@ -130,14 +134,14 @@ contract AaveV3Base_GHOBaseListing_20241223_Base is ProtocolV3TestBase {
       new GhoAaveSteward({
         owner: GovernanceV3Base.EXECUTOR_LVL_1,
         addressesProvider: address(AaveV3Base.POOL_ADDRESSES_PROVIDER),
-        poolDataProvider: address(AaveV3Base.UI_POOL_DATA_PROVIDER),
+        poolDataProvider: address(AaveV3Base.AAVE_PROTOCOL_DATA_PROVIDER),
         ghoToken: address(GHO_TOKEN),
         riskCouncil: RISK_COUNCIL,
         borrowRateConfig: IGhoAaveSteward.BorrowRateConfig({
-          optimalUsageRatioMaxChange: 500,
-          baseVariableBorrowRateMaxChange: 500,
-          variableRateSlope1MaxChange: 500,
-          variableRateSlope2MaxChange: 500
+          optimalUsageRatioMaxChange: 50_00,
+          baseVariableBorrowRateMaxChange: 50_00,
+          variableRateSlope1MaxChange: 50_00,
+          variableRateSlope2MaxChange: 50_00
         })
       })
     );
@@ -205,5 +209,100 @@ contract AaveV3Base_GHOBaseListing_20241223_Listing is AaveV3Base_GHOBaseListing
       IEmissionManager(AaveV3Base.EMISSION_MANAGER).getEmissionAdmin(aGhoToken),
       proposal.EMISSION_ADMIN()
     );
+  }
+}
+
+contract AaveV3Base_GHOBaseListing_20241223_Stewards is AaveV3Base_GHOBaseListing_20241223_Base {
+  using ReserveConfiguration for DataTypes.ReserveConfigurationMap;
+
+  function setUp() public override {
+    super.setUp();
+
+    uint256 seedAmount = proposal.GHO_SEED_AMOUNT();
+    // mock executor receives seed amount after Launch AIP (ie bridge activation)
+    vm.prank(address(NEW_TOKEN_POOL));
+    GHO_TOKEN.mint(GovernanceV3Base.EXECUTOR_LVL_1, seedAmount);
+
+    executePayload(vm, address(proposal));
+  }
+
+  function test_aaveStewardCanUpdateBorrowRate() public {
+    IDefaultInterestRateStrategyV2 irStrategy = IDefaultInterestRateStrategyV2(
+      AaveV3Base.AAVE_PROTOCOL_DATA_PROVIDER.getInterestRateStrategyAddress(address(GHO_TOKEN))
+    );
+
+    IDefaultInterestRateStrategyV2.InterestRateData
+      memory currentRateData = IDefaultInterestRateStrategyV2.InterestRateData({
+        optimalUsageRatio: 90_00,
+        baseVariableBorrowRate: 0,
+        variableRateSlope1: 12_00,
+        variableRateSlope2: 65_00
+      });
+
+    assertEq(
+      irStrategy.getInterestRateDataBps(address(GHO_TOKEN)),
+      currentRateData,
+      'currentRateData'
+    );
+
+    currentRateData.variableRateSlope1 -= 10_00;
+    currentRateData.variableRateSlope2 -= 42_00;
+
+    vm.prank(RISK_COUNCIL);
+    NEW_GHO_AAVE_STEWARD.updateGhoBorrowRate(
+      currentRateData.optimalUsageRatio,
+      currentRateData.baseVariableBorrowRate,
+      currentRateData.variableRateSlope1,
+      currentRateData.variableRateSlope2
+    );
+
+    assertEq(irStrategy.getInterestRateDataBps(address(GHO_TOKEN)), currentRateData);
+  }
+
+  function test_aaveStewardCanUpdateBorrowCap(uint256 newBorrowCap) public {
+    uint256 currentBorrowCap = AaveV3Base.POOL.getConfiguration(address(GHO_TOKEN)).getBorrowCap();
+    assertEq(currentBorrowCap, 2_250_000, 'currentBorrowCap');
+    vm.assume(
+      newBorrowCap != currentBorrowCap &&
+        _isDifferenceLowerThanMax(currentBorrowCap, newBorrowCap, currentBorrowCap)
+    );
+
+    vm.prank(RISK_COUNCIL);
+    NEW_GHO_AAVE_STEWARD.updateGhoBorrowCap(newBorrowCap);
+
+    assertEq(AaveV3Base.POOL.getConfiguration(address(GHO_TOKEN)).getBorrowCap(), newBorrowCap);
+  }
+
+  function test_aaveStewardCanUpdateSupplyCap(uint256 newSupplyCap) public {
+    uint256 currentSupplyCap = AaveV3Base.POOL.getConfiguration(address(GHO_TOKEN)).getSupplyCap();
+    assertEq(currentSupplyCap, 2_500_000, 'currentSupplyCap');
+
+    vm.assume(
+      currentSupplyCap != newSupplyCap &&
+        _isDifferenceLowerThanMax(currentSupplyCap, newSupplyCap, currentSupplyCap)
+    );
+
+    vm.prank(RISK_COUNCIL);
+    NEW_GHO_AAVE_STEWARD.updateGhoSupplyCap(newSupplyCap);
+
+    assertEq(AaveV3Base.POOL.getConfiguration(address(GHO_TOKEN)).getSupplyCap(), newSupplyCap);
+  }
+
+  function assertEq(
+    IDefaultInterestRateStrategyV2.InterestRateData memory a,
+    IDefaultInterestRateStrategyV2.InterestRateData memory b
+  ) internal {
+    assertEq(a.optimalUsageRatio, b.optimalUsageRatio, 'optimalUsageRatio');
+    assertEq(a.baseVariableBorrowRate, b.baseVariableBorrowRate, 'baseVariableBorrowRate');
+    assertEq(a.variableRateSlope1, b.variableRateSlope1, 'variableRateSlope1');
+    assertEq(a.variableRateSlope2, b.variableRateSlope2, 'variableRateSlope2');
+  }
+
+  function _isDifferenceLowerThanMax(
+    uint256 from,
+    uint256 to,
+    uint256 max
+  ) internal pure returns (bool) {
+    return from < to ? to - from <= max : from - to <= max;
   }
 }

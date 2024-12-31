@@ -359,7 +359,7 @@ contract AaveV3Base_GHOBaseLaunch_20241223_Base is ProtocolV3TestBase {
       new GhoAaveSteward({
         owner: GovernanceV3Base.EXECUTOR_LVL_1,
         addressesProvider: address(AaveV3Base.POOL_ADDRESSES_PROVIDER),
-        poolDataProvider: address(AaveV3Base.UI_POOL_DATA_PROVIDER),
+        poolDataProvider: address(AaveV3Base.AAVE_PROTOCOL_DATA_PROVIDER),
         ghoToken: address(GHO_TOKEN_BASE),
         riskCouncil: RISK_COUNCIL,
         borrowRateConfig: IGhoAaveSteward.BorrowRateConfig({
