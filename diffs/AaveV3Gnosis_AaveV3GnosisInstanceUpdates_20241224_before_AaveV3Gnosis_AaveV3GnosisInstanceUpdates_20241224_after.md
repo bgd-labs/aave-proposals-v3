@@ -14,10 +14,10 @@
 | debtCeiling | 0 $ [0] |
 | isSiloed | false |
 | isFlashloanable | false |
-| oracle | [0x22441d81416430A54336aB28765abd31a792Ad37](https://gnosisscan.io/address/0x22441d81416430A54336aB28765abd31a792Ad37) |
+| oracle | [0xbE26c8b354208E898EBd88B1576C4df2e216ed30](https://gnosisscan.io/address/0xbE26c8b354208E898EBd88B1576C4df2e216ed30) |
 | oracleDecimals | 8 |
-| oracleDescription | GNO / USD |
-| oracleLatestAnswer | 280.77832643 |
+| oracleDescription | Capped osGNO / GNO / USD |
+| oracleLatestAnswer | 279.46652318 |
 | usageAsCollateralEnabled | true |
 | ltv | 0.05 % [5] |
 | liquidationThreshold | 0.1 % [10] |
@@ -33,13 +33,13 @@
 | interestRateStrategy | [0x4cE496f0a390745102540faF041EF92FfD588b44](https://gnosisscan.io/address/0x4cE496f0a390745102540faF041EF92FfD588b44) |
 | aTokenName | Aave Gnosis osGNO |
 | aTokenSymbol | aGnoosGNO |
-| aTokenUnderlyingBalance | 0 osGNO [0] |
+| aTokenUnderlyingBalance | 0.5 osGNO [500000000000000000] |
 | id | 8 |
 | isPaused | false |
 | variableDebtTokenName | Aave Gnosis Variable Debt osGNO |
 | variableDebtTokenSymbol | variableDebtGnoosGNO |
 | virtualAccountingActive | true |
-| virtualBalance | 0 osGNO [0] |
+| virtualBalance | 0.5 osGNO [500000000000000000] |
 | optimalUsageRatio | 50 % |
 | maxVariableBorrowRate | 0 % |
 | baseVariableBorrowRate | 0 % |
@@ -144,7 +144,7 @@
         "aTokenImpl": "0x589750BA8aF186cE5B55391B0b7148cAD43a1619",
         "aTokenName": "Aave Gnosis osGNO",
         "aTokenSymbol": "aGnoosGNO",
-        "aTokenUnderlyingBalance": "0",
+        "aTokenUnderlyingBalance": "500000000000000000",
         "borrowCap": 1,
         "borrowingEnabled": false,
         "debtCeiling": 0,
@@ -161,10 +161,10 @@
         "liquidationProtocolFee": 1000,
         "liquidationThreshold": 10,
         "ltv": 5,
-        "oracle": "0x22441d81416430A54336aB28765abd31a792Ad37",
+        "oracle": "0xbE26c8b354208E898EBd88B1576C4df2e216ed30",
         "oracleDecimals": 8,
-        "oracleDescription": "GNO / USD",
-        "oracleLatestAnswer": "28077832643",
+        "oracleDescription": "Capped osGNO / GNO / USD",
+        "oracleLatestAnswer": "27946652318",
         "reserveFactor": 1000,
         "supplyCap": 4750,
         "symbol": "osGNO",
@@ -175,7 +175,7 @@
         "variableDebtTokenName": "Aave Gnosis Variable Debt osGNO",
         "variableDebtTokenSymbol": "variableDebtGnoosGNO",
         "virtualAccountingActive": true,
-        "virtualBalance": "0"
+        "virtualBalance": "500000000000000000"
       }
     }
   },

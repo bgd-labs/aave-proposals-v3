@@ -18,7 +18,7 @@ contract AaveV3Gnosis_AaveV3GnosisInstanceUpdates_20241224_Test is ProtocolV3Tes
   AaveV3Gnosis_AaveV3GnosisInstanceUpdates_20241224 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('gnosis'), 37692844);
+    vm.createSelectFork(vm.rpcUrl('gnosis'), 37810182);
     proposal = new AaveV3Gnosis_AaveV3GnosisInstanceUpdates_20241224();
   }
 

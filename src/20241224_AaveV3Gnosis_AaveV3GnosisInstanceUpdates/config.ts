@@ -56,7 +56,7 @@ export const config: ConfigFile = {
           {
             assetSymbol: 'osGNO',
             decimals: 18,
-            priceFeed: '0x22441d81416430A54336aB28765abd31a792Ad37',
+            priceFeed: '0xbE26c8b354208E898EBd88B1576C4df2e216ed30',
             ltv: '0.05',
             liqThreshold: '0.1',
             liqBonus: '7.5',

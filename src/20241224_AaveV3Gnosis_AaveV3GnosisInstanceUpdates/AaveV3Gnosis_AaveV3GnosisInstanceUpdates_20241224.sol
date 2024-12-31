@@ -140,7 +140,7 @@ contract AaveV3Gnosis_AaveV3GnosisInstanceUpdates_20241224 is AaveV3PayloadGnosi
     listings[0] = IAaveV3ConfigEngine.Listing({
       asset: osGNO,
       assetSymbol: 'osGNO',
-      priceFeed: 0x22441d81416430A54336aB28765abd31a792Ad37,
+      priceFeed: 0xbE26c8b354208E898EBd88B1576C4df2e216ed30,
       enabledToBorrow: EngineFlags.DISABLED,
       borrowableInIsolation: EngineFlags.DISABLED,
       withSiloedBorrowing: EngineFlags.DISABLED,
