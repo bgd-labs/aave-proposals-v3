@@ -15,6 +15,37 @@ export const config: ConfigFile = {
   poolOptions: {
     AaveV3Ethereum: {configs: {OTHERS: {}}, cache: {blockNumber: 21463360}},
     AaveV3Arbitrum: {configs: {OTHERS: {}}, cache: {blockNumber: 288070365}},
-    AaveV3Base: {configs: {OTHERS: {}}, cache: {blockNumber: 24139320}},
+    AaveV3Base: {
+      configs: {
+        ASSET_LISTING: [
+          {
+            assetSymbol: 'GHO',
+            decimals: 18,
+            priceFeed: '0xfc421aD3C883Bf9E7C4f42dE845C4e4405799e73',
+            ltv: '0',
+            liqThreshold: '0',
+            liqBonus: '0',
+            debtCeiling: '0',
+            liqProtocolFee: '0',
+            enabledToBorrow: 'ENABLED',
+            flashloanable: 'ENABLED',
+            borrowableInIsolation: 'DISABLED',
+            withSiloedBorrowing: 'DISABLED',
+            reserveFactor: '10',
+            supplyCap: '2500000',
+            borrowCap: '2250000',
+            rateStrategyParams: {
+              optimalUtilizationRate: '90',
+              baseVariableBorrowRate: '0',
+              variableRateSlope1: '12',
+              variableRateSlope2: '65',
+            },
+            asset: '0x6F2216CB3Ca97b8756C5fD99bE27986f04CBd81D',
+            admin: '0xac140648435d03f784879cd789130F22Ef588Fcd',
+          },
+        ],
+      },
+      cache: {blockNumber: 24430581},
+    },
   },
 };

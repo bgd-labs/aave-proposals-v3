@@ -7,7 +7,7 @@ import {EthereumScript, ArbitrumScript, BaseScript} from 'solidity-utils/contrac
 import {AaveV3Ethereum_GHOBaseLaunch_20241223} from './AaveV3Ethereum_GHOBaseLaunch_20241223.sol';
 import {AaveV3Arbitrum_GHOBaseLaunch_20241223} from './AaveV3Arbitrum_GHOBaseLaunch_20241223.sol';
 import {AaveV3Base_GHOBaseLaunch_20241223} from './AaveV3Base_GHOBaseLaunch_20241223.sol';
-
+import {AaveV3Base_GHOBaseListing_20241223} from './AaveV3Base_GHOBaseListing_20241223.sol';
 /**
  * @dev Deploy Ethereum
  * deploy-command: make deploy-ledger contract=src/20241223_Multi_GHOBaseLaunch/GHOBaseLaunch_20241223.s.sol:DeployEthereum chain=mainnet
@@ -59,18 +59,22 @@ contract DeployArbitrum is ArbitrumScript {
  */
 contract DeployBase is BaseScript {
   function run() external broadcast {
-    // deploy payloads
-    address payload0 = GovV3Helpers.deployDeterministic(
-      type(AaveV3Base_GHOBaseLaunch_20241223).creationCode
-    );
-
     // compose action
     IPayloadsControllerCore.ExecutionAction[]
-      memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
-    actions[0] = GovV3Helpers.buildAction(payload0);
+      memory launchActions = new IPayloadsControllerCore.ExecutionAction[](1);
+    launchActions[0] = GovV3Helpers.buildAction(
+      GovV3Helpers.deployDeterministic(type(AaveV3Base_GHOBaseLaunch_20241223).creationCode)
+    );
 
-    // register action at payloadsController
-    GovV3Helpers.createPayload(actions);
+    IPayloadsControllerCore.ExecutionAction[]
+      memory listingActions = new IPayloadsControllerCore.ExecutionAction[](1);
+    listingActions[0] = GovV3Helpers.buildAction(
+      GovV3Helpers.deployDeterministic(type(AaveV3Base_GHOBaseListing_20241223).creationCode)
+    );
+
+    // register both actions separately at payloadsController
+    GovV3Helpers.createPayload(launchActions);
+    GovV3Helpers.createPayload(listingActions);
   }
 }
 
@@ -81,7 +85,7 @@ contract DeployBase is BaseScript {
 contract CreateProposal is EthereumScript {
   function run() external {
     // create payloads
-    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](3);
+    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](4);
 
     // compose actions for validation
     IPayloadsControllerCore.ExecutionAction[]
@@ -99,9 +103,18 @@ contract CreateProposal is EthereumScript {
     payloads[1] = GovV3Helpers.buildArbitrumPayload(vm, actionsArbitrum);
 
     IPayloadsControllerCore.ExecutionAction[]
-      memory actionsBase = new IPayloadsControllerCore.ExecutionAction[](1);
-    actionsBase[0] = GovV3Helpers.buildAction(type(AaveV3Base_GHOBaseLaunch_20241223).creationCode);
-    payloads[2] = GovV3Helpers.buildBasePayload(vm, actionsBase);
+      memory actionsBaseLaunch = new IPayloadsControllerCore.ExecutionAction[](1);
+    actionsBaseLaunch[0] = GovV3Helpers.buildAction(
+      type(AaveV3Base_GHOBaseLaunch_20241223).creationCode
+    );
+    payloads[2] = GovV3Helpers.buildBasePayload(vm, actionsBaseLaunch);
+
+    IPayloadsControllerCore.ExecutionAction[]
+      memory actionsBaseListing = new IPayloadsControllerCore.ExecutionAction[](1);
+    actionsBaseListing[0] = GovV3Helpers.buildAction(
+      type(AaveV3Base_GHOBaseListing_20241223).creationCode
+    );
+    payloads[3] = GovV3Helpers.buildBasePayload(vm, actionsBaseListing);
 
     // create proposal
     vm.startBroadcast();
