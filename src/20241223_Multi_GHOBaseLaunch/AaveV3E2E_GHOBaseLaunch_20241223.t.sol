@@ -92,9 +92,9 @@ contract AaveV3Base_GHOBaseLaunch_20241223_Base is ProtocolV3TestBase {
     Common c;
   }
 
+  address internal constant RISK_COUNCIL = 0x8513e6F37dBc52De87b166980Fa3F50639694B60; // common across all chains
   address internal constant RMN_PROXY_BASE = 0xC842c69d54F83170C42C4d556B4F6B2ca53Dd3E8;
   address internal constant ROUTER_BASE = 0x881e3A65B4d4a04dD529061dd0071cf975F58bCD;
-  address internal constant RISK_COUNCIL_BASE = 0x8513e6F37dBc52De87b166980Fa3F50639694B60;
   address internal constant GHO_TOKEN_IMPL_BASE = 0xb0e1c7830aA781362f79225559Aa068E6bDaF1d1;
   IGhoToken internal constant GHO_TOKEN_BASE =
     IGhoToken(0x6F2216CB3Ca97b8756C5fD99bE27986f04CBd81D); // predicted address, will be deployed in the AIP
@@ -206,7 +206,7 @@ contract AaveV3Base_GHOBaseLaunch_20241223_Base is ProtocolV3TestBase {
       new GhoCcipSteward({
         ghoTokenPool: newTokenPoolEth,
         ghoToken: AaveV3EthereumAssets.GHO_UNDERLYING,
-        riskCouncil: makeAddr('ETH: riskAdmin'),
+        riskCouncil: RISK_COUNCIL,
         bridgeLimitEnabled: true
       })
     );
@@ -226,7 +226,7 @@ contract AaveV3Base_GHOBaseLaunch_20241223_Base is ProtocolV3TestBase {
       new GhoCcipSteward({
         ghoTokenPool: newTokenPoolArb,
         ghoToken: AaveV3ArbitrumAssets.GHO_UNDERLYING,
-        riskCouncil: makeAddr('ARB: riskAdmin'),
+        riskCouncil: RISK_COUNCIL,
         bridgeLimitEnabled: false
       })
     );
@@ -361,7 +361,7 @@ contract AaveV3Base_GHOBaseLaunch_20241223_Base is ProtocolV3TestBase {
         addressesProvider: address(AaveV3Base.POOL_ADDRESSES_PROVIDER),
         poolDataProvider: address(AaveV3Base.UI_POOL_DATA_PROVIDER),
         ghoToken: address(GHO_TOKEN_BASE),
-        riskCouncil: RISK_COUNCIL_BASE,
+        riskCouncil: RISK_COUNCIL,
         borrowRateConfig: IGhoAaveSteward.BorrowRateConfig({
           optimalUsageRatioMaxChange: 500,
           baseVariableBorrowRateMaxChange: 500,
@@ -374,14 +374,14 @@ contract AaveV3Base_GHOBaseLaunch_20241223_Base is ProtocolV3TestBase {
       new GhoBucketSteward({
         owner: GovernanceV3Base.EXECUTOR_LVL_1,
         ghoToken: address(GHO_TOKEN_BASE),
-        riskCouncil: RISK_COUNCIL_BASE
+        riskCouncil: RISK_COUNCIL
       })
     );
     address ccipSteward = address(
       new GhoCcipSteward({
         ghoToken: address(GHO_TOKEN_BASE),
         ghoTokenPool: ghoTokenPool,
-        riskCouncil: RISK_COUNCIL_BASE,
+        riskCouncil: RISK_COUNCIL,
         bridgeLimitEnabled: false
       })
     );
@@ -494,6 +494,7 @@ contract AaveV3Base_GHOBaseLaunch_20241223_Base is ProtocolV3TestBase {
 
       vm.selectFork(base.c.forkId);
       assertEq(base.proposal.GHO_TOKEN_IMPL(), _getImplementation(address(base.c.token)));
+      assertEq(address(base.proposal.GHO_TOKEN_PROXY()), address(base.c.token));
       assertEq(base.c.tokenAdminRegistry.getPool(address(base.c.token)), address(base.tokenPool));
       assertEq(base.tokenPool.getSupportedChains()[0], eth.c.chainSelector);
       assertEq(base.tokenPool.getSupportedChains()[1], arb.c.chainSelector);
