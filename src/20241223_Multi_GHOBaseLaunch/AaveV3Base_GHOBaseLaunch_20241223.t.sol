@@ -67,8 +67,9 @@ contract AaveV3Base_GHOBaseLaunch_20241223_Base is ProtocolV3TestBase {
   IRouter internal constant ROUTER = IRouter(0x881e3A65B4d4a04dD529061dd0071cf975F58bCD);
   address internal constant RMN_PROXY = 0xC842c69d54F83170C42C4d556B4F6B2ca53Dd3E8;
 
-  address public constant GHO_TOKEN_IMPL = 0xb0e1c7830aA781362f79225559Aa068E6bDaF1d1;
-  IGhoToken public constant GHO = IGhoToken(0x6F2216CB3Ca97b8756C5fD99bE27986f04CBd81D); // predicted address, will be deployed in the AIP
+  address internal constant GHO_TOKEN_IMPL = 0xb0e1c7830aA781362f79225559Aa068E6bDaF1d1;
+  IGhoToken internal constant GHO = IGhoToken(0x6F2216CB3Ca97b8756C5fD99bE27986f04CBd81D); // predicted address, will be deployed in the AIP
+  address internal constant RISK_COUNCIL = 0x8513e6F37dBc52De87b166980Fa3F50639694B60;
 
   IGhoAaveSteward internal NEW_GHO_AAVE_STEWARD;
   IGhoBucketSteward internal NEW_GHO_BUCKET_STEWARD;
@@ -79,7 +80,6 @@ contract AaveV3Base_GHOBaseLaunch_20241223_Base is ProtocolV3TestBase {
 
   address internal NEW_REMOTE_POOL_ARB = makeAddr('ARB: BurnMintTokenPool 1.5.1');
   address internal NEW_REMOTE_POOL_ETH = makeAddr('ETH: LockReleaseTokenPool 1.5.1');
-  address internal RISK_COUNCIL = makeAddr('riskCouncil');
   address internal alice = makeAddr('alice');
   address internal bob = makeAddr('bob');
   address internal carol = makeAddr('carol');
@@ -219,6 +219,22 @@ contract AaveV3Base_GHOBaseLaunch_20241223_Base is ProtocolV3TestBase {
     _assertOnRamp(ETH_ON_RAMP, BASE_CHAIN_SELECTOR, ETH_CHAIN_SELECTOR, ROUTER);
     _assertOffRamp(ARB_OFF_RAMP, ARB_CHAIN_SELECTOR, BASE_CHAIN_SELECTOR, ROUTER);
     _assertOffRamp(ETH_OFF_RAMP, ETH_CHAIN_SELECTOR, BASE_CHAIN_SELECTOR, ROUTER);
+
+    address computedGhoTokenAddress = vm.computeCreate2Address({
+      salt: keccak256('based-GHO'),
+      initCodeHash: keccak256(
+        abi.encodePacked(
+          type(TransparentUpgradeableProxy).creationCode,
+          abi.encode(
+            address(GHO_TOKEN_IMPL),
+            MiscBase.PROXY_ADMIN,
+            abi.encodeCall(IGhoToken.initialize, (GovernanceV3Base.EXECUTOR_LVL_1))
+          )
+        )
+      ),
+      deployer: GovernanceV3Base.EXECUTOR_LVL_1
+    });
+    assertEq(address(GHO), computedGhoTokenAddress);
   }
 
   function _assertOnRamp(
@@ -410,7 +426,6 @@ contract AaveV3Base_GHOBaseLaunch_20241223_PreExecution is AaveV3Base_GHOBaseLau
       address(uint160(uint256(vm.load(address(NEW_TOKEN_POOL), bytes32(0))) >> 2)), // pending owner
       address(0)
     );
-    console.logBytes32(vm.load(address(NEW_TOKEN_POOL), bytes32(0)));
     assertEq(NEW_TOKEN_POOL.getToken(), address(GHO));
     assertEq(NEW_TOKEN_POOL.getTokenDecimals(), GHO.decimals());
     assertEq(NEW_TOKEN_POOL.getRmnProxy(), RMN_PROXY);

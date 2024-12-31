@@ -93,7 +93,7 @@ contract AaveV3Base_GHOBaseLaunch_20241223_Base is ProtocolV3TestBase {
 
   address internal constant RMN_PROXY_BASE = 0xC842c69d54F83170C42C4d556B4F6B2ca53Dd3E8;
   address internal constant ROUTER_BASE = 0x881e3A65B4d4a04dD529061dd0071cf975F58bCD;
-  address internal RISK_COUNCIL_BASE = makeAddr('BASE: riskCouncil');
+  address internal constant RISK_COUNCIL_BASE = 0x8513e6F37dBc52De87b166980Fa3F50639694B60;
   address internal constant GHO_TOKEN_IMPL_BASE = 0xb0e1c7830aA781362f79225559Aa068E6bDaF1d1;
   IGhoToken internal constant GHO_TOKEN_BASE =
     IGhoToken(0x6F2216CB3Ca97b8756C5fD99bE27986f04CBd81D); // predicted address, will be deployed in the AIP
@@ -557,6 +557,24 @@ contract AaveV3Base_GHOBaseLaunch_20241223_Base is ProtocolV3TestBase {
         abi.encode(address(base.tokenPool))
       );
       _assertDisabledRateLimit(eth.c, address(eth.tokenPool));
+    } else {
+      vm.selectFork(base.c.forkId);
+      // correct gho Token Address
+      address computedGhoTokenAddress = vm.computeCreate2Address({
+        salt: keccak256('based-GHO'),
+        initCodeHash: keccak256(
+          abi.encodePacked(
+            type(TransparentUpgradeableProxy).creationCode,
+            abi.encode(
+              address(GHO_TOKEN_IMPL_BASE),
+              MiscBase.PROXY_ADMIN,
+              abi.encodeCall(IGhoToken.initialize, (GovernanceV3Base.EXECUTOR_LVL_1))
+            )
+          )
+        ),
+        deployer: address(GovernanceV3Base.EXECUTOR_LVL_1)
+      });
+      assertEq(address(base.proposal.GHO_TOKEN_PROXY()), computedGhoTokenAddress);
     }
   }
 
