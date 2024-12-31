@@ -22,16 +22,21 @@ contract AaveV3Arbitrum_GHOBaseLaunch_20241223 is IProposalGenericExecutor {
   // https://basescan.org/address/0x6F2216CB3Ca97b8756C5fD99bE27986f04CBd81D
   address public constant REMOTE_GHO_TOKEN_BASE = 0x6F2216CB3Ca97b8756C5fD99bE27986f04CBd81D; // predicted
 
+  // Token Rate Limit Capacity: 300_000 GHO
+  uint128 public constant CCIP_RATE_LIMIT_CAPACITY = 300_000e18;
+  // Token Rate Limit Refill Rate: 60 GHO per second (=> 216_000 GHO per hour)
+  uint128 public constant CCIP_RATE_LIMIT_REFILL_RATE = 60e18;
+
   constructor(address tokenPoolArb, address tokenPoolBase) {
     TOKEN_POOL = IUpgradeableBurnMintTokenPool_1_5_1(tokenPoolArb);
     REMOTE_TOKEN_POOL_BASE = tokenPoolBase;
   }
 
   function execute() external {
-    IRateLimiter.Config memory emptyRateLimiterConfig = IRateLimiter.Config({
-      isEnabled: false,
-      capacity: 0,
-      rate: 0
+    IRateLimiter.Config memory rateLimiterConfig = IRateLimiter.Config({
+      isEnabled: true,
+      capacity: CCIP_RATE_LIMIT_CAPACITY,
+      rate: CCIP_RATE_LIMIT_REFILL_RATE
     });
 
     IUpgradeableBurnMintTokenPool_1_5_1.ChainUpdate[]
@@ -44,8 +49,8 @@ contract AaveV3Arbitrum_GHOBaseLaunch_20241223 is IProposalGenericExecutor {
       remoteChainSelector: BASE_CHAIN_SELECTOR,
       remotePoolAddresses: remotePoolAddresses,
       remoteTokenAddress: abi.encode(REMOTE_GHO_TOKEN_BASE),
-      outboundRateLimiterConfig: emptyRateLimiterConfig,
-      inboundRateLimiterConfig: emptyRateLimiterConfig
+      outboundRateLimiterConfig: rateLimiterConfig,
+      inboundRateLimiterConfig: rateLimiterConfig
     });
 
     TOKEN_POOL.applyChainUpdates({

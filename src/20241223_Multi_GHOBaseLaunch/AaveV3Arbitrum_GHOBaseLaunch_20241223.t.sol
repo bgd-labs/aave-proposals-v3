@@ -47,6 +47,8 @@ contract AaveV3Arbitrum_GHOBaseLaunch_20241223_Test is ProtocolV3TestBase {
   uint64 internal constant ARB_CHAIN_SELECTOR = CCIPUtils.ARB_CHAIN_SELECTOR;
   uint64 internal constant BASE_CHAIN_SELECTOR = CCIPUtils.BASE_CHAIN_SELECTOR;
   uint64 internal constant ETH_CHAIN_SELECTOR = CCIPUtils.ETH_CHAIN_SELECTOR;
+  uint256 internal constant CCIP_RATE_LIMIT_CAPACITY = 300_000e18;
+  uint256 internal constant CCIP_RATE_LIMIT_REFILL_RATE = 60e18;
 
   IGhoToken internal constant GHO = IGhoToken(AaveV3ArbitrumAssets.GHO_UNDERLYING);
   ITokenAdminRegistry internal constant TOKEN_ADMIN_REGISTRY =
@@ -100,19 +102,17 @@ contract AaveV3Arbitrum_GHOBaseLaunch_20241223_Test is ProtocolV3TestBase {
   }
 
   function _upgradeArbTo1_5_1() internal {
-    vm.prank(TOKEN_ADMIN_REGISTRY.owner());
+    AaveV3Arbitrum_GHOCCIP151Upgrade_20241209 upgradeProposal = new AaveV3Arbitrum_GHOCCIP151Upgrade_20241209(
+        address(NEW_TOKEN_POOL),
+        NEW_REMOTE_POOL_ETH,
+        address(NEW_GHO_CCIP_STEWARD)
+      );
+    vm.startPrank(TOKEN_ADMIN_REGISTRY.owner());
     TOKEN_ADMIN_REGISTRY.transferAdminRole(address(GHO), GovernanceV3Arbitrum.EXECUTOR_LVL_1);
+    upgradeProposal.EXISTING_PROXY_POOL().transferOwnership(GovernanceV3Arbitrum.EXECUTOR_LVL_1);
+    vm.stopPrank();
 
-    executePayload(
-      vm,
-      address(
-        new AaveV3Arbitrum_GHOCCIP151Upgrade_20241209(
-          address(NEW_TOKEN_POOL),
-          NEW_REMOTE_POOL_ETH,
-          address(NEW_GHO_CCIP_STEWARD)
-        )
-      )
-    );
+    executePayload(vm, address(upgradeProposal));
   }
 
   function _deployNewTokenPoolArb() private returns (address) {
@@ -161,6 +161,8 @@ contract AaveV3Arbitrum_GHOBaseLaunch_20241223_Test is ProtocolV3TestBase {
     assertEq(address(proposal.TOKEN_POOL()), address(NEW_TOKEN_POOL));
     assertEq(proposal.REMOTE_TOKEN_POOL_BASE(), NEW_REMOTE_POOL_BASE);
     assertEq(proposal.REMOTE_GHO_TOKEN_BASE(), NEW_REMOTE_TOKEN_BASE);
+    assertEq(proposal.CCIP_RATE_LIMIT_CAPACITY(), CCIP_RATE_LIMIT_CAPACITY);
+    assertEq(proposal.CCIP_RATE_LIMIT_REFILL_RATE(), CCIP_RATE_LIMIT_REFILL_RATE);
 
     assertEq(TOKEN_ADMIN_REGISTRY.typeAndVersion(), 'TokenAdminRegistry 1.5.0');
     assertEq(NEW_TOKEN_POOL.typeAndVersion(), 'BurnMintTokenPool 1.5.1');
@@ -256,6 +258,27 @@ contract AaveV3Arbitrum_GHOBaseLaunch_20241223_Test is ProtocolV3TestBase {
     return uint8(uint256(vm.load(proxy, bytes32(0))));
   }
 
+  function _getRateLimiterConfig() internal view returns (IRateLimiter.Config memory) {
+    return
+      IRateLimiter.Config({
+        isEnabled: true,
+        capacity: proposal.CCIP_RATE_LIMIT_CAPACITY(),
+        rate: proposal.CCIP_RATE_LIMIT_REFILL_RATE()
+      });
+  }
+
+  function _getOutboundRefillTime(uint256 amount) internal pure returns (uint256) {
+    return (amount / CCIP_RATE_LIMIT_REFILL_RATE) + 1; // account for rounding
+  }
+
+  function _getInboundRefillTime(uint256 amount) internal pure returns (uint256) {
+    return amount / CCIP_RATE_LIMIT_REFILL_RATE + 1; // account for rounding
+  }
+
+  function _min(uint256 a, uint256 b) internal pure returns (uint256) {
+    return a < b ? a : b;
+  }
+
   function assertEq(
     IRateLimiter.TokenBucket memory bucket,
     IRateLimiter.Config memory config
@@ -287,31 +310,36 @@ contract AaveV3Arbitrum_GHOBaseLaunch_20241223_Test is ProtocolV3TestBase {
     );
     assertEq(
       NEW_TOKEN_POOL.getCurrentInboundRateLimiterState(ETH_CHAIN_SELECTOR),
-      _getDisabledConfig()
+      _getRateLimiterConfig()
     );
     assertEq(
       NEW_TOKEN_POOL.getCurrentOutboundRateLimiterState(ETH_CHAIN_SELECTOR),
-      _getDisabledConfig()
+      _getRateLimiterConfig()
     );
     assertEq(
       NEW_TOKEN_POOL.getCurrentInboundRateLimiterState(BASE_CHAIN_SELECTOR),
-      _getDisabledConfig()
+      _getRateLimiterConfig()
     );
     assertEq(
       NEW_TOKEN_POOL.getCurrentOutboundRateLimiterState(BASE_CHAIN_SELECTOR),
-      _getDisabledConfig()
+      _getRateLimiterConfig()
     );
   }
 
   function test_sendMessageToBaseSucceeds(uint256 amount) public {
-    uint256 bridgeableAmount = GHO.getFacilitator(address(NEW_TOKEN_POOL)).bucketLevel;
+    uint256 bridgeableAmount = _min(
+      GHO.getFacilitator(address(NEW_TOKEN_POOL)).bucketLevel,
+      CCIP_RATE_LIMIT_CAPACITY
+    );
     amount = bound(amount, 1, bridgeableAmount);
+    skip(_getOutboundRefillTime(amount)); // wait for the rate limiter to refill
 
     deal(address(GHO), alice, amount);
     vm.prank(alice);
     GHO.approve(address(ROUTER), amount);
 
     uint256 aliceBalance = GHO.balanceOf(alice);
+    uint256 bucketLevel = GHO.getFacilitator(address(NEW_TOKEN_POOL)).bucketLevel;
 
     (
       IClient.EVM2AnyMessage memory message,
@@ -329,18 +357,23 @@ contract AaveV3Arbitrum_GHOBaseLaunch_20241223_Test is ProtocolV3TestBase {
     ROUTER.ccipSend{value: eventArg.feeTokenAmount}(BASE_CHAIN_SELECTOR, message);
 
     assertEq(GHO.balanceOf(alice), aliceBalance - amount);
-    assertEq(GHO.getFacilitator(address(NEW_TOKEN_POOL)).bucketLevel, bridgeableAmount - amount);
+    assertEq(GHO.getFacilitator(address(NEW_TOKEN_POOL)).bucketLevel, bucketLevel - amount);
   }
 
   function test_sendMessageToEthSucceeds(uint256 amount) public {
-    uint256 bridgeableAmount = GHO.getFacilitator(address(NEW_TOKEN_POOL)).bucketLevel;
+    uint256 bridgeableAmount = _min(
+      GHO.getFacilitator(address(NEW_TOKEN_POOL)).bucketLevel,
+      CCIP_RATE_LIMIT_CAPACITY
+    );
     amount = bound(amount, 1, bridgeableAmount);
+    skip(_getOutboundRefillTime(amount)); // wait for the rate limiter to refill
 
     deal(address(GHO), alice, amount);
     vm.prank(alice);
     GHO.approve(address(ROUTER), amount);
 
     uint256 aliceBalance = GHO.balanceOf(alice);
+    uint256 bucketLevel = GHO.getFacilitator(address(NEW_TOKEN_POOL)).bucketLevel;
 
     (
       IClient.EVM2AnyMessage memory message,
@@ -358,15 +391,16 @@ contract AaveV3Arbitrum_GHOBaseLaunch_20241223_Test is ProtocolV3TestBase {
     ROUTER.ccipSend{value: eventArg.feeTokenAmount}(ETH_CHAIN_SELECTOR, message);
 
     assertEq(GHO.balanceOf(alice), aliceBalance - amount);
-    assertEq(GHO.getFacilitator(address(NEW_TOKEN_POOL)).bucketLevel, bridgeableAmount - amount);
+    assertEq(GHO.getFacilitator(address(NEW_TOKEN_POOL)).bucketLevel, bucketLevel - amount);
   }
 
   function test_offRampViaBaseSucceeds(uint256 amount) public {
     (uint256 bucketCapacity, uint256 bucketLevel) = GHO.getFacilitatorBucket(
       address(NEW_TOKEN_POOL)
     );
-    uint256 mintAbleAmount = bucketCapacity - bucketLevel;
+    uint256 mintAbleAmount = _min(bucketCapacity - bucketLevel, CCIP_RATE_LIMIT_CAPACITY);
     amount = bound(amount, 1, mintAbleAmount);
+    skip(_getInboundRefillTime(amount));
 
     uint256 aliceBalance = GHO.balanceOf(alice);
 
@@ -395,8 +429,9 @@ contract AaveV3Arbitrum_GHOBaseLaunch_20241223_Test is ProtocolV3TestBase {
     (uint256 bucketCapacity, uint256 bucketLevel) = GHO.getFacilitatorBucket(
       address(NEW_TOKEN_POOL)
     );
-    uint256 mintAbleAmount = bucketCapacity - bucketLevel;
+    uint256 mintAbleAmount = _min(bucketCapacity - bucketLevel, CCIP_RATE_LIMIT_CAPACITY);
     amount = bound(amount, 1, mintAbleAmount);
+    skip(_getInboundRefillTime(amount));
 
     uint256 aliceBalance = GHO.balanceOf(alice);
 
@@ -423,6 +458,7 @@ contract AaveV3Arbitrum_GHOBaseLaunch_20241223_Test is ProtocolV3TestBase {
 
   function test_cannotUseBaseOffRampForEthMessages() public {
     uint256 amount = 100e18;
+    skip(_getInboundRefillTime(amount));
 
     vm.expectRevert(
       abi.encodeWithSelector(CallerIsNotARampOnRouter.selector, address(BASE_OFF_RAMP))
@@ -444,6 +480,7 @@ contract AaveV3Arbitrum_GHOBaseLaunch_20241223_Test is ProtocolV3TestBase {
 
   function test_cannotOffRampOtherChainMessages() public {
     uint256 amount = 100e18;
+    skip(_getInboundRefillTime(amount));
 
     vm.expectRevert(
       abi.encodeWithSelector(
