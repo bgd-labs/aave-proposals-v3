@@ -11,6 +11,8 @@ import {IRouter} from 'src/interfaces/ccip/IRouter.sol';
 import {IEVM2EVMOnRamp} from 'src/interfaces/ccip/IEVM2EVMOnRamp.sol';
 import {IEVM2EVMOffRamp_1_5} from 'src/interfaces/ccip/IEVM2EVMOffRamp.sol';
 import {ITokenAdminRegistry} from 'src/interfaces/ccip/ITokenAdminRegistry.sol';
+import {IPriceRegistry} from 'src/interfaces/ccip/IPriceRegistry.sol';
+import {IProxyPool} from 'src/interfaces/ccip/IProxyPool.sol';
 import {IGhoToken} from 'src/interfaces/IGhoToken.sol';
 import {IGhoCcipSteward} from 'src/interfaces/IGhoCcipSteward.sol';
 
@@ -57,6 +59,7 @@ contract AaveV3E2E_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
     IEVM2EVMOffRamp_1_5 EVM2EVMOffRamp;
     ITokenAdminRegistry tokenAdminRegistry;
     IGhoCcipSteward newGhoCcipSteward;
+    IPriceRegistry priceRegistry;
     address proxyPool;
     uint64 chainSelector;
     uint256 forkId;
@@ -82,6 +85,9 @@ contract AaveV3E2E_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
   address internal alice = makeAddr('alice');
   address internal bob = makeAddr('bob');
   address internal carol = makeAddr('carol');
+
+  uint256 internal constant CCIP_RATE_LIMIT_CAPACITY = 300_000e18;
+  uint256 internal constant CCIP_RATE_LIMIT_REFILL_RATE = 60e18;
 
   event CCIPSendRequested(IInternal.EVM2EVMMessage message);
   event Locked(address indexed sender, uint256 amount);
@@ -126,6 +132,7 @@ contract AaveV3E2E_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
     l1.c.EVM2EVMOnRamp = IEVM2EVMOnRamp(l1.c.router.getOnRamp(l2.c.chainSelector));
     l1.c.EVM2EVMOffRamp = IEVM2EVMOffRamp_1_5(0xdf615eF8D4C64d0ED8Fd7824BBEd2f6a10245aC9); // new offramp
     l1.c.tokenAdminRegistry = ITokenAdminRegistry(0xb22764f98dD05c789929716D677382Df22C05Cb6);
+    l1.c.priceRegistry = IPriceRegistry(l1.c.EVM2EVMOnRamp.getDynamicConfig().priceRegistry);
     l1.c.proxyPool = l1.existingTokenPool.getProxyPool();
 
     vm.selectFork(l2.c.forkId);
@@ -144,6 +151,7 @@ contract AaveV3E2E_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
     l2.c.EVM2EVMOnRamp = IEVM2EVMOnRamp(l2.c.router.getOnRamp(l1.c.chainSelector));
     l2.c.EVM2EVMOffRamp = IEVM2EVMOffRamp_1_5(0x91e46cc5590A4B9182e47f40006140A7077Dec31); // new offramp
     l2.c.tokenAdminRegistry = ITokenAdminRegistry(0x39AE1032cF4B334a1Ed41cdD0833bdD7c7E7751E);
+    l2.c.priceRegistry = IPriceRegistry(l2.c.EVM2EVMOnRamp.getDynamicConfig().priceRegistry);
     l2.c.proxyPool = l2.existingTokenPool.getProxyPool();
 
     _validateConfig({upgraded: false});
@@ -186,23 +194,32 @@ contract AaveV3E2E_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
     assertEq(l1.c.router.typeAndVersion(), 'Router 1.2.0');
     assertEq(l1.c.EVM2EVMOnRamp.typeAndVersion(), 'EVM2EVMOnRamp 1.5.0');
     assertEq(l1.c.EVM2EVMOffRamp.typeAndVersion(), 'EVM2EVMOffRamp 1.5.0');
-
     assertEq(l1.existingTokenPool.typeAndVersion(), 'LockReleaseTokenPool 1.4.0');
     assertEq(l1.newTokenPool.typeAndVersion(), 'LockReleaseTokenPool 1.5.1');
-
     assertEq(l1.c.tokenAdminRegistry.typeAndVersion(), 'TokenAdminRegistry 1.5.0');
+    assertEq(l1.c.priceRegistry.typeAndVersion(), 'PriceRegistry 1.2.0');
+    assertEq(
+      l1.c.EVM2EVMOnRamp.getDynamicConfig().priceRegistry,
+      l1.c.EVM2EVMOffRamp.getDynamicConfig().priceRegistry
+    );
     assertTrue(l1.c.router.isOffRamp(l2.c.chainSelector, address(l1.c.EVM2EVMOffRamp)));
     assertEq(l1.c.router.getOnRamp(l2.c.chainSelector), address(l1.c.EVM2EVMOnRamp));
 
     // proposal constants
     assertEq(address(l1.proposal.TOKEN_ADMIN_REGISTRY()), address(l1.c.tokenAdminRegistry));
     assertEq(l1.proposal.ARB_CHAIN_SELECTOR(), l2.c.chainSelector);
+    assertEq(address(l1.proposal.EXISTING_PROXY_POOL()), l1.c.proxyPool);
     assertEq(address(l1.proposal.EXISTING_TOKEN_POOL()), address(l1.existingTokenPool));
     assertEq(address(l1.proposal.EXISTING_REMOTE_POOL_ARB()), l2.c.proxyPool);
     assertEq(address(l1.proposal.NEW_TOKEN_POOL()), address(l1.newTokenPool));
     assertEq(address(l1.proposal.NEW_REMOTE_POOL_ARB()), address(l2.newTokenPool));
+    assertEq(l1.proposal.CCIP_RATE_LIMIT_CAPACITY(), CCIP_RATE_LIMIT_CAPACITY);
+    assertEq(l1.proposal.CCIP_RATE_LIMIT_REFILL_RATE(), CCIP_RATE_LIMIT_REFILL_RATE);
 
     if (upgraded) {
+      assertEq(IProxyPool(l1.c.proxyPool).owner(), GovernanceV3Ethereum.EXECUTOR_LVL_1);
+      assertEq(l1.newTokenPool.owner(), GovernanceV3Ethereum.EXECUTOR_LVL_1);
+
       assertEq(l1.c.tokenAdminRegistry.getPool(address(l1.c.token)), address(l1.newTokenPool));
 
       assertEq(l1.c.token.balanceOf(address(l1.existingTokenPool)), 0);
@@ -235,22 +252,32 @@ contract AaveV3E2E_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
     assertEq(l2.existingTokenPool.typeAndVersion(), 'BurnMintTokenPool 1.4.0');
     assertEq(l2.newTokenPool.typeAndVersion(), 'BurnMintTokenPool 1.5.1');
     assertEq(l2.c.tokenAdminRegistry.typeAndVersion(), 'TokenAdminRegistry 1.5.0');
+    assertEq(l2.c.priceRegistry.typeAndVersion(), 'PriceRegistry 1.2.0');
+    assertEq(
+      l2.c.EVM2EVMOnRamp.getDynamicConfig().priceRegistry,
+      l2.c.EVM2EVMOffRamp.getDynamicConfig().priceRegistry
+    );
     assertTrue(l2.c.router.isOffRamp(l1.c.chainSelector, address(l2.c.EVM2EVMOffRamp)));
-
     assertEq(l2.c.router.getOnRamp(l1.c.chainSelector), address(l2.c.EVM2EVMOnRamp));
 
     // proposal constants
     assertEq(address(l2.proposal.TOKEN_ADMIN_REGISTRY()), address(l2.c.tokenAdminRegistry));
     assertEq(l2.proposal.ETH_CHAIN_SELECTOR(), l1.c.chainSelector);
+    assertEq(address(l2.proposal.EXISTING_PROXY_POOL()), l2.c.proxyPool);
     assertEq(address(l2.proposal.EXISTING_TOKEN_POOL()), address(l2.existingTokenPool));
     assertEq(address(l2.proposal.EXISTING_REMOTE_POOL_ETH()), l1.c.proxyPool);
     assertEq(address(l2.proposal.NEW_TOKEN_POOL()), address(l2.newTokenPool));
     assertEq(address(l2.proposal.NEW_REMOTE_POOL_ETH()), address(l1.newTokenPool));
+    assertEq(l2.proposal.CCIP_RATE_LIMIT_CAPACITY(), CCIP_RATE_LIMIT_CAPACITY);
+    assertEq(l2.proposal.CCIP_RATE_LIMIT_REFILL_RATE(), CCIP_RATE_LIMIT_REFILL_RATE);
 
     if (upgraded) {
+      assertEq(IProxyPool(l2.c.proxyPool).owner(), GovernanceV3Arbitrum.EXECUTOR_LVL_1);
+      assertEq(l2.newTokenPool.owner(), GovernanceV3Arbitrum.EXECUTOR_LVL_1);
+
       assertEq(l2.c.tokenAdminRegistry.getPool(address(l2.c.token)), address(l2.newTokenPool));
       assertEq(bytes(l2.c.token.getFacilitator(address(l2.existingTokenPool)).label).length, 0);
-      assertEq(l2.c.token.getFacilitator(address(l2.newTokenPool)).label, 'CCIP TokenPool v1.5.1 ');
+      assertEq(l2.c.token.getFacilitator(address(l2.newTokenPool)).label, 'CCIP TokenPool v1.5.1');
     } else {
       assertEq(l2.c.tokenAdminRegistry.getPool(address(l2.c.token)), l2.c.proxyPool);
       assertEq(l2.c.token.getFacilitator(address(l2.existingTokenPool)).label, 'CCIP TokenPool');
@@ -267,18 +294,22 @@ contract AaveV3E2E_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
 
   function _performPoolTransferCLLPreReq() private {
     vm.selectFork(l1.c.forkId);
-    vm.prank(l1.c.tokenAdminRegistry.owner());
+    vm.startPrank(l1.c.tokenAdminRegistry.owner());
     l1.c.tokenAdminRegistry.transferAdminRole(
       AaveV3EthereumAssets.GHO_UNDERLYING,
       GovernanceV3Ethereum.EXECUTOR_LVL_1
     );
+    IProxyPool(l1.c.proxyPool).transferOwnership(GovernanceV3Ethereum.EXECUTOR_LVL_1);
+    vm.stopPrank();
 
     vm.selectFork(l2.c.forkId);
-    vm.prank(l2.c.tokenAdminRegistry.owner());
+    vm.startPrank(l2.c.tokenAdminRegistry.owner());
     l2.c.tokenAdminRegistry.transferAdminRole(
       AaveV3ArbitrumAssets.GHO_UNDERLYING,
       GovernanceV3Arbitrum.EXECUTOR_LVL_1
     );
+    IProxyPool(l2.c.proxyPool).transferOwnership(GovernanceV3Arbitrum.EXECUTOR_LVL_1);
+    vm.stopPrank();
   }
 
   function _deployNewTokenPoolEth() private returns (address) {
@@ -351,9 +382,61 @@ contract AaveV3E2E_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
     return address(new GhoCcipSteward(ghoToken, newTokenPool, riskCouncil, bridgeLimitEnabled));
   }
 
+  function _getOutboundRefillTime(uint256 amount) internal pure returns (uint256) {
+    return (amount / CCIP_RATE_LIMIT_REFILL_RATE) + 1; // account for rounding
+  }
+
+  function _getInboundRefillTime(uint256 amount) internal pure returns (uint256) {
+    return (amount / CCIP_RATE_LIMIT_REFILL_RATE) + 1; // account for rounding
+  }
+
+  function _min(uint256 a, uint256 b) internal pure returns (uint256) {
+    return a < b ? a : b;
+  }
+
+  // @dev refresh token prices to the last stored such that price is not stale
+  // @dev assumed c.forkId is already active
+  function _refreshGasAndTokenPrices(Common memory c) internal {
+    uint64 destChainSelector = c.forkId == l1.c.forkId ? l2.c.chainSelector : l1.c.chainSelector;
+    address bridgeToken = address(c.token);
+    address feeToken = c.router.getWrappedNative(); // needed as we do tests with wrapped native as fee token
+    address linkToken = c.EVM2EVMOnRamp.getStaticConfig().linkToken; // needed as feeTokenAmount is converted to linkTokenAmount
+    IInternal.TokenPriceUpdate[] memory tokenPriceUpdates = new IInternal.TokenPriceUpdate[](3);
+    IInternal.GasPriceUpdate[] memory gasPriceUpdates = new IInternal.GasPriceUpdate[](1);
+
+    tokenPriceUpdates[0] = IInternal.TokenPriceUpdate({
+      sourceToken: bridgeToken,
+      usdPerToken: c.priceRegistry.getTokenPrice(bridgeToken).value
+    });
+    tokenPriceUpdates[1] = IInternal.TokenPriceUpdate({
+      sourceToken: feeToken,
+      usdPerToken: c.priceRegistry.getTokenPrice(feeToken).value
+    });
+    tokenPriceUpdates[2] = IInternal.TokenPriceUpdate({
+      sourceToken: linkToken,
+      usdPerToken: c.priceRegistry.getTokenPrice(linkToken).value
+    });
+
+    gasPriceUpdates[0] = IInternal.GasPriceUpdate({
+      destChainSelector: destChainSelector,
+      usdPerUnitGas: c.priceRegistry.getDestinationChainGasPrice(destChainSelector).value
+    });
+
+    vm.prank(c.priceRegistry.owner());
+    c.priceRegistry.updatePrices(
+      IInternal.PriceUpdates({
+        tokenPriceUpdates: tokenPriceUpdates,
+        gasPriceUpdates: gasPriceUpdates
+      })
+    );
+  }
+
   // post upgrade
   function _runEthToArb(address user, uint256 amount) internal {
     vm.selectFork(l1.c.forkId);
+
+    skip(_getOutboundRefillTime(amount)); // wait for the rate limiter to refill
+    _refreshGasAndTokenPrices(l1.c);
 
     vm.prank(user);
     l1.c.token.approve(address(l1.c.router), amount);
@@ -392,6 +475,9 @@ contract AaveV3E2E_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
     // ARB executeMessage
     vm.selectFork(l2.c.forkId);
 
+    skip(_getInboundRefillTime(amount));
+    _refreshGasAndTokenPrices(l2.c);
+
     userBalance = l2.c.token.balanceOf(user);
     uint256 bucketLevel = l2.c.token.getFacilitator(address(l2.newTokenPool)).bucketLevel;
 
@@ -411,6 +497,9 @@ contract AaveV3E2E_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
   // post upgrade
   function _runArbToEth(address user, uint256 amount) internal {
     vm.selectFork(l2.c.forkId);
+
+    skip(_getOutboundRefillTime(amount));
+    _refreshGasAndTokenPrices(l2.c);
 
     vm.prank(user);
     l2.c.token.approve(address(l2.c.router), amount);
@@ -447,6 +536,9 @@ contract AaveV3E2E_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
     // ETH executeMessage
     vm.selectFork(l1.c.forkId);
 
+    skip(_getInboundRefillTime(amount));
+    _refreshGasAndTokenPrices(l1.c);
+
     uint256 tokenPoolBalance = l1.c.token.balanceOf(address(l1.newTokenPool));
     uint256 bridgedAmount = l1.newTokenPool.getCurrentBridgedAmount();
     userBalance = l1.c.token.balanceOf(user);
@@ -479,11 +571,11 @@ contract AaveV3E2E_GHOCCIP151Upgrade_20241209_PostUpgrade is
 
   function test_E2E_FromEth(uint256 amount) public {
     vm.selectFork(l1.c.forkId);
-    amount = bound(
-      amount,
-      1,
-      l1.newTokenPool.getBridgeLimit() - l1.newTokenPool.getCurrentBridgedAmount()
+    uint256 bridgeableAmount = _min(
+      l1.newTokenPool.getBridgeLimit() - l1.newTokenPool.getCurrentBridgedAmount(),
+      CCIP_RATE_LIMIT_CAPACITY
     );
+    amount = bound(amount, 1, bridgeableAmount);
     deal(address(l1.c.token), alice, amount);
 
     _runEthToArb(alice, amount);
@@ -492,32 +584,16 @@ contract AaveV3E2E_GHOCCIP151Upgrade_20241209_PostUpgrade is
 
   function test_E2E_FromArb(uint256 amount) public {
     vm.selectFork(l2.c.forkId);
-    uint256 currentBridgedAmount = l2.c.token.getFacilitator(address(l2.newTokenPool)).bucketLevel;
+    uint256 bridgeableAmount = _min(
+      l2.c.token.getFacilitator(address(l2.newTokenPool)).bucketLevel,
+      CCIP_RATE_LIMIT_CAPACITY
+    );
 
-    amount = bound(amount, 1, currentBridgedAmount);
+    amount = bound(amount, 1, bridgeableAmount);
     deal(address(l2.c.token), alice, amount);
 
     _runArbToEth(alice, amount);
     _runEthToArb(alice, amount);
-  }
-
-  function test_E2E_Multiple() public {
-    vm.selectFork(l1.c.forkId);
-    uint256 currentBridgedAmount = l1.newTokenPool.getCurrentBridgedAmount();
-    uint256 amount = currentBridgedAmount / 3;
-
-    deal(address(l1.c.token), alice, amount);
-    deal(address(l1.c.token), bob, amount);
-
-    vm.selectFork(l2.c.forkId);
-    deal(address(l2.c.token), carol, amount);
-
-    _runEthToArb(alice, amount);
-    _runEthToArb(bob, amount);
-    _runArbToEth(alice, amount);
-    _runArbToEth(carol, amount);
-    _runEthToArb(carol, amount);
-    _runArbToEth(bob, amount);
   }
 }
 
@@ -530,6 +606,7 @@ contract AaveV3E2E_GHOCCIP151Upgrade_20241209_InFlightUpgrade is
 
     uint256 amount = 100_000e18;
     deal(address(l1.c.token), alice, amount);
+    skip(_getOutboundRefillTime(amount));
 
     vm.prank(alice);
     l1.c.token.approve(address(l1.c.router), amount);
@@ -573,6 +650,7 @@ contract AaveV3E2E_GHOCCIP151Upgrade_20241209_InFlightUpgrade is
     // ARB executeMessage
     vm.selectFork(l2.c.forkId);
 
+    skip(_getInboundRefillTime(amount));
     aliceBalance = l2.c.token.balanceOf(alice);
     uint256 bucketLevel = l2.c.token.getFacilitator(address(l2.newTokenPool)).bucketLevel;
 
@@ -597,6 +675,7 @@ contract AaveV3E2E_GHOCCIP151Upgrade_20241209_InFlightUpgrade is
 
     uint256 amount = 100_000e18;
     deal(address(l2.c.token), alice, amount);
+    skip(_getOutboundRefillTime(amount));
 
     vm.prank(alice);
     l2.c.token.approve(address(l2.c.router), amount);
@@ -641,6 +720,7 @@ contract AaveV3E2E_GHOCCIP151Upgrade_20241209_InFlightUpgrade is
     // ETH executeMessage
     vm.selectFork(l1.c.forkId);
 
+    skip(_getInboundRefillTime(amount));
     uint256 tokenPoolBalance = l1.c.token.balanceOf(address(l1.newTokenPool));
     uint256 bridgedAmount = l1.newTokenPool.getCurrentBridgedAmount();
     aliceBalance = l1.c.token.balanceOf(alice);

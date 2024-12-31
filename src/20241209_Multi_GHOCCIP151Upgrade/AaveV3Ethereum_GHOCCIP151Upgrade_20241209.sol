@@ -4,8 +4,9 @@ pragma solidity ^0.8.0;
 import {IUpgradeableLockReleaseTokenPool_1_4, IUpgradeableLockReleaseTokenPool_1_5_1} from 'src/interfaces/ccip/tokenPool/IUpgradeableLockReleaseTokenPool.sol';
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
 import {ITokenAdminRegistry} from 'src/interfaces/ccip/ITokenAdminRegistry.sol';
+import {IProxyPool} from 'src/interfaces/ccip/IProxyPool.sol';
 import {IRateLimiter} from 'src/interfaces/ccip/IRateLimiter.sol';
-import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
+import {GhoEthereum} from 'aave-address-book/GhoEthereum.sol';
 import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
 
@@ -21,9 +22,12 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209 is IProposalGenericExecutor {
   ITokenAdminRegistry public constant TOKEN_ADMIN_REGISTRY =
     ITokenAdminRegistry(0xb22764f98dD05c789929716D677382Df22C05Cb6);
 
+  // https://etherscan.io/address/0x9Ec9F9804733df96D1641666818eFb5198eC50f0
+  IProxyPool public constant EXISTING_PROXY_POOL =
+    IProxyPool(0x9Ec9F9804733df96D1641666818eFb5198eC50f0);
   // https://etherscan.io/address/0x5756880B6a1EAba0175227bf02a7E87c1e02B28C
   IUpgradeableLockReleaseTokenPool_1_4 public constant EXISTING_TOKEN_POOL =
-    IUpgradeableLockReleaseTokenPool_1_4(0x5756880B6a1EAba0175227bf02a7E87c1e02B28C); // MiscEthereum.GHO_CCIP_TOKEN_POOL; will be updated in address-book after AIP
+    IUpgradeableLockReleaseTokenPool_1_4(GhoEthereum.GHO_CCIP_TOKEN_POOL); // will be updated in address-book after AIP
   IUpgradeableLockReleaseTokenPool_1_5_1 public immutable NEW_TOKEN_POOL;
 
   address public immutable NEW_GHO_CCIP_STEWARD;
@@ -31,6 +35,11 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209 is IProposalGenericExecutor {
   // https://arbiscan.io/address/0x26329558f08cbb40d6a4CCA0E0C67b29D64A8c50
   address public constant EXISTING_REMOTE_POOL_ARB = 0x26329558f08cbb40d6a4CCA0E0C67b29D64A8c50; // ProxyPool on Arb
   address public immutable NEW_REMOTE_POOL_ARB;
+
+  // Token Rate Limit Capacity: 300_000 GHO
+  uint128 public constant CCIP_RATE_LIMIT_CAPACITY = 300_000e18;
+  // Token Rate Limit Refill Rate: 60 GHO per second (=> 216_000 GHO per hour)
+  uint128 public constant CCIP_RATE_LIMIT_REFILL_RATE = 60e18;
 
   constructor(address newTokenPoolEth, address newTokenPoolArb, address newGhoCcipSteward) {
     NEW_TOKEN_POOL = IUpgradeableLockReleaseTokenPool_1_5_1(newTokenPoolEth);
@@ -46,6 +55,7 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209 is IProposalGenericExecutor {
 
   // pre-req - chainlink transfers gho token pool ownership on token admin registry
   function _acceptOwnership() internal {
+    EXISTING_PROXY_POOL.acceptOwnership();
     NEW_TOKEN_POOL.acceptOwnership();
     TOKEN_ADMIN_REGISTRY.acceptAdminRole(AaveV3EthereumAssets.GHO_UNDERLYING);
   }
@@ -61,24 +71,25 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209 is IProposalGenericExecutor {
   }
 
   function _setupAndRegisterNewPool() internal {
-    bytes[] memory remotePoolAddresses = new bytes[](2);
-    remotePoolAddresses[0] = abi.encode(EXISTING_REMOTE_POOL_ARB);
-    remotePoolAddresses[1] = abi.encode(NEW_REMOTE_POOL_ARB);
-    IRateLimiter.Config memory emptyRateLimiterConfig = IRateLimiter.Config({
-      isEnabled: false,
-      capacity: 0,
-      rate: 0
+    IRateLimiter.Config memory rateLimiterConfig = IRateLimiter.Config({
+      isEnabled: true,
+      capacity: CCIP_RATE_LIMIT_CAPACITY,
+      rate: CCIP_RATE_LIMIT_REFILL_RATE
     });
 
     IUpgradeableLockReleaseTokenPool_1_5_1.ChainUpdate[]
       memory chains = new IUpgradeableLockReleaseTokenPool_1_5_1.ChainUpdate[](1);
 
+    bytes[] memory remotePoolAddresses = new bytes[](2);
+    remotePoolAddresses[0] = abi.encode(EXISTING_REMOTE_POOL_ARB);
+    remotePoolAddresses[1] = abi.encode(NEW_REMOTE_POOL_ARB);
+
     chains[0] = IUpgradeableLockReleaseTokenPool_1_5_1.ChainUpdate({
       remoteChainSelector: ARB_CHAIN_SELECTOR,
       remotePoolAddresses: remotePoolAddresses,
       remoteTokenAddress: abi.encode(AaveV3ArbitrumAssets.GHO_UNDERLYING),
-      outboundRateLimiterConfig: emptyRateLimiterConfig,
-      inboundRateLimiterConfig: emptyRateLimiterConfig
+      outboundRateLimiterConfig: rateLimiterConfig,
+      inboundRateLimiterConfig: rateLimiterConfig
     });
 
     // setup new pool
