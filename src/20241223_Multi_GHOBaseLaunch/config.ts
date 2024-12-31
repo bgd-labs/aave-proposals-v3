@@ -2,7 +2,7 @@ import {ConfigFile} from '../../generator/types';
 export const config: ConfigFile = {
   rootOptions: {
     pools: ['AaveV3Ethereum', 'AaveV3Arbitrum', 'AaveV3Base'],
-    title: 'GHO Base Launch',
+    title: 'Launch GHO on Base',
     shortName: 'GHOBaseLaunch',
     date: '20241223',
     author: 'Aave Labs',
