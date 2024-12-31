@@ -239,11 +239,7 @@ contract AaveV3Base_GHOBaseListing_20241223_Stewards is AaveV3Base_GHOBaseListin
         variableRateSlope2: 65_00
       });
 
-    assertEq(
-      irStrategy.getInterestRateDataBps(address(GHO_TOKEN)),
-      currentRateData,
-      'currentRateData'
-    );
+    assertEq(irStrategy.getInterestRateDataBps(address(GHO_TOKEN)), currentRateData);
 
     currentRateData.variableRateSlope1 -= 10_00;
     currentRateData.variableRateSlope2 -= 42_00;
