@@ -17,21 +17,6 @@ import {IEmissionManager} from 'aave-v3-origin/contracts/rewards/interfaces/IEmi
 contract AaveV3Gnosis_AaveV3GnosisInstanceUpdates_20241224 is AaveV3PayloadGnosis {
   using SafeERC20 for IERC20;
 
-  address public constant osGNO = 0xF490c80aAE5f2616d3e3BDa2483E30C4CB21d1A0;
-  uint256 public constant osGNO_SEED_AMOUNT = 5e17;
-  address public constant osGNO_LM_ADMIN = 0xac140648435d03f784879cd789130F22Ef588Fcd;
-
-  function _postExecute() internal override {
-    IERC20(osGNO).forceApprove(address(AaveV3Gnosis.POOL), osGNO_SEED_AMOUNT);
-    AaveV3Gnosis.POOL.supply(osGNO, osGNO_SEED_AMOUNT, address(AaveV3Gnosis.COLLECTOR), 0);
-
-    (address aosGNO, , ) = AaveV3Gnosis.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(
-      osGNO
-    );
-    IEmissionManager(AaveV3Gnosis.EMISSION_MANAGER).setEmissionAdmin(osGNO, osGNO_LM_ADMIN);
-    IEmissionManager(AaveV3Gnosis.EMISSION_MANAGER).setEmissionAdmin(aosGNO, osGNO_LM_ADMIN);
-  }
-
   function collateralsUpdates()
     public
     pure
@@ -79,17 +64,10 @@ contract AaveV3Gnosis_AaveV3GnosisInstanceUpdates_20241224 is AaveV3PayloadGnosi
     returns (IAaveV3ConfigEngine.EModeCategoryUpdate[] memory)
   {
     IAaveV3ConfigEngine.EModeCategoryUpdate[]
-      memory eModeUpdates = new IAaveV3ConfigEngine.EModeCategoryUpdate[](2);
+      memory eModeUpdates = new IAaveV3ConfigEngine.EModeCategoryUpdate[](1);
 
     eModeUpdates[0] = IAaveV3ConfigEngine.EModeCategoryUpdate({
       eModeCategory: 2,
-      ltv: 90_00,
-      liqThreshold: 92_50,
-      liqBonus: 2_50,
-      label: 'osGNO / GNO'
-    });
-    eModeUpdates[1] = IAaveV3ConfigEngine.EModeCategoryUpdate({
-      eModeCategory: 3,
       ltv: 85_00,
       liqThreshold: 87_50,
       liqBonus: 5_00,
@@ -105,62 +83,21 @@ contract AaveV3Gnosis_AaveV3GnosisInstanceUpdates_20241224 is AaveV3PayloadGnosi
     returns (IAaveV3ConfigEngine.AssetEModeUpdate[] memory)
   {
     IAaveV3ConfigEngine.AssetEModeUpdate[]
-      memory assetEModeUpdates = new IAaveV3ConfigEngine.AssetEModeUpdate[](4);
+      memory assetEModeUpdates = new IAaveV3ConfigEngine.AssetEModeUpdate[](2);
 
     assetEModeUpdates[0] = IAaveV3ConfigEngine.AssetEModeUpdate({
-      asset: osGNO,
+      asset: AaveV3GnosisAssets.EURe_UNDERLYING,
       eModeCategory: 2,
-      borrowable: EngineFlags.DISABLED,
-      collateral: EngineFlags.ENABLED
+      borrowable: EngineFlags.ENABLED,
+      collateral: EngineFlags.DISABLED
     });
     assetEModeUpdates[1] = IAaveV3ConfigEngine.AssetEModeUpdate({
-      asset: AaveV3GnosisAssets.GNO_UNDERLYING,
-      eModeCategory: 2,
-      borrowable: EngineFlags.ENABLED,
-      collateral: EngineFlags.DISABLED
-    });
-    assetEModeUpdates[2] = IAaveV3ConfigEngine.AssetEModeUpdate({
-      asset: AaveV3GnosisAssets.EURe_UNDERLYING,
-      eModeCategory: 3,
-      borrowable: EngineFlags.ENABLED,
-      collateral: EngineFlags.DISABLED
-    });
-    assetEModeUpdates[3] = IAaveV3ConfigEngine.AssetEModeUpdate({
       asset: AaveV3GnosisAssets.sDAI_UNDERLYING,
-      eModeCategory: 3,
+      eModeCategory: 2,
       borrowable: EngineFlags.DISABLED,
       collateral: EngineFlags.ENABLED
     });
 
     return assetEModeUpdates;
-  }
-  function newListings() public pure override returns (IAaveV3ConfigEngine.Listing[] memory) {
-    IAaveV3ConfigEngine.Listing[] memory listings = new IAaveV3ConfigEngine.Listing[](1);
-
-    listings[0] = IAaveV3ConfigEngine.Listing({
-      asset: osGNO,
-      assetSymbol: 'osGNO',
-      priceFeed: 0xbE26c8b354208E898EBd88B1576C4df2e216ed30,
-      enabledToBorrow: EngineFlags.DISABLED,
-      borrowableInIsolation: EngineFlags.DISABLED,
-      withSiloedBorrowing: EngineFlags.DISABLED,
-      flashloanable: EngineFlags.DISABLED,
-      ltv: 5,
-      liqThreshold: 10,
-      liqBonus: 7_50,
-      reserveFactor: 10_00,
-      supplyCap: 4_750,
-      borrowCap: 1,
-      debtCeiling: 0,
-      liqProtocolFee: 10_00,
-      rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
-        optimalUsageRatio: 50_00,
-        baseVariableBorrowRate: 0,
-        variableRateSlope1: 0,
-        variableRateSlope2: 0
-      })
-    });
-
-    return listings;
   }
 }

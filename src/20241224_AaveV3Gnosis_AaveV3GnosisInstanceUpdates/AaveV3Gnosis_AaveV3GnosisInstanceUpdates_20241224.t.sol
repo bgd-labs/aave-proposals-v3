@@ -32,27 +32,4 @@ contract AaveV3Gnosis_AaveV3GnosisInstanceUpdates_20241224_Test is ProtocolV3Tes
       address(proposal)
     );
   }
-
-  function test_collectorHasosGNOFunds() public {
-    GovV3Helpers.executePayload(vm, address(proposal));
-    (address aTokenAddress, , ) = AaveV3Gnosis
-      .AAVE_PROTOCOL_DATA_PROVIDER
-      .getReserveTokensAddresses(proposal.osGNO());
-    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Gnosis.COLLECTOR)), 5 * 10 ** 17);
-  }
-
-  function test_osGNOAdmin() public {
-    GovV3Helpers.executePayload(vm, address(proposal));
-    (address aosGNO, , ) = AaveV3Gnosis.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(
-      proposal.osGNO()
-    );
-    assertEq(
-      IEmissionManager(AaveV3Gnosis.EMISSION_MANAGER).getEmissionAdmin(proposal.osGNO()),
-      proposal.osGNO_LM_ADMIN()
-    );
-    assertEq(
-      IEmissionManager(AaveV3Gnosis.EMISSION_MANAGER).getEmissionAdmin(aosGNO),
-      proposal.osGNO_LM_ADMIN()
-    );
-  }
 }

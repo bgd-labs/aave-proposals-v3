@@ -1,5 +1,5 @@
 ---
-title: "Aave v3 Gnosis Instance Updates"
+title: "Aave v3 Gnosis Instance Updates Part 1"
 author: "Aave-chan Initiative"
 discussions: "https://governance.aave.com/t/arfc-aave-v3-gnosis-instance-updates/20334"
 snapshot: "https://snapshot.box/#/s:aave.eth/proposal/0x2e93ddd01ba5ec415b0962907b7c65def947d1ed94f1e5b402c5578560b1dddb"
@@ -7,37 +7,17 @@ snapshot: "https://snapshot.box/#/s:aave.eth/proposal/0x2e93ddd01ba5ec415b096290
 
 ## Simple Summary
 
+This AIP proposes several updates to the Aave v3 Gnosis instance to improve capital efficiency and add new use cases on the network. The key changes include removing GNO from isolation mode, adjusting the reserve factor for EURe, and creating a new relevant E-mode.
+
 ## Motivation
 
+GNO has demonstrated strong stability and market presence on Gnosis Chain, making isolation mode unnecessarily restrictive and hindering network growth. Removing GNO from isolation mode will facilitate further expansion of the network.
+
+The reduction in the EURe reserve factor aligns with the asset's performance and incentivizes increased lending activity.
+
+introducing a new E-mode for sDAI & EURe will enhance capital efficiency and foster synergies between stable assets. The unique combination of EUR and USD borrowing opportunities is a distinct advantage for Gnosis Chain.
+
 ## Specification
-
-### Onbooarding
-
-The table below illustrates the configured risk parameters for **osGNO**
-
-| Parameter                 |                                      Value |
-| ------------------------- | -----------------------------------------: |
-| Isolation Mode            |                                      false |
-| Borrowable                |                                   DISABLED |
-| Collateral Enabled        |                                       true |
-| Supply Cap (osGNO)        |                                      4,750 |
-| Borrow Cap (osGNO)        |                                          1 |
-| Debt Ceiling              |                                      USD 0 |
-| LTV                       |                                     0.05 % |
-| LT                        |                                      0.1 % |
-| Liquidation Bonus         |                                      7.5 % |
-| Liquidation Protocol Fee  |                                       10 % |
-| Reserve Factor            |                                       10 % |
-| Base Variable Borrow Rate |                                        0 % |
-| Variable Slope 1          |                                        0 % |
-| Variable Slope 2          |                                        0 % |
-| Uoptimal                  |                                       50 % |
-| Flashloanable             |                                   DISABLED |
-| Siloed Borrowing          |                                   DISABLED |
-| Borrowable in Isolation   |                                   DISABLED |
-| Oracle                    | 0x22441d81416430A54336aB28765abd31a792Ad37 |
-
-Additionaly [0xac140648435d03f784879cd789130F22Ef588Fcd](https://gnosisscan.io/address/0xac140648435d03f784879cd789130F22Ef588Fcd) has been set as the emission admin for osGNO and the corresponding aToken.
 
 ### Rates and parameters updates
 
@@ -46,16 +26,7 @@ Additionaly [0xac140648435d03f784879cd789130F22Ef588Fcd](https://gnosisscan.io/a
 
 ### E-Modes
 
-The followings E-modes will be created:
-
-| **Parameter**         | **Value** | **Value** |
-| --------------------- | --------- | --------- |
-| Asset                 | osGNO     | GNO       |
-| Collateral            | Yes       | No        |
-| Borrowable            | No        | Yes       |
-| Max LTV               | 90%       | -         |
-| Liquidation Threshold | 92.5%     | -         |
-| Liquidation Bonus     | 2.50%     | -         |
+The followings E-mode will be created:
 
 | **Parameter**         | **Value** | **Value** |
 | --------------------- | --------- | --------- |
