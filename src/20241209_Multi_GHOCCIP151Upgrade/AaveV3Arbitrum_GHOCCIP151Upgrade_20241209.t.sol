@@ -15,6 +15,7 @@ import {ITypeAndVersion} from 'src/interfaces/ccip/ITypeAndVersion.sol';
 import {IEVM2EVMOffRamp_1_5} from 'src/interfaces/ccip/IEVM2EVMOffRamp.sol';
 import {ITokenAdminRegistry} from 'src/interfaces/ccip/ITokenAdminRegistry.sol';
 import {IGhoToken} from 'src/interfaces/IGhoToken.sol';
+import {IGhoBucketSteward} from 'src/interfaces/IGhoBucketSteward.sol';
 import {IGhoCcipSteward} from 'src/interfaces/IGhoCcipSteward.sol';
 
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
@@ -57,7 +58,8 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
     IGhoCcipSteward(0xb329CEFF2c362F315900d245eC88afd24C4949D5);
   IGhoCcipSteward internal constant NEW_GHO_CCIP_STEWARD =
     IGhoCcipSteward(0x06179f7C1be40863405f374E7f5F8806c728660A);
-
+  IGhoBucketSteward internal constant EXISTING_GHO_BUCKET_STEWARD =
+    IGhoBucketSteward(0xa9afaE6A53E90f9E4CE0717162DF5Bc3d9aBe7B2);
   IProxyPool internal constant EXISTING_PROXY_POOL =
     IProxyPool(0x26329558f08cbb40d6a4CCA0E0C67b29D64A8c50);
   IUpgradeableBurnMintTokenPool_1_4 internal constant EXISTING_TOKEN_POOL =
@@ -97,6 +99,8 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
     assertEq(address(proposal.EXISTING_TOKEN_POOL()), address(EXISTING_TOKEN_POOL));
     assertEq(address(proposal.EXISTING_REMOTE_POOL_ETH()), ETH_PROXY_POOL);
     assertEq(address(proposal.NEW_TOKEN_POOL()), address(NEW_TOKEN_POOL));
+    assertEq(address(proposal.EXISTING_GHO_BUCKET_STEWARD()), address(EXISTING_GHO_BUCKET_STEWARD));
+    assertEq(address(proposal.NEW_GHO_CCIP_STEWARD()), address(NEW_GHO_CCIP_STEWARD));
     assertEq(address(proposal.NEW_REMOTE_POOL_ETH()), NEW_REMOTE_POOL_ETH);
     assertEq(proposal.CCIP_RATE_LIMIT_CAPACITY(), CCIP_RATE_LIMIT_CAPACITY);
     assertEq(proposal.CCIP_RATE_LIMIT_REFILL_RATE(), CCIP_RATE_LIMIT_REFILL_RATE);
@@ -121,6 +125,7 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
 
     assertEq(EXISTING_TOKEN_POOL.getRateLimitAdmin(), address(EXISTING_GHO_CCIP_STEWARD));
 
+    assertTrue(GHO.hasRole(GHO.BUCKET_MANAGER_ROLE(), address(EXISTING_GHO_BUCKET_STEWARD)));
     assertEq(NEW_GHO_CCIP_STEWARD.RISK_COUNCIL(), EXISTING_GHO_CCIP_STEWARD.RISK_COUNCIL());
     assertEq(NEW_GHO_CCIP_STEWARD.GHO_TOKEN(), AaveV3ArbitrumAssets.GHO_UNDERLYING);
     assertEq(NEW_GHO_CCIP_STEWARD.GHO_TOKEN_POOL(), address(NEW_TOKEN_POOL));
@@ -331,6 +336,18 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209_SetupAndProposalActions is
     NEW_TOKEN_POOL.initialize(makeAddr('owner'), new address[](0), makeAddr('router'));
     assertEq(_readInitialized(address(NEW_TOKEN_POOL)), 1);
     assertEq(_readInitialized(_getImplementation(address(NEW_TOKEN_POOL))), 255);
+  }
+
+  function test_bucketStewardUpdate() public {
+    assertEq(EXISTING_GHO_BUCKET_STEWARD.getControlledFacilitators().length, 1);
+    assertTrue(EXISTING_GHO_BUCKET_STEWARD.isControlledFacilitator(address(EXISTING_TOKEN_POOL)));
+    assertFalse(EXISTING_GHO_BUCKET_STEWARD.isControlledFacilitator(address(NEW_TOKEN_POOL)));
+
+    executePayload(vm, address(proposal));
+
+    assertEq(EXISTING_GHO_BUCKET_STEWARD.getControlledFacilitators().length, 1);
+    assertFalse(EXISTING_GHO_BUCKET_STEWARD.isControlledFacilitator(address(EXISTING_TOKEN_POOL)));
+    assertTrue(EXISTING_GHO_BUCKET_STEWARD.isControlledFacilitator(address(NEW_TOKEN_POOL)));
   }
 }
 
