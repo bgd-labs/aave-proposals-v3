@@ -65,7 +65,7 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
     IUpgradeableLockReleaseTokenPool_1_4(0x5756880B6a1EAba0175227bf02a7E87c1e02B28C); // GhoEthereum.GHO_CCIP_TOKEN_POOL; will be updated in address-book after AIP
   IUpgradeableLockReleaseTokenPool_1_5_1 internal constant NEW_TOKEN_POOL =
     IUpgradeableLockReleaseTokenPool_1_5_1(0x20fd5f3FCac8883a3A0A2bBcD658A2d2c6EFa6B6);
-  address internal constant NEW_REMOTE_POOL_ARB = 0x20fd5f3FCac8883a3A0A2bBcD658A2d2c6EFa6B6;
+  address internal constant NEW_REMOTE_POOL_ARB = 0x6Bb7a212910682DCFdbd5BCBb3e28FB4E8da10Ee;
 
   AaveV3Ethereum_GHOCCIP151Upgrade_20241209 internal proposal;
 

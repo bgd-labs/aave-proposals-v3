@@ -36,8 +36,8 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209 is IProposalGenericExecutor {
 
   // https://arbiscan.io/address/0x26329558f08cbb40d6a4CCA0E0C67b29D64A8c50
   address public constant EXISTING_REMOTE_POOL_ARB = 0x26329558f08cbb40d6a4CCA0E0C67b29D64A8c50; // ProxyPool on Arb
-  // https://arbiscan.io/address/0x20fd5f3FCac8883a3A0A2bBcD658A2d2c6EFa6B6
-  address public constant NEW_REMOTE_POOL_ARB = 0x20fd5f3FCac8883a3A0A2bBcD658A2d2c6EFa6B6;
+  // https://arbiscan.io/address/0x6Bb7a212910682DCFdbd5BCBb3e28FB4E8da10Ee
+  address public constant NEW_REMOTE_POOL_ARB = 0x6Bb7a212910682DCFdbd5BCBb3e28FB4E8da10Ee;
 
   // Token Rate Limit Capacity: 300_000 GHO
   uint128 public constant CCIP_RATE_LIMIT_CAPACITY = 300_000e18;

@@ -56,14 +56,14 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
   IGhoCcipSteward internal constant EXISTING_GHO_CCIP_STEWARD =
     IGhoCcipSteward(0xb329CEFF2c362F315900d245eC88afd24C4949D5);
   IGhoCcipSteward internal constant NEW_GHO_CCIP_STEWARD =
-    IGhoCcipSteward(0xFAdC082665577b533e62A7B0E067f884cA5C5E8F);
+    IGhoCcipSteward(0x06179f7C1be40863405f374E7f5F8806c728660A);
 
   IProxyPool internal constant EXISTING_PROXY_POOL =
     IProxyPool(0x26329558f08cbb40d6a4CCA0E0C67b29D64A8c50);
   IUpgradeableBurnMintTokenPool_1_4 internal constant EXISTING_TOKEN_POOL =
     IUpgradeableBurnMintTokenPool_1_4(0xF168B83598516A532a85995b52504a2Fa058C068); // GhoArbitrum.GHO_CCIP_TOKEN_POOL; will be updated in address-book after AIP
   IUpgradeableBurnMintTokenPool_1_5_1 internal constant NEW_TOKEN_POOL =
-    IUpgradeableBurnMintTokenPool_1_5_1(0x20fd5f3FCac8883a3A0A2bBcD658A2d2c6EFa6B6);
+    IUpgradeableBurnMintTokenPool_1_5_1(0x6Bb7a212910682DCFdbd5BCBb3e28FB4E8da10Ee);
   address internal constant NEW_REMOTE_POOL_ETH = 0x20fd5f3FCac8883a3A0A2bBcD658A2d2c6EFa6B6;
 
   AaveV3Arbitrum_GHOCCIP151Upgrade_20241209 internal proposal;
@@ -77,7 +77,7 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
   event CCIPSendRequested(IInternal.EVM2EVMMessage message);
 
   function setUp() public virtual {
-    vm.createSelectFork(vm.rpcUrl('arbitrum'), 291207768);
+    vm.createSelectFork(vm.rpcUrl('arbitrum'), 291243768);
     proposal = new AaveV3Arbitrum_GHOCCIP151Upgrade_20241209();
 
     // pre-req - chainlink transfers gho token pool ownership on token admin registry
