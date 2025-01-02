@@ -32,12 +32,12 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209 is IProposalGenericExecutor {
   // https://arbiscan.io/address/0xF168B83598516A532a85995b52504a2Fa058C068
   IUpgradeableBurnMintTokenPool_1_4 public constant EXISTING_TOKEN_POOL =
     IUpgradeableBurnMintTokenPool_1_4(GhoArbitrum.GHO_CCIP_TOKEN_POOL); // will be updated in address-book after AIP
-  // https://arbiscan.io/address/0x20fd5f3FCac8883a3A0A2bBcD658A2d2c6EFa6B6
+  // https://arbiscan.io/address/0x6Bb7a212910682DCFdbd5BCBb3e28FB4E8da10Ee
   IUpgradeableBurnMintTokenPool_1_5_1 public constant NEW_TOKEN_POOL =
-    IUpgradeableBurnMintTokenPool_1_5_1(0x20fd5f3FCac8883a3A0A2bBcD658A2d2c6EFa6B6);
+    IUpgradeableBurnMintTokenPool_1_5_1(0x6Bb7a212910682DCFdbd5BCBb3e28FB4E8da10Ee);
 
-  // https://arbiscan.io/address/0xFAdC082665577b533e62A7B0E067f884cA5C5E8F
-  address public constant NEW_GHO_CCIP_STEWARD = 0xFAdC082665577b533e62A7B0E067f884cA5C5E8F;
+  // https://arbiscan.io/address/0x06179f7C1be40863405f374E7f5F8806c728660A
+  address public constant NEW_GHO_CCIP_STEWARD = 0x06179f7C1be40863405f374E7f5F8806c728660A;
 
   // https://etherscan.io/address/0x9Ec9F9804733df96D1641666818eFb5198eC50f0
   address public constant EXISTING_REMOTE_POOL_ETH = 0x9Ec9F9804733df96D1641666818eFb5198eC50f0; // ProxyPool on ETH

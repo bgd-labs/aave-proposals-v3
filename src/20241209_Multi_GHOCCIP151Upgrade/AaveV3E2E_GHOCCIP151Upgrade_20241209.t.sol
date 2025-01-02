@@ -89,7 +89,7 @@ contract AaveV3E2E_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
 
   function setUp() public virtual {
     l1.c.forkId = vm.createFork(vm.rpcUrl('mainnet'), 21536364);
-    l2.c.forkId = vm.createFork(vm.rpcUrl('arbitrum'), 291207768);
+    l2.c.forkId = vm.createFork(vm.rpcUrl('arbitrum'), 291243768);
 
     vm.selectFork(l1.c.forkId);
     l1.proposal = new AaveV3Ethereum_GHOCCIP151Upgrade_20241209();
@@ -114,7 +114,7 @@ contract AaveV3E2E_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
       0xF168B83598516A532a85995b52504a2Fa058C068
     ); // MiscArbitrum.GHO_CCIP_TOKEN_POOL; will be updated in address-book after AIP
     l2.newTokenPool = IUpgradeableBurnMintTokenPool_1_5_1(
-      0x20fd5f3FCac8883a3A0A2bBcD658A2d2c6EFa6B6
+      0x6Bb7a212910682DCFdbd5BCBb3e28FB4E8da10Ee
     );
     l2.c.router = IRouter(l2.existingTokenPool.getRouter());
     l1.c.chainSelector = l2.existingTokenPool.getSupportedChains()[0];

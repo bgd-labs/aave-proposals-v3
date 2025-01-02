@@ -12,6 +12,6 @@ export const config: ConfigFile = {
   },
   poolOptions: {
     AaveV3Ethereum: {configs: {OTHERS: {}}, cache: {blockNumber: 21536364}},
-    AaveV3Arbitrum: {configs: {OTHERS: {}}, cache: {blockNumber: 291207768}},
+    AaveV3Arbitrum: {configs: {OTHERS: {}}, cache: {blockNumber: 291243768}},
   },
 };
