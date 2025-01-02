@@ -33,7 +33,7 @@ export const config: ConfigFile = {
           {
             assetSymbol: 'ezETH',
             decimals: 18,
-            priceFeed: '0x639Fe6ab55C921f74e7fac1ee960C0B6293ba612',
+            priceFeed: '0x8Ed37B72300683c0482A595bfa80fFb793874b15',
             ltv: '72',
             liqThreshold: '75',
             liqBonus: '7.5',
@@ -78,7 +78,7 @@ export const config: ConfigFile = {
           {
             assetSymbol: 'ezETH',
             decimals: 18,
-            priceFeed: '0x71041dddad3595F9CEd3DcCFBe3D1F4b0a16Bb70',
+            priceFeed: '0x438e24f5FCDC1A66ecb25D19B5543e0Cb91A44D4',
             ltv: '72',
             liqThreshold: '75',
             liqBonus: '7.5',

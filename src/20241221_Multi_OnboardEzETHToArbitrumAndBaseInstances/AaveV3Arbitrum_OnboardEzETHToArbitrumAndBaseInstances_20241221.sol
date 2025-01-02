@@ -87,7 +87,7 @@ contract AaveV3Arbitrum_OnboardEzETHToArbitrumAndBaseInstances_20241221 is AaveV
     listings[0] = IAaveV3ConfigEngine.Listing({
       asset: ezETH,
       assetSymbol: 'ezETH',
-      priceFeed: 0x639Fe6ab55C921f74e7fac1ee960C0B6293ba612,
+      priceFeed: 0x8Ed37B72300683c0482A595bfa80fFb793874b15,
       enabledToBorrow: EngineFlags.ENABLED,
       borrowableInIsolation: EngineFlags.DISABLED,
       withSiloedBorrowing: EngineFlags.DISABLED,
