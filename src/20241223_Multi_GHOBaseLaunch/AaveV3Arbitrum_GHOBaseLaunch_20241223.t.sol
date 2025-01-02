@@ -3,7 +3,7 @@ pragma solidity ^0.8.0;
 
 import 'forge-std/Test.sol';
 
-import {IUpgradeableBurnMintTokenPool_1_4, IUpgradeableBurnMintTokenPool_1_5_1} from 'src/interfaces/ccip/tokenPool/IUpgradeableBurnMintTokenPool.sol';
+import {IUpgradeableBurnMintTokenPool_1_5_1} from 'src/interfaces/ccip/tokenPool/IUpgradeableBurnMintTokenPool.sol';
 import {IPool as IPool_CCIP} from 'src/interfaces/ccip/tokenPool/IPool.sol';
 import {IClient} from 'src/interfaces/ccip/IClient.sol';
 import {IInternal} from 'src/interfaces/ccip/IInternal.sol';
@@ -19,14 +19,7 @@ import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Arbitrum} from 'aave-address-book/AaveV3Arbitrum.sol';
 import {AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
 import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
-import {MiscArbitrum} from 'aave-address-book/MiscArbitrum.sol';
-import {GhoArbitrum} from 'aave-address-book/GhoArbitrum.sol';
 import {GovernanceV3Arbitrum} from 'aave-address-book/GovernanceV3Arbitrum.sol';
-
-import {TransparentUpgradeableProxy} from 'solidity-utils/contracts/transparent-proxy/TransparentUpgradeableProxy.sol';
-import {ProxyAdmin} from 'solidity-utils/contracts/transparent-proxy/ProxyAdmin.sol';
-import {UpgradeableBurnMintTokenPool} from 'aave-ccip/pools/GHO/UpgradeableBurnMintTokenPool.sol';
-import {GhoCcipSteward} from 'gho-core/misc/GhoCcipSteward.sol';
 
 import {CCIPUtils} from './utils/CCIPUtils.sol';
 
@@ -57,24 +50,23 @@ contract AaveV3Arbitrum_GHOBaseLaunch_20241223_Test is ProtocolV3TestBase {
     IEVM2EVMOnRamp(0x67761742ac8A21Ec4D76CA18cbd701e5A6F3Bef3);
   IEVM2EVMOnRamp internal constant BASE_ON_RAMP =
     IEVM2EVMOnRamp(0xc1b6287A3292d6469F2D8545877E40A2f75CA9a6);
-
   IEVM2EVMOffRamp_1_5 internal constant ETH_OFF_RAMP =
     IEVM2EVMOffRamp_1_5(0x91e46cc5590A4B9182e47f40006140A7077Dec31);
   IEVM2EVMOffRamp_1_5 internal constant BASE_OFF_RAMP =
     IEVM2EVMOffRamp_1_5(0xb62178f8198905D0Fa6d640Bdb188E4E8143Ac4b);
+
   address internal constant RISK_COUNCIL = 0x8513e6F37dBc52De87b166980Fa3F50639694B60;
-
-  IRouter internal constant ROUTER = IRouter(0x141fa059441E0ca23ce184B6A78bafD2A517DdE8);
   address public constant NEW_REMOTE_TOKEN_BASE = 0x6F2216CB3Ca97b8756C5fD99bE27986f04CBd81D; // predicted
-
-  IGhoCcipSteward internal NEW_GHO_CCIP_STEWARD;
-
-  IUpgradeableBurnMintTokenPool_1_5_1 internal NEW_TOKEN_POOL;
+  IRouter internal constant ROUTER = IRouter(0x141fa059441E0ca23ce184B6A78bafD2A517DdE8);
+  IGhoCcipSteward internal constant NEW_GHO_CCIP_STEWARD =
+    IGhoCcipSteward(0x06179f7C1be40863405f374E7f5F8806c728660A);
+  IUpgradeableBurnMintTokenPool_1_5_1 internal constant NEW_TOKEN_POOL =
+    IUpgradeableBurnMintTokenPool_1_5_1(0x6Bb7a212910682DCFdbd5BCBb3e28FB4E8da10Ee);
+  address internal constant NEW_REMOTE_POOL_ETH = 0x20fd5f3FCac8883a3A0A2bBcD658A2d2c6EFa6B6;
+  address internal constant NEW_REMOTE_POOL_BASE = 0xDe6539018B095353A40753Dc54C91C68c9487D4E;
 
   AaveV3Arbitrum_GHOBaseLaunch_20241223 internal proposal;
 
-  address internal NEW_REMOTE_POOL_ETH = makeAddr('ETH: LockReleaseTokenPool 1.5.1');
-  address internal NEW_REMOTE_POOL_BASE = makeAddr('BASE: BurnMintTokenPool 1.5.1');
   address internal alice = makeAddr('alice');
   address internal bob = makeAddr('bob');
   address internal carol = makeAddr('carol');
@@ -87,14 +79,9 @@ contract AaveV3Arbitrum_GHOBaseLaunch_20241223_Test is ProtocolV3TestBase {
   error InvalidSourcePoolAddress(bytes);
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('arbitrum'), 288070365);
-    NEW_TOKEN_POOL = IUpgradeableBurnMintTokenPool_1_5_1(_deployNewTokenPoolArb());
-    NEW_GHO_CCIP_STEWARD = IGhoCcipSteward(_deployNewGhoCcipSteward(address(NEW_TOKEN_POOL)));
+    vm.createSelectFork(vm.rpcUrl('arbitrum'), 291243768);
     _upgradeArbTo1_5_1();
-    proposal = new AaveV3Arbitrum_GHOBaseLaunch_20241223(
-      address(NEW_TOKEN_POOL),
-      NEW_REMOTE_POOL_BASE
-    );
+    proposal = new AaveV3Arbitrum_GHOBaseLaunch_20241223();
 
     _validateConstants();
 
@@ -103,58 +90,13 @@ contract AaveV3Arbitrum_GHOBaseLaunch_20241223_Test is ProtocolV3TestBase {
   }
 
   function _upgradeArbTo1_5_1() internal {
-    AaveV3Arbitrum_GHOCCIP151Upgrade_20241209 upgradeProposal = new AaveV3Arbitrum_GHOCCIP151Upgrade_20241209(
-        address(NEW_TOKEN_POOL),
-        NEW_REMOTE_POOL_ETH,
-        address(NEW_GHO_CCIP_STEWARD)
-      );
+    AaveV3Arbitrum_GHOCCIP151Upgrade_20241209 upgradeProposal = new AaveV3Arbitrum_GHOCCIP151Upgrade_20241209();
     vm.startPrank(TOKEN_ADMIN_REGISTRY.owner());
     TOKEN_ADMIN_REGISTRY.transferAdminRole(address(GHO), GovernanceV3Arbitrum.EXECUTOR_LVL_1);
     upgradeProposal.EXISTING_PROXY_POOL().transferOwnership(GovernanceV3Arbitrum.EXECUTOR_LVL_1);
     vm.stopPrank();
 
     executePayload(vm, address(upgradeProposal));
-  }
-
-  function _deployNewTokenPoolArb() private returns (address) {
-    IUpgradeableBurnMintTokenPool_1_4 existingTokenPool = IUpgradeableBurnMintTokenPool_1_4(
-      GhoArbitrum.GHO_CCIP_TOKEN_POOL
-    );
-    address newTokenPoolImpl = address(
-      new UpgradeableBurnMintTokenPool(
-        existingTokenPool.getToken(),
-        IGhoToken(existingTokenPool.getToken()).decimals(),
-        existingTokenPool.getArmProxy(),
-        existingTokenPool.getAllowListEnabled()
-      )
-    );
-    return
-      address(
-        new TransparentUpgradeableProxy(
-          newTokenPoolImpl,
-          ProxyAdmin(MiscArbitrum.PROXY_ADMIN),
-          abi.encodeCall(
-            IUpgradeableBurnMintTokenPool_1_5_1.initialize,
-            (
-              GovernanceV3Arbitrum.EXECUTOR_LVL_1, // owner
-              existingTokenPool.getAllowList(),
-              existingTokenPool.getRouter()
-            )
-          )
-        )
-      );
-  }
-
-  function _deployNewGhoCcipSteward(address newTokenPool) internal returns (address) {
-    return
-      address(
-        new GhoCcipSteward(
-          address(GHO),
-          newTokenPool,
-          RISK_COUNCIL,
-          false // bridgeLimitEnabled Whether the bridge limit feature is supported in the GhoTokenPool
-        )
-      );
   }
 
   function _validateConstants() private view {

@@ -14,11 +14,12 @@ import {IRateLimiter} from 'src/interfaces/ccip/IRateLimiter.sol';
 contract AaveV3Arbitrum_GHOBaseLaunch_20241223 is IProposalGenericExecutor {
   uint64 public constant BASE_CHAIN_SELECTOR = 15971525489660198786;
 
-  // https://arbiscan.io/address/
-  IUpgradeableBurnMintTokenPool_1_5_1 public immutable TOKEN_POOL;
+  // https://arbiscan.io/address/0x6Bb7a212910682DCFdbd5BCBb3e28FB4E8da10Ee
+  IUpgradeableBurnMintTokenPool_1_5_1 public constant TOKEN_POOL =
+    IUpgradeableBurnMintTokenPool_1_5_1(0x6Bb7a212910682DCFdbd5BCBb3e28FB4E8da10Ee);
 
-  // https://basescan.org/address/
-  address public immutable REMOTE_TOKEN_POOL_BASE;
+  // https://basescan.org/address/0xDe6539018B095353A40753Dc54C91C68c9487D4E
+  address public constant REMOTE_TOKEN_POOL_BASE = 0xDe6539018B095353A40753Dc54C91C68c9487D4E;
   // https://basescan.org/address/0x6F2216CB3Ca97b8756C5fD99bE27986f04CBd81D
   address public constant REMOTE_GHO_TOKEN_BASE = 0x6F2216CB3Ca97b8756C5fD99bE27986f04CBd81D; // predicted
 
@@ -26,11 +27,6 @@ contract AaveV3Arbitrum_GHOBaseLaunch_20241223 is IProposalGenericExecutor {
   uint128 public constant CCIP_RATE_LIMIT_CAPACITY = 300_000e18;
   // Token Rate Limit Refill Rate: 60 GHO per second (=> 216_000 GHO per hour)
   uint128 public constant CCIP_RATE_LIMIT_REFILL_RATE = 60e18;
-
-  constructor(address tokenPoolArb, address tokenPoolBase) {
-    TOKEN_POOL = IUpgradeableBurnMintTokenPool_1_5_1(tokenPoolArb);
-    REMOTE_TOKEN_POOL_BASE = tokenPoolBase;
-  }
 
   function execute() external {
     IRateLimiter.Config memory rateLimiterConfig = IRateLimiter.Config({

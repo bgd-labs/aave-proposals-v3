@@ -32,46 +32,31 @@ contract AaveV3Base_GHOBaseLaunch_20241223 is IProposalGenericExecutor {
   // https://basescan.org/address/0x6f6C373d09C07425BaAE72317863d7F6bb731e37
   ITokenAdminRegistry public constant TOKEN_ADMIN_REGISTRY =
     ITokenAdminRegistry(0x6f6C373d09C07425BaAE72317863d7F6bb731e37);
-  // https://basescan.org/address/
-  IUpgradeableBurnMintTokenPool_1_5_1 public immutable TOKEN_POOL;
+  // https://basescan.org/address/0xDe6539018B095353A40753Dc54C91C68c9487D4E
+  IUpgradeableBurnMintTokenPool_1_5_1 public constant TOKEN_POOL =
+    IUpgradeableBurnMintTokenPool_1_5_1(0xDe6539018B095353A40753Dc54C91C68c9487D4E);
 
   // https://basescan.org/address/0x26d595dddbad81bf976ef6f24686a12a800b141f
   address public constant GHO_TOKEN_IMPL = 0xb0e1c7830aA781362f79225559Aa068E6bDaF1d1;
   // predicted address, will be deployed in the AIP, https://basescan.org/address/0x6F2216CB3Ca97b8756C5fD99bE27986f04CBd81D
   IGhoToken public constant GHO_TOKEN_PROXY = IGhoToken(0x6F2216CB3Ca97b8756C5fD99bE27986f04CBd81D);
 
-  // https://basescan.org/address/
-  address public immutable GHO_AAVE_STEWARD;
-  // https://basescan.org/address/
-  address public immutable GHO_BUCKET_STEWARD;
-  // https://basescan.org/address/
-  address public immutable GHO_CCIP_STEWARD;
+  // https://basescan.org/address/0x20fd5f3FCac8883a3A0A2bBcD658A2d2c6EFa6B6
+  address public constant GHO_AAVE_STEWARD = 0x20fd5f3FCac8883a3A0A2bBcD658A2d2c6EFa6B6;
+  // https://basescan.org/address/0xA5Ba213867E175A182a5dd6A9193C6158738105A
+  address public constant GHO_BUCKET_STEWARD = 0xA5Ba213867E175A182a5dd6A9193C6158738105A;
+  // https://basescan.org/address/0x2Ce400703dAcc37b7edFA99D228b8E70a4d3831B
+  address public constant GHO_CCIP_STEWARD = 0x2Ce400703dAcc37b7edFA99D228b8E70a4d3831B;
 
-  // https://etherscan.io/address/
-  address public immutable REMOTE_TOKEN_POOL_ETH;
-  // https://arbiscan.io/address/
-  address public immutable REMOTE_TOKEN_POOL_ARB;
+  // https://etherscan.io/address/0x20fd5f3FCac8883a3A0A2bBcD658A2d2c6EFa6B6
+  address public constant REMOTE_TOKEN_POOL_ETH = 0x20fd5f3FCac8883a3A0A2bBcD658A2d2c6EFa6B6;
+  // https://arbiscan.io/address/0x6Bb7a212910682DCFdbd5BCBb3e28FB4E8da10Ee
+  address public constant REMOTE_TOKEN_POOL_ARB = 0x6Bb7a212910682DCFdbd5BCBb3e28FB4E8da10Ee;
 
   // Token Rate Limit Capacity: 300_000 GHO
   uint128 public constant CCIP_RATE_LIMIT_CAPACITY = 300_000e18;
   // Token Rate Limit Refill Rate: 60 GHO per second (=> 216_000 GHO per hour)
   uint128 public constant CCIP_RATE_LIMIT_REFILL_RATE = 60e18;
-
-  constructor(
-    address tokenPool,
-    address tokenPoolEth,
-    address tokenPoolArb,
-    address ghoAaveSteward,
-    address ghoBucketSteward,
-    address ghoCcipSteward
-  ) {
-    TOKEN_POOL = IUpgradeableBurnMintTokenPool_1_5_1(tokenPool);
-    REMOTE_TOKEN_POOL_ETH = tokenPoolEth;
-    REMOTE_TOKEN_POOL_ARB = tokenPoolArb;
-    GHO_AAVE_STEWARD = ghoAaveSteward;
-    GHO_BUCKET_STEWARD = ghoBucketSteward;
-    GHO_CCIP_STEWARD = ghoCcipSteward;
-  }
 
   function execute() external {
     _acceptOwnership();
