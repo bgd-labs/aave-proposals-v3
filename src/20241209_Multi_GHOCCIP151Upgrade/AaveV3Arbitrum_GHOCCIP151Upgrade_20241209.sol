@@ -32,17 +32,22 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209 is IProposalGenericExecutor {
   // https://arbiscan.io/address/0xF168B83598516A532a85995b52504a2Fa058C068
   IUpgradeableBurnMintTokenPool_1_4 public constant EXISTING_TOKEN_POOL =
     IUpgradeableBurnMintTokenPool_1_4(GhoArbitrum.GHO_CCIP_TOKEN_POOL); // will be updated in address-book after AIP
-  IUpgradeableBurnMintTokenPool_1_5_1 public immutable NEW_TOKEN_POOL;
+  // https://arbiscan.io/address/0x20fd5f3FCac8883a3A0A2bBcD658A2d2c6EFa6B6
+  IUpgradeableBurnMintTokenPool_1_5_1 public constant NEW_TOKEN_POOL =
+    IUpgradeableBurnMintTokenPool_1_5_1(0x20fd5f3FCac8883a3A0A2bBcD658A2d2c6EFa6B6);
 
-  address public immutable NEW_GHO_CCIP_STEWARD;
+  // https://arbiscan.io/address/0xFAdC082665577b533e62A7B0E067f884cA5C5E8F
+  address public constant NEW_GHO_CCIP_STEWARD = 0xFAdC082665577b533e62A7B0E067f884cA5C5E8F;
 
   // https://etherscan.io/address/0x9Ec9F9804733df96D1641666818eFb5198eC50f0
   address public constant EXISTING_REMOTE_POOL_ETH = 0x9Ec9F9804733df96D1641666818eFb5198eC50f0; // ProxyPool on ETH
-  address public immutable NEW_REMOTE_POOL_ETH;
+  // https://etherscan.io/address/0x20fd5f3FCac8883a3A0A2bBcD658A2d2c6EFa6B6
+  address public constant NEW_REMOTE_POOL_ETH = 0x20fd5f3FCac8883a3A0A2bBcD658A2d2c6EFa6B6;
 
   // https://arbiscan.io/address/0xA5Ba213867E175A182a5dd6A9193C6158738105A
+  // https://github.com/aave/ccip/commit/ca73ec8c4f7dc0f6a99ae1ea0acde43776c7b9bb
   address public constant EXISTING_TOKEN_POOL_UPGRADE_IMPL =
-    0xA5Ba213867E175A182a5dd6A9193C6158738105A; // https://github.com/aave/ccip/commit/ca73ec8c4f7dc0f6a99ae1ea0acde43776c7b9bb
+    0xA5Ba213867E175A182a5dd6A9193C6158738105A;
 
   // https://arbiscan.io/address/0x7dfF72693f6A4149b17e7C6314655f6A9F7c8B33
   IGhoToken public constant GHO = IGhoToken(AaveV3ArbitrumAssets.GHO_UNDERLYING);
@@ -51,12 +56,6 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209 is IProposalGenericExecutor {
   uint128 public constant CCIP_RATE_LIMIT_CAPACITY = 300_000e18;
   // Token Rate Limit Refill Rate: 60 GHO per second (=> 216_000 GHO per hour)
   uint128 public constant CCIP_RATE_LIMIT_REFILL_RATE = 60e18;
-
-  constructor(address newTokenPoolArb, address newTokenPoolEth, address newGhoCcipSteward) {
-    NEW_TOKEN_POOL = IUpgradeableBurnMintTokenPool_1_5_1(newTokenPoolArb);
-    NEW_REMOTE_POOL_ETH = newTokenPoolEth;
-    NEW_GHO_CCIP_STEWARD = newGhoCcipSteward;
-  }
 
   function execute() external {
     _acceptOwnership();
