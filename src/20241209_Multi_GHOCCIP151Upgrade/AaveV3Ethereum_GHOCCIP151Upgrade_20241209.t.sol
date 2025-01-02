@@ -20,16 +20,10 @@ import {IGhoCcipSteward} from 'src/interfaces/IGhoCcipSteward.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
 import {GhoEthereum} from 'aave-address-book/GhoEthereum.sol';
-import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {AaveV3Arbitrum} from 'aave-address-book/AaveV3Arbitrum.sol';
 import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
-
-import {TransparentUpgradeableProxy} from 'solidity-utils/contracts/transparent-proxy/TransparentUpgradeableProxy.sol';
-import {ProxyAdmin} from 'solidity-utils/contracts/transparent-proxy/ProxyAdmin.sol';
-import {UpgradeableLockReleaseTokenPool} from 'aave-ccip/pools/GHO/UpgradeableLockReleaseTokenPool.sol';
-import {GhoCcipSteward} from 'gho-core/misc/GhoCcipSteward.sol';
 
 import {CCIPUtils} from './utils/CCIPUtils.sol';
 import {AaveV3Ethereum_GHOCCIP151Upgrade_20241209} from './AaveV3Ethereum_GHOCCIP151Upgrade_20241209.sol';
@@ -62,17 +56,19 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
 
   IGhoCcipSteward internal constant EXISTING_GHO_CCIP_STEWARD =
     IGhoCcipSteward(0x101Efb7b9Beb073B1219Cd5473a7C8A2f2EB84f4);
-  IGhoCcipSteward internal NEW_GHO_CCIP_STEWARD;
+  IGhoCcipSteward internal constant NEW_GHO_CCIP_STEWARD =
+    IGhoCcipSteward(0xFAdC082665577b533e62A7B0E067f884cA5C5E8F);
 
   IProxyPool internal constant EXISTING_PROXY_POOL =
     IProxyPool(0x9Ec9F9804733df96D1641666818eFb5198eC50f0);
   IUpgradeableLockReleaseTokenPool_1_4 internal constant EXISTING_TOKEN_POOL =
     IUpgradeableLockReleaseTokenPool_1_4(0x5756880B6a1EAba0175227bf02a7E87c1e02B28C); // GhoEthereum.GHO_CCIP_TOKEN_POOL; will be updated in address-book after AIP
-  IUpgradeableLockReleaseTokenPool_1_5_1 internal NEW_TOKEN_POOL;
+  IUpgradeableLockReleaseTokenPool_1_5_1 internal constant NEW_TOKEN_POOL =
+    IUpgradeableLockReleaseTokenPool_1_5_1(0x20fd5f3FCac8883a3A0A2bBcD658A2d2c6EFa6B6);
+  address internal constant NEW_REMOTE_POOL_ARB = 0x20fd5f3FCac8883a3A0A2bBcD658A2d2c6EFa6B6;
 
   AaveV3Ethereum_GHOCCIP151Upgrade_20241209 internal proposal;
 
-  address internal NEW_REMOTE_POOL_ARB = makeAddr('BurnMintTokenPool 1.5.1');
   address internal alice = makeAddr('alice');
   address internal bob = makeAddr('bob');
   address internal carol = makeAddr('carol');
@@ -84,14 +80,8 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
   error BridgeLimitExceeded(uint256 limit);
 
   function setUp() public virtual {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 21366260);
-    NEW_TOKEN_POOL = IUpgradeableLockReleaseTokenPool_1_5_1(_deployNewTokenPoolEth());
-    NEW_GHO_CCIP_STEWARD = IGhoCcipSteward(_deployNewGhoCcipSteward(address(NEW_TOKEN_POOL)));
-    proposal = new AaveV3Ethereum_GHOCCIP151Upgrade_20241209(
-      address(NEW_TOKEN_POOL),
-      NEW_REMOTE_POOL_ARB,
-      address(NEW_GHO_CCIP_STEWARD)
-    );
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 21536364);
+    proposal = new AaveV3Ethereum_GHOCCIP151Upgrade_20241209();
 
     // pre-req - chainlink transfers gho token pool ownership on token admin registry
     address CLL_OWNER = TOKEN_ADMIN_REGISTRY.owner();
@@ -101,50 +91,6 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
     vm.stopPrank();
 
     _validateConstants();
-  }
-
-  function _deployNewTokenPoolEth() private returns (address) {
-    IUpgradeableLockReleaseTokenPool_1_4 existingTokenPool = IUpgradeableLockReleaseTokenPool_1_4(
-      GhoEthereum.GHO_CCIP_TOKEN_POOL
-    );
-    address newTokenPoolImpl = address(
-      new UpgradeableLockReleaseTokenPool(
-        existingTokenPool.getToken(),
-        IGhoToken(existingTokenPool.getToken()).decimals(),
-        existingTokenPool.getArmProxy(),
-        existingTokenPool.getAllowListEnabled(),
-        existingTokenPool.canAcceptLiquidity()
-      )
-    );
-
-    return
-      address(
-        new TransparentUpgradeableProxy(
-          newTokenPoolImpl,
-          ProxyAdmin(MiscEthereum.PROXY_ADMIN),
-          abi.encodeCall(
-            IUpgradeableLockReleaseTokenPool_1_5_1.initialize,
-            (
-              GovernanceV3Ethereum.EXECUTOR_LVL_1, // owner
-              existingTokenPool.getAllowList(),
-              existingTokenPool.getRouter(),
-              existingTokenPool.getBridgeLimit()
-            )
-          )
-        )
-      );
-  }
-
-  function _deployNewGhoCcipSteward(address newTokenPool) internal returns (address) {
-    return
-      address(
-        new GhoCcipSteward(
-          address(GHO),
-          newTokenPool,
-          EXISTING_GHO_CCIP_STEWARD.RISK_COUNCIL(),
-          true // bridgeLimitEnabled Whether the bridge limit feature is supported in the GhoTokenPool
-        )
-      );
   }
 
   function _validateConstants() private view {

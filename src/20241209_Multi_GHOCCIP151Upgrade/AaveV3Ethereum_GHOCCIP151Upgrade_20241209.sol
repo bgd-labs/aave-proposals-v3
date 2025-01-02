@@ -28,24 +28,21 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209 is IProposalGenericExecutor {
   // https://etherscan.io/address/0x5756880B6a1EAba0175227bf02a7E87c1e02B28C
   IUpgradeableLockReleaseTokenPool_1_4 public constant EXISTING_TOKEN_POOL =
     IUpgradeableLockReleaseTokenPool_1_4(GhoEthereum.GHO_CCIP_TOKEN_POOL); // will be updated in address-book after AIP
-  IUpgradeableLockReleaseTokenPool_1_5_1 public immutable NEW_TOKEN_POOL;
-
-  address public immutable NEW_GHO_CCIP_STEWARD;
+  // https://etherscan.io/address/0x20fd5f3FCac8883a3A0A2bBcD658A2d2c6EFa6B6
+  IUpgradeableLockReleaseTokenPool_1_5_1 public constant NEW_TOKEN_POOL =
+    IUpgradeableLockReleaseTokenPool_1_5_1(0x20fd5f3FCac8883a3A0A2bBcD658A2d2c6EFa6B6);
+  // https://etherscan.io/address/0xFAdC082665577b533e62A7B0E067f884cA5C5E8F
+  address public constant NEW_GHO_CCIP_STEWARD = 0xFAdC082665577b533e62A7B0E067f884cA5C5E8F;
 
   // https://arbiscan.io/address/0x26329558f08cbb40d6a4CCA0E0C67b29D64A8c50
   address public constant EXISTING_REMOTE_POOL_ARB = 0x26329558f08cbb40d6a4CCA0E0C67b29D64A8c50; // ProxyPool on Arb
-  address public immutable NEW_REMOTE_POOL_ARB;
+  // https://arbiscan.io/address/0x20fd5f3FCac8883a3A0A2bBcD658A2d2c6EFa6B6
+  address public constant NEW_REMOTE_POOL_ARB = 0x20fd5f3FCac8883a3A0A2bBcD658A2d2c6EFa6B6;
 
   // Token Rate Limit Capacity: 300_000 GHO
   uint128 public constant CCIP_RATE_LIMIT_CAPACITY = 300_000e18;
   // Token Rate Limit Refill Rate: 60 GHO per second (=> 216_000 GHO per hour)
   uint128 public constant CCIP_RATE_LIMIT_REFILL_RATE = 60e18;
-
-  constructor(address newTokenPoolEth, address newTokenPoolArb, address newGhoCcipSteward) {
-    NEW_TOKEN_POOL = IUpgradeableLockReleaseTokenPool_1_5_1(newTokenPoolEth);
-    NEW_REMOTE_POOL_ARB = newTokenPoolArb;
-    NEW_GHO_CCIP_STEWARD = newGhoCcipSteward;
-  }
 
   function execute() external {
     _acceptOwnership();

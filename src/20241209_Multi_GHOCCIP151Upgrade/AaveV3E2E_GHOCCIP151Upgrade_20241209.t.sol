@@ -18,18 +18,10 @@ import {IGhoCcipSteward} from 'src/interfaces/IGhoCcipSteward.sol';
 
 import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
-import {GhoEthereum} from 'aave-address-book/GhoEthereum.sol';
-import {GhoArbitrum} from 'aave-address-book/GhoArbitrum.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {MiscArbitrum} from 'aave-address-book/MiscArbitrum.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {GovernanceV3Arbitrum} from 'aave-address-book/GovernanceV3Arbitrum.sol';
-
-import {TransparentUpgradeableProxy} from 'solidity-utils/contracts/transparent-proxy/TransparentUpgradeableProxy.sol';
-import {ProxyAdmin} from 'solidity-utils/contracts/transparent-proxy/ProxyAdmin.sol';
-import {UpgradeableLockReleaseTokenPool} from 'aave-ccip/pools/GHO/UpgradeableLockReleaseTokenPool.sol';
-import {UpgradeableBurnMintTokenPool} from 'aave-ccip/pools/GHO/UpgradeableBurnMintTokenPool.sol';
-import {GhoCcipSteward} from 'gho-core/misc/GhoCcipSteward.sol';
 
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 
@@ -96,36 +88,17 @@ contract AaveV3E2E_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
   event Minted(address indexed sender, address indexed recipient, uint256 amount);
 
   function setUp() public virtual {
-    l1.c.forkId = vm.createFork(vm.rpcUrl('mainnet'), 21366260);
-    l2.c.forkId = vm.createFork(vm.rpcUrl('arbitrum'), 288070365);
+    l1.c.forkId = vm.createFork(vm.rpcUrl('mainnet'), 21536364);
+    l2.c.forkId = vm.createFork(vm.rpcUrl('arbitrum'), 291207768);
 
     vm.selectFork(l1.c.forkId);
-    address newTokenPoolEth = _deployNewTokenPoolEth();
-    address newGhoCcipStewardEth = _deployNewGhoCcipSteward(
-      newTokenPoolEth,
-      AaveV3EthereumAssets.GHO_UNDERLYING,
-      GovernanceV3Ethereum.EXECUTOR_LVL_1, // riskAdmin, set as executor for convenience
-      true // bridgeLimitEnabled
-    );
-    vm.selectFork(l2.c.forkId);
-    address newTokenPoolArb = _deployNewTokenPoolArb();
-    address newGhoCcipStewardArb = _deployNewGhoCcipSteward(
-      newTokenPoolArb,
-      AaveV3ArbitrumAssets.GHO_UNDERLYING,
-      GovernanceV3Arbitrum.EXECUTOR_LVL_1, // riskAdmin, set as executor for convenience
-      false // bridgeLimitEnabled
-    );
-
-    vm.selectFork(l1.c.forkId);
-    l1.proposal = new AaveV3Ethereum_GHOCCIP151Upgrade_20241209(
-      newTokenPoolEth,
-      newTokenPoolArb,
-      newGhoCcipStewardEth
-    );
+    l1.proposal = new AaveV3Ethereum_GHOCCIP151Upgrade_20241209();
     l1.existingTokenPool = IUpgradeableLockReleaseTokenPool_1_4(
       0x5756880B6a1EAba0175227bf02a7E87c1e02B28C
     ); // MiscEthereum.GHO_CCIP_TOKEN_POOL; will be updated in address-book after AIP
-    l1.newTokenPool = IUpgradeableLockReleaseTokenPool_1_5_1(newTokenPoolEth);
+    l1.newTokenPool = IUpgradeableLockReleaseTokenPool_1_5_1(
+      0x20fd5f3FCac8883a3A0A2bBcD658A2d2c6EFa6B6
+    );
     l1.c.router = IRouter(l1.existingTokenPool.getRouter());
     l2.c.chainSelector = l1.existingTokenPool.getSupportedChains()[0];
     l1.c.token = IGhoToken(address(l1.existingTokenPool.getToken()));
@@ -136,15 +109,13 @@ contract AaveV3E2E_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
     l1.c.proxyPool = l1.existingTokenPool.getProxyPool();
 
     vm.selectFork(l2.c.forkId);
-    l2.proposal = new AaveV3Arbitrum_GHOCCIP151Upgrade_20241209(
-      newTokenPoolArb,
-      newTokenPoolEth,
-      newGhoCcipStewardArb
-    );
+    l2.proposal = new AaveV3Arbitrum_GHOCCIP151Upgrade_20241209();
     l2.existingTokenPool = IUpgradeableBurnMintTokenPool_1_4(
       0xF168B83598516A532a85995b52504a2Fa058C068
     ); // MiscArbitrum.GHO_CCIP_TOKEN_POOL; will be updated in address-book after AIP
-    l2.newTokenPool = IUpgradeableBurnMintTokenPool_1_5_1(newTokenPoolArb);
+    l2.newTokenPool = IUpgradeableBurnMintTokenPool_1_5_1(
+      0x20fd5f3FCac8883a3A0A2bBcD658A2d2c6EFa6B6
+    );
     l2.c.router = IRouter(l2.existingTokenPool.getRouter());
     l1.c.chainSelector = l2.existingTokenPool.getSupportedChains()[0];
     l2.c.token = IGhoToken(address(l2.existingTokenPool.getToken()));
@@ -310,76 +281,6 @@ contract AaveV3E2E_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
     );
     IProxyPool(l2.c.proxyPool).transferOwnership(GovernanceV3Arbitrum.EXECUTOR_LVL_1);
     vm.stopPrank();
-  }
-
-  function _deployNewTokenPoolEth() private returns (address) {
-    IUpgradeableLockReleaseTokenPool_1_4 existingTokenPool = IUpgradeableLockReleaseTokenPool_1_4(
-      GhoEthereum.GHO_CCIP_TOKEN_POOL
-    );
-    address newTokenPoolImpl = address(
-      new UpgradeableLockReleaseTokenPool(
-        existingTokenPool.getToken(),
-        IGhoToken(existingTokenPool.getToken()).decimals(),
-        existingTokenPool.getArmProxy(),
-        existingTokenPool.getAllowListEnabled(),
-        existingTokenPool.canAcceptLiquidity()
-      )
-    );
-
-    return
-      address(
-        new TransparentUpgradeableProxy(
-          newTokenPoolImpl,
-          ProxyAdmin(MiscEthereum.PROXY_ADMIN),
-          abi.encodeCall(
-            IUpgradeableLockReleaseTokenPool_1_5_1.initialize,
-            (
-              GovernanceV3Ethereum.EXECUTOR_LVL_1, // owner
-              existingTokenPool.getAllowList(),
-              existingTokenPool.getRouter(),
-              existingTokenPool.getBridgeLimit()
-            )
-          )
-        )
-      );
-  }
-
-  function _deployNewTokenPoolArb() private returns (address) {
-    IUpgradeableBurnMintTokenPool_1_4 existingTokenPool = IUpgradeableBurnMintTokenPool_1_4(
-      GhoArbitrum.GHO_CCIP_TOKEN_POOL
-    );
-    address newTokenPoolImpl = address(
-      new UpgradeableBurnMintTokenPool(
-        existingTokenPool.getToken(),
-        IGhoToken(existingTokenPool.getToken()).decimals(),
-        existingTokenPool.getArmProxy(),
-        existingTokenPool.getAllowListEnabled()
-      )
-    );
-    return
-      address(
-        new TransparentUpgradeableProxy(
-          newTokenPoolImpl,
-          ProxyAdmin(MiscArbitrum.PROXY_ADMIN),
-          abi.encodeCall(
-            IUpgradeableBurnMintTokenPool_1_5_1.initialize,
-            (
-              GovernanceV3Arbitrum.EXECUTOR_LVL_1, // owner
-              existingTokenPool.getAllowList(),
-              existingTokenPool.getRouter()
-            )
-          )
-        )
-      );
-  }
-
-  function _deployNewGhoCcipSteward(
-    address newTokenPool,
-    address ghoToken,
-    address riskCouncil,
-    bool bridgeLimitEnabled
-  ) internal returns (address) {
-    return address(new GhoCcipSteward(ghoToken, newTokenPool, riskCouncil, bridgeLimitEnabled));
   }
 
   function _getOutboundRefillTime(uint256 amount) internal pure returns (uint256) {

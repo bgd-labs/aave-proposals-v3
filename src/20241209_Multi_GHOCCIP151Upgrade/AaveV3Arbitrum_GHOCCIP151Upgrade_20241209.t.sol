@@ -21,14 +21,8 @@ import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Arbitrum} from 'aave-address-book/AaveV3Arbitrum.sol';
 import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
-import {MiscArbitrum} from 'aave-address-book/MiscArbitrum.sol';
 import {GhoArbitrum} from 'aave-address-book/GhoArbitrum.sol';
 import {GovernanceV3Arbitrum} from 'aave-address-book/GovernanceV3Arbitrum.sol';
-
-import {TransparentUpgradeableProxy} from 'solidity-utils/contracts/transparent-proxy/TransparentUpgradeableProxy.sol';
-import {ProxyAdmin} from 'solidity-utils/contracts/transparent-proxy/ProxyAdmin.sol';
-import {UpgradeableBurnMintTokenPool} from 'aave-ccip/pools/GHO/UpgradeableBurnMintTokenPool.sol';
-import {GhoCcipSteward} from 'gho-core/misc/GhoCcipSteward.sol';
 
 import {CCIPUtils} from './utils/CCIPUtils.sol';
 import {AaveV3Arbitrum_GHOCCIP151Upgrade_20241209} from './AaveV3Arbitrum_GHOCCIP151Upgrade_20241209.sol';
@@ -61,17 +55,19 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
 
   IGhoCcipSteward internal constant EXISTING_GHO_CCIP_STEWARD =
     IGhoCcipSteward(0xb329CEFF2c362F315900d245eC88afd24C4949D5);
-  IGhoCcipSteward internal NEW_GHO_CCIP_STEWARD;
+  IGhoCcipSteward internal constant NEW_GHO_CCIP_STEWARD =
+    IGhoCcipSteward(0xFAdC082665577b533e62A7B0E067f884cA5C5E8F);
 
   IProxyPool internal constant EXISTING_PROXY_POOL =
     IProxyPool(0x26329558f08cbb40d6a4CCA0E0C67b29D64A8c50);
   IUpgradeableBurnMintTokenPool_1_4 internal constant EXISTING_TOKEN_POOL =
     IUpgradeableBurnMintTokenPool_1_4(0xF168B83598516A532a85995b52504a2Fa058C068); // GhoArbitrum.GHO_CCIP_TOKEN_POOL; will be updated in address-book after AIP
-  IUpgradeableBurnMintTokenPool_1_5_1 internal NEW_TOKEN_POOL;
+  IUpgradeableBurnMintTokenPool_1_5_1 internal constant NEW_TOKEN_POOL =
+    IUpgradeableBurnMintTokenPool_1_5_1(0x20fd5f3FCac8883a3A0A2bBcD658A2d2c6EFa6B6);
+  address internal constant NEW_REMOTE_POOL_ETH = 0x20fd5f3FCac8883a3A0A2bBcD658A2d2c6EFa6B6;
 
   AaveV3Arbitrum_GHOCCIP151Upgrade_20241209 internal proposal;
 
-  address internal NEW_REMOTE_POOL_ETH = makeAddr('LockReleaseTokenPool 1.5.1');
   address internal alice = makeAddr('alice');
   address internal bob = makeAddr('bob');
   address internal carol = makeAddr('carol');
@@ -81,14 +77,8 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
   event CCIPSendRequested(IInternal.EVM2EVMMessage message);
 
   function setUp() public virtual {
-    vm.createSelectFork(vm.rpcUrl('arbitrum'), 288070365);
-    NEW_TOKEN_POOL = IUpgradeableBurnMintTokenPool_1_5_1(_deployNewTokenPoolArb());
-    NEW_GHO_CCIP_STEWARD = IGhoCcipSteward(_deployNewGhoCcipSteward(address(NEW_TOKEN_POOL)));
-    proposal = new AaveV3Arbitrum_GHOCCIP151Upgrade_20241209(
-      address(NEW_TOKEN_POOL),
-      NEW_REMOTE_POOL_ETH,
-      address(NEW_GHO_CCIP_STEWARD)
-    );
+    vm.createSelectFork(vm.rpcUrl('arbitrum'), 291207768);
+    proposal = new AaveV3Arbitrum_GHOCCIP151Upgrade_20241209();
 
     // pre-req - chainlink transfers gho token pool ownership on token admin registry
     address CLL_OWNER = TOKEN_ADMIN_REGISTRY.owner();
@@ -98,47 +88,6 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
     vm.stopPrank();
 
     _validateConstants();
-  }
-
-  function _deployNewTokenPoolArb() private returns (address) {
-    IUpgradeableBurnMintTokenPool_1_4 existingTokenPool = IUpgradeableBurnMintTokenPool_1_4(
-      GhoArbitrum.GHO_CCIP_TOKEN_POOL
-    );
-    address newTokenPoolImpl = address(
-      new UpgradeableBurnMintTokenPool(
-        existingTokenPool.getToken(),
-        IGhoToken(existingTokenPool.getToken()).decimals(),
-        existingTokenPool.getArmProxy(),
-        existingTokenPool.getAllowListEnabled()
-      )
-    );
-    return
-      address(
-        new TransparentUpgradeableProxy(
-          newTokenPoolImpl,
-          ProxyAdmin(MiscArbitrum.PROXY_ADMIN),
-          abi.encodeCall(
-            IUpgradeableBurnMintTokenPool_1_5_1.initialize,
-            (
-              GovernanceV3Arbitrum.EXECUTOR_LVL_1, // owner
-              existingTokenPool.getAllowList(),
-              existingTokenPool.getRouter()
-            )
-          )
-        )
-      );
-  }
-
-  function _deployNewGhoCcipSteward(address newTokenPool) internal returns (address) {
-    return
-      address(
-        new GhoCcipSteward(
-          address(GHO),
-          newTokenPool,
-          EXISTING_GHO_CCIP_STEWARD.RISK_COUNCIL(),
-          false // bridgeLimitEnabled Whether the bridge limit feature is supported in the GhoTokenPool
-        )
-      );
   }
 
   function _validateConstants() private view {
