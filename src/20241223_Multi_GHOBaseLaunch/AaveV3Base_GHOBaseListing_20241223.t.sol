@@ -51,8 +51,6 @@ contract AaveV3Base_GHOBaseListing_20241223_Base is ProtocolV3TestBase {
 
   function setUp() public virtual {
     vm.createSelectFork(vm.rpcUrl('base'), 24519153);
-    _executeLaunchAIP(); // deploys gho token, token pool & stewards
-
     proposal = new AaveV3Base_GHOBaseListing_20241223();
   }
 
@@ -61,6 +59,12 @@ contract AaveV3Base_GHOBaseListing_20241223_Base is ProtocolV3TestBase {
     vm.prank(TOKEN_ADMIN_REGISTRY.owner());
     TOKEN_ADMIN_REGISTRY.proposeAdministrator(address(GHO_TOKEN), GovernanceV3Base.EXECUTOR_LVL_1);
     executePayload(vm, address(new AaveV3Base_GHOBaseLaunch_20241223()));
+  }
+
+  function _mockBridgeSeedAmount() internal {
+    uint256 seedAmount = proposal.GHO_SEED_AMOUNT();
+    vm.prank(address(NEW_TOKEN_POOL));
+    GHO_TOKEN.mint(GovernanceV3Base.EXECUTOR_LVL_1, seedAmount);
   }
 
   function _isDifferenceLowerThanMax(
@@ -99,14 +103,42 @@ contract AaveV3Base_GHOBaseListing_20241223_Base is ProtocolV3TestBase {
   }
 }
 
+contract AaveV3Base_GHOBaseListing_20241223_ListingPreRequisites is
+  AaveV3Base_GHOBaseListing_20241223_Base
+{
+  uint40 internal payloadId;
+
+  function setUp() public override {
+    super.setUp();
+    payloadId = GovV3Helpers.readyPayload(vm, address(proposal));
+  }
+
+  function test_listingFailsPreLaunch() public {
+    vm.expectRevert(abi.encodePacked('29')); // gho token not deployed, reverts on token.decimals() check
+    GovernanceV3Base.PAYLOADS_CONTROLLER.executePayload(payloadId);
+  }
+
+  function test_listingFailsWithoutSeedAmount() public {
+    test_listingFailsPreLaunch();
+    _executeLaunchAIP(); // deploys gho token, token pool & stewards
+
+    vm.expectRevert(abi.encodePacked('29')); // seed amount has not been bridged yet, reverts on pool.supply()
+    GovernanceV3Base.PAYLOADS_CONTROLLER.executePayload(payloadId);
+  }
+
+  function test_listingSucceedsOnlyAfterLaunchAndSeedAmount() public {
+    test_listingFailsWithoutSeedAmount();
+    _mockBridgeSeedAmount();
+
+    GovernanceV3Base.PAYLOADS_CONTROLLER.executePayload(payloadId);
+  }
+}
+
 contract AaveV3Base_GHOBaseListing_20241223_Listing is AaveV3Base_GHOBaseListing_20241223_Base {
   function setUp() public override {
     super.setUp();
-
-    uint256 seedAmount = proposal.GHO_SEED_AMOUNT();
-    // mock executor receives seed amount after Launch AIP (ie bridge activation)
-    vm.prank(address(NEW_TOKEN_POOL));
-    GHO_TOKEN.mint(GovernanceV3Base.EXECUTOR_LVL_1, seedAmount);
+    _executeLaunchAIP(); // deploys gho token, token pool & stewards
+    _mockBridgeSeedAmount();
   }
 
   /**
@@ -148,11 +180,8 @@ contract AaveV3Base_GHOBaseListing_20241223_Stewards is AaveV3Base_GHOBaseListin
 
   function setUp() public override {
     super.setUp();
-
-    uint256 seedAmount = proposal.GHO_SEED_AMOUNT();
-    // mock executor receives seed amount after Launch AIP (ie bridge activation)
-    vm.prank(address(NEW_TOKEN_POOL));
-    GHO_TOKEN.mint(GovernanceV3Base.EXECUTOR_LVL_1, seedAmount);
+    _executeLaunchAIP(); // deploys gho token, token pool & stewards
+    _mockBridgeSeedAmount();
 
     executePayload(vm, address(proposal));
   }
