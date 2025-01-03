@@ -10,6 +10,7 @@ import {IProxyPool} from 'src/interfaces/ccip/IProxyPool.sol';
 import {ILegacyProxyAdmin} from 'src/interfaces/ILegacyProxyAdmin.sol';
 import {IGhoBucketSteward} from 'src/interfaces/IGhoBucketSteward.sol';
 import {IGhoToken} from 'src/interfaces/IGhoToken.sol';
+import {AaveV3Arbitrum} from 'aave-address-book/AaveV3Arbitrum.sol';
 import {MiscArbitrum} from 'aave-address-book/MiscArbitrum.sol';
 import {GhoArbitrum} from 'aave-address-book/GhoArbitrum.sol';
 import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
@@ -37,8 +38,12 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209 is IProposalGenericExecutor {
   IUpgradeableBurnMintTokenPool_1_5_1 public constant NEW_TOKEN_POOL =
     IUpgradeableBurnMintTokenPool_1_5_1(0x6Bb7a212910682DCFdbd5BCBb3e28FB4E8da10Ee);
 
+  // https://arbiscan.io/address/0xcd04d93bea13921dad05240d577090b5ac36dfca
+  address public constant EXISTING_GHO_AAVE_STEWARD = 0xCd04D93bEA13921DaD05240D577090b5AC36DfCA;
+  // https://arbiscan.io/address/0x98217A06721Ebf727f2C8d9aD7718ec28b7aAe34
+  address public constant NEW_GHO_AAVE_STEWARD = 0x98217A06721Ebf727f2C8d9aD7718ec28b7aAe34;
   // https://arbiscan.io/address/0xa9afaE6A53E90f9E4CE0717162DF5Bc3d9aBe7B2
-  IGhoBucketSteward public constant EXISTING_GHO_BUCKET_STEWARD =
+  IGhoBucketSteward public constant GHO_BUCKET_STEWARD =
     IGhoBucketSteward(0xa9afaE6A53E90f9E4CE0717162DF5Bc3d9aBe7B2);
   // https://arbiscan.io/address/0x06179f7C1be40863405f374E7f5F8806c728660A
   address public constant NEW_GHO_CCIP_STEWARD = 0x06179f7C1be40863405f374E7f5F8806c728660A;
@@ -65,6 +70,7 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209 is IProposalGenericExecutor {
     _acceptOwnership();
     _migrateLiquidity();
     _setupAndRegisterNewPool();
+    _updateStewards();
   }
 
   // pre-req - chainlink transfers gho token pool ownership on token admin registry
@@ -116,11 +122,31 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209 is IProposalGenericExecutor {
       remoteChainSelectorsToRemove: new uint64[](0),
       chainsToAdd: chains
     });
-    NEW_TOKEN_POOL.setRateLimitAdmin(NEW_GHO_CCIP_STEWARD);
-    _notifyGhoBucketSteward();
 
     // register new pool
     TOKEN_ADMIN_REGISTRY.setPool(address(GHO), address(NEW_TOKEN_POOL));
+  }
+
+  function _updateStewards() internal {
+    // Gho Aave Steward
+    AaveV3Arbitrum.ACL_MANAGER.revokeRole(
+      AaveV3Arbitrum.ACL_MANAGER.RISK_ADMIN_ROLE(),
+      EXISTING_GHO_AAVE_STEWARD
+    );
+    AaveV3Arbitrum.ACL_MANAGER.grantRole(
+      AaveV3Arbitrum.ACL_MANAGER.RISK_ADMIN_ROLE(),
+      NEW_GHO_AAVE_STEWARD
+    );
+
+    // Gho Bucket Steward
+    address[] memory facilitatorList = new address[](1);
+    facilitatorList[0] = address(EXISTING_TOKEN_POOL);
+    GHO_BUCKET_STEWARD.setControlledFacilitator({facilitatorList: facilitatorList, approve: false});
+    facilitatorList[0] = address(NEW_TOKEN_POOL);
+    GHO_BUCKET_STEWARD.setControlledFacilitator({facilitatorList: facilitatorList, approve: true});
+
+    // Gho Ccip Steward
+    NEW_TOKEN_POOL.setRateLimitAdmin(NEW_GHO_CCIP_STEWARD);
   }
 
   function _upgradeExistingTokenPool() internal {
@@ -128,20 +154,5 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209 is IProposalGenericExecutor {
       ITransparentUpgradeableProxy(payable(address(EXISTING_TOKEN_POOL))),
       EXISTING_TOKEN_POOL_UPGRADE_IMPL
     );
-  }
-
-  function _notifyGhoBucketSteward() internal {
-    address[] memory facilitatorList = new address[](1);
-    facilitatorList[0] = address(EXISTING_TOKEN_POOL);
-    EXISTING_GHO_BUCKET_STEWARD.setControlledFacilitator({
-      facilitatorList: facilitatorList,
-      approve: false
-    });
-
-    facilitatorList[0] = address(NEW_TOKEN_POOL);
-    EXISTING_GHO_BUCKET_STEWARD.setControlledFacilitator({
-      facilitatorList: facilitatorList,
-      approve: true
-    });
   }
 }

@@ -7,7 +7,7 @@ import {ITokenAdminRegistry} from 'src/interfaces/ccip/ITokenAdminRegistry.sol';
 import {IProxyPool} from 'src/interfaces/ccip/IProxyPool.sol';
 import {IRateLimiter} from 'src/interfaces/ccip/IRateLimiter.sol';
 import {GhoEthereum} from 'aave-address-book/GhoEthereum.sol';
-import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
+import {AaveV3EthereumAssets, AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
 import {AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
 
 /**
@@ -31,6 +31,11 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209 is IProposalGenericExecutor {
   // https://etherscan.io/address/0x20fd5f3FCac8883a3A0A2bBcD658A2d2c6EFa6B6
   IUpgradeableLockReleaseTokenPool_1_5_1 public constant NEW_TOKEN_POOL =
     IUpgradeableLockReleaseTokenPool_1_5_1(0x20fd5f3FCac8883a3A0A2bBcD658A2d2c6EFa6B6);
+
+  // https://etherscan.io/address/0xFEb4e54591660F42288312AE8eB59e9f2B746b66
+  address public constant EXISTING_GHO_AAVE_STEWARD = 0xFEb4e54591660F42288312AE8eB59e9f2B746b66;
+  // https://etherscan.io/address/0x6e637e1E48025E51315d50ab96d5b3be1971A715
+  address public constant NEW_GHO_AAVE_STEWARD = 0x6e637e1E48025E51315d50ab96d5b3be1971A715;
   // https://etherscan.io/address/0xFAdC082665577b533e62A7B0E067f884cA5C5E8F
   address public constant NEW_GHO_CCIP_STEWARD = 0xFAdC082665577b533e62A7B0E067f884cA5C5E8F;
 
@@ -48,6 +53,7 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209 is IProposalGenericExecutor {
     _acceptOwnership();
     _migrateLiquidity();
     _setupAndRegisterNewPool();
+    _updateStewards();
   }
 
   // pre-req - chainlink transfers gho token pool ownership on token admin registry
@@ -94,10 +100,24 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209 is IProposalGenericExecutor {
       remoteChainSelectorsToRemove: new uint64[](0),
       chainsToAdd: chains
     });
-    NEW_TOKEN_POOL.setRateLimitAdmin(NEW_GHO_CCIP_STEWARD);
-    NEW_TOKEN_POOL.setBridgeLimitAdmin(NEW_GHO_CCIP_STEWARD);
 
     // register new pool
     TOKEN_ADMIN_REGISTRY.setPool(AaveV3EthereumAssets.GHO_UNDERLYING, address(NEW_TOKEN_POOL));
+  }
+
+  function _updateStewards() internal {
+    // Gho Aave Steward
+    AaveV3Ethereum.ACL_MANAGER.revokeRole(
+      AaveV3Ethereum.ACL_MANAGER.RISK_ADMIN_ROLE(),
+      EXISTING_GHO_AAVE_STEWARD
+    );
+    AaveV3Ethereum.ACL_MANAGER.grantRole(
+      AaveV3Ethereum.ACL_MANAGER.RISK_ADMIN_ROLE(),
+      NEW_GHO_AAVE_STEWARD
+    );
+
+    // Gho Ccip Steward
+    NEW_TOKEN_POOL.setRateLimitAdmin(NEW_GHO_CCIP_STEWARD);
+    NEW_TOKEN_POOL.setBridgeLimitAdmin(NEW_GHO_CCIP_STEWARD);
   }
 }
