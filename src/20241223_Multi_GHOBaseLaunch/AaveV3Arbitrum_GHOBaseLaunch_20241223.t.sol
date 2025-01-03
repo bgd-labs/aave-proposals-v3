@@ -229,7 +229,7 @@ contract AaveV3Arbitrum_GHOBaseLaunch_20241223_Test is ProtocolV3TestBase {
     assertEq(abi.encode(_tokenBucketToConfig(bucket)), abi.encode(config));
   }
 
-  function test_BasePoolConfig() public view {
+  function test_basePoolConfig() public view {
     assertEq(NEW_TOKEN_POOL.getSupportedChains().length, 2);
     assertEq(NEW_TOKEN_POOL.getSupportedChains()[0], ETH_CHAIN_SELECTOR);
     assertEq(NEW_TOKEN_POOL.getSupportedChains()[1], BASE_CHAIN_SELECTOR);

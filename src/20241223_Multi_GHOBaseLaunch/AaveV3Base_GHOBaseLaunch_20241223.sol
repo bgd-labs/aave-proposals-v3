@@ -60,14 +60,9 @@ contract AaveV3Base_GHOBaseLaunch_20241223 is IProposalGenericExecutor {
 
   function execute() external {
     _acceptOwnership();
-
-    if (_deployAndInitializeGhoToken() != address(GHO_TOKEN_PROXY)) revert();
-
+    _deployAndInitializeGhoToken();
     _setupStewardsAndTokenPoolOnGho();
-
-    _setupRemoteTokenPools(); // eth & arb
-
-    TOKEN_ADMIN_REGISTRY.setPool(address(GHO_TOKEN_PROXY), address(TOKEN_POOL));
+    _setupRemoteAndRegisterTokenPool();
   }
 
   function _acceptOwnership() internal {
@@ -75,15 +70,16 @@ contract AaveV3Base_GHOBaseLaunch_20241223 is IProposalGenericExecutor {
     TOKEN_POOL.acceptOwnership();
   }
 
-  function _deployAndInitializeGhoToken() internal returns (address) {
-    return
-      address(
-        new TransparentUpgradeableProxy{salt: keccak256('based-GHO')}(
-          GHO_TOKEN_IMPL,
-          ProxyAdmin(MiscBase.PROXY_ADMIN),
-          abi.encodeCall(IGhoToken.initialize, (GovernanceV3Base.EXECUTOR_LVL_1))
-        )
-      );
+  function _deployAndInitializeGhoToken() internal {
+    address ghoTokenProxy = address(
+      new TransparentUpgradeableProxy{salt: keccak256('based-GHO')}(
+        GHO_TOKEN_IMPL,
+        ProxyAdmin(MiscBase.PROXY_ADMIN),
+        abi.encodeCall(IGhoToken.initialize, (GovernanceV3Base.EXECUTOR_LVL_1))
+      )
+    );
+    // burn all gas, assert predicted address match
+    assert(ghoTokenProxy == address(GHO_TOKEN_PROXY));
   }
 
   function _setupStewardsAndTokenPoolOnGho() internal {
@@ -119,7 +115,7 @@ contract AaveV3Base_GHOBaseLaunch_20241223 is IProposalGenericExecutor {
     TOKEN_POOL.setRateLimitAdmin(GHO_CCIP_STEWARD);
   }
 
-  function _setupRemoteTokenPools() internal {
+  function _setupRemoteAndRegisterTokenPool() internal {
     IRateLimiter.Config memory rateLimiterConfig = IRateLimiter.Config({
       isEnabled: true,
       capacity: CCIP_RATE_LIMIT_CAPACITY,
@@ -153,9 +149,13 @@ contract AaveV3Base_GHOBaseLaunch_20241223 is IProposalGenericExecutor {
       });
     }
 
+    // setup remote token pools
     TOKEN_POOL.applyChainUpdates({
       remoteChainSelectorsToRemove: new uint64[](0),
       chainsToAdd: chainsToAdd
     });
+
+    // register token pool
+    TOKEN_ADMIN_REGISTRY.setPool(address(GHO_TOKEN_PROXY), address(TOKEN_POOL));
   }
 }

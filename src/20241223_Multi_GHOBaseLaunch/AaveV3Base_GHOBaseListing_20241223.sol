@@ -26,6 +26,11 @@ contract AaveV3Base_GHOBaseListing_20241223 is AaveV3PayloadBase {
   address public constant GHO_TOKEN = 0x6F2216CB3Ca97b8756C5fD99bE27986f04CBd81D;
   uint256 public constant GHO_SEED_AMOUNT = 1e18;
 
+  function _preExecute() internal override {
+    // robot should simulate and only execute if seed amount has been bridged
+    assert(IERC20(GHO_TOKEN).balanceOf(address(this)) >= GHO_SEED_AMOUNT);
+  }
+
   function _postExecute() internal override {
     IERC20(GHO_TOKEN).forceApprove(address(AaveV3Base.POOL), GHO_SEED_AMOUNT);
     AaveV3Base.POOL.supply(GHO_TOKEN, GHO_SEED_AMOUNT, address(0), 0);

@@ -127,7 +127,7 @@ contract AaveV3Base_GHOBaseListing_20241223_ListingPreRequisites is
 
     (, , , , , , , , bool isActive, ) = AaveV3Base
       .AAVE_PROTOCOL_DATA_PROVIDER
-      .getReserveConfigurationData(address(GHO_TOKEN));
+      .getReserveConfigurationData(proposal.GHO_TOKEN());
     assertTrue(isActive);
   }
 }
@@ -157,7 +157,7 @@ contract AaveV3Base_GHOBaseListing_20241223_Listing is AaveV3Base_GHOBaseListing
     assertEq(priceOracle.decimals(), 8);
   }
 
-  function test_GhoAdmin() public {
+  function test_ghoAdmin() public {
     GovV3Helpers.executePayload(vm, address(proposal));
     (address aGhoToken, , ) = AaveV3Base.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(
       proposal.GHO_TOKEN()
@@ -215,7 +215,7 @@ contract AaveV3Base_GHOBaseListing_20241223_Stewards is AaveV3Base_GHOBaseListin
 
   function test_aaveStewardCanUpdateBorrowCap(uint256 newBorrowCap) public {
     uint256 currentBorrowCap = AaveV3Base.POOL.getConfiguration(address(GHO_TOKEN)).getBorrowCap();
-    assertEq(currentBorrowCap, 2_250_000, 'currentBorrowCap');
+    assertEq(currentBorrowCap, 2_250_000);
     vm.assume(
       newBorrowCap != currentBorrowCap &&
         _isDifferenceLowerThanMax(currentBorrowCap, newBorrowCap, currentBorrowCap)
@@ -229,7 +229,7 @@ contract AaveV3Base_GHOBaseListing_20241223_Stewards is AaveV3Base_GHOBaseListin
 
   function test_aaveStewardCanUpdateSupplyCap(uint256 newSupplyCap) public {
     uint256 currentSupplyCap = AaveV3Base.POOL.getConfiguration(address(GHO_TOKEN)).getSupplyCap();
-    assertEq(currentSupplyCap, 2_500_000, 'currentSupplyCap');
+    assertEq(currentSupplyCap, 2_500_000);
 
     vm.assume(
       currentSupplyCap != newSupplyCap &&
