@@ -18,7 +18,7 @@ import {IGhoToken} from 'src/interfaces/IGhoToken.sol';
 import {IGhoAaveSteward} from 'src/interfaces/IGhoAaveSteward.sol';
 import {IGhoBucketSteward} from 'src/interfaces/IGhoBucketSteward.sol';
 import {IGhoCcipSteward} from 'src/interfaces/IGhoCcipSteward.sol';
-import {IOwnable} from 'src/interfaces/IOwnable.sol';
+import {IOwnable} from 'aave-address-book/common/IOwnable.sol';
 import {DataTypes, IDefaultInterestRateStrategyV2} from 'aave-address-book/AaveV3.sol';
 
 import {ReserveConfiguration} from 'aave-v3-origin/contracts/protocol/libraries/configuration/ReserveConfiguration.sol';
