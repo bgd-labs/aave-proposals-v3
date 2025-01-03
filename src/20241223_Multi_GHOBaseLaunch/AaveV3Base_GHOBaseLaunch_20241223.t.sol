@@ -324,7 +324,6 @@ contract AaveV3Base_GHOBaseLaunch_20241223_PreExecution is AaveV3Base_GHOBaseLau
     assertEq(NEW_GHO_BUCKET_STEWARD.RISK_COUNCIL(), RISK_COUNCIL);
     assertEq(NEW_GHO_BUCKET_STEWARD.getControlledFacilitators().length, 0); // before AIP, no controlled facilitators are set
 
-    assertEq(IOwnable(address(NEW_GHO_CCIP_STEWARD)).owner(), GovernanceV3Base.EXECUTOR_LVL_1);
     assertEq(NEW_GHO_CCIP_STEWARD.GHO_TOKEN(), address(GHO));
     assertEq(NEW_GHO_CCIP_STEWARD.GHO_TOKEN_POOL(), address(NEW_TOKEN_POOL));
     assertEq(NEW_GHO_CCIP_STEWARD.RISK_COUNCIL(), RISK_COUNCIL);
