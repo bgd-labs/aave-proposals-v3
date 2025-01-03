@@ -8,6 +8,7 @@ import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {DataTypes, IDefaultInterestRateStrategyV2} from 'aave-address-book/AaveV3.sol';
 import {IUpgradeableBurnMintTokenPool_1_5_1} from 'src/interfaces/ccip/tokenPool/IUpgradeableBurnMintTokenPool.sol';
 import {ITokenAdminRegistry} from 'src/interfaces/ccip/ITokenAdminRegistry.sol';
+import {IRateLimiter} from 'src/interfaces/ccip/IRateLimiter.sol';
 import {IGhoAaveSteward} from 'src/interfaces/IGhoAaveSteward.sol';
 import {IGhoBucketSteward} from 'src/interfaces/IGhoBucketSteward.sol';
 import {IGhoCcipSteward} from 'src/interfaces/IGhoCcipSteward.sol';
@@ -20,6 +21,7 @@ import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 import {AaveV3Base} from 'aave-address-book/AaveV3Base.sol';
 import {GovernanceV3Base} from 'aave-address-book/GovernanceV3Base.sol';
 
+import {CCIPUtils} from './utils/CCIPUtils.sol';
 import {AaveV3Base_GHOBaseLaunch_20241223} from './AaveV3Base_GHOBaseLaunch_20241223.sol';
 import {AaveV3Base_GHOBaseListing_20241223} from './AaveV3Base_GHOBaseListing_20241223.sol';
 
@@ -59,6 +61,41 @@ contract AaveV3Base_GHOBaseListing_20241223_Base is ProtocolV3TestBase {
     vm.prank(TOKEN_ADMIN_REGISTRY.owner());
     TOKEN_ADMIN_REGISTRY.proposeAdministrator(address(GHO_TOKEN), GovernanceV3Base.EXECUTOR_LVL_1);
     executePayload(vm, address(new AaveV3Base_GHOBaseLaunch_20241223()));
+  }
+
+  function _isDifferenceLowerThanMax(
+    uint256 from,
+    uint256 to,
+    uint256 max
+  ) internal pure returns (bool) {
+    return from < to ? to - from <= max : from - to <= max;
+  }
+
+  function _isIncreaseLowerThanMax(
+    uint256 from,
+    uint256 to,
+    uint256 max
+  ) internal pure returns (bool) {
+    return to >= from && to - from <= max;
+  }
+
+  function assertEq(
+    IRateLimiter.TokenBucket memory bucket,
+    IRateLimiter.Config memory config
+  ) internal pure {
+    assertEq(bucket.capacity, config.capacity);
+    assertEq(bucket.rate, config.rate);
+    assertEq(bucket.isEnabled, config.isEnabled);
+  }
+
+  function assertEq(
+    IDefaultInterestRateStrategyV2.InterestRateData memory a,
+    IDefaultInterestRateStrategyV2.InterestRateData memory b
+  ) internal {
+    assertEq(a.optimalUsageRatio, b.optimalUsageRatio);
+    assertEq(a.baseVariableBorrowRate, b.baseVariableBorrowRate);
+    assertEq(a.variableRateSlope1, b.variableRateSlope1);
+    assertEq(a.variableRateSlope2, b.variableRateSlope2);
   }
 }
 
@@ -178,21 +215,66 @@ contract AaveV3Base_GHOBaseListing_20241223_Stewards is AaveV3Base_GHOBaseListin
     assertEq(AaveV3Base.POOL.getConfiguration(address(GHO_TOKEN)).getSupplyCap(), newSupplyCap);
   }
 
-  function assertEq(
-    IDefaultInterestRateStrategyV2.InterestRateData memory a,
-    IDefaultInterestRateStrategyV2.InterestRateData memory b
-  ) internal {
-    assertEq(a.optimalUsageRatio, b.optimalUsageRatio, 'optimalUsageRatio');
-    assertEq(a.baseVariableBorrowRate, b.baseVariableBorrowRate, 'baseVariableBorrowRate');
-    assertEq(a.variableRateSlope1, b.variableRateSlope1, 'variableRateSlope1');
-    assertEq(a.variableRateSlope2, b.variableRateSlope2, 'variableRateSlope2');
+  function test_bucketStewardCanUpdateBucketCapacity(uint128 newBucketCapacity) public {
+    uint128 currentBucketCapacity = GHO_TOKEN
+      .getFacilitator(address(NEW_TOKEN_POOL))
+      .bucketCapacity;
+    assertEq(currentBucketCapacity, 20_000_000e18);
+    vm.assume(
+      newBucketCapacity != currentBucketCapacity &&
+        _isIncreaseLowerThanMax(currentBucketCapacity, newBucketCapacity, currentBucketCapacity)
+    );
+
+    vm.startPrank(RISK_COUNCIL);
+    NEW_GHO_BUCKET_STEWARD.updateFacilitatorBucketCapacity(
+      address(NEW_TOKEN_POOL),
+      newBucketCapacity
+    );
+
+    assertEq(GHO_TOKEN.getFacilitator(address(NEW_TOKEN_POOL)).bucketCapacity, newBucketCapacity);
   }
 
-  function _isDifferenceLowerThanMax(
-    uint256 from,
-    uint256 to,
-    uint256 max
-  ) internal pure returns (bool) {
-    return from < to ? to - from <= max : from - to <= max;
+  function test_ccipStewardCanChangeAndDisableRateLimit() public {
+    _runCcipStewardCanChangeAndDisableRateLimit(CCIPUtils.ETH_CHAIN_SELECTOR);
+    skip(NEW_GHO_CCIP_STEWARD.MINIMUM_DELAY() + 1);
+    _runCcipStewardCanChangeAndDisableRateLimit(CCIPUtils.ARB_CHAIN_SELECTOR);
+  }
+
+  function _runCcipStewardCanChangeAndDisableRateLimit(uint64 remoteChain) internal {
+    IRateLimiter.Config memory outboundConfig = IRateLimiter.Config({
+      isEnabled: true,
+      capacity: 500_000e18,
+      rate: 100e18
+    });
+    IRateLimiter.Config memory inboundConfig = IRateLimiter.Config({
+      isEnabled: true,
+      capacity: 100_000e18,
+      rate: 50e18
+    });
+
+    // we assert the steward can change the rate limit
+    vm.prank(NEW_GHO_CCIP_STEWARD.RISK_COUNCIL());
+    NEW_GHO_CCIP_STEWARD.updateRateLimit(
+      remoteChain,
+      outboundConfig.isEnabled,
+      outboundConfig.capacity,
+      outboundConfig.rate,
+      inboundConfig.isEnabled,
+      inboundConfig.capacity,
+      inboundConfig.rate
+    );
+
+    assertEq(NEW_TOKEN_POOL.getCurrentOutboundRateLimiterState(remoteChain), outboundConfig);
+    assertEq(NEW_TOKEN_POOL.getCurrentInboundRateLimiterState(remoteChain), inboundConfig);
+
+    skip(NEW_GHO_CCIP_STEWARD.MINIMUM_DELAY() + 1);
+
+    // now we assert the steward can disable the rate limit
+    vm.prank(NEW_GHO_CCIP_STEWARD.RISK_COUNCIL());
+    NEW_GHO_CCIP_STEWARD.updateRateLimit(remoteChain, false, 0, 0, false, 0, 0);
+
+    IRateLimiter.Config memory disabledConfig = IRateLimiter.Config(false, 0, 0);
+    assertEq(NEW_TOKEN_POOL.getCurrentOutboundRateLimiterState(remoteChain), disabledConfig);
+    assertEq(NEW_TOKEN_POOL.getCurrentInboundRateLimiterState(remoteChain), disabledConfig);
   }
 }

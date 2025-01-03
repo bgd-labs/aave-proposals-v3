@@ -12,11 +12,11 @@ import {IRateLimiter} from 'src/interfaces/ccip/IRateLimiter.sol';
 import {IEVM2EVMOnRamp} from 'src/interfaces/ccip/IEVM2EVMOnRamp.sol';
 import {IEVM2EVMOffRamp_1_5} from 'src/interfaces/ccip/IEVM2EVMOffRamp.sol';
 import {ITokenAdminRegistry} from 'src/interfaces/ccip/ITokenAdminRegistry.sol';
-import {IOwnable} from 'src/interfaces/IOwnable.sol';
 import {IGhoToken} from 'src/interfaces/IGhoToken.sol';
 import {IGhoAaveSteward} from 'src/interfaces/IGhoAaveSteward.sol';
 import {IGhoBucketSteward} from 'src/interfaces/IGhoBucketSteward.sol';
 import {IGhoCcipSteward} from 'src/interfaces/IGhoCcipSteward.sol';
+import {IOwnable} from 'aave-address-book/common/IOwnable.sol';
 
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Arbitrum} from 'aave-address-book/AaveV3Arbitrum.sol';
@@ -324,6 +324,7 @@ contract AaveV3Base_GHOBaseLaunch_20241223_PreExecution is AaveV3Base_GHOBaseLau
     assertEq(NEW_GHO_BUCKET_STEWARD.RISK_COUNCIL(), RISK_COUNCIL);
     assertEq(NEW_GHO_BUCKET_STEWARD.getControlledFacilitators().length, 0); // before AIP, no controlled facilitators are set
 
+    assertEq(IOwnable(address(NEW_GHO_CCIP_STEWARD)).owner(), GovernanceV3Base.EXECUTOR_LVL_1);
     assertEq(NEW_GHO_CCIP_STEWARD.GHO_TOKEN(), address(GHO));
     assertEq(NEW_GHO_CCIP_STEWARD.GHO_TOKEN_POOL(), address(NEW_TOKEN_POOL));
     assertEq(NEW_GHO_CCIP_STEWARD.RISK_COUNCIL(), RISK_COUNCIL);
