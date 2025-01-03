@@ -88,8 +88,8 @@ contract AaveV3E2E_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
   event Minted(address indexed sender, address indexed recipient, uint256 amount);
 
   function setUp() public virtual {
-    l1.c.forkId = vm.createFork(vm.rpcUrl('mainnet'), 21536364);
-    l2.c.forkId = vm.createFork(vm.rpcUrl('arbitrum'), 291243768);
+    l1.c.forkId = vm.createFork(vm.rpcUrl('mainnet'), 21538729);
+    l2.c.forkId = vm.createFork(vm.rpcUrl('arbitrum'), 291301479);
 
     vm.selectFork(l1.c.forkId);
     l1.proposal = new AaveV3Ethereum_GHOCCIP151Upgrade_20241209();

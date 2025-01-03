@@ -15,8 +15,12 @@ import {ITypeAndVersion} from 'src/interfaces/ccip/ITypeAndVersion.sol';
 import {IEVM2EVMOffRamp_1_5} from 'src/interfaces/ccip/IEVM2EVMOffRamp.sol';
 import {ITokenAdminRegistry} from 'src/interfaces/ccip/ITokenAdminRegistry.sol';
 import {IGhoToken} from 'src/interfaces/IGhoToken.sol';
+import {IGhoAaveSteward} from 'src/interfaces/IGhoAaveSteward.sol';
 import {IGhoCcipSteward} from 'src/interfaces/IGhoCcipSteward.sol';
+import {IOwnable} from 'src/interfaces/IOwnable.sol';
+import {DataTypes, IDefaultInterestRateStrategyV2} from 'aave-address-book/AaveV3.sol';
 
+import {ReserveConfiguration} from 'aave-v3-origin/contracts/protocol/libraries/configuration/ReserveConfiguration.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
 import {GhoEthereum} from 'aave-address-book/GhoEthereum.sol';
@@ -54,6 +58,10 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
     IEVM2EVMOffRamp_1_5(0xdf615eF8D4C64d0ED8Fd7824BBEd2f6a10245aC9);
   IRouter internal constant ROUTER = IRouter(0x80226fc0Ee2b096224EeAc085Bb9a8cba1146f7D);
 
+  IGhoAaveSteward public constant EXISTING_GHO_AAVE_STEWARD =
+    IGhoAaveSteward(0xFEb4e54591660F42288312AE8eB59e9f2B746b66);
+  IGhoAaveSteward public constant NEW_GHO_AAVE_STEWARD =
+    IGhoAaveSteward(0x6e637e1E48025E51315d50ab96d5b3be1971A715);
   IGhoCcipSteward internal constant EXISTING_GHO_CCIP_STEWARD =
     IGhoCcipSteward(0x101Efb7b9Beb073B1219Cd5473a7C8A2f2EB84f4);
   IGhoCcipSteward internal constant NEW_GHO_CCIP_STEWARD =
@@ -80,7 +88,7 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
   error BridgeLimitExceeded(uint256 limit);
 
   function setUp() public virtual {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 21536364);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 21538729);
     proposal = new AaveV3Ethereum_GHOCCIP151Upgrade_20241209();
 
     // pre-req - chainlink transfers gho token pool ownership on token admin registry
@@ -100,6 +108,9 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
     assertEq(address(proposal.EXISTING_TOKEN_POOL()), address(EXISTING_TOKEN_POOL));
     assertEq(address(proposal.EXISTING_REMOTE_POOL_ARB()), ARB_PROXY_POOL);
     assertEq(address(proposal.NEW_TOKEN_POOL()), address(NEW_TOKEN_POOL));
+    assertEq(address(proposal.EXISTING_GHO_AAVE_STEWARD()), address(EXISTING_GHO_AAVE_STEWARD));
+    assertEq(address(proposal.NEW_GHO_AAVE_STEWARD()), address(NEW_GHO_AAVE_STEWARD));
+    assertEq(address(proposal.NEW_GHO_CCIP_STEWARD()), address(NEW_GHO_CCIP_STEWARD));
     assertEq(address(proposal.NEW_REMOTE_POOL_ARB()), NEW_REMOTE_POOL_ARB);
     assertEq(proposal.CCIP_RATE_LIMIT_CAPACITY(), CCIP_RATE_LIMIT_CAPACITY);
     assertEq(proposal.CCIP_RATE_LIMIT_REFILL_RATE(), CCIP_RATE_LIMIT_REFILL_RATE);
@@ -122,8 +133,33 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
     assertEq(ROUTER.getOnRamp(ARB_CHAIN_SELECTOR), address(ON_RAMP));
     assertTrue(ROUTER.isOffRamp(ARB_CHAIN_SELECTOR, address(OFF_RAMP)));
 
-    assertEq(EXISTING_TOKEN_POOL.getRateLimitAdmin(), address(EXISTING_GHO_CCIP_STEWARD));
+    assertTrue(
+      AaveV3Ethereum.ACL_MANAGER.hasRole(
+        AaveV3Ethereum.ACL_MANAGER.RISK_ADMIN_ROLE(),
+        address(EXISTING_GHO_AAVE_STEWARD)
+      )
+    );
+    assertEq(IOwnable(address(NEW_GHO_AAVE_STEWARD)).owner(), GovernanceV3Ethereum.EXECUTOR_LVL_1);
+    assertEq(
+      NEW_GHO_AAVE_STEWARD.POOL_ADDRESSES_PROVIDER(),
+      EXISTING_GHO_AAVE_STEWARD.POOL_ADDRESSES_PROVIDER()
+    );
+    assertEq(
+      NEW_GHO_AAVE_STEWARD.POOL_DATA_PROVIDER(),
+      EXISTING_GHO_AAVE_STEWARD.POOL_DATA_PROVIDER()
+    );
+    assertEq(NEW_GHO_AAVE_STEWARD.RISK_COUNCIL(), EXISTING_GHO_AAVE_STEWARD.RISK_COUNCIL());
+    assertEq(
+      NEW_GHO_AAVE_STEWARD.getBorrowRateConfig(),
+      IGhoAaveSteward.BorrowRateConfig({
+        optimalUsageRatioMaxChange: 5_00,
+        baseVariableBorrowRateMaxChange: 5_00,
+        variableRateSlope1MaxChange: 5_00,
+        variableRateSlope2MaxChange: 5_00
+      })
+    );
 
+    assertEq(EXISTING_TOKEN_POOL.getRateLimitAdmin(), address(EXISTING_GHO_CCIP_STEWARD));
     assertEq(NEW_GHO_CCIP_STEWARD.RISK_COUNCIL(), EXISTING_GHO_CCIP_STEWARD.RISK_COUNCIL());
     assertEq(NEW_GHO_CCIP_STEWARD.GHO_TOKEN(), AaveV3EthereumAssets.GHO_UNDERLYING);
     assertEq(NEW_GHO_CCIP_STEWARD.GHO_TOKEN_POOL(), address(NEW_TOKEN_POOL));
@@ -200,6 +236,15 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
     return IRateLimiter.Config({isEnabled: false, capacity: 0, rate: 0});
   }
 
+  function _getImplementation(address proxy) internal view returns (address) {
+    bytes32 slot = bytes32(uint256(keccak256('eip1967.proxy.implementation')) - 1);
+    return address(uint160(uint256(vm.load(proxy, slot))));
+  }
+
+  function _readInitialized(address proxy) internal view returns (uint8) {
+    return uint8(uint256(vm.load(proxy, bytes32(0))));
+  }
+
   function _getRateLimiterConfig() internal view returns (IRateLimiter.Config memory) {
     return
       IRateLimiter.Config({
@@ -230,19 +275,35 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
   }
 
   function assertEq(
+    IDefaultInterestRateStrategyV2.InterestRateData memory a,
+    IDefaultInterestRateStrategyV2.InterestRateData memory b
+  ) internal pure {
+    assertEq(a.optimalUsageRatio, b.optimalUsageRatio);
+    assertEq(a.baseVariableBorrowRate, b.baseVariableBorrowRate);
+    assertEq(a.variableRateSlope1, b.variableRateSlope1);
+    assertEq(a.variableRateSlope2, b.variableRateSlope2);
+    assertEq(abi.encode(a), abi.encode(b)); // sanity check
+  }
+
+  function assertEq(
+    IGhoAaveSteward.BorrowRateConfig memory a,
+    IGhoAaveSteward.BorrowRateConfig memory b
+  ) internal pure {
+    assertEq(a.optimalUsageRatioMaxChange, b.optimalUsageRatioMaxChange);
+    assertEq(a.baseVariableBorrowRateMaxChange, b.baseVariableBorrowRateMaxChange);
+    assertEq(a.variableRateSlope1MaxChange, b.variableRateSlope1MaxChange);
+    assertEq(a.variableRateSlope2MaxChange, b.variableRateSlope2MaxChange);
+    assertEq(abi.encode(a), abi.encode(b)); // sanity check
+  }
+
+  function assertEq(
     IRateLimiter.TokenBucket memory bucket,
     IRateLimiter.Config memory config
   ) internal pure {
-    assertEq(abi.encode(_tokenBucketToConfig(bucket)), abi.encode(config));
-  }
-
-  function _getImplementation(address proxy) internal view returns (address) {
-    bytes32 slot = bytes32(uint256(keccak256('eip1967.proxy.implementation')) - 1);
-    return address(uint160(uint256(vm.load(proxy, slot))));
-  }
-
-  function _readInitialized(address proxy) internal view returns (uint8) {
-    return uint8(uint256(vm.load(proxy, bytes32(0))));
+    assertEq(bucket.isEnabled, config.isEnabled);
+    assertEq(bucket.capacity, config.capacity);
+    assertEq(bucket.rate, config.rate);
+    assertEq(abi.encode(_tokenBucketToConfig(bucket)), abi.encode(config)); // sanity check
   }
 }
 
@@ -354,11 +415,34 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_SetupAndProposalActions is
     assertEq(_readInitialized(address(NEW_TOKEN_POOL)), 1);
     assertEq(_readInitialized(_getImplementation(address(NEW_TOKEN_POOL))), 255);
   }
+
+  function test_stewardRolesAndConfig() public {
+    bytes32 RISK_ADMIN_ROLE = AaveV3Ethereum.ACL_MANAGER.RISK_ADMIN_ROLE();
+    assertTrue(
+      AaveV3Ethereum.ACL_MANAGER.hasRole(RISK_ADMIN_ROLE, address(EXISTING_GHO_AAVE_STEWARD))
+    );
+    assertFalse(AaveV3Ethereum.ACL_MANAGER.hasRole(RISK_ADMIN_ROLE, address(NEW_GHO_AAVE_STEWARD)));
+
+    assertEq(NEW_TOKEN_POOL.getRateLimitAdmin(), address(0));
+    assertEq(NEW_TOKEN_POOL.getBridgeLimitAdmin(), address(0));
+
+    executePayload(vm, address(proposal));
+
+    assertFalse(
+      AaveV3Ethereum.ACL_MANAGER.hasRole(RISK_ADMIN_ROLE, address(EXISTING_GHO_AAVE_STEWARD))
+    );
+    assertTrue(AaveV3Ethereum.ACL_MANAGER.hasRole(RISK_ADMIN_ROLE, address(NEW_GHO_AAVE_STEWARD)));
+
+    assertEq(NEW_TOKEN_POOL.getRateLimitAdmin(), address(NEW_GHO_CCIP_STEWARD));
+    assertEq(NEW_TOKEN_POOL.getBridgeLimitAdmin(), address(NEW_GHO_CCIP_STEWARD));
+  }
 }
 
 contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_PostUpgrade is
   AaveV3Ethereum_GHOCCIP151Upgrade_20241209_Base
 {
+  using ReserveConfiguration for DataTypes.ReserveConfigurationMap;
+
   function setUp() public override {
     super.setUp();
 
@@ -550,7 +634,7 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_PostUpgrade is
     assertEq(NEW_TOKEN_POOL.getCurrentBridgedAmount(), bridgedAmount - amount);
   }
 
-  function test_stewardCanChangeAndDisableRateLimit() public {
+  function test_ccipStewardCanChangeAndDisableRateLimit() public {
     assertEq(NEW_TOKEN_POOL.getRateLimitAdmin(), address(NEW_GHO_CCIP_STEWARD)); // sanity
 
     IRateLimiter.Config memory outboundConfig = IRateLimiter.Config({
@@ -595,7 +679,7 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_PostUpgrade is
     );
   }
 
-  function test_stewardCanSetBridgeLimit(uint256 newBridgeLimit) public {
+  function test_ccipStewardCanSetBridgeLimit(uint256 newBridgeLimit) public {
     uint256 currentBridgeLimit = NEW_TOKEN_POOL.getBridgeLimit();
     vm.assume(
       newBridgeLimit != currentBridgeLimit &&
@@ -605,5 +689,50 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_PostUpgrade is
     NEW_GHO_CCIP_STEWARD.updateBridgeLimit(newBridgeLimit);
 
     assertEq(NEW_TOKEN_POOL.getBridgeLimit(), newBridgeLimit);
+  }
+
+  function test_aaveStewardCanUpdateBorrowRate() public {
+    IDefaultInterestRateStrategyV2 irStrategy = IDefaultInterestRateStrategyV2(
+      AaveV3Ethereum.AAVE_PROTOCOL_DATA_PROVIDER.getInterestRateStrategyAddress(address(GHO))
+    );
+
+    IDefaultInterestRateStrategyV2.InterestRateData
+      memory currentRateData = IDefaultInterestRateStrategyV2.InterestRateData({
+        optimalUsageRatio: 99_00,
+        baseVariableBorrowRate: 12_50,
+        variableRateSlope1: 0,
+        variableRateSlope2: 0
+      });
+
+    assertEq(irStrategy.getInterestRateDataBps(address(GHO)), currentRateData);
+
+    currentRateData.baseVariableBorrowRate += 4_00;
+
+    vm.prank(NEW_GHO_AAVE_STEWARD.RISK_COUNCIL());
+    NEW_GHO_AAVE_STEWARD.updateGhoBorrowRate(
+      currentRateData.optimalUsageRatio,
+      currentRateData.baseVariableBorrowRate,
+      currentRateData.variableRateSlope1,
+      currentRateData.variableRateSlope2
+    );
+
+    assertEq(irStrategy.getInterestRateDataBps(address(GHO)), currentRateData);
+  }
+
+  function test_aaveStewardCanUpdateBorrowCap(uint256 newBorrowCap) public {
+    uint256 currentBorrowCap = AaveV3Ethereum.POOL.getConfiguration(address(GHO)).getBorrowCap();
+    assertEq(currentBorrowCap, 155_000_000);
+    vm.assume(
+      newBorrowCap != currentBorrowCap &&
+        _isDifferenceLowerThanMax(currentBorrowCap, newBorrowCap, currentBorrowCap)
+    );
+
+    vm.prank(NEW_GHO_AAVE_STEWARD.RISK_COUNCIL());
+    NEW_GHO_AAVE_STEWARD.updateGhoBorrowCap(newBorrowCap);
+
+    assertEq(AaveV3Ethereum.POOL.getConfiguration(address(GHO)).getBorrowCap(), newBorrowCap);
+
+    // @dev gho cannot be supplied on ethereum
+    assertEq(AaveV3Ethereum.POOL.getConfiguration(address(GHO)).getSupplyCap(), 0);
   }
 }
