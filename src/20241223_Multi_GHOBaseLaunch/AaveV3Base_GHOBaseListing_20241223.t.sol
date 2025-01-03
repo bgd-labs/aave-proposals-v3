@@ -16,6 +16,7 @@ import {IGhoToken} from 'src/interfaces/IGhoToken.sol';
 import {IGhoOracle} from 'src/interfaces/IGhoOracle.sol';
 
 import {ReserveConfiguration} from 'aave-v3-origin/contracts/protocol/libraries/configuration/ReserveConfiguration.sol';
+import {Errors} from 'aave-address-book/governance-v3/Errors.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 import {AaveV3Base} from 'aave-address-book/AaveV3Base.sol';
@@ -106,7 +107,7 @@ contract AaveV3Base_GHOBaseListing_20241223_ListingPreRequisites is
   }
 
   function test_listingFailsPreLaunch() public {
-    vm.expectRevert(abi.encodePacked('29')); // gho token not deployed, reverts on token.decimals() check
+    vm.expectRevert(bytes(Errors.FAILED_ACTION_EXECUTION)); // gho token not deployed, reverts on token.decimals() check
     GovernanceV3Base.PAYLOADS_CONTROLLER.executePayload(payloadId);
   }
 
@@ -114,7 +115,7 @@ contract AaveV3Base_GHOBaseListing_20241223_ListingPreRequisites is
     test_listingFailsPreLaunch();
     _executeLaunchAIP(); // deploys gho token, token pool & stewards
 
-    vm.expectRevert(abi.encodePacked('29')); // seed amount has not been bridged yet, reverts on pool.supply()
+    vm.expectRevert(bytes(Errors.FAILED_ACTION_EXECUTION)); // seed amount has not been bridged yet, reverts on pool.supply()
     GovernanceV3Base.PAYLOADS_CONTROLLER.executePayload(payloadId);
   }
 
