@@ -75,14 +75,6 @@ contract AaveV3Base_GHOBaseListing_20241223_Base is ProtocolV3TestBase {
     return from < to ? to - from <= max : from - to <= max;
   }
 
-  function _isIncreaseLowerThanMax(
-    uint256 from,
-    uint256 to,
-    uint256 max
-  ) internal pure returns (bool) {
-    return to >= from && to - from <= max;
-  }
-
   function assertEq(
     IRateLimiter.TokenBucket memory bucket,
     IRateLimiter.Config memory config
@@ -131,6 +123,11 @@ contract AaveV3Base_GHOBaseListing_20241223_ListingPreRequisites is
     _mockBridgeSeedAmount();
 
     GovernanceV3Base.PAYLOADS_CONTROLLER.executePayload(payloadId);
+
+    (, , , , , , , , bool isActive, ) = AaveV3Base
+      .AAVE_PROTOCOL_DATA_PROVIDER
+      .getReserveConfigurationData(address(GHO_TOKEN));
+    assertTrue(isActive);
   }
 }
 
@@ -244,23 +241,25 @@ contract AaveV3Base_GHOBaseListing_20241223_Stewards is AaveV3Base_GHOBaseListin
     assertEq(AaveV3Base.POOL.getConfiguration(address(GHO_TOKEN)).getSupplyCap(), newSupplyCap);
   }
 
-  function test_bucketStewardCanUpdateBucketCapacity(uint128 newBucketCapacity) public {
-    uint128 currentBucketCapacity = GHO_TOKEN
-      .getFacilitator(address(NEW_TOKEN_POOL))
-      .bucketCapacity;
+  function test_bucketStewardCanUpdateBucketCapacity(uint256 newBucketCapacity) public {
+    (uint256 currentBucketCapacity, ) = GHO_TOKEN.getFacilitatorBucket(address(NEW_TOKEN_POOL));
     assertEq(currentBucketCapacity, 20_000_000e18);
-    vm.assume(
-      newBucketCapacity != currentBucketCapacity &&
-        _isIncreaseLowerThanMax(currentBucketCapacity, newBucketCapacity, currentBucketCapacity)
+    newBucketCapacity = bound(
+      newBucketCapacity,
+      currentBucketCapacity + 1,
+      2 * currentBucketCapacity
     );
 
     vm.startPrank(RISK_COUNCIL);
     NEW_GHO_BUCKET_STEWARD.updateFacilitatorBucketCapacity(
       address(NEW_TOKEN_POOL),
-      newBucketCapacity
+      uint128(newBucketCapacity)
     );
 
-    assertEq(GHO_TOKEN.getFacilitator(address(NEW_TOKEN_POOL)).bucketCapacity, newBucketCapacity);
+    assertEq(
+      GHO_TOKEN.getFacilitator(address(NEW_TOKEN_POOL)).bucketCapacity,
+      uint128(newBucketCapacity)
+    );
   }
 
   function test_ccipStewardCanChangeAndDisableRateLimit() public {
