@@ -2,9 +2,10 @@
 
 pragma solidity ^0.8.0;
 
-import {IClient} from 'src/interfaces/ccip/IClient.sol';
+import {IClient} from './IClient.sol';
+import {ITypeAndVersion} from './ITypeAndVersion.sol';
 
-interface IRouter {
+interface IRouter is ITypeAndVersion {
   error UnsupportedDestinationChain(uint64 destChainSelector);
   error InsufficientFeeTokenAmount();
   error InvalidMsgValue();
