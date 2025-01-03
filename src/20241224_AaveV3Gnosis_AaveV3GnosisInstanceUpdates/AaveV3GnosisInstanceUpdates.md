@@ -39,8 +39,8 @@ The followings E-mode will be created:
 
 ## References
 
-- Implementation: [AaveV3Gnosis](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241224_AaveV3Gnosis_AaveV3GnosisInstanceUpdates/AaveV3Gnosis_AaveV3GnosisInstanceUpdates_20241224.sol)
-- Tests: [AaveV3Gnosis](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241224_AaveV3Gnosis_AaveV3GnosisInstanceUpdates/AaveV3Gnosis_AaveV3GnosisInstanceUpdates_20241224.t.sol)
+- Implementation: [AaveV3Gnosis](https://github.com/bgd-labs/aave-proposals-v3/blob/0ddae1e40d3255d4a2ff2768ae707bcb99a4aa9e/src/20241224_AaveV3Gnosis_AaveV3GnosisInstanceUpdates/AaveV3Gnosis_AaveV3GnosisInstanceUpdates_20241224.sol)
+- Tests: [AaveV3Gnosis](https://github.com/bgd-labs/aave-proposals-v3/blob/0ddae1e40d3255d4a2ff2768ae707bcb99a4aa9e/src/20241224_AaveV3Gnosis_AaveV3GnosisInstanceUpdates/AaveV3Gnosis_AaveV3GnosisInstanceUpdates_20241224.t.sol)
 - [Snapshot](https://snapshot.box/#/s:aave.eth/proposal/0x2e93ddd01ba5ec415b0962907b7c65def947d1ed94f1e5b402c5578560b1dddb)
 - [Discussion](https://governance.aave.com/t/arfc-aave-v3-gnosis-instance-updates/20334)
 
