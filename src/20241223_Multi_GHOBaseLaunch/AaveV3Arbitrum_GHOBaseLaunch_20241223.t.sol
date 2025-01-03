@@ -79,7 +79,7 @@ contract AaveV3Arbitrum_GHOBaseLaunch_20241223_Test is ProtocolV3TestBase {
   error InvalidSourcePoolAddress(bytes);
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('arbitrum'), 291243768);
+    vm.createSelectFork(vm.rpcUrl('arbitrum'), 291301479);
     _upgradeArbTo1_5_1();
     proposal = new AaveV3Arbitrum_GHOBaseLaunch_20241223();
 
