@@ -36,8 +36,8 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209 is IProposalGenericExecutor {
   address public constant EXISTING_GHO_AAVE_STEWARD = 0xFEb4e54591660F42288312AE8eB59e9f2B746b66;
   // https://etherscan.io/address/0x6e637e1E48025E51315d50ab96d5b3be1971A715
   address public constant NEW_GHO_AAVE_STEWARD = 0x6e637e1E48025E51315d50ab96d5b3be1971A715;
-  // https://etherscan.io/address/0xFAdC082665577b533e62A7B0E067f884cA5C5E8F
-  address public constant NEW_GHO_CCIP_STEWARD = 0xFAdC082665577b533e62A7B0E067f884cA5C5E8F;
+  // https://etherscan.io/address/0x6Bb7a212910682DCFdbd5BCBb3e28FB4E8da10Ee
+  address public constant NEW_GHO_CCIP_STEWARD = 0x6Bb7a212910682DCFdbd5BCBb3e28FB4E8da10Ee;
 
   // https://arbiscan.io/address/0x26329558f08cbb40d6a4CCA0E0C67b29D64A8c50
   address public constant EXISTING_REMOTE_POOL_ARB = 0x26329558f08cbb40d6a4CCA0E0C67b29D64A8c50; // ProxyPool on Arb
