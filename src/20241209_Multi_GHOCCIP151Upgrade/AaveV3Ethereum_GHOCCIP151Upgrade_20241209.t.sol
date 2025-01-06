@@ -65,7 +65,7 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
   IGhoCcipSteward internal constant EXISTING_GHO_CCIP_STEWARD =
     IGhoCcipSteward(0x101Efb7b9Beb073B1219Cd5473a7C8A2f2EB84f4);
   IGhoCcipSteward internal constant NEW_GHO_CCIP_STEWARD =
-    IGhoCcipSteward(0xFAdC082665577b533e62A7B0E067f884cA5C5E8F);
+    IGhoCcipSteward(0x6Bb7a212910682DCFdbd5BCBb3e28FB4E8da10Ee);
 
   IProxyPool internal constant EXISTING_PROXY_POOL =
     IProxyPool(0x9Ec9F9804733df96D1641666818eFb5198eC50f0);
@@ -88,7 +88,7 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
   error BridgeLimitExceeded(uint256 limit);
 
   function setUp() public virtual {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 21538729);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 21564756);
     proposal = new AaveV3Ethereum_GHOCCIP151Upgrade_20241209();
 
     // pre-req - chainlink transfers gho token pool ownership on token admin registry
@@ -164,6 +164,10 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
     assertEq(NEW_GHO_CCIP_STEWARD.GHO_TOKEN(), AaveV3EthereumAssets.GHO_UNDERLYING);
     assertEq(NEW_GHO_CCIP_STEWARD.GHO_TOKEN_POOL(), address(NEW_TOKEN_POOL));
     assertTrue(NEW_GHO_CCIP_STEWARD.BRIDGE_LIMIT_ENABLED()); // *present* on eth token pool
+    assertEq(
+      abi.encode(NEW_GHO_CCIP_STEWARD.getCcipTimelocks()),
+      abi.encode(IGhoCcipSteward.CcipDebounce(0, 0))
+    );
   }
 
   function _getTokenMessage(
@@ -662,6 +666,7 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_PostUpgrade is
 
     assertEq(NEW_TOKEN_POOL.getCurrentOutboundRateLimiterState(ARB_CHAIN_SELECTOR), outboundConfig);
     assertEq(NEW_TOKEN_POOL.getCurrentInboundRateLimiterState(ARB_CHAIN_SELECTOR), inboundConfig);
+    assertEq(NEW_GHO_CCIP_STEWARD.getCcipTimelocks().rateLimitLastUpdate, vm.getBlockTimestamp());
 
     skip(NEW_GHO_CCIP_STEWARD.MINIMUM_DELAY() + 1);
 
@@ -677,6 +682,7 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_PostUpgrade is
       NEW_TOKEN_POOL.getCurrentInboundRateLimiterState(ARB_CHAIN_SELECTOR),
       _getDisabledConfig()
     );
+    assertEq(NEW_GHO_CCIP_STEWARD.getCcipTimelocks().rateLimitLastUpdate, vm.getBlockTimestamp());
   }
 
   function test_ccipStewardCanSetBridgeLimit(uint256 newBridgeLimit) public {
@@ -689,6 +695,7 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_PostUpgrade is
     NEW_GHO_CCIP_STEWARD.updateBridgeLimit(newBridgeLimit);
 
     assertEq(NEW_TOKEN_POOL.getBridgeLimit(), newBridgeLimit);
+    assertEq(NEW_GHO_CCIP_STEWARD.getCcipTimelocks().bridgeLimitLastUpdate, vm.getBlockTimestamp());
   }
 
   function test_aaveStewardCanUpdateBorrowRate() public {
@@ -717,6 +724,10 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_PostUpgrade is
     );
 
     assertEq(irStrategy.getInterestRateDataBps(address(GHO)), currentRateData);
+    assertEq(
+      NEW_GHO_AAVE_STEWARD.getGhoTimelocks().ghoBorrowRateLastUpdate,
+      vm.getBlockTimestamp()
+    );
   }
 
   function test_aaveStewardCanUpdateBorrowCap(uint256 newBorrowCap) public {
@@ -731,6 +742,7 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_PostUpgrade is
     NEW_GHO_AAVE_STEWARD.updateGhoBorrowCap(newBorrowCap);
 
     assertEq(AaveV3Ethereum.POOL.getConfiguration(address(GHO)).getBorrowCap(), newBorrowCap);
+    assertEq(NEW_GHO_AAVE_STEWARD.getGhoTimelocks().ghoBorrowCapLastUpdate, vm.getBlockTimestamp());
 
     // @dev gho cannot be supplied on ethereum
     assertEq(AaveV3Ethereum.POOL.getConfiguration(address(GHO)).getSupplyCap(), 0);

@@ -67,7 +67,7 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
   IGhoCcipSteward internal constant EXISTING_GHO_CCIP_STEWARD =
     IGhoCcipSteward(0xb329CEFF2c362F315900d245eC88afd24C4949D5);
   IGhoCcipSteward internal constant NEW_GHO_CCIP_STEWARD =
-    IGhoCcipSteward(0x06179f7C1be40863405f374E7f5F8806c728660A);
+    IGhoCcipSteward(0x3c47237479e7569653eF9beC4a7Cd2ee3F78b396);
 
   IProxyPool internal constant EXISTING_PROXY_POOL =
     IProxyPool(0x26329558f08cbb40d6a4CCA0E0C67b29D64A8c50);
@@ -88,7 +88,7 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
   event CCIPSendRequested(IInternal.EVM2EVMMessage message);
 
   function setUp() public virtual {
-    vm.createSelectFork(vm.rpcUrl('arbitrum'), 291301479);
+    vm.createSelectFork(vm.rpcUrl('arbitrum'), 292550754);
     proposal = new AaveV3Arbitrum_GHOCCIP151Upgrade_20241209();
 
     // pre-req - chainlink transfers gho token pool ownership on token admin registry
@@ -170,6 +170,10 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
     assertEq(NEW_GHO_CCIP_STEWARD.GHO_TOKEN(), AaveV3ArbitrumAssets.GHO_UNDERLYING);
     assertEq(NEW_GHO_CCIP_STEWARD.GHO_TOKEN_POOL(), address(NEW_TOKEN_POOL));
     assertFalse(NEW_GHO_CCIP_STEWARD.BRIDGE_LIMIT_ENABLED()); // *not present* on remote token pool, only on eth
+    assertEq(
+      abi.encode(NEW_GHO_CCIP_STEWARD.getCcipTimelocks()),
+      abi.encode(IGhoCcipSteward.CcipDebounce(0, 0))
+    );
   }
 
   function _getTokenMessage(
@@ -647,6 +651,7 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209_PostUpgrade is
 
     assertEq(NEW_TOKEN_POOL.getCurrentOutboundRateLimiterState(ETH_CHAIN_SELECTOR), outboundConfig);
     assertEq(NEW_TOKEN_POOL.getCurrentInboundRateLimiterState(ETH_CHAIN_SELECTOR), inboundConfig);
+    assertEq(NEW_GHO_CCIP_STEWARD.getCcipTimelocks().rateLimitLastUpdate, vm.getBlockTimestamp());
 
     skip(NEW_GHO_CCIP_STEWARD.MINIMUM_DELAY() + 1);
 
@@ -662,6 +667,7 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209_PostUpgrade is
       NEW_TOKEN_POOL.getCurrentInboundRateLimiterState(ETH_CHAIN_SELECTOR),
       _getDisabledConfig()
     );
+    assertEq(NEW_GHO_CCIP_STEWARD.getCcipTimelocks().rateLimitLastUpdate, vm.getBlockTimestamp());
   }
 
   function test_aaveStewardCanUpdateBorrowRate() public {
@@ -691,6 +697,10 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209_PostUpgrade is
     );
 
     assertEq(irStrategy.getInterestRateDataBps(address(GHO)), currentRateData);
+    assertEq(
+      NEW_GHO_AAVE_STEWARD.getGhoTimelocks().ghoBorrowRateLastUpdate,
+      vm.getBlockTimestamp()
+    );
   }
 
   function test_aaveStewardCanUpdateBorrowCap(uint256 newBorrowCap) public {
@@ -705,6 +715,7 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209_PostUpgrade is
     NEW_GHO_AAVE_STEWARD.updateGhoBorrowCap(newBorrowCap);
 
     assertEq(AaveV3Arbitrum.POOL.getConfiguration(address(GHO)).getBorrowCap(), newBorrowCap);
+    assertEq(NEW_GHO_AAVE_STEWARD.getGhoTimelocks().ghoBorrowCapLastUpdate, vm.getBlockTimestamp());
   }
 
   function test_aaveStewardCanUpdateSupplyCap(uint256 newSupplyCap) public {
@@ -719,5 +730,6 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209_PostUpgrade is
     NEW_GHO_AAVE_STEWARD.updateGhoSupplyCap(newSupplyCap);
 
     assertEq(AaveV3Arbitrum.POOL.getConfiguration(address(GHO)).getSupplyCap(), newSupplyCap);
+    assertEq(NEW_GHO_AAVE_STEWARD.getGhoTimelocks().ghoSupplyCapLastUpdate, vm.getBlockTimestamp());
   }
 }

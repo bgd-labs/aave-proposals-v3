@@ -45,8 +45,8 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209 is IProposalGenericExecutor {
   // https://arbiscan.io/address/0xa9afaE6A53E90f9E4CE0717162DF5Bc3d9aBe7B2
   IGhoBucketSteward public constant GHO_BUCKET_STEWARD =
     IGhoBucketSteward(0xa9afaE6A53E90f9E4CE0717162DF5Bc3d9aBe7B2);
-  // https://arbiscan.io/address/0x06179f7C1be40863405f374E7f5F8806c728660A
-  address public constant NEW_GHO_CCIP_STEWARD = 0x06179f7C1be40863405f374E7f5F8806c728660A;
+  // https://arbiscan.io/address/0x3c47237479e7569653eF9beC4a7Cd2ee3F78b396
+  address public constant NEW_GHO_CCIP_STEWARD = 0x3c47237479e7569653eF9beC4a7Cd2ee3F78b396;
 
   // https://etherscan.io/address/0x9Ec9F9804733df96D1641666818eFb5198eC50f0
   address public constant EXISTING_REMOTE_POOL_ETH = 0x9Ec9F9804733df96D1641666818eFb5198eC50f0; // ProxyPool on ETH
