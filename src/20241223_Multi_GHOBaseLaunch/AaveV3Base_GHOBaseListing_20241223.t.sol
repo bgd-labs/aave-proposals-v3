@@ -115,7 +115,7 @@ contract AaveV3Base_GHOBaseListing_20241223_ListingPreRequisites is
     test_listingFailsPreLaunch();
     _executeLaunchAIP(); // deploys gho token, token pool & stewards
 
-    vm.expectRevert(bytes(Errors.FAILED_ACTION_EXECUTION)); // seed amount has not been bridged yet, reverts on pool.supply()
+    vm.expectRevert(bytes(Errors.FAILED_ACTION_EXECUTION)); // seed amount has not been bridged yet, reverts on _preExecute()
     GovernanceV3Base.PAYLOADS_CONTROLLER.executePayload(payloadId);
   }
 

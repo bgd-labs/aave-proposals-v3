@@ -79,7 +79,7 @@ contract AaveV3Ethereum_GHOBaseLaunch_20241223_Test is ProtocolV3TestBase {
   error InvalidSourcePoolAddress(bytes);
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 21538729);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 21564756);
     _upgradeEthTo1_5_1();
     proposal = new AaveV3Ethereum_GHOBaseLaunch_20241223();
 
