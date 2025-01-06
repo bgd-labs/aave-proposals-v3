@@ -73,7 +73,7 @@ contract AaveV3Base_GHOBaseLaunch_20241223_Base is ProtocolV3TestBase {
   IGhoBucketSteward internal constant NEW_GHO_BUCKET_STEWARD =
     IGhoBucketSteward(0xA5Ba213867E175A182a5dd6A9193C6158738105A);
   IGhoCcipSteward internal constant NEW_GHO_CCIP_STEWARD =
-    IGhoCcipSteward(0x2Ce400703dAcc37b7edFA99D228b8E70a4d3831B);
+    IGhoCcipSteward(0x6e637e1E48025E51315d50ab96d5b3be1971A715);
   IUpgradeableBurnMintTokenPool_1_5_1 internal constant NEW_TOKEN_POOL =
     IUpgradeableBurnMintTokenPool_1_5_1(0xDe6539018B095353A40753Dc54C91C68c9487D4E);
   address internal constant NEW_REMOTE_POOL_ARB = 0x6Bb7a212910682DCFdbd5BCBb3e28FB4E8da10Ee;
@@ -93,7 +93,7 @@ contract AaveV3Base_GHOBaseLaunch_20241223_Base is ProtocolV3TestBase {
   error InvalidSourcePoolAddress(bytes);
 
   function setUp() public virtual {
-    vm.createSelectFork(vm.rpcUrl('base'), 24519153);
+    vm.createSelectFork(vm.rpcUrl('base'), 24685477);
     proposal = new AaveV3Base_GHOBaseLaunch_20241223();
 
     _performCcipPreReq();
@@ -328,13 +328,10 @@ contract AaveV3Base_GHOBaseLaunch_20241223_PreExecution is AaveV3Base_GHOBaseLau
     assertEq(NEW_GHO_CCIP_STEWARD.GHO_TOKEN_POOL(), address(NEW_TOKEN_POOL));
     assertEq(NEW_GHO_CCIP_STEWARD.RISK_COUNCIL(), RISK_COUNCIL);
     assertFalse(NEW_GHO_CCIP_STEWARD.BRIDGE_LIMIT_ENABLED());
-    uint256 ccipDebounceValue = uint256(vm.load(address(NEW_GHO_CCIP_STEWARD), bytes32(0)));
-    IGhoCcipSteward.CcipDebounce memory ccipDebounce = IGhoCcipSteward.CcipDebounce({
-      bridgeLimitLastUpdate: uint40(ccipDebounceValue >> 216),
-      rateLimitLastUpdate: uint40(ccipDebounceValue >> 176)
-    });
-    assertEq(ccipDebounce.bridgeLimitLastUpdate, 0);
-    assertEq(ccipDebounce.rateLimitLastUpdate, 0);
+    assertEq(
+      abi.encode(NEW_GHO_CCIP_STEWARD.getCcipTimelocks()),
+      abi.encode(IGhoCcipSteward.CcipDebounce(0, 0))
+    );
   }
 
   function test_newTokenPoolInitialization() public {

@@ -46,12 +46,12 @@ contract AaveV3Base_GHOBaseListing_20241223_Base is ProtocolV3TestBase {
   IGhoBucketSteward internal constant NEW_GHO_BUCKET_STEWARD =
     IGhoBucketSteward(0xA5Ba213867E175A182a5dd6A9193C6158738105A);
   IGhoCcipSteward internal constant NEW_GHO_CCIP_STEWARD =
-    IGhoCcipSteward(0x2Ce400703dAcc37b7edFA99D228b8E70a4d3831B);
+    IGhoCcipSteward(0x6e637e1E48025E51315d50ab96d5b3be1971A715);
   IUpgradeableBurnMintTokenPool_1_5_1 internal constant NEW_TOKEN_POOL =
     IUpgradeableBurnMintTokenPool_1_5_1(0xDe6539018B095353A40753Dc54C91C68c9487D4E);
 
   function setUp() public virtual {
-    vm.createSelectFork(vm.rpcUrl('base'), 24519153);
+    vm.createSelectFork(vm.rpcUrl('base'), 24685477);
     proposal = new AaveV3Base_GHOBaseListing_20241223();
   }
 
@@ -225,6 +225,7 @@ contract AaveV3Base_GHOBaseListing_20241223_Stewards is AaveV3Base_GHOBaseListin
     NEW_GHO_AAVE_STEWARD.updateGhoBorrowCap(newBorrowCap);
 
     assertEq(AaveV3Base.POOL.getConfiguration(address(GHO_TOKEN)).getBorrowCap(), newBorrowCap);
+    assertEq(NEW_GHO_AAVE_STEWARD.getGhoTimelocks().ghoBorrowCapLastUpdate, vm.getBlockTimestamp());
   }
 
   function test_aaveStewardCanUpdateSupplyCap(uint256 newSupplyCap) public {
@@ -240,6 +241,7 @@ contract AaveV3Base_GHOBaseListing_20241223_Stewards is AaveV3Base_GHOBaseListin
     NEW_GHO_AAVE_STEWARD.updateGhoSupplyCap(newSupplyCap);
 
     assertEq(AaveV3Base.POOL.getConfiguration(address(GHO_TOKEN)).getSupplyCap(), newSupplyCap);
+    assertEq(NEW_GHO_AAVE_STEWARD.getGhoTimelocks().ghoSupplyCapLastUpdate, vm.getBlockTimestamp());
   }
 
   function test_bucketStewardCanUpdateBucketCapacity(uint256 newBucketCapacity) public {
@@ -295,6 +297,7 @@ contract AaveV3Base_GHOBaseListing_20241223_Stewards is AaveV3Base_GHOBaseListin
 
     assertEq(NEW_TOKEN_POOL.getCurrentOutboundRateLimiterState(remoteChain), outboundConfig);
     assertEq(NEW_TOKEN_POOL.getCurrentInboundRateLimiterState(remoteChain), inboundConfig);
+    assertEq(NEW_GHO_CCIP_STEWARD.getCcipTimelocks().rateLimitLastUpdate, vm.getBlockTimestamp());
 
     skip(NEW_GHO_CCIP_STEWARD.MINIMUM_DELAY() + 1);
 
@@ -305,5 +308,6 @@ contract AaveV3Base_GHOBaseListing_20241223_Stewards is AaveV3Base_GHOBaseListin
     IRateLimiter.Config memory disabledConfig = IRateLimiter.Config(false, 0, 0);
     assertEq(NEW_TOKEN_POOL.getCurrentOutboundRateLimiterState(remoteChain), disabledConfig);
     assertEq(NEW_TOKEN_POOL.getCurrentInboundRateLimiterState(remoteChain), disabledConfig);
+    assertEq(NEW_GHO_CCIP_STEWARD.getCcipTimelocks().rateLimitLastUpdate, vm.getBlockTimestamp());
   }
 }

@@ -45,8 +45,8 @@ contract AaveV3Base_GHOBaseLaunch_20241223 is IProposalGenericExecutor {
   address public constant GHO_AAVE_STEWARD = 0x20fd5f3FCac8883a3A0A2bBcD658A2d2c6EFa6B6;
   // https://basescan.org/address/0xA5Ba213867E175A182a5dd6A9193C6158738105A
   address public constant GHO_BUCKET_STEWARD = 0xA5Ba213867E175A182a5dd6A9193C6158738105A;
-  // https://basescan.org/address/0x2Ce400703dAcc37b7edFA99D228b8E70a4d3831B
-  address public constant GHO_CCIP_STEWARD = 0x2Ce400703dAcc37b7edFA99D228b8E70a4d3831B;
+  // https://basescan.org/address/0x6e637e1E48025E51315d50ab96d5b3be1971A715
+  address public constant GHO_CCIP_STEWARD = 0x6e637e1E48025E51315d50ab96d5b3be1971A715;
 
   // https://etherscan.io/address/0x20fd5f3FCac8883a3A0A2bBcD658A2d2c6EFa6B6
   address public constant REMOTE_TOKEN_POOL_ETH = 0x20fd5f3FCac8883a3A0A2bBcD658A2d2c6EFa6B6;

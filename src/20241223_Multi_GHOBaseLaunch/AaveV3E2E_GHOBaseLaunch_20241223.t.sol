@@ -110,7 +110,7 @@ contract AaveV3Base_GHOBaseLaunch_20241223_Base is ProtocolV3TestBase {
 
   function setUp() public virtual {
     arb.c.forkId = vm.createFork(vm.rpcUrl('arbitrum'), 292550754);
-    base.c.forkId = vm.createFork(vm.rpcUrl('base'), 24519153);
+    base.c.forkId = vm.createFork(vm.rpcUrl('base'), 24685477);
     eth.c.forkId = vm.createFork(vm.rpcUrl('mainnet'), 21564756);
 
     arb.c.tokenAdminRegistry = ITokenAdminRegistry(0x39AE1032cF4B334a1Ed41cdD0833bdD7c7E7751E);
