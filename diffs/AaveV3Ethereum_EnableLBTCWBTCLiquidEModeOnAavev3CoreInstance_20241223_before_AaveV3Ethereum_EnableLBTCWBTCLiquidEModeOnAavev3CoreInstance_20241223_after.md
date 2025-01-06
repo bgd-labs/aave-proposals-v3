@@ -9,15 +9,15 @@
 | decimals | 8 |
 | isActive | true |
 | isFrozen | false |
-| supplyCap | 8,000 LBTC |
-| borrowCap | 800 LBTC |
+| supplyCap | 800 LBTC |
+| borrowCap | 80 LBTC |
 | debtCeiling | 0 $ [0] |
 | isSiloed | false |
 | isFlashloanable | true |
 | oracle | [0xF4030086522a5bEEa4988F8cA5B36dbC97BeE88c](https://etherscan.io/address/0xF4030086522a5bEEa4988F8cA5B36dbC97BeE88c) |
 | oracleDecimals | 8 |
 | oracleDescription | BTC / USD |
-| oracleLatestAnswer | 93409.30100239 |
+| oracleLatestAnswer | 102127.88158314 |
 | usageAsCollateralEnabled | true |
 | ltv | 70 % [7000] |
 | liquidationThreshold | 75 % [7500] |
@@ -33,13 +33,13 @@
 | interestRateStrategy | [0x9ec6F08190DeA04A54f8Afc53Db96134e5E3FdFB](https://etherscan.io/address/0x9ec6F08190DeA04A54f8Afc53Db96134e5E3FdFB) |
 | aTokenName | Aave Ethereum LBTC |
 | aTokenSymbol | aEthLBTC |
-| aTokenUnderlyingBalance | 0 LBTC [0] |
+| aTokenUnderlyingBalance | 0.001 LBTC [100000] |
 | id | 37 |
 | isPaused | false |
 | variableDebtTokenName | Aave Ethereum Variable Debt LBTC |
 | variableDebtTokenSymbol | variableDebtEthLBTC |
 | virtualAccountingActive | true |
-| virtualBalance | 0 LBTC [0] |
+| virtualBalance | 0.001 LBTC [100000] |
 | optimalUsageRatio | 45 % |
 | maxVariableBorrowRate | 304 % |
 | baseVariableBorrowRate | 0 % |
@@ -100,8 +100,8 @@
         "aTokenImpl": "0x7EfFD7b47Bfd17e52fB7559d3f924201b9DbfF3d",
         "aTokenName": "Aave Ethereum LBTC",
         "aTokenSymbol": "aEthLBTC",
-        "aTokenUnderlyingBalance": "0",
-        "borrowCap": 800,
+        "aTokenUnderlyingBalance": "100000",
+        "borrowCap": 80,
         "borrowingEnabled": true,
         "debtCeiling": 0,
         "decimals": 8,
@@ -120,9 +120,9 @@
         "oracle": "0xF4030086522a5bEEa4988F8cA5B36dbC97BeE88c",
         "oracleDecimals": 8,
         "oracleDescription": "BTC / USD",
-        "oracleLatestAnswer": "9340930100239",
+        "oracleLatestAnswer": "10212788158314",
         "reserveFactor": 5000,
-        "supplyCap": 8000,
+        "supplyCap": 800,
         "symbol": "LBTC",
         "underlying": "0x8236a87084f8B84306f72007F36F2618A5634494",
         "usageAsCollateralEnabled": true,
@@ -131,7 +131,7 @@
         "variableDebtTokenName": "Aave Ethereum Variable Debt LBTC",
         "variableDebtTokenSymbol": "variableDebtEthLBTC",
         "virtualAccountingActive": true,
-        "virtualBalance": "0"
+        "virtualBalance": "100000"
       }
     }
   },

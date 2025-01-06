@@ -20,7 +20,7 @@ contract AaveV3Ethereum_EnableLBTCWBTCLiquidEModeOnAavev3CoreInstance_20241223_T
   AaveV3Ethereum_EnableLBTCWBTCLiquidEModeOnAavev3CoreInstance_20241223 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 21466630);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 21567986);
     proposal = new AaveV3Ethereum_EnableLBTCWBTCLiquidEModeOnAavev3CoreInstance_20241223();
   }
 

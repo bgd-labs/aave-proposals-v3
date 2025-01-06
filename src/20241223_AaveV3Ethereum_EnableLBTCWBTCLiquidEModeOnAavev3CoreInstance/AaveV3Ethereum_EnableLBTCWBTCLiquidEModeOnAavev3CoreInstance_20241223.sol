@@ -92,8 +92,8 @@ contract AaveV3Ethereum_EnableLBTCWBTCLiquidEModeOnAavev3CoreInstance_20241223 i
       liqThreshold: 75_00,
       liqBonus: 8_50,
       reserveFactor: 50_00,
-      supplyCap: 8_000,
-      borrowCap: 800,
+      supplyCap: 800,
+      borrowCap: 80,
       debtCeiling: 0,
       liqProtocolFee: 10_00,
       rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({

@@ -30,8 +30,8 @@ The table below illustrates the configured risk parameters for **LBTC**
 | Isolation Mode            |                                      false |
 | Borrowable                |                                    ENABLED |
 | Collateral Enabled        |                                       true |
-| Supply Cap (LBTC)         |                                      8,000 |
-| Borrow Cap (LBTC)         |                                        800 |
+| Supply Cap (LBTC)         |                                        800 |
+| Borrow Cap (LBTC)         |                                         80 |
 | Debt Ceiling              |                                      USD 0 |
 | LTV                       |                                       70 % |
 | LT                        |                                       75 % |
