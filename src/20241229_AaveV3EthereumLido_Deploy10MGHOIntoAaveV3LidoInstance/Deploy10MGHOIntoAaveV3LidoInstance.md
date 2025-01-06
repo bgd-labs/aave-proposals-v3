@@ -25,8 +25,8 @@ With strong demand for GHO using wstETH as collateral resulting in 23.7% of GHO 
 
 ## References
 
-- Implementation: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241229_AaveV3EthereumLido_Deploy10MGHOIntoAaveV3LidoInstance/AaveV3EthereumLido_Deploy10MGHOIntoAaveV3LidoInstance_20241229.sol)
-- Tests: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241229_AaveV3EthereumLido_Deploy10MGHOIntoAaveV3LidoInstance/AaveV3EthereumLido_Deploy10MGHOIntoAaveV3LidoInstance_20241229.t.sol)
+- Implementation: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/308146dc34181b49d22282ac967de30ed28a3296/src/20241229_AaveV3EthereumLido_Deploy10MGHOIntoAaveV3LidoInstance/AaveV3EthereumLido_Deploy10MGHOIntoAaveV3LidoInstance_20241229.sol)
+- Tests: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/308146dc34181b49d22282ac967de30ed28a3296/src/20241229_AaveV3EthereumLido_Deploy10MGHOIntoAaveV3LidoInstance/AaveV3EthereumLido_Deploy10MGHOIntoAaveV3LidoInstance_20241229.t.sol)
 - [Snapshot](https://snapshot.box/#/s:aave.eth/proposal/0x4af37d6b4a1c9029c7693c4bdfb646931a9815c4a56d9066ac1fbdbef7cd15e5)
 - [Discussion](https://governance.aave.com/t/arfc-mint-deploy-10m-gho-into-aave-v3-lido-instance/19700)
 
