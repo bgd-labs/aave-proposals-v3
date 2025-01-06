@@ -15,7 +15,7 @@ contract AaveV3Ethereum_AaveV33SherlockContest_20250106 is IProposalGenericExecu
   using CollectorUtils for ICollector;
 
   address public constant BGD_RECIPIENT = 0xb812d0944f8F581DfAA3a93Dda0d22EcEf51A9CF;
-  address public constant SHERLOCK_RECIPIENT = address(123); // TODO
+  address public constant SHERLOCK_RECIPIENT = 0x666B8EbFbF4D5f0CE56962a25635CfF563F13161;
 
   uint256 public constant BGD_USDC_AMOUNT = 30_000e6;
   uint256 public constant SHERLOCK_USDC_AMOUNT = 200_000e6;
