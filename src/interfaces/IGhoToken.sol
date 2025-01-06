@@ -48,6 +48,12 @@ interface IGhoToken is IERC20 {
   function removeFacilitator(address facilitatorAddress) external;
 
   /**
+   * @notice Returns the list of the addresses of the active facilitator
+   * @return The list of the facilitators addresses
+   */
+  function getFacilitatorsList() external view returns (address[] memory);
+
+  /**
    * @notice Set the bucket capacity of the facilitator.
    * @dev Only accounts with `BUCKET_MANAGER_ROLE` role can call this function
    * @param facilitator The address of the facilitator
