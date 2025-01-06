@@ -4,21 +4,20 @@ pragma solidity ^0.8.0;
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 
 import 'forge-std/Test.sol';
-import 'forge-std/console2.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
-import {AaveV3Ethereum_AaveV33SherlockContest_20250106} from './AaveV3Ethereum_AaveV33SherlockContest_20250106.sol';
+import {AaveV3Ethereum_AaveV33SherlockContestFunding_20250106} from './AaveV3Ethereum_AaveV33SherlockContestFunding_20250106.sol';
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 
 /**
- * @dev Test for AaveV3Ethereum_AaveV33SherlockContest_20250106
- * command: FOUNDRY_PROFILE=mainnet forge test --match-path=src/20250106_AaveV3Ethereum_AaveV33SherlockContest/AaveV3Ethereum_AaveV33SherlockContest_20250106.t.sol -vv
+ * @dev Test for AaveV3Ethereum_AaveV33SherlockContestFunding_20250106
+ * command: FOUNDRY_PROFILE=mainnet forge test --match-path=src/20250106_AaveV3Ethereum_AaveV33SherlockContestFunding/AaveV3Ethereum_AaveV33SherlockContestFunding_20250106.t.sol -vv
  */
-contract AaveV3Ethereum_AaveV33SherlockContest_20250106_Test is ProtocolV3TestBase {
-  AaveV3Ethereum_AaveV33SherlockContest_20250106 internal proposal;
+contract AaveV3Ethereum_AaveV33SherlockContestFunding_20250106_Test is ProtocolV3TestBase {
+  AaveV3Ethereum_AaveV33SherlockContestFunding_20250106 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 21565489);
-    proposal = new AaveV3Ethereum_AaveV33SherlockContest_20250106();
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 21566088);
+    proposal = new AaveV3Ethereum_AaveV33SherlockContestFunding_20250106();
   }
 
   /**
@@ -26,7 +25,7 @@ contract AaveV3Ethereum_AaveV33SherlockContest_20250106_Test is ProtocolV3TestBa
    */
   function test_defaultProposalExecution() public {
     defaultTest(
-      'AaveV3Ethereum_AaveV33SherlockContest_20250106',
+      'AaveV3Ethereum_AaveV33SherlockContestFunding_20250106',
       AaveV3Ethereum.POOL,
       address(proposal)
     );
