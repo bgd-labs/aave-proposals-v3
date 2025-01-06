@@ -14,10 +14,10 @@
 | debtCeiling | 0 $ [0] |
 | isSiloed | false |
 | isFlashloanable | true |
-| oracle | [0x71041dddad3595F9CEd3DcCFBe3D1F4b0a16Bb70](https://basescan.org/address/0x71041dddad3595F9CEd3DcCFBe3D1F4b0a16Bb70) |
+| oracle | [0x438e24f5FCDC1A66ecb25D19B5543e0Cb91A44D4](https://basescan.org/address/0x438e24f5FCDC1A66ecb25D19B5543e0Cb91A44D4) |
 | oracleDecimals | 8 |
-| oracleDescription | ETH / USD |
-| oracleLatestAnswer | 3391.38 |
+| oracleDescription | Capped ezETH / ETH / USD |
+| oracleLatestAnswer | 3785.26748692 |
 | usageAsCollateralEnabled | true |
 | ltv | 72 % [7200] |
 | liquidationThreshold | 75 % [7500] |
@@ -33,13 +33,13 @@
 | interestRateStrategy | [0x86AB1C62A8bf868E1b3E1ab87d587Aba6fbCbDC5](https://basescan.org/address/0x86AB1C62A8bf868E1b3E1ab87d587Aba6fbCbDC5) |
 | aTokenName | Aave Base ezETH |
 | aTokenSymbol | aBasezETH |
-| aTokenUnderlyingBalance | 0 ezETH [0] |
+| aTokenUnderlyingBalance | 0.03 ezETH [30000000000000000] |
 | id | 7 |
 | isPaused | false |
 | variableDebtTokenName | Aave Base Variable Debt ezETH |
 | variableDebtTokenSymbol | variableDebtBasezETH |
 | virtualAccountingActive | true |
-| virtualBalance | 0 ezETH [0] |
+| virtualBalance | 0.03 ezETH [30000000000000000] |
 | optimalUsageRatio | 45 % |
 | maxVariableBorrowRate | 307 % |
 | baseVariableBorrowRate | 0 % |
@@ -106,7 +106,7 @@
         "aTokenImpl": "0x98F409Fc4A42F34AE3c326c7f48ED01ae8cAeC69",
         "aTokenName": "Aave Base ezETH",
         "aTokenSymbol": "aBasezETH",
-        "aTokenUnderlyingBalance": "0",
+        "aTokenUnderlyingBalance": "30000000000000000",
         "borrowCap": 120,
         "borrowingEnabled": true,
         "debtCeiling": 0,
@@ -123,10 +123,10 @@
         "liquidationProtocolFee": 1000,
         "liquidationThreshold": 7500,
         "ltv": 7200,
-        "oracle": "0x71041dddad3595F9CEd3DcCFBe3D1F4b0a16Bb70",
+        "oracle": "0x438e24f5FCDC1A66ecb25D19B5543e0Cb91A44D4",
         "oracleDecimals": 8,
-        "oracleDescription": "ETH / USD",
-        "oracleLatestAnswer": "339138000000",
+        "oracleDescription": "Capped ezETH / ETH / USD",
+        "oracleLatestAnswer": "378526748692",
         "reserveFactor": 1500,
         "supplyCap": 1200,
         "symbol": "ezETH",
@@ -137,7 +137,7 @@
         "variableDebtTokenName": "Aave Base Variable Debt ezETH",
         "variableDebtTokenSymbol": "variableDebtBasezETH",
         "virtualAccountingActive": true,
-        "virtualBalance": "0"
+        "virtualBalance": "30000000000000000"
       }
     }
   },

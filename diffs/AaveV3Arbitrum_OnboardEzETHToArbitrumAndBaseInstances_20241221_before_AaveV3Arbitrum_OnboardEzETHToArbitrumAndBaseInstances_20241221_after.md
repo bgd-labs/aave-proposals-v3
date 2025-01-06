@@ -14,10 +14,10 @@
 | debtCeiling | 0 $ [0] |
 | isSiloed | false |
 | isFlashloanable | true |
-| oracle | [0x639Fe6ab55C921f74e7fac1ee960C0B6293ba612](https://arbiscan.io/address/0x639Fe6ab55C921f74e7fac1ee960C0B6293ba612) |
+| oracle | [0x8Ed37B72300683c0482A595bfa80fFb793874b15](https://arbiscan.io/address/0x8Ed37B72300683c0482A595bfa80fFb793874b15) |
 | oracleDecimals | 8 |
-| oracleDescription | ETH / USD |
-| oracleLatestAnswer | 3391.8434 |
+| oracleDescription | Capped ezETH / ETH / USD |
+| oracleLatestAnswer | 3787.98660028 |
 | usageAsCollateralEnabled | true |
 | ltv | 72 % [7200] |
 | liquidationThreshold | 75 % [7500] |
@@ -33,13 +33,13 @@
 | interestRateStrategy | [0x429F16dBA3B9e1900087Cbaa7b50D38Bc60fB73F](https://arbiscan.io/address/0x429F16dBA3B9e1900087Cbaa7b50D38Bc60fB73F) |
 | aTokenName | Aave Arbitrum ezETH |
 | aTokenSymbol | aArbezETH |
-| aTokenUnderlyingBalance | 0 ezETH [0] |
+| aTokenUnderlyingBalance | 0.03 ezETH [30000000000000000] |
 | id | 17 |
 | isPaused | false |
 | variableDebtTokenName | Aave Arbitrum Variable Debt ezETH |
 | variableDebtTokenSymbol | variableDebtArbezETH |
 | virtualAccountingActive | true |
-| virtualBalance | 0 ezETH [0] |
+| virtualBalance | 0.03 ezETH [30000000000000000] |
 | optimalUsageRatio | 45 % |
 | maxVariableBorrowRate | 307 % |
 | baseVariableBorrowRate | 0 % |
@@ -110,7 +110,7 @@
         "aTokenImpl": "0x1Be1798b70aEe431c2986f7ff48d9D1fa350786a",
         "aTokenName": "Aave Arbitrum ezETH",
         "aTokenSymbol": "aArbezETH",
-        "aTokenUnderlyingBalance": "0",
+        "aTokenUnderlyingBalance": "30000000000000000",
         "borrowCap": 175,
         "borrowingEnabled": true,
         "debtCeiling": 0,
@@ -127,10 +127,10 @@
         "liquidationProtocolFee": 1000,
         "liquidationThreshold": 7500,
         "ltv": 7200,
-        "oracle": "0x639Fe6ab55C921f74e7fac1ee960C0B6293ba612",
+        "oracle": "0x8Ed37B72300683c0482A595bfa80fFb793874b15",
         "oracleDecimals": 8,
-        "oracleDescription": "ETH / USD",
-        "oracleLatestAnswer": "339184340000",
+        "oracleDescription": "Capped ezETH / ETH / USD",
+        "oracleLatestAnswer": "378798660028",
         "reserveFactor": 1500,
         "supplyCap": 1750,
         "symbol": "ezETH",
@@ -141,7 +141,7 @@
         "variableDebtTokenName": "Aave Arbitrum Variable Debt ezETH",
         "variableDebtTokenSymbol": "variableDebtArbezETH",
         "virtualAccountingActive": true,
-        "virtualBalance": "0"
+        "virtualBalance": "30000000000000000"
       }
     }
   },

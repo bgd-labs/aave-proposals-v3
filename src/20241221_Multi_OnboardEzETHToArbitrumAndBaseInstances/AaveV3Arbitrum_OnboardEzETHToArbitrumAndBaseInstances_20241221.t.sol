@@ -18,7 +18,7 @@ contract AaveV3Arbitrum_OnboardEzETHToArbitrumAndBaseInstances_20241221_Test is 
   AaveV3Arbitrum_OnboardEzETHToArbitrumAndBaseInstances_20241221 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('arbitrum'), 287111756);
+    vm.createSelectFork(vm.rpcUrl('arbitrum'), 292661143);
     proposal = new AaveV3Arbitrum_OnboardEzETHToArbitrumAndBaseInstances_20241221();
   }
 
