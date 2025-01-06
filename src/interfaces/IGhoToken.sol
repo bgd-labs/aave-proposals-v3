@@ -8,7 +8,26 @@ interface IGhoToken {
     string label;
   }
 
+  /**
+   * @notice Add the facilitator passed with the parameters to the facilitators list.
+   * @dev Only accounts with `FACILITATOR_MANAGER_ROLE` role can call this function
+   * @param facilitatorAddress The address of the facilitator to add
+   * @param facilitatorLabel A human readable identifier for the facilitator
+   * @param bucketCapacity The upward limit of GHO can be minted by the facilitator
+   */
+  function addFacilitator(
+    address facilitatorAddress,
+    string calldata facilitatorLabel,
+    uint128 bucketCapacity
+  ) external;
+
   function balanceOf(address user) external returns (uint256);
+
+  /**
+   * @notice Returns the list of the addresses of the active facilitator
+   * @return The list of the facilitators addresses
+   */
+  function getFacilitatorsList() external view returns (address[] memory);
 
   /**
    * @notice Set the bucket capacity of the facilitator.
