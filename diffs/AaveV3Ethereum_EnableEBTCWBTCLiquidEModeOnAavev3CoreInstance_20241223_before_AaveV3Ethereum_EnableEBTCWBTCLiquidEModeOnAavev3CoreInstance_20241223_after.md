@@ -17,7 +17,7 @@
 | oracle | [0xF4030086522a5bEEa4988F8cA5B36dbC97BeE88c](https://etherscan.io/address/0xF4030086522a5bEEa4988F8cA5B36dbC97BeE88c) |
 | oracleDecimals | 8 |
 | oracleDescription | BTC / USD |
-| oracleLatestAnswer | 93409.30100239 |
+| oracleLatestAnswer | 102127.88158314 |
 | usageAsCollateralEnabled | true |
 | ltv | 67 % [6700] |
 | liquidationThreshold | 72 % [7200] |
@@ -33,13 +33,13 @@
 | interestRateStrategy | [0x9ec6F08190DeA04A54f8Afc53Db96134e5E3FdFB](https://etherscan.io/address/0x9ec6F08190DeA04A54f8Afc53Db96134e5E3FdFB) |
 | aTokenName | Aave Ethereum eBTC |
 | aTokenSymbol | aEtheBTC |
-| aTokenUnderlyingBalance | 0 eBTC [0] |
+| aTokenUnderlyingBalance | 0.001 eBTC [100000] |
 | id | 37 |
 | isPaused | false |
 | variableDebtTokenName | Aave Ethereum Variable Debt eBTC |
 | variableDebtTokenSymbol | variableDebtEtheBTC |
 | virtualAccountingActive | true |
-| virtualBalance | 0 eBTC [0] |
+| virtualBalance | 0.001 eBTC [100000] |
 | optimalUsageRatio | 45 % |
 | maxVariableBorrowRate | 304 % |
 | baseVariableBorrowRate | 0 % |
@@ -100,7 +100,7 @@
         "aTokenImpl": "0x7EfFD7b47Bfd17e52fB7559d3f924201b9DbfF3d",
         "aTokenName": "Aave Ethereum eBTC",
         "aTokenSymbol": "aEtheBTC",
-        "aTokenUnderlyingBalance": "0",
+        "aTokenUnderlyingBalance": "100000",
         "borrowCap": 8,
         "borrowingEnabled": true,
         "debtCeiling": 0,
@@ -120,7 +120,7 @@
         "oracle": "0xF4030086522a5bEEa4988F8cA5B36dbC97BeE88c",
         "oracleDecimals": 8,
         "oracleDescription": "BTC / USD",
-        "oracleLatestAnswer": "9340930100239",
+        "oracleLatestAnswer": "10212788158314",
         "reserveFactor": 5000,
         "supplyCap": 80,
         "symbol": "eBTC",
@@ -131,7 +131,7 @@
         "variableDebtTokenName": "Aave Ethereum Variable Debt eBTC",
         "variableDebtTokenSymbol": "variableDebtEtheBTC",
         "virtualAccountingActive": true,
-        "virtualBalance": "0"
+        "virtualBalance": "100000"
       }
     }
   },
