@@ -3,7 +3,7 @@ export const config: ConfigFile = {
   rootOptions: {
     author: 'BGD Labs @bgdlabs',
     pools: ['AaveV3Ethereum'],
-    title: 'AaveV33SherlockContestFunding',
+    title: 'Aave v3.3 Sherlock contest funding',
     shortName: 'AaveV33SherlockContestFunding',
     date: '20250106',
     discussion: 'https://governance.aave.com/t/arfc-bgd-aave-v3-3-sherlock-contest/20498',

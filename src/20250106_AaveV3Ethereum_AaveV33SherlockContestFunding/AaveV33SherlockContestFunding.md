@@ -28,6 +28,11 @@ This proposal releases the budget required for the contest from the Aave Collect
 - 30'000 USDC to BGD Labs, to refund the part advanced to Sherlock post-ARFC (transaction [HERE](https://etherscan.io/tx/0x396995576313b6578dad47d0ef7ab454b9840c246262bb812a078a092158b058)).
 - 200'000 USDC to Sherlock, to cover the rest of the contest budget.
 
+| **Entity** | **Recipient Address**                      | **Value**    |
+| ---------- | ------------------------------------------ | ------------ |
+| BGD Labs   | 0xb812d0944f8F581DfAA3a93Dda0d22EcEf51A9CF | 30'000 USDC  |
+| Sherlock   | 0x666B8EbFbF4D5f0CE56962a25635CfF563F13161 | 200'000 USDC |
+
 ## References
 
 - Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250106_AaveV3Ethereum_AaveV33SherlockContestFunding/AaveV3Ethereum_AaveV33SherlockContestFunding_20250106.sol)
