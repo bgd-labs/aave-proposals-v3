@@ -7,11 +7,17 @@ snapshot: "https://snapshot.box/#/s:aave.eth/proposal/0xf9fa710414237636cba11187
 
 ## Simple Summary
 
+This is an AIP for adding borrow/lend support for Renzo Protocol and its Liquid Restaking Token (LRT) ezETH on AAVE V3 Base and Arbitrum.
+
 ## Motivation
+
+As productive assets, staking tokens are high quality collateral to borrow against. ezETH is one of the largest liquid restaking tokens. With strong demand for ezETH on mainnet this proposal seeks to provide the opportunity for Aave users to make use of ezETH on leading Layer 2 networks: Base and Arbitrum.
+
+The onboarding of ezETH on these L2s will create increased ezETH demand and increased revenues for both Aave and Renzo Protocol, whilst also bolstering the liquidity and peg stability of ezETH.
 
 ## Specification
 
-The table below illustrates the configured risk parameters for **ezETH**
+The table below illustrates the configured risk parameters for **ezETH** on Arbitrum and Base instances
 
 | Parameter                 |                                      Value |
 | ------------------------- | -----------------------------------------: |
@@ -33,35 +39,27 @@ The table below illustrates the configured risk parameters for **ezETH**
 | Flashloanable             |                                    ENABLED |
 | Siloed Borrowing          |                                   DISABLED |
 | Borrowable in Isolation   |                                   DISABLED |
-| Oracle                    | 0x639Fe6ab55C921f74e7fac1ee960C0B6293ba612 |
+| Oracle (Arbitrum)         | 0x8Ed37B72300683c0482A595bfa80fFb793874b15 |
+| Oracle (Base)             | 0x438e24f5FCDC1A66ecb25D19B5543e0Cb91A44D4 |
 
-Additionaly [0xac140648435d03f784879cd789130F22Ef588Fcd](https://arbiscan.io/address/0xac140648435d03f784879cd789130F22Ef588Fcd) has been set as the emission admin for ezETH and the corresponding aToken.
+### CAPO
 
-The table below illustrates the configured risk parameters for **ezETH**
+| **maxYearlyRatioGrowthPercent** | **ratioReferenceTime** | **MINIMUM_SNAPSHOT_DELAY** |
+| ------------------------------- | ---------------------- | -------------------------- |
+| 10.89%                          | monthly                | 14 days                    |
 
-| Parameter                 |                                      Value |
-| ------------------------- | -----------------------------------------: |
-| Isolation Mode            |                                      false |
-| Borrowable                |                                    ENABLED |
-| Collateral Enabled        |                                       true |
-| Supply Cap (ezETH)        |                                      1,200 |
-| Borrow Cap (ezETH)        |                                        120 |
-| Debt Ceiling              |                                      USD 0 |
-| LTV                       |                                       72 % |
-| LT                        |                                       75 % |
-| Liquidation Bonus         |                                      7.5 % |
-| Liquidation Protocol Fee  |                                       10 % |
-| Reserve Factor            |                                       15 % |
-| Base Variable Borrow Rate |                                        0 % |
-| Variable Slope 1          |                                        7 % |
-| Variable Slope 2          |                                      300 % |
-| Uoptimal                  |                                       45 % |
-| Flashloanable             |                                    ENABLED |
-| Siloed Borrowing          |                                   DISABLED |
-| Borrowable in Isolation   |                                   DISABLED |
-| Oracle                    | 0x71041dddad3595F9CEd3DcCFBe3D1F4b0a16Bb70 |
+### E-mode: ezETH / wstETH
 
-Additionaly [0xac140648435d03f784879cd789130F22Ef588Fcd](https://basescan.org/address/0xac140648435d03f784879cd789130F22Ef588Fcd) has been set as the emission admin for ezETH and the corresponding aToken.
+| Parameter             | Value | Value  |
+| --------------------- | ----- | ------ |
+| Asset                 | ezETH | wstETH |
+| Collateral            | Yes   | No     |
+| Borrowable            | No    | Yes    |
+| Max LTV               | 93%   | 93%    |
+| Liquidation Threshold | 95%   | 95%    |
+| Liquidation Penalty   | 1.00% | 1.00%  |
+
+Additionaly [0xac140648435d03f784879cd789130F22Ef588Fcd](https://debank.com/profile/0xac140648435d03f784879cd789130F22Ef588Fcd) has been set as the emission admin for ezETH and the corresponding aToken on both instances.
 
 ## References
 
