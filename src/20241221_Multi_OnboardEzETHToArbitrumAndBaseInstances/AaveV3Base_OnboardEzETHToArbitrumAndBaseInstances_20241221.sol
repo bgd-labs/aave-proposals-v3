@@ -44,7 +44,7 @@ contract AaveV3Base_OnboardEzETHToArbitrumAndBaseInstances_20241221 is AaveV3Pay
       ltv: 93_00,
       liqThreshold: 95_00,
       liqBonus: 1_00,
-      label: 'ezETH / wstETH'
+      label: 'LRT wstETH main'
     });
 
     return eModeUpdates;
