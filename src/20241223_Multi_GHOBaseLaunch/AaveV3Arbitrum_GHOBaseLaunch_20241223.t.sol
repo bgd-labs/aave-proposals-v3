@@ -59,10 +59,10 @@ contract AaveV3Arbitrum_GHOBaseLaunch_20241223_Test is ProtocolV3TestBase {
   address public constant NEW_REMOTE_TOKEN_BASE = 0x6F2216CB3Ca97b8756C5fD99bE27986f04CBd81D; // predicted
   IRouter internal constant ROUTER = IRouter(0x141fa059441E0ca23ce184B6A78bafD2A517DdE8);
   IGhoCcipSteward internal constant NEW_GHO_CCIP_STEWARD =
-    IGhoCcipSteward(0x06179f7C1be40863405f374E7f5F8806c728660A);
+    IGhoCcipSteward(0xCd5ab470AaC5c13e1063ee700503f3346b7C90Db);
   IUpgradeableBurnMintTokenPool_1_5_1 internal constant NEW_TOKEN_POOL =
-    IUpgradeableBurnMintTokenPool_1_5_1(0x6Bb7a212910682DCFdbd5BCBb3e28FB4E8da10Ee);
-  address internal constant NEW_REMOTE_POOL_ETH = 0x20fd5f3FCac8883a3A0A2bBcD658A2d2c6EFa6B6;
+    IUpgradeableBurnMintTokenPool_1_5_1(0xB94Ab28c6869466a46a42abA834ca2B3cECCA5eB);
+  address internal constant NEW_REMOTE_POOL_ETH = 0x06179f7C1be40863405f374E7f5F8806c728660A;
   address internal constant NEW_REMOTE_POOL_BASE = 0xDe6539018B095353A40753Dc54C91C68c9487D4E;
 
   AaveV3Arbitrum_GHOBaseLaunch_20241223 internal proposal;
@@ -79,7 +79,7 @@ contract AaveV3Arbitrum_GHOBaseLaunch_20241223_Test is ProtocolV3TestBase {
   error InvalidSourcePoolAddress(bytes);
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('arbitrum'), 292550754);
+    vm.createSelectFork(vm.rpcUrl('arbitrum'), 293345614);
     _upgradeArbTo1_5_1();
     proposal = new AaveV3Arbitrum_GHOBaseLaunch_20241223();
 

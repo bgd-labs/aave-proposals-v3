@@ -76,8 +76,8 @@ contract AaveV3Base_GHOBaseLaunch_20241223_Base is ProtocolV3TestBase {
     IGhoCcipSteward(0x6e637e1E48025E51315d50ab96d5b3be1971A715);
   IUpgradeableBurnMintTokenPool_1_5_1 internal constant NEW_TOKEN_POOL =
     IUpgradeableBurnMintTokenPool_1_5_1(0xDe6539018B095353A40753Dc54C91C68c9487D4E);
-  address internal constant NEW_REMOTE_POOL_ARB = 0x6Bb7a212910682DCFdbd5BCBb3e28FB4E8da10Ee;
-  address internal constant NEW_REMOTE_POOL_ETH = 0x20fd5f3FCac8883a3A0A2bBcD658A2d2c6EFa6B6;
+  address internal constant NEW_REMOTE_POOL_ARB = 0xB94Ab28c6869466a46a42abA834ca2B3cECCA5eB;
+  address internal constant NEW_REMOTE_POOL_ETH = 0x06179f7C1be40863405f374E7f5F8806c728660A;
 
   AaveV3Base_GHOBaseLaunch_20241223 internal proposal;
 

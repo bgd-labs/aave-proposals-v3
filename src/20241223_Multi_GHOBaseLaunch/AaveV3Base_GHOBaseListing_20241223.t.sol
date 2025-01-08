@@ -39,8 +39,8 @@ contract AaveV3Base_GHOBaseListing_20241223_Base is ProtocolV3TestBase {
   address internal constant RMN_PROXY = 0xC842c69d54F83170C42C4d556B4F6B2ca53Dd3E8;
   address internal constant RISK_COUNCIL = 0x8513e6F37dBc52De87b166980Fa3F50639694B60;
   IGhoToken internal constant GHO_TOKEN = IGhoToken(0x6F2216CB3Ca97b8756C5fD99bE27986f04CBd81D); // predicted address, will be deployed in the AIP
-  address internal constant NEW_REMOTE_POOL_ARB = 0x6Bb7a212910682DCFdbd5BCBb3e28FB4E8da10Ee;
-  address internal constant NEW_REMOTE_POOL_ETH = 0x20fd5f3FCac8883a3A0A2bBcD658A2d2c6EFa6B6;
+  address internal constant NEW_REMOTE_POOL_ARB = 0xB94Ab28c6869466a46a42abA834ca2B3cECCA5eB;
+  address internal constant NEW_REMOTE_POOL_ETH = 0x06179f7C1be40863405f374E7f5F8806c728660A;
   IGhoAaveSteward internal constant NEW_GHO_AAVE_STEWARD =
     IGhoAaveSteward(0x20fd5f3FCac8883a3A0A2bBcD658A2d2c6EFa6B6);
   IGhoBucketSteward internal constant NEW_GHO_BUCKET_STEWARD =

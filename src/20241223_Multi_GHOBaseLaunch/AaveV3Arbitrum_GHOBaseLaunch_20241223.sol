@@ -14,9 +14,9 @@ import {IRateLimiter} from 'src/interfaces/ccip/IRateLimiter.sol';
 contract AaveV3Arbitrum_GHOBaseLaunch_20241223 is IProposalGenericExecutor {
   uint64 public constant BASE_CHAIN_SELECTOR = 15971525489660198786;
 
-  // https://arbiscan.io/address/0x6Bb7a212910682DCFdbd5BCBb3e28FB4E8da10Ee
+  // https://arbiscan.io/address/0xB94Ab28c6869466a46a42abA834ca2B3cECCA5eB
   IUpgradeableBurnMintTokenPool_1_5_1 public constant TOKEN_POOL =
-    IUpgradeableBurnMintTokenPool_1_5_1(0x6Bb7a212910682DCFdbd5BCBb3e28FB4E8da10Ee);
+    IUpgradeableBurnMintTokenPool_1_5_1(0xB94Ab28c6869466a46a42abA834ca2B3cECCA5eB);
 
   // https://basescan.org/address/0xDe6539018B095353A40753Dc54C91C68c9487D4E
   address public constant REMOTE_TOKEN_POOL_BASE = 0xDe6539018B095353A40753Dc54C91C68c9487D4E;
