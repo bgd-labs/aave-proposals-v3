@@ -28,21 +28,21 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209 is IProposalGenericExecutor {
   // https://etherscan.io/address/0x5756880B6a1EAba0175227bf02a7E87c1e02B28C
   IUpgradeableLockReleaseTokenPool_1_4 public constant EXISTING_TOKEN_POOL =
     IUpgradeableLockReleaseTokenPool_1_4(GhoEthereum.GHO_CCIP_TOKEN_POOL); // will be updated in address-book after AIP
-  // https://etherscan.io/address/0x20fd5f3FCac8883a3A0A2bBcD658A2d2c6EFa6B6
+  // https://etherscan.io/address/0x06179f7C1be40863405f374E7f5F8806c728660A
   IUpgradeableLockReleaseTokenPool_1_5_1 public constant NEW_TOKEN_POOL =
-    IUpgradeableLockReleaseTokenPool_1_5_1(0x20fd5f3FCac8883a3A0A2bBcD658A2d2c6EFa6B6);
+    IUpgradeableLockReleaseTokenPool_1_5_1(0x06179f7C1be40863405f374E7f5F8806c728660A);
 
   // https://etherscan.io/address/0xFEb4e54591660F42288312AE8eB59e9f2B746b66
   address public constant EXISTING_GHO_AAVE_STEWARD = 0xFEb4e54591660F42288312AE8eB59e9f2B746b66;
-  // https://etherscan.io/address/0x6e637e1E48025E51315d50ab96d5b3be1971A715
-  address public constant NEW_GHO_AAVE_STEWARD = 0x6e637e1E48025E51315d50ab96d5b3be1971A715;
-  // https://etherscan.io/address/0x6Bb7a212910682DCFdbd5BCBb3e28FB4E8da10Ee
-  address public constant NEW_GHO_CCIP_STEWARD = 0x6Bb7a212910682DCFdbd5BCBb3e28FB4E8da10Ee;
+  // https://etherscan.io/address/0x98217A06721Ebf727f2C8d9aD7718ec28b7aAe34
+  address public constant NEW_GHO_AAVE_STEWARD = 0x98217A06721Ebf727f2C8d9aD7718ec28b7aAe34;
+  // https://etherscan.io/address/0xC5BcC58BE6172769ca1a78B8A45752E3C5059c39
+  address public constant NEW_GHO_CCIP_STEWARD = 0xC5BcC58BE6172769ca1a78B8A45752E3C5059c39;
 
   // https://arbiscan.io/address/0x26329558f08cbb40d6a4CCA0E0C67b29D64A8c50
   address public constant EXISTING_REMOTE_POOL_ARB = 0x26329558f08cbb40d6a4CCA0E0C67b29D64A8c50; // ProxyPool on Arb
-  // https://arbiscan.io/address/0x6Bb7a212910682DCFdbd5BCBb3e28FB4E8da10Ee
-  address public constant NEW_REMOTE_POOL_ARB = 0x6Bb7a212910682DCFdbd5BCBb3e28FB4E8da10Ee;
+  // https://arbiscan.io/address/0xB94Ab28c6869466a46a42abA834ca2B3cECCA5eB
+  address public constant NEW_REMOTE_POOL_ARB = 0xB94Ab28c6869466a46a42abA834ca2B3cECCA5eB;
 
   // Token Rate Limit Capacity: 300_000 GHO
   uint128 public constant CCIP_RATE_LIMIT_CAPACITY = 300_000e18;

@@ -29,6 +29,7 @@ import {AaveV3Arbitrum} from 'aave-address-book/AaveV3Arbitrum.sol';
 import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
 
+import {ProxyAdmin} from 'solidity-utils/contracts/transparent-proxy/ProxyAdmin.sol';
 import {CCIPUtils} from './utils/CCIPUtils.sol';
 import {AaveV3Ethereum_GHOCCIP151Upgrade_20241209} from './AaveV3Ethereum_GHOCCIP151Upgrade_20241209.sol';
 
@@ -61,19 +62,19 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
   IGhoAaveSteward public constant EXISTING_GHO_AAVE_STEWARD =
     IGhoAaveSteward(0xFEb4e54591660F42288312AE8eB59e9f2B746b66);
   IGhoAaveSteward public constant NEW_GHO_AAVE_STEWARD =
-    IGhoAaveSteward(0x6e637e1E48025E51315d50ab96d5b3be1971A715);
+    IGhoAaveSteward(0x98217A06721Ebf727f2C8d9aD7718ec28b7aAe34);
   IGhoCcipSteward internal constant EXISTING_GHO_CCIP_STEWARD =
     IGhoCcipSteward(0x101Efb7b9Beb073B1219Cd5473a7C8A2f2EB84f4);
   IGhoCcipSteward internal constant NEW_GHO_CCIP_STEWARD =
-    IGhoCcipSteward(0x6Bb7a212910682DCFdbd5BCBb3e28FB4E8da10Ee);
+    IGhoCcipSteward(0xC5BcC58BE6172769ca1a78B8A45752E3C5059c39);
 
   IProxyPool internal constant EXISTING_PROXY_POOL =
     IProxyPool(0x9Ec9F9804733df96D1641666818eFb5198eC50f0);
   IUpgradeableLockReleaseTokenPool_1_4 internal constant EXISTING_TOKEN_POOL =
     IUpgradeableLockReleaseTokenPool_1_4(0x5756880B6a1EAba0175227bf02a7E87c1e02B28C); // GhoEthereum.GHO_CCIP_TOKEN_POOL; will be updated in address-book after AIP
   IUpgradeableLockReleaseTokenPool_1_5_1 internal constant NEW_TOKEN_POOL =
-    IUpgradeableLockReleaseTokenPool_1_5_1(0x20fd5f3FCac8883a3A0A2bBcD658A2d2c6EFa6B6);
-  address internal constant NEW_REMOTE_POOL_ARB = 0x6Bb7a212910682DCFdbd5BCBb3e28FB4E8da10Ee;
+    IUpgradeableLockReleaseTokenPool_1_5_1(0x06179f7C1be40863405f374E7f5F8806c728660A);
+  address internal constant NEW_REMOTE_POOL_ARB = 0xB94Ab28c6869466a46a42abA834ca2B3cECCA5eB;
 
   AaveV3Ethereum_GHOCCIP151Upgrade_20241209 internal proposal;
 
@@ -88,7 +89,7 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
   error BridgeLimitExceeded(uint256 limit);
 
   function setUp() public virtual {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 21564756);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 21581477);
     proposal = new AaveV3Ethereum_GHOCCIP151Upgrade_20241209();
 
     // pre-req - chainlink transfers gho token pool ownership on token admin registry
@@ -142,11 +143,11 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
     assertEq(IOwnable(address(NEW_GHO_AAVE_STEWARD)).owner(), GovernanceV3Ethereum.EXECUTOR_LVL_1);
     assertEq(
       NEW_GHO_AAVE_STEWARD.POOL_ADDRESSES_PROVIDER(),
-      EXISTING_GHO_AAVE_STEWARD.POOL_ADDRESSES_PROVIDER()
+      address(AaveV3Ethereum.POOL_ADDRESSES_PROVIDER)
     );
     assertEq(
       NEW_GHO_AAVE_STEWARD.POOL_DATA_PROVIDER(),
-      EXISTING_GHO_AAVE_STEWARD.POOL_DATA_PROVIDER()
+      address(AaveV3Ethereum.AAVE_PROTOCOL_DATA_PROVIDER)
     );
     assertEq(NEW_GHO_AAVE_STEWARD.RISK_COUNCIL(), EXISTING_GHO_AAVE_STEWARD.RISK_COUNCIL());
     assertEq(
@@ -168,6 +169,8 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
       abi.encode(NEW_GHO_CCIP_STEWARD.getCcipTimelocks()),
       abi.encode(IGhoCcipSteward.CcipDebounce(0, 0))
     );
+
+    assertEq(_getProxyAdmin(address(NEW_TOKEN_POOL)).UPGRADE_INTERFACE_VERSION(), '5.0.0');
   }
 
   function _getTokenMessage(
@@ -247,6 +250,10 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
 
   function _readInitialized(address proxy) internal view returns (uint8) {
     return uint8(uint256(vm.load(proxy, bytes32(0))));
+  }
+  function _getProxyAdmin(address proxy) internal view returns (ProxyAdmin) {
+    bytes32 slot = bytes32(uint256(keccak256('eip1967.proxy.admin')) - 1);
+    return ProxyAdmin(address(uint160(uint256(vm.load(proxy, slot)))));
   }
 
   function _getRateLimiterConfig() internal view returns (IRateLimiter.Config memory) {
@@ -706,7 +713,7 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_PostUpgrade is
     IDefaultInterestRateStrategyV2.InterestRateData
       memory currentRateData = IDefaultInterestRateStrategyV2.InterestRateData({
         optimalUsageRatio: 99_00,
-        baseVariableBorrowRate: 12_50,
+        baseVariableBorrowRate: 11_50,
         variableRateSlope1: 0,
         variableRateSlope2: 0
       });
