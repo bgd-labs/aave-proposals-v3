@@ -2,13 +2,9 @@
 pragma solidity ^0.8.0;
 
 import {CollectorUtils, ICollector} from 'aave-helpers/src/CollectorUtils.sol';
-import {AaveSwapper} from 'aave-helpers/src/swaps/AaveSwapper.sol';
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {AaveV3EthereumLido, AaveV3EthereumLidoAssets} from 'aave-address-book/AaveV3EthereumLido.sol';
-import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
-import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
-import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';
 
 /**
  * @title karpatkey Gho Growth Service Provider
@@ -17,7 +13,6 @@ import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';
  * - Discussion: https://governance.aave.com/t/arfc-karpatkey-as-gho-growth-service-provider/20206
  */
 contract AaveV3Ethereum_karpatkeyGhoGrowth_20241231 is IProposalGenericExecutor {
-  using SafeERC20 for IERC20;
   using CollectorUtils for ICollector;
 
   uint256 public constant KARPATKEY_STREAM_AMOUNT = 250_000e18;
