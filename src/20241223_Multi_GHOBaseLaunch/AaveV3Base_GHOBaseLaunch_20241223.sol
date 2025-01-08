@@ -1,9 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {TransparentUpgradeableProxy} from 'solidity-utils/contracts/transparent-proxy/TransparentUpgradeableProxy.sol';
-import {ProxyAdmin} from 'solidity-utils/contracts/transparent-proxy/ProxyAdmin.sol';
-
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
 import {IUpgradeableBurnMintTokenPool_1_5_1} from 'src/interfaces/ccip/tokenPool/IUpgradeableBurnMintTokenPool.sol';
 import {ITokenAdminRegistry} from 'src/interfaces/ccip/ITokenAdminRegistry.sol';
@@ -12,7 +9,6 @@ import {IGhoBucketSteward} from 'src/interfaces/IGhoBucketSteward.sol';
 import {IGhoToken} from 'src/interfaces/IGhoToken.sol';
 
 import {AaveV3Base} from 'aave-address-book/AaveV3Base.sol';
-import {MiscBase} from 'aave-address-book/MiscBase.sol';
 import {GovernanceV3Base} from 'aave-address-book/GovernanceV3Base.sol';
 import {AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
 import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
@@ -32,21 +28,19 @@ contract AaveV3Base_GHOBaseLaunch_20241223 is IProposalGenericExecutor {
   // https://basescan.org/address/0x6f6C373d09C07425BaAE72317863d7F6bb731e37
   ITokenAdminRegistry public constant TOKEN_ADMIN_REGISTRY =
     ITokenAdminRegistry(0x6f6C373d09C07425BaAE72317863d7F6bb731e37);
-  // https://basescan.org/address/0xDe6539018B095353A40753Dc54C91C68c9487D4E
+  // https://basescan.org/address/0x98217A06721Ebf727f2C8d9aD7718ec28b7aAe34
   IUpgradeableBurnMintTokenPool_1_5_1 public constant TOKEN_POOL =
-    IUpgradeableBurnMintTokenPool_1_5_1(0xDe6539018B095353A40753Dc54C91C68c9487D4E);
+    IUpgradeableBurnMintTokenPool_1_5_1(0x98217A06721Ebf727f2C8d9aD7718ec28b7aAe34);
 
-  // https://basescan.org/address/0x26d595dddbad81bf976ef6f24686a12a800b141f
-  address public constant GHO_TOKEN_IMPL = 0xb0e1c7830aA781362f79225559Aa068E6bDaF1d1;
-  // predicted address, will be deployed in the AIP, https://basescan.org/address/0x6F2216CB3Ca97b8756C5fD99bE27986f04CBd81D
-  IGhoToken public constant GHO_TOKEN_PROXY = IGhoToken(0x6F2216CB3Ca97b8756C5fD99bE27986f04CBd81D);
+  // https://basescan.org/address/0x6Bb7a212910682DCFdbd5BCBb3e28FB4E8da10Ee
+  IGhoToken public constant GHO_TOKEN = IGhoToken(0x6Bb7a212910682DCFdbd5BCBb3e28FB4E8da10Ee);
 
-  // https://basescan.org/address/0x20fd5f3FCac8883a3A0A2bBcD658A2d2c6EFa6B6
-  address public constant GHO_AAVE_STEWARD = 0x20fd5f3FCac8883a3A0A2bBcD658A2d2c6EFa6B6;
-  // https://basescan.org/address/0xA5Ba213867E175A182a5dd6A9193C6158738105A
-  address public constant GHO_BUCKET_STEWARD = 0xA5Ba213867E175A182a5dd6A9193C6158738105A;
-  // https://basescan.org/address/0x6e637e1E48025E51315d50ab96d5b3be1971A715
-  address public constant GHO_CCIP_STEWARD = 0x6e637e1E48025E51315d50ab96d5b3be1971A715;
+  // https://basescan.org/address/0xC5BcC58BE6172769ca1a78B8A45752E3C5059c39
+  address public constant GHO_AAVE_STEWARD = 0xC5BcC58BE6172769ca1a78B8A45752E3C5059c39;
+  // https://basescan.org/address/0x3c47237479e7569653eF9beC4a7Cd2ee3F78b396
+  address public constant GHO_BUCKET_STEWARD = 0x3c47237479e7569653eF9beC4a7Cd2ee3F78b396;
+  // https://basescan.org/address/0xB94Ab28c6869466a46a42abA834ca2B3cECCA5eB
+  address public constant GHO_CCIP_STEWARD = 0xB94Ab28c6869466a46a42abA834ca2B3cECCA5eB;
 
   // https://etherscan.io/address/0x06179f7C1be40863405f374E7f5F8806c728660A
   address public constant REMOTE_TOKEN_POOL_ETH = 0x06179f7C1be40863405f374E7f5F8806c728660A;
@@ -60,50 +54,27 @@ contract AaveV3Base_GHOBaseLaunch_20241223 is IProposalGenericExecutor {
 
   function execute() external {
     _acceptOwnership();
-    _deployAndInitializeGhoToken();
     _setupStewardsAndTokenPoolOnGho();
     _setupRemoteAndRegisterTokenPool();
   }
 
   function _acceptOwnership() internal {
-    TOKEN_ADMIN_REGISTRY.acceptAdminRole(address(GHO_TOKEN_PROXY));
+    TOKEN_ADMIN_REGISTRY.acceptAdminRole(address(GHO_TOKEN));
     TOKEN_POOL.acceptOwnership();
   }
 
-  function _deployAndInitializeGhoToken() internal {
-    address ghoTokenProxy = address(
-      new TransparentUpgradeableProxy{salt: keccak256('based-GHO')}(
-        GHO_TOKEN_IMPL,
-        ProxyAdmin(MiscBase.PROXY_ADMIN),
-        abi.encodeCall(IGhoToken.initialize, (GovernanceV3Base.EXECUTOR_LVL_1))
-      )
-    );
-    // burn all gas, assert predicted address match
-    assert(ghoTokenProxy == address(GHO_TOKEN_PROXY));
-  }
-
   function _setupStewardsAndTokenPoolOnGho() internal {
-    GHO_TOKEN_PROXY.grantRole(
-      GHO_TOKEN_PROXY.FACILITATOR_MANAGER_ROLE(),
-      GovernanceV3Base.EXECUTOR_LVL_1
-    );
-    GHO_TOKEN_PROXY.grantRole(
-      GHO_TOKEN_PROXY.BUCKET_MANAGER_ROLE(),
-      GovernanceV3Base.EXECUTOR_LVL_1
-    );
+    GHO_TOKEN.grantRole(GHO_TOKEN.FACILITATOR_MANAGER_ROLE(), GovernanceV3Base.EXECUTOR_LVL_1);
+    GHO_TOKEN.grantRole(GHO_TOKEN.BUCKET_MANAGER_ROLE(), GovernanceV3Base.EXECUTOR_LVL_1);
 
     // Token Pool as facilitator with 20M GHO capacity
-    GHO_TOKEN_PROXY.addFacilitator(
-      address(TOKEN_POOL),
-      'CCIP TokenPool v1.5.1',
-      CCIP_BUCKET_CAPACITY
-    );
+    GHO_TOKEN.addFacilitator(address(TOKEN_POOL), 'CCIP TokenPool v1.5.1', CCIP_BUCKET_CAPACITY);
 
     // Gho Aave Steward
     AaveV3Base.ACL_MANAGER.grantRole(AaveV3Base.ACL_MANAGER.RISK_ADMIN_ROLE(), GHO_AAVE_STEWARD);
 
     // Gho Bucket Steward
-    GHO_TOKEN_PROXY.grantRole(GHO_TOKEN_PROXY.BUCKET_MANAGER_ROLE(), GHO_BUCKET_STEWARD);
+    GHO_TOKEN.grantRole(GHO_TOKEN.BUCKET_MANAGER_ROLE(), GHO_BUCKET_STEWARD);
     address[] memory facilitatorList = new address[](1);
     facilitatorList[0] = address(TOKEN_POOL);
     IGhoBucketSteward(GHO_BUCKET_STEWARD).setControlledFacilitator({
@@ -156,6 +127,6 @@ contract AaveV3Base_GHOBaseLaunch_20241223 is IProposalGenericExecutor {
     });
 
     // register token pool
-    TOKEN_ADMIN_REGISTRY.setPool(address(GHO_TOKEN_PROXY), address(TOKEN_POOL));
+    TOKEN_ADMIN_REGISTRY.setPool(address(GHO_TOKEN), address(TOKEN_POOL));
   }
 }

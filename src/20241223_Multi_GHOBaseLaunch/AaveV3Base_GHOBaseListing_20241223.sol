@@ -22,11 +22,11 @@ contract AaveV3Base_GHOBaseListing_20241223 is AaveV3PayloadBase {
   address public constant EMISSION_ADMIN = 0xac140648435d03f784879cd789130F22Ef588Fcd;
   // https://basescan.org/address/0xfc421aD3C883Bf9E7C4f42dE845C4e4405799e73
   address public constant GHO_PRICE_FEED = 0xfc421aD3C883Bf9E7C4f42dE845C4e4405799e73;
-  // predicted address, will be deployed in the launch AIP, https://basescan.org/address/0x6F2216CB3Ca97b8756C5fD99bE27986f04CBd81D
-  address public constant GHO_TOKEN = 0x6F2216CB3Ca97b8756C5fD99bE27986f04CBd81D;
+  // https://basescan.org/address/0x6Bb7a212910682DCFdbd5BCBb3e28FB4E8da10Ee
+  address public constant GHO_TOKEN = 0x6Bb7a212910682DCFdbd5BCBb3e28FB4E8da10Ee;
   uint256 public constant GHO_SEED_AMOUNT = 1e18;
 
-  function _preExecute() internal override {
+  function _preExecute() internal view override {
     // robot should simulate and only execute if seed amount has been bridged
     assert(IERC20(GHO_TOKEN).balanceOf(address(this)) >= GHO_SEED_AMOUNT);
   }

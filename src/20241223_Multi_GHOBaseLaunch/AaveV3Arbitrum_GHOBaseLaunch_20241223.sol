@@ -18,10 +18,10 @@ contract AaveV3Arbitrum_GHOBaseLaunch_20241223 is IProposalGenericExecutor {
   IUpgradeableBurnMintTokenPool_1_5_1 public constant TOKEN_POOL =
     IUpgradeableBurnMintTokenPool_1_5_1(0xB94Ab28c6869466a46a42abA834ca2B3cECCA5eB);
 
-  // https://basescan.org/address/0xDe6539018B095353A40753Dc54C91C68c9487D4E
-  address public constant REMOTE_TOKEN_POOL_BASE = 0xDe6539018B095353A40753Dc54C91C68c9487D4E;
-  // https://basescan.org/address/0x6F2216CB3Ca97b8756C5fD99bE27986f04CBd81D
-  address public constant REMOTE_GHO_TOKEN_BASE = 0x6F2216CB3Ca97b8756C5fD99bE27986f04CBd81D; // predicted
+  // https://basescan.org/address/0x98217A06721Ebf727f2C8d9aD7718ec28b7aAe34
+  address public constant REMOTE_TOKEN_POOL_BASE = 0x98217A06721Ebf727f2C8d9aD7718ec28b7aAe34;
+  // https://basescan.org/address/0x6Bb7a212910682DCFdbd5BCBb3e28FB4E8da10Ee
+  address public constant REMOTE_GHO_TOKEN_BASE = 0x6Bb7a212910682DCFdbd5BCBb3e28FB4E8da10Ee;
 
   // Token Rate Limit Capacity: 300_000 GHO
   uint128 public constant CCIP_RATE_LIMIT_CAPACITY = 300_000e18;

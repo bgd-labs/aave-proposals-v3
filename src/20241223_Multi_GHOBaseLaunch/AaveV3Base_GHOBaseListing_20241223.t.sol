@@ -38,20 +38,20 @@ contract AaveV3Base_GHOBaseListing_20241223_Base is ProtocolV3TestBase {
   address internal constant ROUTER = 0x881e3A65B4d4a04dD529061dd0071cf975F58bCD;
   address internal constant RMN_PROXY = 0xC842c69d54F83170C42C4d556B4F6B2ca53Dd3E8;
   address internal constant RISK_COUNCIL = 0x8513e6F37dBc52De87b166980Fa3F50639694B60;
-  IGhoToken internal constant GHO_TOKEN = IGhoToken(0x6F2216CB3Ca97b8756C5fD99bE27986f04CBd81D); // predicted address, will be deployed in the AIP
+  IGhoToken internal constant GHO_TOKEN = IGhoToken(0x6Bb7a212910682DCFdbd5BCBb3e28FB4E8da10Ee);
   address internal constant NEW_REMOTE_POOL_ARB = 0xB94Ab28c6869466a46a42abA834ca2B3cECCA5eB;
   address internal constant NEW_REMOTE_POOL_ETH = 0x06179f7C1be40863405f374E7f5F8806c728660A;
   IGhoAaveSteward internal constant NEW_GHO_AAVE_STEWARD =
-    IGhoAaveSteward(0x20fd5f3FCac8883a3A0A2bBcD658A2d2c6EFa6B6);
+    IGhoAaveSteward(0xC5BcC58BE6172769ca1a78B8A45752E3C5059c39);
   IGhoBucketSteward internal constant NEW_GHO_BUCKET_STEWARD =
-    IGhoBucketSteward(0xA5Ba213867E175A182a5dd6A9193C6158738105A);
+    IGhoBucketSteward(0x3c47237479e7569653eF9beC4a7Cd2ee3F78b396);
   IGhoCcipSteward internal constant NEW_GHO_CCIP_STEWARD =
-    IGhoCcipSteward(0x6e637e1E48025E51315d50ab96d5b3be1971A715);
+    IGhoCcipSteward(0xB94Ab28c6869466a46a42abA834ca2B3cECCA5eB);
   IUpgradeableBurnMintTokenPool_1_5_1 internal constant NEW_TOKEN_POOL =
-    IUpgradeableBurnMintTokenPool_1_5_1(0xDe6539018B095353A40753Dc54C91C68c9487D4E);
+    IUpgradeableBurnMintTokenPool_1_5_1(0x98217A06721Ebf727f2C8d9aD7718ec28b7aAe34);
 
   function setUp() public virtual {
-    vm.createSelectFork(vm.rpcUrl('base'), 24685477);
+    vm.createSelectFork(vm.rpcUrl('base'), 24787260);
     proposal = new AaveV3Base_GHOBaseListing_20241223();
   }
 
@@ -88,7 +88,7 @@ contract AaveV3Base_GHOBaseListing_20241223_Base is ProtocolV3TestBase {
   function assertEq(
     IDefaultInterestRateStrategyV2.InterestRateData memory a,
     IDefaultInterestRateStrategyV2.InterestRateData memory b
-  ) internal {
+  ) internal pure {
     assertEq(a.optimalUsageRatio, b.optimalUsageRatio);
     assertEq(a.baseVariableBorrowRate, b.baseVariableBorrowRate);
     assertEq(a.variableRateSlope1, b.variableRateSlope1);

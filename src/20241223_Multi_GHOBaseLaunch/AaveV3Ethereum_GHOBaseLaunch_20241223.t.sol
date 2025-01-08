@@ -55,9 +55,9 @@ contract AaveV3Ethereum_GHOBaseLaunch_20241223_Test is ProtocolV3TestBase {
   IEVM2EVMOffRamp_1_5 internal constant BASE_OFF_RAMP =
     IEVM2EVMOffRamp_1_5(0x6B4B6359Dd5B47Cdb030E5921456D2a0625a9EbD);
 
-  address public constant NEW_REMOTE_TOKEN_BASE = 0x6F2216CB3Ca97b8756C5fD99bE27986f04CBd81D; // predicted
+  address public constant NEW_REMOTE_TOKEN_BASE = 0x6Bb7a212910682DCFdbd5BCBb3e28FB4E8da10Ee;
   address internal constant NEW_REMOTE_POOL_ARB = 0xB94Ab28c6869466a46a42abA834ca2B3cECCA5eB;
-  address internal constant NEW_REMOTE_POOL_BASE = 0xDe6539018B095353A40753Dc54C91C68c9487D4E;
+  address internal constant NEW_REMOTE_POOL_BASE = 0x98217A06721Ebf727f2C8d9aD7718ec28b7aAe34;
   address internal constant RISK_COUNCIL = 0x8513e6F37dBc52De87b166980Fa3F50639694B60; // common across all chains
   IRouter internal constant ROUTER = IRouter(0x80226fc0Ee2b096224EeAc085Bb9a8cba1146f7D);
   IGhoCcipSteward internal constant NEW_GHO_CCIP_STEWARD =

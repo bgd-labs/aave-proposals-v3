@@ -86,7 +86,7 @@ contract AaveV3Base_GHOBaseLaunch_20241223_Base is ProtocolV3TestBase {
   address internal constant ROUTER_BASE = 0x881e3A65B4d4a04dD529061dd0071cf975F58bCD;
   address internal constant GHO_TOKEN_IMPL_BASE = 0xb0e1c7830aA781362f79225559Aa068E6bDaF1d1;
   IGhoToken internal constant GHO_TOKEN_BASE =
-    IGhoToken(0x6F2216CB3Ca97b8756C5fD99bE27986f04CBd81D); // predicted address, will be deployed in the AIP
+    IGhoToken(0x6Bb7a212910682DCFdbd5BCBb3e28FB4E8da10Ee);
   uint256 internal constant CCIP_RATE_LIMIT_CAPACITY = 300_000e18;
   uint256 internal constant CCIP_RATE_LIMIT_REFILL_RATE = 60e18;
 
@@ -110,7 +110,7 @@ contract AaveV3Base_GHOBaseLaunch_20241223_Base is ProtocolV3TestBase {
 
   function setUp() public virtual {
     arb.c.forkId = vm.createFork(vm.rpcUrl('arbitrum'), 293345614);
-    base.c.forkId = vm.createFork(vm.rpcUrl('base'), 24685477);
+    base.c.forkId = vm.createFork(vm.rpcUrl('base'), 24787260);
     eth.c.forkId = vm.createFork(vm.rpcUrl('mainnet'), 21581477);
 
     arb.c.tokenAdminRegistry = ITokenAdminRegistry(0x39AE1032cF4B334a1Ed41cdD0833bdD7c7E7751E);
@@ -135,7 +135,7 @@ contract AaveV3Base_GHOBaseLaunch_20241223_Base is ProtocolV3TestBase {
     vm.selectFork(base.c.forkId);
     base.proposal = new AaveV3Base_GHOBaseLaunch_20241223();
     base.tokenPool = IUpgradeableBurnMintTokenPool_1_5_1(
-      0xDe6539018B095353A40753Dc54C91C68c9487D4E
+      0x98217A06721Ebf727f2C8d9aD7718ec28b7aAe34
     );
     base.c.tokenAdminRegistry = ITokenAdminRegistry(0x6f6C373d09C07425BaAE72317863d7F6bb731e37);
     base.c.token = GHO_TOKEN_BASE;
@@ -301,8 +301,7 @@ contract AaveV3Base_GHOBaseLaunch_20241223_Base is ProtocolV3TestBase {
       _assertSetRateLimit(arb.c, address(arb.tokenPool));
 
       vm.selectFork(base.c.forkId);
-      assertEq(base.proposal.GHO_TOKEN_IMPL(), _getImplementation(address(base.c.token)));
-      assertEq(address(base.proposal.GHO_TOKEN_PROXY()), address(base.c.token));
+      assertEq(address(base.proposal.GHO_TOKEN()), address(base.c.token));
       assertEq(base.c.tokenAdminRegistry.getPool(address(base.c.token)), address(base.tokenPool));
       assertEq(base.tokenPool.getSupportedChains()[0], eth.c.chainSelector);
       assertEq(base.tokenPool.getSupportedChains()[1], arb.c.chainSelector);
@@ -346,24 +345,6 @@ contract AaveV3Base_GHOBaseLaunch_20241223_Base is ProtocolV3TestBase {
         abi.encode(address(base.tokenPool))
       );
       _assertSetRateLimit(eth.c, address(eth.tokenPool));
-    } else {
-      vm.selectFork(base.c.forkId);
-      // correct gho Token Address
-      address computedGhoTokenAddress = vm.computeCreate2Address({
-        salt: keccak256('based-GHO'),
-        initCodeHash: keccak256(
-          abi.encodePacked(
-            type(TransparentUpgradeableProxy).creationCode,
-            abi.encode(
-              address(GHO_TOKEN_IMPL_BASE),
-              MiscBase.PROXY_ADMIN,
-              abi.encodeCall(IGhoToken.initialize, (GovernanceV3Base.EXECUTOR_LVL_1))
-            )
-          )
-        ),
-        deployer: address(GovernanceV3Base.EXECUTOR_LVL_1)
-      });
-      assertEq(address(base.proposal.GHO_TOKEN_PROXY()), computedGhoTokenAddress);
     }
   }
 
