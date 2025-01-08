@@ -7,7 +7,7 @@ snapshot: https://snapshot.box/#/s:aave.eth/proposal/0x87585d9dcb104d2946ca2def6
 
 ## Simple Summary
 
-The current ARFC proposes appointing karpatkey as a service provider dedicated to drive the growth of GHO for the following 6 months, with an initial focus on opportunities within the Gnosis Chain while also expanding efforts to other chains.
+The AIP proposes appointing karpatkey as a service provider dedicated to drive the growth of GHO for the following 6 months, with an initial focus on opportunities within the Gnosis Chain while also expanding efforts to other chains.
 
 ## Motivation
 
