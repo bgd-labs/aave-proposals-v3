@@ -10,7 +10,7 @@
 | isActive | true |
 | isFrozen | false |
 | supplyCap | 1,200 ezETH |
-| borrowCap | 120 ezETH |
+| borrowCap | 0 ezETH |
 | debtCeiling | 0 $ [0] |
 | isSiloed | false |
 | isFlashloanable | true |
@@ -19,8 +19,8 @@
 | oracleDescription | Capped ezETH / ETH / USD |
 | oracleLatestAnswer | 3785.26748692 |
 | usageAsCollateralEnabled | true |
-| ltv | 72 % [7200] |
-| liquidationThreshold | 75 % [7500] |
+| ltv | 0.05 % [5] |
+| liquidationThreshold | 0.1 % [10] |
 | liquidationBonus | 7.5 % |
 | liquidationProtocolFee | 10 % [1000] |
 | reserveFactor | 15 % [1500] |
@@ -52,25 +52,29 @@
 
 ### EMode: ETH correlated(id: 1)
 
-| description | value before | value after |
-| --- | --- | --- |
-| eMode.label (unchanged) | ETH correlated | ETH correlated |
-| eMode.ltv (unchanged) | 90 % | 90 % |
-| eMode.liquidationThreshold (unchanged) | 93 % | 93 % |
-| eMode.liquidationBonus (unchanged) | 2 % | 2 % |
-| eMode.borrowableBitmap (unchanged) | WETH, cbETH, wstETH, weETH | WETH, cbETH, wstETH, weETH |
-| eMode.collateralBitmap | WETH, cbETH, wstETH, weETH | WETH, cbETH, wstETH, weETH, ezETH |
 
 
-### EMode: ezETH / wstETH(id: 2)
+### EMode: LRT wstETH main(id: 2)
 
 | description | value before | value after |
 | --- | --- | --- |
-| eMode.label | - | ezETH / wstETH |
+| eMode.label | - | LRT wstETH main |
 | eMode.ltv | - | 93 % |
 | eMode.liquidationThreshold | - | 95 % |
 | eMode.liquidationBonus | - | 1 % |
 | eMode.borrowableBitmap | - | wstETH |
+| eMode.collateralBitmap | - | ezETH |
+
+
+### EMode: ezETH stablecoin(id: 3)
+
+| description | value before | value after |
+| --- | --- | --- |
+| eMode.label | - | ezETH stablecoin |
+| eMode.ltv | - | 72 % |
+| eMode.liquidationThreshold | - | 75 % |
+| eMode.liquidationBonus | - | 7.5 % |
+| eMode.borrowableBitmap | - | USDC |
 | eMode.collateralBitmap | - | ezETH |
 
 
@@ -79,22 +83,28 @@
 ```json
 {
   "eModes": {
-    "1": {
-      "collateralBitmap": {
-        "from": "43",
-        "to": "171"
-      }
-    },
     "2": {
       "from": null,
       "to": {
         "borrowableBitmap": "8",
         "collateralBitmap": "128",
         "eModeCategory": 2,
-        "label": "ezETH / wstETH",
+        "label": "LRT wstETH main",
         "liquidationBonus": 10100,
         "liquidationThreshold": 9500,
         "ltv": 9300
+      }
+    },
+    "3": {
+      "from": null,
+      "to": {
+        "borrowableBitmap": "16",
+        "collateralBitmap": "128",
+        "eModeCategory": 3,
+        "label": "ezETH stablecoin",
+        "liquidationBonus": 10750,
+        "liquidationThreshold": 7500,
+        "ltv": 7200
       }
     }
   },
@@ -107,7 +117,7 @@
         "aTokenName": "Aave Base ezETH",
         "aTokenSymbol": "aBasezETH",
         "aTokenUnderlyingBalance": "30000000000000000",
-        "borrowCap": 120,
+        "borrowCap": 0,
         "borrowingEnabled": true,
         "debtCeiling": 0,
         "decimals": 18,
@@ -121,8 +131,8 @@
         "isSiloed": false,
         "liquidationBonus": 10750,
         "liquidationProtocolFee": 1000,
-        "liquidationThreshold": 7500,
-        "ltv": 7200,
+        "liquidationThreshold": 10,
+        "ltv": 5,
         "oracle": "0x438e24f5FCDC1A66ecb25D19B5543e0Cb91A44D4",
         "oracleDecimals": 8,
         "oracleDescription": "Capped ezETH / ETH / USD",

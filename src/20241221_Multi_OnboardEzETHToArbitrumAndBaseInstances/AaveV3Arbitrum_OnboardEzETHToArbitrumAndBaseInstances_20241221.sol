@@ -39,7 +39,7 @@ contract AaveV3Arbitrum_OnboardEzETHToArbitrumAndBaseInstances_20241221 is AaveV
     returns (IAaveV3ConfigEngine.EModeCategoryUpdate[] memory)
   {
     IAaveV3ConfigEngine.EModeCategoryUpdate[]
-      memory eModeUpdates = new IAaveV3ConfigEngine.EModeCategoryUpdate[](1);
+      memory eModeUpdates = new IAaveV3ConfigEngine.EModeCategoryUpdate[](2);
 
     eModeUpdates[0] = IAaveV3ConfigEngine.EModeCategoryUpdate({
       eModeCategory: 3,
@@ -47,6 +47,14 @@ contract AaveV3Arbitrum_OnboardEzETHToArbitrumAndBaseInstances_20241221 is AaveV
       liqThreshold: 95_00,
       liqBonus: 1_00,
       label: 'LRT wstETH main'
+    });
+
+    eModeUpdates[1] = IAaveV3ConfigEngine.EModeCategoryUpdate({
+      eModeCategory: 4,
+      ltv: 72_00,
+      liqThreshold: 75_00,
+      liqBonus: 7_50,
+      label: 'ezETH stablecoin'
     });
 
     return eModeUpdates;
@@ -58,7 +66,7 @@ contract AaveV3Arbitrum_OnboardEzETHToArbitrumAndBaseInstances_20241221 is AaveV
     returns (IAaveV3ConfigEngine.AssetEModeUpdate[] memory)
   {
     IAaveV3ConfigEngine.AssetEModeUpdate[]
-      memory assetEModeUpdates = new IAaveV3ConfigEngine.AssetEModeUpdate[](3);
+      memory assetEModeUpdates = new IAaveV3ConfigEngine.AssetEModeUpdate[](5);
 
     assetEModeUpdates[0] = IAaveV3ConfigEngine.AssetEModeUpdate({
       asset: ezETH,
@@ -68,13 +76,25 @@ contract AaveV3Arbitrum_OnboardEzETHToArbitrumAndBaseInstances_20241221 is AaveV
     });
     assetEModeUpdates[1] = IAaveV3ConfigEngine.AssetEModeUpdate({
       asset: ezETH,
-      eModeCategory: AaveV3ArbitrumEModes.ETH_CORRELATED,
+      eModeCategory: 4,
       borrowable: EngineFlags.DISABLED,
       collateral: EngineFlags.ENABLED
     });
     assetEModeUpdates[2] = IAaveV3ConfigEngine.AssetEModeUpdate({
       asset: AaveV3ArbitrumAssets.wstETH_UNDERLYING,
       eModeCategory: 3,
+      borrowable: EngineFlags.ENABLED,
+      collateral: EngineFlags.DISABLED
+    });
+    assetEModeUpdates[3] = IAaveV3ConfigEngine.AssetEModeUpdate({
+      asset: AaveV3ArbitrumAssets.USDT_UNDERLYING,
+      eModeCategory: 4,
+      borrowable: EngineFlags.ENABLED,
+      collateral: EngineFlags.DISABLED
+    });
+    assetEModeUpdates[4] = IAaveV3ConfigEngine.AssetEModeUpdate({
+      asset: AaveV3ArbitrumAssets.USDCn_UNDERLYING,
+      eModeCategory: 4,
       borrowable: EngineFlags.ENABLED,
       collateral: EngineFlags.DISABLED
     });
@@ -92,12 +112,12 @@ contract AaveV3Arbitrum_OnboardEzETHToArbitrumAndBaseInstances_20241221 is AaveV
       borrowableInIsolation: EngineFlags.DISABLED,
       withSiloedBorrowing: EngineFlags.DISABLED,
       flashloanable: EngineFlags.ENABLED,
-      ltv: 72_00,
-      liqThreshold: 75_00,
+      ltv: 5,
+      liqThreshold: 10,
       liqBonus: 7_50,
       reserveFactor: 15_00,
       supplyCap: 1_750,
-      borrowCap: 175,
+      borrowCap: 0,
       debtCeiling: 0,
       liqProtocolFee: 10_00,
       rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({

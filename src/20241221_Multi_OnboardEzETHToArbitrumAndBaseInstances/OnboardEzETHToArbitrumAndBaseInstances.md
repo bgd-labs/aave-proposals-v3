@@ -19,28 +19,31 @@ The onboarding of ezETH on these L2s will create increased ezETH demand and incr
 
 The table below illustrates the configured risk parameters for **ezETH** on Arbitrum and Base instances
 
-| Parameter                 |                                      Value |
-| ------------------------- | -----------------------------------------: |
-| Isolation Mode            |                                      false |
-| Borrowable                |                                    ENABLED |
-| Collateral Enabled        |                                       true |
-| Supply Cap (ezETH)        |                                      1,750 |
-| Borrow Cap (ezETH)        |                                        175 |
-| Debt Ceiling              |                                      USD 0 |
-| LTV                       |                                       72 % |
-| LT                        |                                       75 % |
-| Liquidation Bonus         |                                      7.5 % |
-| Liquidation Protocol Fee  |                                       10 % |
-| Reserve Factor            |                                       15 % |
-| Base Variable Borrow Rate |                                        0 % |
-| Variable Slope 1          |                                        7 % |
-| Variable Slope 2          |                                      300 % |
-| Uoptimal                  |                                       45 % |
-| Flashloanable             |                                    ENABLED |
-| Siloed Borrowing          |                                   DISABLED |
-| Borrowable in Isolation   |                                   DISABLED |
-| Oracle (Arbitrum)         | 0x8Ed37B72300683c0482A595bfa80fFb793874b15 |
-| Oracle (Base)             | 0x438e24f5FCDC1A66ecb25D19B5543e0Cb91A44D4 |
+| Parameter                   |                                      Value |
+| --------------------------- | -----------------------------------------: |
+| Isolation Mode              |                                      false |
+| Borrowable                  |                                    ENABLED |
+| Collateral Enabled          |                                       true |
+| Supply Cap (ezETH) Arbitrum |                                      1,750 |
+| Supply Cap (ezETH) Base     |                                      1,200 |
+| Borrow Cap (ezETH)          |                                          0 |
+| Debt Ceiling                |                                      USD 0 |
+| LTV                         |                                     0.05 % |
+| LT                          |                                     0.10 % |
+| Liquidation Bonus           |                                      7.5 % |
+| Liquidation Protocol Fee    |                                       10 % |
+| Reserve Factor              |                                       15 % |
+| Base Variable Borrow Rate   |                                        0 % |
+| Variable Slope 1            |                                        7 % |
+| Variable Slope 2            |                                      300 % |
+| Uoptimal                    |                                       45 % |
+| Flashloanable               |                                    ENABLED |
+| Siloed Borrowing            |                                   DISABLED |
+| Borrowable in Isolation     |                                   DISABLED |
+| Oracle (Arbitrum)           | 0x8Ed37B72300683c0482A595bfa80fFb793874b15 |
+| Oracle (Base)               | 0x438e24f5FCDC1A66ecb25D19B5543e0Cb91A44D4 |
+
+The following CAPO and E-Mode parameters are applied to both instances
 
 ### CAPO
 
@@ -58,6 +61,17 @@ The table below illustrates the configured risk parameters for **ezETH** on Arbi
 | Max LTV               | 93%   | 93%    |
 | Liquidation Threshold | 95%   | 95%    |
 | Liquidation Penalty   | 1.00% | 1.00%  |
+
+### E-mode: ezETH / stablecoin
+
+| Parameter             | Value | Value | Value (only on Arbitrum) |
+| --------------------- | ----- | ----- | ------------------------ |
+| Asset                 | ezETH | USDC  | USDT                     |
+| Collateral            | Yes   | No    | No                       |
+| Borrowable            | No    | Yes   | Yes                      |
+| Max LTV               | 72%   | 72%   | 72%                      |
+| Liquidation Threshold | 75%   | 75%   | 75%                      |
+| Liquidation Penalty   | 7.50% | 7.50% | 7.50%                    |
 
 Additionaly [0xac140648435d03f784879cd789130F22Ef588Fcd](https://debank.com/profile/0xac140648435d03f784879cd789130F22Ef588Fcd) has been set as the emission admin for ezETH and the corresponding aToken on both instances.
 
