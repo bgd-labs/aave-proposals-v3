@@ -29,6 +29,7 @@ import {AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
 import {GhoArbitrum} from 'aave-address-book/GhoArbitrum.sol';
 import {GovernanceV3Arbitrum} from 'aave-address-book/GovernanceV3Arbitrum.sol';
 
+import {ProxyAdmin} from 'solidity-utils/contracts/transparent-proxy/ProxyAdmin.sol';
 import {CCIPUtils} from './utils/CCIPUtils.sol';
 import {AaveV3Arbitrum_GHOCCIP151Upgrade_20241209} from './AaveV3Arbitrum_GHOCCIP151Upgrade_20241209.sol';
 
@@ -61,21 +62,21 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
   IGhoAaveSteward public constant EXISTING_GHO_AAVE_STEWARD =
     IGhoAaveSteward(0xCd04D93bEA13921DaD05240D577090b5AC36DfCA);
   IGhoAaveSteward public constant NEW_GHO_AAVE_STEWARD =
-    IGhoAaveSteward(0x98217A06721Ebf727f2C8d9aD7718ec28b7aAe34);
+    IGhoAaveSteward(0xd2D586f849620ef042FE3aF52eAa10e9b78bf7De);
   IGhoBucketSteward internal constant GHO_BUCKET_STEWARD =
     IGhoBucketSteward(0xa9afaE6A53E90f9E4CE0717162DF5Bc3d9aBe7B2);
   IGhoCcipSteward internal constant EXISTING_GHO_CCIP_STEWARD =
     IGhoCcipSteward(0xb329CEFF2c362F315900d245eC88afd24C4949D5);
   IGhoCcipSteward internal constant NEW_GHO_CCIP_STEWARD =
-    IGhoCcipSteward(0x3c47237479e7569653eF9beC4a7Cd2ee3F78b396);
+    IGhoCcipSteward(0xCd5ab470AaC5c13e1063ee700503f3346b7C90Db);
 
   IProxyPool internal constant EXISTING_PROXY_POOL =
     IProxyPool(0x26329558f08cbb40d6a4CCA0E0C67b29D64A8c50);
   IUpgradeableBurnMintTokenPool_1_4 internal constant EXISTING_TOKEN_POOL =
     IUpgradeableBurnMintTokenPool_1_4(0xF168B83598516A532a85995b52504a2Fa058C068); // GhoArbitrum.GHO_CCIP_TOKEN_POOL; will be updated in address-book after AIP
   IUpgradeableBurnMintTokenPool_1_5_1 internal constant NEW_TOKEN_POOL =
-    IUpgradeableBurnMintTokenPool_1_5_1(0x6Bb7a212910682DCFdbd5BCBb3e28FB4E8da10Ee);
-  address internal constant NEW_REMOTE_POOL_ETH = 0x20fd5f3FCac8883a3A0A2bBcD658A2d2c6EFa6B6;
+    IUpgradeableBurnMintTokenPool_1_5_1(0xB94Ab28c6869466a46a42abA834ca2B3cECCA5eB);
+  address internal constant NEW_REMOTE_POOL_ETH = 0x06179f7C1be40863405f374E7f5F8806c728660A;
 
   AaveV3Arbitrum_GHOCCIP151Upgrade_20241209 internal proposal;
 
@@ -88,7 +89,7 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
   event CCIPSendRequested(IInternal.EVM2EVMMessage message);
 
   function setUp() public virtual {
-    vm.createSelectFork(vm.rpcUrl('arbitrum'), 292550754);
+    vm.createSelectFork(vm.rpcUrl('arbitrum'), 293345614);
     proposal = new AaveV3Arbitrum_GHOCCIP151Upgrade_20241209();
 
     // pre-req - chainlink transfers gho token pool ownership on token admin registry
@@ -148,11 +149,11 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
     assertEq(IOwnable(address(NEW_GHO_AAVE_STEWARD)).owner(), GovernanceV3Arbitrum.EXECUTOR_LVL_1);
     assertEq(
       NEW_GHO_AAVE_STEWARD.POOL_ADDRESSES_PROVIDER(),
-      EXISTING_GHO_AAVE_STEWARD.POOL_ADDRESSES_PROVIDER()
+      address(AaveV3Arbitrum.POOL_ADDRESSES_PROVIDER)
     );
     assertEq(
       NEW_GHO_AAVE_STEWARD.POOL_DATA_PROVIDER(),
-      EXISTING_GHO_AAVE_STEWARD.POOL_DATA_PROVIDER()
+      address(AaveV3Arbitrum.AAVE_PROTOCOL_DATA_PROVIDER)
     );
     assertEq(NEW_GHO_AAVE_STEWARD.RISK_COUNCIL(), EXISTING_GHO_AAVE_STEWARD.RISK_COUNCIL());
     assertEq(
@@ -174,6 +175,8 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
       abi.encode(NEW_GHO_CCIP_STEWARD.getCcipTimelocks()),
       abi.encode(IGhoCcipSteward.CcipDebounce(0, 0))
     );
+
+    assertEq(_getProxyAdmin(address(NEW_TOKEN_POOL)).UPGRADE_INTERFACE_VERSION(), '5.0.0');
   }
 
   function _getTokenMessage(
@@ -238,6 +241,11 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
   function _getImplementation(address proxy) internal view returns (address) {
     bytes32 slot = bytes32(uint256(keccak256('eip1967.proxy.implementation')) - 1);
     return address(uint160(uint256(vm.load(proxy, slot))));
+  }
+
+  function _getProxyAdmin(address proxy) internal view returns (ProxyAdmin) {
+    bytes32 slot = bytes32(uint256(keccak256('eip1967.proxy.admin')) - 1);
+    return ProxyAdmin(address(uint160(uint256(vm.load(proxy, slot)))));
   }
 
   function _readInitialized(address proxy) internal view returns (uint8) {
