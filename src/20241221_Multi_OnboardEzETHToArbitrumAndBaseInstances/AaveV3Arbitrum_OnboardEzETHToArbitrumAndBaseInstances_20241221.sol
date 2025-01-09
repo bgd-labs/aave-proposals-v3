@@ -108,7 +108,7 @@ contract AaveV3Arbitrum_OnboardEzETHToArbitrumAndBaseInstances_20241221 is AaveV
       asset: ezETH,
       assetSymbol: 'ezETH',
       priceFeed: 0x8Ed37B72300683c0482A595bfa80fFb793874b15,
-      enabledToBorrow: EngineFlags.ENABLED,
+      enabledToBorrow: EngineFlags.DISABLED,
       borrowableInIsolation: EngineFlags.DISABLED,
       withSiloedBorrowing: EngineFlags.DISABLED,
       flashloanable: EngineFlags.ENABLED,
