@@ -26,7 +26,7 @@ The table below illustrates the configured risk parameters for **ezETH** on Arbi
 | Collateral Enabled          |                                       true |
 | Supply Cap (ezETH) Arbitrum |                                      1,750 |
 | Supply Cap (ezETH) Base     |                                      1,200 |
-| Borrow Cap (ezETH)          |                                          0 |
+| Borrow Cap (ezETH)          |                                          1 |
 | Debt Ceiling                |                                      USD 0 |
 | LTV                         |                                     0.05 % |
 | LT                          |                                     0.10 % |
