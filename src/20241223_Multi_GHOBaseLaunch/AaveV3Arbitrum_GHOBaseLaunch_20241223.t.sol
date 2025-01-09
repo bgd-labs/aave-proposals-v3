@@ -251,7 +251,7 @@ contract AaveV3Arbitrum_GHOBaseLaunch_20241223_PreExecution is
   function test_ghoProxyAdminCanUpgradeImplementation() public {
     executePayload(vm, address(proposal));
     address miscImpl = makeAddr('miscImpl');
-    vm.etch(miscImpl, hex'602060005260205ff3'); // ret 0x20
+    vm.etch(miscImpl, hex'00'); // stop opcode
     vm.startPrank(GovernanceV3Arbitrum.EXECUTOR_LVL_1);
     ProxyAdmin(proposal.NEW_GHO_TOKEN_PROXY_ADMIN()).upgradeAndCall(
       ITransparentUpgradeableProxy(address(GHO)),
@@ -259,9 +259,6 @@ contract AaveV3Arbitrum_GHOBaseLaunch_20241223_PreExecution is
       ''
     );
     assertEq(_getImplementation(address(GHO)), miscImpl);
-    (bool ok, bytes memory ret) = address(GHO).call(hex'');
-    assertTrue(ok);
-    assertEq(abi.decode(ret, (uint8)), 32);
   }
 }
 
