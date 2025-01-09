@@ -117,7 +117,7 @@ contract AaveV3Arbitrum_OnboardEzETHToArbitrumAndBaseInstances_20241221 is AaveV
       liqBonus: 7_50,
       reserveFactor: 15_00,
       supplyCap: 1_750,
-      borrowCap: 0,
+      borrowCap: 1,
       debtCeiling: 0,
       liqProtocolFee: 10_00,
       rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
