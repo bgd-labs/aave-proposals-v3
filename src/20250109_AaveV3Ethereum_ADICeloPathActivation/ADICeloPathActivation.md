@@ -30,10 +30,11 @@ This is done by calling the enableBridgeAdapters() function on the Ethereum Cros
 
 The new a.DI deployments on Linea network are as follows:
 
-| Contract             | Address                                                                                                              |
-| -------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| CrossChainController | [0x50F4dAA86F3c747ce15C3C38bD0383200B61d6Dd](https://celoscan.io/address/0x50F4dAA86F3c747ce15C3C38bD0383200B61d6Dd) |
-| Granular Guardian    | [0xbE815420A63A413BB8D508d8022C0FF150Ea7C39](https://celoscan.io/address/0xbE815420A63A413BB8D508d8022C0FF150Ea7C39) |
+| Contract                   | Address                                                                                                              |
+| -------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| CrossChainController       | [0x50F4dAA86F3c747ce15C3C38bD0383200B61d6Dd](https://celoscan.io/address/0x50F4dAA86F3c747ce15C3C38bD0383200B61d6Dd) |
+| Granular Guardian          | [0xbE815420A63A413BB8D508d8022C0FF150Ea7C39](https://celoscan.io/address/0xbE815420A63A413BB8D508d8022C0FF150Ea7C39) |
+| Chainlink Emergency Oracle | [0x91b21900E91CD302EBeD05E45D8f270ddAED944d](https://celoscan.io/address/0x91b21900E91CD302EBeD05E45D8f270ddAED944d) |
 
 The new Aave Governance deployments on Linea network are as follows:
 
