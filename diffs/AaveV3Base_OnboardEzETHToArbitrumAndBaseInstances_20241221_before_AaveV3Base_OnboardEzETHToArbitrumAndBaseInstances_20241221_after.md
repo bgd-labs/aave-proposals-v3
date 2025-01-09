@@ -10,7 +10,7 @@
 | isActive | true |
 | isFrozen | false |
 | supplyCap | 1,200 ezETH |
-| borrowCap | 0 ezETH |
+| borrowCap | 1 ezETH |
 | debtCeiling | 0 $ [0] |
 | isSiloed | false |
 | isFlashloanable | true |
@@ -28,7 +28,7 @@
 | aTokenImpl | [0x98F409Fc4A42F34AE3c326c7f48ED01ae8cAeC69](https://basescan.org/address/0x98F409Fc4A42F34AE3c326c7f48ED01ae8cAeC69) |
 | variableDebtToken | [0xbc4f5631f2843488792e4F1660d0A51Ba489bdBd](https://basescan.org/address/0xbc4f5631f2843488792e4F1660d0A51Ba489bdBd) |
 | variableDebtTokenImpl | [0x2425A746911128c2eAA7bEBDc9Bc452eE52208a1](https://basescan.org/address/0x2425A746911128c2eAA7bEBDc9Bc452eE52208a1) |
-| borrowingEnabled | true |
+| borrowingEnabled | false |
 | isBorrowableInIsolation | false |
 | interestRateStrategy | [0x86AB1C62A8bf868E1b3E1ab87d587Aba6fbCbDC5](https://basescan.org/address/0x86AB1C62A8bf868E1b3E1ab87d587Aba6fbCbDC5) |
 | aTokenName | Aave Base ezETH |
@@ -66,11 +66,11 @@
 | eMode.collateralBitmap | - | ezETH |
 
 
-### EMode: ezETH stablecoin(id: 3)
+### EMode: LRT Stablecoins main(id: 3)
 
 | description | value before | value after |
 | --- | --- | --- |
-| eMode.label | - | ezETH stablecoin |
+| eMode.label | - | LRT Stablecoins main |
 | eMode.ltv | - | 72 % |
 | eMode.liquidationThreshold | - | 75 % |
 | eMode.liquidationBonus | - | 7.5 % |
@@ -101,7 +101,7 @@
         "borrowableBitmap": "16",
         "collateralBitmap": "128",
         "eModeCategory": 3,
-        "label": "ezETH stablecoin",
+        "label": "LRT Stablecoins main",
         "liquidationBonus": 10750,
         "liquidationThreshold": 7500,
         "ltv": 7200
@@ -117,8 +117,8 @@
         "aTokenName": "Aave Base ezETH",
         "aTokenSymbol": "aBasezETH",
         "aTokenUnderlyingBalance": "30000000000000000",
-        "borrowCap": 0,
-        "borrowingEnabled": true,
+        "borrowCap": 1,
+        "borrowingEnabled": false,
         "debtCeiling": 0,
         "decimals": 18,
         "id": 7,

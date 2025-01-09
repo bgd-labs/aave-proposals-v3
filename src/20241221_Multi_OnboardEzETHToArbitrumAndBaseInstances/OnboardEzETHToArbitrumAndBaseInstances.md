@@ -22,7 +22,7 @@ The table below illustrates the configured risk parameters for **ezETH** on Arbi
 | Parameter                   |                                      Value |
 | --------------------------- | -----------------------------------------: |
 | Isolation Mode              |                                      false |
-| Borrowable                  |                                    DISABLED |
+| Borrowable                  |                                   DISABLED |
 | Collateral Enabled          |                                       true |
 | Supply Cap (ezETH) Arbitrum |                                      1,750 |
 | Supply Cap (ezETH) Base     |                                      1,200 |
