@@ -109,7 +109,7 @@ contract AaveV3Base_GHOBaseLaunch_20241223_Base is ProtocolV3TestBase {
   event Minted(address indexed sender, address indexed recipient, uint256 amount);
 
   function setUp() public virtual {
-    arb.c.forkId = vm.createFork(vm.rpcUrl('arbitrum'), 293345614);
+    arb.c.forkId = vm.createFork(vm.rpcUrl('arbitrum'), 293582704);
     base.c.forkId = vm.createFork(vm.rpcUrl('base'), 24787260);
     eth.c.forkId = vm.createFork(vm.rpcUrl('mainnet'), 21581477);
 

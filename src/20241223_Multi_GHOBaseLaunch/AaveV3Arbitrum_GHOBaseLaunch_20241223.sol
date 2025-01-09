@@ -4,6 +4,10 @@ pragma solidity ^0.8.0;
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
 import {IUpgradeableBurnMintTokenPool_1_5_1} from 'src/interfaces/ccip/tokenPool/IUpgradeableBurnMintTokenPool.sol';
 import {IRateLimiter} from 'src/interfaces/ccip/IRateLimiter.sol';
+import {ILegacyProxyAdmin, ITransparentUpgradeableProxy} from 'src/interfaces/ILegacyProxyAdmin.sol';
+
+import {AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
+import {MiscArbitrum} from 'aave-address-book/MiscArbitrum.sol';
 
 /**
  * @title GHO Base Launch
@@ -18,6 +22,9 @@ contract AaveV3Arbitrum_GHOBaseLaunch_20241223 is IProposalGenericExecutor {
   IUpgradeableBurnMintTokenPool_1_5_1 public constant TOKEN_POOL =
     IUpgradeableBurnMintTokenPool_1_5_1(0xB94Ab28c6869466a46a42abA834ca2B3cECCA5eB);
 
+  // https://arbiscan.io/address/0x9f0e4F4c5664888442E459f40f635765BB6265Ec
+  address public constant NEW_GHO_TOKEN_PROXY_ADMIN = 0x9f0e4F4c5664888442E459f40f635765BB6265Ec;
+
   // https://basescan.org/address/0x98217A06721Ebf727f2C8d9aD7718ec28b7aAe34
   address public constant REMOTE_TOKEN_POOL_BASE = 0x98217A06721Ebf727f2C8d9aD7718ec28b7aAe34;
   // https://basescan.org/address/0x6Bb7a212910682DCFdbd5BCBb3e28FB4E8da10Ee
@@ -29,6 +36,12 @@ contract AaveV3Arbitrum_GHOBaseLaunch_20241223 is IProposalGenericExecutor {
   uint128 public constant CCIP_RATE_LIMIT_REFILL_RATE = 60e18;
 
   function execute() external {
+    // Update ProxyAdmin on GHO
+    ILegacyProxyAdmin(MiscArbitrum.PROXY_ADMIN).changeProxyAdmin(
+      ITransparentUpgradeableProxy(AaveV3ArbitrumAssets.GHO_UNDERLYING),
+      NEW_GHO_TOKEN_PROXY_ADMIN
+    );
+
     IRateLimiter.Config memory rateLimiterConfig = IRateLimiter.Config({
       isEnabled: true,
       capacity: CCIP_RATE_LIMIT_CAPACITY,

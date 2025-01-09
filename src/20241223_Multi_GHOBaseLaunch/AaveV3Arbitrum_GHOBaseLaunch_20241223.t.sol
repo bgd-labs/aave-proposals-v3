@@ -20,6 +20,9 @@ import {AaveV3Arbitrum} from 'aave-address-book/AaveV3Arbitrum.sol';
 import {AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
 import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {GovernanceV3Arbitrum} from 'aave-address-book/GovernanceV3Arbitrum.sol';
+import {MiscArbitrum} from 'aave-address-book/MiscArbitrum.sol';
+
+import {ProxyAdmin, ITransparentUpgradeableProxy} from 'solidity-utils/contracts/transparent-proxy/ProxyAdmin.sol';
 
 import {CCIPUtils} from './utils/CCIPUtils.sol';
 
@@ -30,7 +33,7 @@ import {AaveV3Arbitrum_GHOBaseLaunch_20241223} from './AaveV3Arbitrum_GHOBaseLau
  * @dev Test for AaveV3Arbitrum_GHOBaseLaunch_20241223
  * command: FOUNDRY_PROFILE=arbitrum forge test --match-path=src/20241223_Multi_GHOBaseLaunch/AaveV3Arbitrum_GHOBaseLaunch_20241223.t.sol -vv
  */
-contract AaveV3Arbitrum_GHOBaseLaunch_20241223_Test is ProtocolV3TestBase {
+contract AaveV3Arbitrum_GHOBaseLaunch_20241223_Base is ProtocolV3TestBase {
   struct CCIPSendParams {
     address sender;
     uint256 amount;
@@ -78,15 +81,12 @@ contract AaveV3Arbitrum_GHOBaseLaunch_20241223_Test is ProtocolV3TestBase {
   error CallerIsNotARampOnRouter(address);
   error InvalidSourcePoolAddress(bytes);
 
-  function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('arbitrum'), 293345614);
+  function setUp() public virtual {
+    vm.createSelectFork(vm.rpcUrl('arbitrum'), 293582704);
     _upgradeArbTo1_5_1();
     proposal = new AaveV3Arbitrum_GHOBaseLaunch_20241223();
 
     _validateConstants();
-
-    // execute proposal
-    executePayload(vm, address(proposal));
   }
 
   function _upgradeArbTo1_5_1() internal {
@@ -120,6 +120,10 @@ contract AaveV3Arbitrum_GHOBaseLaunch_20241223_Test is ProtocolV3TestBase {
     assertEq(NEW_GHO_CCIP_STEWARD.GHO_TOKEN(), AaveV3ArbitrumAssets.GHO_UNDERLYING);
     assertEq(NEW_GHO_CCIP_STEWARD.GHO_TOKEN_POOL(), address(NEW_TOKEN_POOL));
     assertFalse(NEW_GHO_CCIP_STEWARD.BRIDGE_LIMIT_ENABLED());
+
+    ProxyAdmin newProxyAdmin = ProxyAdmin(proposal.NEW_GHO_TOKEN_PROXY_ADMIN());
+    assertEq(newProxyAdmin.owner(), GovernanceV3Arbitrum.EXECUTOR_LVL_1);
+    assertEq(newProxyAdmin.UPGRADE_INTERFACE_VERSION(), '5.0.0');
   }
 
   function _assertOnRamp(
@@ -197,6 +201,11 @@ contract AaveV3Arbitrum_GHOBaseLaunch_20241223_Test is ProtocolV3TestBase {
     return address(uint160(uint256(vm.load(proxy, slot))));
   }
 
+  function _getProxyAdmin(address proxy) internal view returns (address) {
+    bytes32 slot = bytes32(uint256(keccak256('eip1967.proxy.admin')) - 1);
+    return address(uint160(uint256(vm.load(proxy, slot))));
+  }
+
   function _readInitialized(address proxy) internal view returns (uint8) {
     return uint8(uint256(vm.load(proxy, bytes32(0))));
   }
@@ -227,6 +236,42 @@ contract AaveV3Arbitrum_GHOBaseLaunch_20241223_Test is ProtocolV3TestBase {
     IRateLimiter.Config memory config
   ) internal pure {
     assertEq(abi.encode(_tokenBucketToConfig(bucket)), abi.encode(config));
+  }
+}
+
+contract AaveV3Arbitrum_GHOBaseLaunch_20241223_PreExecution is
+  AaveV3Arbitrum_GHOBaseLaunch_20241223_Base
+{
+  function test_ghoTokenProxyAdminUpgrade() public {
+    assertEq(_getProxyAdmin(address(GHO)), MiscArbitrum.PROXY_ADMIN);
+    executePayload(vm, address(proposal));
+    assertEq(_getProxyAdmin(address(GHO)), proposal.NEW_GHO_TOKEN_PROXY_ADMIN());
+  }
+
+  function test_ghoProxyAdminCanUpgradeImplementation() public {
+    executePayload(vm, address(proposal));
+    address miscImpl = makeAddr('miscImpl');
+    vm.etch(miscImpl, hex'602060005260205ff3'); // ret 0x20
+    vm.startPrank(GovernanceV3Arbitrum.EXECUTOR_LVL_1);
+    ProxyAdmin(proposal.NEW_GHO_TOKEN_PROXY_ADMIN()).upgradeAndCall(
+      ITransparentUpgradeableProxy(address(GHO)),
+      miscImpl,
+      ''
+    );
+    assertEq(_getImplementation(address(GHO)), miscImpl);
+    (bool ok, bytes memory ret) = address(GHO).call(hex'');
+    assertTrue(ok);
+    assertEq(abi.decode(ret, (uint8)), 32);
+  }
+}
+
+contract AaveV3Arbitrum_GHOBaseLaunch_20241223_PostExecution is
+  AaveV3Arbitrum_GHOBaseLaunch_20241223_Base
+{
+  function setUp() public override {
+    super.setUp();
+    // execute proposal
+    executePayload(vm, address(proposal));
   }
 
   function test_basePoolConfig() public view {
