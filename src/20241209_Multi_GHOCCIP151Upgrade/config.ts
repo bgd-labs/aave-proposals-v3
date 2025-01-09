@@ -6,7 +6,7 @@ export const config: ConfigFile = {
     shortName: 'GHOCCIP151Upgrade',
     date: '20241209',
     author: 'Aave Labs',
-    discussion: '',
+    discussion: 'https://governance.aave.com/t/technical-maintenance-proposals/15274/59',
     snapshot: 'Direct-to-AIP',
     votingNetwork: 'POLYGON',
   },
