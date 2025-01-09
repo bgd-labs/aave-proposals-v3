@@ -38,8 +38,8 @@ The stream shall commence the next block from when the previous stream finishes.
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241231_AaveV3Ethereum_karpatkeyGhoGrowth/AaveV3Ethereum_karpatkeyGhoGrowth_20241231.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241231_AaveV3Ethereum_karpatkeyGhoGrowth/AaveV3Ethereum_karpatkeyGhoGrowth_20241231.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/57aaaa1bfa341a98ac5fbb549aa16941eef69ed7/src/20241231_AaveV3Ethereum_karpatkeyGhoGrowth/AaveV3Ethereum_karpatkeyGhoGrowth_20241231.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/57aaaa1bfa341a98ac5fbb549aa16941eef69ed7/src/20241231_AaveV3Ethereum_karpatkeyGhoGrowth/AaveV3Ethereum_karpatkeyGhoGrowth_20241231.t.sol)
   [Snapshot](https://snapshot.box/#/s:aave.eth/proposal/0x87585d9dcb104d2946ca2def6bcf57708480fafc5e310de4850dc2fbe1820893)
 - [Discussion](https://governance.aave.com/t/arfc-karpatkey-as-gho-growth-service-provider/20206)
 
