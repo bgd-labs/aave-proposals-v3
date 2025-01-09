@@ -2,7 +2,7 @@
 
 ### Reserves added
 
-#### GHO ([0x6F2216CB3Ca97b8756C5fD99bE27986f04CBd81D](https://basescan.org/address/0x6F2216CB3Ca97b8756C5fD99bE27986f04CBd81D))
+#### GHO ([0x6Bb7a212910682DCFdbd5BCBb3e28FB4E8da10Ee](https://basescan.org/address/0x6Bb7a212910682DCFdbd5BCBb3e28FB4E8da10Ee))
 
 | description | value |
 | --- | --- |
@@ -52,7 +52,7 @@
 ```json
 {
   "reserves": {
-    "0x6F2216CB3Ca97b8756C5fD99bE27986f04CBd81D": {
+    "0x6Bb7a212910682DCFdbd5BCBb3e28FB4E8da10Ee": {
       "from": null,
       "to": {
         "aToken": "0xDD5745756C2de109183c6B5bB886F9207bEF114D",
@@ -82,7 +82,7 @@
         "reserveFactor": 1000,
         "supplyCap": 2500000,
         "symbol": "GHO",
-        "underlying": "0x6F2216CB3Ca97b8756C5fD99bE27986f04CBd81D",
+        "underlying": "0x6Bb7a212910682DCFdbd5BCBb3e28FB4E8da10Ee",
         "usageAsCollateralEnabled": false,
         "variableDebtToken": "0xbc4f5631f2843488792e4F1660d0A51Ba489bdBd",
         "variableDebtTokenImpl": "0x2425A746911128c2eAA7bEBDc9Bc452eE52208a1",
@@ -94,7 +94,7 @@
     }
   },
   "strategies": {
-    "0x6F2216CB3Ca97b8756C5fD99bE27986f04CBd81D": {
+    "0x6Bb7a212910682DCFdbd5BCBb3e28FB4E8da10Ee": {
       "from": null,
       "to": {
         "address": "0x86AB1C62A8bf868E1b3E1ab87d587Aba6fbCbDC5",
