@@ -7,7 +7,7 @@ snapshot: "https://snapshot.box/#/s:aave.eth/proposal/0x61f027ea797763c9e0173669
 
 ## Simple Summary
 
-This proposal aims to enable LBTC/WBTC liquid E-Mode for the Main Instance. By implementing this change, we seek to enhance capital efficiency for borrowers using LBTC/WBTC as collateral.
+This proposal aims to onboard LBTC and enable LBTC/WBTC liquid E-Mode for the Main Instance. By implementing this change, we seek to enhance capital efficiency for borrowers using LBTC/WBTC as collateral.
 
 [TEMP CHECK](https://governance.aave.com/t/temp-check-onboard-enable-lbtc-wbtc-liquid-e-mode-on-aave-v3-core-instance/19968/7) and [TEMP CHECK Snapshot](https://snapshot.box/#/s:aave.eth/proposal/0x8fdee3ec7a301f9fba2e4c048227257070645d636b09a7afb369ee9c002ad764) have passed recently.
 
