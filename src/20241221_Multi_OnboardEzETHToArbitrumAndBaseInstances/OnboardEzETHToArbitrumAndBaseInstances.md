@@ -77,8 +77,8 @@ Additionaly [0xac140648435d03f784879cd789130F22Ef588Fcd](https://debank.com/prof
 
 ## References
 
-- Implementation: [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241221_Multi_OnboardEzETHToArbitrumAndBaseInstances/AaveV3Arbitrum_OnboardEzETHToArbitrumAndBaseInstances_20241221.sol), [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241221_Multi_OnboardEzETHToArbitrumAndBaseInstances/AaveV3Base_OnboardEzETHToArbitrumAndBaseInstances_20241221.sol)
-- Tests: [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241221_Multi_OnboardEzETHToArbitrumAndBaseInstances/AaveV3Arbitrum_OnboardEzETHToArbitrumAndBaseInstances_20241221.t.sol), [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241221_Multi_OnboardEzETHToArbitrumAndBaseInstances/AaveV3Base_OnboardEzETHToArbitrumAndBaseInstances_20241221.t.sol)
+- Implementation: [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/612e087e1b3fff317fd444905d17bbf0e0abcb37/src/20241221_Multi_OnboardEzETHToArbitrumAndBaseInstances/AaveV3Arbitrum_OnboardEzETHToArbitrumAndBaseInstances_20241221.sol), [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/612e087e1b3fff317fd444905d17bbf0e0abcb37/src/20241221_Multi_OnboardEzETHToArbitrumAndBaseInstances/AaveV3Base_OnboardEzETHToArbitrumAndBaseInstances_20241221.sol)
+- Tests: [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/612e087e1b3fff317fd444905d17bbf0e0abcb37/src/20241221_Multi_OnboardEzETHToArbitrumAndBaseInstances/AaveV3Arbitrum_OnboardEzETHToArbitrumAndBaseInstances_20241221.t.sol), [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/612e087e1b3fff317fd444905d17bbf0e0abcb37/src/20241221_Multi_OnboardEzETHToArbitrumAndBaseInstances/AaveV3Base_OnboardEzETHToArbitrumAndBaseInstances_20241221.t.sol)
 - [Snapshot](https://snapshot.box/#/s:aave.eth/proposal/0xf9fa710414237636cba11187111773fac04f74eb1a562d2b50fca86cb72a778e)
 - [Discussion](https://governance.aave.com/t/arfc-onboard-ezeth-to-arbitrum-and-base-instances/19622)
 
