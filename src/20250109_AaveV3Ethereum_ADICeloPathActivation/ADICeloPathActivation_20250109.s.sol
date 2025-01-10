@@ -5,7 +5,7 @@ import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aa
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {EthereumScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
 
-address constant PAYLOAD = address(0xE11a04e56f650fe78411F763ca15D7936a57fe5c);
+address constant PAYLOAD = address(0x8F7E2023686B78E148e65004Ca8AcEf9B2B46922);
 
 /**
  * @dev Deploy Ethereum
