@@ -54,7 +54,7 @@ contract AaveV3Arbitrum_OnboardEzETHToArbitrumAndBaseInstances_20241221 is AaveV
       ltv: 72_00,
       liqThreshold: 75_00,
       liqBonus: 7_50,
-      label: 'LRT Stablecoins main'
+      label: 'ezETH Stablecoins'
     });
 
     return eModeUpdates;
