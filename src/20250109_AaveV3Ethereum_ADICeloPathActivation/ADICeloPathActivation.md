@@ -48,9 +48,9 @@ The new Aave Governance deployments on Linea network are as follows:
 ## References
 
 - Adapter Implementations: [HyperLane Bridge Adapters](https://github.com/bgd-labs/aave-delivery-infrastructure/blob/1f1c46af4dd914847849cad4fdd2d26525278821/src/contracts/adapters/hyperLane/HyperLaneAdapter.sol), [LayerZero Bridge Adapters](https://github.com/bgd-labs/aave-delivery-infrastructure/blob/1f1c46af4dd914847849cad4fdd2d26525278821/src/contracts/adapters/layerZero/LayerZeroAdapter.sol), [CCIP Bridge Adapters](https://github.com/bgd-labs/aave-delivery-infrastructure/blob/1f1c46af4dd914847849cad4fdd2d26525278821/src/contracts/adapters/ccip/CCIPAdapter.sol)
-- Payload Implementation: [Payload](https://github.com/bgd-labs/adi-deploy/blob/d4990ac90bdb5e4ad39a44cf9ca4d53fb2974c97/src/adapter_payloads/Ethereum_Celo_Path_Payload.sol)
-- Payload Tests: [tests](https://github.com/bgd-labs/adi-deploy/blob/d4990ac90bdb5e4ad39a44cf9ca4d53fb2974c97/tests/payloads/ethereum/AddCeloPathTest.t.sol)
-- Diffs: [a.DI diffs](https://github.com/bgd-labs/adi-deploy/blob/d4990ac90bdb5e4ad39a44cf9ca4d53fb2974c97/diffs/adi_add_celo_path_to_adiethereum_before_adi_add_celo_path_to_adiethereum_after.md)
+- Payload Implementation: [Payload](https://github.com/bgd-labs/adi-deploy/blob/06785fcb243f179425671691099df927876baeb0/src/adapter_payloads/Ethereum_Celo_Path_Payload.sol)
+- Payload Tests: [tests](https://github.com/bgd-labs/adi-deploy/blob/06785fcb243f179425671691099df927876baeb0/tests/payloads/ethereum/AddCeloPathTest.t.sol)
+- Diffs: [a.DI diffs](https://github.com/bgd-labs/adi-deploy/blob/06785fcb243f179425671691099df927876baeb0/diffs/adi_add_celo_path_to_adiethereum_before_adi_add_celo_path_to_adiethereum_after.md)
 - Snapshot: Direct-to-AIP
 - [Discussion]()
 
