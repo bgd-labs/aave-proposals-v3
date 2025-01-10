@@ -89,16 +89,8 @@ contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
   error BridgeLimitExceeded(uint256 limit);
 
   function setUp() public virtual {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 21581477);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 21594804);
     proposal = new AaveV3Ethereum_GHOCCIP151Upgrade_20241209();
-
-    // pre-req - chainlink transfers gho token pool ownership on token admin registry
-    address CLL_OWNER = TOKEN_ADMIN_REGISTRY.owner();
-    vm.startPrank(CLL_OWNER);
-    TOKEN_ADMIN_REGISTRY.transferAdminRole(address(GHO), GovernanceV3Ethereum.EXECUTOR_LVL_1);
-    EXISTING_PROXY_POOL.transferOwnership(GovernanceV3Ethereum.EXECUTOR_LVL_1);
-    vm.stopPrank();
-
     _validateConstants();
   }
 

@@ -89,16 +89,8 @@ contract AaveV3Arbitrum_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
   event CCIPSendRequested(IInternal.EVM2EVMMessage message);
 
   function setUp() public virtual {
-    vm.createSelectFork(vm.rpcUrl('arbitrum'), 293345614);
+    vm.createSelectFork(vm.rpcUrl('arbitrum'), 293994020);
     proposal = new AaveV3Arbitrum_GHOCCIP151Upgrade_20241209();
-
-    // pre-req - chainlink transfers gho token pool ownership on token admin registry
-    address CLL_OWNER = TOKEN_ADMIN_REGISTRY.owner();
-    vm.startPrank(CLL_OWNER);
-    TOKEN_ADMIN_REGISTRY.transferAdminRole(address(GHO), GovernanceV3Arbitrum.EXECUTOR_LVL_1);
-    EXISTING_PROXY_POOL.transferOwnership(GovernanceV3Arbitrum.EXECUTOR_LVL_1);
-    vm.stopPrank();
-
     _validateConstants();
   }
 
