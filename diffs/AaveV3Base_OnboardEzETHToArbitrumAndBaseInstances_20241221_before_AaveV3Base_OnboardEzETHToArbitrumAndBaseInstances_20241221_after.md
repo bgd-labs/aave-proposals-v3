@@ -54,11 +54,11 @@
 
 
 
-### EMode: LRT wstETH main(id: 2)
+### EMode: ezETH wstETH(id: 2)
 
 | description | value before | value after |
 | --- | --- | --- |
-| eMode.label | - | LRT wstETH main |
+| eMode.label | - | ezETH wstETH |
 | eMode.ltv | - | 93 % |
 | eMode.liquidationThreshold | - | 95 % |
 | eMode.liquidationBonus | - | 1 % |
@@ -66,11 +66,11 @@
 | eMode.collateralBitmap | - | ezETH |
 
 
-### EMode: LRT Stablecoins main(id: 3)
+### EMode: ezETH Stablecoins(id: 3)
 
 | description | value before | value after |
 | --- | --- | --- |
-| eMode.label | - | LRT Stablecoins main |
+| eMode.label | - | ezETH Stablecoins |
 | eMode.ltv | - | 72 % |
 | eMode.liquidationThreshold | - | 75 % |
 | eMode.liquidationBonus | - | 7.5 % |
@@ -89,7 +89,7 @@
         "borrowableBitmap": "8",
         "collateralBitmap": "128",
         "eModeCategory": 2,
-        "label": "LRT wstETH main",
+        "label": "ezETH wstETH",
         "liquidationBonus": 10100,
         "liquidationThreshold": 9500,
         "ltv": 9300
@@ -101,7 +101,7 @@
         "borrowableBitmap": "16",
         "collateralBitmap": "128",
         "eModeCategory": 3,
-        "label": "LRT Stablecoins main",
+        "label": "ezETH Stablecoins",
         "liquidationBonus": 10750,
         "liquidationThreshold": 7500,
         "ltv": 7200
