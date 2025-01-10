@@ -1,5 +1,5 @@
 ---
-title: "Enable LBTC/WBTC liquid E-Mode on Aave v3 Core Instance"
+title: "Onboard LBTC & Enable LBTC/WBTC liquid E-Mode on Aave v3 Core Instance"
 author: "Aave Chan Initiative"
 discussions: "https://governance.aave.com/t/arfc-enable-lbtc-wbtc-liquid-e-mode-on-aave-v3-core-instance/20142"
 snapshot: "https://snapshot.box/#/s:aave.eth/proposal/0x61f027ea797763c9e01736693570141a27a0a5d4517a6b63d0fd84474e8be995"
