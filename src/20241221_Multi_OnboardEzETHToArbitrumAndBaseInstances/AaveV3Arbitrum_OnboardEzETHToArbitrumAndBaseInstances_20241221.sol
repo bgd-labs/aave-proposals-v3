@@ -46,7 +46,7 @@ contract AaveV3Arbitrum_OnboardEzETHToArbitrumAndBaseInstances_20241221 is AaveV
       ltv: 93_00,
       liqThreshold: 95_00,
       liqBonus: 1_00,
-      label: 'LRT wstETH main'
+      label: 'ezETH wstETH'
     });
 
     eModeUpdates[1] = IAaveV3ConfigEngine.EModeCategoryUpdate({
