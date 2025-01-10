@@ -4,7 +4,7 @@ export const config: ConfigFile = {
     configFile: 'tmp.ts',
     author: 'Aave Chan Initiative',
     pools: ['AaveV3Ethereum'],
-    title: 'Enable LBTC/WBTC liquid E-Mode on Aave v3 Core Instance',
+    title: 'Onboard LBTC & enable LBTC/WBTC liquid E-Mode on Aave v3 Core Instance',
     shortName: 'EnableLBTCWBTCLiquidEModeOnAavev3CoreInstance',
     date: '20241223',
     discussion:
