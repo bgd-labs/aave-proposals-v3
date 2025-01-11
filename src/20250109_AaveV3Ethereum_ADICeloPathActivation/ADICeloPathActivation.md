@@ -1,8 +1,8 @@
 ---
 title: "a.DI Celo path activation"
 author: "BGD Labs @bgdlabs"
-discussions: TODO
-snapshot: TODO
+discussions: https://governance.aave.com/t/technical-maintenance-proposals/15274/61
+snapshot: Direct-to-AIP
 ---
 
 ## Simple Summary
@@ -52,7 +52,7 @@ The new Aave Governance deployments on Linea network are as follows:
 - Payload Tests: [tests](https://github.com/bgd-labs/adi-deploy/blob/06785fcb243f179425671691099df927876baeb0/tests/payloads/ethereum/AddCeloPathTest.t.sol)
 - Diffs: [a.DI diffs](https://github.com/bgd-labs/adi-deploy/blob/06785fcb243f179425671691099df927876baeb0/diffs/adi_add_celo_path_to_adiethereum_before_adi_add_celo_path_to_adiethereum_after.md)
 - Snapshot: Direct-to-AIP
-- [Discussion]()
+- [Discussion](https://governance.aave.com/t/technical-maintenance-proposals/15274/61)
 
 ## Copyright
 
