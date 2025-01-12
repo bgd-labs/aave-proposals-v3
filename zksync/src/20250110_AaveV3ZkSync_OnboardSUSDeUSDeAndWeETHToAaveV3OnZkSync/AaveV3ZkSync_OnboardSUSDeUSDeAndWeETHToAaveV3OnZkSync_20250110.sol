@@ -68,7 +68,7 @@ contract AaveV3ZkSync_OnboardSUSDeUSDeAndWeETHToAaveV3OnZkSync_20250110 is AaveV
     assetEModeUpdates[0] = IAaveV3ConfigEngine.AssetEModeUpdate({
       asset: weETH,
       eModeCategory: AaveV3ZkSyncEModes.ETH_CORRELATED,
-      borrowable: EngineFlags.DISABLED,
+      borrowable: EngineFlags.ENABLED,
       collateral: EngineFlags.ENABLED
     });
 

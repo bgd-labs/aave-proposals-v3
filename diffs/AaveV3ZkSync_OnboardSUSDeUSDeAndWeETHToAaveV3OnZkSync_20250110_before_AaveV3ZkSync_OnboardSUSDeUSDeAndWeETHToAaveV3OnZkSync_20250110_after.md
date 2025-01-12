@@ -150,7 +150,7 @@
 | eMode.ltv (unchanged) | 90 % | 90 % |
 | eMode.liquidationThreshold (unchanged) | 93 % | 93 % |
 | eMode.liquidationBonus (unchanged) | 1 % | 1 % |
-| eMode.borrowableBitmap (unchanged) | WETH, wstETH | WETH, wstETH |
+| eMode.borrowableBitmap | WETH, wstETH | WETH, wstETH, weETH |
 | eMode.collateralBitmap | WETH, wstETH | WETH, wstETH, weETH |
 
 
@@ -160,6 +160,10 @@
 {
   "eModes": {
     "1": {
+      "borrowableBitmap": {
+        "from": "12",
+        "to": "44"
+      },
       "collateralBitmap": {
         "from": "12",
         "to": "44"
