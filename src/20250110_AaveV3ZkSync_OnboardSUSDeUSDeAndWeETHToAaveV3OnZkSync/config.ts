@@ -16,12 +16,13 @@ export const config: ConfigFile = {
   poolOptions: {
     AaveV3ZkSync: {
       configs: {
-        EMODES_ASSETS: [
+        EMODES_UPDATES: [
           {
-            asset: 'weETH',
-            eModeCategory: 'AaveV3ZkSyncEModes.ETH_CORRELATED',
-            collateral: 'ENABLED',
-            borrowable: 'DISABLED',
+            eModeCategory: 2,
+            ltv: '90',
+            liqThreshold: '93',
+            liqBonus: '1',
+            label: 'weETH correlated',
           },
         ],
         ASSET_LISTING: [
@@ -34,13 +35,13 @@ export const config: ConfigFile = {
             liqBonus: '7.5',
             debtCeiling: '0',
             liqProtocolFee: '10',
-            enabledToBorrow: 'ENABLED',
+            enabledToBorrow: 'DISABLED',
             flashloanable: 'ENABLED',
             borrowableInIsolation: 'DISABLED',
             withSiloedBorrowing: 'DISABLED',
             reserveFactor: '45',
             supplyCap: '300',
-            borrowCap: '150',
+            borrowCap: '1',
             rateStrategyParams: {
               optimalUtilizationRate: '30',
               baseVariableBorrowRate: '0',
@@ -48,31 +49,6 @@ export const config: ConfigFile = {
               variableRateSlope2: '300',
             },
             asset: '0xc1Fa6E2E8667d9bE0Ca938a54c7E0285E9Df924a',
-            admin: '0x95Cbff6e45C499d45dd8627f3ce179057B5Fbfcc',
-          },
-          {
-            assetSymbol: 'USDe',
-            decimals: 18,
-            priceFeed: '0x0847BAb95500dD914CDC99c4aE44b60a3B12DBDe',
-            ltv: '65',
-            liqThreshold: '75',
-            liqBonus: '8.5',
-            debtCeiling: '500000',
-            liqProtocolFee: '10',
-            enabledToBorrow: 'ENABLED',
-            flashloanable: 'ENABLED',
-            borrowableInIsolation: 'DISABLED',
-            withSiloedBorrowing: 'DISABLED',
-            reserveFactor: '25',
-            supplyCap: '500000',
-            borrowCap: '50000',
-            rateStrategyParams: {
-              optimalUtilizationRate: '80',
-              baseVariableBorrowRate: '0',
-              variableRateSlope1: '9',
-              variableRateSlope2: '75',
-            },
-            asset: '0x39Fe7a0DACcE31Bd90418e3e659fb0b5f0B3Db0d',
             admin: '0x95Cbff6e45C499d45dd8627f3ce179057B5Fbfcc',
           },
           {

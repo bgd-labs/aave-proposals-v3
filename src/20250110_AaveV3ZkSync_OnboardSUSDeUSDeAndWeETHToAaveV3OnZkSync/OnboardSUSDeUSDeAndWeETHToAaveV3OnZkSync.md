@@ -17,31 +17,55 @@ These onboardings also include partnership with Ethena and EtherFi to add ZK tok
 
 ## Specification
 
-The table below illustrates the configured risk parameters for **weETH** and **sUSDe**:
+The table below illustrates the configured risk parameters for **weETH**
 
-| Parameter                 |                                      weETH |                                      sUSDe |
-| ------------------------- | -----------------------------------------: | -----------------------------------------: |
-| Isolation Mode            |                                      false |                                       true |
-| Borrowable                |                                    ENABLED |                                   DISABLED |
-| Collateral Enabled        |                                       true |                                       true |
-| Supply Cap (weETH)        |                                        300 |                                    400,000 |
-| Borrow Cap (weETH)        |                                        150 |                                          1 |
-| Debt Ceiling              |                                      USD 0 |                                USD 400,000 |
-| LTV                       |                                     72.5 % |                                       65 % |
-| LT                        |                                       75 % |                                       75 % |
-| Liquidation Bonus         |                                      7.5 % |                                      8.5 % |
-| Liquidation Protocol Fee  |                                       10 % |                                       10 % |
-| Reserve Factor            |                                       45 % |                                       20 % |
-| Base Variable Borrow Rate |                                        0 % |                                        0 % |
-| Variable Slope 1          |                                        7 % |                                        9 % |
-| Variable Slope 2          |                                      300 % |                                       75 % |
-| Uoptimal                  |                                       30 % |                                       80 % |
-| Flashloanable             |                                    ENABLED |                                    ENABLED |
-| Siloed Borrowing          |                                   DISABLED |                                   DISABLED |
-| Borrowable in Isolation   |                                   DISABLED |                                   DISABLED |
-| Oracle                    | 0x32aF9A0a47B332761c8C90E9eC9f53e46e852b2B | 0xDaec4cC3a41E423d678428A8Bb29fa1ADF26869a |
+| Parameter                 |                                      Value |
+| ------------------------- | -----------------------------------------: |
+| Isolation Mode            |                                      false |
+| Borrowable                |                                   DISABLED |
+| Collateral Enabled        |                                       true |
+| Supply Cap (weETH)        |                                        300 |
+| Borrow Cap (weETH)        |                                          1 |
+| Debt Ceiling              |                                      USD 0 |
+| LTV                       |                                     72.5 % |
+| LT                        |                                       75 % |
+| Liquidation Bonus         |                                      7.5 % |
+| Liquidation Protocol Fee  |                                       10 % |
+| Reserve Factor            |                                       45 % |
+| Base Variable Borrow Rate |                                        0 % |
+| Variable Slope 1          |                                        7 % |
+| Variable Slope 2          |                                      300 % |
+| Uoptimal                  |                                       30 % |
+| Flashloanable             |                                    ENABLED |
+| Siloed Borrowing          |                                   DISABLED |
+| Borrowable in Isolation   |                                   DISABLED |
+| Oracle                    | 0x32aF9A0a47B332761c8C90E9eC9f53e46e852b2B |
 
-Additionaly [0x95Cbff6e45C499d45dd8627f3ce179057B5Fbfcc](https://era.zksync.network/address/0x95Cbff6e45C499d45dd8627f3ce179057B5Fbfcc) has been set as the emission admin for weETH and sUSDe and their corresponding aTokens.
+The table below illustrates the configured risk parameters for **sUSDe**
+
+| Parameter                 |                                      Value |
+| ------------------------- | -----------------------------------------: |
+| Isolation Mode            |                                       true |
+| Borrowable                |                                   DISABLED |
+| Collateral Enabled        |                                       true |
+| Supply Cap (sUSDe)        |                                    400,000 |
+| Borrow Cap (sUSDe)        |                                          1 |
+| Debt Ceiling              |                                USD 400,000 |
+| LTV                       |                                       65 % |
+| LT                        |                                       75 % |
+| Liquidation Bonus         |                                      8.5 % |
+| Liquidation Protocol Fee  |                                       10 % |
+| Reserve Factor            |                                       20 % |
+| Base Variable Borrow Rate |                                        0 % |
+| Variable Slope 1          |                                        9 % |
+| Variable Slope 2          |                                       75 % |
+| Uoptimal                  |                                       80 % |
+| Flashloanable             |                                    ENABLED |
+| Siloed Borrowing          |                                   DISABLED |
+| Borrowable in Isolation   |                                   DISABLED |
+| Oracle                    | 0xDaec4cC3a41E423d678428A8Bb29fa1ADF26869a |
+
+Additionaly [0x95Cbff6e45C499d45dd8627f3ce179057B5Fbfcc](https://era.zksync.network/address/0x95Cbff6e45C499d45dd8627f3ce179057B5Fbfcc) has been set as the emission admin for weETH, sUSDe and their corresponding aTokens.
 
 ## References
 

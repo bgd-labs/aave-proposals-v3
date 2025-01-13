@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {AaveV3ZkSync, AaveV3ZkSyncAssets, AaveV3ZkSyncEModes} from 'aave-address-book/AaveV3ZkSync.sol';
+import {AaveV3ZkSync} from 'aave-address-book/AaveV3ZkSync.sol';
 import {AaveV3PayloadZkSync} from 'aave-helpers/src/v3-config-engine/AaveV3PayloadZkSync.sol';
 import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
@@ -9,7 +9,7 @@ import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';
 import {IEmissionManager} from 'aave-v3-origin/contracts/rewards/interfaces/IEmissionManager.sol';
 /**
- * @title Onboard sUSDe and weETH to Aave v3 on zkSync
+ * @title Onboard sUSDe, USDe and weETH to Aave v3 on zkSync
  * @author Aave-chan Initiative
  * - Snapshot: https://snapshot.box/#/s:aave.eth/proposal/0x6709151a1efa71370a6a0f9a7592d983ed401ac0311cce861fba347081384520
  * - Discussion: https://governance.aave.com/t/arfc-onboard-susde-usde-and-weeth-to-aave-v3-on-zksync/19204
@@ -45,23 +45,24 @@ contract AaveV3ZkSync_OnboardSUSDeUSDeAndWeETHToAaveV3OnZkSync_20250110 is AaveV
     IEmissionManager(AaveV3ZkSync.EMISSION_MANAGER).setEmissionAdmin(asUSDe, sUSDe_LM_ADMIN);
   }
 
-  function assetsEModeUpdates()
+  function eModeCategoriesUpdates()
     public
     pure
     override
-    returns (IAaveV3ConfigEngine.AssetEModeUpdate[] memory)
+    returns (IAaveV3ConfigEngine.EModeCategoryUpdate[] memory)
   {
-    IAaveV3ConfigEngine.AssetEModeUpdate[]
-      memory assetEModeUpdates = new IAaveV3ConfigEngine.AssetEModeUpdate[](1);
+    IAaveV3ConfigEngine.EModeCategoryUpdate[]
+      memory eModeUpdates = new IAaveV3ConfigEngine.EModeCategoryUpdate[](1);
 
-    assetEModeUpdates[0] = IAaveV3ConfigEngine.AssetEModeUpdate({
-      asset: weETH,
-      eModeCategory: AaveV3ZkSyncEModes.ETH_CORRELATED,
-      borrowable: EngineFlags.ENABLED,
-      collateral: EngineFlags.ENABLED
+    eModeUpdates[0] = IAaveV3ConfigEngine.EModeCategoryUpdate({
+      eModeCategory: 2,
+      ltv: 90_00,
+      liqThreshold: 93_00,
+      liqBonus: 1_00,
+      label: 'weETH correlated'
     });
 
-    return assetEModeUpdates;
+    return eModeUpdates;
   }
   function newListings() public pure override returns (IAaveV3ConfigEngine.Listing[] memory) {
     IAaveV3ConfigEngine.Listing[] memory listings = new IAaveV3ConfigEngine.Listing[](2);
@@ -70,7 +71,7 @@ contract AaveV3ZkSync_OnboardSUSDeUSDeAndWeETHToAaveV3OnZkSync_20250110 is AaveV
       asset: weETH,
       assetSymbol: 'weETH',
       priceFeed: 0x32aF9A0a47B332761c8C90E9eC9f53e46e852b2B,
-      enabledToBorrow: EngineFlags.ENABLED,
+      enabledToBorrow: EngineFlags.DISABLED,
       borrowableInIsolation: EngineFlags.DISABLED,
       withSiloedBorrowing: EngineFlags.DISABLED,
       flashloanable: EngineFlags.ENABLED,
@@ -79,7 +80,7 @@ contract AaveV3ZkSync_OnboardSUSDeUSDeAndWeETHToAaveV3OnZkSync_20250110 is AaveV
       liqBonus: 7_50,
       reserveFactor: 45_00,
       supplyCap: 300,
-      borrowCap: 150,
+      borrowCap: 1,
       debtCeiling: 0,
       liqProtocolFee: 10_00,
       rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
