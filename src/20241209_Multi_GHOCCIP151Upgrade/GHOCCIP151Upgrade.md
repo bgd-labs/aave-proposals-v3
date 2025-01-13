@@ -1,50 +1,41 @@
+---  
+title: "GHO Risk Stewards Update and GHO CCIP Integration Upgrade"  
+author: "Aave Labs"  
+discussions: "https://governance.aave.com/t/technical-maintenance-proposals/15274/59"  
 ---
-title: "GHO CCIP 1.5.1 Upgrade"
-author: "Aave Labs"
-discussions: "https://governance.aave.com/t/technical-maintenance-proposals/15274/59"
----
 
-## Simple Summary
+## Simple Summary  
+This AIP proposes 1) updating the Risk Steward contracts to enhance the Risk Council’s user experience and align the design of the Risk Stewards implementations throughout the Aave Protocol and 2) updating the GHO CCIP Token Pools on Arbitrum and Ethereum to integrate them with latest version of CCIP (1.5.1) to leverage the full functionality of CCIP and prepare for future expansions to other chains.
 
-Proposal to update the GHO CCIP Token Pools to integrate them with CCIP (Chainlink Cross-Chain Interoperability Protocol) version 1.5.1. While the existing deployments on Arbitrum and Ethereum are compatible with 1.5.1, adopting the latest version is preferable in order to leverage the full functionality of CCIP and prepare for future expansions to other chains.
+## Motivation  
+This AIP seeks to enhance the Aave user experience and align the design of the Risk Stewards implementation across the Aave Protocol. Additionally, the CCIP was recently upgraded to version 1.5.1, introducing a number of enhancements for cross-chain pool management. Currently, GHO CCIP Token Pools are based on version 1.4, though still compatible with 1.5.1.
 
-## Motivation
+Aave Labs will provide technical support to maintain the GHO CCIP Token Pools functional, secured, and aligned with the latest updates, enabling GHO expansion to other networks when needed.
 
-The CCIP was upgraded to version 1.5.1 at the beginning of December, 2024, introducing a number of enhancements for cross-chain pool management. Currently, GHO CCIP Token Pools are based on version 1.4, though still compatible with 1.5.1.
-
-Aave Labs will provide technical support to maintain the GHO CCIP Token Pools functional, secure, and aligned with the latest updates, enabling GHO expansion to other networks when needed.
-
-## Specification
-
-This proposal aims to upgrade the existing CCIP Token Pools for GHO on Ethereum and Arbitrum to CCIP version 1.5.1, by establishing a new lane between these two chains and deprecating the old one.
-
+## Specification  
 The proposal includes the following actions:
 
-1. Ownership maintenance of contracts:
+Risk Stewards update:
 
-   1. Accept ownership of new token pool contracts for GHO on each network.
-   2. Assume Admin role for the GHO token in the CCIP TokenAdminRegistry contract on each network.
-   3. Take ownership of the existing proxy pools (even though they’ll be deprecated).
+1. GhoAaveSteward: Remove the max cap of 25% configured by `GHO_BORROW_RATE_MAX`. While this limitation was sensible when applied to the Ethereum reserve only, it is not necessary for different instances of GHO when implemented as a regular reserve. Additionally, the Risk Stewards already have limitations and sanity checks in place to restrict capabilities during rates update.   
+2. GhoCcipSteward: Add a missing getter for the timelock state of the CCIP. 
 
-2. Migrate Liquidity Between Old and New Token Pools:
+GHO CCIP Token Pools upgrade:
 
-   1. On Ethereum: Transfer locked GHO liquidity from the old LockReleaseTokenPool contract to the new one, and properly initialize the new contract to reflect the correct amount of bridged liquidity.
-   2. On Arbitrum: Mint tokens on the new BurnMintTokenPool contract and burn tokens from the old pool using the newly introduced `directMint` and `directBurn` methods. This is necessary to offboard the old pool as a facilitator and enable the new pool to handle bridge transactions.
+1. Ownership maintenance of contracts:  
+   1. Accept ownership of new token pool contracts for GHO on each network.  
+   2. Assume Admin role for the GHO token in the CCIP TokenAdminRegistry contract on each network.  
+   3. Take ownership of the existing proxy pools (even though they'll be deprecated).  
+2. Migrate Liquidity Between Old and New Token Pools:  
+   1. On Ethereum: Transfer locked GHO liquidity from the old LockReleaseTokenPool contract to the new one, and properly initialize the new contract to reflect the correct amount of bridged liquidity.  
+   2. On Arbitrum: Mint tokens on the new BurnMintTokenPool contract and burn tokens from the old pool using the newly introduced `directMint` and `directBurn` methods. This is necessary to offboard the old pool as a facilitator and enable the new pool to handle bridge transactions.  
+3. Setup a token rate limit of 300,000 GHO capacity and 60 GHO per second refill rate (216,000 GHO per hour), as recommended by the Risk Provider ChaosLabs in the previous maintenance upgrade to v1.5, see [here](https://governance.aave.com/t/technical-maintenance-proposals/15274/54?u=canonicaljp).  
+4. Keep GhoStewards functional by validating they can execute actions over the new CCIP lane and remain fully operational.
 
-3. Setup a token rate limit of 300,000 GHO capacity and 60 GHO per second refill rate (216,000 GHO per hour), as recommended by the Risk Provider [`@ChaosLabs`](https://governance.aave.com/u/chaoslabs) in the previous maintenance upgrade to v1.5, see [here](https://governance.aave.com/t/technical-maintenance-proposals/15274/54).
-   Keep GhoStewards functional by validating they can execute actions over the new CCIP lane and remain fully operational.
+## References  
+- Implementation: [GhoAaveSteward](https://github.com/aave/gho-core/blob/main/src/contracts/misc/GhoAaveSteward.sol), [GhoCcipSteward](https://github.com/aave/gho-core/blob/main/src/contracts/misc/GhoCcipSteward.sol), [UpgradeableLockReleaseTokenPool](https://github.com/aave/ccip/blob/ccip-gho/contracts/src/v0.8/ccip/pools/GHO/UpgradeableLockReleaseTokenPool.sol), [UpgradeableTokenPool](https://github.com/aave/ccip/blob/ccip-gho/contracts/src/v0.8/ccip/pools/GHO/UpgradeableTokenPool.sol)   
+- Contracts: [Ethereum](https://etherscan.io/address/0x06179f7C1be40863405f374E7f5F8806c728660A), [Arbitrum](https://arbiscan.io/address/0xB94Ab28c6869466a46a42abA834ca2B3cECCA5eB), [Base](https://basescan.org/address/0x98217A06721Ebf727f2C8d9aD7718ec28b7aAe34)  
+- Discussion: [GHO CCIP Integration Maintenance (CCIP v1.5.1 upgrade)](https://governance.aave.com/t/technical-maintenance-proposals/15274/59), [Update GHO Risk Stewards](https://governance.aave.com/t/technical-maintenance-proposals/15274/60)
 
-## Security
-
-The new CCIP version 1.5.1 has undergone Chainlink’s standard security process.
-Certora has completed a review of the new version of the CCIP GHO Token Pool contracts (see [here](https://github.com/aave/ccip/blob/d5c6cedde6fbca9890a92a55f2db80e94793d0ec/contracts/src/v0.8/ccip/pools/GHO/audits/2024-12-24_GHO-CCIP-TokenPools_Certora.pdf)).
-
-## References
-
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241209_Multi_GHOCCIP151Upgrade/AaveV3Ethereum_GHOCCIP151Upgrade_20241209.sol), [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241209_Multi_GHOCCIP151Upgrade/AaveV3Arbitrum_GHOCCIP151Upgrade_20241209.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241209_Multi_GHOCCIP151Upgrade/AaveV3Ethereum_GHOCCIP151Upgrade_20241209.t.sol), [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241209_Multi_GHOCCIP151Upgrade/AaveV3Arbitrum_GHOCCIP151Upgrade_20241209.t.sol), [AaveV3E2E](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241209_Multi_GHOCCIP151Upgrade/AaveV3E2E_GHOCCIP151Upgrade_20241209.t.sol)
-- [Discussion](https://governance.aave.com/t/technical-maintenance-proposals/15274/59)
-
-## Copyright
-
+## Copyright  
 Copyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).
