@@ -56,7 +56,7 @@
 | isActive | true |
 | isFrozen | false |
 | supplyCap | 300 weETH |
-| borrowCap | 150 weETH |
+| borrowCap | 1 weETH |
 | debtCeiling | 0 $ [0] |
 | isSiloed | false |
 | isFlashloanable | true |
@@ -74,7 +74,7 @@
 | aTokenImpl | [0x34be365Fd01ac224F21490aaC6dFd65D25434bbB](https://era.zksync.network//address/0x34be365Fd01ac224F21490aaC6dFd65D25434bbB) |
 | variableDebtToken | [0xf31E1599b4480d07Fa96a7248c4f05cA84DA7fa8](https://era.zksync.network//address/0xf31E1599b4480d07Fa96a7248c4f05cA84DA7fa8) |
 | variableDebtTokenImpl | [0x52E97425D1Fa6885fAaC9260B711fA5047A88d06](https://era.zksync.network//address/0x52E97425D1Fa6885fAaC9260B711fA5047A88d06) |
-| borrowingEnabled | true |
+| borrowingEnabled | false |
 | isBorrowableInIsolation | false |
 | interestRateStrategy | [0x57815Ab06D846d7dECd326Ee541CD06144FED237](https://era.zksync.network//address/0x57815Ab06D846d7dECd326Ee541CD06144FED237) |
 | aTokenName | Aave ZkSync weETH |
@@ -98,14 +98,18 @@
 
 ### EMode: ETH correlated(id: 1)
 
+
+
+### EMode: weETH correlated(id: 2)
+
 | description | value before | value after |
 | --- | --- | --- |
-| eMode.label (unchanged) | ETH correlated | ETH correlated |
-| eMode.ltv (unchanged) | 90 % | 90 % |
-| eMode.liquidationThreshold (unchanged) | 93 % | 93 % |
-| eMode.liquidationBonus (unchanged) | 1 % | 1 % |
-| eMode.borrowableBitmap | WETH, wstETH | WETH, wstETH, weETH |
-| eMode.collateralBitmap | WETH, wstETH | WETH, wstETH, weETH |
+| eMode.label | - | weETH correlated |
+| eMode.ltv | - | 90 % |
+| eMode.liquidationThreshold | - | 93 % |
+| eMode.liquidationBonus | - | 1 % |
+| eMode.borrowableBitmap | - | WETH |
+| eMode.collateralBitmap | - | weETH |
 
 
 ## Raw diff
@@ -113,14 +117,16 @@
 ```json
 {
   "eModes": {
-    "1": {
-      "borrowableBitmap": {
-        "from": "12",
-        "to": "44"
-      },
-      "collateralBitmap": {
-        "from": "12",
-        "to": "44"
+    "2": {
+      "from": null,
+      "to": {
+        "borrowableBitmap": "4",
+        "collateralBitmap": "32",
+        "eModeCategory": 2,
+        "label": "weETH correlated",
+        "liquidationBonus": 10100,
+        "liquidationThreshold": 9300,
+        "ltv": 9000
       }
     }
   },
@@ -174,8 +180,8 @@
         "aTokenName": "Aave ZkSync weETH",
         "aTokenSymbol": "aZksweETH",
         "aTokenUnderlyingBalance": "25000000000000000",
-        "borrowCap": 150,
-        "borrowingEnabled": true,
+        "borrowCap": 1,
+        "borrowingEnabled": false,
         "debtCeiling": 0,
         "decimals": 18,
         "id": 5,
