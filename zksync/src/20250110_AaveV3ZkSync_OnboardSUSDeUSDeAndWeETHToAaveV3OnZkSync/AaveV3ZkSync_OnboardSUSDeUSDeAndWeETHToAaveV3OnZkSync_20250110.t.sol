@@ -58,29 +58,6 @@ contract AaveV3ZkSync_OnboardSUSDeUSDeAndWeETHToAaveV3OnZkSync_20250110_Test is 
     );
   }
 
-  function test_collectorHasUSDeFunds() public {
-    GovV3Helpers.executePayload(vm, address(proposal));
-    (address aTokenAddress, , ) = AaveV3ZkSync
-      .AAVE_PROTOCOL_DATA_PROVIDER
-      .getReserveTokensAddresses(proposal.USDe());
-    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3ZkSync.COLLECTOR)), 100 * 10 ** 18);
-  }
-
-  function test_USDeAdmin() public {
-    GovV3Helpers.executePayload(vm, address(proposal));
-    (address aUSDe, , ) = AaveV3ZkSync.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(
-      proposal.USDe()
-    );
-    assertEq(
-      IEmissionManager(AaveV3ZkSync.EMISSION_MANAGER).getEmissionAdmin(proposal.USDe()),
-      proposal.USDe_LM_ADMIN()
-    );
-    assertEq(
-      IEmissionManager(AaveV3ZkSync.EMISSION_MANAGER).getEmissionAdmin(aUSDe),
-      proposal.USDe_LM_ADMIN()
-    );
-  }
-
   function test_collectorHassUSDeFunds() public {
     GovV3Helpers.executePayload(vm, address(proposal));
     (address aTokenAddress, , ) = AaveV3ZkSync

@@ -2,52 +2,6 @@
 
 ### Reserve added
 
-#### USDe ([0x39Fe7a0DACcE31Bd90418e3e659fb0b5f0B3Db0d](https://era.zksync.network//address/0x39Fe7a0DACcE31Bd90418e3e659fb0b5f0B3Db0d))
-
-| description | value |
-| --- | --- |
-| decimals | 18 |
-| isActive | true |
-| isFrozen | false |
-| supplyCap | 500,000 USDe |
-| borrowCap | 50,000 USDe |
-| debtCeiling | 500,000 $ [50000000] |
-| isSiloed | false |
-| isFlashloanable | true |
-| oracle | [0x0847BAb95500dD914CDC99c4aE44b60a3B12DBDe](https://era.zksync.network//address/0x0847BAb95500dD914CDC99c4aE44b60a3B12DBDe) |
-| oracleDecimals | 8 |
-| oracleDescription | Capped USDe / USD |
-| oracleLatestAnswer | 0.9987876 |
-| usageAsCollateralEnabled | true |
-| ltv | 65 % [6500] |
-| liquidationThreshold | 75 % [7500] |
-| liquidationBonus | 8.5 % |
-| liquidationProtocolFee | 10 % [1000] |
-| reserveFactor | 25 % [2500] |
-| aToken | [0xF3c9d58B76AC6Ee6811520021e9A9318c49E4CFa](https://era.zksync.network//address/0xF3c9d58B76AC6Ee6811520021e9A9318c49E4CFa) |
-| aTokenImpl | [0x34be365Fd01ac224F21490aaC6dFd65D25434bbB](https://era.zksync.network//address/0x34be365Fd01ac224F21490aaC6dFd65D25434bbB) |
-| variableDebtToken | [0xDeBb4ddaaaB1676775214552a7a05D6A13f905Da](https://era.zksync.network//address/0xDeBb4ddaaaB1676775214552a7a05D6A13f905Da) |
-| variableDebtTokenImpl | [0x52E97425D1Fa6885fAaC9260B711fA5047A88d06](https://era.zksync.network//address/0x52E97425D1Fa6885fAaC9260B711fA5047A88d06) |
-| borrowingEnabled | true |
-| isBorrowableInIsolation | false |
-| interestRateStrategy | [0x57815Ab06D846d7dECd326Ee541CD06144FED237](https://era.zksync.network//address/0x57815Ab06D846d7dECd326Ee541CD06144FED237) |
-| aTokenName | Aave ZkSync USDe |
-| aTokenSymbol | aZksUSDe |
-| aTokenUnderlyingBalance | 100 USDe [100000000000000000000] |
-| id | 6 |
-| isPaused | false |
-| variableDebtTokenName | Aave ZkSync Variable Debt USDe |
-| variableDebtTokenSymbol | variableDebtZksUSDe |
-| virtualAccountingActive | true |
-| virtualBalance | 100 USDe [100000000000000000000] |
-| optimalUsageRatio | 80 % |
-| maxVariableBorrowRate | 84 % |
-| baseVariableBorrowRate | 0 % |
-| variableRateSlope1 | 9 % |
-| variableRateSlope2 | 75 % |
-| interestRate | ![ir](https://dash.onaave.com/api/static?variableRateSlope1=90000000000000000000000000&variableRateSlope2=750000000000000000000000000&optimalUsageRatio=800000000000000000000000000&baseVariableBorrowRate=0&maxVariableBorrowRate=840000000000000000000000000) |
-
-
 #### sUSDe ([0xAD17Da2f6Ac76746EF261E835C50b2651ce36DA8](https://era.zksync.network//address/0xAD17Da2f6Ac76746EF261E835C50b2651ce36DA8))
 
 | description | value |
@@ -70,9 +24,9 @@
 | liquidationBonus | 8.5 % |
 | liquidationProtocolFee | 10 % [1000] |
 | reserveFactor | 20 % [2000] |
-| aToken | [0x5722921bb6C37EaEb78b993765Aa5D79CC50052F](https://era.zksync.network//address/0x5722921bb6C37EaEb78b993765Aa5D79CC50052F) |
+| aToken | [0xF3c9d58B76AC6Ee6811520021e9A9318c49E4CFa](https://era.zksync.network//address/0xF3c9d58B76AC6Ee6811520021e9A9318c49E4CFa) |
 | aTokenImpl | [0x34be365Fd01ac224F21490aaC6dFd65D25434bbB](https://era.zksync.network//address/0x34be365Fd01ac224F21490aaC6dFd65D25434bbB) |
-| variableDebtToken | [0x97deC07366Be72884331BE21704Fd93BF35286f9](https://era.zksync.network//address/0x97deC07366Be72884331BE21704Fd93BF35286f9) |
+| variableDebtToken | [0xDeBb4ddaaaB1676775214552a7a05D6A13f905Da](https://era.zksync.network//address/0xDeBb4ddaaaB1676775214552a7a05D6A13f905Da) |
 | variableDebtTokenImpl | [0x52E97425D1Fa6885fAaC9260B711fA5047A88d06](https://era.zksync.network//address/0x52E97425D1Fa6885fAaC9260B711fA5047A88d06) |
 | borrowingEnabled | false |
 | isBorrowableInIsolation | false |
@@ -80,7 +34,7 @@
 | aTokenName | Aave ZkSync sUSDe |
 | aTokenSymbol | aZkssUSDe |
 | aTokenUnderlyingBalance | 100 sUSDe [100000000000000000000] |
-| id | 7 |
+| id | 6 |
 | isPaused | false |
 | variableDebtTokenName | Aave ZkSync Variable Debt sUSDe |
 | variableDebtTokenSymbol | variableDebtZkssUSDe |
@@ -171,51 +125,10 @@
     }
   },
   "reserves": {
-    "0x39Fe7a0DACcE31Bd90418e3e659fb0b5f0B3Db0d": {
-      "from": null,
-      "to": {
-        "aToken": "0xF3c9d58B76AC6Ee6811520021e9A9318c49E4CFa",
-        "aTokenImpl": "0x34be365Fd01ac224F21490aaC6dFd65D25434bbB",
-        "aTokenName": "Aave ZkSync USDe",
-        "aTokenSymbol": "aZksUSDe",
-        "aTokenUnderlyingBalance": "100000000000000000000",
-        "borrowCap": 50000,
-        "borrowingEnabled": true,
-        "debtCeiling": 50000000,
-        "decimals": 18,
-        "id": 6,
-        "interestRateStrategy": "0x57815Ab06D846d7dECd326Ee541CD06144FED237",
-        "isActive": true,
-        "isBorrowableInIsolation": false,
-        "isFlashloanable": true,
-        "isFrozen": false,
-        "isPaused": false,
-        "isSiloed": false,
-        "liquidationBonus": 10850,
-        "liquidationProtocolFee": 1000,
-        "liquidationThreshold": 7500,
-        "ltv": 6500,
-        "oracle": "0x0847BAb95500dD914CDC99c4aE44b60a3B12DBDe",
-        "oracleDecimals": 8,
-        "oracleDescription": "Capped USDe / USD",
-        "oracleLatestAnswer": "99878760",
-        "reserveFactor": 2500,
-        "supplyCap": 500000,
-        "symbol": "USDe",
-        "underlying": "0x39Fe7a0DACcE31Bd90418e3e659fb0b5f0B3Db0d",
-        "usageAsCollateralEnabled": true,
-        "variableDebtToken": "0xDeBb4ddaaaB1676775214552a7a05D6A13f905Da",
-        "variableDebtTokenImpl": "0x52E97425D1Fa6885fAaC9260B711fA5047A88d06",
-        "variableDebtTokenName": "Aave ZkSync Variable Debt USDe",
-        "variableDebtTokenSymbol": "variableDebtZksUSDe",
-        "virtualAccountingActive": true,
-        "virtualBalance": "100000000000000000000"
-      }
-    },
     "0xAD17Da2f6Ac76746EF261E835C50b2651ce36DA8": {
       "from": null,
       "to": {
-        "aToken": "0x5722921bb6C37EaEb78b993765Aa5D79CC50052F",
+        "aToken": "0xF3c9d58B76AC6Ee6811520021e9A9318c49E4CFa",
         "aTokenImpl": "0x34be365Fd01ac224F21490aaC6dFd65D25434bbB",
         "aTokenName": "Aave ZkSync sUSDe",
         "aTokenSymbol": "aZkssUSDe",
@@ -224,7 +137,7 @@
         "borrowingEnabled": false,
         "debtCeiling": 40000000,
         "decimals": 18,
-        "id": 7,
+        "id": 6,
         "interestRateStrategy": "0x57815Ab06D846d7dECd326Ee541CD06144FED237",
         "isActive": true,
         "isBorrowableInIsolation": false,
@@ -245,7 +158,7 @@
         "symbol": "sUSDe",
         "underlying": "0xAD17Da2f6Ac76746EF261E835C50b2651ce36DA8",
         "usageAsCollateralEnabled": true,
-        "variableDebtToken": "0x97deC07366Be72884331BE21704Fd93BF35286f9",
+        "variableDebtToken": "0xDeBb4ddaaaB1676775214552a7a05D6A13f905Da",
         "variableDebtTokenImpl": "0x52E97425D1Fa6885fAaC9260B711fA5047A88d06",
         "variableDebtTokenName": "Aave ZkSync Variable Debt sUSDe",
         "variableDebtTokenSymbol": "variableDebtZkssUSDe",
@@ -296,17 +209,6 @@
     }
   },
   "strategies": {
-    "0x39Fe7a0DACcE31Bd90418e3e659fb0b5f0B3Db0d": {
-      "from": null,
-      "to": {
-        "address": "0x57815Ab06D846d7dECd326Ee541CD06144FED237",
-        "baseVariableBorrowRate": "0",
-        "maxVariableBorrowRate": "840000000000000000000000000",
-        "optimalUsageRatio": "800000000000000000000000000",
-        "variableRateSlope1": "90000000000000000000000000",
-        "variableRateSlope2": "750000000000000000000000000"
-      }
-    },
     "0xAD17Da2f6Ac76746EF261E835C50b2651ce36DA8": {
       "from": null,
       "to": {
