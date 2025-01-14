@@ -8,7 +8,7 @@ discussions: "https://governance.aave.com/t/technical-maintenance-proposals/1527
 
 This AIP proposes to:
 
-1. update the Risk Steward contracts to enhance the Risk Council’s user experience and align the design of the Risk Stewards implementations throughout the Aave Protocol.
+1. update the GHO Risk Steward contracts to enhance the Risk Council’s user experience and align the design of the Risk Stewards implementations throughout the Aave Protocol.
 2. update the GHO CCIP Token Pools on Arbitrum and Ethereum to integrate them with latest version of CCIP (1.5.1) to leverage the full functionality of CCIP and prepare for future expansions to other chains.
 
 ## Motivation
@@ -25,6 +25,7 @@ Risk Stewards update:
 
 1. GhoAaveSteward: Remove the max cap of 25% configured by `GHO_BORROW_RATE_MAX`. While this limitation was sensible when applied to the Ethereum reserve only, it is not necessary for different instances of GHO when implemented as a regular reserve. Additionally, the Risk Stewards already have limitations and sanity checks in place to restrict capabilities during rates update.
 2. GhoCcipSteward: Add a missing getter for the timelock state of the CCIP.
+3. GhoBucketSteward: No modification, configure new token pool and retire permissions for the existing token pool.
 
 GHO CCIP Token Pools upgrade:
 
