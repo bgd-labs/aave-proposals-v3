@@ -22,7 +22,12 @@ contract CreateProposal is EthereumScript {
       vm,
       'AaveV3ZkSync_OnboardSUSDeUSDeAndWeETHToAaveV3OnZkSync_20250110'
     );
-    payloads[0] = GovV3Helpers.buildZkSyncPayload(vm, actionsZkSync);
+    payloads[0] = PayloadsControllerUtils.Payload({
+      chain: ChainIds.ZKSYNC,
+      accessLevel: PayloadsControllerUtils.AccessControl.Level_1,
+      payloadsController: address(GovernanceV3ZkSync.PAYLOADS_CONTROLLER),
+      payloadId: 10
+    });
 
     // create proposal
     vm.startBroadcast();
