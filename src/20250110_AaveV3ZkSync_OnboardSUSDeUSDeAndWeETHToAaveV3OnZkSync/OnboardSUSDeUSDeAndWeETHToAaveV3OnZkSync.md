@@ -65,7 +65,7 @@ The table below illustrates the configured risk parameters for **sUSDe**
 | Borrowable in Isolation   |                                   DISABLED |
 | Oracle                    | 0xDaec4cC3a41E423d678428A8Bb29fa1ADF26869a |
 
-Additionaly [0x95Cbff6e45C499d45dd8627f3ce179057B5Fbfcc](https://era.zksync.network/address/0x95Cbff6e45C499d45dd8627f3ce179057B5Fbfcc) has been set as the emission admin for weETH, sUSDe and their corresponding aTokens.
+Additionally [0x95Cbff6e45C499d45dd8627f3ce179057B5Fbfcc](https://era.zksync.network/address/0x95Cbff6e45C499d45dd8627f3ce179057B5Fbfcc) has been set as the emission admin for weETH, sUSDe and their corresponding aTokens.
 
 ## References
 
