@@ -11,7 +11,7 @@ This proposal aims to onboard sUSDe and weETH to the Aave v3 protocol on zkSync.
 
 ## Motivation
 
-The integration of sUSDe, and weETH into Aave v3 on zkSync is following the intitial plan for the zkSync network launch. With the successful launch of Aave v3 on zkSync, and some time for monitoring, we believe it is time to start expanding from the initial asset list.
+The integration of sUSDe, and weETH into Aave v3 on zkSync is following the initial plan for the zkSync network launch. With the successful launch of Aave v3 on zkSync, and some time for monitoring, we believe it is time to start expanding from the initial asset list.
 
 These onboardings also include partnership with Ethena and EtherFi to add ZK token incentives to each market, which will contribute to Aave’s growth on zkSync.
 
