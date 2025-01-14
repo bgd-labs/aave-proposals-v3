@@ -27,7 +27,7 @@ contract AaveV3Base_GHOBaseListing_20241223 is AaveV3PayloadBase {
   uint256 public constant GHO_SEED_AMOUNT = 1e18;
 
   function _preExecute() internal view override {
-    // robot should simulate and only execute if seed amount has been bridged
+    // robot should simulate and only execute if seed amount has been bridged, redundant check
     assert(IERC20(GHO_TOKEN).balanceOf(address(this)) >= GHO_SEED_AMOUNT);
   }
 

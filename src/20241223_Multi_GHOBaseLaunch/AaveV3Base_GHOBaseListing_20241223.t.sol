@@ -107,15 +107,15 @@ contract AaveV3Base_GHOBaseListing_20241223_ListingPreRequisites is
   }
 
   function test_listingFailsPreLaunch() public {
-    vm.expectRevert(bytes(Errors.FAILED_ACTION_EXECUTION)); // gho token not deployed, reverts on token.decimals() check
+    vm.expectRevert(bytes(Errors.FAILED_ACTION_EXECUTION));
     GovernanceV3Base.PAYLOADS_CONTROLLER.executePayload(payloadId);
   }
 
   function test_listingFailsWithoutSeedAmount() public {
     test_listingFailsPreLaunch();
-    _executeLaunchAIP(); // deploys gho token, token pool & stewards
+    _executeLaunchAIP(); // activates CCIP lane
 
-    vm.expectRevert(bytes(Errors.FAILED_ACTION_EXECUTION)); // seed amount has not been bridged yet, reverts on _preExecute()
+    vm.expectRevert(bytes(Errors.FAILED_ACTION_EXECUTION)); // assertion failed on _preExecute()
     GovernanceV3Base.PAYLOADS_CONTROLLER.executePayload(payloadId);
   }
 

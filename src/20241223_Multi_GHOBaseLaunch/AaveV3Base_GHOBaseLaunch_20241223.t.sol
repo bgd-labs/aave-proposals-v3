@@ -240,7 +240,9 @@ contract AaveV3Base_GHOBaseLaunch_20241223_Base is ProtocolV3TestBase {
     IRateLimiter.TokenBucket memory bucket,
     IRateLimiter.Config memory config
   ) internal pure {
-    assertEq(abi.encode(_tokenBucketToConfig(bucket)), abi.encode(config));
+    assertEq(bucket.isEnabled, config.isEnabled);
+    assertEq(bucket.capacity, config.capacity);
+    assertEq(bucket.rate, config.rate);
   }
 }
 

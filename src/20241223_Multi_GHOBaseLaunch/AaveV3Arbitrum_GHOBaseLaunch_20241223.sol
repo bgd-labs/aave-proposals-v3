@@ -49,12 +49,12 @@ contract AaveV3Arbitrum_GHOBaseLaunch_20241223 is IProposalGenericExecutor {
     });
 
     IUpgradeableBurnMintTokenPool_1_5_1.ChainUpdate[]
-      memory chains = new IUpgradeableBurnMintTokenPool_1_5_1.ChainUpdate[](1);
+      memory chainsToAdd = new IUpgradeableBurnMintTokenPool_1_5_1.ChainUpdate[](1);
 
     bytes[] memory remotePoolAddresses = new bytes[](1);
     remotePoolAddresses[0] = abi.encode(REMOTE_TOKEN_POOL_BASE);
 
-    chains[0] = IUpgradeableBurnMintTokenPool_1_5_1.ChainUpdate({
+    chainsToAdd[0] = IUpgradeableBurnMintTokenPool_1_5_1.ChainUpdate({
       remoteChainSelector: BASE_CHAIN_SELECTOR,
       remotePoolAddresses: remotePoolAddresses,
       remoteTokenAddress: abi.encode(REMOTE_GHO_TOKEN_BASE),
@@ -64,7 +64,7 @@ contract AaveV3Arbitrum_GHOBaseLaunch_20241223 is IProposalGenericExecutor {
 
     TOKEN_POOL.applyChainUpdates({
       remoteChainSelectorsToRemove: new uint64[](0),
-      chainsToAdd: chains
+      chainsToAdd: chainsToAdd
     });
   }
 }

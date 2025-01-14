@@ -235,7 +235,9 @@ contract AaveV3Arbitrum_GHOBaseLaunch_20241223_Base is ProtocolV3TestBase {
     IRateLimiter.TokenBucket memory bucket,
     IRateLimiter.Config memory config
   ) internal pure {
-    assertEq(abi.encode(_tokenBucketToConfig(bucket)), abi.encode(config));
+    assertEq(bucket.isEnabled, config.isEnabled);
+    assertEq(bucket.capacity, config.capacity);
+    assertEq(bucket.rate, config.rate);
   }
 }
 
@@ -267,7 +269,6 @@ contract AaveV3Arbitrum_GHOBaseLaunch_20241223_PostExecution is
 {
   function setUp() public override {
     super.setUp();
-    // execute proposal
     executePayload(vm, address(proposal));
   }
 
