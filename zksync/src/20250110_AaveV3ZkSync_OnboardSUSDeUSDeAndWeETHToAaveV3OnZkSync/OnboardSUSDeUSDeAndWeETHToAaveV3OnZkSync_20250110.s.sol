@@ -18,7 +18,7 @@ contract Deploy_AaveV3ZkSync_OnboardSUSDeUSDeAndWeETHToAaveV3OnZkSync_20250110 {
 
 /**
  * @dev Deploy ZkSync
- * deploy-command: make deploy-pk FOUNDRY_PROFILE=contract=zksync/src/20250110_AaveV3ZkSync_OnboardSUSDeUSDeAndWeETHToAaveV3OnZkSync/OnboardSUSDeUSDeAndWeETHToAaveV3OnZkSync_20250110.s.sol:DeployZkSync chain=zksync
+ * deploy-command: make deploy-pk FOUNDRY_PROFILE=zksync contract=zksync/src/20250110_AaveV3ZkSync_OnboardSUSDeUSDeAndWeETHToAaveV3OnZkSync/OnboardSUSDeUSDeAndWeETHToAaveV3OnZkSync_20250110.s.sol:DeployZkSync chain=zksync
  */
 contract DeployZkSync is ZkSyncScript {
   function run() external broadcast {
