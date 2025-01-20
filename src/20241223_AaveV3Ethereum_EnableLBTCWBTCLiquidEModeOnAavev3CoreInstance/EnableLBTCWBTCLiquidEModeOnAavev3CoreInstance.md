@@ -64,8 +64,8 @@ the following E-mode will be created
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241223_AaveV3Ethereum_EnableLBTCWBTCLiquidEModeOnAavev3CoreInstance/AaveV3Ethereum_EnableLBTCWBTCLiquidEModeOnAavev3CoreInstance_20241223.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241223_AaveV3Ethereum_EnableLBTCWBTCLiquidEModeOnAavev3CoreInstance/AaveV3Ethereum_EnableLBTCWBTCLiquidEModeOnAavev3CoreInstance_20241223.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/97f99f8f3e9a0f6b53881ab3dfd8026d55d4b120/src/20241223_AaveV3Ethereum_EnableLBTCWBTCLiquidEModeOnAavev3CoreInstance/AaveV3Ethereum_EnableLBTCWBTCLiquidEModeOnAavev3CoreInstance_20241223.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/97f99f8f3e9a0f6b53881ab3dfd8026d55d4b120/src/20241223_AaveV3Ethereum_EnableLBTCWBTCLiquidEModeOnAavev3CoreInstance/AaveV3Ethereum_EnableLBTCWBTCLiquidEModeOnAavev3CoreInstance_20241223.t.sol)
 - [Snapshot](https://snapshot.box/#/s:aave.eth/proposal/0x61f027ea797763c9e01736693570141a27a0a5d4517a6b63d0fd84474e8be995)
 - [Discussion](https://governance.aave.com/t/arfc-enable-lbtc-wbtc-liquid-e-mode-on-aave-v3-core-instance/20142)
 
