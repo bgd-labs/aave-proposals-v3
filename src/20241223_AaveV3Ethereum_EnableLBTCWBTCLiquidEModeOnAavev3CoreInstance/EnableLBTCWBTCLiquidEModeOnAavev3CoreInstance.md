@@ -47,7 +47,7 @@ The table below illustrates the configured risk parameters for **LBTC**
 | Borrowable in Isolation   |                                   DISABLED |
 | Oracle                    | 0xF4030086522a5bEEa4988F8cA5B36dbC97BeE88c |
 
-Additionaly [0xac140648435d03f784879cd789130F22Ef588Fcd](https://etherscan.io/address/0xac140648435d03f784879cd789130F22Ef588Fcd) has been set as the emission admin for LBTC and the corresponding aToken.
+Additionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://etherscan.io/address/0xac140648435d03f784879cd789130F22Ef588Fcd) has been set as the emission admin for LBTC and the corresponding aToken.
 
 **E-mode**
 
