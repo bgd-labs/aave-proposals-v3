@@ -21,6 +21,13 @@ interface IGhoToken {
     uint128 bucketCapacity
   ) external;
 
+  /**
+   * @notice Remove the facilitator from the facilitators list.
+   * @dev Only accounts with `FACILITATOR_MANAGER_ROLE` role can call this function
+   * @param facilitatorAddress The address of the facilitator to remove
+   */
+  function removeFacilitator(address facilitatorAddress) external;
+
   function balanceOf(address user) external returns (uint256);
 
   /**
