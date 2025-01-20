@@ -201,7 +201,7 @@ export const assetListing: FeatureModule<Listing[]> = {
           listingTemplate += `| Borrowable in Isolation | ${cfg.borrowableInIsolation} |\n`;
           listingTemplate += `| Oracle | ${cfg.priceFeed} |\n`;
           if (isAddress(cfg.admin)) {
-            listingTemplate += `\nAdditionaly [${cfg.admin}](${getExplorerLink(CHAIN_TO_CHAIN_ID[getPoolChain(pool)], cfg.admin)}) has been set as the emission admin for ${cfg.assetSymbol} and the corresponding aToken.\n`;
+            listingTemplate += `\nAdditionally [${cfg.admin}](${getExplorerLink(CHAIN_TO_CHAIN_ID[getPoolChain(pool)], cfg.admin)}) has been set as the emission admin for ${cfg.assetSymbol} and the corresponding aToken.\n`;
           }
           return listingTemplate;
         }),
