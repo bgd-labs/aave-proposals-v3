@@ -12,8 +12,9 @@ import {
   gnosis,
   scroll,
   zkSync,
+  linea,
 } from 'viem/chains';
-import {Client, Hex, getAddress} from 'viem';
+import {Hex, getAddress} from 'viem';
 import {CHAIN_ID_CLIENT_MAP} from '@bgd-labs/js-utils';
 
 export const AVAILABLE_CHAINS = [
@@ -30,6 +31,7 @@ export const AVAILABLE_CHAINS = [
   'Gnosis',
   'Scroll',
   'ZkSync',
+  'Linea',
 ] as const;
 
 export function getAssets(pool: PoolIdentifier): string[] {
@@ -134,6 +136,7 @@ export const CHAIN_TO_CHAIN_ID = {
   Gnosis: gnosis.id,
   Scroll: scroll.id,
   ZkSync: zkSync.id,
+  Linea: linea.id,
 };
 
 export function flagAsRequired(message: string, required?: boolean) {
