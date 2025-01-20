@@ -9,7 +9,7 @@ import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
 import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';
 import {IEmissionManager} from 'aave-v3-origin/contracts/rewards/interfaces/IEmissionManager.sol';
 /**
- * @title Enable LBTC/WBTC liquid E-Mode on Aave v3 Core Instance
+ * @title Onboard LBTC & Enable LBTC/WBTC liquid E-Mode on Aave v3 Core Instance
  * @author Aave Chan Initiative
  * - Snapshot: https://snapshot.box/#/s:aave.eth/proposal/0x61f027ea797763c9e01736693570141a27a0a5d4517a6b63d0fd84474e8be995
  * - Discussion: https://governance.aave.com/t/arfc-enable-lbtc-wbtc-liquid-e-mode-on-aave-v3-core-instance/20142
