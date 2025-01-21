@@ -6,6 +6,7 @@ import {AaveV3PayloadLinea} from 'aave-helpers/src/v3-config-engine/AaveV3Payloa
 import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
 import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
+import {IEmissionManager} from 'aave-v3-origin/contracts/rewards/interfaces/IEmissionManager.sol';
 import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';
 
 /**
@@ -18,47 +19,36 @@ contract AaveV3Linea_AaveV3LineaActivation_20250121 is AaveV3PayloadLinea {
   using SafeERC20 for IERC20;
 
   address public constant WETH = 0xe5D7C2a44FfDDf6b295A15c148167daaAf5Cf34f;
-  uint256 public constant WETH_SEED_AMOUNT = 1e18;
+  uint256 public constant WETH_SEED_AMOUNT = 0.025e18;
 
   address public constant WBTC = 0x3aAB2285ddcDdaD8edf438C1bAB47e1a9D05a9b4;
-  uint256 public constant WBTC_SEED_AMOUNT = 1e8;
+  uint256 public constant WBTC_SEED_AMOUNT = 0.001e8;
 
   address public constant USDC = 0x176211869cA2b568f2A7D4EE941E073a821EE1ff;
-  uint256 public constant USDC_SEED_AMOUNT = 1e6;
+  uint256 public constant USDC_SEED_AMOUNT = 10e6;
 
   address public constant USDT = 0xA219439258ca9da29E9Cc4cE5596924745e12B93;
-  uint256 public constant USDT_SEED_AMOUNT = 1e6;
+  uint256 public constant USDT_SEED_AMOUNT = 10e6;
 
   address public constant wstETH = 0xB5beDd42000b71FddE22D3eE8a79Bd49A568fC8F;
-  uint256 public constant wstETH_SEED_AMOUNT = 1e18;
+  uint256 public constant wstETH_SEED_AMOUNT = 0.025e18;
 
   address public constant ezETH = 0x2416092f143378750bb29b79eD961ab195CcEea5;
-  uint256 public constant ezETH_SEED_AMOUNT = 1e18;
+  uint256 public constant ezETH_SEED_AMOUNT = 0.025e18;
 
   address public constant weETH = 0x1Bf74C010E6320bab11e2e5A532b5AC15e0b8aA6;
-  uint256 public constant weETH_SEED_AMOUNT = 1e18;
+  uint256 public constant weETH_SEED_AMOUNT = 0.025e18;
+
+  address public constant LM_ADMIN = 0xac140648435d03f784879cd789130F22Ef588Fcd;
 
   function _postExecute() internal override {
-    IERC20(WETH).forceApprove(address(AaveV3Linea.POOL), WETH_SEED_AMOUNT);
-    AaveV3Linea.POOL.supply(WETH, WETH_SEED_AMOUNT, address(AaveV3Linea.COLLECTOR), 0);
-
-    IERC20(WBTC).forceApprove(address(AaveV3Linea.POOL), WBTC_SEED_AMOUNT);
-    AaveV3Linea.POOL.supply(WBTC, WBTC_SEED_AMOUNT, address(AaveV3Linea.COLLECTOR), 0);
-
-    IERC20(USDC).forceApprove(address(AaveV3Linea.POOL), USDC_SEED_AMOUNT);
-    AaveV3Linea.POOL.supply(USDC, USDC_SEED_AMOUNT, address(AaveV3Linea.COLLECTOR), 0);
-
-    IERC20(USDT).forceApprove(address(AaveV3Linea.POOL), USDT_SEED_AMOUNT);
-    AaveV3Linea.POOL.supply(USDT, USDT_SEED_AMOUNT, address(AaveV3Linea.COLLECTOR), 0);
-
-    IERC20(wstETH).forceApprove(address(AaveV3Linea.POOL), wstETH_SEED_AMOUNT);
-    AaveV3Linea.POOL.supply(wstETH, wstETH_SEED_AMOUNT, address(AaveV3Linea.COLLECTOR), 0);
-
-    IERC20(ezETH).forceApprove(address(AaveV3Linea.POOL), ezETH_SEED_AMOUNT);
-    AaveV3Linea.POOL.supply(ezETH, ezETH_SEED_AMOUNT, address(AaveV3Linea.COLLECTOR), 0);
-
-    IERC20(weETH).forceApprove(address(AaveV3Linea.POOL), weETH_SEED_AMOUNT);
-    AaveV3Linea.POOL.supply(weETH, weETH_SEED_AMOUNT, address(AaveV3Linea.COLLECTOR), 0);
+    _supplyAndConfigureLMAdmin(WETH, WETH_SEED_AMOUNT);
+    _supplyAndConfigureLMAdmin(WBTC, WBTC_SEED_AMOUNT);
+    _supplyAndConfigureLMAdmin(USDC, USDC_SEED_AMOUNT);
+    _supplyAndConfigureLMAdmin(USDT, USDT_SEED_AMOUNT);
+    _supplyAndConfigureLMAdmin(wstETH, wstETH_SEED_AMOUNT);
+    _supplyAndConfigureLMAdmin(weETH, weETH_SEED_AMOUNT);
+    _supplyAndConfigureLMAdmin(ezETH, ezETH_SEED_AMOUNT);
   }
 
   function eModeCategoriesUpdates()
@@ -86,6 +76,55 @@ contract AaveV3Linea_AaveV3LineaActivation_20250121 is AaveV3PayloadLinea {
     });
 
     return eModeUpdates;
+  }
+
+  function assetsEModeUpdates()
+    public
+    pure
+    override
+    returns (IAaveV3ConfigEngine.AssetEModeUpdate[] memory)
+  {
+    IAaveV3ConfigEngine.AssetEModeUpdate[]
+      memory assetEModeUpdates = new IAaveV3ConfigEngine.AssetEModeUpdate[](6);
+
+    assetEModeUpdates[0] = IAaveV3ConfigEngine.AssetEModeUpdate({
+      asset: WETH,
+      eModeCategory: 1,
+      borrowable: EngineFlags.ENABLED,
+      collateral: EngineFlags.DISABLED
+    });
+    assetEModeUpdates[1] = IAaveV3ConfigEngine.AssetEModeUpdate({
+      asset: wstETH,
+      eModeCategory: 1,
+      borrowable: EngineFlags.DISABLED,
+      collateral: EngineFlags.ENABLED
+    });
+    assetEModeUpdates[2] = IAaveV3ConfigEngine.AssetEModeUpdate({
+      asset: WETH,
+      eModeCategory: 2,
+      borrowable: EngineFlags.ENABLED,
+      collateral: EngineFlags.DISABLED
+    });
+    assetEModeUpdates[3] = IAaveV3ConfigEngine.AssetEModeUpdate({
+      asset: wstETH,
+      eModeCategory: 2,
+      borrowable: EngineFlags.DISABLED,
+      collateral: EngineFlags.ENABLED
+    });
+    assetEModeUpdates[4] = IAaveV3ConfigEngine.AssetEModeUpdate({
+      asset: weETH,
+      eModeCategory: 2,
+      borrowable: EngineFlags.DISABLED,
+      collateral: EngineFlags.ENABLED
+    });
+    assetEModeUpdates[5] = IAaveV3ConfigEngine.AssetEModeUpdate({
+      asset: ezETH,
+      eModeCategory: 2,
+      borrowable: EngineFlags.DISABLED,
+      collateral: EngineFlags.ENABLED
+    });
+
+    return assetEModeUpdates;
   }
 
   function newListings() public pure override returns (IAaveV3ConfigEngine.Listing[] memory) {
@@ -254,5 +293,14 @@ contract AaveV3Linea_AaveV3LineaActivation_20250121 is AaveV3PayloadLinea {
     });
 
     return listings;
+  }
+
+  function _supplyAndConfigureLMAdmin(address asset, uint256 seedAmount) internal {
+    IERC20(asset).forceApprove(address(AaveV3Linea.POOL), seedAmount);
+    AaveV3Linea.POOL.supply(asset, seedAmount, address(AaveV3Linea.COLLECTOR), 0);
+
+    (address aToken, , ) = AaveV3Linea.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(asset);
+    IEmissionManager(AaveV3Linea.EMISSION_MANAGER).setEmissionAdmin(asset, LM_ADMIN);
+    IEmissionManager(AaveV3Linea.EMISSION_MANAGER).setEmissionAdmin(aToken, LM_ADMIN);
   }
 }
