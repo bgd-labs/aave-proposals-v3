@@ -2,6 +2,7 @@
 pragma solidity ^0.8.0;
 
 import {AaveV3Linea} from 'aave-address-book/AaveV3Linea.sol';
+import {MiscLinea} from 'aave-address-book/MiscLinea.sol';
 import {AaveV3PayloadLinea} from 'aave-helpers/src/v3-config-engine/AaveV3PayloadLinea.sol';
 import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
@@ -18,30 +19,40 @@ import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';
 contract AaveV3Linea_AaveV3LineaActivation_20250121 is AaveV3PayloadLinea {
   using SafeERC20 for IERC20;
 
+  // https://lineascan.build/address/0xe5D7C2a44FfDDf6b295A15c148167daaAf5Cf34f
   address public constant WETH = 0xe5D7C2a44FfDDf6b295A15c148167daaAf5Cf34f;
   uint256 public constant WETH_SEED_AMOUNT = 0.025e18;
 
+  // https://lineascan.build/address/0x3aAB2285ddcDdaD8edf438C1bAB47e1a9D05a9b4
   address public constant WBTC = 0x3aAB2285ddcDdaD8edf438C1bAB47e1a9D05a9b4;
   uint256 public constant WBTC_SEED_AMOUNT = 0.001e8;
 
+  // https://lineascan.build/address/0x176211869cA2b568f2A7D4EE941E073a821EE1ff
   address public constant USDC = 0x176211869cA2b568f2A7D4EE941E073a821EE1ff;
   uint256 public constant USDC_SEED_AMOUNT = 10e6;
 
+  // https://lineascan.build/address/0xA219439258ca9da29E9Cc4cE5596924745e12B93
   address public constant USDT = 0xA219439258ca9da29E9Cc4cE5596924745e12B93;
   uint256 public constant USDT_SEED_AMOUNT = 10e6;
 
+  // https://lineascan.build/address/0xB5beDd42000b71FddE22D3eE8a79Bd49A568fC8F
   address public constant wstETH = 0xB5beDd42000b71FddE22D3eE8a79Bd49A568fC8F;
   uint256 public constant wstETH_SEED_AMOUNT = 0.025e18;
 
+  // https://lineascan.build/address/0x2416092f143378750bb29b79eD961ab195CcEea5
   address public constant ezETH = 0x2416092f143378750bb29b79eD961ab195CcEea5;
   uint256 public constant ezETH_SEED_AMOUNT = 0.025e18;
 
+  // https://lineascan.build/address/0x1Bf74C010E6320bab11e2e5A532b5AC15e0b8aA6
   address public constant weETH = 0x1Bf74C010E6320bab11e2e5A532b5AC15e0b8aA6;
   uint256 public constant weETH_SEED_AMOUNT = 0.025e18;
 
+  // https://lineascan.build/address/0xac140648435d03f784879cd789130F22Ef588Fcd
   address public constant LM_ADMIN = 0xac140648435d03f784879cd789130F22Ef588Fcd;
 
   function _postExecute() internal override {
+    AaveV3Linea.ACL_MANAGER.addPoolAdmin(MiscLinea.PROTOCOL_GUARDIAN);
+
     _supplyAndConfigureLMAdmin(WETH, WETH_SEED_AMOUNT);
     _supplyAndConfigureLMAdmin(WBTC, WBTC_SEED_AMOUNT);
     _supplyAndConfigureLMAdmin(USDC, USDC_SEED_AMOUNT);
