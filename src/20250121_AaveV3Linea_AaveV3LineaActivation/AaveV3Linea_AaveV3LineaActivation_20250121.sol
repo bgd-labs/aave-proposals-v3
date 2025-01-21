@@ -62,17 +62,17 @@ contract AaveV3Linea_AaveV3LineaActivation_20250121 is AaveV3PayloadLinea {
 
     eModeUpdates[0] = IAaveV3ConfigEngine.EModeCategoryUpdate({
       eModeCategory: 1,
-      ltv: 90_00,
-      liqThreshold: 93_00,
-      liqBonus: 1_00,
-      label: 'LRT LST correlated'
-    });
-    eModeUpdates[1] = IAaveV3ConfigEngine.EModeCategoryUpdate({
-      eModeCategory: 2,
       ltv: 93_50,
       liqThreshold: 95_50,
       liqBonus: 1_00,
       label: 'wstETH correlated'
+    });
+    eModeUpdates[1] = IAaveV3ConfigEngine.EModeCategoryUpdate({
+      eModeCategory: 2,
+      ltv: 90_00,
+      liqThreshold: 93_00,
+      liqBonus: 1_00,
+      label: 'LRT LST correlated'
     });
 
     return eModeUpdates;
