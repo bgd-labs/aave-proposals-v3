@@ -16,14 +16,9 @@ Both teams aim to leverage these rewards to foster the continued adoption and ex
 
 ## Specification
 
-Aave Prime:
+### Aave Core & Prime:
 
-The emission admin role for [REZ](https://etherscan.io/address/0x3B50805453023a91a8bf641e279401a0b23FA6F9) is granted to [0xdef1FA4CEfe67365ba046a7C630D6B885298E210](https://etherscan.io/address/0xdef1FA4CEfe67365ba046a7C630D6B885298E210).
-
-Aave Core & Prime:
-
-The emission admin role for [KERNEL](https://etherscan.io/address/0x3f80B1c54Ae920Be41a77f8B902259D48cf24cCf) is granted to [0xdef1FA4CEfe67365ba046a7C630D6B885298E210](https://etherscan.io/address/0xdef1FA4CEfe67365ba046a7C630D6B885298E210).
-The emission admin role for [rsETH](https://etherscan.io/address/0xA1290d69c65A6Fe4DF752f95823fae25cB99e5A7) is granted to [0xdef1FA4CEfe67365ba046a7C630D6B885298E210](https://etherscan.io/address/0xdef1FA4CEfe67365ba046a7C630D6B885298E210).
+The emission admin role for [KERNEL](https://etherscan.io/address/0x3f80B1c54Ae920Be41a77f8B902259D48cf24cCf), [REZ](https://etherscan.io/address/0x3B50805453023a91a8bf641e279401a0b23FA6F9) and [rsETH](https://etherscan.io/address/0xA1290d69c65A6Fe4DF752f95823fae25cB99e5A7) is granted to [0xdef1FA4CEfe67365ba046a7C630D6B885298E210](https://etherscan.io/address/0xdef1FA4CEfe67365ba046a7C630D6B885298E210).
 
 ## References
 
