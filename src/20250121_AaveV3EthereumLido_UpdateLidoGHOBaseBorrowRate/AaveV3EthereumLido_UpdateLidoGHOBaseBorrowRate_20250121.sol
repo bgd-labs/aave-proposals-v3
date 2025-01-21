@@ -8,7 +8,7 @@ import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config
 /**
  * @title Update Lido GHO base borrow rate
  * @author ACI
- * - Snapshot: TODO
+ * - Snapshot: Direct-to-AIP
  * - Discussion: https://governance.aave.com/t/arfc-risk-stewards-reduce-gho-borrow-rate-prime-instance/20501
  */
 contract AaveV3EthereumLido_UpdateLidoGHOBaseBorrowRate_20250121 is AaveV3PayloadEthereumLido {
