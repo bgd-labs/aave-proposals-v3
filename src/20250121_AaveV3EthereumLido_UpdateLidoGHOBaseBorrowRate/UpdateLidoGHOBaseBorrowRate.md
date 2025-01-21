@@ -33,7 +33,7 @@ The GHO base borrow rate Parameter on Prime instance of Aave v3 is to be revised
 
 - Implementation: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250121_AaveV3EthereumLido_UpdateLidoGHOBaseBorrowRate/AaveV3EthereumLido_UpdateLidoGHOBaseBorrowRate_20250121.sol)
 - Tests: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250121_AaveV3EthereumLido_UpdateLidoGHOBaseBorrowRate/AaveV3EthereumLido_UpdateLidoGHOBaseBorrowRate_20250121.t.sol)
-  [Snapshot](TODO)
+- Snapshot: Direct-to-AIP
 - [Discussion](https://governance.aave.com/t/arfc-risk-stewards-reduce-gho-borrow-rate-prime-instance/20501)
 
 ## Copyright
