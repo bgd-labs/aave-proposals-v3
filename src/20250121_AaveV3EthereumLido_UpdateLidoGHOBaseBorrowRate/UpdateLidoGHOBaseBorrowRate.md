@@ -7,7 +7,7 @@ snapshot: Direct-to-AIP
 
 ## Simple Summary
 
-This publication proposes reducing the Base Parameter for the GHO Reserve on Prime instance by 2.00%.
+This publication proposes reducing the base borrow rate Parameter for the GHO Reserve on Prime instance by 2.00%.
 
 ## Motivation
 
@@ -23,7 +23,7 @@ When demand for GHO on Prime emerges, providing the peg permits, the Borrow Cap 
 
 ## Specification
 
-The GHO Base Parameter on Prime instance of Aave v3 is to be revised as follows:
+The GHO base borrow rate Parameter on Prime instance of Aave v3 is to be revised as follows:
 
 | Description | Current | Proposed | Change |
 | ----------- | ------- | -------- | ------ |
