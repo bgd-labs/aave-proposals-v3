@@ -22,8 +22,8 @@ The emission admin role for [KERNEL](https://etherscan.io/address/0x3f80B1c54Ae9
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250117_AaveV3Ethereum_SetREZKERNELAndRsETHEmissionAdminToACI/AaveV3Ethereum_SetREZKERNELAndRsETHEmissionAdminToACI_20250117.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250117_AaveV3Ethereum_SetREZKERNELAndRsETHEmissionAdminToACI/AaveV3Ethereum_SetREZKERNELAndRsETHEmissionAdminToACI_20250117.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/7c4fd17673768bf1748ffbdfd740f10d2c038176/src/20250117_AaveV3Ethereum_SetREZKERNELAndRsETHEmissionAdminToACI/AaveV3Ethereum_SetREZKERNELAndRsETHEmissionAdminToACI_20250117.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/7c4fd17673768bf1748ffbdfd740f10d2c038176/src/20250117_AaveV3Ethereum_SetREZKERNELAndRsETHEmissionAdminToACI/AaveV3Ethereum_SetREZKERNELAndRsETHEmissionAdminToACI_20250117.t.sol)
 - Snapshot: Direct-to-AIP
 - [Discussion](https://governance.aave.com/t/arfc-set-rez-kernel-and-rseth-emission-admin-to-aci/20599)
 
