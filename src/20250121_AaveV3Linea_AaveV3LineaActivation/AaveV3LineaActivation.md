@@ -53,7 +53,7 @@ The table below illustrates the configured risk parameters for the assets to be 
 
 ### E-Modes
 
-The followings E-mode will be created:
+The followings E-modes will be created:
 
 **LRT LST correlated E-Mode**
 
