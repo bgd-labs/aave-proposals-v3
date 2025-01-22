@@ -25,7 +25,7 @@ The proposal will do the following:
 
 - List the following assets on Aave V3 Linea: USDC, USDT, WETH, WBTC, wstETH, ezETH, weETH
 - Set the guardian address as the pool admin by executing `ACL_MANAGER.addPoolAdmin()`. This is following the standard procedure of keeping pool admin on the Aave Guardian during the bootstrap period, for security.
-- Set ACI as liquidity mining admin by calling EMISSION_MANAGER.setEmissionAdmin() method.
+- Set [ACI multi-sig](https://lineascan.build/address/0xac140648435d03f784879cd789130F22Ef588Fcd) as liquidity mining admin for all aTokens and underlying tokens by calling `EMISSION_MANAGER.setEmissionAdmin()` method.
 
 The table below illustrates the configured risk parameters for the assets to be listed:
 
