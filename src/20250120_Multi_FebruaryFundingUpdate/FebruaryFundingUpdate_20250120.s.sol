@@ -8,7 +8,6 @@ import {AaveV3Avalanche_FebruaryFundingUpdate_20250120} from './AaveV3Avalanche_
 import {AaveV3Ethereum_FebruaryFundingUpdate_20250120} from './AaveV3Ethereum_FebruaryFundingUpdate_20250120.sol';
 import {AaveV3Polygon_FebruaryFundingUpdate_20250120} from './AaveV3Polygon_FebruaryFundingUpdate_20250120.sol';
 import {AaveV3Optimism_FebruaryFundingUpdate_20250120} from './AaveV3Optimism_FebruaryFundingUpdate_20250120.sol';
-import {AaveV3Arbitrum_FebruaryFundingUpdate_20250120} from './AaveV3Arbitrum_FebruaryFundingUpdate_20250120.sol';
 
 /**
  * @dev Deploy Ethereum
@@ -81,28 +80,6 @@ contract DeployOptimism is OptimismScript {
 }
 
 /**
- * @dev Deploy Arbitrum
- * deploy-command: make deploy-ledger contract=src/20250120_Multi_FebruaryFundingUpdate/FebruaryFundingUpdate_20250120.s.sol:DeployArbitrum chain=arbitrum
- * verify-command: FOUNDRY_PROFILE=arbitrum npx catapulta-verify -b broadcast/FebruaryFundingUpdate_20250120.s.sol/42161/run-latest.json
- */
-contract DeployArbitrum is ArbitrumScript {
-  function run() external broadcast {
-    // deploy payloads
-    address payload0 = GovV3Helpers.deployDeterministic(
-      type(AaveV3Arbitrum_FebruaryFundingUpdate_20250120).creationCode
-    );
-
-    // compose action
-    IPayloadsControllerCore.ExecutionAction[]
-      memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
-    actions[0] = GovV3Helpers.buildAction(payload0);
-
-    // register action at payloadsController
-    GovV3Helpers.createPayload(actions);
-  }
-}
-
-/**
  * @dev Deploy Avalanche
  * deploy-command: make deploy-ledger contract=src/20250120_Multi_FebruaryFundingUpdate/FebruaryFundingUpdate_20250120.s.sol:DeployAvalanche chain=avalanche
  * verify-command: FOUNDRY_PROFILE=avalanche npx catapulta-verify -b broadcast/FebruaryFundingUpdate_20250120.s.sol/43114/run-latest.json
@@ -131,7 +108,7 @@ contract DeployAvalanche is AvalancheScript {
 contract CreateProposal is EthereumScript {
   function run() external {
     // create payloads
-    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](5);
+    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](4);
 
     // compose actions for validation
     IPayloadsControllerCore.ExecutionAction[]
@@ -156,18 +133,11 @@ contract CreateProposal is EthereumScript {
     payloads[2] = GovV3Helpers.buildOptimismPayload(vm, actionsOptimism);
 
     IPayloadsControllerCore.ExecutionAction[]
-      memory actionsArbitrum = new IPayloadsControllerCore.ExecutionAction[](1);
-    actionsArbitrum[0] = GovV3Helpers.buildAction(
-      type(AaveV3Arbitrum_FebruaryFundingUpdate_20250120).creationCode
-    );
-    payloads[3] = GovV3Helpers.buildArbitrumPayload(vm, actionsArbitrum);
-
-    IPayloadsControllerCore.ExecutionAction[]
       memory actionsAvalanche = new IPayloadsControllerCore.ExecutionAction[](1);
     actionsAvalanche[0] = GovV3Helpers.buildAction(
       type(AaveV3Avalanche_FebruaryFundingUpdate_20250120).creationCode
     );
-    payloads[4] = GovV3Helpers.buildArbitrumPayload(vm, actionsAvalanche);
+    payloads[3] = GovV3Helpers.buildArbitrumPayload(vm, actionsAvalanche);
 
     // create proposal
     vm.startBroadcast();

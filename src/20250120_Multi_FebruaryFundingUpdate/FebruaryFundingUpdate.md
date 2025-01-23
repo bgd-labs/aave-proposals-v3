@@ -32,11 +32,6 @@ As part of our ongoing Treasury asset rebalancing strategy, this proposal when i
   - Optimising capital efficiency;
 - Migrating assets from Aave v2 to v3;
   - Ensuring improved capital efficiency and enhanced risk management;
-- Bridging assets from Polygon, Arbitrum and Optimism to Ethereum;
-  - Continue reducing bridged USDC exposure in support of Native USDC adoption;
-  - Convert DAI to USDS;
-  - Prepare to unstake wstMATIC;
-  - Transfer BAL and CRV to ALC.
 
 Additionally, to further consolidate and mitigate risk, certain assets will be reallocated to the Core market from various Layer 2 instances. This adjustment aims to progressively consolidate liquidity into the latest instance of Aave, where it can continue to generate returns.
 
@@ -95,36 +90,6 @@ Deposit the following assets into their respective V3 Pools.
 |                    |             |    wETH.e    |    LINK    |
 |                    |             |    BTC.d     |            |
 
-### Bridge Assets to Ethereum Mainnet
-
-Withdraw from respective Aave Protocol and bridge the following assets to Ethereum mainnet.
-
-| Polygon v2 & Passive |     Polygon v3      |   Arbitrum v3    |   Optimism v3    |
-| :------------------: | :-----------------: | :--------------: | :--------------: |
-|   amUSDC.e (All-1)   |   aPolDAI (All-1)   | aArbLUSD (All-1) |   USDC.e (All)   |
-|    amBAL (All-1)     |  aPolWETH (All-1)   | aArbFRAX (All-1) | aOptLUSD (All-1) |
-|      BAL (All)       |   aPolBAL (All-1)   | aArbUSDC (All-1) | aOptUSDC (All-1) |
-|     USDC.e (All)     | aPolUSDC.e (All-1)  | aArbDAI (All-1)  | aOptDAI (All-1)  |
-|      AAVE (All)      |  aPolAAVE (All-1)   |    DAI (All)     |    DAI (All)     |
-|    amWETH (All-1)    | aPolstMATIC (All-1) |                  |                  |
-|    amDAI (All-1)     |   aPolDPI (All-1)   |                  |                  |
-|      wETH (All)      | aPolwstETH (All-1)  |                  |                  |
-|      CRV (All)       |   aPolCRV (All-1)   |                  |                  |
-
-Upon being recived on Ethereum:
-
-- DAI swapped to USDS, deposited into Core instance;
-- wstETH deposited into Prime instance;
-- DPI swapped to ETH, deposited into Core instance;
-- ETH deposited into Core instance;
-- AAVE transfer to Economic Reserve;
-- BAL and CRV assets are to be transferred to the ALC; and,
-- LUSD and FRAX swapped to ETH, deposited into Core instance.
-
-ALC SAFE: `0xA1c93D2687f7014Aaf588c764E3Ce80aF016229b`
-
-The remaining assets where applicable will be deposited into the Core instance.
-
 ### Acquire ETH and deposit into Aave v3 (Core)
 
 Withdraw and swap the following assets to ETH and deposit into the Core market on Ethereum.
@@ -141,8 +106,6 @@ Withdraw and swap the following assets to ETH and deposit into the Core market o
 | :--------------: |
 | aEthUSDT (1.50M) |
 | aEthUSDC (1.50M) |
-
-This is to be performed over several AIP submission to support the ongoing Merit which is to due for renewal on the 24th February 2025.
 
 ### Acquire USDS and deposit into Aave V3 (Core)
 
@@ -173,8 +136,8 @@ ALC SAFE: `0xA1c93D2687f7014Aaf588c764E3Ce80aF016229b`
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250120_Multi_FebruaryFundingUpdate/AaveV3Ethereum_FebruaryFundingUpdate_20250120.sol), [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250120_Multi_FebruaryFundingUpdate/AaveV3Polygon_FebruaryFundingUpdate_20250120.sol), [AaveV3Optimism](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250120_Multi_FebruaryFundingUpdate/AaveV3Optimism_FebruaryFundingUpdate_20250120.sol), [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250120_Multi_FebruaryFundingUpdate/AaveV3Arbitrum_FebruaryFundingUpdate_20250120.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250120_Multi_FebruaryFundingUpdate/AaveV3Ethereum_FebruaryFundingUpdate_20250120.t.sol), [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250120_Multi_FebruaryFundingUpdate/AaveV3Polygon_FebruaryFundingUpdate_20250120.t.sol), [AaveV3Optimism](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250120_Multi_FebruaryFundingUpdate/AaveV3Optimism_FebruaryFundingUpdate_20250120.t.sol), [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250120_Multi_FebruaryFundingUpdate/AaveV3Arbitrum_FebruaryFundingUpdate_20250120.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250120_Multi_FebruaryFundingUpdate/AaveV3Ethereum_FebruaryFundingUpdate_20250120.sol), [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250120_Multi_FebruaryFundingUpdate/AaveV3Polygon_FebruaryFundingUpdate_20250120.sol), [AaveV3Optimism](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250120_Multi_FebruaryFundingUpdate/AaveV3Optimism_FebruaryFundingUpdate_20250120.sol), [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250120_Multi_FebruaryFundingUpdate/AaveV3Avalanche_FebruaryFundingUpdate_20250120.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250120_Multi_FebruaryFundingUpdate/AaveV3Ethereum_FebruaryFundingUpdate_20250120.t.sol), [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250120_Multi_FebruaryFundingUpdate/AaveV3Polygon_FebruaryFundingUpdate_20250120.t.sol), [AaveV3Optimism](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250120_Multi_FebruaryFundingUpdate/AaveV3Optimism_FebruaryFundingUpdate_20250120.t.sol), [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250120_Multi_FebruaryFundingUpdate/AaveV3Avalanche_FebruaryFundingUpdate_20250120.t.sol)
 - Snapshot: Direct-to-AIP
 - [Discussion](https://governance.aave.com/t/arfc-february-funding-update/20712)
 

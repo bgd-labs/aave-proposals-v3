@@ -1,9 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {AaveV3Optimism} from 'aave-address-book/AaveV3Optimism.sol';
-
-import 'forge-std/Test.sol';
+import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
+import {AaveV3Optimism, AaveV3OptimismAssets} from 'aave-address-book/AaveV3Optimism.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Optimism_FebruaryFundingUpdate_20250120} from './AaveV3Optimism_FebruaryFundingUpdate_20250120.sol';
 
@@ -15,7 +14,7 @@ contract AaveV3Optimism_FebruaryFundingUpdate_20250120_Test is ProtocolV3TestBas
   AaveV3Optimism_FebruaryFundingUpdate_20250120 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('optimism'), 130900857);
+    vm.createSelectFork(vm.rpcUrl('optimism'), 131030310);
     proposal = new AaveV3Optimism_FebruaryFundingUpdate_20250120();
   }
 
@@ -27,6 +26,59 @@ contract AaveV3Optimism_FebruaryFundingUpdate_20250120_Test is ProtocolV3TestBas
       'AaveV3Optimism_FebruaryFundingUpdate_20250120',
       AaveV3Optimism.POOL,
       address(proposal)
+    );
+  }
+
+  function test_deposits() public {
+    uint256 balanceAUSDCBefore = IERC20(AaveV3OptimismAssets.USDC_A_TOKEN).balanceOf(
+      address(AaveV3Optimism.COLLECTOR)
+    );
+    uint256 balanceAUSDTBefore = IERC20(AaveV3OptimismAssets.USDT_A_TOKEN).balanceOf(
+      address(AaveV3Optimism.COLLECTOR)
+    );
+    uint256 balanceAWETHBefore = IERC20(AaveV3OptimismAssets.WETH_A_TOKEN).balanceOf(
+      address(AaveV3Optimism.COLLECTOR)
+    );
+
+    assertGt(
+      IERC20(AaveV3OptimismAssets.USDC_UNDERLYING).balanceOf(address(AaveV3Optimism.COLLECTOR)),
+      0
+    );
+    assertGt(
+      IERC20(AaveV3OptimismAssets.USDT_UNDERLYING).balanceOf(address(AaveV3Optimism.COLLECTOR)),
+      0
+    );
+    assertGt(
+      IERC20(AaveV3OptimismAssets.WETH_UNDERLYING).balanceOf(address(AaveV3Optimism.COLLECTOR)),
+      0
+    );
+
+    executePayload(vm, address(proposal));
+
+    assertEq(
+      IERC20(AaveV3OptimismAssets.USDC_UNDERLYING).balanceOf(address(AaveV3Optimism.COLLECTOR)),
+      0
+    );
+    assertEq(
+      IERC20(AaveV3OptimismAssets.USDT_UNDERLYING).balanceOf(address(AaveV3Optimism.COLLECTOR)),
+      0
+    );
+    assertEq(
+      IERC20(AaveV3OptimismAssets.WETH_UNDERLYING).balanceOf(address(AaveV3Optimism.COLLECTOR)),
+      0
+    );
+
+    assertGt(
+      IERC20(AaveV3OptimismAssets.USDC_A_TOKEN).balanceOf(address(AaveV3Optimism.COLLECTOR)),
+      balanceAUSDCBefore
+    );
+    assertGt(
+      IERC20(AaveV3OptimismAssets.USDT_A_TOKEN).balanceOf(address(AaveV3Optimism.COLLECTOR)),
+      balanceAUSDTBefore
+    );
+    assertGt(
+      IERC20(AaveV3OptimismAssets.WETH_A_TOKEN).balanceOf(address(AaveV3Optimism.COLLECTOR)),
+      balanceAWETHBefore
     );
   }
 }
