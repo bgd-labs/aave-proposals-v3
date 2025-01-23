@@ -30,23 +30,6 @@ interface IGhoToken is IERC20 {
   function burn(uint256 amount) external;
 
   /**
-   * @notice Mints the requested amount of tokens to the account address.
-   * @dev Only facilitators with enough bucket capacity available can mint.
-   * @dev The bucket level is increased upon minting.
-   * @param account The address receiving the GHO tokens
-   * @param amount The amount to mint
-   */
-  function mint(address account, uint256 amount) external;
-
-  /**
-   * @notice Burns the requested amount of tokens from the account address.
-   * @dev Only active facilitators (bucket level > 0) can burn.
-   * @dev The bucket level is decreased upon burning.
-   * @param amount The amount to burn
-   */
-  function burn(uint256 amount) external;
-
-  /**
    * @notice Add the facilitator passed with the parameters to the facilitators list.
    * @dev Only accounts with `FACILITATOR_MANAGER_ROLE` role can call this function
    * @param facilitatorAddress The address of the facilitator to add
