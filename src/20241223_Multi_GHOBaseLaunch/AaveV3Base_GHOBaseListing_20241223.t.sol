@@ -51,14 +51,11 @@ contract AaveV3Base_GHOBaseListing_20241223_Base is ProtocolV3TestBase {
     IUpgradeableBurnMintTokenPool_1_5_1(0x98217A06721Ebf727f2C8d9aD7718ec28b7aAe34);
 
   function setUp() public virtual {
-    vm.createSelectFork(vm.rpcUrl('base'), 24787260);
+    vm.createSelectFork(vm.rpcUrl('base'), 25415842);
     proposal = new AaveV3Base_GHOBaseListing_20241223();
   }
 
   function _executeLaunchAIP() internal {
-    // CLL pre-requisite
-    vm.prank(TOKEN_ADMIN_REGISTRY.owner());
-    TOKEN_ADMIN_REGISTRY.proposeAdministrator(address(GHO_TOKEN), GovernanceV3Base.EXECUTOR_LVL_1);
     executePayload(vm, address(new AaveV3Base_GHOBaseLaunch_20241223()));
   }
 

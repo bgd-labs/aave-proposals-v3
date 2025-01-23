@@ -20,16 +20,11 @@ import {IGhoAaveSteward} from 'src/interfaces/IGhoAaveSteward.sol';
 import {IGhoBucketSteward} from 'src/interfaces/IGhoBucketSteward.sol';
 import {IGhoCcipSteward} from 'src/interfaces/IGhoCcipSteward.sol';
 
+import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
 import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
-import {MiscBase} from 'aave-address-book/MiscBase.sol';
-import {GovernanceV3Arbitrum} from 'aave-address-book/GovernanceV3Arbitrum.sol';
-import {GovernanceV3Base} from 'aave-address-book/GovernanceV3Base.sol';
-import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 
 import {TransparentUpgradeableProxy} from 'solidity-utils/contracts/transparent-proxy/TransparentUpgradeableProxy.sol';
-
-import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 
 import {CCIPUtils} from './utils/CCIPUtils.sol';
 import {AaveV3Arbitrum_GHOBaseLaunch_20241223} from './AaveV3Arbitrum_GHOBaseLaunch_20241223.sol';
@@ -109,23 +104,21 @@ contract AaveV3Base_GHOBaseLaunch_20241223_Base is ProtocolV3TestBase {
   event Minted(address indexed sender, address indexed recipient, uint256 amount);
 
   function setUp() public virtual {
-    arb.c.forkId = vm.createFork(vm.rpcUrl('arbitrum'), 293582704);
-    base.c.forkId = vm.createFork(vm.rpcUrl('base'), 24787260);
-    eth.c.forkId = vm.createFork(vm.rpcUrl('mainnet'), 21581477);
-
-    arb.c.tokenAdminRegistry = ITokenAdminRegistry(0x39AE1032cF4B334a1Ed41cdD0833bdD7c7E7751E);
-    arb.c.token = IGhoToken(AaveV3ArbitrumAssets.GHO_UNDERLYING);
-    eth.c.tokenAdminRegistry = ITokenAdminRegistry(0xb22764f98dD05c789929716D677382Df22C05Cb6);
-    eth.c.token = IGhoToken(AaveV3EthereumAssets.GHO_UNDERLYING);
-    _upgradeEthArbTo1_5_1();
+    arb.c.forkId = vm.createFork(vm.rpcUrl('arbitrum'), 298375852);
+    base.c.forkId = vm.createFork(vm.rpcUrl('base'), 25415842);
+    eth.c.forkId = vm.createFork(vm.rpcUrl('mainnet'), 21686002);
 
     arb.c.chainSelector = 4949039107694359620;
     base.c.chainSelector = 15971525489660198786;
     eth.c.chainSelector = 5009297550715157269;
 
     vm.selectFork(arb.c.forkId);
+    // pre-requisite, to be removed after execution
+    executePayload(vm, address(new AaveV3Arbitrum_GHOCCIP151Upgrade_20241209()));
     arb.proposal = new AaveV3Arbitrum_GHOBaseLaunch_20241223();
+    arb.c.token = IGhoToken(AaveV3ArbitrumAssets.GHO_UNDERLYING);
     arb.tokenPool = IUpgradeableBurnMintTokenPool_1_5_1(0xB94Ab28c6869466a46a42abA834ca2B3cECCA5eB);
+    arb.c.tokenAdminRegistry = ITokenAdminRegistry(0x39AE1032cF4B334a1Ed41cdD0833bdD7c7E7751E);
     arb.c.router = IRouter(arb.tokenPool.getRouter());
     arb.c.baseOnRamp = IEVM2EVMOnRamp(arb.c.router.getOnRamp(base.c.chainSelector));
     arb.c.ethOnRamp = IEVM2EVMOnRamp(arb.c.router.getOnRamp(eth.c.chainSelector));
@@ -146,57 +139,21 @@ contract AaveV3Base_GHOBaseLaunch_20241223_Base is ProtocolV3TestBase {
     base.c.ethOffRamp = IEVM2EVMOffRamp_1_5(0xCA04169671A81E4fB8768cfaD46c347ae65371F1);
 
     vm.selectFork(eth.c.forkId);
+    // pre-requisite, to be removed after execution
+    executePayload(vm, address(new AaveV3Ethereum_GHOCCIP151Upgrade_20241209()));
     eth.proposal = new AaveV3Ethereum_GHOBaseLaunch_20241223();
+    eth.c.token = IGhoToken(AaveV3EthereumAssets.GHO_UNDERLYING);
     eth.tokenPool = IUpgradeableLockReleaseTokenPool_1_5_1(
       0x06179f7C1be40863405f374E7f5F8806c728660A
     );
+    eth.c.tokenAdminRegistry = ITokenAdminRegistry(0xb22764f98dD05c789929716D677382Df22C05Cb6);
     eth.c.router = IRouter(eth.tokenPool.getRouter());
     eth.c.arbOnRamp = IEVM2EVMOnRamp(eth.c.router.getOnRamp(arb.c.chainSelector));
     eth.c.baseOnRamp = IEVM2EVMOnRamp(eth.c.router.getOnRamp(base.c.chainSelector));
     eth.c.arbOffRamp = IEVM2EVMOffRamp_1_5(0xdf615eF8D4C64d0ED8Fd7824BBEd2f6a10245aC9);
     eth.c.baseOffRamp = IEVM2EVMOffRamp_1_5(0x6B4B6359Dd5B47Cdb030E5921456D2a0625a9EbD);
 
-    _performCLLPreReq(base.c, GovernanceV3Base.EXECUTOR_LVL_1);
-
     _validateConfig({executed: false});
-  }
-
-  function _upgradeEthArbTo1_5_1() internal returns (address, address) {
-    vm.selectFork(eth.c.forkId);
-
-    // execute CLL pre-requisites for the proposal
-    vm.startPrank(eth.c.tokenAdminRegistry.owner());
-    AaveV3Ethereum_GHOCCIP151Upgrade_20241209 ethUpgradeProposal = new AaveV3Ethereum_GHOCCIP151Upgrade_20241209();
-    ethUpgradeProposal.EXISTING_PROXY_POOL().transferOwnership(GovernanceV3Ethereum.EXECUTOR_LVL_1);
-    eth.c.tokenAdminRegistry.transferAdminRole(
-      address(eth.c.token),
-      GovernanceV3Ethereum.EXECUTOR_LVL_1
-    );
-    vm.stopPrank();
-    executePayload(vm, address(ethUpgradeProposal));
-
-    vm.selectFork(arb.c.forkId);
-    // execute CLL pre-requisites for the proposal
-    AaveV3Arbitrum_GHOCCIP151Upgrade_20241209 arbUpgradeProposal = new AaveV3Arbitrum_GHOCCIP151Upgrade_20241209();
-    vm.startPrank(arb.c.tokenAdminRegistry.owner());
-    arbUpgradeProposal.EXISTING_PROXY_POOL().transferOwnership(GovernanceV3Arbitrum.EXECUTOR_LVL_1);
-    arb.c.tokenAdminRegistry.transferAdminRole(
-      address(arb.c.token),
-      GovernanceV3Arbitrum.EXECUTOR_LVL_1
-    );
-    vm.stopPrank();
-    executePayload(vm, address(arbUpgradeProposal));
-  }
-
-  function _performCLLPreReq(Common memory c, address newAdmin) internal {
-    vm.selectFork(c.forkId);
-
-    vm.prank(c.tokenAdminRegistry.owner());
-    if (c.forkId == base.c.forkId) {
-      c.tokenAdminRegistry.proposeAdministrator(address(c.token), newAdmin);
-    } else {
-      c.tokenAdminRegistry.transferAdminRole(address(c.token), newAdmin);
-    }
   }
 
   function _getTokenMessage(

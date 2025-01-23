@@ -16,7 +16,6 @@ import {IGhoToken} from 'src/interfaces/IGhoToken.sol';
 import {IGhoCcipSteward} from 'src/interfaces/IGhoCcipSteward.sol';
 
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
-import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {AaveV3Arbitrum} from 'aave-address-book/AaveV3Arbitrum.sol';
 import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
@@ -79,24 +78,15 @@ contract AaveV3Ethereum_GHOBaseLaunch_20241223_Test is ProtocolV3TestBase {
   error InvalidSourcePoolAddress(bytes);
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 21581477);
-    _upgradeEthTo1_5_1();
-    proposal = new AaveV3Ethereum_GHOBaseLaunch_20241223();
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 21686002);
 
+    // pre-requisite, to be removed after execution
+    executePayload(vm, address(new AaveV3Ethereum_GHOCCIP151Upgrade_20241209()));
+
+    proposal = new AaveV3Ethereum_GHOBaseLaunch_20241223();
     _validateConstants();
 
-    // execute proposal
     executePayload(vm, address(proposal));
-  }
-
-  function _upgradeEthTo1_5_1() internal {
-    AaveV3Ethereum_GHOCCIP151Upgrade_20241209 upgradeProposal = new AaveV3Ethereum_GHOCCIP151Upgrade_20241209();
-    vm.startPrank(TOKEN_ADMIN_REGISTRY.owner());
-    TOKEN_ADMIN_REGISTRY.transferAdminRole(address(GHO), GovernanceV3Ethereum.EXECUTOR_LVL_1);
-    upgradeProposal.EXISTING_PROXY_POOL().transferOwnership(GovernanceV3Ethereum.EXECUTOR_LVL_1);
-    vm.stopPrank();
-
-    executePayload(vm, address(upgradeProposal));
   }
 
   function _validateConstants() private view {

@@ -91,7 +91,7 @@ contract AaveV3Base_GHOBaseLaunch_20241223_Base is ProtocolV3TestBase {
   error InvalidSourcePoolAddress(bytes);
 
   function setUp() public virtual {
-    vm.createSelectFork(vm.rpcUrl('base'), 24787260);
+    vm.createSelectFork(vm.rpcUrl('base'), 25415842);
     proposal = new AaveV3Base_GHOBaseLaunch_20241223();
 
     _performCcipPreReq();

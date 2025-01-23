@@ -82,21 +82,14 @@ contract AaveV3Arbitrum_GHOBaseLaunch_20241223_Base is ProtocolV3TestBase {
   error InvalidSourcePoolAddress(bytes);
 
   function setUp() public virtual {
-    vm.createSelectFork(vm.rpcUrl('arbitrum'), 293582704);
-    _upgradeArbTo1_5_1();
+    vm.createSelectFork(vm.rpcUrl('arbitrum'), 298375852);
+
+    // pre-requisite, to be removed after execution
+    executePayload(vm, address(new AaveV3Arbitrum_GHOCCIP151Upgrade_20241209()));
+
     proposal = new AaveV3Arbitrum_GHOBaseLaunch_20241223();
 
     _validateConstants();
-  }
-
-  function _upgradeArbTo1_5_1() internal {
-    AaveV3Arbitrum_GHOCCIP151Upgrade_20241209 upgradeProposal = new AaveV3Arbitrum_GHOCCIP151Upgrade_20241209();
-    vm.startPrank(TOKEN_ADMIN_REGISTRY.owner());
-    TOKEN_ADMIN_REGISTRY.transferAdminRole(address(GHO), GovernanceV3Arbitrum.EXECUTOR_LVL_1);
-    upgradeProposal.EXISTING_PROXY_POOL().transferOwnership(GovernanceV3Arbitrum.EXECUTOR_LVL_1);
-    vm.stopPrank();
-
-    executePayload(vm, address(upgradeProposal));
   }
 
   function _validateConstants() private view {
