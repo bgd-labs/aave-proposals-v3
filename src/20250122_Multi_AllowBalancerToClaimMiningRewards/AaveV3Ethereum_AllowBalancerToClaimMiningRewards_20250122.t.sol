@@ -5,6 +5,7 @@ import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethe
 import {AaveV3EthereumLidoAssets} from 'aave-address-book/AaveV3EthereumLido.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {IERC20AaveLM} from 'aave-v3-origin/contracts/extensions/stata-token/interfaces/IERC20AaveLM.sol';
+import {IRewardsController} from 'aave-v3-origin/contracts/rewards/interfaces/IRewardsController.sol';
 
 import {AaveV3Ethereum_AllowBalancerToClaimMiningRewards_20250122} from './AaveV3Ethereum_AllowBalancerToClaimMiningRewards_20250122.sol';
 
@@ -28,6 +29,13 @@ contract AaveV3Ethereum_AllowBalancerToClaimMiningRewards_20250122_Test is Proto
       'AaveV3Ethereum_AllowBalancerToClaimMiningRewards_20250122',
       AaveV3Ethereum.POOL,
       address(proposal)
+    );
+
+    assertEq(
+      IRewardsController(AaveV3Ethereum.DEFAULT_INCENTIVES_CONTROLLER).getClaimer(
+        proposal.BALANCER_VAULT()
+      ),
+      proposal.CLAIMER()
     );
 
     vm.startPrank(proposal.CLAIMER());

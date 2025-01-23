@@ -4,6 +4,7 @@ pragma solidity ^0.8.0;
 import {AaveV3Gnosis, AaveV3GnosisAssets} from 'aave-address-book/AaveV3Gnosis.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {IERC20AaveLM} from 'aave-v3-origin/contracts/extensions/stata-token/interfaces/IERC20AaveLM.sol';
+import {IRewardsController} from 'aave-v3-origin/contracts/rewards/interfaces/IRewardsController.sol';
 
 import {AaveV3Gnosis_AllowBalancerToClaimMiningRewards_20250122} from './AaveV3Gnosis_AllowBalancerToClaimMiningRewards_20250122.sol';
 
@@ -27,6 +28,13 @@ contract AaveV3Gnosis_AllowBalancerToClaimMiningRewards_20250122_Test is Protoco
       'AaveV3Gnosis_AllowBalancerToClaimMiningRewards_20250122',
       AaveV3Gnosis.POOL,
       address(proposal)
+    );
+
+    assertEq(
+      IRewardsController(AaveV3Gnosis.DEFAULT_INCENTIVES_CONTROLLER).getClaimer(
+        proposal.BALANCER_VAULT()
+      ),
+      proposal.CLAIMER()
     );
   }
 }
