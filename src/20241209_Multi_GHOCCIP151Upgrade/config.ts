@@ -6,12 +6,12 @@ export const config: ConfigFile = {
     shortName: 'GHOCCIP151Upgrade',
     date: '20241209',
     author: 'Aave Labs',
-    discussion: '',
+    discussion: 'https://governance.aave.com/t/technical-maintenance-proposals/15274/59',
     snapshot: 'Direct-to-AIP',
     votingNetwork: 'POLYGON',
   },
   poolOptions: {
-    AaveV3Ethereum: {configs: {OTHERS: {}}, cache: {blockNumber: 21581477}},
-    AaveV3Arbitrum: {configs: {OTHERS: {}}, cache: {blockNumber: 293345614}},
+    AaveV3Ethereum: {configs: {OTHERS: {}}, cache: {blockNumber: 21594804}},
+    AaveV3Arbitrum: {configs: {OTHERS: {}}, cache: {blockNumber: 293994020}},
   },
 };

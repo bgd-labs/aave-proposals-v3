@@ -88,8 +88,8 @@ contract AaveV3E2E_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
   event Minted(address indexed sender, address indexed recipient, uint256 amount);
 
   function setUp() public virtual {
-    l1.c.forkId = vm.createFork(vm.rpcUrl('mainnet'), 21581477);
-    l2.c.forkId = vm.createFork(vm.rpcUrl('arbitrum'), 293345614);
+    l1.c.forkId = vm.createFork(vm.rpcUrl('mainnet'), 21594804);
+    l2.c.forkId = vm.createFork(vm.rpcUrl('arbitrum'), 293994020);
 
     vm.selectFork(l1.c.forkId);
     l1.proposal = new AaveV3Ethereum_GHOCCIP151Upgrade_20241209();
@@ -126,8 +126,6 @@ contract AaveV3E2E_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
     l2.c.proxyPool = l2.existingTokenPool.getProxyPool();
 
     _validateConfig({upgraded: false});
-
-    _performPoolTransferCLLPreReq(); // rm once CLL performs this action
   }
 
   function _getTokenMessage(
@@ -261,26 +259,6 @@ contract AaveV3E2E_GHOCCIP151Upgrade_20241209_Base is ProtocolV3TestBase {
     executePayload(vm, address(l1.proposal));
     vm.selectFork(l2.c.forkId);
     executePayload(vm, address(l2.proposal));
-  }
-
-  function _performPoolTransferCLLPreReq() private {
-    vm.selectFork(l1.c.forkId);
-    vm.startPrank(l1.c.tokenAdminRegistry.owner());
-    l1.c.tokenAdminRegistry.transferAdminRole(
-      AaveV3EthereumAssets.GHO_UNDERLYING,
-      GovernanceV3Ethereum.EXECUTOR_LVL_1
-    );
-    IProxyPool(l1.c.proxyPool).transferOwnership(GovernanceV3Ethereum.EXECUTOR_LVL_1);
-    vm.stopPrank();
-
-    vm.selectFork(l2.c.forkId);
-    vm.startPrank(l2.c.tokenAdminRegistry.owner());
-    l2.c.tokenAdminRegistry.transferAdminRole(
-      AaveV3ArbitrumAssets.GHO_UNDERLYING,
-      GovernanceV3Arbitrum.EXECUTOR_LVL_1
-    );
-    IProxyPool(l2.c.proxyPool).transferOwnership(GovernanceV3Arbitrum.EXECUTOR_LVL_1);
-    vm.stopPrank();
   }
 
   function _getOutboundRefillTime(uint256 amount) internal pure returns (uint256) {

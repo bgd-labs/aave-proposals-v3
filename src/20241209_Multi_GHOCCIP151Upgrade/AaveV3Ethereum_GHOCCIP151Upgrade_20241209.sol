@@ -13,7 +13,7 @@ import {AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
 /**
  * @title GHO CCIP 1.5.1 Upgrade
  * @author Aave Labs
- * - Discussion: TODO
+ * - Discussion: https://governance.aave.com/t/technical-maintenance-proposals/15274/59
  */
 contract AaveV3Ethereum_GHOCCIP151Upgrade_20241209 is IProposalGenericExecutor {
   uint64 public constant ARB_CHAIN_SELECTOR = 4949039107694359620;
