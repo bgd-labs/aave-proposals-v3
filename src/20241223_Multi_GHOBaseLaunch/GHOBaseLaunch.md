@@ -6,9 +6,23 @@ discussions: "https://governance.aave.com/t/arfc-launch-gho-on-base-set-aci-as-e
 
 ## Simple Summary
 
+This AIP proposes the expansion of GHO, the native asset of the Aave Protocol, to the Base network utilizing the Chainlink Cross-Chain Interoperability Protocol (CCIP) v1.5.1.
+
+The smart contracts have been refined through multiple stages of design, development, testing, and implementation. Likewise, Certora, the DAO service provider, was engaged to conduct code reviews of the implementation.
+
 ## Motivation
 
+Building on the successful expansion of GHO into Arbitrum, it is now time to expand GHO to other networks. The Base ecosystem will bring a new set of opportunities, allowing access to a wide array of integrations with other protocols and tools and ultimately enriching GHO's utility potential.
+
 ## Specification
+
+This AIP includes a series of actions required to launch GHO on Base:
+
+1. Configure new Chainlink CCIP lanes between Base and Ethereum/Arbitrum (while retaining existing ones) with a rate limit of 300,000 GHO capacity and 60 GHO per second rate.
+2. Update the proxy admin of GHO token on Arbitrum to OpenZeppelin v5.1 Proxy Contract, enabling GHO on Arbitrum to be aligned with Base deployment.
+3. Configure and activate GhoAaveSteward and GhoCcipSteward to control GHO listing and CCIP lane.
+4. List GHO as a borrowable asset on the Aave Pool, with the risk configuration specified in the ARFC. Then, provide initial liquidity to the pool as a security measure to mitigate potential vulnerabilities and facilitate a stable launch.
+5. Set ACI multisig as Emissions Manager for GHO and aGHO rewards, as specified in the ARFC.
 
 The table below illustrates the configured risk parameters for **GHO**
 
