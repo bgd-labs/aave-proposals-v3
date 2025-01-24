@@ -11,8 +11,8 @@ libs = ['lib']
 remappings = []
 ffi = true
 fs_permissions = [
-    { access = "write", path = "./reports" },
-    { access = "read", path = "./zkout" },
+  { access = "write", path = "./reports" },
+  { access = "read", path = "./zkout" },
 ]
 evm_version = 'shanghai'
 
@@ -96,6 +96,7 @@ gnosis = { key = "${ETHERSCAN_API_KEY_GNOSIS}", chainId = 100 }
 bnb = { key = "${ETHERSCAN_API_KEY_BNB}", chainId = 56, url = 'https://api.bscscan.com/api' }
 scroll = { key = "${ETHERSCAN_API_KEY_SCROLL}", chainId = 534352 }
 zksync = { key = "${ETHERSCAN_API_KEY_ZKSYNC}", chain = 324 }
-linea = { key="${ETHERSCAN_API_KEY_LINEA}", chain = 59144 }
+linea = { key = "${ETHERSCAN_API_KEY_LINEA}", chain = 59144 }
+
 
 # See more config options https://github.com/gakonst/foundry/tree/master/config
