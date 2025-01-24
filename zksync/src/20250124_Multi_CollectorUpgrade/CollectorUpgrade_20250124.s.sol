@@ -3,7 +3,6 @@ pragma solidity ^0.8.0;
 
 import {GovV3Helpers, IPayloadsControllerCore} from 'aave-helpers/src/GovV3Helpers.sol';
 import {ZkSyncScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
-import {Payloads} from '../../src/20250124_Multi_CollectorUpgrade/Payloads.sol';
 
 /**
  * @dev Deploy ZkSync
@@ -14,7 +13,7 @@ contract DeployZkSync is ZkSyncScript {
     // compose action
     IPayloadsControllerCore.ExecutionAction[]
       memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
-    actions[0] = GovV3Helpers.buildAction(Payloads.ZKSYNC);
+    actions[0] = GovV3Helpers.buildAction(0xA1900dD73e46Ad013fA87f5f70072c472D8f4770);
 
     // register action at payloadsController
     GovV3Helpers.createPayload(actions);
