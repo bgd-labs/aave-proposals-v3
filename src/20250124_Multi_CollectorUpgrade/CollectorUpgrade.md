@@ -12,7 +12,7 @@ This proposal will upgrade the Aave Collector across all networks, to allow **mu
 
 Currently, the Aave Collector (treasury smart contract of the DAO, one per network) is managed by a single `Funds Admin` role, which across all Aave instances is configured to be the Governance Level 1 Executor (Short).
 
-This setup is overly limiting and does not provide the flexibility needed to support usecases like the [Finance Steward](https://governance.aave.com/t/arfc-aave-finance-steward/17570) contracts proposed by Karpatkey & Tokenlogic.
+This setup is overly limiting and does not provide the flexibility needed to support use cases like the [Finance Steward](https://governance.aave.com/t/arfc-aave-finance-steward/17570) contracts proposed by Karpatkey & Tokenlogic.
 
 ## Specification
 
