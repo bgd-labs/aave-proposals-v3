@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {AaveV3Polygon} from 'aave-address-book/AaveV3Polygon.sol';
-
-import 'forge-std/Test.sol';
+import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
+import {AaveV2Polygon, AaveV2PolygonAssets} from 'aave-address-book/AaveV2Polygon.sol';
+import {AaveV3Polygon, AaveV3PolygonAssets} from 'aave-address-book/AaveV3Polygon.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Polygon_FebruaryFundingUpdate_20250120} from './AaveV3Polygon_FebruaryFundingUpdate_20250120.sol';
 
@@ -27,6 +27,64 @@ contract AaveV3Polygon_FebruaryFundingUpdate_20250120_Test is ProtocolV3TestBase
       'AaveV3Polygon_FebruaryFundingUpdate_20250120',
       AaveV3Polygon.POOL,
       address(proposal)
+    );
+  }
+
+  function test_withdraw() public {
+    assertGt(
+      IERC20(AaveV2PolygonAssets.WPOL_A_TOKEN).balanceOf(address(AaveV3Polygon.COLLECTOR)),
+      1 ether
+    );
+    assertGt(
+      IERC20(AaveV2PolygonAssets.USDT_A_TOKEN).balanceOf(address(AaveV3Polygon.COLLECTOR)),
+      1e6
+    );
+
+    executePayload(vm, address(proposal));
+
+    assertApproxEqAbs(
+      IERC20(AaveV2PolygonAssets.WPOL_A_TOKEN).balanceOf(address(AaveV3Polygon.COLLECTOR)),
+      1 ether,
+      0.5 ether
+    );
+    assertApproxEqAbs(
+      IERC20(AaveV2PolygonAssets.USDT_A_TOKEN).balanceOf(address(AaveV3Polygon.COLLECTOR)),
+      1e6,
+      2e6
+    );
+  }
+
+  function test_deposit() public {
+    uint256 balanceAAvaxWPOLBefore = IERC20(AaveV3PolygonAssets.WPOL_A_TOKEN).balanceOf(
+      address(AaveV3Polygon.COLLECTOR)
+    );
+    uint256 balanceAAvaxUSDTBefore = IERC20(AaveV3PolygonAssets.USDT_A_TOKEN).balanceOf(
+      address(AaveV3Polygon.COLLECTOR)
+    );
+    uint256 balanceAAvaxWBTCBefore = IERC20(AaveV3PolygonAssets.WBTC_A_TOKEN).balanceOf(
+      address(AaveV3Polygon.COLLECTOR)
+    );
+    uint256 balanceAAvaxLINKBefore = IERC20(AaveV3PolygonAssets.LINK_A_TOKEN).balanceOf(
+      address(AaveV3Polygon.COLLECTOR)
+    );
+
+    executePayload(vm, address(proposal));
+
+    assertGt(
+      IERC20(AaveV3PolygonAssets.WPOL_A_TOKEN).balanceOf(address(AaveV3Polygon.COLLECTOR)),
+      balanceAAvaxWPOLBefore
+    );
+    assertGt(
+      IERC20(AaveV3PolygonAssets.USDT_A_TOKEN).balanceOf(address(AaveV3Polygon.COLLECTOR)),
+      balanceAAvaxUSDTBefore
+    );
+    assertGt(
+      IERC20(AaveV3PolygonAssets.WBTC_A_TOKEN).balanceOf(address(AaveV3Polygon.COLLECTOR)),
+      balanceAAvaxWBTCBefore
+    );
+    assertGt(
+      IERC20(AaveV3PolygonAssets.LINK_A_TOKEN).balanceOf(address(AaveV3Polygon.COLLECTOR)),
+      balanceAAvaxLINKBefore
     );
   }
 }

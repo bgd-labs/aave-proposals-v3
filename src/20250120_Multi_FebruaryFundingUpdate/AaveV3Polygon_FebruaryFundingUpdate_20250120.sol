@@ -43,17 +43,6 @@ contract AaveV3Polygon_FebruaryFundingUpdate_20250120 is IProposalGenericExecuto
       }),
       address(this)
     );
-
-    AaveV3Polygon.COLLECTOR.withdrawFromV2(
-      CollectorUtils.IOInput({
-        pool: address(AaveV2Polygon.POOL),
-        underlying: AaveV2PolygonAssets.WBTC_UNDERLYING,
-        amount: IERC20(AaveV2PolygonAssets.WBTC_A_TOKEN).balanceOf(
-          address(AaveV3Polygon.COLLECTOR)
-        ) - 1e8
-      }),
-      address(this)
-    );
   }
 
   function _deposit() internal {

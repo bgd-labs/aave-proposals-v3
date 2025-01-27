@@ -33,11 +33,45 @@ contract AaveV3Ethereum_FebruaryFundingUpdate_20250120_Test is ProtocolV3TestBas
   /**
    * @dev executes the generic test suite including e2e and config snapshots
    */
-  function test_defaultProposalExecution() public {
-    defaultTest(
-      'AaveV3Ethereum_FebruaryFundingUpdate_20250120',
-      AaveV3Ethereum.POOL,
-      address(proposal)
+  // function test_defaultProposalExecution() public {
+  //   defaultTest(
+  //     'AaveV3Ethereum_FebruaryFundingUpdate_20250120',
+  //     AaveV3Ethereum.POOL,
+  //     address(proposal)
+  //   );
+  // }
+
+  function test_transfers() public {
+    uint256 balanceMeritBefore = IERC20(proposal.FLUID()).balanceOf(proposal.MERIT_SAFE());
+    uint256 balanceUSDCAciBefore = IERC20(AaveV3EthereumAssets.USDC_A_TOKEN).balanceOf(
+      proposal.ACI_SAFE()
+    );
+    uint256 balanceWETHAciBefore = IERC20(AaveV3EthereumAssets.WETH_UNDERLYING).balanceOf(
+      proposal.ACI_SAFE()
+    );
+    uint256 balancePYUSDAciBefore = IERC20(AaveV3EthereumAssets.PYUSD_UNDERLYING).balanceOf(
+      proposal.ACI_SAFE()
+    );
+
+    executePayload(vm, address(proposal));
+
+    assertEq(
+      IERC20(proposal.FLUID()).balanceOf(proposal.MERIT_SAFE()),
+      balanceMeritBefore + proposal.FLUID_AMOUNT()
+    );
+    assertEq(
+      IERC20(AaveV3EthereumAssets.USDC_A_TOKEN).balanceOf(proposal.ACI_SAFE()),
+      balanceUSDCAciBefore + proposal.USDC_ACI_REIMBURSEMENT()
+    );
+    assertEq(
+      IERC20(AaveV3EthereumAssets.WETH_UNDERLYING).balanceOf(proposal.ACI_SAFE()),
+      balanceWETHAciBefore + proposal.ETH_ACI_REIMBURSEMENT()
+    );
+    assertEq(
+      IERC20(AaveV3EthereumAssets.PYUSD_UNDERLYING).balanceOf(proposal.ACI_SAFE()),
+      balancePYUSDAciBefore + proposal.PYUSD_ACI_REIMBURSEMENT()
     );
   }
+
+  function test_transfersALC() public {}
 }

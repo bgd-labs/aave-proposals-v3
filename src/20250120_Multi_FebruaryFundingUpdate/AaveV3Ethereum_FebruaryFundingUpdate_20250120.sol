@@ -33,7 +33,7 @@ contract AaveV3Ethereum_FebruaryFundingUpdate_20250120 is IProposalGenericExecut
   uint256 public constant FLUID_AMOUNT = 95_417 ether;
   uint256 public constant USDC_ACI_REIMBURSEMENT = 26500e6;
   uint256 public constant ETH_ACI_REIMBURSEMENT = 3.404 ether;
-  uint256 public constant PYSUSD_ACI_REIMBURSEMENT = 149e6;
+  uint256 public constant PYUSD_ACI_REIMBURSEMENT = 149e6;
 
   uint256 public constant AMOUNT_MIGRATE_USDC = 1_500_000e6;
   uint256 public constant AMOUNT_MIGRATE_USDT = 2_000_000e6;
@@ -44,262 +44,11 @@ contract AaveV3Ethereum_FebruaryFundingUpdate_20250120 is IProposalGenericExecut
   function execute() external {
     _transfers();
     _transfersALC();
-    _withdraw();
+    _withdrawForMigration();
     _withdrawAndSwapToETH();
     _withdrawAndSwapToUSDS();
     _swap();
     _deposit();
-  }
-
-  function _swap() internal {
-    AaveV3Ethereum.COLLECTOR.swap(
-      MiscEthereum.AAVE_SWAPPER,
-      CollectorUtils.SwapInput({
-        milkman: MILKMAN,
-        priceChecker: PRICE_CHECKER,
-        fromUnderlying: AaveV3EthereumAssets.USDC_UNDERLYING,
-        toUnderlying: AaveV3EthereumAssets.GHO_UNDERLYING,
-        fromUnderlyingPriceFeed: AaveV3EthereumAssets.USDC_ORACLE,
-        toUnderlyingPriceFeed: GHO_USD_FEED,
-        amount: AMOUNT_SWAP_USDC,
-        slippage: 75
-      })
-    );
-
-    AaveV3Ethereum.COLLECTOR.swap(
-      MiscEthereum.AAVE_SWAPPER,
-      CollectorUtils.SwapInput({
-        milkman: MILKMAN,
-        priceChecker: PRICE_CHECKER,
-        fromUnderlying: AaveV3EthereumAssets.USDT_UNDERLYING,
-        toUnderlying: AaveV3EthereumAssets.GHO_UNDERLYING,
-        fromUnderlyingPriceFeed: AaveV3EthereumAssets.USDT_ORACLE,
-        toUnderlyingPriceFeed: GHO_USD_FEED,
-        amount: AMOUNT_SWAP_USDT,
-        slippage: 75
-      })
-    );
-  }
-
-  function _withdraw() internal {
-    AaveV3Ethereum.COLLECTOR.withdrawFromV2(
-      CollectorUtils.IOInput({
-        pool: address(AaveV2Ethereum.POOL),
-        underlying: AaveV2EthereumAssets.WETH_UNDERLYING,
-        amount: IERC20(AaveV2EthereumAssets.WETH_A_TOKEN).balanceOf(
-          address(AaveV3Ethereum.COLLECTOR)
-        ) - 1 ether
-      }),
-      address(this)
-    );
-
-    AaveV3Ethereum.COLLECTOR.withdrawFromV2(
-      CollectorUtils.IOInput({
-        pool: address(AaveV2Ethereum.POOL),
-        underlying: AaveV2EthereumAssets.WBTC_UNDERLYING,
-        amount: IERC20(AaveV2EthereumAssets.WBTC_A_TOKEN).balanceOf(
-          address(AaveV3Ethereum.COLLECTOR)
-        ) - 1e8
-      }),
-      address(this)
-    );
-
-    AaveV3Ethereum.COLLECTOR.withdrawFromV2(
-      CollectorUtils.IOInput({
-        pool: address(AaveV2Ethereum.POOL),
-        underlying: AaveV2EthereumAssets.LINK_UNDERLYING,
-        amount: IERC20(AaveV2EthereumAssets.LINK_A_TOKEN).balanceOf(
-          address(AaveV3Ethereum.COLLECTOR)
-        ) - 1 ether
-      }),
-      address(this)
-    );
-
-    AaveV3Ethereum.COLLECTOR.withdrawFromV2(
-      CollectorUtils.IOInput({
-        pool: address(AaveV2Ethereum.POOL),
-        underlying: AaveV2EthereumAssets.MKR_UNDERLYING,
-        amount: IERC20(AaveV2EthereumAssets.MKR_A_TOKEN).balanceOf(
-          address(AaveV3Ethereum.COLLECTOR)
-        ) - 1 ether
-      }),
-      address(this)
-    );
-
-    AaveV3Ethereum.COLLECTOR.withdrawFromV2(
-      CollectorUtils.IOInput({
-        pool: address(AaveV2Ethereum.POOL),
-        underlying: AaveV2EthereumAssets.USDC_UNDERLYING,
-        amount: AMOUNT_MIGRATE_USDC
-      }),
-      address(this)
-    );
-
-    AaveV3Ethereum.COLLECTOR.withdrawFromV2(
-      CollectorUtils.IOInput({
-        pool: address(AaveV2Ethereum.POOL),
-        underlying: AaveV2EthereumAssets.USDT_UNDERLYING,
-        amount: AMOUNT_MIGRATE_USDT
-      }),
-      address(this)
-    );
-  }
-
-  function _withdrawAndSwapToETH() internal {
-    AaveV3Ethereum.COLLECTOR.withdrawFromV2(
-      CollectorUtils.IOInput({
-        pool: address(AaveV2Ethereum.POOL),
-        underlying: AaveV2EthereumAssets.DPI_UNDERLYING,
-        amount: IERC20(AaveV2EthereumAssets.DPI_A_TOKEN).balanceOf(
-          address(AaveV3Ethereum.COLLECTOR)
-        ) - 1 ether
-      }),
-      MiscEthereum.AAVE_SWAPPER
-    );
-
-    AaveV3Ethereum.COLLECTOR.withdrawFromV2(
-      CollectorUtils.IOInput({
-        pool: address(AaveV2Ethereum.POOL),
-        underlying: AaveV2EthereumAssets.LUSD_UNDERLYING,
-        amount: IERC20(AaveV2EthereumAssets.LUSD_A_TOKEN).balanceOf(
-          address(AaveV3Ethereum.COLLECTOR)
-        ) - 1 ether
-      }),
-      MiscEthereum.AAVE_SWAPPER
-    );
-
-    AaveV3Ethereum.COLLECTOR.withdrawFromV3(
-      CollectorUtils.IOInput({
-        pool: address(AaveV3Ethereum.POOL),
-        underlying: AaveV3EthereumAssets.LUSD_UNDERLYING,
-        amount: IERC20(AaveV3EthereumAssets.LUSD_A_TOKEN).balanceOf(
-          address(AaveV3Ethereum.COLLECTOR)
-        ) - 1 ether
-      }),
-      MiscEthereum.AAVE_SWAPPER
-    );
-
-    AaveV3Ethereum.COLLECTOR.swap(
-      MiscEthereum.AAVE_SWAPPER,
-      CollectorUtils.SwapInput({
-        milkman: MILKMAN,
-        priceChecker: PRICE_CHECKER,
-        fromUnderlying: AaveV3EthereumAssets.LUSD_UNDERLYING,
-        toUnderlying: AaveV3EthereumAssets.WETH_UNDERLYING,
-        fromUnderlyingPriceFeed: LUSD_FEED,
-        toUnderlyingPriceFeed: AaveV3EthereumAssets.WETH_ORACLE,
-        amount: IERC20(AaveV3EthereumAssets.LUSD_UNDERLYING).balanceOf(MiscEthereum.AAVE_SWAPPER),
-        slippage: 400
-      })
-    );
-
-    AaveV3Ethereum.COLLECTOR.swap(
-      MiscEthereum.AAVE_SWAPPER,
-      CollectorUtils.SwapInput({
-        milkman: MILKMAN,
-        priceChecker: PRICE_CHECKER,
-        fromUnderlying: AaveV2EthereumAssets.DPI_UNDERLYING,
-        toUnderlying: AaveV3EthereumAssets.WETH_UNDERLYING,
-        fromUnderlyingPriceFeed: DPI_FEED,
-        toUnderlyingPriceFeed: AaveV3EthereumAssets.WETH_ORACLE,
-        amount: IERC20(AaveV2EthereumAssets.DPI_UNDERLYING).balanceOf(MiscEthereum.AAVE_SWAPPER),
-        slippage: 400
-      })
-    );
-  }
-
-  function _withdrawAndSwapToUSDS() internal {
-    AaveV3Ethereum.COLLECTOR.withdrawFromV2(
-      CollectorUtils.IOInput({
-        pool: address(AaveV2Ethereum.POOL),
-        underlying: AaveV2EthereumAssets.DAI_UNDERLYING,
-        amount: IERC20(AaveV2EthereumAssets.DAI_A_TOKEN).balanceOf(
-          address(AaveV3Ethereum.COLLECTOR)
-        ) - 1 ether
-      }),
-      MiscEthereum.AAVE_SWAPPER
-    );
-
-    AaveV3Ethereum.COLLECTOR.withdrawFromV3(
-      CollectorUtils.IOInput({
-        pool: address(AaveV3Ethereum.POOL),
-        underlying: AaveV3EthereumAssets.DAI_UNDERLYING,
-        amount: IERC20(AaveV3EthereumAssets.DAI_A_TOKEN).balanceOf(
-          address(AaveV3Ethereum.COLLECTOR)
-        ) - 1 ether
-      }),
-      MiscEthereum.AAVE_SWAPPER
-    );
-
-    AaveV3Ethereum.COLLECTOR.transfer(
-      AaveV3EthereumAssets.DAI_UNDERLYING,
-      MiscEthereum.AAVE_SWAPPER,
-      IERC20(AaveV3EthereumAssets.DAI_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR))
-    );
-
-    AaveV3Ethereum.COLLECTOR.swap(
-      MiscEthereum.AAVE_SWAPPER,
-      CollectorUtils.SwapInput({
-        milkman: MILKMAN,
-        priceChecker: PRICE_CHECKER,
-        fromUnderlying: AaveV3EthereumAssets.DAI_UNDERLYING,
-        toUnderlying: AaveV3EthereumAssets.USDS_UNDERLYING,
-        fromUnderlyingPriceFeed: AaveV3EthereumAssets.DAI_UNDERLYING,
-        toUnderlyingPriceFeed: AaveV3EthereumAssets.USDS_ORACLE,
-        amount: IERC20(AaveV3EthereumAssets.DAI_UNDERLYING).balanceOf(MiscEthereum.AAVE_SWAPPER),
-        slippage: 75
-      })
-    );
-  }
-
-  function _deposit() internal {
-    AaveV3Ethereum.COLLECTOR.depositToV3(
-      CollectorUtils.IOInput({
-        pool: address(AaveV3Ethereum.POOL),
-        underlying: AaveV3EthereumAssets.USDC_UNDERLYING,
-        amount: type(uint256).max
-      })
-    );
-
-    AaveV3Ethereum.COLLECTOR.depositToV3(
-      CollectorUtils.IOInput({
-        pool: address(AaveV3Ethereum.POOL),
-        underlying: AaveV3EthereumAssets.USDT_UNDERLYING,
-        amount: type(uint256).max
-      })
-    );
-
-    AaveV3Ethereum.COLLECTOR.depositToV3(
-      CollectorUtils.IOInput({
-        pool: address(AaveV3Ethereum.POOL),
-        underlying: AaveV3EthereumAssets.WETH_UNDERLYING,
-        amount: type(uint256).max
-      })
-    );
-
-    AaveV3Ethereum.COLLECTOR.depositToV3(
-      CollectorUtils.IOInput({
-        pool: address(AaveV3Ethereum.POOL),
-        underlying: AaveV3EthereumAssets.WBTC_UNDERLYING,
-        amount: type(uint256).max
-      })
-    );
-
-    AaveV3Ethereum.COLLECTOR.depositToV3(
-      CollectorUtils.IOInput({
-        pool: address(AaveV3Ethereum.POOL),
-        underlying: AaveV3EthereumAssets.LINK_UNDERLYING,
-        amount: type(uint256).max
-      })
-    );
-
-    AaveV3Ethereum.COLLECTOR.depositToV3(
-      CollectorUtils.IOInput({
-        pool: address(AaveV3Ethereum.POOL),
-        underlying: AaveV3EthereumAssets.MKR_UNDERLYING,
-        amount: type(uint256).max
-      })
-    );
   }
 
   function _transfers() internal {
@@ -317,7 +66,7 @@ contract AaveV3Ethereum_FebruaryFundingUpdate_20250120 is IProposalGenericExecut
     AaveV3Ethereum.COLLECTOR.transfer(
       AaveV3EthereumAssets.PYUSD_UNDERLYING,
       ACI_SAFE,
-      PYSUSD_ACI_REIMBURSEMENT
+      PYUSD_ACI_REIMBURSEMENT
     );
   }
 
@@ -375,6 +124,240 @@ contract AaveV3Ethereum_FebruaryFundingUpdate_20250120 is IProposalGenericExecut
         ) - 1 ether
       }),
       ALC_SAFE
+    );
+  }
+
+  function _withdrawForMigration() internal {
+    AaveV3Ethereum.COLLECTOR.withdrawFromV2(
+      CollectorUtils.IOInput({
+        pool: address(AaveV2Ethereum.POOL),
+        underlying: AaveV2EthereumAssets.WETH_UNDERLYING,
+        amount: IERC20(AaveV2EthereumAssets.WETH_A_TOKEN).balanceOf(
+          address(AaveV3Ethereum.COLLECTOR)
+        ) - 1 ether
+      }),
+      address(AaveV3Ethereum.COLLECTOR)
+    );
+
+    AaveV3Ethereum.COLLECTOR.withdrawFromV2(
+      CollectorUtils.IOInput({
+        pool: address(AaveV2Ethereum.POOL),
+        underlying: AaveV2EthereumAssets.WBTC_UNDERLYING,
+        amount: IERC20(AaveV2EthereumAssets.WBTC_A_TOKEN).balanceOf(
+          address(AaveV3Ethereum.COLLECTOR)
+        ) - 1e8
+      }),
+      address(AaveV3Ethereum.COLLECTOR)
+    );
+
+    AaveV3Ethereum.COLLECTOR.withdrawFromV2(
+      CollectorUtils.IOInput({
+        pool: address(AaveV2Ethereum.POOL),
+        underlying: AaveV2EthereumAssets.LINK_UNDERLYING,
+        amount: IERC20(AaveV2EthereumAssets.LINK_A_TOKEN).balanceOf(
+          address(AaveV3Ethereum.COLLECTOR)
+        ) - 1 ether
+      }),
+      address(AaveV3Ethereum.COLLECTOR)
+    );
+
+    AaveV3Ethereum.COLLECTOR.withdrawFromV2(
+      CollectorUtils.IOInput({
+        pool: address(AaveV2Ethereum.POOL),
+        underlying: AaveV2EthereumAssets.MKR_UNDERLYING,
+        amount: IERC20(AaveV2EthereumAssets.MKR_A_TOKEN).balanceOf(
+          address(AaveV3Ethereum.COLLECTOR)
+        ) - 1 ether
+      }),
+      address(AaveV3Ethereum.COLLECTOR)
+    );
+
+    AaveV3Ethereum.COLLECTOR.withdrawFromV2(
+      CollectorUtils.IOInput({
+        pool: address(AaveV2Ethereum.POOL),
+        underlying: AaveV2EthereumAssets.USDC_UNDERLYING,
+        amount: AMOUNT_MIGRATE_USDC + AMOUNT_SWAP_USDC
+      }),
+      address(AaveV3Ethereum.COLLECTOR)
+    );
+
+    AaveV3Ethereum.COLLECTOR.withdrawFromV2(
+      CollectorUtils.IOInput({
+        pool: address(AaveV2Ethereum.POOL),
+        underlying: AaveV2EthereumAssets.USDT_UNDERLYING,
+        amount: AMOUNT_MIGRATE_USDT + AMOUNT_SWAP_USDT
+      }),
+      address(AaveV3Ethereum.COLLECTOR)
+    );
+  }
+
+  function _withdrawAndSwapToETH() internal {
+    AaveV3Ethereum.COLLECTOR.withdrawFromV2(
+      CollectorUtils.IOInput({
+        pool: address(AaveV2Ethereum.POOL),
+        underlying: AaveV2EthereumAssets.DPI_UNDERLYING,
+        amount: IERC20(AaveV2EthereumAssets.DPI_A_TOKEN).balanceOf(
+          address(AaveV3Ethereum.COLLECTOR)
+        ) - 1 ether
+      }),
+      address(AaveV3Ethereum.COLLECTOR)
+    );
+
+    AaveV3Ethereum.COLLECTOR.withdrawFromV3(
+      CollectorUtils.IOInput({
+        pool: address(AaveV3Ethereum.POOL),
+        underlying: AaveV3EthereumAssets.LUSD_UNDERLYING,
+        amount: IERC20(AaveV3EthereumAssets.LUSD_A_TOKEN).balanceOf(
+          address(AaveV3Ethereum.COLLECTOR)
+        ) - 1 ether
+      }),
+      address(AaveV3Ethereum.COLLECTOR)
+    );
+
+    AaveV3Ethereum.COLLECTOR.swap(
+      MiscEthereum.AAVE_SWAPPER,
+      CollectorUtils.SwapInput({
+        milkman: MILKMAN,
+        priceChecker: PRICE_CHECKER,
+        fromUnderlying: AaveV3EthereumAssets.LUSD_UNDERLYING,
+        toUnderlying: AaveV3EthereumAssets.WETH_UNDERLYING,
+        fromUnderlyingPriceFeed: LUSD_FEED,
+        toUnderlyingPriceFeed: AaveV3EthereumAssets.WETH_ORACLE,
+        amount: type(uint256).max,
+        slippage: 400
+      })
+    );
+
+    AaveV3Ethereum.COLLECTOR.swap(
+      MiscEthereum.AAVE_SWAPPER,
+      CollectorUtils.SwapInput({
+        milkman: MILKMAN,
+        priceChecker: PRICE_CHECKER,
+        fromUnderlying: AaveV2EthereumAssets.DPI_UNDERLYING,
+        toUnderlying: AaveV3EthereumAssets.WETH_UNDERLYING,
+        fromUnderlyingPriceFeed: DPI_FEED,
+        toUnderlyingPriceFeed: AaveV3EthereumAssets.WETH_ORACLE,
+        amount: type(uint256).max,
+        slippage: 400
+      })
+    );
+  }
+
+  function _withdrawAndSwapToUSDS() internal {
+    AaveV3Ethereum.COLLECTOR.withdrawFromV2(
+      CollectorUtils.IOInput({
+        pool: address(AaveV2Ethereum.POOL),
+        underlying: AaveV2EthereumAssets.DAI_UNDERLYING,
+        amount: IERC20(AaveV2EthereumAssets.DAI_A_TOKEN).balanceOf(
+          address(AaveV3Ethereum.COLLECTOR)
+        ) - 1 ether
+      }),
+      address(AaveV3Ethereum.COLLECTOR)
+    );
+
+    AaveV3Ethereum.COLLECTOR.withdrawFromV3(
+      CollectorUtils.IOInput({
+        pool: address(AaveV3Ethereum.POOL),
+        underlying: AaveV3EthereumAssets.DAI_UNDERLYING,
+        amount: IERC20(AaveV3EthereumAssets.DAI_A_TOKEN).balanceOf(
+          address(AaveV3Ethereum.COLLECTOR)
+        ) - 1 ether
+      }),
+      address(AaveV3Ethereum.COLLECTOR)
+    );
+
+    AaveV3Ethereum.COLLECTOR.swap(
+      MiscEthereum.AAVE_SWAPPER,
+      CollectorUtils.SwapInput({
+        milkman: MILKMAN,
+        priceChecker: PRICE_CHECKER,
+        fromUnderlying: AaveV3EthereumAssets.DAI_UNDERLYING,
+        toUnderlying: AaveV3EthereumAssets.USDS_UNDERLYING,
+        fromUnderlyingPriceFeed: AaveV3EthereumAssets.DAI_ORACLE,
+        toUnderlyingPriceFeed: AaveV3EthereumAssets.USDS_ORACLE,
+        amount: type(uint256).max,
+        slippage: 75
+      })
+    );
+  }
+
+  function _swap() internal {
+    AaveV3Ethereum.COLLECTOR.swap(
+      MiscEthereum.AAVE_SWAPPER,
+      CollectorUtils.SwapInput({
+        milkman: MILKMAN,
+        priceChecker: PRICE_CHECKER,
+        fromUnderlying: AaveV3EthereumAssets.USDC_UNDERLYING,
+        toUnderlying: AaveV3EthereumAssets.GHO_UNDERLYING,
+        fromUnderlyingPriceFeed: AaveV3EthereumAssets.USDC_ORACLE,
+        toUnderlyingPriceFeed: GHO_USD_FEED,
+        amount: AMOUNT_SWAP_USDC,
+        slippage: 75
+      })
+    );
+
+    AaveV3Ethereum.COLLECTOR.swap(
+      MiscEthereum.AAVE_SWAPPER,
+      CollectorUtils.SwapInput({
+        milkman: MILKMAN,
+        priceChecker: PRICE_CHECKER,
+        fromUnderlying: AaveV3EthereumAssets.USDT_UNDERLYING,
+        toUnderlying: AaveV3EthereumAssets.GHO_UNDERLYING,
+        fromUnderlyingPriceFeed: AaveV3EthereumAssets.USDT_ORACLE,
+        toUnderlyingPriceFeed: GHO_USD_FEED,
+        amount: AMOUNT_SWAP_USDT,
+        slippage: 75
+      })
+    );
+  }
+
+  function _deposit() internal {
+    AaveV3Ethereum.COLLECTOR.depositToV3(
+      CollectorUtils.IOInput({
+        pool: address(AaveV3Ethereum.POOL),
+        underlying: AaveV3EthereumAssets.USDC_UNDERLYING,
+        amount: type(uint256).max
+      })
+    );
+
+    AaveV3Ethereum.COLLECTOR.depositToV3(
+      CollectorUtils.IOInput({
+        pool: address(AaveV3Ethereum.POOL),
+        underlying: AaveV3EthereumAssets.USDT_UNDERLYING,
+        amount: type(uint256).max
+      })
+    );
+
+    AaveV3Ethereum.COLLECTOR.depositToV3(
+      CollectorUtils.IOInput({
+        pool: address(AaveV3Ethereum.POOL),
+        underlying: AaveV3EthereumAssets.WETH_UNDERLYING,
+        amount: type(uint256).max
+      })
+    );
+
+    AaveV3Ethereum.COLLECTOR.depositToV3(
+      CollectorUtils.IOInput({
+        pool: address(AaveV3Ethereum.POOL),
+        underlying: AaveV3EthereumAssets.WBTC_UNDERLYING,
+        amount: type(uint256).max
+      })
+    );
+
+    AaveV3Ethereum.COLLECTOR.depositToV3(
+      CollectorUtils.IOInput({
+        pool: address(AaveV3Ethereum.POOL),
+        underlying: AaveV3EthereumAssets.LINK_UNDERLYING,
+        amount: type(uint256).max
+      })
+    );
+
+    AaveV3Ethereum.COLLECTOR.depositToV3(
+      CollectorUtils.IOInput({
+        pool: address(AaveV3Ethereum.POOL),
+        underlying: AaveV3EthereumAssets.MKR_UNDERLYING,
+        amount: type(uint256).max
+      })
     );
   }
 }

@@ -69,7 +69,7 @@ Where it says All-1, it refers to all available liquidity minus 1 unit as to not
 | :-----------: | :-------------: | :-------------: |
 | aWETH (All-1) | avWETH (All-1)  | amWMATIC (All-1 |
 | aWBTC (All-1) |  avDAI (All-1)  | amUSDT (All-1)  |
-| aLINK (All-1) | avWAVAX (All-1) | amWBTC (All-1)  |
+| aLINK (All-1) | avWAVAX (All-1) |                 |
 | aMKR (All-1)  |                 |                 |
 | aUSDC (1.5M)  |                 |                 |
 | aUSDT (2.0M)  |                 |                 |

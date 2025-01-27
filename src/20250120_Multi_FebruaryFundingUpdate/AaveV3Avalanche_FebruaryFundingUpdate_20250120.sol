@@ -16,6 +16,8 @@ import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGen
 contract AaveV3Avalanche_FebruaryFundingUpdate_20250120 is IProposalGenericExecutor {
   using CollectorUtils for ICollector;
 
+  uint256 public constant DAI_TO_WITHDRAW = 1_000_000 ether;
+
   function execute() external {
     _withdraw();
     _deposit();
@@ -37,9 +39,7 @@ contract AaveV3Avalanche_FebruaryFundingUpdate_20250120 is IProposalGenericExecu
       CollectorUtils.IOInput({
         pool: address(AaveV2Avalanche.POOL),
         underlying: AaveV2AvalancheAssets.DAIe_UNDERLYING,
-        amount: IERC20(AaveV2AvalancheAssets.DAIe_A_TOKEN).balanceOf(
-          address(AaveV3Avalanche.COLLECTOR)
-        ) - 1e6
+        amount: DAI_TO_WITHDRAW
       }),
       address(this)
     );
@@ -50,7 +50,7 @@ contract AaveV3Avalanche_FebruaryFundingUpdate_20250120 is IProposalGenericExecu
         underlying: AaveV2AvalancheAssets.WAVAX_UNDERLYING,
         amount: IERC20(AaveV2AvalancheAssets.WAVAX_A_TOKEN).balanceOf(
           address(AaveV3Avalanche.COLLECTOR)
-        ) - 1e8
+        ) - 1 ether
       }),
       address(this)
     );
@@ -101,14 +101,6 @@ contract AaveV3Avalanche_FebruaryFundingUpdate_20250120 is IProposalGenericExecu
       CollectorUtils.IOInput({
         pool: address(AaveV3Avalanche.POOL),
         underlying: AaveV3AvalancheAssets.BTCb_UNDERLYING,
-        amount: type(uint256).max
-      })
-    );
-
-    AaveV3Avalanche.COLLECTOR.depositToV3(
-      CollectorUtils.IOInput({
-        pool: address(AaveV3Avalanche.POOL),
-        underlying: AaveV3AvalancheAssets.WBTCe_UNDERLYING,
         amount: type(uint256).max
       })
     );
