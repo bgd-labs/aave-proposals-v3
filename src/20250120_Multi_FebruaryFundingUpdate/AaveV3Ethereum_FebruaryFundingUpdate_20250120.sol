@@ -35,8 +35,8 @@ contract AaveV3Ethereum_FebruaryFundingUpdate_20250120 is IProposalGenericExecut
   uint256 public constant ETH_ACI_REIMBURSEMENT = 3.404 ether;
   uint256 public constant PYUSD_ACI_REIMBURSEMENT = 149e6;
 
-  uint256 public constant AMOUNT_MIGRATE_USDC = 1_500_000e6;
-  uint256 public constant AMOUNT_MIGRATE_USDT = 2_000_000e6;
+  uint256 public constant AMOUNT_WITHDRAW_USDC = 1_500_000e6;
+  uint256 public constant AMOUNT_WITHDRAW_USDT = 2_000_000e6;
 
   uint256 public constant AMOUNT_SWAP_USDC = 1_500_000e6;
   uint256 public constant AMOUNT_SWAP_USDT = 1_500_000e6;
@@ -176,7 +176,7 @@ contract AaveV3Ethereum_FebruaryFundingUpdate_20250120 is IProposalGenericExecut
       CollectorUtils.IOInput({
         pool: address(AaveV2Ethereum.POOL),
         underlying: AaveV2EthereumAssets.USDC_UNDERLYING,
-        amount: AMOUNT_MIGRATE_USDC + AMOUNT_SWAP_USDC
+        amount: AMOUNT_WITHDRAW_USDC
       }),
       address(AaveV3Ethereum.COLLECTOR)
     );
@@ -185,7 +185,7 @@ contract AaveV3Ethereum_FebruaryFundingUpdate_20250120 is IProposalGenericExecut
       CollectorUtils.IOInput({
         pool: address(AaveV2Ethereum.POOL),
         underlying: AaveV2EthereumAssets.USDT_UNDERLYING,
-        amount: AMOUNT_MIGRATE_USDT + AMOUNT_SWAP_USDT
+        amount: AMOUNT_WITHDRAW_USDT
       }),
       address(AaveV3Ethereum.COLLECTOR)
     );
@@ -219,9 +219,9 @@ contract AaveV3Ethereum_FebruaryFundingUpdate_20250120 is IProposalGenericExecut
       CollectorUtils.SwapInput({
         milkman: MILKMAN,
         priceChecker: PRICE_CHECKER,
-        fromUnderlying: AaveV3EthereumAssets.LUSD_UNDERLYING,
+        fromUnderlying: AaveV2EthereumAssets.DPI_UNDERLYING,
         toUnderlying: AaveV3EthereumAssets.WETH_UNDERLYING,
-        fromUnderlyingPriceFeed: LUSD_FEED,
+        fromUnderlyingPriceFeed: DPI_FEED,
         toUnderlyingPriceFeed: AaveV3EthereumAssets.WETH_ORACLE,
         amount: type(uint256).max,
         slippage: 400
@@ -233,9 +233,9 @@ contract AaveV3Ethereum_FebruaryFundingUpdate_20250120 is IProposalGenericExecut
       CollectorUtils.SwapInput({
         milkman: MILKMAN,
         priceChecker: PRICE_CHECKER,
-        fromUnderlying: AaveV2EthereumAssets.DPI_UNDERLYING,
+        fromUnderlying: AaveV3EthereumAssets.LUSD_UNDERLYING,
         toUnderlying: AaveV3EthereumAssets.WETH_UNDERLYING,
-        fromUnderlyingPriceFeed: DPI_FEED,
+        fromUnderlyingPriceFeed: LUSD_FEED,
         toUnderlyingPriceFeed: AaveV3EthereumAssets.WETH_ORACLE,
         amount: type(uint256).max,
         slippage: 400

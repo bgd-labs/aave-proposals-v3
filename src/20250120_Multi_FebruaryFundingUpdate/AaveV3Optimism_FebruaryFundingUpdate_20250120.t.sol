@@ -40,18 +40,9 @@ contract AaveV3Optimism_FebruaryFundingUpdate_20250120_Test is ProtocolV3TestBas
       address(AaveV3Optimism.COLLECTOR)
     );
 
-    assertGt(
-      IERC20(AaveV3OptimismAssets.USDC_UNDERLYING).balanceOf(address(AaveV3Optimism.COLLECTOR)),
-      0
-    );
-    assertGt(
-      IERC20(AaveV3OptimismAssets.USDT_UNDERLYING).balanceOf(address(AaveV3Optimism.COLLECTOR)),
-      0
-    );
-    assertGt(
-      IERC20(AaveV3OptimismAssets.WETH_UNDERLYING).balanceOf(address(AaveV3Optimism.COLLECTOR)),
-      0
-    );
+    assertGt(balanceAUSDCBefore, 0);
+    assertGt(balanceAUSDTBefore, 0);
+    assertGt(balanceAWETHBefore, 0);
 
     executePayload(vm, address(proposal));
 

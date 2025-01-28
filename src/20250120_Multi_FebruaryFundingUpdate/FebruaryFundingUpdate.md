@@ -102,10 +102,12 @@ Withdraw and swap the following assets to ETH and deposit into the Core market o
 
 ### Acquire GHO and deposit into Aave v3 (Prime)
 
-|     Ethereum     |
-| :--------------: |
-| aEthUSDT (1.50M) |
-| aEthUSDC (1.50M) |
+Both withdrawn above from Aave V2 Ethereum.
+
+|   Ethereum   |
+| :----------: |
+| USDT (1.50M) |
+| USDC (1.50M) |
 
 ### Acquire USDS and deposit into Aave V3 (Core)
 
