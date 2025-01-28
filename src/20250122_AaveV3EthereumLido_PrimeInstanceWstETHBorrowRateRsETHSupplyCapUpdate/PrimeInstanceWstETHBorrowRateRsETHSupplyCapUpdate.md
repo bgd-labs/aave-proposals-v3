@@ -53,8 +53,8 @@ To support leveraged LRT/LST yield strategies, this proposal recommends a signif
 
 ## References
 
-- Implementation: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250122_AaveV3EthereumLido_PrimeInstanceWstETHBorrowRateRsETHSupplyCapUpdate/AaveV3EthereumLido_PrimeInstanceWstETHBorrowRateRsETHSupplyCapUpdate_20250122.sol)
-- Tests: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250122_AaveV3EthereumLido_PrimeInstanceWstETHBorrowRateRsETHSupplyCapUpdate/AaveV3EthereumLido_PrimeInstanceWstETHBorrowRateRsETHSupplyCapUpdate_20250122.t.sol)
+- Implementation: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/ad47735f95ca24d2b65d7ffaca0b0a05f7397121/src/20250122_AaveV3EthereumLido_PrimeInstanceWstETHBorrowRateRsETHSupplyCapUpdate/AaveV3EthereumLido_PrimeInstanceWstETHBorrowRateRsETHSupplyCapUpdate_20250122.sol)
+- Tests: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/ad47735f95ca24d2b65d7ffaca0b0a05f7397121/src/20250122_AaveV3EthereumLido_PrimeInstanceWstETHBorrowRateRsETHSupplyCapUpdate/AaveV3EthereumLido_PrimeInstanceWstETHBorrowRateRsETHSupplyCapUpdate_20250122.t.sol)
 - [Snapshot](https://snapshot.org/#/s:aave.eth/proposal/0xfc21203137ea8753ab8903fe4edd568bcaa7ea084586a7acb2c3b361d3dae9c8)
 - [Discussion](https://governance.aave.com/t/arfc-prime-instance-wsteth-borrow-rate-rseth-supply-cap-update/20644)
 
