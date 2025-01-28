@@ -6,7 +6,7 @@ import {ZkSyncScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
 
 /**
  * @dev Deploy ZkSync
- * deploy-command: make deploy-pk FOUNDRY_PROFILE=contract=zksync/src/20250124_Multi_CollectorUpgrade/CollectorUpgrade_20250124.s.sol:DeployZkSync chain=zksync
+ * deploy-command: FOUNDRY_PROFILE=zksync make deploy-pk contract=zksync/src/20250124_Multi_CollectorUpgrade/CollectorUpgrade_20250124.s.sol:DeployZkSync chain=zksync
  */
 contract DeployZkSync is ZkSyncScript {
   function run() external broadcast {
