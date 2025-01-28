@@ -34,7 +34,7 @@ Future proposals that onboard LRTs to instances of Aave v3 that do not yet inclu
 
 ## Specification
 
-Update Arbitrum, Base, Scroll and ZKSync wstETH Borrow Rate:
+Update AaveV3Arbitrum, AaveV3Base, AaveV3Scroll and AaveV3ZKSync wstETH Borrow Rate:
 
 | Parameter | Value |
 | :-------- | :---: |
