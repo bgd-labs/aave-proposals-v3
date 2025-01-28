@@ -55,17 +55,6 @@ The table below illustrates the configured risk parameters for the assets to be 
 
 The followings E-modes will be created:
 
-**LRT LST correlated E-Mode**
-
-| **Parameter**         | **Value** | **Value** | **Value** | **Value** |
-| --------------------- | --------- | --------- | --------- | --------- |
-| Asset                 | wstETH    | weETH     | ezETH     | WETH      |
-| Collateral            | Yes       | Yes       | Yes       | No        |
-| Borrowable            | No        | No        | No        | Yes       |
-| Max LTV               | 90%       | 90%       | 90%       | -         |
-| Liquidation Threshold | 93%       | 93%       | 93%       | -         |
-| Liquidation Penalty   | 1.00%     | 1.00%     | 1.00%     | -         |
-
 **wstETH correlated E-Mode**
 
 | **Parameter**         | **Value** | **Value** |
@@ -75,6 +64,28 @@ The followings E-modes will be created:
 | Borrowable            | No        | Yes       |
 | Max LTV               | 93.5%     | -         |
 | Liquidation Threshold | 95.5%     | -         |
+| Liquidation Penalty   | 1.00%     | -         |
+
+**weETH correlated E-Mode**
+
+| **Parameter**         | **Value** | **Value** |
+| --------------------- | --------- | --------- |
+| Asset                 | weETH     | WETH      |
+| Collateral            | Yes       | No        |
+| Borrowable            | No        | Yes       |
+| Max LTV               | 90%       | -         |
+| Liquidation Threshold | 93%       | -         |
+| Liquidation Penalty   | 1.00%     | -         |
+
+**ezETH correlated E-Mode**
+
+| **Parameter**         | **Value** | **Value** |
+| --------------------- | --------- | --------- |
+| Asset                 | ezETH     | WETH      |
+| Collateral            | Yes       | No        |
+| Borrowable            | No        | Yes       |
+| Max LTV               | 90%       | -         |
+| Liquidation Threshold | 93%       | -         |
 | Liquidation Penalty   | 1.00%     | -         |
 
 ### Security procedures
