@@ -22,7 +22,6 @@ import {AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
 
 import {CCIPUtils} from './utils/CCIPUtils.sol';
 
-import {AaveV3Ethereum_GHOCCIP151Upgrade_20241209} from '../20241209_Multi_GHOCCIP151Upgrade/AaveV3Ethereum_GHOCCIP151Upgrade_20241209.sol';
 import {AaveV3Ethereum_GHOBaseLaunch_20241223} from './AaveV3Ethereum_GHOBaseLaunch_20241223.sol';
 
 /**
@@ -78,14 +77,9 @@ contract AaveV3Ethereum_GHOBaseLaunch_20241223_Test is ProtocolV3TestBase {
   error InvalidSourcePoolAddress(bytes);
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 21686002);
-
-    // pre-requisite, to be removed after execution
-    executePayload(vm, address(new AaveV3Ethereum_GHOCCIP151Upgrade_20241209()));
-
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 21722753);
     proposal = new AaveV3Ethereum_GHOBaseLaunch_20241223();
     _validateConstants();
-
     executePayload(vm, address(proposal));
   }
 

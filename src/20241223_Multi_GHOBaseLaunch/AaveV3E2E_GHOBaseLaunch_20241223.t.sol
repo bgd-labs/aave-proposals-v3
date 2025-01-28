@@ -31,9 +31,6 @@ import {AaveV3Arbitrum_GHOBaseLaunch_20241223} from './AaveV3Arbitrum_GHOBaseLau
 import {AaveV3Base_GHOBaseLaunch_20241223} from './AaveV3Base_GHOBaseLaunch_20241223.sol';
 import {AaveV3Ethereum_GHOBaseLaunch_20241223} from './AaveV3Ethereum_GHOBaseLaunch_20241223.sol';
 
-import {AaveV3Arbitrum_GHOCCIP151Upgrade_20241209} from '../20241209_Multi_GHOCCIP151Upgrade/AaveV3Arbitrum_GHOCCIP151Upgrade_20241209.sol';
-import {AaveV3Ethereum_GHOCCIP151Upgrade_20241209} from '../20241209_Multi_GHOCCIP151Upgrade/AaveV3Ethereum_GHOCCIP151Upgrade_20241209.sol';
-
 /**
  * @dev Test for AaveV3Base_GHOBaseLaunch_20241223
  * command: FOUNDRY_PROFILE=base forge test --match-path=src/20241223_Multi_GHOBaseLaunch/AaveV3E2E_GHOBaseLaunch_20241223.t.sol -vv
@@ -104,17 +101,15 @@ contract AaveV3Base_GHOBaseLaunch_20241223_Base is ProtocolV3TestBase {
   event Minted(address indexed sender, address indexed recipient, uint256 amount);
 
   function setUp() public virtual {
-    arb.c.forkId = vm.createFork(vm.rpcUrl('arbitrum'), 298375852);
+    arb.c.forkId = vm.createFork(vm.rpcUrl('arbitrum'), 300142041);
     base.c.forkId = vm.createFork(vm.rpcUrl('base'), 25415842);
-    eth.c.forkId = vm.createFork(vm.rpcUrl('mainnet'), 21686002);
+    eth.c.forkId = vm.createFork(vm.rpcUrl('mainnet'), 21722753);
 
     arb.c.chainSelector = 4949039107694359620;
     base.c.chainSelector = 15971525489660198786;
     eth.c.chainSelector = 5009297550715157269;
 
     vm.selectFork(arb.c.forkId);
-    // pre-requisite, to be removed after execution
-    executePayload(vm, address(new AaveV3Arbitrum_GHOCCIP151Upgrade_20241209()));
     arb.proposal = new AaveV3Arbitrum_GHOBaseLaunch_20241223();
     arb.c.token = IGhoToken(AaveV3ArbitrumAssets.GHO_UNDERLYING);
     arb.tokenPool = IUpgradeableBurnMintTokenPool_1_5_1(0xB94Ab28c6869466a46a42abA834ca2B3cECCA5eB);
@@ -139,8 +134,6 @@ contract AaveV3Base_GHOBaseLaunch_20241223_Base is ProtocolV3TestBase {
     base.c.ethOffRamp = IEVM2EVMOffRamp_1_5(0xCA04169671A81E4fB8768cfaD46c347ae65371F1);
 
     vm.selectFork(eth.c.forkId);
-    // pre-requisite, to be removed after execution
-    executePayload(vm, address(new AaveV3Ethereum_GHOCCIP151Upgrade_20241209()));
     eth.proposal = new AaveV3Ethereum_GHOBaseLaunch_20241223();
     eth.c.token = IGhoToken(AaveV3EthereumAssets.GHO_UNDERLYING);
     eth.tokenPool = IUpgradeableLockReleaseTokenPool_1_5_1(

@@ -26,7 +26,6 @@ import {ProxyAdmin, ITransparentUpgradeableProxy} from 'solidity-utils/contracts
 
 import {CCIPUtils} from './utils/CCIPUtils.sol';
 
-import {AaveV3Arbitrum_GHOCCIP151Upgrade_20241209} from '../20241209_Multi_GHOCCIP151Upgrade/AaveV3Arbitrum_GHOCCIP151Upgrade_20241209.sol';
 import {AaveV3Arbitrum_GHOBaseLaunch_20241223} from './AaveV3Arbitrum_GHOBaseLaunch_20241223.sol';
 
 /**
@@ -82,13 +81,8 @@ contract AaveV3Arbitrum_GHOBaseLaunch_20241223_Base is ProtocolV3TestBase {
   error InvalidSourcePoolAddress(bytes);
 
   function setUp() public virtual {
-    vm.createSelectFork(vm.rpcUrl('arbitrum'), 298375852);
-
-    // pre-requisite, to be removed after execution
-    executePayload(vm, address(new AaveV3Arbitrum_GHOCCIP151Upgrade_20241209()));
-
+    vm.createSelectFork(vm.rpcUrl('arbitrum'), 300142041);
     proposal = new AaveV3Arbitrum_GHOBaseLaunch_20241223();
-
     _validateConstants();
   }
 
