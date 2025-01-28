@@ -338,16 +338,28 @@
 | eMode.collateralBitmap | - | wstETH |
 
 
-### EMode: LRT LST correlated(id: 2)
+### EMode: ezETH correlated(id: 2)
 
 | description | value before | value after |
 | --- | --- | --- |
-| eMode.label | - | LRT LST correlated |
+| eMode.label | - | ezETH correlated |
 | eMode.ltv | - | 90 % |
 | eMode.liquidationThreshold | - | 93 % |
 | eMode.liquidationBonus | - | 1 % |
 | eMode.borrowableBitmap | - | WETH |
-| eMode.collateralBitmap | - | wstETH, ezETH, weETH |
+| eMode.collateralBitmap | - | ezETH |
+
+
+### EMode: weETH correlated(id: 3)
+
+| description | value before | value after |
+| --- | --- | --- |
+| eMode.label | - | weETH correlated |
+| eMode.ltv | - | 90 % |
+| eMode.liquidationThreshold | - | 93 % |
+| eMode.liquidationBonus | - | 1 % |
+| eMode.borrowableBitmap | - | WETH |
+| eMode.collateralBitmap | - | weETH |
 
 
 ## Raw diff
@@ -371,9 +383,21 @@
       "from": null,
       "to": {
         "borrowableBitmap": "1",
-        "collateralBitmap": "112",
+        "collateralBitmap": "32",
         "eModeCategory": 2,
-        "label": "LRT LST correlated",
+        "label": "ezETH correlated",
+        "liquidationBonus": 10100,
+        "liquidationThreshold": 9300,
+        "ltv": 9000
+      }
+    },
+    "3": {
+      "from": null,
+      "to": {
+        "borrowableBitmap": "1",
+        "collateralBitmap": "64",
+        "eModeCategory": 3,
+        "label": "weETH correlated",
         "liquidationBonus": 10100,
         "liquidationThreshold": 9300,
         "ltv": 9000

@@ -69,7 +69,7 @@ contract AaveV3Linea_AaveV3LineaActivation_20250121 is AaveV3PayloadLinea {
     returns (IAaveV3ConfigEngine.EModeCategoryUpdate[] memory)
   {
     IAaveV3ConfigEngine.EModeCategoryUpdate[]
-      memory eModeUpdates = new IAaveV3ConfigEngine.EModeCategoryUpdate[](2);
+      memory eModeUpdates = new IAaveV3ConfigEngine.EModeCategoryUpdate[](3);
 
     eModeUpdates[0] = IAaveV3ConfigEngine.EModeCategoryUpdate({
       eModeCategory: 1,
@@ -83,7 +83,14 @@ contract AaveV3Linea_AaveV3LineaActivation_20250121 is AaveV3PayloadLinea {
       ltv: 90_00,
       liqThreshold: 93_00,
       liqBonus: 1_00,
-      label: 'LRT LST correlated'
+      label: 'ezETH correlated'
+    });
+    eModeUpdates[2] = IAaveV3ConfigEngine.EModeCategoryUpdate({
+      eModeCategory: 3,
+      ltv: 90_00,
+      liqThreshold: 93_00,
+      liqBonus: 1_00,
+      label: 'weETH correlated'
     });
 
     return eModeUpdates;
@@ -117,20 +124,20 @@ contract AaveV3Linea_AaveV3LineaActivation_20250121 is AaveV3PayloadLinea {
       collateral: EngineFlags.DISABLED
     });
     assetEModeUpdates[3] = IAaveV3ConfigEngine.AssetEModeUpdate({
-      asset: wstETH,
+      asset: ezETH,
       eModeCategory: 2,
       borrowable: EngineFlags.DISABLED,
       collateral: EngineFlags.ENABLED
     });
     assetEModeUpdates[4] = IAaveV3ConfigEngine.AssetEModeUpdate({
-      asset: weETH,
-      eModeCategory: 2,
-      borrowable: EngineFlags.DISABLED,
-      collateral: EngineFlags.ENABLED
+      asset: WETH,
+      eModeCategory: 3,
+      borrowable: EngineFlags.ENABLED,
+      collateral: EngineFlags.DISABLED
     });
     assetEModeUpdates[5] = IAaveV3ConfigEngine.AssetEModeUpdate({
-      asset: ezETH,
-      eModeCategory: 2,
+      asset: weETH,
+      eModeCategory: 3,
       borrowable: EngineFlags.DISABLED,
       collateral: EngineFlags.ENABLED
     });
