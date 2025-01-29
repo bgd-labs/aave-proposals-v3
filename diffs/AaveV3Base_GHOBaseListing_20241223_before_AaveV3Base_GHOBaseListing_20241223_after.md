@@ -23,9 +23,9 @@
 | liquidationBonus | 0 % |
 | liquidationProtocolFee | 0 % [0] |
 | reserveFactor | 10 % [1000] |
-| aToken | [0xDD5745756C2de109183c6B5bB886F9207bEF114D](https://basescan.org/address/0xDD5745756C2de109183c6B5bB886F9207bEF114D) |
+| aToken | [0x067ae75628177FD257c2B1e500993e1a0baBcBd1](https://basescan.org/address/0x067ae75628177FD257c2B1e500993e1a0baBcBd1) |
 | aTokenImpl | [0x98F409Fc4A42F34AE3c326c7f48ED01ae8cAeC69](https://basescan.org/address/0x98F409Fc4A42F34AE3c326c7f48ED01ae8cAeC69) |
-| variableDebtToken | [0xbc4f5631f2843488792e4F1660d0A51Ba489bdBd](https://basescan.org/address/0xbc4f5631f2843488792e4F1660d0A51Ba489bdBd) |
+| variableDebtToken | [0x38e59ADE183BbEb94583d44213c8f3297e9933e9](https://basescan.org/address/0x38e59ADE183BbEb94583d44213c8f3297e9933e9) |
 | variableDebtTokenImpl | [0x2425A746911128c2eAA7bEBDc9Bc452eE52208a1](https://basescan.org/address/0x2425A746911128c2eAA7bEBDc9Bc452eE52208a1) |
 | borrowingEnabled | true |
 | isBorrowableInIsolation | false |
@@ -33,7 +33,7 @@
 | aTokenName | Aave Base GHO |
 | aTokenSymbol | aBasGHO |
 | aTokenUnderlyingBalance | 1 GHO [1000000000000000000] |
-| id | 7 |
+| id | 8 |
 | isPaused | false |
 | variableDebtTokenName | Aave Base Variable Debt GHO |
 | variableDebtTokenSymbol | variableDebtBasGHO |
@@ -55,7 +55,7 @@
     "0x6Bb7a212910682DCFdbd5BCBb3e28FB4E8da10Ee": {
       "from": null,
       "to": {
-        "aToken": "0xDD5745756C2de109183c6B5bB886F9207bEF114D",
+        "aToken": "0x067ae75628177FD257c2B1e500993e1a0baBcBd1",
         "aTokenImpl": "0x98F409Fc4A42F34AE3c326c7f48ED01ae8cAeC69",
         "aTokenName": "Aave Base GHO",
         "aTokenSymbol": "aBasGHO",
@@ -64,7 +64,7 @@
         "borrowingEnabled": true,
         "debtCeiling": 0,
         "decimals": 18,
-        "id": 7,
+        "id": 8,
         "interestRateStrategy": "0x86AB1C62A8bf868E1b3E1ab87d587Aba6fbCbDC5",
         "isActive": true,
         "isBorrowableInIsolation": false,
@@ -84,7 +84,7 @@
         "symbol": "GHO",
         "underlying": "0x6Bb7a212910682DCFdbd5BCBb3e28FB4E8da10Ee",
         "usageAsCollateralEnabled": false,
-        "variableDebtToken": "0xbc4f5631f2843488792e4F1660d0A51Ba489bdBd",
+        "variableDebtToken": "0x38e59ADE183BbEb94583d44213c8f3297e9933e9",
         "variableDebtTokenImpl": "0x2425A746911128c2eAA7bEBDc9Bc452eE52208a1",
         "variableDebtTokenName": "Aave Base Variable Debt GHO",
         "variableDebtTokenSymbol": "variableDebtBasGHO",
