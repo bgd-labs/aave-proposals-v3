@@ -32,7 +32,7 @@ contract AaveV3Avalanche_FebruaryFundingUpdate_20250120 is IProposalGenericExecu
           address(AaveV3Avalanche.COLLECTOR)
         ) - 1 ether
       }),
-      address(this)
+      address(AaveV3Avalanche.COLLECTOR)
     );
 
     AaveV3Avalanche.COLLECTOR.withdrawFromV2(
@@ -41,7 +41,7 @@ contract AaveV3Avalanche_FebruaryFundingUpdate_20250120 is IProposalGenericExecu
         underlying: AaveV2AvalancheAssets.DAIe_UNDERLYING,
         amount: DAI_TO_WITHDRAW
       }),
-      address(this)
+      address(AaveV3Avalanche.COLLECTOR)
     );
 
     AaveV3Avalanche.COLLECTOR.withdrawFromV2(
@@ -52,7 +52,7 @@ contract AaveV3Avalanche_FebruaryFundingUpdate_20250120 is IProposalGenericExecu
           address(AaveV3Avalanche.COLLECTOR)
         ) - 1 ether
       }),
-      address(this)
+      address(AaveV3Avalanche.COLLECTOR)
     );
   }
 

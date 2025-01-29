@@ -30,7 +30,7 @@ contract AaveV3Polygon_FebruaryFundingUpdate_20250120 is IProposalGenericExecuto
           address(AaveV3Polygon.COLLECTOR)
         ) - 1 ether
       }),
-      address(this)
+      address(AaveV3Polygon.COLLECTOR)
     );
 
     AaveV3Polygon.COLLECTOR.withdrawFromV2(
@@ -41,7 +41,7 @@ contract AaveV3Polygon_FebruaryFundingUpdate_20250120 is IProposalGenericExecuto
           address(AaveV3Polygon.COLLECTOR)
         ) - 1e6
       }),
-      address(this)
+      address(AaveV3Polygon.COLLECTOR)
     );
   }
 
