@@ -21,8 +21,8 @@ This AIP includes a series of actions required to launch GHO on Base:
 1. Configure new Chainlink CCIP lanes between Base and Ethereum/Arbitrum (while retaining existing ones) with a rate limit of 300,000 GHO capacity and 60 GHO per second rate.
 2. Update the proxy admin of GHO token on Arbitrum to OpenZeppelin v5.1 Proxy Contract, enabling GHO on Arbitrum to be aligned with Base deployment.
 3. Configure and activate GhoAaveSteward and GhoCcipSteward to control GHO listing and CCIP lane.
-4. List GHO as a borrowable asset on the Aave Pool, with the risk configuration specified in the ARFC. Then, provide initial liquidity to the pool as a security measure to mitigate potential vulnerabilities and facilitate a stable launch.
-5. Set ACI multisig as Emissions Manager for GHO and aGHO rewards, as specified in the ARFC.
+4. List GHO as a borrowable asset on the Aave Pool, with the risk configuration specified in the ARFC. Then, initial liquidity will be provided to the pool as a security measure to mitigate potential vulnerabilities and facilitate a stable launch.
+5. Set ACI multisig ([0xac140648435d03f784879cd789130F22Ef588Fcd](https://basescan.org/address/0xac140648435d03f784879cd789130F22Ef588Fcd)) as Emission Admin for GHO and aGHO rewards, as specified in the ARFC.
 
 The table below illustrates the configured risk parameters for **GHO**
 
@@ -48,7 +48,6 @@ The table below illustrates the configured risk parameters for **GHO**
 | Borrowable in Isolation   |                                   DISABLED |
 | Oracle                    | 0xfc421aD3C883Bf9E7C4f42dE845C4e4405799e73 |
 
-Additionaly [0xac140648435d03f784879cd789130F22Ef588Fcd](https://basescan.org/address/0xac140648435d03f784879cd789130F22Ef588Fcd) has been set as the emission admin for GHO and the corresponding aToken.
 
 ## References
 
