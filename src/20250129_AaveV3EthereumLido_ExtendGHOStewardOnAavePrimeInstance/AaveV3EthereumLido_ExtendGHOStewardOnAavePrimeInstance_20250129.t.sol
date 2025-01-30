@@ -8,7 +8,6 @@ import {IOwnable} from 'aave-address-book/common/IOwnable.sol';
 import {IDefaultInterestRateStrategyV2} from 'aave-address-book/AaveV3.sol';
 
 import 'forge-std/Test.sol';
-import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3EthereumLido_ExtendGHOStewardOnAavePrimeInstance_20250129} from './AaveV3EthereumLido_ExtendGHOStewardOnAavePrimeInstance_20250129.sol';
 
@@ -34,7 +33,7 @@ contract AaveV3EthereumLido_ExtendGHOStewardOnAavePrimeInstance_20250129_Test is
   }
 
   function testValidate() public {
-    GovV3Helpers.executePayload(vm, address(proposal));
+    executePayload(vm, address(proposal));
 
     assertTrue(
       AaveV3EthereumLido.ACL_MANAGER.hasRole(
