@@ -2,7 +2,7 @@
 src = 'src'
 test = 'tests'
 script = 'scripts'
-solc = '0.8.20'
+solc = '0.8.22'
 optimizer = true
 optimizer_runs = 200
 out = 'out'
@@ -20,7 +20,7 @@ evm_version = 'shanghai'
 src = 'zksync'
 test = 'zksync'
 libs = ['lib']
-solc = '0.8.20'
+solc = '0.8.22'
 optimizer = true
 optimizer_runs = 200
 fs_permissions = [{ access = "write", path = "./reports" }]
