@@ -31,12 +31,12 @@ Risk Council: [0x8513e6F37dBc52De87b166980Fa3F50639694B60](https://etherscan.io/
 
 BorrowRateConfig:
 
-UOptimal Max Change: 500
-
+- UOptimal Max Change: 500
 - Base Variable Rate Max Change: 500
 - Slope 1 Max Change: 500
 - Slope 2 Max Change: 500
-  Then, the GhoAaveSteward is to be granted the following permissions:
+
+Then, the GhoAaveSteward is to be granted the following permissions:
 
 GhoAaveSteward
 
