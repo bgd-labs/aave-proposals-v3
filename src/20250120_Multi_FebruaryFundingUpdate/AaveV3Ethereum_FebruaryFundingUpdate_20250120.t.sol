@@ -35,13 +35,13 @@ contract AaveV3Ethereum_FebruaryFundingUpdate_20250120_Test is ProtocolV3TestBas
   /**
    * @dev executes the generic test suite including e2e and config snapshots
    */
-  // function test_defaultProposalExecution() public {
-  //   defaultTest(
-  //     'AaveV3Ethereum_FebruaryFundingUpdate_20250120',
-  //     AaveV3Ethereum.POOL,
-  //     address(proposal)
-  //   );
-  // }
+  function test_defaultProposalExecution() public {
+    defaultTest(
+      'AaveV3Ethereum_FebruaryFundingUpdate_20250120',
+      AaveV3Ethereum.POOL,
+      address(proposal)
+    );
+  }
 
   function test_transfers() public {
     uint256 balanceMeritBefore = IERC20(proposal.FLUID()).balanceOf(proposal.MERIT_SAFE());
