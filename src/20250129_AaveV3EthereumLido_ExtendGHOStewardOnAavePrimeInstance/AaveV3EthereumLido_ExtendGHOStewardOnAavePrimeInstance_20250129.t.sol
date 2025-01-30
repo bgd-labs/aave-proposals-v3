@@ -5,6 +5,7 @@ import {IGhoAaveSteward} from 'src/interfaces/IGhoAaveSteward.sol';
 import {AaveV3EthereumLido, AaveV3EthereumLidoAssets} from 'aave-address-book/AaveV3EthereumLido.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {IOwnable} from 'aave-address-book/common/IOwnable.sol';
+import {IDefaultInterestRateStrategyV2} from 'aave-address-book/AaveV3.sol';
 
 import 'forge-std/Test.sol';
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
@@ -25,7 +26,7 @@ contract AaveV3EthereumLido_ExtendGHOStewardOnAavePrimeInstance_20250129_Test is
 
   // The address of council
   // https://etherscan.io/address/0x8513e6F37dBc52De87b166980Fa3F50639694B60
-  address public constant COUNCIL = 0x8513e6F37dBc52De87b166980Fa3F50639694B60;
+  address public constant RISK_COUNCIL = 0x8513e6F37dBc52De87b166980Fa3F50639694B60;
 
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('mainnet'), 21738505);
@@ -52,7 +53,7 @@ contract AaveV3EthereumLido_ExtendGHOStewardOnAavePrimeInstance_20250129_Test is
       address(AaveV3EthereumLido.AAVE_PROTOCOL_DATA_PROVIDER)
     );
     assertEq(NEW_GHO_AAVE_STEWARD.GHO_TOKEN(), AaveV3EthereumLidoAssets.GHO_UNDERLYING);
-    assertEq(NEW_GHO_AAVE_STEWARD.RISK_COUNCIL(), COUNCIL);
+    assertEq(NEW_GHO_AAVE_STEWARD.RISK_COUNCIL(), RISK_COUNCIL);
     assertEq(
       NEW_GHO_AAVE_STEWARD.getBorrowRateConfig(),
       IGhoAaveSteward.BorrowRateConfig({
@@ -62,6 +63,87 @@ contract AaveV3EthereumLido_ExtendGHOStewardOnAavePrimeInstance_20250129_Test is
         variableRateSlope2MaxChange: 5_00
       })
     );
+  }
+
+  function test_ghoAaveSteward_updateGhoBorrowRate() public {
+    executePayload(vm, address(proposal));
+
+    address rateStrategyAddress = AaveV3EthereumLido
+      .AAVE_PROTOCOL_DATA_PROVIDER
+      .getInterestRateStrategyAddress(AaveV3EthereumLidoAssets.GHO_UNDERLYING);
+
+    IDefaultInterestRateStrategyV2.InterestRateData
+      memory mockResponse = IDefaultInterestRateStrategyV2.InterestRateData({
+        optimalUsageRatio: 100,
+        baseVariableBorrowRate: 100,
+        variableRateSlope1: 100,
+        variableRateSlope2: 100
+      });
+    vm.mockCall(
+      rateStrategyAddress,
+      abi.encodeWithSelector(
+        IDefaultInterestRateStrategyV2(rateStrategyAddress).getInterestRateDataBps.selector,
+        AaveV3EthereumLidoAssets.GHO_UNDERLYING
+      ),
+      abi.encode(mockResponse)
+    );
+
+    IDefaultInterestRateStrategyV2.InterestRateData memory currentRates = _getGhoBorrowRates();
+    uint16 newOptimalUsageRatio = currentRates.optimalUsageRatio + 1;
+    uint32 newBaseVariableBorrowRate = currentRates.baseVariableBorrowRate + 1;
+    uint32 newVariableRateSlope1 = currentRates.variableRateSlope1 - 1;
+    uint32 newVariableRateSlope2 = currentRates.variableRateSlope2 - 1;
+
+    vm.startPrank(RISK_COUNCIL);
+    IGhoAaveSteward(proposal.NEW_GHO_AAVE_STEWARD()).updateGhoBorrowRate(
+      newOptimalUsageRatio,
+      newBaseVariableBorrowRate,
+      newVariableRateSlope1,
+      newVariableRateSlope2
+    );
+    vm.stopPrank();
+
+    vm.clearMockedCalls();
+
+    assertEq(_getOptimalUsageRatio(), newOptimalUsageRatio);
+    assertEq(_getBaseVariableBorrowRate(), newBaseVariableBorrowRate);
+    assertEq(_getVariableRateSlope1(), newVariableRateSlope1);
+    assertEq(_getVariableRateSlope2(), newVariableRateSlope2);
+  }
+
+  // Helpers
+  function _getOptimalUsageRatio() internal view returns (uint16) {
+    IDefaultInterestRateStrategyV2.InterestRateData memory currentRates = _getGhoBorrowRates();
+    return currentRates.optimalUsageRatio;
+  }
+
+  function _getBaseVariableBorrowRate() internal view returns (uint32) {
+    IDefaultInterestRateStrategyV2.InterestRateData memory currentRates = _getGhoBorrowRates();
+    return currentRates.baseVariableBorrowRate;
+  }
+
+  function _getVariableRateSlope1() internal view returns (uint32) {
+    IDefaultInterestRateStrategyV2.InterestRateData memory currentRates = _getGhoBorrowRates();
+    return currentRates.variableRateSlope1;
+  }
+
+  function _getVariableRateSlope2() internal view returns (uint32) {
+    IDefaultInterestRateStrategyV2.InterestRateData memory currentRates = _getGhoBorrowRates();
+    return currentRates.variableRateSlope2;
+  }
+
+  function _getGhoBorrowRates()
+    internal
+    view
+    returns (IDefaultInterestRateStrategyV2.InterestRateData memory)
+  {
+    address rateStrategyAddress = AaveV3EthereumLido
+      .AAVE_PROTOCOL_DATA_PROVIDER
+      .getInterestRateStrategyAddress(AaveV3EthereumLidoAssets.GHO_UNDERLYING);
+    return
+      IDefaultInterestRateStrategyV2(rateStrategyAddress).getInterestRateDataBps(
+        AaveV3EthereumLidoAssets.GHO_UNDERLYING
+      );
   }
 
   function assertEq(
