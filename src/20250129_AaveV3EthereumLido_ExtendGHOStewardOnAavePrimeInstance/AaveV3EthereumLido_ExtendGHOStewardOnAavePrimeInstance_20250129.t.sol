@@ -7,6 +7,9 @@ import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {IOwnable} from 'aave-address-book/common/IOwnable.sol';
 import {IDefaultInterestRateStrategyV2} from 'aave-address-book/AaveV3.sol';
 
+import {ReserveConfiguration} from './ReserveConfiguration.sol';
+import {DataTypes} from 'aave-v3-origin/contracts/protocol/libraries/types/DataTypes.sol';
+
 import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3EthereumLido_ExtendGHOStewardOnAavePrimeInstance_20250129} from './AaveV3EthereumLido_ExtendGHOStewardOnAavePrimeInstance_20250129.sol';
@@ -18,6 +21,7 @@ import {AaveV3EthereumLido_ExtendGHOStewardOnAavePrimeInstance_20250129} from '.
 contract AaveV3EthereumLido_ExtendGHOStewardOnAavePrimeInstance_20250129_Test is
   ProtocolV3TestBase
 {
+  using ReserveConfiguration for DataTypes.ReserveConfigurationMap;
   AaveV3EthereumLido_ExtendGHOStewardOnAavePrimeInstance_20250129 internal proposal;
   // https://etherscan.io/address/0x5C905d62B22e4DAa4967E517C4a047Ff6026C731
   IGhoAaveSteward public constant NEW_GHO_AAVE_STEWARD =
@@ -62,6 +66,57 @@ contract AaveV3EthereumLido_ExtendGHOStewardOnAavePrimeInstance_20250129_Test is
         variableRateSlope2MaxChange: 5_00
       })
     );
+  }
+
+  function test_ghoAaveSteward_updateGhoBorrowCap() public {
+    executePayload(vm, address(proposal));
+
+    uint256 currentBorrowCap = _getGhoBorrowCap();
+    uint256 newBorrowCap = currentBorrowCap + 1;
+    vm.startPrank(RISK_COUNCIL);
+    IGhoAaveSteward(proposal.NEW_GHO_AAVE_STEWARD()).updateGhoBorrowCap(newBorrowCap);
+    assertEq(_getGhoBorrowCap(), newBorrowCap);
+  }
+
+  function test_ghoAaveSteward_updateGhoSupplyCap() public {
+    uint256 configValue = 830948836238514615306439858845646848;
+    vm.mockCall(
+      address(AaveV3EthereumLido.POOL),
+      abi.encodeWithSelector(AaveV3EthereumLido.POOL.getConfiguration.selector),
+      abi.encode(configValue)
+    );
+
+    uint256 currentSupplyCap = _getGhoSupplyCap();
+    assertEq(currentSupplyCap, 10);
+    uint256 newSupplyCap = currentSupplyCap + 1;
+
+    executePayload(vm, address(proposal));
+
+    IGhoAaveSteward steward = IGhoAaveSteward(proposal.NEW_GHO_AAVE_STEWARD());
+
+    vm.startPrank(RISK_COUNCIL);
+    steward.updateGhoSupplyCap(newSupplyCap);
+    vm.stopPrank();
+
+    vm.clearMockedCalls();
+
+    assertEq(_getGhoSupplyCap(), newSupplyCap);
+  }
+
+  function test_ghoAaveSteward_revertsChangeOverMax() public {
+    executePayload(vm, address(proposal));
+
+    uint256 currentSupplyCap = _getGhoSupplyCap();
+    assertEq(currentSupplyCap, 20000000);
+    uint256 newSupplyCap = 2 * currentSupplyCap + 1;
+
+    IGhoAaveSteward steward = IGhoAaveSteward(proposal.NEW_GHO_AAVE_STEWARD());
+
+    // Can't update supply cap even by 1 since it's 0, and 100% of 0 is 0
+    vm.expectRevert('INVALID_SUPPLY_CAP_UPDATE');
+    vm.startPrank(RISK_COUNCIL);
+    steward.updateGhoSupplyCap(newSupplyCap);
+    vm.stopPrank();
   }
 
   function test_ghoAaveSteward_updateGhoBorrowRate() public {
@@ -111,6 +166,21 @@ contract AaveV3EthereumLido_ExtendGHOStewardOnAavePrimeInstance_20250129_Test is
   }
 
   // Helpers
+
+  function _getGhoBorrowCap() internal view returns (uint256) {
+    DataTypes.ReserveConfigurationMap memory configuration = AaveV3EthereumLido
+      .POOL
+      .getConfiguration(AaveV3EthereumLidoAssets.GHO_UNDERLYING);
+    return configuration.getBorrowCap();
+  }
+
+  function _getGhoSupplyCap() internal view returns (uint256) {
+    DataTypes.ReserveConfigurationMap memory configuration = AaveV3EthereumLido
+      .POOL
+      .getConfiguration(AaveV3EthereumLidoAssets.GHO_UNDERLYING);
+    return configuration.getSupplyCap();
+  }
+
   function _getOptimalUsageRatio() internal view returns (uint16) {
     IDefaultInterestRateStrategyV2.InterestRateData memory currentRates = _getGhoBorrowRates();
     return currentRates.optimalUsageRatio;
