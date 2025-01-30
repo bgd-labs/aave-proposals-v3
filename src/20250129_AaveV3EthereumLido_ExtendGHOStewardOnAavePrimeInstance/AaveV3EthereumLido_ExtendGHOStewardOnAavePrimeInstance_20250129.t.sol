@@ -19,6 +19,7 @@ contract AaveV3EthereumLido_ExtendGHOStewardOnAavePrimeInstance_20250129_Test is
   ProtocolV3TestBase
 {
   AaveV3EthereumLido_ExtendGHOStewardOnAavePrimeInstance_20250129 internal proposal;
+  // https://etherscan.io/address/0x5C905d62B22e4DAa4967E517C4a047Ff6026C731
   IGhoAaveSteward public constant NEW_GHO_AAVE_STEWARD =
     IGhoAaveSteward(0x5C905d62B22e4DAa4967E517C4a047Ff6026C731);
 
@@ -47,6 +48,8 @@ contract AaveV3EthereumLido_ExtendGHOStewardOnAavePrimeInstance_20250129_Test is
       address(AaveV3EthereumLido.AAVE_PROTOCOL_DATA_PROVIDER)
     );
     assertEq(NEW_GHO_AAVE_STEWARD.GHO_TOKEN(), AaveV3EthereumLidoAssets.GHO_UNDERLYING);
+    // The address of council
+    // https://etherscan.io/address/0x8513e6F37dBc52De87b166980Fa3F50639694B60
     assertEq(NEW_GHO_AAVE_STEWARD.RISK_COUNCIL(), 0x8513e6F37dBc52De87b166980Fa3F50639694B60);
     assertEq(
       NEW_GHO_AAVE_STEWARD.getBorrowRateConfig(),

@@ -13,6 +13,7 @@ import {AaveV3EthereumLido} from 'aave-address-book/AaveV3EthereumLido.sol';
 contract AaveV3EthereumLido_ExtendGHOStewardOnAavePrimeInstance_20250129 is
   IProposalGenericExecutor
 {
+  // https://etherscan.io/address/0x5C905d62B22e4DAa4967E517C4a047Ff6026C731
   address public constant NEW_GHO_AAVE_STEWARD = 0x5C905d62B22e4DAa4967E517C4a047Ff6026C731;
   function execute() external {
     // Gho Aave Steward
