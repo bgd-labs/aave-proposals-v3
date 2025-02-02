@@ -20,6 +20,38 @@ interface IEVM2EVMOffRamp_1_2 is ITypeAndVersion {
 }
 
 interface IEVM2EVMOffRamp_1_5 is ITypeAndVersion {
+  /// @notice Static offRamp config
+  /// @dev RMN depends on this struct, if changing, please notify the RMN maintainers.
+  //solhint-disable gas-struct-packing
+  struct StaticConfig {
+    address commitStore; // ────────╮  CommitStore address on the destination chain
+    uint64 chainSelector; // ───────╯  Destination chainSelector
+    uint64 sourceChainSelector; // ─╮  Source chainSelector
+    address onRamp; // ─────────────╯  OnRamp address on the source chain
+    address prevOffRamp; //            Address of previous-version OffRamp
+    address rmnProxy; //               RMN proxy address
+    address tokenAdminRegistry; //     Token admin registry address
+  }
+
+  /// @notice Dynamic offRamp config
+  /// @dev since OffRampConfig is part of OffRampConfigChanged event, if changing it, we should update the ABI on Atlas
+  struct DynamicConfig {
+    uint32 permissionLessExecutionThresholdSeconds; // ─╮ Waiting time before manual execution is enabled
+    uint32 maxDataBytes; //                             │ Maximum payload data size in bytes
+    uint16 maxNumberOfTokensPerMsg; //                  │ Maximum number of ERC20 token transfers that can be included per message
+    address router; // ─────────────────────────────────╯ Router address
+    address priceRegistry; //                             Price registry address
+  }
+
+  /// @notice Returns the static config.
+  /// @dev This function will always return the same struct as the contents is static and can never change.
+  /// RMN depends on this function, if changing, please notify the RMN maintainers.
+  function getStaticConfig() external view returns (StaticConfig memory);
+
+  /// @notice Returns the current dynamic config.
+  /// @return The current config.
+  function getDynamicConfig() external view returns (DynamicConfig memory);
+
   /// @notice Execute a single message.
   /// @param message The message that will be executed.
   /// @param offchainTokenData Token transfer data to be passed to TokenPool.
@@ -32,18 +64,4 @@ interface IEVM2EVMOffRamp_1_5 is ITypeAndVersion {
     bytes[] calldata offchainTokenData,
     uint32[] memory tokenGasOverrides
   ) external;
-
-  /// @notice Dynamic offRamp config
-  /// @dev since OffRampConfig is part of OffRampConfigChanged event, if changing it, we should update the ABI on Atlas
-  struct DynamicConfig {
-    uint32 permissionLessExecutionThresholdSeconds; // ─╮ Waiting time before manual execution is enabled
-    uint32 maxDataBytes; //                             │ Maximum payload data size in bytes
-    uint16 maxNumberOfTokensPerMsg; //                  │ Maximum number of ERC20 token transfers that can be included per message
-    address router; // ─────────────────────────────────╯ Router address
-    address priceRegistry; //                             Price registry address
-  }
-
-  /// @notice Returns the current dynamic config.
-  /// @return The current config.
-  function getDynamicConfig() external view returns (DynamicConfig memory);
 }

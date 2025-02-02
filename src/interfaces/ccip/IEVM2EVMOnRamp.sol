@@ -17,6 +17,17 @@ interface IEVM2EVMOnRamp is ITypeAndVersion {
     bool isEnabled; // ─────────────────╯ Whether this token has custom transfer fees
   }
 
+  struct StaticConfig {
+    address linkToken; // ────────╮ Link token address
+    uint64 chainSelector; // ─────╯ Source chainSelector
+    uint64 destChainSelector; // ─╮ Destination chainSelector
+    uint64 defaultTxGasLimit; //  │ Default gas limit for a tx
+    uint96 maxNopFeesJuels; // ───╯ Max nop fee balance onramp can have
+    address prevOnRamp; //          Address of previous-version OnRamp
+    address rmnProxy; //            Address of RMN proxy
+    address tokenAdminRegistry; //  Address of the token admin registry
+  }
+
   struct DynamicConfig {
     address router; // ──────────────────────────╮ Router address
     uint16 maxNumberOfTokensPerMsg; //           │ Maximum number of distinct ERC20 token transferred per message
@@ -33,17 +44,6 @@ interface IEVM2EVMOnRamp is ITypeAndVersion {
     uint16 defaultTokenFeeUSDCents; // ──────────╮ Default token fee charged per token transfer
     uint32 defaultTokenDestGasOverhead; //       │ Default gas charged to execute the token transfer on the destination chain
     bool enforceOutOfOrder; // ──────────────────╯ Whether to enforce the allowOutOfOrderExecution extraArg value to be true.
-  }
-
-  struct StaticConfig {
-    address linkToken; // ────────╮ Link token address
-    uint64 chainSelector; // ─────╯ Source chainSelector
-    uint64 destChainSelector; // ─╮ Destination chainSelector
-    uint64 defaultTxGasLimit; //  │ Default gas limit for a tx
-    uint96 maxNopFeesJuels; // ───╯ Max nop fee balance onramp can have
-    address prevOnRamp; //          Address of previous-version OnRamp
-    address rmnProxy; //            Address of RMN proxy
-    address tokenAdminRegistry; //  Address of the token admin registry
   }
 
   /// @notice Gets the next sequence number to be used in the onRamp
