@@ -22,7 +22,7 @@ import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {GovernanceV3Arbitrum} from 'aave-address-book/GovernanceV3Arbitrum.sol';
 import {MiscArbitrum} from 'aave-address-book/MiscArbitrum.sol';
 
-import {ProxyAdmin, ITransparentUpgradeableProxy} from 'solidity-utils/contracts/transparent-proxy/ProxyAdmin.sol';
+import {ProxyAdmin, ITransparentUpgradeableProxy} from 'openzeppelin-contracts/contracts/proxy/transparent/ProxyAdmin.sol';
 
 import {CCIPUtils} from './utils/CCIPUtils.sol';
 
