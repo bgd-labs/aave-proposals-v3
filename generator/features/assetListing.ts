@@ -13,7 +13,7 @@ import {stringPrompt} from '../prompts/stringPrompt';
 import {translateJsBoolToSol} from '../prompts/boolPrompt';
 import {transformNumberToPercent, translateJsPercentToSol} from '../prompts/percentPrompt';
 import {transformNumberToHumanReadable, translateJsNumberToSol} from '../prompts/numberPrompt';
-import {CHAIN_ID_CLIENT_MAP} from '@bgd-labs/js-utils';
+import {getClient} from '@bgd-labs/rpc-env';
 import {IERC20Detailed_ABI} from '@bgd-labs/aave-address-book/abis';
 
 async function fetchListing(pool: PoolIdentifier): Promise<Listing> {
