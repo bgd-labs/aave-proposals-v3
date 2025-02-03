@@ -7,6 +7,7 @@ import {IRateLimiter} from 'src/interfaces/ccip/IRateLimiter.sol';
 import {ILegacyProxyAdmin, ITransparentUpgradeableProxy} from 'src/interfaces/ILegacyProxyAdmin.sol';
 
 import {AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
+import {GhoArbitrum} from 'aave-address-book/GhoArbitrum.sol';
 import {MiscArbitrum} from 'aave-address-book/MiscArbitrum.sol';
 
 /**
@@ -20,7 +21,7 @@ contract AaveV3Arbitrum_GHOBaseLaunch_20241223 is IProposalGenericExecutor {
 
   // https://arbiscan.io/address/0xB94Ab28c6869466a46a42abA834ca2B3cECCA5eB
   IUpgradeableBurnMintTokenPool_1_5_1 public constant TOKEN_POOL =
-    IUpgradeableBurnMintTokenPool_1_5_1(0xB94Ab28c6869466a46a42abA834ca2B3cECCA5eB);
+    IUpgradeableBurnMintTokenPool_1_5_1(GhoArbitrum.GHO_CCIP_TOKEN_POOL);
 
   // https://arbiscan.io/address/0x9f0e4F4c5664888442E459f40f635765BB6265Ec
   address public constant NEW_GHO_TOKEN_PROXY_ADMIN = 0x9f0e4F4c5664888442E459f40f635765BB6265Ec;

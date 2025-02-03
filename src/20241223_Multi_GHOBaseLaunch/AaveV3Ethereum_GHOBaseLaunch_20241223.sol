@@ -4,6 +4,7 @@ pragma solidity ^0.8.0;
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
 import {IUpgradeableLockReleaseTokenPool_1_5_1} from 'src/interfaces/ccip/tokenPool/IUpgradeableLockReleaseTokenPool.sol';
 import {IRateLimiter} from 'src/interfaces/ccip/IRateLimiter.sol';
+import {GhoEthereum} from 'aave-address-book/GhoEthereum.sol';
 
 /**
  * @title GHO Base Launch
@@ -16,7 +17,7 @@ contract AaveV3Ethereum_GHOBaseLaunch_20241223 is IProposalGenericExecutor {
 
   // https://etherscan.io/address/0x06179f7C1be40863405f374E7f5F8806c728660A
   IUpgradeableLockReleaseTokenPool_1_5_1 public constant TOKEN_POOL =
-    IUpgradeableLockReleaseTokenPool_1_5_1(0x06179f7C1be40863405f374E7f5F8806c728660A);
+    IUpgradeableLockReleaseTokenPool_1_5_1(GhoEthereum.GHO_CCIP_TOKEN_POOL);
 
   // https://basescan.org/address/0x98217A06721Ebf727f2C8d9aD7718ec28b7aAe34
   address public constant REMOTE_TOKEN_POOL_BASE = 0x98217A06721Ebf727f2C8d9aD7718ec28b7aAe34;

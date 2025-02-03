@@ -11,6 +11,8 @@ import {IGhoToken} from 'src/interfaces/IGhoToken.sol';
 import {AaveV3Base} from 'aave-address-book/AaveV3Base.sol';
 import {GovernanceV3Base} from 'aave-address-book/GovernanceV3Base.sol';
 import {AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
+import {GhoArbitrum} from 'aave-address-book/GhoArbitrum.sol';
+import {GhoEthereum} from 'aave-address-book/GhoEthereum.sol';
 import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 
 /**
@@ -43,9 +45,9 @@ contract AaveV3Base_GHOBaseLaunch_20241223 is IProposalGenericExecutor {
   address public constant GHO_CCIP_STEWARD = 0xB94Ab28c6869466a46a42abA834ca2B3cECCA5eB;
 
   // https://etherscan.io/address/0x06179f7C1be40863405f374E7f5F8806c728660A
-  address public constant REMOTE_TOKEN_POOL_ETH = 0x06179f7C1be40863405f374E7f5F8806c728660A;
+  address public constant REMOTE_TOKEN_POOL_ETH = GhoEthereum.GHO_CCIP_TOKEN_POOL;
   // https://arbiscan.io/address/0xB94Ab28c6869466a46a42abA834ca2B3cECCA5eB
-  address public constant REMOTE_TOKEN_POOL_ARB = 0xB94Ab28c6869466a46a42abA834ca2B3cECCA5eB;
+  address public constant REMOTE_TOKEN_POOL_ARB = GhoArbitrum.GHO_CCIP_TOKEN_POOL;
 
   // Token Rate Limit Capacity: 300_000 GHO
   uint128 public constant CCIP_RATE_LIMIT_CAPACITY = 300_000e18;
