@@ -8,7 +8,7 @@ import {AaveV3Ethereum_UpdatePriceCapAdaptersCAPO_20241101} from './AaveV3Ethere
 import {PriceFeeds} from './Constants.sol';
 import {BasePayloadUSDFeedTest} from './BasePayloadUSDFeedTest.sol';
 import {BasePayloadETHFeedTest} from './BasePayloadETHFeedTest.sol';
-import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
+import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 
 /**
  * @dev Test for AaveV3Ethereum_UpdatePriceCapAdaptersCAPO_20241101

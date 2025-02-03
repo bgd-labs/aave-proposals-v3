@@ -60,7 +60,7 @@ export function generateZkSyncScript(options: Options) {
   // generate chain scripts
   template += `/**
     * @dev Deploy ${chain}
-    * deploy-command: make deploy-pk FOUNDRY_PROFILE=contract=zksync/src/${folderName}/${fileName}.s.sol:Deploy${chain} chain=${getChainAlias(
+    * deploy-command: FOUNDRY_PROFILE=zksync make deploy-pk contract=zksync/src/${folderName}/${fileName}.s.sol:Deploy${chain} chain=${getChainAlias(
       chain,
     )}
     */
