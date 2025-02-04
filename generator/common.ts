@@ -15,7 +15,7 @@ import {
   linea,
 } from 'viem/chains';
 import {Hex, getAddress} from 'viem';
-import {CHAIN_ID_CLIENT_MAP} from '@bgd-labs/js-utils';
+import {getClient} from '@bgd-labs/rpc-env';
 
 export const AVAILABLE_CHAINS = [
   'Ethereum',
@@ -62,7 +62,7 @@ export function getPoolChain(pool: PoolIdentifier) {
 }
 
 export function getExplorerLink(chainId: number, address: Hex) {
-  const client = CHAIN_ID_CLIENT_MAP[chainId];
+  const client = getClient(chainId, {});
   let url = client.chain?.blockExplorers?.default.url;
   if (url && url.endsWith('/')) {
     url = url.slice(0, -1); // sanitize explorer url
