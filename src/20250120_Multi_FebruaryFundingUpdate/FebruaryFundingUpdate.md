@@ -91,7 +91,7 @@ Deposit the following assets into their respective V3 Pools.
 
 ### Acquire ETH and deposit into Aave v3 (Core)
 
-Withdraw and swap the following assets to ETH.
+Withdraw and swap the following assets to ETH. ETH to be deposited into Aave in a follow up proposal.
 
 |     Ethereum     |
 | :--------------: |
@@ -100,7 +100,7 @@ Withdraw and swap the following assets to ETH.
 
 ### Acquire GHO and deposit into Aave v3 (Prime)
 
-Both withdrawn above from Aave V2 Ethereum.
+Both withdrawn above from Aave V2 Ethereum. GHO to be deposited into Aave in a follow up proposal.
 
 |   Ethereum   |
 | :----------: |
@@ -109,7 +109,7 @@ Both withdrawn above from Aave V2 Ethereum.
 
 ### Acquire USDS and deposit into Aave V3 (Core)
 
-Withdraw and swap the following assets to USDS.
+Withdraw and swap the following assets to USDS. USDS to be deposited into Aave in a follow up proposal.
 
 |    Ethereum     |
 | :-------------: |
