@@ -75,7 +75,7 @@ Where it says All-1, it refers to all available liquidity minus 1 unit as to not
 
 Funds are to be deposited into the Core deployment on Ethereum and Aave v3 on the respective networks.
 
-Note: Not all USDC and USDT on v2 Ethereum can be migrated due to high utilisation. This publication proposes a partial migration subject to liquidity availability.
+Note: Not all USDC and USDT on v2 Ethereum can be migrated due to high utilisation. This publication proposes a partial migration of 1.5M and 2.0M respectively.
 
 ### Deposit Passively Held Assets into Aave
 
