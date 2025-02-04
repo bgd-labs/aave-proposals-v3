@@ -6,7 +6,7 @@ discussions: "https://governance.aave.com/t/arfc-february-funding-update/20712"
 
 ## Simple Summary
 
-This publication presents the January funding update, which consists of performing the following key activities:
+This publication presents the February funding update, which consists of performing the following key activities:
 
 - Funding FLUID incentive campaign;
 - Migrating funds from Aave Protocol v2 to v3;
