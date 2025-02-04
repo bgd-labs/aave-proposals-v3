@@ -25,8 +25,8 @@ Set Balancer contract `0x9ff471F9f98F42E5151C7855fD1b5aa906b1AF7e` as the claime
 
 ## References
 
-- Implementation: [AaveV3Multi](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250122_Multi_AllowBalancerToClaimMiningRewards/AaveV3Multi_AllowBalancerToClaimMiningRewards_20250122.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250122_Multi_AllowBalancerToClaimMiningRewards/AaveV3Ethereum_AllowBalancerToClaimMiningRewards_20250122.t.sol), [AaveV3Gnosis](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250122_Multi_AllowBalancerToClaimMiningRewards/AaveV3Gnosis_AllowBalancerToClaimMiningRewards_20250122.t.sol)
+- Implementation: [AaveV3Multi](https://github.com/bgd-labs/aave-proposals-v3/blob/6ea956ff01541262c1870083fc4fe854465c5b65/src/20250122_Multi_AllowBalancerToClaimMiningRewards/AaveV3Multi_AllowBalancerToClaimMiningRewards_20250122.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/6ea956ff01541262c1870083fc4fe854465c5b65/src/20250122_Multi_AllowBalancerToClaimMiningRewards/AaveV3Ethereum_AllowBalancerToClaimMiningRewards_20250122.t.sol), [AaveV3Gnosis](https://github.com/bgd-labs/aave-proposals-v3/blob/6ea956ff01541262c1870083fc4fe854465c5b65/src/20250122_Multi_AllowBalancerToClaimMiningRewards/AaveV3Gnosis_AllowBalancerToClaimMiningRewards_20250122.t.sol)
 - [Snapshot](https://snapshot.org/#/s:aave.eth/proposal/0x054d40462303edd7e3a3c90b945a187e037cf412751631e9b01ba536acbdd40b)
 - [Discussion](https://governance.aave.com/t/arfc-whitelist-balancer-dao-to-claim-liquidity-mining-rewards/20653)
 
