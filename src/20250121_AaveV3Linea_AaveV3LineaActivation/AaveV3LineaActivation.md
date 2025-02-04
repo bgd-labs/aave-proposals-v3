@@ -96,8 +96,8 @@ The followings E-modes will be created:
 
 ## References
 
-- Implementation: [AaveV3Linea](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250121_AaveV3Linea_AaveV3LineaActivation/AaveV3Linea_AaveV3LineaActivation_20250121.sol)
-- Tests: [AaveV3Linea](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250121_AaveV3Linea_AaveV3LineaActivation/AaveV3Linea_AaveV3LineaActivation_20250121.t.sol)
+- Implementation: [AaveV3Linea](https://github.com/bgd-labs/aave-proposals-v3/blob/3b2dd51598bd0a06ce56d181f5c33556c911bdbb/src/20250121_AaveV3Linea_AaveV3LineaActivation/AaveV3Linea_AaveV3LineaActivation_20250121.sol)
+- Tests: [AaveV3Linea](https://github.com/bgd-labs/aave-proposals-v3/blob/3b2dd51598bd0a06ce56d181f5c33556c911bdbb/src/20250121_AaveV3Linea_AaveV3LineaActivation/AaveV3Linea_AaveV3LineaActivation_20250121.t.sol)
 - [Snapshot](https://snapshot.org/#/s:aave.eth/proposal/0x5ae276cb67c8d40868916e99f2ef113de02049dd412c3eb47539f97648f50878)
 - [Discussion](https://governance.aave.com/t/arfc-deployment-of-aave-on-linea/19852/6)
 
