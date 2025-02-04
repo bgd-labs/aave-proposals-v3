@@ -11,7 +11,6 @@ This publication presents the January funding update, which consists of performi
 - Funding FLUID incentive campaign;
 - Migrating funds from Aave Protocol v2 to v3;
 - Transferring BAL & CRV to ALC;
-- Bridging funds to Ethereum;
 - Acquiring GHO for Merit Phase V;
 - Reimbursing EURA Bad Debt Expense; and,
 - Reimbursing Gas & Merkl deployment Costs.
@@ -67,14 +66,14 @@ Where it says All-1, it refers to all available liquidity minus 1 unit as to not
 
 |   Ethereum    |    Avalanche    |     Polygon     |
 | :-----------: | :-------------: | :-------------: |
-| aWETH (All-1) | avWETH (All-1)  | amWMATIC (All-1 |
+| aWETH (All-1) | avWETH (All-1)  | amWMATIC (All-1)|
 | aWBTC (All-1) |  avDAI (All-1)  | amUSDT (All-1)  |
 | aLINK (All-1) | avWAVAX (All-1) |                 |
 | aMKR (All-1)  |                 |                 |
 | aUSDC (1.5M)  |                 |                 |
 | aUSDT (2.0M)  |                 |                 |
 
-Funds are to be depoisted into the Core deployment on Ethereum and Aave v3 on the respetive networks.
+Funds are to be deposited into the Core deployment on Ethereum and Aave v3 on the respective networks.
 
 Note: Not all USDC and USDT on v2 Ethereum can be migrated due to high utilisation. This publication proposes a partial migration subject to liquidity availability.
 
@@ -92,11 +91,10 @@ Deposit the following assets into their respective V3 Pools.
 
 ### Acquire ETH and deposit into Aave v3 (Core)
 
-Withdraw and swap the following assets to ETH and deposit into the Core market on Ethereum.
+Withdraw and swap the following assets to ETH.
 
 |     Ethereum     |
 | :--------------: |
-|  aLUSD (All-1)   |
 | aEthLUSD (All-1) |
 |   aDPI (All-1)   |
 
@@ -111,7 +109,7 @@ Both withdrawn above from Aave V2 Ethereum.
 
 ### Acquire USDS and deposit into Aave V3 (Core)
 
-Withdraw and swap the following assets to USDS and deposit into the Core market on Ethereum.
+Withdraw and swap the following assets to USDS.
 
 |    Ethereum     |
 | :-------------: |
