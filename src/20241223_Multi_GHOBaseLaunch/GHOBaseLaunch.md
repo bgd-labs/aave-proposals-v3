@@ -48,7 +48,6 @@ The table below illustrates the configured risk parameters for **GHO**
 | Borrowable in Isolation   |                                   DISABLED |
 | Oracle                    | 0xfc421aD3C883Bf9E7C4f42dE845C4e4405799e73 |
 
-
 ## References
 
 - Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241223_Multi_GHOBaseLaunch/AaveV3Ethereum_GHOBaseLaunch_20241223.sol), [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241223_Multi_GHOBaseLaunch/AaveV3Arbitrum_GHOBaseLaunch_20241223.sol), [AaveV3BaseLaunch](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241223_Multi_GHOBaseLaunch/AaveV3Base_GHOBaseLaunch_20241223.sol), [AaveV3BaseListing](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241223_Multi_GHOBaseLaunch/AaveV3Base_GHOBaseListing_20241223.sol)
