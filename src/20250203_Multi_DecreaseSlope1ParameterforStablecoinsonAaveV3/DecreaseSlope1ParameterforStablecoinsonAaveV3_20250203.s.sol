@@ -3,7 +3,8 @@ pragma solidity ^0.8.0;
 
 import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aave-helpers/src/GovV3Helpers.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
-import {EthereumScript, PolygonScript, AvalancheScript, OptimismScript, ArbitrumScript, MetisScript, BaseScript, GnosisScript, ScrollScript, BNBScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
+import {GovernanceV3ZkSync} from 'aave-address-book/GovernanceV3ZkSync.sol';
+import {EthereumScript, PolygonScript, AvalancheScript, OptimismScript, ArbitrumScript, MetisScript, BaseScript, GnosisScript, ScrollScript, BNBScript, ChainIds} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
 import {AaveV3Ethereum_DecreaseSlope1ParameterforStablecoinsonAaveV3_20250203} from './AaveV3Ethereum_DecreaseSlope1ParameterforStablecoinsonAaveV3_20250203.sol';
 import {AaveV3EthereumLido_DecreaseSlope1ParameterforStablecoinsonAaveV3_20250203} from './AaveV3EthereumLido_DecreaseSlope1ParameterforStablecoinsonAaveV3_20250203.sol';
 import {AaveV3EthereumEtherFi_DecreaseSlope1ParameterforStablecoinsonAaveV3_20250203} from './AaveV3EthereumEtherFi_DecreaseSlope1ParameterforStablecoinsonAaveV3_20250203.sol';
@@ -333,13 +334,12 @@ contract CreateProposal is EthereumScript {
     );
     payloads[9] = GovV3Helpers.buildBNBPayload(vm, actionsBNB);
 
-    IPayloadsControllerCore.ExecutionAction[]
-      memory actionsZkSync = new IPayloadsControllerCore.ExecutionAction[](1);
-    actionsZkSync[0] = GovV3Helpers.buildActionZkSync(
-      vm,
-      'AaveV3ZkSync_DecreaseSlope1ParameterforStablecoinsonAaveV3_20250203'
-    );
-    payloads[10] = GovV3Helpers.buildZkSyncPayload(vm, actionsZkSync);
+    payloads[10] = PayloadsControllerUtils.Payload({
+      chain: ChainIds.ZKSYNC,
+      accessLevel: PayloadsControllerUtils.AccessControl.Level_1,
+      payloadsController: address(GovernanceV3ZkSync.PAYLOADS_CONTROLLER),
+      payloadId: 13
+    });
 
     // create proposal
     vm.startBroadcast();
