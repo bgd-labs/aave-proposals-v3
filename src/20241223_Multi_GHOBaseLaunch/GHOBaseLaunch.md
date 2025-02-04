@@ -40,8 +40,8 @@ The table below illustrates the configured risk parameters for **GHO**
 | Liquidation Protocol Fee  |                                        0 % |
 | Reserve Factor            |                                       10 % |
 | Base Variable Borrow Rate |                                        0 % |
-| Variable Slope 1          |                                       12 % |
-| Variable Slope 2          |                                       65 % |
+| Variable Slope 1          |                                      9.5 % |
+| Variable Slope 2          |                                       50 % |
 | Uoptimal                  |                                       90 % |
 | Flashloanable             |                                    ENABLED |
 | Siloed Borrowing          |                                   DISABLED |

@@ -64,8 +64,8 @@ contract AaveV3Base_GHOBaseListing_20241223 is AaveV3PayloadBase {
       rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
         optimalUsageRatio: 90_00,
         baseVariableBorrowRate: 0,
-        variableRateSlope1: 12_00,
-        variableRateSlope2: 65_00
+        variableRateSlope1: 9_50,
+        variableRateSlope2: 50_00
       })
     });
 

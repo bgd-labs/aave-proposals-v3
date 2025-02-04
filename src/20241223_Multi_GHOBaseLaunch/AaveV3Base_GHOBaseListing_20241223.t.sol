@@ -190,8 +190,8 @@ contract AaveV3Base_GHOBaseListing_20241223_Stewards is AaveV3Base_GHOBaseListin
       memory currentRateData = IDefaultInterestRateStrategyV2.InterestRateData({
         optimalUsageRatio: 90_00,
         baseVariableBorrowRate: 0,
-        variableRateSlope1: 12_00,
-        variableRateSlope2: 65_00
+        variableRateSlope1: 9_50,
+        variableRateSlope2: 50_00
       });
 
     assertEq(irStrategy.getInterestRateDataBps(address(GHO_TOKEN)), currentRateData);

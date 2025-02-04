@@ -38,11 +38,11 @@
 | virtualAccountingActive | true |
 | virtualBalance | 1 GHO [1000000000000000000] |
 | optimalUsageRatio | 90 % |
-| maxVariableBorrowRate | 77 % |
+| maxVariableBorrowRate | 59.5 % |
 | baseVariableBorrowRate | 0 % |
-| variableRateSlope1 | 12 % |
-| variableRateSlope2 | 65 % |
-| interestRate | ![ir](https://dash.onaave.com/api/static?variableRateSlope1=120000000000000000000000000&variableRateSlope2=650000000000000000000000000&optimalUsageRatio=900000000000000000000000000&baseVariableBorrowRate=0&maxVariableBorrowRate=770000000000000000000000000) |
+| variableRateSlope1 | 9.5 % |
+| variableRateSlope2 | 50 % |
+| interestRate | ![ir](https://dash.onaave.com/api/static?variableRateSlope1=95000000000000000000000000&variableRateSlope2=500000000000000000000000000&optimalUsageRatio=900000000000000000000000000&baseVariableBorrowRate=0&maxVariableBorrowRate=595000000000000000000000000) |
 
 
 ## Raw diff
@@ -95,10 +95,10 @@
       "to": {
         "address": "0x86AB1C62A8bf868E1b3E1ab87d587Aba6fbCbDC5",
         "baseVariableBorrowRate": "0",
-        "maxVariableBorrowRate": "770000000000000000000000000",
+        "maxVariableBorrowRate": "595000000000000000000000000",
         "optimalUsageRatio": "900000000000000000000000000",
-        "variableRateSlope1": "120000000000000000000000000",
-        "variableRateSlope2": "650000000000000000000000000"
+        "variableRateSlope1": "95000000000000000000000000",
+        "variableRateSlope2": "500000000000000000000000000"
       }
     }
   },
@@ -273,7 +273,7 @@
         "stateDiff": {
           "0xc982d0ced1f8c746631cfe3f49173ca3ba25fe902be9cce56024300ebb89fd7a": {
             "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-            "newValue": "0x00000000000000000000000000000000000000001964000004b0000000002328"
+            "newValue": "0x00000000000000000000000000000000000000001388000003b6000000002328"
           }
         }
       },
