@@ -32,7 +32,7 @@ USDS
 | Detail | Current | Proposed | Change |
 | ------ | ------- | -------- | ------ |
 | Base   | 0.75%   | 0.75%    | 0.00%  |
-| Slope1 | 11.75%  | 8.75%    | -3.00% |
+| Slope1 | 10.75%  | 8.75%    | -2.00% |
 | Slope2 | 35.00%  | 35.00%   | 0.00%  |
 
 Borrow Rate at Uoptimal 9.50% matching the proposed SSR.
