@@ -5,7 +5,7 @@ import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 import {MiscLinea} from 'aave-address-book/MiscLinea.sol';
 import {IEmissionManager} from 'aave-v3-origin/contracts/rewards/interfaces/IEmissionManager.sol';
 import {AaveV3Linea} from 'aave-address-book/AaveV3Linea.sol';
-import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
+import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 import {GovernanceV3Linea} from 'aave-address-book/GovernanceV3Linea.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Linea_AaveV3LineaActivation_20250121} from './AaveV3Linea_AaveV3LineaActivation_20250121.sol';
