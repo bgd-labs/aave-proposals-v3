@@ -24,7 +24,9 @@ All the governance procedures for the expansion of Aave v3 to Linea have been fi
 The proposal will do the following:
 
 - List the following assets on Aave V3 Linea: USDC, USDT, WETH, WBTC, wstETH, ezETH, weETH
-- Set the [guardian address](https://lineascan.build/address/0x0BF186764D8333a938f35e5dD124a7b9b9dccDF9) as the pool admin by executing `ACL_MANAGER.addPoolAdmin()`. This is following the standard procedure of keeping pool admin on the Aave Guardian during the bootstrap period, for security.
+- Set the [risk steward](https://lineascan.build/address/0x3238FC1d642b60F41a35f62570237656C85F4744) as the risk admin by executing `ACL_MANAGER.addRiskAdmin()`.
+- Set the [guardian address](https://lineascan.build/address/0x0BF186764D8333a938f35e5dD124a7b9b9dccDF9) as the pool admin by executing
+  `ACL_MANAGER.addPoolAdmin()`. This is following the standard procedure of keeping pool admin on the Aave Guardian during the bootstrap period, for security.
 - Set [ACI multi-sig](https://lineascan.build/address/0xac140648435d03f784879cd789130F22Ef588Fcd) as liquidity mining admin for all aTokens and underlying tokens by calling `EMISSION_MANAGER.setEmissionAdmin()` method.
 
 The table below illustrates the configured risk parameters for the assets to be listed:
@@ -96,8 +98,8 @@ The followings E-modes will be created:
 
 ## References
 
-- Implementation: [AaveV3Linea](https://github.com/bgd-labs/aave-proposals-v3/blob/3b2dd51598bd0a06ce56d181f5c33556c911bdbb/src/20250121_AaveV3Linea_AaveV3LineaActivation/AaveV3Linea_AaveV3LineaActivation_20250121.sol)
-- Tests: [AaveV3Linea](https://github.com/bgd-labs/aave-proposals-v3/blob/3b2dd51598bd0a06ce56d181f5c33556c911bdbb/src/20250121_AaveV3Linea_AaveV3LineaActivation/AaveV3Linea_AaveV3LineaActivation_20250121.t.sol)
+- Implementation: [AaveV3Linea](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250121_AaveV3Linea_AaveV3LineaActivation/AaveV3Linea_AaveV3LineaActivation_20250121.sol)
+- Tests: [AaveV3Linea](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250121_AaveV3Linea_AaveV3LineaActivation/AaveV3Linea_AaveV3LineaActivation_20250121.t.sol)
 - [Snapshot](https://snapshot.org/#/s:aave.eth/proposal/0x5ae276cb67c8d40868916e99f2ef113de02049dd412c3eb47539f97648f50878)
 - [Discussion](https://governance.aave.com/t/arfc-deployment-of-aave-on-linea/19852/6)
 

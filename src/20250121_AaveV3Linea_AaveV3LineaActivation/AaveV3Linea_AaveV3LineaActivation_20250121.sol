@@ -52,6 +52,7 @@ contract AaveV3Linea_AaveV3LineaActivation_20250121 is AaveV3PayloadLinea {
 
   function _postExecute() internal override {
     AaveV3Linea.ACL_MANAGER.addPoolAdmin(MiscLinea.PROTOCOL_GUARDIAN);
+    AaveV3Linea.ACL_MANAGER.addRiskAdmin(AaveV3Linea.RISK_STEWARD);
 
     _supplyAndConfigureLMAdmin(WETH, WETH_SEED_AMOUNT);
     _supplyAndConfigureLMAdmin(WBTC, WBTC_SEED_AMOUNT);

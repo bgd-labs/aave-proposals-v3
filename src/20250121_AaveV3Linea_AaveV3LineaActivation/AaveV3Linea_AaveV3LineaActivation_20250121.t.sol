@@ -18,11 +18,8 @@ contract AaveV3Linea_AaveV3LineaActivation_20250121_Test is ProtocolV3TestBase {
   AaveV3Linea_AaveV3LineaActivation_20250121 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('linea'), 14852350);
+    vm.createSelectFork(vm.rpcUrl('linea'), 15460898);
     proposal = new AaveV3Linea_AaveV3LineaActivation_20250121();
-
-    // TODO: remove after seeding
-    _seedFundsToExecutor();
   }
 
   /**
@@ -50,18 +47,10 @@ contract AaveV3Linea_AaveV3LineaActivation_20250121_Test is ProtocolV3TestBase {
     assertTrue(AaveV3Linea.ACL_MANAGER.isPoolAdmin(MiscLinea.PROTOCOL_GUARDIAN));
   }
 
-  function _seedFundsToExecutor() public {
-    deal(proposal.WETH(), address(GovernanceV3Linea.EXECUTOR_LVL_1), proposal.WETH_SEED_AMOUNT());
-    deal(proposal.WBTC(), address(GovernanceV3Linea.EXECUTOR_LVL_1), proposal.WBTC_SEED_AMOUNT());
-    deal(proposal.USDC(), address(GovernanceV3Linea.EXECUTOR_LVL_1), proposal.USDC_SEED_AMOUNT());
-    deal(proposal.USDT(), address(GovernanceV3Linea.EXECUTOR_LVL_1), proposal.USDT_SEED_AMOUNT());
-    deal(
-      proposal.wstETH(),
-      address(GovernanceV3Linea.EXECUTOR_LVL_1),
-      proposal.wstETH_SEED_AMOUNT()
-    );
-    deal(proposal.weETH(), address(GovernanceV3Linea.EXECUTOR_LVL_1), proposal.weETH_SEED_AMOUNT());
-    deal(proposal.ezETH(), address(GovernanceV3Linea.EXECUTOR_LVL_1), proposal.ezETH_SEED_AMOUNT());
+  function test_riskStewardRiskAdmin() public {
+    assertFalse(AaveV3Linea.ACL_MANAGER.isRiskAdmin(AaveV3Linea.RISK_STEWARD));
+    executePayload(vm, address(proposal));
+    assertTrue(AaveV3Linea.ACL_MANAGER.isRiskAdmin(AaveV3Linea.RISK_STEWARD));
   }
 
   function _validateCollectorFundsAndLMAdmin(address asset, uint256 seedAmount) internal view {
