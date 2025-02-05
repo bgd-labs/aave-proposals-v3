@@ -61,8 +61,8 @@ Borrow Rate at Uoptimal 9.50% matching the proposed SSR.
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250203_Multi_UpdateUSDSGHOBorrowRate/AaveV3Ethereum_UpdateUSDSGHOBorrowRate_20250203.sol), [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250203_Multi_UpdateUSDSGHOBorrowRate/AaveV3EthereumLido_UpdateUSDSGHOBorrowRate_20250203.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250203_Multi_UpdateUSDSGHOBorrowRate/AaveV3Ethereum_UpdateUSDSGHOBorrowRate_20250203.t.sol), [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250203_Multi_UpdateUSDSGHOBorrowRate/AaveV3EthereumLido_UpdateUSDSGHOBorrowRate_20250203.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/c0b22d6f596ffda65b42f2539e63bf68308e580f/src/20250203_Multi_UpdateUSDSGHOBorrowRate/AaveV3Ethereum_UpdateUSDSGHOBorrowRate_20250203.sol), [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/c0b22d6f596ffda65b42f2539e63bf68308e580f/src/20250203_Multi_UpdateUSDSGHOBorrowRate/AaveV3EthereumLido_UpdateUSDSGHOBorrowRate_20250203.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/c0b22d6f596ffda65b42f2539e63bf68308e580f/src/20250203_Multi_UpdateUSDSGHOBorrowRate/AaveV3Ethereum_UpdateUSDSGHOBorrowRate_20250203.t.sol), [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/c0b22d6f596ffda65b42f2539e63bf68308e580f/src/20250203_Multi_UpdateUSDSGHOBorrowRate/AaveV3EthereumLido_UpdateUSDSGHOBorrowRate_20250203.t.sol)
 - Snapshot: Direct-to-AIP
 - [Discussion](https://governance.aave.com/t/arfc-update-usds-gho-borrow-rate/20892)
 
