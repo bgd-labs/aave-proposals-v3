@@ -64,14 +64,14 @@ Migrate the following assets from Aave v2 to v3 on the respective network.
 
 Where it says All-1, it refers to all available liquidity minus 1 unit as to not drain the pool where possible. In other pools, it will be as much as is available to withdraw.
 
-|   Ethereum    |    Avalanche    |     Polygon     |
-| :-----------: | :-------------: | :-------------: |
-| aWETH (All-1) | avWETH (All-1)  | amWMATIC (All-1)|
-| aWBTC (All-1) |  avDAI (All-1)  | amUSDT (All-1)  |
-| aLINK (All-1) | avWAVAX (All-1) |                 |
-| aMKR (All-1)  |                 |                 |
-| aUSDC (1.5M)  |                 |                 |
-| aUSDT (2.0M)  |                 |                 |
+|   Ethereum    |    Avalanche    |     Polygon      |
+| :-----------: | :-------------: | :--------------: |
+| aWETH (All-1) | avWETH (All-1)  | amWMATIC (All-1) |
+| aWBTC (All-1) |  avDAI (All-1)  |  amUSDT (All-1)  |
+| aLINK (All-1) | avWAVAX (All-1) |                  |
+| aMKR (All-1)  |                 |                  |
+| aUSDC (1.5M)  |                 |                  |
+| aUSDT (2.0M)  |                 |                  |
 
 Funds are to be deposited into the Core deployment on Ethereum and Aave v3 on the respective networks.
 
@@ -136,8 +136,8 @@ ALC SAFE: `0xA1c93D2687f7014Aaf588c764E3Ce80aF016229b`
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250120_Multi_FebruaryFundingUpdate/AaveV3Ethereum_FebruaryFundingUpdate_20250120.sol), [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250120_Multi_FebruaryFundingUpdate/AaveV3Polygon_FebruaryFundingUpdate_20250120.sol), [AaveV3Optimism](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250120_Multi_FebruaryFundingUpdate/AaveV3Optimism_FebruaryFundingUpdate_20250120.sol), [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250120_Multi_FebruaryFundingUpdate/AaveV3Avalanche_FebruaryFundingUpdate_20250120.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250120_Multi_FebruaryFundingUpdate/AaveV3Ethereum_FebruaryFundingUpdate_20250120.t.sol), [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250120_Multi_FebruaryFundingUpdate/AaveV3Polygon_FebruaryFundingUpdate_20250120.t.sol), [AaveV3Optimism](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250120_Multi_FebruaryFundingUpdate/AaveV3Optimism_FebruaryFundingUpdate_20250120.t.sol), [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250120_Multi_FebruaryFundingUpdate/AaveV3Avalanche_FebruaryFundingUpdate_20250120.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/d4315b05ce432030592d821a0d3de99735534dac/src/20250120_Multi_FebruaryFundingUpdate/AaveV3Ethereum_FebruaryFundingUpdate_20250120.sol), [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/d4315b05ce432030592d821a0d3de99735534dac/src/20250120_Multi_FebruaryFundingUpdate/AaveV3Polygon_FebruaryFundingUpdate_20250120.sol), [AaveV3Optimism](https://github.com/bgd-labs/aave-proposals-v3/blob/d4315b05ce432030592d821a0d3de99735534dac/src/20250120_Multi_FebruaryFundingUpdate/AaveV3Optimism_FebruaryFundingUpdate_20250120.sol), [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/d4315b05ce432030592d821a0d3de99735534dac/src/20250120_Multi_FebruaryFundingUpdate/AaveV3Avalanche_FebruaryFundingUpdate_20250120.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/d4315b05ce432030592d821a0d3de99735534dac/src/20250120_Multi_FebruaryFundingUpdate/AaveV3Ethereum_FebruaryFundingUpdate_20250120.t.sol), [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/d4315b05ce432030592d821a0d3de99735534dac/src/20250120_Multi_FebruaryFundingUpdate/AaveV3Polygon_FebruaryFundingUpdate_20250120.t.sol), [AaveV3Optimism](https://github.com/bgd-labs/aave-proposals-v3/blob/d4315b05ce432030592d821a0d3de99735534dac/src/20250120_Multi_FebruaryFundingUpdate/AaveV3Optimism_FebruaryFundingUpdate_20250120.t.sol), [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/d4315b05ce432030592d821a0d3de99735534dac/src/20250120_Multi_FebruaryFundingUpdate/AaveV3Avalanche_FebruaryFundingUpdate_20250120.t.sol)
 - Snapshot: Direct-to-AIP
 - [Discussion](https://governance.aave.com/t/arfc-february-funding-update/20712)
 
