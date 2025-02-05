@@ -12,9 +12,10 @@ import {
   gnosis,
   scroll,
   zkSync,
+  linea,
 } from 'viem/chains';
-import {Client, Hex, getAddress} from 'viem';
-import {CHAIN_ID_CLIENT_MAP} from '@bgd-labs/js-utils';
+import {Hex, getAddress} from 'viem';
+import {getClient} from '@bgd-labs/rpc-env';
 
 export const AVAILABLE_CHAINS = [
   'Ethereum',
@@ -30,6 +31,7 @@ export const AVAILABLE_CHAINS = [
   'Gnosis',
   'Scroll',
   'ZkSync',
+  'Linea',
 ] as const;
 
 export function getAssets(pool: PoolIdentifier): string[] {
@@ -60,7 +62,7 @@ export function getPoolChain(pool: PoolIdentifier) {
 }
 
 export function getExplorerLink(chainId: number, address: Hex) {
-  const client = CHAIN_ID_CLIENT_MAP[chainId];
+  const client = getClient(chainId, {});
   let url = client.chain?.blockExplorers?.default.url;
   if (url && url.endsWith('/')) {
     url = url.slice(0, -1); // sanitize explorer url
@@ -134,6 +136,7 @@ export const CHAIN_TO_CHAIN_ID = {
   Gnosis: gnosis.id,
   Scroll: scroll.id,
   ZkSync: zkSync.id,
+  Linea: linea.id,
 };
 
 export function flagAsRequired(message: string, required?: boolean) {
