@@ -105,13 +105,12 @@ contract CreateProposal is EthereumScript {
     );
     payloads[2] = GovV3Helpers.buildScrollPayload(vm, actionsScroll);
 
-    IPayloadsControllerCore.ExecutionAction[]
-      memory actionsZkSync = new IPayloadsControllerCore.ExecutionAction[](1);
-    actionsZkSync[0] = GovV3Helpers.buildActionZkSync(
-      vm,
-      'AaveV3ZkSync_WstETHBorrowRateUpdate_20250128'
-    );
-    payloads[3] = GovV3Helpers.buildZkSyncPayload(vm, actionsZkSync);
+    payloads[3] = PayloadsControllerUtils.Payload({
+      chain: ChainIds.ZKSYNC,
+      accessLevel: PayloadsControllerUtils.AccessControl.Level_1,
+      payloadsController: address(GovernanceV3ZkSync.PAYLOADS_CONTROLLER),
+      payloadId: 14
+    });
 
     // create proposal
     vm.startBroadcast();
