@@ -25,8 +25,8 @@ Freeze the stMATIC reserve on the Aave V3 Polygon market.
 
 ## References
 
-- Implementation: [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250203_AaveV3Polygon_SunsetStMATICOnPolygonInstance/AaveV3Polygon_SunsetStMATICOnPolygonInstance_20250203.sol)
-- Tests: [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250203_AaveV3Polygon_SunsetStMATICOnPolygonInstance/AaveV3Polygon_SunsetStMATICOnPolygonInstance_20250203.t.sol)
+- Implementation: [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/07d6b3ad264f9611fa9744b174aaa02cde5e3af5/src/20250203_AaveV3Polygon_SunsetStMATICOnPolygonInstance/AaveV3Polygon_SunsetStMATICOnPolygonInstance_20250203.sol)
+- Tests: [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/07d6b3ad264f9611fa9744b174aaa02cde5e3af5/src/20250203_AaveV3Polygon_SunsetStMATICOnPolygonInstance/AaveV3Polygon_SunsetStMATICOnPolygonInstance_20250203.t.sol)
 - [Snapshot](https://snapshot.box/#/s:aave.eth/proposal/0xae420f7c844f2ef26dd74a1ed1b4b197aad5b15a8b9c1795a0c205025988fd66)
 - [Discussion](https://governance.aave.com/t/arfc-sunset-stmatic-on-polygon-instance/20668)
 
