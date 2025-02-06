@@ -280,8 +280,7 @@ contract CreateProposal is EthereumScript {
     actionsBNB[0] = GovV3Helpers.buildAction(Payloads.BNB);
     payloads[9] = GovV3Helpers.buildBNBPayload(vm, actionsBNB);
 
-    uint40 payloadId = 0;
-    require(payloadId != 0);
+    uint40 payloadId = 15;
     payloads[10] = PayloadsControllerUtils.Payload({
       chain: ChainIds.ZKSYNC,
       accessLevel: PayloadsControllerUtils.AccessControl.Level_1,
