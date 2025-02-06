@@ -13,6 +13,6 @@ contract PaymentPayload is IProposalGenericExecutor {
   uint256 public constant AMOUNT = 66_400e6;
 
   function execute() external {
-    AaveV3Ethereum.COLLECTOR.transfer(AaveV3EthereumAssets.USDC_UNDERLYING, BGD, AMOUNT);
+    AaveV3Ethereum.COLLECTOR.transfer(AaveV3EthereumAssets.USDC_A_TOKEN, BGD, AMOUNT);
   }
 }

@@ -11,7 +11,7 @@ This proposal will upgrade all active Aave instances to version v3.3.0.
 ## Motivation
 
 Back in december we(BGD Labs) [proposed](https://governance.aave.com/t/bgd-aave-v3-3-feat-umbrella/20129) the Aave v3.3.0 upgrade which improves the liquidation engine, to support the previously proposed [Umbrella](https://governance.aave.com/t/bgd-aave-safety-module-umbrella/18366) proposal.
-With the proposal being executed, the Aave Protocol will start tracking bad debt, which can then be used as a parameter on Umbrella to slash stakers.
+With the proposal being executed, the Aave Protocol will start tracking bad debt, which can then be used as an input on Umbrella to slash stakers & cover the realized deficit.
 
 ## Specification
 
@@ -21,6 +21,8 @@ In practice this means:
 1. the pool implementation will be upgraded via a call to `POOL_ADDRESSES_PROVIDER.setPoolImpl(newImpl)`
 2. the pool configurator will be upgraded via a call to `POOL_ADDRESSES_PROVIDER.setPoolConfiguratorImpl(poolConfiguratorImpl)`
 3. the pool data provider will be replaced via a call to `POOL_ADDRESSES_PROVIDER.setPoolDataProvider(newPoolDataProvider)`
+
+In addition the proposal will transfer 66.400$ in aUSDC to a wallet controlled by BGD to cover audit costs.
 
 ## Security procedures
 
