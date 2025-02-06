@@ -133,7 +133,7 @@ contract CreateProposal is EthereumScript {
     actionsAvalanche[0] = GovV3Helpers.buildAction(
       type(AaveV3Avalanche_FebruaryFundingUpdate_20250120).creationCode
     );
-    payloads[3] = GovV3Helpers.buildArbitrumPayload(vm, actionsAvalanche);
+    payloads[3] = GovV3Helpers.buildAvalanchePayload(vm, actionsAvalanche);
 
     // create proposal
     vm.startBroadcast();
