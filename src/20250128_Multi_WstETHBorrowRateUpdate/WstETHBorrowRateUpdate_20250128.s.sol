@@ -3,6 +3,7 @@ pragma solidity ^0.8.0;
 
 import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aave-helpers/src/GovV3Helpers.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
+import {GovernanceV3ZkSync} from 'aave-address-book/GovernanceV3ZkSync.sol';
 import {EthereumScript, ArbitrumScript, BaseScript, ScrollScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
 import {AaveV3Arbitrum_WstETHBorrowRateUpdate_20250128} from './AaveV3Arbitrum_WstETHBorrowRateUpdate_20250128.sol';
 import {AaveV3Base_WstETHBorrowRateUpdate_20250128} from './AaveV3Base_WstETHBorrowRateUpdate_20250128.sol';
@@ -105,13 +106,12 @@ contract CreateProposal is EthereumScript {
     );
     payloads[2] = GovV3Helpers.buildScrollPayload(vm, actionsScroll);
 
-    IPayloadsControllerCore.ExecutionAction[]
-      memory actionsZkSync = new IPayloadsControllerCore.ExecutionAction[](1);
-    actionsZkSync[0] = GovV3Helpers.buildActionZkSync(
-      vm,
-      'AaveV3ZkSync_WstETHBorrowRateUpdate_20250128'
-    );
-    payloads[3] = GovV3Helpers.buildZkSyncPayload(vm, actionsZkSync);
+    payloads[3] = PayloadsControllerUtils.Payload({
+      chain: 324,
+      accessLevel: PayloadsControllerUtils.AccessControl.Level_1,
+      payloadsController: address(GovernanceV3ZkSync.PAYLOADS_CONTROLLER),
+      payloadId: 14
+    });
 
     // create proposal
     vm.startBroadcast();
