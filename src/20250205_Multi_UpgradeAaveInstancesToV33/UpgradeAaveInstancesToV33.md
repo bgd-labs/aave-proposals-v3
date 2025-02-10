@@ -33,7 +33,7 @@ The v3.3.0 upgrade was audited by:
 - [Oxorio](https://github.com/bgd-labs/aave-v3-origin/blob/v3.3.0/audits/2025-01-29_Oxorio_Aave-v3.3.0.pdf)
 
 In addition a [Sherlock Audit Contest](https://governance.aave.com/t/arfc-bgd-aave-v3-3-sherlock-contest/20498/2) was performed from `13.01.25 - 22.01.25`.
-You can find the related audit report [here](todo).
+You can find the related audit report [here](https://github.com/aave-dao/aave-v3-origin/blob/v3.3.0/audits/2025-01-22_Sherlock_Aave-v3.3.0.pdf).
 
 ## References
 
