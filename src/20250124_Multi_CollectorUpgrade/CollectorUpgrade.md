@@ -8,6 +8,8 @@ discussions: "https://governance.aave.com/t/technical-maintenance-proposals/1527
 
 This proposal will upgrade the Aave Collector across all networks, to allow **multiple** funds admins.
 
+This is a resubmission of [Proposal 237](https://vote.onaave.com/proposal/?proposalId=237&ipfsHash=0xa79bea5c305b0e5fb9a32e403c0d647db3278e46a0f302f94b0f172cb6060e98), which was [cancelled](https://governance.aave.com/t/technical-maintenance-proposals/15274/67) due to a detected inconsistency between networks.
+
 ## Motivation
 
 Currently, the Aave Collector (treasury smart contract of the DAO, one per network) is managed by a single `Funds Admin` role, which across all Aave instances is configured to be the Governance Level 1 Executor (Short).
@@ -23,6 +25,7 @@ As the new version of the Collector implements AccessControl from OZ and removes
 ## References
 
 - [Implementation](https://github.com/bgd-labs/collector-upgrade-rev6/blob/main/src/CollectorWithCustomImpl.sol), [Linea & Zksync Implementation](https://github.com/bgd-labs/collector-upgrade-rev6/blob/main/src/CollectorWithCustomImplNewLayout.sol)
+- [Code Diffs](https://github.com/bgd-labs/collector-upgrade-rev6/tree/main/diffs)
 - [Tests](https://github.com/bgd-labs/collector-upgrade-rev6/tree/main/test)
 - [Audit](https://github.com/aave-dao/aave-v3-origin/blob/fbf5c91d7b3f34fff44ac2affdcce5e809889098/audits/2025-01-20_Certora_CollectorRev6.pdf)
 - [Upgraded Code](https://github.com/aave-dao/aave-v3-origin/blob/fbf5c91d7b3f34fff44ac2affdcce5e809889098/src/contracts/treasury/Collector.sol), [Code Changes](https://github.com/aave-dao/aave-v3-origin/pull/84)

@@ -98,5 +98,4 @@ scroll = { key = "${ETHERSCAN_API_KEY_SCROLL}", chainId = 534352 }
 zksync = { key = "${ETHERSCAN_API_KEY_ZKSYNC}", chain = 324 }
 linea = { key = "${ETHERSCAN_API_KEY_LINEA}", chain = 59144 }
 
-
 # See more config options https://github.com/gakonst/foundry/tree/master/config
