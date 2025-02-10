@@ -10,6 +10,10 @@ Re-enable stkBPT incentives emissions for 180 days after previous period ended.
 
 ## Motivation
 
+With the conclusion of the recent reward cycle, this proposal aims to renew $AAVE emissions for stkBPT holders. The stkBPT module has proven to be a crucial mechanism as an AAVE supply sink, currently holding a TVL of $1.6B. It is recommended to maintain these emissions in anticipation of upcoming Umbrella developments, with adjustments to be made following the outcomes of the Umbrella upgrade.
+
+More information on stkBPT can be found in the following dashboard, [here](https://dune.com/xmc2/aave-safety-module).
+
 ## Specification
 
 - Set new allowance to 360 AAVE per day for 180 days
