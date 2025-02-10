@@ -1,0 +1,1001 @@
+## Reserve changes
+
+### Reserve altered
+
+#### wstETH ([0x03b54A6e9a984069379fae1a4fC4dBAE93B3bCCD](https://polygonscan.com/address/0x03b54A6e9a984069379fae1a4fC4dBAE93B3bCCD))
+
+| description | value before | value after |
+| --- | --- | --- |
+| aTokenUnderlyingBalance | 9,628.2999 wstETH [9628299913880357834962] | 9,628.1550 wstETH [9628155091188362125962] |
+| virtualBalance | 9,628.2999 wstETH [9628299911146747761131] | 9,628.1550 wstETH [9628155088454752052131] |
+
+
+#### CRV ([0x172370d5Cd63279eFa6d502DAB29171933a610AF](https://polygonscan.com/address/0x172370d5Cd63279eFa6d502DAB29171933a610AF))
+
+| description | value before | value after |
+| --- | --- | --- |
+| aTokenUnderlyingBalance | 88,755.0840 CRV [88755084092708314062041] | 87,548.8492 CRV [87548849248896262655960] |
+| virtualBalance | 88,754.6765 CRV [88754676508568944946741] | 87,548.4416 CRV [87548441664756893540660] |
+
+
+#### USDC ([0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174](https://polygonscan.com/address/0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174))
+
+| description | value before | value after |
+| --- | --- | --- |
+| aTokenUnderlyingBalance | 1,452,679.1633 USDC [1452679163367] | 1,309,790.2052 USDC [1309790205216] |
+| virtualBalance | 1,452,500.9377 USDC [1452500937764] | 1,309,611.9796 USDC [1309611979613] |
+
+
+#### stMATIC ([0x3A58a54C066FdC0f2D55FC9C89F0415C92eBf3C4](https://polygonscan.com/address/0x3A58a54C066FdC0f2D55FC9C89F0415C92eBf3C4))
+
+| description | value before | value after |
+| --- | --- | --- |
+| aTokenUnderlyingBalance | 25,713,017.3043 stMATIC [25713017304366419888357553] | 25,689,246.5155 stMATIC [25689246515522167086460327] |
+| virtualBalance | 25,713,017.3043 stMATIC [25713017304366419888357553] | 25,689,246.5155 stMATIC [25689246515522167086460327] |
+
+
+#### WETH ([0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619](https://polygonscan.com/address/0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619))
+
+| description | value before | value after |
+| --- | --- | --- |
+| aTokenUnderlyingBalance | 14,455.4794 WETH [14455479438169398998558] | 14,355.3250 WETH [14355325056100239618399] |
+| virtualBalance | 14,455.4794 WETH [14455479438169398998558] | 14,355.3250 WETH [14355325056100239618399] |
+
+
+#### DPI ([0x85955046DF4668e1DD369D2DE9f3AEB98DD2A369](https://polygonscan.com/address/0x85955046DF4668e1DD369D2DE9f3AEB98DD2A369))
+
+| description | value before | value after |
+| --- | --- | --- |
+| aTokenUnderlyingBalance | 260.2567 DPI [260256714926005885899] | 223.8883 DPI [223888389984379326640] |
+| virtualBalance | 260.2567 DPI [260256714926005885899] | 223.8883 DPI [223888389984379326640] |
+
+
+#### DAI ([0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063](https://polygonscan.com/address/0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063))
+
+| description | value before | value after |
+| --- | --- | --- |
+| aTokenUnderlyingBalance | 2,406,228.8817 DAI [2406228881771044043286518] | 1,581,895.9386 DAI [1581895938646336092941460] |
+| virtualBalance | 2,406,067.9857 DAI [2406067985793253298570060] | 1,581,735.0426 DAI [1581735042668545348225002] |
+
+
+#### BAL ([0x9a71012B13CA4d3D0Cdc72A177DF3ef03b0E76A3](https://polygonscan.com/address/0x9a71012B13CA4d3D0Cdc72A177DF3ef03b0E76A3))
+
+| description | value before | value after |
+| --- | --- | --- |
+| aTokenUnderlyingBalance | 156,131.2760 BAL [156131276085321300790579] | 155,683.9936 BAL [155683993680991044017698] |
+| virtualBalance | 156,130.6421 BAL [156130642150814305526428] | 155,683.3597 BAL [155683359746484048753547] |
+
+
+#### AAVE ([0xD6DF932A45C0f255f85145f286eA0b292B21C90B](https://polygonscan.com/address/0xD6DF932A45C0f255f85145f286eA0b292B21C90B))
+
+| description | value before | value after |
+| --- | --- | --- |
+| aTokenUnderlyingBalance | 56,063.4947 AAVE [56063494707295834161993] | 55,990.7559 AAVE [55990755936972216136081] |
+| virtualBalance | 56,063.4947 AAVE [56063494707295834161993] | 55,990.7559 AAVE [55990755936972216136081] |
+
+
+## Raw diff
+
+```json
+{
+  "reserves": {
+    "0x03b54A6e9a984069379fae1a4fC4dBAE93B3bCCD": {
+      "aTokenUnderlyingBalance": {
+        "from": "9628299913880357834962",
+        "to": "9628155091188362125962"
+      },
+      "virtualBalance": {
+        "from": "9628299911146747761131",
+        "to": "9628155088454752052131"
+      }
+    },
+    "0x172370d5Cd63279eFa6d502DAB29171933a610AF": {
+      "aTokenUnderlyingBalance": {
+        "from": "88755084092708314062041",
+        "to": "87548849248896262655960"
+      },
+      "virtualBalance": {
+        "from": "88754676508568944946741",
+        "to": "87548441664756893540660"
+      }
+    },
+    "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174": {
+      "aTokenUnderlyingBalance": {
+        "from": "1452679163367",
+        "to": "1309790205216"
+      },
+      "virtualBalance": {
+        "from": "1452500937764",
+        "to": "1309611979613"
+      }
+    },
+    "0x3A58a54C066FdC0f2D55FC9C89F0415C92eBf3C4": {
+      "aTokenUnderlyingBalance": {
+        "from": "25713017304366419888357553",
+        "to": "25689246515522167086460327"
+      },
+      "virtualBalance": {
+        "from": "25713017304366419888357553",
+        "to": "25689246515522167086460327"
+      }
+    },
+    "0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619": {
+      "aTokenUnderlyingBalance": {
+        "from": "14455479438169398998558",
+        "to": "14355325056100239618399"
+      },
+      "virtualBalance": {
+        "from": "14455479438169398998558",
+        "to": "14355325056100239618399"
+      }
+    },
+    "0x85955046DF4668e1DD369D2DE9f3AEB98DD2A369": {
+      "aTokenUnderlyingBalance": {
+        "from": "260256714926005885899",
+        "to": "223888389984379326640"
+      },
+      "virtualBalance": {
+        "from": "260256714926005885899",
+        "to": "223888389984379326640"
+      }
+    },
+    "0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063": {
+      "aTokenUnderlyingBalance": {
+        "from": "2406228881771044043286518",
+        "to": "1581895938646336092941460"
+      },
+      "virtualBalance": {
+        "from": "2406067985793253298570060",
+        "to": "1581735042668545348225002"
+      }
+    },
+    "0x9a71012B13CA4d3D0Cdc72A177DF3ef03b0E76A3": {
+      "aTokenUnderlyingBalance": {
+        "from": "156131276085321300790579",
+        "to": "155683993680991044017698"
+      },
+      "virtualBalance": {
+        "from": "156130642150814305526428",
+        "to": "155683359746484048753547"
+      }
+    },
+    "0xD6DF932A45C0f255f85145f286eA0b292B21C90B": {
+      "aTokenUnderlyingBalance": {
+        "from": "56063494707295834161993",
+        "to": "55990755936972216136081"
+      },
+      "virtualBalance": {
+        "from": "56063494707295834161993",
+        "to": "55990755936972216136081"
+      }
+    }
+  },
+  "raw": {
+    "from": null,
+    "to": {
+      "0x020e452b463568f55bac6dc5afc8f0b62ea5f0f3": {
+        "label": null,
+        "balanceDiff": null,
+        "stateDiff": {}
+      },
+      "0x03b54a6e9a984069379fae1a4fc4dbae93b3bccd": {
+        "label": null,
+        "balanceDiff": null,
+        "stateDiff": {}
+      },
+      "0x0c84331e39d6658cd6e6b9ba04736cc4c4734351": {
+        "label": null,
+        "balanceDiff": null,
+        "stateDiff": {}
+      },
+      "0x1685d81212580dd4cda287616c2f6f4794927e18": {
+        "label": null,
+        "balanceDiff": null,
+        "stateDiff": {
+          "0x00442ec2441fd753f670d3536c6b6101053f5c53f11c6473f428494612505e56": {
+            "previousValue": "0x000000000883536883ba7c23c98e70200000000003f475e55bc1bc04425cc4e6",
+            "newValue": "0x0000000008867db5e324f8a09a0864600000000003f475e88025f33d3626d66e"
+          },
+          "0x00442ec2441fd753f670d3536c6b6101053f5c53f11c6473f428494612505e57": {
+            "previousValue": "0x000000000275ec64e6b021ef0bcb2ae00000000000000542ffdbcce0591ffd4a",
+            "newValue": "0x0000000002bc55b1f3bc3c409894a22700000000000006c2cf265c3d1389ee93"
+          },
+          "0x00442ec2441fd753f670d3536c6b6101053f5c53f11c6473f428494612505e58": {
+            "previousValue": "0x00000000000000000000000067a51ae40000000001ea249dff00d04b8b7519d6",
+            "newValue": "0x00000000000000000000000067a605aa00000000026626ab6ddcd0cbe2eed8ce"
+          },
+          "0x201dc2bc6b40dcc619854603f5defbd524e7218563b4d05d3c103cf254a59584": {
+            "previousValue": "0x00000000036d5e26b37ab21dc7f3527b0000000003427015061ca6ad483c4d12",
+            "newValue": "0x00000000036d5e27913a9e8b08f4d1c70000000003427015061d0bb28ee7f9f8"
+          },
+          "0x201dc2bc6b40dcc619854603f5defbd524e7218563b4d05d3c103cf254a59585": {
+            "previousValue": "0x00000000000f1d52cd6ccd5a314b85de00000000000000073d66f82c7d304eef",
+            "newValue": "0x00000000000f1e637f73003ffb88c7cd00000000000000073e6c3f3fb77fc57f"
+          },
+          "0x201dc2bc6b40dcc619854603f5defbd524e7218563b4d05d3c103cf254a59586": {
+            "previousValue": "0x00000000000000000000000067a60590000000000027ee120fa8d1330f4b85dd",
+            "newValue": "0x00000000000000000000000067a605aa000000000027ef22c1af0418d988c7cd"
+          },
+          "0x2981f9a83f4ca01d9421c057b85268492beda5ce4a7fe33b7e91863ff3371cb2": {
+            "previousValue": "0x0000000004fd9b700d3fd184c913084a00000000037c3366675ab6208f058736",
+            "newValue": "0x0000000004fd9b89bfccaf241472c98300000000037c336667b3deaf9b4b2600"
+          },
+          "0x2981f9a83f4ca01d9421c057b85268492beda5ce4a7fe33b7e91863ff3371cb3": {
+            "previousValue": "0x000000000133ed14c9ad3c056f94b23400000000000005f9ddcb49bef4308d09",
+            "newValue": "0x0000000002cbbdd8bf8cfcc943f952090000000000000fd87fceec9cbef6324a"
+          },
+          "0x2981f9a83f4ca01d9421c057b85268492beda5ce4a7fe33b7e91863ff3371cb4": {
+            "previousValue": "0x00000000000000000000000067a605900000000000c0dd4c423c4987e48987d1",
+            "newValue": "0x00000000000000000000000067a605aa0000000002006bde2b0473aeb6e7a95b"
+          },
+          "0x475b4e1403fc9b8cd7ec0a150c377534a03a1469ece713b73967e57e3d3d4213": {
+            "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000020",
+            "newValue": "0x0000000000000000000000000000000000000000000000000000000000000020"
+          },
+          "0xf7843b8f2b812a5b0c158d94a200621419463b93807076b78b3d2e243f36686f": {
+            "previousValue": "0x0000000004c5a4d21afff77818ea7b6000000000038618952ca354ef65ace84d",
+            "newValue": "0x0000000004c5a54c0ffc9bcaa4e1c17000000000038618952e813521ddf7135d"
+          },
+          "0xf7843b8f2b812a5b0c158d94a200621419463b93807076b78b3d2e243f366870": {
+            "previousValue": "0x00000000013b5e50e9365fc4a138720e00000000000006897918ea23d55e7616",
+            "newValue": "0x00000000029a7fb2e8eaf7741f7192450000000000000f0ef714b1ea744acb0b"
+          },
+          "0xf7843b8f2b812a5b0c158d94a200621419463b93807076b78b3d2e243f366871": {
+            "previousValue": "0x00000000000000000000000067a6052c0000000000f0185106b3874c6638720e",
+            "newValue": "0x00000000000000000000000067a605aa00000000024f39b306681efbe4719245"
+          }
+        }
+      },
+      "0x172370d5cd63279efa6d502dab29171933a610af": {
+        "label": null,
+        "balanceDiff": null,
+        "stateDiff": {}
+      },
+      "0x17f73aead876cc4059089ff815eda37052960dfb": {
+        "label": null,
+        "balanceDiff": null,
+        "stateDiff": {}
+      },
+      "0x1a13f4ca1d028320a707d99520abfefca3998b7f": {
+        "label": null,
+        "balanceDiff": null,
+        "stateDiff": {}
+      },
+      "0x1c2ba5b8ab8e795ff44387ba6d251fa65ad20b36": {
+        "label": null,
+        "balanceDiff": null,
+        "stateDiff": {}
+      },
+      "0x1d22ae684f479d3da97ca19ffb03e6349d345f24": {
+        "label": null,
+        "balanceDiff": null,
+        "stateDiff": {}
+      },
+      "0x2238101b7014c279aaf6b408a284e49cdbd5db55": {
+        "label": null,
+        "balanceDiff": null,
+        "stateDiff": {}
+      },
+      "0x230e0321cf38f09e247e50afc7801ea2351fe56f": {
+        "label": null,
+        "balanceDiff": null,
+        "stateDiff": {}
+      },
+      "0x248960a9d75edfa3de94f7193eae3161eb349a12": {
+        "label": null,
+        "balanceDiff": null,
+        "stateDiff": {}
+      },
+      "0x2791bca1f2de4661ed88a30c99a7a9449aa84174": {
+        "label": null,
+        "balanceDiff": null,
+        "stateDiff": {}
+      },
+      "0x27f8d03b3a2196956ed754badc28d73be8830a6e": {
+        "label": null,
+        "balanceDiff": null,
+        "stateDiff": {}
+      },
+      "0x28424507fefb6f7f8e9d3860f56504e4e5f5f390": {
+        "label": null,
+        "balanceDiff": null,
+        "stateDiff": {}
+      },
+      "0x2b22e425c1322fba0dbf17bb1da25d71811ee7ba": {
+        "label": null,
+        "balanceDiff": null,
+        "stateDiff": {
+          "0x2074557ae98d029f93e2e7da626a163f4ed6d3b09e02107794c8172629f3fa29": {
+            "previousValue": "0x00000000000c526f8289fa81ee29f87900000000037c22cbdc6267022720a18c",
+            "newValue": "0x00000000000c86a680107d4382172e9a00000000037c247a013852ac8c69043f"
+          },
+          "0x2074557ae98d029f93e2e7da626a163f4ed6d3b09e02107794c8172629f3fa2a": {
+            "previousValue": "0x000000000045c46934412b03a6fc56a50000000004420117f98862545ff98f33",
+            "newValue": "0x00000000004637cd4f6a5eac451636fe0000000004420cb7adcf61674b3cac92"
+          },
+          "0x2074557ae98d029f93e2e7da626a163f4ed6d3b09e02107794c8172629f3fa2b": {
+            "previousValue": "0x00000000000000000000080067a5c8d300000000000000000000000000000000",
+            "newValue": "0x00000000000000000000080067a605aa00000000000000000000000000000000"
+          },
+          "0x2074557ae98d029f93e2e7da626a163f4ed6d3b09e02107794c8172629f3fa30": {
+            "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+            "newValue": "0x00000000000000000000000000000000000000000000000006365163f46927e9"
+          },
+          "0x2074557ae98d029f93e2e7da626a163f4ed6d3b09e02107794c8172629f3fa31": {
+            "previousValue": "0x00000000000012cb66914a1d1700ae3500000000000000000000000000000000",
+            "newValue": "0x000000000000128a02b242929ae2e13400000000000000000000000000000000"
+          },
+          "0x475379e27c527238398e15278e7dc727f37d51a0b9441c05bf145844c06f985d": {
+            "previousValue": "0x0000000000000000000000000000000000000000033b4ccacde90dbd4379af1c",
+            "newValue": "0x0000000000000000000000000000000000000000033b4ccacde90dbd4379af1c"
+          },
+          "0x475379e27c527238398e15278e7dc727f37d51a0b9441c05bf145844c06f985e": {
+            "previousValue": "0x0000000000000000000000000000000000000000033b2e3c9fd0803ce8000000",
+            "newValue": "0x0000000000000000000000000000000000000000033b2e3c9fd0803ce8000000"
+          },
+          "0x475379e27c527238398e15278e7dc727f37d51a0b9441c05bf145844c06f985f": {
+            "previousValue": "0x00000000000000000000110067a5d9b800000000000000000000000000000000",
+            "newValue": "0x00000000000000000000110067a605aa00000000000000000000000000000000"
+          },
+          "0x475379e27c527238398e15278e7dc727f37d51a0b9441c05bf145844c06f9865": {
+            "previousValue": "0x00000000001544f1760c74e15544c0b100000000000000000000000000000000",
+            "newValue": "0x0000000000153fe8d815c611babf2da700000000000000000000000000000000"
+          },
+          "0x5086f8006fb47d4e8b7d07ce95e816ef3f62d9d614c3cca018dfb9c36698b59f": {
+            "previousValue": "0x00000000002a03859156f0dccde5dc090000000003a93a107b98e1a3696fa033",
+            "newValue": "0x00000000002b3c92f962578a6cbe555c0000000003a93a201cf1cca0f8e6a13c"
+          },
+          "0x5086f8006fb47d4e8b7d07ce95e816ef3f62d9d614c3cca018dfb9c36698b5a0": {
+            "previousValue": "0x00000000006240b3bc7837c1d191a8ec0000000003f451ba0c0346c096f82bed",
+            "newValue": "0x000000000063ac205a4fcbe6578906de0000000003f451e1873f408ef851768b"
+          },
+          "0x5086f8006fb47d4e8b7d07ce95e816ef3f62d9d614c3cca018dfb9c36698b5a1": {
+            "previousValue": "0x00000000000000000000020067a6050c00000000000000000000000000000000",
+            "newValue": "0x00000000000000000000020067a605aa00000000000000000000000000000000"
+          },
+          "0x5086f8006fb47d4e8b7d07ce95e816ef3f62d9d614c3cca018dfb9c36698b5a6": {
+            "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+            "newValue": "0x000000000000000000000000000000000000000000000000000000000022618d"
+          },
+          "0x5086f8006fb47d4e8b7d07ce95e816ef3f62d9d614c3cca018dfb9c36698b5a7": {
+            "previousValue": "0x0000000000000000000001522fcd6c2400000000000000000000000000000000",
+            "newValue": "0x000000000000000000000130eaf4f35d00000000000000000000000000000000"
+          },
+          "0x9690560edd96b8ad42bbefadc2405558072125d86547c092bfe966b61dcb42f6": {
+            "previousValue": "0x000000000029e5ec4d3ce20ba8228b770000000003ad203ad39d68288bff67d4",
+            "newValue": "0x000000000032fd7eb38295d81457adf00000000003ad20529a19cbcff99c7148"
+          },
+          "0x9690560edd96b8ad42bbefadc2405558072125d86547c092bfe966b61dcb42f7": {
+            "previousValue": "0x00000000004cd75dce91de2b202986d70000000003e7ba339216eaf2cb2b6b95",
+            "newValue": "0x000000000054c50acffc500cc1c1eebf0000000003e7ba61e3ca381802d95843"
+          },
+          "0x9690560edd96b8ad42bbefadc2405558072125d86547c092bfe966b61dcb42f8": {
+            "previousValue": "0x00000000000000000000000067a604ba00000000000000000000000000000000",
+            "newValue": "0x00000000000000000000000067a605aa00000000000000000000000000000000"
+          },
+          "0x9690560edd96b8ad42bbefadc2405558072125d86547c092bfe966b61dcb42fd": {
+            "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+            "newValue": "0x0000000000000000000000000000000000000000000000000dd049ee15544e49"
+          },
+          "0x9690560edd96b8ad42bbefadc2405558072125d86547c092bfe966b61dcb42fe": {
+            "previousValue": "0x000000000001fd8134f5406ccfc2834c00000000000000000000000000000000",
+            "newValue": "0x0000000000014ef2074a539e5acc47ea00000000000000000000000000000000"
+          },
+          "0x9d6c1570366f1668d7d7e0495b449910ee14e6c30b1e0ba28bdbefd7bc9bcf60": {
+            "previousValue": "0x000000000004c337de36e2fce6525aaa0000000003a34f75c4b7ac033fee0682",
+            "newValue": "0x000000000004c7b13ddb729765dc1a9f0000000003a3521334abac44bfc0f439"
+          },
+          "0x9d6c1570366f1668d7d7e0495b449910ee14e6c30b1e0ba28bdbefd7bc9bcf61": {
+            "previousValue": "0x00000000003ee4364f540d8a0f5a79f10000000004b712a352df93b5018782db",
+            "newValue": "0x00000000003ef3454aec290d667674a10000000004b73f65e58ed76407e8c7b2"
+          },
+          "0x9d6c1570366f1668d7d7e0495b449910ee14e6c30b1e0ba28bdbefd7bc9bcf62": {
+            "previousValue": "0x000000000000000000000b0067a51afe00000000000000000000000000000000",
+            "newValue": "0x000000000000000000000b0067a605aa00000000000000000000000000000000"
+          },
+          "0x9d6c1570366f1668d7d7e0495b449910ee14e6c30b1e0ba28bdbefd7bc9bcf67": {
+            "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+            "newValue": "0x00000000000000000000000000000000000000000000000005d4423260ff1e92"
+          },
+          "0x9d6c1570366f1668d7d7e0495b449910ee14e6c30b1e0ba28bdbefd7bc9bcf68": {
+            "previousValue": "0x000000000000210fdbec0c921530a29c00000000000000000000000000000000",
+            "newValue": "0x00000000000020f79ca1bba2d197f38b00000000000000000000000000000000"
+          },
+          "0xd449fc9fb262d3f5e51cacbd5c816fb9866cc63c91d2a0e5827976b5261df62f": {
+            "previousValue": "0x0000000000000430529fa29498b2f98600000000033c6003b3e3187d5680c369",
+            "newValue": "0x000000000000043057d00dfaf6b60f6e00000000033c6003f0fa7a6afc367de2"
+          },
+          "0xd449fc9fb262d3f5e51cacbd5c816fb9866cc63c91d2a0e5827976b5261df630": {
+            "previousValue": "0x0000000000029cf7a0987d3a1678dfe30000000003424178ad294fa2be5b48a4",
+            "newValue": "0x0000000000029cf82fa724aec135fd84000000000342419f0f09c707d947774f"
+          },
+          "0xd449fc9fb262d3f5e51cacbd5c816fb9866cc63c91d2a0e5827976b5261df631": {
+            "previousValue": "0x00000000000000000000130067a5ea4a00000000000000000000000000000000",
+            "newValue": "0x00000000000000000000130067a605aa00000000000000000000000000000000"
+          },
+          "0xd449fc9fb262d3f5e51cacbd5c816fb9866cc63c91d2a0e5827976b5261df636": {
+            "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+            "newValue": "0x0000000000000000000000000000000000000000000000000000020954f7fcad"
+          },
+          "0xd449fc9fb262d3f5e51cacbd5c816fb9866cc63c91d2a0e5827976b5261df637": {
+            "previousValue": "0x0000000000000209f380cc44cb0491eb00000000000000000000000000000000",
+            "newValue": "0x0000000000000209f17e48cc3332a3a300000000000000000000000000000000"
+          },
+          "0xd67bf10d5c46f1e93f3434747ed13a65c3e7075a81b91f597e14e161086c084e": {
+            "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+            "newValue": "0x0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "0xe38ffc20ad6c0cd9645840a827602aa56201288cee68bb886d2290fbc4e3bcba": {
+            "previousValue": "0x00000000000750e69b33b38130dc2587000000000347c29c820829c2823b970b",
+            "newValue": "0x0000000000075c460b9011afc345cba4000000000347c2a0b4cb02338911da28"
+          },
+          "0xe38ffc20ad6c0cd9645840a827602aa56201288cee68bb886d2290fbc4e3bcbb": {
+            "previousValue": "0x000000000013531393d8148b8a18d0d000000000036b5583fbda1f7d0ce8afd3",
+            "newValue": "0x0000000000135dfdbfc97c1b9c6316c600000000036b558f8afbf7b5b42e533b"
+          },
+          "0xe38ffc20ad6c0cd9645840a827602aa56201288cee68bb886d2290fbc4e3bcbc": {
+            "previousValue": "0x00000000000000000000040067a6049a00000000000000000000000000000000",
+            "newValue": "0x00000000000000000000040067a605aa00000000000000000000000000000000"
+          },
+          "0xe38ffc20ad6c0cd9645840a827602aa56201288cee68bb886d2290fbc4e3bcc1": {
+            "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+            "newValue": "0x00000000000000000000000000000000000000000000000000013a57f3e5052f"
+          },
+          "0xe38ffc20ad6c0cd9645840a827602aa56201288cee68bb886d2290fbc4e3bcc2": {
+            "previousValue": "0x000000000000030fa213889a4246761e00000000000000000000000000000000",
+            "newValue": "0x000000000000030a3427b0c05747315f00000000000000000000000000000000"
+          },
+          "0xfc8cf3b078b74c390422232f5effbbda16d920b580936e190b4535084eb74811": {
+            "previousValue": "0x0000000000000000000000000000000000000000033c1a311a574c7209044e17",
+            "newValue": "0x0000000000000000000000000000000000000000033c1a311a574c7209044e17"
+          },
+          "0xfc8cf3b078b74c390422232f5effbbda16d920b580936e190b4535084eb74812": {
+            "previousValue": "0x0000000000000000000000000000000000000000033b2e3c9fd0803ce8000000",
+            "newValue": "0x0000000000000000000000000000000000000000033b2e3c9fd0803ce8000000"
+          },
+          "0xfc8cf3b078b74c390422232f5effbbda16d920b580936e190b4535084eb74813": {
+            "previousValue": "0x00000000000000000000060067a6000e00000000000000000000000000000000",
+            "newValue": "0x00000000000000000000060067a605aa00000000000000000000000000000000"
+          },
+          "0xfc8cf3b078b74c390422232f5effbbda16d920b580936e190b4535084eb74819": {
+            "previousValue": "0x0000000000000bdf354887290099434900000000000000000000000000000000",
+            "newValue": "0x0000000000000bdb43d480eff69ef19100000000000000000000000000000000"
+          },
+          "0xfdae0ec7002c89e3fdc586b7b310cf574e67fe20ce66b3c19fc2b0a374542549": {
+            "previousValue": "0x00000000001588cfc0cf921a4fc0614b0000000003aee60e71c139dc4aaca7f5",
+            "newValue": "0x000000000028cb1c0cc48fa1a054fa480000000003af07cee27033e7ffe5d19c"
+          },
+          "0xfdae0ec7002c89e3fdc586b7b310cf574e67fe20ce66b3c19fc2b0a37454254a": {
+            "previousValue": "0x00000000004e099f4216b3a9835433170000000004c808ba9cb7e52956af3c17",
+            "newValue": "0x000000000087e78d042c7556bc18ce4c0000000004c8a78c85a2c1131c0eee42"
+          },
+          "0xfdae0ec7002c89e3fdc586b7b310cf574e67fe20ce66b3c19fc2b0a37454254b": {
+            "previousValue": "0x000000000000000000000c0067a3700500000000000000000000000000000000",
+            "newValue": "0x000000000000000000000c0067a605aa00000000000000000000000000000000"
+          },
+          "0xfdae0ec7002c89e3fdc586b7b310cf574e67fe20ce66b3c19fc2b0a374542550": {
+            "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+            "newValue": "0x000000000000000000000000000000000000000000000000006a239add75c76e"
+          },
+          "0xfdae0ec7002c89e3fdc586b7b310cf574e67fe20ce66b3c19fc2b0a374542551": {
+            "previousValue": "0x000000000000000e1bc9975376af1bcb00000000000000000000000000000000",
+            "newValue": "0x000000000000000c2313587ab10dd0b000000000000000000000000000000000"
+          }
+        }
+      },
+      "0x2c901a65071c077c78209b06ab2b5d8ec285ab84": {
+        "label": null,
+        "balanceDiff": null,
+        "stateDiff": {
+          "0x2bb7c964c5040e1a9547ab30b834e6759abbb571f28f8f28678fca864c9fc807": {
+            "previousValue": "0x00000000000000000000000067a51ae400000000000000000000000000000000",
+            "newValue": "0x00000000000000000000000067a605aa00000000000000000000000000000000"
+          },
+          "0x864b7fe346a309e5628d38c91b9f58083e8efebdd2332d2b16eb4e8194725cad": {
+            "previousValue": "0x00000000000000000000000067a6059000000000000000000000000000000000",
+            "newValue": "0x00000000000000000000000067a605aa00000000000000000000000000000000"
+          },
+          "0x8e3ae05077fb234c7ba18cf51118c1e5c684e4238cf10362ccde654adad0fba3": {
+            "previousValue": "0x00000000000000000000000067a6059000000000000000000000000000000000",
+            "newValue": "0x00000000000000000000000067a605aa00000000000000000000000000000000"
+          },
+          "0xb6b3241a5d0b8025371e48a397bbf3dac220e4aaced2c96588a6bab3a043a726": {
+            "previousValue": "0x00000000000000000000000067a6052c00000000000000000000000000000000",
+            "newValue": "0x00000000000000000000000067a605aa00000000000000000000000000000000"
+          }
+        }
+      },
+      "0x357d51124f59836ded84c8a1730d72b749d8bc23": {
+        "label": null,
+        "balanceDiff": null,
+        "stateDiff": {}
+      },
+      "0x3a58a54c066fdc0f2d55fc9c89f0415c92ebf3c4": {
+        "label": null,
+        "balanceDiff": null,
+        "stateDiff": {}
+      },
+      "0x401b5d0294e23637c18fcc38b1bca814cda2637c": {
+        "label": null,
+        "balanceDiff": null,
+        "stateDiff": {}
+      },
+      "0x490e379c9cff64944be82b849f8fd5972c7999a7": {
+        "label": null,
+        "balanceDiff": null,
+        "stateDiff": {
+          "0x0000000000000000000000000000000000000000000000000000000000000002": {
+            "previousValue": "0x0000000000000000000000000000000000000000004e59773930862d9c0056b4",
+            "newValue": "0x0000000000000000000000000000000000000000004d2b8e1edda0a8d5fe3602"
+          },
+          "0x5f68812dcd82c1e957747b26a90603dd5e99daf1ec7fd57c73b20605b8654764": {
+            "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+            "newValue": "0x0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "0xb8189f5af3bfacaa4f862593506e129c5b4eb0901c6e773fc8f536cbe796f0ac": {
+            "previousValue": "0x00000000000000000000000000000000000000000001fd89edd697c3263ce7f6",
+            "newValue": "0x000000000000000000000000000000000000000000014efac02baaf4b146ac94"
+          },
+          "0xf476c5a70c1aa932ec8c61f53145f7e9de0cac7e0776079427ee92975a8ce8bb": {
+            "previousValue": "0x00000000000000000000000000000000000000000000f9afe6072bdc600e0f80",
+            "newValue": "0x000000000000000000000000000000000000000000007a55f95f33260f022a30"
+          }
+        }
+      },
+      "0x513c7e3a9c69ca3e22550ef58ac1c0088e918fff": {
+        "label": null,
+        "balanceDiff": null,
+        "stateDiff": {}
+      },
+      "0x56076f960980d453b5b749cb6a1c4d2e4e138b1a": {
+        "label": null,
+        "balanceDiff": null,
+        "stateDiff": {}
+      },
+      "0x5dfb8c777c19d3cedcdc7398d2eef1fb0b9b05c9": {
+        "label": null,
+        "balanceDiff": null,
+        "stateDiff": {}
+      },
+      "0x5f4d15d761528c57a5c30c43c1dab26fc5452731": {
+        "label": null,
+        "balanceDiff": null,
+        "stateDiff": {
+          "0x75d35b7183f0c3f355bab6d1131fd8c23292158c1ab97f82ece30db788a7f426": {
+            "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+            "newValue": "0x0000000000000000000000000000000000000000000000000002fdc9ed95f364"
+          },
+          "0xc4990245d6f1838d0267a7323b8a863747bd6dc5f034971764227db401156ece": {
+            "previousValue": "0x6468b64067a5d9b8000000000b039d311f432e00000000000002fdc9ed95f364",
+            "newValue": "0x6468b64067a605aa000000000b039d311f432e00000000000002fdc9ed95f364"
+          }
+        }
+      },
+      "0x60991ccae8f1420b43bf14937a2c9f69162be21a": {
+        "label": null,
+        "balanceDiff": null,
+        "stateDiff": {
+          "0x0000000000000000000000000000000000000000000000000000000000000002": {
+            "previousValue": "0x000000000000000000000000000000000000000000000277cc61bdf13953ef08",
+            "newValue": "0x000000000000000000000000000000000000000000000277ca5f3a78a18200c0"
+          },
+          "0x15319410e7b0450f1c8c8f86128a3d4342ac06c4632e0ddbf46af43831230b0d": {
+            "previousValue": "0x000000000000000000000000000000000000000000000209f380cec142e010d2",
+            "newValue": "0x000000000000000000000000000000000000000000000209f17e4b48ab0e228a"
+          },
+          "0x5f68812dcd82c1e957747b26a90603dd5e99daf1ec7fd57c73b20605b8654764": {
+            "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+            "newValue": "0x0000000000000000000000000000000000000000000000000000000000000000"
+          }
+        }
+      },
+      "0x625e7708f30ca75bfd92586e17077590c60eb4cd": {
+        "label": null,
+        "balanceDiff": null,
+        "stateDiff": {}
+      },
+      "0x6264e51782d739caf515a1bd4f9ae6881b58621b": {
+        "label": null,
+        "balanceDiff": null,
+        "stateDiff": {
+          "0x0000000000000000000000000000000000000000000000000000000000000036": {
+            "previousValue": "0x000000000000000000000000000000000000000000000000000004644c965992",
+            "newValue": "0x0000000000000000000000000000000000000000000346e7d2d0b804a8a907b4"
+          },
+          "0x362ff6c57e9edddc5c568dc1d54741d6e98025f6ea18d715d638f67bcefb9ebc": {
+            "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+            "newValue": "0x0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "0xaf561f020a8f8c4f072d325aff6aad11decebb5083af314fbbf9748a44965847": {
+            "previousValue": "0x0000000000000000000000000000000000000000000000000000005cd3a5b97f",
+            "newValue": "0x0000000000000000000000000000000000000000000000001b7506c28255b42a"
+          }
+        }
+      },
+      "0x6b030ff3fb9956b1b69f475b77ae0d3cf2cc5afa": {
+        "label": null,
+        "balanceDiff": null,
+        "stateDiff": {}
+      },
+      "0x724dc807b04555b71ed48a6896b6f41593b8c637": {
+        "label": null,
+        "balanceDiff": null,
+        "stateDiff": {}
+      },
+      "0x72a053fa208eaafa53adb1a1ea6b4b2175b5735e": {
+        "label": null,
+        "balanceDiff": null,
+        "stateDiff": {}
+      },
+      "0x75c4d1fb84429023170086f06e682dcbbf537b7d": {
+        "label": null,
+        "balanceDiff": null,
+        "stateDiff": {}
+      },
+      "0x773e0e32e7b6a00b7ca9daa85dfba9d61b7f2574": {
+        "label": null,
+        "balanceDiff": null,
+        "stateDiff": {}
+      },
+      "0x77ca01483f379e58174739308945f044e1a764dc": {
+        "label": null,
+        "balanceDiff": null,
+        "stateDiff": {}
+      },
+      "0x77fa66882a8854d883101fb8501bd3cad347fc32": {
+        "label": null,
+        "balanceDiff": null,
+        "stateDiff": {}
+      },
+      "0x794a61358d6845594f94dc1db02a252b5b4814ad": {
+        "label": null,
+        "balanceDiff": null,
+        "stateDiff": {}
+      },
+      "0x79b5e91037ae441de0d9e6fd3fd85b96b83d4e93": {
+        "label": null,
+        "balanceDiff": null,
+        "stateDiff": {}
+      },
+      "0x7ceb23fd6bc0add59e62ac25578270cff1b9f619": {
+        "label": null,
+        "balanceDiff": null,
+        "stateDiff": {
+          "0x0000000000000000000000000000000000000000000000000000000000000002": {
+            "previousValue": "0x000000000000000000000000000000000000000000001e18f24e2e4d7a1f421b",
+            "newValue": "0x000000000000000000000000000000000000000000001e13542ca1289fe6cf21"
+          },
+          "0x404c34bd0414065c85c501e22c28753c400c01908285c9c107c0af3f1e3ecd1d": {
+            "previousValue": "0x00000000000000000000000000000000000000000000000016e215e859c7314b",
+            "newValue": "0x0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "0x505173813f2b7bedacff677593c0c7149f5abd8eab1504675212e0c76b4bf92d": {
+            "previousValue": "0x00000000000000000000000000000000000000000000014d350aae698b318adc",
+            "newValue": "0x00000000000000000000000000000000000000000000014d1bb70f06f5bf8dec"
+          },
+          "0x5f68812dcd82c1e957747b26a90603dd5e99daf1ec7fd57c73b20605b8654764": {
+            "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+            "newValue": "0x0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "0x74af457930c608f8b7c82f799f335ddd20db9c171ab22f6a784fdb1f0ddf3183": {
+            "previousValue": "0x00000000000000000000000000000000000000000000030fa213889a4246761e",
+            "newValue": "0x00000000000000000000000000000000000000000000030a3427b0c05747315f"
+          }
+        }
+      },
+      "0x80f2c02224a2e548fc67c0bf705ebfa825dd5439": {
+        "label": null,
+        "balanceDiff": null,
+        "stateDiff": {
+          "0x0000000000000000000000000000000000000000000000000000000000000036": {
+            "previousValue": "0x00000000000000000000000000000000000000000000005635aeb516f7243ed2",
+            "newValue": "0x0000000000000000000000000000000000000000000001644179e50c6e2ba67f"
+          },
+          "0x362ff6c57e9edddc5c568dc1d54741d6e98025f6ea18d715d638f67bcefb9ebc": {
+            "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+            "newValue": "0x0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "0xaf561f020a8f8c4f072d325aff6aad11decebb5083af314fbbf9748a44965847": {
+            "previousValue": "0x00000000000000000000000000000000000000000000000b9a731af1b568a92d",
+            "newValue": "0x0000000000000000000000000000000000000000000000000dc1d74c004eabd6"
+          }
+        }
+      },
+      "0x82e64f49ed5ec1bc6e43dad4fc8af9bb3a2312ee": {
+        "label": null,
+        "balanceDiff": null,
+        "stateDiff": {}
+      },
+      "0x85955046df4668e1dd369d2de9f3aeb98dd2a369": {
+        "label": null,
+        "balanceDiff": null,
+        "stateDiff": {}
+      },
+      "0x8619d80fb0141ba7f184cbf22fd724116d9f7ffc": {
+        "label": null,
+        "balanceDiff": null,
+        "stateDiff": {}
+      },
+      "0x8dff5e27ea6b7ac08ebfdf9eb090f32ee9a30fcf": {
+        "label": null,
+        "balanceDiff": null,
+        "stateDiff": {}
+      },
+      "0x8f3cf7ad23cd3cadbd9735aff958023239c6a063": {
+        "label": null,
+        "balanceDiff": null,
+        "stateDiff": {}
+      },
+      "0x8ffdf2de812095b1d19cb146e4c004587c0a0692": {
+        "label": null,
+        "balanceDiff": null,
+        "stateDiff": {}
+      },
+      "0x929ec64c34a17401f460460d4b9390518e5b473e": {
+        "label": null,
+        "balanceDiff": null,
+        "stateDiff": {}
+      },
+      "0x98125b30e2c3081a7f4625801ca249ecdfc59ea2": {
+        "label": null,
+        "balanceDiff": null,
+        "stateDiff": {
+          "0x0000000000000000000000000000000000000000000000000000000000000002": {
+            "previousValue": "0x000000000000000000000000000000000000000000084d628ba14d7e0b51d720",
+            "newValue": "0x000000000000000000000000000000000000000000084d136c71b88784a807b9"
+          },
+          "0x3dd621994a885a2330bfd022854f26ec35db21255ea2f3323b04654755b0353b": {
+            "previousValue": "0x0000000000000000000000000000000000000000000012cb6c3951ba9a2e9cd9",
+            "newValue": "0x00000000000000000000000000000000000000000000128a085a4a301e10cfd8"
+          },
+          "0x404c34bd0414065c85c501e22c28753c400c01908285c9c107c0af3f1e3ecd1d": {
+            "previousValue": "0x00000000000000000000000000000000000000000000000dbb508d6c0a8c0266",
+            "newValue": "0x0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "0x5f68812dcd82c1e957747b26a90603dd5e99daf1ec7fd57c73b20605b8654764": {
+            "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+            "newValue": "0x0000000000000000000000000000000000000000000000000000000000000000"
+          }
+        }
+      },
+      "0x9a71012b13ca4d3d0cdc72a177df3ef03b0e76a3": {
+        "label": null,
+        "balanceDiff": null,
+        "stateDiff": {}
+      },
+      "0xa8669021776bc142dfca87c21b4a52595bcbb40a": {
+        "label": null,
+        "balanceDiff": null,
+        "stateDiff": {}
+      },
+      "0xa97684ead0e402dc232d5a977953df7ecbab3cdb": {
+        "label": null,
+        "balanceDiff": null,
+        "stateDiff": {}
+      },
+      "0xad3b0017de2065cbeff6655fa7a83b42b9e4a3ce": {
+        "label": null,
+        "balanceDiff": null,
+        "stateDiff": {
+          "0x0000000000000000000000000000000000000000000000000000000000000002": {
+            "previousValue": "0x000000000000000000000000000000000000000000001a874d35b2a482271c43",
+            "newValue": "0x000000000000000000000000000000000000000000001a81d2238cdff0e1c8e8"
+          },
+          "0x404c34bd0414065c85c501e22c28753c400c01908285c9c107c0af3f1e3ecd1d": {
+            "previousValue": "0x000000000000000000000000000000000000000000000001899e1f8b874b01a3",
+            "newValue": "0x0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "0x5f68812dcd82c1e957747b26a90603dd5e99daf1ec7fd57c73b20605b8654764": {
+            "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+            "newValue": "0x0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "0xa015f01362e4ad859e2566d46044228ed1f0156835d5d0d3aece3a19a2adcfa8": {
+            "previousValue": "0x000000000000000000000000000000000000000000000bdf3548872900994349",
+            "newValue": "0x000000000000000000000000000000000000000000000bdb43d480eff69ef191"
+          }
+        }
+      },
+      "0xad5519b7da3bf018ebdc97d6bad8e5caf6d3aff2": {
+        "label": null,
+        "balanceDiff": null,
+        "stateDiff": {
+          "0x0000000000000000000000000000000000000000000000000000000000000002": {
+            "previousValue": "0x000000000000000000000000000000000000000000199633db696fdba6c71108",
+            "newValue": "0x00000000000000000000000000000000000000000019912b3d72c10c0c417dfe"
+          },
+          "0x5f68812dcd82c1e957747b26a90603dd5e99daf1ec7fd57c73b20605b8654764": {
+            "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+            "newValue": "0x0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "0x77a4301907461c6381451cfa632d6be7156c7c8c13aa947d6b023ee6740fd31c": {
+            "previousValue": "0x0000000000000000000000000000000000000000001544f1760c74e15544c0b1",
+            "newValue": "0x000000000000000000000000000000000000000000153fe8d815c611babf2da7"
+          }
+        }
+      },
+      "0xb962dcd6d9f0bfb4cb2936c6c5e5c7c3f0d3c778": {
+        "label": null,
+        "balanceDiff": null,
+        "stateDiff": {
+          "0x6b16ef514f22b74729cbea5cc7babfecbdc2309e530ca716643d11fe929eed2e": {
+            "previousValue": "0x0067a605a9000000000002000000000000000000000000000000000000000000",
+            "newValue": "0x0067a605a9000000000003000000000000000000000000000000000000000000"
+          },
+          "0x6b16ef514f22b74729cbea5cc7babfecbdc2309e530ca716643d11fe929eed2f": {
+            "previousValue": "0x000000000000000000093a8000000000000067d42a2a00000000000000000000",
+            "newValue": "0x000000000000000000093a8000000000000067d42a2a00000000000067a605aa"
+          }
+        }
+      },
+      "0xbc30bbe0472e0e86b6f395f9876b950a13b23923": {
+        "label": null,
+        "balanceDiff": null,
+        "stateDiff": {}
+      },
+      "0xc1883c210abb6bcda4e00439cdace0933c38f3a4": {
+        "label": null,
+        "balanceDiff": null,
+        "stateDiff": {
+          "0x0000000000000000000000000000000000000000000000000000000000000002": {
+            "previousValue": "0x00000000000000000000000000000000000000000000009dfa39de482432281b",
+            "newValue": "0x00000000000000000000000000000000000000000000009c01839f6f5e90dd00"
+          },
+          "0x1a55667b97bdff6e5ad28dfda83fdb76cd4b4160f0a1a63bf6585a33287bba5d": {
+            "previousValue": "0x00000000000000000000000000000000000000000000000e1bc9975376af1bcb",
+            "newValue": "0x00000000000000000000000000000000000000000000000c2313587ab10dd0b0"
+          },
+          "0x5f68812dcd82c1e957747b26a90603dd5e99daf1ec7fd57c73b20605b8654764": {
+            "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+            "newValue": "0x0000000000000000000000000000000000000000000000000000000000000000"
+          }
+        }
+      },
+      "0xc4195d4060daeac44058ed668aa5efec50d77ff6": {
+        "label": null,
+        "balanceDiff": null,
+        "stateDiff": {}
+      },
+      "0xc478cbbeb590c76b01ce658f8c4dda04f30e2c6f": {
+        "label": null,
+        "balanceDiff": null,
+        "stateDiff": {}
+      },
+      "0xcf85ff1c37c594a10195f7a9ab85cbb0a03f69de": {
+        "label": null,
+        "balanceDiff": null,
+        "stateDiff": {
+          "0x0000000000000000000000000000000000000000000000000000000000000036": {
+            "previousValue": "0x0000000000000000000000000000000000000000000000000000080d905d004e",
+            "newValue": "0x00000000000000000000000000000000000000000000020ca617657e545fa9bc"
+          },
+          "0x362ff6c57e9edddc5c568dc1d54741d6e98025f6ea18d715d638f67bcefb9ebc": {
+            "previousValue": "0x00000000039d6e353809384529391a8900000000000000000000000000000000",
+            "newValue": "0x00000000033c6003f0fa7a6afc367de200000000000000000000000000000000"
+          },
+          "0xaf561f020a8f8c4f072d325aff6aad11decebb5083af314fbbf9748a44965847": {
+            "previousValue": "0x0000000003a93a12a8bf2fb9c176797400000000000000000000001d5ce0120c",
+            "newValue": "0x00000000033c6003f0fa7a6afc367de200000000000000000ddb97495469fe37"
+          }
+        }
+      },
+      "0xd05e3e715d945b59290df0ae8ef85c1bdb684744": {
+        "label": null,
+        "balanceDiff": null,
+        "stateDiff": {}
+      },
+      "0xd6df932a45c0f255f85145f286ea0b292b21c90b": {
+        "label": null,
+        "balanceDiff": null,
+        "stateDiff": {}
+      },
+      "0xdd9185db084f5c4fff3b4f70e7ba62123b812226": {
+        "label": null,
+        "balanceDiff": null,
+        "stateDiff": {
+          "0x0000000000000000000000000000000000000000000000000000000000000002": {
+            "previousValue": "0x00000000000000000000000000000000000000000000000000017dfe263b155c",
+            "newValue": "0x00000000000000000000000000000000000000000000000000017d6e8fe77625"
+          },
+          "0x404c34bd0414065c85c501e22c28753c400c01908285c9c107c0af3f1e3ecd1d": {
+            "previousValue": "0x0000000000000000000000000000000000000000000000000000000915afd347",
+            "newValue": "0x0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "0x49778209b44d6b112674c628a4d9cba84218c5f1c66dd15e63902fc0070ce9d4": {
+            "previousValue": "0x000000000000000000000000000000000000000000000000000000e95c906d75",
+            "newValue": "0x0000000000000000000000000000000000000000000000000000008420c51a4c"
+          },
+          "0x5f68812dcd82c1e957747b26a90603dd5e99daf1ec7fd57c73b20605b8654764": {
+            "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+            "newValue": "0x0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "0x841a69c93fa72728c2b91c156bd21ecddeff43f543c1aa61191b2d6d99eec7d9": {
+            "previousValue": "0x000000000000000000000000000000000000000000000000000001523a6cede7",
+            "newValue": "0x00000000000000000000000000000000000000000000000000000130f5947520"
+          }
+        }
+      },
+      "0xdeb05676db0db85cecafe8933c903466bf20c572": {
+        "label": null,
+        "balanceDiff": null,
+        "stateDiff": {}
+      },
+      "0xdf7d0e6454db638881302729f5ba99936eaab233": {
+        "label": null,
+        "balanceDiff": null,
+        "stateDiff": {}
+      },
+      "0xe50fa9b3c56ffb159cb0fca61f5c9d750e8128c8": {
+        "label": null,
+        "balanceDiff": null,
+        "stateDiff": {}
+      },
+      "0xe80761ea617f66f96274ea5e8c37f03960ecc679": {
+        "label": null,
+        "balanceDiff": null,
+        "stateDiff": {}
+      },
+      "0xe8599f3cc5d38a9ad6f3684cd5cea72f10dbc383": {
+        "label": null,
+        "balanceDiff": null,
+        "stateDiff": {}
+      },
+      "0xea1132120ddcdda2f119e99fa7a27a0d036f7ac9": {
+        "label": null,
+        "balanceDiff": null,
+        "stateDiff": {}
+      },
+      "0xede17e9d79fc6f9ff9250d9eefbdb88cc18038b5": {
+        "label": null,
+        "balanceDiff": null,
+        "stateDiff": {}
+      },
+      "0xf329e36c7bf6e5e86ce2150875a84ce77f477375": {
+        "label": null,
+        "balanceDiff": null,
+        "stateDiff": {}
+      },
+      "0xf59036caebea7dc4b86638dfa2e3c97da9fccd40": {
+        "label": null,
+        "balanceDiff": null,
+        "stateDiff": {}
+      },
+      "0xf611aeb5013fd2c0511c9cd55c7dc5c1140741a6": {
+        "label": null,
+        "balanceDiff": null,
+        "stateDiff": {}
+      },
+      "0xf957db7230b879cc905a7afa87748d8b7da7689e": {
+        "label": null,
+        "balanceDiff": null,
+        "stateDiff": {
+          "0x0000000000000000000000000000000000000000000000000000000000000002": {
+            "previousValue": "0x0000000000000000000000000000000000000000000080974f2c533b6c03d95e",
+            "newValue": "0x00000000000000000000000000000000000000000000806fda4b4cb00aded609"
+          },
+          "0x404c34bd0414065c85c501e22c28753c400c01908285c9c107c0af3f1e3ecd1d": {
+            "previousValue": "0x0000000000000000000000000000000000000000000000010faaa8f41100edcd",
+            "newValue": "0x0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "0x51bfaac9bec4ba6af46128d6028c9ab9753269b3631ce614ac81a478a2745445": {
+            "previousValue": "0x00000000000000000000000000000000000000000000004724f2769b53a3f3a7",
+            "newValue": "0x000000000000000000000000000000000000000000000038ff0669f347188d30"
+          },
+          "0x5f68812dcd82c1e957747b26a90603dd5e99daf1ec7fd57c73b20605b8654764": {
+            "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+            "newValue": "0x0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "0x690a1ab4653161c907dbb4c4b0dfabc5e002df1c48d94d97d39237bef06c6c92": {
+            "previousValue": "0x00000000000000000000000000000000000000000000210fe4b83ca561814d33",
+            "newValue": "0x0000000000000000000000000000000000000000000020f7a56debb61de89e22"
+          }
+        }
+      },
+      "0xfccf3cabbe80101232d343252614b6a3ee81c989": {
+        "label": null,
+        "balanceDiff": null,
+        "stateDiff": {}
+      }
+    }
+  }
+}
+```
