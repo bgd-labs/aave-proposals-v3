@@ -12,10 +12,10 @@ import {AaveV3Ethereum_RequestForBountyPayoutFeb2025_20250203} from './AaveV3Eth
 contract AaveV3Ethereum_RequestForBountyPayoutFeb2025_20250203_Test is ProtocolV3TestBase {
   AaveV3Ethereum_RequestForBountyPayoutFeb2025_20250203 internal proposal;
 
-  uint256 TOTAL_AMOUNT = 1_100e18;
+  uint256 TOTAL_AMOUNT = 67_100e18;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 21765193);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 21816830);
     proposal = new AaveV3Ethereum_RequestForBountyPayoutFeb2025_20250203();
   }
 
@@ -32,15 +32,14 @@ contract AaveV3Ethereum_RequestForBountyPayoutFeb2025_20250203_Test is ProtocolV
 
   /**
    * @dev Checking:
-   * TODO: change token if not GHO
    * - Balances post-transfer are correct
    * - Collector has enough funds
    */
   function test_consistentBalances() public {
-    AaveV3Ethereum_RequestForBountyPayoutFeb2025_20250203.Bounty[2] memory bounties = proposal
+    AaveV3Ethereum_RequestForBountyPayoutFeb2025_20250203.Bounty[4] memory bounties = proposal
       .getBounties();
 
-    uint256[] memory balancesRecipientsBefore = new uint256[](2);
+    uint256[] memory balancesRecipientsBefore = new uint256[](4);
     uint256 balanceCollectorBefore = IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(
       address(AaveV3Ethereum.COLLECTOR)
     );
@@ -68,7 +67,7 @@ contract AaveV3Ethereum_RequestForBountyPayoutFeb2025_20250203_Test is ProtocolV
       address(AaveV3Ethereum.COLLECTOR)
     );
 
-    // Checking worst case scenario of 2 wei imprecision, but probabilistically pretty rare
-    assertApproxEqAbs(balanceCollectorAfter, balanceCollectorBefore - TOTAL_AMOUNT, 3);
+    // Checking worst case scenario of 4 wei imprecision, but probabilistically pretty rare
+    assertApproxEqAbs(balanceCollectorAfter, balanceCollectorBefore - TOTAL_AMOUNT, 4);
   }
 }
