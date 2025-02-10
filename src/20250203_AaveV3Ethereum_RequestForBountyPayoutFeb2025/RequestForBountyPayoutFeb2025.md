@@ -26,8 +26,8 @@ This proposal will release the following funds to white-hat addresses and the Im
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250203_AaveV3Ethereum_RequestForBountyPayoutFeb2025/AaveV3Ethereum_RequestForBountyPayoutFeb2025_20250203.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250203_AaveV3Ethereum_RequestForBountyPayoutFeb2025/AaveV3Ethereum_RequestForBountyPayoutFeb2025_20250203.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/f95d9e0be2bdcbcbcd124a290a1196f459076b08/src/20250203_AaveV3Ethereum_RequestForBountyPayoutFeb2025/AaveV3Ethereum_RequestForBountyPayoutFeb2025_20250203.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/f95d9e0be2bdcbcbcd124a290a1196f459076b08/src/20250203_AaveV3Ethereum_RequestForBountyPayoutFeb2025/AaveV3Ethereum_RequestForBountyPayoutFeb2025_20250203.t.sol)
 - [Discussion](https://governance.aave.com/t/bgd-request-for-bounty-payout-january-2025/20947)
 - Snapshot: Direct To AIP
 
