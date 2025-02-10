@@ -48,6 +48,10 @@ contract AaveV3Ethereum_FebruaryFundingUpdatePartB_20250207_Test is ProtocolV3Te
       address(AaveV3EthereumLido.COLLECTOR)
     );
 
+    assertGt(wethCollectorBalanceBefore, 0);
+    assertGt(usdsCollectorBalanceBefore, 0);
+    assertGt(ghoCollectorBalanceBefore, 0);
+
     executePayload(vm, address(proposal));
 
     uint256 wethCollectorBalanceAfter = IERC20(AaveV3EthereumAssets.WETH_UNDERLYING).balanceOf(
@@ -60,11 +64,8 @@ contract AaveV3Ethereum_FebruaryFundingUpdatePartB_20250207_Test is ProtocolV3Te
       address(AaveV3EthereumLido.COLLECTOR)
     );
 
-    assertGt(wethCollectorBalanceBefore, 0);
     assertEq(wethCollectorBalanceAfter, 0);
-    assertGt(usdsCollectorBalanceBefore, 0);
     assertEq(usdsCollectorBalanceAfter, 0);
-    assertGt(ghoCollectorBalanceBefore, 0);
     assertEq(ghoCollectorBalanceAfter, 0);
   }
 }

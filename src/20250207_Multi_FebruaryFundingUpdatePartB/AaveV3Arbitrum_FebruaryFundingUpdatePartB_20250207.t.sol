@@ -46,6 +46,9 @@ contract AaveV3Arbitrum_FebruaryFundingUpdatePartB_20250207_Test is ProtocolV3Te
       address(AaveV3Arbitrum.COLLECTOR)
     );
 
+    assertGt(lusdCollectorBalanceBefore, 1 ether);
+    assertGt(usdcCollectorBalanceBefore, 1e6);
+
     vm.expectEmit(true, false, false, true, MiscArbitrum.AAVE_ARB_ETH_BRIDGE);
     emit Bridge(AaveV3ArbitrumAssets.LUSD_UNDERLYING, 2035313183835239532887); // dynamically get bridge
     vm.expectEmit(true, false, false, true, MiscArbitrum.AAVE_ARB_ETH_BRIDGE);
@@ -59,9 +62,7 @@ contract AaveV3Arbitrum_FebruaryFundingUpdatePartB_20250207_Test is ProtocolV3Te
       address(AaveV3Arbitrum.COLLECTOR)
     );
 
-    assertGt(lusdCollectorBalanceBefore, 1 ether);
     assertApproxEqAbs(lusdCollectorBalanceAfter, 1 ether, 100);
-    assertGt(usdcCollectorBalanceBefore, 1e6);
     assertApproxEqAbs(usdcCollectorBalanceAfter, 1e6, 100);
   }
 }

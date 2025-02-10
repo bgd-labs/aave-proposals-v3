@@ -42,6 +42,9 @@ contract AaveV3Optimism_FebruaryFundingUpdatePartB_20250207_Test is ProtocolV3Te
       address(AaveV3Optimism.COLLECTOR)
     );
 
+    assertGt(lusdCollectorBalanceBefore, 1 ether);
+    assertGt(usdcCollectorBalanceBefore, 1e6);
+
     vm.expectEmit(true, false, false, true, MiscOptimism.AAVE_OPT_ETH_BRIDGE);
     emit Bridge(AaveV3OptimismAssets.LUSD_UNDERLYING, 806787708637418558251); // dynamically get bridge
     vm.expectEmit(true, false, false, true, MiscOptimism.AAVE_OPT_ETH_BRIDGE);
@@ -55,9 +58,7 @@ contract AaveV3Optimism_FebruaryFundingUpdatePartB_20250207_Test is ProtocolV3Te
       address(AaveV3Optimism.COLLECTOR)
     );
 
-    assertGt(lusdCollectorBalanceBefore, 1 ether);
     assertApproxEqAbs(lusdCollectorBalanceAfter, 1 ether, 100);
-    assertGt(usdcCollectorBalanceBefore, 1e6);
     assertApproxEqAbs(usdcCollectorBalanceAfter, 1e6, 100);
   }
 }
