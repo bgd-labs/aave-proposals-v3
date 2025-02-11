@@ -58,48 +58,13 @@ Withdraw from respective Aave Protocol and bridge the following assets to Ethere
 |      wETH (All)      | aPolwstETH (All-1)  |                  |                  |
 |      CRV (All)       |   aPolCRV (All-1)   |                  |                  |
 
-Upon being received on Ethereum:
+### deposit into Aave v3 (Core)
 
-DAI swapped to USDS, deposited into Core instance;
-wstETH deposited into Prime instance;
-DPI swapped to ETH, deposited into Core instance;
-ETH deposited into Core instance;
-AAVE transfer to Economic Reserve;
-BAL and CRV assets are to be transferred to the ALC; and,
-LUSD and FRAX swapped to ETH, deposited into Core instance.
-ALC SAFE: `0xA1c93D2687f7014Aaf588c764E3Ce80aF016229b`
-
-The remaining assets where applicable will be deposited into the Core instance.
-
-### Acquire ETH and deposit into Aave v3 (Core)
-
-Withdraw and swap the following assets to ETH. ETH to be deposited into Aave in a follow up proposal.
-
-|     Ethereum     |
-| :--------------: |
-| aEthLUSD (All-1) |
-|   aDPI (All-1)   |
-
-### Acquire GHO and deposit into Aave v3 (Prime)
-
-Both withdrawn above from Aave V2 Ethereum. GHO to be deposited into Aave in a follow up proposal.
-
-|   Ethereum   |
-| :----------: |
-| USDT (1.50M) |
-| USDC (1.50M) |
-
-### Acquire USDS and deposit into Aave V3 (Core)
-
-Withdraw and swap the following assets to USDS. USDS to be deposited into Aave in a follow up proposal.
-
-|    Ethereum     |
-| :-------------: |
-|    DAI (All)    |
-|  aDAI (All-1)   |
-| aEthDAI (All-1) |
-
-USDS deposits on Core benefit from USDS liquidity mining and SPK airdrop rewards.
+|      Instance       | Asset |
+| :-----------------: | :---: |
+| AaveV3EthereumCore  |  ETH  |
+| AaveV3EthereumPrime |  GHO  |
+| AaveV3EthereumCore  | USDS  |
 
 ## References
 
