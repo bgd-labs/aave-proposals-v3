@@ -1,8 +1,7 @@
 ---
 title: "a.DI Sonic path activation"
 author: "BGD Labs @bgdlabs"
-discussions: TODO
-snapshot: Direct-to-AIP
+discussions: "https://governance.aave.com/t/technical-maintenance-proposals/15274/69"
 ---
 
 ## Simple Summary
@@ -15,7 +14,7 @@ In order to be able to pass messages from Ethereum to Sonic via a.DI (Aave Deliv
 
 The first case of message passing Ethereum → Sonic is the activation proposal for an Aave v3 Sonic pool and consequently, to be able to execute on the Sonic side the payload, the Aave governance should approve in advance the a.DI adapters smart contracts.
 
-This procedure mirrors the requirements on previous networks like Scroll or ZkSync.
+This procedure mirrors the requirements on previous networks like ZkSync, Linea, or Celo.
 
 ## Specification
 
@@ -23,14 +22,14 @@ The proposal payload simply registers pre-deployed Sonic adapters (with the nece
 
 This is done by calling the enableBridgeAdapters() function on the Ethereum Cross-chain Controller smart contract.
 
+The optimal bandwidth on the Ethereum -> Sonic path is set to 2, by calling updateOptimalBandwidthByChain().
+
+The following are the configured adapters for the Ethereum → Sonic path. The required confirmations on the path are 2 out of 3.
+
 | Network  | Hyperlane Adapter                                                                                                      | LayerZero Adapter                                                                                                      | CCIP Adapter                                                                                                           |
 | -------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
 | Ethereum | [0x01dcb90Cf13b82Cde4A0BAcC655585a83Af3cCC1](https://etherscan.io/address/0x01dcb90Cf13b82Cde4A0BAcC655585a83Af3cCC1)  | [0x8FD7D8dd557817966181F584f2abB53549B4ABbe](https://etherscan.io/address/0x8FD7D8dd557817966181F584f2abB53549B4ABbe)  | [0xe3a0d9754aD3452D687cf580Ba3674c2D7D2f7AE](https://etherscan.io/address/0xe3a0d9754aD3452D687cf580Ba3674c2D7D2f7AE)  |
 | Sonic    | [0x1098F187F5f444Bc1c77cD9beE99e8d460347F5F](https://sonicscan.org/address/0x1098F187F5f444Bc1c77cD9beE99e8d460347F5F) | [0x7B8FaC105A7a85f02C3f31559d2ee7313BDC5d7f](https://sonicscan.org/address/0x7B8FaC105A7a85f02C3f31559d2ee7313BDC5d7f) | [0x1905fCdDa41241C0871A5eC3f9dcC3E8d247261D](https://sonicscan.org/address/0x1905fCdDa41241C0871A5eC3f9dcC3E8d247261D) |
-
-The required confirmations on the Ethereum -> Sonic path are 2 out of 3.
-
-The optimal bandwidth on the Ethereum -> Sonic path is 2.
 
 The new a.DI deployments on Sonic network are as follows:
 
@@ -56,7 +55,7 @@ The new Aave Governance deployments on Sonic network are as follows:
 - Payload Tests: [tests](https://github.com/bgd-labs/adi-deploy/blob/09dae97164429e0986f07204a4110015a3f6c741/tests/payloads/ethereum/AddSonicPathTest.t.sol)
 - Diffs: [a.DI diffs](https://github.com/bgd-labs/adi-deploy/blob/09dae97164429e0986f07204a4110015a3f6c741/diffs/adi_add_sonic_path_to_adiethereum_before_adi_add_sonic_path_to_adiethereum_after.md)
 - Snapshot: Direct-to-AIP
-- [Discussion]()
+- [Discussion](https://governance.aave.com/t/technical-maintenance-proposals/15274/69)
 
 ## Copyright
 
