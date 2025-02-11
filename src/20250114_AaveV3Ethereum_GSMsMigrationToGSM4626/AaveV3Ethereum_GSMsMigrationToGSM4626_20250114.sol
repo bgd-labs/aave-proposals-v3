@@ -102,10 +102,7 @@ contract AaveV3Ethereum_GSMsMigrationToGSM4626_20250114 is IProposalGenericExecu
     address[] memory vaults = new address[](2);
     vaults[0] = NEW_GSM_USDC;
     vaults[1] = NEW_GSM_USDT;
-    IGhoBucketSteward(0x46Aa1063e5265b43663E81329333B47c517A5409).setControlledFacilitator(
-      vaults,
-      true
-    );
+    IGhoBucketSteward(GhoEthereum.GHO_BUCKET_STEWARD).setControlledFacilitator(vaults, true);
 
     // Add GSM Swap Freezer role to OracleSwapFreezers
     IGsm(NEW_GSM_USDC).grantRole(SWAP_FREEZER_ROLE, USDC_ORACLE_SWAP_FREEZER);
@@ -137,14 +134,20 @@ contract AaveV3Ethereum_GSMsMigrationToGSM4626_20250114 is IProposalGenericExecu
     IAaveCLRobotOperator(MiscEthereum.AAVE_CL_ROBOT_OPERATOR).register(
       'GHO GSM 4626 stataUSDC OracleSwapFreezer',
       USDC_ORACLE_SWAP_FREEZER,
+      '',
       KEEPER_GAS_LIMIT,
-      LINK_AMOUNT_ORACLE_FREEZER_KEEPER
+      LINK_AMOUNT_ORACLE_FREEZER_KEEPER,
+      0,
+      ''
     );
     IAaveCLRobotOperator(MiscEthereum.AAVE_CL_ROBOT_OPERATOR).register(
       'GHO GSM 4626 stataUSDT OracleSwapFreezer',
       USDT_ORACLE_SWAP_FREEZER,
+      '',
       KEEPER_GAS_LIMIT,
-      LINK_AMOUNT_ORACLE_FREEZER_KEEPER
+      LINK_AMOUNT_ORACLE_FREEZER_KEEPER,
+      0,
+      ''
     );
   }
 
@@ -215,8 +218,7 @@ contract AaveV3Ethereum_GSMsMigrationToGSM4626_20250114 is IProposalGenericExecu
     address[] memory revokedVaults = new address[](2);
     revokedVaults[0] = GhoEthereum.GSM_USDC;
     revokedVaults[1] = GhoEthereum.GSM_USDT;
-    // https://etherscan.io/address/0x46Aa1063e5265b43663E81329333B47c517A5409
-    IGhoBucketSteward(0x46Aa1063e5265b43663E81329333B47c517A5409).setControlledFacilitator(
+    IGhoBucketSteward(GhoEthereum.GHO_BUCKET_STEWARD).setControlledFacilitator(
       revokedVaults,
       false
     );
@@ -237,12 +239,12 @@ contract AaveV3Ethereum_GSMsMigrationToGSM4626_20250114 is IProposalGenericExecu
     IGsm(GhoEthereum.GSM_USDC).revokeRole(SWAP_FREEZER_ROLE, GovernanceV3Ethereum.EXECUTOR_LVL_1);
     IGsm(GhoEthereum.GSM_USDT).revokeRole(SWAP_FREEZER_ROLE, GovernanceV3Ethereum.EXECUTOR_LVL_1);
 
-    // // Cancel existing keepers
-    // IAaveCLRobotOperator(ROBOT_OPERATOR).cancel(EXISTING_ORACLE_SWAP_FREEZER_USDC);
-    // IAaveCLRobotOperator(ROBOT_OPERATOR).cancel(EXISTING_ORACLE_SWAP_FREEZER_USDT);
+    // Cancel existing keepers
+    IAaveCLRobotOperator(ROBOT_OPERATOR).cancel(EXISTING_ORACLE_SWAP_FREEZER_USDC);
+    IAaveCLRobotOperator(ROBOT_OPERATOR).cancel(EXISTING_ORACLE_SWAP_FREEZER_USDT);
 
-    // // Withdraw LINK from existing keepers
-    // IAaveCLRobotOperator(ROBOT_OPERATOR).withdrawLink(EXISTING_ORACLE_SWAP_FREEZER_USDC);
-    // IAaveCLRobotOperator(ROBOT_OPERATOR).withdrawLink(EXISTING_ORACLE_SWAP_FREEZER_USDT);
+    // Withdraw LINK from existing keepers
+    IAaveCLRobotOperator(ROBOT_OPERATOR).withdrawLink(EXISTING_ORACLE_SWAP_FREEZER_USDC);
+    IAaveCLRobotOperator(ROBOT_OPERATOR).withdrawLink(EXISTING_ORACLE_SWAP_FREEZER_USDT);
   }
 }
