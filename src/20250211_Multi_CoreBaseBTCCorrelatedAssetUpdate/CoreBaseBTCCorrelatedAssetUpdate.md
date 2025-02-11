@@ -47,8 +47,6 @@ Additionally, Base has emerged as the second-largest platform for cbBTC growth. 
 | Liquidation Threshold |  86%  |   -   |   -   |
 |   Liquidation Bonus   | 3.00% |   -   |   -   |
 
-`Note: This ARFC assumes fBTC has already been listed on Aave by the time the Snapshot vote has finished. If not, the proposed changes shall feature in the AIP that onboards fBTC to Aave Core instance`
-
 ### Base Instance
 
 #### Onboarding of LBTC
