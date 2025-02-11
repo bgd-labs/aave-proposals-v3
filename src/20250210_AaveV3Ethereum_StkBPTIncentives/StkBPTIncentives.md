@@ -23,8 +23,8 @@ More information on stkBPT can be found in the following dashboard, [here](https
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250210_AaveV3Ethereum_StkBPTIncentives/AaveV3Ethereum_StkBPTIncentives_20250210.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250210_AaveV3Ethereum_StkBPTIncentives/AaveV3Ethereum_StkBPTIncentives_20250210.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/2099b900e5a755cd7f69eaf0a9e4d8f6711b33ab/src/20250210_AaveV3Ethereum_StkBPTIncentives/AaveV3Ethereum_StkBPTIncentives_20250210.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/2099b900e5a755cd7f69eaf0a9e4d8f6711b33ab/src/20250210_AaveV3Ethereum_StkBPTIncentives/AaveV3Ethereum_StkBPTIncentives_20250210.t.sol)
   [Snapshot](Direct-to-AIP)
 - [Discussion](https://governance.aave.com/t/arfc-amend-safety-module-emissions/16640/13)
 
