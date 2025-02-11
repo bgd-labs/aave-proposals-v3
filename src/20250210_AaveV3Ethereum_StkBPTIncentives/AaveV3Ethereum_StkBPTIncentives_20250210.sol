@@ -24,9 +24,7 @@ contract AaveV3Ethereum_StkBPTIncentives_20250210 is IProposalGenericExecutor {
       AaveSafetyModule.STK_AAVE_WSTETH_BPTV2
     );
 
-    uint256 distributionEnded = IStakeToken(AaveSafetyModule.STK_AAVE_WSTETH_BPTV2)
-      .distributionEnd();
-    uint256 newAllowance = (block.timestamp - distributionEnded + DISTRIBUTION_DURATION) *
+    uint256 newAllowance = DISTRIBUTION_DURATION *
       AAVE_EMISSION_PER_SECOND_STK_BPT +
       remainingAllowance;
 
