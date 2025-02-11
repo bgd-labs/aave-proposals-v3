@@ -28,7 +28,7 @@ This is done by calling the enableBridgeAdapters() function on the Ethereum Cros
 | Ethereum | [0x01dcb90Cf13b82Cde4A0BAcC655585a83Af3cCC1](https://etherscan.io/address/0x01dcb90Cf13b82Cde4A0BAcC655585a83Af3cCC1)  | [0x8FD7D8dd557817966181F584f2abB53549B4ABbe](https://etherscan.io/address/0x8FD7D8dd557817966181F584f2abB53549B4ABbe)  | [0xe3a0d9754aD3452D687cf580Ba3674c2D7D2f7AE](https://etherscan.io/address/0xe3a0d9754aD3452D687cf580Ba3674c2D7D2f7AE)  |
 | Sonic    | [0x1098F187F5f444Bc1c77cD9beE99e8d460347F5F](https://sonicscan.org/address/0x1098F187F5f444Bc1c77cD9beE99e8d460347F5F) | [0x7B8FaC105A7a85f02C3f31559d2ee7313BDC5d7f](https://sonicscan.org/address/0x7B8FaC105A7a85f02C3f31559d2ee7313BDC5d7f) | [0x1905fCdDa41241C0871A5eC3f9dcC3E8d247261D](https://sonicscan.org/address/0x1905fCdDa41241C0871A5eC3f9dcC3E8d247261D) |
 
-The new a.DI deployments on Linea network are as follows:
+The new a.DI deployments on Sonic network are as follows:
 
 | Contract                   | Address                                                                                                                |
 | -------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
@@ -36,7 +36,7 @@ The new a.DI deployments on Linea network are as follows:
 | Granular Guardian          | [0x10078c1D8E46dd1ed5D8df2C42d5ABb969b11566](https://sonicscan.org/address/0x10078c1D8E46dd1ed5D8df2C42d5ABb969b11566) |
 | Chainlink Emergency Oracle | [0xECB564e91f620fBFb59d0C4A41d7f10aDb0D1934](https://sonicscan.org/address/0xECB564e91f620fBFb59d0C4A41d7f10aDb0D1934) |
 
-The new Aave Governance deployments on Linea network are as follows:
+The new Aave Governance deployments on Sonic network are as follows:
 
 | Contract            | Address                                                                                                                |
 | ------------------- | ---------------------------------------------------------------------------------------------------------------------- |
