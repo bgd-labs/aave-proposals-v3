@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
+import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {GhoEthereum} from 'aave-address-book/GhoEthereum.sol';
@@ -21,7 +21,7 @@ contract AaveV3Ethereum_GSMsMigrationToGSM4626_20250114_Test is ProtocolV3TestBa
   AaveV3Ethereum_GSMsMigrationToGSM4626_20250114 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 21747980);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 21818217);
     proposal = new AaveV3Ethereum_GSMsMigrationToGSM4626_20250114();
   }
 

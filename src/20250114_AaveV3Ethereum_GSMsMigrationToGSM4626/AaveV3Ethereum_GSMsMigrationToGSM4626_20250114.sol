@@ -1,9 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
-import {SafeERC20} from 'solidity-utils/contracts/oz-common/SafeERC20.sol';
+import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
+import {SafeERC20} from 'openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol';
 import {GhoEthereum} from 'aave-address-book/GhoEthereum.sol';
+import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {IAccessControl} from 'openzeppelin-contracts/contracts/access/IAccessControl.sol';
@@ -133,13 +134,13 @@ contract AaveV3Ethereum_GSMsMigrationToGSM4626_20250114 is IProposalGenericExecu
       TOTAL_LINK_AMOUNT_KEEPERS
     );
 
-    IAaveCLRobotOperator(ROBOT_OPERATOR).register(
+    IAaveCLRobotOperator(MiscEthereum.AAVE_CL_ROBOT_OPERATOR).register(
       'GHO GSM 4626 stataUSDC OracleSwapFreezer',
       USDC_ORACLE_SWAP_FREEZER,
       KEEPER_GAS_LIMIT,
       LINK_AMOUNT_ORACLE_FREEZER_KEEPER
     );
-    IAaveCLRobotOperator(ROBOT_OPERATOR).register(
+    IAaveCLRobotOperator(MiscEthereum.AAVE_CL_ROBOT_OPERATOR).register(
       'GHO GSM 4626 stataUSDT OracleSwapFreezer',
       USDT_ORACLE_SWAP_FREEZER,
       KEEPER_GAS_LIMIT,
