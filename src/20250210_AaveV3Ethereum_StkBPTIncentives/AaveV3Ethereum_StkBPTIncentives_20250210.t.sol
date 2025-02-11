@@ -22,6 +22,13 @@ contract AaveV3Ethereum_StkBPTIncentives_20250210_Test is ProtocolV3TestBase {
     proposal = new AaveV3Ethereum_StkBPTIncentives_20250210();
   }
 
+  /**
+   * @dev executes the generic test suite including e2e and config snapshots
+   */
+  function test_defaultProposalExecution() public {
+    defaultTest('AaveV3Ethereum_StkBPTIncentives_20250210', AaveV3Ethereum.POOL, address(proposal));
+  }
+
   function test_checkConfig() public {
     (uint128 emissionPerSecondBeforeStkBPT, , ) = IStakeToken(
       AaveSafetyModule.STK_AAVE_WSTETH_BPTV2
