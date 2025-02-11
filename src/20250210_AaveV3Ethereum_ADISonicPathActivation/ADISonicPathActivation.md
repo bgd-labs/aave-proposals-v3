@@ -2,7 +2,7 @@
 title: "a.DI Sonic path activation"
 author: "BGD Labs @bgdlabs"
 discussions: TODO
-snapshot: TODO
+snapshot: Direct-to-AIP
 ---
 
 ## Simple Summary
@@ -47,10 +47,10 @@ The new Aave Governance deployments on Linea network are as follows:
 
 ## References
 
-- Adapter Implementations: [HyperLane Bridge Adapters](), [LayerZero Bridge Adapters](), [CCIP Bridge Adapters]()
-- Payload Implementation: [Payload]()
-- Payload Tests: [tests]()
-- Diffs: [a.DI diffs]()
+- Adapter Implementations: [HyperLane Bridge Adapters](https://github.com/bgd-labs/aave-delivery-infrastructure/blob/9a79f7986b5442657f64e41a0ab089e0cdb71e98/src/contracts/adapters/hyperLane/HyperLaneAdapter.sol), [LayerZero Bridge Adapters](https://github.com/bgd-labs/aave-delivery-infrastructure/blob/9a79f7986b5442657f64e41a0ab089e0cdb71e98/src/contracts/adapters/layerZero/LayerZeroAdapter.sol), [CCIP Bridge Adapters](https://github.com/bgd-labs/aave-delivery-infrastructure/blob/9a79f7986b5442657f64e41a0ab089e0cdb71e98/src/contracts/adapters/ccip/CCIPAdapter.sol)
+- Payload Implementation: [Payload](https://github.com/bgd-labs/adi-deploy/blob/4d146daa909d2dae161f2c66ee2d613bf835cb27/src/adapter_payloads/Ethereum_Sonic_Path_Payload.sol)
+- Payload Tests: [tests](https://github.com/bgd-labs/adi-deploy/blob/4d146daa909d2dae161f2c66ee2d613bf835cb27/tests/payloads/ethereum/AddSonicPathTest.t.sol)
+- Diffs: [a.DI diffs](https://github.com/bgd-labs/adi-deploy/blob/4d146daa909d2dae161f2c66ee2d613bf835cb27/diffs/adi_add_sonic_path_to_adiethereum_before_adi_add_sonic_path_to_adiethereum_after.md)
 - Snapshot: Direct-to-AIP
 - [Discussion]()
 
