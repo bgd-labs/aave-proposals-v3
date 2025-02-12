@@ -14,6 +14,8 @@ import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGen
 contract AaveV3Ethereum_FebruaryFundingUpdatePartB_20250207 is IProposalGenericExecutor {
   using CollectorUtils for ICollector;
 
+  uint256 public constant GHO_DEPOSIT_AMOUNT = 3_000_000e18;
+
   function execute() external {
     AaveV3Ethereum.COLLECTOR.depositToV3(
       CollectorUtils.IOInput({
@@ -35,7 +37,7 @@ contract AaveV3Ethereum_FebruaryFundingUpdatePartB_20250207 is IProposalGenericE
       CollectorUtils.IOInput({
         pool: address(AaveV3EthereumLido.POOL),
         underlying: AaveV3EthereumLidoAssets.GHO_UNDERLYING,
-        amount: type(uint256).max
+        amount: GHO_DEPOSIT_AMOUNT
       })
     );
   }

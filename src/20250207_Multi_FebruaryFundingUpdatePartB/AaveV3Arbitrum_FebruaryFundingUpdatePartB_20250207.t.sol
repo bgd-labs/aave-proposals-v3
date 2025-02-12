@@ -20,7 +20,7 @@ contract AaveV3Arbitrum_FebruaryFundingUpdatePartB_20250207_Test is ProtocolV3Te
   AaveV3Arbitrum_FebruaryFundingUpdatePartB_20250207 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('arbitrum'), 303584931);
+    vm.createSelectFork(vm.rpcUrl('arbitrum'), 305301673);
     proposal = new AaveV3Arbitrum_FebruaryFundingUpdatePartB_20250207();
 
     ArbSysMock arbsys = new ArbSysMock();
@@ -50,9 +50,9 @@ contract AaveV3Arbitrum_FebruaryFundingUpdatePartB_20250207_Test is ProtocolV3Te
     assertGt(usdcCollectorBalanceBefore, 1e6);
 
     vm.expectEmit(true, false, false, true, MiscArbitrum.AAVE_ARB_ETH_BRIDGE);
-    emit Bridge(AaveV3ArbitrumAssets.LUSD_UNDERLYING, 2035313183835239532887); // dynamically get bridge
+    emit Bridge(AaveV3ArbitrumAssets.LUSD_UNDERLYING, 2137705148004032151384); // dynamically get bridge
     vm.expectEmit(true, false, false, true, MiscArbitrum.AAVE_ARB_ETH_BRIDGE);
-    emit Bridge(AaveV3ArbitrumAssets.USDC_UNDERLYING, 49304678615); // dynamically get bridge balance
+    emit Bridge(AaveV3ArbitrumAssets.USDC_UNDERLYING, 51624793644); // dynamically get bridge balance
     executePayload(vm, address(proposal));
 
     uint256 lusdCollectorBalanceAfter = IERC20(AaveV3ArbitrumAssets.LUSD_A_TOKEN).balanceOf(
