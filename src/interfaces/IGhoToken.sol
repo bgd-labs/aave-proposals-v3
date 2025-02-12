@@ -10,6 +10,8 @@ interface IGhoToken is IERC20 {
     string label;
   }
 
+  function initialize(address admin) external;
+
   /**
    * @notice Mints the requested amount of tokens to the account address.
    * @dev Only facilitators with enough bucket capacity available can mint.
@@ -75,6 +77,12 @@ interface IGhoToken is IERC20 {
    * @return The level of the facilitator's bucket
    */
   function getFacilitatorBucket(address facilitator) external view returns (uint256, uint256);
+
+  /**
+   * @notice Returns the identifier of the Facilitator Manager Role
+   * @return The bytes32 id hash of the FacilitatorManager role
+   */
+  function FACILITATOR_MANAGER_ROLE() external pure returns (bytes32);
 
   /**
    * @notice Returns the identifier of the Bucket Manager Role
