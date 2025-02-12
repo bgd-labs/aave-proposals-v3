@@ -8,7 +8,7 @@ import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config
 /**
  * @title Prime Instance - Restore ETH LTV
  * @author TokenLogic
- * - Snapshot: TODO
+ * - Snapshot: https://snapshot.box/#/s:aave.eth/proposal/0xe7251459edae302517bc471776d82069afb13441b058c9fc989e0c878f13c873
  * - Discussion: https://governance.aave.com/t/arfc-prime-instance-restore-eth-ltv/20933
  */
 contract AaveV3EthereumLido_PrimeInstanceRestoreETHLTV_20250210 is AaveV3PayloadEthereumLido {

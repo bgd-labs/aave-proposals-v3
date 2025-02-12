@@ -7,7 +7,8 @@ export const config: ConfigFile = {
     date: '20250210',
     author: 'TokenLogic',
     discussion: 'https://governance.aave.com/t/arfc-prime-instance-restore-eth-ltv/20933',
-    snapshot: '',
+    snapshot:
+      'https://snapshot.box/#/s:aave.eth/proposal/0xe7251459edae302517bc471776d82069afb13441b058c9fc989e0c878f13c873',
     votingNetwork: 'POLYGON',
   },
   poolOptions: {

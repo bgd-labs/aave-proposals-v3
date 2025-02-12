@@ -2,7 +2,7 @@
 title: "Prime Instance - Restore ETH LTV"
 author: "TokenLogic"
 discussions: "https://governance.aave.com/t/arfc-prime-instance-restore-eth-ltv/20933"
-snapshot: TODO
+snapshot: https://snapshot.box/#/s:aave.eth/proposal/0xe7251459edae302517bc471776d82069afb13441b058c9fc989e0c878f13c873
 ---
 
 ## Simple Summary
@@ -40,7 +40,7 @@ The ETH Correlated eMode category is to be amended as outlined below:
 
 - Implementation: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250210_AaveV3EthereumLido_PrimeInstanceRestoreETHLTV/AaveV3EthereumLido_PrimeInstanceRestoreETHLTV_20250210.sol)
 - Tests: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250210_AaveV3EthereumLido_PrimeInstanceRestoreETHLTV/AaveV3EthereumLido_PrimeInstanceRestoreETHLTV_20250210.t.sol)
-  [Snapshot](TODO)
+  [Snapshot](https://snapshot.box/#/s:aave.eth/proposal/0xe7251459edae302517bc471776d82069afb13441b058c9fc989e0c878f13c873)
 - [Discussion](https://governance.aave.com/t/arfc-prime-instance-restore-eth-ltv/20933)
 
 ## Copyright
