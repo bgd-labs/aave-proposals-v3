@@ -15,7 +15,7 @@ With the introduction of liquidity mining rewards for ETH deposits on Prime, som
 
 Transitioning from direct liquidity mining emissions to a periodic Merkl distribution ensures that users leveraging wETH/wETH can be disqualified from rewards. By introducing qualification criteria, incentives are directed toward users who engage with the protocol as intended.
 
-While details of the future liquidity mining program are yet to be announced, this proposal focuses on re-enabling ETH collateral positions by restoring the LTV to 82%—its original level at Prime’s launch.
+This proposal focuses on re-enabling ETH collateral positions by restoring the LTV to 82%—its original level at Prime’s launch.
 
 ## Specification
 
