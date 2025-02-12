@@ -27,14 +27,14 @@ The LTV for ETH on Prime is to be amended as outlined below:
 
 The ETH Correlated eMode category is to be amended as outlined below:
 
-|      Parameter      |  Value   | Value  |
-| :-----------------: | :------: | :----: |
-|        Asset        |   wETH   | wstETH |
-|     Collateral      | Yes → No |  Yes   |
-|     Borrowable      |   Yes    |   No   |
-|         LTV         |  93.50%  | 93.50% |
-|         LT          |  95.50%  | 95.50% |
-| Liquidation Penalty |  1.00%   | 1.00%  |
+|      Parameter      | Value  | Value  |
+| :-----------------: | :----: | :----: |
+|        Asset        |  wETH  | wstETH |
+|     Collateral      |   No   |  Yes   |
+|     Borrowable      |  Yes   |   No   |
+|         LTV         | 93.50% | 93.50% |
+|         LT          | 95.50% | 95.50% |
+| Liquidation Penalty | 1.00%  | 1.00%  |
 
 ## References
 
