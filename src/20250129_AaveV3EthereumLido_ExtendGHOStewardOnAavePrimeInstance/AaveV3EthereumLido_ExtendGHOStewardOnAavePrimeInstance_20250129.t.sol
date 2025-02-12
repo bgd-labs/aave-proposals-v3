@@ -37,9 +37,7 @@ contract AaveV3EthereumLido_ExtendGHOStewardOnAavePrimeInstance_20250129_Test is
   }
 
   function testValidate() public {
-    executePayload(vm, address(proposal));
-
-    assertTrue(
+    assertFalse(
       AaveV3EthereumLido.ACL_MANAGER.hasRole(
         AaveV3EthereumLido.ACL_MANAGER.RISK_ADMIN_ROLE(),
         address(NEW_GHO_AAVE_STEWARD)
@@ -65,6 +63,15 @@ contract AaveV3EthereumLido_ExtendGHOStewardOnAavePrimeInstance_20250129_Test is
         variableRateSlope1MaxChange: 5_00,
         variableRateSlope2MaxChange: 5_00
       })
+    );
+
+    executePayload(vm, address(proposal));
+
+    assertTrue(
+      AaveV3EthereumLido.ACL_MANAGER.hasRole(
+        AaveV3EthereumLido.ACL_MANAGER.RISK_ADMIN_ROLE(),
+        address(NEW_GHO_AAVE_STEWARD)
+      )
     );
   }
 

@@ -17,7 +17,7 @@ Similar to how the GHO reserve on Arbitrum, which already has a GHO Aave Steward
 
 ## Specification
 
-A new GhoAaveSteward is to be deployed, with the Prime configuration:
+A new [GhoAaveSteward](https://etherscan.io/address/0x5C905d62B22e4DAa4967E517C4a047Ff6026C731) was deployed, with the Prime configuration:
 
 Owner: [0x5300A1a15135EA4dc7aD5a167152C01EFc9b192A](https://etherscan.io/address/0x5300A1a15135EA4dc7aD5a167152C01EFc9b192A)
 
