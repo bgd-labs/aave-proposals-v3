@@ -11,11 +11,11 @@ This publication proposes restoring ETH’s LTV to 82% on the Prime instance of 
 
 ## Motivation
 
-With the introduction of liquidity mining rewards for ETH deposits on Prime, some users exploited wETH/wETH leverage to farm rewards. In response, ETH’s LTV was set to 0, preventing new ETH collateral positions while preserving existing ones.
+With the introduction of liquidity mining rewards for ETH deposits on Prime, some users exploited wETH/wETH leverage to farm rewards. In response, ETH’s LTV was set to 0, preventing new ETH collateral positions while preserving existing user positions.
 
-Transitioning from direct liquidity mining emissions to a periodic Merkl distribution ensures that users leveraging wETH/wETH can be disqualified from rewards. By introducing qualification criteria, incentives are directed toward users who engage with the protocol as intended.
+Transitioning from direct liquidity mining emissions to a periodic Merkl distribution ensures that users leveraging wETH/wETH can be disqualified from rewards. By introducing a qualification criteria, incentives are directed towards users who engage with the protocol as intended.
 
-This proposal focuses on re-enabling ETH collateral positions by restoring the LTV to 82%—its original level at Prime’s launch.
+This proposal focuses on re-enabling ETH collateral positions by restoring the LTV to 82%.
 
 ## Specification
 
