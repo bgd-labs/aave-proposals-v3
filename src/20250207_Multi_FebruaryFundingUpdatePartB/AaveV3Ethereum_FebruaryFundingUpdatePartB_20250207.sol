@@ -1,10 +1,14 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
+import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {AaveV3EthereumLido, AaveV3EthereumLidoAssets} from 'aave-address-book/AaveV3EthereumLido.sol';
 import {CollectorUtils, ICollector} from 'aave-helpers/src/CollectorUtils.sol';
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
+
+import 'forge-std/Test.sol';
+
 /**
  * @title February Funding Update - Part B
  * @author TokenLogic
@@ -24,7 +28,6 @@ contract AaveV3Ethereum_FebruaryFundingUpdatePartB_20250207 is IProposalGenericE
         amount: type(uint256).max
       })
     );
-
     AaveV3Ethereum.COLLECTOR.depositToV3(
       CollectorUtils.IOInput({
         pool: address(AaveV3Ethereum.POOL),
@@ -32,13 +35,12 @@ contract AaveV3Ethereum_FebruaryFundingUpdatePartB_20250207 is IProposalGenericE
         amount: type(uint256).max
       })
     );
-
-    AaveV3EthereumLido.COLLECTOR.depositToV3(
-      CollectorUtils.IOInput({
-        pool: address(AaveV3EthereumLido.POOL),
-        underlying: AaveV3EthereumLidoAssets.GHO_UNDERLYING,
-        amount: GHO_DEPOSIT_AMOUNT
-      })
-    );
+    // AaveV3EthereumLido.COLLECTOR.depositToV3(
+    //   CollectorUtils.IOInput({
+    //     pool: address(AaveV3EthereumLido.POOL),
+    //     underlying: AaveV3EthereumLidoAssets.GHO_UNDERLYING,
+    //     amount: GHO_DEPOSIT_AMOUNT
+    //   })
+    // );
   }
 }
