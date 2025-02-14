@@ -2,6 +2,7 @@
 pragma solidity ^0.8.0;
 
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
+import {IScaledBalanceToken} from 'aave-v3-origin/contracts/interfaces/IScaledBalanceToken.sol';
 import {AaveV2Polygon, AaveV2PolygonAssets} from 'aave-address-book/AaveV2Polygon.sol';
 import {AaveV3Polygon, AaveV3PolygonAssets} from 'aave-address-book/AaveV3Polygon.sol';
 import {MiscPolygon} from 'aave-address-book/MiscPolygon.sol';
@@ -20,7 +21,7 @@ contract AaveV3Polygon_FebruaryFundingUpdatePartB_20250207_Test is ProtocolV3Tes
   AaveV3Polygon_FebruaryFundingUpdatePartB_20250207 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('polygon'), 67646543);
+    vm.createSelectFork(vm.rpcUrl('polygon'), 67880755);
     proposal = new AaveV3Polygon_FebruaryFundingUpdatePartB_20250207();
   }
 
@@ -41,40 +42,37 @@ contract AaveV3Polygon_FebruaryFundingUpdatePartB_20250207_Test is ProtocolV3Tes
     uint256 aPolUsdcBalanceAfter = IERC20(AaveV3PolygonAssets.USDC_A_TOKEN).balanceOf(
       address(AaveV3Polygon.COLLECTOR)
     );
-    uint256 amUsdcBalanceAfter = IERC20(AaveV2PolygonAssets.USDC_A_TOKEN).balanceOf(
-      address(AaveV2Polygon.COLLECTOR)
-    );
+    uint256 amUsdcBalanceAfter = IScaledBalanceToken(AaveV2PolygonAssets.USDC_A_TOKEN)
+      .scaledBalanceOf(address(AaveV2Polygon.COLLECTOR));
     uint256 usdcBalanceAfter = IERC20(AaveV2PolygonAssets.USDC_UNDERLYING).balanceOf(
       address(AaveV2Polygon.COLLECTOR)
     );
 
     assertApproxEqAbs(aPolUsdcBalanceAfter, 1e6, 100);
-    assertApproxEqAbs(amUsdcBalanceAfter, 1e6, 10e6);
+    assertApproxEqAbs(amUsdcBalanceAfter, 1e6, 40_000e6);
     assertEq(usdcBalanceAfter, 0);
 
     uint256 aPolBalBalanceAfter = IERC20(AaveV3PolygonAssets.BAL_A_TOKEN).balanceOf(
       address(AaveV3Polygon.COLLECTOR)
     );
-    uint256 amBalBalanceAfter = IERC20(AaveV2PolygonAssets.BAL_A_TOKEN).balanceOf(
-      address(AaveV2Polygon.COLLECTOR)
-    );
+    uint256 amBalBalanceAfter = IScaledBalanceToken(AaveV2PolygonAssets.BAL_A_TOKEN)
+      .scaledBalanceOf(address(AaveV2Polygon.COLLECTOR));
     uint256 balBalanceAfter = IERC20(AaveV2PolygonAssets.BAL_UNDERLYING).balanceOf(
       address(AaveV2Polygon.COLLECTOR)
     );
 
     assertApproxEqAbs(aPolBalBalanceAfter, 1 ether, 100);
-    assertApproxEqAbs(amBalBalanceAfter, 1 ether, 1 ether);
+    assertApproxEqAbs(amBalBalanceAfter, 1 ether, 50 ether);
     assertEq(balBalanceAfter, 0);
 
     uint256 aPolDaiBalanceAfter = IERC20(AaveV3PolygonAssets.DAI_A_TOKEN).balanceOf(
       address(AaveV3Polygon.COLLECTOR)
     );
-    uint256 amDaiBalanceAfter = IERC20(AaveV2PolygonAssets.DAI_A_TOKEN).balanceOf(
-      address(AaveV2Polygon.COLLECTOR)
-    );
+    uint256 amDaiBalanceAfter = IScaledBalanceToken(AaveV2PolygonAssets.DAI_A_TOKEN)
+      .scaledBalanceOf(address(AaveV2Polygon.COLLECTOR));
 
     assertApproxEqAbs(aPolDaiBalanceAfter, 1 ether, 100);
-    assertApproxEqAbs(amDaiBalanceAfter, 1 ether, 2 ether);
+    assertApproxEqAbs(amDaiBalanceAfter, 1 ether, 50_000 ether);
 
     uint256 aPolAaveBalanceAfter = IERC20(AaveV3PolygonAssets.AAVE_A_TOKEN).balanceOf(
       address(AaveV3Polygon.COLLECTOR)
@@ -113,31 +111,31 @@ contract AaveV3Polygon_FebruaryFundingUpdatePartB_20250207_Test is ProtocolV3Tes
 
   function test_log() public {
     vm.expectEmit(true, true, false, true, MiscPolygon.AAVE_POL_ETH_BRIDGE);
-    emit Bridge(AaveV3PolygonAssets.USDC_UNDERLYING, 616702385975);
+    emit Bridge(AaveV3PolygonAssets.USDC_UNDERLYING, 660943838493);
 
     vm.expectEmit(true, true, false, true, MiscPolygon.AAVE_POL_ETH_BRIDGE);
-    emit Bridge(AaveV3PolygonAssets.BAL_UNDERLYING, 727845038848532087637);
+    emit Bridge(AaveV3PolygonAssets.BAL_UNDERLYING, 682969218993733084540);
 
     vm.expectEmit(true, true, false, true, MiscPolygon.AAVE_POL_ETH_BRIDGE);
-    emit Bridge(AaveV3PolygonAssets.AAVE_UNDERLYING, 101101912510974743387);
+    emit Bridge(AaveV3PolygonAssets.AAVE_UNDERLYING, 101593303025104437216);
 
     vm.expectEmit(true, true, false, true, MiscPolygon.AAVE_POL_ETH_BRIDGE);
-    emit Bridge(AaveV3PolygonAssets.WETH_UNDERLYING, 103628264090191295226);
+    emit Bridge(AaveV3PolygonAssets.WETH_UNDERLYING, 104511448109850703571);
 
     vm.expectEmit(true, true, false, true, MiscPolygon.AAVE_POL_ETH_BRIDGE);
-    emit Bridge(AaveV3PolygonAssets.DAI_UNDERLYING, 1425732299543689031721138);
+    emit Bridge(AaveV3PolygonAssets.DAI_UNDERLYING, 1416911037157644403271134);
 
     vm.expectEmit(true, true, false, true, MiscPolygon.AAVE_POL_ETH_BRIDGE);
-    emit Bridge(AaveV3PolygonAssets.CRV_UNDERLYING, 1459539960348677885799);
+    emit Bridge(AaveV3PolygonAssets.CRV_UNDERLYING, 1475381395887921663535);
 
     vm.expectEmit(true, true, false, true, MiscPolygon.AAVE_POL_ETH_BRIDGE);
-    emit Bridge(AaveV3PolygonAssets.stMATIC_UNDERLYING, 23770788844252801897226);
+    emit Bridge(AaveV3PolygonAssets.stMATIC_UNDERLYING, 23770791828439896523298);
 
     vm.expectEmit(true, true, false, true, MiscPolygon.AAVE_POL_ETH_BRIDGE);
-    emit Bridge(AaveV3PolygonAssets.DPI_UNDERLYING, 36368324941626559259);
+    emit Bridge(AaveV3PolygonAssets.DPI_UNDERLYING, 36476203587027566045);
 
     vm.expectEmit(true, true, false, true, MiscPolygon.AAVE_POL_ETH_BRIDGE);
-    emit Bridge(AaveV3PolygonAssets.wstETH_UNDERLYING, 144822691995709000);
+    emit Bridge(AaveV3PolygonAssets.wstETH_UNDERLYING, 161323371925729012);
     executePayload(vm, address(proposal));
   }
 }

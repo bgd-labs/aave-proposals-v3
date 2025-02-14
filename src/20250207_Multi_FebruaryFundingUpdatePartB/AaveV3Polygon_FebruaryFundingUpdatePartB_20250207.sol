@@ -2,6 +2,7 @@
 pragma solidity ^0.8.0;
 
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
+import {IScaledBalanceToken} from 'aave-v3-origin/contracts/interfaces/IScaledBalanceToken.sol';
 import {AaveV2Polygon, AaveV2PolygonAssets} from 'aave-address-book/AaveV2Polygon.sol';
 import {AaveV3Polygon, AaveV3PolygonAssets} from 'aave-address-book/AaveV3Polygon.sol';
 import {MiscPolygon} from 'aave-address-book/MiscPolygon.sol';
@@ -39,7 +40,7 @@ contract AaveV3Polygon_FebruaryFundingUpdatePartB_20250207 is IProposalGenericEx
       CollectorUtils.IOInput({
         pool: address(AaveV2Polygon.POOL),
         underlying: AaveV2PolygonAssets.USDC_UNDERLYING,
-        amount: IERC20(AaveV2PolygonAssets.USDC_A_TOKEN).balanceOf(
+        amount: IScaledBalanceToken(AaveV2PolygonAssets.USDC_A_TOKEN).scaledBalanceOf(
           address(AaveV2Polygon.COLLECTOR)
         ) - 1e6
       }),
@@ -66,7 +67,7 @@ contract AaveV3Polygon_FebruaryFundingUpdatePartB_20250207 is IProposalGenericEx
       CollectorUtils.IOInput({
         pool: address(AaveV2Polygon.POOL),
         underlying: AaveV2PolygonAssets.BAL_UNDERLYING,
-        amount: IERC20(AaveV2PolygonAssets.BAL_A_TOKEN).balanceOf(
+        amount: IScaledBalanceToken(AaveV2PolygonAssets.BAL_A_TOKEN).scaledBalanceOf(
           address(AaveV2Polygon.COLLECTOR)
         ) - 1 ether
       }),
@@ -93,7 +94,7 @@ contract AaveV3Polygon_FebruaryFundingUpdatePartB_20250207 is IProposalGenericEx
       CollectorUtils.IOInput({
         pool: address(AaveV2Polygon.POOL),
         underlying: AaveV2PolygonAssets.WETH_UNDERLYING,
-        amount: IERC20(AaveV2PolygonAssets.WETH_A_TOKEN).balanceOf(
+        amount: IScaledBalanceToken(AaveV2PolygonAssets.WETH_A_TOKEN).scaledBalanceOf(
           address(AaveV2Polygon.COLLECTOR)
         ) - 1 ether
       }),
@@ -120,7 +121,7 @@ contract AaveV3Polygon_FebruaryFundingUpdatePartB_20250207 is IProposalGenericEx
       CollectorUtils.IOInput({
         pool: address(AaveV2Polygon.POOL),
         underlying: AaveV2PolygonAssets.DAI_UNDERLYING,
-        amount: IERC20(AaveV2PolygonAssets.DAI_A_TOKEN).balanceOf(
+        amount: IScaledBalanceToken(AaveV2PolygonAssets.DAI_A_TOKEN).scaledBalanceOf(
           address(AaveV2Polygon.COLLECTOR)
         ) - 1 ether
       }),

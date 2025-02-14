@@ -19,7 +19,7 @@ contract AaveV3Optimism_FebruaryFundingUpdatePartB_20250207_Test is ProtocolV3Te
   AaveV3Optimism_FebruaryFundingUpdatePartB_20250207 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('optimism'), 131667452);
+    vm.createSelectFork(vm.rpcUrl('optimism'), 131933580);
     proposal = new AaveV3Optimism_FebruaryFundingUpdatePartB_20250207();
   }
 
@@ -46,9 +46,9 @@ contract AaveV3Optimism_FebruaryFundingUpdatePartB_20250207_Test is ProtocolV3Te
     assertGt(usdcCollectorBalanceBefore, 1e6);
 
     vm.expectEmit(true, false, false, true, MiscOptimism.AAVE_OPT_ETH_BRIDGE);
-    emit Bridge(AaveV3OptimismAssets.LUSD_UNDERLYING, 806787708637418558251); // dynamically get bridge
+    emit Bridge(AaveV3OptimismAssets.LUSD_UNDERLYING, 848405611807876315050); // dynamically get bridge
     vm.expectEmit(true, false, false, true, MiscOptimism.AAVE_OPT_ETH_BRIDGE);
-    emit Bridge(AaveV3OptimismAssets.USDC_UNDERLYING, 67465951500); // dynamically get bridge balance
+    emit Bridge(AaveV3OptimismAssets.USDC_UNDERLYING, 71150864120); // dynamically get bridge balance
     executePayload(vm, address(proposal));
 
     uint256 lusdCollectorBalanceAfter = IERC20(AaveV3OptimismAssets.LUSD_A_TOKEN).balanceOf(
