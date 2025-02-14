@@ -24,7 +24,16 @@ contract AaveV3Ethereum_FebruaryFundingUpdatePartB_20250207 is IProposalGenericE
   // https://etherscan.io/address/0x2cE01c87Fec1b71A9041c52CaED46Fc5f4807285
   address public constant FACILITATOR = 0x2cE01c87Fec1b71A9041c52CaED46Fc5f4807285;
 
+  address public constant MERIT_AHAB_SAFE = 0xdeadD8aB03075b7FBA81864202a2f59EE25B312b;
+  uint256 public constant GHO_A_ALLOWANCE = 3_000_000 ether;
+  uint256 public constant WETH_A_ALLOWANCE = 800 ether;
+
   function execute() external {
+    _depositSwappedAsset();
+    _allowance();
+  }
+
+  function _depositSwappedAsset() internal {
     AaveV3Ethereum.COLLECTOR.depositToV3(
       CollectorUtils.IOInput({
         pool: address(AaveV3Ethereum.POOL),
@@ -49,5 +58,20 @@ contract AaveV3Ethereum_FebruaryFundingUpdatePartB_20250207 is IProposalGenericE
       );
     }
     IGhoDirectMinter(FACILITATOR).mintAndSupply(GHO_DEPOSIT_AMOUNT);
+  }
+
+  function _allowance() internal {
+    AaveV3Ethereum.COLLECTOR.approve(AaveV3EthereumAssets.GHO_A_TOKEN, MERIT_AHAB_SAFE, 0);
+    AaveV3Ethereum.COLLECTOR.approve(
+      AaveV3EthereumAssets.GHO_A_TOKEN,
+      MERIT_AHAB_SAFE,
+      GHO_A_ALLOWANCE
+    );
+    AaveV3Ethereum.COLLECTOR.approve(AaveV3EthereumAssets.WETH_A_TOKEN, MERIT_AHAB_SAFE, 0);
+    AaveV3Ethereum.COLLECTOR.approve(
+      AaveV3EthereumAssets.WETH_A_TOKEN,
+      MERIT_AHAB_SAFE,
+      WETH_A_ALLOWANCE
+    );
   }
 }

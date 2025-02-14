@@ -6,39 +6,21 @@ discussions: "https://governance.aave.com/t/arfc-february-funding-update/20712"
 
 ## Simple Summary
 
-This publication presents the February Funding Update  - Part B, which consists of performing the following key activities:
+This publication presents the February Funding Update - Part B, which consists of performing the following key activities:
 
-- Funding FLUID incentive campaign;
-- Migrating funds from Aave Protocol v2 to v3;
-- Transferring BAL & CRV to ALC;
-- Acquiring GHO for Merit Phase V;
-- Reimbursing EURA Bad Debt Expense; and,
-- Reimbursing Gas & Merkl deployment Costs.
+- Bridging funds to Ethereum;
+- Create Merit & Ahab Allowances;
+- Deposit swapped assets to Aave V3 Core and Prime instance;
 
 ## Motivation
 
 As part of our ongoing Treasury asset rebalancing strategy, this proposal when implemented will continue to:
 
-- Fund upcoming GHO incentive campaigns with FLUID;
-  - Follow up action to this proposal;
-- Fund Merit Phase V;
-  - Swap USDC and USDT to GHO;
-- Reimburse ACI of costs incurred from;
-  - Repaying EURA bad debt;
-  - Administering the PYUSD incentives;
-  - Gas costs related to AIP submissions;
-- Deposit passively held assets into Aave v3;
-  - Optimising capital efficiency;
-- Migrating assets from Aave v2 to v3;
-  - Ensuring improved capital efficiency and enhanced risk management;
-
-Additionally, to further consolidate and mitigate risk, certain assets will be reallocated to the Core market from various Layer 2 instances. This adjustment aims to progressively consolidate liquidity into the latest instance of Aave, where it can continue to generate returns.
-
-To promote capital efficiency, some passive assets held idle are to be deployed into Aave to earn yield.
-
-Several smaller asset holdings are be converted to aEthETH to reduce the DAO’s exposure to thinly traded long tail assets (or products being sunset) to ensure a more resilient treasury structure.
-
-Finally, as part of the revamping of SKY, certain DAI-correlated assets will be swapped into aEthUSDS.
+- Bridging assets from Polygon, Arbitrum and Optimism to Ethereum;
+  - Continue reducing bridged USDC exposure in support of Native USDC adoption;
+  - Convert DAI to USDS;
+  - Prepare to unstake wstMATIC;
+  - Transfer BAL and CRV to ALC.
 
 ## Specification
 
@@ -65,6 +47,12 @@ Withdraw from respective Aave Protocol and bridge the following assets to Ethere
 | AaveV3EthereumCore  |  ETH  |
 | AaveV3EthereumPrime |  GHO  |
 | AaveV3EthereumCore  | USDS  |
+
+### Merit + Ahab Programs
+
+Create allowances to the Merit and Ahab, 3M GHO aEthLidoGHO and 800 aEthWETH from Aave v3 Prime and Core instances respectively:
+
+SAFE: `0xdeadD8aB03075b7FBA81864202a2f59EE25B312b`
 
 ## References
 

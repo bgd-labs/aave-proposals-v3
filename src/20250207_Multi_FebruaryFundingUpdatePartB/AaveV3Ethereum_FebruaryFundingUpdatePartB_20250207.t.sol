@@ -43,7 +43,7 @@ contract AaveV3Ethereum_FebruaryFundingUpdatePartB_20250207_Test is ProtocolV3Te
     );
   }
 
-  function test_balance() public {
+  function test_deposit() public {
     uint256 wethCollectorBalanceBefore = IERC20(AaveV3EthereumAssets.WETH_UNDERLYING).balanceOf(
       address(AaveV3Ethereum.COLLECTOR)
     );
@@ -72,5 +72,21 @@ contract AaveV3Ethereum_FebruaryFundingUpdatePartB_20250207_Test is ProtocolV3Te
     assertEq(wethCollectorBalanceAfter, 0);
     assertEq(usdsCollectorBalanceAfter, 0);
     assertEq(ghoACollectorBalanceAfter, ghoACollectorBalanceBefore + proposal.GHO_DEPOSIT_AMOUNT());
+  }
+
+  function test_approve() public {
+    executePayload(vm, address(proposal));
+
+    uint256 aGhoAllowance = IERC20(AaveV3EthereumAssets.GHO_A_TOKEN).allowance(
+      address(AaveV3Ethereum.COLLECTOR),
+      proposal.MERIT_AHAB_SAFE()
+    );
+    uint256 aWethAllowance = IERC20(AaveV3EthereumAssets.WETH_A_TOKEN).allowance(
+      address(AaveV3Ethereum.COLLECTOR),
+      proposal.MERIT_AHAB_SAFE()
+    );
+
+    assertEq(aGhoAllowance, proposal.GHO_A_ALLOWANCE());
+    assertEq(aWethAllowance, proposal.WETH_A_ALLOWANCE());
   }
 }
