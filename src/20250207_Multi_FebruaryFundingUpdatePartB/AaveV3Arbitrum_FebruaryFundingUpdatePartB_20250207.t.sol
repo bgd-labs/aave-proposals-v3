@@ -45,14 +45,24 @@ contract AaveV3Arbitrum_FebruaryFundingUpdatePartB_20250207_Test is ProtocolV3Te
     uint256 usdcCollectorBalanceBefore = IERC20(AaveV3ArbitrumAssets.USDC_A_TOKEN).balanceOf(
       address(AaveV3Arbitrum.COLLECTOR)
     );
+    uint256 aEthDaiCollectorBalanceBefore = IERC20(AaveV3ArbitrumAssets.DAI_A_TOKEN).balanceOf(
+      address(AaveV3Arbitrum.COLLECTOR)
+    );
+    uint256 daiCollectorBalanceBefore = IERC20(AaveV3ArbitrumAssets.DAI_UNDERLYING).balanceOf(
+      address(AaveV3Arbitrum.COLLECTOR)
+    );
 
     assertGt(lusdCollectorBalanceBefore, 1 ether);
     assertGt(usdcCollectorBalanceBefore, 1e6);
+    assertGt(aEthDaiCollectorBalanceBefore, 1 ether);
+    assertGt(daiCollectorBalanceBefore, 0);
 
     vm.expectEmit(true, false, false, true, MiscArbitrum.AAVE_ARB_ETH_BRIDGE);
     emit Bridge(AaveV3ArbitrumAssets.LUSD_UNDERLYING, 2137705148004032151384); // dynamically get bridge
     vm.expectEmit(true, false, false, true, MiscArbitrum.AAVE_ARB_ETH_BRIDGE);
     emit Bridge(AaveV3ArbitrumAssets.USDC_UNDERLYING, 51624793644); // dynamically get bridge balance
+    vm.expectEmit(true, false, false, true, MiscArbitrum.AAVE_ARB_ETH_BRIDGE);
+    emit Bridge(AaveV3ArbitrumAssets.DAI_UNDERLYING, 281773242074325319833963); // dynamically get bridge balance
     executePayload(vm, address(proposal));
 
     uint256 lusdCollectorBalanceAfter = IERC20(AaveV3ArbitrumAssets.LUSD_A_TOKEN).balanceOf(
@@ -61,8 +71,16 @@ contract AaveV3Arbitrum_FebruaryFundingUpdatePartB_20250207_Test is ProtocolV3Te
     uint256 usdcCollectorBalanceAfter = IERC20(AaveV3ArbitrumAssets.USDC_A_TOKEN).balanceOf(
       address(AaveV3Arbitrum.COLLECTOR)
     );
+    uint256 aEthDaiCollectorBalanceAfter = IERC20(AaveV3ArbitrumAssets.DAI_A_TOKEN).balanceOf(
+      address(AaveV3Arbitrum.COLLECTOR)
+    );
+    uint256 daiCollectorBalanceAfter = IERC20(AaveV3ArbitrumAssets.DAI_UNDERLYING).balanceOf(
+      address(AaveV3Arbitrum.COLLECTOR)
+    );
 
     assertApproxEqAbs(lusdCollectorBalanceAfter, 1 ether, 100);
     assertApproxEqAbs(usdcCollectorBalanceAfter, 1e6, 100);
+    assertApproxEqAbs(aEthDaiCollectorBalanceAfter, 1 ether, 100);
+    assertEq(daiCollectorBalanceAfter, 0);
   }
 }

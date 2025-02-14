@@ -49,14 +49,14 @@ contract AaveV3Ethereum_FebruaryFundingUpdatePartB_20250207 is IProposalGenericE
       })
     );
 
-    (uint256 bucketCap, uint256 bucketLevel) = IGhoToken(AaveV3EthereumAssets.GHO_UNDERLYING)
-      .getFacilitatorBucket(FACILITATOR);
-    if (GHO_DEPOSIT_AMOUNT > bucketCap - bucketLevel) {
-      IGhoToken(AaveV3EthereumAssets.GHO_UNDERLYING).setFacilitatorBucketCapacity(
-        FACILITATOR,
-        uint128(bucketLevel + GHO_DEPOSIT_AMOUNT)
-      );
-    }
+    IGhoDirectMinter(FACILITATOR).withdrawAndBurn(GHO_DEPOSIT_AMOUNT);
+    AaveV3Ethereum.COLLECTOR.depositToV3(
+      CollectorUtils.IOInput({
+        pool: address(AaveV3EthereumLido.POOL),
+        underlying: AaveV3EthereumAssets.GHO_UNDERLYING,
+        amount: GHO_DEPOSIT_AMOUNT
+      })
+    );
     IGhoDirectMinter(FACILITATOR).mintAndSupply(GHO_DEPOSIT_AMOUNT);
   }
 

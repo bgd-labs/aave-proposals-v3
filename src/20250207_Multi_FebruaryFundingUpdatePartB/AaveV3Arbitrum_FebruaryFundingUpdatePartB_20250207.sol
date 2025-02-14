@@ -22,6 +22,8 @@ contract AaveV3Arbitrum_FebruaryFundingUpdatePartB_20250207 is IProposalGenericE
   address public constant LUSD_GATEWAY = 0x09e9222E96E7B4AE2a407B98d48e330053351EEe;
   // https://arbiscan.io/address/0x096760F208390250649E3e8763348E783AEF5562
   address public constant USDC_GATEWAY = 0x096760F208390250649E3e8763348E783AEF5562;
+  // https://arbiscan.io/address/0x467194771dAe2967Aef3ECbEDD3Bf9a310C76C65
+  address public constant DAI_GATEWAY = 0x467194771dAe2967Aef3ECbEDD3Bf9a310C76C65;
 
   function execute() external {
     AaveV3Arbitrum.COLLECTOR.withdrawFromV3(
@@ -44,6 +46,21 @@ contract AaveV3Arbitrum_FebruaryFundingUpdatePartB_20250207 is IProposalGenericE
       }),
       MiscArbitrum.AAVE_ARB_ETH_BRIDGE
     );
+    AaveV3Arbitrum.COLLECTOR.withdrawFromV3(
+      CollectorUtils.IOInput({
+        pool: address(AaveV3Arbitrum.POOL),
+        underlying: AaveV3ArbitrumAssets.DAI_UNDERLYING,
+        amount: IERC20(AaveV3ArbitrumAssets.DAI_A_TOKEN).balanceOf(
+          address(AaveV3Arbitrum.COLLECTOR)
+        ) - 1 ether
+      }),
+      MiscArbitrum.AAVE_ARB_ETH_BRIDGE
+    );
+    AaveV3Arbitrum.COLLECTOR.transfer(
+      AaveV3ArbitrumAssets.DAI_UNDERLYING,
+      MiscArbitrum.AAVE_ARB_ETH_BRIDGE,
+      IERC20(AaveV3ArbitrumAssets.DAI_UNDERLYING).balanceOf(address(AaveV3Arbitrum.COLLECTOR))
+    );
 
     IAaveArbEthERC20Bridge(MiscArbitrum.AAVE_ARB_ETH_BRIDGE).bridge(
       AaveV3ArbitrumAssets.LUSD_UNDERLYING,
@@ -57,6 +74,13 @@ contract AaveV3Arbitrum_FebruaryFundingUpdatePartB_20250207 is IProposalGenericE
       AaveV3EthereumAssets.USDC_UNDERLYING,
       USDC_GATEWAY,
       IERC20(AaveV3ArbitrumAssets.USDC_UNDERLYING).balanceOf(MiscArbitrum.AAVE_ARB_ETH_BRIDGE)
+    );
+
+    IAaveArbEthERC20Bridge(MiscArbitrum.AAVE_ARB_ETH_BRIDGE).bridge(
+      AaveV3ArbitrumAssets.DAI_UNDERLYING,
+      AaveV3EthereumAssets.DAI_UNDERLYING,
+      DAI_GATEWAY,
+      IERC20(AaveV3ArbitrumAssets.DAI_UNDERLYING).balanceOf(MiscArbitrum.AAVE_ARB_ETH_BRIDGE)
     );
   }
 }

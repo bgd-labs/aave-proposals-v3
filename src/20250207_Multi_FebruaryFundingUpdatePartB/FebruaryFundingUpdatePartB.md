@@ -32,15 +32,15 @@ Withdraw from respective Aave Protocol and bridge the following assets to Ethere
 | :------------------: | :-----------------: | :--------------: | :--------------: |
 |   amUSDC.e (All-1)   |   aPolDAI (All-1)   | aArbLUSD (All-1) |   USDC.e (All)   |
 |    amBAL (All-1)     |  aPolWETH (All-1)   | aArbUSDC (All-1) | aOptLUSD (All-1) |
-|      BAL (All)       |   aPolBAL (All-1)   |                  | aOptUSDC (All-1) |
-|     USDC.e (All)     | aPolUSDC.e (All-1)  |                  |                  |
+|      BAL (All)       |   aPolBAL (All-1)   | aEthDai(All - 1) | aOptUSDC (All-1) |
+|     USDC.e (All)     | aPolUSDC.e (All-1)  |   Dai(All - 1)   |                  |
 |      AAVE (All)      |  aPolAAVE (All-1)   |                  |                  |
 |    amWETH (All-1)    | aPolstMATIC (All-1) |                  |                  |
 |    amDAI (All-1)     |   aPolDPI (All-1)   |                  |                  |
 |      wETH (All)      | aPolwstETH (All-1)  |                  |                  |
 |      CRV (All)       |   aPolCRV (All-1)   |                  |                  |
 
-### deposit into Aave v3 (Core)
+### Deposit into Aave V3
 
 |      Instance       | Asset |
 | :-----------------: | :---: |
@@ -50,7 +50,7 @@ Withdraw from respective Aave Protocol and bridge the following assets to Ethere
 
 ### Merit + Ahab Programs
 
-Create allowances to the Merit and Ahab, 3M GHO aEthLidoGHO and 800 aEthWETH from Aave v3 Prime and Core instances respectively:
+Create allowances to the Merit_Ahab Safe, 3M GHO aEthLidoGHO and 800 aEthWETH from Aave v3 Prime and Core instances respectively:
 
 SAFE: `0xdeadD8aB03075b7FBA81864202a2f59EE25B312b`
 
