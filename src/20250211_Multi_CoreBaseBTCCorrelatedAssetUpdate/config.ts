@@ -7,7 +7,8 @@ export const config: ConfigFile = {
     date: '20250211',
     author: 'TokenLogic',
     discussion: 'https://governance.aave.com/t/arfc-core-base-btc-correlated-asset-update/20940',
-    snapshot: '',
+    snapshot:
+      'https://snapshot.box/#/s:aave.eth/proposal/0x9efbc881d7db09b549a4c342387c31149c066de4bc51b625e2213d43aee0e977',
     votingNetwork: 'POLYGON',
   },
   poolOptions: {

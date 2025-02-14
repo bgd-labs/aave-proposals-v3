@@ -8,7 +8,7 @@ import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config
 /**
  * @title Core & Base - BTC Correlated Asset Update
  * @author TokenLogic
- * - Snapshot: TODO
+ * - Snapshot: https://snapshot.box/#/s:aave.eth/proposal/0x9efbc881d7db09b549a4c342387c31149c066de4bc51b625e2213d43aee0e977
  * - Discussion: https://governance.aave.com/t/arfc-core-base-btc-correlated-asset-update/20940
  */
 contract AaveV3Ethereum_CoreBaseBTCCorrelatedAssetUpdate_20250211 is AaveV3PayloadEthereum {
