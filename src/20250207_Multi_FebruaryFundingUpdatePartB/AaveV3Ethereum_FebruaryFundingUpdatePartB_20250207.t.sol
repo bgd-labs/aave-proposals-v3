@@ -24,17 +24,23 @@ contract AaveV3Ethereum_FebruaryFundingUpdatePartB_20250207_Test is ProtocolV3Te
   /**
    * @dev executes the generic test suite including e2e and config snapshots
    */
-  function test_defaultProposalExecution() public {
+  function test_defaultProposalExecutionOnCore() public {
     defaultTest(
       'AaveV3Ethereum_FebruaryFundingUpdatePartB_20250207',
       AaveV3Ethereum.POOL,
       address(proposal)
     );
-    // defaultTest(
-    //   'AaveV3Ethereum_FebruaryFundingUpdatePartB_20250207',
-    //   AaveV3EthereumLido.POOL,
-    //   address(proposal)
-    // );
+  }
+
+  /**
+   * @dev executes the generic test suite including e2e and config snapshots
+   */
+  function test_defaultProposalExecutionOnPrime() public {
+    defaultTest(
+      'AaveV3Ethereum_FebruaryFundingUpdatePartB_20250207',
+      AaveV3EthereumLido.POOL,
+      address(proposal)
+    );
   }
 
   function test_balance() public {
@@ -44,13 +50,12 @@ contract AaveV3Ethereum_FebruaryFundingUpdatePartB_20250207_Test is ProtocolV3Te
     uint256 usdsCollectorBalanceBefore = IERC20(AaveV3EthereumAssets.USDS_UNDERLYING).balanceOf(
       address(AaveV3Ethereum.COLLECTOR)
     );
-    // uint256 ghoCollectorBalanceBefore = IERC20(AaveV3EthereumLidoAssets.GHO_UNDERLYING).balanceOf(
-    //   address(AaveV3EthereumLido.COLLECTOR)
-    // );
+    uint256 ghoACollectorBalanceBefore = IERC20(AaveV3EthereumLidoAssets.GHO_A_TOKEN).balanceOf(
+      proposal.FACILITATOR()
+    );
 
     assertGt(wethCollectorBalanceBefore, 0);
     assertGt(usdsCollectorBalanceBefore, 0);
-    // assertGe(ghoCollectorBalanceBefore, proposal.GHO_DEPOSIT_AMOUNT());
 
     executePayload(vm, address(proposal));
 
@@ -60,12 +65,12 @@ contract AaveV3Ethereum_FebruaryFundingUpdatePartB_20250207_Test is ProtocolV3Te
     uint256 usdsCollectorBalanceAfter = IERC20(AaveV3EthereumAssets.USDS_UNDERLYING).balanceOf(
       address(AaveV3Ethereum.COLLECTOR)
     );
-    // uint256 ghoCollectorBalanceAfter = IERC20(AaveV3EthereumLidoAssets.GHO_UNDERLYING).balanceOf(
-    //   address(AaveV3EthereumLido.COLLECTOR)
-    // );
+    uint256 ghoACollectorBalanceAfter = IERC20(AaveV3EthereumLidoAssets.GHO_A_TOKEN).balanceOf(
+      proposal.FACILITATOR()
+    );
 
     assertEq(wethCollectorBalanceAfter, 0);
     assertEq(usdsCollectorBalanceAfter, 0);
-    // assertEq(ghoCollectorBalanceAfter, ghoCollectorBalanceBefore - proposal.GHO_DEPOSIT_AMOUNT());
+    assertEq(ghoACollectorBalanceAfter, ghoACollectorBalanceBefore + proposal.GHO_DEPOSIT_AMOUNT());
   }
 }

@@ -7,7 +7,8 @@ import {AaveV3EthereumLido, AaveV3EthereumLidoAssets} from 'aave-address-book/Aa
 import {CollectorUtils, ICollector} from 'aave-helpers/src/CollectorUtils.sol';
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
 
-import 'forge-std/Test.sol';
+import {IGhoToken} from '../interfaces/IGhoToken.sol';
+import {IGhoDirectMinter} from './IGhoDirectMinter.sol';
 
 /**
  * @title February Funding Update - Part B
@@ -19,6 +20,9 @@ contract AaveV3Ethereum_FebruaryFundingUpdatePartB_20250207 is IProposalGenericE
   using CollectorUtils for ICollector;
 
   uint256 public constant GHO_DEPOSIT_AMOUNT = 3_000_000e18;
+
+  // https://etherscan.io/address/0x2cE01c87Fec1b71A9041c52CaED46Fc5f4807285
+  address public constant FACILITATOR = 0x2cE01c87Fec1b71A9041c52CaED46Fc5f4807285;
 
   function execute() external {
     AaveV3Ethereum.COLLECTOR.depositToV3(
@@ -35,12 +39,15 @@ contract AaveV3Ethereum_FebruaryFundingUpdatePartB_20250207 is IProposalGenericE
         amount: type(uint256).max
       })
     );
-    // AaveV3EthereumLido.COLLECTOR.depositToV3(
-    //   CollectorUtils.IOInput({
-    //     pool: address(AaveV3EthereumLido.POOL),
-    //     underlying: AaveV3EthereumLidoAssets.GHO_UNDERLYING,
-    //     amount: GHO_DEPOSIT_AMOUNT
-    //   })
-    // );
+
+    (uint256 bucketCap, uint256 bucketLevel) = IGhoToken(AaveV3EthereumAssets.GHO_UNDERLYING)
+      .getFacilitatorBucket(FACILITATOR);
+    if (GHO_DEPOSIT_AMOUNT > bucketCap - bucketLevel) {
+      IGhoToken(AaveV3EthereumAssets.GHO_UNDERLYING).setFacilitatorBucketCapacity(
+        FACILITATOR,
+        uint128(bucketLevel + GHO_DEPOSIT_AMOUNT)
+      );
+    }
+    IGhoDirectMinter(FACILITATOR).mintAndSupply(GHO_DEPOSIT_AMOUNT);
   }
 }
