@@ -40,13 +40,6 @@ Additionally, Base has emerged as the second-largest platform for cbBTC growth. 
 |        Slope2        |  300%   |   60%    | -240%  |
 |    Reserve Factor    |   20%   |   50%    |  30%   |
 
-#### Amend fBTC Borrow rate Uoptimal
-
-|     Description      | Current | Proposed | Change |
-| :------------------: | :-----: | :------: | :----: |
-| Borrow Rate Uoptimal |   45%   |   80%    |  +35%  |
-|        Slope2        |  300%   |   60%    | -240%  |
-
 #### Amend tBTC Borrow rate Uoptimal
 
 |     Description      | Current | Proposed | Change |
@@ -57,14 +50,14 @@ Additionally, Base has emerged as the second-largest platform for cbBTC growth. 
 
 #### Liquid E-modes
 
-|      Parameters       | Value | Value | Value | Value | Value |
-| :-------------------: | :---: | :---: | :---: | :---: | :---: |
-|         Asset         | LBTC  | wBTC  | cbBTC | fBTC  | tBTC  |
-|      Collateral       |  Yes  |  No   |  No   |  No   |  No   |
-|      Borrowable       |  No   |  Yes  |  Yes  |  Yes  |  Yes  |
-|        Max LTV        |  84%  |   -   |   -   |   -   |   -   |
-| Liquidation Threshold |  86%  |   -   |   -   |   -   |   -   |
-|   Liquidation Bonus   | 3.00% |   -   |   -   |   -   |   -   |
+|      Parameters       | Value | Value | Value | Value |
+| :-------------------: | :---: | :---: | :---: | :---: |
+|         Asset         | LBTC  | wBTC  | cbBTC | tBTC  |
+|      Collateral       |  Yes  |  No   |  No   |  No   |
+|      Borrowable       |  No   |  Yes  |  Yes  |  Yes  |
+|        Max LTV        |  84%  |   -   |   -   |   -   |
+| Liquidation Threshold |  86%  |   -   |   -   |   -   |
+|   Liquidation Bonus   | 3.00% |   -   |   -   |   -   |
 
 ### Base Instance
 

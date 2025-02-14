@@ -25,15 +25,6 @@ export const config: ConfigFile = {
             },
           },
           {
-            asset: 'fBTC',
-            params: {
-              optimalUtilizationRate: '80',
-              baseVariableBorrowRate: '',
-              variableRateSlope1: '',
-              variableRateSlope2: '60',
-            },
-          },
-          {
             asset: 'tBTC',
             params: {
               optimalUtilizationRate: '80',
@@ -79,12 +70,6 @@ export const config: ConfigFile = {
           },
           {
             asset: 'cbBTC',
-            eModeCategory: 'AaveV3EthereumEModes.LBTC_WBTC',
-            collateral: 'DISABLED',
-            borrowable: 'ENABLED',
-          },
-          {
-            asset: 'fBTC',
             eModeCategory: 'AaveV3EthereumEModes.LBTC_WBTC',
             collateral: 'DISABLED',
             borrowable: 'ENABLED',

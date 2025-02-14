@@ -22,19 +22,9 @@ contract AaveV3Ethereum_CoreBaseBTCCorrelatedAssetUpdate_20250211 is AaveV3Paylo
     returns (IAaveV3ConfigEngine.RateStrategyUpdate[] memory)
   {
     IAaveV3ConfigEngine.RateStrategyUpdate[]
-      memory rateStrategies = new IAaveV3ConfigEngine.RateStrategyUpdate[](3);
+      memory rateStrategies = new IAaveV3ConfigEngine.RateStrategyUpdate[](2);
     rateStrategies[0] = IAaveV3ConfigEngine.RateStrategyUpdate({
       asset: AaveV3EthereumAssets.cbBTC_UNDERLYING,
-      params: IAaveV3ConfigEngine.InterestRateInputData({
-        optimalUsageRatio: 80_00,
-        baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
-        variableRateSlope1: EngineFlags.KEEP_CURRENT,
-        variableRateSlope2: 60_00
-      })
-    });
-
-    rateStrategies[1] = IAaveV3ConfigEngine.RateStrategyUpdate({
-      asset: fBTC_UNDERLYING,
       params: IAaveV3ConfigEngine.InterestRateInputData({
         optimalUsageRatio: 80_00,
         baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
@@ -112,7 +102,7 @@ contract AaveV3Ethereum_CoreBaseBTCCorrelatedAssetUpdate_20250211 is AaveV3Paylo
     returns (IAaveV3ConfigEngine.AssetEModeUpdate[] memory)
   {
     IAaveV3ConfigEngine.AssetEModeUpdate[]
-      memory assetEModeUpdates = new IAaveV3ConfigEngine.AssetEModeUpdate[](5);
+      memory assetEModeUpdates = new IAaveV3ConfigEngine.AssetEModeUpdate[](4);
 
     assetEModeUpdates[0] = IAaveV3ConfigEngine.AssetEModeUpdate({
       asset: AaveV3EthereumAssets.WBTC_UNDERLYING,
@@ -133,12 +123,6 @@ contract AaveV3Ethereum_CoreBaseBTCCorrelatedAssetUpdate_20250211 is AaveV3Paylo
       collateral: EngineFlags.DISABLED
     });
     assetEModeUpdates[3] = IAaveV3ConfigEngine.AssetEModeUpdate({
-      asset: fBTC_UNDERLYING,
-      eModeCategory: AaveV3EthereumEModes.LBTC_WBTC,
-      borrowable: EngineFlags.ENABLED,
-      collateral: EngineFlags.DISABLED
-    });
-    assetEModeUpdates[4] = IAaveV3ConfigEngine.AssetEModeUpdate({
       asset: AaveV3EthereumAssets.LBTC_UNDERLYING,
       eModeCategory: AaveV3EthereumEModes.LBTC_WBTC,
       borrowable: EngineFlags.DISABLED,
