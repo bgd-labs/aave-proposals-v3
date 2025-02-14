@@ -38,12 +38,34 @@ contract AaveV3Base_CoreBaseBTCCorrelatedAssetUpdate_20250211 is AaveV3PayloadBa
         optimalUsageRatio: 80_00,
         baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
         variableRateSlope1: EngineFlags.KEEP_CURRENT,
-        variableRateSlope2: EngineFlags.KEEP_CURRENT
+        variableRateSlope2: 60_00
       })
     });
 
     return rateStrategies;
   }
+
+  function borrowsUpdates()
+    public
+    pure
+    override
+    returns (IAaveV3ConfigEngine.BorrowUpdate[] memory)
+  {
+    IAaveV3ConfigEngine.BorrowUpdate[]
+      memory borrowUpdates = new IAaveV3ConfigEngine.BorrowUpdate[](1);
+
+    borrowUpdates[0] = IAaveV3ConfigEngine.BorrowUpdate({
+      asset: AaveV3BaseAssets.cbBTC_UNDERLYING,
+      enabledToBorrow: EngineFlags.ENABLED,
+      flashloanable: EngineFlags.KEEP_CURRENT,
+      borrowableInIsolation: EngineFlags.KEEP_CURRENT,
+      withSiloedBorrowing: EngineFlags.KEEP_CURRENT,
+      reserveFactor: 50_00 // 50%
+    });
+
+    return borrowUpdates;
+  }
+
   function eModeCategoriesUpdates()
     public
     pure
@@ -55,14 +77,15 @@ contract AaveV3Base_CoreBaseBTCCorrelatedAssetUpdate_20250211 is AaveV3PayloadBa
 
     eModeUpdates[0] = IAaveV3ConfigEngine.EModeCategoryUpdate({
       eModeCategory: 4,
-      ltv: 84_00,
-      liqThreshold: 86_00,
+      ltv: 82_00,
+      liqThreshold: 84_00,
       liqBonus: 3_00,
       label: 'BTC_CORRELATED'
     });
 
     return eModeUpdates;
   }
+
   function assetsEModeUpdates()
     public
     pure
@@ -87,6 +110,7 @@ contract AaveV3Base_CoreBaseBTCCorrelatedAssetUpdate_20250211 is AaveV3PayloadBa
 
     return assetEModeUpdates;
   }
+
   function newListings() public pure override returns (IAaveV3ConfigEngine.Listing[] memory) {
     IAaveV3ConfigEngine.Listing[] memory listings = new IAaveV3ConfigEngine.Listing[](1);
 
@@ -94,23 +118,23 @@ contract AaveV3Base_CoreBaseBTCCorrelatedAssetUpdate_20250211 is AaveV3PayloadBa
       asset: LBTC,
       assetSymbol: 'LBTC',
       priceFeed: 0x1E6c22AAA11F507af12034A5Dc4126A6A25DC8d2,
-      enabledToBorrow: EngineFlags.ENABLED,
+      enabledToBorrow: EngineFlags.DISABLED,
       borrowableInIsolation: EngineFlags.DISABLED,
       withSiloedBorrowing: EngineFlags.DISABLED,
       flashloanable: EngineFlags.ENABLED,
-      ltv: 70_00,
-      liqThreshold: 75_00,
+      ltv: 68_00,
+      liqThreshold: 73_00,
       liqBonus: 8_50,
-      reserveFactor: 20_00,
-      supplyCap: 800,
-      borrowCap: 80,
+      reserveFactor: 1, // reserveFactor should be greater than 0
+      supplyCap: 400,
+      borrowCap: 0,
       debtCeiling: 0,
       liqProtocolFee: 10_00,
       rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
-        optimalUsageRatio: 80_00,
+        optimalUsageRatio: 1_00, // minimum optimalUsageRatio is 1%
         baseVariableBorrowRate: 0,
-        variableRateSlope1: 4_00,
-        variableRateSlope2: 300_00
+        variableRateSlope1: 0,
+        variableRateSlope2: 0
       })
     });
 

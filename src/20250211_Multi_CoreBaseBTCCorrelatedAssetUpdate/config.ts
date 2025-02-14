@@ -21,8 +21,53 @@ export const config: ConfigFile = {
               optimalUtilizationRate: '80',
               baseVariableBorrowRate: '',
               variableRateSlope1: '',
-              variableRateSlope2: '',
+              variableRateSlope2: '60',
             },
+          },
+          {
+            asset: 'fBTC',
+            params: {
+              optimalUtilizationRate: '80',
+              baseVariableBorrowRate: '',
+              variableRateSlope1: '',
+              variableRateSlope2: '60',
+            },
+          },
+          {
+            asset: 'tBTC',
+            params: {
+              optimalUtilizationRate: '80',
+              baseVariableBorrowRate: '',
+              variableRateSlope1: '',
+              variableRateSlope2: '60',
+            },
+          },
+        ],
+        BORROWS_UPDATE: [
+          {
+            asset: 'cbBTC',
+            enabledToBorrow: 'KEEP_CURRENT',
+            flashloanable: 'KEEP_CURRENT',
+            borrowableInIsolation: 'KEEP_CURRENT',
+            withSiloedBorrowing: 'KEEP_CURRENT',
+            reserveFactor: '50',
+          },
+          {
+            asset: 'tBTC',
+            enabledToBorrow: 'KEEP_CURRENT',
+            flashloanable: 'KEEP_CURRENT',
+            borrowableInIsolation: 'KEEP_CURRENT',
+            withSiloedBorrowing: 'KEEP_CURRENT',
+            reserveFactor: '50',
+          },
+        ],
+        EMODES_UPDATES: [
+          {
+            eModeCategory: 'AaveV3EthereumEModes.LBTC_WBTC',
+            ltv: '84',
+            liqThreshold: '86',
+            liqBonus: '3',
+            label: 'BTC_CORRELATED',
           },
         ],
         EMODES_ASSETS: [
@@ -39,6 +84,18 @@ export const config: ConfigFile = {
             borrowable: 'ENABLED',
           },
           {
+            asset: 'fBTC',
+            eModeCategory: 'AaveV3EthereumEModes.LBTC_WBTC',
+            collateral: 'DISABLED',
+            borrowable: 'ENABLED',
+          },
+          {
+            asset: 'tBTC',
+            eModeCategory: 'AaveV3EthereumEModes.LBTC_WBTC',
+            collateral: 'DISABLED',
+            borrowable: 'ENABLED',
+          },
+          {
             asset: 'LBTC',
             eModeCategory: 'AaveV3EthereumEModes.LBTC_WBTC',
             collateral: 'ENABLED',
@@ -46,7 +103,7 @@ export const config: ConfigFile = {
           },
         ],
       },
-      cache: {blockNumber: 21824305},
+      cache: {blockNumber: 26374997},
     },
     AaveV3Base: {
       configs: {
@@ -57,12 +114,28 @@ export const config: ConfigFile = {
               optimalUtilizationRate: '80',
               baseVariableBorrowRate: '',
               variableRateSlope1: '',
-              variableRateSlope2: '',
+              variableRateSlope2: '60',
             },
           },
         ],
+        BORROWS_UPDATE: [
+          {
+            asset: 'cbBTC',
+            enabledToBorrow: 'KEEP_CURRENT',
+            flashloanable: 'KEEP_CURRENT',
+            borrowableInIsolation: 'KEEP_CURRENT',
+            withSiloedBorrowing: 'KEEP_CURRENT',
+            reserveFactor: '50',
+          },
+        ],
         EMODES_UPDATES: [
-          {eModeCategory: 4, ltv: '84', liqThreshold: '86', liqBonus: '3', label: 'BTC_CORRELATED'},
+          {
+            eModeCategory: 4,
+            ltv: '82',
+            liqThreshold: '84',
+            liqBonus: '3',
+            label: 'BTC_CORRELATED',
+          },
         ],
         EMODES_ASSETS: [
           {
@@ -97,6 +170,7 @@ export const config: ConfigFile = {
             },
             asset: '0xecAc9C5F704e954931349Da37F60E39f515c11c1',
             admin: '',
+            eModeCategory: '4',
           },
         ],
       },

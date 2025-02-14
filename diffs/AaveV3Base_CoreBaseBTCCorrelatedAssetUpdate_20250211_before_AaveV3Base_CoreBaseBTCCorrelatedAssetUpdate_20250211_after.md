@@ -9,24 +9,24 @@
 | decimals | 8 |
 | isActive | true |
 | isFrozen | false |
-| supplyCap | 800 LBTC |
-| borrowCap | 80 LBTC |
+| supplyCap | 400 LBTC |
+| borrowCap | 0 LBTC |
 | debtCeiling | 0 $ [0] |
 | isSiloed | false |
 | isFlashloanable | true |
 | oracle | [0x1E6c22AAA11F507af12034A5Dc4126A6A25DC8d2](https://basescan.org/address/0x1E6c22AAA11F507af12034A5Dc4126A6A25DC8d2) |
 | oracleDecimals | 8 |
 | oracleDescription | LBTC / BTC |
-| oracleLatestAnswer | 0.9999355 |
+| oracleLatestAnswer | 1.00071487 |
 | usageAsCollateralEnabled | true |
-| ltv | 70 % [7000] |
-| liquidationThreshold | 75 % [7500] |
+| ltv | 68 % [6800] |
+| liquidationThreshold | 73 % [7300] |
 | liquidationBonus | 8.5 % |
 | liquidationProtocolFee | 10 % [1000] |
-| reserveFactor | 20 % [2000] |
+| reserveFactor | 0.01 % [1] |
 | aToken | [0x80a94C36747CF51b2FbabDfF045f6D22c1930eD1](https://basescan.org/address/0x80a94C36747CF51b2FbabDfF045f6D22c1930eD1) |
 | variableDebtToken | [0xe9541C77a111bCAa5dF56839bbC50894eba7aFcb](https://basescan.org/address/0xe9541C77a111bCAa5dF56839bbC50894eba7aFcb) |
-| borrowingEnabled | true |
+| borrowingEnabled | false |
 | isBorrowableInIsolation | false |
 | interestRateStrategy | [0x86AB1C62A8bf868E1b3E1ab87d587Aba6fbCbDC5](https://basescan.org/address/0x86AB1C62A8bf868E1b3E1ab87d587Aba6fbCbDC5) |
 | aTokenName | Aave Base LBTC |
@@ -38,12 +38,12 @@
 | variableDebtTokenSymbol | variableDebtBasLBTC |
 | virtualAccountingActive | true |
 | virtualBalance | 1 LBTC [100000000] |
-| optimalUsageRatio | 80 % |
-| maxVariableBorrowRate | 304 % |
+| optimalUsageRatio | 1 % |
+| maxVariableBorrowRate | 0 % |
 | baseVariableBorrowRate | 0 % |
-| variableRateSlope1 | 4 % |
-| variableRateSlope2 | 300 % |
-| interestRate | ![ir](https://dash.onaave.com/api/static?variableRateSlope1=40000000000000000000000000&variableRateSlope2=3000000000000000000000000000&optimalUsageRatio=800000000000000000000000000&baseVariableBorrowRate=0&maxVariableBorrowRate=3040000000000000000000000000) |
+| variableRateSlope1 | 0 % |
+| variableRateSlope2 | 0 % |
+| interestRate | ![ir](https://dash.onaave.com/api/static?variableRateSlope1=0&variableRateSlope2=0&optimalUsageRatio=10000000000000000000000000&baseVariableBorrowRate=0&maxVariableBorrowRate=0) |
 
 
 ### Reserves altered
@@ -52,8 +52,11 @@
 
 | description | value before | value after |
 | --- | --- | --- |
+| reserveFactor | 20 % [2000] | 50 % [5000] |
 | optimalUsageRatio | 45 % | 80 % |
-| interestRate | ![before](https://dash.onaave.com/api/static?variableRateSlope1=40000000000000000000000000&variableRateSlope2=3000000000000000000000000000&optimalUsageRatio=450000000000000000000000000&baseVariableBorrowRate=0&maxVariableBorrowRate=3040000000000000000000000000) | ![after](https://dash.onaave.com/api/static?variableRateSlope1=40000000000000000000000000&variableRateSlope2=3000000000000000000000000000&optimalUsageRatio=800000000000000000000000000&baseVariableBorrowRate=0&maxVariableBorrowRate=3040000000000000000000000000) |
+| maxVariableBorrowRate | 304 % | 64 % |
+| variableRateSlope2 | 300 % | 60 % |
+| interestRate | ![before](https://dash.onaave.com/api/static?variableRateSlope1=40000000000000000000000000&variableRateSlope2=3000000000000000000000000000&optimalUsageRatio=450000000000000000000000000&baseVariableBorrowRate=0&maxVariableBorrowRate=3040000000000000000000000000) | ![after](https://dash.onaave.com/api/static?variableRateSlope1=40000000000000000000000000&variableRateSlope2=600000000000000000000000000&optimalUsageRatio=800000000000000000000000000&baseVariableBorrowRate=0&maxVariableBorrowRate=640000000000000000000000000) |
 
 ## Emodes changed
 
@@ -74,8 +77,8 @@
 | description | value before | value after |
 | --- | --- | --- |
 | eMode.label | - | BTC_CORRELATED |
-| eMode.ltv | - | 84 % |
-| eMode.liquidationThreshold | - | 86 % |
+| eMode.ltv | - | 82 % |
+| eMode.liquidationThreshold | - | 84 % |
 | eMode.liquidationBonus | - | 3 % |
 | eMode.borrowableBitmap | - | cbBTC |
 | eMode.collateralBitmap | - | LBTC |
@@ -94,12 +97,18 @@
         "eModeCategory": 4,
         "label": "BTC_CORRELATED",
         "liquidationBonus": 10300,
-        "liquidationThreshold": 8600,
-        "ltv": 8400
+        "liquidationThreshold": 8400,
+        "ltv": 8200
       }
     }
   },
   "reserves": {
+    "0xcbB7C0000aB88B473b1f5aFd9ef808440eed33Bf": {
+      "reserveFactor": {
+        "from": 2000,
+        "to": 5000
+      }
+    },
     "0xecAc9C5F704e954931349Da37F60E39f515c11c1": {
       "from": null,
       "to": {
@@ -107,8 +116,8 @@
         "aTokenName": "Aave Base LBTC",
         "aTokenSymbol": "aBasLBTC",
         "aTokenUnderlyingBalance": "100000000",
-        "borrowCap": 80,
-        "borrowingEnabled": true,
+        "borrowCap": 0,
+        "borrowingEnabled": false,
         "debtCeiling": 0,
         "decimals": 8,
         "id": 9,
@@ -121,14 +130,14 @@
         "isSiloed": false,
         "liquidationBonus": 10850,
         "liquidationProtocolFee": 1000,
-        "liquidationThreshold": 7500,
-        "ltv": 7000,
+        "liquidationThreshold": 7300,
+        "ltv": 6800,
         "oracle": "0x1E6c22AAA11F507af12034A5Dc4126A6A25DC8d2",
         "oracleDecimals": 8,
         "oracleDescription": "LBTC / BTC",
-        "oracleLatestAnswer": "99993550",
-        "reserveFactor": 2000,
-        "supplyCap": 800,
+        "oracleLatestAnswer": "100071487",
+        "reserveFactor": 1,
+        "supplyCap": 400,
         "symbol": "LBTC",
         "underlying": "0xecAc9C5F704e954931349Da37F60E39f515c11c1",
         "usageAsCollateralEnabled": true,
@@ -142,9 +151,17 @@
   },
   "strategies": {
     "0xcbB7C0000aB88B473b1f5aFd9ef808440eed33Bf": {
+      "maxVariableBorrowRate": {
+        "from": "3040000000000000000000000000",
+        "to": "640000000000000000000000000"
+      },
       "optimalUsageRatio": {
         "from": "450000000000000000000000000",
         "to": "800000000000000000000000000"
+      },
+      "variableRateSlope2": {
+        "from": "3000000000000000000000000000",
+        "to": "600000000000000000000000000"
       }
     },
     "0xecAc9C5F704e954931349Da37F60E39f515c11c1": {
@@ -152,10 +169,10 @@
       "to": {
         "address": "0x86AB1C62A8bf868E1b3E1ab87d587Aba6fbCbDC5",
         "baseVariableBorrowRate": "0",
-        "maxVariableBorrowRate": "3040000000000000000000000000",
-        "optimalUsageRatio": "800000000000000000000000000",
-        "variableRateSlope1": "40000000000000000000000000",
-        "variableRateSlope2": "3000000000000000000000000000"
+        "maxVariableBorrowRate": "0",
+        "optimalUsageRatio": "10000000000000000000000000",
+        "variableRateSlope1": "0",
+        "variableRateSlope2": "0"
       }
     }
   },
@@ -177,12 +194,12 @@
         "balanceDiff": null,
         "stateDiff": {
           "0x7328c223b526ac18a2ca34e3cc928d22c174fde8c81d65ae5d17c01763d134b1": {
-            "previousValue": "0x0067ab733c000000000002000000000000000000000000000000000000000000",
-            "newValue": "0x0067ab733c000000000003000000000000000000000000000000000000000000"
+            "previousValue": "0x0067af438c000000000002000000000000000000000000000000000000000000",
+            "newValue": "0x0067af438c000000000003000000000000000000000000000000000000000000"
           },
           "0x7328c223b526ac18a2ca34e3cc928d22c174fde8c81d65ae5d17c01763d134b2": {
-            "previousValue": "0x000000000000000000093a8000000000000067d997bd00000000000000000000",
-            "newValue": "0x000000000000000000093a8000000000000067d997bd00000000000067ab733d"
+            "previousValue": "0x000000000000000000093a8000000000000067dd680d00000000000000000000",
+            "newValue": "0x000000000000000000093a8000000000000067dd680d00000000000067af438d"
           }
         }
       },
@@ -242,11 +259,11 @@
         "stateDiff": {
           "0x1df6378d90dbe801fca9d47d5375a5a229ffa4eb34516b72a9e9ff9483681050": {
             "previousValue": "0x0000000000000000000000000000000000000000753000000190000000001194",
-            "newValue": "0x0000000000000000000000000000000000000000753000000190000000001f40"
+            "newValue": "0x0000000000000000000000000000000000000000177000000190000000001f40"
           },
           "0x9494584aed5cd751dfda731ce708240f3b44d490b2febee994902cbe485628eb": {
             "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-            "newValue": "0x0000000000000000000000000000000000000000753000000190000000001f40"
+            "newValue": "0x0000000000000000000000000000000000000000000000000000000000000064"
           }
         }
       },
@@ -260,7 +277,7 @@
           },
           "0x142b8024331e7a0999f0b47d24464879477fb31a681c25e930aab464ba948f9d": {
             "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-            "newValue": "0x100000000000000000000003e800000032000000005007d085082a621d4c1b58"
+            "newValue": "0x100000000000000000000003e8000000190000000000000181082a621c841a90"
           },
           "0x142b8024331e7a0999f0b47d24464879477fb31a681c25e930aab464ba948f9e": {
             "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -272,7 +289,7 @@
           },
           "0x142b8024331e7a0999f0b47d24464879477fb31a681c25e930aab464ba948fa0": {
             "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-            "newValue": "0x00000000000000000000090067ab733d00000000000000000000000000000000"
+            "newValue": "0x00000000000000000000090067af438d00000000000000000000000000000000"
           },
           "0x142b8024331e7a0999f0b47d24464879477fb31a681c25e930aab464ba948fa1": {
             "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -292,7 +309,7 @@
           },
           "0x533efb5c9f032d0e72b35f5d59b231dc7a9fb94625f73b3c45c394126326354c": {
             "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-            "newValue": "0x0000000000000000000000000000000000000000000000000200283c219820d0"
+            "newValue": "0x0000000000000000000000000000000000000000000000000200283c20d02008"
           },
           "0x533efb5c9f032d0e72b35f5d59b231dc7a9fb94625f73b3c45c394126326354d": {
             "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -306,21 +323,25 @@
             "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
             "newValue": "0x000000000000000000000000ecac9c5f704e954931349da37f60e39f515c11c1"
           },
+          "0x89c297050f05308a1ebd800db358705332b6d10d9be0598b08aa6c1829173df7": {
+            "previousValue": "0x100000000000000000000003e800000138800000028007d0850829fe1e781c84",
+            "newValue": "0x100000000000000000000003e80000013880000002801388850829fe1e781c84"
+          },
           "0x89c297050f05308a1ebd800db358705332b6d10d9be0598b08aa6c1829173df8": {
-            "previousValue": "0x000000000001fac7df9e10298cd07fd000000000033c31ff353905fe66ef3506",
-            "newValue": "0x0000000000011d106f242fc6be35aeaf00000000033c31ff8fe7c989a4e2b7fb"
+            "previousValue": "0x000000000001ef079c43c644229563f600000000033c37351a1be56dc3f697fd",
+            "newValue": "0x000000000000ae08ae45d251cb934fd100000000033c3735aa4ffc67607cdf4f"
           },
           "0x89c297050f05308a1ebd800db358705332b6d10d9be0598b08aa6c1829173df9": {
-            "previousValue": "0x00000000000d7d19332452828ed857eb0000000003401120a859e93292698f4d",
-            "newValue": "0x000000000007965e31639096bd51183100000000034011231521ee39d6172dd8"
+            "previousValue": "0x00000000000d54d440200eb1e8dbe1ac0000000003402f2d6af80a7c5f3ee315",
+            "newValue": "0x0000000000077fb76b7040bc006b0dcb0000000003402f3151e622aee7b80ad1"
           },
           "0x89c297050f05308a1ebd800db358705332b6d10d9be0598b08aa6c1829173dfa": {
-            "previousValue": "0x00000000000000000000060067ab72e700000000000000000000000000000000",
-            "newValue": "0x00000000000000000000060067ab733d00000000000000000000000000000000"
+            "previousValue": "0x00000000000000000000060067af430100000000000000000000000000000000",
+            "newValue": "0x00000000000000000000060067af438d00000000000000000000000000000000"
           },
           "0x89c297050f05308a1ebd800db358705332b6d10d9be0598b08aa6c1829173dff": {
-            "previousValue": "0x000000000000000000000000000000000000000000000000000000000001c455",
-            "newValue": "0x000000000000000000000000000000000000000000000000000000000001c55b"
+            "previousValue": "0x0000000000000000000000000000000000000000000000000000000000012e8f",
+            "newValue": "0x000000000000000000000000000000000000000000000000000000000001302d"
           },
           "0xf60bd2f8d5629b1ce9ca6d5bea0e6b3ab9f3c734a2034e2e6b1d8767604fc2b5": {
             "previousValue": "0x000000000000000000000000000000000000000000000000000000000000aa80",

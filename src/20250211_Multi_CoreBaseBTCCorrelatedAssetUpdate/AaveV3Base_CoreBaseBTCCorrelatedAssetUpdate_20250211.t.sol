@@ -17,7 +17,7 @@ contract AaveV3Base_CoreBaseBTCCorrelatedAssetUpdate_20250211_Test is ProtocolV3
   AaveV3Base_CoreBaseBTCCorrelatedAssetUpdate_20250211 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('base'), 26250029);
+    vm.createSelectFork(vm.rpcUrl('base'), 26374997);
     proposal = new AaveV3Base_CoreBaseBTCCorrelatedAssetUpdate_20250211();
 
     deal(proposal.LBTC(), AaveV3Base.ACL_ADMIN, proposal.LBTC_SEED_AMOUNT());

@@ -12,6 +12,9 @@ import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config
  * - Discussion: https://governance.aave.com/t/arfc-core-base-btc-correlated-asset-update/20940
  */
 contract AaveV3Ethereum_CoreBaseBTCCorrelatedAssetUpdate_20250211 is AaveV3PayloadEthereum {
+  // https://etherscan.io/address/0xc96de26018a54d51c097160568752c4e3bd6c364
+  address public constant fBTC_UNDERLYING = 0xC96dE26018A54D51c097160568752c4E3BD6C364;
+
   function rateStrategiesUpdates()
     public
     pure
@@ -19,19 +22,89 @@ contract AaveV3Ethereum_CoreBaseBTCCorrelatedAssetUpdate_20250211 is AaveV3Paylo
     returns (IAaveV3ConfigEngine.RateStrategyUpdate[] memory)
   {
     IAaveV3ConfigEngine.RateStrategyUpdate[]
-      memory rateStrategies = new IAaveV3ConfigEngine.RateStrategyUpdate[](1);
+      memory rateStrategies = new IAaveV3ConfigEngine.RateStrategyUpdate[](3);
     rateStrategies[0] = IAaveV3ConfigEngine.RateStrategyUpdate({
       asset: AaveV3EthereumAssets.cbBTC_UNDERLYING,
       params: IAaveV3ConfigEngine.InterestRateInputData({
         optimalUsageRatio: 80_00,
         baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
         variableRateSlope1: EngineFlags.KEEP_CURRENT,
-        variableRateSlope2: EngineFlags.KEEP_CURRENT
+        variableRateSlope2: 60_00
       })
     });
 
+    rateStrategies[1] = IAaveV3ConfigEngine.RateStrategyUpdate({
+      asset: fBTC_UNDERLYING,
+      params: IAaveV3ConfigEngine.InterestRateInputData({
+        optimalUsageRatio: 80_00,
+        baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
+        variableRateSlope1: EngineFlags.KEEP_CURRENT,
+        variableRateSlope2: 60_00
+      })
+    });
+
+    rateStrategies[1] = IAaveV3ConfigEngine.RateStrategyUpdate({
+      asset: AaveV3EthereumAssets.tBTC_UNDERLYING,
+      params: IAaveV3ConfigEngine.InterestRateInputData({
+        optimalUsageRatio: 80_00,
+        baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
+        variableRateSlope1: EngineFlags.KEEP_CURRENT,
+        variableRateSlope2: 60_00
+      })
+    });
     return rateStrategies;
   }
+
+  function borrowsUpdates()
+    public
+    pure
+    override
+    returns (IAaveV3ConfigEngine.BorrowUpdate[] memory)
+  {
+    IAaveV3ConfigEngine.BorrowUpdate[]
+      memory borrowUpdates = new IAaveV3ConfigEngine.BorrowUpdate[](2);
+
+    borrowUpdates[0] = IAaveV3ConfigEngine.BorrowUpdate({
+      asset: AaveV3EthereumAssets.cbBTC_UNDERLYING,
+      enabledToBorrow: EngineFlags.ENABLED,
+      flashloanable: EngineFlags.KEEP_CURRENT,
+      borrowableInIsolation: EngineFlags.KEEP_CURRENT,
+      withSiloedBorrowing: EngineFlags.KEEP_CURRENT,
+      reserveFactor: 50_00 // 50%
+    });
+
+    borrowUpdates[1] = IAaveV3ConfigEngine.BorrowUpdate({
+      asset: AaveV3EthereumAssets.tBTC_UNDERLYING,
+      enabledToBorrow: EngineFlags.ENABLED,
+      flashloanable: EngineFlags.KEEP_CURRENT,
+      borrowableInIsolation: EngineFlags.KEEP_CURRENT,
+      withSiloedBorrowing: EngineFlags.KEEP_CURRENT,
+      reserveFactor: 50_00 // 50%
+    });
+
+    return borrowUpdates;
+  }
+
+  function eModeCategoriesUpdates()
+    public
+    pure
+    override
+    returns (IAaveV3ConfigEngine.EModeCategoryUpdate[] memory)
+  {
+    IAaveV3ConfigEngine.EModeCategoryUpdate[]
+      memory eModeUpdates = new IAaveV3ConfigEngine.EModeCategoryUpdate[](1);
+
+    eModeUpdates[0] = IAaveV3ConfigEngine.EModeCategoryUpdate({
+      eModeCategory: AaveV3EthereumEModes.LBTC_WBTC,
+      ltv: 84_00,
+      liqThreshold: 86_00,
+      liqBonus: 3_00,
+      label: 'BTC_CORRELATED'
+    });
+
+    return eModeUpdates;
+  }
+
   function assetsEModeUpdates()
     public
     pure
@@ -39,7 +112,7 @@ contract AaveV3Ethereum_CoreBaseBTCCorrelatedAssetUpdate_20250211 is AaveV3Paylo
     returns (IAaveV3ConfigEngine.AssetEModeUpdate[] memory)
   {
     IAaveV3ConfigEngine.AssetEModeUpdate[]
-      memory assetEModeUpdates = new IAaveV3ConfigEngine.AssetEModeUpdate[](3);
+      memory assetEModeUpdates = new IAaveV3ConfigEngine.AssetEModeUpdate[](5);
 
     assetEModeUpdates[0] = IAaveV3ConfigEngine.AssetEModeUpdate({
       asset: AaveV3EthereumAssets.WBTC_UNDERLYING,
@@ -54,6 +127,18 @@ contract AaveV3Ethereum_CoreBaseBTCCorrelatedAssetUpdate_20250211 is AaveV3Paylo
       collateral: EngineFlags.DISABLED
     });
     assetEModeUpdates[2] = IAaveV3ConfigEngine.AssetEModeUpdate({
+      asset: AaveV3EthereumAssets.tBTC_UNDERLYING,
+      eModeCategory: AaveV3EthereumEModes.LBTC_WBTC,
+      borrowable: EngineFlags.ENABLED,
+      collateral: EngineFlags.DISABLED
+    });
+    assetEModeUpdates[3] = IAaveV3ConfigEngine.AssetEModeUpdate({
+      asset: fBTC_UNDERLYING,
+      eModeCategory: AaveV3EthereumEModes.LBTC_WBTC,
+      borrowable: EngineFlags.ENABLED,
+      collateral: EngineFlags.DISABLED
+    });
+    assetEModeUpdates[4] = IAaveV3ConfigEngine.AssetEModeUpdate({
       asset: AaveV3EthereumAssets.LBTC_UNDERLYING,
       eModeCategory: AaveV3EthereumEModes.LBTC_WBTC,
       borrowable: EngineFlags.DISABLED,

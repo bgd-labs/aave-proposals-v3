@@ -11,6 +11,8 @@ This proposal focuses curating LBTC for growth across Core and Base instances of
 
 - Onboard LBTC on Base;
 - Create LBTC/cbBTC eMode on Core instance;
+- Create LBTC/fBTC eMode on Core instance;
+- Create LBTC/tBTC eMode on Core instance;
 - Create LBTC/cbBTC eMode on Base instance; and;
 - Amend cbBTC Borrow Rate.
 
@@ -18,7 +20,7 @@ This proposal focuses curating LBTC for growth across Core and Base instances of
 
 Lombard has demonstrated consistent growth, surpassing $1.8B in TVL, and has established itself as the leading BTC LST in the market. Its initial onboarding, coupled with the first liquid eMode alongside WBTC, quickly reached supply caps, highlighting strong demand for leverage loops between LBTC and BTC wrappers.
 
-On Aave’s Core instance, cbBTC is the second-largest BTC wrapper. While it experienced strong growth post-listing, the absence of borrowing opportunities has limited its potential. The onboarding of LBTC introduces a new growth avenue for both LBTC, cbBTC and fBTC. The new liquid eModes will allow users to loop LBTC exposure while offering attractive deposit rates for cbBTC and fBTC holders, incentivizing them to supply liquidity and fuelling this strategy.
+On Aave’s Core instance, cbBTC is the second-largest BTC wrapper. While it experienced strong growth post-listing, the absence of borrowing opportunities has limited its potential. The onboarding of LBTC introduces a new growth avenue for both LBTC, cbBTC, tBTC and fBTC. The new liquid eModes will allow users to loop LBTC exposure while offering attractive deposit rates for cbBTC and fBTC holders, incentivizing them to supply liquidity and fuelling this strategy.
 
 Specifically to fBTC, a points program will be applied to users who deposit fBTC and also, to different users who borrow fBTC. Leveraging LBTC/fBTC is expected to stimulate demand for fBTC.
 
@@ -35,17 +37,34 @@ Additionally, Base has emerged as the second-largest platform for cbBTC growth. 
 |     Description      | Current | Proposed | Change |
 | :------------------: | :-----: | :------: | :----: |
 | Borrow Rate Uoptimal |   45%   |   80%    |  +35%  |
+|        Slope2        |  300%   |   60%    | -240%  |
+|    Reserve Factor    |   20%   |   50%    |  30%   |
+
+#### Amend fBTC Borrow rate Uoptimal
+
+|     Description      | Current | Proposed | Change |
+| :------------------: | :-----: | :------: | :----: |
+| Borrow Rate Uoptimal |   45%   |   80%    |  +35%  |
+|        Slope2        |  300%   |   60%    | -240%  |
+
+#### Amend tBTC Borrow rate Uoptimal
+
+|     Description      | Current | Proposed | Change |
+| :------------------: | :-----: | :------: | :----: |
+| Borrow Rate Uoptimal |   45%   |   80%    |  +35%  |
+|        Slope2        |  300%   |   60%    | -240%  |
+|    Reserve Factor    |   20%   |   50%    |  30%   |
 
 #### Liquid E-modes
 
-|      Parameters       | Value | Value | Value |
-| :-------------------: | :---: | :---: | :---: |
-|         Asset         | LBTC  | wBTC  | cbBTC |
-|      Collateral       |  Yes  |  No   |  No   |
-|      Borrowable       |  No   |  Yes  |  Yes  |
-|        Max LTV        |  84%  |   -   |   -   |
-| Liquidation Threshold |  86%  |   -   |   -   |
-|   Liquidation Bonus   | 3.00% |   -   |   -   |
+|      Parameters       | Value | Value | Value | Value | Value |
+| :-------------------: | :---: | :---: | :---: | :---: | :---: |
+|         Asset         | LBTC  | wBTC  | cbBTC | fBTC  | tBTC  |
+|      Collateral       |  Yes  |  No   |  No   |  No   |  No   |
+|      Borrowable       |  No   |  Yes  |  Yes  |  Yes  |  Yes  |
+|        Max LTV        |  84%  |   -   |   -   |   -   |   -   |
+| Liquidation Threshold |  86%  |   -   |   -   |   -   |   -   |
+|   Liquidation Bonus   | 3.00% |   -   |   -   |   -   |   -   |
 
 ### Base Instance
 
@@ -56,20 +75,20 @@ The table below illustrates the configured risk parameters for **LBTC**
 | Parameter                 |                                      Value |
 | ------------------------- | -----------------------------------------: |
 | Isolation Mode            |                                      false |
-| Borrowable                |                                    ENABLED |
+| Borrowable                |                                   DISABLED |
 | Collateral Enabled        |                                       true |
-| Supply Cap (LBTC)         |                                        800 |
-| Borrow Cap (LBTC)         |                                         80 |
+| Supply Cap (LBTC)         |                                        400 |
+| Borrow Cap (LBTC)         |                                          0 |
 | Debt Ceiling              |                                      USD 0 |
-| LTV                       |                                       70 % |
-| LT                        |                                       75 % |
+| LTV                       |                                       68 % |
+| LT                        |                                       73 % |
 | Liquidation Bonus         |                                      8.5 % |
 | Liquidation Protocol Fee  |                                       10 % |
-| Reserve Factor            |                                       20 % |
+| Reserve Factor            |                                     0.01 % |
 | Base Variable Borrow Rate |                                        0 % |
-| Variable Slope 1          |                                        4 % |
-| Variable Slope 2          |                                      300 % |
-| Uoptimal                  |                                       80 % |
+| Variable Slope 1          |                                        0 % |
+| Variable Slope 2          |                                        0 % |
+| Uoptimal                  |                                        1 % |
 | Flashloanable             |                                    ENABLED |
 | Siloed Borrowing          |                                   DISABLED |
 | Borrowable in Isolation   |                                   DISABLED |
@@ -82,8 +101,8 @@ The table below illustrates the configured risk parameters for **LBTC**
 |         Asset         | LBTC  | cbBTC |
 |      Collateral       |  Yes  |  No   |
 |      Borrowable       |  No   |  Yes  |
-|        Max LTV        |  84%  |   -   |
-| Liquidation Threshold |  86%  |   -   |
+|        Max LTV        |  82%  |   -   |
+| Liquidation Threshold |  84%  |   -   |
 |   Liquidation Bonus   | 3.00% |   -   |
 
 The above is to be reviewed with feedback from Risk Service Providers to be incorporated.
@@ -93,6 +112,8 @@ The above is to be reviewed with feedback from Risk Service Providers to be inco
 |     Description      | Current | Proposed | Change |
 | :------------------: | :-----: | :------: | :----: |
 | Borrow Rate Uoptimal |   45%   |   80%    |  +35%  |
+|        Slope2        |  300%   |   60%    | -240%  |
+|    Reserve Factor    |   20%   |   50%    |  30%   |
 
 ## References
 
