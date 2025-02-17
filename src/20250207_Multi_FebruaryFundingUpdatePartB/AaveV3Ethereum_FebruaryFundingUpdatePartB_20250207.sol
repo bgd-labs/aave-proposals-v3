@@ -60,8 +60,8 @@ contract AaveV3Ethereum_FebruaryFundingUpdatePartB_20250207 is IProposalGenericE
   }
 
   function _allowance() internal {
-    AaveV3Ethereum.COLLECTOR.approve(AaveV3EthereumAssets.GHO_A_TOKEN, MERIT_AHAB_SAFE, 0);
-    AaveV3Ethereum.COLLECTOR.approve(
+    AaveV3EthereumLido.COLLECTOR.approve(AaveV3EthereumAssets.GHO_A_TOKEN, MERIT_AHAB_SAFE, 0);
+    AaveV3EthereumLido.COLLECTOR.approve(
       AaveV3EthereumAssets.GHO_A_TOKEN,
       MERIT_AHAB_SAFE,
       GHO_A_ALLOWANCE

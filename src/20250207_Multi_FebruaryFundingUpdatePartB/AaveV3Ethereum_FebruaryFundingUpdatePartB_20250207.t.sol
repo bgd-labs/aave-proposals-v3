@@ -85,7 +85,7 @@ contract AaveV3Ethereum_FebruaryFundingUpdatePartB_20250207_Test is ProtocolV3Te
     executePayload(vm, address(proposal));
 
     uint256 aGhoAllowance = IERC20(AaveV3EthereumAssets.GHO_A_TOKEN).allowance(
-      address(AaveV3Ethereum.COLLECTOR),
+      address(AaveV3EthereumLido.COLLECTOR),
       proposal.MERIT_AHAB_SAFE()
     );
     uint256 aWethAllowance = IERC20(AaveV3EthereumAssets.WETH_A_TOKEN).allowance(
