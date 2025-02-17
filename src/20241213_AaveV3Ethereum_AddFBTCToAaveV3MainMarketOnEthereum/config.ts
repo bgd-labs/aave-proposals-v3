@@ -1,6 +1,8 @@
 import {ConfigFile} from '../../generator/types';
 export const config: ConfigFile = {
   rootOptions: {
+    configFile: 'src/20241213_AaveV3Ethereum_AddFBTCToAaveV3MainMarketOnEthereum/config.ts',
+    update: true,
     author: 'Aave Chan Initiative',
     pools: ['AaveV3Ethereum'],
     title: 'Add FBTC to Aave v3 Main Market on Ethereum',
@@ -33,17 +35,17 @@ export const config: ConfigFile = {
             supplyCap: '200',
             borrowCap: '100',
             rateStrategyParams: {
-              optimalUtilizationRate: '45',
+              optimalUtilizationRate: '80',
               baseVariableBorrowRate: '0',
               variableRateSlope1: '4',
-              variableRateSlope2: '300',
+              variableRateSlope2: '60',
             },
             asset: '0xC96dE26018A54D51c097160568752c4E3BD6C364',
             admin: '0xac140648435d03f784879cd789130F22Ef588Fcd',
           },
         ],
       },
-      cache: {blockNumber: 21394751},
+      cache: {blockNumber: 21868569},
     },
   },
 };

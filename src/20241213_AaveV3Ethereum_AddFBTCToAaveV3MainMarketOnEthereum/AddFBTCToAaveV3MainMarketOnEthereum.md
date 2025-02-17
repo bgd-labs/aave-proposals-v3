@@ -52,8 +52,8 @@ The table below illustrates the configured risk parameters for **FBTC**
 | Reserve Factor            |                                       50 % |
 | Base Variable Borrow Rate |                                        0 % |
 | Variable Slope 1          |                                        4 % |
-| Variable Slope 2          |                                      300 % |
-| Uoptimal                  |                                       45 % |
+| Variable Slope 2          |                                       60 % |
+| Uoptimal                  |                                       80 % |
 | Flashloanable             |                                    ENABLED |
 | Siloed Borrowing          |                                   DISABLED |
 | Borrowable in Isolation   |                                   DISABLED |

@@ -3,7 +3,7 @@ pragma solidity ^0.8.0;
 
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 import {AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
-import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
+import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 import {IEmissionManager} from 'aave-v3-origin/contracts/rewards/interfaces/IEmissionManager.sol';
 
 import 'forge-std/Test.sol';
@@ -18,7 +18,7 @@ contract AaveV3Ethereum_AddFBTCToAaveV3MainMarketOnEthereum_20241213_Test is Pro
   AaveV3Ethereum_AddFBTCToAaveV3MainMarketOnEthereum_20241213 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 21394751);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 21868569);
     proposal = new AaveV3Ethereum_AddFBTCToAaveV3MainMarketOnEthereum_20241213();
   }
 
@@ -38,7 +38,7 @@ contract AaveV3Ethereum_AddFBTCToAaveV3MainMarketOnEthereum_20241213_Test is Pro
     (address aTokenAddress, , ) = AaveV3Ethereum
       .AAVE_PROTOCOL_DATA_PROVIDER
       .getReserveTokensAddresses(proposal.FBTC());
-    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Ethereum.COLLECTOR)), 10 ** 5);
+    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Ethereum.COLLECTOR)), 10 ** 8);
   }
 
   function test_FBTCAdmin() public {
