@@ -31,13 +31,13 @@
 | interestRateStrategy | [0x86AB1C62A8bf868E1b3E1ab87d587Aba6fbCbDC5](https://basescan.org/address/0x86AB1C62A8bf868E1b3E1ab87d587Aba6fbCbDC5) |
 | aTokenName | Aave Base LBTC |
 | aTokenSymbol | aBasLBTC |
-| aTokenUnderlyingBalance | 1 LBTC [100000000] |
+| aTokenUnderlyingBalance | 0.001 LBTC [100000] |
 | id | 9 |
 | isPaused | false |
 | variableDebtTokenName | Aave Base Variable Debt LBTC |
 | variableDebtTokenSymbol | variableDebtBasLBTC |
 | virtualAccountingActive | true |
-| virtualBalance | 1 LBTC [100000000] |
+| virtualBalance | 0.001 LBTC [100000] |
 | optimalUsageRatio | 1 % |
 | maxVariableBorrowRate | 0 % |
 | baseVariableBorrowRate | 0 % |
@@ -115,7 +115,7 @@
         "aToken": "0x80a94C36747CF51b2FbabDfF045f6D22c1930eD1",
         "aTokenName": "Aave Base LBTC",
         "aTokenSymbol": "aBasLBTC",
-        "aTokenUnderlyingBalance": "100000000",
+        "aTokenUnderlyingBalance": "100000",
         "borrowCap": 0,
         "borrowingEnabled": false,
         "debtCeiling": 0,
@@ -145,7 +145,7 @@
         "variableDebtTokenName": "Aave Base Variable Debt LBTC",
         "variableDebtTokenSymbol": "variableDebtBasLBTC",
         "virtualAccountingActive": true,
-        "virtualBalance": "100000000"
+        "virtualBalance": "100000"
       }
     }
   },
@@ -217,7 +217,7 @@
           },
           "0x0000000000000000000000000000000000000000000000000000000000000036": {
             "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-            "newValue": "0x0000000000000000000000000000000000000000000000000000000005f5e100"
+            "newValue": "0x00000000000000000000000000000000000000000000000000000000000186a0"
           },
           "0x0000000000000000000000000000000000000000000000000000000000000037": {
             "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -245,7 +245,7 @@
           },
           "0x1af823d5498ee5188dde77af72b64836646560ae54176a8be5169b32412a211c": {
             "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-            "newValue": "0x00000000033b2e3c9fd0803ce800000000000000000000000000000005f5e100"
+            "newValue": "0x00000000033b2e3c9fd0803ce8000000000000000000000000000000000186a0"
           },
           "0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc": {
             "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -305,7 +305,7 @@
           },
           "0x142b8024331e7a0999f0b47d24464879477fb31a681c25e930aab464ba948fa6": {
             "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-            "newValue": "0x00000000000000000000000005f5e10000000000000000000000000000000000"
+            "newValue": "0x000000000000000000000000000186a000000000000000000000000000000000"
           },
           "0x533efb5c9f032d0e72b35f5d59b231dc7a9fb94625f73b3c45c394126326354c": {
             "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -393,10 +393,10 @@
         "stateDiff": {
           "0x7bf8ac35c3bab85f6dcb07d56954d11ec99f9739070e1f5996e599eac6df916b": {
             "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-            "newValue": "0x0000000000000000000000000000000000000000000000000000000005f5e100"
+            "newValue": "0x00000000000000000000000000000000000000000000000000000000000186a0"
           },
           "0xbd16605d5d19e34d1fd7e42509d166043a50e216e7c5eb4b2030d21e468bd02c": {
-            "previousValue": "0x0000000000000000000000000000000000000000000000000000000005f5e100",
+            "previousValue": "0x00000000000000000000000000000000000000000000000000000000000186a0",
             "newValue": "0x0000000000000000000000000000000000000000000000000000000000000000"
           },
           "0xf9678e8acda8fa8351cea7f24373b1b9e6a8c9dfe30946240ebb0d75c311ccd3": {

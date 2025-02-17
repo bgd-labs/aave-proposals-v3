@@ -17,7 +17,7 @@ contract AaveV3Base_CoreBaseBTCCorrelatedAssetUpdate_20250211 is AaveV3PayloadBa
   using SafeERC20 for IERC20;
 
   address public constant LBTC = 0xecAc9C5F704e954931349Da37F60E39f515c11c1;
-  uint256 public constant LBTC_SEED_AMOUNT = 1e8;
+  uint256 public constant LBTC_SEED_AMOUNT = 1e5;
 
   function _postExecute() internal override {
     IERC20(LBTC).forceApprove(address(AaveV3Base.POOL), LBTC_SEED_AMOUNT);

@@ -39,6 +39,6 @@ contract AaveV3Base_CoreBaseBTCCorrelatedAssetUpdate_20250211_Test is ProtocolV3
     (address aTokenAddress, , ) = AaveV3Base.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(
       proposal.LBTC()
     );
-    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Base.COLLECTOR)), 10 ** 8);
+    assertEq(IERC20(aTokenAddress).balanceOf(address(AaveV3Base.COLLECTOR)), 10 ** 5);
   }
 }
