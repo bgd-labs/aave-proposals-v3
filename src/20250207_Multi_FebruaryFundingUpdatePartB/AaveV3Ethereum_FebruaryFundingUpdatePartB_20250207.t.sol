@@ -53,6 +53,9 @@ contract AaveV3Ethereum_FebruaryFundingUpdatePartB_20250207_Test is ProtocolV3Te
     uint256 ghoCollectorBalanceBefore = IERC20(AaveV3EthereumLidoAssets.GHO_UNDERLYING).balanceOf(
       address(AaveV3Ethereum.COLLECTOR)
     );
+    uint256 aGhoCollectorBalanceBefore = IERC20(AaveV3EthereumLidoAssets.GHO_A_TOKEN).balanceOf(
+      address(AaveV3Ethereum.COLLECTOR)
+    );
 
     assertGt(wethCollectorBalanceBefore, 0);
     assertGt(usdsCollectorBalanceBefore, 0);
@@ -68,10 +71,14 @@ contract AaveV3Ethereum_FebruaryFundingUpdatePartB_20250207_Test is ProtocolV3Te
     uint256 ghoCollectorBalanceAfter = IERC20(AaveV3EthereumLidoAssets.GHO_UNDERLYING).balanceOf(
       address(AaveV3Ethereum.COLLECTOR)
     );
+    uint256 aGhoCollectorBalanceAfter = IERC20(AaveV3EthereumLidoAssets.GHO_A_TOKEN).balanceOf(
+      address(AaveV3Ethereum.COLLECTOR)
+    );
 
     assertEq(wethCollectorBalanceAfter, 0);
     assertEq(usdsCollectorBalanceAfter, 0);
     assertEq(ghoCollectorBalanceAfter, ghoCollectorBalanceBefore - proposal.GHO_DEPOSIT_AMOUNT());
+    assertEq(aGhoCollectorBalanceAfter, aGhoCollectorBalanceBefore + proposal.GHO_DEPOSIT_AMOUNT());
   }
 
   function test_approve() public {

@@ -19,6 +19,7 @@ import {IGhoDirectMinter} from './IGhoDirectMinter.sol';
 contract AaveV3Ethereum_FebruaryFundingUpdatePartB_20250207 is IProposalGenericExecutor {
   using CollectorUtils for ICollector;
 
+  uint256 public constant GHO_BURN_AMOUNT = 10_000_000e18;
   uint256 public constant GHO_DEPOSIT_AMOUNT = 3_000_000e18;
 
   // https://etherscan.io/address/0x2cE01c87Fec1b71A9041c52CaED46Fc5f4807285
@@ -49,7 +50,7 @@ contract AaveV3Ethereum_FebruaryFundingUpdatePartB_20250207 is IProposalGenericE
       })
     );
 
-    IGhoDirectMinter(FACILITATOR).withdrawAndBurn(GHO_DEPOSIT_AMOUNT);
+    IGhoDirectMinter(FACILITATOR).withdrawAndBurn(GHO_BURN_AMOUNT);
     AaveV3Ethereum.COLLECTOR.depositToV3(
       CollectorUtils.IOInput({
         pool: address(AaveV3EthereumLido.POOL),
@@ -57,7 +58,6 @@ contract AaveV3Ethereum_FebruaryFundingUpdatePartB_20250207 is IProposalGenericE
         amount: GHO_DEPOSIT_AMOUNT
       })
     );
-    IGhoDirectMinter(FACILITATOR).mintAndSupply(GHO_DEPOSIT_AMOUNT);
   }
 
   function _allowance() internal {

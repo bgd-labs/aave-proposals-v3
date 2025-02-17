@@ -48,6 +48,8 @@ Withdraw from respective Aave Protocol and bridge the following assets to Ethere
 | AaveV3EthereumPrime |  GHO  |
 | AaveV3EthereumCore  | USDS  |
 
+### Withdraw and burn 10M GHO on Prime instance
+
 ### Merit + Ahab Programs
 
 Create allowances to the Merit_Ahab Safe, 3M GHO aEthLidoGHO and 800 aEthWETH from Aave v3 Prime and Core instances respectively:
