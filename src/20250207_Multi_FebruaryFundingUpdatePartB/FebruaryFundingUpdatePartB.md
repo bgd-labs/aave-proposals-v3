@@ -10,7 +10,7 @@ This publication presents the February Funding Update - Part B, which consists o
 
 - Bridging funds to Ethereum;
 - Create Merit & Ahab Allowances;
-- Deposit swapped assets to Aave V3 Core and Prime instance;
+- Deposit previously swapped assets on [Part A](https://github.com/bgd-labs/aave-proposals-v3/pull/595)
 
 ## Motivation
 
@@ -32,7 +32,7 @@ Withdraw from respective Aave Protocol and bridge the following assets to Ethere
 | :------------------: | :-----------------: | :--------------: | :--------------: |
 |   amUSDC.e (All-1)   |   aPolDAI (All-1)   | aArbLUSD (All-1) |   USDC.e (All)   |
 |    amBAL (All-1)     |  aPolWETH (All-1)   | aArbUSDC (All-1) | aOptLUSD (All-1) |
-|      BAL (All)       |   aPolBAL (All-1)   | aEthDai(All - 1) | aOptUSDC (All-1) |
+|      BAL (All)       |   aPolBAL (All-1)   |  aEthDai(All-1)  | aOptUSDC (All-1) |
 |     USDC.e (All)     | aPolUSDC.e (All-1)  |     Dai(All)     |                  |
 |      AAVE (All)      |  aPolAAVE (All-1)   |                  |                  |
 |    amWETH (All-1)    | aPolstMATIC (All-1) |                  |                  |
@@ -42,11 +42,11 @@ Withdraw from respective Aave Protocol and bridge the following assets to Ethere
 
 ### Deposit into Aave V3
 
-|      Instance       | Asset |
-| :-----------------: | :---: |
-| AaveV3EthereumCore  |  ETH  |
-| AaveV3EthereumPrime |  GHO  |
-| AaveV3EthereumCore  | USDS  |
+|      Instance       | Asset |                                    Amount                                    |
+| :-----------------: | :---: | :--------------------------------------------------------------------------: |
+| AaveV3EthereumCore  |  ETH  |                                     All                                      |
+| AaveV3EthereumPrime |  GHO  | [3M](https://governance.aave.com/t/arfc-update-usds-gho-borrow-rate/20892/5) |
+| AaveV3EthereumCore  | USDS  |                                     All                                      |
 
 ### Withdraw and burn 10M GHO on Prime instance
 
