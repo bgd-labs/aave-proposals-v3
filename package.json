@@ -31,7 +31,7 @@
     "vitest": "^2.1.5"
   },
   "dependencies": {
-    "@bgd-labs/aave-address-book": "4.8.0",
+    "@bgd-labs/aave-address-book": "4.10.1-9dc3ffc3af02d925dfed524d98c489aff5f1c4c9.0",
     "@bgd-labs/aave-cli": "^1.1.12",
     "@bgd-labs/js-utils": "^1.4.7",
     "@inquirer/prompts": "^7.1.0",
@@ -41,7 +41,7 @@
     "husky": "^8.0.3",
     "lint-staged": "^15.2.10",
     "tsx": "^4.19.2",
-    "viem": "^2.18.6"
+    "viem": "^2.23.1"
   },
   "lint-staged": {
     "*": "prettier --ignore-unknown --write"
