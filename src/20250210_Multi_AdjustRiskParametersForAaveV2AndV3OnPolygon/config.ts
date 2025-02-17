@@ -2,6 +2,8 @@ import {ConfigFile} from '../../generator/types';
 export const config: ConfigFile = {
   rootOptions: {
     configFile: 'src/20250210_Multi_AdjustRiskParametersForAaveV2AndV3OnPolygon/config.ts',
+    force: true,
+    update: true,
     author: 'Aave-chan Initiative',
     pools: ['AaveV2Polygon', 'AaveV3Polygon'],
     title: 'Adjust Risk Parameters for Aave V2 and V3 on Polygon',
@@ -14,14 +16,42 @@ export const config: ConfigFile = {
     votingNetwork: 'POLYGON',
   },
   poolOptions: {
-    AaveV2Polygon: {configs: {OTHERS: {}}, cache: {blockNumber: 67766742}},
+    AaveV2Polygon: {configs: {OTHERS: {}}, cache: {blockNumber: 68044431}},
     AaveV3Polygon: {
       configs: {
-        FREEZE: [
-          {asset: 'DAI', shouldBeFrozen: true},
-          {asset: 'USDC', shouldBeFrozen: true},
-          {asset: 'USDT', shouldBeFrozen: true},
-          {asset: 'USDCn', shouldBeFrozen: true},
+        COLLATERALS_UPDATE: [
+          {
+            asset: 'DAI',
+            ltv: '0',
+            liqThreshold: '',
+            liqBonus: '',
+            debtCeiling: '',
+            liqProtocolFee: '',
+          },
+          {
+            asset: 'USDC',
+            ltv: '0',
+            liqThreshold: '',
+            liqBonus: '',
+            debtCeiling: '',
+            liqProtocolFee: '',
+          },
+          {
+            asset: 'USDT',
+            ltv: '0',
+            liqThreshold: '',
+            liqBonus: '',
+            debtCeiling: '',
+            liqProtocolFee: '',
+          },
+          {
+            asset: 'USDCn',
+            ltv: '0',
+            liqThreshold: '',
+            liqBonus: '',
+            debtCeiling: '',
+            liqProtocolFee: '',
+          },
         ],
         BORROWS_UPDATE: [
           {
@@ -50,7 +80,7 @@ export const config: ConfigFile = {
           },
         ],
       },
-      cache: {blockNumber: 67766742},
+      cache: {blockNumber: 68044431},
     },
   },
 };

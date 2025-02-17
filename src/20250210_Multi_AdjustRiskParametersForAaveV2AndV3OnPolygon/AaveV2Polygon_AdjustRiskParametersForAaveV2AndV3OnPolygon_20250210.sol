@@ -3,7 +3,6 @@ pragma solidity ^0.8.0;
 
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
 import {AaveV2Polygon, AaveV2PolygonAssets} from 'aave-address-book/AaveV2Polygon.sol';
-
 /**
  * @title Adjust Risk Parameters for Aave V2 and V3 on Polygon
  * @author Aave-chan Initiative
@@ -14,8 +13,18 @@ contract AaveV2Polygon_AdjustRiskParametersForAaveV2AndV3OnPolygon_20250210 is
   IProposalGenericExecutor
 {
   function execute() external {
-    AaveV2Polygon.POOL_CONFIGURATOR.freezeReserve(AaveV2PolygonAssets.USDC_UNDERLYING);
+    AaveV2Polygon.POOL_CONFIGURATOR.configureReserveAsCollateral(
+      AaveV2PolygonAssets.USDC_UNDERLYING,
+      0,
+      8450,
+      10500
+    );
 
-    AaveV2Polygon.POOL_CONFIGURATOR.freezeReserve(AaveV2PolygonAssets.DAI_UNDERLYING);
+    AaveV2Polygon.POOL_CONFIGURATOR.configureReserveAsCollateral(
+      AaveV2PolygonAssets.DAI_UNDERLYING,
+      0,
+      7700,
+      10500
+    );
   }
 }

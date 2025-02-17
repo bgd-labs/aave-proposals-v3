@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {AaveV3Polygon, AaveV3PolygonAssets} from 'aave-address-book/AaveV3Polygon.sol';
+import {AaveV3PolygonAssets} from 'aave-address-book/AaveV3Polygon.sol';
 import {AaveV3PayloadPolygon} from 'aave-helpers/src/v3-config-engine/AaveV3PayloadPolygon.sol';
 import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
@@ -14,13 +14,50 @@ import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config
 contract AaveV3Polygon_AdjustRiskParametersForAaveV2AndV3OnPolygon_20250210 is
   AaveV3PayloadPolygon
 {
-  function _postExecute() internal override {
-    AaveV3Polygon.POOL_CONFIGURATOR.setReserveFreeze(AaveV3PolygonAssets.DAI_UNDERLYING, true);
-    AaveV3Polygon.POOL_CONFIGURATOR.setReserveFreeze(AaveV3PolygonAssets.USDC_UNDERLYING, true);
-    AaveV3Polygon.POOL_CONFIGURATOR.setReserveFreeze(AaveV3PolygonAssets.USDT_UNDERLYING, true);
-    AaveV3Polygon.POOL_CONFIGURATOR.setReserveFreeze(AaveV3PolygonAssets.USDCn_UNDERLYING, true);
-  }
+  function collateralsUpdates()
+    public
+    pure
+    override
+    returns (IAaveV3ConfigEngine.CollateralUpdate[] memory)
+  {
+    IAaveV3ConfigEngine.CollateralUpdate[]
+      memory collateralUpdate = new IAaveV3ConfigEngine.CollateralUpdate[](4);
 
+    collateralUpdate[0] = IAaveV3ConfigEngine.CollateralUpdate({
+      asset: AaveV3PolygonAssets.DAI_UNDERLYING,
+      ltv: 0,
+      liqThreshold: EngineFlags.KEEP_CURRENT,
+      liqBonus: EngineFlags.KEEP_CURRENT,
+      debtCeiling: EngineFlags.KEEP_CURRENT,
+      liqProtocolFee: EngineFlags.KEEP_CURRENT
+    });
+    collateralUpdate[1] = IAaveV3ConfigEngine.CollateralUpdate({
+      asset: AaveV3PolygonAssets.USDC_UNDERLYING,
+      ltv: 0,
+      liqThreshold: EngineFlags.KEEP_CURRENT,
+      liqBonus: EngineFlags.KEEP_CURRENT,
+      debtCeiling: EngineFlags.KEEP_CURRENT,
+      liqProtocolFee: EngineFlags.KEEP_CURRENT
+    });
+    collateralUpdate[2] = IAaveV3ConfigEngine.CollateralUpdate({
+      asset: AaveV3PolygonAssets.USDT_UNDERLYING,
+      ltv: 0,
+      liqThreshold: EngineFlags.KEEP_CURRENT,
+      liqBonus: EngineFlags.KEEP_CURRENT,
+      debtCeiling: EngineFlags.KEEP_CURRENT,
+      liqProtocolFee: EngineFlags.KEEP_CURRENT
+    });
+    collateralUpdate[3] = IAaveV3ConfigEngine.CollateralUpdate({
+      asset: AaveV3PolygonAssets.USDCn_UNDERLYING,
+      ltv: 0,
+      liqThreshold: EngineFlags.KEEP_CURRENT,
+      liqBonus: EngineFlags.KEEP_CURRENT,
+      debtCeiling: EngineFlags.KEEP_CURRENT,
+      liqProtocolFee: EngineFlags.KEEP_CURRENT
+    });
+
+    return collateralUpdate;
+  }
   function borrowsUpdates()
     public
     pure
