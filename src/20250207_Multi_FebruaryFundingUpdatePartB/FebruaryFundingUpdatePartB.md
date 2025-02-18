@@ -45,10 +45,12 @@ Withdraw from respective Aave Protocol and bridge the following assets to Ethere
 |      Instance       | Asset |                                    Amount                                    |
 | :-----------------: | :---: | :--------------------------------------------------------------------------: |
 | AaveV3EthereumCore  |  ETH  |                                     All                                      |
-| AaveV3EthereumPrime |  GHO  | [3M](https://governance.aave.com/t/arfc-update-usds-gho-borrow-rate/20892/5) |
+| AaveV3EthereumPrime |  GHO  |                                     3M                                       |
 | AaveV3EthereumCore  | USDS  |                                     All                                      |
 
 ### Withdraw and burn 3M GHO on Prime instance
+
+As per Chaos Labs' recommendation, withdraw and burn 3 Million GHO from Prime instance that had been previously been minted and supplied via the GhoDirectMinter Facilitator. Read more [here](https://governance.aave.com/t/arfc-update-usds-gho-borrow-rate/20892/5).
 
 ### Merit + Ahab Programs
 
