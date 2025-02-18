@@ -10,7 +10,7 @@ This proposal will upgrade all active Aave instances to version v3.3.0.
 
 ## Motivation
 
-Back in december we(BGD Labs) [proposed](https://governance.aave.com/t/bgd-aave-v3-3-feat-umbrella/20129) the Aave v3.3.0 upgrade which improves the liquidation engine, to support the previously proposed [Umbrella](https://governance.aave.com/t/bgd-aave-safety-module-umbrella/18366) proposal.
+Back in December, we (BGD Labs) [presented](https://governance.aave.com/t/bgd-aave-v3-3-feat-umbrella/20129) the Aave v3.3.0 upgrade, improving Aave's liquidation engine, and supporting the previously proposed [Umbrella](https://governance.aave.com/t/bgd-aave-safety-module-umbrella/18366).
 With the proposal being executed, the Aave Protocol will start tracking bad debt, which can then be used as an input on Umbrella to slash stakers & cover the realized deficit.
 
 ## Specification
