@@ -28,13 +28,13 @@ contract AaveV3Polygon_FebruaryFundingUpdatePartB_20250207_Test is ProtocolV3Tes
   /**
    * @dev executes the generic test suite including e2e and config snapshots
    */
-  // function test_defaultProposalExecution() public {
-  //   defaultTest(
-  //     'AaveV3Polygon_FebruaryFundingUpdatePartB_20250207',
-  //     AaveV3Polygon.POOL,
-  //     address(proposal)
-  //   );
-  // }
+  function test_defaultProposalExecution() public {
+    defaultTest(
+      'AaveV3Polygon_FebruaryFundingUpdatePartB_20250207',
+      AaveV3Polygon.POOL,
+      address(proposal)
+    );
+  }
 
   function test_balanceAfter() public {
     executePayload(vm, address(proposal));

@@ -11,9 +11,9 @@ export const config: ConfigFile = {
     votingNetwork: 'POLYGON',
   },
   poolOptions: {
-    AaveV3Ethereum: {configs: {}, cache: {blockNumber: 21794826}},
-    AaveV3Polygon: {configs: {}, cache: {blockNumber: 67646543}},
-    AaveV3Optimism: {configs: {}, cache: {blockNumber: 131667452}},
-    AaveV3Arbitrum: {configs: {}, cache: {blockNumber: 303584931}},
+    AaveV3Ethereum: {configs: {}, cache: {blockNumber: 21874485}},
+    AaveV3Polygon: {configs: {}, cache: {blockNumber: 68081740}},
+    AaveV3Optimism: {configs: {}, cache: {blockNumber: 132148888}},
+    AaveV3Arbitrum: {configs: {}, cache: {blockNumber: 307401924}},
   },
 };
