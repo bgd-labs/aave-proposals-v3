@@ -15,7 +15,7 @@ contract AaveV3Ethereum_SUSDeAndUSDePriceFeedUpdate_20250213_Test is ProtocolV3T
   AaveV3Ethereum_SUSDeAndUSDePriceFeedUpdate_20250213 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 21840388);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 21875954);
     proposal = new AaveV3Ethereum_SUSDeAndUSDePriceFeedUpdate_20250213();
   }
 
