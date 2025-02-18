@@ -22,7 +22,7 @@ In practice this means:
 2. The pool configurator will be upgraded via a call to `POOL_ADDRESSES_PROVIDER.setPoolConfiguratorImpl(poolConfiguratorImpl)`
 3. The pool data provider will be replaced via a call to `POOL_ADDRESSES_PROVIDER.setPoolDataProvider(newPoolDataProvider)`
 
-In addition the proposal will transfer 66.400$ in aUSDC to a wallet controlled by BGD to cover audit costs.
+In addition the proposal will transfer 66.400$ in aUSDC to a wallet controlled by BGD to cover audit costs, as disclosed [HERE](https://governance.aave.com/t/bgd-aave-v3-3-feat-umbrella/20129/5)
 
 ## Security procedures
 
