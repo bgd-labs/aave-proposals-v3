@@ -281,6 +281,12 @@ interface IGsm {
   function distributeFeesToTreasury() external;
 
   /**
+   * @notice Returns the address of the Gho Treasury
+   * @return The address of the GhoTreasury contract
+   */
+  function getGhoTreasury() external view returns (address);
+
+  /**
    * @dev Grants `role` to `account`.
    *
    * If `account` had not been already granted `role`, emits a {RoleGranted}

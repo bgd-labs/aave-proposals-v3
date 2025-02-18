@@ -8,7 +8,7 @@ import {GhoEthereum} from 'aave-address-book/GhoEthereum.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {IGhoToken} from 'src/interfaces/IGhoToken.sol';
 import {IGsm} from 'src/interfaces/IGsm.sol';
-import {IGsmRegistry} from './IGsmRegistry.sol';
+import {IGsmRegistry} from 'src/interfaces/IGsmRegistry.sol';
 import {IAaveCLRobotOperator} from './IAaveCLRobotOperator.sol';
 
 import {AaveV3Ethereum_GSMsMigrationToGSM4626_20250114} from './AaveV3Ethereum_GSMsMigrationToGSM4626_20250114.sol';
@@ -28,13 +28,13 @@ contract AaveV3Ethereum_GSMsMigrationToGSM4626_20250114_Test is ProtocolV3TestBa
   /**
    * @dev executes the generic test suite including e2e and config snapshots
    */
-  // function test_defaultProposalExecution() public {
-  //   defaultTest(
-  //     'AaveV3Ethereum_GSMsMigrationToGSM4626_20250114',
-  //     AaveV3Ethereum.POOL,
-  //     address(proposal)
-  //   );
-  // }
+  function test_defaultProposalExecution() public {
+    defaultTest(
+      'AaveV3Ethereum_GSMsMigrationToGSM4626_20250114',
+      AaveV3Ethereum.POOL,
+      address(proposal)
+    );
+  }
 
   function test_checkConfig() public {
     uint256 facilitatorListLengthBefore = IGhoToken(GhoEthereum.GHO_TOKEN)
@@ -164,111 +164,142 @@ contract AaveV3Ethereum_GSMsMigrationToGSM4626_20250114_Test is ProtocolV3TestBa
     );
   }
 
-  //  function test_oracleSwapFreezers() public {
-  //   // OracleSwapFreezers are not authorized
-  //   assertEq(
-  //     IGsm(proposal.GSM_USDC()).hasRole(
-  //       IGsm(proposal.GSM_USDC()).SWAP_FREEZER_ROLE(),
-  //       proposal.GSM_USDC_ORACLE_SWAP_FREEZER()
-  //     ),
-  //     false
-  //   );
-  //   assertEq(
-  //     IGsm(proposal.GSM_USDT()).hasRole(
-  //       IGsm(proposal.GSM_USDT()).SWAP_FREEZER_ROLE(),
-  //       proposal.GSM_USDT_ORACLE_SWAP_FREEZER()
-  //     ),
-  //     false
-  //   );
+  function test_oracleSwapFreezers() public {
+    // OracleSwapFreezers are not authorized
+    assertEq(
+      IGsm(proposal.NEW_GSM_USDC()).hasRole(
+        IGsm(proposal.NEW_GSM_USDC()).SWAP_FREEZER_ROLE(),
+        proposal.USDC_ORACLE_SWAP_FREEZER()
+      ),
+      false
+    );
+    assertEq(
+      IGsm(proposal.NEW_GSM_USDT()).hasRole(
+        IGsm(proposal.NEW_GSM_USDT()).SWAP_FREEZER_ROLE(),
+        proposal.USDT_ORACLE_SWAP_FREEZER()
+      ),
+      false
+    );
 
-  //   IOracleSwapFreezer usdcFreezer = IOracleSwapFreezer(proposal.GSM_USDC_ORACLE_SWAP_FREEZER());
-  //   IOracleSwapFreezer usdtFreezer = IOracleSwapFreezer(proposal.GSM_USDT_ORACLE_SWAP_FREEZER());
-  //   (uint128 usdcFreezeLowerBound, ) = usdcFreezer.getFreezeBound();
-  //   (uint128 usdcUnfreezeLowerBound, ) = usdcFreezer.getUnfreezeBound();
-  //   (uint128 usdtFreezeLowerBound, ) = usdtFreezer.getFreezeBound();
-  //   (uint128 usdtUnfreezeLowerBound, ) = usdtFreezer.getUnfreezeBound();
+    IOracleSwapFreezer usdcFreezer = IOracleSwapFreezer(proposal.USDC_ORACLE_SWAP_FREEZER());
+    IOracleSwapFreezer usdtFreezer = IOracleSwapFreezer(proposal.USDT_ORACLE_SWAP_FREEZER());
+    (uint128 usdcFreezeLowerBound, ) = usdcFreezer.getFreezeBound();
+    (uint128 usdcUnfreezeLowerBound, ) = usdcFreezer.getUnfreezeBound();
+    (uint128 usdtFreezeLowerBound, ) = usdtFreezer.getFreezeBound();
+    (uint128 usdtUnfreezeLowerBound, ) = usdtFreezer.getUnfreezeBound();
 
-  //   // Price outside the price range
-  //   // Freezers cannot execute freeze without authorization
-  //   _mockAssetPrice(
-  //     address(AaveV3Ethereum.ORACLE),
-  //     AaveV3EthereumAssets.USDC_UNDERLYING,
-  //     usdcFreezeLowerBound - 1
-  //   );
-  //   _mockAssetPrice(
-  //     address(AaveV3Ethereum.ORACLE),
-  //     AaveV3EthereumAssets.USDT_UNDERLYING,
-  //     usdtFreezeLowerBound - 1
-  //   );
+    // Price outside the price range
+    // Freezers cannot execute freeze without authorization
+    _mockAssetPrice(
+      address(AaveV3Ethereum.ORACLE),
+      AaveV3EthereumAssets.USDC_UNDERLYING,
+      usdcFreezeLowerBound - 1
+    );
+    _mockAssetPrice(
+      address(AaveV3Ethereum.ORACLE),
+      AaveV3EthereumAssets.USDT_UNDERLYING,
+      usdtFreezeLowerBound - 1
+    );
 
-  //   (bool canPerformUpkeep, ) = usdcFreezer.checkUpkeep(bytes(''));
-  //   assertEq(canPerformUpkeep, false);
-  //   usdcFreezer.performUpkeep(bytes(''));
-  //   assertEq(IGsm(proposal.GSM_USDC()).getIsFrozen(), false);
+    (bool canPerformUpkeep, ) = usdcFreezer.checkUpkeep(bytes(''));
+    assertEq(canPerformUpkeep, false);
+    usdcFreezer.performUpkeep(bytes(''));
+    assertEq(IGsm(proposal.NEW_GSM_USDC()).getIsFrozen(), false);
 
-  //   (canPerformUpkeep, ) = usdtFreezer.checkUpkeep(bytes(''));
-  //   assertEq(canPerformUpkeep, false);
-  //   usdtFreezer.performUpkeep(bytes(''));
-  //   assertEq(IGsm(proposal.GSM_USDT()).getIsFrozen(), false);
+    (canPerformUpkeep, ) = usdtFreezer.checkUpkeep(bytes(''));
+    assertEq(canPerformUpkeep, false);
+    usdtFreezer.performUpkeep(bytes(''));
+    assertEq(IGsm(proposal.NEW_GSM_USDT()).getIsFrozen(), false);
 
-  //   // Payload execution
-  //   executePayload(vm, address(proposal));
+    // Payload execution
+    executePayload(vm, address(proposal));
 
-  //   // Freezers are authorized now
-  //   assertEq(
-  //     IGsm(proposal.GSM_USDC()).hasRole(
-  //       IGsm(proposal.GSM_USDC()).SWAP_FREEZER_ROLE(),
-  //       proposal.GSM_USDC_ORACLE_SWAP_FREEZER()
-  //     ),
-  //     true
-  //   );
-  //   assertEq(
-  //     IGsm(proposal.GSM_USDT()).hasRole(
-  //       IGsm(proposal.GSM_USDT()).SWAP_FREEZER_ROLE(),
-  //       proposal.GSM_USDT_ORACLE_SWAP_FREEZER()
-  //     ),
-  //     true
-  //   );
+    // Freezers are authorized now
+    assertEq(
+      IGsm(proposal.NEW_GSM_USDC()).hasRole(
+        IGsm(proposal.NEW_GSM_USDC()).SWAP_FREEZER_ROLE(),
+        proposal.USDC_ORACLE_SWAP_FREEZER()
+      ),
+      true
+    );
+    assertEq(
+      IGsm(proposal.NEW_GSM_USDT()).hasRole(
+        IGsm(proposal.NEW_GSM_USDT()).SWAP_FREEZER_ROLE(),
+        proposal.USDT_ORACLE_SWAP_FREEZER()
+      ),
+      true
+    );
 
-  //   // Freezers freeze GSM contracts
-  //   (canPerformUpkeep, ) = usdcFreezer.checkUpkeep(bytes(''));
-  //   assertEq(canPerformUpkeep, true);
-  //   usdcFreezer.performUpkeep(bytes(''));
-  //   assertEq(IGsm(proposal.GSM_USDC()).getIsFrozen(), true);
+    // Freezers freeze GSM contracts
+    (canPerformUpkeep, ) = usdcFreezer.checkUpkeep(bytes(''));
+    assertEq(canPerformUpkeep, true);
+    usdcFreezer.performUpkeep(bytes(''));
+    assertEq(IGsm(proposal.NEW_GSM_USDC()).getIsFrozen(), true);
 
-  //   (canPerformUpkeep, ) = usdtFreezer.checkUpkeep(bytes(''));
-  //   assertEq(canPerformUpkeep, true);
-  //   usdtFreezer.performUpkeep(bytes(''));
-  //   assertEq(IGsm(proposal.GSM_USDT()).getIsFrozen(), true);
+    (canPerformUpkeep, ) = usdtFreezer.checkUpkeep(bytes(''));
+    assertEq(canPerformUpkeep, true);
+    usdtFreezer.performUpkeep(bytes(''));
+    assertEq(IGsm(proposal.NEW_GSM_USDT()).getIsFrozen(), true);
 
-  //   // Price back to normal
-  //   _mockAssetPrice(
-  //     address(AaveV3Ethereum.ORACLE),
-  //     AaveV3EthereumAssets.USDC_UNDERLYING,
-  //     usdcUnfreezeLowerBound + 1
-  //   );
-  //   _mockAssetPrice(
-  //     address(AaveV3Ethereum.ORACLE),
-  //     AaveV3EthereumAssets.USDT_UNDERLYING,
-  //     usdtUnfreezeLowerBound + 1
-  //   );
+    // Price back to normal
+    _mockAssetPrice(
+      address(AaveV3Ethereum.ORACLE),
+      AaveV3EthereumAssets.USDC_UNDERLYING,
+      usdcUnfreezeLowerBound + 1
+    );
+    _mockAssetPrice(
+      address(AaveV3Ethereum.ORACLE),
+      AaveV3EthereumAssets.USDT_UNDERLYING,
+      usdtUnfreezeLowerBound + 1
+    );
 
-  //   (canPerformUpkeep, ) = usdcFreezer.checkUpkeep(bytes(''));
-  //   assertEq(canPerformUpkeep, true);
-  //   usdcFreezer.performUpkeep(bytes(''));
-  //   assertEq(IGsm(proposal.GSM_USDC()).getIsFrozen(), false);
+    (canPerformUpkeep, ) = usdcFreezer.checkUpkeep(bytes(''));
+    assertEq(canPerformUpkeep, true);
+    usdcFreezer.performUpkeep(bytes(''));
+    assertEq(IGsm(proposal.NEW_GSM_USDC()).getIsFrozen(), false);
 
-  //   (canPerformUpkeep, ) = usdtFreezer.checkUpkeep(bytes(''));
-  //   assertEq(canPerformUpkeep, true);
-  //   usdtFreezer.performUpkeep(bytes(''));
-  //   assertEq(IGsm(proposal.GSM_USDT()).getIsFrozen(), false);
-  // }
+    (canPerformUpkeep, ) = usdtFreezer.checkUpkeep(bytes(''));
+    assertEq(canPerformUpkeep, true);
+    usdtFreezer.performUpkeep(bytes(''));
+    assertEq(IGsm(proposal.NEW_GSM_USDT()).getIsFrozen(), false);
+  }
 
   function test_checkRoles() public {
     executePayload(vm, address(proposal));
 
     _checkRolesConfig(IGsm(proposal.NEW_GSM_USDC()));
     _checkRolesConfig(IGsm(proposal.NEW_GSM_USDT()));
+  }
+
+  function test_gsmIsOperational() public {
+    executePayload(vm, address(proposal));
+
+    deal(AaveV3EthereumAssets.USDC_UNDERLYING, address(this), 1_000e6);
+    deal(AaveV3EthereumAssets.USDT_UNDERLYING, address(this), 1_000e6);
+    deal(AaveV3EthereumAssets.USDC_STATA_TOKEN, address(this), 1_000e6);
+    deal(AaveV3EthereumAssets.USDT_STATA_TOKEN, address(this), 1_000e6);
+
+    // Old GSMs are seized
+    vm.expectRevert(bytes('GSM_SEIZED'));
+    IGsm(GhoEthereum.GSM_USDC).buyAsset(1000e6, address(this));
+    vm.expectRevert(bytes('GSM_SEIZED'));
+    IGsm(GhoEthereum.GSM_USDT).buyAsset(1000e6, address(this));
+    vm.expectRevert(bytes('GSM_SEIZED'));
+    IGsm(GhoEthereum.GSM_USDC).sellAsset(1000e6, address(this));
+    vm.expectRevert(bytes('GSM_SEIZED'));
+    IGsm(GhoEthereum.GSM_USDT).sellAsset(1000e6, address(this));
+
+    // New GSMs are operational
+    IERC20(AaveV3EthereumAssets.USDC_STATA_TOKEN).approve(proposal.NEW_GSM_USDC(), 1_000e6);
+    IERC20(AaveV3EthereumAssets.USDT_STATA_TOKEN).approve(proposal.NEW_GSM_USDT(), 1_000e6);
+    IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).approve(proposal.NEW_GSM_USDC(), 1_200 ether);
+    IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).approve(proposal.NEW_GSM_USDT(), 1_200 ether);
+
+    IGsm(proposal.NEW_GSM_USDC()).sellAsset(1_000e6, address(this));
+    IGsm(proposal.NEW_GSM_USDT()).sellAsset(1_000e6, address(this));
+
+    IGsm(proposal.NEW_GSM_USDC()).buyAsset(500e6, address(this));
+    IGsm(proposal.NEW_GSM_USDT()).buyAsset(500e6, address(this));
   }
 
   function _checkRolesConfig(IGsm gsm) internal view {
@@ -333,9 +364,17 @@ contract AaveV3Ethereum_GSMsMigrationToGSM4626_20250114_Test is ProtocolV3TestBa
     assertEq(gsm.getIsFrozen(), config.isFrozen, 'wrong freeze state');
     assertEq(gsm.getIsSeized(), config.isSeized, 'wrong seized state');
 
+    // Fee Strategy
     IFeeStrategy feeStrategy = IFeeStrategy(gsm.getFeeStrategy());
     assertEq(feeStrategy.getSellFee(10000), config.sellFee, 'wrong sell fee');
     assertEq(feeStrategy.getBuyFee(10000), config.buyFee, 'wrong buy fee');
+
+    // Price Strategy
+    IFixedPriceStrategy4626 priceStrategy = IFixedPriceStrategy4626(gsm.PRICE_STRATEGY());
+    assertApproxEqAbs(priceStrategy.getAssetPriceInGho(1e6, true), 1 ether, 0.15 ether);
+    assertApproxEqAbs(priceStrategy.getGhoPriceInAsset(1 ether, true), 1e6, 0.15e6);
+
+    assertEq(gsm.getGhoTreasury(), address(AaveV3Ethereum.COLLECTOR));
 
     // Oracle freezer
     assertEq(freezer.getCanUnfreeze(), config.freezerCanUnfreeze, 'wrong freezer config');
@@ -363,4 +402,9 @@ interface IOracleSwapFreezer {
 
 interface IPriceOracle {
   function getAssetPrice(address asset) external view returns (uint256);
+}
+
+interface IFixedPriceStrategy4626 {
+  function getAssetPriceInGho(uint256 assetAmount, bool roundUp) external view returns (uint256);
+  function getGhoPriceInAsset(uint256 ghoAmount, bool roundUp) external view returns (uint256);
 }

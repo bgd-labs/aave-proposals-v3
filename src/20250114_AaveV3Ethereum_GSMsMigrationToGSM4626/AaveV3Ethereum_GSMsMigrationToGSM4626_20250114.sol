@@ -2,19 +2,18 @@
 pragma solidity ^0.8.0;
 
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
+import {IERC4626} from 'openzeppelin-contracts/contracts/interfaces/IERC4626.sol';
 import {SafeERC20} from 'openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol';
 import {GhoEthereum} from 'aave-address-book/GhoEthereum.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
-import {IAccessControl} from 'openzeppelin-contracts/contracts/access/IAccessControl.sol';
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
 
-import {IERC4626StataToken} from './IStata.sol';
 import {IGhoBucketSteward} from 'src/interfaces/IGhoBucketSteward.sol';
 import {IGhoToken} from 'src/interfaces/IGhoToken.sol';
 import {IGsm} from 'src/interfaces/IGsm.sol';
-import {IGsmRegistry} from './IGsmRegistry.sol';
+import {IGsmRegistry} from 'src/interfaces/IGsmRegistry.sol';
 import {IAaveCLRobotOperator} from './IAaveCLRobotOperator.sol';
 
 /**
@@ -26,10 +25,6 @@ import {IAaveCLRobotOperator} from './IAaveCLRobotOperator.sol';
 contract AaveV3Ethereum_GSMsMigrationToGSM4626_20250114 is IProposalGenericExecutor {
   using SafeERC20 for IERC20;
 
-  bytes32 public constant LIQUIDATOR_ROLE =
-    0x5e17fc5225d4a099df75359ce1f405503ca79498a8dc46a7d583235a0ee45c16; // keccak256('LIQUIDATOR_ROLE')
-  bytes32 public constant SWAP_FREEZER_ROLE =
-    0x6dac4cc0544e34aa1a4ed2862f6de78290e3f18f00fe77179ee8ef34de9dfa24; // keccak245('SWAP_FREEZER_ROLE')
   uint128 public constant USDC_CAPACITY = 8_000_000 ether;
   uint128 public constant USDT_CAPACITY = 16_000_000 ether;
 
@@ -60,6 +55,9 @@ contract AaveV3Ethereum_GSMsMigrationToGSM4626_20250114 is IProposalGenericExecu
     51847655505574639685479937049206026612575185607334297935344449721698948000090;
   uint256 public constant EXISTING_ORACLE_SWAP_FREEZER_USDT =
     10951818704514842241879618761243590851930089501471583798009172184131135112965;
+
+  bytes32 public immutable LIQUIDATOR_ROLE = IGsm(GhoEthereum.GSM_USDC).LIQUIDATOR_ROLE();
+  bytes32 public immutable SWAP_FREEZER_ROLE = IGsm(GhoEthereum.GSM_USDC).SWAP_FREEZER_ROLE();
 
   function execute() external {
     uint256 balanceUsdc = IERC20(AaveV3EthereumAssets.USDC_UNDERLYING).balanceOf(
@@ -172,11 +170,11 @@ contract AaveV3Ethereum_GSMsMigrationToGSM4626_20250114 is IProposalGenericExecu
       balanceUsdt
     );
 
-    uint256 sharesUsdc = IERC4626StataToken(AaveV3EthereumAssets.USDC_STATA_TOKEN).deposit(
+    uint256 sharesUsdc = IERC4626(AaveV3EthereumAssets.USDC_STATA_TOKEN).deposit(
       balanceUsdc,
       address(this)
     );
-    uint256 sharesUsdt = IERC4626StataToken(AaveV3EthereumAssets.USDT_STATA_TOKEN).deposit(
+    uint256 sharesUsdt = IERC4626(AaveV3EthereumAssets.USDT_STATA_TOKEN).deposit(
       balanceUsdt,
       address(this)
     );
