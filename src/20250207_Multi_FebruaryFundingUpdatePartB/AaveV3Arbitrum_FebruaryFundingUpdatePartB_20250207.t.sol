@@ -20,7 +20,7 @@ contract AaveV3Arbitrum_FebruaryFundingUpdatePartB_20250207_Test is ProtocolV3Te
   AaveV3Arbitrum_FebruaryFundingUpdatePartB_20250207 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('arbitrum'), 305301673);
+    vm.createSelectFork(vm.rpcUrl('arbitrum'), 307401924);
     proposal = new AaveV3Arbitrum_FebruaryFundingUpdatePartB_20250207();
 
     ArbSysMock arbsys = new ArbSysMock();
@@ -58,11 +58,11 @@ contract AaveV3Arbitrum_FebruaryFundingUpdatePartB_20250207_Test is ProtocolV3Te
     assertGt(daiCollectorBalanceBefore, 0);
 
     vm.expectEmit(true, false, false, true, MiscArbitrum.AAVE_ARB_ETH_BRIDGE);
-    emit Bridge(AaveV3ArbitrumAssets.LUSD_UNDERLYING, 2137705148004032151384); // dynamically get bridge
+    emit Bridge(AaveV3ArbitrumAssets.LUSD_UNDERLYING, 2241638268672257789740); // dynamically get bridge
     vm.expectEmit(true, false, false, true, MiscArbitrum.AAVE_ARB_ETH_BRIDGE);
-    emit Bridge(AaveV3ArbitrumAssets.USDC_UNDERLYING, 51624793644); // dynamically get bridge balance
+    emit Bridge(AaveV3ArbitrumAssets.USDC_UNDERLYING, 53945433616); // dynamically get bridge balance
     vm.expectEmit(true, false, false, true, MiscArbitrum.AAVE_ARB_ETH_BRIDGE);
-    emit Bridge(AaveV3ArbitrumAssets.DAI_UNDERLYING, 281773242074325319833963); // dynamically get bridge balance
+    emit Bridge(AaveV3ArbitrumAssets.DAI_UNDERLYING, 284409260188723528253171); // dynamically get bridge balance
     executePayload(vm, address(proposal));
 
     uint256 lusdCollectorBalanceAfter = IERC20(AaveV3ArbitrumAssets.LUSD_A_TOKEN).balanceOf(
