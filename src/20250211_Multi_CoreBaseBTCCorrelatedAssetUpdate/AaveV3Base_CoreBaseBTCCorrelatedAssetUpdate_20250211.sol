@@ -16,6 +16,7 @@ import {SafeERC20} from 'openzeppelin-contracts/contracts/token/ERC20/utils/Safe
 contract AaveV3Base_CoreBaseBTCCorrelatedAssetUpdate_20250211 is AaveV3PayloadBase {
   using SafeERC20 for IERC20;
 
+  // https://etherscan.io/address/0xecAc9C5F704e954931349Da37F60E39f515c11c1
   address public constant LBTC = 0xecAc9C5F704e954931349Da37F60E39f515c11c1;
   uint256 public constant LBTC_SEED_AMOUNT = 1e5;
 
