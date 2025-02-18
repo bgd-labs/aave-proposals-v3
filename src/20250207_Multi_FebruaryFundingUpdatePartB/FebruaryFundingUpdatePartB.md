@@ -48,7 +48,7 @@ Withdraw from respective Aave Protocol and bridge the following assets to Ethere
 | AaveV3EthereumPrime |  GHO  | [3M](https://governance.aave.com/t/arfc-update-usds-gho-borrow-rate/20892/5) |
 | AaveV3EthereumCore  | USDS  |                                     All                                      |
 
-### Withdraw and burn 10M GHO on Prime instance
+### Withdraw and burn 3M GHO on Prime instance
 
 ### Merit + Ahab Programs
 
