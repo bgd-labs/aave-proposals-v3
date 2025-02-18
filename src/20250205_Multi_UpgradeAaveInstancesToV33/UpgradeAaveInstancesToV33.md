@@ -18,7 +18,7 @@ With the proposal being executed, the Aave Protocol will start tracking bad debt
 This proposal will upgrade all active Aave instances to the new v3.3.0 version.
 In practice this means:
 
-1. the pool implementation will be upgraded via a call to `POOL_ADDRESSES_PROVIDER.setPoolImpl(newImpl)`
+1. The pool implementation will be upgraded via a call to `POOL_ADDRESSES_PROVIDER.setPoolImpl(newImpl)`
 2. the pool configurator will be upgraded via a call to `POOL_ADDRESSES_PROVIDER.setPoolConfiguratorImpl(poolConfiguratorImpl)`
 3. the pool data provider will be replaced via a call to `POOL_ADDRESSES_PROVIDER.setPoolDataProvider(newPoolDataProvider)`
 
