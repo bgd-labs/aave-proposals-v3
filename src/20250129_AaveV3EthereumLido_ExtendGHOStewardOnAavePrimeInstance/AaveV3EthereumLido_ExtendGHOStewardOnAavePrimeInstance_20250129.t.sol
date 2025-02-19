@@ -7,6 +7,7 @@ import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {IOwnable} from 'aave-address-book/common/IOwnable.sol';
 import {IDefaultInterestRateStrategyV2} from 'aave-address-book/AaveV3.sol';
 
+import {IRiskSteward} from './IRiskSteward.sol';
 import {ReserveConfiguration} from './ReserveConfiguration.sol';
 import {DataTypes} from 'aave-v3-origin/contracts/protocol/libraries/types/DataTypes.sol';
 
@@ -43,6 +44,11 @@ contract AaveV3EthereumLido_ExtendGHOStewardOnAavePrimeInstance_20250129_Test is
         address(NEW_GHO_AAVE_STEWARD)
       )
     );
+    assertFalse(
+      IRiskSteward(AaveV3EthereumLido.RISK_STEWARD).isAddressRestricted(
+        AaveV3EthereumLidoAssets.GHO_UNDERLYING
+      )
+    );
     assertEq(address(proposal.NEW_GHO_AAVE_STEWARD()), address(NEW_GHO_AAVE_STEWARD));
     assertEq(IOwnable(address(NEW_GHO_AAVE_STEWARD)).owner(), GovernanceV3Ethereum.EXECUTOR_LVL_1);
     assertEq(
@@ -71,6 +77,11 @@ contract AaveV3EthereumLido_ExtendGHOStewardOnAavePrimeInstance_20250129_Test is
       AaveV3EthereumLido.ACL_MANAGER.hasRole(
         AaveV3EthereumLido.ACL_MANAGER.RISK_ADMIN_ROLE(),
         address(NEW_GHO_AAVE_STEWARD)
+      )
+    );
+    assertTrue(
+      IRiskSteward(AaveV3EthereumLido.RISK_STEWARD).isAddressRestricted(
+        AaveV3EthereumLidoAssets.GHO_UNDERLYING
       )
     );
   }

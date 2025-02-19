@@ -2,7 +2,8 @@
 pragma solidity ^0.8.0;
 
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
-import {AaveV3EthereumLido} from 'aave-address-book/AaveV3EthereumLido.sol';
+import {AaveV3EthereumLido, AaveV3EthereumLidoAssets} from 'aave-address-book/AaveV3EthereumLido.sol';
+import {IRiskSteward} from './IRiskSteward.sol';
 
 /**
  * @title Extend GHO Steward on Aave Prime Instance
@@ -20,6 +21,11 @@ contract AaveV3EthereumLido_ExtendGHOStewardOnAavePrimeInstance_20250129 is
     AaveV3EthereumLido.ACL_MANAGER.grantRole(
       AaveV3EthereumLido.ACL_MANAGER.RISK_ADMIN_ROLE(),
       NEW_GHO_AAVE_STEWARD
+    );
+
+    IRiskSteward(AaveV3EthereumLido.RISK_STEWARD).setAddressRestricted(
+      AaveV3EthereumLidoAssets.GHO_UNDERLYING,
+      true
     );
   }
 }
