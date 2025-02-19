@@ -4,6 +4,7 @@ pragma solidity ^0.8.0;
 import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aave-helpers/src/GovV3Helpers.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {GovernanceV3ZkSync} from 'aave-address-book/GovernanceV3ZkSync.sol';
+import {GovernanceV3Linea} from 'aave-address-book/GovernanceV3Linea.sol';
 import {EthereumScript, PolygonScript, AvalancheScript, OptimismScript, ArbitrumScript, MetisScript, BaseScript, GnosisScript, ScrollScript, BNBScript, LineaScript, ChainIds} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
 import {PaymentPayload} from './PaymentPayload.sol';
 
@@ -287,10 +288,13 @@ contract CreateProposal is EthereumScript {
       payloadId: payloadId
     });
 
-    IPayloadsControllerCore.ExecutionAction[]
-      memory actionsLinea = new IPayloadsControllerCore.ExecutionAction[](1);
-    actionsLinea[0] = GovV3Helpers.buildAction(Payloads.LINEA);
-    payloads[11] = GovV3Helpers.buildLineaPayload(vm, actionsLinea);
+    uint40 payloadIdLinea = 4;
+    payloads[11] = PayloadsControllerUtils.Payload({
+      chain: ChainIds.LINEA,
+      accessLevel: PayloadsControllerUtils.AccessControl.Level_1,
+      payloadsController: address(GovernanceV3Linea.PAYLOADS_CONTROLLER),
+      payloadId: payloadIdLinea
+    });
 
     // create proposal
     vm.startBroadcast();
