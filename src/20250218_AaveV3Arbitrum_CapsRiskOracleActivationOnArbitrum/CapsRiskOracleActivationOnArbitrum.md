@@ -45,6 +45,8 @@ The automated AGRS system will be configured with the following params:
 
 ### Edge Risk Oracle
 
+The methodology used by the Edge Risk Oracle to suggest cap updates is described on the governance forum [here](https://governance.aave.com/t/arfc-supply-and-borrow-cap-risk-oracle-activation/20834).
+
 The Risk Oracle for caps automates the generation and application of cap recommendations, leveraging a proven simulation engine that has successfully supported manual cap adjustments through the Risk Steward for years. Depending on whether the cap utilization surpasses or falls below specific thresholds, either the cap increase or cap decrease simulation is triggered, in addition to the frequent time-based triggering of simulations for all respective markets. The simulation then determines the optimal new cap value based on a range of risk metrics. Once calculated, the updated cap is automatically published to the contract, where it is directly applied to the market, updating the cap value in real-time.
 
 - Cap Increases:
@@ -65,8 +67,8 @@ The Risk Oracle for caps automates the generation and application of cap recomme
 
 ## References
 
-- Implementation: [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250218_AaveV3Arbitrum_CapsRiskOracleActivationOnArbitrum/AaveV3Arbitrum_CapsRiskOracleActivationOnArbitrum_20250218.sol)
-- Tests: [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250218_AaveV3Arbitrum_CapsRiskOracleActivationOnArbitrum/AaveV3Arbitrum_CapsRiskOracleActivationOnArbitrum_20250218.t.sol)
+- Implementation: [Payload](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250218_AaveV3Arbitrum_CapsRiskOracleActivationOnArbitrum/AaveV3Arbitrum_CapsRiskOracleActivationOnArbitrum_20250218.sol)
+- Tests: [Payload](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250218_AaveV3Arbitrum_CapsRiskOracleActivationOnArbitrum/AaveV3Arbitrum_CapsRiskOracleActivationOnArbitrum_20250218.t.sol), [AaveStewardsInjectorCaps](https://github.com/aave-dao/aave-v3-risk-stewards/blob/dcfb2aca52f5cae34a68c2d5da8ba0f9260a0ee5/tests/AaveStewardsInjectorCaps.t.sol), [EdgeRiskStewardCaps](https://github.com/aave-dao/aave-v3-risk-stewards/blob/dcfb2aca52f5cae34a68c2d5da8ba0f9260a0ee5/tests/EdgeRiskStewardCaps.t.sol)
 - [Snapshot](https://snapshot.box/#/s:aave.eth/proposal/0x1d8d0d25f3b705bf207a130308658d15256e2cebc58d123e4ad9e7e3a177ac11)
 - [Discussion](https://governance.aave.com/t/arfc-supply-and-borrow-cap-risk-oracle-activation/20834)
 - AaveStewardsInjectorCaps: [github](https://github.com/aave-dao/aave-v3-risk-stewards/blob/dcfb2aca52f5cae34a68c2d5da8ba0f9260a0ee5/src/contracts/AaveStewardInjectorCaps.sol), [deployed-contract](https://arbiscan.io/address/0x35d53dEB2F6f40Ea7af32B6F8BEd88eA966DF1D9)
