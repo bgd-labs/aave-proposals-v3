@@ -26,7 +26,7 @@ The automated AGRS will use another instance of AGRS (exactly the same codebase 
 - Between the risk oracle smart contract and the AGRS contract, there will be a very thin middleware AaveStewardCapsInjector, which will have the following logic:
   - Will take recommendations from the Edge Risk Oracle side and propagate them to the AGRS contract.
   - Enforce that only the whitelisted asset can be acted upon.
-  - Given the protections (percentage constraints and time delay) on the AGRS side and that it is an assumption that risk recommendation will be the time correct on the Edge Risk Oracle, the propagation will be permissionless.
+  - Given the protections (percentage constraints and time delay) on the AGRS side and that it is an assumption that risk recommendation will be timing correct updates on the Edge Risk Oracle, the propagation will be permissionless.
 
 The [AaveStewardCapsInjector](https://arbiscan.io/address/0x35d53dEB2F6f40Ea7af32B6F8BEd88eA966DF1D9) middleware, technically being part of the Aave Robot infrastructure, will run on Chainlink Automation and will be registered using the [AaveCLRobotOperator](https://arbiscan.io/address/0xaa944aD95e51CB83C1f35FAEEDfC7d2c31B0BB4d) contract with 50 LINK from the Arbitrum Collector.
 
