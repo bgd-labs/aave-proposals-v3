@@ -23,7 +23,7 @@ contract AaveV3Base_AddEURCToBASEAaveV3_20250219 is AaveV3PayloadBase {
 
   function _postExecute() internal override {
     IERC20(EURC).forceApprove(address(AaveV3Base.POOL), EURC_SEED_AMOUNT);
-    AaveV3Base.POOL.supply(EURC, EURC_SEED_AMOUNT, address(AaveV3Base.COLLECTOR), 0);
+    //AaveV3Base.POOL.supply(EURC, EURC_SEED_AMOUNT, address(AaveV3Base.COLLECTOR), 0);
 
     (address aEURC, , ) = AaveV3Base.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(EURC);
     IEmissionManager(AaveV3Base.EMISSION_MANAGER).setEmissionAdmin(EURC, EURC_LM_ADMIN);
