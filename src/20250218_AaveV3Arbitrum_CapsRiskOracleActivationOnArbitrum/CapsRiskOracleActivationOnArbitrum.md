@@ -22,7 +22,7 @@ With the automated AGRS already activated for interest rate updates for WETH on 
 The automated AGRS will use another instance of AGRS (exactly the same codebase as the other model), but with the following constraints:
 
 - This instance will only have configurable caps-related parameters: supplyCap and borrowCap.
-- Recommendations of these parameters will be submitted to RiskOracle smart contract, from the Edge off-chain infrastructure.
+- Recommendations of these parameters will be submitted to a RiskOracle smart contract, from the Edge off-chain infrastructure.
 - Between the risk oracle smart contract and the AGRS contract, there will be a very thin middleware AaveStewardCapsInjector, which will have the following logic:
   - Will take recommendations from the Edge Risk Oracle side and propagate them to the AGRS contract.
   - Enforce that only the whitelisted asset can be acted upon.
