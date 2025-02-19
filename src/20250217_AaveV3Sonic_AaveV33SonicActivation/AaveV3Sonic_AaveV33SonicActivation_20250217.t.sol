@@ -16,7 +16,7 @@ contract AaveV3Sonic_AaveV33SonicActivation_20250217_Test is ProtocolV3TestBase 
   AaveV3Sonic_AaveV33SonicActivation_20250217 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('sonic'), 8444032);
+    vm.createSelectFork(vm.rpcUrl('sonic'), 8641675);
     proposal = new AaveV3Sonic_AaveV33SonicActivation_20250217();
   }
 

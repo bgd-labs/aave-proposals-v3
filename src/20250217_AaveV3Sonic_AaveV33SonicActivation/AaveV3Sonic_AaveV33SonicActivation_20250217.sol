@@ -26,7 +26,7 @@ contract AaveV3Sonic_AaveV33SonicActivation_20250217 is AaveV3PayloadSonic {
   uint256 public constant USDC_SEED_AMOUNT = 10e6;
 
   address public constant wS = 0x039e2fB66102314Ce7b64Ce5Ce3E5183bc94aD38;
-  uint256 public constant wS_SEED_AMOUNT = 1e18;
+  uint256 public constant wS_SEED_AMOUNT = 10e18;
 
   address public constant LM_ADMIN = 0xac140648435d03f784879cd789130F22Ef588Fcd;
 

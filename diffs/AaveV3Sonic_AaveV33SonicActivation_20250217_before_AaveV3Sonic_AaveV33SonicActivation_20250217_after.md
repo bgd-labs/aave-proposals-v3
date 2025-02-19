@@ -17,7 +17,7 @@
 | oracle | [0xc76dFb89fF298145b417d221B2c747d84952e01d](https://sonicscan.org//address/0xc76dFb89fF298145b417d221B2c747d84952e01d) |
 | oracleDecimals | 8 |
 | oracleDescription | S / USD |
-| oracleLatestAnswer | 0.58679999 |
+| oracleLatestAnswer | 0.67656882 |
 | usageAsCollateralEnabled | true |
 | ltv | 35 % [3500] |
 | liquidationThreshold | 40 % [4000] |
@@ -31,13 +31,13 @@
 | interestRateStrategy | [0xdFf435BCcf782f11187D3a4454d96702eD78e092](https://sonicscan.org//address/0xdFf435BCcf782f11187D3a4454d96702eD78e092) |
 | aTokenName | Aave Sonic wS |
 | aTokenSymbol | aSonwS |
-| aTokenUnderlyingBalance | 1 wS [1000000000000000000] |
+| aTokenUnderlyingBalance | 10 wS [10000000000000000000] |
 | id | 2 |
 | isPaused | false |
 | variableDebtTokenName | Aave Sonic Variable Debt wS |
 | variableDebtTokenSymbol | variableDebtSonwS |
 | virtualAccountingActive | true |
-| virtualBalance | 1 wS [1000000000000000000] |
+| virtualBalance | 10 wS [10000000000000000000] |
 | optimalUsageRatio | 45 % |
 | maxVariableBorrowRate | 307 % |
 | baseVariableBorrowRate | 0 % |
@@ -61,7 +61,7 @@
 | oracle | [0x7A8443a2a5D772db7f1E40DeFe32db485108F128](https://sonicscan.org//address/0x7A8443a2a5D772db7f1E40DeFe32db485108F128) |
 | oracleDecimals | 8 |
 | oracleDescription | Capped USDC/USD |
-| oracleLatestAnswer | 0.99993 |
+| oracleLatestAnswer | 0.99983451 |
 | usageAsCollateralEnabled | true |
 | ltv | 75 % [7500] |
 | liquidationThreshold | 78 % [7800] |
@@ -105,7 +105,7 @@
 | oracle | [0x824364077993847f71293B24ccA8567c00c2de11](https://sonicscan.org//address/0x824364077993847f71293B24ccA8567c00c2de11) |
 | oracleDecimals | 8 |
 | oracleDescription | ETH / USD |
-| oracleLatestAnswer | 2694.9163 |
+| oracleLatestAnswer | 2728.36 |
 | usageAsCollateralEnabled | true |
 | ltv | 80 % [8000] |
 | liquidationThreshold | 83 % [8300] |
@@ -145,7 +145,7 @@
         "aToken": "0x6C5E14A212c1C3e4Baf6f871ac9B1a969918c131",
         "aTokenName": "Aave Sonic wS",
         "aTokenSymbol": "aSonwS",
-        "aTokenUnderlyingBalance": "1000000000000000000",
+        "aTokenUnderlyingBalance": "10000000000000000000",
         "borrowCap": 1500000,
         "borrowingEnabled": true,
         "debtCeiling": 0,
@@ -165,7 +165,7 @@
         "oracle": "0xc76dFb89fF298145b417d221B2c747d84952e01d",
         "oracleDecimals": 8,
         "oracleDescription": "S / USD",
-        "oracleLatestAnswer": "58679999",
+        "oracleLatestAnswer": "67656882",
         "reserveFactor": 2000,
         "supplyCap": 3000000,
         "symbol": "wS",
@@ -175,7 +175,7 @@
         "variableDebtTokenName": "Aave Sonic Variable Debt wS",
         "variableDebtTokenSymbol": "variableDebtSonwS",
         "virtualAccountingActive": true,
-        "virtualBalance": "1000000000000000000"
+        "virtualBalance": "10000000000000000000"
       }
     },
     "0x29219dd400f2Bf60E5a23d13Be72B486D4038894": {
@@ -204,7 +204,7 @@
         "oracle": "0x7A8443a2a5D772db7f1E40DeFe32db485108F128",
         "oracleDecimals": 8,
         "oracleDescription": "Capped USDC/USD",
-        "oracleLatestAnswer": "99993000",
+        "oracleLatestAnswer": "99983451",
         "reserveFactor": 1000,
         "supplyCap": 2000000,
         "symbol": "USDC.e",
@@ -243,7 +243,7 @@
         "oracle": "0x824364077993847f71293B24ccA8567c00c2de11",
         "oracleDecimals": 8,
         "oracleDescription": "ETH / USD",
-        "oracleLatestAnswer": "269491630000",
+        "oracleLatestAnswer": "272836000000",
         "reserveFactor": 1500,
         "supplyCap": 400,
         "symbol": "WETH",
@@ -299,14 +299,14 @@
       "stateDiff": {
         "0x17b8b9514f2adeee8f74fb7668ab81b27ce2de748460a4f762f0d3daa99e9627": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x0000000000000000000000000000000000000000000000000de0b6b3a7640000"
+          "newValue": "0x0000000000000000000000000000000000000000000000008ac7230489e80000"
         },
         "0x19b6424e085dafb8a96cd53b567220e6a0eabd129c3d417108825d4e3ae4c1ae": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
           "newValue": "0x0000000000000000000000000000000000000000000000000000000000000000"
         },
         "0x2461ce86c552bfcb0f3a45e1f6fabf7a9148b6e529056dcca584af0797f9aa62": {
-          "previousValue": "0x0000000000000000000000000000000000000000000000000de0b6b3a7640000",
+          "previousValue": "0x0000000000000000000000000000000000000000000000008ac7230489e80000",
           "newValue": "0x0000000000000000000000000000000000000000000000000000000000000000"
         }
       }
@@ -354,12 +354,12 @@
       "balanceDiff": null,
       "stateDiff": {
         "0x3617319a054d772f909f7c479a2cebe5066e836a939412e32403c99029b92eff": {
-          "previousValue": "0x0067b46ec5000000000002000000000000000000000000000000000000000000",
-          "newValue": "0x0067b46ec5000000000003000000000000000000000000000000000000000000"
+          "previousValue": "0x0067b5c423000000000002000000000000000000000000000000000000000000",
+          "newValue": "0x0067b5c423000000000003000000000000000000000000000000000000000000"
         },
         "0x3617319a054d772f909f7c479a2cebe5066e836a939412e32403c99029b92f00": {
-          "previousValue": "0x000000000000000000093a8000000000000067e2934600000000000000000000",
-          "newValue": "0x000000000000000000093a8000000000000067e2934600000000000067b46ec6"
+          "previousValue": "0x000000000000000000093a8000000000000067e3e8a400000000000000000000",
+          "newValue": "0x000000000000000000093a8000000000000067e3e8a400000000000067b5c424"
         }
       }
     },
@@ -473,7 +473,7 @@
         },
         "0x1c6109d2bbfbdadfc462a8d70dd8be07bf59af5d98a33599fd824b82f078f1b0": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x00000000000000000000020067b46ec600000000000000000000000000000000"
+          "newValue": "0x00000000000000000000020067b5c42400000000000000000000000000000000"
         },
         "0x1c6109d2bbfbdadfc462a8d70dd8be07bf59af5d98a33599fd824b82f078f1b1": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -489,7 +489,7 @@
         },
         "0x1c6109d2bbfbdadfc462a8d70dd8be07bf59af5d98a33599fd824b82f078f1b6": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x00000000000000000de0b6b3a764000000000000000000000000000000000000"
+          "newValue": "0x00000000000000008ac7230489e8000000000000000000000000000000000000"
         },
         "0x37b7fc6fa4a96109d1745c7f989f397f19e6bafe7d5438dd5a1507240efe1fae": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -505,7 +505,7 @@
         },
         "0x37b7fc6fa4a96109d1745c7f989f397f19e6bafe7d5438dd5a1507240efe1fb1": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x00000000000000000000010067b46ec600000000000000000000000000000000"
+          "newValue": "0x00000000000000000000010067b5c42400000000000000000000000000000000"
         },
         "0x37b7fc6fa4a96109d1745c7f989f397f19e6bafe7d5438dd5a1507240efe1fb2": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -549,7 +549,7 @@
         },
         "0x645d23fa7f650a8c8ec7c74df5dc416994cfa2fad6301d955d0c4a9315554d95": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x00000000000000000000000067b46ec600000000000000000000000000000000"
+          "newValue": "0x00000000000000000000000067b5c42400000000000000000000000000000000"
         },
         "0x645d23fa7f650a8c8ec7c74df5dc416994cfa2fad6301d955d0c4a9315554d96": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -637,7 +637,7 @@
         },
         "0x0000000000000000000000000000000000000000000000000000000000000036": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x0000000000000000000000000000000000000000000000000de0b6b3a7640000"
+          "newValue": "0x0000000000000000000000000000000000000000000000008ac7230489e80000"
         },
         "0x0000000000000000000000000000000000000000000000000000000000000037": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -669,7 +669,7 @@
         },
         "0xcbcb01598c259d20da64b405ff7680c8ce5d237fe56fe0259ada4e1c183038ad": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x00000000033b2e3c9fd0803ce800000000000000000000000de0b6b3a7640000"
+          "newValue": "0x00000000033b2e3c9fd0803ce800000000000000000000008ac7230489e80000"
         }
       }
     },
