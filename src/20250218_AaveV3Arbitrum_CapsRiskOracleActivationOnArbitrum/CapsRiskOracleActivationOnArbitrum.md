@@ -7,7 +7,8 @@ snapshot: "https://snapshot.box/#/s:aave.eth/proposal/0x1d8d0d25f3b705bf207a1303
 
 ## Simple Summary
 
-This proposal activates the automated Aave Generalized Risk Stewards (AGRS) system on the Arbitrum Instance to perform automated supply and borrow cap updates. Under the hood, the AGRS consumes from the Edge infrastructure by Chaos Labs.
+This proposal activates the automated Aave Generalized Risk Stewards (AGRS) system on the Arbitrum Instance to perform automated supply and borrow cap updates.
+Under the hood, the AGRS consumes risk recommendations from the Edge infrastructure by Chaos Labs.
 
 ## Motivation
 
