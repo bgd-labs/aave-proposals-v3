@@ -12,7 +12,8 @@ Under the hood, the AGRS consumes risk recommendations from the Edge infrastruct
 
 ## Motivation
 
-The current implementation of manual AGRS allows for the periodic manual updating of Supply and Borrow caps, generally performed in response to market demand. The high volume of updates, combined with the manual triggering of supply and borrow cap simulations, written analyses, and coordination across multiple service providers, often leads to delays in implementing cap increases. These delays can hinder potential growth opportunities for underlying assets that might otherwise contribute significantly.
+The current implementation of manual AGRS allows for the periodic manual updating of Supply and Borrow caps, generally performed in response to market demand. The high volume of updates, combined with the manual triggering of supply and borrow cap simulations, written analyses, and coordination across multiple service providers, often leads to delays in implementing cap increases.
+These delays can hinder potential growth opportunities for underlying assets that might otherwise contribute significantly, but more importantly, they create overhead to have tighter risk configurations and dynamism.
 
 With the automated AGRS already activated for interest rate updates for WETH on prime instance via this [proposal](https://vote.onaave.com/proposal/?proposalId=200), we think its a good idea to automate cap updates using the Edge Risk Oracle starting with the Aave V3 Arbitrum instance.
 
