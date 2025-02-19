@@ -49,8 +49,8 @@ The methodology used by the Edge Risk Oracle to suggest cap updates is described
 
 ## References
 
-- Implementation: [Payload](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250218_AaveV3Arbitrum_CapsRiskOracleActivationOnArbitrum/AaveV3Arbitrum_CapsRiskOracleActivationOnArbitrum_20250218.sol)
-- Tests: [Payload](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250218_AaveV3Arbitrum_CapsRiskOracleActivationOnArbitrum/AaveV3Arbitrum_CapsRiskOracleActivationOnArbitrum_20250218.t.sol), [AaveStewardsInjectorCaps](https://github.com/aave-dao/aave-v3-risk-stewards/blob/dcfb2aca52f5cae34a68c2d5da8ba0f9260a0ee5/tests/AaveStewardsInjectorCaps.t.sol), [EdgeRiskStewardCaps](https://github.com/aave-dao/aave-v3-risk-stewards/blob/dcfb2aca52f5cae34a68c2d5da8ba0f9260a0ee5/tests/EdgeRiskStewardCaps.t.sol)
+- Implementation: [Payload](https://github.com/bgd-labs/aave-proposals-v3/blob/d273e3c2f3b1c5f0d5d6963664ef8d6dc09cd798/src/20250218_AaveV3Arbitrum_CapsRiskOracleActivationOnArbitrum/AaveV3Arbitrum_CapsRiskOracleActivationOnArbitrum_20250218.sol)
+- Tests: [Payload](https://github.com/bgd-labs/aave-proposals-v3/blob/d273e3c2f3b1c5f0d5d6963664ef8d6dc09cd798/src/20250218_AaveV3Arbitrum_CapsRiskOracleActivationOnArbitrum/AaveV3Arbitrum_CapsRiskOracleActivationOnArbitrum_20250218.t.sol), [AaveStewardsInjectorCaps](https://github.com/aave-dao/aave-v3-risk-stewards/blob/dcfb2aca52f5cae34a68c2d5da8ba0f9260a0ee5/tests/AaveStewardsInjectorCaps.t.sol), [EdgeRiskStewardCaps](https://github.com/aave-dao/aave-v3-risk-stewards/blob/dcfb2aca52f5cae34a68c2d5da8ba0f9260a0ee5/tests/EdgeRiskStewardCaps.t.sol)
 - [Snapshot](https://snapshot.box/#/s:aave.eth/proposal/0x1d8d0d25f3b705bf207a130308658d15256e2cebc58d123e4ad9e7e3a177ac11)
 - [Discussion](https://governance.aave.com/t/arfc-supply-and-borrow-cap-risk-oracle-activation/20834)
 - AaveStewardsInjectorCaps: [github](https://github.com/aave-dao/aave-v3-risk-stewards/blob/dcfb2aca52f5cae34a68c2d5da8ba0f9260a0ee5/src/contracts/AaveStewardInjectorCaps.sol), [deployed-contract](https://arbiscan.io/address/0x35d53dEB2F6f40Ea7af32B6F8BEd88eA966DF1D9)
