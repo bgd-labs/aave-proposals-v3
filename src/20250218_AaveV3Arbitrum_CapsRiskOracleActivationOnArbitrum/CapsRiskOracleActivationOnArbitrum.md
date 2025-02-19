@@ -47,24 +47,6 @@ The automated AGRS system will be configured with the following params:
 
 The methodology used by the Edge Risk Oracle to suggest cap updates is described on the governance forum [here](https://governance.aave.com/t/arfc-supply-and-borrow-cap-risk-oracle-activation/20834).
 
-The Risk Oracle for caps automates the generation and application of cap recommendations, leveraging a proven simulation engine that has successfully supported manual cap adjustments through the Risk Steward for years. Depending on whether the cap utilization surpasses or falls below specific thresholds, either the cap increase or cap decrease simulation is triggered, in addition to the frequent time-based triggering of simulations for all respective markets. The simulation then determines the optimal new cap value based on a range of risk metrics. Once calculated, the updated cap is automatically published to the contract, where it is directly applied to the market, updating the cap value in real-time.
-
-- Cap Increases:
-
-  - The risk oracle is triggered when the median cap utilization exceeds the defined utilization threshold for a full day.
-  - The simulation stress-tests larger supply and borrow caps, taking into account the current state of the protocol, user positions, and external factors such as liquidity availability on the chain and the general circulating supply.
-  - Parameter Adjustments:
-    - Supply Cap: Recommend a new supply cap, if the risk allows.
-    - Borrow Cap: Recommend a new borrow cap, constrained by its ratio to the current supply cap. If the current supply cap does not support an increase, a new supply cap will be recommended (if the risk allows) to support the new borrow cap.
-
-- Cap Decreases:
-  - Decreasing cap exposure through the risk oracle is triggered with two different components of the model:
-    1. Dynamic decreases resulting from asset liquidity depreciation and/or an unhealthy set of positions within the market. The simulation stress-tests the current supply and borrow caps for all assets on a weekly cadence, taking into account the current state of the protocol, user positions, and external factors such as liquidity availability on the chain and the general circulating supply. If the current nominal cap value is deemed too risky, the simulation will determine the optimal decrease value as a function of the aforementioned components.
-    2. Deterministic decreases as a result of low cap utilization within a respective market when the monthly utilization falls below a specified threshold. To ensure a conservative approach, utilization must stay below these thresholds for at least 90% of the time. In such cases, the cap will be reduced, leading to a maximum updated utilization of 50% for Supply Caps and 30% for Borrow Caps. The cap can only be reduced down to a minimum relative value of 30%.
-  - Parameter Adjustments:
-    - Supply Cap: Recommend a new supply cap, depending on the associated risk defined in (1), and ensuring it can still support the current borrow cap in (2)
-    - Borrow Cap: Recommend a new borrow cap.
-
 ## References
 
 - Implementation: [Payload](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250218_AaveV3Arbitrum_CapsRiskOracleActivationOnArbitrum/AaveV3Arbitrum_CapsRiskOracleActivationOnArbitrum_20250218.sol)
