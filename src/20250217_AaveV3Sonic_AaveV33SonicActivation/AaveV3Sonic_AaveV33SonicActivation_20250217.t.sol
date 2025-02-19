@@ -3,11 +3,10 @@ pragma solidity ^0.8.0;
 
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 import {AaveV3Sonic} from 'aave-address-book/AaveV3Sonic.sol';
+import {MiscSonic} from 'aave-address-book/MiscSonic.sol';
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
-
-import 'forge-std/Test.sol';
-import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
-import {AaveV3Sonic_AaveV33SonicActivation_20250217} from './AaveV3Sonic_AaveV33SonicActivation_20250217.sol';
+import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
+import {AaveV3Sonic_AaveV33SonicActivation_20250217, IEmissionManager} from './AaveV3Sonic_AaveV33SonicActivation_20250217.sol';
 
 /**
  * @dev Test for AaveV3Sonic_AaveV33SonicActivation_20250217
@@ -17,7 +16,7 @@ contract AaveV3Sonic_AaveV33SonicActivation_20250217_Test is ProtocolV3TestBase 
   AaveV3Sonic_AaveV33SonicActivation_20250217 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('sonic'), 8268984);
+    vm.createSelectFork(vm.rpcUrl('sonic'), 8444032);
     proposal = new AaveV3Sonic_AaveV33SonicActivation_20250217();
   }
 
@@ -28,27 +27,37 @@ contract AaveV3Sonic_AaveV33SonicActivation_20250217_Test is ProtocolV3TestBase 
     defaultTest('AaveV3Sonic_AaveV33SonicActivation_20250217', AaveV3Sonic.POOL, address(proposal));
   }
 
-  function test_collectorHasWETHFunds() public {
+  function test_collectorHasFunds() public {
     GovV3Helpers.executePayload(vm, address(proposal));
-    (address aTokenAddress, , ) = AaveV3Sonic.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(
-      proposal.WETH()
-    );
-    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Sonic.COLLECTOR)), 10 ** 18);
+
+    _validateCollectorFundsAndLMAdmin(proposal.WETH(), proposal.WETH_SEED_AMOUNT());
+    _validateCollectorFundsAndLMAdmin(proposal.USDC(), proposal.USDC_SEED_AMOUNT());
+    _validateCollectorFundsAndLMAdmin(proposal.wS(), proposal.wS_SEED_AMOUNT());
   }
 
-  function test_collectorHasUSDCFunds() public {
-    GovV3Helpers.executePayload(vm, address(proposal));
-    (address aTokenAddress, , ) = AaveV3Sonic.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(
-      proposal.USDC()
-    );
-    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Sonic.COLLECTOR)), 10 ** 6);
+  function test_guardianPoolAdmin() public {
+    assertFalse(AaveV3Sonic.ACL_MANAGER.isPoolAdmin(MiscSonic.PROTOCOL_GUARDIAN));
+    executePayload(vm, address(proposal));
+    assertTrue(AaveV3Sonic.ACL_MANAGER.isPoolAdmin(MiscSonic.PROTOCOL_GUARDIAN));
   }
 
-  function test_collectorHaswSFunds() public {
-    GovV3Helpers.executePayload(vm, address(proposal));
-    (address aTokenAddress, , ) = AaveV3Sonic.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(
-      proposal.wS()
+  function test_riskStewardRiskAdmin() public {
+    assertFalse(AaveV3Sonic.ACL_MANAGER.isRiskAdmin(AaveV3Sonic.RISK_STEWARD));
+    executePayload(vm, address(proposal));
+    assertTrue(AaveV3Sonic.ACL_MANAGER.isRiskAdmin(AaveV3Sonic.RISK_STEWARD));
+  }
+
+  function _validateCollectorFundsAndLMAdmin(address asset, uint256 seedAmount) internal view {
+    (address aToken, , ) = AaveV3Sonic.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(asset);
+    assertGe(IERC20(aToken).balanceOf(address(AaveV3Sonic.COLLECTOR)), seedAmount);
+
+    assertEq(
+      IEmissionManager(AaveV3Sonic.EMISSION_MANAGER).getEmissionAdmin(asset),
+      proposal.LM_ADMIN()
     );
-    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Sonic.COLLECTOR)), 10 ** 18);
+    assertEq(
+      IEmissionManager(AaveV3Sonic.EMISSION_MANAGER).getEmissionAdmin(aToken),
+      proposal.LM_ADMIN()
+    );
   }
 }

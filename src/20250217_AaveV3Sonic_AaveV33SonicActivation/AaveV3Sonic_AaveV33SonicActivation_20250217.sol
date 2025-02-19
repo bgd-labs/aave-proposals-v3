@@ -2,9 +2,11 @@
 pragma solidity ^0.8.0;
 
 import {AaveV3Sonic} from 'aave-address-book/AaveV3Sonic.sol';
+import {MiscSonic} from 'aave-address-book/MiscSonic.sol';
 import {AaveV3PayloadSonic} from 'aave-helpers/src/v3-config-engine/AaveV3PayloadSonic.sol';
 import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
+import {IEmissionManager} from 'aave-v3-origin/contracts/rewards/interfaces/IEmissionManager.sol';
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 import {SafeERC20} from 'openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol';
 
@@ -21,20 +23,20 @@ contract AaveV3Sonic_AaveV33SonicActivation_20250217 is AaveV3PayloadSonic {
   uint256 public constant WETH_SEED_AMOUNT = 0.025e18;
 
   address public constant USDC = 0x29219dd400f2Bf60E5a23d13Be72B486D4038894;
-  uint256 public constant USDC_SEED_AMOUNT = 1e6;
+  uint256 public constant USDC_SEED_AMOUNT = 10e6;
 
   address public constant wS = 0x039e2fB66102314Ce7b64Ce5Ce3E5183bc94aD38;
   uint256 public constant wS_SEED_AMOUNT = 1e18;
 
+  address public constant LM_ADMIN = 0xac140648435d03f784879cd789130F22Ef588Fcd;
+
   function _postExecute() internal override {
-    IERC20(WETH).forceApprove(address(AaveV3Sonic.POOL), WETH_SEED_AMOUNT);
-    AaveV3Sonic.POOL.supply(WETH, WETH_SEED_AMOUNT, address(AaveV3Sonic.COLLECTOR), 0);
+    _supplyAndConfigureLMAdmin(WETH, WETH_SEED_AMOUNT);
+    _supplyAndConfigureLMAdmin(USDC, USDC_SEED_AMOUNT);
+    _supplyAndConfigureLMAdmin(wS, wS_SEED_AMOUNT);
 
-    IERC20(USDC).forceApprove(address(AaveV3Sonic.POOL), USDC_SEED_AMOUNT);
-    AaveV3Sonic.POOL.supply(USDC, USDC_SEED_AMOUNT, address(AaveV3Sonic.COLLECTOR), 0);
-
-    IERC20(wS).forceApprove(address(AaveV3Sonic.POOL), wS_SEED_AMOUNT);
-    AaveV3Sonic.POOL.supply(wS, wS_SEED_AMOUNT, address(AaveV3Sonic.COLLECTOR), 0);
+    AaveV3Sonic.ACL_MANAGER.addPoolAdmin(MiscSonic.PROTOCOL_GUARDIAN);
+    AaveV3Sonic.ACL_MANAGER.addRiskAdmin(AaveV3Sonic.RISK_STEWARD);
   }
 
   function newListings() public pure override returns (IAaveV3ConfigEngine.Listing[] memory) {
@@ -111,5 +113,14 @@ contract AaveV3Sonic_AaveV33SonicActivation_20250217 is AaveV3PayloadSonic {
     });
 
     return listings;
+  }
+
+  function _supplyAndConfigureLMAdmin(address asset, uint256 seedAmount) internal {
+    IERC20(asset).forceApprove(address(AaveV3Sonic.POOL), seedAmount);
+    AaveV3Sonic.POOL.supply(asset, seedAmount, address(AaveV3Sonic.COLLECTOR), 0);
+
+    (address aToken, , ) = AaveV3Sonic.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(asset);
+    IEmissionManager(AaveV3Sonic.EMISSION_MANAGER).setEmissionAdmin(asset, LM_ADMIN);
+    IEmissionManager(AaveV3Sonic.EMISSION_MANAGER).setEmissionAdmin(aToken, LM_ADMIN);
   }
 }
