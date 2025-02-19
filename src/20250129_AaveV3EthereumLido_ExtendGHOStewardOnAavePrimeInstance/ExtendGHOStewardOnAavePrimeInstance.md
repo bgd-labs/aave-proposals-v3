@@ -36,11 +36,7 @@ BorrowRateConfig:
 - Slope 1 Max Change: 500
 - Slope 2 Max Change: 500
 
-Then, the GhoAaveSteward is to be granted the following permissions:
-
-GhoAaveSteward
-
-- RiskAdmin in Aave V3 Ethereum Prime Pool
+Then, the GhoAaveSteward is to be granted the following permissions: `RiskAdmin` in Aave V3 Ethereum Prime Pool
 
 ## References
 
