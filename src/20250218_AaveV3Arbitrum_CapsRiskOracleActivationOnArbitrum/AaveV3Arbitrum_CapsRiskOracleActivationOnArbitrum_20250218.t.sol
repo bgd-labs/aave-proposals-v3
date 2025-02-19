@@ -53,6 +53,7 @@ contract AaveV3Arbitrum_CapsRiskOracleActivationOnArbitrum_20250218_Test is Prot
   }
 
   function test_permissions() public {
+    assertEq(AaveV3Arbitrum.ACL_MANAGER.isRiskAdmin(proposal.EDGE_RISK_STEWARD()), false);
     executePayload(vm, address(proposal));
 
     assertEq(AaveV3Arbitrum.ACL_MANAGER.isRiskAdmin(proposal.EDGE_RISK_STEWARD()), true);
@@ -77,7 +78,7 @@ contract AaveV3Arbitrum_CapsRiskOracleActivationOnArbitrum_20250218_Test is Prot
     (, uint256 supplyCap) = AaveV3Arbitrum.AAVE_PROTOCOL_DATA_PROVIDER.getReserveCaps(
       AaveV3ArbitrumAssets.WETH_UNDERLYING
     );
-    uint256 supplyCapToSet = supplyCap + 1;
+    uint256 supplyCapToSet = (supplyCap * 130) / 100; // increase caps by 30%
 
     _addUpdateToRiskOracle(supplyCapToSet);
 
