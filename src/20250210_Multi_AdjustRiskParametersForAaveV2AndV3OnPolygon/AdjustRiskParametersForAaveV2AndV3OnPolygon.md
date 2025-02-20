@@ -11,7 +11,7 @@ This proposal seeks community feedback on adjusting risk parameters for Aave V2 
 
 ## Motivation
 
-Polygon governance is currently evaluating [a proposal](https://forum.polygon.technology/t/pre-pip-polygon-pos-bridge-liquidity-program/20284) that would redefine the risk profile of bridged assets on the Polygon network. This change could have substantial implications for the risk profiles of Aave V2 and V3 deployments on Polygon PoS.
+Polygon governance was evaluating [a proposal](https://forum.polygon.technology/t/pre-pip-polygon-pos-bridge-liquidity-program/20284) that would redefine the risk profile of bridged assets on the Polygon network. This change could have substantial implications for the risk profiles of Aave V2 and V3 deployments on Polygon PoS.
 
 Historically, bridge vulnerabilities have caused the largest losses in the DeFi ecosystem, including:
 
