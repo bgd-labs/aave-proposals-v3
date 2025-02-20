@@ -7,7 +7,7 @@ snapshot: "https://snapshot.box/#/s:aave.eth/proposal/0x48cb2ca277c9cfa0855e8561
 
 ## Simple Summary
 
-This proposal seeks community feedback on adjusting risk parameters for Aave V2 and V3 instances on the Polygon network. The adjustments are in response to an upcoming proposal that will significantly impact the risk profiles of bridged assets within the Polygon network.
+This proposal will update the risk parameters for Aave V2 and V3 instances on the Polygon network. The adjustments are in response to an upcoming proposal that will significantly impact the risk profiles of bridged assets within the Polygon network.
 
 ## Motivation
 
