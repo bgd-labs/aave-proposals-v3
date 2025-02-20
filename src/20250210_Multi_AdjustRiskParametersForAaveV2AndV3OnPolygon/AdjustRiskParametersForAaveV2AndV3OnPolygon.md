@@ -51,7 +51,6 @@ The following recommendations are proposed to mitigate risk and incentivize migr
 | Polygon V2 | DAI    | 63%         | 0%           | 99.9%      | -           |
 
 2. Remove support for Aave V3 Polygon in the Safety Module and cancel the umbrella deployment on Polygon.
-3. Migrate Aave Governance V3 voting infrastructure to another L2 network.
 
 ## References
 
