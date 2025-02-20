@@ -14,6 +14,14 @@ import {IV2RateStrategyFactory} from 'aave-helpers/src/v2-config-engine/IV2RateS
  */
 contract AaveV2Ethereum_AaveV2DeprecationUpdate_20250220 is AaveV2PayloadEthereum {
   function _postExecute() internal override {
+    AaveV2Ethereum.POOL_CONFIGURATOR.setReserveFactor(AaveV2EthereumAssets.USDC_UNDERLYING, 70_00);
+    AaveV2Ethereum.POOL_CONFIGURATOR.setReserveFactor(AaveV2EthereumAssets.USDT_UNDERLYING, 70_00);
+    AaveV2Ethereum.POOL_CONFIGURATOR.setReserveFactor(AaveV2EthereumAssets.DAI_UNDERLYING, 70_00);
+    AaveV2Ethereum.POOL_CONFIGURATOR.setReserveFactor(
+      AaveV2EthereumAssets.renFIL_UNDERLYING,
+      99_99
+    );
+    AaveV2Ethereum.POOL_CONFIGURATOR.setReserveFactor(AaveV2EthereumAssets.LINK_UNDERLYING, 99_99);
     AaveV2Ethereum.POOL_CONFIGURATOR.disableBorrowingOnReserve(AaveV2EthereumAssets.ENJ_UNDERLYING);
     AaveV2Ethereum.POOL_CONFIGURATOR.disableBorrowingOnReserve(
       AaveV2EthereumAssets.USDT_UNDERLYING
@@ -54,7 +62,7 @@ contract AaveV2Ethereum_AaveV2DeprecationUpdate_20250220 is AaveV2PayloadEthereu
     returns (IAaveV2ConfigEngine.RateStrategyUpdate[] memory)
   {
     IAaveV2ConfigEngine.RateStrategyUpdate[]
-      memory rateStrategies = new IAaveV2ConfigEngine.RateStrategyUpdate[](27);
+      memory rateStrategies = new IAaveV2ConfigEngine.RateStrategyUpdate[](26);
     rateStrategies[0] = IAaveV2ConfigEngine.RateStrategyUpdate({
       asset: AaveV2EthereumAssets.USDT_UNDERLYING,
       params: IV2RateStrategyFactory.RateStrategyParams({
@@ -243,17 +251,6 @@ contract AaveV2Ethereum_AaveV2DeprecationUpdate_20250220 is AaveV2PayloadEthereu
       })
     });
     rateStrategies[17] = IAaveV2ConfigEngine.RateStrategyUpdate({
-      asset: AaveV2EthereumAssets.BAL_UNDERLYING,
-      params: IV2RateStrategyFactory.RateStrategyParams({
-        optimalUtilizationRate: EngineFlags.KEEP_CURRENT,
-        baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
-        variableRateSlope1: EngineFlags.KEEP_CURRENT,
-        variableRateSlope2: EngineFlags.KEEP_CURRENT,
-        stableRateSlope1: EngineFlags.KEEP_CURRENT,
-        stableRateSlope2: EngineFlags.KEEP_CURRENT
-      })
-    });
-    rateStrategies[18] = IAaveV2ConfigEngine.RateStrategyUpdate({
       asset: AaveV2EthereumAssets.renFIL_UNDERLYING,
       params: IV2RateStrategyFactory.RateStrategyParams({
         optimalUtilizationRate: _bpsToRay(45_00),
@@ -264,7 +261,7 @@ contract AaveV2Ethereum_AaveV2DeprecationUpdate_20250220 is AaveV2PayloadEthereu
         stableRateSlope2: EngineFlags.KEEP_CURRENT
       })
     });
-    rateStrategies[19] = IAaveV2ConfigEngine.RateStrategyUpdate({
+    rateStrategies[18] = IAaveV2ConfigEngine.RateStrategyUpdate({
       asset: AaveV2EthereumAssets.RAI_UNDERLYING,
       params: IV2RateStrategyFactory.RateStrategyParams({
         optimalUtilizationRate: _bpsToRay(45_00),
@@ -275,7 +272,7 @@ contract AaveV2Ethereum_AaveV2DeprecationUpdate_20250220 is AaveV2PayloadEthereu
         stableRateSlope2: EngineFlags.KEEP_CURRENT
       })
     });
-    rateStrategies[20] = IAaveV2ConfigEngine.RateStrategyUpdate({
+    rateStrategies[19] = IAaveV2ConfigEngine.RateStrategyUpdate({
       asset: AaveV2EthereumAssets.AMPL_UNDERLYING,
       params: IV2RateStrategyFactory.RateStrategyParams({
         optimalUtilizationRate: _bpsToRay(45_00),
@@ -286,7 +283,7 @@ contract AaveV2Ethereum_AaveV2DeprecationUpdate_20250220 is AaveV2PayloadEthereu
         stableRateSlope2: EngineFlags.KEEP_CURRENT
       })
     });
-    rateStrategies[21] = IAaveV2ConfigEngine.RateStrategyUpdate({
+    rateStrategies[20] = IAaveV2ConfigEngine.RateStrategyUpdate({
       asset: AaveV2EthereumAssets.USDP_UNDERLYING,
       params: IV2RateStrategyFactory.RateStrategyParams({
         optimalUtilizationRate: _bpsToRay(45_00),
@@ -297,7 +294,7 @@ contract AaveV2Ethereum_AaveV2DeprecationUpdate_20250220 is AaveV2PayloadEthereu
         stableRateSlope2: EngineFlags.KEEP_CURRENT
       })
     });
-    rateStrategies[22] = IAaveV2ConfigEngine.RateStrategyUpdate({
+    rateStrategies[21] = IAaveV2ConfigEngine.RateStrategyUpdate({
       asset: AaveV2EthereumAssets.DPI_UNDERLYING,
       params: IV2RateStrategyFactory.RateStrategyParams({
         optimalUtilizationRate: _bpsToRay(45_00),
@@ -308,7 +305,7 @@ contract AaveV2Ethereum_AaveV2DeprecationUpdate_20250220 is AaveV2PayloadEthereu
         stableRateSlope2: EngineFlags.KEEP_CURRENT
       })
     });
-    rateStrategies[23] = IAaveV2ConfigEngine.RateStrategyUpdate({
+    rateStrategies[22] = IAaveV2ConfigEngine.RateStrategyUpdate({
       asset: AaveV2EthereumAssets.FRAX_UNDERLYING,
       params: IV2RateStrategyFactory.RateStrategyParams({
         optimalUtilizationRate: _bpsToRay(45_00),
@@ -319,7 +316,7 @@ contract AaveV2Ethereum_AaveV2DeprecationUpdate_20250220 is AaveV2PayloadEthereu
         stableRateSlope2: EngineFlags.KEEP_CURRENT
       })
     });
-    rateStrategies[24] = IAaveV2ConfigEngine.RateStrategyUpdate({
+    rateStrategies[23] = IAaveV2ConfigEngine.RateStrategyUpdate({
       asset: AaveV2EthereumAssets.FEI_UNDERLYING,
       params: IV2RateStrategyFactory.RateStrategyParams({
         optimalUtilizationRate: _bpsToRay(45_00),
@@ -330,7 +327,7 @@ contract AaveV2Ethereum_AaveV2DeprecationUpdate_20250220 is AaveV2PayloadEthereu
         stableRateSlope2: EngineFlags.KEEP_CURRENT
       })
     });
-    rateStrategies[25] = IAaveV2ConfigEngine.RateStrategyUpdate({
+    rateStrategies[24] = IAaveV2ConfigEngine.RateStrategyUpdate({
       asset: AaveV2EthereumAssets.UST_UNDERLYING,
       params: IV2RateStrategyFactory.RateStrategyParams({
         optimalUtilizationRate: _bpsToRay(45_00),
@@ -341,7 +338,7 @@ contract AaveV2Ethereum_AaveV2DeprecationUpdate_20250220 is AaveV2PayloadEthereu
         stableRateSlope2: EngineFlags.KEEP_CURRENT
       })
     });
-    rateStrategies[26] = IAaveV2ConfigEngine.RateStrategyUpdate({
+    rateStrategies[25] = IAaveV2ConfigEngine.RateStrategyUpdate({
       asset: AaveV2EthereumAssets.LUSD_UNDERLYING,
       params: IV2RateStrategyFactory.RateStrategyParams({
         optimalUtilizationRate: _bpsToRay(45_00),
