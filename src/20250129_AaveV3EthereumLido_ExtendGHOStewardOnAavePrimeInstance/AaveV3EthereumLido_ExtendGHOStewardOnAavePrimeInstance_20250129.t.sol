@@ -8,7 +8,7 @@ import {IOwnable} from 'aave-address-book/common/IOwnable.sol';
 import {IDefaultInterestRateStrategyV2} from 'aave-address-book/AaveV3.sol';
 
 import {IRiskSteward} from './IRiskSteward.sol';
-import {ReserveConfiguration} from './ReserveConfiguration.sol';
+import {ReserveConfiguration} from 'aave-v3-origin/contracts/protocol/libraries/configuration/ReserveConfiguration.sol';
 import {DataTypes} from 'aave-v3-origin/contracts/protocol/libraries/types/DataTypes.sol';
 
 import 'forge-std/Test.sol';
