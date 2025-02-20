@@ -14,7 +14,7 @@ import {SafeERC20} from 'openzeppelin-contracts/contracts/token/ERC20/utils/Safe
  * @title Aave V3.3 Sonic Activation
  * @author BGD Labs (@bgdlabs)
  * - Snapshot: https://snapshot.box/#/s:aave.eth/proposal/0x8d41750cae27326ac50a84a25846747baeb99c57d371c536ec9219ff662f7497
- * - Discussion: https://governance.aave.com/t/arfc-deploy-aave-v3-on-sonic/20543/3
+ * - Discussion: https://governance.aave.com/t/arfc-deploy-aave-v3-on-sonic/20543
  */
 contract AaveV3Sonic_AaveV33SonicActivation_20250217 is AaveV3PayloadSonic {
   using SafeERC20 for IERC20;
@@ -54,8 +54,8 @@ contract AaveV3Sonic_AaveV33SonicActivation_20250217 is AaveV3PayloadSonic {
       liqThreshold: 83_00,
       liqBonus: 6_00,
       reserveFactor: 15_00,
-      supplyCap: 400,
-      borrowCap: 370,
+      supplyCap: 3_000,
+      borrowCap: 2_750,
       debtCeiling: 0,
       liqProtocolFee: 10_00,
       rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
@@ -77,8 +77,8 @@ contract AaveV3Sonic_AaveV33SonicActivation_20250217 is AaveV3PayloadSonic {
       liqThreshold: 78_00,
       liqBonus: 5_00,
       reserveFactor: 10_00,
-      supplyCap: 2_000_000,
-      borrowCap: 1_900_000,
+      supplyCap: 20_000_000,
+      borrowCap: 19_000_000,
       debtCeiling: 0,
       liqProtocolFee: 10_00,
       rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
@@ -96,12 +96,12 @@ contract AaveV3Sonic_AaveV33SonicActivation_20250217 is AaveV3PayloadSonic {
       borrowableInIsolation: EngineFlags.DISABLED,
       withSiloedBorrowing: EngineFlags.DISABLED,
       flashloanable: EngineFlags.ENABLED,
-      ltv: 35_00,
-      liqThreshold: 40_00,
+      ltv: 68_00,
+      liqThreshold: 70_00,
       liqBonus: 10_00,
-      reserveFactor: 20_00,
-      supplyCap: 3_000_000,
-      borrowCap: 1_500_000,
+      reserveFactor: 15_00,
+      supplyCap: 20_000_000,
+      borrowCap: 10_000_000,
       debtCeiling: 0,
       liqProtocolFee: 10_00,
       rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({

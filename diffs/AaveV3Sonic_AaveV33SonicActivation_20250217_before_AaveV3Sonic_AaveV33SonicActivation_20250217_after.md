@@ -9,8 +9,8 @@
 | decimals | 18 |
 | isActive | true |
 | isFrozen | false |
-| supplyCap | 3,000,000 wS |
-| borrowCap | 1,500,000 wS |
+| supplyCap | 20,000,000 wS |
+| borrowCap | 10,000,000 wS |
 | debtCeiling | 0 $ [0] |
 | isSiloed | false |
 | isFlashloanable | true |
@@ -19,11 +19,11 @@
 | oracleDescription | S / USD |
 | oracleLatestAnswer | 0.67656882 |
 | usageAsCollateralEnabled | true |
-| ltv | 35 % [3500] |
-| liquidationThreshold | 40 % [4000] |
+| ltv | 68 % [6800] |
+| liquidationThreshold | 70 % [7000] |
 | liquidationBonus | 10 % |
 | liquidationProtocolFee | 10 % [1000] |
-| reserveFactor | 20 % [2000] |
+| reserveFactor | 15 % [1500] |
 | aToken | [0x6C5E14A212c1C3e4Baf6f871ac9B1a969918c131](https://sonicscan.org//address/0x6C5E14A212c1C3e4Baf6f871ac9B1a969918c131) |
 | variableDebtToken | [0xF6089B790Fbf8F4812a79a31CFAbeB00B06BA7BD](https://sonicscan.org//address/0xF6089B790Fbf8F4812a79a31CFAbeB00B06BA7BD) |
 | borrowingEnabled | true |
@@ -53,8 +53,8 @@
 | decimals | 6 |
 | isActive | true |
 | isFrozen | false |
-| supplyCap | 2,000,000 USDC.e |
-| borrowCap | 1,900,000 USDC.e |
+| supplyCap | 20,000,000 USDC.e |
+| borrowCap | 19,000,000 USDC.e |
 | debtCeiling | 0 $ [0] |
 | isSiloed | false |
 | isFlashloanable | true |
@@ -97,8 +97,8 @@
 | decimals | 18 |
 | isActive | true |
 | isFrozen | false |
-| supplyCap | 400 WETH |
-| borrowCap | 370 WETH |
+| supplyCap | 3,000 WETH |
+| borrowCap | 2,750 WETH |
 | debtCeiling | 0 $ [0] |
 | isSiloed | false |
 | isFlashloanable | true |
@@ -146,7 +146,7 @@
         "aTokenName": "Aave Sonic wS",
         "aTokenSymbol": "aSonwS",
         "aTokenUnderlyingBalance": "10000000000000000000",
-        "borrowCap": 1500000,
+        "borrowCap": 10000000,
         "borrowingEnabled": true,
         "debtCeiling": 0,
         "decimals": 18,
@@ -160,14 +160,14 @@
         "isSiloed": false,
         "liquidationBonus": 11000,
         "liquidationProtocolFee": 1000,
-        "liquidationThreshold": 4000,
-        "ltv": 3500,
+        "liquidationThreshold": 7000,
+        "ltv": 6800,
         "oracle": "0xc76dFb89fF298145b417d221B2c747d84952e01d",
         "oracleDecimals": 8,
         "oracleDescription": "S / USD",
         "oracleLatestAnswer": "67656882",
-        "reserveFactor": 2000,
-        "supplyCap": 3000000,
+        "reserveFactor": 1500,
+        "supplyCap": 20000000,
         "symbol": "wS",
         "underlying": "0x039e2fB66102314Ce7b64Ce5Ce3E5183bc94aD38",
         "usageAsCollateralEnabled": true,
@@ -185,7 +185,7 @@
         "aTokenName": "Aave Sonic USDC",
         "aTokenSymbol": "aSonUSDC",
         "aTokenUnderlyingBalance": "10000000",
-        "borrowCap": 1900000,
+        "borrowCap": 19000000,
         "borrowingEnabled": true,
         "debtCeiling": 0,
         "decimals": 6,
@@ -206,7 +206,7 @@
         "oracleDescription": "Capped USDC/USD",
         "oracleLatestAnswer": "99983451",
         "reserveFactor": 1000,
-        "supplyCap": 2000000,
+        "supplyCap": 20000000,
         "symbol": "USDC.e",
         "underlying": "0x29219dd400f2Bf60E5a23d13Be72B486D4038894",
         "usageAsCollateralEnabled": true,
@@ -224,7 +224,7 @@
         "aTokenName": "Aave Sonic WETH",
         "aTokenSymbol": "aSonWETH",
         "aTokenUnderlyingBalance": "25000000000000000",
-        "borrowCap": 370,
+        "borrowCap": 2750,
         "borrowingEnabled": true,
         "debtCeiling": 0,
         "decimals": 18,
@@ -245,7 +245,7 @@
         "oracleDescription": "ETH / USD",
         "oracleLatestAnswer": "272836000000",
         "reserveFactor": 1500,
-        "supplyCap": 400,
+        "supplyCap": 3000,
         "symbol": "WETH",
         "underlying": "0x50c42dEAcD8Fc9773493ED674b675bE577f2634b",
         "usageAsCollateralEnabled": true,
@@ -461,7 +461,7 @@
         },
         "0x1c6109d2bbfbdadfc462a8d70dd8be07bf59af5d98a33599fd824b82f078f1ad": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x100000000000000000000003e80002dc6c000016e36007d085122af80fa00dac"
+          "newValue": "0x100000000000000000000003e8001312d0000098968005dc85122af81b581a90"
         },
         "0x1c6109d2bbfbdadfc462a8d70dd8be07bf59af5d98a33599fd824b82f078f1ae": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -493,7 +493,7 @@
         },
         "0x37b7fc6fa4a96109d1745c7f989f397f19e6bafe7d5438dd5a1507240efe1fae": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x100000000000000000000003e80001e84800001cfde003e8a50629041e781d4c"
+          "newValue": "0x100000000000000000000003e8001312d0000121eac003e8a50629041e781d4c"
         },
         "0x37b7fc6fa4a96109d1745c7f989f397f19e6bafe7d5438dd5a1507240efe1faf": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -537,7 +537,7 @@
         },
         "0x645d23fa7f650a8c8ec7c74df5dc416994cfa2fad6301d955d0c4a9315554d92": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x100000000000000000000003e800000019000000017205dc85122968206c1f40"
+          "newValue": "0x100000000000000000000003e8000000bb8000000abe05dc85122968206c1f40"
         },
         "0x645d23fa7f650a8c8ec7c74df5dc416994cfa2fad6301d955d0c4a9315554d93": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",

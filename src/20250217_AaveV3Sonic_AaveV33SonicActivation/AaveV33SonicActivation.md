@@ -1,7 +1,7 @@
 ---
 title: "Aave V3.3 Sonic Activation"
 author: "BGD Labs (@bgdlabs)"
-discussions: "https://governance.aave.com/t/arfc-deploy-aave-v3-on-sonic/20543/3"
+discussions: "https://governance.aave.com/t/arfc-deploy-aave-v3-on-sonic/20543/26"
 snapshot: "https://snapshot.box/#/s:aave.eth/proposal/0x8d41750cae27326ac50a84a25846747baeb99c57d371c536ec9219ff662f7497"
 ---
 
@@ -34,15 +34,15 @@ The table below illustrates the configured risk parameters for the assets to be 
 | ------------------------- | ----------------------------------------------------------------------------------: | ------------------------------------------------------------------------------------------: | --------------------------------------------------------------------------------: |
 | Borrowable                |                                                                             ENABLED |                                                                                     ENABLED |                                                                           ENABLED |
 | Collateral Enabled        |                                                                                true |                                                                                        true |                                                                              true |
-| Supply Cap                |                                                                                 400 |                                                                                   2,000,000 |                                                                         3,000,000 |
-| Borrow Cap                |                                                                                 370 |                                                                                   1,900,000 |                                                                         1,500,000 |
+| Supply Cap                |                                                                               3,000 |                                                                                  20,000,000 |                                                                        20,000,000 |
+| Borrow Cap                |                                                                               2,750 |                                                                                  19,000,000 |                                                                        10,000,000 |
 | Isolation Mode            |                                                                               false |                                                                                       false |                                                                             false |
 | Debt Ceiling              |                                                                               USD 0 |                                                                                       USD 0 |                                                                             USD 0 |
-| LTV                       |                                                                                80 % |                                                                                        75 % |                                                                              35 % |
-| LT                        |                                                                                83 % |                                                                                        78 % |                                                                              40 % |
+| LTV                       |                                                                                80 % |                                                                                        75 % |                                                                              68 % |
+| LT                        |                                                                                83 % |                                                                                        78 % |                                                                              70 % |
 | Liquidation Bonus         |                                                                                 6 % |                                                                                         5 % |                                                                              10 % |
 | Liquidation Protocol Fee  |                                                                                10 % |                                                                                        10 % |                                                                              10 % |
-| Reserve Factor            |                                                                                15 % |                                                                                        10 % |                                                                              20 % |
+| Reserve Factor            |                                                                                15 % |                                                                                        10 % |                                                                              15 % |
 | Uoptimal                  |                                                                                90 % |                                                                                        90 % |                                                                              45 % |
 | Base Variable Borrow Rate |                                                                                 0 % |                                                                                         0 % |                                                                               0 % |
 | Variable Slope 1          |                                                                               2.7 % |                                                                                       9.5 % |                                                                               7 % |
@@ -63,7 +63,7 @@ The table below illustrates the configured risk parameters for the assets to be 
 - Implementation: [AaveV3Sonic](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250217_AaveV3Sonic_AaveV33SonicActivation/AaveV3Sonic_AaveV33SonicActivation_20250217.sol)
 - Tests: [AaveV3Sonic](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250217_AaveV3Sonic_AaveV33SonicActivation/AaveV3Sonic_AaveV33SonicActivation_20250217.t.sol)
 - [Snapshot](https://snapshot.box/#/s:aave.eth/proposal/0x8d41750cae27326ac50a84a25846747baeb99c57d371c536ec9219ff662f7497)
-- [Discussion](https://governance.aave.com/t/arfc-deploy-aave-v3-on-sonic/20543/3)
+- [Discussion](https://governance.aave.com/t/arfc-deploy-aave-v3-on-sonic/20543/26)
 
 ## Copyright
 
