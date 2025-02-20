@@ -24,7 +24,7 @@ Historically, bridge vulnerabilities have caused the largest losses in the DeFi 
 
 The Aave ecosystem has experienced both indirect and direct impacts from bridge vulnerabilities, notably the Multichain and Harmony bridge hacks. Additionally, depositing user funds into unsafe protocols has historically resulted in significant losses. For example, the Angle Protocol deposited EURA funds into Euler a week before its hack, which caused EURA to lose its peg temporarily, impacting Aave users.
 
-This ARFC aims to mitigate potential losses for Aave users by:
+This AIP aims to mitigate potential losses for Aave users by:
 
 1. Soliciting immediate feedback from risk service providers (@ChaosLabs and @LlamaRisk) to determine appropriate adjustments to risk parameters.
 2. Engaging @TokenLogic to design a user position migration initiative, leveraging Merit (rewards for closing positions on Polygon and reopening equivalent positions on other networks).
