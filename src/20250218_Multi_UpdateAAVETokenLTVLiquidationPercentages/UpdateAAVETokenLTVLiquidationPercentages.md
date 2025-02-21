@@ -7,7 +7,8 @@ snapshot: "https://snapshot.box/#/s:aave.eth/proposal/0x50d01665cddf8ea977051cf6
 
 ## Simple Summary
 
-This ARFC seeks the community’s input on adjusting AAVE’s LTV percentage from [66% to 71% and the liquidation ratio from 73% to 78%](https://app.aave.com/reserve-overview/?underlyingAsset=0x7fc66500c84a76ad7e9c93437bfc5ac33e2ddae9&marketName=proto_mainnet_v3)
+This proposal increases the AAVE's LTV and liquidation threshold values on ethereum core and arbitrum instances.
+AAVE's LTV is increased from 66% to 69% on core instance and 63% to 66% on arbitrum instance while the liquidation threshold is increased from 73% to 76% on core instance and 70% to 73% on arbitrum instance.
 
 ## Motivation
 
