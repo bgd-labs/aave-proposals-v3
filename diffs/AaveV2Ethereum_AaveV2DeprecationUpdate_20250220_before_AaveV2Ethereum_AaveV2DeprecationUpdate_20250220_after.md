@@ -94,6 +94,7 @@
 
 | description | value before | value after |
 | --- | --- | --- |
+| reserveFactor | 90 % [9000] | 99.99 % [9999] |
 | interestRateStrategy | [0xED6547b83276B076B771B88FcCbD68BDeDb3927f](https://etherscan.io/address/0xED6547b83276B076B771B88FcCbD68BDeDb3927f) | [0x2c206fa2127aB7f1CE3dc987daf683Ed5B9CF069](https://etherscan.io/address/0x2c206fa2127aB7f1CE3dc987daf683Ed5B9CF069) |
 | baseVariableBorrowRate | 0 % | 20 % |
 | variableRateSlope1 | 7 % | 0 % |
@@ -127,6 +128,7 @@
 
 | description | value before | value after |
 | --- | --- | --- |
+| reserveFactor | 85 % [8500] | 70 % [7000] |
 | borrowingEnabled | true | false |
 | interestRateStrategy | [0x7011B47A142E2f462AB10F5bDBc8A478310EB0FD](https://etherscan.io/address/0x7011B47A142E2f462AB10F5bDBc8A478310EB0FD) | [0xE85Bf1E770bc3dC52A25594C2c16059a01aA8406](https://etherscan.io/address/0xE85Bf1E770bc3dC52A25594C2c16059a01aA8406) |
 | variableRateSlope2 | 75 % | 60 % |
@@ -180,6 +182,7 @@
 
 | description | value before | value after |
 | --- | --- | --- |
+| reserveFactor | 85 % [8500] | 70 % [7000] |
 | borrowingEnabled | true | false |
 
 
@@ -213,6 +216,7 @@
 
 | description | value before | value after |
 | --- | --- | --- |
+| reserveFactor | 35 % [3500] | 99.99 % [9999] |
 | borrowingEnabled | true | false |
 | interestRateStrategy | [0x311C866D55456e465e314A3E9830276B438A73f0](https://etherscan.io/address/0x311C866D55456e465e314A3E9830276B438A73f0) | [0x6855E5544Cd803BF24c9612b3F12C009116B0ee1](https://etherscan.io/address/0x6855E5544Cd803BF24c9612b3F12C009116B0ee1) |
 | optimalUsageRatio | 0 % | 45 % |
@@ -249,10 +253,20 @@
 | maxExcessUsageRatio | 20 % | 55 % |
 | interestRate | ![before](https://dash.onaave.com/api/static?variableRateSlope1=0&variableRateSlope2=3000000000000000000000000000&optimalUsageRatio=800000000000000000000000000&baseVariableBorrowRate=200000000000000000000000000&maxVariableBorrowRate=undefined) | ![after](https://dash.onaave.com/api/static?variableRateSlope1=0&variableRateSlope2=3000000000000000000000000000&optimalUsageRatio=450000000000000000000000000&baseVariableBorrowRate=200000000000000000000000000&maxVariableBorrowRate=undefined) |
 
+#### BAL ([0xba100000625a3754423978a60c9317c58a424e3D](https://etherscan.io/address/0xba100000625a3754423978a60c9317c58a424e3D))
+
+| description | value before | value after |
+| --- | --- | --- |
+| interestRateStrategy | [0xb873ec463CAC50112B0e14d060fbc4192406279f](https://etherscan.io/address/0xb873ec463CAC50112B0e14d060fbc4192406279f) | [0xdbcea77E2C4A0e6158a7555C249f28A8Da449178](https://etherscan.io/address/0xdbcea77E2C4A0e6158a7555C249f28A8Da449178) |
+| optimalUsageRatio | 80 % | 45 % |
+| maxExcessUsageRatio | 20 % | 55 % |
+| interestRate | ![before](https://dash.onaave.com/api/static?variableRateSlope1=0&variableRateSlope2=3000000000000000000000000000&optimalUsageRatio=800000000000000000000000000&baseVariableBorrowRate=200000000000000000000000000&maxVariableBorrowRate=undefined) | ![after](https://dash.onaave.com/api/static?variableRateSlope1=0&variableRateSlope2=3000000000000000000000000000&optimalUsageRatio=450000000000000000000000000&baseVariableBorrowRate=200000000000000000000000000&maxVariableBorrowRate=undefined) |
+
 #### USDT ([0xdAC17F958D2ee523a2206206994597C13D831ec7](https://etherscan.io/address/0xdAC17F958D2ee523a2206206994597C13D831ec7))
 
 | description | value before | value after |
 | --- | --- | --- |
+| reserveFactor | 85 % [8500] | 70 % [7000] |
 | borrowingEnabled | true | false |
 | interestRateStrategy | [0x869eF970878F96c130E14B46B024D2ca18b5b762](https://etherscan.io/address/0x869eF970878F96c130E14B46B024D2ca18b5b762) | [0xe85dA2C9D406afe7A37F525b5CAbEDA42944dB6f](https://etherscan.io/address/0xe85dA2C9D406afe7A37F525b5CAbEDA42944dB6f) |
 | variableRateSlope2 | 100 % | 60 % |
@@ -343,6 +357,10 @@
       "interestRateStrategy": {
         "from": "0xED6547b83276B076B771B88FcCbD68BDeDb3927f",
         "to": "0x2c206fa2127aB7f1CE3dc987daf683Ed5B9CF069"
+      },
+      "reserveFactor": {
+        "from": 9000,
+        "to": 9999
       }
     },
     "0x57Ab1ec28D129707052df4dF418D58a2D46d5f51": {
@@ -365,6 +383,10 @@
       "interestRateStrategy": {
         "from": "0x7011B47A142E2f462AB10F5bDBc8A478310EB0FD",
         "to": "0xE85Bf1E770bc3dC52A25594C2c16059a01aA8406"
+      },
+      "reserveFactor": {
+        "from": 8500,
+        "to": 7000
       }
     },
     "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9": {
@@ -399,6 +421,10 @@
       "borrowingEnabled": {
         "from": true,
         "to": false
+      },
+      "reserveFactor": {
+        "from": 8500,
+        "to": 7000
       }
     },
     "0xC011a73ee8576Fb46F5E1c5751cA3B9Fe0af2a6F": {
@@ -431,6 +457,10 @@
       "interestRateStrategy": {
         "from": "0x311C866D55456e465e314A3E9830276B438A73f0",
         "to": "0x6855E5544Cd803BF24c9612b3F12C009116B0ee1"
+      },
+      "reserveFactor": {
+        "from": 3500,
+        "to": 9999
       }
     },
     "0xE41d2489571d322189246DaFA5ebDe1F4699F498": {
@@ -455,6 +485,12 @@
         "to": "0x503eFA3651E247F9078C6F66bb93E2a81566EE00"
       }
     },
+    "0xba100000625a3754423978a60c9317c58a424e3D": {
+      "interestRateStrategy": {
+        "from": "0xb873ec463CAC50112B0e14d060fbc4192406279f",
+        "to": "0xdbcea77E2C4A0e6158a7555C249f28A8Da449178"
+      }
+    },
     "0xdAC17F958D2ee523a2206206994597C13D831ec7": {
       "borrowingEnabled": {
         "from": true,
@@ -463,6 +499,10 @@
       "interestRateStrategy": {
         "from": "0x869eF970878F96c130E14B46B024D2ca18b5b762",
         "to": "0xe85dA2C9D406afe7A37F525b5CAbEDA42944dB6f"
+      },
+      "reserveFactor": {
+        "from": 8500,
+        "to": 7000
       }
     },
     "0xdd974D5C2e2928deA5F71b9825b8b646686BD200": {
@@ -843,6 +883,20 @@
       "address": {
         "from": "0xc83cDb49F234EC6666D7857B3EAa1302b109394C",
         "to": "0x503eFA3651E247F9078C6F66bb93E2a81566EE00"
+      },
+      "maxExcessUsageRatio": {
+        "from": "200000000000000000000000000",
+        "to": "550000000000000000000000000"
+      },
+      "optimalUsageRatio": {
+        "from": "800000000000000000000000000",
+        "to": "450000000000000000000000000"
+      }
+    },
+    "0xba100000625a3754423978a60c9317c58a424e3D": {
+      "address": {
+        "from": "0xb873ec463CAC50112B0e14d060fbc4192406279f",
+        "to": "0xdbcea77E2C4A0e6158a7555C249f28A8Da449178"
       },
       "maxExcessUsageRatio": {
         "from": "200000000000000000000000000",
