@@ -17,7 +17,7 @@ contract AaveV3Arbitrum_UpdateAAVETokenLTVLiquidationPercentages_20250218_Test i
   AaveV3Arbitrum_UpdateAAVETokenLTVLiquidationPercentages_20250218 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('arbitrum'), 68091487);
+    vm.createSelectFork(vm.rpcUrl('arbitrum'), 308299690);
     proposal = new AaveV3Arbitrum_UpdateAAVETokenLTVLiquidationPercentages_20250218();
   }
 
