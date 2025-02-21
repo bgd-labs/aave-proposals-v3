@@ -62,7 +62,7 @@ contract AaveV2Ethereum_AaveV2DeprecationUpdate_20250220 is AaveV2PayloadEthereu
     returns (IAaveV2ConfigEngine.RateStrategyUpdate[] memory)
   {
     IAaveV2ConfigEngine.RateStrategyUpdate[]
-      memory rateStrategies = new IAaveV2ConfigEngine.RateStrategyUpdate[](26);
+      memory rateStrategies = new IAaveV2ConfigEngine.RateStrategyUpdate[](27);
     rateStrategies[0] = IAaveV2ConfigEngine.RateStrategyUpdate({
       asset: AaveV2EthereumAssets.USDT_UNDERLYING,
       params: IV2RateStrategyFactory.RateStrategyParams({
@@ -345,6 +345,17 @@ contract AaveV2Ethereum_AaveV2DeprecationUpdate_20250220 is AaveV2PayloadEthereu
         baseVariableBorrowRate: _bpsToRay(20_00),
         variableRateSlope1: _bpsToRay(0),
         variableRateSlope2: _bpsToRay(300_00),
+        stableRateSlope1: EngineFlags.KEEP_CURRENT,
+        stableRateSlope2: EngineFlags.KEEP_CURRENT
+      })
+    });
+    rateStrategies[26] = IAaveV2ConfigEngine.RateStrategyUpdate({
+      asset: AaveV2EthereumAssets.BAL_UNDERLYING,
+      params: IV2RateStrategyFactory.RateStrategyParams({
+        optimalUtilizationRate: _bpsToRay(45_00),
+        baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
+        variableRateSlope1: EngineFlags.KEEP_CURRENT,
+        variableRateSlope2: EngineFlags.KEEP_CURRENT,
         stableRateSlope1: EngineFlags.KEEP_CURRENT,
         stableRateSlope2: EngineFlags.KEEP_CURRENT
       })
