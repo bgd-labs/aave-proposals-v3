@@ -2,6 +2,7 @@
 pragma solidity ^0.8.0;
 
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
+import {IAaveOracle} from 'aave-address-book/AaveV2.sol';
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {GhoEthereum} from 'aave-address-book/GhoEthereum.sol';
@@ -295,11 +296,39 @@ contract AaveV3Ethereum_GSMsMigrationToGSM4626_20250114_Test is ProtocolV3TestBa
     IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).approve(proposal.NEW_GSM_USDC(), 1_200 ether);
     IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).approve(proposal.NEW_GSM_USDT(), 1_200 ether);
 
-    IGsm(proposal.NEW_GSM_USDC()).sellAsset(1_000e6, address(this));
-    IGsm(proposal.NEW_GSM_USDT()).sellAsset(1_000e6, address(this));
+    uint256 amountUnderlying = 1_000e6;
+    uint256 balanceBeforeUsdcGsm = IERC20(AaveV3EthereumAssets.USDC_STATA_TOKEN).balanceOf(
+      proposal.NEW_GSM_USDC()
+    );
+    uint256 balanceBeforeUsdtGsm = IERC20(AaveV3EthereumAssets.USDT_STATA_TOKEN).balanceOf(
+      proposal.NEW_GSM_USDT()
+    );
+
+    IGsm(proposal.NEW_GSM_USDC()).sellAsset(amountUnderlying, address(this));
+    IGsm(proposal.NEW_GSM_USDT()).sellAsset(amountUnderlying, address(this));
+
+    assertEq(
+      IERC20(AaveV3EthereumAssets.USDC_STATA_TOKEN).balanceOf(proposal.NEW_GSM_USDC()),
+      balanceBeforeUsdcGsm + amountUnderlying,
+      'amounts USDC after sellAsset not equal'
+    );
+    assertEq(
+      IERC20(AaveV3EthereumAssets.USDT_STATA_TOKEN).balanceOf(proposal.NEW_GSM_USDT()),
+      balanceBeforeUsdtGsm + amountUnderlying,
+      'amounts USDT after sellAsset not equal'
+    );
 
     IGsm(proposal.NEW_GSM_USDC()).buyAsset(500e6, address(this));
     IGsm(proposal.NEW_GSM_USDT()).buyAsset(500e6, address(this));
+
+    assertEq(
+      IERC20(AaveV3EthereumAssets.USDC_STATA_TOKEN).balanceOf(proposal.NEW_GSM_USDC()),
+      balanceBeforeUsdcGsm + amountUnderlying - 500e6
+    );
+    assertEq(
+      IERC20(AaveV3EthereumAssets.USDT_STATA_TOKEN).balanceOf(proposal.NEW_GSM_USDT()),
+      balanceBeforeUsdtGsm + amountUnderlying - 500e6
+    );
   }
 
   function _checkRolesConfig(IGsm gsm) internal view {
@@ -335,7 +364,7 @@ contract AaveV3Ethereum_GSMsMigrationToGSM4626_20250114_Test is ProtocolV3TestBa
   function _mockAssetPrice(address priceOracle, address asset, uint256 price) internal {
     vm.mockCall(
       priceOracle,
-      abi.encodeWithSelector(IPriceOracle.getAssetPrice.selector, asset),
+      abi.encodeWithSelector(IAaveOracle.getAssetPrice.selector, asset),
       abi.encode(price)
     );
   }
@@ -398,10 +427,6 @@ interface IOracleSwapFreezer {
   function getUnfreezeBound() external view returns (uint128, uint128);
   function checkUpkeep(bytes calldata) external view returns (bool, bytes memory);
   function performUpkeep(bytes calldata) external;
-}
-
-interface IPriceOracle {
-  function getAssetPrice(address asset) external view returns (uint256);
 }
 
 interface IFixedPriceStrategy4626 {
