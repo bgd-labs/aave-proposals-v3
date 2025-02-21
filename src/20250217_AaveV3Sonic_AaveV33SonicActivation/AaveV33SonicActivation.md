@@ -55,7 +55,7 @@ The table below illustrates the configured risk parameters for the assets to be 
 ### Security procedures
 
 - The proposal execution is simulated within the tests and the resulting pool configuration is tested for correctness.
-- The deployed pool and other permissions have been programmatically verified, which can be found on the [aave-permissions-book](https://github.com/bgd-labs/aave-permissions-book/blob/3adf78eb59ff547fee20a0f9abb90dd76402d789/out/SONIC-V3.md#contracts)
+- The deployed pool and other permissions have been programmatically verified, which can be found on the [aave-permissions-book](https://github.com/bgd-labs/aave-permissions-book/blob/bc10f3db28fc73a2204ac828cf5ae4f35ede1def/out/SONIC-V3.md)
 - In addition, we have also checked the code diffs of the deployed sonic contracts with the production instance, which can be found [here](https://github.com/bgd-labs/aave-v3-origin/pull/51).
 
 ## References
