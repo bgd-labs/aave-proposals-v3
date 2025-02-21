@@ -9,6 +9,7 @@ import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
+import {CollectorUtils, ICollector} from 'aave-helpers/src/CollectorUtils.sol';
 
 import {IGhoBucketSteward} from 'src/interfaces/IGhoBucketSteward.sol';
 import {IGhoToken} from 'src/interfaces/IGhoToken.sol';
@@ -24,6 +25,7 @@ import {IAaveCLRobotOperator} from './IAaveCLRobotOperator.sol';
  */
 contract AaveV3Ethereum_GSMsMigrationToGSM4626_20250114 is IProposalGenericExecutor {
   using SafeERC20 for IERC20;
+  using CollectorUtils for ICollector;
 
   uint128 public constant USDC_CAPACITY = 8_000_000 ether;
   uint128 public constant USDT_CAPACITY = 16_000_000 ether;
@@ -32,15 +34,15 @@ contract AaveV3Ethereum_GSMsMigrationToGSM4626_20250114 is IProposalGenericExecu
   address public constant NEW_GSM_USDC = 0xFeeb6FE430B7523fEF2a38327241eE7153779535;
   string public constant GSM_USDC_NAME = 'GSM 4626 stataUSDC';
 
-  // https://etherscan.io/address/0x5f614E8f948fe5eE4F20F7eD517aea5C911BFb85
-  address public constant USDC_ORACLE_SWAP_FREEZER = 0x5f614E8f948fe5eE4F20F7eD517aea5C911BFb85;
+  // https://etherscan.io/address/0x29F8c924B7aB50649c9597B8811d08f9Ef0310c3
+  address public constant USDC_ORACLE_SWAP_FREEZER = 0x29F8c924B7aB50649c9597B8811d08f9Ef0310c3;
 
   // https://etherscan.io/address/0x535b2f7C20B9C83d70e519cf9991578eF9816B7B
   address public constant NEW_GSM_USDT = 0x535b2f7C20B9C83d70e519cf9991578eF9816B7B;
   string public constant GSM_USDT_NAME = 'GSM 4626 stataUSDT';
 
-  // https://etherscan.io/address/0xca5792C238FA1A6B7805448b3507193Ab160228E
-  address public constant USDT_ORACLE_SWAP_FREEZER = 0xca5792C238FA1A6B7805448b3507193Ab160228E;
+  // https://etherscan.io/address/0x6439DA186BD3d37fE7Fd36036543b403e9FAbaE7
+  address public constant USDT_ORACLE_SWAP_FREEZER = 0x6439DA186BD3d37fE7Fd36036543b403e9FAbaE7;
 
   // https://etherscan.io/address/0x83896a35db4519BD8CcBAF5cF86CCA61b5cfb938
   address public constant FEE_STRATEGY = 0x83896a35db4519BD8CcBAF5cF86CCA61b5cfb938;
@@ -119,10 +121,13 @@ contract AaveV3Ethereum_GSMsMigrationToGSM4626_20250114 is IProposalGenericExecu
   }
 
   function _registerOracles() internal {
-    AaveV3Ethereum.COLLECTOR.transfer(
-      AaveV3EthereumAssets.LINK_UNDERLYING,
-      address(this),
-      TOTAL_LINK_AMOUNT_KEEPERS
+    AaveV3Ethereum.COLLECTOR.withdrawFromV3(
+      CollectorUtils.IOInput({
+        pool: address(AaveV3Ethereum.POOL),
+        underlying: AaveV3EthereumAssets.LINK_UNDERLYING,
+        amount: TOTAL_LINK_AMOUNT_KEEPERS
+      }),
+      address(this)
     );
     IERC20(AaveV3EthereumAssets.LINK_UNDERLYING).forceApprove(
       MiscEthereum.AAVE_CL_ROBOT_OPERATOR,

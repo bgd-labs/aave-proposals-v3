@@ -21,7 +21,7 @@ contract AaveV3Ethereum_GSMsMigrationToGSM4626_20250114_Test is ProtocolV3TestBa
   AaveV3Ethereum_GSMsMigrationToGSM4626_20250114 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 21818217);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 21895525);
     proposal = new AaveV3Ethereum_GSMsMigrationToGSM4626_20250114();
   }
 
