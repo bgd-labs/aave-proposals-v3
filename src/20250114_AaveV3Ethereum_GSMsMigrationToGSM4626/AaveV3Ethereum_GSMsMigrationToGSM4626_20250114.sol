@@ -18,7 +18,7 @@ import {IGsmRegistry} from 'src/interfaces/IGsmRegistry.sol';
 import {IAaveCLRobotOperator} from './IAaveCLRobotOperator.sol';
 
 /**
- * @title GSMs Migration to GSM4626
+ * @title GSMs Migration to stataGSM4626
  * @author TokenLogic
  * - Snapshot: https://snapshot.box/#/s:aave.eth/proposal/0x82d3ad8b8d43b12d3c08344c9b3aadfa6da03b358aa92915d0046f19344a7faa
  * - Discussion: https://governance.aave.com/t/arfc-deploy-statausdc-and-statausdt-gsms-on-ethereum/20682
@@ -113,6 +113,16 @@ contract AaveV3Ethereum_GSMsMigrationToGSM4626_20250114 is IProposalGenericExecu
     // Add GSMs to GSM Registry
     IGsmRegistry(GhoEthereum.GSM_REGISTRY).addGsm(NEW_GSM_USDC);
     IGsmRegistry(GhoEthereum.GSM_REGISTRY).addGsm(NEW_GSM_USDT);
+
+    // GHO GSM Steward
+    IGsm(NEW_GSM_USDC).grantRole(
+      IGsm(NEW_GSM_USDC).CONFIGURATOR_ROLE(),
+      GhoEthereum.GHO_GSM_STEWARD
+    );
+    IGsm(NEW_GSM_USDT).grantRole(
+      IGsm(NEW_GSM_USDT).CONFIGURATOR_ROLE(),
+      GhoEthereum.GHO_GSM_STEWARD
+    );
   }
 
   function _updateFeeStrategy() internal {
@@ -241,6 +251,16 @@ contract AaveV3Ethereum_GSMsMigrationToGSM4626_20250114 is IProposalGenericExecu
     );
     IGsm(GhoEthereum.GSM_USDC).revokeRole(SWAP_FREEZER_ROLE, GovernanceV3Ethereum.EXECUTOR_LVL_1);
     IGsm(GhoEthereum.GSM_USDT).revokeRole(SWAP_FREEZER_ROLE, GovernanceV3Ethereum.EXECUTOR_LVL_1);
+
+    // GHO GSM Steward
+    IGsm(GhoEthereum.GSM_USDC).revokeRole(
+      IGsm(GhoEthereum.GSM_USDC).CONFIGURATOR_ROLE(),
+      GhoEthereum.GHO_GSM_STEWARD
+    );
+    IGsm(GhoEthereum.GSM_USDT).revokeRole(
+      IGsm(GhoEthereum.GSM_USDT).CONFIGURATOR_ROLE(),
+      GhoEthereum.GHO_GSM_STEWARD
+    );
 
     // Cancel existing keepers
     IAaveCLRobotOperator(MiscEthereum.AAVE_CL_ROBOT_OPERATOR).cancel(

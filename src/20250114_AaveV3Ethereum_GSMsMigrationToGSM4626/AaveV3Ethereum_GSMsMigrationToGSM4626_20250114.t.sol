@@ -2,6 +2,7 @@
 pragma solidity ^0.8.0;
 
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
+import {IERC4626} from 'openzeppelin-contracts/contracts/interfaces/IERC4626.sol';
 import {IAaveOracle} from 'aave-address-book/AaveV2.sol';
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
@@ -163,6 +164,18 @@ contract AaveV3Ethereum_GSMsMigrationToGSM4626_20250114_Test is ProtocolV3TestBa
         GovernanceV3Ethereum.EXECUTOR_LVL_1
       )
     );
+    assertFalse(
+      IGsm(GhoEthereum.GSM_USDC).hasRole(
+        IGsm(GhoEthereum.GSM_USDC).CONFIGURATOR_ROLE(),
+        GhoEthereum.GHO_GSM_STEWARD
+      )
+    );
+    assertFalse(
+      IGsm(GhoEthereum.GSM_USDT).hasRole(
+        IGsm(GhoEthereum.GSM_USDT).CONFIGURATOR_ROLE(),
+        GhoEthereum.GHO_GSM_STEWARD
+      )
+    );
   }
 
   function test_oracleSwapFreezers() public {
@@ -272,13 +285,8 @@ contract AaveV3Ethereum_GSMsMigrationToGSM4626_20250114_Test is ProtocolV3TestBa
     _checkRolesConfig(IGsm(proposal.NEW_GSM_USDT()));
   }
 
-  function test_gsmIsOperational() public {
+  function test_oldGsmsAreSeized() public {
     executePayload(vm, address(proposal));
-
-    deal(AaveV3EthereumAssets.USDC_UNDERLYING, address(this), 1_000e6);
-    deal(AaveV3EthereumAssets.USDT_UNDERLYING, address(this), 1_000e6);
-    deal(AaveV3EthereumAssets.USDC_STATA_TOKEN, address(this), 1_000e6);
-    deal(AaveV3EthereumAssets.USDT_STATA_TOKEN, address(this), 1_000e6);
 
     // Old GSMs are seized
     vm.expectRevert(bytes('GSM_SEIZED'));
@@ -289,23 +297,27 @@ contract AaveV3Ethereum_GSMsMigrationToGSM4626_20250114_Test is ProtocolV3TestBa
     IGsm(GhoEthereum.GSM_USDC).sellAsset(1000e6, address(this));
     vm.expectRevert(bytes('GSM_SEIZED'));
     IGsm(GhoEthereum.GSM_USDT).sellAsset(1000e6, address(this));
+  }
+
+  function test_gsmUsdcIsOperational() public {
+    executePayload(vm, address(proposal));
+
+    deal(AaveV3EthereumAssets.USDC_STATA_TOKEN, address(this), 1_000e6);
 
     // New GSMs are operational
     IERC20(AaveV3EthereumAssets.USDC_STATA_TOKEN).approve(proposal.NEW_GSM_USDC(), 1_000e6);
-    IERC20(AaveV3EthereumAssets.USDT_STATA_TOKEN).approve(proposal.NEW_GSM_USDT(), 1_000e6);
     IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).approve(proposal.NEW_GSM_USDC(), 1_200 ether);
-    IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).approve(proposal.NEW_GSM_USDT(), 1_200 ether);
 
     uint256 amountUnderlying = 1_000e6;
     uint256 balanceBeforeUsdcGsm = IERC20(AaveV3EthereumAssets.USDC_STATA_TOKEN).balanceOf(
       proposal.NEW_GSM_USDC()
     );
-    uint256 balanceBeforeUsdtGsm = IERC20(AaveV3EthereumAssets.USDT_STATA_TOKEN).balanceOf(
-      proposal.NEW_GSM_USDT()
-    );
+    uint256 balanceGhoBefore = IGhoToken(GhoEthereum.GHO_TOKEN).balanceOf(address(this));
 
-    IGsm(proposal.NEW_GSM_USDC()).sellAsset(amountUnderlying, address(this));
-    IGsm(proposal.NEW_GSM_USDT()).sellAsset(amountUnderlying, address(this));
+    (, uint256 ghoBought) = IGsm(proposal.NEW_GSM_USDC()).sellAsset(
+      amountUnderlying,
+      address(this)
+    );
 
     assertEq(
       IERC20(AaveV3EthereumAssets.USDC_STATA_TOKEN).balanceOf(proposal.NEW_GSM_USDC()),
@@ -313,21 +325,67 @@ contract AaveV3Ethereum_GSMsMigrationToGSM4626_20250114_Test is ProtocolV3TestBa
       'amounts USDC after sellAsset not equal'
     );
     assertEq(
+      IGhoToken(GhoEthereum.GHO_TOKEN).balanceOf(address(this)),
+      balanceGhoBefore + ghoBought,
+      'GHO balance after sellAsset not equal'
+    );
+
+    (, uint256 ghoSold) = IGsm(proposal.NEW_GSM_USDC()).buyAsset(500e6, address(this));
+
+    assertEq(
+      IERC20(AaveV3EthereumAssets.USDC_STATA_TOKEN).balanceOf(proposal.NEW_GSM_USDC()),
+      balanceBeforeUsdcGsm + amountUnderlying - 500e6,
+      'stataUSDC balance after buyAsset not equal'
+    );
+    assertEq(
+      IGhoToken(GhoEthereum.GHO_TOKEN).balanceOf(address(this)),
+      balanceGhoBefore + ghoBought - ghoSold,
+      'GHO balance after buyAsset not equal'
+    );
+  }
+
+  function test_gsmUsdtIsOperational() public {
+    executePayload(vm, address(proposal));
+
+    deal(AaveV3EthereumAssets.USDT_STATA_TOKEN, address(this), 1_000e6);
+
+    // New GSMs are operational
+    IERC20(AaveV3EthereumAssets.USDT_STATA_TOKEN).approve(proposal.NEW_GSM_USDT(), 1_000e6);
+    IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).approve(proposal.NEW_GSM_USDT(), 1_200 ether);
+
+    uint256 amountUnderlying = 1_000e6;
+    uint256 balanceBeforeUsdtGsm = IERC20(AaveV3EthereumAssets.USDT_STATA_TOKEN).balanceOf(
+      proposal.NEW_GSM_USDT()
+    );
+    uint256 balanceGhoBefore = IGhoToken(GhoEthereum.GHO_TOKEN).balanceOf(address(this));
+
+    (, uint256 ghoBought) = IGsm(proposal.NEW_GSM_USDT()).sellAsset(
+      amountUnderlying,
+      address(this)
+    );
+
+    assertEq(
       IERC20(AaveV3EthereumAssets.USDT_STATA_TOKEN).balanceOf(proposal.NEW_GSM_USDT()),
       balanceBeforeUsdtGsm + amountUnderlying,
       'amounts USDT after sellAsset not equal'
     );
-
-    IGsm(proposal.NEW_GSM_USDC()).buyAsset(500e6, address(this));
-    IGsm(proposal.NEW_GSM_USDT()).buyAsset(500e6, address(this));
-
     assertEq(
-      IERC20(AaveV3EthereumAssets.USDC_STATA_TOKEN).balanceOf(proposal.NEW_GSM_USDC()),
-      balanceBeforeUsdcGsm + amountUnderlying - 500e6
+      IGhoToken(GhoEthereum.GHO_TOKEN).balanceOf(address(this)),
+      balanceGhoBefore + ghoBought,
+      'GHO balance after sellAsset not equal'
     );
+
+    (, uint256 ghoSold) = IGsm(proposal.NEW_GSM_USDT()).buyAsset(500e6, address(this));
+
     assertEq(
       IERC20(AaveV3EthereumAssets.USDT_STATA_TOKEN).balanceOf(proposal.NEW_GSM_USDT()),
-      balanceBeforeUsdtGsm + amountUnderlying - 500e6
+      balanceBeforeUsdtGsm + amountUnderlying - 500e6,
+      'stataUSDT balance after buyAsset not equal'
+    );
+    assertEq(
+      IGhoToken(GhoEthereum.GHO_TOKEN).balanceOf(address(this)),
+      balanceGhoBefore + ghoBought - ghoSold,
+      'GHO balance after buyAsset not equal'
     );
   }
 
@@ -358,6 +416,12 @@ contract AaveV3Ethereum_GSMsMigrationToGSM4626_20250114_Test is ProtocolV3TestBa
     assertFalse(
       gsm.hasRole(gsm.TOKEN_RESCUER_ROLE(), deployer),
       'Deployer cannot be token rescuer'
+    );
+
+    // GHO Steward
+    assertTrue(
+      gsm.hasRole(gsm.CONFIGURATOR_ROLE(), GhoEthereum.GHO_GSM_STEWARD),
+      'Gho Steward not configured'
     );
   }
 
@@ -400,8 +464,14 @@ contract AaveV3Ethereum_GSMsMigrationToGSM4626_20250114_Test is ProtocolV3TestBa
 
     // Price Strategy
     IFixedPriceStrategy4626 priceStrategy = IFixedPriceStrategy4626(gsm.PRICE_STRATEGY());
-    assertApproxEqAbs(priceStrategy.getAssetPriceInGho(1e6, true), 1 ether, 0.15 ether);
-    assertApproxEqAbs(priceStrategy.getGhoPriceInAsset(1 ether, true), 1e6, 0.15e6);
+    assertEq(
+      IERC4626(underlying).previewMint(1e6) * 10 ** 12,
+      priceStrategy.getAssetPriceInGho(1e6, true)
+    );
+    assertEq(
+      IERC4626(underlying).previewWithdraw(1 ether) / 10 ** 12,
+      priceStrategy.getGhoPriceInAsset(1 ether, false)
+    );
 
     assertEq(gsm.getGhoTreasury(), address(AaveV3Ethereum.COLLECTOR));
 
