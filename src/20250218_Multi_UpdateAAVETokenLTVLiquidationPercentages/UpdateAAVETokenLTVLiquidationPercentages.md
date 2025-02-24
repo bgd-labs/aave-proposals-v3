@@ -29,8 +29,8 @@ This proposal will achieve the following:
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250218_Multi_UpdateAAVETokenLTVLiquidationPercentages/AaveV3Ethereum_UpdateAAVETokenLTVLiquidationPercentages_20250218.sol), [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250218_Multi_UpdateAAVETokenLTVLiquidationPercentages/AaveV3Arbitrum_UpdateAAVETokenLTVLiquidationPercentages_20250218.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250218_Multi_UpdateAAVETokenLTVLiquidationPercentages/AaveV3Ethereum_UpdateAAVETokenLTVLiquidationPercentages_20250218.t.sol), [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250218_Multi_UpdateAAVETokenLTVLiquidationPercentages/AaveV3Arbitrum_UpdateAAVETokenLTVLiquidationPercentages_20250218.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/4d1150ec13a442a7ab76bbdcbc8dd0ad072aa725/src/20250218_Multi_UpdateAAVETokenLTVLiquidationPercentages/AaveV3Ethereum_UpdateAAVETokenLTVLiquidationPercentages_20250218.sol), [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/4d1150ec13a442a7ab76bbdcbc8dd0ad072aa725/src/20250218_Multi_UpdateAAVETokenLTVLiquidationPercentages/AaveV3Arbitrum_UpdateAAVETokenLTVLiquidationPercentages_20250218.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/4d1150ec13a442a7ab76bbdcbc8dd0ad072aa725/src/20250218_Multi_UpdateAAVETokenLTVLiquidationPercentages/AaveV3Ethereum_UpdateAAVETokenLTVLiquidationPercentages_20250218.t.sol), [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/4d1150ec13a442a7ab76bbdcbc8dd0ad072aa725/src/20250218_Multi_UpdateAAVETokenLTVLiquidationPercentages/AaveV3Arbitrum_UpdateAAVETokenLTVLiquidationPercentages_20250218.t.sol)
 - [Snapshot](https://snapshot.box/#/s:aave.eth/proposal/0x50d01665cddf8ea977051cf6de8534cd37b107be52e863e168a8ece2ea4b544f)
 - [Discussion](https://governance.aave.com/t/arfc-update-aave-token-ltv-liquidation-percentages/20973)
 
