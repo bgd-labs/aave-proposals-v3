@@ -10,7 +10,9 @@ import {GhoEthereum} from 'aave-address-book/GhoEthereum.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {IGhoToken} from 'src/interfaces/IGhoToken.sol';
 import {IGsm} from 'src/interfaces/IGsm.sol';
+import {IGsmFeeStrategy} from 'src/interfaces/IGsmFeeStrategy.sol';
 import {IGsmRegistry} from 'src/interfaces/IGsmRegistry.sol';
+import {IGsmSteward} from 'src/interfaces/IGsmSteward.sol';
 import {IAaveCLRobotOperator} from './IAaveCLRobotOperator.sol';
 
 import {AaveV3Ethereum_GSMsMigrationToGSM4626_20250114} from './AaveV3Ethereum_GSMsMigrationToGSM4626_20250114.sol';
@@ -21,6 +23,7 @@ import {AaveV3Ethereum_GSMsMigrationToGSM4626_20250114} from './AaveV3Ethereum_G
  */
 contract AaveV3Ethereum_GSMsMigrationToGSM4626_20250114_Test is ProtocolV3TestBase {
   AaveV3Ethereum_GSMsMigrationToGSM4626_20250114 internal proposal;
+  address public RISK_COUNCIL = 0x8513e6F37dBc52De87b166980Fa3F50639694B60;
 
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('mainnet'), 21895525);
@@ -389,6 +392,72 @@ contract AaveV3Ethereum_GSMsMigrationToGSM4626_20250114_Test is ProtocolV3TestBa
     );
   }
 
+  function test_ghoGsmSteward_updateExposureCapUSDC() public {
+    executePayload(vm, address(proposal));
+
+    uint128 oldExposureCap = IGsm(proposal.NEW_GSM_USDC()).getExposureCap();
+    uint128 newExposureCap = oldExposureCap + 1;
+
+    vm.startPrank(RISK_COUNCIL);
+    IGsmSteward(GhoEthereum.GHO_GSM_STEWARD).updateGsmExposureCap(
+      proposal.NEW_GSM_USDC(),
+      newExposureCap
+    );
+    uint128 currentExposureCap = IGsm(proposal.NEW_GSM_USDC()).getExposureCap();
+    assertEq(currentExposureCap, newExposureCap);
+  }
+
+  function test_ghoGsmSteward_updateExposureCapUSDT() public {
+    executePayload(vm, address(proposal));
+
+    uint128 oldExposureCap = IGsm(proposal.NEW_GSM_USDT()).getExposureCap();
+    uint128 newExposureCap = oldExposureCap + 1;
+
+    vm.startPrank(RISK_COUNCIL);
+    IGsmSteward(GhoEthereum.GHO_GSM_STEWARD).updateGsmExposureCap(
+      proposal.NEW_GSM_USDT(),
+      newExposureCap
+    );
+    uint128 currentExposureCap = IGsm(proposal.NEW_GSM_USDT()).getExposureCap();
+    assertEq(currentExposureCap, newExposureCap);
+  }
+
+  function test_ghoGsmSteward_updateGsmBuySellFeesUSDC() public {
+    executePayload(vm, address(proposal));
+
+    address feeStrategy = IGsm(proposal.NEW_GSM_USDC()).getFeeStrategy();
+    uint256 buyFee = IGsmFeeStrategy(feeStrategy).getBuyFee(1e4);
+    uint256 sellFee = IGsmFeeStrategy(feeStrategy).getSellFee(1e4);
+
+    vm.startPrank(RISK_COUNCIL);
+    IGsmSteward(GhoEthereum.GHO_GSM_STEWARD).updateGsmBuySellFees(
+      proposal.NEW_GSM_USDC(),
+      buyFee + 1,
+      sellFee
+    );
+    address newStrategy = IGsm(proposal.NEW_GSM_USDC()).getFeeStrategy();
+    uint256 newBuyFee = IGsmFeeStrategy(newStrategy).getBuyFee(1e4);
+    assertEq(newBuyFee, buyFee + 1);
+  }
+
+  function test_ghoGsmSteward_updateGsmBuySellFeesUSDT() public {
+    executePayload(vm, address(proposal));
+
+    address feeStrategy = IGsm(proposal.NEW_GSM_USDT()).getFeeStrategy();
+    uint256 buyFee = IGsmFeeStrategy(feeStrategy).getBuyFee(1e4);
+    uint256 sellFee = IGsmFeeStrategy(feeStrategy).getSellFee(1e4);
+
+    vm.startPrank(RISK_COUNCIL);
+    IGsmSteward(GhoEthereum.GHO_GSM_STEWARD).updateGsmBuySellFees(
+      proposal.NEW_GSM_USDT(),
+      buyFee + 1,
+      sellFee
+    );
+    address newStrategy = IGsm(proposal.NEW_GSM_USDT()).getFeeStrategy();
+    uint256 newBuyFee = IGsmFeeStrategy(newStrategy).getBuyFee(1e4);
+    assertEq(newBuyFee, buyFee + 1);
+  }
+
   function _checkRolesConfig(IGsm gsm) internal view {
     // DAO permissions
     assertTrue(
@@ -458,7 +527,7 @@ contract AaveV3Ethereum_GSMsMigrationToGSM4626_20250114_Test is ProtocolV3TestBa
     assertEq(gsm.getIsSeized(), config.isSeized, 'wrong seized state');
 
     // Fee Strategy
-    IFeeStrategy feeStrategy = IFeeStrategy(gsm.getFeeStrategy());
+    IGsmFeeStrategy feeStrategy = IGsmFeeStrategy(gsm.getFeeStrategy());
     assertEq(feeStrategy.getSellFee(10000), config.sellFee, 'wrong sell fee');
     assertEq(feeStrategy.getBuyFee(10000), config.buyFee, 'wrong buy fee');
 
@@ -484,11 +553,6 @@ contract AaveV3Ethereum_GSMsMigrationToGSM4626_20250114_Test is ProtocolV3TestBa
     assertEq(lowerBound, config.unfreezeLowerBound, 'wrong unfreeze lower bound');
     assertEq(upperBound, config.unfreezeUpperBound, 'wrong unfreeze upper bound');
   }
-}
-
-interface IFeeStrategy {
-  function getBuyFee(uint256 grossAmount) external view returns (uint256);
-  function getSellFee(uint256 grossAmount) external view returns (uint256);
 }
 
 interface IOracleSwapFreezer {
