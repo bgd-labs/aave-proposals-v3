@@ -42,11 +42,11 @@ Withdraw from respective Aave Protocol and bridge the following assets to Ethere
 
 ### Deposit into Aave V3
 
-|      Instance       | Asset |                                    Amount                                    |
-| :-----------------: | :---: | :--------------------------------------------------------------------------: |
-| AaveV3EthereumCore  |  ETH  |                                     All                                      |
-| AaveV3EthereumPrime |  GHO  |                                     3M                                       |
-| AaveV3EthereumCore  | USDS  |                                     All                                      |
+|      Instance       | Asset | Amount |
+| :-----------------: | :---: | :----: |
+| AaveV3EthereumCore  |  ETH  |  All   |
+| AaveV3EthereumPrime |  GHO  |   3M   |
+| AaveV3EthereumCore  | USDS  |  All   |
 
 ### Withdraw and burn 3M GHO on Prime instance
 
