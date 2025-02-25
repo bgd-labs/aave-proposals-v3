@@ -40,8 +40,8 @@ Then, the GhoAaveSteward is to be granted the following permissions: `RiskAdmin`
 
 ## References
 
-- Implementation: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250129_AaveV3EthereumLido_ExtendGHOStewardOnAavePrimeInstance/AaveV3EthereumLido_ExtendGHOStewardOnAavePrimeInstance_20250129.sol)
-- Tests: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250129_AaveV3EthereumLido_ExtendGHOStewardOnAavePrimeInstance/AaveV3EthereumLido_ExtendGHOStewardOnAavePrimeInstance_20250129.t.sol)
+- Implementation: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/b3b4adb60e4125a06dc0423bcef056ecc2292fdf/src/20250129_AaveV3EthereumLido_ExtendGHOStewardOnAavePrimeInstance/AaveV3EthereumLido_ExtendGHOStewardOnAavePrimeInstance_20250129.sol)
+- Tests: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/b3b4adb60e4125a06dc0423bcef056ecc2292fdf/src/20250129_AaveV3EthereumLido_ExtendGHOStewardOnAavePrimeInstance/AaveV3EthereumLido_ExtendGHOStewardOnAavePrimeInstance_20250129.t.sol)
 - [Snapshot](https://snapshot.org/#/s:aave.eth/proposal/0xf28190a683eff1dc246924f150a724dcf29b23dd40971df38d20fc6cf301fbe1)
 - [Discussion](https://governance.aave.com/t/arfc-extend-gho-steward-on-aave-prime-instance/20598)
 
