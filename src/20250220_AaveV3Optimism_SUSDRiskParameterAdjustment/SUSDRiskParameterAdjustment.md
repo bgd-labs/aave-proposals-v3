@@ -67,7 +67,7 @@ For the Stablecoin E-Mode on Aave V3 Optimism instance, we recommend the followi
 
 | Parameter           | Current Value | Rec. Value |
 | ------------------- | ------------- | ---------- |
-| LTV                 | 90.00%        | 0.00%      |
+| LTV                 | 90.00%        | 0.01%      |
 | LT                  | 93.00%        | 87.00%     |
 | Liquidation Penalty | 1.00%         | 1.00%      |
 
