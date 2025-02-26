@@ -42,7 +42,7 @@ contract CreateProposal is EthereumScript {
       chain: ChainIds.SONIC,
       accessLevel: PayloadsControllerUtils.AccessControl.Level_1,
       payloadsController: address(GovernanceV3Sonic.PAYLOADS_CONTROLLER),
-      payloadId: 1
+      payloadId: 0
     });
 
     // create proposal
