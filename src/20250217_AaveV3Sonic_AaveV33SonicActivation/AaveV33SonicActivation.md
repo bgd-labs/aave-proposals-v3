@@ -60,8 +60,8 @@ The table below illustrates the configured risk parameters for the assets to be 
 
 ## References
 
-- Implementation: [AaveV3Sonic](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250217_AaveV3Sonic_AaveV33SonicActivation/AaveV3Sonic_AaveV33SonicActivation_20250217.sol)
-- Tests: [AaveV3Sonic](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250217_AaveV3Sonic_AaveV33SonicActivation/AaveV3Sonic_AaveV33SonicActivation_20250217.t.sol)
+- Implementation: [AaveV3Sonic](https://github.com/bgd-labs/aave-proposals-v3/blob/953a2e36d58132f7497ee62b98492e156809a91e/src/20250217_AaveV3Sonic_AaveV33SonicActivation/AaveV3Sonic_AaveV33SonicActivation_20250217.sol)
+- Tests: [AaveV3Sonic](https://github.com/bgd-labs/aave-proposals-v3/blob/953a2e36d58132f7497ee62b98492e156809a91e/src/20250217_AaveV3Sonic_AaveV33SonicActivation/AaveV3Sonic_AaveV33SonicActivation_20250217.t.sol)
 - [Snapshot](https://snapshot.box/#/s:aave.eth/proposal/0x8d41750cae27326ac50a84a25846747baeb99c57d371c536ec9219ff662f7497)
 - [Discussion](https://governance.aave.com/t/arfc-deploy-aave-v3-on-sonic/20543/26)
 
