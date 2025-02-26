@@ -18,7 +18,7 @@ contract AaveV3Base_SUSDeBaseOnboarding_20250226_Test is ProtocolV3TestBase {
   AaveV3Base_SUSDeBaseOnboarding_20250226 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('base'), 26891059);
+    vm.createSelectFork(vm.rpcUrl('base'), 26903324);
     proposal = new AaveV3Base_SUSDeBaseOnboarding_20250226();
   }
 
