@@ -39,6 +39,7 @@ Withdraw from respective Aave Protocol and bridge the following assets to Ethere
 |    amDAI (All-1)     |   aPolDPI (All-1)    |                    |                    |
 |      wETH (All)      |  aPolwstETH (All-1)  |                    |                    |
 |      CRV (All)       |   aPolCRV (All-1)    |                    |                    |
+|     wstETH (All)     |                      |                    |                    |
 
 ### Deposit into Aave V3
 

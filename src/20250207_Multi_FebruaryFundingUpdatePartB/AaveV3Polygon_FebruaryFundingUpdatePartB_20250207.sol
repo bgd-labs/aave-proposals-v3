@@ -201,6 +201,11 @@ contract AaveV3Polygon_FebruaryFundingUpdatePartB_20250207 is IProposalGenericEx
       }),
       MiscPolygon.AAVE_POL_ETH_BRIDGE
     );
+    AaveV3Polygon.COLLECTOR.transfer(
+      AaveV3PolygonAssets.wstETH_UNDERLYING,
+      MiscPolygon.AAVE_POL_ETH_BRIDGE,
+      IERC20(AaveV3PolygonAssets.wstETH_UNDERLYING).balanceOf(address(AaveV3Polygon.COLLECTOR))
+    );
   }
 
   function _bridge() internal {

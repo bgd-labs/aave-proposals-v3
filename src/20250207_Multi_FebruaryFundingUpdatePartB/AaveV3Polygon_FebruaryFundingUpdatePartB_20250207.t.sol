@@ -135,7 +135,7 @@ contract AaveV3Polygon_FebruaryFundingUpdatePartB_20250207_Test is ProtocolV3Tes
     emit Bridge(AaveV3PolygonAssets.DPI_UNDERLYING, 36489599271785166247);
 
     vm.expectEmit(true, true, false, true, MiscPolygon.AAVE_POL_ETH_BRIDGE);
-    emit Bridge(AaveV3PolygonAssets.wstETH_UNDERLYING, 161373742235692428);
+    emit Bridge(AaveV3PolygonAssets.wstETH_UNDERLYING, 383443628042778827);
     executePayload(vm, address(proposal));
   }
 }
