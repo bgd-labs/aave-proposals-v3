@@ -30,9 +30,9 @@ Withdraw from respective Aave Protocol and bridge the following assets to Ethere
 
 | Polygon v2 & Passive |      Polygon v3      |    Arbitrum v3     |    Optimism v3     |
 | :------------------: | :------------------: | :----------------: | :----------------: |
-|  amUSDC.e (All-100)  |   aPolDAI (All-1)    |  aArbLUSD (All-1)  |    USDC.e (All)    |
-|    amBAL (All-1)     |   aPolWETH (All-1)   | aArbUSDC (All-100) |  aOptLUSD (All-1)  |
-|      BAL (All)       |   aPolBAL (All-1)    |   aEthDai(All-1)   | aOptUSDC (All-100) |
+|  amUSDC.e (All-100)  |   aPolDAI (All-1)    |  aArbLUSD (All-1)  |  aOptLUSD (All-1)  |
+|    amBAL (All-1)     |   aPolWETH (All-1)   | aArbUSDC (All-100) | aOptUSDC (All-100) |
+|      BAL (All)       |   aPolBAL (All-1)    |   aEthDai(All-1)   |                    |
 |     USDC.e (All)     | aPolUSDC.e (All-100) |      Dai(All)      |                    |
 |      AAVE (All)      |   aPolAAVE (All-1)   |                    |                    |
 |    amWETH (All-1)    | aPolstMATIC (All-1)  |                    |                    |
