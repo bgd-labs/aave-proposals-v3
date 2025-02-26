@@ -23,8 +23,10 @@ contract AaveV3Optimism_FebruaryFundingUpdatePartB_20250207 is IProposalGenericE
       CollectorUtils.IOInput({
         pool: address(AaveV3Optimism.POOL),
         underlying: AaveV3OptimismAssets.LUSD_UNDERLYING,
-        amount: IERC20(AaveV3OptimismAssets.LUSD_A_TOKEN).balanceOf(
-          address(AaveV3Optimism.COLLECTOR)
+        amount: _getWithdrawableBalance(
+          address(AaveV3Optimism.COLLECTOR),
+          AaveV3OptimismAssets.LUSD_UNDERLYING,
+          AaveV3OptimismAssets.LUSD_A_TOKEN
         ) - 1 ether
       }),
       MiscOptimism.AAVE_OPT_ETH_BRIDGE
@@ -33,8 +35,10 @@ contract AaveV3Optimism_FebruaryFundingUpdatePartB_20250207 is IProposalGenericE
       CollectorUtils.IOInput({
         pool: address(AaveV3Optimism.POOL),
         underlying: AaveV3OptimismAssets.USDC_UNDERLYING,
-        amount: IERC20(AaveV3OptimismAssets.USDC_A_TOKEN).balanceOf(
-          address(AaveV3Optimism.COLLECTOR)
+        amount: _getWithdrawableBalance(
+          address(AaveV3Optimism.COLLECTOR),
+          AaveV3OptimismAssets.USDC_UNDERLYING,
+          AaveV3OptimismAssets.USDC_A_TOKEN
         ) - 100e6
       }),
       MiscOptimism.AAVE_OPT_ETH_BRIDGE
@@ -56,5 +60,16 @@ contract AaveV3Optimism_FebruaryFundingUpdatePartB_20250207 is IProposalGenericE
       AaveV3EthereumAssets.USDC_UNDERLYING,
       IERC20(AaveV3OptimismAssets.USDC_UNDERLYING).balanceOf(MiscOptimism.AAVE_OPT_ETH_BRIDGE)
     );
+  }
+
+  function _getWithdrawableBalance(
+    address collector,
+    address underlying,
+    address aToken
+  ) internal view returns (uint256) {
+    uint256 collectorBalance = IERC20(aToken).balanceOf(collector);
+    uint256 liquidity = IERC20(underlying).balanceOf(aToken);
+
+    return collectorBalance > liquidity ? liquidity : collectorBalance;
   }
 }

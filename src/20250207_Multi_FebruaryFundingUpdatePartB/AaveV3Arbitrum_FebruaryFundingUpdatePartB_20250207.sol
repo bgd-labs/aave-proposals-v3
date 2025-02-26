@@ -30,8 +30,10 @@ contract AaveV3Arbitrum_FebruaryFundingUpdatePartB_20250207 is IProposalGenericE
       CollectorUtils.IOInput({
         pool: address(AaveV3Arbitrum.POOL),
         underlying: AaveV3ArbitrumAssets.LUSD_UNDERLYING,
-        amount: IERC20(AaveV3ArbitrumAssets.LUSD_A_TOKEN).balanceOf(
-          address(AaveV3Arbitrum.COLLECTOR)
+        amount: _getWithdrawableBalance(
+          address(AaveV3Arbitrum.COLLECTOR),
+          AaveV3ArbitrumAssets.LUSD_UNDERLYING,
+          AaveV3ArbitrumAssets.LUSD_A_TOKEN
         ) - 1 ether
       }),
       MiscArbitrum.AAVE_ARB_ETH_BRIDGE
@@ -40,8 +42,10 @@ contract AaveV3Arbitrum_FebruaryFundingUpdatePartB_20250207 is IProposalGenericE
       CollectorUtils.IOInput({
         pool: address(AaveV3Arbitrum.POOL),
         underlying: AaveV3ArbitrumAssets.USDC_UNDERLYING,
-        amount: IERC20(AaveV3ArbitrumAssets.USDC_A_TOKEN).balanceOf(
-          address(AaveV3Arbitrum.COLLECTOR)
+        amount: _getWithdrawableBalance(
+          address(AaveV3Arbitrum.COLLECTOR),
+          AaveV3ArbitrumAssets.USDC_UNDERLYING,
+          AaveV3ArbitrumAssets.USDC_A_TOKEN
         ) - 100e6
       }),
       MiscArbitrum.AAVE_ARB_ETH_BRIDGE
@@ -50,8 +54,10 @@ contract AaveV3Arbitrum_FebruaryFundingUpdatePartB_20250207 is IProposalGenericE
       CollectorUtils.IOInput({
         pool: address(AaveV3Arbitrum.POOL),
         underlying: AaveV3ArbitrumAssets.DAI_UNDERLYING,
-        amount: IERC20(AaveV3ArbitrumAssets.DAI_A_TOKEN).balanceOf(
-          address(AaveV3Arbitrum.COLLECTOR)
+        amount: _getWithdrawableBalance(
+          address(AaveV3Arbitrum.COLLECTOR),
+          AaveV3ArbitrumAssets.DAI_UNDERLYING,
+          AaveV3ArbitrumAssets.DAI_A_TOKEN
         ) - 1 ether
       }),
       MiscArbitrum.AAVE_ARB_ETH_BRIDGE
@@ -82,5 +88,16 @@ contract AaveV3Arbitrum_FebruaryFundingUpdatePartB_20250207 is IProposalGenericE
       DAI_GATEWAY,
       IERC20(AaveV3ArbitrumAssets.DAI_UNDERLYING).balanceOf(MiscArbitrum.AAVE_ARB_ETH_BRIDGE)
     );
+  }
+
+  function _getWithdrawableBalance(
+    address collector,
+    address underlying,
+    address aToken
+  ) internal view returns (uint256) {
+    uint256 collectorBalance = IERC20(aToken).balanceOf(collector);
+    uint256 liquidity = IERC20(underlying).balanceOf(aToken);
+
+    return collectorBalance > liquidity ? liquidity : collectorBalance;
   }
 }
