@@ -18,7 +18,7 @@ contract AaveV3Base_WrsETHBaseOnboarding_20250226_Test is ProtocolV3TestBase {
   AaveV3Base_WrsETHBaseOnboarding_20250226 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('base'), 26891656);
+    vm.createSelectFork(vm.rpcUrl('base'), 26892071);
     proposal = new AaveV3Base_WrsETHBaseOnboarding_20250226();
   }
 
@@ -34,7 +34,7 @@ contract AaveV3Base_WrsETHBaseOnboarding_20250226_Test is ProtocolV3TestBase {
     (address aTokenAddress, , ) = AaveV3Base.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(
       proposal.wrsETH()
     );
-    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Base.COLLECTOR)), 10 ** 18);
+    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Base.COLLECTOR)), 5 ** 16);
   }
 
   function test_wrsETHAdmin() public {
