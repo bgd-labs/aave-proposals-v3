@@ -55,7 +55,7 @@ contract AaveV3Base_SUSDeBaseOnboarding_20250226 is AaveV3PayloadBase {
     listings[0] = IAaveV3ConfigEngine.Listing({
       asset: sUSDe,
       assetSymbol: 'sUSDe',
-      priceFeed: 0x398dd1BeCEdfa3518faCCCC30613d9021223306E, // change this to price adapter before merge!
+      priceFeed: 0x398dd1BeCEdfa3518faCCCC30613d9021223306E,
       enabledToBorrow: EngineFlags.DISABLED,
       borrowableInIsolation: EngineFlags.DISABLED,
       withSiloedBorrowing: EngineFlags.DISABLED,
