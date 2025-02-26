@@ -42,7 +42,7 @@ contract AaveV3Arbitrum_FebruaryFundingUpdatePartB_20250207 is IProposalGenericE
         underlying: AaveV3ArbitrumAssets.USDC_UNDERLYING,
         amount: IERC20(AaveV3ArbitrumAssets.USDC_A_TOKEN).balanceOf(
           address(AaveV3Arbitrum.COLLECTOR)
-        ) - 1e6
+        ) - 100e6
       }),
       MiscArbitrum.AAVE_ARB_ETH_BRIDGE
     );

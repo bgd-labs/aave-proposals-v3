@@ -53,14 +53,14 @@ contract AaveV3Arbitrum_FebruaryFundingUpdatePartB_20250207_Test is ProtocolV3Te
     );
 
     assertGt(lusdCollectorBalanceBefore, 1 ether);
-    assertGt(usdcCollectorBalanceBefore, 1e6);
+    assertGt(usdcCollectorBalanceBefore, 100e6);
     assertGt(aEthDaiCollectorBalanceBefore, 1 ether);
     assertGt(daiCollectorBalanceBefore, 0);
 
     vm.expectEmit(true, false, false, true, MiscArbitrum.AAVE_ARB_ETH_BRIDGE);
     emit Bridge(AaveV3ArbitrumAssets.LUSD_UNDERLYING, 2241638268672257789740); // dynamically get bridge
     vm.expectEmit(true, false, false, true, MiscArbitrum.AAVE_ARB_ETH_BRIDGE);
-    emit Bridge(AaveV3ArbitrumAssets.USDC_UNDERLYING, 53945433616); // dynamically get bridge balance
+    emit Bridge(AaveV3ArbitrumAssets.USDC_UNDERLYING, 53846433616); // dynamically get bridge balance
     vm.expectEmit(true, false, false, true, MiscArbitrum.AAVE_ARB_ETH_BRIDGE);
     emit Bridge(AaveV3ArbitrumAssets.DAI_UNDERLYING, 284409260188723528253171); // dynamically get bridge balance
     executePayload(vm, address(proposal));
@@ -79,7 +79,7 @@ contract AaveV3Arbitrum_FebruaryFundingUpdatePartB_20250207_Test is ProtocolV3Te
     );
 
     assertApproxEqAbs(lusdCollectorBalanceAfter, 1 ether, 100);
-    assertApproxEqAbs(usdcCollectorBalanceAfter, 1e6, 100);
+    assertApproxEqAbs(usdcCollectorBalanceAfter, 100e6, 100);
     assertApproxEqAbs(aEthDaiCollectorBalanceAfter, 1 ether, 100);
     assertEq(daiCollectorBalanceAfter, 0);
   }

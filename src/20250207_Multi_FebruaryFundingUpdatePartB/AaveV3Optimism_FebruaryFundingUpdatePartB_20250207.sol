@@ -35,7 +35,7 @@ contract AaveV3Optimism_FebruaryFundingUpdatePartB_20250207 is IProposalGenericE
         underlying: AaveV3OptimismAssets.USDC_UNDERLYING,
         amount: IERC20(AaveV3OptimismAssets.USDC_A_TOKEN).balanceOf(
           address(AaveV3Optimism.COLLECTOR)
-        ) - 1e6
+        ) - 100e6
       }),
       MiscOptimism.AAVE_OPT_ETH_BRIDGE
     );

@@ -32,7 +32,7 @@ contract AaveV3Polygon_FebruaryFundingUpdatePartB_20250207 is IProposalGenericEx
         underlying: AaveV3PolygonAssets.USDC_UNDERLYING,
         amount: IERC20(AaveV3PolygonAssets.USDC_A_TOKEN).balanceOf(
           address(AaveV3Polygon.COLLECTOR)
-        ) - 1e6
+        ) - 100e6
       }),
       MiscPolygon.AAVE_POL_ETH_BRIDGE
     );
@@ -46,7 +46,7 @@ contract AaveV3Polygon_FebruaryFundingUpdatePartB_20250207 is IProposalGenericEx
         pool: address(AaveV2Polygon.POOL),
         underlying: AaveV2PolygonAssets.USDC_UNDERLYING,
         amount: (aUsdcCollectorBalance > usdcLiquidity ? usdcLiquidity : aUsdcCollectorBalance) -
-          1e6
+          100e6
       }),
       MiscPolygon.AAVE_POL_ETH_BRIDGE
     );

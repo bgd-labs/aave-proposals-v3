@@ -48,8 +48,8 @@ contract AaveV3Polygon_FebruaryFundingUpdatePartB_20250207_Test is ProtocolV3Tes
       address(AaveV2Polygon.COLLECTOR)
     );
 
-    assertApproxEqAbs(aPolUsdcBalanceAfter, 1e6, 100);
-    assertApproxEqAbs(amUsdcBalanceAfter, 1e6, 200_000e6);
+    assertApproxEqAbs(aPolUsdcBalanceAfter, 100e6, 100);
+    assertApproxEqAbs(amUsdcBalanceAfter, 100e6, 200_000e6);
     assertEq(usdcBalanceAfter, 0);
 
     uint256 aPolBalBalanceAfter = IERC20(AaveV3PolygonAssets.BAL_A_TOKEN).balanceOf(
@@ -111,7 +111,7 @@ contract AaveV3Polygon_FebruaryFundingUpdatePartB_20250207_Test is ProtocolV3Tes
 
   function test_log() public {
     vm.expectEmit(true, true, false, true, MiscPolygon.AAVE_POL_ETH_BRIDGE);
-    emit Bridge(AaveV3PolygonAssets.USDC_UNDERLYING, 648521253002);
+    emit Bridge(AaveV3PolygonAssets.USDC_UNDERLYING, 648323253002);
 
     vm.expectEmit(true, true, false, true, MiscPolygon.AAVE_POL_ETH_BRIDGE);
     emit Bridge(AaveV3PolygonAssets.BAL_UNDERLYING, 683004799480808939933);
