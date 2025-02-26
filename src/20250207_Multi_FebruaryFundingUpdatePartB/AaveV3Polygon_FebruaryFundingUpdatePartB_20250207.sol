@@ -2,7 +2,6 @@
 pragma solidity ^0.8.0;
 
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
-import {IScaledBalanceToken} from 'aave-v3-origin/contracts/interfaces/IScaledBalanceToken.sol';
 import {AaveV2Polygon, AaveV2PolygonAssets} from 'aave-address-book/AaveV2Polygon.sol';
 import {AaveV3Polygon, AaveV3PolygonAssets} from 'aave-address-book/AaveV3Polygon.sol';
 import {MiscPolygon} from 'aave-address-book/MiscPolygon.sol';
@@ -30,23 +29,23 @@ contract AaveV3Polygon_FebruaryFundingUpdatePartB_20250207 is IProposalGenericEx
       CollectorUtils.IOInput({
         pool: address(AaveV3Polygon.POOL),
         underlying: AaveV3PolygonAssets.USDC_UNDERLYING,
-        amount: IERC20(AaveV3PolygonAssets.USDC_A_TOKEN).balanceOf(
-          address(AaveV3Polygon.COLLECTOR)
+        amount: _getWithdrawableBalance(
+          address(AaveV3Polygon.COLLECTOR),
+          AaveV3PolygonAssets.USDC_UNDERLYING,
+          AaveV3PolygonAssets.USDC_A_TOKEN
         ) - 100e6
       }),
       MiscPolygon.AAVE_POL_ETH_BRIDGE
-    );
-    uint256 aUsdcCollectorBalance = IScaledBalanceToken(AaveV2PolygonAssets.USDC_A_TOKEN)
-      .scaledBalanceOf(address(AaveV2Polygon.COLLECTOR));
-    uint256 usdcLiquidity = IERC20(AaveV3PolygonAssets.USDC_UNDERLYING).balanceOf(
-      AaveV2PolygonAssets.USDC_A_TOKEN
     );
     AaveV2Polygon.COLLECTOR.withdrawFromV2(
       CollectorUtils.IOInput({
         pool: address(AaveV2Polygon.POOL),
         underlying: AaveV2PolygonAssets.USDC_UNDERLYING,
-        amount: (aUsdcCollectorBalance > usdcLiquidity ? usdcLiquidity : aUsdcCollectorBalance) -
-          100e6
+        amount: _getWithdrawableBalance(
+          address(AaveV2Polygon.COLLECTOR),
+          AaveV2PolygonAssets.USDC_UNDERLYING,
+          AaveV2PolygonAssets.USDC_A_TOKEN
+        ) - 100e6
       }),
       MiscPolygon.AAVE_POL_ETH_BRIDGE
     );
@@ -61,8 +60,10 @@ contract AaveV3Polygon_FebruaryFundingUpdatePartB_20250207 is IProposalGenericEx
       CollectorUtils.IOInput({
         pool: address(AaveV3Polygon.POOL),
         underlying: AaveV3PolygonAssets.BAL_UNDERLYING,
-        amount: IERC20(AaveV3PolygonAssets.BAL_A_TOKEN).balanceOf(
-          address(AaveV3Polygon.COLLECTOR)
+        amount: _getWithdrawableBalance(
+          address(AaveV3Polygon.COLLECTOR),
+          AaveV3PolygonAssets.BAL_UNDERLYING,
+          AaveV3PolygonAssets.BAL_A_TOKEN
         ) - 1 ether
       }),
       MiscPolygon.AAVE_POL_ETH_BRIDGE
@@ -71,8 +72,10 @@ contract AaveV3Polygon_FebruaryFundingUpdatePartB_20250207 is IProposalGenericEx
       CollectorUtils.IOInput({
         pool: address(AaveV2Polygon.POOL),
         underlying: AaveV2PolygonAssets.BAL_UNDERLYING,
-        amount: IScaledBalanceToken(AaveV2PolygonAssets.BAL_A_TOKEN).scaledBalanceOf(
-          address(AaveV2Polygon.COLLECTOR)
+        amount: _getWithdrawableBalance(
+          address(AaveV2Polygon.COLLECTOR),
+          AaveV2PolygonAssets.BAL_UNDERLYING,
+          AaveV2PolygonAssets.BAL_A_TOKEN
         ) - 1 ether
       }),
       MiscPolygon.AAVE_POL_ETH_BRIDGE
@@ -88,8 +91,10 @@ contract AaveV3Polygon_FebruaryFundingUpdatePartB_20250207 is IProposalGenericEx
       CollectorUtils.IOInput({
         pool: address(AaveV3Polygon.POOL),
         underlying: AaveV3PolygonAssets.WETH_UNDERLYING,
-        amount: IERC20(AaveV3PolygonAssets.WETH_A_TOKEN).balanceOf(
-          address(AaveV3Polygon.COLLECTOR)
+        amount: _getWithdrawableBalance(
+          address(AaveV3Polygon.COLLECTOR),
+          AaveV3PolygonAssets.WETH_UNDERLYING,
+          AaveV3PolygonAssets.WETH_A_TOKEN
         ) - 1 ether
       }),
       MiscPolygon.AAVE_POL_ETH_BRIDGE
@@ -98,8 +103,10 @@ contract AaveV3Polygon_FebruaryFundingUpdatePartB_20250207 is IProposalGenericEx
       CollectorUtils.IOInput({
         pool: address(AaveV2Polygon.POOL),
         underlying: AaveV2PolygonAssets.WETH_UNDERLYING,
-        amount: IScaledBalanceToken(AaveV2PolygonAssets.WETH_A_TOKEN).scaledBalanceOf(
-          address(AaveV2Polygon.COLLECTOR)
+        amount: _getWithdrawableBalance(
+          address(AaveV2Polygon.COLLECTOR),
+          AaveV2PolygonAssets.WETH_UNDERLYING,
+          AaveV2PolygonAssets.WETH_A_TOKEN
         ) - 1 ether
       }),
       MiscPolygon.AAVE_POL_ETH_BRIDGE
@@ -115,8 +122,10 @@ contract AaveV3Polygon_FebruaryFundingUpdatePartB_20250207 is IProposalGenericEx
       CollectorUtils.IOInput({
         pool: address(AaveV3Polygon.POOL),
         underlying: AaveV3PolygonAssets.DAI_UNDERLYING,
-        amount: IERC20(AaveV3PolygonAssets.DAI_A_TOKEN).balanceOf(
-          address(AaveV3Polygon.COLLECTOR)
+        amount: _getWithdrawableBalance(
+          address(AaveV3Polygon.COLLECTOR),
+          AaveV3PolygonAssets.DAI_UNDERLYING,
+          AaveV3PolygonAssets.DAI_A_TOKEN
         ) - 1 ether
       }),
       MiscPolygon.AAVE_POL_ETH_BRIDGE
@@ -125,8 +134,10 @@ contract AaveV3Polygon_FebruaryFundingUpdatePartB_20250207 is IProposalGenericEx
       CollectorUtils.IOInput({
         pool: address(AaveV2Polygon.POOL),
         underlying: AaveV2PolygonAssets.DAI_UNDERLYING,
-        amount: IScaledBalanceToken(AaveV2PolygonAssets.DAI_A_TOKEN).scaledBalanceOf(
-          address(AaveV2Polygon.COLLECTOR)
+        amount: _getWithdrawableBalance(
+          address(AaveV2Polygon.COLLECTOR),
+          AaveV2PolygonAssets.DAI_UNDERLYING,
+          AaveV2PolygonAssets.DAI_A_TOKEN
         ) - 1 ether
       }),
       MiscPolygon.AAVE_POL_ETH_BRIDGE
@@ -137,8 +148,10 @@ contract AaveV3Polygon_FebruaryFundingUpdatePartB_20250207 is IProposalGenericEx
       CollectorUtils.IOInput({
         pool: address(AaveV3Polygon.POOL),
         underlying: AaveV3PolygonAssets.AAVE_UNDERLYING,
-        amount: IERC20(AaveV3PolygonAssets.AAVE_A_TOKEN).balanceOf(
-          address(AaveV3Polygon.COLLECTOR)
+        amount: _getWithdrawableBalance(
+          address(AaveV3Polygon.COLLECTOR),
+          AaveV3PolygonAssets.AAVE_UNDERLYING,
+          AaveV3PolygonAssets.AAVE_A_TOKEN
         ) - 1 ether
       }),
       MiscPolygon.AAVE_POL_ETH_BRIDGE
@@ -154,8 +167,10 @@ contract AaveV3Polygon_FebruaryFundingUpdatePartB_20250207 is IProposalGenericEx
       CollectorUtils.IOInput({
         pool: address(AaveV3Polygon.POOL),
         underlying: AaveV3PolygonAssets.CRV_UNDERLYING,
-        amount: IERC20(AaveV3PolygonAssets.CRV_A_TOKEN).balanceOf(
-          address(AaveV3Polygon.COLLECTOR)
+        amount: _getWithdrawableBalance(
+          address(AaveV3Polygon.COLLECTOR),
+          AaveV3PolygonAssets.CRV_UNDERLYING,
+          AaveV3PolygonAssets.CRV_A_TOKEN
         ) - 1 ether
       }),
       MiscPolygon.AAVE_POL_ETH_BRIDGE
@@ -171,8 +186,10 @@ contract AaveV3Polygon_FebruaryFundingUpdatePartB_20250207 is IProposalGenericEx
       CollectorUtils.IOInput({
         pool: address(AaveV3Polygon.POOL),
         underlying: AaveV3PolygonAssets.stMATIC_UNDERLYING,
-        amount: IERC20(AaveV3PolygonAssets.stMATIC_A_TOKEN).balanceOf(
-          address(AaveV3Polygon.COLLECTOR)
+        amount: _getWithdrawableBalance(
+          address(AaveV3Polygon.COLLECTOR),
+          AaveV3PolygonAssets.stMATIC_UNDERLYING,
+          AaveV3PolygonAssets.stMATIC_A_TOKEN
         ) - 1 ether
       }),
       MiscPolygon.AAVE_POL_ETH_BRIDGE
@@ -183,8 +200,10 @@ contract AaveV3Polygon_FebruaryFundingUpdatePartB_20250207 is IProposalGenericEx
       CollectorUtils.IOInput({
         pool: address(AaveV3Polygon.POOL),
         underlying: AaveV3PolygonAssets.DPI_UNDERLYING,
-        amount: IERC20(AaveV3PolygonAssets.DPI_A_TOKEN).balanceOf(
-          address(AaveV3Polygon.COLLECTOR)
+        amount: _getWithdrawableBalance(
+          address(AaveV3Polygon.COLLECTOR),
+          AaveV3PolygonAssets.DPI_UNDERLYING,
+          AaveV3PolygonAssets.DPI_A_TOKEN
         ) - 1 ether
       }),
       MiscPolygon.AAVE_POL_ETH_BRIDGE
@@ -195,8 +214,10 @@ contract AaveV3Polygon_FebruaryFundingUpdatePartB_20250207 is IProposalGenericEx
       CollectorUtils.IOInput({
         pool: address(AaveV3Polygon.POOL),
         underlying: AaveV3PolygonAssets.wstETH_UNDERLYING,
-        amount: IERC20(AaveV3PolygonAssets.wstETH_A_TOKEN).balanceOf(
-          address(AaveV3Polygon.COLLECTOR)
+        amount: _getWithdrawableBalance(
+          address(AaveV3Polygon.COLLECTOR),
+          AaveV3PolygonAssets.wstETH_UNDERLYING,
+          AaveV3PolygonAssets.wstETH_A_TOKEN
         ) - 1 ether
       }),
       MiscPolygon.AAVE_POL_ETH_BRIDGE
@@ -262,5 +283,16 @@ contract AaveV3Polygon_FebruaryFundingUpdatePartB_20250207 is IProposalGenericEx
       AaveV3PolygonAssets.wstETH_UNDERLYING,
       IERC20(AaveV3PolygonAssets.wstETH_UNDERLYING).balanceOf(MiscPolygon.AAVE_POL_ETH_BRIDGE)
     );
+  }
+
+  function _getWithdrawableBalance(
+    address collector,
+    address underlying,
+    address aToken
+  ) internal view returns (uint256) {
+    uint256 collectorBalance = IERC20(aToken).balanceOf(collector);
+    uint256 liquidity = IERC20(underlying).balanceOf(aToken);
+
+    return collectorBalance > liquidity ? liquidity : collectorBalance;
   }
 }

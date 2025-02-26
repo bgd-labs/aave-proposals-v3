@@ -2,7 +2,6 @@
 pragma solidity ^0.8.0;
 
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
-import {IScaledBalanceToken} from 'aave-v3-origin/contracts/interfaces/IScaledBalanceToken.sol';
 import {AaveV2Polygon, AaveV2PolygonAssets} from 'aave-address-book/AaveV2Polygon.sol';
 import {AaveV3Polygon, AaveV3PolygonAssets} from 'aave-address-book/AaveV3Polygon.sol';
 import {MiscPolygon} from 'aave-address-book/MiscPolygon.sol';
@@ -42,21 +41,23 @@ contract AaveV3Polygon_FebruaryFundingUpdatePartB_20250207_Test is ProtocolV3Tes
     uint256 aPolUsdcBalanceAfter = IERC20(AaveV3PolygonAssets.USDC_A_TOKEN).balanceOf(
       address(AaveV3Polygon.COLLECTOR)
     );
-    uint256 amUsdcBalanceAfter = IScaledBalanceToken(AaveV2PolygonAssets.USDC_A_TOKEN)
-      .scaledBalanceOf(address(AaveV2Polygon.COLLECTOR));
+    uint256 amUsdcBalanceAfter = IERC20(AaveV2PolygonAssets.USDC_A_TOKEN).balanceOf(
+      address(AaveV2Polygon.COLLECTOR)
+    );
     uint256 usdcBalanceAfter = IERC20(AaveV2PolygonAssets.USDC_UNDERLYING).balanceOf(
       address(AaveV2Polygon.COLLECTOR)
     );
 
     assertApproxEqAbs(aPolUsdcBalanceAfter, 100e6, 100);
-    assertApproxEqAbs(amUsdcBalanceAfter, 100e6, 200_000e6);
+    assertApproxEqAbs(amUsdcBalanceAfter, 100e6, 100);
     assertEq(usdcBalanceAfter, 0);
 
     uint256 aPolBalBalanceAfter = IERC20(AaveV3PolygonAssets.BAL_A_TOKEN).balanceOf(
       address(AaveV3Polygon.COLLECTOR)
     );
-    uint256 amBalBalanceAfter = IScaledBalanceToken(AaveV2PolygonAssets.BAL_A_TOKEN)
-      .scaledBalanceOf(address(AaveV2Polygon.COLLECTOR));
+    uint256 amBalBalanceAfter = IERC20(AaveV2PolygonAssets.BAL_A_TOKEN).balanceOf(
+      address(AaveV2Polygon.COLLECTOR)
+    );
     uint256 balBalanceAfter = IERC20(AaveV2PolygonAssets.BAL_UNDERLYING).balanceOf(
       address(AaveV2Polygon.COLLECTOR)
     );
@@ -68,11 +69,12 @@ contract AaveV3Polygon_FebruaryFundingUpdatePartB_20250207_Test is ProtocolV3Tes
     uint256 aPolDaiBalanceAfter = IERC20(AaveV3PolygonAssets.DAI_A_TOKEN).balanceOf(
       address(AaveV3Polygon.COLLECTOR)
     );
-    uint256 amDaiBalanceAfter = IScaledBalanceToken(AaveV2PolygonAssets.DAI_A_TOKEN)
-      .scaledBalanceOf(address(AaveV2Polygon.COLLECTOR));
+    uint256 amDaiBalanceAfter = IERC20(AaveV2PolygonAssets.DAI_A_TOKEN).balanceOf(
+      address(AaveV2Polygon.COLLECTOR)
+    );
 
     assertApproxEqAbs(aPolDaiBalanceAfter, 1 ether, 100);
-    assertApproxEqAbs(amDaiBalanceAfter, 1 ether, 50_000 ether);
+    assertApproxEqAbs(amDaiBalanceAfter, 1 ether, 100 ether);
 
     uint256 aPolAaveBalanceAfter = IERC20(AaveV3PolygonAssets.AAVE_A_TOKEN).balanceOf(
       address(AaveV3Polygon.COLLECTOR)
