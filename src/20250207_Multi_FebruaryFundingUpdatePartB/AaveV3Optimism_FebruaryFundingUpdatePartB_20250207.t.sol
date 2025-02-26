@@ -48,7 +48,7 @@ contract AaveV3Optimism_FebruaryFundingUpdatePartB_20250207_Test is ProtocolV3Te
     vm.expectEmit(true, false, false, true, MiscOptimism.AAVE_OPT_ETH_BRIDGE);
     emit Bridge(AaveV3OptimismAssets.LUSD_UNDERLYING, 873047466143751989887); // dynamically get bridge
     vm.expectEmit(true, false, false, true, MiscOptimism.AAVE_OPT_ETH_BRIDGE);
-    emit Bridge(AaveV3OptimismAssets.USDC_UNDERLYING, 73722251699); // dynamically get bridge balance
+    emit Bridge(AaveV3OptimismAssets.USDC_UNDERLYING, 73722204578); // dynamically get bridge balance
     executePayload(vm, address(proposal));
 
     uint256 lusdCollectorBalanceAfter = IERC20(AaveV3OptimismAssets.LUSD_A_TOKEN).balanceOf(

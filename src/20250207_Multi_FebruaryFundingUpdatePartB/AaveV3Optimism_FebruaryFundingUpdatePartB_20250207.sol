@@ -43,11 +43,6 @@ contract AaveV3Optimism_FebruaryFundingUpdatePartB_20250207 is IProposalGenericE
       }),
       MiscOptimism.AAVE_OPT_ETH_BRIDGE
     );
-    AaveV3Optimism.COLLECTOR.transfer(
-      AaveV3OptimismAssets.USDC_UNDERLYING,
-      MiscOptimism.AAVE_OPT_ETH_BRIDGE,
-      IERC20(AaveV3OptimismAssets.USDC_UNDERLYING).balanceOf(address(AaveV3Optimism.COLLECTOR))
-    );
 
     IAaveOpEthERC20Bridge(MiscOptimism.AAVE_OPT_ETH_BRIDGE).bridge(
       AaveV3OptimismAssets.LUSD_UNDERLYING,
