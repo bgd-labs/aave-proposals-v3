@@ -14,7 +14,7 @@ This publication presents the February Funding Update - Part B, which consists o
 
 ## Motivation
 
-As part of our ongoing Treasury asset rebalancing strategy, this proposal when implemented will continue to:
+This proposal is a continuation of [February Funding Update Part A](https://github.com/bgd-labs/aave-proposals-v3/pull/595) and as part of our ongoing Treasury asset rebalancing strategy, this proposal when implemented will continue to:
 
 - Bridging assets from Polygon, Arbitrum and Optimism to Ethereum;
   - Continue reducing bridged USDC exposure in support of Native USDC adoption;
