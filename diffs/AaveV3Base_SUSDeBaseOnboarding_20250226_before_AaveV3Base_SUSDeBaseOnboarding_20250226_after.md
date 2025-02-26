@@ -14,10 +14,10 @@
 | debtCeiling | 0 $ [0] |
 | isSiloed | false |
 | isFlashloanable | false |
-| oracle | [0xf19d560eB8d2ADf07BD6D13ed03e1D11215721F9](https://basescan.org/address/0xf19d560eB8d2ADf07BD6D13ed03e1D11215721F9) |
+| oracle | [0x398dd1BeCEdfa3518faCCCC30613d9021223306E](https://basescan.org/address/0x398dd1BeCEdfa3518faCCCC30613d9021223306E) |
 | oracleDecimals | 8 |
-| oracleDescription | USDT / USD |
-| oracleLatestAnswer | 0.99881 |
+| oracleDescription | Capped sUSDe / USDT / USD |
+| oracleLatestAnswer | 1.15742931 |
 | usageAsCollateralEnabled | true |
 | ltv | 70 % [7000] |
 | liquidationThreshold | 73 % [7300] |
@@ -114,10 +114,10 @@
         "liquidationProtocolFee": 1000,
         "liquidationThreshold": 7300,
         "ltv": 7000,
-        "oracle": "0xf19d560eB8d2ADf07BD6D13ed03e1D11215721F9",
+        "oracle": "0x398dd1BeCEdfa3518faCCCC30613d9021223306E",
         "oracleDecimals": 8,
-        "oracleDescription": "USDT / USD",
-        "oracleLatestAnswer": "99881000",
+        "oracleDescription": "Capped sUSDe / USDT / USD",
+        "oracleLatestAnswer": "115742931",
         "reserveFactor": 2000,
         "supplyCap": 1200000,
         "symbol": "sUSDe",
@@ -186,7 +186,7 @@
       }
     },
     "0x2425a746911128c2eaa7bebdc9bc452ee52208a1": {
-      "label": "AaveV3Base.DEFAULT_VARIABLE_DEBT_TOKEN_IMPL_REV_1",
+      "label": null,
       "balanceDiff": null,
       "stateDiff": {
         "0x0000000000000000000000000000000000000000000000000000000000000000": {
@@ -220,17 +220,17 @@
       }
     },
     "0x2cc0fc26ed4563a5ce5e8bdcfe1a2878676ae156": {
-      "label": "AaveV3Base.ORACLE",
+      "label": null,
       "balanceDiff": null,
       "stateDiff": {
         "0xa881669ae165a4c5763e4114ce67328c4988b515f53278697e4aadb693e63b9e": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x000000000000000000000000f19d560eb8d2adf07bd6d13ed03e1d11215721f9"
+          "newValue": "0x000000000000000000000000398dd1becedfa3518facccc30613d9021223306e"
         }
       }
     },
     "0x2dc219e716793fb4b21548c0f009ba3af753ab01": {
-      "label": "GovernanceV3Base.PAYLOADS_CONTROLLER",
+      "label": null,
       "balanceDiff": null,
       "stateDiff": {}
     },
@@ -239,17 +239,22 @@
       "balanceDiff": null,
       "stateDiff": {
         "0x7328c223b526ac18a2ca34e3cc928d22c174fde8c81d65ae5d17c01763d134b1": {
-          "previousValue": "0x0067bf631a000000000002000000000000000000000000000000000000000000",
-          "newValue": "0x0067bf631a000000000003000000000000000000000000000000000000000000"
+          "previousValue": "0x0067bf7f36000000000002000000000000000000000000000000000000000000",
+          "newValue": "0x0067bf7f36000000000003000000000000000000000000000000000000000000"
         },
         "0x7328c223b526ac18a2ca34e3cc928d22c174fde8c81d65ae5d17c01763d134b2": {
-          "previousValue": "0x000000000000000000093a8000000000000067ed879b00000000000000000000",
-          "newValue": "0x000000000000000000093a8000000000000067ed879b00000000000067bf631b"
+          "previousValue": "0x000000000000000000093a8000000000000067eda3b700000000000000000000",
+          "newValue": "0x000000000000000000093a8000000000000067eda3b700000000000067bf7f37"
         }
       }
     },
+    "0x398dd1becedfa3518facccc30613d9021223306e": {
+      "label": null,
+      "balanceDiff": null,
+      "stateDiff": {}
+    },
     "0x43955b0899ab7232e3a454cf84aedd22ad46fd33": {
-      "label": "AaveV3Base.ACL_MANAGER",
+      "label": null,
       "balanceDiff": null,
       "stateDiff": {}
     },
@@ -259,12 +264,12 @@
       "stateDiff": {}
     },
     "0x5731a04b1e775f0fdd454bf70f3335886e9a96be": {
-      "label": "AaveV3Base.POOL_CONFIGURATOR",
+      "label": null,
       "balanceDiff": null,
       "stateDiff": {}
     },
     "0x6533a273f3ac84df91dcd654d6ebaba73687e246": {
-      "label": "AaveV3Base.EMISSION_MANAGER",
+      "label": null,
       "balanceDiff": null,
       "stateDiff": {
         "0x0cd8b138ec71684b5b65f6240bb9b685aba9fabf3d97bc10e8b205307d8952c2": {
@@ -278,7 +283,7 @@
       }
     },
     "0x6ef6b6176091f94a8ad52c08e571f81598b226a2": {
-      "label": "AaveV3Base.POOL_IMPL",
+      "label": null,
       "balanceDiff": null,
       "stateDiff": {
         "0x533efb5c9f032d0e72b35f5d59b231dc7a9fb94625f73b3c45c394126326354c": {
@@ -303,9 +308,14 @@
         },
         "0xb69e101291cae8ac8885e4f60b77f31b4a9feff65bb4172464a0e8f08242ae38": {
           "previousValue": "0x0000000000000000000009000000000000000000000000000000000000000000",
-          "newValue": "0x00000000000000000000090067bf631b00000000000000000000000000000000"
+          "newValue": "0x00000000000000000000090067bf7f3700000000000000000000000000000000"
         }
       }
+    },
+    "0x801b6e7d186370eee854f76481643c22c7d1da99": {
+      "label": null,
+      "balanceDiff": null,
+      "stateDiff": {}
     },
     "0x80a94c36747cf51b2fbabdff045f6d22c1930ed1": {
       "label": null,
@@ -313,13 +323,12 @@
       "stateDiff": {
         "0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x00000000000000000000000098f409fc4a42f34ae3c326c7f48ed01ae8caec69",
-          "label": "Implementation slot"
+          "newValue": "0x00000000000000000000000098f409fc4a42f34ae3c326c7f48ed01ae8caec69"
         }
       }
     },
     "0x86ab1c62a8bf868e1b3e1ab87d587aba6fbcbdc5": {
-      "label": "AaveV3Base.ASSETS.WETH.INTEREST_RATE_STRATEGY, AaveV3Base.ASSETS.cbETH.INTEREST_RATE_STRATEGY, AaveV3Base.ASSETS.USDbC.INTEREST_RATE_STRATEGY, AaveV3Base.ASSETS.wstETH.INTEREST_RATE_STRATEGY, AaveV3Base.ASSETS.USDC.INTEREST_RATE_STRATEGY, AaveV3Base.ASSETS.weETH.INTEREST_RATE_STRATEGY, AaveV3Base.ASSETS.cbBTC.INTEREST_RATE_STRATEGY, AaveV3Base.ASSETS.ezETH.INTEREST_RATE_STRATEGY, AaveV3Base.ASSETS.GHO.INTEREST_RATE_STRATEGY",
+      "label": null,
       "balanceDiff": null,
       "stateDiff": {
         "0xa881669ae165a4c5763e4114ce67328c4988b515f53278697e4aadb693e63b9e": {
@@ -329,12 +338,12 @@
       }
     },
     "0x9390b1735def18560c509e2d0bc090e9d6ba257a": {
-      "label": "AaveV3Base.ACL_ADMIN, GovernanceV3Base.EXECUTOR_LVL_1",
+      "label": null,
       "balanceDiff": null,
       "stateDiff": {}
     },
     "0x98f409fc4a42f34ae3c326c7f48ed01ae8caec69": {
-      "label": "AaveV3Base.DEFAULT_A_TOKEN_IMPL_REV_1",
+      "label": null,
       "balanceDiff": null,
       "stateDiff": {
         "0x0000000000000000000000000000000000000000000000000000000000000000": {
@@ -380,7 +389,7 @@
       }
     },
     "0xa238dd80c259a72e81d7e4664a9801593f98d1c5": {
-      "label": "AaveV3Base.POOL",
+      "label": null,
       "balanceDiff": null,
       "stateDiff": {}
     },
@@ -389,13 +398,18 @@
       "balanceDiff": null,
       "stateDiff": {}
     },
+    "0xded37fc1400b8022968441356f771639ad1b23aa": {
+      "label": null,
+      "balanceDiff": null,
+      "stateDiff": {}
+    },
     "0xe20fcbdbffc4dd138ce8b2e6fbb6cb49777ad64d": {
-      "label": "AaveV3Base.POOL_ADDRESSES_PROVIDER",
+      "label": null,
       "balanceDiff": null,
       "stateDiff": {}
     },
     "0xe5e48ad1f9d1a894188b483dcf91f4fad6aba43b": {
-      "label": "AaveV3Base.POOL_CONFIGURATOR_IMPL",
+      "label": null,
       "balanceDiff": null,
       "stateDiff": {}
     },
@@ -405,8 +419,7 @@
       "stateDiff": {
         "0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x0000000000000000000000002425a746911128c2eaa7bebdc9bc452ee52208a1",
-          "label": "Implementation slot"
+          "newValue": "0x0000000000000000000000002425a746911128c2eaa7bebdc9bc452ee52208a1"
         }
       }
     },
@@ -458,7 +471,7 @@
       }
     },
     "0xf9cc4f0d883f1a1eb2c253bdb46c254ca51e1f44": {
-      "label": "AaveV3Base.DEFAULT_INCENTIVES_CONTROLLER",
+      "label": null,
       "balanceDiff": null,
       "stateDiff": {}
     }
