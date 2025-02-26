@@ -73,8 +73,8 @@ For the Stablecoin E-Mode on Aave V3 Optimism instance, we recommend the followi
 
 ## References
 
-- Implementation: [AaveV3Optimism](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250220_AaveV3Optimism_SUSDRiskParameterAdjustment/AaveV3Optimism_SUSDRiskParameterAdjustment_20250220.sol)
-- Tests: [AaveV3Optimism](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250220_AaveV3Optimism_SUSDRiskParameterAdjustment/AaveV3Optimism_SUSDRiskParameterAdjustment_20250220.t.sol)
+- Implementation: [AaveV3Optimism](https://github.com/bgd-labs/aave-proposals-v3/blob/eb25966c4bb18234867074a741178bfacd3109cf/src/20250220_AaveV3Optimism_SUSDRiskParameterAdjustment/AaveV3Optimism_SUSDRiskParameterAdjustment_20250220.sol)
+- Tests: [AaveV3Optimism](https://github.com/bgd-labs/aave-proposals-v3/blob/eb25966c4bb18234867074a741178bfacd3109cf/src/20250220_AaveV3Optimism_SUSDRiskParameterAdjustment/AaveV3Optimism_SUSDRiskParameterAdjustment_20250220.t.sol)
 - [Snapshot](https://snapshot.box/#/s:aave.eth/proposal/0x5c744451272991c7fdf8b3830fa2a51fc18dd0e417d95d9c16da765b27f602ff)
 - [Discussion](https://governance.aave.com/t/arfc-susd-risk-parameter-adjustment/20793)
 
