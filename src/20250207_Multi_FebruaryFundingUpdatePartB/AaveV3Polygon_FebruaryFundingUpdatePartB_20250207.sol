@@ -50,7 +50,7 @@ contract AaveV3Polygon_FebruaryFundingUpdatePartB_20250207 is IProposalGenericEx
       MiscPolygon.AAVE_POL_ETH_BRIDGE
     );
     AaveV2Polygon.COLLECTOR.transfer(
-      AaveV2PolygonAssets.USDC_UNDERLYING,
+      IERC20(AaveV2PolygonAssets.USDC_UNDERLYING),
       MiscPolygon.AAVE_POL_ETH_BRIDGE,
       IERC20(AaveV2PolygonAssets.USDC_UNDERLYING).balanceOf(address(AaveV2Polygon.COLLECTOR))
     );
@@ -81,7 +81,7 @@ contract AaveV3Polygon_FebruaryFundingUpdatePartB_20250207 is IProposalGenericEx
       MiscPolygon.AAVE_POL_ETH_BRIDGE
     );
     AaveV2Polygon.COLLECTOR.transfer(
-      AaveV2PolygonAssets.BAL_UNDERLYING,
+      IERC20(AaveV2PolygonAssets.BAL_UNDERLYING),
       MiscPolygon.AAVE_POL_ETH_BRIDGE,
       IERC20(AaveV2PolygonAssets.BAL_UNDERLYING).balanceOf(address(AaveV2Polygon.COLLECTOR))
     );
@@ -112,7 +112,7 @@ contract AaveV3Polygon_FebruaryFundingUpdatePartB_20250207 is IProposalGenericEx
       MiscPolygon.AAVE_POL_ETH_BRIDGE
     );
     AaveV2Polygon.COLLECTOR.transfer(
-      AaveV2PolygonAssets.WETH_UNDERLYING,
+      IERC20(AaveV2PolygonAssets.WETH_UNDERLYING),
       MiscPolygon.AAVE_POL_ETH_BRIDGE,
       IERC20(AaveV2PolygonAssets.WETH_UNDERLYING).balanceOf(address(AaveV2Polygon.COLLECTOR))
     );
@@ -157,7 +157,7 @@ contract AaveV3Polygon_FebruaryFundingUpdatePartB_20250207 is IProposalGenericEx
       MiscPolygon.AAVE_POL_ETH_BRIDGE
     );
     AaveV2Polygon.COLLECTOR.transfer(
-      AaveV2PolygonAssets.AAVE_UNDERLYING,
+      IERC20(AaveV2PolygonAssets.AAVE_UNDERLYING),
       MiscPolygon.AAVE_POL_ETH_BRIDGE,
       IERC20(AaveV2PolygonAssets.AAVE_UNDERLYING).balanceOf(address(AaveV2Polygon.COLLECTOR))
     );
@@ -176,7 +176,7 @@ contract AaveV3Polygon_FebruaryFundingUpdatePartB_20250207 is IProposalGenericEx
       MiscPolygon.AAVE_POL_ETH_BRIDGE
     );
     AaveV2Polygon.COLLECTOR.transfer(
-      AaveV2PolygonAssets.CRV_UNDERLYING,
+      IERC20(AaveV2PolygonAssets.CRV_UNDERLYING),
       MiscPolygon.AAVE_POL_ETH_BRIDGE,
       IERC20(AaveV2PolygonAssets.CRV_UNDERLYING).balanceOf(address(AaveV2Polygon.COLLECTOR))
     );
@@ -223,7 +223,7 @@ contract AaveV3Polygon_FebruaryFundingUpdatePartB_20250207 is IProposalGenericEx
       MiscPolygon.AAVE_POL_ETH_BRIDGE
     );
     AaveV3Polygon.COLLECTOR.transfer(
-      AaveV3PolygonAssets.wstETH_UNDERLYING,
+      IERC20(AaveV3PolygonAssets.wstETH_UNDERLYING),
       MiscPolygon.AAVE_POL_ETH_BRIDGE,
       IERC20(AaveV3PolygonAssets.wstETH_UNDERLYING).balanceOf(address(AaveV3Polygon.COLLECTOR))
     );

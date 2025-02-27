@@ -63,7 +63,7 @@ contract AaveV3Arbitrum_FebruaryFundingUpdatePartB_20250207 is IProposalGenericE
       MiscArbitrum.AAVE_ARB_ETH_BRIDGE
     );
     AaveV3Arbitrum.COLLECTOR.transfer(
-      AaveV3ArbitrumAssets.DAI_UNDERLYING,
+      IERC20(AaveV3ArbitrumAssets.DAI_UNDERLYING),
       MiscArbitrum.AAVE_ARB_ETH_BRIDGE,
       IERC20(AaveV3ArbitrumAssets.DAI_UNDERLYING).balanceOf(address(AaveV3Arbitrum.COLLECTOR))
     );
