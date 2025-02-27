@@ -166,12 +166,12 @@ contract AaveV3Ethereum_GSMsMigrationToGSM4626_20250114 is IProposalGenericExecu
 
   function _fund(uint256 balanceUsdc, uint256 balanceUsdt) internal {
     AaveV3Ethereum.COLLECTOR.transfer(
-      AaveV3EthereumAssets.USDC_UNDERLYING,
+      IERC20(AaveV3EthereumAssets.USDC_UNDERLYING),
       address(this),
       balanceUsdc
     );
     AaveV3Ethereum.COLLECTOR.transfer(
-      AaveV3EthereumAssets.USDT_UNDERLYING,
+      IERC20(AaveV3EthereumAssets.USDT_UNDERLYING),
       address(this),
       balanceUsdt
     );
@@ -209,7 +209,7 @@ contract AaveV3Ethereum_GSMsMigrationToGSM4626_20250114 is IProposalGenericExecu
 
     uint256 difference = ghoUsdcNeeded + ghoUsdtNeeded - amountGhoUsdc - amountGhoUsdt;
     if (difference > 0) {
-      AaveV3Ethereum.COLLECTOR.transfer(GhoEthereum.GHO_TOKEN, address(this), difference);
+      AaveV3Ethereum.COLLECTOR.transfer(IERC20(GhoEthereum.GHO_TOKEN), address(this), difference);
     }
 
     IERC20(GhoEthereum.GHO_TOKEN).forceApprove(GhoEthereum.GSM_USDC, ghoUsdcNeeded);

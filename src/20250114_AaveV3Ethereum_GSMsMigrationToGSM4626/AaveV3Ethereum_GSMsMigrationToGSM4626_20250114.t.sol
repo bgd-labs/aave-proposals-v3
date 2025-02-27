@@ -26,7 +26,7 @@ contract AaveV3Ethereum_GSMsMigrationToGSM4626_20250114_Test is ProtocolV3TestBa
   address public RISK_COUNCIL = 0x8513e6F37dBc52De87b166980Fa3F50639694B60;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 21895525);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 21938030);
     proposal = new AaveV3Ethereum_GSMsMigrationToGSM4626_20250114();
   }
 
