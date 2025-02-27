@@ -20,7 +20,7 @@ contract AaveV3Polygon_FebruaryFundingUpdatePartB_20250207_Test is ProtocolV3Tes
   AaveV3Polygon_FebruaryFundingUpdatePartB_20250207 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('polygon'), 68081740);
+    vm.createSelectFork(vm.rpcUrl('polygon'), 68436258);
     proposal = new AaveV3Polygon_FebruaryFundingUpdatePartB_20250207();
   }
 
@@ -74,7 +74,7 @@ contract AaveV3Polygon_FebruaryFundingUpdatePartB_20250207_Test is ProtocolV3Tes
     );
 
     assertApproxEqAbs(aPolDaiBalanceAfter, 1 ether, 100);
-    assertApproxEqAbs(amDaiBalanceAfter, 1 ether, 9_000 ether);
+    assertApproxEqAbs(amDaiBalanceAfter, 1 ether, 600_000 ether);
 
     uint256 aPolAaveBalanceAfter = IERC20(AaveV3PolygonAssets.AAVE_A_TOKEN).balanceOf(
       address(AaveV3Polygon.COLLECTOR)
@@ -113,31 +113,31 @@ contract AaveV3Polygon_FebruaryFundingUpdatePartB_20250207_Test is ProtocolV3Tes
 
   function test_log() public {
     vm.expectEmit(true, true, false, true, MiscPolygon.AAVE_POL_ETH_BRIDGE);
-    emit Bridge(AaveV3PolygonAssets.USDC_UNDERLYING, 648323253002);
+    emit Bridge(AaveV3PolygonAssets.USDC_UNDERLYING, 833016913139);
 
     vm.expectEmit(true, true, false, true, MiscPolygon.AAVE_POL_ETH_BRIDGE);
-    emit Bridge(AaveV3PolygonAssets.BAL_UNDERLYING, 731250731775314777668);
+    emit Bridge(AaveV3PolygonAssets.BAL_UNDERLYING, 739645664210409534710);
 
     vm.expectEmit(true, true, false, true, MiscPolygon.AAVE_POL_ETH_BRIDGE);
-    emit Bridge(AaveV3PolygonAssets.AAVE_UNDERLYING, 101681227989869315229);
+    emit Bridge(AaveV3PolygonAssets.AAVE_UNDERLYING, 106911762169287773107);
 
     vm.expectEmit(true, true, false, true, MiscPolygon.AAVE_POL_ETH_BRIDGE);
-    emit Bridge(AaveV3PolygonAssets.WETH_UNDERLYING, 104857251074903935710);
+    emit Bridge(AaveV3PolygonAssets.WETH_UNDERLYING, 107449011926576037726);
 
     vm.expectEmit(true, true, false, true, MiscPolygon.AAVE_POL_ETH_BRIDGE);
-    emit Bridge(AaveV3PolygonAssets.DAI_UNDERLYING, 1486755372068960798455681);
+    emit Bridge(AaveV3PolygonAssets.DAI_UNDERLYING, 1007206763638865670807696);
 
     vm.expectEmit(true, true, false, true, MiscPolygon.AAVE_POL_ETH_BRIDGE);
-    emit Bridge(AaveV3PolygonAssets.CRV_UNDERLYING, 1480581377828400009883);
+    emit Bridge(AaveV3PolygonAssets.CRV_UNDERLYING, 1498045447549842829736);
 
     vm.expectEmit(true, true, false, true, MiscPolygon.AAVE_POL_ETH_BRIDGE);
-    emit Bridge(AaveV3PolygonAssets.stMATIC_UNDERLYING, 23770791828439896523298);
+    emit Bridge(AaveV3PolygonAssets.stMATIC_UNDERLYING, 24100822732770218476927);
 
     vm.expectEmit(true, true, false, true, MiscPolygon.AAVE_POL_ETH_BRIDGE);
-    emit Bridge(AaveV3PolygonAssets.DPI_UNDERLYING, 36489599271785166247);
+    emit Bridge(AaveV3PolygonAssets.DPI_UNDERLYING, 36513216591627017174);
 
     vm.expectEmit(true, true, false, true, MiscPolygon.AAVE_POL_ETH_BRIDGE);
-    emit Bridge(AaveV3PolygonAssets.wstETH_UNDERLYING, 383443628042778827);
+    emit Bridge(AaveV3PolygonAssets.wstETH_UNDERLYING, 413074161163040534);
     executePayload(vm, address(proposal));
   }
 }

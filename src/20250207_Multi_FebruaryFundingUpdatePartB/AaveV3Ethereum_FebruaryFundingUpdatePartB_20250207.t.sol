@@ -17,7 +17,7 @@ contract AaveV3Ethereum_FebruaryFundingUpdatePartB_20250207_Test is ProtocolV3Te
   AaveV3Ethereum_FebruaryFundingUpdatePartB_20250207 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 21874485);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 21937771);
     proposal = new AaveV3Ethereum_FebruaryFundingUpdatePartB_20250207();
   }
 
