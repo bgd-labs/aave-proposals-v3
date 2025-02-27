@@ -15,7 +15,7 @@ contract AaveV3EthereumLido_SUSDeAndUSDePriceFeedUpdate_20250213_Test is Protoco
   AaveV3EthereumLido_SUSDeAndUSDePriceFeedUpdate_20250213 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 21875954);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 21840443);
     proposal = new AaveV3EthereumLido_SUSDeAndUSDePriceFeedUpdate_20250213();
   }
 

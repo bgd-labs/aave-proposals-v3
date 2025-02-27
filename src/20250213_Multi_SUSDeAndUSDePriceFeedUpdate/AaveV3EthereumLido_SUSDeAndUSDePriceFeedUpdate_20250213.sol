@@ -22,7 +22,7 @@ contract AaveV3EthereumLido_SUSDeAndUSDePriceFeedUpdate_20250213 is AaveV3Payloa
 
     priceFeedUpdates[0] = IAaveV3ConfigEngine.PriceFeedUpdate({
       asset: AaveV3EthereumLidoAssets.sUSDe_UNDERLYING,
-      priceFeed: 0x2BD4674c5D632cd269E2bEd69067b9525E47b13c
+      priceFeed: 0x42bc86f2f08419280a99d8fbEa4672e7c30a86ec
     });
 
     return priceFeedUpdates;

@@ -22,7 +22,7 @@ contract AaveV3ZkSync_SUSDeAndUSDePriceFeedUpdate_20250213 is AaveV3PayloadZkSyn
 
     priceFeedUpdates[0] = IAaveV3ConfigEngine.PriceFeedUpdate({
       asset: AaveV3ZkSyncAssets.sUSDe_UNDERLYING,
-      priceFeed: 0x557cd2162E6B69348A7F19225041aFb431e3634E
+      priceFeed: 0x9172A80ed668D3097D45350ffF71F4421ff572e1
     });
 
     return priceFeedUpdates;

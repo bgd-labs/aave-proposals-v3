@@ -15,7 +15,7 @@ contract AaveV3ZkSync_SUSDeAndUSDePriceFeedUpdate_20250213_Test is ProtocolV3Tes
   AaveV3ZkSync_SUSDeAndUSDePriceFeedUpdate_20250213 internal proposal;
 
   function setUp() public override {
-    vm.createSelectFork(vm.rpcUrl('zksync'), 56208880);
+    vm.createSelectFork(vm.rpcUrl('zksync'), 55890667);
     proposal = new AaveV3ZkSync_SUSDeAndUSDePriceFeedUpdate_20250213();
 
     super.setUp();
