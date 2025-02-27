@@ -38,7 +38,7 @@ contract AaveV2Polygon_AaveV2DeprecationUpdate_20250220 is AaveV2PayloadPolygon 
       params: IV2RateStrategyFactory.RateStrategyParams({
         optimalUtilizationRate: _bpsToRay(45_00),
         baseVariableBorrowRate: _bpsToRay(20_00),
-        variableRateSlope1: _bpsToRay(0),
+        variableRateSlope1: 0,
         variableRateSlope2: _bpsToRay(300_00),
         stableRateSlope1: EngineFlags.KEEP_CURRENT,
         stableRateSlope2: EngineFlags.KEEP_CURRENT
@@ -49,7 +49,7 @@ contract AaveV2Polygon_AaveV2DeprecationUpdate_20250220 is AaveV2PayloadPolygon 
       params: IV2RateStrategyFactory.RateStrategyParams({
         optimalUtilizationRate: _bpsToRay(45_00),
         baseVariableBorrowRate: _bpsToRay(20_00),
-        variableRateSlope1: _bpsToRay(0),
+        variableRateSlope1: 0,
         variableRateSlope2: _bpsToRay(300_00),
         stableRateSlope1: EngineFlags.KEEP_CURRENT,
         stableRateSlope2: EngineFlags.KEEP_CURRENT
@@ -60,7 +60,7 @@ contract AaveV2Polygon_AaveV2DeprecationUpdate_20250220 is AaveV2PayloadPolygon 
       params: IV2RateStrategyFactory.RateStrategyParams({
         optimalUtilizationRate: _bpsToRay(45_00),
         baseVariableBorrowRate: _bpsToRay(20_00),
-        variableRateSlope1: _bpsToRay(0),
+        variableRateSlope1: 0,
         variableRateSlope2: _bpsToRay(300_00),
         stableRateSlope1: EngineFlags.KEEP_CURRENT,
         stableRateSlope2: EngineFlags.KEEP_CURRENT
@@ -71,7 +71,7 @@ contract AaveV2Polygon_AaveV2DeprecationUpdate_20250220 is AaveV2PayloadPolygon 
       params: IV2RateStrategyFactory.RateStrategyParams({
         optimalUtilizationRate: _bpsToRay(45_00),
         baseVariableBorrowRate: _bpsToRay(20_00),
-        variableRateSlope1: _bpsToRay(0),
+        variableRateSlope1: 0,
         variableRateSlope2: _bpsToRay(300_00),
         stableRateSlope1: EngineFlags.KEEP_CURRENT,
         stableRateSlope2: EngineFlags.KEEP_CURRENT

@@ -48,7 +48,7 @@ contract AaveV2Avalanche_AaveV2DeprecationUpdate_20250220 is AaveV2PayloadAvalan
       params: IV2RateStrategyFactory.RateStrategyParams({
         optimalUtilizationRate: EngineFlags.KEEP_CURRENT,
         baseVariableBorrowRate: _bpsToRay(20_00),
-        variableRateSlope1: _bpsToRay(0),
+        variableRateSlope1: 0,
         variableRateSlope2: EngineFlags.KEEP_CURRENT,
         stableRateSlope1: EngineFlags.KEEP_CURRENT,
         stableRateSlope2: EngineFlags.KEEP_CURRENT

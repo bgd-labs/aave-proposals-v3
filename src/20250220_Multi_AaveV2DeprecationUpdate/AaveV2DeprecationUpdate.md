@@ -11,7 +11,7 @@ Chaos labs recommends further risk parameters changes to deprecate Aave V2 proto
 
 ## Motivation
 
-at standardizing the parameters in the market, improving the deprecation speed of frozen markets, and reducing the risks posed by volatile collateral assets.
+The proposal is aimed at standardizing the parameters in the market, improving the deprecation speed of frozen markets, and reducing the risks posed by volatile collateral assets.
 
 In order to reduce risk we recommend disabling borrows across all assets, preventing further growth of risky debt positions. This measure ensures that positions utilizing volatile or risky collateral cannot increase their leverage within the legacy implementation. It also reduces the risk of price manipulation via oracle dependencies within the V2 instance.
 
@@ -79,7 +79,7 @@ Adjust interest rate parameters in markets where bad debt constitutes a signific
 | USDP   | Ethereum  | 3%           | 15%             | 200%            | 20%              | 99.99%                 | 20%              | 0%                  | 300%                | 45%                  | -                          |
 | FRAX   | Ethereum  | 3%           | 15%             | 200%            | 20%              | 99.99%                 | 20%              | 0%                  | 300%                | 45%                  | -                          |
 | GUSD   | Ethereum  | 3%           | 15%             | 200%            | 20%              | 99.99%                 | 20%              | 0%                  | 300%                | 45%                  | -                          |
-| TUSD   | Ethereum  | 10%          | 0%              | 0%              | 1%               | 99.99%                 | 20%              | -                   | 300%                | 45%                  | -                          |
+| TUSD   | Ethereum  | 10%          | 0%              | 0%              | 1%               | 99.99%                 | 1%               | -                   | -                   | -                    | -                          |
 | renFIL | Ethereum  | 0%           | 0%              | 0%              | 0%               | 35.00%                 | 20%              | -                   | 300%                | 45%                  | 99.99%                     |
 | LINK   | Ethereum  | 0%           | 7%              | 300%            | 45%              | 90.00%                 | 20%              | 0%                  | -                   | -                    | 99.99%                     |
 | UST    | Ethereum  | 20%          | 0%              | 300%            | 80%              | 99.99%                 | -                | 0%                  | -                   | 45%                  | -                          |
