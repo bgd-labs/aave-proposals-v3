@@ -25,7 +25,7 @@ async function fetchListing(pool: PoolIdentifier): Promise<Listing> {
   const chain = getPoolChain(pool);
   const erc20 = getContract({
     abi: IERC20Detailed_ABI,
-    client: CHAIN_ID_CLIENT_MAP[CHAIN_TO_CHAIN_ID[chain]],
+    client: getClient(CHAIN_TO_CHAIN_ID[chain], {}),
     address: asset,
   });
   let symbol = '';
