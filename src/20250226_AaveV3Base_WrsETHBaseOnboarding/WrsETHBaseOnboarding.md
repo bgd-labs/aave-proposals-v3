@@ -23,7 +23,7 @@ The table below illustrates the configured risk parameters for **wrsETH**
 | Borrowable                |                                   DISABLED |
 | Collateral Enabled        |                                       true |
 | Supply Cap (wrsETH)       |                                        400 |
-| Borrow Cap (wrsETH)       |                                          0 |
+| Borrow Cap (wrsETH)       |                                          1 |
 | Debt Ceiling              |                                      USD 0 |
 | LTV                       |                                     0.05 % |
 | LT                        |                                      0.1 % |

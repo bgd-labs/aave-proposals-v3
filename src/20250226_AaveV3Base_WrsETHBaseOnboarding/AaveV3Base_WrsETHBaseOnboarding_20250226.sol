@@ -67,7 +67,7 @@ contract AaveV3Base_WrsETHBaseOnboarding_20250226 is AaveV3PayloadBase {
       liqBonus: 7_50,
       reserveFactor: 20_00,
       supplyCap: 400,
-      borrowCap: 0,
+      borrowCap: 1,
       debtCeiling: 0,
       liqProtocolFee: 10_00,
       rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
