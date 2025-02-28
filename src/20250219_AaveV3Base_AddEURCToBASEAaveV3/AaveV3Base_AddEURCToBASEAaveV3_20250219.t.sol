@@ -18,7 +18,7 @@ contract AaveV3Base_AddEURCToBASEAaveV3_20250219_Test is ProtocolV3TestBase {
   AaveV3Base_AddEURCToBASEAaveV3_20250219 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('base'), 26567562);
+    vm.createSelectFork(vm.rpcUrl('base'), 26985479);
     proposal = new AaveV3Base_AddEURCToBASEAaveV3_20250219();
   }
 
