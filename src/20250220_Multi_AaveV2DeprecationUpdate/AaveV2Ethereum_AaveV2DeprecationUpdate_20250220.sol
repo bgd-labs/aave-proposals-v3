@@ -101,7 +101,7 @@ contract AaveV2Ethereum_AaveV2DeprecationUpdate_20250220 is AaveV2PayloadEthereu
       params: IV2RateStrategyFactory.RateStrategyParams({
         optimalUtilizationRate: _bpsToRay(1_00),
         baseVariableBorrowRate: _bpsToRay(1_00),
-        variableRateSlope1: 0,
+        variableRateSlope1: EngineFlags.KEEP_CURRENT,
         variableRateSlope2: 0,
         stableRateSlope1: EngineFlags.KEEP_CURRENT,
         stableRateSlope2: EngineFlags.KEEP_CURRENT
