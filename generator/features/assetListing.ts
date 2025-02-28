@@ -116,7 +116,7 @@ export const assetListing: FeatureModule<Listing[]> = {
           let listingExe = `IERC20(${cfg.assetSymbol}).forceApprove(address(${pool}.POOL), ${cfg.assetSymbol}_SEED_AMOUNT);\n`;
           listingExe += `${pool}.POOL.supply(${cfg.assetSymbol}, ${cfg.assetSymbol}_SEED_AMOUNT, ${pool}.DUST_BIN, 0);\n`;
           if (isAddress(cfg.admin)) {
-            listingExe += `\n(address a${cfg.assetSymbol}, , ) = ${pool}.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(${cfg.assetSymbol});\n`;
+            listingExe += `\naddress a${cfg.assetSymbol} = ${pool}.POOL.getReserveAToken(${cfg.assetSymbol});\n`;
             listingExe += `IEmissionManager(${pool}.EMISSION_MANAGER).setEmissionAdmin(${cfg.assetSymbol}, ${cfg.assetSymbol}_LM_ADMIN);\n`;
             listingExe += `IEmissionManager(${pool}.EMISSION_MANAGER).setEmissionAdmin(a${cfg.assetSymbol}, ${cfg.assetSymbol}_LM_ADMIN);\n`;
           }
@@ -150,7 +150,7 @@ export const assetListing: FeatureModule<Listing[]> = {
           if (isAddress(cfg.admin)) {
             listingTest += `\nfunction test_${cfg.assetSymbol}Admin() public {
 	      ${TEST_EXECUTE_PROPOSAL}
-              (address a${cfg.assetSymbol}, , ) = ${pool}.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(proposal.${cfg.assetSymbol}());
+              address a${cfg.assetSymbol} = ${pool}.POOL.getReserveAToken(proposal.${cfg.assetSymbol}());
 	      assertEq(IEmissionManager(${pool}.EMISSION_MANAGER).getEmissionAdmin(proposal.${cfg.assetSymbol}()), proposal.${cfg.assetSymbol}_LM_ADMIN());
 	      assertEq(IEmissionManager(${pool}.EMISSION_MANAGER).getEmissionAdmin(a${cfg.assetSymbol}), proposal.${cfg.assetSymbol}_LM_ADMIN());
 	    }\n`;
