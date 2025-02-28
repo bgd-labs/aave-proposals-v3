@@ -71,8 +71,8 @@ Adjust interest rate parameters in markets where bad debt constitutes a signific
 | ------ | --------- | ---------------- | ------------------- | ------------------- | -------------------- | -------------------------- |
 | BUSD   | Ethereum  | 1%               | -                   | -                   | -                    | -                          |
 | ZRX    | Ethereum  | 1%               | -                   | 0%                  | 1%                   | -                          |
-| BAT    | Ethereum  | 1%               | 0%                  | 0%                  | 1%                   | -                          |
-| MANA   | Ethereum  | 1%               | 0%                  | 0%                  | 1%                   | -                          |
+| BAT    | Ethereum  | 1%               | -                   | 0%                  | 1%                   | -                          |
+| MANA   | Ethereum  | 1%               | -                   | 0%                  | 1%                   | -                          |
 | FEI    | Ethereum  | 20%              | 0%                  | 300%                | 45%                  | -                          |
 | sUSD   | Ethereum  | 20%              | 0%                  | 300%                | 45%                  | -                          |
 | LUSD   | Ethereum  | 20%              | 0%                  | 300%                | 45%                  | -                          |
