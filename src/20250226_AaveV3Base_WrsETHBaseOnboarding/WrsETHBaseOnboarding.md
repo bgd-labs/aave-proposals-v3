@@ -41,6 +41,17 @@ The table below illustrates the configured risk parameters for **wrsETH**
 
 Additionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://basescan.org/address/0xac140648435d03f784879cd789130F22Ef588Fcd) has been set as the emission admin for wrsETH and the corresponding aToken.
 
+Moreover the following e-mode will be added:
+
+| Parameter           | Value  | Value  |
+| ------------------- | ------ | ------ |
+| Asset               | wrsETH | wstETH |
+| Collateral          | Yes    | No     |
+| Borrowable          | No     | Yes    |
+| LTV                 | 92.50% | -      |
+| LT                  | 94.50% | -      |
+| Liquidation Penalty | 1.00%  | -      |
+
 ## References
 
 - Implementation: [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250226_AaveV3Base_WrsETHBaseOnboarding/AaveV3Base_WrsETHBaseOnboarding_20250226.sol)

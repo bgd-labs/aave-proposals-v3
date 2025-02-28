@@ -10,7 +10,7 @@
 | isActive | true |
 | isFrozen | false |
 | supplyCap | 400 wrsETH |
-| borrowCap | 0 wrsETH |
+| borrowCap | 1 wrsETH |
 | debtCeiling | 0 $ [0] |
 | isSiloed | false |
 | isFlashloanable | true |
@@ -68,8 +68,8 @@
 | eMode.ltv | - | 92.5 % |
 | eMode.liquidationThreshold | - | 94.5 % |
 | eMode.liquidationBonus | - | 1 % |
-| eMode.borrowableBitmap | - |  |
-| eMode.collateralBitmap | - |  |
+| eMode.borrowableBitmap | - | wstETH |
+| eMode.collateralBitmap | - | wrsETH |
 
 
 ## Raw diff
@@ -80,8 +80,8 @@
     "4": {
       "from": null,
       "to": {
-        "borrowableBitmap": "0",
-        "collateralBitmap": "0",
+        "borrowableBitmap": "8",
+        "collateralBitmap": "512",
         "eModeCategory": 4,
         "label": "rsETH/wstETH emode",
         "liquidationBonus": 10100,
@@ -98,7 +98,7 @@
         "aTokenName": "Aave Base wrsETH",
         "aTokenSymbol": "aBaswrsETH",
         "aTokenUnderlyingBalance": "50000000000000000",
-        "borrowCap": 0,
+        "borrowCap": 1,
         "borrowingEnabled": false,
         "debtCeiling": 0,
         "decimals": 18,
@@ -168,7 +168,7 @@
       }
     },
     "0x2425a746911128c2eaa7bebdc9bc452ee52208a1": {
-      "label": "AaveV3Base.DEFAULT_VARIABLE_DEBT_TOKEN_IMPL_REV_1",
+      "label": null,
       "balanceDiff": null,
       "stateDiff": {
         "0x0000000000000000000000000000000000000000000000000000000000000000": {
@@ -202,7 +202,7 @@
       }
     },
     "0x2cc0fc26ed4563a5ce5e8bdcfe1a2878676ae156": {
-      "label": "AaveV3Base.ORACLE",
+      "label": null,
       "balanceDiff": null,
       "stateDiff": {
         "0x00946451196bb13f828ad850e9f3c7153a06a899d8af170a8bc48f4ff4bec25f": {
@@ -212,7 +212,7 @@
       }
     },
     "0x2dc219e716793fb4b21548c0f009ba3af753ab01": {
-      "label": "GovernanceV3Base.PAYLOADS_CONTROLLER",
+      "label": null,
       "balanceDiff": null,
       "stateDiff": {}
     },
@@ -231,7 +231,7 @@
       }
     },
     "0x43955b0899ab7232e3a454cf84aedd22ad46fd33": {
-      "label": "AaveV3Base.ACL_MANAGER",
+      "label": null,
       "balanceDiff": null,
       "stateDiff": {}
     },
@@ -246,7 +246,7 @@
       "stateDiff": {}
     },
     "0x5731a04b1e775f0fdd454bf70f3335886e9a96be": {
-      "label": "AaveV3Base.POOL_CONFIGURATOR",
+      "label": null,
       "balanceDiff": null,
       "stateDiff": {}
     },
@@ -256,7 +256,7 @@
       "stateDiff": {}
     },
     "0x6533a273f3ac84df91dcd654d6ebaba73687e246": {
-      "label": "AaveV3Base.EMISSION_MANAGER",
+      "label": null,
       "balanceDiff": null,
       "stateDiff": {
         "0x0cd8b138ec71684b5b65f6240bb9b685aba9fabf3d97bc10e8b205307d8952c2": {
@@ -270,20 +270,24 @@
       }
     },
     "0x6ef6b6176091f94a8ad52c08e571f81598b226a2": {
-      "label": "AaveV3Base.POOL_IMPL",
+      "label": null,
       "balanceDiff": null,
       "stateDiff": {
         "0x533efb5c9f032d0e72b35f5d59b231dc7a9fb94625f73b3c45c394126326354c": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x0000000000000000000000000000000000000000000000000000277424ea2422"
+          "newValue": "0x0000000000000000000000000000000000000000000000000200277424ea2422"
         },
         "0x533efb5c9f032d0e72b35f5d59b231dc7a9fb94625f73b3c45c394126326354d": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
           "newValue": "0x72734554482f77737445544820656d6f64650000000000000000000000000024"
         },
+        "0x533efb5c9f032d0e72b35f5d59b231dc7a9fb94625f73b3c45c394126326354e": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000008"
+        },
         "0x70f3bb6a392ddd8da0d065901d06be3531eaee419994175e61f7027f7f10e693": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x100000000000000000000003e800000019000000000007d0811229fe000a0005"
+          "newValue": "0x100000000000000000000003e800000019000000000107d0811229fe000a0005"
         },
         "0x70f3bb6a392ddd8da0d065901d06be3531eaee419994175e61f7027f7f10e694": {
           "previousValue": "0x0000000000000000000000000000000000000000033b2e3c9fd0803ce8000000",
@@ -300,7 +304,7 @@
       }
     },
     "0x71041dddad3595f9ced3dccfbe3d1f4b0a16bb70": {
-      "label": "AaveV3Base.ASSETS.WETH.ORACLE",
+      "label": null,
       "balanceDiff": null,
       "stateDiff": {}
     },
@@ -310,13 +314,12 @@
       "stateDiff": {
         "0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x00000000000000000000000098f409fc4a42f34ae3c326c7f48ed01ae8caec69",
-          "label": "Implementation slot"
+          "newValue": "0x00000000000000000000000098f409fc4a42f34ae3c326c7f48ed01ae8caec69"
         }
       }
     },
     "0x86ab1c62a8bf868e1b3e1ab87d587aba6fbcbdc5": {
-      "label": "AaveV3Base.ASSETS.WETH.INTEREST_RATE_STRATEGY, AaveV3Base.ASSETS.cbETH.INTEREST_RATE_STRATEGY, AaveV3Base.ASSETS.USDbC.INTEREST_RATE_STRATEGY, AaveV3Base.ASSETS.wstETH.INTEREST_RATE_STRATEGY, AaveV3Base.ASSETS.USDC.INTEREST_RATE_STRATEGY, AaveV3Base.ASSETS.weETH.INTEREST_RATE_STRATEGY, AaveV3Base.ASSETS.cbBTC.INTEREST_RATE_STRATEGY, AaveV3Base.ASSETS.ezETH.INTEREST_RATE_STRATEGY, AaveV3Base.ASSETS.GHO.INTEREST_RATE_STRATEGY",
+      "label": null,
       "balanceDiff": null,
       "stateDiff": {
         "0x00946451196bb13f828ad850e9f3c7153a06a899d8af170a8bc48f4ff4bec25f": {
@@ -326,12 +329,12 @@
       }
     },
     "0x9390b1735def18560c509e2d0bc090e9d6ba257a": {
-      "label": "AaveV3Base.ACL_ADMIN, GovernanceV3Base.EXECUTOR_LVL_1",
+      "label": null,
       "balanceDiff": null,
       "stateDiff": {}
     },
     "0x98f409fc4a42f34ae3c326c7f48ed01ae8caec69": {
-      "label": "AaveV3Base.DEFAULT_A_TOKEN_IMPL_REV_1",
+      "label": null,
       "balanceDiff": null,
       "stateDiff": {
         "0x0000000000000000000000000000000000000000000000000000000000000000": {
@@ -382,7 +385,7 @@
       "stateDiff": {}
     },
     "0xa238dd80c259a72e81d7e4664a9801593f98d1c5": {
-      "label": "AaveV3Base.POOL",
+      "label": null,
       "balanceDiff": null,
       "stateDiff": {}
     },
@@ -410,12 +413,12 @@
       "stateDiff": {}
     },
     "0xe20fcbdbffc4dd138ce8b2e6fbb6cb49777ad64d": {
-      "label": "AaveV3Base.POOL_ADDRESSES_PROVIDER",
+      "label": null,
       "balanceDiff": null,
       "stateDiff": {}
     },
     "0xe5e48ad1f9d1a894188b483dcf91f4fad6aba43b": {
-      "label": "AaveV3Base.POOL_CONFIGURATOR_IMPL",
+      "label": null,
       "balanceDiff": null,
       "stateDiff": {}
     },
@@ -425,8 +428,7 @@
       "stateDiff": {
         "0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x0000000000000000000000002425a746911128c2eaa7bebdc9bc452ee52208a1",
-          "label": "Implementation slot"
+          "newValue": "0x0000000000000000000000002425a746911128c2eaa7bebdc9bc452ee52208a1"
         }
       }
     },
@@ -478,7 +480,7 @@
       }
     },
     "0xf9cc4f0d883f1a1eb2c253bdb46c254ca51e1f44": {
-      "label": "AaveV3Base.DEFAULT_INCENTIVES_CONTROLLER",
+      "label": null,
       "balanceDiff": null,
       "stateDiff": {}
     }
