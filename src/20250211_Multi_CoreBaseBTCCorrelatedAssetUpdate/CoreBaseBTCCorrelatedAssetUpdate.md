@@ -11,7 +11,6 @@ This proposal focuses curating LBTC for growth across Core and Base instances of
 
 - Onboard LBTC on Base;
 - Create LBTC/cbBTC eMode on Core instance;
-- Create LBTC/fBTC eMode on Core instance;
 - Create LBTC/tBTC eMode on Core instance;
 - Create LBTC/cbBTC eMode on Base instance; and;
 - Amend cbBTC Borrow Rate.
@@ -20,11 +19,9 @@ This proposal focuses curating LBTC for growth across Core and Base instances of
 
 Lombard has demonstrated consistent growth, surpassing $1.8B in TVL, and has established itself as the leading BTC LST in the market. Its initial onboarding, coupled with the first liquid eMode alongside WBTC, quickly reached supply caps, highlighting strong demand for leverage loops between LBTC and BTC wrappers.
 
-On Aave’s Core instance, cbBTC is the second-largest BTC wrapper. While it experienced strong growth post-listing, the absence of borrowing opportunities has limited its potential. The onboarding of LBTC introduces a new growth avenue for both LBTC, cbBTC, tBTC and fBTC. The new liquid eModes will allow users to loop LBTC exposure while offering attractive deposit rates for cbBTC and fBTC holders, incentivizing them to supply liquidity and fuelling this strategy.
+On Aave’s Core instance, cbBTC is the second-largest BTC wrapper. While it experienced strong growth post-listing, the absence of borrowing opportunities has limited its potential. The onboarding of LBTC introduces a new growth avenue for both LBTC, cbBTC and tBTC. The new liquid eModes will allow users to loop LBTC exposure while offering attractive deposit rates for cbBTC holders, incentivizing them to supply liquidity and fuelling this strategy.
 
-Specifically to fBTC, a points program will be applied to users who deposit fBTC and also, to different users who borrow fBTC. Leveraging LBTC/fBTC is expected to stimulate demand for fBTC.
-
-To support this growth strategy, the optimal utilization rate (Uoptimal) for cbBTC and fBTC should be increased from 45% to 80%, aligning them with wBTC. The initial Uoptimal was set when cbBTC had minimal borrowing demand, but the introduction of this liquid eMode is expected to significantly boost cbBTC borrowing activity, warranting this adjustment. For fBTC, not yet listed, the opportunity between Lombard and Ignition developed relatively recently.
+To support this growth strategy, the optimal utilization rate (Uoptimal) for cbBTC should be increased from 45% to 80%, aligning them with wBTC. The initial Uoptimal was set when cbBTC had minimal borrowing demand, but the introduction of this liquid eMode is expected to significantly boost cbBTC borrowing activity, warranting this adjustment.
 
 Additionally, Base has emerged as the second-largest platform for cbBTC growth. Onboarding LBTC to Base will replicate this successful dynamic, with LBTC users leveraging existing cbBTC liquidity. For Lombard, Base is already the third-largest ecosystem (after Mainnet and Berachain), with over $117M in TVL, making it an ideal environment to extend this growth strategy.
 
@@ -71,21 +68,21 @@ The table below illustrates the configured risk parameters for **LBTC**
 | Borrowable                |                                   DISABLED |
 | Collateral Enabled        |                                       true |
 | Supply Cap (LBTC)         |                                        400 |
-| Borrow Cap (LBTC)         |                                          0 |
+| Borrow Cap (LBTC)         |                                          1 |
 | Debt Ceiling              |                                      USD 0 |
 | LTV                       |                                       68 % |
 | LT                        |                                       73 % |
 | Liquidation Bonus         |                                      8.5 % |
 | Liquidation Protocol Fee  |                                       10 % |
-| Reserve Factor            |                                     0.01 % |
+| Reserve Factor            |                                       50 % |
 | Base Variable Borrow Rate |                                        0 % |
-| Variable Slope 1          |                                        0 % |
-| Variable Slope 2          |                                        0 % |
-| Uoptimal                  |                                        1 % |
+| Variable Slope 1          |                                        4 % |
+| Variable Slope 2          |                                      300 % |
+| Uoptimal                  |                                       45 % |
 | Flashloanable             |                                    ENABLED |
 | Siloed Borrowing          |                                   DISABLED |
 | Borrowable in Isolation   |                                   DISABLED |
-| Oracle                    | 0x1E6c22AAA11F507af12034A5Dc4126A6A25DC8d2 |
+| Oracle                    | 0x9e07546c9Fe8868855CD04B26051a26D1599E270 |
 
 #### Liquid E-modes
 

@@ -22,7 +22,7 @@ contract AaveV3Base_CoreBaseBTCCorrelatedAssetUpdate_20250211 is AaveV3PayloadBa
 
   function _postExecute() internal override {
     IERC20(LBTC).forceApprove(address(AaveV3Base.POOL), LBTC_SEED_AMOUNT);
-    AaveV3Base.POOL.supply(LBTC, LBTC_SEED_AMOUNT, address(AaveV3Base.COLLECTOR), 0);
+    AaveV3Base.POOL.supply(LBTC, LBTC_SEED_AMOUNT, AaveV3Base.DUST_BIN, 0);
   }
 
   function rateStrategiesUpdates()
@@ -81,7 +81,7 @@ contract AaveV3Base_CoreBaseBTCCorrelatedAssetUpdate_20250211 is AaveV3PayloadBa
       ltv: 82_00,
       liqThreshold: 84_00,
       liqBonus: 3_00,
-      label: 'BTC_CORRELATED'
+      label: 'LBTC_cbBTC'
     });
 
     return eModeUpdates;
@@ -118,7 +118,7 @@ contract AaveV3Base_CoreBaseBTCCorrelatedAssetUpdate_20250211 is AaveV3PayloadBa
     listings[0] = IAaveV3ConfigEngine.Listing({
       asset: LBTC,
       assetSymbol: 'LBTC',
-      priceFeed: 0x1E6c22AAA11F507af12034A5Dc4126A6A25DC8d2,
+      priceFeed: 0x9e07546c9Fe8868855CD04B26051a26D1599E270,
       enabledToBorrow: EngineFlags.DISABLED,
       borrowableInIsolation: EngineFlags.DISABLED,
       withSiloedBorrowing: EngineFlags.DISABLED,
@@ -126,16 +126,16 @@ contract AaveV3Base_CoreBaseBTCCorrelatedAssetUpdate_20250211 is AaveV3PayloadBa
       ltv: 68_00,
       liqThreshold: 73_00,
       liqBonus: 8_50,
-      reserveFactor: 1, // reserveFactor should be greater than 0
+      reserveFactor: 50_00,
       supplyCap: 400,
-      borrowCap: 0,
+      borrowCap: 1,
       debtCeiling: 0,
       liqProtocolFee: 10_00,
       rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
-        optimalUsageRatio: 1_00, // minimum optimalUsageRatio is 1%
+        optimalUsageRatio: 45_00,
         baseVariableBorrowRate: 0,
-        variableRateSlope1: 0,
-        variableRateSlope2: 0
+        variableRateSlope1: 4_00,
+        variableRateSlope2: 300_00
       })
     });
 

@@ -17,7 +17,7 @@ contract AaveV3Base_CoreBaseBTCCorrelatedAssetUpdate_20250211_Test is ProtocolV3
   AaveV3Base_CoreBaseBTCCorrelatedAssetUpdate_20250211 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('base'), 26374997);
+    vm.createSelectFork(vm.rpcUrl('base'), 26982148);
     proposal = new AaveV3Base_CoreBaseBTCCorrelatedAssetUpdate_20250211();
 
     deal(proposal.LBTC(), AaveV3Base.ACL_ADMIN, proposal.LBTC_SEED_AMOUNT());
@@ -34,11 +34,11 @@ contract AaveV3Base_CoreBaseBTCCorrelatedAssetUpdate_20250211_Test is ProtocolV3
     );
   }
 
-  function test_collectorHasLBTCFunds() public {
+  function test_binHasLBTCFunds() public {
     GovV3Helpers.executePayload(vm, address(proposal));
     (address aTokenAddress, , ) = AaveV3Base.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(
       proposal.LBTC()
     );
-    assertEq(IERC20(aTokenAddress).balanceOf(address(AaveV3Base.COLLECTOR)), 10 ** 5);
+    assertEq(IERC20(aTokenAddress).balanceOf(AaveV3Base.DUST_BIN), 10 ** 5);
   }
 }

@@ -15,7 +15,7 @@ contract AaveV3Ethereum_CoreBaseBTCCorrelatedAssetUpdate_20250211_Test is Protoc
   AaveV3Ethereum_CoreBaseBTCCorrelatedAssetUpdate_20250211 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 21844974);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 21945497);
     proposal = new AaveV3Ethereum_CoreBaseBTCCorrelatedAssetUpdate_20250211();
   }
 

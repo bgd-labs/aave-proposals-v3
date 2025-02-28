@@ -12,9 +12,6 @@ import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config
  * - Discussion: https://governance.aave.com/t/arfc-core-base-btc-correlated-asset-update/20940
  */
 contract AaveV3Ethereum_CoreBaseBTCCorrelatedAssetUpdate_20250211 is AaveV3PayloadEthereum {
-  // https://etherscan.io/address/0xc96de26018a54d51c097160568752c4e3bd6c364
-  address public constant fBTC_UNDERLYING = 0xC96dE26018A54D51c097160568752c4E3BD6C364;
-
   function rateStrategiesUpdates()
     public
     pure
@@ -82,14 +79,30 @@ contract AaveV3Ethereum_CoreBaseBTCCorrelatedAssetUpdate_20250211 is AaveV3Paylo
     returns (IAaveV3ConfigEngine.EModeCategoryUpdate[] memory)
   {
     IAaveV3ConfigEngine.EModeCategoryUpdate[]
-      memory eModeUpdates = new IAaveV3ConfigEngine.EModeCategoryUpdate[](1);
+      memory eModeUpdates = new IAaveV3ConfigEngine.EModeCategoryUpdate[](3);
 
     eModeUpdates[0] = IAaveV3ConfigEngine.EModeCategoryUpdate({
       eModeCategory: AaveV3EthereumEModes.LBTC_WBTC,
       ltv: 84_00,
       liqThreshold: 86_00,
       liqBonus: 3_00,
-      label: 'BTC_CORRELATED'
+      label: 'LBTC_WBTC'
+    });
+
+    eModeUpdates[1] = IAaveV3ConfigEngine.EModeCategoryUpdate({
+      eModeCategory: 5,
+      ltv: 84_00,
+      liqThreshold: 86_00,
+      liqBonus: 3_00,
+      label: 'LBTC_cbBTC'
+    });
+
+    eModeUpdates[2] = IAaveV3ConfigEngine.EModeCategoryUpdate({
+      eModeCategory: 6,
+      ltv: 84_00,
+      liqThreshold: 86_00,
+      liqBonus: 3_00,
+      label: 'LBTC_tBTC'
     });
 
     return eModeUpdates;
@@ -102,7 +115,7 @@ contract AaveV3Ethereum_CoreBaseBTCCorrelatedAssetUpdate_20250211 is AaveV3Paylo
     returns (IAaveV3ConfigEngine.AssetEModeUpdate[] memory)
   {
     IAaveV3ConfigEngine.AssetEModeUpdate[]
-      memory assetEModeUpdates = new IAaveV3ConfigEngine.AssetEModeUpdate[](4);
+      memory assetEModeUpdates = new IAaveV3ConfigEngine.AssetEModeUpdate[](6);
 
     assetEModeUpdates[0] = IAaveV3ConfigEngine.AssetEModeUpdate({
       asset: AaveV3EthereumAssets.WBTC_UNDERLYING,
@@ -112,19 +125,31 @@ contract AaveV3Ethereum_CoreBaseBTCCorrelatedAssetUpdate_20250211 is AaveV3Paylo
     });
     assetEModeUpdates[1] = IAaveV3ConfigEngine.AssetEModeUpdate({
       asset: AaveV3EthereumAssets.cbBTC_UNDERLYING,
-      eModeCategory: AaveV3EthereumEModes.LBTC_WBTC,
+      eModeCategory: 5,
       borrowable: EngineFlags.ENABLED,
       collateral: EngineFlags.DISABLED
     });
     assetEModeUpdates[2] = IAaveV3ConfigEngine.AssetEModeUpdate({
       asset: AaveV3EthereumAssets.tBTC_UNDERLYING,
-      eModeCategory: AaveV3EthereumEModes.LBTC_WBTC,
+      eModeCategory: 6,
       borrowable: EngineFlags.ENABLED,
       collateral: EngineFlags.DISABLED
     });
     assetEModeUpdates[3] = IAaveV3ConfigEngine.AssetEModeUpdate({
       asset: AaveV3EthereumAssets.LBTC_UNDERLYING,
       eModeCategory: AaveV3EthereumEModes.LBTC_WBTC,
+      borrowable: EngineFlags.DISABLED,
+      collateral: EngineFlags.ENABLED
+    });
+    assetEModeUpdates[4] = IAaveV3ConfigEngine.AssetEModeUpdate({
+      asset: AaveV3EthereumAssets.LBTC_UNDERLYING,
+      eModeCategory: 5,
+      borrowable: EngineFlags.DISABLED,
+      collateral: EngineFlags.ENABLED
+    });
+    assetEModeUpdates[5] = IAaveV3ConfigEngine.AssetEModeUpdate({
+      asset: AaveV3EthereumAssets.LBTC_UNDERLYING,
+      eModeCategory: 6,
       borrowable: EngineFlags.DISABLED,
       collateral: EngineFlags.ENABLED
     });
