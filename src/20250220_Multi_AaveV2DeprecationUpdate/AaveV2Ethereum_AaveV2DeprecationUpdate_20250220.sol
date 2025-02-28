@@ -110,10 +110,10 @@ contract AaveV2Ethereum_AaveV2DeprecationUpdate_20250220 is AaveV2PayloadEthereu
     rateStrategies[4] = IAaveV2ConfigEngine.RateStrategyUpdate({
       asset: AaveV2EthereumAssets.BUSD_UNDERLYING,
       params: IV2RateStrategyFactory.RateStrategyParams({
-        optimalUtilizationRate: _bpsToRay(1_00),
+        optimalUtilizationRate: EngineFlags.KEEP_CURRENT,
         baseVariableBorrowRate: _bpsToRay(1_00),
-        variableRateSlope1: 0,
-        variableRateSlope2: 0,
+        variableRateSlope1: EngineFlags.KEEP_CURRENT,
+        variableRateSlope2: EngineFlags.KEEP_CURRENT,
         stableRateSlope1: EngineFlags.KEEP_CURRENT,
         stableRateSlope2: EngineFlags.KEEP_CURRENT
       })
