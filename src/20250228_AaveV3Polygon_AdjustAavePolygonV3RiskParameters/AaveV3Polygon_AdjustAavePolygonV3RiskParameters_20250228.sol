@@ -8,7 +8,7 @@ import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config
 /**
  * @title Adjust Aave Polygon V3 Risk Parameters
  * @author ACI
- * - Snapshot: Direct-To-AIP
+ * - Snapshot: Direct-to-AIP
  * - Discussion: https://governance.aave.com/t/arfc-adjust-risk-parameters-for-aave-v2-and-v3-on-polygon/20211/60
  */
 contract AaveV3Polygon_AdjustAavePolygonV3RiskParameters_20250228 is AaveV3PayloadPolygon {
@@ -19,25 +19,9 @@ contract AaveV3Polygon_AdjustAavePolygonV3RiskParameters_20250228 is AaveV3Paylo
     returns (IAaveV3ConfigEngine.CollateralUpdate[] memory)
   {
     IAaveV3ConfigEngine.CollateralUpdate[]
-      memory collateralUpdate = new IAaveV3ConfigEngine.CollateralUpdate[](4);
+      memory collateralUpdate = new IAaveV3ConfigEngine.CollateralUpdate[](2);
 
     collateralUpdate[0] = IAaveV3ConfigEngine.CollateralUpdate({
-      asset: AaveV3PolygonAssets.DAI_UNDERLYING,
-      ltv: 1_00,
-      liqThreshold: EngineFlags.KEEP_CURRENT,
-      liqBonus: EngineFlags.KEEP_CURRENT,
-      debtCeiling: EngineFlags.KEEP_CURRENT,
-      liqProtocolFee: EngineFlags.KEEP_CURRENT
-    });
-    collateralUpdate[1] = IAaveV3ConfigEngine.CollateralUpdate({
-      asset: AaveV3PolygonAssets.USDC_UNDERLYING,
-      ltv: 1_00,
-      liqThreshold: EngineFlags.KEEP_CURRENT,
-      liqBonus: EngineFlags.KEEP_CURRENT,
-      debtCeiling: EngineFlags.KEEP_CURRENT,
-      liqProtocolFee: EngineFlags.KEEP_CURRENT
-    });
-    collateralUpdate[2] = IAaveV3ConfigEngine.CollateralUpdate({
       asset: AaveV3PolygonAssets.USDT_UNDERLYING,
       ltv: 70_00,
       liqThreshold: EngineFlags.KEEP_CURRENT,
@@ -45,7 +29,7 @@ contract AaveV3Polygon_AdjustAavePolygonV3RiskParameters_20250228 is AaveV3Paylo
       debtCeiling: EngineFlags.KEEP_CURRENT,
       liqProtocolFee: EngineFlags.KEEP_CURRENT
     });
-    collateralUpdate[3] = IAaveV3ConfigEngine.CollateralUpdate({
+    collateralUpdate[1] = IAaveV3ConfigEngine.CollateralUpdate({
       asset: AaveV3PolygonAssets.USDCn_UNDERLYING,
       ltv: 70_00,
       liqThreshold: EngineFlags.KEEP_CURRENT,
@@ -67,8 +51,8 @@ contract AaveV3Polygon_AdjustAavePolygonV3RiskParameters_20250228 is AaveV3Paylo
 
     eModeUpdates[0] = IAaveV3ConfigEngine.EModeCategoryUpdate({
       eModeCategory: AaveV3PolygonEModes.STABLECOINS,
-      ltv: 1_00,
-      liqThreshold: EngineFlags.KEEP_CURRENT,
+      ltv: 91_25,
+      liqThreshold: 94_25,
       liqBonus: EngineFlags.KEEP_CURRENT,
       label: EngineFlags.KEEP_CURRENT_STRING
     });

@@ -15,7 +15,7 @@ contract AaveV3Polygon_AdjustAavePolygonV3RiskParameters_20250228_Test is Protoc
   AaveV3Polygon_AdjustAavePolygonV3RiskParameters_20250228 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('polygon'), 68475670);
+    vm.createSelectFork(vm.rpcUrl('polygon'), 68490896);
     proposal = new AaveV3Polygon_AdjustAavePolygonV3RiskParameters_20250228();
   }
 

@@ -1,5 +1,5 @@
 ---
-title: "Adjust Aave Polygon V3 risk parameters"
+title: "Adjust Aave Polygon V3 Risk Parameters"
 author: "ACI"
 discussions: "https://governance.aave.com/t/arfc-adjust-risk-parameters-for-aave-v2-and-v3-on-polygon/20211/60"
 ---
@@ -20,22 +20,20 @@ USDT is scheduled to migrate to the USDT0 standard soon, as recently implemented
 
 Aave Polygon V3 stablecoins suggested risk parameters
 
-| Deployment | Asset  | Current LTV | Proposed LTV |
-| ---------- | ------ | ----------- | ------------ |
-| Polygon V3 | DAI    | 63%         | 1%           |
-| Polygon V3 | USDC.e | 75%         | 1%           |
-| Polygon V3 | USDT   | 75%         | 70%          |
-| Polygon V3 | USDC   | 75%         | 70%          |
+| Deployment | Asset | Current LTV | Proposed LTV |
+| ---------- | ----- | ----------- | ------------ |
+| Polygon V3 | USDT  | 0%          | 70%          |
+| Polygon V3 | USDC  | 0%          | 70%          |
 
 ---
 
 Aave Polygon Stablecoin emode
 
-- Make all stablecoins as non-borrowable in emode
+- Make all stablecoins non-borrowable in the stablecoin emode category
 
 | Current LTV | Proposed LTV | Current LT | Proposed LT |
 | ----------- | ------------ | ---------- | ----------- |
-| 93%         | 1%           | 95%        | ---         |
+| 93%         | 91.25%       | 95%        | 94.25%      |
 
 ## References
 

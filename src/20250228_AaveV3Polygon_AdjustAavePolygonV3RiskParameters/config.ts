@@ -8,29 +8,13 @@ export const config: ConfigFile = {
     author: 'ACI',
     discussion:
       'https://governance.aave.com/t/arfc-adjust-risk-parameters-for-aave-v2-and-v3-on-polygon/20211/60',
-    snapshot: 'Direct-To-AIP',
+    snapshot: 'Direct-to-AIP',
     votingNetwork: 'POLYGON',
   },
   poolOptions: {
     AaveV3Polygon: {
       configs: {
         COLLATERALS_UPDATE: [
-          {
-            asset: 'DAI',
-            ltv: '1',
-            liqThreshold: '',
-            liqBonus: '',
-            debtCeiling: '',
-            liqProtocolFee: '',
-          },
-          {
-            asset: 'USDC',
-            ltv: '1',
-            liqThreshold: '',
-            liqBonus: '',
-            debtCeiling: '',
-            liqProtocolFee: '',
-          },
           {
             asset: 'USDT',
             ltv: '70',
@@ -51,8 +35,8 @@ export const config: ConfigFile = {
         EMODES_UPDATES: [
           {
             eModeCategory: 'AaveV3PolygonEModes.STABLECOINS',
-            ltv: '1',
-            liqThreshold: '',
+            ltv: '91.25',
+            liqThreshold: '94.25',
             liqBonus: '',
             label: '',
           },
@@ -108,7 +92,7 @@ export const config: ConfigFile = {
           },
         ],
       },
-      cache: {blockNumber: 68475670},
+      cache: {blockNumber: 68490896},
     },
   },
 };
