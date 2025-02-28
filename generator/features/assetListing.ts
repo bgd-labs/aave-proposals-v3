@@ -114,9 +114,9 @@ export const assetListing: FeatureModule<Listing[]> = {
         }),
         execute: cfg.map((cfg) => {
           let listingExe = `IERC20(${cfg.assetSymbol}).forceApprove(address(${pool}.POOL), ${cfg.assetSymbol}_SEED_AMOUNT);\n`;
-          listingExe += `${pool}.POOL.supply(${cfg.assetSymbol}, ${cfg.assetSymbol}_SEED_AMOUNT, address(${pool}.COLLECTOR), 0);\n`;
+          listingExe += `${pool}.POOL.supply(${cfg.assetSymbol}, ${cfg.assetSymbol}_SEED_AMOUNT, ${pool}.DUST_BIN, 0);\n`;
           if (isAddress(cfg.admin)) {
-            listingExe += `\n(address a${cfg.assetSymbol}, , ) = ${pool}.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(${cfg.assetSymbol});\n`;
+            listingExe += `\naddress a${cfg.assetSymbol} = ${pool}.POOL.getReserveAToken(${cfg.assetSymbol});\n`;
             listingExe += `IEmissionManager(${pool}.EMISSION_MANAGER).setEmissionAdmin(${cfg.assetSymbol}, ${cfg.assetSymbol}_ADMIN);\n`;
             listingExe += `IEmissionManager(${pool}.EMISSION_MANAGER).setEmissionAdmin(a${cfg.assetSymbol}, ${cfg.assetSymbol}_ADMIN);\n`;
           }
