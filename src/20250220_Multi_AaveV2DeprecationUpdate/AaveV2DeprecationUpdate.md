@@ -23,80 +23,77 @@ We also recommend standardizing the interest rate parameters of all the frozen a
 
 Implement previously proposed modifications to Aave V2 as per [here](https://governance.aave.com/t/arfc-reduction-of-reserve-factor-and-slope2-for-stablecoin-markets-on-aave-v2/20041).
 
-| **Asset** | Chain    | **Current RF** | **Recommended RF** | **Current Slope2** | **Recommended Slope2** |
-| --------- | -------- | -------------- | ------------------ | ------------------ | ---------------------- |
-| USDC      | Ethereum | 85%            | 70%                | 60%                | 60%                    |
-| USDT      | Ethereum | 85%            | 70%                | 100%               | 60%                    |
-| DAI       | Ethereum | 85%            | 70%                | 75%                | 60%                    |
+| **Asset** | Chain    | **Recommended RF** | **Recommended Slope2** |
+| --------- | -------- | ------------------ | ---------------------- |
+| USDC      | Ethereum | 70%                | 60%                    |
+| USDT      | Ethereum | 70%                | 60%                    |
+| DAI       | Ethereum | 70%                | 60%                    |
 
 ## Net new Borrow deactivation
 
 Disable new borrows across all assets in Aave V2 to prevent further debt accumulation.
 
-| Asset  | Chain     | Borrowable Current Value | Borrowable Recommended |
-| ------ | --------- | ------------------------ | ---------------------- |
-| WAVAX  | Avalanche | Yes                      | No                     |
-| DAI.e  | Avalanche | Yes                      | No                     |
-| USDT.e | Avalanche | Yes                      | No                     |
-| WETH.e | Avalanche | Yes                      | No                     |
-| WBTC.e | Avalanche | Yes                      | No                     |
-| ENJ    | Ethereum  | Yes                      | No                     |
-| USDT   | Ethereum  | Yes                      | No                     |
-| KNC    | Ethereum  | Yes                      | No                     |
-| renFIL | Ethereum  | Yes                      | No                     |
-| DAI    | Ethereum  | Yes                      | No                     |
-| WBTC   | Ethereum  | Yes                      | No                     |
-| UST    | Ethereum  | Yes                      | No                     |
-| BUSD   | Ethereum  | Yes                      | No                     |
-| USDC   | Ethereum  | Yes                      | No                     |
-| MANA   | Ethereum  | Yes                      | No                     |
-| YFI    | Ethereum  | Yes                      | No                     |
-| RAI    | Ethereum  | Yes                      | No                     |
-| AMPL   | Ethereum  | Yes                      | No                     |
-| WETH   | Ethereum  | Yes                      | No                     |
-| FEI    | Ethereum  | Yes                      | No                     |
-| CRV    | Polygon   | Yes                      | No                     |
-| LINK   | Polygon   | Yes                      | No                     |
-| BAL    | Polygon   | Yes                      | No                     |
-| USDT   | Polygon   | Yes                      | No                     |
-| WETH   | Polygon   | Yes                      | No                     |
-| USDC.e | Polygon   | Yes                      | No                     |
-| WBTC   | Polygon   | Yes                      | No                     |
-| WPOL   | Polygon   | Yes                      | No                     |
-| DAI    | Polygon   | Yes                      | No                     |
+| Asset  | Chain     | Borrowable Recommended |
+| ------ | --------- | ---------------------- |
+| WAVAX  | Avalanche | No                     |
+| DAI.e  | Avalanche | No                     |
+| USDT.e | Avalanche | No                     |
+| WETH.e | Avalanche | No                     |
+| WBTC.e | Avalanche | No                     |
+| ENJ    | Ethereum  | No                     |
+| USDT   | Ethereum  | No                     |
+| KNC    | Ethereum  | No                     |
+| renFIL | Ethereum  | No                     |
+| DAI    | Ethereum  | No                     |
+| WBTC   | Ethereum  | No                     |
+| UST    | Ethereum  | No                     |
+| BUSD   | Ethereum  | No                     |
+| USDC   | Ethereum  | No                     |
+| MANA   | Ethereum  | No                     |
+| YFI    | Ethereum  | No                     |
+| RAI    | Ethereum  | No                     |
+| AMPL   | Ethereum  | No                     |
+| WETH   | Ethereum  | No                     |
+| FEI    | Ethereum  | No                     |
+| CRV    | Polygon   | No                     |
+| LINK   | Polygon   | No                     |
+| BAL    | Polygon   | No                     |
+| USDT   | Polygon   | No                     |
+| WETH   | Polygon   | No                     |
+| USDC.e | Polygon   | No                     |
+| WBTC   | Polygon   | No                     |
+| WPOL   | Polygon   | No                     |
+| DAI    | Polygon   | No                     |
 
 Adjust interest rate parameters in markets where bad debt constitutes a significant portion of the total outstanding debt, ensuring that accrual rates do not exacerbate financial losses.
 
-| Asset  | Chain     | Current Base | Current Slope 1 | Current Slope 2 | Current UOptimal | Current Reserve Factor | Recommended Base | Recommended Slope 1 | Recommended Slope 2 | Recommended UOptimal | Recommended Reserve Factor |
-| ------ | --------- | ------------ | --------------- | --------------- | ---------------- | ---------------------- | ---------------- | ------------------- | ------------------- | -------------------- | -------------------------- |
-| BUSD   | Ethereum  | 10%          | 0%              | 0%              | 1%               | 99.99%                 | 1%               | 0%                  | 0%                  | 1%                   | -                          |
-| ZRX    | Ethereum  | 20%          | 0%              | 300%            | 45%              | 99.99%                 | 1%               | 0%                  | 0%                  | 1%                   | -                          |
-| BAT    | Ethereum  | 20%          | 0%              | 300%            | 45%              | 99.99%                 | 1%               | 0%                  | 0%                  | 1%                   | -                          |
-| MANA   | Ethereum  | 20%          | 0%              | 300%            | 45%              | 99.99%                 | 1%               | 0%                  | 0%                  | 1%                   | -                          |
-| FEI    | Ethereum  | 0%           | 4%              | 100%            | 1%               | 99.99%                 | 20%              | 0%                  | 300%                | 45%                  | -                          |
-| sUSD   | Ethereum  | 3%           | 15%             | 200%            | 20%              | 99.99%                 | 20%              | 0%                  | 300%                | 45%                  | -                          |
-| LUSD   | Ethereum  | 3%           | 15%             | 200%            | 20%              | 99.99%                 | 20%              | 0%                  | 300%                | 45%                  | -                          |
-| USDP   | Ethereum  | 3%           | 15%             | 200%            | 20%              | 99.99%                 | 20%              | 0%                  | 300%                | 45%                  | -                          |
-| FRAX   | Ethereum  | 3%           | 15%             | 200%            | 20%              | 99.99%                 | 20%              | 0%                  | 300%                | 45%                  | -                          |
-| GUSD   | Ethereum  | 3%           | 15%             | 200%            | 20%              | 99.99%                 | 20%              | 0%                  | 300%                | 45%                  | -                          |
-| TUSD   | Ethereum  | 10%          | 0%              | 0%              | 1%               | 99.99%                 | 1%               | -                   | -                   | -                    | -                          |
-| renFIL | Ethereum  | 0%           | 0%              | 0%              | 0%               | 35.00%                 | 20%              | -                   | 300%                | 45%                  | 99.99%                     |
-| LINK   | Ethereum  | 0%           | 7%              | 300%            | 45%              | 90.00%                 | 20%              | 0%                  | -                   | -                    | 99.99%                     |
-| UST    | Ethereum  | 20%          | 0%              | 300%            | 80%              | 99.99%                 | -                | 0%                  | -                   | 45%                  | -                          |
-| RAI    | Ethereum  | 20%          | 0%              | 300%            | 80%              | 99.99%                 | -                | -                   | -                   | 45%                  | -                          |
-| KNC    | Ethereum  | 20%          | 0%              | 300%            | 65%              | 99.99%                 | -                | -                   | -                   | 45%                  | -                          |
-| AMPL   | Ethereum  | 20%          | 0%              | 300%            | 80%              | 99.99%                 | -                | -                   | -                   | 45%                  | -                          |
-| BAL    | Ethereum  | 20%          | 0%              | 300%            | 80%              | 99.99%                 | -                | -                   | -                   | 45%                  | -                          |
-| DPI    | Ethereum  | 20%          | 0%              | 300%            | 50%              | 99.99%                 | -                | -                   | -                   | 45%                  | -                          |
-| SNX    | Ethereum  | 20%          | 0%              | 300%            | 80%              | 99.99%                 | -                | -                   | -                   | 45%                  | -                          |
-| UNI    | Ethereum  | 20%          | 0%              | 300%            | 45%              | 99.99%                 | -                | 0%                  | -                   | -                    | -                          |
-| CRV    | Ethereum  | 20%          | 0%              | 300%            | 45%              | 99.99%                 | -                | 0%                  | -                   | -                    | -                          |
-| YFI    | Ethereum  | 20%          | 0%              | 300%            | 45%              | 99.99%                 | -                | 0%                  | -                   | -                    | -                          |
-| BAL    | Polygon   | 5%           | 50%             | 134%            | 20%              | 99.99%                 | 20%              | 0%                  | 300%                | 45%                  | -                          |
-| GHST   | Polygon   | 0%           | 50%             | 134%            | 10%              | 99.99%                 | 20%              | 0%                  | 300%                | 45%                  | -                          |
-| CRV    | Polygon   | 3%           | 50%             | 134%            | 10%              | 99.99%                 | 20%              | 0%                  | 300%                | 45%                  | -                          |
-| LINK   | Polygon   | 0%           | 50%             | 134%            | 10%              | 99.99%                 | 20%              | 0%                  | 300%                | 45%                  | -                          |
-| WBTC.e | Avalanche | 0%           | 7%              | 300%            | 45%              | 85.00%                 | 20%              | 0%                  | -                   | -                    | 99.99%                     |
+| Asset  | Chain     | Recommended Base | Recommended Slope 1 | Recommended Slope 2 | Recommended UOptimal | Recommended Reserve Factor |
+| ------ | --------- | ---------------- | ------------------- | ------------------- | -------------------- | -------------------------- |
+| BUSD   | Ethereum  | 1%               | -                   | -                   | -                    | -                          |
+| ZRX    | Ethereum  | 1%               | -                   | 0%                  | 1%                   | -                          |
+| BAT    | Ethereum  | 1%               | 0%                  | 0%                  | 1%                   | -                          |
+| MANA   | Ethereum  | 1%               | 0%                  | 0%                  | 1%                   | -                          |
+| FEI    | Ethereum  | 20%              | 0%                  | 300%                | 45%                  | -                          |
+| sUSD   | Ethereum  | 20%              | 0%                  | 300%                | 45%                  | -                          |
+| LUSD   | Ethereum  | 20%              | 0%                  | 300%                | 45%                  | -                          |
+| USDP   | Ethereum  | 20%              | 0%                  | 300%                | 45%                  | -                          |
+| FRAX   | Ethereum  | 20%              | 0%                  | 300%                | 45%                  | -                          |
+| GUSD   | Ethereum  | 20%              | 0%                  | 300%                | 45%                  | -                          |
+| TUSD   | Ethereum  | 1%               | -                   | -                   | -                    | -                          |
+| renFIL | Ethereum  | 20%              | -                   | 300%                | 45%                  | 99.99%                     |
+| LINK   | Ethereum  | 20%              | 0%                  | -                   | -                    | 99.99%                     |
+| UST    | Ethereum  | -                | -                   | -                   | 45%                  | -                          |
+| RAI    | Ethereum  | -                | -                   | -                   | 45%                  | -                          |
+| KNC    | Ethereum  | -                | -                   | -                   | 45%                  | -                          |
+| AMPL   | Ethereum  | -                | -                   | -                   | 45%                  | -                          |
+| BAL    | Ethereum  | -                | -                   | -                   | 45%                  | -                          |
+| DPI    | Ethereum  | -                | -                   | -                   | 45%                  | -                          |
+| SNX    | Ethereum  | -                | -                   | -                   | 45%                  | -                          |
+| BAL    | Polygon   | 20%              | 0%                  | 300%                | 45%                  | -                          |
+| GHST   | Polygon   | 20%              | 0%                  | 300%                | 45%                  | -                          |
+| CRV    | Polygon   | 20%              | 0%                  | 300%                | 45%                  | -                          |
+| LINK   | Polygon   | 20%              | 0%                  | 300%                | 45%                  | -                          |
+| WBTC.e | Avalanche | 20%              | 0%                  | -                   | -                    | 99.99%                     |
 
 ## References
 
