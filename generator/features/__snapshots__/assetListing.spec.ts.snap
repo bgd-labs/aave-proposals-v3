@@ -129,7 +129,7 @@ contract AaveV3Ethereum_Test_20231023 is AaveV3PayloadEthereum {
 
   function _postExecute() internal override {
     IERC20(PSP).forceApprove(address(AaveV3Ethereum.POOL), PSP_SEED_AMOUNT);
-    AaveV3Ethereum.POOL.supply(PSP, PSP_SEED_AMOUNT, address(AaveV3Ethereum.COLLECTOR), 0);
+    AaveV3Ethereum.POOL.supply(PSP, PSP_SEED_AMOUNT, AaveV3Ethereum.DUST_BIN, 0);
   }
 
   function newListings() public pure override returns (IAaveV3ConfigEngine.Listing[] memory) {
@@ -194,12 +194,10 @@ contract AaveV3Ethereum_Test_20231023_Test is ProtocolV3TestBase {
     defaultTest('AaveV3Ethereum_Test_20231023', AaveV3Ethereum.POOL, address(proposal));
   }
 
-  function test_collectorHasPSPFunds() public {
+  function test_dustBinHasPSPFunds() public {
     GovV3Helpers.executePayload(vm, address(proposal));
-    (address aTokenAddress, , ) = AaveV3Ethereum
-      .AAVE_PROTOCOL_DATA_PROVIDER
-      .getReserveTokensAddresses(proposal.PSP());
-    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Ethereum.COLLECTOR)), 10 ** 18);
+    address aTokenAddress = AaveV3Ethereum.POOL.getReserveAToken(proposal.PSP());
+    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Ethereum.DUST_BIN)), 10 ** 18);
   }
 }
 ",
@@ -395,7 +393,7 @@ contract AaveV3Ethereum_Test_20231023 is AaveV3PayloadEthereum {
 
   function _postExecute() internal override {
     IERC20(PSP).forceApprove(address(AaveV3Ethereum.POOL), PSP_SEED_AMOUNT);
-    AaveV3Ethereum.POOL.supply(PSP, PSP_SEED_AMOUNT, address(AaveV3Ethereum.COLLECTOR), 0);
+    AaveV3Ethereum.POOL.supply(PSP, PSP_SEED_AMOUNT, AaveV3Ethereum.DUST_BIN, 0);
   }
 
   function newListings() public pure override returns (IAaveV3ConfigEngine.Listing[] memory) {
@@ -460,12 +458,10 @@ contract AaveV3Ethereum_Test_20231023_Test is ProtocolV3TestBase {
     defaultTest('AaveV3Ethereum_Test_20231023', AaveV3Ethereum.POOL, address(proposal));
   }
 
-  function test_collectorHasPSPFunds() public {
+  function test_dustBinHasPSPFunds() public {
     GovV3Helpers.executePayload(vm, address(proposal));
-    (address aTokenAddress, , ) = AaveV3Ethereum
-      .AAVE_PROTOCOL_DATA_PROVIDER
-      .getReserveTokensAddresses(proposal.PSP());
-    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Ethereum.COLLECTOR)), 10 ** 18);
+    address aTokenAddress = AaveV3Ethereum.POOL.getReserveAToken(proposal.PSP());
+    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Ethereum.DUST_BIN)), 10 ** 18);
   }
 }
 ",
@@ -570,7 +566,7 @@ uint256 public constant PSP_SEED_AMOUNT = 1e18;
     ],
     "execute": [
       "IERC20(PSP).forceApprove(address(AaveV3Ethereum.POOL), PSP_SEED_AMOUNT);
-AaveV3Ethereum.POOL.supply(PSP, PSP_SEED_AMOUNT, address(AaveV3Ethereum.COLLECTOR), 0);
+AaveV3Ethereum.POOL.supply(PSP, PSP_SEED_AMOUNT, AaveV3Ethereum.DUST_BIN, 0);
 ",
     ],
     "fn": [
@@ -607,10 +603,10 @@ AaveV3Ethereum.POOL.supply(PSP, PSP_SEED_AMOUNT, address(AaveV3Ethereum.COLLECTO
   },
   "test": {
     "fn": [
-      "function test_collectorHasPSPFunds() public {
+      "function test_dustBinHasPSPFunds() public {
             GovV3Helpers.executePayload(vm,address(proposal));
-            (address aTokenAddress, , ) = AaveV3Ethereum.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(proposal.PSP());
-            assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Ethereum.COLLECTOR)), 10 ** 18);
+            address aTokenAddress = AaveV3Ethereum.POOL.getReserveAToken(proposal.PSP());
+            assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Ethereum.DUST_BIN)), 10 ** 18);
           }
 ",
     ],
