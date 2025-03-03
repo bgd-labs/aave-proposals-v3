@@ -1,9 +1,12 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
+import {AaveV3ZkSync} from 'aave-address-book/AaveV3ZkSync.sol';
 import {GovV3Helpers, IPayloadsControllerCore} from 'aave-helpers/src/GovV3Helpers.sol';
 import {ZkSyncScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
-import {AaveV3ZkSync_ClinicStewardActivation_20250228} from './AaveV3ZkSync_ClinicStewardActivation_20250228.sol';
+import {ActivationPayload_20250228} from '../../src/20250228_Multi_ClinicStewardActivation/ActivationPayload_20250228.sol';
+
+address constant BOT = 0x3Cbded22F878aFC8d39dCD744d3Fe62086B76193;
 
 // @dev wrapper factory contract for deploying the payload
 contract Deploy_AaveV3ZkSync_ClinicStewardActivation_20250228 {
@@ -11,7 +14,8 @@ contract Deploy_AaveV3ZkSync_ClinicStewardActivation_20250228 {
 
   constructor() {
     PAYLOAD = GovV3Helpers.deployDeterministicZkSync(
-      type(AaveV3ZkSync_ClinicStewardActivation_20250228).creationCode
+      type(ActivationPayload_20250228).creationCode,
+      abi.encode(AaveV3ZkSync.COLLECTOR, AaveV3ZkSync.CLINIC_STEWARD, BOT)
     );
   }
 }
