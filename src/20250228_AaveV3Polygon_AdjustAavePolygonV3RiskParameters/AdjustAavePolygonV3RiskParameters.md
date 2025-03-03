@@ -26,9 +26,9 @@ Aave Polygon V3 stablecoins suggested risk parameters
 
 ---
 
-Aave Polygon Stablecoin emode
+Aave Polygon Stablecoin E-mode
 
-- Make all stablecoins non-borrowable in the stablecoin emode category
+- Make all stablecoins non-borrowable in the stablecoin E-mode category
 
 | Current LTV | Proposed LTV | Current LT | Proposed LT |
 | ----------- | ------------ | ---------- | ----------- |
