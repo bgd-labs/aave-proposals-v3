@@ -35,8 +35,8 @@ Aave Polygon Stablecoin E-mode
 
 ## References
 
-- Implementation: [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250228_AaveV3Polygon_AdjustAavePolygonV3RiskParameters/AaveV3Polygon_AdjustAavePolygonV3RiskParameters_20250228.sol)
-- Tests: [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250228_AaveV3Polygon_AdjustAavePolygonV3RiskParameters/AaveV3Polygon_AdjustAavePolygonV3RiskParameters_20250228.t.sol)
+- Implementation: [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/22650a1521c9d3bc31b12f04808b116b854bad6f/src/20250228_AaveV3Polygon_AdjustAavePolygonV3RiskParameters/AaveV3Polygon_AdjustAavePolygonV3RiskParameters_20250228.sol)
+- Tests: [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/22650a1521c9d3bc31b12f04808b116b854bad6f/src/20250228_AaveV3Polygon_AdjustAavePolygonV3RiskParameters/AaveV3Polygon_AdjustAavePolygonV3RiskParameters_20250228.t.sol)
 - Snapshot: Direct-to-AIP
 - [Discussion](https://governance.aave.com/t/arfc-adjust-risk-parameters-for-aave-v2-and-v3-on-polygon/20211/60)
 
