@@ -12,7 +12,6 @@ This proposal addendum seeks governance approval for adjustment of the [AIP-254]
 
 Based on service provider and community feedback, this proposal aims to adjust AIP-254 to reintroduce LTV for non-bridged stablecoins in Aave Polygon V3, as they carry no rehypothecation risk. It also reduces stablecoin E-mode LT in Aave Polygon V3 due to insufficient stablecoin/stablecoin trading volume to justify the current risk level.
 
-
 USDT is scheduled to migrate to the USDT0 standard soon, as recently implemented on networks like Arbitrum. To promote stablecoin diversity and taking an optimistic view on the reduction of bridge risk for this asset, this proposal aims to restore an LTV for USDT.
 
 ## Specification
