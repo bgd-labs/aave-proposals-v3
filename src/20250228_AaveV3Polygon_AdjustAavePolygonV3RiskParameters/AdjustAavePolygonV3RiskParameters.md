@@ -6,13 +6,12 @@ discussions: "https://governance.aave.com/t/arfc-adjust-risk-parameters-for-aave
 
 ## Simple Summary
 
-This proposal addendum seeks governance approval for adjustment of the AIP 254 to reintroduce LTV for non-bridged stablecoins in Aave Polygon V3.
+This proposal addendum seeks governance approval for adjustment of the [AIP-254](https://vote.onaave.com/proposal/?proposalId=254&ipfsHash=0x9a0342bc6f37687ea20210c3a1664de1949d9e3e967ff87467501d4d00116aab) to reintroduce LTV for non-bridged stablecoins in Aave Polygon V3.
 
 ## Motivation
 
-Based on service provider and community feedback, this proposal aims to adjust AIP-254 to reintroduce LTV for non-bridged stablecoins in Aave Polygon V3, as they carry no rehypothecation risk. It also reduces stablecoin Emode LT in Aave Polygon V3 due to insufficient stablecoin/stablecoin trading volume to justify the current risk level.
+Based on service provider and community feedback, this proposal aims to adjust AIP-254 to reintroduce LTV for non-bridged stablecoins in Aave Polygon V3, as they carry no rehypothecation risk. It also reduces stablecoin E-mode LT in Aave Polygon V3 due to insufficient stablecoin/stablecoin trading volume to justify the current risk level.
 
-The Aave V3 infrastructure forces users with LTV0 assets as collateral to withdraw them before performing certain protocol actions, creating a poor user experience. Implementing a very low LTV (such as 1%) for bridged stablecoins would virtually eliminate risk while maintaining a better user experience.
 
 USDT is scheduled to migrate to the USDT0 standard soon, as recently implemented on networks like Arbitrum. To promote stablecoin diversity and taking an optimistic view on the reduction of bridge risk for this asset, this proposal aims to restore an LTV for USDT.
 
@@ -27,9 +26,9 @@ Aave Polygon V3 stablecoins suggested risk parameters
 
 ---
 
-Aave Polygon Stablecoin emode
+Aave Polygon Stablecoin E-mode
 
-- Make all stablecoins non-borrowable in the stablecoin emode category
+- Make all stablecoins non-borrowable in the stablecoin E-mode category
 
 | Current LTV | Proposed LTV | Current LT | Proposed LT |
 | ----------- | ------------ | ---------- | ----------- |
