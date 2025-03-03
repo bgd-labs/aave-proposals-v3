@@ -6,21 +6,21 @@ import {AaveV3Arbitrum} from 'aave-address-book/AaveV3Arbitrum.sol';
 import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {ActivationPayload_20250228} from './ActivationPayload_20250228.sol';
-import {Stewards, Bots} from './ClinicStewardActivation_20250228.s.sol';
+import {BOT} from './ClinicStewardActivation_20250228.s.sol';
 
 /**
  * @dev Test for AaveV3Arbitrum_ClinicStewardActivation_20250228
- * command: FOUNDRY_PROFILE=arbitrum forge test --match-path=src/20250228_Multi_ClinicStewardActivation/AaveV3Arbitrum_ClinicStewardActivation_20250228.t.sol -vv
+ * command: FOUNDRY_PROFILE=arbitrum forge test --match-path=src/20250228_Multi_ClinicStewardActivation/ActivationPayload_20250228.t.sol -vv
  */
 contract ActivationPayload_20250228_Test is ProtocolV3TestBase {
   ActivationPayload_20250228 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('arbitrum'), 310733493);
+    vm.createSelectFork(vm.rpcUrl('arbitrum'), 311933992);
     proposal = new ActivationPayload_20250228(
       address(AaveV3Arbitrum.COLLECTOR),
-      Stewards.ARBITRUM,
-      Bots.ARBITRUM
+      AaveV3Arbitrum.CLINIC_STEWARD,
+      BOT
     );
   }
 

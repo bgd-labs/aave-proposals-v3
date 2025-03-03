@@ -21,36 +21,7 @@ import {AaveV3ZkSync} from 'aave-address-book/AaveV3ZkSync.sol';
 import {GovernanceV3ZkSync} from 'aave-address-book/GovernanceV3ZkSync.sol';
 import {GovernanceV3Linea} from 'aave-address-book/GovernanceV3Linea.sol';
 
-library Bots {
-  address constant MAINNET = address(0);
-  address constant SCROLL = address(0);
-  address constant OPTIMISM = address(0);
-  address constant ARBITRUM = address(0);
-  address constant GNOSIS = address(0);
-  address constant POLYGON = address(0);
-  address constant AVALANCHE = address(0);
-  address constant BASE = address(0);
-  address constant METIS = address(0);
-  address constant BNB = address(0);
-  address constant LINEA = address(0);
-  address constant ZKSYNC = address(0);
-}
-
-library Stewards {
-  address constant MAINNET = address(0);
-  address constant LIDO = address(0);
-  address constant SCROLL = address(0);
-  address constant OPTIMISM = address(0);
-  address constant ARBITRUM = address(0);
-  address constant GNOSIS = address(0);
-  address constant POLYGON = address(0);
-  address constant AVALANCHE = address(0);
-  address constant BASE = address(0);
-  address constant METIS = address(0);
-  address constant BNB = address(0);
-  address constant LINEA = address(0);
-  address constant ZKSYNC = address(0);
-}
+address constant BOT = 0x3Cbded22F878aFC8d39dCD744d3Fe62086B76193;
 
 /**
  * @dev Deploy Ethereum
@@ -62,11 +33,11 @@ contract DeployEthereum is EthereumScript {
     // deploy payloads
     address payload0 = GovV3Helpers.deployDeterministic(
       type(ActivationPayload_20250228).creationCode,
-      abi.encode(AaveV3Ethereum.COLLECTOR, Stewards.MAINNET, Bots.MAINNET)
+      abi.encode(AaveV3Ethereum.COLLECTOR, AaveV3Ethereum.CLINIC_STEWARD, BOT)
     );
     address payload1 = GovV3Helpers.deployDeterministic(
       type(ActivationPayload_20250228).creationCode,
-      abi.encode(AaveV3Ethereum.COLLECTOR, Stewards.LIDO, Bots.MAINNET)
+      abi.encode(AaveV3Ethereum.COLLECTOR, AaveV3EthereumLido.CLINIC_STEWARD, BOT)
     );
 
     // compose action
@@ -90,7 +61,7 @@ contract DeployPolygon is PolygonScript {
     // deploy payloads
     address payload0 = GovV3Helpers.deployDeterministic(
       type(ActivationPayload_20250228).creationCode,
-      abi.encode(AaveV3Polygon.COLLECTOR, Stewards.POLYGON, Bots.POLYGON)
+      abi.encode(AaveV3Polygon.COLLECTOR, AaveV3Polygon.CLINIC_STEWARD, BOT)
     );
 
     // compose action
@@ -113,7 +84,7 @@ contract DeployAvalanche is AvalancheScript {
     // deploy payloads
     address payload0 = GovV3Helpers.deployDeterministic(
       type(ActivationPayload_20250228).creationCode,
-      abi.encode(AaveV3Avalanche.COLLECTOR, Stewards.AVALANCHE, Bots.AVALANCHE)
+      abi.encode(AaveV3Avalanche.COLLECTOR, AaveV3Avalanche.CLINIC_STEWARD, BOT)
     );
 
     // compose action
@@ -136,7 +107,7 @@ contract DeployOptimism is OptimismScript {
     // deploy payloads
     address payload0 = GovV3Helpers.deployDeterministic(
       type(ActivationPayload_20250228).creationCode,
-      abi.encode(AaveV3Optimism.COLLECTOR, Stewards.OPTIMISM, Bots.OPTIMISM)
+      abi.encode(AaveV3Optimism.COLLECTOR, AaveV3Optimism.CLINIC_STEWARD, BOT)
     );
 
     // compose action
@@ -159,7 +130,7 @@ contract DeployArbitrum is ArbitrumScript {
     // deploy payloads
     address payload0 = GovV3Helpers.deployDeterministic(
       type(ActivationPayload_20250228).creationCode,
-      abi.encode(AaveV3Arbitrum.COLLECTOR, Stewards.ARBITRUM, Bots.ARBITRUM)
+      abi.encode(AaveV3Arbitrum.COLLECTOR, AaveV3Arbitrum.CLINIC_STEWARD, BOT)
     );
 
     // compose action
@@ -182,7 +153,7 @@ contract DeployMetis is MetisScript {
     // deploy payloads
     address payload0 = GovV3Helpers.deployDeterministic(
       type(ActivationPayload_20250228).creationCode,
-      abi.encode(AaveV3Metis.COLLECTOR, Stewards.METIS, Bots.METIS)
+      abi.encode(AaveV3Metis.COLLECTOR, AaveV3Metis.CLINIC_STEWARD, BOT)
     );
 
     // compose action
@@ -205,7 +176,7 @@ contract DeployBase is BaseScript {
     // deploy payloads
     address payload0 = GovV3Helpers.deployDeterministic(
       type(ActivationPayload_20250228).creationCode,
-      abi.encode(AaveV3Base.COLLECTOR, Stewards.BASE, Bots.BASE)
+      abi.encode(AaveV3Base.COLLECTOR, AaveV3Base.CLINIC_STEWARD, BOT)
     );
 
     // compose action
@@ -228,7 +199,7 @@ contract DeployGnosis is GnosisScript {
     // deploy payloads
     address payload0 = GovV3Helpers.deployDeterministic(
       type(ActivationPayload_20250228).creationCode,
-      abi.encode(AaveV3Gnosis.COLLECTOR, Stewards.GNOSIS, Bots.GNOSIS)
+      abi.encode(AaveV3Gnosis.COLLECTOR, AaveV3Gnosis.CLINIC_STEWARD, BOT)
     );
 
     // compose action
@@ -251,7 +222,7 @@ contract DeployScroll is ScrollScript {
     // deploy payloads
     address payload0 = GovV3Helpers.deployDeterministic(
       type(ActivationPayload_20250228).creationCode,
-      abi.encode(AaveV3Scroll.COLLECTOR, Stewards.SCROLL, Bots.SCROLL)
+      abi.encode(AaveV3Scroll.COLLECTOR, AaveV3Scroll.CLINIC_STEWARD, BOT)
     );
 
     // compose action
@@ -274,7 +245,7 @@ contract DeployBNB is BNBScript {
     // deploy payloads
     address payload0 = GovV3Helpers.deployDeterministic(
       type(ActivationPayload_20250228).creationCode,
-      abi.encode(AaveV3BNB.COLLECTOR, Stewards.BNB, Bots.BNB)
+      abi.encode(AaveV3BNB.COLLECTOR, AaveV3BNB.CLINIC_STEWARD, BOT)
     );
 
     // compose action
@@ -297,7 +268,7 @@ contract DeployLinea is LineaScript {
     // deploy payloads
     address payload0 = GovV3Helpers.deployDeterministic(
       type(ActivationPayload_20250228).creationCode,
-      abi.encode(AaveV3Linea.COLLECTOR, Stewards.LINEA, Bots.LINEA)
+      abi.encode(AaveV3Linea.COLLECTOR, AaveV3Linea.CLINIC_STEWARD, BOT)
     );
 
     // compose action
@@ -322,53 +293,86 @@ contract CreateProposal is EthereumScript {
     // compose actions for validation
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsEthereum = new IPayloadsControllerCore.ExecutionAction[](2);
-    actionsEthereum[0] = GovV3Helpers.buildAction(type(ActivationPayload_20250228).creationCode);
-    actionsEthereum[1] = GovV3Helpers.buildAction(type(ActivationPayload_20250228).creationCode);
+    actionsEthereum[0] = GovV3Helpers.buildAction(
+      type(ActivationPayload_20250228).creationCode,
+      abi.encode(AaveV3Ethereum.COLLECTOR, AaveV3Ethereum.CLINIC_STEWARD, BOT)
+    );
+    actionsEthereum[1] = GovV3Helpers.buildAction(
+      type(ActivationPayload_20250228).creationCode,
+      abi.encode(AaveV3Ethereum.COLLECTOR, AaveV3EthereumLido.CLINIC_STEWARD, BOT)
+    );
     payloads[0] = GovV3Helpers.buildMainnetPayload(vm, actionsEthereum);
 
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsPolygon = new IPayloadsControllerCore.ExecutionAction[](1);
-    actionsPolygon[0] = GovV3Helpers.buildAction(type(ActivationPayload_20250228).creationCode);
+    actionsPolygon[0] = GovV3Helpers.buildAction(
+      type(ActivationPayload_20250228).creationCode,
+      abi.encode(AaveV3Polygon.COLLECTOR, AaveV3Polygon.CLINIC_STEWARD, BOT)
+    );
     payloads[1] = GovV3Helpers.buildPolygonPayload(vm, actionsPolygon);
 
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsAvalanche = new IPayloadsControllerCore.ExecutionAction[](1);
-    actionsAvalanche[0] = GovV3Helpers.buildAction(type(ActivationPayload_20250228).creationCode);
+    actionsAvalanche[0] = GovV3Helpers.buildAction(
+      type(ActivationPayload_20250228).creationCode,
+      abi.encode(AaveV3Avalanche.COLLECTOR, AaveV3Avalanche.CLINIC_STEWARD, BOT)
+    );
     payloads[2] = GovV3Helpers.buildAvalanchePayload(vm, actionsAvalanche);
 
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsOptimism = new IPayloadsControllerCore.ExecutionAction[](1);
-    actionsOptimism[0] = GovV3Helpers.buildAction(type(ActivationPayload_20250228).creationCode);
+    actionsOptimism[0] = GovV3Helpers.buildAction(
+      type(ActivationPayload_20250228).creationCode,
+      abi.encode(AaveV3Optimism.COLLECTOR, AaveV3Optimism.CLINIC_STEWARD, BOT)
+    );
     payloads[3] = GovV3Helpers.buildOptimismPayload(vm, actionsOptimism);
 
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsArbitrum = new IPayloadsControllerCore.ExecutionAction[](1);
-    actionsArbitrum[0] = GovV3Helpers.buildAction(type(ActivationPayload_20250228).creationCode);
+    actionsArbitrum[0] = GovV3Helpers.buildAction(
+      type(ActivationPayload_20250228).creationCode,
+      abi.encode(AaveV3Arbitrum.COLLECTOR, AaveV3Arbitrum.CLINIC_STEWARD, BOT)
+    );
     payloads[4] = GovV3Helpers.buildArbitrumPayload(vm, actionsArbitrum);
 
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsMetis = new IPayloadsControllerCore.ExecutionAction[](1);
-    actionsMetis[0] = GovV3Helpers.buildAction(type(ActivationPayload_20250228).creationCode);
+    actionsMetis[0] = GovV3Helpers.buildAction(
+      type(ActivationPayload_20250228).creationCode,
+      abi.encode(AaveV3Metis.COLLECTOR, AaveV3Metis.CLINIC_STEWARD, BOT)
+    );
     payloads[5] = GovV3Helpers.buildMetisPayload(vm, actionsMetis);
 
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsBase = new IPayloadsControllerCore.ExecutionAction[](1);
-    actionsBase[0] = GovV3Helpers.buildAction(type(ActivationPayload_20250228).creationCode);
+    actionsBase[0] = GovV3Helpers.buildAction(
+      type(ActivationPayload_20250228).creationCode,
+      abi.encode(AaveV3Base.COLLECTOR, AaveV3Base.CLINIC_STEWARD, BOT)
+    );
     payloads[6] = GovV3Helpers.buildBasePayload(vm, actionsBase);
 
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsGnosis = new IPayloadsControllerCore.ExecutionAction[](1);
-    actionsGnosis[0] = GovV3Helpers.buildAction(type(ActivationPayload_20250228).creationCode);
+    actionsGnosis[0] = GovV3Helpers.buildAction(
+      type(ActivationPayload_20250228).creationCode,
+      abi.encode(AaveV3Gnosis.COLLECTOR, AaveV3Gnosis.CLINIC_STEWARD, BOT)
+    );
     payloads[7] = GovV3Helpers.buildGnosisPayload(vm, actionsGnosis);
 
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsScroll = new IPayloadsControllerCore.ExecutionAction[](1);
-    actionsScroll[0] = GovV3Helpers.buildAction(type(ActivationPayload_20250228).creationCode);
+    actionsScroll[0] = GovV3Helpers.buildAction(
+      type(ActivationPayload_20250228).creationCode,
+      abi.encode(AaveV3Scroll.COLLECTOR, AaveV3Scroll.CLINIC_STEWARD, BOT)
+    );
     payloads[8] = GovV3Helpers.buildScrollPayload(vm, actionsScroll);
 
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsBNB = new IPayloadsControllerCore.ExecutionAction[](1);
-    actionsBNB[0] = GovV3Helpers.buildAction(type(ActivationPayload_20250228).creationCode);
+    actionsBNB[0] = GovV3Helpers.buildAction(
+      type(ActivationPayload_20250228).creationCode,
+      abi.encode(AaveV3BNB.COLLECTOR, AaveV3BNB.CLINIC_STEWARD, BOT)
+    );
     payloads[9] = GovV3Helpers.buildBNBPayload(vm, actionsBNB);
 
     uint40 zksyncPayload = 0;
