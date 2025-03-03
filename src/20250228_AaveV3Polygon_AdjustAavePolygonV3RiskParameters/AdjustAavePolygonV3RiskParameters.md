@@ -10,7 +10,7 @@ This proposal addendum seeks governance approval for adjustment of the AIP 254 t
 
 ## Motivation
 
-Based on service provider and community feedback, this proposal aims to adjust AIP-254 to reintroduce LTV for non-bridged stablecoins in Aave Polygon V3, as they carry no rehypothecation risk. It also reduces stablecoin Emode LT in Aave Polygon V3 due to insufficient stablecoin/stablecoin trading volume to justify the current risk level.
+Based on service provider and community feedback, this proposal aims to adjust AIP-254 to reintroduce LTV for non-bridged stablecoins in Aave Polygon V3, as they carry no rehypothecation risk. It also reduces stablecoin E-mode LT in Aave Polygon V3 due to insufficient stablecoin/stablecoin trading volume to justify the current risk level.
 
 The Aave V3 infrastructure forces users with LTV0 assets as collateral to withdraw them before performing certain protocol actions, creating a poor user experience. Implementing a very low LTV (such as 1%) for bridged stablecoins would virtually eliminate risk while maintaining a better user experience.
 
