@@ -6,7 +6,7 @@ discussions: "https://governance.aave.com/t/arfc-adjust-risk-parameters-for-aave
 
 ## Simple Summary
 
-This proposal addendum seeks governance approval for adjustment of the AIP 254 to reintroduce LTV for non-bridged stablecoins in Aave Polygon V3.
+This proposal addendum seeks governance approval for adjustment of the [AIP-254](https://vote.onaave.com/proposal/?proposalId=254&ipfsHash=0x9a0342bc6f37687ea20210c3a1664de1949d9e3e967ff87467501d4d00116aab) to reintroduce LTV for non-bridged stablecoins in Aave Polygon V3.
 
 ## Motivation
 
