@@ -47,14 +47,14 @@ Additionally, Base has emerged as the second-largest platform for cbBTC growth. 
 
 #### Liquid E-modes
 
-|      Parameters       | Value | Value | Value | Value |
-| :-------------------: | :---: | :---: | :---: | :---: |
-|         Asset         | LBTC  | wBTC  | cbBTC | tBTC  |
-|      Collateral       |  Yes  |  No   |  No   |  No   |
-|      Borrowable       |  No   |  Yes  |  Yes  |  Yes  |
-|        Max LTV        |  84%  |   -   |   -   |   -   |
-| Liquidation Threshold |  86%  |   -   |   -   |   -   |
-|   Liquidation Bonus   | 3.00% |   -   |   -   |   -   |
+|      Parameters       | Value | Value | Value |
+| :-------------------: | :---: | :---: | :---: |
+|         Asset         | LBTC  | cbBTC | tBTC  |
+|      Collateral       |  Yes  |  No   |  No   |
+|      Borrowable       |  No   |  Yes  |  Yes  |
+|        Max LTV        |  84%  |   -   |   -   |
+| Liquidation Threshold |  86%  |   -   |   -   |
+|   Liquidation Bonus   | 3.00% |   -   |   -   |
 
 ### Base Instance
 

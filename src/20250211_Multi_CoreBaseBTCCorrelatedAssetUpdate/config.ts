@@ -55,9 +55,9 @@ export const config: ConfigFile = {
         EMODES_UPDATES: [
           {
             eModeCategory: 'AaveV3EthereumEModes.LBTC_WBTC',
-            ltv: '84',
-            liqThreshold: '86',
-            liqBonus: '3',
+            ltv: 'KEEP_CURRENT',
+            liqThreshold: 'KEEP_CURRENT',
+            liqBonus: 'KEEP_CURRENT',
             label: 'LBTC_WBTC',
           },
           {
@@ -77,12 +77,6 @@ export const config: ConfigFile = {
         ],
         EMODES_ASSETS: [
           {
-            asset: 'WBTC',
-            eModeCategory: 'AaveV3EthereumEModes.LBTC_WBTC',
-            collateral: 'DISABLED',
-            borrowable: 'ENABLED',
-          },
-          {
             asset: 'cbBTC',
             eModeCategory: '5',
             collateral: 'DISABLED',
@@ -93,12 +87,6 @@ export const config: ConfigFile = {
             eModeCategory: '6',
             collateral: 'DISABLED',
             borrowable: 'ENABLED',
-          },
-          {
-            asset: 'LBTC',
-            eModeCategory: 'AaveV3EthereumEModes.LBTC_WBTC',
-            collateral: 'ENABLED',
-            borrowable: 'DISABLED',
           },
           {
             asset: 'LBTC',
