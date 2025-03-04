@@ -54,8 +54,8 @@ Moreover the following e-mode will be added:
 
 ## References
 
-- Implementation: [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250226_AaveV3Base_WrsETHBaseOnboarding/AaveV3Base_WrsETHBaseOnboarding_20250226.sol)
-- Tests: [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250226_AaveV3Base_WrsETHBaseOnboarding/AaveV3Base_WrsETHBaseOnboarding_20250226.t.sol)
+- Implementation: [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/bb48eee02aa92f638e5f38e187696c885f231b59/src/20250226_AaveV3Base_WrsETHBaseOnboarding/AaveV3Base_WrsETHBaseOnboarding_20250226.sol)
+- Tests: [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/bb48eee02aa92f638e5f38e187696c885f231b59/src/20250226_AaveV3Base_WrsETHBaseOnboarding/AaveV3Base_WrsETHBaseOnboarding_20250226.t.sol)
 - [Snapshot](https://snapshot.box/#/s:aave.eth/proposal/0x598f7057f445813d75404fae68f3501d76c90064f52ca4b9afb6f20859fa2658)
 - [Discussion](https://governance.aave.com/t/arfc-onboard-rseth-to-arbitrum-and-base-v3-instances/20741)
 
