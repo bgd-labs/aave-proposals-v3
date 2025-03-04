@@ -36,7 +36,7 @@ contract AaveV3Base_AddEURCToBASEAaveV3_20250219 is AaveV3PayloadBase {
     listings[0] = IAaveV3ConfigEngine.Listing({
       asset: EURC,
       assetSymbol: 'EURC',
-      priceFeed: 0xDAe398520e2B67cd3f27aeF9Cf14D93D927f8250,
+      priceFeed: 0x215f25556f91b30AFCF0a12dA51C9d4374B22570,
       enabledToBorrow: EngineFlags.ENABLED,
       borrowableInIsolation: EngineFlags.DISABLED,
       withSiloedBorrowing: EngineFlags.DISABLED,
