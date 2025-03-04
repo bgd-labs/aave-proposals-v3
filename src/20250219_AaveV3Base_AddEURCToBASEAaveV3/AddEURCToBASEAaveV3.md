@@ -44,7 +44,7 @@ The table below illustrates the configured risk parameters for **EURC**
 | Flashloanable             |                                    ENABLED |
 | Siloed Borrowing          |                                   DISABLED |
 | Borrowable in Isolation   |                                   DISABLED |
-| Oracle                    | 0xDAe398520e2B67cd3f27aeF9Cf14D93D927f8250 |
+| Oracle                    | 0x215f25556f91b30afcf0a12da51c9d4374b22570 |
 
 Additionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://basescan.org/address/0xac140648435d03f784879cd789130F22Ef588Fcd) has been set as the emission admin for EURC and the corresponding aToken.
 
