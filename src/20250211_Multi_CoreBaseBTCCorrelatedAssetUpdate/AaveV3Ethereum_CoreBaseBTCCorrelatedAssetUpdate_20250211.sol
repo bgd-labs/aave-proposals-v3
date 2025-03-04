@@ -83,9 +83,9 @@ contract AaveV3Ethereum_CoreBaseBTCCorrelatedAssetUpdate_20250211 is AaveV3Paylo
 
     eModeUpdates[0] = IAaveV3ConfigEngine.EModeCategoryUpdate({
       eModeCategory: AaveV3EthereumEModes.LBTC_WBTC,
-      ltv: 84_00,
-      liqThreshold: 86_00,
-      liqBonus: 3_00,
+      ltv: EngineFlags.KEEP_CURRENT,
+      liqThreshold: EngineFlags.KEEP_CURRENT,
+      liqBonus: EngineFlags.KEEP_CURRENT,
       label: 'LBTC_WBTC'
     });
 
@@ -115,39 +115,27 @@ contract AaveV3Ethereum_CoreBaseBTCCorrelatedAssetUpdate_20250211 is AaveV3Paylo
     returns (IAaveV3ConfigEngine.AssetEModeUpdate[] memory)
   {
     IAaveV3ConfigEngine.AssetEModeUpdate[]
-      memory assetEModeUpdates = new IAaveV3ConfigEngine.AssetEModeUpdate[](6);
+      memory assetEModeUpdates = new IAaveV3ConfigEngine.AssetEModeUpdate[](4);
 
     assetEModeUpdates[0] = IAaveV3ConfigEngine.AssetEModeUpdate({
-      asset: AaveV3EthereumAssets.WBTC_UNDERLYING,
-      eModeCategory: AaveV3EthereumEModes.LBTC_WBTC,
-      borrowable: EngineFlags.ENABLED,
-      collateral: EngineFlags.DISABLED
-    });
-    assetEModeUpdates[1] = IAaveV3ConfigEngine.AssetEModeUpdate({
       asset: AaveV3EthereumAssets.cbBTC_UNDERLYING,
       eModeCategory: 5,
       borrowable: EngineFlags.ENABLED,
       collateral: EngineFlags.DISABLED
     });
-    assetEModeUpdates[2] = IAaveV3ConfigEngine.AssetEModeUpdate({
+    assetEModeUpdates[1] = IAaveV3ConfigEngine.AssetEModeUpdate({
       asset: AaveV3EthereumAssets.tBTC_UNDERLYING,
       eModeCategory: 6,
       borrowable: EngineFlags.ENABLED,
       collateral: EngineFlags.DISABLED
     });
-    assetEModeUpdates[3] = IAaveV3ConfigEngine.AssetEModeUpdate({
-      asset: AaveV3EthereumAssets.LBTC_UNDERLYING,
-      eModeCategory: AaveV3EthereumEModes.LBTC_WBTC,
-      borrowable: EngineFlags.DISABLED,
-      collateral: EngineFlags.ENABLED
-    });
-    assetEModeUpdates[4] = IAaveV3ConfigEngine.AssetEModeUpdate({
+    assetEModeUpdates[2] = IAaveV3ConfigEngine.AssetEModeUpdate({
       asset: AaveV3EthereumAssets.LBTC_UNDERLYING,
       eModeCategory: 5,
       borrowable: EngineFlags.DISABLED,
       collateral: EngineFlags.ENABLED
     });
-    assetEModeUpdates[5] = IAaveV3ConfigEngine.AssetEModeUpdate({
+    assetEModeUpdates[3] = IAaveV3ConfigEngine.AssetEModeUpdate({
       asset: AaveV3EthereumAssets.LBTC_UNDERLYING,
       eModeCategory: 6,
       borrowable: EngineFlags.DISABLED,
