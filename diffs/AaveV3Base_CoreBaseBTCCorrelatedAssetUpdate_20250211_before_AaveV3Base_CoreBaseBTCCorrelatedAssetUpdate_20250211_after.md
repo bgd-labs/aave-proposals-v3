@@ -14,10 +14,10 @@
 | debtCeiling | 0 $ [0] |
 | isSiloed | false |
 | isFlashloanable | true |
-| oracle | [0x9e07546c9Fe8868855CD04B26051a26D1599E270](https://basescan.org/address/0x9e07546c9Fe8868855CD04B26051a26D1599E270) |
+| oracle | [0x64c911996D3c6aC71f9b455B1E8E7266BcbD848F](https://basescan.org/address/0x64c911996D3c6aC71f9b455B1E8E7266BcbD848F) |
 | oracleDecimals | 8 |
-| oracleDescription | LBTC / USD |
-| oracleLatestAnswer | 81322.30469183 |
+| oracleDescription | BTC / USD |
+| oracleLatestAnswer | 81835.90661917 |
 | usageAsCollateralEnabled | true |
 | ltv | 68 % [6800] |
 | liquidationThreshold | 73 % [7300] |
@@ -132,10 +132,10 @@
         "liquidationProtocolFee": 1000,
         "liquidationThreshold": 7300,
         "ltv": 6800,
-        "oracle": "0x9e07546c9Fe8868855CD04B26051a26D1599E270",
+        "oracle": "0x64c911996D3c6aC71f9b455B1E8E7266BcbD848F",
         "oracleDecimals": 8,
-        "oracleDescription": "LBTC / USD",
-        "oracleLatestAnswer": "8132230469183",
+        "oracleDescription": "BTC / USD",
+        "oracleLatestAnswer": "8183590661917",
         "reserveFactor": 5000,
         "supplyCap": 400,
         "symbol": "LBTC",
@@ -183,7 +183,7 @@
       "stateDiff": {
         "0x9494584aed5cd751dfda731ce708240f3b44d490b2febee994902cbe485628eb": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x0000000000000000000000009e07546c9fe8868855cd04b26051a26d1599e270"
+          "newValue": "0x00000000000000000000000064c911996d3c6ac71f9b455b1e8e7266bcbd848f"
         }
       }
     },

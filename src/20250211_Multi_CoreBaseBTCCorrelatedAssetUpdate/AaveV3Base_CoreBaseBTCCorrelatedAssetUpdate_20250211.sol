@@ -118,7 +118,7 @@ contract AaveV3Base_CoreBaseBTCCorrelatedAssetUpdate_20250211 is AaveV3PayloadBa
     listings[0] = IAaveV3ConfigEngine.Listing({
       asset: LBTC,
       assetSymbol: 'LBTC',
-      priceFeed: 0x9e07546c9Fe8868855CD04B26051a26D1599E270,
+      priceFeed: 0x64c911996D3c6aC71f9b455B1E8E7266BcbD848F,
       enabledToBorrow: EngineFlags.DISABLED,
       borrowableInIsolation: EngineFlags.DISABLED,
       withSiloedBorrowing: EngineFlags.DISABLED,

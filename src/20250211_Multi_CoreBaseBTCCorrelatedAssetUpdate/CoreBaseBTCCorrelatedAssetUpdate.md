@@ -82,7 +82,7 @@ The table below illustrates the configured risk parameters for **LBTC**
 | Flashloanable             |                                    ENABLED |
 | Siloed Borrowing          |                                   DISABLED |
 | Borrowable in Isolation   |                                   DISABLED |
-| Oracle                    | 0x9e07546c9Fe8868855CD04B26051a26D1599E270 |
+| Oracle                    | 0x64c911996D3c6aC71f9b455B1E8E7266BcbD848F |
 
 #### Liquid E-modes
 

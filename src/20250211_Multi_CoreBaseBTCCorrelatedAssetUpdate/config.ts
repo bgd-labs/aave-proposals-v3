@@ -166,7 +166,7 @@ export const config: ConfigFile = {
           {
             assetSymbol: 'LBTC',
             decimals: 8,
-            priceFeed: '0x9e07546c9Fe8868855CD04B26051a26D1599E270',
+            priceFeed: '0x64c911996D3c6aC71f9b455B1E8E7266BcbD848F',
             ltv: '70',
             liqThreshold: '75',
             liqBonus: '8.5',
