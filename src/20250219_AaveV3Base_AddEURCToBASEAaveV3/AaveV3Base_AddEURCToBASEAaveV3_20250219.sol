@@ -52,7 +52,7 @@ contract AaveV3Base_AddEURCToBASEAaveV3_20250219 is AaveV3PayloadBase {
       rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
         optimalUsageRatio: 90_00,
         baseVariableBorrowRate: 0,
-        variableRateSlope1: 12_00,
+        variableRateSlope1: 8_50,
         variableRateSlope2: 40_00
       })
     });

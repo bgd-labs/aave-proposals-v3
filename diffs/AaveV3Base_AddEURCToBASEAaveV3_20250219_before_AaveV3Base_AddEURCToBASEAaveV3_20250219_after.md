@@ -14,9 +14,9 @@
 | debtCeiling | 0 $ [0] |
 | isSiloed | false |
 | isFlashloanable | true |
-| oracle | [0xDAe398520e2B67cd3f27aeF9Cf14D93D927f8250](https://basescan.org/address/0xDAe398520e2B67cd3f27aeF9Cf14D93D927f8250) |
+| oracle | [0x215f25556f91b30AFCF0a12dA51C9d4374B22570](https://basescan.org/address/0x215f25556f91b30AFCF0a12dA51C9d4374B22570) |
 | oracleDecimals | 8 |
-| oracleDescription | EURC / USD |
+| oracleDescription | Capped EURC/USD |
 | oracleLatestAnswer | 1.03853717 |
 | usageAsCollateralEnabled | true |
 | ltv | 75 % [7500] |
@@ -39,11 +39,11 @@
 | virtualAccountingActive | true |
 | virtualBalance | 100 EURC [100000000] |
 | optimalUsageRatio | 90 % |
-| maxVariableBorrowRate | 52 % |
+| maxVariableBorrowRate | 48.5 % |
 | baseVariableBorrowRate | 0 % |
-| variableRateSlope1 | 12 % |
+| variableRateSlope1 | 8.5 % |
 | variableRateSlope2 | 40 % |
-| interestRate | ![ir](https://dash.onaave.com/api/static?variableRateSlope1=120000000000000000000000000&variableRateSlope2=400000000000000000000000000&optimalUsageRatio=900000000000000000000000000&baseVariableBorrowRate=0&maxVariableBorrowRate=520000000000000000000000000) |
+| interestRate | ![ir](https://dash.onaave.com/api/static?variableRateSlope1=85000000000000000000000000&variableRateSlope2=400000000000000000000000000&optimalUsageRatio=900000000000000000000000000&baseVariableBorrowRate=0&maxVariableBorrowRate=485000000000000000000000000) |
 
 
 ## Raw diff
@@ -74,9 +74,9 @@
         "liquidationProtocolFee": 1000,
         "liquidationThreshold": 7800,
         "ltv": 7500,
-        "oracle": "0xDAe398520e2B67cd3f27aeF9Cf14D93D927f8250",
+        "oracle": "0x215f25556f91b30AFCF0a12dA51C9d4374B22570",
         "oracleDecimals": 8,
-        "oracleDescription": "EURC / USD",
+        "oracleDescription": "Capped EURC/USD",
         "oracleLatestAnswer": "103853717",
         "reserveFactor": 1000,
         "supplyCap": 4200000,
@@ -97,9 +97,9 @@
       "to": {
         "address": "0x86AB1C62A8bf868E1b3E1ab87d587Aba6fbCbDC5",
         "baseVariableBorrowRate": "0",
-        "maxVariableBorrowRate": "520000000000000000000000000",
+        "maxVariableBorrowRate": "485000000000000000000000000",
         "optimalUsageRatio": "900000000000000000000000000",
-        "variableRateSlope1": "120000000000000000000000000",
+        "variableRateSlope1": "85000000000000000000000000",
         "variableRateSlope2": "400000000000000000000000000"
       }
     }
@@ -126,6 +126,11 @@
           "newValue": "0x000000000000000000000000000000000000000000000000000000000008aa80"
         }
       }
+    },
+    "0x215f25556f91b30afcf0a12da51c9d4374b22570": {
+      "label": null,
+      "balanceDiff": null,
+      "stateDiff": {}
     },
     "0x2425a746911128c2eaa7bebdc9bc452ee52208a1": {
       "label": null,
@@ -167,7 +172,7 @@
       "stateDiff": {
         "0x6169766697bbbf69f5f4351943208faafccb53b943a72a959820faa1242657af": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x000000000000000000000000dae398520e2b67cd3f27aef9cf14d93d927f8250"
+          "newValue": "0x000000000000000000000000215f25556f91b30afcf0a12da51c9d4374b22570"
         }
       }
     },
@@ -209,6 +214,11 @@
       }
     },
     "0x43955b0899ab7232e3a454cf84aedd22ad46fd33": {
+      "label": null,
+      "balanceDiff": null,
+      "stateDiff": {}
+    },
+    "0x4b08a30c6208681eff2980981057ce4c8bcb2310": {
       "label": null,
       "balanceDiff": null,
       "stateDiff": {}
@@ -280,7 +290,7 @@
       "stateDiff": {
         "0x6169766697bbbf69f5f4351943208faafccb53b943a72a959820faa1242657af": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x00000000000000000000000000000000000000000fa0000004b0000000002328"
+          "newValue": "0x00000000000000000000000000000000000000000fa000000352000000002328"
         }
       }
     },
@@ -336,6 +346,11 @@
       }
     },
     "0xa238dd80c259a72e81d7e4664a9801593f98d1c5": {
+      "label": null,
+      "balanceDiff": null,
+      "stateDiff": {}
+    },
+    "0xc91d87e81fab8f93699ecf7ee9b44d11e1d53f0f": {
       "label": null,
       "balanceDiff": null,
       "stateDiff": {}

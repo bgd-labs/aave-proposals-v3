@@ -34,7 +34,7 @@ export const config: ConfigFile = {
             rateStrategyParams: {
               optimalUtilizationRate: '90',
               baseVariableBorrowRate: '0',
-              variableRateSlope1: '12',
+              variableRateSlope1: '8.5',
               variableRateSlope2: '40',
             },
             asset: '0x60a3e35cc302bfa44cb288bc5a4f316fdb1adb42',
