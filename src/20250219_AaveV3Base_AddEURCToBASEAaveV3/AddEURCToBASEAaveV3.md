@@ -50,8 +50,8 @@ Additionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://basescan.org/a
 
 ## References
 
-- Implementation: [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250219_AaveV3Base_AddEURCToBASEAaveV3/AaveV3Base_AddEURCToBASEAaveV3_20250219.sol)
-- Tests: [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250219_AaveV3Base_AddEURCToBASEAaveV3/AaveV3Base_AddEURCToBASEAaveV3_20250219.t.sol)
+- Implementation: [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/020379982368ec1eda21b589140ff013b1e33bad/src/20250219_AaveV3Base_AddEURCToBASEAaveV3/AaveV3Base_AddEURCToBASEAaveV3_20250219.sol)
+- Tests: [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/020379982368ec1eda21b589140ff013b1e33bad/src/20250219_AaveV3Base_AddEURCToBASEAaveV3/AaveV3Base_AddEURCToBASEAaveV3_20250219.t.sol)
 - [Snapshot](https://snapshot.box/#/s:aave.eth/proposal/0xa2d0c8f06e8fae4ba961407f77732c0b6f870e00a349f826a032d20e291e48f6)
 - [Discussion](https://governance.aave.com/t/arfc-add-eurc-to-base-aave-v3/20680)
 
