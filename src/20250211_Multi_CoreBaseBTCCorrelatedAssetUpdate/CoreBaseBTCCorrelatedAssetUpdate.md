@@ -107,8 +107,8 @@ The above is to be reviewed with feedback from Risk Service Providers to be inco
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250211_Multi_CoreBaseBTCCorrelatedAssetUpdate/AaveV3Ethereum_CoreBaseBTCCorrelatedAssetUpdate_20250211.sol), [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250211_Multi_CoreBaseBTCCorrelatedAssetUpdate/AaveV3Base_CoreBaseBTCCorrelatedAssetUpdate_20250211.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250211_Multi_CoreBaseBTCCorrelatedAssetUpdate/AaveV3Ethereum_CoreBaseBTCCorrelatedAssetUpdate_20250211.t.sol), [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250211_Multi_CoreBaseBTCCorrelatedAssetUpdate/AaveV3Base_CoreBaseBTCCorrelatedAssetUpdate_20250211.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/f975aa8040b538d477689c4f154edfdfeb640e52/src/20250211_Multi_CoreBaseBTCCorrelatedAssetUpdate/AaveV3Ethereum_CoreBaseBTCCorrelatedAssetUpdate_20250211.sol), [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/f975aa8040b538d477689c4f154edfdfeb640e52/src/20250211_Multi_CoreBaseBTCCorrelatedAssetUpdate/AaveV3Base_CoreBaseBTCCorrelatedAssetUpdate_20250211.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/f975aa8040b538d477689c4f154edfdfeb640e52/src/20250211_Multi_CoreBaseBTCCorrelatedAssetUpdate/AaveV3Ethereum_CoreBaseBTCCorrelatedAssetUpdate_20250211.t.sol), [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/f975aa8040b538d477689c4f154edfdfeb640e52/src/20250211_Multi_CoreBaseBTCCorrelatedAssetUpdate/AaveV3Base_CoreBaseBTCCorrelatedAssetUpdate_20250211.t.sol)
   [Snapshot](https://snapshot.box/#/s:aave.eth/proposal/0x9efbc881d7db09b549a4c342387c31149c066de4bc51b625e2213d43aee0e977)
 - [Discussion](https://governance.aave.com/t/arfc-core-base-btc-correlated-asset-update/20940)
 
