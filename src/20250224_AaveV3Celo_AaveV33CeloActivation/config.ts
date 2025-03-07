@@ -34,7 +34,7 @@ export const config: ConfigFile = {
             rateStrategyParams: {
               optimalUtilizationRate: '90',
               baseVariableBorrowRate: '0',
-              variableRateSlope1: '7',
+              variableRateSlope1: '7.5',
               variableRateSlope2: '40',
             },
             asset: '0xcebA9300f2b948710d2653dD7B07f33A8B32118C',
@@ -59,7 +59,7 @@ export const config: ConfigFile = {
             rateStrategyParams: {
               optimalUtilizationRate: '90',
               baseVariableBorrowRate: '0',
-              variableRateSlope1: '7',
+              variableRateSlope1: '7.5',
               variableRateSlope2: '40',
             },
             asset: '0x48065fbBE25f71C9282ddf5e1cD6D6A887483D5e',
@@ -84,7 +84,7 @@ export const config: ConfigFile = {
             rateStrategyParams: {
               optimalUtilizationRate: '90',
               baseVariableBorrowRate: '0',
-              variableRateSlope1: '7',
+              variableRateSlope1: '7.5',
               variableRateSlope2: '75',
             },
             asset: '0xd8763cba276a3738e6de85b4b3bf5fded6d6ca73',
@@ -109,7 +109,7 @@ export const config: ConfigFile = {
             rateStrategyParams: {
               optimalUtilizationRate: '90',
               baseVariableBorrowRate: '0',
-              variableRateSlope1: '7',
+              variableRateSlope1: '7.5',
               variableRateSlope2: '75',
             },
             asset: '0x765de816845861e75a25fca122bb6898b8b1282a',
