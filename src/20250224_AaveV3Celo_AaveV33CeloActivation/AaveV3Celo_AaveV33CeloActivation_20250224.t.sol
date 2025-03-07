@@ -3,10 +3,11 @@ pragma solidity ^0.8.0;
 
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 import {AaveV3Celo} from 'aave-address-book/AaveV3Celo.sol';
+import {MiscCelo} from 'aave-address-book/MiscCelo.sol';
 import {GovernanceV3Celo} from 'aave-address-book/GovernanceV3Celo.sol';
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
-import {AaveV3Celo_AaveV33CeloActivation_20250224} from './AaveV3Celo_AaveV33CeloActivation_20250224.sol';
+import {AaveV3Celo_AaveV33CeloActivation_20250224, IEmissionManager} from './AaveV3Celo_AaveV33CeloActivation_20250224.sol';
 
 /**
  * @dev Test for AaveV3Celo_AaveV33CeloActivation_20250224
@@ -35,44 +36,40 @@ contract AaveV3Celo_AaveV33CeloActivation_20250224_Test is ProtocolV3TestBase {
     );
   }
 
-  function test_collectorHasUSDCFunds() public {
+  function test_dustbinHasFunds() public {
     GovV3Helpers.executePayload(vm, address(proposal));
-    (address aTokenAddress, , ) = AaveV3Celo.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(
-      proposal.USDC()
-    );
-    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Celo.COLLECTOR)), 10 ** 6);
+
+    _validateDustbinFundsAndLMAdmin(proposal.USDC(), proposal.USDC_SEED_AMOUNT());
+    _validateDustbinFundsAndLMAdmin(proposal.USDT(), proposal.USDT_SEED_AMOUNT());
+    _validateDustbinFundsAndLMAdmin(proposal.CELO(), proposal.CELO_SEED_AMOUNT());
+    _validateDustbinFundsAndLMAdmin(proposal.cEUR(), proposal.cEUR_SEED_AMOUNT());
+    _validateDustbinFundsAndLMAdmin(proposal.cUSD(), proposal.cUSD_SEED_AMOUNT());
   }
 
-  function test_collectorHasUSDTFunds() public {
-    GovV3Helpers.executePayload(vm, address(proposal));
-    (address aTokenAddress, , ) = AaveV3Celo.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(
-      proposal.USDT()
-    );
-    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Celo.COLLECTOR)), 10 ** 6);
+  function test_guardianPoolAdmin() public {
+    assertFalse(AaveV3Celo.ACL_MANAGER.isPoolAdmin(MiscCelo.PROTOCOL_GUARDIAN));
+    executePayload(vm, address(proposal));
+    assertTrue(AaveV3Celo.ACL_MANAGER.isPoolAdmin(MiscCelo.PROTOCOL_GUARDIAN));
   }
 
-  function test_collectorHascEURFunds() public {
-    GovV3Helpers.executePayload(vm, address(proposal));
-    (address aTokenAddress, , ) = AaveV3Celo.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(
-      proposal.cEUR()
-    );
-    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Celo.COLLECTOR)), 10 ** 18);
+  function test_riskStewardRiskAdmin() public {
+    assertFalse(AaveV3Celo.ACL_MANAGER.isRiskAdmin(AaveV3Celo.RISK_STEWARD));
+    executePayload(vm, address(proposal));
+    assertTrue(AaveV3Celo.ACL_MANAGER.isRiskAdmin(AaveV3Celo.RISK_STEWARD));
   }
 
-  function test_collectorHascUSDFunds() public {
-    GovV3Helpers.executePayload(vm, address(proposal));
-    (address aTokenAddress, , ) = AaveV3Celo.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(
-      proposal.cUSD()
-    );
-    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Celo.COLLECTOR)), 10 ** 18);
-  }
+  function _validateDustbinFundsAndLMAdmin(address asset, uint256 seedAmount) internal view {
+    (address aToken, , ) = AaveV3Celo.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(asset);
+    assertGe(IERC20(aToken).balanceOf(address(AaveV3Celo.DUST_BIN)), seedAmount);
 
-  function test_collectorHasCELOFunds() public {
-    GovV3Helpers.executePayload(vm, address(proposal));
-    (address aTokenAddress, , ) = AaveV3Celo.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(
-      proposal.CELO()
+    assertEq(
+      IEmissionManager(AaveV3Celo.EMISSION_MANAGER).getEmissionAdmin(asset),
+      proposal.LM_ADMIN()
     );
-    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Celo.COLLECTOR)), 10 ** 18);
+    assertEq(
+      IEmissionManager(AaveV3Celo.EMISSION_MANAGER).getEmissionAdmin(aToken),
+      proposal.LM_ADMIN()
+    );
   }
 
   function _seedFundsToExecutor() internal {

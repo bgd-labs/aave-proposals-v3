@@ -2,6 +2,7 @@
 pragma solidity ^0.8.0;
 
 import {AaveV3Celo} from 'aave-address-book/AaveV3Celo.sol';
+import {MiscCelo} from 'aave-address-book/MiscCelo.sol';
 import {AaveV3PayloadCelo} from 'aave-helpers/src/v3-config-engine/AaveV3PayloadCelo.sol';
 import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
@@ -41,6 +42,9 @@ contract AaveV3Celo_AaveV33CeloActivation_20250224 is AaveV3PayloadCelo {
     _supplyAndConfigureLMAdmin(cEUR, cEUR_SEED_AMOUNT);
     _supplyAndConfigureLMAdmin(cUSD, cUSD_SEED_AMOUNT);
     _supplyAndConfigureLMAdmin(CELO, CELO_SEED_AMOUNT);
+
+    AaveV3Celo.ACL_MANAGER.addPoolAdmin(MiscCelo.PROTOCOL_GUARDIAN);
+    AaveV3Celo.ACL_MANAGER.addRiskAdmin(AaveV3Celo.RISK_STEWARD);
   }
 
   function newListings() public pure override returns (IAaveV3ConfigEngine.Listing[] memory) {
@@ -58,15 +62,15 @@ contract AaveV3Celo_AaveV33CeloActivation_20250224 is AaveV3PayloadCelo {
       liqThreshold: 78_00,
       liqBonus: 5_00,
       reserveFactor: 10_00,
-      supplyCap: 2_000_000,
-      borrowCap: 1_800_000,
+      supplyCap: 3_500_000,
+      borrowCap: 3_150_000,
       debtCeiling: 0,
       liqProtocolFee: 10_00,
       rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
         optimalUsageRatio: 90_00,
         baseVariableBorrowRate: 0,
-        variableRateSlope1: 7_00,
-        variableRateSlope2: 75_00
+        variableRateSlope1: 7_50,
+        variableRateSlope2: 40_00
       })
     });
     listings[1] = IAaveV3ConfigEngine.Listing({
@@ -81,15 +85,15 @@ contract AaveV3Celo_AaveV33CeloActivation_20250224 is AaveV3PayloadCelo {
       liqThreshold: 78_00,
       liqBonus: 5_00,
       reserveFactor: 10_00,
-      supplyCap: 700_000,
-      borrowCap: 650_000,
+      supplyCap: 2_000_000,
+      borrowCap: 1_800_000,
       debtCeiling: 0,
       liqProtocolFee: 10_00,
       rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
         optimalUsageRatio: 90_00,
         baseVariableBorrowRate: 0,
-        variableRateSlope1: 7_00,
-        variableRateSlope2: 75_00
+        variableRateSlope1: 7_50,
+        variableRateSlope2: 40_00
       })
     });
     listings[2] = IAaveV3ConfigEngine.Listing({
@@ -104,14 +108,14 @@ contract AaveV3Celo_AaveV33CeloActivation_20250224 is AaveV3PayloadCelo {
       liqThreshold: 0,
       liqBonus: 5_00,
       reserveFactor: 15_00,
-      supplyCap: 800_000,
-      borrowCap: 700_000,
+      supplyCap: 80_000,
+      borrowCap: 72_000,
       debtCeiling: 0,
       liqProtocolFee: 10_00,
       rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
         optimalUsageRatio: 90_00,
         baseVariableBorrowRate: 0,
-        variableRateSlope1: 7_00,
+        variableRateSlope1: 7_50,
         variableRateSlope2: 75_00
       })
     });
@@ -127,22 +131,22 @@ contract AaveV3Celo_AaveV33CeloActivation_20250224 is AaveV3PayloadCelo {
       liqThreshold: 0,
       liqBonus: 5_00,
       reserveFactor: 15_00,
-      supplyCap: 2_000_000,
-      borrowCap: 1_800_000,
+      supplyCap: 1_300_000,
+      borrowCap: 1_170_000,
       debtCeiling: 0,
       liqProtocolFee: 10_00,
       rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
         optimalUsageRatio: 90_00,
         baseVariableBorrowRate: 0,
-        variableRateSlope1: 7_00,
-        variableRateSlope2: 75_00
+        variableRateSlope1: 7_50,
+        variableRateSlope2: 70_00
       })
     });
     listings[4] = IAaveV3ConfigEngine.Listing({
       asset: CELO,
       assetSymbol: 'CELO',
       priceFeed: 0x0568fD19986748cEfF3301e55c0eb1E729E0Ab7e,
-      enabledToBorrow: EngineFlags.DISABLED,
+      enabledToBorrow: EngineFlags.ENABLED,
       borrowableInIsolation: EngineFlags.DISABLED,
       withSiloedBorrowing: EngineFlags.DISABLED,
       flashloanable: EngineFlags.ENABLED,
@@ -151,7 +155,7 @@ contract AaveV3Celo_AaveV33CeloActivation_20250224 is AaveV3PayloadCelo {
       liqBonus: 10_00,
       reserveFactor: 20_00,
       supplyCap: 1_000_000,
-      borrowCap: 500_000,
+      borrowCap: 100_000,
       debtCeiling: 500_000,
       liqProtocolFee: 10_00,
       rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
@@ -167,7 +171,7 @@ contract AaveV3Celo_AaveV33CeloActivation_20250224 is AaveV3PayloadCelo {
 
   function _supplyAndConfigureLMAdmin(address asset, uint256 seedAmount) internal {
     IERC20(asset).forceApprove(address(AaveV3Celo.POOL), seedAmount);
-    AaveV3Celo.POOL.supply(asset, seedAmount, address(AaveV3Celo.COLLECTOR), 0);
+    AaveV3Celo.POOL.supply(asset, seedAmount, address(AaveV3Celo.DUST_BIN), 0);
 
     (address aToken, , ) = AaveV3Celo.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(asset);
     IEmissionManager(AaveV3Celo.EMISSION_MANAGER).setEmissionAdmin(asset, LM_ADMIN);
