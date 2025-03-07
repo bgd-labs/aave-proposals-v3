@@ -14,6 +14,7 @@ import {
   zkSync,
   linea,
   celo,
+  sonic,
 } from 'viem/chains';
 import {Hex, getAddress} from 'viem';
 import {getClient} from '@bgd-labs/rpc-env';
@@ -34,6 +35,7 @@ export const AVAILABLE_CHAINS = [
   'ZkSync',
   'Linea',
   'Celo',
+  'Sonic',
 ] as const;
 
 export function getAssets(pool: PoolIdentifier): string[] {
@@ -140,6 +142,7 @@ export const CHAIN_TO_CHAIN_ID = {
   ZkSync: zkSync.id,
   Linea: linea.id,
   Celo: celo.id,
+  Sonic: sonic.id,
 };
 
 export function flagAsRequired(message: string, required?: boolean) {
