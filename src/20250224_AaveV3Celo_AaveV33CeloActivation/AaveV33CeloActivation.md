@@ -60,8 +60,8 @@ The table below illustrates the configured risk parameters for the assets to be 
 
 ## References
 
-- Implementation: [AaveV3Celo](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250224_AaveV3Celo_AaveV33CeloActivation/AaveV3Celo_AaveV33CeloActivation_20250224.sol)
-- Tests: [AaveV3Celo](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250224_AaveV3Celo_AaveV33CeloActivation/AaveV3Celo_AaveV33CeloActivation_20250224.t.sol)
+- Implementation: [AaveV3Celo](https://github.com/bgd-labs/aave-proposals-v3/blob/b3840ee71a53d01a18d58b2b6a03d419020bf760/src/20250224_AaveV3Celo_AaveV33CeloActivation/AaveV3Celo_AaveV33CeloActivation_20250224.sol)
+- Tests: [AaveV3Celo](https://github.com/bgd-labs/aave-proposals-v3/blob/b3840ee71a53d01a18d58b2b6a03d419020bf760/src/20250224_AaveV3Celo_AaveV33CeloActivation/AaveV3Celo_AaveV33CeloActivation_20250224.t.sol)
 - [Snapshot](https://snapshot.box/#/aave.eth/proposal/0x645981c18f5dc61c07324a39d57bcb873ebd8fb9e4a435280cac57cb07a8090b)
 - [Discussion](https://governance.aave.com/t/arfc-aave-deployment-on-celo/17636)
 
