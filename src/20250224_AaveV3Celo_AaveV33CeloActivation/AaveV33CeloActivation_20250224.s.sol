@@ -41,7 +41,7 @@ contract CreateProposal is EthereumScript {
       chain: ChainIds.CELO,
       accessLevel: PayloadsControllerUtils.AccessControl.Level_1,
       payloadsController: address(GovernanceV3Celo.PAYLOADS_CONTROLLER),
-      payloadId: 0
+      payloadId: 1
     });
 
     // create proposal

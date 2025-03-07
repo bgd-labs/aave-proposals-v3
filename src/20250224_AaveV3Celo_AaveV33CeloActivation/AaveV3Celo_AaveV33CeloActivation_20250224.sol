@@ -173,7 +173,7 @@ contract AaveV3Celo_AaveV33CeloActivation_20250224 is AaveV3PayloadCelo {
     IERC20(asset).forceApprove(address(AaveV3Celo.POOL), seedAmount);
     AaveV3Celo.POOL.supply(asset, seedAmount, address(AaveV3Celo.DUST_BIN), 0);
 
-    (address aToken, , ) = AaveV3Celo.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(asset);
+    address aToken = AaveV3Celo.POOL.getReserveAToken(asset);
     IEmissionManager(AaveV3Celo.EMISSION_MANAGER).setEmissionAdmin(asset, LM_ADMIN);
     IEmissionManager(AaveV3Celo.EMISSION_MANAGER).setEmissionAdmin(aToken, LM_ADMIN);
   }
