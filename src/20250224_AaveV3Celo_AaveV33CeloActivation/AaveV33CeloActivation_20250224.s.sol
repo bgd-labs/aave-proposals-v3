@@ -3,12 +3,13 @@ pragma solidity ^0.8.0;
 
 import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aave-helpers/src/GovV3Helpers.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
-import {EthereumScript, CeloScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
+import {GovernanceV3Celo} from 'aave-address-book/GovernanceV3Celo.sol';
+import {EthereumScript, CeloScript, ChainIds} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
 import {AaveV3Celo_AaveV33CeloActivation_20250224} from './AaveV3Celo_AaveV33CeloActivation_20250224.sol';
 
 /**
  * @dev Deploy Celo
- * deploy-command: make deploy-ledger contract=src/20250224_AaveV3Celo_AaveV33CeloActivation/AaveV33CeloActivation_20250224.s.sol:DeployCelo chain=celo
+ * deploy-command: make deploy-pk contract=src/20250224_AaveV3Celo_AaveV33CeloActivation/AaveV33CeloActivation_20250224.s.sol:DeployCelo chain=celo
  * verify-command: FOUNDRY_PROFILE=celo npx catapulta-verify -b broadcast/AaveV33CeloActivation_20250224.s.sol/42220/run-latest.json
  */
 contract DeployCelo is CeloScript {
@@ -36,14 +37,12 @@ contract CreateProposal is EthereumScript {
   function run() external {
     // create payloads
     PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](1);
-
-    // compose actions for validation
-    IPayloadsControllerCore.ExecutionAction[]
-      memory actionsCelo = new IPayloadsControllerCore.ExecutionAction[](1);
-    actionsCelo[0] = GovV3Helpers.buildAction(
-      type(AaveV3Celo_AaveV33CeloActivation_20250224).creationCode
-    );
-    payloads[0] = GovV3Helpers.buildCeloPayload(vm, actionsCelo);
+    payloads[0] = PayloadsControllerUtils.Payload({
+      chain: ChainIds.CELO,
+      accessLevel: PayloadsControllerUtils.AccessControl.Level_1,
+      payloadsController: address(GovernanceV3Celo.PAYLOADS_CONTROLLER),
+      payloadId: 0
+    });
 
     // create proposal
     vm.startBroadcast();

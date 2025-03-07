@@ -17,11 +17,8 @@ contract AaveV3Celo_AaveV33CeloActivation_20250224_Test is ProtocolV3TestBase {
   AaveV3Celo_AaveV33CeloActivation_20250224 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('celo'), 30544771);
+    vm.createSelectFork(vm.rpcUrl('celo'), 30734047);
     proposal = new AaveV3Celo_AaveV33CeloActivation_20250224();
-
-    // TODO: remove after seeding
-    _seedFundsToExecutor();
   }
 
   /**
@@ -70,12 +67,5 @@ contract AaveV3Celo_AaveV33CeloActivation_20250224_Test is ProtocolV3TestBase {
       IEmissionManager(AaveV3Celo.EMISSION_MANAGER).getEmissionAdmin(aToken),
       proposal.LM_ADMIN()
     );
-  }
-
-  function _seedFundsToExecutor() internal {
-    deal(proposal.USDC(), address(GovernanceV3Celo.EXECUTOR_LVL_1), proposal.USDC_SEED_AMOUNT());
-    deal(proposal.USDT(), address(GovernanceV3Celo.EXECUTOR_LVL_1), proposal.USDT_SEED_AMOUNT());
-    deal(proposal.cEUR(), address(GovernanceV3Celo.EXECUTOR_LVL_1), proposal.cEUR_SEED_AMOUNT());
-    deal(proposal.cUSD(), address(GovernanceV3Celo.EXECUTOR_LVL_1), proposal.cUSD_SEED_AMOUNT());
   }
 }

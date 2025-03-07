@@ -106,12 +106,12 @@ contract AaveV3Celo_AaveV33CeloActivation_20250224 is AaveV3PayloadCelo {
       flashloanable: EngineFlags.ENABLED,
       ltv: 0,
       liqThreshold: 0,
-      liqBonus: 5_00,
+      liqBonus: 0,
       reserveFactor: 15_00,
       supplyCap: 80_000,
       borrowCap: 72_000,
       debtCeiling: 0,
-      liqProtocolFee: 10_00,
+      liqProtocolFee: 0,
       rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
         optimalUsageRatio: 90_00,
         baseVariableBorrowRate: 0,
@@ -129,17 +129,17 @@ contract AaveV3Celo_AaveV33CeloActivation_20250224 is AaveV3PayloadCelo {
       flashloanable: EngineFlags.ENABLED,
       ltv: 0,
       liqThreshold: 0,
-      liqBonus: 5_00,
+      liqBonus: 0,
       reserveFactor: 15_00,
       supplyCap: 1_300_000,
       borrowCap: 1_170_000,
       debtCeiling: 0,
-      liqProtocolFee: 10_00,
+      liqProtocolFee: 0,
       rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
         optimalUsageRatio: 90_00,
         baseVariableBorrowRate: 0,
         variableRateSlope1: 7_50,
-        variableRateSlope2: 70_00
+        variableRateSlope2: 75_00
       })
     });
     listings[4] = IAaveV3ConfigEngine.Listing({

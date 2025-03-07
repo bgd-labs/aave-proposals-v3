@@ -17,7 +17,7 @@
 | oracle | [0x0568fD19986748cEfF3301e55c0eb1E729E0Ab7e](https://celoscan.io/address/0x0568fD19986748cEfF3301e55c0eb1E729E0Ab7e) |
 | oracleDecimals | 8 |
 | oracleDescription | CELO / USD |
-| oracleLatestAnswer | 0.40606386 |
+| oracleLatestAnswer | 0.37992363 |
 | usageAsCollateralEnabled | true |
 | ltv | 55 % [5500] |
 | liquidationThreshold | 61 % [6100] |
@@ -61,7 +61,7 @@
 | oracle | [0x6e3d991C965364481796116dE68A8036d1b3Ecd0](https://celoscan.io/address/0x6e3d991C965364481796116dE68A8036d1b3Ecd0) |
 | oracleDecimals | 8 |
 | oracleDescription | Capped USDT/USD |
-| oracleLatestAnswer | 1.00010438 |
+| oracleLatestAnswer | 1.00003867 |
 | usageAsCollateralEnabled | true |
 | ltv | 75 % [7500] |
 | liquidationThreshold | 78 % [7800] |
@@ -105,7 +105,7 @@
 | oracle | [0xdCdA3E7E90fe827776b8FDaEa3C5977F123354DA](https://celoscan.io/address/0xdCdA3E7E90fe827776b8FDaEa3C5977F123354DA) |
 | oracleDecimals | 8 |
 | oracleDescription | Capped cUSD/USD |
-| oracleLatestAnswer | 0.99982443 |
+| oracleLatestAnswer | 0.99981161 |
 | usageAsCollateralEnabled | false |
 | ltv | 0 % [0] |
 | liquidationThreshold | 0 % [0] |
@@ -127,11 +127,11 @@
 | virtualAccountingActive | true |
 | virtualBalance | 10 cUSD [10000000000000000000] |
 | optimalUsageRatio | 90 % |
-| maxVariableBorrowRate | 77.5 % |
+| maxVariableBorrowRate | 82.5 % |
 | baseVariableBorrowRate | 0 % |
 | variableRateSlope1 | 7.5 % |
-| variableRateSlope2 | 70 % |
-| interestRate | ![ir](https://dash.onaave.com/api/static?variableRateSlope1=75000000000000000000000000&variableRateSlope2=700000000000000000000000000&optimalUsageRatio=900000000000000000000000000&baseVariableBorrowRate=0&maxVariableBorrowRate=775000000000000000000000000) |
+| variableRateSlope2 | 75 % |
+| interestRate | ![ir](https://dash.onaave.com/api/static?variableRateSlope1=75000000000000000000000000&variableRateSlope2=750000000000000000000000000&optimalUsageRatio=900000000000000000000000000&baseVariableBorrowRate=0&maxVariableBorrowRate=825000000000000000000000000) |
 
 
 #### cEUR ([0xD8763CBa276a3738E6DE85b4b3bF5FDed6D6cA73](https://celoscan.io/address/0xD8763CBa276a3738E6DE85b4b3bF5FDed6D6cA73))
@@ -149,7 +149,7 @@
 | oracle | [0x3D207061Dbe8E2473527611BFecB87Ff12b28dDa](https://celoscan.io/address/0x3D207061Dbe8E2473527611BFecB87Ff12b28dDa) |
 | oracleDecimals | 8 |
 | oracleDescription | EUR / USD |
-| oracleLatestAnswer | 1.047 |
+| oracleLatestAnswer | 1.086455 |
 | usageAsCollateralEnabled | false |
 | ltv | 0 % [0] |
 | liquidationThreshold | 0 % [0] |
@@ -193,7 +193,7 @@
 | oracle | [0xBF704f2FfdB856805cE64D085cD50427823696D7](https://celoscan.io/address/0xBF704f2FfdB856805cE64D085cD50427823696D7) |
 | oracleDecimals | 8 |
 | oracleDescription | Capped USDC/USD |
-| oracleLatestAnswer | 0.99987563 |
+| oracleLatestAnswer | 0.9999064 |
 | usageAsCollateralEnabled | true |
 | ltv | 75 % [7500] |
 | liquidationThreshold | 78 % [7800] |
@@ -253,7 +253,7 @@
         "oracle": "0x0568fD19986748cEfF3301e55c0eb1E729E0Ab7e",
         "oracleDecimals": 8,
         "oracleDescription": "CELO / USD",
-        "oracleLatestAnswer": "40606386",
+        "oracleLatestAnswer": "37992363",
         "reserveFactor": 2000,
         "supplyCap": 1000000,
         "symbol": "CELO",
@@ -292,7 +292,7 @@
         "oracle": "0x6e3d991C965364481796116dE68A8036d1b3Ecd0",
         "oracleDecimals": 8,
         "oracleDescription": "Capped USDT/USD",
-        "oracleLatestAnswer": "100010438",
+        "oracleLatestAnswer": "100003867",
         "reserveFactor": 1000,
         "supplyCap": 2000000,
         "symbol": "USD₮",
@@ -331,7 +331,7 @@
         "oracle": "0xdCdA3E7E90fe827776b8FDaEa3C5977F123354DA",
         "oracleDecimals": 8,
         "oracleDescription": "Capped cUSD/USD",
-        "oracleLatestAnswer": "99982443",
+        "oracleLatestAnswer": "99981161",
         "reserveFactor": 1500,
         "supplyCap": 1300000,
         "symbol": "cUSD",
@@ -370,7 +370,7 @@
         "oracle": "0x3D207061Dbe8E2473527611BFecB87Ff12b28dDa",
         "oracleDecimals": 8,
         "oracleDescription": "EUR / USD",
-        "oracleLatestAnswer": "104700000",
+        "oracleLatestAnswer": "108645500",
         "reserveFactor": 1500,
         "supplyCap": 80000,
         "symbol": "cEUR",
@@ -409,7 +409,7 @@
         "oracle": "0xBF704f2FfdB856805cE64D085cD50427823696D7",
         "oracleDecimals": 8,
         "oracleDescription": "Capped USDC/USD",
-        "oracleLatestAnswer": "99987563",
+        "oracleLatestAnswer": "99990640",
         "reserveFactor": 1000,
         "supplyCap": 3500000,
         "symbol": "USDC",
@@ -451,10 +451,10 @@
       "to": {
         "address": "0x8B62D241Bf59f40991DCd18531683156d7013355",
         "baseVariableBorrowRate": "0",
-        "maxVariableBorrowRate": "775000000000000000000000000",
+        "maxVariableBorrowRate": "825000000000000000000000000",
         "optimalUsageRatio": "900000000000000000000000000",
         "variableRateSlope1": "75000000000000000000000000",
-        "variableRateSlope2": "700000000000000000000000000"
+        "variableRateSlope2": "750000000000000000000000000"
       }
     },
     "0xD8763CBa276a3738E6DE85b4b3bF5FDed6D6cA73": {
@@ -635,7 +635,7 @@
         },
         "0x580a5a1f9ab45573c560388e4e2e96438abfd476777c3de2bdc12d439e48932e": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x00000000000000000000030067bc5c3c00000000000000000000000000000000"
+          "newValue": "0x00000000000000000000030067cacff300000000000000000000000000000000"
         },
         "0x580a5a1f9ab45573c560388e4e2e96438abfd476777c3de2bdc12d439e48932f": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -667,7 +667,7 @@
         },
         "0x91df18aa186d49708ac6c8dda3c98fa154fc3bf408843a8cf4af89910b1d044b": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x00000000000000000000000067bc5c3c00000000000000000000000000000000"
+          "newValue": "0x00000000000000000000000067cacff300000000000000000000000000000000"
         },
         "0x91df18aa186d49708ac6c8dda3c98fa154fc3bf408843a8cf4af89910b1d044c": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -699,7 +699,7 @@
         },
         "0xa16e061dfbd02d978559301c23e8885c8661c29c8a1b884991d385f6340b5af4": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x00000000000000000000020067bc5c3c00000000000000000000000000000000"
+          "newValue": "0x00000000000000000000020067cacff300000000000000000000000000000000"
         },
         "0xa16e061dfbd02d978559301c23e8885c8661c29c8a1b884991d385f6340b5af5": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -739,7 +739,7 @@
         },
         "0xf54036dc390a53fcefe11f31de56ed35edaa6741fe9bf839a208c2cec27512e1": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x00000000000000000000010067bc5c3c00000000000000000000000000000000"
+          "newValue": "0x00000000000000000000010067cacff300000000000000000000000000000000"
         },
         "0xf54036dc390a53fcefe11f31de56ed35edaa6741fe9bf839a208c2cec27512e2": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -771,7 +771,7 @@
         },
         "0xf66b05930311b16f3301fc83092844e762abfd7ebeba455fcce7dcf9b4c90367": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x00000000000000000000040067bc5c3c00000000000000000000000000000000"
+          "newValue": "0x00000000000000000000040067cacff300000000000000000000000000000000"
         },
         "0xf66b05930311b16f3301fc83092844e762abfd7ebeba455fcce7dcf9b4c90368": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -896,7 +896,7 @@
       "stateDiff": {
         "0x0c6aefaddf045fb1de6a93f2cea306f378b448d5ccb9d3143c6e67443d82c3b9": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x00000000000000000000000000000000000000001b58000002ee000000002328"
+          "newValue": "0x00000000000000000000000000000000000000001d4c000002ee000000002328"
         },
         "0x5d08aa94b1689713a11422ff8e0bb6c3f7e0bccdbfbdc93c74dbcd0fc2c03746": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -1273,12 +1273,12 @@
       "balanceDiff": null,
       "stateDiff": {
         "0x3617319a054d772f909f7c479a2cebe5066e836a939412e32403c99029b92eff": {
-          "previousValue": "0x0067bc5c3b000000000002000000000000000000000000000000000000000000",
-          "newValue": "0x0067bc5c3b000000000003000000000000000000000000000000000000000000"
+          "previousValue": "0x0067cacff2000000000002000000000000000000000000000000000000000000",
+          "newValue": "0x0067cacff2000000000003000000000000000000000000000000000000000000"
         },
         "0x3617319a054d772f909f7c479a2cebe5066e836a939412e32403c99029b92f00": {
-          "previousValue": "0x000000000000000000093a8000000000000067ea80bc00000000000000000000",
-          "newValue": "0x000000000000000000093a8000000000000067ea80bc00000000000067bc5c3c"
+          "previousValue": "0x000000000000000000093a8000000000000067f8f47300000000000000000000",
+          "newValue": "0x000000000000000000093a8000000000000067f8f47300000000000067cacff3"
         }
       }
     },
