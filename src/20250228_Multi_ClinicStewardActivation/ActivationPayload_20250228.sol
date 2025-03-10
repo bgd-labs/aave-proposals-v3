@@ -8,7 +8,7 @@ import {ICollector} from 'aave-v3-origin/contracts/treasury/Collector.sol';
 /**
  * @title Clinic steward activation
  * @author BGD Labs @bgdlabs
- * - Snapshot: will add later
+ * - Snapshot: https://snapshot.box/#/s:aave.eth/proposal/0xee0249fea0fecbeb2d2cab90ae3e6d9c5e21d5456417048c49aea9f48f970afe
  * - Discussion: https://governance.aave.com/t/arfc-bgd-aave-clinicsteward/21209
  */
 contract ActivationPayload_20250228 is IProposalGenericExecutor {
