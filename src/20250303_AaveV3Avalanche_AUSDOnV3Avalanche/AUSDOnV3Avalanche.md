@@ -43,8 +43,8 @@ We recommend a Liquidation Bonus of 6.00% for AUSD, aligning with other, smaller
 
 ## References
 
-- Implementation: [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250303_AaveV3Avalanche_AUSDOnV3Avalanche/AaveV3Avalanche_AUSDOnV3Avalanche_20250303.sol)
-- Tests: [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250303_AaveV3Avalanche_AUSDOnV3Avalanche/AaveV3Avalanche_AUSDOnV3Avalanche_20250303.t.sol)
+- Implementation: [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/a82b6a6b3b4c67766d4cd48ce6a2003e07303f00/src/20250303_AaveV3Avalanche_AUSDOnV3Avalanche/AaveV3Avalanche_AUSDOnV3Avalanche_20250303.sol)
+- Tests: [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/a82b6a6b3b4c67766d4cd48ce6a2003e07303f00/src/20250303_AaveV3Avalanche_AUSDOnV3Avalanche/AaveV3Avalanche_AUSDOnV3Avalanche_20250303.t.sol)
 - Snapshot: Direct-to-AIP
 - [Discussion](https://governance.aave.com/t/arfc-chaos-labs-risk-parameters-update-ausd-on-v3-avalanche/21201)
 
