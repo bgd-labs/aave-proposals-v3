@@ -27,7 +27,7 @@ contract AaveV3Avalanche_AUSDOnV3Avalanche_20250303 is AaveV3PayloadAvalanche {
       liqThreshold: 72_00,
       liqBonus: 6_00,
       debtCeiling: EngineFlags.KEEP_CURRENT,
-      liqProtocolFee: EngineFlags.KEEP_CURRENT
+      liqProtocolFee: 10_00
     });
 
     return collateralUpdate;
