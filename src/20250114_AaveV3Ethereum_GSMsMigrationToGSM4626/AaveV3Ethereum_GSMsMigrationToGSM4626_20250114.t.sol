@@ -169,6 +169,18 @@ contract AaveV3Ethereum_GSMsMigrationToGSM4626_20250114_Test is ProtocolV3TestBa
     );
     assertFalse(
       IGsm(GhoEthereum.GSM_USDC).hasRole(
+        proposal.LIQUIDATOR_ROLE(),
+        GovernanceV3Ethereum.EXECUTOR_LVL_1
+      )
+    );
+    assertFalse(
+      IGsm(GhoEthereum.GSM_USDT).hasRole(
+        proposal.LIQUIDATOR_ROLE(),
+        GovernanceV3Ethereum.EXECUTOR_LVL_1
+      )
+    );
+    assertFalse(
+      IGsm(GhoEthereum.GSM_USDC).hasRole(
         IGsm(GhoEthereum.GSM_USDC).CONFIGURATOR_ROLE(),
         GhoEthereum.GHO_GSM_STEWARD
       )

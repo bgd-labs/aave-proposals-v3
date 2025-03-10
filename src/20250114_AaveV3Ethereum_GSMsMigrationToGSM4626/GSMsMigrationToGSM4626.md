@@ -20,19 +20,21 @@ The yield from stataTokens functions as a proxy Borrow Rate and accrues revenue 
 ## Specification
 
 - Deploy new stataUSDC and stataUSDT GSM4626 from the Gho-Core repository with their respective Oracles
-- Add new GSMs to the GSMRegistry
-- Update the FeeStrategy of the new GSMs to the existing FeeStrategy: [`0x83896a35db4519BD8CcBAF5cF86CCA61b5cfb938`](https://etherscan.io/address/0x83896a35db4519BD8CcBAF5cF86CCA61b5cfb938)
 - Grant the Executor the `'LIQUIDATOR_ROLE'` to be able to seize the existing GSMs
 - Seize the current USDC and USDT GSMs by calling the `seize()` function.
   - This freezes actions on them and transfers the underlying tokens to the collector
 - Add the two new GSMs as facilitators on the GHO token contract
 - Add the new stataUSDC and stataUSDT GSMs as controlled facilitators on the GhoBucketSteward
-- With the withdrawn assets above, obtain stataUSDC and stataUSDT via deposit on the respective vaults
+- Add new GSMs to the GSMRegistry
+- Update the FeeStrategy of the new GSMs to the existing FeeStrategy: [`0x83896a35db4519BD8CcBAF5cF86CCA61b5cfb938`](https://etherscan.io/address/0x83896a35db4519BD8CcBAF5cF86CCA61b5cfb938)
+- Register new swap freeze oracles
+- With the withdrawn assets above (in the seize step), obtain stataUSDC and stataUSDT via deposit on the respective vaults
 - With the obtained stataUSDC and stataUSDT, exchange for GHO on the new respective GSMs
 - Use the obtained GHO to `burnAfterSeize()` on the current USDC and USDT GSMs. If there are any discrepancies in the amount of GHO, use GHO from the treasury to bring the minted GHO by the GSMs to zero
 - Remove existing GSMs as facilitators of the GHO token
 - Remove existing GSMs from the GSMRegistry
 - Remove existing USDC and USDT GSMs from being a controlled facilitator on the GhoBucketSteward
+- Revoke roles assigned to EXECUTOR and old GSMs
 
 The below details the configuration of the stataUSDC GSM.
 
