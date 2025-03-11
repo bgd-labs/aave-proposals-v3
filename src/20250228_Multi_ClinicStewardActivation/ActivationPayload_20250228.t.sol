@@ -20,7 +20,7 @@ import {BaseActivationTest} from './BaseActivationTest.sol';
 
 contract Mainnet_ActivationPayload_20250228_Test is
   BaseActivationTest(
-    'ethereum',
+    'mainnet',
     22022760,
     AaveV3Ethereum.POOL,
     AaveV3Ethereum.COLLECTOR,
@@ -31,7 +31,7 @@ contract Mainnet_ActivationPayload_20250228_Test is
 
 contract MainnetLido_ActivationPayload_20250228_Test is
   BaseActivationTest(
-    'ethereum',
+    'mainnet',
     22022760,
     AaveV3EthereumLido.POOL,
     AaveV3EthereumLido.COLLECTOR,
