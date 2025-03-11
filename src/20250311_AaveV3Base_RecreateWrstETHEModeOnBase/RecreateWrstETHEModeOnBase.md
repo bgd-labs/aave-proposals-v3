@@ -10,6 +10,11 @@ Create a new eMode for wrsETH/wstETH and unfreeze wrsETH & LBTC.
 
 ## Motivation
 
+Both proposal [263](https://vote.onaave.com/proposal/?proposalId=263&ipfsHash=0x6fba0be9251581b6628c378a8cfef6bba51a0a902528bfc4b0eff92ed14635b8) and [264](https://vote.onaave.com/proposal/?proposalId=264&ipfsHash=0xe8cf37c4fe2b24cbbf6296ff230af6e84185d3749bb8af9c056243bfa1c7188d) proposed listing new assets in combination with creating new eModes.
+As Emodes on Aave are accessed via a static id, both proposals specified `eMode 4` which ultimately lead to 264 overwriting part of the 263 config.
+In response to that the guardian coordinated an immediate freeze of `LBTC` and `wrsETH`, which prevents unintended usage (e.g. borrowing wstETH against LBTC).
+This proposal aims to restore the configuration as it was originally intended by the proposal authors.
+
 ## Specification
 
 The proposal will:
