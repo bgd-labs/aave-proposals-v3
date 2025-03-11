@@ -65,6 +65,9 @@ evm_version = 'shanghai'
 [profile.linea]
 evm_version = 'london'
 
+[profile.celo]
+evm_version = 'paris'
+
 [profile.sonic]
 evm_version = 'cancun'
 
@@ -84,6 +87,7 @@ bnb = "${RPC_BNB}"
 scroll = "${RPC_SCROLL}"
 zksync = "${RPC_ZKSYNC}"
 linea = "${RPC_LINEA}"
+celo = "${RPC_CELO}"
 sonic = "${RPC_SONIC}"
 
 [etherscan]
@@ -101,6 +105,7 @@ bnb = { key = "${ETHERSCAN_API_KEY_BNB}", chainId = 56, url = 'https://api.bscsc
 scroll = { key = "${ETHERSCAN_API_KEY_SCROLL}", chainId = 534352 }
 zksync = { key = "${ETHERSCAN_API_KEY_ZKSYNC}", chain = 324 }
 linea = { key = "${ETHERSCAN_API_KEY_LINEA}", chain = 59144 }
+celo = { key = "${ETHERSCAN_API_KEY_CELO}", chain = 42220 }
 sonic = { key = "${ETHERSCAN_API_KEY_SONIC}", chain = 146 }
 
 # See more config options https://github.com/gakonst/foundry/tree/master/config

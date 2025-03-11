@@ -114,11 +114,11 @@ export const assetListing: FeatureModule<Listing[]> = {
         }),
         execute: cfg.map((cfg) => {
           let listingExe = `IERC20(${cfg.assetSymbol}).forceApprove(address(${pool}.POOL), ${cfg.assetSymbol}_SEED_AMOUNT);\n`;
-          listingExe += `${pool}.POOL.supply(${cfg.assetSymbol}, ${cfg.assetSymbol}_SEED_AMOUNT, address(${pool}.COLLECTOR), 0);\n`;
+          listingExe += `${pool}.POOL.supply(${cfg.assetSymbol}, ${cfg.assetSymbol}_SEED_AMOUNT, ${pool}.DUST_BIN, 0);\n`;
           if (isAddress(cfg.admin)) {
-            listingExe += `\n(address a${cfg.assetSymbol}, , ) = ${pool}.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(${cfg.assetSymbol});\n`;
-            listingExe += `IEmissionManager(${pool}.EMISSION_MANAGER).setEmissionAdmin(${cfg.assetSymbol}, ${cfg.assetSymbol}_ADMIN);\n`;
-            listingExe += `IEmissionManager(${pool}.EMISSION_MANAGER).setEmissionAdmin(a${cfg.assetSymbol}, ${cfg.assetSymbol}_ADMIN);\n`;
+            listingExe += `\naddress a${cfg.assetSymbol} = ${pool}.POOL.getReserveAToken(${cfg.assetSymbol});\n`;
+            listingExe += `IEmissionManager(${pool}.EMISSION_MANAGER).setEmissionAdmin(${cfg.assetSymbol}, ${cfg.assetSymbol}_LM_ADMIN);\n`;
+            listingExe += `IEmissionManager(${pool}.EMISSION_MANAGER).setEmissionAdmin(a${cfg.assetSymbol}, ${cfg.assetSymbol}_LM_ADMIN);\n`;
           }
           return listingExe;
         }),
@@ -142,17 +142,17 @@ export const assetListing: FeatureModule<Listing[]> = {
       },
       test: {
         fn: cfg.map((cfg) => {
-          let listingTest = `function test_collectorHas${cfg.assetSymbol}Funds() public {
+          let listingTest = `function test_dustBinHas${cfg.assetSymbol}Funds() public {
             ${TEST_EXECUTE_PROPOSAL}
-            (address aTokenAddress, , ) = ${pool}.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(proposal.${cfg.assetSymbol}());
-            assertGe(IERC20(aTokenAddress).balanceOf(address(${pool}.COLLECTOR)), 10 ** ${cfg.decimals});
+            address aTokenAddress = ${pool}.POOL.getReserveAToken(proposal.${cfg.assetSymbol}());
+            assertGe(IERC20(aTokenAddress).balanceOf(address(${pool}.DUST_BIN)), 10 ** ${cfg.decimals});
           }\n`;
           if (isAddress(cfg.admin)) {
             listingTest += `\nfunction test_${cfg.assetSymbol}Admin() public {
 	      ${TEST_EXECUTE_PROPOSAL}
-              (address a${cfg.assetSymbol}, , ) = ${pool}.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(proposal.${cfg.assetSymbol}());
-	      assertEq(IEmissionManager(${pool}.EMISSION_MANAGER).getEmissionAdmin(proposal.${cfg.assetSymbol}()), proposal.${cfg.assetSymbol}_ADMIN());
-	      assertEq(IEmissionManager(${pool}.EMISSION_MANAGER).getEmissionAdmin(a${cfg.assetSymbol}), proposal.${cfg.assetSymbol}_ADMIN());
+              address a${cfg.assetSymbol} = ${pool}.POOL.getReserveAToken(proposal.${cfg.assetSymbol}());
+	      assertEq(IEmissionManager(${pool}.EMISSION_MANAGER).getEmissionAdmin(proposal.${cfg.assetSymbol}()), proposal.${cfg.assetSymbol}_LM_ADMIN());
+	      assertEq(IEmissionManager(${pool}.EMISSION_MANAGER).getEmissionAdmin(a${cfg.assetSymbol}), proposal.${cfg.assetSymbol}_LM_ADMIN());
 	    }\n`;
           }
           return listingTest;
@@ -235,7 +235,7 @@ export const assetListingCustom: FeatureModule<ListingWithCustomImpl[]> = {
         execute: cfg.map(
           (cfg) =>
             `IERC20(${cfg.base.assetSymbol}).forceApprove(address(${pool}.POOL), 10 ** ${cfg.base.decimals});
-            ${pool}.POOL.supply(${cfg.base.assetSymbol}, 10 ** ${cfg.base.decimals}, ${pool}.COLLECTOR, 0);`,
+            ${pool}.POOL.supply(${cfg.base.assetSymbol}, 10 ** ${cfg.base.decimals}, ${pool}.DUST_BIN, 0);`,
         ),
         fn: [
           `function newListingsCustom() public pure override returns (IAaveV3ConfigEngine.ListingWithCustomImpl[] memory) {
@@ -264,10 +264,10 @@ export const assetListingCustom: FeatureModule<ListingWithCustomImpl[]> = {
       },
       test: {
         fn: cfg.map(
-          (cfg) => `function test_collectorHas${cfg.base.assetSymbol}Funds() public {
+          (cfg) => `function test_dustBinHas${cfg.base.assetSymbol}Funds() public {
             ${TEST_EXECUTE_PROPOSAL}
-            (address aTokenAddress, , ) = ${pool}.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(proposal.${cfg.base.assetSymbol}());
-            assertGte(IERC20(aTokenAddress).balanceOf(${pool}.COLLECTOR), 10 ** ${cfg.base.decimals});
+            address aTokenAddress = ${pool}.POOL.getReserveAToken(proposal.${cfg.base.assetSymbol}());
+            assertGte(IERC20(aTokenAddress).balanceOf(${pool}.DUST_BIN), 10 ** ${cfg.base.decimals});
           }`,
         ),
       },
