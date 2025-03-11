@@ -9,8 +9,8 @@ import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config
 /**
  * @title Recreate wrstETH eMode on Base
  * @author BGD Labs @bgdlabs
- * - Snapshot: TODO
- * - Discussion: TODO
+ * - Snapshot: N/A
+ * - Discussion: https://governance.aave.com/t/arfc-onboard-rseth-to-arbitrum-and-base-v3-instances/20741/9
  */
 contract AaveV3Base_RecreateWrstETHEModeOnBase_20250311 is AaveV3PayloadBase {
   function _postExecute() internal override {
