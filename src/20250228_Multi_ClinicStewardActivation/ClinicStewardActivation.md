@@ -20,10 +20,15 @@ The Aave ClinicSteward is a smart contract that simply facilitates for a permiss
 
 ## Specification
 
+The Stewards were deployed with the following configuration:
+
+- the `governance executor lvl1` was granted the `DEFAULT_ADMIN` role on each network
+- a multisig with 2/3 multisig with `ACI/TokenLogic/Karpatkey` as signers was granted the `CLEANUP_ROLE` admin
+
 The proposal:
 
 - grants the `ClinicSteward` the `FUNDS_ADMIN` role in the Aave DAO.
-- grants an EOA controlled by ACI the `CLEANUP_ROLE` to cleanup debt on behalf of the Aave DAO.
+- grants an EOA/Bot controlled by ACI the `CLEANUP_ROLE` to cleanup debt on behalf of the Aave DAO.
 
 The stewards themselves implement a $ cap, which is pre-configured to the following amounts:
 
