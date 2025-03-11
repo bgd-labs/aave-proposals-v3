@@ -4,21 +4,9 @@ pragma solidity ^0.8.0;
 import {AaveV3ZkSync} from 'aave-address-book/AaveV3ZkSync.sol';
 import {GovV3Helpers, IPayloadsControllerCore} from 'aave-helpers/src/GovV3Helpers.sol';
 import {ZkSyncScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
-import {ActivationPayload_20250228} from '../../src/20250228_Multi_ClinicStewardActivation/ActivationPayload_20250228.sol';
+import {ActivationPayload_20250228} from './ActivationPayload_20250228.sol';
 
 address constant BOT = 0x3Cbded22F878aFC8d39dCD744d3Fe62086B76193;
-
-// @dev wrapper factory contract for deploying the payload
-contract Deploy_AaveV3ZkSync_ClinicStewardActivation_20250228 {
-  address public immutable PAYLOAD;
-
-  constructor() {
-    PAYLOAD = GovV3Helpers.deployDeterministicZkSync(
-      type(ActivationPayload_20250228).creationCode,
-      abi.encode(AaveV3ZkSync.COLLECTOR, AaveV3ZkSync.CLINIC_STEWARD, BOT)
-    );
-  }
-}
 
 /**
  * @dev Deploy ZkSync
@@ -27,7 +15,13 @@ contract Deploy_AaveV3ZkSync_ClinicStewardActivation_20250228 {
 contract DeployZkSync is ZkSyncScript {
   function run() external broadcast {
     // deploy payloads
-    address payload0 = new Deploy_AaveV3ZkSync_ClinicStewardActivation_20250228().PAYLOAD();
+    address payload0 = address(
+      new ActivationPayload_20250228{salt: 'v1'}(
+        address(AaveV3ZkSync.COLLECTOR),
+        AaveV3ZkSync.CLINIC_STEWARD,
+        BOT
+      )
+    );
 
     // compose action
     IPayloadsControllerCore.ExecutionAction[]

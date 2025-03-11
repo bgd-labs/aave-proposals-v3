@@ -375,7 +375,7 @@ contract CreateProposal is EthereumScript {
     );
     payloads[9] = GovV3Helpers.buildBNBPayload(vm, actionsBNB);
 
-    uint40 zksyncPayload = 0;
+    uint40 zksyncPayload = 18;
     require(zksyncPayload != 0);
     payloads[10] = PayloadsControllerUtils.Payload({
       chain: ChainIds.ZKSYNC,
@@ -384,7 +384,7 @@ contract CreateProposal is EthereumScript {
       payloadId: zksyncPayload
     });
 
-    uint40 lineaPayload = 0;
+    uint40 lineaPayload = 5;
     require(lineaPayload != 0);
     payloads[11] = PayloadsControllerUtils.Payload({
       chain: ChainIds.LINEA,
