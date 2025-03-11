@@ -19,9 +19,9 @@ This proposal aims to restore the configuration as it was originally intended by
 
 The proposal will:
 
-- remove wstETH from the borrowable assets on `` eMode
-- remove wrsETH from the collateral assets on `` eMode
-- create a new `` eMode with the following configuration:
+- remove wstETH from the borrowable assets on `LBTC_cbBTC` eMode
+- remove wrsETH from the collateral assets on `LBTC_cbBTC` eMode
+- create a new `rsETH/wstETH` eMode with the following configuration:
   - ltv 92.5 %
   - lt 94.5 %
   - lb 1%

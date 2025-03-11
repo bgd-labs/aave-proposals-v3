@@ -32,11 +32,11 @@
 | eMode.collateralBitmap | wrsETH, LBTC | LBTC |
 
 
-### EMode: rsETH/wstETH emode(id: 5)
+### EMode: rsETH/wstETH(id: 5)
 
 | description | value before | value after |
 | --- | --- | --- |
-| eMode.label | - | rsETH/wstETH emode |
+| eMode.label | - | rsETH/wstETH |
 | eMode.ltv | - | 92.5 % |
 | eMode.liquidationThreshold | - | 94.5 % |
 | eMode.liquidationBonus | - | 1 % |
@@ -65,7 +65,7 @@
         "borrowableBitmap": "8",
         "collateralBitmap": "512",
         "eModeCategory": 5,
-        "label": "rsETH/wstETH emode",
+        "label": "rsETH/wstETH",
         "liquidationBonus": 10100,
         "liquidationThreshold": 9450,
         "ltv": 9250
@@ -138,7 +138,7 @@
         },
         "0x50039cf134a124858bd88bbc9225ec3c537b89a0e9237ce39fe1813e6edf8258": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x72734554482f77737445544820656d6f64650000000000000000000000000024"
+          "newValue": "0x72734554482f7773744554480000000000000000000000000000000000000018"
         },
         "0x50039cf134a124858bd88bbc9225ec3c537b89a0e9237ce39fe1813e6edf8259": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",

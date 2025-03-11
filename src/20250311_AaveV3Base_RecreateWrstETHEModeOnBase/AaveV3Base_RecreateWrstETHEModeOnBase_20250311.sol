@@ -32,7 +32,7 @@ contract AaveV3Base_RecreateWrstETHEModeOnBase_20250311 is AaveV3PayloadBase {
       ltv: 92_50,
       liqThreshold: 94_50,
       liqBonus: 1_00,
-      label: 'rsETH/wstETH emode'
+      label: 'rsETH/wstETH'
     });
 
     return eModeUpdates;
