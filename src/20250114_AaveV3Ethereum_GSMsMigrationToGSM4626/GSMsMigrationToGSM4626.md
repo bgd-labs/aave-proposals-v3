@@ -66,8 +66,8 @@ The below details the configuration of the stataUSDT GSM.
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250114_AaveV3Ethereum_GSMsMigrationToGSM4626/AaveV3Ethereum_GSMsMigrationToGSM4626_20250114.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250114_AaveV3Ethereum_GSMsMigrationToGSM4626/AaveV3Ethereum_GSMsMigrationToGSM4626_20250114.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/d800b35dd448a4c1d5c35f6709b90eb705b892bd/src/20250114_AaveV3Ethereum_GSMsMigrationToGSM4626/AaveV3Ethereum_GSMsMigrationToGSM4626_20250114.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/d800b35dd448a4c1d5c35f6709b90eb705b892bd/src/20250114_AaveV3Ethereum_GSMsMigrationToGSM4626/AaveV3Ethereum_GSMsMigrationToGSM4626_20250114.t.sol)
   [Snapshot](https://snapshot.box/#/s:aave.eth/proposal/0x82d3ad8b8d43b12d3c08344c9b3aadfa6da03b358aa92915d0046f19344a7faa)
 - [Discussion](https://governance.aave.com/t/arfc-deploy-statausdc-and-statausdt-gsms-on-ethereum/20682)
 
