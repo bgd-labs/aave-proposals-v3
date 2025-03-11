@@ -8,7 +8,7 @@ snapshot: "https://snapshot.box/#/s:aave.eth/proposal/0xee0249fea0fecbeb2d2cab90
 ## Simple Summary
 
 Enabling a new Aave `ClinicSteward` smart contract, with capabilities to liquidate and repay non-healthy positions.
-The contract will utilize collector funds for the repayment.
+The contract will utilize Aave Collector funds for the repayment.
 
 ## Motivation
 
