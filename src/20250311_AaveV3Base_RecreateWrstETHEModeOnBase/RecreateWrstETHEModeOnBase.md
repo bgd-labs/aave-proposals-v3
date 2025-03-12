@@ -31,8 +31,8 @@ The proposal will:
 
 ## References
 
-- Implementation: [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250311_AaveV3Base_RecreateWrstETHEModeOnBase/AaveV3Base_RecreateWrstETHEModeOnBase_20250311.sol)
-- Tests: [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250311_AaveV3Base_RecreateWrstETHEModeOnBase/AaveV3Base_RecreateWrstETHEModeOnBase_20250311.t.sol)
+- Implementation: [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/e4e94f4b2908df422b49361096c7b0b65952552e/src/20250311_AaveV3Base_RecreateWrstETHEModeOnBase/AaveV3Base_RecreateWrstETHEModeOnBase_20250311.sol)
+- Tests: [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/e4e94f4b2908df422b49361096c7b0b65952552e/src/20250311_AaveV3Base_RecreateWrstETHEModeOnBase/AaveV3Base_RecreateWrstETHEModeOnBase_20250311.t.sol)
 - [Discussion](TODO)
 
 ## Copyright
