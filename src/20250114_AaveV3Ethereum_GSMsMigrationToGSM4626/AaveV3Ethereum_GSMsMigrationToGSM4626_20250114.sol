@@ -27,8 +27,8 @@ contract AaveV3Ethereum_GSMsMigrationToGSM4626_20250114 is IProposalGenericExecu
   using SafeERC20 for IERC20;
   using CollectorUtils for ICollector;
 
-  uint128 public constant USDC_CAPACITY = 8_000_000 ether;
-  uint128 public constant USDT_CAPACITY = 16_000_000 ether;
+  uint128 public constant USDC_CAPACITY = 16_000_000 ether;
+  uint128 public constant USDT_CAPACITY = 24_000_000 ether;
 
   // https://etherscan.io/address/0xFeeb6FE430B7523fEF2a38327241eE7153779535
   address public constant NEW_GSM_USDC = 0xFeeb6FE430B7523fEF2a38327241eE7153779535;

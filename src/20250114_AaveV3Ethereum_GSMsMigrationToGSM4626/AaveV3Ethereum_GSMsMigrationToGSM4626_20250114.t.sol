@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
+import {console2} from 'forge-std/Test.sol';
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 import {IERC4626} from 'openzeppelin-contracts/contracts/interfaces/IERC4626.sol';
 import {IAaveOracle} from 'aave-address-book/AaveV2.sol';
@@ -26,7 +27,7 @@ contract AaveV3Ethereum_GSMsMigrationToGSM4626_20250114_Test is ProtocolV3TestBa
   address public RISK_COUNCIL = 0x8513e6F37dBc52De87b166980Fa3F50639694B60;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 21938030);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 22030850);
     proposal = new AaveV3Ethereum_GSMsMigrationToGSM4626_20250114();
   }
 
@@ -39,6 +40,25 @@ contract AaveV3Ethereum_GSMsMigrationToGSM4626_20250114_Test is ProtocolV3TestBa
       AaveV3Ethereum.POOL,
       address(proposal)
     );
+  }
+
+  function test_gsmAllowsMintingUpToMaximumExposure() public {
+    executePayload(vm, address(proposal));
+
+    uint256 toMintUSDC = IGsm(proposal.NEW_GSM_USDC()).getAvailableUnderlyingExposure();
+    uint256 toMintUSDT = IGsm(proposal.NEW_GSM_USDT()).getAvailableUnderlyingExposure();
+
+    deal(AaveV3EthereumAssets.USDC_STATA_TOKEN, address(this), toMintUSDC);
+    deal(AaveV3EthereumAssets.USDT_STATA_TOKEN, address(this), toMintUSDT);
+
+    IERC20(AaveV3EthereumAssets.USDC_STATA_TOKEN).approve(proposal.NEW_GSM_USDC(), toMintUSDC);
+    IERC20(AaveV3EthereumAssets.USDT_STATA_TOKEN).approve(proposal.NEW_GSM_USDT(), toMintUSDT);
+
+    IGsm(proposal.NEW_GSM_USDC()).sellAsset(toMintUSDC, address(this));
+    IGsm(proposal.NEW_GSM_USDT()).sellAsset(toMintUSDT, address(this));
+
+    assertEq(IGsm(proposal.NEW_GSM_USDC()).getAvailableUnderlyingExposure(), 0);
+    assertEq(IGsm(proposal.NEW_GSM_USDT()).getAvailableUnderlyingExposure(), 0);
   }
 
   function test_checkConfig() public {
