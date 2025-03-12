@@ -61,7 +61,7 @@ contract AaveV3Avalanche_StablecoinsInterestRateCurveUpdate_20250312 is AaveV3Pa
       params: IAaveV3ConfigEngine.InterestRateInputData({
         optimalUsageRatio: EngineFlags.KEEP_CURRENT,
         baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
-        variableRateSlope1: 9_50,
+        variableRateSlope1: 6_50,
         variableRateSlope2: EngineFlags.KEEP_CURRENT
       })
     });

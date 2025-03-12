@@ -3,7 +3,8 @@ pragma solidity ^0.8.0;
 
 import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aave-helpers/src/GovV3Helpers.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
-import {EthereumScript, PolygonScript, AvalancheScript, OptimismScript, ArbitrumScript, MetisScript, BaseScript, GnosisScript, ScrollScript, BNBScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
+import {GovernanceV3ZkSync} from 'aave-address-book/GovernanceV3ZkSync.sol';
+import {EthereumScript, PolygonScript, AvalancheScript, OptimismScript, ArbitrumScript, MetisScript, BaseScript, GnosisScript, ScrollScript, BNBScript, ChainIds} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
 import {AaveV3Ethereum_StablecoinsInterestRateCurveUpdate_20250312} from './AaveV3Ethereum_StablecoinsInterestRateCurveUpdate_20250312.sol';
 import {AaveV3EthereumLido_StablecoinsInterestRateCurveUpdate_20250312} from './AaveV3EthereumLido_StablecoinsInterestRateCurveUpdate_20250312.sol';
 import {AaveV3EthereumEtherFi_StablecoinsInterestRateCurveUpdate_20250312} from './AaveV3EthereumEtherFi_StablecoinsInterestRateCurveUpdate_20250312.sol';

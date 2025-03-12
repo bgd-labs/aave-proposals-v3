@@ -6,9 +6,9 @@
 
 | description | value before | value after |
 | --- | --- | --- |
-| maxVariableBorrowRate | 83.5 % | 84.5 % |
-| variableRateSlope1 | 8.5 % | 9.5 % |
-| interestRate | ![before](https://dash.onaave.com/api/static?variableRateSlope1=85000000000000000000000000&variableRateSlope2=750000000000000000000000000&optimalUsageRatio=900000000000000000000000000&baseVariableBorrowRate=0&maxVariableBorrowRate=835000000000000000000000000) | ![after](https://dash.onaave.com/api/static?variableRateSlope1=95000000000000000000000000&variableRateSlope2=750000000000000000000000000&optimalUsageRatio=900000000000000000000000000&baseVariableBorrowRate=0&maxVariableBorrowRate=845000000000000000000000000) |
+| maxVariableBorrowRate | 83.5 % | 81.5 % |
+| variableRateSlope1 | 8.5 % | 6.5 % |
+| interestRate | ![before](https://dash.onaave.com/api/static?variableRateSlope1=85000000000000000000000000&variableRateSlope2=750000000000000000000000000&optimalUsageRatio=900000000000000000000000000&baseVariableBorrowRate=0&maxVariableBorrowRate=835000000000000000000000000) | ![after](https://dash.onaave.com/api/static?variableRateSlope1=65000000000000000000000000&variableRateSlope2=750000000000000000000000000&optimalUsageRatio=900000000000000000000000000&baseVariableBorrowRate=0&maxVariableBorrowRate=815000000000000000000000000) |
 
 #### USDt ([0x9702230A8Ea53601f5cD2dc00fDBc13d4dF4A8c7](https://snowtrace.io/address/0x9702230A8Ea53601f5cD2dc00fDBc13d4dF4A8c7))
 
@@ -50,11 +50,11 @@
     "0x00000000eFE302BEAA2b3e6e1b18d08D69a9012a": {
       "maxVariableBorrowRate": {
         "from": "835000000000000000000000000",
-        "to": "845000000000000000000000000"
+        "to": "815000000000000000000000000"
       },
       "variableRateSlope1": {
         "from": "85000000000000000000000000",
-        "to": "95000000000000000000000000"
+        "to": "65000000000000000000000000"
       }
     },
     "0x9702230A8Ea53601f5cD2dc00fDBc13d4dF4A8c7": {
@@ -228,11 +228,11 @@
         },
         "0xe9e70c2e013e87e2e0cf393188509aa8bfb10967c8d1e3359f7dda7eb1648e50": {
           "previousValue": "0x00000000000f2a3894aa8a79d8faff39000000000341db3dbfa8bffb50055ed5",
-          "newValue": "0x000000000010f3081cd60852d216b82c000000000341dcc0f33b9a3a7c939ea8"
+          "newValue": "0x00000000000b98cfa7f0c2539d37f747000000000341dcc0f33b9a3a7c939ea8"
         },
         "0xe9e70c2e013e87e2e0cf393188509aa8bfb10967c8d1e3359f7dda7eb1648e51": {
           "previousValue": "0x000000000024481b8b7807af27a855cb000000000345198fd5ab717576aa4205",
-          "newValue": "0x0000000000288ceb9e5c58d56940ea730000000003451d31d091206476a63069"
+          "newValue": "0x00000000001bbebc28fbd0fdcec0a06a0000000003451d31d091206476a63069"
         },
         "0xe9e70c2e013e87e2e0cf393188509aa8bfb10967c8d1e3359f7dda7eb1648e52": {
           "previousValue": "0x000000000000000000000c0067d1a53b00000000000000000000000000000000",
@@ -258,7 +258,7 @@
         },
         "0x6d5cd3b71e09b061445794b4d555aeb5e8ae0d193d0bb5800c86e86e3c7de839": {
           "previousValue": "0x00000000000000000000000000000000000000001d4c00000352000000002328",
-          "newValue": "0x00000000000000000000000000000000000000001d4c000003b6000000002328"
+          "newValue": "0x00000000000000000000000000000000000000001d4c0000028a000000002328"
         },
         "0x77a72eeb7b26d7d784b9b048cde6315746a8d5d947824e5d85df4e64d068d9e1": {
           "previousValue": "0x00000000000000000000000000000000000000000fa000000352000000002328",
