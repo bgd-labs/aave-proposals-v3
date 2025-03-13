@@ -8,7 +8,6 @@ import {EthereumScript, PolygonScript, AvalancheScript, OptimismScript, Arbitrum
 import {AaveV3Ethereum_StablecoinsInterestRateCurveUpdate_20250312} from './AaveV3Ethereum_StablecoinsInterestRateCurveUpdate_20250312.sol';
 import {AaveV3EthereumLido_StablecoinsInterestRateCurveUpdate_20250312} from './AaveV3EthereumLido_StablecoinsInterestRateCurveUpdate_20250312.sol';
 import {AaveV3EthereumEtherFi_StablecoinsInterestRateCurveUpdate_20250312} from './AaveV3EthereumEtherFi_StablecoinsInterestRateCurveUpdate_20250312.sol';
-import {AaveV3Polygon_StablecoinsInterestRateCurveUpdate_20250312} from './AaveV3Polygon_StablecoinsInterestRateCurveUpdate_20250312.sol';
 import {AaveV3Avalanche_StablecoinsInterestRateCurveUpdate_20250312} from './AaveV3Avalanche_StablecoinsInterestRateCurveUpdate_20250312.sol';
 import {AaveV3Optimism_StablecoinsInterestRateCurveUpdate_20250312} from './AaveV3Optimism_StablecoinsInterestRateCurveUpdate_20250312.sol';
 import {AaveV3Arbitrum_StablecoinsInterestRateCurveUpdate_20250312} from './AaveV3Arbitrum_StablecoinsInterestRateCurveUpdate_20250312.sol';
@@ -42,28 +41,6 @@ contract DeployEthereum is EthereumScript {
     actions[0] = GovV3Helpers.buildAction(payload0);
     actions[1] = GovV3Helpers.buildAction(payload1);
     actions[2] = GovV3Helpers.buildAction(payload2);
-
-    // register action at payloadsController
-    GovV3Helpers.createPayload(actions);
-  }
-}
-
-/**
- * @dev Deploy Polygon
- * deploy-command: make deploy-ledger contract=src/20250312_Multi_StablecoinsInterestRateCurveUpdate/StablecoinsInterestRateCurveUpdate_20250312.s.sol:DeployPolygon chain=polygon
- * verify-command: FOUNDRY_PROFILE=polygon npx catapulta-verify -b broadcast/StablecoinsInterestRateCurveUpdate_20250312.s.sol/137/run-latest.json
- */
-contract DeployPolygon is PolygonScript {
-  function run() external broadcast {
-    // deploy payloads
-    address payload0 = GovV3Helpers.deployDeterministic(
-      type(AaveV3Polygon_StablecoinsInterestRateCurveUpdate_20250312).creationCode
-    );
-
-    // compose action
-    IPayloadsControllerCore.ExecutionAction[]
-      memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
-    actions[0] = GovV3Helpers.buildAction(payload0);
 
     // register action at payloadsController
     GovV3Helpers.createPayload(actions);
@@ -253,7 +230,7 @@ contract DeployBNB is BNBScript {
 contract CreateProposal is EthereumScript {
   function run() external {
     // create payloads
-    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](11);
+    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](10);
 
     // compose actions for validation
     IPayloadsControllerCore.ExecutionAction[]
@@ -270,69 +247,62 @@ contract CreateProposal is EthereumScript {
     payloads[0] = GovV3Helpers.buildMainnetPayload(vm, actionsEthereum);
 
     IPayloadsControllerCore.ExecutionAction[]
-      memory actionsPolygon = new IPayloadsControllerCore.ExecutionAction[](1);
-    actionsPolygon[0] = GovV3Helpers.buildAction(
-      type(AaveV3Polygon_StablecoinsInterestRateCurveUpdate_20250312).creationCode
-    );
-    payloads[1] = GovV3Helpers.buildPolygonPayload(vm, actionsPolygon);
-
-    IPayloadsControllerCore.ExecutionAction[]
       memory actionsAvalanche = new IPayloadsControllerCore.ExecutionAction[](1);
     actionsAvalanche[0] = GovV3Helpers.buildAction(
       type(AaveV3Avalanche_StablecoinsInterestRateCurveUpdate_20250312).creationCode
     );
-    payloads[2] = GovV3Helpers.buildAvalanchePayload(vm, actionsAvalanche);
+    payloads[1] = GovV3Helpers.buildAvalanchePayload(vm, actionsAvalanche);
 
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsOptimism = new IPayloadsControllerCore.ExecutionAction[](1);
     actionsOptimism[0] = GovV3Helpers.buildAction(
       type(AaveV3Optimism_StablecoinsInterestRateCurveUpdate_20250312).creationCode
     );
-    payloads[3] = GovV3Helpers.buildOptimismPayload(vm, actionsOptimism);
+    payloads[2] = GovV3Helpers.buildOptimismPayload(vm, actionsOptimism);
 
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsArbitrum = new IPayloadsControllerCore.ExecutionAction[](1);
     actionsArbitrum[0] = GovV3Helpers.buildAction(
       type(AaveV3Arbitrum_StablecoinsInterestRateCurveUpdate_20250312).creationCode
     );
-    payloads[4] = GovV3Helpers.buildArbitrumPayload(vm, actionsArbitrum);
+    payloads[3] = GovV3Helpers.buildArbitrumPayload(vm, actionsArbitrum);
 
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsMetis = new IPayloadsControllerCore.ExecutionAction[](1);
     actionsMetis[0] = GovV3Helpers.buildAction(
       type(AaveV3Metis_StablecoinsInterestRateCurveUpdate_20250312).creationCode
     );
-    payloads[5] = GovV3Helpers.buildMetisPayload(vm, actionsMetis);
+    payloads[4] = GovV3Helpers.buildMetisPayload(vm, actionsMetis);
 
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsBase = new IPayloadsControllerCore.ExecutionAction[](1);
     actionsBase[0] = GovV3Helpers.buildAction(
       type(AaveV3Base_StablecoinsInterestRateCurveUpdate_20250312).creationCode
     );
-    payloads[6] = GovV3Helpers.buildBasePayload(vm, actionsBase);
+    payloads[5] = GovV3Helpers.buildBasePayload(vm, actionsBase);
 
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsGnosis = new IPayloadsControllerCore.ExecutionAction[](1);
     actionsGnosis[0] = GovV3Helpers.buildAction(
       type(AaveV3Gnosis_StablecoinsInterestRateCurveUpdate_20250312).creationCode
     );
-    payloads[7] = GovV3Helpers.buildGnosisPayload(vm, actionsGnosis);
+    payloads[6] = GovV3Helpers.buildGnosisPayload(vm, actionsGnosis);
 
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsScroll = new IPayloadsControllerCore.ExecutionAction[](1);
     actionsScroll[0] = GovV3Helpers.buildAction(
       type(AaveV3Scroll_StablecoinsInterestRateCurveUpdate_20250312).creationCode
     );
-    payloads[8] = GovV3Helpers.buildScrollPayload(vm, actionsScroll);
+    payloads[7] = GovV3Helpers.buildScrollPayload(vm, actionsScroll);
 
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsBNB = new IPayloadsControllerCore.ExecutionAction[](1);
     actionsBNB[0] = GovV3Helpers.buildAction(
       type(AaveV3BNB_StablecoinsInterestRateCurveUpdate_20250312).creationCode
     );
-    payloads[9] = GovV3Helpers.buildBNBPayload(vm, actionsBNB);
+    payloads[8] = GovV3Helpers.buildBNBPayload(vm, actionsBNB);
 
-    payloads[10] = PayloadsControllerUtils.Payload({
+    payloads[9] = PayloadsControllerUtils.Payload({
       chain: ChainIds.ZKSYNC,
       accessLevel: PayloadsControllerUtils.AccessControl.Level_1,
       payloadsController: address(GovernanceV3ZkSync.PAYLOADS_CONTROLLER),

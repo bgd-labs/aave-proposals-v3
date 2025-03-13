@@ -9,7 +9,6 @@ export const config: ConfigFile = {
       'AaveV3Ethereum',
       'AaveV3EthereumLido',
       'AaveV3EthereumEtherFi',
-      'AaveV3Polygon',
       'AaveV3Avalanche',
       'AaveV3Optimism',
       'AaveV3Arbitrum',
@@ -140,58 +139,6 @@ export const config: ConfigFile = {
       },
       cache: {blockNumber: 22032215},
     },
-    AaveV3Polygon: {
-      configs: {
-        RATE_UPDATE_V3: [
-          {
-            asset: 'DAI',
-            params: {
-              optimalUtilizationRate: '',
-              baseVariableBorrowRate: '',
-              variableRateSlope1: '6.5',
-              variableRateSlope2: '',
-            },
-          },
-          {
-            asset: 'USDC',
-            params: {
-              optimalUtilizationRate: '',
-              baseVariableBorrowRate: '',
-              variableRateSlope1: '7.5',
-              variableRateSlope2: '',
-            },
-          },
-          {
-            asset: 'USDT',
-            params: {
-              optimalUtilizationRate: '',
-              baseVariableBorrowRate: '',
-              variableRateSlope1: '6.5',
-              variableRateSlope2: '',
-            },
-          },
-          {
-            asset: 'EURS',
-            params: {
-              optimalUtilizationRate: '',
-              baseVariableBorrowRate: '',
-              variableRateSlope1: '6.5',
-              variableRateSlope2: '',
-            },
-          },
-          {
-            asset: 'USDCn',
-            params: {
-              optimalUtilizationRate: '',
-              baseVariableBorrowRate: '',
-              variableRateSlope1: '6.5',
-              variableRateSlope2: '',
-            },
-          },
-        ],
-      },
-      cache: {blockNumber: 68965785},
-    },
     AaveV3Avalanche: {
       configs: {
         RATE_UPDATE_V3: [
@@ -257,15 +204,6 @@ export const config: ConfigFile = {
             },
           },
           {
-            asset: 'USDC',
-            params: {
-              optimalUtilizationRate: '',
-              baseVariableBorrowRate: '',
-              variableRateSlope1: '7.5',
-              variableRateSlope2: '',
-            },
-          },
-          {
             asset: 'USDT',
             params: {
               optimalUtilizationRate: '',
@@ -314,15 +252,6 @@ export const config: ConfigFile = {
               optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '6.5',
-              variableRateSlope2: '',
-            },
-          },
-          {
-            asset: 'USDC',
-            params: {
-              optimalUtilizationRate: '',
-              baseVariableBorrowRate: '',
-              variableRateSlope1: '7.5',
               variableRateSlope2: '',
             },
           },
@@ -404,15 +333,6 @@ export const config: ConfigFile = {
       configs: {
         RATE_UPDATE_V3: [
           {
-            asset: 'USDbC',
-            params: {
-              optimalUtilizationRate: '',
-              baseVariableBorrowRate: '',
-              variableRateSlope1: '7.5',
-              variableRateSlope2: '',
-            },
-          },
-          {
             asset: 'USDC',
             params: {
               optimalUtilizationRate: '',
@@ -452,15 +372,6 @@ export const config: ConfigFile = {
               optimalUtilizationRate: '',
               baseVariableBorrowRate: '',
               variableRateSlope1: '6.5',
-              variableRateSlope2: '',
-            },
-          },
-          {
-            asset: 'USDC',
-            params: {
-              optimalUtilizationRate: '',
-              baseVariableBorrowRate: '',
-              variableRateSlope1: '7.5',
               variableRateSlope2: '',
             },
           },

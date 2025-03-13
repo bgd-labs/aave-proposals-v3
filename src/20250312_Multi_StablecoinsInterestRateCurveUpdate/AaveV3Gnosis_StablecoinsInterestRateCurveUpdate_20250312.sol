@@ -19,7 +19,7 @@ contract AaveV3Gnosis_StablecoinsInterestRateCurveUpdate_20250312 is AaveV3Paylo
     returns (IAaveV3ConfigEngine.RateStrategyUpdate[] memory)
   {
     IAaveV3ConfigEngine.RateStrategyUpdate[]
-      memory rateStrategies = new IAaveV3ConfigEngine.RateStrategyUpdate[](4);
+      memory rateStrategies = new IAaveV3ConfigEngine.RateStrategyUpdate[](3);
     rateStrategies[0] = IAaveV3ConfigEngine.RateStrategyUpdate({
       asset: AaveV3GnosisAssets.WXDAI_UNDERLYING,
       params: IAaveV3ConfigEngine.InterestRateInputData({
@@ -44,15 +44,6 @@ contract AaveV3Gnosis_StablecoinsInterestRateCurveUpdate_20250312 is AaveV3Paylo
         optimalUsageRatio: EngineFlags.KEEP_CURRENT,
         baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
         variableRateSlope1: 6_50,
-        variableRateSlope2: EngineFlags.KEEP_CURRENT
-      })
-    });
-    rateStrategies[3] = IAaveV3ConfigEngine.RateStrategyUpdate({
-      asset: AaveV3GnosisAssets.USDC_UNDERLYING,
-      params: IAaveV3ConfigEngine.InterestRateInputData({
-        optimalUsageRatio: EngineFlags.KEEP_CURRENT,
-        baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
-        variableRateSlope1: 7_50,
         variableRateSlope2: EngineFlags.KEEP_CURRENT
       })
     });

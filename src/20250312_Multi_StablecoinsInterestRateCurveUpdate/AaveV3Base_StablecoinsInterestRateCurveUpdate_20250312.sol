@@ -19,17 +19,8 @@ contract AaveV3Base_StablecoinsInterestRateCurveUpdate_20250312 is AaveV3Payload
     returns (IAaveV3ConfigEngine.RateStrategyUpdate[] memory)
   {
     IAaveV3ConfigEngine.RateStrategyUpdate[]
-      memory rateStrategies = new IAaveV3ConfigEngine.RateStrategyUpdate[](2);
+      memory rateStrategies = new IAaveV3ConfigEngine.RateStrategyUpdate[](1);
     rateStrategies[0] = IAaveV3ConfigEngine.RateStrategyUpdate({
-      asset: AaveV3BaseAssets.USDbC_UNDERLYING,
-      params: IAaveV3ConfigEngine.InterestRateInputData({
-        optimalUsageRatio: EngineFlags.KEEP_CURRENT,
-        baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
-        variableRateSlope1: 7_50,
-        variableRateSlope2: EngineFlags.KEEP_CURRENT
-      })
-    });
-    rateStrategies[1] = IAaveV3ConfigEngine.RateStrategyUpdate({
       asset: AaveV3BaseAssets.USDC_UNDERLYING,
       params: IAaveV3ConfigEngine.InterestRateInputData({
         optimalUsageRatio: EngineFlags.KEEP_CURRENT,

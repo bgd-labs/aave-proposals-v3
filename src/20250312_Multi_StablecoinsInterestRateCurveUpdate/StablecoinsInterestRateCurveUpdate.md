@@ -14,7 +14,7 @@ The utilization for stablecoins across Aave has resumed falling after a brief im
 
 A closer look at the largest stablecoin markets indicates that borrow rates have stabilized between 6% and 8%.
 
-As a result, we recommend setting the target rate for all stablecoins to 6.5%; bridged stablecoins on networks where native versions are available should be set to 7.50%.
+As a result, we recommend setting the target rate for all stablecoins to 6.5%;
 
 Please note that GHO, USDS, and pyUSD are managed separately and, thus, are not included in these recommendations.
 
@@ -33,23 +33,15 @@ Please note that GHO, USDS, and pyUSD are managed separately and, thus, are not 
 | Aave V3  | Ethereum EtherFi | USDC   | 9.50%              | 6.50%           |
 | Aave V3  | Ethereum EtherFi | FRAX   | 9.50%              | 6.50%           |
 | Aave V3  | Arbitrum         | DAI    | 9.50%              | 6.50%           |
-| Aave V3  | Arbitrum         | USDC.e | 10.50%             | 7.50%           |
 | Aave V3  | Arbitrum         | USDT   | 9.50%              | 6.50%           |
 | Aave V3  | Arbitrum         | LUSD   | 9.50%              | 6.50%           |
 | Aave V3  | Arbitrum         | USDC   | 9.50%              | 6.50%           |
 | Aave V3  | Arbitrum         | FRAX   | 9.50%              | 6.50%           |
 | Aave V3  | Optimism         | DAI    | 9.50%              | 6.50%           |
-| Aave V3  | Optimism         | USDC.e | 10.50%             | 7.50%           |
 | Aave V3  | Optimism         | USDT   | 9.50%              | 6.50%           |
 | Aave V3  | Optimism         | sUSD   | 9.50%              | 6.50%           |
 | Aave V3  | Optimism         | LUSD   | 9.50%              | 6.50%           |
 | Aave V3  | Optimism         | USDC   | 9.50%              | 6.50%           |
-| Aave V3  | Polygon          | DAI    | 9.50%              | 6.50%           |
-| Aave V3  | Polygon          | USDC.e | 10.50%             | 7.50%           |
-| Aave V3  | Polygon          | USDT   | 9.50%              | 6.50%           |
-| Aave V3  | Polygon          | EURS   | 9.50%              | 6.50%           |
-| Aave V3  | Polygon          | USDC   | 9.50%              | 6.50%           |
-| Aave V3  | Base             | USDbC  | 10.50%             | 7.50%           |
 | Aave V3  | Base             | USDC   | 9.50%              | 6.50%           |
 | Aave V3  | Metis            | m.DAI  | 9.50%              | 6.50%           |
 | Aave V3  | Metis            | m.USDC | 9.50%              | 6.50%           |
@@ -59,7 +51,6 @@ Please note that GHO, USDS, and pyUSD are managed separately and, thus, are not 
 | Aave V3  | Avalanche        | USDt   | 9.50%              | 6.50%           |
 | Aave V3  | Avalanche        | FRAX   | 9.50%              | 6.50%           |
 | Aave V3  | Avalanche        | AUSD   | 9.50%              | 6.50%           |
-| Aave V3  | Gnosis           | USD//C | 10.50%             | 7.50%           |
 | Aave V3  | Gnosis           | WXDAI  | 9.50%              | 6.50%           |
 | Aave V3  | Gnosis           | EURe   | 9.50%              | 6.50%           |
 | Aave V3  | Gnosis           | USDC.e | 9.50%              | 6.50%           |

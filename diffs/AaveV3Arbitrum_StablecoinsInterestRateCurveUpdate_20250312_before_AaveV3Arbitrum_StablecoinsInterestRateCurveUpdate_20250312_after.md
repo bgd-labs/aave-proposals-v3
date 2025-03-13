@@ -26,14 +26,6 @@
 | variableRateSlope1 | 9 % | 6.5 % |
 | interestRate | ![before](https://dash.onaave.com/api/static?variableRateSlope1=90000000000000000000000000&variableRateSlope2=400000000000000000000000000&optimalUsageRatio=900000000000000000000000000&baseVariableBorrowRate=0&maxVariableBorrowRate=490000000000000000000000000) | ![after](https://dash.onaave.com/api/static?variableRateSlope1=65000000000000000000000000&variableRateSlope2=400000000000000000000000000&optimalUsageRatio=900000000000000000000000000&baseVariableBorrowRate=0&maxVariableBorrowRate=465000000000000000000000000) |
 
-#### USDC ([0xFF970A61A04b1cA14834A43f5dE4533eBDDB5CC8](https://arbiscan.io/address/0xFF970A61A04b1cA14834A43f5dE4533eBDDB5CC8))
-
-| description | value before | value after |
-| --- | --- | --- |
-| maxVariableBorrowRate | 50 % | 47.5 % |
-| variableRateSlope1 | 10 % | 7.5 % |
-| interestRate | ![before](https://dash.onaave.com/api/static?variableRateSlope1=100000000000000000000000000&variableRateSlope2=400000000000000000000000000&optimalUsageRatio=900000000000000000000000000&baseVariableBorrowRate=0&maxVariableBorrowRate=500000000000000000000000000) | ![after](https://dash.onaave.com/api/static?variableRateSlope1=75000000000000000000000000&variableRateSlope2=400000000000000000000000000&optimalUsageRatio=900000000000000000000000000&baseVariableBorrowRate=0&maxVariableBorrowRate=475000000000000000000000000) |
-
 #### USD₮0 ([0xFd086bC7CD5C481DCC9C85ebE478A1C0b69FCbb9](https://arbiscan.io/address/0xFd086bC7CD5C481DCC9C85ebE478A1C0b69FCbb9))
 
 | description | value before | value after |
@@ -83,16 +75,6 @@
       "variableRateSlope1": {
         "from": "90000000000000000000000000",
         "to": "65000000000000000000000000"
-      }
-    },
-    "0xFF970A61A04b1cA14834A43f5dE4533eBDDB5CC8": {
-      "maxVariableBorrowRate": {
-        "from": "500000000000000000000000000",
-        "to": "475000000000000000000000000"
-      },
-      "variableRateSlope1": {
-        "from": "100000000000000000000000000",
-        "to": "75000000000000000000000000"
       }
     },
     "0xFd086bC7CD5C481DCC9C85ebE478A1C0b69FCbb9": {
@@ -154,10 +136,6 @@
         "0xae78f2b883a3575129c34f54e0f7e202891eb6cfba1031d11a7280ef7155b6ee": {
           "previousValue": "0x00000000000000000000000000000000000000000fa000000384000000002328",
           "newValue": "0x00000000000000000000000000000000000000000fa00000028a000000002328"
-        },
-        "0xfce8993f0c1b71abecf1ad07e5e46e4b6794800e24065180524bde782f4a4b58": {
-          "previousValue": "0x00000000000000000000000000000000000000000fa0000003e8000000002328",
-          "newValue": "0x00000000000000000000000000000000000000000fa0000002ee000000002328"
         }
       }
     },
@@ -244,22 +222,6 @@
           "previousValue": "0x000000000000000000000000000000000000000000000005b6c0fe52d1cc9d2a",
           "newValue": "0x000000000000000000000000000000000000000000000005e65dddaf2b12f562"
         },
-        "0xaa36895e16bf88054bc9ce1f3803f0ce3c9c129a784656f6747518dc4dcfa168": {
-          "previousValue": "0x00000000001bca7070414a9e5c90c23c0000000003a7ec294c1d0ca60ab27381",
-          "newValue": "0x000000000014d7d457998b877caa0c750000000003a7ec29d1f0be92ecfaaf6a"
-        },
-        "0xaa36895e16bf88054bc9ce1f3803f0ce3c9c129a784656f6747518dc4dcfa169": {
-          "previousValue": "0x000000000047792fbc2ac195666cee1c000000000408bd1559bdbf2962e727bb",
-          "newValue": "0x0000000000359ae3d182210dee790a14000000000408bd16d586ae6dd8ccb274"
-        },
-        "0xaa36895e16bf88054bc9ce1f3803f0ce3c9c129a784656f6747518dc4dcfa16a": {
-          "previousValue": "0x00000000000000000000020067d1d0910000000000000000000000000011d530",
-          "newValue": "0x00000000000000000000020067d1d0990000000000000000000000000011d530"
-        },
-        "0xaa36895e16bf88054bc9ce1f3803f0ce3c9c129a784656f6747518dc4dcfa16f": {
-          "previousValue": "0x000000000000000000000000000000000000000000000000000000000801043e",
-          "newValue": "0x00000000000000000000000000000000000000000000000000000000080163b1"
-        },
         "0xeca9b25e580a9539f66a1e310f07d98e6be14b94407490b048d1fe024e73af50": {
           "previousValue": "0x0000000000186032d68f4a1d3c40ca9a0000000003a26605019ea21d77aa92dc",
           "newValue": "0x0000000000119acf6a530321a54052fe0000000003a26606082b91b45f3bf77e"
@@ -319,11 +281,6 @@
       "stateDiff": {}
     },
     "0xfb00ac187a8eb5afae4eace434f493eb62672df7": {
-      "label": null,
-      "balanceDiff": null,
-      "stateDiff": {}
-    },
-    "0xfccf3cabbe80101232d343252614b6a3ee81c989": {
       "label": null,
       "balanceDiff": null,
       "stateDiff": {}

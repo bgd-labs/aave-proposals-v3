@@ -1,6 +1,6 @@
 ## Reserve changes
 
-### Reserve altered
+### Reserves altered
 
 #### USDC ([0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913](https://basescan.org/address/0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913))
 
@@ -9,14 +9,6 @@
 | maxVariableBorrowRate | 49 % | 46.5 % |
 | variableRateSlope1 | 9 % | 6.5 % |
 | interestRate | ![before](https://dash.onaave.com/api/static?variableRateSlope1=90000000000000000000000000&variableRateSlope2=400000000000000000000000000&optimalUsageRatio=900000000000000000000000000&baseVariableBorrowRate=0&maxVariableBorrowRate=490000000000000000000000000) | ![after](https://dash.onaave.com/api/static?variableRateSlope1=65000000000000000000000000&variableRateSlope2=400000000000000000000000000&optimalUsageRatio=900000000000000000000000000&baseVariableBorrowRate=0&maxVariableBorrowRate=465000000000000000000000000) |
-
-#### USDbC ([0xd9aAEc86B65D86f6A7B5B1b0c42FFA531710b6CA](https://basescan.org/address/0xd9aAEc86B65D86f6A7B5B1b0c42FFA531710b6CA))
-
-| description | value before | value after |
-| --- | --- | --- |
-| maxVariableBorrowRate | 50 % | 47.5 % |
-| variableRateSlope1 | 10 % | 7.5 % |
-| interestRate | ![before](https://dash.onaave.com/api/static?variableRateSlope1=100000000000000000000000000&variableRateSlope2=400000000000000000000000000&optimalUsageRatio=900000000000000000000000000&baseVariableBorrowRate=0&maxVariableBorrowRate=500000000000000000000000000) | ![after](https://dash.onaave.com/api/static?variableRateSlope1=75000000000000000000000000&variableRateSlope2=400000000000000000000000000&optimalUsageRatio=900000000000000000000000000&baseVariableBorrowRate=0&maxVariableBorrowRate=475000000000000000000000000) |
 
 ## Raw diff
 
@@ -31,16 +23,6 @@
       "variableRateSlope1": {
         "from": "90000000000000000000000000",
         "to": "65000000000000000000000000"
-      }
-    },
-    "0xd9aAEc86B65D86f6A7B5B1b0c42FFA531710b6CA": {
-      "maxVariableBorrowRate": {
-        "from": "500000000000000000000000000",
-        "to": "475000000000000000000000000"
-      },
-      "variableRateSlope1": {
-        "from": "100000000000000000000000000",
-        "to": "75000000000000000000000000"
       }
     }
   },
@@ -103,29 +85,8 @@
         "0x33a59812d7f150f2c2e7cf398df161b5d00b06dc197e974636ff8a741412b660": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000031adbe12",
           "newValue": "0x0000000000000000000000000000000000000000000000000000000031b188fb"
-        },
-        "0x576d2086a3d5f0898768a114197adc4053263301f03ff1504528cd2771084b43": {
-          "previousValue": "0x00000000003a85d3b54e38c83e757e3b00000000038b468bcda229898dccb810",
-          "newValue": "0x000000000031133ef292b50feab3bdbb00000000038b468e789ca1c860aa5ad9"
-        },
-        "0x576d2086a3d5f0898768a114197adc4053263301f03ff1504528cd2771084b44": {
-          "previousValue": "0x0000000000801934ed01aeb6568cf2cc0000000003c66503131caf515448dcb7",
-          "newValue": "0x00000000006b6b41e3a328d7b271cdc00000000003c665094b78f179a4af73a0"
-        },
-        "0x576d2086a3d5f0898768a114197adc4053263301f03ff1504528cd2771084b45": {
-          "previousValue": "0x00000000000000000000020067d1c12f00000000000000000000000000013141",
-          "newValue": "0x00000000000000000000020067d1c14300000000000000000000000000013141"
-        },
-        "0x576d2086a3d5f0898768a114197adc4053263301f03ff1504528cd2771084b4a": {
-          "previousValue": "0x00000000000000000000000000000000000000000000000000000000032c1a57",
-          "newValue": "0x00000000000000000000000000000000000000000000000000000000032c8392"
         }
       }
-    },
-    "0x7376b2f323dc56fcd4c191b34163ac8a84702dab": {
-      "label": null,
-      "balanceDiff": null,
-      "stateDiff": {}
     },
     "0x86ab1c62a8bf868e1b3e1ab87d587aba6fbcbdc5": {
       "label": null,
@@ -134,10 +95,6 @@
         "0x167d7ad8ce5bbf928e114a13d4a925d29e6437f0d5be246a7858d666db460b9d": {
           "previousValue": "0x00000000000000000000000000000000000000000fa000000384000000002328",
           "newValue": "0x00000000000000000000000000000000000000000fa00000028a000000002328"
-        },
-        "0xfd9d8e5cf6730e7e57eb97f3b1049464bdecd36ad3cb0f2ef433a52cab89a82e": {
-          "previousValue": "0x00000000000000000000000000000000000000000fa0000003e8000000002328",
-          "newValue": "0x00000000000000000000000000000000000000000fa0000002ee000000002328"
         }
       }
     },
