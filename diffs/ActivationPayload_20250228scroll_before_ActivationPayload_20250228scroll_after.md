@@ -18,7 +18,7 @@
       }
     },
     "0x7616355b00c9d1d2faf3937dacb5b9aa1e6755de": {
-      "label": null,
+      "label": "AaveV3Scroll.CLINIC_STEWARD",
       "balanceDiff": null,
       "stateDiff": {
         "0x409b12f9ad7bf34a562b2d74797c9e5995a367de7c255af1d961ee86a2023167": {

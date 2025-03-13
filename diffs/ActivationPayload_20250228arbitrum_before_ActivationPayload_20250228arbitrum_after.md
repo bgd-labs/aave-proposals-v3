@@ -14,7 +14,7 @@
       }
     },
     "0x7b58055fc6be4b23cf8c9287b7d3c4adbe919a9c": {
-      "label": null,
+      "label": "AaveV3Arbitrum.CLINIC_STEWARD",
       "balanceDiff": null,
       "stateDiff": {
         "0x409b12f9ad7bf34a562b2d74797c9e5995a367de7c255af1d961ee86a2023167": {

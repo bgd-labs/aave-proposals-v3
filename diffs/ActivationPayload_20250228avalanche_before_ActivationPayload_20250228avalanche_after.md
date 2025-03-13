@@ -28,7 +28,7 @@
       }
     },
     "0x6c2b732cb368322e460d718df3cd4f553d5fbade": {
-      "label": null,
+      "label": "AaveV3Avalanche.CLINIC_STEWARD",
       "balanceDiff": null,
       "stateDiff": {
         "0x409b12f9ad7bf34a562b2d74797c9e5995a367de7c255af1d961ee86a2023167": {

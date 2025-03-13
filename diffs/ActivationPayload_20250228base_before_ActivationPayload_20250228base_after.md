@@ -4,7 +4,7 @@
 {
   "raw": {
     "0x1a79098c3149020acdefb3ee44aa1d9509305530": {
-      "label": null,
+      "label": "AaveV3Base.CLINIC_STEWARD",
       "balanceDiff": null,
       "stateDiff": {
         "0x409b12f9ad7bf34a562b2d74797c9e5995a367de7c255af1d961ee86a2023167": {

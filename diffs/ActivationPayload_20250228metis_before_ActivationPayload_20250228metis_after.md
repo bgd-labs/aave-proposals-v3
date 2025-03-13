@@ -18,7 +18,7 @@
       }
     },
     "0x53d3c1b2d42578f56ef4c0142f19cdb54ce55040": {
-      "label": null,
+      "label": "AaveV3Metis.CLINIC_STEWARD",
       "balanceDiff": null,
       "stateDiff": {
         "0x409b12f9ad7bf34a562b2d74797c9e5995a367de7c255af1d961ee86a2023167": {
