@@ -12,7 +12,7 @@ import {ISvrOracleSteward} from './ISvrOracleSteward.sol';
  * - Discussion: https://governance.aave.com/t/arfc-aave-chainlink-svr-v1-phase-1-activation/21247
  */
 contract AaveV3Ethereum_EnableSVR_20250312 is IProposalGenericExecutor {
-  address public constant STEWARD = AaveV3Ethereum.SVR_STEWARD;
+  address public constant STEWARD = 0x8b493f416F5F7933cC146b1899c069F2361cad60;
 
   address public constant SVR_BTC_USD = 0xb41E773f507F7a7EA890b1afB7d2b660c30C8B0A;
   address public constant SVR_AAVE_USD = 0xF02C1e2A3B77c1cacC72f72B44f7d0a4c62e4a85;

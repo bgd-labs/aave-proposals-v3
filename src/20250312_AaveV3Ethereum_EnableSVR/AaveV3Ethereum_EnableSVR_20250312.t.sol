@@ -15,7 +15,7 @@ contract AaveV3Ethereum_EnableSVR_20250312_Test is ProtocolV3TestBase {
   AaveV3Ethereum_EnableSVR_20250312 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 22030625);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 22036825);
     proposal = new AaveV3Ethereum_EnableSVR_20250312();
   }
 
