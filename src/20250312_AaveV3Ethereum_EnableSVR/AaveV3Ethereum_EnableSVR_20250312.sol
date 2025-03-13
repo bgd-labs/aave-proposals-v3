@@ -21,7 +21,7 @@ contract AaveV3Ethereum_EnableSVR_20250312 is IProposalGenericExecutor {
   function execute() external {
     // custom code goes here
     AaveV3Ethereum.ACL_MANAGER.addAssetListingAdmin(STEWARD);
-    ISvrOracleSteward.AssetOracle[] memory configInput = new ISvrOracleSteward.AssetOracle[](5);
+    ISvrOracleSteward.AssetOracle[] memory configInput = new ISvrOracleSteward.AssetOracle[](4);
     configInput[0] = ISvrOracleSteward.AssetOracle({
       asset: AaveV3EthereumAssets.LBTC_UNDERLYING,
       svrOracle: SVR_BTC_USD
@@ -31,14 +31,10 @@ contract AaveV3Ethereum_EnableSVR_20250312 is IProposalGenericExecutor {
       svrOracle: SVR_BTC_USD
     });
     configInput[2] = ISvrOracleSteward.AssetOracle({
-      asset: AaveV3EthereumAssets.cbBTC_UNDERLYING,
-      svrOracle: SVR_BTC_USD
-    });
-    configInput[3] = ISvrOracleSteward.AssetOracle({
       asset: AaveV3EthereumAssets.AAVE_UNDERLYING,
       svrOracle: SVR_AAVE_USD
     });
-    configInput[4] = ISvrOracleSteward.AssetOracle({
+    configInput[3] = ISvrOracleSteward.AssetOracle({
       asset: AaveV3EthereumAssets.LINK_UNDERLYING,
       svrOracle: SVR_LINK_USD
     });

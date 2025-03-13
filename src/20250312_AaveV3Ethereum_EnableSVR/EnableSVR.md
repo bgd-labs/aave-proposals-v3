@@ -7,7 +7,7 @@ snapshot: "https://snapshot.box/#/s:aave.eth/proposal/0xe260268c607f20c85d1f9332
 
 ## Simple Summary
 
-Activates SVR oracles on the `AaveV3Ethereum` instance for the assets `LBTC`, `tBTC`, `cbBTC`, `LINK` and `AAVE`.
+Activates SVR oracles on the `AaveV3Ethereum` instance for the assets `LBTC`, `tBTC`, `LINK` and `AAVE`.
 
 ## Motivation
 
@@ -22,7 +22,7 @@ Also the `SVR_STEWARD` allows for the `Protocol guardian` to revert to the previ
 
 - grant the "ASSET LISTING ADMIN" role to the [SVR_STEWARD](https://etherscan.io/address/0x8b493f416F5F7933cC146b1899c069F2361cad60)
 - call the `SVR_STEWARD.enableSvrOracles`, replacing the oracle of
-  - `LBTC`, `tBTC` and `cbBTC` with [0xb41E773f507F7a7EA890b1afB7d2b660c30C8B0A](https://etherscan.io/address/0xb41E773f507F7a7EA890b1afB7d2b660c30C8B0A)
+  - `LBTC` and `tBTC` with [0xb41E773f507F7a7EA890b1afB7d2b660c30C8B0A](https://etherscan.io/address/0xb41E773f507F7a7EA890b1afB7d2b660c30C8B0A)
   - `AAVE` with [0xF02C1e2A3B77c1cacC72f72B44f7d0a4c62e4a85](https://etherscan.io/address/0xF02C1e2A3B77c1cacC72f72B44f7d0a4c62e4a85)
   - `LINK` with [0xC7e9b623ed51F033b32AE7f1282b1AD62C28C183](https://etherscan.io/address/0xC7e9b623ed51F033b32AE7f1282b1AD62C28C183)
 
