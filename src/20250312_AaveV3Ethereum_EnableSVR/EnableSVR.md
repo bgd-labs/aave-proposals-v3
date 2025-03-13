@@ -16,7 +16,7 @@ Extensive details about its rationale and specifications can be found on the [go
 
 ## Specification
 
-Given the new introduction of SVR feeds, this proposal will perform the activation trough an `SVR_STEWARD` steward.
+Given the new introduction of SVR feeds, this proposal will perform the activation through an `SVR_STEWARD` steward.
 The `SVR_STEWARD`, ensures there is minimal derivation between the `current` price feed and the `svr` price feed at activation.
 Also the `SVR_STEWARD` allows for the `Protocol guardian` to revert to the previous oracle in case any unforeseen issue arises.
 
