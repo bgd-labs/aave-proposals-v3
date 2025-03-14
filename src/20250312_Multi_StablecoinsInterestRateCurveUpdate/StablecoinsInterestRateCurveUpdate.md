@@ -22,44 +22,44 @@ Please note that GHO, USDS, and pyUSD are managed separately and, thus, are not 
 
 | Protocol | Instance         | Asset  | **Current Slope1** | **Rec. Slope1** |
 | -------- | ---------------- | ------ | ------------------ | --------------- |
-| Aave V3  | Ethereum Core    | USDC   | 9.50%              | 6.50%           |
-| Aave V3  | Ethereum Core    | DAI    | 9.50%              | 6.50%           |
-| Aave V3  | Ethereum Core    | USDT   | 9.50%              | 6.50%           |
-| Aave V3  | Ethereum Core    | LUSD   | 9.50%              | 6.50%           |
-| Aave V3  | Ethereum Core    | FRAX   | 9.50%              | 6.50%           |
-| Aave V3  | Ethereum Core    | crvUSD | 9.50%              | 6.50%           |
-| Aave V3  | Ethereum Core    | USDe   | 9.50%              | 6.50%           |
-| Aave V3  | Ethereum Prime   | USDC   | 9.50%              | 6.50%           |
-| Aave V3  | Ethereum EtherFi | USDC   | 9.50%              | 6.50%           |
-| Aave V3  | Ethereum EtherFi | FRAX   | 9.50%              | 6.50%           |
-| Aave V3  | Arbitrum         | DAI    | 9.50%              | 6.50%           |
-| Aave V3  | Arbitrum         | USDT   | 9.50%              | 6.50%           |
-| Aave V3  | Arbitrum         | LUSD   | 9.50%              | 6.50%           |
-| Aave V3  | Arbitrum         | USDC   | 9.50%              | 6.50%           |
-| Aave V3  | Arbitrum         | FRAX   | 9.50%              | 6.50%           |
-| Aave V3  | Optimism         | DAI    | 9.50%              | 6.50%           |
-| Aave V3  | Optimism         | USDT   | 9.50%              | 6.50%           |
-| Aave V3  | Optimism         | sUSD   | 9.50%              | 6.50%           |
-| Aave V3  | Optimism         | LUSD   | 9.50%              | 6.50%           |
-| Aave V3  | Optimism         | USDC   | 9.50%              | 6.50%           |
-| Aave V3  | Base             | USDC   | 9.50%              | 6.50%           |
+| Aave V3  | Ethereum Core    | USDC   | 8.50%              | 6.50%           |
+| Aave V3  | Ethereum Core    | DAI    | 8.50%              | 6.50%           |
+| Aave V3  | Ethereum Core    | USDT   | 8.50%              | 6.50%           |
+| Aave V3  | Ethereum Core    | LUSD   | 8.50%              | 6.50%           |
+| Aave V3  | Ethereum Core    | FRAX   | 8.50%              | 6.50%           |
+| Aave V3  | Ethereum Core    | crvUSD | 8.50%              | 6.50%           |
+| Aave V3  | Ethereum Core    | USDe   | 8.50%              | 6.50%           |
+| Aave V3  | Ethereum Prime   | USDC   | 8.50%              | 6.50%           |
+| Aave V3  | Ethereum EtherFi | USDC   | 8.50%              | 6.50%           |
+| Aave V3  | Ethereum EtherFi | FRAX   | 8.50%              | 6.50%           |
+| Aave V3  | Arbitrum         | DAI    | 9%                 | 6.50%           |
+| Aave V3  | Arbitrum         | USDT   | 9%                 | 6.50%           |
+| Aave V3  | Arbitrum         | LUSD   | 9%                 | 6.50%           |
+| Aave V3  | Arbitrum         | USDC   | 9%                 | 6.50%           |
+| Aave V3  | Arbitrum         | FRAX   | 9%                 | 6.50%           |
+| Aave V3  | Optimism         | DAI    | 9%                 | 6.50%           |
+| Aave V3  | Optimism         | USDT   | 9%                 | 6.50%           |
+| Aave V3  | Optimism         | sUSD   | 9%                 | 6.50%           |
+| Aave V3  | Optimism         | LUSD   | 9%                 | 6.50%           |
+| Aave V3  | Optimism         | USDC   | 9%                 | 6.50%           |
+| Aave V3  | Base             | USDC   | 9%                 | 6.50%           |
 | Aave V3  | Metis            | m.DAI  | 9.50%              | 6.50%           |
 | Aave V3  | Metis            | m.USDC | 9.50%              | 6.50%           |
 | Aave V3  | Metis            | m.USDT | 9.50%              | 6.50%           |
-| Aave V3  | Avalanche        | DAI.e  | 9.50%              | 6.50%           |
-| Aave V3  | Avalanche        | USDC   | 9.50%              | 6.50%           |
-| Aave V3  | Avalanche        | USDt   | 9.50%              | 6.50%           |
-| Aave V3  | Avalanche        | FRAX   | 9.50%              | 6.50%           |
-| Aave V3  | Avalanche        | AUSD   | 9.50%              | 6.50%           |
-| Aave V3  | Gnosis           | WXDAI  | 9.50%              | 6.50%           |
-| Aave V3  | Gnosis           | EURe   | 9.50%              | 6.50%           |
-| Aave V3  | Gnosis           | USDC.e | 9.50%              | 6.50%           |
-| Aave V3  | BNB              | USDC   | 9.50%              | 6.50%           |
-| Aave V3  | BNB              | USDT   | 9.50%              | 6.50%           |
-| Aave V3  | BNB              | FDUSD  | 9.50%              | 6.50%           |
-| Aave V3  | Scroll           | USDC   | 9.50%              | 6.50%           |
-| Aave V3  | ZkSync           | USDC   | 9.50%              | 6.50%           |
-| Aave V3  | ZkSync           | USDT   | 9.50%              | 6.50%           |
+| Aave V3  | Avalanche        | DAI.e  | 8.50%              | 6.50%           |
+| Aave V3  | Avalanche        | USDC   | 8.50%              | 6.50%           |
+| Aave V3  | Avalanche        | USDt   | 8.50%              | 6.50%           |
+| Aave V3  | Avalanche        | FRAX   | 8.50%              | 6.50%           |
+| Aave V3  | Avalanche        | AUSD   | 8.50%              | 6.50%           |
+| Aave V3  | Gnosis           | WXDAI  | 9%                 | 6.50%           |
+| Aave V3  | Gnosis           | EURe   | 9%                 | 6.50%           |
+| Aave V3  | Gnosis           | USDC.e | 9%                 | 6.50%           |
+| Aave V3  | BNB              | USDC   | 8.50%              | 6.50%           |
+| Aave V3  | BNB              | USDT   | 8.50%              | 6.50%           |
+| Aave V3  | BNB              | FDUSD  | 8.50%              | 6.50%           |
+| Aave V3  | Scroll           | USDC   | 8.50%              | 6.50%           |
+| Aave V3  | ZkSync           | USDC   | 8.50%              | 6.50%           |
+| Aave V3  | ZkSync           | USDT   | 8.50%              | 6.50%           |
 
 ## References
 
