@@ -48,8 +48,8 @@ The stewards themselves implement a $ cap, which is pre-configured to the follow
 
 ## References
 
-- [Implementation](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250228_Multi_ClinicStewardActivation/ActivationPayload_20250228.sol)
-- [Test](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250228_Multi_ClinicStewardActivation/ActivationPayload_20250228.t.sol)
+- [Implementation](https://github.com/bgd-labs/aave-proposals-v3/blob/aef8af7b07ad2c4442137a529d06c47b23848dd0/src/20250228_Multi_ClinicStewardActivation/ActivationPayload_20250228.sol)
+- [Test](https://github.com/bgd-labs/aave-proposals-v3/blob/aef8af7b07ad2c4442137a529d06c47b23848dd0/src/20250228_Multi_ClinicStewardActivation/ActivationPayload_20250228.t.sol)
 - [Snapshot](https://snapshot.box/#/s:aave.eth/proposal/0xee0249fea0fecbeb2d2cab90ae3e6d9c5e21d5456417048c49aea9f48f970afe)
 - [Discussion](https://governance.aave.com/t/arfc-bgd-aave-clinicsteward/21209)
 - [Steward Code](https://github.com/bgd-labs/aave-stewards/tree/4a1bfd93330043c455b239b9824b73c664e65e01/src/maintenance/ClinicSteward.sol)
