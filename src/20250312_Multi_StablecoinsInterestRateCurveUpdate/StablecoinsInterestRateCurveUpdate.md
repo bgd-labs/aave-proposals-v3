@@ -10,7 +10,7 @@ In light of recent market changes, Chaos Labs recommends setting the target borr
 
 ## Motivation
 
-The utilization for stablecoins across Aave has resumed falling after a brief improvement following the last IR curve adjustment, calling for a further reduction in target rates to better align with the market-priced interest rate. The chart below shows the median stablecoin utilization on each Aave instance, with the lines weighted by the total borrows in each deployment.
+The utilization for stablecoins across Aave has resumed falling after a brief improvement following the last IR curve adjustment, calling for a further reduction in target rates to better align with the market-priced interest rate.
 
 A closer look at the largest stablecoin markets indicates that borrow rates have stabilized between 6% and 8%.
 
