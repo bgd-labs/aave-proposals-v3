@@ -36,27 +36,6 @@ export function generateZkSyncScript(options: Options) {
     return acc;
   }, {});
 
-  // generate zksync wrapper contract for deploying payloads
-  template += `
-  ${poolsToChainsMap[chain]
-    .map(
-      ({contractName}) =>
-        `
-        // @dev wrapper factory contract for deploying the payload
-        contract Deploy_${contractName} {
-          address public immutable PAYLOAD;
-
-          constructor() {
-            PAYLOAD = GovV3Helpers.deployDeterministicZkSync(
-              type(${contractName}).creationCode
-            );
-          }
-        }`,
-    )
-    .join('\n')}
-  `;
-  template += '\n\n';
-
   // generate chain scripts
   template += `/**
     * @dev Deploy ${chain}
@@ -70,7 +49,7 @@ export function generateZkSyncScript(options: Options) {
        ${poolsToChainsMap[chain]
          .map(
            ({contractName, pool}, ix) =>
-             `address payload${ix} = new Deploy_${contractName}().PAYLOAD();`,
+             `address payload${ix} = address(new ${contractName}{salt: 'aave'}());`,
          )
          .join('\n')}
 
