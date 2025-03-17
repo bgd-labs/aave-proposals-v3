@@ -7,7 +7,15 @@ snapshot: "https://snapshot.box/#/s:aave.eth/proposal/0xb55325cab6b35918810443de
 
 ## Simple Summary
 
+This proposal seeks to onboard tBTC to Aave v3 on Arbitrum following a successful launch on Mainnet ([Aave - Open Source Liquidity Protocol](https://app.aave.com/reserve-overview/?underlyingAsset=0x18084fba666a33d37592fa2633fd49a74dd93a88&marketName=proto_mainnet_v3)).
+
 ## Motivation
+
+tBTC is Threshold’s decentralized and permissionless bridge to bring BTC to Ethereum, Arbitrum and 6 other chains. Users wishing to utilize their Bitcoin on Ethereum & Arbitrum can use the tBTC decentralized bridge to deposit their Bitcoin into the system and get a minted tBTC token in their EVM wallet.
+
+Threshold Network has brought native minting of tBTC to Arbitrum, is live on GMX and has strong, sticky liquidity to support liquidations.
+
+Following its approval on AAVE V3 Ethereum, tBTC’s initial supply cap was reached within 72 hours, prompting an increase to meet the overwhelming demand and now sits at over 1,000 BTC TVL. This rapid adoption underscores the market’s appetite for trust-minimized BTC solutions in DeFi.
 
 ## Specification
 
