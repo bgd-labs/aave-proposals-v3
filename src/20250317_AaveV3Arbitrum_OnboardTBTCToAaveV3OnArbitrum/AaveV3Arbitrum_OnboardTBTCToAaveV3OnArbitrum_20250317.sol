@@ -18,7 +18,7 @@ contract AaveV3Arbitrum_OnboardTBTCToAaveV3OnArbitrum_20250317 is AaveV3PayloadA
   using SafeERC20 for IERC20;
 
   address public constant tBTC = 0x6c84a8f1c29108F47a79964b5Fe888D4f4D0dE40;
-  uint256 public constant tBTC_SEED_AMOUNT = 1e18;
+  uint256 public constant tBTC_SEED_AMOUNT = 1e15;
   address public constant tBTC_LM_ADMIN = 0xac140648435d03f784879cd789130F22Ef588Fcd;
 
   function _postExecute() internal override {
