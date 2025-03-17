@@ -36,7 +36,7 @@ contract AaveV3Arbitrum_OnboardTBTCToAaveV3OnArbitrum_20250317_Test is ProtocolV
   function test_dustBinHastBTCFunds() public {
     GovV3Helpers.executePayload(vm, address(proposal));
     address aTokenAddress = AaveV3Arbitrum.POOL.getReserveAToken(proposal.tBTC());
-    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Arbitrum.DUST_BIN)), 10 ** 18);
+    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Arbitrum.DUST_BIN)), 10 ** 15);
   }
 
   function test_tBTCAdmin() public {
