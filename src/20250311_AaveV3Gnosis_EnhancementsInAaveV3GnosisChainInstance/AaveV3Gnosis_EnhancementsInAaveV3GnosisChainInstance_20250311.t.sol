@@ -15,7 +15,7 @@ contract AaveV3Gnosis_EnhancementsInAaveV3GnosisChainInstance_20250311_Test is P
   AaveV3Gnosis_EnhancementsInAaveV3GnosisChainInstance_20250311 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('gnosis'), 38986299);
+    vm.createSelectFork(vm.rpcUrl('gnosis'), 39102561);
     proposal = new AaveV3Gnosis_EnhancementsInAaveV3GnosisChainInstance_20250311();
   }
 

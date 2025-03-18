@@ -17,6 +17,7 @@
 | description | value before | value after |
 | --- | --- | --- |
 | borrowCap | 0 sDAI | 4,000,000 sDAI |
+| borrowingEnabled | false | true |
 | maxVariableBorrowRate | 79 % | 24 % |
 | variableRateSlope2 | 75 % | 20 % |
 | interestRate | ![before](https://dash.onaave.com/api/static?variableRateSlope1=40000000000000000000000000&variableRateSlope2=750000000000000000000000000&optimalUsageRatio=900000000000000000000000000&baseVariableBorrowRate=0&maxVariableBorrowRate=790000000000000000000000000) | ![after](https://dash.onaave.com/api/static?variableRateSlope1=40000000000000000000000000&variableRateSlope2=200000000000000000000000000&optimalUsageRatio=900000000000000000000000000&baseVariableBorrowRate=0&maxVariableBorrowRate=240000000000000000000000000) |
@@ -84,6 +85,10 @@
       "borrowCap": {
         "from": 0,
         "to": 4000000
+      },
+      "borrowingEnabled": {
+        "from": false,
+        "to": true
       }
     }
   },
@@ -101,17 +106,17 @@
   },
   "raw": {
     "0x1df462e2712496373a347f8ad10802a5e95f053d": {
-      "label": null,
+      "label": "AaveV3Gnosis.ACL_ADMIN, GovernanceV3Gnosis.EXECUTOR_LVL_1",
       "balanceDiff": null,
       "stateDiff": {}
     },
     "0x36616cf17557639614c1cddb356b1b83fc0b2132": {
-      "label": null,
+      "label": "AaveV3Gnosis.POOL_ADDRESSES_PROVIDER",
       "balanceDiff": null,
       "stateDiff": {}
     },
     "0x4ce496f0a390745102540faf041ef92ffd588b44": {
-      "label": null,
+      "label": "AaveV3Gnosis.ASSETS.WETH.INTEREST_RATE_STRATEGY, AaveV3Gnosis.ASSETS.wstETH.INTEREST_RATE_STRATEGY, AaveV3Gnosis.ASSETS.GNO.INTEREST_RATE_STRATEGY, AaveV3Gnosis.ASSETS.USDC.INTEREST_RATE_STRATEGY, AaveV3Gnosis.ASSETS.WXDAI.INTEREST_RATE_STRATEGY, AaveV3Gnosis.ASSETS.EURe.INTEREST_RATE_STRATEGY, AaveV3Gnosis.ASSETS.sDAI.INTEREST_RATE_STRATEGY, AaveV3Gnosis.ASSETS.USDCe.INTEREST_RATE_STRATEGY",
       "balanceDiff": null,
       "stateDiff": {
         "0x7a707fb5a667d8fcd75b759571976d14d8065a51b95e6ef656e3cfbef6769e8d": {
@@ -121,17 +126,17 @@
       }
     },
     "0x5f6f7b0a87ca3cf3d0b431ae03ef3305180bff4d": {
-      "label": null,
+      "label": "AaveV3Gnosis.ASSETS.USDC.V_TOKEN",
       "balanceDiff": null,
       "stateDiff": {}
     },
     "0x7304979ec9e4eaa0273b6a037a31c4e9e5a75d16": {
-      "label": null,
+      "label": "AaveV3Gnosis.POOL_CONFIGURATOR",
       "balanceDiff": null,
       "stateDiff": {}
     },
     "0x77c874799e9564a0d0670ed40bf023d249e7bb21": {
-      "label": null,
+      "label": "AaveV3Gnosis.POOL_IMPL",
       "balanceDiff": null,
       "stateDiff": {
         "0x45fb21bff46f3219261e8dfd39448f990f239040f94fb8fbbbea3b4a28f2768f": {
@@ -139,20 +144,20 @@
           "newValue": "0x100000000000000000000007d00002625a00001e84800fa0a50629041e781964"
         },
         "0x45fb21bff46f3219261e8dfd39448f990f239040f94fb8fbbbea3b4a28f27690": {
-          "previousValue": "0x0000000000286fd5b573d9f207482be700000000037e8a4e04ef3c564db5b332",
-          "newValue": "0x000000000020597a6e9ea5a3e206a29c00000000037e8aa870ec9167c85c9a06"
+          "previousValue": "0x000000000022c0321254a051b64e477700000000037f3445cba051d2a9adc2a9",
+          "newValue": "0x00000000001bccf57056235a7715121c00000000037f3456fd57caf97c2941b1"
         },
         "0x45fb21bff46f3219261e8dfd39448f990f239040f94fb8fbbbea3b4a28f27691": {
-          "previousValue": "0x00000000004664eb4768e2fe70e7b2d300000000039b148d88af3b111fcafeae",
-          "newValue": "0x00000000004664ee2db9630c890070bf00000000039b152ff76b68ebb050147a"
+          "previousValue": "0x00000000004141ebda15b07c807ec5cf00000000039c6773b52556818312d809",
+          "newValue": "0x00000000004141ec88cfb6caaa95988a00000000039c67950ca0da1577148cf8"
         },
         "0x45fb21bff46f3219261e8dfd39448f990f239040f94fb8fbbbea3b4a28f27692": {
-          "previousValue": "0x00000000000000000000030067d0b34b00000000000000000000000000000000",
-          "newValue": "0x00000000000000000000030067d0b72e00000000000000000000000000000000"
+          "previousValue": "0x00000000000000000000030067d9bdec00000000000000000000000000000000",
+          "newValue": "0x00000000000000000000030067d9bec800000000000000000000000000000000"
         },
         "0x45fb21bff46f3219261e8dfd39448f990f239040f94fb8fbbbea3b4a28f27697": {
-          "previousValue": "0x0000000000000000000000000000000000000000000000000000000002e511d3",
-          "newValue": "0x0000000000000000000000000000000000000000000000000000000002ef58c5"
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000af40dc",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000b14d0d"
         },
         "0x81d0999fde243adcc41b7fa1be5cea14f789e3a6065b815ac58f4bc0838c3155": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -168,7 +173,7 @@
         },
         "0x92f844314898b12448ab6e2a1cca9eec63a65c2047adeeaec3e6245d83e31c27": {
           "previousValue": "0x100000000000000000000007d0002dc6c0000000000003e8811229041e781d4c",
-          "newValue": "0x100000000000000000000007d0002dc6c000003d090003e8811229041e781d4c"
+          "newValue": "0x100000000000000000000007d0002dc6c000003d090003e8851229041e781d4c"
         },
         "0x92f844314898b12448ab6e2a1cca9eec63a65c2047adeeaec3e6245d83e31c28": {
           "previousValue": "0x0000000000000000000000000000000000000000033b3325f9972c994195ffce",
@@ -179,28 +184,28 @@
           "newValue": "0x0000000000000000000000000000000000000000033b2e3c9fd0803ce8000000"
         },
         "0x92f844314898b12448ab6e2a1cca9eec63a65c2047adeeaec3e6245d83e31c2a": {
-          "previousValue": "0x00000000000000000000060067d0aa7200000000000000000000000000000000",
-          "newValue": "0x00000000000000000000060067d0b72e00000000000000000000000000000000"
+          "previousValue": "0x00000000000000000000060067d9a70300000000000000000000000000000000",
+          "newValue": "0x00000000000000000000060067d9bec800000000000000000000000000000000"
         }
       }
     },
     "0x8fe06e1d8aff42bf6812cacf7854a2249a00bed7": {
-      "label": null,
+      "label": "AaveV3Gnosis.ASSETS.sDAI.V_TOKEN",
       "balanceDiff": null,
       "stateDiff": {}
     },
     "0x9a1f491b86d09fc1484b5fab10041b189b60756b": {
-      "label": null,
+      "label": "GovernanceV3Gnosis.PAYLOADS_CONTROLLER",
       "balanceDiff": null,
       "stateDiff": {}
     },
     "0xb50201558b00496a145fe76f7424749556e326d8": {
-      "label": null,
+      "label": "AaveV3Gnosis.POOL",
       "balanceDiff": null,
       "stateDiff": {}
     },
     "0xbec519531f0e78bcddb295242fa4ec5251b38574": {
-      "label": null,
+      "label": "AaveV3Gnosis.DEFAULT_VARIABLE_DEBT_TOKEN_IMPL_REV_1",
       "balanceDiff": null,
       "stateDiff": {}
     },
@@ -208,23 +213,23 @@
       "label": null,
       "balanceDiff": null,
       "stateDiff": {
-        "0x8a3a0b6f6fa9438554c4aa5bdaf7838f6c90507836aabb33d6ebaeb414e248f9": {
-          "previousValue": "0x0067d0b72d000000000002000000000000000000000000000000000000000000",
-          "newValue": "0x0067d0b72d000000000003000000000000000000000000000000000000000000"
+        "0x5f3ffac152518418b730c1b4427b48de47a050e582434504c9ffd15088f0d196": {
+          "previousValue": "0x0067d9bec7000000000002000000000000000000000000000000000000000000",
+          "newValue": "0x0067d9bec7000000000003000000000000000000000000000000000000000000"
         },
-        "0x8a3a0b6f6fa9438554c4aa5bdaf7838f6c90507836aabb33d6ebaeb414e248fa": {
-          "previousValue": "0x000000000000000000093a8000000000000067fedbae00000000000000000000",
-          "newValue": "0x000000000000000000093a8000000000000067fedbae00000000000067d0b72e"
+        "0x5f3ffac152518418b730c1b4427b48de47a050e582434504c9ffd15088f0d197": {
+          "previousValue": "0x000000000000000000093a800000000000006807e34800000000000000000000",
+          "newValue": "0x000000000000000000093a800000000000006807e34800000000000067d9bec8"
         }
       }
     },
     "0xe5e48ad1f9d1a894188b483dcf91f4fad6aba43b": {
-      "label": null,
+      "label": "AaveV3Gnosis.POOL_CONFIGURATOR_IMPL",
       "balanceDiff": null,
       "stateDiff": {}
     },
     "0xec710f59005f48703908bc519d552df5b8472614": {
-      "label": null,
+      "label": "AaveV3Gnosis.ACL_MANAGER",
       "balanceDiff": null,
       "stateDiff": {}
     }
