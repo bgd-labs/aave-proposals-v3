@@ -59,7 +59,7 @@ contract AaveV3Gnosis_EnhancementsInAaveV3GnosisChainInstance_20250311 is AaveV3
     returns (IAaveV3ConfigEngine.BorrowUpdate[] memory)
   {
     IAaveV3ConfigEngine.BorrowUpdate[]
-      memory borrowUpdates = new IAaveV3ConfigEngine.BorrowUpdate[](1);
+      memory borrowUpdates = new IAaveV3ConfigEngine.BorrowUpdate[](2);
 
     borrowUpdates[0] = IAaveV3ConfigEngine.BorrowUpdate({
       asset: AaveV3GnosisAssets.USDC_UNDERLYING,
@@ -68,6 +68,15 @@ contract AaveV3Gnosis_EnhancementsInAaveV3GnosisChainInstance_20250311 is AaveV3
       borrowableInIsolation: EngineFlags.KEEP_CURRENT,
       withSiloedBorrowing: EngineFlags.KEEP_CURRENT,
       reserveFactor: 40_00
+    });
+
+    borrowUpdates[1] = IAaveV3ConfigEngine.BorrowUpdate({
+      asset: AaveV3GnosisAssets.sDAI_UNDERLYING,
+      enabledToBorrow: EngineFlags.ENABLED,
+      flashloanable: EngineFlags.KEEP_CURRENT,
+      borrowableInIsolation: EngineFlags.KEEP_CURRENT,
+      withSiloedBorrowing: EngineFlags.KEEP_CURRENT,
+      reserveFactor: EngineFlags.KEEP_CURRENT
     });
 
     return borrowUpdates;
@@ -102,7 +111,7 @@ contract AaveV3Gnosis_EnhancementsInAaveV3GnosisChainInstance_20250311 is AaveV3
       ltv: 90_00,
       liqThreshold: 92_00,
       liqBonus: 4_00,
-      label: 'sDAI_USDCe'
+      label: 'sDAI/USDCe'
     });
 
     return eModeUpdates;

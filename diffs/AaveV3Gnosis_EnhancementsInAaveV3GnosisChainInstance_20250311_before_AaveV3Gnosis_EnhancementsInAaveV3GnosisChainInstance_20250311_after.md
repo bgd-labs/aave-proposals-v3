@@ -32,11 +32,11 @@
 
 
 
-### EMode: sDAI_USDCe(id: 3)
+### EMode: sDAI/USDCe(id: 3)
 
 | description | value before | value after |
 | --- | --- | --- |
-| eMode.label | - | sDAI_USDCe |
+| eMode.label | - | sDAI/USDCe |
 | eMode.ltv | - | 90 % |
 | eMode.liquidationThreshold | - | 92 % |
 | eMode.liquidationBonus | - | 4 % |
@@ -55,7 +55,7 @@
         "borrowableBitmap": "128",
         "collateralBitmap": "64",
         "eModeCategory": 3,
-        "label": "sDAI_USDCe",
+        "label": "sDAI/USDCe",
         "liquidationBonus": 10400,
         "liquidationThreshold": 9200,
         "ltv": 9000
@@ -165,7 +165,7 @@
         },
         "0x81d0999fde243adcc41b7fa1be5cea14f789e3a6065b815ac58f4bc0838c3156": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x734441495f555344436500000000000000000000000000000000000000000014"
+          "newValue": "0x734441492f555344436500000000000000000000000000000000000000000014"
         },
         "0x81d0999fde243adcc41b7fa1be5cea14f789e3a6065b815ac58f4bc0838c3157": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
