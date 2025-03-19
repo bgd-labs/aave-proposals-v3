@@ -27,7 +27,7 @@ Additionally, `addVotingPortals()` will be called on the core Governance contrac
 | Avalanche | [0x4D1863d22D0ED8579f8999388BCC833CB057C2d6](https://snowscan.xyz/address/0x4D1863d22D0ED8579f8999388BCC833CB057C2d6) |
 
 **Voting Portals:**
-| Network Path | VotingMachine |
+| Network Path | VotingPortals |
 | ------- | ------------- |
 | Ethereum - Ethereum | [0x6ACe1Bf22D57a33863161bFDC851316Fb0442690](https://etherscan.io/address/0x6ACe1Bf22D57a33863161bFDC851316Fb0442690) |
 | Ethereum - Polygon | [0xFe4683C18aaad791B6AFDF0a8e1Ed5C6e2c9ecD6](https://etherscan.io/address/0xFe4683C18aaad791B6AFDF0a8e1Ed5C6e2c9ecD6) |
