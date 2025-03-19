@@ -13,6 +13,7 @@ import {
   scroll,
   zkSync,
   linea,
+  celo,
   sonic,
 } from 'viem/chains';
 import {Hex, getAddress} from 'viem';
@@ -33,6 +34,7 @@ export const AVAILABLE_CHAINS = [
   'Scroll',
   'ZkSync',
   'Linea',
+  'Celo',
   'Sonic',
 ] as const;
 
@@ -139,6 +141,7 @@ export const CHAIN_TO_CHAIN_ID = {
   Scroll: scroll.id,
   ZkSync: zkSync.id,
   Linea: linea.id,
+  Celo: celo.id,
   Sonic: sonic.id,
 };
 

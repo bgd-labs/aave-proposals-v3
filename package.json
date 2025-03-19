@@ -31,7 +31,7 @@
     "vitest": "^2.1.5"
   },
   "dependencies": {
-    "@bgd-labs/aave-address-book": "^4.14.0",
+    "@bgd-labs/aave-address-book": "^4.16.0",
     "@bgd-labs/aave-cli": "^1.2.3",
     "@bgd-labs/js-utils": "^1.4.7",
     "@inquirer/prompts": "^7.1.0",
