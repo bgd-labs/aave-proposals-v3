@@ -18,6 +18,7 @@ contract AaveV3Ethereum_CoreInstanceAddEzETHAndUpdateRsETHEModeParameters_202503
 {
   using SafeERC20 for IERC20;
 
+  // https://etherscan.io/address/0xbf5495Efe5DB9ce00f80364C8B423567e58d2110
   address public constant ezETH = 0xbf5495Efe5DB9ce00f80364C8B423567e58d2110;
   uint256 public constant ezETH_SEED_AMOUNT = 1e18;
   uint256 public constant DUST_AMOUNT = 1e16;
