@@ -10,7 +10,7 @@ This publication proposes the following update to the Core Instance on Ethereum:
 
 - Add ezETH;
 - Increase rsETH supply cap; and,
-- Create rsETH/WETH liquid eMode.
+- Create ezETH/wETH, ezETH/wstETH, rsETH/WETH liquid eMode.
 
 ## Motivation
 
@@ -60,6 +60,12 @@ Add ezETH to Core instance on Ethereum.
 | Borrowable in Isolation   |                                   DISABLED |
 | Oracle                    | 0x68C9c7Bf43DBd0EBab102116bc7C3C9f7d9297Ee |
 
+### rsETH Supply Cap
+
+| Parameter  | Current | Proposed | Change  |
+| :--------- | :------ | :------- | :------ |
+| Supply Cap | 480,000 | 550,000  | +70,000 |
+
 ### ezETH/wETH eMode
 
 | Parameter             | Value  | Value  |
@@ -81,12 +87,6 @@ Add ezETH to Core instance on Ethereum.
 | Max LTV               | 93.00% | 93.00% |
 | Liquidation Threshold | 95.00% | 95.00% |
 | Liquidation Penalty   | 1.00%  | 1.00%  |
-
-### rsETH Supply Cap
-
-| Parameter  | Current | Proposed | Change  |
-| :--------- | :------ | :------- | :------ |
-| Supply Cap | 480,000 | 550,000  | +70,000 |
 
 ### rsETH/wETH eMode
 

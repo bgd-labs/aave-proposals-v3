@@ -20,10 +20,13 @@ contract AaveV3Ethereum_CoreInstanceAddEzETHAndUpdateRsETHEModeParameters_202503
 
   address public constant ezETH = 0xbf5495Efe5DB9ce00f80364C8B423567e58d2110;
   uint256 public constant ezETH_SEED_AMOUNT = 1e18;
+  uint256 public constant DUST_AMOUNT = 1e16;
 
   function _postExecute() internal override {
     IERC20(ezETH).forceApprove(address(AaveV3Ethereum.POOL), ezETH_SEED_AMOUNT);
-    AaveV3Ethereum.POOL.supply(ezETH, ezETH_SEED_AMOUNT, AaveV3Ethereum.DUST_BIN, 0);
+    AaveV3Ethereum.POOL.supply(ezETH, ezETH_SEED_AMOUNT, address(AaveV3Ethereum.COLLECTOR), 0);
+    address aEthEzETH = AaveV3Ethereum.POOL.getReserveAToken(ezETH);
+    AaveV3Ethereum.COLLECTOR.transfer(IERC20(aEthEzETH), AaveV3Ethereum.DUST_BIN, DUST_AMOUNT);
   }
 
   function capsUpdates() public pure override returns (IAaveV3ConfigEngine.CapsUpdate[] memory) {

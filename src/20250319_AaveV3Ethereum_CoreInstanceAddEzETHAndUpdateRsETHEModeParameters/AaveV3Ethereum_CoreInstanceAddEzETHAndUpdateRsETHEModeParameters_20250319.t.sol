@@ -38,6 +38,9 @@ contract AaveV3Ethereum_CoreInstanceAddEzETHAndUpdateRsETHEModeParameters_202503
   function test_dustBinHasezETHFunds() public {
     GovV3Helpers.executePayload(vm, address(proposal));
     address aTokenAddress = AaveV3Ethereum.POOL.getReserveAToken(proposal.ezETH());
-    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Ethereum.DUST_BIN)), 10 ** 12);
+    assertGe(
+      IERC20(aTokenAddress).balanceOf(address(AaveV3Ethereum.DUST_BIN)),
+      proposal.DUST_AMOUNT()
+    );
   }
 }
