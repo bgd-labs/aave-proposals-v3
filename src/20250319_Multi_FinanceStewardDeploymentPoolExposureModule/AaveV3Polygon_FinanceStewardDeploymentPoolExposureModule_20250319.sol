@@ -15,7 +15,7 @@ import {Values} from './Values.sol';
 /**
  * @title Finance Steward Deployment: Pool Exposure Module
  * @author @TokenLogic
- * - Snapshot: TODO
+ * - Snapshot: https://snapshot.box/#/s:aave.eth/proposal/0x1730ba3a2dd1f7b0b00cfae01b0c9f1bb7494b848c5de517275e2c72cf8c7b4d
  * - Discussion: https://governance.aave.com/t/arfc-aave-finance-steward-deployment/21495
  */
 contract AaveV3Polygon_FinanceStewardDeploymentPoolExposureModule_20250319 is
@@ -38,7 +38,7 @@ contract AaveV3Polygon_FinanceStewardDeploymentPoolExposureModule_20250319 is
       (, , , uint256 decimals, ) = configuration.getParams();
 
       uint256 tokenAmount = Values.getTokenAmountByDollarValue(
-        aToken,
+        reserve,
         address(AaveV3Polygon.ORACLE),
         decimals,
         MIN_DOLLAR_VALUE
@@ -46,17 +46,19 @@ contract AaveV3Polygon_FinanceStewardDeploymentPoolExposureModule_20250319 is
       uint256 balanceDustBin = IERC20(aToken).balanceOf(AaveV3Polygon.DUST_BIN);
 
       if (balanceDustBin < tokenAmount) {
+        uint256 balanceCollector = IERC20(aToken).balanceOf(address(AaveV3Polygon.COLLECTOR));
+        uint256 toSend = tokenAmount - balanceDustBin;
         AaveV3Polygon.COLLECTOR.transfer(
           IERC20(aToken),
           AaveV3Polygon.DUST_BIN,
-          tokenAmount - balanceDustBin
+          balanceCollector >= toSend ? toSend : balanceCollector
         );
       }
     }
 
-    // IAccessControl(address(AaveV3Polygon.COLLECTOR)).grantRole(
-    //   'FUNDS_ADMIN',
-    //   AaveV3Polygon.POOL_EXPOSURE_STEWARD
-    // );
+    IAccessControl(address(AaveV3Polygon.COLLECTOR)).grantRole(
+      'FUNDS_ADMIN',
+      AaveV3Polygon.POOL_EXPOSURE_STEWARD
+    );
   }
 }

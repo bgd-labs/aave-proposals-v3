@@ -4,13 +4,14 @@ pragma solidity ^0.8.0;
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 import {IAccessControl} from 'openzeppelin-contracts/contracts/access/IAccessControl.sol';
 import {AaveV2Ethereum} from 'aave-address-book/AaveV2Ethereum.sol';
-import {AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
+import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {IPoolDataProvider, IPriceOracleGetter} from 'aave-address-book/AaveV3.sol';
 import {DataTypes} from 'aave-v3-origin/contracts/protocol/libraries/types/DataTypes.sol';
 import {ReserveConfiguration} from 'aave-v3-origin/contracts/protocol/libraries/configuration/ReserveConfiguration.sol';
 
 import {AaveV3Ethereum_FinanceStewardDeploymentPoolExposureModule_20250319} from './AaveV3Ethereum_FinanceStewardDeploymentPoolExposureModule_20250319.sol';
+import {Values} from './Values.sol';
 
 /**
  * @dev Test for AaveV3Ethereum_FinanceStewardDeploymentPoolExposureModule_20250319
@@ -22,10 +23,12 @@ contract AaveV3Ethereum_FinanceStewardDeploymentPoolExposureModule_20250319_Test
   using ReserveConfiguration for DataTypes.ReserveConfigurationMap;
 
   AaveV3Ethereum_FinanceStewardDeploymentPoolExposureModule_20250319 internal proposal;
+  TestBalance internal tester;
 
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('mainnet'), 22080648);
     proposal = new AaveV3Ethereum_FinanceStewardDeploymentPoolExposureModule_20250319();
+    tester = new TestBalance();
   }
 
   /**
@@ -40,7 +43,21 @@ contract AaveV3Ethereum_FinanceStewardDeploymentPoolExposureModule_20250319_Test
   }
 
   function test_accessGranted() public {
+    assertFalse(
+      IAccessControl(address(AaveV3Ethereum.COLLECTOR)).hasRole(
+        'FUNDS_ADMIN',
+        AaveV3Ethereum.POOL_EXPOSURE_STEWARD
+      )
+    );
+
     executePayload(vm, address(proposal));
+
+    assertTrue(
+      IAccessControl(address(AaveV3Ethereum.COLLECTOR)).hasRole(
+        'FUNDS_ADMIN',
+        AaveV3Ethereum.POOL_EXPOSURE_STEWARD
+      )
+    );
   }
 
   function test_allReservesHaveEnoughBalanceOnDustBin() public {
@@ -51,32 +68,34 @@ contract AaveV3Ethereum_FinanceStewardDeploymentPoolExposureModule_20250319_Test
 
     for (uint256 i = 0; i < reservesLen; i++) {
       address reserve = reserves[i];
+
+      if (reserve == AaveV3EthereumAssets.GHO_UNDERLYING) {
+        continue;
+      }
+
+      address aToken = AaveV3Ethereum.POOL.getReserveAToken(reserve);
       DataTypes.ReserveConfigurationMap memory configuration = AaveV3Ethereum.POOL.getConfiguration(
         reserve
       );
       (, , , uint256 decimals, ) = configuration.getParams();
 
-      uint256 tokenAmount = _getTokenAmountByDollarValue(reserve, decimals, 100);
-      uint256 balanceDustBin = IERC20(reserve).balanceOf(AaveV3Ethereum.DUST_BIN);
+      uint256 tokenAmount = Values.getTokenAmountByDollarValue(
+        reserve,
+        address(AaveV3Ethereum.ORACLE),
+        decimals,
+        100
+      );
+      uint256 balanceDustBin = IERC20(aToken).balanceOf(AaveV3Ethereum.DUST_BIN);
 
-      if (balanceDustBin < tokenAmount) {
-        AaveV3Ethereum.COLLECTOR.transfer(
-          IERC20(reserve),
-          AaveV3Ethereum.DUST_BIN,
-          tokenAmount - balanceDustBin
-        );
+      try tester.isGreaterThanOrEqual(balanceDustBin, tokenAmount) {} catch {
+        assertGt(balanceDustBin, 0, 'a token does not have greater than 0 balance in dust bin');
       }
     }
   }
+}
 
-  function _getTokenAmountByDollarValue(
-    address underlying,
-    uint256 decimals,
-    uint256 dollarValue
-  ) internal view returns (uint256) {
-    uint256 latestAnswer = IPriceOracleGetter(address(AaveV3Ethereum.ORACLE)).getAssetPrice(
-      underlying
-    );
-    return (dollarValue * 10 ** (8 + decimals)) / latestAnswer;
+contract TestBalance is ProtocolV3TestBase {
+  function isGreaterThanOrEqual(uint256 balanceDustBin, uint256 minTokenAmount) public pure {
+    assertGe(balanceDustBin, minTokenAmount, 'a token does not have greater than $100 in dust bin');
   }
 }

@@ -14,7 +14,7 @@ import {Values} from './Values.sol';
 /**
  * @title Finance Steward Deployment: Pool Exposure Module
  * @author @TokenLogic
- * - Snapshot: TODO
+ * - Snapshot: https://snapshot.box/#/s:aave.eth/proposal/0x1730ba3a2dd1f7b0b00cfae01b0c9f1bb7494b848c5de517275e2c72cf8c7b4d
  * - Discussion: https://governance.aave.com/t/arfc-aave-finance-steward-deployment/21495
  */
 contract AaveV3BNB_FinanceStewardDeploymentPoolExposureModule_20250319 is IProposalGenericExecutor {
@@ -43,17 +43,19 @@ contract AaveV3BNB_FinanceStewardDeploymentPoolExposureModule_20250319 is IPropo
       uint256 balanceDustBin = IERC20(aToken).balanceOf(AaveV3BNB.DUST_BIN);
 
       if (balanceDustBin < tokenAmount) {
+        uint256 balanceCollector = IERC20(aToken).balanceOf(address(AaveV3BNB.COLLECTOR));
+        uint256 toSend = tokenAmount - balanceDustBin;
         AaveV3BNB.COLLECTOR.transfer(
           IERC20(aToken),
           AaveV3BNB.DUST_BIN,
-          tokenAmount - balanceDustBin
+          balanceCollector >= toSend ? toSend : balanceCollector
         );
       }
     }
 
-    // IAccessControl(address(AaveV3BNB.COLLECTOR)).grantRole(
-    //   'FUNDS_ADMIN',
-    //   AaveV3BNB.POOL_EXPOSURE_STEWARD
-    // );
+    IAccessControl(address(AaveV3BNB.COLLECTOR)).grantRole(
+      'FUNDS_ADMIN',
+      AaveV3BNB.POOL_EXPOSURE_STEWARD
+    );
   }
 }

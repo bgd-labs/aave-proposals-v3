@@ -28,7 +28,7 @@ export const config: ConfigFile = {
     AaveV3Polygon: {configs: {OTHERS: {}}, cache: {blockNumber: 69238268}},
     AaveV3Avalanche: {configs: {OTHERS: {}}, cache: {blockNumber: 58941868}},
     AaveV3Optimism: {configs: {OTHERS: {}}, cache: {blockNumber: 133392643}},
-    AaveV3Arbitrum: {configs: {OTHERS: {}}, cache: {blockNumber: 69238270}},
+    AaveV3Arbitrum: {configs: {OTHERS: {}}, cache: {blockNumber: 319049030}},
     AaveV3Base: {configs: {OTHERS: {}}, cache: {blockNumber: 27797204}},
     AaveV3Scroll: {configs: {OTHERS: {}}, cache: {blockNumber: 14111144}},
     AaveV3BNB: {configs: {OTHERS: {}}, cache: {blockNumber: 47600798}},
