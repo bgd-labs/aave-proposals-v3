@@ -19,7 +19,6 @@ contract AaveV3Ethereum_EnableSVR_20250312 is IProposalGenericExecutor {
   address public constant SVR_LINK_USD = 0xC7e9b623ed51F033b32AE7f1282b1AD62C28C183;
 
   function execute() external {
-    // custom code goes here
     AaveV3Ethereum.ACL_MANAGER.addAssetListingAdmin(STEWARD);
     ISvrOracleSteward.AssetOracle[] memory configInput = new ISvrOracleSteward.AssetOracle[](4);
     configInput[0] = ISvrOracleSteward.AssetOracle({
