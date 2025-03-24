@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 import {IAccessControl} from 'openzeppelin-contracts/contracts/access/IAccessControl.sol';
 import {AaveV3Linea} from 'aave-address-book/AaveV3Linea.sol';
-import {IPoolDataProvider, IPriceOracleGetter} from 'aave-address-book/AaveV3.sol';
+import {IPriceOracleGetter} from 'aave-address-book/AaveV3.sol';
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
 import {DataTypes} from 'aave-v3-origin/contracts/protocol/libraries/types/DataTypes.sol';
 import {ReserveConfiguration} from 'aave-v3-origin/contracts/protocol/libraries/configuration/ReserveConfiguration.sol';

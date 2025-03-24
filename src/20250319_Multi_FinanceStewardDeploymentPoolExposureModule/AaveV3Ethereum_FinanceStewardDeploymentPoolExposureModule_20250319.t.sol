@@ -3,7 +3,7 @@ pragma solidity ^0.8.0;
 
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 import {IAccessControl} from 'openzeppelin-contracts/contracts/access/IAccessControl.sol';
-import {AaveV2Ethereum} from 'aave-address-book/AaveV2Ethereum.sol';
+import {AaveV2Ethereum, AaveV2EthereumAssets} from 'aave-address-book/AaveV2Ethereum.sol';
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {IPoolDataProvider, IPriceOracleGetter} from 'aave-address-book/AaveV3.sol';
@@ -60,7 +60,7 @@ contract AaveV3Ethereum_FinanceStewardDeploymentPoolExposureModule_20250319_Test
     );
   }
 
-  function test_allReservesHaveEnoughBalanceOnDustBin() public {
+  function test_allReservesHaveEnoughBalanceOnDustBinV3() public {
     executePayload(vm, address(proposal));
 
     address[] memory reserves = AaveV3Ethereum.POOL.getReservesList();
@@ -88,7 +88,49 @@ contract AaveV3Ethereum_FinanceStewardDeploymentPoolExposureModule_20250319_Test
       uint256 balanceDustBin = IERC20(aToken).balanceOf(AaveV3Ethereum.DUST_BIN);
 
       try tester.isGreaterThanOrEqual(balanceDustBin, tokenAmount) {} catch {
-        assertGt(balanceDustBin, 0, 'a token does not have greater than 0 balance in dust bin');
+        assertGt(balanceDustBin, 0, 'v3 aToken does not have greater than 0 balance in dust bin');
+      }
+    }
+  }
+
+  function test_allReservesHaveEnoughBalanceOnDustBinV2() public {
+    executePayload(vm, address(proposal));
+
+    address[] memory reserves = AaveV2Ethereum.POOL.getReservesList();
+    uint256 reservesLen = reserves.length;
+    uint256 ethPrice = IPriceOracleGetter(address(AaveV3Ethereum.ORACLE)).getAssetPrice(
+      AaveV3EthereumAssets.WETH_UNDERLYING
+    );
+
+    for (uint256 i = 0; i < reservesLen; i++) {
+      address reserve = reserves[i];
+
+      if (
+        reserve == AaveV2EthereumAssets.AAVE_UNDERLYING ||
+        reserve == AaveV2EthereumAssets.AMPL_UNDERLYING ||
+        reserve == AaveV2EthereumAssets.stETH_UNDERLYING
+      ) {
+        continue;
+      }
+
+      (address aToken, , ) = AaveV2Ethereum.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(
+        reserve
+      );
+      (uint256 decimals, , , , , , , , , ) = AaveV2Ethereum
+        .AAVE_PROTOCOL_DATA_PROVIDER
+        .getReserveConfigurationData(reserve);
+
+      uint256 tokenAmount = Values.getTokenAmountByDollarValueEthOracle(
+        reserve,
+        address(AaveV2Ethereum.ORACLE),
+        decimals,
+        100,
+        ethPrice
+      );
+      uint256 balanceDustBin = IERC20(aToken).balanceOf(AaveV3Ethereum.DUST_BIN);
+
+      try tester.isGreaterThanOrEqual(balanceDustBin, tokenAmount) {} catch {
+        assertGt(balanceDustBin, 0, 'v2 aToken does not have greater than 0 balance in dust bin');
       }
     }
   }

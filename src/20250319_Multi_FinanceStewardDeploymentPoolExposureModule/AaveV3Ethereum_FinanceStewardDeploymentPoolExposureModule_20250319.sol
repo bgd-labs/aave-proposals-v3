@@ -3,9 +3,9 @@ pragma solidity ^0.8.0;
 
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 import {IAccessControl} from 'openzeppelin-contracts/contracts/access/IAccessControl.sol';
-import {AaveV2Ethereum} from 'aave-address-book/AaveV2Ethereum.sol';
+import {AaveV2Ethereum, AaveV2EthereumAssets} from 'aave-address-book/AaveV2Ethereum.sol';
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
-import {IPoolDataProvider, IPriceOracleGetter} from 'aave-address-book/AaveV3.sol';
+import {IPriceOracleGetter} from 'aave-address-book/AaveV3.sol';
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
 import {DataTypes} from 'aave-v3-origin/contracts/protocol/libraries/types/DataTypes.sol';
 import {ReserveConfiguration} from 'aave-v3-origin/contracts/protocol/libraries/configuration/ReserveConfiguration.sol';
@@ -47,6 +47,48 @@ contract AaveV3Ethereum_FinanceStewardDeploymentPoolExposureModule_20250319 is
         address(AaveV3Ethereum.ORACLE),
         decimals,
         MIN_DOLLAR_VALUE
+      );
+      uint256 balanceDustBin = IERC20(aToken).balanceOf(AaveV3Ethereum.DUST_BIN);
+
+      if (balanceDustBin < tokenAmount) {
+        uint256 balanceCollector = IERC20(aToken).balanceOf(address(AaveV3Ethereum.COLLECTOR));
+        uint256 toSend = tokenAmount - balanceDustBin;
+        AaveV3Ethereum.COLLECTOR.transfer(
+          IERC20(aToken),
+          AaveV3Ethereum.DUST_BIN,
+          balanceCollector >= toSend ? toSend : balanceCollector
+        );
+      }
+    }
+
+    uint256 ethPrice = IPriceOracleGetter(address(AaveV3Ethereum.ORACLE)).getAssetPrice(
+      AaveV3EthereumAssets.WETH_UNDERLYING
+    );
+
+    reserves = AaveV2Ethereum.POOL.getReservesList();
+    reservesLen = reserves.length;
+
+    for (uint256 i = 0; i < reservesLen; i++) {
+      address reserve = reserves[i];
+
+      // Cannot be transferred
+      if (reserve == AaveV2EthereumAssets.AMPL_UNDERLYING) {
+        continue;
+      }
+
+      (address aToken, , ) = AaveV2Ethereum.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(
+        reserve
+      );
+      (uint256 decimals, , , , , , , , , ) = AaveV2Ethereum
+        .AAVE_PROTOCOL_DATA_PROVIDER
+        .getReserveConfigurationData(reserve);
+
+      uint256 tokenAmount = Values.getTokenAmountByDollarValueEthOracle(
+        reserve,
+        address(AaveV2Ethereum.ORACLE),
+        decimals,
+        MIN_DOLLAR_VALUE,
+        ethPrice
       );
       uint256 balanceDustBin = IERC20(aToken).balanceOf(AaveV3Ethereum.DUST_BIN);
 
