@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {AaveV3Ethereum, AaveV3EthereumAssets, AaveV3EthereumEModes} from 'aave-address-book/AaveV3Ethereum.sol';
+import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {AaveV3PayloadEthereum} from 'aave-helpers/src/v3-config-engine/AaveV3PayloadEthereum.sol';
 import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
@@ -18,7 +18,7 @@ contract AaveV3Ethereum_OnboardEBTCAndAddEBTCWBTCEMode_20250324 is AaveV3Payload
   using SafeERC20 for IERC20;
 
   address public constant eBTC = 0x657e8C867D8B37dCC18fA4Caead9C45EB088C642;
-  uint256 public constant eBTC_SEED_AMOUNT = 1e8;
+  uint256 public constant eBTC_SEED_AMOUNT = 2e8;
   address public constant eBTC_LM_ADMIN = 0xac140648435d03f784879cd789130F22Ef588Fcd;
 
   function _postExecute() internal override {
