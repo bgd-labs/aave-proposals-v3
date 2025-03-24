@@ -36,7 +36,7 @@ contract AaveV3Ethereum_OnboardEBTCAndAddEBTCWBTCEMode_20250324_Test is Protocol
   function test_dustBinHaseBTCFunds() public {
     GovV3Helpers.executePayload(vm, address(proposal));
     address aTokenAddress = AaveV3Ethereum.POOL.getReserveAToken(proposal.eBTC());
-    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Ethereum.DUST_BIN)), 10 ** 8);
+    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Ethereum.DUST_BIN)), 2 * 10 ** 5);
   }
 
   function test_eBTCAdmin() public {

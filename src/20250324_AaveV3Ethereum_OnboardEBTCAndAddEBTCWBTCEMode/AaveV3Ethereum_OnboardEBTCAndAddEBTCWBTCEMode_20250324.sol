@@ -18,7 +18,7 @@ contract AaveV3Ethereum_OnboardEBTCAndAddEBTCWBTCEMode_20250324 is AaveV3Payload
   using SafeERC20 for IERC20;
 
   address public constant eBTC = 0x657e8C867D8B37dCC18fA4Caead9C45EB088C642;
-  uint256 public constant eBTC_SEED_AMOUNT = 2e8;
+  uint256 public constant eBTC_SEED_AMOUNT = 2e5;
   address public constant eBTC_LM_ADMIN = 0xac140648435d03f784879cd789130F22Ef588Fcd;
 
   function _postExecute() internal override {
