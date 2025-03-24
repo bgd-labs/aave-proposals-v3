@@ -28,8 +28,8 @@ Also the `SVR_STEWARD` allows for the `Protocol guardian` to revert to the previ
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250312_AaveV3Ethereum_EnableSVR/AaveV3Ethereum_EnableSVR_20250312.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250312_AaveV3Ethereum_EnableSVR/AaveV3Ethereum_EnableSVR_20250312.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/d0f08ff2386af26975ce5bd4e050da8bae6079e5/src/20250312_AaveV3Ethereum_EnableSVR/AaveV3Ethereum_EnableSVR_20250312.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/d0f08ff2386af26975ce5bd4e050da8bae6079e5/src/20250312_AaveV3Ethereum_EnableSVR/AaveV3Ethereum_EnableSVR_20250312.t.sol)
 - [Snapshot](https://snapshot.box/#/s:aave.eth/proposal/0xe260268c607f20c85d1f93323f2f58b05f202916e0d3dbf55a8c335ed9be92da)
 - [Discussion](https://governance.aave.com/t/arfc-aave-chainlink-svr-v1-phase-1-activation/21247)
 - [SvrOracleSteward](https://github.com/bgd-labs/aave-stewards/blob/main/src/risk/SvrOracleSteward.sol)
