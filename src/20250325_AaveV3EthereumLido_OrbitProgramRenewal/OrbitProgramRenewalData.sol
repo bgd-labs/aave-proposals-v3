@@ -6,7 +6,7 @@ library OrbitProgramRenewalData {
   // stream information
   uint256 public constant STREAM_DURATION = 90 days;
   // budgets (total budget: 15,000 GHO)
-  uint256 public constant STREAM_AMOUNT = 15_000 ether;
+  uint256 public constant STREAM_AMOUNT = 15000 ether;
   uint256 public constant DIRECT_TRANSFER_AMOUNT = 0 ether;
   // stream receivers
   address public constant EZREAL = 0x8659D0BB123Da6D16D9394C7838BA286c2207d0E;
