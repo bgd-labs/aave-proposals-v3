@@ -2,13 +2,12 @@
 pragma solidity ^0.8.0;
 
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
+import {IERC20 as IERC20D} from 'forge-std/interfaces/IERC20.sol';
 import {IAccessControl} from 'openzeppelin-contracts/contracts/access/IAccessControl.sol';
 import {AaveV2Ethereum, AaveV2EthereumAssets} from 'aave-address-book/AaveV2Ethereum.sol';
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {IPoolDataProvider, IPriceOracleGetter} from 'aave-address-book/AaveV3.sol';
-import {DataTypes} from 'aave-v3-origin/contracts/protocol/libraries/types/DataTypes.sol';
-import {ReserveConfiguration} from 'aave-v3-origin/contracts/protocol/libraries/configuration/ReserveConfiguration.sol';
 
 import {AaveV3Ethereum_FinanceStewardDeploymentPoolExposureModule_20250319} from './AaveV3Ethereum_FinanceStewardDeploymentPoolExposureModule_20250319.sol';
 import {Values} from './Values.sol';
@@ -20,8 +19,6 @@ import {Values} from './Values.sol';
 contract AaveV3Ethereum_FinanceStewardDeploymentPoolExposureModule_20250319_Test is
   ProtocolV3TestBase
 {
-  using ReserveConfiguration for DataTypes.ReserveConfigurationMap;
-
   AaveV3Ethereum_FinanceStewardDeploymentPoolExposureModule_20250319 internal proposal;
   TestBalance internal tester;
 
@@ -74,10 +71,7 @@ contract AaveV3Ethereum_FinanceStewardDeploymentPoolExposureModule_20250319_Test
       }
 
       address aToken = AaveV3Ethereum.POOL.getReserveAToken(reserve);
-      DataTypes.ReserveConfigurationMap memory configuration = AaveV3Ethereum.POOL.getConfiguration(
-        reserve
-      );
-      (, , , uint256 decimals, ) = configuration.getParams();
+      uint256 decimals = IERC20D(reserve).decimals();
 
       uint256 tokenAmount = Values.getTokenAmountByDollarValue(
         reserve,
@@ -116,9 +110,7 @@ contract AaveV3Ethereum_FinanceStewardDeploymentPoolExposureModule_20250319_Test
       (address aToken, , ) = AaveV2Ethereum.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(
         reserve
       );
-      (uint256 decimals, , , , , , , , , ) = AaveV2Ethereum
-        .AAVE_PROTOCOL_DATA_PROVIDER
-        .getReserveConfigurationData(reserve);
+      uint256 decimals = IERC20D(reserve).decimals();
 
       uint256 tokenAmount = Values.getTokenAmountByDollarValueEthOracle(
         reserve,
