@@ -65,13 +65,13 @@
 
 
 
-### EMode: rsETH LST main(id: 3)
+### EMode: rsETH_ETHx(id: 3)
 
 | description | value before | value after |
 | --- | --- | --- |
-| eMode.label (unchanged) | rsETH LST main | rsETH LST main |
-| eMode.ltv (unchanged) | 92.5 % | 92.5 % |
-| eMode.liquidationThreshold (unchanged) | 94.5 % | 94.5 % |
+| eMode.label | rsETH LST main | rsETH_ETHx |
+| eMode.ltv | 92.5 % | 93 % |
+| eMode.liquidationThreshold | 94.5 % | 95 % |
 | eMode.liquidationBonus (unchanged) | 1 % | 1 % |
 | eMode.borrowableBitmap | wstETH, ETHx | ETHx |
 | eMode.collateralBitmap (unchanged) | rsETH | rsETH |
@@ -170,6 +170,18 @@
       "borrowableBitmap": {
         "from": "2147483650",
         "to": "2147483648"
+      },
+      "label": {
+        "from": "rsETH LST main",
+        "to": "rsETH_ETHx"
+      },
+      "liquidationThreshold": {
+        "from": 9450,
+        "to": 9500
+      },
+      "ltv": {
+        "from": 9250,
+        "to": 9300
       }
     },
     "7": {
@@ -504,7 +516,11 @@
         },
         "0x81d0999fde243adcc41b7fa1be5cea14f789e3a6065b815ac58f4bc0838c3155": {
           "previousValue": "0x0000000000000000000000000000000000000000001000000000277424ea2422",
-          "newValue": "0x0000000000000000000000000000000000000000001000000000277424ea2422"
+          "newValue": "0x00000000000000000000000000000000000000000010000000002774251c2454"
+        },
+        "0x81d0999fde243adcc41b7fa1be5cea14f789e3a6065b815ac58f4bc0838c3156": {
+          "previousValue": "0x7273455448204c5354206d61696e00000000000000000000000000000000001c",
+          "newValue": "0x72734554485f4554487800000000000000000000000000000000000000000014"
         },
         "0x81d0999fde243adcc41b7fa1be5cea14f789e3a6065b815ac58f4bc0838c3157": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000080000002",

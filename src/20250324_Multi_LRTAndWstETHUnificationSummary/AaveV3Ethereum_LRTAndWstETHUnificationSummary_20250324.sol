@@ -47,7 +47,7 @@ contract AaveV3Ethereum_LRTAndWstETHUnificationSummary_20250324 is AaveV3Payload
     returns (IAaveV3ConfigEngine.EModeCategoryUpdate[] memory)
   {
     IAaveV3ConfigEngine.EModeCategoryUpdate[]
-      memory eModeUpdates = new IAaveV3ConfigEngine.EModeCategoryUpdate[](6);
+      memory eModeUpdates = new IAaveV3ConfigEngine.EModeCategoryUpdate[](7);
 
     eModeUpdates[0] = IAaveV3ConfigEngine.EModeCategoryUpdate({
       eModeCategory: 7,
@@ -90,6 +90,13 @@ contract AaveV3Ethereum_LRTAndWstETHUnificationSummary_20250324 is AaveV3Payload
       liqThreshold: 95_00,
       liqBonus: 1_00,
       label: 'rsETH_wstETH'
+    });
+    eModeUpdates[6] = IAaveV3ConfigEngine.EModeCategoryUpdate({
+      eModeCategory: AaveV3EthereumEModes.RSETH_LST_MAIN,
+      ltv: 93_00,
+      liqThreshold: 95_00,
+      liqBonus: 1_00,
+      label: 'rsETH_ETHx'
     });
 
     return eModeUpdates;

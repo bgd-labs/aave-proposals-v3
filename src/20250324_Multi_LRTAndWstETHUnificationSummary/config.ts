@@ -22,6 +22,13 @@ export const config: ConfigFile = {
           {eModeCategory: 10, ltv: '93', liqThreshold: '95', liqBonus: '1', label: 'weETH_WETH'},
           {eModeCategory: 11, ltv: '94.5', liqThreshold: '96', liqBonus: '1', label: 'wstETH_WETH'},
           {eModeCategory: 12, ltv: '93', liqThreshold: '95', liqBonus: '1', label: 'rsETH_wstETH'},
+          {
+            eModeCategory: 'AaveV3EthereumEModes.RSETH_LST_MAIN',
+            ltv: '93',
+            liqThreshold: '95',
+            liqBonus: '1',
+            label: 'rsETH_ETHx',
+          },
         ],
         EMODES_ASSETS: [
           {
