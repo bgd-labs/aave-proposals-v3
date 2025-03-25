@@ -29,11 +29,11 @@ contract AaveV3EthereumLido_LRTAndWstETHUnificationSummary_20250324 is AaveV3Pay
       label: 'wstETH_WETH'
     });
     eModeUpdates[1] = IAaveV3ConfigEngine.EModeCategoryUpdate({
-      eModeCategory: AaveV3EthereumLidoEModes.ETH_CORRELATED,
-      ltv: 94_50,
-      liqThreshold: 96_00,
-      liqBonus: 1_00,
-      label: 'asdf'
+      eModeCategory: AaveV3EthereumLidoEModes.RSETH_LST_MAIN,
+      ltv: 93_00,
+      liqThreshold: 95_00,
+      liqBonus: EngineFlags.KEEP_CURRENT,
+      label: 'rsETH_wstETH'
     });
 
     return eModeUpdates;
@@ -47,15 +47,16 @@ contract AaveV3EthereumLido_LRTAndWstETHUnificationSummary_20250324 is AaveV3Pay
     IAaveV3ConfigEngine.AssetEModeUpdate[]
       memory assetEModeUpdates = new IAaveV3ConfigEngine.AssetEModeUpdate[](2);
 
+    // wstETH_WETH
     assetEModeUpdates[0] = IAaveV3ConfigEngine.AssetEModeUpdate({
       asset: AaveV3EthereumLidoAssets.wstETH_UNDERLYING,
-      eModeCategory: AaveV3EthereumLidoEModes.ETH_CORRELATED,
+      eModeCategory: 6,
       borrowable: EngineFlags.DISABLED,
       collateral: EngineFlags.ENABLED
     });
     assetEModeUpdates[1] = IAaveV3ConfigEngine.AssetEModeUpdate({
       asset: AaveV3EthereumLidoAssets.WETH_UNDERLYING,
-      eModeCategory: AaveV3EthereumLidoEModes.ETH_CORRELATED,
+      eModeCategory: 6,
       borrowable: EngineFlags.ENABLED,
       collateral: EngineFlags.DISABLED
     });

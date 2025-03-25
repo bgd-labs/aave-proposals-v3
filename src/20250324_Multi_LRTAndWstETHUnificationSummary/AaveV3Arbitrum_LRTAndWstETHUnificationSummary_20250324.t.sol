@@ -15,22 +15,18 @@ contract AaveV3Arbitrum_LRTAndWstETHUnificationSummary_20250324_Test is Protocol
   AaveV3Arbitrum_LRTAndWstETHUnificationSummary_20250324 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('arbitrum'), 69444973);
+    vm.createSelectFork(vm.rpcUrl('arbitrum'), 319130628);
     proposal = new AaveV3Arbitrum_LRTAndWstETHUnificationSummary_20250324();
   }
 
-  // /**
-  //  * @dev executes the generic test suite including e2e and config snapshots
-  //  */
-  // function test_defaultProposalExecution() public {
-  //   defaultTest(
-  //     'AaveV3Arbitrum_LRTAndWstETHUnificationSummary_20250324',
-  //     AaveV3Arbitrum.POOL,
-  //     address(proposal)
-  //   );
-  // }
-
-  function testBase() public {
-    executePayload(vm, address(proposal));
+  /**
+   * @dev executes the generic test suite including e2e and config snapshots
+   */
+  function test_defaultProposalExecution() public {
+    defaultTest(
+      'AaveV3Arbitrum_LRTAndWstETHUnificationSummary_20250324',
+      AaveV3Arbitrum.POOL,
+      address(proposal)
+    );
   }
 }

@@ -22,7 +22,7 @@ contract AaveV3Arbitrum_LRTAndWstETHUnificationSummary_20250324 is AaveV3Payload
       memory collateralUpdate = new IAaveV3ConfigEngine.CollateralUpdate[](1);
 
     collateralUpdate[0] = IAaveV3ConfigEngine.CollateralUpdate({
-      asset: AaveV3ArbitrumAssets.WETH_UNDERLYING,
+      asset: AaveV3ArbitrumAssets.weETH_UNDERLYING,
       ltv: 75_00,
       liqThreshold: 77_00,
       liqBonus: EngineFlags.KEEP_CURRENT,
