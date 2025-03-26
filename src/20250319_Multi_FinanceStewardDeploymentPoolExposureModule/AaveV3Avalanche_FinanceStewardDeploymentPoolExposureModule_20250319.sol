@@ -49,12 +49,14 @@ contract AaveV3Avalanche_FinanceStewardDeploymentPoolExposureModule_20250319 is
 
       if (balanceDustBin < tokenAmount) {
         uint256 balanceCollector = IERC20(aToken).balanceOf(address(AaveV3Avalanche.COLLECTOR));
-        uint256 toSend = tokenAmount - balanceDustBin;
-        AaveV3Avalanche.COLLECTOR.transfer(
-          IERC20(aToken),
-          AaveV3Avalanche.DUST_BIN,
-          balanceCollector >= toSend ? toSend : balanceCollector
-        );
+        if (balanceCollector > 0) {
+          uint256 toSend = tokenAmount - balanceDustBin;
+          AaveV3Avalanche.COLLECTOR.transfer(
+            IERC20(aToken),
+            AaveV3Avalanche.DUST_BIN,
+            balanceCollector >= toSend ? toSend : balanceCollector
+          );
+        }
       }
     }
 

@@ -6,6 +6,7 @@ import {IAccessControl} from 'openzeppelin-contracts/contracts/access/IAccessCon
 import {AaveV2Polygon, AaveV2PolygonAssets} from 'aave-address-book/AaveV2Polygon.sol';
 import {AaveV3Polygon, AaveV3PolygonAssets} from 'aave-address-book/AaveV3Polygon.sol';
 import {IPriceOracleGetter} from 'aave-address-book/AaveV3.sol';
+import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 
 import {AaveV3Polygon_FinanceStewardDeploymentPoolExposureModule_20250319} from './AaveV3Polygon_FinanceStewardDeploymentPoolExposureModule_20250319.sol';
 import {BalanceChecker} from './BalanceChecker.sol';
@@ -58,48 +59,54 @@ contract AaveV3Polygon_FinanceStewardDeploymentPoolExposureModule_20250319_Test 
     assertBalances(AaveV3Polygon.POOL, address(AaveV3Polygon.ORACLE), AaveV3Polygon.DUST_BIN);
   }
 
-  // function test_allReservesHaveEnoughBalanceOnDustBinV2() public {
-  //   executePayload(vm, address(proposal));
+  function test_allReservesHaveEnoughBalanceOnDustBinV2() public {
+    executePayload(vm, address(proposal));
 
-  //   TestBalance tester = new TestBalance();
+    TestBalance tester = new TestBalance();
 
-  //   address[] memory reserves = AaveV2Polygon.POOL.getReservesList();
-  //   uint256 reservesLen = reserves.length;
-  //   uint256 ethPrice = IPriceOracleGetter(address(AaveV3Polygon.ORACLE)).getAssetPrice(
-  //     AaveV3PolygonAssets.WETH_UNDERLYING
-  //   );
+    address[] memory reserves = AaveV2Polygon.POOL.getReservesList();
+    uint256 reservesLen = reserves.length;
+    uint256 ethPrice = IPriceOracleGetter(address(AaveV3Polygon.ORACLE)).getAssetPrice(
+      AaveV3PolygonAssets.WETH_UNDERLYING
+    );
 
-  //   for (uint256 i = 0; i < reservesLen; i++) {
-  //     address reserve = reserves[i];
+    for (uint256 i = 0; i < reservesLen; i++) {
+      address reserve = reserves[i];
 
-  //     // Collector does not hold any balance
-  //     if (
-  //       reserve == AaveV2PolygonAssets.AAVE_UNDERLYING ||
-  //       reserve == AaveV2PolygonAssets.DPI_UNDERLYING ||
-  //       reserve == AaveV2PolygonAssets.SUSHI_UNDERLYING
-  //     ) {
-  //       continue;
-  //     }
+      // Collector does not hold any balance
+      if (
+        reserve == AaveV2PolygonAssets.AAVE_UNDERLYING ||
+        reserve == AaveV2PolygonAssets.DPI_UNDERLYING ||
+        reserve == AaveV2PolygonAssets.SUSHI_UNDERLYING
+      ) {
+        continue;
+      }
 
-  //     (address aToken, , ) = AaveV2Polygon.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(
-  //       reserve
-  //     );
-  //     (uint256 decimals, , , , , , , , , ) = AaveV2Polygon
-  //       .AAVE_PROTOCOL_DATA_PROVIDER
-  //       .getReserveConfigurationData(reserve);
+      (address aToken, , ) = AaveV2Polygon.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(
+        reserve
+      );
+      (uint256 decimals, , , , , , , , , ) = AaveV2Polygon
+        .AAVE_PROTOCOL_DATA_PROVIDER
+        .getReserveConfigurationData(reserve);
 
-  //     uint256 tokenAmount = Values.getTokenAmountByDollarValueEthOracle(
-  //       reserve,
-  //       address(AaveV2Polygon.ORACLE),
-  //       decimals,
-  //       100,
-  //       ethPrice
-  //     );
-  //     uint256 balanceDustBin = IERC20(aToken).balanceOf(AaveV3Polygon.DUST_BIN);
+      uint256 tokenAmount = Values.getTokenAmountByDollarValueEthOracle(
+        reserve,
+        address(AaveV2Polygon.ORACLE),
+        decimals,
+        100,
+        ethPrice
+      );
+      uint256 balanceDustBin = IERC20(aToken).balanceOf(AaveV3Polygon.DUST_BIN);
 
-  //     try tester.isGreaterThanOrEqual(balanceDustBin, tokenAmount) {} catch {
-  //       assertGt(balanceDustBin, 0, 'v2 aToken does not have greater than 0 balance in dust bin');
-  //     }
-  //   }
-  // }
+      try tester.isGreaterThanOrEqual(balanceDustBin, tokenAmount) {} catch {
+        assertGt(balanceDustBin, 0, 'v2 aToken does not have greater than 0 balance in dust bin');
+      }
+    }
+  }
+}
+
+contract TestBalance is ProtocolV3TestBase {
+  function isGreaterThanOrEqual(uint256 balanceDustBin, uint256 minTokenAmount) public pure {
+    assertGe(balanceDustBin, minTokenAmount, 'a token does not have greater than $100 in dust bin');
+  }
 }

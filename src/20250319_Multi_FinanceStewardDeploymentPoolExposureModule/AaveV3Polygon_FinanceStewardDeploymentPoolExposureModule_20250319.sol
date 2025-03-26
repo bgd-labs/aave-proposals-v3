@@ -58,12 +58,14 @@ contract AaveV3Polygon_FinanceStewardDeploymentPoolExposureModule_20250319 is
 
       if (balanceDustBin < tokenAmount) {
         uint256 balanceCollector = IERC20(aToken).balanceOf(address(AaveV3Polygon.COLLECTOR));
-        uint256 toSend = tokenAmount - balanceDustBin;
-        AaveV3Polygon.COLLECTOR.transfer(
-          IERC20(aToken),
-          AaveV3Polygon.DUST_BIN,
-          balanceCollector >= toSend ? toSend : balanceCollector
-        );
+        if (balanceCollector > 0) {
+          uint256 toSend = tokenAmount - balanceDustBin;
+          AaveV3Polygon.COLLECTOR.transfer(
+            IERC20(aToken),
+            AaveV3Polygon.DUST_BIN,
+            balanceCollector >= toSend ? toSend : balanceCollector
+          );
+        }
       }
     }
 

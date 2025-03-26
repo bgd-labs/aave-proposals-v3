@@ -29,12 +29,15 @@ contract DustBinSender {
 
       if (balanceDustBin < tokenAmount) {
         uint256 balanceCollector = IERC20(aToken).balanceOf(address(collector));
-        uint256 toSend = tokenAmount - balanceDustBin;
-        collector.transfer(
-          IERC20(aToken),
-          dustBin,
-          balanceCollector >= toSend ? toSend : balanceCollector
-        );
+
+        if (balanceCollector > 0) {
+          uint256 toSend = tokenAmount - balanceDustBin;
+          collector.transfer(
+            IERC20(aToken),
+            dustBin,
+            balanceCollector >= toSend ? toSend : balanceCollector
+          );
+        }
       }
     }
   }

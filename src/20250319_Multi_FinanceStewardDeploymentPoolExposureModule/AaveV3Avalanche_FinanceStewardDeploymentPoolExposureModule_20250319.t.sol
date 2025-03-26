@@ -6,6 +6,7 @@ import {IAccessControl} from 'openzeppelin-contracts/contracts/access/IAccessCon
 import {AaveV2Avalanche, AaveV2AvalancheAssets} from 'aave-address-book/AaveV2Avalanche.sol';
 import {AaveV3Avalanche, AaveV3AvalancheAssets} from 'aave-address-book/AaveV3Avalanche.sol';
 import {IPoolDataProvider, IPriceOracleGetter} from 'aave-address-book/AaveV3.sol';
+import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 
 import {AaveV3Avalanche_FinanceStewardDeploymentPoolExposureModule_20250319} from './AaveV3Avalanche_FinanceStewardDeploymentPoolExposureModule_20250319.sol';
 import {BalanceChecker} from './BalanceChecker.sol';
@@ -60,42 +61,50 @@ contract AaveV3Avalanche_FinanceStewardDeploymentPoolExposureModule_20250319_Tes
     assertBalances(AaveV3Avalanche.POOL, address(AaveV3Avalanche.ORACLE), AaveV3Avalanche.DUST_BIN);
   }
 
-  // function test_allReservesHaveEnoughBalanceOnDustBinV2() public {
-  //   executePayload(vm, address(proposal));
+  function test_allReservesHaveEnoughBalanceOnDustBinV2() public {
+    executePayload(vm, address(proposal));
 
-  //   address[] memory reserves = AaveV2Avalanche.POOL.getReservesList();
-  //   uint256 reservesLen = reserves.length;
-  //   uint256 ethPrice = IPriceOracleGetter(address(AaveV3Avalanche.ORACLE)).getAssetPrice(
-  //     AaveV3AvalancheAssets.WETHe_UNDERLYING
-  //   );
+    TestBalance tester = new TestBalance();
 
-  //   for (uint256 i = 0; i < reservesLen; i++) {
-  //     address reserve = reserves[i];
+    address[] memory reserves = AaveV2Avalanche.POOL.getReservesList();
+    uint256 reservesLen = reserves.length;
+    uint256 ethPrice = IPriceOracleGetter(address(AaveV3Avalanche.ORACLE)).getAssetPrice(
+      AaveV3AvalancheAssets.WETHe_UNDERLYING
+    );
 
-  //     // Collector does not hold any balance
-  //     if (reserve == AaveV2AvalancheAssets.AAVEe_UNDERLYING) {
-  //       continue;
-  //     }
+    for (uint256 i = 0; i < reservesLen; i++) {
+      address reserve = reserves[i];
 
-  //     (address aToken, , ) = AaveV2Avalanche.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(
-  //       reserve
-  //     );
-  //     (uint256 decimals, , , , , , , , , ) = AaveV2Avalanche
-  //       .AAVE_PROTOCOL_DATA_PROVIDER
-  //       .getReserveConfigurationData(reserve);
+      // Collector does not hold any balance
+      if (reserve == AaveV2AvalancheAssets.AAVEe_UNDERLYING) {
+        continue;
+      }
 
-  //     uint256 tokenAmount = Values.getTokenAmountByDollarValueEthOracle(
-  //       reserve,
-  //       address(AaveV2Avalanche.ORACLE),
-  //       decimals,
-  //       100,
-  //       ethPrice
-  //     );
-  //     uint256 balanceDustBin = IERC20(aToken).balanceOf(AaveV3Avalanche.DUST_BIN);
+      (address aToken, , ) = AaveV2Avalanche.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(
+        reserve
+      );
+      (uint256 decimals, , , , , , , , , ) = AaveV2Avalanche
+        .AAVE_PROTOCOL_DATA_PROVIDER
+        .getReserveConfigurationData(reserve);
 
-  //     try tester.isGreaterThanOrEqual(balanceDustBin, tokenAmount) {} catch {
-  //       assertGt(balanceDustBin, 0, 'v2 aToken does not have greater than 0 balance in dust bin');
-  //     }
-  //   }
-  // }
+      uint256 tokenAmount = Values.getTokenAmountByDollarValueEthOracle(
+        reserve,
+        address(AaveV2Avalanche.ORACLE),
+        decimals,
+        100,
+        ethPrice
+      );
+      uint256 balanceDustBin = IERC20(aToken).balanceOf(AaveV3Avalanche.DUST_BIN);
+
+      try tester.isGreaterThanOrEqual(balanceDustBin, tokenAmount) {} catch {
+        assertGt(balanceDustBin, 0, 'v2 aToken does not have greater than 0 balance in dust bin');
+      }
+    }
+  }
+}
+
+contract TestBalance is ProtocolV3TestBase {
+  function isGreaterThanOrEqual(uint256 balanceDustBin, uint256 minTokenAmount) public pure {
+    assertGe(balanceDustBin, minTokenAmount, 'a token does not have greater than $100 in dust bin');
+  }
 }

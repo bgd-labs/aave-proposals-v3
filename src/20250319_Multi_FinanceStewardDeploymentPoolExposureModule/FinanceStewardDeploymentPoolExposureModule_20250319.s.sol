@@ -3,7 +3,8 @@ pragma solidity ^0.8.0;
 
 import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aave-helpers/src/GovV3Helpers.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
-import {EthereumScript, PolygonScript, AvalancheScript, OptimismScript, ArbitrumScript, BaseScript, ScrollScript, BNBScript, LineaScript, SonicScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
+import {ChainIds, EthereumScript, PolygonScript, AvalancheScript, OptimismScript, ArbitrumScript, BaseScript, ScrollScript, BNBScript, LineaScript, SonicScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
+import {GovernanceV3Linea} from 'aave-address-book/GovernanceV3Linea.sol';
 import {AaveV3Ethereum_FinanceStewardDeploymentPoolExposureModule_20250319} from './AaveV3Ethereum_FinanceStewardDeploymentPoolExposureModule_20250319.sol';
 import {AaveV3EthereumLido_FinanceStewardDeploymentPoolExposureModule_20250319} from './AaveV3EthereumLido_FinanceStewardDeploymentPoolExposureModule_20250319.sol';
 import {AaveV3Polygon_FinanceStewardDeploymentPoolExposureModule_20250319} from './AaveV3Polygon_FinanceStewardDeploymentPoolExposureModule_20250319.sol';
@@ -309,12 +310,13 @@ contract CreateProposal is EthereumScript {
     );
     payloads[7] = GovV3Helpers.buildBNBPayload(vm, actionsBNB);
 
-    IPayloadsControllerCore.ExecutionAction[]
-      memory actionsLinea = new IPayloadsControllerCore.ExecutionAction[](1);
-    actionsLinea[0] = GovV3Helpers.buildAction(
-      type(AaveV3Linea_FinanceStewardDeploymentPoolExposureModule_20250319).creationCode
-    );
-    payloads[8] = GovV3Helpers.buildLineaPayload(vm, actionsLinea);
+    uint40 lineaPayload = 6;
+    payloads[8] = PayloadsControllerUtils.Payload({
+      chain: ChainIds.LINEA,
+      accessLevel: PayloadsControllerUtils.AccessControl.Level_1,
+      payloadsController: address(GovernanceV3Linea.PAYLOADS_CONTROLLER),
+      payloadId: lineaPayload
+    });
 
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsSonic = new IPayloadsControllerCore.ExecutionAction[](1);

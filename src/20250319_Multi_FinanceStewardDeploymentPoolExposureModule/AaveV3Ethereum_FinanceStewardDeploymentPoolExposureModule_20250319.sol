@@ -46,12 +46,15 @@ contract AaveV3Ethereum_FinanceStewardDeploymentPoolExposureModule_20250319 is
 
       if (balanceDustBin < tokenAmount) {
         uint256 balanceCollector = IERC20(aToken).balanceOf(address(AaveV3Ethereum.COLLECTOR));
-        uint256 toSend = tokenAmount - balanceDustBin;
-        AaveV3Ethereum.COLLECTOR.transfer(
-          IERC20(aToken),
-          AaveV3Ethereum.DUST_BIN,
-          balanceCollector >= toSend ? toSend : balanceCollector
-        );
+
+        if (balanceCollector > 0) {
+          uint256 toSend = tokenAmount - balanceDustBin;
+          AaveV3Ethereum.COLLECTOR.transfer(
+            IERC20(aToken),
+            AaveV3Ethereum.DUST_BIN,
+            balanceCollector >= toSend ? toSend : balanceCollector
+          );
+        }
       }
     }
 
@@ -86,12 +89,15 @@ contract AaveV3Ethereum_FinanceStewardDeploymentPoolExposureModule_20250319 is
 
       if (balanceDustBin < tokenAmount) {
         uint256 balanceCollector = IERC20(aToken).balanceOf(address(AaveV3Ethereum.COLLECTOR));
-        uint256 toSend = tokenAmount - balanceDustBin;
-        AaveV3Ethereum.COLLECTOR.transfer(
-          IERC20(aToken),
-          AaveV3Ethereum.DUST_BIN,
-          balanceCollector >= toSend ? toSend : balanceCollector
-        );
+
+        if (balanceCollector > 0) {
+          uint256 toSend = tokenAmount - balanceDustBin;
+          AaveV3Ethereum.COLLECTOR.transfer(
+            IERC20(aToken),
+            AaveV3Ethereum.DUST_BIN,
+            balanceCollector >= toSend ? toSend : balanceCollector
+          );
+        }
       }
     }
 
