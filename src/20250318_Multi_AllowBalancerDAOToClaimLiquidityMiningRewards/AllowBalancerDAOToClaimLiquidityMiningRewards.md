@@ -24,8 +24,8 @@ Set Balancer contract `0x9ff471F9f98F42E5151C7855fD1b5aa906b1AF7e` as the claime
 
 ## References
 
-- Implementation: [AaveV3Multi](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250318_Multi_AllowBalancerDAOToClaimLiquidityMiningRewards/AaveV3Multi_AllowBalancerDAOToClaimLiquidityMiningRewards_20250318.sol)
-- Tests: [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250318_Multi_AllowBalancerDAOToClaimLiquidityMiningRewards/AaveV3Arbitrum_AllowBalancerDAOToClaimLiquidityMiningRewards_20250318.t.sol), [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250318_Multi_AllowBalancerDAOToClaimLiquidityMiningRewards/AaveV3Base_AllowBalancerDAOToClaimLiquidityMiningRewards_20250318.t.sol)
+- Implementation: [AaveV3Multi](https://github.com/bgd-labs/aave-proposals-v3/blob/7eda23327483a3ded404995ebc7963fde66bd967/src/20250318_Multi_AllowBalancerDAOToClaimLiquidityMiningRewards/AaveV3Multi_AllowBalancerDAOToClaimLiquidityMiningRewards_20250318.sol)
+- Tests: [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/7eda23327483a3ded404995ebc7963fde66bd967/src/20250318_Multi_AllowBalancerDAOToClaimLiquidityMiningRewards/AaveV3Arbitrum_AllowBalancerDAOToClaimLiquidityMiningRewards_20250318.t.sol), [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/7eda23327483a3ded404995ebc7963fde66bd967/src/20250318_Multi_AllowBalancerDAOToClaimLiquidityMiningRewards/AaveV3Base_AllowBalancerDAOToClaimLiquidityMiningRewards_20250318.t.sol)
 - Snapshot: Direct-to-AIP
 - [Discussion](https://governance.aave.com/t/arfc-whitelist-balancer-dao-to-claim-liquidity-mining-rewards-arbitrum-base/21280)
 
