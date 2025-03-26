@@ -26,27 +26,27 @@ By implementing this proposal, we aim to optimize the use of eBTC/WBTC within th
 
 The table below illustrates the configured risk parameters for **eBTC**
 
-| Parameter                 |                                      Value |
-| ------------------------- | -----------------------------------------: |
-| Isolation Mode            |                                      false |
-| Borrowable                |                                    ENABLED |
-| Collateral Enabled        |                                       true |
-| Supply Cap (eBTC)         |                                         80 |
-| Borrow Cap (eBTC)         |                                          8 |
-| Debt Ceiling              |                                      USD 0 |
-| LTV                       |                                       67 % |
-| LT                        |                                       72 % |
-| Liquidation Bonus         |                                       10 % |
-| Liquidation Protocol Fee  |                                       10 % |
-| Reserve Factor            |                                       50 % |
-| Base Variable Borrow Rate |                                        0 % |
-| Variable Slope 1          |                                        4 % |
-| Variable Slope 2          |                                      300 % |
-| Uoptimal                  |                                       45 % |
-| Flashloanable             |                                    ENABLED |
-| Siloed Borrowing          |                                   DISABLED |
-| Borrowable in Isolation   |                                   DISABLED |
-| Oracle                    | 0x95a85D0d2f3115702d813549a80040387738A430 |
+| Parameter                | Value                                      |
+| ------------------------ | ------------------------------------------ |
+| Network                  | Ethereum                                   |
+| Isolation Mode           | No                                         |
+| Borrowable               | No                                         |
+| Collateral Enabled       | Yes                                        |
+| Supply Cap               | 750                                        |
+| Borrow Cap               | -                                          |
+| Debt Ceiling             | -                                          |
+| LTV                      | 67%                                        |
+| LT                       | 72%                                        |
+| Liquidation Bonus        | 10%                                        |
+| Liquidation Protocol Fee | 10%                                        |
+| Variable Base            | -                                          |
+| Variable Slope1          | -                                          |
+| Variable Slope2          | -                                          |
+| Uoptimal                 | -                                          |
+| Reserve Factor           | -                                          |
+| Flashloanable            | No                                         |
+| Siloed Borrowing         | No                                         |
+| Oracle                   | 0x95a85D0d2f3115702d813549a80040387738A430 |
 
 Additionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://etherscan.io/address/0xac140648435d03f784879cd789130F22Ef588Fcd) has been set as the emission admin for eBTC and the corresponding aToken.
 
