@@ -9,7 +9,7 @@
 | decimals | 8 |
 | isActive | true |
 | isFrozen | false |
-| supplyCap | 80 eBTC |
+| supplyCap | 750 eBTC |
 | borrowCap | 8 eBTC |
 | debtCeiling | 0 $ [0] |
 | isSiloed | false |
@@ -26,7 +26,7 @@
 | reserveFactor | 50 % [5000] |
 | aToken | [0x5fefd7069a7D91d01f269DADE14526CCF3487810](https://etherscan.io/address/0x5fefd7069a7D91d01f269DADE14526CCF3487810) |
 | variableDebtToken | [0x47eD0509e64615c0d5C6d39AF1B38D02Bc9fE58f](https://etherscan.io/address/0x47eD0509e64615c0d5C6d39AF1B38D02Bc9fE58f) |
-| borrowingEnabled | true |
+| borrowingEnabled | false |
 | isBorrowableInIsolation | false |
 | interestRateStrategy | [0x9ec6F08190DeA04A54f8Afc53Db96134e5E3FdFB](https://etherscan.io/address/0x9ec6F08190DeA04A54f8Afc53Db96134e5E3FdFB) |
 | aTokenName | Aave Ethereum eBTC |
@@ -111,7 +111,7 @@
         "aTokenSymbol": "aEtheBTC",
         "aTokenUnderlyingBalance": "200000",
         "borrowCap": 8,
-        "borrowingEnabled": true,
+        "borrowingEnabled": false,
         "debtCeiling": 0,
         "decimals": 8,
         "id": 38,
@@ -131,7 +131,7 @@
         "oracleDescription": "Capped eBTC / BTC / USD",
         "oracleLatestAnswer": "8740039647028",
         "reserveFactor": 5000,
-        "supplyCap": 80,
+        "supplyCap": 750,
         "symbol": "eBTC",
         "underlying": "0x657e8C867D8B37dCC18fA4Caead9C45EB088C642",
         "usageAsCollateralEnabled": true,
@@ -319,7 +319,7 @@
         },
         "0x8223727c8871616f647cb2758c647c4b42bd849cfee84a1e59dda0cadacd8961": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x100000000000000000000003e8000000050000000008138885082af81c201a2c"
+          "newValue": "0x100000000000000000000003e80000002ee000000008138881082af81c201a2c"
         },
         "0x8223727c8871616f647cb2758c647c4b42bd849cfee84a1e59dda0cadacd8962": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
