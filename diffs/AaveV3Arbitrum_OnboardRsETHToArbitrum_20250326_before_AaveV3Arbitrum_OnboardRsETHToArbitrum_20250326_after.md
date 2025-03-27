@@ -13,7 +13,7 @@
 | borrowCap | 1 rsETH |
 | debtCeiling | 0 $ [0] |
 | isSiloed | false |
-| isFlashloanable | false |
+| isFlashloanable | true |
 | oracle | [0xb4B0cbcA864c2Eb0C0342608D92490C034aC1089](https://arbiscan.io/address/0xb4B0cbcA864c2Eb0C0342608D92490C034aC1089) |
 | oracleDecimals | 8 |
 | oracleDescription | Capped rsETH / ETH / USD |
@@ -64,11 +64,11 @@
 
 
 
-### EMode: rsETH/wstETH emode(id: 5)
+### EMode: rsETH/wstETH(id: 5)
 
 | description | value before | value after |
 | --- | --- | --- |
-| eMode.label | - | rsETH/wstETH emode |
+| eMode.label | - | rsETH/wstETH |
 | eMode.ltv | - | 92.5 % |
 | eMode.liquidationThreshold | - | 94.5 % |
 | eMode.liquidationBonus | - | 1 % |
@@ -87,7 +87,7 @@
         "borrowableBitmap": "256",
         "collateralBitmap": "262144",
         "eModeCategory": 5,
-        "label": "rsETH/wstETH emode",
+        "label": "rsETH/wstETH",
         "liquidationBonus": 10100,
         "liquidationThreshold": 9450,
         "ltv": 9250
@@ -110,7 +110,7 @@
         "interestRateStrategy": "0x429F16dBA3B9e1900087Cbaa7b50D38Bc60fB73F",
         "isActive": true,
         "isBorrowableInIsolation": false,
-        "isFlashloanable": false,
+        "isFlashloanable": true,
         "isFrozen": false,
         "isPaused": false,
         "isSiloed": false,
@@ -361,7 +361,7 @@
         },
         "0x50039cf134a124858bd88bbc9225ec3c537b89a0e9237ce39fe1813e6edf8258": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x72734554482f77737445544820656d6f64650000000000000000000000000024"
+          "newValue": "0x72734554482f7773744554480000000000000000000000000000000000000018"
         },
         "0x50039cf134a124858bd88bbc9225ec3c537b89a0e9237ce39fe1813e6edf8259": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -369,7 +369,7 @@
         },
         "0xef66773292b31b85b823946b8a102222c47696e9ab09e204141cbd3b223241ce": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x100000000000000000000003e800000038400000000107d0011229fe000a0005"
+          "newValue": "0x100000000000000000000003e800000038400000000107d0811229fe000a0005"
         },
         "0xef66773292b31b85b823946b8a102222c47696e9ab09e204141cbd3b223241cf": {
           "previousValue": "0x0000000000000000000000000000000000000000033b2e3c9fd0803ce8000000",

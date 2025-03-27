@@ -44,7 +44,7 @@ contract AaveV3Arbitrum_OnboardRsETHToArbitrum_20250326 is AaveV3PayloadArbitrum
       ltv: 92_50,
       liqThreshold: 94_50,
       liqBonus: 1_00,
-      label: 'rsETH/wstETH emode'
+      label: 'rsETH/wstETH'
     });
 
     return eModeUpdates;
@@ -85,7 +85,7 @@ contract AaveV3Arbitrum_OnboardRsETHToArbitrum_20250326 is AaveV3PayloadArbitrum
       enabledToBorrow: EngineFlags.DISABLED,
       borrowableInIsolation: EngineFlags.DISABLED,
       withSiloedBorrowing: EngineFlags.DISABLED,
-      flashloanable: EngineFlags.DISABLED,
+      flashloanable: EngineFlags.ENABLED,
       ltv: 5,
       liqThreshold: 10,
       liqBonus: 7_50,

@@ -34,7 +34,7 @@ The table below illustrates the configured risk parameters for **rsETH**
 | Variable Slope 1          |                                       10 % |
 | Variable Slope 2          |                                      300 % |
 | Uoptimal                  |                                       45 % |
-| Flashloanable             |                                   DISABLED |
+| Flashloanable             |                                    ENABLED |
 | Siloed Borrowing          |                                   DISABLED |
 | Borrowable in Isolation   |                                   DISABLED |
 | Oracle                    | 0xb4B0cbcA864c2Eb0C0342608D92490C034aC1089 |
