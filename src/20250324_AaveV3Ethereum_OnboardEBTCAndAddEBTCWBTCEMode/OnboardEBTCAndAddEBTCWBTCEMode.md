@@ -33,17 +33,17 @@ The table below illustrates the configured risk parameters for **eBTC**
 | Borrowable               | No                                         |
 | Collateral Enabled       | Yes                                        |
 | Supply Cap               | 750                                        |
-| Borrow Cap               | -                                          |
-| Debt Ceiling             | -                                          |
+| Borrow Cap               | 1                                          |
+| Debt Ceiling             | 0                                          |
 | LTV                      | 67%                                        |
 | LT                       | 72%                                        |
 | Liquidation Bonus        | 10%                                        |
 | Liquidation Protocol Fee | 10%                                        |
-| Variable Base            | -                                          |
-| Variable Slope1          | -                                          |
-| Variable Slope2          | -                                          |
-| Uoptimal                 | -                                          |
-| Reserve Factor           | -                                          |
+| Variable Base            | 0%                                         |
+| Variable Slope1          | 4%                                         |
+| Variable Slope2          | 300%                                       |
+| Uoptimal                 | 45%                                        |
+| Reserve Factor           | 50%                                        |
 | Flashloanable            | No                                         |
 | Siloed Borrowing         | No                                         |
 | Oracle                   | 0x95a85D0d2f3115702d813549a80040387738A430 |
