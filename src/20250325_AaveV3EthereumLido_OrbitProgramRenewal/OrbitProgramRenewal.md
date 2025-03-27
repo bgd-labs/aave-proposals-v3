@@ -29,6 +29,14 @@ From now on, all renews will be applied strictly by Quarters, and a new cutoff h
 - **Relevant Links:**
 - [ACI’s Orbit tracker](https://dapps.aavechan.com/orbit-tracker)
 
+**Additional considerations:**
+
+As a reminder, Service Providers will not be considered elegible to Orbit Program.
+
+A new vote rate cutoff will apply, starting next Orbit Renewal, where a minimum of 20k voting power and 85% vote ratio on all Snapshots and AIP will be considered in order to be elegible to Orbit Program, from [AIP 224](https://vote.onaave.com/proposal/?proposalId=224&ipfsHash=0xa4da1c686491e35541aa7e2659d55d0b93e395a89d1b268981aec3b8b2227bc1).
+
+Funds are distributed based on 90 days, as seen on budget.
+
 ## References
 
 - Implementation: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250325_AaveV3EthereumLido_OrbitProgramRenewal/AaveV3EthereumLido_OrbitProgramRenewal_20250325.sol)
