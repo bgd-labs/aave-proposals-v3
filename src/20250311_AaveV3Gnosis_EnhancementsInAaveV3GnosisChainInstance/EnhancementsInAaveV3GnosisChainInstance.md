@@ -98,8 +98,8 @@ The tables below show the current and proposed parameters for each asset. A subs
 
 ## References
 
-- Implementation: [AaveV3Gnosis](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250311_AaveV3Gnosis_EnhancementsInAaveV3GnosisChainInstance/AaveV3Gnosis_EnhancementsInAaveV3GnosisChainInstance_20250311.sol)
-- Tests: [AaveV3Gnosis](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250311_AaveV3Gnosis_EnhancementsInAaveV3GnosisChainInstance/AaveV3Gnosis_EnhancementsInAaveV3GnosisChainInstance_20250311.t.sol)
+- Implementation: [AaveV3Gnosis](https://github.com/bgd-labs/aave-proposals-v3/blob/1df64075d9de756315cb85fc35b7b9f0d03c83ee/src/20250311_AaveV3Gnosis_EnhancementsInAaveV3GnosisChainInstance/AaveV3Gnosis_EnhancementsInAaveV3GnosisChainInstance_20250311.sol)
+- Tests: [AaveV3Gnosis](https://github.com/bgd-labs/aave-proposals-v3/blob/1df64075d9de756315cb85fc35b7b9f0d03c83ee/src/20250311_AaveV3Gnosis_EnhancementsInAaveV3GnosisChainInstance/AaveV3Gnosis_EnhancementsInAaveV3GnosisChainInstance_20250311.t.sol)
 - [Snapshot](https://snapshot.box/#/s:aave.eth/proposal/0x27b21aa2cd21d5e94eb9b9e0232fe875ad45719588ada4b059f67a8834d7408e)
 - [Discussion](https://governance.aave.com/t/arfc-enhancements-in-aave-v3-gnosis-chain-instance/21214)
 
