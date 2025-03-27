@@ -401,33 +401,41 @@ contract CreateProposal is EthereumScript {
     payloads[9] = GovV3Helpers.buildBNBPayload(vm, actionsBNB);
 
     IPayloadsControllerCore.ExecutionAction[]
-      memory actionsZkSync = new IPayloadsControllerCore.ExecutionAction[](1);
-    actionsZkSync[0] = GovV3Helpers.buildActionZkSync(
-      vm,
-      'AaveV3ZkSync_RiskStewardParameterUpdatesPhase3_20250320'
-    );
-    payloads[10] = GovV3Helpers.buildZkSyncPayload(vm, actionsZkSync);
-
-    IPayloadsControllerCore.ExecutionAction[]
-      memory actionsLinea = new IPayloadsControllerCore.ExecutionAction[](1);
-    actionsLinea[0] = GovV3Helpers.buildAction(
-      type(AaveV3Linea_RiskStewardParameterUpdatesPhase3_20250320).creationCode
-    );
-    payloads[11] = GovV3Helpers.buildLineaPayload(vm, actionsLinea);
-
-    IPayloadsControllerCore.ExecutionAction[]
       memory actionsCelo = new IPayloadsControllerCore.ExecutionAction[](1);
     actionsCelo[0] = GovV3Helpers.buildAction(
       type(AaveV3Celo_RiskStewardParameterUpdatesPhase3_20250320).creationCode
     );
-    payloads[12] = GovV3Helpers.buildCeloPayload(vm, actionsCelo);
+    payloads[10] = GovV3Helpers.buildCeloPayload(vm, actionsCelo);
 
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsSonic = new IPayloadsControllerCore.ExecutionAction[](1);
     actionsSonic[0] = GovV3Helpers.buildAction(
       type(AaveV3Sonic_RiskStewardParameterUpdatesPhase3_20250320).creationCode
     );
-    payloads[13] = GovV3Helpers.buildSonicPayload(vm, actionsSonic);
+    payloads[11] = GovV3Helpers.buildSonicPayload(vm, actionsSonic);
+
+    uint40 zksyncPayload = 18;
+    require(zksyncPayload != 0);
+    IPayloadsControllerCore.ExecutionAction[]
+      memory actionsZkSync = new IPayloadsControllerCore.ExecutionAction[](1);
+    payloads[12] = PayloadsControllerUtils.Payload({
+      chain: ChainIds.ZKSYNC,
+      accessLevel: PayloadsControllerUtils.AccessControl.Level_1,
+      payloadsController: address(GovernanceV3ZkSync.PAYLOADS_CONTROLLER),
+      payloadId: zksyncPayload
+    });
+
+    uint40 lineaPayload = 5;
+    require(lineaPayload != 0);
+    IPayloadsControllerCore.ExecutionAction[]
+      memory actionsLinea = new IPayloadsControllerCore.ExecutionAction[](1);
+    payloads[13] = PayloadsControllerUtils.Payload({
+      chain: ChainIds.LINEA,
+      accessLevel: PayloadsControllerUtils.AccessControl.Level_1,
+      payloadsController: address(GovernanceV3Linea.PAYLOADS_CONTROLLER),
+      payloadId: lineaPayload
+    });
+
     return payloads;
   }
 
