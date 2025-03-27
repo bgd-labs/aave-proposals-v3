@@ -54,8 +54,8 @@ Additionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://arbiscan.io/ad
 
 ## References
 
-- Implementation: [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250326_AaveV3Arbitrum_OnboardRsETHToArbitrum/AaveV3Arbitrum_OnboardRsETHToArbitrum_20250326.sol)
-- Tests: [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250326_AaveV3Arbitrum_OnboardRsETHToArbitrum/AaveV3Arbitrum_OnboardRsETHToArbitrum_20250326.t.sol)
+- Implementation: [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/7141371049e4fff65c91e768e881d93ed0265f64/src/20250326_AaveV3Arbitrum_OnboardRsETHToArbitrum/AaveV3Arbitrum_OnboardRsETHToArbitrum_20250326.sol)
+- Tests: [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/7141371049e4fff65c91e768e881d93ed0265f64/src/20250326_AaveV3Arbitrum_OnboardRsETHToArbitrum/AaveV3Arbitrum_OnboardRsETHToArbitrum_20250326.t.sol)
 - [Snapshot](https://snapshot.box/#/s:aave.eth/proposal/0x598f7057f445813d75404fae68f3501d76c90064f52ca4b9afb6f20859fa2658)
 - [Discussion](https://governance.aave.com/t/arfc-onboard-rseth-to-arbitrum-and-base-v3-instances/20741)
 
