@@ -16,11 +16,6 @@ contract AaveV3EthereumLido_OrbitProgramRenewal_20250325 is IProposalGenericExec
     address[] memory orbitAddresses = OrbitProgramRenewalData.getOrbitAddresses();
 
     for (uint256 i = 0; i < orbitAddresses.length; i++) {
-      //      AaveV3EthereumLido.COLLECTOR.transfer(
-      //        AaveV3EthereumLidoAssets.GHO_A_TOKEN,
-      //        orbitAddresses[i],
-      //        OrbitProgramRenewalData.DIRECT_TRANSFER_AMOUNT
-      //      );
       CollectorUtils.stream(
         AaveV3EthereumLido.COLLECTOR,
         CollectorUtils.CreateStreamInput({
