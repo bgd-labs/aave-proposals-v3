@@ -63,8 +63,8 @@ Finally, this proposal will add eBTC/WBTC liquid E-Mode
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250324_AaveV3Ethereum_OnboardEBTCAndAddEBTCWBTCEMode/AaveV3Ethereum_OnboardEBTCAndAddEBTCWBTCEMode_20250324.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250324_AaveV3Ethereum_OnboardEBTCAndAddEBTCWBTCEMode/AaveV3Ethereum_OnboardEBTCAndAddEBTCWBTCEMode_20250324.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/bac3765e64971b2394c6ad263899da3be32514b9/src/20250324_AaveV3Ethereum_OnboardEBTCAndAddEBTCWBTCEMode/AaveV3Ethereum_OnboardEBTCAndAddEBTCWBTCEMode_20250324.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/bac3765e64971b2394c6ad263899da3be32514b9/src/20250324_AaveV3Ethereum_OnboardEBTCAndAddEBTCWBTCEMode/AaveV3Ethereum_OnboardEBTCAndAddEBTCWBTCEMode_20250324.t.sol)
 - [Snapshot](https://snapshot.box/#/s:aave.eth/proposal/0x564a45f0a2855799d9be329942fa1f5e849058ff4b950f4027ec4666f4b61d9c)
 - [Discussion](https://governance.aave.com/t/arfc-enable-ebtc-wbtc-liquid-e-mode-on-aave-v3-core-instance/20141)
 
