@@ -403,7 +403,6 @@ contract CreateProposal is EthereumScript {
     payloads[9] = GovV3Helpers.buildBNBPayload(vm, actionsBNB);
 
     IPayloadsControllerCore.ExecutionAction[]
-<<<<<<< HEAD
       memory actionsCelo = new IPayloadsControllerCore.ExecutionAction[](1);
     actionsCelo[0] = GovV3Helpers.buildAction(
       type(AaveV3Celo_RiskStewardParameterUpdatesPhase3_20250320).creationCode
