@@ -7,9 +7,31 @@ snapshot: "https://snapshot.box/#/s:aave.eth/proposal/0x29d176e4d36f38c665ac3977
 
 ## Simple Summary
 
+This proposal aims to update the Risk Steward parameters to enhance the efficiency of risk parameter management and reduce governance overhead.
+
 ## Motivation
 
+The Risk Steward mechanism has proven to be an effective tool for managing risk parameters without requiring full governance proposals. After several months of successful operation, we propose updating the parameters to allow for more responsive risk management while maintaining appropriate safety constraints.
+
+Technical service providers spend significant time reviewing risk parameter update AIPs, which could be more efficiently handled through the Risk Steward mechanism. With well-defined processes in place and months of successful operation, we can safely expand the scope of parameter adjustments allowed through this system.
+
 ## Specification
+
+| Parameter                 | Current        | Proposed      |
+| ------------------------- | -------------- | ------------- |
+| Supply & Borrow Caps      | 100% relative  | (no change)   |
+| Debt Ceiling              | 20% relative   | (no change)   |
+| LST Cap adapter params    | 5% relative    | (no change)   |
+| Stable price cap          | 0.5% relative  | (no change)   |
+| Base Variable Borrow Rate | 0.5% absolute  | 1% absolute   |
+| Slope 1                   | 0.5% absolute  | 1% absolute   |
+| Slope 2                   | 5% absolute    | 20% absolute  |
+| Optimal Point (Kink)      | 3% absolute    | (no change)   |
+| Loan to Value (LTV)       | 0.25% absolute | 0.5% absolute |
+| Liquidation Threshold     | 0.25% absolute | 0.5% absolute |
+| Liquidation Bonus         | 0.5% absolute  | (no change)   |
+
+(no change to minimum delay)
 
 ## References
 
