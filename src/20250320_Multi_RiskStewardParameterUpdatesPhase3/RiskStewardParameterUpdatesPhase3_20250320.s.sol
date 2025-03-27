@@ -3,7 +3,9 @@ pragma solidity ^0.8.0;
 
 import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aave-helpers/src/GovV3Helpers.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
-import {EthereumScript, PolygonScript, AvalancheScript, OptimismScript, ArbitrumScript, MetisScript, GnosisScript, BaseScript, ScrollScript, BNBScript, LineaScript, CeloScript, SonicScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
+import {GovernanceV3ZkSync} from 'aave-address-book/GovernanceV3ZkSync.sol';
+import {GovernanceV3Linea} from 'aave-address-book/GovernanceV3Linea.sol';
+import {EthereumScript, PolygonScript, AvalancheScript, OptimismScript, ArbitrumScript, MetisScript, GnosisScript, BaseScript, ScrollScript, BNBScript, LineaScript, CeloScript, SonicScript, ChainIds} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
 import {AaveV3Ethereum_RiskStewardParameterUpdatesPhase3_20250320} from './AaveV3Ethereum_RiskStewardParameterUpdatesPhase3_20250320.sol';
 import {AaveV3EthereumLido_RiskStewardParameterUpdatesPhase3_20250320} from './AaveV3EthereumLido_RiskStewardParameterUpdatesPhase3_20250320.sol';
 import {AaveV3EthereumEtherFi_RiskStewardParameterUpdatesPhase3_20250320} from './AaveV3EthereumEtherFi_RiskStewardParameterUpdatesPhase3_20250320.sol';
@@ -414,26 +416,18 @@ contract CreateProposal is EthereumScript {
     );
     payloads[11] = GovV3Helpers.buildSonicPayload(vm, actionsSonic);
 
-    uint40 zksyncPayload = 20;
-    require(zksyncPayload != 0);
-    IPayloadsControllerCore.ExecutionAction[]
-      memory actionsZkSync = new IPayloadsControllerCore.ExecutionAction[](1);
     payloads[12] = PayloadsControllerUtils.Payload({
       chain: ChainIds.ZKSYNC,
       accessLevel: PayloadsControllerUtils.AccessControl.Level_1,
       payloadsController: address(GovernanceV3ZkSync.PAYLOADS_CONTROLLER),
-      payloadId: zksyncPayload
+      payloadId: 20
     });
 
-    uint40 lineaPayload = 8;
-    require(lineaPayload != 0);
-    IPayloadsControllerCore.ExecutionAction[]
-      memory actionsLinea = new IPayloadsControllerCore.ExecutionAction[](1);
     payloads[13] = PayloadsControllerUtils.Payload({
       chain: ChainIds.LINEA,
       accessLevel: PayloadsControllerUtils.AccessControl.Level_1,
       payloadsController: address(GovernanceV3Linea.PAYLOADS_CONTROLLER),
-      payloadId: lineaPayload
+      payloadId: 8
     });
 
     return payloads;
