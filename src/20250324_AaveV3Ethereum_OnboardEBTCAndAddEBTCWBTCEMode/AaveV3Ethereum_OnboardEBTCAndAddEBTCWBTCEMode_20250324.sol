@@ -89,7 +89,7 @@ contract AaveV3Ethereum_OnboardEBTCAndAddEBTCWBTCEMode_20250324 is AaveV3Payload
       liqBonus: 10_00,
       reserveFactor: 50_00,
       supplyCap: 750,
-      borrowCap: 8,
+      borrowCap: 1,
       debtCeiling: 0,
       liqProtocolFee: 10_00,
       rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({

@@ -10,7 +10,7 @@
 | isActive | true |
 | isFrozen | false |
 | supplyCap | 750 eBTC |
-| borrowCap | 8 eBTC |
+| borrowCap | 1 eBTC |
 | debtCeiling | 0 $ [0] |
 | isSiloed | false |
 | isFlashloanable | true |
@@ -110,7 +110,7 @@
         "aTokenName": "Aave Ethereum eBTC",
         "aTokenSymbol": "aEtheBTC",
         "aTokenUnderlyingBalance": "200000",
-        "borrowCap": 8,
+        "borrowCap": 1,
         "borrowingEnabled": false,
         "debtCeiling": 0,
         "decimals": 8,
@@ -319,7 +319,7 @@
         },
         "0x8223727c8871616f647cb2758c647c4b42bd849cfee84a1e59dda0cadacd8961": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x100000000000000000000003e80000002ee000000008138881082af81c201a2c"
+          "newValue": "0x100000000000000000000003e80000002ee000000001138881082af81c201a2c"
         },
         "0x8223727c8871616f647cb2758c647c4b42bd849cfee84a1e59dda0cadacd8962": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
