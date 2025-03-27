@@ -414,7 +414,7 @@ contract CreateProposal is EthereumScript {
     );
     payloads[11] = GovV3Helpers.buildSonicPayload(vm, actionsSonic);
 
-    uint40 zksyncPayload = 18;
+    uint40 zksyncPayload = 20;
     require(zksyncPayload != 0);
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsZkSync = new IPayloadsControllerCore.ExecutionAction[](1);
@@ -425,7 +425,7 @@ contract CreateProposal is EthereumScript {
       payloadId: zksyncPayload
     });
 
-    uint40 lineaPayload = 5;
+    uint40 lineaPayload = 8;
     require(lineaPayload != 0);
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsLinea = new IPayloadsControllerCore.ExecutionAction[](1);
