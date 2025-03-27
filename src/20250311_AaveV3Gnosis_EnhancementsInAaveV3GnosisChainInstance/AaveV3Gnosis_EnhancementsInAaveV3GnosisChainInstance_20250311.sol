@@ -12,26 +12,6 @@ import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config
  * - Discussion: https://governance.aave.com/t/arfc-enhancements-in-aave-v3-gnosis-chain-instance/21214
  */
 contract AaveV3Gnosis_EnhancementsInAaveV3GnosisChainInstance_20250311 is AaveV3PayloadGnosis {
-  function rateStrategiesUpdates()
-    public
-    pure
-    override
-    returns (IAaveV3ConfigEngine.RateStrategyUpdate[] memory)
-  {
-    IAaveV3ConfigEngine.RateStrategyUpdate[]
-      memory rateStrategies = new IAaveV3ConfigEngine.RateStrategyUpdate[](1);
-    rateStrategies[0] = IAaveV3ConfigEngine.RateStrategyUpdate({
-      asset: AaveV3GnosisAssets.sDAI_UNDERLYING,
-      params: IAaveV3ConfigEngine.InterestRateInputData({
-        optimalUsageRatio: EngineFlags.KEEP_CURRENT,
-        baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
-        variableRateSlope1: EngineFlags.KEEP_CURRENT,
-        variableRateSlope2: 20_00
-      })
-    });
-
-    return rateStrategies;
-  }
   function collateralsUpdates()
     public
     pure
@@ -59,7 +39,7 @@ contract AaveV3Gnosis_EnhancementsInAaveV3GnosisChainInstance_20250311 is AaveV3
     returns (IAaveV3ConfigEngine.BorrowUpdate[] memory)
   {
     IAaveV3ConfigEngine.BorrowUpdate[]
-      memory borrowUpdates = new IAaveV3ConfigEngine.BorrowUpdate[](2);
+      memory borrowUpdates = new IAaveV3ConfigEngine.BorrowUpdate[](1);
 
     borrowUpdates[0] = IAaveV3ConfigEngine.BorrowUpdate({
       asset: AaveV3GnosisAssets.USDC_UNDERLYING,
@@ -70,29 +50,15 @@ contract AaveV3Gnosis_EnhancementsInAaveV3GnosisChainInstance_20250311 is AaveV3
       reserveFactor: 40_00
     });
 
-    borrowUpdates[1] = IAaveV3ConfigEngine.BorrowUpdate({
-      asset: AaveV3GnosisAssets.sDAI_UNDERLYING,
-      enabledToBorrow: EngineFlags.ENABLED,
-      flashloanable: EngineFlags.KEEP_CURRENT,
-      borrowableInIsolation: EngineFlags.KEEP_CURRENT,
-      withSiloedBorrowing: EngineFlags.KEEP_CURRENT,
-      reserveFactor: EngineFlags.KEEP_CURRENT
-    });
-
     return borrowUpdates;
   }
   function capsUpdates() public pure override returns (IAaveV3ConfigEngine.CapsUpdate[] memory) {
-    IAaveV3ConfigEngine.CapsUpdate[] memory capsUpdate = new IAaveV3ConfigEngine.CapsUpdate[](2);
+    IAaveV3ConfigEngine.CapsUpdate[] memory capsUpdate = new IAaveV3ConfigEngine.CapsUpdate[](1);
 
     capsUpdate[0] = IAaveV3ConfigEngine.CapsUpdate({
       asset: AaveV3GnosisAssets.USDC_UNDERLYING,
       supplyCap: 2_500_000,
       borrowCap: 2_000_000
-    });
-    capsUpdate[1] = IAaveV3ConfigEngine.CapsUpdate({
-      asset: AaveV3GnosisAssets.sDAI_UNDERLYING,
-      supplyCap: EngineFlags.KEEP_CURRENT,
-      borrowCap: 4_000_000
     });
 
     return capsUpdate;

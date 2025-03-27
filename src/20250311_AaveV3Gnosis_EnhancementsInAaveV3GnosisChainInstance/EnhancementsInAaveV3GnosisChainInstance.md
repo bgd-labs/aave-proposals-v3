@@ -79,8 +79,8 @@ The tables below show the current and proposed parameters for each asset. A subs
 | Parameters               | Current | Proposed |
 | ------------------------ | ------- | -------- |
 | Isolation Mode           | No      | -        |
-| Borrowable in Isolation  | Yes     | -        |
-| Enable Borrow            | Yes     | -        |
+| Borrowable in Isolation  | No      | -        |
+| Enable Borrow            | No      | -        |
 | Enable Collateral        | Yes     | -        |
 | Loan To Value (LTV)      | 75%     | -        |
 | Liquidation Threshold    | 78%     | -        |
@@ -88,12 +88,12 @@ The tables below show the current and proposed parameters for each asset. A subs
 | Reserve Factor           | 10%     | -        |
 | Liquidation Protocol Fee | 20%     | -        |
 | Supply Cap               | 48M     | -        |
-| Borrow Cap               | 0       | 4M       |
+| Borrow Cap               | 0       | -        |
 | Debt Ceiling             | N/A     | -        |
 | Optimal                  | 90%     | -        |
 | Base                     | 0%      | -        |
 | Slope1                   | 4%      | -        |
-| Slope2                   | 75%     | 20%      |
+| Slope2                   | 75%     | -        |
 | Emode                    | No      | Yes      |
 
 ## References
