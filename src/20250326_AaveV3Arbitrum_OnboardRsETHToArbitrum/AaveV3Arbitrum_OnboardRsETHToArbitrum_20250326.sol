@@ -44,7 +44,7 @@ contract AaveV3Arbitrum_OnboardRsETHToArbitrum_20250326 is AaveV3PayloadArbitrum
       ltv: 92_50,
       liqThreshold: 94_50,
       liqBonus: 1_00,
-      label: 'rsETH/wstETH'
+      label: 'rsETH wstETH'
     });
 
     return eModeUpdates;
