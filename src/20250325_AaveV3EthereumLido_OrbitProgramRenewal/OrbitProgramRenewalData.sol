@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 
 library OrbitProgramRenewalData {
   // stream information
-  uint256 public constant STREAM_DURATION = 80 days;
+  uint256 public constant STREAM_DURATION = 90 days;
   // budgets (total budget: 15,000 GHO)
   uint256 public constant STREAM_AMOUNT = 15000 ether;
   // stream receivers

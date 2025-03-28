@@ -25,7 +25,7 @@ From now on, all renews will be applied strictly by Quarters, and a new cutoff h
 - IgnasDefi: [0x3DDC7d25c7a1dc381443e491Bbf1Caa8928A05B0](https://etherscan.io/address/0x3DDC7d25c7a1dc381443e491Bbf1Caa8928A05B0)
 - **Budget:** 60,000 GHO (aEthLidoGHO)
 - 15k total budget per platform
-- 15000 aGHO stream through 80 days
+- 15000 aGHO stream through 90 days
 - **Relevant Links:**
 - [ACI’s Orbit tracker](https://dapps.aavechan.com/orbit-tracker)
 
