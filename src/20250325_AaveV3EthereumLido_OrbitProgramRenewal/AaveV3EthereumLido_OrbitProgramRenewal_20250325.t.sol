@@ -51,15 +51,6 @@ contract AaveV3EthereumLido_OrbitProgramRenewal_20250325_Test is ProtocolV3TestB
 
     executePayload(vm, address(proposal));
 
-    // Direct transfers
-    for (uint256 i = 0; i < ghoPaymentAddresses.length; i++) {
-      assertEq(
-        IERC20(AaveV3EthereumLidoAssets.GHO_A_TOKEN).balanceOf(ghoPaymentAddresses[i]),
-        ghoBalancesBeforeUsers[i] + OrbitProgramRenewalData.DIRECT_TRANSFER_AMOUNT,
-        'GHO balance of Orbit recipient is not greater than before'
-      );
-    }
-
     vm.warp(block.timestamp + 91 days);
 
     uint256[] memory aGHOInterest = new uint256[](4);
@@ -86,10 +77,7 @@ contract AaveV3EthereumLido_OrbitProgramRenewal_20250325_Test is ProtocolV3TestB
       AaveV3EthereumLido.COLLECTOR.withdrawFromStream(nextStreamId + i, finalBalanceToWithdraw);
       assertApproxEqRel(
         IERC20(AaveV3EthereumLidoAssets.GHO_A_TOKEN).balanceOf(ghoPaymentAddresses[i]),
-        ghoBalancesBeforeUsers[i] +
-          OrbitProgramRenewalData.DIRECT_TRANSFER_AMOUNT +
-          OrbitProgramRenewalData.STREAM_AMOUNT +
-          aGHOInterest[i],
+        ghoBalancesBeforeUsers[i] + OrbitProgramRenewalData.STREAM_AMOUNT + aGHOInterest[i],
         maxDeltaStreamBalance,
         'GHO Stream final withdraw is not correct'
       );
@@ -110,7 +98,7 @@ contract AaveV3EthereumLido_OrbitProgramRenewal_20250325_Test is ProtocolV3TestB
     for (uint256 i = 0; i < ghoPaymentAddresses.length; i++) {
       assertEq(
         IERC20(AaveV3EthereumLidoAssets.GHO_A_TOKEN).balanceOf(ghoPaymentAddresses[i]),
-        ghoBalancesBeforeUsers[i] + OrbitProgramRenewalData.DIRECT_TRANSFER_AMOUNT,
+        ghoBalancesBeforeUsers[i],
         'GHO balance of Orbit recipient is not greater than before'
       );
     }

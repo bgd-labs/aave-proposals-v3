@@ -6,30 +6,6 @@
     "0x464c71f6c2f760dda6093dcb91c24c39e5d6e18c": {
       "label": "AaveV2Ethereum.COLLECTOR, AaveV2EthereumAMM.COLLECTOR, AaveV2EthereumArc.COLLECTOR, AaveV3Ethereum.COLLECTOR, AaveV3EthereumEtherFi.COLLECTOR, AaveV3EthereumLido.COLLECTOR",
       "balanceDiff": null,
-      "stateDiff": {}
-    },
-    "0x5300a1a15135ea4dc7ad5a167152c01efc9b192a": {
-      "label": "AaveV2Ethereum.POOL_ADMIN, AaveV2EthereumAMM.POOL_ADMIN, AaveV3Ethereum.ACL_ADMIN, AaveV3EthereumEtherFi.ACL_ADMIN, AaveV3EthereumLido.ACL_ADMIN, GovernanceV3Ethereum.EXECUTOR_LVL_1",
-      "balanceDiff": null,
-      "stateDiff": {}
-    },
-    "0x7222182cb9c5320587b5148bf03eee107ad64578": {
-      "label": null,
-      "balanceDiff": null,
-      "stateDiff": {
-        "0x58cd54139f015db710156397d4286964226d102c8555db119384b5a83cf95bce": {
-          "previousValue": "0x0067e2bbee000000000002000000000000000000000000000000000000000000",
-          "newValue": "0x0067e2bbee000000000003000000000000000000000000000000000000000000"
-        },
-        "0x58cd54139f015db710156397d4286964226d102c8555db119384b5a83cf95bcf": {
-          "previousValue": "0x000000000000000000093a800000000000006810e06f00000000000000000000",
-          "newValue": "0x000000000000000000093a800000000000006810e06f00000000000067e2bbef"
-        }
-      }
-    },
-    "0x83b7ce402a0e756e901c4a9d1cafa27ca9572afc": {
-      "label": null,
-      "balanceDiff": null,
       "stateDiff": {
         "0x0000000000000000000000000000000000000000000000000000000000000035": {
           "previousValue": "0x00000000000000000000000000000000000000000000000000000000000186d9",
@@ -168,7 +144,16 @@
     "0xdabad81af85554e9ae636395611c58f7ec1aaec5": {
       "label": "GovernanceV3Ethereum.PAYLOADS_CONTROLLER",
       "balanceDiff": null,
-      "stateDiff": {}
+      "stateDiff": {
+        "0x58cd54139f015db710156397d4286964226d102c8555db119384b5a83cf95bce": {
+          "previousValue": "0x0067e2bbee000000000002000000000000000000000000000000000000000000",
+          "newValue": "0x0067e2bbee000000000003000000000000000000000000000000000000000000"
+        },
+        "0x58cd54139f015db710156397d4286964226d102c8555db119384b5a83cf95bcf": {
+          "previousValue": "0x000000000000000000093a800000000000006810e06f00000000000000000000",
+          "newValue": "0x000000000000000000093a800000000000006810e06f00000000000067e2bbef"
+        }
+      }
     }
   }
 }
