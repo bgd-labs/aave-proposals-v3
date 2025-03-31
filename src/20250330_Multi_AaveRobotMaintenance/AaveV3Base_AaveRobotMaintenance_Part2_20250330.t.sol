@@ -13,7 +13,7 @@ import {AaveV3Base_AaveRobotMaintenance_Part2_20250330} from './AaveV3Base_AaveR
  * @dev Test for AaveV3Base_AaveRobotMaintenance_Part2_20250330
  * command: FOUNDRY_PROFILE=base forge test --match-path=src/20250330_Multi_AaveRobotMaintenance/AaveV3Base_AaveRobotMaintenance_Part2_20250330.t.sol -vv
  */
-contract AaveV3Base_AaveRobotMaintenance_20250330_Test is ProtocolV3TestBase {
+contract AaveV3Base_AaveRobotMaintenance_Part2_20250330_Test is ProtocolV3TestBase {
   AaveV3Base_AaveRobotMaintenance_Part1_20250330 internal proposalPart1;
   AaveV3Base_AaveRobotMaintenance_Part2_20250330 internal proposalPart2;
 

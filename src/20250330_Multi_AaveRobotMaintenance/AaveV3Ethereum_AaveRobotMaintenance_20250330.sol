@@ -13,7 +13,6 @@ import {IAaveCLRobotOperator} from '../interfaces/IAaveCLRobotOperator.sol';
 /**
  * @title Aave Robot Maintenance
  * @author BGD Labs (@bgdlabs)
- * - Snapshot: TODO
  * - Discussion: TODO
  */
 contract AaveV3Ethereum_AaveRobotMaintenance_20250330 is IProposalGenericExecutor {
