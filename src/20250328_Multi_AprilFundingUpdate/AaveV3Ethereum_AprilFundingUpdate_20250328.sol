@@ -3,6 +3,7 @@ pragma solidity ^0.8.0;
 
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
+import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {CollectorUtils, ICollector} from 'aave-helpers/src/CollectorUtils.sol';
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
@@ -30,9 +31,13 @@ contract AaveV3Ethereum_AprilFundingUpdate_20250328 is IProposalGenericExecutor 
   address public constant MERIT_SAFE = 0xdeadD8aB03075b7FBA81864202a2f59EE25B312b;
   uint256 public constant MERIT_ALLOWANCE = 800_000e6;
 
+  uint256 public constant FUNDING_LINK_AMOUNT = 80 ether;
+  uint256 public constant FUNDING_ETH_AMOUNT = 1 ether;
+
   function execute() external {
     _withdrawAndSwap();
     _transferAndApprove();
+    _fundToCrossChainController();
   }
 
   function _withdrawAndSwap() internal {
@@ -91,6 +96,19 @@ contract AaveV3Ethereum_AprilFundingUpdate_20250328 is IProposalGenericExecutor 
       IERC20(AaveV3EthereumAssets.USDC_A_TOKEN),
       MERIT_SAFE,
       MERIT_ALLOWANCE
+    );
+  }
+
+  function _fundToCrossChainController() internal {
+    AaveV3Ethereum.COLLECTOR.transfer(
+      IERC20(AaveV3EthereumAssets.LINK_UNDERLYING),
+      GovernanceV3Ethereum.CROSS_CHAIN_CONTROLLER,
+      FUNDING_LINK_AMOUNT
+    );
+    AaveV3Ethereum.COLLECTOR.transfer(
+      IERC20(AaveV3Ethereum.COLLECTOR.ETH_MOCK_ADDRESS()),
+      GovernanceV3Ethereum.CROSS_CHAIN_CONTROLLER,
+      FUNDING_ETH_AMOUNT
     );
   }
 }

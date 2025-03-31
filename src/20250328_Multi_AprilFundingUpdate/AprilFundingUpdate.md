@@ -13,6 +13,7 @@ This publication presents the April Funding Update, consisting of the following 
 - Fund Sonic incentive campaign;
 - Acquire GHO for Operations; and,
 - Transfer FLUID to Aave Protocol Embassy.
+- Fund to [CrossChainController](https://etherscan.io/address/0xEd42a7D8559a463722Ca4beD50E0Cc05a386b0e1)
 
 ## Motivation
 
@@ -94,6 +95,10 @@ Deposit the following assets into Aave v3 on Arbitrum and Base respectively.
 |   LINK   |       |
 
 By doing this idle capital is deployed and funds are consolidated ahead of any potential funding request.
+
+### Fund to [CrossChainController](https://etherscan.io/address/0xEd42a7D8559a463722Ca4beD50E0Cc05a386b0e1)
+
+Funding to [CrossChainController](https://etherscan.io/address/0xEd42a7D8559a463722Ca4beD50E0Cc05a386b0e1) on mainnet with 50 LINK and 1 native ETH
 
 ## References
 

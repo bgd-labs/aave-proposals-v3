@@ -73,6 +73,28 @@
         }
       }
     },
+    "0x464c71f6c2f760dda6093dcb91c24c39e5d6e18c": {
+      "label": "AaveV2Ethereum.COLLECTOR, AaveV2EthereumAMM.COLLECTOR, AaveV2EthereumArc.COLLECTOR, AaveV3Ethereum.COLLECTOR, AaveV3EthereumEtherFi.COLLECTOR, AaveV3EthereumLido.COLLECTOR",
+      "balanceDiff": {
+        "previousValue": "0x61d2f5caed673bfb0",
+        "newValue": "0x60f4ea5fb2f0fbfb0"
+      },
+      "stateDiff": {}
+    },
+    "0x514910771af9ca656af840dff83e8264ecf986ca": {
+      "label": "AaveV2Ethereum.ASSETS.LINK.UNDERLYING, AaveV3Ethereum.ASSETS.LINK.UNDERLYING",
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x665061e1323c5428ce1c014d33fc30446679e3d28712ecb5a79a43324605b819": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000006bcc052d8385974c",
+          "newValue": "0x000000000000000000000000000000000000000000000004c2051d51d2c5974c"
+        },
+        "0xed6ec7e33f59ecec89646b4f7510894329cb37ba69b3bcfebb670859780100f3": {
+          "previousValue": "0x00000000000000000000000000000000000000000000001be3237cd54ae9dfd4",
+          "newValue": "0x0000000000000000000000000000000000000000000000178cea64b0fba9dfd4"
+        }
+      }
+    },
     "0x6f40d4a6237c257fff2db00fa0510deeecd303eb": {
       "label": null,
       "balanceDiff": null,
@@ -86,6 +108,14 @@
           "newValue": "0x0000000000000000000000000000000000000000000000000000000000000000"
         }
       }
+    },
+    "0x83b7ce402a0e756e901c4a9d1cafa27ca9572afc": {
+      "label": null,
+      "balanceDiff": {
+        "previousValue": "0x61d2f5caed673bfb0",
+        "newValue": "0x60f4ea5fb2f0fbfb0"
+      },
+      "stateDiff": {}
     },
     "0x87870bca3f3fd6335c3f4ce8392d69350b4fa4e2": {
       "label": "AaveV3Ethereum.POOL",
@@ -242,6 +272,14 @@
           "newValue": "0x0000000000000000000000000000000000000000000000000000000000000000"
         }
       }
+    },
+    "0xed42a7d8559a463722ca4bed50e0cc05a386b0e1": {
+      "label": "GovernanceV3Ethereum.CROSS_CHAIN_CONTROLLER",
+      "balanceDiff": {
+        "previousValue": "0xaa99c348273a238",
+        "newValue": "0x188a52e829d7a238"
+      },
+      "stateDiff": {}
     }
   }
 }

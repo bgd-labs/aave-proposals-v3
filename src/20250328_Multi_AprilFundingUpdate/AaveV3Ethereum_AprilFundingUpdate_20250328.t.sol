@@ -3,6 +3,7 @@ pragma solidity ^0.8.0;
 
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
+import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 
 import 'forge-std/Test.sol';
@@ -105,5 +106,22 @@ contract AaveV3Ethereum_AprilFundingUpdate_20250328_Test is ProtocolV3TestBase {
     assertEq(fluidCollectorBalanceAfter, 0);
     assertEq(fluidCollectorBalanceBefore, fluidEmbassyBalanceAfter - fluidEmbassyBalanceBefore);
     assertEq(aUsdcAllowance, proposal.MERIT_ALLOWANCE());
+  }
+
+  function test_funding() public {
+    uint256 linkBalanceBefore = IERC20(AaveV3EthereumAssets.LINK_UNDERLYING).balanceOf(
+      GovernanceV3Ethereum.CROSS_CHAIN_CONTROLLER
+    );
+    uint256 ethBalanceBefore = payable(GovernanceV3Ethereum.CROSS_CHAIN_CONTROLLER).balance;
+
+    executePayload(vm, address(proposal));
+
+    uint256 linkBalanceAfter = IERC20(AaveV3EthereumAssets.LINK_UNDERLYING).balanceOf(
+      GovernanceV3Ethereum.CROSS_CHAIN_CONTROLLER
+    );
+    uint256 ethBalanceAfter = payable(GovernanceV3Ethereum.CROSS_CHAIN_CONTROLLER).balance;
+
+    assertEq(linkBalanceAfter, linkBalanceBefore + proposal.FUNDING_LINK_AMOUNT());
+    assertEq(ethBalanceAfter, ethBalanceBefore + proposal.FUNDING_ETH_AMOUNT());
   }
 }
