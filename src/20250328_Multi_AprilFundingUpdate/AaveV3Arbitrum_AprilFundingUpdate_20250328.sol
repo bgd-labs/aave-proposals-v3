@@ -85,15 +85,4 @@ contract AaveV3Arbitrum_AprilFundingUpdate_20250328 is IProposalGenericExecutor 
       })
     );
   }
-
-  function _getWithdrawableBalance(
-    address collector,
-    address underlying,
-    address aToken
-  ) internal view returns (uint256) {
-    uint256 collectorBalance = IERC20(aToken).balanceOf(collector);
-    uint256 liquidity = IERC20(underlying).balanceOf(aToken);
-
-    return collectorBalance > liquidity ? liquidity : collectorBalance;
-  }
 }
