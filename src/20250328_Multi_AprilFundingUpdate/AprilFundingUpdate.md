@@ -57,8 +57,6 @@ Withdraw from respective Aave Protocol and bridge the following assets to Ethere
 
 When asset are withdrawn from Aave Protocol, 1 unit will remain to ensure a no zero balance is always maintained.
 
-Upon being received on Ethereum, subject to the Finance Steward being deployed:
-
 ### Ethereum - Acquire GHO
 
 Withdraw the following asset from Aave v2 instance on Ethereum, swap to GHO and deposit into Aave v3 Prime instance.
@@ -74,11 +72,11 @@ This GHO will provide sufficient runway to cover the next few months of Merit an
 
 Transfer FLUID held in the Treasury to Aave Protocol Embassy SAFE on Ethereum:
 
-SAFE: `0xa9e777D56C0Ad861f6a03967E080e767ad8D39b6``
+SAFE: `0xa9e777D56C0Ad861f6a03967E080e767ad8D39b6`
 
 Create an Allowance to fund Sonic Incentive Campaign, 0.8M aEthUSDC, from Aave v3 Core instance to Merit address:
 
-SAFE: `0xdeadD8aB03075b7FBA81864202a2f59EE25B312b``
+SAFE: `0xdeadD8aB03075b7FBA81864202a2f59EE25B312b`
 
 ### Base & Arbitrum - Deposit Passively Held Assets into Aave
 
