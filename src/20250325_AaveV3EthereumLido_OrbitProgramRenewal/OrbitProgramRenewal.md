@@ -39,8 +39,8 @@ Funds are distributed based on 90 days, as seen on budget.
 
 ## References
 
-- Implementation: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250325_AaveV3EthereumLido_OrbitProgramRenewal/AaveV3EthereumLido_OrbitProgramRenewal_20250325.sol)
-- Tests: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250325_AaveV3EthereumLido_OrbitProgramRenewal/AaveV3EthereumLido_OrbitProgramRenewal_20250325.t.sol)
+- Implementation: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/7dec14926b6ff35e70cee61ccd091ae8b4af10ee/src/20250325_AaveV3EthereumLido_OrbitProgramRenewal/AaveV3EthereumLido_OrbitProgramRenewal_20250325.sol)
+- Tests: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/7dec14926b6ff35e70cee61ccd091ae8b4af10ee/src/20250325_AaveV3EthereumLido_OrbitProgramRenewal/AaveV3EthereumLido_OrbitProgramRenewal_20250325.t.sol)
 - [Snapshot](https://governance.aave.com/t/arfc-orbit-program-renewal-q1-2025/21205)
 - [Discussion](https://governance.aave.com/t/arfc-orbit-program-renewal-q1-2025/21205)
 
