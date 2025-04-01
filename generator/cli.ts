@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import path from 'path';
 import {Command, Option} from 'commander';
 import {CHAIN_TO_CHAIN_ID, getDate, getPoolChain, isV2Pool, pascalCase} from './common';

@@ -434,11 +434,12 @@ contract CreateProposal is EthereumScript {
   }
 
   function run() external {
+    PayloadsControllerUtils.Payload[] memory payloads = _getPayload();
     // create proposal
     vm.startBroadcast();
     GovV3Helpers.createProposal(
       vm,
-      _getPayload(),
+      payloads,
       GovernanceV3Ethereum.VOTING_PORTAL_ETH_POL,
       GovV3Helpers.ipfsHashFile(
         vm,
