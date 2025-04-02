@@ -5,9 +5,11 @@ import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 import {AaveV2Polygon, AaveV2PolygonAssets} from 'aave-address-book/AaveV2Polygon.sol';
 import {AaveV3Polygon, AaveV3PolygonAssets} from 'aave-address-book/AaveV3Polygon.sol';
 import {MiscPolygon} from 'aave-address-book/MiscPolygon.sol';
-import {CollectorUtils, ICollector} from 'aave-helpers/src/CollectorUtils.sol';
 import {IAavePolEthERC20Bridge} from 'aave-helpers/src/bridges/polygon/IAavePolEthERC20Bridge.sol';
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
+
+import {IPoolExposureSteward} from './IPoolExposureSteward.sol';
+
 /**
  * @title April Funding update
  * @author TokenLogic
@@ -15,8 +17,6 @@ import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGen
  * - Discussion: https://governance.aave.com/t/arfc-april-funding-update/21590
  */
 contract AaveV3Polygon_AprilFundingUpdate_20250328 is IProposalGenericExecutor {
-  using CollectorUtils for ICollector;
-
   function execute() external {
     _prepareBridge();
     _bridge();
@@ -24,29 +24,23 @@ contract AaveV3Polygon_AprilFundingUpdate_20250328 is IProposalGenericExecutor {
 
   function _prepareBridge() internal {
     // usdc.e
-    AaveV3Polygon.COLLECTOR.withdrawFromV3(
-      CollectorUtils.IOInput({
-        pool: address(AaveV3Polygon.POOL),
-        underlying: AaveV3PolygonAssets.USDC_UNDERLYING,
-        amount: _getWithdrawableBalance(
-          address(AaveV3Polygon.COLLECTOR),
-          AaveV3PolygonAssets.USDC_UNDERLYING,
-          AaveV3PolygonAssets.USDC_A_TOKEN
-        ) - 100e6
-      }),
-      MiscPolygon.AAVE_POL_ETH_BRIDGE
+    IPoolExposureSteward(AaveV3Polygon.POOL_EXPOSURE_STEWARD).withdrawV3(
+      address(AaveV3Polygon.POOL),
+      AaveV3PolygonAssets.USDC_UNDERLYING,
+      _getWithdrawableBalance(
+        address(AaveV3Polygon.COLLECTOR),
+        AaveV3PolygonAssets.USDC_UNDERLYING,
+        AaveV3PolygonAssets.USDC_A_TOKEN
+      )
     );
-    AaveV2Polygon.COLLECTOR.withdrawFromV2(
-      CollectorUtils.IOInput({
-        pool: address(AaveV2Polygon.POOL),
-        underlying: AaveV2PolygonAssets.USDC_UNDERLYING,
-        amount: _getWithdrawableBalance(
-          address(AaveV2Polygon.COLLECTOR),
-          AaveV2PolygonAssets.USDC_UNDERLYING,
-          AaveV2PolygonAssets.USDC_A_TOKEN
-        ) - 100e6
-      }),
-      MiscPolygon.AAVE_POL_ETH_BRIDGE
+    IPoolExposureSteward(AaveV3Polygon.POOL_EXPOSURE_STEWARD).withdrawV2(
+      address(AaveV2Polygon.POOL),
+      AaveV2PolygonAssets.USDC_UNDERLYING,
+      _getWithdrawableBalance(
+        address(AaveV2Polygon.COLLECTOR),
+        AaveV2PolygonAssets.USDC_UNDERLYING,
+        AaveV2PolygonAssets.USDC_A_TOKEN
+      )
     );
     AaveV2Polygon.COLLECTOR.transfer(
       IERC20(AaveV2PolygonAssets.USDC_UNDERLYING),
@@ -55,29 +49,23 @@ contract AaveV3Polygon_AprilFundingUpdate_20250328 is IProposalGenericExecutor {
     );
 
     // usdt
-    AaveV3Polygon.COLLECTOR.withdrawFromV3(
-      CollectorUtils.IOInput({
-        pool: address(AaveV3Polygon.POOL),
-        underlying: AaveV3PolygonAssets.USDT_UNDERLYING,
-        amount: _getWithdrawableBalance(
-          address(AaveV3Polygon.COLLECTOR),
-          AaveV3PolygonAssets.USDT_UNDERLYING,
-          AaveV3PolygonAssets.USDT_A_TOKEN
-        ) - 100e6
-      }),
-      MiscPolygon.AAVE_POL_ETH_BRIDGE
+    IPoolExposureSteward(AaveV3Polygon.POOL_EXPOSURE_STEWARD).withdrawV3(
+      address(AaveV3Polygon.POOL),
+      AaveV3PolygonAssets.USDT_UNDERLYING,
+      _getWithdrawableBalance(
+        address(AaveV3Polygon.COLLECTOR),
+        AaveV3PolygonAssets.USDT_UNDERLYING,
+        AaveV3PolygonAssets.USDT_A_TOKEN
+      )
     );
-    AaveV2Polygon.COLLECTOR.withdrawFromV2(
-      CollectorUtils.IOInput({
-        pool: address(AaveV2Polygon.POOL),
-        underlying: AaveV2PolygonAssets.USDT_UNDERLYING,
-        amount: _getWithdrawableBalance(
-          address(AaveV2Polygon.COLLECTOR),
-          AaveV2PolygonAssets.USDT_UNDERLYING,
-          AaveV2PolygonAssets.USDT_A_TOKEN
-        ) - 100e6
-      }),
-      MiscPolygon.AAVE_POL_ETH_BRIDGE
+    IPoolExposureSteward(AaveV3Polygon.POOL_EXPOSURE_STEWARD).withdrawV2(
+      address(AaveV2Polygon.POOL),
+      AaveV2PolygonAssets.USDT_UNDERLYING,
+      _getWithdrawableBalance(
+        address(AaveV2Polygon.COLLECTOR),
+        AaveV2PolygonAssets.USDT_UNDERLYING,
+        AaveV2PolygonAssets.USDT_A_TOKEN
+      )
     );
     AaveV2Polygon.COLLECTOR.transfer(
       IERC20(AaveV2PolygonAssets.USDT_UNDERLYING),
@@ -86,29 +74,23 @@ contract AaveV3Polygon_AprilFundingUpdate_20250328 is IProposalGenericExecutor {
     );
 
     // weth
-    AaveV3Polygon.COLLECTOR.withdrawFromV3(
-      CollectorUtils.IOInput({
-        pool: address(AaveV3Polygon.POOL),
-        underlying: AaveV3PolygonAssets.WETH_UNDERLYING,
-        amount: _getWithdrawableBalance(
-          address(AaveV3Polygon.COLLECTOR),
-          AaveV3PolygonAssets.WETH_UNDERLYING,
-          AaveV3PolygonAssets.WETH_A_TOKEN
-        ) - 1 ether
-      }),
-      MiscPolygon.AAVE_POL_ETH_BRIDGE
+    IPoolExposureSteward(AaveV3Polygon.POOL_EXPOSURE_STEWARD).withdrawV3(
+      address(AaveV3Polygon.POOL),
+      AaveV3PolygonAssets.WETH_UNDERLYING,
+      _getWithdrawableBalance(
+        address(AaveV3Polygon.COLLECTOR),
+        AaveV3PolygonAssets.WETH_UNDERLYING,
+        AaveV3PolygonAssets.WETH_A_TOKEN
+      )
     );
-    AaveV2Polygon.COLLECTOR.withdrawFromV2(
-      CollectorUtils.IOInput({
-        pool: address(AaveV2Polygon.POOL),
-        underlying: AaveV2PolygonAssets.WETH_UNDERLYING,
-        amount: _getWithdrawableBalance(
-          address(AaveV2Polygon.COLLECTOR),
-          AaveV2PolygonAssets.WETH_UNDERLYING,
-          AaveV2PolygonAssets.WETH_A_TOKEN
-        ) - 1 ether
-      }),
-      MiscPolygon.AAVE_POL_ETH_BRIDGE
+    IPoolExposureSteward(AaveV3Polygon.POOL_EXPOSURE_STEWARD).withdrawV2(
+      address(AaveV2Polygon.POOL),
+      AaveV2PolygonAssets.WETH_UNDERLYING,
+      _getWithdrawableBalance(
+        address(AaveV2Polygon.COLLECTOR),
+        AaveV2PolygonAssets.WETH_UNDERLYING,
+        AaveV2PolygonAssets.WETH_A_TOKEN
+      )
     );
     AaveV2Polygon.COLLECTOR.transfer(
       IERC20(AaveV2PolygonAssets.WETH_UNDERLYING),
@@ -117,29 +99,23 @@ contract AaveV3Polygon_AprilFundingUpdate_20250328 is IProposalGenericExecutor {
     );
 
     // dai
-    AaveV3Polygon.COLLECTOR.withdrawFromV3(
-      CollectorUtils.IOInput({
-        pool: address(AaveV3Polygon.POOL),
-        underlying: AaveV3PolygonAssets.DAI_UNDERLYING,
-        amount: _getWithdrawableBalance(
-          address(AaveV3Polygon.COLLECTOR),
-          AaveV3PolygonAssets.DAI_UNDERLYING,
-          AaveV3PolygonAssets.DAI_A_TOKEN
-        ) - 1 ether
-      }),
-      MiscPolygon.AAVE_POL_ETH_BRIDGE
+    IPoolExposureSteward(AaveV3Polygon.POOL_EXPOSURE_STEWARD).withdrawV3(
+      address(AaveV3Polygon.POOL),
+      AaveV3PolygonAssets.DAI_UNDERLYING,
+      _getWithdrawableBalance(
+        address(AaveV3Polygon.COLLECTOR),
+        AaveV3PolygonAssets.DAI_UNDERLYING,
+        AaveV3PolygonAssets.DAI_A_TOKEN
+      )
     );
-    AaveV2Polygon.COLLECTOR.withdrawFromV2(
-      CollectorUtils.IOInput({
-        pool: address(AaveV2Polygon.POOL),
-        underlying: AaveV2PolygonAssets.DAI_UNDERLYING,
-        amount: _getWithdrawableBalance(
-          address(AaveV2Polygon.COLLECTOR),
-          AaveV2PolygonAssets.DAI_UNDERLYING,
-          AaveV2PolygonAssets.DAI_A_TOKEN
-        ) - 1 ether
-      }),
-      MiscPolygon.AAVE_POL_ETH_BRIDGE
+    IPoolExposureSteward(AaveV3Polygon.POOL_EXPOSURE_STEWARD).withdrawV2(
+      address(AaveV2Polygon.POOL),
+      AaveV2PolygonAssets.DAI_UNDERLYING,
+      _getWithdrawableBalance(
+        address(AaveV2Polygon.COLLECTOR),
+        AaveV2PolygonAssets.DAI_UNDERLYING,
+        AaveV2PolygonAssets.DAI_A_TOKEN
+      )
     );
     AaveV2Polygon.COLLECTOR.transfer(
       IERC20(AaveV2PolygonAssets.DAI_UNDERLYING),

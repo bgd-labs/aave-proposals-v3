@@ -7,6 +7,9 @@ import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {CollectorUtils, ICollector} from 'aave-helpers/src/CollectorUtils.sol';
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
+
+import {IPoolExposureSteward} from './IPoolExposureSteward.sol';
+
 /**
  * @title April Funding update
  * @author TokenLogic
@@ -41,21 +44,15 @@ contract AaveV3Ethereum_AprilFundingUpdate_20250328 is IProposalGenericExecutor 
   }
 
   function _withdrawAndSwap() internal {
-    AaveV3Ethereum.COLLECTOR.withdrawFromV3(
-      CollectorUtils.IOInput({
-        pool: address(AaveV3Ethereum.POOL),
-        underlying: AaveV3EthereumAssets.USDC_UNDERLYING,
-        amount: USDC_SWAP_AMOUNT
-      }),
-      address(AaveV3Ethereum.COLLECTOR)
+    IPoolExposureSteward(AaveV3Ethereum.POOL_EXPOSURE_STEWARD).withdrawV3(
+      address(AaveV3Ethereum.POOL),
+      AaveV3EthereumAssets.USDC_UNDERLYING,
+      USDC_SWAP_AMOUNT
     );
-    AaveV3Ethereum.COLLECTOR.withdrawFromV3(
-      CollectorUtils.IOInput({
-        pool: address(AaveV3Ethereum.POOL),
-        underlying: AaveV3EthereumAssets.USDT_UNDERLYING,
-        amount: USDT_SWAP_AMOUNT
-      }),
-      address(AaveV3Ethereum.COLLECTOR)
+    IPoolExposureSteward(AaveV3Ethereum.POOL_EXPOSURE_STEWARD).withdrawV3(
+      address(AaveV3Ethereum.POOL),
+      AaveV3EthereumAssets.USDT_UNDERLYING,
+      USDT_SWAP_AMOUNT
     );
 
     AaveV3Ethereum.COLLECTOR.swap(

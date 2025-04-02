@@ -3,8 +3,6 @@ pragma solidity ^0.8.0;
 
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 import {AaveV3Arbitrum, AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
-import {MiscArbitrum} from 'aave-address-book/MiscArbitrum.sol';
-import {ArbSysMock} from 'aave-helpers/tests/bridges/arbitrum/ArbSysMock.sol';
 
 import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
@@ -15,16 +13,11 @@ import {AaveV3Arbitrum_AprilFundingUpdate_20250328} from './AaveV3Arbitrum_April
  * command: FOUNDRY_PROFILE=arbitrum forge test --match-path=src/20250328_Multi_AprilFundingUpdate/AaveV3Arbitrum_AprilFundingUpdate_20250328.t.sol -vv
  */
 contract AaveV3Arbitrum_AprilFundingUpdate_20250328_Test is ProtocolV3TestBase {
-  event Bridge(address indexed token, uint256 amount);
-
   AaveV3Arbitrum_AprilFundingUpdate_20250328 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('arbitrum'), 320457503);
+    vm.createSelectFork(vm.rpcUrl('arbitrum'), 322145048);
     proposal = new AaveV3Arbitrum_AprilFundingUpdate_20250328();
-
-    ArbSysMock arbsys = new ArbSysMock();
-    vm.etch(address(0x0000000000000000000000000000000000000064), address(arbsys).code);
   }
 
   /**
