@@ -14,6 +14,7 @@ This publication presents the April Funding Update, consisting of the following 
 - Acquire GHO for Operations; and,
 - Transfer FLUID to Aave Protocol Embassy.
 - Fund to [CrossChainController](https://etherscan.io/address/0xEd42a7D8559a463722Ca4beD50E0Cc05a386b0e1)
+- Update stataUSDT GSM Exposure Cap as it has successfully drawn swaps from aggregators
 
 ## Motivation
 
@@ -99,6 +100,10 @@ By doing this idle capital is deployed and funds are consolidated ahead of any p
 ### Fund to [CrossChainController](https://etherscan.io/address/0xEd42a7D8559a463722Ca4beD50E0Cc05a386b0e1)
 
 Funding to [CrossChainController](https://etherscan.io/address/0xEd42a7D8559a463722Ca4beD50E0Cc05a386b0e1) on mainnet with 50 LINK and 1 native ETH
+
+### Update stataUSDT GSM Exposure Cap
+
+Set the stataUSDT GSM exposure cap to 25M units.
 
 ## References
 

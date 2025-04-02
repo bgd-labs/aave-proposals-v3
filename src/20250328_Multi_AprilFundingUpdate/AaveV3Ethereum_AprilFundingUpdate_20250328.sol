@@ -3,10 +3,12 @@ pragma solidity ^0.8.0;
 
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
+import {GhoEthereum} from 'aave-address-book/GhoEthereum.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {CollectorUtils, ICollector} from 'aave-helpers/src/CollectorUtils.sol';
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
+import {IGsm} from 'src/interfaces/IGsm.sol';
 
 import {IPoolExposureSteward} from './IPoolExposureSteward.sol';
 
@@ -36,8 +38,14 @@ contract AaveV3Ethereum_AprilFundingUpdate_20250328 is IProposalGenericExecutor 
 
   uint256 public constant FUNDING_LINK_AMOUNT = 80 ether;
   uint256 public constant FUNDING_ETH_AMOUNT = 1 ether;
+  uint128 public constant BUCKET_CAPACITY_GSM = 25_000_000e6;
+
+  // https://etherscan.io/address/0x535b2f7C20B9C83d70e519cf9991578eF9816B7B
+  address public constant NEW_GSM_USDT = 0x535b2f7C20B9C83d70e519cf9991578eF9816B7B;
 
   function execute() external {
+    IGsm(NEW_GSM_USDT).updateExposureCap(BUCKET_CAPACITY_GSM);
+
     _withdrawAndSwap();
     _transferAndApprove();
     _fundToCrossChainController();
