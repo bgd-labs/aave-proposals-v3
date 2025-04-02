@@ -106,6 +106,22 @@ contract AaveV3Ethereum_AprilFundingUpdate_20250328_Test is ProtocolV3TestBase {
     assertEq(fluidCollectorBalanceAfter, 0);
     assertEq(fluidCollectorBalanceBefore, fluidEmbassyBalanceAfter - fluidEmbassyBalanceBefore);
     assertEq(aUsdcAllowance, proposal.MERIT_ALLOWANCE());
+
+    vm.startPrank(proposal.MERIT_SAFE());
+    uint256 aEthUsdcBalanceBefore = IERC20(AaveV3EthereumAssets.USDC_A_TOKEN).balanceOf(
+      proposal.MERIT_SAFE()
+    );
+    IERC20(AaveV3EthereumAssets.USDC_A_TOKEN).transferFrom(
+      address(AaveV3Ethereum.COLLECTOR),
+      proposal.MERIT_SAFE(),
+      proposal.MERIT_ALLOWANCE()
+    );
+    uint256 aEthUsdcBalanceAfter = IERC20(AaveV3EthereumAssets.USDC_A_TOKEN).balanceOf(
+      proposal.MERIT_SAFE()
+    );
+
+    assertEq(aEthUsdcBalanceAfter, aEthUsdcBalanceBefore + proposal.MERIT_ALLOWANCE());
+    vm.stopPrank();
   }
 
   function test_funding() public {

@@ -45,7 +45,7 @@ To promote capital efficiency, some passive assets held idle on Base and Arbitru
 
 This proposal shall be submitted as several AIPs that align with operational readiness timelines and ease of review given the volume of funds being moved.
 
-### Polygon & Arbitrum - Bridge Assets to Ethereum
+### Polygon - Bridge Assets to Ethereum
 
 Withdraw from respective Aave Protocol and bridge the following assets to Ethereum.
 
