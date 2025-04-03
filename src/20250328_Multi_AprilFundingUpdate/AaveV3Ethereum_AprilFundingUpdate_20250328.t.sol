@@ -3,11 +3,12 @@ pragma solidity ^0.8.0;
 
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
+import {GhoEthereum} from 'aave-address-book/GhoEthereum.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
+import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
+import {IGsm} from 'src/interfaces/IGsm.sol';
 
-import 'forge-std/Test.sol';
-import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Ethereum_AprilFundingUpdate_20250328} from './AaveV3Ethereum_AprilFundingUpdate_20250328.sol';
 
 /**
@@ -44,6 +45,18 @@ contract AaveV3Ethereum_AprilFundingUpdate_20250328_Test is ProtocolV3TestBase {
     );
   }
 
+  function test_updateGhoBucketStewardCapacity() public {
+    uint128 capacity = IGsm(proposal.NEW_GSM_USDT()).getExposureCap();
+
+    assertEq(25e6, capacity);
+
+    executePayload(vm, address(proposal));
+
+    capacity = IGsm(proposal.NEW_GSM_USDT()).getExposureCap();
+
+    assertEq(proposal.BUCKET_CAPACITY_GSM(), capacity);
+  }
+
   function test_withdrawAndSwap() public {
     uint256 usdcAmountBefore = IERC20(AaveV3EthereumAssets.USDC_A_TOKEN).balanceOf(
       address(AaveV3Ethereum.COLLECTOR)
@@ -73,6 +86,7 @@ contract AaveV3Ethereum_AprilFundingUpdate_20250328_Test is ProtocolV3TestBase {
       address(AaveV3Ethereum.COLLECTOR),
       75
     );
+
     executePayload(vm, address(proposal));
 
     uint256 usdcAmountAfter = IERC20(AaveV3EthereumAssets.USDC_A_TOKEN).balanceOf(
