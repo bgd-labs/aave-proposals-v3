@@ -20,7 +20,7 @@ contract AaveV3Polygon_AprilFundingUpdate_20250328_Test is ProtocolV3TestBase {
   AaveV3Polygon_AprilFundingUpdate_20250328 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('polygon'), 69604711);
+    vm.createSelectFork(vm.rpcUrl('polygon'), 69841528);
     proposal = new AaveV3Polygon_AprilFundingUpdate_20250328();
   }
 
@@ -45,8 +45,8 @@ contract AaveV3Polygon_AprilFundingUpdate_20250328_Test is ProtocolV3TestBase {
       address(AaveV2Polygon.COLLECTOR)
     );
 
-    assertApproxEqAbs(aPolUsdcBalanceAfter, 100e6, 0);
-    assertApproxEqAbs(amUsdcBalanceAfter, 100e6, 10e6);
+    assertApproxEqAbs(aPolUsdcBalanceAfter, 0, 0);
+    assertApproxEqAbs(amUsdcBalanceAfter, 0, 10e6);
     assertEq(usdcBalanceAfter, 0);
 
     // usdt
@@ -60,8 +60,8 @@ contract AaveV3Polygon_AprilFundingUpdate_20250328_Test is ProtocolV3TestBase {
       address(AaveV2Polygon.COLLECTOR)
     );
 
-    assertApproxEqAbs(aPolUsdtBalanceAfter, 100e6, 0);
-    assertApproxEqAbs(amUsdtBalanceAfter, 100e6, 2e6);
+    assertApproxEqAbs(aPolUsdtBalanceAfter, 0, 0);
+    assertApproxEqAbs(amUsdtBalanceAfter, 0, 2e6);
     assertEq(usdtBalanceAfter, 0);
 
     // DAI
@@ -75,8 +75,8 @@ contract AaveV3Polygon_AprilFundingUpdate_20250328_Test is ProtocolV3TestBase {
       address(AaveV3Polygon.COLLECTOR)
     );
 
-    assertApproxEqAbs(aPolDaiBalanceAfter, 1 ether, 0);
-    assertApproxEqAbs(amDaiBalanceAfter, 1 ether, 2 ether);
+    assertApproxEqAbs(aPolDaiBalanceAfter, 0, 0);
+    assertApproxEqAbs(amDaiBalanceAfter, 0, 2 ether);
     assertEq(daiBalanceAfter, 0);
 
     // WETH
@@ -90,23 +90,23 @@ contract AaveV3Polygon_AprilFundingUpdate_20250328_Test is ProtocolV3TestBase {
       address(AaveV3Polygon.COLLECTOR)
     );
 
-    assertApproxEqAbs(aPolWETHBalanceAfter, 1 ether, 0);
-    assertApproxEqAbs(amWETHBalanceAfter, 1 ether, 1 ether);
+    assertApproxEqAbs(aPolWETHBalanceAfter, 0, 0);
+    assertApproxEqAbs(amWETHBalanceAfter, 0, 1 ether);
     assertEq(wETHBalanceAfter, 0);
   }
 
   function test_log() public {
     vm.expectEmit(true, true, false, true, MiscPolygon.AAVE_POL_ETH_BRIDGE);
-    emit Bridge(AaveV3PolygonAssets.USDC_UNDERLYING, 106687044697);
+    emit Bridge(AaveV3PolygonAssets.USDC_UNDERLYING, 118135909128);
 
     vm.expectEmit(true, true, false, true, MiscPolygon.AAVE_POL_ETH_BRIDGE);
-    emit Bridge(AaveV3PolygonAssets.USDT_UNDERLYING, 2213967092441);
+    emit Bridge(AaveV3PolygonAssets.USDT_UNDERLYING, 2216616528937);
 
     vm.expectEmit(true, true, false, true, MiscPolygon.AAVE_POL_ETH_BRIDGE);
-    emit Bridge(AaveV3PolygonAssets.WETH_UNDERLYING, 6507833636279003491);
+    emit Bridge(AaveV3PolygonAssets.WETH_UNDERLYING, 8755080793924975091);
 
     vm.expectEmit(true, true, false, true, MiscPolygon.AAVE_POL_ETH_BRIDGE);
-    emit Bridge(AaveV3PolygonAssets.DAI_UNDERLYING, 94302912858571071084878);
+    emit Bridge(AaveV3PolygonAssets.DAI_UNDERLYING, 101237524851754945788265);
     executePayload(vm, address(proposal));
   }
 }

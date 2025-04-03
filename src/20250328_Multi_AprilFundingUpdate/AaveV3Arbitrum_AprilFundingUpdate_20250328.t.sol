@@ -16,7 +16,7 @@ contract AaveV3Arbitrum_AprilFundingUpdate_20250328_Test is ProtocolV3TestBase {
   AaveV3Arbitrum_AprilFundingUpdate_20250328 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('arbitrum'), 322145048);
+    vm.createSelectFork(vm.rpcUrl('arbitrum'), 322457723);
     proposal = new AaveV3Arbitrum_AprilFundingUpdate_20250328();
   }
 

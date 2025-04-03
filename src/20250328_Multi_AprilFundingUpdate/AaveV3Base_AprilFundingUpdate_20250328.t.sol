@@ -16,7 +16,7 @@ contract AaveV3Base_AprilFundingUpdate_20250328_Test is ProtocolV3TestBase {
   AaveV3Base_AprilFundingUpdate_20250328 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('base'), 28189359);
+    vm.createSelectFork(vm.rpcUrl('base'), 28442520);
     proposal = new AaveV3Base_AprilFundingUpdate_20250328();
   }
 

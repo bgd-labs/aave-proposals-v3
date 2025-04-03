@@ -29,7 +29,7 @@ contract AaveV3Ethereum_AprilFundingUpdate_20250328_Test is ProtocolV3TestBase {
   AaveV3Ethereum_AprilFundingUpdate_20250328 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 22145727);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 22187650);
     proposal = new AaveV3Ethereum_AprilFundingUpdate_20250328();
   }
 
@@ -82,8 +82,8 @@ contract AaveV3Ethereum_AprilFundingUpdate_20250328_Test is ProtocolV3TestBase {
       address(AaveV3Ethereum.COLLECTOR)
     );
 
-    assertApproxEqAbs(usdcAmountBefore, usdcAmountAfter + proposal.USDC_SWAP_AMOUNT(), 800_000e6);
-    assertApproxEqAbs(usdtAmountBefore, usdtAmountAfter + proposal.USDT_SWAP_AMOUNT(), 800_000e6);
+    assertApproxEqAbs(usdcAmountBefore, usdcAmountAfter + proposal.USDC_SWAP_AMOUNT(), 1e6);
+    assertApproxEqAbs(usdtAmountBefore, usdtAmountAfter + proposal.USDT_SWAP_AMOUNT(), 1e6);
   }
 
   function test_transferAndApprove() public {
