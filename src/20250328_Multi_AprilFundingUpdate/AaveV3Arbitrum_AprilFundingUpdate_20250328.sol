@@ -2,9 +2,8 @@
 pragma solidity ^0.8.0;
 
 import {AaveV3Arbitrum, AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
+import {CollectorUtils, ICollector} from 'aave-helpers/src/CollectorUtils.sol';
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
-
-import {IPoolExposureSteward} from './IPoolExposureSteward.sol';
 
 /**
  * @title April Funding update
@@ -13,46 +12,64 @@ import {IPoolExposureSteward} from './IPoolExposureSteward.sol';
  * - Discussion: https://governance.aave.com/t/arfc-april-funding-update/21590
  */
 contract AaveV3Arbitrum_AprilFundingUpdate_20250328 is IProposalGenericExecutor {
+  using CollectorUtils for ICollector;
+
   function execute() external {
-    IPoolExposureSteward(AaveV3Arbitrum.POOL_EXPOSURE_STEWARD).depositV3(
-      address(AaveV3Arbitrum.POOL),
-      AaveV3ArbitrumAssets.USDCn_UNDERLYING,
-      type(uint256).max
+    AaveV3Arbitrum.COLLECTOR.depositToV3(
+      CollectorUtils.IOInput({
+        pool: address(AaveV3Arbitrum.POOL),
+        underlying: AaveV3ArbitrumAssets.USDCn_UNDERLYING,
+        amount: type(uint256).max
+      })
     );
-    IPoolExposureSteward(AaveV3Arbitrum.POOL_EXPOSURE_STEWARD).depositV3(
-      address(AaveV3Arbitrum.POOL),
-      AaveV3ArbitrumAssets.WETH_UNDERLYING,
-      type(uint256).max
+    AaveV3Arbitrum.COLLECTOR.depositToV3(
+      CollectorUtils.IOInput({
+        pool: address(AaveV3Arbitrum.POOL),
+        underlying: AaveV3ArbitrumAssets.WETH_UNDERLYING,
+        amount: type(uint256).max
+      })
     );
-    IPoolExposureSteward(AaveV3Arbitrum.POOL_EXPOSURE_STEWARD).depositV3(
-      address(AaveV3Arbitrum.POOL),
-      AaveV3ArbitrumAssets.USDT_UNDERLYING,
-      type(uint256).max
+    AaveV3Arbitrum.COLLECTOR.depositToV3(
+      CollectorUtils.IOInput({
+        pool: address(AaveV3Arbitrum.POOL),
+        underlying: AaveV3ArbitrumAssets.USDT_UNDERLYING,
+        amount: type(uint256).max
+      })
     );
-    IPoolExposureSteward(AaveV3Arbitrum.POOL_EXPOSURE_STEWARD).depositV3(
-      address(AaveV3Arbitrum.POOL),
-      AaveV3ArbitrumAssets.WBTC_UNDERLYING,
-      type(uint256).max
+    AaveV3Arbitrum.COLLECTOR.depositToV3(
+      CollectorUtils.IOInput({
+        pool: address(AaveV3Arbitrum.POOL),
+        underlying: AaveV3ArbitrumAssets.WBTC_UNDERLYING,
+        amount: type(uint256).max
+      })
     );
-    IPoolExposureSteward(AaveV3Arbitrum.POOL_EXPOSURE_STEWARD).depositV3(
-      address(AaveV3Arbitrum.POOL),
-      AaveV3ArbitrumAssets.ARB_UNDERLYING,
-      type(uint256).max
+    AaveV3Arbitrum.COLLECTOR.depositToV3(
+      CollectorUtils.IOInput({
+        pool: address(AaveV3Arbitrum.POOL),
+        underlying: AaveV3ArbitrumAssets.ARB_UNDERLYING,
+        amount: type(uint256).max
+      })
     );
-    IPoolExposureSteward(AaveV3Arbitrum.POOL_EXPOSURE_STEWARD).depositV3(
-      address(AaveV3Arbitrum.POOL),
-      AaveV3ArbitrumAssets.wstETH_UNDERLYING,
-      type(uint256).max
+    AaveV3Arbitrum.COLLECTOR.depositToV3(
+      CollectorUtils.IOInput({
+        pool: address(AaveV3Arbitrum.POOL),
+        underlying: AaveV3ArbitrumAssets.wstETH_UNDERLYING,
+        amount: type(uint256).max
+      })
     );
-    IPoolExposureSteward(AaveV3Arbitrum.POOL_EXPOSURE_STEWARD).depositV3(
-      address(AaveV3Arbitrum.POOL),
-      AaveV3ArbitrumAssets.GHO_UNDERLYING,
-      type(uint256).max
+    AaveV3Arbitrum.COLLECTOR.depositToV3(
+      CollectorUtils.IOInput({
+        pool: address(AaveV3Arbitrum.POOL),
+        underlying: AaveV3ArbitrumAssets.GHO_UNDERLYING,
+        amount: type(uint256).max
+      })
     );
-    IPoolExposureSteward(AaveV3Arbitrum.POOL_EXPOSURE_STEWARD).depositV3(
-      address(AaveV3Arbitrum.POOL),
-      AaveV3ArbitrumAssets.LINK_UNDERLYING,
-      type(uint256).max
+    AaveV3Arbitrum.COLLECTOR.depositToV3(
+      CollectorUtils.IOInput({
+        pool: address(AaveV3Arbitrum.POOL),
+        underlying: AaveV3ArbitrumAssets.LINK_UNDERLYING,
+        amount: type(uint256).max
+      })
     );
   }
 }
