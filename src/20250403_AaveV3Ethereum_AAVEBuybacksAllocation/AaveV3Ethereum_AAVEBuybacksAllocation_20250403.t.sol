@@ -75,6 +75,7 @@ contract AaveV3Ethereum_AAVEBuybacksAllocation_20250403_Test is ProtocolV3TestBa
     uint256 diffBalanceAFC = balanceAFCAfter - balanceAFCBefore;
     uint256 diffBalanceCollector = balanceCollectorBefore - balanceCollectorAfter;
 
+    // -1 because of low decimal precision of USDT
     assertEq(diffBalanceAFC, proposal.USDT_AMOUNT() - 1);
     assertEq(diffBalanceCollector, proposal.USDT_AMOUNT());
   }
