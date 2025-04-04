@@ -22,7 +22,6 @@ This publication combines near term operational needs and migrating assets held 
 
 - Consolidating funds to Ethereum;
 - Fulfilling near term operation requirements; and,
-- Deploying idle funds on Base and Arbitrum.
 
 ### Bridge Funds to Ethereum
 
@@ -80,23 +79,6 @@ Create an Allowance to fund Sonic Incentive Campaign, 0.8M aEthUSDC, from Aave v
 
 SAFE: `0xdeadD8aB03075b7FBA81864202a2f59EE25B312b`
 
-### Base & Arbitrum - Deposit Passively Held Assets into Aave
-
-Deposit the following assets into Aave v3 on Arbitrum and Base respectively.
-
-| Arbitrum | Base  |
-| :------: | :---: |
-|   USDC   | USDC  |
-|   WETH   | WETH  |
-|   USDT   | cbBTC |
-|   wBTC   | cbETH |
-|   ARB    |       |
-|  wstETH  |       |
-|   GHO    |       |
-|   LINK   |       |
-
-By doing this idle capital is deployed and funds are consolidated ahead of any potential funding request.
-
 ### Fund to [CrossChainController](https://etherscan.io/address/0xEd42a7D8559a463722Ca4beD50E0Cc05a386b0e1)
 
 Funding to [CrossChainController](https://etherscan.io/address/0xEd42a7D8559a463722Ca4beD50E0Cc05a386b0e1) on mainnet with 50 LINK and 1 native ETH
@@ -107,8 +89,8 @@ Set the stataUSDT GSM exposure cap to 25M units.
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250328_Multi_AprilFundingUpdate/AaveV3Ethereum_AprilFundingUpdate_20250328.sol), [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250328_Multi_AprilFundingUpdate/AaveV3Polygon_AprilFundingUpdate_20250328.sol), [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250328_Multi_AprilFundingUpdate/AaveV3Arbitrum_AprilFundingUpdate_20250328.sol), [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250328_Multi_AprilFundingUpdate/AaveV3Base_AprilFundingUpdate_20250328.sol),
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250328_Multi_AprilFundingUpdate/AaveV3Ethereum_AprilFundingUpdate_20250328.t.sol), [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250328_Multi_AprilFundingUpdate/AaveV3Polygon_AprilFundingUpdate_20250328.t.sol), [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250328_Multi_AprilFundingUpdate/AaveV3Arbitrum_AprilFundingUpdate_20250328.t.sol), [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250328_Multi_AprilFundingUpdate/AaveV3Base_AprilFundingUpdate_20250328.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250328_Multi_AprilFundingUpdate/AaveV3Ethereum_AprilFundingUpdate_20250328.sol), [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250328_Multi_AprilFundingUpdate/AaveV3Polygon_AprilFundingUpdate_20250328.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250328_Multi_AprilFundingUpdate/AaveV3Ethereum_AprilFundingUpdate_20250328.t.sol), [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250328_Multi_AprilFundingUpdate/AaveV3Polygon_AprilFundingUpdate_20250328.t.sol)
 - Snapshot: Direct-to-AIP
 - [Discussion](https://governance.aave.com/t/arfc-april-funding-update/21590)
 

@@ -50,23 +50,6 @@ contract AaveV3Ethereum_AprilFundingUpdate_20250328 is IProposalGenericExecutor 
   }
 
   function _withdrawAndSwap() internal {
-    AaveV3Ethereum.COLLECTOR.withdrawFromV3(
-      CollectorUtils.IOInput({
-        pool: address(AaveV3Ethereum.POOL),
-        underlying: AaveV3EthereumAssets.USDC_UNDERLYING,
-        amount: USDC_SWAP_AMOUNT
-      }),
-      address(AaveV3Ethereum.COLLECTOR)
-    );
-    AaveV3Ethereum.COLLECTOR.withdrawFromV3(
-      CollectorUtils.IOInput({
-        pool: address(AaveV3Ethereum.POOL),
-        underlying: AaveV3EthereumAssets.USDT_UNDERLYING,
-        amount: USDT_SWAP_AMOUNT
-      }),
-      address(AaveV3Ethereum.COLLECTOR)
-    );
-
     AaveV3Ethereum.COLLECTOR.swap(
       MiscEthereum.AAVE_SWAPPER,
       CollectorUtils.SwapInput({

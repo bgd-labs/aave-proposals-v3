@@ -30,7 +30,7 @@ contract AaveV3Ethereum_AprilFundingUpdate_20250328_Test is ProtocolV3TestBase {
   AaveV3Ethereum_AprilFundingUpdate_20250328 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 22187650);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 22195614);
     proposal = new AaveV3Ethereum_AprilFundingUpdate_20250328();
   }
 
@@ -58,10 +58,10 @@ contract AaveV3Ethereum_AprilFundingUpdate_20250328_Test is ProtocolV3TestBase {
   }
 
   function test_withdrawAndSwap() public {
-    uint256 usdcAmountBefore = IERC20(AaveV3EthereumAssets.USDC_A_TOKEN).balanceOf(
+    uint256 usdcAmountBefore = IERC20(AaveV3EthereumAssets.USDC_UNDERLYING).balanceOf(
       address(AaveV3Ethereum.COLLECTOR)
     );
-    uint256 usdtAmountBefore = IERC20(AaveV3EthereumAssets.USDT_A_TOKEN).balanceOf(
+    uint256 usdtAmountBefore = IERC20(AaveV3EthereumAssets.USDT_UNDERLYING).balanceOf(
       address(AaveV3Ethereum.COLLECTOR)
     );
 
@@ -89,10 +89,10 @@ contract AaveV3Ethereum_AprilFundingUpdate_20250328_Test is ProtocolV3TestBase {
 
     executePayload(vm, address(proposal));
 
-    uint256 usdcAmountAfter = IERC20(AaveV3EthereumAssets.USDC_A_TOKEN).balanceOf(
+    uint256 usdcAmountAfter = IERC20(AaveV3EthereumAssets.USDC_UNDERLYING).balanceOf(
       address(AaveV3Ethereum.COLLECTOR)
     );
-    uint256 usdtAmountAfter = IERC20(AaveV3EthereumAssets.USDT_A_TOKEN).balanceOf(
+    uint256 usdtAmountAfter = IERC20(AaveV3EthereumAssets.USDT_UNDERLYING).balanceOf(
       address(AaveV3Ethereum.COLLECTOR)
     );
 

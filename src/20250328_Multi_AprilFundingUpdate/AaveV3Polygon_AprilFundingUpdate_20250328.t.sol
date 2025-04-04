@@ -35,78 +35,46 @@ contract AaveV3Polygon_AprilFundingUpdate_20250328_Test is ProtocolV3TestBase {
     executePayload(vm, address(proposal));
 
     // usdc
-    uint256 aPolUsdcBalanceAfter = IERC20(AaveV3PolygonAssets.USDC_A_TOKEN).balanceOf(
-      address(AaveV3Polygon.COLLECTOR)
-    );
-    uint256 amUsdcBalanceAfter = IERC20(AaveV2PolygonAssets.USDC_A_TOKEN).balanceOf(
-      address(AaveV2Polygon.COLLECTOR)
-    );
     uint256 usdcBalanceAfter = IERC20(AaveV2PolygonAssets.USDC_UNDERLYING).balanceOf(
       address(AaveV2Polygon.COLLECTOR)
     );
 
-    assertApproxEqAbs(aPolUsdcBalanceAfter, 0, 0);
-    assertApproxEqAbs(amUsdcBalanceAfter, 0, 10e6);
     assertEq(usdcBalanceAfter, 0);
 
     // usdt
-    uint256 aPolUsdtBalanceAfter = IERC20(AaveV3PolygonAssets.USDT_A_TOKEN).balanceOf(
-      address(AaveV3Polygon.COLLECTOR)
-    );
-    uint256 amUsdtBalanceAfter = IERC20(AaveV2PolygonAssets.USDT_A_TOKEN).balanceOf(
-      address(AaveV2Polygon.COLLECTOR)
-    );
     uint256 usdtBalanceAfter = IERC20(AaveV2PolygonAssets.USDT_UNDERLYING).balanceOf(
       address(AaveV2Polygon.COLLECTOR)
     );
 
-    assertApproxEqAbs(aPolUsdtBalanceAfter, 0, 0);
-    assertApproxEqAbs(amUsdtBalanceAfter, 0, 2e6);
     assertEq(usdtBalanceAfter, 0);
 
     // DAI
-    uint256 aPolDaiBalanceAfter = IERC20(AaveV3PolygonAssets.DAI_A_TOKEN).balanceOf(
-      address(AaveV3Polygon.COLLECTOR)
-    );
-    uint256 amDaiBalanceAfter = IERC20(AaveV2PolygonAssets.DAI_A_TOKEN).balanceOf(
-      address(AaveV2Polygon.COLLECTOR)
-    );
     uint256 daiBalanceAfter = IERC20(AaveV3PolygonAssets.DAI_UNDERLYING).balanceOf(
       address(AaveV3Polygon.COLLECTOR)
     );
 
-    assertApproxEqAbs(aPolDaiBalanceAfter, 0, 0);
-    assertApproxEqAbs(amDaiBalanceAfter, 0, 2 ether);
     assertEq(daiBalanceAfter, 0);
 
     // WETH
-    uint256 aPolWETHBalanceAfter = IERC20(AaveV3PolygonAssets.WETH_A_TOKEN).balanceOf(
-      address(AaveV3Polygon.COLLECTOR)
-    );
-    uint256 amWETHBalanceAfter = IERC20(AaveV2PolygonAssets.WETH_A_TOKEN).balanceOf(
-      address(AaveV2Polygon.COLLECTOR)
-    );
     uint256 wETHBalanceAfter = IERC20(AaveV3PolygonAssets.WETH_UNDERLYING).balanceOf(
       address(AaveV3Polygon.COLLECTOR)
     );
 
-    assertApproxEqAbs(aPolWETHBalanceAfter, 0, 0);
-    assertApproxEqAbs(amWETHBalanceAfter, 0, 1 ether);
     assertEq(wETHBalanceAfter, 0);
   }
 
   function test_log() public {
     vm.expectEmit(true, true, false, true, MiscPolygon.AAVE_POL_ETH_BRIDGE);
-    emit Bridge(AaveV3PolygonAssets.USDC_UNDERLYING, 118135909128);
+    emit Bridge(AaveV3PolygonAssets.USDC_UNDERLYING, 171645378);
 
     vm.expectEmit(true, true, false, true, MiscPolygon.AAVE_POL_ETH_BRIDGE);
-    emit Bridge(AaveV3PolygonAssets.USDT_UNDERLYING, 2216616528937);
+    emit Bridge(AaveV3PolygonAssets.USDT_UNDERLYING, 5600082868);
 
     vm.expectEmit(true, true, false, true, MiscPolygon.AAVE_POL_ETH_BRIDGE);
-    emit Bridge(AaveV3PolygonAssets.WETH_UNDERLYING, 8755080793924975091);
+    emit Bridge(AaveV3PolygonAssets.WETH_UNDERLYING, 590486243175192818);
 
     vm.expectEmit(true, true, false, true, MiscPolygon.AAVE_POL_ETH_BRIDGE);
-    emit Bridge(AaveV3PolygonAssets.DAI_UNDERLYING, 101237524851754945788265);
+    emit Bridge(AaveV3PolygonAssets.DAI_UNDERLYING, 521243842579827847949);
     executePayload(vm, address(proposal));
   }
 }
