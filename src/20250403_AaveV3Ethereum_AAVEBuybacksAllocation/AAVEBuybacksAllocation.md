@@ -34,8 +34,8 @@ This operation does **not** transfer any tokens at execution, and the allowance 
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250403_AaveV3Ethereum_AAVEBuybacksAllocation/AaveV3Ethereum_AAVEBuybacksAllocation_20250403.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250403_AaveV3Ethereum_AAVEBuybacksAllocation/AaveV3Ethereum_AAVEBuybacksAllocation_20250403.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/5bf5796951820701d82d50530c71fcf1edd0d091/src/20250403_AaveV3Ethereum_AAVEBuybacksAllocation/AaveV3Ethereum_AAVEBuybacksAllocation_20250403.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/5bf5796951820701d82d50530c71fcf1edd0d091/src/20250403_AaveV3Ethereum_AAVEBuybacksAllocation/AaveV3Ethereum_AAVEBuybacksAllocation_20250403.t.sol)
 - [Snapshot](https://snapshot.box/#/s:aave.eth/proposal/0xf0591fe8e54900da9929fe25c466c2b4a0fac6e8f7a3a000087797363847fb65)
 - [Discussion](https://governance.aave.com/t/arfc-aavenomics-implementation-part-one/21248)
 
