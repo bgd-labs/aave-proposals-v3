@@ -25,8 +25,8 @@ This proposal will release the following funds to white-hat addresses and the Im
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250404_AaveV3Ethereum_RequestForBountyPayoutMarch2025/AaveV3Ethereum_RequestForBountyPayoutMarch2025_20250404.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250404_AaveV3Ethereum_RequestForBountyPayoutMarch2025/AaveV3Ethereum_RequestForBountyPayoutMarch2025_20250404.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/201af608e17edc2cffd972ddc27b6dd7246a59ee/src/20250404_AaveV3Ethereum_RequestForBountyPayoutMarch2025/AaveV3Ethereum_RequestForBountyPayoutMarch2025_20250404.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/201af608e17edc2cffd972ddc27b6dd7246a59ee/src/20250404_AaveV3Ethereum_RequestForBountyPayoutMarch2025/AaveV3Ethereum_RequestForBountyPayoutMarch2025_20250404.t.sol)
 - [Snapshot](N/A)
 - [Discussion](https://governance.aave.com/t/bgd-request-for-bounty-payout-march-2025/21656)
 
