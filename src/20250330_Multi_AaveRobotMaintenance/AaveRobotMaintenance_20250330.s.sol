@@ -173,7 +173,7 @@ contract DeployBNB is BNBScript {
 contract CreateProposal is EthereumScript {
   function run() external {
     // create payloads
-    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](7);
+    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](10);
 
     // compose actions for validation
     IPayloadsControllerCore.ExecutionAction[]
