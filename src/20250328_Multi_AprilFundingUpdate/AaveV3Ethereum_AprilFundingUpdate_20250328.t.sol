@@ -30,7 +30,7 @@ contract AaveV3Ethereum_AprilFundingUpdate_20250328_Test is ProtocolV3TestBase {
   AaveV3Ethereum_AprilFundingUpdate_20250328 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 22195614);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 22217011);
     proposal = new AaveV3Ethereum_AprilFundingUpdate_20250328();
   }
 

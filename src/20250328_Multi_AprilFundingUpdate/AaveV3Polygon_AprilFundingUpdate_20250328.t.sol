@@ -20,7 +20,7 @@ contract AaveV3Polygon_AprilFundingUpdate_20250328_Test is ProtocolV3TestBase {
   AaveV3Polygon_AprilFundingUpdate_20250328 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('polygon'), 69841528);
+    vm.createSelectFork(vm.rpcUrl('polygon'), 70007673);
     proposal = new AaveV3Polygon_AprilFundingUpdate_20250328();
   }
 
@@ -65,16 +65,16 @@ contract AaveV3Polygon_AprilFundingUpdate_20250328_Test is ProtocolV3TestBase {
 
   function test_log() public {
     vm.expectEmit(true, true, false, true, MiscPolygon.AAVE_POL_ETH_BRIDGE);
-    emit Bridge(AaveV3PolygonAssets.USDC_UNDERLYING, 171645378);
+    emit Bridge(AaveV3PolygonAssets.USDC_UNDERLYING, 128255461879);
 
     vm.expectEmit(true, true, false, true, MiscPolygon.AAVE_POL_ETH_BRIDGE);
-    emit Bridge(AaveV3PolygonAssets.USDT_UNDERLYING, 5600082868);
+    emit Bridge(AaveV3PolygonAssets.USDT_UNDERLYING, 2230512605644);
 
     vm.expectEmit(true, true, false, true, MiscPolygon.AAVE_POL_ETH_BRIDGE);
-    emit Bridge(AaveV3PolygonAssets.WETH_UNDERLYING, 590486243175192818);
+    emit Bridge(AaveV3PolygonAssets.WETH_UNDERLYING, 9737956185483774043);
 
     vm.expectEmit(true, true, false, true, MiscPolygon.AAVE_POL_ETH_BRIDGE);
-    emit Bridge(AaveV3PolygonAssets.DAI_UNDERLYING, 521243842579827847949);
+    emit Bridge(AaveV3PolygonAssets.DAI_UNDERLYING, 104510078595292261372824);
     executePayload(vm, address(proposal));
   }
 }
