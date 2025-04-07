@@ -244,7 +244,7 @@ contract CreateProposal is EthereumScript {
     actionsBNBTwo[0] = GovV3Helpers.buildAction(
       type(AaveV3BNB_AaveRobotMaintenance_Part2_20250330).creationCode
     );
-    payloads[8] = GovV3Helpers.buildBNBPayload(vm, actionsBNBTwo);
+    payloads[9] = GovV3Helpers.buildBNBPayload(vm, actionsBNBTwo);
 
     // create proposal
     vm.startBroadcast();
