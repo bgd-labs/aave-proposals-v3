@@ -3,7 +3,8 @@ pragma solidity ^0.8.0;
 
 import {Test} from 'forge-std/Test.sol';
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
-import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
+import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
+import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 
 import {IERC20, IAaveCLRobotOperator, AaveV3Ethereum_AaveRobotMaintenance_20250330} from './AaveV3Ethereum_AaveRobotMaintenance_20250330.sol';
 
@@ -80,5 +81,22 @@ contract AaveV3Ethereum_AaveRobotMaintenance_20250330_Test is ProtocolV3TestBase
       IERC20(AaveV3EthereumAssets.LINK_UNDERLYING).balanceOf(proposal.ROOTS_CONSUMER()),
       linkBalanceBefore
     );
+  }
+
+  function test_removeVotingPortals() public {
+    address votingPortal_eth_eth = proposal.VOTING_PORTAL_ETH_ETH();
+    address votingPortal_eth_avax = proposal.VOTING_PORTAL_ETH_AVAX();
+    address votingPortal_eth_pol = proposal.VOTING_PORTAL_ETH_POL();
+
+    assertEq(GovernanceV3Ethereum.GOVERNANCE.isVotingPortalApproved(votingPortal_eth_eth), true);
+    assertEq(GovernanceV3Ethereum.GOVERNANCE.isVotingPortalApproved(votingPortal_eth_avax), true);
+    assertEq(GovernanceV3Ethereum.GOVERNANCE.isVotingPortalApproved(votingPortal_eth_pol), true);
+
+    // execute approval
+    executePayload(vm, address(proposal));
+
+    assertEq(GovernanceV3Ethereum.GOVERNANCE.isVotingPortalApproved(votingPortal_eth_eth), false);
+    assertEq(GovernanceV3Ethereum.GOVERNANCE.isVotingPortalApproved(votingPortal_eth_avax), false);
+    assertEq(GovernanceV3Ethereum.GOVERNANCE.isVotingPortalApproved(votingPortal_eth_pol), false);
   }
 }
