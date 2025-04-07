@@ -12,7 +12,7 @@ Maintenance proposal to remove old VotingPortals from the Aave Governance and up
 
 With the voting machine / portal improvements [proposal](https://vote.onaave.com/proposal/?proposalId=273), as the voting machine addresses are updated it is required to update the voting chain robots which performs automation on the voting machine contracts and also registers storage roots for voting. Also as newer instances of stata-tokens have been deployed recently, it is also needed to register new robots for refreshing liquidity mining rewards and cancel the old ones which were previous activated via this [proposal](https://vote.onaave.com/proposal/?proposalId=109).
 
-As the new VotingPortals have already been proved to be working by having been used for voting on at least 4 new proposals (279 - 282), it is time to remove the old ones, so that there is no confusion or possibility to use the old VotingPortals to vote on new proposals.
+Also as the new VotingPortals have already been proved to be working by having been used for voting on at least 4 new proposals (279 - 282), it is time to remove the old ones, so that there is no confusion or possibility to use the old VotingPortals to vote on new proposals.
 
 ## Specification
 
