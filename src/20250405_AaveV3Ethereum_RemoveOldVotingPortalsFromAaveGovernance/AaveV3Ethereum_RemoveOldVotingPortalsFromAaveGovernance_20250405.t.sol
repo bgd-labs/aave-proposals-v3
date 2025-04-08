@@ -44,19 +44,19 @@ contract AaveV3Ethereum_RemoveOldVotingPortalsFromAaveGovernance_20250405_Test i
 
     assertEq(
       GovernanceV3Ethereum.GOVERNANCE.isVotingPortalApproved(
-        GovernanceV3Ethereum.GOVERNANCE.VOTING_PORTAL_ETH_ETH
+        GovernanceV3Ethereum.VOTING_PORTAL_ETH_ETH
       ),
       true
     );
     assertEq(
       GovernanceV3Ethereum.GOVERNANCE.isVotingPortalApproved(
-        GovernanceV3Ethereum.GOVERNANCE.VOTING_PORTAL_ETH_AVAX
+        GovernanceV3Ethereum.VOTING_PORTAL_ETH_AVAX
       ),
       true
     );
     assertEq(
       GovernanceV3Ethereum.GOVERNANCE.isVotingPortalApproved(
-        GovernanceV3Ethereum.GOVERNANCE.VOTING_PORTAL_ETH_POL
+        GovernanceV3Ethereum.VOTING_PORTAL_ETH_POL
       ),
       true
     );
@@ -72,19 +72,19 @@ contract AaveV3Ethereum_RemoveOldVotingPortalsFromAaveGovernance_20250405_Test i
 
     assertEq(
       GovernanceV3Ethereum.GOVERNANCE.isVotingPortalApproved(
-        GovernanceV3Ethereum.GOVERNANCE.VOTING_PORTAL_ETH_ETH
+        GovernanceV3Ethereum.VOTING_PORTAL_ETH_ETH
       ),
       true
     );
     assertEq(
       GovernanceV3Ethereum.GOVERNANCE.isVotingPortalApproved(
-        GovernanceV3Ethereum.GOVERNANCE.VOTING_PORTAL_ETH_AVAX
+        GovernanceV3Ethereum.VOTING_PORTAL_ETH_AVAX
       ),
       true
     );
     assertEq(
       GovernanceV3Ethereum.GOVERNANCE.isVotingPortalApproved(
-        GovernanceV3Ethereum.GOVERNANCE.VOTING_PORTAL_ETH_POL
+        GovernanceV3Ethereum.VOTING_PORTAL_ETH_POL
       ),
       true
     );
