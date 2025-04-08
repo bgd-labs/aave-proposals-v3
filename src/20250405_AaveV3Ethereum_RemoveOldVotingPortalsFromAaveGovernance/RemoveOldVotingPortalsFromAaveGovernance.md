@@ -28,8 +28,8 @@ VotingPortals to remove:
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250405_AaveV3Ethereum_RemoveOldVotingPortalsFromAaveGovernance/AaveV3Ethereum_RemoveOldVotingPortalsFromAaveGovernance_20250405.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250405_AaveV3Ethereum_RemoveOldVotingPortalsFromAaveGovernance/AaveV3Ethereum_RemoveOldVotingPortalsFromAaveGovernance_20250405.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/2275c79af1b114017e2305ca31e88b238154ccc3/src/20250405_AaveV3Ethereum_RemoveOldVotingPortalsFromAaveGovernance/AaveV3Ethereum_RemoveOldVotingPortalsFromAaveGovernance_20250405.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/2275c79af1b114017e2305ca31e88b238154ccc3/src/20250405_AaveV3Ethereum_RemoveOldVotingPortalsFromAaveGovernance/AaveV3Ethereum_RemoveOldVotingPortalsFromAaveGovernance_20250405.t.sol)
 - [Discussion](https://governance.aave.com/t/technical-maintenance-proposals/15274/77)
 
 ## Copyright
