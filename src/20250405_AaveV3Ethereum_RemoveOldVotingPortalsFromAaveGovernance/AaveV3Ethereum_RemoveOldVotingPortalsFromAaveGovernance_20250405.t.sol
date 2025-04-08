@@ -42,11 +42,53 @@ contract AaveV3Ethereum_RemoveOldVotingPortalsFromAaveGovernance_20250405_Test i
     assertEq(GovernanceV3Ethereum.GOVERNANCE.isVotingPortalApproved(votingPortal_eth_avax), true);
     assertEq(GovernanceV3Ethereum.GOVERNANCE.isVotingPortalApproved(votingPortal_eth_pol), true);
 
+    assertEq(
+      GovernanceV3Ethereum.GOVERNANCE.isVotingPortalApproved(
+        GovernanceV3Ethereum.GOVERNANCE.VOTING_PORTAL_ETH_ETH
+      ),
+      true
+    );
+    assertEq(
+      GovernanceV3Ethereum.GOVERNANCE.isVotingPortalApproved(
+        GovernanceV3Ethereum.GOVERNANCE.VOTING_PORTAL_ETH_AVAX
+      ),
+      true
+    );
+    assertEq(
+      GovernanceV3Ethereum.GOVERNANCE.isVotingPortalApproved(
+        GovernanceV3Ethereum.GOVERNANCE.VOTING_PORTAL_ETH_POL
+      ),
+      true
+    );
+
+    assertEq(GovernanceV3Ethereum.GOVERNANCE.getVotingPortalsCount(), 6);
+
     // execute approval
     GovV3Helpers.executePayload(vm, address(proposal));
 
     assertEq(GovernanceV3Ethereum.GOVERNANCE.isVotingPortalApproved(votingPortal_eth_eth), false);
     assertEq(GovernanceV3Ethereum.GOVERNANCE.isVotingPortalApproved(votingPortal_eth_avax), false);
     assertEq(GovernanceV3Ethereum.GOVERNANCE.isVotingPortalApproved(votingPortal_eth_pol), false);
+
+    assertEq(
+      GovernanceV3Ethereum.GOVERNANCE.isVotingPortalApproved(
+        GovernanceV3Ethereum.GOVERNANCE.VOTING_PORTAL_ETH_ETH
+      ),
+      true
+    );
+    assertEq(
+      GovernanceV3Ethereum.GOVERNANCE.isVotingPortalApproved(
+        GovernanceV3Ethereum.GOVERNANCE.VOTING_PORTAL_ETH_AVAX
+      ),
+      true
+    );
+    assertEq(
+      GovernanceV3Ethereum.GOVERNANCE.isVotingPortalApproved(
+        GovernanceV3Ethereum.GOVERNANCE.VOTING_PORTAL_ETH_POL
+      ),
+      true
+    );
+
+    assertEq(GovernanceV3Ethereum.GOVERNANCE.getVotingPortalsCount(), 3);
   }
 }
