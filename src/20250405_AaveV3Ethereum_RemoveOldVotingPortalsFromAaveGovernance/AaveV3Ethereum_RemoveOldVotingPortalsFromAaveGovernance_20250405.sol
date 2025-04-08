@@ -5,7 +5,7 @@ import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGen
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 
 /**
- * @title Remove old VotingPortals from Aave Governance
+ * @title Removal of legacy VotingPortals from Governance v3
  * @author BGD Labs @bgdlabs
  * - Discussion: TODO
  */
