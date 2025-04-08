@@ -1,16 +1,18 @@
 ---
-title: "Remove old VotingPortals from Aave Governance"
+title: "Removal of legacy VotingPortals from Governance v3"
 author: "BGD Labs @bgdlabs"
-discussions: TODO
+discussions: "https://governance.aave.com/t/technical-maintenance-proposals/15274/77"
 ---
 
 ## Simple Summary
 
-Proposal to remove old VotingPortals from the Aave Governance.
+Proposal to remove the deprecated `VotingPortals` from the Aave Governance.
 
 ## Motivation
 
-As the new VotingPortals have already been proved to be working by having been used for voting on at least 5 new proposals, it is time to remove the old ones, so that there is no confusion or possibility to use the old VotingPortals to vote on new proposals.
+[Proposal 273](https://vote.onaave.com/proposal/?proposalId=273) enabled new VotingPortal contracts on the Aave Governance, but without removing the previous ones to be sure no issues during the transition would happen.
+
+As the new `VotingPortals` have already been proven to be working by using them for voting on at least 4 new proposals (279 - 282), it is time to remove the old ones, so that there is no confusion or possibility of using the old `VotingPortals` on new proposals.
 
 ## Specification
 
@@ -28,7 +30,7 @@ VotingPortals to remove:
 
 - Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250405_AaveV3Ethereum_RemoveOldVotingPortalsFromAaveGovernance/AaveV3Ethereum_RemoveOldVotingPortalsFromAaveGovernance_20250405.sol)
 - Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250405_AaveV3Ethereum_RemoveOldVotingPortalsFromAaveGovernance/AaveV3Ethereum_RemoveOldVotingPortalsFromAaveGovernance_20250405.t.sol)
-- [Discussion](TODO)
+- [Discussion](https://governance.aave.com/t/technical-maintenance-proposals/15274/77)
 
 ## Copyright
 
