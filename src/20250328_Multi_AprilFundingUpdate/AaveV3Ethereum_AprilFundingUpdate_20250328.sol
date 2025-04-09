@@ -34,7 +34,7 @@ contract AaveV3Ethereum_AprilFundingUpdate_20250328 is IProposalGenericExecutor 
   address public constant MERIT_SAFE = 0xdeadD8aB03075b7FBA81864202a2f59EE25B312b;
   uint256 public constant MERIT_ALLOWANCE = 800_000e6;
 
-  uint256 public constant FUNDING_LINK_AMOUNT = 80 ether;
+  uint256 public constant FUNDING_LINK_AMOUNT = 50e18;
   uint256 public constant FUNDING_ETH_AMOUNT = 1 ether;
   uint128 public constant BUCKET_CAPACITY_GSM = 25_000_000e6;
 

@@ -9,7 +9,6 @@ discussions: "https://governance.aave.com/t/arfc-april-funding-update/21590"
 This publication presents the April Funding Update, consisting of the following key activities:
 
 - Bridge funds to Ethereum;
-- Deposit idle funds in Aave v3;
 - Fund Sonic incentive campaign;
 - Acquire GHO for Operations; and,
 - Transfer FLUID to Aave Protocol Embassy.
@@ -37,30 +36,24 @@ Examples of near term expenses include:
 - Merit and ALC; and,
 - Incentive campaign(s).
 
-### Deploy Idle Capital
-
-To promote capital efficiency, some passive assets held idle on Base and Arbitrum are to be deposited into Aave to earn yield. In the event any incentive program emerge, the DAOs funds are fully allocated and generating cashflow for the DAO.
-
 ## Specification
 
 This proposal shall be submitted as several AIPs that align with operational readiness timelines and ease of review given the volume of funds being moved.
 
 ### Polygon - Bridge Assets to Ethereum
 
-Withdraw from respective Aave Protocol and bridge the following assets to Ethereum.
+Bridge the following assets to Ethereum.
 
-| Polygon v3 | Polygon v2 | Polygon |
-| :--------: | :--------: | :-----: |
-|  aPolUSDC  |   amUSDC   | USDC.e  |
-|  aPolUSDT  |   amUSDT   |  USDT   |
-|  aPolWETH  |   amWETH   |  WETH   |
-|  aPolDAI   |   amDAI    |   DAI   |
-
-When asset are withdrawn from Aave Protocol, 1 unit will remain to ensure a no zero balance is always maintained.
+| Polygon |
+| :-----: |
+| USDC.e  |
+|  USDT   |
+|  WETH   |
+|   DAI   |
 
 ### Ethereum - Acquire GHO
 
-Withdraw the following asset from Aave v2 instance on Ethereum, swap to GHO and deposit into Aave v3 Prime instance.
+Swap to GHO and deposit into Aave v3 Prime instance.
 
 | Ethereum v2 | Amount |
 | :---------: | :----: |
