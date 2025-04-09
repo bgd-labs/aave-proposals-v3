@@ -12,13 +12,13 @@ import {IAaveCLRobotOperator} from '../interfaces/IAaveCLRobotOperator.sol';
 /**
  * @title Caps Risk Oracle Activation on Base, Avalanche
  * @author BGD Labs (@bgdlabs)
- * - Discussion: TODO
+ * - Discussion: https://governance.aave.com/t/technical-maintenance-proposals/15274/78
  */
 contract AaveV3Base_CapsRiskOracleActivationOnBaseAvalanche_20250408 is IProposalGenericExecutor {
   using SafeERC20 for IERC20;
 
-  address public constant EDGE_RISK_STEWARD = 0x0BC79137bc7788f0c2D49dF77B9C9BeC870Edef9;
-  address public constant AAVE_STEWARD_INJECTOR = 0x54714FAc85b0bf627288CC3a186dE81A42f1D635;
+  address public constant EDGE_RISK_STEWARD = 0xB892202d9Ce2C16C565A492a5168689b215Eb269;
+  address public constant AAVE_STEWARD_INJECTOR = 0x4f84A364B66Eb6280350da011829a6BD02B4712f;
 
   address public constant LINK_TOKEN = 0x88Fb150BDc53A65fe94Dea0c9BA0a6dAf8C6e196;
   uint96 public constant LINK_AMOUNT = 30 ether;

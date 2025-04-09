@@ -13,7 +13,7 @@ import {IAaveCLRobotOperator} from '../interfaces/IAaveCLRobotOperator.sol';
 /**
  * @title Caps Risk Oracle Activation on Base, Avalanche
  * @author BGD Labs (@bgdlabs)
- * - Discussion: TODO
+ * - Discussion: https://governance.aave.com/t/technical-maintenance-proposals/15274/78
  */
 contract AaveV3Avalanche_CapsRiskOracleActivationOnBaseAvalanche_20250408 is
   IProposalGenericExecutor

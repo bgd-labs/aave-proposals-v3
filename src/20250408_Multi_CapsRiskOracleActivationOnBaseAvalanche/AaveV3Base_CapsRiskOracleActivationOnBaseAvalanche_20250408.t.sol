@@ -21,7 +21,7 @@ contract AaveV3Base_CapsRiskOracleActivationOnBaseAvalanche_20250408_Test is Pro
   IRiskOracle public RISK_ORACLE;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('base'), 28669443);
+    vm.createSelectFork(vm.rpcUrl('base'), 28696835);
     proposal = new AaveV3Base_CapsRiskOracleActivationOnBaseAvalanche_20250408();
 
     RISK_ORACLE = IRiskOracle(IAaveStewardInjector(proposal.AAVE_STEWARD_INJECTOR()).RISK_ORACLE());
@@ -59,7 +59,7 @@ contract AaveV3Base_CapsRiskOracleActivationOnBaseAvalanche_20250408_Test is Pro
     executePayload(vm, address(proposal));
   }
 
-  /// forge-config: default.evm_version = "cancun"
+  /// forge-config: default.evm_version = 'cancun'
   function test_injectUpdateToProtocol() public {
     executePayload(vm, address(proposal));
     (, uint256 supplyCap) = AaveV3Base.AAVE_PROTOCOL_DATA_PROVIDER.getReserveCaps(
@@ -80,6 +80,32 @@ contract AaveV3Base_CapsRiskOracleActivationOnBaseAvalanche_20250408_Test is Pro
       AaveV3BaseAssets.WETH_UNDERLYING
     );
     assertEq(supplyCapToSet, currentSupplyCap);
+  }
+
+  function test_injectorConfigurations() public view {
+    address[] memory configuredMarkets = IAaveStewardInjector(proposal.AAVE_STEWARD_INJECTOR())
+      .getMarkets();
+
+    address[] memory listedAssets = AaveV3Base.POOL.getReservesList();
+    address[] memory expectedMarkets = new address[](listedAssets.length - 2);
+    uint256 count;
+    for (uint256 i = 0; i < listedAssets.length; i++) {
+      if (
+        listedAssets[i] == AaveV3BaseAssets.wrsETH_UNDERLYING ||
+        listedAssets[i] == AaveV3BaseAssets.ezETH_UNDERLYING
+      ) continue;
+      expectedMarkets[count] = AaveV3Base.POOL.getReserveAToken(listedAssets[i]);
+      count++;
+    }
+
+    // all aTokens listed are configured on the injector except for wrsETH and ezETH
+    assertEq(configuredMarkets, expectedMarkets);
+
+    string[] memory updateTypes = IAaveStewardInjector(proposal.AAVE_STEWARD_INJECTOR())
+      .getUpdateTypes();
+    assertEq(updateTypes.length, 2);
+    assertEq(updateTypes[0], 'supplyCap');
+    assertEq(updateTypes[1], 'borrowCap');
   }
 
   function _addUpdateToRiskOracle(uint256 value) internal {

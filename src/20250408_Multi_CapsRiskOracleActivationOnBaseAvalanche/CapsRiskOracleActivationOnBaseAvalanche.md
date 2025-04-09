@@ -1,7 +1,8 @@
 ---
 title: "Caps Risk Oracle Activation on Base, Avalanche"
 author: "BGD Labs (@bgdlabs)"
-discussions: TODO
+discussions: "https://governance.aave.com/t/technical-maintenance-proposals/15274/78"
+snapshot: "Direct To AIP"
 ---
 
 ## Simple Summary
@@ -30,11 +31,27 @@ _This new Base and Avalanche instances of AGRS will mirror exactly the same infr
 - Constraints on both Base and Avalanche will be the same as on the system currently live on Arbitrum: maximum 30% increase/decrease each 3 days
 - The off-chain caps methodology description can be found on the Aave governance forum [here](https://governance.aave.com/t/arfc-supply-and-borrow-cap-risk-oracle-activation/20834)
 
+**Base**
+
+| Contract                | Address                                                                                                                    |
+| ----------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| EdgeRiskStewardCaps     | [0x0BC79137bc7788f0c2D49dF77B9C9BeC870Edef9](https://basescan.org/address/0x0BC79137bc7788f0c2D49dF77B9C9BeC870Edef9#code) |
+| AaveStewardInjectorCaps | [0x4f84A364B66Eb6280350da011829a6BD02B4712f](https://basescan.org/address/0x4f84A364B66Eb6280350da011829a6BD02B4712f#code) |
+| RiskOracle              | [0x239d3Bc5fa247337287cb03f53B8bc63DBBc332D](https://basescan.org/address/0x239d3Bc5fa247337287cb03f53B8bc63DBBc332D#code) |
+
+**Avalanche**
+
+| Contract                | Address                                                                                                                                   |
+| ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| EdgeRiskStewardCaps     | [0x57218F3aB422A39115951c3Eb06881a7A719DfdD](https://snowtrace.io/address/0x57218F3aB422A39115951c3Eb06881a7A719DfdD#code)                |
+| AaveStewardInjectorCaps | [0x54714FAc85b0bf627288CC3a186dE81A42f1D635](https://snowtrace.io/address/0x54714FAc85b0bf627288CC3a186dE81A42f1D635#code)                |
+| RiskOracle              | [0x1273f29204fC102bD4620485B13cFE27a794fF32](https://snowtrace.io/address/0x1273f29204fC102bD4620485B13cFE27a794fF32/contract/43114/code) |
+
 ## References
 
 - Implementation: [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250408_Multi_CapsRiskOracleActivationOnBaseAvalanche/AaveV3Avalanche_CapsRiskOracleActivationOnBaseAvalanche_20250408.sol), [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250408_Multi_CapsRiskOracleActivationOnBaseAvalanche/AaveV3Base_CapsRiskOracleActivationOnBaseAvalanche_20250408.sol)
 - Tests: [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250408_Multi_CapsRiskOracleActivationOnBaseAvalanche/AaveV3Avalanche_CapsRiskOracleActivationOnBaseAvalanche_20250408.t.sol), [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250408_Multi_CapsRiskOracleActivationOnBaseAvalanche/AaveV3Base_CapsRiskOracleActivationOnBaseAvalanche_20250408.t.sol)
-- [Discussion](TODO)
+- [Discussion](https://governance.aave.com/t/technical-maintenance-proposals/15274/78)
 
 ## Copyright
 

@@ -61,7 +61,7 @@ contract AaveV3Avalanche_CapsRiskOracleActivationOnBaseAvalanche_20250408_Test i
     executePayload(vm, address(proposal));
   }
 
-  /// forge-config: default.evm_version = "cancun"
+  /// forge-config: default.evm_version = 'cancun'
   function test_injectUpdateToProtocol() public {
     executePayload(vm, address(proposal));
     (, uint256 supplyCap) = AaveV3Avalanche.AAVE_PROTOCOL_DATA_PROVIDER.getReserveCaps(
@@ -82,6 +82,26 @@ contract AaveV3Avalanche_CapsRiskOracleActivationOnBaseAvalanche_20250408_Test i
       AaveV3AvalancheAssets.WETHe_UNDERLYING
     );
     assertEq(supplyCapToSet, currentSupplyCap);
+  }
+
+  function test_injectorConfigurations() public view {
+    address[] memory configuredMarkets = IAaveStewardInjector(proposal.AAVE_STEWARD_INJECTOR())
+      .getMarkets();
+
+    address[] memory listedAssets = AaveV3Avalanche.POOL.getReservesList();
+    address[] memory expectedMarkets = new address[](listedAssets.length);
+    for (uint256 i = 0; i < listedAssets.length; i++) {
+      expectedMarkets[i] = AaveV3Avalanche.POOL.getReserveAToken(listedAssets[i]);
+    }
+
+    // all aTokens listed are configured on the injector
+    assertEq(configuredMarkets, expectedMarkets);
+
+    string[] memory updateTypes = IAaveStewardInjector(proposal.AAVE_STEWARD_INJECTOR())
+      .getUpdateTypes();
+    assertEq(updateTypes.length, 2);
+    assertEq(updateTypes[0], 'supplyCap');
+    assertEq(updateTypes[1], 'borrowCap');
   }
 
   function _addUpdateToRiskOracle(uint256 value) internal {
