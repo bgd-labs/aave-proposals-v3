@@ -38,7 +38,7 @@ contract AaveV3Ethereum_AddRlUSDToCoreInstance_20250409_Test is ProtocolV3TestBa
   function test_dustBinHasRLUSDFunds() public {
     GovV3Helpers.executePayload(vm, address(proposal));
     address aTokenAddress = AaveV3Ethereum.POOL.getReserveAToken(proposal.RLUSD());
-    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Ethereum.DUST_BIN)), 10 ** 18);
+    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Ethereum.DUST_BIN)), 100 * 10 ** 18);
   }
 
   function test_RLUSDAdmin() public {
