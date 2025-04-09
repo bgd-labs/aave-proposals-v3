@@ -7,7 +7,11 @@ snapshot: "https://snapshot.box/#/s:aavedao.eth/proposal/0x539ad30f3d3d531702bb7
 
 ## Simple Summary
 
+This AIP seeks governance approval to onboard Ripple’s rlUSD stablecoin to the Core instance of Aave v3 on Ethereum.
+
 ## Motivation
+
+rlUSD is Ripple's stablecoin it's onboarding in the Aave ecosystem is a strategic growth opportunity to reach new audiences.
 
 ## Specification
 

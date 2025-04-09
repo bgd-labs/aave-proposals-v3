@@ -19,14 +19,9 @@ contract AaveV3Ethereum_AddRlUSDToCoreInstance_20250409_Test is ProtocolV3TestBa
   AaveV3Ethereum_AddRlUSDToCoreInstance_20250409 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 22231967);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 22232472);
 
     proposal = new AaveV3Ethereum_AddRlUSDToCoreInstance_20250409();
-
-    // Mock: fund the executor with RLUSD
-    vm.startPrank(0xe146C01102e02344d4B1E59fD74b5054979D13A5);
-    IERC20(proposal.RLUSD()).transfer(GovernanceV3Ethereum.EXECUTOR_LVL_1, 100 ether);
-    vm.stopPrank();
   }
 
   /**

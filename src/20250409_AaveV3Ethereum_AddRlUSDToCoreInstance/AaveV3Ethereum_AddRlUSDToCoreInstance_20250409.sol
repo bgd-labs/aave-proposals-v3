@@ -18,7 +18,7 @@ contract AaveV3Ethereum_AddRlUSDToCoreInstance_20250409 is AaveV3PayloadEthereum
   using SafeERC20 for IERC20;
 
   address public constant RLUSD = 0x8292Bb45bf1Ee4d140127049757C2E0fF06317eD;
-  uint256 public constant RLUSD_SEED_AMOUNT = 1e18;
+  uint256 public constant RLUSD_SEED_AMOUNT = 100e18;
   address public constant RLUSD_LM_ADMIN = 0xac140648435d03f784879cd789130F22Ef588Fcd;
 
   function _postExecute() internal override {
