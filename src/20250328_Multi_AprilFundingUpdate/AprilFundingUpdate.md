@@ -82,8 +82,8 @@ Set the stataUSDT GSM exposure cap to 25M units.
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250328_Multi_AprilFundingUpdate/AaveV3Ethereum_AprilFundingUpdate_20250328.sol), [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250328_Multi_AprilFundingUpdate/AaveV3Polygon_AprilFundingUpdate_20250328.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250328_Multi_AprilFundingUpdate/AaveV3Ethereum_AprilFundingUpdate_20250328.t.sol), [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250328_Multi_AprilFundingUpdate/AaveV3Polygon_AprilFundingUpdate_20250328.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/a80115e1f957060534c1a4237eb0c50b42279ce6/src/20250328_Multi_AprilFundingUpdate/AaveV3Ethereum_AprilFundingUpdate_20250328.sol), [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/a80115e1f957060534c1a4237eb0c50b42279ce6/src/20250328_Multi_AprilFundingUpdate/AaveV3Polygon_AprilFundingUpdate_20250328.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/a80115e1f957060534c1a4237eb0c50b42279ce6/src/20250328_Multi_AprilFundingUpdate/AaveV3Ethereum_AprilFundingUpdate_20250328.t.sol), [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/a80115e1f957060534c1a4237eb0c50b42279ce6/src/20250328_Multi_AprilFundingUpdate/AaveV3Polygon_AprilFundingUpdate_20250328.t.sol)
 - Snapshot: Direct-to-AIP
 - [Discussion](https://governance.aave.com/t/arfc-april-funding-update/21590)
 
