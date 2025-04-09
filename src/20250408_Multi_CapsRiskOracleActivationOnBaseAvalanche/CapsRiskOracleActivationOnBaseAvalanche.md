@@ -35,8 +35,8 @@ _This new Base and Avalanche instances of AGRS will mirror exactly the same infr
 
 | Contract                | Address                                                                                                                    |
 | ----------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| EdgeRiskStewardCaps     | [0x0BC79137bc7788f0c2D49dF77B9C9BeC870Edef9](https://basescan.org/address/0x0BC79137bc7788f0c2D49dF77B9C9BeC870Edef9#code) |
-| AaveStewardInjectorCaps | [0x4f84A364B66Eb6280350da011829a6BD02B4712f](https://basescan.org/address/0x4f84A364B66Eb6280350da011829a6BD02B4712f#code) |
+| EdgeRiskStewardCaps     | [0x4f84A364B66Eb6280350da011829a6BD02B4712f](https://basescan.org/address/0x4f84A364B66Eb6280350da011829a6BD02B4712f#code) |
+| AaveStewardInjectorCaps | [0xB892202d9Ce2C16C565A492a5168689b215Eb269](https://basescan.org/address/0xB892202d9Ce2C16C565A492a5168689b215Eb269#code) |
 | RiskOracle              | [0x239d3Bc5fa247337287cb03f53B8bc63DBBc332D](https://basescan.org/address/0x239d3Bc5fa247337287cb03f53B8bc63DBBc332D#code) |
 
 **Avalanche**
