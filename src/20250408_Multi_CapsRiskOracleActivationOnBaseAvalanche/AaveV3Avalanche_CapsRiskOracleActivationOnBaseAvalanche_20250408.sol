@@ -6,6 +6,7 @@ import {IERC20} from 'openzeppelin-contracts/contracts/interfaces/IERC20.sol';
 import {AaveV3Avalanche, AaveV3AvalancheAssets, ICollector} from 'aave-address-book/AaveV3Avalanche.sol';
 import {MiscAvalanche} from 'aave-address-book/MiscAvalanche.sol';
 import {SafeERC20} from 'openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol';
+import {SafeCast} from 'openzeppelin-contracts/contracts/utils/math/SafeCast.sol';
 import {CollectorUtils} from 'aave-helpers/src/CollectorUtils.sol';
 
 import {IAaveCLRobotOperator} from '../interfaces/IAaveCLRobotOperator.sol';
@@ -18,6 +19,7 @@ import {IAaveCLRobotOperator} from '../interfaces/IAaveCLRobotOperator.sol';
 contract AaveV3Avalanche_CapsRiskOracleActivationOnBaseAvalanche_20250408 is
   IProposalGenericExecutor
 {
+  using SafeCast for uint256;
   using CollectorUtils for ICollector;
   using SafeERC20 for IERC20;
 
@@ -46,7 +48,7 @@ contract AaveV3Avalanche_CapsRiskOracleActivationOnBaseAvalanche_20250408 is
       AAVE_STEWARD_INJECTOR,
       '',
       5_000_000,
-      LINK_AMOUNT,
+      linkAmountWithdrawn.toUint96(),
       0,
       ''
     );
