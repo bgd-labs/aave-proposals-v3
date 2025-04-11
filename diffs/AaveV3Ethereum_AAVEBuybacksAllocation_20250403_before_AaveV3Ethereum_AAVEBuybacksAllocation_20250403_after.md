@@ -1,0 +1,32 @@
+## Raw diff
+
+```json
+{
+  "raw": {
+    "0x23878914efe38d27c4d67ab83ed1b93a74d4086a": {
+      "label": "AaveV3Ethereum.ASSETS.USDT.A_TOKEN",
+      "balanceDiff": null,
+      "stateDiff": {
+        "0xe81cbc5010bf701c96afcd9e85ab3c1ab37e3b123b04a49f76cc11c5ef1205b6": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x000000000000000000000000000000000000000000000000000003a352944000"
+        }
+      }
+    },
+    "0xdabad81af85554e9ae636395611c58f7ec1aaec5": {
+      "label": "GovernanceV3Ethereum.PAYLOADS_CONTROLLER",
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x6d5631d85c18100402670d785ac5189c387bc32d207d25d22fec73ef0b8a29a7": {
+          "previousValue": "0x0067eec086000000000002000000000000000000000000000000000000000000",
+          "newValue": "0x0067eec086000000000003000000000000000000000000000000000000000000"
+        },
+        "0x6d5631d85c18100402670d785ac5189c387bc32d207d25d22fec73ef0b8a29a8": {
+          "previousValue": "0x000000000000000000093a80000000000000681ce50700000000000000000000",
+          "newValue": "0x000000000000000000093a80000000000000681ce50700000000000067eec087"
+        }
+      }
+    }
+  }
+}
+```

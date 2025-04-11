@@ -66,7 +66,7 @@ evm_version = 'shanghai'
 evm_version = 'london'
 
 [profile.celo]
-evm_version = 'paris'
+evm_version = 'shanghai'
 
 [profile.sonic]
 evm_version = 'cancun'
