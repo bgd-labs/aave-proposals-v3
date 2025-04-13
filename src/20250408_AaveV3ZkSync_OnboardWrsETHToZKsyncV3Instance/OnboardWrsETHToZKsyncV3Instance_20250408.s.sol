@@ -3,7 +3,7 @@ pragma solidity ^0.8.0;
 
 import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aave-helpers/src/GovV3Helpers.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
-import {EthereumScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
+import {EthereumScript, ChainIds} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
 
 /**
  * @dev Create Proposal
@@ -14,15 +14,12 @@ contract CreateProposal is EthereumScript {
     // create payloads
     PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](1);
 
-    // compose actions for validation
-    IPayloadsControllerCore.ExecutionAction[]
-      memory actionsZkSync = new IPayloadsControllerCore.ExecutionAction[](1);
-    actionsZkSync[0] = GovV3Helpers.buildActionZkSync(
-      vm,
-      'AaveV3ZkSync_OnboardWrsETHToZKsyncV3Instance_20250408'
-    );
-    payloads[0] = GovV3Helpers.buildZkSyncPayload(vm, actionsZkSync);
-
+    payloads[0] = PayloadsControllerUtils.Payload({
+      chain: ChainIds.ZKSYNC,
+      accessLevel: PayloadsControllerUtils.AccessControl.Level_1,
+      payloadsController: address(GovernanceV3ZkSync.PAYLOADS_CONTROLLER),
+      payloadId: 21
+    });
     // create proposal
     vm.startBroadcast();
     GovV3Helpers.createProposal(
