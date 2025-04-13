@@ -2,12 +2,18 @@
 title: "Onboard wrsETH to ZKsync V3 Instance"
 author: "Aave-Chan Initiative"
 discussions: "https://governance.aave.com/t/arfc-onboard-wrseth-to-zksync-v3-instance/20727"
-snapshot: TODO
+snapshot: Direct-to-AIP
 ---
 
 ## Simple Summary
 
+This is a proposal to onboard wrsETH to the Aave V3 ZKsync Instance allowing Aave users to supply wrsETH as collateral. This proposal will be under Direct to AIP, as there are already on other Aave Instances.
+
 ## Motivation
+
+In order to benefit from the ongoing ZKsync Ignite incentives program, we propose onboarding assets which have proven popular on other Aave instances and are either whitelisted for Ignite incentives, or are good candidates for future whitelisting.
+
+wrsETH is currently the only whitelisted liquid restaking token on ZKsync and has proven popular on the Aave Prime instance, therefore we believe should be onboarded to the Aave Instance on ZKsync too.
 
 ## Specification
 
