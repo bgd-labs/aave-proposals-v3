@@ -36,7 +36,7 @@ contract AaveV3Ethereum_AddRlUSDToCoreInstance_20250409 is AaveV3PayloadEthereum
     listings[0] = IAaveV3ConfigEngine.Listing({
       asset: RLUSD,
       assetSymbol: 'RLUSD',
-      priceFeed: 0x26C46B7aD0012cA71F2298ada567dC9Af14E7f2A,
+      priceFeed: 0xf0eaC18E908B34770FDEe46d069c846bDa866759,
       enabledToBorrow: EngineFlags.ENABLED,
       borrowableInIsolation: EngineFlags.DISABLED,
       withSiloedBorrowing: EngineFlags.DISABLED,
