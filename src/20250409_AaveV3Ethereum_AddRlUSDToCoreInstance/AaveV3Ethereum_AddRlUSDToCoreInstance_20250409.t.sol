@@ -19,7 +19,7 @@ contract AaveV3Ethereum_AddRlUSDToCoreInstance_20250409_Test is ProtocolV3TestBa
   AaveV3Ethereum_AddRlUSDToCoreInstance_20250409 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 22232472);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 22266958);
 
     proposal = new AaveV3Ethereum_AddRlUSDToCoreInstance_20250409();
   }
