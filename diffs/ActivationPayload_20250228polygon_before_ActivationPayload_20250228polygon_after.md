@@ -1,0 +1,42 @@
+## Raw diff
+
+```json
+{
+  "raw": {
+    "0x401b5d0294e23637c18fcc38b1bca814cda2637c": {
+      "label": "GovernanceV3Polygon.PAYLOADS_CONTROLLER",
+      "balanceDiff": null,
+      "stateDiff": {
+        "0xc7f3482db4b48d5b39d680ce04da2e80d893166f9e18fa49855f2d75c8538dc9": {
+          "previousValue": "0x0067d0037f000000000002000000000000000000000000000000000000000000",
+          "newValue": "0x0067d0037f000000000003000000000000000000000000000000000000000000"
+        },
+        "0xc7f3482db4b48d5b39d680ce04da2e80d893166f9e18fa49855f2d75c8538dca": {
+          "previousValue": "0x000000000000000000093a8000000000000067fe280000000000000000000000",
+          "newValue": "0x000000000000000000093a8000000000000067fe280000000000000067d00380"
+        }
+      }
+    },
+    "0x476b3d5509f600cc377ab86658b623337fc6a717": {
+      "label": "AaveV3Polygon.CLINIC_STEWARD",
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x409b12f9ad7bf34a562b2d74797c9e5995a367de7c255af1d961ee86a2023167": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000001"
+        }
+      }
+    },
+    "0xe8599f3cc5d38a9ad6f3684cd5cea72f10dbc383": {
+      "label": "AaveV2Polygon.COLLECTOR, AaveV3Polygon.COLLECTOR",
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x8592f22060fa4f61bccaad3146e1faddb10744b03307eb8a07001d43feb5fdfb": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000001"
+        }
+      }
+    }
+  }
+}
+```
