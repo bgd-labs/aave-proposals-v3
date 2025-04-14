@@ -27,6 +27,7 @@ contract AaveV3Ethereum_AddRlUSDToCoreInstance_20250409_Test is ProtocolV3TestBa
   /**
    * @dev executes the generic test suite including e2e and config snapshots
    */
+  /// forge-config: default.evm_version = 'cancun'
   function test_defaultProposalExecution() public {
     defaultTest(
       'AaveV3Ethereum_AddRlUSDToCoreInstance_20250409',
