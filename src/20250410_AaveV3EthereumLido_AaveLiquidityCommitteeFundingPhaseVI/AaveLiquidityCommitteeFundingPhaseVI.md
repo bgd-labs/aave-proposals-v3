@@ -128,7 +128,7 @@ Please note, each of the above targets has external dependencies beyond the cont
 
 ## Specification
 
-Create an Allowance allowing the ALC to withdraw GHO from the Prime instance for a total of 3,000,000 GHO.
+Create an Allowance allowing the ALC to withdraw GHO from the Prime instance for a total of 3,500,000 GHO.
 
 ALC Ethereum SAFE: `0xA1c93D2687f7014Aaf588c764E3Ce80aF016229b`
 
