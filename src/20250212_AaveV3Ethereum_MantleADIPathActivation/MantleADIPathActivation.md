@@ -1,21 +1,20 @@
 ---
 title: "Mantle a.DI path activation"
 author: "BGD Labs @bgdlabs"
-discussions: TODO
-snapshot: TODO
+discussions: "https://governance.aave.com/t/technical-maintenance-proposals/15274/81"
 ---
 
 ## Simple Summary
 
-Proposal to register the necessary Mantle adapters on a.DI, a technical pre-requirement for an activation vote of Aave v3 Mantle.
+Proposal to activate the necessary a.DI and governance infrastructure for the Mantle network, a technical prerequisite for an activation vote of Aave v3 Mantle.
 
 ## Motivation
 
 In order to be able to pass messages from Ethereum to Mantle via a.DI (Aave Delivery Infrastructure), it is necessary to at least have three valid adapters Ethereum → Mantle smart contracts enabled in the system.
 
-The first case of message passing Ethereum → Mantle is the activation proposal for an Aave v3 Mantle pool and consequently, to be able to execute on the Mantle side the payload, the Aave governance should approve in advance the a.DI adapters smart contracts.
+The first case of message passing Ethereum → Mantle is the activation proposal for an Aave v3 Mantle pool, and consequently, to be able to execute on the Mantle side the payload, the Aave governance should approve in advance the a.DI adapters smart contracts.
 
-This procedure mirrors the requirements on previous networks like ZkSync or Linea.
+This procedure mirrors the requirements of previous networks like ZkSync or Linea.
 
 ## Specification
 
@@ -53,7 +52,7 @@ The new Aave Governance deployments on Mantle network are as follows:
 - Payload Tests: [tests](https://github.com/bgd-labs/adi-deploy/blob/54a363eb2d435782f6107ed3bef4fdbec6ff52c1/tests/payloads/ethereum/AddMantlePathTest.t.sol)
 - Diffs: [a.DI diffs](https://github.com/bgd-labs/adi-deploy/blob/54a363eb2d435782f6107ed3bef4fdbec6ff52c1/diffs/adi_add_mantle_path_to_adiethereum_before_adi_add_mantle_path_to_adiethereum_after.md)
 - Snapshot: Direct-to-AIP
-- [Discussion]()
+- [Discussion](https://governance.aave.com/t/technical-maintenance-proposals/15274/81)
 
 ## Copyright
 
