@@ -46,7 +46,7 @@ contract AaveV3Ethereum_AddRlUSDToCoreInstance_20250409 is AaveV3PayloadEthereum
       liqBonus: 0,
       reserveFactor: 10_00,
       supplyCap: 50_000_000,
-      borrowCap: 40_000_000,
+      borrowCap: 5_000_000,
       debtCeiling: 0,
       liqProtocolFee: 0,
       rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
