@@ -37,7 +37,7 @@ The table below illustrates the configured risk parameters for **RLUSD**
 | Flashloanable             |                                    ENABLED |
 | Siloed Borrowing          |                                   DISABLED |
 | Borrowable in Isolation   |                                   DISABLED |
-| Oracle                    | 0x26C46B7aD0012cA71F2298ada567dC9Af14E7f2A |
+| Oracle                    | 0xf0eaC18E908B34770FDEe46d069c846bDa866759 |
 
 Additionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://etherscan.io/address/0xac140648435d03f784879cd789130F22Ef588Fcd) has been set as the emission admin for RLUSD and the corresponding aToken.
 
