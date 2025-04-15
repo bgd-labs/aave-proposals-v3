@@ -23,7 +23,7 @@ The table below illustrates the configured risk parameters for **RLUSD**
 | Borrowable                |                                    ENABLED |
 | Collateral Enabled        |                                       true |
 | Supply Cap (RLUSD)        |                                 50,000,000 |
-| Borrow Cap (RLUSD)        |                                 40,000,000 |
+| Borrow Cap (RLUSD)        |                                  5,000,000 |
 | Debt Ceiling              |                                      USD 0 |
 | LTV                       |                                        0 % |
 | LT                        |                                        0 % |
