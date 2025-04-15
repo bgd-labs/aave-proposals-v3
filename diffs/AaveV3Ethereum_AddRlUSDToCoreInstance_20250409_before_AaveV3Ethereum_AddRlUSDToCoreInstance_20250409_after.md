@@ -10,7 +10,7 @@
 | isActive | true |
 | isFrozen | false |
 | supplyCap | 50,000,000 RLUSD |
-| borrowCap | 40,000,000 RLUSD |
+| borrowCap | 5,000,000 RLUSD |
 | debtCeiling | 0 $ [0] |
 | isSiloed | false |
 | isFlashloanable | true |
@@ -58,7 +58,7 @@
         "aTokenName": "Aave Ethereum RLUSD",
         "aTokenSymbol": "aEthRLUSD",
         "aTokenUnderlyingBalance": "100000000000000000000",
-        "borrowCap": 40000000,
+        "borrowCap": 5000000,
         "borrowingEnabled": true,
         "debtCeiling": 0,
         "decimals": 18,
@@ -157,7 +157,7 @@
         },
         "0x9c5488d84d2a2a7cd0c3bdfdf95e375dff32a113c880ebf8321378ed34906a20": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x10000000000000000000000000002faf080002625a0003e88512000000000000"
+          "newValue": "0x10000000000000000000000000002faf0800004c4b4003e88512000000000000"
         },
         "0x9c5488d84d2a2a7cd0c3bdfdf95e375dff32a113c880ebf8321378ed34906a21": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
