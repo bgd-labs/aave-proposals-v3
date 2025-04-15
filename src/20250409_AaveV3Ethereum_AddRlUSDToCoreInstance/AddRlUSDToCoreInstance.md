@@ -43,8 +43,8 @@ Additionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://etherscan.io/a
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250409_AaveV3Ethereum_AddRlUSDToCoreInstance/AaveV3Ethereum_AddRlUSDToCoreInstance_20250409.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250409_AaveV3Ethereum_AddRlUSDToCoreInstance/AaveV3Ethereum_AddRlUSDToCoreInstance_20250409.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/0a32d800b0425cdbf163787daf34c4b72fd2e69d/src/20250409_AaveV3Ethereum_AddRlUSDToCoreInstance/AaveV3Ethereum_AddRlUSDToCoreInstance_20250409.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/0a32d800b0425cdbf163787daf34c4b72fd2e69d/src/20250409_AaveV3Ethereum_AddRlUSDToCoreInstance/AaveV3Ethereum_AddRlUSDToCoreInstance_20250409.t.sol)
 - [Snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0x539ad30f3d3d531702bb7619fc0a9a44dc2da6a8e022eff7ffdc678032e0a8b9)
 - [Discussion](https://governance.aave.com/t/arfc-add-rlusd-to-core-instance/20214)
 
