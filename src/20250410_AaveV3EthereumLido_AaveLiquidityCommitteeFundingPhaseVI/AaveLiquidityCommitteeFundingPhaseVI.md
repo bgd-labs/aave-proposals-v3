@@ -128,8 +128,7 @@ Please note, each of the above targets has external dependencies beyond the cont
 
 ## Specification
 
-Create allowance for the ALC to withdraw 3,500,000 GHO from the Ethereum collector.
-
+Create allowance for the ALC to withdraw 3,500,000 aEthLidoGHO from the Ethereum collector.
 ALC Ethereum SAFE: `0xA1c93D2687f7014Aaf588c764E3Ce80aF016229b`
 
 ## References

@@ -18,7 +18,7 @@ contract AaveV3EthereumLido_AaveLiquidityCommitteeFundingPhaseVI_20250410_Test i
   AaveV3EthereumLido_AaveLiquidityCommitteeFundingPhaseVI_20250410 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 22242008);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 22283030);
     proposal = new AaveV3EthereumLido_AaveLiquidityCommitteeFundingPhaseVI_20250410();
   }
 
@@ -37,7 +37,7 @@ contract AaveV3EthereumLido_AaveLiquidityCommitteeFundingPhaseVI_20250410_Test i
     executePayload(vm, address(proposal));
 
     assertEq(
-      IERC20(AaveV3EthereumLidoAssets.GHO_UNDERLYING).allowance(
+      IERC20(AaveV3EthereumLidoAssets.GHO_A_TOKEN).allowance(
         address(AaveV3EthereumLido.COLLECTOR),
         proposal.ALC_SAFE()
       ),
@@ -46,16 +46,16 @@ contract AaveV3EthereumLido_AaveLiquidityCommitteeFundingPhaseVI_20250410_Test i
 
     vm.startPrank(proposal.ALC_SAFE());
 
-    uint256 ghoBalanceBefore = IERC20(AaveV3EthereumLidoAssets.GHO_UNDERLYING).balanceOf(
+    uint256 ghoBalanceBefore = IERC20(AaveV3EthereumLidoAssets.GHO_A_TOKEN).balanceOf(
       proposal.ALC_SAFE()
     );
-    IERC20(AaveV3EthereumLidoAssets.GHO_UNDERLYING).transferFrom(
+    IERC20(AaveV3EthereumLidoAssets.GHO_A_TOKEN).transferFrom(
       address(AaveV3EthereumLido.COLLECTOR),
       proposal.ALC_SAFE(),
       proposal.GHO_ALLOWANCE()
     );
 
-    uint256 ghoBalanceAfter = IERC20(AaveV3EthereumLidoAssets.GHO_UNDERLYING).balanceOf(
+    uint256 ghoBalanceAfter = IERC20(AaveV3EthereumLidoAssets.GHO_A_TOKEN).balanceOf(
       proposal.ALC_SAFE()
     );
 

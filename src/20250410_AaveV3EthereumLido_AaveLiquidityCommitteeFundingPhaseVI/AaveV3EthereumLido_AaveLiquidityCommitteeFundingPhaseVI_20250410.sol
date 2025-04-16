@@ -15,12 +15,11 @@ contract AaveV3EthereumLido_AaveLiquidityCommitteeFundingPhaseVI_20250410 is
 {
   // https://etherscan.io/address/0xA1c93D2687f7014Aaf588c764E3Ce80aF016229b
   address public constant ALC_SAFE = 0xA1c93D2687f7014Aaf588c764E3Ce80aF016229b;
-
   uint256 public constant GHO_ALLOWANCE = 3_500_000e18;
 
   function execute() external {
     AaveV3EthereumLido.COLLECTOR.approve(
-      IERC20(AaveV3EthereumLidoAssets.GHO_UNDERLYING),
+      IERC20(AaveV3EthereumLidoAssets.GHO_A_TOKEN),
       ALC_SAFE,
       GHO_ALLOWANCE
     );
