@@ -133,8 +133,8 @@ ALC Ethereum SAFE: `0xA1c93D2687f7014Aaf588c764E3Ce80aF016229b`
 
 ## References
 
-- Implementation: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250410_AaveV3EthereumLido_AaveLiquidityCommitteeFundingPhaseVI/AaveV3EthereumLido_AaveLiquidityCommitteeFundingPhaseVI_20250410.sol)
-- Tests: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250410_AaveV3EthereumLido_AaveLiquidityCommitteeFundingPhaseVI/AaveV3EthereumLido_AaveLiquidityCommitteeFundingPhaseVI_20250410.t.sol)
+- Implementation: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/ab657563c4c7dc2e33947cf1f3a49e26828b1135/src/20250410_AaveV3EthereumLido_AaveLiquidityCommitteeFundingPhaseVI/AaveV3EthereumLido_AaveLiquidityCommitteeFundingPhaseVI_20250410.sol)
+- Tests: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/ab657563c4c7dc2e33947cf1f3a49e26828b1135/src/20250410_AaveV3EthereumLido_AaveLiquidityCommitteeFundingPhaseVI/AaveV3EthereumLido_AaveLiquidityCommitteeFundingPhaseVI_20250410.t.sol)
 - [Snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0x2af009587f8c624f798ec36e20572a69be7fc6321882b1ba19143da29d45f1ac)
 - [Discussion](https://governance.aave.com/t/arfc-aave-liquidity-committee-funding-phase-vi/21682)
 
