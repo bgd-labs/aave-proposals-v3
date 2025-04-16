@@ -1,0 +1,42 @@
+## Raw diff
+
+```json
+{
+  "raw": {
+    "0x0e1a3af1f9cc76a62ed31ededca291e63632e7c4": {
+      "label": "GovernanceV3Optimism.PAYLOADS_CONTROLLER",
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x885ce2cbc289e24b266643f1b3bd713351837e3869b2fe1821204bfb89df8355": {
+          "previousValue": "0x0067d0036c000000000002000000000000000000000000000000000000000000",
+          "newValue": "0x0067d0036c000000000003000000000000000000000000000000000000000000"
+        },
+        "0x885ce2cbc289e24b266643f1b3bd713351837e3869b2fe1821204bfb89df8356": {
+          "previousValue": "0x000000000000000000093a8000000000000067fe27ed00000000000000000000",
+          "newValue": "0x000000000000000000093a8000000000000067fe27ed00000000000067d0036d"
+        }
+      }
+    },
+    "0xb2289e329d2f85f1ed31adbb30ea345278f21bcf": {
+      "label": "AaveV3Optimism.COLLECTOR",
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x18b7926ba32e1f8e072762a085de4e53aee11ae0b8ddd6240aca0e3ff80b5e98": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000001"
+        }
+      }
+    },
+    "0xd835fb6f9823b4054ccf30403de76aa8abcd00b8": {
+      "label": "AaveV3Optimism.CLINIC_STEWARD",
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x409b12f9ad7bf34a562b2d74797c9e5995a367de7c255af1d961ee86a2023167": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000001"
+        }
+      }
+    }
+  }
+}
+```

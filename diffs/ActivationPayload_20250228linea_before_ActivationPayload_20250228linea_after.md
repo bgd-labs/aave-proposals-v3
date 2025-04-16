@@ -1,0 +1,42 @@
+## Raw diff
+
+```json
+{
+  "raw": {
+    "0x3bce23a1363728091bc57a58a226cf2940c2e074": {
+      "label": "GovernanceV3Linea.PAYLOADS_CONTROLLER",
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x405aad32e1adbac89bb7f176e338b8fc6e994ca210c9bb7bdca249b465942250": {
+          "previousValue": "0x0067d0030b000000000002000000000000000000000000000000000000000000",
+          "newValue": "0x0067d0030b000000000003000000000000000000000000000000000000000000"
+        },
+        "0x405aad32e1adbac89bb7f176e338b8fc6e994ca210c9bb7bdca249b465942251": {
+          "previousValue": "0x000000000000000000093a8000000000000067fe278c00000000000000000000",
+          "newValue": "0x000000000000000000093a8000000000000067fe278c00000000000067d0030c"
+        }
+      }
+    },
+    "0x86e2938dae289763d4e09a7e42c5ccca62cf9809": {
+      "label": "AaveV3Linea.COLLECTOR",
+      "balanceDiff": null,
+      "stateDiff": {
+        "0xff4fde0a620dd00772a88e6087c1f2da4d41867085794bd679a85ef34aa77f35": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000001"
+        }
+      }
+    },
+    "0xa68a0864f304b5145f00a3f8fd3ec2281568700f": {
+      "label": "AaveV3Linea.CLINIC_STEWARD",
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x409b12f9ad7bf34a562b2d74797c9e5995a367de7c255af1d961ee86a2023167": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000001"
+        }
+      }
+    }
+  }
+}
+```

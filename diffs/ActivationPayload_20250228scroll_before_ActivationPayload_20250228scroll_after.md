@@ -1,0 +1,42 @@
+## Raw diff
+
+```json
+{
+  "raw": {
+    "0x6b6b41c0f8c223715f712be83cec3c37bbfdc3fe": {
+      "label": "GovernanceV3Scroll.PAYLOADS_CONTROLLER",
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x10f5232ee9f6343d8bf0b7c9043a31ee616d8f028dcf3d2e9033ff8e0ce0ef0f": {
+          "previousValue": "0x0067d00311000000000002000000000000000000000000000000000000000000",
+          "newValue": "0x0067d00311000000000003000000000000000000000000000000000000000000"
+        },
+        "0x10f5232ee9f6343d8bf0b7c9043a31ee616d8f028dcf3d2e9033ff8e0ce0ef10": {
+          "previousValue": "0x000000000000000000093a8000000000000067fe279200000000000000000000",
+          "newValue": "0x000000000000000000093a8000000000000067fe279200000000000067d00312"
+        }
+      }
+    },
+    "0x7616355b00c9d1d2faf3937dacb5b9aa1e6755de": {
+      "label": "AaveV3Scroll.CLINIC_STEWARD",
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x409b12f9ad7bf34a562b2d74797c9e5995a367de7c255af1d961ee86a2023167": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000001"
+        }
+      }
+    },
+    "0x90eb541e1a431d8a30ed85a77675d1f001128cb5": {
+      "label": "AaveV3Scroll.COLLECTOR",
+      "balanceDiff": null,
+      "stateDiff": {
+        "0xa40e42619de40bce8b53079890553849289ac1ca58959f4a4dea9a1ca3d9bf95": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000001"
+        }
+      }
+    }
+  }
+}
+```

@@ -1,0 +1,224 @@
+## Raw diff
+
+```json
+{
+  "raw": {
+    "0x067ae75628177fd257c2b1e500993e1a0babcbd1": {
+      "label": "AaveV3Base.ASSETS.GHO.A_TOKEN",
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x1af823d5498ee5188dde77af72b64836646560ae54176a8be5169b32412a211c": {
+          "previousValue": "0x00000000033cb6963488980d4b53c390000000000000001dc70eb1451e30297d",
+          "newValue": "0x00000000033cbd3e353378d338da4aaf00000000000000185de37ca4d31ce8bb"
+        },
+        "0xe02ba9fe3fe72fe4457de0f0f3000b7de04e0ed037bd90e34d6d4182590c700d": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x00000000033cbd3e353378d338da4aaf0000000000000005692b34a04b1340c2"
+        }
+      }
+    },
+    "0x0a1d576f3efef75b330424287a95a366e8281d54": {
+      "label": "AaveV3Base.ASSETS.USDbC.A_TOKEN",
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x1af823d5498ee5188dde77af72b64836646560ae54176a8be5169b32412a211c": {
+          "previousValue": "0x00000000038bf4c817310b29ae01beb0000000000000000000000006fbcbe8c3",
+          "newValue": "0x00000000038bf5aede7d2527fc5834fb000000000000000000000006f65da53c"
+        },
+        "0xe02ba9fe3fe72fe4457de0f0f3000b7de04e0ed037bd90e34d6d4182590c700d": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x00000000038bf5aede7d2527fc5834fb000000000000000000000000056e4387"
+        }
+      }
+    },
+    "0x2dc219e716793fb4b21548c0f009ba3af753ab01": {
+      "label": "GovernanceV3Base.PAYLOADS_CONTROLLER",
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x163a647ba7edd41caabec3eace9ce83f1a89ebea06fc099aa7fb98088da75131": {
+          "previousValue": "0x0067daaa8a000000000002000000000000000000000000000000000000000000",
+          "newValue": "0x0067daaa8a000000000003000000000000000000000000000000000000000000"
+        },
+        "0x163a647ba7edd41caabec3eace9ce83f1a89ebea06fc099aa7fb98088da75132": {
+          "previousValue": "0x000000000000000000093a800000000000006808cf0b00000000000000000000",
+          "newValue": "0x000000000000000000093a800000000000006808cf0b00000000000067daaa8b"
+        }
+      }
+    },
+    "0x4e65fe4dba92790696d040ac24aa414708f5c0ab": {
+      "label": "AaveV3Base.ASSETS.USDC.A_TOKEN",
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x1af823d5498ee5188dde77af72b64836646560ae54176a8be5169b32412a211c": {
+          "previousValue": "0x00000000037fe0d6395d9d5d212ba0e40000000000000000000000632dbe2294",
+          "newValue": "0x00000000037fe10f8725abdb9fa21e8c000000000000000000000063283d1fca"
+        },
+        "0xe02ba9fe3fe72fe4457de0f0f3000b7de04e0ed037bd90e34d6d4182590c700d": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x00000000037fe10f8725abdb9fa21e8c000000000000000000000000058102ca"
+        }
+      }
+    },
+    "0x7c307e128efa31f540f2e2d976c995e0b65f51f6": {
+      "label": "AaveV3Base.ASSETS.weETH.A_TOKEN",
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x1af823d5498ee5188dde77af72b64836646560ae54176a8be5169b32412a211c": {
+          "previousValue": "0x00000000033c1e1f035d6a42c46083a100000000000000008b35db6604c68f94",
+          "newValue": "0x00000000033c1e25a92cc3fca1dce99b00000000000000008a907ae0ddf71a34"
+        },
+        "0xe02ba9fe3fe72fe4457de0f0f3000b7de04e0ed037bd90e34d6d4182590c700d": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x00000000033c1e25a92cc3fca1dce99b000000000000000000a5608526cf7560"
+        }
+      }
+    },
+    "0x80a94c36747cf51b2fbabdff045f6d22c1930ed1": {
+      "label": "AaveV3Base.ASSETS.wrsETH.A_TOKEN",
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x1af823d5498ee5188dde77af72b64836646560ae54176a8be5169b32412a211c": {
+          "previousValue": "0x00000000033b2e3c9fd0803ce8000000000000000000000000b1a2bc2ec50000",
+          "newValue": "0x00000000033b2e3c9fd0803ce8000000000000000000000000086922888b437c"
+        },
+        "0xe02ba9fe3fe72fe4457de0f0f3000b7de04e0ed037bd90e34d6d4182590c700d": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x00000000033b2e3c9fd0803ce8000000000000000000000000a93999a639bc84"
+        }
+      }
+    },
+    "0x90072a4aa69b5eb74984ab823efc5f91e90b3a72": {
+      "label": "AaveV3Base.ASSETS.LBTC.A_TOKEN",
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x1af823d5498ee5188dde77af72b64836646560ae54176a8be5169b32412a211c": {
+          "previousValue": "0x00000000033b7570f35612dbdbd74dae00000000000000000000000000000001",
+          "newValue": "0x00000000033b7570f35612dbdbd74dae00000000000000000000000000000000"
+        },
+        "0xe02ba9fe3fe72fe4457de0f0f3000b7de04e0ed037bd90e34d6d4182590c700d": {
+          "previousValue": "0x00000000033b2e3c9fd0803ce8000000000000000000000000000000000186a0",
+          "newValue": "0x00000000033b7570f35612dbdbd74dae000000000000000000000000000186a1"
+        }
+      }
+    },
+    "0x90da57e0a6c0d166bf15764e03b83745dc90025b": {
+      "label": "AaveV3Base.ASSETS.EURC.A_TOKEN",
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x1af823d5498ee5188dde77af72b64836646560ae54176a8be5169b32412a211c": {
+          "previousValue": "0x00000000033b89dbd32d55e0e7fe6d1700000000000000000000000006913cc1",
+          "newValue": "0x00000000033b920ed1807bcd00645c400000000000000000000000000119d94a"
+        },
+        "0xe02ba9fe3fe72fe4457de0f0f3000b7de04e0ed037bd90e34d6d4182590c700d": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x00000000033b920ed1807bcd00645c4000000000000000000000000005776377"
+        }
+      }
+    },
+    "0x99cbc45ea5bb7ef3a5bc08fb1b7e56bb2442ef0d": {
+      "label": "AaveV3Base.ASSETS.wstETH.A_TOKEN",
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x1af823d5498ee5188dde77af72b64836646560ae54176a8be5169b32412a211c": {
+          "previousValue": "0x00000000033d4eb95e2c0c97f1c8bafc000000000000000016d2a2d6d95482b7",
+          "newValue": "0x00000000033d4ec0e7dd47c279f0d50c0000000000000000164007b1be819dad"
+        },
+        "0xe02ba9fe3fe72fe4457de0f0f3000b7de04e0ed037bd90e34d6d4182590c700d": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x00000000033d4ec0e7dd47c279f0d50c000000000000000000929b251ad2e50a"
+        }
+      }
+    },
+    "0xa238dd80c259a72e81d7e4664a9801593f98d1c5": {
+      "label": "AaveV3Base.POOL",
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x41d4f1bb3b829a8d7806c78e83214233da7d29c6fa7bc5a227258cd200225274": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000200000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000a8aaaa"
+        },
+        "0xf60bd2f8d5629b1ce9ca6d5bea0e6b3ab9f3c734a2034e2e6b1d8767604fc2b5": {
+          "previousValue": "0x000000000000000000000000000000000000000000000000000000000088aa80",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000882a80"
+        }
+      }
+    },
+    "0xba9424d650a4f5c80a0da641254d1acce2a37057": {
+      "label": "AaveV3Base.COLLECTOR",
+      "balanceDiff": null,
+      "stateDiff": {
+        "0xbbeb47bfae90bad20e8188f41cb422e305fa01ae83c5cd08b81c3511379c1f74": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000001"
+        }
+      }
+    },
+    "0xbdb9300b7cde636d9cd4aff00f6f009ffbbc8ee6": {
+      "label": "AaveV3Base.ASSETS.cbBTC.A_TOKEN",
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x1af823d5498ee5188dde77af72b64836646560ae54176a8be5169b32412a211c": {
+          "previousValue": "0x00000000033c56c5f3c0edf2fa256efd00000000000000000000000006869398",
+          "newValue": "0x00000000033c573dfdd2f067d40731c00000000000000000000000000684c24b"
+        },
+        "0xe02ba9fe3fe72fe4457de0f0f3000b7de04e0ed037bd90e34d6d4182590c700d": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x00000000033c573dfdd2f067d40731c00000000000000000000000000001d14d"
+        }
+      }
+    },
+    "0xcf3d55c10db69f28fd1a75bd73f3d8a2d9c595ad": {
+      "label": "AaveV3Base.ASSETS.cbETH.A_TOKEN",
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x1af823d5498ee5188dde77af72b64836646560ae54176a8be5169b32412a211c": {
+          "previousValue": "0x00000000033dc15e7d2ca60a767e4c7500000000000000001bbb2be61392de4a",
+          "newValue": "0x00000000033dc1a31f87f1dc0a25071b00000000000000001b1b0f77e2edbc8b"
+        },
+        "0xe02ba9fe3fe72fe4457de0f0f3000b7de04e0ed037bd90e34d6d4182590c700d": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x00000000033dc1a31f87f1dc0a25071b000000000000000000a01c6e30a521bf"
+        }
+      }
+    },
+    "0xd4a0e0b9149bcee3c920d2e00b5de09138fd8bb7": {
+      "label": "AaveV3Base.ASSETS.WETH.A_TOKEN",
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x1af823d5498ee5188dde77af72b64836646560ae54176a8be5169b32412a211c": {
+          "previousValue": "0x00000000034ee6b226ab9fee03fd93c30000000000000007e1c231a075ed8046",
+          "newValue": "0x00000000034ee6c7bc5e50730ea6bc2f0000000000000007e116550ecf7caf20"
+        },
+        "0xe02ba9fe3fe72fe4457de0f0f3000b7de04e0ed037bd90e34d6d4182590c700d": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x00000000034ee6c7bc5e50730ea6bc2f000000000000000000abdc91a670d126"
+        }
+      }
+    },
+    "0xdd5745756c2de109183c6b5bb886f9207bef114d": {
+      "label": "AaveV3Base.ASSETS.ezETH.A_TOKEN",
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x1af823d5498ee5188dde77af72b64836646560ae54176a8be5169b32412a211c": {
+          "previousValue": "0x00000000033b30fe922d324ceb3ecce70000000000000000006a9501d950de75",
+          "newValue": "0x00000000033b30fe922d324ceb3ecce700000000000000000000000000000000"
+        },
+        "0xe02ba9fe3fe72fe4457de0f0f3000b7de04e0ed037bd90e34d6d4182590c700d": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x00000000033b30fe922d324ceb3ecce70000000000000000006a9501d950de75"
+        }
+      }
+    },
+    "0xf9cc4f0d883f1a1eb2c253bdb46c254ca51e1f44": {
+      "label": "AaveV3Base.DEFAULT_INCENTIVES_CONTROLLER",
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x877c14b275ff72d7111ea32a251baf1bc0f894df2fb2cf1c934c8587863ebbe3": {
+          "previousValue": "0x66d7247067daaa830000000000000000005a6c00000000000000000000000000",
+          "newValue": "0x66d7247067daaa8b0000000000000000005a6c00000000000000000000000000"
+        }
+      }
+    }
+  }
+}
+```
