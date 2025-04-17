@@ -2,15 +2,15 @@
 
 ### Reserves added
 
-#### rsETH ([0x6bE2425C381eb034045b527780D2Bf4E21AB7236](https://era.zksync.network//address/0x6bE2425C381eb034045b527780D2Bf4E21AB7236))
+#### wrsETH ([0xd4169E045bcF9a86cC00101225d9ED61D2F51af2](https://era.zksync.network//address/0xd4169E045bcF9a86cC00101225d9ED61D2F51af2))
 
 | description | value |
 | --- | --- |
 | decimals | 18 |
 | isActive | true |
 | isFrozen | false |
-| supplyCap | 700 rsETH |
-| borrowCap | 1 rsETH |
+| supplyCap | 700 wrsETH |
+| borrowCap | 1 wrsETH |
 | debtCeiling | 0 $ [0] |
 | isSiloed | false |
 | isFlashloanable | false |
@@ -33,13 +33,13 @@
 | interestRateStrategy | [0x57815Ab06D846d7dECd326Ee541CD06144FED237](https://era.zksync.network//address/0x57815Ab06D846d7dECd326Ee541CD06144FED237) |
 | aTokenName | Aave ZkSync wrsETH |
 | aTokenSymbol | aZkswrsETH |
-| aTokenUnderlyingBalance | 0 rsETH [0] |
+| aTokenUnderlyingBalance | 0 wrsETH [0] |
 | id | 7 |
 | isPaused | false |
 | variableDebtTokenName | Aave ZkSync Variable Debt wrsETH |
 | variableDebtTokenSymbol | variableDebtZkswrsETH |
 | virtualAccountingActive | true |
-| virtualBalance | 0 rsETH [0] |
+| virtualBalance | 0 wrsETH [0] |
 | optimalUsageRatio | 45 % |
 | maxVariableBorrowRate | 310 % |
 | baseVariableBorrowRate | 0 % |
@@ -67,7 +67,7 @@
 | eMode.liquidationThreshold | - | 94.5 % |
 | eMode.liquidationBonus | - | 1 % |
 | eMode.borrowableBitmap | - | wstETH |
-| eMode.collateralBitmap | - | rsETH |
+| eMode.collateralBitmap | - | wrsETH |
 
 
 ## Raw diff
@@ -89,7 +89,7 @@
     }
   },
   "reserves": {
-    "0x6bE2425C381eb034045b527780D2Bf4E21AB7236": {
+    "0xd4169E045bcF9a86cC00101225d9ED61D2F51af2": {
       "from": null,
       "to": {
         "aToken": "0x5722921bb6C37EaEb78b993765Aa5D79CC50052F",
@@ -119,8 +119,8 @@
         "oracleLatestAnswer": "163585069951",
         "reserveFactor": 1000,
         "supplyCap": 700,
-        "symbol": "rsETH",
-        "underlying": "0x6bE2425C381eb034045b527780D2Bf4E21AB7236",
+        "symbol": "wrsETH",
+        "underlying": "0xd4169E045bcF9a86cC00101225d9ED61D2F51af2",
         "usageAsCollateralEnabled": true,
         "variableDebtToken": "0x97deC07366Be72884331BE21704Fd93BF35286f9",
         "variableDebtTokenImpl": "0x52E97425D1Fa6885fAaC9260B711fA5047A88d06",
@@ -132,7 +132,7 @@
     }
   },
   "strategies": {
-    "0x6bE2425C381eb034045b527780D2Bf4E21AB7236": {
+    "0xd4169E045bcF9a86cC00101225d9ED61D2F51af2": {
       "from": null,
       "to": {
         "address": "0x57815Ab06D846d7dECd326Ee541CD06144FED237",

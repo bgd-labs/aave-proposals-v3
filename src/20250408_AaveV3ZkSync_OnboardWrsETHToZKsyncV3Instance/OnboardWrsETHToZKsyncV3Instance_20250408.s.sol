@@ -18,7 +18,7 @@ contract CreateProposal is EthereumScript {
       chain: ChainIds.ZKSYNC,
       accessLevel: PayloadsControllerUtils.AccessControl.Level_1,
       payloadsController: address(GovernanceV3ZkSync.PAYLOADS_CONTROLLER),
-      payloadId: 21
+      payloadId: 23
     });
     // create proposal
     vm.startBroadcast();

@@ -11,13 +11,13 @@ import {IEmissionManager} from 'aave-v3-origin/contracts/rewards/interfaces/IEmi
 /**
  * @title Onboard wrsETH to ZKsync V3 Instance
  * @author Aave-Chan Initiative
- * - Snapshot: TODO
+ * - Snapshot: Direct-to-AIP
  * - Discussion: https://governance.aave.com/t/arfc-onboard-wrseth-to-zksync-v3-instance/20727
  */
 contract AaveV3ZkSync_OnboardWrsETHToZKsyncV3Instance_20250408 is AaveV3PayloadZkSync {
   using SafeERC20 for IERC20;
 
-  address public constant wrsETH = 0x6bE2425C381eb034045b527780D2Bf4E21AB7236;
+  address public constant wrsETH = 0xd4169E045bcF9a86cC00101225d9ED61D2F51af2;
   uint256 public constant wrsETH_SEED_AMOUNT = 5e16;
   address public constant wrsETH_LM_ADMIN = 0x95Cbff6e45C499d45dd8627f3ce179057B5Fbfcc;
 
