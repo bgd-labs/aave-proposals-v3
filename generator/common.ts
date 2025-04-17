@@ -15,6 +15,7 @@ import {
   linea,
   celo,
   sonic,
+  mantle,
 } from 'viem/chains';
 import {Hex, getAddress} from 'viem';
 import {getClient} from '@bgd-labs/rpc-env';
@@ -36,6 +37,7 @@ export const AVAILABLE_CHAINS = [
   'Linea',
   'Celo',
   'Sonic',
+  'Mantle',
 ] as const;
 
 export function getAssets(pool: PoolIdentifier): string[] {
@@ -143,6 +145,7 @@ export const CHAIN_TO_CHAIN_ID = {
   Linea: linea.id,
   Celo: celo.id,
   Sonic: sonic.id,
+  Mantle: mantle.id,
 };
 
 export function flagAsRequired(message: string, required?: boolean) {
