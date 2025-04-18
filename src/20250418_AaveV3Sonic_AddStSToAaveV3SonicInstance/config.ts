@@ -19,8 +19,8 @@ export const config: ConfigFile = {
           {eModeCategory: 1, ltv: '87', liqThreshold: '90', liqBonus: '1', label: 'stS/wS'},
         ],
         EMODES_ASSETS: [
-          {asset: 'wS', eModeCategory: '1', collateral: 'ENABLED', borrowable: 'DISABLED'},
-          {asset: 'stS', eModeCategory: '1', collateral: 'DISABLED', borrowable: 'ENABLED'},
+          {asset: 'stS', eModeCategory: '1', collateral: 'ENABLED', borrowable: 'DISABLED'},
+          {asset: 'wS', eModeCategory: '1', collateral: 'DISABLED', borrowable: 'ENABLED'},
         ],
         ASSET_LISTING: [
           {
@@ -36,7 +36,7 @@ export const config: ConfigFile = {
             flashloanable: 'ENABLED',
             borrowableInIsolation: 'DISABLED',
             withSiloedBorrowing: 'DISABLED',
-            reserveFactor: '45',
+            reserveFactor: '10',
             supplyCap: '30000000',
             borrowCap: '1',
             rateStrategyParams: {

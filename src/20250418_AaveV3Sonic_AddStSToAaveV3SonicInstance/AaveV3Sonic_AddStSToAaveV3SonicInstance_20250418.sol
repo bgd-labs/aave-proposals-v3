@@ -59,13 +59,13 @@ contract AaveV3Sonic_AddStSToAaveV3SonicInstance_20250418 is AaveV3PayloadSonic 
       memory assetEModeUpdates = new IAaveV3ConfigEngine.AssetEModeUpdate[](2);
 
     assetEModeUpdates[0] = IAaveV3ConfigEngine.AssetEModeUpdate({
-      asset: AaveV3SonicAssets.wS_UNDERLYING,
+      asset: stS,
       eModeCategory: 1,
       borrowable: EngineFlags.DISABLED,
       collateral: EngineFlags.ENABLED
     });
     assetEModeUpdates[1] = IAaveV3ConfigEngine.AssetEModeUpdate({
-      asset: stS,
+      asset: AaveV3SonicAssets.wS_UNDERLYING,
       eModeCategory: 1,
       borrowable: EngineFlags.ENABLED,
       collateral: EngineFlags.DISABLED
@@ -87,7 +87,7 @@ contract AaveV3Sonic_AddStSToAaveV3SonicInstance_20250418 is AaveV3PayloadSonic 
       ltv: 66_00,
       liqThreshold: 68_00,
       liqBonus: 10_00,
-      reserveFactor: 45_00,
+      reserveFactor: 10_00,
       supplyCap: 30_000_000,
       borrowCap: 1,
       debtCeiling: 0,

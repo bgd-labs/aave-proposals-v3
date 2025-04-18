@@ -23,7 +23,7 @@
 | liquidationThreshold | 68 % [6800] |
 | liquidationBonus | 10 % |
 | liquidationProtocolFee | 10 % [1000] |
-| reserveFactor | 45 % [4500] |
+| reserveFactor | 10 % [1000] |
 | aToken | [0xeAa74D7F42267eB907092AF4Bc700f667EeD0B8B](https://sonicscan.org//address/0xeAa74D7F42267eB907092AF4Bc700f667EeD0B8B) |
 | variableDebtToken | [0x333cFdCB6457C409e4f0C88F3806252bEe5fe425](https://sonicscan.org//address/0x333cFdCB6457C409e4f0C88F3806252bEe5fe425) |
 | borrowingEnabled | false |
@@ -56,8 +56,8 @@
 | eMode.ltv | - | 87 % |
 | eMode.liquidationThreshold | - | 90 % |
 | eMode.liquidationBonus | - | 1 % |
-| eMode.borrowableBitmap | - | stS |
-| eMode.collateralBitmap | - | wS |
+| eMode.borrowableBitmap | - | wS |
+| eMode.collateralBitmap | - | stS |
 
 
 ## Raw diff
@@ -68,8 +68,8 @@
     "1": {
       "from": null,
       "to": {
-        "borrowableBitmap": "8",
-        "collateralBitmap": "4",
+        "borrowableBitmap": "4",
+        "collateralBitmap": "8",
         "eModeCategory": 1,
         "label": "stS/wS",
         "liquidationBonus": 10100,
@@ -106,7 +106,7 @@
         "oracleDecimals": 8,
         "oracleDescription": "Capped stS / S / USD",
         "oracleLatestAnswer": "48048357",
-        "reserveFactor": 4500,
+        "reserveFactor": 1000,
         "supplyCap": 30000000,
         "symbol": "stS",
         "underlying": "0xE5DA20F15420aD15DE0fa650600aFc998bbE3955",
@@ -165,7 +165,7 @@
       "stateDiff": {
         "0x8e0cc0f1f0504b4cb44a23b328568106915b169e79003737a7b094503cdbeeb0": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x00000000000000000000000000000000000000000000000000042774232821fc"
+          "newValue": "0x00000000000000000000000000000000000000000000000000082774232821fc"
         },
         "0x8e0cc0f1f0504b4cb44a23b328568106915b169e79003737a7b094503cdbeeb1": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -173,11 +173,11 @@
         },
         "0x8e0cc0f1f0504b4cb44a23b328568106915b169e79003737a7b094503cdbeeb2": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000008"
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000004"
         },
         "0xbbfe9c7193e6c76e11ab53d1ab9a0207f201ec122eca4a35e912f449f93173b0": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x100000000000000000000003e8001c9c380000000001119481122af81a9019c8"
+          "newValue": "0x100000000000000000000003e8001c9c38000000000103e881122af81a9019c8"
         },
         "0xbbfe9c7193e6c76e11ab53d1ab9a0207f201ec122eca4a35e912f449f93173b1": {
           "previousValue": "0x0000000000000000000000000000000000000000033b2e3c9fd0803ce8000000",
