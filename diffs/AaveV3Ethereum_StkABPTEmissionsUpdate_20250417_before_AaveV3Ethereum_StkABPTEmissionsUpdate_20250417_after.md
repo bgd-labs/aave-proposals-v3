@@ -3,6 +3,16 @@
 ```json
 {
   "raw": {
+    "0x7fc66500c84a76ad7e9c93437bfc5ac33e2ddae9": {
+      "label": "AaveV2Ethereum.ASSETS.AAVE.UNDERLYING, AaveV2EthereumArc.ASSETS.AAVE.UNDERLYING, AaveV3Ethereum.ASSETS.AAVE.UNDERLYING",
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x495a957a79652a5e0fd2a854635df04aeb86fb136127eba37ff9c7b5a260662d": {
+          "previousValue": "0x00000000000000000000000000000000000000000000105e56069f33b90a6abe",
+          "newValue": "0x000000000000000000000000000000000000000000000d41ffa2cc9ba74126d6"
+        }
+      }
+    },
     "0x9eda81c21c273a82be9bbc19b6a6182212068101": {
       "label": "AaveSafetyModule.STK_AAVE_WSTETH_BPTV2",
       "balanceDiff": null,

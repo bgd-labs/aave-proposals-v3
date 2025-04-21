@@ -2,7 +2,8 @@
 pragma solidity ^0.8.0;
 
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
-import {AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
+import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
+import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {AaveSafetyModule} from 'aave-address-book/AaveSafetyModule.sol';
 
 import 'forge-std/Test.sol';
@@ -38,6 +39,8 @@ contract AaveV3Ethereum_StkABPTEmissionsUpdate_20250417_Test is ProtocolV3TestBa
     (uint128 emissionPerSecondBeforeStkABPT, , ) = IStakeToken(
       AaveSafetyModule.STK_AAVE_WSTETH_BPTV2
     ).assets(AaveSafetyModule.STK_AAVE_WSTETH_BPTV2);
+    uint256 distributionEndBefore = IStakeToken(AaveSafetyModule.STK_AAVE_WSTETH_BPTV2)
+      .distributionEnd();
 
     assertEq(
       emissionPerSecondBeforeStkABPT,
@@ -54,6 +57,8 @@ contract AaveV3Ethereum_StkABPTEmissionsUpdate_20250417_Test is ProtocolV3TestBa
     ) = IStakeToken(AaveSafetyModule.STK_AAVE_WSTETH_BPTV2).assets(
         AaveSafetyModule.STK_AAVE_WSTETH_BPTV2
       );
+    uint256 distributionEndAfter = IStakeToken(AaveSafetyModule.STK_AAVE_WSTETH_BPTV2)
+      .distributionEnd();
 
     assertEq(
       emissionPerSecondAfterStkABPT,
@@ -62,6 +67,7 @@ contract AaveV3Ethereum_StkABPTEmissionsUpdate_20250417_Test is ProtocolV3TestBa
     );
     assertEq(lastUpdateTimestampAfterStkABPT, block.timestamp);
     assertLt(emissionPerSecondAfterStkABPT, emissionPerSecondBeforeStkABPT);
+    assertEq(distributionEndAfter, distributionEndBefore);
   }
 
   function test_checkRewards_stkABPT() public {
@@ -85,5 +91,21 @@ contract AaveV3Ethereum_StkABPTEmissionsUpdate_20250417_Test is ProtocolV3TestBa
     assertTrue(rewardsBalance > 0 && rewardsBalance <= rewardsPerDay);
 
     vm.stopPrank();
+  }
+
+  function test_checkAllowance() public {
+    uint256 allowanceBefore = IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING).allowance(
+      MiscEthereum.ECOSYSTEM_RESERVE,
+      AaveSafetyModule.STK_AAVE_WSTETH_BPTV2
+    );
+
+    executePayload(vm, address(proposal));
+
+    uint256 allowanceAfter = IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING).allowance(
+      MiscEthereum.ECOSYSTEM_RESERVE,
+      AaveSafetyModule.STK_AAVE_WSTETH_BPTV2
+    );
+
+    assertLt(allowanceAfter, allowanceBefore);
   }
 }
