@@ -19,19 +19,9 @@ contract AaveV3Ethereum_StkABPTEmissionsUpdate_20250417 is IProposalGenericExecu
   uint128 public constant AAVE_EMISSION_PER_SECOND_STK_ABPT = uint128(240e18) / 1 days; // 360 AAVE per day
 
   function execute() external {
-    uint256 currentAllowance = IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING).allowance(
-      MiscEthereum.ECOSYSTEM_RESERVE,
-      AaveSafetyModule.STK_AAVE_WSTETH_BPTV2
-    );
-
     uint256 distributionDuration = IStakeToken(AaveSafetyModule.STK_AAVE_WSTETH_BPTV2)
       .distributionEnd() - block.timestamp;
-    (uint128 emissionPerSecond, , ) = IStakeToken(AaveSafetyModule.STK_AAVE_WSTETH_BPTV2).assets(
-      AaveSafetyModule.STK_AAVE_WSTETH_BPTV2
-    );
-    uint256 newAllowance = currentAllowance -
-      distributionDuration *
-      (emissionPerSecond - AAVE_EMISSION_PER_SECOND_STK_ABPT);
+    uint256 newAllowance = distributionDuration * AAVE_EMISSION_PER_SECOND_STK_ABPT;
 
     IStakeToken.AssetConfigInput[] memory abptConfigs = new IStakeToken.AssetConfigInput[](1);
     abptConfigs[0] = IStakeToken.AssetConfigInput({
