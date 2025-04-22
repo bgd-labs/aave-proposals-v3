@@ -86,7 +86,7 @@ The table below illustrates the configured risk parameters for **stS**
 | LT                        |                                       68 % |
 | Liquidation Bonus         |                                       10 % |
 | Liquidation Protocol Fee  |                                       10 % |
-| Reserve Factor            |                                       45 % |
+| Reserve Factor            |                                       10 % |
 | Base Variable Borrow Rate |                                        0 % |
 | Variable Slope 1          |                                       10 % |
 | Variable Slope 2          |                                      300 % |
