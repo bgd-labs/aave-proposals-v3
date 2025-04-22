@@ -10,34 +10,34 @@
 | isActive | true |
 | isFrozen | false |
 | supplyCap | 50 tBTC |
-| borrowCap | 25 tBTC |
+| borrowCap | 1 tBTC |
 | debtCeiling | 0 $ [0] |
 | isSiloed | false |
 | isFlashloanable | false |
 | oracle | [0x6ce185860a4963106506C203335A2910413708e9](https://arbiscan.io/address/0x6ce185860a4963106506C203335A2910413708e9) |
 | oracleDecimals | 8 |
 | oracleDescription | BTC / USD |
-| oracleLatestAnswer | 84029.89801192 |
+| oracleLatestAnswer | 88105.39735529 |
 | usageAsCollateralEnabled | true |
 | ltv | 73 % [7300] |
 | liquidationThreshold | 78 % [7800] |
 | liquidationBonus | 7.5 % |
 | liquidationProtocolFee | 10 % [1000] |
 | reserveFactor | 20 % [2000] |
-| aToken | [0x6b030Ff3FB9956B1B69f475B77aE0d3Cf2CC5aFa](https://arbiscan.io/address/0x6b030Ff3FB9956B1B69f475B77aE0d3Cf2CC5aFa) |
-| variableDebtToken | [0x80cA0d8C38d2e2BcbaB66aA1648Bd1C7160500FE](https://arbiscan.io/address/0x80cA0d8C38d2e2BcbaB66aA1648Bd1C7160500FE) |
+| aToken | [0x62fC96b27a510cF4977B59FF952Dc32378Cc221d](https://arbiscan.io/address/0x62fC96b27a510cF4977B59FF952Dc32378Cc221d) |
+| variableDebtToken | [0xB5b46F918C2923fC7f26DB76e8a6A6e9C4347Cf9](https://arbiscan.io/address/0xB5b46F918C2923fC7f26DB76e8a6A6e9C4347Cf9) |
 | borrowingEnabled | false |
 | isBorrowableInIsolation | false |
 | interestRateStrategy | [0x429F16dBA3B9e1900087Cbaa7b50D38Bc60fB73F](https://arbiscan.io/address/0x429F16dBA3B9e1900087Cbaa7b50D38Bc60fB73F) |
 | aTokenName | Aave Arbitrum tBTC |
 | aTokenSymbol | aArbtBTC |
-| aTokenUnderlyingBalance | 0 tBTC [0] |
-| id | 18 |
+| aTokenUnderlyingBalance | 0.001 tBTC [1000000000000000] |
+| id | 19 |
 | isPaused | false |
 | variableDebtTokenName | Aave Arbitrum Variable Debt tBTC |
 | variableDebtTokenSymbol | variableDebtArbtBTC |
 | virtualAccountingActive | true |
-| virtualBalance | 0 tBTC [0] |
+| virtualBalance | 0.001 tBTC [1000000000000000] |
 | optimalUsageRatio | 45 % |
 | maxVariableBorrowRate | 304 % |
 | baseVariableBorrowRate | 0 % |
@@ -54,15 +54,15 @@
     "0x6c84a8f1c29108F47a79964b5Fe888D4f4D0dE40": {
       "from": null,
       "to": {
-        "aToken": "0x6b030Ff3FB9956B1B69f475B77aE0d3Cf2CC5aFa",
+        "aToken": "0x62fC96b27a510cF4977B59FF952Dc32378Cc221d",
         "aTokenName": "Aave Arbitrum tBTC",
         "aTokenSymbol": "aArbtBTC",
-        "aTokenUnderlyingBalance": "0",
-        "borrowCap": 25,
+        "aTokenUnderlyingBalance": "1000000000000000",
+        "borrowCap": 1,
         "borrowingEnabled": false,
         "debtCeiling": 0,
         "decimals": 18,
-        "id": 18,
+        "id": 19,
         "interestRateStrategy": "0x429F16dBA3B9e1900087Cbaa7b50D38Bc60fB73F",
         "isActive": true,
         "isBorrowableInIsolation": false,
@@ -77,17 +77,17 @@
         "oracle": "0x6ce185860a4963106506C203335A2910413708e9",
         "oracleDecimals": 8,
         "oracleDescription": "BTC / USD",
-        "oracleLatestAnswer": "8402989801192",
+        "oracleLatestAnswer": "8810539735529",
         "reserveFactor": 2000,
         "supplyCap": 50,
         "symbol": "tBTC",
         "underlying": "0x6c84a8f1c29108F47a79964b5Fe888D4f4D0dE40",
         "usageAsCollateralEnabled": true,
-        "variableDebtToken": "0x80cA0d8C38d2e2BcbaB66aA1648Bd1C7160500FE",
+        "variableDebtToken": "0xB5b46F918C2923fC7f26DB76e8a6A6e9C4347Cf9",
         "variableDebtTokenName": "Aave Arbitrum Variable Debt tBTC",
         "variableDebtTokenSymbol": "variableDebtArbtBTC",
         "virtualAccountingActive": true,
-        "virtualBalance": "0"
+        "virtualBalance": "1000000000000000"
       }
     }
   },
@@ -106,10 +106,10 @@
   },
   "raw": {
     "0x048f2228d7bf6776f99ab50cb1b1eab4d1d4ca73": {
-      "label": null,
+      "label": "AaveV3Arbitrum.EMISSION_MANAGER",
       "balanceDiff": null,
       "stateDiff": {
-        "0x4f0cc385ee424427359f4888043b57df0ebfac77e7c2038928cd14a95a28c1f1": {
+        "0x3a8719f34b284fb497d2571e30abc2db0f7d19edc09efd5923a807dd06416b63": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
           "newValue": "0x000000000000000000000000ac140648435d03f784879cd789130f22ef588fcd"
         },
@@ -123,18 +123,40 @@
       "label": null,
       "balanceDiff": null,
       "stateDiff": {
-        "0x0cc2e7a263101f3ec4cff7d64ef5961ae18d1d70e854cb40c5302bf7c043d7b9": {
-          "previousValue": "0x0067d89063000000000002000000000000000000000000000000000000000000",
-          "newValue": "0x0067d89063000000000003000000000000000000000000000000000000000000"
+        "0xc201016ffcff91372d8b487e0ff78ba4e7738ee54ab48b285b35d26480999112": {
+          "previousValue": "0x0068072341000000000002000000000000000000000000000000000000000000",
+          "newValue": "0x0068072341000000000003000000000000000000000000000000000000000000"
         },
-        "0x0cc2e7a263101f3ec4cff7d64ef5961ae18d1d70e854cb40c5302bf7c043d7ba": {
-          "previousValue": "0x000000000000000000093a800000000000006806b4e400000000000000000000",
-          "newValue": "0x000000000000000000093a800000000000006806b4e400000000000067d89064"
+        "0xc201016ffcff91372d8b487e0ff78ba4e7738ee54ab48b285b35d26480999113": {
+          "previousValue": "0x000000000000000000093a80000000000000683547c200000000000000000000",
+          "newValue": "0x000000000000000000093a80000000000000683547c200000000000068072342"
+        }
+      }
+    },
+    "0x185477906b46d9b8de0deb73a1bbfb87b5b51bc3": {
+      "label": null,
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x2fb1ad43c3875564c9e17e163f725f9a9a0608795fdc720b7ce5631c6c97e9a6": {
+          "previousValue": "0x0000000000000000000000000000000000000000033b2e3c9fd0803ce8000000",
+          "newValue": "0x0000000000000000000000000000000000000000033b2e3c9fd0803ce8000000"
+        },
+        "0x2fb1ad43c3875564c9e17e163f725f9a9a0608795fdc720b7ce5631c6c97e9a7": {
+          "previousValue": "0x0000000000000000000000000000000000000000033b2e3c9fd0803ce8000000",
+          "newValue": "0x0000000000000000000000000000000000000000033b2e3c9fd0803ce8000000"
+        },
+        "0x2fb1ad43c3875564c9e17e163f725f9a9a0608795fdc720b7ce5631c6c97e9ae": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x000000000000000000038d7ea4c6800000000000000000000000000000000000"
+        },
+        "0x64fc867f7f841e58bae4910ccd8e104b40d080897d387f643f816685047ca8d2": {
+          "previousValue": "0x00000000000000000000000000000000000000000000000000000028a2222aaa",
+          "newValue": "0x000000000000000000000000000000000000000000000000000000a8a2222aaa"
         }
       }
     },
     "0x1be1798b70aee431c2986f7ff48d9d1fa350786a": {
-      "label": null,
+      "label": "AaveV3Arbitrum.DEFAULT_A_TOKEN_IMPL_REV_2",
       "balanceDiff": null,
       "stateDiff": {
         "0x0000000000000000000000000000000000000000000000000000000000000000": {
@@ -144,6 +166,10 @@
         "0x0000000000000000000000000000000000000000000000000000000000000001": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
           "newValue": "0x0000000000000000000000000000000000000000000000000000000000000000"
+        },
+        "0x0000000000000000000000000000000000000000000000000000000000000036": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x00000000000000000000000000000000000000000000000000038d7ea4c68000"
         },
         "0x0000000000000000000000000000000000000000000000000000000000000037": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -159,7 +185,7 @@
         },
         "0x000000000000000000000000000000000000000000000000000000000000003b": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x31316b4eefa433f6e6ff812a7ce4faa057f4800c6858f14f1f290e7bc5a16245"
+          "newValue": "0xec7b0c488e3500b5e4a7ce05fde5b10ffd2645941fab8a78c8d1c626f20a391e"
         },
         "0x000000000000000000000000000000000000000000000000000000000000003c": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -168,11 +194,15 @@
         "0x000000000000000000000000000000000000000000000000000000000000003d": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
           "newValue": "0x0000000000000000000000006c84a8f1c29108f47a79964b5fe888d4f4d0de40"
+        },
+        "0x8017e81955ee9285d3a8d26b6bbb1613eb9d7ba0a27adaad804d34e923709e14": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x00000000033b2e3c9fd0803ce8000000000000000000000000038d7ea4c68000"
         }
       }
     },
     "0x429f16dba3b9e1900087cbaa7b50d38bc60fb73f": {
-      "label": null,
+      "label": "AaveV3Arbitrum.ASSETS.DAI.INTEREST_RATE_STRATEGY, AaveV3Arbitrum.ASSETS.LINK.INTEREST_RATE_STRATEGY, AaveV3Arbitrum.ASSETS.USDC.INTEREST_RATE_STRATEGY, AaveV3Arbitrum.ASSETS.WBTC.INTEREST_RATE_STRATEGY, AaveV3Arbitrum.ASSETS.WETH.INTEREST_RATE_STRATEGY, AaveV3Arbitrum.ASSETS.USDT.INTEREST_RATE_STRATEGY, AaveV3Arbitrum.ASSETS.AAVE.INTEREST_RATE_STRATEGY, AaveV3Arbitrum.ASSETS.EURS.INTEREST_RATE_STRATEGY, AaveV3Arbitrum.ASSETS.wstETH.INTEREST_RATE_STRATEGY, AaveV3Arbitrum.ASSETS.MAI.INTEREST_RATE_STRATEGY, AaveV3Arbitrum.ASSETS.rETH.INTEREST_RATE_STRATEGY, AaveV3Arbitrum.ASSETS.LUSD.INTEREST_RATE_STRATEGY, AaveV3Arbitrum.ASSETS.USDCn.INTEREST_RATE_STRATEGY, AaveV3Arbitrum.ASSETS.FRAX.INTEREST_RATE_STRATEGY, AaveV3Arbitrum.ASSETS.ARB.INTEREST_RATE_STRATEGY, AaveV3Arbitrum.ASSETS.weETH.INTEREST_RATE_STRATEGY, AaveV3Arbitrum.ASSETS.GHO.INTEREST_RATE_STRATEGY, AaveV3Arbitrum.ASSETS.ezETH.INTEREST_RATE_STRATEGY, AaveV3Arbitrum.ASSETS.rsETH.INTEREST_RATE_STRATEGY",
       "balanceDiff": null,
       "stateDiff": {
         "0xe354fb092c21010075058e72eff182a629d2f1c18ff31ec8c377624ae6ba6a04": {
@@ -182,7 +212,7 @@
       }
     },
     "0x5e76e98e0963ecdc6a065d1435f84065b7523f39": {
-      "label": null,
+      "label": "AaveV3Arbitrum.DEFAULT_VARIABLE_DEBT_TOKEN_IMPL_REV_2",
       "balanceDiff": null,
       "stateDiff": {
         "0x0000000000000000000000000000000000000000000000000000000000000000": {
@@ -195,7 +225,7 @@
         },
         "0x0000000000000000000000000000000000000000000000000000000000000035": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x223d21461c1a1b703ce9ee42dd4a7740883e4d6315501604e736c24bb8fc4e39"
+          "newValue": "0xf30ddc27ccb19db01a4ed9498600e06b326f131da33d645f1664828074f62594"
         },
         "0x0000000000000000000000000000000000000000000000000000000000000037": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -219,13 +249,19 @@
         }
       }
     },
-    "0x6b030ff3fb9956b1b69f475b77ae0d3cf2cc5afa": {
+    "0x5f4d15d761528c57a5c30c43c1dab26fc5452731": {
+      "label": null,
+      "balanceDiff": null,
+      "stateDiff": {}
+    },
+    "0x62fc96b27a510cf4977b59ff952dc32378cc221d": {
       "label": null,
       "balanceDiff": null,
       "stateDiff": {
         "0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x0000000000000000000000001be1798b70aee431c2986f7ff48d9d1fa350786a"
+          "newValue": "0x0000000000000000000000001be1798b70aee431c2986f7ff48d9d1fa350786a",
+          "label": "Implementation slot"
         }
       }
     },
@@ -235,22 +271,22 @@
       "stateDiff": {}
     },
     "0x6ce185860a4963106506c203335a2910413708e9": {
-      "label": null,
+      "label": "AaveV3Arbitrum.ASSETS.WBTC.ORACLE",
       "balanceDiff": null,
       "stateDiff": {}
     },
     "0x794a61358d6845594f94dc1db02a252b5b4814ad": {
-      "label": null,
+      "label": "AaveV3Arbitrum.POOL",
       "balanceDiff": null,
       "stateDiff": {}
     },
     "0x7f775bb7af2e7e09d5dc9506c95516159a5ca0d0": {
-      "label": null,
+      "label": "AaveV3Arbitrum.POOL_IMPL",
       "balanceDiff": null,
       "stateDiff": {
         "0x2fb1ad43c3875564c9e17e163f725f9a9a0608795fdc720b7ce5631c6c97e9a5": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x100000000000000000000003e800000003200000001907d0011229fe1e781c84"
+          "newValue": "0x100000000000000000000003e800000003200000000107d0011229fe1e781c84"
         },
         "0x2fb1ad43c3875564c9e17e163f725f9a9a0608795fdc720b7ce5631c6c97e9a6": {
           "previousValue": "0x0000000000000000000000000000000000000000033b2e3c9fd0803ce8000000",
@@ -261,28 +297,23 @@
           "newValue": "0x0000000000000000000000000000000000000000033b2e3c9fd0803ce8000000"
         },
         "0x2fb1ad43c3875564c9e17e163f725f9a9a0608795fdc720b7ce5631c6c97e9a8": {
-          "previousValue": "0x0000000000000000000012000000000000000000000000000000000000000000",
-          "newValue": "0x00000000000000000000120067d8906400000000000000000000000000000000"
-        }
-      }
-    },
-    "0x80ca0d8c38d2e2bcbab66aa1648bd1c7160500fe": {
-      "label": null,
-      "balanceDiff": null,
-      "stateDiff": {
-        "0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc": {
-          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x0000000000000000000000005e76e98e0963ecdc6a065d1435f84065b7523f39"
+          "previousValue": "0x0000000000000000000013000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000013006807234200000000000000000000000000000000"
         }
       }
     },
     "0x8145edddf43f50276641b55bd3ad95944510021e": {
-      "label": null,
+      "label": "AaveV3Arbitrum.POOL_CONFIGURATOR",
       "balanceDiff": null,
       "stateDiff": {}
     },
     "0x89644ca1bb8064760312ae4f03ea41b05da3637c": {
-      "label": null,
+      "label": "GovernanceV3Arbitrum.PAYLOADS_CONTROLLER",
+      "balanceDiff": null,
+      "stateDiff": {}
+    },
+    "0x929ec64c34a17401f460460d4b9390518e5b473e": {
+      "label": "AaveV3Arbitrum.DEFAULT_INCENTIVES_CONTROLLER",
       "balanceDiff": null,
       "stateDiff": {}
     },
@@ -292,22 +323,33 @@
       "stateDiff": {}
     },
     "0xa72636cbcaa8f5ff95b2cc47f3cdee83f3294a0b": {
-      "label": null,
+      "label": "AaveV3Arbitrum.ACL_MANAGER",
       "balanceDiff": null,
       "stateDiff": {}
     },
     "0xa97684ead0e402dc232d5a977953df7ecbab3cdb": {
-      "label": null,
+      "label": "AaveV3Arbitrum.POOL_ADDRESSES_PROVIDER",
       "balanceDiff": null,
       "stateDiff": {}
     },
     "0xb56c2f0b653b2e0b10c9b928c8580ac5df02c7c7": {
-      "label": null,
+      "label": "AaveV3Arbitrum.ORACLE",
       "balanceDiff": null,
       "stateDiff": {
         "0xe354fb092c21010075058e72eff182a629d2f1c18ff31ec8c377624ae6ba6a04": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
           "newValue": "0x0000000000000000000000006ce185860a4963106506c203335a2910413708e9"
+        }
+      }
+    },
+    "0xb5b46f918c2923fc7f26db76e8a6a6e9c4347cf9": {
+      "label": null,
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000005e76e98e0963ecdc6a065d1435f84065b7523f39",
+          "label": "Implementation slot"
         }
       }
     },
@@ -317,12 +359,20 @@
       "stateDiff": {
         "0x0bcc32ff51015e85f67c04f0dc53202bdcb1d3ba19f278277d24eb2b3eac5a0f": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x0000000000000000000000000000000000000000000000000de0b6b3a7640000"
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000000"
+        },
+        "0x529ed493759a67c846fd499fbeac350c7fc90a9d323008df53f6729685ddd392": {
+          "previousValue": "0x00000000000000000000000000000000000000000000000000038d7ea4c68000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000000"
+        },
+        "0x7579680a55fcb99e79c60f5cf1099fef93325d50c6fd0e6eb20087c90d32673e": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x00000000000000000000000000000000000000000000000000038d7ea4c68000"
         }
       }
     },
     "0xe5e48ad1f9d1a894188b483dcf91f4fad6aba43b": {
-      "label": null,
+      "label": "AaveV3Arbitrum.POOL_CONFIGURATOR_IMPL",
       "balanceDiff": null,
       "stateDiff": {}
     },
@@ -331,12 +381,8 @@
       "balanceDiff": null,
       "stateDiff": {
         "0x000000000000000000000000000000000000000000000000000000000000003b": {
-          "previousValue": "0x00000000000000000000000000000000000000000000001200000000000009c4",
-          "newValue": "0x00000000000000000000000000000000000000000000001300000000000009c4"
-        },
-        "0x0adda2a6278b08f6534d82b0eca7b85adfdf06eb4772353fece45ca26b009ccf": {
-          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x0000000000000000000000006c84a8f1c29108f47a79964b5fe888d4f4d0de40"
+          "previousValue": "0x00000000000000000000000000000000000000000000001300000000000009c4",
+          "newValue": "0x00000000000000000000000000000000000000000000001400000000000009c4"
         },
         "0x2fb1ad43c3875564c9e17e163f725f9a9a0608795fdc720b7ce5631c6c97e9a6": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -348,15 +394,15 @@
         },
         "0x2fb1ad43c3875564c9e17e163f725f9a9a0608795fdc720b7ce5631c6c97e9a8": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x0000000000000000000012000000000000000000000000000000000000000000"
+          "newValue": "0x0000000000000000000013000000000000000000000000000000000000000000"
         },
         "0x2fb1ad43c3875564c9e17e163f725f9a9a0608795fdc720b7ce5631c6c97e9a9": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x0000000000000000000000006b030ff3fb9956b1b69f475b77ae0d3cf2cc5afa"
+          "newValue": "0x00000000000000000000000062fc96b27a510cf4977b59ff952dc32378cc221d"
         },
         "0x2fb1ad43c3875564c9e17e163f725f9a9a0608795fdc720b7ce5631c6c97e9ab": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x00000000000000000000000080ca0d8c38d2e2bcbab66aa1648bd1c7160500fe"
+          "newValue": "0x000000000000000000000000b5b46f918c2923fc7f26db76e8a6a6e9c4347cf9"
         },
         "0x2fb1ad43c3875564c9e17e163f725f9a9a0608795fdc720b7ce5631c6c97e9ac": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -365,11 +411,15 @@
         "0x2fb1ad43c3875564c9e17e163f725f9a9a0608795fdc720b7ce5631c6c97e9ae": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
           "newValue": "0x0000000000000000000000000000000000000000000000000000000000000000"
+        },
+        "0x4b9d40a2215640dd5eba48d9947d32961ebf4af934dd38ae51fd3f62f9bd3dc7": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000006c84a8f1c29108f47a79964b5fe888d4f4d0de40"
         }
       }
     },
     "0xff1137243698caa18ee364cc966cf0e02a4e6327": {
-      "label": null,
+      "label": "AaveV3Arbitrum.ACL_ADMIN, GovernanceV3Arbitrum.EXECUTOR_LVL_1",
       "balanceDiff": null,
       "stateDiff": {}
     }
