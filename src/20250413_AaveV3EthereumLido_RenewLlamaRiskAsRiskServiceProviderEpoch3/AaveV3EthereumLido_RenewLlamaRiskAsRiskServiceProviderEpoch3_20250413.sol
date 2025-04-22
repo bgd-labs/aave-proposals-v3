@@ -22,7 +22,6 @@ contract AaveV3EthereumLido_RenewLlamaRiskAsRiskServiceProviderEpoch3_20250413 i
   // stream receivers
   address public constant LLAMA_RISK = 0x9eE16dBDE572886342fc1e2Db8525DEFB007b27c;
   function execute() external {
-    // custom code goes here
     CollectorUtils.stream(
       AaveV3EthereumLido.COLLECTOR,
       CollectorUtils.CreateStreamInput({
