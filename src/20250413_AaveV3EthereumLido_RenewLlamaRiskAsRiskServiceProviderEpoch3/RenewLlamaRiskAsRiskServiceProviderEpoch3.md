@@ -7,7 +7,7 @@ snapshot: "https://snapshot.box/#/s:aavedao.eth/proposal/0x70ce585823c2c1a60cb6b
 
 ## Simple Summary
 
-This proposal offer the oportunity to renew LLamaRisk engagement as a service provider for a year.
+This proposal offers the opportunity to renew LLamaRisk engagement as a service provider for a year.
 
 ## Motivation
 
