@@ -68,7 +68,7 @@ Alongside stablecoin liquidity such as USDC.e, scUSD and GHO, an stS | S Boosted
 
 As mentioned, Beets can deploy Aave Boosted Pools to help seed Aave’s capital markets on Sonic. While Beets would not directly supply stS or S POL to Aave, it would deposit POL from the DAO treasury into these pools, effectively routing 100% of capital straight to Aave.
 
-Additionally, Beets is in discussions with Sonic Money Managers regarding the bootstrapping of the stS market through stS <> S looping strategies, as well as Boosted Pool POL deposits. Specific amounts will be determined in collaboration with the Aave team and the ACI, with further details to be shared during the ARFC stage of the proposal process.
+Additionally, Beets is in discussions with Sonic Money Managers regarding the bootstrapping of the stS market through stS <> S looping strategies, as well as Boosted Pool POL deposits. Specific amounts will be determined in collaboration with the Aave team and the ACI.
 
 ## Specification
 
