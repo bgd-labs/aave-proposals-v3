@@ -16,7 +16,6 @@ contract AaveV3EthereumLido_RenewLlamaRiskAsRiskServiceProviderEpoch3_20250413 i
 {
   // stream information
   uint256 public constant STREAM_DURATION = 365 days;
-  uint256 public constant STREAM_START = 1745822843;
   // budgets
   uint256 public constant STREAM_AMOUNT = 1_000_000 ether;
   // stream receivers
@@ -28,7 +27,7 @@ contract AaveV3EthereumLido_RenewLlamaRiskAsRiskServiceProviderEpoch3_20250413 i
         underlying: AaveV3EthereumLidoAssets.GHO_A_TOKEN,
         receiver: LLAMA_RISK,
         amount: STREAM_AMOUNT,
-        start: STREAM_START,
+        start: block.timestamp,
         duration: STREAM_DURATION
       })
     );

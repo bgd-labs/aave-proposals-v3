@@ -48,7 +48,7 @@ contract AaveV3EthereumLido_RenewLlamaRiskAsRiskServiceProviderEpoch3_20250413_T
 
     executePayload(vm, address(proposal));
 
-    vm.warp(proposal.STREAM_START() + 365 days);
+    vm.warp(block.timestamp + 365 days);
 
     uint256 aGHOInterest = IERC20(AaveV3EthereumLidoAssets.GHO_A_TOKEN).balanceOf(
       ghoPaymentAddresses
@@ -86,7 +86,7 @@ contract AaveV3EthereumLido_RenewLlamaRiskAsRiskServiceProviderEpoch3_20250413_T
 
     executePayload(vm, address(proposal));
 
-    vm.warp(proposal.STREAM_START() + 1 days);
+    vm.warp(block.timestamp + 1 days);
 
     uint256 ghoBalanceBefore = IERC20(AaveV3EthereumLidoAssets.GHO_A_TOKEN).balanceOf(
       ghoPaymentAddresses
@@ -115,7 +115,7 @@ contract AaveV3EthereumLido_RenewLlamaRiskAsRiskServiceProviderEpoch3_20250413_T
 
     executePayload(vm, address(proposal));
 
-    vm.warp(proposal.STREAM_START() + 365 days);
+    vm.warp(block.timestamp + 365 days);
 
     uint256 finalBalanceToWithdraw = AaveV3EthereumLido.COLLECTOR.balanceOf(
       nextStreamId,

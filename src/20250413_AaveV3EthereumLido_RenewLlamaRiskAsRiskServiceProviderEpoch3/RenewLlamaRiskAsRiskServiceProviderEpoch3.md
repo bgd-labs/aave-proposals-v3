@@ -72,7 +72,7 @@ This proposal offers the opportunity to renew LLamaRisk engagement as a service 
 
 ## Specification
 
-A 1 million aEthLidoGho stream directed to the address`0x9eE16dBDE572886342fc1e2Db8525DEFB007b27c` will be created starting the 28th of april 2025 (timestamp: 1745822843) for a duration of one year.
+A 1 million aEthLidoGho stream directed to the address`0x9eE16dBDE572886342fc1e2Db8525DEFB007b27c` will be created starting immediately for a duration of one year.
 
 ## References
 
