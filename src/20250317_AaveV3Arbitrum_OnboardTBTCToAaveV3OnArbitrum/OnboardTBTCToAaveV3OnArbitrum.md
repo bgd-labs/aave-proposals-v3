@@ -27,7 +27,7 @@ The table below illustrates the configured risk parameters for **tBTC**
 | Borrowable                |                                   DISABLED |
 | Collateral Enabled        |                                       true |
 | Supply Cap (tBTC)         |                                         50 |
-| Borrow Cap (tBTC)         |                                         25 |
+| Borrow Cap (tBTC)         |                                         1 |
 | Debt Ceiling              |                                      USD 0 |
 | LTV                       |                                       73 % |
 | LT                        |                                       78 % |
