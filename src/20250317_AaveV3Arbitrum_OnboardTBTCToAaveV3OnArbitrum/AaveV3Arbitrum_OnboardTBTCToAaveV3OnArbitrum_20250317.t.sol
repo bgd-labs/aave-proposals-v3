@@ -18,7 +18,7 @@ contract AaveV3Arbitrum_OnboardTBTCToAaveV3OnArbitrum_20250317_Test is ProtocolV
   AaveV3Arbitrum_OnboardTBTCToAaveV3OnArbitrum_20250317 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('arbitrum'), 316757821);
+    vm.createSelectFork(vm.rpcUrl('arbitrum'), 328923371);
     proposal = new AaveV3Arbitrum_OnboardTBTCToAaveV3OnArbitrum_20250317();
   }
 
