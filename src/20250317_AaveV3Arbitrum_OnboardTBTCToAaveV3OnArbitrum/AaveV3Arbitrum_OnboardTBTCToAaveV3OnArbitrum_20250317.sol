@@ -46,7 +46,7 @@ contract AaveV3Arbitrum_OnboardTBTCToAaveV3OnArbitrum_20250317 is AaveV3PayloadA
       liqBonus: 7_50,
       reserveFactor: 20_00,
       supplyCap: 50,
-      borrowCap: 25,
+      borrowCap: 1,
       debtCeiling: 0,
       liqProtocolFee: 10_00,
       rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
