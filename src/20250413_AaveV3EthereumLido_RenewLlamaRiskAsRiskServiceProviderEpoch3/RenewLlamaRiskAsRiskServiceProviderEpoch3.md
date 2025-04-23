@@ -76,8 +76,8 @@ A 1 million aEthLidoGho stream directed to the address`0x9eE16dBDE572886342fc1e2
 
 ## References
 
-- Implementation: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250413_AaveV3EthereumLido_RenewLlamaRiskAsRiskServiceProviderEpoch3/AaveV3EthereumLido_RenewLlamaRiskAsRiskServiceProviderEpoch3_20250413.sol)
-- Tests: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250413_AaveV3EthereumLido_RenewLlamaRiskAsRiskServiceProviderEpoch3/AaveV3EthereumLido_RenewLlamaRiskAsRiskServiceProviderEpoch3_20250413.t.sol)
+- Implementation: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/dd0d8d990c3c1869c3be2602b6c264c8eb04cbed/src/20250413_AaveV3EthereumLido_RenewLlamaRiskAsRiskServiceProviderEpoch3/AaveV3EthereumLido_RenewLlamaRiskAsRiskServiceProviderEpoch3_20250413.sol)
+- Tests: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/dd0d8d990c3c1869c3be2602b6c264c8eb04cbed/src/20250413_AaveV3EthereumLido_RenewLlamaRiskAsRiskServiceProviderEpoch3/AaveV3EthereumLido_RenewLlamaRiskAsRiskServiceProviderEpoch3_20250413.t.sol)
 - [Snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0x70ce585823c2c1a60cb6bbd64750682a2a9a4b501e3f4342812ebf6bb5d51892)
 - [Discussion](https://governance.aave.com/t/arfc-renew-llamarisk-as-risk-service-provider-epoch-3/21666)
 
