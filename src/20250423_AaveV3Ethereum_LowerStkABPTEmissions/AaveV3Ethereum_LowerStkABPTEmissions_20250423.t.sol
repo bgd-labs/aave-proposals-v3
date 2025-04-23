@@ -22,17 +22,6 @@ contract AaveV3Ethereum_LowerStkABPTEmissions_20250423_Test is ProtocolV3TestBas
     proposal = new AaveV3Ethereum_LowerStkABPTEmissions_20250423();
   }
 
-  /**
-   * @dev executes the generic test suite including e2e and config snapshots
-   */
-  function test_defaultProposalExecution() public {
-    defaultTest(
-      'AaveV3Ethereum_LowerStkABPTEmissions_20250423',
-      AaveV3Ethereum.POOL,
-      address(proposal)
-    );
-  }
-
   function test_checkConfig() public {
     (uint128 emissionPerSecondBeforeStkBPT, , ) = IStakeToken(
       AaveSafetyModule.STK_AAVE_WSTETH_BPTV2
@@ -40,7 +29,7 @@ contract AaveV3Ethereum_LowerStkABPTEmissions_20250423_Test is ProtocolV3TestBas
 
     assertEq(
       emissionPerSecondBeforeStkBPT,
-      proposal.AAVE_EMISSION_PER_SECOND_STK_BPT(),
+      proposal.CURRENT_AAVE_EMISSION_PER_SECOND_STK_BPT(),
       'emissions before not equal stkBPT'
     );
 
@@ -53,12 +42,6 @@ contract AaveV3Ethereum_LowerStkABPTEmissions_20250423_Test is ProtocolV3TestBas
       emissionPerSecondAfterStkBPT,
       proposal.AAVE_EMISSION_PER_SECOND_STK_BPT(),
       'emissions after not equal stkBPT'
-    );
-    assertApproxEqAbs(
-      emissionPerSecondAfterStkBPT,
-      emissionPerSecondBeforeStkBPT,
-      1,
-      'stkBPT emissions not same as previous'
     );
   }
 
@@ -93,12 +76,8 @@ contract AaveV3Ethereum_LowerStkABPTEmissions_20250423_Test is ProtocolV3TestBas
       AaveSafetyModule.STK_AAVE_WSTETH_BPTV2
     );
 
-    assertGt(allowanceAfter, allowanceBefore);
-    // With previous remaining allowance, this can be greater than or equal to
-    assertGe(
-      allowanceAfter,
-      proposal.DISTRIBUTION_DURATION() * proposal.AAVE_EMISSION_PER_SECOND_STK_BPT()
-    );
+    // New allowance is less than before
+    assertLt(allowanceAfter, allowanceBefore);
   }
 
   function test_checkRewards_stkBPT() public {

@@ -15,7 +15,7 @@ import {IStakeToken} from 'aave-address-book/common/IStakeToken.sol';
  * - Discussion: https://governance.aave.com/t/arfc-stkabpt-emissions-update/21683
  */
 contract AaveV3Ethereum_LowerStkABPTEmissions_20250423 is IProposalGenericExecutor {
-  uint128 public constant CURRENT_AAVE_EMISSION_PER_SECOND_STK_BPT = uint128(240 ether) / 1 days;
+  uint128 public constant CURRENT_AAVE_EMISSION_PER_SECOND_STK_BPT = uint128(360 ether) / 1 days;
   uint128 public constant AAVE_EMISSION_PER_SECOND_STK_BPT = uint128(240 ether) / 1 days;
 
   function execute() external {
