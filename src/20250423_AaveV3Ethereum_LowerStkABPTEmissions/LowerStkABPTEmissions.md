@@ -47,8 +47,8 @@ This AIP reduces the AAVE emission rate to the following:
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250423_AaveV3Ethereum_LowerStkABPTEmissions/AaveV3Ethereum_LowerStkABPTEmissions_20250423.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250423_AaveV3Ethereum_LowerStkABPTEmissions/AaveV3Ethereum_LowerStkABPTEmissions_20250423.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/8ab49d57df2c1d8a49e2da72a59a4921a1203ccc/src/20250423_AaveV3Ethereum_LowerStkABPTEmissions/AaveV3Ethereum_LowerStkABPTEmissions_20250423.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/8ab49d57df2c1d8a49e2da72a59a4921a1203ccc/src/20250423_AaveV3Ethereum_LowerStkABPTEmissions/AaveV3Ethereum_LowerStkABPTEmissions_20250423.t.sol)
 - [Snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0x8dbeee9b489266cfefb8cb3c75fb0791d364975eed48cee951ff04fd17ee57c1)
 - [Discussion](https://governance.aave.com/t/arfc-stkabpt-emissions-update/21683)
 
