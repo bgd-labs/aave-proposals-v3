@@ -39,7 +39,7 @@ Based upon the swap size distribution routing through the pool, an overall reduc
 
 ## Specification
 
-This proposal when implemented via AIP will reduce the AAVE emission rate.
+This AIP reduces the AAVE emission rate to the following:
 
 | SM Category | Current | Proposed |
 | :---------- | :-----: | :------: |
