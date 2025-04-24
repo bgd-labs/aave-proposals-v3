@@ -13,7 +13,7 @@ import {IEmissionManager} from 'aave-v3-origin/contracts/rewards/interfaces/IEmi
  * @title Onboard PT sUSDe July and PT eUSDe May on Core Instance
  * @author BGD Labs (@bgdlabs)
  * - Snapshot: https://snapshot.box/#/s:aavedao.eth/proposal/0xc039953e4f18804bb017876d27621da1ab3e4de53acd3b32d0f1fe94d4bbb6a0
- * - Discussion: https://governance.aave.com/t/arfc-onboard-susde-july-expiry-pt-tokens-on-aave-v3-core-instance/21878
+ * - Discussion: https://governance.aave.com/t/arfc-onboard-eusde-pt-tokens-to-aave-v3-core-instance/21767
  */
 contract AaveV3Ethereum_OnboardPTEUSDeMayOnCoreInstance_20250423 is AaveV3PayloadEthereum {
   using SafeERC20 for IERC20;
