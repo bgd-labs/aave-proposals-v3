@@ -19,6 +19,9 @@ contract AaveV3Ethereum_OnboardPTEUSDeMayOnCoreInstance_20250423 is AaveV3Payloa
   using SafeERC20 for IERC20;
 
   address public constant PT_eUSDE_29MAY2025 = 0x50D2C7992b802Eef16c04FeADAB310f31866a545;
+  address public constant PT_eUSDE_29MAY2025_PRICE_FEED =
+    0x5292AB3292D076271f853Ed8e05e61cc02F0A2C6;
+
   address public constant LM_ADMIN = 0xac140648435d03f784879cd789130F22Ef588Fcd;
   uint256 public constant SEED_AMOUNT = 10e18;
 
@@ -100,7 +103,7 @@ contract AaveV3Ethereum_OnboardPTEUSDeMayOnCoreInstance_20250423 is AaveV3Payloa
     listings[0] = IAaveV3ConfigEngine.Listing({
       asset: PT_eUSDE_29MAY2025,
       assetSymbol: 'PT_eUSDE_29MAY2025',
-      priceFeed: 0x5292AB3292D076271f853Ed8e05e61cc02F0A2C6,
+      priceFeed: PT_eUSDE_29MAY2025_PRICE_FEED,
       enabledToBorrow: EngineFlags.DISABLED,
       borrowableInIsolation: EngineFlags.DISABLED,
       withSiloedBorrowing: EngineFlags.DISABLED,
