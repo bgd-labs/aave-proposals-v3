@@ -92,7 +92,7 @@ contract DeployGnosis is GnosisScript {
     IPayloadsControllerCore.ExecutionAction[]
       memory listingActions = new IPayloadsControllerCore.ExecutionAction[](1);
     listingActions[0] = GovV3Helpers.buildAction(
-      GovV3Helpers.deployDeterministic(type(AaveV3Gnosis_GHOBaseListing_20250421).creationCode)
+      GovV3Helpers.deployDeterministic(type(AaveV3Gnosis_GHOGnosisListing_20250421).creationCode)
     );
 
     // register both actions separately at payloadsController
@@ -108,7 +108,7 @@ contract DeployGnosis is GnosisScript {
 contract CreateProposal is EthereumScript {
   function run() external {
     // create payloads
-    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](4);
+    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](5);
 
     // compose actions for validation
     IPayloadsControllerCore.ExecutionAction[]
@@ -126,18 +126,25 @@ contract CreateProposal is EthereumScript {
     payloads[1] = GovV3Helpers.buildArbitrumPayload(vm, actionsArbitrum);
 
     IPayloadsControllerCore.ExecutionAction[]
-      memory actionsBaseLaunch = new IPayloadsControllerCore.ExecutionAction[](1);
-    actionsBaseLaunch[0] = GovV3Helpers.buildAction(
+      memory actionsBase = new IPayloadsControllerCore.ExecutionAction[](1);
+    actionsBase[0] = GovV3Helpers.buildAction(
       type(AaveV3Base_GHOGnosisLaunch_20250421).creationCode
     );
-    payloads[2] = GovV3Helpers.buildBasePayload(vm, actionsBaseLaunch);
+    payloads[2] = GovV3Helpers.buildBasePayload(vm, actionsBase);
 
     IPayloadsControllerCore.ExecutionAction[]
-      memory actionsBaseListing = new IPayloadsControllerCore.ExecutionAction[](1);
-    actionsBaseListing[0] = GovV3Helpers.buildAction(
-      type(AaveV3Base_GHOBaseListing_20250421).creationCode
+      memory actionsGnosisLaunch = new IPayloadsControllerCore.ExecutionAction[](1);
+    actionsGnosisLaunch[0] = GovV3Helpers.buildAction(
+      type(AaveV3Gnosis_GHOGnosisLaunch_20250421).creationCode
     );
-    payloads[3] = GovV3Helpers.buildBasePayload(vm, actionsBaseListing);
+    payloads[3] = GovV3Helpers.buildGnosisPayload(vm, actionsGnosisLaunch);
+
+    IPayloadsControllerCore.ExecutionAction[]
+      memory actionsGnosisListing = new IPayloadsControllerCore.ExecutionAction[](1);
+    actionsGnosisListing[0] = GovV3Helpers.buildAction(
+      type(AaveV3Gnosis_GHOGnosisListing_20250421).creationCode
+    );
+    payloads[4] = GovV3Helpers.buildBasePayload(vm, actionsGnosisListing);
 
     // create proposal
     vm.startBroadcast();

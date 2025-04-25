@@ -19,19 +19,19 @@ import {ReserveConfiguration} from 'aave-v3-origin/contracts/protocol/libraries/
 import {Errors} from 'aave-address-book/governance-v3/Errors.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
-import {AaveV3Base} from 'aave-address-book/AaveV3Base.sol';
+import {AaveV3Gnosis} from 'aave-address-book/AaveV3Gnosis.sol';
 import {GovernanceV3Base} from 'aave-address-book/GovernanceV3Base.sol';
 
 import {CCIPUtils} from './utils/CCIPUtils.sol';
-import {AaveV3Base_GHOGnosisLaunch_20250421} from './AaveV3Base_GHOGnosisLaunch_20250421.sol';
-import {AaveV3Base_GHOBaseListing_20250421} from './AaveV3Base_GHOBaseListing_20250421.sol';
+import {AaveV3Gnosis_GHOGnosisLaunch_20250421} from './AaveV3Gnosis_GHOGnosisLaunch_20250421.sol';
+import {AaveV3Gnosis_GHOGnosisListing_20250421} from './AaveV3Gnosis_GHOGnosisListing_20250421.sol';
 
 /**
- * @dev Test for AaveV3Base_Ads_20241231
- * command: FOUNDRY_PROFILE=base forge test --match-path=src/20250421_Multi_GHOGnosisLaunch/AaveV3Base_GHOBaseListing_20250421.t.sol -vv
+ * @dev Test for AaveV3Gnosis_Ads_20241231
+ * command: FOUNDRY_PROFILE=base forge test --match-path=src/20250421_Multi_GHOGnosisLaunch/AaveV3Gnosis_GHOGnosisListing_20250421.t.sol -vv
  */
-contract AaveV3Base_GHOBaseListing_20250421_Base is ProtocolV3TestBase {
-  AaveV3Base_GHOBaseListing_20250421 internal proposal;
+contract AaveV3Gnosis_GHOGnosisListing_20250421_Base is ProtocolV3TestBase {
+  AaveV3Gnosis_GHOGnosisListing_20250421 internal proposal;
 
   ITokenAdminRegistry internal constant TOKEN_ADMIN_REGISTRY =
     ITokenAdminRegistry(0x6f6C373d09C07425BaAE72317863d7F6bb731e37);
@@ -52,11 +52,11 @@ contract AaveV3Base_GHOBaseListing_20250421_Base is ProtocolV3TestBase {
 
   function setUp() public virtual {
     vm.createSelectFork(vm.rpcUrl('base'), 25645172);
-    proposal = new AaveV3Base_GHOBaseListing_20250421();
+    proposal = new AaveV3Gnosis_GHOGnosisListing_20250421();
   }
 
   function _executeLaunchAIP() internal {
-    executePayload(vm, address(new AaveV3Base_GHOGnosisLaunch_20250421()));
+    executePayload(vm, address(new AaveV3Gnosis_GHOGnosisLaunch_20250421()));
   }
 
   function _mockBridgeSeedAmount() internal {
@@ -93,8 +93,8 @@ contract AaveV3Base_GHOBaseListing_20250421_Base is ProtocolV3TestBase {
   }
 }
 
-contract AaveV3Base_GHOBaseListing_20250421_ListingPreRequisites is
-  AaveV3Base_GHOBaseListing_20250421_Base
+contract AaveV3Gnosis_GHOGnosisListing_20250421_ListingPreRequisites is
+  AaveV3Gnosis_GHOGnosisListing_20250421_Base
 {
   uint40 internal payloadId;
 
@@ -122,14 +122,16 @@ contract AaveV3Base_GHOBaseListing_20250421_ListingPreRequisites is
 
     GovernanceV3Base.PAYLOADS_CONTROLLER.executePayload(payloadId);
 
-    (, , , , , , , , bool isActive, ) = AaveV3Base
+    (, , , , , , , , bool isActive, ) = AaveV3Gnosis
       .AAVE_PROTOCOL_DATA_PROVIDER
       .getReserveConfigurationData(proposal.GHO_TOKEN());
     assertTrue(isActive);
   }
 }
 
-contract AaveV3Base_GHOBaseListing_20250421_Listing is AaveV3Base_GHOBaseListing_20250421_Base {
+contract AaveV3Gnosis_GHOGnosisListing_20250421_Listing is
+  AaveV3Gnosis_GHOGnosisListing_20250421_Base
+{
   function setUp() public override {
     super.setUp();
     _executeLaunchAIP(); // deploys gho token, token pool & stewards
@@ -140,9 +142,9 @@ contract AaveV3Base_GHOBaseListing_20250421_Listing is AaveV3Base_GHOBaseListing
    * @dev executes the generic test suite including e2e and config snapshots
    */
   function test_defaultProposalExecution() public {
-    defaultTest('AaveV3Base_GHOBaseListing_20250421', AaveV3Base.POOL, address(proposal));
+    defaultTest('AaveV3Gnosis_GHOGnosisListing_20250421', AaveV3Gnosis.POOL, address(proposal));
 
-    (address aGhoToken, , ) = AaveV3Base.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(
+    (address aGhoToken, , ) = AaveV3Gnosis.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(
       proposal.GHO_TOKEN()
     );
     assertGe(IERC20(aGhoToken).balanceOf(address(0)), proposal.GHO_SEED_AMOUNT());
@@ -156,21 +158,23 @@ contract AaveV3Base_GHOBaseListing_20250421_Listing is AaveV3Base_GHOBaseListing
 
   function test_ghoAdmin() public {
     GovV3Helpers.executePayload(vm, address(proposal));
-    (address aGhoToken, , ) = AaveV3Base.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(
+    (address aGhoToken, , ) = AaveV3Gnosis.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(
       proposal.GHO_TOKEN()
     );
     assertEq(
-      IEmissionManager(AaveV3Base.EMISSION_MANAGER).getEmissionAdmin(proposal.GHO_TOKEN()),
+      IEmissionManager(AaveV3Gnosis.EMISSION_MANAGER).getEmissionAdmin(proposal.GHO_TOKEN()),
       proposal.EMISSION_ADMIN()
     );
     assertEq(
-      IEmissionManager(AaveV3Base.EMISSION_MANAGER).getEmissionAdmin(aGhoToken),
+      IEmissionManager(AaveV3Gnosis.EMISSION_MANAGER).getEmissionAdmin(aGhoToken),
       proposal.EMISSION_ADMIN()
     );
   }
 }
 
-contract AaveV3Base_GHOBaseListing_20250421_Stewards is AaveV3Base_GHOBaseListing_20250421_Base {
+contract AaveV3Gnosis_GHOGnosisListing_20250421_Stewards is
+  AaveV3Gnosis_GHOGnosisListing_20250421_Base
+{
   using ReserveConfiguration for DataTypes.ReserveConfigurationMap;
 
   function setUp() public override {
@@ -183,7 +187,7 @@ contract AaveV3Base_GHOBaseListing_20250421_Stewards is AaveV3Base_GHOBaseListin
 
   function test_aaveStewardCanUpdateBorrowRate() public {
     IDefaultInterestRateStrategyV2 irStrategy = IDefaultInterestRateStrategyV2(
-      AaveV3Base.AAVE_PROTOCOL_DATA_PROVIDER.getInterestRateStrategyAddress(address(GHO_TOKEN))
+      AaveV3Gnosis.AAVE_PROTOCOL_DATA_PROVIDER.getInterestRateStrategyAddress(address(GHO_TOKEN))
     );
 
     IDefaultInterestRateStrategyV2.InterestRateData
@@ -211,7 +215,10 @@ contract AaveV3Base_GHOBaseListing_20250421_Stewards is AaveV3Base_GHOBaseListin
   }
 
   function test_aaveStewardCanUpdateBorrowCap(uint256 newBorrowCap) public {
-    uint256 currentBorrowCap = AaveV3Base.POOL.getConfiguration(address(GHO_TOKEN)).getBorrowCap();
+    uint256 currentBorrowCap = AaveV3Gnosis
+      .POOL
+      .getConfiguration(address(GHO_TOKEN))
+      .getBorrowCap();
     assertEq(currentBorrowCap, 2_250_000);
     vm.assume(
       newBorrowCap != currentBorrowCap &&
@@ -221,12 +228,15 @@ contract AaveV3Base_GHOBaseListing_20250421_Stewards is AaveV3Base_GHOBaseListin
     vm.prank(RISK_COUNCIL);
     NEW_GHO_AAVE_STEWARD.updateGhoBorrowCap(newBorrowCap);
 
-    assertEq(AaveV3Base.POOL.getConfiguration(address(GHO_TOKEN)).getBorrowCap(), newBorrowCap);
+    assertEq(AaveV3Gnosis.POOL.getConfiguration(address(GHO_TOKEN)).getBorrowCap(), newBorrowCap);
     assertEq(NEW_GHO_AAVE_STEWARD.getGhoTimelocks().ghoBorrowCapLastUpdate, vm.getBlockTimestamp());
   }
 
   function test_aaveStewardCanUpdateSupplyCap(uint256 newSupplyCap) public {
-    uint256 currentSupplyCap = AaveV3Base.POOL.getConfiguration(address(GHO_TOKEN)).getSupplyCap();
+    uint256 currentSupplyCap = AaveV3Gnosis
+      .POOL
+      .getConfiguration(address(GHO_TOKEN))
+      .getSupplyCap();
     assertEq(currentSupplyCap, 2_500_000);
 
     vm.assume(
@@ -237,7 +247,7 @@ contract AaveV3Base_GHOBaseListing_20250421_Stewards is AaveV3Base_GHOBaseListin
     vm.prank(RISK_COUNCIL);
     NEW_GHO_AAVE_STEWARD.updateGhoSupplyCap(newSupplyCap);
 
-    assertEq(AaveV3Base.POOL.getConfiguration(address(GHO_TOKEN)).getSupplyCap(), newSupplyCap);
+    assertEq(AaveV3Gnosis.POOL.getConfiguration(address(GHO_TOKEN)).getSupplyCap(), newSupplyCap);
     assertEq(NEW_GHO_AAVE_STEWARD.getGhoTimelocks().ghoSupplyCapLastUpdate, vm.getBlockTimestamp());
   }
 

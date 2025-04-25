@@ -32,19 +32,19 @@ contract AaveV3Gnosis_GHOGnosisLaunch_20250421 is IProposalGenericExecutor {
   // https://gnosisscan.io/address/0x73BC11423CBF14914998C23B0aFC9BE0cb5B2229
   ITokenAdminRegistry public constant TOKEN_ADMIN_REGISTRY =
     ITokenAdminRegistry(0x73BC11423CBF14914998C23B0aFC9BE0cb5B2229);
-  // https://gnosisscan.io/address/0x98217A06721Ebf727f2C8d9aD7718ec28b7aAe34
+  // https://gnosisscan.io/address/0xDe6539018B095353A40753Dc54C91C68c9487D4E
   IUpgradeableBurnMintTokenPool_1_5_1 public constant TOKEN_POOL =
-    IUpgradeableBurnMintTokenPool_1_5_1(0x0);
+    IUpgradeableBurnMintTokenPool_1_5_1(0xDe6539018B095353A40753Dc54C91C68c9487D4E);
 
+  // https://gnosisscan.io/address/0xfc421aD3C883Bf9E7C4f42dE845C4e4405799e73
+  IGhoToken public constant GHO_TOKEN = IGhoToken(0xfc421aD3C883Bf9E7C4f42dE845C4e4405799e73);
+
+  // https://gnosisscan.io/address/0x6e637e1E48025E51315d50ab96d5b3be1971A715
+  address public constant GHO_AAVE_STEWARD = 0x6e637e1E48025E51315d50ab96d5b3be1971A715;
   // https://gnosisscan.io/address/0x6Bb7a212910682DCFdbd5BCBb3e28FB4E8da10Ee
-  IGhoToken public constant GHO_TOKEN = IGhoToken(0x0);
-
-  // https://gnosisscan.io/address/0xC5BcC58BE6172769ca1a78B8A45752E3C5059c39
-  address public constant GHO_AAVE_STEWARD = 0x0;
-  // https://gnosisscan.io/address/0x3c47237479e7569653eF9beC4a7Cd2ee3F78b396
-  address public constant GHO_BUCKET_STEWARD = 0x0;
-  // https://gnosisscan.io/address/0xB94Ab28c6869466a46a42abA834ca2B3cECCA5eB
-  address public constant GHO_CCIP_STEWARD = 0x0;
+  address public constant GHO_BUCKET_STEWARD = 0x6Bb7a212910682DCFdbd5BCBb3e28FB4E8da10Ee;
+  // https://gnosisscan.io/address/0x06179f7C1be40863405f374E7f5F8806c728660A
+  address public constant GHO_CCIP_STEWARD = 0x06179f7C1be40863405f374E7f5F8806c728660A;
 
   // https://etherscan.io/address/0x06179f7C1be40863405f374E7f5F8806c728660A
   address public constant REMOTE_TOKEN_POOL_ETH = GhoEthereum.GHO_CCIP_TOKEN_POOL;

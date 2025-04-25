@@ -15,7 +15,7 @@ import {ITokenAdminRegistry} from 'src/interfaces/ccip/ITokenAdminRegistry.sol';
 import {IGhoToken} from 'src/interfaces/IGhoToken.sol';
 import {IGhoCcipSteward} from 'src/interfaces/IGhoCcipSteward.sol';
 
-import {ProtocolV3TestGnosis} from 'aave-helpers/src/ProtocolV3TestGnosis.sol';
+import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Arbitrum} from 'aave-address-book/AaveV3Arbitrum.sol';
 import {AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
 import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
@@ -32,7 +32,7 @@ import {AaveV3Arbitrum_GHOGnosisLaunch_20250421} from './AaveV3Arbitrum_GHOGnosi
  * @dev Test for AaveV3Arbitrum_GHOGnosisLaunch_20250421
  * command: FOUNDRY_PROFILE=arbitrum forge test --match-path=src/20250421_Multi_GHOGnosisLaunch/AaveV3Arbitrum_GHOGnosisLaunch_20250421.t.sol -vv
  */
-contract AaveV3Arbitrum_GHOGnosisLaunch_20250421_Gnosis is ProtocolV3TestGnosis {
+contract AaveV3Arbitrum_GHOGnosisLaunch_20250421_Gnosis is ProtocolV3TestBase {
   struct CCIPSendParams {
     address sender;
     uint256 amount;
@@ -40,7 +40,7 @@ contract AaveV3Arbitrum_GHOGnosisLaunch_20250421_Gnosis is ProtocolV3TestGnosis 
   }
 
   uint64 internal constant ARB_CHAIN_SELECTOR = CCIPUtils.ARB_CHAIN_SELECTOR;
-  uint64 internal constant BASE_CHAIN_SELECTOR = CCIPUtils.BASE_CHAIN_SELECTOR;
+  uint64 internal constant GNOSIS_CHAIN_SELECTOR = CCIPUtils.GNOSIS_CHAIN_SELECTOR;
   uint64 internal constant ETH_CHAIN_SELECTOR = CCIPUtils.ETH_CHAIN_SELECTOR;
   uint256 internal constant CCIP_RATE_LIMIT_CAPACITY = 300_000e18;
   uint256 internal constant CCIP_RATE_LIMIT_REFILL_RATE = 60e18;
@@ -58,14 +58,14 @@ contract AaveV3Arbitrum_GHOGnosisLaunch_20250421_Gnosis is ProtocolV3TestGnosis 
     IEVM2EVMOffRamp_1_5(0xb62178f8198905D0Fa6d640Bdb188E4E8143Ac4b);
 
   address internal constant RISK_COUNCIL = 0x8513e6F37dBc52De87b166980Fa3F50639694B60;
-  address public constant NEW_REMOTE_TOKEN_BASE = 0x6Bb7a212910682DCFdbd5BCBb3e28FB4E8da10Ee;
+  address public constant NEW_REMOTE_TOKEN_GNOSIS = 0x6Bb7a212910682DCFdbd5BCBb3e28FB4E8da10Ee;
   IRouter internal constant ROUTER = IRouter(0x141fa059441E0ca23ce184B6A78bafD2A517DdE8);
   IGhoCcipSteward internal constant NEW_GHO_CCIP_STEWARD =
     IGhoCcipSteward(0xCd5ab470AaC5c13e1063ee700503f3346b7C90Db);
   IUpgradeableBurnMintTokenPool_1_5_1 internal constant NEW_TOKEN_POOL =
     IUpgradeableBurnMintTokenPool_1_5_1(0xB94Ab28c6869466a46a42abA834ca2B3cECCA5eB);
   address internal constant NEW_REMOTE_POOL_ETH = 0x06179f7C1be40863405f374E7f5F8806c728660A;
-  address internal constant NEW_REMOTE_POOL_BASE = 0x98217A06721Ebf727f2C8d9aD7718ec28b7aAe34;
+  address internal constant NEW_REMOTE_POOL_GNOSIS = 0x98217A06721Ebf727f2C8d9aD7718ec28b7aAe34;
 
   AaveV3Arbitrum_GHOGnosisLaunch_20250421 internal proposal;
 
@@ -87,10 +87,10 @@ contract AaveV3Arbitrum_GHOGnosisLaunch_20250421_Gnosis is ProtocolV3TestGnosis 
   }
 
   function _validateConstants() private view {
-    assertEq(proposal.BASE_CHAIN_SELECTOR(), BASE_CHAIN_SELECTOR);
+    assertEq(proposal.GNOSIS_CHAIN_SELECTOR(), GNOSIS_CHAIN_SELECTOR);
     assertEq(address(proposal.TOKEN_POOL()), address(NEW_TOKEN_POOL));
-    assertEq(proposal.REMOTE_TOKEN_POOL_BASE(), NEW_REMOTE_POOL_BASE);
-    assertEq(proposal.REMOTE_GHO_TOKEN_BASE(), NEW_REMOTE_TOKEN_BASE);
+    assertEq(proposal.REMOTE_TOKEN_POOL_GNOSIS(), NEW_REMOTE_POOL_GNOSIS);
+    assertEq(proposal.REMOTE_GHO_TOKEN_GNOSIS(), NEW_REMOTE_TOKEN_GNOSIS);
     assertEq(proposal.CCIP_RATE_LIMIT_CAPACITY(), CCIP_RATE_LIMIT_CAPACITY);
     assertEq(proposal.CCIP_RATE_LIMIT_REFILL_RATE(), CCIP_RATE_LIMIT_REFILL_RATE);
 
@@ -99,9 +99,9 @@ contract AaveV3Arbitrum_GHOGnosisLaunch_20250421_Gnosis is ProtocolV3TestGnosis 
     assertEq(ROUTER.typeAndVersion(), 'Router 1.2.0');
 
     _assertOnRamp(ETH_ON_RAMP, ARB_CHAIN_SELECTOR, ETH_CHAIN_SELECTOR, ROUTER);
-    _assertOnRamp(BASE_ON_RAMP, ARB_CHAIN_SELECTOR, BASE_CHAIN_SELECTOR, ROUTER);
+    _assertOnRamp(BASE_ON_RAMP, ARB_CHAIN_SELECTOR, GNOSIS_CHAIN_SELECTOR, ROUTER);
     _assertOffRamp(ETH_OFF_RAMP, ETH_CHAIN_SELECTOR, ARB_CHAIN_SELECTOR, ROUTER);
-    _assertOffRamp(BASE_OFF_RAMP, BASE_CHAIN_SELECTOR, ARB_CHAIN_SELECTOR, ROUTER);
+    _assertOffRamp(BASE_OFF_RAMP, GNOSIS_CHAIN_SELECTOR, ARB_CHAIN_SELECTOR, ROUTER);
 
     assertEq(NEW_GHO_CCIP_STEWARD.RISK_COUNCIL(), RISK_COUNCIL);
     assertEq(NEW_GHO_CCIP_STEWARD.GHO_TOKEN(), AaveV3ArbitrumAssets.GHO_UNDERLYING);
@@ -158,8 +158,8 @@ contract AaveV3Arbitrum_GHOGnosisLaunch_20250421_Gnosis is ProtocolV3TestGnosis 
         originalSender: params.sender,
         sourceToken: address(GHO),
         destinationToken: address(
-          params.destChainSelector == BASE_CHAIN_SELECTOR
-            ? NEW_REMOTE_TOKEN_BASE
+          params.destChainSelector == GNOSIS_CHAIN_SELECTOR
+            ? NEW_REMOTE_TOKEN_GNOSIS
             : AaveV3EthereumAssets.GHO_UNDERLYING
         )
       })
@@ -262,19 +262,19 @@ contract AaveV3Arbitrum_GHOGnosisLaunch_20250421_PostExecution is
   function test_basePoolConfig() public view {
     assertEq(NEW_TOKEN_POOL.getSupportedChains().length, 2);
     assertEq(NEW_TOKEN_POOL.getSupportedChains()[0], ETH_CHAIN_SELECTOR);
-    assertEq(NEW_TOKEN_POOL.getSupportedChains()[1], BASE_CHAIN_SELECTOR);
+    assertEq(NEW_TOKEN_POOL.getSupportedChains()[1], GNOSIS_CHAIN_SELECTOR);
     assertEq(
       NEW_TOKEN_POOL.getRemoteToken(ETH_CHAIN_SELECTOR),
       abi.encode(address(AaveV3EthereumAssets.GHO_UNDERLYING))
     );
     assertEq(
-      NEW_TOKEN_POOL.getRemoteToken(BASE_CHAIN_SELECTOR),
-      abi.encode(address(NEW_REMOTE_TOKEN_BASE))
+      NEW_TOKEN_POOL.getRemoteToken(GNOSIS_CHAIN_SELECTOR),
+      abi.encode(address(NEW_REMOTE_TOKEN_GNOSIS))
     );
-    assertEq(NEW_TOKEN_POOL.getRemotePools(BASE_CHAIN_SELECTOR).length, 1);
+    assertEq(NEW_TOKEN_POOL.getRemotePools(GNOSIS_CHAIN_SELECTOR).length, 1);
     assertEq(
-      NEW_TOKEN_POOL.getRemotePools(BASE_CHAIN_SELECTOR)[0],
-      abi.encode(address(NEW_REMOTE_POOL_BASE))
+      NEW_TOKEN_POOL.getRemotePools(GNOSIS_CHAIN_SELECTOR)[0],
+      abi.encode(address(NEW_REMOTE_POOL_GNOSIS))
     );
     assertEq(NEW_TOKEN_POOL.getRemotePools(ETH_CHAIN_SELECTOR).length, 2);
     assertEq(
@@ -290,11 +290,11 @@ contract AaveV3Arbitrum_GHOGnosisLaunch_20250421_PostExecution is
       _getRateLimiterConfig()
     );
     assertEq(
-      NEW_TOKEN_POOL.getCurrentInboundRateLimiterState(BASE_CHAIN_SELECTOR),
+      NEW_TOKEN_POOL.getCurrentInboundRateLimiterState(GNOSIS_CHAIN_SELECTOR),
       _getRateLimiterConfig()
     );
     assertEq(
-      NEW_TOKEN_POOL.getCurrentOutboundRateLimiterState(BASE_CHAIN_SELECTOR),
+      NEW_TOKEN_POOL.getCurrentOutboundRateLimiterState(GNOSIS_CHAIN_SELECTOR),
       _getRateLimiterConfig()
     );
   }
@@ -318,7 +318,7 @@ contract AaveV3Arbitrum_GHOGnosisLaunch_20250421_PostExecution is
       IClient.EVM2AnyMessage memory message,
       IInternal.EVM2EVMMessage memory eventArg
     ) = _getTokenMessage(
-        CCIPSendParams({amount: amount, sender: alice, destChainSelector: BASE_CHAIN_SELECTOR})
+        CCIPSendParams({amount: amount, sender: alice, destChainSelector: GNOSIS_CHAIN_SELECTOR})
       );
 
     vm.expectEmit(address(NEW_TOKEN_POOL));
@@ -327,7 +327,7 @@ contract AaveV3Arbitrum_GHOGnosisLaunch_20250421_PostExecution is
     emit CCIPSendRequested(eventArg);
 
     vm.prank(alice);
-    ROUTER.ccipSend{value: eventArg.feeTokenAmount}(BASE_CHAIN_SELECTOR, message);
+    ROUTER.ccipSend{value: eventArg.feeTokenAmount}(GNOSIS_CHAIN_SELECTOR, message);
 
     assertEq(GHO.balanceOf(alice), aliceBalance - amount);
     assertEq(GHO.getFacilitator(address(NEW_TOKEN_POOL)).bucketLevel, bucketLevel - amount);
@@ -384,11 +384,11 @@ contract AaveV3Arbitrum_GHOGnosisLaunch_20250421_PostExecution is
     NEW_TOKEN_POOL.releaseOrMint(
       IPool_CCIP.ReleaseOrMintInV1({
         originalSender: abi.encode(alice),
-        remoteChainSelector: BASE_CHAIN_SELECTOR,
+        remoteChainSelector: GNOSIS_CHAIN_SELECTOR,
         receiver: alice,
         amount: amount,
         localToken: address(GHO),
-        sourcePoolAddress: abi.encode(address(NEW_REMOTE_POOL_BASE)),
+        sourcePoolAddress: abi.encode(address(NEW_REMOTE_POOL_GNOSIS)),
         sourcePoolData: new bytes(0),
         offchainTokenData: new bytes(0)
       })
@@ -465,7 +465,7 @@ contract AaveV3Arbitrum_GHOGnosisLaunch_20250421_PostExecution is
     NEW_TOKEN_POOL.releaseOrMint(
       IPool_CCIP.ReleaseOrMintInV1({
         originalSender: abi.encode(alice),
-        remoteChainSelector: BASE_CHAIN_SELECTOR,
+        remoteChainSelector: GNOSIS_CHAIN_SELECTOR,
         receiver: alice,
         amount: amount,
         localToken: address(GHO),
@@ -478,7 +478,7 @@ contract AaveV3Arbitrum_GHOGnosisLaunch_20250421_PostExecution is
     vm.expectRevert(
       abi.encodeWithSelector(
         InvalidSourcePoolAddress.selector,
-        abi.encode(address(NEW_REMOTE_POOL_BASE))
+        abi.encode(address(NEW_REMOTE_POOL_GNOSIS))
       )
     );
     vm.prank(address(ETH_OFF_RAMP));
@@ -489,7 +489,7 @@ contract AaveV3Arbitrum_GHOGnosisLaunch_20250421_PostExecution is
         receiver: alice,
         amount: amount,
         localToken: address(GHO),
-        sourcePoolAddress: abi.encode(address(NEW_REMOTE_POOL_BASE)),
+        sourcePoolAddress: abi.encode(address(NEW_REMOTE_POOL_GNOSIS)),
         sourcePoolData: new bytes(0),
         offchainTokenData: new bytes(0)
       })
