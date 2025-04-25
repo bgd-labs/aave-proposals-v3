@@ -3,7 +3,8 @@ pragma solidity ^0.8.0;
 
 import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aave-helpers/src/GovV3Helpers.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
-import {EthereumScript, SonicScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
+import {GovernanceV3Sonic} from 'aave-address-book/GovernanceV3Sonic.sol';
+import {EthereumScript, SonicScript, ChainIds} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
 import {AaveV3Sonic_AddStSToAaveV3SonicInstance_20250418} from './AaveV3Sonic_AddStSToAaveV3SonicInstance_20250418.sol';
 
 /**
@@ -43,7 +44,12 @@ contract CreateProposal is EthereumScript {
     actionsSonic[0] = GovV3Helpers.buildAction(
       type(AaveV3Sonic_AddStSToAaveV3SonicInstance_20250418).creationCode
     );
-    payloads[0] = GovV3Helpers.buildSonicPayload(vm, actionsSonic);
+    payloads[0] = PayloadsControllerUtils.Payload({
+      chain: ChainIds.SONIC,
+      accessLevel: PayloadsControllerUtils.AccessControl.Level_1,
+      payloadsController: address(GovernanceV3Sonic.PAYLOADS_CONTROLLER),
+      payloadId: 3
+    });
 
     // create proposal
     vm.startBroadcast();

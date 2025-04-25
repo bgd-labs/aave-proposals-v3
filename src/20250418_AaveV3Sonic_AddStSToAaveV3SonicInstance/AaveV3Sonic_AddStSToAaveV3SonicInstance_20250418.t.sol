@@ -18,7 +18,7 @@ contract AaveV3Sonic_AddStSToAaveV3SonicInstance_20250418_Test is ProtocolV3Test
   AaveV3Sonic_AddStSToAaveV3SonicInstance_20250418 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('sonic'), 20871419);
+    vm.createSelectFork(vm.rpcUrl('sonic'), 22210973);
     proposal = new AaveV3Sonic_AddStSToAaveV3SonicInstance_20250418();
   }
 
