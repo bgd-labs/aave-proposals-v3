@@ -70,10 +70,10 @@ contract AaveV3Base_GHOGnosisLaunch_20250421_Base is ProtocolV3TestBase {
   }
 
   address internal constant RISK_COUNCIL = 0x8513e6F37dBc52De87b166980Fa3F50639694B60; // common across all chains
-  address internal constant RMN_PROXY_BASE = 0xC842c69d54F83170C42C4d556B4F6B2ca53Dd3E8;
-  address internal constant ROUTER_BASE = 0x881e3A65B4d4a04dD529061dd0071cf975F58bCD;
-  address internal constant GHO_TOKEN_IMPL_BASE = 0xb0e1c7830aA781362f79225559Aa068E6bDaF1d1;
-  IGhoToken internal constant GHO_TOKEN_BASE =
+  address internal constant RMN_PROXY_GNOSIS = 0xC842c69d54F83170C42C4d556B4F6B2ca53Dd3E8;
+  address internal constant ROUTER_GNOSIS = 0x881e3A65B4d4a04dD529061dd0071cf975F58bCD;
+  address internal constant GHO_TOKEN_IMPL_GNOSIS = 0xb0e1c7830aA781362f79225559Aa068E6bDaF1d1;
+  IGhoToken internal constant GHO_TOKEN_GNOSIS =
     IGhoToken(0x6Bb7a212910682DCFdbd5BCBb3e28FB4E8da10Ee);
   uint256 internal constant CCIP_RATE_LIMIT_CAPACITY = 300_000e18;
   uint256 internal constant CCIP_RATE_LIMIT_REFILL_RATE = 60e18;
@@ -86,9 +86,9 @@ contract AaveV3Base_GHOGnosisLaunch_20250421_Base is ProtocolV3TestBase {
   address internal bob = makeAddr('bob');
   address internal carol = makeAddr('carol');
 
-  IGhoAaveSteward internal GHO_AAVE_STEWARD_BASE;
-  IGhoBucketSteward internal GHO_BUCKET_STEWARD_BASE;
-  IGhoCcipSteward internal GHO_CCIP_STEWARD_BASE;
+  IGhoAaveSteward internal GHO_AAVE_STEWARD_GNOSIS;
+  IGhoBucketSteward internal GHO_BUCKET_STEWARD_GNOSIS;
+  IGhoCcipSteward internal GHO_CCIP_STEWARD_GNOSIS;
 
   event CCIPSendRequested(IInternal.EVM2EVMMessage message);
   event Locked(address indexed sender, uint256 amount);
@@ -122,7 +122,7 @@ contract AaveV3Base_GHOGnosisLaunch_20250421_Base is ProtocolV3TestBase {
       0x98217A06721Ebf727f2C8d9aD7718ec28b7aAe34
     );
     base.c.tokenAdminRegistry = ITokenAdminRegistry(0x6f6C373d09C07425BaAE72317863d7F6bb731e37);
-    base.c.token = GHO_TOKEN_BASE;
+    base.c.token = GHO_TOKEN_GNOSIS;
     base.c.router = IRouter(base.tokenPool.getRouter());
     base.c.arbOnRamp = IEVM2EVMOnRamp(base.c.router.getOnRamp(arb.c.chainSelector));
     base.c.ethOnRamp = IEVM2EVMOnRamp(base.c.router.getOnRamp(eth.c.chainSelector));
@@ -184,10 +184,10 @@ contract AaveV3Base_GHOGnosisLaunch_20250421_Base is ProtocolV3TestBase {
     _assertOffRamp(arb.c.ethOffRamp, eth.c.chainSelector, arb.c.chainSelector, arb.c.router);
 
     // proposal constants
-    assertEq(arb.proposal.BASE_CHAIN_SELECTOR(), base.c.chainSelector);
+    assertEq(arb.proposal.GNOSIS_CHAIN_SELECTOR(), base.c.chainSelector);
     assertEq(address(arb.proposal.TOKEN_POOL()), address(arb.tokenPool));
-    assertEq(arb.proposal.REMOTE_TOKEN_POOL_BASE(), address(base.tokenPool));
-    assertEq(arb.proposal.REMOTE_GHO_TOKEN_BASE(), address(base.c.token));
+    assertEq(arb.proposal.REMOTE_TOKEN_POOL_GNOSIS(), address(base.tokenPool));
+    assertEq(arb.proposal.REMOTE_GHO_TOKEN_GNOSIS(), address(base.c.token));
 
     vm.selectFork(base.c.forkId);
     assertEq(base.c.chainSelector, 15971525489660198786);
@@ -219,10 +219,10 @@ contract AaveV3Base_GHOGnosisLaunch_20250421_Base is ProtocolV3TestBase {
     _assertOffRamp(eth.c.baseOffRamp, base.c.chainSelector, eth.c.chainSelector, eth.c.router);
 
     // proposal constants
-    assertEq(eth.proposal.BASE_CHAIN_SELECTOR(), base.c.chainSelector);
+    assertEq(eth.proposal.GNOSIS_CHAIN_SELECTOR(), base.c.chainSelector);
     assertEq(address(eth.proposal.TOKEN_POOL()), address(eth.tokenPool));
-    assertEq(eth.proposal.REMOTE_TOKEN_POOL_BASE(), address(base.tokenPool));
-    assertEq(eth.proposal.REMOTE_GHO_TOKEN_BASE(), address(base.c.token));
+    assertEq(eth.proposal.REMOTE_TOKEN_POOL_GNOSIS(), address(base.tokenPool));
+    assertEq(eth.proposal.REMOTE_GHO_TOKEN_GNOSIS(), address(base.c.token));
 
     if (executed) {
       vm.selectFork(arb.c.forkId);

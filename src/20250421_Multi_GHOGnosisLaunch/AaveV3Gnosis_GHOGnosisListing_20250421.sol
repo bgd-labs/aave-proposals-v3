@@ -20,10 +20,10 @@ contract AaveV3Gnosis_GHOGnosisListing_20250421 is AaveV3PayloadGnosis {
 
   // https://gnosisscan.io/address/0xac140648435d03f784879cd789130F22Ef588Fcd
   address public constant EMISSION_ADMIN = 0xac140648435d03f784879cd789130F22Ef588Fcd;
-  // https://gnosisscan.io/address/
-  address public constant GHO_PRICE_FEED = 0x0;
-  // https://gnosisscan.io/address/
-  address public constant GHO_TOKEN = 0x0;
+  // https://gnosisscan.io/address/0x360d8aa8F6b09B7BC57aF34db2Eb84dD87bf4d12
+  address public constant GHO_PRICE_FEED = 0x360d8aa8F6b09B7BC57aF34db2Eb84dD87bf4d12;
+  // https://gnosisscan.io/address/0xfc421aD3C883Bf9E7C4f42dE845C4e4405799e73
+  address public constant GHO_TOKEN = 0xfc421aD3C883Bf9E7C4f42dE845C4e4405799e73;
   uint256 public constant GHO_SEED_AMOUNT = 1e18;
 
   function _preExecute() internal view override {

@@ -26,10 +26,10 @@ contract AaveV3Arbitrum_GHOGnosisLaunch_20250421 is IProposalGenericExecutor {
   // https://arbiscan.io/address/0x9f0e4F4c5664888442E459f40f635765BB6265Ec
   address public constant NEW_GHO_TOKEN_PROXY_ADMIN = 0x9f0e4F4c5664888442E459f40f635765BB6265Ec;
 
-  // https://basescan.org/address/0x98217A06721Ebf727f2C8d9aD7718ec28b7aAe34
-  address public constant REMOTE_TOKEN_POOL_GNOSIS = 0x0;
-  // https://basescan.org/address/0x6Bb7a212910682DCFdbd5BCBb3e28FB4E8da10Ee
-  address public constant REMOTE_GHO_TOKEN_GNOSIS = 0x0;
+  // https://gnosisscan.io/address/0x98217A06721Ebf727f2C8d9aD7718ec28b7aAe34
+  address public constant REMOTE_TOKEN_POOL_GNOSIS = 0xDe6539018B095353A40753Dc54C91C68c9487D4E;
+  // https://gnosisscan.io/address/0x6Bb7a212910682DCFdbd5BCBb3e28FB4E8da10Ee
+  address public constant REMOTE_GHO_TOKEN_GNOSIS = 0xfc421aD3C883Bf9E7C4f42dE845C4e4405799e73;
 
   // Token Rate Limit Capacity: 1_000_000 GHO
   uint128 public constant CCIP_RATE_LIMIT_CAPACITY = 1_000_000e18;
