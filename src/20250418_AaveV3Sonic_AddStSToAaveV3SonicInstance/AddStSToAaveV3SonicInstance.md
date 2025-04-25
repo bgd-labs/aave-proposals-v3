@@ -117,8 +117,8 @@ Additionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://sonicscan.org/
 
 ## References
 
-- Implementation: [AaveV3Sonic](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250418_AaveV3Sonic_AddStSToAaveV3SonicInstance/AaveV3Sonic_AddStSToAaveV3SonicInstance_20250418.sol)
-- Tests: [AaveV3Sonic](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250418_AaveV3Sonic_AddStSToAaveV3SonicInstance/AaveV3Sonic_AddStSToAaveV3SonicInstance_20250418.t.sol)
+- Implementation: [AaveV3Sonic](https://github.com/bgd-labs/aave-proposals-v3/blob/a6351081bdc8e95114cef3391179ad72fa58cddd/src/20250418_AaveV3Sonic_AddStSToAaveV3SonicInstance/AaveV3Sonic_AddStSToAaveV3SonicInstance_20250418.sol)
+- Tests: [AaveV3Sonic](https://github.com/bgd-labs/aave-proposals-v3/blob/a6351081bdc8e95114cef3391179ad72fa58cddd/src/20250418_AaveV3Sonic_AddStSToAaveV3SonicInstance/AaveV3Sonic_AddStSToAaveV3SonicInstance_20250418.t.sol)
 - [Snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0xb49491fa374865c309723a992da4d2b1f24e96f310b8842a01cf6215a48e5c6d)
 - [Discussion](https://governance.aave.com/t/arfc-add-sts-to-aave-v3-sonic-instance/21445)
 
