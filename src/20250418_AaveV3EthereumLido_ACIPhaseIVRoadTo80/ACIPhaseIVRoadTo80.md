@@ -2,7 +2,7 @@
 title: "ACI Phase IV – “Road to 80”"
 author: "Aave-Chan Initiative"
 discussions: "https://governance.aave.com/t/arfc-aci-phase-iv-road-to-80/21830"
-snapshot: TODO
+snapshot: https://snapshot.box/#/s:aavedao.eth/proposal/0x7bfe8ade2b8835f30655ca9b908e921ef89ba5061d8d6a64b422dc3643d83c14
 ---
 
 ## Simple Summary
