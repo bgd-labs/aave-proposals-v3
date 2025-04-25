@@ -38,12 +38,6 @@ contract CreateProposal is EthereumScript {
     // create payloads
     PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](1);
 
-    // compose actions for validation
-    IPayloadsControllerCore.ExecutionAction[]
-      memory actionsSonic = new IPayloadsControllerCore.ExecutionAction[](1);
-    actionsSonic[0] = GovV3Helpers.buildAction(
-      type(AaveV3Sonic_AddStSToAaveV3SonicInstance_20250418).creationCode
-    );
     payloads[0] = PayloadsControllerUtils.Payload({
       chain: ChainIds.SONIC,
       accessLevel: PayloadsControllerUtils.AccessControl.Level_1,
