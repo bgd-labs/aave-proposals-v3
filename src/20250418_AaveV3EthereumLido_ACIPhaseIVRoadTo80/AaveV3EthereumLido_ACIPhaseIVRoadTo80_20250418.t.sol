@@ -14,7 +14,7 @@ contract AaveV3EthereumLido_ACIPhaseIVRoadTo80_20250418_Test is ProtocolV3TestBa
   AaveV3EthereumLido_ACIPhaseIVRoadTo80_20250418 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 22294313);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 22348667);
     proposal = new AaveV3EthereumLido_ACIPhaseIVRoadTo80_20250418();
   }
 
