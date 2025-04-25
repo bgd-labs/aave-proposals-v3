@@ -19,7 +19,7 @@ The RiskSteward has been quite successful to update risk params in a controlled 
 
 ## Specification
 
-The table below illustrates the assets listed:
+The table below illustrates the configured risk parameters for assets listed:
 
 | Parameter                 |                                                                                                    PT_sUSDE_31JUL2025 |                                                                                                    PT_eUSDe_29MAR2025 |
 | ------------------------- | --------------------------------------------------------------------------------------------------------------------: | --------------------------------------------------------------------------------------------------------------------: |
