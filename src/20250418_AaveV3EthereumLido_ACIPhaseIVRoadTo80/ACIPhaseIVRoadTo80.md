@@ -89,13 +89,13 @@ The ACI clearly defines the following activities as out of scope, based on eithe
 
 - **Proposal Duration:** 12 months (365 days)
 - **Budget Requested:** 3M aEthLidoGHO
-- **Stream Method:** Yearly linear stream, replacing any previous funding streams
+- **Stream Method:** Yearly linear stream
 
 ## References
 
 - Implementation: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250418_AaveV3EthereumLido_ACIPhaseIVRoadTo80/AaveV3EthereumLido_ACIPhaseIVRoadTo80_20250418.sol)
 - Tests: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250418_AaveV3EthereumLido_ACIPhaseIVRoadTo80/AaveV3EthereumLido_ACIPhaseIVRoadTo80_20250418.t.sol)
-  [Snapshot](TODO)
+  [Snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0x7bfe8ade2b8835f30655ca9b908e921ef89ba5061d8d6a64b422dc3643d83c14)
 - [Discussion](https://governance.aave.com/t/arfc-aci-phase-iv-road-to-80/21830)
 
 ## Copyright

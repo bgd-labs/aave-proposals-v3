@@ -8,7 +8,7 @@ import {CollectorUtils} from 'aave-helpers/src/CollectorUtils.sol';
 /**
  * @title ACI Phase IV – “Road to 80”
  * @author Aave-Chan Initiative
- * - Snapshot: TODO
+ * - Snapshot: https://snapshot.box/#/s:aavedao.eth/proposal/0x58ba7872571d324f9ac6f56c0aa87d1393b9712d853e95096545afa965da2e2d
  * - Discussion: https://governance.aave.com/t/arfc-aci-phase-iv-road-to-80/21830
  */
 contract AaveV3EthereumLido_ACIPhaseIVRoadTo80_20250418 is IProposalGenericExecutor {
@@ -18,9 +18,7 @@ contract AaveV3EthereumLido_ACIPhaseIVRoadTo80_20250418 is IProposalGenericExecu
   uint256 public constant STREAM_AMOUNT = 3_000_000 ether;
   // stream receivers
   address public constant ACI = 0x55Ac902cb75cC15288D473ed8E3E185a75b3f330; // treasury.aci.eth
-  uint256 public constant PREVIOUS_ACI_STREAM = 100034;
   function execute() external {
-    AaveV3EthereumLido.COLLECTOR.cancelStream(PREVIOUS_ACI_STREAM);
     CollectorUtils.stream(
       AaveV3EthereumLido.COLLECTOR,
       CollectorUtils.CreateStreamInput({
