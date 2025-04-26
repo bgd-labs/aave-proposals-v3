@@ -15,95 +15,54 @@ import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
  * - Discussion: TODO
  */
 contract AaveV3Optimism_MayFundingUpdate_20250426 is IProposalGenericExecutor {
+  address public constant DAI = AaveV3OptimismAssets.DAI_UNDERLYING;
+  // address public constant WETH = AaveV3OptimismAssets.WETH_UNDERLYING;
+  // address public constant WBTC = AaveV3OptimismAssets.WBTC_UNDERLYING;
+  address public constant USDT = AaveV3OptimismAssets.USDT_UNDERLYING;
+  address public constant USDC = AaveV3OptimismAssets.USDC_UNDERLYING;
+  address public constant COLLECTOR = address(AaveV3Optimism.COLLECTOR);
+  address public constant BRIDGE = MiscOptimism.AAVE_OPT_ETH_BRIDGE;
+
   function execute() external {
     /// DAI
-    uint256 daiAmountWithdrawn = CollectorUtils.withdrawFromV3(
-      AaveV3Optimism.COLLECTOR,
-      CollectorUtils.IOInput({
-        pool: address(AaveV3Optimism.POOL),
-        underlying: AaveV3OptimismAssets.DAI_UNDERLYING,
-        amount: IERC20(AaveV3OptimismAssets.DAI_A_TOKEN).balanceOf(
-          address(AaveV3Optimism.COLLECTOR)
-        )
-      }),
-      MiscOptimism.AAVE_OPT_ETH_BRIDGE
-    );
-    IAaveOpEthERC20Bridge(MiscOptimism.AAVE_OPT_ETH_BRIDGE).bridge(
-      AaveV3OptimismAssets.DAI_UNDERLYING,
-      AaveV3EthereumAssets.DAI_UNDERLYING,
-      daiAmountWithdrawn
-    );
+    uint256 daiBalance = IERC20(DAI).balanceOf(COLLECTOR);
+    AaveV3Optimism.COLLECTOR.transfer(IERC20(DAI), BRIDGE, daiBalance);
+    IAaveOpEthERC20Bridge(BRIDGE).bridge(DAI, AaveV3EthereumAssets.DAI_UNDERLYING, daiBalance);
 
     /// WETH
-    uint256 wethAmountWithdrawn = CollectorUtils.withdrawFromV3(
-      AaveV3Optimism.COLLECTOR,
-      CollectorUtils.IOInput({
-        pool: address(AaveV3Optimism.POOL),
-        underlying: AaveV3OptimismAssets.WETH_UNDERLYING,
-        amount: IERC20(AaveV3OptimismAssets.WETH_A_TOKEN).balanceOf(
-          address(AaveV3Optimism.COLLECTOR)
-        )
-      }),
-      MiscOptimism.AAVE_OPT_ETH_BRIDGE
-    );
-    IAaveOpEthERC20Bridge(MiscOptimism.AAVE_OPT_ETH_BRIDGE).bridge(
-      AaveV3OptimismAssets.WETH_UNDERLYING,
-      AaveV3EthereumAssets.WETH_UNDERLYING,
-      wethAmountWithdrawn
-    );
+    // uint256 wethBalance = IERC20(WETH).balanceOf(COLLECTOR);
+    // AaveV3Optimism.COLLECTOR.transfer(
+    //   WETH,
+    //   BRIDGE,
+    //   wethBalance
+    // );
+    // IAaveOpEthERC20Bridge(BRIDGE).bridge(
+    //   WETH,
+    //   AaveV3EthereumAssets.WETH_UNDERLYING,
+    //   wethBalance
+    // );
 
     /// WBTC
-    uint256 wbtcAmountWithdrawn = CollectorUtils.withdrawFromV3(
-      AaveV3Optimism.COLLECTOR,
-      CollectorUtils.IOInput({
-        pool: address(AaveV3Optimism.POOL),
-        underlying: AaveV3OptimismAssets.WBTC_UNDERLYING,
-        amount: IERC20(AaveV3OptimismAssets.WBTC_A_TOKEN).balanceOf(
-          address(AaveV3Optimism.COLLECTOR)
-        )
-      }),
-      MiscOptimism.AAVE_OPT_ETH_BRIDGE
-    );
-    IAaveOpEthERC20Bridge(MiscOptimism.AAVE_OPT_ETH_BRIDGE).bridge(
-      AaveV3OptimismAssets.WBTC_UNDERLYING,
-      AaveV3EthereumAssets.WBTC_UNDERLYING,
-      wbtcAmountWithdrawn
-    );
+    // uint256 wbtcBalance = IERC20(WBTC).balanceOf(COLLECTOR);
+    // AaveV3Optimism.COLLECTOR.transfer(
+    //   WBTC,
+    //   BRIDGE,
+    //   wbtcBalance
+    // );
+    // IAaveOpEthERC20Bridge(BRIDGE).bridge(
+    //   WBTC,
+    //   AaveV3EthereumAssets.WBTC_UNDERLYING,
+    //   wbtcBalance
+    // );
+
+    /// USDT
+    uint256 usdtBalance = IERC20(USDT).balanceOf(COLLECTOR);
+    AaveV3Optimism.COLLECTOR.transfer(IERC20(USDT), BRIDGE, usdtBalance);
+    IAaveOpEthERC20Bridge(BRIDGE).bridge(USDT, AaveV3EthereumAssets.USDT_UNDERLYING, usdtBalance);
 
     /// USDC
-    uint256 usdcAmountWithdrawn = CollectorUtils.withdrawFromV3(
-      AaveV3Optimism.COLLECTOR,
-      CollectorUtils.IOInput({
-        pool: address(AaveV3Optimism.POOL),
-        underlying: AaveV3OptimismAssets.USDC_UNDERLYING,
-        amount: IERC20(AaveV3OptimismAssets.USDC_A_TOKEN).balanceOf(
-          address(AaveV3Optimism.COLLECTOR)
-        )
-      }),
-      MiscOptimism.AAVE_OPT_ETH_BRIDGE
-    );
-    IAaveOpEthERC20Bridge(MiscOptimism.AAVE_OPT_ETH_BRIDGE).bridge(
-      AaveV3OptimismAssets.USDC_UNDERLYING,
-      AaveV3EthereumAssets.USDC_UNDERLYING,
-      usdcAmountWithdrawn
-    );
-
-    /// USDC
-    uint256 usdtAmountWithdrawn = CollectorUtils.withdrawFromV3(
-      AaveV3Optimism.COLLECTOR,
-      CollectorUtils.IOInput({
-        pool: address(AaveV3Optimism.POOL),
-        underlying: AaveV3OptimismAssets.USDT_UNDERLYING,
-        amount: IERC20(AaveV3OptimismAssets.USDT_A_TOKEN).balanceOf(
-          address(AaveV3Optimism.COLLECTOR)
-        )
-      }),
-      MiscOptimism.AAVE_OPT_ETH_BRIDGE
-    );
-    IAaveOpEthERC20Bridge(MiscOptimism.AAVE_OPT_ETH_BRIDGE).bridge(
-      AaveV3OptimismAssets.USDT_UNDERLYING,
-      AaveV3EthereumAssets.USDT_UNDERLYING,
-      usdtAmountWithdrawn
-    );
+    uint256 usdcBalance = IERC20(USDC).balanceOf(COLLECTOR);
+    AaveV3Optimism.COLLECTOR.transfer(IERC20(USDC), BRIDGE, usdcBalance);
+    IAaveOpEthERC20Bridge(BRIDGE).bridge(USDC, AaveV3EthereumAssets.USDC_UNDERLYING, usdcBalance);
   }
 }

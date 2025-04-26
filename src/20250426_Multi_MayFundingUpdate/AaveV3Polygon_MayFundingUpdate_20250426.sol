@@ -15,67 +15,50 @@ import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
  * - Discussion: TODO
  */
 contract AaveV3Polygon_MayFundingUpdate_20250426 is IProposalGenericExecutor {
+  address public constant DAI = AaveV3PolygonAssets.DAI_UNDERLYING;
+  address public constant USDT = AaveV3PolygonAssets.USDT_UNDERLYING;
+  address public constant USDC = AaveV3PolygonAssets.USDC_UNDERLYING;
+  address public constant WPOL = AaveV3PolygonAssets.WPOL_UNDERLYING;
+  address public constant WBTC = AaveV3PolygonAssets.WBTC_UNDERLYING;
+  address public constant MATICX = AaveV3PolygonAssets.MaticX_UNDERLYING;
+  address public constant ETH = AaveV3PolygonAssets.WETH_UNDERLYING;
+  address public constant COLLECTOR = address(AaveV3Polygon.COLLECTOR);
+  address public constant BRIDGE = MiscPolygon.AAVE_POL_ETH_BRIDGE;
+
   function execute() external {
-    /// WBTC
-    uint256 wbtcAmountWithdrawn = CollectorUtils.withdrawFromV3(
-      AaveV3Polygon.COLLECTOR,
-      CollectorUtils.IOInput({
-        pool: address(AaveV3Polygon.POOL),
-        underlying: AaveV3PolygonAssets.WBTC_UNDERLYING,
-        amount: IERC20(AaveV3PolygonAssets.WBTC_A_TOKEN).balanceOf(address(AaveV3Polygon.COLLECTOR))
-      }),
-      MiscPolygon.AAVE_POL_ETH_BRIDGE
-    );
-    IAavePolEthERC20Bridge(MiscPolygon.AAVE_POL_ETH_BRIDGE).bridge(
-      AaveV3PolygonAssets.WBTC_UNDERLYING,
-      wbtcAmountWithdrawn
-    );
+    /// DAI
+    uint256 daiBalance = IERC20(DAI).balanceOf(COLLECTOR);
+    AaveV3Polygon.COLLECTOR.transfer(IERC20(DAI), BRIDGE, daiBalance);
+    IAavePolEthERC20Bridge(BRIDGE).bridge(DAI, daiBalance);
 
     /// USDT
-    uint256 usdtAmountWithdrawn = CollectorUtils.withdrawFromV3(
-      AaveV3Polygon.COLLECTOR,
-      CollectorUtils.IOInput({
-        pool: address(AaveV3Polygon.POOL),
-        underlying: AaveV3PolygonAssets.USDT_UNDERLYING,
-        amount: IERC20(AaveV3PolygonAssets.USDT_A_TOKEN).balanceOf(address(AaveV3Polygon.COLLECTOR))
-      }),
-      MiscPolygon.AAVE_POL_ETH_BRIDGE
-    );
-    IAavePolEthERC20Bridge(MiscPolygon.AAVE_POL_ETH_BRIDGE).bridge(
-      AaveV3PolygonAssets.USDT_UNDERLYING,
-      usdtAmountWithdrawn
-    );
+    uint256 usdtBalance = IERC20(USDT).balanceOf(COLLECTOR);
+    AaveV3Polygon.COLLECTOR.transfer(IERC20(USDT), BRIDGE, usdtBalance);
+    IAavePolEthERC20Bridge(BRIDGE).bridge(USDT, usdtBalance);
 
-    /// DAI
-    uint256 daiAmountWithdrawn = CollectorUtils.withdrawFromV3(
-      AaveV3Polygon.COLLECTOR,
-      CollectorUtils.IOInput({
-        pool: address(AaveV3Polygon.POOL),
-        underlying: AaveV3PolygonAssets.DAI_UNDERLYING,
-        amount: IERC20(AaveV3PolygonAssets.DAI_A_TOKEN).balanceOf(address(AaveV3Polygon.COLLECTOR))
-      }),
-      MiscPolygon.AAVE_POL_ETH_BRIDGE
-    );
-    IAavePolEthERC20Bridge(MiscPolygon.AAVE_POL_ETH_BRIDGE).bridge(
-      AaveV3PolygonAssets.DAI_UNDERLYING,
-      daiAmountWithdrawn
-    );
+    /// USDC
+    uint256 usdcBalance = IERC20(USDC).balanceOf(COLLECTOR);
+    AaveV3Polygon.COLLECTOR.transfer(IERC20(USDC), BRIDGE, usdcBalance);
+    IAavePolEthERC20Bridge(BRIDGE).bridge(USDC, usdcBalance);
+
+    /// WPOL
+    uint256 wpolBalance = IERC20(WPOL).balanceOf(COLLECTOR);
+    AaveV3Polygon.COLLECTOR.transfer(IERC20(WPOL), BRIDGE, wpolBalance);
+    IAavePolEthERC20Bridge(BRIDGE).bridge(WPOL, wpolBalance);
+
+    /// WBTC
+    uint256 wbtcBalance = IERC20(WBTC).balanceOf(COLLECTOR);
+    AaveV3Polygon.COLLECTOR.transfer(IERC20(WBTC), BRIDGE, wbtcBalance);
+    IAavePolEthERC20Bridge(BRIDGE).bridge(WBTC, wbtcBalance);
 
     /// MATICX
-    uint256 maticxAmountWithdrawn = CollectorUtils.withdrawFromV3(
-      AaveV3Polygon.COLLECTOR,
-      CollectorUtils.IOInput({
-        pool: address(AaveV3Polygon.POOL),
-        underlying: AaveV3PolygonAssets.MaticX_UNDERLYING,
-        amount: IERC20(AaveV3PolygonAssets.MaticX_A_TOKEN).balanceOf(
-          address(AaveV3Polygon.COLLECTOR)
-        )
-      }),
-      MiscPolygon.AAVE_POL_ETH_BRIDGE
-    );
-    IAavePolEthERC20Bridge(MiscPolygon.AAVE_POL_ETH_BRIDGE).bridge(
-      AaveV3PolygonAssets.MaticX_UNDERLYING,
-      maticxAmountWithdrawn
-    );
+    uint256 maticxBalance = IERC20(MATICX).balanceOf(COLLECTOR);
+    AaveV3Polygon.COLLECTOR.transfer(IERC20(MATICX), BRIDGE, maticxBalance);
+    IAavePolEthERC20Bridge(BRIDGE).bridge(MATICX, maticxBalance);
+
+    /// ETH
+    uint256 ethBalance = IERC20(ETH).balanceOf(COLLECTOR);
+    AaveV3Polygon.COLLECTOR.transfer(IERC20(ETH), BRIDGE, ethBalance);
+    IAavePolEthERC20Bridge(BRIDGE).bridge(ETH, ethBalance);
   }
 }
