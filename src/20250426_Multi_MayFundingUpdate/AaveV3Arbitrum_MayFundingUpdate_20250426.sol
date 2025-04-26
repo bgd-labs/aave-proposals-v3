@@ -21,7 +21,7 @@ contract AaveV3Arbitrum_MayFundingUpdate_20250426 is IProposalGenericExecutor {
   address public constant WETH_GATEWAY = 0x6c411aD3E74De3E7Bd422b94A27770f5B86C623B;
   address public constant WSTETH_GATEWAY = 0x07D4692291B9E30E326fd31706f686f83f331B82;
   address public constant USDT_GATEWAY = 0x14E4A1B13bf7F943c8ff7C51fb60FA964A298D92;
-  address public constant WBTC_GATEAY = 0x09e9222E96E7B4AE2a407B98d48e330053351EEe;
+  address public constant WBTC_GATEWAY = 0x09e9222E96E7B4AE2a407B98d48e330053351EEe;
   address public constant WEETH_GATEWAY = 0x09e9222E96E7B4AE2a407B98d48e330053351EEe;
 
   function execute() external {
