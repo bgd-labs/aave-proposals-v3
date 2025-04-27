@@ -42,7 +42,7 @@ contract AaveV3Arbitrum_MayFundingUpdate_20250426 is IProposalGenericExecutor {
     );
 
     /// USDT
-    uint256 usdtBalance = IERC20(AaveV3ArbitrumAssets.DAI_UNDERLYING).balanceOf(COLLECTOR);
+    uint256 usdtBalance = IERC20(AaveV3ArbitrumAssets.USDT_UNDERLYING).balanceOf(COLLECTOR);
     AaveV3Arbitrum.COLLECTOR.transfer(
       IERC20(AaveV3ArbitrumAssets.USDT_UNDERLYING),
       BRIDGE,
