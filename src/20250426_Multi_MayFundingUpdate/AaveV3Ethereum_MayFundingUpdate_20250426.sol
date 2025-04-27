@@ -17,6 +17,9 @@ import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 contract AaveV3Ethereum_MayFundingUpdate_20250426 is IProposalGenericExecutor {
   using CollectorUtils for ICollector;
 
+  address public constant COLLECTOR = address(AaveV3Ethereum.COLLECTOR);
+  address public constant ECOSYSTEM_RESERVE = MiscEthereum.ECOSYSTEM_RESERVE;
+
   /// https://etherscan.io/address/0x22740deBa78d5a0c24C58C740e3715ec29de1bFa
   address public constant AAVE_FINANCE_COMMITEE = 0x22740deBa78d5a0c24C58C740e3715ec29de1bFa;
 
@@ -29,11 +32,15 @@ contract AaveV3Ethereum_MayFundingUpdate_20250426 is IProposalGenericExecutor {
   /// https://etherscan.io/address/0x3f12643D3f6f874d39C2a4c9f2Cd6f2DbAC877FC
   address public constant GHO_USD_FEED = 0x3f12643D3f6f874d39C2a4c9f2Cd6f2DbAC877FC;
 
-  address public constant COLLECTOR = address(AaveV3Ethereum.COLLECTOR);
-  address public constant ECOSYSTEM_RESERVE = MiscEthereum.ECOSYSTEM_RESERVE;
+  /// https://etherscan.io/address/0x7d1afa7b718fb893db30a3abc0cfc608aacfebb0
+  IERC20 public constant MATIC_MAINNET = IERC20(0x7D1AfA7B718fb893dB30A3aBc0Cfc608AaCfeBB0);
+
+  /// https://etherscan.io/address/0x9ee91f9f426fa633d227f7a9b000e28b9dfd8599
+  IERC20 public constant STMATIC_MAINNET = IERC20(0x9ee91F9f426fA633d227f7a9b000E28b9dfd8599);
 
   uint256 public constant USDT_SWAP_AMOUNT = 2_000_000e6;
   uint256 public constant USDC_SWAP_AMOUNT = 2_000_000e6;
+
   uint256 public constant USDT_BUYBACK_AMOUNT = 3_000_000e6;
   uint256 public constant USDC_BUYBACK_AMOUNT = 3_000_000e6;
 
@@ -44,7 +51,7 @@ contract AaveV3Ethereum_MayFundingUpdate_20250426 is IProposalGenericExecutor {
       IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING).balanceOf(COLLECTOR)
     );
     _swaps();
-    _aaveBuybackAllowance();
+    _allowances();
   }
 
   function _swaps() internal {
@@ -137,7 +144,21 @@ contract AaveV3Ethereum_MayFundingUpdate_20250426 is IProposalGenericExecutor {
     );
   }
 
-  function _aaveBuybackAllowance() internal {
+  function _allowances() internal {
+    /// Acquire ETH allowances
+    AaveV3Ethereum.COLLECTOR.approve(
+      MATIC_MAINNET,
+      AAVE_FINANCE_COMMITEE,
+      MATIC_MAINNET.balanceOf(COLLECTOR)
+    );
+
+    AaveV3Ethereum.COLLECTOR.approve(
+      STMATIC_MAINNET,
+      AAVE_FINANCE_COMMITEE,
+      STMATIC_MAINNET.balanceOf(COLLECTOR)
+    );
+
+    /// Aave buyback allowance
     AaveV3Ethereum.COLLECTOR.approve(
       IERC20(AaveV3EthereumAssets.USDT_A_TOKEN),
       AAVE_FINANCE_COMMITEE,
