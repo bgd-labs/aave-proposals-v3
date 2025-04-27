@@ -23,6 +23,6 @@ contract AaveV3Ethereum_MayFundingUpdate_20250426_Test is ProtocolV3TestBase {
    * @dev executes the generic test suite including e2e and config snapshots
    */
   function test_defaultProposalExecution() public {
-    defaultTest('AaveV3Ethereum_MayFundingUpdate_20250426', AaveV3Ethereum.POOL, address(proposal));
+    executePayload(vm, address(proposal));
   }
 }
