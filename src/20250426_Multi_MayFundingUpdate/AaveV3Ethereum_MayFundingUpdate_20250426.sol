@@ -3,6 +3,7 @@ pragma solidity ^0.8.0;
 
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
+import {AaveV3EthereumLidoAssets} from 'aave-address-book/AaveV3EthereumLido.sol';
 import {AaveV2EthereumAssets} from 'aave-address-book/AaveV2Ethereum.sol';
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 import {CollectorUtils, ICollector} from 'aave-helpers/src/CollectorUtils.sol';
@@ -18,6 +19,9 @@ contract AaveV3Ethereum_MayFundingUpdate_20250426 is IProposalGenericExecutor {
   using CollectorUtils for ICollector;
 
   address public constant COLLECTOR = address(AaveV3Ethereum.COLLECTOR);
+
+  /// https://etherscan.io/address/0xdeadD8aB03075b7FBA81864202a2f59EE25B312b
+  address public constant MERIT_SAFE = 0xdeadD8aB03075b7FBA81864202a2f59EE25B312b;
 
   /// https://etherscan.io/address/0x22740deBa78d5a0c24C58C740e3715ec29de1bFa
   address public constant AAVE_FINANCE_COMMITEE = 0x22740deBa78d5a0c24C58C740e3715ec29de1bFa;
@@ -45,6 +49,9 @@ contract AaveV3Ethereum_MayFundingUpdate_20250426 is IProposalGenericExecutor {
 
   uint256 public constant USDT_BUYBACK_AMOUNT = 3_000_000e6;
   uint256 public constant USDC_BUYBACK_AMOUNT = 3_000_000e6;
+
+  uint256 public constant GHO_AMOUNT = 3_000_000e6;
+  uint256 public constant WETH_AMOUNT = 800e18;
 
   function execute() external {
     AaveV3Ethereum.COLLECTOR.transfer(
@@ -129,21 +136,6 @@ contract AaveV3Ethereum_MayFundingUpdate_20250426 is IProposalGenericExecutor {
         slippage: 200
       })
     );
-
-    /// ~13k
-    AaveV3Ethereum.COLLECTOR.swap(
-      MiscEthereum.AAVE_SWAPPER,
-      CollectorUtils.SwapInput({
-        milkman: MILKMAN,
-        priceChecker: PRICE_CHECKER,
-        fromUnderlying: AaveV2EthereumAssets.RAI_UNDERLYING,
-        toUnderlying: AaveV3EthereumAssets.WETH_UNDERLYING,
-        fromUnderlyingPriceFeed: AaveV2EthereumAssets.RAI_ORACLE,
-        toUnderlyingPriceFeed: AaveV3EthereumAssets.WETH_ORACLE,
-        amount: IERC20(AaveV2EthereumAssets.RAI_UNDERLYING).balanceOf(COLLECTOR),
-        slippage: 350
-      })
-    );
   }
 
   function _allowances() internal {
@@ -170,6 +162,19 @@ contract AaveV3Ethereum_MayFundingUpdate_20250426 is IProposalGenericExecutor {
       IERC20(AaveV3EthereumAssets.USDC_A_TOKEN),
       AAVE_FINANCE_COMMITEE,
       USDC_BUYBACK_AMOUNT
+    );
+
+    /// Merit + Ahab Programs
+    AaveV3Ethereum.COLLECTOR.approve(
+      IERC20(AaveV3EthereumLidoAssets.GHO_A_TOKEN),
+      MERIT_SAFE,
+      GHO_AMOUNT
+    );
+
+    AaveV3Ethereum.COLLECTOR.approve(
+      IERC20(AaveV3EthereumAssets.WETH_A_TOKEN),
+      MERIT_SAFE,
+      WETH_AMOUNT
     );
   }
 }

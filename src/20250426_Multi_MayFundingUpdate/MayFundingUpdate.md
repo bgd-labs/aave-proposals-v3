@@ -71,7 +71,6 @@ Swap the following from the Collector as outlined in the table below:
 |   DAI    |  All   | USDS |
 |   LUSD   |  All   | WETH |
 |   CVX    |  All   | WETH |
-|   RAI    |  All   | WETH |
 |   FRAX   |  All   | WETH |
 
 ### Create Allowances
@@ -91,11 +90,22 @@ Create a MATIC and stMATIC allowance for the Aave Finance Committee to then swap
 
 Create a 3M aEthUSDT and 3M aEthUSDC allowance for the Aave Finance Committee to perform 6 weeks of AAVE buybacks.
 
-- Asset: aEthUSDT `0x23878914EFE38d27C4D67Ab83ed1b93A74D4086a`
+- Asset: aEthUSDT [`0x23878914EFE38d27C4D67Ab83ed1b93A74D4086a`](https://etherscan.io/address/0x23878914EFE38d27C4D67Ab83ed1b93A74D4086a)
 - Amount: 3M
-- Asset: aEthUSDC `0x98C23E9d8f34FEFb1B7BD6a91B7FF122F4e16F5c`
+- Asset: aEthUSDC [`0x98C23E9d8f34FEFb1B7BD6a91B7FF122F4e16F5c`](https://etherscan.io/address/0x98C23E9d8f34FEFb1B7BD6a91B7FF122F4e16F5c)
 - Amount: 3M
 - Spender: AFC [`0x22740deBa78d5a0c24C58C740e3715ec29de1bFa`](https://app.safe.global/home?safe=eth:0x22740deBa78d5a0c24C58C740e3715ec29de1bFa)
+- Method: approve() aEthUSDT and aEthUSDC on the Aave Collector contract to the AFC address
+
+**Merit + Ahab Programs**
+
+Create allowances to the Merit and Ahab, 3M aEthLidoGHO and 800 aEthWETH from Aave v3 Prime and Core respectively on Ethereum:
+
+- Asset: aEthLidoGHO [`0x18eFE565A5373f430e2F809b97De30335B3ad96A`](https://etherscan.io/address/0x18eFE565A5373f430e2F809b97De30335B3ad96A)
+- Amount: 3M
+- Asset: aEthWETH [`0x4d5F47FA6A74757f35C14fD3a6Ef8E3C9BC514E8`](https://etherscan.io/address/0x4d5F47FA6A74757f35C14fD3a6Ef8E3C9BC514E8)
+- Amount: 800
+- Spender: Merit [`0xdeadD8aB03075b7FBA81864202a2f59EE25B312b`](https://app.safe.global/transactions/history?safe=eth:0xdeadD8aB03075b7FBA81864202a2f59EE25B312b)
 - Method: approve() aEthUSDT and aEthUSDC on the Aave Collector contract to the AFC address
 
 ## References

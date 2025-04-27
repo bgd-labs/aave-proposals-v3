@@ -21,6 +21,8 @@ interface WPOL {
 contract AaveV3Polygon_MayFundingUpdate_20250426 is IProposalGenericExecutor {
   address public constant COLLECTOR = address(AaveV3Polygon.COLLECTOR);
   address public constant BRIDGE = MiscPolygon.AAVE_POL_ETH_BRIDGE;
+
+  /// https://polygonscan.com/address/0xc980508cC8866f726040Da1C0C61f682e74aBc39
   address public constant PLASMA_BRIDGE = 0xc980508cC8866f726040Da1C0C61f682e74aBc39;
 
   function execute() external {
@@ -71,14 +73,14 @@ contract AaveV3Polygon_MayFundingUpdate_20250426 is IProposalGenericExecutor {
     );
     IAavePolEthERC20Bridge(BRIDGE).bridge(AaveV3PolygonAssets.WBTC_UNDERLYING, wbtcBalance);
 
-    /// MATICX TODO: is bridgeable?
-    // uint256 maticxBalance = IERC20(AaveV3PolygonAssets.MaticX_UNDERLYING).balanceOf(COLLECTOR);
-    // AaveV3Polygon.COLLECTOR.transfer(
-    //   IERC20(AaveV3PolygonAssets.MaticX_UNDERLYING),
-    //   BRIDGE,
-    //   maticxBalance
-    // );
-    // IAavePolEthERC20Bridge(BRIDGE).bridge(AaveV3PolygonAssets.MaticX_UNDERLYING, maticxBalance);
+    /// MATICX
+    uint256 maticxBalance = IERC20(AaveV3PolygonAssets.MaticX_UNDERLYING).balanceOf(COLLECTOR);
+    AaveV3Polygon.COLLECTOR.transfer(
+      IERC20(AaveV3PolygonAssets.MaticX_UNDERLYING),
+      BRIDGE,
+      maticxBalance
+    );
+    IAavePolEthERC20Bridge(BRIDGE).bridge(AaveV3PolygonAssets.MaticX_UNDERLYING, maticxBalance);
 
     /// WETH
     uint256 wethBalance = IERC20(AaveV3PolygonAssets.WETH_UNDERLYING).balanceOf(COLLECTOR);
