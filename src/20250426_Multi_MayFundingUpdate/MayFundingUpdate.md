@@ -9,6 +9,7 @@ discussions: "TODO"
 This publication presents the May Funding Update, consisting of the following key activities:
 
 - Bridge funds to Ethereum;
+- Consolidate funds from the Collector;
 - Create 6M USD Allowance for AAVE buybacks; and,
 - Acquire 4M GHO for Operations.
 
@@ -59,13 +60,9 @@ Bridge the following assets to Ethereum.
 | [MATICX](https://polygonscan.com/token/0xfa68fb4628dff1028cfec22b4162fccd0d45efb6)  |                                                                                |
 |   [ETH](https://polygonscan.com/token/0xe50fa9b3c56ffb159cb0fca61f5c9d750e8128c8)   |
 
-### Transfer Assets
-
-Transfer all AAVE to the Ecosystem Reserve.
-
 ### Ethereum - Swaps
 
-Withdraw the following from Aave and swap them as outlined in the table below:
+Swap the following from the Collector as outlined in the table below:
 
 | Ethereum | Amount | Swap |
 | :------: | :----: | :--: |
@@ -84,9 +81,9 @@ Withdraw the following from Aave and swap them as outlined in the table below:
 Create a MATIC and stMATIC allowance for the Aave Finance Committee to then swap each asset to ETH and transfer to the Treasury.
 
 - Asset: MATIC``
-- Amount: 580,156.21
+- Amount: ~580,156
 - Asset: stMATIC ``
-- Amount: 28,547.79
+- Amount: ~28,547
 - Spender: AFC `0x22740deBa78d5a0c24C58C740e3715ec29de1bFa`
 - Method: approve() MATIC and stMATIC on the Aave Collector contract to the AFC address
 
