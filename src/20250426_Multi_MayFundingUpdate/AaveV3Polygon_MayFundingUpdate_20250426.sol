@@ -4,8 +4,14 @@ pragma solidity ^0.8.0;
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
 import {AaveV3Polygon, AaveV3PolygonAssets} from 'aave-address-book/AaveV3Polygon.sol';
 import {IAavePolEthERC20Bridge} from 'aave-helpers/src/bridges/polygon/IAavePolEthERC20Bridge.sol';
+import {IAavePolEthPlasmaBridge} from 'aave-helpers/src/bridges/polygon/IAavePolEthPlasmaBridge.sol';
 import {MiscPolygon} from 'aave-address-book/MiscPolygon.sol';
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
+
+interface WPOL {
+  function withdraw(uint256 wad) external;
+}
+
 /**
  * @title May Funding Update
  * @author TokenLogic
@@ -15,6 +21,7 @@ import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 contract AaveV3Polygon_MayFundingUpdate_20250426 is IProposalGenericExecutor {
   address public constant COLLECTOR = address(AaveV3Polygon.COLLECTOR);
   address public constant BRIDGE = MiscPolygon.AAVE_POL_ETH_BRIDGE;
+  address public constant PLASMA_BRIDGE = 0xc980508cC8866f726040Da1C0C61f682e74aBc39;
 
   function execute() external {
     /// DAI
@@ -48,10 +55,12 @@ contract AaveV3Polygon_MayFundingUpdate_20250426 is IProposalGenericExecutor {
     uint256 wpolBalance = IERC20(AaveV3PolygonAssets.WPOL_UNDERLYING).balanceOf(COLLECTOR);
     AaveV3Polygon.COLLECTOR.transfer(
       IERC20(AaveV3PolygonAssets.WPOL_UNDERLYING),
-      BRIDGE,
+      address(this),
       wpolBalance
     );
-    IAavePolEthERC20Bridge(BRIDGE).bridge(AaveV3PolygonAssets.WPOL_UNDERLYING, wpolBalance);
+    WPOL(AaveV3PolygonAssets.WPOL_UNDERLYING).withdraw(wpolBalance);
+    payable(PLASMA_BRIDGE).call{value: wpolBalance}('');
+    IAavePolEthPlasmaBridge(PLASMA_BRIDGE).bridge(wpolBalance);
 
     /// WBTC
     uint256 wbtcBalance = IERC20(AaveV3PolygonAssets.WBTC_UNDERLYING).balanceOf(COLLECTOR);
