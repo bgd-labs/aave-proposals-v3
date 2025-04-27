@@ -17,9 +17,6 @@ contract AaveV3Arbitrum_MayFundingUpdate_20250426 is IProposalGenericExecutor {
   /// https://arbiscan.io/address/0x467194771dAe2967Aef3ECbEDD3Bf9a310C76C65
   address public constant DAI_GATEWAY = 0x467194771dAe2967Aef3ECbEDD3Bf9a310C76C65;
 
-  /// https://arbiscan.io/address/0x14E4A1B13bf7F943c8ff7C51fb60FA964A298D92
-  address public constant USDT_GATEWAY = 0x14E4A1B13bf7F943c8ff7C51fb60FA964A298D92;
-
   /// https://arbiscan.io/address/0x096760F208390250649E3e8763348E783AEF5562
   address public constant USDC_GATEWAY = 0x096760F208390250649E3e8763348E783AEF5562;
 
@@ -39,20 +36,6 @@ contract AaveV3Arbitrum_MayFundingUpdate_20250426 is IProposalGenericExecutor {
       AaveV3EthereumAssets.DAI_UNDERLYING,
       DAI_GATEWAY,
       daiBalance
-    );
-
-    /// USDT
-    uint256 usdtBalance = IERC20(AaveV3ArbitrumAssets.USDT_UNDERLYING).balanceOf(COLLECTOR);
-    AaveV3Arbitrum.COLLECTOR.transfer(
-      IERC20(AaveV3ArbitrumAssets.USDT_UNDERLYING),
-      BRIDGE,
-      usdtBalance
-    );
-    IAaveArbEthERC20Bridge(BRIDGE).bridge(
-      AaveV3ArbitrumAssets.USDT_UNDERLYING,
-      AaveV3EthereumAssets.USDT_UNDERLYING,
-      USDT_GATEWAY,
-      usdtBalance
     );
 
     /// USDC

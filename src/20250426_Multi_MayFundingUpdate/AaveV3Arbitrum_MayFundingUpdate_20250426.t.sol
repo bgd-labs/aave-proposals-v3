@@ -32,22 +32,15 @@ contract AaveV3Arbitrum_MayFundingUpdate_20250426_Test is ProtocolV3TestBase {
       address(AaveV3Arbitrum.COLLECTOR)
     );
 
-    uint256 usdtCollectorBalanceBefore = IERC20(AaveV3ArbitrumAssets.USDT_UNDERLYING).balanceOf(
-      address(AaveV3Arbitrum.COLLECTOR)
-    );
-
     uint256 usdcCollectorBalanceBefore = IERC20(AaveV3ArbitrumAssets.USDC_UNDERLYING).balanceOf(
       address(AaveV3Arbitrum.COLLECTOR)
     );
 
     assertGt(daiCollectorBalanceBefore, 0);
-    assertGt(usdtCollectorBalanceBefore, 0);
     assertGt(usdcCollectorBalanceBefore, 0);
 
     vm.expectEmit(true, true, true, true, MiscArbitrum.AAVE_ARB_ETH_BRIDGE);
     emit Bridge(AaveV3ArbitrumAssets.DAI_UNDERLYING, daiCollectorBalanceBefore);
-    vm.expectEmit(true, true, true, true, MiscArbitrum.AAVE_ARB_ETH_BRIDGE);
-    emit Bridge(AaveV3ArbitrumAssets.USDT_UNDERLYING, usdtCollectorBalanceBefore);
     vm.expectEmit(true, true, true, true, MiscArbitrum.AAVE_ARB_ETH_BRIDGE);
     emit Bridge(AaveV3ArbitrumAssets.USDC_UNDERLYING, usdcCollectorBalanceBefore);
     executePayload(vm, address(proposal));
@@ -56,16 +49,11 @@ contract AaveV3Arbitrum_MayFundingUpdate_20250426_Test is ProtocolV3TestBase {
       address(AaveV3Arbitrum.COLLECTOR)
     );
 
-    uint256 usdtCollectorBalanceAfter = IERC20(AaveV3ArbitrumAssets.USDT_UNDERLYING).balanceOf(
-      address(AaveV3Arbitrum.COLLECTOR)
-    );
-
     uint256 usdcCollectorBalanceAfter = IERC20(AaveV3ArbitrumAssets.USDC_UNDERLYING).balanceOf(
       address(AaveV3Arbitrum.COLLECTOR)
     );
 
     assertEq(daiCollectorBalanceAfter, 0);
-    assertEq(usdtCollectorBalanceAfter, 0);
     assertEq(usdcCollectorBalanceAfter, 0);
   }
 }
