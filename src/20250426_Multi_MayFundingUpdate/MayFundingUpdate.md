@@ -79,34 +79,34 @@ Swap the following from the Collector as outlined in the table below:
 
 Create a MATIC and stMATIC allowance for the Aave Finance Committee to then swap each asset to ETH and transfer to the Treasury.
 
-- Asset: MATIC [`0x7D1AfA7B718fb893dB30A3aBc0Cfc608AaCfeBB0`](https://etherscan.io/address/0x7d1afa7b718fb893db30a3abc0cfc608aacfebb0)
+- Asset: `MATIC` [0x7D1AfA7B718fb893dB30A3aBc0Cfc608AaCfeBB0](https://etherscan.io/address/0x7d1afa7b718fb893db30a3abc0cfc608aacfebb0)
 - Amount: ~580,156
-- Asset: stMATIC [`0x9ee91F9f426fA633d227f7a9b000E28b9dfd8599`](https://etherscan.io/address/0x9ee91f9f426fa633d227f7a9b000e28b9dfd8599)
+- Asset: `stMATIC` [0x9ee91F9f426fA633d227f7a9b000E28b9dfd8599](https://etherscan.io/address/0x9ee91f9f426fa633d227f7a9b000e28b9dfd8599)
 - Amount: ~28,547
-- Spender: AFC [`0x22740deBa78d5a0c24C58C740e3715ec29de1bFa`](https://app.safe.global/home?safe=eth:0x22740deBa78d5a0c24C58C740e3715ec29de1bFa
-- Method: approve() MATIC and stMATIC on the Aave Collector contract to the AFC address
+- Spender: AFC [0x22740deBa78d5a0c24C58C740e3715ec29de1bFa](https://app.safe.global/home?safe=eth:0x22740deBa78d5a0c24C58C740e3715ec29de1bFa)
+- Method: `approve()` MATIC and stMATIC on the Aave Collector contract to the AFC safe
 
 **AAVE Buybacks**
 
 Create a 3M aEthUSDT and 3M aEthUSDC allowance for the Aave Finance Committee to perform 6 weeks of AAVE buybacks.
 
-- Asset: aEthUSDT [`0x23878914EFE38d27C4D67Ab83ed1b93A74D4086a`](https://etherscan.io/address/0x23878914EFE38d27C4D67Ab83ed1b93A74D4086a)
+- Asset: `aEthUSDT` [0x23878914EFE38d27C4D67Ab83ed1b93A74D4086a](https://etherscan.io/address/0x23878914EFE38d27C4D67Ab83ed1b93A74D4086a)
 - Amount: 3M
-- Asset: aEthUSDC [`0x98C23E9d8f34FEFb1B7BD6a91B7FF122F4e16F5c`](https://etherscan.io/address/0x98C23E9d8f34FEFb1B7BD6a91B7FF122F4e16F5c)
+- Asset: `aEthUSDC` [0x98C23E9d8f34FEFb1B7BD6a91B7FF122F4e16F5c](https://etherscan.io/address/0x98C23E9d8f34FEFb1B7BD6a91B7FF122F4e16F5c)
 - Amount: 3M
-- Spender: AFC [`0x22740deBa78d5a0c24C58C740e3715ec29de1bFa`](https://app.safe.global/home?safe=eth:0x22740deBa78d5a0c24C58C740e3715ec29de1bFa)
-- Method: approve() aEthUSDT and aEthUSDC on the Aave Collector contract to the AFC address
+- Spender: AFC [0x22740deBa78d5a0c24C58C740e3715ec29de1bFa](https://app.safe.global/home?safe=eth:0x22740deBa78d5a0c24C58C740e3715ec29de1bFa)
+- Method: `approve()` aEthUSDT and `aEthUSDC on the Aave Collector contract to the AFC safe
 
 **Merit + Ahab Programs**
 
 Create allowances to the Merit and Ahab, 3M aEthLidoGHO and 800 aEthWETH from Aave v3 Prime and Core respectively on Ethereum:
 
-- Asset: aEthLidoGHO [`0x18eFE565A5373f430e2F809b97De30335B3ad96A`](https://etherscan.io/address/0x18eFE565A5373f430e2F809b97De30335B3ad96A)
+- Asset: `aEthLidoGHO` [0x18eFE565A5373f430e2F809b97De30335B3ad96A](https://etherscan.io/address/0x18eFE565A5373f430e2F809b97De30335B3ad96A)
 - Amount: 3M
-- Asset: aEthWETH [`0x4d5F47FA6A74757f35C14fD3a6Ef8E3C9BC514E8`](https://etherscan.io/address/0x4d5F47FA6A74757f35C14fD3a6Ef8E3C9BC514E8)
+- Asset: `aEthWETH` [0x4d5F47FA6A74757f35C14fD3a6Ef8E3C9BC514E8](https://etherscan.io/address/0x4d5F47FA6A74757f35C14fD3a6Ef8E3C9BC514E8)
 - Amount: 800
-- Spender: Merit [`0xdeadD8aB03075b7FBA81864202a2f59EE25B312b`](https://app.safe.global/transactions/history?safe=eth:0xdeadD8aB03075b7FBA81864202a2f59EE25B312b)
-- Method: approve() aEthUSDT and aEthUSDC on the Aave Collector contract to the AFC address
+- Spender: Merit [0xdeadD8aB03075b7FBA81864202a2f59EE25B312b](https://app.safe.global/transactions/history?safe=eth:0xdeadD8aB03075b7FBA81864202a2f59EE25B312b)
+- Method: `approve()` aEthLidoGHO and aEthWETH on the Aave Collector contract to the Merit safe
 
 ## References
 
