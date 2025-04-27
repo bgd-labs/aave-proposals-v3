@@ -22,13 +22,6 @@ contract AaveV3Optimism_MayFundingUpdate_20250426_Test is ProtocolV3TestBase {
     proposal = new AaveV3Optimism_MayFundingUpdate_20250426();
   }
 
-  /**
-   * @dev executes the generic test suite including e2e and config snapshots
-   */
-  // function test_defaultProposalExecution() public {
-  //   defaultTest('AaveV3Optimism_MayFundingUpdate_20250426', AaveV3Optimism.POOL, address(proposal));
-  // }
-
   function test_bridge() public {
     uint256 daiCollectorBalanceBefore = IERC20(AaveV3OptimismAssets.DAI_UNDERLYING).balanceOf(
       address(AaveV3Optimism.COLLECTOR)
@@ -41,6 +34,10 @@ contract AaveV3Optimism_MayFundingUpdate_20250426_Test is ProtocolV3TestBase {
     uint256 usdcCollectorBalanceBefore = IERC20(AaveV3OptimismAssets.USDC_UNDERLYING).balanceOf(
       address(AaveV3Optimism.COLLECTOR)
     );
+
+    assertGt(daiCollectorBalanceBefore, 0);
+    assertGt(usdtCollectorBalanceBefore, 0);
+    assertGt(usdcCollectorBalanceBefore, 0);
 
     vm.expectEmit(true, true, true, true, MiscOptimism.AAVE_OPT_ETH_BRIDGE);
     emit Bridge(AaveV3OptimismAssets.DAI_UNDERLYING, daiCollectorBalanceBefore);

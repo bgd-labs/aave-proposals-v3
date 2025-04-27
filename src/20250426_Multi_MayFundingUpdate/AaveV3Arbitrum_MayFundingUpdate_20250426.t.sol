@@ -27,13 +27,6 @@ contract AaveV3Arbitrum_MayFundingUpdate_20250426_Test is ProtocolV3TestBase {
     vm.etch(address(0x0000000000000000000000000000000000000064), address(arbsys).code);
   }
 
-  /**
-   * @dev executes the generic test suite including e2e and config snapshots
-   */
-  // function test_defaultProposalExecution() public {
-  //   defaultTest('AaveV3Arbitrum_MayFundingUpdate_20250426', AaveV3Arbitrum.POOL, address(proposal));
-  // }
-
   function test_bridge() public {
     uint256 daiCollectorBalanceBefore = IERC20(AaveV3ArbitrumAssets.DAI_UNDERLYING).balanceOf(
       address(AaveV3Arbitrum.COLLECTOR)
@@ -46,6 +39,10 @@ contract AaveV3Arbitrum_MayFundingUpdate_20250426_Test is ProtocolV3TestBase {
     uint256 usdcCollectorBalanceBefore = IERC20(AaveV3ArbitrumAssets.USDC_UNDERLYING).balanceOf(
       address(AaveV3Arbitrum.COLLECTOR)
     );
+
+    assertGt(daiCollectorBalanceBefore, 0);
+    assertGt(usdtCollectorBalanceBefore, 0);
+    assertGt(usdcCollectorBalanceBefore, 0);
 
     vm.expectEmit(true, true, true, true, MiscArbitrum.AAVE_ARB_ETH_BRIDGE);
     emit Bridge(AaveV3ArbitrumAssets.DAI_UNDERLYING, daiCollectorBalanceBefore);

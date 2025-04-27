@@ -22,13 +22,6 @@ contract AaveV3Polygon_MayFundingUpdate_20250426_Test is ProtocolV3TestBase {
     proposal = new AaveV3Polygon_MayFundingUpdate_20250426();
   }
 
-  /**
-   * @dev executes the generic test suite including e2e and config snapshots
-   */
-  // function test_defaultProposalExecution() public {
-  //   defaultTest('AaveV3Polygon_MayFundingUpdate_20250426', AaveV3Polygon.POOL, address(proposal));
-  // }
-
   function test_Bridges() public {
     uint256 daiCollectorBalanceBefore = IERC20(AaveV3PolygonAssets.DAI_UNDERLYING).balanceOf(
       address(AaveV3Polygon.COLLECTOR)
