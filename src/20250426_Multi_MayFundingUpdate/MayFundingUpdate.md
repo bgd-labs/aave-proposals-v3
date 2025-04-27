@@ -69,22 +69,22 @@ Swap the following from the Collector as outlined in the table below:
 |   USDT   | 3.00M  | GHO  |
 |   USDC   | 3.00M  | GHO  |
 |   DAI    |  All   | USDS |
-|   LUSD   |  All   | ETH  |
-|   CVX    |  All   | ETH  |
-|   RAI    |  All   | ETH  |
-|   FRAX   |  All   | ETH  |
+|   LUSD   |  All   | WETH |
+|   CVX    |  All   | WETH |
+|   RAI    |  All   | WETH |
+|   FRAX   |  All   | WETH |
 
 ### Create Allowances
 
-**Acquire ETH**
+**Acquire WETH**
 
 Create a MATIC and stMATIC allowance for the Aave Finance Committee to then swap each asset to ETH and transfer to the Treasury.
 
-- Asset: MATIC``
+- Asset: MATIC [`0x7D1AfA7B718fb893dB30A3aBc0Cfc608AaCfeBB0`](https://etherscan.io/address/0x7d1afa7b718fb893db30a3abc0cfc608aacfebb0)
 - Amount: ~580,156
-- Asset: stMATIC ``
+- Asset: stMATIC [`0x9ee91F9f426fA633d227f7a9b000E28b9dfd8599`](https://etherscan.io/address/0x9ee91f9f426fa633d227f7a9b000e28b9dfd8599)
 - Amount: ~28,547
-- Spender: AFC `0x22740deBa78d5a0c24C58C740e3715ec29de1bFa`
+- Spender: AFC [`0x22740deBa78d5a0c24C58C740e3715ec29de1bFa`](https://app.safe.global/home?safe=eth:0x22740deBa78d5a0c24C58C740e3715ec29de1bFa
 - Method: approve() MATIC and stMATIC on the Aave Collector contract to the AFC address
 
 **AAVE Buybacks**
@@ -95,7 +95,7 @@ Create a 3M aEthUSDT and 3M aEthUSDC allowance for the Aave Finance Committee to
 - Amount: 3M
 - Asset: aEthUSDC `0x98C23E9d8f34FEFb1B7BD6a91B7FF122F4e16F5c`
 - Amount: 3M
-- Spender: AFC `0x22740deBa78d5a0c24C58C740e3715ec29de1bFa`
+- Spender: AFC [`0x22740deBa78d5a0c24C58C740e3715ec29de1bFa`](https://app.safe.global/home?safe=eth:0x22740deBa78d5a0c24C58C740e3715ec29de1bFa)
 - Method: approve() aEthUSDT and aEthUSDC on the Aave Collector contract to the AFC address
 
 ## References

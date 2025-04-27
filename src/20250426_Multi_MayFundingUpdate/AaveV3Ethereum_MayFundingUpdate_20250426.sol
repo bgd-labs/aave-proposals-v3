@@ -18,7 +18,6 @@ contract AaveV3Ethereum_MayFundingUpdate_20250426 is IProposalGenericExecutor {
   using CollectorUtils for ICollector;
 
   address public constant COLLECTOR = address(AaveV3Ethereum.COLLECTOR);
-  address public constant ECOSYSTEM_RESERVE = MiscEthereum.ECOSYSTEM_RESERVE;
 
   /// https://etherscan.io/address/0x22740deBa78d5a0c24C58C740e3715ec29de1bFa
   address public constant AAVE_FINANCE_COMMITEE = 0x22740deBa78d5a0c24C58C740e3715ec29de1bFa;
@@ -38,6 +37,9 @@ contract AaveV3Ethereum_MayFundingUpdate_20250426 is IProposalGenericExecutor {
   /// https://etherscan.io/address/0x9ee91f9f426fa633d227f7a9b000e28b9dfd8599
   IERC20 public constant STMATIC_MAINNET = IERC20(0x9ee91F9f426fA633d227f7a9b000E28b9dfd8599);
 
+  /// https://etherscan.io/address/0xd962fC30A72A84cE50161031391756Bf2876Af5D
+  address public constant CVX_USD_ORACLE = 0xd962fC30A72A84cE50161031391756Bf2876Af5D;
+
   uint256 public constant USDT_SWAP_AMOUNT = 2_000_000e6;
   uint256 public constant USDC_SWAP_AMOUNT = 2_000_000e6;
 
@@ -47,7 +49,7 @@ contract AaveV3Ethereum_MayFundingUpdate_20250426 is IProposalGenericExecutor {
   function execute() external {
     AaveV3Ethereum.COLLECTOR.transfer(
       IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING),
-      ECOSYSTEM_RESERVE,
+      MiscEthereum.ECOSYSTEM_RESERVE,
       IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING).balanceOf(COLLECTOR)
     );
     _swaps();
@@ -121,7 +123,7 @@ contract AaveV3Ethereum_MayFundingUpdate_20250426 is IProposalGenericExecutor {
         priceChecker: PRICE_CHECKER,
         fromUnderlying: AaveV2EthereumAssets.CVX_UNDERLYING,
         toUnderlying: AaveV3EthereumAssets.WETH_UNDERLYING,
-        fromUnderlyingPriceFeed: AaveV2EthereumAssets.CVX_ORACLE,
+        fromUnderlyingPriceFeed: CVX_USD_ORACLE,
         toUnderlyingPriceFeed: AaveV3EthereumAssets.WETH_ORACLE,
         amount: IERC20(AaveV2EthereumAssets.CVX_UNDERLYING).balanceOf(COLLECTOR),
         slippage: 200

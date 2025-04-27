@@ -44,12 +44,12 @@ contract AaveV3Arbitrum_MayFundingUpdate_20250426 is IProposalGenericExecutor {
     /// USDT
     uint256 usdtBalance = IERC20(AaveV3ArbitrumAssets.DAI_UNDERLYING).balanceOf(COLLECTOR);
     AaveV3Arbitrum.COLLECTOR.transfer(
-      IERC20(AaveV3ArbitrumAssets.DAI_UNDERLYING),
+      IERC20(AaveV3ArbitrumAssets.USDT_UNDERLYING),
       BRIDGE,
       usdtBalance
     );
     IAaveArbEthERC20Bridge(BRIDGE).bridge(
-      AaveV3ArbitrumAssets.DAI_UNDERLYING,
+      AaveV3ArbitrumAssets.USDT_UNDERLYING,
       AaveV3EthereumAssets.USDT_UNDERLYING,
       USDT_GATEWAY,
       usdtBalance

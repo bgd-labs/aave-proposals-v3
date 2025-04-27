@@ -71,14 +71,14 @@ contract AaveV3Polygon_MayFundingUpdate_20250426 is IProposalGenericExecutor {
     );
     IAavePolEthERC20Bridge(BRIDGE).bridge(AaveV3PolygonAssets.WBTC_UNDERLYING, wbtcBalance);
 
-    /// MATICX
-    uint256 maticxBalance = IERC20(AaveV3PolygonAssets.MaticX_UNDERLYING).balanceOf(COLLECTOR);
-    AaveV3Polygon.COLLECTOR.transfer(
-      IERC20(AaveV3PolygonAssets.MaticX_UNDERLYING),
-      BRIDGE,
-      maticxBalance
-    );
-    IAavePolEthERC20Bridge(BRIDGE).bridge(AaveV3PolygonAssets.MaticX_UNDERLYING, maticxBalance);
+    /// MATICX TODO: is bridgeable?
+    // uint256 maticxBalance = IERC20(AaveV3PolygonAssets.MaticX_UNDERLYING).balanceOf(COLLECTOR);
+    // AaveV3Polygon.COLLECTOR.transfer(
+    //   IERC20(AaveV3PolygonAssets.MaticX_UNDERLYING),
+    //   BRIDGE,
+    //   maticxBalance
+    // );
+    // IAavePolEthERC20Bridge(BRIDGE).bridge(AaveV3PolygonAssets.MaticX_UNDERLYING, maticxBalance);
 
     /// WETH
     uint256 wethBalance = IERC20(AaveV3PolygonAssets.WETH_UNDERLYING).balanceOf(COLLECTOR);
