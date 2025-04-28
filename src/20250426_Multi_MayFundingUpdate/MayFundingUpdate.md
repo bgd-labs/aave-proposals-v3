@@ -109,12 +109,19 @@ Create allowances to the Merit and Ahab, 3M aEthLidoGHO and 800 aEthWETH from Aa
 - Spender: Merit [0xdeadD8aB03075b7FBA81864202a2f59EE25B312b](https://app.safe.global/transactions/history?safe=eth:0xdeadD8aB03075b7FBA81864202a2f59EE25B312b)
 - Method: `approve()` aEthLidoGHO and aEthWETH on the Aave Collector contract to the Merit safe
 
-**Merit EURe campaign**
+**Gnosis Liquidity Mining Rewards**
 
 - Asset: `aGnoEURe` [0xEdBC7449a9b594CA4E053D9737EC5Dc4CbCcBfb2](https://gnosisscan.io/address/0xedbc7449a9b594ca4e053d9737ec5dc4cbccbfb2)
 - Amount: 25k
-- Spender: Merit [0xD4416b13d2b3a9aBae7AcD5D6C2BbDBE25686401](https://gnosisscan.io/address/0xD4416b13d2b3a9aBae7AcD5D6C2BbDBE25686401)
+- Spender: Merit [0xdef1FA4CEfe67365ba046a7C630D6B885298E210](https://app.safe.global/home?safe=gno:0xdef1FA4CEfe67365ba046a7C630D6B885298E210)
 - Method: `approve()` aEthLidoGHO and aEthWETH on the Aave Collector contract to the Merit safe
+
+**Gas Reimbursement**
+Transfer 0.5847 ETH to ACI to reimburse expenses incurred.
+
+This reimburses associated gas costs linked to AIP submissions and administering various incentive reward programs.
+
+ACI Receiving Address: [0xac140648435d03f784879cd789130F22Ef588Fcd](https://app.safe.global/home?safe=eth:0xac140648435d03f784879cd789130F22Ef588Fcd)
 
 ## References
 

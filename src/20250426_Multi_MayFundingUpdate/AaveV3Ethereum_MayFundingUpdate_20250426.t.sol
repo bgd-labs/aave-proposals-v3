@@ -33,12 +33,15 @@ contract AaveV3Ethereum_MayFundingUpdate_20250426_Test is ProtocolV3TestBase {
     proposal = new AaveV3Ethereum_MayFundingUpdate_20250426();
   }
 
-  function test_AaveTransfer() public {
+  function test_Transfers() public {
+    uint256 ethAmountBefore = address(AaveV3Ethereum.COLLECTOR).balance;
     executePayload(vm, address(proposal));
     uint256 aaveAmountAfter = IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING).balanceOf(
       address(AaveV3Ethereum.COLLECTOR)
     );
+    uint256 ethAmountAfter = address(AaveV3Ethereum.COLLECTOR).balance;
     assertEq(aaveAmountAfter, 0);
+    assertEq(ethAmountAfter, ethAmountBefore - proposal.ETH_TRANSFER_AMOUNT());
   }
 
   function test_Swaps() public {
@@ -172,7 +175,7 @@ contract AaveV3Ethereum_MayFundingUpdate_20250426_Test is ProtocolV3TestBase {
     );
     assertEq(usdtAllowance, proposal.USDT_BUYBACK_AMOUNT());
     assertEq(usdcAllowance, proposal.USDC_BUYBACK_AMOUNT());
-    assertEq(ghoAllowance, proposal.GHO_AMOUNT());
-    assertEq(wethAllowance, proposal.WETH_AMOUNT());
+    assertEq(ghoAllowance, proposal.GHO_ALLOWANCE_AMOUNT());
+    assertEq(wethAllowance, proposal.WETH_ALLOWANCE_AMOUNT());
   }
 }

@@ -20,6 +20,9 @@ contract AaveV3Ethereum_MayFundingUpdate_20250426 is IProposalGenericExecutor {
 
   address public constant COLLECTOR = address(AaveV3Ethereum.COLLECTOR);
 
+  /// https://gnosisscan.io/address/0xac140648435d03f784879cd789130F22Ef588Fcd
+  address public constant ACI = 0xac140648435d03f784879cd789130F22Ef588Fcd;
+
   /// https://etherscan.io/address/0xdeadD8aB03075b7FBA81864202a2f59EE25B312b
   address public constant MERIT_SAFE = 0xdeadD8aB03075b7FBA81864202a2f59EE25B312b;
 
@@ -50,17 +53,29 @@ contract AaveV3Ethereum_MayFundingUpdate_20250426 is IProposalGenericExecutor {
   uint256 public constant USDT_BUYBACK_AMOUNT = 3_000_000e6;
   uint256 public constant USDC_BUYBACK_AMOUNT = 3_000_000e6;
 
-  uint256 public constant GHO_AMOUNT = 3_000_000e6;
-  uint256 public constant WETH_AMOUNT = 800e18;
+  uint256 public constant GHO_ALLOWANCE_AMOUNT = 3_000_000e6;
+  uint256 public constant WETH_ALLOWANCE_AMOUNT = 800e18;
+
+  uint256 public constant ETH_TRANSFER_AMOUNT = 0.5847 ether;
 
   function execute() external {
+    _transfers();
+    _swaps();
+    _allowances();
+  }
+
+  function _transfers() internal {
     AaveV3Ethereum.COLLECTOR.transfer(
       IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING),
       MiscEthereum.ECOSYSTEM_RESERVE,
       IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING).balanceOf(COLLECTOR)
     );
-    _swaps();
-    _allowances();
+
+    AaveV3Ethereum.COLLECTOR.transfer(
+      IERC20(AaveV3Ethereum.COLLECTOR.ETH_MOCK_ADDRESS()),
+      ACI,
+      ETH_TRANSFER_AMOUNT
+    );
   }
 
   function _swaps() internal {
@@ -168,13 +183,13 @@ contract AaveV3Ethereum_MayFundingUpdate_20250426 is IProposalGenericExecutor {
     AaveV3Ethereum.COLLECTOR.approve(
       IERC20(AaveV3EthereumLidoAssets.GHO_A_TOKEN),
       MERIT_SAFE,
-      GHO_AMOUNT
+      GHO_ALLOWANCE_AMOUNT
     );
 
     AaveV3Ethereum.COLLECTOR.approve(
       IERC20(AaveV3EthereumAssets.WETH_A_TOKEN),
       MERIT_SAFE,
-      WETH_AMOUNT
+      WETH_ALLOWANCE_AMOUNT
     );
   }
 }
