@@ -11,7 +11,7 @@ import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
  * @title May Funding Update
  * @author TokenLogic
  * - Snapshot: Direct-to-AIP
- * - Discussion: TODO
+ * - Discussion: https://governance.aave.com/t/arfc-may-2025-funding-update/21906
  */
 contract AaveV3Arbitrum_MayFundingUpdate_20250426 is IProposalGenericExecutor {
   /// https://arbiscan.io/address/0x467194771dAe2967Aef3ECbEDD3Bf9a310C76C65

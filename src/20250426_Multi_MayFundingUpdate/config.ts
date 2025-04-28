@@ -6,7 +6,7 @@ export const config: ConfigFile = {
     shortName: 'MayFundingUpdate',
     date: '20250426',
     author: 'TokenLogic',
-    discussion: 'TODO',
+    discussion: 'https://governance.aave.com/t/arfc-may-2025-funding-update/21906',
     snapshot: 'Direct-to-AIP',
     votingNetwork: 'POLYGON',
   },

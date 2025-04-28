@@ -16,7 +16,7 @@ interface WPOL {
  * @title May Funding Update
  * @author TokenLogic
  * - Snapshot: Direct-to-AIP
- * - Discussion: TODO
+ * - Discussion: https://governance.aave.com/t/arfc-may-2025-funding-update/21906
  */
 contract AaveV3Polygon_MayFundingUpdate_20250426 is IProposalGenericExecutor {
   address public constant COLLECTOR = address(AaveV3Polygon.COLLECTOR);

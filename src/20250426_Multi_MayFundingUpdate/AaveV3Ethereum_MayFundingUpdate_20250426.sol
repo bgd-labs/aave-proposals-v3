@@ -13,7 +13,7 @@ import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
  * @title May Funding Update
  * @author TokenLogic
  * - Snapshot: Direct-to-AIP
- * - Discussion: TODO
+ * - Discussion: https://governance.aave.com/t/arfc-may-2025-funding-update/21906
  */
 contract AaveV3Ethereum_MayFundingUpdate_20250426 is IProposalGenericExecutor {
   using CollectorUtils for ICollector;
