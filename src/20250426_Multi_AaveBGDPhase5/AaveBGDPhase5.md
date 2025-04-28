@@ -29,8 +29,8 @@ In terms of implementation, this proposal sets up the payment schedule defined:
 
 - From the Aave DAO's treasury (Collector smart contract), an upfront transfer for a value of 1'150'000 aUSDT (v3 Ethereum), 50% of the stablecoins budget.
 - From the Aave DAO AAVE Ecosystem Reserve, an upfront transfer for a value of 2'000 AAVE tokens, 50% of the tokens budget.
-- From the Aave DAO's treasury, the creation of a payment stream for a value of 1'150'000 aGHO Prime (v3 Ethereum Prime), from the execution time of this proposal until 1st October 2025, completing the 6-month duration, for the other 50% of the stablecoins budget.
-- From the Aave DAO AAVE Ecosystem Reserve, the creation of a payment stream for a value of 2'000 AAVE tokens, from the execution time of this proposal until 1st October 2025, completing the 6-month duration, for the other 50% of the tokens budget.
+- From the Aave DAO's treasury, the creation of a payment stream for a value of 1'150'000 aGHO Prime (v3 Ethereum Prime), from the execution time of this proposal until 1st October 2025 (from proposal execution), completing the 6-month duration, for the other 50% of the stablecoins budget.
+- From the Aave DAO AAVE Ecosystem Reserve, the creation of a payment stream for a value of 2'000 AAVE tokens, from the execution time of this proposal until 1st October 2025 (from proposal execution), completing the 6-month duration, for the other 50% of the tokens budget.
 
 **The approval of this proposal by Aave governance acts as a binding agreement between the Aave DAO and BGD Labs**. Detailed terms of service can be found [HERE](https://bgdlabs.com/aave-dao-tos-phase5).
 

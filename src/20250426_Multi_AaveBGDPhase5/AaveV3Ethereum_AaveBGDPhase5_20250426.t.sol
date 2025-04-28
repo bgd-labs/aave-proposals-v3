@@ -57,12 +57,17 @@ contract AaveV3Ethereum_AaveBGDPhase5_20250426_Test is ProtocolV3TestBase {
     IStreamable ecosystemReserve = IStreamable(MiscEthereum.ECOSYSTEM_RESERVE);
 
     uint256 streamId = AaveV3Ethereum.COLLECTOR.getNextStreamId();
-    uint256 streamId_reserve = ecosystemReserve.getNextStreamId();
+    uint256 streamIdAave = ecosystemReserve.getNextStreamId();
 
-    executePayload(vm, address(proposal));
     uint256 streamsDuration = proposal.STOP_TIME() - block.timestamp;
     uint256 aGHOStreamed = (1_150_000e18 / streamsDuration) * streamsDuration;
     uint256 AAVEStreamed = (2000e18 / streamsDuration) * streamsDuration;
+
+    executePayload(vm, address(proposal));
+
+    // Warping after end of stream
+    vm.warp(proposal.STOP_TIME() + 1);
+    vm.startPrank(receiverAddress);
 
     uint256 aGhoBalanceBefore = IERC20(AaveV3EthereumLidoAssets.GHO_A_TOKEN).balanceOf(
       receiverAddress
@@ -71,20 +76,13 @@ contract AaveV3Ethereum_AaveBGDPhase5_20250426_Test is ProtocolV3TestBase {
       receiverAddress
     );
 
-    vm.warp(proposal.STOP_TIME() + 1);
-    vm.startPrank(receiverAddress);
-
-    aGhoBalanceBefore = IERC20(AaveV3EthereumLidoAssets.GHO_A_TOKEN).balanceOf(receiverAddress);
-    aaveBalanceBefore = IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING).balanceOf(receiverAddress);
-
-    // withdraw all remaining amount from stream
     AaveV3Ethereum.COLLECTOR.withdrawFromStream(
       streamId,
       AaveV3Ethereum.COLLECTOR.balanceOf(streamId, receiverAddress)
     );
     ecosystemReserve.withdrawFromStream(
-      streamId_reserve,
-      ecosystemReserve.balanceOf(streamId_reserve, receiverAddress)
+      streamIdAave,
+      ecosystemReserve.balanceOf(streamIdAave, receiverAddress)
     );
 
     uint256 aGhoBalanceAfter = IERC20(AaveV3EthereumLidoAssets.GHO_A_TOKEN).balanceOf(
