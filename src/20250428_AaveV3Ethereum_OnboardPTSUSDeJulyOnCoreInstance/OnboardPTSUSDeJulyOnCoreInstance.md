@@ -20,27 +20,28 @@ Pendle has seen extremely high growth this year, with current TVL of circa $4.5 
 
 The table below illustrates the configured risk parameters for **PT_sUSDE_31JUL2025**:
 
-| Parameter                 |                                                                                                    PT_sUSDE_31JUL2025 |
-| ------------------------- | --------------------------------------------------------------------------------------------------------------------: |
-| Borrowable                |                                                                                                              DISABLED |
-| Collateral Enabled        |                                                                                                                  true |
-| Supply Cap                |                                                                                                            85,000,000 |
-| Borrow Cap                |                                                                                                                     1 |
-| Isolation Mode            |                                                                                                                 false |
-| Debt Ceiling              |                                                                                                                 USD 0 |
-| LTV                       |                                                                                                                0.05 % |
-| LT                        |                                                                                                                 0.1 % |
-| Liquidation Bonus         |                                                                                                                 7.5 % |
-| Liquidation Protocol Fee  |                                                                                                                  10 % |
-| Reserve Factor            |                                                                                                                  20 % |
-| Base Variable Borrow Rate |                                                                                                                   0 % |
-| Variable Slope 1          |                                                                                                                   7 % |
-| Variable Slope 2          |                                                                                                                 300 % |
-| Uoptimal                  |                                                                                                                  45 % |
-| Flashloanable             |                                                                                                               ENABLED |
-| Siloed Borrowing          |                                                                                                              DISABLED |
-| Borrowable in Isolation   |                                                                                                              DISABLED |
-| Oracle                    | [0x759B9B72700A129CD7AD8e53F9c99cb48Fd57105](https://etherscan.io/address/0x759B9B72700A129CD7AD8e53F9c99cb48Fd57105) |
+| Parameter                        |                                                                                                            PT_sUSDE_31JUL2025 |
+| -------------------------------- | ----------------------------------------------------------------------------------------------------------------------------: |
+| Borrowable                       |                                                                                                                      DISABLED |
+| Collateral Enabled               |                                                                                                                          true |
+| Supply Cap                       |                                                                                                                    85,000,000 |
+| Borrow Cap                       |                                                                                                                             1 |
+| Isolation Mode                   |                                                                                                                         false |
+| Debt Ceiling                     |                                                                                                                         USD 0 |
+| LTV                              |                                                                                                                        0.05 % |
+| LT                               |                                                                                                                         0.1 % |
+| Liquidation Bonus                |                                                                                                                         7.5 % |
+| Liquidation Protocol Fee         |                                                                                                                          10 % |
+| Reserve Factor                   |                                                                                                                          20 % |
+| Base Variable Borrow Rate        |                                                                                                                           0 % |
+| Variable Slope 1                 |                                                                                                                           7 % |
+| Variable Slope 2                 |                                                                                                                         300 % |
+| Uoptimal                         |                                                                                                                          45 % |
+| Flashloanable                    |                                                                                                                       ENABLED |
+| Siloed Borrowing                 |                                                                                                                      DISABLED |
+| Borrowable in Isolation          |                                                                                                                      DISABLED |
+| Oracle                           | [PT Capped sUSDe USDT/USD linear discount 31JUL2025](https://etherscan.io/address/0x759B9B72700A129CD7AD8e53F9c99cb48Fd57105) |
+| OracleLatestAnswer (28 April 25) |                                                                                                                USD 0.98089311 |
 
 The following EMode categories will be created for the assets listed:
 
