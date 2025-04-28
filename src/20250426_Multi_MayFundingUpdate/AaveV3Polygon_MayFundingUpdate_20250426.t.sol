@@ -45,6 +45,14 @@ contract AaveV3Polygon_MayFundingUpdate_20250426_Test is ProtocolV3TestBase {
       address(AaveV3Polygon.COLLECTOR)
     );
 
+    assertGt(daiCollectorBalanceBefore, 0);
+    assertGt(usdtCollectorBalanceBefore, 0);
+    assertGt(usdcCollectorBalanceBefore, 0);
+    assertGt(wpolCollectorBalanceBefore, 0);
+    assertGt(wbtcCollectorBalanceBefore, 0);
+    assertGt(maticxCollectorBalanceBefore, 0);
+    assertGt(wethCollectorBalanceBefore, 0);
+
     vm.expectEmit(true, true, true, true, MiscPolygon.AAVE_POL_ETH_BRIDGE);
     emit Bridge(AaveV3PolygonAssets.DAI_UNDERLYING, daiCollectorBalanceBefore);
     vm.expectEmit(true, true, true, true, MiscPolygon.AAVE_POL_ETH_BRIDGE);

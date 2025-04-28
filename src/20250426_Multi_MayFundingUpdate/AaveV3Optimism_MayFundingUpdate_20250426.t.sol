@@ -22,7 +22,7 @@ contract AaveV3Optimism_MayFundingUpdate_20250426_Test is ProtocolV3TestBase {
     proposal = new AaveV3Optimism_MayFundingUpdate_20250426();
   }
 
-  function test_bridge() public {
+  function test_Bridges() public {
     uint256 daiCollectorBalanceBefore = IERC20(AaveV3OptimismAssets.DAI_UNDERLYING).balanceOf(
       address(AaveV3Optimism.COLLECTOR)
     );

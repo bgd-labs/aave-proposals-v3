@@ -41,7 +41,7 @@ contract AaveV3Ethereum_MayFundingUpdate_20250426_Test is ProtocolV3TestBase {
     assertEq(aaveAmountAfter, 0);
   }
 
-  function test_withdrawAndSwap() public {
+  function test_Swaps() public {
     uint256 usdtAmountBefore = IERC20(AaveV3EthereumAssets.USDT_UNDERLYING).balanceOf(
       address(AaveV3Ethereum.COLLECTOR)
     );

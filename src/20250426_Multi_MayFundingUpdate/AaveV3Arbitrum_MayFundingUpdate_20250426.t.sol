@@ -27,7 +27,7 @@ contract AaveV3Arbitrum_MayFundingUpdate_20250426_Test is ProtocolV3TestBase {
     vm.etch(address(0x0000000000000000000000000000000000000064), address(arbsys).code);
   }
 
-  function test_bridge() public {
+  function test_Bridges() public {
     uint256 daiCollectorBalanceBefore = IERC20(AaveV3ArbitrumAssets.DAI_UNDERLYING).balanceOf(
       address(AaveV3Arbitrum.COLLECTOR)
     );
