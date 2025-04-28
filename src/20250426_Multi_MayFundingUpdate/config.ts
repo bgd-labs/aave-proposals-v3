@@ -1,7 +1,7 @@
 import {ConfigFile} from '../../generator/types';
 export const config: ConfigFile = {
   rootOptions: {
-    pools: ['AaveV3Ethereum', 'AaveV3Polygon', 'AaveV3Optimism', 'AaveV3Arbitrum'],
+    pools: ['AaveV3Ethereum', 'AaveV3Polygon', 'AaveV3Optimism', 'AaveV3Arbitrum', 'AaveV3Gnosis'],
     title: 'May Funding Update',
     shortName: 'MayFundingUpdate',
     date: '20250426',
@@ -15,5 +15,6 @@ export const config: ConfigFile = {
     AaveV3Polygon: {configs: {OTHERS: {}}, cache: {blockNumber: 70757043}},
     AaveV3Optimism: {configs: {OTHERS: {}}, cache: {blockNumber: 135014789}},
     AaveV3Arbitrum: {configs: {OTHERS: {}}, cache: {blockNumber: 330240450}},
+    AaveV3Gnosis: {configs: {OTHERS: {}}, cache: {blockNumber: 39797083}},
   },
 };

@@ -10,6 +10,7 @@ This publication presents the May Funding Update, consisting of the following ke
 
 - Bridge funds to Ethereum;
 - Consolidate funds from the Collector;
+- Merit, Ahab allowances
 - Create 6M USD Allowance for AAVE buybacks; and,
 - Acquire 4M GHO for Operations.
 
@@ -106,6 +107,13 @@ Create allowances to the Merit and Ahab, 3M aEthLidoGHO and 800 aEthWETH from Aa
 - Asset: `aEthWETH` [0x4d5F47FA6A74757f35C14fD3a6Ef8E3C9BC514E8](https://etherscan.io/address/0x4d5F47FA6A74757f35C14fD3a6Ef8E3C9BC514E8)
 - Amount: 800
 - Spender: Merit [0xdeadD8aB03075b7FBA81864202a2f59EE25B312b](https://app.safe.global/transactions/history?safe=eth:0xdeadD8aB03075b7FBA81864202a2f59EE25B312b)
+- Method: `approve()` aEthLidoGHO and aEthWETH on the Aave Collector contract to the Merit safe
+
+**Merit EURe campaign**
+
+- Asset: `aGnoEURe` [0xEdBC7449a9b594CA4E053D9737EC5Dc4CbCcBfb2](https://gnosisscan.io/address/0xedbc7449a9b594ca4e053d9737ec5dc4cbccbfb2)
+- Amount: 25k
+- Spender: Merit [0xD4416b13d2b3a9aBae7AcD5D6C2BbDBE25686401](https://gnosisscan.io/address/0xD4416b13d2b3a9aBae7AcD5D6C2BbDBE25686401)
 - Method: `approve()` aEthLidoGHO and aEthWETH on the Aave Collector contract to the Merit safe
 
 ## References
