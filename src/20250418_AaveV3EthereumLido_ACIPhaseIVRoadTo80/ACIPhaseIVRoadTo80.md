@@ -93,8 +93,8 @@ The ACI clearly defines the following activities as out of scope, based on eithe
 
 ## References
 
-- Implementation: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250418_AaveV3EthereumLido_ACIPhaseIVRoadTo80/AaveV3EthereumLido_ACIPhaseIVRoadTo80_20250418.sol)
-- Tests: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250418_AaveV3EthereumLido_ACIPhaseIVRoadTo80/AaveV3EthereumLido_ACIPhaseIVRoadTo80_20250418.t.sol)
+- Implementation: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/3706521bfb92d48ed567d589f35570fdb32b823e/src/20250418_AaveV3EthereumLido_ACIPhaseIVRoadTo80/AaveV3EthereumLido_ACIPhaseIVRoadTo80_20250418.sol)
+- Tests: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/3706521bfb92d48ed567d589f35570fdb32b823e/src/20250418_AaveV3EthereumLido_ACIPhaseIVRoadTo80/AaveV3EthereumLido_ACIPhaseIVRoadTo80_20250418.t.sol)
   [Snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0x7bfe8ade2b8835f30655ca9b908e921ef89ba5061d8d6a64b422dc3643d83c14)
 - [Discussion](https://governance.aave.com/t/arfc-aci-phase-iv-road-to-80/21830)
 
