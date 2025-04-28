@@ -36,8 +36,8 @@ In terms of implementation, this proposal sets up the payment schedule defined:
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250426_Multi_AaveBGDPhase5/AaveV3Ethereum_AaveBGDPhase5_20250426.sol), [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250426_Multi_AaveBGDPhase5/AaveV3EthereumLido_AaveBGDPhase5_20250426.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250426_Multi_AaveBGDPhase5/AaveV3Ethereum_AaveBGDPhase5_20250426.t.sol), [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250426_Multi_AaveBGDPhase5/AaveV3EthereumLido_AaveBGDPhase5_20250426.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/e0cf6f266ca0389ca104aafdd9715b2a3803a9eb/src/20250426_Multi_AaveBGDPhase5/AaveV3Ethereum_AaveBGDPhase5_20250426.sol), [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/e0cf6f266ca0389ca104aafdd9715b2a3803a9eb/src/20250426_Multi_AaveBGDPhase5/AaveV3EthereumLido_AaveBGDPhase5_20250426.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/e0cf6f266ca0389ca104aafdd9715b2a3803a9eb/src/20250426_Multi_AaveBGDPhase5/AaveV3Ethereum_AaveBGDPhase5_20250426.t.sol), [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/e0cf6f266ca0389ca104aafdd9715b2a3803a9eb/src/20250426_Multi_AaveBGDPhase5/AaveV3EthereumLido_AaveBGDPhase5_20250426.t.sol)
 - [Snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0xcad607fa0b4cc00eb09d8af5a6506d64b74a0713b4261014ca3f23fa8afe4c07)
 - [Discussion](https://governance.aave.com/t/arfc-aave-bored-ghosts-developing-phase-5/21803)
 
