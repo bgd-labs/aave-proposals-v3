@@ -10,7 +10,7 @@ import {AaveV3EthereumLido_ExtendSVRV1ToMoreReserves_20250429} from './AaveV3Eth
 /**
  * @dev Deploy Ethereum
  * deploy-command: make deploy-ledger contract=src/20250429_Multi_ExtendSVRV1ToMoreReserves/ExtendSVRV1ToMoreReserves_20250429.s.sol:DeployEthereum chain=mainnet
- * verify-command: FOUNDRY_PROFILE=mainnet npx catapulta-verify -b broadcast/ExtendSVRV1ToMoreReserves_20250429.s.sol/1/run-latest.json
+ * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/ExtendSVRV1ToMoreReserves_20250429.s.sol/1/run-latest.json
  */
 contract DeployEthereum is EthereumScript {
   function run() external broadcast {

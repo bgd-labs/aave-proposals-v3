@@ -9,7 +9,7 @@ import {AaveV3EthereumLido_ExtendSVRV1ToMoreReserves_20250429} from './AaveV3Eth
 
 /**
  * @dev Test for AaveV3EthereumLido_ExtendSVRV1ToMoreReserves_20250429
- * command: FOUNDRY_PROFILE=mainnet forge test --match-path=src/20250429_Multi_ExtendSVRV1ToMoreReserves/AaveV3EthereumLido_ExtendSVRV1ToMoreReserves_20250429.t.sol -vv
+ * command: FOUNDRY_PROFILE=test forge test --match-path=src/20250429_Multi_ExtendSVRV1ToMoreReserves/AaveV3EthereumLido_ExtendSVRV1ToMoreReserves_20250429.t.sol -vv
  */
 contract AaveV3EthereumLido_ExtendSVRV1ToMoreReserves_20250429_Test is ProtocolV3TestBase {
   AaveV3EthereumLido_ExtendSVRV1ToMoreReserves_20250429 internal proposal;
