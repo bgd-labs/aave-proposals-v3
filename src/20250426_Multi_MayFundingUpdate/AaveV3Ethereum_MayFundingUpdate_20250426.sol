@@ -51,6 +51,9 @@ contract AaveV3Ethereum_MayFundingUpdate_20250426 is IProposalGenericExecutor {
   /// https://etherscan.io/address/0xd962fC30A72A84cE50161031391756Bf2876Af5D
   address public constant CVX_USD_ORACLE = 0xd962fC30A72A84cE50161031391756Bf2876Af5D;
 
+  /// https://etherscan.io/address/0xB9E1E3A9feFf48998E45Fa90847ed4D467E8BcfD
+  address public constant FRAX_USD_ORACLE = 0xB9E1E3A9feFf48998E45Fa90847ed4D467E8BcfD;
+
   uint256 public constant USDT_SWAP_AMOUNT = 2_000_000e6;
   uint256 public constant USDC_SWAP_AMOUNT = 2_000_000e6;
 
@@ -176,6 +179,21 @@ contract AaveV3Ethereum_MayFundingUpdate_20250426 is IProposalGenericExecutor {
         toUnderlyingPriceFeed: AaveV3EthereumAssets.WETH_ORACLE,
         amount: IERC20(AaveV2EthereumAssets.CVX_UNDERLYING).balanceOf(COLLECTOR),
         slippage: 200
+      })
+    );
+
+    /// ~7k
+    AaveV3Ethereum.COLLECTOR.swap(
+      MiscEthereum.AAVE_SWAPPER,
+      CollectorUtils.SwapInput({
+        milkman: MILKMAN,
+        priceChecker: PRICE_CHECKER,
+        fromUnderlying: AaveV2EthereumAssets.FRAX_UNDERLYING,
+        toUnderlying: AaveV3EthereumAssets.WETH_UNDERLYING,
+        fromUnderlyingPriceFeed: FRAX_USD_ORACLE,
+        toUnderlyingPriceFeed: AaveV3EthereumAssets.WETH_ORACLE,
+        amount: IERC20(AaveV2EthereumAssets.FRAX_UNDERLYING).balanceOf(COLLECTOR),
+        slippage: 350
       })
     );
   }

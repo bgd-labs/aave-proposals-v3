@@ -122,6 +122,18 @@ contract AaveV3Ethereum_MayFundingUpdate_20250426_Test is ProtocolV3TestBase {
       200
     );
 
+    vm.expectEmit(true, true, true, true, MiscEthereum.AAVE_SWAPPER);
+    emit SwapRequested(
+      proposal.MILKMAN(),
+      AaveV2EthereumAssets.FRAX_UNDERLYING,
+      AaveV3EthereumAssets.WETH_UNDERLYING,
+      proposal.FRAX_USD_ORACLE(),
+      AaveV3EthereumAssets.WETH_ORACLE,
+      6248759763460068743065,
+      address(AaveV3Ethereum.COLLECTOR),
+      350
+    );
+
     executePayload(vm, address(proposal));
 
     uint256 usdtAmountAfter = IERC20(AaveV3EthereumAssets.USDT_UNDERLYING).balanceOf(
