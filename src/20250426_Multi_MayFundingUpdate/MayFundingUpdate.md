@@ -89,9 +89,9 @@ Swap the following from the Collector as outlined in the table below:
 Create a MATIC and stMATIC allowance for the Aave Finance Committee to then swap each asset to ETH and transfer to the Treasury.
 
 - Asset: `MATIC` [0x7D1AfA7B718fb893dB30A3aBc0Cfc608AaCfeBB0](https://etherscan.io/address/0x7d1afa7b718fb893db30a3abc0cfc608aacfebb0)
-- Amount: ~580,156
+- Amount: All Available Balance ~580,156
 - Asset: `stMATIC` [0x9ee91F9f426fA633d227f7a9b000E28b9dfd8599](https://etherscan.io/address/0x9ee91f9f426fa633d227f7a9b000e28b9dfd8599)
-- Amount: ~28,547
+- Amount: All Available Balance ~28,547
 - Spender: AFC [0x22740deBa78d5a0c24C58C740e3715ec29de1bFa](https://app.safe.global/home?safe=eth:0x22740deBa78d5a0c24C58C740e3715ec29de1bFa)
 - Method: `approve()` MATIC and stMATIC on the Aave Collector contract to the AFC safe
 
