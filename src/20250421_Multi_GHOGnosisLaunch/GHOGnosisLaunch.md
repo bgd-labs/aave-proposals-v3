@@ -25,27 +25,27 @@ This AIP includes a series of actions required to launch GHO on Gnosis Chain:
 
 The table below illustrates the configured risk parameters for **GHO on Gnosis Chain**:
 
-| Parameter                 | Value                                       |
-| :------------------------ | :------------------------------------------ |
-| Isolation Mode            | false                                       |
-| Borrowable                | ENABLED                                     |
-| Collateral Enabled        | false                                       |
-| Supply Cap                | 2,500,000                                   |
-| Borrow Cap                | 2,250,000                                   |
-| Debt Ceiling              | USD 0                                       |
-| LTV                       | 0 %                                         |
-| LT                        | 0 %                                         |
-| Liquidation Bonus         | 0 %                                         |
-| Liquidation Protocol Fee  | 0 %                                         |
-| Reserve Factor            | 0 %                                         |
-| Base Variable Borrow Rate | 0 %                                         |
-| Variable Slope 1          | 6.5%                                        |
-| Variable Slope 2          | 50 %                                        |
-| Uoptimal                  | 90 %                                        |
-| Flashloanable             | ENABLED                                     |
-| Siloed Borrowing          | DISABLED                                    |
-| Borrowable in Isolation   | DISABLED                                    |
-| Oracle                    | _To be confirmed/deployed for Gnosis Chain_ |
+| Parameter                 | Value                                      |
+| :------------------------ | :----------------------------------------- |
+| Isolation Mode            | false                                      |
+| Borrowable                | ENABLED                                    |
+| Collateral Enabled        | false                                      |
+| Supply Cap                | 2,500,000                                  |
+| Borrow Cap                | 2,250,000                                  |
+| Debt Ceiling              | USD 0                                      |
+| LTV                       | 0 %                                        |
+| LT                        | 0 %                                        |
+| Liquidation Bonus         | 0 %                                        |
+| Liquidation Protocol Fee  | 0 %                                        |
+| Reserve Factor            | 0 %                                        |
+| Base Variable Borrow Rate | 0 %                                        |
+| Variable Slope 1          | 6.5%                                       |
+| Variable Slope 2          | 50 %                                       |
+| Uoptimal                  | 90 %                                       |
+| Flashloanable             | ENABLED                                    |
+| Siloed Borrowing          | DISABLED                                   |
+| Borrowable in Isolation   | DISABLED                                   |
+| Oracle                    | 0x360d8aa8F6b09B7BC57aF34db2Eb84dD87bf4d12 |
 
 ## References
 

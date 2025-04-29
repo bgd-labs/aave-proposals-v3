@@ -21,11 +21,13 @@ import {IGhoCcipSteward} from 'src/interfaces/IGhoCcipSteward.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
 import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
+import {AaveV3BaseAssets} from 'aave-address-book/AaveV3Base.sol';
 
 import {CCIPUtils} from './utils/CCIPUtils.sol';
 import {AaveV3Arbitrum_GHOGnosisLaunch_20250421} from './AaveV3Arbitrum_GHOGnosisLaunch_20250421.sol';
 import {AaveV3Base_GHOGnosisLaunch_20250421} from './AaveV3Base_GHOGnosisLaunch_20250421.sol';
 import {AaveV3Ethereum_GHOGnosisLaunch_20250421} from './AaveV3Ethereum_GHOGnosisLaunch_20250421.sol';
+import {AaveV3Gnosis_GHOGnosisLaunch_20250421} from './AaveV3Gnosis_GHOGnosisLaunch_20250421.sol';
 
 /**
  * @dev Test for AaveV3Base_GHOGnosisLaunch_20250421
@@ -36,11 +38,13 @@ contract AaveV3Base_GHOGnosisLaunch_20250421_Base is ProtocolV3TestBase {
     IRouter router;
     IGhoToken token;
     IEVM2EVMOnRamp arbOnRamp;
-    IEVM2EVMOnRamp baseOnRamp;
+    IEVM2EVMOnRamp gnoOnRamp;
     IEVM2EVMOnRamp ethOnRamp;
+    IEVM2EVMOnRamp baseOnRamp;
     IEVM2EVMOffRamp_1_5 arbOffRamp;
-    IEVM2EVMOffRamp_1_5 baseOffRamp;
+    IEVM2EVMOffRamp_1_5 gnoOffRamp;
     IEVM2EVMOffRamp_1_5 ethOffRamp;
+    IEVM2EVMOffRamp_1_5 baseOffRamp;
     ITokenAdminRegistry tokenAdminRegistry;
     uint64 chainSelector;
     uint256 forkId;
@@ -68,19 +72,25 @@ contract AaveV3Base_GHOGnosisLaunch_20250421_Base is ProtocolV3TestBase {
     IUpgradeableLockReleaseTokenPool_1_5_1 tokenPool;
     Common c;
   }
+  struct GNO {
+    AaveV3Gnosis_GHOGnosisLaunch_20250421 proposal;
+    IUpgradeableBurnMintTokenPool_1_5_1 tokenPool;
+    Common c;
+  }
 
   address internal constant RISK_COUNCIL = 0x8513e6F37dBc52De87b166980Fa3F50639694B60; // common across all chains
-  address internal constant RMN_PROXY_GNOSIS = 0xC842c69d54F83170C42C4d556B4F6B2ca53Dd3E8;
-  address internal constant ROUTER_GNOSIS = 0x881e3A65B4d4a04dD529061dd0071cf975F58bCD;
+  address internal constant RMN_PROXY_GNOSIS = 0xf5e5e1676942520995c1e39aFaC58A75Fe1cd2bB;
+  address internal constant ROUTER_GNOSIS = 0x4aAD6071085df840abD9Baf1697d5D5992bDadce;
   address internal constant GHO_TOKEN_IMPL_GNOSIS = 0xb0e1c7830aA781362f79225559Aa068E6bDaF1d1;
   IGhoToken internal constant GHO_TOKEN_GNOSIS =
-    IGhoToken(0x6Bb7a212910682DCFdbd5BCBb3e28FB4E8da10Ee);
-  uint256 internal constant CCIP_RATE_LIMIT_CAPACITY = 300_000e18;
-  uint256 internal constant CCIP_RATE_LIMIT_REFILL_RATE = 60e18;
+    IGhoToken(0xfc421aD3C883Bf9E7C4f42dE845C4e4405799e73);
+  uint128 public constant CCIP_RATE_LIMIT_CAPACITY = 1_000_000e18;
+  uint128 public constant CCIP_RATE_LIMIT_REFILL_RATE = 200e18;
 
   ARB internal arb;
   BASE internal base;
   ETH internal eth;
+  GNO internal gno;
 
   address internal alice = makeAddr('alice');
   address internal bob = makeAddr('bob');
@@ -97,13 +107,15 @@ contract AaveV3Base_GHOGnosisLaunch_20250421_Base is ProtocolV3TestBase {
   event Minted(address indexed sender, address indexed recipient, uint256 amount);
 
   function setUp() public virtual {
-    arb.c.forkId = vm.createFork(vm.rpcUrl('arbitrum'), 300142041);
-    base.c.forkId = vm.createFork(vm.rpcUrl('base'), 25645172);
-    eth.c.forkId = vm.createFork(vm.rpcUrl('mainnet'), 21722753);
+    arb.c.forkId = vm.createFork(vm.rpcUrl('arbitrum'), 331421818);
+    base.c.forkId = vm.createFork(vm.rpcUrl('base'), 29568042);
+    eth.c.forkId = vm.createFork(vm.rpcUrl('mainnet'), 22374364);
+    gno.c.forkId = vm.createFork(vm.rpcUrl('gnosis'), 39808189);
 
     arb.c.chainSelector = 4949039107694359620;
     base.c.chainSelector = 15971525489660198786;
     eth.c.chainSelector = 5009297550715157269;
+    gno.c.chainSelector = 465200170687744372;
 
     vm.selectFork(arb.c.forkId);
     arb.proposal = new AaveV3Arbitrum_GHOGnosisLaunch_20250421();
@@ -111,9 +123,9 @@ contract AaveV3Base_GHOGnosisLaunch_20250421_Base is ProtocolV3TestBase {
     arb.tokenPool = IUpgradeableBurnMintTokenPool_1_5_1(0xB94Ab28c6869466a46a42abA834ca2B3cECCA5eB);
     arb.c.tokenAdminRegistry = ITokenAdminRegistry(0x39AE1032cF4B334a1Ed41cdD0833bdD7c7E7751E);
     arb.c.router = IRouter(arb.tokenPool.getRouter());
-    arb.c.baseOnRamp = IEVM2EVMOnRamp(arb.c.router.getOnRamp(base.c.chainSelector));
+    arb.c.gnoOnRamp = IEVM2EVMOnRamp(arb.c.router.getOnRamp(gno.c.chainSelector));
     arb.c.ethOnRamp = IEVM2EVMOnRamp(arb.c.router.getOnRamp(eth.c.chainSelector));
-    arb.c.baseOffRamp = IEVM2EVMOffRamp_1_5(0xb62178f8198905D0Fa6d640Bdb188E4E8143Ac4b);
+    arb.c.gnoOffRamp = IEVM2EVMOffRamp_1_5(0xeE53872d1C695933B34cE0a11B58613CBBf37e20);
     arb.c.ethOffRamp = IEVM2EVMOffRamp_1_5(0x91e46cc5590A4B9182e47f40006140A7077Dec31);
 
     vm.selectFork(base.c.forkId);
@@ -122,7 +134,7 @@ contract AaveV3Base_GHOGnosisLaunch_20250421_Base is ProtocolV3TestBase {
       0x98217A06721Ebf727f2C8d9aD7718ec28b7aAe34
     );
     base.c.tokenAdminRegistry = ITokenAdminRegistry(0x6f6C373d09C07425BaAE72317863d7F6bb731e37);
-    base.c.token = GHO_TOKEN_GNOSIS;
+    base.c.token = IGhoToken(AaveV3BaseAssets.GHO_UNDERLYING);
     base.c.router = IRouter(base.tokenPool.getRouter());
     base.c.arbOnRamp = IEVM2EVMOnRamp(base.c.router.getOnRamp(arb.c.chainSelector));
     base.c.ethOnRamp = IEVM2EVMOnRamp(base.c.router.getOnRamp(eth.c.chainSelector));
@@ -138,9 +150,22 @@ contract AaveV3Base_GHOGnosisLaunch_20250421_Base is ProtocolV3TestBase {
     eth.c.tokenAdminRegistry = ITokenAdminRegistry(0xb22764f98dD05c789929716D677382Df22C05Cb6);
     eth.c.router = IRouter(eth.tokenPool.getRouter());
     eth.c.arbOnRamp = IEVM2EVMOnRamp(eth.c.router.getOnRamp(arb.c.chainSelector));
-    eth.c.baseOnRamp = IEVM2EVMOnRamp(eth.c.router.getOnRamp(base.c.chainSelector));
+    eth.c.gnoOnRamp = IEVM2EVMOnRamp(eth.c.router.getOnRamp(gno.c.chainSelector));
     eth.c.arbOffRamp = IEVM2EVMOffRamp_1_5(0xdf615eF8D4C64d0ED8Fd7824BBEd2f6a10245aC9);
-    eth.c.baseOffRamp = IEVM2EVMOffRamp_1_5(0x6B4B6359Dd5B47Cdb030E5921456D2a0625a9EbD);
+    eth.c.gnoOffRamp = IEVM2EVMOffRamp_1_5(0x70C705ff3eCAA04c8c61d581a59a168a1c49c2ec);
+
+    vm.selectFork(gno.c.forkId);
+    gno.proposal = new AaveV3Gnosis_GHOGnosisLaunch_20250421();
+    gno.tokenPool = IUpgradeableBurnMintTokenPool_1_5_1(0xDe6539018B095353A40753Dc54C91C68c9487D4E);
+    gno.c.tokenAdminRegistry = ITokenAdminRegistry(0x73BC11423CBF14914998C23B0aFC9BE0cb5B2229);
+    gno.c.token = GHO_TOKEN_GNOSIS;
+    gno.c.router = IRouter(gno.tokenPool.getRouter());
+    gno.c.arbOnRamp = IEVM2EVMOnRamp(gno.c.router.getOnRamp(arb.c.chainSelector));
+    gno.c.baseOnRamp = IEVM2EVMOnRamp(gno.c.router.getOnRamp(base.c.chainSelector));
+    gno.c.ethOnRamp = IEVM2EVMOnRamp(gno.c.router.getOnRamp(eth.c.chainSelector));
+    gno.c.arbOffRamp = IEVM2EVMOffRamp_1_5(0x2C1539696E29012806a15Bcd9845Ed1278a9fd63);
+    gno.c.baseOffRamp = IEVM2EVMOffRamp_1_5(0xbeEDd1C5C13C5886c3d600e94Ff9e82C04A53C38);
+    gno.c.ethOffRamp = IEVM2EVMOffRamp_1_5(0x658d9ae41A9c291De423d3B4B6C064f6dD0e7Ed2);
 
     _validateConfig({executed: false});
   }
@@ -178,66 +203,63 @@ contract AaveV3Base_GHOGnosisLaunch_20250421_Base is ProtocolV3TestBase {
     assertEq(arb.c.chainSelector, 4949039107694359620);
     assertEq(address(arb.c.token), AaveV3ArbitrumAssets.GHO_UNDERLYING);
     assertEq(arb.c.router.typeAndVersion(), 'Router 1.2.0');
-    _assertOnRamp(arb.c.baseOnRamp, arb.c.chainSelector, base.c.chainSelector, arb.c.router);
+    _assertOnRamp(arb.c.gnoOnRamp, arb.c.chainSelector, gno.c.chainSelector, arb.c.router);
     _assertOnRamp(arb.c.ethOnRamp, arb.c.chainSelector, eth.c.chainSelector, arb.c.router);
-    _assertOffRamp(arb.c.baseOffRamp, base.c.chainSelector, arb.c.chainSelector, arb.c.router);
+    _assertOffRamp(arb.c.gnoOffRamp, gno.c.chainSelector, arb.c.chainSelector, arb.c.router);
     _assertOffRamp(arb.c.ethOffRamp, eth.c.chainSelector, arb.c.chainSelector, arb.c.router);
 
     // proposal constants
-    assertEq(arb.proposal.GNOSIS_CHAIN_SELECTOR(), base.c.chainSelector);
+    assertEq(arb.proposal.GNOSIS_CHAIN_SELECTOR(), gno.c.chainSelector);
     assertEq(address(arb.proposal.TOKEN_POOL()), address(arb.tokenPool));
-    assertEq(arb.proposal.REMOTE_TOKEN_POOL_GNOSIS(), address(base.tokenPool));
-    assertEq(arb.proposal.REMOTE_GHO_TOKEN_GNOSIS(), address(base.c.token));
+    assertEq(arb.proposal.REMOTE_TOKEN_POOL_GNOSIS(), address(gno.tokenPool));
+    assertEq(arb.proposal.REMOTE_GHO_TOKEN_GNOSIS(), address(gno.c.token));
 
-    vm.selectFork(base.c.forkId);
-    assertEq(base.c.chainSelector, 15971525489660198786);
-    assertEq(base.c.router.typeAndVersion(), 'Router 1.2.0');
-    _assertOnRamp(base.c.arbOnRamp, base.c.chainSelector, arb.c.chainSelector, base.c.router);
-    _assertOnRamp(base.c.ethOnRamp, base.c.chainSelector, eth.c.chainSelector, base.c.router);
-    _assertOffRamp(base.c.arbOffRamp, arb.c.chainSelector, base.c.chainSelector, base.c.router);
-    _assertOffRamp(base.c.ethOffRamp, eth.c.chainSelector, base.c.chainSelector, base.c.router);
+    vm.selectFork(gno.c.forkId);
+    assertEq(gno.c.chainSelector, 465200170687744372);
+    assertEq(gno.c.router.typeAndVersion(), 'Router 1.2.0');
+    _assertOnRamp(gno.c.arbOnRamp, gno.c.chainSelector, arb.c.chainSelector, gno.c.router);
+    _assertOnRamp(gno.c.ethOnRamp, gno.c.chainSelector, eth.c.chainSelector, gno.c.router);
+    _assertOffRamp(gno.c.arbOffRamp, arb.c.chainSelector, gno.c.chainSelector, gno.c.router);
+    _assertOffRamp(gno.c.ethOffRamp, eth.c.chainSelector, gno.c.chainSelector, gno.c.router);
 
     // proposal constants
-    assertEq(base.proposal.ETH_CHAIN_SELECTOR(), eth.c.chainSelector);
-    assertEq(base.proposal.ARB_CHAIN_SELECTOR(), arb.c.chainSelector);
-    assertEq(base.proposal.CCIP_BUCKET_CAPACITY(), 20_000_000e18);
-    assertEq(address(base.proposal.TOKEN_ADMIN_REGISTRY()), address(base.c.tokenAdminRegistry));
-    assertEq(address(base.proposal.TOKEN_POOL()), address(base.tokenPool));
-    IGhoCcipSteward ghoCcipSteward = IGhoCcipSteward(base.proposal.GHO_CCIP_STEWARD());
-    assertEq(ghoCcipSteward.GHO_TOKEN_POOL(), address(base.tokenPool));
-    assertEq(ghoCcipSteward.GHO_TOKEN(), address(base.c.token));
-    assertEq(base.proposal.REMOTE_TOKEN_POOL_ETH(), address(eth.tokenPool));
-    assertEq(base.proposal.REMOTE_TOKEN_POOL_ARB(), address(arb.tokenPool));
+    assertEq(gno.proposal.ETH_CHAIN_SELECTOR(), eth.c.chainSelector);
+    assertEq(gno.proposal.ARB_CHAIN_SELECTOR(), arb.c.chainSelector);
+    assertEq(gno.proposal.CCIP_BUCKET_CAPACITY(), 25_000_000e18);
+    assertEq(address(gno.proposal.TOKEN_ADMIN_REGISTRY()), address(gno.c.tokenAdminRegistry));
+    assertEq(address(gno.proposal.TOKEN_POOL()), address(gno.tokenPool));
+    IGhoCcipSteward ghoCcipSteward = IGhoCcipSteward(gno.proposal.GHO_CCIP_STEWARD());
+    assertEq(ghoCcipSteward.GHO_TOKEN_POOL(), address(gno.tokenPool));
+    assertEq(ghoCcipSteward.GHO_TOKEN(), address(gno.c.token));
+    assertEq(gno.proposal.REMOTE_TOKEN_POOL_ETH(), address(eth.tokenPool));
+    assertEq(gno.proposal.REMOTE_TOKEN_POOL_ARB(), address(arb.tokenPool));
 
     vm.selectFork(eth.c.forkId);
     assertEq(eth.c.chainSelector, 5009297550715157269);
     assertEq(address(eth.c.token), AaveV3EthereumAssets.GHO_UNDERLYING);
     assertEq(eth.c.router.typeAndVersion(), 'Router 1.2.0');
     _assertOnRamp(eth.c.arbOnRamp, eth.c.chainSelector, arb.c.chainSelector, eth.c.router);
-    _assertOnRamp(eth.c.baseOnRamp, eth.c.chainSelector, base.c.chainSelector, eth.c.router);
+    _assertOnRamp(eth.c.gnoOnRamp, eth.c.chainSelector, gno.c.chainSelector, eth.c.router);
     _assertOffRamp(eth.c.arbOffRamp, arb.c.chainSelector, eth.c.chainSelector, eth.c.router);
-    _assertOffRamp(eth.c.baseOffRamp, base.c.chainSelector, eth.c.chainSelector, eth.c.router);
+    _assertOffRamp(eth.c.gnoOffRamp, gno.c.chainSelector, eth.c.chainSelector, eth.c.router);
 
     // proposal constants
-    assertEq(eth.proposal.GNOSIS_CHAIN_SELECTOR(), base.c.chainSelector);
+    assertEq(eth.proposal.GNOSIS_CHAIN_SELECTOR(), gno.c.chainSelector);
     assertEq(address(eth.proposal.TOKEN_POOL()), address(eth.tokenPool));
-    assertEq(eth.proposal.REMOTE_TOKEN_POOL_GNOSIS(), address(base.tokenPool));
-    assertEq(eth.proposal.REMOTE_GHO_TOKEN_GNOSIS(), address(base.c.token));
+    assertEq(eth.proposal.REMOTE_TOKEN_POOL_GNOSIS(), address(gno.tokenPool));
+    assertEq(eth.proposal.REMOTE_GHO_TOKEN_GNOSIS(), address(gno.c.token));
 
     if (executed) {
       vm.selectFork(arb.c.forkId);
       assertEq(arb.c.tokenAdminRegistry.getPool(address(arb.c.token)), address(arb.tokenPool));
       assertEq(arb.tokenPool.getSupportedChains()[0], eth.c.chainSelector);
-      assertEq(arb.tokenPool.getSupportedChains()[1], base.c.chainSelector);
+      assertEq(arb.tokenPool.getSupportedChains()[1], gno.c.chainSelector);
       assertEq(arb.tokenPool.getRemoteToken(eth.c.chainSelector), abi.encode(address(eth.c.token)));
+      assertEq(arb.tokenPool.getRemoteToken(gno.c.chainSelector), abi.encode(address(gno.c.token)));
+      assertEq(arb.tokenPool.getRemotePools(gno.c.chainSelector).length, 1);
       assertEq(
-        arb.tokenPool.getRemoteToken(base.c.chainSelector),
-        abi.encode(address(base.c.token))
-      );
-      assertEq(arb.tokenPool.getRemotePools(base.c.chainSelector).length, 1);
-      assertEq(
-        arb.tokenPool.getRemotePools(base.c.chainSelector)[0],
-        abi.encode(address(base.tokenPool))
+        arb.tokenPool.getRemotePools(gno.c.chainSelector)[0],
+        abi.encode(address(gno.tokenPool))
       );
       assertEq(arb.tokenPool.getRemotePools(eth.c.chainSelector).length, 2);
       assertEq(
@@ -246,49 +268,40 @@ contract AaveV3Base_GHOGnosisLaunch_20250421_Base is ProtocolV3TestBase {
       );
       _assertSetRateLimit(arb.c, address(arb.tokenPool));
 
-      vm.selectFork(base.c.forkId);
-      assertEq(address(base.proposal.GHO_TOKEN()), address(base.c.token));
-      assertEq(base.c.tokenAdminRegistry.getPool(address(base.c.token)), address(base.tokenPool));
-      assertEq(base.tokenPool.getSupportedChains()[0], eth.c.chainSelector);
-      assertEq(base.tokenPool.getSupportedChains()[1], arb.c.chainSelector);
+      vm.selectFork(gno.c.forkId);
+      assertEq(address(gno.proposal.GHO_TOKEN()), address(gno.c.token));
+      assertEq(gno.c.tokenAdminRegistry.getPool(address(gno.c.token)), address(gno.tokenPool));
+      assertEq(gno.tokenPool.getSupportedChains()[0], eth.c.chainSelector);
+      assertEq(gno.tokenPool.getSupportedChains()[1], arb.c.chainSelector);
+      assertEq(gno.tokenPool.getRemoteToken(arb.c.chainSelector), abi.encode(address(arb.c.token)));
+      assertEq(gno.tokenPool.getRemoteToken(eth.c.chainSelector), abi.encode(address(eth.c.token)));
+      assertEq(gno.tokenPool.getRemotePools(arb.c.chainSelector).length, 1);
       assertEq(
-        base.tokenPool.getRemoteToken(arb.c.chainSelector),
-        abi.encode(address(arb.c.token))
-      );
-      assertEq(
-        base.tokenPool.getRemoteToken(eth.c.chainSelector),
-        abi.encode(address(eth.c.token))
-      );
-      assertEq(base.tokenPool.getRemotePools(arb.c.chainSelector).length, 1);
-      assertEq(
-        base.tokenPool.getRemotePools(arb.c.chainSelector)[0],
+        gno.tokenPool.getRemotePools(arb.c.chainSelector)[0],
         abi.encode(address(arb.tokenPool))
       );
-      assertEq(base.tokenPool.getRemotePools(eth.c.chainSelector).length, 1);
+      assertEq(gno.tokenPool.getRemotePools(eth.c.chainSelector).length, 1);
       assertEq(
-        base.tokenPool.getRemotePools(eth.c.chainSelector)[0],
+        gno.tokenPool.getRemotePools(eth.c.chainSelector)[0],
         abi.encode(address(eth.tokenPool))
       );
-      _assertSetRateLimit(base.c, address(base.tokenPool));
+      _assertSetRateLimit(gno.c, address(gno.tokenPool));
 
       vm.selectFork(eth.c.forkId);
       assertEq(eth.c.tokenAdminRegistry.getPool(address(eth.c.token)), address(eth.tokenPool));
       assertEq(eth.tokenPool.getSupportedChains()[0], arb.c.chainSelector);
-      assertEq(eth.tokenPool.getSupportedChains()[1], base.c.chainSelector);
+      assertEq(eth.tokenPool.getSupportedChains()[1], gno.c.chainSelector);
       assertEq(eth.tokenPool.getRemoteToken(arb.c.chainSelector), abi.encode(address(arb.c.token)));
-      assertEq(
-        eth.tokenPool.getRemoteToken(base.c.chainSelector),
-        abi.encode(address(base.c.token))
-      );
+      assertEq(eth.tokenPool.getRemoteToken(gno.c.chainSelector), abi.encode(address(gno.c.token)));
       assertEq(eth.tokenPool.getRemotePools(arb.c.chainSelector).length, 2);
       assertEq(
         eth.tokenPool.getRemotePools(arb.c.chainSelector)[1], // 0th is the 1.4 token pool
         abi.encode(address(arb.tokenPool))
       );
-      assertEq(eth.tokenPool.getRemotePools(base.c.chainSelector).length, 1);
+      assertEq(eth.tokenPool.getRemotePools(gno.c.chainSelector).length, 1);
       assertEq(
-        eth.tokenPool.getRemotePools(base.c.chainSelector)[0],
-        abi.encode(address(base.tokenPool))
+        eth.tokenPool.getRemotePools(gno.c.chainSelector)[0],
+        abi.encode(address(gno.tokenPool))
       );
       _assertSetRateLimit(eth.c, address(eth.tokenPool));
     }
@@ -345,9 +358,9 @@ contract AaveV3Base_GHOGnosisLaunch_20250421_Base is ProtocolV3TestBase {
   }
 
   function _getDestination(Common memory src) internal view returns (Common memory, Common memory) {
-    if (src.forkId == arb.c.forkId) return (base.c, eth.c);
-    else if (src.forkId == base.c.forkId) return (arb.c, eth.c);
-    else return (arb.c, base.c);
+    if (src.forkId == arb.c.forkId) return (gno.c, eth.c);
+    else if (src.forkId == gno.c.forkId) return (arb.c, eth.c);
+    else return (arb.c, gno.c);
   }
 
   function _tokenBucketToConfig(
@@ -457,6 +470,9 @@ contract AaveV3Base_GHOGnosisLaunch_20250421_PostExecution is
     vm.selectFork(base.c.forkId);
     executePayload(vm, address(base.proposal));
 
+    vm.selectFork(gno.c.forkId);
+    executePayload(vm, address(gno.proposal));
+
     _validateConfig({executed: true});
   }
 
@@ -469,7 +485,7 @@ contract AaveV3Base_GHOGnosisLaunch_20250421_PostExecution is
       );
       amount = bound(amount, 1, bridgeableAmount);
       skip(_getOutboundRefillTime(amount));
-      _refreshGasAndTokenPrices(eth.c, base.c);
+      _refreshGasAndTokenPrices(eth.c, gno.c);
 
       vm.prank(alice);
       eth.c.token.approve(address(eth.c.router), amount);
@@ -482,84 +498,80 @@ contract AaveV3Base_GHOGnosisLaunch_20250421_PostExecution is
       (
         IClient.EVM2AnyMessage memory message,
         IInternal.EVM2EVMMessage memory eventArg
-      ) = _getTokenMessage(
-          CCIPSendParams({src: eth.c, dst: base.c, sender: alice, amount: amount})
-        );
+      ) = _getTokenMessage(CCIPSendParams({src: eth.c, dst: gno.c, sender: alice, amount: amount}));
 
       vm.expectEmit(address(eth.tokenPool));
-      emit Locked(address(eth.c.baseOnRamp), amount);
-      vm.expectEmit(address(eth.c.baseOnRamp));
+      emit Locked(address(eth.c.gnoOnRamp), amount);
+      vm.expectEmit(address(eth.c.gnoOnRamp));
       emit CCIPSendRequested(eventArg);
 
       vm.prank(alice);
-      eth.c.router.ccipSend{value: eventArg.feeTokenAmount}(base.c.chainSelector, message);
+      eth.c.router.ccipSend{value: eventArg.feeTokenAmount}(gno.c.chainSelector, message);
 
       assertEq(eth.c.token.balanceOf(address(eth.tokenPool)), tokenPoolBalance + amount);
       assertEq(eth.c.token.balanceOf(alice), aliceBalance - amount);
       assertEq(eth.tokenPool.getCurrentBridgedAmount(), bridgedAmount + amount);
 
       // base execute message
-      vm.selectFork(base.c.forkId);
+      vm.selectFork(gno.c.forkId);
 
       skip(_getInboundRefillTime(amount));
-      _refreshGasAndTokenPrices(base.c, eth.c);
-      assertEq(base.c.token.balanceOf(alice), 0);
-      assertEq(base.c.token.totalSupply(), 0); // first bridge
-      assertEq(base.c.token.getFacilitator(address(base.tokenPool)).bucketLevel, 0); // first bridge
+      _refreshGasAndTokenPrices(gno.c, eth.c);
+      assertEq(gno.c.token.balanceOf(alice), 0);
+      assertEq(gno.c.token.totalSupply(), 0); // first bridge
+      assertEq(gno.c.token.getFacilitator(address(gno.tokenPool)).bucketLevel, 0); // first bridge
 
-      vm.expectEmit(address(base.tokenPool));
-      emit Minted(address(base.c.ethOffRamp), alice, amount);
+      vm.expectEmit(address(gno.tokenPool));
+      emit Minted(address(gno.c.ethOffRamp), alice, amount);
 
-      vm.prank(address(base.c.ethOffRamp));
-      base.c.ethOffRamp.executeSingleMessage({
+      vm.prank(address(gno.c.ethOffRamp));
+      gno.c.ethOffRamp.executeSingleMessage({
         message: eventArg,
         offchainTokenData: new bytes[](message.tokenAmounts.length),
         tokenGasOverrides: new uint32[](0)
       });
 
-      assertEq(base.c.token.balanceOf(alice), amount);
-      assertEq(base.c.token.getFacilitator(address(base.tokenPool)).bucketLevel, amount);
+      assertEq(gno.c.token.balanceOf(alice), amount);
+      assertEq(gno.c.token.getFacilitator(address(gno.tokenPool)).bucketLevel, amount);
     }
 
     // send amount back to eth
     {
       // send base from base
-      vm.selectFork(base.c.forkId);
+      vm.selectFork(gno.c.forkId);
 
       skip(_getOutboundRefillTime(amount));
-      _refreshGasAndTokenPrices(base.c, eth.c);
+      _refreshGasAndTokenPrices(gno.c, eth.c);
       vm.prank(alice);
-      base.c.token.approve(address(base.c.router), amount);
+      gno.c.token.approve(address(gno.c.router), amount);
 
       (
         IClient.EVM2AnyMessage memory message,
         IInternal.EVM2EVMMessage memory eventArg
-      ) = _getTokenMessage(
-          CCIPSendParams({src: base.c, dst: eth.c, sender: alice, amount: amount})
-        );
+      ) = _getTokenMessage(CCIPSendParams({src: gno.c, dst: eth.c, sender: alice, amount: amount}));
 
-      vm.expectEmit(address(base.tokenPool));
-      emit Burned(address(base.c.ethOnRamp), amount);
-      vm.expectEmit(address(base.c.ethOnRamp));
+      vm.expectEmit(address(gno.tokenPool));
+      emit Burned(address(gno.c.ethOnRamp), amount);
+      vm.expectEmit(address(gno.c.ethOnRamp));
       emit CCIPSendRequested(eventArg);
 
       vm.prank(alice);
-      base.c.router.ccipSend{value: eventArg.feeTokenAmount}(eth.c.chainSelector, message);
+      gno.c.router.ccipSend{value: eventArg.feeTokenAmount}(eth.c.chainSelector, message);
 
-      assertEq(base.c.token.balanceOf(alice), 0);
-      assertEq(base.c.token.getFacilitator(address(base.tokenPool)).bucketLevel, 0);
+      assertEq(gno.c.token.balanceOf(alice), 0);
+      assertEq(gno.c.token.getFacilitator(address(gno.tokenPool)).bucketLevel, 0);
 
       // eth execute message
       vm.selectFork(eth.c.forkId);
 
       skip(_getInboundRefillTime(amount));
-      _refreshGasAndTokenPrices(eth.c, base.c);
+      _refreshGasAndTokenPrices(eth.c, gno.c);
       uint256 bridgedAmount = eth.tokenPool.getCurrentBridgedAmount();
 
       vm.expectEmit(address(eth.tokenPool));
-      emit Released(address(eth.c.baseOffRamp), alice, amount);
-      vm.prank(address(eth.c.baseOffRamp));
-      eth.c.baseOffRamp.executeSingleMessage({
+      emit Released(address(eth.c.gnoOffRamp), alice, amount);
+      vm.prank(address(eth.c.gnoOffRamp));
+      eth.c.gnoOffRamp.executeSingleMessage({
         message: eventArg,
         offchainTokenData: new bytes[](message.tokenAmounts.length),
         tokenGasOverrides: new uint32[](0)
@@ -579,7 +591,7 @@ contract AaveV3Base_GHOGnosisLaunch_20250421_PostExecution is
       );
       amount = bound(amount, 1, bridgeableAmount);
       skip(_getOutboundRefillTime(amount));
-      _refreshGasAndTokenPrices(arb.c, base.c);
+      _refreshGasAndTokenPrices(arb.c, gno.c);
 
       vm.prank(alice);
       arb.c.token.approve(address(arb.c.router), amount);
@@ -591,17 +603,15 @@ contract AaveV3Base_GHOGnosisLaunch_20250421_PostExecution is
       (
         IClient.EVM2AnyMessage memory message,
         IInternal.EVM2EVMMessage memory eventArg
-      ) = _getTokenMessage(
-          CCIPSendParams({src: arb.c, dst: base.c, sender: alice, amount: amount})
-        );
+      ) = _getTokenMessage(CCIPSendParams({src: arb.c, dst: gno.c, sender: alice, amount: amount}));
 
       vm.expectEmit(address(arb.tokenPool));
-      emit Burned(address(arb.c.baseOnRamp), amount);
-      vm.expectEmit(address(arb.c.baseOnRamp));
+      emit Burned(address(arb.c.gnoOnRamp), amount);
+      vm.expectEmit(address(arb.c.gnoOnRamp));
       emit CCIPSendRequested(eventArg);
 
       vm.prank(alice);
-      arb.c.router.ccipSend{value: eventArg.feeTokenAmount}(base.c.chainSelector, message);
+      arb.c.router.ccipSend{value: eventArg.feeTokenAmount}(gno.c.chainSelector, message);
 
       assertEq(arb.c.token.balanceOf(alice), aliceBalance - amount);
       assertEq(
@@ -610,67 +620,65 @@ contract AaveV3Base_GHOGnosisLaunch_20250421_PostExecution is
       );
 
       // base execute message
-      vm.selectFork(base.c.forkId);
+      vm.selectFork(gno.c.forkId);
 
       skip(_getInboundRefillTime(amount));
-      _refreshGasAndTokenPrices(base.c, arb.c);
-      assertEq(base.c.token.balanceOf(alice), 0);
-      assertEq(base.c.token.totalSupply(), 0); // first bridge
-      assertEq(base.c.token.getFacilitator(address(base.tokenPool)).bucketLevel, 0); // first bridge
+      _refreshGasAndTokenPrices(gno.c, arb.c);
+      assertEq(gno.c.token.balanceOf(alice), 0);
+      assertEq(gno.c.token.totalSupply(), 0); // first bridge
+      assertEq(gno.c.token.getFacilitator(address(gno.tokenPool)).bucketLevel, 0); // first bridge
 
-      vm.expectEmit(address(base.tokenPool));
-      emit Minted(address(base.c.arbOffRamp), alice, amount);
+      vm.expectEmit(address(gno.tokenPool));
+      emit Minted(address(gno.c.arbOffRamp), alice, amount);
 
-      vm.prank(address(base.c.arbOffRamp));
-      base.c.arbOffRamp.executeSingleMessage({
+      vm.prank(address(gno.c.arbOffRamp));
+      gno.c.arbOffRamp.executeSingleMessage({
         message: eventArg,
         offchainTokenData: new bytes[](message.tokenAmounts.length),
         tokenGasOverrides: new uint32[](0)
       });
 
-      assertEq(base.c.token.balanceOf(alice), amount);
-      assertEq(base.c.token.getFacilitator(address(base.tokenPool)).bucketLevel, amount);
+      assertEq(gno.c.token.balanceOf(alice), amount);
+      assertEq(gno.c.token.getFacilitator(address(gno.tokenPool)).bucketLevel, amount);
     }
 
     // send amount back to arb
     {
       // send base from base
-      vm.selectFork(base.c.forkId);
+      vm.selectFork(gno.c.forkId);
 
       skip(_getOutboundRefillTime(amount));
-      _refreshGasAndTokenPrices(base.c, arb.c);
+      _refreshGasAndTokenPrices(gno.c, arb.c);
       vm.prank(alice);
-      base.c.token.approve(address(base.c.router), amount);
+      gno.c.token.approve(address(gno.c.router), amount);
 
       (
         IClient.EVM2AnyMessage memory message,
         IInternal.EVM2EVMMessage memory eventArg
-      ) = _getTokenMessage(
-          CCIPSendParams({src: base.c, dst: arb.c, sender: alice, amount: amount})
-        );
+      ) = _getTokenMessage(CCIPSendParams({src: gno.c, dst: arb.c, sender: alice, amount: amount}));
 
-      vm.expectEmit(address(base.tokenPool));
-      emit Burned(address(base.c.arbOnRamp), amount);
-      vm.expectEmit(address(base.c.arbOnRamp));
+      vm.expectEmit(address(gno.tokenPool));
+      emit Burned(address(gno.c.arbOnRamp), amount);
+      vm.expectEmit(address(gno.c.arbOnRamp));
       emit CCIPSendRequested(eventArg);
 
       vm.prank(alice);
-      base.c.router.ccipSend{value: eventArg.feeTokenAmount}(arb.c.chainSelector, message);
+      gno.c.router.ccipSend{value: eventArg.feeTokenAmount}(arb.c.chainSelector, message);
 
-      assertEq(base.c.token.balanceOf(alice), 0);
-      assertEq(base.c.token.getFacilitator(address(base.tokenPool)).bucketLevel, 0);
+      assertEq(gno.c.token.balanceOf(alice), 0);
+      assertEq(gno.c.token.getFacilitator(address(gno.tokenPool)).bucketLevel, 0);
 
       // arb execute message
       vm.selectFork(arb.c.forkId);
 
       skip(_getInboundRefillTime(amount));
-      _refreshGasAndTokenPrices(arb.c, base.c);
+      _refreshGasAndTokenPrices(arb.c, gno.c);
       uint256 facilitatorLevel = arb.c.token.getFacilitator(address(arb.tokenPool)).bucketLevel;
 
       vm.expectEmit(address(arb.tokenPool));
-      emit Minted(address(arb.c.baseOffRamp), alice, amount);
-      vm.prank(address(arb.c.baseOffRamp));
-      arb.c.baseOffRamp.executeSingleMessage({
+      emit Minted(address(arb.c.gnoOffRamp), alice, amount);
+      vm.prank(address(arb.c.gnoOffRamp));
+      arb.c.gnoOffRamp.executeSingleMessage({
         message: eventArg,
         offchainTokenData: new bytes[](message.tokenAmounts.length),
         tokenGasOverrides: new uint32[](0)

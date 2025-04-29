@@ -13,15 +13,18 @@ import {GhoEthereum} from 'aave-address-book/GhoEthereum.sol';
  * - Snapshot: https://snapshot.box/#/s:aavedao.eth/proposal/0x62996204d8466d603fe8c953176599db02a23f440a682ff15ba2d0ca63dda386
  */
 contract AaveV3Ethereum_GHOGnosisLaunch_20250421 is IProposalGenericExecutor {
+  uint64 internal constant ARB_CHAIN_SELECTOR = 4949039107694359620;
+  uint64 internal constant BASE_CHAIN_SELECTOR = 15971525489660198786;
+  uint64 internal constant ETH_CHAIN_SELECTOR = 5009297550715157269;
   uint64 public constant GNOSIS_CHAIN_SELECTOR = 465200170687744372;
 
   // https://etherscan.io/address/0x06179f7C1be40863405f374E7f5F8806c728660A
   IUpgradeableLockReleaseTokenPool_1_5_1 public constant TOKEN_POOL =
     IUpgradeableLockReleaseTokenPool_1_5_1(GhoEthereum.GHO_CCIP_TOKEN_POOL);
 
-  // https://gnosisscan.io/address/0x98217A06721Ebf727f2C8d9aD7718ec28b7aAe34
+  // https://gnosisscan.io/address/0xDe6539018B095353A40753Dc54C91C68c9487D4E
   address public constant REMOTE_TOKEN_POOL_GNOSIS = 0xDe6539018B095353A40753Dc54C91C68c9487D4E;
-  // https://gnosisscan.io/address/0x6Bb7a212910682DCFdbd5BCBb3e28FB4E8da10Ee
+  // https://gnosisscan.io/address/0xfc421aD3C883Bf9E7C4f42dE845C4e4405799e73
   address public constant REMOTE_GHO_TOKEN_GNOSIS = 0xfc421aD3C883Bf9E7C4f42dE845C4e4405799e73;
 
   // Token Rate Limit Capacity: 1_000_000 GHO
@@ -37,12 +40,31 @@ contract AaveV3Ethereum_GHOGnosisLaunch_20250421 is IProposalGenericExecutor {
     });
 
     IUpgradeableLockReleaseTokenPool_1_5_1.ChainUpdate[]
-      memory chainsToAdd = new IUpgradeableLockReleaseTokenPool_1_5_1.ChainUpdate[](1);
+      memory chainsToAdd = new IUpgradeableLockReleaseTokenPool_1_5_1.ChainUpdate[](3);
+    uint64[] memory chainsToRemove = new uint64[](2);
 
     bytes[] memory remotePoolAddresses = new bytes[](1);
     remotePoolAddresses[0] = abi.encode(REMOTE_TOKEN_POOL_GNOSIS);
 
     chainsToAdd[0] = IUpgradeableLockReleaseTokenPool_1_5_1.ChainUpdate({
+      remoteChainSelector: ARB_CHAIN_SELECTOR,
+      remotePoolAddresses: TOKEN_POOL.getRemotePools(ARB_CHAIN_SELECTOR),
+      remoteTokenAddress: TOKEN_POOL.getRemoteToken(ARB_CHAIN_SELECTOR),
+      outboundRateLimiterConfig: rateLimiterConfig,
+      inboundRateLimiterConfig: rateLimiterConfig
+    });
+    chainsToRemove[0] = ARB_CHAIN_SELECTOR;
+
+    chainsToAdd[1] = IUpgradeableLockReleaseTokenPool_1_5_1.ChainUpdate({
+      remoteChainSelector: BASE_CHAIN_SELECTOR,
+      remotePoolAddresses: TOKEN_POOL.getRemotePools(BASE_CHAIN_SELECTOR),
+      remoteTokenAddress: TOKEN_POOL.getRemoteToken(BASE_CHAIN_SELECTOR),
+      outboundRateLimiterConfig: rateLimiterConfig,
+      inboundRateLimiterConfig: rateLimiterConfig
+    });
+    chainsToRemove[1] = BASE_CHAIN_SELECTOR;
+
+    chainsToAdd[2] = IUpgradeableLockReleaseTokenPool_1_5_1.ChainUpdate({
       remoteChainSelector: GNOSIS_CHAIN_SELECTOR,
       remotePoolAddresses: remotePoolAddresses,
       remoteTokenAddress: abi.encode(REMOTE_GHO_TOKEN_GNOSIS),
@@ -51,7 +73,7 @@ contract AaveV3Ethereum_GHOGnosisLaunch_20250421 is IProposalGenericExecutor {
     });
 
     TOKEN_POOL.applyChainUpdates({
-      remoteChainSelectorsToRemove: new uint64[](0),
+      remoteChainSelectorsToRemove: chainsToRemove,
       chainsToAdd: chainsToAdd
     });
   }
