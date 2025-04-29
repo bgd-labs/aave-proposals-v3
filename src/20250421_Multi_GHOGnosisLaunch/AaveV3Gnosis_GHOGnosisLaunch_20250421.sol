@@ -50,7 +50,7 @@ contract AaveV3Gnosis_GHOGnosisLaunch_20250421 is IProposalGenericExecutor {
   address public constant REMOTE_TOKEN_POOL_ETH = GhoEthereum.GHO_CCIP_TOKEN_POOL;
   // https://arbiscan.io/address/0xB94Ab28c6869466a46a42abA834ca2B3cECCA5eB
   address public constant REMOTE_TOKEN_POOL_ARB = GhoArbitrum.GHO_CCIP_TOKEN_POOL;
-  // https://basescan.org/address/0x98217A06721Ebf727f2C8d9aD7718ec28b7aAe34
+  // https://basescan.org/address/0xDe6539018B095353A40753Dc54C91C68c9487D4E
   address public constant REMOTE_TOKEN_POOL_BASE = GhoBase.GHO_CCIP_TOKEN_POOL;
 
   // Token Rate Limit Capacity: 300_000 GHO

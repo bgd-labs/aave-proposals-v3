@@ -20,22 +20,22 @@ import {IOwnable} from 'aave-address-book/common/IOwnable.sol';
 
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Arbitrum} from 'aave-address-book/AaveV3Arbitrum.sol';
-import {AaveV3Base} from 'aave-address-book/AaveV3Base.sol';
+import {AaveV3Gnosis} from 'aave-address-book/AaveV3Gnosis.sol';
 import {AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
 import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
-import {GovernanceV3Base} from 'aave-address-book/GovernanceV3Base.sol';
+import {GovernanceV3Gnosis} from 'aave-address-book/GovernanceV3Gnosis.sol';
 
 import {ProxyAdmin} from 'openzeppelin-contracts/contracts/proxy/transparent/ProxyAdmin.sol';
 
 import {CCIPUtils} from './utils/CCIPUtils.sol';
 
-import {AaveV3Base_GHOGnosisLaunch_20250421} from './AaveV3Base_GHOGnosisLaunch_20250421.sol';
+import {AaveV3Gnosis_GHOGnosisLaunch_20250421} from './AaveV3Gnosis_GHOGnosisLaunch_20250421.sol';
 
 /**
- * @dev Test for AaveV3Base_GHOGnosisLaunch_20250421
- * command: FOUNDRY_PROFILE=base forge test --match-path=src/20250421_Multi_GHOGnosisLaunch/AaveV3Base_GHOGnosisLaunch_20250421.t.sol -vv
+ * @dev Test for AaveV3Gnosis_GHOGnosisLaunch_20250421
+ * command: FOUNDRY_PROFILE=base forge test --match-path=src/20250421_Multi_GHOGnosisLaunch/AaveV3Gnosis_GHOGnosisLaunch_20250421.t.sol -vv
  */
-contract AaveV3Base_GHOGnosisLaunch_20250421_Base is ProtocolV3TestBase {
+contract AaveV3Gnosis_GHOGnosisLaunch_20250421_Base is ProtocolV3TestBase {
   struct CCIPSendParams {
     address sender;
     uint256 amount;
@@ -45,39 +45,45 @@ contract AaveV3Base_GHOGnosisLaunch_20250421_Base is ProtocolV3TestBase {
   uint64 internal constant ARB_CHAIN_SELECTOR = CCIPUtils.ARB_CHAIN_SELECTOR;
   uint64 internal constant GNOSIS_CHAIN_SELECTOR = CCIPUtils.GNOSIS_CHAIN_SELECTOR;
   uint64 internal constant ETH_CHAIN_SELECTOR = CCIPUtils.ETH_CHAIN_SELECTOR;
-  uint256 internal constant CCIP_RATE_LIMIT_CAPACITY = 300_000e18;
-  uint256 internal constant CCIP_RATE_LIMIT_REFILL_RATE = 60e18;
+  uint64 internal constant BASE_CHAIN_SELECTOR = CCIPUtils.BASE_CHAIN_SELECTOR;
+  uint128 public constant CCIP_RATE_LIMIT_CAPACITY = 1_000_000e18;
+  uint128 public constant CCIP_RATE_LIMIT_REFILL_RATE = 200e18;
 
   ITokenAdminRegistry internal constant TOKEN_ADMIN_REGISTRY =
-    ITokenAdminRegistry(0x6f6C373d09C07425BaAE72317863d7F6bb731e37);
+    ITokenAdminRegistry(0x73BC11423CBF14914998C23B0aFC9BE0cb5B2229);
   IEVM2EVMOnRamp internal constant ARB_ON_RAMP =
-    IEVM2EVMOnRamp(0x9D0ffA76C7F82C34Be313b5bFc6d42A72dA8CA69);
+    IEVM2EVMOnRamp(0x140E6D5ba903F684944Dd27369d767DdEf958c9B);
   IEVM2EVMOnRamp internal constant ETH_ON_RAMP =
-    IEVM2EVMOnRamp(0x56b30A0Dcd8dc87Ec08b80FA09502bAB801fa78e);
+    IEVM2EVMOnRamp(0x014ABcfDbCe9F67d0Df34574664a6C0A241Ec03A);
+  IEVM2EVMOnRamp internal constant BASE_ON_RAMP =
+    IEVM2EVMOnRamp(0xAAb6D9fc00aAc37373206e91789CcDE1E851b3E4);
 
   IEVM2EVMOffRamp_1_5 internal constant ARB_OFF_RAMP =
-    IEVM2EVMOffRamp_1_5(0x7D38c6363d5E4DFD500a691Bc34878b383F58d93);
+    IEVM2EVMOffRamp_1_5(0x2C1539696E29012806a15Bcd9845Ed1278a9fd63);
   IEVM2EVMOffRamp_1_5 internal constant ETH_OFF_RAMP =
-    IEVM2EVMOffRamp_1_5(0xCA04169671A81E4fB8768cfaD46c347ae65371F1);
+    IEVM2EVMOffRamp_1_5(0x658d9ae41A9c291De423d3B4B6C064f6dD0e7Ed2);
+  IEVM2EVMOffRamp_1_5 internal constant BASE_OFF_RAMP =
+    IEVM2EVMOffRamp_1_5(0xbeEDd1C5C13C5886c3d600e94Ff9e82C04A53C38);
 
-  IRouter internal constant ROUTER = IRouter(0x881e3A65B4d4a04dD529061dd0071cf975F58bCD);
-  address internal constant RMN_PROXY = 0xC842c69d54F83170C42C4d556B4F6B2ca53Dd3E8;
+  IRouter internal constant ROUTER = IRouter(0x4aAD6071085df840abD9Baf1697d5D5992bDadce);
+  address internal constant RMN_PROXY = 0xf5e5e1676942520995c1e39aFaC58A75Fe1cd2bB;
 
-  IGhoToken internal constant GHO = IGhoToken(0x6Bb7a212910682DCFdbd5BCBb3e28FB4E8da10Ee);
+  IGhoToken internal constant GHO = IGhoToken(0xfc421aD3C883Bf9E7C4f42dE845C4e4405799e73);
   address internal constant RISK_COUNCIL = 0x8513e6F37dBc52De87b166980Fa3F50639694B60;
 
   IGhoAaveSteward internal constant NEW_GHO_AAVE_STEWARD =
-    IGhoAaveSteward(0xC5BcC58BE6172769ca1a78B8A45752E3C5059c39);
+    IGhoAaveSteward(0x6e637e1E48025E51315d50ab96d5b3be1971A715);
   IGhoBucketSteward internal constant NEW_GHO_BUCKET_STEWARD =
-    IGhoBucketSteward(0x3c47237479e7569653eF9beC4a7Cd2ee3F78b396);
+    IGhoBucketSteward(0x6Bb7a212910682DCFdbd5BCBb3e28FB4E8da10Ee);
   IGhoCcipSteward internal constant NEW_GHO_CCIP_STEWARD =
-    IGhoCcipSteward(0xB94Ab28c6869466a46a42abA834ca2B3cECCA5eB);
+    IGhoCcipSteward(0x06179f7C1be40863405f374E7f5F8806c728660A);
   IUpgradeableBurnMintTokenPool_1_5_1 internal constant NEW_TOKEN_POOL =
-    IUpgradeableBurnMintTokenPool_1_5_1(0x98217A06721Ebf727f2C8d9aD7718ec28b7aAe34);
+    IUpgradeableBurnMintTokenPool_1_5_1(0xDe6539018B095353A40753Dc54C91C68c9487D4E);
   address internal constant NEW_REMOTE_POOL_ARB = 0xB94Ab28c6869466a46a42abA834ca2B3cECCA5eB;
   address internal constant NEW_REMOTE_POOL_ETH = 0x06179f7C1be40863405f374E7f5F8806c728660A;
+  address internal constant NEW_REMOTE_POOL_BASE = 0x98217A06721Ebf727f2C8d9aD7718ec28b7aAe34;
 
-  AaveV3Base_GHOGnosisLaunch_20250421 internal proposal;
+  AaveV3Gnosis_GHOGnosisLaunch_20250421 internal proposal;
 
   address internal alice = makeAddr('alice');
   address internal bob = makeAddr('bob');
@@ -91,15 +97,16 @@ contract AaveV3Base_GHOGnosisLaunch_20250421_Base is ProtocolV3TestBase {
   error InvalidSourcePoolAddress(bytes);
 
   function setUp() public virtual {
-    vm.createSelectFork(vm.rpcUrl('base'), 25645172);
-    proposal = new AaveV3Base_GHOGnosisLaunch_20250421();
+    vm.createSelectFork(vm.rpcUrl('gnosis'), 39808189);
+    proposal = new AaveV3Gnosis_GHOGnosisLaunch_20250421();
     _validateConstants();
   }
 
   function _validateConstants() private view {
     assertEq(proposal.ETH_CHAIN_SELECTOR(), ETH_CHAIN_SELECTOR);
     assertEq(proposal.ARB_CHAIN_SELECTOR(), ARB_CHAIN_SELECTOR);
-    assertEq(proposal.CCIP_BUCKET_CAPACITY(), 20_000_000e18);
+    assertEq(proposal.BASE_CHAIN_SELECTOR(), BASE_CHAIN_SELECTOR);
+    assertEq(proposal.CCIP_BUCKET_CAPACITY(), 25_000_000e18);
     assertEq(address(proposal.TOKEN_ADMIN_REGISTRY()), address(TOKEN_ADMIN_REGISTRY));
     assertEq(address(proposal.TOKEN_POOL()), address(NEW_TOKEN_POOL));
     assertEq(address(proposal.GHO_TOKEN()), address(GHO));
@@ -117,8 +124,10 @@ contract AaveV3Base_GHOGnosisLaunch_20250421_Base is ProtocolV3TestBase {
 
     _assertOnRamp(ARB_ON_RAMP, GNOSIS_CHAIN_SELECTOR, ARB_CHAIN_SELECTOR, ROUTER);
     _assertOnRamp(ETH_ON_RAMP, GNOSIS_CHAIN_SELECTOR, ETH_CHAIN_SELECTOR, ROUTER);
+    _assertOnRamp(BASE_ON_RAMP, GNOSIS_CHAIN_SELECTOR, BASE_CHAIN_SELECTOR, ROUTER);
     _assertOffRamp(ARB_OFF_RAMP, ARB_CHAIN_SELECTOR, GNOSIS_CHAIN_SELECTOR, ROUTER);
     _assertOffRamp(ETH_OFF_RAMP, ETH_CHAIN_SELECTOR, GNOSIS_CHAIN_SELECTOR, ROUTER);
+    _assertOffRamp(BASE_OFF_RAMP, BASE_CHAIN_SELECTOR, GNOSIS_CHAIN_SELECTOR, ROUTER);
 
     assertEq(_getProxyAdmin(address(GHO)).UPGRADE_INTERFACE_VERSION(), '5.0.0');
     assertEq(_getProxyAdmin(address(NEW_TOKEN_POOL)).UPGRADE_INTERFACE_VERSION(), '5.0.0');
@@ -239,22 +248,22 @@ contract AaveV3Base_GHOGnosisLaunch_20250421_Base is ProtocolV3TestBase {
   }
 }
 
-contract AaveV3Base_GHOGnosisLaunch_20250421_PreExecution is
-  AaveV3Base_GHOGnosisLaunch_20250421_Base
+contract AaveV3Gnosis_GHOGnosisLaunch_20250421_PreExecution is
+  AaveV3Gnosis_GHOGnosisLaunch_20250421_Base
 {
   /**
    * @dev executes the generic test suite including e2e and config snapshots
    */
   function test_defaultProposalExecution() public {
-    defaultTest('AaveV3Base_GHOGnosisLaunch_20250421', AaveV3Base.POOL, address(proposal));
+    defaultTest('AaveV3Gnosis_GHOGnosisLaunch_20250421', AaveV3Gnosis.POOL, address(proposal));
   }
 
   function test_stewardRoles() public {
     // gho token is deployed in the AIP, does not existing before
 
     assertFalse(
-      AaveV3Base.ACL_MANAGER.hasRole(
-        AaveV3Base.ACL_MANAGER.RISK_ADMIN_ROLE(),
+      AaveV3Gnosis.ACL_MANAGER.hasRole(
+        AaveV3Gnosis.ACL_MANAGER.RISK_ADMIN_ROLE(),
         address(NEW_GHO_AAVE_STEWARD)
       )
     );
@@ -263,8 +272,8 @@ contract AaveV3Base_GHOGnosisLaunch_20250421_PreExecution is
 
     executePayload(vm, address(proposal));
 
-    assertTrue(GHO.hasRole(GHO.FACILITATOR_MANAGER_ROLE(), GovernanceV3Base.EXECUTOR_LVL_1));
-    assertTrue(GHO.hasRole(GHO.BUCKET_MANAGER_ROLE(), GovernanceV3Base.EXECUTOR_LVL_1));
+    assertTrue(GHO.hasRole(GHO.FACILITATOR_MANAGER_ROLE(), GovernanceV3Gnosis.EXECUTOR_LVL_1));
+    assertTrue(GHO.hasRole(GHO.BUCKET_MANAGER_ROLE(), GovernanceV3Gnosis.EXECUTOR_LVL_1));
 
     IGhoToken.Facilitator memory facilitator = GHO.getFacilitator(address(NEW_TOKEN_POOL));
     assertEq(facilitator.label, 'CCIP TokenPool v1.5.1');
@@ -272,8 +281,8 @@ contract AaveV3Base_GHOGnosisLaunch_20250421_PreExecution is
     assertEq(facilitator.bucketCapacity, proposal.CCIP_BUCKET_CAPACITY());
 
     assertTrue(
-      AaveV3Base.ACL_MANAGER.hasRole(
-        AaveV3Base.ACL_MANAGER.RISK_ADMIN_ROLE(),
+      AaveV3Gnosis.ACL_MANAGER.hasRole(
+        AaveV3Gnosis.ACL_MANAGER.RISK_ADMIN_ROLE(),
         address(NEW_GHO_AAVE_STEWARD)
       )
     );
@@ -289,14 +298,14 @@ contract AaveV3Base_GHOGnosisLaunch_20250421_PreExecution is
   }
 
   function test_stewardsConfig() public view {
-    assertEq(IOwnable(address(NEW_GHO_AAVE_STEWARD)).owner(), GovernanceV3Base.EXECUTOR_LVL_1);
+    assertEq(IOwnable(address(NEW_GHO_AAVE_STEWARD)).owner(), GovernanceV3Gnosis.EXECUTOR_LVL_1);
     assertEq(
       NEW_GHO_AAVE_STEWARD.POOL_ADDRESSES_PROVIDER(),
-      address(AaveV3Base.POOL_ADDRESSES_PROVIDER)
+      address(AaveV3Gnosis.POOL_ADDRESSES_PROVIDER)
     );
     assertEq(
       NEW_GHO_AAVE_STEWARD.POOL_DATA_PROVIDER(),
-      address(AaveV3Base.AAVE_PROTOCOL_DATA_PROVIDER)
+      address(AaveV3Gnosis.AAVE_PROTOCOL_DATA_PROVIDER)
     );
     assertEq(NEW_GHO_AAVE_STEWARD.RISK_COUNCIL(), RISK_COUNCIL);
     IGhoAaveSteward.BorrowRateConfig memory config = NEW_GHO_AAVE_STEWARD.getBorrowRateConfig();
@@ -305,7 +314,7 @@ contract AaveV3Base_GHOGnosisLaunch_20250421_PreExecution is
     assertEq(config.variableRateSlope1MaxChange, 500);
     assertEq(config.variableRateSlope2MaxChange, 500);
 
-    assertEq(IOwnable(address(NEW_GHO_BUCKET_STEWARD)).owner(), GovernanceV3Base.EXECUTOR_LVL_1);
+    assertEq(IOwnable(address(NEW_GHO_BUCKET_STEWARD)).owner(), GovernanceV3Gnosis.EXECUTOR_LVL_1);
     assertEq(NEW_GHO_BUCKET_STEWARD.GHO_TOKEN(), address(GHO));
     assertEq(NEW_GHO_BUCKET_STEWARD.RISK_COUNCIL(), RISK_COUNCIL);
     assertEq(NEW_GHO_BUCKET_STEWARD.getControlledFacilitators().length, 0); // before AIP, no controlled facilitators are set
@@ -338,7 +347,7 @@ contract AaveV3Base_GHOGnosisLaunch_20250421_PreExecution is
   function test_tokenPoolConfig() public {
     executePayload(vm, address(proposal));
 
-    assertEq(NEW_TOKEN_POOL.owner(), GovernanceV3Base.EXECUTOR_LVL_1);
+    assertEq(NEW_TOKEN_POOL.owner(), GovernanceV3Gnosis.EXECUTOR_LVL_1);
     assertEq(
       address(uint160(uint256(vm.load(address(NEW_TOKEN_POOL), bytes32(0))) >> 2)), // pending owner
       address(0)
@@ -385,8 +394,8 @@ contract AaveV3Base_GHOGnosisLaunch_20250421_PreExecution is
   }
 }
 
-contract AaveV3Base_GHOGnosisLaunch_20250421_PostExecution is
-  AaveV3Base_GHOGnosisLaunch_20250421_Base
+contract AaveV3Gnosis_GHOGnosisLaunch_20250421_PostExecution is
+  AaveV3Gnosis_GHOGnosisLaunch_20250421_Base
 {
   function setUp() public override {
     super.setUp();

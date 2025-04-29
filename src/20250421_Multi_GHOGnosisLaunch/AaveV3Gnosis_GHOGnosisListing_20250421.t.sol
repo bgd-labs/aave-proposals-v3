@@ -20,7 +20,7 @@ import {Errors} from 'aave-address-book/governance-v3/Errors.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 import {AaveV3Gnosis} from 'aave-address-book/AaveV3Gnosis.sol';
-import {GovernanceV3Base} from 'aave-address-book/GovernanceV3Base.sol';
+import {GovernanceV3Gnosis} from 'aave-address-book/GovernanceV3Gnosis.sol';
 
 import {CCIPUtils} from './utils/CCIPUtils.sol';
 import {AaveV3Gnosis_GHOGnosisLaunch_20250421} from './AaveV3Gnosis_GHOGnosisLaunch_20250421.sol';
@@ -34,24 +34,25 @@ contract AaveV3Gnosis_GHOGnosisListing_20250421_Base is ProtocolV3TestBase {
   AaveV3Gnosis_GHOGnosisListing_20250421 internal proposal;
 
   ITokenAdminRegistry internal constant TOKEN_ADMIN_REGISTRY =
-    ITokenAdminRegistry(0x6f6C373d09C07425BaAE72317863d7F6bb731e37);
-  address internal constant ROUTER = 0x881e3A65B4d4a04dD529061dd0071cf975F58bCD;
-  address internal constant RMN_PROXY = 0xC842c69d54F83170C42C4d556B4F6B2ca53Dd3E8;
+    ITokenAdminRegistry(0x73BC11423CBF14914998C23B0aFC9BE0cb5B2229);
+  address internal constant ROUTER = 0x4aAD6071085df840abD9Baf1697d5D5992bDadce;
+  address internal constant RMN_PROXY = 0xf5e5e1676942520995c1e39aFaC58A75Fe1cd2bB;
   address internal constant RISK_COUNCIL = 0x8513e6F37dBc52De87b166980Fa3F50639694B60;
-  IGhoToken internal constant GHO_TOKEN = IGhoToken(0x6Bb7a212910682DCFdbd5BCBb3e28FB4E8da10Ee);
+  IGhoToken internal constant GHO_TOKEN = IGhoToken(0xfc421aD3C883Bf9E7C4f42dE845C4e4405799e73);
   address internal constant NEW_REMOTE_POOL_ARB = 0xB94Ab28c6869466a46a42abA834ca2B3cECCA5eB;
   address internal constant NEW_REMOTE_POOL_ETH = 0x06179f7C1be40863405f374E7f5F8806c728660A;
+  address internal constant NEW_REMOTE_POOL_BASE = 0x98217A06721Ebf727f2C8d9aD7718ec28b7aAe34;
   IGhoAaveSteward internal constant NEW_GHO_AAVE_STEWARD =
-    IGhoAaveSteward(0xC5BcC58BE6172769ca1a78B8A45752E3C5059c39);
+    IGhoAaveSteward(0x6e637e1E48025E51315d50ab96d5b3be1971A715);
   IGhoBucketSteward internal constant NEW_GHO_BUCKET_STEWARD =
-    IGhoBucketSteward(0x3c47237479e7569653eF9beC4a7Cd2ee3F78b396);
+    IGhoBucketSteward(0x6Bb7a212910682DCFdbd5BCBb3e28FB4E8da10Ee);
   IGhoCcipSteward internal constant NEW_GHO_CCIP_STEWARD =
-    IGhoCcipSteward(0xB94Ab28c6869466a46a42abA834ca2B3cECCA5eB);
+    IGhoCcipSteward(0x06179f7C1be40863405f374E7f5F8806c728660A);
   IUpgradeableBurnMintTokenPool_1_5_1 internal constant NEW_TOKEN_POOL =
-    IUpgradeableBurnMintTokenPool_1_5_1(0x98217A06721Ebf727f2C8d9aD7718ec28b7aAe34);
+    IUpgradeableBurnMintTokenPool_1_5_1(0xDe6539018B095353A40753Dc54C91C68c9487D4E);
 
   function setUp() public virtual {
-    vm.createSelectFork(vm.rpcUrl('base'), 25645172);
+    vm.createSelectFork(vm.rpcUrl('gnosis'), 39808189);
     proposal = new AaveV3Gnosis_GHOGnosisListing_20250421();
   }
 
@@ -62,7 +63,7 @@ contract AaveV3Gnosis_GHOGnosisListing_20250421_Base is ProtocolV3TestBase {
   function _mockBridgeSeedAmount() internal {
     uint256 seedAmount = proposal.GHO_SEED_AMOUNT();
     vm.prank(address(NEW_TOKEN_POOL));
-    GHO_TOKEN.mint(GovernanceV3Base.EXECUTOR_LVL_1, seedAmount);
+    GHO_TOKEN.mint(GovernanceV3Gnosis.EXECUTOR_LVL_1, seedAmount);
   }
 
   function _isDifferenceLowerThanMax(
@@ -105,7 +106,7 @@ contract AaveV3Gnosis_GHOGnosisListing_20250421_ListingPreRequisites is
 
   function test_listingFailsPreLaunch() public {
     vm.expectRevert(bytes(Errors.FAILED_ACTION_EXECUTION));
-    GovernanceV3Base.PAYLOADS_CONTROLLER.executePayload(payloadId);
+    GovernanceV3Gnosis.PAYLOADS_CONTROLLER.executePayload(payloadId);
   }
 
   function test_listingFailsWithoutSeedAmount() public {
@@ -113,14 +114,14 @@ contract AaveV3Gnosis_GHOGnosisListing_20250421_ListingPreRequisites is
     _executeLaunchAIP(); // activates CCIP lane
 
     vm.expectRevert(bytes(Errors.FAILED_ACTION_EXECUTION)); // assertion failed on _preExecute()
-    GovernanceV3Base.PAYLOADS_CONTROLLER.executePayload(payloadId);
+    GovernanceV3Gnosis.PAYLOADS_CONTROLLER.executePayload(payloadId);
   }
 
   function test_listingSucceedsOnlyAfterLaunchAndSeedAmount() public {
     test_listingFailsWithoutSeedAmount();
     _mockBridgeSeedAmount();
 
-    GovernanceV3Base.PAYLOADS_CONTROLLER.executePayload(payloadId);
+    GovernanceV3Gnosis.PAYLOADS_CONTROLLER.executePayload(payloadId);
 
     (, , , , , , , , bool isActive, ) = AaveV3Gnosis
       .AAVE_PROTOCOL_DATA_PROVIDER
@@ -253,7 +254,7 @@ contract AaveV3Gnosis_GHOGnosisListing_20250421_Stewards is
 
   function test_bucketStewardCanUpdateBucketCapacity(uint256 newBucketCapacity) public {
     (uint256 currentBucketCapacity, ) = GHO_TOKEN.getFacilitatorBucket(address(NEW_TOKEN_POOL));
-    assertEq(currentBucketCapacity, 20_000_000e18);
+    assertEq(currentBucketCapacity, 25_000_000e18);
     newBucketCapacity = bound(
       newBucketCapacity,
       currentBucketCapacity + 1,

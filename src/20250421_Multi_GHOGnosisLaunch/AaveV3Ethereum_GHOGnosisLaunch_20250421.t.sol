@@ -19,7 +19,7 @@ import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Arbitrum} from 'aave-address-book/AaveV3Arbitrum.sol';
 import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
-
+import {AaveV3BaseAssets} from 'aave-address-book/AaveV3Base.sol';
 import {CCIPUtils} from './utils/CCIPUtils.sol';
 
 import {AaveV3Ethereum_GHOGnosisLaunch_20250421} from './AaveV3Ethereum_GHOGnosisLaunch_20250421.sol';
@@ -38,8 +38,9 @@ contract AaveV3Ethereum_GHOGnosisLaunch_20250421_Test is ProtocolV3TestBase {
   uint64 internal constant ARB_CHAIN_SELECTOR = CCIPUtils.ARB_CHAIN_SELECTOR;
   uint64 internal constant GNOSIS_CHAIN_SELECTOR = CCIPUtils.GNOSIS_CHAIN_SELECTOR;
   uint64 internal constant ETH_CHAIN_SELECTOR = CCIPUtils.ETH_CHAIN_SELECTOR;
-  uint256 internal constant CCIP_RATE_LIMIT_CAPACITY = 300_000e18;
-  uint256 internal constant CCIP_RATE_LIMIT_REFILL_RATE = 60e18;
+  uint64 internal constant BASE_CHAIN_SELECTOR = CCIPUtils.BASE_CHAIN_SELECTOR;
+  uint128 public constant CCIP_RATE_LIMIT_CAPACITY = 1_000_000e18;
+  uint128 public constant CCIP_RATE_LIMIT_REFILL_RATE = 200e18;
 
   IGhoToken internal constant GHO = IGhoToken(AaveV3EthereumAssets.GHO_UNDERLYING);
   ITokenAdminRegistry internal constant TOKEN_ADMIN_REGISTRY =
@@ -48,14 +49,19 @@ contract AaveV3Ethereum_GHOGnosisLaunch_20250421_Test is ProtocolV3TestBase {
     IEVM2EVMOnRamp(0x69eCC4E2D8ea56E2d0a05bF57f4Fd6aEE7f2c284);
   IEVM2EVMOnRamp internal constant BASE_ON_RAMP =
     IEVM2EVMOnRamp(0xb8a882f3B88bd52D1Ff56A873bfDB84b70431937);
+  IEVM2EVMOnRamp internal constant GNOSIS_ON_RAMP =
+    IEVM2EVMOnRamp(0xf50B9A46C394bD98491ce163d420222d8030F6F0);
   IEVM2EVMOffRamp_1_5 internal constant ARB_OFF_RAMP =
     IEVM2EVMOffRamp_1_5(0xdf615eF8D4C64d0ED8Fd7824BBEd2f6a10245aC9);
   IEVM2EVMOffRamp_1_5 internal constant BASE_OFF_RAMP =
     IEVM2EVMOffRamp_1_5(0x6B4B6359Dd5B47Cdb030E5921456D2a0625a9EbD);
+  IEVM2EVMOffRamp_1_5 internal constant GNOSIS_OFF_RAMP =
+    IEVM2EVMOffRamp_1_5(0x70C705ff3eCAA04c8c61d581a59a168a1c49c2ec);
 
-  address public constant NEW_REMOTE_TOKEN_GNOSIS = 0x6Bb7a212910682DCFdbd5BCBb3e28FB4E8da10Ee;
+  address public constant NEW_REMOTE_TOKEN_GNOSIS = 0xfc421aD3C883Bf9E7C4f42dE845C4e4405799e73;
   address internal constant NEW_REMOTE_POOL_ARB = 0xB94Ab28c6869466a46a42abA834ca2B3cECCA5eB;
-  address internal constant NEW_REMOTE_POOL_GNOSIS = 0x98217A06721Ebf727f2C8d9aD7718ec28b7aAe34;
+  address internal constant NEW_REMOTE_POOL_BASE = 0x98217A06721Ebf727f2C8d9aD7718ec28b7aAe34;
+  address internal constant NEW_REMOTE_POOL_GNOSIS = 0xDe6539018B095353A40753Dc54C91C68c9487D4E;
   address internal constant RISK_COUNCIL = 0x8513e6F37dBc52De87b166980Fa3F50639694B60; // common across all chains
   IRouter internal constant ROUTER = IRouter(0x80226fc0Ee2b096224EeAc085Bb9a8cba1146f7D);
   IGhoCcipSteward internal constant NEW_GHO_CCIP_STEWARD =
@@ -77,7 +83,7 @@ contract AaveV3Ethereum_GHOGnosisLaunch_20250421_Test is ProtocolV3TestBase {
   error InvalidSourcePoolAddress(bytes);
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 21722753);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 22374364);
     proposal = new AaveV3Ethereum_GHOGnosisLaunch_20250421();
     _validateConstants();
     executePayload(vm, address(proposal));
@@ -96,9 +102,11 @@ contract AaveV3Ethereum_GHOGnosisLaunch_20250421_Test is ProtocolV3TestBase {
     assertEq(ROUTER.typeAndVersion(), 'Router 1.2.0');
 
     _assertOnRamp(ARB_ON_RAMP, ETH_CHAIN_SELECTOR, ARB_CHAIN_SELECTOR, ROUTER);
-    _assertOnRamp(BASE_ON_RAMP, ETH_CHAIN_SELECTOR, GNOSIS_CHAIN_SELECTOR, ROUTER);
+    _assertOnRamp(BASE_ON_RAMP, ETH_CHAIN_SELECTOR, BASE_CHAIN_SELECTOR, ROUTER);
     _assertOffRamp(ARB_OFF_RAMP, ARB_CHAIN_SELECTOR, ETH_CHAIN_SELECTOR, ROUTER);
-    _assertOffRamp(BASE_OFF_RAMP, GNOSIS_CHAIN_SELECTOR, ETH_CHAIN_SELECTOR, ROUTER);
+    _assertOffRamp(BASE_OFF_RAMP, BASE_CHAIN_SELECTOR, ETH_CHAIN_SELECTOR, ROUTER);
+    _assertOnRamp(GNOSIS_ON_RAMP, ETH_CHAIN_SELECTOR, GNOSIS_CHAIN_SELECTOR, ROUTER);
+    _assertOffRamp(GNOSIS_OFF_RAMP, GNOSIS_CHAIN_SELECTOR, ETH_CHAIN_SELECTOR, ROUTER);
 
     assertEq(NEW_GHO_CCIP_STEWARD.RISK_COUNCIL(), RISK_COUNCIL);
     assertEq(NEW_GHO_CCIP_STEWARD.GHO_TOKEN(), AaveV3EthereumAssets.GHO_UNDERLYING);
@@ -216,12 +224,17 @@ contract AaveV3Ethereum_GHOGnosisLaunch_20250421_Test is ProtocolV3TestBase {
   }
 
   function test_basePoolConfig() public view {
-    assertEq(NEW_TOKEN_POOL.getSupportedChains().length, 2);
+    assertEq(NEW_TOKEN_POOL.getSupportedChains().length, 3);
     assertEq(NEW_TOKEN_POOL.getSupportedChains()[0], ARB_CHAIN_SELECTOR);
-    assertEq(NEW_TOKEN_POOL.getSupportedChains()[1], GNOSIS_CHAIN_SELECTOR);
+    assertEq(NEW_TOKEN_POOL.getSupportedChains()[1], BASE_CHAIN_SELECTOR);
+    assertEq(NEW_TOKEN_POOL.getSupportedChains()[2], GNOSIS_CHAIN_SELECTOR);
     assertEq(
       NEW_TOKEN_POOL.getRemoteToken(ARB_CHAIN_SELECTOR),
       abi.encode(address(AaveV3ArbitrumAssets.GHO_UNDERLYING))
+    );
+    assertEq(
+      NEW_TOKEN_POOL.getRemoteToken(BASE_CHAIN_SELECTOR),
+      abi.encode(address(AaveV3BaseAssets.GHO_UNDERLYING))
     );
     assertEq(
       NEW_TOKEN_POOL.getRemoteToken(GNOSIS_CHAIN_SELECTOR),
@@ -237,12 +250,25 @@ contract AaveV3Ethereum_GHOGnosisLaunch_20250421_Test is ProtocolV3TestBase {
       NEW_TOKEN_POOL.getRemotePools(ARB_CHAIN_SELECTOR)[1], // 0th is the 1.4 token pool
       abi.encode(address(NEW_REMOTE_POOL_ARB))
     );
+    assertEq(NEW_TOKEN_POOL.getRemotePools(BASE_CHAIN_SELECTOR).length, 1);
+    assertEq(
+      NEW_TOKEN_POOL.getRemotePools(BASE_CHAIN_SELECTOR)[0],
+      abi.encode(address(NEW_REMOTE_POOL_BASE))
+    );
     assertEq(
       NEW_TOKEN_POOL.getCurrentInboundRateLimiterState(ARB_CHAIN_SELECTOR),
       _getRateLimiterConfig()
     );
     assertEq(
       NEW_TOKEN_POOL.getCurrentOutboundRateLimiterState(ARB_CHAIN_SELECTOR),
+      _getRateLimiterConfig()
+    );
+    assertEq(
+      NEW_TOKEN_POOL.getCurrentInboundRateLimiterState(BASE_CHAIN_SELECTOR),
+      _getRateLimiterConfig()
+    );
+    assertEq(
+      NEW_TOKEN_POOL.getCurrentOutboundRateLimiterState(BASE_CHAIN_SELECTOR),
       _getRateLimiterConfig()
     );
     assertEq(
@@ -278,8 +304,8 @@ contract AaveV3Ethereum_GHOGnosisLaunch_20250421_Test is ProtocolV3TestBase {
       );
 
     vm.expectEmit(address(NEW_TOKEN_POOL));
-    emit Locked(address(BASE_ON_RAMP), amount);
-    vm.expectEmit(address(BASE_ON_RAMP));
+    emit Locked(address(GNOSIS_ON_RAMP), amount);
+    vm.expectEmit(address(GNOSIS_ON_RAMP));
     emit CCIPSendRequested(eventArg);
 
     vm.prank(alice);
@@ -336,9 +362,9 @@ contract AaveV3Ethereum_GHOGnosisLaunch_20250421_Test is ProtocolV3TestBase {
     uint256 currentBridgedAmount = NEW_TOKEN_POOL.getCurrentBridgedAmount();
 
     vm.expectEmit(address(NEW_TOKEN_POOL));
-    emit Released(address(BASE_OFF_RAMP), alice, amount);
+    emit Released(address(GNOSIS_OFF_RAMP), alice, amount);
 
-    vm.prank(address(BASE_OFF_RAMP));
+    vm.prank(address(GNOSIS_OFF_RAMP));
     NEW_TOKEN_POOL.releaseOrMint(
       IPool_CCIP.ReleaseOrMintInV1({
         originalSender: abi.encode(alice),
@@ -398,9 +424,9 @@ contract AaveV3Ethereum_GHOGnosisLaunch_20250421_Test is ProtocolV3TestBase {
     skip(_getInboundRefillTime(amount));
 
     vm.expectRevert(
-      abi.encodeWithSelector(CallerIsNotARampOnRouter.selector, address(BASE_OFF_RAMP))
+      abi.encodeWithSelector(CallerIsNotARampOnRouter.selector, address(GNOSIS_OFF_RAMP))
     );
-    vm.prank(address(BASE_OFF_RAMP));
+    vm.prank(address(GNOSIS_OFF_RAMP));
     NEW_TOKEN_POOL.releaseOrMint(
       IPool_CCIP.ReleaseOrMintInV1({
         originalSender: abi.encode(alice),
@@ -425,7 +451,7 @@ contract AaveV3Ethereum_GHOGnosisLaunch_20250421_Test is ProtocolV3TestBase {
         abi.encode(address(NEW_REMOTE_POOL_ARB))
       )
     );
-    vm.prank(address(BASE_OFF_RAMP));
+    vm.prank(address(GNOSIS_OFF_RAMP));
     NEW_TOKEN_POOL.releaseOrMint(
       IPool_CCIP.ReleaseOrMintInV1({
         originalSender: abi.encode(alice),
