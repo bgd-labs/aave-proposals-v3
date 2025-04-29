@@ -61,7 +61,8 @@ contract AaveV3Polygon_MayFundingUpdate_20250426 is IProposalGenericExecutor {
       wpolBalance
     );
     WPOL(AaveV3PolygonAssets.WPOL_UNDERLYING).withdraw(wpolBalance);
-    payable(PLASMA_BRIDGE).call{value: wpolBalance}('');
+    (bool success, ) = payable(PLASMA_BRIDGE).call{value: wpolBalance}('');
+    require(success);
     IAavePolEthPlasmaBridge(PLASMA_BRIDGE).bridge(wpolBalance);
 
     /// WBTC

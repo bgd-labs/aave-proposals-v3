@@ -9,6 +9,10 @@ import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 import {CollectorUtils, ICollector} from 'aave-helpers/src/CollectorUtils.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 
+interface WETH {
+  function deposit() external payable;
+}
+
 /**
  * @title May Funding Update
  * @author TokenLogic
@@ -57,11 +61,34 @@ contract AaveV3Ethereum_MayFundingUpdate_20250426 is IProposalGenericExecutor {
   uint256 public constant WETH_ALLOWANCE_AMOUNT = 800e18;
 
   uint256 public constant ETH_TRANSFER_AMOUNT = 0.5847 ether;
+  uint256 public constant ETH_DEPOSIT_AMOUNT = 115 ether;
 
   function execute() external {
+    _depositETH();
     _transfers();
     _swaps();
     _allowances();
+  }
+
+  function _depositETH() internal {
+    AaveV3Ethereum.COLLECTOR.transfer(
+      IERC20(AaveV3Ethereum.COLLECTOR.ETH_MOCK_ADDRESS()),
+      address(this),
+      ETH_DEPOSIT_AMOUNT
+    );
+    WETH(AaveV3EthereumAssets.WETH_UNDERLYING).deposit{value: ETH_DEPOSIT_AMOUNT}();
+    IERC20(AaveV3EthereumAssets.WETH_UNDERLYING).transfer(
+      address(AaveV3Ethereum.COLLECTOR),
+      ETH_DEPOSIT_AMOUNT
+    );
+    CollectorUtils.depositToV3(
+      AaveV3Ethereum.COLLECTOR,
+      CollectorUtils.IOInput({
+        pool: address(AaveV3Ethereum.POOL),
+        underlying: AaveV3EthereumAssets.WETH_UNDERLYING,
+        amount: ETH_DEPOSIT_AMOUNT
+      })
+    );
   }
 
   function _transfers() internal {

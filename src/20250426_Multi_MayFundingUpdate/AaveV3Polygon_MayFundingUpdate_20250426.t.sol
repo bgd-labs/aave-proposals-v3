@@ -18,7 +18,7 @@ contract AaveV3Polygon_MayFundingUpdate_20250426_Test is ProtocolV3TestBase {
   event Bridge(address token, uint256 amount);
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('polygon'), 70757043);
+    vm.createSelectFork(vm.rpcUrl('polygon'), 70871207);
     proposal = new AaveV3Polygon_MayFundingUpdate_20250426();
   }
 

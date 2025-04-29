@@ -163,7 +163,7 @@ contract CreateProposal is EthereumScript {
     actionsGnosis[0] = GovV3Helpers.buildAction(
       type(AaveV3Gnosis_MayFundingUpdate_20250426).creationCode
     );
-    payloads[3] = GovV3Helpers.buildGnosisPayload(vm, actionsGnosis);
+    payloads[4] = GovV3Helpers.buildGnosisPayload(vm, actionsGnosis);
 
     // create proposal
     vm.startBroadcast();

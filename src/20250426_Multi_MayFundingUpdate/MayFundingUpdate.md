@@ -61,6 +61,14 @@ Bridge the following assets to Ethereum.
 | [MATICX](https://polygonscan.com/token/0xfa68fb4628dff1028cfec22b4162fccd0d45efb6)  |                                                                                |
 |   [ETH](https://polygonscan.com/token/0xe50fa9b3c56ffb159cb0fca61f5c9d750e8128c8)   |
 
+### Transfer Assets
+
+Transfer all AAVE to the Ecosystem Reserve.
+
+### Deposit Assets
+
+Deposit 115 ETH held on the Treasury into the Core instance of Aave.
+
 ### Ethereum - Swaps
 
 Swap the following from the Collector as outlined in the table below:

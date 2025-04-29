@@ -20,7 +20,7 @@ contract AaveV3Arbitrum_MayFundingUpdate_20250426_Test is ProtocolV3TestBase {
   event Bridge(address indexed token, uint256 amount);
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('arbitrum'), 330240450);
+    vm.createSelectFork(vm.rpcUrl('arbitrum'), 331207896);
     proposal = new AaveV3Arbitrum_MayFundingUpdate_20250426();
 
     ArbSysMock arbsys = new ArbSysMock();

@@ -29,19 +29,29 @@ contract AaveV3Ethereum_MayFundingUpdate_20250426_Test is ProtocolV3TestBase {
   );
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 22362425);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 22369914);
     proposal = new AaveV3Ethereum_MayFundingUpdate_20250426();
   }
 
-  function test_Transfers() public {
+  function test_DepositAndTransfers() public {
     uint256 ethAmountBefore = address(AaveV3Ethereum.COLLECTOR).balance;
+    uint256 wethBalanceBefore = IERC20(AaveV3EthereumAssets.WETH_A_TOKEN).balanceOf(
+      address(AaveV3Ethereum.COLLECTOR)
+    );
     executePayload(vm, address(proposal));
     uint256 aaveAmountAfter = IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING).balanceOf(
       address(AaveV3Ethereum.COLLECTOR)
     );
     uint256 ethAmountAfter = address(AaveV3Ethereum.COLLECTOR).balance;
+    uint256 wethBalanceAfter = IERC20(AaveV3EthereumAssets.WETH_A_TOKEN).balanceOf(
+      address(AaveV3Ethereum.COLLECTOR)
+    );
     assertEq(aaveAmountAfter, 0);
-    assertEq(ethAmountAfter, ethAmountBefore - proposal.ETH_TRANSFER_AMOUNT());
+    assertEq(
+      ethAmountAfter,
+      ethAmountBefore - proposal.ETH_TRANSFER_AMOUNT() - proposal.ETH_DEPOSIT_AMOUNT()
+    );
+    assertApproxEqAbs(wethBalanceAfter, wethBalanceBefore + proposal.ETH_DEPOSIT_AMOUNT(), 100);
   }
 
   function test_Swaps() public {
@@ -83,7 +93,7 @@ contract AaveV3Ethereum_MayFundingUpdate_20250426_Test is ProtocolV3TestBase {
       AaveV3EthereumAssets.USDS_UNDERLYING,
       AaveV3EthereumAssets.DAI_ORACLE,
       AaveV3EthereumAssets.USDS_ORACLE,
-      2861611664172354616982119,
+      2861611664172656320323082,
       address(AaveV3Ethereum.COLLECTOR),
       75
     );
