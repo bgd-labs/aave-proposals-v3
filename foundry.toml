@@ -34,6 +34,9 @@ fallback_oz = true
 mode = '3'
 zksolc = '1.5.3'
 
+[profile.test]
+evm_version = 'cancun'
+
 # incomplete list at https://www.evmdiff.com/features?name=PUSH0&kind=opcode
 [profile.metis]
 evm_version = 'shanghai'

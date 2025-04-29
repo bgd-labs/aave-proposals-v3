@@ -9,13 +9,13 @@ import {AaveV3Ethereum_ExtendSVRV1ToMoreReserves_20250429} from './AaveV3Ethereu
 
 /**
  * @dev Test for AaveV3Ethereum_ExtendSVRV1ToMoreReserves_20250429
- * command: FOUNDRY_PROFILE=mainnet forge test --match-path=src/20250429_Multi_ExtendSVRV1ToMoreReserves/AaveV3Ethereum_ExtendSVRV1ToMoreReserves_20250429.t.sol -vv
+ * command: FOUNDRY_PROFILE=test forge test --match-path=src/20250429_Multi_ExtendSVRV1ToMoreReserves/AaveV3Ethereum_ExtendSVRV1ToMoreReserves_20250429.t.sol -vv
  */
 contract AaveV3Ethereum_ExtendSVRV1ToMoreReserves_20250429_Test is ProtocolV3TestBase {
   AaveV3Ethereum_ExtendSVRV1ToMoreReserves_20250429 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 22374621);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 22376975);
     proposal = new AaveV3Ethereum_ExtendSVRV1ToMoreReserves_20250429();
   }
 

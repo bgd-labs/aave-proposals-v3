@@ -9,8 +9,8 @@ snapshot: TODO
 
 Enable SVR feeds on the following assets:
 
-- `eBTC`, `cbBTC`, `rETH`, `weETH`, `cbETH`, `osETH`, `ETHx` and `rsETH` on core
-- `rsETH`, `ezETH`, `WETH`, `wstETH` on prime
+- `eBTC`, `cbBTC` and `WBTC` on the Aave V3 Core instance
+- `WETH`, `rsETH`, `ezETH` and `wstETH` on the Aave V3 Prime instance
 
 ## Motivation
 
@@ -25,8 +25,8 @@ Also the SVR_STEWARD allows for the Protocol guardian to revert to the previous 
 
 - grant the "ASSET LISTING ADMIN" role to the [Prime SVR_STEWARD](https://etherscan.io/address/0x84f2C90f2D66E700baA4CF3cbF66bE7D8f21Bd87)
 - call the `SVR_STEWARD.enableSvrOracles`, replacing the oracle of
-  - `eBTC`, `cbBTC`, `rETH`, `weETH`, `cbETH`, `osETH`, `ETHx` and `rsETH` on the Aave V3 Core instance
-  - `rsETH`, `ezETH`, `WETH`, `wstETH` on the Aave V3 Prime instance
+  - `eBTC`, `cbBTC` and `WBTC` on the Aave V3 Core instance
+  - `WETH`, `rsETH`, `ezETH` and `wstETH` on the Aave V3 Prime instance
 
 ## References
 
