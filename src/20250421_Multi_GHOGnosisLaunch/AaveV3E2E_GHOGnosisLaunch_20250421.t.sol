@@ -225,7 +225,7 @@ contract AaveV3Base_GHOGnosisLaunch_20250421_Base is ProtocolV3TestBase {
     // proposal constants
     assertEq(gno.proposal.ETH_CHAIN_SELECTOR(), eth.c.chainSelector);
     assertEq(gno.proposal.ARB_CHAIN_SELECTOR(), arb.c.chainSelector);
-    assertEq(gno.proposal.CCIP_BUCKET_CAPACITY(), 25_000_000e18);
+    assertEq(gno.proposal.CCIP_BUCKET_CAPACITY(), 15_000_000e18);
     assertEq(address(gno.proposal.TOKEN_ADMIN_REGISTRY()), address(gno.c.tokenAdminRegistry));
     assertEq(address(gno.proposal.TOKEN_POOL()), address(gno.tokenPool));
     IGhoCcipSteward ghoCcipSteward = IGhoCcipSteward(gno.proposal.GHO_CCIP_STEWARD());
