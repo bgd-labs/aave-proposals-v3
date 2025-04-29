@@ -75,8 +75,8 @@ Swap the following from the Collector as outlined in the table below:
 
 | Ethereum | Amount | Swap |
 | :------: | :----: | :--: |
-|   USDT   | 3.00M  | GHO  |
-|   USDC   | 3.00M  | GHO  |
+|   USDT   | 2.00M  | GHO  |
+|   USDC   | 2.00M  | GHO  |
 |   DAI    |  All   | USDS |
 |   LUSD   |  All   | WETH |
 |   CVX    |  All   | WETH |
