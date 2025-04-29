@@ -13,7 +13,7 @@ export const config: ConfigFile = {
   poolOptions: {
     AaveV3Ethereum: {configs: {OTHERS: {}}, cache: {blockNumber: 22369914}},
     AaveV3Polygon: {configs: {OTHERS: {}}, cache: {blockNumber: 70871207}},
-    AaveV3Optimism: {configs: {OTHERS: {}}, cache: {blockNumber: 135136388}},
+    AaveV3Optimism: {configs: {OTHERS: {}}, cache: {blockNumber: 135164971}},
     AaveV3Arbitrum: {configs: {OTHERS: {}}, cache: {blockNumber: 331207896}},
     AaveV3Gnosis: {configs: {OTHERS: {}}, cache: {blockNumber: 39797083}},
   },

@@ -18,7 +18,7 @@ contract AaveV3Optimism_MayFundingUpdate_20250426_Test is ProtocolV3TestBase {
   event Bridge(address indexed token, uint256 amount);
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('optimism'), 135014789);
+    vm.createSelectFork(vm.rpcUrl('optimism'), 135164971);
     proposal = new AaveV3Optimism_MayFundingUpdate_20250426();
   }
 
