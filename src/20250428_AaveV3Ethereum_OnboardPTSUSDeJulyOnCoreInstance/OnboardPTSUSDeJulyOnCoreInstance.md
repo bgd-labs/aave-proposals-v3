@@ -68,8 +68,8 @@ Additionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://etherscan.io/a
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250428_AaveV3Ethereum_OnboardPTSUSDeJulyOnCoreInstance/AaveV3Ethereum_OnboardPTSUSDeJulyOnCoreInstance_20250428.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250428_AaveV3Ethereum_OnboardPTSUSDeJulyOnCoreInstance/AaveV3Ethereum_OnboardPTSUSDeJulyOnCoreInstance_20250428.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/7dba7271a096e75c64b539910eedd9d869848290/src/20250428_AaveV3Ethereum_OnboardPTSUSDeJulyOnCoreInstance/AaveV3Ethereum_OnboardPTSUSDeJulyOnCoreInstance_20250428.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/7dba7271a096e75c64b539910eedd9d869848290/src/20250428_AaveV3Ethereum_OnboardPTSUSDeJulyOnCoreInstance/AaveV3Ethereum_OnboardPTSUSDeJulyOnCoreInstance_20250428.t.sol)
 - [Snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0xc039953e4f18804bb017876d27621da1ab3e4de53acd3b32d0f1fe94d4bbb6a0)
 - [Discussion](https://governance.aave.com/t/arfc-onboard-susde-july-expiry-pt-tokens-on-aave-v3-core-instance/21878)
 
