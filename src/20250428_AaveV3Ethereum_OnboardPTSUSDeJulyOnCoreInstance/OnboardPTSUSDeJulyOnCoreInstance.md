@@ -20,28 +20,26 @@ Pendle has seen extremely high growth this year, with current TVL of circa $4.5 
 
 The table below illustrates the configured risk parameters for **PT_sUSDE_31JUL2025**:
 
-| Parameter                        |                                                                                                            PT_sUSDE_31JUL2025 |
-| -------------------------------- | ----------------------------------------------------------------------------------------------------------------------------: |
-| Borrowable                       |                                                                                                                      DISABLED |
-| Collateral Enabled               |                                                                                                                          true |
-| Supply Cap                       |                                                                                                                    85,000,000 |
-| Borrow Cap                       |                                                                                                                             1 |
-| Isolation Mode                   |                                                                                                                         false |
-| Debt Ceiling                     |                                                                                                                         USD 0 |
-| LTV                              |                                                                                                                        0.05 % |
-| LT                               |                                                                                                                         0.1 % |
-| Liquidation Bonus                |                                                                                                                         7.5 % |
-| Liquidation Protocol Fee         |                                                                                                                          10 % |
-| Reserve Factor                   |                                                                                                                          20 % |
-| Base Variable Borrow Rate        |                                                                                                                           0 % |
-| Variable Slope 1                 |                                                                                                                           7 % |
-| Variable Slope 2                 |                                                                                                                         300 % |
-| Uoptimal                         |                                                                                                                          45 % |
-| Flashloanable                    |                                                                                                                       ENABLED |
-| Siloed Borrowing                 |                                                                                                                      DISABLED |
-| Borrowable in Isolation          |                                                                                                                      DISABLED |
-| Oracle                           | [PT Capped sUSDe USDT/USD linear discount 31JUL2025](https://etherscan.io/address/0x759B9B72700A129CD7AD8e53F9c99cb48Fd57105) |
-| OracleLatestAnswer (28 April 25) |                                                                                                                USD 0.98089311 |
+| Parameter                 | PT_sUSDE_31JUL2025 |
+| ------------------------- | -----------------: |
+| Borrowable                |           DISABLED |
+| Collateral Enabled        |               true |
+| Supply Cap                |         85,000,000 |
+| Borrow Cap                |                  1 |
+| Isolation Mode            |              false |
+| Debt Ceiling              |              USD 0 |
+| LTV                       |             0.05 % |
+| LT                        |              0.1 % |
+| Liquidation Bonus         |              7.5 % |
+| Liquidation Protocol Fee  |               10 % |
+| Reserve Factor            |               20 % |
+| Base Variable Borrow Rate |                0 % |
+| Variable Slope 1          |                7 % |
+| Variable Slope 2          |              300 % |
+| Uoptimal                  |               45 % |
+| Flashloanable             |            ENABLED |
+| Siloed Borrowing          |           DISABLED |
+| Borrowable in Isolation   |           DISABLED |
 
 The following EMode categories will be created for the assets listed:
 
@@ -57,10 +55,14 @@ The following EMode categories will be created for the assets listed:
 
 The Pendle PT Capo with linear discount have been deployed with the following configurations:
 
-| **Parameter**          | **PT_sUSDE_31JUL2025** |
-| ---------------------- | ---------------------- |
-| discountRatePerYear    | 7.5124%                |
-| maxDiscountRatePerYear | 21.22%                 |
+| **Parameter**                    | **Value**                                                                                                                     |
+| -------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| Oracle                           | [PT Capped sUSDe USDT/USD linear discount 31JUL2025](https://etherscan.io/address/0x759B9B72700A129CD7AD8e53F9c99cb48Fd57105) |
+| Underlying Oracle                | [Capped USDT/USD](https://etherscan.io/address/0xC26D4a1c46d884cfF6dE9800B6aE7A8Cf48B4Ff8)                                    |
+| Underlying Oracle                | [Chainlink USDT/USD](https://etherscan.io/address/0x3E7d1eAB13ad0104d2750B8863b489D65364e32D)                                 |
+| OracleLatestAnswer (28 April 25) | USD 0.98089311                                                                                                                |
+| discountRatePerYear              | 7.5124%                                                                                                                       |
+| maxDiscountRatePerYear           | 21.22%                                                                                                                        |
 
 Additionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://etherscan.io/address/0xac140648435d03f784879cd789130F22Ef588Fcd) has been set as the emission admin for PT_sUSDE_31JUL2025 and its aToken.
 
