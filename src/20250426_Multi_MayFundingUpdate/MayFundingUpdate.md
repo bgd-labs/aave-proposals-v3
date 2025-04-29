@@ -129,7 +129,7 @@ Transfer 0.5847 ETH to ACI to reimburse expenses incurred.
 
 This reimburses associated gas costs linked to AIP submissions and administering various incentive reward programs.
 
-ACI Receiving Address: [0xac140648435d03f784879cd789130F22Ef588Fcd](https://app.safe.global/home?safe=eth:0xac140648435d03f784879cd789130F22Ef588Fcd)
+ACI Receiving Address: [0xdef1FA4CEfe67365ba046a7C630D6B885298E210](https://app.safe.global/home?safe=eth:0xdef1FA4CEfe67365ba046a7C630D6B885298E210)
 
 ## References
 

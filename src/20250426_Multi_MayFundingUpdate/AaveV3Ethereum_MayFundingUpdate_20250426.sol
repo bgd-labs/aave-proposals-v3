@@ -24,8 +24,8 @@ contract AaveV3Ethereum_MayFundingUpdate_20250426 is IProposalGenericExecutor {
 
   address public constant COLLECTOR = address(AaveV3Ethereum.COLLECTOR);
 
-  /// https://gnosisscan.io/address/0xac140648435d03f784879cd789130F22Ef588Fcd
-  address public constant ACI = 0xac140648435d03f784879cd789130F22Ef588Fcd;
+  /// https://etherscan.io/address/0xdef1FA4CEfe67365ba046a7C630D6B885298E210
+  address public constant ACI = 0xdef1FA4CEfe67365ba046a7C630D6B885298E210;
 
   /// https://etherscan.io/address/0xdeadD8aB03075b7FBA81864202a2f59EE25B312b
   address public constant MERIT_SAFE = 0xdeadD8aB03075b7FBA81864202a2f59EE25B312b;
