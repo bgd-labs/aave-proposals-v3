@@ -27,7 +27,7 @@ contract AaveV3Gnosis_GHOGnosisLaunch_20250421 is IProposalGenericExecutor {
   uint64 public constant ARB_CHAIN_SELECTOR = 4949039107694359620;
   uint64 public constant BASE_CHAIN_SELECTOR = 15971525489660198786;
 
-  uint128 public constant CCIP_BUCKET_CAPACITY = 25_000_000e18; // 25M GHO
+  uint128 public constant CCIP_BUCKET_CAPACITY = 15_000_000e18; // 15M GHO
 
   // https://gnosisscan.io/address/0x73BC11423CBF14914998C23B0aFC9BE0cb5B2229
   ITokenAdminRegistry public constant TOKEN_ADMIN_REGISTRY =
