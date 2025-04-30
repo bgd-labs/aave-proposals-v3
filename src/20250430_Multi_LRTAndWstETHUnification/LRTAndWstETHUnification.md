@@ -213,8 +213,8 @@ Pause the current wstETH/wETH Legacy eMode Update
 |       Parameter       |    Value     |
 | :-------------------: | :----------: |
 |         Asset         | wstETH, WETH |
-|        Max LTV        |     93.5     |
-| Liquidation Threshold |     95.5     |
+|        Max LTV        |     95.0     |
+| Liquidation Threshold |     96.5     |
 |  Liquidation Penalty  |    1.00%     |
 
 Update WETH LTV and LT Parameters
