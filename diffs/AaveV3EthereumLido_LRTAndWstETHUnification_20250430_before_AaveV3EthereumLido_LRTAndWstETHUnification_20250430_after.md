@@ -20,15 +20,15 @@
 
 ## Emodes changed
 
-### EMode: wstETH/WETH(id: 1)
+### EMode: ETH correlated(id: 1)
 
 | description | value before | value after |
 | --- | --- | --- |
-| eMode.label | ETH correlated | wstETH/WETH |
-| eMode.ltv | 93.5 % | 95 % |
-| eMode.liquidationThreshold | 95.5 % | 96.5 % |
+| eMode.label (unchanged) | ETH correlated | ETH correlated |
+| eMode.ltv (unchanged) | 93.5 % | 93.5 % |
+| eMode.liquidationThreshold (unchanged) | 95.5 % | 95.5 % |
 | eMode.liquidationBonus (unchanged) | 1 % | 1 % |
-| eMode.borrowableBitmap (unchanged) | WETH | WETH |
+| eMode.borrowableBitmap | WETH |  |
 | eMode.collateralBitmap (unchanged) | wstETH | wstETH |
 
 
@@ -60,23 +60,27 @@
 | eMode.collateralBitmap | - | rsETH |
 
 
+### EMode: wstETH/WETH(id: 7)
+
+| description | value before | value after |
+| --- | --- | --- |
+| eMode.label | - | wstETH/WETH |
+| eMode.ltv | - | 95 % |
+| eMode.liquidationThreshold | - | 96.5 % |
+| eMode.liquidationBonus | - | 1 % |
+| eMode.borrowableBitmap | - |  |
+| eMode.collateralBitmap | - |  |
+
+
 ## Raw diff
 
 ```json
 {
   "eModes": {
     "1": {
-      "label": {
-        "from": "ETH correlated",
-        "to": "wstETH/WETH"
-      },
-      "liquidationThreshold": {
-        "from": 9550,
-        "to": 9650
-      },
-      "ltv": {
-        "from": 9350,
-        "to": 9500
+      "borrowableBitmap": {
+        "from": "2",
+        "to": "0"
       }
     },
     "6": {
@@ -89,6 +93,18 @@
         "liquidationBonus": 10750,
         "liquidationThreshold": 7500,
         "ltv": 7200
+      }
+    },
+    "7": {
+      "from": null,
+      "to": {
+        "borrowableBitmap": "0",
+        "collateralBitmap": "0",
+        "eModeCategory": 7,
+        "label": "wstETH/WETH",
+        "liquidationBonus": 10100,
+        "liquidationThreshold": 9650,
+        "ltv": 9500
       }
     }
   },
@@ -131,13 +147,21 @@
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
           "newValue": "0x000000000000000000000000000000000000000000000000000000000000004c"
         },
+        "0x1e4061ed12ce1f4439fe6c7922bd1dce45af754358ce2f94214f93749947e40a": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000277425b2251c"
+        },
+        "0x1e4061ed12ce1f4439fe6c7922bd1dce45af754358ce2f94214f93749947e40b": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x7773744554482f57455448000000000000000000000000000000000000000016"
+        },
         "0x8e0cc0f1f0504b4cb44a23b328568106915b169e79003737a7b094503cdbeeb0": {
           "previousValue": "0x00000000000000000000000000000000000000000000000000012774254e2486",
-          "newValue": "0x0000000000000000000000000000000000000000000000000001277425b2251c"
+          "newValue": "0x00000000000000000000000000000000000000000000000000012774254e2486"
         },
-        "0x8e0cc0f1f0504b4cb44a23b328568106915b169e79003737a7b094503cdbeeb1": {
-          "previousValue": "0x45544820636f7272656c6174656400000000000000000000000000000000001c",
-          "newValue": "0x7773744554482f57455448000000000000000000000000000000000000000016"
+        "0x8e0cc0f1f0504b4cb44a23b328568106915b169e79003737a7b094503cdbeeb2": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000002",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000000"
         },
         "0xc9d7ec48cd0d839522455f78914adfeda8686316bb6819e0888e4bcd349e01b2": {
           "previousValue": "0x100000000000000000000103e800009eb100000445c001f4851229681fa41f40",

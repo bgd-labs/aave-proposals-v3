@@ -52,18 +52,18 @@ contract AaveV3EthereumLido_LRTAndWstETHUnification_20250430 is AaveV3PayloadEth
       memory eModeUpdates = new IAaveV3ConfigEngine.EModeCategoryUpdate[](2);
 
     eModeUpdates[0] = IAaveV3ConfigEngine.EModeCategoryUpdate({
-      eModeCategory: AaveV3EthereumLidoEModes.ETH_CORRELATED,
-      ltv: 95_00,
-      liqThreshold: 96_50,
-      liqBonus: 1_00,
-      label: 'wstETH/WETH'
-    });
-    eModeUpdates[1] = IAaveV3ConfigEngine.EModeCategoryUpdate({
       eModeCategory: 6,
       ltv: 72_00,
       liqThreshold: 75_00,
       liqBonus: 7_50,
       label: 'rsETH/Stablecoins'
+    });
+    eModeUpdates[1] = IAaveV3ConfigEngine.EModeCategoryUpdate({
+      eModeCategory: 7,
+      ltv: 95_00,
+      liqThreshold: 96_50,
+      liqBonus: 1_00,
+      label: 'wstETH/WETH'
     });
 
     return eModeUpdates;
@@ -76,7 +76,7 @@ contract AaveV3EthereumLido_LRTAndWstETHUnification_20250430 is AaveV3PayloadEth
     returns (IAaveV3ConfigEngine.AssetEModeUpdate[] memory)
   {
     IAaveV3ConfigEngine.AssetEModeUpdate[]
-      memory assetEModeUpdates = new IAaveV3ConfigEngine.AssetEModeUpdate[](4);
+      memory assetEModeUpdates = new IAaveV3ConfigEngine.AssetEModeUpdate[](5);
 
     assetEModeUpdates[0] = IAaveV3ConfigEngine.AssetEModeUpdate({
       asset: AaveV3EthereumLidoAssets.USDC_UNDERLYING,
@@ -101,6 +101,12 @@ contract AaveV3EthereumLido_LRTAndWstETHUnification_20250430 is AaveV3PayloadEth
       eModeCategory: 6,
       borrowable: EngineFlags.DISABLED,
       collateral: EngineFlags.ENABLED
+    });
+    assetEModeUpdates[4] = IAaveV3ConfigEngine.AssetEModeUpdate({
+      asset: AaveV3EthereumLidoAssets.WETH_UNDERLYING,
+      eModeCategory: AaveV3EthereumLidoEModes.ETH_CORRELATED,
+      borrowable: EngineFlags.DISABLED,
+      collateral: EngineFlags.DISABLED
     });
 
     return assetEModeUpdates;

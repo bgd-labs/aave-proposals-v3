@@ -89,7 +89,7 @@ contract AaveV3Base_LRTAndWstETHUnification_20250430 is AaveV3PayloadBase {
     returns (IAaveV3ConfigEngine.AssetEModeUpdate[] memory)
   {
     IAaveV3ConfigEngine.AssetEModeUpdate[]
-      memory assetEModeUpdates = new IAaveV3ConfigEngine.AssetEModeUpdate[](8);
+      memory assetEModeUpdates = new IAaveV3ConfigEngine.AssetEModeUpdate[](9);
 
     assetEModeUpdates[0] = IAaveV3ConfigEngine.AssetEModeUpdate({
       asset: AaveV3BaseAssets.USDC_UNDERLYING,
@@ -141,6 +141,12 @@ contract AaveV3Base_LRTAndWstETHUnification_20250430 is AaveV3PayloadBase {
       eModeCategory: 9,
       borrowable: EngineFlags.DISABLED,
       collateral: EngineFlags.ENABLED
+    });
+    assetEModeUpdates[8] = IAaveV3ConfigEngine.AssetEModeUpdate({
+      asset: AaveV3BaseAssets.WETH_UNDERLYING,
+      eModeCategory: AaveV3BaseEModes.ETH_CORRELATED,
+      borrowable: EngineFlags.DISABLED,
+      collateral: EngineFlags.DISABLED
     });
 
     return assetEModeUpdates;
