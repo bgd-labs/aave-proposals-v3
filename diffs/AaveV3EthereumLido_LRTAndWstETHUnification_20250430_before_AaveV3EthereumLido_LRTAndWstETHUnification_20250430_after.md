@@ -68,8 +68,8 @@
 | eMode.ltv | - | 95 % |
 | eMode.liquidationThreshold | - | 96.5 % |
 | eMode.liquidationBonus | - | 1 % |
-| eMode.borrowableBitmap | - |  |
-| eMode.collateralBitmap | - |  |
+| eMode.borrowableBitmap | - | WETH |
+| eMode.collateralBitmap | - | wstETH |
 
 
 ## Raw diff
@@ -98,8 +98,8 @@
     "7": {
       "from": null,
       "to": {
-        "borrowableBitmap": "0",
-        "collateralBitmap": "0",
+        "borrowableBitmap": "2",
+        "collateralBitmap": "1",
         "eModeCategory": 7,
         "label": "wstETH/WETH",
         "liquidationBonus": 10100,
@@ -149,11 +149,15 @@
         },
         "0x1e4061ed12ce1f4439fe6c7922bd1dce45af754358ce2f94214f93749947e40a": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x0000000000000000000000000000000000000000000000000000277425b2251c"
+          "newValue": "0x0000000000000000000000000000000000000000000000000001277425b2251c"
         },
         "0x1e4061ed12ce1f4439fe6c7922bd1dce45af754358ce2f94214f93749947e40b": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
           "newValue": "0x7773744554482f57455448000000000000000000000000000000000000000016"
+        },
+        "0x1e4061ed12ce1f4439fe6c7922bd1dce45af754358ce2f94214f93749947e40c": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000002"
         },
         "0x8e0cc0f1f0504b4cb44a23b328568106915b169e79003737a7b094503cdbeeb0": {
           "previousValue": "0x00000000000000000000000000000000000000000000000000012774254e2486",
