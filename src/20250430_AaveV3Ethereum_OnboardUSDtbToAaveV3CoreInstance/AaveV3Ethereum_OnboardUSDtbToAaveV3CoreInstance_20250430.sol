@@ -23,7 +23,7 @@ contract AaveV3Ethereum_OnboardUSDtbToAaveV3CoreInstance_20250430 is AaveV3Paylo
 
   function _postExecute() internal override {
     IERC20(USDtb).forceApprove(address(AaveV3Ethereum.POOL), USDtb_SEED_AMOUNT);
-    //AaveV3Ethereum.POOL.supply(USDtb, USDtb_SEED_AMOUNT, AaveV3Ethereum.DUST_BIN, 0);
+    AaveV3Ethereum.POOL.supply(USDtb, USDtb_SEED_AMOUNT, AaveV3Ethereum.DUST_BIN, 0);
 
     address aUSDtb = AaveV3Ethereum.POOL.getReserveAToken(USDtb);
     IEmissionManager(AaveV3Ethereum.EMISSION_MANAGER).setEmissionAdmin(USDtb, USDtb_LM_ADMIN);
