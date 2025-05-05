@@ -14,7 +14,7 @@ fs_permissions = [
   { access = "write", path = "./reports" },
   { access = "read", path = "./zkout" },
 ]
-evm_version = 'shanghai'
+evm_version = 'cancun'
 
 [profile.zksync]
 src = 'zksync'
@@ -34,42 +34,11 @@ fallback_oz = true
 mode = '3'
 zksolc = '1.5.3'
 
-# incomplete list at https://www.evmdiff.com/features?name=PUSH0&kind=opcode
-[profile.metis]
-evm_version = 'shanghai'
-
-[profile.mainnet]
-evm_version = 'shanghai'
-
-[profile.arbitrum]
-evm_version = 'shanghai'
-
-[profile.optimism]
-evm_version = 'shanghai'
-
-[profile.base]
-evm_version = 'shanghai'
-
-[profile.polygon]
-evm_version = 'shanghai'
-
-[profile.avalanche]
-evm_version = 'shanghai'
-
-[profile.gnosis]
-evm_version = 'shanghai'
-
-[profile.bnb]
-evm_version = 'shanghai'
-
-[profile.linea]
-evm_version = 'london'
-
-[profile.celo]
-evm_version = 'shanghai'
-
-[profile.sonic]
+[profile.test]
 evm_version = 'cancun'
+
+[profile.deploy]
+evm_version = 'london' # due to linea
 
 [rpc_endpoints]
 mainnet = "${RPC_MAINNET}"
