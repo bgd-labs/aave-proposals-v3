@@ -18,7 +18,7 @@ contract AaveV3Ethereum_OnboardUSDtbToAaveV3CoreInstance_20250430_Test is Protoc
   AaveV3Ethereum_OnboardUSDtbToAaveV3CoreInstance_20250430 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 22384430);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 22416484);
     proposal = new AaveV3Ethereum_OnboardUSDtbToAaveV3CoreInstance_20250430();
   }
 
