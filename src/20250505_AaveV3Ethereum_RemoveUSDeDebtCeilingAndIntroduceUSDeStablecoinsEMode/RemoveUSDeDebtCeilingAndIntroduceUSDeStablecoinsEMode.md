@@ -43,8 +43,8 @@ USDe/Stablecoin E-Mode
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250505_AaveV3Ethereum_RemoveUSDeDebtCeilingAndIntroduceUSDeStablecoinsEMode/AaveV3Ethereum_RemoveUSDeDebtCeilingAndIntroduceUSDeStablecoinsEMode_20250505.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250505_AaveV3Ethereum_RemoveUSDeDebtCeilingAndIntroduceUSDeStablecoinsEMode/AaveV3Ethereum_RemoveUSDeDebtCeilingAndIntroduceUSDeStablecoinsEMode_20250505.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/5013a4eb986252fb975a44a7841ccc490dbf7bb9/src/20250505_AaveV3Ethereum_RemoveUSDeDebtCeilingAndIntroduceUSDeStablecoinsEMode/AaveV3Ethereum_RemoveUSDeDebtCeilingAndIntroduceUSDeStablecoinsEMode_20250505.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/5013a4eb986252fb975a44a7841ccc490dbf7bb9/src/20250505_AaveV3Ethereum_RemoveUSDeDebtCeilingAndIntroduceUSDeStablecoinsEMode/AaveV3Ethereum_RemoveUSDeDebtCeilingAndIntroduceUSDeStablecoinsEMode_20250505.t.sol)
 - Snapshot: Direct-to-AIP
 - [Discussion](https://governance.aave.com/t/arfc-remove-usde-debt-ceiling-and-introduce-usde-stablecoins-e-mode/21876)
 
