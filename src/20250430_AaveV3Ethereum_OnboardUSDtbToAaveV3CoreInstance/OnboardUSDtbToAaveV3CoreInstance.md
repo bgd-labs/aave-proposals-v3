@@ -47,6 +47,15 @@ The table below illustrates the configured risk parameters for **USDtb**
 
 Additionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://etherscan.io/address/0xac140648435d03f784879cd789130F22Ef588Fcd) has been set as the emission admin for USDtb and the corresponding aToken.
 
+### CAPO feed
+
+| Parameter                      |                                                                                            Value |
+| ------------------------------ | -----------------------------------------------------------------------------------------------: |
+| Contract                       |    [Capped USDtb / USD](https://etherscan.io/address/0x2fa6a78e3d617c1013a22938411602dc9da98dba) |
+| Underlying Oracle              | [Chainlink USDtb / USD](https://etherscan.io/address/0x66704DAD467A7cA508B3be15865D9B9F3E186c90) |
+| OracleLatestAnswer (05 may 25) |                                                                                   USD 0.99983211 |
+| Capped Price                   |                                                                                         USD 1.04 |
+
 ## References
 
 - Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250430_AaveV3Ethereum_OnboardUSDtbToAaveV3CoreInstance/AaveV3Ethereum_OnboardUSDtbToAaveV3CoreInstance_20250430.sol)
