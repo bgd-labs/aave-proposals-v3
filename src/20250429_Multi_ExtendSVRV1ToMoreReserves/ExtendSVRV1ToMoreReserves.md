@@ -1,8 +1,7 @@
 ---
 title: "Extend SVR V1 to more reserves"
 author: "BGD Labs @bgdlabs"
-discussions: "https://governance.aave.com/t/arfc-aave-chainlink-svr-v1-phase-1-activation/21247"
-snapshot: TODO
+discussions: "https://governance.aave.com/t/direct-to-aip-aave-chainlink-svr-v1-activation-phase-2/21940"
 ---
 
 ## Simple Summary
@@ -32,8 +31,7 @@ Also the SVR_STEWARD allows for the Protocol guardian to revert to the previous 
 
 - Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250429_Multi_ExtendSVRV1ToMoreReserves/AaveV3Ethereum_ExtendSVRV1ToMoreReserves_20250429.sol), [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250429_Multi_ExtendSVRV1ToMoreReserves/AaveV3EthereumLido_ExtendSVRV1ToMoreReserves_20250429.sol)
 - Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250429_Multi_ExtendSVRV1ToMoreReserves/AaveV3Ethereum_ExtendSVRV1ToMoreReserves_20250429.t.sol), [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250429_Multi_ExtendSVRV1ToMoreReserves/AaveV3EthereumLido_ExtendSVRV1ToMoreReserves_20250429.t.sol)
-  [Snapshot](TODO)
-- [Discussion](https://governance.aave.com/t/arfc-aave-chainlink-svr-v1-phase-1-activation/21247)
+- [Discussion](https://governance.aave.com/t/direct-to-aip-aave-chainlink-svr-v1-activation-phase-2/21940)
 
 ## Copyright
 

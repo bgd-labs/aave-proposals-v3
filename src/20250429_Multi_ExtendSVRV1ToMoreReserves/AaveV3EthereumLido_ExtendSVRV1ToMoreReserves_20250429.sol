@@ -8,8 +8,7 @@ import {ISvrOracleSteward} from '../interfaces/ISvrOracleSteward.sol';
 /**
  * @title Extend SVR V1 to more reserves
  * @author BGD Labs @bgdlabs
- * - Snapshot: TODO
- * - Discussion: https://governance.aave.com/t/arfc-aave-chainlink-svr-v1-phase-1-activation/21247
+ * - Discussion: https://governance.aave.com/t/direct-to-aip-aave-chainlink-svr-v1-activation-phase-2/21940
  */
 contract AaveV3EthereumLido_ExtendSVRV1ToMoreReserves_20250429 is IProposalGenericExecutor {
   address public constant SVR_rsETH = 0x7292C95A5f6A501a9c4B34f6393e221F2A0139c3;
