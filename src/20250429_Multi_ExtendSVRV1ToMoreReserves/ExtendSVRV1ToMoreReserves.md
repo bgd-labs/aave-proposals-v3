@@ -29,8 +29,8 @@ Also the SVR_STEWARD allows for the Protocol guardian to revert to the previous 
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250429_Multi_ExtendSVRV1ToMoreReserves/AaveV3Ethereum_ExtendSVRV1ToMoreReserves_20250429.sol), [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250429_Multi_ExtendSVRV1ToMoreReserves/AaveV3EthereumLido_ExtendSVRV1ToMoreReserves_20250429.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250429_Multi_ExtendSVRV1ToMoreReserves/AaveV3Ethereum_ExtendSVRV1ToMoreReserves_20250429.t.sol), [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250429_Multi_ExtendSVRV1ToMoreReserves/AaveV3EthereumLido_ExtendSVRV1ToMoreReserves_20250429.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/7dfaeee8e64d904f3350186e0e6159dccb944f41/src/20250429_Multi_ExtendSVRV1ToMoreReserves/AaveV3Ethereum_ExtendSVRV1ToMoreReserves_20250429.sol), [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/7dfaeee8e64d904f3350186e0e6159dccb944f41/src/20250429_Multi_ExtendSVRV1ToMoreReserves/AaveV3EthereumLido_ExtendSVRV1ToMoreReserves_20250429.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/7dfaeee8e64d904f3350186e0e6159dccb944f41/src/20250429_Multi_ExtendSVRV1ToMoreReserves/AaveV3Ethereum_ExtendSVRV1ToMoreReserves_20250429.t.sol), [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/7dfaeee8e64d904f3350186e0e6159dccb944f41/src/20250429_Multi_ExtendSVRV1ToMoreReserves/AaveV3EthereumLido_ExtendSVRV1ToMoreReserves_20250429.t.sol)
 - [Discussion](https://governance.aave.com/t/direct-to-aip-aave-chainlink-svr-v1-activation-phase-2/21940)
 
 ## Copyright
