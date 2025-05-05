@@ -10,6 +10,15 @@
 | oracleLatestAnswer | 2189.28798034 | 2189.74009331 |
 
 
+#### USDC ([0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48](https://etherscan.io/address/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48))
+
+| description | value before | value after |
+| --- | --- | --- |
+| oracle | [0x736bF902680e68989886e9807CD7Db4B3E015d3C](https://etherscan.io/address/0x736bF902680e68989886e9807CD7Db4B3E015d3C) | [0x3f73F03aa83B2A48ed27E964eD0fDb590332095B](https://etherscan.io/address/0x3f73F03aa83B2A48ed27E964eD0fDb590332095B) |
+| oracleDescription | Capped USDC/USD | Capped USDC / USD |
+| oracleLatestAnswer | 0.99994904 | 0.9999614 |
+
+
 #### rsETH ([0xA1290d69c65A6Fe4DF752f95823fae25cB99e5A7](https://etherscan.io/address/0xA1290d69c65A6Fe4DF752f95823fae25cB99e5A7))
 
 | description | value before | value after |
@@ -47,6 +56,20 @@
       "oracleLatestAnswer": {
         "from": "218928798034",
         "to": "218974009331"
+      }
+    },
+    "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48": {
+      "oracle": {
+        "from": "0x736bF902680e68989886e9807CD7Db4B3E015d3C",
+        "to": "0x3f73F03aa83B2A48ed27E964eD0fDb590332095B"
+      },
+      "oracleDescription": {
+        "from": "Capped USDC/USD",
+        "to": "Capped USDC / USD"
+      },
+      "oracleLatestAnswer": {
+        "from": "99994904",
+        "to": "99996140"
       }
     },
     "0xA1290d69c65A6Fe4DF752f95823fae25cB99e5A7": {
@@ -95,6 +118,10 @@
       "label": null,
       "balanceDiff": null,
       "stateDiff": {
+        "0x37c5eec85d84da1cf053e48828b531c27553684966639a8ba393ecfe725880fd": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x000000000000000000000000736bf902680e68989886e9807cd7db4b3e015d3c"
+        },
         "0x4e0c62681f87e6a48bb56176abcc4bb3a586d3ca16272e6059bc99151f41595b": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
           "newValue": "0x000000000000000000000000b4ab0c94159bc2d8c133946e7241368fc2f2a010"
@@ -110,6 +137,10 @@
         "0x828500f7e96b1d7cf14857f9af9ef0cececcdb7063a628c55af17caf2cd8e74a": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
           "newValue": "0x00000000000000000000000068c9c7bf43dbd0ebab102116bc7c3c9f7d9297ee"
+        },
+        "0xb7598821b71eb990d952f174dec3507a6d48dc93be8e23cae785c98ca310bfbb": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000003f73f03aa83b2a48ed27e964ed0fdb590332095b"
         },
         "0xbb86cdd4091c747b4aa771e251e2502c491839a48d347e633e2ac832c2cf7e0d": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -150,6 +181,10 @@
         "0x2a11cb67ca5c7e99dba99b50e02c11472d0f19c22ed5af42a1599a7f57e1c7a4": {
           "previousValue": "0x0000000000000000000000005f4ec3df9cbd43714fe2740f5e3616155c5b8419",
           "newValue": "0x0000000000000000000000005424384b256154046e9667ddfaaa5e550145215e"
+        },
+        "0xc6521c8ea4247e8beb499344e591b9401fb2807ff9997dd598fd9e56c73a264d": {
+          "previousValue": "0x000000000000000000000000736bf902680e68989886e9807cd7db4b3e015d3c",
+          "newValue": "0x0000000000000000000000003f73f03aa83b2a48ed27e964ed0fdb590332095b"
         },
         "0xdac6437dacbb7cd7f4be454beb1f150c3dd9e2c30718a52f444c7e340f12f6a9": {
           "previousValue": "0x00000000000000000000000068c9c7bf43dbd0ebab102116bc7c3c9f7d9297ee",
