@@ -14,7 +14,7 @@ Enable SVR feeds on the following assets:
 ## Motivation
 
 In [proposal 274](https://vote.onaave.com/proposal/?proposalId=274) a fist set of SVR feeds was enabled.
-Over the recent weeks, the oracles were monitored and as expected no rlevant deviations were monitored and SVR updates arrived in time. Therefore, in order to make integrating with SVR more attractive, this proposal aims to enable the next set of SVR feeds on ethereum mainnet.
+Over the recent weeks, the oracles were monitored and as expected no relevant deviations were monitored and SVR updates arrived in time. Therefore, in order to make integrating with SVR more attractive, this proposal aims to enable the next set of SVR feeds on ethereum mainnet.
 
 ## Specification
 
