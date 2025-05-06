@@ -7,7 +7,7 @@ snapshot: Direct-to-AIP
 
 ## Simple Summary
 
-Re-enable stkBPT incentives emissions for 180 days after previous period ended.
+Re-enable stkGHO incentives emissions for 180 days after previous period ended.
 
 ## Motivation
 
