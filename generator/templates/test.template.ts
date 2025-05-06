@@ -29,7 +29,7 @@ import {${contractName}} from './${contractName}.sol';
 
 /**
  * @dev Test for ${contractName}
- * command: FOUNDRY_PROFILE=${getChainAlias(chain)} forge test ${chain === 'ZkSync' ? '--zksync --match-path=zksync/src/' : '--match-path=src/'}${folderName}/${contractName}.t.sol -vv
+ * command: FOUNDRY_PROFILE=test forge test ${chain === 'ZkSync' ? '--zksync --match-path=zksync/src/' : '--match-path=src/'}${folderName}/${contractName}.t.sol -vv
  */
 contract ${contractName}_Test is ${testBase} {
   ${contractName} internal proposal;
