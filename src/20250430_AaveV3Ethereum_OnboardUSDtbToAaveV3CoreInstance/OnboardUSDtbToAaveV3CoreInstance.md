@@ -58,8 +58,8 @@ Additionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://etherscan.io/a
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250430_AaveV3Ethereum_OnboardUSDtbToAaveV3CoreInstance/AaveV3Ethereum_OnboardUSDtbToAaveV3CoreInstance_20250430.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250430_AaveV3Ethereum_OnboardUSDtbToAaveV3CoreInstance/AaveV3Ethereum_OnboardUSDtbToAaveV3CoreInstance_20250430.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/4f77f232f2bed02e5c0ed869cec911dbdd76f8be/src/20250430_AaveV3Ethereum_OnboardUSDtbToAaveV3CoreInstance/AaveV3Ethereum_OnboardUSDtbToAaveV3CoreInstance_20250430.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/4f77f232f2bed02e5c0ed869cec911dbdd76f8be/src/20250430_AaveV3Ethereum_OnboardUSDtbToAaveV3CoreInstance/AaveV3Ethereum_OnboardUSDtbToAaveV3CoreInstance_20250430.t.sol)
 - [Snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0xf7ff963e0572d684bfd0c6d572a070d1b6ea60f4bcebbd6f68fc2af9c1e46659)
 - [Discussion](https://governance.aave.com/t/arfc-onboard-usdtb-to-aave-v3-core-instance/21746)
 
