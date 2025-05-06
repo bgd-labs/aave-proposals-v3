@@ -40,7 +40,7 @@ contract AaveV3Ethereum_LRTAndWstETHUnification_20250430 is AaveV3PayloadEthereu
     returns (IAaveV3ConfigEngine.AssetEModeUpdate[] memory)
   {
     IAaveV3ConfigEngine.AssetEModeUpdate[]
-      memory assetEModeUpdates = new IAaveV3ConfigEngine.AssetEModeUpdate[](3);
+      memory assetEModeUpdates = new IAaveV3ConfigEngine.AssetEModeUpdate[](2);
 
     assetEModeUpdates[0] = IAaveV3ConfigEngine.AssetEModeUpdate({
       asset: AaveV3EthereumAssets.wstETH_UNDERLYING,
@@ -53,12 +53,6 @@ contract AaveV3Ethereum_LRTAndWstETHUnification_20250430 is AaveV3PayloadEthereu
       eModeCategory: 8,
       borrowable: EngineFlags.DISABLED,
       collateral: EngineFlags.ENABLED
-    });
-    assetEModeUpdates[2] = IAaveV3ConfigEngine.AssetEModeUpdate({
-      asset: AaveV3EthereumAssets.wstETH_UNDERLYING,
-      eModeCategory: AaveV3EthereumEModes.RSETH_LST_MAIN,
-      borrowable: EngineFlags.DISABLED,
-      collateral: EngineFlags.DISABLED
     });
 
     return assetEModeUpdates;

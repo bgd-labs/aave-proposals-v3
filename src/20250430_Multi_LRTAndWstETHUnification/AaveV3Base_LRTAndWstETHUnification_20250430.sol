@@ -13,27 +13,6 @@ import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config
  * - Discussion: https://governance.aave.com/t/arfc-lrt-and-wsteth-unification/21739
  */
 contract AaveV3Base_LRTAndWstETHUnification_20250430 is AaveV3PayloadBase {
-  function collateralsUpdates()
-    public
-    pure
-    override
-    returns (IAaveV3ConfigEngine.CollateralUpdate[] memory)
-  {
-    IAaveV3ConfigEngine.CollateralUpdate[]
-      memory collateralUpdate = new IAaveV3ConfigEngine.CollateralUpdate[](1);
-
-    collateralUpdate[0] = IAaveV3ConfigEngine.CollateralUpdate({
-      asset: AaveV3BaseAssets.weETH_UNDERLYING,
-      ltv: 75_00,
-      liqThreshold: 77_00,
-      liqBonus: EngineFlags.KEEP_CURRENT,
-      debtCeiling: EngineFlags.KEEP_CURRENT,
-      liqProtocolFee: EngineFlags.KEEP_CURRENT
-    });
-
-    return collateralUpdate;
-  }
-
   function eModeCategoriesUpdates()
     public
     pure
@@ -89,7 +68,7 @@ contract AaveV3Base_LRTAndWstETHUnification_20250430 is AaveV3PayloadBase {
     returns (IAaveV3ConfigEngine.AssetEModeUpdate[] memory)
   {
     IAaveV3ConfigEngine.AssetEModeUpdate[]
-      memory assetEModeUpdates = new IAaveV3ConfigEngine.AssetEModeUpdate[](9);
+      memory assetEModeUpdates = new IAaveV3ConfigEngine.AssetEModeUpdate[](8);
 
     assetEModeUpdates[0] = IAaveV3ConfigEngine.AssetEModeUpdate({
       asset: AaveV3BaseAssets.USDC_UNDERLYING,
@@ -141,12 +120,6 @@ contract AaveV3Base_LRTAndWstETHUnification_20250430 is AaveV3PayloadBase {
       eModeCategory: 9,
       borrowable: EngineFlags.DISABLED,
       collateral: EngineFlags.ENABLED
-    });
-    assetEModeUpdates[8] = IAaveV3ConfigEngine.AssetEModeUpdate({
-      asset: AaveV3BaseAssets.WETH_UNDERLYING,
-      eModeCategory: AaveV3BaseEModes.ETH_CORRELATED,
-      borrowable: EngineFlags.DISABLED,
-      collateral: EngineFlags.DISABLED
     });
 
     return assetEModeUpdates;

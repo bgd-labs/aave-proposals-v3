@@ -1,15 +1,3 @@
-## Reserve changes
-
-### Reserves altered
-
-#### weETH ([0x35751007a407ca6FEFfE80b3cB397736D2cf4dbe](https://arbiscan.io/address/0x35751007a407ca6FEFfE80b3cB397736D2cf4dbe))
-
-| description | value before | value after |
-| --- | --- | --- |
-| ltv | 72.5 % [7250] | 75 % [7500] |
-| liquidationThreshold | 75 % [7500] | 77 % [7700] |
-
-
 ## Emodes changed
 
 ### EMode: Stablecoins(id: 1)
@@ -80,18 +68,6 @@
       }
     }
   },
-  "reserves": {
-    "0x35751007a407ca6FEFfE80b3cB397736D2cf4dbe": {
-      "liquidationThreshold": {
-        "from": 7500,
-        "to": 7700
-      },
-      "ltv": {
-        "from": 7250,
-        "to": 7500
-      }
-    }
-  },
   "raw": {
     "0x794a61358d6845594f94dc1db02a252b5b4814ad": {
       "label": "AaveV3Arbitrum.POOL",
@@ -108,10 +84,6 @@
         "0x01290583d43e205f46f8d824d1236df318521e471f570a5b36fa1844856e40d8": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
           "newValue": "0x0000000000000000000000000000000000000000000000000000000000000024"
-        },
-        "0x4f0da5bca7ea3ed2a5fd7fbf6d310bc05d68502cf438424218eeef530670c853": {
-          "previousValue": "0x100000000000000000000203e800001adb00000000011194851229fe1d4c1c52",
-          "newValue": "0x100000000000000000000203e800001adb00000000011194851229fe1e141d4c"
         },
         "0x50039cf134a124858bd88bbc9225ec3c537b89a0e9237ce39fe1813e6edf8257": {
           "previousValue": "0x0000000000000000000000000000000000000000000000040000277424ea2422",

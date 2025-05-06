@@ -34,20 +34,9 @@ Reference: [[Risk Stewards]wstETH/wETH eMode Update - Ethereum, Arbitrum & Base 
 |       Parameter       |    Value     |
 | :-------------------: | :----------: |
 |         Asset         | wstETH, WETH |
-|        Max LTV        |     93.5     |
-| Liquidation Threshold |     95.5     |
+|        Max LTV        |     95.0     |
+| Liquidation Threshold |     96.5     |
 |  Liquidation Penalty  |    1.00%     |
-
-#### New wstETH/wETH v3.2 liquid eMode
-
-|       Parameter       | Value  | Value |
-| :-------------------: | :----: | :---: |
-|         Asset         | wstETH | WETH  |
-|      Collateral       |  Yes   |  No   |
-|      Borrowable       |   No   |  Yes  |
-|        Max LTV        | 95.00% |   -   |
-| Liquidation Threshold | 96.50% |   -   |
-|  Liquidation Penalty  | 1.00%  |   -   |
 
 Complimenting the abundance of USDS liquidity provided by the Sky Ecosystem via D3M, this publication proposes increasing the LTV and LT on Prime to improve the capital efficiency of WETH and wstETH relative to other instances of Aave v3. With the support of Sky via D3M and Gho Stewards via Direct Gho Minter Facilitator providing liquidity on demand, the Prime instance is able to offer consistent stablecoin supply and less volatile borrow rates to users.
 
@@ -206,9 +195,7 @@ The following adjustments are to be implemented on all instances within the same
 
 ### Prime - Ethereum
 
-The Prime instance has the highest LTV/LT for ETH correlated assets.
-
-Pause the current wstETH/wETH Legacy eMode Update
+Update the current wstETH/wETH eMode
 
 |       Parameter       |    Value     |
 | :-------------------: | :----------: |
@@ -216,31 +203,6 @@ Pause the current wstETH/wETH Legacy eMode Update
 |        Max LTV        |     95.0     |
 | Liquidation Threshold |     96.5     |
 |  Liquidation Penalty  |    1.00%     |
-
-Update WETH LTV and LT Parameters
-
-| Parameter | Current | Proposed |
-| :-------: | :-----: | :------: |
-|    LTV    | 82.00%  |  84.00%  |
-|    LT     | 83.00%  |  85.00%  |
-
-Update wstETH LTV and LT Parameters
-
-| Parameter | Current | Proposed |
-| :-------: | :-----: | :------: |
-|    LTV    | 80.00%  |  82.00%  |
-|    LT     | 81.00%  |  83.00%  |
-
-Create new v3.2 liquid eMode
-
-|       Parameter       | Value  | Value |
-| :-------------------: | :----: | :---: |
-|         Asset         | wstETH | WETH  |
-|      Collateral       |  Yes   |  No   |
-|      Borrowable       |   No   |  Yes  |
-|        Max LTV        | 95.00% |   -   |
-| Liquidation Threshold | 96.50% |   -   |
-|  Liquidation Penalty  | 1.00%  |   -   |
 
 Create new v3.2 liquid eMode
 
@@ -257,27 +219,27 @@ Create new v3.2 liquid eMode
 
 rsETH/wstETH liquid eMode update.
 
-|       Parameter       |      Value      | Value  |
-| :-------------------: | :-------------: | :----: |
-|         Asset         |      rsETH      | wstETH |
-|      Collateral       |       Yes       |   No   |
-|      Borrowable       |       No        |  Yes   |
-|        Max LTV        | ~~92.5~~ 93.00% |   -    |
-| Liquidation Threshold | ~~94.5~~ 95.00% |   -    |
-|  Liquidation Penalty  |      1.00%      |   -    |
+|       Parameter       | Value  | Value  |
+| :-------------------: | :----: | :----: |
+|         Asset         | rsETH  | wstETH |
+|      Collateral       |  Yes   |   No   |
+|      Borrowable       |   No   |  Yes   |
+|        Max LTV        | 93.00% |   -    |
+| Liquidation Threshold | 95.00% |   -    |
+|  Liquidation Penalty  | 1.00%  |   -    |
 
 ### Arbitrum
 
 rsETH/wstETH liquid eMode update.
 
-|       Parameter       |      Value      | Value  |
-| :-------------------: | :-------------: | :----: |
-|         Asset         |      rsETH      | wstETH |
-|      Collateral       |       Yes       |   No   |
-|      Borrowable       |       No        |  Yes   |
-|        Max LTV        | ~~92.5~~ 93.00% |   -    |
-| Liquidation Threshold | ~~94.5~~ 95.00% |   -    |
-|  Liquidation Penalty  |      1.00%      |   -    |
+|       Parameter       | Value  | Value  |
+| :-------------------: | :----: | :----: |
+|         Asset         | rsETH  | wstETH |
+|      Collateral       |  Yes   |   No   |
+|      Borrowable       |   No   |  Yes   |
+|        Max LTV        | 93.00% |   -    |
+| Liquidation Threshold | 95.00% |   -    |
+|  Liquidation Penalty  | 1.00%  |   -    |
 
 Create new v3.2 liquid eMode
 
@@ -290,25 +252,18 @@ Create new v3.2 liquid eMode
 | Liquidation Threshold | 75.00% |   -   |   -   |
 |  Liquidation Penalty  | 7.50%  |   -   |   -   |
 
-weETH LTV/LT Update.
-
-| Parameter | Current | Proposed |
-| :-------: | :-----: | :------: |
-|    LTV    |  72.5%  |   75%    |
-|    LT     |   75%   |   77%    |
-
 ### Base
 
-rsETH/wstETH liquid eMode, no change.
+Update rsETH/wstETH liquid eMode.
 
-|       Parameter       |      Value      | Value  |
-| :-------------------: | :-------------: | :----: |
-|         Asset         |      rsETH      | wstETH |
-|      Collateral       |       Yes       |   No   |
-|      Borrowable       |       No        |  Yes   |
-|        Max LTV        | ~~92.5~~ 93.00% |   -    |
-| Liquidation Threshold | ~~94.5~~ 95.00% |   -    |
-|  Liquidation Penalty  |      1.00%      |   -    |
+|       Parameter       | Value  | Value  |
+| :-------------------: | :----: | :----: |
+|         Asset         | rsETH  | wstETH |
+|      Collateral       |  Yes   |   No   |
+|      Borrowable       |   No   |  Yes   |
+|        Max LTV        | 93.00% |   -    |
+| Liquidation Threshold | 95.00% |   -    |
+|  Liquidation Penalty  | 1.00%  |   -    |
 
 Create new v3.2 liquid eMode
 
@@ -332,7 +287,7 @@ Create weETH/wETH liquid eMode.
 | Liquidation Threshold | 95.00% |   -   |
 |  Liquidation Penalty  | 1.25%  |   -   |
 
-Create wstETH/WETH eMode Update
+Create wstETH/WETH eMode
 
 |       Parameter       | Value  | Value |
 | :-------------------: | :----: | :---: |
@@ -354,14 +309,7 @@ Create cbETH/WETH eMode Update
 | Liquidation Threshold | 95.00% |   -   |
 |  Liquidation Penalty  | 2.00%  |   -   |
 
-Pause the existing eMode by disabling wETH Borrowing within existing eMode. Users will no be able to borrow wETH debt within the legacy eMode upon implementation.
-
-weETH LTV/LT Update.
-
-| Parameter | Current | Proposed |
-| :-------: | :-----: | :------: |
-|    LTV    |  72.5%  |   75%    |
-|    LT     |   75%   |   77%    |
+Pause the existing eMode by disabling wETH Borrowing within existing eMode. Users will not be able to borrow wETH debt within the legacy eMode upon implementation.
 
 ## References
 

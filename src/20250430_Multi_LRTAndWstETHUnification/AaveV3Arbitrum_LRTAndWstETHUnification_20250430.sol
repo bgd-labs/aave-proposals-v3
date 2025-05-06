@@ -13,27 +13,6 @@ import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config
  * - Discussion: https://governance.aave.com/t/arfc-lrt-and-wsteth-unification/21739
  */
 contract AaveV3Arbitrum_LRTAndWstETHUnification_20250430 is AaveV3PayloadArbitrum {
-  function collateralsUpdates()
-    public
-    pure
-    override
-    returns (IAaveV3ConfigEngine.CollateralUpdate[] memory)
-  {
-    IAaveV3ConfigEngine.CollateralUpdate[]
-      memory collateralUpdate = new IAaveV3ConfigEngine.CollateralUpdate[](1);
-
-    collateralUpdate[0] = IAaveV3ConfigEngine.CollateralUpdate({
-      asset: AaveV3ArbitrumAssets.weETH_UNDERLYING,
-      ltv: 75_00,
-      liqThreshold: 77_00,
-      liqBonus: EngineFlags.KEEP_CURRENT,
-      debtCeiling: EngineFlags.KEEP_CURRENT,
-      liqProtocolFee: EngineFlags.KEEP_CURRENT
-    });
-
-    return collateralUpdate;
-  }
-
   function eModeCategoriesUpdates()
     public
     pure
