@@ -21,8 +21,8 @@ To support the GHO peg and to pave the way for future GHO supply expansion, this
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250505_AaveV3Ethereum_StkGHOEmissions/AaveV3Ethereum_StkGHOEmissions_20250505.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250505_AaveV3Ethereum_StkGHOEmissions/AaveV3Ethereum_StkGHOEmissions_20250505.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/c8180be42db546bc6b11dfddd6fa48f649c6a3df/src/20250505_AaveV3Ethereum_StkGHOEmissions/AaveV3Ethereum_StkGHOEmissions_20250505.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/c8180be42db546bc6b11dfddd6fa48f649c6a3df/src/20250505_AaveV3Ethereum_StkGHOEmissions/AaveV3Ethereum_StkGHOEmissions_20250505.t.sol)
   [Snapshot](Direct-to-AIP)
 - [Discussion](https://governance.aave.com/t/arfc-amend-safety-module-emissions/16640/18)
 
