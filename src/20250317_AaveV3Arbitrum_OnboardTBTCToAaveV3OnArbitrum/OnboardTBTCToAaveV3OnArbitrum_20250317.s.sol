@@ -9,7 +9,7 @@ import {AaveV3Arbitrum_OnboardTBTCToAaveV3OnArbitrum_20250317} from './AaveV3Arb
 /**
  * @dev Deploy Arbitrum
  * deploy-command: make deploy-ledger contract=src/20250317_AaveV3Arbitrum_OnboardTBTCToAaveV3OnArbitrum/OnboardTBTCToAaveV3OnArbitrum_20250317.s.sol:DeployArbitrum chain=arbitrum
- * verify-command: FOUNDRY_PROFILE=arbitrum npx catapulta-verify -b broadcast/OnboardTBTCToAaveV3OnArbitrum_20250317.s.sol/42161/run-latest.json
+ * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/OnboardTBTCToAaveV3OnArbitrum_20250317.s.sol/42161/run-latest.json
  */
 contract DeployArbitrum is ArbitrumScript {
   function run() external broadcast {
