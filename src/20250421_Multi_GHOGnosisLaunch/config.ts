@@ -12,16 +12,16 @@ export const config: ConfigFile = {
     votingNetwork: 'POLYGON',
   },
   poolOptions: {
-    AaveV3Ethereum: {configs: {OTHERS: {}}, cache: {blockNumber: 21722753}},
-    AaveV3Arbitrum: {configs: {OTHERS: {}}, cache: {blockNumber: 300142041}},
-    AaveV3Base: {configs: {OTHERS: {}}, cache: {blockNumber: 29570223}},
+    AaveV3Ethereum: {configs: {OTHERS: {}}, cache: {blockNumber: 22435000}},
+    AaveV3Arbitrum: {configs: {OTHERS: {}}, cache: {blockNumber: 334347740}},
+    AaveV3Base: {configs: {OTHERS: {}}, cache: {blockNumber: 29935731}},
     AaveV3Gnosis: {
       configs: {
         ASSET_LISTING: [
           {
             assetSymbol: 'GHO',
             decimals: 18,
-            priceFeed: '?',
+            priceFeed: '0x360d8aa8F6b09B7BC57aF34db2Eb84dD87bf4d12',
             ltv: '0',
             liqThreshold: '0',
             liqBonus: '0',
@@ -40,12 +40,13 @@ export const config: ConfigFile = {
               variableRateSlope1: '9.5',
               variableRateSlope2: '50',
             },
-            asset: '?',
+            asset: '0xfc421aD3C883Bf9E7C4f42dE845C4e4405799e73',
             admin: '0xac140648435d03f784879cd789130F22Ef588Fcd',
+            eModeCategory: '',
           },
         ],
       },
-      cache: {blockNumber: 39808189},
+      cache: {blockNumber: 39948534},
     },
   },
 };

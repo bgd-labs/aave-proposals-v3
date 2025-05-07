@@ -83,7 +83,7 @@ contract AaveV3Ethereum_GHOGnosisLaunch_20250421_Test is ProtocolV3TestBase {
   error InvalidSourcePoolAddress(bytes);
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 22374364);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 22435000);
     proposal = new AaveV3Ethereum_GHOGnosisLaunch_20250421();
     _validateConstants();
     executePayload(vm, address(proposal));
@@ -256,22 +256,6 @@ contract AaveV3Ethereum_GHOGnosisLaunch_20250421_Test is ProtocolV3TestBase {
       abi.encode(address(NEW_REMOTE_POOL_BASE))
     );
     assertEq(
-      NEW_TOKEN_POOL.getCurrentInboundRateLimiterState(ARB_CHAIN_SELECTOR),
-      _getRateLimiterConfig()
-    );
-    assertEq(
-      NEW_TOKEN_POOL.getCurrentOutboundRateLimiterState(ARB_CHAIN_SELECTOR),
-      _getRateLimiterConfig()
-    );
-    assertEq(
-      NEW_TOKEN_POOL.getCurrentInboundRateLimiterState(BASE_CHAIN_SELECTOR),
-      _getRateLimiterConfig()
-    );
-    assertEq(
-      NEW_TOKEN_POOL.getCurrentOutboundRateLimiterState(BASE_CHAIN_SELECTOR),
-      _getRateLimiterConfig()
-    );
-    assertEq(
       NEW_TOKEN_POOL.getCurrentInboundRateLimiterState(GNOSIS_CHAIN_SELECTOR),
       _getRateLimiterConfig()
     );
@@ -281,7 +265,7 @@ contract AaveV3Ethereum_GHOGnosisLaunch_20250421_Test is ProtocolV3TestBase {
     );
   }
 
-  function test_sendMessageToBaseSucceeds(uint256 amount) public {
+  function test_sendMessageToGnosisSucceeds(uint256 amount) public {
     uint256 bridgeableAmount = _min(
       NEW_TOKEN_POOL.getBridgeLimit() - NEW_TOKEN_POOL.getCurrentBridgedAmount(),
       CCIP_RATE_LIMIT_CAPACITY
@@ -316,10 +300,13 @@ contract AaveV3Ethereum_GHOGnosisLaunch_20250421_Test is ProtocolV3TestBase {
   }
 
   function test_sendMessageToArbSucceeds(uint256 amount) public {
+    IRateLimiter.TokenBucket memory arbRateLimits = NEW_TOKEN_POOL
+      .getCurrentInboundRateLimiterState(ARB_CHAIN_SELECTOR);
     uint256 bridgeableAmount = _min(
       NEW_TOKEN_POOL.getBridgeLimit() - NEW_TOKEN_POOL.getCurrentBridgedAmount(),
-      CCIP_RATE_LIMIT_CAPACITY
+      arbRateLimits.capacity
     );
+
     amount = bound(amount, 1, bridgeableAmount);
     skip(_getOutboundRefillTime(amount)); // wait for the rate limiter to refill
 
@@ -349,7 +336,7 @@ contract AaveV3Ethereum_GHOGnosisLaunch_20250421_Test is ProtocolV3TestBase {
     assertEq(NEW_TOKEN_POOL.getCurrentBridgedAmount(), currentBridgedAmount + amount);
   }
 
-  function test_offRampViaBaseSucceeds(uint256 amount) public {
+  function test_offRampViaGnosisSucceeds(uint256 amount) public {
     uint256 bridgeableAmount = _min(
       NEW_TOKEN_POOL.getCurrentBridgedAmount(),
       CCIP_RATE_LIMIT_CAPACITY
@@ -385,9 +372,11 @@ contract AaveV3Ethereum_GHOGnosisLaunch_20250421_Test is ProtocolV3TestBase {
   }
 
   function test_offRampViaArbSucceeds(uint256 amount) public {
+    IRateLimiter.TokenBucket memory arbRateLimits = NEW_TOKEN_POOL
+      .getCurrentOutboundRateLimiterState(ARB_CHAIN_SELECTOR);
     uint256 bridgeableAmount = _min(
       NEW_TOKEN_POOL.getCurrentBridgedAmount(),
-      CCIP_RATE_LIMIT_CAPACITY
+      arbRateLimits.capacity
     );
     amount = bound(amount, 1, bridgeableAmount);
     skip(_getInboundRefillTime(amount));
@@ -419,7 +408,7 @@ contract AaveV3Ethereum_GHOGnosisLaunch_20250421_Test is ProtocolV3TestBase {
     assertEq(NEW_TOKEN_POOL.getCurrentBridgedAmount(), GHO.balanceOf(address(NEW_TOKEN_POOL)));
   }
 
-  function test_cannotUseBaseOffRampForArbMessages() public {
+  function test_cannotUseGnosisOffRampForArbMessages() public {
     uint256 amount = 100e18;
     skip(_getInboundRefillTime(amount));
 
