@@ -41,7 +41,7 @@ The table below illustrates the configured risk parameters for **tBTC**
 | Flashloanable             |                                   DISABLED |
 | Siloed Borrowing          |                                   DISABLED |
 | Borrowable in Isolation   |                                   DISABLED |
-| Oracle                    | 0x6ce185860a4963106506C203335A2910413708e9 |
+| Oracle                    | [Chainlink BTC/USD](https://arbiscan.io/address/0x6ce185860a4963106506C203335A2910413708e9) |
 
 Additionally [0xac140648435d03f784879cd789130f22ef588fcd](https://arbiscan.io/address/0xac140648435d03f784879cd789130F22Ef588Fcd) has been set as the emission admin for tBTC and the corresponding aToken.
 
