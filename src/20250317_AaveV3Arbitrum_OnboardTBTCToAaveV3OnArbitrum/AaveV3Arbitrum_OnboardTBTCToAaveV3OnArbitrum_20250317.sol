@@ -2,6 +2,7 @@
 pragma solidity ^0.8.0;
 
 import {AaveV3Arbitrum} from 'aave-address-book/AaveV3Arbitrum.sol';
+import {ChainlinkArbitrum} from 'aave-address-book/ChainlinkArbitrum.sol';
 import {AaveV3PayloadArbitrum} from 'aave-helpers/src/v3-config-engine/AaveV3PayloadArbitrum.sol';
 import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
@@ -36,7 +37,7 @@ contract AaveV3Arbitrum_OnboardTBTCToAaveV3OnArbitrum_20250317 is AaveV3PayloadA
     listings[0] = IAaveV3ConfigEngine.Listing({
       asset: tBTC,
       assetSymbol: 'tBTC',
-      priceFeed: 0x6ce185860a4963106506C203335A2910413708e9,
+      priceFeed: ChainlinkArbitrum.BTC_USD,
       enabledToBorrow: EngineFlags.DISABLED,
       borrowableInIsolation: EngineFlags.DISABLED,
       withSiloedBorrowing: EngineFlags.DISABLED,
