@@ -12,7 +12,7 @@ import {AaveV3Arbitrum_OnboardTBTCToAaveV3OnArbitrum_20250317} from './AaveV3Arb
 
 /**
  * @dev Test for AaveV3Arbitrum_OnboardTBTCToAaveV3OnArbitrum_20250317
- * command: FOUNDRY_PROFILE=arbitrum forge test --match-path=src/20250317_AaveV3Arbitrum_OnboardTBTCToAaveV3OnArbitrum/AaveV3Arbitrum_OnboardTBTCToAaveV3OnArbitrum_20250317.t.sol -vv
+ * command: FOUNDRY_PROFILE=test forge test --match-path=src/20250317_AaveV3Arbitrum_OnboardTBTCToAaveV3OnArbitrum/AaveV3Arbitrum_OnboardTBTCToAaveV3OnArbitrum_20250317.t.sol -vv
  */
 contract AaveV3Arbitrum_OnboardTBTCToAaveV3OnArbitrum_20250317_Test is ProtocolV3TestBase {
   AaveV3Arbitrum_OnboardTBTCToAaveV3OnArbitrum_20250317 internal proposal;
