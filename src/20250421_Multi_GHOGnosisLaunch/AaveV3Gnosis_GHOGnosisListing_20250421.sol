@@ -56,7 +56,7 @@ contract AaveV3Gnosis_GHOGnosisListing_20250421 is AaveV3PayloadGnosis {
       ltv: 0,
       liqThreshold: 0,
       liqBonus: 0,
-      reserveFactor: 0,
+      reserveFactor: 1,
       supplyCap: 2_500_000,
       borrowCap: 2_250_000,
       debtCeiling: 0,

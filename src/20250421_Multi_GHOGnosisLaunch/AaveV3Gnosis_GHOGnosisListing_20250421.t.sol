@@ -52,7 +52,7 @@ contract AaveV3Gnosis_GHOGnosisListing_20250421_Base is ProtocolV3TestBase {
     IUpgradeableBurnMintTokenPool_1_5_1(0xDe6539018B095353A40753Dc54C91C68c9487D4E);
 
   function setUp() public virtual {
-    vm.createSelectFork(vm.rpcUrl('gnosis'), 39808189);
+    vm.createSelectFork(vm.rpcUrl('gnosis'), 39942952);
     proposal = new AaveV3Gnosis_GHOGnosisListing_20250421();
   }
 
@@ -195,7 +195,7 @@ contract AaveV3Gnosis_GHOGnosisListing_20250421_Stewards is
       memory currentRateData = IDefaultInterestRateStrategyV2.InterestRateData({
         optimalUsageRatio: 90_00,
         baseVariableBorrowRate: 0,
-        variableRateSlope1: 9_50,
+        variableRateSlope1: 6_50,
         variableRateSlope2: 50_00
       });
 

@@ -20,8 +20,10 @@ import {IOwnable} from 'aave-address-book/common/IOwnable.sol';
 
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Arbitrum} from 'aave-address-book/AaveV3Arbitrum.sol';
+import {AaveV3Base} from 'aave-address-book/AaveV3Base.sol';
 import {AaveV3Gnosis} from 'aave-address-book/AaveV3Gnosis.sol';
 import {AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
+import {AaveV3BaseAssets} from 'aave-address-book/AaveV3Base.sol';
 import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {GovernanceV3Gnosis} from 'aave-address-book/GovernanceV3Gnosis.sol';
 
@@ -97,7 +99,7 @@ contract AaveV3Gnosis_GHOGnosisLaunch_20250421_Base is ProtocolV3TestBase {
   error InvalidSourcePoolAddress(bytes);
 
   function setUp() public virtual {
-    vm.createSelectFork(vm.rpcUrl('gnosis'), 39808189);
+    vm.createSelectFork(vm.rpcUrl('gnosis'));
     proposal = new AaveV3Gnosis_GHOGnosisLaunch_20250421();
     _validateConstants();
   }
@@ -346,6 +348,7 @@ contract AaveV3Gnosis_GHOGnosisLaunch_20250421_PreExecution is
 
   function test_tokenPoolConfig() public {
     executePayload(vm, address(proposal));
+    console2.log('executed tokenPoolConfig');
 
     assertEq(NEW_TOKEN_POOL.owner(), GovernanceV3Gnosis.EXECUTOR_LVL_1);
     assertEq(
@@ -359,9 +362,10 @@ contract AaveV3Gnosis_GHOGnosisLaunch_20250421_PreExecution is
     assertEq(abi.encode(NEW_TOKEN_POOL.getAllowList()), abi.encode(new address[](0)));
     assertEq(NEW_TOKEN_POOL.getRouter(), address(ROUTER));
 
-    assertEq(NEW_TOKEN_POOL.getSupportedChains().length, 2);
+    assertEq(NEW_TOKEN_POOL.getSupportedChains().length, 3);
     assertEq(NEW_TOKEN_POOL.getSupportedChains()[0], ETH_CHAIN_SELECTOR);
     assertEq(NEW_TOKEN_POOL.getSupportedChains()[1], ARB_CHAIN_SELECTOR);
+    assertEq(NEW_TOKEN_POOL.getSupportedChains()[2], BASE_CHAIN_SELECTOR);
     assertEq(
       NEW_TOKEN_POOL.getRemoteToken(ETH_CHAIN_SELECTOR),
       abi.encode(AaveV3EthereumAssets.GHO_UNDERLYING)
@@ -370,11 +374,19 @@ contract AaveV3Gnosis_GHOGnosisLaunch_20250421_PreExecution is
       NEW_TOKEN_POOL.getRemoteToken(ARB_CHAIN_SELECTOR),
       abi.encode(AaveV3ArbitrumAssets.GHO_UNDERLYING)
     );
+    assertEq(
+      NEW_TOKEN_POOL.getRemoteToken(BASE_CHAIN_SELECTOR),
+      abi.encode(AaveV3BaseAssets.GHO_UNDERLYING)
+    );
     assertEq(NEW_TOKEN_POOL.getRemotePools(ETH_CHAIN_SELECTOR).length, 1);
     assertEq(NEW_TOKEN_POOL.getRemotePools(ETH_CHAIN_SELECTOR)[0], abi.encode(NEW_REMOTE_POOL_ETH));
     assertEq(NEW_TOKEN_POOL.getRemotePools(ARB_CHAIN_SELECTOR).length, 1);
     assertEq(NEW_TOKEN_POOL.getRemotePools(ARB_CHAIN_SELECTOR)[0], abi.encode(NEW_REMOTE_POOL_ARB));
-
+    assertEq(NEW_TOKEN_POOL.getRemotePools(BASE_CHAIN_SELECTOR).length, 1);
+    assertEq(
+      NEW_TOKEN_POOL.getRemotePools(BASE_CHAIN_SELECTOR)[0],
+      abi.encode(NEW_REMOTE_POOL_BASE)
+    );
     assertEq(
       NEW_TOKEN_POOL.getCurrentInboundRateLimiterState(ETH_CHAIN_SELECTOR),
       _getRateLimiterConfig()
@@ -391,6 +403,14 @@ contract AaveV3Gnosis_GHOGnosisLaunch_20250421_PreExecution is
       NEW_TOKEN_POOL.getCurrentOutboundRateLimiterState(ARB_CHAIN_SELECTOR),
       _getRateLimiterConfig()
     );
+    assertEq(
+      NEW_TOKEN_POOL.getCurrentInboundRateLimiterState(BASE_CHAIN_SELECTOR),
+      _getRateLimiterConfig()
+    );
+    assertEq(
+      NEW_TOKEN_POOL.getCurrentOutboundRateLimiterState(BASE_CHAIN_SELECTOR),
+      _getRateLimiterConfig()
+    );
   }
 }
 
@@ -401,6 +421,7 @@ contract AaveV3Gnosis_GHOGnosisLaunch_20250421_PostExecution is
     super.setUp();
 
     executePayload(vm, address(proposal));
+    console2.log('executed setUp');
   }
 
   function test_sendMessageToArbSucceeds(uint256 amount) public {
