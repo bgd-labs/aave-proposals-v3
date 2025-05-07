@@ -110,7 +110,7 @@ contract AaveV3Base_GHOGnosisLaunch_20250421_Base is ProtocolV3TestBase {
     arb.c.forkId = vm.createFork(vm.rpcUrl('arbitrum'), 331421818);
     base.c.forkId = vm.createFork(vm.rpcUrl('base'), 29568042);
     eth.c.forkId = vm.createFork(vm.rpcUrl('mainnet'), 22374364);
-    gno.c.forkId = vm.createFork(vm.rpcUrl('gnosis'), 39808189);
+    gno.c.forkId = vm.createFork(vm.rpcUrl('gnosis'));
 
     arb.c.chainSelector = 4949039107694359620;
     base.c.chainSelector = 15971525489660198786;
@@ -125,8 +125,10 @@ contract AaveV3Base_GHOGnosisLaunch_20250421_Base is ProtocolV3TestBase {
     arb.c.router = IRouter(arb.tokenPool.getRouter());
     arb.c.gnoOnRamp = IEVM2EVMOnRamp(arb.c.router.getOnRamp(gno.c.chainSelector));
     arb.c.ethOnRamp = IEVM2EVMOnRamp(arb.c.router.getOnRamp(eth.c.chainSelector));
+    arb.c.baseOnRamp = IEVM2EVMOnRamp(arb.c.router.getOnRamp(base.c.chainSelector));
     arb.c.gnoOffRamp = IEVM2EVMOffRamp_1_5(0xeE53872d1C695933B34cE0a11B58613CBBf37e20);
     arb.c.ethOffRamp = IEVM2EVMOffRamp_1_5(0x91e46cc5590A4B9182e47f40006140A7077Dec31);
+    arb.c.baseOffRamp = IEVM2EVMOffRamp_1_5(0xb62178f8198905D0Fa6d640Bdb188E4E8143Ac4b);
 
     vm.selectFork(base.c.forkId);
     base.proposal = new AaveV3Base_GHOGnosisLaunch_20250421();
@@ -138,8 +140,10 @@ contract AaveV3Base_GHOGnosisLaunch_20250421_Base is ProtocolV3TestBase {
     base.c.router = IRouter(base.tokenPool.getRouter());
     base.c.arbOnRamp = IEVM2EVMOnRamp(base.c.router.getOnRamp(arb.c.chainSelector));
     base.c.ethOnRamp = IEVM2EVMOnRamp(base.c.router.getOnRamp(eth.c.chainSelector));
+    base.c.gnoOnRamp = IEVM2EVMOnRamp(base.c.router.getOnRamp(gno.c.chainSelector));
     base.c.arbOffRamp = IEVM2EVMOffRamp_1_5(0x7D38c6363d5E4DFD500a691Bc34878b383F58d93);
     base.c.ethOffRamp = IEVM2EVMOffRamp_1_5(0xCA04169671A81E4fB8768cfaD46c347ae65371F1);
+    base.c.gnoOffRamp = IEVM2EVMOffRamp_1_5(0x300977dBA924af14E166B31F4926892B1f310661);
 
     vm.selectFork(eth.c.forkId);
     eth.proposal = new AaveV3Ethereum_GHOGnosisLaunch_20250421();
@@ -151,8 +155,10 @@ contract AaveV3Base_GHOGnosisLaunch_20250421_Base is ProtocolV3TestBase {
     eth.c.router = IRouter(eth.tokenPool.getRouter());
     eth.c.arbOnRamp = IEVM2EVMOnRamp(eth.c.router.getOnRamp(arb.c.chainSelector));
     eth.c.gnoOnRamp = IEVM2EVMOnRamp(eth.c.router.getOnRamp(gno.c.chainSelector));
+    eth.c.baseOnRamp = IEVM2EVMOnRamp(eth.c.router.getOnRamp(base.c.chainSelector));
     eth.c.arbOffRamp = IEVM2EVMOffRamp_1_5(0xdf615eF8D4C64d0ED8Fd7824BBEd2f6a10245aC9);
     eth.c.gnoOffRamp = IEVM2EVMOffRamp_1_5(0x70C705ff3eCAA04c8c61d581a59a168a1c49c2ec);
+    eth.c.baseOffRamp = IEVM2EVMOffRamp_1_5(0x6B4B6359Dd5B47Cdb030E5921456D2a0625a9EbD);
 
     vm.selectFork(gno.c.forkId);
     gno.proposal = new AaveV3Gnosis_GHOGnosisLaunch_20250421();
@@ -205,14 +211,31 @@ contract AaveV3Base_GHOGnosisLaunch_20250421_Base is ProtocolV3TestBase {
     assertEq(arb.c.router.typeAndVersion(), 'Router 1.2.0');
     _assertOnRamp(arb.c.gnoOnRamp, arb.c.chainSelector, gno.c.chainSelector, arb.c.router);
     _assertOnRamp(arb.c.ethOnRamp, arb.c.chainSelector, eth.c.chainSelector, arb.c.router);
+    _assertOnRamp(arb.c.baseOnRamp, arb.c.chainSelector, base.c.chainSelector, arb.c.router);
     _assertOffRamp(arb.c.gnoOffRamp, gno.c.chainSelector, arb.c.chainSelector, arb.c.router);
     _assertOffRamp(arb.c.ethOffRamp, eth.c.chainSelector, arb.c.chainSelector, arb.c.router);
+    _assertOffRamp(arb.c.baseOffRamp, base.c.chainSelector, arb.c.chainSelector, arb.c.router);
 
     // proposal constants
     assertEq(arb.proposal.GNOSIS_CHAIN_SELECTOR(), gno.c.chainSelector);
     assertEq(address(arb.proposal.TOKEN_POOL()), address(arb.tokenPool));
     assertEq(arb.proposal.REMOTE_TOKEN_POOL_GNOSIS(), address(gno.tokenPool));
     assertEq(arb.proposal.REMOTE_GHO_TOKEN_GNOSIS(), address(gno.c.token));
+
+    vm.selectFork(base.c.forkId);
+    assertEq(base.c.chainSelector, 15971525489660198786);
+    assertEq(address(base.c.token), AaveV3BaseAssets.GHO_UNDERLYING);
+    assertEq(base.c.router.typeAndVersion(), 'Router 1.2.0');
+    _assertOnRamp(base.c.gnoOnRamp, base.c.chainSelector, gno.c.chainSelector, base.c.router);
+    _assertOnRamp(base.c.ethOnRamp, base.c.chainSelector, eth.c.chainSelector, base.c.router);
+    _assertOffRamp(base.c.gnoOffRamp, gno.c.chainSelector, base.c.chainSelector, base.c.router);
+    _assertOffRamp(base.c.ethOffRamp, eth.c.chainSelector, base.c.chainSelector, base.c.router);
+
+    // proposal constants
+    assertEq(base.proposal.GNOSIS_CHAIN_SELECTOR(), gno.c.chainSelector);
+    assertEq(address(base.proposal.TOKEN_POOL()), address(base.tokenPool));
+    assertEq(base.proposal.REMOTE_TOKEN_POOL_GNOSIS(), address(gno.tokenPool));
+    assertEq(base.proposal.REMOTE_GHO_TOKEN_GNOSIS(), address(gno.c.token));
 
     vm.selectFork(gno.c.forkId);
     assertEq(gno.c.chainSelector, 465200170687744372);
@@ -240,8 +263,10 @@ contract AaveV3Base_GHOGnosisLaunch_20250421_Base is ProtocolV3TestBase {
     assertEq(eth.c.router.typeAndVersion(), 'Router 1.2.0');
     _assertOnRamp(eth.c.arbOnRamp, eth.c.chainSelector, arb.c.chainSelector, eth.c.router);
     _assertOnRamp(eth.c.gnoOnRamp, eth.c.chainSelector, gno.c.chainSelector, eth.c.router);
+    _assertOnRamp(eth.c.baseOnRamp, eth.c.chainSelector, base.c.chainSelector, eth.c.router);
     _assertOffRamp(eth.c.arbOffRamp, arb.c.chainSelector, eth.c.chainSelector, eth.c.router);
     _assertOffRamp(eth.c.gnoOffRamp, gno.c.chainSelector, eth.c.chainSelector, eth.c.router);
+    _assertOffRamp(eth.c.baseOffRamp, base.c.chainSelector, eth.c.chainSelector, eth.c.router);
 
     // proposal constants
     assertEq(eth.proposal.GNOSIS_CHAIN_SELECTOR(), gno.c.chainSelector);
@@ -253,7 +278,8 @@ contract AaveV3Base_GHOGnosisLaunch_20250421_Base is ProtocolV3TestBase {
       vm.selectFork(arb.c.forkId);
       assertEq(arb.c.tokenAdminRegistry.getPool(address(arb.c.token)), address(arb.tokenPool));
       assertEq(arb.tokenPool.getSupportedChains()[0], eth.c.chainSelector);
-      assertEq(arb.tokenPool.getSupportedChains()[1], gno.c.chainSelector);
+      assertEq(arb.tokenPool.getSupportedChains()[1], base.c.chainSelector);
+      assertEq(arb.tokenPool.getSupportedChains()[2], gno.c.chainSelector);
       assertEq(arb.tokenPool.getRemoteToken(eth.c.chainSelector), abi.encode(address(eth.c.token)));
       assertEq(arb.tokenPool.getRemoteToken(gno.c.chainSelector), abi.encode(address(gno.c.token)));
       assertEq(arb.tokenPool.getRemotePools(gno.c.chainSelector).length, 1);
@@ -268,11 +294,37 @@ contract AaveV3Base_GHOGnosisLaunch_20250421_Base is ProtocolV3TestBase {
       );
       _assertSetRateLimit(arb.c, address(arb.tokenPool));
 
+      vm.selectFork(base.c.forkId);
+      assertEq(base.c.tokenAdminRegistry.getPool(address(base.c.token)), address(base.tokenPool));
+      assertEq(base.tokenPool.getSupportedChains()[0], eth.c.chainSelector);
+      assertEq(base.tokenPool.getSupportedChains()[1], arb.c.chainSelector);
+      assertEq(base.tokenPool.getSupportedChains()[2], gno.c.chainSelector);
+      assertEq(
+        base.tokenPool.getRemoteToken(eth.c.chainSelector),
+        abi.encode(address(eth.c.token))
+      );
+      assertEq(
+        base.tokenPool.getRemoteToken(gno.c.chainSelector),
+        abi.encode(address(gno.c.token))
+      );
+      assertEq(base.tokenPool.getRemotePools(gno.c.chainSelector).length, 1);
+      assertEq(
+        base.tokenPool.getRemotePools(gno.c.chainSelector)[0],
+        abi.encode(address(gno.tokenPool))
+      );
+      assertEq(base.tokenPool.getRemotePools(eth.c.chainSelector).length, 1);
+      assertEq(
+        base.tokenPool.getRemotePools(eth.c.chainSelector)[0],
+        abi.encode(address(eth.tokenPool))
+      );
+      _assertSetRateLimit(base.c, address(base.tokenPool));
+
       vm.selectFork(gno.c.forkId);
       assertEq(address(gno.proposal.GHO_TOKEN()), address(gno.c.token));
       assertEq(gno.c.tokenAdminRegistry.getPool(address(gno.c.token)), address(gno.tokenPool));
       assertEq(gno.tokenPool.getSupportedChains()[0], eth.c.chainSelector);
       assertEq(gno.tokenPool.getSupportedChains()[1], arb.c.chainSelector);
+      assertEq(gno.tokenPool.getSupportedChains()[2], base.c.chainSelector);
       assertEq(gno.tokenPool.getRemoteToken(arb.c.chainSelector), abi.encode(address(arb.c.token)));
       assertEq(gno.tokenPool.getRemoteToken(eth.c.chainSelector), abi.encode(address(eth.c.token)));
       assertEq(gno.tokenPool.getRemotePools(arb.c.chainSelector).length, 1);
@@ -285,18 +337,33 @@ contract AaveV3Base_GHOGnosisLaunch_20250421_Base is ProtocolV3TestBase {
         gno.tokenPool.getRemotePools(eth.c.chainSelector)[0],
         abi.encode(address(eth.tokenPool))
       );
+      assertEq(gno.tokenPool.getRemotePools(eth.c.chainSelector).length, 1);
+      assertEq(
+        gno.tokenPool.getRemotePools(base.c.chainSelector)[0],
+        abi.encode(address(base.tokenPool))
+      );
       _assertSetRateLimit(gno.c, address(gno.tokenPool));
 
       vm.selectFork(eth.c.forkId);
       assertEq(eth.c.tokenAdminRegistry.getPool(address(eth.c.token)), address(eth.tokenPool));
       assertEq(eth.tokenPool.getSupportedChains()[0], arb.c.chainSelector);
-      assertEq(eth.tokenPool.getSupportedChains()[1], gno.c.chainSelector);
+      assertEq(eth.tokenPool.getSupportedChains()[1], base.c.chainSelector);
+      assertEq(eth.tokenPool.getSupportedChains()[2], gno.c.chainSelector);
       assertEq(eth.tokenPool.getRemoteToken(arb.c.chainSelector), abi.encode(address(arb.c.token)));
       assertEq(eth.tokenPool.getRemoteToken(gno.c.chainSelector), abi.encode(address(gno.c.token)));
+      assertEq(
+        eth.tokenPool.getRemoteToken(base.c.chainSelector),
+        abi.encode(address(base.c.token))
+      );
       assertEq(eth.tokenPool.getRemotePools(arb.c.chainSelector).length, 2);
       assertEq(
         eth.tokenPool.getRemotePools(arb.c.chainSelector)[1], // 0th is the 1.4 token pool
         abi.encode(address(arb.tokenPool))
+      );
+      assertEq(eth.tokenPool.getRemotePools(base.c.chainSelector).length, 1);
+      assertEq(
+        eth.tokenPool.getRemotePools(base.c.chainSelector)[0],
+        abi.encode(address(base.tokenPool))
       );
       assertEq(eth.tokenPool.getRemotePools(gno.c.chainSelector).length, 1);
       assertEq(

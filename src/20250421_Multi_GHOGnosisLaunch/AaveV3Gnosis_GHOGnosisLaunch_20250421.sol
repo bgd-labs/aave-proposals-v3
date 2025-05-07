@@ -15,6 +15,7 @@ import {GhoArbitrum} from 'aave-address-book/GhoArbitrum.sol';
 import {GhoEthereum} from 'aave-address-book/GhoEthereum.sol';
 import {GhoBase} from 'aave-address-book/GhoBase.sol';
 import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
+import {AaveV3BaseAssets} from 'aave-address-book/AaveV3Base.sol';
 
 /**
  * @title GHO Gnosis Listing
@@ -135,7 +136,7 @@ contract AaveV3Gnosis_GHOGnosisLaunch_20250421 is IProposalGenericExecutor {
       chainsToAdd[2] = IUpgradeableBurnMintTokenPool_1_5_1.ChainUpdate({
         remoteChainSelector: BASE_CHAIN_SELECTOR,
         remotePoolAddresses: remotePoolAddresses,
-        remoteTokenAddress: abi.encode(AaveV3ArbitrumAssets.GHO_UNDERLYING),
+        remoteTokenAddress: abi.encode(AaveV3BaseAssets.GHO_UNDERLYING),
         outboundRateLimiterConfig: rateLimiterConfig,
         inboundRateLimiterConfig: rateLimiterConfig
       });
