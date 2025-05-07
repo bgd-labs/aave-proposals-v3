@@ -83,7 +83,7 @@ contract AaveV3Base_GHOGnosisLaunch_20250421_Gnosis is ProtocolV3TestBase {
   error InvalidSourcePoolAddress(bytes);
 
   function setUp() public virtual {
-    vm.createSelectFork(vm.rpcUrl('base'), 29570223);
+    vm.createSelectFork(vm.rpcUrl('base'), 29935731);
     proposal = new AaveV3Base_GHOGnosisLaunch_20250421();
     _validateConstants();
   }
@@ -262,14 +262,6 @@ contract AaveV3Base_GHOGnosisLaunch_20250421_PostExecution is
       abi.encode(address(NEW_REMOTE_POOL_ETH))
     );
     assertEq(
-      NEW_TOKEN_POOL.getCurrentInboundRateLimiterState(ETH_CHAIN_SELECTOR),
-      _getRateLimiterConfig()
-    );
-    assertEq(
-      NEW_TOKEN_POOL.getCurrentOutboundRateLimiterState(ETH_CHAIN_SELECTOR),
-      _getRateLimiterConfig()
-    );
-    assertEq(
       NEW_TOKEN_POOL.getCurrentInboundRateLimiterState(GNOSIS_CHAIN_SELECTOR),
       _getRateLimiterConfig()
     );
@@ -314,10 +306,13 @@ contract AaveV3Base_GHOGnosisLaunch_20250421_PostExecution is
   }
 
   function test_sendMessageToEthSucceeds(uint256 amount) public {
+    IRateLimiter.TokenBucket memory ethRateLimits = NEW_TOKEN_POOL
+      .getCurrentInboundRateLimiterState(ETH_CHAIN_SELECTOR);
     uint256 bridgeableAmount = _min(
       GHO.getFacilitator(address(NEW_TOKEN_POOL)).bucketLevel,
-      CCIP_RATE_LIMIT_CAPACITY
+      ethRateLimits.capacity
     );
+
     amount = bound(amount, 1, bridgeableAmount);
     skip(_getOutboundRefillTime(amount)); // wait for the rate limiter to refill
 
@@ -382,7 +377,10 @@ contract AaveV3Base_GHOGnosisLaunch_20250421_PostExecution is
     (uint256 bucketCapacity, uint256 bucketLevel) = GHO.getFacilitatorBucket(
       address(NEW_TOKEN_POOL)
     );
-    uint256 mintAbleAmount = _min(bucketCapacity - bucketLevel, CCIP_RATE_LIMIT_CAPACITY);
+    IRateLimiter.TokenBucket memory rateLimits = NEW_TOKEN_POOL.getCurrentInboundRateLimiterState(
+      ETH_CHAIN_SELECTOR
+    );
+    uint256 mintAbleAmount = _min(bucketCapacity - bucketLevel, rateLimits.tokens);
     amount = bound(amount, 1, mintAbleAmount);
     skip(_getInboundRefillTime(amount));
 
