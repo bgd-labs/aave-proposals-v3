@@ -21,27 +21,28 @@ Following its approval on AAVE V3 Ethereum, tBTC’s initial supply cap was reac
 
 The table below illustrates the configured risk parameters for **tBTC**
 
-| Parameter                 |                                      Value |
-| ------------------------- | -----------------------------------------: |
-| Isolation Mode            |                                      false |
-| Borrowable                |                                   DISABLED |
-| Collateral Enabled        |                                       true |
-| Supply Cap (tBTC)         |                                         50 |
-| Borrow Cap (tBTC)         |                                         1 |
-| Debt Ceiling              |                                      USD 0 |
-| LTV                       |                                       73 % |
-| LT                        |                                       78 % |
-| Liquidation Bonus         |                                      7.5 % |
-| Liquidation Protocol Fee  |                                       10 % |
-| Reserve Factor            |                                       20 % |
-| Base Variable Borrow Rate |                                        0 % |
-| Variable Slope 1          |                                        4 % |
-| Variable Slope 2          |                                      300 % |
-| Uoptimal                  |                                       45 % |
-| Flashloanable             |                                   DISABLED |
-| Siloed Borrowing          |                                   DISABLED |
-| Borrowable in Isolation   |                                   DISABLED |
+| Parameter                 |                                                                                       Value |
+| ------------------------- | ------------------------------------------------------------------------------------------: |
+| Isolation Mode            |                                                                                       false |
+| Borrowable                |                                                                                    DISABLED |
+| Collateral Enabled        |                                                                                        true |
+| Supply Cap (tBTC)         |                                                                                          50 |
+| Borrow Cap (tBTC)         |                                                                                           1 |
+| Debt Ceiling              |                                                                                       USD 0 |
+| LTV                       |                                                                                        73 % |
+| LT                        |                                                                                        78 % |
+| Liquidation Bonus         |                                                                                       7.5 % |
+| Liquidation Protocol Fee  |                                                                                        10 % |
+| Reserve Factor            |                                                                                        20 % |
+| Base Variable Borrow Rate |                                                                                         0 % |
+| Variable Slope 1          |                                                                                         4 % |
+| Variable Slope 2          |                                                                                       300 % |
+| Uoptimal                  |                                                                                        45 % |
+| Flashloanable             |                                                                                    DISABLED |
+| Siloed Borrowing          |                                                                                    DISABLED |
+| Borrowable in Isolation   |                                                                                    DISABLED |
 | Oracle                    | [Chainlink BTC/USD](https://arbiscan.io/address/0x6ce185860a4963106506C203335A2910413708e9) |
+| Oracle Latest Answer      |                                                             (2025-05-07) USD 97024.17820000 |
 
 Additionally [0xac140648435d03f784879cd789130f22ef588fcd](https://arbiscan.io/address/0xac140648435d03f784879cd789130F22Ef588Fcd) has been set as the emission admin for tBTC and the corresponding aToken.
 
