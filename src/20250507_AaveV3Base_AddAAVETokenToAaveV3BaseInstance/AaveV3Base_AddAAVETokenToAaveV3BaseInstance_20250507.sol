@@ -19,7 +19,7 @@ contract AaveV3Base_AddAAVETokenToAaveV3BaseInstance_20250507 is AaveV3PayloadBa
   using SafeERC20 for IERC20;
 
   address public constant AAVE = 0x63706e401c06ac8513145b7687A14804d17f814b;
-  uint256 public constant AAVE_SEED_AMOUNT = 65e16;
+  uint256 public constant AAVE_SEED_AMOUNT = 0.65e18;
   address public constant AAVE_LM_ADMIN = 0xac140648435d03f784879cd789130F22Ef588Fcd;
 
   function _postExecute() internal override {
