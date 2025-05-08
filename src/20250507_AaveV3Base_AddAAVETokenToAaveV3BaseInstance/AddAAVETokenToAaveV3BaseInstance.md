@@ -45,7 +45,7 @@ The table below illustrates the configured risk parameters for **AAVE**
 | Flashloanable             |                                                                                      ENABLED |
 | Siloed Borrowing          |                                                                                     DISABLED |
 | Borrowable in Isolation   |                                                                                     DISABLED |
-| Oracle                    | [Chainlink BTC/USD](https://basescan.org/address/0x3d6774EF702A10b20FCa8Ed40FC022f7E4938e07) |
+| Oracle                    | [Chainlink AAVE/USD](https://basescan.org/address/0x3d6774EF702A10b20FCa8Ed40FC022f7E4938e07) |
 | Oracle Latest Answer      |                                                                (2025-05-07) USD 169.65627000 |
 
 Additionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://basescan.org/address/0xac140648435d03f784879cd789130F22Ef588Fcd) has been set as the emission admin for AAVE and the corresponding aToken.
