@@ -25,35 +25,35 @@ Source: https://defillama.com/chains
 
 The table below illustrates the configured risk parameters for **AAVE**
 
-| Parameter                 |                                                                                        Value |
-| ------------------------- | -------------------------------------------------------------------------------------------: |
-| Isolation Mode            |                                                                                        false |
-| Borrowable                |                                                                                     DISABLED |
-| Collateral Enabled        |                                                                                         true |
-| Supply Cap (AAVE)         |                                                                                       30,000 |
-| Borrow Cap (AAVE)         |                                                                                            1 |
-| Debt Ceiling              |                                                                                        USD 0 |
-| LTV                       |                                                                                         60 % |
-| LT                        |                                                                                         65 % |
-| Liquidation Bonus         |                                                                                         10 % |
-| Liquidation Protocol Fee  |                                                                                         10 % |
-| Reserve Factor            |                                                                                         20 % |
-| Base Variable Borrow Rate |                                                                                          0 % |
-| Variable Slope 1          |                                                                                         10 % |
-| Variable Slope 2          |                                                                                        300 % |
-| Uoptimal                  |                                                                                         45 % |
-| Flashloanable             |                                                                                      ENABLED |
-| Siloed Borrowing          |                                                                                     DISABLED |
-| Borrowable in Isolation   |                                                                                     DISABLED |
+| Parameter                 |                                                                                         Value |
+| ------------------------- | --------------------------------------------------------------------------------------------: |
+| Isolation Mode            |                                                                                         false |
+| Borrowable                |                                                                                      DISABLED |
+| Collateral Enabled        |                                                                                          true |
+| Supply Cap (AAVE)         |                                                                                        30,000 |
+| Borrow Cap (AAVE)         |                                                                                             1 |
+| Debt Ceiling              |                                                                                         USD 0 |
+| LTV                       |                                                                                          60 % |
+| LT                        |                                                                                          65 % |
+| Liquidation Bonus         |                                                                                          10 % |
+| Liquidation Protocol Fee  |                                                                                          10 % |
+| Reserve Factor            |                                                                                          20 % |
+| Base Variable Borrow Rate |                                                                                           0 % |
+| Variable Slope 1          |                                                                                          10 % |
+| Variable Slope 2          |                                                                                         300 % |
+| Uoptimal                  |                                                                                          45 % |
+| Flashloanable             |                                                                                       ENABLED |
+| Siloed Borrowing          |                                                                                      DISABLED |
+| Borrowable in Isolation   |                                                                                      DISABLED |
 | Oracle                    | [Chainlink AAVE/USD](https://basescan.org/address/0x3d6774EF702A10b20FCa8Ed40FC022f7E4938e07) |
-| Oracle Latest Answer      |                                                                (2025-05-07) USD 169.65627000 |
+| Oracle Latest Answer      |                                                                 (2025-05-07) USD 169.65627000 |
 
 Additionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://basescan.org/address/0xac140648435d03f784879cd789130F22Ef588Fcd) has been set as the emission admin for AAVE and the corresponding aToken.
 
 ## References
 
-- Implementation: [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250507_AaveV3Base_AddAAVETokenToAaveV3BaseInstance/AaveV3Base_AddAAVETokenToAaveV3BaseInstance_20250507.sol)
-- Tests: [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250507_AaveV3Base_AddAAVETokenToAaveV3BaseInstance/AaveV3Base_AddAAVETokenToAaveV3BaseInstance_20250507.t.sol)
+- Implementation: [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/d469f07acb3dbec77ecfe0a9ac6d03d819b5ab43/src/20250507_AaveV3Base_AddAAVETokenToAaveV3BaseInstance/AaveV3Base_AddAAVETokenToAaveV3BaseInstance_20250507.sol)
+- Tests: [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/d469f07acb3dbec77ecfe0a9ac6d03d819b5ab43/src/20250507_AaveV3Base_AddAAVETokenToAaveV3BaseInstance/AaveV3Base_AddAAVETokenToAaveV3BaseInstance_20250507.t.sol)
 - [Snapshot](snapshot.box/#/s:aavedao.eth/proposal/0x54efdfaaccf429320071c7e56dd8f14759f2027c8f1c1fb4ef0596374c7558d8)
 - [Discussion](https://governance.aave.com/t/arfc-add-aave-token-to-aave-v3-base-instance/21105)
 
