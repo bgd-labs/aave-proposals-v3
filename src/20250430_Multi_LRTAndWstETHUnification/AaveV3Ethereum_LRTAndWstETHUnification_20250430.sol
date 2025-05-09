@@ -23,7 +23,7 @@ contract AaveV3Ethereum_LRTAndWstETHUnification_20250430 is AaveV3PayloadEthereu
       memory eModeUpdates = new IAaveV3ConfigEngine.EModeCategoryUpdate[](1);
 
     eModeUpdates[0] = IAaveV3ConfigEngine.EModeCategoryUpdate({
-      eModeCategory: 8,
+      eModeCategory: 10,
       ltv: 93_00,
       liqThreshold: 95_00,
       liqBonus: 1_00,
@@ -44,13 +44,13 @@ contract AaveV3Ethereum_LRTAndWstETHUnification_20250430 is AaveV3PayloadEthereu
 
     assetEModeUpdates[0] = IAaveV3ConfigEngine.AssetEModeUpdate({
       asset: AaveV3EthereumAssets.wstETH_UNDERLYING,
-      eModeCategory: 8,
+      eModeCategory: 10,
       borrowable: EngineFlags.ENABLED,
       collateral: EngineFlags.DISABLED
     });
     assetEModeUpdates[1] = IAaveV3ConfigEngine.AssetEModeUpdate({
       asset: AaveV3EthereumAssets.rsETH_UNDERLYING,
-      eModeCategory: 8,
+      eModeCategory: 10,
       borrowable: EngineFlags.DISABLED,
       collateral: EngineFlags.ENABLED
     });

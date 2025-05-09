@@ -175,8 +175,6 @@ Create cbETH/WETH eMode Update
 |      Collaterals      | cbETH  |
 |      Borrowable       |  wETH  |
 
-Pause the existing eMode by disabling wETH Borrowing within existing eMode. Users will not be able to borrow wETH debt within the legacy eMode upon implementation.
-
 ## References
 
 - Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250430_Multi_LRTAndWstETHUnification/AaveV3Ethereum_LRTAndWstETHUnification_20250430.sol), [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250430_Multi_LRTAndWstETHUnification/AaveV3EthereumLido_LRTAndWstETHUnification_20250430.sol), [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250430_Multi_LRTAndWstETHUnification/AaveV3Arbitrum_LRTAndWstETHUnification_20250430.sol), [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250430_Multi_LRTAndWstETHUnification/AaveV3Base_LRTAndWstETHUnification_20250430.sol)

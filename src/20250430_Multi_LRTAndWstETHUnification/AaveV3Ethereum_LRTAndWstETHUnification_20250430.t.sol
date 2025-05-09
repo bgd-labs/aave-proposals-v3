@@ -14,7 +14,7 @@ contract AaveV3Ethereum_LRTAndWstETHUnification_20250430_Test is ProtocolV3TestB
   AaveV3Ethereum_LRTAndWstETHUnification_20250430 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 22377625);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 22446550);
     proposal = new AaveV3Ethereum_LRTAndWstETHUnification_20250430();
   }
 
