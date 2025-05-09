@@ -1,7 +1,7 @@
 ---
 title: "Soneium aDI path activation"
 author: "BGD Labs @bgdlabs"
-discussions: TODO
+discussions: "https://governance.aave.com/t/technical-maintenance-proposals/15274/83"
 ---
 
 ## Simple Summary
@@ -52,7 +52,7 @@ The new Aave Governance deployments on Soneium network are as follows:
 - Payload Tests: [tests](https://github.com/bgd-labs/adi-deploy/blob/feat/soneium-path-activation/tests/payloads/ethereum/AddSoneiumPathTest.t.sol)
 - Diffs: [a.DI diffs](https://github.com/bgd-labs/adi-deploy/blob/feat/soneium-path-activation/diffs/adi_add_soneium_path_to_adiethereum_before_adi_add_soneium_path_to_adiethereum_after.md)
 - Snapshot: Direct-to-AIP
-- [Discussion]()
+- [Discussion](https://governance.aave.com/t/technical-maintenance-proposals/15274/83)
 
 ## Copyright
 
