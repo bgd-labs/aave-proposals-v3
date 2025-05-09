@@ -10,7 +10,7 @@ Proposal to register the necessary Soneium adapters on a.DI, a technical pre-req
 
 ## Motivation
 
-In order to be able to pass messages from Ethereum to Soneium via a.DI (Aave Delivery Infrastructure), it is necessary to at least have three valid adapters Ethereum → Soneium smart contracts enabled in the system.
+In order to be able to pass messages from Ethereum to Soneium via a.DI (Aave Delivery Infrastructure), it is necessary to at least have one valid adapters Ethereum → Soneium smart contract enabled in the system (native adapter).
 
 The first case of message passing Ethereum → Soneium is the activation proposal for an Aave v3 Soneium pool and consequently, to be able to execute on the Soneium side the payload, the Aave governance should approve in advance the a.DI adapters smart contracts.
 
