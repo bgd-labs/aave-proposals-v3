@@ -18,7 +18,7 @@ export const config: ConfigFile = {
           {
             assetSymbol: 'tBTC',
             decimals: 18,
-            priceFeed: '0x6ce185860a4963106506C203335A2910413708e9',
+            priceFeed: 'ChainlinkArbitrum.BTC_USD',
             ltv: '73',
             liqThreshold: '78',
             liqBonus: '7.5',
