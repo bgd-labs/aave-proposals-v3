@@ -45,12 +45,14 @@ The following adjustments are to be implemented on all instances within the same
 
 Update the current wstETH/wETH eMode
 
-|       Parameter       |    Value     |
-| :-------------------: | :----------: |
-|         Asset         | wstETH, WETH |
-|        Max LTV        |     95.0     |
-| Liquidation Threshold |     96.5     |
-|  Liquidation Penalty  |    1.00%     |
+|       Parameter       | Value  |
+| :-------------------: | :----: |
+|         Asset         | wstETH |
+|        Max LTV        |  95.0  |
+| Liquidation Threshold |  96.5  |
+|  Liquidation Penalty  | 1.00%  |
+|      Collaterals      | wstETH |
+|      Borrowable       |  WETH  |
 
 Create new v3.2 liquid eMode
 
@@ -69,16 +71,16 @@ Create new v3.2 liquid eMode
 
 rsETH/wstETH liquid eMode update.
 
-|       Parameter       | Value  |
-| :-------------------: | :----: |
-|         Asset         | rsETH  |
-|      Collateral       |  Yes   |
-|      Borrowable       |   No   |
-|        Max LTV        | 93.00% |
-| Liquidation Threshold | 95.00% |
-|  Liquidation Penalty  | 1.00%  |
-|      Collaterals      | rsETH  |
-|      Borrowable       | wstETH |
+|       Parameter       |    Value     |
+| :-------------------: | :----------: |
+|         Asset         |    rsETH     |
+|      Collateral       |     Yes      |
+|      Borrowable       |      No      |
+|        Max LTV        |    93.00%    |
+| Liquidation Threshold |    95.00%    |
+|  Liquidation Penalty  |    1.00%     |
+|      Collaterals      |    rsETH     |
+|      Borrowable       | wstETH, ETHx |
 
 ### Arbitrum
 
