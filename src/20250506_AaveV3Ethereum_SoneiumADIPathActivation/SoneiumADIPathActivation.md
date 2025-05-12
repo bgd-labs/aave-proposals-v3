@@ -24,26 +24,26 @@ This is done by calling the enableBridgeAdapters() function on the Ethereum Cros
 
 The following are the configured adapters for the Ethereum → Soneium path. The required confirmations on the path are 1 out of 1.
 
-| Network  | Soneium Native Adapter                                                                                                  |
-| -------- | ----------------------------------------------------------------------------------------------------------------------- |
-| Ethereum | [0xe66973c4571F733CafEb1BDE1fa58Ff35416d901](https://etherscan.io/address/0xe66973c4571F733CafEb1BDE1fa58Ff35416d901)   |
-| Soneium  | [0x5698e43Ef1be85C68Dec568B5925dD5DB7903e39](https://soneium.blockscout.com/0x5698e43Ef1be85C68Dec568B5925dD5DB7903e39) |
+| Network  | Soneium Native Adapter                                                                                                          |
+| -------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| Ethereum | [0xe66973c4571F733CafEb1BDE1fa58Ff35416d901](https://etherscan.io/address/0xe66973c4571F733CafEb1BDE1fa58Ff35416d901)           |
+| Soneium  | [0x5698e43Ef1be85C68Dec568B5925dD5DB7903e39](https://soneium.blockscout.com/address/0x5698e43Ef1be85C68Dec568B5925dD5DB7903e39) |
 
 The new a.DI deployments on Soneium network are as follows:
 
-| Contract             | Address                                                                                                                 |
-| -------------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| CrossChainController | [0xD92b37a5114b33F668D274Fb48f23b726a854d6E](https://soneium.blockscout.com/0xD92b37a5114b33F668D274Fb48f23b726a854d6E) |
-| Granular Guardian    | [0xD8E6956718784B914740267b7A50B952fb516656](https://soneium.blockscout.com/0xD8E6956718784B914740267b7A50B952fb516656) |
+| Contract             | Address                                                                                                                         |
+| -------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| CrossChainController | [0xD92b37a5114b33F668D274Fb48f23b726a854d6E](https://soneium.blockscout.com/address/0xD92b37a5114b33F668D274Fb48f23b726a854d6E) |
+| Granular Guardian    | [0xD8E6956718784B914740267b7A50B952fb516656](https://soneium.blockscout.com/address/0xD8E6956718784B914740267b7A50B952fb516656) |
 
 The new Aave Governance deployments on Soneium network are as follows:
 
-| Contract            | Address                                                                                                                 |
-| ------------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| PayloadsController  | [0x44D73D7C4b2f98F426Bf8B5e87628d9eE38ef0Cf](https://soneium.blockscout.com/0x44D73D7C4b2f98F426Bf8B5e87628d9eE38ef0Cf) |
-| Executor Lvl 1      | [0x47aAdaAE1F05C978E6aBb7568d11B7F6e0FC4d6A](https://soneium.blockscout.com/0x47aAdaAE1F05C978E6aBb7568d11B7F6e0FC4d6A) |
-| Governance Guardian | [0x19CE4363FEA478Aa04B9EA2937cc5A2cbcD44be6](https://soneium.blockscout.com/0x19CE4363FEA478Aa04B9EA2937cc5A2cbcD44be6) |
-| BGD Labs Guardian   | [0xdc62E0e65b2251Dc66404ca717FD32dcC365Be3A](https://soneium.blockscout.com/0xdc62E0e65b2251Dc66404ca717FD32dcC365Be3A) |
+| Contract            | Address                                                                                                                         |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| PayloadsController  | [0x44D73D7C4b2f98F426Bf8B5e87628d9eE38ef0Cf](https://soneium.blockscout.com/address/0x44D73D7C4b2f98F426Bf8B5e87628d9eE38ef0Cf) |
+| Executor Lvl 1      | [0x47aAdaAE1F05C978E6aBb7568d11B7F6e0FC4d6A](https://soneium.blockscout.com/address/0x47aAdaAE1F05C978E6aBb7568d11B7F6e0FC4d6A) |
+| Governance Guardian | [0x19CE4363FEA478Aa04B9EA2937cc5A2cbcD44be6](https://soneium.blockscout.com/address/0x19CE4363FEA478Aa04B9EA2937cc5A2cbcD44be6) |
+| BGD Labs Guardian   | [0xdc62E0e65b2251Dc66404ca717FD32dcC365Be3A](https://soneium.blockscout.com/address/0xdc62E0e65b2251Dc66404ca717FD32dcC365Be3A) |
 
 ## References
 
