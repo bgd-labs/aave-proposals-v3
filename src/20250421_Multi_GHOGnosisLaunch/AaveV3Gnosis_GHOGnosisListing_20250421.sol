@@ -24,7 +24,7 @@ contract AaveV3Gnosis_GHOGnosisListing_20250421 is AaveV3PayloadGnosis {
   address public constant GHO_PRICE_FEED = 0x360d8aa8F6b09B7BC57aF34db2Eb84dD87bf4d12;
   // https://gnosisscan.io/address/0xfc421aD3C883Bf9E7C4f42dE845C4e4405799e73
   address public constant GHO_TOKEN = 0xfc421aD3C883Bf9E7C4f42dE845C4e4405799e73;
-  uint256 public constant GHO_SEED_AMOUNT = 1e18;
+  uint256 public constant GHO_SEED_AMOUNT = 100e18;
 
   function _preExecute() internal view override {
     // robot should simulate and only execute if seed amount has been bridged, redundant check
@@ -33,7 +33,7 @@ contract AaveV3Gnosis_GHOGnosisListing_20250421 is AaveV3PayloadGnosis {
 
   function _postExecute() internal override {
     IERC20(GHO_TOKEN).forceApprove(address(AaveV3Gnosis.POOL), GHO_SEED_AMOUNT);
-    AaveV3Gnosis.POOL.supply(GHO_TOKEN, GHO_SEED_AMOUNT, address(0), 0);
+    AaveV3Gnosis.POOL.supply(GHO_TOKEN, GHO_SEED_AMOUNT, AaveV3Gnosis.DUST_BIN, 0);
 
     (address aGhoToken, , ) = AaveV3Gnosis.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(
       GHO_TOKEN
