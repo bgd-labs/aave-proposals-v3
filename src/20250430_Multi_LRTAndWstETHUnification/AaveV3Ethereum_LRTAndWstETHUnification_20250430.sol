@@ -23,38 +23,13 @@ contract AaveV3Ethereum_LRTAndWstETHUnification_20250430 is AaveV3PayloadEthereu
       memory eModeUpdates = new IAaveV3ConfigEngine.EModeCategoryUpdate[](1);
 
     eModeUpdates[0] = IAaveV3ConfigEngine.EModeCategoryUpdate({
-      eModeCategory: 10,
+      eModeCategory: 3,
       ltv: 93_00,
       liqThreshold: 95_00,
       liqBonus: 1_00,
-      label: 'rsETH/wstETH'
+      label: EngineFlags.KEEP_CURRENT_STRING
     });
 
     return eModeUpdates;
-  }
-
-  function assetsEModeUpdates()
-    public
-    pure
-    override
-    returns (IAaveV3ConfigEngine.AssetEModeUpdate[] memory)
-  {
-    IAaveV3ConfigEngine.AssetEModeUpdate[]
-      memory assetEModeUpdates = new IAaveV3ConfigEngine.AssetEModeUpdate[](2);
-
-    assetEModeUpdates[0] = IAaveV3ConfigEngine.AssetEModeUpdate({
-      asset: AaveV3EthereumAssets.wstETH_UNDERLYING,
-      eModeCategory: 10,
-      borrowable: EngineFlags.ENABLED,
-      collateral: EngineFlags.DISABLED
-    });
-    assetEModeUpdates[1] = IAaveV3ConfigEngine.AssetEModeUpdate({
-      asset: AaveV3EthereumAssets.rsETH_UNDERLYING,
-      eModeCategory: 10,
-      borrowable: EngineFlags.DISABLED,
-      collateral: EngineFlags.ENABLED
-    });
-
-    return assetEModeUpdates;
   }
 }

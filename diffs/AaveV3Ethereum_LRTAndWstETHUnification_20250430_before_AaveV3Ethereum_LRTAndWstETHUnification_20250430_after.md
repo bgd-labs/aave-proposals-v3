@@ -10,6 +10,14 @@
 
 ### EMode: rsETH LST main(id: 3)
 
+| description | value before | value after |
+| --- | --- | --- |
+| eMode.label (unchanged) | rsETH LST main | rsETH LST main |
+| eMode.ltv | 92.5 % | 93 % |
+| eMode.liquidationThreshold | 94.5 % | 95 % |
+| eMode.liquidationBonus (unchanged) | 1 % | 1 % |
+| eMode.borrowableBitmap (unchanged) | wstETH, ETHx | wstETH, ETHx |
+| eMode.collateralBitmap (unchanged) | rsETH | rsETH |
 
 
 ### EMode: LBTC_WBTC(id: 4)
@@ -36,33 +44,19 @@
 
 
 
-### EMode: rsETH/wstETH(id: 10)
-
-| description | value before | value after |
-| --- | --- | --- |
-| eMode.label | - | rsETH/wstETH |
-| eMode.ltv | - | 93 % |
-| eMode.liquidationThreshold | - | 95 % |
-| eMode.liquidationBonus | - | 1 % |
-| eMode.borrowableBitmap | - | wstETH |
-| eMode.collateralBitmap | - | rsETH |
-
-
 ## Raw diff
 
 ```json
 {
   "eModes": {
-    "10": {
-      "from": null,
-      "to": {
-        "borrowableBitmap": "2",
-        "collateralBitmap": "68719476736",
-        "eModeCategory": 10,
-        "label": "rsETH/wstETH",
-        "liquidationBonus": 10100,
-        "liquidationThreshold": 9500,
-        "ltv": 9300
+    "3": {
+      "liquidationThreshold": {
+        "from": 9450,
+        "to": 9500
+      },
+      "ltv": {
+        "from": 9250,
+        "to": 9300
       }
     }
   },
@@ -71,17 +65,13 @@
       "label": "AaveV3Ethereum.POOL",
       "balanceDiff": null,
       "stateDiff": {
-        "0xb6395f9c432dd8cece69c29d0bafa901e98160153dacb5e1d5fb45e8d47ba1d6": {
-          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "0x81d0999fde243adcc41b7fa1be5cea14f789e3a6065b815ac58f4bc0838c3155": {
+          "previousValue": "0x0000000000000000000000000000000000000000001000000000277424ea2422",
           "newValue": "0x00000000000000000000000000000000000000000010000000002774251c2454"
         },
-        "0xb6395f9c432dd8cece69c29d0bafa901e98160153dacb5e1d5fb45e8d47ba1d7": {
-          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x72734554482f7773744554480000000000000000000000000000000000000018"
-        },
-        "0xb6395f9c432dd8cece69c29d0bafa901e98160153dacb5e1d5fb45e8d47ba1d8": {
-          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000002"
+        "0x81d0999fde243adcc41b7fa1be5cea14f789e3a6065b815ac58f4bc0838c3156": {
+          "previousValue": "0x7273455448204c5354206d61696e00000000000000000000000000000000001c",
+          "newValue": "0x7273455448204c5354206d61696e00000000000000000000000000000000001c"
         }
       }
     },
