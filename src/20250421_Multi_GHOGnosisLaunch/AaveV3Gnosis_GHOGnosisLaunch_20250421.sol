@@ -74,7 +74,7 @@ contract AaveV3Gnosis_GHOGnosisLaunch_20250421 is IProposalGenericExecutor {
     GHO_TOKEN.grantRole(GHO_TOKEN.FACILITATOR_MANAGER_ROLE(), GovernanceV3Gnosis.EXECUTOR_LVL_1);
     GHO_TOKEN.grantRole(GHO_TOKEN.BUCKET_MANAGER_ROLE(), GovernanceV3Gnosis.EXECUTOR_LVL_1);
 
-    // Token Pool as facilitator with 20M GHO capacity
+    // Token Pool as facilitator with 15M GHO capacity
     GHO_TOKEN.addFacilitator(address(TOKEN_POOL), 'CCIP TokenPool v1.5.1', CCIP_BUCKET_CAPACITY);
 
     // Gho Aave Steward
