@@ -65,7 +65,7 @@ Create new asset eMode
 
 ### Core - Ethereum
 
-rsETH/wstETH liquid eMode update.
+Update the current rsETH/wstETH
 
 |       Parameter       |    Value     |
 | :-------------------: | :----------: |
@@ -77,7 +77,7 @@ rsETH/wstETH liquid eMode update.
 
 ### Arbitrum
 
-rsETH/wstETH liquid eMode update.
+Update the current rsETH/wstETH
 
 |       Parameter       | Value  |
 | :-------------------: | :----: |
@@ -87,7 +87,7 @@ rsETH/wstETH liquid eMode update.
 |      Collaterals      | rsETH  |
 |      Borrowable       | wstETH |
 
-Create new v3.2 liquid eMode
+Create new asset eMode
 
 |       Parameter       |   Value    |
 | :-------------------: | :--------: |
@@ -99,7 +99,7 @@ Create new v3.2 liquid eMode
 
 ### Base
 
-Update rsETH/wstETH liquid eMode.
+Update the current rsETH/wstETH eMode
 
 |       Parameter       | Value  |
 | :-------------------: | :----: |
@@ -109,7 +109,7 @@ Update rsETH/wstETH liquid eMode.
 |      Collaterals      | rsETH  |
 |      Borrowable       | wstETH |
 
-Create new v3.2 liquid eMode
+Create new asset eMode
 
 |       Parameter       | Value  |
 | :-------------------: | :----: |
@@ -119,7 +119,7 @@ Create new v3.2 liquid eMode
 |      Collaterals      | rsETH  |
 |      Borrowable       |  USDC  |
 
-Create weETH/wETH liquid eMode.
+Create new asset eMode
 
 |       Parameter       | Value  |
 | :-------------------: | :----: |
@@ -129,7 +129,7 @@ Create weETH/wETH liquid eMode.
 |      Collaterals      | weETH  |
 |      Borrowable       |  wETH  |
 
-Create wstETH/WETH eMode
+Create new asset eMode
 
 |       Parameter       | Value  |
 | :-------------------: | :----: |
@@ -139,7 +139,7 @@ Create wstETH/WETH eMode
 |      Collaterals      | wstETH |
 |      Borrowable       |  wETH  |
 
-Create cbETH/WETH eMode Update
+Create new asset eMode
 
 |       Parameter       | Value  |
 | :-------------------: | :----: |
