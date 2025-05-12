@@ -48,9 +48,9 @@ The new Aave Governance deployments on Soneium network are as follows:
 ## References
 
 - Adapter Implementations: [Soneium Native Adapters](https://github.com/bgd-labs/aave-delivery-infrastructure/blob/4509fff1467c02488296a47f617afaafd82d1454/src/contracts/adapters/soneium/soneiumAdapter.sol)
-- Payload Implementation: [Payload](https://github.com/bgd-labs/adi-deploy/blob/feat/soneium-path-activation/scripts/payloads/adapters/ethereum/Ethereum_Activate_Soneium_Bridge_Adapter_Payload.s.sol)
-- Payload Tests: [tests](https://github.com/bgd-labs/adi-deploy/blob/feat/soneium-path-activation/tests/payloads/ethereum/AddSoneiumPathTest.t.sol)
-- Diffs: [a.DI diffs](https://github.com/bgd-labs/adi-deploy/blob/feat/soneium-path-activation/diffs/adi_add_soneium_path_to_adiethereum_before_adi_add_soneium_path_to_adiethereum_after.md)
+- Payload Implementation: [Payload](https://github.com/bgd-labs/adi-deploy/blob/be5cbd5c5daf24b07ff9f4906ad69cef129838c4/scripts/payloads/adapters/ethereum/Ethereum_Activate_Soneium_Bridge_Adapter_Payload.s.sol)
+- Payload Tests: [tests](https://github.com/bgd-labs/adi-deploy/blob/be5cbd5c5daf24b07ff9f4906ad69cef129838c4/tests/payloads/ethereum/AddSoneiumPathTest.t.sol)
+- Diffs: [a.DI diffs](https://github.com/bgd-labs/adi-deploy/blob/be5cbd5c5daf24b07ff9f4906ad69cef129838c4/diffs/adi_add_soneium_path_to_adiethereum_before_adi_add_soneium_path_to_adiethereum_after.md)
 - Snapshot: Direct-to-AIP
 - [Discussion](https://governance.aave.com/t/technical-maintenance-proposals/15274/83)
 
