@@ -148,7 +148,7 @@ contract AaveV3Gnosis_GHOGnosisListing_20250421_Listing is
     (address aGhoToken, , ) = AaveV3Gnosis.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(
       proposal.GHO_TOKEN()
     );
-    assertGe(IERC20(aGhoToken).balanceOf(address(0)), proposal.GHO_SEED_AMOUNT());
+    assertGe(IERC20(aGhoToken).balanceOf(AaveV3Gnosis.DUST_BIN), proposal.GHO_SEED_AMOUNT());
   }
 
   function test_ghoPriceFeed() public view {
