@@ -59,8 +59,6 @@ Create new v3.2 liquid eMode
 |       Parameter       |      Value      |
 | :-------------------: | :-------------: |
 |         Asset         |      rsETH      |
-|      Collateral       |       Yes       |
-|      Borrowable       |       No        |
 |        Max LTV        |     72.00%      |
 | Liquidation Threshold |     75.00%      |
 |  Liquidation Penalty  |      7.50%      |
@@ -74,8 +72,6 @@ rsETH/wstETH liquid eMode update.
 |       Parameter       |    Value     |
 | :-------------------: | :----------: |
 |         Asset         |    rsETH     |
-|      Collateral       |     Yes      |
-|      Borrowable       |      No      |
 |        Max LTV        |    93.00%    |
 | Liquidation Threshold |    95.00%    |
 |  Liquidation Penalty  |    1.00%     |
@@ -89,8 +85,6 @@ rsETH/wstETH liquid eMode update.
 |       Parameter       | Value  |
 | :-------------------: | :----: |
 |         Asset         | rsETH  |
-|      Collateral       |  Yes   |
-|      Borrowable       |   No   |
 |        Max LTV        | 93.00% |
 | Liquidation Threshold | 95.00% |
 |  Liquidation Penalty  | 1.00%  |
@@ -102,8 +96,6 @@ Create new v3.2 liquid eMode
 |       Parameter       |   Value    |
 | :-------------------: | :--------: |
 |         Asset         |   rsETH    |
-|      Collateral       |    Yes     |
-|      Borrowable       |     No     |
 |        Max LTV        |   72.00%   |
 | Liquidation Threshold |   75.00%   |
 |  Liquidation Penalty  |   7.50%    |
@@ -117,8 +109,6 @@ Update rsETH/wstETH liquid eMode.
 |       Parameter       | Value  |
 | :-------------------: | :----: |
 |         Asset         | rsETH  |
-|      Collateral       |  Yes   |
-|      Borrowable       |   No   |
 |        Max LTV        | 93.00% |
 | Liquidation Threshold | 95.00% |
 |  Liquidation Penalty  | 1.00%  |
@@ -130,8 +120,6 @@ Create new v3.2 liquid eMode
 |       Parameter       | Value  |
 | :-------------------: | :----: |
 |         Asset         | rsETH  |
-|      Collateral       |  Yes   |
-|      Borrowable       |   No   |
 |        Max LTV        | 72.00% |
 | Liquidation Threshold | 75.00% |
 |  Liquidation Penalty  | 7.50%  |
@@ -143,8 +131,6 @@ Create weETH/wETH liquid eMode.
 |       Parameter       | Value  |
 | :-------------------: | :----: |
 |         Asset         | weETH  |
-|      Collateral       |  Yes   |
-|      Borrowable       |   No   |
 |        Max LTV        | 93.00% |
 | Liquidation Threshold | 95.00% |
 |  Liquidation Penalty  | 1.25%  |
@@ -156,8 +142,6 @@ Create wstETH/WETH eMode
 |       Parameter       | Value  |
 | :-------------------: | :----: |
 |         Asset         | wstETH |
-|      Collateral       |  Yes   |
-|      Borrowable       |   No   |
 |        Max LTV        | 93.00% |
 | Liquidation Threshold | 95.00% |
 |  Liquidation Penalty  | 1.00%  |
@@ -169,8 +153,6 @@ Create cbETH/WETH eMode Update
 |       Parameter       | Value  |
 | :-------------------: | :----: |
 |         Asset         | cbETH  |
-|      Collateral       |  Yes   |
-|      Borrowable       |   No   |
 |        Max LTV        | 93.00% |
 | Liquidation Threshold | 95.00% |
 |  Liquidation Penalty  | 2.00%  |
