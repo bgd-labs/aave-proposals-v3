@@ -53,7 +53,7 @@ Update the current wstETH/wETH eMode
 |      Collaterals      | wstETH |
 |      Borrowable       |  WETH  |
 
-Create new asset eMode
+Create new rsETH/Stablecoins eMode
 
 |       Parameter       |      Value      |
 | :-------------------: | :-------------: |
@@ -87,7 +87,7 @@ Update the current rsETH/wstETH
 |      Collaterals      | rsETH  |
 |      Borrowable       | wstETH |
 
-Create new asset eMode
+Create new rsETH/Stablecoins eMode
 
 |       Parameter       |   Value    |
 | :-------------------: | :--------: |
@@ -109,7 +109,7 @@ Update the current rsETH/wstETH eMode
 |      Collaterals      | rsETH  |
 |      Borrowable       | wstETH |
 
-Create new asset eMode
+Create new rsETH/USDC eMode
 
 |       Parameter       | Value  |
 | :-------------------: | :----: |
@@ -119,7 +119,7 @@ Create new asset eMode
 |      Collaterals      | rsETH  |
 |      Borrowable       |  USDC  |
 
-Create new asset eMode
+Create new weETH/wETH eMode
 
 |       Parameter       | Value  |
 | :-------------------: | :----: |
@@ -129,7 +129,7 @@ Create new asset eMode
 |      Collaterals      | weETH  |
 |      Borrowable       |  wETH  |
 
-Create new asset eMode
+Create new wstETH/wETH eMode
 
 |       Parameter       | Value  |
 | :-------------------: | :----: |
@@ -139,7 +139,7 @@ Create new asset eMode
 |      Collaterals      | wstETH |
 |      Borrowable       |  wETH  |
 
-Create new asset eMode
+Create new cbETH/WETH eMode
 
 |       Parameter       | Value  |
 | :-------------------: | :----: |
