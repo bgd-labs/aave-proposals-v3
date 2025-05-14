@@ -26,6 +26,7 @@ import {MiscArbitrum} from 'aave-address-book/MiscArbitrum.sol';
 import {ProxyAdmin, ITransparentUpgradeableProxy} from 'openzeppelin-contracts/contracts/proxy/transparent/ProxyAdmin.sol';
 
 import {CCIPUtils} from './utils/CCIPUtils.sol';
+import {GHOLaunchConstants} from './utils/GHOLaunchConstants.sol';
 
 import {AaveV3Arbitrum_GHOGnosisLaunch_20250421} from './AaveV3Arbitrum_GHOGnosisLaunch_20250421.sol';
 
@@ -44,31 +45,31 @@ contract AaveV3Arbitrum_GHOGnosisLaunch_20250421_Gnosis is ProtocolV3TestBase {
   uint64 internal constant BASE_CHAIN_SELECTOR = CCIPUtils.BASE_CHAIN_SELECTOR;
   uint64 internal constant ETH_CHAIN_SELECTOR = CCIPUtils.ETH_CHAIN_SELECTOR;
   uint64 internal constant GNOSIS_CHAIN_SELECTOR = CCIPUtils.GNOSIS_CHAIN_SELECTOR;
-  uint128 public constant CCIP_RATE_LIMIT_CAPACITY = 1_000_000e18;
-  uint128 public constant CCIP_RATE_LIMIT_REFILL_RATE = 200e18;
+  uint128 public constant CCIP_RATE_LIMIT_CAPACITY = GHOLaunchConstants.CCIP_RATE_LIMIT_CAPACITY;
+  uint128 public constant CCIP_RATE_LIMIT_REFILL_RATE =
+    GHOLaunchConstants.CCIP_RATE_LIMIT_REFILL_RATE;
 
   IGhoToken internal constant GHO = IGhoToken(AaveV3ArbitrumAssets.GHO_UNDERLYING);
   ITokenAdminRegistry internal constant TOKEN_ADMIN_REGISTRY =
-    ITokenAdminRegistry(0x39AE1032cF4B334a1Ed41cdD0833bdD7c7E7751E);
-  IEVM2EVMOnRamp internal constant ETH_ON_RAMP =
-    IEVM2EVMOnRamp(0x67761742ac8A21Ec4D76CA18cbd701e5A6F3Bef3);
+    ITokenAdminRegistry(GHOLaunchConstants.ARB_TOKEN_ADMIN_REGISTRY);
+  IEVM2EVMOnRamp internal constant ETH_ON_RAMP = IEVM2EVMOnRamp(GHOLaunchConstants.ARB_ETH_ON_RAMP);
   IEVM2EVMOnRamp internal constant GNOSIS_ON_RAMP =
-    IEVM2EVMOnRamp(0xc7d6B885d8A4286E6311F79227430b7862311cd3);
+    IEVM2EVMOnRamp(GHOLaunchConstants.ARB_GNO_ON_RAMP);
   IEVM2EVMOffRamp_1_5 internal constant ETH_OFF_RAMP =
-    IEVM2EVMOffRamp_1_5(0x91e46cc5590A4B9182e47f40006140A7077Dec31);
+    IEVM2EVMOffRamp_1_5(GHOLaunchConstants.ARB_ETH_OFF_RAMP);
   IEVM2EVMOffRamp_1_5 internal constant GNOSIS_OFF_RAMP =
-    IEVM2EVMOffRamp_1_5(0xeE53872d1C695933B34cE0a11B58613CBBf37e20);
+    IEVM2EVMOffRamp_1_5(GHOLaunchConstants.ARB_GNO_OFF_RAMP);
 
-  address internal constant RISK_COUNCIL = 0x8513e6F37dBc52De87b166980Fa3F50639694B60;
-  address public constant NEW_REMOTE_TOKEN_GNOSIS = 0xfc421aD3C883Bf9E7C4f42dE845C4e4405799e73;
-  IRouter internal constant ROUTER = IRouter(0x141fa059441E0ca23ce184B6A78bafD2A517DdE8);
+  address internal constant RISK_COUNCIL = GHOLaunchConstants.RISK_COUNCIL;
+  address public constant NEW_REMOTE_TOKEN_GNOSIS = GHOLaunchConstants.GNO_GHO_TOKEN;
+  IRouter internal constant ROUTER = IRouter(GHOLaunchConstants.ARB_CCIP_ROUTER);
   IGhoCcipSteward internal constant NEW_GHO_CCIP_STEWARD =
-    IGhoCcipSteward(0xCd5ab470AaC5c13e1063ee700503f3346b7C90Db);
+    IGhoCcipSteward(GHOLaunchConstants.ARB_CCIP_STEWARD);
   IUpgradeableBurnMintTokenPool_1_5_1 internal constant NEW_TOKEN_POOL =
-    IUpgradeableBurnMintTokenPool_1_5_1(0xB94Ab28c6869466a46a42abA834ca2B3cECCA5eB);
-  address internal constant NEW_REMOTE_POOL_ETH = 0x06179f7C1be40863405f374E7f5F8806c728660A;
-  address internal constant NEW_REMOTE_POOL_BASE = 0x98217A06721Ebf727f2C8d9aD7718ec28b7aAe34;
-  address internal constant NEW_REMOTE_POOL_GNOSIS = 0xDe6539018B095353A40753Dc54C91C68c9487D4E;
+    IUpgradeableBurnMintTokenPool_1_5_1(GHOLaunchConstants.ARB_TOKEN_POOL);
+  address internal constant NEW_REMOTE_POOL_ETH = GHOLaunchConstants.ETH_TOKEN_POOL;
+  address internal constant NEW_REMOTE_POOL_BASE = GHOLaunchConstants.BASE_TOKEN_POOL;
+  address internal constant NEW_REMOTE_POOL_GNOSIS = GHOLaunchConstants.GNO_TOKEN_POOL;
 
   AaveV3Arbitrum_GHOGnosisLaunch_20250421 internal proposal;
 
