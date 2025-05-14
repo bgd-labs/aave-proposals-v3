@@ -45,7 +45,7 @@ contract CreateProposal is EthereumScript {
     GovV3Helpers.createProposal(
       vm,
       payloads,
-      GovernanceV3Ethereum.VOTING_PORTAL_ETH_ETH,
+      GovernanceV3Ethereum.VOTING_PORTAL_ETH_POL,
       GovV3Helpers.ipfsHashFile(
         vm,
         'src/20250506_AaveV3Ethereum_SoneiumADIPathActivation/SoneiumADIPathActivation.md'
