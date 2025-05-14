@@ -16,6 +16,8 @@ import {GhoEthereum} from 'aave-address-book/GhoEthereum.sol';
 import {GhoBase} from 'aave-address-book/GhoBase.sol';
 import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {AaveV3BaseAssets} from 'aave-address-book/AaveV3Base.sol';
+import {CCIPUtils} from './utils/CCIPUtils.sol';
+import {GHOLaunchConstants} from './utils/GHOLaunchConstants.sol';
 
 /**
  * @title GHO Gnosis Listing
@@ -24,28 +26,29 @@ import {AaveV3BaseAssets} from 'aave-address-book/AaveV3Base.sol';
  * - Snapshot: https://snapshot.box/#/s:aavedao.eth/proposal/0x62996204d8466d603fe8c953176599db02a23f440a682ff15ba2d0ca63dda386
  */
 contract AaveV3Gnosis_GHOGnosisLaunch_20250421 is IProposalGenericExecutor {
-  uint64 public constant ETH_CHAIN_SELECTOR = 5009297550715157269;
-  uint64 public constant ARB_CHAIN_SELECTOR = 4949039107694359620;
-  uint64 public constant BASE_CHAIN_SELECTOR = 15971525489660198786;
+  uint64 public constant BASE_CHAIN_SELECTOR = CCIPUtils.BASE_CHAIN_SELECTOR;
+  uint64 public constant ARB_CHAIN_SELECTOR = CCIPUtils.ARB_CHAIN_SELECTOR;
+  uint64 public constant ETH_CHAIN_SELECTOR = CCIPUtils.ETH_CHAIN_SELECTOR;
+  uint64 public constant GNOSIS_CHAIN_SELECTOR = CCIPUtils.GNOSIS_CHAIN_SELECTOR;
 
-  uint128 public constant CCIP_BUCKET_CAPACITY = 15_000_000e18; // 15M GHO
+  uint128 public constant CCIP_BUCKET_CAPACITY = GHOLaunchConstants.CCIP_BUCKET_CAPACITY; // 15M GHO
 
   // https://gnosisscan.io/address/0x73BC11423CBF14914998C23B0aFC9BE0cb5B2229
   ITokenAdminRegistry public constant TOKEN_ADMIN_REGISTRY =
-    ITokenAdminRegistry(0x73BC11423CBF14914998C23B0aFC9BE0cb5B2229);
+    ITokenAdminRegistry(GHOLaunchConstants.GNO_TOKEN_ADMIN_REGISTRY);
   // https://gnosisscan.io/address/0xDe6539018B095353A40753Dc54C91C68c9487D4E
   IUpgradeableBurnMintTokenPool_1_5_1 public constant TOKEN_POOL =
-    IUpgradeableBurnMintTokenPool_1_5_1(0xDe6539018B095353A40753Dc54C91C68c9487D4E);
+    IUpgradeableBurnMintTokenPool_1_5_1(GHOLaunchConstants.GNO_TOKEN_POOL);
 
   // https://gnosisscan.io/address/0xfc421aD3C883Bf9E7C4f42dE845C4e4405799e73
-  IGhoToken public constant GHO_TOKEN = IGhoToken(0xfc421aD3C883Bf9E7C4f42dE845C4e4405799e73);
+  IGhoToken public constant GHO_TOKEN = IGhoToken(GHOLaunchConstants.GNO_GHO_TOKEN);
 
   // https://gnosisscan.io/address/0x6e637e1E48025E51315d50ab96d5b3be1971A715
-  address public constant GHO_AAVE_STEWARD = 0x6e637e1E48025E51315d50ab96d5b3be1971A715;
+  address public constant GHO_AAVE_STEWARD = GHOLaunchConstants.GNO_AAVE_STEWARD;
   // https://gnosisscan.io/address/0x6Bb7a212910682DCFdbd5BCBb3e28FB4E8da10Ee
-  address public constant GHO_BUCKET_STEWARD = 0x6Bb7a212910682DCFdbd5BCBb3e28FB4E8da10Ee;
+  address public constant GHO_BUCKET_STEWARD = GHOLaunchConstants.GNO_BUCKET_STEWARD;
   // https://gnosisscan.io/address/0x06179f7C1be40863405f374E7f5F8806c728660A
-  address public constant GHO_CCIP_STEWARD = 0x06179f7C1be40863405f374E7f5F8806c728660A;
+  address public constant GHO_CCIP_STEWARD = GHOLaunchConstants.GNO_CCIP_STEWARD;
 
   // https://etherscan.io/address/0x06179f7C1be40863405f374E7f5F8806c728660A
   address public constant REMOTE_TOKEN_POOL_ETH = GhoEthereum.GHO_CCIP_TOKEN_POOL;
@@ -55,9 +58,10 @@ contract AaveV3Gnosis_GHOGnosisLaunch_20250421 is IProposalGenericExecutor {
   address public constant REMOTE_TOKEN_POOL_BASE = GhoBase.GHO_CCIP_TOKEN_POOL;
 
   // Token Rate Limit Capacity: 300_000 GHO
-  uint128 public constant CCIP_RATE_LIMIT_CAPACITY = 1_000_000e18;
+  uint128 public constant CCIP_RATE_LIMIT_CAPACITY = GHOLaunchConstants.CCIP_RATE_LIMIT_CAPACITY;
   // Token Rate Limit Refill Rate: 60 GHO per second (=> 216_000 GHO per hour)
-  uint128 public constant CCIP_RATE_LIMIT_REFILL_RATE = 200e18;
+  uint128 public constant CCIP_RATE_LIMIT_REFILL_RATE =
+    GHOLaunchConstants.CCIP_RATE_LIMIT_REFILL_RATE;
 
   function execute() external {
     _acceptOwnership();

@@ -24,6 +24,7 @@ import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {AaveV3BaseAssets} from 'aave-address-book/AaveV3Base.sol';
 
 import {CCIPUtils} from './utils/CCIPUtils.sol';
+import {GHOLaunchConstants} from './utils/GHOLaunchConstants.sol';
 import {AaveV3Arbitrum_GHOGnosisLaunch_20250421} from './AaveV3Arbitrum_GHOGnosisLaunch_20250421.sol';
 import {AaveV3Base_GHOGnosisLaunch_20250421} from './AaveV3Base_GHOGnosisLaunch_20250421.sol';
 import {AaveV3Ethereum_GHOGnosisLaunch_20250421} from './AaveV3Ethereum_GHOGnosisLaunch_20250421.sol';
@@ -78,14 +79,14 @@ contract AaveV3Base_GHOGnosisLaunch_20250421_Base is ProtocolV3TestBase {
     Common c;
   }
 
-  address internal constant RISK_COUNCIL = 0x8513e6F37dBc52De87b166980Fa3F50639694B60; // common across all chains
-  address internal constant RMN_PROXY_GNOSIS = 0xf5e5e1676942520995c1e39aFaC58A75Fe1cd2bB;
-  address internal constant ROUTER_GNOSIS = 0x4aAD6071085df840abD9Baf1697d5D5992bDadce;
-  address internal constant GHO_TOKEN_IMPL_GNOSIS = 0xb0e1c7830aA781362f79225559Aa068E6bDaF1d1;
-  IGhoToken internal constant GHO_TOKEN_GNOSIS =
-    IGhoToken(0xfc421aD3C883Bf9E7C4f42dE845C4e4405799e73);
-  uint128 public constant CCIP_RATE_LIMIT_CAPACITY = 1_000_000e18;
-  uint128 public constant CCIP_RATE_LIMIT_REFILL_RATE = 200e18;
+  address internal constant RISK_COUNCIL = GHOLaunchConstants.RISK_COUNCIL; // common across all chains
+  address internal constant RMN_PROXY_GNOSIS = GHOLaunchConstants.GNO_RMN_PROXY;
+  address internal constant ROUTER_GNOSIS = GHOLaunchConstants.GNO_CCIP_ROUTER;
+  address internal constant GHO_TOKEN_IMPL_GNOSIS = GHOLaunchConstants.GNO_GHO_TOKEN_IMPL;
+  IGhoToken internal constant GHO_TOKEN_GNOSIS = IGhoToken(GHOLaunchConstants.GNO_GHO_TOKEN);
+  uint128 public constant CCIP_RATE_LIMIT_CAPACITY = GHOLaunchConstants.CCIP_RATE_LIMIT_CAPACITY;
+  uint128 public constant CCIP_RATE_LIMIT_REFILL_RATE =
+    GHOLaunchConstants.CCIP_RATE_LIMIT_REFILL_RATE;
 
   ARB internal arb;
   BASE internal base;
@@ -110,7 +111,7 @@ contract AaveV3Base_GHOGnosisLaunch_20250421_Base is ProtocolV3TestBase {
     arb.c.forkId = vm.createFork(vm.rpcUrl('arbitrum'), 334347740);
     base.c.forkId = vm.createFork(vm.rpcUrl('base'), 29935731);
     eth.c.forkId = vm.createFork(vm.rpcUrl('mainnet'), 22374364);
-    gno.c.forkId = vm.createFork(vm.rpcUrl('gnosis'), 39948534);
+    gno.c.forkId = vm.createFork(vm.rpcUrl('gnosis'), 40060731);
 
     arb.c.chainSelector = 4949039107694359620;
     base.c.chainSelector = 15971525489660198786;

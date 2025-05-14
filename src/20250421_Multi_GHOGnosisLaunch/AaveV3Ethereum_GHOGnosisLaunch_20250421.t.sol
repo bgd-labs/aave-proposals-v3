@@ -21,6 +21,7 @@ import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
 import {AaveV3BaseAssets} from 'aave-address-book/AaveV3Base.sol';
 import {CCIPUtils} from './utils/CCIPUtils.sol';
+import {GHOLaunchConstants} from './utils/GHOLaunchConstants.sol';
 
 import {AaveV3Ethereum_GHOGnosisLaunch_20250421} from './AaveV3Ethereum_GHOGnosisLaunch_20250421.sol';
 
@@ -39,35 +40,35 @@ contract AaveV3Ethereum_GHOGnosisLaunch_20250421_Test is ProtocolV3TestBase {
   uint64 internal constant GNOSIS_CHAIN_SELECTOR = CCIPUtils.GNOSIS_CHAIN_SELECTOR;
   uint64 internal constant ETH_CHAIN_SELECTOR = CCIPUtils.ETH_CHAIN_SELECTOR;
   uint64 internal constant BASE_CHAIN_SELECTOR = CCIPUtils.BASE_CHAIN_SELECTOR;
-  uint128 public constant CCIP_RATE_LIMIT_CAPACITY = 1_000_000e18;
-  uint128 public constant CCIP_RATE_LIMIT_REFILL_RATE = 200e18;
+  uint128 public constant CCIP_RATE_LIMIT_CAPACITY = GHOLaunchConstants.CCIP_RATE_LIMIT_CAPACITY;
+  uint128 public constant CCIP_RATE_LIMIT_REFILL_RATE =
+    GHOLaunchConstants.CCIP_RATE_LIMIT_REFILL_RATE;
 
   IGhoToken internal constant GHO = IGhoToken(AaveV3EthereumAssets.GHO_UNDERLYING);
   ITokenAdminRegistry internal constant TOKEN_ADMIN_REGISTRY =
-    ITokenAdminRegistry(0xb22764f98dD05c789929716D677382Df22C05Cb6);
-  IEVM2EVMOnRamp internal constant ARB_ON_RAMP =
-    IEVM2EVMOnRamp(0x69eCC4E2D8ea56E2d0a05bF57f4Fd6aEE7f2c284);
+    ITokenAdminRegistry(GHOLaunchConstants.ETH_TOKEN_ADMIN_REGISTRY);
+  IEVM2EVMOnRamp internal constant ARB_ON_RAMP = IEVM2EVMOnRamp(GHOLaunchConstants.ETH_ARB_ON_RAMP);
   IEVM2EVMOnRamp internal constant BASE_ON_RAMP =
-    IEVM2EVMOnRamp(0xb8a882f3B88bd52D1Ff56A873bfDB84b70431937);
+    IEVM2EVMOnRamp(GHOLaunchConstants.ETH_BASE_ON_RAMP);
   IEVM2EVMOnRamp internal constant GNOSIS_ON_RAMP =
-    IEVM2EVMOnRamp(0xf50B9A46C394bD98491ce163d420222d8030F6F0);
+    IEVM2EVMOnRamp(GHOLaunchConstants.ETH_GNO_ON_RAMP);
   IEVM2EVMOffRamp_1_5 internal constant ARB_OFF_RAMP =
-    IEVM2EVMOffRamp_1_5(0xdf615eF8D4C64d0ED8Fd7824BBEd2f6a10245aC9);
+    IEVM2EVMOffRamp_1_5(GHOLaunchConstants.ETH_ARB_OFF_RAMP);
   IEVM2EVMOffRamp_1_5 internal constant BASE_OFF_RAMP =
-    IEVM2EVMOffRamp_1_5(0x6B4B6359Dd5B47Cdb030E5921456D2a0625a9EbD);
+    IEVM2EVMOffRamp_1_5(GHOLaunchConstants.ETH_BASE_OFF_RAMP);
   IEVM2EVMOffRamp_1_5 internal constant GNOSIS_OFF_RAMP =
-    IEVM2EVMOffRamp_1_5(0x70C705ff3eCAA04c8c61d581a59a168a1c49c2ec);
+    IEVM2EVMOffRamp_1_5(GHOLaunchConstants.ETH_GNO_OFF_RAMP);
 
-  address public constant NEW_REMOTE_TOKEN_GNOSIS = 0xfc421aD3C883Bf9E7C4f42dE845C4e4405799e73;
-  address internal constant NEW_REMOTE_POOL_ARB = 0xB94Ab28c6869466a46a42abA834ca2B3cECCA5eB;
-  address internal constant NEW_REMOTE_POOL_BASE = 0x98217A06721Ebf727f2C8d9aD7718ec28b7aAe34;
-  address internal constant NEW_REMOTE_POOL_GNOSIS = 0xDe6539018B095353A40753Dc54C91C68c9487D4E;
-  address internal constant RISK_COUNCIL = 0x8513e6F37dBc52De87b166980Fa3F50639694B60; // common across all chains
-  IRouter internal constant ROUTER = IRouter(0x80226fc0Ee2b096224EeAc085Bb9a8cba1146f7D);
+  address public constant NEW_REMOTE_TOKEN_GNOSIS = GHOLaunchConstants.GNO_GHO_TOKEN;
+  address internal constant NEW_REMOTE_POOL_ARB = GHOLaunchConstants.ARB_TOKEN_POOL;
+  address internal constant NEW_REMOTE_POOL_BASE = GHOLaunchConstants.BASE_TOKEN_POOL;
+  address internal constant NEW_REMOTE_POOL_GNOSIS = GHOLaunchConstants.GNO_TOKEN_POOL;
+  address internal constant RISK_COUNCIL = GHOLaunchConstants.RISK_COUNCIL; // common across all chains
+  IRouter internal constant ROUTER = IRouter(GHOLaunchConstants.ETH_CCIP_ROUTER);
   IGhoCcipSteward internal constant NEW_GHO_CCIP_STEWARD =
-    IGhoCcipSteward(0xC5BcC58BE6172769ca1a78B8A45752E3C5059c39);
+    IGhoCcipSteward(GHOLaunchConstants.ETH_CCIP_STEWARD);
   IUpgradeableLockReleaseTokenPool_1_5_1 internal constant NEW_TOKEN_POOL =
-    IUpgradeableLockReleaseTokenPool_1_5_1(0x06179f7C1be40863405f374E7f5F8806c728660A);
+    IUpgradeableLockReleaseTokenPool_1_5_1(GHOLaunchConstants.ETH_TOKEN_POOL);
 
   AaveV3Ethereum_GHOGnosisLaunch_20250421 internal proposal;
 

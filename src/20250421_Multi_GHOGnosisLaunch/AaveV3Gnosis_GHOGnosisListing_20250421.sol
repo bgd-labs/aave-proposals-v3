@@ -8,6 +8,7 @@ import {IEmissionManager} from 'aave-v3-origin/contracts/rewards/interfaces/IEmi
 import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
 import {AaveV3PayloadGnosis} from 'aave-helpers/src/v3-config-engine/AaveV3PayloadGnosis.sol';
 import {AaveV3Gnosis} from 'aave-address-book/AaveV3Gnosis.sol';
+import {GHOLaunchConstants} from './utils/GHOLaunchConstants.sol';
 
 /**
  * @title GHO Gnosis Listing
@@ -21,9 +22,9 @@ contract AaveV3Gnosis_GHOGnosisListing_20250421 is AaveV3PayloadGnosis {
   // https://gnosisscan.io/address/0xac140648435d03f784879cd789130F22Ef588Fcd
   address public constant EMISSION_ADMIN = 0xac140648435d03f784879cd789130F22Ef588Fcd;
   // https://gnosisscan.io/address/0x360d8aa8F6b09B7BC57aF34db2Eb84dD87bf4d12
-  address public constant GHO_PRICE_FEED = 0x360d8aa8F6b09B7BC57aF34db2Eb84dD87bf4d12;
+  address public constant GHO_PRICE_FEED = GHOLaunchConstants.GNO_GHO_PRICE_FEED;
   // https://gnosisscan.io/address/0xfc421aD3C883Bf9E7C4f42dE845C4e4405799e73
-  address public constant GHO_TOKEN = 0xfc421aD3C883Bf9E7C4f42dE845C4e4405799e73;
+  address public constant GHO_TOKEN = GHOLaunchConstants.GNO_GHO_TOKEN;
   uint256 public constant GHO_SEED_AMOUNT = 100e18;
 
   function _preExecute() internal view override {

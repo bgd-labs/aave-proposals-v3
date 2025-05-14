@@ -12,10 +12,14 @@ library GHOLaunchConstants {
   // CCIP Rate Limits
   uint128 internal constant CCIP_RATE_LIMIT_CAPACITY = 1_000_000e18;
   uint128 internal constant CCIP_RATE_LIMIT_REFILL_RATE = 200e18;
+  uint128 internal constant CCIP_BUCKET_CAPACITY = 15_000_000e18;
 
   // Arbitrum Addresses
   address internal constant ARB_TOKEN_POOL = 0xB94Ab28c6869466a46a42abA834ca2B3cECCA5eB;
   address internal constant ARB_TOKEN_ADMIN_REGISTRY = 0x39AE1032cF4B334a1Ed41cdD0833bdD7c7E7751E;
+  address internal constant ARB_CCIP_ROUTER = 0x141fa059441E0ca23ce184B6A78bafD2A517DdE8;
+  address internal constant ARB_CCIP_STEWARD = 0xCd5ab470AaC5c13e1063ee700503f3346b7C90Db;
+  address internal constant ARB_GHO_TOKEN = 0x7dfF72693f6A4149b17e7C6314655f6A9F7c8B33;
 
   // Arbitrum ON_RAMPs
   address internal constant ARB_GNO_ON_RAMP = 0xc7d6B885d8A4286E6311F79227430b7862311cd3;
@@ -30,6 +34,9 @@ library GHOLaunchConstants {
   // Base Addresses
   address internal constant BASE_TOKEN_POOL = 0x98217A06721Ebf727f2C8d9aD7718ec28b7aAe34;
   address internal constant BASE_TOKEN_ADMIN_REGISTRY = 0x6f6C373d09C07425BaAE72317863d7F6bb731e37;
+  address internal constant BASE_CCIP_ROUTER = 0x881e3A65B4d4a04dD529061dd0071cf975F58bCD;
+  address internal constant BASE_CCIP_STEWARD = 0xB94Ab28c6869466a46a42abA834ca2B3cECCA5eB;
+  address internal constant BASE_GHO_TOKEN = 0x6Bb7a212910682DCFdbd5BCBb3e28FB4E8da10Ee;
 
   // Base ON_RAMPs
   address internal constant BASE_ARB_ON_RAMP = 0x9D0ffA76C7F82C34Be313b5bFc6d42A72dA8CA69;
@@ -44,6 +51,9 @@ library GHOLaunchConstants {
   // Ethereum Addresses
   address internal constant ETH_TOKEN_POOL = 0x06179f7C1be40863405f374E7f5F8806c728660A;
   address internal constant ETH_TOKEN_ADMIN_REGISTRY = 0xb22764f98dD05c789929716D677382Df22C05Cb6;
+  address internal constant ETH_CCIP_ROUTER = 0x80226fc0Ee2b096224EeAc085Bb9a8cba1146f7D;
+  address internal constant ETH_CCIP_STEWARD = 0xC5BcC58BE6172769ca1a78B8A45752E3C5059c39;
+  address internal constant ETH_GHO_TOKEN = 0x40D16FC0246aD3160Ccc09B8D0D3A2cD28aE6C2f;
 
   // Ethereum ON_RAMPs
   address internal constant ETH_ARB_ON_RAMP = 0x69eCC4E2D8ea56E2d0a05bF57f4Fd6aEE7f2c284;
@@ -58,10 +68,14 @@ library GHOLaunchConstants {
   // Gnosis Addresses
   address internal constant GNO_TOKEN_POOL = 0xDe6539018B095353A40753Dc54C91C68c9487D4E;
   address internal constant GNO_TOKEN_ADMIN_REGISTRY = 0x73BC11423CBF14914998C23B0aFC9BE0cb5B2229;
-  address internal constant RMN_PROXY_GNOSIS = 0xf5e5e1676942520995c1e39aFaC58A75Fe1cd2bB;
-  address internal constant ROUTER_GNOSIS = 0x4aAD6071085df840abD9Baf1697d5D5992bDadce;
-  address internal constant GHO_TOKEN_IMPL_GNOSIS = 0xb0e1c7830aA781362f79225559Aa068E6bDaF1d1;
-  address internal constant GHO_TOKEN_GNOSIS = 0xfc421aD3C883Bf9E7C4f42dE845C4e4405799e73;
+  address internal constant GNO_GHO_TOKEN_IMPL = 0xb0e1c7830aA781362f79225559Aa068E6bDaF1d1;
+  address internal constant GNO_GHO_TOKEN = 0xfc421aD3C883Bf9E7C4f42dE845C4e4405799e73;
+  address internal constant GNO_CCIP_ROUTER = 0x4aAD6071085df840abD9Baf1697d5D5992bDadce;
+  address internal constant GNO_CCIP_STEWARD = 0x06179f7C1be40863405f374E7f5F8806c728660A;
+  address internal constant GNO_RMN_PROXY = 0xf5e5e1676942520995c1e39aFaC58A75Fe1cd2bB;
+  address internal constant GNO_AAVE_STEWARD = 0x6e637e1E48025E51315d50ab96d5b3be1971A715;
+  address internal constant GNO_BUCKET_STEWARD = 0x6Bb7a212910682DCFdbd5BCBb3e28FB4E8da10Ee;
+  address internal constant GNO_GHO_PRICE_FEED = 0x360d8aa8F6b09B7BC57aF34db2Eb84dD87bf4d12;
 
   // Gnosis ON_RAMPs
   address internal constant GNO_ARB_ON_RAMP = 0x140E6D5ba903F684944Dd27369d767DdEf958c9B;
