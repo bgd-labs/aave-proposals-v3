@@ -3,3 +3,4 @@ aave-helpers/=lib/aave-helpers/
 aave-v3-origin/=lib/aave-helpers/lib/aave-address-book/lib/aave-v3-origin/src/
 forge-std/=lib/aave-helpers/lib/forge-std/src/
 solidity-utils/=lib/aave-helpers/lib/aave-address-book/lib/aave-v3-origin/lib/solidity-utils/src
+aave-umbrella/=lib/aave-umbrella/src/contracts/
