@@ -19,32 +19,28 @@ library GHOLaunchConstants {
   address internal constant ARB_TOKEN_ADMIN_REGISTRY = 0x39AE1032cF4B334a1Ed41cdD0833bdD7c7E7751E;
   address internal constant ARB_CCIP_ROUTER = 0x141fa059441E0ca23ce184B6A78bafD2A517DdE8;
   address internal constant ARB_CCIP_STEWARD = 0xCd5ab470AaC5c13e1063ee700503f3346b7C90Db;
-  address internal constant ARB_GHO_TOKEN = 0x7dfF72693f6A4149b17e7C6314655f6A9F7c8B33;
 
   // Arbitrum ON_RAMPs
   address internal constant ARB_GNO_ON_RAMP = 0xc7d6B885d8A4286E6311F79227430b7862311cd3;
   address internal constant ARB_ETH_ON_RAMP = 0x67761742ac8A21Ec4D76CA18cbd701e5A6F3Bef3;
-  address internal constant ARB_BASE_ON_RAMP = 0xc1b6287A3292d6469F2D8545877E40A2f75CA9a6;
 
   // Arbitrum OFF_RAMPs
   address internal constant ARB_GNO_OFF_RAMP = 0xeE53872d1C695933B34cE0a11B58613CBBf37e20;
   address internal constant ARB_ETH_OFF_RAMP = 0x91e46cc5590A4B9182e47f40006140A7077Dec31;
-  address internal constant ARB_BASE_OFF_RAMP = 0xb62178f8198905D0Fa6d640Bdb188E4E8143Ac4b;
 
   // Base Addresses
   address internal constant BASE_TOKEN_POOL = 0x98217A06721Ebf727f2C8d9aD7718ec28b7aAe34;
   address internal constant BASE_TOKEN_ADMIN_REGISTRY = 0x6f6C373d09C07425BaAE72317863d7F6bb731e37;
   address internal constant BASE_CCIP_ROUTER = 0x881e3A65B4d4a04dD529061dd0071cf975F58bCD;
   address internal constant BASE_CCIP_STEWARD = 0xB94Ab28c6869466a46a42abA834ca2B3cECCA5eB;
-  address internal constant BASE_GHO_TOKEN = 0x6Bb7a212910682DCFdbd5BCBb3e28FB4E8da10Ee;
 
   // Base ON_RAMPs
-  address internal constant BASE_ARB_ON_RAMP = 0x9D0ffA76C7F82C34Be313b5bFc6d42A72dA8CA69;
+
   address internal constant BASE_ETH_ON_RAMP = 0x56b30A0Dcd8dc87Ec08b80FA09502bAB801fa78e;
   address internal constant BASE_GNO_ON_RAMP = 0xDcFB24AEbcB9Edfb6746a045DDcae402381F984B;
 
   // Base OFF_RAMPs
-  address internal constant BASE_ARB_OFF_RAMP = 0x7D38c6363d5E4DFD500a691Bc34878b383F58d93;
+
   address internal constant BASE_ETH_OFF_RAMP = 0xCA04169671A81E4fB8768cfaD46c347ae65371F1;
   address internal constant BASE_GNO_OFF_RAMP = 0x300977dBA924af14E166B31F4926892B1f310661;
 
@@ -53,7 +49,6 @@ library GHOLaunchConstants {
   address internal constant ETH_TOKEN_ADMIN_REGISTRY = 0xb22764f98dD05c789929716D677382Df22C05Cb6;
   address internal constant ETH_CCIP_ROUTER = 0x80226fc0Ee2b096224EeAc085Bb9a8cba1146f7D;
   address internal constant ETH_CCIP_STEWARD = 0xC5BcC58BE6172769ca1a78B8A45752E3C5059c39;
-  address internal constant ETH_GHO_TOKEN = 0x40D16FC0246aD3160Ccc09B8D0D3A2cD28aE6C2f;
 
   // Ethereum ON_RAMPs
   address internal constant ETH_ARB_ON_RAMP = 0x69eCC4E2D8ea56E2d0a05bF57f4Fd6aEE7f2c284;
