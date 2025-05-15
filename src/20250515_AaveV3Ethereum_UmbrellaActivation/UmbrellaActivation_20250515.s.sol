@@ -1,10 +1,14 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aave-helpers/src/GovV3Helpers.sol';
-import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {EthereumScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
+
+import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
+
+import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aave-helpers/src/GovV3Helpers.sol';
+
 import {AaveV3Ethereum_UmbrellaActivation_20250515} from './AaveV3Ethereum_UmbrellaActivation_20250515.sol';
+import {AaveV3Ethereum_SafetyModuleRewardsDecrease_20250515} from './AaveV3Ethereum_SafetyModuleRewardsDecrease_20250515.sol';
 
 /**
  * @dev Deploy Ethereum
@@ -17,11 +21,15 @@ contract DeployEthereum is EthereumScript {
     address payload0 = GovV3Helpers.deployDeterministic(
       type(AaveV3Ethereum_UmbrellaActivation_20250515).creationCode
     );
+    address payload1 = GovV3Helpers.deployDeterministic(
+      type(AaveV3Ethereum_SafetyModuleRewardsDecrease_20250515).creationCode
+    );
 
     // compose action
     IPayloadsControllerCore.ExecutionAction[]
-      memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
+      memory actions = new IPayloadsControllerCore.ExecutionAction[](2);
     actions[0] = GovV3Helpers.buildAction(payload0);
+    actions[1] = GovV3Helpers.buildAction(payload1);
 
     // register action at payloadsController
     GovV3Helpers.createPayload(actions);
@@ -39,10 +47,15 @@ contract CreateProposal is EthereumScript {
 
     // compose actions for validation
     IPayloadsControllerCore.ExecutionAction[]
-      memory actionsEthereum = new IPayloadsControllerCore.ExecutionAction[](1);
+      memory actionsEthereum = new IPayloadsControllerCore.ExecutionAction[](2);
+
     actionsEthereum[0] = GovV3Helpers.buildAction(
       type(AaveV3Ethereum_UmbrellaActivation_20250515).creationCode
     );
+    actionsEthereum[1] = GovV3Helpers.buildAction(
+      type(AaveV3Ethereum_SafetyModuleRewardsDecrease_20250515).creationCode
+    );
+
     payloads[0] = GovV3Helpers.buildMainnetPayload(vm, actionsEthereum);
 
     // create proposal
