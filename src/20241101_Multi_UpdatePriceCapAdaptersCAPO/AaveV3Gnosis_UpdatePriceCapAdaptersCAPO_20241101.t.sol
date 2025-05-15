@@ -18,7 +18,7 @@ contract AaveV3Gnosis_UpdatePriceCapAdaptersCAPO_20241101_Test is
   AaveV3Gnosis_UpdatePriceCapAdaptersCAPO_20241101 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('gnosis'), 40056292);
+    vm.createSelectFork(vm.rpcUrl('gnosis'), 40076613);
     proposal = new AaveV3Gnosis_UpdatePriceCapAdaptersCAPO_20241101();
   }
 

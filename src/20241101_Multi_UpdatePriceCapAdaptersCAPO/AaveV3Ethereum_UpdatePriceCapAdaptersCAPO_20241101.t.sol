@@ -23,7 +23,7 @@ contract AaveV3Ethereum_UpdatePriceCapAdaptersCAPO_20241101_Test is
   bool switchToV2Oracle;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 22480666);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 22489327);
     proposal = new AaveV3Ethereum_UpdatePriceCapAdaptersCAPO_20241101();
   }
 
