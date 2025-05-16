@@ -22,6 +22,9 @@ import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
 import {GovernanceV3Arbitrum} from 'aave-address-book/GovernanceV3Arbitrum.sol';
 import {MiscArbitrum} from 'aave-address-book/MiscArbitrum.sol';
+import {GhoArbitrum} from 'aave-address-book/GhoArbitrum.sol';
+import {GhoEthereum} from 'aave-address-book/GhoEthereum.sol';
+import {GhoBase} from 'aave-address-book/GhoBase.sol';
 
 import {ProxyAdmin, ITransparentUpgradeableProxy} from 'openzeppelin-contracts/contracts/proxy/transparent/ProxyAdmin.sol';
 
@@ -65,10 +68,10 @@ contract AaveV3Base_GHOGnosisLaunch_20250421_Gnosis is ProtocolV3TestBase {
   address public constant NEW_REMOTE_TOKEN_GNOSIS = GHOLaunchConstants.GNO_GHO_TOKEN;
   IRouter internal constant ROUTER = IRouter(GHOLaunchConstants.BASE_CCIP_ROUTER);
   IGhoCcipSteward internal constant NEW_GHO_CCIP_STEWARD =
-    IGhoCcipSteward(GHOLaunchConstants.BASE_CCIP_STEWARD);
+    IGhoCcipSteward(GhoBase.GHO_CCIP_STEWARD);
   IUpgradeableBurnMintTokenPool_1_5_1 internal constant NEW_TOKEN_POOL =
-    IUpgradeableBurnMintTokenPool_1_5_1(GHOLaunchConstants.BASE_TOKEN_POOL);
-  address internal constant NEW_REMOTE_POOL_ETH = GHOLaunchConstants.ETH_TOKEN_POOL;
+    IUpgradeableBurnMintTokenPool_1_5_1(GhoBase.GHO_CCIP_TOKEN_POOL);
+  address internal constant NEW_REMOTE_POOL_ETH = GhoEthereum.GHO_CCIP_TOKEN_POOL;
   address internal constant NEW_REMOTE_POOL_GNOSIS = GHOLaunchConstants.GNO_TOKEN_POOL;
 
   AaveV3Base_GHOGnosisLaunch_20250421 internal proposal;
