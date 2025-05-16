@@ -23,6 +23,9 @@ import {AaveV3BaseAssets} from 'aave-address-book/AaveV3Base.sol';
 import {CCIPUtils} from './utils/CCIPUtils.sol';
 import {GHOLaunchConstants} from './utils/GHOLaunchConstants.sol';
 
+import {GhoArbitrum} from 'aave-address-book/GhoArbitrum.sol';
+import {GhoEthereum} from 'aave-address-book/GhoEthereum.sol';
+import {GhoBase} from 'aave-address-book/GhoBase.sol';
 import {AaveV3Ethereum_GHOGnosisLaunch_20250421} from './AaveV3Ethereum_GHOGnosisLaunch_20250421.sol';
 
 /**
@@ -60,15 +63,15 @@ contract AaveV3Ethereum_GHOGnosisLaunch_20250421_Test is ProtocolV3TestBase {
     IEVM2EVMOffRamp_1_5(GHOLaunchConstants.ETH_GNO_OFF_RAMP);
 
   address public constant NEW_REMOTE_TOKEN_GNOSIS = GHOLaunchConstants.GNO_GHO_TOKEN;
-  address internal constant NEW_REMOTE_POOL_ARB = GHOLaunchConstants.ARB_TOKEN_POOL;
-  address internal constant NEW_REMOTE_POOL_BASE = GHOLaunchConstants.BASE_TOKEN_POOL;
+  address internal constant NEW_REMOTE_POOL_ARB = GhoArbitrum.GHO_CCIP_TOKEN_POOL;
+  address internal constant NEW_REMOTE_POOL_BASE = GhoBase.GHO_CCIP_TOKEN_POOL;
   address internal constant NEW_REMOTE_POOL_GNOSIS = GHOLaunchConstants.GNO_TOKEN_POOL;
   address internal constant RISK_COUNCIL = GHOLaunchConstants.RISK_COUNCIL; // common across all chains
   IRouter internal constant ROUTER = IRouter(GHOLaunchConstants.ETH_CCIP_ROUTER);
   IGhoCcipSteward internal constant NEW_GHO_CCIP_STEWARD =
-    IGhoCcipSteward(GHOLaunchConstants.ETH_CCIP_STEWARD);
+    IGhoCcipSteward(GhoEthereum.GHO_CCIP_STEWARD);
   IUpgradeableLockReleaseTokenPool_1_5_1 internal constant NEW_TOKEN_POOL =
-    IUpgradeableLockReleaseTokenPool_1_5_1(GHOLaunchConstants.ETH_TOKEN_POOL);
+    IUpgradeableLockReleaseTokenPool_1_5_1(GhoEthereum.GHO_CCIP_TOKEN_POOL);
 
   AaveV3Ethereum_GHOGnosisLaunch_20250421 internal proposal;
 

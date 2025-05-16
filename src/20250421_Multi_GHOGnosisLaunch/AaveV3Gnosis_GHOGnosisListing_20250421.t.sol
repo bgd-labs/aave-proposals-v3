@@ -21,6 +21,9 @@ import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 import {AaveV3Gnosis} from 'aave-address-book/AaveV3Gnosis.sol';
 import {GovernanceV3Gnosis} from 'aave-address-book/GovernanceV3Gnosis.sol';
+import {GhoArbitrum} from 'aave-address-book/GhoArbitrum.sol';
+import {GhoEthereum} from 'aave-address-book/GhoEthereum.sol';
+import {GhoBase} from 'aave-address-book/GhoBase.sol';
 
 import {CCIPUtils} from './utils/CCIPUtils.sol';
 import {GHOLaunchConstants} from './utils/GHOLaunchConstants.sol';
@@ -40,9 +43,9 @@ contract AaveV3Gnosis_GHOGnosisListing_20250421_Base is ProtocolV3TestBase {
   address internal constant RMN_PROXY = GHOLaunchConstants.GNO_RMN_PROXY;
   address internal constant RISK_COUNCIL = GHOLaunchConstants.RISK_COUNCIL;
   IGhoToken internal constant GHO_TOKEN = IGhoToken(GHOLaunchConstants.GNO_GHO_TOKEN);
-  address internal constant NEW_REMOTE_POOL_ARB = GHOLaunchConstants.ARB_TOKEN_POOL;
-  address internal constant NEW_REMOTE_POOL_ETH = GHOLaunchConstants.ETH_TOKEN_POOL;
-  address internal constant NEW_REMOTE_POOL_BASE = GHOLaunchConstants.BASE_TOKEN_POOL;
+  address internal constant NEW_REMOTE_POOL_ARB = GhoArbitrum.GHO_CCIP_TOKEN_POOL;
+  address internal constant NEW_REMOTE_POOL_ETH = GhoEthereum.GHO_CCIP_TOKEN_POOL;
+  address internal constant NEW_REMOTE_POOL_BASE = GhoBase.GHO_CCIP_TOKEN_POOL;
   IGhoAaveSteward internal constant NEW_GHO_AAVE_STEWARD =
     IGhoAaveSteward(GHOLaunchConstants.GNO_AAVE_STEWARD);
   IGhoBucketSteward internal constant NEW_GHO_BUCKET_STEWARD =
