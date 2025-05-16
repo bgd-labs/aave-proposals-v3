@@ -9,7 +9,7 @@ import {BasePayloadUSDFeedTest} from './BasePayloadUSDFeedTest.sol';
 
 /**
  * @dev Test for AaveV3EthereumLido_UpdatePriceCapAdaptersCAPO_20241101
- * command: FOUNDRY_PROFILE=mainnet forge test --match-path=src/20241101_Multi_UpdatePriceCapAdaptersCAPO/AaveV3EthereumLido_UpdatePriceCapAdaptersCAPO_20241101.t.sol -vv
+ * command: FOUNDRY_PROFILE=test forge test --match-path=src/20241101_Multi_UpdatePriceCapAdaptersCAPO/AaveV3EthereumLido_UpdatePriceCapAdaptersCAPO_20241101.t.sol -vv
  */
 contract AaveV3EthereumLido_UpdatePriceCapAdaptersCAPO_20241101_Test is
   BasePayloadUSDFeedTest,
@@ -18,7 +18,7 @@ contract AaveV3EthereumLido_UpdatePriceCapAdaptersCAPO_20241101_Test is
   AaveV3EthereumLido_UpdatePriceCapAdaptersCAPO_20241101 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 21413537);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 22480666);
     proposal = new AaveV3EthereumLido_UpdatePriceCapAdaptersCAPO_20241101();
   }
 
@@ -36,11 +36,6 @@ contract AaveV3EthereumLido_UpdatePriceCapAdaptersCAPO_20241101_Test is
   function test_priceFeeds() public {
     executePayload(vm, address(proposal));
 
-    _validateUSDPriceFeed(
-      AaveV3EthereumLidoAssets.USDC_UNDERLYING,
-      AaveV3EthereumLidoAssets.USDC_ORACLE,
-      PriceFeeds.ETHEREUM_V3_USDC_FEED
-    );
     _validateUSDPriceFeed(
       AaveV3EthereumLidoAssets.USDS_UNDERLYING,
       AaveV3EthereumLidoAssets.USDS_ORACLE,

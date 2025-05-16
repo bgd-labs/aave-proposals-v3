@@ -12,7 +12,7 @@ import {IERC20Detailed} from 'aave-v3-origin/contracts/dependencies/openzeppelin
 
 /**
  * @dev Test for AaveV3Polygon_UpdatePriceCapAdaptersCAPO_20241101
- * command: FOUNDRY_PROFILE=polygon forge test --match-path=src/20241101_Multi_UpdatePriceCapAdaptersCAPO/AaveV3Polygon_UpdatePriceCapAdaptersCAPO_20241101.t.sol -vv
+ * command: FOUNDRY_PROFILE=test forge test --match-path=src/20241101_Multi_UpdatePriceCapAdaptersCAPO/AaveV3Polygon_UpdatePriceCapAdaptersCAPO_20241101.t.sol -vv
  */
 contract AaveV3Polygon_UpdatePriceCapAdaptersCAPO_20241101_Test is
   BasePayloadUSDFeedTest,
@@ -23,7 +23,7 @@ contract AaveV3Polygon_UpdatePriceCapAdaptersCAPO_20241101_Test is
   bool switchToV2Oracle;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('polygon'), 65544393);
+    vm.createSelectFork(vm.rpcUrl('polygon'), 71502501);
     proposal = new AaveV3Polygon_UpdatePriceCapAdaptersCAPO_20241101();
   }
 

@@ -46,6 +46,40 @@
         "to": "0xB6557F02F0a5dA7b9D3C2d979cc19e00e756F6dA"
       }
     }
+  },
+  "raw": {
+    "0x43b64f28a678944e0655404b0b98e443851cc34f": {
+      "label": "AaveV3EthereumEtherFi.ORACLE",
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x27e997bcf7e34b5892c35718d72ca8a4d44f6f77265e19fe4feb6a8ebb16cc7b": {
+          "previousValue": "0x00000000000000000000000045d270263bbee500cf8adcf2abc0ac227097b036",
+          "newValue": "0x000000000000000000000000ef50f8dc65402c3019586bc8725fcd0b99b8aad7"
+        },
+        "0xc6521c8ea4247e8beb499344e591b9401fb2807ff9997dd598fd9e56c73a264d": {
+          "previousValue": "0x000000000000000000000000736bf902680e68989886e9807cd7db4b3e015d3c",
+          "newValue": "0x000000000000000000000000b6557f02f0a5da7b9d3c2d979cc19e00e756f6da"
+        },
+        "0xd8edcb14f69dd8320a01424733daf8111cb78166f2520bbdb81ff6ae0cf3f5ef": {
+          "previousValue": "0x000000000000000000000000150bae7ce224555d39afdbc6cb4b8204e594e022",
+          "newValue": "0x00000000000000000000000036964c0579d02e0a5aaab89e24cf8d7cdf3549ee"
+        }
+      }
+    },
+    "0xdabad81af85554e9ae636395611c58f7ec1aaec5": {
+      "label": "GovernanceV3Ethereum.PAYLOADS_CONTROLLER",
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x31f3c3c26b9f7b2a5e2a988f330d4f0e06c36e0dafa800031083080450670401": {
+          "previousValue": "0x006824694a000000000002000000000000000000000000000000000000000000",
+          "newValue": "0x006824694a000000000003000000000000000000000000000000000000000000"
+        },
+        "0x31f3c3c26b9f7b2a5e2a988f330d4f0e06c36e0dafa800031083080450670402": {
+          "previousValue": "0x000000000000000000093a8000000000000068528dcb00000000000000000000",
+          "newValue": "0x000000000000000000093a8000000000000068528dcb0000000000006824694b"
+        }
+      }
+    }
   }
 }
 ```

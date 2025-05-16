@@ -9,7 +9,7 @@ import {BasePayloadUSDFeedTest} from './BasePayloadUSDFeedTest.sol';
 
 /**
  * @dev Test for AaveV3EthereumEtherFi_UpdatePriceCapAdaptersCAPO_20241101
- * command: FOUNDRY_PROFILE=mainnet forge test --match-path=src/20241101_Multi_UpdatePriceCapAdaptersCAPO/AaveV3EthereumEtherFi_UpdatePriceCapAdaptersCAPO_20241101.t.sol -vv
+ * command: FOUNDRY_PROFILE=test forge test --match-path=src/20241101_Multi_UpdatePriceCapAdaptersCAPO/AaveV3EthereumEtherFi_UpdatePriceCapAdaptersCAPO_20241101.t.sol -vv
  */
 contract AaveV3EthereumEtherFi_UpdatePriceCapAdaptersCAPO_20241101_Test is
   BasePayloadUSDFeedTest,
@@ -18,7 +18,7 @@ contract AaveV3EthereumEtherFi_UpdatePriceCapAdaptersCAPO_20241101_Test is
   AaveV3EthereumEtherFi_UpdatePriceCapAdaptersCAPO_20241101 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 21413537);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 22480666);
     proposal = new AaveV3EthereumEtherFi_UpdatePriceCapAdaptersCAPO_20241101();
   }
 

@@ -19,13 +19,9 @@ contract AaveV3EthereumLido_UpdatePriceCapAdaptersCAPO_20241101 is AaveV3Payload
     returns (IAaveV3ConfigEngine.PriceFeedUpdate[] memory)
   {
     IAaveV3ConfigEngine.PriceFeedUpdate[]
-      memory feedsUpdate = new IAaveV3ConfigEngine.PriceFeedUpdate[](2);
+      memory feedsUpdate = new IAaveV3ConfigEngine.PriceFeedUpdate[](1);
 
     feedsUpdate[0] = IAaveV3ConfigEngine.PriceFeedUpdate({
-      asset: AaveV3EthereumLidoAssets.USDC_UNDERLYING,
-      priceFeed: PriceFeeds.ETHEREUM_V3_USDC_FEED
-    });
-    feedsUpdate[1] = IAaveV3ConfigEngine.PriceFeedUpdate({
       asset: AaveV3EthereumLidoAssets.USDS_UNDERLYING,
       priceFeed: PriceFeeds.ETHEREUM_V3_USDS_FEED
     });

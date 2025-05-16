@@ -20,7 +20,7 @@ import {AaveV3BNB_UpdatePriceCapAdaptersCAPO_20241101} from './AaveV3BNB_UpdateP
 /**
  * @dev Deploy Ethereum
  * deploy-command: make deploy-ledger contract=src/20241101_Multi_UpdatePriceCapAdaptersCAPO/UpdatePriceCapAdaptersCAPO_20241101.s.sol:DeployEthereum chain=mainnet
- * verify-command: FOUNDRY_PROFILE=mainnet npx catapulta-verify -b broadcast/UpdatePriceCapAdaptersCAPO_20241101.s.sol/1/run-latest.json
+ * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/UpdatePriceCapAdaptersCAPO_20241101.s.sol/1/run-latest.json
  */
 contract DeployEthereum is EthereumScript {
   function run() external broadcast {
@@ -50,7 +50,7 @@ contract DeployEthereum is EthereumScript {
 /**
  * @dev Deploy Polygon
  * deploy-command: make deploy-ledger contract=src/20241101_Multi_UpdatePriceCapAdaptersCAPO/UpdatePriceCapAdaptersCAPO_20241101.s.sol:DeployPolygon chain=polygon
- * verify-command: FOUNDRY_PROFILE=polygon npx catapulta-verify -b broadcast/UpdatePriceCapAdaptersCAPO_20241101.s.sol/137/run-latest.json
+ * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/UpdatePriceCapAdaptersCAPO_20241101.s.sol/137/run-latest.json
  */
 contract DeployPolygon is PolygonScript {
   function run() external broadcast {
@@ -72,7 +72,7 @@ contract DeployPolygon is PolygonScript {
 /**
  * @dev Deploy Avalanche
  * deploy-command: make deploy-ledger contract=src/20241101_Multi_UpdatePriceCapAdaptersCAPO/UpdatePriceCapAdaptersCAPO_20241101.s.sol:DeployAvalanche chain=avalanche
- * verify-command: FOUNDRY_PROFILE=avalanche npx catapulta-verify -b broadcast/UpdatePriceCapAdaptersCAPO_20241101.s.sol/43114/run-latest.json
+ * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/UpdatePriceCapAdaptersCAPO_20241101.s.sol/43114/run-latest.json
  */
 contract DeployAvalanche is AvalancheScript {
   function run() external broadcast {
@@ -94,7 +94,7 @@ contract DeployAvalanche is AvalancheScript {
 /**
  * @dev Deploy Optimism
  * deploy-command: make deploy-ledger contract=src/20241101_Multi_UpdatePriceCapAdaptersCAPO/UpdatePriceCapAdaptersCAPO_20241101.s.sol:DeployOptimism chain=optimism
- * verify-command: FOUNDRY_PROFILE=optimism npx catapulta-verify -b broadcast/UpdatePriceCapAdaptersCAPO_20241101.s.sol/10/run-latest.json
+ * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/UpdatePriceCapAdaptersCAPO_20241101.s.sol/10/run-latest.json
  */
 contract DeployOptimism is OptimismScript {
   function run() external broadcast {
@@ -116,7 +116,7 @@ contract DeployOptimism is OptimismScript {
 /**
  * @dev Deploy Arbitrum
  * deploy-command: make deploy-ledger contract=src/20241101_Multi_UpdatePriceCapAdaptersCAPO/UpdatePriceCapAdaptersCAPO_20241101.s.sol:DeployArbitrum chain=arbitrum
- * verify-command: FOUNDRY_PROFILE=arbitrum npx catapulta-verify -b broadcast/UpdatePriceCapAdaptersCAPO_20241101.s.sol/42161/run-latest.json
+ * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/UpdatePriceCapAdaptersCAPO_20241101.s.sol/42161/run-latest.json
  */
 contract DeployArbitrum is ArbitrumScript {
   function run() external broadcast {
@@ -138,7 +138,7 @@ contract DeployArbitrum is ArbitrumScript {
 /**
  * @dev Deploy Metis
  * deploy-command: make deploy-ledger contract=src/20241101_Multi_UpdatePriceCapAdaptersCAPO/UpdatePriceCapAdaptersCAPO_20241101.s.sol:DeployMetis chain=metis
- * verify-command: FOUNDRY_PROFILE=metis npx catapulta-verify -b broadcast/UpdatePriceCapAdaptersCAPO_20241101.s.sol/1088/run-latest.json
+ * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/UpdatePriceCapAdaptersCAPO_20241101.s.sol/1088/run-latest.json
  */
 contract DeployMetis is MetisScript {
   function run() external broadcast {
@@ -160,7 +160,7 @@ contract DeployMetis is MetisScript {
 /**
  * @dev Deploy Base
  * deploy-command: make deploy-ledger contract=src/20241101_Multi_UpdatePriceCapAdaptersCAPO/UpdatePriceCapAdaptersCAPO_20241101.s.sol:DeployBase chain=base
- * verify-command: FOUNDRY_PROFILE=base npx catapulta-verify -b broadcast/UpdatePriceCapAdaptersCAPO_20241101.s.sol/8453/run-latest.json
+ * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/UpdatePriceCapAdaptersCAPO_20241101.s.sol/8453/run-latest.json
  */
 contract DeployBase is BaseScript {
   function run() external broadcast {
@@ -182,7 +182,7 @@ contract DeployBase is BaseScript {
 /**
  * @dev Deploy Gnosis
  * deploy-command: make deploy-ledger contract=src/20241101_Multi_UpdatePriceCapAdaptersCAPO/UpdatePriceCapAdaptersCAPO_20241101.s.sol:DeployGnosis chain=gnosis
- * verify-command: FOUNDRY_PROFILE=gnosis npx catapulta-verify -b broadcast/UpdatePriceCapAdaptersCAPO_20241101.s.sol/100/run-latest.json
+ * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/UpdatePriceCapAdaptersCAPO_20241101.s.sol/100/run-latest.json
  */
 contract DeployGnosis is GnosisScript {
   function run() external broadcast {
@@ -204,7 +204,7 @@ contract DeployGnosis is GnosisScript {
 /**
  * @dev Deploy Scroll
  * deploy-command: make deploy-ledger contract=src/20241101_Multi_UpdatePriceCapAdaptersCAPO/UpdatePriceCapAdaptersCAPO_20241101.s.sol:DeployScroll chain=scroll
- * verify-command: FOUNDRY_PROFILE=scroll npx catapulta-verify -b broadcast/UpdatePriceCapAdaptersCAPO_20241101.s.sol/534352/run-latest.json
+ * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/UpdatePriceCapAdaptersCAPO_20241101.s.sol/534352/run-latest.json
  */
 contract DeployScroll is ScrollScript {
   function run() external broadcast {
@@ -226,7 +226,7 @@ contract DeployScroll is ScrollScript {
 /**
  * @dev Deploy BNB
  * deploy-command: make deploy-ledger contract=src/20241101_Multi_UpdatePriceCapAdaptersCAPO/UpdatePriceCapAdaptersCAPO_20241101.s.sol:DeployBNB chain=bnb
- * verify-command: FOUNDRY_PROFILE=bnb npx catapulta-verify -b broadcast/UpdatePriceCapAdaptersCAPO_20241101.s.sol/56/run-latest.json
+ * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/UpdatePriceCapAdaptersCAPO_20241101.s.sol/56/run-latest.json
  */
 contract DeployBNB is BNBScript {
   function run() external broadcast {

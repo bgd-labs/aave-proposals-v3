@@ -9,7 +9,7 @@ import {PriceFeeds} from './Constants.sol';
 
 /**
  * @dev Test for AaveV3Metis_UpdatePriceCapAdaptersCAPO_20241101
- * command: FOUNDRY_PROFILE=metis forge test --match-path=src/20241101_Multi_UpdatePriceCapAdaptersCAPO/AaveV3Metis_UpdatePriceCapAdaptersCAPO_20241101.t.sol -vv
+ * command: FOUNDRY_PROFILE=test forge test --match-path=src/20241101_Multi_UpdatePriceCapAdaptersCAPO/AaveV3Metis_UpdatePriceCapAdaptersCAPO_20241101.t.sol -vv
  */
 contract AaveV3Metis_UpdatePriceCapAdaptersCAPO_20241101_Test is
   BasePayloadUSDFeedTest,
@@ -18,7 +18,7 @@ contract AaveV3Metis_UpdatePriceCapAdaptersCAPO_20241101_Test is
   AaveV3Metis_UpdatePriceCapAdaptersCAPO_20241101 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('metis'), 19201936);
+    vm.createSelectFork(vm.rpcUrl('metis'), 20413285);
     proposal = new AaveV3Metis_UpdatePriceCapAdaptersCAPO_20241101();
   }
 
