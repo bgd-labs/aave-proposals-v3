@@ -27,7 +27,7 @@ import {freezeUpdates} from './features/freeze';
 import {emissionUpdates} from './features/emission';
 import {assetListing, assetListingCustom} from './features/assetListing';
 import {generateFiles, writeFiles} from './generator';
-import {getClient} from '@bgd-labs/rpc-env';
+import {getClient} from '@bgd-labs/toolbox';
 import {getBlockNumber} from 'viem/actions';
 
 const program = new Command();
