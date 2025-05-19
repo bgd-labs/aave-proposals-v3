@@ -87,7 +87,7 @@ contract AaveV3Ethereum_GHOGnosisLaunch_20250421_Test is ProtocolV3TestBase {
   error InvalidSourcePoolAddress(bytes);
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 22435000);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 22516405);
     proposal = new AaveV3Ethereum_GHOGnosisLaunch_20250421();
     _validateConstants();
     executePayload(vm, address(proposal));

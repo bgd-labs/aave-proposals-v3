@@ -88,7 +88,7 @@ contract AaveV3Base_GHOGnosisLaunch_20250421_Gnosis is ProtocolV3TestBase {
   error InvalidSourcePoolAddress(bytes);
 
   function setUp() public virtual {
-    vm.createSelectFork(vm.rpcUrl('base'), 29935731);
+    vm.createSelectFork(vm.rpcUrl('base'), 30430477);
     proposal = new AaveV3Base_GHOGnosisLaunch_20250421();
     _validateConstants();
   }
