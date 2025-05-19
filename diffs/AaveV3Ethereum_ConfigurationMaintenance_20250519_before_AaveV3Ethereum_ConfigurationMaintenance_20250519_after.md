@@ -1,8 +1,22 @@
 ## Reserve changes
 
-### Reserves altered
+### Reserve altered
 
 #### LBTC ([0x8236a87084f8B84306f72007F36F2618A5634494](https://etherscan.io/address/0x8236a87084f8B84306f72007F36F2618A5634494))
+
+| description | value before | value after |
+| --- | --- | --- |
+| borrowingEnabled | true | false |
+
+
+#### rsETH ([0xA1290d69c65A6Fe4DF752f95823fae25cB99e5A7](https://etherscan.io/address/0xA1290d69c65A6Fe4DF752f95823fae25cB99e5A7))
+
+| description | value before | value after |
+| --- | --- | --- |
+| borrowingEnabled | true | false |
+
+
+#### osETH ([0xf1C9acDc66974dFB6dEcB12aA385b9cD01190E38](https://etherscan.io/address/0xf1C9acDc66974dFB6dEcB12aA385b9cD01190E38))
 
 | description | value before | value after |
 | --- | --- | --- |
@@ -77,6 +91,18 @@
         "from": true,
         "to": false
       }
+    },
+    "0xA1290d69c65A6Fe4DF752f95823fae25cB99e5A7": {
+      "borrowingEnabled": {
+        "from": true,
+        "to": false
+      }
+    },
+    "0xf1C9acDc66974dFB6dEcB12aA385b9cD01190E38": {
+      "borrowingEnabled": {
+        "from": true,
+        "to": false
+      }
     }
   },
   "raw": {
@@ -88,9 +114,17 @@
           "previousValue": "0x100000000000000000000003e8000001644000000001138885082a621d4c1b58",
           "newValue": "0x100000000000000000000003e8000001644000000001138881082a621d4c1b58"
         },
+        "0x1f90421f12d8e2ce282f76d42efa0c95b3551bd055d13a1de40c0e6b1e99c380": {
+          "previousValue": "0x100000000000000000000103e800003f7a000000000105dc851229fe1d4c1c52",
+          "newValue": "0x100000000000000000000103e800003f7a000000000105dc811229fe1d4c1c52"
+        },
         "0x8e0cc0f1f0504b4cb44a23b328568106915b169e79003737a7b094503cdbeeb2": {
           "previousValue": "0x00000000000000000000000000000000000000000000000000000000b0000283",
           "newValue": "0x0000000000000000000000000000000000000000000000000000000000000001"
+        },
+        "0xed45a05ce0954e645f11725167843283bb37c29952c0335b670d63d10fcad8ef": {
+          "previousValue": "0x100000000000000000000003e800007530000000000105dc851229fe1d4c1c20",
+          "newValue": "0x100000000000000000000003e800007530000000000105dc811229fe1d4c1c20"
         }
       }
     },
