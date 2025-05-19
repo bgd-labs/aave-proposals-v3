@@ -56,7 +56,7 @@ contract AaveV3Gnosis_GHOGnosisListing_20250421_Base is ProtocolV3TestBase {
     IUpgradeableBurnMintTokenPool_1_5_1(GHOLaunchConstants.GNO_TOKEN_POOL);
 
   function setUp() public virtual {
-    vm.createSelectFork(vm.rpcUrl('gnosis'), 40060731);
+    vm.createSelectFork(vm.rpcUrl('gnosis'), 40139698);
     proposal = new AaveV3Gnosis_GHOGnosisListing_20250421();
   }
 
