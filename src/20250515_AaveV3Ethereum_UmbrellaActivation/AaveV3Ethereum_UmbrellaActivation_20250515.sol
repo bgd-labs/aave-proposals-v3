@@ -1,6 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
+import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
+import {AccessControlUpgradeable} from 'openzeppelin-contracts-upgradeable/contracts/access/AccessControlUpgradeable.sol';
+
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {UmbrellaEthereum} from 'aave-address-book/UmbrellaEthereum.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
@@ -9,9 +12,7 @@ import {UmbrellaExtendedPayload} from 'aave-umbrella/payloads/UmbrellaExtendedPa
 
 import {IStructs} from 'aave-umbrella/payloads/UmbrellaExtendedPayload.sol';
 import {ISMStructs, ICStructs} from 'aave-umbrella/payloads/UmbrellaBasePayload.sol';
-
-import {AccessControlUpgradeable} from 'openzeppelin-contracts-upgradeable/contracts/access/AccessControlUpgradeable.sol';
-import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
+import {IRewardsStructs} from 'aave-umbrella/rewards/interfaces/IRewardsStructs.sol';
 
 /**
  * @title UmbrellaActivation
@@ -26,6 +27,23 @@ contract AaveV3Ethereum_UmbrellaActivation_20250515 is
   uint256 public constant DEFICIT_OFFSET_USDT = 100_000 * 1e6;
   uint256 public constant DEFICIT_OFFSET_WETH = 50 * 1e18;
   uint256 public constant DEFICIT_OFFSET_GHO = 100_000 * 1e18;
+
+  uint256 public constant DEFAULT_COOLDOWN = 20 days;
+  uint256 public constant DEFAULT_UNSTAKE_WINDOW = 2 days;
+
+  uint256 public constant DISTRIBUTION_DURATION = 365 days;
+
+  uint256 public constant USDC_MAX_EMISSION_PER_SECOND = uint256(2_329_420 * 1e6) / 365 days; // ~3_000_000 * 66 / 85
+  uint256 public constant USDC_TARGET_LIQUIDITY = 66_000_000 * 1e6; // TODO
+
+  uint256 public constant USDT_MAX_EMISSION_PER_SECOND = uint256(3_670_600 * 1e6) / 365 days; // ~3_000_000 * 104 / 85
+  uint256 public constant USDT_TARGET_LIQUIDITY = 104_000_000 * 1e6; // TODO
+
+  uint256 public constant WETH_MAX_EMISSION_PER_SECOND = uint256(550 * 1e18) / 365 days;
+  uint256 public constant WETH_TARGET_LIQUIDITY = 25_000 * 1e18; // TODO
+
+  uint256 public constant GHO_MAX_EMISSION_PER_SECOND = uint256(1_200_000 * 1e18) / 365 days;
+  uint256 public constant GHO_TARGET_LIQUIDITY = 12_000_000 * 1e18;
 
   bytes32 public constant REWARDS_ADMIN_ROLE = keccak256('REWARDS_ADMIN_ROLE');
   bytes32 public constant COVERAGE_MANAGER_ROLE = keccak256('COVERAGE_MANAGER_ROLE');
@@ -77,7 +95,6 @@ contract AaveV3Ethereum_UmbrellaActivation_20250515 is
       currentReserveDeficitToCoverWETH + 1
     );
 
-    // should be executed before v3.4 or `GHO_UNDERLYING` should be replaced with `GHO_A_TOKEN`
     AaveV3Ethereum.COLLECTOR.transfer(
       IERC20(AaveV3EthereumAssets.GHO_UNDERLYING),
       address(this),
@@ -114,6 +131,132 @@ contract AaveV3Ethereum_UmbrellaActivation_20250515 is
     });
 
     return coverReserveDeficits;
+  }
+
+  function complexTokenCreations() public view override returns (IStructs.TokenSetup[] memory) {
+    IStructs.TokenSetup[] memory tokensCreation = new IStructs.TokenSetup[](4);
+
+    // stkwaUSDC.V1 creation
+    /////////////////////////////////////////////////////////////////////////////////////////
+
+    ISMStructs.StakeTokenSetup memory stkUsdcSetup = ISMStructs.StakeTokenSetup({
+      underlying: AaveV3EthereumAssets.USDC_STATA_TOKEN,
+      cooldown: DEFAULT_COOLDOWN,
+      unstakeWindow: DEFAULT_UNSTAKE_WINDOW,
+      suffix: 'v1'
+    });
+
+    IRewardsStructs.RewardSetupConfig[]
+      memory stkUsdcRewards = new IRewardsStructs.RewardSetupConfig[](1);
+
+    stkUsdcRewards[0] = IRewardsStructs.RewardSetupConfig({
+      reward: AaveV3EthereumAssets.USDC_A_TOKEN,
+      rewardPayer: address(AaveV3Ethereum.COLLECTOR),
+      maxEmissionPerSecond: USDC_MAX_EMISSION_PER_SECOND,
+      distributionEnd: block.timestamp + DISTRIBUTION_DURATION
+    });
+
+    tokensCreation[0] = IStructs.TokenSetup({
+      stakeSetup: stkUsdcSetup,
+      targetLiquidity: USDC_TARGET_LIQUIDITY,
+      rewardConfigs: stkUsdcRewards,
+      reserve: AaveV3EthereumAssets.USDC_UNDERLYING,
+      liquidationFee: 0,
+      umbrellaStakeUnderlyingOracle: AaveV3EthereumAssets.USDC_STATA_TOKEN,
+      deficitOffsetIncrease: DEFICIT_OFFSET_USDC
+    });
+
+    // stkwaUSDT.V1 creation
+    /////////////////////////////////////////////////////////////////////////////////////////
+
+    ISMStructs.StakeTokenSetup memory stkUsdtSetup = ISMStructs.StakeTokenSetup({
+      underlying: AaveV3EthereumAssets.USDT_STATA_TOKEN,
+      cooldown: DEFAULT_COOLDOWN,
+      unstakeWindow: DEFAULT_UNSTAKE_WINDOW,
+      suffix: 'v1'
+    });
+
+    IRewardsStructs.RewardSetupConfig[]
+      memory stkUsdtRewards = new IRewardsStructs.RewardSetupConfig[](1);
+
+    stkUsdtRewards[0] = IRewardsStructs.RewardSetupConfig({
+      reward: AaveV3EthereumAssets.USDT_A_TOKEN,
+      rewardPayer: address(AaveV3Ethereum.COLLECTOR),
+      maxEmissionPerSecond: USDT_MAX_EMISSION_PER_SECOND,
+      distributionEnd: block.timestamp + DISTRIBUTION_DURATION
+    });
+
+    tokensCreation[1] = IStructs.TokenSetup({
+      stakeSetup: stkUsdtSetup,
+      targetLiquidity: USDT_TARGET_LIQUIDITY,
+      rewardConfigs: stkUsdtRewards,
+      reserve: AaveV3EthereumAssets.USDT_UNDERLYING,
+      liquidationFee: 0,
+      umbrellaStakeUnderlyingOracle: AaveV3EthereumAssets.USDT_STATA_TOKEN,
+      deficitOffsetIncrease: DEFICIT_OFFSET_USDT
+    });
+
+    // stkwaWETH.V1 creation
+    /////////////////////////////////////////////////////////////////////////////////////////
+
+    ISMStructs.StakeTokenSetup memory stkWethSetup = ISMStructs.StakeTokenSetup({
+      underlying: AaveV3EthereumAssets.WETH_STATA_TOKEN,
+      cooldown: DEFAULT_COOLDOWN,
+      unstakeWindow: DEFAULT_UNSTAKE_WINDOW,
+      suffix: 'v1'
+    });
+
+    IRewardsStructs.RewardSetupConfig[]
+      memory stkWethRewards = new IRewardsStructs.RewardSetupConfig[](1);
+
+    stkWethRewards[0] = IRewardsStructs.RewardSetupConfig({
+      reward: AaveV3EthereumAssets.WETH_A_TOKEN,
+      rewardPayer: address(AaveV3Ethereum.COLLECTOR),
+      maxEmissionPerSecond: WETH_MAX_EMISSION_PER_SECOND,
+      distributionEnd: block.timestamp + DISTRIBUTION_DURATION
+    });
+
+    tokensCreation[2] = IStructs.TokenSetup({
+      stakeSetup: stkWethSetup,
+      targetLiquidity: WETH_TARGET_LIQUIDITY,
+      rewardConfigs: stkWethRewards,
+      reserve: AaveV3EthereumAssets.WETH_UNDERLYING,
+      liquidationFee: 0,
+      umbrellaStakeUnderlyingOracle: AaveV3EthereumAssets.WETH_STATA_TOKEN,
+      deficitOffsetIncrease: DEFICIT_OFFSET_WETH
+    });
+
+    // stkGHO.V1 creation
+    /////////////////////////////////////////////////////////////////////////////////////////
+
+    ISMStructs.StakeTokenSetup memory stkGhoSetup = ISMStructs.StakeTokenSetup({
+      underlying: AaveV3EthereumAssets.GHO_UNDERLYING,
+      cooldown: DEFAULT_COOLDOWN,
+      unstakeWindow: DEFAULT_UNSTAKE_WINDOW,
+      suffix: 'v1'
+    });
+
+    IRewardsStructs.RewardSetupConfig[]
+      memory stkGhoRewards = new IRewardsStructs.RewardSetupConfig[](1);
+
+    stkGhoRewards[0] = IRewardsStructs.RewardSetupConfig({
+      reward: AaveV3EthereumAssets.GHO_UNDERLYING,
+      rewardPayer: address(AaveV3Ethereum.COLLECTOR),
+      maxEmissionPerSecond: GHO_MAX_EMISSION_PER_SECOND,
+      distributionEnd: block.timestamp + DISTRIBUTION_DURATION
+    });
+
+    tokensCreation[3] = IStructs.TokenSetup({
+      stakeSetup: stkGhoSetup,
+      targetLiquidity: GHO_TARGET_LIQUIDITY,
+      rewardConfigs: stkGhoRewards,
+      reserve: AaveV3EthereumAssets.GHO_UNDERLYING,
+      liquidationFee: 0,
+      umbrellaStakeUnderlyingOracle: AaveV3EthereumAssets.GHO_ORACLE,
+      deficitOffsetIncrease: DEFICIT_OFFSET_GHO
+    });
+
+    return tokensCreation;
   }
 
   function _postExecute() internal override {
@@ -160,6 +303,34 @@ contract AaveV3Ethereum_UmbrellaActivation_20250515 is
       IERC20(AaveV3EthereumAssets.GHO_UNDERLYING),
       UmbrellaEthereum.DEFICIT_OFFSET_CLINIC_STEWARD,
       DEFICIT_OFFSET_GHO
+    );
+
+    // Give allowance to `RewardController`
+    // So for the next 180 days rewards could be claimed
+    /////////////////////////////////////////////////////////////////////////////////////////
+
+    AaveV3Ethereum.COLLECTOR.approve(
+      IERC20(AaveV3EthereumAssets.USDC_A_TOKEN),
+      UmbrellaEthereum.UMBRELLA_REWARDS_CONTROLLER,
+      USDC_MAX_EMISSION_PER_SECOND * 180 days
+    );
+
+    AaveV3Ethereum.COLLECTOR.approve(
+      IERC20(AaveV3EthereumAssets.USDT_A_TOKEN),
+      UmbrellaEthereum.UMBRELLA_REWARDS_CONTROLLER,
+      USDT_MAX_EMISSION_PER_SECOND * 180 days
+    );
+
+    AaveV3Ethereum.COLLECTOR.approve(
+      IERC20(AaveV3EthereumAssets.WETH_A_TOKEN),
+      UmbrellaEthereum.UMBRELLA_REWARDS_CONTROLLER,
+      WETH_MAX_EMISSION_PER_SECOND * 180 days
+    );
+
+    AaveV3Ethereum.COLLECTOR.approve(
+      IERC20(AaveV3EthereumAssets.GHO_UNDERLYING),
+      UmbrellaEthereum.UMBRELLA_REWARDS_CONTROLLER,
+      GHO_MAX_EMISSION_PER_SECOND * 180 days
     );
   }
 }
