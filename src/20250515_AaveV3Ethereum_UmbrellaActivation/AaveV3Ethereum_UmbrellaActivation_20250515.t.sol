@@ -15,7 +15,7 @@ contract AaveV3Ethereum_UmbrellaActivation_20250515_Test is ProtocolV3TestBase {
   AaveV3Ethereum_UmbrellaActivation_20250515 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 22487573);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 22517759);
     proposal = new AaveV3Ethereum_UmbrellaActivation_20250515();
   }
 

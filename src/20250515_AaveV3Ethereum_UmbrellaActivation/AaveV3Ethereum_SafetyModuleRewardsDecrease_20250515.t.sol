@@ -19,7 +19,7 @@ contract AaveV3Ethereum_SafetyModuleRewardsDecrease_20250515_Test is ProtocolV3T
   AaveV3Ethereum_SafetyModuleRewardsDecrease_20250515 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 22489043);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 22517759);
     proposal = new AaveV3Ethereum_SafetyModuleRewardsDecrease_20250515();
   }
 
@@ -76,17 +76,7 @@ contract AaveV3Ethereum_SafetyModuleRewardsDecrease_20250515_Test is ProtocolV3T
   // Distribution end tests
   /////////////////////////////////////////////////////////////////////////////////////////
 
-  function test_checkDistributionEndStkAAVE() public {
-    uint256 endTimestampBefore = IStakeToken(AaveSafetyModule.STK_AAVE).distributionEnd();
-
-    assertGt(endTimestampBefore, block.timestamp);
-
-    executePayload(vm, address(proposal));
-
-    uint256 endTimestampAfter = IStakeToken(AaveSafetyModule.STK_AAVE).distributionEnd();
-
-    assertEq(endTimestampBefore, endTimestampAfter);
-  }
+  // StkAave has almost infinite `distributionEnd`, so test is skipped
 
   function test_checkDistributionEndStkBPT() public {
     uint256 endTimestampBefore = IStakeToken(AaveSafetyModule.STK_AAVE_WSTETH_BPTV2)
@@ -130,7 +120,8 @@ contract AaveV3Ethereum_SafetyModuleRewardsDecrease_20250515_Test is ProtocolV3T
       AaveSafetyModule.STK_AAVE
     );
 
-    assertLt(allowanceAfter, allowanceBefore);
+    // we increase allowance for skipped period + grant for the next 180 days with new rate
+    assertGt(allowanceAfter, allowanceBefore);
   }
 
   function test_checkAllowanceStkBPT() public {

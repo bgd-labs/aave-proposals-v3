@@ -26,6 +26,13 @@ contract AaveV3Ethereum_SafetyModuleRewardsDecrease_20250515 is IProposalGeneric
   uint128 public constant CURRENT_AAVE_EMISSION_PER_SECOND_GHO = uint128(100 ether) / 1 days;
   uint128 public constant AAVE_EMISSION_PER_SECOND_GHO = uint128(0);
 
+  // Rewards will be extended for the next 180 days
+  uint256 public constant STK_AAVE_EMISSION_DURATION = 180 days;
+
+  // Last extention of Aave emission for `StkAave` was executed at `1731809879` timestamp
+  // Was extended for 180 days too
+  uint256 public constant AAVE_EMISSION_END_TIMESTAMP_STK_AAVE = 1731809879 + 180 days; // 16 May 2025, already skipped
+
   function execute() external {
     _decreaseAaveEmission(
       AaveSafetyModule.STK_AAVE,
@@ -49,18 +56,40 @@ contract AaveV3Ethereum_SafetyModuleRewardsDecrease_20250515 is IProposalGeneric
 
   function _decreaseAaveEmission(
     address legacyStkToken,
-    uint256 currentEmission,
+    uint128 currentEmission,
     uint128 newEmission
   ) internal {
-    uint256 distributionTimeLeft = IStakeToken(legacyStkToken).distributionEnd() - block.timestamp;
+    uint256 newAllowance;
 
-    // Excess allowance that has not been claimed
-    uint256 allowanceToKeep = IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING).allowance(
-      address(MiscEthereum.ECOSYSTEM_RESERVE),
-      legacyStkToken
-    ) - (distributionTimeLeft * currentEmission);
+    if (legacyStkToken == AaveSafetyModule.STK_AAVE) {
+      // cause `distributionEnd` was already skipped
+      uint256 distributionEndSkippedFor = block.timestamp - AAVE_EMISSION_END_TIMESTAMP_STK_AAVE;
+      // Keep all unclaimed rewards
+      uint256 unclaimedAllowance = IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING).allowance(
+        address(MiscEthereum.ECOSYSTEM_RESERVE),
+        legacyStkToken
+      );
+      // Calculate missed rewards with the old rate
+      uint256 skippedAllowance = (distributionEndSkippedFor * currentEmission);
+      // sum all allowances with the next 180 days emission with new rate
+      newAllowance =
+        unclaimedAllowance +
+        skippedAllowance +
+        newEmission *
+        STK_AAVE_EMISSION_DURATION;
+    } else {
+      // Both other legacy stk have not infinite `distributionEnd` and their distributions haven't skipped yet
+      uint256 distributionTimeLeft = IStakeToken(legacyStkToken).distributionEnd() -
+        block.timestamp;
 
-    uint256 newAllowance = distributionTimeLeft * newEmission;
+      // Excess allowance that has not been claimed
+      uint256 allowanceToKeep = IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING).allowance(
+        address(MiscEthereum.ECOSYSTEM_RESERVE),
+        legacyStkToken
+      ) - (distributionTimeLeft * currentEmission);
+
+      newAllowance = allowanceToKeep + distributionTimeLeft * newEmission;
+    }
 
     IStakeToken.AssetConfigInput[] memory bptConfigs = new IStakeToken.AssetConfigInput[](1);
     bptConfigs[0] = IStakeToken.AssetConfigInput({
@@ -82,7 +111,7 @@ contract AaveV3Ethereum_SafetyModuleRewardsDecrease_20250515 is IProposalGeneric
       MiscEthereum.ECOSYSTEM_RESERVE,
       AaveV3EthereumAssets.AAVE_UNDERLYING,
       legacyStkToken,
-      newAllowance + allowanceToKeep
+      newAllowance
     );
   }
 }
