@@ -18,7 +18,7 @@ contract AaveV3Celo_OnboardingWETHToAaveV3CeloInstance_20250515_Test is Protocol
   AaveV3Celo_OnboardingWETHToAaveV3CeloInstance_20250515 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('celo'), 35444298);
+    vm.createSelectFork(vm.rpcUrl('celo'), 35741475);
     proposal = new AaveV3Celo_OnboardingWETHToAaveV3CeloInstance_20250515();
   }
 
