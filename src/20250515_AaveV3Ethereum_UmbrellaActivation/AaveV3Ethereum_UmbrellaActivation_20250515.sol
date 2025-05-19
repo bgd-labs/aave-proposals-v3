@@ -7,10 +7,11 @@ import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 
 import {UmbrellaExtendedPayload} from 'aave-umbrella/payloads/UmbrellaExtendedPayload.sol';
 
-import {IUmbrellaEngineStructs as IStructs} from 'aave-umbrella/payloads/UmbrellaExtendedPayload.sol';
-import {IUmbrellaStkManager as ISMStructs, IUmbrellaConfiguration as ICStructs} from 'aave-umbrella/payloads/UmbrellaExtendedPayload.sol';
+import {IStructs} from 'aave-umbrella/payloads/UmbrellaExtendedPayload.sol';
+import {ISMStructs, ICStructs} from 'aave-umbrella/payloads/UmbrellaBasePayload.sol';
 
-import {AccessControlUpgradeable} from '@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol';
+import {AccessControlUpgradeable} from 'openzeppelin-contracts-upgradeable/contracts/access/AccessControlUpgradeable.sol';
+import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 
 /**
  * @title UmbrellaActivation
@@ -18,7 +19,9 @@ import {AccessControlUpgradeable} from '@openzeppelin/contracts-upgradeable/acce
  * - Snapshot: TODO
  * - Discussion: https://governance.aave.com/t/arfc-aave-umbrella-activation/21521
  */
-contract AaveV3Ethereum_UmbrellaActivation_20250515 is UmbrellaExtendedPayload {
+contract AaveV3Ethereum_UmbrellaActivation_20250515 is
+  UmbrellaExtendedPayload(UmbrellaEthereum.UMBRELLA_CONFIG_ENGINE)
+{
   uint256 public constant DEFICIT_OFFSET_USDC = 100_000 * 1e6;
   uint256 public constant DEFICIT_OFFSET_USDT = 100_000 * 1e6;
   uint256 public constant DEFICIT_OFFSET_WETH = 50 * 1e18;
@@ -29,26 +32,26 @@ contract AaveV3Ethereum_UmbrellaActivation_20250515 is UmbrellaExtendedPayload {
 
   bytes32 public constant UMBRELLA = 'UMBRELLA';
 
-  function _preExecute() public override {
+  function _preExecute() internal override {
     // Give `UMBRELLA` to the `Umbrella` contract, so `Umbrella` could start eliminating deficit for this `POOL`
-    AaveV3Ethereum.ADDRESSES_PROVIDER.setAddress(UMBRELLA, address(UmbrellaEthereum.Umbrella));
+    AaveV3Ethereum.POOL_ADDRESSES_PROVIDER.setAddress(UMBRELLA, address(UmbrellaEthereum.UMBRELLA));
 
     // Cache current reserve deficit amounts
     /////////////////////////////////////////////////////////////////////////////////////////
 
-    uint256 currentReserveDeficitToCoverUSDC = AaveV3Ethereum.Pool.getReserveDeficit(
+    uint256 currentReserveDeficitToCoverUSDC = AaveV3Ethereum.POOL.getReserveDeficit(
       AaveV3EthereumAssets.USDC_UNDERLYING
     );
 
-    uint256 currentReserveDeficitToCoverUSDT = AaveV3Ethereum.Pool.getReserveDeficit(
+    uint256 currentReserveDeficitToCoverUSDT = AaveV3Ethereum.POOL.getReserveDeficit(
       AaveV3EthereumAssets.USDT_UNDERLYING
     );
 
-    uint256 currentReserveDeficitToCoverWETH = AaveV3Ethereum.Pool.getReserveDeficit(
+    uint256 currentReserveDeficitToCoverWETH = AaveV3Ethereum.POOL.getReserveDeficit(
       AaveV3EthereumAssets.WETH_UNDERLYING
     );
 
-    uint256 currentReserveDeficitToCoverGHO = AaveV3Ethereum.Pool.getReserveDeficit(
+    uint256 currentReserveDeficitToCoverGHO = AaveV3Ethereum.POOL.getReserveDeficit(
       AaveV3EthereumAssets.GHO_UNDERLYING
     );
 
@@ -57,63 +60,63 @@ contract AaveV3Ethereum_UmbrellaActivation_20250515 is UmbrellaExtendedPayload {
     /////////////////////////////////////////////////////////////////////////////////////////
 
     AaveV3Ethereum.COLLECTOR.transfer(
-      AaveV3EthereumAssets.USDC_A_TOKEN,
+      IERC20(AaveV3EthereumAssets.USDC_A_TOKEN),
       address(this),
       currentReserveDeficitToCoverUSDC + 1
     );
 
     AaveV3Ethereum.COLLECTOR.transfer(
-      AaveV3EthereumAssets.USDT_A_TOKEN,
+      IERC20(AaveV3EthereumAssets.USDT_A_TOKEN),
       address(this),
       currentReserveDeficitToCoverUSDT + 1
     );
 
     AaveV3Ethereum.COLLECTOR.transfer(
-      AaveV3EthereumAssets.WETH_A_TOKEN,
+      IERC20(AaveV3EthereumAssets.WETH_A_TOKEN),
       address(this),
       currentReserveDeficitToCoverWETH + 1
     );
 
     // should be executed before v3.4 or `GHO_UNDERLYING` should be replaced with `GHO_A_TOKEN`
     AaveV3Ethereum.COLLECTOR.transfer(
-      AaveV3EthereumAssets.GHO_UNDERLYING,
+      IERC20(AaveV3EthereumAssets.GHO_UNDERLYING),
       address(this),
       currentReserveDeficitToCoverGHO
     );
   }
 
-  function coverReserveDeficit() public override returns (IStructs.CoverDeficit[] memory) {
+  function coverReserveDeficit() public view override returns (IStructs.CoverDeficit[] memory) {
     // Will eliminate reserve deficit before configuring anything, using funds, that were transferred during `_preExecute` phase
-    IStructs.CoverDeficit[] memory coverReserveDeficit = new IStructs.CoverDeficit[](4);
+    IStructs.CoverDeficit[] memory coverReserveDeficits = new IStructs.CoverDeficit[](4);
 
-    coverReserveDeficit[0] = CoverDeficit({
+    coverReserveDeficits[0] = IStructs.CoverDeficit({
       reserve: AaveV3EthereumAssets.USDC_UNDERLYING,
-      amount: AaveV3Ethereum.Pool.getReserveDeficit(AaveV3EthereumAssets.USDC_UNDERLYING),
+      amount: AaveV3Ethereum.POOL.getReserveDeficit(AaveV3EthereumAssets.USDC_UNDERLYING),
       approve: true
     });
 
-    coverReserveDeficit[1] = CoverDeficit({
+    coverReserveDeficits[1] = IStructs.CoverDeficit({
       reserve: AaveV3EthereumAssets.USDT_UNDERLYING,
-      amount: AaveV3Ethereum.Pool.getReserveDeficit(AaveV3EthereumAssets.USDT_UNDERLYING),
+      amount: AaveV3Ethereum.POOL.getReserveDeficit(AaveV3EthereumAssets.USDT_UNDERLYING),
       approve: true
     });
 
-    coverReserveDeficit[2] = CoverDeficit({
+    coverReserveDeficits[2] = IStructs.CoverDeficit({
       reserve: AaveV3EthereumAssets.WETH_UNDERLYING,
-      amount: AaveV3Ethereum.Pool.getReserveDeficit(AaveV3EthereumAssets.WETH_UNDERLYING),
+      amount: AaveV3Ethereum.POOL.getReserveDeficit(AaveV3EthereumAssets.WETH_UNDERLYING),
       approve: true
     });
 
-    coverReserveDeficit[3] = CoverDeficit({
+    coverReserveDeficits[3] = IStructs.CoverDeficit({
       reserve: AaveV3EthereumAssets.GHO_UNDERLYING,
-      amount: AaveV3Ethereum.Pool.getReserveDeficit(AaveV3EthereumAssets.GHO_UNDERLYING),
+      amount: AaveV3Ethereum.POOL.getReserveDeficit(AaveV3EthereumAssets.GHO_UNDERLYING),
       approve: true
     });
 
-    return coverReserveDeficit;
+    return coverReserveDeficits;
   }
 
-  function _postExecute() public override {
+  function _postExecute() internal override {
     // Give roles
     /////////////////////////////////////////////////////////////////////////////////////////
 
@@ -121,7 +124,7 @@ contract AaveV3Ethereum_UmbrellaActivation_20250515 is UmbrellaExtendedPayload {
     // `FinancialCommittee` is the payload manager inside `PERMISSIONED_PAYLOADS_CONTROLLER`
     AccessControlUpgradeable(UmbrellaEthereum.UMBRELLA_REWARDS_CONTROLLER).grantRole(
       REWARDS_ADMIN_ROLE,
-      GovernanceV3Ethereum.PERMISSIONED_PAYLOADS_CONTROLLER_EXECUTOR
+      UmbrellaEthereum.PERMISSIONED_PAYLOADS_CONTROLLER_EXECUTOR
     );
 
     // Give role to cover deficit offset for `FinancialCommittee`
@@ -136,25 +139,25 @@ contract AaveV3Ethereum_UmbrellaActivation_20250515 is UmbrellaExtendedPayload {
     /////////////////////////////////////////////////////////////////////////////////////////
 
     AaveV3Ethereum.COLLECTOR.approve(
-      AaveV3EthereumAssets.USDC_A_TOKEN,
+      IERC20(AaveV3EthereumAssets.USDC_A_TOKEN),
       UmbrellaEthereum.DEFICIT_OFFSET_CLINIC_STEWARD,
       DEFICIT_OFFSET_USDC
     );
 
     AaveV3Ethereum.COLLECTOR.approve(
-      AaveV3EthereumAssets.USDT_A_TOKEN,
+      IERC20(AaveV3EthereumAssets.USDT_A_TOKEN),
       UmbrellaEthereum.DEFICIT_OFFSET_CLINIC_STEWARD,
       DEFICIT_OFFSET_USDT
     );
 
     AaveV3Ethereum.COLLECTOR.approve(
-      AaveV3EthereumAssets.WETH_A_TOKEN,
+      IERC20(AaveV3EthereumAssets.WETH_A_TOKEN),
       UmbrellaEthereum.DEFICIT_OFFSET_CLINIC_STEWARD,
       DEFICIT_OFFSET_WETH
     );
 
     AaveV3Ethereum.COLLECTOR.approve(
-      AaveV3EthereumAssets.GHO_UNDERLYING,
+      IERC20(AaveV3EthereumAssets.GHO_UNDERLYING),
       UmbrellaEthereum.DEFICIT_OFFSET_CLINIC_STEWARD,
       DEFICIT_OFFSET_GHO
     );
