@@ -351,7 +351,6 @@ contract AaveV3Gnosis_GHOGnosisLaunch_20250421_PreExecution is
 
   function test_tokenPoolConfig() public {
     executePayload(vm, address(proposal));
-    console2.log('executed tokenPoolConfig');
 
     assertEq(NEW_TOKEN_POOL.owner(), GovernanceV3Gnosis.EXECUTOR_LVL_1);
     assertEq(
@@ -424,7 +423,6 @@ contract AaveV3Gnosis_GHOGnosisLaunch_20250421_PostExecution is
     super.setUp();
 
     executePayload(vm, address(proposal));
-    console2.log('executed setUp');
   }
 
   function test_sendMessageToArbSucceeds(uint256 amount) public {
