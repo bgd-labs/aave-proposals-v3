@@ -16,13 +16,6 @@
 | borrowingEnabled | true | false |
 
 
-#### osETH ([0xf1C9acDc66974dFB6dEcB12aA385b9cD01190E38](https://etherscan.io/address/0xf1C9acDc66974dFB6dEcB12aA385b9cD01190E38))
-
-| description | value before | value after |
-| --- | --- | --- |
-| borrowingEnabled | true | false |
-
-
 ## Emodes changed
 
 ### EMode: ETH correlated(id: 1)
@@ -97,12 +90,6 @@
         "from": true,
         "to": false
       }
-    },
-    "0xf1C9acDc66974dFB6dEcB12aA385b9cD01190E38": {
-      "borrowingEnabled": {
-        "from": true,
-        "to": false
-      }
     }
   },
   "raw": {
@@ -113,10 +100,6 @@
         "0x0aa88caa1bb30a042b74c9bc2dc685ff713c2f3c10e3ff1bc752f50479dcc4a2": {
           "previousValue": "0x100000000000000000000003e8000001644000000001138885082a621d4c1b58",
           "newValue": "0x100000000000000000000003e8000001644000000001138881082a621d4c1b58"
-        },
-        "0x1f90421f12d8e2ce282f76d42efa0c95b3551bd055d13a1de40c0e6b1e99c380": {
-          "previousValue": "0x100000000000000000000103e800003f7a000000000105dc851229fe1d4c1c52",
-          "newValue": "0x100000000000000000000103e800003f7a000000000105dc811229fe1d4c1c52"
         },
         "0x8e0cc0f1f0504b4cb44a23b328568106915b169e79003737a7b094503cdbeeb2": {
           "previousValue": "0x00000000000000000000000000000000000000000000000000000000b0000283",

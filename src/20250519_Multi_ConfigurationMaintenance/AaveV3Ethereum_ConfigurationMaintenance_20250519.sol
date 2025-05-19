@@ -20,7 +20,7 @@ contract AaveV3Ethereum_ConfigurationMaintenance_20250519 is AaveV3PayloadEthere
     returns (IAaveV3ConfigEngine.BorrowUpdate[] memory)
   {
     IAaveV3ConfigEngine.BorrowUpdate[]
-      memory borrowUpdates = new IAaveV3ConfigEngine.BorrowUpdate[](3);
+      memory borrowUpdates = new IAaveV3ConfigEngine.BorrowUpdate[](2);
     borrowUpdates[0] = IAaveV3ConfigEngine.BorrowUpdate({
       asset: AaveV3EthereumAssets.LBTC_UNDERLYING,
       enabledToBorrow: EngineFlags.DISABLED,
@@ -31,14 +31,6 @@ contract AaveV3Ethereum_ConfigurationMaintenance_20250519 is AaveV3PayloadEthere
     });
     borrowUpdates[1] = IAaveV3ConfigEngine.BorrowUpdate({
       asset: AaveV3EthereumAssets.rsETH_UNDERLYING,
-      enabledToBorrow: EngineFlags.DISABLED,
-      flashloanable: EngineFlags.KEEP_CURRENT,
-      borrowableInIsolation: EngineFlags.KEEP_CURRENT,
-      withSiloedBorrowing: EngineFlags.KEEP_CURRENT,
-      reserveFactor: EngineFlags.KEEP_CURRENT
-    });
-    borrowUpdates[2] = IAaveV3ConfigEngine.BorrowUpdate({
-      asset: AaveV3EthereumAssets.osETH_UNDERLYING,
       enabledToBorrow: EngineFlags.DISABLED,
       flashloanable: EngineFlags.KEEP_CURRENT,
       borrowableInIsolation: EngineFlags.KEEP_CURRENT,

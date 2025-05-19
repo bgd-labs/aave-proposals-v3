@@ -1,3 +1,14 @@
+## Reserve changes
+
+### Reserves altered
+
+#### MaticX ([0xfa68FB4628DFF1028CFEc22b4162FCcd0d45efb6](https://polygonscan.com/address/0xfa68FB4628DFF1028CFEc22b4162FCcd0d45efb6))
+
+| description | value before | value after |
+| --- | --- | --- |
+| borrowingEnabled | true | false |
+
+
 ## Emodes changed
 
 ### EMode: Stablecoins(id: 1)
@@ -46,6 +57,14 @@
       }
     }
   },
+  "reserves": {
+    "0xfa68FB4628DFF1028CFEc22b4162FCcd0d45efb6": {
+      "borrowingEnabled": {
+        "from": true,
+        "to": false
+      }
+    }
+  },
   "raw": {
     "0x401b5d0294e23637c18fcc38b1bca814cda2637c": {
       "label": "GovernanceV3Polygon.PAYLOADS_CONTROLLER",
@@ -72,6 +91,10 @@
         "0x81d0999fde243adcc41b7fa1be5cea14f789e3a6065b815ac58f4bc0838c3157": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000080010",
           "newValue": "0x0000000000000000000000000000000000000000000000000000000000000010"
+        },
+        "0xd87cce9b5faabfdec37f32d8c75e0689cf8e2c9faac27b070479c3cf61dba3ed": {
+          "previousValue": "0x100000000000000000000203e8007270e0000000000107d085122af817701388",
+          "newValue": "0x100000000000000000000203e8007270e0000000000107d081122af817701388"
         }
       }
     }

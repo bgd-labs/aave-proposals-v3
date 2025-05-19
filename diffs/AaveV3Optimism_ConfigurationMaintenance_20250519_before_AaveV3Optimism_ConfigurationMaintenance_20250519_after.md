@@ -1,3 +1,14 @@
+## Reserve changes
+
+### Reserves altered
+
+#### sUSD ([0x8c6f28f2F1A3C87F0f938b96d27520d9751ec8d9](https://optimistic.etherscan.io/address/0x8c6f28f2F1A3C87F0f938b96d27520d9751ec8d9))
+
+| description | value before | value after |
+| --- | --- | --- |
+| borrowingEnabled | true | false |
+
+
 ## Emodes changed
 
 ### EMode: Stablecoins(id: 1)
@@ -42,6 +53,14 @@
       }
     }
   },
+  "reserves": {
+    "0x8c6f28f2F1A3C87F0f938b96d27520d9751ec8d9": {
+      "borrowingEnabled": {
+        "from": true,
+        "to": false
+      }
+    }
+  },
   "raw": {
     "0x0e1a3af1f9cc76a62ed31ededca291e63632e7c4": {
       "label": "GovernanceV3Optimism.PAYLOADS_CONTROLLER",
@@ -68,6 +87,10 @@
         "0x8e0cc0f1f0504b4cb44a23b328568106915b169e79003737a7b094503cdbeeb2": {
           "previousValue": "0x00000000000000000000000000000000000000000000000000000000000020a5",
           "newValue": "0x0000000000000000000000000000000000000000000000000000000000000000"
+        },
+        "0xa982d1cb7d68220294ac63c5092ec5248aee8c7ea585ba78b39b5d7ef7f89cb2": {
+          "previousValue": "0x100000000000000000000103e80001e848000000000107d08512292c1b580000",
+          "newValue": "0x100000000000000000000103e80001e848000000000107d08112292c1b580000"
         }
       }
     }
