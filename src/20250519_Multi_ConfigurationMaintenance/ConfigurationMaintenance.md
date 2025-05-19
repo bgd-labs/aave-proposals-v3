@@ -40,6 +40,23 @@ Therefore we recommend reverting to the previous ZeroInterestRateStrategy to cut
 ## Specification
 
 The proposal uses the config engine to implemented the described changes.
+
+| description                | borrowable before                             | borrowable after |
+| -------------------------- | --------------------------------------------- | ---------------- |
+| Arbitrum: Stablecoins      | DAI, USDC, USD₮0, EURS, USDC                  |                  |
+| Arbitrum: ETH correlated   | WETH, wstETH, weETH                           | WETH             |
+| Avalanche: Stablecoins     | DAI.e, USDC, USDt, FRAX, MAI                  |                  |
+| Avalanche: AVAX correlated | WAVAX, sAVAX                                  | WAVAX            |
+| Base: ETH correlated       | WETH, cbETH, wstETH, weETH                    | WETH             |
+| Ethereum: ETH correlated   | WETH, wstETH, cbETH, rETH, weETH, osETH, ETHx | WETH             |
+| Gnosis: ETH correlated     | WETH, wstETH                                  | WETH             |
+| Optimism:Stablecoins       | DAI, USDC, USDT, sUSD, USDC                   |                  |
+| Optimism: ETH correlated   | WETH, wstETH, rETH                            | WETH             |
+| Polygon: Matic correlated  | WPOL, stMATIC, MaticX                         | WPOL             |
+| Polygon: ETH correlated    | WETH, wstETH                                  | WETH             |
+| Scroll: ETH correlated     | WETH, wstETH, weETH                           | WETH             |
+| ZkSync: ETH correlated     | WETH, wstETH                                  | WETH             |
+
 In addition it calls to revert the interest rate on Aave V2 Ethereum:
 
 ```

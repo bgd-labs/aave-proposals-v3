@@ -9,7 +9,7 @@ import {AaveV3ZkSync_ConfigurationMaintenance_20250519} from './AaveV3ZkSync_Con
 
 /**
  * @dev Test for AaveV3ZkSync_ConfigurationMaintenance_20250519
- * command: FOUNDRY_PROFILE=test forge test --zksync --match-path=zksync/src/20250519_Multi_ConfigurationMaintenance/AaveV3ZkSync_ConfigurationMaintenance_20250519.t.sol -vv
+ * command: FOUNDRY_PROFILE=zksync forge test --zksync --match-path=zksync/src/20250519_Multi_ConfigurationMaintenance/AaveV3ZkSync_ConfigurationMaintenance_20250519.t.sol -vv
  */
 contract AaveV3ZkSync_ConfigurationMaintenance_20250519_Test is ProtocolV3TestBase {
   AaveV3ZkSync_ConfigurationMaintenance_20250519 internal proposal;
