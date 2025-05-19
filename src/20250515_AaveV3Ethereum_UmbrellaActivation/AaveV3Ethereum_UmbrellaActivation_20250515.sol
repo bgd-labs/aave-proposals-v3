@@ -126,37 +126,37 @@ contract AaveV3Ethereum_UmbrellaActivation_20250515 is UmbrellaExtendedPayload {
 
     // Give role to cover deficit offset for `FinancialCommittee`
     // `FinancialCommittee` has the `FINANCE_COMMITTEE_ROLE` role inside `DeficitOffsetClinicSteward`
-    // AccessControlUpgradeable(address(UmbrellaEthereum.UMBRELLA)).grantRole(
-    //   COVERAGE_MANAGER_ROLE,
-    //   UmbrellaEthereum.DEFICIT_OFFSET_CLINIC_STEWARD
-    // );
+    AccessControlUpgradeable(address(UmbrellaEthereum.UMBRELLA)).grantRole(
+      COVERAGE_MANAGER_ROLE,
+      UmbrellaEthereum.DEFICIT_OFFSET_CLINIC_STEWARD
+    );
 
     // Give allowance to `DeficitOffsetClinitSteward`
     // So `deficitOffset` could be closed using `Collector` funds
     /////////////////////////////////////////////////////////////////////////////////////////
 
-    // AaveV3Ethereum.COLLECTOR.approve(
-    //   AaveV3EthereumAssets.USDC_A_TOKEN,
-    //   UmbrellaEthereum.DEFICIT_OFFSET_CLINIC_STEWARD,
-    //   DEFICIT_OFFSET_USDC
-    // );
+    AaveV3Ethereum.COLLECTOR.approve(
+      AaveV3EthereumAssets.USDC_A_TOKEN,
+      UmbrellaEthereum.DEFICIT_OFFSET_CLINIC_STEWARD,
+      DEFICIT_OFFSET_USDC
+    );
 
-    // AaveV3Ethereum.COLLECTOR.approve(
-    //   AaveV3EthereumAssets.USDT_A_TOKEN,
-    //   UmbrellaEthereum.DEFICIT_OFFSET_CLINIC_STEWARD,
-    //   DEFICIT_OFFSET_USDT
-    // );
+    AaveV3Ethereum.COLLECTOR.approve(
+      AaveV3EthereumAssets.USDT_A_TOKEN,
+      UmbrellaEthereum.DEFICIT_OFFSET_CLINIC_STEWARD,
+      DEFICIT_OFFSET_USDT
+    );
 
-    // AaveV3Ethereum.COLLECTOR.approve(
-    //   AaveV3EthereumAssets.WETH_A_TOKEN,
-    //   UmbrellaEthereum.DEFICIT_OFFSET_CLINIC_STEWARD,
-    //   DEFICIT_OFFSET_WETH
-    // );
+    AaveV3Ethereum.COLLECTOR.approve(
+      AaveV3EthereumAssets.WETH_A_TOKEN,
+      UmbrellaEthereum.DEFICIT_OFFSET_CLINIC_STEWARD,
+      DEFICIT_OFFSET_WETH
+    );
 
-    // AaveV3Ethereum.COLLECTOR.approve(
-    //   AaveV3EthereumAssets.GHO_UNDERLYING,
-    //   UmbrellaEthereum.DEFICIT_OFFSET_CLINIC_STEWARD,
-    //   DEFICIT_OFFSET_GHO
-    // );
+    AaveV3Ethereum.COLLECTOR.approve(
+      AaveV3EthereumAssets.GHO_UNDERLYING,
+      UmbrellaEthereum.DEFICIT_OFFSET_CLINIC_STEWARD,
+      DEFICIT_OFFSET_GHO
+    );
   }
 }
