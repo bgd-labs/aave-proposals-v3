@@ -27,13 +27,6 @@ contract AaveV3Ethereum_SafetyModuleRewardsDecrease_20250515 is IProposalGeneric
   uint128 public constant CURRENT_AAVE_EMISSION_PER_SECOND_GHO = uint128(100 ether) / 1 days;
   uint128 public constant AAVE_EMISSION_PER_SECOND_GHO = uint128(0);
 
-  // Rewards will be extended for the next 180 days
-  uint256 public constant STK_AAVE_EMISSION_DURATION = 180 days;
-
-  // Last extention of Aave emission for `StkAave` was executed at `1731809879` timestamp
-  // Was extended for 180 days too
-  uint256 public constant AAVE_EMISSION_END_TIMESTAMP_STK_AAVE = 1731809879 + 180 days; // 16 May 2025, already skipped
-
   function execute() external {
     _decreaseAaveEmission(
       AaveSafetyModule.STK_AAVE,
@@ -63,21 +56,9 @@ contract AaveV3Ethereum_SafetyModuleRewardsDecrease_20250515 is IProposalGeneric
     uint256 newAllowance;
 
     if (legacyStkToken == AaveSafetyModule.STK_AAVE) {
-      // cause `distributionEnd` was already skipped
-      uint256 distributionEndSkippedFor = block.timestamp - AAVE_EMISSION_END_TIMESTAMP_STK_AAVE;
-      // Keep all unclaimed rewards
-      uint256 unclaimedAllowance = IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING).allowance(
-        address(MiscEthereum.ECOSYSTEM_RESERVE),
-        legacyStkToken
-      );
-      // Calculate missed rewards with the old rate
-      uint256 skippedAllowance = (distributionEndSkippedFor * currentEmission);
-      // sum all allowances with the next 180 days emission with new rate
-      newAllowance =
-        unclaimedAllowance +
-        skippedAllowance +
-        newEmission *
-        STK_AAVE_EMISSION_DURATION;
+      // stkAave rewards were extended just before `UmbrellaActivation` payload for 90 days with 360 Aave/day
+      // If we leave as it's, then with new rate (216) this will result in +- 150 days, which is fine
+      // so we wont update allowance in this case
     } else {
       // Both other legacy stk have not infinite `distributionEnd` and their distributions haven't skipped yet
       uint256 distributionTimeLeft = IStakeToken(legacyStkToken).distributionEnd() -
@@ -90,6 +71,20 @@ contract AaveV3Ethereum_SafetyModuleRewardsDecrease_20250515 is IProposalGeneric
       ) - (distributionTimeLeft * currentEmission);
 
       newAllowance = allowanceToKeep + distributionTimeLeft * newEmission;
+
+      MiscEthereum.AAVE_ECOSYSTEM_RESERVE_CONTROLLER.approve(
+        MiscEthereum.ECOSYSTEM_RESERVE,
+        AaveV3EthereumAssets.AAVE_UNDERLYING,
+        legacyStkToken,
+        0
+      );
+
+      MiscEthereum.AAVE_ECOSYSTEM_RESERVE_CONTROLLER.approve(
+        MiscEthereum.ECOSYSTEM_RESERVE,
+        AaveV3EthereumAssets.AAVE_UNDERLYING,
+        legacyStkToken,
+        newAllowance
+      );
     }
 
     IStakeToken.AssetConfigInput[] memory bptConfigs = new IStakeToken.AssetConfigInput[](1);
@@ -100,19 +95,5 @@ contract AaveV3Ethereum_SafetyModuleRewardsDecrease_20250515 is IProposalGeneric
     });
 
     IStakeToken(legacyStkToken).configureAssets(bptConfigs);
-
-    MiscEthereum.AAVE_ECOSYSTEM_RESERVE_CONTROLLER.approve(
-      MiscEthereum.ECOSYSTEM_RESERVE,
-      AaveV3EthereumAssets.AAVE_UNDERLYING,
-      legacyStkToken,
-      0
-    );
-
-    MiscEthereum.AAVE_ECOSYSTEM_RESERVE_CONTROLLER.approve(
-      MiscEthereum.ECOSYSTEM_RESERVE,
-      AaveV3EthereumAssets.AAVE_UNDERLYING,
-      legacyStkToken,
-      newAllowance
-    );
   }
 }

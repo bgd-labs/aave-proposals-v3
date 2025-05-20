@@ -12,6 +12,10 @@ import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 
 import {AaveV3Ethereum_SafetyModuleRewardsDecrease_20250515} from './AaveV3Ethereum_SafetyModuleRewardsDecrease_20250515.sol';
 
+interface IStkAave {
+  function DISTRIBUTION_END() external view returns (uint256);
+}
+
 /**
  * @dev Test for AaveV3Ethereum_SafetyModuleRewardsDecrease_20250515
  * command: FOUNDRY_PROFILE=mainnet forge test --match-path=src/20250515_AaveV3Ethereum_UmbrellaActivation/AaveV3Ethereum_SafetyModuleRewardsDecrease_20250515.t.sol -vv
@@ -77,7 +81,15 @@ contract AaveV3Ethereum_SafetyModuleRewardsDecrease_20250515_Test is ProtocolV3T
   // Distribution end tests
   /////////////////////////////////////////////////////////////////////////////////////////
 
-  // StkAave has almost infinite `distributionEnd`, so test is skipped
+  function test_checkDistributionEndStkAave() public {
+    uint256 distributionEndBefore = IStkAave(AaveSafetyModule.STK_AAVE).DISTRIBUTION_END();
+
+    executePayload(vm, address(proposal));
+
+    uint256 distributionEndAfter = IStkAave(AaveSafetyModule.STK_AAVE).DISTRIBUTION_END();
+
+    assertEq(distributionEndBefore, distributionEndAfter);
+  }
 
   function test_checkDistributionEndStkBPT() public {
     uint256 endTimestampBefore = IStakeToken(AaveSafetyModule.STK_AAVE_WSTETH_BPTV2)
@@ -121,8 +133,8 @@ contract AaveV3Ethereum_SafetyModuleRewardsDecrease_20250515_Test is ProtocolV3T
       AaveSafetyModule.STK_AAVE
     );
 
-    // we increase allowance for skipped period + grant for the next 180 days with new rate
-    assertGt(allowanceAfter, allowanceBefore);
+    // allowance wasn't changed
+    assertEq(allowanceAfter, allowanceBefore);
   }
 
   function test_checkAllowanceStkBPT() public {

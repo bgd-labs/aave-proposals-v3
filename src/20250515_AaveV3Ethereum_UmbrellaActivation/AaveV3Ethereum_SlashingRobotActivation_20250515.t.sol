@@ -13,11 +13,18 @@ contract AaveV3Ethereum_SlashingRobotActivation_20250515_Test is ProtocolV3TestB
   AaveV3Ethereum_SlashingRobotActivation_20250515 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 22517759);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 22525289);
     proposal = new AaveV3Ethereum_SlashingRobotActivation_20250515();
   }
 
   function test_newRobotsRegistered() public {
+    vm.expectEmit(false, true, true, true);
+    emit IAaveCLRobotOperator.KeeperRegistered(
+      uint256(0),
+      proposal.SLASHING_ROBOT(),
+      proposal.SLASHING_ROBOT_LINK_AMOUNT()
+    );
+
     executePayload(vm, address(proposal));
   }
 }
