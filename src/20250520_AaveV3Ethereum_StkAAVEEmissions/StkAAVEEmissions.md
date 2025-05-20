@@ -21,8 +21,8 @@ More information on stkAAVE can be found in these dashboards, [here](https://dun
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250520_AaveV3Ethereum_StkAAVEEmissions/AaveV3Ethereum_StkAAVEEmissions_20250520.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250520_AaveV3Ethereum_StkAAVEEmissions/AaveV3Ethereum_StkAAVEEmissions_20250520.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/425f3ad5a7a1c78472ec153cfbd319fa3f996d95/src/20250520_AaveV3Ethereum_StkAAVEEmissions/AaveV3Ethereum_StkAAVEEmissions_20250520.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/425f3ad5a7a1c78472ec153cfbd319fa3f996d95/src/20250520_AaveV3Ethereum_StkAAVEEmissions/AaveV3Ethereum_StkAAVEEmissions_20250520.t.sol)
 - Snapshot: Direct-to-AIP
 - [Discussion](https://governance.aave.com/t/arfc-amend-safety-module-emissions/16640/26)
 
