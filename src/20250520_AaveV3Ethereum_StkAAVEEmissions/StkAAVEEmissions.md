@@ -6,7 +6,7 @@ discussions: "https://governance.aave.com/t/arfc-amend-safety-module-emissions/1
 
 ## Simple Summary
 
-Re-enable stkAAVE incentives emissions for 55 days in anticipation of the launch of Umbrella.
+Re-enable stkAAVE incentives emissions for 90 days in anticipation of the launch of Umbrella.
 
 ## Motivation
 
@@ -16,7 +16,7 @@ More information on stkAAVE can be found in these dashboards, [here](https://dun
 
 ## Specification
 
-- Set new allowance to 360 AAVE per day for 55 days
+- Set new allowance to 360 AAVE per day for 90 days
 - Include prior remaining allowance
 
 ## References
