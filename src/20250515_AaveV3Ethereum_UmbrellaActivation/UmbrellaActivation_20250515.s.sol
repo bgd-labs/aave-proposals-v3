@@ -8,7 +8,7 @@ import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aave-helpers/src/GovV3Helpers.sol';
 
 import {AaveV3Ethereum_SafetyModuleRewardsDecrease_20250515} from './AaveV3Ethereum_SafetyModuleRewardsDecrease_20250515.sol';
-import {AaveV3Ethereum_SlashingRobotActivation_20250515} from './AaveV3Ethereum_SlashingConfigActivation.sol';
+import {AaveV3Ethereum_SlashingRobotActivation_20250515} from './AaveV3Ethereum_SlashingRobotActivation_20250515.sol';
 import {AaveV3Ethereum_UmbrellaActivation_20250515} from './AaveV3Ethereum_UmbrellaActivation_20250515.sol';
 
 /**
