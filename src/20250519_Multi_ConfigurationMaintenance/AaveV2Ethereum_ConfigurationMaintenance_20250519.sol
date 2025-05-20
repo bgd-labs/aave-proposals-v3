@@ -7,8 +7,7 @@ import {AaveV2Ethereum, AaveV2EthereumAssets} from 'aave-address-book/AaveV2Ethe
 /**
  * @title Configuration maintenance
  * @author BGD Labs @bgdlabs
- * - Snapshot: TODO
- * - Discussion: TODO
+ * - Discussion: https://governance.aave.com/t/technical-maintenance-proposals/15274/86
  */
 contract AaveV2Ethereum_ConfigurationMaintenance_20250519 is IProposalGenericExecutor {
   function execute() external {

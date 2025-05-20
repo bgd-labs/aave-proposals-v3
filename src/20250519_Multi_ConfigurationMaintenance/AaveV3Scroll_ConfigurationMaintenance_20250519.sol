@@ -5,11 +5,11 @@ import {AaveV3ScrollAssets, AaveV3ScrollEModes} from 'aave-address-book/AaveV3Sc
 import {AaveV3PayloadScroll} from 'aave-helpers/src/v3-config-engine/AaveV3PayloadScroll.sol';
 import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
+
 /**
  * @title Configuration maintenance
  * @author BGD Labs @bgdlabs
- * - Snapshot: TODO
- * - Discussion: TODO
+ * - Discussion: https://governance.aave.com/t/technical-maintenance-proposals/15274/86
  */
 contract AaveV3Scroll_ConfigurationMaintenance_20250519 is AaveV3PayloadScroll {
   function assetsEModeUpdates()

@@ -9,8 +9,7 @@ import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config
 /**
  * @title Configuration maintenance
  * @author BGD Labs @bgdlabs
- * - Snapshot: TODO
- * - Discussion: TODO
+ * - Discussion: https://governance.aave.com/t/technical-maintenance-proposals/15274/86
  */
 contract AaveV3Optimism_ConfigurationMaintenance_20250519 is AaveV3PayloadOptimism {
   function borrowsUpdates()

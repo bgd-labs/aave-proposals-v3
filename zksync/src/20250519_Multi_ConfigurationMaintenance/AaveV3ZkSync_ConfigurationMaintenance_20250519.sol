@@ -5,11 +5,11 @@ import {AaveV3ZkSyncAssets, AaveV3ZkSyncEModes} from 'aave-address-book/AaveV3Zk
 import {AaveV3PayloadZkSync} from 'aave-helpers/src/v3-config-engine/AaveV3PayloadZkSync.sol';
 import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
+
 /**
  * @title Configuration maintenance
  * @author BGD Labs @bgdlabs
- * - Snapshot: TODO
- * - Discussion: TODO
+ * - Discussion: https://governance.aave.com/t/technical-maintenance-proposals/15274/86
  */
 contract AaveV3ZkSync_ConfigurationMaintenance_20250519 is AaveV3PayloadZkSync {
   function assetsEModeUpdates()
