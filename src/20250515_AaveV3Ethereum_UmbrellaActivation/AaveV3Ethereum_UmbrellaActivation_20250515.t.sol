@@ -4,15 +4,16 @@ pragma solidity ^0.8.0;
 import {AccessControlUpgradeable} from 'openzeppelin-contracts-upgradeable/contracts/access/AccessControlUpgradeable.sol';
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 
-import {UmbrellaEthereum} from 'aave-address-book/UmbrellaEthereum.sol';
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
+import {UmbrellaEthereum} from 'aave-address-book/UmbrellaEthereum.sol';
 
-import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
+import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 
-import {IRewardsController} from 'aave-umbrella/rewards/interfaces/IRewardsController.sol';
-import {IUmbrellaStakeToken} from 'aave-umbrella/stakeToken/interfaces/IUmbrellaStakeToken.sol';
-import {IUmbrellaConfiguration} from 'aave-umbrella/umbrella/interfaces/IUmbrellaConfiguration.sol';
+import {IStataTokenV2} from 'aave-v3-origin/contracts/extensions/stata-token/interfaces/IStataTokenV2.sol';
+
 import {IDeficitOffsetClinicSteward} from 'aave-umbrella/stewards/interfaces/IDeficitOffsetClinicSteward.sol';
+import {IUmbrellaStakeToken} from 'aave-umbrella/stakeToken/interfaces/IUmbrellaStakeToken.sol';
+import {IRewardsController} from 'aave-umbrella/rewards/interfaces/IRewardsController.sol';
 
 import {AaveV3Ethereum_UmbrellaActivation_20250515} from './AaveV3Ethereum_UmbrellaActivation_20250515.sol';
 
@@ -330,7 +331,7 @@ contract AaveV3Ethereum_UmbrellaActivation_20250515_Test is ProtocolV3TestBase {
 
     vm.startPrank(user);
 
-    deal(AaveV3EthereumAssets.USDC_STATA_TOKEN, user, 1_000 * 1e6);
+    deal(AaveV3EthereumAssets.USDC_STATA_TOKEN, user, 1000 * 1e6);
     deal(AaveV3EthereumAssets.USDT_STATA_TOKEN, user, 1_000 * 1e6);
     deal(AaveV3EthereumAssets.WETH_STATA_TOKEN, user, 1_000 * 1e18);
     deal(AaveV3EthereumAssets.GHO_UNDERLYING, user, 1_000 * 1e18);

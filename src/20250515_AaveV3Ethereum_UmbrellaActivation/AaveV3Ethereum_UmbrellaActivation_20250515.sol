@@ -6,14 +6,11 @@ import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {UmbrellaEthereum} from 'aave-address-book/UmbrellaEthereum.sol';
-import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
-
-import {UmbrellaExtendedPayload} from 'aave-umbrella/payloads/UmbrellaExtendedPayload.sol';
 
 import {IStataTokenV2} from 'aave-v3-origin/contracts/extensions/stata-token/interfaces/IStataTokenV2.sol';
 
-import {IStructs} from 'aave-umbrella/payloads/UmbrellaExtendedPayload.sol';
-import {ISMStructs, ICStructs} from 'aave-umbrella/payloads/UmbrellaBasePayload.sol';
+import {UmbrellaExtendedPayload} from 'aave-umbrella/payloads/UmbrellaExtendedPayload.sol';
+import {ISMStructs, IStructs} from 'aave-umbrella/payloads/UmbrellaBasePayload.sol';
 import {IRewardsStructs} from 'aave-umbrella/rewards/interfaces/IRewardsStructs.sol';
 
 /**
@@ -21,6 +18,19 @@ import {IRewardsStructs} from 'aave-umbrella/rewards/interfaces/IRewardsStructs.
  * @author BGD Labs (@bgdlabs)
  * - Snapshot: TODO
  * - Discussion: https://governance.aave.com/t/arfc-aave-umbrella-activation/21521
+ * @notice Executes a batch of actions to activate the Aave Umbrella framework.
+ *
+ * The payload performs the following actions:
+ *  - Registers the `Umbrella` contract in the `POOL_ADDRESSES_PROVIDER`
+ *  - Eliminates reserve deficits fot USDC, USDT, WETH and GHO
+ *  - Deploys four `UmbrellaStakeToken`s:
+ *    + Three backed by waTokens
+ *    + One (stkGho) backed by GHO
+ *  - Configures slashing parameters and reward mechanisms during stkToken setup, increases `deficitOffset`s
+ *  - Grants allowance from the `Collector` to the `RewardsController` to fund rewards for the next 180 days
+ *  - Assigns the `REWARDS_ADMIN_ROLE` to the `PERMISSIONED_PAYLOADS_CONTROLLER_EXECUTOR`
+ *  - Assigns the `COVERAGE_MANAGER_ROLE` to the `DEFICIT_OFFSET_CLINIC_STEWARD`
+ *  - Grants allowance to the `DEFICIT_OFFSET_CLINIC_STEWARD` for `deficitOffset` elimination
  */
 contract AaveV3Ethereum_UmbrellaActivation_20250515 is
   UmbrellaExtendedPayload(UmbrellaEthereum.UMBRELLA_CONFIG_ENGINE)

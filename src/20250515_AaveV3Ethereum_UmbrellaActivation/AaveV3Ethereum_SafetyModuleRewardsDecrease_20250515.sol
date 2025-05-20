@@ -4,9 +4,9 @@ pragma solidity ^0.8.0;
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 
 import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
-import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {AaveSafetyModule} from 'aave-address-book/AaveSafetyModule.sol';
 import {IStakeToken} from 'aave-address-book/common/IStakeToken.sol';
+import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
 
@@ -15,6 +15,7 @@ import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGen
  * @author BGD Labs (@bgdlabs)
  * - Snapshot: TODO
  * - Discussion: https://governance.aave.com/t/arfc-aave-umbrella-activation/21521
+ * @notice This payload decreases rewards distribution for the legacy stkTokens.
  */
 contract AaveV3Ethereum_SafetyModuleRewardsDecrease_20250515 is IProposalGenericExecutor {
   uint128 public constant CURRENT_AAVE_EMISSION_PER_SECOND_AAVE = uint128(360 ether) / 1 days;
