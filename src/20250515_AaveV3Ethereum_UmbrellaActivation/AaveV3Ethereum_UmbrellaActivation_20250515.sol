@@ -1,14 +1,16 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 import {AccessControlUpgradeable} from 'openzeppelin-contracts-upgradeable/contracts/access/AccessControlUpgradeable.sol';
+import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {UmbrellaEthereum} from 'aave-address-book/UmbrellaEthereum.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 
 import {UmbrellaExtendedPayload} from 'aave-umbrella/payloads/UmbrellaExtendedPayload.sol';
+
+import {IStataTokenV2} from 'aave-v3-origin/contracts/extensions/stata-token/interfaces/IStataTokenV2.sol';
 
 import {IStructs} from 'aave-umbrella/payloads/UmbrellaExtendedPayload.sol';
 import {ISMStructs, ICStructs} from 'aave-umbrella/payloads/UmbrellaBasePayload.sol';
@@ -34,13 +36,13 @@ contract AaveV3Ethereum_UmbrellaActivation_20250515 is
   uint256 public constant DISTRIBUTION_DURATION = 365 days;
 
   uint256 public constant USDC_MAX_EMISSION_PER_SECOND = uint256(2_329_420 * 1e6) / 365 days; // ~3_000_000 * 66 / 85
-  uint256 public constant USDC_TARGET_LIQUIDITY = 66_000_000 * 1e6; // TODO
+  uint256 public constant USDC_TARGET_LIQUIDITY = 66_000_000 * 1e6; // Will be recaltulated during setup considering the exchange rate of stata
 
   uint256 public constant USDT_MAX_EMISSION_PER_SECOND = uint256(3_670_600 * 1e6) / 365 days; // ~3_000_000 * 104 / 85
-  uint256 public constant USDT_TARGET_LIQUIDITY = 104_000_000 * 1e6; // TODO
+  uint256 public constant USDT_TARGET_LIQUIDITY = 104_000_000 * 1e6; // Will be recaltulated during setup considering the exchange rate of stata
 
   uint256 public constant WETH_MAX_EMISSION_PER_SECOND = uint256(550 * 1e18) / 365 days;
-  uint256 public constant WETH_TARGET_LIQUIDITY = 25_000 * 1e18; // TODO
+  uint256 public constant WETH_TARGET_LIQUIDITY = 25_000 * 1e18; // Will be recaltulated during setup considering the exchange rate of stata
 
   uint256 public constant GHO_MAX_EMISSION_PER_SECOND = uint256(1_200_000 * 1e18) / 365 days;
   uint256 public constant GHO_TARGET_LIQUIDITY = 12_000_000 * 1e18;
@@ -158,7 +160,8 @@ contract AaveV3Ethereum_UmbrellaActivation_20250515 is
 
     tokensCreation[0] = IStructs.TokenSetup({
       stakeSetup: stkUsdcSetup,
-      targetLiquidity: USDC_TARGET_LIQUIDITY,
+      targetLiquidity: (USDC_TARGET_LIQUIDITY *
+        IStataTokenV2(AaveV3EthereumAssets.USDC_STATA_TOKEN).previewDeposit(1e6)) / 1e6,
       rewardConfigs: stkUsdcRewards,
       reserve: AaveV3EthereumAssets.USDC_UNDERLYING,
       liquidationFee: 0,
@@ -188,7 +191,8 @@ contract AaveV3Ethereum_UmbrellaActivation_20250515 is
 
     tokensCreation[1] = IStructs.TokenSetup({
       stakeSetup: stkUsdtSetup,
-      targetLiquidity: USDT_TARGET_LIQUIDITY,
+      targetLiquidity: (USDT_TARGET_LIQUIDITY *
+        IStataTokenV2(AaveV3EthereumAssets.USDT_STATA_TOKEN).previewDeposit(1e6)) / 1e6,
       rewardConfigs: stkUsdtRewards,
       reserve: AaveV3EthereumAssets.USDT_UNDERLYING,
       liquidationFee: 0,
@@ -218,7 +222,8 @@ contract AaveV3Ethereum_UmbrellaActivation_20250515 is
 
     tokensCreation[2] = IStructs.TokenSetup({
       stakeSetup: stkWethSetup,
-      targetLiquidity: WETH_TARGET_LIQUIDITY,
+      targetLiquidity: (WETH_TARGET_LIQUIDITY *
+        IStataTokenV2(AaveV3EthereumAssets.WETH_STATA_TOKEN).previewDeposit(1e18)) / 1e18,
       rewardConfigs: stkWethRewards,
       reserve: AaveV3EthereumAssets.WETH_UNDERLYING,
       liquidationFee: 0,
