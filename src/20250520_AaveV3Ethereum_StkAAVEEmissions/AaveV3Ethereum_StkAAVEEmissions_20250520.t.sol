@@ -10,6 +10,10 @@ import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 
 import {AaveV3Ethereum_StkAAVEEmissions_20250520} from './AaveV3Ethereum_StkAAVEEmissions_20250520.sol';
 
+interface IStakeAave {
+  function DISTRIBUTION_END() external view returns (uint256);
+}
+
 /**
  * @dev Test for AaveV3Ethereum_StkAAVEEmissions_20250520
  * command: FOUNDRY_PROFILE=test forge test --match-path=src/20250520_AaveV3Ethereum_StkAAVEEmissions/AaveV3Ethereum_StkAAVEEmissions_20250520.t.sol -vv
@@ -60,11 +64,11 @@ contract AaveV3Ethereum_StkAAVEEmissions_20250520_Test is ProtocolV3TestBase {
   }
 
   function test_checkDistributionEnd() public {
-    uint256 endTimestampBefore = IStakeToken(AaveSafetyModule.STK_AAVE).DISTRIBUTION_END();
+    uint256 endTimestampBefore = IStakeAave(AaveSafetyModule.STK_AAVE).DISTRIBUTION_END();
 
     executePayload(vm, address(proposal));
 
-    uint256 endTimestampAfter = IStakeToken(AaveSafetyModule.STK_AAVE).DISTRIBUTION_END();
+    uint256 endTimestampAfter = IStakeAave(AaveSafetyModule.STK_AAVE).DISTRIBUTION_END();
 
     assertEq(
       endTimestampAfter,
