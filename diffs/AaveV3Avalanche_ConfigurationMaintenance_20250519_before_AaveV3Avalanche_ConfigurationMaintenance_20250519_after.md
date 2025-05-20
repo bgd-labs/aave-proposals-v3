@@ -1,3 +1,14 @@
+## Reserve changes
+
+### Reserves altered
+
+#### FRAX ([0xD24C2Ad096400B6FBcd2ad8B24E7acBc21A1da64](https://snowtrace.io/address/0xD24C2Ad096400B6FBcd2ad8B24E7acBc21A1da64))
+
+| description | value before | value after |
+| --- | --- | --- |
+| borrowingEnabled | true | false |
+
+
 ## Emodes changed
 
 ### EMode: Stablecoins(id: 1)
@@ -42,6 +53,14 @@
       }
     }
   },
+  "reserves": {
+    "0xD24C2Ad096400B6FBcd2ad8B24E7acBc21A1da64": {
+      "borrowingEnabled": {
+        "from": true,
+        "to": false
+      }
+    }
+  },
   "raw": {
     "0x1140cb7cafacc745771c2ea31e7b5c653c5d0b80": {
       "label": "GovernanceV3Avalanche.PAYLOADS_CONTROLLER",
@@ -64,6 +83,10 @@
         "0x67dcc86da9aaaf40a183002157e56801115aa6057705e43279b4c1c90942d6b4": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000180",
           "newValue": "0x0000000000000000000000000000000000000000000000000000000000000080"
+        },
+        "0x6af900617289e2e9ed4b1e16072f0f9e1d4e9b41e80b95362ac4859a0c516a58": {
+          "previousValue": "0x10005f5e1000000000000103e80000493e0000041eb007d0851229041e140000",
+          "newValue": "0x10005f5e1000000000000103e80000493e0000041eb007d0811229041e140000"
         },
         "0x8e0cc0f1f0504b4cb44a23b328568106915b169e79003737a7b094503cdbeeb2": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000625",

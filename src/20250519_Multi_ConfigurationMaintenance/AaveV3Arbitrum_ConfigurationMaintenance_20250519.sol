@@ -13,6 +13,25 @@ import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config
  * - Discussion: TODO
  */
 contract AaveV3Arbitrum_ConfigurationMaintenance_20250519 is AaveV3PayloadArbitrum {
+  function borrowsUpdates()
+    public
+    pure
+    override
+    returns (IAaveV3ConfigEngine.BorrowUpdate[] memory)
+  {
+    IAaveV3ConfigEngine.BorrowUpdate[]
+      memory borrowUpdates = new IAaveV3ConfigEngine.BorrowUpdate[](1);
+    borrowUpdates[0] = IAaveV3ConfigEngine.BorrowUpdate({
+      asset: AaveV3ArbitrumAssets.FRAX_UNDERLYING,
+      enabledToBorrow: EngineFlags.DISABLED,
+      flashloanable: EngineFlags.KEEP_CURRENT,
+      borrowableInIsolation: EngineFlags.KEEP_CURRENT,
+      withSiloedBorrowing: EngineFlags.KEEP_CURRENT,
+      reserveFactor: EngineFlags.KEEP_CURRENT
+    });
+    return borrowUpdates;
+  }
+
   function assetsEModeUpdates()
     public
     pure

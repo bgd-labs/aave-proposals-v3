@@ -9,7 +9,21 @@
 | borrowingEnabled | true | false |
 
 
+#### FRAX ([0x853d955aCEf822Db058eb8505911ED77F175b99e](https://etherscan.io/address/0x853d955aCEf822Db058eb8505911ED77F175b99e))
+
+| description | value before | value after |
+| --- | --- | --- |
+| borrowingEnabled | true | false |
+
+
 #### rsETH ([0xA1290d69c65A6Fe4DF752f95823fae25cB99e5A7](https://etherscan.io/address/0xA1290d69c65A6Fe4DF752f95823fae25cB99e5A7))
+
+| description | value before | value after |
+| --- | --- | --- |
+| borrowingEnabled | true | false |
+
+
+#### SNX ([0xC011a73ee8576Fb46F5E1c5751cA3B9Fe0af2a6F](https://etherscan.io/address/0xC011a73ee8576Fb46F5E1c5751cA3B9Fe0af2a6F))
 
 | description | value before | value after |
 | --- | --- | --- |
@@ -85,7 +99,19 @@
         "to": false
       }
     },
+    "0x853d955aCEf822Db058eb8505911ED77F175b99e": {
+      "borrowingEnabled": {
+        "from": true,
+        "to": false
+      }
+    },
     "0xA1290d69c65A6Fe4DF752f95823fae25cB99e5A7": {
+      "borrowingEnabled": {
+        "from": true,
+        "to": false
+      }
+    },
+    "0xC011a73ee8576Fb46F5E1c5751cA3B9Fe0af2a6F": {
       "borrowingEnabled": {
         "from": true,
         "to": false
@@ -104,6 +130,14 @@
         "0x8e0cc0f1f0504b4cb44a23b328568106915b169e79003737a7b094503cdbeeb2": {
           "previousValue": "0x00000000000000000000000000000000000000000000000000000000b0000283",
           "newValue": "0x0000000000000000000000000000000000000000000000000000000000000001"
+        },
+        "0xa67202cdd5816eb3aaf4ba690ecc450e266895ca4e1a61ec881c233f7f7ea464": {
+          "previousValue": "0x10017d784000000000000003e800044aa200000493e00dac85122a6219641324",
+          "newValue": "0x10017d784000000000000003e800044aa200000493e00dac81122a6219641324"
+        },
+        "0xd0bb603e19d3221c6caf5b9db7b052f4c1eacec34c11d54cb829f88934d95b35": {
+          "previousValue": "0x100000000000000000000003e80002625a00001e848007d0851229681c200000",
+          "newValue": "0x100000000000000000000003e80002625a00001e848007d0811229681c200000"
         },
         "0xed45a05ce0954e645f11725167843283bb37c29952c0335b670d63d10fcad8ef": {
           "previousValue": "0x100000000000000000000003e800007530000000000105dc851229fe1d4c1c20",

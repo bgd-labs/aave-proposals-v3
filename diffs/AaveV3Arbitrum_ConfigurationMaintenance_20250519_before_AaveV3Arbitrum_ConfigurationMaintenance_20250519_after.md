@@ -1,3 +1,14 @@
+## Reserve changes
+
+### Reserves altered
+
+#### FRAX ([0x17FC002b466eEc40DaE837Fc4bE5c67993ddBd6F](https://arbiscan.io/address/0x17FC002b466eEc40DaE837Fc4bE5c67993ddBd6F))
+
+| description | value before | value after |
+| --- | --- | --- |
+| borrowingEnabled | true | false |
+
+
 ## Emodes changed
 
 ### EMode: Stablecoins(id: 1)
@@ -58,11 +69,23 @@
       }
     }
   },
+  "reserves": {
+    "0x17FC002b466eEc40DaE837Fc4bE5c67993ddBd6F": {
+      "borrowingEnabled": {
+        "from": true,
+        "to": false
+      }
+    }
+  },
   "raw": {
     "0x794a61358d6845594f94dc1db02a252b5b4814ad": {
       "label": "AaveV3Arbitrum.POOL",
       "balanceDiff": null,
       "stateDiff": {
+        "0x231517525e76b52ef0565e25ae6e726ef61fa7481dd09cfc0b1bb129c697db69": {
+          "previousValue": "0x10005f5e1000000000000003e80001627e000011690807d0851229681c200000",
+          "newValue": "0x10005f5e1000000000000003e80001627e000011690807d0811229681c200000"
+        },
         "0x67dcc86da9aaaf40a183002157e56801115aa6057705e43279b4c1c90942d6b4": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000008110",
           "newValue": "0x0000000000000000000000000000000000000000000000000000000000000010"

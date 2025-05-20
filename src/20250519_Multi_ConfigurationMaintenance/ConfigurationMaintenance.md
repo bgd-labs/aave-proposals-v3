@@ -27,9 +27,11 @@ This will not have any effects on existing positions, but will prevent increased
 Some assets that were originally listed as borrowable have later been "disabled" by setting their borrowCap to 1 via risk stewards.
 While this workaround suits the needs, the "correct" thing to do, is to disable borrowing. Therefore this proposal permanently disables borrowing for:
 
-- LBTC and rsETH on Mainnet
+- FRAX, SNX, LBTC and rsETH on Mainnet
 - sUSD on Optimism
 - MaticX on Polygon
+- FRAX on Arbitrum
+- FRAX on Avalanche
 
 ### v2 Rates
 
@@ -72,6 +74,7 @@ AaveV2Ethereum.POOL_CONFIGURATOR.setReserveInterestRateStrategyAddress(
 - Tests: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250519_Multi_ConfigurationMaintenance/AaveV2Ethereum_ConfigurationMaintenance_20250519.t.sol), [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250519_Multi_ConfigurationMaintenance/AaveV3Ethereum_ConfigurationMaintenance_20250519.t.sol), [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250519_Multi_ConfigurationMaintenance/AaveV3Polygon_ConfigurationMaintenance_20250519.t.sol), [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250519_Multi_ConfigurationMaintenance/AaveV3Avalanche_ConfigurationMaintenance_20250519.t.sol), [AaveV3Optimism](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250519_Multi_ConfigurationMaintenance/AaveV3Optimism_ConfigurationMaintenance_20250519.t.sol), [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250519_Multi_ConfigurationMaintenance/AaveV3Arbitrum_ConfigurationMaintenance_20250519.t.sol), [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250519_Multi_ConfigurationMaintenance/AaveV3Base_ConfigurationMaintenance_20250519.t.sol), [AaveV3Gnosis](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250519_Multi_ConfigurationMaintenance/AaveV3Gnosis_ConfigurationMaintenance_20250519.t.sol), [AaveV3Scroll](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250519_Multi_ConfigurationMaintenance/AaveV3Scroll_ConfigurationMaintenance_20250519.t.sol), [AaveV3ZkSync](https://github.com/bgd-labs/aave-proposals-v3/blob/main/zksync/src/20250519_Multi_ConfigurationMaintenance/AaveV3ZkSync_ConfigurationMaintenance_20250519.t.sol)
   [Snapshot](TODO)
 - [Discussion](TODO)
+- [SNX, sUSD & FRAX risk-off](https://governance.aave.com/t/chaos-labs-risk-stewards-adjustment-of-supply-caps-borrow-caps-and-debt-ceiling-on-aave-v3-05-19-25/22114)
 
 ## Copyright
 
