@@ -73,7 +73,7 @@ contract AaveV3Ethereum_StkAAVEEmissions_20250520_Test is ProtocolV3TestBase {
     );
   }
 
-  function test_checkAllowance() public {
+  function test_checkAllowance_stkAAVE() public {
     uint256 allowanceBefore = IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING).allowance(
       MiscEthereum.ECOSYSTEM_RESERVE,
       AaveSafetyModule.STK_AAVE
@@ -90,7 +90,9 @@ contract AaveV3Ethereum_StkAAVEEmissions_20250520_Test is ProtocolV3TestBase {
     // With previous remaining allowance, this can be greater than or equal to
     assertGe(
       allowanceAfter,
-      proposal.DISTRIBUTION_DURATION() * proposal.AAVE_EMISSION_PER_SECOND_STK_AAVE()
+      proposal.DISTRIBUTION_DURATION() *
+        proposal.AAVE_EMISSION_PER_SECOND_STK_AAVE() +
+        proposal.ALLOWANCE_MARGIN()
     );
   }
 

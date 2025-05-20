@@ -15,15 +15,13 @@ import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGen
  * - Discussion: https://governance.aave.com/t/arfc-amend-safety-module-emissions/16640/26
  */
 contract AaveV3Ethereum_StkAAVEEmissions_20250520 is IProposalGenericExecutor {
-  uint256 public constant DISTRIBUTION_DURATION = 55 days;
+  uint256 public constant DISTRIBUTION_DURATION = 90 days;
   uint128 public constant AAVE_EMISSION_PER_SECOND_STK_AAVE = uint128(360 ether) / 1 days;
+  uint256 public constant ALLOWANCE_MARGIN = 7200 ether;
+  uint256 public constant TOTAL_ALLOWANCE =
+    (DISTRIBUTION_DURATION * AAVE_EMISSION_PER_SECOND_STK_AAVE) + ALLOWANCE_MARGIN;
 
   function execute() external {
-    uint256 remainingAllowance = IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING).allowance(
-      address(MiscEthereum.ECOSYSTEM_RESERVE),
-      AaveSafetyModule.STK_AAVE
-    );
-
     // Approval needs to be reset in order to increase it
     MiscEthereum.AAVE_ECOSYSTEM_RESERVE_CONTROLLER.approve(
       MiscEthereum.ECOSYSTEM_RESERVE,
@@ -36,7 +34,7 @@ contract AaveV3Ethereum_StkAAVEEmissions_20250520 is IProposalGenericExecutor {
       MiscEthereum.ECOSYSTEM_RESERVE,
       AaveV3EthereumAssets.AAVE_UNDERLYING,
       AaveSafetyModule.STK_AAVE,
-      remainingAllowance + (AAVE_EMISSION_PER_SECOND_STK_AAVE * DISTRIBUTION_DURATION)
+      TOTAL_ALLOWANCE
     );
   }
 }
