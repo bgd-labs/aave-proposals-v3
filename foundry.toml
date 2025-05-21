@@ -32,7 +32,7 @@ bytecode_hash = 'none'
 compile = true
 fallback_oz = true
 mode = '3'
-zksolc = '1.5.3'
+zksolc = '1.5.13'
 
 [profile.test]
 evm_version = 'cancun'
