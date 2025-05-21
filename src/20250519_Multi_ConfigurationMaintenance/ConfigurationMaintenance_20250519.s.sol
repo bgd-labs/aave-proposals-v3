@@ -3,7 +3,8 @@ pragma solidity ^0.8.0;
 
 import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aave-helpers/src/GovV3Helpers.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
-import {EthereumScript, PolygonScript, AvalancheScript, OptimismScript, ArbitrumScript, BaseScript, GnosisScript, ScrollScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
+import {GovernanceV3ZkSync} from 'aave-address-book/GovernanceV3ZkSync.sol';
+import {EthereumScript, PolygonScript, AvalancheScript, OptimismScript, ArbitrumScript, BaseScript, GnosisScript, ScrollScript, ChainIds} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
 import {AaveV2Ethereum_ConfigurationMaintenance_20250519} from './AaveV2Ethereum_ConfigurationMaintenance_20250519.sol';
 import {AaveV3Ethereum_ConfigurationMaintenance_20250519} from './AaveV3Ethereum_ConfigurationMaintenance_20250519.sol';
 import {AaveV3Polygon_ConfigurationMaintenance_20250519} from './AaveV3Polygon_ConfigurationMaintenance_20250519.sol';
@@ -263,13 +264,12 @@ contract CreateProposal is EthereumScript {
     );
     payloads[7] = GovV3Helpers.buildScrollPayload(vm, actionsScroll);
 
-    IPayloadsControllerCore.ExecutionAction[]
-      memory actionsZkSync = new IPayloadsControllerCore.ExecutionAction[](1);
-    actionsZkSync[0] = GovV3Helpers.buildActionZkSync(
-      vm,
-      'AaveV3ZkSync_ConfigurationMaintenance_20250519'
-    );
-    payloads[8] = GovV3Helpers.buildZkSyncPayload(vm, actionsZkSync);
+    payloads[8] = PayloadsControllerUtils.Payload({
+      chain: ChainIds.ZKSYNC,
+      accessLevel: PayloadsControllerUtils.AccessControl.Level_1,
+      payloadsController: address(GovernanceV3ZkSync.PAYLOADS_CONTROLLER),
+      payloadId: 24
+    });
 
     // create proposal
     vm.startBroadcast();
