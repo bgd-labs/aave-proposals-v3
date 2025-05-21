@@ -27,65 +27,65 @@ This payload handles the deployment and configuration of the new Umbrella system
 
 #### Contract registration
 
-* Registers the `Umbrella` contract in the `POOL_ADDRESSES_PROVIDER`.
-  * Enables the `Umbrella` to be used for reserve deificit elimination.
+- Registers the `Umbrella` contract in the `POOL_ADDRESSES_PROVIDER`.
+  - Enables the `Umbrella` to be used for reserve deificit elimination.
 
 #### Reserve Deficit Elimination
 
-* Eliminates existing reserve deficits for the following assets: USDC, USDT, WETH and GHO.
-  * Calculates current reserve deficits amounts.
-  * Transfers the required amounts from the `Collector` to the `Executor` contract.
-  * Executes deficit elimination using the transferred funds.
+- Eliminates existing reserve deficits for the following assets: USDC, USDT, WETH and GHO.
+  - Calculates current reserve deficits amounts.
+  - Transfers the required amounts from the `Collector` to the `Executor` contract.
+  - Executes deficit elimination using the transferred funds.
 
 #### Stk Tokens Creation
 
-* Creates `stk` tokens for the above assets:
-  * `stkwaUSDC.V1`, `stkwasUSDT.V1`, stkwaWETH.V1` are backed by their respective stata tokens.
-  * `stkGHO.V1` is backed by the GHO underlying token.
+- Creates `stk` tokens for the above assets:
+  - `stkwaUSDC.V1`, `stkwasUSDT.V1`, stkwaWETH.V1` are backed by their respective stata tokens.
+  - `stkGHO.V1` is backed by the GHO underlying token.
 
 #### Reward Configuration
 
-* Sets up reward emissions for each `stk` token:
-  * `stkwaUSDC.V1` -> `aUSDC`, `stkwaUSDT.V1` -> `aUSDT`, `stkwaWETH.V1` -> `aWETH`
-  * `stkGHO.V1` -> `GHO`
-  * For each:
-    * `maxEmissionPerSecond` and `targetLiquidity` are configured using values from the forum.
-    * `distributionEnd` is set to 1 year from the execution.
-    * `rewardPayer` is st to the `Collector`.
+- Sets up reward emissions for each `stk` token:
+  - `stkwaUSDC.V1` -> `aUSDC`, `stkwaUSDT.V1` -> `aUSDT`, `stkwaWETH.V1` -> `aWETH`
+  - `stkGHO.V1` -> `GHO`
+  - For each:
+    - `maxEmissionPerSecond` and `targetLiquidity` are configured using values from the forum.
+    - `distributionEnd` is set to 1 year from the execution.
+    - `rewardPayer` is st to the `Collector`.
 
 #### Slashing Configuration
 
-* Sets up `SlashingConfig` for each `stk` token:
-  * `reserve`: Corresponds to the base token (e.g., `USDT` for `stkwaUSDT.V1`, `GHO` for `stkGHO.V1`).
-  * `liquidationFee`: Set to zero for all stk tokens.
-  * `deficitOffset`: Values sourced from the forum.
-  * `umbrellaStakeUnderlyingOracle`:
-    * For stata-based tokens: the stata token itself.
-    * For `GHO`: a `GHO` oracle with a mocked price.
+- Sets up `SlashingConfig` for each `stk` token:
+  - `reserve`: Corresponds to the base token (e.g., `USDT` for `stkwaUSDT.V1`, `GHO` for `stkGHO.V1`).
+  - `liquidationFee`: Set to zero for all stk tokens.
+  - `deficitOffset`: Values sourced from the forum.
+  - `umbrellaStakeUnderlyingOracle`:
+    - For stata-based tokens: the stata token itself.
+    - For `GHO`: a `GHO` oracle with a mocked price.
 
 #### Role and Permisssion Management
 
-* Grants `Rewards_ADMIN_ROLE` in `RewardsController` to `PERMISSIONED_PAYLOADS_CONTROLLER_EXECUTOR`:
-  * Allows the `FinancialCommittee` to limited modification of rewards without requiring governance proposals.
-* Grants `COVERAGE_MANAGER_ROLE` to `DEFICIT_OFFSET_CLINIC_STEWARD`.
-  * Allows the `FinancialCommittee` to eliminate `deficitOffset` using `Collector` funds directly.
+- Grants `Rewards_ADMIN_ROLE` in `RewardsController` to `PERMISSIONED_PAYLOADS_CONTROLLER_EXECUTOR`:
+  - Allows the `FinancialCommittee` to limited modification of rewards without requiring governance proposals.
+- Grants `COVERAGE_MANAGER_ROLE` to `DEFICIT_OFFSET_CLINIC_STEWARD`.
+  - Allows the `FinancialCommittee` to eliminate `deficitOffset` using `Collector` funds directly.
 
 #### Allowances
 
-* `Collector` grants allowance to:
-  * `DEFICIT_OFFSET_CLINIC_STEWARD` - for deficit offset amounts as per forum.
-  * `RewardsController` - to fund reward emissions for 180 days post-execution.
+- `Collector` grants allowance to:
+  - `DEFICIT_OFFSET_CLINIC_STEWARD` - for deficit offset amounts as per forum.
+  - `RewardsController` - to fund reward emissions for 180 days post-execution.
 
 #### Summary Table
 
-| Staked asset | Covered asset | Target Liquidity* | Max emission | Cooldown / Unstake window | Deficit offset |
-|:------------:|:-------------:|:-----------------:|:------------:|:-------------------------:|:--------------:|
-|   waUSDC     |     USDC      |     66_000_000    |  2_329_420   |      20 days / 2 days     |    100_000     |
-|   waUSDT     |     USDT      |    104_000_000    |  3_670_600   |      20 days / 2 days     |    100_000     |
-|   waWETH     |     WETH      |         25_000    |        550   |      20 days / 2 days     |         50     |
-|      GHO     |      GHO      |     12_000_000    |  1_200_000   |      20 days / 2 days     |    100_000     |
+| Staked asset | Covered asset | Target Liquidity\* | Max emission | Cooldown / Unstake window | Deficit offset |
+| :----------: | :-----------: | :----------------: | :----------: | :-----------------------: | :------------: |
+|    waUSDC    |     USDC      |     66_000_000     |  2_329_420   |     20 days / 2 days      |    100_000     |
+|    waUSDT    |     USDT      |    104_000_000     |  3_670_600   |     20 days / 2 days      |    100_000     |
+|    waWETH    |     WETH      |       25_000       |     550      |     20 days / 2 days      |       50       |
+|     GHO      |      GHO      |     12_000_000     |  1_200_000   |     20 days / 2 days      |    100_000     |
 
-* Target Liquidity is denominated in the contracts in wrapped aTokens, increasing over time in exchange rate. That means the Target Liquidity itself will grow slightly over time and rewards will need to be periodically adjusted. For the sake of simplicity, the number on the table is in equivalent terms of underlying (USDC, USDT, WETH), not in wrapped aTokens.
+- Target Liquidity is denominated in the contracts in wrapped aTokens, increasing over time in exchange rate. That means the Target Liquidity itself will grow slightly over time and rewards will need to be periodically adjusted. For the sake of simplicity, the number on the table is in equivalent terms of underlying (USDC, USDT, WETH), not in wrapped aTokens.
 
 ### 2. **Legacy stk tokens adjustment**
 
@@ -93,45 +93,45 @@ This payload introduces updates to the legacy Safety Module staking tokens to al
 
 #### Emission Reductions
 
-* Reduces (`AAVE`/day) reward emissions for the following tokens:
-  * `stkGHO`: 100 -> 0
-  * `stkAAVE`: 360 -> 316
-  * `stkBPT`: 240 -> 215
+- Reduces (`AAVE`/day) reward emissions for the following tokens:
+  - `stkGHO`: 100 -> 0
+  - `stkAAVE`: 360 -> 316
+  - `stkBPT`: 240 -> 215
 
 #### Slashing Parameter Updates
 
-* Lowers the `maxSlashablePercentage` for the legacy stk tokens:
-  * `stkGHO`: 99.00% -> 0%
-  * `stkAAVE`: 30.00% -> 20.00%
-  * `stkBPT`: 30.00% -> 20.00%
+- Lowers the `maxSlashablePercentage` for the legacy stk tokens:
+  - `stkGHO`: 99.00% -> 0%
+  - `stkAAVE`: 30.00% -> 20.00%
+  - `stkBPT`: 30.00% -> 20.00%
 
 #### stkGHO Deactivation
 
-* Fully stops reward emissions for `stkGho`
-* Reduces `cooldown` period to 0, enabling immediate unstaking
+- Fully stops reward emissions for `stkGho`
+- Reduces `cooldown` period to 0, enabling immediate unstaking
 
 #### Summary Table
 
-| Staked asset |  Rewards/day  |    Rewards/year    | Slashing eligibility |
-|:------------:|:-------------:|:------------------:|:--------------------:|
-|    AAVE      |  360 -> 315   | 131_400 -> 114_975 |     30% -> 20%       |
-|     BPT      |  240 -> 216   |  87_600 -> 78_840  |     30% -> 20%       |
-|     GHO      |   100 -> 0    |    36_500 -> 0     |     100% -> 0%       |
+| Staked asset | Rewards/day |    Rewards/year    | Slashing eligibility |
+| :----------: | :---------: | :----------------: | :------------------: |
+|     AAVE     | 360 -> 315  | 131_400 -> 114_975 |      30% -> 20%      |
+|     BPT      | 240 -> 216  |  87_600 -> 78_840  |      30% -> 20%      |
+|     GHO      |  100 -> 0   |    36_500 -> 0     |      100% -> 0%      |
 
 ### 3. **Slashing robot activation**
 
 This payload handles the `SlashingRobot` activation process.
 
-* Withdraws 250 `LINK` from `AaveV3` on Ethereum Network.
-* Registers `SlashingRobot` in the `AAVE_CL_ROBOT_OPERATOR`.
-  * Sets `gasLimit` to `5_000_000`.
-  * Funds with all tokens withdrawn.
+- Withdraws 250 `LINK` from `AaveV3` on Ethereum Network.
+- Registers `SlashingRobot` in the `AAVE_CL_ROBOT_OPERATOR`.
+  - Sets `gasLimit` to `5_000_000`.
+  - Funds with all tokens withdrawn.
 
 ## References
 
 - Implementation: [AaveV3Ethereum_UmbrellaActivation](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250515_AaveV3Ethereum_UmbrellaActivation/AaveV3Ethereum_UmbrellaActivation_20250515.sol), [AaveV3Ethereum_SafetyModuleRewardsDecrease](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250515_AaveV3Ethereum_UmbrellaActivation/AaveV3Ethereum_SafetyModuleRewardsDecrease_2025.sol), [AaveV3Ethereum_SlashingRobotActivation](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250515_AaveV3Ethereum_UmbrellaActivation/AaveV3Ethereum_SlashingRobotActivation_20250515.sol)
 - Tests: [AaveV3Ethereum_UmbrellaActivation](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250515_AaveV3Ethereum_UmbrellaActivation/AaveV3Ethereum_UmbrellaActivation_20250515.t.sol), [AaveV3Ethereum_SafetyModuleRewardsDecrease](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250515_AaveV3Ethereum_UmbrellaActivation/AaveV3Ethereum_SafetyModuleRewardsDecrease_2025.t.sol), [AaveV3Ethereum_SlashingRobotActivation](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250515_AaveV3Ethereum_UmbrellaActivation/AaveV3Ethereum_SlashingRobotActivation_20250515.t.sol)
-  [Snapshot](TODO)
+- [Snapshot](TODO)
 - [Discussion](https://governance.aave.com/t/arfc-aave-umbrella-activation/21521)
 
 ## Copyright
