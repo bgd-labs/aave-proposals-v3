@@ -19,7 +19,7 @@ import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGen
  */
 contract AaveV3Ethereum_SafetyModuleRewardsDecrease_20250515 is IProposalGenericExecutor {
   uint128 public constant CURRENT_AAVE_EMISSION_PER_SECOND_AAVE = uint128(360 ether) / 1 days;
-  uint128 public constant AAVE_EMISSION_PER_SECOND_AAVE = uint128(216 ether) / 1 days;
+  uint128 public constant AAVE_EMISSION_PER_SECOND_AAVE = uint128(315 ether) / 1 days;
 
   uint128 public constant CURRENT_AAVE_EMISSION_PER_SECOND_STK_BPT = uint128(240 ether) / 1 days;
   uint128 public constant AAVE_EMISSION_PER_SECOND_STK_BPT = uint128(216 ether) / 1 days;
@@ -44,8 +44,15 @@ contract AaveV3Ethereum_SafetyModuleRewardsDecrease_20250515 is IProposalGeneric
       AAVE_EMISSION_PER_SECOND_GHO
     );
 
+    // Decrease `maxSlashablePercentage` to 20%
+    IStakeToken(AaveSafetyModule.STK_AAVE).setMaxSlashablePercentage(20_00);
+    IStakeToken(AaveSafetyModule.STK_AAVE_WSTETH_BPTV2).setMaxSlashablePercentage(20_00);
+
     // Since Emission will be zero for StkGho, there's no sense not to end distribution at all
     IStakeToken(AaveSafetyModule.STK_GHO).setDistributionEnd(block.timestamp);
+    // Set `maxSlashablePercentage` and `cooldown` to zero
+    IStakeToken(AaveSafetyModule.STK_GHO).setMaxSlashablePercentage(0);
+    IStakeToken(AaveSafetyModule.STK_GHO).setCooldownSeconds(0);
   }
 
   function _decreaseAaveEmission(
@@ -57,7 +64,7 @@ contract AaveV3Ethereum_SafetyModuleRewardsDecrease_20250515 is IProposalGeneric
 
     if (legacyStkToken == AaveSafetyModule.STK_AAVE) {
       // stkAave rewards were extended just before `UmbrellaActivation` payload for 90 days with 360 Aave/day
-      // If we leave as it's, then with new rate (216) this will result in +- 150 days, which is fine
+      // If we leave as it's, then with new rate (315) this will result in +- 102 days, which is fine
       // so we wont update allowance in this case
     } else {
       // Both other legacy stk have not infinite `distributionEnd` and their distributions haven't skipped yet

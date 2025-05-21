@@ -168,4 +168,46 @@ contract AaveV3Ethereum_SafetyModuleRewardsDecrease_20250515_Test is ProtocolV3T
 
     assertLt(allowanceAfter, allowanceBefore);
   }
+
+  // `MaxSlashablePercentage` check
+  /////////////////////////////////////////////////////////////////////////////////////////
+
+  function test_checkMaxSlashablePercentage() public {
+    uint256 maxSlashableBPT = IStakeToken(AaveSafetyModule.STK_AAVE_WSTETH_BPTV2)
+      .getMaxSlashablePercentage();
+    uint256 maxSlashableAave = IStakeToken(AaveSafetyModule.STK_AAVE).getMaxSlashablePercentage();
+    uint256 maxSlashableGho = IStakeToken(AaveSafetyModule.STK_GHO).getMaxSlashablePercentage();
+
+    assertEq(maxSlashableBPT, 30_00);
+    assertEq(maxSlashableAave, 30_00);
+    assertEq(maxSlashableGho, 99_00);
+
+    executePayload(vm, address(proposal));
+
+    uint256 maxSlashableBPTAfter = IStakeToken(AaveSafetyModule.STK_AAVE_WSTETH_BPTV2)
+      .getMaxSlashablePercentage();
+    uint256 maxSlashableAaveAfter = IStakeToken(AaveSafetyModule.STK_AAVE)
+      .getMaxSlashablePercentage();
+    uint256 maxSlashableGhoAfter = IStakeToken(AaveSafetyModule.STK_GHO)
+      .getMaxSlashablePercentage();
+
+    assertEq(maxSlashableBPTAfter, 20_00);
+    assertEq(maxSlashableAaveAfter, 20_00);
+    assertEq(maxSlashableGhoAfter, 0);
+  }
+
+  // `Cooldown` check
+  /////////////////////////////////////////////////////////////////////////////////////////
+
+  function test_checkCooldownGho() public {
+    uint256 cooldownGho = IStakeToken(AaveSafetyModule.STK_GHO).getCooldownSeconds();
+
+    assertEq(cooldownGho, 20 days);
+
+    executePayload(vm, address(proposal));
+
+    uint256 cooldownGhoAfter = IStakeToken(AaveSafetyModule.STK_GHO).getCooldownSeconds();
+
+    assertEq(cooldownGhoAfter, 0);
+  }
 }
