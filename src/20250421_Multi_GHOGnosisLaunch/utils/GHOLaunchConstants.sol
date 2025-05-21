@@ -12,7 +12,7 @@ library GHOLaunchConstants {
   // CCIP Rate Limits
   uint128 internal constant CCIP_RATE_LIMIT_CAPACITY = 1_500_000e18;
   uint128 internal constant CCIP_RATE_LIMIT_REFILL_RATE = 300e18;
-  uint128 internal constant CCIP_BUCKET_CAPACITY = 15_000_000e18;
+  uint128 internal constant CCIP_BUCKET_CAPACITY = 20_000_000e18;
 
   // Arbitrum Addresses
   address internal constant ARB_TOKEN_ADMIN_REGISTRY = 0x39AE1032cF4B334a1Ed41cdD0833bdD7c7E7751E;
