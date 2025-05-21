@@ -50,7 +50,7 @@ The table below illustrates the configured risk parameters for **eUSDe**
 | min snapshot         |                                                                                                 1 day |
 | max yearly growth    |                                                                                                    0% |
 
-**eUSDe/Stablecoin E-Mode**
+**eUSDe/Stablecoin E-Mode(id:15)**
 
 | Asset             | eUSDe | USDC | USDT | USDS |
 | ----------------- | ----- | ---- | ---- | ---- |
@@ -98,7 +98,7 @@ The table below illustrates the configured risk parameters for **PT_USDe_31JUL20
 | discountRatePerYear    |                                                                                                                        8.47% |
 | maxDiscountRatePerYear |                                                                                                                       29.21% |
 
-**PT-USDe Stablecoins E-mode**
+**PT-USDe Stablecoins E-mode(id:10)**
 
 | **Asset**         | **PT-USDe**            | **USDe** | **USDC** | **USDT** | **USDS** |
 | ----------------- | ---------------------- | -------- | -------- | -------- | -------- |
@@ -108,7 +108,7 @@ The table below illustrates the configured risk parameters for **PT_USDe_31JUL20
 | LT                | Subject to Risk Oracle | -        | -        | -        | -        |
 | Liquidation Bonus | Subject to Risk Oracle | -        | -        | -        | -        |
 
-**PT-USDe USDe E-mode**
+**PT-USDe USDe E-mode(id:12)**
 
 | **Asset**         | **PT-USDe**            | **USDe** |
 | ----------------- | ---------------------- | -------- |
@@ -165,7 +165,7 @@ The table below illustrates the configured risk parameters for **PT_eUSDe_14AUG2
 | discountRatePerYear    |                                                                                                                        9.037% |
 | maxDiscountRatePerYear |                                                                                                                       29.781% |
 
-**PT-eUSDe Stablecoins E-mode**
+**PT-eUSDe Stablecoins E-mode(id:13)**
 
 | **Asset**         | **PT-eUSDe**           | **eUSDe** | **USDC** | **USDT** | **USDS** |
 | ----------------- | ---------------------- | --------- | -------- | -------- | -------- |
@@ -175,7 +175,7 @@ The table below illustrates the configured risk parameters for **PT_eUSDe_14AUG2
 | LT                | Subject to Risk Oracle | -         | -        | -        | -        |
 | Liquidation Bonus | Subject to Risk Oracle | -         | -        | -        | -        |
 
-**PT-eUSDe USDe E-mode**
+**PT-eUSDe USDe E-mode(id:14)**
 
 | **Asset**         | **PT-eUSDe**           | **eUSDe** | **USDe** |
 | ----------------- | ---------------------- | --------- | -------- |
