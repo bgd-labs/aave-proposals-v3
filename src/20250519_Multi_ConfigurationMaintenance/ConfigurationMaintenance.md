@@ -13,7 +13,7 @@ This proposal aims to fix inconsistent / suboptimal configurations across variou
 ### eModes
 
 When Aave v3.2 went live, the existing eModes were just migrated to liquid eModes. What this means that if an asset was flagged as e.g. eMode `1` on v3.2 it was enabled as borrowable and as collateral on eMode `1`.
-This was done to not distrupt existing positions and also to isolate the upgrade from any configuration changes.
+This was done to not disrupt existing positions and also to isolate the upgrade from any configuration changes.
 As some time has passed now, it is a good idea to disable unintended eMode configurations, namely we propose to:
 
 - deprecate stablecoin eModes by disabling all borrowable assets
