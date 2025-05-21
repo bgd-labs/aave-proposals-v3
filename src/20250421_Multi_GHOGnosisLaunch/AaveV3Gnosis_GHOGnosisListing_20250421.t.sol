@@ -32,7 +32,7 @@ import {AaveV3Gnosis_GHOGnosisListing_20250421} from './AaveV3Gnosis_GHOGnosisLi
 
 /**
  * @dev Test for AaveV3Gnosis_Ads_20241231
- * command: FOUNDRY_PROFILE=base forge test --match-path=src/20250421_Multi_GHOGnosisLaunch/AaveV3Gnosis_GHOGnosisListing_20250421.t.sol -vv
+ * command: FOUNDRY_PROFILE=gnosis forge test --match-path=src/20250421_Multi_GHOGnosisLaunch/AaveV3Gnosis_GHOGnosisListing_20250421.t.sol -vv
  */
 contract AaveV3Gnosis_GHOGnosisListing_20250421_Base is ProtocolV3TestBase {
   AaveV3Gnosis_GHOGnosisListing_20250421 internal proposal;
@@ -56,7 +56,7 @@ contract AaveV3Gnosis_GHOGnosisListing_20250421_Base is ProtocolV3TestBase {
     IUpgradeableBurnMintTokenPool_1_5_1(GHOLaunchConstants.GNO_TOKEN_POOL);
 
   function setUp() public virtual {
-    vm.createSelectFork(vm.rpcUrl('gnosis'), 40139698);
+    vm.createSelectFork(vm.rpcUrl('gnosis'), 40175963);
     proposal = new AaveV3Gnosis_GHOGnosisListing_20250421();
   }
 

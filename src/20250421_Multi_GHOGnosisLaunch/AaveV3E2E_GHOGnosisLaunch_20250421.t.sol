@@ -111,7 +111,7 @@ contract AaveV3Base_GHOGnosisLaunch_20250421_Base is ProtocolV3TestBase {
     arb.c.forkId = vm.createFork(vm.rpcUrl('arbitrum'), 338280933);
     base.c.forkId = vm.createFork(vm.rpcUrl('base'), 30430477);
     eth.c.forkId = vm.createFork(vm.rpcUrl('mainnet'), 22435000);
-    gno.c.forkId = vm.createFork(vm.rpcUrl('gnosis'), 40139698);
+    gno.c.forkId = vm.createFork(vm.rpcUrl('gnosis'), 40175963);
 
     arb.c.chainSelector = 4949039107694359620;
     base.c.chainSelector = 15971525489660198786;

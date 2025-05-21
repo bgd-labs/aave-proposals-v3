@@ -20,8 +20,9 @@ import {CCIPUtils} from './utils/CCIPUtils.sol';
 import {GHOLaunchConstants} from './utils/GHOLaunchConstants.sol';
 
 /**
- * @title GHO Gnosis Listing
- * @author Aave Labs
+ * @title GHO Gnosis Launch
+ * @author kpk
+ * @notice This proposal is used to launch GHO on Gnosis Chain
  * - Discussion: https://governance.aave.com/t/arfc-launch-gho-on-gnosis-chain/21379
  * - Snapshot: https://snapshot.box/#/s:aavedao.eth/proposal/0x62996204d8466d603fe8c953176599db02a23f440a682ff15ba2d0ca63dda386
  */
