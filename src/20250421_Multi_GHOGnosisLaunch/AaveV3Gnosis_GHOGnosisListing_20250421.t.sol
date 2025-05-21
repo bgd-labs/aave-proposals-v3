@@ -258,7 +258,7 @@ contract AaveV3Gnosis_GHOGnosisListing_20250421_Stewards is
 
   function test_bucketStewardCanUpdateBucketCapacity(uint256 newBucketCapacity) public {
     (uint256 currentBucketCapacity, ) = GHO_TOKEN.getFacilitatorBucket(address(NEW_TOKEN_POOL));
-    assertEq(currentBucketCapacity, 15_000_000e18);
+    assertEq(currentBucketCapacity, 20_000_000e18);
     newBucketCapacity = bound(
       newBucketCapacity,
       currentBucketCapacity + 1,

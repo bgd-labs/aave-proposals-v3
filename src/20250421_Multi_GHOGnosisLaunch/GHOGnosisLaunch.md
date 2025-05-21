@@ -18,7 +18,7 @@ Building on GHO's presence on other networks, expanding to Gnosis Chain offers s
 
 This AIP includes a series of actions required to launch GHO on Gnosis Chain:
 
-1.  Configure new Chainlink CCIP lanes between the chains GHO is listed with a rate limit capacity of \*1,500,000 GHO** and **300 GHO per second\*\* refill rate. An Ethereum-based GHO Facilitator with a specified mint cap of 15M GHO will support this bridge.
+1.  Configure new Chainlink CCIP lanes between the chains GHO is listed with a rate limit capacity of \*1,500,000 GHO** and **300 GHO per second\*\* refill rate. An Ethereum-based GHO Facilitator with a specified mint cap of 20M GHO will support this bridge.
 2.  Configure and activate GhoAaveSteward and GhoCcipSteward on Gnosis Chain to control GHO listing parameters and the CCIP lane configuration.
 3.  List GHO as a borrowable asset on the Aave V3 Gnosis Chain pool, with the risk configuration specified below (derived from the ARFC). Initial liquidity may be provided to the pool as a security measure to facilitate a stable launch.
 4.  Set ACI multisig (**`0xac140648435d03f784879cd789130F22Ef588Fcd`**) as Emission Admin for GHO and aGHO rewards on Gnosis Chain, as specified and approved in the ARFC.
