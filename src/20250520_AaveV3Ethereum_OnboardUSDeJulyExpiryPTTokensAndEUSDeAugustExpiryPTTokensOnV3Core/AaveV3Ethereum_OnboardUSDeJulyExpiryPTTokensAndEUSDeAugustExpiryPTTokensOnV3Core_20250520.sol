@@ -235,7 +235,7 @@ contract AaveV3Ethereum_OnboardUSDeJulyExpiryPTTokensAndEUSDeAugustExpiryPTToken
       collateral: EngineFlags.DISABLED
     });
 
-    // PT-eUSDe AUG 2025 stablecoin
+    // PT-eUSDe AUG 2025 USDe
     assetEModeUpdates[12] = IAaveV3ConfigEngine.AssetEModeUpdate({
       asset: PT_eUSDe_14AUG2025,
       eModeCategory: 14,
@@ -360,7 +360,7 @@ contract AaveV3Ethereum_OnboardUSDeJulyExpiryPTTokensAndEUSDeAugustExpiryPTToken
       liqThreshold: 10,
       liqBonus: 7_50,
       reserveFactor: 45_00,
-      supplyCap: 150_000_000,
+      supplyCap: 550_000_000,
       borrowCap: 1,
       debtCeiling: 0,
       liqProtocolFee: 10_00,

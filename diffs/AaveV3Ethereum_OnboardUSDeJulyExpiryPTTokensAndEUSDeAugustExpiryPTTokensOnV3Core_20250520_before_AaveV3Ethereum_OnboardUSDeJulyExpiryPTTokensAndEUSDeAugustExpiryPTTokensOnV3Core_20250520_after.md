@@ -53,7 +53,7 @@
 | decimals | 18 |
 | isActive | true |
 | isFrozen | false |
-| supplyCap | 150,000,000 eUSDe |
+| supplyCap | 550,000,000 eUSDe |
 | borrowCap | 1 eUSDe |
 | debtCeiling | 0 $ [0] |
 | isSiloed | false |
@@ -398,7 +398,7 @@
         "oracleDescription": "Capped eUSDe / USDe / USD",
         "oracleLatestAnswer": "100032585",
         "reserveFactor": 4500,
-        "supplyCap": 150000000,
+        "supplyCap": 550000000,
         "symbol": "eUSDe",
         "underlying": "0x90D2af7d622ca3141efA4d8f1F24d86E5974Cc8F",
         "usageAsCollateralEnabled": true,
@@ -884,7 +884,7 @@
         },
         "0x4e69b4a7023ff8bf853bdfb67fb787860231a2137f884e442346b6eeb7905fcf": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x100000000000000000000003e8008f0d1800000000011194811229fe000a0005"
+          "newValue": "0x100000000000000000000003e8020c855800000000011194811229fe000a0005"
         },
         "0x4e69b4a7023ff8bf853bdfb67fb787860231a2137f884e442346b6eeb7905fd0": {
           "previousValue": "0x0000000000000000000000000000000000000000033b2e3c9fd0803ce8000000",
