@@ -345,7 +345,7 @@
       }
     },
     "0x20040a64612555042335926d72b4e5f667a67fa1": {
-      "label": null,
+      "label": "AaveV3Soneium.ORACLE",
       "balanceDiff": null,
       "stateDiff": {
         "0x1c2da508a792d48c70927db5875ce40c9823c864805d58c0f8fb6f5add08d0d8": {
@@ -363,7 +363,7 @@
       }
     },
     "0x2026b787c82331c364eac13bf761ca75edeb0a4b": {
-      "label": null,
+      "label": "AaveV3Soneium.EMISSION_MANAGER",
       "balanceDiff": null,
       "stateDiff": {
         "0x2ff0023bf5048ea6e432188ae0975b09aa813d866a8027f3fa1cbaa8d5744901": {
@@ -429,7 +429,7 @@
       }
     },
     "0x44d73d7c4b2f98f426bf8b5e87628d9ee38ef0cf": {
-      "label": null,
+      "label": "GovernanceV3Soneium.PAYLOADS_CONTROLLER",
       "balanceDiff": null,
       "stateDiff": {
         "0x3617319a054d772f909f7c479a2cebe5066e836a939412e32403c99029b92eff": {
@@ -461,7 +461,7 @@
       }
     },
     "0x7635bff69e52023ab76267ab1eff63434cdce458": {
-      "label": null,
+      "label": "AaveV3Soneium.ACL_MANAGER",
       "balanceDiff": null,
       "stateDiff": {
         "0x110149a7722fb8a0c9b896600f2df528ba562b17dd57a3f01717f4008dec0dd9": {
@@ -716,7 +716,7 @@
       }
     },
     "0xdd3d7a7d03d9fd9ef45f3e587287922ef65ca38b": {
-      "label": null,
+      "label": "AaveV3Soneium.POOL",
       "balanceDiff": null,
       "stateDiff": {
         "0x000000000000000000000000000000000000000000000000000000000000003b": {

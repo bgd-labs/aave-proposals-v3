@@ -3,7 +3,7 @@ pragma solidity ^0.8.0;
 
 import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aave-helpers/src/GovV3Helpers.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
-import {EthereumScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol'; // TODO: fix import SoneiumScript
+import {EthereumScript, SoneiumScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
 import {AaveV3Soneium_AaveV33SoneiumActivation_20250518} from './AaveV3Soneium_AaveV33SoneiumActivation_20250518.sol';
 
 /**
@@ -11,8 +11,7 @@ import {AaveV3Soneium_AaveV33SoneiumActivation_20250518} from './AaveV3Soneium_A
  * deploy-command: make deploy-ledger contract=src/20250518_AaveV3Soneium_AaveV33SoneiumActivation/AaveV33SoneiumActivation_20250518.s.sol:DeploySoneium chain=soneium
  * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/AaveV33SoneiumActivation_20250518.s.sol/1868/run-latest.json
  */
-// TODO: fix import to SoneiumScript
-contract DeploySoneium is EthereumScript {
+contract DeploySoneium is SoneiumScript {
   function run() external broadcast {
     // deploy payloads
     address payload0 = GovV3Helpers.deployDeterministic(

@@ -22,7 +22,7 @@ contract AaveV3EthereumLido_LRTAndWstETHUnification_20250430 is AaveV3PayloadEth
     IAaveV3ConfigEngine.EModeCategoryUpdate[]
       memory eModeUpdates = new IAaveV3ConfigEngine.EModeCategoryUpdate[](2);
     eModeUpdates[0] = IAaveV3ConfigEngine.EModeCategoryUpdate({
-      eModeCategory: AaveV3EthereumLidoEModes.ETH_CORRELATED,
+      eModeCategory: AaveV3EthereumLidoEModes.WSTETH_WETH,
       ltv: 95_00,
       liqThreshold: 96_50,
       liqBonus: 1_00,

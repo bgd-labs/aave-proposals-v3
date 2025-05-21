@@ -31,7 +31,7 @@
     "vitest": "^3.1.2"
   },
   "dependencies": {
-    "@bgd-labs/aave-address-book": "4.20.1-47a16ef987ba0bd651954aa919b18a71ba6c0a68.0",
+    "@bgd-labs/aave-address-book": "^4.21.0",
     "@bgd-labs/aave-cli": "^1.3.0",
     "@bgd-labs/cli": "^0.0.19",
     "@bgd-labs/js-utils": "^1.4.7",
