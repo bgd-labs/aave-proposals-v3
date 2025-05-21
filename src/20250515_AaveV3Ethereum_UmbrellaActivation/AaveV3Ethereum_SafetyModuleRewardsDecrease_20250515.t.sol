@@ -191,8 +191,8 @@ contract AaveV3Ethereum_SafetyModuleRewardsDecrease_20250515_Test is ProtocolV3T
     uint256 maxSlashableGhoAfter = IStakeToken(AaveSafetyModule.STK_GHO)
       .getMaxSlashablePercentage();
 
-    assertEq(maxSlashableBPTAfter, 20_00);
-    assertEq(maxSlashableAaveAfter, 20_00);
+    assertEq(maxSlashableBPTAfter, proposal.STK_BPT_MAX_SLASHABLE_PERCENTAGE());
+    assertEq(maxSlashableAaveAfter, proposal.STK_AAVE_MAX_SLASHABLE_PERCENTAGE());
     assertEq(maxSlashableGhoAfter, 0);
   }
 

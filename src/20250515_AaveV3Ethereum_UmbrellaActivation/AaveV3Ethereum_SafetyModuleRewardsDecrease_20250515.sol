@@ -27,6 +27,9 @@ contract AaveV3Ethereum_SafetyModuleRewardsDecrease_20250515 is IProposalGeneric
   uint128 public constant CURRENT_AAVE_EMISSION_PER_SECOND_GHO = uint128(100 ether) / 1 days;
   uint128 public constant AAVE_EMISSION_PER_SECOND_GHO = uint128(0);
 
+  uint256 public constant STK_AAVE_MAX_SLASHABLE_PERCENTAGE = 20_00;
+  uint256 public constant STK_BPT_MAX_SLASHABLE_PERCENTAGE = 20_00;
+
   function execute() external {
     _decreaseAaveEmission(
       AaveSafetyModule.STK_AAVE,
@@ -45,8 +48,12 @@ contract AaveV3Ethereum_SafetyModuleRewardsDecrease_20250515 is IProposalGeneric
     );
 
     // Decrease `maxSlashablePercentage` to 20%
-    IStakeToken(AaveSafetyModule.STK_AAVE).setMaxSlashablePercentage(20_00);
-    IStakeToken(AaveSafetyModule.STK_AAVE_WSTETH_BPTV2).setMaxSlashablePercentage(20_00);
+    IStakeToken(AaveSafetyModule.STK_AAVE).setMaxSlashablePercentage(
+      STK_AAVE_MAX_SLASHABLE_PERCENTAGE
+    );
+    IStakeToken(AaveSafetyModule.STK_AAVE_WSTETH_BPTV2).setMaxSlashablePercentage(
+      STK_BPT_MAX_SLASHABLE_PERCENTAGE
+    );
 
     // Since Emission will be zero for StkGho, there's no sense not to end distribution at all
     IStakeToken(AaveSafetyModule.STK_GHO).setDistributionEnd(block.timestamp);
