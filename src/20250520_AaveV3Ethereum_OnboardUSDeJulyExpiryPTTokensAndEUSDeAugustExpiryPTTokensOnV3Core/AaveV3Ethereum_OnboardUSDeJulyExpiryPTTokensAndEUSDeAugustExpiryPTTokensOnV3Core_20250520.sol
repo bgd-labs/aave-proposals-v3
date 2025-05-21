@@ -36,17 +36,15 @@ contract AaveV3Ethereum_OnboardUSDeJulyExpiryPTTokensAndEUSDeAugustExpiryPTToken
   address public constant PT_eUSDe_14AUG2025 = 0x14Bdc3A3AE09f5518b923b69489CBcAfB238e617;
   uint256 public constant PT_eUSDe_14AUG2025_SEED_AMOUNT = 100e18;
 
-  function execute() internal override {
-    // we whitelist eModeId 10 to 13 on the injector
+  function _postExecute() internal override {
+    // we whitelist eModeId 10, 12-14 on the injector
     address[] memory marketsToWhitelist = new address[](4);
     marketsToWhitelist[0] = address(uint160(10)); // on the injector we encode eModeId to address
     marketsToWhitelist[1] = address(uint160(12)); // on the injector we encode eModeId to address
     marketsToWhitelist[2] = address(uint160(13)); // on the injector we encode eModeId to address
     marketsToWhitelist[3] = address(uint160(14)); // on the injector we encode eModeId to address
     IAaveStewardInjector(AaveV3Ethereum.EDGE_INJECTOR_PENDLE_EMODE).addMarkets(marketsToWhitelist);
-  }
 
-  function _postExecute() internal override {
     // we supply the seed amount of eUSDe
     IERC20(eUSDe).forceApprove(address(AaveV3Ethereum.POOL), eUSDe_SEED_AMOUNT);
     AaveV3Ethereum.POOL.supply(eUSDe, eUSDe_SEED_AMOUNT, AaveV3Ethereum.DUST_BIN, 0);
