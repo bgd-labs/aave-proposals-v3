@@ -34,7 +34,7 @@ While this workaround suits the needs, the "correct" thing to do, is to disable 
 
 ### v2 Rates
 
-In [aip 261](https://vote.onaave.com/proposal/?proposalId=261) the rates for v2 assets were aligned to standartize interest rates.
+In [aip 261](https://vote.onaave.com/proposal/?proposalId=261) the rates for v2 assets were aligned to standardize interest rates.
 This resulted in some unintended increase in interest rate on renFil, which has close to zero secondary market liquidity and thus makes it almost impossible for borrowers to repay their debt.
 Therefore we recommend reverting to the previous ZeroInterestRateStrategy to cut growth.
 
