@@ -282,13 +282,13 @@ contract AaveV3Ethereum_OnboardUSDeJulyExpiryPTTokensAndEUSDeAugustExpiryPTToken
     });
 
     // ARCF addendum
-    assetEModeUpdates[16] = IAaveV3ConfigEngine.AssetEModeUpdate({
+    assetEModeUpdates[19] = IAaveV3ConfigEngine.AssetEModeUpdate({
       asset: eUSDe,
       eModeCategory: AaveV3EthereumEModes.PT_EUSDE_STABLECOINS_MAY_2025,
       borrowable: EngineFlags.DISABLED,
       collateral: EngineFlags.ENABLED
     });
-    assetEModeUpdates[17] = IAaveV3ConfigEngine.AssetEModeUpdate({
+    assetEModeUpdates[20] = IAaveV3ConfigEngine.AssetEModeUpdate({
       asset: AaveV3EthereumAssets.sUSDe_UNDERLYING,
       eModeCategory: AaveV3EthereumEModes.PT_SUSDE_STABLECOINS_JUL_2025,
       borrowable: EngineFlags.DISABLED,
