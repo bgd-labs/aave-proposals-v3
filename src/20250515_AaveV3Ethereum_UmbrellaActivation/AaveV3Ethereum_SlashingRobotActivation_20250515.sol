@@ -38,9 +38,8 @@ contract AaveV3Ethereum_SlashingRobotActivation_20250515 is IProposalGenericExec
     });
     CollectorUtils.withdrawFromV3(AaveV3Ethereum.COLLECTOR, input, address(this));
 
-    uint256 linkReceived = IERC20(AaveV3EthereumAssets.LINK_UNDERLYING).balanceOf(
-      address(this)
-    ) - balanceOfLinkBefore;
+    uint256 linkReceived = IERC20(AaveV3EthereumAssets.LINK_UNDERLYING).balanceOf(address(this)) -
+      balanceOfLinkBefore;
 
     IERC20(AaveV3EthereumAssets.LINK_UNDERLYING).forceApprove(
       MiscEthereum.AAVE_CL_ROBOT_OPERATOR,

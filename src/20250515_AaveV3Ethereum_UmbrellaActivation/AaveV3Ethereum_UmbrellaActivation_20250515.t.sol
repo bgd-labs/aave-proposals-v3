@@ -25,94 +25,40 @@ contract AaveV3Ethereum_UmbrellaActivation_20250515_Test is ProtocolV3TestBase {
   AaveV3Ethereum_UmbrellaActivation_20250515 internal proposal;
 
   address user = vm.addr(0xDEAD);
+  uint256 snapshotState;
+  uint256 snapshotStateAfterPayload;
 
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('mainnet'), 22517759);
     proposal = new AaveV3Ethereum_UmbrellaActivation_20250515();
+
+    snapshotState = vm.snapshotState();
   }
 
   function test_reserveDeficitsElimination() public {
-    uint256 currentReserveDeficitUSDC = AaveV3Ethereum.POOL.getReserveDeficit(
-      AaveV3EthereumAssets.USDC_UNDERLYING
-    );
-    assertGe(currentReserveDeficitUSDC, 168401963);
-
-    uint256 currentReserveDeficitUSDT = AaveV3Ethereum.POOL.getReserveDeficit(
-      AaveV3EthereumAssets.USDT_UNDERLYING
-    );
-    assertGe(currentReserveDeficitUSDT, 197155140);
-
-    uint256 currentReserveDeficitWETH = AaveV3Ethereum.POOL.getReserveDeficit(
-      AaveV3EthereumAssets.WETH_UNDERLYING
-    );
-    assertGe(currentReserveDeficitWETH, 42022976677445873);
-
-    uint256 currentReserveDeficitGHO = AaveV3Ethereum.POOL.getReserveDeficit(
-      AaveV3EthereumAssets.GHO_UNDERLYING
-    );
-    assertGe(currentReserveDeficitGHO, 132211052243180416981);
-
-    executePayload(vm, address(proposal));
-
-    uint256 newReserveDeficitUSDC = AaveV3Ethereum.POOL.getReserveDeficit(
-      AaveV3EthereumAssets.USDC_UNDERLYING
-    );
-    assertLe(newReserveDeficitUSDC, 1); // aToken transfer precision loss
-
-    uint256 newReserveDeficitUSDT = AaveV3Ethereum.POOL.getReserveDeficit(
-      AaveV3EthereumAssets.USDT_UNDERLYING
-    );
-    assertLe(newReserveDeficitUSDT, 1); // aToken transfer precision loss
-
-    uint256 newReserveDeficitWETH = AaveV3Ethereum.POOL.getReserveDeficit(
-      AaveV3EthereumAssets.WETH_UNDERLYING
-    );
-    assertLe(newReserveDeficitWETH, 1); // aToken transfer precision loss
-
-    uint256 newReserveDeficitGHO = AaveV3Ethereum.POOL.getReserveDeficit(
-      AaveV3EthereumAssets.GHO_UNDERLYING
-    );
-    assertLe(newReserveDeficitGHO, 0);
+    _reserveCheck(AaveV3EthereumAssets.USDC_UNDERLYING, 168401963, 1);
+    _reserveCheck(AaveV3EthereumAssets.USDT_UNDERLYING, 197155140, 1);
+    _reserveCheck(AaveV3EthereumAssets.WETH_UNDERLYING, 42022976677445873, 1);
+    _reserveCheck(AaveV3EthereumAssets.GHO_UNDERLYING, 132211052243180416981, 0);
   }
 
   function test_deficitOffsetClinicSteward() public {
-    uint256 allowanceUsdcBefore = IDeficitOffsetClinicSteward(
-      UmbrellaEthereum.DEFICIT_OFFSET_CLINIC_STEWARD
-    ).getRemainingAllowance(AaveV3EthereumAssets.USDC_UNDERLYING);
-    uint256 allowanceUsdtBefore = IDeficitOffsetClinicSteward(
-      UmbrellaEthereum.DEFICIT_OFFSET_CLINIC_STEWARD
-    ).getRemainingAllowance(AaveV3EthereumAssets.USDT_UNDERLYING);
-    uint256 allowanceWethBefore = IDeficitOffsetClinicSteward(
-      UmbrellaEthereum.DEFICIT_OFFSET_CLINIC_STEWARD
-    ).getRemainingAllowance(AaveV3EthereumAssets.WETH_UNDERLYING);
-    uint256 allowanceGhoBefore = IDeficitOffsetClinicSteward(
-      UmbrellaEthereum.DEFICIT_OFFSET_CLINIC_STEWARD
-    ).getRemainingAllowance(AaveV3EthereumAssets.GHO_UNDERLYING);
-
-    assertEq(allowanceUsdcBefore, 0);
-    assertEq(allowanceUsdtBefore, 0);
-    assertEq(allowanceWethBefore, 0);
-    assertEq(allowanceGhoBefore, 0);
-
-    executePayload(vm, address(proposal));
-
-    uint256 allowanceUsdcAfter = IDeficitOffsetClinicSteward(
-      UmbrellaEthereum.DEFICIT_OFFSET_CLINIC_STEWARD
-    ).getRemainingAllowance(AaveV3EthereumAssets.USDC_UNDERLYING);
-    uint256 allowanceUsdtAfter = IDeficitOffsetClinicSteward(
-      UmbrellaEthereum.DEFICIT_OFFSET_CLINIC_STEWARD
-    ).getRemainingAllowance(AaveV3EthereumAssets.USDT_UNDERLYING);
-    uint256 allowanceWethAfter = IDeficitOffsetClinicSteward(
-      UmbrellaEthereum.DEFICIT_OFFSET_CLINIC_STEWARD
-    ).getRemainingAllowance(AaveV3EthereumAssets.WETH_UNDERLYING);
-    uint256 allowanceGhoAfter = IDeficitOffsetClinicSteward(
-      UmbrellaEthereum.DEFICIT_OFFSET_CLINIC_STEWARD
-    ).getRemainingAllowance(AaveV3EthereumAssets.GHO_UNDERLYING);
-
-    assertEq(allowanceUsdcAfter, proposal.DEFICIT_OFFSET_USDC());
-    assertEq(allowanceUsdtAfter, proposal.DEFICIT_OFFSET_USDT());
-    assertEq(allowanceWethAfter, proposal.DEFICIT_OFFSET_WETH());
-    assertEq(allowanceGhoAfter, proposal.DEFICIT_OFFSET_GHO());
+    _allowanceToDeficitClinicCheck(
+      AaveV3EthereumAssets.USDC_UNDERLYING,
+      proposal.DEFICIT_OFFSET_USDC()
+    );
+    _allowanceToDeficitClinicCheck(
+      AaveV3EthereumAssets.USDT_UNDERLYING,
+      proposal.DEFICIT_OFFSET_USDT()
+    );
+    _allowanceToDeficitClinicCheck(
+      AaveV3EthereumAssets.WETH_UNDERLYING,
+      proposal.DEFICIT_OFFSET_WETH()
+    );
+    _allowanceToDeficitClinicCheck(
+      AaveV3EthereumAssets.GHO_UNDERLYING,
+      proposal.DEFICIT_OFFSET_GHO()
+    );
   }
 
   function test_umbrellaTokenCreation() public {
@@ -211,301 +157,60 @@ contract AaveV3Ethereum_UmbrellaActivation_20250515_Test is ProtocolV3TestBase {
   }
 
   function test_deficitOffset() public {
-    uint256 deficitOffsetUsdc = UmbrellaEthereum.UMBRELLA.getDeficitOffset(
-      AaveV3EthereumAssets.USDC_UNDERLYING
-    );
-    assertEq(deficitOffsetUsdc, 0);
-
-    uint256 deficitOffsetUsdt = UmbrellaEthereum.UMBRELLA.getDeficitOffset(
-      AaveV3EthereumAssets.USDT_UNDERLYING
-    );
-    assertEq(deficitOffsetUsdt, 0);
-
-    uint256 deficitOffsetWeth = UmbrellaEthereum.UMBRELLA.getDeficitOffset(
-      AaveV3EthereumAssets.WETH_UNDERLYING
-    );
-    assertEq(deficitOffsetWeth, 0);
-
-    uint256 deficitOffsetGho = UmbrellaEthereum.UMBRELLA.getDeficitOffset(
-      AaveV3EthereumAssets.GHO_UNDERLYING
-    );
-    assertEq(deficitOffsetGho, 0);
-
-    executePayload(vm, address(proposal));
-
-    uint256 deficitOffsetUsdcAfter = UmbrellaEthereum.UMBRELLA.getDeficitOffset(
-      AaveV3EthereumAssets.USDC_UNDERLYING
-    );
-    assertLe(deficitOffsetUsdcAfter - proposal.DEFICIT_OFFSET_USDC(), 1); // 1 wei cause of possible aToken transfer error
-
-    (bool isSlashable, ) = UmbrellaEthereum.UMBRELLA.isReserveSlashable(
-      AaveV3EthereumAssets.USDC_UNDERLYING
-    );
-    assert(!isSlashable);
-
-    uint256 deficitOffsetUsdtAfter = UmbrellaEthereum.UMBRELLA.getDeficitOffset(
-      AaveV3EthereumAssets.USDT_UNDERLYING
-    );
-    assertLe(deficitOffsetUsdtAfter - proposal.DEFICIT_OFFSET_USDT(), 1); // 1 wei cause of possible aToken transfer error
-
-    (isSlashable, ) = UmbrellaEthereum.UMBRELLA.isReserveSlashable(
-      AaveV3EthereumAssets.USDT_UNDERLYING
-    );
-    assert(!isSlashable);
-
-    uint256 deficitOffsetWethAfter = UmbrellaEthereum.UMBRELLA.getDeficitOffset(
-      AaveV3EthereumAssets.WETH_UNDERLYING
-    );
-    assertLe(deficitOffsetWethAfter - proposal.DEFICIT_OFFSET_WETH(), 1); // 1 wei cause of possible aToken transfer error
-
-    (isSlashable, ) = UmbrellaEthereum.UMBRELLA.isReserveSlashable(
-      AaveV3EthereumAssets.WETH_UNDERLYING
-    );
-    assert(!isSlashable);
-
-    uint256 deficitOffsetGhoAfter = UmbrellaEthereum.UMBRELLA.getDeficitOffset(
-      AaveV3EthereumAssets.GHO_UNDERLYING
-    );
-    assertLe(deficitOffsetGhoAfter - proposal.DEFICIT_OFFSET_GHO(), 0);
-
-    (isSlashable, ) = UmbrellaEthereum.UMBRELLA.isReserveSlashable(
-      AaveV3EthereumAssets.GHO_UNDERLYING
-    );
-    assert(!isSlashable);
+    _deficitOffsetCheck(AaveV3EthereumAssets.USDC_UNDERLYING, proposal.DEFICIT_OFFSET_USDC(), 1);
+    _deficitOffsetCheck(AaveV3EthereumAssets.USDT_UNDERLYING, proposal.DEFICIT_OFFSET_USDT(), 1);
+    _deficitOffsetCheck(AaveV3EthereumAssets.WETH_UNDERLYING, proposal.DEFICIT_OFFSET_WETH(), 1);
+    _deficitOffsetCheck(AaveV3EthereumAssets.GHO_UNDERLYING, proposal.DEFICIT_OFFSET_GHO(), 0);
   }
 
   function test_rewardsAllowance() public {
-    uint256 aUsdcAllowance = IERC20(AaveV3EthereumAssets.USDC_A_TOKEN).allowance(
-      address(AaveV3Ethereum.COLLECTOR),
-      UmbrellaEthereum.UMBRELLA_REWARDS_CONTROLLER
+    _rewardsAllowanceCheck(
+      AaveV3EthereumAssets.USDC_A_TOKEN,
+      proposal.USDC_MAX_EMISSION_PER_SECOND() * 180 days
     );
-    assertEq(aUsdcAllowance, 0);
-
-    uint256 aUsdtAllowance = IERC20(AaveV3EthereumAssets.USDT_A_TOKEN).allowance(
-      address(AaveV3Ethereum.COLLECTOR),
-      UmbrellaEthereum.UMBRELLA_REWARDS_CONTROLLER
+    _rewardsAllowanceCheck(
+      AaveV3EthereumAssets.USDT_A_TOKEN,
+      proposal.USDT_MAX_EMISSION_PER_SECOND() * 180 days
     );
-    assertEq(aUsdtAllowance, 0);
-
-    uint256 aWethAllowance = IERC20(AaveV3EthereumAssets.WETH_A_TOKEN).allowance(
-      address(AaveV3Ethereum.COLLECTOR),
-      UmbrellaEthereum.UMBRELLA_REWARDS_CONTROLLER
+    _rewardsAllowanceCheck(
+      AaveV3EthereumAssets.WETH_A_TOKEN,
+      proposal.WETH_MAX_EMISSION_PER_SECOND() * 180 days
     );
-    assertEq(aWethAllowance, 0);
-
-    uint256 ghoAllowance = IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).allowance(
-      address(AaveV3Ethereum.COLLECTOR),
-      UmbrellaEthereum.UMBRELLA_REWARDS_CONTROLLER
+    _rewardsAllowanceCheck(
+      AaveV3EthereumAssets.GHO_UNDERLYING,
+      proposal.GHO_MAX_EMISSION_PER_SECOND() * 180 days
     );
-    assertEq(ghoAllowance, 0);
-
-    executePayload(vm, address(proposal));
-
-    uint256 aUsdcAllowanceAfter = IERC20(AaveV3EthereumAssets.USDC_A_TOKEN).allowance(
-      address(AaveV3Ethereum.COLLECTOR),
-      UmbrellaEthereum.UMBRELLA_REWARDS_CONTROLLER
-    );
-    assertEq(aUsdcAllowanceAfter, proposal.USDC_MAX_EMISSION_PER_SECOND() * 180 days);
-
-    uint256 aUsdtAllowanceAfter = IERC20(AaveV3EthereumAssets.USDT_A_TOKEN).allowance(
-      address(AaveV3Ethereum.COLLECTOR),
-      UmbrellaEthereum.UMBRELLA_REWARDS_CONTROLLER
-    );
-    assertEq(aUsdtAllowanceAfter, proposal.USDT_MAX_EMISSION_PER_SECOND() * 180 days);
-
-    uint256 aWethAllowanceAfter = IERC20(AaveV3EthereumAssets.WETH_A_TOKEN).allowance(
-      address(AaveV3Ethereum.COLLECTOR),
-      UmbrellaEthereum.UMBRELLA_REWARDS_CONTROLLER
-    );
-    assertEq(aWethAllowanceAfter, proposal.WETH_MAX_EMISSION_PER_SECOND() * 180 days);
-
-    uint256 ghoAllowanceAfter = IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).allowance(
-      address(AaveV3Ethereum.COLLECTOR),
-      UmbrellaEthereum.UMBRELLA_REWARDS_CONTROLLER
-    );
-    assertEq(ghoAllowanceAfter, proposal.GHO_MAX_EMISSION_PER_SECOND() * 180 days);
   }
 
   function test_checkRewards() public {
     executePayload(vm, address(proposal));
 
-    vm.startPrank(user);
-
-    deal(AaveV3EthereumAssets.USDC_STATA_TOKEN, user, 1_000 * 1e6);
-    deal(AaveV3EthereumAssets.USDT_STATA_TOKEN, user, 1_000 * 1e6);
-    deal(AaveV3EthereumAssets.WETH_STATA_TOKEN, user, 1_000 * 1e18);
-    deal(AaveV3EthereumAssets.GHO_UNDERLYING, user, 1_000 * 1e18);
-
     address[] memory stkTokens = UmbrellaEthereum.UMBRELLA.getStkTokens();
 
-    IERC20(AaveV3EthereumAssets.USDC_STATA_TOKEN).approve(stkTokens[0], 1_000 * 1e6);
-    IERC20(AaveV3EthereumAssets.USDT_STATA_TOKEN).approve(stkTokens[1], 1_000 * 1e6);
-    IERC20(AaveV3EthereumAssets.WETH_STATA_TOKEN).approve(stkTokens[2], 1_000 * 1e18);
-    IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).approve(stkTokens[3], 1_000 * 1e18);
-
-    IUmbrellaStakeToken(stkTokens[0]).deposit(1_000 * 1e6, user);
-    IUmbrellaStakeToken(stkTokens[1]).deposit(1_000 * 1e6, user);
-    IUmbrellaStakeToken(stkTokens[2]).deposit(1_000 * 1e18, user);
-    IUmbrellaStakeToken(stkTokens[3]).deposit(1_000 * 1e18, user);
-
-    assertEq(
-      IRewardsController(UmbrellaEthereum.UMBRELLA_REWARDS_CONTROLLER).calculateRewardIndex(
-        stkTokens[0],
-        AaveV3EthereumAssets.USDC_A_TOKEN
-      ),
-      0
-    );
-    assertEq(
-      IRewardsController(UmbrellaEthereum.UMBRELLA_REWARDS_CONTROLLER).calculateCurrentUserReward(
-        stkTokens[0],
-        AaveV3EthereumAssets.USDC_A_TOKEN,
-        user
-      ),
-      0
-    );
-
-    assertEq(
-      IRewardsController(UmbrellaEthereum.UMBRELLA_REWARDS_CONTROLLER).calculateRewardIndex(
-        stkTokens[1],
-        AaveV3EthereumAssets.USDT_A_TOKEN
-      ),
-      0
-    );
-    assertEq(
-      IRewardsController(UmbrellaEthereum.UMBRELLA_REWARDS_CONTROLLER).calculateCurrentUserReward(
-        stkTokens[1],
-        AaveV3EthereumAssets.USDT_A_TOKEN,
-        user
-      ),
-      0
-    );
-
-    assertEq(
-      IRewardsController(UmbrellaEthereum.UMBRELLA_REWARDS_CONTROLLER).calculateRewardIndex(
-        stkTokens[2],
-        AaveV3EthereumAssets.WETH_A_TOKEN
-      ),
-      0
-    );
-    assertEq(
-      IRewardsController(UmbrellaEthereum.UMBRELLA_REWARDS_CONTROLLER).calculateCurrentUserReward(
-        stkTokens[2],
-        AaveV3EthereumAssets.WETH_A_TOKEN,
-        user
-      ),
-      0
-    );
-
-    assertEq(
-      IRewardsController(UmbrellaEthereum.UMBRELLA_REWARDS_CONTROLLER).calculateRewardIndex(
-        stkTokens[3],
-        AaveV3EthereumAssets.GHO_UNDERLYING
-      ),
-      0
-    );
-    assertEq(
-      IRewardsController(UmbrellaEthereum.UMBRELLA_REWARDS_CONTROLLER).calculateCurrentUserReward(
-        stkTokens[3],
-        AaveV3EthereumAssets.GHO_UNDERLYING,
-        user
-      ),
-      0
-    );
-
-    skip(1 days);
-
-    assertGt(
-      IRewardsController(UmbrellaEthereum.UMBRELLA_REWARDS_CONTROLLER).calculateRewardIndex(
-        stkTokens[0],
-        AaveV3EthereumAssets.USDC_A_TOKEN
-      ),
-      0
-    );
-    assertGt(
-      IRewardsController(UmbrellaEthereum.UMBRELLA_REWARDS_CONTROLLER).calculateCurrentUserReward(
-        stkTokens[0],
-        AaveV3EthereumAssets.USDC_A_TOKEN,
-        user
-      ),
-      0
-    );
-
-    assertGt(
-      IRewardsController(UmbrellaEthereum.UMBRELLA_REWARDS_CONTROLLER).calculateRewardIndex(
-        stkTokens[1],
-        AaveV3EthereumAssets.USDT_A_TOKEN
-      ),
-      0
-    );
-    assertGt(
-      IRewardsController(UmbrellaEthereum.UMBRELLA_REWARDS_CONTROLLER).calculateCurrentUserReward(
-        stkTokens[1],
-        AaveV3EthereumAssets.USDT_A_TOKEN,
-        user
-      ),
-      0
-    );
-
-    assertGt(
-      IRewardsController(UmbrellaEthereum.UMBRELLA_REWARDS_CONTROLLER).calculateRewardIndex(
-        stkTokens[2],
-        AaveV3EthereumAssets.WETH_A_TOKEN
-      ),
-      0
-    );
-    assertGt(
-      IRewardsController(UmbrellaEthereum.UMBRELLA_REWARDS_CONTROLLER).calculateCurrentUserReward(
-        stkTokens[2],
-        AaveV3EthereumAssets.WETH_A_TOKEN,
-        user
-      ),
-      0
-    );
-
-    assertGt(
-      IRewardsController(UmbrellaEthereum.UMBRELLA_REWARDS_CONTROLLER).calculateRewardIndex(
-        stkTokens[3],
-        AaveV3EthereumAssets.GHO_UNDERLYING
-      ),
-      0
-    );
-    assertGt(
-      IRewardsController(UmbrellaEthereum.UMBRELLA_REWARDS_CONTROLLER).calculateCurrentUserReward(
-        stkTokens[3],
-        AaveV3EthereumAssets.GHO_UNDERLYING,
-        user
-      ),
-      0
-    );
-
-    assertEq(IERC20(AaveV3EthereumAssets.USDC_A_TOKEN).balanceOf(user), 0);
-    assertEq(IERC20(AaveV3EthereumAssets.USDT_A_TOKEN).balanceOf(user), 0);
-    assertEq(IERC20(AaveV3EthereumAssets.WETH_A_TOKEN).balanceOf(user), 0);
-    assertEq(IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(user), 0);
-
-    IRewardsController(UmbrellaEthereum.UMBRELLA_REWARDS_CONTROLLER).claimAllRewards(
+    _rewardsDistributionCheck(
       stkTokens[0],
-      user
+      AaveV3EthereumAssets.USDC_STATA_TOKEN,
+      AaveV3EthereumAssets.USDC_A_TOKEN,
+      1_000 * 1e6
     );
-    assertGt(IERC20(AaveV3EthereumAssets.USDC_A_TOKEN).balanceOf(user), 0);
-
-    IRewardsController(UmbrellaEthereum.UMBRELLA_REWARDS_CONTROLLER).claimAllRewards(
+    _rewardsDistributionCheck(
       stkTokens[1],
-      user
+      AaveV3EthereumAssets.USDT_STATA_TOKEN,
+      AaveV3EthereumAssets.USDT_A_TOKEN,
+      1_000 * 1e6
     );
-    assertGt(IERC20(AaveV3EthereumAssets.USDT_A_TOKEN).balanceOf(user), 0);
-
-    IRewardsController(UmbrellaEthereum.UMBRELLA_REWARDS_CONTROLLER).claimAllRewards(
+    _rewardsDistributionCheck(
       stkTokens[2],
-      user
+      AaveV3EthereumAssets.WETH_STATA_TOKEN,
+      AaveV3EthereumAssets.WETH_A_TOKEN,
+      1_000 * 1e18
     );
-    assertGt(IERC20(AaveV3EthereumAssets.WETH_A_TOKEN).balanceOf(user), 0);
-
-    IRewardsController(UmbrellaEthereum.UMBRELLA_REWARDS_CONTROLLER).claimAllRewards(
+    _rewardsDistributionCheck(
       stkTokens[3],
-      user
+      AaveV3EthereumAssets.GHO_UNDERLYING,
+      AaveV3EthereumAssets.GHO_UNDERLYING,
+      1_000 * 1e18
     );
-    assertGt(IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(user), 0);
   }
 
   function test_umbrellaRoles() public {
@@ -560,5 +265,132 @@ contract AaveV3Ethereum_UmbrellaActivation_20250515_Test is ProtocolV3TestBase {
     );
 
     assertEq(amountAfter, amount + proposal.TOTAL_COST_OF_AUDITS());
+  }
+
+  function _reserveCheck(
+    address reserve,
+    uint256 reserveDeficit,
+    uint256 newMaxReserveDeficit
+  ) internal {
+    uint256 currentReserveDeficit = AaveV3Ethereum.POOL.getReserveDeficit(reserve);
+    assertGe(currentReserveDeficit, reserveDeficit);
+
+    executePayload(vm, address(proposal));
+
+    uint256 newReserveDeficit = AaveV3Ethereum.POOL.getReserveDeficit(reserve);
+    assertLe(newReserveDeficit, newMaxReserveDeficit);
+
+    vm.revertToState(snapshotState);
+  }
+
+  function _allowanceToDeficitClinicCheck(address reserve, uint256 allowanceAfter) internal {
+    uint256 allowanceBefore = IDeficitOffsetClinicSteward(
+      UmbrellaEthereum.DEFICIT_OFFSET_CLINIC_STEWARD
+    ).getRemainingAllowance(reserve);
+
+    assertEq(allowanceBefore, 0);
+    executePayload(vm, address(proposal));
+
+    uint256 remainingAllowanceAfter = IDeficitOffsetClinicSteward(
+      UmbrellaEthereum.DEFICIT_OFFSET_CLINIC_STEWARD
+    ).getRemainingAllowance(reserve);
+
+    assertEq(remainingAllowanceAfter, allowanceAfter);
+
+    vm.revertToState(snapshotState);
+  }
+
+  function _deficitOffsetCheck(
+    address reserve,
+    uint256 deficitOffsetIncrease,
+    uint256 precisionLoss
+  ) internal {
+    uint256 deficitOffset = UmbrellaEthereum.UMBRELLA.getDeficitOffset(reserve);
+    assertEq(deficitOffset, 0);
+
+    executePayload(vm, address(proposal));
+
+    uint256 deficitOffsetAfter = UmbrellaEthereum.UMBRELLA.getDeficitOffset(reserve);
+    assertLe(deficitOffsetAfter - deficitOffsetIncrease, precisionLoss); // precisionLoss could occur during aToken transfers
+
+    (bool isSlashable, uint256 newDeficit) = UmbrellaEthereum.UMBRELLA.isReserveSlashable(reserve);
+
+    assert(!isSlashable);
+    assertEq(newDeficit, 0);
+
+    vm.revertToState(snapshotState);
+  }
+
+  function _rewardsAllowanceCheck(address reward, uint256 allowanceAfterExecution) internal {
+    uint256 allowanceBefore = IERC20(reward).allowance(
+      address(AaveV3Ethereum.COLLECTOR),
+      UmbrellaEthereum.UMBRELLA_REWARDS_CONTROLLER
+    );
+    assertEq(allowanceBefore, 0);
+
+    executePayload(vm, address(proposal));
+
+    uint256 allowanceAfter = IERC20(reward).allowance(
+      address(AaveV3Ethereum.COLLECTOR),
+      UmbrellaEthereum.UMBRELLA_REWARDS_CONTROLLER
+    );
+    assertEq(allowanceAfter, allowanceAfterExecution);
+
+    vm.revertToState(snapshotState);
+  }
+
+  function _rewardsDistributionCheck(
+    address asset,
+    address underlyingAsset,
+    address reward,
+    uint256 dealAmount
+  ) internal {
+    deal(underlyingAsset, user, dealAmount);
+
+    vm.startPrank(user);
+
+    IERC20(underlyingAsset).approve(asset, dealAmount);
+    IUmbrellaStakeToken(asset).deposit(dealAmount, user);
+
+    assertEq(
+      IRewardsController(UmbrellaEthereum.UMBRELLA_REWARDS_CONTROLLER).calculateRewardIndex(
+        asset,
+        reward
+      ),
+      0
+    );
+    assertEq(
+      IRewardsController(UmbrellaEthereum.UMBRELLA_REWARDS_CONTROLLER).calculateCurrentUserReward(
+        asset,
+        reward,
+        user
+      ),
+      0
+    );
+
+    skip(1 days);
+
+    assertGt(
+      IRewardsController(UmbrellaEthereum.UMBRELLA_REWARDS_CONTROLLER).calculateRewardIndex(
+        asset,
+        reward
+      ),
+      0
+    );
+    assertGt(
+      IRewardsController(UmbrellaEthereum.UMBRELLA_REWARDS_CONTROLLER).calculateCurrentUserReward(
+        asset,
+        reward,
+        user
+      ),
+      0
+    );
+
+    assertEq(IERC20(reward).balanceOf(user), 0);
+
+    IRewardsController(UmbrellaEthereum.UMBRELLA_REWARDS_CONTROLLER).claimAllRewards(asset, user);
+    assertGt(IERC20(reward).balanceOf(user), 0);
+
+    vm.stopPrank();
   }
 }
