@@ -7,7 +7,7 @@ snapshot: "https://snapshot.box/#/s:aavedao.eth/proposal/0xcf4e56350b6dc4615f420
 
 ## Simple Summary
 
-This ARFC proposes the onboarding of Wrapped Ether (wETH) as a supported asset on the Aave V3 Celo Instance. The integration aims to expand the protocol’s utility and provide users with additional opportunities for lending and borrowing.
+This AIP proposes the onboarding of Wrapped Ether (wETH) as a supported asset on the Aave V3 Celo Instance. The integration aims to expand the protocol’s utility and provide users with additional opportunities for lending and borrowing.
 
 ## Motivation
 
