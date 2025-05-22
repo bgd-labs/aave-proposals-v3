@@ -155,7 +155,7 @@ contract AaveV3Ethereum_OnboardUSDeJulyExpiryPTTokensAndEUSDeAugustExpiryPTToken
     returns (IAaveV3ConfigEngine.AssetEModeUpdate[] memory)
   {
     IAaveV3ConfigEngine.AssetEModeUpdate[]
-      memory assetEModeUpdates = new IAaveV3ConfigEngine.AssetEModeUpdate[](18);
+      memory assetEModeUpdates = new IAaveV3ConfigEngine.AssetEModeUpdate[](21);
 
     // PT-USDe JUL 2025 stablecoin
     assetEModeUpdates[0] = IAaveV3ConfigEngine.AssetEModeUpdate({
