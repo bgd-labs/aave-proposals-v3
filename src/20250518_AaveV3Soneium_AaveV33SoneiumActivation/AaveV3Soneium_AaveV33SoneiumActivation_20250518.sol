@@ -43,6 +43,29 @@ contract AaveV3Soneium_AaveV33SoneiumActivation_20250518 is AaveV3PayloadSoneium
     IAaveV3ConfigEngine.Listing[] memory listings = new IAaveV3ConfigEngine.Listing[](3);
 
     listings[0] = IAaveV3ConfigEngine.Listing({
+      asset: WETH,
+      assetSymbol: 'WETH',
+      priceFeed: 0x291cF980BA12505D65ee01BDe0882F1d5e533525,
+      enabledToBorrow: EngineFlags.ENABLED,
+      borrowableInIsolation: EngineFlags.DISABLED,
+      withSiloedBorrowing: EngineFlags.DISABLED,
+      flashloanable: EngineFlags.ENABLED,
+      ltv: 80_00,
+      liqThreshold: 83_00,
+      liqBonus: 6_00,
+      reserveFactor: 15_00,
+      supplyCap: 800,
+      borrowCap: 720,
+      debtCeiling: 0,
+      liqProtocolFee: 10_00,
+      rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
+        optimalUsageRatio: 90_00,
+        baseVariableBorrowRate: 0,
+        variableRateSlope1: 2_70,
+        variableRateSlope2: 80_00
+      })
+    });
+    listings[1] = IAaveV3ConfigEngine.Listing({
       asset: USDCe,
       assetSymbol: 'USDCe',
       priceFeed: 0xe9d6696fc74A8ef545D2c9C842f820763407E778,
@@ -65,7 +88,7 @@ contract AaveV3Soneium_AaveV33SoneiumActivation_20250518 is AaveV3PayloadSoneium
         variableRateSlope2: 40_00
       })
     });
-    listings[1] = IAaveV3ConfigEngine.Listing({
+    listings[2] = IAaveV3ConfigEngine.Listing({
       asset: USDT,
       assetSymbol: 'USDT',
       priceFeed: 0x01bcEb741614D4388028EaF3284DCB04386c30D2,
@@ -86,29 +109,6 @@ contract AaveV3Soneium_AaveV33SoneiumActivation_20250518 is AaveV3PayloadSoneium
         baseVariableBorrowRate: 0,
         variableRateSlope1: 5_50,
         variableRateSlope2: 40_00
-      })
-    });
-    listings[2] = IAaveV3ConfigEngine.Listing({
-      asset: WETH,
-      assetSymbol: 'WETH',
-      priceFeed: 0x291cF980BA12505D65ee01BDe0882F1d5e533525,
-      enabledToBorrow: EngineFlags.ENABLED,
-      borrowableInIsolation: EngineFlags.DISABLED,
-      withSiloedBorrowing: EngineFlags.DISABLED,
-      flashloanable: EngineFlags.ENABLED,
-      ltv: 80_00,
-      liqThreshold: 83_00,
-      liqBonus: 6_00,
-      reserveFactor: 15_00,
-      supplyCap: 800,
-      borrowCap: 720,
-      debtCeiling: 0,
-      liqProtocolFee: 10_00,
-      rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
-        optimalUsageRatio: 90_00,
-        baseVariableBorrowRate: 0,
-        variableRateSlope1: 2_70,
-        variableRateSlope2: 80_00
       })
     });
 
