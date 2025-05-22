@@ -39,7 +39,7 @@ contract AaveV3Celo_OnboardingWETHToAaveV3CeloInstance_20250515 is AaveV3Payload
       assetSymbol: 'WETH',
       priceFeed: ChainlinkCelo.ETH_USD,
       enabledToBorrow: EngineFlags.ENABLED,
-      borrowableInIsolation: EngineFlags.ENABLED,
+      borrowableInIsolation: EngineFlags.DISABLED,
       withSiloedBorrowing: EngineFlags.DISABLED,
       flashloanable: EngineFlags.ENABLED,
       ltv: 78_00,
