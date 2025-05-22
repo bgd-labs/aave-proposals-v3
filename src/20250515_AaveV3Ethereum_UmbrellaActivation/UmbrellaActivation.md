@@ -40,7 +40,7 @@ This payload handles the deployment and configuration of the new Umbrella system
 #### Stk Tokens Creation
 
 - Creates `stk` tokens for the above assets:
-  - `stkwaUSDC.V1`, `stkwasUSDT.V1`, stkwaWETH.V1` are backed by their respective stata tokens.
+  - `stkwaUSDC.V1`, `stkwaUSDT.V1`, `stkwaWETH.V1` are backed by their respective stata tokens.
   - `stkGHO.V1` is backed by the GHO underlying token.
 
 #### Reward Configuration
@@ -49,7 +49,7 @@ This payload handles the deployment and configuration of the new Umbrella system
   - `stkwaUSDC.V1` -> `aUSDC`, `stkwaUSDT.V1` -> `aUSDT`, `stkwaWETH.V1` -> `aWETH`
   - `stkGHO.V1` -> `GHO`
   - For each:
-    - `maxEmissionPerSecond` and `targetLiquidity` are configured using values from the forum.
+    - `maxEmissionPerSecond` and `targetLiquidity` are configured using values from the governance discussion, check the [summary table](#summary-table) for more details
     - `distributionEnd` is set to 1 year from the execution.
     - `rewardPayer` is st to the `Collector`.
 
@@ -58,7 +58,7 @@ This payload handles the deployment and configuration of the new Umbrella system
 - Sets up `SlashingConfig` for each `stk` token:
   - `reserve`: Corresponds to the base token (e.g., `USDT` for `stkwaUSDT.V1`, `GHO` for `stkGHO.V1`).
   - `liquidationFee`: Set to zero for all stk tokens.
-  - `deficitOffset`: Values sourced from the forum.
+  - `deficitOffset`: Values sourced from the governance discussion.
   - `umbrellaStakeUnderlyingOracle`:
     - For stata-based tokens: the stata token itself.
     - For `GHO`: a `GHO` oracle with a mocked price.

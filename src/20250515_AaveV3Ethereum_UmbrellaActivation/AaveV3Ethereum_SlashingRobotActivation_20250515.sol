@@ -38,13 +38,13 @@ contract AaveV3Ethereum_SlashingRobotActivation_20250515 is IProposalGenericExec
     });
     CollectorUtils.withdrawFromV3(AaveV3Ethereum.COLLECTOR, input, address(this));
 
-    uint256 balanceOfLinkAfter = IERC20(AaveV3EthereumAssets.LINK_UNDERLYING).balanceOf(
+    uint256 linkReceived = IERC20(AaveV3EthereumAssets.LINK_UNDERLYING).balanceOf(
       address(this)
-    );
+    ) - balanceOfLinkBefore;
 
     IERC20(AaveV3EthereumAssets.LINK_UNDERLYING).forceApprove(
       MiscEthereum.AAVE_CL_ROBOT_OPERATOR,
-      balanceOfLinkAfter - balanceOfLinkBefore
+      linkReceived
     );
 
     IAaveCLRobotOperator(MiscEthereum.AAVE_CL_ROBOT_OPERATOR).register(
@@ -52,7 +52,7 @@ contract AaveV3Ethereum_SlashingRobotActivation_20250515 is IProposalGenericExec
       SLASHING_ROBOT,
       '', // check data
       5_000_000, // gas limit
-      uint96(balanceOfLinkAfter - balanceOfLinkBefore),
+      uint96(linkReceived),
       0,
       ''
     );

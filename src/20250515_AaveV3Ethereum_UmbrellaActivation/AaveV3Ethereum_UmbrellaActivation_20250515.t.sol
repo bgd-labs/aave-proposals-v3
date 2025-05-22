@@ -331,7 +331,7 @@ contract AaveV3Ethereum_UmbrellaActivation_20250515_Test is ProtocolV3TestBase {
 
     vm.startPrank(user);
 
-    deal(AaveV3EthereumAssets.USDC_STATA_TOKEN, user, 1000 * 1e6);
+    deal(AaveV3EthereumAssets.USDC_STATA_TOKEN, user, 1_000 * 1e6);
     deal(AaveV3EthereumAssets.USDT_STATA_TOKEN, user, 1_000 * 1e6);
     deal(AaveV3EthereumAssets.WETH_STATA_TOKEN, user, 1_000 * 1e18);
     deal(AaveV3EthereumAssets.GHO_UNDERLYING, user, 1_000 * 1e18);

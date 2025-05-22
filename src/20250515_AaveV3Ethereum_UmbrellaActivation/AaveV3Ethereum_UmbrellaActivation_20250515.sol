@@ -323,8 +323,7 @@ contract AaveV3Ethereum_UmbrellaActivation_20250515 is
       DEFICIT_OFFSET_GHO
     );
 
-    // Give allowance to `RewardController`
-    // So for the next 180 days rewards could be claimed
+    // Give allowance to `RewardController` for the next 180 days of rewards
     /////////////////////////////////////////////////////////////////////////////////////////
 
     AaveV3Ethereum.COLLECTOR.approve(
