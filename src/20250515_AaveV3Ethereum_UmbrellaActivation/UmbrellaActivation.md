@@ -28,7 +28,7 @@ This payload handles the deployment and configuration of the new Umbrella system
 #### Contract registration
 
 - Registers the `Umbrella` contract in the `POOL_ADDRESSES_PROVIDER`.
-  - Enables the `Umbrella` to be used for reserve deificit elimination.
+  - Enables the `Umbrella` to be used for reserve deficit elimination.
 
 #### Reserve Deficit Elimination
 
@@ -63,9 +63,9 @@ This payload handles the deployment and configuration of the new Umbrella system
     - For stata-based tokens: the stata token itself.
     - For `GHO`: a `GHO` oracle with a mocked price.
 
-#### Role and Permisssion Management
+#### Role and Permission Management
 
-- Grants `Rewards_ADMIN_ROLE` in `RewardsController` to `PERMISSIONED_PAYLOADS_CONTROLLER_EXECUTOR`:
+- Grants `REWARDS_ADMIN_ROLE` in `RewardsController` to `PERMISSIONED_PAYLOADS_CONTROLLER_EXECUTOR`:
   - Allows the `FinancialCommittee` to limited modification of rewards without requiring governance proposals.
 - Grants `COVERAGE_MANAGER_ROLE` to `DEFICIT_OFFSET_CLINIC_STEWARD`.
   - Allows the `FinancialCommittee` to eliminate `deficitOffset` using `Collector` funds directly.
@@ -76,7 +76,7 @@ This payload handles the deployment and configuration of the new Umbrella system
   - `DEFICIT_OFFSET_CLINIC_STEWARD` - for deficit offset amounts as per forum.
   - `RewardsController` - to fund reward emissions for 180 days post-execution.
 
-#### Coverarge of audit expenses
+#### Coverage of audit expenses
 
 - `Collector` transfers 249_000 `aUSDT` to the BGD Labs to cover external security reviews of the entire `Umbrella` system.
 

@@ -89,7 +89,7 @@ contract AaveV3Ethereum_UmbrellaActivation_20250515 is
     );
 
     // Transfer current reserve deficit amounts to this address, so it could be used to eliminate `ReserveDeficit` later
-    // +1 to avoid precision error with aToken tranfers
+    // +1 to avoid precision error with aToken transfers
     /////////////////////////////////////////////////////////////////////////////////////////
 
     AaveV3Ethereum.COLLECTOR.transfer(
@@ -295,7 +295,7 @@ contract AaveV3Ethereum_UmbrellaActivation_20250515 is
       UmbrellaEthereum.DEFICIT_OFFSET_CLINIC_STEWARD
     );
 
-    // Give allowance to `DeficitOffsetClinitSteward`
+    // Give allowance to `DeficitOffsetClinicSteward`
     // So `deficitOffset` could be closed using `Collector` funds
     /////////////////////////////////////////////////////////////////////////////////////////
 

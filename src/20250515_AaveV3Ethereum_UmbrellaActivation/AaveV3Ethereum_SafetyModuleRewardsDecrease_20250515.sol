@@ -101,13 +101,13 @@ contract AaveV3Ethereum_SafetyModuleRewardsDecrease_20250515 is IProposalGeneric
       );
     }
 
-    IStakeToken.AssetConfigInput[] memory bptConfigs = new IStakeToken.AssetConfigInput[](1);
-    bptConfigs[0] = IStakeToken.AssetConfigInput({
+    IStakeToken.AssetConfigInput[] memory stkConfigs = new IStakeToken.AssetConfigInput[](1);
+    stkConfigs[0] = IStakeToken.AssetConfigInput({
       emissionPerSecond: newEmission,
       totalStaked: 0, // it's overwritten internally
       underlyingAsset: legacyStkToken
     });
 
-    IStakeToken(legacyStkToken).configureAssets(bptConfigs);
+    IStakeToken(legacyStkToken).configureAssets(stkConfigs);
   }
 }

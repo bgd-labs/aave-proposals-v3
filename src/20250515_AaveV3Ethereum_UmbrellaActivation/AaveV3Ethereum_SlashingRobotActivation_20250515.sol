@@ -27,19 +27,16 @@ contract AaveV3Ethereum_SlashingRobotActivation_20250515 is IProposalGenericExec
   uint96 public constant SLASHING_ROBOT_LINK_AMOUNT = 250 * 1e18;
 
   function execute() external {
-    uint256 balanceOfLinkBefore = IERC20(AaveV3EthereumAssets.LINK_UNDERLYING).balanceOf(
-      address(this)
-    );
-
     CollectorUtils.IOInput memory input = CollectorUtils.IOInput({
       pool: address(AaveV3Ethereum.POOL),
       underlying: AaveV3EthereumAssets.LINK_UNDERLYING,
       amount: SLASHING_ROBOT_LINK_AMOUNT
     });
-    CollectorUtils.withdrawFromV3(AaveV3Ethereum.COLLECTOR, input, address(this));
-
-    uint256 linkReceived = IERC20(AaveV3EthereumAssets.LINK_UNDERLYING).balanceOf(address(this)) -
-      balanceOfLinkBefore;
+    uint256 linkReceived = CollectorUtils.withdrawFromV3(
+      AaveV3Ethereum.COLLECTOR,
+      input,
+      address(this)
+    );
 
     IERC20(AaveV3EthereumAssets.LINK_UNDERLYING).forceApprove(
       MiscEthereum.AAVE_CL_ROBOT_OPERATOR,
