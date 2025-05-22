@@ -45,10 +45,10 @@ contract AaveV3Ethereum_UmbrellaActivation_20250515 is
 
   uint256 public constant DISTRIBUTION_DURATION = 365 days;
 
-  uint256 public constant USDC_MAX_EMISSION_PER_SECOND = uint256(2_329_420 * 1e6) / 365 days; // ~3_000_000 * 66 / 85
+  uint256 public constant USDC_MAX_EMISSION_PER_SECOND = uint256(2_330_000 * 1e6) / 365 days; // ~3_000_000 * 66 / 85
   uint256 public constant USDC_TARGET_LIQUIDITY = 66_000_000 * 1e6; // Will be recaltulated during setup considering the exchange rate of stata
 
-  uint256 public constant USDT_MAX_EMISSION_PER_SECOND = uint256(3_670_600 * 1e6) / 365 days; // ~3_000_000 * 104 / 85
+  uint256 public constant USDT_MAX_EMISSION_PER_SECOND = uint256(3_670_000 * 1e6) / 365 days; // ~3_000_000 * 104 / 85
   uint256 public constant USDT_TARGET_LIQUIDITY = 104_000_000 * 1e6; // Will be recaltulated during setup considering the exchange rate of stata
 
   uint256 public constant WETH_MAX_EMISSION_PER_SECOND = uint256(550 * 1e18) / 365 days;
@@ -61,6 +61,9 @@ contract AaveV3Ethereum_UmbrellaActivation_20250515 is
   bytes32 public constant COVERAGE_MANAGER_ROLE = keccak256('COVERAGE_MANAGER_ROLE');
 
   bytes32 public constant UMBRELLA = 'UMBRELLA';
+
+  address public constant BGD_LABS_MULTISIG = 0xb812d0944f8F581DfAA3a93Dda0d22EcEf51A9CF;
+  uint256 public constant TOTAL_COST_OF_AUDITS = 249_000 * 1e6;
 
   function _preExecute() internal override {
     // Give `UMBRELLA` to the `Umbrella` contract, so `Umbrella` could start eliminating deficit for this `POOL`
@@ -346,6 +349,15 @@ contract AaveV3Ethereum_UmbrellaActivation_20250515 is
       IERC20(AaveV3EthereumAssets.GHO_UNDERLYING),
       UmbrellaEthereum.UMBRELLA_REWARDS_CONTROLLER,
       GHO_MAX_EMISSION_PER_SECOND * 180 days
+    );
+
+    // Cover audits expenses
+    /////////////////////////////////////////////////////////////////////////////////////////
+
+    AaveV3Ethereum.COLLECTOR.transfer(
+      IERC20(AaveV3EthereumAssets.USDT_A_TOKEN),
+      BGD_LABS_MULTISIG,
+      TOTAL_COST_OF_AUDITS
     );
   }
 }

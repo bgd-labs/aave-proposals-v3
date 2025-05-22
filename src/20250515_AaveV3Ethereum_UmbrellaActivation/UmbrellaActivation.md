@@ -76,12 +76,16 @@ This payload handles the deployment and configuration of the new Umbrella system
   - `DEFICIT_OFFSET_CLINIC_STEWARD` - for deficit offset amounts as per forum.
   - `RewardsController` - to fund reward emissions for 180 days post-execution.
 
+#### Coverarge of audit expenses
+
+- `Collector` transfers 249_000 `aUSDT` to the BGD Labs to cover external security reviews of the entire `Umbrella` system.
+
 #### Summary Table
 
 | Staked asset | Covered asset | Target Liquidity\* | Max emission | Cooldown / Unstake window | Deficit offset |
 | :----------: | :-----------: | :----------------: | :----------: | :-----------------------: | :------------: |
-|    waUSDC    |     USDC      |     66_000_000     |  2_329_420   |     20 days / 2 days      |    100_000     |
-|    waUSDT    |     USDT      |    104_000_000     |  3_670_600   |     20 days / 2 days      |    100_000     |
+|    waUSDC    |     USDC      |     66_000_000     |  2_330_000   |     20 days / 2 days      |    100_000     |
+|    waUSDT    |     USDT      |    104_000_000     |  3_670_000   |     20 days / 2 days      |    100_000     |
 |    waWETH    |     WETH      |       25_000       |     550      |     20 days / 2 days      |       50       |
 |     GHO      |      GHO      |     12_000_000     |  1_200_000   |     20 days / 2 days      |    100_000     |
 

@@ -547,4 +547,18 @@ contract AaveV3Ethereum_UmbrellaActivation_20250515_Test is ProtocolV3TestBase {
 
     assert(hasRoleCoverageManager);
   }
+
+  function test_refundForAudits() public {
+    uint256 amount = IERC20(AaveV3EthereumAssets.USDT_A_TOKEN).balanceOf(
+      proposal.BGD_LABS_MULTISIG()
+    );
+
+    executePayload(vm, address(proposal));
+
+    uint256 amountAfter = IERC20(AaveV3EthereumAssets.USDT_A_TOKEN).balanceOf(
+      proposal.BGD_LABS_MULTISIG()
+    );
+
+    assertEq(amountAfter, amount + proposal.TOTAL_COST_OF_AUDITS());
+  }
 }
