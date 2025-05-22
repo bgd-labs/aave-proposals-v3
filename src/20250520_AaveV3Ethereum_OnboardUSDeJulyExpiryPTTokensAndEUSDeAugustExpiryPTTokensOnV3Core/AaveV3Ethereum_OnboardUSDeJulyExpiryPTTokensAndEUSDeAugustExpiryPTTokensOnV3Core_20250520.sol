@@ -256,25 +256,25 @@ contract AaveV3Ethereum_OnboardUSDeJulyExpiryPTTokensAndEUSDeAugustExpiryPTToken
     });
 
     // eUSDe stablecoin
-    assetEModeUpdates[12] = IAaveV3ConfigEngine.AssetEModeUpdate({
+    assetEModeUpdates[15] = IAaveV3ConfigEngine.AssetEModeUpdate({
       asset: AaveV3EthereumAssets.USDC_UNDERLYING,
       eModeCategory: 15,
       borrowable: EngineFlags.ENABLED,
       collateral: EngineFlags.DISABLED
     });
-    assetEModeUpdates[13] = IAaveV3ConfigEngine.AssetEModeUpdate({
+    assetEModeUpdates[16] = IAaveV3ConfigEngine.AssetEModeUpdate({
       asset: eUSDe,
       eModeCategory: 15,
       borrowable: EngineFlags.DISABLED,
       collateral: EngineFlags.ENABLED
     });
-    assetEModeUpdates[14] = IAaveV3ConfigEngine.AssetEModeUpdate({
+    assetEModeUpdates[17] = IAaveV3ConfigEngine.AssetEModeUpdate({
       asset: AaveV3EthereumAssets.USDT_UNDERLYING,
       eModeCategory: 15,
       borrowable: EngineFlags.ENABLED,
       collateral: EngineFlags.DISABLED
     });
-    assetEModeUpdates[15] = IAaveV3ConfigEngine.AssetEModeUpdate({
+    assetEModeUpdates[18] = IAaveV3ConfigEngine.AssetEModeUpdate({
       asset: AaveV3EthereumAssets.USDS_UNDERLYING,
       eModeCategory: 15,
       borrowable: EngineFlags.ENABLED,
