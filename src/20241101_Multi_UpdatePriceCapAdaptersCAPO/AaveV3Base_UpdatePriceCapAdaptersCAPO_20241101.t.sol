@@ -9,7 +9,7 @@ import {PriceFeeds} from './Constants.sol';
 
 /**
  * @dev Test for AaveV3Base_UpdatePriceCapAdaptersCAPO_20241101
- * command: FOUNDRY_PROFILE=base forge test --match-path=src/20241101_Multi_UpdatePriceCapAdaptersCAPO/AaveV3Base_UpdatePriceCapAdaptersCAPO_20241101.t.sol -vv
+ * command: FOUNDRY_PROFILE=test forge test --match-path=src/20241101_Multi_UpdatePriceCapAdaptersCAPO/AaveV3Base_UpdatePriceCapAdaptersCAPO_20241101.t.sol -vv
  */
 contract AaveV3Base_UpdatePriceCapAdaptersCAPO_20241101_Test is
   BasePayloadUSDFeedTest,
@@ -18,7 +18,7 @@ contract AaveV3Base_UpdatePriceCapAdaptersCAPO_20241101_Test is
   AaveV3Base_UpdatePriceCapAdaptersCAPO_20241101 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('base'), 23772801);
+    vm.createSelectFork(vm.rpcUrl('base'), 30214130);
     proposal = new AaveV3Base_UpdatePriceCapAdaptersCAPO_20241101();
   }
 
