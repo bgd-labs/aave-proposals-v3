@@ -27,7 +27,7 @@
 | aToken | [0xf385280F36e009C157697D25E0B802EfaBfd789c](https://celoscan.io/address/0xf385280F36e009C157697D25E0B802EfaBfd789c) |
 | variableDebtToken | [0x6508cff7c5FbA053Af00a4E894500e6fA00274B7](https://celoscan.io/address/0x6508cff7c5FbA053Af00a4E894500e6fA00274B7) |
 | borrowingEnabled | true |
-| isBorrowableInIsolation | true |
+| isBorrowableInIsolation | false |
 | interestRateStrategy | [0x8B62D241Bf59f40991DCd18531683156d7013355](https://celoscan.io/address/0x8B62D241Bf59f40991DCd18531683156d7013355) |
 | aTokenName | Aave Celo WETH |
 | aTokenSymbol | aCelWETH |
@@ -65,7 +65,7 @@
         "id": 5,
         "interestRateStrategy": "0x8B62D241Bf59f40991DCd18531683156d7013355",
         "isActive": true,
-        "isBorrowableInIsolation": true,
+        "isBorrowableInIsolation": false,
         "isFlashloanable": true,
         "isFrozen": false,
         "isPaused": false,
@@ -133,7 +133,7 @@
         },
         "0xb430fce07ae1bb3b095acf9d2fb6faa55089d04937161173e88e141fe6052874": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x100000000000000000000003e80000001f40000001c205dca51229fe1f401e78"
+          "newValue": "0x100000000000000000000003e80000001f40000001c205dc851229fe1f401e78"
         },
         "0xb430fce07ae1bb3b095acf9d2fb6faa55089d04937161173e88e141fe6052875": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
