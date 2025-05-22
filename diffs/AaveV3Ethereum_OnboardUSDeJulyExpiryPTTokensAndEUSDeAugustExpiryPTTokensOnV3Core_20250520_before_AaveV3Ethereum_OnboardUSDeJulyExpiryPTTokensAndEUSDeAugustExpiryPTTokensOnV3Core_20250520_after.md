@@ -236,8 +236,8 @@
 | eMode.ltv | - | 89 % |
 | eMode.liquidationThreshold | - | 91 % |
 | eMode.liquidationBonus | - | 3.1 % |
-| eMode.borrowableBitmap | - |  |
-| eMode.collateralBitmap | - |  |
+| eMode.borrowableBitmap | - | USDe |
+| eMode.collateralBitmap | - | PT-eUSDE-14AUG2025, eUSDe |
 
 
 ### EMode: eUSDe_Stablecoin(id: 15)
@@ -308,8 +308,8 @@
     "14": {
       "from": null,
       "to": {
-        "borrowableBitmap": "0",
-        "collateralBitmap": "0",
+        "borrowableBitmap": "1073741824",
+        "collateralBitmap": "52776558133248",
         "eModeCategory": 14,
         "label": "PT-eUSDe USDe August 2025",
         "liquidationBonus": 10310,
@@ -876,11 +876,15 @@
         },
         "0x2ab8cd8eab3e8c901115e793997bc427e1596b98dcca832d2eb3bc8b02d226a1": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x00000000000000000000000000000000000000000000000000002846238c22c4"
+          "newValue": "0x00000000000000000000000000000000000000003000000000002846238c22c4"
         },
         "0x2ab8cd8eab3e8c901115e793997bc427e1596b98dcca832d2eb3bc8b02d226a2": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
           "newValue": "0x50542d6555534465205553446520417567757374203230323500000000000032"
+        },
+        "0x2ab8cd8eab3e8c901115e793997bc427e1596b98dcca832d2eb3bc8b02d226a3": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000040000000"
         },
         "0x4e69b4a7023ff8bf853bdfb67fb787860231a2137f884e442346b6eeb7905fcf": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
