@@ -10,7 +10,7 @@ This proposal aims to onboard the eUSDe token as well as the USDe July expiry PT
 
 ## Motivation
 
-Last month listing of various PT tokens where met with massive support from the community and growth for the protocol. To capitalize on this interest we suggest onboard two additional PT tokens to the Core instances. The two PT tokens selected are the smae as previously onboarded with a later expiry date.
+Last month listing of various PT tokens where met with massive support from the community and growth for the protocol. To capitalize on this interest we suggest onboard two additional PT tokens to the Core instances. The two PT tokens selected are the same as previously onboarded with a later expiry date.
 
 ## Specification
 
