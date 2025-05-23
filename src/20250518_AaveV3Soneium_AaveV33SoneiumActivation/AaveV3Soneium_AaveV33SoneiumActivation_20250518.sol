@@ -119,9 +119,7 @@ contract AaveV3Soneium_AaveV33SoneiumActivation_20250518 is AaveV3PayloadSoneium
     IERC20(asset).forceApprove(address(AaveV3Soneium.POOL), seedAmount);
     AaveV3Soneium.POOL.supply(asset, seedAmount, address(AaveV3Soneium.COLLECTOR), 0);
 
-    (address aToken, , ) = AaveV3Soneium.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(
-      asset
-    );
+    address aToken = AaveV3Soneium.POOL.getReserveAToken(asset);
     IEmissionManager(AaveV3Soneium.EMISSION_MANAGER).setEmissionAdmin(asset, LM_ADMIN);
     IEmissionManager(AaveV3Soneium.EMISSION_MANAGER).setEmissionAdmin(aToken, LM_ADMIN);
   }
