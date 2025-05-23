@@ -56,7 +56,7 @@ contract AaveV3Soneium_AaveV33SoneiumActivation_20250518_Test is ProtocolV3TestB
     (address aToken, , ) = AaveV3Soneium.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(
       asset
     );
-    assertGe(IERC20(aToken).balanceOf(address(AaveV3Soneium.COLLECTOR)), seedAmount);
+    assertGe(IERC20(aToken).balanceOf(address(AaveV3Soneium.DUST_BIN)), seedAmount);
 
     assertEq(
       IEmissionManager(AaveV3Soneium.EMISSION_MANAGER).getEmissionAdmin(asset),
