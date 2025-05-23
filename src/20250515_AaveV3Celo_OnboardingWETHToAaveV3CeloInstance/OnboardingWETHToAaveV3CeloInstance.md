@@ -22,26 +22,26 @@ The addition of wETH to Aave V3 on Celo would:
 
 The table below illustrates the configured risk parameters for **WETH**
 
-| Parameter                 |                                                                                      Value |
-| ------------------------- | -----------------------------------------------------------------------------------------: |
-| Isolation Mode            |                                                                                      false |
-| Borrowable                |                                                                                    ENABLED |
-| Collateral Enabled        |                                                                                       true |
-| Supply Cap (WETH)         |                                                                                        500 |
-| Borrow Cap (WETH)         |                                                                                        450 |
-| Debt Ceiling              |                                                                                      USD 0 |
-| LTV                       |                                                                                       78 % |
-| LT                        |                                                                                       80 % |
-| Liquidation Bonus         |                                                                                      7.5 % |
-| Liquidation Protocol Fee  |                                                                                       10 % |
-| Reserve Factor            |                                                                                       15 % |
-| Base Variable Borrow Rate |                                                                                        0 % |
-| Variable Slope 1          |                                                                                      2.7 % |
-| Variable Slope 2          |                                                                                       80 % |
-| Uoptimal                  |                                                                                       90 % |
-| Flashloanable             |                                                                                    ENABLED |
-| Siloed Borrowing          |                                                                                   DISABLED |
-| Borrowable in Isolation   |                                                                                   DISABLED |
+| Parameter                 |                                                                                       Value |
+| ------------------------- | ------------------------------------------------------------------------------------------: |
+| Isolation Mode            |                                                                                       false |
+| Borrowable                |                                                                                     ENABLED |
+| Collateral Enabled        |                                                                                        true |
+| Supply Cap (WETH)         |                                                                                         500 |
+| Borrow Cap (WETH)         |                                                                                         450 |
+| Debt Ceiling              |                                                                                       USD 0 |
+| LTV                       |                                                                                        78 % |
+| LT                        |                                                                                        80 % |
+| Liquidation Bonus         |                                                                                       7.5 % |
+| Liquidation Protocol Fee  |                                                                                        10 % |
+| Reserve Factor            |                                                                                        15 % |
+| Base Variable Borrow Rate |                                                                                         0 % |
+| Variable Slope 1          |                                                                                       2.7 % |
+| Variable Slope 2          |                                                                                        80 % |
+| Uoptimal                  |                                                                                        90 % |
+| Flashloanable             |                                                                                     ENABLED |
+| Siloed Borrowing          |                                                                                    DISABLED |
+| Borrowable in Isolation   |                                                                                    DISABLED |
 | Oracle                    | [Chainlink ETH/USD](https://celoscan.io/address/0x1FcD30A73D67639c1cD89ff5746E7585731c083B) |
 
 Additionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://celoscan.io/address/0xac140648435d03f784879cd789130F22Ef588Fcd) has been set as the emission admin for WETH and the corresponding aToken.
