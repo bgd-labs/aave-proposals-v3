@@ -58,5 +58,6 @@ zksync = "${RPC_ZKSYNC}"
 linea = "${RPC_LINEA}"
 celo = "${RPC_CELO}"
 sonic = "${RPC_SONIC}"
+soneium = "${RPC_SONEIUM}"
 
 # See more config options https://github.com/gakonst/foundry/tree/master/config
