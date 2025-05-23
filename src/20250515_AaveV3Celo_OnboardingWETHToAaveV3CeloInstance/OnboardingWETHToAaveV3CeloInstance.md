@@ -48,8 +48,8 @@ Additionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://celoscan.io/ad
 
 ## References
 
-- Implementation: [AaveV3Celo](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250515_AaveV3Celo_OnboardingWETHToAaveV3CeloInstance/AaveV3Celo_OnboardingWETHToAaveV3CeloInstance_20250515.sol)
-- Tests: [AaveV3Celo](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250515_AaveV3Celo_OnboardingWETHToAaveV3CeloInstance/AaveV3Celo_OnboardingWETHToAaveV3CeloInstance_20250515.t.sol)
+- Implementation: [AaveV3Celo](https://github.com/bgd-labs/aave-proposals-v3/blob/c0799d67effe7821ec97fefc8d61ffb703280eba/src/20250515_AaveV3Celo_OnboardingWETHToAaveV3CeloInstance/AaveV3Celo_OnboardingWETHToAaveV3CeloInstance_20250515.sol)
+- Tests: [AaveV3Celo](https://github.com/bgd-labs/aave-proposals-v3/blob/c0799d67effe7821ec97fefc8d61ffb703280eba/src/20250515_AaveV3Celo_OnboardingWETHToAaveV3CeloInstance/AaveV3Celo_OnboardingWETHToAaveV3CeloInstance_20250515.t.sol)
 - [Snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0xcf4e56350b6dc4615f4206a02d41c8f5958bc9a71594bed975e2657c9bc0b9b8)
 - [Discussion](https://governance.aave.com/t/arfc-onboarding-weth-to-aave-v3-celo-instance/21750)
 
