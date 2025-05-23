@@ -117,7 +117,7 @@ contract AaveV3Soneium_AaveV33SoneiumActivation_20250518 is AaveV3PayloadSoneium
 
   function _supplyAndConfigureLMAdmin(address asset, uint256 seedAmount) internal {
     IERC20(asset).forceApprove(address(AaveV3Soneium.POOL), seedAmount);
-    AaveV3Soneium.POOL.supply(asset, seedAmount, address(AaveV3Soneium.COLLECTOR), 0);
+    AaveV3Soneium.POOL.supply(asset, seedAmount, address(AaveV3Soneium.DUST_BIN), 0);
 
     address aToken = AaveV3Soneium.POOL.getReserveAToken(asset);
     IEmissionManager(AaveV3Soneium.EMISSION_MANAGER).setEmissionAdmin(asset, LM_ADMIN);
