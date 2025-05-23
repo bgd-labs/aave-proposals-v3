@@ -16,7 +16,7 @@ import {IAaveCLRobotOperator} from '../interfaces/IAaveCLRobotOperator.sol';
 /**
  * @title UmbrellaActivation
  * @author BGD Labs (@bgdlabs)
- * - Snapshot: TODO
+ * - Snapshot: https://snapshot.box/#/s:aavedao.eth/proposal/0xbe792a1db33cd7803e23810553e5a6a728c3ac15827ad2652aa6de1858fa5596
  * - Discussion: https://governance.aave.com/t/arfc-aave-umbrella-activation/21521
  * @notice This payload registers and activates `SlashingRobot`.
  */

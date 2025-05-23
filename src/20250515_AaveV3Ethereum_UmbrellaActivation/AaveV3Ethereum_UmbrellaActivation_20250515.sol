@@ -16,7 +16,7 @@ import {IRewardsStructs} from 'aave-umbrella/rewards/interfaces/IRewardsStructs.
 /**
  * @title UmbrellaActivation
  * @author BGD Labs (@bgdlabs)
- * - Snapshot: TODO
+ * - Snapshot: https://snapshot.box/#/s:aavedao.eth/proposal/0xbe792a1db33cd7803e23810553e5a6a728c3ac15827ad2652aa6de1858fa5596
  * - Discussion: https://governance.aave.com/t/arfc-aave-umbrella-activation/21521
  * @notice Executes a batch of actions to activate the Aave Umbrella framework.
  *
@@ -46,13 +46,13 @@ contract AaveV3Ethereum_UmbrellaActivation_20250515 is
   uint256 public constant DISTRIBUTION_DURATION = 365 days;
 
   uint256 public constant USDC_MAX_EMISSION_PER_SECOND = uint256(2_330_000 * 1e6) / 365 days; // ~3_000_000 * 66 / 85
-  uint256 public constant USDC_TARGET_LIQUIDITY = 66_000_000 * 1e6; // Will be recaltulated during setup considering the exchange rate of stata
+  uint256 public constant USDC_TARGET_LIQUIDITY = 66_000_000 * 1e6; // Will be recalculated during setup considering the exchange rate of stata
 
   uint256 public constant USDT_MAX_EMISSION_PER_SECOND = uint256(3_670_000 * 1e6) / 365 days; // ~3_000_000 * 104 / 85
-  uint256 public constant USDT_TARGET_LIQUIDITY = 104_000_000 * 1e6; // Will be recaltulated during setup considering the exchange rate of stata
+  uint256 public constant USDT_TARGET_LIQUIDITY = 104_000_000 * 1e6; // Will be recalculated during setup considering the exchange rate of stata
 
   uint256 public constant WETH_MAX_EMISSION_PER_SECOND = uint256(550 * 1e18) / 365 days;
-  uint256 public constant WETH_TARGET_LIQUIDITY = 25_000 * 1e18; // Will be recaltulated during setup considering the exchange rate of stata
+  uint256 public constant WETH_TARGET_LIQUIDITY = 25_000 * 1e18; // Will be recalculated during setup considering the exchange rate of stata
 
   uint256 public constant GHO_MAX_EMISSION_PER_SECOND = uint256(1_200_000 * 1e18) / 365 days;
   uint256 public constant GHO_TARGET_LIQUIDITY = 12_000_000 * 1e18;
