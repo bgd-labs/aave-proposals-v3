@@ -42,7 +42,7 @@ The table below illustrates the configured risk parameters for **WETH**
 | Flashloanable             |                                                                                    ENABLED |
 | Siloed Borrowing          |                                                                                   DISABLED |
 | Borrowable in Isolation   |                                                                                   DISABLED |
-| Oracle                    | [Chainlink ETH/USD](https://celocan.io/address/0x1FcD30A73D67639c1cD89ff5746E7585731c083B) |
+| Oracle                    | [Chainlink ETH/USD](https://celoscan.io/address/0x1FcD30A73D67639c1cD89ff5746E7585731c083B) |
 
 Additionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://celoscan.io/address/0xac140648435d03f784879cd789130F22Ef588Fcd) has been set as the emission admin for WETH and the corresponding aToken.
 
