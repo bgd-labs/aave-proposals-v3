@@ -21,10 +21,10 @@ interface IMigrationActions {
 /**
  * @title May Funding Part B
  * @author @TokenLogic
- * - Snapshot: Direct-to-AIP
+ * - Snapshot: https://snapshot.box/#/s:aavedao.eth/proposal/0x4dfc398fabb63305900572dff38b2ff8e104b0710077f6b7e48049de173d186b
  * - Discussion: https://governance.aave.com/t/arfc-may-2025-funding-update/21906
  */
-contract AaveV3Ethereum_MayFundingPartB_20250522 is IProposalGenericExecutor {
+contract AaveV3Ethereum_MayFundingPartB_20250524 is IProposalGenericExecutor {
   using CollectorUtils for ICollector;
 
   /// https://etherscan.io/address/0xf86141a5657Cf52AEB3E30eBccA5Ad3a8f714B89

@@ -10,25 +10,25 @@ import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 
-import {AaveV3Ethereum_MayFundingPartB_20250522} from './AaveV3Ethereum_MayFundingPartB_20250522.sol';
+import {AaveV3Ethereum_MayFundingPartB_20250524} from './AaveV3Ethereum_MayFundingPartB_20250524.sol';
 
 /**
- * @dev Test for AaveV3Ethereum_MayFundingPartB_20250522
- * command: FOUNDRY_PROFILE=test forge test --match-path=src/20250522_AaveV3Ethereum_MayFundingPartB/AaveV3Ethereum_MayFundingPartB_20250522.t.sol -vv
+ * @dev Test for AaveV3Ethereum_MayFundingPartB_20250524
+ * command: FOUNDRY_PROFILE=test forge test --match-path=src/20250524_Multi_MayFundingPartB/AaveV3Ethereum_MayFundingPartB_20250524.t.sol -vv
  */
-contract AaveV3Ethereum_MayFundingPartB_20250522_Test is ProtocolV3TestBase {
-  AaveV3Ethereum_MayFundingPartB_20250522 internal proposal;
+contract AaveV3Ethereum_MayFundingPartB_20250524_Test is ProtocolV3TestBase {
+  AaveV3Ethereum_MayFundingPartB_20250524 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 22537539);
-    proposal = new AaveV3Ethereum_MayFundingPartB_20250522();
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 22552293);
+    proposal = new AaveV3Ethereum_MayFundingPartB_20250524();
   }
 
   /**
    * @dev executes the generic test suite including e2e and config snapshots
    */
   function test_defaultProposalExecution() public {
-    defaultTest('AaveV3Ethereum_MayFundingPartB_20250522', AaveV3Ethereum.POOL, address(proposal));
+    defaultTest('AaveV3Ethereum_MayFundingPartB_20250524', AaveV3Ethereum.POOL, address(proposal));
   }
 
   function test_approvals() public {
