@@ -95,7 +95,7 @@ contract AaveV3Arbitrum_GHOAvalancheLaunch_20250519_Avalanche is ProtocolV3TestB
   error InvalidSourcePoolAddress(bytes);
 
   function setUp() public virtual {
-    vm.createSelectFork(vm.rpcUrl('arbitrum'), 338280933);
+    vm.createSelectFork(vm.rpcUrl('arbitrum'), 338280933); // @note why chose a block and not the latest?
     proposal = new AaveV3Arbitrum_GHOAvalancheLaunch_20250519();
     _validateConstants();
   }
@@ -246,6 +246,7 @@ contract AaveV3Arbitrum_GHOAvalancheLaunch_20250519_PostExecution is
     executePayload(vm, address(proposal));
   }
 
+  // @todo something doesn't add up here. Which chains are we testing?
   function test_basePoolConfig() public view {
     assertEq(NEW_TOKEN_POOL.getSupportedChains().length, 3);
     assertEq(NEW_TOKEN_POOL.getSupportedChains()[0], ETHEREUM_CHAIN_SELECTOR);
@@ -268,10 +269,18 @@ contract AaveV3Arbitrum_GHOAvalancheLaunch_20250519_PostExecution is
       NEW_TOKEN_POOL.getRemotePools(BASE_CHAIN_SELECTOR)[0],
       abi.encode(address(NEW_REMOTE_POOL_BASE))
     );
+    console.log(
+      'RemotePools lenght',
+      NEW_TOKEN_POOL.getRemotePools(ETHEREUM_CHAIN_SELECTOR).length
+    );
     assertEq(NEW_TOKEN_POOL.getRemotePools(ETHEREUM_CHAIN_SELECTOR).length, 2);
     assertEq(
       NEW_TOKEN_POOL.getRemotePools(ETHEREUM_CHAIN_SELECTOR)[1], // 0th is the 1.4 token pool
       abi.encode(address(NEW_REMOTE_POOL_ETH))
+    );
+    console.log(
+      'RemotePools lenght',
+      NEW_TOKEN_POOL.getRemotePools(AVALANCHE_CHAIN_SELECTOR).length
     );
     assertEq(NEW_TOKEN_POOL.getRemotePools(AVALANCHE_CHAIN_SELECTOR).length, 1);
     assertEq(
@@ -423,7 +432,7 @@ contract AaveV3Arbitrum_GHOAvalancheLaunch_20250519_PostExecution is
     assertEq(GHO.balanceOf(alice), aliceBalance + amount);
   }
 
-  function test_cannotUseBaseOffRampForEthMessages() public {
+  function test_cannotUseAvalancheOffRampForEthMessages() public {
     uint256 amount = 100e18;
     skip(_getInboundRefillTime(amount));
 

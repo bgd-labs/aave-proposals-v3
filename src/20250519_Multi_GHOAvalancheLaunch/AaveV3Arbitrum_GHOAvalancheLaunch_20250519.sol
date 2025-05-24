@@ -21,7 +21,6 @@ import {GHOLaunchConstants} from './utils/GHOLaunchConstants.sol';
 contract AaveV3Arbitrum_GHOAvalancheLaunch_20250519 is IProposalGenericExecutor {
   uint64 public constant AVALANCHE_CHAIN_SELECTOR = CCIPUtils.AVALANCHE_CHAIN_SELECTOR;
 
-  // https://arbiscan.io/address/0xB94Ab28c6869466a46a42abA834ca2B3cECCA5eB
   IUpgradeableBurnMintTokenPool_1_5_1 public constant TOKEN_POOL =
     IUpgradeableBurnMintTokenPool_1_5_1(GhoArbitrum.GHO_CCIP_TOKEN_POOL);
 
