@@ -74,7 +74,7 @@ contract AaveV3Base_GHOAvalancheLaunch_20250519_Avalanche is ProtocolV3TestBase 
     IGhoCcipSteward(GhoBase.GHO_CCIP_STEWARD);
   IUpgradeableBurnMintTokenPool_1_5_1 internal constant NEW_TOKEN_POOL =
     IUpgradeableBurnMintTokenPool_1_5_1(GhoBase.GHO_CCIP_TOKEN_POOL);
-  address internal constant NEW_REMOTE_POOL_ETH = GhoEthereum.GHO_CCIP_TOKEN_POOL;
+  address internal constant NEW_REMOTE_POOL_ETHEREUM = GhoEthereum.GHO_CCIP_TOKEN_POOL;
   address internal constant NEW_REMOTE_POOL_ARBITRUM = GhoArbitrum.GHO_CCIP_TOKEN_POOL;
   //   address internal constant NEW_REMOTE_POOL_GNOSIS = GhGnosis.GHO_CCIP_TOKEN_POOL;
   address internal constant NEW_REMOTE_POOL_AVALANCHE = GHOLaunchConstants.AVALANCHE_TOKEN_POOL;
@@ -276,7 +276,7 @@ contract AaveV3Base_GHOAvalancheLaunch_20250519_PostExecution is
     assertEq(NEW_TOKEN_POOL.getRemotePools(ETHEREUM_CHAIN_SELECTOR).length, 1);
     assertEq(
       NEW_TOKEN_POOL.getRemotePools(ETHEREUM_CHAIN_SELECTOR)[0], // 0th is the 1.4 token pool
-      abi.encode(address(NEW_REMOTE_POOL_ETH))
+      abi.encode(address(NEW_REMOTE_POOL_ETHEREUM))
     );
     assertEq(NEW_TOKEN_POOL.getRemotePools(AVALANCHE_CHAIN_SELECTOR).length, 1);
     assertEq(
@@ -424,7 +424,7 @@ contract AaveV3Base_GHOAvalancheLaunch_20250519_PostExecution is
         receiver: alice,
         amount: amount,
         localToken: address(GHO),
-        sourcePoolAddress: abi.encode(address(NEW_REMOTE_POOL_ETH)),
+        sourcePoolAddress: abi.encode(address(NEW_REMOTE_POOL_ETHEREUM)),
         sourcePoolData: new bytes(0),
         offchainTokenData: new bytes(0)
       })
@@ -449,7 +449,7 @@ contract AaveV3Base_GHOAvalancheLaunch_20250519_PostExecution is
         receiver: alice,
         amount: amount,
         localToken: address(GHO),
-        sourcePoolAddress: abi.encode(address(NEW_REMOTE_POOL_ETH)),
+        sourcePoolAddress: abi.encode(address(NEW_REMOTE_POOL_ETHEREUM)),
         sourcePoolData: new bytes(0),
         offchainTokenData: new bytes(0)
       })
@@ -463,7 +463,7 @@ contract AaveV3Base_GHOAvalancheLaunch_20250519_PostExecution is
     vm.expectRevert(
       abi.encodeWithSelector(
         InvalidSourcePoolAddress.selector,
-        abi.encode(address(NEW_REMOTE_POOL_ETH))
+        abi.encode(address(NEW_REMOTE_POOL_ETHEREUM))
       )
     );
     vm.prank(address(AVALANCHE_OFF_RAMP));
@@ -474,7 +474,7 @@ contract AaveV3Base_GHOAvalancheLaunch_20250519_PostExecution is
         receiver: alice,
         amount: amount,
         localToken: address(GHO),
-        sourcePoolAddress: abi.encode(address(NEW_REMOTE_POOL_ETH)),
+        sourcePoolAddress: abi.encode(address(NEW_REMOTE_POOL_ETHEREUM)),
         sourcePoolData: new bytes(0),
         offchainTokenData: new bytes(0)
       })
