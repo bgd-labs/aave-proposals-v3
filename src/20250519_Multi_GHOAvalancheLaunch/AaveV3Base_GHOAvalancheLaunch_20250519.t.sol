@@ -20,6 +20,7 @@ import {AaveV3Base} from 'aave-address-book/AaveV3Base.sol';
 import {AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
 import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {AaveV3BaseAssets} from 'aave-address-book/AaveV3Base.sol';
+// import {AaveV3GnosisAssets} from 'aave-address-book/AaveV3Gnosis.sol';
 import {GovernanceV3Base} from 'aave-address-book/GovernanceV3Base.sol';
 import {MiscBase} from 'aave-address-book/MiscBase.sol';
 import {GhoArbitrum} from 'aave-address-book/GhoArbitrum.sol';
@@ -61,14 +62,10 @@ contract AaveV3Base_GHOAvalancheLaunch_20250519_Avalanche is ProtocolV3TestBase 
     IEVM2EVMOnRamp(GHOLaunchConstants.BASE_ETHEREUM_ON_RAMP);
   IEVM2EVMOnRamp internal constant AVALANCHE_ON_RAMP =
     IEVM2EVMOnRamp(GHOLaunchConstants.BASE_AVALANCHE_ON_RAMP);
-  //   IEVM2EVMOnRamp internal constant GNOSIS_ON_RAMP =
-  //     IEVM2EVMOnRamp(GHOLaunchConstants.BASE_GNOSIS_ON_RAMP);
-  IEVM2EVMOffRamp_1_5 internal constant AVALANCHE_OFF_RAMP =
-    IEVM2EVMOffRamp_1_5(GHOLaunchConstants.BASE_AVALANCHE_OFF_RAMP);
   IEVM2EVMOffRamp_1_5 internal constant ETHEREUM_OFF_RAMP =
     IEVM2EVMOffRamp_1_5(GHOLaunchConstants.BASE_ETHEREUM_OFF_RAMP);
-  //   IEVM2EVMOffRamp_1_5 internal constant GNOSIS_OFF_RAMP =
-  //     IEVM2EVMOffRamp_1_5(GHOLaunchConstants.BASE_GNOSIS_OFF_RAMP);
+  IEVM2EVMOffRamp_1_5 internal constant AVALANCHE_OFF_RAMP =
+    IEVM2EVMOffRamp_1_5(GHOLaunchConstants.BASE_AVALANCHE_OFF_RAMP);
 
   address internal constant RISK_COUNCIL = GHOLaunchConstants.RISK_COUNCIL;
   address public constant NEW_REMOTE_TOKEN_AVALANCHE = GHOLaunchConstants.AVALANCHE_TOKEN;
@@ -79,6 +76,7 @@ contract AaveV3Base_GHOAvalancheLaunch_20250519_Avalanche is ProtocolV3TestBase 
     IUpgradeableBurnMintTokenPool_1_5_1(GhoBase.GHO_CCIP_TOKEN_POOL);
   address internal constant NEW_REMOTE_POOL_ETH = GhoEthereum.GHO_CCIP_TOKEN_POOL;
   address internal constant NEW_REMOTE_POOL_ARBITRUM = GhoArbitrum.GHO_CCIP_TOKEN_POOL;
+  //   address internal constant NEW_REMOTE_POOL_GNOSIS = GhGnosis.GHO_CCIP_TOKEN_POOL;
   address internal constant NEW_REMOTE_POOL_AVALANCHE = GHOLaunchConstants.AVALANCHE_TOKEN_POOL;
 
   AaveV3Base_GHOAvalancheLaunch_20250519 internal proposal;
@@ -246,12 +244,13 @@ contract AaveV3Base_GHOAvalancheLaunch_20250519_PostExecution is
     executePayload(vm, address(proposal));
   }
 
-  // @todo something doesn't add up here. Which chains are we testing? should I rename the method?
   function test_basePoolConfig() public view {
-    assertEq(NEW_TOKEN_POOL.getSupportedChains().length, 3);
+    assertEq(NEW_TOKEN_POOL.getSupportedChains().length, 3); // 4 after adding Gnosis
     assertEq(NEW_TOKEN_POOL.getSupportedChains()[0], ETHEREUM_CHAIN_SELECTOR);
     assertEq(NEW_TOKEN_POOL.getSupportedChains()[1], ARBITRUM_CHAIN_SELECTOR);
     assertEq(NEW_TOKEN_POOL.getSupportedChains()[2], AVALANCHE_CHAIN_SELECTOR);
+    // assertEq(NEW_TOKEN_POOL.getSupportedChains()[3], GNOSIS_CHAIN_SELECTOR);
+
     assertEq(
       NEW_TOKEN_POOL.getRemoteToken(ETHEREUM_CHAIN_SELECTOR),
       abi.encode(address(AaveV3EthereumAssets.GHO_UNDERLYING))
@@ -264,12 +263,17 @@ contract AaveV3Base_GHOAvalancheLaunch_20250519_PostExecution is
       NEW_TOKEN_POOL.getRemoteToken(AVALANCHE_CHAIN_SELECTOR),
       abi.encode(address(NEW_REMOTE_TOKEN_AVALANCHE))
     );
+    // assertEq(
+    //   NEW_TOKEN_POOL.getRemoteToken(GNOSIS_CHAIN_SELECTOR),
+    //   abi.encode(address(AaveV3GnosisAssets.GHO_UNDERLYING))
+    // );
+
     assertEq(NEW_TOKEN_POOL.getRemotePools(ARBITRUM_CHAIN_SELECTOR).length, 1);
     assertEq(
       NEW_TOKEN_POOL.getRemotePools(ARBITRUM_CHAIN_SELECTOR)[0],
       abi.encode(address(NEW_REMOTE_POOL_ARBITRUM))
     );
-    assertEq(NEW_TOKEN_POOL.getRemotePools(ETHEREUM_CHAIN_SELECTOR).length, 1); // @audit error(1 != 2) -> the issue is here, cause the lenght of this token pool is 1. Is it OK?
+    assertEq(NEW_TOKEN_POOL.getRemotePools(ETHEREUM_CHAIN_SELECTOR).length, 1);
     assertEq(
       NEW_TOKEN_POOL.getRemotePools(ETHEREUM_CHAIN_SELECTOR)[0], // 0th is the 1.4 token pool
       abi.encode(address(NEW_REMOTE_POOL_ETH))
@@ -279,6 +283,12 @@ contract AaveV3Base_GHOAvalancheLaunch_20250519_PostExecution is
       NEW_TOKEN_POOL.getRemotePools(AVALANCHE_CHAIN_SELECTOR)[0],
       abi.encode(address(NEW_REMOTE_POOL_AVALANCHE))
     );
+    // assertEq(NEW_TOKEN_POOL.getRemotePools(GNOSIS_CHAIN_SELECTOR).length, 1);
+    // assertEq(
+    //   NEW_TOKEN_POOL.getRemotePools(GNOSIS_CHAIN_SELECTOR)[0],
+    //   abi.encode(address(NEW_REMOTE_POOL_GNOSIS))
+    // );
+
     assertEq(
       NEW_TOKEN_POOL.getCurrentInboundRateLimiterState(AVALANCHE_CHAIN_SELECTOR),
       _getRateLimiterConfig()
@@ -489,5 +499,45 @@ contract AaveV3Base_GHOAvalancheLaunch_20250519_PostExecution is
         offchainTokenData: new bytes(0)
       })
     );
+
+    // vm.expectRevert(
+    //   abi.encodeWithSelector(
+    //     InvalidSourcePoolAddress.selector,
+    //     abi.encode(address(NEW_REMOTE_POOL_AVALANCHE))
+    //   )
+    // );
+    // vm.prank(address(ARBITRUM_OFF_RAMP));
+    // NEW_TOKEN_POOL.releaseOrMint(
+    //   IPool_CCIP.ReleaseOrMintInV1({
+    //     originalSender: abi.encode(alice),
+    //     remoteChainSelector: ETHEREUM_CHAIN_SELECTOR,
+    //     receiver: alice,
+    //     amount: amount,
+    //     localToken: address(GHO),
+    //     sourcePoolAddress: abi.encode(address(NEW_REMOTE_POOL_AVALANCHE)),
+    //     sourcePoolData: new bytes(0),
+    //     offchainTokenData: new bytes(0)
+    //   })
+    // );
+
+    // vm.expectRevert(
+    //   abi.encodeWithSelector(
+    //     InvalidSourcePoolAddress.selector,
+    //     abi.encode(address(NEW_REMOTE_POOL_AVALANCHE))
+    //   )
+    // );
+    // vm.prank(address(GNOSIS_OFF_RAMP));
+    // NEW_TOKEN_POOL.releaseOrMint(
+    //   IPool_CCIP.ReleaseOrMintInV1({
+    //     originalSender: abi.encode(alice),
+    //     remoteChainSelector: ETHEREUM_CHAIN_SELECTOR,
+    //     receiver: alice,
+    //     amount: amount,
+    //     localToken: address(GHO),
+    //     sourcePoolAddress: abi.encode(address(NEW_REMOTE_POOL_AVALANCHE)),
+    //     sourcePoolData: new bytes(0),
+    //     offchainTokenData: new bytes(0)
+    //   })
+    // );
   }
 }
