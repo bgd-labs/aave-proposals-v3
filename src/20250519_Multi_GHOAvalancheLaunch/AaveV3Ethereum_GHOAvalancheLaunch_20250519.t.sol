@@ -3,7 +3,7 @@ pragma solidity ^0.8.0;
 
 import 'forge-std/Test.sol';
 
-import {IUpgradeableBurnMintTokenPool_1_5_1} from 'src/interfaces/ccip/tokenPool/IUpgradeableBurnMintTokenPool.sol';
+import {IUpgradeableLockReleaseTokenPool_1_5_1} from 'src/interfaces/ccip/tokenPool/IUpgradeableLockReleaseTokenPool.sol';
 import {IPool as IPool_CCIP} from 'src/interfaces/ccip/tokenPool/IPool.sol';
 import {IClient} from 'src/interfaces/ccip/IClient.sol';
 import {IInternal} from 'src/interfaces/ccip/IInternal.sol';
@@ -17,26 +17,22 @@ import {IGhoCcipSteward} from 'src/interfaces/IGhoCcipSteward.sol';
 
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
-import {AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
 import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
+import {AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
 import {AaveV3BaseAssets} from 'aave-address-book/AaveV3Base.sol';
 // import {AaveV3GnosisAssets} from 'aave-address-book/AaveV3Gnosis.sol';
-import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
-import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
+import {CCIPUtils} from './utils/CCIPUtils.sol';
+import {GHOLaunchConstants} from './utils/GHOLaunchConstants.sol';
+
 import {GhoArbitrum} from 'aave-address-book/GhoArbitrum.sol';
 import {GhoEthereum} from 'aave-address-book/GhoEthereum.sol';
 import {GhoBase} from 'aave-address-book/GhoBase.sol';
 // import {GhoGnosis} from 'aave-address-book/GhoGnosis.sol';
 
-import {ProxyAdmin, ITransparentUpgradeableProxy} from 'openzeppelin-contracts/contracts/proxy/transparent/ProxyAdmin.sol';
-
-import {CCIPUtils} from './utils/CCIPUtils.sol';
-import {GHOLaunchConstants} from './utils/GHOLaunchConstants.sol';
-
 import {AaveV3Ethereum_GHOAvalancheLaunch_20250519} from './AaveV3Ethereum_GHOAvalancheLaunch_20250519.sol';
 
 /**
- * @dev Test for AaveV3Ethereum_GHOAvalancheLaunch_20250519
+ * @dev Test for AaveV3Base_GHOAvalancheLaunch_20250519
  * command: FOUNDRY_PROFILE=base forge test --match-path=src/20250421_Multi_GHOAvalancheLaunch/AaveV3Base_GHOAvalancheLaunch_20250519.t.sol -vv
  */
 contract AaveV3Ethereum_GHOAvalancheLaunch_20250519_Avalanche is ProtocolV3TestBase {
@@ -47,10 +43,10 @@ contract AaveV3Ethereum_GHOAvalancheLaunch_20250519_Avalanche is ProtocolV3TestB
   }
 
   uint64 internal constant ARBITRUM_CHAIN_SELECTOR = CCIPUtils.ARBITRUM_CHAIN_SELECTOR;
-  uint64 internal constant BASE_CHAIN_SELECTOR = CCIPUtils.BASE_CHAIN_SELECTOR;
-  uint64 internal constant ETHEREUM_CHAIN_SELECTOR = CCIPUtils.ETHEREUM_CHAIN_SELECTOR;
-  uint64 internal constant GNOSIS_CHAIN_SELECTOR = CCIPUtils.GNOSIS_CHAIN_SELECTOR;
   uint64 internal constant AVALANCHE_CHAIN_SELECTOR = CCIPUtils.AVALANCHE_CHAIN_SELECTOR;
+  uint64 internal constant ETHEREUM_CHAIN_SELECTOR = CCIPUtils.ETHEREUM_CHAIN_SELECTOR;
+  uint64 internal constant BASE_CHAIN_SELECTOR = CCIPUtils.BASE_CHAIN_SELECTOR;
+  // uint64 internal constant GNOSIS_CHAIN_SELECTOR = CCIPUtils.GNOSIS_CHAIN_SELECTOR;
   uint128 public constant CCIP_RATE_LIMIT_CAPACITY = GHOLaunchConstants.CCIP_RATE_LIMIT_CAPACITY;
   uint128 public constant CCIP_RATE_LIMIT_REFILL_RATE =
     GHOLaunchConstants.CCIP_RATE_LIMIT_REFILL_RATE;
@@ -60,33 +56,33 @@ contract AaveV3Ethereum_GHOAvalancheLaunch_20250519_Avalanche is ProtocolV3TestB
     ITokenAdminRegistry(GHOLaunchConstants.ETHEREUM_TOKEN_ADMIN_REGISTRY);
   IEVM2EVMOnRamp internal constant ARBITRUM_ON_RAMP =
     IEVM2EVMOnRamp(GHOLaunchConstants.ETHEREUM_ARBITRUM_ON_RAMP);
-  IEVM2EVMOnRamp internal constant AVALANCHE_ON_RAMP =
-    IEVM2EVMOnRamp(GHOLaunchConstants.ETHEREUM_AVALANCHE_ON_RAMP);
   IEVM2EVMOnRamp internal constant BASE_ON_RAMP =
     IEVM2EVMOnRamp(GHOLaunchConstants.ETHEREUM_BASE_ON_RAMP);
-  //   IEVM2EVMOnRamp internal constant GNOSIS_ON_RAMP =
-  //     IEVM2EVMOnRamp(GHOLaunchConstants.ETHEREUM_GNOSIS_ON_RAMP);
+  IEVM2EVMOnRamp internal constant AVALANCHE_ON_RAMP =
+    IEVM2EVMOnRamp(GHOLaunchConstants.ETHEREUM_AVALANCHE_ON_RAMP);
+  // IEVM2EVMOnRamp internal constant GNOSIS_ON_RAMP =
+  //   IEVM2EVMOnRamp(GHOLaunchConstants.ETHEREUM_GNOSIS_ON_RAMP);
   IEVM2EVMOffRamp_1_5 internal constant ARBITRUM_OFF_RAMP =
     IEVM2EVMOffRamp_1_5(GHOLaunchConstants.ETHEREUM_ARBITRUM_OFF_RAMP);
-  IEVM2EVMOffRamp_1_5 internal constant AVALANCHE_OFF_RAMP =
-    IEVM2EVMOffRamp_1_5(GHOLaunchConstants.ETHEREUM_AVALANCHE_OFF_RAMP);
   IEVM2EVMOffRamp_1_5 internal constant BASE_OFF_RAMP =
     IEVM2EVMOffRamp_1_5(GHOLaunchConstants.ETHEREUM_BASE_OFF_RAMP);
-  //   IEVM2EVMOffRamp_1_5 internal constant GNOSIS_OFF_RAMP =
-  //     IEVM2EVMOffRamp_1_5(GHOLaunchConstants.ETHEREUM_GNOSIS_OFF_RAMP);
+  IEVM2EVMOffRamp_1_5 internal constant AVALANCHE_OFF_RAMP =
+    IEVM2EVMOffRamp_1_5(GHOLaunchConstants.ETHEREUM_AVALANCHE_OFF_RAMP);
+  // IEVM2EVMOffRamp_1_5 internal constant GNOSIS_OFF_RAMP =
+  //   IEVM2EVMOffRamp_1_5(GHOLaunchConstants.ETHEREUM_GNOSIS_OFF_RAMP);
 
-  address internal constant RISK_COUNCIL = GHOLaunchConstants.RISK_COUNCIL;
   address public constant NEW_REMOTE_TOKEN_AVALANCHE = GHOLaunchConstants.AVALANCHE_TOKEN;
+  address internal constant NEW_REMOTE_POOL_ARBITRUM = GhoArbitrum.GHO_CCIP_TOKEN_POOL;
+  address internal constant NEW_REMOTE_POOL_BASE = GhoBase.GHO_CCIP_TOKEN_POOL;
+  // address internal constant NEW_REMOTE_POOL_GNOSIS = GhoGnosis.GHO_CCIP_TOKEN_POOL;
+  address internal constant NEW_REMOTE_POOL_AVALANCHE = GHOLaunchConstants.AVALANCHE_TOKEN_POOL;
+
+  address internal constant RISK_COUNCIL = GHOLaunchConstants.RISK_COUNCIL; // common across all chains
   IRouter internal constant ROUTER = IRouter(GHOLaunchConstants.ETHEREUM_CCIP_ROUTER);
   IGhoCcipSteward internal constant NEW_GHO_CCIP_STEWARD =
     IGhoCcipSteward(GhoEthereum.GHO_CCIP_STEWARD);
-  IUpgradeableBurnMintTokenPool_1_5_1 internal constant NEW_TOKEN_POOL =
-    IUpgradeableBurnMintTokenPool_1_5_1(GhoEthereum.GHO_CCIP_TOKEN_POOL);
-  address internal constant NEW_REMOTE_POOL_ETH = GhoEthereum.GHO_CCIP_TOKEN_POOL;
-  address internal constant NEW_REMOTE_POOL_ARBITRUM = GhoArbitrum.GHO_CCIP_TOKEN_POOL;
-  address internal constant NEW_REMOTE_POOL_BASE = GhoBase.GHO_CCIP_TOKEN_POOL;
-  //   address internal constant NEW_REMOTE_POOL_GNOSIS = GhGnosis.GHO_CCIP_TOKEN_POOL;
-  address internal constant NEW_REMOTE_POOL_AVALANCHE = GHOLaunchConstants.AVALANCHE_TOKEN_POOL;
+  IUpgradeableLockReleaseTokenPool_1_5_1 internal constant NEW_TOKEN_POOL =
+    IUpgradeableLockReleaseTokenPool_1_5_1(GhoEthereum.GHO_CCIP_TOKEN_POOL);
 
   AaveV3Ethereum_GHOAvalancheLaunch_20250519 internal proposal;
 
@@ -101,10 +97,11 @@ contract AaveV3Ethereum_GHOAvalancheLaunch_20250519_Avalanche is ProtocolV3TestB
   error CallerIsNotARampOnRouter(address);
   error InvalidSourcePoolAddress(bytes);
 
-  function setUp() public virtual {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 22561128);
+  function setUp() public {
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 22516405);
     proposal = new AaveV3Ethereum_GHOAvalancheLaunch_20250519();
     _validateConstants();
+    executePayload(vm, address(proposal));
   }
 
   function _validateConstants() private view {
@@ -120,18 +117,18 @@ contract AaveV3Ethereum_GHOAvalancheLaunch_20250519_Avalanche is ProtocolV3TestB
     assertEq(ROUTER.typeAndVersion(), 'Router 1.2.0');
 
     _assertOnRamp(ARBITRUM_ON_RAMP, ETHEREUM_CHAIN_SELECTOR, ARBITRUM_CHAIN_SELECTOR, ROUTER);
-    _assertOnRamp(AVALANCHE_ON_RAMP, ETHEREUM_CHAIN_SELECTOR, AVALANCHE_CHAIN_SELECTOR, ROUTER);
     _assertOnRamp(BASE_ON_RAMP, ETHEREUM_CHAIN_SELECTOR, BASE_CHAIN_SELECTOR, ROUTER);
-    // _assertOnRamp(GNOSIS_ON_RAMP, GNOSIS_CHAIN_SELECTOR, GNOSIS_CHAIN_SELECTOR, ROUTER);
+    _assertOnRamp(AVALANCHE_ON_RAMP, ETHEREUM_CHAIN_SELECTOR, AVALANCHE_CHAIN_SELECTOR, ROUTER);
+    // _assertOnRamp(GNOSIS_ON_RAMP, ETHEREUM_CHAIN_SELECTOR, GNOSIS_CHAIN_SELECTOR, ROUTER);
     _assertOffRamp(ARBITRUM_OFF_RAMP, ARBITRUM_CHAIN_SELECTOR, ETHEREUM_CHAIN_SELECTOR, ROUTER);
-    _assertOffRamp(AVALANCHE_OFF_RAMP, AVALANCHE_CHAIN_SELECTOR, ETHEREUM_CHAIN_SELECTOR, ROUTER);
     _assertOffRamp(BASE_OFF_RAMP, BASE_CHAIN_SELECTOR, ETHEREUM_CHAIN_SELECTOR, ROUTER);
+    _assertOffRamp(AVALANCHE_OFF_RAMP, AVALANCHE_CHAIN_SELECTOR, ETHEREUM_CHAIN_SELECTOR, ROUTER);
     // _assertOffRamp(GNOSIS_OFF_RAMP, GNOSIS_CHAIN_SELECTOR, ETHEREUM_CHAIN_SELECTOR, ROUTER);
 
     assertEq(NEW_GHO_CCIP_STEWARD.RISK_COUNCIL(), RISK_COUNCIL);
     assertEq(NEW_GHO_CCIP_STEWARD.GHO_TOKEN(), AaveV3EthereumAssets.GHO_UNDERLYING);
     assertEq(NEW_GHO_CCIP_STEWARD.GHO_TOKEN_POOL(), address(NEW_TOKEN_POOL));
-    assertTrue(NEW_GHO_CCIP_STEWARD.BRIDGE_LIMIT_ENABLED()); // @audit failing?
+    assertTrue(NEW_GHO_CCIP_STEWARD.BRIDGE_LIMIT_ENABLED());
   }
 
   function _assertOnRamp(
@@ -173,7 +170,7 @@ contract AaveV3Ethereum_GHOAvalancheLaunch_20250519_Avalanche is ProtocolV3TestB
       CCIPUtils.MessageToEventParams({
         message: message,
         router: ROUTER,
-        sourceChainSelector: BASE_CHAIN_SELECTOR,
+        sourceChainSelector: ETHEREUM_CHAIN_SELECTOR,
         destChainSelector: params.destChainSelector,
         feeTokenAmount: feeAmount,
         originalSender: params.sender,
@@ -181,7 +178,7 @@ contract AaveV3Ethereum_GHOAvalancheLaunch_20250519_Avalanche is ProtocolV3TestB
         destinationToken: address(
           params.destChainSelector == AVALANCHE_CHAIN_SELECTOR
             ? NEW_REMOTE_TOKEN_AVALANCHE
-            : AaveV3EthereumAssets.GHO_UNDERLYING
+            : AaveV3ArbitrumAssets.GHO_UNDERLYING
         )
       })
     );
@@ -206,11 +203,6 @@ contract AaveV3Ethereum_GHOAvalancheLaunch_20250519_Avalanche is ProtocolV3TestB
 
   function _getImplementation(address proxy) internal view returns (address) {
     bytes32 slot = bytes32(uint256(keccak256('eip1967.proxy.implementation')) - 1);
-    return address(uint160(uint256(vm.load(proxy, slot))));
-  }
-
-  function _getProxyAdmin(address proxy) internal view returns (address) {
-    bytes32 slot = bytes32(uint256(keccak256('eip1967.proxy.admin')) - 1);
     return address(uint160(uint256(vm.load(proxy, slot))));
   }
 
@@ -247,61 +239,40 @@ contract AaveV3Ethereum_GHOAvalancheLaunch_20250519_Avalanche is ProtocolV3TestB
     assertEq(bucket.capacity, config.capacity);
     assertEq(bucket.rate, config.rate);
   }
-}
-
-contract AaveV3Ethereum_GHOAvalancheLaunch_20250519_PostExecution is
-  AaveV3Ethereum_GHOAvalancheLaunch_20250519_Avalanche
-{
-  function setUp() public override {
-    super.setUp();
-    executePayload(vm, address(proposal));
-  }
 
   function test_basePoolConfig() public view {
-    assertEq(NEW_TOKEN_POOL.getSupportedChains().length, 3); // 4 after adding Gnosis
-    assertEq(NEW_TOKEN_POOL.getSupportedChains()[0], BASE_CHAIN_SELECTOR);
-    assertEq(NEW_TOKEN_POOL.getSupportedChains()[1], ARBITRUM_CHAIN_SELECTOR);
+    assertEq(NEW_TOKEN_POOL.getSupportedChains().length, 3); // 4 when Gnosis is supported
+    assertEq(NEW_TOKEN_POOL.getSupportedChains()[0], ARBITRUM_CHAIN_SELECTOR);
+    assertEq(NEW_TOKEN_POOL.getSupportedChains()[1], BASE_CHAIN_SELECTOR);
     assertEq(NEW_TOKEN_POOL.getSupportedChains()[2], AVALANCHE_CHAIN_SELECTOR);
-    // assertEq(NEW_TOKEN_POOL.getSupportedChains()[3], GNOSIS_CHAIN_SELECTOR);
-
-    assertEq(
-      NEW_TOKEN_POOL.getRemoteToken(BASE_CHAIN_SELECTOR),
-      abi.encode(address(AaveV3BaseAssets.GHO_UNDERLYING))
-    );
+    // assertEq(NEW_TOKEN_POOL.getSupportedChains()[2], GNOSIS_CHAIN_SELECTOR);
     assertEq(
       NEW_TOKEN_POOL.getRemoteToken(ARBITRUM_CHAIN_SELECTOR),
       abi.encode(address(AaveV3ArbitrumAssets.GHO_UNDERLYING))
     );
     assertEq(
+      NEW_TOKEN_POOL.getRemoteToken(BASE_CHAIN_SELECTOR),
+      abi.encode(address(AaveV3BaseAssets.GHO_UNDERLYING))
+    );
+    assertEq(
       NEW_TOKEN_POOL.getRemoteToken(AVALANCHE_CHAIN_SELECTOR),
       abi.encode(address(NEW_REMOTE_TOKEN_AVALANCHE))
-    );
-    // assertEq(
-    //   NEW_TOKEN_POOL.getRemoteToken(GNOSIS_CHAIN_SELECTOR),
-    //   abi.encode(address(AaveV3GnosisAssets.GHO_UNDERLYING))
-    // );
-
-    assertEq(NEW_TOKEN_POOL.getRemotePools(ARBITRUM_CHAIN_SELECTOR).length, 1);
-    assertEq(
-      NEW_TOKEN_POOL.getRemotePools(ARBITRUM_CHAIN_SELECTOR)[0],
-      abi.encode(address(NEW_REMOTE_POOL_ARBITRUM))
-    );
-    assertEq(NEW_TOKEN_POOL.getRemotePools(BASE_CHAIN_SELECTOR).length, 1);
-    assertEq(
-      NEW_TOKEN_POOL.getRemotePools(BASE_CHAIN_SELECTOR)[0], // 0th is the 1.4 token pool
-      abi.encode(address(NEW_REMOTE_POOL_ETH))
     );
     assertEq(NEW_TOKEN_POOL.getRemotePools(AVALANCHE_CHAIN_SELECTOR).length, 1);
     assertEq(
       NEW_TOKEN_POOL.getRemotePools(AVALANCHE_CHAIN_SELECTOR)[0],
       abi.encode(address(NEW_REMOTE_POOL_AVALANCHE))
     );
-    // assertEq(NEW_TOKEN_POOL.getRemotePools(GNOSIS_CHAIN_SELECTOR).length, 1);
-    // assertEq(
-    //   NEW_TOKEN_POOL.getRemotePools(GNOSIS_CHAIN_SELECTOR)[0],
-    //   abi.encode(address(NEW_REMOTE_POOL_GNOSIS))
-    // );
-
+    assertEq(NEW_TOKEN_POOL.getRemotePools(ARBITRUM_CHAIN_SELECTOR).length, 2);
+    assertEq(
+      NEW_TOKEN_POOL.getRemotePools(ARBITRUM_CHAIN_SELECTOR)[1], // 0th is the 1.4 token pool
+      abi.encode(address(NEW_REMOTE_POOL_ARBITRUM))
+    );
+    assertEq(NEW_TOKEN_POOL.getRemotePools(BASE_CHAIN_SELECTOR).length, 1);
+    assertEq(
+      NEW_TOKEN_POOL.getRemotePools(BASE_CHAIN_SELECTOR)[0],
+      abi.encode(address(NEW_REMOTE_POOL_BASE))
+    );
     assertEq(
       NEW_TOKEN_POOL.getCurrentInboundRateLimiterState(AVALANCHE_CHAIN_SELECTOR),
       _getRateLimiterConfig()
@@ -312,213 +283,213 @@ contract AaveV3Ethereum_GHOAvalancheLaunch_20250519_PostExecution is
     );
   }
 
-  //   function test_sendMessageToAvalancheSucceeds(uint256 amount) public {
-  //     uint256 bridgeableAmount = _min(
-  //       NEW_TOKEN_POOL.getBridgeLimit() - NEW_TOKEN_POOL.getCurrentBridgedAmount(),
-  //       CCIP_RATE_LIMIT_CAPACITY
-  //     );
-  //     amount = bound(amount, 1, bridgeableAmount);
-  //     skip(_getOutboundRefillTime(amount)); // wait for the rate limiter to refill
+  function test_sendMessageToAvalancheSucceeds(uint256 amount) public {
+    uint256 bridgeableAmount = _min(
+      NEW_TOKEN_POOL.getBridgeLimit() - NEW_TOKEN_POOL.getCurrentBridgedAmount(),
+      CCIP_RATE_LIMIT_CAPACITY
+    );
+    amount = bound(amount, 1, bridgeableAmount);
+    skip(_getOutboundRefillTime(amount)); // wait for the rate limiter to refill
 
-  //     deal(address(GHO), alice, amount);
-  //     vm.prank(alice);
-  //     GHO.approve(address(ROUTER), amount);
+    deal(address(GHO), alice, amount);
+    vm.prank(alice);
+    GHO.approve(address(ROUTER), amount);
 
-  //     uint256 aliceBalance = GHO.balanceOf(alice);
-  //     uint256 currentBridgedAmount = NEW_TOKEN_POOL.getCurrentBridgedAmount();
+    uint256 aliceBalance = GHO.balanceOf(alice);
+    uint256 currentBridgedAmount = NEW_TOKEN_POOL.getCurrentBridgedAmount();
 
-  //     (
-  //       IClient.EVM2AnyMessage memory message,
-  //       IInternal.EVM2EVMMessage memory eventArg
-  //     ) = _getTokenMessage(
-  //         CCIPSendParams({amount: amount, sender: alice, destChainSelector: AVALANCHE_CHAIN_SELECTOR})
-  //       );
+    (
+      IClient.EVM2AnyMessage memory message,
+      IInternal.EVM2EVMMessage memory eventArg
+    ) = _getTokenMessage(
+        CCIPSendParams({amount: amount, sender: alice, destChainSelector: AVALANCHE_CHAIN_SELECTOR})
+      );
 
-  //     vm.expectEmit(address(NEW_TOKEN_POOL));
-  //     emit Locked(address(AVALANCHE_ON_RAMP), amount);
-  //     vm.expectEmit(address(AVALANCHE_ON_RAMP));
-  //     emit CCIPSendRequested(eventArg);
+    vm.expectEmit(address(NEW_TOKEN_POOL));
+    emit Locked(address(AVALANCHE_ON_RAMP), amount);
+    vm.expectEmit(address(AVALANCHE_ON_RAMP));
+    emit CCIPSendRequested(eventArg);
 
-  //     vm.prank(alice);
-  //     ROUTER.ccipSend{value: eventArg.feeTokenAmount}(AVALANCHE_CHAIN_SELECTOR, message);
+    vm.prank(alice);
+    ROUTER.ccipSend{value: eventArg.feeTokenAmount}(AVALANCHE_CHAIN_SELECTOR, message);
 
-  //     assertEq(GHO.balanceOf(alice), aliceBalance - amount);
-  //     assertEq(NEW_TOKEN_POOL.getCurrentBridgedAmount(), currentBridgedAmount + amount);
-  //   }
+    assertEq(GHO.balanceOf(alice), aliceBalance - amount);
+    assertEq(NEW_TOKEN_POOL.getCurrentBridgedAmount(), currentBridgedAmount + amount);
+  }
 
-  //   function test_sendMessageToArbSucceeds(uint256 amount) public {
-  //     IRateLimiter.TokenBucket memory arbRateLimits = NEW_TOKEN_POOL
-  //       .getCurrentInboundRateLimiterState(ARBITRUM_CHAIN_SELECTOR);
-  //     uint256 bridgeableAmount = _min(
-  //       NEW_TOKEN_POOL.getBridgeLimit() - NEW_TOKEN_POOL.getCurrentBridgedAmount(),
-  //       arbRateLimits.capacity
-  //     );
+  function test_sendMessageToArbSucceeds(uint256 amount) public {
+    IRateLimiter.TokenBucket memory arbRateLimits = NEW_TOKEN_POOL
+      .getCurrentInboundRateLimiterState(ARBITRUM_CHAIN_SELECTOR);
+    uint256 bridgeableAmount = _min(
+      NEW_TOKEN_POOL.getBridgeLimit() - NEW_TOKEN_POOL.getCurrentBridgedAmount(),
+      arbRateLimits.capacity
+    );
 
-  //     amount = bound(amount, 1, bridgeableAmount);
-  //     skip(_getOutboundRefillTime(amount)); // wait for the rate limiter to refill
+    amount = bound(amount, 1, bridgeableAmount);
+    skip(_getOutboundRefillTime(amount)); // wait for the rate limiter to refill
 
-  //     deal(address(GHO), alice, amount);
-  //     vm.prank(alice);
-  //     GHO.approve(address(ROUTER), amount);
+    deal(address(GHO), alice, amount);
+    vm.prank(alice);
+    GHO.approve(address(ROUTER), amount);
 
-  //     uint256 aliceBalance = GHO.balanceOf(alice);
-  //     uint256 currentBridgedAmount = NEW_TOKEN_POOL.getCurrentBridgedAmount();
+    uint256 aliceBalance = GHO.balanceOf(alice);
+    uint256 currentBridgedAmount = NEW_TOKEN_POOL.getCurrentBridgedAmount();
 
-  //     (
-  //       IClient.EVM2AnyMessage memory message,
-  //       IInternal.EVM2EVMMessage memory eventArg
-  //     ) = _getTokenMessage(
-  //         CCIPSendParams({amount: amount, sender: alice, destChainSelector: ARBITRUM_CHAIN_SELECTOR})
-  //       );
+    (
+      IClient.EVM2AnyMessage memory message,
+      IInternal.EVM2EVMMessage memory eventArg
+    ) = _getTokenMessage(
+        CCIPSendParams({amount: amount, sender: alice, destChainSelector: ARBITRUM_CHAIN_SELECTOR})
+      );
 
-  //     vm.expectEmit(address(NEW_TOKEN_POOL));
-  //     emit Locked(address(ARBITRUM_ON_RAMP), amount);
-  //     vm.expectEmit(address(ARBITRUM_ON_RAMP));
-  //     emit CCIPSendRequested(eventArg);
+    vm.expectEmit(address(NEW_TOKEN_POOL));
+    emit Locked(address(ARBITRUM_ON_RAMP), amount);
+    vm.expectEmit(address(ARBITRUM_ON_RAMP));
+    emit CCIPSendRequested(eventArg);
 
-  //     vm.prank(alice);
-  //     ROUTER.ccipSend{value: eventArg.feeTokenAmount}(ARBITRUM_CHAIN_SELECTOR, message);
+    vm.prank(alice);
+    ROUTER.ccipSend{value: eventArg.feeTokenAmount}(ARBITRUM_CHAIN_SELECTOR, message);
 
-  //     assertEq(GHO.balanceOf(alice), aliceBalance - amount);
-  //     assertEq(NEW_TOKEN_POOL.getCurrentBridgedAmount(), currentBridgedAmount + amount);
-  //   }
+    assertEq(GHO.balanceOf(alice), aliceBalance - amount);
+    assertEq(NEW_TOKEN_POOL.getCurrentBridgedAmount(), currentBridgedAmount + amount);
+  }
 
-  //   function test_offRampViaAvalancheSucceeds(uint256 amount) public {
-  //     uint256 bridgeableAmount = _min(
-  //       NEW_TOKEN_POOL.getCurrentBridgedAmount(),
-  //       CCIP_RATE_LIMIT_CAPACITY
-  //     );
-  //     amount = bound(amount, 1, bridgeableAmount);
-  //     skip(_getInboundRefillTime(amount));
+  function test_offRampViaAvalancheSucceeds(uint256 amount) public {
+    uint256 bridgeableAmount = _min(
+      NEW_TOKEN_POOL.getCurrentBridgedAmount(),
+      CCIP_RATE_LIMIT_CAPACITY
+    );
+    amount = bound(amount, 1, bridgeableAmount);
+    skip(_getInboundRefillTime(amount));
 
-  //     uint256 aliceBalance = GHO.balanceOf(alice);
-  //     uint256 poolBalance = GHO.balanceOf(address(NEW_TOKEN_POOL));
-  //     uint256 currentBridgedAmount = NEW_TOKEN_POOL.getCurrentBridgedAmount();
+    uint256 aliceBalance = GHO.balanceOf(alice);
+    uint256 poolBalance = GHO.balanceOf(address(NEW_TOKEN_POOL));
+    uint256 currentBridgedAmount = NEW_TOKEN_POOL.getCurrentBridgedAmount();
 
-  //     vm.expectEmit(address(NEW_TOKEN_POOL));
-  //     emit Released(address(AVALANCHE_OFF_RAMP), alice, amount);
+    vm.expectEmit(address(NEW_TOKEN_POOL));
+    emit Released(address(AVALANCHE_OFF_RAMP), alice, amount);
 
-  //     vm.prank(address(AVALANCHE_OFF_RAMP));
-  //     NEW_TOKEN_POOL.releaseOrMint(
-  //       IPool_CCIP.ReleaseOrMintInV1({
-  //         originalSender: abi.encode(alice),
-  //         remoteChainSelector: AVALANCHE_CHAIN_SELECTOR,
-  //         receiver: alice,
-  //         amount: amount,
-  //         localToken: address(GHO),
-  //         sourcePoolAddress: abi.encode(address(NEW_REMOTE_POOL_AVALANCHE)),
-  //         sourcePoolData: new bytes(0),
-  //         offchainTokenData: new bytes(0)
-  //       })
-  //     );
+    vm.prank(address(AVALANCHE_OFF_RAMP));
+    NEW_TOKEN_POOL.releaseOrMint(
+      IPool_CCIP.ReleaseOrMintInV1({
+        originalSender: abi.encode(alice),
+        remoteChainSelector: AVALANCHE_CHAIN_SELECTOR,
+        receiver: alice,
+        amount: amount,
+        localToken: address(GHO),
+        sourcePoolAddress: abi.encode(address(NEW_REMOTE_POOL_AVALANCHE)),
+        sourcePoolData: new bytes(0),
+        offchainTokenData: new bytes(0)
+      })
+    );
 
-  //     assertEq(GHO.balanceOf(address(NEW_TOKEN_POOL)), poolBalance - amount);
-  //     assertEq(GHO.balanceOf(alice), aliceBalance + amount);
-  //     assertEq(NEW_TOKEN_POOL.getCurrentBridgedAmount(), currentBridgedAmount - amount);
-  //     assertEq(NEW_TOKEN_POOL.getCurrentBridgedAmount(), GHO.balanceOf(address(NEW_TOKEN_POOL)));
-  //   }
+    assertEq(GHO.balanceOf(address(NEW_TOKEN_POOL)), poolBalance - amount);
+    assertEq(GHO.balanceOf(alice), aliceBalance + amount);
+    assertEq(NEW_TOKEN_POOL.getCurrentBridgedAmount(), currentBridgedAmount - amount);
+    assertEq(NEW_TOKEN_POOL.getCurrentBridgedAmount(), GHO.balanceOf(address(NEW_TOKEN_POOL)));
+  }
 
-  //   function test_offRampViaArbSucceeds(uint256 amount) public {
-  //     IRateLimiter.TokenBucket memory arbRateLimits = NEW_TOKEN_POOL
-  //       .getCurrentOutboundRateLimiterState(ARBITRUM_CHAIN_SELECTOR);
-  //     uint256 bridgeableAmount = _min(
-  //       NEW_TOKEN_POOL.getCurrentBridgedAmount(),
-  //       arbRateLimits.capacity
-  //     );
-  //     amount = bound(amount, 1, bridgeableAmount);
-  //     skip(_getInboundRefillTime(amount));
+  function test_offRampViaArbSucceeds(uint256 amount) public {
+    IRateLimiter.TokenBucket memory arbRateLimits = NEW_TOKEN_POOL
+      .getCurrentOutboundRateLimiterState(ARBITRUM_CHAIN_SELECTOR);
+    uint256 bridgeableAmount = _min(
+      NEW_TOKEN_POOL.getCurrentBridgedAmount(),
+      arbRateLimits.capacity
+    );
+    amount = bound(amount, 1, bridgeableAmount);
+    skip(_getInboundRefillTime(amount));
 
-  //     uint256 aliceBalance = GHO.balanceOf(alice);
-  //     uint256 poolBalance = GHO.balanceOf(address(NEW_TOKEN_POOL));
-  //     uint256 currentBridgedAmount = NEW_TOKEN_POOL.getCurrentBridgedAmount();
+    uint256 aliceBalance = GHO.balanceOf(alice);
+    uint256 poolBalance = GHO.balanceOf(address(NEW_TOKEN_POOL));
+    uint256 currentBridgedAmount = NEW_TOKEN_POOL.getCurrentBridgedAmount();
 
-  //     vm.expectEmit(address(NEW_TOKEN_POOL));
-  //     emit Released(address(ARBITRUM_OFF_RAMP), alice, amount);
+    vm.expectEmit(address(NEW_TOKEN_POOL));
+    emit Released(address(ARBITRUM_OFF_RAMP), alice, amount);
 
-  //     vm.prank(address(ARBITRUM_OFF_RAMP));
-  //     NEW_TOKEN_POOL.releaseOrMint(
-  //       IPool_CCIP.ReleaseOrMintInV1({
-  //         originalSender: abi.encode(alice),
-  //         remoteChainSelector: ARBITRUM_CHAIN_SELECTOR,
-  //         receiver: alice,
-  //         amount: amount,
-  //         localToken: address(GHO),
-  //         sourcePoolAddress: abi.encode(address(NEW_REMOTE_POOL_ARBITRUM)),
-  //         sourcePoolData: new bytes(0),
-  //         offchainTokenData: new bytes(0)
-  //       })
-  //     );
+    vm.prank(address(ARBITRUM_OFF_RAMP));
+    NEW_TOKEN_POOL.releaseOrMint(
+      IPool_CCIP.ReleaseOrMintInV1({
+        originalSender: abi.encode(alice),
+        remoteChainSelector: ARBITRUM_CHAIN_SELECTOR,
+        receiver: alice,
+        amount: amount,
+        localToken: address(GHO),
+        sourcePoolAddress: abi.encode(address(NEW_REMOTE_POOL_ARBITRUM)),
+        sourcePoolData: new bytes(0),
+        offchainTokenData: new bytes(0)
+      })
+    );
 
-  //     assertEq(GHO.balanceOf(address(NEW_TOKEN_POOL)), poolBalance - amount);
-  //     assertEq(GHO.balanceOf(alice), aliceBalance + amount);
-  //     assertEq(NEW_TOKEN_POOL.getCurrentBridgedAmount(), currentBridgedAmount - amount);
-  //     assertEq(NEW_TOKEN_POOL.getCurrentBridgedAmount(), GHO.balanceOf(address(NEW_TOKEN_POOL)));
-  //   }
+    assertEq(GHO.balanceOf(address(NEW_TOKEN_POOL)), poolBalance - amount);
+    assertEq(GHO.balanceOf(alice), aliceBalance + amount);
+    assertEq(NEW_TOKEN_POOL.getCurrentBridgedAmount(), currentBridgedAmount - amount);
+    assertEq(NEW_TOKEN_POOL.getCurrentBridgedAmount(), GHO.balanceOf(address(NEW_TOKEN_POOL)));
+  }
 
-  //   function test_cannotUseAvalancheOffRampForArbMessages() public {
-  //     uint256 amount = 100e18;
-  //     skip(_getInboundRefillTime(amount));
+  function test_cannotUseAvalancheOffRampForArbMessages() public {
+    uint256 amount = 100e18;
+    skip(_getInboundRefillTime(amount));
 
-  //     vm.expectRevert(
-  //       abi.encodeWithSelector(CallerIsNotARampOnRouter.selector, address(AVALANCHE_OFF_RAMP))
-  //     );
-  //     vm.prank(address(AVALANCHE_OFF_RAMP));
-  //     NEW_TOKEN_POOL.releaseOrMint(
-  //       IPool_CCIP.ReleaseOrMintInV1({
-  //         originalSender: abi.encode(alice),
-  //         remoteChainSelector: ARBITRUM_CHAIN_SELECTOR,
-  //         receiver: alice,
-  //         amount: amount,
-  //         localToken: address(GHO),
-  //         sourcePoolAddress: abi.encode(address(NEW_REMOTE_POOL_AVALANCHE)),
-  //         sourcePoolData: new bytes(0),
-  //         offchainTokenData: new bytes(0)
-  //       })
-  //     );
-  //   }
+    vm.expectRevert(
+      abi.encodeWithSelector(CallerIsNotARampOnRouter.selector, address(AVALANCHE_OFF_RAMP))
+    );
+    vm.prank(address(AVALANCHE_OFF_RAMP));
+    NEW_TOKEN_POOL.releaseOrMint(
+      IPool_CCIP.ReleaseOrMintInV1({
+        originalSender: abi.encode(alice),
+        remoteChainSelector: ARBITRUM_CHAIN_SELECTOR,
+        receiver: alice,
+        amount: amount,
+        localToken: address(GHO),
+        sourcePoolAddress: abi.encode(address(NEW_REMOTE_POOL_ARBITRUM)),
+        sourcePoolData: new bytes(0),
+        offchainTokenData: new bytes(0)
+      })
+    );
+  }
 
-  //   function test_cannotOffRampOtherChainMessages() public {
-  //     uint256 amount = 100e18;
-  //     skip(_getInboundRefillTime(amount));
+  function test_cannotOffRampOtherChainMessages() public {
+    uint256 amount = 100e18;
+    skip(_getInboundRefillTime(amount));
 
-  //     vm.expectRevert(
-  //       abi.encodeWithSelector(
-  //         InvalidSourcePoolAddress.selector,
-  //         abi.encode(address(NEW_REMOTE_POOL_ARBITRUM))
-  //       )
-  //     );
-  //     vm.prank(address(AVALANCHE_OFF_RAMP));
-  //     NEW_TOKEN_POOL.releaseOrMint(
-  //       IPool_CCIP.ReleaseOrMintInV1({
-  //         originalSender: abi.encode(alice),
-  //         remoteChainSelector: AVALANCHE_CHAIN_SELECTOR,
-  //         receiver: alice,
-  //         amount: amount,
-  //         localToken: address(GHO),
-  //         sourcePoolAddress: abi.encode(address(NEW_REMOTE_POOL_ARBITRUM)),
-  //         sourcePoolData: new bytes(0),
-  //         offchainTokenData: new bytes(0)
-  //       })
-  //     );
+    vm.expectRevert(
+      abi.encodeWithSelector(
+        InvalidSourcePoolAddress.selector,
+        abi.encode(address(NEW_REMOTE_POOL_ARBITRUM))
+      )
+    );
+    vm.prank(address(AVALANCHE_OFF_RAMP));
+    NEW_TOKEN_POOL.releaseOrMint(
+      IPool_CCIP.ReleaseOrMintInV1({
+        originalSender: abi.encode(alice),
+        remoteChainSelector: AVALANCHE_CHAIN_SELECTOR,
+        receiver: alice,
+        amount: amount,
+        localToken: address(GHO),
+        sourcePoolAddress: abi.encode(address(NEW_REMOTE_POOL_ARBITRUM)),
+        sourcePoolData: new bytes(0),
+        offchainTokenData: new bytes(0)
+      })
+    );
 
-  //     vm.expectRevert(
-  //       abi.encodeWithSelector(
-  //         InvalidSourcePoolAddress.selector,
-  //         abi.encode(address(NEW_REMOTE_POOL_AVALANCHE))
-  //       )
-  //     );
-  //     vm.prank(address(ARBITRUM_OFF_RAMP));
-  //     NEW_TOKEN_POOL.releaseOrMint(
-  //       IPool_CCIP.ReleaseOrMintInV1({
-  //         originalSender: abi.encode(alice),
-  //         remoteChainSelector: ARBITRUM_CHAIN_SELECTOR,
-  //         receiver: alice,
-  //         amount: amount,
-  //         localToken: address(GHO),
-  //         sourcePoolAddress: abi.encode(address(NEW_REMOTE_POOL_AVALANCHE)),
-  //         sourcePoolData: new bytes(0),
-  //         offchainTokenData: new bytes(0)
-  //       })
-  //     );
-  //   }
+    vm.expectRevert(
+      abi.encodeWithSelector(
+        InvalidSourcePoolAddress.selector,
+        abi.encode(address(NEW_REMOTE_POOL_AVALANCHE))
+      )
+    );
+    vm.prank(address(ARBITRUM_OFF_RAMP));
+    NEW_TOKEN_POOL.releaseOrMint(
+      IPool_CCIP.ReleaseOrMintInV1({
+        originalSender: abi.encode(alice),
+        remoteChainSelector: ARBITRUM_CHAIN_SELECTOR,
+        receiver: alice,
+        amount: amount,
+        localToken: address(GHO),
+        sourcePoolAddress: abi.encode(address(NEW_REMOTE_POOL_AVALANCHE)),
+        sourcePoolData: new bytes(0),
+        offchainTokenData: new bytes(0)
+      })
+    );
+  }
 }
