@@ -18,7 +18,7 @@ contract AaveV3Ethereum_AddFBTCToAaveV3MainMarketOnEthereum_20241213_Test is Pro
   AaveV3Ethereum_AddFBTCToAaveV3MainMarketOnEthereum_20241213 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 22366110);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 22568883);
     proposal = new AaveV3Ethereum_AddFBTCToAaveV3MainMarketOnEthereum_20241213();
   }
 

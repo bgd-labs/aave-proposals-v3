@@ -40,7 +40,7 @@ contract AaveV3Ethereum_AddFBTCToAaveV3MainMarketOnEthereum_20241213 is AaveV3Pa
       memory eModeUpdates = new IAaveV3ConfigEngine.EModeCategoryUpdate[](1);
 
     eModeUpdates[0] = IAaveV3ConfigEngine.EModeCategoryUpdate({
-      eModeCategory: 8,
+      eModeCategory: 16,
       ltv: 84_00,
       liqThreshold: 86_00,
       liqBonus: 3_00,
@@ -60,13 +60,13 @@ contract AaveV3Ethereum_AddFBTCToAaveV3MainMarketOnEthereum_20241213 is AaveV3Pa
 
     assetEModeUpdates[0] = IAaveV3ConfigEngine.AssetEModeUpdate({
       asset: FBTC,
-      eModeCategory: 8,
+      eModeCategory: 16,
       borrowable: EngineFlags.DISABLED,
       collateral: EngineFlags.ENABLED
     });
     assetEModeUpdates[1] = IAaveV3ConfigEngine.AssetEModeUpdate({
       asset: AaveV3EthereumAssets.WBTC_UNDERLYING,
-      eModeCategory: 8,
+      eModeCategory: 16,
       borrowable: EngineFlags.ENABLED,
       collateral: EngineFlags.DISABLED
     });
