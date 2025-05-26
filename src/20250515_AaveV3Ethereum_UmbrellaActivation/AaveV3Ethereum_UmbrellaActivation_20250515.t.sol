@@ -35,6 +35,14 @@ contract AaveV3Ethereum_UmbrellaActivation_20250515_Test is ProtocolV3TestBase {
     snapshotState = vm.snapshotState();
   }
 
+  function test_defaultProposalExecution() public {
+    defaultTest(
+      'AaveV3Ethereum_UmbrellaActivation_20250515',
+      AaveV3Ethereum.POOL,
+      address(proposal)
+    );
+  }
+
   function test_reserveDeficitsElimination() public {
     _reserveCheck(AaveV3EthereumAssets.USDC_UNDERLYING, 168401963, 1);
     _reserveCheck(AaveV3EthereumAssets.USDT_UNDERLYING, 197155140, 1);

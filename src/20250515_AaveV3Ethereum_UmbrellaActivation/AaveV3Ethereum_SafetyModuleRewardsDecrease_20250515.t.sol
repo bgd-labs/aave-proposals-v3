@@ -3,7 +3,7 @@ pragma solidity ^0.8.0;
 
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 
-import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
+import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {AaveSafetyModule} from 'aave-address-book/AaveSafetyModule.sol';
 import {IStakeToken} from 'aave-address-book/common/IStakeToken.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
@@ -18,7 +18,7 @@ interface IStkAave {
 
 /**
  * @dev Test for AaveV3Ethereum_SafetyModuleRewardsDecrease_20250515
- * command: FOUNDRY_PROFILE=mainnet forge test --match-path=src/20250515_AaveV3Ethereum_UmbrellaActivation/AaveV3Ethereum_SafetyModuleRewardsDecrease_20250515.t.sol -vv
+ * command: FOUNDRY_PROFILE=test forge test --match-path=src/20250515_AaveV3Ethereum_UmbrellaActivation/AaveV3Ethereum_SafetyModuleRewardsDecrease_20250515.t.sol -vv
  */
 contract AaveV3Ethereum_SafetyModuleRewardsDecrease_20250515_Test is ProtocolV3TestBase {
   AaveV3Ethereum_SafetyModuleRewardsDecrease_20250515 internal proposal;
@@ -26,6 +26,14 @@ contract AaveV3Ethereum_SafetyModuleRewardsDecrease_20250515_Test is ProtocolV3T
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('mainnet'), 22517759);
     proposal = new AaveV3Ethereum_SafetyModuleRewardsDecrease_20250515();
+  }
+
+  function test_defaultProposalExecution() public {
+    defaultTest(
+      'AaveV3Ethereum_SafetyModuleRewardsDecrease_20250515',
+      AaveV3Ethereum.POOL,
+      address(proposal)
+    );
   }
 
   // Emission tests

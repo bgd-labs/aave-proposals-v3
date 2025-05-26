@@ -3,7 +3,7 @@ pragma solidity ^0.8.0;
 
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 
-import {AaveV3Ethereum_SlashingRobotActivation_20250515, IAaveCLRobotOperator} from './AaveV3Ethereum_SlashingRobotActivation_20250515.sol';
+import {AaveV3Ethereum, AaveV3Ethereum_SlashingRobotActivation_20250515, IAaveCLRobotOperator} from './AaveV3Ethereum_SlashingRobotActivation_20250515.sol';
 
 /**
  * @dev Test for AaveV3Ethereum_UmbrellaActivation_20250515
@@ -15,6 +15,14 @@ contract AaveV3Ethereum_SlashingRobotActivation_20250515_Test is ProtocolV3TestB
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('mainnet'), 22567776);
     proposal = new AaveV3Ethereum_SlashingRobotActivation_20250515();
+  }
+
+  function test_defaultProposalExecution() public {
+    defaultTest(
+      'AaveV3Ethereum_SlashingRobotActivation_20250515',
+      AaveV3Ethereum.POOL,
+      address(proposal)
+    );
   }
 
   function test_newRobotsRegistered() public {
