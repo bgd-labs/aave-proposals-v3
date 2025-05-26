@@ -1,0 +1,191 @@
+--- src/20250519_Multi_GHOAvalancheLaunch/AaveV3Arbitrum_GHOAvalancheLaunch_20250519.t.sol	2025-05-25 16:19:28.400580011 +0000
++++ src/20250519_Multi_GHOAvalancheLaunch/AaveV3Base_GHOAvalancheLaunch_20250519.t.sol	2025-05-25 16:21:24.462073010 +0000
+@@ -16,13 +16,13 @@
+ import {IGhoCcipSteward} from 'src/interfaces/IGhoCcipSteward.sol';
+ 
+ import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
+-import {AaveV3Arbitrum} from 'aave-address-book/AaveV3Arbitrum.sol';
++import {AaveV3Base} from 'aave-address-book/AaveV3Base.sol';
+ import {AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
+ import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
+ import {AaveV3BaseAssets} from 'aave-address-book/AaveV3Base.sol';
+ // import {AaveV3GnosisAssets} from 'aave-address-book/AaveV3Gnosis.sol';
+-import {GovernanceV3Arbitrum} from 'aave-address-book/GovernanceV3Arbitrum.sol';
+-import {MiscArbitrum} from 'aave-address-book/MiscArbitrum.sol';
++import {GovernanceV3Base} from 'aave-address-book/GovernanceV3Base.sol';
++import {MiscBase} from 'aave-address-book/MiscBase.sol';
+ import {GhoArbitrum} from 'aave-address-book/GhoArbitrum.sol';
+ import {GhoEthereum} from 'aave-address-book/GhoEthereum.sol';
+ import {GhoBase} from 'aave-address-book/GhoBase.sol';
+@@ -33,13 +33,13 @@
+ import {CCIPUtils} from './utils/CCIPUtils.sol';
+ import {GHOLaunchConstants} from './utils/GHOLaunchConstants.sol';
+ 
+-import {AaveV3Arbitrum_GHOAvalancheLaunch_20250519} from './AaveV3Arbitrum_GHOAvalancheLaunch_20250519.sol';
++import {AaveV3Base_GHOAvalancheLaunch_20250519} from './AaveV3Base_GHOAvalancheLaunch_20250519.sol';
+ 
+ /**
+- * @dev Test for AaveV3Arbitrum_GHOAvalancheLaunch_20250519
+- * command: FOUNDRY_PROFILE=arbitrum forge test --match-path=src/20250421_Multi_GHOAvalancheLaunch/AaveV3Arbitrum_GHOAvalancheLaunch_20250519.t.sol -vv
++ * @dev Test for AaveV3Base_GHOAvalancheLaunch_20250519
++ * command: FOUNDRY_PROFILE=base forge test --match-path=src/20250421_Multi_GHOAvalancheLaunch/AaveV3Base_GHOAvalancheLaunch_20250519.t.sol -vv
+  */
+-contract AaveV3Arbitrum_GHOAvalancheLaunch_20250519_Avalanche is ProtocolV3TestBase {
++contract AaveV3Base_GHOAvalancheLaunch_20250519_Avalanche is ProtocolV3TestBase {
+   struct CCIPSendParams {
+     address sender;
+     uint256 amount;
+@@ -55,32 +55,31 @@
+   uint128 public constant CCIP_RATE_LIMIT_REFILL_RATE =
+     GHOLaunchConstants.CCIP_RATE_LIMIT_REFILL_RATE;
+ 
+-  IGhoToken internal constant GHO = IGhoToken(AaveV3ArbitrumAssets.GHO_UNDERLYING);
++  IGhoToken internal constant GHO = IGhoToken(AaveV3BaseAssets.GHO_UNDERLYING);
+   ITokenAdminRegistry internal constant TOKEN_ADMIN_REGISTRY =
+-    ITokenAdminRegistry(GHOLaunchConstants.ARBITRUM_TOKEN_ADMIN_REGISTRY);
+-  // @todo should I also include Gnosis and base on-off ramps?
++    ITokenAdminRegistry(GHOLaunchConstants.BASE_TOKEN_ADMIN_REGISTRY);
+   IEVM2EVMOnRamp internal constant ETHEREUM_ON_RAMP =
+-    IEVM2EVMOnRamp(GHOLaunchConstants.ARBITRUM_ETHEREUM_ON_RAMP);
++    IEVM2EVMOnRamp(GHOLaunchConstants.BASE_ETHEREUM_ON_RAMP);
+   IEVM2EVMOnRamp internal constant AVALANCHE_ON_RAMP =
+-    IEVM2EVMOnRamp(GHOLaunchConstants.ARBITRUM_AVALANCHE_ON_RAMP);
++    IEVM2EVMOnRamp(GHOLaunchConstants.BASE_AVALANCHE_ON_RAMP);
+   IEVM2EVMOffRamp_1_5 internal constant ETHEREUM_OFF_RAMP =
+-    IEVM2EVMOffRamp_1_5(GHOLaunchConstants.ARBITRUM_ETHEREUM_OFF_RAMP);
++    IEVM2EVMOffRamp_1_5(GHOLaunchConstants.BASE_ETHEREUM_OFF_RAMP);
+   IEVM2EVMOffRamp_1_5 internal constant AVALANCHE_OFF_RAMP =
+-    IEVM2EVMOffRamp_1_5(GHOLaunchConstants.ARBITRUM_AVALANCHE_OFF_RAMP);
++    IEVM2EVMOffRamp_1_5(GHOLaunchConstants.BASE_AVALANCHE_OFF_RAMP);
+ 
+   address internal constant RISK_COUNCIL = GHOLaunchConstants.RISK_COUNCIL;
+   address public constant NEW_REMOTE_TOKEN_AVALANCHE = GHOLaunchConstants.AVALANCHE_TOKEN;
+-  IRouter internal constant ROUTER = IRouter(GHOLaunchConstants.ARBITRUM_CCIP_ROUTER);
++  IRouter internal constant ROUTER = IRouter(GHOLaunchConstants.BASE_CCIP_ROUTER);
+   IGhoCcipSteward internal constant NEW_GHO_CCIP_STEWARD =
+-    IGhoCcipSteward(GhoArbitrum.GHO_CCIP_STEWARD);
++    IGhoCcipSteward(GhoBase.GHO_CCIP_STEWARD);
+   IUpgradeableBurnMintTokenPool_1_5_1 internal constant NEW_TOKEN_POOL =
+-    IUpgradeableBurnMintTokenPool_1_5_1(GhoArbitrum.GHO_CCIP_TOKEN_POOL);
++    IUpgradeableBurnMintTokenPool_1_5_1(GhoBase.GHO_CCIP_TOKEN_POOL);
+   address internal constant NEW_REMOTE_POOL_ETH = GhoEthereum.GHO_CCIP_TOKEN_POOL;
+-  address internal constant NEW_REMOTE_POOL_BASE = GhoBase.GHO_CCIP_TOKEN_POOL;
++  address internal constant NEW_REMOTE_POOL_ARBITRUM = GhoArbitrum.GHO_CCIP_TOKEN_POOL;
+   //   address internal constant NEW_REMOTE_POOL_GNOSIS = GhGnosis.GHO_CCIP_TOKEN_POOL;
+-  address internal constant NEW_REMOTE_POOL_AVALANCHE = GHOLaunchConstants.AVALANCHE_TOKEN_POOL; // @todo rename this one to GHO_CCIP_TOKEN_POOL for consistency?
++  address internal constant NEW_REMOTE_POOL_AVALANCHE = GHOLaunchConstants.AVALANCHE_TOKEN_POOL;
+ 
+-  AaveV3Arbitrum_GHOAvalancheLaunch_20250519 internal proposal;
++  AaveV3Base_GHOAvalancheLaunch_20250519 internal proposal;
+ 
+   address internal alice = makeAddr('alice');
+   address internal bob = makeAddr('bob');
+@@ -94,8 +93,8 @@
+   error InvalidSourcePoolAddress(bytes);
+ 
+   function setUp() public virtual {
+-    vm.createSelectFork(vm.rpcUrl('arbitrum'), 338280933); // @note why chose a block and not the latest? @note consistent with config.ts?
+-    proposal = new AaveV3Arbitrum_GHOAvalancheLaunch_20250519();
++    vm.createSelectFork(vm.rpcUrl('base'), 30614935);
++    proposal = new AaveV3Base_GHOAvalancheLaunch_20250519();
+     _validateConstants();
+   }
+ 
+@@ -111,13 +110,13 @@
+     assertEq(NEW_TOKEN_POOL.typeAndVersion(), 'BurnMintTokenPool 1.5.1');
+     assertEq(ROUTER.typeAndVersion(), 'Router 1.2.0');
+ 
+-    _assertOnRamp(ETHEREUM_ON_RAMP, ARBITRUM_CHAIN_SELECTOR, ETHEREUM_CHAIN_SELECTOR, ROUTER);
+-    _assertOnRamp(AVALANCHE_ON_RAMP, ARBITRUM_CHAIN_SELECTOR, AVALANCHE_CHAIN_SELECTOR, ROUTER);
+-    _assertOffRamp(ETHEREUM_OFF_RAMP, ETHEREUM_CHAIN_SELECTOR, ARBITRUM_CHAIN_SELECTOR, ROUTER);
+-    _assertOffRamp(AVALANCHE_OFF_RAMP, AVALANCHE_CHAIN_SELECTOR, ARBITRUM_CHAIN_SELECTOR, ROUTER);
++    _assertOnRamp(ETHEREUM_ON_RAMP, BASE_CHAIN_SELECTOR, ETHEREUM_CHAIN_SELECTOR, ROUTER);
++    _assertOnRamp(AVALANCHE_ON_RAMP, BASE_CHAIN_SELECTOR, AVALANCHE_CHAIN_SELECTOR, ROUTER);
++    _assertOffRamp(ETHEREUM_OFF_RAMP, ETHEREUM_CHAIN_SELECTOR, BASE_CHAIN_SELECTOR, ROUTER);
++    _assertOffRamp(AVALANCHE_OFF_RAMP, AVALANCHE_CHAIN_SELECTOR, BASE_CHAIN_SELECTOR, ROUTER);
+ 
+     assertEq(NEW_GHO_CCIP_STEWARD.RISK_COUNCIL(), RISK_COUNCIL);
+-    assertEq(NEW_GHO_CCIP_STEWARD.GHO_TOKEN(), AaveV3ArbitrumAssets.GHO_UNDERLYING);
++    assertEq(NEW_GHO_CCIP_STEWARD.GHO_TOKEN(), AaveV3BaseAssets.GHO_UNDERLYING);
+     assertEq(NEW_GHO_CCIP_STEWARD.GHO_TOKEN_POOL(), address(NEW_TOKEN_POOL));
+     assertFalse(NEW_GHO_CCIP_STEWARD.BRIDGE_LIMIT_ENABLED());
+   }
+@@ -161,7 +160,7 @@
+       CCIPUtils.MessageToEventParams({
+         message: message,
+         router: ROUTER,
+-        sourceChainSelector: ARBITRUM_CHAIN_SELECTOR,
++        sourceChainSelector: BASE_CHAIN_SELECTOR,
+         destChainSelector: params.destChainSelector,
+         feeTokenAmount: feeAmount,
+         originalSender: params.sender,
+@@ -237,8 +236,8 @@
+   }
+ }
+ 
+-contract AaveV3Arbitrum_GHOAvalancheLaunch_20250519_PostExecution is
+-  AaveV3Arbitrum_GHOAvalancheLaunch_20250519_Avalanche
++contract AaveV3Base_GHOAvalancheLaunch_20250519_PostExecution is
++  AaveV3Base_GHOAvalancheLaunch_20250519_Avalanche
+ {
+   function setUp() public override {
+     super.setUp();
+@@ -248,7 +247,7 @@
+   function test_basePoolConfig() public view {
+     assertEq(NEW_TOKEN_POOL.getSupportedChains().length, 3); // 4 after adding Gnosis
+     assertEq(NEW_TOKEN_POOL.getSupportedChains()[0], ETHEREUM_CHAIN_SELECTOR);
+-    assertEq(NEW_TOKEN_POOL.getSupportedChains()[1], BASE_CHAIN_SELECTOR);
++    assertEq(NEW_TOKEN_POOL.getSupportedChains()[1], ARBITRUM_CHAIN_SELECTOR);
+     assertEq(NEW_TOKEN_POOL.getSupportedChains()[2], AVALANCHE_CHAIN_SELECTOR);
+     // assertEq(NEW_TOKEN_POOL.getSupportedChains()[3], GNOSIS_CHAIN_SELECTOR);
+ 
+@@ -257,8 +256,8 @@
+       abi.encode(address(AaveV3EthereumAssets.GHO_UNDERLYING))
+     );
+     assertEq(
+-      NEW_TOKEN_POOL.getRemoteToken(BASE_CHAIN_SELECTOR),
+-      abi.encode(address(AaveV3BaseAssets.GHO_UNDERLYING))
++      NEW_TOKEN_POOL.getRemoteToken(ARBITRUM_CHAIN_SELECTOR),
++      abi.encode(address(AaveV3ArbitrumAssets.GHO_UNDERLYING))
+     );
+     assertEq(
+       NEW_TOKEN_POOL.getRemoteToken(AVALANCHE_CHAIN_SELECTOR),
+@@ -269,15 +268,15 @@
+     //   abi.encode(address(AaveV3GnosisAssets.GHO_UNDERLYING))
+     // );
+ 
+-    assertEq(NEW_TOKEN_POOL.getRemotePools(ETHEREUM_CHAIN_SELECTOR).length, 2);
++    assertEq(NEW_TOKEN_POOL.getRemotePools(ARBITRUM_CHAIN_SELECTOR).length, 1);
+     assertEq(
+-      NEW_TOKEN_POOL.getRemotePools(ETHEREUM_CHAIN_SELECTOR)[1], // 0th is the 1.4 token pool
+-      abi.encode(address(NEW_REMOTE_POOL_ETH))
++      NEW_TOKEN_POOL.getRemotePools(ARBITRUM_CHAIN_SELECTOR)[0],
++      abi.encode(address(NEW_REMOTE_POOL_ARBITRUM))
+     );
+-    assertEq(NEW_TOKEN_POOL.getRemotePools(BASE_CHAIN_SELECTOR).length, 1);
++    assertEq(NEW_TOKEN_POOL.getRemotePools(ETHEREUM_CHAIN_SELECTOR).length, 1);
+     assertEq(
+-      NEW_TOKEN_POOL.getRemotePools(BASE_CHAIN_SELECTOR)[0],
+-      abi.encode(address(NEW_REMOTE_POOL_BASE))
++      NEW_TOKEN_POOL.getRemotePools(ETHEREUM_CHAIN_SELECTOR)[0], // 0th is the 1.4 token pool
++      abi.encode(address(NEW_REMOTE_POOL_ETH))
+     );
+     assertEq(NEW_TOKEN_POOL.getRemotePools(AVALANCHE_CHAIN_SELECTOR).length, 1);
+     assertEq(
+@@ -457,7 +456,6 @@
+     );
+   }
+ 
+-  // @todo should I also include Gnosis and base off ramps?
+   function test_cannotOffRampOtherChainMessages() public {
+     uint256 amount = 100e18;
+     skip(_getInboundRefillTime(amount));
+@@ -508,7 +506,7 @@
+     //     abi.encode(address(NEW_REMOTE_POOL_AVALANCHE))
+     //   )
+     // );
+-    // vm.prank(address(BASE_OFF_RAMP));
++    // vm.prank(address(ARBITRUM_OFF_RAMP));
+     // NEW_TOKEN_POOL.releaseOrMint(
+     //   IPool_CCIP.ReleaseOrMintInV1({
+     //     originalSender: abi.encode(alice),

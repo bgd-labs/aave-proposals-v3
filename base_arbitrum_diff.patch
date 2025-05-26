@@ -1,0 +1,29 @@
+--- src/20250519_Multi_GHOAvalancheLaunch/AaveV3Arbitrum_GHOAvalancheLaunch_20250519.sol	2025-05-23 16:14:56.712383007 +0000
++++ src/20250519_Multi_GHOAvalancheLaunch/AaveV3Base_GHOAvalancheLaunch_20250519.sol	2025-05-23 16:14:59.609383008 +0000
+@@ -6,9 +6,9 @@
+ import {IRateLimiter} from 'src/interfaces/ccip/IRateLimiter.sol';
+ import {ILegacyProxyAdmin, ITransparentUpgradeableProxy} from 'src/interfaces/ILegacyProxyAdmin.sol';
+ 
+-import {AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
+-import {GhoArbitrum} from 'aave-address-book/GhoArbitrum.sol';
+-import {MiscArbitrum} from 'aave-address-book/MiscArbitrum.sol';
++import {AaveV3BaseAssets} from 'aave-address-book/AaveV3Base.sol';
++import {GhoBase} from 'aave-address-book/GhoBase.sol';
++import {MiscBase} from 'aave-address-book/MiscBase.sol';
+ import {CCIPUtils} from './utils/CCIPUtils.sol';
+ import {GHOLaunchConstants} from './utils/GHOLaunchConstants.sol';
+ 
+@@ -18,11 +18,11 @@
+  * - Discussion: https://governance.aave.com/t/arfc-launch-gho-on-avalanche-set-aci-as-emissions-manager-for-rewards
+  * - Snapshot: https://snapshot.box/#/s:aavedao.eth/proposal/0x2aed7eb8b03cb3f961cbf790bf2e2e1e449f841a4ad8bdbcdd223bb6ac69e719
+  */
+-contract AaveV3Arbitrum_GHOAvalancheLaunch_20250519 is IProposalGenericExecutor {
++contract AaveV3Base_GHOAvalancheLaunch_20250519 is IProposalGenericExecutor {
+   uint64 public constant AVALANCHE_CHAIN_SELECTOR = CCIPUtils.AVALANCHE_CHAIN_SELECTOR;
+ 
+   IUpgradeableBurnMintTokenPool_1_5_1 public constant TOKEN_POOL =
+-    IUpgradeableBurnMintTokenPool_1_5_1(GhoArbitrum.GHO_CCIP_TOKEN_POOL);
++    IUpgradeableBurnMintTokenPool_1_5_1(GhoBase.GHO_CCIP_TOKEN_POOL);
+ 
+   address public constant REMOTE_TOKEN_POOL_AVALANCHE = GHOLaunchConstants.AVALANCHE_TOKEN_POOL;
+   address public constant REMOTE_GHO_TOKEN_AVALANCHE = GHOLaunchConstants.AVALANCHE_TOKEN;
