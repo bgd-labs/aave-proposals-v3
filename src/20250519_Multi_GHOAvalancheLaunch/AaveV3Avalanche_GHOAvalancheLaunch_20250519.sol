@@ -26,7 +26,7 @@ import {GHOLaunchConstants} from './utils/GHOLaunchConstants.sol';
  * - Snapshot: https://snapshot.box/#/s:aavedao.eth/proposal/0x2aed7eb8b03cb3f961cbf790bf2e2e1e449f841a4ad8bdbcdd223bb6ac69e719
  */
 // @note add Gnosis support later
-contract AaveV3Avalanche_GHOAvalancheLaunch_20250421 is IProposalGenericExecutor {
+contract AaveV3Avalanche_GHOAvalancheLaunch_20250519 is IProposalGenericExecutor {
   uint64 public constant BASE_CHAIN_SELECTOR = CCIPUtils.BASE_CHAIN_SELECTOR;
   uint64 public constant ARBITRUM_CHAIN_SELECTOR = CCIPUtils.ARBITRUM_CHAIN_SELECTOR;
   uint64 public constant ETHEREUM_CHAIN_SELECTOR = CCIPUtils.ETHEREUM_CHAIN_SELECTOR;

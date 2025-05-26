@@ -16,7 +16,7 @@ import {GHOLaunchConstants} from './utils/GHOLaunchConstants.sol';
  * - Discussion: https://governance.aave.com/t/arfc-launch-gho-on-avalanche-set-aci-as-emissions-manager-for-rewards
  * - Snapshot: https://snapshot.box/#/s:aavedao.eth/proposal/0x2aed7eb8b03cb3f961cbf790bf2e2e1e449f841a4ad8bdbcdd223bb6ac69e719
  */
-contract AaveV3Avalanche_GHOAvalancheListing_20250421 is AaveV3PayloadAvalanche {
+contract AaveV3Avalanche_GHOAvalancheListing_20250519 is AaveV3PayloadAvalanche {
   using SafeERC20 for IERC20;
 
   // https://gnosisscan.io/address/0xac140648435d03f784879cd789130F22Ef588Fcd
