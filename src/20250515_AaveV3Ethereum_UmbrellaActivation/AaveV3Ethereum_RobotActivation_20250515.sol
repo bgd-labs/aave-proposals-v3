@@ -21,7 +21,7 @@ import {IAaveCLRobotOperator} from '../interfaces/IAaveCLRobotOperator.sol';
  * - Discussion: https://governance.aave.com/t/arfc-aave-umbrella-activation/21521
  * @notice This payload registers and activates `SlashingRobot` and `UmbrellaPPCRobot`.
  */
-contract AaveV3Ethereum_SlashingRobotActivation_20250515 is IProposalGenericExecutor {
+contract AaveV3Ethereum_RobotActivation_20250515 is IProposalGenericExecutor {
   using CollectorUtils for ICollector;
   using SafeERC20 for IERC20;
   using SafeCast for uint256;
@@ -33,7 +33,7 @@ contract AaveV3Ethereum_SlashingRobotActivation_20250515 is IProposalGenericExec
   uint96 public constant UMBRELLA_PPC_ROBOT_LINK_AMOUNT = 200 * 1e18;
 
   function execute() external {
-    uint256 linkReceived = AaveV3Ethereum.COLLECTOR.withdrawFromV3(
+    AaveV3Ethereum.COLLECTOR.withdrawFromV3(
       CollectorUtils.IOInput({
         pool: address(AaveV3Ethereum.POOL),
         underlying: AaveV3EthereumAssets.LINK_UNDERLYING,
@@ -43,7 +43,7 @@ contract AaveV3Ethereum_SlashingRobotActivation_20250515 is IProposalGenericExec
     );
     IERC20(AaveV3EthereumAssets.LINK_UNDERLYING).forceApprove(
       MiscEthereum.AAVE_CL_ROBOT_OPERATOR,
-      linkReceived
+      IERC20(AaveV3EthereumAssets.LINK_UNDERLYING).balanceOf(address(this)).toUint96()
     );
 
     IAaveCLRobotOperator(MiscEthereum.AAVE_CL_ROBOT_OPERATOR).register(

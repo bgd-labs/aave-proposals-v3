@@ -8,7 +8,7 @@ import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aave-helpers/src/GovV3Helpers.sol';
 
 import {AaveV3Ethereum_SafetyModuleRewardsDecrease_20250515} from './AaveV3Ethereum_SafetyModuleRewardsDecrease_20250515.sol';
-import {AaveV3Ethereum_SlashingRobotActivation_20250515} from './AaveV3Ethereum_SlashingRobotActivation_20250515.sol';
+import {AaveV3Ethereum_RobotActivation_20250515} from './AaveV3Ethereum_RobotActivation_20250515.sol';
 import {AaveV3Ethereum_UmbrellaActivation_20250515} from './AaveV3Ethereum_UmbrellaActivation_20250515.sol';
 
 /**
@@ -26,7 +26,7 @@ contract DeployEthereum is EthereumScript {
       type(AaveV3Ethereum_SafetyModuleRewardsDecrease_20250515).creationCode
     );
     address payload2 = GovV3Helpers.deployDeterministic(
-      type(AaveV3Ethereum_SlashingRobotActivation_20250515).creationCode
+      type(AaveV3Ethereum_RobotActivation_20250515).creationCode
     );
 
     // compose action
@@ -62,7 +62,7 @@ contract CreateProposal is EthereumScript {
       type(AaveV3Ethereum_SafetyModuleRewardsDecrease_20250515).creationCode
     );
     actionsEthereum[2] = GovV3Helpers.buildAction(
-      type(AaveV3Ethereum_SlashingRobotActivation_20250515).creationCode
+      type(AaveV3Ethereum_RobotActivation_20250515).creationCode
     );
 
     payloads[0] = GovV3Helpers.buildMainnetPayload(vm, actionsEthereum);
