@@ -37,7 +37,7 @@ import {AaveV3Arbitrum_GHOAvalancheLaunch_20250519} from './AaveV3Arbitrum_GHOAv
 
 /**
  * @dev Test for AaveV3Arbitrum_GHOAvalancheLaunch_20250519
- * command: FOUNDRY_PROFILE=arbitrum forge test --match-path=src/20250421_Multi_GHOAvalancheLaunch/AaveV3Arbitrum_GHOAvalancheLaunch_20250519.t.sol -vv
+ * command: FOUNDRY_PROFILE=arbitrum forge test --match-path=src/20250519_Multi_GHOAvalancheLaunch/AaveV3Arbitrum_GHOAvalancheLaunch_20250519.t.sol -vv
  */
 contract AaveV3Arbitrum_GHOAvalancheLaunch_20250519_Avalanche is ProtocolV3TestBase {
   struct CCIPSendParams {
