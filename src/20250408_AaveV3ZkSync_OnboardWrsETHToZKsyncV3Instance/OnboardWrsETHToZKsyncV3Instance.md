@@ -43,11 +43,22 @@ The table below illustrates the configured risk parameters for **wrsETH**
 
 Additionally [0x95Cbff6e45C499d45dd8627f3ce179057B5Fbfcc](https://era.zksync.network/address/0x95Cbff6e45C499d45dd8627f3ce179057B5Fbfcc) has been set as the emission admin for wrsETH and the corresponding aToken.
 
+### wrsETH/wstETH E-Mode
+
+| Parameter           | Value  | Value  |
+| ------------------- | ------ | ------ |
+| Asset               | wrsETH | wstETH |
+| Collateral          | Yes    | No     |
+| Borrowable          | No     | Yes    |
+| LTV                 | 92.50% | -      |
+| LT                  | 94.50% | -      |
+| Liquidation Penalty | 1.00%  | -      |
+
 ## References
 
 - Implementation: [AaveV3ZkSync](https://github.com/bgd-labs/aave-proposals-v3/blob/main/zksync/src/20250408_AaveV3ZkSync_OnboardWrsETHToZKsyncV3Instance/AaveV3ZkSync_OnboardWrsETHToZKsyncV3Instance_20250408.sol)
 - Tests: [AaveV3ZkSync](https://github.com/bgd-labs/aave-proposals-v3/blob/main/zksync/src/20250408_AaveV3ZkSync_OnboardWrsETHToZKsyncV3Instance/AaveV3ZkSync_OnboardWrsETHToZKsyncV3Instance_20250408.t.sol)
-  [Snapshot](TODO)
+- Snapshot: Direct-to-AIP
 - [Discussion](https://governance.aave.com/t/arfc-onboard-wrseth-to-zksync-v3-instance/20727)
 
 ## Copyright
