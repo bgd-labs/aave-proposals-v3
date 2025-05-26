@@ -27,7 +27,7 @@ import {freezeUpdates} from './features/freeze';
 import {emissionUpdates} from './features/emission';
 import {assetListing, assetListingCustom} from './features/assetListing';
 import {generateFiles, writeFiles} from './generator';
-import {getClient} from '@bgd-labs/rpc-env';
+import {getClient} from '@bgd-labs/toolbox';
 import {getBlockNumber} from 'viem/actions';
 
 const program = new Command();
@@ -88,7 +88,9 @@ const FEATURE_MODULES_V3 = [
 
 async function generateDeterministicPoolCache(pool: PoolIdentifier): Promise<PoolCache> {
   const chain = getPoolChain(pool);
-  const client = getClient(CHAIN_TO_CHAIN_ID[chain], {});
+  const client = getClient(CHAIN_TO_CHAIN_ID[chain], {
+    providerConfig: {alchemyKey: process.env.ALCHEMY_API_KEY},
+  });
   return {blockNumber: Number(await getBlockNumber(client))};
 }
 
