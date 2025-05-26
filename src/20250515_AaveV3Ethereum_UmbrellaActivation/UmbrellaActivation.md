@@ -19,7 +19,7 @@ For simplicity, the payload is divided into 3 parts.
 
 1. **Umbrella Activation**
 2. **Legacy stk tokens adjustment**
-3. **Slashing robot activation**
+3. **Robot activation**
 
 ### 1. **Umbrella Activation**
 
@@ -122,12 +122,12 @@ This payload introduces updates to the legacy Safety Module staking tokens to al
 |     BPT      | 240 -> 216  |  87_600 -> 78_840  |      30% -> 20%      |
 |     GHO      |  100 -> 0   |    36_500 -> 0     |      100% -> 0%      |
 
-### 3. **Slashing robot activation**
+### 3. **Robot activation**
 
-This payload handles the `SlashingRobot` activation process.
+This payload handles the `SlashingRobot` and `UmbrellaPPCRobot` activation process.
 
-- Withdraws 250 `LINK` from `AaveV3` on Ethereum Network.
-- Registers `SlashingRobot` in the `AAVE_CL_ROBOT_OPERATOR`.
+- Withdraws 400 `LINK` from `AaveV3` on Ethereum Network.
+- Registers `SlashingRobot` and `UmbrellaPPCRobot` in the `AAVE_CL_ROBOT_OPERATOR`.
   - Sets `gasLimit` to `5_000_000`.
   - Funds with all tokens withdrawn.
 
