@@ -41,9 +41,12 @@ contract AaveV3Ethereum_RobotActivation_20250515 is IProposalGenericExecutor {
       }),
       address(this)
     );
+    uint256 linkBalance = IERC20(AaveV3EthereumAssets.LINK_UNDERLYING)
+      .balanceOf(address(this))
+      .toUint96();
     IERC20(AaveV3EthereumAssets.LINK_UNDERLYING).forceApprove(
       MiscEthereum.AAVE_CL_ROBOT_OPERATOR,
-      IERC20(AaveV3EthereumAssets.LINK_UNDERLYING).balanceOf(address(this)).toUint96()
+      linkBalance
     );
 
     IAaveCLRobotOperator(MiscEthereum.AAVE_CL_ROBOT_OPERATOR).register(
@@ -60,7 +63,7 @@ contract AaveV3Ethereum_RobotActivation_20250515 is IProposalGenericExecutor {
       UMBRELLA_PPC_ROBOT,
       '', // check data
       5_000_000, // gas limit
-      IERC20(AaveV3EthereumAssets.LINK_UNDERLYING).balanceOf(address(this)).toUint96(),
+      (linkBalance - SLASHING_ROBOT_LINK_AMOUNT).toUint96(),
       0,
       ''
     );
