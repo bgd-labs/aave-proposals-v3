@@ -33,13 +33,13 @@
 | interestRateStrategy | [0x57815Ab06D846d7dECd326Ee541CD06144FED237](https://era.zksync.network//address/0x57815Ab06D846d7dECd326Ee541CD06144FED237) |
 | aTokenName | Aave ZkSync wrsETH |
 | aTokenSymbol | aZkswrsETH |
-| aTokenUnderlyingBalance | 0 wrsETH [0] |
+| aTokenUnderlyingBalance | 0.03 wrsETH [30000000000000000] |
 | id | 7 |
 | isPaused | false |
 | variableDebtTokenName | Aave ZkSync Variable Debt wrsETH |
 | variableDebtTokenSymbol | variableDebtZkswrsETH |
 | virtualAccountingActive | true |
-| virtualBalance | 0 wrsETH [0] |
+| virtualBalance | 0.03 wrsETH [30000000000000000] |
 | optimalUsageRatio | 45 % |
 | maxVariableBorrowRate | 310 % |
 | baseVariableBorrowRate | 0 % |
@@ -96,7 +96,7 @@
         "aTokenImpl": "0x34be365Fd01ac224F21490aaC6dFd65D25434bbB",
         "aTokenName": "Aave ZkSync wrsETH",
         "aTokenSymbol": "aZkswrsETH",
-        "aTokenUnderlyingBalance": "0",
+        "aTokenUnderlyingBalance": "30000000000000000",
         "borrowCap": 1,
         "borrowingEnabled": false,
         "debtCeiling": 0,
@@ -127,7 +127,7 @@
         "variableDebtTokenName": "Aave ZkSync Variable Debt wrsETH",
         "variableDebtTokenSymbol": "variableDebtZkswrsETH",
         "virtualAccountingActive": true,
-        "virtualBalance": "0"
+        "virtualBalance": "30000000000000000"
       }
     }
   },
