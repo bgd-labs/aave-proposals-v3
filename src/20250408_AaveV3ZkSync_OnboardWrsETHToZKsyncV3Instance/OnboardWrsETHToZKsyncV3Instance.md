@@ -41,7 +41,16 @@ The table below illustrates the configured risk parameters for **wrsETH**
 | Borrowable in Isolation   |                                   DISABLED |
 | Oracle                    | 0x8d25c9de6DBAd9a9eadfB2CA4706034F6721d555 |
 
-Additionally [0x95Cbff6e45C499d45dd8627f3ce179057B5Fbfcc](https://era.zksync.network/address/0x95Cbff6e45C499d45dd8627f3ce179057B5Fbfcc) has been set as the emission admin for wrsETH and the corresponding aToken.
+**Pricefeed details**
+
+| Parameter            |                                                                                                      Value |
+| -------------------- | ---------------------------------------------------------------------------------------------------------: |
+| Oracle               | [Capped rsETH / ETH / USD ](https://era.zksync.network/address/0x8d25c9de6DBAd9a9eadfB2CA4706034F6721d555) |
+| BASE/USD Oracle      |         [Chainlink ETH/USD](https://era.zksync.network/address/0x6D41d1dc818112880b40e26BD6FD347E41008eDA) |
+| Ratio Provider       |                     [rsETH](https://era.zksync.network/address/0x7024c64Ad30Ebf224e417CfDE4438606d2b9B690) |
+| Oracle Latest Answer |                                                                             (2025-05-27) USD 2726.41712463 |
+| min snapshot         |                                                                                                    14 days |
+| max yearly growth    |                                                                                                      9.83% |
 
 ### wrsETH/wstETH E-Mode
 
@@ -53,6 +62,8 @@ Additionally [0x95Cbff6e45C499d45dd8627f3ce179057B5Fbfcc](https://era.zksync.net
 | LTV                 | 92.50% | -      |
 | LT                  | 94.50% | -      |
 | Liquidation Penalty | 1.00%  | -      |
+
+Additionally [0x95Cbff6e45C499d45dd8627f3ce179057B5Fbfcc](https://era.zksync.network/address/0x95Cbff6e45C499d45dd8627f3ce179057B5Fbfcc) has been set as the emission admin for wrsETH and the corresponding aToken.
 
 ## References
 
