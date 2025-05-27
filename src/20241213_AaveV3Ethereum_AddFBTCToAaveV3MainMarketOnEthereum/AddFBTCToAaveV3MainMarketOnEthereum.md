@@ -25,28 +25,28 @@ Aave is positioned to benefit from a material increase in AUM resulting from FBT
 
 The table below illustrates the configured risk parameters for **FBTC**
 
-| Parameter                 |                                                                                        Value |
-| ------------------------- | -------------------------------------------------------------------------------------------: |
-| Isolation Mode            |                                                                                        false |
-| Borrowable                |                                                                                      ENABLED |
-| Collateral Enabled        |                                                                                         true |
-| Supply Cap (FBTC)         |                                                                                          200 |
-| Borrow Cap (FBTC)         |                                                                                          100 |
-| Debt Ceiling              |                                                                                        USD 0 |
-| LTV                       |                                                                                         73 % |
-| LT                        |                                                                                         78 % |
-| Liquidation Bonus         |                                                                                        7.5 % |
-| Liquidation Protocol Fee  |                                                                                         10 % |
-| Reserve Factor            |                                                                                         50 % |
-| Base Variable Borrow Rate |                                                                                          0 % |
-| Variable Slope 1          |                                                                                          4 % |
-| Variable Slope 2          |                                                                                        300 % |
-| Uoptimal                  |                                                                                         45 % |
-| Flashloanable             |                                                                                      ENABLED |
-| Siloed Borrowing          |                                                                                     DISABLED |
-| Borrowable in Isolation   |                                                                                     DISABLED |
-| Oracle                    | [Chainlink BTC/USD](https://etherscan.io/address/0xF4030086522a5bEEa4988F8cA5B36dbC97BeE88c) |
-| Oracle latest answer      |                                                             (2025-05-26) 109172.99000000 USD |
+| Parameter                 |                                                                                            Value |
+| ------------------------- | -----------------------------------------------------------------------------------------------: |
+| Isolation Mode            |                                                                                            false |
+| Borrowable                |                                                                                          ENABLED |
+| Collateral Enabled        |                                                                                             true |
+| Supply Cap (FBTC)         |                                                                                              200 |
+| Borrow Cap (FBTC)         |                                                                                              100 |
+| Debt Ceiling              |                                                                                            USD 0 |
+| LTV                       |                                                                                             73 % |
+| LT                        |                                                                                             78 % |
+| Liquidation Bonus         |                                                                                            7.5 % |
+| Liquidation Protocol Fee  |                                                                                             10 % |
+| Reserve Factor            |                                                                                             50 % |
+| Base Variable Borrow Rate |                                                                                              0 % |
+| Variable Slope 1          |                                                                                              4 % |
+| Variable Slope 2          |                                                                                            300 % |
+| Uoptimal                  |                                                                                             45 % |
+| Flashloanable             |                                                                                          ENABLED |
+| Siloed Borrowing          |                                                                                         DISABLED |
+| Borrowable in Isolation   |                                                                                         DISABLED |
+| Oracle                    | [Chainlink SVR BTC/USD](https://etherscan.io/address/0xb41E773f507F7a7EA890b1afB7d2b660c30C8B0A) |
+| Oracle latest answer      |                                                                 (2025-05-26) 109172.99000000 USD |
 
 Additionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://etherscan.io/address/0xac140648435d03f784879cd789130F22Ef588Fcd) has been set as the emission admin for FBTC and the corresponding aToken.
 

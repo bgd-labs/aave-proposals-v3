@@ -14,10 +14,10 @@
 | debtCeiling | 0 $ [0] |
 | isSiloed | false |
 | isFlashloanable | true |
-| oracle | [0xF4030086522a5bEEa4988F8cA5B36dbC97BeE88c](https://etherscan.io/address/0xF4030086522a5bEEa4988F8cA5B36dbC97BeE88c) |
+| oracle | [0xb41E773f507F7a7EA890b1afB7d2b660c30C8B0A](https://etherscan.io/address/0xb41E773f507F7a7EA890b1afB7d2b660c30C8B0A) |
 | oracleDecimals | 8 |
 | oracleDescription | BTC / USD |
-| oracleLatestAnswer | 109317.3 |
+| oracleLatestAnswer | 109118.05 |
 | usageAsCollateralEnabled | true |
 | ltv | 73 % [7300] |
 | liquidationThreshold | 78 % [7800] |
@@ -74,10 +74,10 @@
         "liquidationProtocolFee": 1000,
         "liquidationThreshold": 7800,
         "ltv": 7300,
-        "oracle": "0xF4030086522a5bEEa4988F8cA5B36dbC97BeE88c",
+        "oracle": "0xb41E773f507F7a7EA890b1afB7d2b660c30C8B0A",
         "oracleDecimals": 8,
         "oracleDescription": "BTC / USD",
-        "oracleLatestAnswer": "10931730000000",
+        "oracleLatestAnswer": "10911805000000",
         "reserveFactor": 5000,
         "supplyCap": 200,
         "symbol": "FBTC",
@@ -157,11 +157,6 @@
         }
       }
     },
-    "0x4a3411ac2948b33c69666b35cc6d055b27ea84f1": {
-      "label": null,
-      "balanceDiff": null,
-      "stateDiff": {}
-    },
     "0x5300a1a15135ea4dc7ad5a167152c01efc9b192a": {
       "label": "AaveV2Ethereum.POOL_ADMIN, AaveV2EthereumAMM.POOL_ADMIN, AaveV3Ethereum.ACL_ADMIN, AaveV3EthereumEtherFi.ACL_ADMIN, AaveV3EthereumLido.ACL_ADMIN, GovernanceV3Ethereum.EXECUTOR_LVL_1",
       "balanceDiff": null,
@@ -173,7 +168,7 @@
       "stateDiff": {
         "0xb390137caa68caf243feed0ce2cfc0106e46c102fba671ab670a3461357dde78": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x000000000000000000000000f4030086522a5beea4988f8ca5b36dbc97bee88c"
+          "newValue": "0x000000000000000000000000b41e773f507f7a7ea890b1afb7d2b660c30c8b0a"
         }
       }
     },
@@ -334,6 +329,11 @@
         }
       }
     },
+    "0xb41e773f507f7a7ea890b1afb7d2b660c30c8b0a": {
+      "label": "AaveV3Ethereum.ASSETS.tBTC.ORACLE, AaveV3Ethereum.ASSETS.LBTC.ORACLE",
+      "balanceDiff": null,
+      "stateDiff": {}
+    },
     "0xc2aacf6553d20d1e9d78e365aaba8032af9c85b0": {
       "label": "AaveV3Ethereum.ACL_MANAGER",
       "balanceDiff": null,
@@ -373,6 +373,11 @@
       "balanceDiff": null,
       "stateDiff": {}
     },
+    "0xdc715c751f1cc129a6b47fedc87d9918a4580502": {
+      "label": null,
+      "balanceDiff": null,
+      "stateDiff": {}
+    },
     "0xe5e48ad1f9d1a894188b483dcf91f4fad6aba43b": {
       "label": "AaveV3Ethereum.POOL_CONFIGURATOR_IMPL, AaveV3EthereumEtherFi.POOL_CONFIGURATOR_IMPL, AaveV3EthereumLido.POOL_CONFIGURATOR_IMPL",
       "balanceDiff": null,
@@ -380,11 +385,6 @@
     },
     "0xe7b67f44ea304dd7f6d215b13686637ff64cd2b2": {
       "label": null,
-      "balanceDiff": null,
-      "stateDiff": {}
-    },
-    "0xf4030086522a5beea4988f8ca5b36dbc97bee88c": {
-      "label": "AaveV3Ethereum.ASSETS.cbBTC.ORACLE",
       "balanceDiff": null,
       "stateDiff": {}
     },
