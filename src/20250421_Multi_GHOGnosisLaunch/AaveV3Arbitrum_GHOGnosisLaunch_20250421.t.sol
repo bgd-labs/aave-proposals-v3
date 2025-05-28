@@ -416,7 +416,7 @@ contract AaveV3Arbitrum_GHOGnosisLaunch_20250421_PostExecution is
     assertEq(GHO.balanceOf(alice), aliceBalance + amount);
   }
 
-  function test_cannotUseBaseOffRampForEthMessages() public {
+  function test_cannotUseGnosisOffRampForEthMessages() public {
     uint256 amount = 100e18;
     skip(_getInboundRefillTime(amount));
 
