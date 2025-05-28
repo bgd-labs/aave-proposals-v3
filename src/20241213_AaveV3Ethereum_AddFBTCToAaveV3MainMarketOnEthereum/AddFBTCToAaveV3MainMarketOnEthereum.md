@@ -64,8 +64,8 @@ The following emode will be created:
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241213_AaveV3Ethereum_AddFBTCToAaveV3MainMarketOnEthereum/AaveV3Ethereum_AddFBTCToAaveV3MainMarketOnEthereum_20241213.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20241213_AaveV3Ethereum_AddFBTCToAaveV3MainMarketOnEthereum/AaveV3Ethereum_AddFBTCToAaveV3MainMarketOnEthereum_20241213.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/767a67b2255ffa6f52b812068d4c4e3a9a4a2a0c/src/20241213_AaveV3Ethereum_AddFBTCToAaveV3MainMarketOnEthereum/AaveV3Ethereum_AddFBTCToAaveV3MainMarketOnEthereum_20241213.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/767a67b2255ffa6f52b812068d4c4e3a9a4a2a0c/src/20241213_AaveV3Ethereum_AddFBTCToAaveV3MainMarketOnEthereum/AaveV3Ethereum_AddFBTCToAaveV3MainMarketOnEthereum_20241213.t.sol)
 - [Snapshot](https://snapshot.box/#/s:aave.eth/proposal/0x2ca8db490e132cebfec25ddbf460b89abd710456c5177bca784abaae9d6009d9)
 - [Discussion](https://governance.aave.com/t/arfc-add-fbtc-to-aave-v3-main-market-on-ethereum/19937)
 
