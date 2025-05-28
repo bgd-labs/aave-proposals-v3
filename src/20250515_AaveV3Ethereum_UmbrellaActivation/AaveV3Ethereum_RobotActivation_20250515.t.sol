@@ -13,7 +13,7 @@ contract AaveV3Ethereum_RobotActivation_20250515_Test is ProtocolV3TestBase {
   AaveV3Ethereum_RobotActivation_20250515 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 22567776);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 22581600);
     proposal = new AaveV3Ethereum_RobotActivation_20250515();
   }
 

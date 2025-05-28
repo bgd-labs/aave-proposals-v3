@@ -24,7 +24,7 @@ contract AaveV3Ethereum_SafetyModuleRewardsDecrease_20250515_Test is ProtocolV3T
   AaveV3Ethereum_SafetyModuleRewardsDecrease_20250515 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 22517759);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 22581600);
     proposal = new AaveV3Ethereum_SafetyModuleRewardsDecrease_20250515();
   }
 

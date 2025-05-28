@@ -29,7 +29,7 @@ contract AaveV3Ethereum_UmbrellaActivation_20250515_Test is ProtocolV3TestBase {
   uint256 snapshotStateAfterPayload;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 22517759);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 22581600);
     proposal = new AaveV3Ethereum_UmbrellaActivation_20250515();
 
     snapshotState = vm.snapshotState();
