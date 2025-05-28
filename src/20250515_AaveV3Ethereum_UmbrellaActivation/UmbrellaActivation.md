@@ -13,6 +13,19 @@ This payload activates the `Umbrella` system, introducing new staking tokens tai
 
 The `Umbrella` project was developed to improve capital efficiency and enhance the protocol’s ability to cover potential shortfalls in the event of a bad debt. It represents a significant evolution of the existing `Safety Module`, offering broader coverage, improved fund utilization, and greater operational flexibility — ultimately serving as its full replacement.
 
+## Audit Summary of the Aave Umbrella Contracts
+
+The new contracts of the Aave Umbrella system were audited by four independent auditors: MixBytes, Stermi, Certora, and Ackee. The audited and deployed version of the contracts is publicly accessible at the following link: https://github.com/aave-dao/aave-umbrella/tree/62f3850816b257087e92f41a7f37a698f00fa96e.
+
+Subsequent changes made in this GitHub repository (aave-dao/aave-umbrella) pertain either to auxiliary contracts that do not affect the core functionality of the Umbrella system or to interface improvements aimed at enhancing integration with external systems. These updates did not introduce any changes to the deployed core contracts.
+
+The audit reports provided by each auditor can be found at the following links:
+
+- [MixBytes](https://github.com/aave-dao/aave-umbrella/tree/main/audits/MixBytes)
+- [Stermi](https://github.com/aave-dao/aave-umbrella/tree/main/audits/Stermi)
+- [Certora](https://github.com/aave-dao/aave-umbrella/tree/main/audits/Certora)
+- [Ackee](https://github.com/aave-dao/aave-umbrella/tree/main/audits/Ackee)
+
 ## Specification
 
 For simplicity, the payload is divided into 3 parts.

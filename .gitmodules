@@ -4,4 +4,4 @@
 	branch = main
 [submodule "lib/aave-umbrella"]
 	path = lib/aave-umbrella
-	url = https://github.com/bgd-labs/aave-umbrella
+	url = https://github.com/aave-dao/aave-umbrella
