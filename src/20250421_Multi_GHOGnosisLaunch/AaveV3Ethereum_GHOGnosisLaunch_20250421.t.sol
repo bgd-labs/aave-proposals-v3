@@ -87,7 +87,7 @@ contract AaveV3Ethereum_GHOGnosisLaunch_20250421_Test is ProtocolV3TestBase {
   error InvalidSourcePoolAddress(bytes);
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 22516405);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 22589899);
     proposal = new AaveV3Ethereum_GHOGnosisLaunch_20250421();
     _validateConstants();
     executePayload(vm, address(proposal));
@@ -227,11 +227,15 @@ contract AaveV3Ethereum_GHOGnosisLaunch_20250421_Test is ProtocolV3TestBase {
     assertEq(bucket.rate, config.rate);
   }
 
-  function test_basePoolConfig() public view {
+  function test_tokenPoolConfig() public view {
+    assertEq(NEW_TOKEN_POOL.typeAndVersion(), 'LockReleaseTokenPool 1.5.1');
     assertEq(NEW_TOKEN_POOL.getSupportedChains().length, 3);
     assertEq(NEW_TOKEN_POOL.getSupportedChains()[0], ARB_CHAIN_SELECTOR);
     assertEq(NEW_TOKEN_POOL.getSupportedChains()[1], BASE_CHAIN_SELECTOR);
     assertEq(NEW_TOKEN_POOL.getSupportedChains()[2], GNOSIS_CHAIN_SELECTOR);
+  }
+
+  function test_basePoolConfig() public view {
     assertEq(
       NEW_TOKEN_POOL.getRemoteToken(ARB_CHAIN_SELECTOR),
       abi.encode(address(AaveV3ArbitrumAssets.GHO_UNDERLYING))
@@ -267,6 +271,17 @@ contract AaveV3Ethereum_GHOGnosisLaunch_20250421_Test is ProtocolV3TestBase {
       NEW_TOKEN_POOL.getCurrentOutboundRateLimiterState(GNOSIS_CHAIN_SELECTOR),
       _getRateLimiterConfig()
     );
+  }
+
+  function test_bridgeLimitConfig() public view {
+    assertEq(NEW_TOKEN_POOL.getBridgeLimit(), GHOLaunchConstants.CCIP_BUCKET_CAPACITY);
+  }
+
+  function test_stewardConfig() public view {
+    assertEq(NEW_GHO_CCIP_STEWARD.RISK_COUNCIL(), RISK_COUNCIL);
+    assertEq(NEW_GHO_CCIP_STEWARD.GHO_TOKEN(), AaveV3EthereumAssets.GHO_UNDERLYING);
+    assertEq(NEW_GHO_CCIP_STEWARD.GHO_TOKEN_POOL(), address(NEW_TOKEN_POOL));
+    assertTrue(NEW_GHO_CCIP_STEWARD.BRIDGE_LIMIT_ENABLED());
   }
 
   function test_sendMessageToGnosisSucceeds(uint256 amount) public {

@@ -12,9 +12,9 @@ export const config: ConfigFile = {
     votingNetwork: 'POLYGON',
   },
   poolOptions: {
-    AaveV3Ethereum: {configs: {OTHERS: {}}, cache: {blockNumber: 22435000}},
-    AaveV3Arbitrum: {configs: {OTHERS: {}}, cache: {blockNumber: 334347740}},
-    AaveV3Base: {configs: {OTHERS: {}}, cache: {blockNumber: 29935731}},
+    AaveV3Ethereum: {configs: {OTHERS: {}}, cache: {blockNumber: 22589899}},
+    AaveV3Arbitrum: {configs: {OTHERS: {}}, cache: {blockNumber: 341826615}},
+    AaveV3Base: {configs: {OTHERS: {}}, cache: {blockNumber: 30875164}},
     AaveV3Gnosis: {
       configs: {
         ASSET_LISTING: [
@@ -46,7 +46,7 @@ export const config: ConfigFile = {
           },
         ],
       },
-      cache: {blockNumber: 40175963},
+      cache: {blockNumber: 40313138},
     },
   },
 };

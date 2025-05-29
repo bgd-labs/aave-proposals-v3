@@ -108,10 +108,10 @@ contract AaveV3Base_GHOGnosisLaunch_20250421_Base is ProtocolV3TestBase {
   event Minted(address indexed sender, address indexed recipient, uint256 amount);
 
   function setUp() public virtual {
-    arb.c.forkId = vm.createFork(vm.rpcUrl('arbitrum'), 338280933);
-    base.c.forkId = vm.createFork(vm.rpcUrl('base'), 30430477);
-    eth.c.forkId = vm.createFork(vm.rpcUrl('mainnet'), 22435000);
-    gno.c.forkId = vm.createFork(vm.rpcUrl('gnosis'), 40175963);
+    arb.c.forkId = vm.createFork(vm.rpcUrl('arbitrum'), 341826615);
+    base.c.forkId = vm.createFork(vm.rpcUrl('base'), 30875164);
+    eth.c.forkId = vm.createFork(vm.rpcUrl('mainnet'), 22589899);
+    gno.c.forkId = vm.createFork(vm.rpcUrl('gnosis'), 40313138);
 
     arb.c.chainSelector = 4949039107694359620;
     base.c.chainSelector = 15971525489660198786;
@@ -207,7 +207,7 @@ contract AaveV3Base_GHOGnosisLaunch_20250421_Base is ProtocolV3TestBase {
 
   function _validateConfig(bool executed) internal {
     vm.selectFork(arb.c.forkId);
-    assertEq(arb.c.chainSelector, 4949039107694359620);
+    assertEq(arb.c.chainSelector, CCIPUtils.ARB_CHAIN_SELECTOR);
     assertEq(address(arb.c.token), AaveV3ArbitrumAssets.GHO_UNDERLYING);
     assertEq(arb.c.router.typeAndVersion(), 'Router 1.2.0');
     _assertOnRamp(arb.c.gnoOnRamp, arb.c.chainSelector, gno.c.chainSelector, arb.c.router);
@@ -224,7 +224,7 @@ contract AaveV3Base_GHOGnosisLaunch_20250421_Base is ProtocolV3TestBase {
     assertEq(arb.proposal.REMOTE_GHO_TOKEN_GNOSIS(), address(gno.c.token));
 
     vm.selectFork(base.c.forkId);
-    assertEq(base.c.chainSelector, 15971525489660198786);
+    assertEq(base.c.chainSelector, CCIPUtils.BASE_CHAIN_SELECTOR);
     assertEq(address(base.c.token), AaveV3BaseAssets.GHO_UNDERLYING);
     assertEq(base.c.router.typeAndVersion(), 'Router 1.2.0');
     _assertOnRamp(base.c.gnoOnRamp, base.c.chainSelector, gno.c.chainSelector, base.c.router);
@@ -239,7 +239,7 @@ contract AaveV3Base_GHOGnosisLaunch_20250421_Base is ProtocolV3TestBase {
     assertEq(base.proposal.REMOTE_GHO_TOKEN_GNOSIS(), address(gno.c.token));
 
     vm.selectFork(gno.c.forkId);
-    assertEq(gno.c.chainSelector, 465200170687744372);
+    assertEq(gno.c.chainSelector, CCIPUtils.GNOSIS_CHAIN_SELECTOR);
     assertEq(gno.c.router.typeAndVersion(), 'Router 1.2.0');
     _assertOnRamp(gno.c.arbOnRamp, gno.c.chainSelector, arb.c.chainSelector, gno.c.router);
     _assertOnRamp(gno.c.ethOnRamp, gno.c.chainSelector, eth.c.chainSelector, gno.c.router);
@@ -249,7 +249,7 @@ contract AaveV3Base_GHOGnosisLaunch_20250421_Base is ProtocolV3TestBase {
     // proposal constants
     assertEq(gno.proposal.ETH_CHAIN_SELECTOR(), eth.c.chainSelector);
     assertEq(gno.proposal.ARB_CHAIN_SELECTOR(), arb.c.chainSelector);
-    assertEq(gno.proposal.CCIP_BUCKET_CAPACITY(), 20_000_000e18);
+    assertEq(gno.proposal.CCIP_BUCKET_CAPACITY(), GHOLaunchConstants.CCIP_BUCKET_CAPACITY);
     assertEq(address(gno.proposal.TOKEN_ADMIN_REGISTRY()), address(gno.c.tokenAdminRegistry));
     assertEq(address(gno.proposal.TOKEN_POOL()), address(gno.tokenPool));
     IGhoCcipSteward ghoCcipSteward = IGhoCcipSteward(gno.proposal.GHO_CCIP_STEWARD());
@@ -259,7 +259,7 @@ contract AaveV3Base_GHOGnosisLaunch_20250421_Base is ProtocolV3TestBase {
     assertEq(gno.proposal.REMOTE_TOKEN_POOL_ARB(), address(arb.tokenPool));
 
     vm.selectFork(eth.c.forkId);
-    assertEq(eth.c.chainSelector, 5009297550715157269);
+    assertEq(eth.c.chainSelector, CCIPUtils.ETH_CHAIN_SELECTOR);
     assertEq(address(eth.c.token), AaveV3EthereumAssets.GHO_UNDERLYING);
     assertEq(eth.c.router.typeAndVersion(), 'Router 1.2.0');
     _assertOnRamp(eth.c.arbOnRamp, eth.c.chainSelector, arb.c.chainSelector, eth.c.router);

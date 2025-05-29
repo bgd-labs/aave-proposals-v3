@@ -57,12 +57,16 @@ contract AaveV3Base_GHOGnosisLaunch_20250421_Gnosis is ProtocolV3TestBase {
     ITokenAdminRegistry(GHOLaunchConstants.BASE_TOKEN_ADMIN_REGISTRY);
   IEVM2EVMOnRamp internal constant ETH_ON_RAMP =
     IEVM2EVMOnRamp(GHOLaunchConstants.BASE_ETH_ON_RAMP);
+  IEVM2EVMOnRamp internal constant ARB_ON_RAMP =
+    IEVM2EVMOnRamp(GHOLaunchConstants.BASE_ARB_ON_RAMP);
   IEVM2EVMOnRamp internal constant GNOSIS_ON_RAMP =
     IEVM2EVMOnRamp(GHOLaunchConstants.BASE_GNO_ON_RAMP);
   IEVM2EVMOffRamp_1_5 internal constant ETH_OFF_RAMP =
     IEVM2EVMOffRamp_1_5(GHOLaunchConstants.BASE_ETH_OFF_RAMP);
   IEVM2EVMOffRamp_1_5 internal constant GNOSIS_OFF_RAMP =
     IEVM2EVMOffRamp_1_5(GHOLaunchConstants.BASE_GNO_OFF_RAMP);
+  IEVM2EVMOffRamp_1_5 internal constant ARB_OFF_RAMP =
+    IEVM2EVMOffRamp_1_5(GHOLaunchConstants.BASE_ARB_OFF_RAMP);
 
   address internal constant RISK_COUNCIL = GHOLaunchConstants.RISK_COUNCIL;
   address public constant NEW_REMOTE_TOKEN_GNOSIS = GHOLaunchConstants.GNO_GHO_TOKEN;
@@ -73,6 +77,7 @@ contract AaveV3Base_GHOGnosisLaunch_20250421_Gnosis is ProtocolV3TestBase {
     IUpgradeableBurnMintTokenPool_1_5_1(GhoBase.GHO_CCIP_TOKEN_POOL);
   address internal constant NEW_REMOTE_POOL_ETH = GhoEthereum.GHO_CCIP_TOKEN_POOL;
   address internal constant NEW_REMOTE_POOL_GNOSIS = GHOLaunchConstants.GNO_TOKEN_POOL;
+  address internal constant NEW_REMOTE_POOL_ARB = GhoArbitrum.GHO_CCIP_TOKEN_POOL;
 
   AaveV3Base_GHOGnosisLaunch_20250421 internal proposal;
 
@@ -88,7 +93,7 @@ contract AaveV3Base_GHOGnosisLaunch_20250421_Gnosis is ProtocolV3TestBase {
   error InvalidSourcePoolAddress(bytes);
 
   function setUp() public virtual {
-    vm.createSelectFork(vm.rpcUrl('base'), 30430477);
+    vm.createSelectFork(vm.rpcUrl('base'), 30875164);
     proposal = new AaveV3Base_GHOGnosisLaunch_20250421();
     _validateConstants();
   }
@@ -107,8 +112,10 @@ contract AaveV3Base_GHOGnosisLaunch_20250421_Gnosis is ProtocolV3TestBase {
 
     _assertOnRamp(ETH_ON_RAMP, BASE_CHAIN_SELECTOR, ETH_CHAIN_SELECTOR, ROUTER);
     _assertOnRamp(GNOSIS_ON_RAMP, BASE_CHAIN_SELECTOR, GNOSIS_CHAIN_SELECTOR, ROUTER);
+    _assertOnRamp(ARB_ON_RAMP, BASE_CHAIN_SELECTOR, ARB_CHAIN_SELECTOR, ROUTER);
     _assertOffRamp(ETH_OFF_RAMP, ETH_CHAIN_SELECTOR, BASE_CHAIN_SELECTOR, ROUTER);
     _assertOffRamp(GNOSIS_OFF_RAMP, GNOSIS_CHAIN_SELECTOR, BASE_CHAIN_SELECTOR, ROUTER);
+    _assertOffRamp(ARB_OFF_RAMP, ARB_CHAIN_SELECTOR, BASE_CHAIN_SELECTOR, ROUTER);
 
     assertEq(NEW_GHO_CCIP_STEWARD.RISK_COUNCIL(), RISK_COUNCIL);
     assertEq(NEW_GHO_CCIP_STEWARD.GHO_TOKEN(), AaveV3BaseAssets.GHO_UNDERLYING);
@@ -163,7 +170,9 @@ contract AaveV3Base_GHOGnosisLaunch_20250421_Gnosis is ProtocolV3TestBase {
         destinationToken: address(
           params.destChainSelector == GNOSIS_CHAIN_SELECTOR
             ? NEW_REMOTE_TOKEN_GNOSIS
-            : AaveV3EthereumAssets.GHO_UNDERLYING
+            : params.destChainSelector == ARB_CHAIN_SELECTOR
+              ? AaveV3ArbitrumAssets.GHO_UNDERLYING
+              : AaveV3EthereumAssets.GHO_UNDERLYING
         )
       })
     );
@@ -347,6 +356,43 @@ contract AaveV3Base_GHOGnosisLaunch_20250421_PostExecution is
     assertEq(GHO.getFacilitator(address(NEW_TOKEN_POOL)).bucketLevel, bucketLevel - amount);
   }
 
+  function test_sendMessageToArbitrumSucceeds(uint256 amount) public {
+    IRateLimiter.TokenBucket memory arbRateLimits = NEW_TOKEN_POOL
+      .getCurrentInboundRateLimiterState(ARB_CHAIN_SELECTOR);
+    uint256 bridgeableAmount = _min(
+      GHO.getFacilitator(address(NEW_TOKEN_POOL)).bucketLevel,
+      arbRateLimits.capacity
+    );
+
+    amount = bound(amount, 1, bridgeableAmount);
+    skip(_getOutboundRefillTime(amount)); // wait for the rate limiter to refill
+
+    deal(address(GHO), alice, amount);
+    vm.prank(alice);
+    GHO.approve(address(ROUTER), amount);
+
+    uint256 aliceBalance = GHO.balanceOf(alice);
+    uint256 bucketLevel = GHO.getFacilitator(address(NEW_TOKEN_POOL)).bucketLevel;
+
+    (
+      IClient.EVM2AnyMessage memory message,
+      IInternal.EVM2EVMMessage memory eventArg
+    ) = _getTokenMessage(
+        CCIPSendParams({amount: amount, sender: alice, destChainSelector: ARB_CHAIN_SELECTOR})
+      );
+
+    vm.expectEmit(address(NEW_TOKEN_POOL));
+    emit Burned(address(ARB_ON_RAMP), amount);
+    vm.expectEmit(address(ARB_ON_RAMP));
+    emit CCIPSendRequested(eventArg);
+
+    vm.prank(alice);
+    ROUTER.ccipSend{value: eventArg.feeTokenAmount}(ARB_CHAIN_SELECTOR, message);
+
+    assertEq(GHO.balanceOf(alice), aliceBalance - amount);
+    assertEq(GHO.getFacilitator(address(NEW_TOKEN_POOL)).bucketLevel, bucketLevel - amount);
+  }
+
   function test_offRampViaGnosisSucceeds(uint256 amount) public {
     (uint256 bucketCapacity, uint256 bucketLevel) = GHO.getFacilitatorBucket(
       address(NEW_TOKEN_POOL)
@@ -403,6 +449,40 @@ contract AaveV3Base_GHOGnosisLaunch_20250421_PostExecution is
         amount: amount,
         localToken: address(GHO),
         sourcePoolAddress: abi.encode(address(NEW_REMOTE_POOL_ETH)),
+        sourcePoolData: new bytes(0),
+        offchainTokenData: new bytes(0)
+      })
+    );
+
+    assertEq(GHO.getFacilitator(address(NEW_TOKEN_POOL)).bucketLevel, bucketLevel + amount);
+    assertEq(GHO.balanceOf(alice), aliceBalance + amount);
+  }
+
+  function test_offRampViaArbitrumSucceeds(uint256 amount) public {
+    (uint256 bucketCapacity, uint256 bucketLevel) = GHO.getFacilitatorBucket(
+      address(NEW_TOKEN_POOL)
+    );
+    IRateLimiter.TokenBucket memory rateLimits = NEW_TOKEN_POOL.getCurrentInboundRateLimiterState(
+      ARB_CHAIN_SELECTOR
+    );
+    uint256 mintAbleAmount = _min(bucketCapacity - bucketLevel, rateLimits.tokens);
+    amount = bound(amount, 1, mintAbleAmount);
+    skip(_getInboundRefillTime(amount));
+
+    uint256 aliceBalance = GHO.balanceOf(alice);
+
+    vm.expectEmit(address(NEW_TOKEN_POOL));
+    emit Minted(address(ARB_OFF_RAMP), alice, amount);
+
+    vm.prank(address(ARB_OFF_RAMP));
+    NEW_TOKEN_POOL.releaseOrMint(
+      IPool_CCIP.ReleaseOrMintInV1({
+        originalSender: abi.encode(alice),
+        remoteChainSelector: ARB_CHAIN_SELECTOR,
+        receiver: alice,
+        amount: amount,
+        localToken: address(GHO),
+        sourcePoolAddress: abi.encode(address(NEW_REMOTE_POOL_ARB)),
         sourcePoolData: new bytes(0),
         offchainTokenData: new bytes(0)
       })

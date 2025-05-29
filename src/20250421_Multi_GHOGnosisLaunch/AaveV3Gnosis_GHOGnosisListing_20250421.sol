@@ -14,17 +14,15 @@ import {GHOLaunchConstants} from './utils/GHOLaunchConstants.sol';
  * @title GHO Gnosis Launch
  * @author kpk
  * @notice This proposal is used to launch GHO on Gnosis Chain
+ * @dev This payload lists GHO on Gnosis Chain Aave V3 Market.
  * - Discussion: https://governance.aave.com/t/arfc-launch-gho-on-gnosis-chain/21379
  * - Snapshot: https://snapshot.box/#/s:aavedao.eth/proposal/0x62996204d8466d603fe8c953176599db02a23f440a682ff15ba2d0ca63dda386
  */
 contract AaveV3Gnosis_GHOGnosisListing_20250421 is AaveV3PayloadGnosis {
   using SafeERC20 for IERC20;
 
-  // https://gnosisscan.io/address/0xac140648435d03f784879cd789130F22Ef588Fcd
   address public constant EMISSION_ADMIN = 0xac140648435d03f784879cd789130F22Ef588Fcd;
-  // https://gnosisscan.io/address/0x360d8aa8F6b09B7BC57aF34db2Eb84dD87bf4d12
   address public constant GHO_PRICE_FEED = GHOLaunchConstants.GNO_GHO_PRICE_FEED;
-  // https://gnosisscan.io/address/0xfc421aD3C883Bf9E7C4f42dE845C4e4405799e73
   address public constant GHO_TOKEN = GHOLaunchConstants.GNO_GHO_TOKEN;
   uint256 public constant GHO_SEED_AMOUNT = 100e18;
 
@@ -58,7 +56,7 @@ contract AaveV3Gnosis_GHOGnosisListing_20250421 is AaveV3PayloadGnosis {
       ltv: 0,
       liqThreshold: 0,
       liqBonus: 0,
-      reserveFactor: 1,
+      reserveFactor: 10_00,
       supplyCap: 2_500_000,
       borrowCap: 2_250_000,
       debtCeiling: 0,
