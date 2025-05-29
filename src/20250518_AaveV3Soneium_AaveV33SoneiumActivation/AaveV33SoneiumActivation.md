@@ -64,8 +64,8 @@ Additionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://soneium.blocks
 
 ## References
 
-- Implementation: [AaveV3Soneium](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250518_AaveV3Soneium_AaveV33SoneiumActivation/AaveV3Soneium_AaveV33SoneiumActivation_20250518.sol)
-- Tests: [AaveV3Soneium](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250518_AaveV3Soneium_AaveV33SoneiumActivation/AaveV3Soneium_AaveV33SoneiumActivation_20250518.t.sol)
+- Implementation: [AaveV3Soneium](https://github.com/bgd-labs/aave-proposals-v3/blob/4b5e8cd726fd68ad45bfec57cda17fe8d7be319c/src/20250518_AaveV3Soneium_AaveV33SoneiumActivation/AaveV3Soneium_AaveV33SoneiumActivation_20250518.sol)
+- Tests: [AaveV3Soneium](https://github.com/bgd-labs/aave-proposals-v3/blob/4b5e8cd726fd68ad45bfec57cda17fe8d7be319c/src/20250518_AaveV3Soneium_AaveV33SoneiumActivation/AaveV3Soneium_AaveV33SoneiumActivation_20250518.t.sol)
 - [Snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0xb996bda7e60f85de7f6f2d9f7f6c15ddddfbd871465d8f00b846f8ab014a5953)
 - [Discussion](https://governance.aave.com/t/arfc-deploy-aave-on-soneium/21204/9)
 
