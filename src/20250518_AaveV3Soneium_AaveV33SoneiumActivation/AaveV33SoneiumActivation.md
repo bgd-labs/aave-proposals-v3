@@ -7,7 +7,7 @@ snapshot: "https://snapshot.box/#/s:aavedao.eth/proposal/0xb996bda7e60f85de7f6f2
 
 ## Simple Summary
 
-This proposal allows the Aave governance to activate the Aave V3 Soneium pool (3.3) by completing all the initial setup and listing USDC, USDT, WETH as suggested by the risk service providers engaged with the DAO on the governance forum.
+This proposal allows the Aave governance to activate the Aave V3 Soneium pool (3.3) by completing all the initial setup and listing USDCe, USDT, WETH as suggested by the risk service providers engaged with the DAO on the governance forum.
 
 All the Aave Soneium V3 addresses can be found in the [aave-address-book](https://github.com/bgd-labs/aave-address-book/blob/18ac617a151d271c9c41d3565c8e4422d1fc6e18/src/AaveV3Soneium.sol).
 
@@ -23,14 +23,14 @@ All the governance procedures for the expansion of Aave v3 to Soneium have been 
 
 The proposal will do the following:
 
-- List the following assets on Aave V3 Soneium: USDC, USDT, WETH.
+- List the following assets on Aave V3 Soneium: USDCe, USDT, WETH.
 - Set the risk steward as the risk admin by executing `ACL_MANAGER.addRiskAdmin()`.
 - Set the guardian address as the pool admin by executing `ACL_MANAGER.addPoolAdmin()`. This is following the standard procedure of keeping pool admin on the Aave Guardian during the bootstrap period, for security.
 - Set ACI [multi-sig](https://soneium.blockscout.com/address/0xac140648435d03f784879cd789130F22Ef588Fcd) as liquidity mining admin for all aTokens and underlying tokens by calling `EMISSION_MANAGER.setEmissionAdmin()` method.
 
 The table below illustrates the configured risk parameters for the assets to be listed:
 
-| Parameter                        |                                    [USDC](https://soneium.blockscout.com/address/0xbA9986D2381edf1DA03B0B9c1f8b00dc4AacC369) |               [USDT](https://soneium.blockscout.com/address/0x3A337a6adA9d885b6Ad95ec48F9b75f197b5AE35) |              [WETH](https://soneium.blockscout.com/address/0x4200000000000000000000000000000000000006) |
+| Parameter                        |                                   [USDCe](https://soneium.blockscout.com/address/0xbA9986D2381edf1DA03B0B9c1f8b00dc4AacC369) |               [USDT](https://soneium.blockscout.com/address/0x3A337a6adA9d885b6Ad95ec48F9b75f197b5AE35) |              [WETH](https://soneium.blockscout.com/address/0x4200000000000000000000000000000000000006) |
 | -------------------------------- | ---------------------------------------------------------------------------------------------------------------------------: | ------------------------------------------------------------------------------------------------------: | -----------------------------------------------------------------------------------------------------: |
 | Isolation Mode                   |                                                                                                                        false |                                                                                                   false |                                                                                                  false |
 | Borrowable                       |                                                                                                                      ENABLED |                                                                                                 ENABLED |                                                                                                ENABLED |
