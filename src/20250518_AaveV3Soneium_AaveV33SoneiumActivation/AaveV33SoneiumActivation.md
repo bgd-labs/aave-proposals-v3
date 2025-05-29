@@ -54,7 +54,7 @@ The table below illustrates the configured risk parameters for the assets to be 
 | Oracle Underlying feed           |                      [Chainlink USDC/USD](https://soneium.blockscout.com/address/0x46522a7fD5bD5E7aaFF862C17E116152e07d7158) | [Chainlink USDT/USD](https://soneium.blockscout.com/address/0xE92d289831823c96C22592952C1cfA2584a65038) |                                                                                                    N/A |
 | Oracle Latest Answer (18MAY2025) |                                                                                                                  $0.99987956 |                                                                                             $1.00022312 |                                                                                             $2499.1478 |
 
-Additionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://soneium.blockscout.com/address/0xac140648435d03f784879cd789130F22Ef588Fcd) has been set as the emission admin for USDCe and the corresponding aToken.
+Additionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://soneium.blockscout.com/address/0xac140648435d03f784879cd789130F22Ef588Fcd) has been set as the emission admin for the underlying tokens listed and their corresponding aTokens.
 
 ### Security procedures
 
