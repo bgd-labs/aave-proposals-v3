@@ -56,7 +56,7 @@ contract AaveV3Gnosis_GHOGnosisListing_20250421_Base is ProtocolV3TestBase {
     IUpgradeableBurnMintTokenPool_1_5_1(GHOLaunchConstants.GNO_TOKEN_POOL);
 
   function setUp() public virtual {
-    vm.createSelectFork(vm.rpcUrl('gnosis'), 40175963);
+    vm.createSelectFork(vm.rpcUrl('gnosis'), 40313138);
     proposal = new AaveV3Gnosis_GHOGnosisListing_20250421();
   }
 
@@ -258,7 +258,7 @@ contract AaveV3Gnosis_GHOGnosisListing_20250421_Stewards is
 
   function test_bucketStewardCanUpdateBucketCapacity(uint256 newBucketCapacity) public {
     (uint256 currentBucketCapacity, ) = GHO_TOKEN.getFacilitatorBucket(address(NEW_TOKEN_POOL));
-    assertEq(currentBucketCapacity, 20_000_000e18);
+    assertEq(currentBucketCapacity, GHOLaunchConstants.CCIP_BUCKET_CAPACITY);
     newBucketCapacity = bound(
       newBucketCapacity,
       currentBucketCapacity + 1,

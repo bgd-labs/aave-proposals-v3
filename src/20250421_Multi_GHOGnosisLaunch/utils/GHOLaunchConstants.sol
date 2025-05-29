@@ -12,7 +12,7 @@ library GHOLaunchConstants {
   // CCIP Rate Limits
   uint128 internal constant CCIP_RATE_LIMIT_CAPACITY = 1_500_000e18;
   uint128 internal constant CCIP_RATE_LIMIT_REFILL_RATE = 300e18;
-  uint128 internal constant CCIP_BUCKET_CAPACITY = 20_000_000e18;
+  uint128 internal constant CCIP_BUCKET_CAPACITY = 40_000_000e18;
 
   // Arbitrum Addresses
   address internal constant ARB_TOKEN_ADMIN_REGISTRY = 0x39AE1032cF4B334a1Ed41cdD0833bdD7c7E7751E;
@@ -21,10 +21,12 @@ library GHOLaunchConstants {
   // Arbitrum ON_RAMPs
   address internal constant ARB_GNO_ON_RAMP = 0xc7d6B885d8A4286E6311F79227430b7862311cd3;
   address internal constant ARB_ETH_ON_RAMP = 0x67761742ac8A21Ec4D76CA18cbd701e5A6F3Bef3;
+  address internal constant ARB_BASE_ON_RAMP = 0xc1b6287A3292d6469F2D8545877E40A2f75CA9a6;
 
   // Arbitrum OFF_RAMPs
   address internal constant ARB_GNO_OFF_RAMP = 0xeE53872d1C695933B34cE0a11B58613CBBf37e20;
   address internal constant ARB_ETH_OFF_RAMP = 0x91e46cc5590A4B9182e47f40006140A7077Dec31;
+  address internal constant ARB_BASE_OFF_RAMP = 0xb62178f8198905D0Fa6d640Bdb188E4E8143Ac4b;
 
   // Base Addresses
   address internal constant BASE_TOKEN_ADMIN_REGISTRY = 0x6f6C373d09C07425BaAE72317863d7F6bb731e37;
@@ -34,11 +36,13 @@ library GHOLaunchConstants {
 
   address internal constant BASE_ETH_ON_RAMP = 0x56b30A0Dcd8dc87Ec08b80FA09502bAB801fa78e;
   address internal constant BASE_GNO_ON_RAMP = 0xDcFB24AEbcB9Edfb6746a045DDcae402381F984B;
+  address internal constant BASE_ARB_ON_RAMP = 0x9D0ffA76C7F82C34Be313b5bFc6d42A72dA8CA69;
 
   // Base OFF_RAMPs
 
   address internal constant BASE_ETH_OFF_RAMP = 0xCA04169671A81E4fB8768cfaD46c347ae65371F1;
   address internal constant BASE_GNO_OFF_RAMP = 0x300977dBA924af14E166B31F4926892B1f310661;
+  address internal constant BASE_ARB_OFF_RAMP = 0x7D38c6363d5E4DFD500a691Bc34878b383F58d93;
 
   // Ethereum Addresses
   address internal constant ETH_TOKEN_ADMIN_REGISTRY = 0xb22764f98dD05c789929716D677382Df22C05Cb6;

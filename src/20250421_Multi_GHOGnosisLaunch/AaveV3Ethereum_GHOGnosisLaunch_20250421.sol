@@ -12,19 +12,17 @@ import {GHOLaunchConstants} from './utils/GHOLaunchConstants.sol';
  * @title GHO Gnosis Launch
  * @author kpk
  * @notice This proposal is used to launch GHO on Gnosis Chain
+ * @dev This payload enables the GHO CCIP token pool to receive and send messages from Gnosis Chain on Ethereum.
  * - Discussion: https://governance.aave.com/t/arfc-launch-gho-on-gnosis-chain/21379
  * - Snapshot: https://snapshot.box/#/s:aavedao.eth/proposal/0x62996204d8466d603fe8c953176599db02a23f440a682ff15ba2d0ca63dda386
  */
 contract AaveV3Ethereum_GHOGnosisLaunch_20250421 is IProposalGenericExecutor {
   uint64 public constant GNOSIS_CHAIN_SELECTOR = CCIPUtils.GNOSIS_CHAIN_SELECTOR;
 
-  // https://etherscan.io/address/0x06179f7C1be40863405f374E7f5F8806c728660A
   IUpgradeableLockReleaseTokenPool_1_5_1 public constant TOKEN_POOL =
     IUpgradeableLockReleaseTokenPool_1_5_1(GhoEthereum.GHO_CCIP_TOKEN_POOL);
 
-  // https://gnosisscan.io/address/0xDe6539018B095353A40753Dc54C91C68c9487D4E
   address public constant REMOTE_TOKEN_POOL_GNOSIS = GHOLaunchConstants.GNO_TOKEN_POOL;
-  // https://gnosisscan.io/address/0xfc421aD3C883Bf9E7C4f42dE845C4e4405799e73
   address public constant REMOTE_GHO_TOKEN_GNOSIS = GHOLaunchConstants.GNO_GHO_TOKEN;
 
   uint128 public constant CCIP_RATE_LIMIT_CAPACITY = GHOLaunchConstants.CCIP_RATE_LIMIT_CAPACITY;
