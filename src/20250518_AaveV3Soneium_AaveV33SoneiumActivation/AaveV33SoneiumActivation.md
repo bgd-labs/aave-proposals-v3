@@ -30,8 +30,6 @@ The proposal will do the following:
 
 The table below illustrates the configured risk parameters for the assets to be listed:
 
-The table below illustrates the configured risk parameters for **USDCe**
-
 | Parameter                        |                                    [USDC](https://soneium.blockscout.com/address/0xbA9986D2381edf1DA03B0B9c1f8b00dc4AacC369) |               [USDT](https://soneium.blockscout.com/address/0x3A337a6adA9d885b6Ad95ec48F9b75f197b5AE35) |              [WETH](https://soneium.blockscout.com/address/0x4200000000000000000000000000000000000006) |
 | -------------------------------- | ---------------------------------------------------------------------------------------------------------------------------: | ------------------------------------------------------------------------------------------------------: | -----------------------------------------------------------------------------------------------------: |
 | Isolation Mode                   |                                                                                                                        false |                                                                                                   false |                                                                                                  false |
@@ -66,8 +64,8 @@ Additionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://soneium.blocks
 
 ## References
 
-- Implementation: [AaveV3Soneium](https://github.com/bgd-labs/aave-proposals-v3/blob/a37b5f28786d65dee5f2c952374c2f03f6cf9085/src/20250518_AaveV3Soneium_AaveV33SoneiumActivation/AaveV3Soneium_AaveV33SoneiumActivation_20250518.sol)
-- Tests: [AaveV3Soneium](https://github.com/bgd-labs/aave-proposals-v3/blob/a37b5f28786d65dee5f2c952374c2f03f6cf9085/src/20250518_AaveV3Soneium_AaveV33SoneiumActivation/AaveV3Soneium_AaveV33SoneiumActivation_20250518.t.sol)
+- Implementation: [AaveV3Soneium](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250518_AaveV3Soneium_AaveV33SoneiumActivation/AaveV3Soneium_AaveV33SoneiumActivation_20250518.sol)
+- Tests: [AaveV3Soneium](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250518_AaveV3Soneium_AaveV33SoneiumActivation/AaveV3Soneium_AaveV33SoneiumActivation_20250518.t.sol)
 - [Snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0xb996bda7e60f85de7f6f2d9f7f6c15ddddfbd871465d8f00b846f8ab014a5953)
 - [Discussion](https://governance.aave.com/t/arfc-deploy-aave-on-soneium/21204/9)
 
