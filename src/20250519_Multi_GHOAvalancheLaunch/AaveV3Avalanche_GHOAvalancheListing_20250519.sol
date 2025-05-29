@@ -19,11 +19,11 @@ import {GHOLaunchConstants} from './utils/GHOLaunchConstants.sol';
 contract AaveV3Avalanche_GHOAvalancheListing_20250519 is AaveV3PayloadAvalanche {
   using SafeERC20 for IERC20;
 
-  // https://gnosisscan.io/address/0xac140648435d03f784879cd789130F22Ef588Fcd
+  // https://avascan.info/blockchain/all/address/0xac140648435d03f784879cd789130F22Ef588Fcd
   address public constant EMISSION_ADMIN = 0xac140648435d03f784879cd789130F22Ef588Fcd; // @todo move to a GHOLaunchConstants
   address public constant GHO_PRICE_FEED = GHOLaunchConstants.AVALANCHE_PRICE_FEED;
   address public constant GHO_TOKEN = GHOLaunchConstants.AVALANCHE_TOKEN;
-  uint256 public constant GHO_SEED_AMOUNT = 100e18; // @todo is this value correct?
+  uint256 public constant GHO_SEED_AMOUNT = 100e18; // @todo is this value correct? 1e18 (base)?
 
   function _preExecute() internal view override {
     // robot should simulate and only execute if seed amount has been bridged, redundant check

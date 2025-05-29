@@ -20,14 +20,12 @@ import {AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
 import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
 import {AaveV3BaseAssets} from 'aave-address-book/AaveV3Base.sol';
-// import {AaveV3GnosisAssets} from 'aave-address-book/AaveV3Gnosis.sol';
 import {CCIPUtils} from './utils/CCIPUtils.sol';
 import {GHOLaunchConstants} from './utils/GHOLaunchConstants.sol';
 
 import {GhoArbitrum} from 'aave-address-book/GhoArbitrum.sol';
 import {GhoEthereum} from 'aave-address-book/GhoEthereum.sol';
 import {GhoBase} from 'aave-address-book/GhoBase.sol';
-// import {GhoGnosis} from 'aave-address-book/GhoGnosis.sol';
 
 import {AaveV3Ethereum_GHOAvalancheLaunch_20250519} from './AaveV3Ethereum_GHOAvalancheLaunch_20250519.sol';
 
@@ -46,7 +44,6 @@ contract AaveV3Ethereum_GHOAvalancheLaunch_20250519_Avalanche is ProtocolV3TestB
   uint64 internal constant AVALANCHE_CHAIN_SELECTOR = CCIPUtils.AVALANCHE_CHAIN_SELECTOR;
   uint64 internal constant ETHEREUM_CHAIN_SELECTOR = CCIPUtils.ETHEREUM_CHAIN_SELECTOR;
   uint64 internal constant BASE_CHAIN_SELECTOR = CCIPUtils.BASE_CHAIN_SELECTOR;
-  // uint64 internal constant GNOSIS_CHAIN_SELECTOR = CCIPUtils.GNOSIS_CHAIN_SELECTOR;
   uint128 public constant CCIP_RATE_LIMIT_CAPACITY = GHOLaunchConstants.CCIP_RATE_LIMIT_CAPACITY;
   uint128 public constant CCIP_RATE_LIMIT_REFILL_RATE =
     GHOLaunchConstants.CCIP_RATE_LIMIT_REFILL_RATE;
@@ -60,21 +57,16 @@ contract AaveV3Ethereum_GHOAvalancheLaunch_20250519_Avalanche is ProtocolV3TestB
     IEVM2EVMOnRamp(GHOLaunchConstants.ETHEREUM_BASE_ON_RAMP);
   IEVM2EVMOnRamp internal constant AVALANCHE_ON_RAMP =
     IEVM2EVMOnRamp(GHOLaunchConstants.ETHEREUM_AVALANCHE_ON_RAMP);
-  // IEVM2EVMOnRamp internal constant GNOSIS_ON_RAMP =
-  //   IEVM2EVMOnRamp(GHOLaunchConstants.ETHEREUM_GNOSIS_ON_RAMP);
   IEVM2EVMOffRamp_1_5 internal constant ARBITRUM_OFF_RAMP =
     IEVM2EVMOffRamp_1_5(GHOLaunchConstants.ETHEREUM_ARBITRUM_OFF_RAMP);
   IEVM2EVMOffRamp_1_5 internal constant BASE_OFF_RAMP =
     IEVM2EVMOffRamp_1_5(GHOLaunchConstants.ETHEREUM_BASE_OFF_RAMP);
   IEVM2EVMOffRamp_1_5 internal constant AVALANCHE_OFF_RAMP =
     IEVM2EVMOffRamp_1_5(GHOLaunchConstants.ETHEREUM_AVALANCHE_OFF_RAMP);
-  // IEVM2EVMOffRamp_1_5 internal constant GNOSIS_OFF_RAMP =
-  //   IEVM2EVMOffRamp_1_5(GHOLaunchConstants.ETHEREUM_GNOSIS_OFF_RAMP);
 
   address public constant NEW_REMOTE_TOKEN_AVALANCHE = GHOLaunchConstants.AVALANCHE_TOKEN;
   address internal constant NEW_REMOTE_POOL_ARBITRUM = GhoArbitrum.GHO_CCIP_TOKEN_POOL;
   address internal constant NEW_REMOTE_POOL_BASE = GhoBase.GHO_CCIP_TOKEN_POOL;
-  // address internal constant NEW_REMOTE_POOL_GNOSIS = GhoGnosis.GHO_CCIP_TOKEN_POOL;
   address internal constant NEW_REMOTE_POOL_AVALANCHE = GHOLaunchConstants.AVALANCHE_TOKEN_POOL;
 
   address internal constant RISK_COUNCIL = GHOLaunchConstants.RISK_COUNCIL; // common across all chains
@@ -98,7 +90,7 @@ contract AaveV3Ethereum_GHOAvalancheLaunch_20250519_Avalanche is ProtocolV3TestB
   error InvalidSourcePoolAddress(bytes);
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 22516405);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 22575695);
     proposal = new AaveV3Ethereum_GHOAvalancheLaunch_20250519();
     _validateConstants();
     executePayload(vm, address(proposal));
@@ -119,11 +111,9 @@ contract AaveV3Ethereum_GHOAvalancheLaunch_20250519_Avalanche is ProtocolV3TestB
     _assertOnRamp(ARBITRUM_ON_RAMP, ETHEREUM_CHAIN_SELECTOR, ARBITRUM_CHAIN_SELECTOR, ROUTER);
     _assertOnRamp(BASE_ON_RAMP, ETHEREUM_CHAIN_SELECTOR, BASE_CHAIN_SELECTOR, ROUTER);
     _assertOnRamp(AVALANCHE_ON_RAMP, ETHEREUM_CHAIN_SELECTOR, AVALANCHE_CHAIN_SELECTOR, ROUTER);
-    // _assertOnRamp(GNOSIS_ON_RAMP, ETHEREUM_CHAIN_SELECTOR, GNOSIS_CHAIN_SELECTOR, ROUTER);
     _assertOffRamp(ARBITRUM_OFF_RAMP, ARBITRUM_CHAIN_SELECTOR, ETHEREUM_CHAIN_SELECTOR, ROUTER);
     _assertOffRamp(BASE_OFF_RAMP, BASE_CHAIN_SELECTOR, ETHEREUM_CHAIN_SELECTOR, ROUTER);
     _assertOffRamp(AVALANCHE_OFF_RAMP, AVALANCHE_CHAIN_SELECTOR, ETHEREUM_CHAIN_SELECTOR, ROUTER);
-    // _assertOffRamp(GNOSIS_OFF_RAMP, GNOSIS_CHAIN_SELECTOR, ETHEREUM_CHAIN_SELECTOR, ROUTER);
 
     assertEq(NEW_GHO_CCIP_STEWARD.RISK_COUNCIL(), RISK_COUNCIL);
     assertEq(NEW_GHO_CCIP_STEWARD.GHO_TOKEN(), AaveV3EthereumAssets.GHO_UNDERLYING);
@@ -241,11 +231,10 @@ contract AaveV3Ethereum_GHOAvalancheLaunch_20250519_Avalanche is ProtocolV3TestB
   }
 
   function test_basePoolConfig() public view {
-    assertEq(NEW_TOKEN_POOL.getSupportedChains().length, 3); // 4 when Gnosis is supported
+    assertEq(NEW_TOKEN_POOL.getSupportedChains().length, 3);
     assertEq(NEW_TOKEN_POOL.getSupportedChains()[0], ARBITRUM_CHAIN_SELECTOR);
     assertEq(NEW_TOKEN_POOL.getSupportedChains()[1], BASE_CHAIN_SELECTOR);
     assertEq(NEW_TOKEN_POOL.getSupportedChains()[2], AVALANCHE_CHAIN_SELECTOR);
-    // assertEq(NEW_TOKEN_POOL.getSupportedChains()[2], GNOSIS_CHAIN_SELECTOR);
     assertEq(
       NEW_TOKEN_POOL.getRemoteToken(ARBITRUM_CHAIN_SELECTOR),
       abi.encode(address(AaveV3ArbitrumAssets.GHO_UNDERLYING))

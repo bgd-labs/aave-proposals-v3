@@ -20,13 +20,11 @@ import {AaveV3Arbitrum} from 'aave-address-book/AaveV3Arbitrum.sol';
 import {AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
 import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {AaveV3BaseAssets} from 'aave-address-book/AaveV3Base.sol';
-// import {AaveV3GnosisAssets} from 'aave-address-book/AaveV3Gnosis.sol';
 import {GovernanceV3Arbitrum} from 'aave-address-book/GovernanceV3Arbitrum.sol';
 import {MiscArbitrum} from 'aave-address-book/MiscArbitrum.sol';
 import {GhoArbitrum} from 'aave-address-book/GhoArbitrum.sol';
 import {GhoEthereum} from 'aave-address-book/GhoEthereum.sol';
 import {GhoBase} from 'aave-address-book/GhoBase.sol';
-// import {GhoGnosis} from 'aave-address-book/GhoGnosis.sol';
 
 import {ProxyAdmin, ITransparentUpgradeableProxy} from 'openzeppelin-contracts/contracts/proxy/transparent/ProxyAdmin.sol';
 
@@ -49,7 +47,6 @@ contract AaveV3Arbitrum_GHOAvalancheLaunch_20250519_Avalanche is ProtocolV3TestB
   uint64 internal constant ARBITRUM_CHAIN_SELECTOR = CCIPUtils.ARBITRUM_CHAIN_SELECTOR;
   uint64 internal constant BASE_CHAIN_SELECTOR = CCIPUtils.BASE_CHAIN_SELECTOR;
   uint64 internal constant ETHEREUM_CHAIN_SELECTOR = CCIPUtils.ETHEREUM_CHAIN_SELECTOR;
-  uint64 internal constant GNOSIS_CHAIN_SELECTOR = CCIPUtils.GNOSIS_CHAIN_SELECTOR;
   uint64 internal constant AVALANCHE_CHAIN_SELECTOR = CCIPUtils.AVALANCHE_CHAIN_SELECTOR;
   uint128 public constant CCIP_RATE_LIMIT_CAPACITY = GHOLaunchConstants.CCIP_RATE_LIMIT_CAPACITY;
   uint128 public constant CCIP_RATE_LIMIT_REFILL_RATE =
@@ -58,7 +55,7 @@ contract AaveV3Arbitrum_GHOAvalancheLaunch_20250519_Avalanche is ProtocolV3TestB
   IGhoToken internal constant GHO = IGhoToken(AaveV3ArbitrumAssets.GHO_UNDERLYING);
   ITokenAdminRegistry internal constant TOKEN_ADMIN_REGISTRY =
     ITokenAdminRegistry(GHOLaunchConstants.ARBITRUM_TOKEN_ADMIN_REGISTRY);
-  // @todo should I also include Gnosis and base on-off ramps?
+  // @todo should I also include base on-off ramps?
   IEVM2EVMOnRamp internal constant ETHEREUM_ON_RAMP =
     IEVM2EVMOnRamp(GHOLaunchConstants.ARBITRUM_ETHEREUM_ON_RAMP);
   IEVM2EVMOnRamp internal constant AVALANCHE_ON_RAMP =
@@ -77,7 +74,6 @@ contract AaveV3Arbitrum_GHOAvalancheLaunch_20250519_Avalanche is ProtocolV3TestB
     IUpgradeableBurnMintTokenPool_1_5_1(GhoArbitrum.GHO_CCIP_TOKEN_POOL);
   address internal constant NEW_REMOTE_POOL_ETHEREUM = GhoEthereum.GHO_CCIP_TOKEN_POOL;
   address internal constant NEW_REMOTE_POOL_BASE = GhoBase.GHO_CCIP_TOKEN_POOL;
-  //   address internal constant NEW_REMOTE_POOL_GNOSIS = GhGnosis.GHO_CCIP_TOKEN_POOL;
   address internal constant NEW_REMOTE_POOL_AVALANCHE = GHOLaunchConstants.AVALANCHE_TOKEN_POOL; // @todo rename this one to GHO_CCIP_TOKEN_POOL for consistency?
 
   AaveV3Arbitrum_GHOAvalancheLaunch_20250519 internal proposal;
@@ -94,7 +90,7 @@ contract AaveV3Arbitrum_GHOAvalancheLaunch_20250519_Avalanche is ProtocolV3TestB
   error InvalidSourcePoolAddress(bytes);
 
   function setUp() public virtual {
-    vm.createSelectFork(vm.rpcUrl('arbitrum'), 338280933); // @note why chose a block and not the latest? @note consistent with config.ts?
+    vm.createSelectFork(vm.rpcUrl('arbitrum'), 341142215); // @note why chose a block and not the latest? @note consistent with config.ts?
     proposal = new AaveV3Arbitrum_GHOAvalancheLaunch_20250519();
     _validateConstants();
   }
@@ -246,11 +242,10 @@ contract AaveV3Arbitrum_GHOAvalancheLaunch_20250519_PostExecution is
   }
 
   function test_basePoolConfig() public view {
-    assertEq(NEW_TOKEN_POOL.getSupportedChains().length, 3); // 4 after adding Gnosis
+    assertEq(NEW_TOKEN_POOL.getSupportedChains().length, 3);
     assertEq(NEW_TOKEN_POOL.getSupportedChains()[0], ETHEREUM_CHAIN_SELECTOR);
     assertEq(NEW_TOKEN_POOL.getSupportedChains()[1], BASE_CHAIN_SELECTOR);
     assertEq(NEW_TOKEN_POOL.getSupportedChains()[2], AVALANCHE_CHAIN_SELECTOR);
-    // assertEq(NEW_TOKEN_POOL.getSupportedChains()[3], GNOSIS_CHAIN_SELECTOR);
 
     assertEq(
       NEW_TOKEN_POOL.getRemoteToken(ETHEREUM_CHAIN_SELECTOR),
@@ -264,10 +259,6 @@ contract AaveV3Arbitrum_GHOAvalancheLaunch_20250519_PostExecution is
       NEW_TOKEN_POOL.getRemoteToken(AVALANCHE_CHAIN_SELECTOR),
       abi.encode(address(NEW_REMOTE_TOKEN_AVALANCHE))
     );
-    // assertEq(
-    //   NEW_TOKEN_POOL.getRemoteToken(GNOSIS_CHAIN_SELECTOR),
-    //   abi.encode(address(AaveV3GnosisAssets.GHO_UNDERLYING))
-    // );
 
     assertEq(NEW_TOKEN_POOL.getRemotePools(ETHEREUM_CHAIN_SELECTOR).length, 2);
     assertEq(
@@ -284,11 +275,6 @@ contract AaveV3Arbitrum_GHOAvalancheLaunch_20250519_PostExecution is
       NEW_TOKEN_POOL.getRemotePools(AVALANCHE_CHAIN_SELECTOR)[0],
       abi.encode(address(NEW_REMOTE_POOL_AVALANCHE))
     );
-    // assertEq(NEW_TOKEN_POOL.getRemotePools(GNOSIS_CHAIN_SELECTOR).length, 1);
-    // assertEq(
-    //   NEW_TOKEN_POOL.getRemotePools(GNOSIS_CHAIN_SELECTOR)[0],
-    //   abi.encode(address(NEW_REMOTE_POOL_GNOSIS))
-    // );
 
     assertEq(
       NEW_TOKEN_POOL.getCurrentInboundRateLimiterState(AVALANCHE_CHAIN_SELECTOR),
@@ -458,7 +444,7 @@ contract AaveV3Arbitrum_GHOAvalancheLaunch_20250519_PostExecution is
     );
   }
 
-  // @todo should I also include Gnosis and base off ramps?
+  // @todo should I also include base off ramps?
   function test_cannotOffRampOtherChainMessages() public {
     uint256 amount = 100e18;
     skip(_getInboundRefillTime(amount));
@@ -502,45 +488,5 @@ contract AaveV3Arbitrum_GHOAvalancheLaunch_20250519_PostExecution is
         offchainTokenData: new bytes(0)
       })
     );
-
-    // vm.expectRevert(
-    //   abi.encodeWithSelector(
-    //     InvalidSourcePoolAddress.selector,
-    //     abi.encode(address(NEW_REMOTE_POOL_AVALANCHE))
-    //   )
-    // );
-    // vm.prank(address(BASE_OFF_RAMP));
-    // NEW_TOKEN_POOL.releaseOrMint(
-    //   IPool_CCIP.ReleaseOrMintInV1({
-    //     originalSender: abi.encode(alice),
-    //     remoteChainSelector: ETHEREUM_CHAIN_SELECTOR,
-    //     receiver: alice,
-    //     amount: amount,
-    //     localToken: address(GHO),
-    //     sourcePoolAddress: abi.encode(address(NEW_REMOTE_POOL_AVALANCHE)),
-    //     sourcePoolData: new bytes(0),
-    //     offchainTokenData: new bytes(0)
-    //   })
-    // );
-
-    // vm.expectRevert(
-    //   abi.encodeWithSelector(
-    //     InvalidSourcePoolAddress.selector,
-    //     abi.encode(address(NEW_REMOTE_POOL_AVALANCHE))
-    //   )
-    // );
-    // vm.prank(address(GNOSIS_OFF_RAMP));
-    // NEW_TOKEN_POOL.releaseOrMint(
-    //   IPool_CCIP.ReleaseOrMintInV1({
-    //     originalSender: abi.encode(alice),
-    //     remoteChainSelector: ETHEREUM_CHAIN_SELECTOR,
-    //     receiver: alice,
-    //     amount: amount,
-    //     localToken: address(GHO),
-    //     sourcePoolAddress: abi.encode(address(NEW_REMOTE_POOL_AVALANCHE)),
-    //     sourcePoolData: new bytes(0),
-    //     offchainTokenData: new bytes(0)
-    //   })
-    // );
   }
 }

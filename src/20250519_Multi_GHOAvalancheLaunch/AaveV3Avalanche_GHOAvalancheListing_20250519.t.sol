@@ -56,8 +56,18 @@ contract AaveV3Avalanche_GHOAvalancheListing_20250519_Base is ProtocolV3TestBase
     IUpgradeableBurnMintTokenPool_1_5_1(GHOLaunchConstants.AVALANCHE_TOKEN_POOL);
 
   function setUp() public virtual {
-    vm.createSelectFork(vm.rpcUrl('avalanche'), 62758238);
+    vm.createSelectFork(vm.rpcUrl('avalanche'), 62806128);
     proposal = new AaveV3Avalanche_GHOAvalancheListing_20250519();
+
+    _performCcipPreReq(); // @note mocked. Need CL to initiate admin transfer on their side. When ready, remove this method
+  }
+
+  function _performCcipPreReq() internal {
+    vm.prank(TOKEN_ADMIN_REGISTRY.owner());
+    TOKEN_ADMIN_REGISTRY.proposeAdministrator(
+      address(GHO_TOKEN),
+      GovernanceV3Avalanche.EXECUTOR_LVL_1
+    );
   }
 
   function _executeLaunchAIP() internal {
@@ -98,7 +108,7 @@ contract AaveV3Avalanche_GHOAvalancheListing_20250519_Base is ProtocolV3TestBase
   }
 }
 
-contract AaveV3Avalanche_GHOAvalancheListing_20250519PreRequisites is
+contract AaveV3Avalanche_GHOAvalancheListing_20250519_ListingPreRequisites is
   AaveV3Avalanche_GHOAvalancheListing_20250519_Base
 {
   uint40 internal payloadId;
@@ -268,7 +278,7 @@ contract AaveV3Avalanche_GHOAvalancheListing_20250519_Stewards is
 
   function test_bucketStewardCanUpdateBucketCapacity(uint256 newBucketCapacity) public {
     (uint256 currentBucketCapacity, ) = GHO_TOKEN.getFacilitatorBucket(address(NEW_TOKEN_POOL));
-    assertEq(currentBucketCapacity, 20_000_000e18);
+    assertEq(currentBucketCapacity, GHOLaunchConstants.CCIP_BUCKET_CAPACITY);
     newBucketCapacity = bound(
       newBucketCapacity,
       currentBucketCapacity + 1,

@@ -14,10 +14,9 @@ export const config: ConfigFile = {
   },
   poolOptions: {
     // @todo update block numbers
-    AaveV3Ethereum: {configs: {OTHERS: {}}, cache: {blockNumber: 21722753}},
-    AaveV3Arbitrum: {configs: {OTHERS: {}}, cache: {blockNumber: 300142041}},
-    AaveV3Base: {configs: {OTHERS: {}}, cache: {blockNumber: 29935731}},
-    AaveV3Gnosis: {configs: {OTHERS: {}}, cache: {blockNumber: 29935731}},
+    AaveV3Ethereum: {configs: {OTHERS: {}}, cache: {blockNumber: 22575695}},
+    AaveV3Arbitrum: {configs: {OTHERS: {}}, cache: {blockNumber: 341142215}},
+    AaveV3Base: {configs: {OTHERS: {}}, cache: {blockNumber: 30789286}},
     AaveV3Avalanche: {
       configs: {
         ASSET_LISTING: [
@@ -45,10 +44,11 @@ export const config: ConfigFile = {
             },
             asset: '0xfc421aD3C883Bf9E7C4f42dE845C4e4405799e73',
             admin: '0xac140648435d03f784879cd789130F22Ef588Fcd',
+            eModeCategory: '',
           },
         ],
       },
-      cache: {blockNumber: 39948534}, // @todo update avalanche block number
+      cache: {blockNumber: 62821271}, // @todo update avalanche block number
     },
   },
 };

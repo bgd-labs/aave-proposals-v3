@@ -25,13 +25,10 @@ import {GHOLaunchConstants} from './utils/GHOLaunchConstants.sol';
  * - Discussion: https://governance.aave.com/t/arfc-launch-gho-on-avalanche-set-aci-as-emissions-manager-for-rewards
  * - Snapshot: https://snapshot.box/#/s:aavedao.eth/proposal/0x2aed7eb8b03cb3f961cbf790bf2e2e1e449f841a4ad8bdbcdd223bb6ac69e719
  */
-// @note add Gnosis support later
 contract AaveV3Avalanche_GHOAvalancheLaunch_20250519 is IProposalGenericExecutor {
   uint64 public constant BASE_CHAIN_SELECTOR = CCIPUtils.BASE_CHAIN_SELECTOR;
   uint64 public constant ARBITRUM_CHAIN_SELECTOR = CCIPUtils.ARBITRUM_CHAIN_SELECTOR;
   uint64 public constant ETHEREUM_CHAIN_SELECTOR = CCIPUtils.ETHEREUM_CHAIN_SELECTOR;
-  //   uint64 public constant GNOSIS_CHAIN_SELECTOR = CCIPUtils.GNOSIS_CHAIN_SELECTOR;
-
   uint128 public constant CCIP_BUCKET_CAPACITY = GHOLaunchConstants.CCIP_BUCKET_CAPACITY;
 
   ITokenAdminRegistry public constant TOKEN_ADMIN_REGISTRY =
@@ -48,7 +45,6 @@ contract AaveV3Avalanche_GHOAvalancheLaunch_20250519 is IProposalGenericExecutor
   address public constant REMOTE_TOKEN_POOL_ETHEREUM = GhoEthereum.GHO_CCIP_TOKEN_POOL;
   address public constant REMOTE_TOKEN_POOL_ARBITRUM = GhoArbitrum.GHO_CCIP_TOKEN_POOL;
   address public constant REMOTE_TOKEN_POOL_BASE = GhoBase.GHO_CCIP_TOKEN_POOL;
-  //   address public constant REMOTE_TOKEN_POOL_GNOSIS = GhoGnosis.GHO_CCIP_TOKEN_POOL;
 
   uint128 public constant CCIP_RATE_LIMIT_CAPACITY = GHOLaunchConstants.CCIP_RATE_LIMIT_CAPACITY;
   uint128 public constant CCIP_RATE_LIMIT_REFILL_RATE =
@@ -136,18 +132,6 @@ contract AaveV3Avalanche_GHOAvalancheLaunch_20250519 is IProposalGenericExecutor
         inboundRateLimiterConfig: rateLimiterConfig
       });
     }
-
-    // {
-    //   bytes[] memory remotePoolAddresses = new bytes[](1);
-    //   remotePoolAddresses[0] = abi.encode(REMOTE_TOKEN_POOL_GNOSIS);
-    //   chainsToAdd[3] = IUpgradeableBurnMintTokenPool_1_5_1.ChainUpdate({
-    //     remoteChainSelector: GNOSIS_CHAIN_SELECTOR,
-    //     remotePoolAddresses: remotePoolAddresses,
-    //     remoteTokenAddress: abi.encode(AaveV3BaseAssets.GHO_UNDERLYING),
-    //     outboundRateLimiterConfig: rateLimiterConfig,
-    //     inboundRateLimiterConfig: rateLimiterConfig
-    //   });
-    // }
 
     // setup remote token pools
     TOKEN_POOL.applyChainUpdates({
