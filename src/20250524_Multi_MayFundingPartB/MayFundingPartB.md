@@ -1,7 +1,7 @@
 ---
 title: "May Funding Part B"
 author: "@TokenLogic"
-discussions: "https://governance.aave.com/t/arfc-may-2025-funding-update/21906"
+discussions: "https://governance.aave.com/t/arfc-may-2025-funding-update/21906/5"
 snapshot: "https://snapshot.box/#/s:aavedao.eth/proposal/0x4dfc398fabb63305900572dff38b2ff8e104b0710077f6b7e48049de173d186b"
 ---
 
@@ -46,6 +46,7 @@ The payload creates the following allowances.
 | ----------- | --------------------- | --------------------------------------------------------------------------------------------------------------------- |
 | aEthLidoGHO | 3,000,000             | [0xdeadD8aB03075b7FBA81864202a2f59EE25B312b](https://etherscan.io/address/0xdeadD8aB03075b7FBA81864202a2f59EE25B312b) |
 | aEthWETH    | 800                   | [0xdeadD8aB03075b7FBA81864202a2f59EE25B312b](https://etherscan.io/address/0xdeadD8aB03075b7FBA81864202a2f59EE25B312b) |
+| aEthUSDC    | 2,400,000             | [0x22740deBa78d5a0c24C58C740e3715ec29de1bFa](https://etherscan.io/address/0x22740deBa78d5a0c24C58C740e3715ec29de1bFa) |
 | RAI         | ALL Collector Balance | [0x22740deBa78d5a0c24C58C740e3715ec29de1bFa](https://etherscan.io/address/0x22740deBa78d5a0c24C58C740e3715ec29de1bFa) |
 | CRV         | ALL Collector Balance | [0xA1c93D2687f7014Aaf588c764E3Ce80aF016229b](https://etherscan.io/address/0xA1c93D2687f7014Aaf588c764E3Ce80aF016229b) |
 | BAL         | ALL Collector Balance | [0xA1c93D2687f7014Aaf588c764E3Ce80aF016229b](https://etherscan.io/address/0xA1c93D2687f7014Aaf588c764E3Ce80aF016229b) |
@@ -59,7 +60,7 @@ Withdraws all aDAI, aEthDAI and couples with the collector's DAI to migrate all 
 - Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250524_Multi_MayFundingPartB/AaveV3Ethereum_MayFundingPartB_20250524.sol), [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250524_Multi_MayFundingPartB/AaveV3Base_MayFundingPartB_20250524.sol)
 - Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250524_Multi_MayFundingPartB/AaveV3Ethereum_MayFundingPartB_20250524.t.sol), [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250524_Multi_MayFundingPartB/AaveV3Base_MayFundingPartB_20250524.t.sol)
 - [Snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0x4dfc398fabb63305900572dff38b2ff8e104b0710077f6b7e48049de173d186b)
-- [Discussion](https://governance.aave.com/t/arfc-may-2025-funding-update/21906)
+- [Discussion](https://governance.aave.com/t/arfc-may-2025-funding-update/21906/5)
 
 ## Copyright
 

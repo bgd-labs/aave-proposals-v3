@@ -22,7 +22,7 @@ interface IMigrationActions {
  * @title May Funding Part B
  * @author @TokenLogic
  * - Snapshot: https://snapshot.box/#/s:aavedao.eth/proposal/0x4dfc398fabb63305900572dff38b2ff8e104b0710077f6b7e48049de173d186b
- * - Discussion: https://governance.aave.com/t/arfc-may-2025-funding-update/21906
+ * - Discussion: https://governance.aave.com/t/arfc-may-2025-funding-update/21906/5
  */
 contract AaveV3Ethereum_MayFundingPartB_20250524 is IProposalGenericExecutor {
   using CollectorUtils for ICollector;
@@ -44,6 +44,7 @@ contract AaveV3Ethereum_MayFundingPartB_20250524 is IProposalGenericExecutor {
 
   uint256 public constant MERIT_LIDO_GHO_ALLOWANCE = 3_000_000 ether;
   uint256 public constant AHAB_WETH_ALLOWANCE = 800 ether;
+  uint256 public constant AFC_A_ETH_USDC_ALLOWANCE = 2_400_000e6;
   uint256 public constant TOKENLOGIC_STREAM_ID = 100055;
 
   function execute() external {
@@ -54,11 +55,6 @@ contract AaveV3Ethereum_MayFundingPartB_20250524 is IProposalGenericExecutor {
 
   function _approvals() internal {
     // Merit aEthLidoGHO Approval
-    AaveV3Ethereum.COLLECTOR.approve(
-      IERC20(AaveV3EthereumLidoAssets.GHO_A_TOKEN),
-      MERIT_AHAB_SAFE,
-      0
-    );
     AaveV3Ethereum.COLLECTOR.approve(
       IERC20(AaveV3EthereumLidoAssets.GHO_A_TOKEN),
       MERIT_AHAB_SAFE,
@@ -92,6 +88,13 @@ contract AaveV3Ethereum_MayFundingPartB_20250524 is IProposalGenericExecutor {
       ALC_SAFE,
       IERC20(AaveV3EthereumAssets.BAL_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR))
     );
+
+    // aEthUSDC Approval
+    AaveV3Ethereum.COLLECTOR.approve(
+      IERC20(AaveV3EthereumAssets.USDC_A_TOKEN),
+      AFC_SAFE,
+      AFC_A_ETH_USDC_ALLOWANCE
+    );
   }
 
   function _migrateDaiToUsds() internal {
@@ -114,6 +117,12 @@ contract AaveV3Ethereum_MayFundingPartB_20250524 is IProposalGenericExecutor {
         )
       }),
       address(this)
+    );
+
+    AaveV3Ethereum.COLLECTOR.transfer(
+      IERC20(AaveV3EthereumAssets.DAI_UNDERLYING),
+      address(this),
+      IERC20(AaveV3EthereumAssets.DAI_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR))
     );
 
     uint256 daiAmount = IERC20(AaveV3EthereumAssets.DAI_UNDERLYING).balanceOf(address(this));

@@ -20,7 +20,7 @@ contract AaveV3Ethereum_MayFundingPartB_20250524_Test is ProtocolV3TestBase {
   AaveV3Ethereum_MayFundingPartB_20250524 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 22552293);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 22596260);
     proposal = new AaveV3Ethereum_MayFundingPartB_20250524();
   }
 
@@ -81,6 +81,18 @@ contract AaveV3Ethereum_MayFundingPartB_20250524_Test is ProtocolV3TestBase {
       0
     );
 
+    uint256 allowanceAEthUSDCBefore = IERC20(AaveV3EthereumAssets.USDC_A_TOKEN).allowance(
+      address(AaveV3Ethereum.COLLECTOR),
+      proposal.AFC_SAFE()
+    );
+    assertEq(
+      IERC20(AaveV3EthereumAssets.USDC_A_TOKEN).allowance(
+        address(AaveV3Ethereum.COLLECTOR),
+        proposal.AFC_SAFE()
+      ),
+      0
+    );
+
     executePayload(vm, address(proposal));
 
     uint256 allowanceGhoAfter = IERC20(AaveV3EthereumLidoAssets.GHO_A_TOKEN).allowance(
@@ -94,6 +106,11 @@ contract AaveV3Ethereum_MayFundingPartB_20250524_Test is ProtocolV3TestBase {
     );
 
     uint256 allowanceRaiAfter = IERC20(AaveV2EthereumAssets.RAI_UNDERLYING).allowance(
+      address(AaveV3Ethereum.COLLECTOR),
+      proposal.AFC_SAFE()
+    );
+
+    uint256 allowanceAEthUSDCfter = IERC20(AaveV3EthereumAssets.USDC_A_TOKEN).allowance(
       address(AaveV3Ethereum.COLLECTOR),
       proposal.AFC_SAFE()
     );
@@ -113,17 +130,18 @@ contract AaveV3Ethereum_MayFundingPartB_20250524_Test is ProtocolV3TestBase {
     assertEq(allowanceRaiAfter, balanceRaiBefore);
     assertEq(allowanceCrvAfter, balanceCrvBefore);
     assertEq(allowanceBalAfter, balanceBalBefore);
+    assertEq(allowanceAEthUSDCfter, allowanceAEthUSDCBefore + proposal.AFC_A_ETH_USDC_ALLOWANCE());
 
     vm.startPrank(proposal.MERIT_AHAB_SAFE());
     IERC20(AaveV3EthereumLidoAssets.GHO_A_TOKEN).transferFrom(
       address(AaveV3Ethereum.COLLECTOR),
       proposal.MERIT_AHAB_SAFE(),
-      1_000_000 ether
+      proposal.MERIT_LIDO_GHO_ALLOWANCE()
     );
     IERC20(AaveV3EthereumAssets.WETH_A_TOKEN).transferFrom(
       address(AaveV3Ethereum.COLLECTOR),
       proposal.MERIT_AHAB_SAFE(),
-      800 ether
+      proposal.AHAB_WETH_ALLOWANCE()
     );
     vm.stopPrank();
 
@@ -132,6 +150,12 @@ contract AaveV3Ethereum_MayFundingPartB_20250524_Test is ProtocolV3TestBase {
       address(AaveV3Ethereum.COLLECTOR),
       proposal.AFC_SAFE(),
       balanceRaiBefore
+    );
+
+    IERC20(AaveV3EthereumAssets.USDC_A_TOKEN).transferFrom(
+      address(AaveV3Ethereum.COLLECTOR),
+      proposal.AFC_SAFE(),
+      proposal.AFC_A_ETH_USDC_ALLOWANCE()
     );
     vm.stopPrank();
 
@@ -151,7 +175,7 @@ contract AaveV3Ethereum_MayFundingPartB_20250524_Test is ProtocolV3TestBase {
   }
 
   function test_daiUsdsMigration() public {
-    assertEq(
+    assertGt(
       IERC20(AaveV3EthereumAssets.DAI_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
       0
     );
