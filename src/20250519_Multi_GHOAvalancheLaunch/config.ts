@@ -14,6 +14,7 @@ export const config: ConfigFile = {
   },
   poolOptions: {
     // @todo update block numbers
+    // @todo manually enteered in many plances
     AaveV3Ethereum: {configs: {OTHERS: {}}, cache: {blockNumber: 22575695}},
     AaveV3Arbitrum: {configs: {OTHERS: {}}, cache: {blockNumber: 341142215}},
     AaveV3Base: {configs: {OTHERS: {}}, cache: {blockNumber: 30789286}},

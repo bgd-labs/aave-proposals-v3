@@ -13,7 +13,7 @@ library GHOLaunchConstants {
   // GHO Addresses -> https://avascan.info/blockchain/all/address/
   address internal constant AVALANCHE_TOKEN = 0xfc421aD3C883Bf9E7C4f42dE845C4e4405799e73; // GNO_GHO_TOKEN @todo standardize to AVALANCHE_GHO_TOKEN?
   address internal constant AVALANCHE_TOKEN_POOL = 0xDe6539018B095353A40753Dc54C91C68c9487D4E; // GNO_TOKEN_POOL @todo standardize to AVALANCHE_GHO_TOKEN_POOL?
-  // address internal constant AVALANCHE_TOKEN_IMPL = 0x0; // @todo what's this??? GNO_GHO_TOKEN_IMPL
+  address internal constant AVALANCHE_TOKEN_IMPL = 0xb0e1c7830aA781362f79225559Aa068E6bDaF1d1; // GNO_GHO_TOKEN_IMPL
   address internal constant AVALANCHE_PRICE_FEED = 0x360d8aa8F6b09B7BC57aF34db2Eb84dD87bf4d12; // GNO_GHO_PRICE_FEED
   address internal constant AVALANCHE_AAVE_STEWARD = 0xA5Ba213867E175A182a5dd6A9193C6158738105A; // GNO_AAVE_STEWARD
   address internal constant AVALANCHE_BUCKET_STEWARD = 0x2Ce400703dAcc37b7edFA99D228b8E70a4d3831B; // GNO_BUCKET_STEWARD
@@ -65,18 +65,6 @@ library GHOLaunchConstants {
 
   address internal constant BASE_AVALANCHE_OFF_RAMP = 0x61C3f6d72c80A3D1790b213c4cB58c3d4aaFccDF; // BASE_GNO_OFF_RAMP
   address internal constant BASE_ETHEREUM_OFF_RAMP = 0xCA04169671A81E4fB8768cfaD46c347ae65371F1; // BASE_ETH_OFF_RAMP
-
-  // // GNOSIS //
-  // // CCIP Adresses -> https://docs.chain.link/ccip/directory/mainnet (Outbound = ON_RAMP, Inbound = OFF_RAMP)
-  // address internal constant GNOSIS_TOKEN_ADMIN_REGISTRY =
-  //   0x73BC11423CBF14914998C23B0aFC9BE0cb5B2229;
-  // address internal constant GNOSIS_CCIP_ROUTER = 0x4aAD6071085df840abD9Baf1697d5D5992bDadce;
-
-  // address internal constant GNOSIS_AVALANCHE_ON_RAMP = 0xB707a6D1d32CE99D5c669DeE71D30d25a066D32c;
-  // address internal constant GNOSIS_ETHEREUM_ON_RAMP = 0x014ABcfDbCe9F67d0Df34574664a6C0A241Ec03A;
-
-  // address internal constant GNOSIS_AVALANCHE_OFF_RAMP = 0xe596D90EF0AEe10257109AC8394a85F8944bF6D0;
-  // address internal constant GNOSIS_ETHEREUM_OFF_RAMP = 0x658d9ae41A9c291De423d3B4B6C064f6dD0e7Ed2;
 
   // ETHEREUM //
   // CCIP Adresses -> https://docs.chain.link/ccip/directory/mainnet (Outbound = ON_RAMP, Inbound = OFF_RAMP)
