@@ -23,7 +23,6 @@ export const testTemplate = (options: Options, poolConfig: PoolConfig, pool: Poo
     .join('\n');
 
   let template = `
-import 'forge-std/Test.sol';
 import {${testBase}, ReserveConfig} from 'aave-helpers/${chain === 'ZkSync' ? 'zksync/src/' : 'src/'}${testBase}.sol';
 import {${contractName}} from './${contractName}.sol';
 
