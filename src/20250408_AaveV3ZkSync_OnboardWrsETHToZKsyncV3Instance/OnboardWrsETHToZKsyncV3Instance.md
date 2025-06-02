@@ -9,6 +9,8 @@ snapshot: Direct-to-AIP
 
 This is a proposal to onboard wrsETH to the Aave V3 ZKsync Instance allowing Aave users to supply wrsETH as collateral. This proposal will be under Direct to AIP, as there are already on other Aave Instances.
 
+Additionally, this AIP will update the rsETH LST E-Mode of the Prime instance.
+
 ## Motivation
 
 In order to benefit from the ongoing ZKsync Ignite incentives program, we propose onboarding assets which have proven popular on other Aave instances and are either whitelisted for Ignite incentives, or are good candidates for future whitelisting.
@@ -64,6 +66,19 @@ The table below illustrates the configured risk parameters for **wrsETH**
 | Liquidation Penalty | 1.00%  | -      |
 
 Additionally [0x95Cbff6e45C499d45dd8627f3ce179057B5Fbfcc](https://era.zksync.network/address/0x95Cbff6e45C499d45dd8627f3ce179057B5Fbfcc) has been set as the emission admin for wrsETH and the corresponding aToken.
+
+### Prime rsETH LST E-Mode Update
+
+| Parameter           | Value          | Value  |
+| ------------------- | -------------- | ------ |
+| Asset               | rsETH          | wstETH |
+| Collateral          | Yes            | No     |
+| Borrowable          | No             | Yes    |
+| LTV                 | ~~92.50%~~ 93% | -      |
+| LT                  | ~~94.50%~~ 95% | -      |
+| Liquidation Penalty | 1.00%          | -      |
+
+This E-Mode update come from this [AIP](https://governance.aave.com/t/arfc-lrt-and-wsteth-unification/21739#p-55276-rseth-ltv-lt-update-4). It wasn’t included in the AIP itself because it could be executed via the Risk Steward. However, since the new version of the Risk Steward has not yet been deployed on the Ethereum Prime instance, we’re currently unable to update the E-mode through it. As a result, we are proposing to bundle this change into the current rsETH ZkSync onboarding AIP.
 
 ## References
 
