@@ -18,7 +18,7 @@ contract AaveV3ZkSync_OnboardWrsETHToZKsyncV3Instance_20250408 is AaveV3PayloadZ
   using SafeERC20 for IERC20;
 
   address public constant wrsETH = 0xd4169E045bcF9a86cC00101225d9ED61D2F51af2;
-  uint256 public constant wrsETH_SEED_AMOUNT = 3e16;
+  uint256 public constant wrsETH_SEED_AMOUNT = 0.035e18;
   address public constant wrsETH_LM_ADMIN = 0x95Cbff6e45C499d45dd8627f3ce179057B5Fbfcc;
 
   function _postExecute() internal override {

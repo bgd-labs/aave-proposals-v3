@@ -38,7 +38,7 @@ contract AaveV3ZkSync_OnboardWrsETHToZKsyncV3Instance_20250408_Test is ProtocolV
   function test_dustBinHaswrsETHFunds() public {
     GovV3Helpers.executePayload(vm, address(proposal));
     address aTokenAddress = AaveV3ZkSync.POOL.getReserveAToken(proposal.wrsETH());
-    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3ZkSync.DUST_BIN)), 5 * 10 ** 15);
+    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3ZkSync.DUST_BIN)), 35 * 10 ** 15);
   }
 
   function test_wrsETHAdmin() public {

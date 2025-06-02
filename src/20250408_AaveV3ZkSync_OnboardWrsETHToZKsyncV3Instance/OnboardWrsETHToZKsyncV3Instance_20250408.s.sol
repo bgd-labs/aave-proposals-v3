@@ -3,6 +3,7 @@ pragma solidity ^0.8.0;
 
 import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aave-helpers/src/GovV3Helpers.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
+import {GovernanceV3ZkSync} from 'aave-address-book/GovernanceV3ZkSync.sol';
 import {EthereumScript, ChainIds} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
 import {GovernanceV3ZkSync} from 'aave-address-book/GovernanceV3ZkSync.sol';
 import {AaveV3EthereumLido_UpdatePrimeRsETHLSTEmode_20250602} from './AaveV3EthereumLido_UpdatePrimeRsETHLSTEmode_20250602.sol';
