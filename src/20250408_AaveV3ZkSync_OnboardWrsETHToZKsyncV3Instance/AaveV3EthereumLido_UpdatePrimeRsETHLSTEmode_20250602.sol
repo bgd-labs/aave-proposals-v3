@@ -6,10 +6,10 @@ import {AaveV3PayloadEthereumLido} from 'aave-helpers/src/v3-config-engine/AaveV
 import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
 /**
- * @title A
+ * @title Update Prime RsETH LST eMode on Aave V3 Ethereum Lido
  * @author ACI
- * - Snapshot: A
- * - Discussion: A
+ * - Snapshot: https://snapshot.box/#/s:aavedao.eth/proposal/0xd3e9abb877952861eb14a70a89fd01bdeccec1f6d159807acfaa514200831769
+ * - Discussion: https://governance.aave.com/t/arfc-lrt-and-wsteth-unification/21739#p-55276-rseth-ltv-lt-update-4
  */
 contract AaveV3EthereumLido_UpdatePrimeRsETHLSTEmode_20250602 is AaveV3PayloadEthereumLido {
   function eModeCategoriesUpdates()
