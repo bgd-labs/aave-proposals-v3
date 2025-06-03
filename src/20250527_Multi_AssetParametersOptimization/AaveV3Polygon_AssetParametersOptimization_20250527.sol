@@ -25,8 +25,8 @@ contract AaveV3Polygon_AssetParametersOptimization_20250527 is AaveV3PayloadPoly
       params: IAaveV3ConfigEngine.InterestRateInputData({
         optimalUsageRatio: 45_00,
         baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
-        variableRateSlope1: EngineFlags.KEEP_CURRENT,
-        variableRateSlope2: EngineFlags.KEEP_CURRENT
+        variableRateSlope1: 10_00,
+        variableRateSlope2: 150_00
       })
     });
     rateStrategies[1] = IAaveV3ConfigEngine.RateStrategyUpdate({
@@ -34,7 +34,7 @@ contract AaveV3Polygon_AssetParametersOptimization_20250527 is AaveV3PayloadPoly
       params: IAaveV3ConfigEngine.InterestRateInputData({
         optimalUsageRatio: 45_00,
         baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
-        variableRateSlope1: EngineFlags.KEEP_CURRENT,
+        variableRateSlope1: 15_00,
         variableRateSlope2: EngineFlags.KEEP_CURRENT
       })
     });

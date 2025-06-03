@@ -15,7 +15,7 @@ contract AaveV3Polygon_AssetParametersOptimization_20250527_Test is ProtocolV3Te
   AaveV3Polygon_AssetParametersOptimization_20250527 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('polygon'), 72042544);
+    vm.createSelectFork(vm.rpcUrl('polygon'), 72328112);
     proposal = new AaveV3Polygon_AssetParametersOptimization_20250527();
   }
 

@@ -19,14 +19,14 @@ contract AaveV3Ethereum_AssetParametersOptimization_20250527 is AaveV3PayloadEth
     returns (IAaveV3ConfigEngine.RateStrategyUpdate[] memory)
   {
     IAaveV3ConfigEngine.RateStrategyUpdate[]
-      memory rateStrategies = new IAaveV3ConfigEngine.RateStrategyUpdate[](3);
+      memory rateStrategies = new IAaveV3ConfigEngine.RateStrategyUpdate[](4);
     rateStrategies[0] = IAaveV3ConfigEngine.RateStrategyUpdate({
       asset: AaveV3EthereumAssets.CRV_UNDERLYING,
       params: IAaveV3ConfigEngine.InterestRateInputData({
         optimalUsageRatio: 45_00,
         baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
-        variableRateSlope1: EngineFlags.KEEP_CURRENT,
-        variableRateSlope2: EngineFlags.KEEP_CURRENT
+        variableRateSlope1: 10_00,
+        variableRateSlope2: 150_00
       })
     });
     rateStrategies[1] = IAaveV3ConfigEngine.RateStrategyUpdate({
@@ -35,7 +35,7 @@ contract AaveV3Ethereum_AssetParametersOptimization_20250527 is AaveV3PayloadEth
         optimalUsageRatio: 45_00,
         baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
         variableRateSlope1: EngineFlags.KEEP_CURRENT,
-        variableRateSlope2: EngineFlags.KEEP_CURRENT
+        variableRateSlope2: 150_00
       })
     });
     rateStrategies[2] = IAaveV3ConfigEngine.RateStrategyUpdate({
@@ -43,7 +43,16 @@ contract AaveV3Ethereum_AssetParametersOptimization_20250527 is AaveV3PayloadEth
       params: IAaveV3ConfigEngine.InterestRateInputData({
         optimalUsageRatio: 45_00,
         baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
-        variableRateSlope1: EngineFlags.KEEP_CURRENT,
+        variableRateSlope1: 15_00,
+        variableRateSlope2: EngineFlags.KEEP_CURRENT
+      })
+    });
+    rateStrategies[3] = IAaveV3ConfigEngine.RateStrategyUpdate({
+      asset: AaveV3EthereumAssets.RLUSD_UNDERLYING,
+      params: IAaveV3ConfigEngine.InterestRateInputData({
+        optimalUsageRatio: EngineFlags.KEEP_CURRENT,
+        baseVariableBorrowRate: 4_00,
+        variableRateSlope1: 2_50,
         variableRateSlope2: EngineFlags.KEEP_CURRENT
       })
     });

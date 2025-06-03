@@ -15,7 +15,7 @@ contract AaveV3Celo_AssetParametersOptimization_20250527_Test is ProtocolV3TestB
   AaveV3Celo_AssetParametersOptimization_20250527 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('celo'), 36475951);
+    vm.createSelectFork(vm.rpcUrl('celo'), 37085611);
     proposal = new AaveV3Celo_AssetParametersOptimization_20250527();
   }
 

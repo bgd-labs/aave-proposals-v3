@@ -15,7 +15,7 @@ contract AaveV3Ethereum_AssetParametersOptimization_20250527_Test is ProtocolV3T
   AaveV3Ethereum_AssetParametersOptimization_20250527 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 22576417);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 22626835);
     proposal = new AaveV3Ethereum_AssetParametersOptimization_20250527();
   }
 

@@ -1,6 +1,9 @@
 import {ConfigFile} from '../../generator/types';
 export const config: ConfigFile = {
   rootOptions: {
+    configFile: 'src/20250527_Multi_AssetParametersOptimization/config.ts',
+    force: true,
+    update: true,
     author: 'Aave-Chan Initiative',
     title: 'Asset Parameters Optimization',
     discussion: 'https://governance.aave.com/t/arfc-asset-parameters-optimization',
@@ -19,8 +22,8 @@ export const config: ConfigFile = {
             params: {
               optimalUtilizationRate: '45',
               baseVariableBorrowRate: '',
-              variableRateSlope1: '',
-              variableRateSlope2: '',
+              variableRateSlope1: '10',
+              variableRateSlope2: '150',
             },
           },
           {
@@ -29,7 +32,7 @@ export const config: ConfigFile = {
               optimalUtilizationRate: '45',
               baseVariableBorrowRate: '',
               variableRateSlope1: '',
-              variableRateSlope2: '',
+              variableRateSlope2: '150',
             },
           },
           {
@@ -37,7 +40,16 @@ export const config: ConfigFile = {
             params: {
               optimalUtilizationRate: '45',
               baseVariableBorrowRate: '',
-              variableRateSlope1: '',
+              variableRateSlope1: '15',
+              variableRateSlope2: '',
+            },
+          },
+          {
+            asset: 'RLUSD',
+            params: {
+              optimalUtilizationRate: '',
+              baseVariableBorrowRate: '4',
+              variableRateSlope1: '2.5',
               variableRateSlope2: '',
             },
           },
@@ -69,7 +81,7 @@ export const config: ConfigFile = {
           },
         ],
       },
-      cache: {blockNumber: 22576417},
+      cache: {blockNumber: 22626835},
     },
     AaveV3Polygon: {
       configs: {
@@ -79,8 +91,8 @@ export const config: ConfigFile = {
             params: {
               optimalUtilizationRate: '45',
               baseVariableBorrowRate: '',
-              variableRateSlope1: '',
-              variableRateSlope2: '',
+              variableRateSlope1: '10',
+              variableRateSlope2: '150',
             },
           },
           {
@@ -88,13 +100,13 @@ export const config: ConfigFile = {
             params: {
               optimalUtilizationRate: '45',
               baseVariableBorrowRate: '',
-              variableRateSlope1: '',
+              variableRateSlope1: '15',
               variableRateSlope2: '',
             },
           },
         ],
       },
-      cache: {blockNumber: 72042544},
+      cache: {blockNumber: 72328112},
     },
     AaveV3Celo: {
       configs: {
@@ -109,7 +121,7 @@ export const config: ConfigFile = {
           },
         ],
       },
-      cache: {blockNumber: 36475951},
+      cache: {blockNumber: 37085611},
     },
   },
 };
