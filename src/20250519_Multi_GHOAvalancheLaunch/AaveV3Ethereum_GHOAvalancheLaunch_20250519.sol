@@ -4,11 +4,7 @@ pragma solidity ^0.8.0;
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
 import {IUpgradeableBurnMintTokenPool_1_5_1} from 'src/interfaces/ccip/tokenPool/IUpgradeableBurnMintTokenPool.sol';
 import {IRateLimiter} from 'src/interfaces/ccip/IRateLimiter.sol';
-import {ILegacyProxyAdmin, ITransparentUpgradeableProxy} from 'src/interfaces/ILegacyProxyAdmin.sol';
-
-import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {GhoEthereum} from 'aave-address-book/GhoEthereum.sol';
-import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {CCIPUtils} from './utils/CCIPUtils.sol';
 import {GHOLaunchConstants} from './utils/GHOLaunchConstants.sol';
 
