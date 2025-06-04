@@ -1,7 +1,7 @@
 ---
 title: "Asset Parameters Optimization"
 author: "Aave-Chan Initiative"
-discussions: "https://governance.aave.com/t/arfc-asset-parameters-optimization"
+discussions: "https://governance.aave.com/t/direct-to-aip-asset-parameters-optimization/22178"
 ---
 
 ## Simple Summary
@@ -19,7 +19,7 @@ The key changes include:
 
 ## Specification
 
-|**Market**|**Asset**|**Current RF**|**Rec. R**F|
+|**Market**|**Asset**|**Current RF**|**Rec. RF**|
 | --- | --- | --- | --- |
 |Ethereum Core|crvUSD|10%|20%|
 |Ethereum Core|RLUSD|10%|20%|
@@ -40,7 +40,7 @@ The key changes include:
 - Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250527_Multi_AssetParametersOptimization/AaveV3Ethereum_AssetParametersOptimization_20250527.sol), [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250527_Multi_AssetParametersOptimization/AaveV3Polygon_AssetParametersOptimization_20250527.sol), [AaveV3Celo](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250527_Multi_AssetParametersOptimization/AaveV3Celo_AssetParametersOptimization_20250527.sol)
 - Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250527_Multi_AssetParametersOptimization/AaveV3Ethereum_AssetParametersOptimization_20250527.t.sol), [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250527_Multi_AssetParametersOptimization/AaveV3Polygon_AssetParametersOptimization_20250527.t.sol), [AaveV3Celo](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250527_Multi_AssetParametersOptimization/AaveV3Celo_AssetParametersOptimization_20250527.t.sol)
 - Snapshot: Direct-to-AIP
-- [Discussion](https://governance.aave.com/t/arfc-asset-parameters-optimization)
+- [Discussion](https://governance.aave.com/t/direct-to-aip-asset-parameters-optimization/22178)
 
 ## Copyright
 
