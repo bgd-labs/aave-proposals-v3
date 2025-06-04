@@ -44,6 +44,7 @@ contract AaveV3Avalanche_GHOAvalancheListing_20250519 is AaveV3PayloadAvalanche 
   function newListings() public pure override returns (IAaveV3ConfigEngine.Listing[] memory) {
     IAaveV3ConfigEngine.Listing[] memory listings = new IAaveV3ConfigEngine.Listing[](1);
 
+    // @todo update based on ChaosLabs input
     listings[0] = IAaveV3ConfigEngine.Listing({
       asset: GHO_TOKEN,
       assetSymbol: 'GHO',
@@ -55,16 +56,16 @@ contract AaveV3Avalanche_GHOAvalancheListing_20250519 is AaveV3PayloadAvalanche 
       ltv: 0,
       liqThreshold: 0,
       liqBonus: 0,
-      reserveFactor: 1,
-      supplyCap: 2_500_000, // @todo validate
-      borrowCap: 2_250_000, // @todo validate
+      reserveFactor: 10_00,
+      supplyCap: 5_000_000,
+      borrowCap: 4_500_000,
       debtCeiling: 0,
       liqProtocolFee: 0,
       rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
         optimalUsageRatio: 90_00,
         baseVariableBorrowRate: 0,
-        variableRateSlope1: 6_50,
-        variableRateSlope2: 50_00
+        variableRateSlope1: 12_00,
+        variableRateSlope2: 65_00
       })
     });
 
