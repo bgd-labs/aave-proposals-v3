@@ -50,10 +50,12 @@ library GHOLaunchConstants {
 
   address internal constant ARBITRUM_AVALANCHE_ON_RAMP = 0xe80cC83B895ada027b722b78949b296Bd1fC5639; // ARB_GNO_ON_RAMP
   address internal constant ARBITRUM_ETHEREUM_ON_RAMP = 0x67761742ac8A21Ec4D76CA18cbd701e5A6F3Bef3; // ARB_ETH_ON_RAMP
+  address internal constant ARBITRUM_BASE_ON_RAMP = 0xc1b6287A3292d6469F2D8545877E40A2f75CA9a6; // ARB_ETH_ON_RAMP
 
   address internal constant ARBITRUM_AVALANCHE_OFF_RAMP =
     0x95095007d5Cc3E7517A1A03c9e228adA5D0bc376; // ARB_GNO_OFF_RAMP
   address internal constant ARBITRUM_ETHEREUM_OFF_RAMP = 0x91e46cc5590A4B9182e47f40006140A7077Dec31; // ARB_ETH_OFF_RAMP
+  address internal constant ARBITRUM_BASE_OFF_RAMP = 0xb62178f8198905D0Fa6d640Bdb188E4E8143Ac4b; // ARB_ETH_OFF_RAMP
 
   // BASE //
   // CCIP Adresses -> https://docs.chain.link/ccip/directory/mainnet (Outbound = ON_RAMP, Inbound = OFF_RAMP)
@@ -62,9 +64,11 @@ library GHOLaunchConstants {
 
   address internal constant BASE_AVALANCHE_ON_RAMP = 0x4be6E0F97EA849FF80773af7a317356E6c646FD7; // BASE_GNO_ON_RAMP
   address internal constant BASE_ETHEREUM_ON_RAMP = 0x56b30A0Dcd8dc87Ec08b80FA09502bAB801fa78e; // BASE_ETH_ON_RAMP
+  address internal constant BASE_ARBITRUM_ON_RAMP = 0x9D0ffA76C7F82C34Be313b5bFc6d42A72dA8CA69; // BASE_ARB_ON_RAMP
 
   address internal constant BASE_AVALANCHE_OFF_RAMP = 0x61C3f6d72c80A3D1790b213c4cB58c3d4aaFccDF; // BASE_GNO_OFF_RAMP
   address internal constant BASE_ETHEREUM_OFF_RAMP = 0xCA04169671A81E4fB8768cfaD46c347ae65371F1; // BASE_ETH_OFF_RAMP
+  address internal constant BASE_ARBITRUM_OFF_RAMP = 0x7D38c6363d5E4DFD500a691Bc34878b383F58d93; // BASE_ARB_OFF_RAMP
 
   // ETHEREUM //
   // CCIP Adresses -> https://docs.chain.link/ccip/directory/mainnet (Outbound = ON_RAMP, Inbound = OFF_RAMP)
@@ -74,12 +78,10 @@ library GHOLaunchConstants {
 
   address internal constant ETHEREUM_AVALANCHE_ON_RAMP = 0xaFd31C0C78785aDF53E4c185670bfd5376249d8A; // ETH_GNO_ON_RAMP
   address internal constant ETHEREUM_ARBITRUM_ON_RAMP = 0x69eCC4E2D8ea56E2d0a05bF57f4Fd6aEE7f2c284; // ETH_ARB_ON_RAMP
-  // address internal constant ETHEREUM_GNOSIS_ON_RAMP = 0xf50B9A46C394bD98491ce163d420222d8030F6F0; // new
   address internal constant ETHEREUM_BASE_ON_RAMP = 0xb8a882f3B88bd52D1Ff56A873bfDB84b70431937; // ETH_BASE_ON_RAMP
 
   address internal constant ETHEREUM_AVALANCHE_OFF_RAMP =
     0xd98E80C79a15E4dbaF4C40B6cCDF690fe619BFBb; // ETH_GNO_OFF_RAMP
   address internal constant ETHEREUM_ARBITRUM_OFF_RAMP = 0xdf615eF8D4C64d0ED8Fd7824BBEd2f6a10245aC9; // ETH_ARB_OFF_RAMP
-  // address internal constant ETHEREUM_GNOSIS_OFF_RAMP = 0x70C705ff3eCAA04c8c61d581a59a168a1c49c2ec; // new
   address internal constant ETHEREUM_BASE_OFF_RAMP = 0x6B4B6359Dd5B47Cdb030E5921456D2a0625a9EbD; // ETH_BASE_OFF_RAMP
 }
