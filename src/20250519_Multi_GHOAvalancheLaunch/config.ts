@@ -20,6 +20,7 @@ export const config: ConfigFile = {
     AaveV3Base: {configs: {OTHERS: {}}, cache: {blockNumber: 30789286}},
     AaveV3Avalanche: {
       configs: {
+        // @todo update based on ChaosLabs input
         ASSET_LISTING: [
           {
             assetSymbol: 'GHO',
