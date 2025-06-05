@@ -6,7 +6,7 @@ export const config: ConfigFile = {
     update: true,
     author: 'Aave-Chan Initiative',
     title: 'Asset Parameters Optimization',
-    discussion: 'https://governance.aave.com/t/arfc-asset-parameters-optimization',
+    discussion: 'https://governance.aave.com/t/direct-to-aip-asset-parameters-optimization/22178',
     snapshot: 'Direct-to-AIP',
     pools: ['AaveV3Ethereum', 'AaveV3Polygon', 'AaveV3Celo'],
     shortName: 'AssetParametersOptimization',
