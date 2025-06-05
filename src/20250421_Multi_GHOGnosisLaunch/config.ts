@@ -31,7 +31,7 @@ export const config: ConfigFile = {
             flashloanable: 'ENABLED',
             borrowableInIsolation: 'DISABLED',
             withSiloedBorrowing: 'DISABLED',
-            reserveFactor: '0',
+            reserveFactor: '1000',
             supplyCap: '2500000',
             borrowCap: '2250000',
             rateStrategyParams: {
