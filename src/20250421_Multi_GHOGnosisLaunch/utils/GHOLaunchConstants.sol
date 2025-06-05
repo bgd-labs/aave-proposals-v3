@@ -58,6 +58,12 @@ library GHOLaunchConstants {
   address internal constant ETH_GNO_OFF_RAMP = 0x70C705ff3eCAA04c8c61d581a59a168a1c49c2ec;
   address internal constant ETH_BASE_OFF_RAMP = 0x6B4B6359Dd5B47Cdb030E5921456D2a0625a9EbD;
 
+  // Avalanche Addresses
+  address internal constant AVAX_TOKEN_ADMIN_REGISTRY = 0xc8df5D618c6a59Cc6A311E96a39450381001464F;
+  address internal constant AVAX_CCIP_ROUTER = 0xF4c7E640EdA248ef95972845a62bdC74237805dB;
+  address internal constant AVAX_GHO_TOKEN = 0xfc421aD3C883Bf9E7C4f42dE845C4e4405799e73;
+  address internal constant AVAX_GHO_TOKEN_POOL = 0xDe6539018B095353A40753Dc54C91C68c9487D4E;
+
   // Gnosis Addresses
   address internal constant GNO_TOKEN_POOL = 0xDe6539018B095353A40753Dc54C91C68c9487D4E;
   address internal constant GNO_TOKEN_ADMIN_REGISTRY = 0x73BC11423CBF14914998C23B0aFC9BE0cb5B2229;
@@ -74,9 +80,11 @@ library GHOLaunchConstants {
   address internal constant GNO_ARB_ON_RAMP = 0x140E6D5ba903F684944Dd27369d767DdEf958c9B;
   address internal constant GNO_ETH_ON_RAMP = 0x014ABcfDbCe9F67d0Df34574664a6C0A241Ec03A;
   address internal constant GNO_BASE_ON_RAMP = 0xAAb6D9fc00aAc37373206e91789CcDE1E851b3E4;
+  address internal constant GNO_AVAX_ON_RAMP = 0xB707a6D1d32CE99D5c669DeE71D30d25a066D32c;
 
   // Gnosis OFF_RAMPs
   address internal constant GNO_ARB_OFF_RAMP = 0x2C1539696E29012806a15Bcd9845Ed1278a9fd63;
   address internal constant GNO_BASE_OFF_RAMP = 0xbeEDd1C5C13C5886c3d600e94Ff9e82C04A53C38;
   address internal constant GNO_ETH_OFF_RAMP = 0x658d9ae41A9c291De423d3B4B6C064f6dD0e7Ed2;
+  address internal constant GNO_AVAX_OFF_RAMP = 0xe596D90EF0AEe10257109AC8394a85F8944bF6D0;
 }
