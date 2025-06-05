@@ -9,7 +9,7 @@ import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config
  * @title Asset Parameters Optimization
  * @author Aave-Chan Initiative
  * - Snapshot: Direct-to-AIP
- * - Discussion: https://governance.aave.com/t/arfc-asset-parameters-optimization
+ * - Discussion: https://governance.aave.com/t/direct-to-aip-asset-parameters-optimization/22178
  */
 contract AaveV3Polygon_AssetParametersOptimization_20250527 is AaveV3PayloadPolygon {
   function rateStrategiesUpdates()
