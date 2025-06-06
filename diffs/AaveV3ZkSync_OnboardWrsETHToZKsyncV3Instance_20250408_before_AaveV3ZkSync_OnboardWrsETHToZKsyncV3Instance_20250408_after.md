@@ -13,7 +13,7 @@
 | borrowCap | 1 wrsETH |
 | debtCeiling | 0 $ [0] |
 | isSiloed | false |
-| isFlashloanable | false |
+| isFlashloanable | true |
 | oracle | [0x8d25c9de6DBAd9a9eadfB2CA4706034F6721d555](https://era.zksync.network//address/0x8d25c9de6DBAd9a9eadfB2CA4706034F6721d555) |
 | oracleDecimals | 8 |
 | oracleDescription | Capped rsETH / ETH / USD |
@@ -105,7 +105,7 @@
         "interestRateStrategy": "0x57815Ab06D846d7dECd326Ee541CD06144FED237",
         "isActive": true,
         "isBorrowableInIsolation": false,
-        "isFlashloanable": false,
+        "isFlashloanable": true,
         "isFrozen": false,
         "isPaused": false,
         "isSiloed": false,
