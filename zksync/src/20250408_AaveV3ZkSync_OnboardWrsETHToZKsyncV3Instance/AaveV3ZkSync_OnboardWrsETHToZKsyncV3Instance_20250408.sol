@@ -83,7 +83,7 @@ contract AaveV3ZkSync_OnboardWrsETHToZKsyncV3Instance_20250408 is AaveV3PayloadZ
       enabledToBorrow: EngineFlags.DISABLED,
       borrowableInIsolation: EngineFlags.DISABLED,
       withSiloedBorrowing: EngineFlags.DISABLED,
-      flashloanable: EngineFlags.DISABLED,
+      flashloanable: EngineFlags.ENABLED,
       ltv: 5,
       liqThreshold: 10,
       liqBonus: 7_50,
