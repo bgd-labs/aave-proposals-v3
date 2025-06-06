@@ -38,7 +38,7 @@ The table below illustrates the configured risk parameters for **wrsETH**
 | Variable Slope 1          |                                       10 % |
 | Variable Slope 2          |                                      300 % |
 | Uoptimal                  |                                       45 % |
-| Flashloanable             |                                   DISABLED |
+| Flashloanable             |                                    ENABLED |
 | Siloed Borrowing          |                                   DISABLED |
 | Borrowable in Isolation   |                                   DISABLED |
 | Oracle                    | 0x8d25c9de6DBAd9a9eadfB2CA4706034F6721d555 |
