@@ -82,8 +82,8 @@ This E-Mode update come from this [AIP](https://governance.aave.com/t/arfc-lrt-a
 
 ## References
 
-- Implementation: [AaveV3ZkSync](https://github.com/bgd-labs/aave-proposals-v3/blob/main/zksync/src/20250408_AaveV3ZkSync_OnboardWrsETHToZKsyncV3Instance/AaveV3ZkSync_OnboardWrsETHToZKsyncV3Instance_20250408.sol)
-- Tests: [AaveV3ZkSync](https://github.com/bgd-labs/aave-proposals-v3/blob/main/zksync/src/20250408_AaveV3ZkSync_OnboardWrsETHToZKsyncV3Instance/AaveV3ZkSync_OnboardWrsETHToZKsyncV3Instance_20250408.t.sol)
+- Implementation: [AaveV3ZkSync](https://github.com/bgd-labs/aave-proposals-v3/blob/1adee2dd31ea242f53628752df3184646e931ab7/zksync/src/20250408_AaveV3ZkSync_OnboardWrsETHToZKsyncV3Instance/AaveV3ZkSync_OnboardWrsETHToZKsyncV3Instance_20250408.sol)
+- Tests: [AaveV3ZkSync](https://github.com/bgd-labs/aave-proposals-v3/blob/1adee2dd31ea242f53628752df3184646e931ab7/zksync/src/20250408_AaveV3ZkSync_OnboardWrsETHToZKsyncV3Instance/AaveV3ZkSync_OnboardWrsETHToZKsyncV3Instance_20250408.t.sol)
 - Snapshot: Direct-to-AIP
 - [Discussion](https://governance.aave.com/t/arfc-onboard-wrseth-to-zksync-v3-instance/20727)
 
