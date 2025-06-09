@@ -2,20 +2,56 @@
 title: "Pendle PT Discount Rate Risk Oracle Activation"
 author: "BGD Labs (@bgdlabs)"
 discussions: "http://governance.aave.com/t/chaos-labs-risk-oracles/17216"
-snapshot: TODO
+snapshot: "Direct To AIP"
 ---
 
 ## Simple Summary
 
+This proposal activates the automated Aave Generalized Risk Stewards (AGRS) system on the Ethereum core Instance to perform automated discount rate updates on pendle pt feeds. We also update the manual RiskSteward to the newer iteration which allows for e-mode category updates across all instances.
+
 ## Motivation
 
+The current implementation of manual AGRS allows for the periodic manual updating of discount rate on pendle pt oracles, generally performed in response to market changes. With high volume of updates, similar to other risk params we think it's time to automate the discount rate param of the pt oracle to reduce delays and have more dynamism.
+
+The new iteration of manual RiskSteward was only activated on the Ethereum core instance as part of [Proposal 299](https://vote.onaave.com/proposal/?proposalId=299) which in addition to the previous iteration allows updating eMode category collateral params such as LT, LTV and LB in a constrained manner, while also allowing to change the discountRate of pendle pt feeds. With the new iteration of RiskSteward live on the core instance for a while we think it's a good idea to activate it on all other instances as well.
+
 ## Specification
+
+### Automated AGRS
+
+This new discount rate AGRS will mirror the same infrastructure as the currently active for other automated AGRS, but a summary of specifications is the following:
+
+- The AGRS will have only one configurable parameter: discount rate on pt feeds.
+- Recommendation of these parameters will be submitted to a RiskOracle smart contract, from the Edge off-chain infrastructure. Between the risk oracle smart contract and the AGRS contract, there will be a thin middleware [AaveStewardInjectorDiscountRate](http://github.com/aave-dao/aave-v3-risk-stewards/blob/6e8fef4f74d2c68052be9ffa6983aae918c7579b/src/contracts/AaveStewardInjectorDiscountRate.sol), with the following logic:
+  - Takes recommendations from the Edge Risk Oracle side and propagate them to the AGRS contract.
+  - Enforce that only the whitelisted pendle pt feeds can be acted upon.
+  - Given the protections (percentage constraints and time delay) on the AGRS side and that it is an assumption that risk recommendations will be timed correctly on the Edge Risk Oracle side, the propagation will be permissionless.
+
+The [AaveStewardInjectorDiscountRate](http://github.com/aave-dao/aave-v3-risk-stewards/blob/6e8fef4f74d2c68052be9ffa6983aae918c7579b/src/contracts/AaveStewardInjectorDiscountRate.sol) will be part of the Aave Robot infrastructure, running on Chainlink Automation and consuming LINK from the Aave Collector. The new AGRS contract will be given `RISK_ADMIN` role.
+
+The following feeds for pendle pt assets on core instance will be automated: `PT_sUSDE_31JUL2025`, `PT_USDe_31JUL2025`, `PT_eUSDE_14AUG2025`.
+
+Constraints on the discount rate update of the pendle pt feeds will be as follow: maximum 1% absolute increase/decrease each 2 days.
+
+### Manual AGRS
+
+The new manual RiskSteward will be activated on all the instances and will be given the `RISK_ADMIN` role via: `ACL_MANAGER.addRiskAdmin(RISK_STEWARD);` and the `RISK_ADMIN` role of the previous manual RiskSteward along with other legacy contracts like `FREEZING_STEWARD` and `CAPS_PLUS_RISK_STEWARD` will be revoked.
+
+**_Please note: GHO asset will be set as restricted on the new manual stewards as the asset is to be updated via the gho stewards._**
+
+The following risk configuration will be set on the new manual RiskSteward for all instances:
+
+| **Parameter**                | **Percent change allowed** | **minimumDelay** |
+| ---------------------------- | -------------------------- | ---------------- |
+| EMode LTV                    | 0.5% absolute change       | 3 days           |
+| EMode LiquidationThreshold   | 0.1% absolute change       | 3 days           |
+| EMode LiquidationBonus       | 0.5% absolute change       | 3 days           |
+| Pendle PT Feed Discount Rate | 2.5% absolute change       | 2 days           |
 
 ## References
 
 - Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250606_Multi_PendlePTDiscountRateRiskOracleActivation/AaveV3Ethereum_PendlePTDiscountRateRiskOracleActivation_20250606.sol), [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250606_Multi_PendlePTDiscountRateRiskOracleActivation/AaveV3EthereumLido_PendlePTDiscountRateRiskOracleActivation_20250606.sol), [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250606_Multi_PendlePTDiscountRateRiskOracleActivation/AaveV3Polygon_PendlePTDiscountRateRiskOracleActivation_20250606.sol), [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250606_Multi_PendlePTDiscountRateRiskOracleActivation/AaveV3Avalanche_PendlePTDiscountRateRiskOracleActivation_20250606.sol), [AaveV3Optimism](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250606_Multi_PendlePTDiscountRateRiskOracleActivation/AaveV3Optimism_PendlePTDiscountRateRiskOracleActivation_20250606.sol), [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250606_Multi_PendlePTDiscountRateRiskOracleActivation/AaveV3Arbitrum_PendlePTDiscountRateRiskOracleActivation_20250606.sol), [AaveV3Metis](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250606_Multi_PendlePTDiscountRateRiskOracleActivation/AaveV3Metis_PendlePTDiscountRateRiskOracleActivation_20250606.sol), [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250606_Multi_PendlePTDiscountRateRiskOracleActivation/AaveV3Base_PendlePTDiscountRateRiskOracleActivation_20250606.sol), [AaveV3Gnosis](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250606_Multi_PendlePTDiscountRateRiskOracleActivation/AaveV3Gnosis_PendlePTDiscountRateRiskOracleActivation_20250606.sol), [AaveV3Scroll](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250606_Multi_PendlePTDiscountRateRiskOracleActivation/AaveV3Scroll_PendlePTDiscountRateRiskOracleActivation_20250606.sol), [AaveV3BNB](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250606_Multi_PendlePTDiscountRateRiskOracleActivation/AaveV3BNB_PendlePTDiscountRateRiskOracleActivation_20250606.sol), [AaveV3ZkSync](https://github.com/bgd-labs/aave-proposals-v3/blob/main/zksync/src/20250606_Multi_PendlePTDiscountRateRiskOracleActivation/AaveV3ZkSync_PendlePTDiscountRateRiskOracleActivation_20250606.sol), [AaveV3Linea](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250606_Multi_PendlePTDiscountRateRiskOracleActivation/AaveV3Linea_PendlePTDiscountRateRiskOracleActivation_20250606.sol), [AaveV3Celo](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250606_Multi_PendlePTDiscountRateRiskOracleActivation/AaveV3Celo_PendlePTDiscountRateRiskOracleActivation_20250606.sol), [AaveV3Sonic](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250606_Multi_PendlePTDiscountRateRiskOracleActivation/AaveV3Sonic_PendlePTDiscountRateRiskOracleActivation_20250606.sol)
 - Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250606_Multi_PendlePTDiscountRateRiskOracleActivation/AaveV3Ethereum_PendlePTDiscountRateRiskOracleActivation_20250606.t.sol), [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250606_Multi_PendlePTDiscountRateRiskOracleActivation/AaveV3EthereumLido_PendlePTDiscountRateRiskOracleActivation_20250606.t.sol), [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250606_Multi_PendlePTDiscountRateRiskOracleActivation/AaveV3Polygon_PendlePTDiscountRateRiskOracleActivation_20250606.t.sol), [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250606_Multi_PendlePTDiscountRateRiskOracleActivation/AaveV3Avalanche_PendlePTDiscountRateRiskOracleActivation_20250606.t.sol), [AaveV3Optimism](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250606_Multi_PendlePTDiscountRateRiskOracleActivation/AaveV3Optimism_PendlePTDiscountRateRiskOracleActivation_20250606.t.sol), [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250606_Multi_PendlePTDiscountRateRiskOracleActivation/AaveV3Arbitrum_PendlePTDiscountRateRiskOracleActivation_20250606.t.sol), [AaveV3Metis](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250606_Multi_PendlePTDiscountRateRiskOracleActivation/AaveV3Metis_PendlePTDiscountRateRiskOracleActivation_20250606.t.sol), [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250606_Multi_PendlePTDiscountRateRiskOracleActivation/AaveV3Base_PendlePTDiscountRateRiskOracleActivation_20250606.t.sol), [AaveV3Gnosis](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250606_Multi_PendlePTDiscountRateRiskOracleActivation/AaveV3Gnosis_PendlePTDiscountRateRiskOracleActivation_20250606.t.sol), [AaveV3Scroll](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250606_Multi_PendlePTDiscountRateRiskOracleActivation/AaveV3Scroll_PendlePTDiscountRateRiskOracleActivation_20250606.t.sol), [AaveV3BNB](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250606_Multi_PendlePTDiscountRateRiskOracleActivation/AaveV3BNB_PendlePTDiscountRateRiskOracleActivation_20250606.t.sol), [AaveV3ZkSync](https://github.com/bgd-labs/aave-proposals-v3/blob/main/zksync/src/20250606_Multi_PendlePTDiscountRateRiskOracleActivation/AaveV3ZkSync_PendlePTDiscountRateRiskOracleActivation_20250606.t.sol), [AaveV3Linea](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250606_Multi_PendlePTDiscountRateRiskOracleActivation/AaveV3Linea_PendlePTDiscountRateRiskOracleActivation_20250606.t.sol), [AaveV3Celo](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250606_Multi_PendlePTDiscountRateRiskOracleActivation/AaveV3Celo_PendlePTDiscountRateRiskOracleActivation_20250606.t.sol), [AaveV3Sonic](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250606_Multi_PendlePTDiscountRateRiskOracleActivation/AaveV3Sonic_PendlePTDiscountRateRiskOracleActivation_20250606.t.sol)
-  [Snapshot](TODO)
 - [Discussion](http://governance.aave.com/t/chaos-labs-risk-oracles/17216)
 
 ## Copyright
