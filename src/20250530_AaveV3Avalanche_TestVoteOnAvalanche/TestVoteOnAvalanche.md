@@ -1,24 +1,22 @@
 ---
-title: "Test vote on Avalanche"
+title: "Fire drill proposal Avalanche VotingMachine"
 author: "BGD Labs @bgdlabs"
 discussions: TODO
 ---
 
 ## Simple Summary
 
-Simple proposal to test the Aave Governance voting flow on Avalanche network.
+Do a fire drill voting flow with a mock governance proposal using Avalanche as the voting network instead of Polygon as usual, to test that all peripheral systems are properly functioning.
 
 ## Motivation
 
-As of now, Aave proposals have been only voted on Polygon network, but the Gov V3 system also allows voting on Ethereum and Avalanche networks. With this proposal we
-create a simple payload so that the Avalanche voting flow can be tested, and in this way, unlock Avalanche network as a voting chain for the Aave governance.
-Increasing in this manner, the Aave Governance voting system redundancy.
+Given that the Aave Governance flow has never been used, we think it is healthy to make a fire drill: creating a proposal executing a payload without any meaningful content, but using the Avalanche voting infrastructure.
 
 ## Specification
 
-The proposal will use the Eth -> Avax [Voting Portal](https://etherscan.io/address/0x9Ded9406f088C10621BE628EEFf40c1DF396c172) so that voting will happen on the Avalanche network.
+The governance proposal will be created using the [Ethereum → Avalanche Voting Portal](https://etherscan.io/address/0x9Ded9406f088C10621BE628EEFf40c1DF396c172) so that voting will happen on the Avalanche network.
 
-On payload execution the message: `Payload executed correctly` will be emitted.
+The payload executed will just contain an empty execute() function, as the purpose of this fire drill is testing the full flow, and not any execution content.
 
 ## References
 

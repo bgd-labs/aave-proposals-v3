@@ -15,8 +15,6 @@ import {AaveV3Ethereum_TestVoteOnEthereum_20250530} from './AaveV3Ethereum_TestV
 contract AaveV3Ethereum_TestVoteOnEthereum_20250530_Test is ProtocolV3TestBase {
   AaveV3Ethereum_TestVoteOnEthereum_20250530 internal proposal;
 
-  event TestVoteOnAvalanche(bytes testMessage);
-
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('mainnet'), 22595989);
     proposal = new AaveV3Ethereum_TestVoteOnEthereum_20250530();
@@ -31,11 +29,5 @@ contract AaveV3Ethereum_TestVoteOnEthereum_20250530_Test is ProtocolV3TestBase {
       AaveV3Ethereum.POOL,
       address(proposal)
     );
-  }
-
-  function test_messageIsEmitted() public {
-    vm.expectEmit(true, true, true, true);
-    emit TestVoteOnAvalanche('Payload executed correctly');
-    proposal.execute();
   }
 }

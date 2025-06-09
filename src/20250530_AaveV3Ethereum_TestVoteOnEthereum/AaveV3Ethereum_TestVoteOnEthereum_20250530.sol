@@ -5,11 +5,8 @@ import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGen
 /**
  * @title Test vote on Ethereum
  * @author BGD Labs @bgdlabs
- * - Discussion: TODO
+ * - Discussion: https://governance.aave.com/t/technical-maintenance-proposals/15274/91
  */
 contract AaveV3Ethereum_TestVoteOnEthereum_20250530 is IProposalGenericExecutor {
-  event TestVoteOnAvalanche(bytes testMessage);
-  function execute() external {
-    emit TestVoteOnAvalanche('Payload executed correctly');
-  }
+  function execute() external {}
 }

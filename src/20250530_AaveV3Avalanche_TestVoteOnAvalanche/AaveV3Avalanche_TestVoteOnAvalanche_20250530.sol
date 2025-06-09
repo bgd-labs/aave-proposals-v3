@@ -8,8 +8,5 @@ import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGen
  * - Discussion: TODO
  */
 contract AaveV3Avalanche_TestVoteOnAvalanche_20250530 is IProposalGenericExecutor {
-  event TestVoteOnAvalanche(bytes testMessage);
-  function execute() external {
-    emit TestVoteOnAvalanche('Payload executed correctly');
-  }
+  function execute() external {}
 }
