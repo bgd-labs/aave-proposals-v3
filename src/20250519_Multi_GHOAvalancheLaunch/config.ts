@@ -14,7 +14,7 @@ export const config: ConfigFile = {
   },
   poolOptions: {
     // @todo update block numbers
-    // @todo manually enteered in many plances
+    // @note manually enteered in many plances
     AaveV3Ethereum: {configs: {OTHERS: {}}, cache: {blockNumber: 22575695}},
     AaveV3Arbitrum: {configs: {OTHERS: {}}, cache: {blockNumber: 341142215}},
     AaveV3Base: {configs: {OTHERS: {}}, cache: {blockNumber: 30789286}},
@@ -50,7 +50,7 @@ export const config: ConfigFile = {
           },
         ],
       },
-      cache: {blockNumber: 62821271}, // @todo update avalanche block number
+      cache: {blockNumber: 63569943}, // @todo update avalanche block number
     },
   },
 };

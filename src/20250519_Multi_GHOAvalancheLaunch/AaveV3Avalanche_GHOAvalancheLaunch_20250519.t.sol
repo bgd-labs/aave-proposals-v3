@@ -105,10 +105,10 @@ contract AaveV3Avalanche_GHOAvalancheLaunch_20250519_Base is ProtocolV3TestBase 
   error InvalidSourcePoolAddress(bytes);
 
   function setUp() public virtual {
-    vm.createSelectFork(vm.rpcUrl('avalanche'), 62821271);
+    vm.createSelectFork(vm.rpcUrl('avalanche'), 63569943);
     proposal = new AaveV3Avalanche_GHOAvalancheLaunch_20250519();
 
-    _performCcipPreReq(); // @note mocked. Need CL to initiate admin transfer on their side. When ready, remove this method
+    // _performCcipPreReq(); // @note mocked. Need CL to initiate admin transfer on their side. When ready, remove this method
     _validateConstants();
   }
 

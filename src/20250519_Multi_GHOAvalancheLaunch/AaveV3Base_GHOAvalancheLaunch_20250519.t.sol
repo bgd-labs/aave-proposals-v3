@@ -59,10 +59,14 @@ contract AaveV3Base_GHOAvalancheLaunch_20250519_Avalanche is ProtocolV3TestBase 
     IEVM2EVMOnRamp(GHOLaunchConstants.BASE_ETHEREUM_ON_RAMP);
   IEVM2EVMOnRamp internal constant AVALANCHE_ON_RAMP =
     IEVM2EVMOnRamp(GHOLaunchConstants.BASE_AVALANCHE_ON_RAMP);
+  IEVM2EVMOnRamp internal constant ARBITRUM_ON_RAMP =
+    IEVM2EVMOnRamp(GHOLaunchConstants.BASE_ARBITRUM_ON_RAMP);
   IEVM2EVMOffRamp_1_5 internal constant ETHEREUM_OFF_RAMP =
     IEVM2EVMOffRamp_1_5(GHOLaunchConstants.BASE_ETHEREUM_OFF_RAMP);
   IEVM2EVMOffRamp_1_5 internal constant AVALANCHE_OFF_RAMP =
     IEVM2EVMOffRamp_1_5(GHOLaunchConstants.BASE_AVALANCHE_OFF_RAMP);
+  IEVM2EVMOffRamp_1_5 internal constant ARBITRUM_OFF_RAMP =
+    IEVM2EVMOffRamp_1_5(GHOLaunchConstants.BASE_ARBITRUM_OFF_RAMP);
 
   address internal constant RISK_COUNCIL = GHOLaunchConstants.RISK_COUNCIL;
   address public constant NEW_REMOTE_TOKEN_AVALANCHE = GHOLaunchConstants.AVALANCHE_TOKEN;
@@ -108,8 +112,10 @@ contract AaveV3Base_GHOAvalancheLaunch_20250519_Avalanche is ProtocolV3TestBase 
 
     _assertOnRamp(ETHEREUM_ON_RAMP, BASE_CHAIN_SELECTOR, ETHEREUM_CHAIN_SELECTOR, ROUTER);
     _assertOnRamp(AVALANCHE_ON_RAMP, BASE_CHAIN_SELECTOR, AVALANCHE_CHAIN_SELECTOR, ROUTER);
+    _assertOnRamp(ARBITRUM_ON_RAMP, BASE_CHAIN_SELECTOR, ARBITRUM_CHAIN_SELECTOR, ROUTER);
     _assertOffRamp(ETHEREUM_OFF_RAMP, ETHEREUM_CHAIN_SELECTOR, BASE_CHAIN_SELECTOR, ROUTER);
     _assertOffRamp(AVALANCHE_OFF_RAMP, AVALANCHE_CHAIN_SELECTOR, BASE_CHAIN_SELECTOR, ROUTER);
+    _assertOffRamp(ARBITRUM_OFF_RAMP, ARBITRUM_CHAIN_SELECTOR, BASE_CHAIN_SELECTOR, ROUTER);
 
     assertEq(NEW_GHO_CCIP_STEWARD.RISK_COUNCIL(), RISK_COUNCIL);
     assertEq(NEW_GHO_CCIP_STEWARD.GHO_TOKEN(), AaveV3BaseAssets.GHO_UNDERLYING);
@@ -162,9 +168,11 @@ contract AaveV3Base_GHOAvalancheLaunch_20250519_Avalanche is ProtocolV3TestBase 
         originalSender: params.sender,
         sourceToken: address(GHO),
         destinationToken: address(
-          params.destChainSelector == AVALANCHE_CHAIN_SELECTOR
-            ? NEW_REMOTE_TOKEN_AVALANCHE
-            : AaveV3EthereumAssets.GHO_UNDERLYING
+          params.destChainSelector == ARBITRUM_CHAIN_SELECTOR
+            ? AaveV3ArbitrumAssets.GHO_UNDERLYING
+            : params.destChainSelector == AVALANCHE_CHAIN_SELECTOR
+              ? GHOLaunchConstants.AVALANCHE_TOKEN
+              : AaveV3EthereumAssets.GHO_UNDERLYING
         )
       })
     );
@@ -275,6 +283,7 @@ contract AaveV3Base_GHOAvalancheLaunch_20250519_PostExecution is
       abi.encode(address(NEW_REMOTE_POOL_AVALANCHE))
     );
 
+    // Omit checking rate limit configs against other chains because it's dynamic and not an area of concern for this AIP
     assertEq(
       NEW_TOKEN_POOL.getCurrentInboundRateLimiterState(AVALANCHE_CHAIN_SELECTOR),
       _getRateLimiterConfig()
@@ -355,6 +364,41 @@ contract AaveV3Base_GHOAvalancheLaunch_20250519_PostExecution is
     assertEq(GHO.getFacilitator(address(NEW_TOKEN_POOL)).bucketLevel, bucketLevel - amount);
   }
 
+  // @note this one is not working because the bridge limit is not set? Like for ethereum test
+  function test_sendMessageToArbitrumSucceeds(uint256 amount) public {
+    uint256 bridgeableAmount = _min(
+      GHO.getFacilitator(address(NEW_TOKEN_POOL)).bucketLevel,
+      CCIP_RATE_LIMIT_CAPACITY
+    );
+    amount = bound(amount, 1, bridgeableAmount);
+    skip(_getOutboundRefillTime(amount)); // wait for the rate limiter to refill
+
+    deal(address(GHO), alice, amount);
+    vm.prank(alice);
+    GHO.approve(address(ROUTER), amount);
+
+    uint256 aliceBalance = GHO.balanceOf(alice);
+    uint256 bucketLevel = GHO.getFacilitator(address(NEW_TOKEN_POOL)).bucketLevel;
+
+    (
+      IClient.EVM2AnyMessage memory message,
+      IInternal.EVM2EVMMessage memory eventArg
+    ) = _getTokenMessage(
+        CCIPSendParams({amount: amount, sender: alice, destChainSelector: ARBITRUM_CHAIN_SELECTOR})
+      );
+
+    vm.expectEmit(address(NEW_TOKEN_POOL));
+    emit Burned(address(ARBITRUM_ON_RAMP), amount);
+    vm.expectEmit(address(ARBITRUM_ON_RAMP));
+    emit CCIPSendRequested(eventArg); // @fixme log != eventarg
+
+    vm.prank(alice);
+    ROUTER.ccipSend{value: eventArg.feeTokenAmount}(ARBITRUM_CHAIN_SELECTOR, message);
+
+    assertEq(GHO.balanceOf(alice), aliceBalance - amount);
+    assertEq(GHO.getFacilitator(address(NEW_TOKEN_POOL)).bucketLevel, bucketLevel - amount);
+  }
+
   function test_offRampViaAvalancheSucceeds(uint256 amount) public {
     (uint256 bucketCapacity, uint256 bucketLevel) = GHO.getFacilitatorBucket(
       address(NEW_TOKEN_POOL)
@@ -411,6 +455,40 @@ contract AaveV3Base_GHOAvalancheLaunch_20250519_PostExecution is
         amount: amount,
         localToken: address(GHO),
         sourcePoolAddress: abi.encode(address(NEW_REMOTE_POOL_ETHEREUM)),
+        sourcePoolData: new bytes(0),
+        offchainTokenData: new bytes(0)
+      })
+    );
+
+    assertEq(GHO.getFacilitator(address(NEW_TOKEN_POOL)).bucketLevel, bucketLevel + amount);
+    assertEq(GHO.balanceOf(alice), aliceBalance + amount);
+  }
+
+  function test_offRampViaArbitrumSucceeds(uint256 amount) public {
+    (uint256 bucketCapacity, uint256 bucketLevel) = GHO.getFacilitatorBucket(
+      address(NEW_TOKEN_POOL)
+    );
+    IRateLimiter.TokenBucket memory rateLimits = NEW_TOKEN_POOL.getCurrentInboundRateLimiterState(
+      ARBITRUM_CHAIN_SELECTOR
+    );
+    uint256 mintAbleAmount = _min(bucketCapacity - bucketLevel, rateLimits.tokens);
+    amount = bound(amount, 1, mintAbleAmount);
+    skip(_getInboundRefillTime(amount));
+
+    uint256 aliceBalance = GHO.balanceOf(alice);
+
+    vm.expectEmit(address(NEW_TOKEN_POOL));
+    emit Minted(address(ARBITRUM_OFF_RAMP), alice, amount);
+
+    vm.prank(address(ARBITRUM_OFF_RAMP));
+    NEW_TOKEN_POOL.releaseOrMint(
+      IPool_CCIP.ReleaseOrMintInV1({
+        originalSender: abi.encode(alice),
+        remoteChainSelector: ARBITRUM_CHAIN_SELECTOR,
+        receiver: alice,
+        amount: amount,
+        localToken: address(GHO),
+        sourcePoolAddress: abi.encode(address(NEW_REMOTE_POOL_ARBITRUM)),
         sourcePoolData: new bytes(0),
         offchainTokenData: new bytes(0)
       })

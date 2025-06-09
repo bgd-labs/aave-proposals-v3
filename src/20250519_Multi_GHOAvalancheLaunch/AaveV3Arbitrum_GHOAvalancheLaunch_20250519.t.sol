@@ -55,15 +55,18 @@ contract AaveV3Arbitrum_GHOAvalancheLaunch_20250519_Avalanche is ProtocolV3TestB
   IGhoToken internal constant GHO = IGhoToken(AaveV3ArbitrumAssets.GHO_UNDERLYING);
   ITokenAdminRegistry internal constant TOKEN_ADMIN_REGISTRY =
     ITokenAdminRegistry(GHOLaunchConstants.ARBITRUM_TOKEN_ADMIN_REGISTRY);
-  // @todo should I also include base on-off ramps?
   IEVM2EVMOnRamp internal constant ETHEREUM_ON_RAMP =
     IEVM2EVMOnRamp(GHOLaunchConstants.ARBITRUM_ETHEREUM_ON_RAMP);
   IEVM2EVMOnRamp internal constant AVALANCHE_ON_RAMP =
     IEVM2EVMOnRamp(GHOLaunchConstants.ARBITRUM_AVALANCHE_ON_RAMP);
+  IEVM2EVMOnRamp internal constant BASE_ON_RAMP =
+    IEVM2EVMOnRamp(GHOLaunchConstants.ARBITRUM_BASE_ON_RAMP);
   IEVM2EVMOffRamp_1_5 internal constant ETHEREUM_OFF_RAMP =
     IEVM2EVMOffRamp_1_5(GHOLaunchConstants.ARBITRUM_ETHEREUM_OFF_RAMP);
   IEVM2EVMOffRamp_1_5 internal constant AVALANCHE_OFF_RAMP =
     IEVM2EVMOffRamp_1_5(GHOLaunchConstants.ARBITRUM_AVALANCHE_OFF_RAMP);
+  IEVM2EVMOffRamp_1_5 internal constant BASE_OFF_RAMP =
+    IEVM2EVMOffRamp_1_5(GHOLaunchConstants.ARBITRUM_BASE_OFF_RAMP);
 
   address internal constant RISK_COUNCIL = GHOLaunchConstants.RISK_COUNCIL;
   address public constant NEW_REMOTE_TOKEN_AVALANCHE = GHOLaunchConstants.AVALANCHE_TOKEN;
@@ -74,7 +77,7 @@ contract AaveV3Arbitrum_GHOAvalancheLaunch_20250519_Avalanche is ProtocolV3TestB
     IUpgradeableBurnMintTokenPool_1_5_1(GhoArbitrum.GHO_CCIP_TOKEN_POOL);
   address internal constant NEW_REMOTE_POOL_ETHEREUM = GhoEthereum.GHO_CCIP_TOKEN_POOL;
   address internal constant NEW_REMOTE_POOL_BASE = GhoBase.GHO_CCIP_TOKEN_POOL;
-  address internal constant NEW_REMOTE_POOL_AVALANCHE = GHOLaunchConstants.AVALANCHE_TOKEN_POOL; // @todo rename this one to GHO_CCIP_TOKEN_POOL for consistency?
+  address internal constant NEW_REMOTE_POOL_AVALANCHE = GHOLaunchConstants.AVALANCHE_TOKEN_POOL;
 
   AaveV3Arbitrum_GHOAvalancheLaunch_20250519 internal proposal;
 
@@ -90,7 +93,7 @@ contract AaveV3Arbitrum_GHOAvalancheLaunch_20250519_Avalanche is ProtocolV3TestB
   error InvalidSourcePoolAddress(bytes);
 
   function setUp() public virtual {
-    vm.createSelectFork(vm.rpcUrl('arbitrum'), 341142215); // @note why chose a block and not the latest? @note consistent with config.ts?
+    vm.createSelectFork(vm.rpcUrl('arbitrum'), 341142215);
     proposal = new AaveV3Arbitrum_GHOAvalancheLaunch_20250519();
     _validateConstants();
   }
@@ -109,8 +112,10 @@ contract AaveV3Arbitrum_GHOAvalancheLaunch_20250519_Avalanche is ProtocolV3TestB
 
     _assertOnRamp(ETHEREUM_ON_RAMP, ARBITRUM_CHAIN_SELECTOR, ETHEREUM_CHAIN_SELECTOR, ROUTER);
     _assertOnRamp(AVALANCHE_ON_RAMP, ARBITRUM_CHAIN_SELECTOR, AVALANCHE_CHAIN_SELECTOR, ROUTER);
+    _assertOnRamp(BASE_ON_RAMP, ARBITRUM_CHAIN_SELECTOR, BASE_CHAIN_SELECTOR, ROUTER);
     _assertOffRamp(ETHEREUM_OFF_RAMP, ETHEREUM_CHAIN_SELECTOR, ARBITRUM_CHAIN_SELECTOR, ROUTER);
     _assertOffRamp(AVALANCHE_OFF_RAMP, AVALANCHE_CHAIN_SELECTOR, ARBITRUM_CHAIN_SELECTOR, ROUTER);
+    _assertOffRamp(BASE_OFF_RAMP, BASE_CHAIN_SELECTOR, ARBITRUM_CHAIN_SELECTOR, ROUTER);
 
     assertEq(NEW_GHO_CCIP_STEWARD.RISK_COUNCIL(), RISK_COUNCIL);
     assertEq(NEW_GHO_CCIP_STEWARD.GHO_TOKEN(), AaveV3ArbitrumAssets.GHO_UNDERLYING);
@@ -163,9 +168,11 @@ contract AaveV3Arbitrum_GHOAvalancheLaunch_20250519_Avalanche is ProtocolV3TestB
         originalSender: params.sender,
         sourceToken: address(GHO),
         destinationToken: address(
-          params.destChainSelector == AVALANCHE_CHAIN_SELECTOR
-            ? NEW_REMOTE_TOKEN_AVALANCHE
-            : AaveV3EthereumAssets.GHO_UNDERLYING
+          params.destChainSelector == BASE_CHAIN_SELECTOR
+            ? AaveV3BaseAssets.GHO_UNDERLYING
+            : params.destChainSelector == AVALANCHE_CHAIN_SELECTOR
+              ? GHOLaunchConstants.AVALANCHE_TOKEN
+              : AaveV3EthereumAssets.GHO_UNDERLYING
         )
       })
     );
@@ -262,7 +269,7 @@ contract AaveV3Arbitrum_GHOAvalancheLaunch_20250519_PostExecution is
 
     assertEq(NEW_TOKEN_POOL.getRemotePools(ETHEREUM_CHAIN_SELECTOR).length, 2);
     assertEq(
-      NEW_TOKEN_POOL.getRemotePools(ETHEREUM_CHAIN_SELECTOR)[1], // 0th is the 1.4 token pool
+      NEW_TOKEN_POOL.getRemotePools(ETHEREUM_CHAIN_SELECTOR)[1],
       abi.encode(address(NEW_REMOTE_POOL_ETHEREUM))
     );
     assertEq(NEW_TOKEN_POOL.getRemotePools(BASE_CHAIN_SELECTOR).length, 1);
@@ -276,6 +283,7 @@ contract AaveV3Arbitrum_GHOAvalancheLaunch_20250519_PostExecution is
       abi.encode(address(NEW_REMOTE_POOL_AVALANCHE))
     );
 
+    // Omit checking rate limit configs against other chains because it's dynamic and not an area of concern for this AIP
     assertEq(
       NEW_TOKEN_POOL.getCurrentInboundRateLimiterState(AVALANCHE_CHAIN_SELECTOR),
       _getRateLimiterConfig()
@@ -320,7 +328,6 @@ contract AaveV3Arbitrum_GHOAvalancheLaunch_20250519_PostExecution is
     assertEq(GHO.getFacilitator(address(NEW_TOKEN_POOL)).bucketLevel, bucketLevel - amount);
   }
 
-  // @note only test send messages to ethereum?
   function test_sendMessageToEthSucceeds(uint256 amount) public {
     IRateLimiter.TokenBucket memory ethRateLimits = NEW_TOKEN_POOL
       .getCurrentInboundRateLimiterState(ETHEREUM_CHAIN_SELECTOR);
@@ -352,6 +359,40 @@ contract AaveV3Arbitrum_GHOAvalancheLaunch_20250519_PostExecution is
 
     vm.prank(alice);
     ROUTER.ccipSend{value: eventArg.feeTokenAmount}(ETHEREUM_CHAIN_SELECTOR, message);
+
+    assertEq(GHO.balanceOf(alice), aliceBalance - amount);
+    assertEq(GHO.getFacilitator(address(NEW_TOKEN_POOL)).bucketLevel, bucketLevel - amount);
+  }
+
+  function test_sendMessageToBaseSucceeds(uint256 amount) public {
+    uint256 bridgeableAmount = _min(
+      GHO.getFacilitator(address(NEW_TOKEN_POOL)).bucketLevel,
+      CCIP_RATE_LIMIT_CAPACITY
+    );
+    amount = bound(amount, 1, bridgeableAmount);
+    skip(_getOutboundRefillTime(amount)); // wait for the rate limiter to refill
+
+    deal(address(GHO), alice, amount);
+    vm.prank(alice);
+    GHO.approve(address(ROUTER), amount);
+
+    uint256 aliceBalance = GHO.balanceOf(alice);
+    uint256 bucketLevel = GHO.getFacilitator(address(NEW_TOKEN_POOL)).bucketLevel;
+
+    (
+      IClient.EVM2AnyMessage memory message,
+      IInternal.EVM2EVMMessage memory eventArg
+    ) = _getTokenMessage(
+        CCIPSendParams({amount: amount, sender: alice, destChainSelector: BASE_CHAIN_SELECTOR})
+      );
+
+    vm.expectEmit(address(NEW_TOKEN_POOL));
+    emit Burned(address(BASE_ON_RAMP), amount);
+    vm.expectEmit(address(BASE_ON_RAMP));
+    emit CCIPSendRequested(eventArg); // @fixme log != eventarg
+
+    vm.prank(alice);
+    ROUTER.ccipSend{value: eventArg.feeTokenAmount}(BASE_CHAIN_SELECTOR, message);
 
     assertEq(GHO.balanceOf(alice), aliceBalance - amount);
     assertEq(GHO.getFacilitator(address(NEW_TOKEN_POOL)).bucketLevel, bucketLevel - amount);
@@ -422,6 +463,40 @@ contract AaveV3Arbitrum_GHOAvalancheLaunch_20250519_PostExecution is
     assertEq(GHO.balanceOf(alice), aliceBalance + amount);
   }
 
+  function test_offRampViaBaseSucceeds(uint256 amount) public {
+    (uint256 bucketCapacity, uint256 bucketLevel) = GHO.getFacilitatorBucket(
+      address(NEW_TOKEN_POOL)
+    );
+    IRateLimiter.TokenBucket memory rateLimits = NEW_TOKEN_POOL.getCurrentInboundRateLimiterState(
+      BASE_CHAIN_SELECTOR
+    );
+    uint256 mintAbleAmount = _min(bucketCapacity - bucketLevel, rateLimits.tokens);
+    amount = bound(amount, 1, mintAbleAmount);
+    skip(_getInboundRefillTime(amount));
+
+    uint256 aliceBalance = GHO.balanceOf(alice);
+
+    vm.expectEmit(address(NEW_TOKEN_POOL));
+    emit Minted(address(BASE_OFF_RAMP), alice, amount);
+
+    vm.prank(address(BASE_OFF_RAMP));
+    NEW_TOKEN_POOL.releaseOrMint(
+      IPool_CCIP.ReleaseOrMintInV1({
+        originalSender: abi.encode(alice),
+        remoteChainSelector: BASE_CHAIN_SELECTOR,
+        receiver: alice,
+        amount: amount,
+        localToken: address(GHO),
+        sourcePoolAddress: abi.encode(address(NEW_REMOTE_POOL_BASE)),
+        sourcePoolData: new bytes(0),
+        offchainTokenData: new bytes(0)
+      })
+    );
+
+    assertEq(GHO.getFacilitator(address(NEW_TOKEN_POOL)).bucketLevel, bucketLevel + amount);
+    assertEq(GHO.balanceOf(alice), aliceBalance + amount);
+  }
+
   function test_cannotUseAvalancheOffRampForEthMessages() public {
     uint256 amount = 100e18;
     skip(_getInboundRefillTime(amount));
@@ -444,7 +519,6 @@ contract AaveV3Arbitrum_GHOAvalancheLaunch_20250519_PostExecution is
     );
   }
 
-  // @todo should I also include base off ramps?
   function test_cannotOffRampOtherChainMessages() public {
     uint256 amount = 100e18;
     skip(_getInboundRefillTime(amount));

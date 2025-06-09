@@ -114,7 +114,7 @@ contract AaveV3Base_GHOAvalancheLaunch_20250519_Base is ProtocolV3TestBase {
     arb.c.forkId = vm.createFork(vm.rpcUrl('arbitrum'), 341142215);
     base.c.forkId = vm.createFork(vm.rpcUrl('base'), 30789286);
     eth.c.forkId = vm.createFork(vm.rpcUrl('mainnet'), 22575695);
-    ava.c.forkId = vm.createFork(vm.rpcUrl('avalanche'), 62821271);
+    ava.c.forkId = vm.createFork(vm.rpcUrl('avalanche'), 63569943);
 
     arb.c.chainSelector = 4949039107694359620;
     base.c.chainSelector = 15971525489660198786;
@@ -178,7 +178,7 @@ contract AaveV3Base_GHOAvalancheLaunch_20250519_Base is ProtocolV3TestBase {
     ava.c.baseOffRamp = IEVM2EVMOffRamp_1_5(0x37879EBFCb807f8C397fCe2f42DC0F5329AD6823);
     ava.c.ethOffRamp = IEVM2EVMOffRamp_1_5(0xE5F21F43937199D4D57876A83077b3923F68EB76);
 
-    _performCcipPreReq(); // @note mocked. Need CL to initiate admin transfer on their side. When ready, remove this method
+    // _performCcipPreReq(); // @note mocked. Need CL to initiate admin transfer on their side. When ready, remove this method
 
     _validateConfig({executed: false});
   }

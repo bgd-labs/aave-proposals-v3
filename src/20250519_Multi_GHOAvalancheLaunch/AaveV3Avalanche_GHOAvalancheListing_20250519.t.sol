@@ -56,10 +56,10 @@ contract AaveV3Avalanche_GHOAvalancheListing_20250519_Base is ProtocolV3TestBase
     IUpgradeableBurnMintTokenPool_1_5_1(GHOLaunchConstants.AVALANCHE_TOKEN_POOL);
 
   function setUp() public virtual {
-    vm.createSelectFork(vm.rpcUrl('avalanche'), 62806128);
+    vm.createSelectFork(vm.rpcUrl('avalanche'), 63569943);
     proposal = new AaveV3Avalanche_GHOAvalancheListing_20250519();
 
-    _performCcipPreReq(); // @note mocked. Need CL to initiate admin transfer on their side. When ready, remove this method
+    // _performCcipPreReq(); // @note mocked. Need CL to initiate admin transfer on their side. When ready, remove this method
   }
 
   function _performCcipPreReq() internal {
@@ -213,8 +213,8 @@ contract AaveV3Avalanche_GHOAvalancheListing_20250519_Stewards is
       memory currentRateData = IDefaultInterestRateStrategyV2.InterestRateData({
         optimalUsageRatio: 90_00,
         baseVariableBorrowRate: 0,
-        variableRateSlope1: 6_50,
-        variableRateSlope2: 50_00
+        variableRateSlope1: 12_00, // @note match config.ts // @todo move this to constants?
+        variableRateSlope2: 65_00 // @note match config.ts // @todo move this to constants?
       });
 
     assertEq(irStrategy.getInterestRateDataBps(address(GHO_TOKEN)), currentRateData);
@@ -238,7 +238,7 @@ contract AaveV3Avalanche_GHOAvalancheListing_20250519_Stewards is
       .POOL
       .getConfiguration(address(GHO_TOKEN))
       .getBorrowCap();
-    assertEq(currentBorrowCap, 2_250_000);
+    assertEq(currentBorrowCap, 4_500_000); // @note match config.ts // @todo move this to constants?
     vm.assume(
       newBorrowCap != currentBorrowCap &&
         _isDifferenceLowerThanMax(currentBorrowCap, newBorrowCap, currentBorrowCap)
@@ -259,7 +259,7 @@ contract AaveV3Avalanche_GHOAvalancheListing_20250519_Stewards is
       .POOL
       .getConfiguration(address(GHO_TOKEN))
       .getSupplyCap();
-    assertEq(currentSupplyCap, 2_500_000);
+    assertEq(currentSupplyCap, 5_000_000); // @note match config.ts // @todo move this to constants?
 
     vm.assume(
       currentSupplyCap != newSupplyCap &&
