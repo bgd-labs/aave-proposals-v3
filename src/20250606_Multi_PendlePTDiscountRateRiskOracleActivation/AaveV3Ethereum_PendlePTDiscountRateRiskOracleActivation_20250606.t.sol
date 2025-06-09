@@ -8,18 +8,15 @@ import {AaveV3Ethereum_PendlePTDiscountRateRiskOracleActivation_20250606, IAaveC
 import {IPendlePriceCapAdapter} from './interfaces/IPendlePriceCapAdapter.sol';
 import {IAaveStewardInjector} from '../interfaces/IAaveStewardInjector.sol';
 import {AutomationCompatibleInterface} from '../interfaces/AutomationCompatibleInterface.sol';
-import {IRiskSteward} from '../interfaces/IRiskSteward.sol';
+import {IRiskSteward} from './interfaces/IRiskSteward.sol';
 import {IRiskOracle} from '../interfaces/IRiskOracle.sol';
-
-import {BaseStewardUpdateTest} from './BaseStewardUpdateTest.t.sol';
 
 /**
  * @dev Test for AaveV3Ethereum_PendlePTDiscountRateRiskOracleActivation_20250606
  * command: FOUNDRY_PROFILE=test forge test --match-path=src/20250606_Multi_PendlePTDiscountRateRiskOracleActivation/AaveV3Ethereum_PendlePTDiscountRateRiskOracleActivation_20250606.t.sol -vv
  */
 contract AaveV3Ethereum_PendlePTDiscountRateRiskOracleActivation_20250606_Test is
-  ProtocolV3TestBase,
-  BaseStewardUpdateTest
+  ProtocolV3TestBase
 {
   AaveV3Ethereum_PendlePTDiscountRateRiskOracleActivation_20250606 internal proposal;
 
@@ -40,18 +37,6 @@ contract AaveV3Ethereum_PendlePTDiscountRateRiskOracleActivation_20250606_Test i
     RISK_ORACLE.addUpdateType('PendleDiscountRateUpdate_Core');
   }
 
-  function getBaseTestInput() public virtual override returns (ValidationInput memory) {
-    return
-      ValidationInput({
-        payload: address(proposal),
-        aclManager: address(AaveV3Ethereum.ACL_MANAGER),
-        currentRiskSteward: AaveV3Ethereum.RISK_STEWARD,
-        newRiskSteward: proposal.NEW_RISK_STEWARD(),
-        freezingSteward: AaveV3Ethereum.FREEZING_STEWARD,
-        capsPlusSteward: AaveV3Ethereum.CAPS_PLUS_RISK_STEWARD
-      });
-  }
-
   function test_defaultProposalExecution() public {
     defaultTest(
       'AaveV3Ethereum_PendlePTDiscountRateRiskOracleActivation_20250606',
@@ -60,8 +45,13 @@ contract AaveV3Ethereum_PendlePTDiscountRateRiskOracleActivation_20250606_Test i
     );
   }
 
-  function test_injector_permissions() public {
+  function test_permissions() public {
     assertEq(AaveV3Ethereum.ACL_MANAGER.isRiskAdmin(proposal.EDGE_RISK_STEWARD()), false);
+    assertTrue(AaveV3Ethereum.ACL_MANAGER.isRiskAdmin(AaveV3Ethereum.RISK_STEWARD));
+    assertFalse(AaveV3Ethereum.ACL_MANAGER.isRiskAdmin(proposal.NEW_RISK_STEWARD()));
+    assertTrue(AaveV3Ethereum.ACL_MANAGER.isRiskAdmin(AaveV3Ethereum.FREEZING_STEWARD));
+    assertTrue(AaveV3Ethereum.ACL_MANAGER.isRiskAdmin(AaveV3Ethereum.CAPS_PLUS_RISK_STEWARD));
+
     executePayload(vm, address(proposal));
 
     assertEq(AaveV3Ethereum.ACL_MANAGER.isRiskAdmin(proposal.EDGE_RISK_STEWARD()), true);
@@ -69,6 +59,10 @@ contract AaveV3Ethereum_PendlePTDiscountRateRiskOracleActivation_20250606_Test i
       IRiskSteward(proposal.EDGE_RISK_STEWARD()).RISK_COUNCIL(),
       proposal.AAVE_STEWARD_INJECTOR()
     );
+    assertFalse(AaveV3Ethereum.ACL_MANAGER.isRiskAdmin(AaveV3Ethereum.RISK_STEWARD));
+    assertTrue(AaveV3Ethereum.ACL_MANAGER.isRiskAdmin(proposal.NEW_RISK_STEWARD()));
+    assertFalse(AaveV3Ethereum.ACL_MANAGER.isRiskAdmin(AaveV3Ethereum.FREEZING_STEWARD));
+    assertFalse(AaveV3Ethereum.ACL_MANAGER.isRiskAdmin(AaveV3Ethereum.CAPS_PLUS_RISK_STEWARD));
   }
 
   function test_robotRegistered() public {
@@ -115,6 +109,140 @@ contract AaveV3Ethereum_PendlePTDiscountRateRiskOracleActivation_20250606_Test i
       .getUpdateTypes();
     assertEq(updateTypes.length, 1);
     assertEq(updateTypes[0], 'PendleDiscountRateUpdate_Core');
+  }
+
+  function test_risk_steward_configurations() public view {
+    IRiskSteward currentSteward = IRiskSteward(AaveV3Ethereum.RISK_STEWARD);
+    IRiskSteward newSteward = IRiskSteward(proposal.NEW_RISK_STEWARD());
+
+    IRiskSteward.Config memory oldConfig = currentSteward.getRiskConfig();
+    IRiskSteward.Config memory newConfig = newSteward.getRiskConfig();
+
+    // only maxPercentChange of discountRate changed from 5% to 2.5% rest all params are same
+    assertEq(newConfig.priceCapConfig.discountRatePendle.maxPercentChange, 0.025e18);
+
+    assertEq(
+      oldConfig.priceCapConfig.discountRatePendle.minDelay,
+      newConfig.priceCapConfig.discountRatePendle.minDelay
+    );
+
+    assertEq(oldConfig.collateralConfig.ltv.minDelay, newConfig.collateralConfig.ltv.minDelay);
+    assertEq(
+      oldConfig.collateralConfig.ltv.maxPercentChange,
+      newConfig.collateralConfig.ltv.maxPercentChange
+    );
+    assertEq(
+      oldConfig.collateralConfig.liquidationThreshold.minDelay,
+      newConfig.collateralConfig.liquidationThreshold.minDelay
+    );
+    assertEq(
+      oldConfig.collateralConfig.liquidationThreshold.maxPercentChange,
+      newConfig.collateralConfig.liquidationThreshold.maxPercentChange
+    );
+    assertEq(
+      oldConfig.collateralConfig.liquidationBonus.minDelay,
+      newConfig.collateralConfig.liquidationBonus.minDelay
+    );
+    assertEq(
+      oldConfig.collateralConfig.liquidationBonus.maxPercentChange,
+      newConfig.collateralConfig.liquidationBonus.maxPercentChange
+    );
+    assertEq(
+      oldConfig.collateralConfig.debtCeiling.minDelay,
+      newConfig.collateralConfig.debtCeiling.minDelay
+    );
+    assertEq(
+      oldConfig.collateralConfig.debtCeiling.maxPercentChange,
+      newConfig.collateralConfig.debtCeiling.maxPercentChange
+    );
+
+    assertEq(
+      oldConfig.rateConfig.baseVariableBorrowRate.minDelay,
+      newConfig.rateConfig.baseVariableBorrowRate.minDelay
+    );
+    assertEq(
+      oldConfig.rateConfig.baseVariableBorrowRate.maxPercentChange,
+      newConfig.rateConfig.baseVariableBorrowRate.maxPercentChange
+    );
+    assertEq(
+      oldConfig.rateConfig.variableRateSlope1.minDelay,
+      newConfig.rateConfig.variableRateSlope1.minDelay
+    );
+    assertEq(
+      oldConfig.rateConfig.variableRateSlope1.maxPercentChange,
+      newConfig.rateConfig.variableRateSlope1.maxPercentChange
+    );
+    assertEq(
+      oldConfig.rateConfig.variableRateSlope2.minDelay,
+      newConfig.rateConfig.variableRateSlope2.minDelay
+    );
+    assertEq(
+      oldConfig.rateConfig.variableRateSlope2.maxPercentChange,
+      newConfig.rateConfig.variableRateSlope2.maxPercentChange
+    );
+    assertEq(
+      oldConfig.rateConfig.optimalUsageRatio.minDelay,
+      newConfig.rateConfig.optimalUsageRatio.minDelay
+    );
+    assertEq(
+      oldConfig.rateConfig.optimalUsageRatio.maxPercentChange,
+      newConfig.rateConfig.optimalUsageRatio.maxPercentChange
+    );
+
+    assertEq(oldConfig.capConfig.supplyCap.minDelay, newConfig.capConfig.supplyCap.minDelay);
+    assertEq(
+      oldConfig.capConfig.supplyCap.maxPercentChange,
+      newConfig.capConfig.supplyCap.maxPercentChange
+    );
+    assertEq(oldConfig.capConfig.borrowCap.minDelay, newConfig.capConfig.borrowCap.minDelay);
+    assertEq(
+      oldConfig.capConfig.borrowCap.maxPercentChange,
+      newConfig.capConfig.borrowCap.maxPercentChange
+    );
+
+    assertEq(
+      oldConfig.priceCapConfig.priceCapLst.minDelay,
+      newConfig.priceCapConfig.priceCapLst.minDelay
+    );
+    assertEq(
+      oldConfig.priceCapConfig.priceCapLst.maxPercentChange,
+      newConfig.priceCapConfig.priceCapLst.maxPercentChange
+    );
+    assertEq(
+      oldConfig.priceCapConfig.priceCapStable.minDelay,
+      newConfig.priceCapConfig.priceCapStable.minDelay
+    );
+    assertEq(
+      oldConfig.priceCapConfig.priceCapStable.maxPercentChange,
+      newConfig.priceCapConfig.priceCapStable.maxPercentChange
+    );
+
+    assertEq(oldConfig.eModeConfig.ltv.minDelay, newConfig.eModeConfig.ltv.minDelay);
+    assertEq(
+      oldConfig.eModeConfig.ltv.maxPercentChange,
+      newConfig.eModeConfig.ltv.maxPercentChange
+    );
+    assertEq(
+      oldConfig.eModeConfig.liquidationThreshold.minDelay,
+      newConfig.eModeConfig.liquidationThreshold.minDelay
+    );
+    assertEq(
+      oldConfig.eModeConfig.liquidationThreshold.maxPercentChange,
+      newConfig.eModeConfig.liquidationThreshold.maxPercentChange
+    );
+    assertEq(
+      oldConfig.eModeConfig.liquidationBonus.minDelay,
+      newConfig.eModeConfig.liquidationBonus.minDelay
+    );
+    assertEq(
+      oldConfig.eModeConfig.liquidationBonus.maxPercentChange,
+      newConfig.eModeConfig.liquidationBonus.maxPercentChange
+    );
+
+    // validate immutables
+    assertEq(address(currentSteward.CONFIG_ENGINE()), address(newSteward.CONFIG_ENGINE()));
+    assertEq(address(currentSteward.RISK_COUNCIL()), address(newSteward.RISK_COUNCIL()));
+    assertEq(address(currentSteward.POOL()), address(newSteward.POOL()));
   }
 
   function _addUpdateToRiskOracle(uint256 value) internal {
