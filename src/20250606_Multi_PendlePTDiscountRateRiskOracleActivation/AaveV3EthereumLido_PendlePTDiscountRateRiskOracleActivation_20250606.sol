@@ -7,7 +7,7 @@ import {AaveV3EthereumLido, AaveV3EthereumLidoAssets} from 'aave-address-book/Aa
 import {IRiskSteward} from './interfaces/IRiskSteward.sol';
 
 /**
- * @title Pendle PT Discount Rate Risk Oracle Activation
+ * @title Discount Rate Risk Oracle Activation and update manual AGRS
  * @author BGD Labs (@bgdlabs)
  * - Snapshot: Direct To AIP
  * - Discussion: http://governance.aave.com/t/chaos-labs-risk-oracles/17216

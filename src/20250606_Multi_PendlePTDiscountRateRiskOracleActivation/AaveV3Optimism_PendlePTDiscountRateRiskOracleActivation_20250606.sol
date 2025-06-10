@@ -5,7 +5,7 @@ import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGen
 import {AaveV3Optimism} from 'aave-address-book/AaveV3Optimism.sol';
 
 /**
- * @title Pendle PT Discount Rate Risk Oracle Activation
+ * @title Discount Rate Risk Oracle Activation and update manual AGRS
  * @author BGD Labs (@bgdlabs)
  * - Snapshot: Direct To AIP
  * - Discussion: http://governance.aave.com/t/chaos-labs-risk-oracles/17216

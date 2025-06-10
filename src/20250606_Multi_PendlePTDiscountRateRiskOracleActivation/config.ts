@@ -18,7 +18,7 @@ export const config: ConfigFile = {
       'AaveV3Celo',
       'AaveV3Sonic',
     ],
-    title: 'Pendle PT Discount Rate Risk Oracle Activation',
+    title: 'Discount Rate Risk Oracle Activation and update manual AGRS',
     shortName: 'PendlePTDiscountRateRiskOracleActivation',
     date: '20250606',
     author: 'BGD Labs (@bgdlabs)',

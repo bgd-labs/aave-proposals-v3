@@ -11,7 +11,7 @@ import {IERC20} from 'openzeppelin-contracts/contracts/interfaces/IERC20.sol';
 import {IAaveCLRobotOperator} from '../interfaces/IAaveCLRobotOperator.sol';
 
 /**
- * @title Pendle PT Discount Rate Risk Oracle Activation
+ * @title Discount Rate Risk Oracle Activation and update manual AGRS
  * @author BGD Labs (@bgdlabs)
  * - Snapshot: Direct To AIP
  * - Discussion: http://governance.aave.com/t/chaos-labs-risk-oracles/17216
