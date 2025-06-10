@@ -33,10 +33,6 @@ contract AaveV3Ethereum_AaveRobotMaintenance_20250330 is IProposalGenericExecuto
   uint96 public constant STATA_ROBOT_LINK_AMOUNT = 150e18;
   uint96 public constant VOTING_CHAIN_ROBOT_LINK_AMOUNT = 350e18;
 
-  address public constant VOTING_PORTAL_ETH_ETH = 0xf23f7De3AC42F22eBDA17e64DC4f51FB66b8E21f;
-  address public constant VOTING_PORTAL_ETH_AVAX = 0x33aCEf7365809218485873B7d0d67FeE411B5D79;
-  address public constant VOTING_PORTAL_ETH_POL = 0x9b24C168d6A76b5459B1d47071a54962a4df36c3;
-
   function execute() external {
     IAaveCLRobotOperator(MiscEthereum.AAVE_CL_ROBOT_OPERATOR).cancel(OLD_STATA_ROBOT_ID);
     IAaveCLRobotOperator(MiscEthereum.AAVE_CL_ROBOT_OPERATOR).cancel(OLD_VOTING_CHAIN_ROBOT_ID);
@@ -77,13 +73,5 @@ contract AaveV3Ethereum_AaveRobotMaintenance_20250330 is IProposalGenericExecuto
       ROOTS_CONSUMER,
       IERC20(AaveV3EthereumAssets.LINK_UNDERLYING).balanceOf(OLD_ROOTS_CONSUMER)
     );
-
-    // removes old voting portal configs
-    address[] memory votingPortalsToRemove = new address[](3);
-    votingPortalsToRemove[0] = VOTING_PORTAL_ETH_ETH;
-    votingPortalsToRemove[1] = VOTING_PORTAL_ETH_AVAX;
-    votingPortalsToRemove[2] = VOTING_PORTAL_ETH_POL;
-
-    GovernanceV3Ethereum.GOVERNANCE.removeVotingPortals(votingPortalsToRemove);
   }
 }

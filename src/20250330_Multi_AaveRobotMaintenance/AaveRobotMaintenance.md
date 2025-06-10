@@ -1,18 +1,16 @@
 ---
-title: "Robot Maintenance and remove old VotingPortals from Governance"
+title: "Robot Maintenance"
 author: "BGD Labs (@bgdlabs)"
 discussions: TODO
 ---
 
 ## Simple Summary
 
-Maintenance proposal to remove old VotingPortals from the Aave Governance and update new governance robots and also update robots for refreshing liquidity mining rewards for stata-tokens.
+Maintenance proposal to update to new governance robots and also update robots for refreshing liquidity mining rewards for stata-tokens.
 
 ## Motivation
 
 With the voting machine / portal improvements [proposal](https://vote.onaave.com/proposal/?proposalId=273), as the voting machine addresses are updated it is required to update the voting chain robots which performs automation on the voting machine contracts and also registers storage roots for voting. Also as newer instances of stata-tokens have been deployed recently, it is also needed to register new robots for refreshing liquidity mining rewards and cancel the old ones which were previous activated via this [proposal](https://vote.onaave.com/proposal/?proposalId=109).
-
-Also as the new VotingPortals have already been proved to be working by having been used for voting on at least 4 new proposals (279 - 282), it is time to remove the old ones, so that there is no confusion or possibility to use the old VotingPortals to vote on new proposals.
 
 ## Specification
 
@@ -23,16 +21,6 @@ For the new stata-token and voting chain robots, the payload will call the `regi
 The RootsConsumer contracts which are triggered by voting chain robots to register storage roots for voting are also re-deployed and new instance are used on the new voting chain robots. The link balances from the old RootsConsumer are also migrated to the new RootsConsumer contract by calling the `emergencyTokenTransfer()` method.
 
 _Please note: This proposal only updates robots on chainlink automation, robots using gelato automation on networks where chainlink automation is not available will be updated manually_
-
-The payload calls `removeVotingPortals()` on the Aave Governance contract, with the list of old VotingPortals.
-
-VotingPortals to remove:
-
-| Network  | Path       | Address                                                                                                               |
-| -------- | ---------- | --------------------------------------------------------------------------------------------------------------------- |
-| Ethereum | Eth - Eth  | [0xf23f7De3AC42F22eBDA17e64DC4f51FB66b8E21f](https://etherscan.io/address/0xf23f7De3AC42F22eBDA17e64DC4f51FB66b8E21f) |
-| Ethereum | Eth - Avax | [0x33aCEf7365809218485873B7d0d67FeE411B5D79](https://etherscan.io/address/0x33aCEf7365809218485873B7d0d67FeE411B5D79) |
-| Ethereum | Eth - Pol  | [0x9b24C168d6A76b5459B1d47071a54962a4df36c3](https://etherscan.io/address/0x9b24C168d6A76b5459B1d47071a54962a4df36c3) |
 
 ## References
 
