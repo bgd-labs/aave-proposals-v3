@@ -1,5 +1,5 @@
 ---
-title: "Pendle PT Discount Rate Risk Oracle Activation"
+title: "Discount Rate Risk Oracle Activation and update manual AGRS"
 author: "BGD Labs (@bgdlabs)"
 discussions: "http://governance.aave.com/t/chaos-labs-risk-oracles/17216"
 snapshot: "Direct To AIP"
