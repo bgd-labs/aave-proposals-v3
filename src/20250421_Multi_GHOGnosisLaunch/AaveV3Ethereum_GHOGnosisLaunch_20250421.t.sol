@@ -30,7 +30,7 @@ import {AaveV3Ethereum_GHOGnosisLaunch_20250421} from './AaveV3Ethereum_GHOGnosi
 
 /**
  * @dev Test for AaveV3Ethereum_GHOGnosisLaunch_20250421
- * command: FOUNDRY_PROFILE=mainnet forge test --match-path=src/20250421_Multi_GHOGnosisLaunch/AaveV3Ethereum_GHOGnosisLaunch_20250421.t.sol -vv
+ * command: FOUNDRY_PROFILE=test forge test --match-path=src/20250421_Multi_GHOGnosisLaunch/AaveV3Ethereum_GHOGnosisLaunch_20250421.t.sol -vv
  */
 contract AaveV3Ethereum_GHOGnosisLaunch_20250421_Test is ProtocolV3TestBase {
   struct CCIPSendParams {

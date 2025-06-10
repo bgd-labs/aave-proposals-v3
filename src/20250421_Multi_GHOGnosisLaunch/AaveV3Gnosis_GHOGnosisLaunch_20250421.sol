@@ -31,6 +31,7 @@ contract AaveV3Gnosis_GHOGnosisLaunch_20250421 is IProposalGenericExecutor {
   uint64 public constant BASE_CHAIN_SELECTOR = CCIPUtils.BASE_CHAIN_SELECTOR;
   uint64 public constant ARB_CHAIN_SELECTOR = CCIPUtils.ARB_CHAIN_SELECTOR;
   uint64 public constant ETH_CHAIN_SELECTOR = CCIPUtils.ETH_CHAIN_SELECTOR;
+  uint64 public constant AVAX_CHAIN_SELECTOR = CCIPUtils.AVAX_CHAIN_SELECTOR;
 
   uint128 public constant CCIP_BUCKET_CAPACITY = GHOLaunchConstants.CCIP_BUCKET_CAPACITY;
 
@@ -48,6 +49,7 @@ contract AaveV3Gnosis_GHOGnosisLaunch_20250421 is IProposalGenericExecutor {
   address public constant REMOTE_TOKEN_POOL_ETH = GhoEthereum.GHO_CCIP_TOKEN_POOL;
   address public constant REMOTE_TOKEN_POOL_ARB = GhoArbitrum.GHO_CCIP_TOKEN_POOL;
   address public constant REMOTE_TOKEN_POOL_BASE = GhoBase.GHO_CCIP_TOKEN_POOL;
+  address public constant REMOTE_TOKEN_POOL_AVAX = GHOLaunchConstants.AVAX_GHO_TOKEN_POOL;
 
   // Token Rate Limit Capacity: 300_000 GHO
   uint128 public constant CCIP_RATE_LIMIT_CAPACITY = GHOLaunchConstants.CCIP_RATE_LIMIT_CAPACITY;
@@ -100,7 +102,7 @@ contract AaveV3Gnosis_GHOGnosisLaunch_20250421 is IProposalGenericExecutor {
     });
 
     IUpgradeableBurnMintTokenPool_1_5_1.ChainUpdate[]
-      memory chainsToAdd = new IUpgradeableBurnMintTokenPool_1_5_1.ChainUpdate[](3);
+      memory chainsToAdd = new IUpgradeableBurnMintTokenPool_1_5_1.ChainUpdate[](4);
 
     {
       bytes[] memory remotePoolAddresses = new bytes[](1);
@@ -133,6 +135,18 @@ contract AaveV3Gnosis_GHOGnosisLaunch_20250421 is IProposalGenericExecutor {
         remoteChainSelector: BASE_CHAIN_SELECTOR,
         remotePoolAddresses: remotePoolAddresses,
         remoteTokenAddress: abi.encode(AaveV3BaseAssets.GHO_UNDERLYING),
+        outboundRateLimiterConfig: rateLimiterConfig,
+        inboundRateLimiterConfig: rateLimiterConfig
+      });
+    }
+
+    {
+      bytes[] memory remotePoolAddresses = new bytes[](1);
+      remotePoolAddresses[0] = abi.encode(REMOTE_TOKEN_POOL_AVAX);
+      chainsToAdd[3] = IUpgradeableBurnMintTokenPool_1_5_1.ChainUpdate({
+        remoteChainSelector: AVAX_CHAIN_SELECTOR,
+        remotePoolAddresses: remotePoolAddresses,
+        remoteTokenAddress: abi.encode(GHOLaunchConstants.AVAX_GHO_TOKEN),
         outboundRateLimiterConfig: rateLimiterConfig,
         inboundRateLimiterConfig: rateLimiterConfig
       });

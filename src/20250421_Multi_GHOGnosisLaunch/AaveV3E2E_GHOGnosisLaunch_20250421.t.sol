@@ -32,7 +32,7 @@ import {AaveV3Gnosis_GHOGnosisLaunch_20250421} from './AaveV3Gnosis_GHOGnosisLau
 
 /**
  * @dev Test for AaveV3Base_GHOGnosisLaunch_20250421
- * command: FOUNDRY_PROFILE=base forge test --match-path=src/20250421_Multi_GHOGnosisLaunch/AaveV3E2E_GHOGnosisLaunch_20250421.t.sol -vv
+ * command: FOUNDRY_PROFILE=test forge test --match-path=src/20250421_Multi_GHOGnosisLaunch/AaveV3E2E_GHOGnosisLaunch_20250421.t.sol -vv
  */
 contract AaveV3Base_GHOGnosisLaunch_20250421_Base is ProtocolV3TestBase {
   struct Common {
