@@ -5,8 +5,8 @@ import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGen
 import {IUpgradeableBurnMintTokenPool_1_5_1} from 'src/interfaces/ccip/tokenPool/IUpgradeableBurnMintTokenPool.sol';
 import {IRateLimiter} from 'src/interfaces/ccip/IRateLimiter.sol';
 import {GhoBase} from 'aave-address-book/GhoBase.sol';
-import {CCIPUtils} from './utils/CCIPUtils.sol';
-import {GHOLaunchConstants} from './utils/GHOLaunchConstants.sol';
+// import {CCIPUtils} from './utils/CCIPUtils.sol';
+import {GHOAvalancheLaunch} from './utils/GHOAvalancheLaunch.sol';
 
 /**
  * @title GHO Avalanche Listing
@@ -15,17 +15,17 @@ import {GHOLaunchConstants} from './utils/GHOLaunchConstants.sol';
  * - Snapshot: https://snapshot.box/#/s:aavedao.eth/proposal/0x2aed7eb8b03cb3f961cbf790bf2e2e1e449f841a4ad8bdbcdd223bb6ac69e719
  */
 contract AaveV3Base_GHOAvalancheLaunch_20250519 is IProposalGenericExecutor {
-  uint64 public constant AVALANCHE_CHAIN_SELECTOR = CCIPUtils.AVALANCHE_CHAIN_SELECTOR;
+  uint64 public constant AVAX_CHAIN_SELECTOR = GHOAvalancheLaunch.AVAX_CHAIN_SELECTOR;
 
   IUpgradeableBurnMintTokenPool_1_5_1 public constant TOKEN_POOL =
     IUpgradeableBurnMintTokenPool_1_5_1(GhoBase.GHO_CCIP_TOKEN_POOL);
 
-  address public constant REMOTE_TOKEN_POOL_AVALANCHE = GHOLaunchConstants.AVALANCHE_TOKEN_POOL;
-  address public constant REMOTE_GHO_TOKEN_AVALANCHE = GHOLaunchConstants.AVALANCHE_TOKEN;
+  address public constant REMOTE_TOKEN_POOL_AVALANCHE = GHOAvalancheLaunch.GHO_CCIP_TOKEN_POOL;
+  address public constant REMOTE_GHO_TOKEN_AVALANCHE = GHOAvalancheLaunch.GHO_TOKEN;
 
-  uint128 public constant CCIP_RATE_LIMIT_CAPACITY = GHOLaunchConstants.CCIP_RATE_LIMIT_CAPACITY;
+  uint128 public constant CCIP_RATE_LIMIT_CAPACITY = GHOAvalancheLaunch.CCIP_RATE_LIMIT_CAPACITY;
   uint128 public constant CCIP_RATE_LIMIT_REFILL_RATE =
-    GHOLaunchConstants.CCIP_RATE_LIMIT_REFILL_RATE;
+    GHOAvalancheLaunch.CCIP_RATE_LIMIT_REFILL_RATE;
 
   function execute() external {
     IRateLimiter.Config memory rateLimiterConfig = IRateLimiter.Config({
@@ -42,7 +42,7 @@ contract AaveV3Base_GHOAvalancheLaunch_20250519 is IProposalGenericExecutor {
     remotePoolAddresses[0] = abi.encode(REMOTE_TOKEN_POOL_AVALANCHE);
 
     chainsToAdd[0] = IUpgradeableBurnMintTokenPool_1_5_1.ChainUpdate({
-      remoteChainSelector: AVALANCHE_CHAIN_SELECTOR,
+      remoteChainSelector: AVAX_CHAIN_SELECTOR,
       remotePoolAddresses: remotePoolAddresses,
       remoteTokenAddress: abi.encode(REMOTE_GHO_TOKEN_AVALANCHE),
       outboundRateLimiterConfig: rateLimiterConfig,

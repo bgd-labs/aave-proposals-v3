@@ -7,10 +7,11 @@ import {IInternal} from 'src/interfaces/ccip/IInternal.sol';
 import {IEVM2EVMOnRamp} from 'src/interfaces/ccip/IEVM2EVMOnRamp.sol';
 
 library CCIPUtils {
-  uint64 internal constant ARBITRUM_CHAIN_SELECTOR = 4949039107694359620;
-  uint64 internal constant BASE_CHAIN_SELECTOR = 15971525489660198786;
-  uint64 internal constant ETHEREUM_CHAIN_SELECTOR = 5009297550715157269;
-  uint64 internal constant AVALANCHE_CHAIN_SELECTOR = 6433500567565415381;
+  // @note moved to GHOLaunchConstants
+  // uint64 internal constant ARB_CHAIN_SELECTOR = 4949039107694359620;
+  // uint64 internal constant BASE_CHAIN_SELECTOR = 15971525489660198786;
+  // uint64 internal constant ETH_CHAIN_SELECTOR = 5009297550715157269;
+  // uint64 internal constant AVAX_CHAIN_SELECTOR = 6433500567565415381;
 
   bytes32 internal constant LEAF_DOMAIN_SEPARATOR =
     0x0000000000000000000000000000000000000000000000000000000000000000;
