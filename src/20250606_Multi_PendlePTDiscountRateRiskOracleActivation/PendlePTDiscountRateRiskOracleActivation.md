@@ -7,13 +7,13 @@ snapshot: "Direct To AIP"
 
 ## Simple Summary
 
-This proposal activates the automated Aave Generalized Risk Stewards (AGRS) system on the ethereum core instance to perform automated discount rate updates on pendle pt feeds. We also update the manual RiskSteward to the newer iteration which allows for e-mode category updates across all instances.
+This proposal activates the automated Aave Generalized Risk Stewards (AGRS) system on the ethereum core instance to perform automated discount rate updates on pendle pt feeds. We also update the manual AGRS to the newer iteration which allows for e-mode category updates across all instances.
 
 ## Motivation
 
 The current implementation of manual AGRS allows for the periodic manual updating of discount rate on pendle pt oracles, generally performed in response to market changes. With high volume of updates, similar to other risk params we think it's time to automate the discount rate param of the pt oracle to reduce delays and have more dynamism.
 
-The new iteration of manual RiskSteward was only activated on the ethereum core instance as part of [Proposal 299](https://vote.onaave.com/proposal/?proposalId=299) which in addition to the previous iteration allows updating eMode category collateral params such as LT, LTV and LB in a constrained manner, while also allowing to change the discountRate of pendle pt feeds. With the new iteration of RiskSteward live on the core instance for a while we think it's a good idea to activate it on all other instances as well.
+The new iteration of manual AGRS was only activated on the ethereum core instance as part of [Proposal 299](https://vote.onaave.com/proposal/?proposalId=299) which in addition to the previous iteration allows updating eMode category collateral params such as LT, LTV and LB in a constrained manner, while also allowing to change the discountRate of pendle pt feeds. With the new iteration of AGRS live on the core instance for a while we think it's a good idea to activate it on all other instances as well.
 
 ## Specification
 
@@ -35,11 +35,11 @@ Constraints on the discount rate update of the pendle pt feeds will be as follow
 
 ### Manual AGRS
 
-The new manual RiskSteward will be activated on all the instances and will be given the `RISK_ADMIN` role via: `ACL_MANAGER.addRiskAdmin(RISK_STEWARD);` and the `RISK_ADMIN` role of the previous manual RiskSteward along with other legacy contracts like `FREEZING_STEWARD` and `CAPS_PLUS_RISK_STEWARD` will be revoked.
+The new manual AGRS will be activated on all the instances and will be given the `RISK_ADMIN` role via: `ACL_MANAGER.addRiskAdmin(RISK_STEWARD);` and the `RISK_ADMIN` role of the previous manual AGRS along with other legacy contracts like `FREEZING_STEWARD` and `CAPS_PLUS_RISK_STEWARD` will be revoked.
 
 **_Please note: GHO asset will be set as restricted on the new manual stewards as the asset is to be updated via the gho stewards._**
 
-The following risk configuration will be set on the new manual RiskSteward for all instances:
+The following risk configuration will be set on the new manual AGRS for all instances:
 
 | **Parameter**                | **Percent change allowed** | **minimumDelay** |
 | ---------------------------- | -------------------------- | ---------------- |
