@@ -12,14 +12,14 @@ import {IAaveCLRobotOperator} from '../interfaces/IAaveCLRobotOperator.sol';
 
 /**
  * @dev Test for AaveV3Polygon_AaveRobotMaintenance_Part2_20250330
- * command: FOUNDRY_PROFILE=polygon forge test --match-path=src/20250330_Multi_AaveRobotMaintenance/AaveV3Polygon_AaveRobotMaintenance_Part2_20250330.t.sol -vv
+ * command: FOUNDRY_PROFILE=test forge test --match-path=src/20250330_Multi_AaveRobotMaintenance/AaveV3Polygon_AaveRobotMaintenance_Part2_20250330.t.sol -vv
  */
 contract AaveV3Polygon_AaveRobotMaintenance_20250330_Part2_Test is ProtocolV3TestBase {
   AaveV3Polygon_AaveRobotMaintenance_Part1_20250330 internal proposalPart1;
   AaveV3Polygon_AaveRobotMaintenance_Part2_20250330 internal proposalPart2;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('polygon'), 69689324);
+    vm.createSelectFork(vm.rpcUrl('polygon'), 72590315);
     proposalPart1 = new AaveV3Polygon_AaveRobotMaintenance_Part1_20250330();
     proposalPart2 = new AaveV3Polygon_AaveRobotMaintenance_Part2_20250330();
 

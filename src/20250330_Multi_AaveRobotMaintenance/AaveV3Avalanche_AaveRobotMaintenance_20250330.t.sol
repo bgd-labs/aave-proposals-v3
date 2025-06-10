@@ -9,7 +9,7 @@ import {IERC20, IAaveCLRobotOperator, AaveV3Avalanche_AaveRobotMaintenance_20250
 
 /**
  * @dev Test for AaveV3Avalanche_AaveRobotMaintenance_20250330
- * command: FOUNDRY_PROFILE=avalanche forge test --match-path=src/20250330_Multi_AaveRobotMaintenance/AaveV3Avalanche_AaveRobotMaintenance_20250330.t.sol -vv
+ * command: FOUNDRY_PROFILE=test forge test --match-path=src/20250330_Multi_AaveRobotMaintenance/AaveV3Avalanche_AaveRobotMaintenance_20250330.t.sol -vv
  */
 contract AaveV3Avalanche_AaveRobotMaintenance_20250330_Test is ProtocolV3TestBase {
   AaveV3Avalanche_AaveRobotMaintenance_20250330 internal proposal;
@@ -19,7 +19,7 @@ contract AaveV3Avalanche_AaveRobotMaintenance_20250330_Test is ProtocolV3TestBas
     0x10E49034306EaA663646773C04b7B67E81eD0D52;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('avalanche'), 59474322);
+    vm.createSelectFork(vm.rpcUrl('avalanche'), 63622131);
     proposal = new AaveV3Avalanche_AaveRobotMaintenance_20250330();
   }
 

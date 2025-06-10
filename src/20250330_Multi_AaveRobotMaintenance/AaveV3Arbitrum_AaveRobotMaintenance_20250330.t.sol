@@ -10,7 +10,7 @@ import {IAaveCLRobotOperator, AaveV3Arbitrum_AaveRobotMaintenance_20250330} from
 
 /**
  * @dev Test for AaveV3Arbitrum_AaveRobotMaintenance_20250330
- * command: FOUNDRY_PROFILE=arbitrum forge test --match-path=src/20250330_Multi_AaveRobotMaintenance/AaveV3Arbitrum_AaveRobotMaintenance_20250330.t.sol -vv
+ * command: FOUNDRY_PROFILE=test forge test --match-path=src/20250330_Multi_AaveRobotMaintenance/AaveV3Arbitrum_AaveRobotMaintenance_20250330.t.sol -vv
  */
 contract AaveV3Arbitrum_AaveRobotMaintenance_20250330_Test is ProtocolV3TestBase {
   AaveV3Arbitrum_AaveRobotMaintenance_20250330 internal proposal;
@@ -19,7 +19,7 @@ contract AaveV3Arbitrum_AaveRobotMaintenance_20250330_Test is ProtocolV3TestBase
   address public constant OLD_STATA_ROBOT_ADDRESS = 0x0451f67bA61966C346daBAbB50a30Cc6A9A67C69;
 
   function setUp() public {
-    uint256 blockNumber = 321158457;
+    uint256 blockNumber = 345832654;
     vm.createSelectFork(vm.rpcUrl('arbitrum'), blockNumber);
     proposal = new AaveV3Arbitrum_AaveRobotMaintenance_20250330();
 

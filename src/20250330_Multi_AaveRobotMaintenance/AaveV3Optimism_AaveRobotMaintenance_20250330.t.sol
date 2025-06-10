@@ -9,7 +9,7 @@ import {IAaveCLRobotOperator, AaveV3Optimism_AaveRobotMaintenance_20250330} from
 
 /**
  * @dev Test for AaveV3Optimism_AaveRobotMaintenance_20250330
- * command: FOUNDRY_PROFILE=optimism forge test --match-path=src/20250330_Multi_AaveRobotMaintenance/AaveV3Optimism_AaveRobotMaintenance_20250330.t.sol -vv
+ * command: FOUNDRY_PROFILE=test forge test --match-path=src/20250330_Multi_AaveRobotMaintenance/AaveV3Optimism_AaveRobotMaintenance_20250330.t.sol -vv
  */
 contract AaveV3Optimism_AaveRobotMaintenance_20250330_Test is ProtocolV3TestBase {
   AaveV3Optimism_AaveRobotMaintenance_20250330 internal proposal;
@@ -17,7 +17,7 @@ contract AaveV3Optimism_AaveRobotMaintenance_20250330_Test is ProtocolV3TestBase
   address public constant OLD_STATA_ROBOT_ADDRESS = 0x861Be72d464b6F1C99880B9bE476D40e8F9b5Bce;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('optimism'), 133875255);
+    vm.createSelectFork(vm.rpcUrl('optimism'), 136973887);
     proposal = new AaveV3Optimism_AaveRobotMaintenance_20250330();
   }
 

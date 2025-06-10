@@ -11,14 +11,14 @@ import {AaveV3Base_AaveRobotMaintenance_Part2_20250330} from './AaveV3Base_AaveR
 
 /**
  * @dev Test for AaveV3Base_AaveRobotMaintenance_Part2_20250330
- * command: FOUNDRY_PROFILE=base forge test --match-path=src/20250330_Multi_AaveRobotMaintenance/AaveV3Base_AaveRobotMaintenance_Part2_20250330.t.sol -vv
+ * command: FOUNDRY_PROFILE=test forge test --match-path=src/20250330_Multi_AaveRobotMaintenance/AaveV3Base_AaveRobotMaintenance_Part2_20250330.t.sol -vv
  */
 contract AaveV3Base_AaveRobotMaintenance_Part2_20250330_Test is ProtocolV3TestBase {
   AaveV3Base_AaveRobotMaintenance_Part1_20250330 internal proposalPart1;
   AaveV3Base_AaveRobotMaintenance_Part2_20250330 internal proposalPart2;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('base'), 28279971);
+    vm.createSelectFork(vm.rpcUrl('base'), 31378541);
     proposalPart1 = new AaveV3Base_AaveRobotMaintenance_Part1_20250330();
     proposalPart2 = new AaveV3Base_AaveRobotMaintenance_Part2_20250330();
 

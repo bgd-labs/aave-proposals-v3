@@ -18,7 +18,7 @@ import {AaveV3BNB_AaveRobotMaintenance_Part2_20250330} from './AaveV3BNB_AaveRob
 /**
  * @dev Deploy Ethereum
  * deploy-command: make deploy-ledger contract=src/20250330_Multi_AaveRobotMaintenance/AaveRobotMaintenance_20250330.s.sol:DeployEthereum chain=mainnet
- * verify-command: FOUNDRY_PROFILE=mainnet npx catapulta-verify -b broadcast/AaveRobotMaintenance_20250330.s.sol/1/run-latest.json
+ * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/AaveRobotMaintenance_20250330.s.sol/1/run-latest.json
  */
 contract DeployEthereum is EthereumScript {
   function run() external broadcast {
@@ -40,7 +40,7 @@ contract DeployEthereum is EthereumScript {
 /**
  * @dev Deploy Polygon
  * deploy-command: make deploy-ledger contract=src/20250330_Multi_AaveRobotMaintenance/AaveRobotMaintenance_20250330.s.sol:DeployPolygon chain=polygon
- * verify-command: FOUNDRY_PROFILE=polygon npx catapulta-verify -b broadcast/AaveRobotMaintenance_20250330.s.sol/137/run-latest.json
+ * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/AaveRobotMaintenance_20250330.s.sol/137/run-latest.json
  */
 contract DeployPolygon is PolygonScript {
   function run() external broadcast {
@@ -61,7 +61,7 @@ contract DeployPolygon is PolygonScript {
 /**
  * @dev Deploy Avalanche
  * deploy-command: make deploy-ledger contract=src/20250330_Multi_AaveRobotMaintenance/AaveRobotMaintenance_20250330.s.sol:DeployAvalanche chain=avalanche
- * verify-command: FOUNDRY_PROFILE=avalanche npx catapulta-verify -b broadcast/AaveRobotMaintenance_20250330.s.sol/43114/run-latest.json
+ * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/AaveRobotMaintenance_20250330.s.sol/43114/run-latest.json
  */
 contract DeployAvalanche is AvalancheScript {
   function run() external broadcast {
@@ -83,7 +83,7 @@ contract DeployAvalanche is AvalancheScript {
 /**
  * @dev Deploy Optimism
  * deploy-command: make deploy-ledger contract=src/20250330_Multi_AaveRobotMaintenance/AaveRobotMaintenance_20250330.s.sol:DeployOptimism chain=optimism
- * verify-command: FOUNDRY_PROFILE=optimism npx catapulta-verify -b broadcast/AaveRobotMaintenance_20250330.s.sol/10/run-latest.json
+ * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/AaveRobotMaintenance_20250330.s.sol/10/run-latest.json
  */
 contract DeployOptimism is OptimismScript {
   function run() external broadcast {
@@ -105,7 +105,7 @@ contract DeployOptimism is OptimismScript {
 /**
  * @dev Deploy Arbitrum
  * deploy-command: make deploy-ledger contract=src/20250330_Multi_AaveRobotMaintenance/AaveRobotMaintenance_20250330.s.sol:DeployArbitrum chain=arbitrum
- * verify-command: FOUNDRY_PROFILE=arbitrum npx catapulta-verify -b broadcast/AaveRobotMaintenance_20250330.s.sol/42161/run-latest.json
+ * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/AaveRobotMaintenance_20250330.s.sol/42161/run-latest.json
  */
 contract DeployArbitrum is ArbitrumScript {
   function run() external broadcast {
@@ -127,7 +127,7 @@ contract DeployArbitrum is ArbitrumScript {
 /**
  * @dev Deploy Base
  * deploy-command: make deploy-ledger contract=src/20250330_Multi_AaveRobotMaintenance/AaveRobotMaintenance_20250330.s.sol:DeployBase chain=base
- * verify-command: FOUNDRY_PROFILE=base npx catapulta-verify -b broadcast/AaveRobotMaintenance_20250330.s.sol/8453/run-latest.json
+ * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/AaveRobotMaintenance_20250330.s.sol/8453/run-latest.json
  */
 contract DeployBase is BaseScript {
   function run() external broadcast {
@@ -148,7 +148,7 @@ contract DeployBase is BaseScript {
 /**
  * @dev Deploy BNB
  * deploy-command: make deploy-ledger contract=src/20250330_Multi_AaveRobotMaintenance/AaveRobotMaintenance_20250330.s.sol:DeployBNB chain=bnb
- * verify-command: FOUNDRY_PROFILE=bnb npx catapulta-verify -b broadcast/AaveRobotMaintenance_20250330.s.sol/56/run-latest.json
+ * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/AaveRobotMaintenance_20250330.s.sol/56/run-latest.json
  */
 contract DeployBNB is BNBScript {
   function run() external broadcast {

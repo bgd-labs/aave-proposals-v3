@@ -11,14 +11,14 @@ import {IAaveCLRobotOperator, AaveV3BNB_AaveRobotMaintenance_Part2_20250330} fro
 
 /**
  * @dev Test for AaveV3BNB_AaveRobotMaintenance_Part2_20250330
- * command: FOUNDRY_PROFILE=bnb forge test --match-path=src/20250330_Multi_AaveRobotMaintenance/AaveV3BNB_AaveRobotMaintenance_Part2_20250330.t.sol -vv
+ * command: FOUNDRY_PROFILE=test forge test --match-path=src/20250330_Multi_AaveRobotMaintenance/AaveV3BNB_AaveRobotMaintenance_Part2_20250330.t.sol -vv
  */
 contract AaveV3BNB_AaveRobotMaintenance_Part2_20250330_Test is ProtocolV3TestBase {
   AaveV3BNB_AaveRobotMaintenance_Part1_20250330 internal proposalPart1;
   AaveV3BNB_AaveRobotMaintenance_Part2_20250330 internal proposalPart2;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('bnb'), 47922506);
+    vm.createSelectFork(vm.rpcUrl('bnb'), 51201599);
     proposalPart1 = new AaveV3BNB_AaveRobotMaintenance_Part1_20250330();
     proposalPart2 = new AaveV3BNB_AaveRobotMaintenance_Part2_20250330();
 

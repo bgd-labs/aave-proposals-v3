@@ -10,7 +10,7 @@ import {AaveV3Polygon_AaveRobotMaintenance_Part2_20250330} from './AaveV3Polygon
 
 /**
  * @dev Test for AaveV3Polygon_AaveRobotMaintenance_Part1_20250330
- * command: FOUNDRY_PROFILE=polygon forge test --match-path=src/20250330_Multi_AaveRobotMaintenance/AaveV3Polygon_AaveRobotMaintenance_Part1_20250330.t.sol -vv
+ * command: FOUNDRY_PROFILE=test forge test --match-path=src/20250330_Multi_AaveRobotMaintenance/AaveV3Polygon_AaveRobotMaintenance_Part1_20250330.t.sol -vv
  */
 contract AaveV3Polygon_AaveRobotMaintenance_Part1_20250330_Test is ProtocolV3TestBase {
   AaveV3Polygon_AaveRobotMaintenance_Part1_20250330 internal proposal;
@@ -20,7 +20,7 @@ contract AaveV3Polygon_AaveRobotMaintenance_Part1_20250330_Test is ProtocolV3Tes
     0xbe7998712402B6A63975515A532Ce503437998b7;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('polygon'), 69689324);
+    vm.createSelectFork(vm.rpcUrl('polygon'), 72590315);
     proposal = new AaveV3Polygon_AaveRobotMaintenance_Part1_20250330();
   }
 
