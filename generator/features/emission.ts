@@ -5,7 +5,7 @@ import {CHAIN_TO_CHAIN_ID, getPoolChain, getExplorerLink} from '../common';
 import {TEST_EXECUTE_PROPOSAL} from '../utils/constants';
 import {EmissionUpdate} from './types';
 import {addressPrompt, translateJsAddressToSol} from '../prompts/addressPrompt';
-import {getClient} from '@bgd-labs/rpc-env';
+import {getClient} from '@bgd-labs/toolbox';
 
 async function fetchEmission(pool: PoolIdentifier): Promise<EmissionUpdate> {
   const asset = await addressPrompt({
