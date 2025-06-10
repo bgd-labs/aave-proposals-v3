@@ -20,8 +20,8 @@ contract AaveV3Base_GHOAvalancheLaunch_20250519 is IProposalGenericExecutor {
   IUpgradeableBurnMintTokenPool_1_5_1 public constant TOKEN_POOL =
     IUpgradeableBurnMintTokenPool_1_5_1(GhoBase.GHO_CCIP_TOKEN_POOL);
 
-  address public constant REMOTE_TOKEN_POOL_AVALANCHE = GHOAvalancheLaunch.GHO_CCIP_TOKEN_POOL;
-  address public constant REMOTE_GHO_TOKEN_AVALANCHE = GHOAvalancheLaunch.GHO_TOKEN;
+  address public constant REMOTE_TOKEN_POOL_AVAX = GHOAvalancheLaunch.GHO_CCIP_TOKEN_POOL;
+  address public constant REMOTE_GHO_TOKEN_AVAX = GHOAvalancheLaunch.GHO_TOKEN;
 
   uint128 public constant CCIP_RATE_LIMIT_CAPACITY = GHOAvalancheLaunch.CCIP_RATE_LIMIT_CAPACITY;
   uint128 public constant CCIP_RATE_LIMIT_REFILL_RATE =
@@ -39,12 +39,12 @@ contract AaveV3Base_GHOAvalancheLaunch_20250519 is IProposalGenericExecutor {
     uint64[] memory chainsToRemove = new uint64[](0);
 
     bytes[] memory remotePoolAddresses = new bytes[](1);
-    remotePoolAddresses[0] = abi.encode(REMOTE_TOKEN_POOL_AVALANCHE);
+    remotePoolAddresses[0] = abi.encode(REMOTE_TOKEN_POOL_AVAX);
 
     chainsToAdd[0] = IUpgradeableBurnMintTokenPool_1_5_1.ChainUpdate({
       remoteChainSelector: AVAX_CHAIN_SELECTOR,
       remotePoolAddresses: remotePoolAddresses,
-      remoteTokenAddress: abi.encode(REMOTE_GHO_TOKEN_AVALANCHE),
+      remoteTokenAddress: abi.encode(REMOTE_GHO_TOKEN_AVAX),
       outboundRateLimiterConfig: rateLimiterConfig,
       inboundRateLimiterConfig: rateLimiterConfig
     });

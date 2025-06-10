@@ -42,8 +42,8 @@ contract AaveV3Avalanche_GHOAvalancheLaunch_20250519 is IProposalGenericExecutor
   address public constant GHO_BUCKET_STEWARD = GHOAvalancheLaunch.GHO_BUCKET_STEWARD;
   address public constant GHO_CCIP_STEWARD = GHOAvalancheLaunch.GHO_CCIP_STEWARD;
 
-  address public constant REMOTE_TOKEN_POOL_ETHEREUM = GhoEthereum.GHO_CCIP_TOKEN_POOL;
-  address public constant REMOTE_TOKEN_POOL_ARBITRUM = GhoArbitrum.GHO_CCIP_TOKEN_POOL;
+  address public constant REMOTE_TOKEN_POOL_ETH = GhoEthereum.GHO_CCIP_TOKEN_POOL;
+  address public constant REMOTE_TOKEN_POOL_ARB = GhoArbitrum.GHO_CCIP_TOKEN_POOL;
   address public constant REMOTE_TOKEN_POOL_BASE = GhoBase.GHO_CCIP_TOKEN_POOL;
 
   uint128 public constant CCIP_RATE_LIMIT_CAPACITY = GHOAvalancheLaunch.CCIP_RATE_LIMIT_CAPACITY;
@@ -99,7 +99,7 @@ contract AaveV3Avalanche_GHOAvalancheLaunch_20250519 is IProposalGenericExecutor
 
     {
       bytes[] memory remotePoolAddresses = new bytes[](1);
-      remotePoolAddresses[0] = abi.encode(REMOTE_TOKEN_POOL_ETHEREUM);
+      remotePoolAddresses[0] = abi.encode(REMOTE_TOKEN_POOL_ETH);
       chainsToAdd[0] = IUpgradeableBurnMintTokenPool_1_5_1.ChainUpdate({
         remoteChainSelector: ETH_CHAIN_SELECTOR,
         remotePoolAddresses: remotePoolAddresses,
@@ -111,7 +111,7 @@ contract AaveV3Avalanche_GHOAvalancheLaunch_20250519 is IProposalGenericExecutor
 
     {
       bytes[] memory remotePoolAddresses = new bytes[](1);
-      remotePoolAddresses[0] = abi.encode(REMOTE_TOKEN_POOL_ARBITRUM);
+      remotePoolAddresses[0] = abi.encode(REMOTE_TOKEN_POOL_ARB);
       chainsToAdd[1] = IUpgradeableBurnMintTokenPool_1_5_1.ChainUpdate({
         remoteChainSelector: ARB_CHAIN_SELECTOR,
         remotePoolAddresses: remotePoolAddresses,

@@ -68,15 +68,15 @@ contract AaveV3Arbitrum_GHOAvalancheLaunch_20250519_Avalanche is ProtocolV3TestB
     IEVM2EVMOffRamp_1_5(GHOAvalancheLaunch.ARB_BASE_OFF_RAMP);
 
   address internal constant RISK_COUNCIL = GHOAvalancheLaunch.RISK_COUNCIL;
-  address public constant NEW_REMOTE_TOKEN_AVALANCHE = GHOAvalancheLaunch.GHO_TOKEN;
+  address public constant NEW_REMOTE_TOKEN_AVAX = GHOAvalancheLaunch.GHO_TOKEN;
   IRouter internal constant ROUTER = IRouter(GHOAvalancheLaunch.ARB_CCIP_ROUTER);
   IGhoCcipSteward internal constant NEW_GHO_CCIP_STEWARD =
     IGhoCcipSteward(GhoArbitrum.GHO_CCIP_STEWARD);
   IUpgradeableBurnMintTokenPool_1_5_1 internal constant NEW_TOKEN_POOL =
     IUpgradeableBurnMintTokenPool_1_5_1(GhoArbitrum.GHO_CCIP_TOKEN_POOL);
-  address internal constant NEW_REMOTE_POOL_ETHEREUM = GhoEthereum.GHO_CCIP_TOKEN_POOL;
+  address internal constant NEW_REMOTE_POOL_ETH = GhoEthereum.GHO_CCIP_TOKEN_POOL;
   address internal constant NEW_REMOTE_POOL_BASE = GhoBase.GHO_CCIP_TOKEN_POOL;
-  address internal constant NEW_REMOTE_POOL_AVALANCHE = GHOAvalancheLaunch.GHO_CCIP_TOKEN_POOL;
+  address internal constant NEW_REMOTE_POOL_AVAX = GHOAvalancheLaunch.GHO_CCIP_TOKEN_POOL;
 
   AaveV3Arbitrum_GHOAvalancheLaunch_20250519 internal proposal;
 
@@ -100,8 +100,8 @@ contract AaveV3Arbitrum_GHOAvalancheLaunch_20250519_Avalanche is ProtocolV3TestB
   function _validateConstants() private view {
     assertEq(proposal.AVAX_CHAIN_SELECTOR(), AVAX_CHAIN_SELECTOR);
     assertEq(address(proposal.TOKEN_POOL()), address(NEW_TOKEN_POOL));
-    assertEq(proposal.REMOTE_TOKEN_POOL_AVALANCHE(), NEW_REMOTE_POOL_AVALANCHE);
-    assertEq(proposal.REMOTE_GHO_TOKEN_AVALANCHE(), NEW_REMOTE_TOKEN_AVALANCHE);
+    assertEq(proposal.REMOTE_TOKEN_POOL_AVAX(), NEW_REMOTE_POOL_AVAX);
+    assertEq(proposal.REMOTE_GHO_TOKEN_AVAX(), NEW_REMOTE_TOKEN_AVAX);
     assertEq(proposal.CCIP_RATE_LIMIT_CAPACITY(), CCIP_RATE_LIMIT_CAPACITY);
     assertEq(proposal.CCIP_RATE_LIMIT_REFILL_RATE(), CCIP_RATE_LIMIT_REFILL_RATE);
 
@@ -263,13 +263,13 @@ contract AaveV3Arbitrum_GHOAvalancheLaunch_20250519_PostExecution is
     );
     assertEq(
       NEW_TOKEN_POOL.getRemoteToken(AVAX_CHAIN_SELECTOR),
-      abi.encode(address(NEW_REMOTE_TOKEN_AVALANCHE))
+      abi.encode(address(NEW_REMOTE_TOKEN_AVAX))
     );
 
     assertEq(NEW_TOKEN_POOL.getRemotePools(ETH_CHAIN_SELECTOR).length, 2);
     assertEq(
       NEW_TOKEN_POOL.getRemotePools(ETH_CHAIN_SELECTOR)[1],
-      abi.encode(address(NEW_REMOTE_POOL_ETHEREUM))
+      abi.encode(address(NEW_REMOTE_POOL_ETH))
     );
     assertEq(NEW_TOKEN_POOL.getRemotePools(BASE_CHAIN_SELECTOR).length, 1);
     assertEq(
@@ -279,7 +279,7 @@ contract AaveV3Arbitrum_GHOAvalancheLaunch_20250519_PostExecution is
     assertEq(NEW_TOKEN_POOL.getRemotePools(AVAX_CHAIN_SELECTOR).length, 1);
     assertEq(
       NEW_TOKEN_POOL.getRemotePools(AVAX_CHAIN_SELECTOR)[0],
-      abi.encode(address(NEW_REMOTE_POOL_AVALANCHE))
+      abi.encode(address(NEW_REMOTE_POOL_AVAX))
     );
 
     // Omit checking rate limit configs against other chains because it's dynamic and not an area of concern for this AIP
@@ -418,7 +418,7 @@ contract AaveV3Arbitrum_GHOAvalancheLaunch_20250519_PostExecution is
         receiver: alice,
         amount: amount,
         localToken: address(GHO),
-        sourcePoolAddress: abi.encode(address(NEW_REMOTE_POOL_AVALANCHE)),
+        sourcePoolAddress: abi.encode(address(NEW_REMOTE_POOL_AVAX)),
         sourcePoolData: new bytes(0),
         offchainTokenData: new bytes(0)
       })
@@ -452,7 +452,7 @@ contract AaveV3Arbitrum_GHOAvalancheLaunch_20250519_PostExecution is
         receiver: alice,
         amount: amount,
         localToken: address(GHO),
-        sourcePoolAddress: abi.encode(address(NEW_REMOTE_POOL_ETHEREUM)),
+        sourcePoolAddress: abi.encode(address(NEW_REMOTE_POOL_ETH)),
         sourcePoolData: new bytes(0),
         offchainTokenData: new bytes(0)
       })
@@ -511,7 +511,7 @@ contract AaveV3Arbitrum_GHOAvalancheLaunch_20250519_PostExecution is
         receiver: alice,
         amount: amount,
         localToken: address(GHO),
-        sourcePoolAddress: abi.encode(address(NEW_REMOTE_POOL_ETHEREUM)),
+        sourcePoolAddress: abi.encode(address(NEW_REMOTE_POOL_ETH)),
         sourcePoolData: new bytes(0),
         offchainTokenData: new bytes(0)
       })
@@ -525,7 +525,7 @@ contract AaveV3Arbitrum_GHOAvalancheLaunch_20250519_PostExecution is
     vm.expectRevert(
       abi.encodeWithSelector(
         InvalidSourcePoolAddress.selector,
-        abi.encode(address(NEW_REMOTE_POOL_ETHEREUM))
+        abi.encode(address(NEW_REMOTE_POOL_ETH))
       )
     );
     vm.prank(address(AVAX_OFF_RAMP));
@@ -536,7 +536,7 @@ contract AaveV3Arbitrum_GHOAvalancheLaunch_20250519_PostExecution is
         receiver: alice,
         amount: amount,
         localToken: address(GHO),
-        sourcePoolAddress: abi.encode(address(NEW_REMOTE_POOL_ETHEREUM)),
+        sourcePoolAddress: abi.encode(address(NEW_REMOTE_POOL_ETH)),
         sourcePoolData: new bytes(0),
         offchainTokenData: new bytes(0)
       })
@@ -545,7 +545,7 @@ contract AaveV3Arbitrum_GHOAvalancheLaunch_20250519_PostExecution is
     vm.expectRevert(
       abi.encodeWithSelector(
         InvalidSourcePoolAddress.selector,
-        abi.encode(address(NEW_REMOTE_POOL_AVALANCHE))
+        abi.encode(address(NEW_REMOTE_POOL_AVAX))
       )
     );
     vm.prank(address(ETH_OFF_RAMP));
@@ -556,7 +556,7 @@ contract AaveV3Arbitrum_GHOAvalancheLaunch_20250519_PostExecution is
         receiver: alice,
         amount: amount,
         localToken: address(GHO),
-        sourcePoolAddress: abi.encode(address(NEW_REMOTE_POOL_AVALANCHE)),
+        sourcePoolAddress: abi.encode(address(NEW_REMOTE_POOL_AVAX)),
         sourcePoolData: new bytes(0),
         offchainTokenData: new bytes(0)
       })

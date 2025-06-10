@@ -83,10 +83,10 @@ contract AaveV3Base_GHOAvalancheLaunch_20250519_Base is ProtocolV3TestBase {
 
   // @todo below constants should be stardadize
   address internal constant RISK_COUNCIL = GHOAvalancheLaunch.RISK_COUNCIL; // common across all chains
-  address internal constant RMN_PROXY_AVALANCHE = GHOAvalancheLaunch.AVAX_RMN_PROXY;
-  address internal constant ROUTER_AVALANCHE = GHOAvalancheLaunch.AVAX_CCIP_ROUTER;
-  address internal constant GHO_TOKEN_IMPL_AVALANCHE = GHOAvalancheLaunch.GHO_TOKEN_IMPL;
-  IGhoToken internal constant GHO_TOKEN_AVALANCHE = IGhoToken(GHOAvalancheLaunch.GHO_TOKEN);
+  address internal constant RMN_PROXY_AVAX = GHOAvalancheLaunch.AVAX_RMN_PROXY;
+  address internal constant ROUTER_AVAX = GHOAvalancheLaunch.AVAX_CCIP_ROUTER;
+  address internal constant GHO_TOKEN_IMPL_AVAX = GHOAvalancheLaunch.GHO_TOKEN_IMPL;
+  IGhoToken internal constant GHO_TOKEN_AVAX = IGhoToken(GHOAvalancheLaunch.GHO_TOKEN);
   uint128 public constant CCIP_RATE_LIMIT_CAPACITY = GHOAvalancheLaunch.CCIP_RATE_LIMIT_CAPACITY;
   uint128 public constant CCIP_RATE_LIMIT_REFILL_RATE =
     GHOAvalancheLaunch.CCIP_RATE_LIMIT_REFILL_RATE;
@@ -100,9 +100,9 @@ contract AaveV3Base_GHOAvalancheLaunch_20250519_Base is ProtocolV3TestBase {
   address internal bob = makeAddr('bob');
   address internal carol = makeAddr('carol');
 
-  IGhoAaveSteward internal GHO_AAVE_STEWARD_AVALANCHE;
-  IGhoBucketSteward internal GHO_BUCKET_STEWARD_AVALANCHE;
-  IGhoCcipSteward internal GHO_CCIP_STEWARD_AVALANCHE;
+  IGhoAaveSteward internal GHO_AAVE_STEWARD_AVAX;
+  IGhoBucketSteward internal GHO_BUCKET_STEWARD_AVAX;
+  IGhoCcipSteward internal GHO_CCIP_STEWARD_AVAX;
 
   event CCIPSendRequested(IInternal.EVM2EVMMessage message);
   event Locked(address indexed sender, uint256 amount);
@@ -171,7 +171,7 @@ contract AaveV3Base_GHOAvalancheLaunch_20250519_Base is ProtocolV3TestBase {
     ava.proposal = new AaveV3Avalanche_GHOAvalancheLaunch_20250519();
     ava.tokenPool = IUpgradeableBurnMintTokenPool_1_5_1(0xDe6539018B095353A40753Dc54C91C68c9487D4E);
     ava.c.tokenAdminRegistry = ITokenAdminRegistry(0xc8df5D618c6a59Cc6A311E96a39450381001464F);
-    ava.c.token = GHO_TOKEN_AVALANCHE;
+    ava.c.token = GHO_TOKEN_AVAX;
     ava.c.router = IRouter(ava.tokenPool.getRouter());
     ava.c.arbOnRamp = IEVM2EVMOnRamp(ava.c.router.getOnRamp(arb.c.chainSelector));
     ava.c.baseOnRamp = IEVM2EVMOnRamp(ava.c.router.getOnRamp(base.c.chainSelector));
@@ -188,7 +188,7 @@ contract AaveV3Base_GHOAvalancheLaunch_20250519_Base is ProtocolV3TestBase {
   function _performCcipPreReq() internal {
     vm.prank(ava.proposal.TOKEN_ADMIN_REGISTRY().owner());
     ava.proposal.TOKEN_ADMIN_REGISTRY().proposeAdministrator(
-      address(GHO_TOKEN_AVALANCHE),
+      address(GHO_TOKEN_AVAX),
       GovernanceV3Avalanche.EXECUTOR_LVL_1
     );
   }
@@ -236,8 +236,8 @@ contract AaveV3Base_GHOAvalancheLaunch_20250519_Base is ProtocolV3TestBase {
     // proposal constants
     assertEq(arb.proposal.AVAX_CHAIN_SELECTOR(), ava.c.chainSelector);
     assertEq(address(arb.proposal.TOKEN_POOL()), address(arb.tokenPool));
-    assertEq(arb.proposal.REMOTE_TOKEN_POOL_AVALANCHE(), address(ava.tokenPool));
-    assertEq(arb.proposal.REMOTE_GHO_TOKEN_AVALANCHE(), address(ava.c.token));
+    assertEq(arb.proposal.REMOTE_TOKEN_POOL_AVAX(), address(ava.tokenPool));
+    assertEq(arb.proposal.REMOTE_GHO_TOKEN_AVAX(), address(ava.c.token));
 
     vm.selectFork(base.c.forkId);
     assertEq(base.c.chainSelector, 15971525489660198786);
@@ -253,8 +253,8 @@ contract AaveV3Base_GHOAvalancheLaunch_20250519_Base is ProtocolV3TestBase {
     // proposal constants
     assertEq(base.proposal.AVAX_CHAIN_SELECTOR(), ava.c.chainSelector);
     assertEq(address(base.proposal.TOKEN_POOL()), address(base.tokenPool));
-    assertEq(base.proposal.REMOTE_TOKEN_POOL_AVALANCHE(), address(ava.tokenPool));
-    assertEq(base.proposal.REMOTE_GHO_TOKEN_AVALANCHE(), address(ava.c.token));
+    assertEq(base.proposal.REMOTE_TOKEN_POOL_AVAX(), address(ava.tokenPool));
+    assertEq(base.proposal.REMOTE_GHO_TOKEN_AVAX(), address(ava.c.token));
 
     vm.selectFork(ava.c.forkId);
     assertEq(ava.c.chainSelector, 6433500567565415381);
@@ -275,8 +275,8 @@ contract AaveV3Base_GHOAvalancheLaunch_20250519_Base is ProtocolV3TestBase {
     IGhoCcipSteward ghoCcipSteward = IGhoCcipSteward(ava.proposal.GHO_CCIP_STEWARD());
     assertEq(ghoCcipSteward.GHO_TOKEN_POOL(), address(ava.tokenPool));
     assertEq(ghoCcipSteward.GHO_TOKEN(), address(ava.c.token));
-    assertEq(ava.proposal.REMOTE_TOKEN_POOL_ETHEREUM(), address(eth.tokenPool));
-    assertEq(ava.proposal.REMOTE_TOKEN_POOL_ARBITRUM(), address(arb.tokenPool));
+    assertEq(ava.proposal.REMOTE_TOKEN_POOL_ETH(), address(eth.tokenPool));
+    assertEq(ava.proposal.REMOTE_TOKEN_POOL_ARB(), address(arb.tokenPool));
 
     vm.selectFork(eth.c.forkId);
     assertEq(eth.c.chainSelector, 5009297550715157269);
@@ -292,8 +292,8 @@ contract AaveV3Base_GHOAvalancheLaunch_20250519_Base is ProtocolV3TestBase {
     // proposal constants
     assertEq(eth.proposal.AVAX_CHAIN_SELECTOR(), ava.c.chainSelector);
     assertEq(address(eth.proposal.TOKEN_POOL()), address(eth.tokenPool));
-    assertEq(eth.proposal.REMOTE_TOKEN_POOL_AVALANCHE(), address(ava.tokenPool));
-    assertEq(eth.proposal.REMOTE_GHO_TOKEN_AVALANCHE(), address(ava.c.token));
+    assertEq(eth.proposal.REMOTE_TOKEN_POOL_AVAX(), address(ava.tokenPool));
+    assertEq(eth.proposal.REMOTE_GHO_TOKEN_AVAX(), address(ava.c.token));
 
     if (executed) {
       vm.selectFork(arb.c.forkId);

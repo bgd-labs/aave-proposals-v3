@@ -87,8 +87,8 @@ contract AaveV3Avalanche_GHOAvalancheLaunch_20250519_Base is ProtocolV3TestBase 
     IGhoCcipSteward(GHOAvalancheLaunch.GHO_CCIP_STEWARD);
   IUpgradeableBurnMintTokenPool_1_5_1 internal constant NEW_TOKEN_POOL =
     IUpgradeableBurnMintTokenPool_1_5_1(GHOAvalancheLaunch.GHO_CCIP_TOKEN_POOL);
-  address internal constant NEW_REMOTE_POOL_ARBITRUM = GhoArbitrum.GHO_CCIP_TOKEN_POOL;
-  address internal constant NEW_REMOTE_POOL_ETHEREUM = GhoEthereum.GHO_CCIP_TOKEN_POOL;
+  address internal constant NEW_REMOTE_POOL_ARB = GhoArbitrum.GHO_CCIP_TOKEN_POOL;
+  address internal constant NEW_REMOTE_POOL_ETH = GhoEthereum.GHO_CCIP_TOKEN_POOL;
   address internal constant NEW_REMOTE_POOL_BASE = GhoBase.GHO_CCIP_TOKEN_POOL;
 
   AaveV3Avalanche_GHOAvalancheLaunch_20250519 internal proposal;
@@ -132,8 +132,8 @@ contract AaveV3Avalanche_GHOAvalancheLaunch_20250519_Base is ProtocolV3TestBase 
     assertEq(proposal.GHO_AAVE_STEWARD(), address(NEW_GHO_AAVE_STEWARD));
     assertEq(proposal.GHO_BUCKET_STEWARD(), address(NEW_GHO_BUCKET_STEWARD));
     assertEq(proposal.GHO_CCIP_STEWARD(), address(NEW_GHO_CCIP_STEWARD));
-    assertEq(proposal.REMOTE_TOKEN_POOL_ARBITRUM(), NEW_REMOTE_POOL_ARBITRUM);
-    assertEq(proposal.REMOTE_TOKEN_POOL_ETHEREUM(), NEW_REMOTE_POOL_ETHEREUM);
+    assertEq(proposal.REMOTE_TOKEN_POOL_ARB(), NEW_REMOTE_POOL_ARB);
+    assertEq(proposal.REMOTE_TOKEN_POOL_ETH(), NEW_REMOTE_POOL_ETH);
     assertEq(proposal.CCIP_RATE_LIMIT_CAPACITY(), CCIP_RATE_LIMIT_CAPACITY);
     assertEq(proposal.CCIP_RATE_LIMIT_REFILL_RATE(), CCIP_RATE_LIMIT_REFILL_RATE);
 
@@ -410,15 +410,9 @@ contract AaveV3Avalanche_GHOAvalancheLaunch_20250519_PreExecution is
       abi.encode(AaveV3BaseAssets.GHO_UNDERLYING)
     );
     assertEq(NEW_TOKEN_POOL.getRemotePools(ETH_CHAIN_SELECTOR).length, 1);
-    assertEq(
-      NEW_TOKEN_POOL.getRemotePools(ETH_CHAIN_SELECTOR)[0],
-      abi.encode(NEW_REMOTE_POOL_ETHEREUM)
-    );
+    assertEq(NEW_TOKEN_POOL.getRemotePools(ETH_CHAIN_SELECTOR)[0], abi.encode(NEW_REMOTE_POOL_ETH));
     assertEq(NEW_TOKEN_POOL.getRemotePools(ARB_CHAIN_SELECTOR).length, 1);
-    assertEq(
-      NEW_TOKEN_POOL.getRemotePools(ARB_CHAIN_SELECTOR)[0],
-      abi.encode(NEW_REMOTE_POOL_ARBITRUM)
-    );
+    assertEq(NEW_TOKEN_POOL.getRemotePools(ARB_CHAIN_SELECTOR)[0], abi.encode(NEW_REMOTE_POOL_ARB));
     assertEq(NEW_TOKEN_POOL.getRemotePools(BASE_CHAIN_SELECTOR).length, 1);
     assertEq(
       NEW_TOKEN_POOL.getRemotePools(BASE_CHAIN_SELECTOR)[0],
@@ -553,7 +547,7 @@ contract AaveV3Avalance_GHOAvalanceLaunch_20250519_PostExecution is
         receiver: alice,
         amount: amount,
         localToken: address(GHO_TOKEN),
-        sourcePoolAddress: abi.encode(address(NEW_REMOTE_POOL_ARBITRUM)),
+        sourcePoolAddress: abi.encode(address(NEW_REMOTE_POOL_ARB)),
         sourcePoolData: new bytes(0),
         offchainTokenData: new bytes(0)
       })
@@ -587,7 +581,7 @@ contract AaveV3Avalance_GHOAvalanceLaunch_20250519_PostExecution is
         receiver: alice,
         amount: amount,
         localToken: address(GHO_TOKEN),
-        sourcePoolAddress: abi.encode(address(NEW_REMOTE_POOL_ETHEREUM)),
+        sourcePoolAddress: abi.encode(address(NEW_REMOTE_POOL_ETH)),
         sourcePoolData: new bytes(0),
         offchainTokenData: new bytes(0)
       })
@@ -607,7 +601,7 @@ contract AaveV3Avalance_GHOAvalanceLaunch_20250519_PostExecution is
     vm.expectRevert(
       abi.encodeWithSelector(
         InvalidSourcePoolAddress.selector,
-        abi.encode(address(NEW_REMOTE_POOL_ETHEREUM))
+        abi.encode(address(NEW_REMOTE_POOL_ETH))
       )
     );
     vm.prank(address(ARB_OFF_RAMP));
@@ -618,7 +612,7 @@ contract AaveV3Avalance_GHOAvalanceLaunch_20250519_PostExecution is
         receiver: alice,
         amount: amount,
         localToken: address(GHO_TOKEN),
-        sourcePoolAddress: abi.encode(address(NEW_REMOTE_POOL_ETHEREUM)),
+        sourcePoolAddress: abi.encode(address(NEW_REMOTE_POOL_ETH)),
         sourcePoolData: new bytes(0),
         offchainTokenData: new bytes(0)
       })
@@ -627,7 +621,7 @@ contract AaveV3Avalance_GHOAvalanceLaunch_20250519_PostExecution is
     vm.expectRevert(
       abi.encodeWithSelector(
         InvalidSourcePoolAddress.selector,
-        abi.encode(address(NEW_REMOTE_POOL_ARBITRUM))
+        abi.encode(address(NEW_REMOTE_POOL_ARB))
       )
     );
     vm.prank(address(ETH_OFF_RAMP));
@@ -638,7 +632,7 @@ contract AaveV3Avalance_GHOAvalanceLaunch_20250519_PostExecution is
         receiver: alice,
         amount: amount,
         localToken: address(GHO_TOKEN),
-        sourcePoolAddress: abi.encode(address(NEW_REMOTE_POOL_ARBITRUM)),
+        sourcePoolAddress: abi.encode(address(NEW_REMOTE_POOL_ARB)),
         sourcePoolData: new bytes(0),
         offchainTokenData: new bytes(0)
       })
