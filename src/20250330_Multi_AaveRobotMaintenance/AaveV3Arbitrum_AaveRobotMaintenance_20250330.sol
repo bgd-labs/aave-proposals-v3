@@ -20,7 +20,7 @@ contract AaveV3Arbitrum_AaveRobotMaintenance_20250330 is IProposalGenericExecuto
   uint256 public constant OLD_STATA_ROBOT_ID =
     34319054624776880603638802606735174345615741182444121775448759524700600678014;
   address public constant STATA_ROBOT = 0xF01281a6DfDe5506C5049c9BBf8C7E087b9bD4bF;
-  uint96 public constant STATA_ROBOT_LINK_AMOUNT = 35e18;
+  uint96 public constant STATA_ROBOT_LINK_AMOUNT = 34e18;
 
   function execute() external {
     IAaveCLRobotOperator(MiscArbitrum.AAVE_CL_ROBOT_OPERATOR).cancel(OLD_STATA_ROBOT_ID);

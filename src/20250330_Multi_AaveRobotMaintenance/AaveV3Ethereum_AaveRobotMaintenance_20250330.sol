@@ -7,7 +7,9 @@ import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {SafeERC20} from 'openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol';
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
+import {SafeCast} from 'openzeppelin-contracts/contracts/utils/math/SafeCast.sol';
 import {IRescuable} from 'solidity-utils/contracts/utils/interfaces/IRescuable.sol';
+import {CollectorUtils, ICollector} from 'aave-helpers/src/CollectorUtils.sol';
 
 import {IAaveCLRobotOperator} from '../interfaces/IAaveCLRobotOperator.sol';
 
@@ -17,7 +19,9 @@ import {IAaveCLRobotOperator} from '../interfaces/IAaveCLRobotOperator.sol';
  * - Discussion: TODO
  */
 contract AaveV3Ethereum_AaveRobotMaintenance_20250330 is IProposalGenericExecutor {
+  using CollectorUtils for ICollector;
   using SafeERC20 for IERC20;
+  using SafeCast for uint256;
 
   uint256 public constant OLD_STATA_ROBOT_ID =
     4988169448756852094961305595918821552734559788548770336163498615236667618831;
@@ -31,21 +35,24 @@ contract AaveV3Ethereum_AaveRobotMaintenance_20250330 is IProposalGenericExecuto
   address public constant ROOTS_CONSUMER = 0x2601FF9ac41ca7331e512d6C603c659400e0fC4E;
 
   uint96 public constant STATA_ROBOT_LINK_AMOUNT = 150e18;
-  uint96 public constant VOTING_CHAIN_ROBOT_LINK_AMOUNT = 350e18;
+  uint96 public constant VOTING_CHAIN_ROBOT_LINK_AMOUNT = 250e18;
 
   function execute() external {
     IAaveCLRobotOperator(MiscEthereum.AAVE_CL_ROBOT_OPERATOR).cancel(OLD_STATA_ROBOT_ID);
     IAaveCLRobotOperator(MiscEthereum.AAVE_CL_ROBOT_OPERATOR).cancel(OLD_VOTING_CHAIN_ROBOT_ID);
-    uint256 totalLinkAmount = STATA_ROBOT_LINK_AMOUNT + VOTING_CHAIN_ROBOT_LINK_AMOUNT;
 
-    AaveV3Ethereum.COLLECTOR.transfer(
-      IERC20(AaveV3EthereumAssets.LINK_UNDERLYING),
-      address(this),
-      totalLinkAmount
+    AaveV3Ethereum.COLLECTOR.withdrawFromV3(
+      CollectorUtils.IOInput({
+        pool: address(AaveV3Ethereum.POOL),
+        underlying: AaveV3EthereumAssets.LINK_UNDERLYING,
+        amount: STATA_ROBOT_LINK_AMOUNT + VOTING_CHAIN_ROBOT_LINK_AMOUNT
+      }),
+      address(this)
     );
+    uint256 linkBalance = IERC20(AaveV3EthereumAssets.LINK_UNDERLYING).balanceOf(address(this));
     IERC20(AaveV3EthereumAssets.LINK_UNDERLYING).forceApprove(
       MiscEthereum.AAVE_CL_ROBOT_OPERATOR,
-      totalLinkAmount
+      linkBalance
     );
 
     IAaveCLRobotOperator(MiscEthereum.AAVE_CL_ROBOT_OPERATOR).register(
@@ -62,7 +69,7 @@ contract AaveV3Ethereum_AaveRobotMaintenance_20250330 is IProposalGenericExecuto
       VOTING_CHAIN_ROBOT,
       '', // check data
       5_000_000, // gas limit
-      VOTING_CHAIN_ROBOT_LINK_AMOUNT,
+      (linkBalance - STATA_ROBOT_LINK_AMOUNT).toUint96(),
       0,
       ''
     );

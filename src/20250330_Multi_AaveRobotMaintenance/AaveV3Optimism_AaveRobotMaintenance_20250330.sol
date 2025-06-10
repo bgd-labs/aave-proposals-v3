@@ -5,7 +5,9 @@ import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGen
 import {AaveV3Optimism, AaveV3OptimismAssets} from 'aave-address-book/AaveV3Optimism.sol';
 import {MiscOptimism} from 'aave-address-book/MiscOptimism.sol';
 import {SafeERC20} from 'openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol';
+import {SafeCast} from 'openzeppelin-contracts/contracts/utils/math/SafeCast.sol';
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
+import {CollectorUtils, ICollector} from 'aave-helpers/src/CollectorUtils.sol';
 
 import {IAaveCLRobotOperator} from '../interfaces/IAaveCLRobotOperator.sol';
 
@@ -15,7 +17,9 @@ import {IAaveCLRobotOperator} from '../interfaces/IAaveCLRobotOperator.sol';
  * - Discussion: TODO
  */
 contract AaveV3Optimism_AaveRobotMaintenance_20250330 is IProposalGenericExecutor {
+  using CollectorUtils for ICollector;
   using SafeERC20 for IERC20;
+  using SafeCast for uint256;
 
   uint256 public constant OLD_STATA_ROBOT_ID =
     39066907368614325305271533987556686659130404181465565359549140029355866543783;
@@ -25,14 +29,18 @@ contract AaveV3Optimism_AaveRobotMaintenance_20250330 is IProposalGenericExecuto
   function execute() external {
     IAaveCLRobotOperator(MiscOptimism.AAVE_CL_ROBOT_OPERATOR).cancel(OLD_STATA_ROBOT_ID);
 
-    AaveV3Optimism.COLLECTOR.transfer(
-      IERC20(AaveV3OptimismAssets.LINK_UNDERLYING),
-      address(this),
-      STATA_ROBOT_LINK_AMOUNT
+    AaveV3Optimism.COLLECTOR.withdrawFromV3(
+      CollectorUtils.IOInput({
+        pool: address(AaveV3Optimism.POOL),
+        underlying: AaveV3OptimismAssets.LINK_UNDERLYING,
+        amount: STATA_ROBOT_LINK_AMOUNT
+      }),
+      address(this)
     );
+    uint256 linkBalance = IERC20(AaveV3OptimismAssets.LINK_UNDERLYING).balanceOf(address(this));
     IERC20(AaveV3OptimismAssets.LINK_UNDERLYING).forceApprove(
       MiscOptimism.AAVE_CL_ROBOT_OPERATOR,
-      STATA_ROBOT_LINK_AMOUNT
+      linkBalance
     );
 
     IAaveCLRobotOperator(MiscOptimism.AAVE_CL_ROBOT_OPERATOR).register(
@@ -40,7 +48,7 @@ contract AaveV3Optimism_AaveRobotMaintenance_20250330 is IProposalGenericExecuto
       STATA_ROBOT,
       '', // check data
       1_000_000, // gas limit
-      STATA_ROBOT_LINK_AMOUNT,
+      linkBalance.toUint96(),
       0,
       ''
     );
