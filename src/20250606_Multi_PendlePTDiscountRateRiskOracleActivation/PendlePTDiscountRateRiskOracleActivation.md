@@ -11,9 +11,20 @@ This proposal activates the automated Aave Generalized Risk Stewards (AGRS) syst
 
 ## Motivation
 
-The current implementation of manual AGRS allows for the periodic manual updating of discount rate on pendle pt oracles, generally performed in response to market changes. With high volume of updates, similar to other risk params we think it's time to automate the discount rate param of the pt oracle to reduce delays and have more dynamism.
+### Automated AGRS
 
-The new iteration of manual AGRS was only activated on the ethereum core instance as part of [Proposal 299](https://vote.onaave.com/proposal/?proposalId=299) which in addition to the previous iteration allows updating eMode category collateral params such as LT, LTV and LB in a constrained manner, while also allowing to change the discountRate of pendle pt feeds. With the new iteration of AGRS live on the core instance for a while we think it's a good idea to activate it on all other instances as well.
+The automated AGRS system, powered by Edge Risk Oracles, has proven effective for managing caps and interest rate updates. We propose extending this automation to include discount rate updates for Pendle PT feeds, leveraging the existing infrastructure.
+
+Currently discount rate on pt feeds require manual updates through the manual AGRS on the core instance, creating operational inefficiencies including:
+
+- Additional delays in risk parameter adjustments
+- Increased workload and suboptimal response times on manual AGRS due to high volume of risk updates
+
+To optimize this, we think it's a good idea to extend the automated AGRS system using Edge Risk Oracles to update discount rate on the pendle pt feeds.
+
+### Manual AGRS
+
+With the successful activation of the new version of manual AGRS as part of [Proposal 299](https://vote.onaave.com/proposal/?proposalId=299) on ethereum core instance which has been live for a while, and allows updating eMode category collateral params such as LT, LTV and LB in a constrained manner, while also allowing to change the discountRate of pendle pt feeds, we think it's a good idea to activate it on all other instances as well to align the manual AGRS implementation across all instances.
 
 ## Specification
 
