@@ -15,7 +15,7 @@ This proposal activates the automated Aave Generalized Risk Stewards (AGRS) syst
 
 The automated AGRS system, powered by Edge Risk Oracles, has proven effective for managing caps and interest rate updates. We propose extending this automation to include discount rate updates for Pendle PT feeds, leveraging the existing infrastructure.
 
-Currently discount rate on pt feeds require manual updates through the manual AGRS on the core instance, creating operational inefficiencies including:
+Currently, the discount rate on pt feeds requires manual updates through the manual AGRS on the core instance, creating operational inefficiencies including:
 
 - Additional delays in risk parameter adjustments
 - Increased workload and suboptimal response times on manual AGRS due to high volume of risk updates
@@ -24,7 +24,7 @@ To optimize this, we think it's a good idea to extend the automated AGRS system 
 
 ### Manual AGRS
 
-With the successful activation of the new version of manual AGRS as part of [Proposal 299](https://vote.onaave.com/proposal/?proposalId=299) on ethereum core instance which has been live for a while, and allows updating eMode category collateral params such as LT, LTV and LB in a constrained manner, while also allowing to change the discountRate of pendle pt feeds, we think it's a good idea to activate it on all other instances as well to align the manual AGRS implementation across all instances.
+With the successful activation of the new version of manual AGRS as part of [Proposal 299](https://vote.onaave.com/proposal/?proposalId=299) on ethereum core instance which has been live for a while, and allows updating eMode category collateral params such as LT, LTV, and LB in a constrained manner, while also allowing to change the discount rate of pendle pt feeds, we think it's a good idea to activate it on all other instances as well to align the manual AGRS implementation across all instances.
 
 ## Specification
 
@@ -34,7 +34,7 @@ This new discount rate AGRS will mirror the same infrastructure as the currently
 
 - The AGRS will have only one configurable parameter: discount rate on pt feeds.
 - Recommendation of these parameters will be submitted to a RiskOracle smart contract, from the Edge off-chain infrastructure. Between the risk oracle smart contract and the AGRS contract, there will be a thin middleware [AaveStewardInjectorDiscountRate](http://github.com/aave-dao/aave-v3-risk-stewards/blob/6e8fef4f74d2c68052be9ffa6983aae918c7579b/src/contracts/AaveStewardInjectorDiscountRate.sol), with the following logic:
-  - Takes recommendations from the Edge Risk Oracle side and propagate them to the AGRS contract.
+  - Takes recommendations from the Edge Risk Oracle side and propagates them to the AGRS contract.
   - Enforce that only the whitelisted pendle pt feeds can be acted upon.
   - Given the protections (percentage constraints and time delay) on the AGRS side and that it is an assumption that risk recommendations will be timed correctly on the Edge Risk Oracle side, the propagation will be permissionless.
 
@@ -46,7 +46,7 @@ Constraints on the discount rate update of the pendle pt feeds will be as follow
 
 ### Manual AGRS
 
-The new manual AGRS will be activated on all the instances and will be given the `RISK_ADMIN` role via: `ACL_MANAGER.addRiskAdmin(RISK_STEWARD);` and the `RISK_ADMIN` role of the previous manual AGRS along with other legacy contracts like `FREEZING_STEWARD` and `CAPS_PLUS_RISK_STEWARD` will be revoked.
+The new manual AGRS will be activated on all instances and will be given the `RISK_ADMIN` role via: `ACL_MANAGER.addRiskAdmin(RISK_STEWARD);` and the `RISK_ADMIN` role of the previous manual AGRS along with other legacy contracts like `FREEZING_STEWARD` and `CAPS_PLUS_RISK_STEWARD` will be revoked.
 
 **_Please note: GHO asset will be set as restricted on the new manual stewards as the asset is to be updated via the gho stewards._**
 
