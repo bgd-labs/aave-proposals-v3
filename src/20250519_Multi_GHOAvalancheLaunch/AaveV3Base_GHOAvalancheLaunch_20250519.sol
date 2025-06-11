@@ -5,7 +5,6 @@ import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGen
 import {IUpgradeableBurnMintTokenPool_1_5_1} from 'src/interfaces/ccip/tokenPool/IUpgradeableBurnMintTokenPool.sol';
 import {IRateLimiter} from 'src/interfaces/ccip/IRateLimiter.sol';
 import {GhoBase} from 'aave-address-book/GhoBase.sol';
-// import {CCIPUtils} from './utils/CCIPUtils.sol';
 import {GHOAvalancheLaunch} from './utils/GHOAvalancheLaunch.sol';
 
 /**

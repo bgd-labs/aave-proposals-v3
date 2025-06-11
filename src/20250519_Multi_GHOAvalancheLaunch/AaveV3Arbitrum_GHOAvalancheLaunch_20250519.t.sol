@@ -58,14 +58,10 @@ contract AaveV3Arbitrum_GHOAvalancheLaunch_20250519_Avalanche is ProtocolV3TestB
   IEVM2EVMOnRamp internal constant ETH_ON_RAMP = IEVM2EVMOnRamp(GHOAvalancheLaunch.ARB_ETH_ON_RAMP);
   IEVM2EVMOnRamp internal constant AVAX_ON_RAMP =
     IEVM2EVMOnRamp(GHOAvalancheLaunch.ARB_AVAX_ON_RAMP);
-  IEVM2EVMOnRamp internal constant BASE_ON_RAMP =
-    IEVM2EVMOnRamp(GHOAvalancheLaunch.ARB_BASE_ON_RAMP);
   IEVM2EVMOffRamp_1_5 internal constant ETH_OFF_RAMP =
     IEVM2EVMOffRamp_1_5(GHOAvalancheLaunch.ARB_ETH_OFF_RAMP);
   IEVM2EVMOffRamp_1_5 internal constant AVAX_OFF_RAMP =
     IEVM2EVMOffRamp_1_5(GHOAvalancheLaunch.ARB_AVAX_OFF_RAMP);
-  IEVM2EVMOffRamp_1_5 internal constant BASE_OFF_RAMP =
-    IEVM2EVMOffRamp_1_5(GHOAvalancheLaunch.ARB_BASE_OFF_RAMP);
 
   address internal constant RISK_COUNCIL = GHOAvalancheLaunch.RISK_COUNCIL;
   address public constant NEW_REMOTE_TOKEN_AVAX = GHOAvalancheLaunch.GHO_TOKEN;
@@ -92,7 +88,7 @@ contract AaveV3Arbitrum_GHOAvalancheLaunch_20250519_Avalanche is ProtocolV3TestB
   error InvalidSourcePoolAddress(bytes);
 
   function setUp() public virtual {
-    vm.createSelectFork(vm.rpcUrl('arbitrum'), 341142215);
+    vm.createSelectFork(vm.rpcUrl('arbitrum'), GHOAvalancheLaunch.ARB_BLOCK_NUMBER);
     proposal = new AaveV3Arbitrum_GHOAvalancheLaunch_20250519();
     _validateConstants();
   }
@@ -111,10 +107,8 @@ contract AaveV3Arbitrum_GHOAvalancheLaunch_20250519_Avalanche is ProtocolV3TestB
 
     _assertOnRamp(ETH_ON_RAMP, ARB_CHAIN_SELECTOR, ETH_CHAIN_SELECTOR, ROUTER);
     _assertOnRamp(AVAX_ON_RAMP, ARB_CHAIN_SELECTOR, AVAX_CHAIN_SELECTOR, ROUTER);
-    _assertOnRamp(BASE_ON_RAMP, ARB_CHAIN_SELECTOR, BASE_CHAIN_SELECTOR, ROUTER);
     _assertOffRamp(ETH_OFF_RAMP, ETH_CHAIN_SELECTOR, ARB_CHAIN_SELECTOR, ROUTER);
     _assertOffRamp(AVAX_OFF_RAMP, AVAX_CHAIN_SELECTOR, ARB_CHAIN_SELECTOR, ROUTER);
-    _assertOffRamp(BASE_OFF_RAMP, BASE_CHAIN_SELECTOR, ARB_CHAIN_SELECTOR, ROUTER);
 
     assertEq(NEW_GHO_CCIP_STEWARD.RISK_COUNCIL(), RISK_COUNCIL);
     assertEq(NEW_GHO_CCIP_STEWARD.GHO_TOKEN(), AaveV3ArbitrumAssets.GHO_UNDERLYING);
@@ -167,11 +161,9 @@ contract AaveV3Arbitrum_GHOAvalancheLaunch_20250519_Avalanche is ProtocolV3TestB
         originalSender: params.sender,
         sourceToken: address(GHO),
         destinationToken: address(
-          params.destChainSelector == BASE_CHAIN_SELECTOR
-            ? AaveV3BaseAssets.GHO_UNDERLYING
-            : params.destChainSelector == AVAX_CHAIN_SELECTOR
-              ? GHOAvalancheLaunch.GHO_TOKEN
-              : AaveV3EthereumAssets.GHO_UNDERLYING
+          params.destChainSelector == AVAX_CHAIN_SELECTOR
+            ? GHOAvalancheLaunch.GHO_TOKEN
+            : AaveV3EthereumAssets.GHO_UNDERLYING
         )
       })
     );
@@ -293,7 +285,7 @@ contract AaveV3Arbitrum_GHOAvalancheLaunch_20250519_PostExecution is
     );
   }
 
-  function test_sendMessageToAvalancheSucceeds(uint256 amount) public {
+  function test_sendMessageToAvaxSucceeds(uint256 amount) public {
     uint256 bridgeableAmount = _min(
       GHO.getFacilitator(address(NEW_TOKEN_POOL)).bucketLevel,
       CCIP_RATE_LIMIT_CAPACITY
@@ -363,41 +355,7 @@ contract AaveV3Arbitrum_GHOAvalancheLaunch_20250519_PostExecution is
     assertEq(GHO.getFacilitator(address(NEW_TOKEN_POOL)).bucketLevel, bucketLevel - amount);
   }
 
-  function test_sendMessageToBaseSucceeds(uint256 amount) public {
-    uint256 bridgeableAmount = _min(
-      GHO.getFacilitator(address(NEW_TOKEN_POOL)).bucketLevel,
-      CCIP_RATE_LIMIT_CAPACITY
-    );
-    amount = bound(amount, 1, bridgeableAmount);
-    skip(_getOutboundRefillTime(amount)); // wait for the rate limiter to refill
-
-    deal(address(GHO), alice, amount);
-    vm.prank(alice);
-    GHO.approve(address(ROUTER), amount);
-
-    uint256 aliceBalance = GHO.balanceOf(alice);
-    uint256 bucketLevel = GHO.getFacilitator(address(NEW_TOKEN_POOL)).bucketLevel;
-
-    (
-      IClient.EVM2AnyMessage memory message,
-      IInternal.EVM2EVMMessage memory eventArg
-    ) = _getTokenMessage(
-        CCIPSendParams({amount: amount, sender: alice, destChainSelector: BASE_CHAIN_SELECTOR})
-      );
-
-    vm.expectEmit(address(NEW_TOKEN_POOL));
-    emit Burned(address(BASE_ON_RAMP), amount);
-    vm.expectEmit(address(BASE_ON_RAMP));
-    emit CCIPSendRequested(eventArg); // @fixme log != eventarg
-
-    vm.prank(alice);
-    ROUTER.ccipSend{value: eventArg.feeTokenAmount}(BASE_CHAIN_SELECTOR, message);
-
-    assertEq(GHO.balanceOf(alice), aliceBalance - amount);
-    assertEq(GHO.getFacilitator(address(NEW_TOKEN_POOL)).bucketLevel, bucketLevel - amount);
-  }
-
-  function test_offRampViaAvalancheSucceeds(uint256 amount) public {
+  function test_offRampViaAvaxSucceeds(uint256 amount) public {
     (uint256 bucketCapacity, uint256 bucketLevel) = GHO.getFacilitatorBucket(
       address(NEW_TOKEN_POOL)
     );
@@ -462,41 +420,7 @@ contract AaveV3Arbitrum_GHOAvalancheLaunch_20250519_PostExecution is
     assertEq(GHO.balanceOf(alice), aliceBalance + amount);
   }
 
-  function test_offRampViaBaseSucceeds(uint256 amount) public {
-    (uint256 bucketCapacity, uint256 bucketLevel) = GHO.getFacilitatorBucket(
-      address(NEW_TOKEN_POOL)
-    );
-    IRateLimiter.TokenBucket memory rateLimits = NEW_TOKEN_POOL.getCurrentInboundRateLimiterState(
-      BASE_CHAIN_SELECTOR
-    );
-    uint256 mintAbleAmount = _min(bucketCapacity - bucketLevel, rateLimits.tokens);
-    amount = bound(amount, 1, mintAbleAmount);
-    skip(_getInboundRefillTime(amount));
-
-    uint256 aliceBalance = GHO.balanceOf(alice);
-
-    vm.expectEmit(address(NEW_TOKEN_POOL));
-    emit Minted(address(BASE_OFF_RAMP), alice, amount);
-
-    vm.prank(address(BASE_OFF_RAMP));
-    NEW_TOKEN_POOL.releaseOrMint(
-      IPool_CCIP.ReleaseOrMintInV1({
-        originalSender: abi.encode(alice),
-        remoteChainSelector: BASE_CHAIN_SELECTOR,
-        receiver: alice,
-        amount: amount,
-        localToken: address(GHO),
-        sourcePoolAddress: abi.encode(address(NEW_REMOTE_POOL_BASE)),
-        sourcePoolData: new bytes(0),
-        offchainTokenData: new bytes(0)
-      })
-    );
-
-    assertEq(GHO.getFacilitator(address(NEW_TOKEN_POOL)).bucketLevel, bucketLevel + amount);
-    assertEq(GHO.balanceOf(alice), aliceBalance + amount);
-  }
-
-  function test_cannotUseAvalancheOffRampForEthMessages() public {
+  function test_cannotUseAvaxOffRampForEthMessages() public {
     uint256 amount = 100e18;
     skip(_getInboundRefillTime(amount));
 

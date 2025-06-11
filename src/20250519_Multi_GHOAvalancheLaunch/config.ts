@@ -20,6 +20,7 @@ export const config: ConfigFile = {
     AaveV3Avalanche: {
       configs: {
         // @todo update based on ChaosLabs input
+        // below values to match /AaveV3Avalanche_GHOAvalancheListing_20250519.sol and /utils/GHOAvalancheLaunch.sol
         ASSET_LISTING: [
           {
             assetSymbol: 'GHO',
@@ -36,7 +37,7 @@ export const config: ConfigFile = {
             withSiloedBorrowing: 'DISABLED',
             reserveFactor: '10',
             supplyCap: '5000000',
-            borrowCap: '4500000',
+            borrowCap: '4500000', // to match /utils/GHOAvalancheLaunch.sol
             rateStrategyParams: {
               optimalUtilizationRate: '90',
               baseVariableBorrowRate: '0',
@@ -49,7 +50,7 @@ export const config: ConfigFile = {
           },
         ],
       },
-      cache: {blockNumber: 63569943}, 
+      cache: {blockNumber: 63569943},
     },
   },
 };

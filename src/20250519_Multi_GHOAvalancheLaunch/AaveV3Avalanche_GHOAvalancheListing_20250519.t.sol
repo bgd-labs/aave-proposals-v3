@@ -25,7 +25,6 @@ import {GhoArbitrum} from 'aave-address-book/GhoArbitrum.sol';
 import {GhoEthereum} from 'aave-address-book/GhoEthereum.sol';
 import {GhoBase} from 'aave-address-book/GhoBase.sol';
 
-// import {CCIPUtils} from './utils/CCIPUtils.sol';
 import {GHOAvalancheLaunch} from './utils/GHOAvalancheLaunch.sol';
 import {AaveV3Avalanche_GHOAvalancheLaunch_20250519} from './AaveV3Avalanche_GHOAvalancheLaunch_20250519.sol';
 import {AaveV3Avalanche_GHOAvalancheListing_20250519} from './AaveV3Avalanche_GHOAvalancheListing_20250519.sol';
@@ -56,18 +55,8 @@ contract AaveV3Avalanche_GHOAvalancheListing_20250519_Base is ProtocolV3TestBase
     IUpgradeableBurnMintTokenPool_1_5_1(GHOAvalancheLaunch.GHO_CCIP_TOKEN_POOL);
 
   function setUp() public virtual {
-    vm.createSelectFork(vm.rpcUrl('avalanche'), 63569943);
+    vm.createSelectFork(vm.rpcUrl('avalanche'), GHOAvalancheLaunch.AVAX_BLOCK_NUMBER);
     proposal = new AaveV3Avalanche_GHOAvalancheListing_20250519();
-
-    // _performCcipPreReq(); // @note mocked. Need CL to initiate admin transfer on their side. When ready, remove this method
-  }
-
-  function _performCcipPreReq() internal {
-    vm.prank(TOKEN_ADMIN_REGISTRY.owner());
-    TOKEN_ADMIN_REGISTRY.proposeAdministrator(
-      address(GHO_TOKEN),
-      GovernanceV3Avalanche.EXECUTOR_LVL_1
-    );
   }
 
   function _executeLaunchAIP() internal {
@@ -211,10 +200,10 @@ contract AaveV3Avalanche_GHOAvalancheListing_20250519_Stewards is
 
     IDefaultInterestRateStrategyV2.InterestRateData
       memory currentRateData = IDefaultInterestRateStrategyV2.InterestRateData({
-        optimalUsageRatio: 90_00,
-        baseVariableBorrowRate: 0,
-        variableRateSlope1: 12_00, // @note match config.ts // @todo move this to constants?
-        variableRateSlope2: 65_00 // @note match config.ts // @todo move this to constants?
+        optimalUsageRatio: GHOAvalancheLaunch.CCIP_OPTIMAL_USAGE_RATIO,
+        baseVariableBorrowRate: GHOAvalancheLaunch.CCIP_BASE_VARIABLE_BORROW_RATE,
+        variableRateSlope1: GHOAvalancheLaunch.CCIP_VARIABLE_RATE_SLOPE_1,
+        variableRateSlope2: GHOAvalancheLaunch.CCIP_VARIABLE_RATE_SLOPE_2
       });
 
     assertEq(irStrategy.getInterestRateDataBps(address(GHO_TOKEN)), currentRateData);
@@ -238,7 +227,7 @@ contract AaveV3Avalanche_GHOAvalancheListing_20250519_Stewards is
       .POOL
       .getConfiguration(address(GHO_TOKEN))
       .getBorrowCap();
-    assertEq(currentBorrowCap, 4_500_000); // @note match config.ts // @todo move this to constants?
+    assertEq(currentBorrowCap, GHOAvalancheLaunch.CCIP_BUCKET_CAPACITY); // @note why not 10e18? like below, and in Launch and E2E?
     vm.assume(
       newBorrowCap != currentBorrowCap &&
         _isDifferenceLowerThanMax(currentBorrowCap, newBorrowCap, currentBorrowCap)
@@ -259,7 +248,7 @@ contract AaveV3Avalanche_GHOAvalancheListing_20250519_Stewards is
       .POOL
       .getConfiguration(address(GHO_TOKEN))
       .getSupplyCap();
-    assertEq(currentSupplyCap, 5_000_000); // @note match config.ts // @todo move this to constants?
+    assertEq(currentSupplyCap, GHOAvalancheLaunch.CCIP_SUPPLY_CAP);
 
     vm.assume(
       currentSupplyCap != newSupplyCap &&
@@ -278,7 +267,7 @@ contract AaveV3Avalanche_GHOAvalancheListing_20250519_Stewards is
 
   function test_bucketStewardCanUpdateBucketCapacity(uint256 newBucketCapacity) public {
     (uint256 currentBucketCapacity, ) = GHO_TOKEN.getFacilitatorBucket(address(NEW_TOKEN_POOL));
-    assertEq(currentBucketCapacity, GHOAvalancheLaunch.CCIP_BUCKET_CAPACITY);
+    assertEq(currentBucketCapacity, GHOAvalancheLaunch.CCIP_BUCKET_CAPACITY * 10e18);
     newBucketCapacity = bound(
       newBucketCapacity,
       currentBucketCapacity + 1,

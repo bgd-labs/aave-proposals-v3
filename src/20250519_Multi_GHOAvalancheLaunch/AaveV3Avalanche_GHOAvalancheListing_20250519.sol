@@ -20,7 +20,7 @@ contract AaveV3Avalanche_GHOAvalancheListing_20250519 is AaveV3PayloadAvalanche 
   using SafeERC20 for IERC20;
 
   // https://avascan.info/blockchain/all/address/0xac140648435d03f784879cd789130F22Ef588Fcd
-  address public constant EMISSION_ADMIN = 0xac140648435d03f784879cd789130F22Ef588Fcd; // @todo move to a GHOAvalancheLaunch
+  address public constant EMISSION_ADMIN = GHOAvalancheLaunch.EMISSION_ADMIN;
   address public constant GHO_PRICE_FEED = GHOAvalancheLaunch.GHO_PRICE_FEED;
   address public constant GHO_TOKEN = GHOAvalancheLaunch.GHO_TOKEN;
   uint256 public constant GHO_SEED_AMOUNT = 100e18;
@@ -44,7 +44,7 @@ contract AaveV3Avalanche_GHOAvalancheListing_20250519 is AaveV3PayloadAvalanche 
   function newListings() public pure override returns (IAaveV3ConfigEngine.Listing[] memory) {
     IAaveV3ConfigEngine.Listing[] memory listings = new IAaveV3ConfigEngine.Listing[](1);
 
-    // @todo update based on ChaosLabs input
+    // below values to match /config.ts
     listings[0] = IAaveV3ConfigEngine.Listing({
       asset: GHO_TOKEN,
       assetSymbol: 'GHO',
@@ -57,15 +57,15 @@ contract AaveV3Avalanche_GHOAvalancheListing_20250519 is AaveV3PayloadAvalanche 
       liqThreshold: 0,
       liqBonus: 0,
       reserveFactor: 10_00,
-      supplyCap: 5_000_000,
-      borrowCap: 4_500_000,
+      supplyCap: GHOAvalancheLaunch.CCIP_SUPPLY_CAP,
+      borrowCap: GHOAvalancheLaunch.CCIP_BUCKET_CAPACITY,
       debtCeiling: 0,
       liqProtocolFee: 0,
       rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
-        optimalUsageRatio: 90_00,
-        baseVariableBorrowRate: 0,
-        variableRateSlope1: 12_00,
-        variableRateSlope2: 65_00
+        optimalUsageRatio: GHOAvalancheLaunch.CCIP_OPTIMAL_USAGE_RATIO,
+        baseVariableBorrowRate: GHOAvalancheLaunch.CCIP_BASE_VARIABLE_BORROW_RATE,
+        variableRateSlope1: GHOAvalancheLaunch.CCIP_VARIABLE_RATE_SLOPE_1,
+        variableRateSlope2: GHOAvalancheLaunch.CCIP_VARIABLE_RATE_SLOPE_2
       })
     });
 

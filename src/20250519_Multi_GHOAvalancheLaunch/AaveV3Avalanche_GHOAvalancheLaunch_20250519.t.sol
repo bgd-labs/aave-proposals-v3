@@ -53,7 +53,7 @@ contract AaveV3Avalanche_GHOAvalancheLaunch_20250519_Base is ProtocolV3TestBase 
   uint64 internal constant ETH_CHAIN_SELECTOR = GHOAvalancheLaunch.ETH_CHAIN_SELECTOR;
   uint64 internal constant BASE_CHAIN_SELECTOR = GHOAvalancheLaunch.BASE_CHAIN_SELECTOR;
   uint64 internal constant GNO_CHAIN_SELECTOR = GHOAvalancheLaunch.GNO_CHAIN_SELECTOR;
-  uint128 public constant CCIP_BUCKET_CAPACITY = GHOAvalancheLaunch.CCIP_BUCKET_CAPACITY;
+  uint128 public constant CCIP_BUCKET_CAPACITY = GHOAvalancheLaunch.CCIP_BUCKET_CAPACITY * 10e18;
   uint128 public constant CCIP_RATE_LIMIT_CAPACITY = GHOAvalancheLaunch.CCIP_RATE_LIMIT_CAPACITY;
   uint128 public constant CCIP_RATE_LIMIT_REFILL_RATE =
     GHOAvalancheLaunch.CCIP_RATE_LIMIT_REFILL_RATE;
@@ -109,19 +109,10 @@ contract AaveV3Avalanche_GHOAvalancheLaunch_20250519_Base is ProtocolV3TestBase 
   error InvalidSourcePoolAddress(bytes);
 
   function setUp() public virtual {
-    vm.createSelectFork(vm.rpcUrl('avalanche'), 63569943);
+    vm.createSelectFork(vm.rpcUrl('avalanche'), GHOAvalancheLaunch.AVAX_BLOCK_NUMBER);
     proposal = new AaveV3Avalanche_GHOAvalancheLaunch_20250519();
 
-    // _performCcipPreReq(); // @note mocked. Need CL to initiate admin transfer on their side. When ready, remove this method
     _validateConstants();
-  }
-
-  function _performCcipPreReq() internal {
-    vm.prank(TOKEN_ADMIN_REGISTRY.owner());
-    TOKEN_ADMIN_REGISTRY.proposeAdministrator(
-      address(GHO_TOKEN),
-      GovernanceV3Avalanche.EXECUTOR_LVL_1
-    );
   }
 
   function _validateConstants() private view {

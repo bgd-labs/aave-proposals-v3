@@ -51,13 +51,10 @@ contract AaveV3Ethereum_GHOAvalancheLaunch_20250519_Avalanche is ProtocolV3TestB
   IGhoToken internal constant GHO = IGhoToken(AaveV3EthereumAssets.GHO_UNDERLYING);
   ITokenAdminRegistry internal constant TOKEN_ADMIN_REGISTRY =
     ITokenAdminRegistry(GHOAvalancheLaunch.ETH_TOKEN_ADMIN_REGISTRY);
-  IEVM2EVMOnRamp internal constant ARB_ON_RAMP = IEVM2EVMOnRamp(GHOAvalancheLaunch.ETH_ARB_ON_RAMP);
   IEVM2EVMOnRamp internal constant BASE_ON_RAMP =
     IEVM2EVMOnRamp(GHOAvalancheLaunch.ETH_BASE_ON_RAMP);
   IEVM2EVMOnRamp internal constant AVAX_ON_RAMP =
     IEVM2EVMOnRamp(GHOAvalancheLaunch.ETH_AVAX_ON_RAMP);
-  IEVM2EVMOffRamp_1_5 internal constant ARB_OFF_RAMP =
-    IEVM2EVMOffRamp_1_5(GHOAvalancheLaunch.ETH_ARB_OFF_RAMP);
   IEVM2EVMOffRamp_1_5 internal constant BASE_OFF_RAMP =
     IEVM2EVMOffRamp_1_5(GHOAvalancheLaunch.ETH_BASE_OFF_RAMP);
   IEVM2EVMOffRamp_1_5 internal constant AVAX_OFF_RAMP =
@@ -89,7 +86,7 @@ contract AaveV3Ethereum_GHOAvalancheLaunch_20250519_Avalanche is ProtocolV3TestB
   error InvalidSourcePoolAddress(bytes);
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 22575695);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), GHOAvalancheLaunch.ETH_BLOCK_NUMBER);
     proposal = new AaveV3Ethereum_GHOAvalancheLaunch_20250519();
     _validateConstants();
     executePayload(vm, address(proposal));
@@ -107,10 +104,8 @@ contract AaveV3Ethereum_GHOAvalancheLaunch_20250519_Avalanche is ProtocolV3TestB
     assertEq(NEW_TOKEN_POOL.typeAndVersion(), 'LockReleaseTokenPool 1.5.1');
     assertEq(ROUTER.typeAndVersion(), 'Router 1.2.0');
 
-    _assertOnRamp(ARB_ON_RAMP, ETH_CHAIN_SELECTOR, ARB_CHAIN_SELECTOR, ROUTER);
     _assertOnRamp(BASE_ON_RAMP, ETH_CHAIN_SELECTOR, BASE_CHAIN_SELECTOR, ROUTER);
     _assertOnRamp(AVAX_ON_RAMP, ETH_CHAIN_SELECTOR, AVAX_CHAIN_SELECTOR, ROUTER);
-    _assertOffRamp(ARB_OFF_RAMP, ARB_CHAIN_SELECTOR, ETH_CHAIN_SELECTOR, ROUTER);
     _assertOffRamp(BASE_OFF_RAMP, BASE_CHAIN_SELECTOR, ETH_CHAIN_SELECTOR, ROUTER);
     _assertOffRamp(AVAX_OFF_RAMP, AVAX_CHAIN_SELECTOR, ETH_CHAIN_SELECTOR, ROUTER);
 
@@ -165,13 +160,9 @@ contract AaveV3Ethereum_GHOAvalancheLaunch_20250519_Avalanche is ProtocolV3TestB
         originalSender: params.sender,
         sourceToken: address(GHO),
         destinationToken: address(
-          params.destChainSelector == BASE_CHAIN_SELECTOR
-            ? AaveV3BaseAssets.GHO_UNDERLYING
-            : params.destChainSelector == ARB_CHAIN_SELECTOR
-              ? AaveV3ArbitrumAssets.GHO_UNDERLYING
-              : params.destChainSelector == AVAX_CHAIN_SELECTOR
-                ? GHOAvalancheLaunch.GHO_TOKEN
-                : AaveV3EthereumAssets.GHO_UNDERLYING
+          params.destChainSelector == AVAX_CHAIN_SELECTOR
+            ? GHOAvalancheLaunch.GHO_TOKEN
+            : AaveV3BaseAssets.GHO_UNDERLYING
         )
       })
     );
@@ -275,7 +266,7 @@ contract AaveV3Ethereum_GHOAvalancheLaunch_20250519_Avalanche is ProtocolV3TestB
     );
   }
 
-  function test_sendMessageToAvalancheSucceeds(uint256 amount) public {
+  function test_sendMessageToAvaxSucceeds(uint256 amount) public {
     uint256 bridgeableAmount = _min(
       NEW_TOKEN_POOL.getBridgeLimit() - NEW_TOKEN_POOL.getCurrentBridgedAmount(),
       CCIP_RATE_LIMIT_CAPACITY
@@ -304,43 +295,6 @@ contract AaveV3Ethereum_GHOAvalancheLaunch_20250519_Avalanche is ProtocolV3TestB
 
     vm.prank(alice);
     ROUTER.ccipSend{value: eventArg.feeTokenAmount}(AVAX_CHAIN_SELECTOR, message);
-
-    assertEq(GHO.balanceOf(alice), aliceBalance - amount);
-    assertEq(NEW_TOKEN_POOL.getCurrentBridgedAmount(), currentBridgedAmount + amount);
-  }
-
-  function test_sendMessageToArbitrumSucceeds(uint256 amount) public {
-    IRateLimiter.TokenBucket memory arbRateLimits = NEW_TOKEN_POOL
-      .getCurrentInboundRateLimiterState(ARB_CHAIN_SELECTOR);
-    uint256 bridgeableAmount = _min(
-      NEW_TOKEN_POOL.getBridgeLimit() - NEW_TOKEN_POOL.getCurrentBridgedAmount(),
-      arbRateLimits.capacity
-    );
-
-    amount = bound(amount, 1, bridgeableAmount);
-    skip(_getOutboundRefillTime(amount)); // wait for the rate limiter to refill
-
-    deal(address(GHO), alice, amount);
-    vm.prank(alice);
-    GHO.approve(address(ROUTER), amount);
-
-    uint256 aliceBalance = GHO.balanceOf(alice);
-    uint256 currentBridgedAmount = NEW_TOKEN_POOL.getCurrentBridgedAmount();
-
-    (
-      IClient.EVM2AnyMessage memory message,
-      IInternal.EVM2EVMMessage memory eventArg
-    ) = _getTokenMessage(
-        CCIPSendParams({amount: amount, sender: alice, destChainSelector: ARB_CHAIN_SELECTOR})
-      );
-
-    vm.expectEmit(address(NEW_TOKEN_POOL));
-    emit Locked(address(ARB_ON_RAMP), amount);
-    vm.expectEmit(address(ARB_ON_RAMP));
-    emit CCIPSendRequested(eventArg);
-
-    vm.prank(alice);
-    ROUTER.ccipSend{value: eventArg.feeTokenAmount}(ARB_CHAIN_SELECTOR, message);
 
     assertEq(GHO.balanceOf(alice), aliceBalance - amount);
     assertEq(NEW_TOKEN_POOL.getCurrentBridgedAmount(), currentBridgedAmount + amount);
@@ -383,7 +337,7 @@ contract AaveV3Ethereum_GHOAvalancheLaunch_20250519_Avalanche is ProtocolV3TestB
     assertEq(NEW_TOKEN_POOL.getCurrentBridgedAmount(), currentBridgedAmount + amount);
   }
 
-  function test_offRampViaAvalancheSucceeds(uint256 amount) public {
+  function test_offRampViaAvaxSucceeds(uint256 amount) public {
     uint256 bridgeableAmount = _min(
       NEW_TOKEN_POOL.getCurrentBridgedAmount(),
       CCIP_RATE_LIMIT_CAPACITY
@@ -453,44 +407,7 @@ contract AaveV3Ethereum_GHOAvalancheLaunch_20250519_Avalanche is ProtocolV3TestB
     assertEq(NEW_TOKEN_POOL.getCurrentBridgedAmount(), GHO.balanceOf(address(NEW_TOKEN_POOL)));
   }
 
-  function test_offRampViaArbitrumSucceeds(uint256 amount) public {
-    IRateLimiter.TokenBucket memory arbRateLimits = NEW_TOKEN_POOL
-      .getCurrentOutboundRateLimiterState(ARB_CHAIN_SELECTOR);
-    uint256 bridgeableAmount = _min(
-      NEW_TOKEN_POOL.getCurrentBridgedAmount(),
-      arbRateLimits.capacity
-    );
-    amount = bound(amount, 1, bridgeableAmount);
-    skip(_getInboundRefillTime(amount));
-
-    uint256 aliceBalance = GHO.balanceOf(alice);
-    uint256 poolBalance = GHO.balanceOf(address(NEW_TOKEN_POOL));
-    uint256 currentBridgedAmount = NEW_TOKEN_POOL.getCurrentBridgedAmount();
-
-    vm.expectEmit(address(NEW_TOKEN_POOL));
-    emit Released(address(ARB_OFF_RAMP), alice, amount);
-
-    vm.prank(address(ARB_OFF_RAMP));
-    NEW_TOKEN_POOL.releaseOrMint(
-      IPool_CCIP.ReleaseOrMintInV1({
-        originalSender: abi.encode(alice),
-        remoteChainSelector: ARB_CHAIN_SELECTOR,
-        receiver: alice,
-        amount: amount,
-        localToken: address(GHO),
-        sourcePoolAddress: abi.encode(address(NEW_REMOTE_POOL_ARB)),
-        sourcePoolData: new bytes(0),
-        offchainTokenData: new bytes(0)
-      })
-    );
-
-    assertEq(GHO.balanceOf(address(NEW_TOKEN_POOL)), poolBalance - amount);
-    assertEq(GHO.balanceOf(alice), aliceBalance + amount);
-    assertEq(NEW_TOKEN_POOL.getCurrentBridgedAmount(), currentBridgedAmount - amount);
-    assertEq(NEW_TOKEN_POOL.getCurrentBridgedAmount(), GHO.balanceOf(address(NEW_TOKEN_POOL)));
-  }
-
-  function test_cannotUseAvalancheOffRampForArbMessages() public {
+  function test_cannotUseAvaxOffRampForBaseMessages() public {
     uint256 amount = 100e18;
     skip(_getInboundRefillTime(amount));
 
@@ -501,11 +418,11 @@ contract AaveV3Ethereum_GHOAvalancheLaunch_20250519_Avalanche is ProtocolV3TestB
     NEW_TOKEN_POOL.releaseOrMint(
       IPool_CCIP.ReleaseOrMintInV1({
         originalSender: abi.encode(alice),
-        remoteChainSelector: ARB_CHAIN_SELECTOR,
+        remoteChainSelector: BASE_CHAIN_SELECTOR,
         receiver: alice,
         amount: amount,
         localToken: address(GHO),
-        sourcePoolAddress: abi.encode(address(NEW_REMOTE_POOL_ARB)),
+        sourcePoolAddress: abi.encode(address(NEW_REMOTE_POOL_BASE)),
         sourcePoolData: new bytes(0),
         offchainTokenData: new bytes(0)
       })
@@ -519,7 +436,7 @@ contract AaveV3Ethereum_GHOAvalancheLaunch_20250519_Avalanche is ProtocolV3TestB
     vm.expectRevert(
       abi.encodeWithSelector(
         InvalidSourcePoolAddress.selector,
-        abi.encode(address(NEW_REMOTE_POOL_ARB))
+        abi.encode(address(NEW_REMOTE_POOL_BASE))
       )
     );
     vm.prank(address(AVAX_OFF_RAMP));
@@ -530,7 +447,7 @@ contract AaveV3Ethereum_GHOAvalancheLaunch_20250519_Avalanche is ProtocolV3TestB
         receiver: alice,
         amount: amount,
         localToken: address(GHO),
-        sourcePoolAddress: abi.encode(address(NEW_REMOTE_POOL_ARB)),
+        sourcePoolAddress: abi.encode(address(NEW_REMOTE_POOL_BASE)),
         sourcePoolData: new bytes(0),
         offchainTokenData: new bytes(0)
       })
@@ -542,11 +459,11 @@ contract AaveV3Ethereum_GHOAvalancheLaunch_20250519_Avalanche is ProtocolV3TestB
         abi.encode(address(NEW_REMOTE_POOL_AVAX))
       )
     );
-    vm.prank(address(ARB_OFF_RAMP));
+    vm.prank(address(BASE_OFF_RAMP));
     NEW_TOKEN_POOL.releaseOrMint(
       IPool_CCIP.ReleaseOrMintInV1({
         originalSender: abi.encode(alice),
-        remoteChainSelector: ARB_CHAIN_SELECTOR,
+        remoteChainSelector: BASE_CHAIN_SELECTOR,
         receiver: alice,
         amount: amount,
         localToken: address(GHO),
