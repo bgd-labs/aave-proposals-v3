@@ -42,7 +42,7 @@ The [AaveStewardInjectorDiscountRate](http://github.com/aave-dao/aave-v3-risk-st
 
 The following feeds for pendle pt assets on core instance will be automated: `PT_sUSDE_31JUL2025`, `PT_USDe_31JUL2025`, `PT_eUSDE_14AUG2025`.
 
-Constraints on the discount rate update of the pendle pt feeds will be as follow: maximum 1% absolute increase/decrease each 2 days.
+Constraints on the discount rate update of the pendle pt feeds will be as follow: maximum 1% absolute increase/decrease per 2 days.
 
 ### Manual AGRS
 
