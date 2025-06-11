@@ -13,8 +13,7 @@ export const config: ConfigFile = {
     votingNetwork: 'POLYGON',
   },
   poolOptions: {
-    // @todo update block numbers
-    // @note manually enteered in many plances
+    // below values to match /utils/GHOAvalancheLaunch.sol
     AaveV3Ethereum: {configs: {OTHERS: {}}, cache: {blockNumber: 22575695}},
     AaveV3Arbitrum: {configs: {OTHERS: {}}, cache: {blockNumber: 341142215}},
     AaveV3Base: {configs: {OTHERS: {}}, cache: {blockNumber: 30789286}},
@@ -50,7 +49,7 @@ export const config: ConfigFile = {
           },
         ],
       },
-      cache: {blockNumber: 63569943}, // @todo update avalanche block number
+      cache: {blockNumber: 63569943}, 
     },
   },
 };

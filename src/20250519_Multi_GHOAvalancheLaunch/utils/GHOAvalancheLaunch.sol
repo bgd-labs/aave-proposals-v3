@@ -1,8 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-// @todo rename to GhoAvalancheLaunch to make it consistent with GhoBase, GhoArbitrum, etc.
-// @todo align constant names to GhoArbitrum, GhoBase
 /**
  * @title GHOLaunchConstants
  * @notice Library containing all constants used across the GHO Avalanche Launch proposal
@@ -13,15 +11,18 @@ library GHOAvalancheLaunch {
 
   // COMMON /////////////////////////////////////////////////////
   // Block Numbers //
+  // @todo pending update on tests to refer to these constants
   uint256 internal constant AVAX_BLOCK_NUMBER = 63569943;
   uint256 internal constant ARB_BLOCK_NUMBER = 341142215;
   uint256 internal constant BASE_BLOCK_NUMBER = 30789286;
   uint256 internal constant ETH_BLOCK_NUMBER = 22575695;
+  uint256 internal constant GNO_BLOCK_NUMBER = 40313138;
   // CCIP Chain Selector //
   uint64 internal constant ARB_CHAIN_SELECTOR = 4949039107694359620;
   uint64 internal constant BASE_CHAIN_SELECTOR = 15971525489660198786;
   uint64 internal constant ETH_CHAIN_SELECTOR = 5009297550715157269;
   uint64 internal constant AVAX_CHAIN_SELECTOR = 6433500567565415381;
+  uint64 internal constant GNO_CHAIN_SELECTOR = 465200170687744372;
 
   // AVALANCHE /////////////////////////////////////////////////////
   // GHO Launch //
@@ -51,9 +52,11 @@ library GHOAvalancheLaunch {
   address internal constant AVAX_ARB_ON_RAMP = 0x4e910c8Bbe88DaDF90baa6c1B7850DbeA32c5B29; // AVALANCHE_ARBITRUM_ON_RAMP
   address internal constant AVAX_ETH_ON_RAMP = 0xe8784c29c583C52FA89144b9e5DD91Df2a1C2587; // AVALANCHE_ETHEREUM_ON_RAMP
   address internal constant AVAX_BASE_ON_RAMP = 0x139D4108C23e66745Eda4ab47c25C83494b7C14d; // AVALANCHE_BASE_ON_RAMP
+  address internal constant AVAX_GNO_ON_RAMP = 0x38fd0DF16F6fD0a2C3Ec6615c73e50F5d027b8bA;
   address internal constant AVAX_ARB_OFF_RAMP = 0x508Ea280D46E4796Ce0f1Acf8BEDa610c4238dB3; // AVALANCHE_ARBITRUM_OFF_RAMP
   address internal constant AVAX_ETH_OFF_RAMP = 0xE5F21F43937199D4D57876A83077b3923F68EB76; // AVALANCHE_ETHEREUM_OFF_RAMP
   address internal constant AVAX_BASE_OFF_RAMP = 0x37879EBFCb807f8C397fCe2f42DC0F5329AD6823; // AVALANCHE_BASE_OFF_RAMP
+  address internal constant AVAX_GNO_OFF_RAMP = 0x1181A59FF0BAEd1E0EA77e919185cB8C3D5D3125;
 
   // ARBITRUM /////////////////////////////////////////////////////
   // CCIP Adresses //
@@ -99,4 +102,14 @@ library GHOAvalancheLaunch {
   address internal constant ETH_AVAX_OFF_RAMP = 0xd98E80C79a15E4dbaF4C40B6cCDF690fe619BFBb; // ETHEREUM_AVALANCHE_OFF_RAMP
   address internal constant ETH_ARB_OFF_RAMP = 0xdf615eF8D4C64d0ED8Fd7824BBEd2f6a10245aC9; // ETHEREUM_ARBITRUM_OFF_RAMP
   address internal constant ETH_BASE_OFF_RAMP = 0x6B4B6359Dd5B47Cdb030E5921456D2a0625a9EbD; // ETHEREUM_BASE_OFF_RAMP
+
+  // GNOSIS /////////////////////////////////////////////////////
+  // CCIP Adresses //
+  // https://docs.chain.link/ccip/directory/mainnet/chain/xdai-mainnet
+  address internal constant GNO_TOKEN_ADMIN_REGISTRY = 0x73BC11423CBF14914998C23B0aFC9BE0cb5B2229;
+  address internal constant GNO_CCIP_ROUTER = 0x4aAD6071085df840abD9Baf1697d5D5992bDadce;
+  address internal constant GNO_GHO_CCIP_TOKEN_POOL = 0xDe6539018B095353A40753Dc54C91C68c9487D4E;
+
+  // GHO token
+  address internal constant GNO_GHO_TOKEN = 0xfc421aD3C883Bf9E7C4f42dE845C4e4405799e73;
 }
