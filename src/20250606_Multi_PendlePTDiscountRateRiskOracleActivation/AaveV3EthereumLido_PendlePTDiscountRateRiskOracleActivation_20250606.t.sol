@@ -31,7 +31,7 @@ contract AaveV3EthereumLido_PendlePTDiscountRateRiskOracleActivation_20250606_Te
         currentRiskSteward: AaveV3EthereumLido.RISK_STEWARD,
         newRiskSteward: proposal.NEW_RISK_STEWARD(),
         freezingSteward: address(0),
-        capsPlusSteward: address(0)
+        capsPlusSteward: AaveV3EthereumLido.CAPS_PLUS_RISK_STEWARD
       });
   }
 

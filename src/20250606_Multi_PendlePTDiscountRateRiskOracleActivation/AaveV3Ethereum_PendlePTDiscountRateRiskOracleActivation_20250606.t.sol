@@ -46,7 +46,7 @@ contract AaveV3Ethereum_PendlePTDiscountRateRiskOracleActivation_20250606_Test i
   }
 
   function test_permissions() public {
-    assertEq(AaveV3Ethereum.ACL_MANAGER.isRiskAdmin(proposal.EDGE_RISK_STEWARD()), false);
+    assertFalse(AaveV3Ethereum.ACL_MANAGER.isRiskAdmin(proposal.EDGE_RISK_STEWARD()));
     assertTrue(AaveV3Ethereum.ACL_MANAGER.isRiskAdmin(AaveV3Ethereum.RISK_STEWARD));
     assertFalse(AaveV3Ethereum.ACL_MANAGER.isRiskAdmin(proposal.NEW_RISK_STEWARD()));
     assertTrue(AaveV3Ethereum.ACL_MANAGER.isRiskAdmin(AaveV3Ethereum.FREEZING_STEWARD));
@@ -54,7 +54,7 @@ contract AaveV3Ethereum_PendlePTDiscountRateRiskOracleActivation_20250606_Test i
 
     executePayload(vm, address(proposal));
 
-    assertEq(AaveV3Ethereum.ACL_MANAGER.isRiskAdmin(proposal.EDGE_RISK_STEWARD()), true);
+    assertTrue(AaveV3Ethereum.ACL_MANAGER.isRiskAdmin(proposal.EDGE_RISK_STEWARD()));
     assertEq(
       IRiskSteward(proposal.EDGE_RISK_STEWARD()).RISK_COUNCIL(),
       proposal.AAVE_STEWARD_INJECTOR()

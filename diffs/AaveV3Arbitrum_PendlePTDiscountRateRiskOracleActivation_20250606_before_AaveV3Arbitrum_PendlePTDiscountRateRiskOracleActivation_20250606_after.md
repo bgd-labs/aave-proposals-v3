@@ -3,6 +3,16 @@
 ```json
 {
   "raw": {
+    "0x365d47ced3d7eb6a9bdb3814aa23cc06b2d33ef8": {
+      "label": null,
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x78e494227227fa19e176dfa452edd5480daa518d2951fdcde18fb43c1a3f92d1": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000001"
+        }
+      }
+    },
     "0x89644ca1bb8064760312ae4f03ea41b05da3637c": {
       "label": "GovernanceV3Arbitrum.PAYLOADS_CONTROLLER",
       "balanceDiff": null,
