@@ -20,7 +20,7 @@ Currently, the discount rate on pt feeds requires manual updates through the man
 - Additional delays in risk parameter adjustments
 - Increased workload and suboptimal response times on manual AGRS due to high volume of risk updates
 
-To optimize this, we think it's a good idea to extend the automated AGRS system using Edge Risk Oracles to update discount rate on the pendle pt feeds.
+To optimize this, we think it's a good idea to extend the automated AGRS system using Edge Risk Oracles to update the discount rate on the Pendle PT feeds.
 
 ### Manual AGRS
 
