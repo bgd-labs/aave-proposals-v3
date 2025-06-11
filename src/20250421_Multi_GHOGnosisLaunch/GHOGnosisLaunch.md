@@ -47,16 +47,15 @@ The table below illustrates the configured risk parameters for **GHO on Gnosis C
 | Borrowable in Isolation   | DISABLED                                   |
 | Oracle                    | 0x360d8aa8F6b09B7BC57aF34db2Eb84dD87bf4d12 |
 
-
 The table below contains newly deployed Contracts on Gnosis Chain.
 
-| Name                  | Address                                    |
-| :-------------------- | :----------------------------------------- |
-| Token Pool            | 0xDe6539018B095353A40753Dc54C91C68c9487D4E |
-| GHO Token             | 0xfc421aD3C883Bf9E7C4f42dE845C4e4405799e73 |
-| CCIP Steward          | 0x06179f7C1be40863405f374E7f5F8806c728660A |
-| AAVE Steward          | 0x6e637e1E48025E51315d50ab96d5b3be1971A715 |
-| BUCKET Steward        | 0x6Bb7a212910682DCFdbd5BCBb3e28FB4E8da10Ee |
+| Name             | Address                                    |
+| :--------------- | :----------------------------------------- |
+| Token Pool       | 0xDe6539018B095353A40753Dc54C91C68c9487D4E |
+| GHO Token        | 0xfc421aD3C883Bf9E7C4f42dE845C4e4405799e73 |
+| GhoCcipSteward   | 0x06179f7C1be40863405f374E7f5F8806c728660A |
+| GhoAaveSteward   | 0x6e637e1E48025E51315d50ab96d5b3be1971A715 |
+| GhoBucketSteward | 0x6Bb7a212910682DCFdbd5BCBb3e28FB4E8da10Ee |
 
 The Risk Council (**`0x8513e6F37dBc52De87b166980Fa3F50639694B60`**) has permission to edit configurations through the Steward contracts.
 
