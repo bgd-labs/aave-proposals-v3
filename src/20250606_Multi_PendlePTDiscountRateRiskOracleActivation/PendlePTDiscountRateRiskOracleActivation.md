@@ -24,7 +24,7 @@ To optimize this, we think it's a good idea to extend the automated AGRS system 
 
 ### Manual AGRS
 
-Following the successful activation of the new version of manual AGRS as part of [Proposal 299](<(https://vote.onaave.com/proposal/?proposalId=299)>) on the ethereum core instance, we propose extending this implementation to all other instances. The new version enables constrained updates to eMode category collateral parameters (LT, LTV, and LB) and allows modification of Pendle PT feed discount rates. Activating the new manual AGRS will unify the manual AGRS implementation and extend these new features to other instances.
+Following the successful activation of the new version of manual AGRS as part of [Proposal 299](https://vote.onaave.com/proposal/?proposalId=299) on the ethereum core instance, we propose extending this implementation to all other instances. The new version enables constrained updates to eMode category collateral parameters (LT, LTV, and LB) and allows modification of Pendle PT feed discount rates. Activating the new manual AGRS will unify the manual AGRS implementation and extend these new features to other instances.
 
 ## Specification
 
