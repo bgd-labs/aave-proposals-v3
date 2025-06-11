@@ -7,7 +7,7 @@ snapshot: "Direct To AIP"
 
 ## Simple Summary
 
-This proposal activates the automated Aave Generalized Risk Stewards (AGRS) system on the ethereum core instance to perform automated discount rate updates on pendle pt feeds. We also update the manual AGRS to the newer iteration which allows for e-mode category updates across all instances.
+This proposal activates the automated Aave Generalised Risk Stewards (AGRS) system on the Ethereum core instance to perform automated discount rate updates on Pendle PT feeds. It also updates the manual AGRS to the newer iteration, which allows for e-mode category updates across all instances.
 
 ## Motivation
 
