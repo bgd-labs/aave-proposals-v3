@@ -35,14 +35,14 @@ This new discount rate AGRS will mirror the same infrastructure as the currently
 - The AGRS will have only one configurable parameter: discount rate on pt feeds.
 - Recommendation of these parameters will be submitted to a RiskOracle smart contract, from the Edge off-chain infrastructure. Between the risk oracle smart contract and the AGRS contract, there will be a thin middleware [AaveStewardInjectorDiscountRate](http://github.com/aave-dao/aave-v3-risk-stewards/blob/6e8fef4f74d2c68052be9ffa6983aae918c7579b/src/contracts/AaveStewardInjectorDiscountRate.sol), with the following logic:
   - Takes recommendations from the Edge Risk Oracle side and propagates them to the AGRS contract.
-  - Enforce that only the whitelisted pendle pt feeds can be acted upon.
+  - Enforce that only the whitelisted Pendle PT feeds can be acted upon.
   - Given the protections (percentage constraints and time delay) on the AGRS side and that it is an assumption that risk recommendations will be timed correctly on the Edge Risk Oracle side, the propagation will be permissionless.
 
 The [AaveStewardInjectorDiscountRate](http://github.com/aave-dao/aave-v3-risk-stewards/blob/6e8fef4f74d2c68052be9ffa6983aae918c7579b/src/contracts/AaveStewardInjectorDiscountRate.sol) will be part of the Aave Robot infrastructure, running on Chainlink Automation and consuming LINK from the Aave Collector. The new AGRS contract will be given `RISK_ADMIN` role.
 
-The following feeds for pendle pt assets on core instance will be automated: `PT_sUSDE_31JUL2025`, `PT_USDe_31JUL2025`, `PT_eUSDE_14AUG2025`.
+The following feeds for Pendle PT assets on core instance will be automated: `PT_sUSDE_31JUL2025`, `PT_USDe_31JUL2025`, `PT_eUSDE_14AUG2025`.
 
-Constraints on the discount rate update of the pendle pt feeds will be as follow: maximum 1% absolute increase/decrease per 2 days.
+Constraints on the discount rate update of the Pendle PT feeds will be as follow: maximum 1% absolute increase/decrease per 2 days.
 
 ### Manual AGRS
 
