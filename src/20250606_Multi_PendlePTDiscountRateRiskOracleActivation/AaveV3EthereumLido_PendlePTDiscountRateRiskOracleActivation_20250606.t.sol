@@ -1,10 +1,11 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {AaveV3EthereumLido} from 'aave-address-book/AaveV3EthereumLido.sol';
+import {AaveV3EthereumLido, AaveV3EthereumLidoAssets} from 'aave-address-book/AaveV3EthereumLido.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3EthereumLido_PendlePTDiscountRateRiskOracleActivation_20250606} from './AaveV3EthereumLido_PendlePTDiscountRateRiskOracleActivation_20250606.sol';
 
+import {IRiskSteward} from './interfaces/IRiskSteward.sol';
 import {BaseStewardUpdateTest} from './BaseStewardUpdateTest.t.sol';
 
 /**
@@ -32,6 +33,21 @@ contract AaveV3EthereumLido_PendlePTDiscountRateRiskOracleActivation_20250606_Te
         freezingSteward: address(0),
         capsPlusSteward: address(0)
       });
+  }
+
+  function test_steward_restricted() public {
+    // GHO is restricted as the risk param for GHO should be updated by GHO steward
+    assertFalse(
+      IRiskSteward(proposal.NEW_RISK_STEWARD()).isAddressRestricted(
+        AaveV3EthereumLidoAssets.GHO_UNDERLYING
+      )
+    );
+    executePayload(vm, address(proposal));
+    assertTrue(
+      IRiskSteward(proposal.NEW_RISK_STEWARD()).isAddressRestricted(
+        AaveV3EthereumLidoAssets.GHO_UNDERLYING
+      )
+    );
   }
 
   function test_defaultProposalExecution() public {

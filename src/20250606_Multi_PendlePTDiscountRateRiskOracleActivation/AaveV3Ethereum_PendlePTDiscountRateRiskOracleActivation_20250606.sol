@@ -8,6 +8,8 @@ import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {SafeERC20} from 'openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol';
 import {SafeCast} from 'openzeppelin-contracts/contracts/utils/math/SafeCast.sol';
 import {IERC20} from 'openzeppelin-contracts/contracts/interfaces/IERC20.sol';
+
+import {IRiskSteward} from './interfaces/IRiskSteward.sol';
 import {IAaveCLRobotOperator} from '../interfaces/IAaveCLRobotOperator.sol';
 
 /**
@@ -36,6 +38,8 @@ contract AaveV3Ethereum_PendlePTDiscountRateRiskOracleActivation_20250606 is
 
     AaveV3Ethereum.ACL_MANAGER.addRiskAdmin(NEW_RISK_STEWARD); // manual risk-steward
     AaveV3Ethereum.ACL_MANAGER.addRiskAdmin(EDGE_RISK_STEWARD);
+
+    IRiskSteward(NEW_RISK_STEWARD).setAddressRestricted(AaveV3EthereumAssets.GHO_UNDERLYING, true);
 
     uint256 linkAmountWithdrawn = AaveV3Ethereum.COLLECTOR.withdrawFromV3(
       CollectorUtils.IOInput({

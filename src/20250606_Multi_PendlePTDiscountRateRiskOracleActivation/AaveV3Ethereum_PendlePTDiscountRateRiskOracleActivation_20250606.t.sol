@@ -65,6 +65,21 @@ contract AaveV3Ethereum_PendlePTDiscountRateRiskOracleActivation_20250606_Test i
     assertFalse(AaveV3Ethereum.ACL_MANAGER.isRiskAdmin(AaveV3Ethereum.CAPS_PLUS_RISK_STEWARD));
   }
 
+  function test_steward_restricted() public {
+    // GHO is restricted as the risk param for GHO should be updated by GHO steward
+    assertFalse(
+      IRiskSteward(proposal.NEW_RISK_STEWARD()).isAddressRestricted(
+        AaveV3EthereumAssets.GHO_UNDERLYING
+      )
+    );
+    executePayload(vm, address(proposal));
+    assertTrue(
+      IRiskSteward(proposal.NEW_RISK_STEWARD()).isAddressRestricted(
+        AaveV3EthereumAssets.GHO_UNDERLYING
+      )
+    );
+  }
+
   function test_robotRegistered() public {
     vm.expectEmit(false, true, true, true);
     emit IAaveCLRobotOperator.KeeperRegistered(

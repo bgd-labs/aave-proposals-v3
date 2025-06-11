@@ -1,10 +1,11 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {AaveV3Arbitrum} from 'aave-address-book/AaveV3Arbitrum.sol';
+import {AaveV3Arbitrum, AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Arbitrum_PendlePTDiscountRateRiskOracleActivation_20250606} from './AaveV3Arbitrum_PendlePTDiscountRateRiskOracleActivation_20250606.sol';
 
+import {IRiskSteward} from './interfaces/IRiskSteward.sol';
 import {BaseStewardUpdateTest} from './BaseStewardUpdateTest.t.sol';
 
 /**
@@ -39,6 +40,21 @@ contract AaveV3Arbitrum_PendlePTDiscountRateRiskOracleActivation_20250606_Test i
       'AaveV3Arbitrum_PendlePTDiscountRateRiskOracleActivation_20250606',
       AaveV3Arbitrum.POOL,
       address(proposal)
+    );
+  }
+
+  function test_steward_restricted() public {
+    // GHO is restricted as the risk param for GHO should be updated by GHO steward
+    assertFalse(
+      IRiskSteward(proposal.NEW_RISK_STEWARD()).isAddressRestricted(
+        AaveV3ArbitrumAssets.GHO_UNDERLYING
+      )
+    );
+    executePayload(vm, address(proposal));
+    assertTrue(
+      IRiskSteward(proposal.NEW_RISK_STEWARD()).isAddressRestricted(
+        AaveV3ArbitrumAssets.GHO_UNDERLYING
+      )
     );
   }
 }

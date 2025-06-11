@@ -107,6 +107,13 @@ interface IRiskSteward {
   function RISK_COUNCIL() external view returns (address);
 
   /**
+   * @notice method to check if an asset/oracle is restricted to be used by the risk stewards
+   * @param contractAddress address of the underlying asset or oracle
+   * @return bool if asset is restricted or not
+   */
+  function isAddressRestricted(address contractAddress) external view returns (bool);
+
+  /**
    * @notice method called by the owner to set an asset/oracle as restricted
    * @param contractAddress address of the underlying asset or oracle
    * @param isRestricted true if asset needs to be restricted, false otherwise
