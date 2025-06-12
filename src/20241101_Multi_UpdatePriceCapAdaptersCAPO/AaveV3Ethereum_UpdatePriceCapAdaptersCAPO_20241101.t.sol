@@ -8,11 +8,11 @@ import {AaveV3Ethereum_UpdatePriceCapAdaptersCAPO_20241101} from './AaveV3Ethere
 import {PriceFeeds} from './Constants.sol';
 import {BasePayloadUSDFeedTest} from './BasePayloadUSDFeedTest.sol';
 import {BasePayloadETHFeedTest} from './BasePayloadETHFeedTest.sol';
-import {IERC20} from 'solidity-utils/contracts/oz-common/interfaces/IERC20.sol';
+import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 
 /**
  * @dev Test for AaveV3Ethereum_UpdatePriceCapAdaptersCAPO_20241101
- * command: FOUNDRY_PROFILE=mainnet forge test --match-path=src/20241101_Multi_UpdatePriceCapAdaptersCAPO/AaveV3Ethereum_UpdatePriceCapAdaptersCAPO_20241101.t.sol -vv
+ * command: FOUNDRY_PROFILE=test forge test --match-path=src/20241101_Multi_UpdatePriceCapAdaptersCAPO/AaveV3Ethereum_UpdatePriceCapAdaptersCAPO_20241101.t.sol -vv
  */
 contract AaveV3Ethereum_UpdatePriceCapAdaptersCAPO_20241101_Test is
   BasePayloadUSDFeedTest,
@@ -23,7 +23,7 @@ contract AaveV3Ethereum_UpdatePriceCapAdaptersCAPO_20241101_Test is
   bool switchToV2Oracle;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 21413537);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 22489327);
     proposal = new AaveV3Ethereum_UpdatePriceCapAdaptersCAPO_20241101();
   }
 
