@@ -5,7 +5,7 @@ import {CHAIN_TO_CHAIN_ID, getPoolChain, getExplorerLink} from '../common';
 import {TEST_EXECUTE_PROPOSAL} from '../utils/constants';
 import {EmissionUpdate} from './types';
 import {addressPrompt, translateJsAddressToSol} from '../prompts/addressPrompt';
-import {CHAIN_ID_CLIENT_MAP} from '@bgd-labs/js-utils';
+import {getClient} from '@bgd-labs/toolbox';
 
 async function fetchEmission(pool: PoolIdentifier): Promise<EmissionUpdate> {
   const asset = await addressPrompt({
@@ -26,7 +26,7 @@ async function fetchEmission(pool: PoolIdentifier): Promise<EmissionUpdate> {
         type: 'function',
       },
     ],
-    client: CHAIN_ID_CLIENT_MAP[CHAIN_TO_CHAIN_ID[chain]],
+    client: getClient(CHAIN_TO_CHAIN_ID[chain], {}),
     address: asset,
   });
   let symbol = '';

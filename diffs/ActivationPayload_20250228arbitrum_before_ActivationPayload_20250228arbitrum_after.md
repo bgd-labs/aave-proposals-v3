@@ -1,0 +1,42 @@
+## Raw diff
+
+```json
+{
+  "raw": {
+    "0x053d55f9b5af8694c503eb288a1b7e552f590710": {
+      "label": "AaveV3Arbitrum.COLLECTOR",
+      "balanceDiff": null,
+      "stateDiff": {
+        "0xa9389fb4f554effbdc665ebb1ffa40c6c110fe156d41b3d7eb2f6b266c218a36": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000001"
+        }
+      }
+    },
+    "0x7b58055fc6be4b23cf8c9287b7d3c4adbe919a9c": {
+      "label": "AaveV3Arbitrum.CLINIC_STEWARD",
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x409b12f9ad7bf34a562b2d74797c9e5995a367de7c255af1d961ee86a2023167": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000001"
+        }
+      }
+    },
+    "0x89644ca1bb8064760312ae4f03ea41b05da3637c": {
+      "label": "GovernanceV3Arbitrum.PAYLOADS_CONTROLLER",
+      "balanceDiff": null,
+      "stateDiff": {
+        "0xd59eb1c08df610a2d207db4db91372b9fa60f3de2255ec3b0fbfc33ac8593149": {
+          "previousValue": "0x0067c618c3000000000002000000000000000000000000000000000000000000",
+          "newValue": "0x0067c618c3000000000003000000000000000000000000000000000000000000"
+        },
+        "0xd59eb1c08df610a2d207db4db91372b9fa60f3de2255ec3b0fbfc33ac859314a": {
+          "previousValue": "0x000000000000000000093a8000000000000067f43d4400000000000000000000",
+          "newValue": "0x000000000000000000093a8000000000000067f43d4400000000000067c618c4"
+        }
+      }
+    }
+  }
+}
+```

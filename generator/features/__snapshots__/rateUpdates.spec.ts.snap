@@ -201,7 +201,7 @@ import {AaveV2EthereumAMM_Test_20231023} from './AaveV2EthereumAMM_Test_20231023
 
 /**
  * @dev Test for AaveV2EthereumAMM_Test_20231023
- * command: FOUNDRY_PROFILE=mainnet forge test --match-path=src/20231023_AaveV2EthereumAMM_Test/AaveV2EthereumAMM_Test_20231023.t.sol -vv
+ * command: FOUNDRY_PROFILE=test forge test --match-path=src/20231023_AaveV2EthereumAMM_Test/AaveV2EthereumAMM_Test_20231023.t.sol -vv
  */
 contract AaveV2EthereumAMM_Test_20231023_Test is ProtocolV2TestBase {
   AaveV2EthereumAMM_Test_20231023 internal proposal;
@@ -233,7 +233,7 @@ import {AaveV2EthereumAMM_Test_20231023} from './AaveV2EthereumAMM_Test_20231023
 /**
  * @dev Deploy Ethereum
  * deploy-command: make deploy-ledger contract=src/20231023_AaveV2EthereumAMM_Test/Test_20231023.s.sol:DeployEthereum chain=mainnet
- * verify-command: FOUNDRY_PROFILE=mainnet npx catapulta-verify -b broadcast/Test_20231023.s.sol/1/run-latest.json
+ * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/Test_20231023.s.sol/1/run-latest.json
  */
 contract DeployEthereum is EthereumScript {
   function run() external broadcast {

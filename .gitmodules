@@ -1,3 +1,7 @@
 [submodule "lib/aave-helpers"]
 	path = lib/aave-helpers
 	url = https://github.com/bgd-labs/aave-helpers
+	branch = main
+[submodule "lib/aave-umbrella"]
+	path = lib/aave-umbrella
+	url = https://github.com/aave-dao/aave-umbrella
