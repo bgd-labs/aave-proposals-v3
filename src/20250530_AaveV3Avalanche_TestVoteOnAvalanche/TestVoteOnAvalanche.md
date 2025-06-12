@@ -1,7 +1,7 @@
 ---
 title: "Fire drill proposal Avalanche VotingMachine"
 author: "BGD Labs @bgdlabs"
-discussions: "https://governance.aave.com/t/technical-maintenance-proposals/15274/91"
+discussions: "https://governance.aave.com/t/technical-maintenance-proposals/15274/92"
 ---
 
 ## Simple Summary
@@ -22,7 +22,7 @@ The payload executed will just contain an empty `execute()` function, as the pur
 
 - Implementation: [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250530_AaveV3Avalanche_TestVoteOnAvalanche/AaveV3Avalanche_TestVoteOnAvalanche_20250530.sol)
 - Tests: [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250530_AaveV3Avalanche_TestVoteOnAvalanche/AaveV3Avalanche_TestVoteOnAvalanche_20250530.t.sol)
-- [Discussion](https://governance.aave.com/t/technical-maintenance-proposals/15274/91)
+- [Discussion](https://governance.aave.com/t/technical-maintenance-proposals/15274/92)
 
 ## Copyright
 
