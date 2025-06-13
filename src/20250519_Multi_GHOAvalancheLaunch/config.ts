@@ -19,7 +19,6 @@ export const config: ConfigFile = {
     AaveV3Base: {configs: {OTHERS: {}}, cache: {blockNumber: 30789286}},
     AaveV3Avalanche: {
       configs: {
-        // @todo update based on ChaosLabs input
         // below values to match /AaveV3Avalanche_GHOAvalancheListing_20250519.sol and /utils/GHOAvalancheLaunch.sol
         ASSET_LISTING: [
           {
@@ -36,13 +35,13 @@ export const config: ConfigFile = {
             borrowableInIsolation: 'DISABLED',
             withSiloedBorrowing: 'DISABLED',
             reserveFactor: '10',
-            supplyCap: '5000000',
-            borrowCap: '4500000', // to match /utils/GHOAvalancheLaunch.sol
+            supplyCap: '10000000',
+            borrowCap: '9000000', // to match /utils/GHOAvalancheLaunch.sol
             rateStrategyParams: {
               optimalUtilizationRate: '90',
               baseVariableBorrowRate: '0',
-              variableRateSlope1: '12',
-              variableRateSlope2: '65',
+              variableRateSlope1: '5.5',
+              variableRateSlope2: '50',
             },
             asset: '0xfc421aD3C883Bf9E7C4f42dE845C4e4405799e73',
             admin: '0xac140648435d03f784879cd789130F22Ef588Fcd',

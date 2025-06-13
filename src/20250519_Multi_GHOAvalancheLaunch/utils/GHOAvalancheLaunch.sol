@@ -40,12 +40,12 @@ library GHOAvalancheLaunch {
   // below values to match /config.ts
   uint128 internal constant CCIP_RATE_LIMIT_CAPACITY = 300_000e18;
   uint128 internal constant CCIP_RATE_LIMIT_REFILL_RATE = 60e18;
-  uint128 internal constant CCIP_BUCKET_CAPACITY = 4_500_000;
-  uint128 internal constant CCIP_SUPPLY_CAP = 5_000_000;
+  uint128 internal constant CCIP_BUCKET_CAPACITY = 9_000_000;
+  uint128 internal constant CCIP_SUPPLY_CAP = 10_000_000;
   uint16 internal constant CCIP_OPTIMAL_USAGE_RATIO = 90_00;
   uint32 internal constant CCIP_BASE_VARIABLE_BORROW_RATE = 0;
-  uint32 internal constant CCIP_VARIABLE_RATE_SLOPE_1 = 12_00;
-  uint32 internal constant CCIP_VARIABLE_RATE_SLOPE_2 = 65_00;
+  uint32 internal constant CCIP_VARIABLE_RATE_SLOPE_1 = 5_50;
+  uint32 internal constant CCIP_VARIABLE_RATE_SLOPE_2 = 50_00;
 
   // CCIP Adresses //
   // https://docs.chain.link/ccip/directory/mainnet/chain/avalanche-mainnet
