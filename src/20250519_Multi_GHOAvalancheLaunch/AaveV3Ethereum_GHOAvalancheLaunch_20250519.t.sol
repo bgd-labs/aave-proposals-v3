@@ -328,7 +328,7 @@ contract AaveV3Ethereum_GHOAvalancheLaunch_20250519_Avalanche is ProtocolV3TestB
     vm.expectEmit(address(NEW_TOKEN_POOL));
     emit Locked(address(BASE_ON_RAMP), amount);
     vm.expectEmit(address(BASE_ON_RAMP));
-    emit CCIPSendRequested(eventArg); // @fixme log != eventarg
+    emit CCIPSendRequested(eventArg);
 
     vm.prank(alice);
     ROUTER.ccipSend{value: eventArg.feeTokenAmount}(BASE_CHAIN_SELECTOR, message);

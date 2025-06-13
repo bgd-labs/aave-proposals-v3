@@ -227,7 +227,7 @@ contract AaveV3Avalanche_GHOAvalancheListing_20250519_Stewards is
       .POOL
       .getConfiguration(address(GHO_TOKEN))
       .getBorrowCap();
-    assertEq(currentBorrowCap, GHOAvalancheLaunch.CCIP_BUCKET_CAPACITY); // @note why not 10e18? like below, and in Launch and E2E?
+    assertEq(currentBorrowCap, GHOAvalancheLaunch.CCIP_BUCKET_CAPACITY);
     vm.assume(
       newBorrowCap != currentBorrowCap &&
         _isDifferenceLowerThanMax(currentBorrowCap, newBorrowCap, currentBorrowCap)
