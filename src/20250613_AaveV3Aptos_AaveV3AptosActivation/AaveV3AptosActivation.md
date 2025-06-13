@@ -1,8 +1,8 @@
 ---
-title: "AaveV3AptosActivation"
+title: "Aave V3 Aptos Activation"
 author: "Aave Labs"
-discussions: "https://governance.aave.com/t/arfc-aave-events-sponsorship-budget-2025/22173"
-snapshot: "https://snapshot.box/#/s:aavedao.eth/proposal/0x12ae50ccd9a4cd8edfead63d773e62ca23ea567a458c442557e0b6193e01bb1d"
+discussions: "https://governance.aave.com/t/arfc-aave-v3-deployment-on-aptos-mainnet/21823"
+snapshot: "https://snapshot.box/#/s:aavedao.eth/proposal/0x7da9509685cb547a0af6582a110697a40d6056bff566670cc487441cd4c380cd"
 ---
 
 # Summary
@@ -17,7 +17,7 @@ This proposal seeks approval to deploy Aave V3 on the Aptos mainnet, marking Aav
 
 All the governance procedures for the expansion of Aave v3 to Bnb have been finished, said:
 
-- Positive signaling and approval regarding the expansion on the [governance forum](https://governance.aave.com/t/temp-check-aave-v3-deployment-on-aptos-mainnet/18124/17?u=aavelabs), [temp check snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0x3ab72b46e2039d255c8df47e3210e40a7df5e7d4e079096439a018e28a38a17e), [ARFC](https://governance.aave.com/t/arfc-aave-v3-deployment-on-aptos-mainnet/21823) and [final snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0x7da9509685cb547a0af6582a110697a40d6056bff566670cc487441cd4c380cd).
+- Positive signaling and approval regarding the expansion on the [governance forum](https://governance.aave.com/t/temp-check-aave-v3-deployment-on-aptos-mainnet/18124/17), [temp check snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0x3ab72b46e2039d255c8df47e3210e40a7df5e7d4e079096439a018e28a38a17e), [ARFC](https://governance.aave.com/t/arfc-aave-v3-deployment-on-aptos-mainnet/21823) and [final snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0x7da9509685cb547a0af6582a110697a40d6056bff566670cc487441cd4c380cd).
 - Positive risk analysis and assets/parameters recommendation by the service providers LlamaRisk and Chaos Labs.
 
 # Specification
@@ -48,7 +48,7 @@ Risk parameters for each asset have been provided by Chaos Labs and LlamaRisk:
 | Enable Collateral        | Yes       | Yes              | Yes              | Yes              |
 | Loan To Value            | 58%       | 75%              | 75%              | 65%              |
 | Liquidation Threshold    | 63%       | 78%              | 78%              | 75%              |
-| Liquidation Penalty      | 10%       | 5%               | 5%               | 8.5%             |
+| Liquidation Bonus        | 10%       | 5%               | 5%               | 8.5%             |
 | Reserve Factor           | 20%       | 10%              | 10%              | 20%              |
 | Liquidation Protocol Fee | 10%       | 10%              | 10%              | 10%              |
 | Supply Cap               | 1,000,000 | 25,000,000       | 40,000,000       | 14,000,000       |
@@ -86,7 +86,7 @@ Given the novel nature of this deployment as Aave's first expansion to a non-EVM
 
 - **Audits**: Smart contracts have undergone comprehensive audits by SpearBit, Certora, and OtterSec.
 - **Security Competition**: We ran a $150,000 GHO initiative aimed at motivating participants to uncover and report possible security flaws.
-- **Bug Bounty Program**:A bug bounty program is in place to incentivize the identification of potential vulnerabilities.
+- **Bug Bounty Program**: A bug bounty program is in place to incentivize the identification of potential vulnerabilities.
 
 ## Governance Strategy
 
@@ -103,10 +103,10 @@ Given the novel nature of this deployment as Aave's first expansion to a non-EVM
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250613_AaveV3Ethereum_AaveV3AptosActivation/AaveV3Ethereum_AaveV3AptosActivation_20250613.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250613_AaveV3Ethereum_AaveV3AptosActivation/AaveV3Ethereum_AaveV3AptosActivation_20250613.t.sol)
-- [Snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0x12ae50ccd9a4cd8edfead63d773e62ca23ea567a458c442557e0b6193e01bb1d)
-- [Discussion](https://governance.aave.com/t/arfc-aave-events-sponsorship-budget-2025/22173)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250613_AaveV3Aptos_AaveV3AptosActivation/AaveV3Ethereum_AaveV3AptosActivation_20250613.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250613_AaveV3Aptos_AaveV3AptosActivation/AaveV3Ethereum_AaveV3AptosActivation_20250613.t.sol)
+- [Snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0x7da9509685cb547a0af6582a110697a40d6056bff566670cc487441cd4c380cd)
+- [Discussion](https://governance.aave.com/t/arfc-aave-v3-deployment-on-aptos-mainnet/21823)
 
 ## Copyright
 
