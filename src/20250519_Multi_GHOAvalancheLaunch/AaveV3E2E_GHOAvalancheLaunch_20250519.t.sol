@@ -32,7 +32,7 @@ import {AaveV3Avalanche_GHOAvalancheLaunch_20250519} from './AaveV3Avalanche_GHO
 
 /**
  * @dev Test for AaveV3E2E_GHOAvalancheLaunch_20250519
- * command: FOUNDRY_PROFILE=avalanche forge test --match-path=src/20250519_Multi_GHOAvalancheLaunch/AaveV3E2E_GHOAvalancheLaunch_20250519.t.sol -vv
+ * command: FOUNDRY_PROFILE=test forge test --match-path=src/20250519_Multi_GHOAvalancheLaunch/AaveV3E2E_GHOAvalancheLaunch_20250519.t.sol -vv
  */
 contract AaveV3Base_GHOAvalancheLaunch_20250519_Base is ProtocolV3TestBase {
   struct Common {
