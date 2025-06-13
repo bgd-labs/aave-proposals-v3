@@ -2,7 +2,6 @@
 pragma solidity ^0.8.0;
 
 import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aave-helpers/src/GovV3Helpers.sol';
-// import {AaveV3AptosActivation} from 'aave-address-book/AaveV3AptosActivation.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {EthereumScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
 import {AaveV3Ethereum_AaveV3AptosActivation_20250613} from './AaveV3Ethereum_AaveV3AptosActivation_20250613.sol';
