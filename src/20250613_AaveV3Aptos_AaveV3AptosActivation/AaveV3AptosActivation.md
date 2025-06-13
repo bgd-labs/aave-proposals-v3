@@ -81,8 +81,6 @@ Given the novel nature of this deployment as Aave's first expansion to a non-EVM
 ## Oracle Integration
 
 - **Primary Source**: Chainlink Data Feeds on Aptos.
-- **Backup Strategy**: Currently, no backup oracle provider is integrated.  
-  **Circuit Breakers**: Implemented via native Move modules to ensure protocol safety.
 
 ## Security Measures
 
@@ -92,7 +90,7 @@ Given the novel nature of this deployment as Aave's first expansion to a non-EVM
 
 ## Governance Strategy
 
-- **Initial Stewardship**: Aave Labs will maintain initial stewardship over the deployment to ensure stability.
+- **Initial Stewardship**: Aave Labs and Aptos Foundation will maintain initial stewardship over the deployment to ensure stability.
 - **Transition Plan**: A phased approach will transition full governance to the Aave DAO, incorporating community guardians and aligning with existing governance structures.
 
 # Implementation Plan
