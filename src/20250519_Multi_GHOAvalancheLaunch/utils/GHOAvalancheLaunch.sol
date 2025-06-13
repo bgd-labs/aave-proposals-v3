@@ -38,8 +38,8 @@ library GHOAvalancheLaunch {
 
   // CCIP Risk Paramaters //
   // below values to match /config.ts
-  uint128 internal constant CCIP_RATE_LIMIT_CAPACITY = 300_000e18;
-  uint128 internal constant CCIP_RATE_LIMIT_REFILL_RATE = 60e18;
+  uint128 internal constant CCIP_RATE_LIMIT_CAPACITY = 1_500_000e18;
+  uint128 internal constant CCIP_RATE_LIMIT_REFILL_RATE = 300e18;
   uint128 internal constant CCIP_BUCKET_CAPACITY = 9_000_000;
   uint128 internal constant CCIP_SUPPLY_CAP = 10_000_000;
   uint16 internal constant CCIP_OPTIMAL_USAGE_RATIO = 90_00;
