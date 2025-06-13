@@ -17,7 +17,7 @@ contract AaveV3Ethereum_EventsGrant2025_20250612_Test is ProtocolV3TestBase {
 
   address public constant AAVE_LABS = 0x1c037b3C22240048807cC9d7111be5d455F640bd;
   uint256 public constant GHO_GRANT_AMOUNT = 750_000 ether;
-  IERC20 public GHO_TOKEN = IERC20(AaveV3EthereumAssets.GHO_UNDERLYING);
+  IERC20 public constant GHO_TOKEN = IERC20(AaveV3EthereumAssets.GHO_UNDERLYING);
 
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('mainnet'), 22689071);
