@@ -10,7 +10,7 @@ import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 
 /**
  * @dev Test for AaveV3Ethereum_EventsGrant2025_20250612
- * command: FOUNDRY_PROFILE=mainnet forge test --match-path=src/20250612_AaveV3Ethereum_EventsGrant2025/AaveV3Ethereum_EventsGrant2025_20250612.t.sol -vv
+ * command: FOUNDRY_PROFILE=test forge test --match-path=src/20250612_AaveV3Ethereum_EventsGrant2025/AaveV3Ethereum_EventsGrant2025_20250612.t.sol -vv
  */
 contract AaveV3Ethereum_EventsGrant2025_20250612_Test is ProtocolV3TestBase {
   AaveV3Ethereum_EventsGrant2025_20250612 internal proposal;
