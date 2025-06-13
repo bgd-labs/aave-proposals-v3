@@ -100,3 +100,14 @@ Given the novel nature of this deployment as Aave's first expansion to a non-EVM
    **Parameter Configuration**: Set initial risk parameters as per recommendations from Chaos Labs and LlamaRisk.
 3. **Security Measures**: Implement circuit breakers and other safety modules.
 4. **Governance Transition**: Begin the phased transition of full governance to the Aave DAO.
+
+## References
+
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250613_AaveV3Ethereum_AaveV3AptosActivation/AaveV3Ethereum_AaveV3AptosActivation_20250613.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250613_AaveV3Ethereum_AaveV3AptosActivation/AaveV3Ethereum_AaveV3AptosActivation_20250613.t.sol)
+- [Snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0x12ae50ccd9a4cd8edfead63d773e62ca23ea567a458c442557e0b6193e01bb1d)
+- [Discussion](https://governance.aave.com/t/arfc-aave-events-sponsorship-budget-2025/22173)
+
+## Copyright
+
+Copyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).
