@@ -7,7 +7,7 @@ snapshot: "https://snapshot.box/#/s:aavedao.eth/proposal/0x7da9509685cb547a0af65
 
 # Summary
 
-This proposal seeks approval to deploy Aave V3 on the Aptos mainnet, marking Aave's first expansion into a non-EVM blockchain. The deployment aims to leverage Aptos' high throughput, low transaction fees, and the security features of the Move programming language to enhance Aave's protocol performance and broaden its user base.
+This proposal seeks approval to inherit the already-deployed Aave V3 Aptos Market under the Aave DAO, marking Aave’s first expansion into a non-EVM blockchain. Bringing the Aptos market under DAO governance will leverage Aptos’ high throughput, low transaction fees, and the Move programming language’s security features to enhance Aave’s protocol performance and broaden its user base.
 
 # Motivation
 
@@ -15,7 +15,7 @@ This proposal seeks approval to deploy Aave V3 on the Aptos mainnet, marking Aav
 - **Technical Advantages**: Aptos offers high transaction throughput and enhanced security through the Move language.
 - **Ecosystem Growth**: Aptos has demonstrated significant growth, with a TVL of approximately $958.64 million, making it the 11th largest chain by TVL.
 
-All the governance procedures for the expansion of Aave v3 to Bnb have been finished, said:
+All the governance procedures for the expansion of Aave v3 to Aptos have been finished, said:
 
 - Positive signaling and approval regarding the expansion on the [governance forum](https://governance.aave.com/t/temp-check-aave-v3-deployment-on-aptos-mainnet/18124/17), [temp check snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0x3ab72b46e2039d255c8df47e3210e40a7df5e7d4e079096439a018e28a38a17e), [ARFC](https://governance.aave.com/t/arfc-aave-v3-deployment-on-aptos-mainnet/21823) and [final snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0x7da9509685cb547a0af6582a110697a40d6056bff566670cc487441cd4c380cd).
 - Positive risk analysis and assets/parameters recommendation by the service providers LlamaRisk and Chaos Labs.
@@ -91,7 +91,9 @@ Given the novel nature of this deployment as Aave's first expansion to a non-EVM
 ## Governance Strategy
 
 - **Initial Stewardship**: Aave Labs and Aptos Foundation will maintain initial stewardship over the deployment to ensure stability.
-- **Transition Plan**: A phased approach will transition full governance to the Aave DAO, incorporating community guardians and aligning with existing governance structures.
+- **Transition and Ongoing Governance**:
+  - A phased approach will transition full governance to the Aave DAO, incorporating community guardians and aligning with existing governance structures.
+  - All parameter or contract-level changes **must** follow the **standard Aave Governance Framework** (i.e., community discussion → AIP → on-chain vote).
 
 # Implementation Plan
 
