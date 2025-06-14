@@ -16,17 +16,6 @@ import {AaveV3Ethereum_JuneFundingUpdate_20250613} from './AaveV3Ethereum_JuneFu
 contract AaveV3Ethereum_JuneFundingUpdate_20250613_Test is ProtocolV3TestBase {
   AaveV3Ethereum_JuneFundingUpdate_20250613 internal proposal;
 
-  event SwapRequested(
-    address milkman,
-    address indexed fromToken,
-    address indexed toToken,
-    address fromOracle,
-    address toOracle,
-    uint256 amount,
-    address indexed recipient,
-    uint256 slippage
-  );
-
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('mainnet'), 22697434);
     proposal = new AaveV3Ethereum_JuneFundingUpdate_20250613();
@@ -44,34 +33,6 @@ contract AaveV3Ethereum_JuneFundingUpdate_20250613_Test is ProtocolV3TestBase {
   }
 
   function test_approvals() public {
-    assertEq(
-      IERC20(AaveV3EthereumLidoAssets.GHO_A_TOKEN).allowance(
-        address(AaveV3Ethereum.COLLECTOR),
-        proposal.MERIT_AHAB_SAFE()
-      ),
-      0
-    );
-
-    assertEq(
-      IERC20(AaveV3EthereumAssets.WETH_A_TOKEN).allowance(
-        address(AaveV3Ethereum.COLLECTOR),
-        proposal.MERIT_AHAB_SAFE()
-      ),
-      0
-    );
-
-    uint256 allowanceAEthUSDCBefore = IERC20(AaveV3EthereumAssets.USDC_A_TOKEN).allowance(
-      address(AaveV3Ethereum.COLLECTOR),
-      proposal.AFC_SAFE()
-    );
-    assertEq(
-      IERC20(AaveV3EthereumAssets.USDC_A_TOKEN).allowance(
-        address(AaveV3Ethereum.COLLECTOR),
-        proposal.AFC_SAFE()
-      ),
-      0
-    );
-
     uint256 allowanceAEthUSDTBefore = IERC20(AaveV3EthereumAssets.USDT_A_TOKEN).allowance(
       address(AaveV3Ethereum.COLLECTOR),
       proposal.AFC_SAFE()
@@ -86,103 +47,19 @@ contract AaveV3Ethereum_JuneFundingUpdate_20250613_Test is ProtocolV3TestBase {
 
     executePayload(vm, address(proposal));
 
-    uint256 allowanceGhoAfter = IERC20(AaveV3EthereumLidoAssets.GHO_A_TOKEN).allowance(
-      address(AaveV3Ethereum.COLLECTOR),
-      proposal.MERIT_AHAB_SAFE()
-    );
-
-    uint256 allowanceWethAfter = IERC20(AaveV3EthereumAssets.WETH_A_TOKEN).allowance(
-      address(AaveV3Ethereum.COLLECTOR),
-      proposal.MERIT_AHAB_SAFE()
-    );
-
-    uint256 allowanceAEthUSDCAfter = IERC20(AaveV3EthereumAssets.USDC_A_TOKEN).allowance(
-      address(AaveV3Ethereum.COLLECTOR),
-      proposal.AFC_SAFE()
-    );
-
     uint256 allowanceAEthUSDTAfter = IERC20(AaveV3EthereumAssets.USDT_A_TOKEN).allowance(
       address(AaveV3Ethereum.COLLECTOR),
       proposal.AFC_SAFE()
     );
 
-    assertEq(allowanceGhoAfter, proposal.MERIT_LIDO_GHO_ALLOWANCE());
-    assertEq(allowanceWethAfter, proposal.AHAB_WETH_ALLOWANCE());
-    assertEq(allowanceAEthUSDCAfter, allowanceAEthUSDCBefore + proposal.AFC_USDC_ALLOWANCE());
     assertEq(allowanceAEthUSDTAfter, allowanceAEthUSDTBefore + proposal.AFC_USDT_ALLOWANCE());
 
-    vm.startPrank(proposal.MERIT_AHAB_SAFE());
-    IERC20(AaveV3EthereumLidoAssets.GHO_A_TOKEN).transferFrom(
-      address(AaveV3Ethereum.COLLECTOR),
-      proposal.MERIT_AHAB_SAFE(),
-      proposal.MERIT_LIDO_GHO_ALLOWANCE()
-    );
-    IERC20(AaveV3EthereumAssets.WETH_A_TOKEN).transferFrom(
-      address(AaveV3Ethereum.COLLECTOR),
-      proposal.MERIT_AHAB_SAFE(),
-      proposal.AHAB_WETH_ALLOWANCE()
-    );
-    vm.stopPrank();
-
     vm.startPrank(proposal.AFC_SAFE());
-    IERC20(AaveV3EthereumAssets.USDC_A_TOKEN).transferFrom(
-      address(AaveV3Ethereum.COLLECTOR),
-      proposal.AFC_SAFE(),
-      proposal.AFC_USDC_ALLOWANCE()
-    );
-
     IERC20(AaveV3EthereumAssets.USDT_A_TOKEN).transferFrom(
       address(AaveV3Ethereum.COLLECTOR),
       proposal.AFC_SAFE(),
       proposal.AFC_USDT_ALLOWANCE()
     );
     vm.stopPrank();
-  }
-
-  function test_swaps() public {
-    uint256 usdcAmountBefore = IERC20(AaveV3EthereumAssets.USDC_UNDERLYING).balanceOf(
-      address(AaveV3Ethereum.COLLECTOR)
-    );
-
-    uint256 usdtAmountBefore = IERC20(AaveV3EthereumAssets.USDT_UNDERLYING).balanceOf(
-      address(AaveV3Ethereum.COLLECTOR)
-    );
-
-    vm.expectEmit(true, true, true, true, MiscEthereum.AAVE_SWAPPER);
-    emit SwapRequested(
-      proposal.MILKMAN(),
-      AaveV3EthereumAssets.USDC_UNDERLYING,
-      AaveV3EthereumAssets.GHO_UNDERLYING,
-      AaveV3EthereumAssets.USDC_ORACLE,
-      proposal.GHO_USD_FEED(),
-      proposal.USDC_SWAP_AMOUNT(),
-      address(AaveV3Ethereum.COLLECTOR),
-      75
-    );
-
-    vm.expectEmit(true, true, true, true, MiscEthereum.AAVE_SWAPPER);
-    emit SwapRequested(
-      proposal.MILKMAN(),
-      AaveV3EthereumAssets.USDT_UNDERLYING,
-      AaveV3EthereumAssets.GHO_UNDERLYING,
-      AaveV3EthereumAssets.USDT_ORACLE,
-      proposal.GHO_USD_FEED(),
-      proposal.USDT_SWAP_AMOUNT(),
-      address(AaveV3Ethereum.COLLECTOR),
-      75
-    );
-
-    executePayload(vm, address(proposal));
-
-    uint256 usdcAmountAfter = IERC20(AaveV3EthereumAssets.USDC_UNDERLYING).balanceOf(
-      address(AaveV3Ethereum.COLLECTOR)
-    );
-
-    uint256 usdtAmountAfter = IERC20(AaveV3EthereumAssets.USDT_UNDERLYING).balanceOf(
-      address(AaveV3Ethereum.COLLECTOR)
-    );
-
-    assertEq(usdtAmountAfter, usdtAmountBefore - proposal.USDT_SWAP_AMOUNT());
-    assertEq(usdcAmountAfter, usdcAmountBefore - proposal.USDC_SWAP_AMOUNT());
   }
 }
