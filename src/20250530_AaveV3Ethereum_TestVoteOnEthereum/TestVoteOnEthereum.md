@@ -24,8 +24,8 @@ The payload executed will just contain an empty execute() function, as the purpo
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250530_AaveV3Ethereum_TestVoteOnEthereum/AaveV3Ethereum_TestVoteOnEthereum_20250530.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250530_AaveV3Ethereum_TestVoteOnEthereum/AaveV3Ethereum_TestVoteOnEthereum_20250530.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/12b567e8939bbd8297d73225fae9b5a6a4e0d5ec/src/20250530_AaveV3Ethereum_TestVoteOnEthereum/AaveV3Ethereum_TestVoteOnEthereum_20250530.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/12b567e8939bbd8297d73225fae9b5a6a4e0d5ec/src/20250530_AaveV3Ethereum_TestVoteOnEthereum/AaveV3Ethereum_TestVoteOnEthereum_20250530.t.sol)
 - [Discussion](https://governance.aave.com/t/technical-maintenance-proposals/15274/91)
 
 ## Copyright

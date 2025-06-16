@@ -20,8 +20,8 @@ The payload executed will just contain an empty `execute()` function, as the pur
 
 ## References
 
-- Implementation: [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250530_AaveV3Avalanche_TestVoteOnAvalanche/AaveV3Avalanche_TestVoteOnAvalanche_20250530.sol)
-- Tests: [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250530_AaveV3Avalanche_TestVoteOnAvalanche/AaveV3Avalanche_TestVoteOnAvalanche_20250530.t.sol)
+- Implementation: [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/12b567e8939bbd8297d73225fae9b5a6a4e0d5ec/src/20250530_AaveV3Avalanche_TestVoteOnAvalanche/AaveV3Avalanche_TestVoteOnAvalanche_20250530.sol)
+- Tests: [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/12b567e8939bbd8297d73225fae9b5a6a4e0d5ec/src/20250530_AaveV3Avalanche_TestVoteOnAvalanche/AaveV3Avalanche_TestVoteOnAvalanche_20250530.t.sol)
 - [Discussion](https://governance.aave.com/t/technical-maintenance-proposals/15274/92)
 
 ## Copyright
