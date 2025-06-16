@@ -12,7 +12,7 @@ import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
  * - Discussion: https://governance.aave.com/t/arfc-aave-events-sponsorship-budget-2025/22173
  */
 contract AaveV3Ethereum_EventsGrant2025_20250612 is IProposalGenericExecutor {
-  address public constant AAVE_LABS = 0x1c037b3C22240048807cC9d7111be5d455F640bd; // @todo validate address
+  address public constant AAVE_LABS = 0x1c037b3C22240048807cC9d7111be5d455F640bd;
   uint256 public constant GHO_GRANT_AMOUNT = 750_000 ether;
   IERC20 public constant GHO_TOKEN = IERC20(AaveV3EthereumAssets.GHO_UNDERLYING);
 
