@@ -37,7 +37,7 @@ contract AaveV3Ethereum_JuneFundingUpdate_20250616_Test is ProtocolV3TestBase {
    */
   function test_defaultProposalExecution() public {
     defaultTest(
-      'AaveV3Ethereum_JuneFundingUpdate_20250613',
+      'AaveV3Ethereum_JuneFundingUpdate_20250616',
       AaveV3Ethereum.POOL,
       address(proposal)
     );
