@@ -2,6 +2,7 @@
 title: "GHO Avalanche Launch"
 author: "Aave Labs"
 discussions: "https://governance.aave.com/t/arfc-launch-gho-on-avalanche-set-aci-as-emissions-manager-for-rewards/19339"
+snapshot: "https://snapshot.org/#/aave.eth/proposal/0x2aed7eb8b03cb3f961cbf790bf2e2e1e449f841a4ad8bdbcdd223bb6ac69e719"
 ---
 
 # Simple Summary

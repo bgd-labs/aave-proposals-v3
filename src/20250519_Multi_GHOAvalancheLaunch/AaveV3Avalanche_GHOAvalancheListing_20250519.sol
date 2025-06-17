@@ -57,15 +57,15 @@ contract AaveV3Avalanche_GHOAvalancheListing_20250519 is AaveV3PayloadAvalanche 
       liqThreshold: 0,
       liqBonus: 0,
       reserveFactor: 10_00,
-      supplyCap: GHOAvalancheLaunch.CCIP_SUPPLY_CAP,
-      borrowCap: GHOAvalancheLaunch.CCIP_BUCKET_CAPACITY,
+      supplyCap: 10_000_000,
+      borrowCap: 9_000_000,
       debtCeiling: 0,
       liqProtocolFee: 0,
       rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
-        optimalUsageRatio: GHOAvalancheLaunch.CCIP_OPTIMAL_USAGE_RATIO,
-        baseVariableBorrowRate: GHOAvalancheLaunch.CCIP_BASE_VARIABLE_BORROW_RATE,
-        variableRateSlope1: GHOAvalancheLaunch.CCIP_VARIABLE_RATE_SLOPE_1,
-        variableRateSlope2: GHOAvalancheLaunch.CCIP_VARIABLE_RATE_SLOPE_2
+        optimalUsageRatio: 90_00,
+        baseVariableBorrowRate: 0,
+        variableRateSlope1: 5_50,
+        variableRateSlope2: 50_00
       })
     });
 

@@ -253,7 +253,7 @@ contract AaveV3Base_GHOAvalancheLaunch_20250519_Base is ProtocolV3TestBase {
     // proposal constants
     assertEq(ava.proposal.ETH_CHAIN_SELECTOR(), eth.c.chainSelector);
     assertEq(ava.proposal.ARB_CHAIN_SELECTOR(), arb.c.chainSelector);
-    assertEq(ava.proposal.CCIP_BUCKET_CAPACITY(), GHOAvalancheLaunch.CCIP_BUCKET_CAPACITY * 10e18);
+    assertEq(ava.proposal.CCIP_BUCKET_CAPACITY(), GHOAvalancheLaunch.CCIP_BUCKET_CAPACITY);
     assertEq(address(ava.proposal.TOKEN_ADMIN_REGISTRY()), address(ava.c.tokenAdminRegistry));
     assertEq(address(ava.proposal.TOKEN_POOL()), address(ava.tokenPool));
     IGhoCcipSteward ghoCcipSteward = IGhoCcipSteward(ava.proposal.GHO_CCIP_STEWARD());

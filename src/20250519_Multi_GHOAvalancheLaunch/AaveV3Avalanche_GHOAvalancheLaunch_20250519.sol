@@ -29,7 +29,7 @@ contract AaveV3Avalanche_GHOAvalancheLaunch_20250519 is IProposalGenericExecutor
   uint64 public constant ARB_CHAIN_SELECTOR = GHOAvalancheLaunch.ARB_CHAIN_SELECTOR;
   uint64 public constant ETH_CHAIN_SELECTOR = GHOAvalancheLaunch.ETH_CHAIN_SELECTOR;
   uint64 public constant GNO_CHAIN_SELECTOR = GHOAvalancheLaunch.GNO_CHAIN_SELECTOR;
-  uint128 public constant CCIP_BUCKET_CAPACITY = GHOAvalancheLaunch.CCIP_BUCKET_CAPACITY * 10e18;
+  uint128 public constant CCIP_BUCKET_CAPACITY = GHOAvalancheLaunch.CCIP_BUCKET_CAPACITY;
 
   ITokenAdminRegistry public constant TOKEN_ADMIN_REGISTRY =
     ITokenAdminRegistry(GHOAvalancheLaunch.AVAX_TOKEN_ADMIN_REGISTRY);

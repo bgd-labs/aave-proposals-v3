@@ -53,7 +53,7 @@ contract AaveV3Avalanche_GHOAvalancheLaunch_20250519_Base is ProtocolV3TestBase 
   uint64 internal constant ETH_CHAIN_SELECTOR = GHOAvalancheLaunch.ETH_CHAIN_SELECTOR;
   uint64 internal constant BASE_CHAIN_SELECTOR = GHOAvalancheLaunch.BASE_CHAIN_SELECTOR;
   uint64 internal constant GNO_CHAIN_SELECTOR = GHOAvalancheLaunch.GNO_CHAIN_SELECTOR;
-  uint128 public constant CCIP_BUCKET_CAPACITY = GHOAvalancheLaunch.CCIP_BUCKET_CAPACITY * 10e18;
+  uint128 public constant CCIP_BUCKET_CAPACITY = GHOAvalancheLaunch.CCIP_BUCKET_CAPACITY;
   uint128 public constant CCIP_RATE_LIMIT_CAPACITY = GHOAvalancheLaunch.CCIP_RATE_LIMIT_CAPACITY;
   uint128 public constant CCIP_RATE_LIMIT_REFILL_RATE =
     GHOAvalancheLaunch.CCIP_RATE_LIMIT_REFILL_RATE;

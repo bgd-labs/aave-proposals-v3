@@ -37,15 +37,9 @@ library GHOAvalancheLaunch {
   address internal constant EMISSION_ADMIN = 0xac140648435d03f784879cd789130F22Ef588Fcd;
 
   // CCIP Risk Paramaters //
-  // below values to match /config.ts
   uint128 internal constant CCIP_RATE_LIMIT_CAPACITY = 1_500_000e18;
   uint128 internal constant CCIP_RATE_LIMIT_REFILL_RATE = 300e18;
-  uint128 internal constant CCIP_BUCKET_CAPACITY = 9_000_000;
-  uint128 internal constant CCIP_SUPPLY_CAP = 10_000_000;
-  uint16 internal constant CCIP_OPTIMAL_USAGE_RATIO = 90_00;
-  uint32 internal constant CCIP_BASE_VARIABLE_BORROW_RATE = 0;
-  uint32 internal constant CCIP_VARIABLE_RATE_SLOPE_1 = 5_50;
-  uint32 internal constant CCIP_VARIABLE_RATE_SLOPE_2 = 50_00;
+  uint128 internal constant CCIP_BUCKET_CAPACITY = 40_000_000e18;
 
   // CCIP Adresses //
   // https://docs.chain.link/ccip/directory/mainnet/chain/avalanche-mainnet
@@ -75,7 +69,6 @@ library GHOAvalancheLaunch {
   // https://docs.chain.link/ccip/directory/mainnet/chain/ethereum-mainnet-arbitrum-1 (Outbound = ON_RAMP, Inbound = OFF_RAMP)
   address internal constant ARB_AVAX_ON_RAMP = 0xe80cC83B895ada027b722b78949b296Bd1fC5639;
   address internal constant ARB_ETH_ON_RAMP = 0x67761742ac8A21Ec4D76CA18cbd701e5A6F3Bef3;
-  address internal constant ARB_BASE_ON_RAMP = 0xc1b6287A3292d6469F2D8545877E40A2f75CA9a6;
   address internal constant ARB_AVAX_OFF_RAMP = 0x95095007d5Cc3E7517A1A03c9e228adA5D0bc376;
   address internal constant ARB_ETH_OFF_RAMP = 0x91e46cc5590A4B9182e47f40006140A7077Dec31;
   address internal constant ARB_BASE_OFF_RAMP = 0xb62178f8198905D0Fa6d640Bdb188E4E8143Ac4b;
@@ -91,7 +84,6 @@ library GHOAvalancheLaunch {
   // https://docs.chain.link/ccip/directory/mainnet/chain/ethereum-mainnet-base-1 (Outbound = ON_RAMP, Inbound = OFF_RAMP)
   address internal constant BASE_AVAX_ON_RAMP = 0x4be6E0F97EA849FF80773af7a317356E6c646FD7;
   address internal constant BASE_ETH_ON_RAMP = 0x56b30A0Dcd8dc87Ec08b80FA09502bAB801fa78e;
-  address internal constant BASE_ARB_ON_RAMP = 0x9D0ffA76C7F82C34Be313b5bFc6d42A72dA8CA69;
   address internal constant BASE_AVAX_OFF_RAMP = 0x61C3f6d72c80A3D1790b213c4cB58c3d4aaFccDF;
   address internal constant BASE_ETH_OFF_RAMP = 0xCA04169671A81E4fB8768cfaD46c347ae65371F1;
   address internal constant BASE_ARB_OFF_RAMP = 0x7D38c6363d5E4DFD500a691Bc34878b383F58d93;
@@ -106,7 +98,6 @@ library GHOAvalancheLaunch {
   // CCIP Lanes //
   // https://docs.chain.link/ccip/directory/mainnet/chain/mainnet (Outbound = ON_RAMP, Inbound = OFF_RAMP)
   address internal constant ETH_AVAX_ON_RAMP = 0xaFd31C0C78785aDF53E4c185670bfd5376249d8A;
-  address internal constant ETH_ARB_ON_RAMP = 0x69eCC4E2D8ea56E2d0a05bF57f4Fd6aEE7f2c284;
   address internal constant ETH_BASE_ON_RAMP = 0xb8a882f3B88bd52D1Ff56A873bfDB84b70431937;
   address internal constant ETH_AVAX_OFF_RAMP = 0xd98E80C79a15E4dbaF4C40B6cCDF690fe619BFBb;
   address internal constant ETH_ARB_OFF_RAMP = 0xdf615eF8D4C64d0ED8Fd7824BBEd2f6a10245aC9;

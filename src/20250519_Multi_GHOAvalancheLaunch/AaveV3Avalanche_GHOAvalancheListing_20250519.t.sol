@@ -200,10 +200,10 @@ contract AaveV3Avalanche_GHOAvalancheListing_20250519_Stewards is
 
     IDefaultInterestRateStrategyV2.InterestRateData
       memory currentRateData = IDefaultInterestRateStrategyV2.InterestRateData({
-        optimalUsageRatio: GHOAvalancheLaunch.CCIP_OPTIMAL_USAGE_RATIO,
-        baseVariableBorrowRate: GHOAvalancheLaunch.CCIP_BASE_VARIABLE_BORROW_RATE,
-        variableRateSlope1: GHOAvalancheLaunch.CCIP_VARIABLE_RATE_SLOPE_1,
-        variableRateSlope2: GHOAvalancheLaunch.CCIP_VARIABLE_RATE_SLOPE_2
+        optimalUsageRatio: 90_00,
+        baseVariableBorrowRate: 0,
+        variableRateSlope1: 5_50,
+        variableRateSlope2: 50_00
       });
 
     assertEq(irStrategy.getInterestRateDataBps(address(GHO_TOKEN)), currentRateData);
@@ -227,7 +227,7 @@ contract AaveV3Avalanche_GHOAvalancheListing_20250519_Stewards is
       .POOL
       .getConfiguration(address(GHO_TOKEN))
       .getBorrowCap();
-    assertEq(currentBorrowCap, GHOAvalancheLaunch.CCIP_BUCKET_CAPACITY);
+    assertEq(currentBorrowCap, 9_000_000);
     vm.assume(
       newBorrowCap != currentBorrowCap &&
         _isDifferenceLowerThanMax(currentBorrowCap, newBorrowCap, currentBorrowCap)
@@ -248,7 +248,7 @@ contract AaveV3Avalanche_GHOAvalancheListing_20250519_Stewards is
       .POOL
       .getConfiguration(address(GHO_TOKEN))
       .getSupplyCap();
-    assertEq(currentSupplyCap, GHOAvalancheLaunch.CCIP_SUPPLY_CAP);
+    assertEq(currentSupplyCap, 10_000_000);
 
     vm.assume(
       currentSupplyCap != newSupplyCap &&
@@ -267,7 +267,7 @@ contract AaveV3Avalanche_GHOAvalancheListing_20250519_Stewards is
 
   function test_bucketStewardCanUpdateBucketCapacity(uint256 newBucketCapacity) public {
     (uint256 currentBucketCapacity, ) = GHO_TOKEN.getFacilitatorBucket(address(NEW_TOKEN_POOL));
-    assertEq(currentBucketCapacity, GHOAvalancheLaunch.CCIP_BUCKET_CAPACITY * 10e18);
+    assertEq(currentBucketCapacity, GHOAvalancheLaunch.CCIP_BUCKET_CAPACITY);
     newBucketCapacity = bound(
       newBucketCapacity,
       currentBucketCapacity + 1,
