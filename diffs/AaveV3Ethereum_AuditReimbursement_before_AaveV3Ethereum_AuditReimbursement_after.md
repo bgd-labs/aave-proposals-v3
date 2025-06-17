@@ -1,0 +1,46 @@
+## Raw diff
+
+```json
+{
+  "raw": {
+    "0x23878914efe38d27c4d67ab83ed1b93a74d4086a": {
+      "label": "AaveV3Ethereum.ASSETS.USDT.A_TOKEN",
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x14a553e31736f19e3e380cf55bfb2f82dfd6d880cd07235affb68d8d3e0cac4d": {
+          "previousValue": "0x0000000003a41e54854d07f254a47c670000000000000000000009a490296058",
+          "newValue": "0x0000000003a42560849f7a37e105e22c00000000000000000000097887628902"
+        },
+        "0xf57a0f05777e493f6eb3a9303c3f677c25a62ed0fdbf9d58a277df4680f70afb": {
+          "previousValue": "0x0000000003a2fff2407c30791bec767a00000000000000000000000000000000",
+          "newValue": "0x0000000003a42560849f7a37e105e22c00000000000000000000002c08c6d756"
+        }
+      }
+    },
+    "0x87870bca3f3fd6335c3f4ce8392d69350b4fa4e2": {
+      "label": "AaveV3Ethereum.POOL",
+      "balanceDiff": null,
+      "stateDiff": {
+        "0xb0754737dd7d73f2c2b41766cee7cdd1d344cfedefa667d0549f97273e960a91": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000280",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000020280"
+        }
+      }
+    },
+    "0xdabad81af85554e9ae636395611c58f7ec1aaec5": {
+      "label": "GovernanceV3Ethereum.PAYLOADS_CONTROLLER",
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x0ec66851261d57853f2f5bf29b6fdf002ea7b1825ef27ca0f35da137982bd7dc": {
+          "previousValue": "0x0068518be2000000000002000000000000000000000000000000000000000000",
+          "newValue": "0x0068518be2000000000003000000000000000000000000000000000000000000"
+        },
+        "0x0ec66851261d57853f2f5bf29b6fdf002ea7b1825ef27ca0f35da137982bd7dd": {
+          "previousValue": "0x000000000000000000093a80000000000000687fb06300000000000000000000",
+          "newValue": "0x000000000000000000093a80000000000000687fb06300000000000068518be3"
+        }
+      }
+    }
+  }
+}
+```
