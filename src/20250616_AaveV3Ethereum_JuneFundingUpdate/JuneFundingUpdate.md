@@ -31,7 +31,7 @@ Upcoming anticipated expenses include:
 
 Merit is $12M per year at 3M per quarter or 1M per month. Merit is currently funded up until end of July. With the implementation of this proposal, Merit will be funded until beginning of November.
 
-Ahab is $8M per year with the amount of ETH being distributed subject to ETH price fluctuations. The previous 3 month period’s budget was 800 ETH and of this 800 ETH, not all has been consumed. As a result, the next budget period will recieve only 800 ETH.
+Ahab is $8M per year with the amount of ETH being distributed subject to ETH price fluctuations. The previous 3 month period’s budget was 800 ETH and of this 800 ETH, not all has been consumed. As a result, the next budget period will receive only 800 ETH.
 
 ## Specification
 
