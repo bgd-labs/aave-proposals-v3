@@ -40,6 +40,15 @@ evm_version = 'cancun'
 [profile.deploy]
 evm_version = 'london' # due to linea
 
+[profile.sonic]
+evm_version = 'cancun'
+
+[profile.soneium]
+evm_version = 'cancun'
+
+[profile.celo]
+evm_version = 'cancun'
+
 [rpc_endpoints]
 mainnet = "${RPC_MAINNET}"
 optimism = "${RPC_OPTIMISM}"
