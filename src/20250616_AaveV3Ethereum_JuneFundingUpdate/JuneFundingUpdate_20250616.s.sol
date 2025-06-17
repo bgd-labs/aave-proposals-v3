@@ -4,18 +4,18 @@ pragma solidity ^0.8.0;
 import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aave-helpers/src/GovV3Helpers.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {EthereumScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
-import {AaveV3Ethereum_JuneFundingUpdate_20250613} from './AaveV3Ethereum_JuneFundingUpdate_20250613.sol';
+import {AaveV3Ethereum_JuneFundingUpdate_20250616} from './AaveV3Ethereum_JuneFundingUpdate_20250616.sol';
 
 /**
  * @dev Deploy Ethereum
- * deploy-command: make deploy-ledger contract=src/20250613_AaveV3Ethereum_JuneFundingUpdate/JuneFundingUpdate_20250613.s.sol:DeployEthereum chain=mainnet
- * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/JuneFundingUpdate_20250613.s.sol/1/run-latest.json
+ * deploy-command: make deploy-ledger contract=src/20250616_AaveV3Ethereum_JuneFundingUpdate/JuneFundingUpdate_20250616.s.sol:DeployEthereum chain=mainnet
+ * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/JuneFundingUpdate_20250616.s.sol/1/run-latest.json
  */
 contract DeployEthereum is EthereumScript {
   function run() external broadcast {
     // deploy payloads
     address payload0 = GovV3Helpers.deployDeterministic(
-      type(AaveV3Ethereum_JuneFundingUpdate_20250613).creationCode
+      type(AaveV3Ethereum_JuneFundingUpdate_20250616).creationCode
     );
 
     // compose action
@@ -30,7 +30,7 @@ contract DeployEthereum is EthereumScript {
 
 /**
  * @dev Create Proposal
- * command: make deploy-ledger contract=src/20250613_AaveV3Ethereum_JuneFundingUpdate/JuneFundingUpdate_20250613.s.sol:CreateProposal chain=mainnet
+ * command: make deploy-ledger contract=src/20250616_AaveV3Ethereum_JuneFundingUpdate/JuneFundingUpdate_20250616.s.sol:CreateProposal chain=mainnet
  */
 contract CreateProposal is EthereumScript {
   function run() external {
@@ -41,7 +41,7 @@ contract CreateProposal is EthereumScript {
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsEthereum = new IPayloadsControllerCore.ExecutionAction[](1);
     actionsEthereum[0] = GovV3Helpers.buildAction(
-      type(AaveV3Ethereum_JuneFundingUpdate_20250613).creationCode
+      type(AaveV3Ethereum_JuneFundingUpdate_20250616).creationCode
     );
     payloads[0] = GovV3Helpers.buildMainnetPayload(vm, actionsEthereum);
 
@@ -53,7 +53,7 @@ contract CreateProposal is EthereumScript {
       GovernanceV3Ethereum.VOTING_PORTAL_ETH_POL,
       GovV3Helpers.ipfsHashFile(
         vm,
-        'src/20250613_AaveV3Ethereum_JuneFundingUpdate/JuneFundingUpdate.md'
+        'src/20250616_AaveV3Ethereum_JuneFundingUpdate/JuneFundingUpdate.md'
       )
     );
   }

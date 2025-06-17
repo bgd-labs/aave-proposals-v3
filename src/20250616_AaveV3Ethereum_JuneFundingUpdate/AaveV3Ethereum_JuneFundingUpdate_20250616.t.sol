@@ -7,14 +7,14 @@ import {AaveV3EthereumLidoAssets} from 'aave-address-book/AaveV3EthereumLido.sol
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 
-import {AaveV3Ethereum_JuneFundingUpdate_20250613} from './AaveV3Ethereum_JuneFundingUpdate_20250613.sol';
+import {AaveV3Ethereum_JuneFundingUpdate_20250616} from './AaveV3Ethereum_JuneFundingUpdate_20250616.sol';
 
 /**
- * @dev Test for AaveV3Ethereum_JuneFundingUpdate_20250613
- * command: FOUNDRY_PROFILE=test forge test --match-path=src/20250613_AaveV3Ethereum_JuneFundingUpdate/AaveV3Ethereum_JuneFundingUpdate_20250613.t.sol -vv
+ * @dev Test for AaveV3Ethereum_JuneFundingUpdate_20250616
+ * command: FOUNDRY_PROFILE=test forge test --match-path=src/20250616_AaveV3Ethereum_JuneFundingUpdate/AaveV3Ethereum_JuneFundingUpdate_20250616.t.sol -vv
  */
-contract AaveV3Ethereum_JuneFundingUpdate_20250613_Test is ProtocolV3TestBase {
-  AaveV3Ethereum_JuneFundingUpdate_20250613 internal proposal;
+contract AaveV3Ethereum_JuneFundingUpdate_20250616_Test is ProtocolV3TestBase {
+  AaveV3Ethereum_JuneFundingUpdate_20250616 internal proposal;
 
   event SwapRequested(
     address milkman,
@@ -29,7 +29,7 @@ contract AaveV3Ethereum_JuneFundingUpdate_20250613_Test is ProtocolV3TestBase {
 
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('mainnet'), 22719440);
-    proposal = new AaveV3Ethereum_JuneFundingUpdate_20250613();
+    proposal = new AaveV3Ethereum_JuneFundingUpdate_20250616();
   }
 
   /**

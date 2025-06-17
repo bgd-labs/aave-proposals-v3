@@ -14,7 +14,7 @@ import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGen
  * - Snapshot: Direct-to-AIP
  * - Discussion: https://governance.aave.com/t/direct-to-aip-june-2025-funding-update/22352/2
  */
-contract AaveV3Ethereum_JuneFundingUpdate_20250613 is IProposalGenericExecutor {
+contract AaveV3Ethereum_JuneFundingUpdate_20250616 is IProposalGenericExecutor {
   using CollectorUtils for ICollector;
 
   /// Approvals Constants
