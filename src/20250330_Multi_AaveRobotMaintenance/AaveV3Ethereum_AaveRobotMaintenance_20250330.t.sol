@@ -20,7 +20,7 @@ contract AaveV3Ethereum_AaveRobotMaintenance_20250330_Test is ProtocolV3TestBase
     0x7Ed0A6A294Cf085c90917c0ee1aa34e795932558;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 22673101);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 22723833);
     proposal = new AaveV3Ethereum_AaveRobotMaintenance_20250330();
   }
 
@@ -39,8 +39,15 @@ contract AaveV3Ethereum_AaveRobotMaintenance_20250330_Test is ProtocolV3TestBase
     vm.expectEmit(false, true, true, true);
     emit IAaveCLRobotOperator.KeeperRegistered(
       uint256(0),
-      proposal.STATA_ROBOT(),
-      proposal.STATA_ROBOT_LINK_AMOUNT()
+      proposal.STATA_ROBOT_CORE(),
+      proposal.STATA_ROBOT_CORE_LINK_AMOUNT()
+    );
+
+    vm.expectEmit(false, true, true, true);
+    emit IAaveCLRobotOperator.KeeperRegistered(
+      uint256(0),
+      proposal.STATA_ROBOT_PRIME(),
+      proposal.STATA_ROBOT_PRIME_LINK_AMOUNT()
     );
 
     vm.expectEmit(false, true, true, true);

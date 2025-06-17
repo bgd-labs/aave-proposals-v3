@@ -28,13 +28,15 @@ contract AaveV3Ethereum_AaveRobotMaintenance_20250330 is IProposalGenericExecuto
   uint256 public constant OLD_VOTING_CHAIN_ROBOT_ID =
     82833167426690131327156306619804835187993096599645268046153072625511131069340;
 
-  address public constant STATA_ROBOT = 0x892B74CD3703B427CD90e7f140F358A1DE1EA703;
+  address public constant STATA_ROBOT_CORE = 0x892B74CD3703B427CD90e7f140F358A1DE1EA703;
+  address public constant STATA_ROBOT_PRIME = 0x858f50cB70e6476d37543275aF4c738Ae8a27893;
   address public constant VOTING_CHAIN_ROBOT = 0xbC3210bfff692a5bbDBB068D42Ab4eAF28b01Ee0;
 
   address public constant OLD_ROOTS_CONSUMER = 0x2fA6F0A65886123AFD24A575aE4554d0FCe8B577;
   address public constant ROOTS_CONSUMER = 0x2601FF9ac41ca7331e512d6C603c659400e0fC4E;
 
-  uint96 public constant STATA_ROBOT_LINK_AMOUNT = 150e18;
+  uint96 public constant STATA_ROBOT_CORE_LINK_AMOUNT = 150e18;
+  uint96 public constant STATA_ROBOT_PRIME_LINK_AMOUNT = 150e18;
   uint96 public constant VOTING_CHAIN_ROBOT_LINK_AMOUNT = 250e18;
 
   function execute() external {
@@ -45,7 +47,9 @@ contract AaveV3Ethereum_AaveRobotMaintenance_20250330 is IProposalGenericExecuto
       CollectorUtils.IOInput({
         pool: address(AaveV3Ethereum.POOL),
         underlying: AaveV3EthereumAssets.LINK_UNDERLYING,
-        amount: STATA_ROBOT_LINK_AMOUNT + VOTING_CHAIN_ROBOT_LINK_AMOUNT
+        amount: STATA_ROBOT_CORE_LINK_AMOUNT +
+          STATA_ROBOT_PRIME_LINK_AMOUNT +
+          VOTING_CHAIN_ROBOT_LINK_AMOUNT
       }),
       address(this)
     );
@@ -56,11 +60,20 @@ contract AaveV3Ethereum_AaveRobotMaintenance_20250330 is IProposalGenericExecuto
     );
 
     IAaveCLRobotOperator(MiscEthereum.AAVE_CL_ROBOT_OPERATOR).register(
-      'Gas Capped StataToken Rewards Robot',
-      STATA_ROBOT,
+      'Gas Capped Core StataToken Rewards Robot',
+      STATA_ROBOT_CORE,
       '', // check data
       1_000_000, // gas limit
-      STATA_ROBOT_LINK_AMOUNT,
+      STATA_ROBOT_CORE_LINK_AMOUNT,
+      0,
+      ''
+    );
+    IAaveCLRobotOperator(MiscEthereum.AAVE_CL_ROBOT_OPERATOR).register(
+      'Gas Capped Prime StataToken Rewards Robot',
+      STATA_ROBOT_PRIME,
+      '', // check data
+      1_000_000, // gas limit
+      STATA_ROBOT_PRIME_LINK_AMOUNT,
       0,
       ''
     );
@@ -69,7 +82,7 @@ contract AaveV3Ethereum_AaveRobotMaintenance_20250330 is IProposalGenericExecuto
       VOTING_CHAIN_ROBOT,
       '', // check data
       5_000_000, // gas limit
-      (linkBalance - STATA_ROBOT_LINK_AMOUNT).toUint96(),
+      (linkBalance - (STATA_ROBOT_CORE_LINK_AMOUNT + STATA_ROBOT_PRIME_LINK_AMOUNT)).toUint96(),
       0,
       ''
     );
