@@ -12,7 +12,7 @@ import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGen
  * @title June Funding Update
  * @author @TokenLogic
  * - Snapshot: Direct-to-AIP
- * - Discussion: https://governance.aave.com/t/direct-to-aip-june-2025-funding-update/22352
+ * - Discussion: https://governance.aave.com/t/direct-to-aip-june-2025-funding-update/22352/2
  */
 contract AaveV3Ethereum_JuneFundingUpdate_20250613 is IProposalGenericExecutor {
   using CollectorUtils for ICollector;

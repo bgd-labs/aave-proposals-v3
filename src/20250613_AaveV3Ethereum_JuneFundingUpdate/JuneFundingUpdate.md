@@ -1,7 +1,7 @@
 ---
-title: "June Funding Update"
+title: "June Funding Update - Part II"
 author: "@TokenLogic"
-discussions: "https://governance.aave.com/t/direct-to-aip-june-2025-funding-update/22352"
+discussions: "https://governance.aave.com/t/direct-to-aip-june-2025-funding-update/22352/2"
 ---
 
 ## Simple Summary
@@ -9,7 +9,7 @@ discussions: "https://governance.aave.com/t/direct-to-aip-june-2025-funding-upda
 This publication presents the June Funding Update, consisting of the following key activities:
 
 - Acquire 3M GHO for Operations;
-- Continue AAVE buybacks for 8 weeks; and,
+- Continue AAVE buybacks for 6 weeks; and,
 - Create Merit & Ahab Allowances.
 
 ## Motivation
@@ -46,7 +46,7 @@ Perform the following swaps:
 
 ##### AAVE Buybacks
 
-Create a 4M aEthUSDT and 2M aEthUSDC allowance for the Aave Finance Committee to perform 8 weeks of AAVE buybacks.
+Create a 4M aEthUSDT and 2M aEthUSDC allowance for the Aave Finance Committee to perform 6 weeks of AAVE buybacks.
 
 Asset: aEthUSDT `0x23878914EFE38d27C4D67Ab83ed1b93A74D4086a`
 Amount: 4M
@@ -76,7 +76,7 @@ Method: approve() aEthLidoGHO and aEthWETH on the Aave Collector contract to the
 - Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250613_AaveV3Ethereum_JuneFundingUpdate/AaveV3Ethereum_JuneFundingUpdate_20250613.sol)
 - Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250613_AaveV3Ethereum_JuneFundingUpdate/AaveV3Ethereum_JuneFundingUpdate_20250613.t.sol)
 - Snapshot: Direct-to-AIP
-- [Discussion](https://governance.aave.com/t/direct-to-aip-june-2025-funding-update/22352)
+- [Discussion](https://governance.aave.com/t/direct-to-aip-june-2025-funding-update/22352/2)
 
 ## Copyright
 
