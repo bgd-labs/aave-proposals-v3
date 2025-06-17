@@ -28,7 +28,7 @@ contract AaveV3Ethereum_JuneFundingUpdate_20250613_Test is ProtocolV3TestBase {
   );
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 22697434);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 22719440);
     proposal = new AaveV3Ethereum_JuneFundingUpdate_20250613();
   }
 

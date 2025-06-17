@@ -23,7 +23,7 @@ In the short term, we anticipate multiple initiatives will seek funding from the
 Upcoming anticipated expenses include:
 
 - Renewal of Service Provider agreements, eg: Chaos Labs;
-- Create 8M USD Allowance for AAVE buybacks; and,
+- Create 6M USD Allowance for AAVE buybacks; and,
 - Future Merit and ALC distributions up until November; and,
 - Incentive campaign(s).
 
@@ -46,10 +46,10 @@ Perform the following swaps:
 
 ##### AAVE Buybacks
 
-Create a 6M aEthUSDT and 2M aEthUSDC allowance for the Aave Finance Committee to perform 8 weeks of AAVE buybacks.
+Create a 4M aEthUSDT and 2M aEthUSDC allowance for the Aave Finance Committee to perform 8 weeks of AAVE buybacks.
 
 Asset: aEthUSDT `0x23878914EFE38d27C4D67Ab83ed1b93A74D4086a`
-Amount: 6M
+Amount: 4M
 
 Asset: aEthUSDC `0x98C23E9d8f34FEFb1B7BD6a91B7FF122F4e16F5c`
 Amount: 2M

@@ -25,7 +25,7 @@ contract AaveV3Ethereum_JuneFundingUpdate_20250613 is IProposalGenericExecutor {
   address public constant MERIT_AHAB_SAFE = 0xdeadD8aB03075b7FBA81864202a2f59EE25B312b;
 
   uint256 public constant AFC_USDC_ALLOWANCE = 2_000_000e6;
-  uint256 public constant AFC_USDT_ALLOWANCE = 6_000_000e6;
+  uint256 public constant AFC_USDT_ALLOWANCE = 4_000_000e6;
   uint256 public constant MERIT_LIDO_GHO_ALLOWANCE = 3_000_000 ether;
   uint256 public constant AHAB_WETH_ALLOWANCE = 800 ether;
 
