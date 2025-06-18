@@ -13,7 +13,7 @@ Last year, facilitated by the 2024 Grant, [we were able to create Open Finance D
 
 Goals: present Aave Protocol’s latest innovations, help facilitate and open doors to new institutional and technological partnerships and cross-chain expansion, continue cementing Aave’s brand awareness as market leaders, help expand the DeFi Ecosystem alongside DAO friends and partners, bring together Aave DAO Service Providers.
 
-# Background
+# Motivation
 
 Aave Protocol has consistently been at the forefront of DeFi innovation with pioneering features. With a strong emphasis on security, usability, and composability, Aave has amassed a vibrant and engaged community of developers, users, contributors, and stakeholders. Aave has been the indisputable market leader for years, and institutions and fellow blockchain partners recognize this.
 
@@ -21,7 +21,9 @@ Aave is and should continue to lead the DeFi sector towards its consolidation, e
 
 Aave Protocol and its DAO are already the stewards of DeFi. Through hosting our own educational and networking events (DeFi Renaissance Day) and the powerful rAAVE as the main recreational event on the conference circuits, Aave Labs helps reinforce the hard work and milestones achieved by the DAO.
 
-# Overview
+We believe that a one-off budget allocation of $750,000 paid in GHO for activations and events for 2025 will not only help enrich the Aave Protocol ecosystem, but will foster innovation, brand expansion and recognition.
+
+# Specification
 
 Aave Labs is requesting a grant for $750,000 paid in GHO for events in 2025:
 
@@ -43,17 +45,13 @@ We’re pleased to confirm that the 2024 events strategy, which included careful
 
 Aave Labs shall cover all travel expenses for its team members, and this proposal does not request any funds for these expenses, or include any compensation for Aave Labs’ work.
 
-# Conclusion
-
-We believe that the proposed one-off budget allocation of $750,000 paid in GHO for activations and events for 2025 will not only help enrich the Aave Protocol ecosystem, but will foster innovation, brand expansion and recognition.
-
-## References
+# References
 
 - Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250612_AaveV3Ethereum_EventsGrant2025/AaveV3Ethereum_EventsGrant2025_20250612.sol)
 - Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250612_AaveV3Ethereum_EventsGrant2025/AaveV3Ethereum_EventsGrant2025_20250612.t.sol)
 - [Snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0x12ae50ccd9a4cd8edfead63d773e62ca23ea567a458c442557e0b6193e01bb1d)
 - [Discussion](https://governance.aave.com/t/arfc-aave-events-sponsorship-budget-2025/22173)
 
-## Copyright
+# Copyright
 
 Copyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).
