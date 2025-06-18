@@ -48,8 +48,8 @@ Aave Labs shall cover all travel expenses for its team members, and this proposa
 
 # References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250612_AaveV3Ethereum_EventsGrant2025/AaveV3Ethereum_EventsGrant2025_20250612.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250612_AaveV3Ethereum_EventsGrant2025/AaveV3Ethereum_EventsGrant2025_20250612.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/a46b165bce6083a71a933e8b2958301d904d6c02/src/20250612_AaveV3Ethereum_EventsGrant2025/AaveV3Ethereum_EventsGrant2025_20250612.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/a46b165bce6083a71a933e8b2958301d904d6c02/src/20250612_AaveV3Ethereum_EventsGrant2025/AaveV3Ethereum_EventsGrant2025_20250612.t.sol)
 - [Snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0x12ae50ccd9a4cd8edfead63d773e62ca23ea567a458c442557e0b6193e01bb1d)
 - [Discussion](https://governance.aave.com/t/arfc-aave-events-sponsorship-budget-2025/22173)
 
