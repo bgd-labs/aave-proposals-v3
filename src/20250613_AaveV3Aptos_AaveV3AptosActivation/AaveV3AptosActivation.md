@@ -88,6 +88,13 @@ Given the novel nature of this deployment as Aave's first expansion to a non-EVM
 
 - **Primary Source**: Chainlink Data Feeds on Aptos.
 
+## User Interface and Documentation
+
+The following links provide access to the Aptos deployment interface and official docs for validation and exploration.
+
+- **Interface:** [https://aptos.aave.com/](https://aptos.aave.com/)
+- **Documentation:** [https://docs-aave-git-crest-avaraxyz.vercel.app/docs](https://docs-aave-git-crest-avaraxyz.vercel.app/docs)
+
 ## Security Measures
 
 - **Audits**: Smart contracts have undergone comprehensive audits by [Certora](https://github.com/aave/aptos-aave-v3/tree/main/audits) and [SpearBit](https://github.com/aave/aptos-aave-v3/tree/main/audits), and an audit by OtterSec is currently underway.
