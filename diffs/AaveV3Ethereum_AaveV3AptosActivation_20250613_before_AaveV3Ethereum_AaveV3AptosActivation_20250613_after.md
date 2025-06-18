@@ -1,0 +1,22 @@
+## Raw diff
+
+```json
+{
+  "raw": {
+    "0xdabad81af85554e9ae636395611c58f7ec1aaec5": {
+      "label": "GovernanceV3Ethereum.PAYLOADS_CONTROLLER",
+      "balanceDiff": null,
+      "stateDiff": {
+        "0xd8abaed0475c2c5e44e06b0d477ed962c314c5f3c45e24e715a43ba5e79ca31a": {
+          "previousValue": "0x00684c0226000000000002000000000000000000000000000000000000000000",
+          "newValue": "0x00684c0226000000000003000000000000000000000000000000000000000000"
+        },
+        "0xd8abaed0475c2c5e44e06b0d477ed962c314c5f3c45e24e715a43ba5e79ca31b": {
+          "previousValue": "0x000000000000000000093a80000000000000687a26a700000000000000000000",
+          "newValue": "0x000000000000000000093a80000000000000687a26a7000000000000684c0227"
+        }
+      }
+    }
+  }
+}
+```
