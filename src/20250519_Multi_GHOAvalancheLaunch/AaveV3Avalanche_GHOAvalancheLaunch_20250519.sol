@@ -95,7 +95,6 @@ contract AaveV3Avalanche_GHOAvalancheLaunch_20250519 is IProposalGenericExecutor
 
     IUpgradeableBurnMintTokenPool_1_5_1.ChainUpdate[]
       memory chainsToAdd = new IUpgradeableBurnMintTokenPool_1_5_1.ChainUpdate[](3);
-    // memory chainsToAdd = new IUpgradeableBurnMintTokenPool_1_5_1.ChainUpdate[](4);
 
     {
       bytes[] memory remotePoolAddresses = new bytes[](1);

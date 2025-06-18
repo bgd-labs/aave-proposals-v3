@@ -24,6 +24,17 @@ This AIP includes a series of actions required to launch GHO on Avalanche:
 3. List GHO as a borrowable asset on the Aave Pool, with the risk configuration specified in the ARFC. Then, initial liquidity will be provided to the pool as a security measure to mitigate potential vulnerabilities and facilitate a stable launch.
 4. Set ACI multisig ([0xac140648435d03f784879cd789130F22Ef588Fcd](https://avascan.info/blockchain/all/address/0xac140648435d03f784879cd789130F22Ef588Fcd)) as Emission Admin for GHO and aGHO rewards, as specified in the ARFC.
 
+The table below lists the address of the new **Avalanche** deployments
+
+| Contract         | Address                                    |
+| :--------------- | :----------------------------------------- |
+| GhoToken         | 0xfc421aD3C883Bf9E7C4f42dE845C4e4405799e73 |
+| GhoTokenPool     | 0xDe6539018B095353A40753Dc54C91C68c9487D4E |
+| GhoOracle        | 0x360d8aa8F6b09B7BC57aF34db2Eb84dD87bf4d12 |
+| GhoAaveSteward   | 0xA5Ba213867E175A182a5dd6A9193C6158738105A |
+| GhoBucketSteward | 0x2Ce400703dAcc37b7edFA99D228b8E70a4d3831B |
+| GhoCcipSteward   | 0x20fd5f3FCac8883a3A0A2bBcD658A2d2c6EFa6B6 |
+
 The table below illustrates the configured risk parameters for **GHO**
 
 | Parameter                 |                                      Value |
