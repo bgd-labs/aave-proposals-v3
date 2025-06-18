@@ -1,5 +1,5 @@
 ---
-title: "EventsGrant2025"
+title: "Aave Events & Sponsorship Budget 2025"
 author: "Aave Labs"
 discussions: "https://governance.aave.com/t/arfc-aave-events-sponsorship-budget-2025/22173"
 snapshot: "https://snapshot.box/#/s:aavedao.eth/proposal/0x12ae50ccd9a4cd8edfead63d773e62ca23ea567a458c442557e0b6193e01bb1d"
@@ -9,7 +9,7 @@ snapshot: "https://snapshot.box/#/s:aavedao.eth/proposal/0x12ae50ccd9a4cd8edfead
 
 Aave Labs is pleased to announce an event grant proposal for 2025. This proposal includes participation in key ecosystem initiatives at EthCC Cannes and Devconnect (Location TBD), among others.
 
-Last year, facilitated by the 2024 Grant, [we were able to create Open Finance Day and DeFi Renaissance Day](https://governance.aave.com/t/aave-event-recap-2024/20941) which were hugely successful in its two editions in Brussels and Bangkok. For 2025, we have decided to select two main events in the calendar in order to continue producing strategic high quality and impactful initiatives.
+Last year, facilitated by the 2024 Grant, we were able to create Open Finance Day and DeFi Renaissance Day](https://governance.aave.com/t/aave-event-recap-2024/20941) which were hugely successful in its two editions in Brussels and Bangkok. For 2025, we have decided to select two main events in the calendar in order to continue producing strategic high quality and impactful initiatives.
 
 Goals: present Aave Protocol’s latest innovations, help facilitate and open doors to new institutional and technological partnerships and cross-chain expansion, continue cementing Aave’s brand awareness as market leaders, help expand the DeFi Ecosystem alongside DAO friends and partners, bring together Aave DAO Service Providers.
 
@@ -25,11 +25,12 @@ We believe that a one-off budget allocation of $750,000 paid in GHO for activati
 
 # Specification
 
-Aave Labs is requesting a grant for $750,000 paid in GHO for events in 2025:
+Aave Labs is requesting a grant for $750,000 paid in GHO for events in 2025 to be transfered to '0x1c037b3C22240048807cC9d7111be5d455F640bd' from the 'Ethereum Collector':
+
+Grant Breakdown:
 
 1. DeFi Summer Day at EthCC and Devconnect: we are looking to continue this event series. The events started in Brussels as Open Finance Day, and continued in Bangkok under its current name. Both events were extremely successful, among the most popular events in the respective calendars. We brought together the most prominent voices in DeFi to discuss the topics of the moment, in high production settings. This allowed us to leverage complementary external networks, credibility, and resources for the event. The events served as a display of the strength and the proficiency of the Aave Protocol brand.
-
-The DeFi Day events are financed in collaboration with a selected group of aligned partners, that help as well in bringing awareness, expanding audience and elevating the brand value of the series. Some of the previous sponsors were: ZKSync, Chainlink, Sky, Lido, Uniswap, Scroll, Centrifuge, and Ethena Labs.
+   The DeFi Day events are financed in collaboration with a selected group of aligned partners, that help as well in bringing awareness, expanding audience and elevating the brand value of the series. Some of the previous sponsors were: ZKSync, Chainlink, Sky, Lido, Uniswap, Scroll, Centrifuge, and Ethena Labs.
 
 2. Merch: Aave Labs seeks to create highly coveted Aave and GHO branded merchandise to distribute at events, as part of community engagement and awareness-building efforts as well as to proliferate the ghost. Aave Labs will continue to push for the use of sustainable materials and creation of merch people actually wear, use, and love.
 
