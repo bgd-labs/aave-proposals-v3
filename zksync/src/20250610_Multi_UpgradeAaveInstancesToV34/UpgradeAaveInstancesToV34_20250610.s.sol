@@ -3,7 +3,6 @@ pragma solidity ^0.8.0;
 
 import {GovV3Helpers, IPayloadsControllerCore} from 'aave-helpers/src/GovV3Helpers.sol';
 import {ZkSyncScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
-import {AaveV3ZkSync_UpgradeAaveInstancesToV34_20250610} from './AaveV3ZkSync_UpgradeAaveInstancesToV34_20250610.sol';
 
 /**
  * @dev Deploy ZkSync
@@ -11,13 +10,10 @@ import {AaveV3ZkSync_UpgradeAaveInstancesToV34_20250610} from './AaveV3ZkSync_Up
  */
 contract DeployZkSync is ZkSyncScript {
   function run() external broadcast {
-    // deploy payloads
-    address payload0 = address(new AaveV3ZkSync_UpgradeAaveInstancesToV34_20250610{salt: 'aave'}());
-
     // compose action
     IPayloadsControllerCore.ExecutionAction[]
       memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
-    actions[0] = GovV3Helpers.buildAction(payload0);
+    actions[0] = GovV3Helpers.buildAction(0xE7dBD6023B9c7eD90f65CE61458B7b4A5c22A1Fa);
 
     // register action at payloadsController
     GovV3Helpers.createPayload(actions);

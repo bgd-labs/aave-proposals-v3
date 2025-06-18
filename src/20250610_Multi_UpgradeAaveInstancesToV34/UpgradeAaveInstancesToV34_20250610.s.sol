@@ -4,6 +4,7 @@ pragma solidity ^0.8.0;
 import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aave-helpers/src/GovV3Helpers.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {EthereumScript, PolygonScript, AvalancheScript, OptimismScript, ArbitrumScript, MetisScript, BaseScript, GnosisScript, ScrollScript, BNBScript, LineaScript, CeloScript, SonicScript, SoneiumScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
+import {AuditReimbursement} from './AuditReimbursement.sol';
 
 library Deployments {
   address public constant BASE = 0x41d7188B68A6b334071DB5A1D33Ce4b9109899B3;
@@ -23,6 +24,26 @@ library Deployments {
   address public constant MAINNET_CORE = 0xC2584B9cA7759FE1ac48D8aE38aeAFE12dbC9876;
   address public constant MAINNET_LIDO = 0x028229cdAADa074A17980B4d69A1483a738D24cA;
   address public constant MAINNET_ETHERFI = 0x1FaaB253f2cb5462eac72BCE7a379D3fc5A17E10;
+}
+
+/**
+ * @dev Deploy Ethereum
+ * deploy-command: make deploy-ledger contract=src/20250610_Multi_UpgradeAaveInstancesToV34/UpgradeAaveInstancesToV34_20250610.s.sol:DeployEthereumReimbursement chain=mainnet
+ * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/MayFundingPartB_20250524.s.sol/1/run-latest.json
+ */
+contract DeployEthereumReimbursement is EthereumScript {
+  function run() external broadcast {
+    // deploy payloads
+    address payload0 = GovV3Helpers.deployDeterministic(type(AuditReimbursement).creationCode);
+
+    // compose action
+    IPayloadsControllerCore.ExecutionAction[]
+      memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
+    actions[0] = GovV3Helpers.buildAction(payload0);
+
+    // register action at payloadsController
+    GovV3Helpers.createPayload(actions);
+  }
 }
 
 /**
@@ -316,7 +337,7 @@ contract DeploySoneium is SoneiumScript {
 contract CreateProposal is EthereumScript {
   function run() external {
     // create payloads
-    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](15);
+    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](16);
 
     {
       // compose actions for validation
@@ -326,80 +347,85 @@ contract CreateProposal is EthereumScript {
       actionsEthereum[1] = GovV3Helpers.buildAction(Deployments.MAINNET_LIDO);
       actionsEthereum[2] = GovV3Helpers.buildAction(Deployments.MAINNET_ETHERFI);
       payloads[0] = GovV3Helpers.buildMainnetPayload(vm, actionsEthereum);
+      IPayloadsControllerCore.ExecutionAction[]
+        memory actionsEthereum2 = new IPayloadsControllerCore.ExecutionAction[](1);
+      actionsEthereum2[0] = GovV3Helpers.buildAction(type(AuditReimbursement).creationCode);
+      payloads[0] = GovV3Helpers.buildMainnetPayload(vm, actionsEthereum);
+      payloads[1] = GovV3Helpers.buildMainnetPayload(vm, actionsEthereum2);
     }
 
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsPolygon = new IPayloadsControllerCore.ExecutionAction[](1);
     actionsPolygon[0] = GovV3Helpers.buildAction(Deployments.POLYGON);
-    payloads[1] = GovV3Helpers.buildPolygonPayload(vm, actionsPolygon);
+    payloads[2] = GovV3Helpers.buildPolygonPayload(vm, actionsPolygon);
 
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsAvalanche = new IPayloadsControllerCore.ExecutionAction[](1);
     actionsAvalanche[0] = GovV3Helpers.buildAction(Deployments.AVALANCHE);
-    payloads[2] = GovV3Helpers.buildAvalanchePayload(vm, actionsAvalanche);
+    payloads[3] = GovV3Helpers.buildAvalanchePayload(vm, actionsAvalanche);
 
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsOptimism = new IPayloadsControllerCore.ExecutionAction[](1);
     actionsOptimism[0] = GovV3Helpers.buildAction(Deployments.OPTIMISM);
-    payloads[3] = GovV3Helpers.buildOptimismPayload(vm, actionsOptimism);
+    payloads[4] = GovV3Helpers.buildOptimismPayload(vm, actionsOptimism);
 
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsArbitrum = new IPayloadsControllerCore.ExecutionAction[](1);
     actionsArbitrum[0] = GovV3Helpers.buildAction(Deployments.ARBITRUM);
-    payloads[4] = GovV3Helpers.buildArbitrumPayload(vm, actionsArbitrum);
+    payloads[5] = GovV3Helpers.buildArbitrumPayload(vm, actionsArbitrum);
 
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsMetis = new IPayloadsControllerCore.ExecutionAction[](1);
     actionsMetis[0] = GovV3Helpers.buildAction(Deployments.METIS);
-    payloads[5] = GovV3Helpers.buildMetisPayload(vm, actionsMetis);
+    payloads[6] = GovV3Helpers.buildMetisPayload(vm, actionsMetis);
 
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsBase = new IPayloadsControllerCore.ExecutionAction[](1);
     actionsBase[0] = GovV3Helpers.buildAction(Deployments.BASE);
-    payloads[6] = GovV3Helpers.buildBasePayload(vm, actionsBase);
+    payloads[7] = GovV3Helpers.buildBasePayload(vm, actionsBase);
 
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsGnosis = new IPayloadsControllerCore.ExecutionAction[](1);
     actionsGnosis[0] = GovV3Helpers.buildAction(Deployments.GNOSIS);
-    payloads[7] = GovV3Helpers.buildGnosisPayload(vm, actionsGnosis);
+    payloads[8] = GovV3Helpers.buildGnosisPayload(vm, actionsGnosis);
 
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsScroll = new IPayloadsControllerCore.ExecutionAction[](1);
     actionsScroll[0] = GovV3Helpers.buildAction(Deployments.SCROLL);
-    payloads[8] = GovV3Helpers.buildScrollPayload(vm, actionsScroll);
+    payloads[9] = GovV3Helpers.buildScrollPayload(vm, actionsScroll);
 
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsBNB = new IPayloadsControllerCore.ExecutionAction[](1);
     actionsBNB[0] = GovV3Helpers.buildAction(Deployments.BNB);
-    payloads[9] = GovV3Helpers.buildBNBPayload(vm, actionsBNB);
+    payloads[10] = GovV3Helpers.buildBNBPayload(vm, actionsBNB);
 
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsZkSync = new IPayloadsControllerCore.ExecutionAction[](1);
     actionsZkSync[0] = GovV3Helpers.buildAction(Deployments.ZKSYNC);
-    payloads[10] = GovV3Helpers.buildZkSyncPayload(vm, actionsZkSync);
+    payloads[11] = GovV3Helpers.buildZkSyncPayload(vm, actionsZkSync);
 
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsLinea = new IPayloadsControllerCore.ExecutionAction[](1);
     actionsLinea[0] = GovV3Helpers.buildAction(Deployments.LINEA);
-    payloads[11] = GovV3Helpers.buildLineaPayload(vm, actionsLinea);
+    payloads[12] = GovV3Helpers.buildLineaPayload(vm, actionsLinea);
 
     {
       IPayloadsControllerCore.ExecutionAction[]
         memory actionsCelo = new IPayloadsControllerCore.ExecutionAction[](1);
       actionsCelo[0] = GovV3Helpers.buildAction(Deployments.CELO);
-      payloads[12] = GovV3Helpers.buildCeloPayload(vm, actionsCelo);
+      payloads[13] = GovV3Helpers.buildCeloPayload(vm, actionsCelo);
     }
     {
       IPayloadsControllerCore.ExecutionAction[]
         memory actionsSonic = new IPayloadsControllerCore.ExecutionAction[](1);
       actionsSonic[0] = GovV3Helpers.buildAction(Deployments.SONIC);
-      payloads[13] = GovV3Helpers.buildSonicPayload(vm, actionsSonic);
+      payloads[14] = GovV3Helpers.buildSonicPayload(vm, actionsSonic);
     }
     {
       IPayloadsControllerCore.ExecutionAction[]
         memory actionsSoneium = new IPayloadsControllerCore.ExecutionAction[](1);
       actionsSoneium[0] = GovV3Helpers.buildAction(Deployments.SONEIUM);
-      payloads[14] = GovV3Helpers.buildSoneiumPayload(vm, actionsSoneium);
+      payloads[15] = GovV3Helpers.buildSoneiumPayload(vm, actionsSoneium);
     }
 
     // create proposal
