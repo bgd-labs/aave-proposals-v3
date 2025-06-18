@@ -9,7 +9,7 @@ snapshot: "https://snapshot.box/#/s:aavedao.eth/proposal/0x12ae50ccd9a4cd8edfead
 
 Aave Labs is pleased to announce an event grant proposal for 2025. This proposal includes participation in key ecosystem initiatives at EthCC Cannes and Devconnect (Location TBD), among others.
 
-Last year, facilitated by the 2024 Grant, we were able to create Open Finance Day and DeFi Renaissance Day](https://governance.aave.com/t/aave-event-recap-2024/20941) which were hugely successful in its two editions in Brussels and Bangkok. For 2025, we have decided to select two main events in the calendar in order to continue producing strategic high quality and impactful initiatives.
+Last year, facilitated by the 2024 Grant, we were able to create [Open Finance Day and DeFi Renaissance Day](https://governance.aave.com/t/aave-event-recap-2024/20941) which were hugely successful in its two editions in Brussels and Bangkok. For 2025, we have decided to select two main events in the calendar in order to continue producing strategic high quality and impactful initiatives.
 
 Goals: present Aave Protocol’s latest innovations, help facilitate and open doors to new institutional and technological partnerships and cross-chain expansion, continue cementing Aave’s brand awareness as market leaders, help expand the DeFi Ecosystem alongside DAO friends and partners, bring together Aave DAO Service Providers.
 
@@ -25,7 +25,7 @@ We believe that a one-off budget allocation of $750,000 paid in GHO for activati
 
 # Specification
 
-Aave Labs is requesting a grant for $750,000 paid in GHO for events in 2025 to be transfered to '0x1c037b3C22240048807cC9d7111be5d455F640bd' from the 'Ethereum Collector':
+Aave Labs is requesting a grant for $750,000 paid in GHO for events in 2025 to be transferred to [0x1c037b3C22240048807cC9d7111be5d455F640bd](https://etherscan.io/address/0x1c037b3C22240048807cC9d7111be5d455F640bd) from the 'Ethereum Collector':
 
 Grant Breakdown:
 
