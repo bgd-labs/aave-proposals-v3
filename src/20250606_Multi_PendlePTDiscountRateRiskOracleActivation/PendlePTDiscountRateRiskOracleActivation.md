@@ -42,7 +42,11 @@ The [AaveStewardInjectorDiscountRate](http://github.com/aave-dao/aave-v3-risk-st
 
 The following feeds for Pendle PT assets on core instance will be automated: `PT_sUSDE_31JUL2025`, `PT_USDe_31JUL2025`, `PT_eUSDE_14AUG2025`.
 
-Constraints on the discount rate update of the Pendle PT feeds will be as follow: maximum 1% absolute increase/decrease per 2 days.
+**Constraints on the discount rate update of the Pendle PT feeds will be as follow: maximum 1% absolute increase/decrease per 2 days.**
+
+The price of pendle PT asset is calculated as the following: `priceOfAsset * (100% - (timeLeftForMaturity * discountRate) / 100%)`
+
+What this means in practice is that, for ex. a 1% increase of the discount rate per year, the price of the PT asset would reduce by 1% if the time to reach maturity of the PT asset is 1 year. So with the maximum 1% absolute increase/decrease constrain, the price of the PT asset can be changed by max 1% of the current price per 2 days if the time to reach maturity is 1 year. Also as the asset goes towards the maturity the impact of the discount rate reduces with it.
 
 ### Manual AGRS
 
