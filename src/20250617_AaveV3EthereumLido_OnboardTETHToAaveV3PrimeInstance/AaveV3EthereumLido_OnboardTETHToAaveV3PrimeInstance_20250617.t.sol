@@ -18,7 +18,7 @@ contract AaveV3EthereumLido_OnboardTETHToAaveV3PrimeInstance_20250617_Test is Pr
   AaveV3EthereumLido_OnboardTETHToAaveV3PrimeInstance_20250617 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 22726345);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 22746776);
     proposal = new AaveV3EthereumLido_OnboardTETHToAaveV3PrimeInstance_20250617();
   }
 
@@ -36,7 +36,7 @@ contract AaveV3EthereumLido_OnboardTETHToAaveV3PrimeInstance_20250617_Test is Pr
   function test_dustBinHastETHFunds() public {
     GovV3Helpers.executePayload(vm, address(proposal));
     address aTokenAddress = AaveV3EthereumLido.POOL.getReserveAToken(proposal.tETH());
-    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3EthereumLido.DUST_BIN)),4 * 10 ** 16);
+    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3EthereumLido.DUST_BIN)), 4 * 10 ** 16);
   }
 
   function test_tETHAdmin() public {
