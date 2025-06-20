@@ -148,8 +148,8 @@ The following links provide access to the Aptos deployment interface and officia
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250613_AaveV3Aptos_AaveV3AptosActivation/AaveV3Ethereum_AaveV3AptosActivation_20250613.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250613_AaveV3Aptos_AaveV3AptosActivation/AaveV3Ethereum_AaveV3AptosActivation_20250613.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/74f84c0c669f1f74e53a2734d029e12b313dce16/src/20250613_AaveV3Aptos_AaveV3AptosActivation/AaveV3Ethereum_AaveV3AptosActivation_20250613.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/74f84c0c669f1f74e53a2734d029e12b313dce16/src/20250613_AaveV3Aptos_AaveV3AptosActivation/AaveV3Ethereum_AaveV3AptosActivation_20250613.t.sol)
 - [Snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0x7da9509685cb547a0af6582a110697a40d6056bff566670cc487441cd4c380cd)
 - [Discussion](https://governance.aave.com/t/arfc-aave-v3-deployment-on-aptos-mainnet/21823)
 
