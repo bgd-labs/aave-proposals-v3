@@ -79,7 +79,7 @@ contract AaveV3EthereumLido_OnboardTETHToAaveV3PrimeInstance_20250617 is AaveV3P
     listings[0] = IAaveV3ConfigEngine.Listing({
       asset: tETH,
       assetSymbol: 'tETH',
-      priceFeed: 0xEcBa0A6005f67fAb09F4e107E0eCc7ff56063E19,
+      priceFeed: 0x85968026294b8f8Fb86d6bF3Cda079f9376aD05A,
       enabledToBorrow: EngineFlags.DISABLED,
       borrowableInIsolation: EngineFlags.DISABLED,
       withSiloedBorrowing: EngineFlags.DISABLED,

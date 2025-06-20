@@ -28,7 +28,7 @@ export const config: ConfigFile = {
           {
             assetSymbol: 'tETH',
             decimals: 18,
-            priceFeed: '0xEcBa0A6005f67fAb09F4e107E0eCc7ff56063E19',
+            priceFeed: '0x85968026294b8f8Fb86d6bF3Cda079f9376aD05A',
             ltv: '0.05',
             liqThreshold: '0.1',
             liqBonus: '7.5',
