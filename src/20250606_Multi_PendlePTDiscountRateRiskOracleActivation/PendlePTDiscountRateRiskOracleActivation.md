@@ -46,7 +46,7 @@ The following feeds for Pendle PT assets on core instance will be automated: `PT
 
 The price of pendle PT asset is calculated as the following: `priceOfAsset * (100% - (timeLeftForMaturity * discountRate) / 100%)`
 
-What this means in practice is that, for ex. a 1% increase of the discount rate per year, the price of the PT asset would reduce by 1% if the time to reach maturity of the PT asset is 1 year. So with the maximum 1% absolute increase/decrease constrain, the price of the PT asset can be changed by max 1% of the current price per 2 days if the time to reach maturity is 1 year. Also as the asset goes towards the maturity the impact of the discount rate reduces with it.
+What this means in practice is that, for ex. a 1% increase of the discount rate per year, the price of the PT asset would reduce by 1% if the time to reach maturity of the PT asset is 1 year. So with the maximum 1% absolute increase/decrease constrain, the price of the PT asset can be changed by max 1% of the current price per 2 days if the time to reach maturity is 1 year. Also as the asset goes towards the maturity the impact of the discount rate reduces with it, and once the PT asset has reached maturity the discount rate has no impact at all.
 
 ### Manual AGRS
 
