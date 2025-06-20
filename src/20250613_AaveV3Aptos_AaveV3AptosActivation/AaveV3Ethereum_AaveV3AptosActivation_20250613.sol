@@ -5,8 +5,8 @@ import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGen
 /**
  * @title AaveV3AptosActivation
  * @author Aave Labs
- * - Snapshot: https://snapshot.box/#/s:aavedao.eth/proposal/0x12ae50ccd9a4cd8edfead63d773e62ca23ea567a458c442557e0b6193e01bb1d
- * - Discussion: https://governance.aave.com/t/arfc-aave-events-sponsorship-budget-2025/22173
+ * - Snapshot: https://snapshot.box/#/s:aavedao.eth/proposal/0x7da9509685cb547a0af6582a110697a40d6056bff566670cc487441cd4c380cd
+ * - Discussion: https://governance.aave.com/t/arfc-aave-v3-deployment-on-aptos-mainnet/21823
  */
 contract AaveV3Ethereum_AaveV3AptosActivation_20250613 is IProposalGenericExecutor {
   address public constant AAVE_V3_APTOS_ACTIVATION = 0x0000000000000000000000000000000000000000;
