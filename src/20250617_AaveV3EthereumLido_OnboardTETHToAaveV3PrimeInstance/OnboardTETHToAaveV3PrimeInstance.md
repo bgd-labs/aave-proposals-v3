@@ -46,14 +46,14 @@ The table below illustrates the configured risk parameters for **tETH**
 
 **Pricefeed details**
 
-| Parameter                  |                                                                                            Value |
-| -------------------------- | -----------------------------------------------------------------------------------------------: |
-| Oracle                     |   [Capped tETH/ETH/USD](https://etherscan.io/address/0x85968026294b8f8Fb86d6bF3Cda079f9376aD05A) |
-| Ratio provider             |                  [tETH](https://etherscan.io/address/0xD11c452fc99cF405034ee446803b6F6c1F6d5ED8) |
-| Underlying Oracle          | [Chainlink SVR ETH/USD](https://etherscan.io/address/0xe1D97bF61901B075E9626c8A2340a7De385861Ef) |
-| Oracle Latest Answer       |                                                                   (2025-05-21) USD 3085.41598338 |
-| maxYearlyGrowthRatePercent |                                                                                            4.50% |
-| Snapshot Delay             |                                                                                          14 days |
+| Parameter                  |                                                                                             Value |
+| -------------------------- | ------------------------------------------------------------------------------------------------: |
+| Oracle                     | [Capped tETH/wstETH/USD](https://etherscan.io/address/0x85968026294b8f8Fb86d6bF3Cda079f9376aD05A) |
+| Ratio provider             |                   [tETH](https://etherscan.io/address/0xD11c452fc99cF405034ee446803b6F6c1F6d5ED8) |
+| Underlying Oracle          |      [Capped wstETH/USD](https://etherscan.io/address/0xe1D97bF61901B075E9626c8A2340a7De385861Ef) |
+| Oracle Latest Answer       |                                                                    (2025-05-21) USD 3085.41598338 |
+| maxYearlyGrowthRatePercent |                                                                                             4.50% |
+| Snapshot Delay             |                                                                                           14 days |
 
 Additionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://etherscan.io/address/0xac140648435d03f784879cd789130F22Ef588Fcd) has been set as the emission admin for tETH and the corresponding aToken.
 
