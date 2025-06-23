@@ -55,6 +55,17 @@ The table below illustrates the configured risk parameters for **tETH**
 | maxYearlyGrowthRatePercent |                                                                                             4.50% |
 | Snapshot Delay             |                                                                                           14 days |
 
+**tETH/wstETH E-Mode**
+
+| **Parameter**         | **Value** | **Value** |
+| --------------------- | --------- | --------- |
+| Asset                 | tETH      | wstETH    |
+| Collateral            | Yes       | No        |
+| Borrowable            | No        | Yes       |
+| Max LTV               | 92.00%    | -         |
+| Liquidation Threshold | 94.00%    | -         |
+| Liquidation Bonus     | 2.00%     | -         |
+
 Additionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://etherscan.io/address/0xac140648435d03f784879cd789130F22Ef588Fcd) has been set as the emission admin for tETH and the corresponding aToken.
 
 ## References
