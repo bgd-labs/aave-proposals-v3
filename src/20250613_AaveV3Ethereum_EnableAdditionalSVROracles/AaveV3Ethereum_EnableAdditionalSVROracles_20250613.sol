@@ -8,8 +8,7 @@ import {ISvrOracleSteward} from '../interfaces/ISvrOracleSteward.sol';
 /**
  * @title Enable additional SVR oracles
  * @author BGD Labs @bgdlabs
- * - Snapshot: TODO
- * - Discussion: TODO
+ * - Discussion: https://governance.aave.com/t/direct-to-aip-aave-chainlink-svr-v1-activation-phase-3/22387
  */
 contract AaveV3Ethereum_EnableAdditionalSVROracles_20250613 is IProposalGenericExecutor {
   address public constant SVR_WETH = 0x5424384B256154046E9667dDFaaa5e550145215e;

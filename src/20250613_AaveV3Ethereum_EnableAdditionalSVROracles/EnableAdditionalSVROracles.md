@@ -1,7 +1,7 @@
 ---
 title: "Enable additional SVR oracles"
 author: "BGD Labs @bgdlabs"
-discussions: TODO
+discussions: https://governance.aave.com/t/direct-to-aip-aave-chainlink-svr-v1-activation-phase-3/22387
 ---
 
 ## Simple Summary
@@ -32,7 +32,7 @@ The following feeds will be activated:
 
 - Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250613_AaveV3Ethereum_EnableAdditionalSVROracles/AaveV3Ethereum_EnableAdditionalSVROracles_20250613.sol)
 - Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250613_AaveV3Ethereum_EnableAdditionalSVROracles/AaveV3Ethereum_EnableAdditionalSVROracles_20250613.t.sol)
-- [Discussion](TODO)
+- [Discussion](https://governance.aave.com/t/direct-to-aip-aave-chainlink-svr-v1-activation-phase-3/22387)
 
 ## Copyright
 
