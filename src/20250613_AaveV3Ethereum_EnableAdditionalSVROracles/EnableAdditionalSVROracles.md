@@ -30,8 +30,8 @@ The following feeds will be activated:
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250613_AaveV3Ethereum_EnableAdditionalSVROracles/AaveV3Ethereum_EnableAdditionalSVROracles_20250613.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250613_AaveV3Ethereum_EnableAdditionalSVROracles/AaveV3Ethereum_EnableAdditionalSVROracles_20250613.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/50482379de120dc569c34dc5073b46f6e276e5a6/src/20250613_AaveV3Ethereum_EnableAdditionalSVROracles/AaveV3Ethereum_EnableAdditionalSVROracles_20250613.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/50482379de120dc569c34dc5073b46f6e276e5a6/src/20250613_AaveV3Ethereum_EnableAdditionalSVROracles/AaveV3Ethereum_EnableAdditionalSVROracles_20250613.t.sol)
 - [Discussion](https://governance.aave.com/t/direct-to-aip-aave-chainlink-svr-v1-activation-phase-3/22387)
 
 ## Copyright
