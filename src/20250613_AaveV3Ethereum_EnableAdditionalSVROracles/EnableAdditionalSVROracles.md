@@ -1,7 +1,7 @@
 ---
 title: "Enable additional SVR oracles"
 author: "BGD Labs @bgdlabs"
-discussions: https://governance.aave.com/t/direct-to-aip-aave-chainlink-svr-v1-activation-phase-3/22387
+discussions: "https://governance.aave.com/t/direct-to-aip-aave-chainlink-svr-v1-activation-phase-3/22387"
 ---
 
 ## Simple Summary
