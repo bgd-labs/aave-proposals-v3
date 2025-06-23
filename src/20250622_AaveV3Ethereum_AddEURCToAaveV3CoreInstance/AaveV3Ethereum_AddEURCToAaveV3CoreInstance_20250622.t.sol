@@ -18,7 +18,7 @@ contract AaveV3Ethereum_AddEURCToAaveV3CoreInstance_20250622_Test is ProtocolV3T
   AaveV3Ethereum_AddEURCToAaveV3CoreInstance_20250622 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 22762012);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 22766614);
     proposal = new AaveV3Ethereum_AddEURCToAaveV3CoreInstance_20250622();
   }
 
