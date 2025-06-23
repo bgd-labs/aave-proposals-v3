@@ -70,8 +70,8 @@ Additionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://etherscan.io/a
 
 ## References
 
-- Implementation: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250617_AaveV3EthereumLido_OnboardTETHToAaveV3PrimeInstance/AaveV3EthereumLido_OnboardTETHToAaveV3PrimeInstance_20250617.sol)
-- Tests: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250617_AaveV3EthereumLido_OnboardTETHToAaveV3PrimeInstance/AaveV3EthereumLido_OnboardTETHToAaveV3PrimeInstance_20250617.t.sol)
+- Implementation: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/25332db83cecc9fa8dae586ea9be87664d0ca93b/src/20250617_AaveV3EthereumLido_OnboardTETHToAaveV3PrimeInstance/AaveV3EthereumLido_OnboardTETHToAaveV3PrimeInstance_20250617.sol)
+- Tests: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/25332db83cecc9fa8dae586ea9be87664d0ca93b/src/20250617_AaveV3EthereumLido_OnboardTETHToAaveV3PrimeInstance/AaveV3EthereumLido_OnboardTETHToAaveV3PrimeInstance_20250617.t.sol)
 - [Snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0x0cef1b470bf48c23d66386816d6a88d97abefb9364fda4e8e28b6ed2cd169945)
 - [Discussion](https://governance.aave.com/t/arfc-onboard-teth-to-aave-v3-prime-instance/21873)
 
