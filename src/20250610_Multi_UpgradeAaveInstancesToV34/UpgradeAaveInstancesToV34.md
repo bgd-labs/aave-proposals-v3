@@ -29,7 +29,7 @@ The upgrade payload updates the implementations of the `PoolConfigurator`, `Pool
 
 On Aave V3 Ethereum, the proposal performs some additional actions, to account for aligning `vGHO` from being a custom implementation to the standard implementation.
 
-It is important to note, that stakers of `stkAAVE` will no longer receive a discount on `vGHO` after the upgrade.
+_It is important to note that stakers of `stkAAVE` will no longer receive a discount on `vGHO` after the upgrade._
 Due to technical limitations, the pending discount will be lost upon upgrade time. The stkAAVE discount only manifests whenever a user interacts with the vGHO (by either repaying or borrowing).
 To reduce the impact of this loss, `Dolce vita` will iterate the users and call `vGHO.rebalanceUserDiscountPercent(user)` for every user that receives a discount within `< 24h` before proposal execution.
 This will reduce the loss to less then 1 day of discount accrual.
