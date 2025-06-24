@@ -22,7 +22,7 @@ export const config: ConfigFile = {
     shortName: 'PendlePTDiscountRateRiskOracleActivation',
     date: '20250606',
     author: 'BGD Labs (@bgdlabs)',
-    discussion: 'http://governance.aave.com/t/chaos-labs-risk-oracles/17216',
+    discussion: 'https://governance.aave.com/t/technical-maintenance-proposals/15274/93',
     snapshot: '',
     votingNetwork: 'POLYGON',
   },

@@ -10,7 +10,7 @@ import {IRiskSteward} from './interfaces/IRiskSteward.sol';
  * @title Discount Rate Risk Oracle Activation and update manual AGRS
  * @author BGD Labs (@bgdlabs)
  * - Snapshot: Direct To AIP
- * - Discussion: http://governance.aave.com/t/chaos-labs-risk-oracles/17216
+ * - Discussion: https://governance.aave.com/t/technical-maintenance-proposals/15274/93
  */
 contract AaveV3Base_PendlePTDiscountRateRiskOracleActivation_20250606 is IProposalGenericExecutor {
   address public constant NEW_RISK_STEWARD = 0x085E34722e04567Df9E6d2c32e82fd74f3342e79;

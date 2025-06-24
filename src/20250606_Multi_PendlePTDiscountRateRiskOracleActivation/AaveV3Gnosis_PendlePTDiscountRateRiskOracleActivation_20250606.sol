@@ -8,7 +8,7 @@ import {AaveV3Gnosis} from 'aave-address-book/AaveV3Gnosis.sol';
  * @title Discount Rate Risk Oracle Activation and update manual AGRS
  * @author BGD Labs (@bgdlabs)
  * - Snapshot: Direct To AIP
- * - Discussion: http://governance.aave.com/t/chaos-labs-risk-oracles/17216
+ * - Discussion: https://governance.aave.com/t/technical-maintenance-proposals/15274/93
  */
 contract AaveV3Gnosis_PendlePTDiscountRateRiskOracleActivation_20250606 is
   IProposalGenericExecutor

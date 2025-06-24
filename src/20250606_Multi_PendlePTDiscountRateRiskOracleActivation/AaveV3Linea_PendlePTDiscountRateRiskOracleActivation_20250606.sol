@@ -8,7 +8,7 @@ import {AaveV3Linea} from 'aave-address-book/AaveV3Linea.sol';
  * @title Discount Rate Risk Oracle Activation and update manual AGRS
  * @author BGD Labs (@bgdlabs)
  * - Snapshot: Direct To AIP
- * - Discussion: http://governance.aave.com/t/chaos-labs-risk-oracles/17216
+ * - Discussion: https://governance.aave.com/t/technical-maintenance-proposals/15274/93
  */
 contract AaveV3Linea_PendlePTDiscountRateRiskOracleActivation_20250606 is IProposalGenericExecutor {
   address public constant NEW_RISK_STEWARD = 0xBDF2e1A49894A306Eb76b89504928b3f509A3a16;
