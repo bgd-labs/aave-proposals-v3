@@ -7,7 +7,7 @@ snapshot: "https://snapshot.box/#/s:aavedao.eth/proposal/0xbbdd44ff07184dc17b921
 
 ## Simple Summary
 
-Upgrade the Aave contracts across all networks to the v3.4 release.
+Upgrade the Aave v3 Protocol across all networks from v3.3 to v3.4.
 
 ## Motivation
 
