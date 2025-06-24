@@ -5,6 +5,8 @@ import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aa
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {GovernanceV3ZkSync} from 'aave-address-book/GovernanceV3ZkSync.sol';
 import {GovernanceV3Linea} from 'aave-address-book/GovernanceV3Linea.sol';
+import {GovernanceV3Scroll} from 'aave-address-book/GovernanceV3Scroll.sol';
+import {GovernanceV3Sonic} from 'aave-address-book/GovernanceV3Sonic.sol';
 import {EthereumScript, PolygonScript, AvalancheScript, OptimismScript, ArbitrumScript, MetisScript, GnosisScript, BaseScript, ScrollScript, BNBScript, LineaScript, CeloScript, SonicScript, ChainIds} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
 import {AaveV3Ethereum_RiskStewardParameterUpdatesPhase3_20250320} from './AaveV3Ethereum_RiskStewardParameterUpdatesPhase3_20250320.sol';
 import {AaveV3EthereumLido_RiskStewardParameterUpdatesPhase3_20250320} from './AaveV3EthereumLido_RiskStewardParameterUpdatesPhase3_20250320.sol';
@@ -388,12 +390,12 @@ contract CreateProposal is EthereumScript {
     );
     payloads[7] = GovV3Helpers.buildBasePayload(vm, actionsBase);
 
-    IPayloadsControllerCore.ExecutionAction[]
-      memory actionsScroll = new IPayloadsControllerCore.ExecutionAction[](1);
-    actionsScroll[0] = GovV3Helpers.buildAction(
-      type(AaveV3Scroll_RiskStewardParameterUpdatesPhase3_20250320).creationCode
-    );
-    payloads[8] = GovV3Helpers.buildScrollPayload(vm, actionsScroll);
+    payloads[8] = PayloadsControllerUtils.Payload({
+      chain: ChainIds.SCROLL,
+      accessLevel: PayloadsControllerUtils.AccessControl.Level_1,
+      payloadsController: address(GovernanceV3Scroll.PAYLOADS_CONTROLLER),
+      payloadId: 40
+    });
 
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsBNB = new IPayloadsControllerCore.ExecutionAction[](1);
@@ -409,12 +411,12 @@ contract CreateProposal is EthereumScript {
     );
     payloads[10] = GovV3Helpers.buildCeloPayload(vm, actionsCelo);
 
-    IPayloadsControllerCore.ExecutionAction[]
-      memory actionsSonic = new IPayloadsControllerCore.ExecutionAction[](1);
-    actionsSonic[0] = GovV3Helpers.buildAction(
-      type(AaveV3Sonic_RiskStewardParameterUpdatesPhase3_20250320).creationCode
-    );
-    payloads[11] = GovV3Helpers.buildSonicPayload(vm, actionsSonic);
+    payloads[11] = PayloadsControllerUtils.Payload({
+      chain: ChainIds.SONIC,
+      accessLevel: PayloadsControllerUtils.AccessControl.Level_1,
+      payloadsController: address(GovernanceV3Sonic.PAYLOADS_CONTROLLER),
+      payloadId: 2
+    });
 
     payloads[12] = PayloadsControllerUtils.Payload({
       chain: ChainIds.ZKSYNC,
