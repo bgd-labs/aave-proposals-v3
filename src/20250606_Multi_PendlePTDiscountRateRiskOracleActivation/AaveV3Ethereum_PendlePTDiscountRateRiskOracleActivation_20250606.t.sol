@@ -25,16 +25,13 @@ contract AaveV3Ethereum_PendlePTDiscountRateRiskOracleActivation_20250606_Test i
   IRiskOracle public RISK_ORACLE;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 22646074);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 22774149);
     proposal = new AaveV3Ethereum_PendlePTDiscountRateRiskOracleActivation_20250606();
 
     PT_ORACLE = IPendlePriceCapAdapter(
       AaveV3Ethereum.ORACLE.getSourceOfAsset(AaveV3EthereumAssets.PT_sUSDE_31JUL2025_UNDERLYING)
     );
     RISK_ORACLE = IRiskOracle(IAaveStewardInjector(proposal.AAVE_STEWARD_INJECTOR()).RISK_ORACLE());
-
-    vm.prank(0x2400ad77C8aCCb958b824185897db9B9DD771830);
-    RISK_ORACLE.addUpdateType('PendleDiscountRateUpdate_Core');
   }
 
   function test_defaultProposalExecution() public {
