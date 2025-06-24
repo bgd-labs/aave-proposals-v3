@@ -21,6 +21,8 @@ The motivation behind this proposal is to upgrade the Aave instances to version 
 - Migration to Errors, instead of error codes.
 - Flash loan fee simplification.
 
+And extensive list of features and Changelog can be found [HERE](https://github.com/aave-dao/aave-v3-origin/blob/59a2a02be96c824a67ab65f0c465e6db2b034d81/docs/3.4/Aave-v3.4-features.md)
+
 ## Specification
 
 The upgrade payload updates the implementations of the `PoolConfigurator`, `Pool`,`PoolDataProvider`, `AToken` & `VariableDebtToken` on all networks.
