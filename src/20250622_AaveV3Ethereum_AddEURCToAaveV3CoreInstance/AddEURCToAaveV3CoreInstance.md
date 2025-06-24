@@ -14,12 +14,12 @@ EURC is Circle’s EUR-backed stablecoin, enhancing liquidity and expanding the 
 
 EURC is a fully backed stablecoin pegged to the Euro, issued by Circle, the same entity behind USDC. It is a reliable and transparent Euro-denominated asset gaining adoption across DeFi protocols.
 
-* **Utility and Role:** EURC facilitates Euro-based transactions in DeFi, allowing for a stable store of value and an efficient medium of exchange within the ecosystem.
-* **Backers:** Circle is a trusted issuer with a track record of regulatory compliance, providing confidence in EURC’s stability.
-* **Performance:** EURC has demonstrated consistent performance and adoption within the broader DeFi space such as Morpho (3M), Alien(4M) and Aerodome (3M).
-* **Euro Liquidity:** EURC will offer Aave users access to Euro-denominated liquidity, appealing to the European market.
-* **Broader User Base:** Listing EURC could attract new users from Europe, diversifying Aave’s stablecoin offerings.
-* **Increased Liquidity:** The addition of EURC can enhance liquidity across Aave’s markets, improving lending, borrowing, and trading experiences.
+- **Utility and Role:** EURC facilitates Euro-based transactions in DeFi, allowing for a stable store of value and an efficient medium of exchange within the ecosystem.
+- **Backers:** Circle is a trusted issuer with a track record of regulatory compliance, providing confidence in EURC’s stability.
+- **Performance:** EURC has demonstrated consistent performance and adoption within the broader DeFi space such as Morpho (3M), Alien(4M) and Aerodome (3M).
+- **Euro Liquidity:** EURC will offer Aave users access to Euro-denominated liquidity, appealing to the European market.
+- **Broader User Base:** Listing EURC could attract new users from Europe, diversifying Aave’s stablecoin offerings.
+- **Increased Liquidity:** The addition of EURC can enhance liquidity across Aave’s markets, improving lending, borrowing, and trading experiences.
 
 ## Specification
 
@@ -47,7 +47,8 @@ The table below illustrates the configured risk parameters for **EURC**
 | Borrowable in Isolation   |  DISABLED |
 
 ### Pricefeed details
-| Parameter           |                                                                                      Value |
+
+| Parameter            |                                                                                         Value |
 | -------------------- | --------------------------------------------------------------------------------------------: |
 | Oracle               |    [Capped EURC/USD](https://etherscan.io/address/0xa6aB031A4d189B24628EC9Eb155F0a0f1A0E55a3) |
 | Asset to USD Oracle  | [Chainlink EURC/USD](https://etherscan.io/address/0x04F84020Fdf10d9ee64D1dcC2986EDF2F556DA11) |
