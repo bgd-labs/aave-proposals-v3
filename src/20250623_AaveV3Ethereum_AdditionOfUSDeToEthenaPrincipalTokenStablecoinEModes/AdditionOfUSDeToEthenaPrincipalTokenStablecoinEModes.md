@@ -1,7 +1,7 @@
 ---
 title: "Addition of USDe to Ethena Principal Token Stablecoin E-Modes"
 author: "Aave-Chan Initiative"
-discussions: "Addition of USDe to Ethena Principal Token Stablecoin E-Modes"
+discussions: "https://governance.aave.com/t/arfc-addition-of-usde-to-ethena-principal-token-stablecoin-e-modes/22355"
 snapshot: "https://snapshot.box/#/s:aavedao.eth/proposal/0x92235fc2feaa585d700789395bb69374d4de1a7a2735a7565815f8423009f160"
 ---
 
@@ -35,7 +35,7 @@ Add USDe as a borrow-only asset in the following E-Modes:
 - Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250623_AaveV3Ethereum_AdditionOfUSDeToEthenaPrincipalTokenStablecoinEModes/AaveV3Ethereum_AdditionOfUSDeToEthenaPrincipalTokenStablecoinEModes_20250623.sol)
 - Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250623_AaveV3Ethereum_AdditionOfUSDeToEthenaPrincipalTokenStablecoinEModes/AaveV3Ethereum_AdditionOfUSDeToEthenaPrincipalTokenStablecoinEModes_20250623.t.sol)
 - [Snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0x92235fc2feaa585d700789395bb69374d4de1a7a2735a7565815f8423009f160)
-- [Discussion](Addition of USDe to Ethena Principal Token Stablecoin E-Modes)
+- [Discussion](https://governance.aave.com/t/arfc-addition-of-usde-to-ethena-principal-token-stablecoin-e-modes/22355)
 
 ## Copyright
 

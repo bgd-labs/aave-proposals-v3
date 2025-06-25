@@ -9,7 +9,7 @@ import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config
  * @title Addition of USDe to Ethena Principal Token Stablecoin E-Modes
  * @author Aave-Chan Initiative
  * - Snapshot: https://snapshot.box/#/s:aavedao.eth/proposal/0x92235fc2feaa585d700789395bb69374d4de1a7a2735a7565815f8423009f160
- * - Discussion: Addition of USDe to Ethena Principal Token Stablecoin E-Modes
+ * - Discussion: https://governance.aave.com/t/arfc-addition-of-usde-to-ethena-principal-token-stablecoin-e-modes/22355
  */
 contract AaveV3Ethereum_AdditionOfUSDeToEthenaPrincipalTokenStablecoinEModes_20250623 is
   AaveV3PayloadEthereum
