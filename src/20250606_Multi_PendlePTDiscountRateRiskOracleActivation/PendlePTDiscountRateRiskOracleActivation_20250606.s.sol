@@ -399,15 +399,15 @@ contract CreateProposal is EthereumScript {
       chain: ChainIds.ZKSYNC,
       accessLevel: PayloadsControllerUtils.AccessControl.Level_1,
       payloadsController: address(GovernanceV3ZkSync.PAYLOADS_CONTROLLER),
-      payloadId: 0 // TODO
+      payloadId: 29
     });
 
-    payloads[11] = PayloadsControllerUtils.Payload({
-      chain: ChainIds.LINEA,
-      accessLevel: PayloadsControllerUtils.AccessControl.Level_1,
-      payloadsController: address(GovernanceV3Linea.PAYLOADS_CONTROLLER),
-      payloadId: 0 // TODO
-    });
+    IPayloadsControllerCore.ExecutionAction[]
+      memory actionsLinea = new IPayloadsControllerCore.ExecutionAction[](1);
+    actionsLinea[0] = GovV3Helpers.buildAction(
+      type(AaveV3Linea_PendlePTDiscountRateRiskOracleActivation_20250606).creationCode
+    );
+    payloads[11] = GovV3Helpers.buildLineaPayload(vm, actionsLinea);
 
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsCelo = new IPayloadsControllerCore.ExecutionAction[](1);
@@ -420,7 +420,7 @@ contract CreateProposal is EthereumScript {
       chain: ChainIds.SONIC,
       accessLevel: PayloadsControllerUtils.AccessControl.Level_1,
       payloadsController: address(GovernanceV3Sonic.PAYLOADS_CONTROLLER),
-      payloadId: 0 // TODO
+      payloadId: 5
     });
 
     // create proposal
