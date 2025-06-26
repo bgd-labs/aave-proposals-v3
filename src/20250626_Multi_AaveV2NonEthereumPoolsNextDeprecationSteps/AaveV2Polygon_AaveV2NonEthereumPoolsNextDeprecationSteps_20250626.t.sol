@@ -31,7 +31,7 @@ contract AaveV2Polygon_AaveV2NonEthereumPoolsNextDeprecationSteps_20250626_Test 
     );
   }
 
-  function test_all_reserves_freezed() public {
+  function test_all_reserves_frozen() public {
     executePayload(vm, address(proposal));
 
     address[] memory reserves = AaveV2Polygon.POOL.getReservesList();
