@@ -27,8 +27,8 @@ As previously commented, **_this is a non-invasive action, as liquidations will 
 
 ## References
 
-- Implementation: [AaveV2Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250626_Multi_AaveV2NonEthereumPoolsNextDeprecationSteps/AaveV2Polygon_AaveV2NonEthereumPoolsNextDeprecationSteps_20250626.sol), [AaveV2Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250626_Multi_AaveV2NonEthereumPoolsNextDeprecationSteps/AaveV2Avalanche_AaveV2NonEthereumPoolsNextDeprecationSteps_20250626.sol)
-- Tests: [AaveV2Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250626_Multi_AaveV2NonEthereumPoolsNextDeprecationSteps/AaveV2Polygon_AaveV2NonEthereumPoolsNextDeprecationSteps_20250626.t.sol), [AaveV2Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250626_Multi_AaveV2NonEthereumPoolsNextDeprecationSteps/AaveV2Avalanche_AaveV2NonEthereumPoolsNextDeprecationSteps_20250626.t.sol)
+- Implementation: [AaveV2Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/2339bc88c0cad4906fd7fff0f9f869319446d490/src/20250626_Multi_AaveV2NonEthereumPoolsNextDeprecationSteps/AaveV2Polygon_AaveV2NonEthereumPoolsNextDeprecationSteps_20250626.sol), [AaveV2Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/2339bc88c0cad4906fd7fff0f9f869319446d490/src/20250626_Multi_AaveV2NonEthereumPoolsNextDeprecationSteps/AaveV2Avalanche_AaveV2NonEthereumPoolsNextDeprecationSteps_20250626.sol)
+- Tests: [AaveV2Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/2339bc88c0cad4906fd7fff0f9f869319446d490/src/20250626_Multi_AaveV2NonEthereumPoolsNextDeprecationSteps/AaveV2Polygon_AaveV2NonEthereumPoolsNextDeprecationSteps_20250626.t.sol), [AaveV2Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/2339bc88c0cad4906fd7fff0f9f869319446d490/src/20250626_Multi_AaveV2NonEthereumPoolsNextDeprecationSteps/AaveV2Avalanche_AaveV2NonEthereumPoolsNextDeprecationSteps_20250626.t.sol)
 - [Discussion](https://governance.aave.com/t/direct-to-aip-aave-v2-non-ethereum-pools-next-deprecation-steps/22445)
 
 ## Copyright
