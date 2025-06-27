@@ -22,6 +22,7 @@ import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
 import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {AaveV3BaseAssets} from 'aave-address-book/AaveV3Base.sol';
+import {AaveV3AvalancheAssets} from 'aave-address-book/AaveV3Avalanche.sol';
 
 import {CCIPUtils} from './utils/CCIPUtils.sol';
 import {GHOLaunchConstants} from './utils/GHOLaunchConstants.sol';
