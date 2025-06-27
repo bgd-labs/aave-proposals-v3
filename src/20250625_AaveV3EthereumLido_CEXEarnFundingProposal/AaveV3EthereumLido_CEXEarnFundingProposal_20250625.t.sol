@@ -29,7 +29,7 @@ contract AaveV3EthereumLido_CEXEarnFundingProposal_20250625_Test is ProtocolV3Te
   );
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 22783830);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 22796230);
     proposal = new AaveV3EthereumLido_CEXEarnFundingProposal_20250625();
   }
 
@@ -66,7 +66,7 @@ contract AaveV3EthereumLido_CEXEarnFundingProposal_20250625_Test is ProtocolV3Te
     IERC20(AaveV3EthereumLidoAssets.GHO_A_TOKEN).transferFrom(
       address(AaveV3Ethereum.COLLECTOR),
       proposal.AFC_SAFE(),
-      proposal.CEX_EARN_AMOUNT()
+      3_000_000 ether
     );
     vm.stopPrank();
   }
