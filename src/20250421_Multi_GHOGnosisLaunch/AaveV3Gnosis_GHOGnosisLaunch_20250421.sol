@@ -148,7 +148,7 @@ contract AaveV3Gnosis_GHOGnosisLaunch_20250421 is IProposalGenericExecutor {
       chainsToAdd[3] = IUpgradeableBurnMintTokenPool_1_5_1.ChainUpdate({
         remoteChainSelector: AVAX_CHAIN_SELECTOR,
         remotePoolAddresses: remotePoolAddresses,
-        remoteTokenAddress: abi.encode(AaveV3AvaxAssets.GHO_UNDERLYING),
+        remoteTokenAddress: abi.encode(AaveV3AvalancheAssets.GHO_UNDERLYING),
         outboundRateLimiterConfig: rateLimiterConfig,
         inboundRateLimiterConfig: rateLimiterConfig
       });
