@@ -66,7 +66,7 @@ contract AaveV3EthereumLido_CEXEarnFundingProposal_20250625_Test is ProtocolV3Te
     IERC20(AaveV3EthereumLidoAssets.GHO_A_TOKEN).transferFrom(
       address(AaveV3Ethereum.COLLECTOR),
       proposal.AFC_SAFE(),
-      3_000_000 ether
+      3_000_000 ether // Only so much available right now, will deposit via stewards post swaps
     );
     vm.stopPrank();
   }
