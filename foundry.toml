@@ -14,7 +14,7 @@ fs_permissions = [
   { access = "write", path = "./reports" },
   { access = "read", path = "./zkout" },
 ]
-evm_version = 'london'
+evm_version = 'cancun'
 
 [profile.zksync]
 src = 'zksync'

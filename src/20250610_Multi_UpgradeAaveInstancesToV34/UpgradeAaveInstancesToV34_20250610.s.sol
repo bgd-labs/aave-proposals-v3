@@ -350,7 +350,7 @@ contract CreateProposal is EthereumScript {
       payloads[0] = GovV3Helpers.buildMainnetPayload(vm, actionsEthereum);
       IPayloadsControllerCore.ExecutionAction[]
         memory actionsEthereum2 = new IPayloadsControllerCore.ExecutionAction[](1);
-      actionsEthereum2[0] = GovV3Helpers.buildAction(type(AuditReimbursement).creationCode);
+      actionsEthereum2[0] = GovV3Helpers.buildAction(0x132d178557a0c0e6354762542eC1bc73EbB79549);
       payloads[0] = GovV3Helpers.buildMainnetPayload(vm, actionsEthereum);
       payloads[1] = GovV3Helpers.buildMainnetPayload(vm, actionsEthereum2);
     }
