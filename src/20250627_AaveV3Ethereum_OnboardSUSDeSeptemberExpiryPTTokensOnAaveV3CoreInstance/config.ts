@@ -41,13 +41,13 @@ export const config: ConfigFile = {
           {asset: 'USDe', eModeCategory: '18', collateral: 'DISABLED', borrowable: 'ENABLED'},
           {asset: 'USDS', eModeCategory: '17', collateral: 'DISABLED', borrowable: 'ENABLED'},
           {
-            asset: 'PT_sUSDE_31JUL2025',
+            asset: 'PT_sUSDe_25SEP2025',
             eModeCategory: '17',
             collateral: 'ENABLED',
             borrowable: 'DISABLED',
           },
           {
-            asset: 'PT_sUSDE_31JUL2025',
+            asset: 'PT_sUSDe_25SEP2025',
             eModeCategory: '18',
             collateral: 'ENABLED',
             borrowable: 'DISABLED',

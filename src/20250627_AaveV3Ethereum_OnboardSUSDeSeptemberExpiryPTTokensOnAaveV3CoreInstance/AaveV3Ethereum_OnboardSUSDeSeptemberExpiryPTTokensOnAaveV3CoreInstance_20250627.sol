@@ -112,13 +112,13 @@ contract AaveV3Ethereum_OnboardSUSDeSeptemberExpiryPTTokensOnAaveV3CoreInstance_
       collateral: EngineFlags.DISABLED
     });
     assetEModeUpdates[5] = IAaveV3ConfigEngine.AssetEModeUpdate({
-      asset: AaveV3EthereumAssets.PT_sUSDE_31JUL2025_UNDERLYING,
+      asset: PT_sUSDe_25SEP2025,
       eModeCategory: 17,
       borrowable: EngineFlags.DISABLED,
       collateral: EngineFlags.ENABLED
     });
     assetEModeUpdates[6] = IAaveV3ConfigEngine.AssetEModeUpdate({
-      asset: AaveV3EthereumAssets.PT_sUSDE_31JUL2025_UNDERLYING,
+      asset: PT_sUSDe_25SEP2025,
       eModeCategory: 18,
       borrowable: EngineFlags.DISABLED,
       collateral: EngineFlags.ENABLED
