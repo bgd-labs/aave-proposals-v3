@@ -7,7 +7,7 @@ snapshot: "https://snapshot.box/#/s:aavedao.eth/proposal/0x92235fc2feaa585d70078
 
 ## Simple Summary
 
-Chaos Labs provides an addition to the PT Tokens/Stablecoin E-Modes in order to improve the user experience with regard to debt asset migration.
+Chaos Labs provides an addition of USDe to the PT Tokens/Stablecoin E-Modes in order to improve the user experience with regard to debt asset migration.
 
 ## Motivation
 
