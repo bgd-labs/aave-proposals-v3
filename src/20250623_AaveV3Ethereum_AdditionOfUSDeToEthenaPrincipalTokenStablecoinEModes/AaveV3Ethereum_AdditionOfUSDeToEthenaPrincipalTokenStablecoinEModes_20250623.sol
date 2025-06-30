@@ -27,7 +27,7 @@ contract AaveV3Ethereum_AdditionOfUSDeToEthenaPrincipalTokenStablecoinEModes_202
       asset: AaveV3EthereumAssets.USDe_UNDERLYING,
       eModeCategory: AaveV3EthereumEModes.PT_EUSDE_STABLECOINS_AUGUST_2025,
       borrowable: EngineFlags.ENABLED,
-      collateral: EngineFlags.KEEP_CURRENT
+      collateral: EngineFlags.DISABLED
     });
     assetEModeUpdates[1] = IAaveV3ConfigEngine.AssetEModeUpdate({
       asset: AaveV3EthereumAssets.USDe_UNDERLYING,
