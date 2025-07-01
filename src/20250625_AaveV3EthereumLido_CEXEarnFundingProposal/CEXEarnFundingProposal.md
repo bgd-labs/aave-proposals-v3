@@ -71,8 +71,8 @@ To facilitate the program, the following assets are to be swapped for GHO.
 
 ## References
 
-- Implementation: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250625_AaveV3EthereumLido_CEXEarnFundingProposal/AaveV3EthereumLido_CEXEarnFundingProposal_20250625.sol)
-- Tests: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250625_AaveV3EthereumLido_CEXEarnFundingProposal/AaveV3EthereumLido_CEXEarnFundingProposal_20250625.t.sol)
+- Implementation: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/353b2d55e83a61902a49928aeeb0c1b6309e00a2/src/20250625_AaveV3EthereumLido_CEXEarnFundingProposal/AaveV3EthereumLido_CEXEarnFundingProposal_20250625.sol)
+- Tests: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/353b2d55e83a61902a49928aeeb0c1b6309e00a2/src/20250625_AaveV3EthereumLido_CEXEarnFundingProposal/AaveV3EthereumLido_CEXEarnFundingProposal_20250625.t.sol)
 - [Snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0xa390fb9061fd689a5d93519a7a9dae23d76b4010b3eea6aaedc70ea7aaed9310)
 - [Discussion](https://governance.aave.com/t/arfc-gho-cex-earn-incentive-program/22284)
 
