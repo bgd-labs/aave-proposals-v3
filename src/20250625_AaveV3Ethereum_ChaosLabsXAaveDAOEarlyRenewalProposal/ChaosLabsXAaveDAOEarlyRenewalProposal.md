@@ -34,57 +34,57 @@ Despite renewing at flat commercials of **$2M** in November, Chaos Labs has sign
 
 Over the past six months of the current engagement, Chaos Labs has provided both tactical execution and strategic risk support, surpassing last year’s outputs across all key metrics:
 
-* **64 asset listing analyses** completed in the past 7 months (vs. 46 in the entire previous year), reflecting a sharp increase in volume and diligence scope.
-* **13 new deployment listings**, with 10 scheduled to go live shortly, significantly expanding protocol reach and impact.
-* **226 supply cap, 203 borrow cap, and 572 interest rate curve updates** executed through the Risk Stewards, scaling operational coverage.
-* **260 total forum posts** spanning proposal authorship, parameter reviews, research, and real-time risk insights, reinforcing Chaos Labs’ governance leadership.
+- **64 asset listing analyses** completed in the past 7 months (vs. 46 in the entire previous year), reflecting a sharp increase in volume and diligence scope.
+- **13 new deployment listings**, with 10 scheduled to go live shortly, significantly expanding protocol reach and impact.
+- **226 supply cap, 203 borrow cap, and 572 interest rate curve updates** executed through the Risk Stewards, scaling operational coverage.
+- **260 total forum posts** spanning proposal authorship, parameter reviews, research, and real-time risk insights, reinforcing Chaos Labs’ governance leadership.
 
 The quality and depth of asset listings have significantly evolved, centered on the fundamental characteristics of each asset and its interaction with Aave’s core mechanisms. Listings incorporate understanding how the asset functions within its native protocol, aligning risk parameters with issuer-specific designs such as redemption logic, staking mechanics, or rebase behavior at a technical level. These are paired with simulation-backed stress testing, modeling systemic interactions, market shocks, and protocol-specific failure modes to ensure resilient integration.
 
 For contrast:
 
-* Earlier listing: [oSETH onboarding](https://governance.aave.com/t/arfc-onboard-oseth-to-aave-v3-on-ethereum/16913/8)
-* Current standard: [USR onboarding](https://governance.aave.com/t/arfc-add-usr-to-aave-v3-core-instance/21444/2)
+- Earlier listing: [oSETH onboarding](https://governance.aave.com/t/arfc-onboard-oseth-to-aave-v3-on-ethereum/16913/8)
+- Current standard: [USR onboarding](https://governance.aave.com/t/arfc-add-usr-to-aave-v3-core-instance/21444/2)
 
 #### Edge Risk Oracle Infrastructure
 
 Chaos Labs has not only deployed a suite of Risk Oracles across the protocol—we have also designed the quantitative methodologies, triggers, and governance guardrails that underpin them. We are the only team in the industry offering end-to-end oracle-driven risk automation, combining bespoke modeling, real-time data integrations, and protocol-native controls.
 
-* **WETH Interest Rate Curve Oracle** on the Prime Instance automatically adjusts Slope1 based on Lido staking rewards and the wstETH supply rate to preserve the profitability of looping strategies and optimize protocol revenues, accounting for $548M in deposits.↳ [[ARFC]. Aave Generalized Risk Stewards (AGRS) activation - #3 by ChaosLabs](https://governance.aave.com/t/arfc-aave-generalized-risk-stewards-agrs-activation/19178/3)
-* **Supply & Borrow Cap Oracles** deployed across major V3 deployments (Avalanche, Arbitrum, Base), providing automated risk and utilization-aware cap adjustments for over $3.4B in total deposits.↳ [[ARFC] Supply and Borrow Cap Risk Oracle Activation](https://governance.aave.com/t/arfc-supply-and-borrow-cap-risk-oracle-activation/20834)
-* **Principal Token (PT) Risk Oracle** for Pendle and similar assets—featuring quantitative parameterization and automated kill switch logic—now supporting over $1B in integrated PT assets.↳ [ARFC: PT Risk Oracle](https://governance.aave.com/t/arfc-pendle-principal-token-risk-oracle/20962)
-* **Stablecoin Interest Rate Curve Risk Oracle**, approved via Snapshot, enabling dynamic interest rate optimization for stablecoin markets with improved efficiency.↳ [ARFC: Curve Oracle](https://governance.aave.com/t/arfc-interest-rate-curve-risk-oracle/21900)
+- **WETH Interest Rate Curve Oracle** on the Prime Instance automatically adjusts Slope1 based on Lido staking rewards and the wstETH supply rate to preserve the profitability of looping strategies and optimize protocol revenues, accounting for $548M in deposits.↳ [[ARFC]. Aave Generalized Risk Stewards (AGRS) activation - #3 by ChaosLabs](https://governance.aave.com/t/arfc-aave-generalized-risk-stewards-agrs-activation/19178/3)
+- **Supply & Borrow Cap Oracles** deployed across major V3 deployments (Avalanche, Arbitrum, Base), providing automated risk and utilization-aware cap adjustments for over $3.4B in total deposits.↳ [[ARFC] Supply and Borrow Cap Risk Oracle Activation](https://governance.aave.com/t/arfc-supply-and-borrow-cap-risk-oracle-activation/20834)
+- **Principal Token (PT) Risk Oracle** for Pendle and similar assets—featuring quantitative parameterization and automated kill switch logic—now supporting over $1B in integrated PT assets.↳ [ARFC: PT Risk Oracle](https://governance.aave.com/t/arfc-pendle-principal-token-risk-oracle/20962)
+- **Stablecoin Interest Rate Curve Risk Oracle**, approved via Snapshot, enabling dynamic interest rate optimization for stablecoin markets with improved efficiency.↳ [ARFC: Curve Oracle](https://governance.aave.com/t/arfc-interest-rate-curve-risk-oracle/21900)
 
 #### Monitoring & Analytics
 
-* Monitoring infrastructure has been significantly expanded, now tracking advanced metrics such as asset collateral distribution over time, user LTV at liquidation, and market liquidity concentration. Over the past six months, support has been extended to 5 additional deployments, bringing the total to 16, with imminent support for upcoming deployments underway.
-↳ [Aave Risk Monitoring and Alerting Platform](https://community.chaoslabs.xyz/aave/risk/overview)
-* **SVR Monitoring Platform**, launched to monitor SVR metrics and liquidation outcomes at a granular level, alongside SVR oracle performance.↳ [SVR Dashboard](https://community.chaoslabs.xyz/aave/risk/svr/liquidations)
+- Monitoring infrastructure has been significantly expanded, now tracking advanced metrics such as asset collateral distribution over time, user LTV at liquidation, and market liquidity concentration. Over the past six months, support has been extended to 5 additional deployments, bringing the total to 16, with imminent support for upcoming deployments underway.
+  ↳ [Aave Risk Monitoring and Alerting Platform](https://community.chaoslabs.xyz/aave/risk/overview)
+- **SVR Monitoring Platform**, launched to monitor SVR metrics and liquidation outcomes at a granular level, alongside SVR oracle performance.↳ [SVR Dashboard](https://community.chaoslabs.xyz/aave/risk/svr/liquidations)
 
 #### Key Research Pieces
 
-* **Ethereum staking risk modeling**, quantifying validator slashing impacts on LST/LRT performance and collateralization viability.↳ [Research Post](https://governance.aave.com/t/staking-penalties-on-ethereum-s-consensus-layer-implications-for-wsteth-and-other-lsts-and-lrts/21854)
-* **Ethena-related risk simulations**, including funding volatility, depeg risk, and potential contagion scenarios.↳ [Simulation Post](https://governance.aave.com/t/arfc-susde-and-usde-price-feed-update/20495/16)
-* **SVR analysis**, evaluating integration feasibility, revenue potential, and liquidation delay risks through detailed oracle delay and bad debt modeling.↳ [SVR Analysis](https://governance.aave.com/t/arfc-aave-chainlink-svr-v1-phase-1-activation/21247/7)
+- **Ethereum staking risk modeling**, quantifying validator slashing impacts on LST/LRT performance and collateralization viability.↳ [Research Post](https://governance.aave.com/t/staking-penalties-on-ethereum-s-consensus-layer-implications-for-wsteth-and-other-lsts-and-lrts/21854)
+- **Ethena-related risk simulations**, including funding volatility, depeg risk, and potential contagion scenarios.↳ [Simulation Post](https://governance.aave.com/t/arfc-susde-and-usde-price-feed-update/20495/16)
+- **SVR analysis**, evaluating integration feasibility, revenue potential, and liquidation delay risks through detailed oracle delay and bad debt modeling.↳ [SVR Analysis](https://governance.aave.com/t/arfc-aave-chainlink-svr-v1-phase-1-activation/21247/7)
 
 #### **Market Events**
 
-* **Chaos Labs Risk Reports during market events** such as [02/03/25](https://governance.aave.com/t/chaos-labs-risk-report-insights-from-recent-market-events-02-03-25/20919) and [04/07/25](https://governance.aave.com/t/chaos-labs-risk-report-insights-from-recent-market-events-04-07-25/21719), providing real-time analysis of liquidation volume, user behavior, and Aave protocol performance under heightened volatility.
-* **Chaos Labs post-mortem on the Bybit security event**, highlighting how CEX-driven price dislocations impacted oracle feeds and outstanding risks in the context of USDe and Ethena, and underscoring the need for more resilient on-chain pricing mechanisms.↳ [Post-Mortem](https://governance.aave.com/t/chaos-labs-update-on-bybit-security-event-and-usde-market-reaction/21158/2)
+- **Chaos Labs Risk Reports during market events** such as [02/03/25](https://governance.aave.com/t/chaos-labs-risk-report-insights-from-recent-market-events-02-03-25/20919) and [04/07/25](https://governance.aave.com/t/chaos-labs-risk-report-insights-from-recent-market-events-04-07-25/21719), providing real-time analysis of liquidation volume, user behavior, and Aave protocol performance under heightened volatility.
+- **Chaos Labs post-mortem on the Bybit security event**, highlighting how CEX-driven price dislocations impacted oracle feeds and outstanding risks in the context of USDe and Ethena, and underscoring the need for more resilient on-chain pricing mechanisms.↳ [Post-Mortem](https://governance.aave.com/t/chaos-labs-update-on-bybit-security-event-and-usde-market-reaction/21158/2)
 
 ### Scope
 
-* **Chaos Labs continuation of phased sUSD deprecation on Optimism**, building on prior recommendations in response to structural changes in Synthetix and persistent peg instability. This latest adjustment further tightens risk parameters to responsibly minimize exposure as part of an ongoing wind-down strategy.↳ [ARFC](https://governance.aave.com/t/arfc-further-deprecate-susd-on-aave-v3-optimism/21770)
+- **Chaos Labs continuation of phased sUSD deprecation on Optimism**, building on prior recommendations in response to structural changes in Synthetix and persistent peg instability. This latest adjustment further tightens risk parameters to responsibly minimize exposure as part of an ongoing wind-down strategy.↳ [ARFC](https://governance.aave.com/t/arfc-further-deprecate-susd-on-aave-v3-optimism/21770)
 
 #### Risk Oracle Infrastructure
 
 Chaos Labs will continue to expand Aave’s Edge Risk Oracle infrastructure to cover additional critical risk surfaces and enhance protocol automation. Building on our existing deployments, the following areas are targeted for upcoming integration:
 
-* **Expansion of Supply & Borrow Cap Oracles** to all Aave V3 instances, ensuring consistent and utilization-optimized cap management across deployments.
-* **Deployment of Interest Rate Curve Oracles** across stablecoin and high-volume collateral markets, enabling real-time dynamic pricing to optimize protocol welfare and maintain competitive market conditions.
-* **Ongoing Principal Token (PT) Risk Oracle coverage**, ensuring that all new PT listings are automatically supported with live collateral parameter adjustments, while maintaining existing integrations.
-* **Automated Kill Switch Integration** for LSTs, LRTs, Ethena-related, and other yield-bearing derivatives, disabling supply or borrow functionality under adverse events such as validator slashing, depegs, or liquidity collapse.
-* **Reserve Factor Risk Oracle**, to dynamically optimize DAO revenue through automated reserve factor tuning, aligned with Umbrella’s framework and responsive to shifting market dynamics and liquidity flows.
+- **Expansion of Supply & Borrow Cap Oracles** to all Aave V3 instances, ensuring consistent and utilization-optimized cap management across deployments.
+- **Deployment of Interest Rate Curve Oracles** across stablecoin and high-volume collateral markets, enabling real-time dynamic pricing to optimize protocol welfare and maintain competitive market conditions.
+- **Ongoing Principal Token (PT) Risk Oracle coverage**, ensuring that all new PT listings are automatically supported with live collateral parameter adjustments, while maintaining existing integrations.
+- **Automated Kill Switch Integration** for LSTs, LRTs, Ethena-related, and other yield-bearing derivatives, disabling supply or borrow functionality under adverse events such as validator slashing, depegs, or liquidity collapse.
+- **Reserve Factor Risk Oracle**, to dynamically optimize DAO revenue through automated reserve factor tuning, aligned with Umbrella’s framework and responsive to shifting market dynamics and liquidity flows.
 
 All updates will continue to be bound by governance-approved parameters and transparently tracked through public dashboards. This upcoming roadmap represents a significant step toward full-spectrum oracle-driven risk automation across the Aave ecosystem.
 
@@ -106,8 +106,8 @@ During this engagement, we will focus on operationalizing Umbrella across active
 
 We will provide ongoing support and insights to the Aave Finance Committee in calibrating key parameters such as:
 
-* **`maxEmissionPerYear`**, which reflects the incremental yield required to compensate users for staking into Umbrella. Its calibration will account for factors including foregone collateral utility, prevailing interest rate environments, cooldown risk, and systemic exposure.
-* **`Target Liquidity`**, representing the optimal reserve coverage needed to mitigate tail risks, derived using a quantitative Value-at-Risk (VaR) framework. This ensures efficient sizing of Umbrella participation across volatile and composable markets.
+- **`maxEmissionPerYear`**, which reflects the incremental yield required to compensate users for staking into Umbrella. Its calibration will account for factors including foregone collateral utility, prevailing interest rate environments, cooldown risk, and systemic exposure.
+- **`Target Liquidity`**, representing the optimal reserve coverage needed to mitigate tail risks, derived using a quantitative Value-at-Risk (VaR) framework. This ensures efficient sizing of Umbrella participation across volatile and composable markets.
 
 To support transparency and community alignment, we are also launching a dedicated Umbrella Dashboard, providing real-time analytics and visualizations on reserve coverage, parameterization status, and system-wide protection metrics.
 
@@ -141,10 +141,10 @@ Our role as an embedded operational risk steward ensures that Aave can respond w
 
 Chaos Labs will:
 
-* Publish monthly updates summarizing progress, simulations, Oracle activity, and dashboard enhancements, which can be observed in [this](https://governance.aave.com/t/chaos-labs-monthly-community-update/11174/27) thread.
-* Remain active on the Aave Governance Forum with posts, feedback, and proposal authorship
-* Maintain weekly syncs with delegates and contributors
-* Share dashboards, documentation, and analysis artifacts for community insight
+- Publish monthly updates summarizing progress, simulations, Oracle activity, and dashboard enhancements, which can be observed in [this](https://governance.aave.com/t/chaos-labs-monthly-community-update/11174/27) thread.
+- Remain active on the Aave Governance Forum with posts, feedback, and proposal authorship
+- Maintain weekly syncs with delegates and contributors
+- Share dashboards, documentation, and analysis artifacts for community insight
 
 ### Early Renewal Commercial Terms
 
@@ -156,14 +156,14 @@ This proposal reflects both the **expanded scope of work already delivered**—i
 
 ## Specification
 
-* **Renewal Term:** July 13, 2025 – July 12, 2026
-* **Duration:** 12 Months
-* **Annual Contract Value:** $3,000,000 USD
-* 85% - $2,550,000 USD in aEthLidoGHO
-* 15% - $450,000 USD in AAVE
-  * AAVE price (and corresponding amount of tokens allocated to Chaos) will be determined using a 30-day time-weighted average price (TWAP) based on CoinGecko pricing at the time of Snapshot conclusion.
-* **Payment Method:** Streamed linearly via `createStream()` using `IAaveEcosystemReserveController`
-* **Recipient Address:** `0xbC540e0729B732fb14afA240aA5A047aE9ba7dF0` (Chaos Labs multisig)
+- **Renewal Term:** July 13, 2025 – July 12, 2026
+- **Duration:** 12 Months
+- **Annual Contract Value:** $3,000,000 USD
+- 85% - $2,550,000 USD in aEthLidoGHO
+- 15% - $450,000 USD in AAVE
+  - AAVE price (and corresponding amount of tokens allocated to Chaos) will be determined using a 30-day time-weighted average price (TWAP) based on CoinGecko pricing at the time of Snapshot conclusion.
+- **Payment Method:** Streamed linearly via `createStream()` using `IAaveEcosystemReserveController`
+- **Recipient Address:** `0xbC540e0729B732fb14afA240aA5A047aE9ba7dF0` (Chaos Labs multisig)
 
 ## References
 

@@ -34,7 +34,7 @@ contract AaveV3Ethereum_ChaosLabsXAaveDAOEarlyRenewalProposal_20250625_Test is P
       address(proposal)
     );
   }
- 
+
   function test_wholeProcessGHO() public {
     // 0.001% tolerance due to stream computation inaccuracy
     uint256 maxDeltaStreamBalance = 0.00001e18; // 0.001%
@@ -143,12 +143,12 @@ contract AaveV3Ethereum_ChaosLabsXAaveDAOEarlyRenewalProposal_20250625_Test is P
       ghoBalanceBefore + proposal.GHO_STREAM_AMOUNT(),
       maxDeltaStreamBalance
     );
-  } 
+  }
 
   function test_wholeProcessAAVE() public {
     // 0.001% tolerance due to stream computation inaccuracy
     uint256 maxDeltaStreamBalance = 0.00001e18; // 0.001%
-    IStreamable reserve = IStreamable(MiscEthereum.ECOSYSTEM_RESERVE); 
+    IStreamable reserve = IStreamable(MiscEthereum.ECOSYSTEM_RESERVE);
 
     address aavePaymentAddresses = proposal.CHAOS_LABS();
     uint256 aaveBalancesBeforeUsers = IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING).balanceOf(
@@ -165,17 +165,13 @@ contract AaveV3Ethereum_ChaosLabsXAaveDAOEarlyRenewalProposal_20250625_Test is P
     vm.warp(block.timestamp + 385 days); // stream starting in 20 days or so
 
     // Stream transfers
-    uint256 finalBalanceToWithdraw = reserve.balanceOf(
-      nextStreamId,
-      aavePaymentAddresses
-    );
+    uint256 finalBalanceToWithdraw = reserve.balanceOf(nextStreamId, aavePaymentAddresses);
 
     assertApproxEqRel(
       finalBalanceToWithdraw,
       (proposal.AAVE_AMOUNT_IN_DOLLARS() *
         10 ** IERC20Metadata(AaveV3EthereumAssets.AAVE_UNDERLYING).decimals() *
-        10 ** 14) /
-      proposal.AAVE_PRICE(),
+        10 ** 14) / proposal.AAVE_PRICE(),
       maxDeltaStreamBalance,
       'AAVE Stream final balance is not correct'
     );
@@ -185,7 +181,7 @@ contract AaveV3Ethereum_ChaosLabsXAaveDAOEarlyRenewalProposal_20250625_Test is P
     assertApproxEqRel(
       IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING).balanceOf(aavePaymentAddresses),
       aaveBalancesBeforeUsers +
-	(proposal.AAVE_AMOUNT_IN_DOLLARS() *
+        (proposal.AAVE_AMOUNT_IN_DOLLARS() *
           10 ** IERC20Metadata(AaveV3EthereumAssets.AAVE_UNDERLYING).decimals() *
           10 ** 14) /
         proposal.AAVE_PRICE(),
@@ -237,17 +233,13 @@ contract AaveV3Ethereum_ChaosLabsXAaveDAOEarlyRenewalProposal_20250625_Test is P
 
     vm.warp(block.timestamp + 385 days);
 
-    uint256 finalBalanceToWithdraw = reserve.balanceOf(
-      nextStreamId,
-      aavePaymentAddresses
-    );
+    uint256 finalBalanceToWithdraw = reserve.balanceOf(nextStreamId, aavePaymentAddresses);
 
     assertApproxEqRel(
       finalBalanceToWithdraw,
       (proposal.AAVE_AMOUNT_IN_DOLLARS() *
         10 ** IERC20Metadata(AaveV3EthereumAssets.AAVE_UNDERLYING).decimals() *
-        10 ** 14) /
-      proposal.AAVE_PRICE(),
+        10 ** 14) / proposal.AAVE_PRICE(),
       maxDeltaStreamBalance
     );
 
@@ -265,10 +257,10 @@ contract AaveV3Ethereum_ChaosLabsXAaveDAOEarlyRenewalProposal_20250625_Test is P
     assertApproxEqRel(
       aaveBalanceAfter,
       aaveBalanceBefore +
-      (proposal.AAVE_AMOUNT_IN_DOLLARS() *
-        10 ** IERC20Metadata(AaveV3EthereumAssets.AAVE_UNDERLYING).decimals() *
-        10 ** 14) /
-      proposal.AAVE_PRICE(),
+        (proposal.AAVE_AMOUNT_IN_DOLLARS() *
+          10 ** IERC20Metadata(AaveV3EthereumAssets.AAVE_UNDERLYING).decimals() *
+          10 ** 14) /
+        proposal.AAVE_PRICE(),
       maxDeltaStreamBalance
     );
   }

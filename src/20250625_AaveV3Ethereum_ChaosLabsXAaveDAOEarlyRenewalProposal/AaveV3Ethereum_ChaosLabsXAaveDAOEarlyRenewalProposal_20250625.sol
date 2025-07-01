@@ -15,9 +15,9 @@ import {IERC20Metadata} from 'openzeppelin-contracts/contracts/token/ERC20/exten
  * - Discussion: https://governance.aave.com/t/chaos-labs-x-aave-dao-early-renewal-proposal/22346
  */
 contract AaveV3Ethereum_ChaosLabsXAaveDAOEarlyRenewalProposal_20250625 is IProposalGenericExecutor {
-   // stream information
+  // stream information
   uint256 public constant STREAM_START = 1752364800; // 2025-07-13 00:00:00
-  uint256 public constant STREAM_STOP  = 1783900799; // 2026-07-12 23:59:59
+  uint256 public constant STREAM_STOP = 1783900799; // 2026-07-12 23:59:59
   // budgets
   uint256 public constant GHO_STREAM_AMOUNT = 2_550_000 ether;
 
@@ -47,7 +47,7 @@ contract AaveV3Ethereum_ChaosLabsXAaveDAOEarlyRenewalProposal_20250625 is IPropo
     );
 
     // Create the AAVE stream on the ecosystem reserve
-    uint256 aave_amount = ( AAVE_AMOUNT_IN_DOLLARS *
+    uint256 aave_amount = (AAVE_AMOUNT_IN_DOLLARS *
       10 ** IERC20Metadata(AaveV3EthereumAssets.AAVE_UNDERLYING).decimals() *
       10 ** 14) / AAVE_PRICE; // we used 14 decimals for price
 
