@@ -167,8 +167,8 @@ This proposal reflects both the **expanded scope of work already delivered**—i
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250625_AaveV3Ethereum_ChaosLabsXAaveDAOEarlyRenewalProposal/AaveV3Ethereum_ChaosLabsXAaveDAOEarlyRenewalProposal_20250625.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250625_AaveV3Ethereum_ChaosLabsXAaveDAOEarlyRenewalProposal/AaveV3Ethereum_ChaosLabsXAaveDAOEarlyRenewalProposal_20250625.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/50615fbb362dea01c133b76b8220ace26ced011f/src/20250625_AaveV3Ethereum_ChaosLabsXAaveDAOEarlyRenewalProposal/AaveV3Ethereum_ChaosLabsXAaveDAOEarlyRenewalProposal_20250625.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/50615fbb362dea01c133b76b8220ace26ced011f/src/20250625_AaveV3Ethereum_ChaosLabsXAaveDAOEarlyRenewalProposal/AaveV3Ethereum_ChaosLabsXAaveDAOEarlyRenewalProposal_20250625.t.sol)
 - [Snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0x9722b9690b52a159c0f6d9fb9fe805390031573d87e89a77fe90888f27ab0c3c)
 - [Discussion](https://governance.aave.com/t/chaos-labs-x-aave-dao-early-renewal-proposal/22346)
 
