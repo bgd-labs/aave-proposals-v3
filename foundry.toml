@@ -15,6 +15,7 @@ fs_permissions = [
   { access = "read", path = "./zkout" },
 ]
 evm_version = 'london'
+cache_path = 'cache/london'
 
 [profile.zksync]
 src = 'zksync'
@@ -26,6 +27,7 @@ optimizer_runs = 200
 fs_permissions = [{ access = "write", path = "./reports" }]
 ffi = true
 evm_version = 'shanghai'
+cache_path = 'cache/shanghai'
 
 [profile.zksync.zksync]
 bytecode_hash = 'none'
@@ -36,18 +38,23 @@ zksolc = '1.5.13'
 
 [profile.test]
 evm_version = 'cancun'
+cache_path = 'cache/cancun'
 
 [profile.deploy]
 evm_version = 'london' # due to linea
+cache_path = 'cache/london'
 
 [profile.sonic]
 evm_version = 'cancun'
+cache_path = 'cache/cancun'
 
 [profile.soneium]
 evm_version = 'cancun'
+cache_path = 'cache/cancun'
 
 [profile.celo]
 evm_version = 'cancun'
+cache_path = 'cache/cancun'
 
 [rpc_endpoints]
 mainnet = "${RPC_MAINNET}"
@@ -69,4 +76,4 @@ celo = "${RPC_CELO}"
 sonic = "${RPC_SONIC}"
 soneium = "${RPC_SONEIUM}"
 
-# See more config options https://github.com/gakonst/foundry/tree/master/config
+# See more config options https://github.com/foundry-rs/foundry/tree/master/crates/config
