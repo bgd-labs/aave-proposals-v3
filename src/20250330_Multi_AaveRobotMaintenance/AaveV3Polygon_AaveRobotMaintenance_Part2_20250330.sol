@@ -15,7 +15,7 @@ import {IAaveCLRobotOperator} from '../interfaces/IAaveCLRobotOperator.sol';
  * @author BGD Labs (@bgdlabs)
  * @notice This payload should be executed after the payload for cancelling old robots has been executed and link tokens
  *         have been transferred to the collector by calling the `withdrawLink()` method on the old operator contract.
- * - Discussion: TODO
+ * - Discussion: https://governance.aave.com/t/technical-maintenance-proposals/15274/96
  */
 contract AaveV3Polygon_AaveRobotMaintenance_Part2_20250330 is IProposalGenericExecutor {
   using SafeERC20 for IERC20;

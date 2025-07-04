@@ -14,7 +14,7 @@ export const config: ConfigFile = {
     shortName: 'AaveRobotMaintenance',
     date: '20250330',
     author: 'BGD Labs (@bgdlabs)',
-    discussion: '',
+    discussion: 'https://governance.aave.com/t/technical-maintenance-proposals/15274/96',
     snapshot: '',
     votingNetwork: 'POLYGON',
   },

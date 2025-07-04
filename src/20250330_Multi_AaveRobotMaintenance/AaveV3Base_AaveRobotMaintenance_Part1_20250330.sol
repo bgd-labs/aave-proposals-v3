@@ -8,7 +8,7 @@ import {IAaveCLRobotOperator} from '../interfaces/IAaveCLRobotOperator.sol';
 /**
  * @title Aave Robot Maintenance
  * @author BGD Labs (@bgdlabs)
- * - Discussion: TODO
+ * - Discussion: https://governance.aave.com/t/technical-maintenance-proposals/15274/96
  */
 contract AaveV3Base_AaveRobotMaintenance_Part1_20250330 is IProposalGenericExecutor {
   uint256 public constant OLD_STATA_ROBOT_ID =
