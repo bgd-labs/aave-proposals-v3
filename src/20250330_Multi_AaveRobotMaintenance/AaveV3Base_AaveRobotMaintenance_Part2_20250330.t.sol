@@ -18,7 +18,7 @@ contract AaveV3Base_AaveRobotMaintenance_Part2_20250330_Test is ProtocolV3TestBa
   AaveV3Base_AaveRobotMaintenance_Part2_20250330 internal proposalPart2;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('base'), 32411151);
+    vm.createSelectFork(vm.rpcUrl('base'), 32554616);
     proposalPart1 = new AaveV3Base_AaveRobotMaintenance_Part1_20250330();
     proposalPart2 = new AaveV3Base_AaveRobotMaintenance_Part2_20250330();
 

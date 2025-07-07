@@ -17,7 +17,7 @@ contract AaveV3BNB_AaveRobotMaintenance_20250330_Test is ProtocolV3TestBase {
   address public constant OLD_STATA_ROBOT_ADDRESS = 0x020E452b463568f55BAc6Dc5aFC8F0B62Ea5f0f3;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('bnb'), 52818523);
+    vm.createSelectFork(vm.rpcUrl('bnb'), 53201338);
     proposal = new AaveV3BNB_AaveRobotMaintenance_Part1_20250330();
   }
 

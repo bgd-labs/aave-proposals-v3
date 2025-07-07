@@ -42,7 +42,7 @@ contract AaveV3Polygon_AaveRobotMaintenance_Part2_20250330 is IProposalGenericEx
     IERC20(LINK_TOKEN).forceApprove(MiscPolygon.AAVE_CL_ROBOT_OPERATOR, totalLinkAmount);
 
     IAaveCLRobotOperator(MiscPolygon.AAVE_CL_ROBOT_OPERATOR).register(
-      'Gas Capped StataToken Rewards Robot',
+      'StataToken Rewards Robot',
       STATA_ROBOT,
       '', // check data
       1_000_000, // gas limit
@@ -51,7 +51,7 @@ contract AaveV3Polygon_AaveRobotMaintenance_Part2_20250330 is IProposalGenericEx
       ''
     );
     IAaveCLRobotOperator(MiscPolygon.AAVE_CL_ROBOT_OPERATOR).register(
-      'Gas Capped Voting Chain Robot',
+      'Voting Chain Robot',
       VOTING_CHAIN_ROBOT,
       '', // check data
       5_000_000, // gas limit

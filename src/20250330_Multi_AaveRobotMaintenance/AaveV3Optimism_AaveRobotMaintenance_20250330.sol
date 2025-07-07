@@ -44,7 +44,7 @@ contract AaveV3Optimism_AaveRobotMaintenance_20250330 is IProposalGenericExecuto
     );
 
     IAaveCLRobotOperator(MiscOptimism.AAVE_CL_ROBOT_OPERATOR).register(
-      'Gas Capped StataToken Rewards Robot',
+      'StataToken Rewards Robot',
       STATA_ROBOT,
       '', // check data
       1_000_000, // gas limit

@@ -5,8 +5,10 @@ import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGen
 import {AaveV3Avalanche, AaveV3AvalancheAssets} from 'aave-address-book/AaveV3Avalanche.sol';
 import {MiscAvalanche} from 'aave-address-book/MiscAvalanche.sol';
 import {SafeERC20} from 'openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol';
+import {SafeCast} from 'openzeppelin-contracts/contracts/utils/math/SafeCast.sol';
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 import {IRescuable} from 'solidity-utils/contracts/utils/interfaces/IRescuable.sol';
+import {CollectorUtils, ICollector} from 'aave-helpers/src/CollectorUtils.sol';
 
 import {IAaveCLRobotOperator} from '../interfaces/IAaveCLRobotOperator.sol';
 
@@ -17,6 +19,8 @@ import {IAaveCLRobotOperator} from '../interfaces/IAaveCLRobotOperator.sol';
  */
 contract AaveV3Avalanche_AaveRobotMaintenance_20250330 is IProposalGenericExecutor {
   using SafeERC20 for IERC20;
+  using CollectorUtils for ICollector;
+  using SafeCast for uint256;
 
   uint256 public constant OLD_STATA_ROBOT_ID =
     107904947592579568918971700174194140052238704341893786027145543179921746685644;
@@ -35,20 +39,23 @@ contract AaveV3Avalanche_AaveRobotMaintenance_20250330 is IProposalGenericExecut
   function execute() external {
     IAaveCLRobotOperator(MiscAvalanche.AAVE_CL_ROBOT_OPERATOR).cancel(OLD_STATA_ROBOT_ID);
     IAaveCLRobotOperator(MiscAvalanche.AAVE_CL_ROBOT_OPERATOR).cancel(OLD_VOTING_CHAIN_ROBOT_ID);
-    uint256 totalLinkAmount = STATA_ROBOT_LINK_AMOUNT + VOTING_CHAIN_ROBOT_LINK_AMOUNT;
 
-    AaveV3Avalanche.COLLECTOR.transfer(
-      IERC20(AaveV3AvalancheAssets.LINKe_UNDERLYING),
-      address(this),
-      totalLinkAmount
+    AaveV3Avalanche.COLLECTOR.withdrawFromV3(
+      CollectorUtils.IOInput({
+        pool: address(AaveV3Avalanche.POOL),
+        underlying: AaveV3AvalancheAssets.LINKe_UNDERLYING,
+        amount: STATA_ROBOT_LINK_AMOUNT + VOTING_CHAIN_ROBOT_LINK_AMOUNT
+      }),
+      address(this)
     );
+    uint256 linkBalance = IERC20(AaveV3AvalancheAssets.LINKe_UNDERLYING).balanceOf(address(this));
     IERC20(AaveV3AvalancheAssets.LINKe_UNDERLYING).forceApprove(
       MiscAvalanche.AAVE_CL_ROBOT_OPERATOR,
-      totalLinkAmount
+      linkBalance
     );
 
     IAaveCLRobotOperator(MiscAvalanche.AAVE_CL_ROBOT_OPERATOR).register(
-      'Gas Capped StataToken Rewards Robot',
+      'StataToken Rewards Robot',
       STATA_ROBOT,
       '', // check data
       1_000_000, // gas limit
@@ -57,11 +64,11 @@ contract AaveV3Avalanche_AaveRobotMaintenance_20250330 is IProposalGenericExecut
       ''
     );
     IAaveCLRobotOperator(MiscAvalanche.AAVE_CL_ROBOT_OPERATOR).register(
-      'Gas Capped Voting Chain Robot',
+      'Voting Chain Robot',
       VOTING_CHAIN_ROBOT,
       '', // check data
       5_000_000, // gas limit
-      VOTING_CHAIN_ROBOT_LINK_AMOUNT,
+      (linkBalance - STATA_ROBOT_LINK_AMOUNT).toUint96(),
       0,
       ''
     );
