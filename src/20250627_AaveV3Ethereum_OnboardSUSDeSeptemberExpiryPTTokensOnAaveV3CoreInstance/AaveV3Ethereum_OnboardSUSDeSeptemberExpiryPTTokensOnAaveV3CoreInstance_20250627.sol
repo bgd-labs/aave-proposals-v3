@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {AaveV3PayloadEthereum} from 'aave-helpers/src/v3-config-engine/AaveV3PayloadEthereum.sol';
 import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
-import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
+import {IAaveV3ConfigEngine, IPool} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 import {SafeERC20} from 'openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol';
 import {IEmissionManager} from 'aave-v3-origin/contracts/rewards/interfaces/IEmissionManager.sol';
@@ -22,6 +22,12 @@ contract AaveV3Ethereum_OnboardSUSDeSeptemberExpiryPTTokensOnAaveV3CoreInstance_
   address public constant PT_sUSDe_25SEP2025 = 0x9F56094C450763769BA0EA9Fe2876070c0fD5F77;
   uint256 public constant PT_sUSDe_25SEP2025_SEED_AMOUNT = 100e18;
   address public constant PT_sUSDe_25SEP2025_LM_ADMIN = 0xac140648435d03f784879cd789130F22Ef588Fcd;
+
+
+  function _preExecute() internal override {
+    uint8 last_ID= _findFirstUnusedEmodeCategory(AaveV3Ethereum.POOL);
+    require(last_ID == 17, "race condition on eModeId");
+  }
 
   function _postExecute() internal override {
     IERC20(PT_sUSDe_25SEP2025).forceApprove(
@@ -46,28 +52,41 @@ contract AaveV3Ethereum_OnboardSUSDeSeptemberExpiryPTTokensOnAaveV3CoreInstance_
     );
   }
 
-  function eModeCategoriesUpdates()
+  function eModeCategoryCreations()
     public
     pure
     override
-    returns (IAaveV3ConfigEngine.EModeCategoryUpdate[] memory)
+    returns (IAaveV3ConfigEngine.EModeCategoryCreation[] memory)
   {
-    IAaveV3ConfigEngine.EModeCategoryUpdate[]
-      memory eModeUpdates = new IAaveV3ConfigEngine.EModeCategoryUpdate[](2);
+    IAaveV3ConfigEngine.EModeCategoryCreation[]
+      memory eModeUpdates = new IAaveV3ConfigEngine.EModeCategoryCreation[](2);
 
-    eModeUpdates[0] = IAaveV3ConfigEngine.EModeCategoryUpdate({
-      eModeCategory: 17,
+      address[] memory borrow1 = new address[](4);
+      borrow1[0] = AaveV3EthereumAssets.USDC_UNDERLYING;
+      borrow1[1] = AaveV3EthereumAssets.USDT_UNDERLYING;
+      borrow1[2] = AaveV3EthereumAssets.USDe_UNDERLYING;
+      borrow1[3] = AaveV3EthereumAssets.USDS_UNDERLYING;
+
+      address[] memory collat2 = new address[](0);
+
+      address[] memory borrow2 = new address[](1);
+      borrow2[0] = AaveV3EthereumAssets.USDe_UNDERLYING;
+
+    eModeUpdates[0] = IAaveV3ConfigEngine.EModeCategoryCreation({
       ltv: 85_70,
       liqThreshold: 87_70,
       liqBonus: 5_60,
-      label: 'PT-sUSDe Stablecoins September 2025'
+      label: 'PT-sUSDe Stablecoins September 2025',
+      borrowables: borrow1,
+      collaterals: collat2
     });
-    eModeUpdates[1] = IAaveV3ConfigEngine.EModeCategoryUpdate({
-      eModeCategory: 18,
+    eModeUpdates[1] = IAaveV3ConfigEngine.EModeCategoryCreation({
       ltv: 87_10,
       liqThreshold: 89_10,
       liqBonus: 3_70,
-      label: 'PT-sUSDe USDe Spetember 2025'
+      label: 'PT-sUSDe USDe Spetember 2025',
+      borrowables: borrow2,
+      collaterals: collat2
     });
 
     return eModeUpdates;
@@ -79,45 +98,15 @@ contract AaveV3Ethereum_OnboardSUSDeSeptemberExpiryPTTokensOnAaveV3CoreInstance_
     returns (IAaveV3ConfigEngine.AssetEModeUpdate[] memory)
   {
     IAaveV3ConfigEngine.AssetEModeUpdate[]
-      memory assetEModeUpdates = new IAaveV3ConfigEngine.AssetEModeUpdate[](7);
+      memory assetEModeUpdates = new IAaveV3ConfigEngine.AssetEModeUpdate[](2);
 
     assetEModeUpdates[0] = IAaveV3ConfigEngine.AssetEModeUpdate({
-      asset: AaveV3EthereumAssets.USDC_UNDERLYING,
-      eModeCategory: 17,
-      borrowable: EngineFlags.ENABLED,
-      collateral: EngineFlags.DISABLED
-    });
-    assetEModeUpdates[1] = IAaveV3ConfigEngine.AssetEModeUpdate({
-      asset: AaveV3EthereumAssets.USDT_UNDERLYING,
-      eModeCategory: 17,
-      borrowable: EngineFlags.ENABLED,
-      collateral: EngineFlags.DISABLED
-    });
-    assetEModeUpdates[2] = IAaveV3ConfigEngine.AssetEModeUpdate({
-      asset: AaveV3EthereumAssets.USDe_UNDERLYING,
-      eModeCategory: 17,
-      borrowable: EngineFlags.ENABLED,
-      collateral: EngineFlags.DISABLED
-    });
-    assetEModeUpdates[3] = IAaveV3ConfigEngine.AssetEModeUpdate({
-      asset: AaveV3EthereumAssets.USDe_UNDERLYING,
-      eModeCategory: 18,
-      borrowable: EngineFlags.ENABLED,
-      collateral: EngineFlags.DISABLED
-    });
-    assetEModeUpdates[4] = IAaveV3ConfigEngine.AssetEModeUpdate({
-      asset: AaveV3EthereumAssets.USDS_UNDERLYING,
-      eModeCategory: 17,
-      borrowable: EngineFlags.ENABLED,
-      collateral: EngineFlags.DISABLED
-    });
-    assetEModeUpdates[5] = IAaveV3ConfigEngine.AssetEModeUpdate({
       asset: PT_sUSDe_25SEP2025,
       eModeCategory: 17,
       borrowable: EngineFlags.DISABLED,
       collateral: EngineFlags.ENABLED
     });
-    assetEModeUpdates[6] = IAaveV3ConfigEngine.AssetEModeUpdate({
+    assetEModeUpdates[1] = IAaveV3ConfigEngine.AssetEModeUpdate({
       asset: PT_sUSDe_25SEP2025,
       eModeCategory: 18,
       borrowable: EngineFlags.DISABLED,
@@ -126,6 +115,7 @@ contract AaveV3Ethereum_OnboardSUSDeSeptemberExpiryPTTokensOnAaveV3CoreInstance_
 
     return assetEModeUpdates;
   }
+
   function newListings() public pure override returns (IAaveV3ConfigEngine.Listing[] memory) {
     IAaveV3ConfigEngine.Listing[] memory listings = new IAaveV3ConfigEngine.Listing[](1);
 
@@ -154,5 +144,15 @@ contract AaveV3Ethereum_OnboardSUSDeSeptemberExpiryPTTokensOnAaveV3CoreInstance_
     });
 
     return listings;
+  }
+  /**
+   * @dev eModes must have a non-zero lt so we select the first that has a zero lt.
+   */
+  function _findFirstUnusedEmodeCategory(IPool pool) private view returns (uint8) {
+    // eMode id 0 is skipped intentially as it is the reserved default
+    for (uint8 i = 1; i < 256; i++) {
+      if (pool.getEModeCategoryCollateralConfig(i).liquidationThreshold == 0) return i;
+    }
+    revert("NoAvailableEmodeCategory");
   }
 }
