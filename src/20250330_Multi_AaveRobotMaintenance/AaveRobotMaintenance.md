@@ -6,23 +6,24 @@ discussions: "https://governance.aave.com/t/technical-maintenance-proposals/1527
 
 ## Simple Summary
 
-Maintenance proposal to update to new governance robots and also update robots for refreshing liquidity mining rewards for stata-tokens.
+Maintenance proposal to update the Aave Robot automations related with governance voting machines and Stata Tokens rewards accounting.
 
 ## Motivation
 
-With the voting machine / portal improvements [proposal](https://vote.onaave.com/proposal/?proposalId=273), as the voting machine addresses are updated it is required to update the voting chain robots which performs automation on the voting machine contracts and also registers storage roots for voting. Also as newer instances of stata-tokens have been deployed recently, it is also needed to register new robots for refreshing liquidity mining rewards and cancel the old ones which were previous activated via this [proposal](https://vote.onaave.com/proposal/?proposalId=109).
+Due to the update of the VotingMachine addresses on the voting machine/portal improvements [proposal](https://vote.onaave.com/proposal/?proposalId=273), it is required to update the voting chain Aave Robot performing automations on the voting machine contracts, and also registering storage roots for voting.
+Additionally, with newer instances of Stata Tokens (used on Umbrella) having been deployed recently, it is also needed to register new robots for refreshing liquidity mining rewards and cancel the old ones that were previously activated via this [proposal](https://vote.onaave.com/proposal/?proposalId=109).
 
 ## Specification
 
-The old stata-token refresh liquidity mining robots and the voting chain robots will be cancelled by calling the `cancel()` method on the robot operator contract, and after the delay has passed anyone could call the permissionless method `withdrawLink()` on the robot operator contract to withdraw the unused funds on the previous robots to the collector.
+The old Stata Token refresh liquidity mining robots and the voting chain robots will be cancelled by calling the `cancel()` method on the Aave Robot operator contract, and after the delay has passed anyone could call the permissionless method `withdrawLink()` to withdraw the unused funds on the previous robots to the Collector.
 
-For the new stata-token and voting chain robots, the payload will call the `register()` method on the robot operator to register the new robots.
+For the new Stata Token and voting chain Robots, the payload will call the `register()` method on the robot operator to register them.
 
-The RootsConsumer contracts which are triggered by voting chain robots to register storage roots for voting are also re-deployed and new instance are used on the new voting chain robots. The link balances from the old RootsConsumer are also migrated to the new RootsConsumer contract by calling the `emergencyTokenTransfer()` method.
+The RootsConsumer contracts, which are triggered by voting chain robots to register storage roots for voting, are also redeployed, and new instances are used on the new voting chain robots. The LINK balances from the old RootsConsumer are also migrated to the new RootsConsumer contract by calling the `emergencyTokenTransfer()` method.
 
-_Please note: This proposal only updates robots on chainlink automation, robots using gelato automation on networks where chainlink automation is not available will be updated manually_
+_Note: This proposal only updates Robots on Chainlink automation. Robots using Gelato automation on networks where Chainlink automation is not available will be updated manually_
 
-<details><summary>Below you can find the changelog of deployed contracts for each instance:</summary>
+Below you can find the changelog of deployed contracts for each instance:
 
 ### StataRefreshRewardRobot:
 
@@ -44,8 +45,6 @@ _Please note: This proposal only updates robots on chainlink automation, robots 
 | Mainnet   | 0x7Ed0A6A294Cf085c90917c0ee1aa34e795932558 | 0xbC3210bfff692a5bbDBB068D42Ab4eAF28b01Ee0 |
 | Avalanche | 0x10E49034306EaA663646773C04b7B67E81eD0D52 | 0x2cf0fA5b36F0f89a5EA18F835d1375974a7720B8 |
 | Polygon   | 0xbe7998712402B6A63975515A532Ce503437998b7 | 0x1180eE41eC15Dd0accC13a1e646B3152bECFf8F6 |
-
-</details>
 
 ## References
 
