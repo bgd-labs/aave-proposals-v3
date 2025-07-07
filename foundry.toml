@@ -14,8 +14,8 @@ fs_permissions = [
   { access = "write", path = "./reports" },
   { access = "read", path = "./zkout" },
 ]
-evm_version = 'london'
-cache_path = 'cache/london'
+evm_version = 'shanghai'
+cache_path = 'cache/shanghai'
 
 [profile.zksync]
 src = 'zksync'
@@ -41,20 +41,12 @@ evm_version = 'cancun'
 cache_path = 'cache/cancun'
 
 [profile.deploy]
-evm_version = 'london' # due to linea
+evm_version = 'shanghai'
+cache_path = 'cache/shanghai'
+
+[profile.linea]
+evm_version = 'london'
 cache_path = 'cache/london'
-
-[profile.sonic]
-evm_version = 'cancun'
-cache_path = 'cache/cancun'
-
-[profile.soneium]
-evm_version = 'cancun'
-cache_path = 'cache/cancun'
-
-[profile.celo]
-evm_version = 'cancun'
-cache_path = 'cache/cancun'
 
 [rpc_endpoints]
 mainnet = "${RPC_MAINNET}"
