@@ -22,11 +22,13 @@ library GHOLaunchConstants {
   address internal constant ARB_GNO_ON_RAMP = 0xc7d6B885d8A4286E6311F79227430b7862311cd3;
   address internal constant ARB_ETH_ON_RAMP = 0x67761742ac8A21Ec4D76CA18cbd701e5A6F3Bef3;
   address internal constant ARB_BASE_ON_RAMP = 0xc1b6287A3292d6469F2D8545877E40A2f75CA9a6;
+  address internal constant ARB_AVAX_ON_RAMP = 0xe80cC83B895ada027b722b78949b296Bd1fC5639;
 
   // Arbitrum OFF_RAMPs
   address internal constant ARB_GNO_OFF_RAMP = 0xeE53872d1C695933B34cE0a11B58613CBBf37e20;
   address internal constant ARB_ETH_OFF_RAMP = 0x91e46cc5590A4B9182e47f40006140A7077Dec31;
   address internal constant ARB_BASE_OFF_RAMP = 0xb62178f8198905D0Fa6d640Bdb188E4E8143Ac4b;
+  address internal constant ARB_AVAX_OFF_RAMP = 0x95095007d5Cc3E7517A1A03c9e228adA5D0bc376;
 
   // Base Addresses
   address internal constant BASE_TOKEN_ADMIN_REGISTRY = 0x6f6C373d09C07425BaAE72317863d7F6bb731e37;
@@ -37,12 +39,14 @@ library GHOLaunchConstants {
   address internal constant BASE_ETH_ON_RAMP = 0x56b30A0Dcd8dc87Ec08b80FA09502bAB801fa78e;
   address internal constant BASE_GNO_ON_RAMP = 0xDcFB24AEbcB9Edfb6746a045DDcae402381F984B;
   address internal constant BASE_ARB_ON_RAMP = 0x9D0ffA76C7F82C34Be313b5bFc6d42A72dA8CA69;
+  address internal constant BASE_AVAX_ON_RAMP = 0x4be6E0F97EA849FF80773af7a317356E6c646FD7;
 
   // Base OFF_RAMPs
 
   address internal constant BASE_ETH_OFF_RAMP = 0xCA04169671A81E4fB8768cfaD46c347ae65371F1;
   address internal constant BASE_GNO_OFF_RAMP = 0x300977dBA924af14E166B31F4926892B1f310661;
   address internal constant BASE_ARB_OFF_RAMP = 0x7D38c6363d5E4DFD500a691Bc34878b383F58d93;
+  address internal constant BASE_AVAX_OFF_RAMP = 0x61C3f6d72c80A3D1790b213c4cB58c3d4aaFccDF;
 
   // Ethereum Addresses
   address internal constant ETH_TOKEN_ADMIN_REGISTRY = 0xb22764f98dD05c789929716D677382Df22C05Cb6;
@@ -52,17 +56,31 @@ library GHOLaunchConstants {
   address internal constant ETH_ARB_ON_RAMP = 0x69eCC4E2D8ea56E2d0a05bF57f4Fd6aEE7f2c284;
   address internal constant ETH_GNO_ON_RAMP = 0xf50B9A46C394bD98491ce163d420222d8030F6F0;
   address internal constant ETH_BASE_ON_RAMP = 0xb8a882f3B88bd52D1Ff56A873bfDB84b70431937;
+  address internal constant ETH_AVAX_ON_RAMP = 0xaFd31C0C78785aDF53E4c185670bfd5376249d8A;
 
   // Ethereum OFF_RAMPs
   address internal constant ETH_ARB_OFF_RAMP = 0xdf615eF8D4C64d0ED8Fd7824BBEd2f6a10245aC9;
   address internal constant ETH_GNO_OFF_RAMP = 0x70C705ff3eCAA04c8c61d581a59a168a1c49c2ec;
   address internal constant ETH_BASE_OFF_RAMP = 0x6B4B6359Dd5B47Cdb030E5921456D2a0625a9EbD;
+  address internal constant ETH_AVAX_OFF_RAMP = 0xd98E80C79a15E4dbaF4C40B6cCDF690fe619BFBb;
 
   // Avalanche Addresses
   address internal constant AVAX_TOKEN_ADMIN_REGISTRY = 0xc8df5D618c6a59Cc6A311E96a39450381001464F;
   address internal constant AVAX_CCIP_ROUTER = 0xF4c7E640EdA248ef95972845a62bdC74237805dB;
-  address internal constant AVAX_GHO_TOKEN = 0xfc421aD3C883Bf9E7C4f42dE845C4e4405799e73;
-  address internal constant AVAX_GHO_TOKEN_POOL = 0xDe6539018B095353A40753Dc54C91C68c9487D4E;
+
+  // Avalanche ON_RAMPs
+
+  address internal constant AVAX_ETH_ON_RAMP = 0xe8784c29c583C52FA89144b9e5DD91Df2a1C2587;
+  address internal constant AVAX_GNO_ON_RAMP = 0x38fd0DF16F6fD0a2C3Ec6615c73e50F5d027b8bA;
+  address internal constant AVAX_ARB_ON_RAMP = 0x4e910c8Bbe88DaDF90baa6c1B7850DbeA32c5B29;
+  address internal constant AVAX_BASE_ON_RAMP = 0x139D4108C23e66745Eda4ab47c25C83494b7C14d;
+
+  // Avalanche OFF_RAMPs
+
+  address internal constant AVAX_ETH_OFF_RAMP = 0xE5F21F43937199D4D57876A83077b3923F68EB76;
+  address internal constant AVAX_GNO_OFF_RAMP = 0x1181A59FF0BAEd1E0EA77e919185cB8C3D5D3125;
+  address internal constant AVAX_ARB_OFF_RAMP = 0x508Ea280D46E4796Ce0f1Acf8BEDa610c4238dB3;
+  address internal constant AVAX_BASE_OFF_RAMP = 0x37879EBFCb807f8C397fCe2f42DC0F5329AD6823;
 
   // Gnosis Addresses
   address internal constant GNO_TOKEN_POOL = 0xDe6539018B095353A40753Dc54C91C68c9487D4E;

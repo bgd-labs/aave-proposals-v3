@@ -24,6 +24,7 @@ import {GovernanceV3Gnosis} from 'aave-address-book/GovernanceV3Gnosis.sol';
 import {GhoArbitrum} from 'aave-address-book/GhoArbitrum.sol';
 import {GhoEthereum} from 'aave-address-book/GhoEthereum.sol';
 import {GhoBase} from 'aave-address-book/GhoBase.sol';
+import {GhoAvalanche} from 'aave-address-book/GhoAvalanche.sol';
 
 import {CCIPUtils} from './utils/CCIPUtils.sol';
 import {GHOLaunchConstants} from './utils/GHOLaunchConstants.sol';
@@ -46,6 +47,7 @@ contract AaveV3Gnosis_GHOGnosisListing_20250421_Base is ProtocolV3TestBase {
   address internal constant NEW_REMOTE_POOL_ARB = GhoArbitrum.GHO_CCIP_TOKEN_POOL;
   address internal constant NEW_REMOTE_POOL_ETH = GhoEthereum.GHO_CCIP_TOKEN_POOL;
   address internal constant NEW_REMOTE_POOL_BASE = GhoBase.GHO_CCIP_TOKEN_POOL;
+  address internal constant NEW_REMOTE_POOL_AVAX = GhoAvalanche.GHO_CCIP_TOKEN_POOL;
   IGhoAaveSteward internal constant NEW_GHO_AAVE_STEWARD =
     IGhoAaveSteward(GHOLaunchConstants.GNO_AAVE_STEWARD);
   IGhoBucketSteward internal constant NEW_GHO_BUCKET_STEWARD =
@@ -56,7 +58,7 @@ contract AaveV3Gnosis_GHOGnosisListing_20250421_Base is ProtocolV3TestBase {
     IUpgradeableBurnMintTokenPool_1_5_1(GHOLaunchConstants.GNO_TOKEN_POOL);
 
   function setUp() public virtual {
-    vm.createSelectFork(vm.rpcUrl('gnosis'), 40313138);
+    vm.createSelectFork(vm.rpcUrl('gnosis'), 40977394);
     proposal = new AaveV3Gnosis_GHOGnosisListing_20250421();
   }
 

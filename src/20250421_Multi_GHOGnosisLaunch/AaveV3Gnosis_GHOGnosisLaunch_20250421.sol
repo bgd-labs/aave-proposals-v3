@@ -14,8 +14,10 @@ import {AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
 import {GhoArbitrum} from 'aave-address-book/GhoArbitrum.sol';
 import {GhoEthereum} from 'aave-address-book/GhoEthereum.sol';
 import {GhoBase} from 'aave-address-book/GhoBase.sol';
+import {GhoAvalanche} from 'aave-address-book/GhoAvalanche.sol';
 import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {AaveV3BaseAssets} from 'aave-address-book/AaveV3Base.sol';
+import {AaveV3AvalancheAssets} from 'aave-address-book/AaveV3Avalanche.sol';
 import {CCIPUtils} from './utils/CCIPUtils.sol';
 import {GHOLaunchConstants} from './utils/GHOLaunchConstants.sol';
 
@@ -28,10 +30,10 @@ import {GHOLaunchConstants} from './utils/GHOLaunchConstants.sol';
  * - Snapshot: https://snapshot.box/#/s:aavedao.eth/proposal/0x62996204d8466d603fe8c953176599db02a23f440a682ff15ba2d0ca63dda386
  */
 contract AaveV3Gnosis_GHOGnosisLaunch_20250421 is IProposalGenericExecutor {
-  uint64 public constant BASE_CHAIN_SELECTOR = CCIPUtils.BASE_CHAIN_SELECTOR;
   uint64 public constant ARB_CHAIN_SELECTOR = CCIPUtils.ARB_CHAIN_SELECTOR;
   uint64 public constant ETH_CHAIN_SELECTOR = CCIPUtils.ETH_CHAIN_SELECTOR;
   uint64 public constant AVAX_CHAIN_SELECTOR = CCIPUtils.AVAX_CHAIN_SELECTOR;
+  uint64 public constant BASE_CHAIN_SELECTOR = CCIPUtils.BASE_CHAIN_SELECTOR;
 
   uint128 public constant CCIP_BUCKET_CAPACITY = GHOLaunchConstants.CCIP_BUCKET_CAPACITY;
 
@@ -49,7 +51,7 @@ contract AaveV3Gnosis_GHOGnosisLaunch_20250421 is IProposalGenericExecutor {
   address public constant REMOTE_TOKEN_POOL_ETH = GhoEthereum.GHO_CCIP_TOKEN_POOL;
   address public constant REMOTE_TOKEN_POOL_ARB = GhoArbitrum.GHO_CCIP_TOKEN_POOL;
   address public constant REMOTE_TOKEN_POOL_BASE = GhoBase.GHO_CCIP_TOKEN_POOL;
-  address public constant REMOTE_TOKEN_POOL_AVAX = GHOLaunchConstants.AVAX_GHO_TOKEN_POOL;
+  address public constant REMOTE_TOKEN_POOL_AVAX = GhoAvalanche.GHO_CCIP_TOKEN_POOL;
 
   // Token Rate Limit Capacity: 300_000 GHO
   uint128 public constant CCIP_RATE_LIMIT_CAPACITY = GHOLaunchConstants.CCIP_RATE_LIMIT_CAPACITY;
@@ -146,7 +148,7 @@ contract AaveV3Gnosis_GHOGnosisLaunch_20250421 is IProposalGenericExecutor {
       chainsToAdd[3] = IUpgradeableBurnMintTokenPool_1_5_1.ChainUpdate({
         remoteChainSelector: AVAX_CHAIN_SELECTOR,
         remotePoolAddresses: remotePoolAddresses,
-        remoteTokenAddress: abi.encode(GHOLaunchConstants.AVAX_GHO_TOKEN),
+        remoteTokenAddress: abi.encode(AaveV3AvalancheAssets.GHO_UNDERLYING),
         outboundRateLimiterConfig: rateLimiterConfig,
         inboundRateLimiterConfig: rateLimiterConfig
       });
