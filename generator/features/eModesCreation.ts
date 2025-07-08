@@ -52,6 +52,7 @@ async function fetchEmodeCategoryCreation(pool: PoolIdentifier): Promise<EModeCa
 async function subCli(pool: PoolIdentifier) {
   const answers: EmodeCreations = [];
   let more: boolean = true;
+  console.log(`Fetching information for Emode creation on ${pool}`);
 
   while (more) {
     answers.push(await fetchEmodeCategoryCreation(pool));
