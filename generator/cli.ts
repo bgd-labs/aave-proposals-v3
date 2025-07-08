@@ -21,6 +21,7 @@ import {rateUpdatesV2, rateUpdatesV3} from './features/rateUpdates';
 import {collateralsUpdates} from './features/collateralsUpdates';
 import {borrowsUpdates} from './features/borrowsUpdates';
 import {eModeUpdates} from './features/eModesUpdates';
+import {eModeCreations} from './features/eModesCreation';
 import {eModeAssets} from './features/eModesAssets';
 import {priceFeedsUpdates} from './features/priceFeedsUpdates';
 import {freezeUpdates} from './features/freeze';
@@ -77,6 +78,7 @@ const FEATURE_MODULES_V3 = [
   borrowsUpdates,
   flashBorrower,
   priceFeedsUpdates,
+  eModeCreations,
   eModeUpdates,
   eModeAssets,
   assetListing,
