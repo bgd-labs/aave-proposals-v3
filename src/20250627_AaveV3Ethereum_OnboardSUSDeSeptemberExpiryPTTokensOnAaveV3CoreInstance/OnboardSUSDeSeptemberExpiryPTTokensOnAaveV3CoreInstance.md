@@ -6,7 +6,15 @@ discussions: "https://governance.aave.com/t/direct-to-aip-onboard-susde-septembe
 
 ## Simple Summary
 
+This AIP proposes to onboard sUSDe September expiry PT tokens on Aave V3 Core Instance.
+
 ## Motivation
+
+The previous sUSDe PT token that was onboarded brought significant inflows to Aave, in preparation for the expiry and rollover we propose to onboard the next expiry of this PT token.
+
+We propose onboarding the 25th September 2025 expiry PT token:
+
+* PT-sUSDE-25SEP2025
 
 ## Specification
 
@@ -17,7 +25,7 @@ The table below illustrates the configured risk parameters for **PT_sUSDe_25SEP2
 | Isolation Mode                  |                                      false |
 | Borrowable                      |                                   DISABLED |
 | Collateral Enabled              |                                       true |
-| Supply Cap (PT_sUSDe_25SEP2025) |                                 50,000,000 |
+| Supply Cap (PT_sUSDe_25SEP2025) |                                200,000,000 |
 | Borrow Cap (PT_sUSDe_25SEP2025) |                                          1 |
 | Debt Ceiling                    |                                      USD 0 |
 | LTV                             |                                     0.05 % |
@@ -32,7 +40,39 @@ The table below illustrates the configured risk parameters for **PT_sUSDe_25SEP2
 | Flashloanable                   |                                    ENABLED |
 | Siloed Borrowing                |                                   DISABLED |
 | Borrowable in Isolation         |                                   DISABLED |
+
 | Oracle                          | 0x7585693910f39df4959912B27D09EAEef06C1a93 |
+
+**Pricefeed details**
+
+| Parameter              |                                                                                                                         Value |
+| ---------------------- | ----------------------------------------------------------------------------------------------------------------------------: |
+| Oracle                 | [PT Capped sUSDe USDT/USD linear discount 25SEP2025](https://etherscan.io/address/0x7585693910f39df4959912b27d09eaeef06c1a93) |
+| Underlying Oracle      |                                    [Capped USDT/USD](https://etherscan.io/address/0x260326c220E469358846b187eE53328303Efe19C) |
+| Underlying Oracle      |                                 [Chainlink USDT/USD](https://etherscan.io/address/0x3E7d1eAB13ad0104d2750B8863b489D65364e32D) |
+| Oracle Latest Answer   |                                                                                                    (2025-06-08) USD .98358934 |
+| discountRatePerYear    |                                                                                                                         7.69% |
+| maxDiscountRatePerYear |                                                                                                                        31.11% |
+
+**PT-sUSDE Stablecoins E-mode**
+
+| Asset             | PT-sUSDe | USDC | USDT | USDS | USDe |
+| ----------------- | -------- | ---- | ---- | ---- | ---- |
+| Collateral        | Yes      | No   | No   | No   | No   |
+| Borrowable        | No       | Yes  | Yes  | Yes  | Yes  |
+| LTV               | 87.7%    | -    | -    | -    | -    |
+| LT                | 89.7%    | -    | -    | -    | -    |
+| Liquidation Bonus | 5%       | -    | -    | -    | -    |
+
+**PT-sUSDE USDe E-mode**
+
+| Asset             | PT-sUSDe | USDe |
+| ----------------- | -------- | ---- |
+| Collateral        | Yes      | No   |
+| Borrowable        | No       | Yes  |
+| LTV               | 89.1%    | -    |
+| LT                | 91.1%    | -    |
+| Liquidation Bonus | 3%       | -    |
 
 Additionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://etherscan.io/address/0xac140648435d03f784879cd789130F22Ef588Fcd) has been set as the emission admin for PT_sUSDe_25SEP2025 and the corresponding aToken.
 

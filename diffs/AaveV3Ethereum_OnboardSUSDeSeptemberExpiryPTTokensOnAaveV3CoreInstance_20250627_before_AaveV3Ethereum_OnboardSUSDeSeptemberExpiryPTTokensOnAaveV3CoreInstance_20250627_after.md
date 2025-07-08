@@ -9,7 +9,7 @@
 | decimals | 18 |
 | isActive | true |
 | isFrozen | false |
-| supplyCap | 50,000,000 PT-sUSDE-25SEP2025 |
+| supplyCap | 200,000,000 PT-sUSDE-25SEP2025 |
 | borrowCap | 1 PT-sUSDE-25SEP2025 |
 | debtCeiling | 0 $ [0] |
 | isSiloed | false |
@@ -116,9 +116,9 @@
 | description | value before | value after |
 | --- | --- | --- |
 | eMode.label | - | PT-sUSDe Stablecoins September 2025 |
-| eMode.ltv | - | 85.7 % |
-| eMode.liquidationThreshold | - | 87.7 % |
-| eMode.liquidationBonus | - | 5.6 % |
+| eMode.ltv | - | 87.7 % |
+| eMode.liquidationThreshold | - | 89.7 % |
+| eMode.liquidationBonus | - | 5 % |
 | eMode.borrowableBitmap | - | USDC, USDT, USDe, USDS |
 | eMode.collateralBitmap | - | PT-sUSDE-25SEP2025 |
 
@@ -128,9 +128,9 @@
 | description | value before | value after |
 | --- | --- | --- |
 | eMode.label | - | PT-sUSDe USDe Spetember 2025 |
-| eMode.ltv | - | 87.1 % |
-| eMode.liquidationThreshold | - | 89.1 % |
-| eMode.liquidationBonus | - | 3.7 % |
+| eMode.ltv | - | 89.1 % |
+| eMode.liquidationThreshold | - | 91.1 % |
+| eMode.liquidationBonus | - | 3 % |
 | eMode.borrowableBitmap | - | USDe |
 | eMode.collateralBitmap | - | PT-sUSDE-25SEP2025 |
 
@@ -147,9 +147,9 @@
         "collateralBitmap": "281474976710656",
         "eModeCategory": 17,
         "label": "PT-sUSDe Stablecoins September 2025",
-        "liquidationBonus": 10560,
-        "liquidationThreshold": 8770,
-        "ltv": 8570
+        "liquidationBonus": 10500,
+        "liquidationThreshold": 8970,
+        "ltv": 8770
       }
     },
     "18": {
@@ -159,9 +159,9 @@
         "collateralBitmap": "281474976710656",
         "eModeCategory": 18,
         "label": "PT-sUSDe USDe Spetember 2025",
-        "liquidationBonus": 10370,
-        "liquidationThreshold": 8910,
-        "ltv": 8710
+        "liquidationBonus": 10300,
+        "liquidationThreshold": 9110,
+        "ltv": 8910
       }
     }
   },
@@ -194,7 +194,7 @@
         "oracleDescription": "PT Capped sUSDe USDT/USD linear discount 25SEP2025",
         "oracleLatestAnswer": "98335005",
         "reserveFactor": 1000,
-        "supplyCap": 50000000,
+        "supplyCap": 200000000,
         "symbol": "PT-sUSDE-25SEP2025",
         "underlying": "0x9F56094C450763769BA0EA9Fe2876070c0fD5F77",
         "usageAsCollateralEnabled": true,
@@ -379,7 +379,7 @@
       "stateDiff": {
         "0x7635c6f6fb0dc990d132e97ffe82e07606fac72c3d39da71ac41d6a8564addda": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x000000000000000000000000000000000000000100000000000029402242217a"
+          "newValue": "0x00000000000000000000000000000000000000010000000000002904230a2242"
         },
         "0x7635c6f6fb0dc990d132e97ffe82e07606fac72c3d39da71ac41d6a8564adddb": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -391,7 +391,7 @@
         },
         "0xad685eb1539e227904de4d026e2fa285114f8a6da148661059c13a946d709f4f": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x0000000000000000000000000000000000000001000000000000288222ce2206"
+          "newValue": "0x0000000000000000000000000000000000000001000000000000283c239622ce"
         },
         "0xad685eb1539e227904de4d026e2fa285114f8a6da148661059c13a946d709f50": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -403,7 +403,7 @@
         },
         "0xc00262ed55c3f8b3ae06bbb28c20fbb0e54ee84605c5c00c4ce60d963f62f803": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x100000000000000000000003e8002faf08000000000103e8811229fe000a0005"
+          "newValue": "0x100000000000000000000003e800bebc20000000000103e8811229fe000a0005"
         },
         "0xf6ae0d4ae2d98c3ea962f8b70bec8e22a5fee3ba42870edba969d3e15fcee29a": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",

@@ -68,17 +68,17 @@ contract AaveV3Ethereum_OnboardSUSDeSeptemberExpiryPTTokensOnAaveV3CoreInstance_
       borrow2[0] = AaveV3EthereumAssets.USDe_UNDERLYING;
 
     eModeUpdates[0] = IAaveV3ConfigEngine.EModeCategoryCreation({
-      ltv: 85_70,
-      liqThreshold: 87_70,
-      liqBonus: 5_60,
+      ltv: 87_70,
+      liqThreshold: 89_70,
+      liqBonus: 5_00,
       label: 'PT-sUSDe Stablecoins September 2025',
       borrowables: borrow1,
       collaterals: collatboth
     });
     eModeUpdates[1] = IAaveV3ConfigEngine.EModeCategoryCreation({
-      ltv: 87_10,
-      liqThreshold: 89_10,
-      liqBonus: 3_70,
+      ltv: 89_10,
+      liqThreshold: 91_10,
+      liqBonus: 3_00,
       label: 'PT-sUSDe USDe Spetember 2025',
       borrowables: borrow2,
       collaterals: collatboth
@@ -102,7 +102,7 @@ contract AaveV3Ethereum_OnboardSUSDeSeptemberExpiryPTTokensOnAaveV3CoreInstance_
       liqThreshold: 10,
       liqBonus: 7_50,
       reserveFactor: 10_00,
-      supplyCap: 50_000_000,
+      supplyCap: 200_000_000,
       borrowCap: 1,
       debtCeiling: 0,
       liqProtocolFee: 10_00,
