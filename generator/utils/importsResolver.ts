@@ -105,5 +105,5 @@ export function prefixWithImports(code: string) {
     imports += `import {IEmissionManager} from 'aave-v3-origin/contracts/rewards/interfaces/IEmissionManager.sol';\n`;
   }
 
-  return imports + code;
+  return imports + '\n' + code;
 }
