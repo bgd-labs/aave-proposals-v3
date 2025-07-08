@@ -19,7 +19,7 @@ contract AaveV3Arbitrum_AaveRobotMaintenance_20250330_Test is ProtocolV3TestBase
   address public constant OLD_STATA_ROBOT_ADDRESS = 0x0451f67bA61966C346daBAbB50a30Cc6A9A67C69;
 
   function setUp() public {
-    uint256 blockNumber = 354070703;
+    uint256 blockNumber = 355222542;
     vm.createSelectFork(vm.rpcUrl('arbitrum'), blockNumber);
     proposal = new AaveV3Arbitrum_AaveRobotMaintenance_20250330();
 

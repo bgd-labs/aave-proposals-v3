@@ -20,7 +20,7 @@ contract AaveV3Ethereum_AaveRobotMaintenance_20250330_Test is ProtocolV3TestBase
     0x7Ed0A6A294Cf085c90917c0ee1aa34e795932558;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 22844092);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 22867878);
     proposal = new AaveV3Ethereum_AaveRobotMaintenance_20250330();
   }
 

@@ -27,7 +27,7 @@ contract AaveV3BNB_AaveRobotMaintenance_Part2_20250330 is IProposalGenericExecut
     IERC20(LINK_TOKEN).forceApprove(MiscBNB.AAVE_CL_ROBOT_OPERATOR, STATA_ROBOT_LINK_AMOUNT);
 
     IAaveCLRobotOperator(MiscBNB.AAVE_CL_ROBOT_OPERATOR).register(
-      'Gas Capped StataToken Rewards Robot',
+      'StataToken Rewards Robot',
       STATA_ROBOT,
       '', // check data
       1_000_000, // gas limit

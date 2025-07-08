@@ -17,7 +17,7 @@ contract AaveV3Optimism_AaveRobotMaintenance_20250330_Test is ProtocolV3TestBase
   address public constant OLD_STATA_ROBOT_ADDRESS = 0x861Be72d464b6F1C99880B9bE476D40e8F9b5Bce;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('optimism'), 138006488);
+    vm.createSelectFork(vm.rpcUrl('optimism'), 138150047);
     proposal = new AaveV3Optimism_AaveRobotMaintenance_20250330();
   }
 

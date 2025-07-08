@@ -19,7 +19,7 @@ contract AaveV3Avalanche_AaveRobotMaintenance_20250330_Test is ProtocolV3TestBas
     0x10E49034306EaA663646773C04b7B67E81eD0D52;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('avalanche'), 64922209);
+    vm.createSelectFork(vm.rpcUrl('avalanche'), 65085760);
     proposal = new AaveV3Avalanche_AaveRobotMaintenance_20250330();
   }
 

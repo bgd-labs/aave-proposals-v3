@@ -20,7 +20,7 @@ contract AaveV3Polygon_AaveRobotMaintenance_Part1_20250330_Test is ProtocolV3Tes
     0xbe7998712402B6A63975515A532Ce503437998b7;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('polygon'), 73557608);
+    vm.createSelectFork(vm.rpcUrl('polygon'), 73692653);
     proposal = new AaveV3Polygon_AaveRobotMaintenance_Part1_20250330();
   }
 

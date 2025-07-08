@@ -5,7 +5,9 @@ import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGen
 import {AaveV3Arbitrum, AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
 import {MiscArbitrum} from 'aave-address-book/MiscArbitrum.sol';
 import {SafeERC20} from 'openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol';
+import {SafeCast} from 'openzeppelin-contracts/contracts/utils/math/SafeCast.sol';
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
+import {CollectorUtils, ICollector} from 'aave-helpers/src/CollectorUtils.sol';
 
 import {IAaveCLRobotOperator} from '../interfaces/IAaveCLRobotOperator.sol';
 
@@ -16,6 +18,8 @@ import {IAaveCLRobotOperator} from '../interfaces/IAaveCLRobotOperator.sol';
  */
 contract AaveV3Arbitrum_AaveRobotMaintenance_20250330 is IProposalGenericExecutor {
   using SafeERC20 for IERC20;
+  using CollectorUtils for ICollector;
+  using SafeCast for uint256;
 
   uint256 public constant OLD_STATA_ROBOT_ID =
     34319054624776880603638802606735174345615741182444121775448759524700600678014;
@@ -25,18 +29,22 @@ contract AaveV3Arbitrum_AaveRobotMaintenance_20250330 is IProposalGenericExecuto
   function execute() external {
     IAaveCLRobotOperator(MiscArbitrum.AAVE_CL_ROBOT_OPERATOR).cancel(OLD_STATA_ROBOT_ID);
 
-    AaveV3Arbitrum.COLLECTOR.transfer(
-      IERC20(AaveV3ArbitrumAssets.LINK_UNDERLYING),
-      address(this),
-      STATA_ROBOT_LINK_AMOUNT
+    AaveV3Arbitrum.COLLECTOR.withdrawFromV3(
+      CollectorUtils.IOInput({
+        pool: address(AaveV3Arbitrum.POOL),
+        underlying: AaveV3ArbitrumAssets.LINK_UNDERLYING,
+        amount: STATA_ROBOT_LINK_AMOUNT
+      }),
+      address(this)
     );
+    uint256 linkBalance = IERC20(AaveV3ArbitrumAssets.LINK_UNDERLYING).balanceOf(address(this));
     IERC20(AaveV3ArbitrumAssets.LINK_UNDERLYING).forceApprove(
       MiscArbitrum.AAVE_CL_ROBOT_OPERATOR,
-      STATA_ROBOT_LINK_AMOUNT
+      linkBalance
     );
 
     IAaveCLRobotOperator(MiscArbitrum.AAVE_CL_ROBOT_OPERATOR).register(
-      'Gas Capped StataToken Rewards Robot',
+      'StataToken Rewards Robot',
       STATA_ROBOT,
       '', // check data
       1_000_000, // gas limit
