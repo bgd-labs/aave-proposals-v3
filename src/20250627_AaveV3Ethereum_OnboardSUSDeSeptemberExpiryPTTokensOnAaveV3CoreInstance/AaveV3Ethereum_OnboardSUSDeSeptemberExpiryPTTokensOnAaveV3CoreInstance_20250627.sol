@@ -23,12 +23,6 @@ contract AaveV3Ethereum_OnboardSUSDeSeptemberExpiryPTTokensOnAaveV3CoreInstance_
   uint256 public constant PT_sUSDe_25SEP2025_SEED_AMOUNT = 100e18;
   address public constant PT_sUSDe_25SEP2025_LM_ADMIN = 0xac140648435d03f784879cd789130F22Ef588Fcd;
 
-
-  function _preExecute() internal override {
-    uint8 last_ID= _findFirstUnusedEmodeCategory(AaveV3Ethereum.POOL);
-    require(last_ID == 17, "race condition on eModeId");
-  }
-
   function _postExecute() internal override {
     IERC20(PT_sUSDe_25SEP2025).forceApprove(
       address(AaveV3Ethereum.POOL),
@@ -67,7 +61,8 @@ contract AaveV3Ethereum_OnboardSUSDeSeptemberExpiryPTTokensOnAaveV3CoreInstance_
       borrow1[2] = AaveV3EthereumAssets.USDe_UNDERLYING;
       borrow1[3] = AaveV3EthereumAssets.USDS_UNDERLYING;
 
-      address[] memory collat2 = new address[](0);
+      address[] memory collatboth = new address[](1);
+      collatboth[0] = PT_sUSDe_25SEP2025;
 
       address[] memory borrow2 = new address[](1);
       borrow2[0] = AaveV3EthereumAssets.USDe_UNDERLYING;
@@ -78,7 +73,7 @@ contract AaveV3Ethereum_OnboardSUSDeSeptemberExpiryPTTokensOnAaveV3CoreInstance_
       liqBonus: 5_60,
       label: 'PT-sUSDe Stablecoins September 2025',
       borrowables: borrow1,
-      collaterals: collat2
+      collaterals: collatboth
     });
     eModeUpdates[1] = IAaveV3ConfigEngine.EModeCategoryCreation({
       ltv: 87_10,
@@ -86,34 +81,10 @@ contract AaveV3Ethereum_OnboardSUSDeSeptemberExpiryPTTokensOnAaveV3CoreInstance_
       liqBonus: 3_70,
       label: 'PT-sUSDe USDe Spetember 2025',
       borrowables: borrow2,
-      collaterals: collat2
+      collaterals: collatboth
     });
 
     return eModeUpdates;
-  }
-  function assetsEModeUpdates()
-    public
-    pure
-    override
-    returns (IAaveV3ConfigEngine.AssetEModeUpdate[] memory)
-  {
-    IAaveV3ConfigEngine.AssetEModeUpdate[]
-      memory assetEModeUpdates = new IAaveV3ConfigEngine.AssetEModeUpdate[](2);
-
-    assetEModeUpdates[0] = IAaveV3ConfigEngine.AssetEModeUpdate({
-      asset: PT_sUSDe_25SEP2025,
-      eModeCategory: 17,
-      borrowable: EngineFlags.DISABLED,
-      collateral: EngineFlags.ENABLED
-    });
-    assetEModeUpdates[1] = IAaveV3ConfigEngine.AssetEModeUpdate({
-      asset: PT_sUSDe_25SEP2025,
-      eModeCategory: 18,
-      borrowable: EngineFlags.DISABLED,
-      collateral: EngineFlags.ENABLED
-    });
-
-    return assetEModeUpdates;
   }
 
   function newListings() public pure override returns (IAaveV3ConfigEngine.Listing[] memory) {
