@@ -8,6 +8,8 @@ import {IAaveV3ConfigEngine, IPool} from 'aave-v3-origin/contracts/extensions/v3
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 import {SafeERC20} from 'openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol';
 import {IEmissionManager} from 'aave-v3-origin/contracts/rewards/interfaces/IEmissionManager.sol';
+
+import {IAaveStewardInjector} from '../interfaces/IAaveStewardInjector.sol';
 /**
  * @title Onboard sUSDe September expiry PT tokens on Aave V3 Core Instance
  * @author Aave-Chan Initiative
@@ -24,6 +26,16 @@ contract AaveV3Ethereum_OnboardSUSDeSeptemberExpiryPTTokensOnAaveV3CoreInstance_
   address public constant PT_sUSDe_25SEP2025_LM_ADMIN = 0xac140648435d03f784879cd789130F22Ef588Fcd;
 
   function _postExecute() internal override {
+    // we whitelist the two newly created eModeId on the injector
+    uint8 nextID = _findFirstUnusedEmodeCategory(AaveV3Ethereum.POOL);
+    address[] memory marketsToWhitelist = new address[](2);
+    marketsToWhitelist[0] = address(uint160(nextID-1)); // on the injector we encode eModeId to address
+    marketsToWhitelist[1] = address(uint160(nextID-2)); // on the injector we encode eModeId to address
+    IAaveStewardInjector(AaveV3Ethereum.EDGE_INJECTOR_PENDLE_EMODE).addMarkets(marketsToWhitelist);
+    address[] memory assetToWhitelist = new address[](1);
+    assetToWhitelist[0] = PT_sUSDe_25SEP2025; // on the injector we encode eModeId to address
+    IAaveStewardInjector(AaveV3Ethereum.EDGE_INJECTOR_DISCOUNT_RATE).addMarkets(assetToWhitelist);
+
     IERC20(PT_sUSDe_25SEP2025).forceApprove(
       address(AaveV3Ethereum.POOL),
       PT_sUSDe_25SEP2025_SEED_AMOUNT
