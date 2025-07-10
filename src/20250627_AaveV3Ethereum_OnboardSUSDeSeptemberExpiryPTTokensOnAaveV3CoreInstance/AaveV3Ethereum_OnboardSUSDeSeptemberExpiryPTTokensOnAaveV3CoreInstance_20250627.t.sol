@@ -83,7 +83,73 @@ contract AaveV3Ethereum_OnboardSUSDeSeptemberExpiryPTTokensOnAaveV3CoreInstance_
     currentDiscountRate = PT_ORACLE.discountRatePerYear();
     assertEq(discountRateToSet, currentDiscountRate);
   }
-  
+  function test_inject_EMode17UpdateToProtocol() public {
+    executePayload(vm, address(proposal));
+
+    uint8 eModeId = 17;
+    uint256 ltv = 87_80;
+    uint256 liqThreshold = 89_80;
+    uint256 liqBonus = 5_10;
+    _addUpdateToRiskOracle(eModeId, ltv, liqThreshold, liqBonus);
+
+    (bool upkeepNeeded, bytes memory performData) = AutomationCompatibleInterface(
+      AaveV3Ethereum.EDGE_INJECTOR_PENDLE_EMODE
+    ).checkUpkeep('');
+    assertTrue(upkeepNeeded);
+
+    AutomationCompatibleInterface(AaveV3Ethereum.EDGE_INJECTOR_PENDLE_EMODE).performUpkeep(
+      performData
+    );
+    DataTypes.CollateralConfig memory eModeConfig = AaveV3Ethereum
+      .POOL
+      .getEModeCategoryCollateralConfig(eModeId);
+
+    assertEq(eModeConfig.ltv, ltv);
+    assertEq(eModeConfig.liquidationThreshold, liqThreshold);
+    assertEq(eModeConfig.liquidationBonus, 100_00 + liqBonus);
+  }
+
+  function test_inject_EMode18UpdateToProtocol() public {
+    executePayload(vm, address(proposal));
+
+    uint8 eModeId = 18;
+    uint256 ltv = 89_20;
+    uint256 liqThreshold = 91_20;
+    uint256 liqBonus = 3_10;
+    _addUpdateToRiskOracle(eModeId, ltv, liqThreshold, liqBonus);
+
+    (bool upkeepNeeded, bytes memory performData) = AutomationCompatibleInterface(
+      AaveV3Ethereum.EDGE_INJECTOR_PENDLE_EMODE
+    ).checkUpkeep('');
+    assertTrue(upkeepNeeded);
+
+    AutomationCompatibleInterface(AaveV3Ethereum.EDGE_INJECTOR_PENDLE_EMODE).performUpkeep(
+      performData
+    );
+    DataTypes.CollateralConfig memory eModeConfig = AaveV3Ethereum
+      .POOL
+      .getEModeCategoryCollateralConfig(eModeId);
+
+    assertEq(eModeConfig.ltv, ltv);
+    assertEq(eModeConfig.liquidationThreshold, liqThreshold);
+    assertEq(eModeConfig.liquidationBonus, 100_00 + liqBonus);
+  }
+
+  function _addUpdateToRiskOracle(uint8 eModeId, uint256 ltv, uint256 lt, uint256 lb) internal {
+    IAaveStewardInjector.EModeCategoryUpdate memory eModeParam = IAaveStewardInjector
+      .EModeCategoryUpdate({ltv: ltv, liqThreshold: lt, liqBonus: lb});
+
+    vm.startPrank(RISK_ORACLE_OWNER);
+    IRiskOracle(IAaveStewardInjector(AaveV3Ethereum.EDGE_INJECTOR_PENDLE_EMODE).RISK_ORACLE())
+      .publishRiskParameterUpdate(
+        'referenceId',
+        abi.encode(eModeParam),
+        'EModeCategoryUpdate_Core',
+        address(uint160(eModeId)),
+        'additionalData'
+      );
+    vm.stopPrank();
+  }
   function _addUpdateToRiskOracle(uint256 value) internal {
     vm.startPrank(RISK_ORACLE_OWNER);
     IRiskOracle(AaveV3Ethereum.EDGE_RISK_ORACLE).publishRiskParameterUpdate(
