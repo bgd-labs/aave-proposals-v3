@@ -29,8 +29,8 @@ contract AaveV3Ethereum_OnboardSUSDeSeptemberExpiryPTTokensOnAaveV3CoreInstance_
     // we whitelist the two newly created eModeId on the injector
     uint8 nextID = _findFirstUnusedEmodeCategory(AaveV3Ethereum.POOL);
     address[] memory marketsToWhitelist = new address[](2);
-    marketsToWhitelist[0] = address(uint160(nextID-1)); // on the injector we encode eModeId to address
-    marketsToWhitelist[1] = address(uint160(nextID-2)); // on the injector we encode eModeId to address
+    marketsToWhitelist[0] = address(uint160(nextID - 1)); // on the injector we encode eModeId to address
+    marketsToWhitelist[1] = address(uint160(nextID - 2)); // on the injector we encode eModeId to address
     IAaveStewardInjector(AaveV3Ethereum.EDGE_INJECTOR_PENDLE_EMODE).addMarkets(marketsToWhitelist);
     address[] memory assetToWhitelist = new address[](1);
     assetToWhitelist[0] = PT_sUSDe_25SEP2025; // on the injector we encode eModeId to address
@@ -67,17 +67,17 @@ contract AaveV3Ethereum_OnboardSUSDeSeptemberExpiryPTTokensOnAaveV3CoreInstance_
     IAaveV3ConfigEngine.EModeCategoryCreation[]
       memory eModeUpdates = new IAaveV3ConfigEngine.EModeCategoryCreation[](2);
 
-      address[] memory borrow1 = new address[](4);
-      borrow1[0] = AaveV3EthereumAssets.USDC_UNDERLYING;
-      borrow1[1] = AaveV3EthereumAssets.USDT_UNDERLYING;
-      borrow1[2] = AaveV3EthereumAssets.USDe_UNDERLYING;
-      borrow1[3] = AaveV3EthereumAssets.USDS_UNDERLYING;
+    address[] memory borrow1 = new address[](4);
+    borrow1[0] = AaveV3EthereumAssets.USDC_UNDERLYING;
+    borrow1[1] = AaveV3EthereumAssets.USDT_UNDERLYING;
+    borrow1[2] = AaveV3EthereumAssets.USDe_UNDERLYING;
+    borrow1[3] = AaveV3EthereumAssets.USDS_UNDERLYING;
 
-      address[] memory collatboth = new address[](1);
-      collatboth[0] = PT_sUSDe_25SEP2025;
+    address[] memory collatboth = new address[](1);
+    collatboth[0] = PT_sUSDe_25SEP2025;
 
-      address[] memory borrow2 = new address[](1);
-      borrow2[0] = AaveV3EthereumAssets.USDe_UNDERLYING;
+    address[] memory borrow2 = new address[](1);
+    borrow2[0] = AaveV3EthereumAssets.USDe_UNDERLYING;
 
     eModeUpdates[0] = IAaveV3ConfigEngine.EModeCategoryCreation({
       ltv: 87_70,
@@ -136,6 +136,6 @@ contract AaveV3Ethereum_OnboardSUSDeSeptemberExpiryPTTokensOnAaveV3CoreInstance_
     for (uint8 i = 1; i < 256; i++) {
       if (pool.getEModeCategoryCollateralConfig(i).liquidationThreshold == 0) return i;
     }
-    revert("NoAvailableEmodeCategory");
+    revert('NoAvailableEmodeCategory');
   }
 }

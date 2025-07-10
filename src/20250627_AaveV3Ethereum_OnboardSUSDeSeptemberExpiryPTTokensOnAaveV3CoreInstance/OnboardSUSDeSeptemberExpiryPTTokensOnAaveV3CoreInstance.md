@@ -14,34 +14,34 @@ The previous sUSDe PT token that was onboarded brought significant inflows to Aa
 
 We propose onboarding the 25th September 2025 expiry PT token:
 
-* PT-sUSDE-25SEP2025
+- PT-sUSDE-25SEP2025
 
 ## Specification
 
 The table below illustrates the configured risk parameters for **PT_sUSDe_25SEP2025**
 
-| Parameter                       |                                      Value |
-| ------------------------------- | -----------------------------------------: |
-| Isolation Mode                  |                                      false |
-| Borrowable                      |                                   DISABLED |
-| Collateral Enabled              |                                       true |
-| Supply Cap (PT_sUSDe_25SEP2025) |                                200,000,000 |
-| Borrow Cap (PT_sUSDe_25SEP2025) |                                          1 |
-| Debt Ceiling                    |                                      USD 0 |
-| LTV                             |                                     0.05 % |
-| LT                              |                                      0.1 % |
-| Liquidation Bonus               |                                      7.5 % |
-| Liquidation Protocol Fee        |                                       10 % |
-| Reserve Factor                  |                                       10 % |
-| Base Variable Borrow Rate       |                                        0 % |
-| Variable Slope 1                |                                        6 % |
-| Variable Slope 2                |                                       50 % |
-| Uoptimal                        |                                       90 % |
-| Flashloanable                   |                                    ENABLED |
-| Siloed Borrowing                |                                   DISABLED |
-| Borrowable in Isolation         |                                   DISABLED |
+| Parameter                       |       Value |
+| ------------------------------- | ----------: |
+| Isolation Mode                  |       false |
+| Borrowable                      |    DISABLED |
+| Collateral Enabled              |        true |
+| Supply Cap (PT_sUSDe_25SEP2025) | 200,000,000 |
+| Borrow Cap (PT_sUSDe_25SEP2025) |           1 |
+| Debt Ceiling                    |       USD 0 |
+| LTV                             |      0.05 % |
+| LT                              |       0.1 % |
+| Liquidation Bonus               |       7.5 % |
+| Liquidation Protocol Fee        |        10 % |
+| Reserve Factor                  |        10 % |
+| Base Variable Borrow Rate       |         0 % |
+| Variable Slope 1                |         6 % |
+| Variable Slope 2                |        50 % |
+| Uoptimal                        |        90 % |
+| Flashloanable                   |     ENABLED |
+| Siloed Borrowing                |    DISABLED |
+| Borrowable in Isolation         |    DISABLED |
 
-| Oracle                          | 0x7585693910f39df4959912B27D09EAEef06C1a93 |
+| Oracle | 0x7585693910f39df4959912B27D09EAEef06C1a93 |
 
 **Pricefeed details**
 

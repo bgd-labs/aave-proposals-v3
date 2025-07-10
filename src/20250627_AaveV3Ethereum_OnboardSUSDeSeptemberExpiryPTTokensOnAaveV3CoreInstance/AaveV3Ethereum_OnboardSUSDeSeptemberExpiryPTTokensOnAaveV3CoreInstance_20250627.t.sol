@@ -27,7 +27,6 @@ contract AaveV3Ethereum_OnboardSUSDeSeptemberExpiryPTTokensOnAaveV3CoreInstance_
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('mainnet'), 22868186);
     proposal = new AaveV3Ethereum_OnboardSUSDeSeptemberExpiryPTTokensOnAaveV3CoreInstance_20250627();
-
   }
 
   /**
@@ -79,7 +78,9 @@ contract AaveV3Ethereum_OnboardSUSDeSeptemberExpiryPTTokensOnAaveV3CoreInstance_
     ).checkUpkeep('');
     assertTrue(upkeepNeeded);
 
-    AutomationCompatibleInterface(AaveV3Ethereum.EDGE_INJECTOR_DISCOUNT_RATE).performUpkeep(performData);
+    AutomationCompatibleInterface(AaveV3Ethereum.EDGE_INJECTOR_DISCOUNT_RATE).performUpkeep(
+      performData
+    );
 
     currentDiscountRate = PT_ORACLE.discountRatePerYear();
     assertEq(discountRateToSet, currentDiscountRate);
