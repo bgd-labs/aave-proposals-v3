@@ -41,8 +41,6 @@ The table below illustrates the configured risk parameters for **PT_sUSDe_25SEP2
 | Siloed Borrowing                |    DISABLED |
 | Borrowable in Isolation         |    DISABLED |
 
-| Oracle | 0x7585693910f39df4959912B27D09EAEef06C1a93 |
-
 **Pricefeed details**
 
 | Parameter              |                                                                                                                         Value |
