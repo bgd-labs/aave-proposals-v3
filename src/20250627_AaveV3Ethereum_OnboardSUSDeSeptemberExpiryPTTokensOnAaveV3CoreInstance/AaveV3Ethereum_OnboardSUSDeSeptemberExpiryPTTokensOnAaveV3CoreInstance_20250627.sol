@@ -91,7 +91,7 @@ contract AaveV3Ethereum_OnboardSUSDeSeptemberExpiryPTTokensOnAaveV3CoreInstance_
       ltv: 89_10,
       liqThreshold: 91_10,
       liqBonus: 3_00,
-      label: 'PT-sUSDe USDe Spetember 2025',
+      label: 'PT-sUSDe USDe September 2025',
       borrowables: borrow2,
       collaterals: collatboth
     });
