@@ -104,7 +104,7 @@ contract AaveV3Ethereum_OnboardSUSDeSeptemberExpiryPTTokensOnAaveV3CoreInstance_
 
     listings[0] = IAaveV3ConfigEngine.Listing({
       asset: PT_sUSDe_25SEP2025,
-      assetSymbol: 'PT_sUSDe_25SEP2025',
+      assetSymbol: 'PT_sUSDE_25SEP2025',
       priceFeed: 0x7585693910f39df4959912B27D09EAEef06C1a93,
       enabledToBorrow: EngineFlags.DISABLED,
       borrowableInIsolation: EngineFlags.DISABLED,
