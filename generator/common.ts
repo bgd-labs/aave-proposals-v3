@@ -57,6 +57,11 @@ export function isV2Pool(pool: PoolIdentifier) {
   return V2_POOLS.includes(pool as any);
 }
 
+export function isWhitelabelPool(pool: PoolIdentifier) {
+  if (pool === 'AaveV3ScrollEtherFi') return true;
+  return false;
+}
+
 export function getVersion(pool: PoolIdentifier) {
   return isV2Pool(pool) ? 'V2' : 'V3';
 }

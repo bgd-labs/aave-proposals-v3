@@ -101,6 +101,9 @@ export function prefixWithImports(code: string) {
   if (findMatch(code, 'GovernanceV3Ethereum')) {
     imports += `import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';\n`;
   }
+  if (findMatch(code, 'GovernanceV3ScrollEtherFi')) {
+    imports += `import {GovernanceV3ScrollEtherFi} from 'aave-address-book/GovernanceV3ScrollEtherFi.sol';\n`;
+  }
   if (findMatch(code, 'IEmissionManager')) {
     imports += `import {IEmissionManager} from 'aave-v3-origin/contracts/rewards/interfaces/IEmissionManager.sol';\n`;
   }
