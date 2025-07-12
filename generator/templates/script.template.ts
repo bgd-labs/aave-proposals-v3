@@ -5,6 +5,7 @@ import {
   getChainAlias,
   getPoolChain,
   getVotingPortal,
+  isWhitelabelPool,
 } from '../common';
 import {Options} from '../types';
 import {prefixWithImports} from '../utils/importsResolver';
@@ -16,6 +17,7 @@ export function generateScript(options: Options) {
   const votingPortal = getVotingPortal(options.votingNetwork);
   let template = '';
   const chains = [...new Set(options.pools.map((pool) => getPoolChain(pool)!))];
+  const hasWhitelabelPool = options.pools.some((pool) => isWhitelabelPool(pool));
 
   // generate imports
   template += `import {${['Ethereum', ...chains.filter((c) => c !== 'Ethereum' && c !== 'ZkSync')]
@@ -72,7 +74,11 @@ export function generateScript(options: Options) {
          .join('\n')}
 
        // register action at payloadsController
-       GovV3Helpers.createPayload(actions);
+       ${
+         hasWhitelabelPool
+           ? `GovV3Helpers.createPermissionedPayloadCalldata(GovernanceV3${poolsToChainsMap[chain][0].pool.replace('AaveV3', '')}.PERMISSIONED_PAYLOADS_CONTROLLER, actions);`
+           : 'GovV3Helpers.createPayload(actions);'
+       }
      }
    }`;
     })
@@ -80,41 +86,43 @@ export function generateScript(options: Options) {
   template += '\n\n';
 
   // generate proposal creation script
-  template += `/**
- * @dev Create Proposal
- * command: make deploy-ledger contract=src/${folderName}/${fileName}.s.sol:CreateProposal chain=mainnet
- */
-contract CreateProposal is EthereumScript {
-  function run() external {
-    // create payloads
-    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](${
-      Object.keys(poolsToChainsMap).length
-    });
+  if (!hasWhitelabelPool) {
+    template += `/**
+      * @dev Create Proposal
+      * command: make deploy-ledger contract=src/${folderName}/${fileName}.s.sol:CreateProposal chain=mainnet
+      */
+      contract CreateProposal is EthereumScript {
+        function run() external {
+          // create payloads
+          PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](${
+            Object.keys(poolsToChainsMap).length
+          });
 
-    // compose actions for validation
-    ${Object.keys(poolsToChainsMap)
-      .map((chain, ix) => {
-        let template = `{\nIPayloadsControllerCore.ExecutionAction[] memory actions${chain} = new IPayloadsControllerCore.ExecutionAction[](${poolsToChainsMap[chain].length});\n`;
-        template += poolsToChainsMap[chain]
-          .map(({contractName, pool}, ix) => {
-            return pool == 'AaveV3ZkSync'
-              ? `actions${chain}[${ix}] = GovV3Helpers.buildActionZkSync(vm, '${contractName}');`
-              : `actions${chain}[${ix}] = GovV3Helpers.buildAction(type(${contractName}).creationCode);`;
-          })
-          .join('\n');
-        template += `payloads[${ix}] = GovV3Helpers.build${
-          chain == 'Ethereum' ? 'Mainnet' : chain
-        }Payload(vm, actions${chain});\n}\n`;
-        return template;
-      })
-      .join('\n')}
+          // compose actions for validation
+          ${Object.keys(poolsToChainsMap)
+            .map((chain, ix) => {
+              let template = `{\nIPayloadsControllerCore.ExecutionAction[] memory actions${chain} = new IPayloadsControllerCore.ExecutionAction[](${poolsToChainsMap[chain].length});\n`;
+              template += poolsToChainsMap[chain]
+                .map(({contractName, pool}, ix) => {
+                  return pool == 'AaveV3ZkSync'
+                    ? `actions${chain}[${ix}] = GovV3Helpers.buildActionZkSync(vm, '${contractName}');`
+                    : `actions${chain}[${ix}] = GovV3Helpers.buildAction(type(${contractName}).creationCode);`;
+                })
+                .join('\n');
+              template += `payloads[${ix}] = GovV3Helpers.build${
+                chain == 'Ethereum' ? 'Mainnet' : chain
+              }Payload(vm, actions${chain});\n}\n`;
+              return template;
+            })
+            .join('\n')}
 
-    // create proposal
-    vm.startBroadcast();
-    GovV3Helpers.createProposal(vm, payloads, ${votingPortal}, GovV3Helpers.ipfsHashFile(vm, 'src/${folderName}/${
-      options.shortName
-    }.md'));
+          // create proposal
+          vm.startBroadcast();
+          GovV3Helpers.createProposal(vm, payloads, ${votingPortal}, GovV3Helpers.ipfsHashFile(vm, 'src/${folderName}/${
+            options.shortName
+          }.md'));
+        }
+    }`;
   }
-}`;
   return prefixWithPragma(prefixWithImports(template));
 }
