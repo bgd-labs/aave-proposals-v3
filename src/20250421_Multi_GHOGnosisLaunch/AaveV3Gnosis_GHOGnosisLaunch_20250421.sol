@@ -26,7 +26,7 @@ import {GHOLaunchConstants} from './utils/GHOLaunchConstants.sol';
  * @author kpk
  * @notice This proposal is used to launch GHO on Gnosis Chain
  * @dev This payload enables the GHO CCIP token pool to receive and send messages on Gnosis Chain from Arbitrum, Base, and Ethereum.
- * - Discussion: https://governance.aave.com/t/arfc-launch-gho-on-gnosis-chain/21379
+ * - Discussion: https://governance.aave.com/t/arfc-launch-gho-on-gnosis-chain/21379/11?u=kpk
  * - Snapshot: https://snapshot.box/#/s:aavedao.eth/proposal/0x62996204d8466d603fe8c953176599db02a23f440a682ff15ba2d0ca63dda386
  */
 contract AaveV3Gnosis_GHOGnosisLaunch_20250421 is IProposalGenericExecutor {
