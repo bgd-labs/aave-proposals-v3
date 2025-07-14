@@ -2,6 +2,7 @@
 title: "GHO Gnosis Launch"
 author: "kpk"
 discussions: "https://governance.aave.com/t/arfc-launch-gho-on-gnosis-chain/21379"
+snapshot: "https://snapshot.box/#/s:aavedao.eth/proposal/0x62996204d8466d603fe8c953176599db02a23f440a682ff15ba2d0ca63dda386"
 ---
 
 ## Simple Summary
@@ -18,7 +19,7 @@ Building on GHO's presence on other networks, expanding to Gnosis Chain offers s
 
 This AIP includes a series of actions required to launch GHO on Gnosis Chain:
 
-1.  Configure new Chainlink CCIP lanes between the chains GHO is listed with a rate limit capacity of \*1,500,000 GHO** and **300 GHO per second\*\* refill rate. An Ethereum-based GHO Facilitator with a specified mint cap of 20M GHO will support this bridge.
+1.  Configure new Chainlink CCIP lanes between the chains GHO is listed with a rate limit capacity of \*1,500,000 GHO** and **300 GHO per second\*\* refill rate. An Ethereum-based GHO Facilitator with a specified mint cap of 40M GHO will support this bridge.
 2.  Configure and activate GhoAaveSteward, GhoBucketSteward, and GhoCcipSteward on Gnosis Chain to control GHO listing parameters and the CCIP lane configuration.
 3.  List GHO as a borrowable asset on the Aave V3 Gnosis Chain pool, with the risk configuration specified below (derived from the ARFC). Initial liquidity may be provided to the pool as a security measure to facilitate a stable launch.
 4.  Set ACI multisig (**`0xac140648435d03f784879cd789130F22Ef588Fcd`**) as Emission Admin for GHO and aGHO rewards on Gnosis Chain, as specified and approved in the ARFC.
@@ -61,9 +62,9 @@ The Risk Council (**`0x8513e6F37dBc52De87b166980Fa3F50639694B60`**) has permissi
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250421_Multi_GHOGnosisLaunch/AaveV3Ethereum_GHOGnosisLaunch_20250421.sol), [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250421_Multi_GHOGnosisLaunch/AaveV3Arbitrum_GHOGnosisLaunch_20250421.sol), [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250421_Multi_GHOGnosisLaunch/AaveV3Base_GHOGnosisLaunch_20250421.sol), [AaveV3GnosisLaunch](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250421_Multi_GHOGnosisLaunch/AaveV3Gnosis_GHOGnosisLaunch_20250421.sol), [AaveV3GnosisListing](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250421_Multi_GHOGnosisLaunch/AaveV3Gnosis_GHOGnosisListing_20250421.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250421_Multi_GHOGnosisLaunch/AaveV3Ethereum_GHOGnosisLaunch_20250421.sol), [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250421_Multi_GHOGnosisLaunch/AaveV3Arbitrum_GHOGnosisLaunch_20250421.sol), [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250421_Multi_GHOGnosisLaunch/AaveV3Base_GHOGnosisLaunch_20250421.sol),[AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250421_Multi_GHOGnosisLaunch/AaveV3Avalanche_GHOGnosisLaunch_20250421.sol), [AaveV3GnosisLaunch](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250421_Multi_GHOGnosisLaunch/AaveV3Gnosis_GHOGnosisLaunch_20250421.sol), [AaveV3GnosisListing](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250421_Multi_GHOGnosisLaunch/AaveV3Gnosis_GHOGnosisListing_20250421.sol)
 - Tests:
-  [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250421_Multi_GHOGnosisLaunch/AaveV3Ethereum_GHOGnosisLaunch_20250421.t.sol), [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250421_Multi_GHOGnosisLaunch/AaveV3Arbitrum_GHOGnosisLaunch_20250421.t.sol), [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250421_Multi_GHOGnosisLaunch/AaveV3Base_GHOGnosisLaunch_20250421.t.sol), [AaveV3GnosisLaunch](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250421_Multi_GHOGnosisLaunch/AaveV3Gnosis_GHOGnosisLaunch_20250421.t.sol), [AaveV3GnosisListing](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250421_Multi_GHOGnosisLaunch/AaveV3Gnosis_GHOGnosisListing_20250421.t.sol), [E2EFlow](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250421_Multi_GHOGnosisLaunch/AaveV3E2E_GHOGnosisLaunch_20250421.t.sol)
+  [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250421_Multi_GHOGnosisLaunch/AaveV3Ethereum_GHOGnosisLaunch_20250421.t.sol), [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250421_Multi_GHOGnosisLaunch/AaveV3Arbitrum_GHOGnosisLaunch_20250421.t.sol), [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250421_Multi_GHOGnosisLaunch/AaveV3Base_GHOGnosisLaunch_20250421.t.sol), [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250421_Multi_GHOGnosisLaunch/AaveV3Avalanche_GHOGnosisLaunch_20250421.t.sol),[AaveV3GnosisLaunch](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250421_Multi_GHOGnosisLaunch/AaveV3Gnosis_GHOGnosisLaunch_20250421.t.sol), [AaveV3GnosisListing](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250421_Multi_GHOGnosisLaunch/AaveV3Gnosis_GHOGnosisListing_20250421.t.sol), [E2EFlow](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250421_Multi_GHOGnosisLaunch/AaveV3E2E_GHOGnosisLaunch_20250421.t.sol)
 - [Snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0x62996204d8466d603fe8c953176599db02a23f440a682ff15ba2d0ca63dda386)
 - [Discussion](https://governance.aave.com/t/arfc-launch-gho-on-gnosis-chain/21379)
 
