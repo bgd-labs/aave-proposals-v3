@@ -32,8 +32,8 @@ Add USDe as a borrow-only asset in the following E-Modes:
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250623_AaveV3Ethereum_AdditionOfUSDeToEthenaPrincipalTokenStablecoinEModes/AaveV3Ethereum_AdditionOfUSDeToEthenaPrincipalTokenStablecoinEModes_20250623.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250623_AaveV3Ethereum_AdditionOfUSDeToEthenaPrincipalTokenStablecoinEModes/AaveV3Ethereum_AdditionOfUSDeToEthenaPrincipalTokenStablecoinEModes_20250623.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/5033ce379d7357fd3c1a09ea2575be9b8b3a81ff/src/20250623_AaveV3Ethereum_AdditionOfUSDeToEthenaPrincipalTokenStablecoinEModes/AaveV3Ethereum_AdditionOfUSDeToEthenaPrincipalTokenStablecoinEModes_20250623.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/5033ce379d7357fd3c1a09ea2575be9b8b3a81ff/src/20250623_AaveV3Ethereum_AdditionOfUSDeToEthenaPrincipalTokenStablecoinEModes/AaveV3Ethereum_AdditionOfUSDeToEthenaPrincipalTokenStablecoinEModes_20250623.t.sol)
 - [Snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0x92235fc2feaa585d700789395bb69374d4de1a7a2735a7565815f8423009f160)
 - [Discussion](https://governance.aave.com/t/arfc-addition-of-usde-to-ethena-principal-token-stablecoin-e-modes/22355)
 
