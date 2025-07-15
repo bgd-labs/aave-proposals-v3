@@ -10,7 +10,8 @@ export const config: ConfigFile = {
     title: 'Addition of USDe to Ethena Principal Token Stablecoin E-Modes',
     shortName: 'AdditionOfUSDeToEthenaPrincipalTokenStablecoinEModes',
     date: '20250623',
-    discussion: 'https://governance.aave.com/t/arfc-addition-of-usde-to-ethena-principal-token-stablecoin-e-modes/22355',
+    discussion:
+      'https://governance.aave.com/t/arfc-addition-of-usde-to-ethena-principal-token-stablecoin-e-modes/22355',
     snapshot:
       'https://snapshot.box/#/s:aavedao.eth/proposal/0x92235fc2feaa585d700789395bb69374d4de1a7a2735a7565815f8423009f160',
     votingNetwork: 'POLYGON',
