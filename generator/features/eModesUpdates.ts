@@ -1,70 +1,32 @@
 import {CodeArtifact, FEATURE, FeatureModule, PoolIdentifier} from '../types';
 import {eModesSelect} from '../prompts';
 import {EModeCategoryUpdate} from './types';
-import {confirm} from '@inquirer/prompts';
-import {translateJsAddressToSol} from '../prompts/addressPrompt';
-import {stringOrKeepCurrent, stringPrompt} from '../prompts/stringPrompt';
-import {getEModes} from '../common';
-import {percentPrompt, translateJsPercentToSol} from '../prompts/percentPrompt';
+import {stringOrKeepCurrent} from '../prompts/stringPrompt';
+import {translateJsPercentToSol} from '../prompts/percentPrompt';
+import {fetchEmodeCategoryData} from './eModesCreation';
 
 async function fetchEmodeCategoryUpdate<T extends boolean>(
   eModeCategory: string | number,
   required?: T,
 ): Promise<EModeCategoryUpdate> {
+  const eModeData = await fetchEmodeCategoryData(required);
   return {
     eModeCategory,
-    ltv: await percentPrompt({
-      message: 'ltv',
-      required,
-    }),
-    liqThreshold: await percentPrompt({
-      message: 'liqThreshold',
-      required,
-    }),
-    liqBonus: await percentPrompt({
-      message: 'liqBonus',
-      required,
-    }),
-    label: await stringPrompt({
-      message: 'label',
-      required,
-    }),
+    ...eModeData,
   };
 }
 
 async function subCli(pool: PoolIdentifier) {
   const answers: EmodeUpdates = [];
-
-  const shouldAddNewCategory = await confirm({
-    message: 'Do you wish to add a new emode category?',
-    default: false,
+  const eModeCategories = await eModesSelect({
+    message: 'Select the eModes you want to amend',
+    pool,
   });
-  if (shouldAddNewCategory) {
-    let more: boolean = true;
-    const eModes = getEModes(pool as any);
-    let highestEmode = Object.values(eModes).length > 0 ? Math.max(...eModes.map((e) => e.id)) : 0;
 
-    while (more) {
-      answers.push(await fetchEmodeCategoryUpdate(++highestEmode, true));
-      more = await confirm({message: 'Do you want to add another emode category?', default: false});
-    }
-  }
-
-  const shouldAmendCategory = await confirm({
-    message: 'Do you wish to amend existing emode category?',
-    default: false,
-  });
-  if (shouldAmendCategory) {
-    const eModeCategories = await eModesSelect({
-      message: 'Select the eModes you want to amend',
-      pool,
-    });
-
-    if (eModeCategories) {
-      for (const eModeCategory of eModeCategories) {
-        console.log(`collecting info for ${eModeCategory}`);
-        answers.push(await fetchEmodeCategoryUpdate(eModeCategory));
-      }
+  if (eModeCategories) {
+    for (const eModeCategory of eModeCategories) {
+      console.log(`collecting info for ${eModeCategory}`);
+      answers.push(await fetchEmodeCategoryUpdate(eModeCategory));
     }
   }
 
@@ -75,7 +37,7 @@ type EmodeUpdates = EModeCategoryUpdate[];
 
 export const eModeUpdates: FeatureModule<EmodeUpdates> = {
   value: FEATURE.EMODES_UPDATES,
-  description: 'eModeCategoriesUpdates (altering/adding eModes)',
+  description: 'eModeCategoriesUpdates (altering eModes)',
   async cli({pool}) {
     const response: EmodeUpdates = await subCli(pool);
     return response;
