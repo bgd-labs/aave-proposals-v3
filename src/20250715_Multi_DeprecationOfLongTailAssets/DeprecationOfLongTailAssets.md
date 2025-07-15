@@ -28,11 +28,11 @@ Further reflecting this downtrend, EURS’ on-chain liquidity against WBTC has d
 
 To begin the deprecation of this market, we propose the following actions:
 
-* Reduce the supply and borrow caps to 1, preventing new entries in the market while not negatively affecting current users
-* Set LTV to 0% to prevent further collateralization of EURS
-* Reduce the asset’s Debt Ceiling to $0 from $675K
-* Increase the Base Rate from 0% to 2% to increase borrowing costs and encourage EURS borrowers to repay their debt
-* Increase the Reserve Factor to 50% to offset increased supply APY from the Base Rate increase and to encourage suppliers to exit the market
+- Reduce the supply and borrow caps to 1, preventing new entries in the market while not negatively affecting current users
+- Set LTV to 0% to prevent further collateralization of EURS
+- Reduce the asset’s Debt Ceiling to $0 from $675K
+- Increase the Base Rate from 0% to 2% to increase borrowing costs and encourage EURS borrowers to repay their debt
+- Increase the Reserve Factor to 50% to offset increased supply APY from the Base Rate increase and to encourage suppliers to exit the market
 
 ### SNX (Ethereum Core)
 
@@ -46,10 +46,10 @@ As a result, and in line with a broader community strategy to deprecate long-tai
 
 To continue the deprecation of this market, we propose the following actions:
 
-* Set LTV to 0% to prevent further collateralization of SNX
-* Reduce the asset’s Debt Ceiling to $0 from $4M
-* Increase the Base Rate from 3% to 6% to increase borrowing costs and encourage SNX borrowers to repay their debt
-* Increase the Reserve Factor to 95% to offset increased supply APY from the Base Rate increase and to encourage suppliers to exit the market
+- Set LTV to 0% to prevent further collateralization of SNX
+- Reduce the asset’s Debt Ceiling to $0 from $4M
+- Increase the Base Rate from 3% to 6% to increase borrowing costs and encourage SNX borrowers to repay their debt
+- Increase the Reserve Factor to 95% to offset increased supply APY from the Base Rate increase and to encourage suppliers to exit the market
 
 ### LUSD (Arbitrum and OP)
 
@@ -67,10 +67,10 @@ Taking into account the asset’s low liquidity against its top collateral asset
 
 To begin the deprecation of these markets we propose the following actions:
 
-* Reduce the supply and borrow caps to 1, preventing new entries in the market while not negatively affecting current users
-* Increase the Base Rate to 2% to increase borrowing costs and encourage LUSD borrowers to repay their debt
-* Increase the Reserve Factor to 50% to offset increased supply APY from the Base Rate increase and to encourage suppliers to exit the market
-[/quote]
+- Reduce the supply and borrow caps to 1, preventing new entries in the market while not negatively affecting current users
+- Increase the Base Rate to 2% to increase borrowing costs and encourage LUSD borrowers to repay their debt
+- Increase the Reserve Factor to 50% to offset increased supply APY from the Base Rate increase and to encourage suppliers to exit the market
+  [/quote]
 
 ## Specification
 
@@ -78,35 +78,35 @@ The following changes will be applied:
 
 ### EURS (Polygon)
 
-|Parameter|Current|Recommended|
-| --- | --- | --- |
-|LTV|65%|0%|
-|Debt Ceiling|$675K|$0|
-|Base Rate|0.00%|2.00%|
-|Reserve Factor|20%|50%|
+| Parameter      | Current | Recommended |
+| -------------- | ------- | ----------- |
+| LTV            | 65%     | 0%          |
+| Debt Ceiling   | $675K   | $0          |
+| Base Rate      | 0.00%   | 2.00%       |
+| Reserve Factor | 20%     | 50%         |
 
 ### SNX (Ethereum Core)
 
-|Parameter|Current|Recommended|
-| --- | --- | --- |
-|LTV|49%|0%|
-|Debt Ceiling|$4,000,000|$0|
-|Base Rate|3.00%|6.00%|
-|Reserve Factor|35%|95%|
+| Parameter      | Current    | Recommended |
+| -------------- | ---------- | ----------- |
+| LTV            | 49%        | 0%          |
+| Debt Ceiling   | $4,000,000 | $0          |
+| Base Rate      | 3.00%      | 6.00%       |
+| Reserve Factor | 35%        | 95%         |
 
 ### LUSD (Arbitrum)
 
-|Parameter|Current|Recommended|
-| --- | --- | --- |
-|Base Rate|0.00%|2.00%|
-|Reserve Factor|20%|50%|
+| Parameter      | Current | Recommended |
+| -------------- | ------- | ----------- |
+| Base Rate      | 0.00%   | 2.00%       |
+| Reserve Factor | 20%     | 50%         |
 
 ### LUSD (OP)
 
-|Parameter|Current|Recommended|
-| --- | --- | --- |
-|Base Rate|0.00%|2.00%|
-|Reserve Factor|20%|50%|
+| Parameter      | Current | Recommended |
+| -------------- | ------- | ----------- |
+| Base Rate      | 0.00%   | 2.00%       |
+| Reserve Factor | 20%     | 50%         |
 
 ## References
 
