@@ -41,12 +41,12 @@ contract AaveV3Sonic_StSLoopIncentiveProgram_20250711_Test is ProtocolV3TestBase
 
     executePayload(vm, address(proposal));
 
-    uint256 allowanceGhoAfter = IERC20(AaveV3SonicAssets.wS_A_TOKEN).allowance(
+    uint256 allowanceWsATokenAfter = IERC20(AaveV3SonicAssets.wS_A_TOKEN).allowance(
       address(AaveV3Sonic.COLLECTOR),
       proposal.MASIV_NESTED_SAFE()
     );
 
-    assertEq(allowanceGhoAfter, proposal.INCENTIVES_AMOUNT());
+    assertEq(allowanceWsATokenAfter, proposal.INCENTIVES_AMOUNT());
 
     vm.startPrank(proposal.MASIV_NESTED_SAFE());
     IERC20(AaveV3SonicAssets.wS_A_TOKEN).transferFrom(
