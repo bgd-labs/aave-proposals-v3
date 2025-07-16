@@ -31,8 +31,8 @@ Method: `approve()` aSonwS on the Aave Collector contract to the Masiv address.
 
 ## References
 
-- Implementation: [AaveV3Sonic](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250711_AaveV3Sonic_StSLoopIncentiveProgram/AaveV3Sonic_StSLoopIncentiveProgram_20250711.sol)
-- Tests: [AaveV3Sonic](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250711_AaveV3Sonic_StSLoopIncentiveProgram/AaveV3Sonic_StSLoopIncentiveProgram_20250711.t.sol)
+- Implementation: [AaveV3Sonic](https://github.com/bgd-labs/aave-proposals-v3/blob/809b310d755b72dcf0802d8110efeae83d381ded/src/20250711_AaveV3Sonic_StSLoopIncentiveProgram/AaveV3Sonic_StSLoopIncentiveProgram_20250711.sol)
+- Tests: [AaveV3Sonic](https://github.com/bgd-labs/aave-proposals-v3/blob/809b310d755b72dcf0802d8110efeae83d381ded/src/20250711_AaveV3Sonic_StSLoopIncentiveProgram/AaveV3Sonic_StSLoopIncentiveProgram_20250711.t.sol)
 - [Snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0x65e12ce7784f12fbed9731d4cdbc826a8a5d4804439dc6d55d6e31c0b069a048)
 - [Discussion](https://governance.aave.com/t/arfc-sts-loop-incentive-program/22368)
 
