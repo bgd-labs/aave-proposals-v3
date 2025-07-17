@@ -70,7 +70,6 @@ To begin the deprecation of these markets we propose the following actions:
 - Reduce the supply and borrow caps to 1, preventing new entries in the market while not negatively affecting current users
 - Increase the Base Rate to 2% to increase borrowing costs and encourage LUSD borrowers to repay their debt
 - Increase the Reserve Factor to 50% to offset increased supply APY from the Base Rate increase and to encourage suppliers to exit the market
-  [/quote]
 
 ## Specification
 
