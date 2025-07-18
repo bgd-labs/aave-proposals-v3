@@ -9,8 +9,8 @@ import {IPriceCapAdapter} from '../interfaces/IPriceCapAdapter.sol';
 /**
  * @title LBTC and eBTC Price Feeds Update
  * @author BGD Labs @bgdlabs
- * - Snapshot: TODO
- * - Discussion: TODO
+ * - Snapshot: Direct-To-AIP
+ * - Discussion: https://governance.aave.com/t/direct-to-aip-lbtc-oracle-and-capo-implementation-update/22614
  */
 contract AaveV3Ethereum_LBTCAndEBTCPriceFeedsUpdate_20250717 is AaveV3PayloadEthereum {
   // https://etherscan.io/address/0xf8c04B50499872A5B5137219DEc0F791f7f620D0

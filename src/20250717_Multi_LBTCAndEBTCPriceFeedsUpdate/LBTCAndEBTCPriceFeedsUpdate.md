@@ -1,8 +1,8 @@
 ---
 title: "LBTC and eBTC Price Feeds Update"
 author: "BGD Labs @bgdlabs"
-discussions: TODO
-snapshot: TODO
+discussions: https://governance.aave.com/t/direct-to-aip-lbtc-oracle-and-capo-implementation-update/22614
+snapshot: Direct-to-AIP
 ---
 
 ## Simple Summary
@@ -61,8 +61,8 @@ For eBTC, the capo adapter will be kept, and snapshot ratio and maxYearlyRatioGr
 
 - Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250717_Multi_LBTCAndEBTCPriceFeedsUpdate/AaveV3Ethereum_LBTCAndEBTCPriceFeedsUpdate_20250717.sol), [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250717_Multi_LBTCAndEBTCPriceFeedsUpdate/AaveV3Base_LBTCAndEBTCPriceFeedsUpdate_20250717.sol)
 - Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250717_Multi_LBTCAndEBTCPriceFeedsUpdate/AaveV3Ethereum_LBTCAndEBTCPriceFeedsUpdate_20250717.t.sol), [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250717_Multi_LBTCAndEBTCPriceFeedsUpdate/AaveV3Base_LBTCAndEBTCPriceFeedsUpdate_20250717.t.sol)
-  [Snapshot](TODO)
-- [Discussion](TODO)
+- Snapshot: Direct-to-AIP
+- [Discussion](https://governance.aave.com/t/direct-to-aip-lbtc-oracle-and-capo-implementation-update/22614)
 
 ## Copyright
 

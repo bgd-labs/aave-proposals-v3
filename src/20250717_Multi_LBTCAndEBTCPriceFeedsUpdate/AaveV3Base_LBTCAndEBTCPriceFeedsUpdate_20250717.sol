@@ -8,8 +8,8 @@ import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config
 /**
  * @title LBTC and eBTC Price Feeds Update
  * @author BGD Labs @bgdlabs
- * - Snapshot: TODO
- * - Discussion: TODO
+ * - Snapshot: Direct-to-AIP
+ * - Discussion: https://governance.aave.com/t/direct-to-aip-lbtc-oracle-and-capo-implementation-update/22614
  */
 contract AaveV3Base_LBTCAndEBTCPriceFeedsUpdate_20250717 is AaveV3PayloadBase {
   // https://basescan.org/address/0xA04669FE5cba4Bb21f265B562D23e562E45A1C67

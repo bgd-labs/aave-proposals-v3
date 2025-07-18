@@ -6,7 +6,8 @@ export const config: ConfigFile = {
     title: 'LBTC and eBTC Price Feeds Update',
     shortName: 'LBTCAndEBTCPriceFeedsUpdate',
     date: '20250717',
-    discussion: '',
+    discussion:
+      'https://governance.aave.com/t/direct-to-aip-lbtc-oracle-and-capo-implementation-update/22614',
     snapshot: '',
     votingNetwork: 'POLYGON',
   },
