@@ -1,9 +1,10 @@
 import {ConfigFile} from '../../generator/types';
 export const config: ConfigFile = {
   rootOptions: {
+    configFile: 'src/20250721_Multi_InterestRateUpdateWETHAndWstETHEthereum/config.ts',
     author: 'Aave-Chan Initiative',
     pools: ['AaveV3Ethereum', 'AaveV3EthereumLido'],
-    title: 'Interest Rate Update - WETH and wstETH Ethereum',
+    title: 'Interest Rate Update - wstETH Ethereum',
     shortName: 'InterestRateUpdateWETHAndWstETHEthereum',
     date: '20250721',
     discussion:

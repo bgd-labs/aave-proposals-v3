@@ -7,7 +7,7 @@ import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/
 import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
 
 /**
- * @title Interest Rate Update - WETH and wstETH Ethereum
+ * @title Interest Rate Update - wstETH Ethereum
  * @author Aave-Chan Initiative
  * - Snapshot: Direct-to-AIP
  * - Discussion: https://governance.aave.com/t/risk-stewards-interest-rate-update-weth-and-wsteth-ethereum/22625
