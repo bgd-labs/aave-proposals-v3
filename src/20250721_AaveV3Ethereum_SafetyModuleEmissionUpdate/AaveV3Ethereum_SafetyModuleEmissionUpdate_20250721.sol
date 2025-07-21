@@ -71,7 +71,7 @@ contract AaveV3Ethereum_SafetyModuleEmissionUpdate_20250721 is IProposalGenericE
       AaveSafetyModule.STK_AAVE_WSTETH_BPTV2
     ) - (distributionTimeLeft * CURRENT_AAVE_EMISSION_PER_SECOND_STK_BPT);
 
-    uint256 newAllowance = distributionTimeLeft * AAVE_EMISSION_PER_SECOND_STK_BPT;
+    uint256 newAllowance = DISTRIBUTION_DURATION * AAVE_EMISSION_PER_SECOND_STK_BPT;
 
     IStakeToken.AssetConfigInput[] memory bptConfigs = new IStakeToken.AssetConfigInput[](1);
     bptConfigs[0] = IStakeToken.AssetConfigInput({
@@ -80,6 +80,9 @@ contract AaveV3Ethereum_SafetyModuleEmissionUpdate_20250721 is IProposalGenericE
       underlyingAsset: AaveSafetyModule.STK_AAVE_WSTETH_BPTV2
     });
     IStakeToken(AaveSafetyModule.STK_AAVE_WSTETH_BPTV2).configureAssets(bptConfigs);
+    IStakeToken(AaveSafetyModule.STK_AAVE_WSTETH_BPTV2).setDistributionEnd(
+      block.timestamp + DISTRIBUTION_DURATION
+    );
 
     MiscEthereum.AAVE_ECOSYSTEM_RESERVE_CONTROLLER.approve(
       MiscEthereum.ECOSYSTEM_RESERVE,

@@ -93,10 +93,10 @@ contract AaveV3Ethereum_SafetyModuleEmissionUpdate_20250721_Test is ProtocolV3Te
     uint256 endTimestampAfterStkABPT = IStakeToken(AaveSafetyModule.STK_AAVE_WSTETH_BPTV2)
       .distributionEnd();
 
-    assertEq(
-      endTimestampBeforeStkABPT,
+    assertGt(
       endTimestampAfterStkABPT,
-      'New distribution duration differs stkABPT'
+      endTimestampBeforeStkABPT,
+      'New distribution duration not greater stkABPT'
     );
   }
 
@@ -125,7 +125,7 @@ contract AaveV3Ethereum_SafetyModuleEmissionUpdate_20250721_Test is ProtocolV3Te
 
     // New allowance is less than before
     assertLt(allowanceBeforeStkAAVE, allowanceAfterStkAAVE);
-    assertLt(allowanceAfterStkABPT, allowanceBeforeStkABPT);
+    assertLt(allowanceBeforeStkABPT, allowanceAfterStkABPT);
   }
 
   function test_checkRewards_stkAAVE() public {
