@@ -192,4 +192,10 @@ contract AaveV3Ethereum_July2025FundingUpdate_20250721_Test is ProtocolV3TestBas
       0
     );
   }
+
+  function test_aciRefund() public {
+    uint256 balanceBefore = IERC20(AaveV3EthereumAssets.WETH_UNDERLYING).balanceOf(
+      MiscEthereum.MASIV_SAFE
+    );
+  }
 }

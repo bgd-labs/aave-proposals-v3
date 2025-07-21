@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {AaveV3Gnosis} from 'aave-address-book/AaveV3Gnosis.sol';
-
-import 'forge-std/Test.sol';
-import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
+import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
+import {AaveV3Gnosis, AaveV3GnosisAssets} from 'aave-address-book/AaveV3Gnosis.sol';
+import {MiscGnosis} from 'aave-address-book/MiscGnosis.sol';
+import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Gnosis_July2025FundingUpdate_20250721} from './AaveV3Gnosis_July2025FundingUpdate_20250721.sol';
 
 /**
@@ -27,6 +27,33 @@ contract AaveV3Gnosis_July2025FundingUpdate_20250721_Test is ProtocolV3TestBase 
       'AaveV3Gnosis_July2025FundingUpdate_20250721',
       AaveV3Gnosis.POOL,
       address(proposal)
+    );
+  }
+
+  function test_approvals() public {
+    assertEq(
+      IERC20(AaveV3GnosisAssets.EURe_A_TOKEN).allowance(
+        address(AaveV3Gnosis.COLLECTOR),
+        MiscGnosis.MASIV_SAFE
+      ),
+      0
+    );
+
+    executePayload(vm, address(proposal));
+
+    assertEq(
+      IERC20(AaveV3GnosisAssets.EURe_A_TOKEN).allowance(
+        address(AaveV3Gnosis.COLLECTOR),
+        MiscGnosis.MASIV_SAFE
+      ),
+      proposal.EURE_AMOUNT()
+    );
+
+    vm.startPrank(MiscGnosis.MASIV_SAFE);
+    IERC20(AaveV3GnosisAssets.EURe_A_TOKEN).transferFrom(
+      address(AaveV3Gnosis.COLLECTOR),
+      MiscGnosis.MASIV_SAFE,
+      proposal.EURE_AMOUNT()
     );
   }
 }

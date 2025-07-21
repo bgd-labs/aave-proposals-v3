@@ -1,10 +1,12 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {AaveV3Polygon} from 'aave-address-book/AaveV3Polygon.sol';
+import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
+import {AaveV2Polygon, AaveV2PolygonAssets} from 'aave-address-book/AaveV2Polygon.sol';
+import {AaveV3Polygon, AaveV3PolygonAssets} from 'aave-address-book/AaveV3Polygon.sol';
+import {MiscPolygon} from 'aave-address-book/MiscPolygon.sol';
+import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 
-import 'forge-std/Test.sol';
-import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Polygon_July2025FundingUpdate_20250721} from './AaveV3Polygon_July2025FundingUpdate_20250721.sol';
 
 /**
@@ -13,6 +15,8 @@ import {AaveV3Polygon_July2025FundingUpdate_20250721} from './AaveV3Polygon_July
  */
 contract AaveV3Polygon_July2025FundingUpdate_20250721_Test is ProtocolV3TestBase {
   AaveV3Polygon_July2025FundingUpdate_20250721 internal proposal;
+
+  event Bridge(address token, uint256 amount);
 
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('polygon'), 74232841);
@@ -27,6 +31,71 @@ contract AaveV3Polygon_July2025FundingUpdate_20250721_Test is ProtocolV3TestBase
       'AaveV3Polygon_July2025FundingUpdate_20250721',
       AaveV3Polygon.POOL,
       address(proposal)
+    );
+  }
+
+  function test_bridges() public {
+    uint256 usdtCollectorBalanceBefore = IERC20(AaveV3PolygonAssets.USDT_UNDERLYING).balanceOf(
+      address(AaveV3Polygon.COLLECTOR)
+    );
+    uint256 daiCollectorBalanceBefore = IERC20(AaveV3PolygonAssets.DAI_UNDERLYING).balanceOf(
+      address(AaveV3Polygon.COLLECTOR)
+    );
+
+    uint256 usdcCollectorBalanceBefore = IERC20(AaveV3PolygonAssets.USDC_UNDERLYING).balanceOf(
+      address(AaveV3Polygon.COLLECTOR)
+    );
+
+    uint256 linkCollectorBalanceBefore = IERC20(AaveV3PolygonAssets.LINK_UNDERLYING).balanceOf(
+      address(AaveV3Polygon.COLLECTOR)
+    );
+
+    uint256 wethCollectorBalanceBefore = IERC20(AaveV3PolygonAssets.WETH_UNDERLYING).balanceOf(
+      address(AaveV3Polygon.COLLECTOR)
+    );
+
+    assertGt(usdtCollectorBalanceBefore, 0);
+    assertGt(daiCollectorBalanceBefore, 0);
+    assertGt(usdcCollectorBalanceBefore, 0);
+    assertGt(linkCollectorBalanceBefore, 0);
+    assertGt(wethCollectorBalanceBefore, 0);
+
+    vm.expectEmit(true, true, true, true, MiscPolygon.AAVE_POL_ETH_BRIDGE);
+    emit Bridge(AaveV3PolygonAssets.USDC_UNDERLYING, usdcCollectorBalanceBefore);
+    vm.expectEmit(true, true, true, true, MiscPolygon.AAVE_POL_ETH_BRIDGE);
+    emit Bridge(AaveV3PolygonAssets.DAI_UNDERLYING, daiCollectorBalanceBefore);
+    vm.expectEmit(true, true, true, true, MiscPolygon.AAVE_POL_ETH_BRIDGE);
+    emit Bridge(AaveV3PolygonAssets.USDT_UNDERLYING, usdcCollectorBalanceBefore);
+    vm.expectEmit(true, true, true, true, MiscPolygon.AAVE_POL_ETH_BRIDGE);
+    emit Bridge(AaveV3PolygonAssets.LINK_UNDERLYING, usdcCollectorBalanceBefore);
+    vm.expectEmit(true, true, true, true, MiscPolygon.AAVE_POL_ETH_BRIDGE);
+    emit Bridge(AaveV3PolygonAssets.WETH_UNDERLYING, usdcCollectorBalanceBefore);
+
+    executePayload(vm, address(proposal));
+
+    assertEq(
+      IERC20(AaveV3PolygonAssets.USDT_UNDERLYING).balanceOf(address(AaveV3Polygon.COLLECTOR)),
+      0
+    );
+
+    assertEq(
+      IERC20(AaveV3PolygonAssets.DAI_UNDERLYING).balanceOf(address(AaveV3Polygon.COLLECTOR)),
+      0
+    );
+
+    assertEq(
+      IERC20(AaveV3PolygonAssets.USDC_UNDERLYING).balanceOf(address(AaveV3Polygon.COLLECTOR)),
+      0
+    );
+
+    assertEq(
+      IERC20(AaveV3PolygonAssets.LINK_UNDERLYING).balanceOf(address(AaveV3Polygon.COLLECTOR)),
+      0
+    );
+
+    assertEq(
+      IERC20(AaveV3PolygonAssets.WETH_UNDERLYING).balanceOf(address(AaveV3Polygon.COLLECTOR)),
+      0
     );
   }
 }

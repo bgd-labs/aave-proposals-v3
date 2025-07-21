@@ -1,10 +1,12 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {AaveV3Arbitrum} from 'aave-address-book/AaveV3Arbitrum.sol';
+import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
+import {AaveV3Arbitrum, AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
+import {MiscArbitrum} from 'aave-address-book/MiscArbitrum.sol';
+import {ArbSysMock} from 'aave-helpers/tests/bridges/arbitrum/ArbSysMock.sol';
+import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 
-import 'forge-std/Test.sol';
-import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Arbitrum_July2025FundingUpdate_20250721} from './AaveV3Arbitrum_July2025FundingUpdate_20250721.sol';
 
 /**
@@ -13,6 +15,8 @@ import {AaveV3Arbitrum_July2025FundingUpdate_20250721} from './AaveV3Arbitrum_Ju
  */
 contract AaveV3Arbitrum_July2025FundingUpdate_20250721_Test is ProtocolV3TestBase {
   AaveV3Arbitrum_July2025FundingUpdate_20250721 internal proposal;
+
+  event Bridge(address indexed token, uint256 amount);
 
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('arbitrum'), 360052873);
@@ -27,6 +31,48 @@ contract AaveV3Arbitrum_July2025FundingUpdate_20250721_Test is ProtocolV3TestBas
       'AaveV3Arbitrum_July2025FundingUpdate_20250721',
       AaveV3Arbitrum.POOL,
       address(proposal)
+    );
+  }
+
+  function test_bridges() public {
+    uint256 daiCollectorBalanceBefore = IERC20(AaveV3ArbitrumAssets.DAI_UNDERLYING).balanceOf(
+      address(AaveV3Arbitrum.COLLECTOR)
+    );
+
+    uint256 usdcCollectorBalanceBefore = IERC20(AaveV3ArbitrumAssets.USDC_UNDERLYING).balanceOf(
+      address(AaveV3Arbitrum.COLLECTOR)
+    );
+
+    uint256 usdtCollectorBalanceBefore = IERC20(AaveV3ArbitrumAssets.USDT_UNDERLYING).balanceOf(
+      address(AaveV3Arbitrum.COLLECTOR)
+    );
+
+    assertGt(daiCollectorBalanceBefore, 0);
+    assertGt(usdcCollectorBalanceBefore, 0);
+    assertGt(usdtCollectorBalanceBefore, 0);
+
+    vm.expectEmit(true, true, true, true, MiscArbitrum.AAVE_ARB_ETH_BRIDGE);
+    emit Bridge(AaveV3ArbitrumAssets.DAI_UNDERLYING, daiCollectorBalanceBefore);
+    vm.expectEmit(true, true, true, true, MiscArbitrum.AAVE_ARB_ETH_BRIDGE);
+    emit Bridge(AaveV3ArbitrumAssets.USDC_UNDERLYING, usdcCollectorBalanceBefore);
+    vm.expectEmit(true, true, true, true, MiscArbitrum.AAVE_ARB_ETH_BRIDGE);
+    emit Bridge(AaveV3ArbitrumAssets.USDT_UNDERLYING, usdcCollectorBalanceBefore);
+
+    executePayload(vm, address(proposal));
+
+    assertEq(
+      IERC20(AaveV3ArbitrumAssets.DAI_UNDERLYING).balanceOf(address(AaveV3Arbitrum.COLLECTOR)),
+      0
+    );
+
+    assertEq(
+      IERC20(AaveV3ArbitrumAssets.USDC_UNDERLYING).balanceOf(address(AaveV3Arbitrum.COLLECTOR)),
+      0
+    );
+
+    assertEq(
+      IERC20(AaveV3ArbitrumAssets.USDT_UNDERLYING).balanceOf(address(AaveV3Arbitrum.COLLECTOR)),
+      0
     );
   }
 }

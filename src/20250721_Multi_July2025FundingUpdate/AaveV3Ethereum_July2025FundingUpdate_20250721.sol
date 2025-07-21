@@ -41,32 +41,25 @@ contract AaveV3Ethereum_July2025FundingUpdate_20250721 is IProposalGenericExecut
   /// https://etherscan.io/address/0xf86141a5657Cf52AEB3E30eBccA5Ad3a8f714B89
   address public constant MIGRATION_ACTIONS = 0xf86141a5657Cf52AEB3E30eBccA5Ad3a8f714B89;
 
+  uint256 ACI_REFUND_AMOUNT = 0.4561 ether;
+
   function execute() external {
     _allowances();
-    // _swaps();
+    _swaps();
 
-    IMigrationActions(MIGRATION_ACTIONS).migrateDAIToUSDS(
-      address(AaveV3Ethereum.COLLECTOR),
-      IERC20(AaveV3EthereumAssets.DAI_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR))
+    // ACI Refund
+    AaveV3Ethereum.COLLECTOR.transfer(
+      IERC20(AaveV3EthereumAssets.WETH_UNDERLYING),
+      MiscEthereum.MASIV_SAFE,
+      ACI_REFUND_AMOUNT
     );
   }
 
   function _swaps() internal {
     // DAI Swap
-    AaveV3Ethereum.COLLECTOR.swap(
-      MiscEthereum.AAVE_SWAPPER,
-      CollectorUtils.SwapInput({
-        milkman: MILKMAN,
-        priceChecker: PRICE_CHECKER,
-        fromUnderlying: AaveV3EthereumAssets.DAI_UNDERLYING,
-        toUnderlying: AaveV3EthereumAssets.USDC_UNDERLYING,
-        fromUnderlyingPriceFeed: AaveV3EthereumAssets.DAI_ORACLE,
-        toUnderlyingPriceFeed: AaveV3EthereumAssets.USDC_ORACLE,
-        amount: IERC20(AaveV3EthereumAssets.DAI_UNDERLYING).balanceOf(
-          address(AaveV3Ethereum.COLLECTOR)
-        ),
-        slippage: 100
-      })
+    IMigrationActions(MIGRATION_ACTIONS).migrateDAIToUSDS(
+      address(AaveV3Ethereum.COLLECTOR),
+      IERC20(AaveV3EthereumAssets.DAI_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR))
     );
 
     // LUSD Swap

@@ -6,9 +6,69 @@ discussions: "https://governance.aave.com/t/direct-to-aip-july-2025-funding-upda
 
 ## Simple Summary
 
+This publication presents the July Funding Update, consisting of the following key activities:
+
+- Bridge funds to Ethereum from Arbitrum and Polygon;
+- Renew Fluid incentive allocation; // TODO CHECK
+- Extend EURe incentive campaign and,
+- Swap LUSD, PYUSD and DAI to USDC.
+- Gas costs reimbursement to ACI.
+- Orbit renewal program.
+
 ## Motivation
 
+This publication combines near term operational needs and migrating assets held on L2s and side chains to Ethereum.
+
+The below outlines the objectives of this publication:
+
+- Consolidating funds to Ethereum; and,
+- Support near term operational requirements.
+
 ## Specification
+
+### Bridge the following assets to Ethereum.
+
+| Network  | Token  | Amount |
+| -------- | ------ | ------ |
+| Polygon  | USDT   | All    |
+| Polygon  | DAI    | All    |
+| Polygon  | USDC.e | All    |
+| Polygon  | LINK   | All    |
+| Polygon  | wETH   | All    |
+| Arbitrum | USDT   | All    |
+| Arbitrum | DAI    | All    |
+| Arbitrum | USDC.e | All    |
+
+### Swap the following assets as outlined in the table below on Mainnet:
+
+| Token | Amount | Swap |
+| ----- | ------ | ---- |
+| DAI   | All    | USDS |
+| LUSD  | All    | USDC |
+| PYUSD | All    | USDC |
+
+### Ahab Budget Extension
+
+Asset: aEthUSDT `0x23878914EFE38d27C4D67Ab83ed1b93A74D4086a`
+Amount: 0.25M
+
+Asset: aEthUSDC `0x98C23E9d8f34FEFb1B7BD6a91B7FF122F4e16F5c`
+Amount: 0.25M
+
+Asset: aEthLidoUSDS `0x09AA30b182488f769a9824F15E6Ce58591Da4781`
+Amount: 0.25M
+
+Asset: aEthLidoGHO: `0x18eFE565A5373f430e2F809b97De30335B3ad96A`
+Amount: 0.25M
+
+Spender: Ahab `0xAA2461f0f0A3dE5fEAF3273eAe16DEF861cf594e`
+
+### Gnosis Liquidity Mining Rewards
+
+GnosisV3Collector Approval
+Asset: aGnoEURe: `0x3e652E97ff339B73421f824F5b03d75b62F1Fb51`
+Amount: 6,000
+Spender: ACI `0xdef1FA4CEfe67365ba046a7C630D6B885298E210`
 
 ## References
 
