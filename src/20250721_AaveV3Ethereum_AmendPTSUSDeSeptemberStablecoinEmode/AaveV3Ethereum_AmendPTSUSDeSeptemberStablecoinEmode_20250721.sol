@@ -10,7 +10,7 @@ import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config
  * @title amend PT-sUSDe september stablecoin emode
  * @author Aave-Chan Initiative
  * - Snapshot: direct-to-AIP
- * - Discussion: https://governance.aave.com/t/direct-to-aip-onboard-susde-september-expiry-pt-tokens-on-aave-v3-core-instance/22313
+ * - Discussion: https://governance.aave.com/t/direct-to-aip-adjustment-of-pt-susde-september-e-mode-and-usdtb-ir-curve/22615
  */
 contract AaveV3Ethereum_AmendPTSUSDeSeptemberStablecoinEmode_20250721 is AaveV3PayloadEthereum {
   function assetsEModeUpdates()

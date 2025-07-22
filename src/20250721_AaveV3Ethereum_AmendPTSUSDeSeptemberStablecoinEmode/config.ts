@@ -9,7 +9,7 @@ export const config: ConfigFile = {
     shortName: 'AmendPTSUSDeSeptemberStablecoinEmode',
     date: '20250721',
     discussion:
-      'https://governance.aave.com/t/direct-to-aip-onboard-susde-september-expiry-pt-tokens-on-aave-v3-core-instance/22313',
+      'https://governance.aave.com/t/direct-to-aip-adjustment-of-pt-susde-september-e-mode-and-usdtb-ir-curve/22615',
     snapshot: 'direct-to-AIP',
     votingNetwork: 'POLYGON',
   },
