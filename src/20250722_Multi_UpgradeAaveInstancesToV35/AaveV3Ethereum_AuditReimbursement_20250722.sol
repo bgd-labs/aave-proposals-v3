@@ -10,7 +10,7 @@ import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGen
  * @author BGD Labs @bgdlabs
  * - Discussion: https://governance.aave.com/t/direct-to-aip-bgd-aave-v3-5-v3-4-part-2/22639/1
  */
-contract AaveV3Ethereum_UpgradeAaveInstancesToV35_20250722 is IProposalGenericExecutor {
+contract AaveV3Ethereum_AuditReimbursement_20250722 is IProposalGenericExecutor {
   address public constant BGD_SAFE = 0xb812d0944f8F581DfAA3a93Dda0d22EcEf51A9CF;
 
   function execute() external {

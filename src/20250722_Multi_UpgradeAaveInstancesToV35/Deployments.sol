@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: BUSL-1.1
+pragma solidity ^0.8.10;
+
 library Deployments {
   address public constant BASE = 0x2865680741199B50870eD452fE9b590501791c87; // cancun
   address public constant GNOSIS = 0x32A1b4a26e0bA9164bc05eb764D3cd7337d431aD; // cancun

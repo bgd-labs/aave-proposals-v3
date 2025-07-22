@@ -5,22 +5,8 @@ import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aa
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 
 import {EthereumScript, PolygonScript, AvalancheScript, OptimismScript, ArbitrumScript, MetisScript, BaseScript, GnosisScript, ScrollScript, BNBScript, LineaScript, CeloScript, SonicScript, SoneiumScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
-import {AaveV3Ethereum_UpgradeAaveInstancesToV35_20250722} from './AaveV3Ethereum_UpgradeAaveInstancesToV35_20250722.sol';
-import {AaveV3EthereumLido_UpgradeAaveInstancesToV35_20250722} from './AaveV3EthereumLido_UpgradeAaveInstancesToV35_20250722.sol';
-import {AaveV3EthereumEtherFi_UpgradeAaveInstancesToV35_20250722} from './AaveV3EthereumEtherFi_UpgradeAaveInstancesToV35_20250722.sol';
-import {AaveV3Polygon_UpgradeAaveInstancesToV35_20250722} from './AaveV3Polygon_UpgradeAaveInstancesToV35_20250722.sol';
-import {AaveV3Avalanche_UpgradeAaveInstancesToV35_20250722} from './AaveV3Avalanche_UpgradeAaveInstancesToV35_20250722.sol';
-import {AaveV3Optimism_UpgradeAaveInstancesToV35_20250722} from './AaveV3Optimism_UpgradeAaveInstancesToV35_20250722.sol';
-import {AaveV3Arbitrum_UpgradeAaveInstancesToV35_20250722} from './AaveV3Arbitrum_UpgradeAaveInstancesToV35_20250722.sol';
-import {AaveV3Metis_UpgradeAaveInstancesToV35_20250722} from './AaveV3Metis_UpgradeAaveInstancesToV35_20250722.sol';
-import {AaveV3Base_UpgradeAaveInstancesToV35_20250722} from './AaveV3Base_UpgradeAaveInstancesToV35_20250722.sol';
-import {AaveV3Gnosis_UpgradeAaveInstancesToV35_20250722} from './AaveV3Gnosis_UpgradeAaveInstancesToV35_20250722.sol';
-import {AaveV3Scroll_UpgradeAaveInstancesToV35_20250722} from './AaveV3Scroll_UpgradeAaveInstancesToV35_20250722.sol';
-import {AaveV3BNB_UpgradeAaveInstancesToV35_20250722} from './AaveV3BNB_UpgradeAaveInstancesToV35_20250722.sol';
-import {AaveV3Linea_UpgradeAaveInstancesToV35_20250722} from './AaveV3Linea_UpgradeAaveInstancesToV35_20250722.sol';
-import {AaveV3Celo_UpgradeAaveInstancesToV35_20250722} from './AaveV3Celo_UpgradeAaveInstancesToV35_20250722.sol';
-import {AaveV3Sonic_UpgradeAaveInstancesToV35_20250722} from './AaveV3Sonic_UpgradeAaveInstancesToV35_20250722.sol';
-import {AaveV3Soneium_UpgradeAaveInstancesToV35_20250722} from './AaveV3Soneium_UpgradeAaveInstancesToV35_20250722.sol';
+import {AaveV3Ethereum_AuditReimbursement_20250722} from './AaveV3Ethereum_AuditReimbursement_20250722.sol';
+import {Deployments} from './Deployments.sol';
 
 /**
  * @dev Deploy Ethereum
@@ -30,22 +16,20 @@ import {AaveV3Soneium_UpgradeAaveInstancesToV35_20250722} from './AaveV3Soneium_
 contract DeployEthereum is EthereumScript {
   function run() external broadcast {
     // deploy payloads
-    address payload0 = GovV3Helpers.deployDeterministic(
-      type(AaveV3Ethereum_UpgradeAaveInstancesToV35_20250722).creationCode
-    );
-    address payload1 = GovV3Helpers.deployDeterministic(
-      type(AaveV3EthereumLido_UpgradeAaveInstancesToV35_20250722).creationCode
-    );
-    address payload2 = GovV3Helpers.deployDeterministic(
-      type(AaveV3EthereumEtherFi_UpgradeAaveInstancesToV35_20250722).creationCode
+    address payload0 = Deployments.MAINNET_CORE;
+    address payload1 = Deployments.MAINNET_LIDO;
+    address payload2 = Deployments.MAINNET_ETHERFI;
+    address payload3 = GovV3Helpers.deployDeterministic(
+      type(AaveV3Ethereum_AuditReimbursement_20250722).creationCode
     );
 
     // compose action
     IPayloadsControllerCore.ExecutionAction[]
-      memory actions = new IPayloadsControllerCore.ExecutionAction[](3);
+      memory actions = new IPayloadsControllerCore.ExecutionAction[](4);
     actions[0] = GovV3Helpers.buildAction(payload0);
     actions[1] = GovV3Helpers.buildAction(payload1);
     actions[2] = GovV3Helpers.buildAction(payload2);
+    actions[3] = GovV3Helpers.buildAction(payload3);
 
     // register action at payloadsController
     GovV3Helpers.createPayload(actions);
@@ -60,9 +44,7 @@ contract DeployEthereum is EthereumScript {
 contract DeployPolygon is PolygonScript {
   function run() external broadcast {
     // deploy payloads
-    address payload0 = GovV3Helpers.deployDeterministic(
-      type(AaveV3Polygon_UpgradeAaveInstancesToV35_20250722).creationCode
-    );
+    address payload0 = Deployments.POLYGON;
 
     // compose action
     IPayloadsControllerCore.ExecutionAction[]
@@ -82,9 +64,7 @@ contract DeployPolygon is PolygonScript {
 contract DeployAvalanche is AvalancheScript {
   function run() external broadcast {
     // deploy payloads
-    address payload0 = GovV3Helpers.deployDeterministic(
-      type(AaveV3Avalanche_UpgradeAaveInstancesToV35_20250722).creationCode
-    );
+    address payload0 = Deployments.AVALANCHE;
 
     // compose action
     IPayloadsControllerCore.ExecutionAction[]
@@ -104,9 +84,7 @@ contract DeployAvalanche is AvalancheScript {
 contract DeployOptimism is OptimismScript {
   function run() external broadcast {
     // deploy payloads
-    address payload0 = GovV3Helpers.deployDeterministic(
-      type(AaveV3Optimism_UpgradeAaveInstancesToV35_20250722).creationCode
-    );
+    address payload0 = Deployments.OPTIMISM;
 
     // compose action
     IPayloadsControllerCore.ExecutionAction[]
@@ -126,9 +104,7 @@ contract DeployOptimism is OptimismScript {
 contract DeployArbitrum is ArbitrumScript {
   function run() external broadcast {
     // deploy payloads
-    address payload0 = GovV3Helpers.deployDeterministic(
-      type(AaveV3Arbitrum_UpgradeAaveInstancesToV35_20250722).creationCode
-    );
+    address payload0 = Deployments.ARBITRUM;
 
     // compose action
     IPayloadsControllerCore.ExecutionAction[]
@@ -148,9 +124,7 @@ contract DeployArbitrum is ArbitrumScript {
 contract DeployMetis is MetisScript {
   function run() external broadcast {
     // deploy payloads
-    address payload0 = GovV3Helpers.deployDeterministic(
-      type(AaveV3Metis_UpgradeAaveInstancesToV35_20250722).creationCode
-    );
+    address payload0 = Deployments.METIS;
 
     // compose action
     IPayloadsControllerCore.ExecutionAction[]
@@ -170,9 +144,7 @@ contract DeployMetis is MetisScript {
 contract DeployBase is BaseScript {
   function run() external broadcast {
     // deploy payloads
-    address payload0 = GovV3Helpers.deployDeterministic(
-      type(AaveV3Base_UpgradeAaveInstancesToV35_20250722).creationCode
-    );
+    address payload0 = Deployments.BASE;
 
     // compose action
     IPayloadsControllerCore.ExecutionAction[]
@@ -192,9 +164,7 @@ contract DeployBase is BaseScript {
 contract DeployGnosis is GnosisScript {
   function run() external broadcast {
     // deploy payloads
-    address payload0 = GovV3Helpers.deployDeterministic(
-      type(AaveV3Gnosis_UpgradeAaveInstancesToV35_20250722).creationCode
-    );
+    address payload0 = Deployments.GNOSIS;
 
     // compose action
     IPayloadsControllerCore.ExecutionAction[]
@@ -214,9 +184,7 @@ contract DeployGnosis is GnosisScript {
 contract DeployScroll is ScrollScript {
   function run() external broadcast {
     // deploy payloads
-    address payload0 = GovV3Helpers.deployDeterministic(
-      type(AaveV3Scroll_UpgradeAaveInstancesToV35_20250722).creationCode
-    );
+    address payload0 = Deployments.SCROLL;
 
     // compose action
     IPayloadsControllerCore.ExecutionAction[]
@@ -236,9 +204,7 @@ contract DeployScroll is ScrollScript {
 contract DeployBNB is BNBScript {
   function run() external broadcast {
     // deploy payloads
-    address payload0 = GovV3Helpers.deployDeterministic(
-      type(AaveV3BNB_UpgradeAaveInstancesToV35_20250722).creationCode
-    );
+    address payload0 = Deployments.BNB;
 
     // compose action
     IPayloadsControllerCore.ExecutionAction[]
@@ -258,9 +224,7 @@ contract DeployBNB is BNBScript {
 contract DeployLinea is LineaScript {
   function run() external broadcast {
     // deploy payloads
-    address payload0 = GovV3Helpers.deployDeterministic(
-      type(AaveV3Linea_UpgradeAaveInstancesToV35_20250722).creationCode
-    );
+    address payload0 = Deployments.LINEA;
 
     // compose action
     IPayloadsControllerCore.ExecutionAction[]
@@ -280,9 +244,7 @@ contract DeployLinea is LineaScript {
 contract DeployCelo is CeloScript {
   function run() external broadcast {
     // deploy payloads
-    address payload0 = GovV3Helpers.deployDeterministic(
-      type(AaveV3Celo_UpgradeAaveInstancesToV35_20250722).creationCode
-    );
+    address payload0 = Deployments.CELO;
 
     // compose action
     IPayloadsControllerCore.ExecutionAction[]
@@ -302,9 +264,7 @@ contract DeployCelo is CeloScript {
 contract DeploySonic is SonicScript {
   function run() external broadcast {
     // deploy payloads
-    address payload0 = GovV3Helpers.deployDeterministic(
-      type(AaveV3Sonic_UpgradeAaveInstancesToV35_20250722).creationCode
-    );
+    address payload0 = Deployments.SONIC;
 
     // compose action
     IPayloadsControllerCore.ExecutionAction[]
@@ -324,9 +284,7 @@ contract DeploySonic is SonicScript {
 contract DeploySoneium is SoneiumScript {
   function run() external broadcast {
     // deploy payloads
-    address payload0 = GovV3Helpers.deployDeterministic(
-      type(AaveV3Soneium_UpgradeAaveInstancesToV35_20250722).creationCode
-    );
+    address payload0 = Deployments.SONEIUM;
 
     // compose action
     IPayloadsControllerCore.ExecutionAction[]
@@ -350,15 +308,12 @@ contract CreateProposal is EthereumScript {
     // compose actions for validation
     {
       IPayloadsControllerCore.ExecutionAction[]
-        memory actionsEthereum = new IPayloadsControllerCore.ExecutionAction[](3);
-      actionsEthereum[0] = GovV3Helpers.buildAction(
-        type(AaveV3Ethereum_UpgradeAaveInstancesToV35_20250722).creationCode
-      );
-      actionsEthereum[1] = GovV3Helpers.buildAction(
-        type(AaveV3EthereumLido_UpgradeAaveInstancesToV35_20250722).creationCode
-      );
-      actionsEthereum[2] = GovV3Helpers.buildAction(
-        type(AaveV3EthereumEtherFi_UpgradeAaveInstancesToV35_20250722).creationCode
+        memory actionsEthereum = new IPayloadsControllerCore.ExecutionAction[](4);
+      actionsEthereum[0] = Deployments.MAINNET_CORE;
+      actionsEthereum[1] = Deployments.MAINNET_LIDO;
+      actionsEthereum[2] = Deployments.MAINNET_ETHERFI;
+      actionsEthereum[3] = GovV3Helpers.buildAction(
+        type(AaveV3Ethereum_AuditReimbursement_20250722).creationCode
       );
       payloads[0] = GovV3Helpers.buildMainnetPayload(vm, actionsEthereum);
     }
@@ -366,127 +321,98 @@ contract CreateProposal is EthereumScript {
     {
       IPayloadsControllerCore.ExecutionAction[]
         memory actionsPolygon = new IPayloadsControllerCore.ExecutionAction[](1);
-      actionsPolygon[0] = GovV3Helpers.buildAction(
-        type(AaveV3Polygon_UpgradeAaveInstancesToV35_20250722).creationCode
-      );
+      actionsPolygon[0] = Deployments.POLYGON;
       payloads[1] = GovV3Helpers.buildPolygonPayload(vm, actionsPolygon);
     }
 
     {
       IPayloadsControllerCore.ExecutionAction[]
         memory actionsAvalanche = new IPayloadsControllerCore.ExecutionAction[](1);
-      actionsAvalanche[0] = GovV3Helpers.buildAction(
-        type(AaveV3Avalanche_UpgradeAaveInstancesToV35_20250722).creationCode
-      );
+      actionsAvalanche[0] = Deployments.AVALANCHE;
       payloads[2] = GovV3Helpers.buildAvalanchePayload(vm, actionsAvalanche);
     }
 
     {
       IPayloadsControllerCore.ExecutionAction[]
         memory actionsOptimism = new IPayloadsControllerCore.ExecutionAction[](1);
-      actionsOptimism[0] = GovV3Helpers.buildAction(
-        type(AaveV3Optimism_UpgradeAaveInstancesToV35_20250722).creationCode
-      );
+      actionsOptimism[0] = Deployments.OPTIMISM;
       payloads[3] = GovV3Helpers.buildOptimismPayload(vm, actionsOptimism);
     }
 
     {
       IPayloadsControllerCore.ExecutionAction[]
         memory actionsArbitrum = new IPayloadsControllerCore.ExecutionAction[](1);
-      actionsArbitrum[0] = GovV3Helpers.buildAction(
-        type(AaveV3Arbitrum_UpgradeAaveInstancesToV35_20250722).creationCode
-      );
+      actionsArbitrum[0] = Deployments.ARBITRUM;
       payloads[4] = GovV3Helpers.buildArbitrumPayload(vm, actionsArbitrum);
     }
 
     {
       IPayloadsControllerCore.ExecutionAction[]
         memory actionsMetis = new IPayloadsControllerCore.ExecutionAction[](1);
-      actionsMetis[0] = GovV3Helpers.buildAction(
-        type(AaveV3Metis_UpgradeAaveInstancesToV35_20250722).creationCode
-      );
+      actionsMetis[0] = Deployments.METIS;
       payloads[5] = GovV3Helpers.buildMetisPayload(vm, actionsMetis);
     }
 
     {
       IPayloadsControllerCore.ExecutionAction[]
         memory actionsBase = new IPayloadsControllerCore.ExecutionAction[](1);
-      actionsBase[0] = GovV3Helpers.buildAction(
-        type(AaveV3Base_UpgradeAaveInstancesToV35_20250722).creationCode
-      );
+      actionsBase[0] = Deployments.BASE;
       payloads[6] = GovV3Helpers.buildBasePayload(vm, actionsBase);
     }
 
     {
       IPayloadsControllerCore.ExecutionAction[]
         memory actionsGnosis = new IPayloadsControllerCore.ExecutionAction[](1);
-      actionsGnosis[0] = GovV3Helpers.buildAction(
-        type(AaveV3Gnosis_UpgradeAaveInstancesToV35_20250722).creationCode
-      );
+      actionsGnosis[0] = Deployments.GNOSIS;
       payloads[7] = GovV3Helpers.buildGnosisPayload(vm, actionsGnosis);
     }
 
     {
       IPayloadsControllerCore.ExecutionAction[]
         memory actionsScroll = new IPayloadsControllerCore.ExecutionAction[](1);
-      actionsScroll[0] = GovV3Helpers.buildAction(
-        type(AaveV3Scroll_UpgradeAaveInstancesToV35_20250722).creationCode
-      );
+      actionsScroll[0] = Deployments.SCROLL;
       payloads[8] = GovV3Helpers.buildScrollPayload(vm, actionsScroll);
     }
 
     {
       IPayloadsControllerCore.ExecutionAction[]
         memory actionsBNB = new IPayloadsControllerCore.ExecutionAction[](1);
-      actionsBNB[0] = GovV3Helpers.buildAction(
-        type(AaveV3BNB_UpgradeAaveInstancesToV35_20250722).creationCode
-      );
+      actionsBNB[0] = Deployments.BNB;
       payloads[9] = GovV3Helpers.buildBNBPayload(vm, actionsBNB);
     }
 
     {
       IPayloadsControllerCore.ExecutionAction[]
         memory actionsZkSync = new IPayloadsControllerCore.ExecutionAction[](1);
-      actionsZkSync[0] = GovV3Helpers.buildActionZkSync(
-        vm,
-        'AaveV3ZkSync_UpgradeAaveInstancesToV35_20250722'
-      );
+      actionsZkSync[0] = Deployments.ZKSYNC;
       payloads[10] = GovV3Helpers.buildZkSyncPayload(vm, actionsZkSync);
     }
 
     {
       IPayloadsControllerCore.ExecutionAction[]
         memory actionsLinea = new IPayloadsControllerCore.ExecutionAction[](1);
-      actionsLinea[0] = GovV3Helpers.buildAction(
-        type(AaveV3Linea_UpgradeAaveInstancesToV35_20250722).creationCode
-      );
+      actionsLinea[0] = Deployments.LINEA;
       payloads[11] = GovV3Helpers.buildLineaPayload(vm, actionsLinea);
     }
 
     {
       IPayloadsControllerCore.ExecutionAction[]
         memory actionsCelo = new IPayloadsControllerCore.ExecutionAction[](1);
-      actionsCelo[0] = GovV3Helpers.buildAction(
-        type(AaveV3Celo_UpgradeAaveInstancesToV35_20250722).creationCode
-      );
+      actionsCelo[0] = Deployments.CELO;
       payloads[12] = GovV3Helpers.buildCeloPayload(vm, actionsCelo);
     }
 
     {
       IPayloadsControllerCore.ExecutionAction[]
         memory actionsSonic = new IPayloadsControllerCore.ExecutionAction[](1);
-      actionsSonic[0] = GovV3Helpers.buildAction(
-        type(AaveV3Sonic_UpgradeAaveInstancesToV35_20250722).creationCode
-      );
+      actionsSonic[0] = Deployments.SONIC;
       payloads[13] = GovV3Helpers.buildSonicPayload(vm, actionsSonic);
     }
 
     {
       IPayloadsControllerCore.ExecutionAction[]
         memory actionsSoneium = new IPayloadsControllerCore.ExecutionAction[](1);
-      actionsSoneium[0] = GovV3Helpers.buildAction(
-        type(AaveV3Soneium_UpgradeAaveInstancesToV35_20250722).creationCode
-      );
+      actionsSoneium[0] = Deployments.SONEIUM;
       payloads[14] = GovV3Helpers.buildSoneiumPayload(vm, actionsSoneium);
     }
 
