@@ -23,6 +23,8 @@ interface IMigrationActions {
  * @author @TokenLogic
  * - Snapshot: Direct-to-AIP
  * - Discussion: https://governance.aave.com/t/direct-to-aip-july-2025-funding-update/22555
+ * - Snapshot Orbit: https://snapshot.box/#/s:aavedao.eth/proposal/0x2b497f613d426aa0f641fcd445132148b4faa81ad0c9c054e1062be886f45cdd
+ * - Discussion Orbit: https://governance.aave.com/t/arfc-orbit-program-renewal-q2-2025/22497/1
  */
 contract AaveV3Ethereum_July2025FundingUpdate_20250721 is IProposalGenericExecutor {
   using CollectorUtils for ICollector;
@@ -41,11 +43,20 @@ contract AaveV3Ethereum_July2025FundingUpdate_20250721 is IProposalGenericExecut
   /// https://etherscan.io/address/0xf86141a5657Cf52AEB3E30eBccA5Ad3a8f714B89
   address public constant MIGRATION_ACTIONS = 0xf86141a5657Cf52AEB3E30eBccA5Ad3a8f714B89;
 
+  /// Orbit Renewal
+  uint256 public constant STREAM_DURATION = 90 days;
+  uint256 public constant STREAM_AMOUNT = 15_000 ether; // Total Budget is 45,000 GHO
+
+  address public constant EZREAL = 0x8659D0BB123Da6D16D9394C7838BA286c2207d0E;
+  address public constant STABLE_LABS = 0xECC2a9240268BC7a26386ecB49E1Befca2706AC9;
+  address public constant IGNAS_DEFI = 0x3DDC7d25c7a1dc381443e491Bbf1Caa8928A05B0;
+
   uint256 ACI_REFUND_AMOUNT = 0.4561 ether;
 
   function execute() external {
     _allowances();
     _swaps();
+    _orbitRenewal();
 
     // ACI Refund
     AaveV3Ethereum.COLLECTOR.transfer(
@@ -125,5 +136,25 @@ contract AaveV3Ethereum_July2025FundingUpdate_20250721 is IProposalGenericExecut
       AHAB_SAFE,
       AHAB_ALLOWANCE_USDS_GHO
     );
+  }
+
+  function _orbitRenewal() internal {
+    address[] memory streamAddresses = new address[](3);
+    streamAddresses[0] = EZREAL;
+    streamAddresses[1] = STABLE_LABS;
+    streamAddresses[2] = IGNAS_DEFI;
+
+    for (uint256 i = 0; i < 3; i++) {
+      CollectorUtils.stream(
+        AaveV3Ethereum.COLLECTOR,
+        CollectorUtils.CreateStreamInput({
+          underlying: AaveV3EthereumLidoAssets.GHO_A_TOKEN,
+          receiver: streamAddresses[i],
+          amount: STREAM_AMOUNT,
+          start: block.timestamp,
+          duration: STREAM_DURATION
+        })
+      );
+    }
   }
 }

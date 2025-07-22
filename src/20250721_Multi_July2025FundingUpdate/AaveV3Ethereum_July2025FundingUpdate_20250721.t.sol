@@ -198,4 +198,61 @@ contract AaveV3Ethereum_July2025FundingUpdate_20250721_Test is ProtocolV3TestBas
       MiscEthereum.MASIV_SAFE
     );
   }
+
+  function test_orbitRenewal() public {
+    // 0.001% tolerance due to stream computation inaccuracy
+    uint256 maxDeltaStreamBalance = 0.00001e18; // 0.001%
+
+    uint256[] memory ghoBalancesBeforeUsers = new uint256[](3);
+
+    address[] memory streamAddresses = new address[](3);
+    streamAddresses[0] = proposal.EZREAL();
+    streamAddresses[1] = proposal.STABLE_LABS();
+    streamAddresses[2] = proposal.IGNAS_DEFI();
+
+    for (uint256 i = 0; i < streamAddresses.length; i++) {
+      ghoBalancesBeforeUsers[i] = IERC20(AaveV3EthereumLidoAssets.GHO_A_TOKEN).balanceOf(
+        streamAddresses[i]
+      );
+    }
+
+    uint256 nextStreamId = AaveV3Ethereum.COLLECTOR.getNextStreamId();
+
+    vm.expectRevert();
+    AaveV3Ethereum.COLLECTOR.getStream(nextStreamId);
+
+    executePayload(vm, address(proposal));
+
+    vm.warp(block.timestamp + 91 days);
+
+    uint256[] memory aGHOInterest = new uint256[](4);
+    for (uint256 i = 0; i < streamAddresses.length; i++) {
+      aGHOInterest[i] =
+        IERC20(AaveV3EthereumLidoAssets.GHO_A_TOKEN).balanceOf(streamAddresses[i]) -
+        ghoBalancesBeforeUsers[i];
+    }
+    // Stream transfers
+    for (uint256 i = 0; i < streamAddresses.length; i++) {
+      uint256 finalBalanceToWithdraw = AaveV3Ethereum.COLLECTOR.balanceOf(
+        nextStreamId + i,
+        streamAddresses[i]
+      );
+
+      assertApproxEqRel(
+        finalBalanceToWithdraw,
+        proposal.STREAM_AMOUNT(),
+        maxDeltaStreamBalance,
+        'GHO Stream final balance is not correct'
+      );
+
+      vm.prank(streamAddresses[i]);
+      AaveV3Ethereum.COLLECTOR.withdrawFromStream(nextStreamId + i, finalBalanceToWithdraw);
+      assertApproxEqRel(
+        IERC20(AaveV3EthereumLidoAssets.GHO_A_TOKEN).balanceOf(streamAddresses[i]),
+        ghoBalancesBeforeUsers[i] + proposal.STREAM_AMOUNT() + aGHOInterest[i],
+        maxDeltaStreamBalance,
+        'GHO Stream final withdraw is not correct'
+      );
+    }
+  }
 }

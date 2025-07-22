@@ -24,6 +24,13 @@ The below outlines the objectives of this publication:
 - Consolidating funds to Ethereum; and,
 - Support near term operational requirements.
 
+### Orbit Renewal
+
+Orbit recognizes the added value of the Delegates in the decentralization & diversity of the Aave DAO. This compensation allows them to focus on Aave and keep their contribution efforts to our governance. The ACI proposes the extension of Orbit for a new quarter, Q2 2025, from 2025-04-01 to 2025-06-30.
+
+The snapshot for Orbit can be found [here](https://snapshot.box/#/s:aavedao.eth/proposal/0x2b497f613d426aa0f641fcd445132148b4faa81ad0c9c054e1062be886f45cdd).
+The governance discussion can be found [here](https://governance.aave.com/t/arfc-orbit-program-renewal-q2-2025/22497/1).
+
 ## Specification
 
 ### Bridge the following assets to Ethereum.
@@ -75,7 +82,9 @@ Spender: ACI `0xdef1FA4CEfe67365ba046a7C630D6B885298E210`
 - Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250721_Multi_July2025FundingUpdate/AaveV3Ethereum_July2025FundingUpdate_20250721.sol), [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250721_Multi_July2025FundingUpdate/AaveV3Polygon_July2025FundingUpdate_20250721.sol), [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250721_Multi_July2025FundingUpdate/AaveV3Arbitrum_July2025FundingUpdate_20250721.sol), [AaveV3Gnosis](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250721_Multi_July2025FundingUpdate/AaveV3Gnosis_July2025FundingUpdate_20250721.sol)
 - Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250721_Multi_July2025FundingUpdate/AaveV3Ethereum_July2025FundingUpdate_20250721.t.sol), [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250721_Multi_July2025FundingUpdate/AaveV3Polygon_July2025FundingUpdate_20250721.t.sol), [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250721_Multi_July2025FundingUpdate/AaveV3Arbitrum_July2025FundingUpdate_20250721.t.sol), [AaveV3Gnosis](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250721_Multi_July2025FundingUpdate/AaveV3Gnosis_July2025FundingUpdate_20250721.t.sol)
 - Snapshot: Direct-to-AIP
+- [SnapshotOrbit](https://snapshot.box/#/s:aavedao.eth/proposal/0x2b497f613d426aa0f641fcd445132148b4faa81ad0c9c054e1062be886f45cdd)
 - [Discussion](https://governance.aave.com/t/direct-to-aip-july-2025-funding-update/22555)
+- [DiscussionOrbit](https://governance.aave.com/t/arfc-orbit-program-renewal-q2-2025/22497/1)
 
 ## Copyright
 
