@@ -17,6 +17,8 @@ import {AaveV3Ethereum_SafetyModuleEmissionUpdate_20250721} from './AaveV3Ethere
 contract AaveV3Ethereum_SafetyModuleEmissionUpdate_20250721_Test is ProtocolV3TestBase {
   AaveV3Ethereum_SafetyModuleEmissionUpdate_20250721 internal proposal;
 
+  uint128 public constant CURRENT_AAVE_EMISSION_PER_SECOND_STK_AAVE = uint128(315 ether) / 1 days;
+
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('mainnet'), 22967726);
     proposal = new AaveV3Ethereum_SafetyModuleEmissionUpdate_20250721();
@@ -44,7 +46,7 @@ contract AaveV3Ethereum_SafetyModuleEmissionUpdate_20250721_Test is ProtocolV3Te
 
     assertEq(
       emissionPerSecondBeforeStkAAVE,
-      proposal.CURRENT_AAVE_EMISSION_PER_SECOND_STK_AAVE(),
+      CURRENT_AAVE_EMISSION_PER_SECOND_STK_AAVE,
       'emissions before not equal stkAAVE'
     );
 
