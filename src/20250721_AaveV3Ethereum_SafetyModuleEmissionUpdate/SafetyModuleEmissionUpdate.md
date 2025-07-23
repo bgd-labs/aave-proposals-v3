@@ -39,6 +39,8 @@ Reduce AAVE Emissions in the following manner:
 | stkAAVE     | 315/day (3.94% APY)  | 260/day (Est. 3.25% APY) |
 | stkABPT     | 216/day (10.09% APY) | 130/day (Est. 6.10% APY) |
 
+Update maximum slashing percentage for both to 10%.
+
 ## References
 
 - Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250721_AaveV3Ethereum_SafetyModuleEmissionUpdate/AaveV3Ethereum_SafetyModuleEmissionUpdate_20250721.sol)

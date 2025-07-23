@@ -24,6 +24,8 @@ contract AaveV3Ethereum_SafetyModuleEmissionUpdate_20250721 is IProposalGenericE
   uint128 public constant CURRENT_AAVE_EMISSION_PER_SECOND_STK_BPT = uint128(216 ether) / 1 days;
   uint128 public constant AAVE_EMISSION_PER_SECOND_STK_BPT = uint128(130 ether) / 1 days;
 
+  uint256 public constant NEW_MAX_SLASHING_PCT = 1000;
+
   function execute() external {
     _stkAAVE();
     _stkABPT();
@@ -45,6 +47,7 @@ contract AaveV3Ethereum_SafetyModuleEmissionUpdate_20250721 is IProposalGenericE
       underlyingAsset: AaveSafetyModule.STK_AAVE
     });
     IStakeToken(AaveSafetyModule.STK_AAVE).configureAssets(bptConfigs);
+    IStakeToken(AaveSafetyModule.STK_AAVE).setMaxSlashablePercentage(NEW_MAX_SLASHING_PCT);
 
     MiscEthereum.AAVE_ECOSYSTEM_RESERVE_CONTROLLER.approve(
       MiscEthereum.ECOSYSTEM_RESERVE,
@@ -82,6 +85,9 @@ contract AaveV3Ethereum_SafetyModuleEmissionUpdate_20250721 is IProposalGenericE
     IStakeToken(AaveSafetyModule.STK_AAVE_WSTETH_BPTV2).configureAssets(bptConfigs);
     IStakeToken(AaveSafetyModule.STK_AAVE_WSTETH_BPTV2).setDistributionEnd(
       block.timestamp + DISTRIBUTION_DURATION
+    );
+    IStakeToken(AaveSafetyModule.STK_AAVE_WSTETH_BPTV2).setMaxSlashablePercentage(
+      NEW_MAX_SLASHING_PCT
     );
 
     MiscEthereum.AAVE_ECOSYSTEM_RESERVE_CONTROLLER.approve(

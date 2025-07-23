@@ -54,6 +54,10 @@ contract AaveV3Ethereum_SafetyModuleEmissionUpdate_20250721_Test is ProtocolV3Te
       'emissions before not equal stkBPT'
     );
 
+    assertEq(IStakeToken(AaveSafetyModule.STK_AAVE).getMaxSlashablePercentage(), 2000);
+
+    assertEq(IStakeToken(AaveSafetyModule.STK_AAVE_WSTETH_BPTV2).getMaxSlashablePercentage(), 2000);
+
     executePayload(vm, address(proposal));
 
     (uint128 emissionPerSecondAfterStkAAVE, , ) = IStakeToken(AaveSafetyModule.STK_AAVE).assets(
@@ -73,6 +77,16 @@ contract AaveV3Ethereum_SafetyModuleEmissionUpdate_20250721_Test is ProtocolV3Te
       emissionPerSecondAfterStkBPT,
       proposal.AAVE_EMISSION_PER_SECOND_STK_BPT(),
       'emissions after not equal stkBPT'
+    );
+
+    assertEq(
+      IStakeToken(AaveSafetyModule.STK_AAVE).getMaxSlashablePercentage(),
+      proposal.NEW_MAX_SLASHING_PCT()
+    );
+
+    assertEq(
+      IStakeToken(AaveSafetyModule.STK_AAVE_WSTETH_BPTV2).getMaxSlashablePercentage(),
+      proposal.NEW_MAX_SLASHING_PCT()
     );
   }
 
