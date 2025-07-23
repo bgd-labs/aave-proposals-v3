@@ -51,7 +51,7 @@ contract AaveV3Ethereum_July2025FundingUpdate_20250721 is IProposalGenericExecut
   address public constant STABLE_LABS = 0xECC2a9240268BC7a26386ecB49E1Befca2706AC9;
   address public constant IGNAS_DEFI = 0x3DDC7d25c7a1dc381443e491Bbf1Caa8928A05B0;
 
-  uint256 ACI_REFUND_AMOUNT = 0.4561 ether;
+  uint256 public constant ACI_REFUND_AMOUNT = 0.4561 ether;
 
   function execute() external {
     _allowances();
@@ -68,9 +68,20 @@ contract AaveV3Ethereum_July2025FundingUpdate_20250721 is IProposalGenericExecut
 
   function _swaps() internal {
     // DAI Swap
+    uint256 daiAmount = IERC20(AaveV3EthereumAssets.DAI_UNDERLYING).balanceOf(
+      address(AaveV3Ethereum.COLLECTOR)
+    );
+
+    AaveV3Ethereum.COLLECTOR.transfer(
+      IERC20(AaveV3EthereumAssets.DAI_UNDERLYING),
+      address(this),
+      daiAmount
+    );
+
+    IERC20(AaveV3EthereumAssets.DAI_UNDERLYING).approve(MIGRATION_ACTIONS, daiAmount);
     IMigrationActions(MIGRATION_ACTIONS).migrateDAIToUSDS(
       address(AaveV3Ethereum.COLLECTOR),
-      IERC20(AaveV3EthereumAssets.DAI_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR))
+      daiAmount
     );
 
     // LUSD Swap

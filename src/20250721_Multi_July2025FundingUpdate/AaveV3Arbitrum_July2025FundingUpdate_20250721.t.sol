@@ -19,7 +19,7 @@ contract AaveV3Arbitrum_July2025FundingUpdate_20250721_Test is ProtocolV3TestBas
   event Bridge(address indexed token, uint256 amount);
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('arbitrum'), 360052873);
+    vm.createSelectFork(vm.rpcUrl('arbitrum'), 360806785);
     proposal = new AaveV3Arbitrum_July2025FundingUpdate_20250721();
   }
 
