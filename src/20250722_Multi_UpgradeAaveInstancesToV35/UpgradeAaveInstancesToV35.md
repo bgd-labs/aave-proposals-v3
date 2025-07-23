@@ -41,7 +41,7 @@ In addition 4 audits by Independent Auditors were conducted.
 
 ## References
 
-- Implementation: [AaveV3EthereumCore](https://github.com/bgd-labs/protocol-v3.5-upgrade/blob/main/src/UpgradePayloadMainnet.sol), [AllOtherInstances](https://github.com/bgd-labs/protocol-v3.5-upgrade/blob/main/src/UpgradePayload.sol)
+- Implementation: [AaveV3EthereumCore](https://github.com/bgd-labs/protocol-v3.5-upgrade/blob/main/src/UpgradePayloadMainnetCore.sol), [AllOtherInstances](https://github.com/bgd-labs/protocol-v3.5-upgrade/blob/main/src/UpgradePayload.sol)
 - Tests: [AaveV3EthereumCore](https://github.com/bgd-labs/protocol-v3.5-upgrade/blob/main/test/MainnetCore.t.sol), [AllOtherInstances](https://github.com/bgd-labs/protocol-v3.5-upgrade/blob/main/test/UpgradeTest.t.sol)
 - Upgrade diff: [v3.4 - v3.5](https://github.com/aave-dao/aave-v3-origin/pull/133)
 - Onchain Diffs: [Per network diffs](https://github.com/bgd-labs/protocol-v3.5-upgrade/tree/main/diffs/code)

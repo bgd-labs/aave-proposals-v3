@@ -218,7 +218,7 @@ contract DeployBNB is BNBScript {
 
 /**
  * @dev Deploy Linea
- * deploy-command: make deploy-ledger contract=src/20250722_Multi_UpgradeAaveInstancesToV35/UpgradeAaveInstancesToV35_20250722.s.sol:DeployLinea chain=linea
+ * deploy-command: FOUNDRY_PROFILE=linea make deploy-ledger contract=src/20250722_Multi_UpgradeAaveInstancesToV35/UpgradeAaveInstancesToV35_20250722.s.sol:DeployLinea chain=linea
  * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/UpgradeAaveInstancesToV35_20250722.s.sol/59144/run-latest.json
  */
 contract DeployLinea is LineaScript {
