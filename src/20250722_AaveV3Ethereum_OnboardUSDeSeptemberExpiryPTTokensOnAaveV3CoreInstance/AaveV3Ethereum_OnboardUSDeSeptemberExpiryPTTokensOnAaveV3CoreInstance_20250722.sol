@@ -68,7 +68,7 @@ contract AaveV3Ethereum_OnboardUSDeSeptemberExpiryPTTokensOnAaveV3CoreInstance_2
     IAaveV3ConfigEngine.EModeCategoryCreation[]
       memory eModeCreations = new IAaveV3ConfigEngine.EModeCategoryCreation[](2);
 
-    address[] memory collateralAssets_PTUSDeStablecoinsSeptember2025 = new address[](3);
+    address[] memory collateralAssets_PTUSDeStablecoinsSeptember2025 = new address[](4);
     address[] memory borrowableAssets_PTUSDeStablecoinsSeptember2025 = new address[](4);
 
     collateralAssets_PTUSDeStablecoinsSeptember2025[0] = PT_USDe_25SEP2025;
@@ -76,6 +76,7 @@ contract AaveV3Ethereum_OnboardUSDeSeptemberExpiryPTTokensOnAaveV3CoreInstance_2
       .PT_USDe_31JUL2025_UNDERLYING;
     collateralAssets_PTUSDeStablecoinsSeptember2025[2] = AaveV3EthereumAssets
       .PT_eUSDE_14AUG2025_UNDERLYING;
+    collateralAssets_PTUSDeStablecoinsSeptember2025[3] = AaveV3EthereumAssets.USDe_UNDERLYING;
     borrowableAssets_PTUSDeStablecoinsSeptember2025[0] = AaveV3EthereumAssets.USDC_UNDERLYING;
     borrowableAssets_PTUSDeStablecoinsSeptember2025[1] = AaveV3EthereumAssets.USDT_UNDERLYING;
     borrowableAssets_PTUSDeStablecoinsSeptember2025[2] = AaveV3EthereumAssets.USDe_UNDERLYING;
@@ -90,13 +91,14 @@ contract AaveV3Ethereum_OnboardUSDeSeptemberExpiryPTTokensOnAaveV3CoreInstance_2
       borrowables: borrowableAssets_PTUSDeStablecoinsSeptember2025
     });
 
-    address[] memory collateralAssets_PTUSDeUSDeSeptember2025 = new address[](3);
+    address[] memory collateralAssets_PTUSDeUSDeSeptember2025 = new address[](4);
     address[] memory borrowableAssets_PTUSDeUSDeSeptember2025 = new address[](1);
 
     collateralAssets_PTUSDeUSDeSeptember2025[0] = PT_USDe_25SEP2025;
     collateralAssets_PTUSDeUSDeSeptember2025[1] = AaveV3EthereumAssets.PT_USDe_31JUL2025_UNDERLYING;
     collateralAssets_PTUSDeUSDeSeptember2025[2] = AaveV3EthereumAssets
       .PT_eUSDE_14AUG2025_UNDERLYING;
+    collateralAssets_PTUSDeUSDeSeptember2025[3] = AaveV3EthereumAssets.USDe_UNDERLYING;
     borrowableAssets_PTUSDeUSDeSeptember2025[0] = AaveV3EthereumAssets.USDe_UNDERLYING;
 
     eModeCreations[1] = IAaveV3ConfigEngine.EModeCategoryCreation({

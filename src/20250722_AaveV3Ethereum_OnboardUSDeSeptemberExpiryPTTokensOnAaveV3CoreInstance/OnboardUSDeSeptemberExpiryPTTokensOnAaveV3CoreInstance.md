@@ -52,7 +52,7 @@ The table below illustrates the configured risk parameters for **PT_USDe_25SEP20
 
 | **Asset**         | **PT-USDe-25SEP2025** | **PT-eUSDE-14AUG2025** | **PT-USDe-31JUL2025** | **USDC** | **USDT** | **USDS** | **USDe** |
 | ----------------- | --------------------- | ---------------------- | --------------------- | -------- | -------- | -------- | -------- |
-| Collateral        | Yes                   | Yes                    | Yes                   | No       | No       | No       | No       |
+| Collateral        | Yes                   | Yes                    | Yes                   | No       | No       | No       | Yes      |
 | Borrowable        | No                    | No                     | No                    | Yes      | Yes      | Yes      | Yes      |
 | LTV               | 90.3%                 | -                      | -                     | -        | -        | -        | -        |
 | LT                | 92.3%                 | -                      | -                     | -        | -        | -        | -        |
@@ -62,7 +62,7 @@ The table below illustrates the configured risk parameters for **PT_USDe_25SEP20
 
 | **Asset**         | **PT-USDe-25SEP2025** | **PT-eUSDE-14AUG2025** | **PT-USDe-31JUL2025** | **USDe** |
 | ----------------- | --------------------- | ---------------------- | --------------------- | -------- |
-| Collateral        | Yes                   | Yes                    | Yes                   | No       |
+| Collateral        | Yes                   | Yes                    | Yes                   | Yes      |
 | Borrowable        | No                    | No                     | No                    | Yes      |
 | LTV               | 91.2%                 | -                      | -                     | -        |
 | LT                | 93.2%                 | -                      | -                     | -        |
