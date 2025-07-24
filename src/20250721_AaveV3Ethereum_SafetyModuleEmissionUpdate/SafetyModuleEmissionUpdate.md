@@ -43,8 +43,8 @@ Update maximum slashing percentage for both to 10%.
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250721_AaveV3Ethereum_SafetyModuleEmissionUpdate/AaveV3Ethereum_SafetyModuleEmissionUpdate_20250721.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250721_AaveV3Ethereum_SafetyModuleEmissionUpdate/AaveV3Ethereum_SafetyModuleEmissionUpdate_20250721.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/85e38e3f84f701df45f57ffc01f05754618b6b05/src/20250721_AaveV3Ethereum_SafetyModuleEmissionUpdate/AaveV3Ethereum_SafetyModuleEmissionUpdate_20250721.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/85e38e3f84f701df45f57ffc01f05754618b6b05/src/20250721_AaveV3Ethereum_SafetyModuleEmissionUpdate/AaveV3Ethereum_SafetyModuleEmissionUpdate_20250721.t.sol)
 - [Snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0x844e6490591165e166fe511c1c527798369a21394fd93812d299cc320ec91dd5)
 - [Discussion](https://governance.aave.com/t/arfc-safety-module-emission-update/22554)
 
