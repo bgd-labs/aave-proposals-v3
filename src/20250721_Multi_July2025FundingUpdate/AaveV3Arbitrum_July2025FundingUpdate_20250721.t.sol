@@ -21,6 +21,9 @@ contract AaveV3Arbitrum_July2025FundingUpdate_20250721_Test is ProtocolV3TestBas
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('arbitrum'), 360806785);
     proposal = new AaveV3Arbitrum_July2025FundingUpdate_20250721();
+
+    ArbSysMock arbsys = new ArbSysMock();
+    vm.etch(address(0x0000000000000000000000000000000000000064), address(arbsys).code);
   }
 
   /**
@@ -43,20 +46,13 @@ contract AaveV3Arbitrum_July2025FundingUpdate_20250721_Test is ProtocolV3TestBas
       address(AaveV3Arbitrum.COLLECTOR)
     );
 
-    uint256 usdtCollectorBalanceBefore = IERC20(AaveV3ArbitrumAssets.USDT_UNDERLYING).balanceOf(
-      address(AaveV3Arbitrum.COLLECTOR)
-    );
-
     assertGt(daiCollectorBalanceBefore, 0);
     assertGt(usdcCollectorBalanceBefore, 0);
-    assertGt(usdtCollectorBalanceBefore, 0);
 
     vm.expectEmit(true, true, true, true, MiscArbitrum.AAVE_ARB_ETH_BRIDGE);
     emit Bridge(AaveV3ArbitrumAssets.DAI_UNDERLYING, daiCollectorBalanceBefore);
     vm.expectEmit(true, true, true, true, MiscArbitrum.AAVE_ARB_ETH_BRIDGE);
     emit Bridge(AaveV3ArbitrumAssets.USDC_UNDERLYING, usdcCollectorBalanceBefore);
-    vm.expectEmit(true, true, true, true, MiscArbitrum.AAVE_ARB_ETH_BRIDGE);
-    emit Bridge(AaveV3ArbitrumAssets.USDT_UNDERLYING, usdcCollectorBalanceBefore);
 
     executePayload(vm, address(proposal));
 
@@ -67,11 +63,6 @@ contract AaveV3Arbitrum_July2025FundingUpdate_20250721_Test is ProtocolV3TestBas
 
     assertEq(
       IERC20(AaveV3ArbitrumAssets.USDC_UNDERLYING).balanceOf(address(AaveV3Arbitrum.COLLECTOR)),
-      0
-    );
-
-    assertEq(
-      IERC20(AaveV3ArbitrumAssets.USDT_UNDERLYING).balanceOf(address(AaveV3Arbitrum.COLLECTOR)),
       0
     );
   }

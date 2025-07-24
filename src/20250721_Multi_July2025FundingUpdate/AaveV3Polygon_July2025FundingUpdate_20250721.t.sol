@@ -26,13 +26,13 @@ contract AaveV3Polygon_July2025FundingUpdate_20250721_Test is ProtocolV3TestBase
   /**
    * @dev executes the generic test suite including e2e and config snapshots
    */
-  // function test_defaultProposalExecution() public {
-  //   defaultTest(
-  //     'AaveV3Polygon_July2025FundingUpdate_20250721',
-  //     AaveV3Polygon.POOL,
-  //     address(proposal)
-  //   );
-  // }
+  function test_defaultProposalExecution() public {
+    defaultTest(
+      'AaveV3Polygon_July2025FundingUpdate_20250721',
+      AaveV3Polygon.POOL,
+      address(proposal)
+    );
+  }
 
   function test_bridges() public {
     uint256 usdtCollectorBalanceBefore = IERC20(AaveV3PolygonAssets.USDT_UNDERLYING).balanceOf(
@@ -61,15 +61,15 @@ contract AaveV3Polygon_July2025FundingUpdate_20250721_Test is ProtocolV3TestBase
     assertGt(wethCollectorBalanceBefore, 0);
 
     vm.expectEmit(true, true, true, true, MiscPolygon.AAVE_POL_ETH_BRIDGE);
-    emit Bridge(AaveV3PolygonAssets.USDC_UNDERLYING, usdcCollectorBalanceBefore);
+    emit Bridge(AaveV3PolygonAssets.USDT_UNDERLYING, usdtCollectorBalanceBefore);
     vm.expectEmit(true, true, true, true, MiscPolygon.AAVE_POL_ETH_BRIDGE);
     emit Bridge(AaveV3PolygonAssets.DAI_UNDERLYING, daiCollectorBalanceBefore);
     vm.expectEmit(true, true, true, true, MiscPolygon.AAVE_POL_ETH_BRIDGE);
-    emit Bridge(AaveV3PolygonAssets.USDT_UNDERLYING, usdcCollectorBalanceBefore);
+    emit Bridge(AaveV3PolygonAssets.USDC_UNDERLYING, usdcCollectorBalanceBefore);
     vm.expectEmit(true, true, true, true, MiscPolygon.AAVE_POL_ETH_BRIDGE);
-    emit Bridge(AaveV3PolygonAssets.LINK_UNDERLYING, usdcCollectorBalanceBefore);
+    emit Bridge(AaveV3PolygonAssets.LINK_UNDERLYING, linkCollectorBalanceBefore);
     vm.expectEmit(true, true, true, true, MiscPolygon.AAVE_POL_ETH_BRIDGE);
-    emit Bridge(AaveV3PolygonAssets.WETH_UNDERLYING, usdcCollectorBalanceBefore);
+    emit Bridge(AaveV3PolygonAssets.WETH_UNDERLYING, wethCollectorBalanceBefore);
 
     executePayload(vm, address(proposal));
 

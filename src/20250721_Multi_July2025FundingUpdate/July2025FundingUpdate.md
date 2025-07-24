@@ -42,7 +42,6 @@ The governance discussion can be found [here](https://governance.aave.com/t/arfc
 | Polygon  | USDC.e | All    |
 | Polygon  | LINK   | All    |
 | Polygon  | wETH   | All    |
-| Arbitrum | USDT   | All    |
 | Arbitrum | DAI    | All    |
 | Arbitrum | USDC.e | All    |
 

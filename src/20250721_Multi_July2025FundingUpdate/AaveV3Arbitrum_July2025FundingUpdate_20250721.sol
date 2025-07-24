@@ -53,21 +53,5 @@ contract AaveV3Arbitrum_July2025FundingUpdate_20250721 is IProposalGenericExecut
       USDC_GATEWAY,
       usdcBalance
     );
-
-    uint256 usdtBalance = IERC20(AaveV3ArbitrumAssets.USDT_UNDERLYING).balanceOf(
-      address(AaveV3Arbitrum.COLLECTOR)
-    );
-
-    AaveV3Arbitrum.COLLECTOR.transfer(
-      IERC20(AaveV3ArbitrumAssets.USDT_UNDERLYING),
-      MiscArbitrum.AAVE_ARB_ETH_BRIDGE,
-      usdtBalance
-    );
-    IAaveArbEthERC20Bridge(MiscArbitrum.AAVE_ARB_ETH_BRIDGE).bridge(
-      AaveV3ArbitrumAssets.USDT_UNDERLYING,
-      AaveV3EthereumAssets.USDT_UNDERLYING,
-      USDC_GATEWAY,
-      usdtBalance
-    );
   }
 }
