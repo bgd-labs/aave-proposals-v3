@@ -33,8 +33,8 @@ USDe will be added as collateral to the sUSDe stablecoin emode (id:2)
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250723_AaveV3Ethereum_AddUSDeToTheSUSDeEmodeCategory/AaveV3Ethereum_AddUSDeToTheSUSDeEmodeCategory_20250723.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250723_AaveV3Ethereum_AddUSDeToTheSUSDeEmodeCategory/AaveV3Ethereum_AddUSDeToTheSUSDeEmodeCategory_20250723.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/19c0d37a685dbd81c220d3e2a2f13501f53e6d45/src/20250723_AaveV3Ethereum_AddUSDeToTheSUSDeEmodeCategory/AaveV3Ethereum_AddUSDeToTheSUSDeEmodeCategory_20250723.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/19c0d37a685dbd81c220d3e2a2f13501f53e6d45/src/20250723_AaveV3Ethereum_AddUSDeToTheSUSDeEmodeCategory/AaveV3Ethereum_AddUSDeToTheSUSDeEmodeCategory_20250723.t.sol)
 - Snapshot: Direct-to-AIP
 - [Discussion](https://governance.aave.com/t/direct-to-aip-add-usde-to-the-susde-emode-category/22657)
 
