@@ -111,8 +111,8 @@ Thefollowing assets will be added to **PT-sUSDE September Stablecoins E-mode**
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250721_AaveV3Ethereum_AmendPTSUSDeSeptemberStablecoinEmode/AaveV3Ethereum_AmendPTSUSDeSeptemberStablecoinEmode_20250721.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250721_AaveV3Ethereum_AmendPTSUSDeSeptemberStablecoinEmode/AaveV3Ethereum_AmendPTSUSDeSeptemberStablecoinEmode_20250721.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/0d3197966d3fa18914f5242d983c9d9d774f5bcf/src/20250721_AaveV3Ethereum_AmendPTSUSDeSeptemberStablecoinEmode/AaveV3Ethereum_AmendPTSUSDeSeptemberStablecoinEmode_20250721.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/0d3197966d3fa18914f5242d983c9d9d774f5bcf/src/20250721_AaveV3Ethereum_AmendPTSUSDeSeptemberStablecoinEmode/AaveV3Ethereum_AmendPTSUSDeSeptemberStablecoinEmode_20250721.t.sol)
 - Snapshot: Direct-to-AIP
 - [Discussion](https://governance.aave.com/t/direct-to-aip-adjustment-of-pt-susde-september-e-mode-and-usdtb-ir-curve/22615)
 
