@@ -34,6 +34,10 @@ contract AaveV3Ethereum_July2025FundingUpdate_20250721 is IProposalGenericExecut
   uint256 public constant AHAB_ALLOWANCE_USDC_USDT = 250_000e6;
   uint256 public constant AHAB_ALLOWANCE_USDS_GHO = 250_000 ether;
 
+  /// AAVE Buybacks allowance
+  uint256 public constant AFC_USDC_ALLOWANCE = 2_000_000e6;
+  uint256 public constant AFC_USDT_ALLOWANCE = 2_000_000e6;
+
   /// https://etherscan.io/address/0x060373D064d0168931dE2AB8DDA7410923d06E88
   address public constant MILKMAN = 0x060373D064d0168931dE2AB8DDA7410923d06E88;
 
@@ -146,6 +150,20 @@ contract AaveV3Ethereum_July2025FundingUpdate_20250721 is IProposalGenericExecut
       IERC20(AaveV3EthereumLidoAssets.GHO_A_TOKEN),
       AHAB_SAFE,
       AHAB_ALLOWANCE_USDS_GHO
+    );
+
+    // AFC aEthUSDC Approval
+    AaveV3Ethereum.COLLECTOR.approve(
+      IERC20(AaveV3EthereumAssets.USDC_A_TOKEN),
+      MiscEthereum.AFC_SAFE,
+      AFC_USDC_ALLOWANCE
+    );
+
+    // AFC aEthUSDT Approval
+    AaveV3Ethereum.COLLECTOR.approve(
+      IERC20(AaveV3EthereumAssets.USDT_A_TOKEN),
+      MiscEthereum.AFC_SAFE,
+      AFC_USDT_ALLOWANCE
     );
   }
 

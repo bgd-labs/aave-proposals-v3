@@ -90,6 +90,16 @@ contract AaveV3Ethereum_July2025FundingUpdate_20250721_Test is ProtocolV3TestBas
       0
     );
 
+    uint256 allowanceAEthUSDCBeforeAFC = IERC20(AaveV3EthereumAssets.USDC_A_TOKEN).allowance(
+      address(AaveV3Ethereum.COLLECTOR),
+      MiscEthereum.AFC_SAFE
+    );
+
+    uint256 allowanceAEthUSDTBeforeAFC = IERC20(AaveV3EthereumAssets.USDT_A_TOKEN).allowance(
+      address(AaveV3Ethereum.COLLECTOR),
+      MiscEthereum.AFC_SAFE
+    );
+
     executePayload(vm, address(proposal));
 
     uint256 allowanceAEthUSDTAfter = IERC20(AaveV3EthereumAssets.USDT_A_TOKEN).allowance(
@@ -108,6 +118,17 @@ contract AaveV3Ethereum_July2025FundingUpdate_20250721_Test is ProtocolV3TestBas
       address(AaveV3Ethereum.COLLECTOR),
       proposal.AHAB_SAFE()
     );
+    uint256 allowanceAEthUSDCAfterAFC = IERC20(AaveV3EthereumAssets.USDC_A_TOKEN).allowance(
+      address(AaveV3Ethereum.COLLECTOR),
+      MiscEthereum.AFC_SAFE
+    );
+    uint256 allowanceAEthUSDTAfterAFC = IERC20(AaveV3EthereumAssets.USDT_A_TOKEN).allowance(
+      address(AaveV3Ethereum.COLLECTOR),
+      MiscEthereum.AFC_SAFE
+    );
+
+    assertEq(allowanceAEthUSDCAfterAFC, allowanceAEthUSDCBeforeAFC + proposal.AFC_USDC_ALLOWANCE());
+    assertEq(allowanceAEthUSDTAfterAFC, allowanceAEthUSDTBeforeAFC + proposal.AFC_USDT_ALLOWANCE());
 
     assertEq(allowanceAEthUSDTAfter, allowanceAEthUSDTBefore + proposal.AHAB_ALLOWANCE_USDC_USDT());
     assertEq(allowanceAEthUSDCAfter, allowanceAEthUSDCBefore + proposal.AHAB_ALLOWANCE_USDC_USDT());
@@ -134,6 +155,20 @@ contract AaveV3Ethereum_July2025FundingUpdate_20250721_Test is ProtocolV3TestBas
       address(AaveV3Ethereum.COLLECTOR),
       proposal.AHAB_SAFE(),
       proposal.AHAB_ALLOWANCE_USDS_GHO()
+    );
+    vm.stopPrank();
+
+    vm.startPrank(MiscEthereum.AFC_SAFE);
+    IERC20(AaveV3EthereumAssets.USDC_A_TOKEN).transferFrom(
+      address(AaveV3Ethereum.COLLECTOR),
+      MiscEthereum.AFC_SAFE,
+      proposal.AFC_USDC_ALLOWANCE()
+    );
+
+    IERC20(AaveV3EthereumAssets.USDT_A_TOKEN).transferFrom(
+      address(AaveV3Ethereum.COLLECTOR),
+      MiscEthereum.AFC_SAFE,
+      proposal.AFC_USDT_ALLOWANCE()
     );
     vm.stopPrank();
   }

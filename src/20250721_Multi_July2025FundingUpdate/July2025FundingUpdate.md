@@ -14,6 +14,7 @@ This publication presents the July Funding Update, consisting of the following k
 - Swap LUSD, PYUSD and DAI to USDC.
 - Gas costs reimbursement to ACI.
 - Orbit renewal program.
+- Continue AAVE Buybacks for 4 weeks.
 
 ## Motivation
 
@@ -75,6 +76,20 @@ GnosisV3Collector Approval
 Asset: aGnoEURe: `0x3e652E97ff339B73421f824F5b03d75b62F1Fb51`
 Amount: 6,000
 Spender: ACI `0xdef1FA4CEfe67365ba046a7C630D6B885298E210`
+
+### AAVE Buybacks
+
+Create a 4M aEthUSDT and 2M aEthUSDC allowance for the Aave Finance Committee to perform 6 weeks of AAVE buybacks.
+
+Asset: aEthUSDT `0x23878914EFE38d27C4D67Ab83ed1b93A74D4086a`
+Amount: 2M
+
+Asset: aEthUSDC `0x98C23E9d8f34FEFb1B7BD6a91B7FF122F4e16F5c`
+Amount: 2M
+
+Spender: AFC [0x22740deBa78d5a0c24C58C740e3715ec29de1bFa](https://etherscan.io/address/0x22740deBa78d5a0c24C58C740e3715ec29de1bFa)
+
+Method: approve() aEthUSDT and aEthUSDC on the Aave Collector contract to the AFC address.
 
 ## References
 
