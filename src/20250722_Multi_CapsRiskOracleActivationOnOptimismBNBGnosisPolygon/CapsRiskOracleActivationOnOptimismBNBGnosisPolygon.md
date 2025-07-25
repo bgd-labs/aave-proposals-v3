@@ -2,7 +2,6 @@
 title: "Caps Risk Oracle Activation on Optimism, BNB, Gnosis, Polygon"
 author: "BGD Labs (@bgdlabs)"
 discussions: "https://governance.aave.com/t/technical-maintenance-proposals/15274/98"
-snapshot: "Direct To AIP"
 ---
 
 ## Simple Summary
