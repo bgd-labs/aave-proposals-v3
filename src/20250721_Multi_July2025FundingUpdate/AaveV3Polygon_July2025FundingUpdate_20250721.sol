@@ -3,7 +3,6 @@ pragma solidity ^0.8.0;
 
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 import {AaveV3Polygon, AaveV3PolygonAssets} from 'aave-address-book/AaveV3Polygon.sol';
-import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {MiscPolygon} from 'aave-address-book/MiscPolygon.sol';
 import {IAavePolEthERC20Bridge} from 'aave-helpers/src/bridges/polygon/IAavePolEthERC20Bridge.sol';
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';

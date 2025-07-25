@@ -9,7 +9,6 @@ discussions: "https://governance.aave.com/t/direct-to-aip-july-2025-funding-upda
 This publication presents the July Funding Update, consisting of the following key activities:
 
 - Bridge funds to Ethereum from Arbitrum and Polygon;
-- Renew Fluid incentive allocation; // TODO CHECK
 - Extend EURe incentive campaign and,
 - Swap LUSD, PYUSD and DAI to USDC.
 - Gas costs reimbursement to ACI.
@@ -79,7 +78,7 @@ Spender: ACI `0xdef1FA4CEfe67365ba046a7C630D6B885298E210`
 
 ### AAVE Buybacks
 
-Create a 4M aEthUSDT and 2M aEthUSDC allowance for the Aave Finance Committee to perform 6 weeks of AAVE buybacks.
+Create a 2M aEthUSDT and 2M aEthUSDC allowance for the Aave Finance Committee to perform 6 weeks of AAVE buybacks.
 
 Asset: aEthUSDT `0x23878914EFE38d27C4D67Ab83ed1b93A74D4086a`
 Amount: 2M
