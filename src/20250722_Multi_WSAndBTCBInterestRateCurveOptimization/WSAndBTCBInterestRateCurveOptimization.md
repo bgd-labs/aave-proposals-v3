@@ -32,27 +32,26 @@ Finally, anticipating that these changes will bring significant new borrowing ac
 
 Over the past few months, BTC.b has experienced a notable increase in organic (non-recursive) borrowing demand, primarily driven by WAVAX-collateralized debt positions. This contrasts with earlier periods, where borrowing activity was largely fueled by recursive BTC.b collateral positions, incentivized through external rewards.
 
-
 To further stimulate borrowing demand, we recommend implementing similar interest rate curve adjustments to those previously applied to BTC-denominated markets exhibiting strong borrowing activity. Specifically, we propose modifying the default tail asset configuration by increasing the Optimal Utilization Rate from 45% to 80%, reducing Slope1 to 4%, and raising the Reserve Factor to 50%. These changes align with the BTC-denominated strategy outlined in the [referenced ARFC](https://governance.aave.com/t/arfc-chaos-labs-risk-parameter-updates-wbtc-reserve-factor-and-uoptimal-increase-10-25-24/19596) and are supported by the observed uptick in demand.
 
 ## Specification
 
 ### wS (Sonic)
 
-|Parameter|Current|Recommended|
-| --- | --- | --- |
-|UOptimal|45%|80%|
-|Slope1|7.00%|4.00%|
-|Slope2|300.00%|80.00%|
+| Parameter | Current | Recommended |
+| --------- | ------- | ----------- |
+| UOptimal  | 45%     | 80%         |
+| Slope1    | 7.00%   | 4.00%       |
+| Slope2    | 300.00% | 80.00%      |
 
 ### BTC.b (Avalanche)
 
-|Parameter|Current|Recommended|
-| --- | --- | --- |
-|UOptimal|45%|80%|
-|Slope1|7.00%|4.00%|
-|Slope2|300.00%|80.00%|
-|Reserve Factor|20%|50%|
+| Parameter      | Current | Recommended |
+| -------------- | ------- | ----------- |
+| UOptimal       | 45%     | 80%         |
+| Slope1         | 7.00%   | 4.00%       |
+| Slope2         | 300.00% | 80.00%      |
+| Reserve Factor | 20%     | 50%         |
 
 ## References
 
