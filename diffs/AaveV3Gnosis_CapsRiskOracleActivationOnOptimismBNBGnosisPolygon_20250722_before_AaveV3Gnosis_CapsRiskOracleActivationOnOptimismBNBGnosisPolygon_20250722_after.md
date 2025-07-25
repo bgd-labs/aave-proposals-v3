@@ -1,0 +1,32 @@
+## Raw diff
+
+```json
+{
+  "raw": {
+    "0x9a1f491b86d09fc1484b5fab10041b189b60756b": {
+      "label": "GovernanceV3Gnosis.PAYLOADS_CONTROLLER",
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x7328c223b526ac18a2ca34e3cc928d22c174fde8c81d65ae5d17c01763d134b1": {
+          "previousValue": "0x006880e75b000000000002000000000000000000000000000000000000000000",
+          "newValue": "0x006880e75b000000000003000000000000000000000000000000000000000000"
+        },
+        "0x7328c223b526ac18a2ca34e3cc928d22c174fde8c81d65ae5d17c01763d134b2": {
+          "previousValue": "0x000000000000000000093a8000000000000068af0bdc00000000000000000000",
+          "newValue": "0x000000000000000000093a8000000000000068af0bdc0000000000006880e75c"
+        }
+      }
+    },
+    "0xec710f59005f48703908bc519d552df5b8472614": {
+      "label": "AaveV3Gnosis.ACL_MANAGER",
+      "balanceDiff": null,
+      "stateDiff": {
+        "0xc824c85b100927cf22ad0c1d5048b530a1d82553e3335bfb3de1f58d5673f1fe": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000001"
+        }
+      }
+    }
+  }
+}
+```
