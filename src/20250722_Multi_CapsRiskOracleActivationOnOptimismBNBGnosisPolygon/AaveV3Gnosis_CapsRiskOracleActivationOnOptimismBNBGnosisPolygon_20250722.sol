@@ -8,7 +8,7 @@ import {AaveV3Gnosis} from 'aave-address-book/AaveV3Gnosis.sol';
  * @title Caps Risk Oracle Activation on Optimism, BNB, Gnosis, Polygon
  * @author BGD Labs (@bgdlabs)
  * - Snapshot: Direct To AIP
- * - Discussion: https://governance.aave.com/t/arfc-supply-and-borrow-cap-risk-oracle-activation/20834
+ * - Discussion: https://governance.aave.com/t/technical-maintenance-proposals/15274/98
  */
 contract AaveV3Gnosis_CapsRiskOracleActivationOnOptimismBNBGnosisPolygon_20250722 is
   IProposalGenericExecutor
@@ -17,6 +17,8 @@ contract AaveV3Gnosis_CapsRiskOracleActivationOnOptimismBNBGnosisPolygon_2025072
 
   function execute() external {
     AaveV3Gnosis.ACL_MANAGER.addRiskAdmin(EDGE_RISK_STEWARD);
-    // automation for robot is done using gelato automation on gnosis
+
+    // automation for injector robot is registered using gelato automation on gnosis:
+    // https://app.gelato.network/functions/task/0x56ecbbb1cd925f1b5a06d615718035d64d59328019fca1fba63b0afab507e979:100
   }
 }

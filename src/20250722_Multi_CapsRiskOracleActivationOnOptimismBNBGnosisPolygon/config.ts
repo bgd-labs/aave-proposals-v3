@@ -6,8 +6,7 @@ export const config: ConfigFile = {
     shortName: 'CapsRiskOracleActivationOnOptimismBNBGnosisPolygon',
     date: '20250722',
     author: 'BGD Labs (@bgdlabs)',
-    discussion:
-      'https://governance.aave.com/t/arfc-supply-and-borrow-cap-risk-oracle-activation/20834',
+    discussion: 'https://governance.aave.com/t/technical-maintenance-proposals/15274/98',
     snapshot: 'Direct To AIP',
     votingNetwork: 'POLYGON',
   },

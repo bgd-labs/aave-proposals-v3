@@ -13,7 +13,7 @@ import {IAaveCLRobotOperator} from '../interfaces/IAaveCLRobotOperator.sol';
  * @title Caps Risk Oracle Activation on Optimism, BNB, Gnosis, Polygon
  * @author BGD Labs (@bgdlabs)
  * - Snapshot: Direct To AIP
- * - Discussion: https://governance.aave.com/t/arfc-supply-and-borrow-cap-risk-oracle-activation/20834
+ * - Discussion: https://governance.aave.com/t/technical-maintenance-proposals/15274/98
  */
 contract AaveV3BNB_CapsRiskOracleActivationOnOptimismBNBGnosisPolygon_20250722 is
   IProposalGenericExecutor

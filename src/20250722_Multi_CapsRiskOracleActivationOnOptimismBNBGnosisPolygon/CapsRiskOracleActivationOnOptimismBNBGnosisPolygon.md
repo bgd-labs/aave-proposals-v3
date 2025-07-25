@@ -1,7 +1,7 @@
 ---
 title: "Caps Risk Oracle Activation on Optimism, BNB, Gnosis, Polygon"
 author: "BGD Labs (@bgdlabs)"
-discussions: "https://governance.aave.com/t/arfc-supply-and-borrow-cap-risk-oracle-activation/20834"
+discussions: "https://governance.aave.com/t/technical-maintenance-proposals/15274/98"
 snapshot: "Direct To AIP"
 ---
 
@@ -73,7 +73,7 @@ The following assets have been whitelisted for automated AGRS system, enforced o
 
 - Implementation: [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250722_Multi_CapsRiskOracleActivationOnOptimismBNBGnosisPolygon/AaveV3Polygon_CapsRiskOracleActivationOnOptimismBNBGnosisPolygon_20250722.sol), [AaveV3Optimism](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250722_Multi_CapsRiskOracleActivationOnOptimismBNBGnosisPolygon/AaveV3Optimism_CapsRiskOracleActivationOnOptimismBNBGnosisPolygon_20250722.sol), [AaveV3Gnosis](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250722_Multi_CapsRiskOracleActivationOnOptimismBNBGnosisPolygon/AaveV3Gnosis_CapsRiskOracleActivationOnOptimismBNBGnosisPolygon_20250722.sol), [AaveV3BNB](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250722_Multi_CapsRiskOracleActivationOnOptimismBNBGnosisPolygon/AaveV3BNB_CapsRiskOracleActivationOnOptimismBNBGnosisPolygon_20250722.sol)
 - Tests: [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250722_Multi_CapsRiskOracleActivationOnOptimismBNBGnosisPolygon/AaveV3Polygon_CapsRiskOracleActivationOnOptimismBNBGnosisPolygon_20250722.t.sol), [AaveV3Optimism](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250722_Multi_CapsRiskOracleActivationOnOptimismBNBGnosisPolygon/AaveV3Optimism_CapsRiskOracleActivationOnOptimismBNBGnosisPolygon_20250722.t.sol), [AaveV3Gnosis](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250722_Multi_CapsRiskOracleActivationOnOptimismBNBGnosisPolygon/AaveV3Gnosis_CapsRiskOracleActivationOnOptimismBNBGnosisPolygon_20250722.t.sol), [AaveV3BNB](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250722_Multi_CapsRiskOracleActivationOnOptimismBNBGnosisPolygon/AaveV3BNB_CapsRiskOracleActivationOnOptimismBNBGnosisPolygon_20250722.t.sol)
-- [Discussion](https://governance.aave.com/t/arfc-supply-and-borrow-cap-risk-oracle-activation/20834)
+- [Discussion](https://governance.aave.com/t/technical-maintenance-proposals/15274/98)
 - Snapshot: Direct To AIP
 
 ## Copyright
