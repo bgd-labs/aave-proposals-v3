@@ -53,7 +53,6 @@ To further stimulate borrowing demand, we recommend implementing similar interes
 |Slope1|7.00%|4.00%|
 |Slope2|300.00%|80.00%|
 |Reserve Factor|20%|50%|
-[/quote]
 
 ## References
 
