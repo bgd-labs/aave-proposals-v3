@@ -55,8 +55,8 @@ To further stimulate borrowing demand, we recommend implementing similar interes
 
 ## References
 
-- Implementation: [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250722_Multi_WSAndBTCBInterestRateCurveOptimization/AaveV3Avalanche_WSAndBTCBInterestRateCurveOptimization_20250722.sol), [AaveV3Sonic](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250722_Multi_WSAndBTCBInterestRateCurveOptimization/AaveV3Sonic_WSAndBTCBInterestRateCurveOptimization_20250722.sol)
-- Tests: [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250722_Multi_WSAndBTCBInterestRateCurveOptimization/AaveV3Avalanche_WSAndBTCBInterestRateCurveOptimization_20250722.t.sol), [AaveV3Sonic](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250722_Multi_WSAndBTCBInterestRateCurveOptimization/AaveV3Sonic_WSAndBTCBInterestRateCurveOptimization_20250722.t.sol)
+- Implementation: [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/a428662d1b01d9b3297cf14dca62ac6cb66d1585/src/20250722_Multi_WSAndBTCBInterestRateCurveOptimization/AaveV3Avalanche_WSAndBTCBInterestRateCurveOptimization_20250722.sol), [AaveV3Sonic](https://github.com/bgd-labs/aave-proposals-v3/blob/a428662d1b01d9b3297cf14dca62ac6cb66d1585/src/20250722_Multi_WSAndBTCBInterestRateCurveOptimization/AaveV3Sonic_WSAndBTCBInterestRateCurveOptimization_20250722.sol)
+- Tests: [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/a428662d1b01d9b3297cf14dca62ac6cb66d1585/src/20250722_Multi_WSAndBTCBInterestRateCurveOptimization/AaveV3Avalanche_WSAndBTCBInterestRateCurveOptimization_20250722.t.sol), [AaveV3Sonic](https://github.com/bgd-labs/aave-proposals-v3/blob/a428662d1b01d9b3297cf14dca62ac6cb66d1585/src/20250722_Multi_WSAndBTCBInterestRateCurveOptimization/AaveV3Sonic_WSAndBTCBInterestRateCurveOptimization_20250722.t.sol)
 - Snapshot: Direct-to-AIP
 - [Discussion](https://governance.aave.com/t/direct-to-aip-ws-and-btc-b-interest-rate-curve-optimization/21962)
 
