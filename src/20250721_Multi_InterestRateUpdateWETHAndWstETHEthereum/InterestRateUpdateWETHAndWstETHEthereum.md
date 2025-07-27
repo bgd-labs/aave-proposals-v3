@@ -58,19 +58,19 @@ This AIP will only update the parameters that couldn't be handled (in a timely m
 
 The below details the initial adjustment to the wstETH reserve on Core instance.
 
-|Parameter|CurrentValue|Proposed Value|
-| --- | --- | --- |
-|Variable Slope 2|85.00%|40.00%|
-|Reserve Factor|5.00%|35.00%|
+| Parameter        | CurrentValue | Proposed Value |
+| ---------------- | ------------ | -------------- |
+| Variable Slope 2 | 85.00%       | 40.00%         |
+| Reserve Factor   | 5.00%        | 35.00%         |
 
 **Prime Instance - wstETH Reserve**
 
 The below details the initial adjustment to the wstETH reserve on Prime instance.
 
-|Parameter|CurrentValue|Proposed Value|
-| --- | --- | --- |
-|Variable Slope 2|85.00%|40.00%|
-|Reserve Factor|5.00%|5.00%|
+| Parameter        | CurrentValue | Proposed Value |
+| ---------------- | ------------ | -------------- |
+| Variable Slope 2 | 85.00%       | 40.00%         |
+| Reserve Factor   | 5.00%        | 5.00%          |
 
 ## References
 
