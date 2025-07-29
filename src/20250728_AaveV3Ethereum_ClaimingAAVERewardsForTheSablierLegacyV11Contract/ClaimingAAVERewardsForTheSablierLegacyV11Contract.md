@@ -2,7 +2,7 @@
 title: "Claiming AAVE Rewards for the Sablier Legacy v1.1 Contract"
 author: "Aave-Chan Initiative"
 discussions: "https://governance.aave.com/t/arfc-claiming-aave-rewards-for-the-sablier-legacy-v1-1-contract/21975"
-snapshot: TODO
+snapshot: "https://snapshot.box/#/s:aavedao.eth/proposal/0xd0d6ae015476ab371ea10e68ce270af05f45ec4ebcb105a8d573f606277956e1"
 ---
 
 ## Simple Summary
@@ -28,7 +28,7 @@ This proposal calls **`claimRewardsOnBehalf()`** on [0xCD18eAa163733Da39c232722c
 
 - Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250728_AaveV3Ethereum_ClaimingAAVERewardsForTheSablierLegacyV11Contract/AaveV3Ethereum_ClaimingAAVERewardsForTheSablierLegacyV11Contract_20250728.sol)
 - Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250728_AaveV3Ethereum_ClaimingAAVERewardsForTheSablierLegacyV11Contract/AaveV3Ethereum_ClaimingAAVERewardsForTheSablierLegacyV11Contract_20250728.t.sol)
-  [Snapshot](TODO)
+  [Snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0xd0d6ae015476ab371ea10e68ce270af05f45ec4ebcb105a8d573f606277956e1)
 - [Discussion](https://governance.aave.com/t/arfc-claiming-aave-rewards-for-the-sablier-legacy-v1-1-contract/21975)
 
 ## Copyright
