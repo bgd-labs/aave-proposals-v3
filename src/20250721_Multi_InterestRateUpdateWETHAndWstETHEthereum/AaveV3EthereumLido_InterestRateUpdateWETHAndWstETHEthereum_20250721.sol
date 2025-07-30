@@ -15,36 +15,6 @@ import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config
 contract AaveV3EthereumLido_InterestRateUpdateWETHAndWstETHEthereum_20250721 is
   AaveV3PayloadEthereumLido
 {
-  function rateStrategiesUpdates()
-    public
-    pure
-    override
-    returns (IAaveV3ConfigEngine.RateStrategyUpdate[] memory)
-  {
-    IAaveV3ConfigEngine.RateStrategyUpdate[]
-      memory rateStrategies = new IAaveV3ConfigEngine.RateStrategyUpdate[](2);
-    rateStrategies[0] = IAaveV3ConfigEngine.RateStrategyUpdate({
-      asset: AaveV3EthereumLidoAssets.wstETH_UNDERLYING,
-      params: IAaveV3ConfigEngine.InterestRateInputData({
-        optimalUsageRatio: EngineFlags.KEEP_CURRENT,
-        baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
-        variableRateSlope1: EngineFlags.KEEP_CURRENT,
-        variableRateSlope2: 40_00
-      })
-    });
-    rateStrategies[1] = IAaveV3ConfigEngine.RateStrategyUpdate({
-      asset: AaveV3EthereumLidoAssets.WETH_UNDERLYING,
-      params: IAaveV3ConfigEngine.InterestRateInputData({
-        optimalUsageRatio: EngineFlags.KEEP_CURRENT,
-        baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
-        variableRateSlope1: 2_75,
-        variableRateSlope2: 40_00
-      })
-    });
-
-    return rateStrategies;
-  }
-
   function borrowsUpdates()
     public
     pure
