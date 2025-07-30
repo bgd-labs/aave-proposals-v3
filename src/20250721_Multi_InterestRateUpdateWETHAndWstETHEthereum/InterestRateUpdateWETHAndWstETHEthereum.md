@@ -80,8 +80,8 @@ The below details the initial adjustment to the wstETH reserve on Prime instance
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250721_Multi_InterestRateUpdateWETHAndWstETHEthereum/AaveV3Ethereum_InterestRateUpdateWETHAndWstETHEthereum_20250721.sol), [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250721_Multi_InterestRateUpdateWETHAndWstETHEthereum/AaveV3EthereumLido_InterestRateUpdateWETHAndWstETHEthereum_20250721.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250721_Multi_InterestRateUpdateWETHAndWstETHEthereum/AaveV3Ethereum_InterestRateUpdateWETHAndWstETHEthereum_20250721.t.sol), [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250721_Multi_InterestRateUpdateWETHAndWstETHEthereum/AaveV3EthereumLido_InterestRateUpdateWETHAndWstETHEthereum_20250721.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/c562a1c9ab1b79d9078f4355bf9cbe690fb7e693/src/20250721_Multi_InterestRateUpdateWETHAndWstETHEthereum/AaveV3Ethereum_InterestRateUpdateWETHAndWstETHEthereum_20250721.sol), [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/c562a1c9ab1b79d9078f4355bf9cbe690fb7e693/src/20250721_Multi_InterestRateUpdateWETHAndWstETHEthereum/AaveV3EthereumLido_InterestRateUpdateWETHAndWstETHEthereum_20250721.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/c562a1c9ab1b79d9078f4355bf9cbe690fb7e693/src/20250721_Multi_InterestRateUpdateWETHAndWstETHEthereum/AaveV3Ethereum_InterestRateUpdateWETHAndWstETHEthereum_20250721.t.sol), [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/c562a1c9ab1b79d9078f4355bf9cbe690fb7e693/src/20250721_Multi_InterestRateUpdateWETHAndWstETHEthereum/AaveV3EthereumLido_InterestRateUpdateWETHAndWstETHEthereum_20250721.t.sol)
 - Snapshot: Direct-to-AIP
 - [Discussion](https://governance.aave.com/t/risk-stewards-interest-rate-update-weth-and-wsteth-ethereum/22625)
 
