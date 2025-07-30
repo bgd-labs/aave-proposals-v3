@@ -70,7 +70,6 @@ The below details the initial adjustment to the wstETH reserve on Prime instance
 | Parameter        | CurrentValue | Proposed Value |
 | ---------------- | ------------ | -------------- |
 | Variable Slope 2 | 85.00%       | 40.00%         |
-| Reserve Factor   | 5.00%        | 5.00%          |
 
 ## References
 
