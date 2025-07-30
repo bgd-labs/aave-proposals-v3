@@ -7,9 +7,10 @@
 | description | value before | value after |
 | --- | --- | --- |
 | reserveFactor | 5 % [500] | 35 % [3500] |
-| maxVariableBorrowRate | 86.6 % | 41.6 % |
+| maxVariableBorrowRate | 86.6 % | 41 % |
+| variableRateSlope1 | 1.6 % | 1 % |
 | variableRateSlope2 | 85 % | 40 % |
-| interestRate | ![before](https://dash.onaave.com/api/static?variableRateSlope1=16000000000000000000000000&variableRateSlope2=850000000000000000000000000&optimalUsageRatio=800000000000000000000000000&baseVariableBorrowRate=0&maxVariableBorrowRate=866000000000000000000000000) | ![after](https://dash.onaave.com/api/static?variableRateSlope1=16000000000000000000000000&variableRateSlope2=400000000000000000000000000&optimalUsageRatio=800000000000000000000000000&baseVariableBorrowRate=0&maxVariableBorrowRate=416000000000000000000000000) |
+| interestRate | ![before](https://dash.onaave.com/api/static?variableRateSlope1=16000000000000000000000000&variableRateSlope2=850000000000000000000000000&optimalUsageRatio=800000000000000000000000000&baseVariableBorrowRate=0&maxVariableBorrowRate=866000000000000000000000000) | ![after](https://dash.onaave.com/api/static?variableRateSlope1=10000000000000000000000000&variableRateSlope2=400000000000000000000000000&optimalUsageRatio=800000000000000000000000000&baseVariableBorrowRate=0&maxVariableBorrowRate=410000000000000000000000000) |
 
 ## Raw diff
 
@@ -27,7 +28,11 @@
     "0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0": {
       "maxVariableBorrowRate": {
         "from": "866000000000000000000000000",
-        "to": "416000000000000000000000000"
+        "to": "410000000000000000000000000"
+      },
+      "variableRateSlope1": {
+        "from": "16000000000000000000000000",
+        "to": "10000000000000000000000000"
       },
       "variableRateSlope2": {
         "from": "850000000000000000000000000",
@@ -52,11 +57,11 @@
       "stateDiff": {
         "0xc9d7ec48cd0d839522455f78914adfeda8686316bb6819e0888e4bcd349e01b3": {
           "previousValue": "0x0000000000009adc2b99f92f8b31cc7a00000000033c481aa41e9356b0beafd6",
-          "newValue": "0x00000000000069f4f56959a7444a7e6e00000000033c481aa41e9356b0beafd6"
+          "newValue": "0x00000000000042391961d8088aae8f0500000000033c481aa41e9356b0beafd6"
         },
         "0xc9d7ec48cd0d839522455f78914adfeda8686316bb6819e0888e4bcd349e01b4": {
           "previousValue": "0x0000000000033ee398e498cb0719512c000000000343e1f71b0e9af814c2257f",
-          "newValue": "0x0000000000033ee398e498cb0719512c000000000343e1f71b0e9af814c2257f"
+          "newValue": "0x000000000002074e3f8edf7ee46fd2bc000000000343e1f71b0e9af814c2257f"
         }
       }
     },
@@ -105,7 +110,7 @@
       "stateDiff": {
         "0xf37caed32e4e49c83636e0f1684f3f4a9a23c463a49eb17cd63abd50680b378b": {
           "previousValue": "0x00000000000000000000000000000000000000002134000000a0000000001f40",
-          "newValue": "0x00000000000000000000000000000000000000000fa0000000a0000000001f40"
+          "newValue": "0x00000000000000000000000000000000000000000fa000000064000000001f40"
         }
       }
     },

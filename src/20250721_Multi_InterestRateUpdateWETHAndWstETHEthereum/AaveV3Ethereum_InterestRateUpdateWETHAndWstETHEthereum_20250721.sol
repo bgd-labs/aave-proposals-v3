@@ -26,7 +26,7 @@ contract AaveV3Ethereum_InterestRateUpdateWETHAndWstETHEthereum_20250721 is Aave
       params: IAaveV3ConfigEngine.InterestRateInputData({
         optimalUsageRatio: EngineFlags.KEEP_CURRENT,
         baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
-        variableRateSlope1: EngineFlags.KEEP_CURRENT,
+        variableRateSlope1: 1_00,
         variableRateSlope2: 40_00
       })
     });
