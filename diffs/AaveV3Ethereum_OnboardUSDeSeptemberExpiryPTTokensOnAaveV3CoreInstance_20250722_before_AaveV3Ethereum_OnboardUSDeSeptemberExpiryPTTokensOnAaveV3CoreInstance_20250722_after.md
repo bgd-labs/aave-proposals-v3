@@ -1,0 +1,618 @@
+## Reserve changes
+
+### Reserves added
+
+#### PT-USDe-25SEP2025 ([0xBC6736d346a5eBC0dEbc997397912CD9b8FAe10a](https://etherscan.io/address/0xBC6736d346a5eBC0dEbc997397912CD9b8FAe10a))
+
+| description | value |
+| --- | --- |
+| decimals | 18 |
+| isActive | true |
+| isFrozen | false |
+| supplyCap | 50,000,000 PT-USDe-25SEP2025 |
+| borrowCap | 1 PT-USDe-25SEP2025 |
+| debtCeiling | 0 $ [0] |
+| isSiloed | false |
+| isFlashloanable | true |
+| oracle | [0x8B17C02d22EE7D6B8D6829ceB710A458de41E84a](https://etherscan.io/address/0x8B17C02d22EE7D6B8D6829ceB710A458de41E84a) |
+| oracleDecimals | 8 |
+| oracleDescription | PT Capped USDe USDT/USD linear discount 25SEP2025 |
+| oracleLatestAnswer | 0.98364972 |
+| usageAsCollateralEnabled | true |
+| ltv | 0.05 % [5] |
+| liquidationThreshold | 0.1 % [10] |
+| liquidationBonus | 7.5 % |
+| liquidationProtocolFee | 10 % [1000] |
+| reserveFactor | 25 % [2500] |
+| aToken | [0x38A5357Ce55c81add62aBc84Fb32981e2626ADEf](https://etherscan.io/address/0x38A5357Ce55c81add62aBc84Fb32981e2626ADEf) |
+| variableDebtToken | [0x0D8486E1CAbf3C9407B3DdA0cfc4d9C3101fB683](https://etherscan.io/address/0x0D8486E1CAbf3C9407B3DdA0cfc4d9C3101fB683) |
+| borrowingEnabled | false |
+| isBorrowableInIsolation | false |
+| interestRateStrategy | [0x9ec6F08190DeA04A54f8Afc53Db96134e5E3FdFB](https://etherscan.io/address/0x9ec6F08190DeA04A54f8Afc53Db96134e5E3FdFB) |
+| aTokenName | Aave Ethereum PT_USDe_25SEP2025 |
+| aTokenSymbol | aEthPT_USDe_25SEP2025 |
+| aTokenUnderlyingBalance | 100 PT-USDe-25SEP2025 [100000000000000000000] |
+| id | 49 |
+| isPaused | false |
+| variableDebtTokenName | Aave Ethereum Variable Debt PT_USDe_25SEP2025 |
+| variableDebtTokenSymbol | variableDebtEthPT_USDe_25SEP2025 |
+| virtualBalance | 100 PT-USDe-25SEP2025 [100000000000000000000] |
+| optimalUsageRatio | 45 % |
+| maxVariableBorrowRate | 310 % |
+| baseVariableBorrowRate | 0 % |
+| variableRateSlope1 | 10 % |
+| variableRateSlope2 | 300 % |
+| interestRate | ![ir](https://dash.onaave.com/api/static?variableRateSlope1=100000000000000000000000000&variableRateSlope2=3000000000000000000000000000&optimalUsageRatio=450000000000000000000000000&baseVariableBorrowRate=0&maxVariableBorrowRate=3100000000000000000000000000) |
+
+
+## Emodes changed
+
+### EMode: ETH correlated(id: 1)
+
+
+
+### EMode: sUSDe Stablecoins(id: 2)
+
+
+
+### EMode: rsETH LST main(id: 3)
+
+
+
+### EMode: LBTC_WBTC(id: 4)
+
+
+
+### EMode: LBTC_cbBTC(id: 5)
+
+
+
+### EMode: LBTC_tBTC(id: 6)
+
+
+
+### EMode: eBTC/WBTC(id: 7)
+
+
+
+### EMode: PT-sUSDe Stablecoins Jul 2025(id: 8)
+
+
+
+### EMode: PT-eUSDe Stablecoins May 2025(id: 9)
+
+
+
+### EMode: PT-USDe Stablecoins July 2025(id: 10)
+
+
+
+### EMode: USDe Stablecoin(id: 11)
+
+
+
+### EMode: PT-USDe USDe July 2025(id: 12)
+
+
+
+### EMode: PT-eUSDe Stablecoins August 2025(id: 13)
+
+
+
+### EMode: PT-eUSDe USDe August 2025(id: 14)
+
+
+
+### EMode: eUSDe_Stablecoin(id: 15)
+
+
+
+### EMode: FBTC/WBTC(id: 16)
+
+
+
+### EMode: PT-sUSDe Stablecoins September 2025(id: 17)
+
+
+
+### EMode: PT-sUSDe USDe September 2025(id: 18)
+
+
+
+### EMode: PT-USDe Stablecoins September 2025(id: 19)
+
+| description | value before | value after |
+| --- | --- | --- |
+| eMode.label | - | PT-USDe Stablecoins September 2025 |
+| eMode.ltv | - | 90.3 % |
+| eMode.liquidationThreshold | - | 92.3 % |
+| eMode.liquidationBonus | - | 3.5 % |
+| eMode.borrowableBitmap | - | USDC, USDT, USDe, USDS |
+| eMode.collateralBitmap | - | USDe, PT-USDe-31JUL2025, PT-eUSDE-14AUG2025, PT-USDe-25SEP2025 |
+
+
+### EMode: PT-USDe USDe September 2025(id: 20)
+
+| description | value before | value after |
+| --- | --- | --- |
+| eMode.label | - | PT-USDe USDe September 2025 |
+| eMode.ltv | - | 91.2 % |
+| eMode.liquidationThreshold | - | 93.2 % |
+| eMode.liquidationBonus | - | 2.5 % |
+| eMode.borrowableBitmap | - | USDe |
+| eMode.collateralBitmap | - | USDe, PT-USDe-31JUL2025, PT-eUSDE-14AUG2025, PT-USDe-25SEP2025 |
+
+
+## Raw diff
+
+```json
+{
+  "eModes": {
+    "19": {
+      "from": null,
+      "to": {
+        "borrowableBitmap": "35433480456",
+        "collateralBitmap": "589339306229760",
+        "eModeCategory": 19,
+        "label": "PT-USDe Stablecoins September 2025",
+        "liquidationBonus": 10350,
+        "liquidationThreshold": 9230,
+        "ltv": 9030
+      }
+    },
+    "20": {
+      "from": null,
+      "to": {
+        "borrowableBitmap": "1073741824",
+        "collateralBitmap": "589339306229760",
+        "eModeCategory": 20,
+        "label": "PT-USDe USDe September 2025",
+        "liquidationBonus": 10250,
+        "liquidationThreshold": 9320,
+        "ltv": 9120
+      }
+    }
+  },
+  "reserves": {
+    "0xBC6736d346a5eBC0dEbc997397912CD9b8FAe10a": {
+      "from": null,
+      "to": {
+        "aToken": "0x38A5357Ce55c81add62aBc84Fb32981e2626ADEf",
+        "aTokenName": "Aave Ethereum PT_USDe_25SEP2025",
+        "aTokenSymbol": "aEthPT_USDe_25SEP2025",
+        "aTokenUnderlyingBalance": "100000000000000000000",
+        "borrowCap": 1,
+        "borrowingEnabled": false,
+        "debtCeiling": 0,
+        "decimals": 18,
+        "id": 49,
+        "interestRateStrategy": "0x9ec6F08190DeA04A54f8Afc53Db96134e5E3FdFB",
+        "isActive": true,
+        "isBorrowableInIsolation": false,
+        "isFlashloanable": true,
+        "isFrozen": false,
+        "isPaused": false,
+        "isSiloed": false,
+        "liquidationBonus": 10750,
+        "liquidationProtocolFee": 1000,
+        "liquidationThreshold": 10,
+        "ltv": 5,
+        "oracle": "0x8B17C02d22EE7D6B8D6829ceB710A458de41E84a",
+        "oracleDecimals": 8,
+        "oracleDescription": "PT Capped USDe USDT/USD linear discount 25SEP2025",
+        "oracleLatestAnswer": "98364972",
+        "reserveFactor": 2500,
+        "supplyCap": 50000000,
+        "symbol": "PT-USDe-25SEP2025",
+        "underlying": "0xBC6736d346a5eBC0dEbc997397912CD9b8FAe10a",
+        "usageAsCollateralEnabled": true,
+        "variableDebtToken": "0x0D8486E1CAbf3C9407B3DdA0cfc4d9C3101fB683",
+        "variableDebtTokenName": "Aave Ethereum Variable Debt PT_USDe_25SEP2025",
+        "variableDebtTokenSymbol": "variableDebtEthPT_USDe_25SEP2025",
+        "virtualBalance": "100000000000000000000"
+      }
+    }
+  },
+  "strategies": {
+    "0xBC6736d346a5eBC0dEbc997397912CD9b8FAe10a": {
+      "from": null,
+      "to": {
+        "address": "0x9ec6F08190DeA04A54f8Afc53Db96134e5E3FdFB",
+        "baseVariableBorrowRate": "0",
+        "maxVariableBorrowRate": "3100000000000000000000000000",
+        "optimalUsageRatio": "450000000000000000000000000",
+        "variableRateSlope1": "100000000000000000000000000",
+        "variableRateSlope2": "3000000000000000000000000000"
+      }
+    }
+  },
+  "raw": {
+    "0x0d5f4aadf3fde31bbb55db5f42c080f18ad54df5": {
+      "label": null,
+      "balanceDiff": null,
+      "stateDiff": {}
+    },
+    "0x0d8486e1cabf3c9407b3dda0cfc4d9c3101fb683": {
+      "label": null,
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x000000000000000000000000b58ed8ec66e43de3fecd27e351485e7efe006f38",
+          "label": "Implementation slot"
+        }
+      }
+    },
+    "0x15885a83936eb943e98eeffb91e9a49040d93993": {
+      "label": null,
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x0000000000000000000000000000000000000000000000000000000000000002": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000004",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000005"
+        },
+        "0x405787fa12a823e0f2b7631cc41b3ba8828b3321ca811111fa75cd3aa3bb5ad2": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x000000000000000000000000bc6736d346a5ebc0debc997397912cd9b8fae10a"
+        },
+        "0xde10b7615bcf2f2557c4e63e09c08e502f7c4bf7cd4aee891abc2347fe31ad08": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000005"
+        }
+      }
+    },
+    "0x1ef34b91afc368174f579067d1db94325cdc7946": {
+      "label": null,
+      "balanceDiff": null,
+      "stateDiff": {
+        "0xdacfe7a8adbf8359f41dcfa7c31c6a0f0553b393d1ed6bae9994c90e5024f1da": {
+          "previousValue": "0x0000000000000000000000000000000000000002aa8a2aaa8a802000000aaaaa",
+          "newValue": "0x000000000000000000000000000000000000000aaa8a2aaa8a802000000aaaaa"
+        },
+        "0xf5cec5b6ae25aaed9dbe8e5cfa0c1ba29f75af2a8d895f0e848d3b8c11c3abdf": {
+          "previousValue": "0x0000000000000000000000000000000000000000033b2e3c9fd0803ce8000000",
+          "newValue": "0x0000000000000000000000000000000000000000033b2e3c9fd0803ce8000000"
+        },
+        "0xf5cec5b6ae25aaed9dbe8e5cfa0c1ba29f75af2a8d895f0e848d3b8c11c3abe0": {
+          "previousValue": "0x0000000000000000000000000000000000000000033b2e3c9fd0803ce8000000",
+          "newValue": "0x0000000000000000000000000000000000000000033b2e3c9fd0803ce8000000"
+        },
+        "0xf5cec5b6ae25aaed9dbe8e5cfa0c1ba29f75af2a8d895f0e848d3b8c11c3abe6": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x00000000000000056bc75e2d6310000000000000000000000000000000000000"
+        }
+      }
+    },
+    "0x223d844fc4b006d67c0cdbd39371a9f73f69d974": {
+      "label": "AaveV3Ethereum.EMISSION_MANAGER, AaveV3EthereumEtherFi.EMISSION_MANAGER, AaveV3EthereumLido.EMISSION_MANAGER",
+      "balanceDiff": null,
+      "stateDiff": {
+        "0xdfc206ecd6ed33acee311cfaee6b8392ef875e205044fbd226331e82149d467b": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x000000000000000000000000ac140648435d03f784879cd789130f22ef588fcd"
+        },
+        "0xea079a6724f5e1e276abe7327872cdb57c309fb0ac0b61b76653565d1d42cd35": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x000000000000000000000000ac140648435d03f784879cd789130f22ef588fcd"
+        }
+      }
+    },
+    "0x260326c220e469358846b187ee53328303efe19c": {
+      "label": "AaveV3Ethereum.ASSETS.USDT.ORACLE",
+      "balanceDiff": null,
+      "stateDiff": {}
+    },
+    "0x2f39d218133afab8f2b819b1066c7e434ad94e9e": {
+      "label": "AaveV3Ethereum.POOL_ADDRESSES_PROVIDER",
+      "balanceDiff": null,
+      "stateDiff": {}
+    },
+    "0x38a5357ce55c81add62abc84fb32981e2626adef": {
+      "label": null,
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x00000000000000000000000097f5b96c7dac8547251330b63760951a4fab448d",
+          "label": "Implementation slot"
+        }
+      }
+    },
+    "0x3e7d1eab13ad0104d2750b8863b489d65364e32d": {
+      "label": null,
+      "balanceDiff": null,
+      "stateDiff": {}
+    },
+    "0x5300a1a15135ea4dc7ad5a167152c01efc9b192a": {
+      "label": "AaveV2Ethereum.POOL_ADMIN, AaveV2EthereumAMM.POOL_ADMIN, AaveV3Ethereum.ACL_ADMIN, AaveV3EthereumEtherFi.ACL_ADMIN, AaveV3EthereumLido.ACL_ADMIN, GovernanceV3Ethereum.EXECUTOR_LVL_1",
+      "balanceDiff": null,
+      "stateDiff": {}
+    },
+    "0x54586be62e3c3580375ae3723c145253060ca0c2": {
+      "label": "AaveV3Ethereum.ORACLE",
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x8b0fe7fa6cb830097188c837153507b2efc15562bdad34336316f87446225043": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000008b17c02d22ee7d6b8d6829ceb710a458de41e84a"
+        }
+      }
+    },
+    "0x564c42578a1b270eae16c25da39d901245881d1f": {
+      "label": null,
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x000000000000000000000000000000000000000000000000000000000000003b": {
+          "previousValue": "0x00000000000000000000000000000000000000000000003100000000000009c4",
+          "newValue": "0x00000000000000000000000000000000000000000000003200000000000009c4"
+        },
+        "0x1d280bcdefb321b660b0422182e63c335ba9d4b8bc992ecbbb986c798b08ffa7": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x000000000000000000000000bc6736d346a5ebc0debc997397912cd9b8fae10a"
+        },
+        "0xf5cec5b6ae25aaed9dbe8e5cfa0c1ba29f75af2a8d895f0e848d3b8c11c3abdf": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000033b2e3c9fd0803ce8000000"
+        },
+        "0xf5cec5b6ae25aaed9dbe8e5cfa0c1ba29f75af2a8d895f0e848d3b8c11c3abe0": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000033b2e3c9fd0803ce8000000"
+        },
+        "0xf5cec5b6ae25aaed9dbe8e5cfa0c1ba29f75af2a8d895f0e848d3b8c11c3abe1": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x000000000000000000003100688110b300000000000000000000000000000000"
+        },
+        "0xf5cec5b6ae25aaed9dbe8e5cfa0c1ba29f75af2a8d895f0e848d3b8c11c3abe2": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x00000000000000000000000038a5357ce55c81add62abc84fb32981e2626adef"
+        },
+        "0xf5cec5b6ae25aaed9dbe8e5cfa0c1ba29f75af2a8d895f0e848d3b8c11c3abe4": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000d8486e1cabf3c9407b3dda0cfc4d9c3101fb683"
+        },
+        "0xf5cec5b6ae25aaed9dbe8e5cfa0c1ba29f75af2a8d895f0e848d3b8c11c3abe7": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000000"
+        }
+      }
+    },
+    "0x5793fe4de34532f162b4e207af872729880ec2b6": {
+      "label": null,
+      "balanceDiff": null,
+      "stateDiff": {}
+    },
+    "0x64b761d848206f447fe2dd461b0c635ec39ebb27": {
+      "label": "AaveV3Ethereum.POOL_CONFIGURATOR",
+      "balanceDiff": null,
+      "stateDiff": {}
+    },
+    "0x7222182cb9c5320587b5148bf03eee107ad64578": {
+      "label": null,
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x44f7d9a49ceff454e19daa7554959d1d87dd4128f781ce09cd9b91e348ff5d86": {
+          "previousValue": "0x00688110b2000000000002000000000000000000000000000000000000000000",
+          "newValue": "0x00688110b2000000000003000000000000000000000000000000000000000000"
+        },
+        "0x44f7d9a49ceff454e19daa7554959d1d87dd4128f781ce09cd9b91e348ff5d87": {
+          "previousValue": "0x000000000000000000093a8000000000000068af353300000000000000000000",
+          "newValue": "0x000000000000000000093a8000000000000068af3533000000000000688110b3"
+        }
+      }
+    },
+    "0x8164cc65827dcfe994ab23944cbc90e0aa80bfcb": {
+      "label": "AaveV3Ethereum.DEFAULT_INCENTIVES_CONTROLLER, AaveV3EthereumEtherFi.DEFAULT_INCENTIVES_CONTROLLER, AaveV3EthereumLido.DEFAULT_INCENTIVES_CONTROLLER",
+      "balanceDiff": null,
+      "stateDiff": {}
+    },
+    "0x83ab600ce8a61b43e1757b89c0589928f765c1c4": {
+      "label": "AaveV3Ethereum.EDGE_INJECTOR_PENDLE_EMODE",
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x0000000000000000000000000000000000000000000000000000000000000002": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000008",
+          "newValue": "0x000000000000000000000000000000000000000000000000000000000000000a"
+        },
+        "0x0ffe031ee7f67944a037276fd51f48fcc2fe05a729c43144606bc8777da8014f": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000009"
+        },
+        "0x405787fa12a823e0f2b7631cc41b3ba8828b3321ca811111fa75cd3aa3bb5ad6": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000014"
+        },
+        "0x405787fa12a823e0f2b7631cc41b3ba8828b3321ca811111fa75cd3aa3bb5ad7": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000013"
+        },
+        "0x8a8166be5f30abeb6c91ee2f07eeb0b2eb14b4d59534d10a1c143964bd617919": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x000000000000000000000000000000000000000000000000000000000000000a"
+        }
+      }
+    },
+    "0x87870bca3f3fd6335c3f4ce8392d69350b4fa4e2": {
+      "label": "AaveV3Ethereum.POOL",
+      "balanceDiff": null,
+      "stateDiff": {}
+    },
+    "0x947f0054faed3481ff4e76ca35f12fbe36cc665b": {
+      "label": null,
+      "balanceDiff": null,
+      "stateDiff": {
+        "0xe55c3f13b314f00b64a1915a394729a6fd51a47772ecb11c61e8f3636e3e1927": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x50542d5553446520537461626c65636f696e732053657074656d626572203230"
+        },
+        "0xe55c3f13b314f00b64a1915a394729a6fd51a47772ecb11c61e8f3636e3e1928": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x3235000000000000000000000000000000000000000000000000000000000000"
+        },
+        "0xec3875d782848366786ea13fe979ec13e106b31c0dcb57d593be99c0884dfb10": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000002180040000000280a246823a0"
+        },
+        "0xec3875d782848366786ea13fe979ec13e106b31c0dcb57d593be99c0884dfb11": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x50542d5553446520555344652053657074656d62657220323032350000000036"
+        },
+        "0xec3875d782848366786ea13fe979ec13e106b31c0dcb57d593be99c0884dfb12": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000040000000"
+        },
+        "0xf5cec5b6ae25aaed9dbe8e5cfa0c1ba29f75af2a8d895f0e848d3b8c11c3abde": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x100000000000000000000003e8002faf08000000000109c4811229fe000a0005"
+        },
+        "0xf9a32d67f3f8c78696e247ab205357778797ca26b6edc245827016d71f40901c": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000002180040000000286e240e2346"
+        },
+        "0xf9a32d67f3f8c78696e247ab205357778797ca26b6edc245827016d71f40901d": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000045"
+        },
+        "0xf9a32d67f3f8c78696e247ab205357778797ca26b6edc245827016d71f40901e": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000840000108"
+        }
+      }
+    },
+    "0x97f5b96c7dac8547251330b63760951a4fab448d": {
+      "label": null,
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x0000000000000000000000000000000000000000000000000000000000000000": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000003"
+        },
+        "0x0000000000000000000000000000000000000000000000000000000000000001": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000000"
+        },
+        "0x0000000000000000000000000000000000000000000000000000000000000036": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000056bc75e2d63100000"
+        },
+        "0x0000000000000000000000000000000000000000000000000000000000000037": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x4161766520457468657265756d2050545f555344655f3235534550323032353e"
+        },
+        "0x0000000000000000000000000000000000000000000000000000000000000038": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x6145746850545f555344655f323553455032303235000000000000000000002a"
+        },
+        "0x0000000000000000000000000000000000000000000000000000000000000039": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000012"
+        },
+        "0x000000000000000000000000000000000000000000000000000000000000003b": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x2c666ee35ceabaf7598d6bb501a13b4286214f53c848189cc390b9f958f4f6a4"
+        },
+        "0x000000000000000000000000000000000000000000000000000000000000003d": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x000000000000000000000000bc6736d346a5ebc0debc997397912cd9b8fae10a"
+        },
+        "0x2c491f7384cd762770fb659d7290ed7b4da75a7c480a8a5cc401f49c4807de64": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x00000000033b2e3c9fd0803ce800000000000000000000056bc75e2d63100000"
+        }
+      }
+    },
+    "0x9ec6f08190dea04a54f8afc53db96134e5e3fdfb": {
+      "label": "AaveV3Ethereum.ASSETS.WETH.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.wstETH.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.WBTC.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.USDC.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.DAI.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.LINK.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.AAVE.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.cbETH.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.USDT.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.rETH.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.LUSD.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.CRV.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.MKR.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.SNX.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.BAL.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.UNI.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.LDO.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.ENS.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.ONE_INCH.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.FRAX.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.GHO.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.RPL.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.sDAI.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.STG.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.KNC.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.FXS.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.crvUSD.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.PYUSD.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.weETH.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.osETH.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.USDe.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.ETHx.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.sUSDe.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.tBTC.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.cbBTC.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.USDS.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.rsETH.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.LBTC.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.eBTC.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.RLUSD.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.PT_eUSDE_29MAY2025.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.PT_sUSDE_31JUL2025.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.USDtb.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.PT_USDe_31JUL2025.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.PT_eUSDE_14AUG2025.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.eUSDe.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.FBTC.INTEREST_RATE_STRATEGY",
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x8b0fe7fa6cb830097188c837153507b2efc15562bdad34336316f87446225043": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x00000000000000000000000000000000000000007530000003e8000000001194"
+        }
+      }
+    },
+    "0xb58ed8ec66e43de3fecd27e351485e7efe006f38": {
+      "label": null,
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x0000000000000000000000000000000000000000000000000000000000000000": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000003"
+        },
+        "0x0000000000000000000000000000000000000000000000000000000000000001": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000000"
+        },
+        "0x0000000000000000000000000000000000000000000000000000000000000035": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0xd0699cb94a8f1c2a6af842c45588e546ede8cb5330ed93d2ab272e94ae9d0199"
+        },
+        "0x0000000000000000000000000000000000000000000000000000000000000037": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x000000000000000000000000bc6736d346a5ebc0debc997397912cd9b8fae10a"
+        },
+        "0x000000000000000000000000000000000000000000000000000000000000003b": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x000000000000000000000000000000000000000000000000000000000000005b"
+        },
+        "0x000000000000000000000000000000000000000000000000000000000000003c": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000041"
+        },
+        "0x000000000000000000000000000000000000000000000000000000000000003d": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000012"
+        },
+        "0xbbe3212124853f8b0084a66a2d057c2966e251e132af3691db153ab65f0d1a4d": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x4161766520457468657265756d205661726961626c6520446562742050545f55"
+        },
+        "0xbbe3212124853f8b0084a66a2d057c2966e251e132af3691db153ab65f0d1a4e": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x5344655f32355345503230323500000000000000000000000000000000000000"
+        },
+        "0xc6bb06cb7f92603de181bf256cd16846b93b752a170ff24824098b31aa008a7e": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x7661726961626c654465627445746850545f555344655f323553455032303235"
+        }
+      }
+    },
+    "0xbc6736d346a5ebc0debc997397912cd9b8fae10a": {
+      "label": null,
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x0000000000000000000000000000000000000000000000000000000000000002": {
+          "previousValue": "0x0100000000000000000000000000000000000000003dc1c902879311c5630071",
+          "newValue": "0x0100000000000000000000000000000000000000003dc1c902879311c5630071"
+        },
+        "0xb1a3d0643b916c42296de035a6af81aa8988e04a81f3339fea044ac9f2cf6aa4": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000056bc75e2d63100000"
+        },
+        "0xf17bca5f0b79532f5dbd08020f985f432ed777d5ec7fd344c3ad5c249dc24ce7": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000056bc75e2d63100000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000000"
+        },
+        "0xf28b05d7cb1c50f8ef449275074a75213b412b4964112d5fc8ca14bc4785d5eb": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000000"
+        }
+      }
+    },
+    "0xc2aacf6553d20d1e9d78e365aaba8032af9c85b0": {
+      "label": "AaveV3Ethereum.ACL_MANAGER",
+      "balanceDiff": null,
+      "stateDiff": {}
+    },
+    "0xdabad81af85554e9ae636395611c58f7ec1aaec5": {
+      "label": "GovernanceV3Ethereum.PAYLOADS_CONTROLLER",
+      "balanceDiff": null,
+      "stateDiff": {}
+    },
+    "0xe7b67f44ea304dd7f6d215b13686637ff64cd2b2": {
+      "label": null,
+      "balanceDiff": null,
+      "stateDiff": {}
+    }
+  }
+}
+```
