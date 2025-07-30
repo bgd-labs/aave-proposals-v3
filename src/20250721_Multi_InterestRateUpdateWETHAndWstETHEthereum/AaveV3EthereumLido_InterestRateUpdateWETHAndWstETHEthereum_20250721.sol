@@ -22,13 +22,22 @@ contract AaveV3EthereumLido_InterestRateUpdateWETHAndWstETHEthereum_20250721 is
     returns (IAaveV3ConfigEngine.RateStrategyUpdate[] memory)
   {
     IAaveV3ConfigEngine.RateStrategyUpdate[]
-      memory rateStrategies = new IAaveV3ConfigEngine.RateStrategyUpdate[](1);
+      memory rateStrategies = new IAaveV3ConfigEngine.RateStrategyUpdate[](2);
     rateStrategies[0] = IAaveV3ConfigEngine.RateStrategyUpdate({
       asset: AaveV3EthereumLidoAssets.wstETH_UNDERLYING,
       params: IAaveV3ConfigEngine.InterestRateInputData({
-        optimalUsageRatio: EngineFlags.KEEP_CURRENT,
+        optimalUsageRatio: 93_00,
         baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
         variableRateSlope1: EngineFlags.KEEP_CURRENT,
+        variableRateSlope2: 40_00
+      })
+    });
+    rateStrategies[1] = IAaveV3ConfigEngine.RateStrategyUpdate({
+      asset: AaveV3EthereumLidoAssets.WETH_UNDERLYING,
+      params: IAaveV3ConfigEngine.InterestRateInputData({
+        optimalUsageRatio: 93_00,
+        baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
+        variableRateSlope1: 2_75,
         variableRateSlope2: 40_00
       })
     });
@@ -44,9 +53,8 @@ contract AaveV3EthereumLido_InterestRateUpdateWETHAndWstETHEthereum_20250721 is
   {
     IAaveV3ConfigEngine.BorrowUpdate[]
       memory borrowUpdates = new IAaveV3ConfigEngine.BorrowUpdate[](1);
-
     borrowUpdates[0] = IAaveV3ConfigEngine.BorrowUpdate({
-      asset: AaveV3EthereumLidoAssets.wstETH_UNDERLYING,
+      asset: AaveV3EthereumLidoAssets.WETH_UNDERLYING,
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
       borrowableInIsolation: EngineFlags.KEEP_CURRENT,

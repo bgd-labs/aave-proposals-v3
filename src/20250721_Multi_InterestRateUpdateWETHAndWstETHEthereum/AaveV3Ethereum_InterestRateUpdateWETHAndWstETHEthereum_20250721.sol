@@ -20,7 +20,7 @@ contract AaveV3Ethereum_InterestRateUpdateWETHAndWstETHEthereum_20250721 is Aave
     returns (IAaveV3ConfigEngine.RateStrategyUpdate[] memory)
   {
     IAaveV3ConfigEngine.RateStrategyUpdate[]
-      memory rateStrategies = new IAaveV3ConfigEngine.RateStrategyUpdate[](1);
+      memory rateStrategies = new IAaveV3ConfigEngine.RateStrategyUpdate[](2);
     rateStrategies[0] = IAaveV3ConfigEngine.RateStrategyUpdate({
       asset: AaveV3EthereumAssets.wstETH_UNDERLYING,
       params: IAaveV3ConfigEngine.InterestRateInputData({
@@ -28,6 +28,15 @@ contract AaveV3Ethereum_InterestRateUpdateWETHAndWstETHEthereum_20250721 is Aave
         baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
         variableRateSlope1: 1_00,
         variableRateSlope2: 40_00
+      })
+    });
+    rateStrategies[1] = IAaveV3ConfigEngine.RateStrategyUpdate({
+      asset: AaveV3EthereumAssets.WETH_UNDERLYING,
+      params: IAaveV3ConfigEngine.InterestRateInputData({
+        optimalUsageRatio: 92_00,
+        baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
+        variableRateSlope1: EngineFlags.KEEP_CURRENT,
+        variableRateSlope2: EngineFlags.KEEP_CURRENT
       })
     });
 
