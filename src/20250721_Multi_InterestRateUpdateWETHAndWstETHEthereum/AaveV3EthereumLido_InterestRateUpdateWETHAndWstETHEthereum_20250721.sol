@@ -35,4 +35,25 @@ contract AaveV3EthereumLido_InterestRateUpdateWETHAndWstETHEthereum_20250721 is
 
     return rateStrategies;
   }
+
+  function borrowsUpdates()
+    public
+    pure
+    override
+    returns (IAaveV3ConfigEngine.BorrowUpdate[] memory)
+  {
+    IAaveV3ConfigEngine.BorrowUpdate[]
+      memory borrowUpdates = new IAaveV3ConfigEngine.BorrowUpdate[](1);
+
+    borrowUpdates[0] = IAaveV3ConfigEngine.BorrowUpdate({
+      asset: AaveV3EthereumLidoAssets.wstETH_UNDERLYING,
+      enabledToBorrow: EngineFlags.KEEP_CURRENT,
+      flashloanable: EngineFlags.KEEP_CURRENT,
+      borrowableInIsolation: EngineFlags.KEEP_CURRENT,
+      withSiloedBorrowing: EngineFlags.KEEP_CURRENT,
+      reserveFactor: 15_00
+    });
+
+    return borrowUpdates;
+  }
 }

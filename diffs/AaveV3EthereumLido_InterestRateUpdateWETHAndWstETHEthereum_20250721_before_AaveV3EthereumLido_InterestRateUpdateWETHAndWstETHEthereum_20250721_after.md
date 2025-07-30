@@ -6,6 +6,7 @@
 
 | description | value before | value after |
 | --- | --- | --- |
+| reserveFactor | 5 % [500] | 15 % [1500] |
 | maxVariableBorrowRate | 85.55 % | 40.55 % |
 | variableRateSlope2 | 85 % | 40 % |
 | interestRate | ![before](https://dash.onaave.com/api/static?variableRateSlope1=5500000000000000000000000&variableRateSlope2=850000000000000000000000000&optimalUsageRatio=900000000000000000000000000&baseVariableBorrowRate=0&maxVariableBorrowRate=855500000000000000000000000) | ![after](https://dash.onaave.com/api/static?variableRateSlope1=5500000000000000000000000&variableRateSlope2=400000000000000000000000000&optimalUsageRatio=900000000000000000000000000&baseVariableBorrowRate=0&maxVariableBorrowRate=405500000000000000000000000) |
@@ -14,6 +15,14 @@
 
 ```json
 {
+  "reserves": {
+    "0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0": {
+      "reserveFactor": {
+        "from": 500,
+        "to": 1500
+      }
+    }
+  },
   "strategies": {
     "0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0": {
       "maxVariableBorrowRate": {
@@ -58,7 +67,7 @@
       "stateDiff": {
         "0xc9d7ec48cd0d839522455f78914adfeda8686316bb6819e0888e4bcd349e01b3": {
           "previousValue": "0x00000000000354e22daa0c7748e6ed7400000000033da8f6366bf9a6f0927cca",
-          "newValue": "0x00000000000354e22f25c14fb2176dc300000000033da8f9a10f1a3ae9e80f59"
+          "newValue": "0x000000000002fb1b37a8848aacd1981a00000000033da8f9a10f1a3ae9e80f59"
         },
         "0xc9d7ec48cd0d839522455f78914adfeda8686316bb6819e0888e4bcd349e01b4": {
           "previousValue": "0x00000000000435dcc2f6477e6228ebac00000000033f7f06edc27a42ef896047",
@@ -117,6 +126,16 @@
       "label": "AaveV3EthereumLido.ASSETS.wstETH.V_TOKEN",
       "balanceDiff": null,
       "stateDiff": {}
+    },
+    "0xeabd3344f14b4df97611910dd3826b0767bcc588": {
+      "label": null,
+      "balanceDiff": null,
+      "stateDiff": {
+        "0xc9d7ec48cd0d839522455f78914adfeda8686316bb6819e0888e4bcd349e01b2": {
+          "previousValue": "0x100000000000000000000103e800009eb100000445c001f485122968206c2008",
+          "newValue": "0x100000000000000000000103e800009eb100000445c005dc85122968206c2008"
+        }
+      }
     }
   }
 }
