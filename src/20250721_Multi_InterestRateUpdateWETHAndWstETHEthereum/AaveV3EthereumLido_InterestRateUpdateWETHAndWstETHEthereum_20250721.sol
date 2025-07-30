@@ -26,7 +26,7 @@ contract AaveV3EthereumLido_InterestRateUpdateWETHAndWstETHEthereum_20250721 is
     rateStrategies[0] = IAaveV3ConfigEngine.RateStrategyUpdate({
       asset: AaveV3EthereumLidoAssets.wstETH_UNDERLYING,
       params: IAaveV3ConfigEngine.InterestRateInputData({
-        optimalUsageRatio: 93_00,
+        optimalUsageRatio: EngineFlags.KEEP_CURRENT,
         baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
         variableRateSlope1: EngineFlags.KEEP_CURRENT,
         variableRateSlope2: 40_00
@@ -35,7 +35,7 @@ contract AaveV3EthereumLido_InterestRateUpdateWETHAndWstETHEthereum_20250721 is
     rateStrategies[1] = IAaveV3ConfigEngine.RateStrategyUpdate({
       asset: AaveV3EthereumLidoAssets.WETH_UNDERLYING,
       params: IAaveV3ConfigEngine.InterestRateInputData({
-        optimalUsageRatio: 93_00,
+        optimalUsageRatio: EngineFlags.KEEP_CURRENT,
         baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
         variableRateSlope1: 2_75,
         variableRateSlope2: 40_00
