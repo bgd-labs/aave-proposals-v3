@@ -383,16 +383,12 @@ contract CreateProposal is EthereumScript {
     }
 
     {
-      IPayloadsControllerCore.ExecutionAction[]
-        memory actionsZkSync = new IPayloadsControllerCore.ExecutionAction[](1);
-      actionsZkSync[0] = GovV3Helpers.buildAction(Deployments.ZKSYNC);
       payloads[10] = PayloadsControllerUtils.Payload({
         chain: ChainIds.ZKSYNC,
         accessLevel: PayloadsControllerUtils.AccessControl.Level_1,
         payloadsController: address(GovernanceV3ZkSync.PAYLOADS_CONTROLLER),
-        payloadId: 0
+        payloadId: 30
       });
-      require(false, 'TODO: UPDATE PAYLOAD ID');
     }
 
     {

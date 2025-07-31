@@ -14,7 +14,7 @@ library Deployments {
   address public constant CELO = 0xD8d64BAb7C362E5F762ea0E7c334801Fba604028; // cancun
   address public constant SCROLL = 0x7467F305c2a269C22548C0821E6a33caa2C7Ec9B; // cancun
   address public constant LINEA = 0xc0799CF19914081684f0203cC87FE5436d5d717F; // london
-  address public constant ZKSYNC = 0xE33AC25049C6fF512c58271fD134ccee4701bBAD; // cancun
+  address public constant ZKSYNC = 0x1bC646CD1Fc56024f16B1Abf2197Fc0100c00Cf8; // cancun
   address public constant SONEIUM = 0xc1082221D1a99BAc4e1FcBE406c9A4AE8c6a825C; // cancun
   address public constant MAINNET_CORE = 0xD51B0B941cfcF3388c17ABa5DcBab766d34fD45b; // cancun
   address public constant MAINNET_LIDO = 0x6ab8c847371911C778963Fa0C07645f3e587B012; // cancun
