@@ -85,7 +85,7 @@ contract DeployBase is BaseScript {
   function run() external broadcast {
     // deploy payloads
     address payload0 = GovV3Helpers.deployDeterministic(
-      type(AaveV3Arbitrum_GHOGnosisLaunch_20250421).creationCode
+      type(AaveV3Base_GHOGnosisLaunch_20250421).creationCode
     );
 
     // compose action
