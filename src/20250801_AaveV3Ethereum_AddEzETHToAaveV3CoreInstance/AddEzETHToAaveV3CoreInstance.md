@@ -1,8 +1,12 @@
 ---
-title: "[Direct-to-AIP] Add ezETH to Aave v3 Core Instance"
+title: "Add ezETH to Aave v3 Core Instance"
 author: "@TokenLogic"
 discussions: "https://governance.aave.com/t/direct-to-aip-add-ezeth-to-aave-v3-core-instance/22732"
-snapshot: ""
+snapshot: TODO
+---
+
+Of course. Here is the provided text reformatted into Markdown:
+
 ---
 
 ### Summary
@@ -13,8 +17,6 @@ This publication proposes onboarding ezETH as collateral to the Aave V3 Core Ins
 
 With the recent onboarding of weETH to the Prime instance, the wstETH Borrow Rate has increased to above 0.50% at times and adversely affected the yield strategies utilizing wstETH debt. Whilst rsETH users can migrate to Core, ezETH users are not yet able to migrate positions and optimize for the lowest cost of capital.
 
-_Source: Aave Analytics | TokenLogic_
-
 Upon listing ezETH on Core and reducing the wstETH borrow rate, users are expected to arbitrage the wstETH borrow rate across the markets, enabling weETH to continue growing on Prime. Given the yield-maximizing nature of the strategies, a degree of size needs to be able to move freely between the markets, which adding ezETH to Core enables.
 
 The Renzo team has expressed specifically that investors are requesting access to USDC and USDT on the Core instance, and only on Ethereum. To support this request, an ezETH stablecoin eMode has been proposed below.
@@ -22,8 +24,6 @@ The Renzo team has expressed specifically that investors are requesting access t
 This proposal will be under Direct to AIP, as ezETH is already listed on other Aave instances.
 
 ### Specification
-
-The following outlines the initial ezETH onboarding parameters.
 
 **ezETH Ethereum Address:** `0xbf5495efe5db9ce00f80364c8b423567e58d2110`
 
@@ -79,15 +79,13 @@ The following outlines the initial ezETH onboarding parameters.
 | **Liquidation Threshold** | 78.00% | -    | -    |
 | **Liquidation Penalty**   | 7.50%  | -    | -    |
 
-### Disclosure
+## References
 
-TokenLogic does not receive any payment for this proposal.
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250801_AaveV3Ethereum_AddEzETHToAaveV3CoreInstance/AaveV3Ethereum_AddEzETHToAaveV3CoreInstance_20250801.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250801_AaveV3Ethereum_AddEzETHToAaveV3CoreInstance/AaveV3Ethereum_AddEzETHToAaveV3CoreInstance_20250801.t.sol)
+  [Snapshot](TODO)
+- [Discussion](https://governance.aave.com/t/direct-to-aip-add-ezeth-to-aave-v3-core-instance/22732)
 
-### Next Steps
-
-1.  Gather feedback from the community.
-2.  Using the Direct-to-AIP process, submit AIP(s) for vote.
-
-### Copyright
+## Copyright
 
 Copyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).
