@@ -1,6 +1,6 @@
 import {CodeArtifact, FEATURE, FeatureModule} from '../types';
 import {Hex} from 'viem';
-import {TEST_EXECUTE_PROPOSAL} from '../utils/constants';
+import {testExecuteProposal} from '../utils/constants';
 import {addressPrompt, translateJsAddressToSol} from '../prompts/addressPrompt';
 
 export type FlashBorrower = {
@@ -31,7 +31,7 @@ export const flashBorrower: FeatureModule<FlashBorrower> = {
       test: {
         fn: [
           `function test_isFlashBorrower() external {
-          ${TEST_EXECUTE_PROPOSAL}
+          ${testExecuteProposal(pool)}
           bool isFlashBorrower = ${pool}.ACL_MANAGER.isFlashBorrower(proposal.NEW_FLASH_BORROWER());
           assertEq(isFlashBorrower, true);
         }`,

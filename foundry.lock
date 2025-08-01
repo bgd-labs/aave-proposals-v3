@@ -1,0 +1,8 @@
+{
+  "lib/aave-helpers": {
+    "branch": {
+      "name": "feat/ink",
+      "rev": "96b15ba496b80f9d0d4fe86fcd1e2d8cb230aace"
+    }
+  }
+}
