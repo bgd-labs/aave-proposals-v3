@@ -67,5 +67,6 @@ linea = "${RPC_LINEA}"
 celo = "${RPC_CELO}"
 sonic = "${RPC_SONIC}"
 soneium = "${RPC_SONEIUM}"
+ink = "${RPC_INK}"
 
 # See more config options https://github.com/foundry-rs/foundry/tree/master/crates/config
