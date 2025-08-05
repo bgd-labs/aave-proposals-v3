@@ -42,7 +42,7 @@ contract AaveV3Ethereum_AddTETHToCoreInstanceEthereum_20250801_Test is ProtocolV
     );
     assertGe(
       IERC20(aTokenAddress).balanceOf(address(AaveV3Ethereum.DUST_BIN)),
-      26_666_666_666_666_666
+      proposal.tETH_SEED_AMOUNT()
     );
   }
 }

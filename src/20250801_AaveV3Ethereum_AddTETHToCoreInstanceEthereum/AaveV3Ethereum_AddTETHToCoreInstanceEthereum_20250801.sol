@@ -18,7 +18,7 @@ import {SafeERC20} from 'openzeppelin-contracts/contracts/token/ERC20/utils/Safe
 contract AaveV3Ethereum_AddTETHToCoreInstanceEthereum_20250801 is AaveV3PayloadEthereum {
   using SafeERC20 for IERC20;
 
-  uint256 public constant tETH_SEED_AMOUNT = 26_666_666_666_666_666;
+  uint256 public constant tETH_SEED_AMOUNT = 0.025 ether;
 
   function _postExecute() internal override {
     IERC20(address(AaveV3EthereumLidoAssets.tETH_UNDERLYING)).forceApprove(
