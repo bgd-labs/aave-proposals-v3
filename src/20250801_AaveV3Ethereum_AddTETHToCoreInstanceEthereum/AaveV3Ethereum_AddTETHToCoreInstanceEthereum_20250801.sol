@@ -2,6 +2,7 @@
 pragma solidity ^0.8.0;
 
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
+import {AaveV3EthereumLidoAssets} from 'aave-address-book/AaveV3EthereumLido.sol';
 import {AaveV3PayloadEthereum} from 'aave-helpers/src/v3-config-engine/AaveV3PayloadEthereum.sol';
 import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
@@ -17,13 +18,19 @@ import {SafeERC20} from 'openzeppelin-contracts/contracts/token/ERC20/utils/Safe
 contract AaveV3Ethereum_AddTETHToCoreInstanceEthereum_20250801 is AaveV3PayloadEthereum {
   using SafeERC20 for IERC20;
 
-  address public constant tETH = 0xD11c452fc99cF405034ee446803b6F6c1F6d5ED8;
-  address public constant tETH_PRICE_FEED = 0x85968026294b8f8Fb86d6bF3Cda079f9376aD05A;
-  uint256 public constant tETH_SEED_AMOUNT = 1e18;
+  uint256 public constant tETH_SEED_AMOUNT = 26_666_666_666_666_666;
 
   function _postExecute() internal override {
-    IERC20(tETH).forceApprove(address(AaveV3Ethereum.POOL), tETH_SEED_AMOUNT);
-    AaveV3Ethereum.POOL.supply(tETH, tETH_SEED_AMOUNT, AaveV3Ethereum.DUST_BIN, 0);
+    IERC20(address(AaveV3EthereumLidoAssets.tETH_UNDERLYING)).forceApprove(
+      address(AaveV3Ethereum.POOL),
+      tETH_SEED_AMOUNT
+    );
+    AaveV3Ethereum.POOL.supply(
+      AaveV3EthereumLidoAssets.tETH_UNDERLYING,
+      tETH_SEED_AMOUNT,
+      AaveV3Ethereum.DUST_BIN,
+      0
+    );
   }
 
   function eModeCategoryCreations()
@@ -38,7 +45,7 @@ contract AaveV3Ethereum_AddTETHToCoreInstanceEthereum_20250801 is AaveV3PayloadE
     address[] memory collateralAssets_tETHStablecoin = new address[](1);
     address[] memory borrowableAssets_tETHStablecoin = new address[](2);
 
-    collateralAssets_tETHStablecoin[0] = tETH;
+    collateralAssets_tETHStablecoin[0] = AaveV3EthereumLidoAssets.tETH_UNDERLYING;
     borrowableAssets_tETHStablecoin[0] = AaveV3EthereumAssets.USDC_UNDERLYING;
     borrowableAssets_tETHStablecoin[1] = AaveV3EthereumAssets.USDS_UNDERLYING;
 
@@ -46,7 +53,7 @@ contract AaveV3Ethereum_AddTETHToCoreInstanceEthereum_20250801 is AaveV3PayloadE
       ltv: 72_00,
       liqThreshold: 75_00,
       liqBonus: 7_50,
-      label: 'tETH/stablecoins',
+      label: 'tETH/Stablecoins',
       collaterals: collateralAssets_tETHStablecoin,
       borrowables: borrowableAssets_tETHStablecoin
     });
@@ -58,15 +65,15 @@ contract AaveV3Ethereum_AddTETHToCoreInstanceEthereum_20250801 is AaveV3PayloadE
     IAaveV3ConfigEngine.Listing[] memory listings = new IAaveV3ConfigEngine.Listing[](1);
 
     listings[0] = IAaveV3ConfigEngine.Listing({
-      asset: tETH,
+      asset: AaveV3EthereumLidoAssets.tETH_UNDERLYING,
       assetSymbol: 'tETH',
-      priceFeed: tETH_PRICE_FEED,
+      priceFeed: AaveV3EthereumLidoAssets.tETH_ORACLE,
       enabledToBorrow: EngineFlags.DISABLED,
       borrowableInIsolation: EngineFlags.DISABLED,
       withSiloedBorrowing: EngineFlags.DISABLED,
       flashloanable: EngineFlags.ENABLED,
       ltv: 5,
-      liqThreshold: 75_00,
+      liqThreshold: 10,
       liqBonus: 7_50,
       reserveFactor: 15_00,
       supplyCap: 50_000,

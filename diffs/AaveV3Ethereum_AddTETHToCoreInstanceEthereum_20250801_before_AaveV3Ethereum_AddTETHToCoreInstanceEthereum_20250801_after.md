@@ -20,7 +20,7 @@
 | oracleLatestAnswer | 4403.0068926 |
 | usageAsCollateralEnabled | true |
 | ltv | 0.05 % [5] |
-| liquidationThreshold | 75 % [7500] |
+| liquidationThreshold | 0.1 % [10] |
 | liquidationBonus | 7.5 % |
 | liquidationProtocolFee | 10 % [1000] |
 | reserveFactor | 15 % [1500] |
@@ -31,12 +31,12 @@
 | interestRateStrategy | [0x9ec6F08190DeA04A54f8Afc53Db96134e5E3FdFB](https://etherscan.io/address/0x9ec6F08190DeA04A54f8Afc53Db96134e5E3FdFB) |
 | aTokenName | Aave Ethereum tETH |
 | aTokenSymbol | aEthtETH |
-| aTokenUnderlyingBalance | 1 tETH [1000000000000000000] |
+| aTokenUnderlyingBalance | 0.0266 tETH [26666666666666666] |
 | id | 50 |
 | isPaused | false |
 | variableDebtTokenName | Aave Ethereum Variable Debt tETH |
 | variableDebtTokenSymbol | variableDebtEthtETH |
-| virtualBalance | 1 tETH [1000000000000000000] |
+| virtualBalance | 0.0266 tETH [26666666666666666] |
 | optimalUsageRatio | 45 % |
 | maxVariableBorrowRate | 0 % |
 | baseVariableBorrowRate | 0 % |
@@ -127,11 +127,11 @@
 
 
 
-### EMode: tETH/stablecoins(id: 21)
+### EMode: tETH/Stablecoins(id: 21)
 
 | description | value before | value after |
 | --- | --- | --- |
-| eMode.label | - | tETH/stablecoins |
+| eMode.label | - | tETH/Stablecoins |
 | eMode.ltv | - | 72 % |
 | eMode.liquidationThreshold | - | 75 % |
 | eMode.liquidationBonus | - | 7.5 % |
@@ -150,7 +150,7 @@
         "borrowableBitmap": "34359738376",
         "collateralBitmap": "1125899906842624",
         "eModeCategory": 21,
-        "label": "tETH/stablecoins",
+        "label": "tETH/Stablecoins",
         "liquidationBonus": 10750,
         "liquidationThreshold": 7500,
         "ltv": 7200
@@ -164,7 +164,7 @@
         "aToken": "0x481a2acf3A72ffDc602A9541896Ca1DB87f86cf7",
         "aTokenName": "Aave Ethereum tETH",
         "aTokenSymbol": "aEthtETH",
-        "aTokenUnderlyingBalance": "1000000000000000000",
+        "aTokenUnderlyingBalance": "26666666666666666",
         "borrowCap": 0,
         "borrowingEnabled": false,
         "debtCeiling": 0,
@@ -179,7 +179,7 @@
         "isSiloed": false,
         "liquidationBonus": 10750,
         "liquidationProtocolFee": 1000,
-        "liquidationThreshold": 7500,
+        "liquidationThreshold": 10,
         "ltv": 5,
         "oracle": "0x85968026294b8f8Fb86d6bF3Cda079f9376aD05A",
         "oracleDecimals": 8,
@@ -193,7 +193,7 @@
         "variableDebtToken": "0x7EC9Afe70f8FD603282eBAcbc9058A83623E2899",
         "variableDebtTokenName": "Aave Ethereum Variable Debt tETH",
         "variableDebtTokenSymbol": "variableDebtEthtETH",
-        "virtualBalance": "1000000000000000000"
+        "virtualBalance": "26666666666666666"
       }
     }
   },
@@ -225,7 +225,7 @@
         },
         "0x0000000000000000000000000000000000000000000000000000000000000036": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x0000000000000000000000000000000000000000000000000de0b6b3a7640000"
+          "newValue": "0x000000000000000000000000000000000000000000000000005ebd312a02aaaa"
         },
         "0x0000000000000000000000000000000000000000000000000000000000000037": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -249,7 +249,7 @@
         },
         "0x2c491f7384cd762770fb659d7290ed7b4da75a7c480a8a5cc401f49c4807de64": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x00000000033b2e3c9fd0803ce800000000000000000000000de0b6b3a7640000"
+          "newValue": "0x00000000033b2e3c9fd0803ce80000000000000000000000005ebd312a02aaaa"
         },
         "0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -329,7 +329,7 @@
         },
         "0x79c6e29436490262cb24ee8bc0beb79364a1b588e1732d1098b1d9c2838ed8ad": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x744554482f737461626c65636f696e7300000000000000000000000000000020"
+          "newValue": "0x744554482f537461626c65636f696e7300000000000000000000000000000020"
         },
         "0x79c6e29436490262cb24ee8bc0beb79364a1b588e1732d1098b1d9c2838ed8ae": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -337,7 +337,7 @@
         },
         "0xb175b141cba0cc992ab972ad55e21f463dc10a5251e5513e6498931ace66c014": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x100000000000000000000003e800000c35000000000005dc811229fe1d4c0005"
+          "newValue": "0x100000000000000000000003e800000c35000000000005dc811229fe000a0005"
         },
         "0xb175b141cba0cc992ab972ad55e21f463dc10a5251e5513e6498931ace66c015": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -361,7 +361,7 @@
         },
         "0xb175b141cba0cc992ab972ad55e21f463dc10a5251e5513e6498931ace66c01c": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x00000000000000000de0b6b3a764000000000000000000000000000000000000"
+          "newValue": "0x0000000000000000005ebd312a02aaaa00000000000000000000000000000000"
         },
         "0xb175b141cba0cc992ab972ad55e21f463dc10a5251e5513e6498931ace66c01d": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -393,11 +393,11 @@
         },
         "0x31faaccc375cc214196213bd298e4f0b16d02b9261eb8049291f7b503901f2c6": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000de0b6b3a7640000",
-          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000000"
+          "newValue": "0x0000000000000000000000000000000000000000000000000d81f9827d615556"
         },
         "0x9007446168372b6721ce3ee24ff23355a1ba031f52f23db85b3f344945b27a77": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x0000000000000000000000000000000000000000000000000de0b6b3a7640000"
+          "newValue": "0x000000000000000000000000000000000000000000000000005ebd312a02aaaa"
         }
       }
     },

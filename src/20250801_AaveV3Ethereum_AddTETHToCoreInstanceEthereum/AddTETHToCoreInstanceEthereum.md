@@ -41,7 +41,7 @@ The following outlines the initial tETH onboarding parameters.
 | Base Variable Borrow Rate          | 0 %                                        |
 | Variable Slope 1                   | 0 %                                        |
 | Variable Slope 2                   | 0 %                                        |
-| Uoptimal                           | 0 %                                        |
+| Uoptimal                           | 45 %                                       |
 | Stable Borrowing                   | DISABLED                                   |
 | Stable Slope1                      | 0 %                                        |
 | Stable Slope2                      | 0 %                                        |
