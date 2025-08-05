@@ -20,7 +20,7 @@ contract AaveV3Ethereum_AddEzETHToAaveV3CoreInstance_20250801_Test is ProtocolV3
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('mainnet'), 23046723);
     proposal = new AaveV3Ethereum_AddEzETHToAaveV3CoreInstance_20250801();
-    deal(proposal.ezETH(), EXECUTOR, 10 ** 18);
+    deal(proposal.ezETH(), EXECUTOR, 10 ** 16);
   }
 
   /**
@@ -37,6 +37,6 @@ contract AaveV3Ethereum_AddEzETHToAaveV3CoreInstance_20250801_Test is ProtocolV3
   function test_dustBinHasezETHFunds() public {
     GovV3Helpers.executePayload(vm, address(proposal));
     address aTokenAddress = AaveV3Ethereum.POOL.getReserveAToken(proposal.ezETH());
-    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Ethereum.DUST_BIN)), 10 ** 18);
+    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Ethereum.DUST_BIN)), 10 ** 16);
   }
 }

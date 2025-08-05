@@ -19,7 +19,7 @@ contract AaveV3Ethereum_AddEzETHToAaveV3CoreInstance_20250801 is AaveV3PayloadEt
 
   address public constant ezETH = 0xbf5495Efe5DB9ce00f80364C8B423567e58d2110;
   address public constant ezETH_PRICE_FEED = 0xF3d49021fF3bbBFDfC1992A4b09E5D1d141D044C;
-  uint256 public constant ezETH_SEED_AMOUNT = 1e18;
+  uint256 public constant ezETH_SEED_AMOUNT = 1e16;
 
   function _postExecute() internal override {
     IERC20(ezETH).forceApprove(address(AaveV3Ethereum.POOL), ezETH_SEED_AMOUNT);
@@ -59,7 +59,7 @@ contract AaveV3Ethereum_AddEzETHToAaveV3CoreInstance_20250801 is AaveV3PayloadEt
       ltv: 75_00,
       liqThreshold: 78_00,
       liqBonus: 7_50,
-      label: 'ezETH/stablecoin',
+      label: 'ezETH/Stablecoins',
       collaterals: collateralAssets_EzETHStablecoin,
       borrowables: borrowableAssets_EzETHStablecoin
     });

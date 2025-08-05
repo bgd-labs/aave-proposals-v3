@@ -5,10 +5,6 @@ discussions: "https://governance.aave.com/t/direct-to-aip-add-ezeth-to-aave-v3-c
 snapshot: TODO
 ---
 
-Of course. Here is the provided text reformatted into Markdown:
-
----
-
 ### Summary
 
 This publication proposes onboarding ezETH as collateral to the Aave V3 Core Instance.
@@ -46,7 +42,7 @@ This proposal will be under Direct to AIP, as ezETH is already listed on other A
 | **Base Variable Borrow Rate**          | -                 |
 | **Variable Slope 1**                   | -                 |
 | **Variable Slope 2**                   | -                 |
-| **Uoptimal**                           | -                 |
+| **Uoptimal**                           | 45%               |
 | **Stable Borrowing**                   | DISABLED          |
 | **Stable Slope1**                      | 0%                |
 | **Stable Slope2**                      | 0%                |
