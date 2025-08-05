@@ -3,6 +3,7 @@ pragma solidity ^0.8.0;
 
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 import {AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
+import {AaveV3EthereumLido, AaveV3EthereumLidoAssets} from 'aave-address-book/AaveV3EthereumLido.sol';
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 
 import 'forge-std/Test.sol';
@@ -20,7 +21,7 @@ contract AaveV3Ethereum_AddEzETHToAaveV3CoreInstance_20250801_Test is ProtocolV3
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('mainnet'), 23046723);
     proposal = new AaveV3Ethereum_AddEzETHToAaveV3CoreInstance_20250801();
-    deal(proposal.ezETH(), EXECUTOR, 10 ** 16);
+    deal(AaveV3EthereumLidoAssets.ezETH_UNDERLYING, EXECUTOR, 10 ** 16);
   }
 
   /**
@@ -36,7 +37,9 @@ contract AaveV3Ethereum_AddEzETHToAaveV3CoreInstance_20250801_Test is ProtocolV3
 
   function test_dustBinHasezETHFunds() public {
     GovV3Helpers.executePayload(vm, address(proposal));
-    address aTokenAddress = AaveV3Ethereum.POOL.getReserveAToken(proposal.ezETH());
+    address aTokenAddress = AaveV3Ethereum.POOL.getReserveAToken(
+      AaveV3EthereumLidoAssets.ezETH_UNDERLYING
+    );
     assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Ethereum.DUST_BIN)), 10 ** 16);
   }
 }

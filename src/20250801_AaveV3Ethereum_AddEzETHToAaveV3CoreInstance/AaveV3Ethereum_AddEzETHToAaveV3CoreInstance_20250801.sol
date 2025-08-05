@@ -2,7 +2,7 @@
 pragma solidity ^0.8.0;
 
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
-import {AaveV3EthereumLido} from 'aave-address-book/AaveV3EthereumLido.sol';
+import {AaveV3EthereumLido, AaveV3EthereumLidoAssets} from 'aave-address-book/AaveV3EthereumLido.sol';
 import {AaveV3PayloadEthereum} from 'aave-helpers/src/v3-config-engine/AaveV3PayloadEthereum.sol';
 import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
@@ -17,12 +17,21 @@ import {SafeERC20} from 'openzeppelin-contracts/contracts/token/ERC20/utils/Safe
  */
 contract AaveV3Ethereum_AddEzETHToAaveV3CoreInstance_20250801 is AaveV3PayloadEthereum {
   using SafeERC20 for IERC20;
+  using AaveV3EthereumLido for IERC20;
 
   uint256 public constant ezETH_SEED_AMOUNT = 1e16;
 
   function _postExecute() internal override {
-    IERC20(ezETH).forceApprove(address(AaveV3Ethereum.POOL), ezETH_SEED_AMOUNT);
-    AaveV3Ethereum.POOL.supply(ezETH, ezETH_SEED_AMOUNT, AaveV3Ethereum.DUST_BIN, 0);
+    IERC20(AaveV3EthereumLidoAssets.ezETH_UNDERLYING).forceApprove(
+      address(AaveV3Ethereum.POOL),
+      ezETH_SEED_AMOUNT
+    );
+    AaveV3Ethereum.POOL.supply(
+      AaveV3EthereumLidoAssets.ezETH_UNDERLYING,
+      ezETH_SEED_AMOUNT,
+      AaveV3Ethereum.DUST_BIN,
+      0
+    );
   }
 
   function eModeCategoryCreations()
@@ -70,9 +79,9 @@ contract AaveV3Ethereum_AddEzETHToAaveV3CoreInstance_20250801 is AaveV3PayloadEt
     IAaveV3ConfigEngine.Listing[] memory listings = new IAaveV3ConfigEngine.Listing[](1);
 
     listings[0] = IAaveV3ConfigEngine.Listing({
-      asset: AaveV3EthereumLido.ezETH_UNDERLYING,
+      asset: AaveV3EthereumLidoAssets.ezETH_UNDERLYING,
       assetSymbol: 'ezETH',
-      priceFeed: AaveV3EthereumLido.ezETH_ORACLE,
+      priceFeed: AaveV3EthereumLidoAssets.ezETH_ORACLE,
       enabledToBorrow: EngineFlags.DISABLED,
       borrowableInIsolation: EngineFlags.DISABLED,
       withSiloedBorrowing: EngineFlags.DISABLED,
