@@ -16,7 +16,7 @@ contract AaveV3Ethereum_LBTCAndEBTCPriceFeedsUpdate_20250717 is AaveV3PayloadEth
   // https://etherscan.io/address/0xf8c04B50499872A5B5137219DEc0F791f7f620D0
   address public constant LBTC_CAPO_ADAPTER = 0xf8c04B50499872A5B5137219DEc0F791f7f620D0;
 
-  uint104 public constant EBTC_SNAPSHOT_RATIO = 1_000000000000000000;
+  uint104 public constant EBTC_SNAPSHOT_RATIO = 1_00000000;
   uint48 public constant EBTC_SNAPSHOT_TIMESTAMP = 1750023287;
   uint16 public constant EBTC_SNAPSHOT_MAX_YEARLY_RATIO_GROWTH_PERCENTAGE = 1_90;
 
