@@ -1,7 +1,7 @@
 ---
 title: "Add tETH to Core Instance Ethereum"
 author: "@TokenLogic"
-discussions: "https://governance.aave.com/t/direct-to-aip-add-teth-to-core-instance-ethereum/22594"
+discussions: "https://governance.aave.com/t/direct-to-aip-add-teth-to-core-instance-ethereum/22594/3"
 ---
 
 ### Summary
@@ -30,7 +30,7 @@ The following outlines the initial tETH onboarding parameters.
 | Isolation Mode                     | false                                      |
 | Borrowable                         | DISABLED                                   |
 | Collateral Enabled                 | true                                       |
-| Supply Cap (tETH)                  | 50,000                                     |
+| Supply Cap (tETH)                  | 10,000                                     |
 | Borrow Cap (tETH)                  | 0                                          |
 | Debt Ceiling                       | USD 0                                      |
 | LTV                                | 0.05 %                                     |
@@ -68,7 +68,7 @@ The following outlines the initial tETH onboarding parameters.
 - Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250801_AaveV3Ethereum_AddTETHToCoreInstanceEthereum/AaveV3Ethereum_AddTETHToCoreInstanceEthereum_20250801.sol)
 - Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250801_AaveV3Ethereum_AddTETHToCoreInstanceEthereum/AaveV3Ethereum_AddTETHToCoreInstanceEthereum_20250801.t.sol)
 - Snapshot: Direct-to-AIP
-- [Discussion](https://governance.aave.com/t/direct-to-aip-add-teth-to-core-instance-ethereum/22594)
+- [Discussion](https://governance.aave.com/t/direct-to-aip-add-teth-to-core-instance-ethereum/22594/3)
 
 ## Copyright
 

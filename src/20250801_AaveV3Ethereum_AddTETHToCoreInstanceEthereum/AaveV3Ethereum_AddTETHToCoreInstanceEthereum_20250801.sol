@@ -13,7 +13,7 @@ import {SafeERC20} from 'openzeppelin-contracts/contracts/token/ERC20/utils/Safe
  * @title Add tETH to Core Instance Ethereum
  * @author @TokenLogic
  * - Snapshot: Direct-to-AIP
- * - Discussion: https://governance.aave.com/t/direct-to-aip-add-teth-to-core-instance-ethereum/22594
+ * - Discussion: https://governance.aave.com/t/direct-to-aip-add-teth-to-core-instance-ethereum/22594/3
  */
 contract AaveV3Ethereum_AddTETHToCoreInstanceEthereum_20250801 is AaveV3PayloadEthereum {
   using SafeERC20 for IERC20;
@@ -76,7 +76,7 @@ contract AaveV3Ethereum_AddTETHToCoreInstanceEthereum_20250801 is AaveV3PayloadE
       liqThreshold: 10,
       liqBonus: 7_50,
       reserveFactor: 15_00,
-      supplyCap: 50_000,
+      supplyCap: 10_000,
       borrowCap: 0,
       debtCeiling: 0,
       liqProtocolFee: 10_00,

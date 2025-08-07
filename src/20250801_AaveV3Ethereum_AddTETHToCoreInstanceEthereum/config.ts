@@ -7,7 +7,7 @@ export const config: ConfigFile = {
     date: '20250801',
     author: '@TokenLogic',
     discussion:
-      'https://governance.aave.com/t/direct-to-aip-add-teth-to-core-instance-ethereum/22594',
+      'https://governance.aave.com/t/direct-to-aip-add-teth-to-core-instance-ethereum/22594/3',
     snapshot: 'Direct-to-AIP',
     votingNetwork: 'POLYGON',
   },
@@ -29,7 +29,7 @@ export const config: ConfigFile = {
             borrowableInIsolation: 'DISABLED',
             withSiloedBorrowing: 'DISABLED',
             reserveFactor: '15',
-            supplyCap: '50000',
+            supplyCap: '10000',
             borrowCap: '0',
             rateStrategyParams: {
               optimalUtilizationRate: '0',

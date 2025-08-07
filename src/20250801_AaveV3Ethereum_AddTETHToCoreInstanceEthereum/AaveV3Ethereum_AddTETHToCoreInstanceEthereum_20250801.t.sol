@@ -19,7 +19,7 @@ contract AaveV3Ethereum_AddTETHToCoreInstanceEthereum_20250801_Test is ProtocolV
   address public constant EXECUTOR = 0x5300A1a15135EA4dc7aD5a167152C01EFc9b192A;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 23046913);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 23089977);
     proposal = new AaveV3Ethereum_AddTETHToCoreInstanceEthereum_20250801();
     deal(AaveV3EthereumLidoAssets.tETH_UNDERLYING, EXECUTOR, 10 ** 18);
   }
