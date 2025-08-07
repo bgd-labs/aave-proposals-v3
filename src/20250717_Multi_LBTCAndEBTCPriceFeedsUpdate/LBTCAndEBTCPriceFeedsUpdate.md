@@ -41,7 +41,7 @@ The table below illustrates the configuration parameters recommended by Chaos La
 | --------------------------- | -------------------------------------------------------------------------------------------------: |
 | Oracle                      | [Capped LBTC / BTC / USD](https://basescan.org/address/0xA04669FE5cba4Bb21f265B562D23e562E45A1C67) |
 | Ratio Provider              |        [StakedLBTCOracle](https://basescan.org/address/0x1De9fcfeDF3E51266c188ee422fbA1c7860DA0eF) |
-| Underlying Feed             |   [Chainlink BTC/USD](https://basescan.org/address/0x64c911996D3c6aC71f9b455B1E8E7266BcbD848F) |
+| Underlying Feed             |       [Chainlink BTC/USD](https://basescan.org/address/0x64c911996D3c6aC71f9b455B1E8E7266BcbD848F) |
 | Oracle Latest Answer        |                                                                 (Jul-17-2025) USD 118,548.49817300 |
 | Snapshot Ratio              |                                                                                               1.00 |
 | Snapshot Timestamp          |                                                                                        Jun-15-2025 |
