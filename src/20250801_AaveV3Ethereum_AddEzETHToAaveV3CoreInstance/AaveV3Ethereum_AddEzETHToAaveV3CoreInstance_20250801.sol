@@ -12,7 +12,7 @@ import {SafeERC20} from 'openzeppelin-contracts/contracts/token/ERC20/utils/Safe
 /**
  * @title Add ezETH to Aave v3 Core Instance
  * @author @TokenLogic
- * - Snapshot: TODO
+ * - Snapshot: Direct-to-AIP
  * - Discussion: https://governance.aave.com/t/direct-to-aip-add-ezeth-to-aave-v3-core-instance/22732
  */
 contract AaveV3Ethereum_AddEzETHToAaveV3CoreInstance_20250801 is AaveV3PayloadEthereum {

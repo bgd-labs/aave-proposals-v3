@@ -2,7 +2,7 @@
 title: "Add ezETH to Aave v3 Core Instance"
 author: "@TokenLogic"
 discussions: "https://governance.aave.com/t/direct-to-aip-add-ezeth-to-aave-v3-core-instance/22732"
-snapshot: TODO
+snapshot: Direct-to-AIP
 ---
 
 ### Summary
