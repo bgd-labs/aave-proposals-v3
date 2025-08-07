@@ -79,7 +79,7 @@ This proposal will be under Direct to AIP, as ezETH is already listed on other A
 
 - Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250801_AaveV3Ethereum_AddEzETHToAaveV3CoreInstance/AaveV3Ethereum_AddEzETHToAaveV3CoreInstance_20250801.sol)
 - Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250801_AaveV3Ethereum_AddEzETHToAaveV3CoreInstance/AaveV3Ethereum_AddEzETHToAaveV3CoreInstance_20250801.t.sol)
-  [Snapshot](TODO)
+  [Snapshot](Direct-to-AIP)
 - [Discussion](https://governance.aave.com/t/direct-to-aip-add-ezeth-to-aave-v3-core-instance/22732)
 
 ## Copyright
