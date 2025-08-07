@@ -17,7 +17,7 @@ contract AaveV3Ethereum_LBTCAndEBTCPriceFeedsUpdate_20250717_Test is ProtocolV3T
   AaveV3Ethereum_LBTCAndEBTCPriceFeedsUpdate_20250717 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 22937843);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 23089299);
     proposal = new AaveV3Ethereum_LBTCAndEBTCPriceFeedsUpdate_20250717();
   }
 
