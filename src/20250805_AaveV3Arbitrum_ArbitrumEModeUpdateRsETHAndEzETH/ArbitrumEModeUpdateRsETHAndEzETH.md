@@ -18,23 +18,23 @@ Upon implementing this proposal, weETH, rsETH and ezETH will each have the same 
 
 #### Update rsETH/WETH eMode
 
-| Parameter                 | rsETH  | wstETH | wETH |
-| ------------------------- | ------ | ------ | ---- |
-| **Collateral**            | Yes    | No     | No   |
-| **Borrowable**            | No     | Yes    | Yes  |
-| **Max LTV**               | 93.00% | -      | -    |
-| **Liquidation Threshold** | 95.00% | -      | -    |
-| **Liquidation Penalty**   | 1.00%  | -      | -    |
+| **Parameter**             | **Value**    |
+| ------------------------- | ------------ |
+| **Collateral**            | rsETH        |
+| **Borrowable**            | wstETH, wETH |
+| **Max LTV**               | 93.00%       |
+| **Liquidation Threshold** | 95.00%       |
+| **Liquidation Penalty**   | 1.00%        |
 
 #### Update ezETH/WETH eMode
 
-| Parameter                 | ezETH  | wstETH | wETH |
-| ------------------------- | ------ | ------ | ---- |
-| **Collateral**            | Yes    | No     | No   |
-| **Borrowable**            | No     | Yes    | Yes  |
-| **Max LTV**               | 93.00% | -      | -    |
-| **Liquidation Threshold** | 95.00% | -      | -    |
-| **Liquidation Penalty**   | 1.00%  | -      | -    |
+| **Parameter**             | **Value**    |
+| ------------------------- | ------------ |
+| **Collateral**            | rsETH        |
+| **Borrowable**            | wstETH, wETH |
+| **Max LTV**               | 93.00%       |
+| **Liquidation Threshold** | 95.00%       |
+| **Liquidation Penalty**   | 1.00%        |
 
 ## References
 
