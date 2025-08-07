@@ -15,7 +15,7 @@ contract AaveV3Arbitrum_ArbitrumEModeUpdateRsETHAndEzETH_20250805_Test is Protoc
   AaveV3Arbitrum_ArbitrumEModeUpdateRsETHAndEzETH_20250805 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('arbitrum'), 365273678);
+    vm.createSelectFork(vm.rpcUrl('arbitrum'), 366006165);
     proposal = new AaveV3Arbitrum_ArbitrumEModeUpdateRsETHAndEzETH_20250805();
   }
 
