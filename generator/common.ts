@@ -68,7 +68,9 @@ export function getPoolChain(pool: PoolIdentifier) {
 }
 
 export function getExplorerLink(chainId: number, address: Hex) {
-  const client = getClient(chainId, {});
+  const client = getClient(chainId, {
+    providerConfig: {alchemyKey: process.env.ALCHEMY_API_KEY},
+  });
   let url = client.chain?.blockExplorers?.default.url;
   if (url && url.endsWith('/')) {
     url = url.slice(0, -1); // sanitize explorer url

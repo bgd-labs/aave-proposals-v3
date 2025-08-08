@@ -26,7 +26,9 @@ async function fetchEmission(pool: PoolIdentifier): Promise<EmissionUpdate> {
         type: 'function',
       },
     ],
-    client: getClient(CHAIN_TO_CHAIN_ID[chain], {}),
+    client: getClient(CHAIN_TO_CHAIN_ID[chain], {
+      providerConfig: {alchemyKey: process.env.ALCHEMY_API_KEY},
+    }),
     address: asset,
   });
   let symbol = '';
