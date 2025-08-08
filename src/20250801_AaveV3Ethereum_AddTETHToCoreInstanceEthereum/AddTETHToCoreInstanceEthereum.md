@@ -55,13 +55,13 @@ The following outlines the initial tETH onboarding parameters.
 
 #### tETH/stablecoins liquid eMode
 
-| Parameter             | tETH   | USDT | USDC |
-| --------------------- | ------ | ---- | ---- |
-| Collateral            | Yes    | No   | No   |
-| Borrowable            | No     | Yes  | Yes  |
-| Max LTV               | 72.00% | -    | -    |
-| Liquidation Threshold | 75.00% | -    | -    |
-| Liquidation Penalty   | 7.50%  | -    | -    |
+| Parameter             | Value      |
+| --------------------- | ---------- |
+| Collateral            | tETH       |
+| Borrowable            | USDT, USDC |
+| Max LTV               | 72.00%     |
+| Liquidation Threshold | 75.00%     |
+| Liquidation Penalty   | 7.50%      |
 
 ## References
 

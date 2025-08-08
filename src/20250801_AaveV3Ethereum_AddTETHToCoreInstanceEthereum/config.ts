@@ -14,6 +14,16 @@ export const config: ConfigFile = {
   poolOptions: {
     AaveV3Ethereum: {
       configs: {
+        EMODES_CREATION: [
+          {
+            ltv: '72',
+            liqThreshold: '75',
+            liqBonus: '7.5',
+            label: 'tETH/Stablecoins',
+            collateralAssets: ['tETH'],
+            borrowableAssets: ['USDC', 'USDT'],
+          },
+        ],
         ASSET_LISTING: [
           {
             assetSymbol: 'tETH',
