@@ -17,7 +17,7 @@
 | oracle | [0x85968026294b8f8Fb86d6bF3Cda079f9376aD05A](https://etherscan.io/address/0x85968026294b8f8Fb86d6bF3Cda079f9376aD05A) |
 | oracleDecimals | 8 |
 | oracleDescription | Capped tETH / wstETH / ETH / USD |
-| oracleLatestAnswer | 4643.23058172 |
+| oracleLatestAnswer | 4910.91716059 |
 | usageAsCollateralEnabled | true |
 | ltv | 0.05 % [5] |
 | liquidationThreshold | 0.1 % [10] |
@@ -135,7 +135,7 @@
 | eMode.ltv | - | 72 % |
 | eMode.liquidationThreshold | - | 75 % |
 | eMode.liquidationBonus | - | 7.5 % |
-| eMode.borrowableBitmap | - | USDC, USDS |
+| eMode.borrowableBitmap | - | USDC, USDT |
 | eMode.collateralBitmap | - | tETH |
 
 
@@ -147,7 +147,7 @@
     "21": {
       "from": null,
       "to": {
-        "borrowableBitmap": "34359738376",
+        "borrowableBitmap": "264",
         "collateralBitmap": "1125899906842624",
         "eModeCategory": 21,
         "label": "tETH/Stablecoins",
@@ -184,7 +184,7 @@
         "oracle": "0x85968026294b8f8Fb86d6bF3Cda079f9376aD05A",
         "oracleDecimals": 8,
         "oracleDescription": "Capped tETH / wstETH / ETH / USD",
-        "oracleLatestAnswer": "464323058172",
+        "oracleLatestAnswer": "491091716059",
         "reserveFactor": 1500,
         "supplyCap": 10000,
         "symbol": "tETH",
@@ -333,7 +333,7 @@
         },
         "0x79c6e29436490262cb24ee8bc0beb79364a1b588e1732d1098b1d9c2838ed8ae": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x0000000000000000000000000000000000000000000000000000000800000008"
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000108"
         },
         "0xb175b141cba0cc992ab972ad55e21f463dc10a5251e5513e6498931ace66c014": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -349,7 +349,7 @@
         },
         "0xb175b141cba0cc992ab972ad55e21f463dc10a5251e5513e6498931ace66c017": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x0000000000000000000032006894c17300000000000000000000000000000000"
+          "newValue": "0x0000000000000000000032006896468f00000000000000000000000000000000"
         },
         "0xb175b141cba0cc992ab972ad55e21f463dc10a5251e5513e6498931ace66c018": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -406,12 +406,12 @@
       "balanceDiff": null,
       "stateDiff": {
         "0x8613957cb04fd19296f7ee1a2f10d99d956d8f54b02d0981da9848a0b28e8c1f": {
-          "previousValue": "0x006894c172000000000002000000000000000000000000000000000000000000",
-          "newValue": "0x006894c172000000000003000000000000000000000000000000000000000000"
+          "previousValue": "0x006896468e000000000002000000000000000000000000000000000000000000",
+          "newValue": "0x006896468e000000000003000000000000000000000000000000000000000000"
         },
         "0x8613957cb04fd19296f7ee1a2f10d99d956d8f54b02d0981da9848a0b28e8c20": {
-          "previousValue": "0x000000000000000000093a8000000000000068c2e5f300000000000000000000",
-          "newValue": "0x000000000000000000093a8000000000000068c2e5f30000000000006894c173"
+          "previousValue": "0x000000000000000000093a8000000000000068c46b0f00000000000000000000",
+          "newValue": "0x000000000000000000093a8000000000000068c46b0f0000000000006896468f"
         }
       }
     }

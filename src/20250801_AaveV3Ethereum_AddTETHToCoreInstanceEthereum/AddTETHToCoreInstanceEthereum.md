@@ -6,7 +6,7 @@ discussions: "https://governance.aave.com/t/direct-to-aip-add-teth-to-core-insta
 
 ### Summary
 
-This publication proposes onboarding tETH on the Core instance of Aave v3 on Ethereum.
+This publication proposes onboarding tETH as collateral to the Aave V3 Core Instance.
 
 ### Motivation
 
@@ -55,7 +55,7 @@ The following outlines the initial tETH onboarding parameters.
 
 #### tETH/stablecoins liquid eMode
 
-| Parameter             | tETH   | USDS | USDC |
+| Parameter             | tETH   | USDT | USDC |
 | --------------------- | ------ | ---- | ---- |
 | Collateral            | Yes    | No   | No   |
 | Borrowable            | No     | Yes  | Yes  |

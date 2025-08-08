@@ -47,7 +47,7 @@ contract AaveV3Ethereum_AddTETHToCoreInstanceEthereum_20250801 is AaveV3PayloadE
 
     collateralAssets_tETHStablecoin[0] = AaveV3EthereumLidoAssets.tETH_UNDERLYING;
     borrowableAssets_tETHStablecoin[0] = AaveV3EthereumAssets.USDC_UNDERLYING;
-    borrowableAssets_tETHStablecoin[1] = AaveV3EthereumAssets.USDS_UNDERLYING;
+    borrowableAssets_tETHStablecoin[1] = AaveV3EthereumAssets.USDT_UNDERLYING;
 
     eModeCreations[0] = IAaveV3ConfigEngine.EModeCategoryCreation({
       ltv: 72_00,
