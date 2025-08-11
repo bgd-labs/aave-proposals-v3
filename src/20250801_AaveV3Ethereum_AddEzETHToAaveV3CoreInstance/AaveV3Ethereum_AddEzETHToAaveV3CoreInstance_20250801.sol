@@ -19,7 +19,7 @@ contract AaveV3Ethereum_AddEzETHToAaveV3CoreInstance_20250801 is AaveV3PayloadEt
   using SafeERC20 for IERC20;
   using AaveV3EthereumLido for IERC20;
 
-  uint256 public constant ezETH_SEED_AMOUNT = 1e16;
+  uint256 public constant ezETH_SEED_AMOUNT = 0.025 ether;
 
   function _postExecute() internal override {
     IERC20(AaveV3EthereumLidoAssets.ezETH_UNDERLYING).forceApprove(
@@ -43,9 +43,10 @@ contract AaveV3Ethereum_AddEzETHToAaveV3CoreInstance_20250801 is AaveV3PayloadEt
     IAaveV3ConfigEngine.EModeCategoryCreation[]
       memory eModeCreations = new IAaveV3ConfigEngine.EModeCategoryCreation[](2);
 
-    address[] memory collateralAssets_EzETHWstETH = new address[](0);
+    address[] memory collateralAssets_EzETHWstETH = new address[](1);
     address[] memory borrowableAssets_EzETHWstETH = new address[](1);
 
+    collateralAssets_EzETHWstETH[0] = AaveV3EthereumLidoAssets.ezETH_UNDERLYING;
     borrowableAssets_EzETHWstETH[0] = AaveV3EthereumAssets.wstETH_UNDERLYING;
 
     eModeCreations[0] = IAaveV3ConfigEngine.EModeCategoryCreation({
@@ -57,9 +58,10 @@ contract AaveV3Ethereum_AddEzETHToAaveV3CoreInstance_20250801 is AaveV3PayloadEt
       borrowables: borrowableAssets_EzETHWstETH
     });
 
-    address[] memory collateralAssets_EzETHStablecoin = new address[](0);
+    address[] memory collateralAssets_EzETHStablecoin = new address[](1);
     address[] memory borrowableAssets_EzETHStablecoin = new address[](2);
 
+    collateralAssets_EzETHStablecoin[0] = AaveV3EthereumLidoAssets.ezETH_UNDERLYING;
     borrowableAssets_EzETHStablecoin[0] = AaveV3EthereumAssets.USDC_UNDERLYING;
     borrowableAssets_EzETHStablecoin[1] = AaveV3EthereumAssets.USDT_UNDERLYING;
 
