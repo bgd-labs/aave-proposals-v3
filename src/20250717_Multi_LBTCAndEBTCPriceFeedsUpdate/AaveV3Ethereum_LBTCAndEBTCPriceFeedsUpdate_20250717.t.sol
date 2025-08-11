@@ -17,7 +17,7 @@ contract AaveV3Ethereum_LBTCAndEBTCPriceFeedsUpdate_20250717_Test is ProtocolV3T
   AaveV3Ethereum_LBTCAndEBTCPriceFeedsUpdate_20250717 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 23089299);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 23118114);
     proposal = new AaveV3Ethereum_LBTCAndEBTCPriceFeedsUpdate_20250717();
   }
 
@@ -32,18 +32,7 @@ contract AaveV3Ethereum_LBTCAndEBTCPriceFeedsUpdate_20250717_Test is ProtocolV3T
     );
   }
 
-  function test_eBTCAdapter_same_ratio() public {
-    // rate is the same since, yield starts accruing after July 22
-    int256 rateBefore = IPriceCapAdapter(AaveV3EthereumAssets.eBTC_ORACLE).getRatio();
-
-    GovV3Helpers.executePayload(vm, address(proposal));
-
-    int256 rateAfter = IPriceCapAdapter(AaveV3EthereumAssets.eBTC_ORACLE).getRatio();
-
-    assertEq(rateBefore, rateAfter);
-  }
-
-  function test_eBTCAdapter_same_priceFeed() public {
+  function test_eBTC_priceFeedAdapter() public {
     address feedBefore = AaveV3Ethereum.ORACLE.getSourceOfAsset(
       AaveV3EthereumAssets.eBTC_UNDERLYING
     );
@@ -54,25 +43,9 @@ contract AaveV3Ethereum_LBTCAndEBTCPriceFeedsUpdate_20250717_Test is ProtocolV3T
       AaveV3EthereumAssets.eBTC_UNDERLYING
     );
 
-    assertEq(feedBefore, feedAfter);
-  }
+    assertNotEq(feedBefore, feedAfter);
 
-  function test_eBTCAdapter_newParams() public {
-    GovV3Helpers.executePayload(vm, address(proposal));
-
-    // check new params
-    uint256 snapshotRatio = IPriceCapAdapter(AaveV3EthereumAssets.eBTC_ORACLE).getSnapshotRatio();
-    uint256 snapshotTimestamp = IPriceCapAdapter(AaveV3EthereumAssets.eBTC_ORACLE)
-      .getSnapshotTimestamp();
-    uint256 maxYearlyRatioGrowthPercent = IPriceCapAdapter(AaveV3EthereumAssets.eBTC_ORACLE)
-      .getMaxYearlyGrowthRatePercent();
-
-    assertEq(snapshotRatio, proposal.EBTC_SNAPSHOT_RATIO());
-    assertEq(snapshotTimestamp, proposal.EBTC_SNAPSHOT_TIMESTAMP());
-    assertEq(
-      maxYearlyRatioGrowthPercent,
-      proposal.EBTC_SNAPSHOT_MAX_YEARLY_RATIO_GROWTH_PERCENTAGE()
-    );
+    assertEq(feedAfter, proposal.EBTC_CAPO_ADAPTER());
   }
 
   function test_LBTC_priceFeedAdapter() public {
