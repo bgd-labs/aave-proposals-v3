@@ -44,6 +44,7 @@ contract AaveV3Polygon_AaveRobotMaintenance_20250330_Part2_Test is ProtocolV3Tes
       'AaveV3Polygon_AaveRobotMaintenance_Part2_20250330',
       AaveV3Polygon.POOL,
       address(proposalPart2),
+      false,
       false
     );
   }

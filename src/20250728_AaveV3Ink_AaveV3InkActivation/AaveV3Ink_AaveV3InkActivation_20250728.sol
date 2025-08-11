@@ -17,24 +17,31 @@ contract AaveV3Ink_AaveV3InkActivation_20250728 is AaveV3PayloadInk {
   using SafeERC20 for IERC20;
 
   address public constant WETH = 0x4200000000000000000000000000000000000006;
-  uint256 public constant WETH_SEED_AMOUNT = 1e18;
+  uint256 public constant WETH_SEED_AMOUNT = 0.005e18;
 
   address public constant KBTC = 0x73E0C0d45E048D25Fc26Fa3159b0aA04BfA4Db98;
-  uint256 public constant KBTC_SEED_AMOUNT = 1e8;
+  uint256 public constant KBTC_SEED_AMOUNT = 0.001e8;
 
   address public constant USDT = 0x0200C29006150606B650577BBE7B6248F58470c1;
-  uint256 public constant USDT_SEED_AMOUNT = 1e6;
+  uint256 public constant USDT_SEED_AMOUNT = 10e6;
 
   address public constant USDG = 0xe343167631d89B6Ffc58B88d6b7fB0228795491D;
-  uint256 public constant USDG_SEED_AMOUNT = 1e6;
+  uint256 public constant USDG_SEED_AMOUNT = 10e6;
 
   address public constant LM_ADMIN = 0xac140648435d03f784879cd789130F22Ef588Fcd;
+
+  address public constant SUPER_ADMIN = 0x2e8090716C5a25332cf963d454250B88bf04E6dC;
+  address public constant EMERGENCY_ADMIN = 0x00C2B13eF4F70Bf1827179Fe6d8facF7cFf6AcD2;
 
   function _postExecute() internal override {
     _supplyAndConfigureLMAdmin(WETH, WETH_SEED_AMOUNT);
     _supplyAndConfigureLMAdmin(KBTC, KBTC_SEED_AMOUNT);
     _supplyAndConfigureLMAdmin(USDT, USDT_SEED_AMOUNT);
     _supplyAndConfigureLMAdmin(USDG, USDG_SEED_AMOUNT);
+
+    // update emergencyAdmin
+    AaveV3Ink.ACL_MANAGER.addEmergencyAdmin(EMERGENCY_ADMIN);
+    AaveV3Ink.ACL_MANAGER.removeEmergencyAdmin(SUPER_ADMIN);
   }
 
   function newListings() public pure override returns (IAaveV3ConfigEngine.Listing[] memory) {

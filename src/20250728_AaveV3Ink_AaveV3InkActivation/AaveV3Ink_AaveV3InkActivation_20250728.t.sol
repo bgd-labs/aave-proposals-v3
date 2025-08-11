@@ -18,7 +18,7 @@ contract AaveV3Ink_AaveV3InkActivation_20250728_Test is ProtocolV3TestBase {
   AaveV3Ink_AaveV3InkActivation_20250728 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('ink'), 20213310);
+    vm.createSelectFork(vm.rpcUrl('ink'), 21166742);
     proposal = new AaveV3Ink_AaveV3InkActivation_20250728();
 
     _postSetup(); // should be removed later
@@ -28,7 +28,13 @@ contract AaveV3Ink_AaveV3InkActivation_20250728_Test is ProtocolV3TestBase {
    * @dev executes the generic test suite including e2e and config snapshots
    */
   function test_defaultProposalExecution() public {
-    defaultTest('AaveV3Ink_AaveV3InkActivation_20250728', AaveV3Ink.POOL, address(proposal), false);
+    defaultTest(
+      'AaveV3Ink_AaveV3InkActivation_20250728',
+      AaveV3Ink.POOL,
+      address(proposal),
+      true,
+      true
+    );
   }
 
   function test_dustbinFundsAndLMAdmin() public {
