@@ -63,8 +63,8 @@ The table below illustrates the configuration parameters recommended by Chaos La
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250717_Multi_LBTCAndEBTCPriceFeedsUpdate/AaveV3Ethereum_LBTCAndEBTCPriceFeedsUpdate_20250717.sol), [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250717_Multi_LBTCAndEBTCPriceFeedsUpdate/AaveV3Base_LBTCAndEBTCPriceFeedsUpdate_20250717.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250717_Multi_LBTCAndEBTCPriceFeedsUpdate/AaveV3Ethereum_LBTCAndEBTCPriceFeedsUpdate_20250717.t.sol), [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250717_Multi_LBTCAndEBTCPriceFeedsUpdate/AaveV3Base_LBTCAndEBTCPriceFeedsUpdate_20250717.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/1f7fdad01de6d4d123e87ba6a34fe0c82b7c4e75/src/20250717_Multi_LBTCAndEBTCPriceFeedsUpdate/AaveV3Ethereum_LBTCAndEBTCPriceFeedsUpdate_20250717.sol), [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/1f7fdad01de6d4d123e87ba6a34fe0c82b7c4e75/src/20250717_Multi_LBTCAndEBTCPriceFeedsUpdate/AaveV3Base_LBTCAndEBTCPriceFeedsUpdate_20250717.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/1f7fdad01de6d4d123e87ba6a34fe0c82b7c4e75/src/20250717_Multi_LBTCAndEBTCPriceFeedsUpdate/AaveV3Ethereum_LBTCAndEBTCPriceFeedsUpdate_20250717.t.sol), [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/1f7fdad01de6d4d123e87ba6a34fe0c82b7c4e75/src/20250717_Multi_LBTCAndEBTCPriceFeedsUpdate/AaveV3Base_LBTCAndEBTCPriceFeedsUpdate_20250717.t.sol)
 - Snapshot: Direct-to-AIP
 - [Discussion](https://governance.aave.com/t/direct-to-aip-lbtc-oracle-and-capo-implementation-update/22614)
 
