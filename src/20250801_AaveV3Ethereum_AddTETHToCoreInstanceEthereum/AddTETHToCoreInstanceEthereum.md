@@ -65,8 +65,8 @@ The following outlines the initial tETH onboarding parameters.
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250801_AaveV3Ethereum_AddTETHToCoreInstanceEthereum/AaveV3Ethereum_AddTETHToCoreInstanceEthereum_20250801.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250801_AaveV3Ethereum_AddTETHToCoreInstanceEthereum/AaveV3Ethereum_AddTETHToCoreInstanceEthereum_20250801.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/7a68746f7f5755bffbe21967edf3ed062acf8bbc/src/20250801_AaveV3Ethereum_AddTETHToCoreInstanceEthereum/AaveV3Ethereum_AddTETHToCoreInstanceEthereum_20250801.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/7a68746f7f5755bffbe21967edf3ed062acf8bbc/src/20250801_AaveV3Ethereum_AddTETHToCoreInstanceEthereum/AaveV3Ethereum_AddTETHToCoreInstanceEthereum_20250801.t.sol)
 - Snapshot: Direct-to-AIP
 - [Discussion](https://governance.aave.com/t/direct-to-aip-add-teth-to-core-instance-ethereum/22594/3)
 
