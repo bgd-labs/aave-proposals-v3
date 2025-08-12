@@ -56,7 +56,7 @@ Oracle and CAPO parameters:
 | ----------------------------- | -------------------------------------------------------------------------------------------------------------- |
 | **Oracle**                    | [Capped wrsETH / rsETH(ETH) / USD](https://lineascan.build/address/0x444f25c5E73fED92B91F3ECB1bD27003C3CDdeE7) |
 | **Ratio Provider**            | [Chainlink wrsETH / rsETH Exchange Rate](https://lineascan.build/address/0xEEDF0B095B5dfe75F3881Cb26c19DA209A27463a)                 |
-| **Underlying Feed**           | [Chainlink SVR BTC/USD](https://lineascan.build/address/0x3c6Cd9Cc7c7a4c2Cf5a82734CD249D7D593354dA)            |
+| **Underlying Feed**           | [Chainlink ETH / USD](https://lineascan.build/address/0x3c6Cd9Cc7c7a4c2Cf5a82734CD249D7D593354dA)            |
 | **Oracle Latest Answer**      | _(Aug-12-2025)_ 462685069182                                                                                   |
 | **Snapshot Ratio**            | 1.03                                                                                                           |
 | **Snapshot Timestamp**        | March 9, 2025, 17:27:19 UTC                                                                                    |
