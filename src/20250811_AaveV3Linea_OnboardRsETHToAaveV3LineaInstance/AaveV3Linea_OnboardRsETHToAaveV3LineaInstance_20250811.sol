@@ -19,7 +19,7 @@ contract AaveV3Linea_OnboardRsETHToAaveV3LineaInstance_20250811 is AaveV3Payload
   using SafeERC20 for IERC20;
 
   address public constant wrsETH = 0xD2671165570f41BBB3B0097893300b6EB6101E6C;
-  uint256 public constant wrsETH_SEED_AMOUNT = 1e16;
+  uint256 public constant wrsETH_SEED_AMOUNT = 0.025 ether;
   address public constant wrsETH_LM_ADMIN = 0xdef1FA4CEfe67365ba046a7C630D6B885298E210;
 
   function _postExecute() internal override {
@@ -40,7 +40,7 @@ contract AaveV3Linea_OnboardRsETHToAaveV3LineaInstance_20250811 is AaveV3Payload
     IAaveV3ConfigEngine.EModeCategoryCreation[]
       memory eModeCreations = new IAaveV3ConfigEngine.EModeCategoryCreation[](1);
 
-    address[] memory collateralAssets_WrsETHWETHIsolatedLiquidEMode = new address[](0);
+    address[] memory collateralAssets_WrsETHWETHIsolatedLiquidEMode = new address[](1);
     address[] memory borrowableAssets_WrsETHWETHIsolatedLiquidEMode = new address[](1);
 
     borrowableAssets_WrsETHWETHIsolatedLiquidEMode[0] = AaveV3LineaAssets.WETH_UNDERLYING;

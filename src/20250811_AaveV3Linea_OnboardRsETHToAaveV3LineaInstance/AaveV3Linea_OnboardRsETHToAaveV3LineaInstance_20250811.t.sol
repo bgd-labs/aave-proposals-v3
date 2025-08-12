@@ -36,7 +36,7 @@ contract AaveV3Linea_OnboardRsETHToAaveV3LineaInstance_20250811_Test is Protocol
   function test_dustBinHaswrsETHFunds() public {
     GovV3Helpers.executePayload(vm, address(proposal));
     address aTokenAddress = AaveV3Linea.POOL.getReserveAToken(proposal.wrsETH());
-    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Linea.DUST_BIN)), 10 ** 16);
+    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Linea.DUST_BIN)), proposal.wrsETH_SEED_AMOUNT());
   }
 
   function test_wrsETHAdmin() public {
