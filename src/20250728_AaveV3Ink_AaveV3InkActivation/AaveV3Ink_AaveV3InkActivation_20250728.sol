@@ -137,8 +137,8 @@ contract AaveV3Ink_AaveV3InkActivation_20250728 is AaveV3PayloadInk {
   }
 
   function _supplyAndConfigureLMAdmin(address asset, uint256 seedAmount) internal {
-    // IERC20(asset).forceApprove(address(AaveV3Ink.POOL), seedAmount);
-    // AaveV3Ink.POOL.supply(asset, seedAmount, address(AaveV3Ink.DUST_BIN), 0);
+    IERC20(asset).forceApprove(address(AaveV3Ink.POOL), seedAmount);
+    AaveV3Ink.POOL.supply(asset, seedAmount, address(AaveV3Ink.DUST_BIN), 0);
 
     address aToken = AaveV3Ink.POOL.getReserveAToken(asset);
     IEmissionManager(AaveV3Ink.EMISSION_MANAGER).setEmissionAdmin(asset, LM_ADMIN);
