@@ -7,7 +7,7 @@ import {Listing, ListingWithCustomImpl, TokenImplementations} from './types';
 import {CHAIN_TO_CHAIN_ID, getPoolChain, getExplorerLink} from '../common';
 import {getContract, isAddress} from 'viem';
 import {confirm} from '@inquirer/prompts';
-import {TEST_EXECUTE_PROPOSAL} from '../utils/constants';
+import {testExecuteProposal} from '../utils/constants';
 import {addressPrompt, translateJsAddressToSol} from '../prompts/addressPrompt';
 import {stringPrompt} from '../prompts/stringPrompt';
 import {translateJsBoolToSol} from '../prompts/boolPrompt';
@@ -143,13 +143,13 @@ export const assetListing: FeatureModule<Listing[]> = {
       test: {
         fn: cfg.map((cfg) => {
           let listingTest = `function test_dustBinHas${cfg.assetSymbol}Funds() public {
-            ${TEST_EXECUTE_PROPOSAL}
+            ${testExecuteProposal(pool)}
             address aTokenAddress = ${pool}.POOL.getReserveAToken(proposal.${cfg.assetSymbol}());
             assertGe(IERC20(aTokenAddress).balanceOf(address(${pool}.DUST_BIN)), 10 ** ${cfg.decimals});
           }\n`;
           if (isAddress(cfg.admin)) {
             listingTest += `\nfunction test_${cfg.assetSymbol}Admin() public {
-	      ${TEST_EXECUTE_PROPOSAL}
+	      ${testExecuteProposal(pool)}
               address a${cfg.assetSymbol} = ${pool}.POOL.getReserveAToken(proposal.${cfg.assetSymbol}());
 	      assertEq(IEmissionManager(${pool}.EMISSION_MANAGER).getEmissionAdmin(proposal.${cfg.assetSymbol}()), proposal.${cfg.assetSymbol}_LM_ADMIN());
 	      assertEq(IEmissionManager(${pool}.EMISSION_MANAGER).getEmissionAdmin(a${cfg.assetSymbol}), proposal.${cfg.assetSymbol}_LM_ADMIN());
@@ -265,7 +265,7 @@ export const assetListingCustom: FeatureModule<ListingWithCustomImpl[]> = {
       test: {
         fn: cfg.map(
           (cfg) => `function test_dustBinHas${cfg.base.assetSymbol}Funds() public {
-            ${TEST_EXECUTE_PROPOSAL}
+            ${testExecuteProposal(pool)}
             address aTokenAddress = ${pool}.POOL.getReserveAToken(proposal.${cfg.base.assetSymbol}());
             assertGte(IERC20(aTokenAddress).balanceOf(${pool}.DUST_BIN), 10 ** ${cfg.base.decimals});
           }`,
