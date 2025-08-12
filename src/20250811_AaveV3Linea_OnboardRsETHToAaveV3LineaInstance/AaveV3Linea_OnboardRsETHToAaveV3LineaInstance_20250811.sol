@@ -43,6 +43,7 @@ contract AaveV3Linea_OnboardRsETHToAaveV3LineaInstance_20250811 is AaveV3Payload
     address[] memory collateralAssets_WrsETHWETHIsolatedLiquidEMode = new address[](1);
     address[] memory borrowableAssets_WrsETHWETHIsolatedLiquidEMode = new address[](1);
 
+    collateralAssets_WrsETHWETHIsolatedLiquidEMode[0] = wrsETH;
     borrowableAssets_WrsETHWETHIsolatedLiquidEMode[0] = AaveV3LineaAssets.WETH_UNDERLYING;
 
     eModeCreations[0] = IAaveV3ConfigEngine.EModeCategoryCreation({
