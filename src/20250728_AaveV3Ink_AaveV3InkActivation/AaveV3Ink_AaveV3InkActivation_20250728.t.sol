@@ -18,7 +18,7 @@ contract AaveV3Ink_AaveV3InkActivation_20250728_Test is ProtocolV3TestBase {
   AaveV3Ink_AaveV3InkActivation_20250728 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('ink'), 21166742);
+    vm.createSelectFork(vm.rpcUrl('ink'), 21532692);
     proposal = new AaveV3Ink_AaveV3InkActivation_20250728();
 
     _postSetup(); // should be removed later
@@ -81,12 +81,6 @@ contract AaveV3Ink_AaveV3InkActivation_20250728_Test is ProtocolV3TestBase {
       proposal.USDG(),
       GovernanceV3Ink.PERMISSIONED_PAYLOADS_CONTROLLER_EXECUTOR,
       proposal.USDG_SEED_AMOUNT()
-    );
-
-    // revoke ownership from deployer
-    vm.prank(0x956DE559DFc27678FD69d4f49f485196b50BDD0F);
-    IOwnable(GovernanceV3Ink.PERMISSIONED_PAYLOADS_CONTROLLER_EXECUTOR).transferOwnership(
-      address(GovernanceV3Ink.PERMISSIONED_PAYLOADS_CONTROLLER)
     );
 
     // mock chaos price feed to return non-zero values

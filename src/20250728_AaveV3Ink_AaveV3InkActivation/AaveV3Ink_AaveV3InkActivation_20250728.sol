@@ -30,18 +30,11 @@ contract AaveV3Ink_AaveV3InkActivation_20250728 is AaveV3PayloadInk {
 
   address public constant LM_ADMIN = 0xac140648435d03f784879cd789130F22Ef588Fcd;
 
-  address public constant SUPER_ADMIN = 0x2e8090716C5a25332cf963d454250B88bf04E6dC;
-  address public constant EMERGENCY_ADMIN = 0x00C2B13eF4F70Bf1827179Fe6d8facF7cFf6AcD2;
-
   function _postExecute() internal override {
     _supplyAndConfigureLMAdmin(WETH, WETH_SEED_AMOUNT);
     _supplyAndConfigureLMAdmin(KBTC, KBTC_SEED_AMOUNT);
     _supplyAndConfigureLMAdmin(USDT, USDT_SEED_AMOUNT);
     _supplyAndConfigureLMAdmin(USDG, USDG_SEED_AMOUNT);
-
-    // update emergencyAdmin
-    AaveV3Ink.ACL_MANAGER.addEmergencyAdmin(EMERGENCY_ADMIN);
-    AaveV3Ink.ACL_MANAGER.removeEmergencyAdmin(SUPER_ADMIN);
   }
 
   function newListings() public pure override returns (IAaveV3ConfigEngine.Listing[] memory) {
@@ -144,8 +137,8 @@ contract AaveV3Ink_AaveV3InkActivation_20250728 is AaveV3PayloadInk {
   }
 
   function _supplyAndConfigureLMAdmin(address asset, uint256 seedAmount) internal {
-    IERC20(asset).forceApprove(address(AaveV3Ink.POOL), seedAmount);
-    AaveV3Ink.POOL.supply(asset, seedAmount, address(AaveV3Ink.DUST_BIN), 0);
+    // IERC20(asset).forceApprove(address(AaveV3Ink.POOL), seedAmount);
+    // AaveV3Ink.POOL.supply(asset, seedAmount, address(AaveV3Ink.DUST_BIN), 0);
 
     address aToken = AaveV3Ink.POOL.getReserveAToken(asset);
     IEmissionManager(AaveV3Ink.EMISSION_MANAGER).setEmissionAdmin(asset, LM_ADMIN);
