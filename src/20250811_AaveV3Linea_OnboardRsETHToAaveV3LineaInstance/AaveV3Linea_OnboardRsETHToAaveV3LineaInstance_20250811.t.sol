@@ -18,7 +18,7 @@ contract AaveV3Linea_OnboardRsETHToAaveV3LineaInstance_20250811_Test is Protocol
   AaveV3Linea_OnboardRsETHToAaveV3LineaInstance_20250811 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('linea'), 21914931);
+    vm.createSelectFork(vm.rpcUrl('linea'), 21945022);
     proposal = new AaveV3Linea_OnboardRsETHToAaveV3LineaInstance_20250811();
   }
 
@@ -36,7 +36,10 @@ contract AaveV3Linea_OnboardRsETHToAaveV3LineaInstance_20250811_Test is Protocol
   function test_dustBinHaswrsETHFunds() public {
     GovV3Helpers.executePayload(vm, address(proposal));
     address aTokenAddress = AaveV3Linea.POOL.getReserveAToken(proposal.wrsETH());
-    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Linea.DUST_BIN)), proposal.wrsETH_SEED_AMOUNT());
+    assertGe(
+      IERC20(aTokenAddress).balanceOf(address(AaveV3Linea.DUST_BIN)),
+      proposal.wrsETH_SEED_AMOUNT()
+    );
   }
 
   function test_wrsETHAdmin() public {
