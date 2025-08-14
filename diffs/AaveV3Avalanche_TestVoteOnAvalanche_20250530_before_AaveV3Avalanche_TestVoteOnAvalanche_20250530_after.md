@@ -1,0 +1,22 @@
+## Raw diff
+
+```json
+{
+  "raw": {
+    "0x1140cb7cafacc745771c2ea31e7b5c653c5d0b80": {
+      "label": "GovernanceV3Avalanche.PAYLOADS_CONTROLLER",
+      "balanceDiff": null,
+      "stateDiff": {
+        "0xe7defe1a9ee2663e7f593684ebe15b56452e1fa833a7efa12070ad6443b10819": {
+          "previousValue": "0x006839b95e000000000002000000000000000000000000000000000000000000",
+          "newValue": "0x006839b95e000000000003000000000000000000000000000000000000000000"
+        },
+        "0xe7defe1a9ee2663e7f593684ebe15b56452e1fa833a7efa12070ad6443b1081a": {
+          "previousValue": "0x000000000000000000093a800000000000006867dddf00000000000000000000",
+          "newValue": "0x000000000000000000093a800000000000006867dddf0000000000006839b95f"
+        }
+      }
+    }
+  }
+}
+```

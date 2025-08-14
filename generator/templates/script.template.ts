@@ -94,7 +94,7 @@ contract CreateProposal is EthereumScript {
     // compose actions for validation
     ${Object.keys(poolsToChainsMap)
       .map((chain, ix) => {
-        let template = `IPayloadsControllerCore.ExecutionAction[] memory actions${chain} = new IPayloadsControllerCore.ExecutionAction[](${poolsToChainsMap[chain].length});\n`;
+        let template = `{\nIPayloadsControllerCore.ExecutionAction[] memory actions${chain} = new IPayloadsControllerCore.ExecutionAction[](${poolsToChainsMap[chain].length});\n`;
         template += poolsToChainsMap[chain]
           .map(({contractName, pool}, ix) => {
             return pool == 'AaveV3ZkSync'
@@ -104,7 +104,7 @@ contract CreateProposal is EthereumScript {
           .join('\n');
         template += `payloads[${ix}] = GovV3Helpers.build${
           chain == 'Ethereum' ? 'Mainnet' : chain
-        }Payload(vm, actions${chain});\n`;
+        }Payload(vm, actions${chain});\n}\n`;
         return template;
       })
       .join('\n')}

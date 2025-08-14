@@ -1,0 +1,36 @@
+## Raw diff
+
+```json
+{
+  "raw": {
+    "0x40d16fc0246ad3160ccc09b8d0d3a2cd28ae6c2f": {
+      "label": "AaveV3Ethereum.ASSETS.GHO.UNDERLYING, AaveV3EthereumLido.ASSETS.GHO.UNDERLYING, GhoEthereum.GHO_TOKEN",
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x3107e6fb53c93683833e8824cc59e9c9f27821bf7d710a977a825c1959995195": {
+          "previousValue": "0x000000000000000000000000000000000000000000020ad64130d2d1cd4bdc81",
+          "newValue": "0x000000000000000000000000000000000000000000016c04ac55b91f948bdc81"
+        },
+        "0x91baf6fc6fd59ab30124d7c94e4c987e053631bb38ad3b5fce49321057576686": {
+          "previousValue": "0x0000000000000000000000000000000000000000000160aeadaab490db94a612",
+          "newValue": "0x00000000000000000000000000000000000000000001ff804285ce431454a612"
+        }
+      }
+    },
+    "0xdabad81af85554e9ae636395611c58f7ec1aaec5": {
+      "label": "GovernanceV3Ethereum.PAYLOADS_CONTROLLER",
+      "balanceDiff": null,
+      "stateDiff": {
+        "0xd8abaed0475c2c5e44e06b0d477ed962c314c5f3c45e24e715a43ba5e79ca31a": {
+          "previousValue": "0x00684ae376000000000002000000000000000000000000000000000000000000",
+          "newValue": "0x00684ae376000000000003000000000000000000000000000000000000000000"
+        },
+        "0xd8abaed0475c2c5e44e06b0d477ed962c314c5f3c45e24e715a43ba5e79ca31b": {
+          "previousValue": "0x000000000000000000093a80000000000000687907f700000000000000000000",
+          "newValue": "0x000000000000000000093a80000000000000687907f7000000000000684ae377"
+        }
+      }
+    }
+  }
+}
+```
