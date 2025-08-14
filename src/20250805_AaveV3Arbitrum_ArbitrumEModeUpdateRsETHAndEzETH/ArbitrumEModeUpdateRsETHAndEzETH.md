@@ -36,6 +36,26 @@ Upon implementing this proposal, weETH, rsETH and ezETH will each have the same 
 | **Liquidation Threshold** | 95.00%       |
 | **Liquidation Penalty**   | 1.00%        |
 
+#### Update wstETH/WETH eMode
+
+| **Parameter**             | **Value** |
+| ------------------------- | --------- |
+| **Collateral**            | WETH      |
+| **Borrowable**            | wstETH    |
+| **Max LTV**               | 93.00%    |
+| **Liquidation Threshold** | 95.00%    |
+| **Liquidation Penalty**   | 1.00%     |
+
+#### Update weETH/wstETH eMode
+
+| **Parameter**             | **Value**    |
+| ------------------------- | ------------ |
+| **Collateral**            | weETH        |
+| **Borrowable**            | wstETH, wETH |
+| **Max LTV**               | 93.00%       |
+| **Liquidation Threshold** | 95.00%       |
+| **Liquidation Penalty**   | 1.00%        |
+
 ## References
 
 - Implementation: [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250805_AaveV3Arbitrum_ArbitrumEModeUpdateRsETHAndEzETH/AaveV3Arbitrum_ArbitrumEModeUpdateRsETHAndEzETH_20250805.sol)
