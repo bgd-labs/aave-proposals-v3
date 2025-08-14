@@ -20,9 +20,6 @@ contract AaveV3Arbitrum_ArbitrumEModeUpdateRsETHAndEzETH_20250805 is AaveV3Paylo
     override
     returns (IAaveV3ConfigEngine.EModeCategoryUpdate[] memory)
   {
-    IAaveV3ConfigEngine.EModeCategoryCreation[]
-      memory eModeCreations = new IAaveV3ConfigEngine.EModeCategoryCreation[](1);
-
     IAaveV3ConfigEngine.EModeCategoryUpdate[]
       memory eModeUpdates = new IAaveV3ConfigEngine.EModeCategoryUpdate[](2);
 
@@ -54,7 +51,7 @@ contract AaveV3Arbitrum_ArbitrumEModeUpdateRsETHAndEzETH_20250805 is AaveV3Paylo
       memory eModeCreations = new IAaveV3ConfigEngine.EModeCategoryCreation[](2);
 
     address[] memory collateralAssets_wstETH = new address[](1);
-    address[] memory borrowableAssets_wstETH = new address[](2);
+    address[] memory borrowableAssets_wstETH = new address[](1);
 
     collateralAssets_wstETH[0] = AaveV3ArbitrumAssets.wstETH_UNDERLYING;
 
