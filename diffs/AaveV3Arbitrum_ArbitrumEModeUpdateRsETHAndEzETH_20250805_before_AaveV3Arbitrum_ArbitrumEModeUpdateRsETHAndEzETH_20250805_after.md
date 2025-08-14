@@ -24,11 +24,11 @@
 
 
 
-### EMode: WSTETH_WETH(id: 7)
+### EMode: wstETH/WETH(id: 7)
 
 | description | value before | value after |
 | --- | --- | --- |
-| eMode.label | - | WSTETH_WETH |
+| eMode.label | - | wstETH/WETH |
 | eMode.ltv | - | 94 % |
 | eMode.liquidationThreshold | - | 96 % |
 | eMode.liquidationBonus | - | 1 % |
@@ -36,11 +36,11 @@
 | eMode.collateralBitmap | - | wstETH |
 
 
-### EMode: weETH_WSTETH(id: 8)
+### EMode: weETH/wstETH(id: 8)
 
 | description | value before | value after |
 | --- | --- | --- |
-| eMode.label | - | weETH_WSTETH |
+| eMode.label | - | weETH/wstETH |
 | eMode.ltv | - | 93 % |
 | eMode.liquidationThreshold | - | 95 % |
 | eMode.liquidationBonus | - | 1 % |
@@ -59,7 +59,7 @@
         "borrowableBitmap": "16",
         "collateralBitmap": "256",
         "eModeCategory": 7,
-        "label": "WSTETH_WETH",
+        "label": "wstETH/WETH",
         "liquidationBonus": 10100,
         "liquidationThreshold": 9600,
         "ltv": 9400
@@ -71,7 +71,7 @@
         "borrowableBitmap": "272",
         "collateralBitmap": "32768",
         "eModeCategory": 8,
-        "label": "weETH_WSTETH",
+        "label": "weETH/wstETH",
         "liquidationBonus": 10100,
         "liquidationThreshold": 9500,
         "ltv": 9300
@@ -89,7 +89,7 @@
         },
         "0x1e4061ed12ce1f4439fe6c7922bd1dce45af754358ce2f94214f93749947e40b": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x5753544554485f57455448000000000000000000000000000000000000000016"
+          "newValue": "0x7773744554482f57455448000000000000000000000000000000000000000016"
         },
         "0x1e4061ed12ce1f4439fe6c7922bd1dce45af754358ce2f94214f93749947e40c": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -117,7 +117,7 @@
         },
         "0xe1eef7f3dc95a7682cb02e33f0d6a7c6e59cd5f4d1f5d7b4e6308bb610481918": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x77654554485f5753544554480000000000000000000000000000000000000018"
+          "newValue": "0x77654554482f7773744554480000000000000000000000000000000000000018"
         },
         "0xe1eef7f3dc95a7682cb02e33f0d6a7c6e59cd5f4d1f5d7b4e6308bb610481919": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",

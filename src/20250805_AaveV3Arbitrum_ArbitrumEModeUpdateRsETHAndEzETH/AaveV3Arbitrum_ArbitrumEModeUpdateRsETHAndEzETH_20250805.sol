@@ -61,7 +61,7 @@ contract AaveV3Arbitrum_ArbitrumEModeUpdateRsETHAndEzETH_20250805 is AaveV3Paylo
       ltv: 94_00,
       liqThreshold: 96_00,
       liqBonus: 1_00,
-      label: 'WSTETH_WETH',
+      label: 'wstETH/WETH',
       collaterals: collateralAssets_wstETH,
       borrowables: borrowableAssets_wstETH
     });
@@ -78,7 +78,7 @@ contract AaveV3Arbitrum_ArbitrumEModeUpdateRsETHAndEzETH_20250805 is AaveV3Paylo
       ltv: 93_00,
       liqThreshold: 95_00,
       liqBonus: 1_00,
-      label: 'weETH_WSTETH',
+      label: 'weETH/wstETH',
       collaterals: collateralAssets_weETH,
       borrowables: borrowableAssets_wstETHAndWETH
     });
