@@ -1,7 +1,7 @@
 ---
 title: "Arbitrum eMode Update - rsETH and ezETH"
 author: "@TokenLogic"
-discussions: "https://governance.aave.com/t/direct-to-aip-arbitrum-emode-update-rseth-and-ezeth/22731"
+discussions: "https://governance.aave.com/t/direct-to-aip-arbitrum-emode-update-rseth-and-ezeth/22731/3"
 ---
 
 ### Summary
@@ -36,17 +36,17 @@ Upon implementing this proposal, weETH, rsETH and ezETH will each have the same 
 | **Liquidation Threshold** | 95.00%       |
 | **Liquidation Penalty**   | 1.00%        |
 
-#### Update wstETH/WETH eMode
+#### Create wstETH/WETH eMode
 
 | **Parameter**             | **Value** |
 | ------------------------- | --------- |
-| **Collateral**            | WETH      |
-| **Borrowable**            | wstETH    |
-| **Max LTV**               | 93.00%    |
-| **Liquidation Threshold** | 95.00%    |
+| **Collateral**            | wstETH    |
+| **Borrowable**            | WETH      |
+| **Max LTV**               | 94.00%    |
+| **Liquidation Threshold** | 96.00%    |
 | **Liquidation Penalty**   | 1.00%     |
 
-#### Update weETH/wstETH eMode
+#### Create weETH/wstETH eMode
 
 | **Parameter**             | **Value**    |
 | ------------------------- | ------------ |
@@ -61,7 +61,7 @@ Upon implementing this proposal, weETH, rsETH and ezETH will each have the same 
 - Implementation: [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250805_AaveV3Arbitrum_ArbitrumEModeUpdateRsETHAndEzETH/AaveV3Arbitrum_ArbitrumEModeUpdateRsETHAndEzETH_20250805.sol)
 - Tests: [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250805_AaveV3Arbitrum_ArbitrumEModeUpdateRsETHAndEzETH/AaveV3Arbitrum_ArbitrumEModeUpdateRsETHAndEzETH_20250805.t.sol)
 - Snapshot: Direct-to-AIP
-- [Discussion](https://governance.aave.com/t/direct-to-aip-arbitrum-emode-update-rseth-and-ezeth/22731)
+- [Discussion](https://governance.aave.com/t/direct-to-aip-arbitrum-emode-update-rseth-and-ezeth/22731/3)
 
 ## Copyright
 

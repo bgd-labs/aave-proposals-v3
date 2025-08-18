@@ -7,7 +7,7 @@ export const config: ConfigFile = {
     date: '20250805',
     author: '@TokenLogic',
     discussion:
-      'https://governance.aave.com/t/direct-to-aip-arbitrum-emode-update-rseth-and-ezeth/22731',
+      'https://governance.aave.com/t/direct-to-aip-arbitrum-emode-update-rseth-and-ezeth/22731/3',
     snapshot: 'Direct-To-AIP',
     votingNetwork: 'POLYGON',
   },

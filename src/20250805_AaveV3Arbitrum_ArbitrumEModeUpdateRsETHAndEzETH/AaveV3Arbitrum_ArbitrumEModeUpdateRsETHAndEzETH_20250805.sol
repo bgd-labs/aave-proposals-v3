@@ -11,7 +11,7 @@ import {EngineFlags} from 'aave-helpers/lib/aave-address-book/lib/aave-v3-origin
  * @title Arbitrum eMode Update - rsETH and ezETH
  * @author @TokenLogic
  * - Snapshot: Direct-To-AIP
- * - Discussion: https://governance.aave.com/t/direct-to-aip-arbitrum-emode-update-rseth-and-ezeth/22731
+ * - Discussion: https://governance.aave.com/t/direct-to-aip-arbitrum-emode-update-rseth-and-ezeth/22731/3
  */
 contract AaveV3Arbitrum_ArbitrumEModeUpdateRsETHAndEzETH_20250805 is AaveV3PayloadArbitrum {
   function eModeCategoriesUpdates()
