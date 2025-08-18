@@ -18,7 +18,7 @@ contract AaveV3Ink_AaveV3InkActivation_20250728_Test is ProtocolV3TestBase {
   AaveV3Ink_AaveV3InkActivation_20250728 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('ink'), 22005028);
+    vm.createSelectFork(vm.rpcUrl('ink'), 22007139);
     proposal = new AaveV3Ink_AaveV3InkActivation_20250728();
 
     _postSetup(); // should be removed later

@@ -89,7 +89,7 @@ contract AaveV3Ink_AaveV3InkActivation_20250728 is AaveV3PayloadInkWhitelabel {
     listings[2] = IAaveV3ConfigEngine.Listing({
       asset: USDT,
       assetSymbol: 'USDT',
-      priceFeed: 0x6830cDd9d5865c8c3daAEBd66c49F1e331f57543,
+      priceFeed: 0x24FdD142b34C6B5D55299709DB0966681933c9aF,
       enabledToBorrow: EngineFlags.ENABLED,
       borrowableInIsolation: EngineFlags.DISABLED,
       withSiloedBorrowing: EngineFlags.DISABLED,
