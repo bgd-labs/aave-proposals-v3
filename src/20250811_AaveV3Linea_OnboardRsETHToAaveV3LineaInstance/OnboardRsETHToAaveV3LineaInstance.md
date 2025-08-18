@@ -52,15 +52,15 @@ The table below illustrates the configured risk parameters for **wrsETH**
 
 Oracle and CAPO parameters:
 
-| Parameter                     | Value                                                                                                          |
-| ----------------------------- | -------------------------------------------------------------------------------------------------------------- |
-| **Oracle**                    | [Capped wrsETH / rsETH(ETH) / USD](https://lineascan.build/address/0x444f25c5E73fED92B91F3ECB1bD27003C3CDdeE7) |
-| **Ratio Provider**            | [Chainlink wrsETH / rsETH Exchange Rate](https://lineascan.build/address/0xEEDF0B095B5dfe75F3881Cb26c19DA209A27463a)                 |
-| **Underlying Feed**           | [Chainlink ETH / USD](https://lineascan.build/address/0x3c6Cd9Cc7c7a4c2Cf5a82734CD249D7D593354dA)            |
-| **Oracle Latest Answer**      | _(Aug-12-2025)_ 4,626.85069182                                                                                   |
-| **Snapshot Ratio**            | 1.03                                                                                                           |
-| **Snapshot Timestamp**        | March 9, 2025, 17:27:19 UTC                                                                                    |
-| **Max Yearly Ratio Growth %** | 9.83%                                                                                                          |
+| Parameter                     | Value                                                                                                                |
+| ----------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| **Oracle**                    | [Capped wrsETH / rsETH(ETH) / USD](https://lineascan.build/address/0x444f25c5E73fED92B91F3ECB1bD27003C3CDdeE7)       |
+| **Ratio Provider**            | [Chainlink wrsETH / rsETH Exchange Rate](https://lineascan.build/address/0xEEDF0B095B5dfe75F3881Cb26c19DA209A27463a) |
+| **Underlying Feed**           | [Chainlink ETH / USD](https://lineascan.build/address/0x3c6Cd9Cc7c7a4c2Cf5a82734CD249D7D593354dA)                    |
+| **Oracle Latest Answer**      | _(Aug-12-2025)_ 4,626.85069182                                                                                       |
+| **Snapshot Ratio**            | 1.03                                                                                                                 |
+| **Snapshot Timestamp**        | March 9, 2025, 17:27:19 UTC                                                                                          |
+| **Max Yearly Ratio Growth %** | 9.83%                                                                                                                |
 
 Additionally [0xdef1FA4CEfe67365ba046a7C630D6B885298E210](https://lineascan.build/address/0xdef1FA4CEfe67365ba046a7C630D6B885298E210) has been set as the emission admin for wrsETH and the corresponding aToken.
 
