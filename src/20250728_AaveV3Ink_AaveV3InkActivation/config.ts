@@ -1,13 +1,13 @@
 import {ConfigFile} from '../../generator/types';
 export const config: ConfigFile = {
   rootOptions: {
-    pools: ['AaveV3Ink'],
+    pools: ['AaveV3InkWhitelabel'],
     title: 'Aave V3 Ink Activation',
     shortName: 'AaveV3InkActivation',
     date: '20250728',
   },
   poolOptions: {
-    AaveV3Ink: {
+    AaveV3InkWhitelabel: {
       configs: {
         ASSET_LISTING: [
           {

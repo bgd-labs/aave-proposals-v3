@@ -2,7 +2,7 @@
 pragma solidity ^0.8.0;
 
 import {GovV3Helpers, IPayloadsControllerCore} from 'aave-helpers/src/GovV3Helpers.sol';
-import {GovernanceV3Ink} from 'aave-address-book/GovernanceV3Ink.sol';
+import {GovernanceV3InkWhitelabel} from 'aave-address-book/GovernanceV3InkWhitelabel.sol';
 
 import {EthereumScript, InkScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
 import {AaveV3Ink_AaveV3InkActivation_20250728} from './AaveV3Ink_AaveV3InkActivation_20250728.sol';
@@ -26,7 +26,7 @@ contract DeployInk is InkScript {
 
     // register action at payloadsController
     GovV3Helpers.createPermissionedPayloadCalldata(
-      GovernanceV3Ink.PERMISSIONED_PAYLOADS_CONTROLLER,
+      GovernanceV3InkWhitelabel.PERMISSIONED_PAYLOADS_CONTROLLER,
       actions
     );
   }

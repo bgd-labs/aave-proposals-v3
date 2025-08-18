@@ -60,7 +60,7 @@ export function isV2Pool(pool: PoolIdentifier) {
 }
 
 export function isWhitelabelPool(pool: PoolIdentifier) {
-  if (pool === 'AaveV3Ink') return true;
+  if (pool === 'AaveV3InkWhitelabel') return true;
   return false;
 }
 

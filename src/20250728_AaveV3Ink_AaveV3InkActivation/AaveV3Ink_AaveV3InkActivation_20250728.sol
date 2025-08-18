@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {AaveV3Ink} from 'aave-address-book/AaveV3Ink.sol';
-import {AaveV3PayloadInk} from 'aave-helpers/src/v3-config-engine/AaveV3PayloadInk.sol';
+import {AaveV3InkWhitelabel} from 'aave-address-book/AaveV3InkWhitelabel.sol';
+import {AaveV3PayloadInkWhitelabel} from 'aave-helpers/src/v3-config-engine/AaveV3PayloadInkWhitelabel.sol';
 import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
 import {IEmissionManager} from 'aave-v3-origin/contracts/rewards/interfaces/IEmissionManager.sol';
@@ -13,7 +13,7 @@ import {SafeERC20} from 'openzeppelin-contracts/contracts/token/ERC20/utils/Safe
  * @title Aave V3 Ink Activation
  * @author BGD Labs (@bgdlabs)
  */
-contract AaveV3Ink_AaveV3InkActivation_20250728 is AaveV3PayloadInk {
+contract AaveV3Ink_AaveV3InkActivation_20250728 is AaveV3PayloadInkWhitelabel {
   using SafeERC20 for IERC20;
 
   address public constant WETH = 0x4200000000000000000000000000000000000006;
@@ -137,11 +137,11 @@ contract AaveV3Ink_AaveV3InkActivation_20250728 is AaveV3PayloadInk {
   }
 
   function _supplyAndConfigureLMAdmin(address asset, uint256 seedAmount) internal {
-    IERC20(asset).forceApprove(address(AaveV3Ink.POOL), seedAmount);
-    AaveV3Ink.POOL.supply(asset, seedAmount, address(AaveV3Ink.DUST_BIN), 0);
+    IERC20(asset).forceApprove(address(AaveV3InkWhitelabel.POOL), seedAmount);
+    AaveV3InkWhitelabel.POOL.supply(asset, seedAmount, address(AaveV3InkWhitelabel.DUST_BIN), 0);
 
-    address aToken = AaveV3Ink.POOL.getReserveAToken(asset);
-    IEmissionManager(AaveV3Ink.EMISSION_MANAGER).setEmissionAdmin(asset, LM_ADMIN);
-    IEmissionManager(AaveV3Ink.EMISSION_MANAGER).setEmissionAdmin(aToken, LM_ADMIN);
+    address aToken = AaveV3InkWhitelabel.POOL.getReserveAToken(asset);
+    IEmissionManager(AaveV3InkWhitelabel.EMISSION_MANAGER).setEmissionAdmin(asset, LM_ADMIN);
+    IEmissionManager(AaveV3InkWhitelabel.EMISSION_MANAGER).setEmissionAdmin(aToken, LM_ADMIN);
   }
 }

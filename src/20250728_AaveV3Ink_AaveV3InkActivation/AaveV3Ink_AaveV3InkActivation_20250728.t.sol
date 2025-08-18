@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {AaveV3Ink} from 'aave-address-book/AaveV3Ink.sol';
-import {GovernanceV3Ink} from 'aave-address-book/GovernanceV3Ink.sol';
+import {AaveV3InkWhitelabel} from 'aave-address-book/AaveV3InkWhitelabel.sol';
+import {GovernanceV3InkWhitelabel} from 'aave-address-book/GovernanceV3InkWhitelabel.sol';
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 import {IEmissionManager} from 'aave-v3-origin/contracts/rewards/interfaces/IEmissionManager.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
@@ -18,7 +18,7 @@ contract AaveV3Ink_AaveV3InkActivation_20250728_Test is ProtocolV3TestBase {
   AaveV3Ink_AaveV3InkActivation_20250728 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('ink'), 21532692);
+    vm.createSelectFork(vm.rpcUrl('ink'), 22005028);
     proposal = new AaveV3Ink_AaveV3InkActivation_20250728();
 
     _postSetup(); // should be removed later
@@ -30,7 +30,7 @@ contract AaveV3Ink_AaveV3InkActivation_20250728_Test is ProtocolV3TestBase {
   function test_defaultProposalExecution() public {
     defaultTest(
       'AaveV3Ink_AaveV3InkActivation_20250728',
-      AaveV3Ink.POOL,
+      AaveV3InkWhitelabel.POOL,
       address(proposal),
       true,
       true
@@ -38,7 +38,7 @@ contract AaveV3Ink_AaveV3InkActivation_20250728_Test is ProtocolV3TestBase {
   }
 
   function test_dustbinFundsAndLMAdmin() public {
-    executePayload(vm, address(proposal), AaveV3Ink.POOL);
+    executePayload(vm, address(proposal), AaveV3InkWhitelabel.POOL);
 
     _validateDustbinFundsAndLMAdmin(proposal.WETH(), proposal.WETH_SEED_AMOUNT());
     _validateDustbinFundsAndLMAdmin(proposal.KBTC(), proposal.KBTC_SEED_AMOUNT());
@@ -47,15 +47,17 @@ contract AaveV3Ink_AaveV3InkActivation_20250728_Test is ProtocolV3TestBase {
   }
 
   function _validateDustbinFundsAndLMAdmin(address asset, uint256 seedAmount) internal view {
-    (address aToken, , ) = AaveV3Ink.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(asset);
-    assertGe(IERC20(aToken).balanceOf(address(AaveV3Ink.DUST_BIN)), seedAmount);
+    (address aToken, , ) = AaveV3InkWhitelabel
+      .AAVE_PROTOCOL_DATA_PROVIDER
+      .getReserveTokensAddresses(asset);
+    assertGe(IERC20(aToken).balanceOf(address(AaveV3InkWhitelabel.DUST_BIN)), seedAmount);
 
     assertEq(
-      IEmissionManager(AaveV3Ink.EMISSION_MANAGER).getEmissionAdmin(asset),
+      IEmissionManager(AaveV3InkWhitelabel.EMISSION_MANAGER).getEmissionAdmin(asset),
       proposal.LM_ADMIN()
     );
     assertEq(
-      IEmissionManager(AaveV3Ink.EMISSION_MANAGER).getEmissionAdmin(aToken),
+      IEmissionManager(AaveV3InkWhitelabel.EMISSION_MANAGER).getEmissionAdmin(aToken),
       proposal.LM_ADMIN()
     );
   }
@@ -64,22 +66,22 @@ contract AaveV3Ink_AaveV3InkActivation_20250728_Test is ProtocolV3TestBase {
     // mock funding seed amount
     deal(
       proposal.WETH(),
-      GovernanceV3Ink.PERMISSIONED_PAYLOADS_CONTROLLER_EXECUTOR,
+      GovernanceV3InkWhitelabel.PERMISSIONED_PAYLOADS_CONTROLLER_EXECUTOR,
       proposal.WETH_SEED_AMOUNT()
     );
     deal(
       proposal.KBTC(),
-      GovernanceV3Ink.PERMISSIONED_PAYLOADS_CONTROLLER_EXECUTOR,
+      GovernanceV3InkWhitelabel.PERMISSIONED_PAYLOADS_CONTROLLER_EXECUTOR,
       proposal.KBTC_SEED_AMOUNT()
     );
     deal(
       proposal.USDT(),
-      GovernanceV3Ink.PERMISSIONED_PAYLOADS_CONTROLLER_EXECUTOR,
+      GovernanceV3InkWhitelabel.PERMISSIONED_PAYLOADS_CONTROLLER_EXECUTOR,
       proposal.USDT_SEED_AMOUNT()
     );
     deal(
       proposal.USDG(),
-      GovernanceV3Ink.PERMISSIONED_PAYLOADS_CONTROLLER_EXECUTOR,
+      GovernanceV3InkWhitelabel.PERMISSIONED_PAYLOADS_CONTROLLER_EXECUTOR,
       proposal.USDG_SEED_AMOUNT()
     );
 
