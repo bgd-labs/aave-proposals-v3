@@ -58,18 +58,6 @@ Given the behavior of market participants and expected growth of borrowing deman
 | **Liquidation Threshold** | 95.00%       |
 | **Liquidation Penalty**   | 1.00%        |
 
-#### WETH will be added as collateral to the ezETH/wstETH eMode
-
-| **Asset** | **Current** | **Proposed** |
-| --------- | ----------- | ------------ |
-| **WETH**  | None        | Borrowable   |
-
-WETH will be added as collateral to the rsETH/wstETH eMode
-
-| **Asset** | **Current** | **Proposed** |
-| --------- | ----------- | ------------ |
-| **WETH**  | None        | Borrowable   |
-
 ## References
 
 - Implementation: [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250805_AaveV3Arbitrum_ArbitrumEModeUpdateRsETHAndEzETH/AaveV3Arbitrum_ArbitrumEModeUpdateRsETHAndEzETH_20250805.sol)[AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250805_AaveV3Arbitrum_ArbitrumEModeUpdateRsETHAndEzETH/AaveV3Ethereum_ArbitrumEModeUpdateRsETHAndEzETH_20250805.sol)
