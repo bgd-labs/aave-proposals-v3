@@ -48,39 +48,21 @@ contract AaveV3Arbitrum_ArbitrumEModeUpdateRsETHAndEzETH_20250805 is AaveV3Paylo
     returns (IAaveV3ConfigEngine.EModeCategoryCreation[] memory)
   {
     IAaveV3ConfigEngine.EModeCategoryCreation[]
-      memory eModeCreations = new IAaveV3ConfigEngine.EModeCategoryCreation[](2);
+      memory eModeCreations = new IAaveV3ConfigEngine.EModeCategoryCreation[](1);
 
     address[] memory collateralAssets_wstETH = new address[](1);
     address[] memory borrowableAssets_wstETH = new address[](1);
 
     collateralAssets_wstETH[0] = AaveV3ArbitrumAssets.wstETH_UNDERLYING;
-
     borrowableAssets_wstETH[0] = AaveV3ArbitrumAssets.WETH_UNDERLYING;
 
     eModeCreations[0] = IAaveV3ConfigEngine.EModeCategoryCreation({
       ltv: 94_00,
       liqThreshold: 96_00,
       liqBonus: 1_00,
-      label: 'wstETH/WETH',
+      label: 'wstETH/WETH ETH Correlated',
       collaterals: collateralAssets_wstETH,
       borrowables: borrowableAssets_wstETH
-    });
-
-    address[] memory collateralAssets_weETH = new address[](1);
-    address[] memory borrowableAssets_wstETHAndWETH = new address[](2);
-
-    collateralAssets_weETH[0] = AaveV3ArbitrumAssets.weETH_UNDERLYING;
-
-    borrowableAssets_wstETHAndWETH[0] = AaveV3ArbitrumAssets.wstETH_UNDERLYING;
-    borrowableAssets_wstETHAndWETH[1] = AaveV3ArbitrumAssets.WETH_UNDERLYING;
-
-    eModeCreations[1] = IAaveV3ConfigEngine.EModeCategoryCreation({
-      ltv: 93_00,
-      liqThreshold: 95_00,
-      liqBonus: 1_00,
-      label: 'weETH/wstETH',
-      collaterals: collateralAssets_weETH,
-      borrowables: borrowableAssets_wstETHAndWETH
     });
 
     return eModeCreations;

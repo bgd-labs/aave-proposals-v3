@@ -6,6 +6,7 @@ import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 
 import {EthereumScript, ArbitrumScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
 import {AaveV3Arbitrum_ArbitrumEModeUpdateRsETHAndEzETH_20250805} from './AaveV3Arbitrum_ArbitrumEModeUpdateRsETHAndEzETH_20250805.sol';
+import {AaveV3Ethereum_ArbitrumEModeUpdateRsETHAndEzETH_20250805} from './AaveV3Ethereum_ArbitrumEModeUpdateRsETHAndEzETH_20250805.sol';
 
 /**
  * @dev Deploy Arbitrum
@@ -30,13 +31,35 @@ contract DeployArbitrum is ArbitrumScript {
 }
 
 /**
+ * @dev Deploy Ethereum
+ * deploy-command: make deploy-ledger contract=src/20250805_AaveV3Arbitrum_ArbitrumEModeUpdateRsETHAndEzETH/ArbitrumEModeUpdateRsETHAndEzETH_20250805.s.sol:DeployEthereum chain=mainnet
+ * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/ArbitrumEModeUpdateRsETHAndEzETH_20250805.s.sol/1/run-latest.json
+ */
+contract DeployEthereum is EthereumScript {
+  function run() external broadcast {
+    // deploy payloads
+    address payload0 = GovV3Helpers.deployDeterministic(
+      type(AaveV3Ethereum_ArbitrumEModeUpdateRsETHAndEzETH_20250805).creationCode
+    );
+
+    // compose action
+    IPayloadsControllerCore.ExecutionAction[]
+      memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
+    actions[0] = GovV3Helpers.buildAction(payload0);
+
+    // register action at payloadsController
+    GovV3Helpers.createPayload(actions);
+  }
+}
+
+/**
  * @dev Create Proposal
  * command: make deploy-ledger contract=src/20250805_AaveV3Arbitrum_ArbitrumEModeUpdateRsETHAndEzETH/ArbitrumEModeUpdateRsETHAndEzETH_20250805.s.sol:CreateProposal chain=mainnet
  */
 contract CreateProposal is EthereumScript {
   function run() external {
     // create payloads
-    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](1);
+    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](2);
 
     // compose actions for validation
     {
@@ -46,6 +69,15 @@ contract CreateProposal is EthereumScript {
         type(AaveV3Arbitrum_ArbitrumEModeUpdateRsETHAndEzETH_20250805).creationCode
       );
       payloads[0] = GovV3Helpers.buildArbitrumPayload(vm, actionsArbitrum);
+    }
+
+    {
+      IPayloadsControllerCore.ExecutionAction[]
+        memory actionsEthereum = new IPayloadsControllerCore.ExecutionAction[](1);
+      actionsEthereum[0] = GovV3Helpers.buildAction(
+        type(AaveV3Ethereum_ArbitrumEModeUpdateRsETHAndEzETH_20250805).creationCode
+      );
+      payloads[1] = GovV3Helpers.buildMainnetPayload(vm, actionsEthereum);
     }
 
     // create proposal

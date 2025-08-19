@@ -1,8 +1,8 @@
 import {ConfigFile} from '../../generator/types';
 export const config: ConfigFile = {
   rootOptions: {
-    pools: ['AaveV3Arbitrum'],
-    title: 'Arbitrum eMode Update - rsETH and ezETH',
+    pools: ['AaveV3Arbitrum', 'AaveV3Ethereum'],
+    title: 'Multi eMode Update - rsETH and ezETH',
     shortName: 'ArbitrumEModeUpdateRsETHAndEzETH',
     date: '20250805',
     author: '@TokenLogic',
@@ -14,6 +14,16 @@ export const config: ConfigFile = {
   poolOptions: {
     AaveV3Arbitrum: {
       configs: {
+        EMODES_CREATION: [
+          {
+            ltv: '94',
+            liqThreshold: '96',
+            liqBonus: '1',
+            label: 'wstETH/wETH ETH Correlated',
+            collateralAssets: ['wstETH'],
+            borrowableAssets: ['wETH'],
+          },
+        ],
         EMODES_UPDATES: [
           {
             eModeCategory: 'AaveV3ArbitrumEModes.EZETH_WSTETH',
@@ -29,23 +39,24 @@ export const config: ConfigFile = {
             liqBonus: '1',
             label: 'ETH correlated',
           },
+        ],
+      },
+      cache: {blockNumber: 370166375},
+    },
+    AaveV3Ethereum: {
+      configs: {
+        EMODES_CREATION: [
           {
-            eModeCategory: 'AaveV3ArbitrumEModes.WSTETH_WETH',
-            ltv: '94',
-            liqThreshold: '96',
-            liqBonus: '1',
-            label: 'wstETH/WETH',
-          },
-          {
-            eModeCategory: 'AaveV3ArbitrumEModes.WEETH_WSTETH',
             ltv: '93',
             liqThreshold: '95',
             liqBonus: '1',
             label: 'weETH/wstETH',
+            collateralAssets: ['weETH'],
+            borrowableAssets: ['wstETH'],
           },
         ],
       },
-      cache: {blockNumber: 365273678},
+      cache: {blockNumber: 23177170},
     },
   },
 };

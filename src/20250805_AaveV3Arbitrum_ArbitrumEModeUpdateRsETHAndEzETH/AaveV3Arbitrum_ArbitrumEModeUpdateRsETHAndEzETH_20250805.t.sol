@@ -2,9 +2,7 @@
 pragma solidity ^0.8.0;
 
 import {AaveV3Arbitrum} from 'aave-address-book/AaveV3Arbitrum.sol';
-
-import 'forge-std/Test.sol';
-import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
+import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Arbitrum_ArbitrumEModeUpdateRsETHAndEzETH_20250805} from './AaveV3Arbitrum_ArbitrumEModeUpdateRsETHAndEzETH_20250805.sol';
 
 /**
@@ -15,7 +13,7 @@ contract AaveV3Arbitrum_ArbitrumEModeUpdateRsETHAndEzETH_20250805_Test is Protoc
   AaveV3Arbitrum_ArbitrumEModeUpdateRsETHAndEzETH_20250805 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('arbitrum'), 368447853);
+    vm.createSelectFork(vm.rpcUrl('arbitrum'), 370166375);
     proposal = new AaveV3Arbitrum_ArbitrumEModeUpdateRsETHAndEzETH_20250805();
   }
 
