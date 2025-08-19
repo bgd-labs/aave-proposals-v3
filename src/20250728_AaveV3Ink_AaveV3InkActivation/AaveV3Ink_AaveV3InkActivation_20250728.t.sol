@@ -18,10 +18,8 @@ contract AaveV3Ink_AaveV3InkActivation_20250728_Test is ProtocolV3TestBase {
   AaveV3Ink_AaveV3InkActivation_20250728 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('ink'), 22007139);
+    vm.createSelectFork(vm.rpcUrl('ink'), 22116303);
     proposal = new AaveV3Ink_AaveV3InkActivation_20250728();
-
-    _postSetup(); // should be removed later
   }
 
   /**
@@ -59,47 +57,6 @@ contract AaveV3Ink_AaveV3InkActivation_20250728_Test is ProtocolV3TestBase {
     assertEq(
       IEmissionManager(AaveV3InkWhitelabel.EMISSION_MANAGER).getEmissionAdmin(aToken),
       proposal.LM_ADMIN()
-    );
-  }
-
-  function _postSetup() internal {
-    // mock funding seed amount
-    deal(
-      proposal.WETH(),
-      GovernanceV3InkWhitelabel.PERMISSIONED_PAYLOADS_CONTROLLER_EXECUTOR,
-      proposal.WETH_SEED_AMOUNT()
-    );
-    deal(
-      proposal.KBTC(),
-      GovernanceV3InkWhitelabel.PERMISSIONED_PAYLOADS_CONTROLLER_EXECUTOR,
-      proposal.KBTC_SEED_AMOUNT()
-    );
-    deal(
-      proposal.USDT(),
-      GovernanceV3InkWhitelabel.PERMISSIONED_PAYLOADS_CONTROLLER_EXECUTOR,
-      proposal.USDT_SEED_AMOUNT()
-    );
-    deal(
-      proposal.USDG(),
-      GovernanceV3InkWhitelabel.PERMISSIONED_PAYLOADS_CONTROLLER_EXECUTOR,
-      proposal.USDG_SEED_AMOUNT()
-    );
-
-    // mock chaos price feed to return non-zero values
-    vm.mockCall(
-      0x1273f29204fC102bD4620485B13cFE27a794fF32, // USDT underlying feed
-      abi.encodeWithSelector(AggregatorInterface.latestAnswer.selector),
-      abi.encode(0.998e8)
-    );
-    vm.mockCall(
-      0x163131609562E578754aF12E998635BfCa56712C, // ETH underlying feed
-      abi.encodeWithSelector(AggregatorInterface.latestAnswer.selector),
-      abi.encode(3_900e8)
-    );
-    vm.mockCall(
-      0xAe48F22903d43f13f66Cc650F57Bd4654ac222cb, // KBTC underlying feed
-      abi.encodeWithSelector(AggregatorInterface.latestAnswer.selector),
-      abi.encode(120_000e8)
     );
   }
 }
