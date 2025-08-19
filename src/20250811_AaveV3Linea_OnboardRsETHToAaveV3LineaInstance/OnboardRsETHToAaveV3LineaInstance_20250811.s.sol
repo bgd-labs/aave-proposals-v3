@@ -4,8 +4,9 @@ pragma solidity ^0.8.0;
 import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aave-helpers/src/GovV3Helpers.sol';
 import {AaveV3Linea} from 'aave-address-book/AaveV3Linea.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
+import {GovernanceV3Linea} from 'aave-address-book/GovernanceV3Linea.sol';
 
-import {EthereumScript, LineaScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
+import {EthereumScript, LineaScript, ChainIds} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
 import {AaveV3Linea_OnboardRsETHToAaveV3LineaInstance_20250811} from './AaveV3Linea_OnboardRsETHToAaveV3LineaInstance_20250811.sol';
 
 /**
@@ -40,14 +41,12 @@ contract CreateProposal is EthereumScript {
     PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](1);
 
     // compose actions for validation
-    {
-      IPayloadsControllerCore.ExecutionAction[]
-        memory actionsLinea = new IPayloadsControllerCore.ExecutionAction[](1);
-      actionsLinea[0] = GovV3Helpers.buildAction(
-        type(AaveV3Linea_OnboardRsETHToAaveV3LineaInstance_20250811).creationCode
-      );
-      payloads[0] = GovV3Helpers.buildLineaPayload(vm, actionsLinea);
-    }
+    payloads[0] = PayloadsControllerUtils.Payload({
+      chain: ChainIds.LINEA,
+      accessLevel: PayloadsControllerUtils.AccessControl.Level_1,
+      payloadsController: address(GovernanceV3Linea.PAYLOADS_CONTROLLER),
+      payloadId: 12
+    });
 
     // create proposal
     vm.startBroadcast();
