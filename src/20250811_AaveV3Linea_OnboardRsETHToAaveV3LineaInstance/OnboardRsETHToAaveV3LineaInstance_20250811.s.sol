@@ -2,7 +2,6 @@
 pragma solidity ^0.8.0;
 
 import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aave-helpers/src/GovV3Helpers.sol';
-import {AaveV3Linea} from 'aave-address-book/AaveV3Linea.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {GovernanceV3Linea} from 'aave-address-book/GovernanceV3Linea.sol';
 
@@ -40,7 +39,6 @@ contract CreateProposal is EthereumScript {
     // create payloads
     PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](1);
 
-    // compose actions for validation
     payloads[0] = PayloadsControllerUtils.Payload({
       chain: ChainIds.LINEA,
       accessLevel: PayloadsControllerUtils.AccessControl.Level_1,
