@@ -32,7 +32,7 @@ Given the behavior of market participants and expected growth of borrowing deman
 
 | **Parameter**             | **Value**    |
 | ------------------------- | ------------ |
-| **Collateral**            | rsETH        |
+| **Collateral**            | ezETH        |
 | **Borrowable**            | wstETH, wETH |
 | **Max LTV**               | 93.00%       |
 | **Liquidation Threshold** | 95.00%       |
@@ -57,6 +57,18 @@ Given the behavior of market participants and expected growth of borrowing deman
 | **Max LTV**               | 93.00%       |
 | **Liquidation Threshold** | 95.00%       |
 | **Liquidation Penalty**   | 1.00%        |
+
+#### WETH will be added as collateral to the ezETH/wstETH eMode
+
+| **Asset** | **Current** | **Proposed** |
+| --------- | ----------- | ------------ |
+| **WETH**  | None        | Borrowable   |
+
+WETH will be added as collateral to the rsETH/wstETH eMode
+
+| **Asset** | **Current** | **Proposed** |
+| --------- | ----------- | ------------ |
+| **WETH**  | None        | Borrowable   |
 
 ## References
 

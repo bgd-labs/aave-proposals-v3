@@ -40,6 +40,20 @@ export const config: ConfigFile = {
             label: 'ETH correlated',
           },
         ],
+        EMODES_ASSETS: [
+          {
+            asset: 'WETH',
+            eModeCategory: 'AaveV3ArbitrumEModes.EZETH_WSTETH',
+            collateral: 'ENABLED',
+            borrowable: 'DISABLED',
+          },
+          {
+            asset: 'WETH',
+            eModeCategory: 'AaveV3ArbitrumEModes.RSETH_WSTETH',
+            collateral: 'ENABLED',
+            borrowable: 'DISABLED',
+          },
+        ],
       },
       cache: {blockNumber: 370166375},
     },

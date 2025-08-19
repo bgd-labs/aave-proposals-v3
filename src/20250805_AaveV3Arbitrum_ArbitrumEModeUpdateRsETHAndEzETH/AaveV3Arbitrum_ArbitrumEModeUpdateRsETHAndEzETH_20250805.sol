@@ -67,4 +67,29 @@ contract AaveV3Arbitrum_ArbitrumEModeUpdateRsETHAndEzETH_20250805 is AaveV3Paylo
 
     return eModeCreations;
   }
+
+  function assetsEModeUpdates()
+    public
+    pure
+    override
+    returns (IAaveV3ConfigEngine.AssetEModeUpdate[] memory)
+  {
+    IAaveV3ConfigEngine.AssetEModeUpdate[]
+      memory assetEModeUpdates = new IAaveV3ConfigEngine.AssetEModeUpdate[](2);
+
+    assetEModeUpdates[0] = IAaveV3ConfigEngine.AssetEModeUpdate({
+      asset: AaveV3ArbitrumAssets.WETH_UNDERLYING,
+      eModeCategory: AaveV3ArbitrumEModes.EZETH_WSTETH,
+      borrowable: EngineFlags.ENABLED,
+      collateral: EngineFlags.DISABLED
+    });
+    assetEModeUpdates[1] = IAaveV3ConfigEngine.AssetEModeUpdate({
+      asset: AaveV3ArbitrumAssets.WETH_UNDERLYING,
+      eModeCategory: AaveV3ArbitrumEModes.RSETH_WSTETH,
+      borrowable: EngineFlags.ENABLED,
+      collateral: EngineFlags.DISABLED
+    });
+
+    return assetEModeUpdates;
+  }
 }
