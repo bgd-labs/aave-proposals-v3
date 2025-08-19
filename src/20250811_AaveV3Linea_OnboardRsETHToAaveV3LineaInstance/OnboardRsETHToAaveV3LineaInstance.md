@@ -66,8 +66,8 @@ Additionally [0xdef1FA4CEfe67365ba046a7C630D6B885298E210](https://lineascan.buil
 
 ## References
 
-- Implementation: [AaveV3Linea](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250811_AaveV3Linea_OnboardRsETHToAaveV3LineaInstance/AaveV3Linea_OnboardRsETHToAaveV3LineaInstance_20250811.sol)
-- Tests: [AaveV3Linea](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250811_AaveV3Linea_OnboardRsETHToAaveV3LineaInstance/AaveV3Linea_OnboardRsETHToAaveV3LineaInstance_20250811.t.sol)
+- Implementation: [AaveV3Linea](https://github.com/bgd-labs/aave-proposals-v3/blob/b53a5df565ca28c4e3668b569ca07d1f25108088/src/20250811_AaveV3Linea_OnboardRsETHToAaveV3LineaInstance/AaveV3Linea_OnboardRsETHToAaveV3LineaInstance_20250811.sol)
+- Tests: [AaveV3Linea](https://github.com/bgd-labs/aave-proposals-v3/blob/b53a5df565ca28c4e3668b569ca07d1f25108088/src/20250811_AaveV3Linea_OnboardRsETHToAaveV3LineaInstance/AaveV3Linea_OnboardRsETHToAaveV3LineaInstance_20250811.t.sol)
 - Snapshot: Direct-to-AIP
 - [Discussion](https://governance.aave.com/t/direct-to-aip-onboard-rseth-to-aave-v3-linea-instance/22172)
 
