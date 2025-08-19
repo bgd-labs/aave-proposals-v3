@@ -18,7 +18,7 @@ contract AaveV3Ethereum_AddXAUtToAaveV3CoreInstance_20250818_Test is ProtocolV3T
   AaveV3Ethereum_AddXAUtToAaveV3CoreInstance_20250818 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 23170193);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 23177168);
     proposal = new AaveV3Ethereum_AddXAUtToAaveV3CoreInstance_20250818();
   }
 

@@ -17,7 +17,7 @@
 | oracle | [0x214eD9Da11D2fbe465a6fc601a91E62EbEc1a0D6](https://etherscan.io/address/0x214eD9Da11D2fbe465a6fc601a91E62EbEc1a0D6) |
 | oracleDecimals | 8 |
 | oracleDescription | XAU / USD |
-| oracleLatestAnswer | 3334.86 |
+| oracleLatestAnswer | 3324.659 |
 | usageAsCollateralEnabled | true |
 | ltv | 70 % [7000] |
 | liquidationThreshold | 75 % [7500] |
@@ -31,12 +31,12 @@
 | interestRateStrategy | [0x9ec6F08190DeA04A54f8Afc53Db96134e5E3FdFB](https://etherscan.io/address/0x9ec6F08190DeA04A54f8Afc53Db96134e5E3FdFB) |
 | aTokenName | Aave Ethereum XAUt |
 | aTokenSymbol | aEthXAUt |
-| aTokenUnderlyingBalance | 0 XAUt [0] |
+| aTokenUnderlyingBalance | 0.04 XAUt [40000] |
 | id | 52 |
 | isPaused | false |
 | variableDebtTokenName | Aave Ethereum Variable Debt XAUt |
 | variableDebtTokenSymbol | variableDebtEthXAUt |
-| virtualBalance | 0 XAUt [0] |
+| virtualBalance | 0.04 XAUt [40000] |
 | optimalUsageRatio | 45 % |
 | maxVariableBorrowRate | 310 % |
 | baseVariableBorrowRate | 0 % |
@@ -56,7 +56,7 @@
         "aToken": "0x8A2b6f94Ff3A89a03E8c02Ee92b55aF90c9454A2",
         "aTokenName": "Aave Ethereum XAUt",
         "aTokenSymbol": "aEthXAUt",
-        "aTokenUnderlyingBalance": "0",
+        "aTokenUnderlyingBalance": "40000",
         "borrowCap": 1,
         "borrowingEnabled": false,
         "debtCeiling": 300000000,
@@ -76,7 +76,7 @@
         "oracle": "0x214eD9Da11D2fbe465a6fc601a91E62EbEc1a0D6",
         "oracleDecimals": 8,
         "oracleDescription": "XAU / USD",
-        "oracleLatestAnswer": "333486000000",
+        "oracleLatestAnswer": "332465900000",
         "reserveFactor": 2000,
         "supplyCap": 5000,
         "symbol": "XAUt",
@@ -85,7 +85,7 @@
         "variableDebtToken": "0xa665bB258D2a732C170dFD505924214c0b1AC74F",
         "variableDebtTokenName": "Aave Ethereum Variable Debt XAUt",
         "variableDebtTokenSymbol": "variableDebtEthXAUt",
-        "virtualBalance": "0"
+        "virtualBalance": "40000"
       }
     }
   },
@@ -103,6 +103,24 @@
     }
   },
   "raw": {
+    "0x034fd14b9ae6bb066a1f9f85a55e990b0b25c168": {
+      "label": null,
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x7687a742c1f1a8f246934e718167a1f123494d05171f7f82b68f858a6a368453": {
+          "previousValue": "0x0000000000000000000000000000000000000000033b2e3c9fd0803ce8000000",
+          "newValue": "0x0000000000000000000000000000000000000000033b2e3c9fd0803ce8000000"
+        },
+        "0x7687a742c1f1a8f246934e718167a1f123494d05171f7f82b68f858a6a368454": {
+          "previousValue": "0x0000000000000000000000000000000000000000033b2e3c9fd0803ce8000000",
+          "newValue": "0x0000000000000000000000000000000000000000033b2e3c9fd0803ce8000000"
+        },
+        "0x7687a742c1f1a8f246934e718167a1f123494d05171f7f82b68f858a6a36845a": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x00000000000000000000000000009c4000000000000000000000000000000000"
+        }
+      }
+    },
     "0x0e3dd634ffbf7ea89bbdcf09ccc463302fd5f903": {
       "label": null,
       "balanceDiff": null,
@@ -174,7 +192,15 @@
       "label": null,
       "balanceDiff": null,
       "stateDiff": {
+        "0x144dd7a010f3f6465282bebc9f1fadb88476c0e9abefa8a0865fd9c921c7c369": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000009c40",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000000"
+        },
         "0xd009ec6c13da0b4c89a84e1103e562efc1140ce59c5c395519bc3dbb152852ef": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000000"
+        },
+        "0xed127e572d6bc146d3533616abc03edb1daa7f3a1180dd729e225d56dfd784a4": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
           "newValue": "0x0000000000000000000000000000000000000000000000000000000000009c40"
         }
@@ -215,14 +241,19 @@
       "balanceDiff": null,
       "stateDiff": {
         "0x6090624016facd16d5b0ac903a50b2dc35f4004f6a8c25246e2dddee13b01a36": {
-          "previousValue": "0x0068a38656000000000002000000000000000000000000000000000000000000",
-          "newValue": "0x0068a38656000000000003000000000000000000000000000000000000000000"
+          "previousValue": "0x0068a4ce52000000000002000000000000000000000000000000000000000000",
+          "newValue": "0x0068a4ce52000000000003000000000000000000000000000000000000000000"
         },
         "0x6090624016facd16d5b0ac903a50b2dc35f4004f6a8c25246e2dddee13b01a37": {
-          "previousValue": "0x000000000000000000093a8000000000000068d1aad700000000000000000000",
-          "newValue": "0x000000000000000000093a8000000000000068d1aad700000000000068a38657"
+          "previousValue": "0x000000000000000000093a8000000000000068d2f2d300000000000000000000",
+          "newValue": "0x000000000000000000093a8000000000000068d2f2d300000000000068a4ce53"
         }
       }
+    },
+    "0x8164cc65827dcfe994ab23944cbc90e0aa80bfcb": {
+      "label": "AaveV3Ethereum.DEFAULT_INCENTIVES_CONTROLLER, AaveV3EthereumEtherFi.DEFAULT_INCENTIVES_CONTROLLER, AaveV3EthereumLido.DEFAULT_INCENTIVES_CONTROLLER",
+      "balanceDiff": null,
+      "stateDiff": {}
     },
     "0x87870bca3f3fd6335c3f4ce8392d69350b4fa4e2": {
       "label": "AaveV3Ethereum.POOL",
@@ -283,6 +314,10 @@
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
           "newValue": "0x0000000000000000000000000000000000000000000000000000000000000000"
         },
+        "0x0000000000000000000000000000000000000000000000000000000000000036": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000009c40"
+        },
         "0x0000000000000000000000000000000000000000000000000000000000000037": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
           "newValue": "0x4161766520457468657265756d20584155740000000000000000000000000024"
@@ -302,6 +337,10 @@
         "0x000000000000000000000000000000000000000000000000000000000000003d": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
           "newValue": "0x00000000000000000000000068749665ff8d2d112fa859aa293f07a622782f38"
+        },
+        "0x2c491f7384cd762770fb659d7290ed7b4da75a7c480a8a5cc401f49c4807de64": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x00000000033b2e3c9fd0803ce800000000000000000000000000000000009c40"
         }
       }
     },
@@ -333,7 +372,7 @@
         },
         "0x7687a742c1f1a8f246934e718167a1f123494d05171f7f82b68f858a6a368455": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x00000000000000000000340068a3865700000000000000000000000000000000"
+          "newValue": "0x00000000000000000000340068a4ce5300000000000000000000000000000000"
         },
         "0x7687a742c1f1a8f246934e718167a1f123494d05171f7f82b68f858a6a368456": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -348,6 +387,11 @@
           "newValue": "0x00000000000000000000000068749665ff8d2d112fa859aa293f07a622782f38"
         }
       }
+    },
+    "0xe7b67f44ea304dd7f6d215b13686637ff64cd2b2": {
+      "label": null,
+      "balanceDiff": null,
+      "stateDiff": {}
     }
   }
 }
