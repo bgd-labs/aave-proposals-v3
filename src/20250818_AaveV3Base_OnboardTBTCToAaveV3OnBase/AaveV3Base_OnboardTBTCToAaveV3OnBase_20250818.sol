@@ -13,7 +13,7 @@ import {IEmissionManager} from 'aave-v3-origin/contracts/rewards/interfaces/IEmi
 /**
  * @title Onboard tBTC to Aave v3 on Base
  * @author Aave-Chan Initiative
- * - Snapshot: TODO
+ * - Snapshot: https://snapshot.box/#/s:aavedao.eth/proposal/0x1c12498028d114d73fd1614a7f5c8ba7e922ff129b5807d35d83f436bf8b4bcd
  * - Discussion: https://governance.aave.com/t/arfc-onboard-tbtc-to-aave-v3-on-base/22226
  */
 contract AaveV3Base_OnboardTBTCToAaveV3OnBase_20250818 is AaveV3PayloadBase {

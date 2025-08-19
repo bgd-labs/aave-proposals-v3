@@ -2,7 +2,7 @@
 title: "Onboard tBTC to Aave v3 on Base"
 author: "Aave-Chan Initiative"
 discussions: "https://governance.aave.com/t/arfc-onboard-tbtc-to-aave-v3-on-base/22226"
-snapshot: TODO
+snapshot: "https://snapshot.box/#/s:aavedao.eth/proposal/0x1c12498028d114d73fd1614a7f5c8ba7e922ff129b5807d35d83f436bf8b4bcd"
 ---
 
 ## Simple Summary
@@ -66,7 +66,7 @@ Additionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://basescan.org/a
 
 - Implementation: [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250818_AaveV3Base_OnboardTBTCToAaveV3OnBase/AaveV3Base_OnboardTBTCToAaveV3OnBase_20250818.sol)
 - Tests: [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250818_AaveV3Base_OnboardTBTCToAaveV3OnBase/AaveV3Base_OnboardTBTCToAaveV3OnBase_20250818.t.sol)
-  [Snapshot](TODO)
+  [Snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0x1c12498028d114d73fd1614a7f5c8ba7e922ff129b5807d35d83f436bf8b4bcd)
 - [Discussion](https://governance.aave.com/t/arfc-onboard-tbtc-to-aave-v3-on-base/22226)
 
 ## Copyright

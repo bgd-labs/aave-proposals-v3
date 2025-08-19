@@ -18,7 +18,7 @@ contract AaveV3Base_OnboardTBTCToAaveV3OnBase_20250818_Test is ProtocolV3TestBas
   AaveV3Base_OnboardTBTCToAaveV3OnBase_20250818 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('base'), 34377129);
+    vm.createSelectFork(vm.rpcUrl('base'), 34407067);
     proposal = new AaveV3Base_OnboardTBTCToAaveV3OnBase_20250818();
   }
 
