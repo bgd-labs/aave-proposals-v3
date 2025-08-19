@@ -10,6 +10,7 @@ import {Base_Ink_AaveV3GHOLane_20250814} from './remote-lanes/Base_Ink_AaveV3GHO
 import {Avalanche_Ink_AaveV3GHOLane_20250814} from './remote-lanes/Avalanche_Ink_AaveV3GHOLane_20250814.sol';
 import {Gnosis_Ink_AaveV3GHOLane_20250814} from './remote-lanes/Gnosis_Ink_AaveV3GHOLane_20250814.sol';
 import {AaveV3Ink_GHOInkLaunch_20250814} from './AaveV3Ink_GHOInkLaunch_20250814.sol';
+import {AaveV3Ink_GHOInkListing_20250814} from './AaveV3Ink_GHOInkListing_20250814.sol';
 
 contract DeployEthereum is EthereumScript {
   function run() external broadcast {
@@ -107,9 +108,9 @@ contract DeployInk is InkScript {
 
     IPayloadsControllerCore.ExecutionAction[]
       memory listingActions = new IPayloadsControllerCore.ExecutionAction[](1);
-    // listingActions[0] = GovV3Helpers.buildAction(
-    //     GovV3Helpers.deployDeterministic(type(AaveV3Ink_GHOInkListing_20250814).creationCode)
-    // ); // TODO: Add listing action when ready
+    listingActions[0] = GovV3Helpers.buildAction(
+      GovV3Helpers.deployDeterministic(type(AaveV3Ink_GHOInkListing_20250814).creationCode)
+    );
 
     // register both actions separately at payloadsController
     GovV3Helpers.createPayload(launchActions);
@@ -151,7 +152,9 @@ contract CreateProposal is EthereumScript {
 
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsInkListing = new IPayloadsControllerCore.ExecutionAction[](1);
-    // actionsInkListing[0] = GovV3Helpers.buildAction(type(AaveV3Ink_GHOInkListing_20250814).creationCode); // TODO: Add listing action when ready
+    actionsInkListing[0] = GovV3Helpers.buildAction(
+      type(AaveV3Ink_GHOInkListing_20250814).creationCode
+    );
     payloads[4] = GovV3Helpers.buildAvalanchePayload(vm, actionsInkListing);
 
     // create proposal

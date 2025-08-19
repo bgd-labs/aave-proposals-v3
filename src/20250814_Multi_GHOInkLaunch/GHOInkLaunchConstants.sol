@@ -19,6 +19,17 @@ library GHOInkLaunchConstants {
 
   address internal constant GHO_PRICE_FEED = 0x20fd5f3FCac8883a3A0A2bBcD658A2d2c6EFa6B6;
 
+  address internal constant CONFIG_ENGINE = 0xea9989569Cf2D860597b4d649c9A963c15ab84fa;
+
+  address internal constant POOL = 0x2816cf15F6d2A220E789aA011D5EE4eB6c47FEbA;
+
+  address internal constant DUST_BIN = 0xb50881a9e7Ca0d1c08A59f4da1dE2f3D75B1E34E;
+
+  address internal constant AAVE_PROTOCOL_DATA_PROVIDER =
+    0x96086C25d13943C80Ff9a19791a40Df6aFC08328;
+
+  address internal constant EMISSION_MANAGER = 0x9CbcEf2c44cF28ff2aa36Bff7BaB315398209A79;
+
   // ACI multisig address
   // https://governance.aave.com/t/arfc-launch-gho-on-ink-set-aci-as-emissions-manager-for-rewards/22664
   address internal constant EMISSION_ADMIN = 0xac140648435d03f784879cd789130F22Ef588Fcd;
