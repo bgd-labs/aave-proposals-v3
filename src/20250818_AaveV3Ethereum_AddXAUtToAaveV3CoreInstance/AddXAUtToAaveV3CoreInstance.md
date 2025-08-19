@@ -2,7 +2,7 @@
 title: "Add XAUt to Aave v3 Core Instance"
 author: "Aave-Chan Initiative"
 discussions: "https://governance.aave.com/t/arfc-add-xaut-to-aave-v3-core-instance/22385"
-snapshot: TODO
+snapshot: "https://snapshot.box/#/s:aavedao.eth/proposal/0x71290ec88466d70c071d0dcb93c230c298f69e8c7688af94cedcc1236bf14876"
 ---
 
 ## Simple Summary
@@ -60,7 +60,7 @@ Additionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://etherscan.io/a
 
 - Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250818_AaveV3Ethereum_AddXAUtToAaveV3CoreInstance/AaveV3Ethereum_AddXAUtToAaveV3CoreInstance_20250818.sol)
 - Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250818_AaveV3Ethereum_AddXAUtToAaveV3CoreInstance/AaveV3Ethereum_AddXAUtToAaveV3CoreInstance_20250818.t.sol)
-  [Snapshot](TODO)
+  [Snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0x71290ec88466d70c071d0dcb93c230c298f69e8c7688af94cedcc1236bf14876)
 - [Discussion](https://governance.aave.com/t/arfc-add-xaut-to-aave-v3-core-instance/22385)
 
 ## Copyright

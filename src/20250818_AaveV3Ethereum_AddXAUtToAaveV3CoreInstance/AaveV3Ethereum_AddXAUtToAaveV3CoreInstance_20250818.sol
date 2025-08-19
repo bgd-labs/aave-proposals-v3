@@ -13,7 +13,7 @@ import {IEmissionManager} from 'aave-v3-origin/contracts/rewards/interfaces/IEmi
 /**
  * @title Add XAUt to Aave v3 Core Instance
  * @author Aave-Chan Initiative
- * - Snapshot: TODO
+ * - Snapshot: https://snapshot.box/#/s:aavedao.eth/proposal/0x71290ec88466d70c071d0dcb93c230c298f69e8c7688af94cedcc1236bf14876
  * - Discussion: https://governance.aave.com/t/arfc-add-xaut-to-aave-v3-core-instance/22385
  */
 contract AaveV3Ethereum_AddXAUtToAaveV3CoreInstance_20250818 is AaveV3PayloadEthereum {

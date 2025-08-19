@@ -7,7 +7,7 @@ export const config: ConfigFile = {
     shortName: 'AddXAUtToAaveV3CoreInstance',
     date: '20250818',
     discussion: 'https://governance.aave.com/t/arfc-add-xaut-to-aave-v3-core-instance/22385',
-    snapshot: '',
+    snapshot: 'https://snapshot.box/#/s:aavedao.eth/proposal/0x71290ec88466d70c071d0dcb93c230c298f69e8c7688af94cedcc1236bf14876',
     votingNetwork: 'POLYGON',
   },
   poolOptions: {
