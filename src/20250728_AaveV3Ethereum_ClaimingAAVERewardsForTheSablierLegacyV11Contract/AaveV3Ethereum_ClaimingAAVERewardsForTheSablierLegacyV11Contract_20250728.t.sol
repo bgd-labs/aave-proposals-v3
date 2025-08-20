@@ -48,7 +48,11 @@ contract AaveV3Ethereum_ClaimingAAVERewardsForTheSablierLegacyV11Contract_202507
     uint256 ownedAfter = stakeAave.stakerRewardsToClaim(proposal.SABLIER_LEGACY());
     uint256 balanceAfter = aaveToken.balanceOf(proposal.SABLIER_RECEIVER());
 
-    assertEq(ownedAfter, 0, "token left to claim");
-    assertEq(ownedBefore, balanceAfter - balanceBefore, "improper amount of reward were transfered");
+    assertEq(ownedAfter, 0, 'token left to claim');
+    assertEq(
+      ownedBefore,
+      balanceAfter - balanceBefore,
+      'improper amount of reward were transfered'
+    );
   }
 }
