@@ -5,11 +5,11 @@ discussions: "https://governance.aave.com/t/arfc-horizon-s-rwa-instance/21898"
 snapshot: "https://snapshot.box/#/s:aavedao.eth/proposal/0xc69410600084e9d3d27e6569dddda08fc053182bcf402e3e612fc97cab783f24"
 ---
 
-## Simple Summary
+# Simple Summary
 
 Proposal to activate the Horizon RWA instance, a friendly fork which launches a white label instance of the Aave Protocol, enabling the Aave DAO to capture new revenue from RWAs.
 
-## Motivation
+# Motivation
 
 Horizon’s RWA instance on Ethereum is deployed but currently the pool is paused, rewards and its admin roles are unset for the onboarded tokens, and GHO cannot be minted via a Horizon facilitator. This AIP activates the instance so integrators and users can begin interacting with the pool.
 
@@ -22,7 +22,7 @@ Concretely, the proposal:
 
 These steps finalize the operational setup for the Horizon instance.
 
-## Specification
+# Specification
 
 This proposal executes the following actions:
 

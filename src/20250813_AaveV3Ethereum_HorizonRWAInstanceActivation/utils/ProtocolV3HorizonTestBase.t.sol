@@ -11,7 +11,7 @@ import {IPoolConfigurator} from 'aave-v3-origin/contracts/interfaces/IPoolConfig
 /**
  * @dev Adapted from ProtocolV3TestBase for the Horizon market (currently at Aave v3.3).
  * - GHO is listed as a normal reserve like prime market, removes special branches.
- * - Enable eMode before supplying if available, since RWA collaterals are expected to have very low LTV w/o eMode.
+ * - Enable eMode before supplying if available.
  * - Skip liquidation with receiveAToken=true when collateral is RWA, since it is disabled.
  * - Adds helper to return all actors used in E2E test such that they may be whitelisted to hold RWA tokens.
  * - Update errors to v3.3 string format.
