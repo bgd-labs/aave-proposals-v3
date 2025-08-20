@@ -92,15 +92,15 @@
 
 
 
-### EMode: weETH/wstETH(id: 24)
+### EMode: weETH/wstETH ETH Correlated(id: 24)
 
 | description | value before | value after |
 | --- | --- | --- |
-| eMode.label | - | weETH/wstETH |
+| eMode.label | - | weETH/wstETH ETH Correlated |
 | eMode.ltv | - | 93 % |
 | eMode.liquidationThreshold | - | 95 % |
 | eMode.liquidationBonus | - | 1 % |
-| eMode.borrowableBitmap | - | wstETH |
+| eMode.borrowableBitmap | - | WETH, wstETH |
 | eMode.collateralBitmap | - | weETH |
 
 
@@ -112,10 +112,10 @@
     "24": {
       "from": null,
       "to": {
-        "borrowableBitmap": "2",
+        "borrowableBitmap": "3",
         "collateralBitmap": "268435456",
         "eModeCategory": 24,
-        "label": "weETH/wstETH",
+        "label": "weETH/wstETH ETH Correlated",
         "liquidationBonus": 10100,
         "liquidationThreshold": 9500,
         "ltv": 9300
@@ -133,11 +133,11 @@
         },
         "0x8ac003b432f8dd1ea98d6e03375ae9962317ecfe1306c0a504bc33db24b14283": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x77654554482f7773744554480000000000000000000000000000000000000018"
+          "newValue": "0x77654554482f7773744554482045544820436f7272656c617465640000000036"
         },
         "0x8ac003b432f8dd1ea98d6e03375ae9962317ecfe1306c0a504bc33db24b14284": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000002"
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000003"
         }
       }
     },

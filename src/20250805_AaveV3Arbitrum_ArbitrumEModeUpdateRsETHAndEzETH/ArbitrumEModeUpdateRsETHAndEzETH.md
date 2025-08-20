@@ -1,5 +1,5 @@
 ---
-title: "Multi eMode Update and Creation - rsETH and ezETH, wstETH"
+title: "Multi eMode Update and Creation - rsETH, ezETH, wstETH and weETH"
 author: "@TokenLogic"
 discussions: "https://governance.aave.com/t/direct-to-aip-arbitrum-emode-update-rseth-and-ezeth/22731/3"
 ---

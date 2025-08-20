@@ -21,19 +21,20 @@ contract AaveV3Ethereum_ArbitrumEModeUpdateRsETHAndEzETH_20250805 is AaveV3Paylo
     IAaveV3ConfigEngine.EModeCategoryCreation[]
       memory eModeCreations = new IAaveV3ConfigEngine.EModeCategoryCreation[](1);
 
-    address[] memory collateralAssets_WeETHWstETH = new address[](1);
-    address[] memory borrowableAssets_WeETHWstETH = new address[](1);
+    address[] memory collateralAssets_WeETHWstETHWETH = new address[](1);
+    address[] memory borrowableAssets_WeETHWstETHWETH = new address[](2);
 
-    collateralAssets_WeETHWstETH[0] = AaveV3EthereumAssets.weETH_UNDERLYING;
-    borrowableAssets_WeETHWstETH[0] = AaveV3EthereumAssets.wstETH_UNDERLYING;
+    collateralAssets_WeETHWstETHWETH[0] = AaveV3EthereumAssets.weETH_UNDERLYING;
+    borrowableAssets_WeETHWstETHWETH[0] = AaveV3EthereumAssets.wstETH_UNDERLYING;
+    borrowableAssets_WeETHWstETHWETH[1] = AaveV3EthereumAssets.WETH_UNDERLYING;
 
     eModeCreations[0] = IAaveV3ConfigEngine.EModeCategoryCreation({
       ltv: 93_00,
       liqThreshold: 95_00,
       liqBonus: 1_00,
-      label: 'weETH/wstETH',
-      collaterals: collateralAssets_WeETHWstETH,
-      borrowables: borrowableAssets_WeETHWstETH
+      label: 'weETH/wstETH ETH Correlated',
+      collaterals: collateralAssets_WeETHWstETHWETH,
+      borrowables: borrowableAssets_WeETHWstETHWETH
     });
 
     return eModeCreations;

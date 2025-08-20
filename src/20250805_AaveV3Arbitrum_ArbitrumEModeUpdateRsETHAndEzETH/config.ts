@@ -2,7 +2,7 @@ import {ConfigFile} from '../../generator/types';
 export const config: ConfigFile = {
   rootOptions: {
     pools: ['AaveV3Arbitrum', 'AaveV3Ethereum'],
-    title: 'Multi eMode Update - rsETH and ezETH',
+    title: 'Multi eMode Update - rsETH, ezETH, wstETH and weETH',
     shortName: 'ArbitrumEModeUpdateRsETHAndEzETH',
     date: '20250805',
     author: '@TokenLogic',
@@ -64,9 +64,9 @@ export const config: ConfigFile = {
             ltv: '93',
             liqThreshold: '95',
             liqBonus: '1',
-            label: 'weETH/wstETH',
+            label: 'weETH/wstETH ETH Correlated',
             collateralAssets: ['weETH'],
-            borrowableAssets: ['wstETH'],
+            borrowableAssets: ['wstETH', 'WETH'],
           },
         ],
       },
