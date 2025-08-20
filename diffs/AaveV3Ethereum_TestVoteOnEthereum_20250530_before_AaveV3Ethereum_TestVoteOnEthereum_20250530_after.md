@@ -5,7 +5,9 @@
   "raw": {
     "0xdabad81af85554e9ae636395611c58f7ec1aaec5": {
       "label": "GovernanceV3Ethereum.PAYLOADS_CONTROLLER",
+      "contract": null,
       "balanceDiff": null,
+      "nonceDiff": null,
       "stateDiff": {
         "0xf3e9bdb17e809d40894019e71fc3cd1caab638876c2f7e53420abc45924bfed5": {
           "previousValue": "0x006839b936000000000002000000000000000000000000000000000000000000",

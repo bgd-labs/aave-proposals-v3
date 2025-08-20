@@ -16,6 +16,7 @@ fs_permissions = [
 ]
 evm_version = 'shanghai'
 cache_path = 'cache/shanghai'
+extra_output = ["storageLayout"]
 
 [profile.zksync]
 src = 'zksync'
