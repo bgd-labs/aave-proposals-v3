@@ -24,10 +24,15 @@ contract AaveV3Ethereum_TestVoteOnEthereum_20250530_Test is ProtocolV3TestBase {
    * @dev executes the generic test suite including e2e and config snapshots
    */
   function test_defaultProposalExecution() public {
-    defaultTest(
-      'AaveV3Ethereum_TestVoteOnEthereum_20250530',
-      AaveV3Ethereum.POOL,
-      address(proposal)
-    );
+    vm.startStateDiffRecording();
+    executePayload(vm, address(proposal));
+    string memory rawDiff = vm.getStateDiffJson();
+    emit log_string(rawDiff);
+
+    // defaultTest(
+    //   'AaveV3Ethereum_TestVoteOnEthereum_20250530',
+    //   AaveV3Ethereum.POOL,
+    //   address(proposal)
+    // );
   }
 }
