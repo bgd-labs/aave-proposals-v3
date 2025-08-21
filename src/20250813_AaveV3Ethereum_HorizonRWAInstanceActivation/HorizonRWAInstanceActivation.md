@@ -79,8 +79,8 @@ This proposal executes the following actions:
   - GHO_DIRECT_MINTER: 0xe10C78A3AC7f016eD2DE1A89c5479b1039EAB9eA
   - BUCKET_CAPACITY: 1_000_000e18
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250813_AaveV3Ethereum_HorizonRWAInstanceActivation/AaveV3Ethereum_HorizonRWAInstanceActivation_20250813.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250813_AaveV3Ethereum_HorizonRWAInstanceActivation/AaveV3Ethereum_HorizonRWAInstanceActivation_20250813.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/786b4930a2badb738cc76c30f147af69ade9453d/src/20250813_AaveV3Ethereum_HorizonRWAInstanceActivation/AaveV3Ethereum_HorizonRWAInstanceActivation_20250813.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/786b4930a2badb738cc76c30f147af69ade9453d/src/20250813_AaveV3Ethereum_HorizonRWAInstanceActivation/AaveV3Ethereum_HorizonRWAInstanceActivation_20250813.t.sol)
 - [Snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0xc69410600084e9d3d27e6569dddda08fc053182bcf402e3e612fc97cab783f24)
 - [Discussion](https://governance.aave.com/t/arfc-horizon-s-rwa-instance/21898)
 
