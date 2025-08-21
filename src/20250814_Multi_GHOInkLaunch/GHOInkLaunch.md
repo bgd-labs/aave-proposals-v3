@@ -2,6 +2,7 @@
 title: "GHO Ink Launch"
 author: "Aave Labs"
 discussions: "https://governance.aave.com/t/arfc-launch-gho-on-ink-set-aci-as-emissions-manager-for-rewards/22664"
+snapshot: "https://snapshot.box/#/s:aavedao.eth/proposal/0xf066b8a7b1c0f3d4edff72a047809e3e1f57578d2335fd769e23561a25efb795"
 ---
 
 # Simple Summary
@@ -61,6 +62,7 @@ The table below illustrates the configured risk parameters for **GHO**
 
 - Implementation: //TODO
 - Tests: //TODO
+- [Snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0xf066b8a7b1c0f3d4edff72a047809e3e1f57578d2335fd769e23561a25efb795)
 - [Discussion](https://governance.aave.com/t/arfc-launch-gho-on-ink-set-aci-as-emissions-manager-for-rewards/22664)
 
 # Copyright
