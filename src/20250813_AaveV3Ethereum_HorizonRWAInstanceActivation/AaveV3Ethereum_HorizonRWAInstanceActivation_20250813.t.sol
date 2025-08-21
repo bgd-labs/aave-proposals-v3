@@ -21,7 +21,7 @@ import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
 import {GhoEthereum} from 'aave-address-book/GhoEthereum.sol';
 
-import {ProtocolV3HorizonTestBase} from './utils/ProtocolV3HorizonTestBase.t.sol';
+import {ProtocolV3HorizonTestBase} from './utils/ProtocolV3HorizonTestBase.sol';
 import {AaveV3Ethereum_HorizonRWAInstanceActivation_20250813} from './AaveV3Ethereum_HorizonRWAInstanceActivation_20250813.sol';
 
 /**
