@@ -1,0 +1,36 @@
+import {ConfigFile} from '../../generator/types';
+export const config: ConfigFile = {
+  rootOptions: {
+    pools: [
+      'AaveV3Ethereum',
+      'AaveV3Polygon',
+      'AaveV3Avalanche',
+      'AaveV3Optimism',
+      'AaveV3Arbitrum',
+      'AaveV3Base',
+      'AaveV3Gnosis',
+      'AaveV3Scroll',
+      'AaveV3BNB',
+      'AaveV3Sonic',
+    ],
+    title: 'Steward Deployment: MainnetSwapSteward and RewardsSteward',
+    shortName: 'StewardDeploymentMainnetSwapStewardAndRewardsSteward',
+    date: '20250821',
+    author: '@TokenLogic',
+    discussion: 'PENDING',
+    snapshot: 'PENDING',
+    votingNetwork: 'POLYGON',
+  },
+  poolOptions: {
+    AaveV3Ethereum: {configs: {OTHERS: {}}, cache: {blockNumber: 23191148}},
+    AaveV3Polygon: {configs: {OTHERS: {}}, cache: {blockNumber: 75487865}},
+    AaveV3Avalanche: {configs: {OTHERS: {}}, cache: {blockNumber: 67428335}},
+    AaveV3Optimism: {configs: {OTHERS: {}}, cache: {blockNumber: 140100461}},
+    AaveV3Arbitrum: {configs: {OTHERS: {}}, cache: {blockNumber: 370838602}},
+    AaveV3Base: {configs: {OTHERS: {}}, cache: {blockNumber: 34505178}},
+    AaveV3Gnosis: {configs: {OTHERS: {}}, cache: {blockNumber: 41720476}},
+    AaveV3Scroll: {configs: {OTHERS: {}}, cache: {blockNumber: 19791423}},
+    AaveV3BNB: {configs: {OTHERS: {}}, cache: {blockNumber: 58402040}},
+    AaveV3Sonic: {configs: {OTHERS: {}}, cache: {blockNumber: 43989355}},
+  },
+};
