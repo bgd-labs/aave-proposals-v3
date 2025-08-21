@@ -10,7 +10,7 @@ import {Base_Ink_AaveV3GHOLane_20250814} from './remote-lanes/Base_Ink_AaveV3GHO
 import {Avalanche_Ink_AaveV3GHOLane_20250814} from './remote-lanes/Avalanche_Ink_AaveV3GHOLane_20250814.sol';
 import {Gnosis_Ink_AaveV3GHOLane_20250814} from './remote-lanes/Gnosis_Ink_AaveV3GHOLane_20250814.sol';
 import {AaveV3Ink_GHOInkLaunch_20250814} from './AaveV3Ink_GHOInkLaunch_20250814.sol';
-import {AaveV3Ink_GHOInkListing_20250814} from './AaveV3Ink_GHOInkListing_20250814.sol';
+import {ChainIds} from 'solidity-utils/contracts/utils/ChainHelpers.sol';
 
 contract DeployEthereum is EthereumScript {
   function run() external broadcast {
@@ -106,22 +106,15 @@ contract DeployInk is InkScript {
       GovV3Helpers.deployDeterministic(type(AaveV3Ink_GHOInkLaunch_20250814).creationCode)
     );
 
-    IPayloadsControllerCore.ExecutionAction[]
-      memory listingActions = new IPayloadsControllerCore.ExecutionAction[](1);
-    listingActions[0] = GovV3Helpers.buildAction(
-      GovV3Helpers.deployDeterministic(type(AaveV3Ink_GHOInkListing_20250814).creationCode)
-    );
-
     // register both actions separately at payloadsController
     GovV3Helpers.createPayload(launchActions);
-    GovV3Helpers.createPayload(listingActions);
   }
 }
 
 contract CreateProposal is EthereumScript {
   function run() external {
     // create payloads
-    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](5);
+    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](6);
 
     // compose actions for validation
     IPayloadsControllerCore.ExecutionAction[]
@@ -144,18 +137,25 @@ contract CreateProposal is EthereumScript {
     payloads[2] = GovV3Helpers.buildBasePayload(vm, actionsBase);
 
     IPayloadsControllerCore.ExecutionAction[]
+      memory actionsAvalanche = new IPayloadsControllerCore.ExecutionAction[](1);
+    actionsAvalanche[0] = GovV3Helpers.buildAction(
+      type(Avalanche_Ink_AaveV3GHOLane_20250814).creationCode
+    );
+    payloads[3] = GovV3Helpers.buildAvalanchePayload(vm, actionsAvalanche);
+
+    IPayloadsControllerCore.ExecutionAction[]
+      memory actionsGnosis = new IPayloadsControllerCore.ExecutionAction[](1);
+    actionsGnosis[0] = GovV3Helpers.buildAction(
+      type(Gnosis_Ink_AaveV3GHOLane_20250814).creationCode
+    );
+    payloads[4] = GovV3Helpers.buildGnosisPayload(vm, actionsGnosis);
+
+    IPayloadsControllerCore.ExecutionAction[]
       memory actionsInkLaunch = new IPayloadsControllerCore.ExecutionAction[](1);
     actionsInkLaunch[0] = GovV3Helpers.buildAction(
       type(AaveV3Ink_GHOInkLaunch_20250814).creationCode
     );
-    payloads[3] = GovV3Helpers.buildAvalanchePayload(vm, actionsInkLaunch);
-
-    IPayloadsControllerCore.ExecutionAction[]
-      memory actionsInkListing = new IPayloadsControllerCore.ExecutionAction[](1);
-    actionsInkListing[0] = GovV3Helpers.buildAction(
-      type(AaveV3Ink_GHOInkListing_20250814).creationCode
-    );
-    payloads[4] = GovV3Helpers.buildAvalanchePayload(vm, actionsInkListing);
+    payloads[5] = GovV3Helpers._buildPayload(vm, ChainIds.INK, actionsInkLaunch);
 
     // create proposal
     vm.startBroadcast();
