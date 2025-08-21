@@ -28,14 +28,14 @@ contract AaveV3Arbitrum_ArbitrumEModeUpdateRsETHAndEzETH_20250805 is AaveV3Paylo
       ltv: 93_00,
       liqThreshold: 95_00,
       liqBonus: 1_00,
-      label: EngineFlags.KEEP_CURRENT_STRING
+      label: 'ezETH/wstETH/WETH ETH Correlated'
     });
     eModeUpdates[1] = IAaveV3ConfigEngine.EModeCategoryUpdate({
       eModeCategory: AaveV3ArbitrumEModes.RSETH_WSTETH,
       ltv: 93_00,
       liqThreshold: 95_00,
       liqBonus: 1_00,
-      label: EngineFlags.KEEP_CURRENT_STRING
+      label: 'rsETH/wstETH/WETH ETH Correlated'
     });
 
     return eModeUpdates;

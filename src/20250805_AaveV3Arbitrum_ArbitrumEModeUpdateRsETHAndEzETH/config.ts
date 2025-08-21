@@ -30,14 +30,14 @@ export const config: ConfigFile = {
             ltv: '93',
             liqThreshold: '95',
             liqBonus: '1',
-            label: 'ETH correlated',
+            label: 'ezETH/wstETH/WETH ETH Correlated',
           },
           {
             eModeCategory: 'AaveV3ArbitrumEModes.RSETH_WSTETH',
             ltv: '93',
             liqThreshold: '95',
             liqBonus: '1',
-            label: 'ETH correlated',
+            label: 'rsETH/wstETH/WETH ETH Correlated',
           },
         ],
         EMODES_ASSETS: [
