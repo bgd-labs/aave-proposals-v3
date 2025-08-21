@@ -124,7 +124,7 @@
   },
   "raw": {
     "0x40d16fc0246ad3160ccc09b8d0d3a2cd28ae6c2f": {
-      "label": "AaveV3Ethereum.ASSETS.GHO.UNDERLYING, AaveV3EthereumLido.ASSETS.GHO.UNDERLYING, GhoEthereum.GHO_TOKEN",
+      "label": "AaveV3Ethereum.ASSETS.GHO.UNDERLYING, AaveV3EthereumLido.ASSETS.GHO.UNDERLYING, GhoEthereum.GHO_TOKEN, UmbrellaEthereum.UMBRELLA_STAKE_ASSETS.STK_GHO_V1.UNDERLYING",
       "balanceDiff": null,
       "stateDiff": {
         "0x0000000000000000000000000000000000000000000000000000000000000002": {
