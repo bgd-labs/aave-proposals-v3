@@ -19,7 +19,8 @@ yarn.lock
 # ignore foundry deploy artifacts
 broadcast/
 
-reports/
+reports/*
+!reports/seatbelt
 
 # tooling download folder
 etherscan
