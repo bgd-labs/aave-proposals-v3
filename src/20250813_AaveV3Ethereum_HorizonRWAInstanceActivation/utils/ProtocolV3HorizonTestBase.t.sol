@@ -16,7 +16,7 @@ import {IPoolConfigurator} from 'aave-v3-origin/contracts/interfaces/IPoolConfig
  * - Adds helper to return all actors used in E2E test such that they may be whitelisted to hold RWA tokens.
  * - Update errors to v3.3 string format.
  */
-contract ProtocolV3HorizonTestBase is ProtocolV3TestBase {
+abstract contract ProtocolV3HorizonTestBase is ProtocolV3TestBase {
   string public constant BORROW_CAP_EXCEEDED = '50';
   string public constant SUPPLY_CAP_EXCEEDED = '51';
 
