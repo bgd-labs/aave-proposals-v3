@@ -12,9 +12,9 @@ This publication proposes updating the ezETH and rsETH eMode categories on Arbit
 
 In preparation for the upcoming DRIPs campaign on Arbitrum, this publication proposes enabling Kelp and Renzo Liquid Restaking Tokens (LRTs) access to ETH via existing v3.2 eModes.
 
-Upon implementing this proposal, weETH, rsETH and ezETH will each have the same LTV and LT for borrowing wstETH and ETH on Arbitrum.
+Upon implementing this proposal, the weETH e-Mode on Core and rsETH and ezETH e-Modes on Arbitrum will each have the same LTV and LT for borrowing wstETH and ETH.
 
-Given the behavior of market participants and expected growth of borrowing demand for WETH market, we recommend including WETH into the E-Modes for rsETH and ezETH. Additionally, in order to align the risk profiles of LRTs and wstETH we recommend creating the wstETH/WETH E-Mode.
+Given the behavior of market participants and expected growth of borrowing demand for WETH market, we recommend including WETH into the E-Modes for rsETH and ezETH. Additionally, in order to align the risk profiles of LRTs and wstETH we recommend creating the wstETH/WETH E-Mode on Arbitrum and weETH/wstETH E-Mode on Core.
 
 ### Specification
 
