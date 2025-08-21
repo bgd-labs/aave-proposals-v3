@@ -60,8 +60,8 @@ Given the behavior of market participants and expected growth of borrowing deman
 
 ## References
 
-- Implementation: [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250805_AaveV3Arbitrum_ArbitrumEModeUpdateRsETHAndEzETH/AaveV3Arbitrum_ArbitrumEModeUpdateRsETHAndEzETH_20250805.sol)[AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250805_AaveV3Arbitrum_ArbitrumEModeUpdateRsETHAndEzETH/AaveV3Ethereum_ArbitrumEModeUpdateRsETHAndEzETH_20250805.sol)
-- Tests: [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250805_AaveV3Arbitrum_ArbitrumEModeUpdateRsETHAndEzETH/AaveV3Arbitrum_ArbitrumEModeUpdateRsETHAndEzETH_20250805.t.sol)[AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250805_AaveV3Arbitrum_ArbitrumEModeUpdateRsETHAndEzETH/AaveV3Ethereum_ArbitrumEModeUpdateRsETHAndEzETH_20250805.t.sol)
+- Implementation: [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/d8d5daa3cdbe7b8ec1f8a242fd0c3eea19e845cf/src/20250805_AaveV3Arbitrum_ArbitrumEModeUpdateRsETHAndEzETH/AaveV3Arbitrum_ArbitrumEModeUpdateRsETHAndEzETH_20250805.sol)[AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/d8d5daa3cdbe7b8ec1f8a242fd0c3eea19e845cf/src/20250805_AaveV3Arbitrum_ArbitrumEModeUpdateRsETHAndEzETH/AaveV3Ethereum_ArbitrumEModeUpdateRsETHAndEzETH_20250805.sol)
+- Tests: [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/d8d5daa3cdbe7b8ec1f8a242fd0c3eea19e845cf/src/20250805_AaveV3Arbitrum_ArbitrumEModeUpdateRsETHAndEzETH/AaveV3Arbitrum_ArbitrumEModeUpdateRsETHAndEzETH_20250805.t.sol)[AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/d8d5daa3cdbe7b8ec1f8a242fd0c3eea19e845cf/src/20250805_AaveV3Arbitrum_ArbitrumEModeUpdateRsETHAndEzETH/AaveV3Ethereum_ArbitrumEModeUpdateRsETHAndEzETH_20250805.t.sol)
 - Snapshot: Direct-to-AIP
 - [Discussion](https://governance.aave.com/t/direct-to-aip-arbitrum-emode-update-rseth-and-ezeth/22731/3)
 
