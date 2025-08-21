@@ -60,8 +60,7 @@ export function isV2Pool(pool: PoolIdentifier) {
 }
 
 export function isWhitelabelPool(pool: PoolIdentifier) {
-  if (pool.toLowerCase().includes('whitelabel')) return true;
-  return false;
+  return pool.toLowerCase().includes('whitelabel');
 }
 
 export function getVersion(pool: PoolIdentifier) {
