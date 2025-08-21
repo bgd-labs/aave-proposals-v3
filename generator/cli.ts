@@ -207,7 +207,7 @@ if (options.configFile) {
   options.shortName = pascalCase(options.title);
   options.date = getDate();
 
-  if (!options.author && whitelabelPools.length == 0) {
+  if (!options.author) {
     options.author = await input({
       message: 'Author of your proposal',
       validate(input) {
