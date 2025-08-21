@@ -9,14 +9,14 @@ import {GhoCCIPChains} from '../constants/GhoCCIPChains.sol';
 import {IACLManager} from 'aave-address-book/AaveV3.sol';
 import {IGhoToken} from 'src/interfaces/IGhoToken.sol';
 import {IOwnable} from 'aave-address-book/common/IOwnable.sol';
-import {GovernanceV3Avalanche} from 'aave-address-book/GovernanceV3Avalanche.sol';
-import {AaveV3Avalanche} from 'aave-address-book/AaveV3Avalanche.sol';
 import {IUpgradeableBurnMintTokenPool_1_5_1} from 'src/interfaces/ccip/tokenPool/IUpgradeableBurnMintTokenPool.sol';
 import {IGhoAaveSteward} from 'src/interfaces/IGhoAaveSteward.sol';
 import {IGhoCcipSteward} from 'src/interfaces/IGhoCcipSteward.sol';
+import {IPool} from 'aave-address-book/AaveV3.sol';
 
 abstract contract AaveV3GHOLaunchTest_PreExecution is AaveV3GHOLaneTest {
   IACLManager public immutable LOCAL_ACL_MANAGER;
+  address public immutable LOCAL_OWNER;
 
   constructor(
     GhoCCIPChains.ChainInfo memory localChainInfo,
@@ -42,22 +42,27 @@ abstract contract AaveV3GHOLaunchTest_PreExecution is AaveV3GHOLaneTest {
     )
   {
     LOCAL_ACL_MANAGER = IACLManager(localChainInfo.aclManager);
+    LOCAL_OWNER = localChainInfo.owner;
   }
 
   /**
    * @dev executes the generic test suite including e2e and config snapshots
    */
   function test_defaultProposalExecution() public {
-    defaultTest(
-      'AaveV3Avalanche_GHOAvalancheLaunch_20250519',
-      AaveV3Avalanche.POOL,
-      address(proposal)
-    );
+    defaultTest(_reportName(), IPool(_aavePool()), address(proposal));
   }
+
+  function _reportName() internal view virtual returns (string memory);
+
+  function _aavePool() internal view virtual returns (address);
 
   function _localRiskCouncil() internal view virtual returns (address);
 
   function _localRmnProxy() internal view virtual returns (address);
+
+  function _aavePoolAddressesProvider() internal view virtual returns (address);
+
+  function _aaveProtocolDataProvider() internal view virtual returns (address);
 
   function test_stewardRoles() public {
     // gho token is deployed in the AIP, does not existing before
@@ -73,18 +78,8 @@ abstract contract AaveV3GHOLaunchTest_PreExecution is AaveV3GHOLaneTest {
 
     executePayload(vm, address(proposal));
 
-    assertTrue(
-      LOCAL_GHO_TOKEN.hasRole(
-        LOCAL_GHO_TOKEN.FACILITATOR_MANAGER_ROLE(),
-        GovernanceV3Avalanche.EXECUTOR_LVL_1
-      )
-    );
-    assertTrue(
-      LOCAL_GHO_TOKEN.hasRole(
-        LOCAL_GHO_TOKEN.BUCKET_MANAGER_ROLE(),
-        GovernanceV3Avalanche.EXECUTOR_LVL_1
-      )
-    );
+    assertTrue(LOCAL_GHO_TOKEN.hasRole(LOCAL_GHO_TOKEN.FACILITATOR_MANAGER_ROLE(), LOCAL_OWNER));
+    assertTrue(LOCAL_GHO_TOKEN.hasRole(LOCAL_GHO_TOKEN.BUCKET_MANAGER_ROLE(), LOCAL_OWNER));
 
     IGhoToken.Facilitator memory facilitator = LOCAL_GHO_TOKEN.getFacilitator(
       address(LOCAL_TOKEN_POOL)
@@ -121,18 +116,9 @@ abstract contract AaveV3GHOLaunchTest_PreExecution is AaveV3GHOLaneTest {
   }
 
   function _test_ghoAaveCore_stewardsConfig() internal view virtual {
-    assertEq(
-      IOwnable(address(LOCAL_GHO_AAVE_CORE_STEWARD)).owner(),
-      GovernanceV3Avalanche.EXECUTOR_LVL_1
-    );
-    assertEq(
-      LOCAL_GHO_AAVE_CORE_STEWARD.POOL_ADDRESSES_PROVIDER(),
-      address(AaveV3Avalanche.POOL_ADDRESSES_PROVIDER)
-    );
-    assertEq(
-      LOCAL_GHO_AAVE_CORE_STEWARD.POOL_DATA_PROVIDER(),
-      address(AaveV3Avalanche.AAVE_PROTOCOL_DATA_PROVIDER)
-    );
+    assertEq(IOwnable(address(LOCAL_GHO_AAVE_CORE_STEWARD)).owner(), LOCAL_OWNER);
+    assertEq(LOCAL_GHO_AAVE_CORE_STEWARD.POOL_ADDRESSES_PROVIDER(), _aavePoolAddressesProvider());
+    assertEq(LOCAL_GHO_AAVE_CORE_STEWARD.POOL_DATA_PROVIDER(), _aaveProtocolDataProvider());
     assertEq(LOCAL_GHO_AAVE_CORE_STEWARD.RISK_COUNCIL(), _localRiskCouncil());
     IGhoAaveSteward.BorrowRateConfig memory config = LOCAL_GHO_AAVE_CORE_STEWARD
       .getBorrowRateConfig();
@@ -143,10 +129,7 @@ abstract contract AaveV3GHOLaunchTest_PreExecution is AaveV3GHOLaneTest {
   }
 
   function _test_ghoBucket_stewardsConfig() internal view virtual {
-    assertEq(
-      IOwnable(address(LOCAL_GHO_BUCKET_STEWARD)).owner(),
-      GovernanceV3Avalanche.EXECUTOR_LVL_1
-    );
+    assertEq(IOwnable(address(LOCAL_GHO_BUCKET_STEWARD)).owner(), LOCAL_OWNER);
     assertEq(LOCAL_GHO_BUCKET_STEWARD.GHO_TOKEN(), address(LOCAL_GHO_TOKEN));
     assertEq(LOCAL_GHO_BUCKET_STEWARD.RISK_COUNCIL(), _localRiskCouncil());
     assertEq(LOCAL_GHO_BUCKET_STEWARD.getControlledFacilitators().length, 0); // before AIP, no controlled facilitators are set
@@ -181,7 +164,7 @@ abstract contract AaveV3GHOLaunchTest_PreExecution is AaveV3GHOLaneTest {
   function test_tokenPoolConfig() public {
     executePayload(vm, address(proposal));
 
-    assertEq(LOCAL_TOKEN_POOL.owner(), GovernanceV3Avalanche.EXECUTOR_LVL_1);
+    assertEq(LOCAL_TOKEN_POOL.owner(), LOCAL_OWNER);
     assertEq(
       address(uint160(uint256(vm.load(address(LOCAL_TOKEN_POOL), bytes32(0))) >> 2)), // pending owner
       address(0)

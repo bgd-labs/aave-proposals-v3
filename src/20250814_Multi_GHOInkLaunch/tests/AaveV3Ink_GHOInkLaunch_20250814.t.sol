@@ -42,12 +42,28 @@ contract AaveV3Ink_GHOInkLaunch_20250814_PreExecution is AaveV3GHOLaunchTest_Pre
     assertEq(LOCAL_CCIP_ROUTER.typeAndVersion(), 'Router 1.2.0');
   }
 
+  function _reportName() internal view virtual override returns (string memory) {
+    return 'AaveV3Ink_GHOInkLaunch_20250814';
+  }
+
+  function _aavePool() internal view virtual override returns (address) {
+    return GHOInkLaunchConstants.POOL;
+  }
+
   function _localRiskCouncil() internal view virtual override returns (address) {
     return GHOInkLaunchConstants.RISK_COUNCIL;
   }
 
   function _localRmnProxy() internal view virtual override returns (address) {
     return GHOInkLaunchConstants.RMN;
+  }
+
+  function _aavePoolAddressesProvider() internal view virtual override returns (address) {
+    return GHOInkLaunchConstants.POOL_ADDRESSES_PROVIDER;
+  }
+
+  function _aaveProtocolDataProvider() internal view virtual override returns (address) {
+    return GHOInkLaunchConstants.AAVE_PROTOCOL_DATA_PROVIDER;
   }
 
   function _test_ghoAaveCore_stewardsConfig() internal view virtual override {
