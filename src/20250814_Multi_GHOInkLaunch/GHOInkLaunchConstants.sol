@@ -7,12 +7,12 @@ pragma solidity ^0.8.0;
  */
 library GHOInkLaunchConstants {
   // Block Numbers for forking, below values to match /config.ts
-  uint256 internal constant INK_BLOCK_NUMBER = 22045090;
-  uint256 internal constant AVAX_BLOCK_NUMBER = 67272548;
-  uint256 internal constant ARB_BLOCK_NUMBER = 369812065;
-  uint256 internal constant BASE_BLOCK_NUMBER = 34377046;
-  uint256 internal constant ETH_BLOCK_NUMBER = 23169876;
-  uint256 internal constant GNOSIS_BLOCK_NUMBER = 41670939;
+  uint256 internal constant INK_BLOCK_NUMBER = 22331165;
+  uint256 internal constant AVAX_BLOCK_NUMBER = 67445589;
+  uint256 internal constant ARB_BLOCK_NUMBER = 370958655;
+  uint256 internal constant BASE_BLOCK_NUMBER = 34520153;
+  uint256 internal constant ETH_BLOCK_NUMBER = 23193620;
+  uint256 internal constant GNOSIS_BLOCK_NUMBER = 41726320;
 
   // Common Addresses
   address internal constant RISK_COUNCIL = 0x8513e6F37dBc52De87b166980Fa3F50639694B60;

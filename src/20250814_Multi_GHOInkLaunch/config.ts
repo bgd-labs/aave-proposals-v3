@@ -20,11 +20,11 @@ export const config: ConfigFile = {
     votingNetwork: VOTING_NETWORK.POLYGON,
   },
   poolOptions: {
-    AaveV3Avalanche: {configs: {OTHERS: {}}, cache: {blockNumber: 67272548}},
-    AaveV3Arbitrum: {configs: {OTHERS: {}}, cache: {blockNumber: 369812065}},
-    AaveV3Base: {configs: {OTHERS: {}}, cache: {blockNumber: 34377046}},
-    AaveV3Ethereum: {configs: {OTHERS: {}}, cache: {blockNumber: 23169876}},
-    AaveV3Gnosis: {configs: {OTHERS: {}}, cache: {blockNumber: 41670939}},
+    AaveV3Avalanche: {configs: {OTHERS: {}}, cache: {blockNumber: 67445589}},
+    AaveV3Arbitrum: {configs: {OTHERS: {}}, cache: {blockNumber: 370958655}},
+    AaveV3Base: {configs: {OTHERS: {}}, cache: {blockNumber: 34520153}},
+    AaveV3Ethereum: {configs: {OTHERS: {}}, cache: {blockNumber: 23193620}},
+    AaveV3Gnosis: {configs: {OTHERS: {}}, cache: {blockNumber: 41726320}},
     // AaveV3Ink: { // TODO: AaveV3Ink type needed
     //   configs: {
     //     ASSET_LISTING: [
@@ -56,7 +56,7 @@ export const config: ConfigFile = {
     //       },
     //     ],
     //   },
-    //   cache: {blockNumber: 22045090},
+    //   cache: {blockNumber: 22331165},
     // },
   },
 };
