@@ -44,6 +44,7 @@ jobs:
         uses: bgd-labs/github-workflows/.github/actions/foundry-test@main
         with:
           MODE: "CHANGED"
+          FOUNDRY_PROFILE: "test"
 
       - name: Run ZK tests
         id: zktest
@@ -52,12 +53,13 @@ jobs:
           MODE: "CHANGED"
           ZKSYNC: true
           ROOT_DIR: "zksync"
+          FOUNDRY_PROFILE: "test"
 
-      - name: Run Forge tests
+      - name: Create comment
         uses: bgd-labs/github-workflows/.github/actions/comment-artifact@main
 
       # we let failing tests pass so we can log them in the comment, still we want the ci to fail
-      - name: Post test
+      - name: Post test result
         if: ${{ steps.test.outputs.testStatus != 0 || steps.zktest.outputs.testStatus != 0 }}
         run: |
           echo "tests failed"

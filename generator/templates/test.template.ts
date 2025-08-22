@@ -4,6 +4,7 @@ import {
   getChainAlias,
   getPoolChain,
   isV2Pool,
+  isWhitelabelPool,
 } from '../common';
 import {Options, PoolConfig, PoolIdentifier} from '../types';
 import {prefixWithPragma} from '../utils/constants';
@@ -29,7 +30,7 @@ import {${contractName}} from './${contractName}.sol';
 
 /**
  * @dev Test for ${contractName}
- * command: FOUNDRY_PROFILE=${getChainAlias(chain)} forge test ${chain === 'ZkSync' ? '--zksync --match-path=zksync/src/' : '--match-path=src/'}${folderName}/${contractName}.t.sol -vv
+ * command: FOUNDRY_PROFILE=${chain === 'ZkSync' ? 'zksync' : 'test'} forge test ${chain === 'ZkSync' ? '--zksync --match-path=zksync/src/' : '--match-path=src/'}${folderName}/${contractName}.t.sol -vv
  */
 contract ${contractName}_Test is ${testBase} {
   ${contractName} internal proposal;
@@ -45,7 +46,7 @@ contract ${contractName}_Test is ${testBase} {
    * @dev executes the generic test suite including e2e and config snapshots
    */
   function test_defaultProposalExecution() public {
-    defaultTest('${contractName}', ${pool}.POOL, address(proposal));
+    defaultTest('${contractName}', ${pool}.POOL, address(proposal) ${isWhitelabelPool(pool) ? ', true, true' : ''});
   }
 
   ${functions}

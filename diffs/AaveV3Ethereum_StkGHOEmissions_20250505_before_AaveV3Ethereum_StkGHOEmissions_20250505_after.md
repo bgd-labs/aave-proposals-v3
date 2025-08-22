@@ -1,0 +1,46 @@
+## Raw diff
+
+```json
+{
+  "raw": {
+    "0x1a88df1cfe15af22b3c4c783d4e6f7f9e0c1885d": {
+      "label": "AaveSafetyModule.STK_GHO",
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x0000000000000000000000000000000000000000000000000000000000000009": {
+          "previousValue": "0x00000000000000000000000000000000000000000000000000000000681783cb",
+          "newValue": "0x00000000000000000000000000000000000000000000000000000000690677ab"
+        },
+        "0x86121dd5a0c2b7c1c53686b279a1b285cd7a4ee00504760f10ad7ec3f63d5f63": {
+          "previousValue": "0x00000000000000000000000068192957000000000000000000041ca7e961012f",
+          "newValue": "0x000000000000000000000000681929ab000000000000000000041ca7e961012f"
+        }
+      }
+    },
+    "0x7fc66500c84a76ad7e9c93437bfc5ac33e2ddae9": {
+      "label": "AaveV2Ethereum.ASSETS.AAVE.UNDERLYING, AaveV2EthereumArc.ASSETS.AAVE.UNDERLYING, AaveV3Ethereum.ASSETS.AAVE.UNDERLYING",
+      "balanceDiff": null,
+      "stateDiff": {
+        "0xab893b50027afb0206840523db2bd5f418dfb378758e9e25970914468b7acb4b": {
+          "previousValue": "0x000000000000000000000000000000000000000000000163c21d4d5d8b239e3f",
+          "newValue": "0x0000000000000000000000000000000000000000000005338a4b85473202f03f"
+        }
+      }
+    },
+    "0xdabad81af85554e9ae636395611c58f7ec1aaec5": {
+      "label": "GovernanceV3Ethereum.PAYLOADS_CONTROLLER",
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x3afe92d2042bbea44e1cd631b18927ebb7b77f29c06e1b7c2ae1b4979396e90f": {
+          "previousValue": "0x00681929aa000000000002000000000000000000000000000000000000000000",
+          "newValue": "0x00681929aa000000000003000000000000000000000000000000000000000000"
+        },
+        "0x3afe92d2042bbea44e1cd631b18927ebb7b77f29c06e1b7c2ae1b4979396e910": {
+          "previousValue": "0x000000000000000000093a8000000000000068474e2b00000000000000000000",
+          "newValue": "0x000000000000000000093a8000000000000068474e2b000000000000681929ab"
+        }
+      }
+    }
+  }
+}
+```

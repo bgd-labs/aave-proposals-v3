@@ -3,6 +3,8 @@
  * Therefore instead of maintaining imports, we just extract them from the generated code instead.
  */
 
+import {POOLS} from '../types';
+
 const GovernanceImports = [
   'GovV3Helpers',
   'IPayloadsControllerCore',
@@ -19,7 +21,7 @@ function generateAddressBookImports(code: string) {
   let root = '';
   // lookbehind for I to not match interfaces like IAaveV3ConfigEngine
   const addressBookMatch = code.match(/(?<!I)(AaveV[2..3][A-Za-z]+)(?<!(Assets)|(EModes))\b\./);
-  if (addressBookMatch) {
+  if (addressBookMatch && (POOLS as readonly string[]).includes(addressBookMatch[1])) {
     imports.push(addressBookMatch[1]);
     root = addressBookMatch[1];
   }
@@ -101,9 +103,12 @@ export function prefixWithImports(code: string) {
   if (findMatch(code, 'GovernanceV3Ethereum')) {
     imports += `import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';\n`;
   }
+  if (findMatch(code, 'GovernanceV3InkWhitelabel')) {
+    imports += `import {GovernanceV3InkWhitelabel} from 'aave-address-book/GovernanceV3InkWhitelabel.sol';\n`;
+  }
   if (findMatch(code, 'IEmissionManager')) {
     imports += `import {IEmissionManager} from 'aave-v3-origin/contracts/rewards/interfaces/IEmissionManager.sol';\n`;
   }
 
-  return imports + code;
+  return imports + '\n' + code;
 }

@@ -2,10 +2,10 @@ import {confirm} from '@inquirer/prompts';
 import {CodeArtifact, FEATURE, FeatureModule, PoolIdentifier} from '../types';
 import {getContract} from 'viem';
 import {CHAIN_TO_CHAIN_ID, getPoolChain, getExplorerLink} from '../common';
-import {TEST_EXECUTE_PROPOSAL} from '../utils/constants';
+import {testExecuteProposal} from '../utils/constants';
 import {EmissionUpdate} from './types';
 import {addressPrompt, translateJsAddressToSol} from '../prompts/addressPrompt';
-import {getClient} from '@bgd-labs/rpc-env';
+import {getClient} from '@bgd-labs/toolbox';
 
 async function fetchEmission(pool: PoolIdentifier): Promise<EmissionUpdate> {
   const asset = await addressPrompt({
@@ -80,7 +80,7 @@ export const emissionUpdates: FeatureModule<EmissionUpdate[]> = {
       test: {
         fn: cfg.map(
           (cfg) => `function test_${cfg.symbol}Admin() public {
-            ${TEST_EXECUTE_PROPOSAL}
+            ${testExecuteProposal(pool)}
             assertEq(IEmissionManager(${pool}.EMISSION_MANAGER).getEmissionAdmin(${translateJsAddressToSol(cfg.asset)}), ${translateJsAddressToSol(cfg.admin)});
           }`,
         ),

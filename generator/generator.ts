@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import {generateContractName, generateFolderName} from './common';
+import {generateContractName, generateFolderName, isWhitelabelPool} from './common';
 import {proposalTemplate} from './templates/proposal.template';
 import {testTemplate} from './templates/test.template';
 import {confirm} from '@inquirer/prompts';
@@ -119,7 +119,9 @@ export async function writeFiles(options: Options, {jsonConfig, scripts, aip, pa
   // write config
   await askBeforeWrite(options, path.join(baseFolder, 'config.ts'), jsonConfig);
   // write aip
-  await askBeforeWrite(options, path.join(baseFolder, `${options.shortName}.md`), aip);
+  if (!options.pools.some((pool) => isWhitelabelPool(pool))) {
+    await askBeforeWrite(options, path.join(baseFolder, `${options.shortName}.md`), aip);
+  }
   // write scripts
   await askBeforeWrite(
     options,

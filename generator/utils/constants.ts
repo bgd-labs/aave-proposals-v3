@@ -1,3 +1,6 @@
+import {isWhitelabelPool} from '../common';
+import {PoolIdentifier} from '../types';
+
 export function prefixWithPragma(code: string) {
   return (
     `// SPDX-License-Identifier: MIT
@@ -5,4 +8,9 @@ export function prefixWithPragma(code: string) {
   );
 }
 
-export const TEST_EXECUTE_PROPOSAL = `GovV3Helpers.executePayload(vm,address(proposal));`;
+export function testExecuteProposal(pool: PoolIdentifier) {
+  if (!isWhitelabelPool(pool)) {
+    return `GovV3Helpers.executePayload(vm,address(proposal));`;
+  }
+  return `executePayload(vm,address(proposal),${pool}.POOL);`;
+}

@@ -2,7 +2,6 @@ import * as addressBook from '@bgd-labs/aave-address-book';
 import {
   AssetEModeUpdate,
   BorrowUpdate,
-  BorrowUpdatePartial,
   CapsUpdate,
   CollateralUpdate,
   EModeCategoryUpdate,
@@ -12,6 +11,7 @@ import {
   RateStrategyUpdate,
   FreezeUpdate,
   EmissionUpdate,
+  EModeCategoryCreation,
 } from './features/types';
 import {FlashBorrower} from './features/flashBorrower';
 
@@ -39,6 +39,8 @@ export const V3_POOLS = [
   'AaveV3Linea',
   'AaveV3Celo',
   'AaveV3Sonic',
+  'AaveV3Soneium',
+  'AaveV3InkWhitelabel',
 ] as const satisfies readonly (keyof typeof addressBook)[];
 
 export const POOLS = [
@@ -87,6 +89,7 @@ export enum FEATURE {
   COLLATERALS_UPDATE = 'COLLATERALS_UPDATE',
   EMODES_ASSETS = 'EMODES_ASSETS',
   EMODES_UPDATES = 'EMODES_UPDATES',
+  EMODES_CREATION = 'EMODES_CREATION',
   FLASH_BORROWER = 'FLASH_BORROWER',
   PRICE_FEEDS_UPDATE = 'PRICE_FEEDS_UPDATE',
   RATE_UPDATE_V3 = 'RATE_UPDATE_V3',
@@ -135,6 +138,7 @@ export interface PoolConfig {
     [FEATURE.CAPS_UPDATE]?: CapsUpdate[];
     [FEATURE.COLLATERALS_UPDATE]?: CollateralUpdate[];
     [FEATURE.EMODES_ASSETS]?: AssetEModeUpdate[];
+    [FEATURE.EMODES_CREATION]?: EModeCategoryCreation[];
     [FEATURE.EMODES_UPDATES]?: EModeCategoryUpdate[];
     [FEATURE.FLASH_BORROWER]?: FlashBorrower;
     [FEATURE.PRICE_FEEDS_UPDATE]?: PriceFeedUpdate[];
