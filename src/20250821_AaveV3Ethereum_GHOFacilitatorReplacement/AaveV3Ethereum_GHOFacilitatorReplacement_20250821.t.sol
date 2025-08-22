@@ -2,6 +2,7 @@
 pragma solidity ^0.8.0;
 
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
+import {GhoEthereum} from 'aave-address-book/GhoEthereum.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 
 import 'forge-std/Test.sol';
@@ -11,6 +12,7 @@ import {AaveV3Ethereum_GHOFacilitatorReplacement_20250821} from './AaveV3Ethereu
 import {ProxyAdmin, ITransparentUpgradeableProxy} from 'openzeppelin-contracts/contracts/proxy/transparent/ProxyAdmin.sol';
 
 import {IGhoToken} from './interfaces/IGhoToken.sol';
+import {IGhoBucketSteward} from './interfaces/IGhoBucketSteward.sol';
 
 /**
  * @dev Test for AaveV3Ethereum_GHOFacilitatorReplacement_20250821
@@ -59,8 +61,18 @@ contract AaveV3Ethereum_GHOFacilitatorReplacement_20250821_Test is ProtocolV3Tes
     executePayload(vm, address(proposal));
 
     assertFalse(AaveV3Ethereum.ACL_MANAGER.isRiskAdmin(proposal.OLD_FACILITATOR()));
-
     assertTrue(AaveV3Ethereum.ACL_MANAGER.isRiskAdmin(proposal.NEW_FACILITATOR()));
+
+    assertTrue(
+      IGhoBucketSteward(GhoEthereum.GHO_BUCKET_STEWARD).isControlledFacilitator(
+        proposal.NEW_FACILITATOR()
+      )
+    );
+    assertFalse(
+      IGhoBucketSteward(GhoEthereum.GHO_BUCKET_STEWARD).isControlledFacilitator(
+        proposal.OLD_FACILITATOR()
+      )
+    );
   }
 
   function test_proxyAdmin() public {

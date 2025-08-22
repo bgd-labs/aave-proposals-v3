@@ -4,9 +4,11 @@ pragma solidity ^0.8.0;
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
 
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
+import {GhoEthereum} from 'aave-address-book/GhoEthereum.sol';
 
 import {IGhoToken} from './interfaces/IGhoToken.sol';
 import {IGhoDirectMinter} from './interfaces/IGhoDirectMinter.sol';
+import {IGhoBucketSteward} from './interfaces/IGhoBucketSteward.sol';
 
 /**
  * @title GHO facilitator replacement
@@ -42,5 +44,11 @@ contract AaveV3Ethereum_GHOFacilitatorReplacement_20250821 is IProposalGenericEx
     // revoke roles from the old facilitator
     IGhoToken(AaveV3EthereumAssets.GHO_UNDERLYING).removeFacilitator(OLD_FACILITATOR);
     AaveV3Ethereum.ACL_MANAGER.removeRiskAdmin(OLD_FACILITATOR);
+
+    address[] memory vaults = new address[](1);
+    vaults[0] = NEW_FACILITATOR;
+    IGhoBucketSteward(GhoEthereum.GHO_BUCKET_STEWARD).setControlledFacilitator(vaults, true);
+    vaults[0] = OLD_FACILITATOR;
+    IGhoBucketSteward(GhoEthereum.GHO_BUCKET_STEWARD).setControlledFacilitator(vaults, false);
   }
 }
