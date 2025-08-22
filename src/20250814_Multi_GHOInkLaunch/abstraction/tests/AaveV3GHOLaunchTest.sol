@@ -65,19 +65,44 @@ abstract contract AaveV3GHOLaunchTest_PreExecution is AaveV3GHOLaneTest {
   function _aaveProtocolDataProvider() internal view virtual returns (address);
 
   function test_stewardRoles() public {
-    // gho token is deployed in the AIP, does not existing before
+    _test_ghoAaveCore_stewardsRoles_beforePayloadExecution();
+    _test_ghoBucket_stewardsConfig_beforePayloadExecution();
+    _test_ghoTokenPool_stewardsConfig_beforePayloadExecution();
 
+    executePayload(vm, address(proposal));
+
+    _test_ghoTokenPool_stewardsConfig_afterPayloadExecution();
+    _test_ghoAaveCore_stewardsRoles_afterPayloadExecution();
+    _test_ghoBucket_stewardsConfig_afterPayloadExecution();
+  }
+
+  function _test_ghoAaveCore_stewardsRoles_beforePayloadExecution() internal view virtual {
     assertFalse(
       LOCAL_ACL_MANAGER.hasRole(
         LOCAL_ACL_MANAGER.RISK_ADMIN_ROLE(),
         address(LOCAL_GHO_AAVE_CORE_STEWARD)
       )
     );
+  }
+
+  function _test_ghoAaveCore_stewardsRoles_afterPayloadExecution() internal view virtual {
+    assertTrue(
+      LOCAL_ACL_MANAGER.hasRole(
+        LOCAL_ACL_MANAGER.RISK_ADMIN_ROLE(),
+        address(LOCAL_GHO_AAVE_CORE_STEWARD)
+      )
+    );
+  }
+
+  function _test_ghoBucket_stewardsConfig_beforePayloadExecution() internal view virtual {
     assertEq(LOCAL_GHO_BUCKET_STEWARD.getControlledFacilitators().length, 0);
+  }
+
+  function _test_ghoTokenPool_stewardsConfig_beforePayloadExecution() internal view virtual {
     assertEq(LOCAL_TOKEN_POOL.getRateLimitAdmin(), address(0));
+  }
 
-    executePayload(vm, address(proposal));
-
+  function _test_ghoTokenPool_stewardsConfig_afterPayloadExecution() internal view virtual {
     assertTrue(LOCAL_GHO_TOKEN.hasRole(LOCAL_GHO_TOKEN.FACILITATOR_MANAGER_ROLE(), LOCAL_OWNER));
     assertTrue(LOCAL_GHO_TOKEN.hasRole(LOCAL_GHO_TOKEN.BUCKET_MANAGER_ROLE(), LOCAL_OWNER));
 
@@ -88,19 +113,14 @@ abstract contract AaveV3GHOLaunchTest_PreExecution is AaveV3GHOLaneTest {
     assertEq(facilitator.bucketLevel, 0);
 
     assertTrue(
-      LOCAL_ACL_MANAGER.hasRole(
-        LOCAL_ACL_MANAGER.RISK_ADMIN_ROLE(),
-        address(LOCAL_GHO_AAVE_CORE_STEWARD)
-      )
-    );
-
-    assertTrue(
       LOCAL_GHO_TOKEN.hasRole(
         LOCAL_GHO_TOKEN.BUCKET_MANAGER_ROLE(),
         address(LOCAL_GHO_BUCKET_STEWARD)
       )
     );
+  }
 
+  function _test_ghoBucket_stewardsConfig_afterPayloadExecution() internal view virtual {
     address[] memory facilitatorList = LOCAL_GHO_BUCKET_STEWARD.getControlledFacilitators();
     assertEq(facilitatorList.length, 1);
     assertEq(facilitatorList[0], address(LOCAL_TOKEN_POOL));

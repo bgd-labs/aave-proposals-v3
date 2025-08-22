@@ -67,7 +67,15 @@ contract AaveV3Ink_GHOInkLaunch_20250814_PreExecution is AaveV3GHOLaunchTest_Pre
   }
 
   function _test_ghoAaveCore_stewardsConfig() internal view virtual override {
-    // GHO Aave Core is not configured on this proposal
+    // GHO Aave Core Steward is not configured on this proposal
+  }
+
+  function _test_ghoAaveCore_stewardsRoles_beforePayloadExecution() internal view virtual override {
+    // GHO Aave Core Steward is not configured on this proposal
+  }
+
+  function _test_ghoAaveCore_stewardsRoles_afterPayloadExecution() internal view virtual override {
+    // GHO Aave Core Steward is not configured on this proposal
   }
 }
 
