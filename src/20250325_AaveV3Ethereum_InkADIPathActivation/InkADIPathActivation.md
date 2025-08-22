@@ -12,7 +12,7 @@ Proposal to register the necessary Ink adapters on a.DI, a technical pre-require
 
 In order to be able to pass messages from Ethereum to Ink via a.DI (Aave Delivery Infrastructure), it is necessary to at least have three valid adapters Ethereum → Ink smart contracts enabled in the system.
 
-The first case of message passing Ethereum → Ink is the activation proposal for GHO instance on Ink, and consequently, to be able to execute on the Ink side the payload, the Aave governance should approve in advance the a.DI adapters smart contracts.
+The first case of message passing Ethereum → Ink is the proposal for GHO CCIP configuration on Ink, and consequently, to be able to execute on the Ink side the payload, the Aave governance should approve in advance the a.DI adapters smart contracts.
 
 This procedure mirrors the requirements on previous networks like Base or Optimism.
 
