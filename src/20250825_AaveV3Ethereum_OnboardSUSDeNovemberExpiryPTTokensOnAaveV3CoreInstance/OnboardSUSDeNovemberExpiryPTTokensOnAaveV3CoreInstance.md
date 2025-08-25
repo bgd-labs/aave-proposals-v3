@@ -6,33 +6,69 @@ discussions: "https://governance.aave.com/t/direct-to-aip-onboard-susde-november
 
 ## Simple Summary
 
+This AIP proposes to onboard sUSDe November expiry PT tokens on Aave V3 Core Instance.
+
 ## Motivation
+
+The previous sUSDe PT tokens that were onboarded have brought significant inflows to Aave, in preparation for the expiry and rollover we propose to onboard the next expiry of this PT token. We expect at a minimum that deposits will match those in the September expiry PT token, with sidelined demand
 
 ## Specification
 
 The table below illustrates the configured risk parameters for **PT_sUSDe_27NOV2025**
 
-| Parameter                       |                                      Value |
-| ------------------------------- | -----------------------------------------: |
-| Isolation Mode                  |                                      false |
-| Borrowable                      |                                   DISABLED |
-| Collateral Enabled              |                                       true |
-| Supply Cap (PT_sUSDe_27NOV2025) |                                 75,000,000 |
-| Borrow Cap (PT_sUSDe_27NOV2025) |                                          1 |
-| Debt Ceiling                    |                                      USD 0 |
-| LTV                             |                                     0.05 % |
-| LT                              |                                      0.1 % |
-| Liquidation Bonus               |                                      7.5 % |
-| Liquidation Protocol Fee        |                                       10 % |
-| Reserve Factor                  |                                       45 % |
-| Base Variable Borrow Rate       |                                        0 % |
-| Variable Slope 1                |                                       10 % |
-| Variable Slope 2                |                                      300 % |
-| Uoptimal                        |                                       45 % |
-| Flashloanable                   |                                    ENABLED |
-| Siloed Borrowing                |                                   DISABLED |
-| Borrowable in Isolation         |                                   DISABLED |
-| Oracle                          | 0x8B8B73598a2c4b1de6d3b075618434CfC4826632 |
+| Parameter                       |      Value |
+| ------------------------------- | ---------: |
+| Isolation Mode                  |      false |
+| Borrowable                      |   DISABLED |
+| Collateral Enabled              |       true |
+| Supply Cap (PT_sUSDe_27NOV2025) | 75,000,000 |
+| Borrow Cap (PT_sUSDe_27NOV2025) |          1 |
+| Debt Ceiling                    |      USD 0 |
+| LTV                             |     0.05 % |
+| LT                              |      0.1 % |
+| Liquidation Bonus               |      7.5 % |
+| Liquidation Protocol Fee        |       10 % |
+| Reserve Factor                  |       45 % |
+| Base Variable Borrow Rate       |        0 % |
+| Variable Slope 1                |       10 % |
+| Variable Slope 2                |      300 % |
+| Uoptimal                        |       45 % |
+| Flashloanable                   |    ENABLED |
+| Siloed Borrowing                |   DISABLED |
+| Borrowable in Isolation         |   DISABLED |
+
+**Pricefeed details**
+
+| Parameter              |                                                                                                                         Value |
+| ---------------------- | ----------------------------------------------------------------------------------------------------------------------------: |
+| Oracle                 | [PT Capped sUSDe USDT/USD linear discount 27NOV2025](https://etherscan.io/address/0x8B8B73598a2c4b1de6d3b075618434CfC4826632) |
+| Underlying Oracle      |                                    [Capped USDT/USD](https://etherscan.io/address/0x260326c220E469358846b187eE53328303Efe19C) |
+| Underlying Oracle      |                                 [Chainlink USDT/USD](https://etherscan.io/address/0x3E7d1eAB13ad0104d2750B8863b489D65364e32D) |
+| Oracle Latest Answer   |                                                                                                    (2025-08-25) USD .97795595 |
+| discountRatePerYear    |                                                                                                                         8.52% |
+| maxDiscountRatePerYear |                                                                                                                        27.90% |
+
+**PT-USDE Stablecoins E-mode**
+
+| **Asset**         | **PT-USDe-25SEP2025** | **PT-eUSDE-14AUG2025** | **PT-USDe-31JUL2025** | **USDC** | **USDT** | **USDS** | **USDe** |
+| ----------------- | --------------------- | ---------------------- | --------------------- | -------- | -------- | -------- | -------- |
+| Collateral        | Yes                   | Yes                    | Yes                   | No       | No       | No       | Yes      |
+| Borrowable        | No                    | No                     | No                    | Yes      | Yes      | Yes      | Yes      |
+| LTV               | 90.3%                 | -                      | -                     | -        | -        | -        | -        |
+| LT                | 92.3%                 | -                      | -                     | -        | -        | -        | -        |
+| Liquidation Bonus | 3.5%                  | -                      | -                     | -        | -        | -        | -        |
+
+**PT-USDE USDe E-mode**
+
+| **Asset**         | **PT-USDe-25SEP2025** | **PT-eUSDE-14AUG2025** | **PT-USDe-31JUL2025** | **USDe** |
+| ----------------- | --------------------- | ---------------------- | --------------------- | -------- |
+| Collateral        | Yes                   | Yes                    | Yes                   | Yes      |
+| Borrowable        | No                    | No                     | No                    | Yes      |
+| LTV               | 91.2%                 | -                      | -                     | -        |
+| LT                | 93.2%                 | -                      | -                     | -        |
+| Liquidation Bonus | 2.5%                  | -                      | -                     | -        |
+
+The LTV, LT and LB of the previous emode will be managed by the Edge Risk Oracle.
 
 Additionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://etherscan.io/address/0xac140648435d03f784879cd789130F22Ef588Fcd) has been set as the emission admin for PT_sUSDe_27NOV2025 and the corresponding aToken.
 

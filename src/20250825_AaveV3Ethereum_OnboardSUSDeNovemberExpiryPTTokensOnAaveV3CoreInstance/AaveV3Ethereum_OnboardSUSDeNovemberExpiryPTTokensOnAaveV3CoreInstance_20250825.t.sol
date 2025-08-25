@@ -46,7 +46,10 @@ contract AaveV3Ethereum_OnboardSUSDeNovemberExpiryPTTokensOnAaveV3CoreInstance_2
   function test_dustBinHasPT_sUSDe_27NOV2025Funds() public {
     GovV3Helpers.executePayload(vm, address(proposal));
     address aTokenAddress = AaveV3Ethereum.POOL.getReserveAToken(proposal.PT_sUSDe_27NOV2025());
-    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Ethereum.DUST_BIN)), proposal.PT_sUSDe_27NOV2025_SEED_AMOUNT());
+    assertGe(
+      IERC20(aTokenAddress).balanceOf(address(AaveV3Ethereum.DUST_BIN)),
+      proposal.PT_sUSDe_27NOV2025_SEED_AMOUNT()
+    );
   }
 
   function test_PT_sUSDe_27NOV2025Admin() public {
