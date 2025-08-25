@@ -1,20 +1,20 @@
 ---
 title: "Ink aDI path activation"
 author: "BGD Labs @bgdlabs"
-discussions: TODO
+discussions: "https://governance.aave.com/t/technical-maintenance-proposals/15274/108"
 ---
 
 ## Simple Summary
 
-Proposal to register the necessary Ink adapters on a.DI, a technical pre-requirement to have Aave Governance controlled contracts on Ink.
+Proposal to register the necessary Ink adapters on a.DI, a technical pre-requirement to have Aave Governance-controlled contracts on Ink, in this case, cross-chain GHO-related to be listed on the Aave <> Ink friendly fork.
 
 ## Motivation
 
 In order to be able to pass messages from Ethereum to Ink via a.DI (Aave Delivery Infrastructure), it is necessary to at least have three valid adapters Ethereum → Ink smart contracts enabled in the system.
 
-The first case of message passing Ethereum → Ink is the activation proposal for GHO instance on Ink, and consequently, to be able to execute on the Ink side the payload, the Aave governance should approve in advance the a.DI adapters smart contracts.
+The first case of message passing Ethereum → Ink is the proposal for GHO CCIP configuration on Ink, and consequently, to be able to execute on the Ink side the payload, the Aave governance should approve in advance the a.DI adapters smart contracts.
 
-This procedure mirrors the requirements on previous networks like Base or Optimism.
+This procedure mirrors the requirements of previous networks like Base or Optimism.
 
 ## Specification
 
@@ -52,7 +52,7 @@ The new Aave Governance deployments on Ink network are as follows:
 - Payload Tests: [tests](https://github.com/bgd-labs/adi-deploy/blob/f56472b1557e7b638e0a63d009d9396869ce1968/tests/payloads/ethereum/AddInkPathTest.t.sol)
 - Diffs: [a.DI diffs](https://github.com/bgd-labs/adi-deploy/blob/f56472b1557e7b638e0a63d009d9396869ce1968/diffs/adi_add_ink_path_to_adiethereum_before_adi_add_ink_path_to_adiethereum_after.md)
 - Snapshot: Direct-to-AIP
-- [Discussion]()
+- [Discussion](https://governance.aave.com/t/technical-maintenance-proposals/15274/108)
 
 ## Copyright
 
