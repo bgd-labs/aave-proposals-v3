@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
+import {AaveV3Base} from 'aave-address-book/AaveV3Base.sol';
+import {EmissionManager} from 'aave-v3-origin/contracts/rewards/EmissionManager.sol';
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
 
 /**
@@ -12,7 +14,13 @@ import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGen
 contract AaveV3Base_StewardDeploymentMainnetSwapStewardAndRewardsSteward_20250821 is
   IProposalGenericExecutor
 {
+  // https://basescan.org/address/0xF7212c40810e2192dc5ba45a5E8ad39E3E39Ea4b
+  address public constant REWARDS_STEWARD = 0xF7212c40810e2192dc5ba45a5E8ad39E3E39Ea4b;
+
   function execute() external {
-    // custom code goes here
+    EmissionManager(AaveV3Base.EMISSION_MANAGER).setClaimer(
+      address(AaveV3Base.COLLECTOR),
+      REWARDS_STEWARD
+    );
   }
 }

@@ -1,11 +1,16 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {AaveV3BNB} from 'aave-address-book/AaveV3BNB.sol';
+import {AaveV3BNB, AaveV3BNBAssets} from 'aave-address-book/AaveV3BNB.sol';
+import {EmissionManager} from 'aave-v3-origin/contracts/rewards/EmissionManager.sol';
+import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
+import {IRewardsController} from 'aave-v3-origin/contracts/rewards/interfaces/IRewardsController.sol';
 
-import 'forge-std/Test.sol';
-import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3BNB_StewardDeploymentMainnetSwapStewardAndRewardsSteward_20250821} from './AaveV3BNB_StewardDeploymentMainnetSwapStewardAndRewardsSteward_20250821.sol';
+
+interface IRewardsSteward {
+  function claimAllRewards(address[] calldata assets) external;
+}
 
 /**
  * @dev Test for AaveV3BNB_StewardDeploymentMainnetSwapStewardAndRewardsSteward_20250821
@@ -15,20 +20,39 @@ contract AaveV3BNB_StewardDeploymentMainnetSwapStewardAndRewardsSteward_20250821
   ProtocolV3TestBase
 {
   AaveV3BNB_StewardDeploymentMainnetSwapStewardAndRewardsSteward_20250821 internal proposal;
+  address[] assets = new address[](1);
 
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('bnb'), 58402040);
     proposal = new AaveV3BNB_StewardDeploymentMainnetSwapStewardAndRewardsSteward_20250821();
+    assets[0] = AaveV3BNBAssets.ETH_A_TOKEN;
   }
 
-  /**
-   * @dev executes the generic test suite including e2e and config snapshots
-   */
-  function test_defaultProposalExecution() public {
-    defaultTest(
-      'AaveV3BNB_StewardDeploymentMainnetSwapStewardAndRewardsSteward_20250821',
-      AaveV3BNB.POOL,
-      address(proposal)
+  function test_claimerIsSetCorrectly() public {
+    assertEq(
+      IRewardsController(AaveV3BNB.DEFAULT_INCENTIVES_CONTROLLER).getClaimer(
+        address(AaveV3BNB.COLLECTOR)
+      ),
+      address(0)
     );
+
+    executePayload(vm, address(proposal));
+
+    assertEq(
+      IRewardsController(AaveV3BNB.DEFAULT_INCENTIVES_CONTROLLER).getClaimer(
+        address(AaveV3BNB.COLLECTOR)
+      ),
+      proposal.REWARDS_STEWARD()
+    );
+  }
+
+  function test_canClaimRewards() public {
+    address steward = proposal.REWARDS_STEWARD();
+    vm.expectRevert('CLAIMER_UNAUTHORIZED');
+    IRewardsSteward(steward).claimAllRewards(assets);
+
+    executePayload(vm, address(proposal));
+
+    IRewardsSteward(steward).claimAllRewards(assets);
   }
 }

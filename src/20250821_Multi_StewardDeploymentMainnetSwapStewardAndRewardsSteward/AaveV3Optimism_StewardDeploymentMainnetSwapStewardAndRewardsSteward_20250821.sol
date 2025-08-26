@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
+import {AaveV3Optimism} from 'aave-address-book/AaveV3Optimism.sol';
+import {EmissionManager} from 'aave-v3-origin/contracts/rewards/EmissionManager.sol';
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
 
 /**
@@ -12,7 +14,13 @@ import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGen
 contract AaveV3Optimism_StewardDeploymentMainnetSwapStewardAndRewardsSteward_20250821 is
   IProposalGenericExecutor
 {
+  // https://optimistic.etherscan.io/address/0xfD2aaE32247E5015AcB04Aa8220616D6647979aC
+  address public constant REWARDS_STEWARD = 0xfD2aaE32247E5015AcB04Aa8220616D6647979aC;
+
   function execute() external {
-    // custom code goes here
+    EmissionManager(AaveV3Optimism.EMISSION_MANAGER).setClaimer(
+      address(AaveV3Optimism.COLLECTOR),
+      REWARDS_STEWARD
+    );
   }
 }
