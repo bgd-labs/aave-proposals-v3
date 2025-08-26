@@ -36,7 +36,10 @@ contract AaveV3Ethereum_AddXAUtToAaveV3CoreInstance_20250818_Test is ProtocolV3T
   function test_dustBinHasXAUtFunds() public {
     GovV3Helpers.executePayload(vm, address(proposal));
     address aTokenAddress = AaveV3Ethereum.POOL.getReserveAToken(proposal.XAUt());
-    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Ethereum.DUST_BIN)), proposal.XAUt_SEED_AMOUNT());
+    assertGe(
+      IERC20(aTokenAddress).balanceOf(address(AaveV3Ethereum.DUST_BIN)),
+      proposal.XAUt_SEED_AMOUNT()
+    );
   }
 
   function test_XAUtAdmin() public {

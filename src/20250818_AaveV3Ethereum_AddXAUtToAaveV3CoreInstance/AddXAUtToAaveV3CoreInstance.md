@@ -26,33 +26,32 @@ The addition of XAUt aligns with Aave’s goal of expanding DeFi accessibility w
 
 The table below illustrates the configured risk parameters for **XAUt**
 
-| Parameter                 |                                      Value |
-| ------------------------- | -----------------------------------------: |
-| Isolation Mode            |                                       true |
-| Borrowable                |                                   DISABLED |
-| Collateral Enabled        |                                       true |
-| Supply Cap (XAUt)         |                                      5,000 |
-| Borrow Cap (XAUt)         |                                          1 |
-| Debt Ceiling              |                              USD 3,000,000 |
-| LTV                       |                                       70 % |
-| LT                        |                                       75 % |
-| Liquidation Bonus         |                                        6 % |
-| Liquidation Protocol Fee  |                                       10 % |
-| Reserve Factor            |                                       20 % |
-| Base Variable Borrow Rate |                                        0 % |
-| Variable Slope 1          |                                       10 % |
-| Variable Slope 2          |                                      300 % |
-| Uoptimal                  |                                       45 % |
-| Flashloanable             |                                    ENABLED |
-| Siloed Borrowing          |                                   DISABLED |
-| Borrowable in Isolation   |                                   DISABLED |
-
+| Parameter                 |         Value |
+| ------------------------- | ------------: |
+| Isolation Mode            |          true |
+| Borrowable                |      DISABLED |
+| Collateral Enabled        |          true |
+| Supply Cap (XAUt)         |         5,000 |
+| Borrow Cap (XAUt)         |             1 |
+| Debt Ceiling              | USD 3,000,000 |
+| LTV                       |          70 % |
+| LT                        |          75 % |
+| Liquidation Bonus         |           6 % |
+| Liquidation Protocol Fee  |          10 % |
+| Reserve Factor            |          20 % |
+| Base Variable Borrow Rate |           0 % |
+| Variable Slope 1          |          10 % |
+| Variable Slope 2          |         300 % |
+| Uoptimal                  |          45 % |
+| Flashloanable             |       ENABLED |
+| Siloed Borrowing          |      DISABLED |
+| Borrowable in Isolation   |      DISABLED |
 
 ### oracle details
 
-| Parameter                 |                                                                                         Value |
-| ------------------------- | --------------------------------------------------------------------------------------------: |
-| Oracle                    | [Chainlink XAU/USD](https://etherscan.io/address/0x214eD9Da11D2fbe465a6fc601a91E62EbEc1a0D6)  |
+| Parameter |                                                                                        Value |
+| --------- | -------------------------------------------------------------------------------------------: |
+| Oracle    | [Chainlink XAU/USD](https://etherscan.io/address/0x214eD9Da11D2fbe465a6fc601a91E62EbEc1a0D6) |
 
 Additionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://etherscan.io/address/0xac140648435d03f784879cd789130F22Ef588Fcd) has been set as the emission admin for XAUt and the corresponding aToken.
 
