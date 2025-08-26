@@ -16,7 +16,7 @@ import {IGhoBucketSteward} from '../interfaces/IGhoBucketSteward.sol';
  * - Discussion: https://governance.aave.com/t/technical-maintenance-proposals/15274/107
  */
 contract AaveV3Ethereum_GHOFacilitatorReplacement_20250821 is IProposalGenericExecutor {
-  address public constant OLD_FACILITATOR = 0x593B09afc075B3c326CE2AD7750888645BA8943d;
+  address public constant OLD_FACILITATOR = AaveV3Ethereum.GHO_DIRECT_MINTER;
 
   address public constant NEW_FACILITATOR = 0x5513224daaEABCa31af5280727878d52097afA05;
 
