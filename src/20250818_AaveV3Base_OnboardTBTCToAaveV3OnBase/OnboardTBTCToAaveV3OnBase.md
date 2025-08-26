@@ -23,42 +23,42 @@ tBTC on Base has a current supply of 116 BTC worth $12M at current price.
 
 ### Benefits for Aave
 
-* High User Demand, since its initial deployment on Aave’s Ethereum market, tBTC reached its initial 500 BTC supply cap within the first week. The cap has been increased multiple times, now sitting at 2200 BTC, highlighting strong user interest. Something we hope to replicate on Base.
-* Easy, direct onboarding of BTC capital via Threshold’s Base direct minting.
-* Further decentralization and trust minimisation in the Aave stack.
-* A range of lending options for those who wish to earn yield on their BTC.
-* Preferable yields on tBTC through active incentive participation, boosting Aave protocol use, fees and TVL.
+- High User Demand, since its initial deployment on Aave’s Ethereum market, tBTC reached its initial 500 BTC supply cap within the first week. The cap has been increased multiple times, now sitting at 2200 BTC, highlighting strong user interest. Something we hope to replicate on Base.
+- Easy, direct onboarding of BTC capital via Threshold’s Base direct minting.
+- Further decentralization and trust minimisation in the Aave stack.
+- A range of lending options for those who wish to earn yield on their BTC.
+- Preferable yields on tBTC through active incentive participation, boosting Aave protocol use, fees and TVL.
 
 ## Specification
 
 The table below illustrates the configured risk parameters for **tBTC**
 
-| Parameter                 |                                      Value |
-| ------------------------- | -----------------------------------------: |
-| Isolation Mode            |                                      false |
-| Borrowable                |                                    ENABLED |
-| Collateral Enabled        |                                       true |
-| Supply Cap (tBTC)         |                                        130 |
-| Borrow Cap (tBTC)         |                                         13 |
-| Debt Ceiling              |                                      USD 0 |
-| LTV                       |                                       73 % |
-| LT                        |                                       78 % |
-| Liquidation Bonus         |                                      7.5 % |
-| Liquidation Protocol Fee  |                                       10 % |
-| Reserve Factor            |                                       20 % |
-| Base Variable Borrow Rate |                                        0 % |
-| Variable Slope 1          |                                        4 % |
-| Variable Slope 2          |                                       60 % |
-| Uoptimal                  |                                       45 % |
-| Flashloanable             |                                    ENABLED |
-| Siloed Borrowing          |                                   DISABLED |
-| Borrowable in Isolation   |                                   DISABLED |
+| Parameter                 |    Value |
+| ------------------------- | -------: |
+| Isolation Mode            |    false |
+| Borrowable                |  ENABLED |
+| Collateral Enabled        |     true |
+| Supply Cap (tBTC)         |      130 |
+| Borrow Cap (tBTC)         |       13 |
+| Debt Ceiling              |    USD 0 |
+| LTV                       |     73 % |
+| LT                        |     78 % |
+| Liquidation Bonus         |    7.5 % |
+| Liquidation Protocol Fee  |     10 % |
+| Reserve Factor            |     20 % |
+| Base Variable Borrow Rate |      0 % |
+| Variable Slope 1          |      4 % |
+| Variable Slope 2          |     60 % |
+| Uoptimal                  |     45 % |
+| Flashloanable             |  ENABLED |
+| Siloed Borrowing          | DISABLED |
+| Borrowable in Isolation   | DISABLED |
 
 ### Oracles details
 
-| Parameter                 |                                      Value |
-| ------------------------- | -----------------------------------------: |
-| Oracle                    | [Chainlink BTC/USD](https://basescan.org/address/0x64c911996D3c6aC71f9b455B1E8E7266BcbD848F) |
+| Parameter |                                                                                        Value |
+| --------- | -------------------------------------------------------------------------------------------: |
+| Oracle    | [Chainlink BTC/USD](https://basescan.org/address/0x64c911996D3c6aC71f9b455B1E8E7266BcbD848F) |
 
 Additionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://basescan.org/address/0xac140648435d03f784879cd789130F22Ef588Fcd) has been set as the emission admin for tBTC and the corresponding aToken.
 

@@ -9,7 +9,8 @@ export const config: ConfigFile = {
     shortName: 'OnboardTBTCToAaveV3OnBase',
     date: '20250818',
     discussion: 'https://governance.aave.com/t/arfc-onboard-tbtc-to-aave-v3-on-base/22226',
-    snapshot: 'https://snapshot.box/#/s:aavedao.eth/proposal/0x1c12498028d114d73fd1614a7f5c8ba7e922ff129b5807d35d83f436bf8b4bcd',
+    snapshot:
+      'https://snapshot.box/#/s:aavedao.eth/proposal/0x1c12498028d114d73fd1614a7f5c8ba7e922ff129b5807d35d83f436bf8b4bcd',
     votingNetwork: 'POLYGON',
   },
   poolOptions: {
