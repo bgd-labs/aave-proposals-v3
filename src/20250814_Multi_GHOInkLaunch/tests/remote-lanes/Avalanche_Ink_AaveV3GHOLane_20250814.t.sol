@@ -5,7 +5,6 @@ import {AaveV3GHORemoteLaneTest_PostExecution} from '../../abstraction/tests/Aav
 import {GhoCCIPChains} from '../../abstraction/constants/GhoCCIPChains.sol';
 import {AaveV3GHOLane} from '../../abstraction/AaveV3GHOLane.sol';
 import {Avalanche_Ink_AaveV3GHOLane_20250814} from '../../remote-lanes/Avalanche_Ink_AaveV3GHOLane_20250814.sol';
-import {GHOInkLaunchConstants} from '../../GHOInkLaunchConstants.sol';
 
 contract Avalanche_Ink_AaveV3GHOLane_20250814_Test is AaveV3GHORemoteLaneTest_PostExecution {
   constructor()
@@ -13,7 +12,7 @@ contract Avalanche_Ink_AaveV3GHOLane_20250814_Test is AaveV3GHORemoteLaneTest_Po
       GhoCCIPChains.AVALANCHE(),
       GhoCCIPChains.INK(),
       'avalanche',
-      GHOInkLaunchConstants.AVAX_BLOCK_NUMBER
+      67445589
     )
   {}
 

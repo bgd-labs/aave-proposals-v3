@@ -5,17 +5,11 @@ import {AaveV3GHOEthereumRemoteLaneTest_PostExecution} from '../../abstraction/t
 import {GhoCCIPChains} from '../../abstraction/constants/GhoCCIPChains.sol';
 import {AaveV3GHOLane} from '../../abstraction/AaveV3GHOLane.sol';
 import {Ethereum_Ink_AaveV3GHOLane_20250814} from '../../remote-lanes/Ethereum_Ink_AaveV3GHOLane_20250814.sol';
-import {GHOInkLaunchConstants} from '../../GHOInkLaunchConstants.sol';
 
 contract Ethereum_Avalanche_AaveV3GHOLane_20250519_Test is
   AaveV3GHOEthereumRemoteLaneTest_PostExecution
 {
-  constructor()
-    AaveV3GHOEthereumRemoteLaneTest_PostExecution(
-      GhoCCIPChains.INK(),
-      GHOInkLaunchConstants.ETH_BLOCK_NUMBER
-    )
-  {}
+  constructor() AaveV3GHOEthereumRemoteLaneTest_PostExecution(GhoCCIPChains.INK(), 23193620) {}
 
   function _expectedSupportedChains()
     internal

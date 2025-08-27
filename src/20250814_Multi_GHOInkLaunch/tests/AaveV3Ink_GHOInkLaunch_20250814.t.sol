@@ -8,13 +8,7 @@ import {AaveV3Ink_GHOInkLaunch_20250814} from '../AaveV3Ink_GHOInkLaunch_2025081
 import {AaveV3GHOLaunchTest_PostExecution, AaveV3GHOLaunchTest_PreExecution} from '../abstraction/tests/AaveV3GHOLaunchTest.sol';
 
 contract AaveV3Ink_GHOInkLaunch_20250814_PreExecution is AaveV3GHOLaunchTest_PreExecution {
-  constructor()
-    AaveV3GHOLaunchTest_PreExecution(
-      GhoCCIPChains.INK(),
-      'ink',
-      GHOInkLaunchConstants.INK_BLOCK_NUMBER
-    )
-  {}
+  constructor() AaveV3GHOLaunchTest_PreExecution(GhoCCIPChains.INK(), 'ink', 22331165) {}
 
   function _deployAaveV3GHOLaneProposal() internal virtual override returns (AaveV3GHOLane) {
     return new AaveV3Ink_GHOInkLaunch_20250814();
@@ -80,13 +74,7 @@ contract AaveV3Ink_GHOInkLaunch_20250814_PreExecution is AaveV3GHOLaunchTest_Pre
 }
 
 contract AaveV3Ink_GHOInkLaunch_20250814_PostExecution is AaveV3GHOLaunchTest_PostExecution {
-  constructor()
-    AaveV3GHOLaunchTest_PostExecution(
-      GhoCCIPChains.INK(),
-      'ink',
-      GHOInkLaunchConstants.INK_BLOCK_NUMBER
-    )
-  {}
+  constructor() AaveV3GHOLaunchTest_PostExecution(GhoCCIPChains.INK(), 'ink', 22331165) {}
 
   function _deployAaveV3GHOLaneProposal() internal virtual override returns (AaveV3GHOLane) {
     return new AaveV3Ink_GHOInkLaunch_20250814();
