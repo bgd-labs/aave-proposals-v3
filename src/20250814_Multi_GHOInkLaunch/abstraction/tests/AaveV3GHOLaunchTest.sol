@@ -64,12 +64,16 @@ abstract contract AaveV3GHOLaunchTest_PreExecution is AaveV3GHOLaneTest {
 
   function _aaveProtocolDataProvider() internal view virtual returns (address);
 
+  function _executePayload() internal virtual {
+    executePayload(vm, address(proposal), IPool(_aavePool()));
+  }
+
   function test_stewardRoles() public {
     _test_ghoAaveCore_stewardsRoles_beforePayloadExecution();
     _test_ghoBucket_stewardsConfig_beforePayloadExecution();
     _test_ghoTokenPool_stewardsConfig_beforePayloadExecution();
 
-    executePayload(vm, address(proposal), IPool(_aavePool()));
+    _executePayload();
 
     _test_ghoTokenPool_stewardsConfig_afterPayloadExecution();
     _test_ghoAaveCore_stewardsRoles_afterPayloadExecution();
@@ -182,7 +186,7 @@ abstract contract AaveV3GHOLaunchTest_PreExecution is AaveV3GHOLaneTest {
   }
 
   function test_tokenPoolConfig() public {
-    executePayload(vm, address(proposal), IPool(_aavePool()));
+    _executePayload();
 
     assertEq(LOCAL_TOKEN_POOL.owner(), LOCAL_OWNER);
     assertEq(
@@ -259,9 +263,13 @@ abstract contract AaveV3GHOLaunchTest_PostExecution is AaveV3GHOLaneTest {
 
   function _aavePool() internal view virtual returns (address);
 
+  function _executePayload() internal virtual {
+    executePayload(vm, address(proposal), IPool(_aavePool()));
+  }
+
   function setUp() public override {
     super.setUp();
-    executePayload(vm, address(proposal), IPool(_aavePool()));
+    _executePayload();
   }
 
   function test_sendMessageToSupportedChainSucceeds(uint256 amount, uint8 chainIndex) public {

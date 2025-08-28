@@ -18,6 +18,10 @@ abstract contract AaveV3GHORemoteLaneTest_PostExecution is AaveV3GHOLaneTest {
 
   function setUp() public virtual override {
     super.setUp();
+    _executePayload();
+  }
+
+  function _executePayload() internal virtual {
     executePayload(vm, address(proposal));
   }
 
