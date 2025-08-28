@@ -48,25 +48,25 @@ The table below illustrates the configured risk parameters for **PT_sUSDe_27NOV2
 | discountRatePerYear    |                                                                                                                         8.52% |
 | maxDiscountRatePerYear |                                                                                                                        27.90% |
 
-**PT-USDE Stablecoins E-mode**
+**PT-sUSDE Stablecoins E-mode**
 
-| **Asset**         | **PT-USDe-25SEP2025** | **PT-eUSDE-14AUG2025** | **PT-USDe-31JUL2025** | **USDC** | **USDT** | **USDS** | **USDe** |
-| ----------------- | --------------------- | ---------------------- | --------------------- | -------- | -------- | -------- | -------- |
-| Collateral        | Yes                   | Yes                    | Yes                   | No       | No       | No       | Yes      |
-| Borrowable        | No                    | No                     | No                    | Yes      | Yes      | Yes      | Yes      |
-| LTV               | 90.3%                 | -                      | -                     | -        | -        | -        | -        |
-| LT                | 92.3%                 | -                      | -                     | -        | -        | -        | -        |
-| Liquidation Bonus | 3.5%                  | -                      | -                     | -        | -        | -        | -        |
+| **Asset**         | **PT-sUSDe-27NOV2025** | **PT-sUSDe-25SEP2025** | **sUSDe** | **USDC** | **USDT** | **USDS** | **USDe** | **USDtb** |
+| ----------------- | ---------------------- | ---------------------- | --------- | -------- | -------- | -------- | -------- | --------- |
+| Collateral        | Yes                    | Yes                    | Yes       | No       | No       | No       | No       | No        |
+| Borrowable        | No                     | No                     | No        | Yes      | Yes      | Yes      | Yes      | Yes       |
+| LTV               | 86.1%                  | -                      | -         | -        | -        | -        | -        | -         |
+| LT                | 88.1%                  | -                      | -         | -        | -        | -        | -        | -         |
+| Liquidation Bonus | 5.4%                   | -                      | -         | -        | -        | -        | -        | -         |
 
-**PT-USDE USDe E-mode**
+**PT-sUSDE USDe E-mode**
 
-| **Asset**         | **PT-USDe-25SEP2025** | **PT-eUSDE-14AUG2025** | **PT-USDe-31JUL2025** | **USDe** |
-| ----------------- | --------------------- | ---------------------- | --------------------- | -------- |
-| Collateral        | Yes                   | Yes                    | Yes                   | Yes      |
-| Borrowable        | No                    | No                     | No                    | Yes      |
-| LTV               | 91.2%                 | -                      | -                     | -        |
-| LT                | 93.2%                 | -                      | -                     | -        |
-| Liquidation Bonus | 2.5%                  | -                      | -                     | -        |
+| **Asset**         | **PT-sUSDe-27NOV2025** | **PT-sUSDe-25SEP2025** | **USDe** |
+| ----------------- | ---------------------- | ---------------------- | -------- |
+| Collateral        | Yes                    | Yes                    | No       |
+| Borrowable        | No                     | No                     | Yes      |
+| LTV               | 87.8%                  | -                      | -        |
+| LT                | 89.8%                  | -                      | -        |
+| Liquidation Bonus | 3.4%                   | -                      | -        |
 
 The LTV, LT and LB of the previous emode will be managed by the Edge Risk Oracle.
 
