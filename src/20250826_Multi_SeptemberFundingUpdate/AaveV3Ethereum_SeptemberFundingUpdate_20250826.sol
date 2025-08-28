@@ -7,6 +7,7 @@ import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethe
 import {AaveV3EthereumLido, AaveV3EthereumLidoAssets} from 'aave-address-book/AaveV3EthereumLido.sol';
 import {AaveV3EthereumLidoAssets} from 'aave-address-book/AaveV3EthereumLido.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
+import {Rescuable} from 'solidity-utils/contracts/utils/Rescuable.sol';
 import {CollectorUtils, ICollector} from 'aave-helpers/src/CollectorUtils.sol';
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
 
@@ -34,6 +35,9 @@ contract AaveV3Ethereum_SeptemberFundingUpdate_20250826 is IProposalGenericExecu
 
   /// https://etherscan.io/address/0xe80a1C615F75AFF7Ed8F08c9F21f9d00982D666c
   address public constant PRICE_CHECKER = 0xe80a1C615F75AFF7Ed8F08c9F21f9d00982D666c;
+
+  /// https://etherscan.io/address/0x455e53CBB86018Ac2B8092FdCd39d8444aFFC3F6
+  address public constant POL = 0x455e53CBB86018Ac2B8092FdCd39d8444aFFC3F6;
 
   /// Reimbursements
   address public constant ACI = 0xac140648435d03f784879cd789130F22Ef588Fcd;
@@ -197,6 +201,9 @@ contract AaveV3Ethereum_SeptemberFundingUpdate_20250826 is IProposalGenericExecu
         slippage: 300
       })
     );
+
+    /// Get POL
+    Rescuable(0xc980508cC8866f726040Da1C0C61f682e74aBc39).emergencyTokenTransfer();
   }
 
   function _reimbursements() internal {
