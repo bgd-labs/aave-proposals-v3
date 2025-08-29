@@ -16,57 +16,57 @@ We propose onboarding the 27th November 2025 expiry USDe PT token after successf
 
 The table below illustrates the configured risk parameters for **PT_USDe_27NOV2025**
 
-| Parameter                      |                                      Value |
-| ------------------------------ | -----------------------------------------: |
-| Isolation Mode                 |                                      false |
-| Borrowable                     |                                   DISABLED |
-| Collateral Enabled             |                                       true |
-| Supply Cap (PT_USDe_27NOV2025) |                                 50,000,000 |
-| Borrow Cap (PT_USDe_27NOV2025) |                                          1 |
-| Debt Ceiling                   |                                      USD 0 |
-| LTV                            |                                     0.05 % |
-| LT                             |                                      0.1 % |
-| Liquidation Bonus              |                                      7.5 % |
-| Liquidation Protocol Fee       |                                       10 % |
-| Reserve Factor                 |                                       45 % |
-| Base Variable Borrow Rate      |                                        0 % |
-| Variable Slope 1               |                                       10 % |
-| Variable Slope 2               |                                      300 % |
-| Uoptimal                       |                                       45 % |
-| Flashloanable                  |                                    ENABLED |
-| Siloed Borrowing               |                                   DISABLED |
-| Borrowable in Isolation        |                                   DISABLED |
+| Parameter                      |      Value |
+| ------------------------------ | ---------: |
+| Isolation Mode                 |      false |
+| Borrowable                     |   DISABLED |
+| Collateral Enabled             |       true |
+| Supply Cap (PT_USDe_27NOV2025) | 50,000,000 |
+| Borrow Cap (PT_USDe_27NOV2025) |          1 |
+| Debt Ceiling                   |      USD 0 |
+| LTV                            |     0.05 % |
+| LT                             |      0.1 % |
+| Liquidation Bonus              |      7.5 % |
+| Liquidation Protocol Fee       |       10 % |
+| Reserve Factor                 |       45 % |
+| Base Variable Borrow Rate      |        0 % |
+| Variable Slope 1               |       10 % |
+| Variable Slope 2               |      300 % |
+| Uoptimal                       |       45 % |
+| Flashloanable                  |    ENABLED |
+| Siloed Borrowing               |   DISABLED |
+| Borrowable in Isolation        |   DISABLED |
 
 **Pricefeed details**
 
-| Parameter              |                                                                                                                         Value |
-| ---------------------- | ----------------------------------------------------------------------------------------------------------------------------: |
-| Oracle                 | [PT Capped USDe USDT/USD linear discount 27NOV2025](https://etherscan.io/address/TODO) |
-| Underlying Oracle      |                                   [Capped USDT/USD](https://etherscan.io/address/0x260326c220E469358846b187eE53328303Efe19C) |
-| Underlying Oracle      |                                [Chainlink USDT/USD](https://etherscan.io/address/0x3E7d1eAB13ad0104d2750B8863b489D65364e32D) |
-| Oracle Latest Answer   |                                                                                                   (2025-08-25) USD .TODO     |
-| discountRatePerYear    |                                                                                                                        9.51% |
-| maxDiscountRatePerYear |                                                                                                                       28.90% |
+| Parameter              |                                                                                         Value |
+| ---------------------- | --------------------------------------------------------------------------------------------: |
+| Oracle                 |        [PT Capped USDe USDT/USD linear discount 27NOV2025](https://etherscan.io/address/TODO) |
+| Underlying Oracle      |    [Capped USDT/USD](https://etherscan.io/address/0x260326c220E469358846b187eE53328303Efe19C) |
+| Underlying Oracle      | [Chainlink USDT/USD](https://etherscan.io/address/0x3E7d1eAB13ad0104d2750B8863b489D65364e32D) |
+| Oracle Latest Answer   |                                                                        (2025-08-25) USD .TODO |
+| discountRatePerYear    |                                                                                         9.51% |
+| maxDiscountRatePerYear |                                                                                        28.90% |
 
 **PT-USDE Stablecoins E-mode**
 
 | **Asset**         | **PT-USDe-27NOV2025** | **PT-USDe-25SEP2025** | **USDC** | **USDT** | **USDS** | **USDe** | **USDtb** |
-| ----------------- | ---------------------- | ---------------------- | -------- | -------- | -------- | -------- | --------- |
-| Collateral        | Yes                    | Yes                    | No       | No       | No       | No       | No        |
-| Borrowable        | No                     | No                     | Yes      | Yes      | Yes      | Yes      | Yes       |
-| LTV               | 87.8%                  | -                      | -        | -        | -        | -        | -         |
-| LT                | 89.8%                  | -                      | -        | -        | -        | -        | -         |
-| Liquidation Bonus | 4.2%                   | -                      | -        | -        | -        | -        | -         |
+| ----------------- | --------------------- | --------------------- | -------- | -------- | -------- | -------- | --------- |
+| Collateral        | Yes                   | Yes                   | No       | No       | No       | No       | No        |
+| Borrowable        | No                    | No                    | Yes      | Yes      | Yes      | Yes      | Yes       |
+| LTV               | 87.8%                 | -                     | -        | -        | -        | -        | -         |
+| LT                | 89.8%                 | -                     | -        | -        | -        | -        | -         |
+| Liquidation Bonus | 4.2%                  | -                     | -        | -        | -        | -        | -         |
 
 **PT-USDE USDe E-mode**
 
 | **Asset**         | **PT-USDe-27NOV2025** | **PT-USDe-25SEP2025** | **USDe** |
-| ----------------- | ---------------------- | ---------------------- | -------- |
-| Collateral        | Yes                    | Yes                    | No       |
-| Borrowable        | No                     | No                     | Yes      |
-| LTV               | 88.6%                  | -                      | -        |
-| LT                | 90.6%                  | -                      | -        |
-| Liquidation Bonus | 3.2%                   | -                      | -        |
+| ----------------- | --------------------- | --------------------- | -------- |
+| Collateral        | Yes                   | Yes                   | No       |
+| Borrowable        | No                    | No                    | Yes      |
+| LTV               | 88.6%                 | -                     | -        |
+| LT                | 90.6%                 | -                     | -        |
+| Liquidation Bonus | 3.2%                  | -                     | -        |
 
 The LTV, LT and LB of the previous emode will be managed by the Edge Risk Oracle.
 
