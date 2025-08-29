@@ -14,20 +14,35 @@ import {GhoCCIPChains} from './constants/GhoCCIPChains.sol';
 abstract contract AaveV3GHOLane is IProposalGenericExecutor {
   IUpgradeableBurnMintTokenPool_1_5_1 public immutable TOKEN_POOL;
 
+  /**
+   * @notice Constructor
+   * @param localChainInfo The relevant information of the chain where the GHO CCIP Lanes are being configured
+   */
   constructor(GhoCCIPChains.ChainInfo memory localChainInfo) {
     TOKEN_POOL = IUpgradeableBurnMintTokenPool_1_5_1(localChainInfo.ghoCCIPTokenPool);
   }
 
+  /**
+   * @notice Executes the GHO CCIP Lanes configuration proposal
+   */
   function execute() external virtual {
     _execute();
   }
 
+  /**
+   * @notice Returns the GHO CCIP Lanes to add in the form of ChainUpdate's
+   * @return An array of ChainUpdate's with each GHO CCIP Lane that must be added via this proposal
+   */
   function lanesToAdd()
     public
     view
     virtual
     returns (IUpgradeableBurnMintTokenPool_1_5_1.ChainUpdate[] memory);
 
+  /**
+   * @notice Returns the GHO CCIP Lanes to remove in the form of chain selectors. By default, no Lanes are removed
+   * @return An array of chain selectors of each of the GHO CCIP Lanes that must be removed via this proposal
+   */
   function lanesToRemove() public view virtual returns (uint64[] memory) {
     return new uint64[](0);
   }

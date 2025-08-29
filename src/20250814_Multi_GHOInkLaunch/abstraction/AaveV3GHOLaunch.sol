@@ -22,8 +22,16 @@ abstract contract AaveV3GHOLaunch is AaveV3GHOLane {
   address public immutable GHO_CCIP_STEWARD;
   address public immutable OWNER;
 
+  /**
+   * @notice Default CCIP bucket capacity to configure for the CCIP GHO Token Pool. Override `getCCIPBucketCapacity` in
+   * order to change this value.
+   */
   uint128 internal constant DEFAULT_CCIP_BUCKET_CAPACITY = 40_000_000e18;
 
+  /**
+   * @notice Constructor
+   * @param localChainInfo The relevant information of the local chain where GHO is being launched.
+   */
   constructor(GhoCCIPChains.ChainInfo memory localChainInfo) AaveV3GHOLane(localChainInfo) {
     GHO_TOKEN = IGhoToken(localChainInfo.ghoToken);
     GHO_BUCKET_STEWARD = localChainInfo.ghoBucketSteward;
@@ -34,6 +42,9 @@ abstract contract AaveV3GHOLaunch is AaveV3GHOLane {
     OWNER = localChainInfo.owner;
   }
 
+  /**
+   * @notice Executes the GHO Launch proposal
+   */
   function execute() external override {
     _acceptTokenAdminRegistryAdminRole();
     _acceptTokenPoolOwnership();
@@ -42,6 +53,10 @@ abstract contract AaveV3GHOLaunch is AaveV3GHOLane {
     _setPoolInTokenAdminRegistry();
   }
 
+  /**
+   * @notice Returns the CCIP bucket capacity to configure for the CCIP GHO Token Pool
+   * @return The CCIP bucket capacity to configure for the CCIP GHO Token Pool
+   */
   function getCCIPBucketCapacity() public pure virtual returns (uint128) {
     return DEFAULT_CCIP_BUCKET_CAPACITY;
   }

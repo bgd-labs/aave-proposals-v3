@@ -19,6 +19,11 @@ import {CCIPChainSelectors} from './CCIPChainSelectors.sol';
 import {CCIPChainTokenAdminRegistries} from './CCIPChainTokenAdminRegistries.sol';
 import {CCIPChainRouters} from './CCIPChainRouters.sol';
 
+/**
+ * @title GhoCCIPChains
+ * @author Aave Labs
+ * @notice Constants with relevant information of each chain supporting GHO through CCIP
+ */
 library GhoCCIPChains {
   struct ChainInfo {
     uint64 chainSelector;
