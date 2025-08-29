@@ -121,7 +121,7 @@ library GhoCCIPChains {
         ghoCCIPTokenPool: 0xDe6539018B095353A40753Dc54C91C68c9487D4E,
         ghoBucketSteward: 0xA5Ba213867E175A182a5dd6A9193C6158738105A,
         ghoAaveCoreSteward: address(0),
-        ghoCCIPSteward: 0x360d8aa8F6b09B7BC57aF34db2Eb84dD87bf4d12,
+        ghoCCIPSteward: 0x2Ce400703dAcc37b7edFA99D228b8E70a4d3831B,
         aclManager: 0x86E2938daE289763D4e09a7e42c5cCcA62Cf9809,
         tokenAdminRegistry: CCIPChainTokenAdminRegistries.INK,
         owner: 0x47aAdaAE1F05C978E6aBb7568d11B7F6e0FC4d6A,
