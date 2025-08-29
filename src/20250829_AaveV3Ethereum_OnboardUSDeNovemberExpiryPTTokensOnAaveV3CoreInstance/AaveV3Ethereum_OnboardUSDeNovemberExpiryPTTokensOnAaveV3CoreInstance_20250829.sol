@@ -112,7 +112,7 @@ contract AaveV3Ethereum_OnboardUSDeNovemberExpiryPTTokensOnAaveV3CoreInstance_20
     listings[0] = IAaveV3ConfigEngine.Listing({
       asset: PT_USDe_27NOV2025,
       assetSymbol: 'PT_USDe_27NOV2025',
-      priceFeed: 0x0000000000000000000000000000000000000000,
+      priceFeed: 0x6A196A7B498C4EFBFEfB55364106EC80CceF0C3F,
       enabledToBorrow: EngineFlags.DISABLED,
       borrowableInIsolation: EngineFlags.DISABLED,
       withSiloedBorrowing: EngineFlags.DISABLED,

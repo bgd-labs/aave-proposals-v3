@@ -27,7 +27,7 @@ contract AaveV3Ethereum_OnboardUSDeNovemberExpiryPTTokensOnAaveV3CoreInstance_20
   address public constant RISK_ORACLE_OWNER = 0x42939e82DF15afc586bb95f7dD69Afb6Dc24A6f9;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 23245917);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 23249074);
     proposal = new AaveV3Ethereum_OnboardUSDeNovemberExpiryPTTokensOnAaveV3CoreInstance_20250829();
   }
 
