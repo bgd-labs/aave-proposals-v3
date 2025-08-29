@@ -7,7 +7,7 @@ export const config: ConfigFile = {
       'AaveV3Base',
       'AaveV3Avalanche',
       'AaveV3Gnosis',
-      //   'AaveV3Ink', // TODO: AaveV3Ink type needed
+      // 'AaveV3Ink', // TODO: AaveV3Ink or AaveV3InkWhitelabel type needed
     ],
     title: 'Launch GHO on Ink',
     shortName: 'GHOInkLaunch',
@@ -25,37 +25,8 @@ export const config: ConfigFile = {
     AaveV3Base: {configs: {OTHERS: {}}, cache: {blockNumber: 34520153}},
     AaveV3Ethereum: {configs: {OTHERS: {}}, cache: {blockNumber: 23193620}},
     AaveV3Gnosis: {configs: {OTHERS: {}}, cache: {blockNumber: 41726320}},
-    // AaveV3Ink: { // TODO: AaveV3Ink type needed
-    //   configs: {
-    //     ASSET_LISTING: [
-    //       {
-    //         assetSymbol: 'GHO',
-    //         decimals: 18,
-    //         priceFeed: '0x20fd5f3FCac8883a3A0A2bBcD658A2d2c6EFa6B6',
-    //         ltv: '0',
-    //         liqThreshold: '0',
-    //         liqBonus: '0',
-    //         debtCeiling: '0',
-    //         liqProtocolFee: '0',
-    //         enabledToBorrow: 'ENABLED',
-    //         flashloanable: 'ENABLED',
-    //         borrowableInIsolation: 'DISABLED',
-    //         withSiloedBorrowing: 'DISABLED',
-    //         reserveFactor: '10',
-    //         supplyCap: '5000000',
-    //         borrowCap: '4500000',
-    //         rateStrategyParams: {
-    //           optimalUtilizationRate: '90',
-    //           baseVariableBorrowRate: '0',
-    //           variableRateSlope1: '5.5',
-    //           variableRateSlope2: '50',
-    //         },
-    //         asset: '0xfc421aD3C883Bf9E7C4f42dE845C4e4405799e73',
-    //         admin: '0xac140648435d03f784879cd789130F22Ef588Fcd', // Emission Admin - ACI multisig address
-    //         eModeCategory: '',
-    //       },
-    //     ],
-    //   },
+    // AaveV3Ink: {  // TODO: AaveV3Ink or AaveV3InkWhitelabel type needed
+    //   configs: {OTHERS: {}},
     //   cache: {blockNumber: 22331165},
     // },
   },
