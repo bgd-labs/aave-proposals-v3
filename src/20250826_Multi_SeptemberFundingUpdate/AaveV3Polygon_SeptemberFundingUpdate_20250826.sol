@@ -17,12 +17,19 @@ contract AaveV3Polygon_SeptemberFundingUpdate_20250826 is IProposalGenericExecut
   uint256 public constant USDC_AMOUNT = 557_125e6;
 
   function execute() external {
+    _approvals();
+    _bridges();
+  }
+
+  function _approvals() internal {
     AaveV3Polygon.COLLECTOR.approve(
       IERC20(AaveV3PolygonAssets.USDCn_UNDERLYING),
       MiscPolygon.AFC_SAFE,
       USDC_AMOUNT
     );
+  }
 
+  function _bridges() internal {
     // USDT
     uint256 usdtBalance = IERC20(AaveV3PolygonAssets.USDT_UNDERLYING).balanceOf(
       address(AaveV3Polygon.COLLECTOR)

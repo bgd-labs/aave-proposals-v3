@@ -13,7 +13,7 @@ import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGen
  * - Discussion: https://governance.aave.com/t/direct-to-aip-september-2025-funding-update/22915
  */
 contract AaveV3Gnosis_SeptemberFundingUpdate_20250826 is IProposalGenericExecutor {
-  uint256 public constant EURE_AMOUNT = 5_145e18;
+  uint256 public constant EURE_AMOUNT = 5_145 ether;
 
   function execute() external {
     AaveV3Gnosis.COLLECTOR.approve(

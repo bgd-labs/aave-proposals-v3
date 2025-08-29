@@ -16,7 +16,11 @@ import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGen
  */
 contract AaveV3Optimism_SeptemberFundingUpdate_20250826 is IProposalGenericExecutor {
   function execute() external {
-    /// Allowances
+    _approvals();
+    _bridges();
+  }
+
+  function _approvals() internal {
     AaveV3Optimism.COLLECTOR.approve(
       IERC20(AaveV3OptimismAssets.USDCn_UNDERLYING),
       MiscOptimism.AFC_SAFE,
@@ -28,8 +32,9 @@ contract AaveV3Optimism_SeptemberFundingUpdate_20250826 is IProposalGenericExecu
       MiscOptimism.AFC_SAFE,
       IERC20(AaveV3OptimismAssets.sUSD_UNDERLYING).balanceOf(address(AaveV3Optimism.COLLECTOR))
     );
+  }
 
-    /// Bridges
+  function _bridges() internal {
     /// USDT
     uint256 usdtBalance = IERC20(AaveV3OptimismAssets.USDT_UNDERLYING).balanceOf(
       address(AaveV3Optimism.COLLECTOR)

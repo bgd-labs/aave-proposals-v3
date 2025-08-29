@@ -113,7 +113,7 @@ Retrieve POL migrated to MATIC.
 Asset: aEthWETH `0x4d5F47FA6A74757f35C14fD3a6Ef8E3C9BC514E8`
 Amount: TBA
 Spender: ACI `0xac140648435d03f784879cd789130F22Ef588Fcd`
-Method: transfer() aEthWETH on the Aave Collector contract to the MASiv address.
+Method: transfer() aEthWETH on the Aave Collector contract to the ACI address.
 
 This reimburses legal opinion costs incurred in supporting GHO’s first CEX listing.
 
@@ -170,7 +170,7 @@ MaticX
 
 #### Sonic - Liquidity Mining Rewards
 
-Asset: aSonwS `0x18eFE565A5373f430e2F809b97De30335B3ad96A`
+Asset: aSonwS `0x6C5E14A212c1C3e4Baf6f871ac9B1a969918c131`
 Amount: 100,000
 Spender: MASiv nested safe `0x565B80842eCEDad88A2564Ea375CE875Ed3bAdeC`
 Method: approve() aSonwS on the Aave Collector contract to the Masiv address.

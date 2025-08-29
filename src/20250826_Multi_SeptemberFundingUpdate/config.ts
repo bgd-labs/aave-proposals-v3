@@ -15,8 +15,8 @@ export const config: ConfigFile = {
     date: '20250826',
     author: '@TokenLogic',
     discussion: 'https://governance.aave.com/t/direct-to-aip-september-2025-funding-update/22915',
-    snapshot: 'Todo',
-    votingNetwork: 'POLYGON',
+    snapshot: 'Direct-to-AIP',
+    votingNetwork: 'AVALANCHE',
   },
   poolOptions: {
     AaveV3Ethereum: {configs: {OTHERS: {}}, cache: {blockNumber: 23228445}},

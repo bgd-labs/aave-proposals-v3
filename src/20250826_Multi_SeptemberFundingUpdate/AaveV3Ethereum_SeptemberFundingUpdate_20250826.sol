@@ -21,8 +21,8 @@ contract AaveV3Ethereum_SeptemberFundingUpdate_20250826 is IProposalGenericExecu
   using CollectorUtils for ICollector;
 
   /// AAVE Buybacks allowance
-  uint256 public constant AFC_USDC_ALLOWANCE = 2_000_000e6;
-  uint256 public constant AFC_USDT_ALLOWANCE = 2_000_000e6;
+  uint256 public constant AFC_USDC_ALLOWANCE = 1_000_000e6;
+  uint256 public constant AFC_USDT_ALLOWANCE = 1_000_000e6;
 
   /// ALC CRV allowance
   uint256 public constant ALC_CRV_ALLOWANCE = 30_000 ether;
@@ -38,6 +38,9 @@ contract AaveV3Ethereum_SeptemberFundingUpdate_20250826 is IProposalGenericExecu
 
   /// https://etherscan.io/address/0x455e53CBB86018Ac2B8092FdCd39d8444aFFC3F6
   address public constant POL = 0x455e53CBB86018Ac2B8092FdCd39d8444aFFC3F6;
+
+  /// https://etherscan.io/address/0xc980508cC8866f726040Da1C0C61f682e74aBc39
+  address public constant PLASMA_BRIDGE = 0xc980508cC8866f726040Da1C0C61f682e74aBc39;
 
   /// Reimbursements
   address public constant ACI = 0xac140648435d03f784879cd789130F22Ef588Fcd;
@@ -203,7 +206,11 @@ contract AaveV3Ethereum_SeptemberFundingUpdate_20250826 is IProposalGenericExecu
     );
 
     /// Get POL
-    Rescuable(0xc980508cC8866f726040Da1C0C61f682e74aBc39).emergencyTokenTransfer();
+    Rescuable(PLASMA_BRIDGE).emergencyTokenTransfer(
+      POL,
+      address(AaveV3Ethereum.COLLECTOR),
+      IERC20(POL).balanceOf(PLASMA_BRIDGE)
+    );
   }
 
   function _reimbursements() internal {
