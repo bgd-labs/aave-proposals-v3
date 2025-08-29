@@ -48,7 +48,7 @@ abstract contract AaveV3GHOLaunchTest_PreExecution is AaveV3GHOLaneTest {
   /**
    * @dev executes the generic test suite including e2e and config snapshots
    */
-  function test_defaultProposalExecution() public {
+  function test_defaultProposalExecution() public virtual {
     defaultTest(_reportName(), IPool(_aavePool()), address(proposal));
   }
 
@@ -267,7 +267,7 @@ abstract contract AaveV3GHOLaunchTest_PostExecution is AaveV3GHOLaneTest {
     executePayload(vm, address(proposal), IPool(_aavePool()));
   }
 
-  function setUp() public override {
+  function setUp() public virtual override {
     super.setUp();
     _executePayload();
   }
@@ -374,6 +374,10 @@ abstract contract AaveV3GHOLaunchTest_PostExecution is AaveV3GHOLaneTest {
     chainIndexII = uint8(bound(chainIndexII, 0, supportedChains.length - 1));
 
     vm.assume(chainIndexI != chainIndexII);
+    vm.assume(
+      supportedChains[chainIndexI].ghoCCIPTokenPool !=
+        supportedChains[chainIndexII].ghoCCIPTokenPool
+    );
 
     uint256 amount = 100e18;
     skip(_getInboundRefillTime(amount));
