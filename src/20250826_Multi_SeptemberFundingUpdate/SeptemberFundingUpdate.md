@@ -54,7 +54,9 @@ In support of the Aave Protocol Embassy (APE), the ARB currently held in the Tre
 Create an Allowance to transfers ARB from the Treasury on Arbitrum to the Aave Protocol Embassy SAFE to enable participation in Arbitrum’s governance.
 
 Amount: 234,000 ARB
+
 Spender: APE `0xAA43203167317DeeF8288095C44b84a686918d2E`
+
 Method: approve() ARB on the Aave Collector contract to the APE SAFE address
 
 #### Avalanche
@@ -62,7 +64,9 @@ Method: approve() ARB on the Aave Collector contract to the APE SAFE address
 Create Allowances to enable v2 assets to be transferred to the AFC, where asset will be exchanged for the corresponding asset on v3, and redeployed back into Aave Protocol to earn yield. The DAI shall be swapped to USDC and deposited into Aave v3 to benefit from the ongoing incentive campaign.
 
 Amount: All USDC.e, USDT.e, DAI.e
+
 Spender: AFC `0x22740deBa78d5a0c24C58C740e3715ec29de1bFa`
+
 Method: approve() above assets on the Aave Collector contract to the AFC address
 
 #### Ethereum
@@ -72,17 +76,25 @@ Method: approve() above assets on the Aave Collector contract to the AFC address
 Create a 2M aEthUSDT and 2M aEthUSDC allowance for the Aave Finance Committee to support the AAVE Buybacks program.
 
 Asset: aEthUSDT `0x23878914EFE38d27C4D67Ab83ed1b93A74D4086a`
+
 Amount: 2M
+
 Asset: aEthUSDC `0x98C23E9d8f34FEFb1B7BD6a91B7FF122F4e16F5c`
+
 Amount: 2M
+
 Spender: AFC `0x22740deBa78d5a0c24C58C740e3715ec29de1bFa`
+
 Method: approve() aEthUSDT and aEthUSDC on the Aave Collector contract to the AFC address
 
 ###### Aave Liquidity Committee
 
 Asset: aEthCRV `0x7B95Ec873268a6BFC6427e7a28e396Db9D0ebc65`
+
 Amount: 30,000
+
 Spender: ALC `0xA1c93D2687f7014Aaf588c764E3Ce80aF016229b`
+
 Method: approve() aEthCRV on the Aave Collector contract to the ALC address
 
 ###### Merit Program
@@ -90,8 +102,11 @@ Method: approve() aEthCRV on the Aave Collector contract to the ALC address
 Create allowance for Merit, 3M aEthLidoGHO from Aave v3 Prime on Ethereum:
 
 Asset: aEthLidoGHO: `0x18eFE565A5373f430e2F809b97De30335B3ad96A`
+
 Amount: 3M
+
 Spender: Merit `0xdeadD8aB03075b7FBA81864202a2f59EE25B312b`
+
 Method: approve() aEthLidoGHO on the Aave Collector contract to the Merit address
 
 ###### Swaps
@@ -106,22 +121,31 @@ Deposit raw ETH into wETH to earn yield by later depositing into aEthWETH.
 ###### Reimbursements
 
 Asset: aEthWETH `0x4d5F47FA6A74757f35C14fD3a6Ef8E3C9BC514E8`
+
 Amount: 0.2415
+
 Spender: ACI `0xac140648435d03f784879cd789130F22Ef588Fcd`
+
 Method: transfer() aEthWETH on the Aave Collector contract to the ACI address.
 
 This reimburses legal opinion costs incurred in supporting GHO’s first CEX listing.
 
 Asset: aEthLidoGHO `0x18eFE565A5373f430e2F809b97De30335B3ad96A`
+
 Amount: 9,000
+
 Spender: TokenLogic `0xAA088dfF3dcF619664094945028d44E779F19894`
+
 Method: transfer() aEthLidoGHO on the Aave Collector contract to the TokenLogic address.
 
 #### Gnosis - Liquidity Mining Rewards
 
 Asset: aGnoEURe: `0xEdBC7449a9b594CA4E053D9737EC5Dc4CbCcBfb2`
+
 Amount: 15,000
+
 Spender: MASIV SAFE `0xdef1FA4CEfe67365ba046a7C630D6B885298E210`
+
 Method: approve() aGnoEURe on the Aave Collector contract to the ACI address
 
 #### Optimism
@@ -129,7 +153,9 @@ Method: approve() aGnoEURe on the Aave Collector contract to the ACI address
 Create an Allowance for the AFC to receive the sUSD and USDCn from the Collector Contract.
 
 Amount: All USDCn, sUSD
+
 Spender: AFC `0x22740deBa78d5a0c24C58C740e3715ec29de1bFa`
+
 Method: approve() above assets on the Aave Collector contract to the AFC address
 
 The AFC is to swap sUSD to USDC and bridge USDCn via CCTP to Ethereum where it will be deposited into the Core instance.
@@ -137,8 +163,11 @@ The AFC is to swap sUSD to USDC and bridge USDCn via CCTP to Ethereum where it w
 Claim outstanding OP rewards and create an Allowance for the AFC to receive OP from the Collector Contract.
 
 Amount: All OP
+
 Spender: AFC `0x22740deBa78d5a0c24C58C740e3715ec29de1bFa`
+
 Method: approve() above assets on the Aave Collector contract to the AFC address
+
 The AFC is to exchange the OP for USDC to be used in support of the ongoing Base incentive campaign.
 
 Bridge all the balance of the following assets:
@@ -152,7 +181,9 @@ wBTC
 To support bridging the USDC.n, an Allowance will be created enabling the USDCn to be bridged by the AFC from Polygon to Ethereum using Circles CCTP bridge.
 
 Amount: 557,125 USDCn
+
 Spender: AFC `0x22740deBa78d5a0c24C58C740e3715ec29de1bFa`
+
 Method: approve() above assets on the Aave Collector contract to the AFC address
 
 Bridge all the balance of the following assets:
@@ -166,8 +197,11 @@ MaticX
 #### Sonic - Liquidity Mining Rewards
 
 Asset: aSonwS `0x6C5E14A212c1C3e4Baf6f871ac9B1a969918c131`
+
 Amount: 300,000
+
 Spender: MASiv nested safe `0x565B80842eCEDad88A2564Ea375CE875Ed3bAdeC`
+
 Method: approve() aSonwS on the Aave Collector contract to the Masiv address.
 
 ## References
