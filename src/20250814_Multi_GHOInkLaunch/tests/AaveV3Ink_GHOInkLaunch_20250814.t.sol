@@ -2,11 +2,11 @@
 pragma solidity ^0.8.0;
 
 import {GHOInkLaunchConstants} from '../GHOInkLaunchConstants.sol';
-import {GhoCCIPChains} from '../abstraction/constants/GhoCCIPChains.sol';
-import {AaveV3GHOLane} from '../abstraction/AaveV3GHOLane.sol';
+import {GhoCCIPChains} from '../../helpers/gho-launch/constants/GhoCCIPChains.sol';
+import {AaveV3GHOLane} from '../../helpers/gho-launch/AaveV3GHOLane.sol';
 import {AaveV3Ink_GHOInkLaunch_20250814} from '../AaveV3Ink_GHOInkLaunch_20250814.sol';
-import {AaveV3GHOLaunchTest_PostExecution, AaveV3GHOLaunchTest_PreExecution} from '../abstraction/tests/AaveV3GHOLaunchTest.sol';
-import {CCIPChainTokenAdminRegistries} from '../abstraction/constants/CCIPChainTokenAdminRegistries.sol';
+import {AaveV3GHOLaunchTest_PostExecution, AaveV3GHOLaunchTest_PreExecution} from '../../helpers/gho-launch/tests/AaveV3GHOLaunchTest.sol';
+import {CCIPChainTokenAdminRegistries} from '../../helpers/gho-launch/constants/CCIPChainTokenAdminRegistries.sol';
 import {ITokenAdminRegistry} from 'src/interfaces/ccip/ITokenAdminRegistry.sol';
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 import {GovernanceV3Ink} from 'aave-address-book/GovernanceV3Ink.sol';

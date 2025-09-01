@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {AaveV3GHOEthereumRemoteLaneTest_PostExecution} from '../../abstraction/tests/AaveV3GHOEthereumRemoteLaneTest.sol';
-import {GhoCCIPChains} from '../../abstraction/constants/GhoCCIPChains.sol';
-import {AaveV3GHOLane} from '../../abstraction/AaveV3GHOLane.sol';
+import {AaveV3GHOEthereumRemoteLaneTest_PostExecution} from '../../../helpers/gho-launch/tests/AaveV3GHOEthereumRemoteLaneTest.sol';
+import {GhoCCIPChains} from '../../../helpers/gho-launch/constants/GhoCCIPChains.sol';
+import {AaveV3GHOLane} from '../../../helpers/gho-launch/AaveV3GHOLane.sol';
 import {Ethereum_Ink_AaveV3GHOLane_20250814} from '../../remote-lanes/Ethereum_Ink_AaveV3GHOLane_20250814.sol';
 
 contract Ethereum_Avalanche_AaveV3GHOLane_20250519_Test is

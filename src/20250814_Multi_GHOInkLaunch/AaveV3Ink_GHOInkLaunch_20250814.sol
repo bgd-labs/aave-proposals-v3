@@ -2,8 +2,8 @@
 pragma solidity ^0.8.0;
 
 import {IUpgradeableBurnMintTokenPool_1_5_1} from 'src/interfaces/ccip/tokenPool/IUpgradeableBurnMintTokenPool.sol';
-import {AaveV3GHOLaunch} from './abstraction/AaveV3GHOLaunch.sol';
-import {GhoCCIPChains} from './abstraction/constants/GhoCCIPChains.sol';
+import {AaveV3GHOLaunch} from '../helpers/gho-launch/AaveV3GHOLaunch.sol';
+import {GhoCCIPChains} from '../helpers/gho-launch/constants/GhoCCIPChains.sol';
 
 /**
  * @title GHO Ink Launch
