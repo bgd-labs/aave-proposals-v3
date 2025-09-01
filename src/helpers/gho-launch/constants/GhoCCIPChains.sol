@@ -38,6 +38,56 @@ library GhoCCIPChains {
     address ccipRouter;
   }
 
+  function getAllChains() public pure returns (ChainInfo[] memory) {
+    ChainInfo[] memory allChains = new ChainInfo[](6);
+    allChains[0] = ETHEREUM();
+    allChains[1] = ARBITRUM();
+    allChains[2] = BASE();
+    allChains[3] = AVALANCHE();
+    allChains[4] = GNOSIS();
+    allChains[5] = INK();
+    return allChains;
+  }
+
+  function getAllChainsExcept(
+    uint64 selectorChainToExclude
+  ) public pure returns (ChainInfo[] memory) {
+    ChainInfo[] memory allChains = getAllChains();
+    ChainInfo[] memory chainsToReturn = new ChainInfo[](allChains.length - 1);
+    uint256 j = 0;
+    for (uint256 i = 0; i < allChains.length; i++) {
+      if (allChains[i].chainSelector != selectorChainToExclude) {
+        chainsToReturn[j] = allChains[i];
+        j++;
+      }
+    }
+    return chainsToReturn;
+  }
+
+  function getAllChainsExcept(
+    ChainInfo memory chainToExclude
+  ) public pure returns (ChainInfo[] memory) {
+    return getAllChainsExcept(chainToExclude.chainSelector);
+  }
+
+  ///////////////////////////////////////////////////////////////
+
+  function ETHEREUM() public pure returns (ChainInfo memory) {
+    return
+      ChainInfo({
+        chainSelector: CCIPChainSelectors.ETHEREUM,
+        ghoToken: GhoEthereum.GHO_TOKEN,
+        ghoCCIPTokenPool: GhoEthereum.GHO_CCIP_TOKEN_POOL,
+        ghoBucketSteward: GhoEthereum.GHO_BUCKET_STEWARD,
+        ghoAaveCoreSteward: GhoEthereum.GHO_AAVE_CORE_STEWARD,
+        ghoCCIPSteward: GhoEthereum.GHO_CCIP_STEWARD,
+        aclManager: address(AaveV3Ethereum.ACL_MANAGER),
+        tokenAdminRegistry: CCIPChainTokenAdminRegistries.ETHEREUM,
+        owner: GovernanceV3Ethereum.EXECUTOR_LVL_1,
+        ccipRouter: CCIPChainRouters.ETHEREUM
+      });
+  }
+
   function ARBITRUM() public pure returns (ChainInfo memory) {
     return
       ChainInfo({
@@ -67,22 +117,6 @@ library GhoCCIPChains {
         tokenAdminRegistry: CCIPChainTokenAdminRegistries.BASE,
         owner: GovernanceV3Base.EXECUTOR_LVL_1,
         ccipRouter: CCIPChainRouters.BASE
-      });
-  }
-
-  function ETHEREUM() public pure returns (ChainInfo memory) {
-    return
-      ChainInfo({
-        chainSelector: CCIPChainSelectors.ETHEREUM,
-        ghoToken: GhoEthereum.GHO_TOKEN,
-        ghoCCIPTokenPool: GhoEthereum.GHO_CCIP_TOKEN_POOL,
-        ghoBucketSteward: GhoEthereum.GHO_BUCKET_STEWARD,
-        ghoAaveCoreSteward: GhoEthereum.GHO_AAVE_CORE_STEWARD,
-        ghoCCIPSteward: GhoEthereum.GHO_CCIP_STEWARD,
-        aclManager: address(AaveV3Ethereum.ACL_MANAGER),
-        tokenAdminRegistry: CCIPChainTokenAdminRegistries.ETHEREUM,
-        owner: GovernanceV3Ethereum.EXECUTOR_LVL_1,
-        ccipRouter: CCIPChainRouters.ETHEREUM
       });
   }
 

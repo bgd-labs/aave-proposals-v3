@@ -7,6 +7,7 @@ import {IGhoBucketSteward} from 'src/interfaces/IGhoBucketSteward.sol';
 import {IGhoToken} from 'src/interfaces/IGhoToken.sol';
 import {AaveV3GHOLane} from './AaveV3GHOLane.sol';
 import {GhoCCIPChains} from './constants/GhoCCIPChains.sol';
+import {IUpgradeableBurnMintTokenPool_1_5_1} from 'src/interfaces/ccip/tokenPool/IUpgradeableBurnMintTokenPool.sol';
 
 /**
  * @title GHO Launch
@@ -14,6 +15,7 @@ import {GhoCCIPChains} from './constants/GhoCCIPChains.sol';
  * @notice Proposal Executor for Aave V3 GHO Launch
  */
 abstract contract AaveV3GHOLaunch is AaveV3GHOLane {
+  uint64 public immutable LOCAL_CHAIN_SELECTOR;
   IGhoToken public immutable GHO_TOKEN;
   ITokenAdminRegistry public immutable TOKEN_ADMIN_REGISTRY;
   IACLManager public immutable ACL_MANAGER;
@@ -33,6 +35,7 @@ abstract contract AaveV3GHOLaunch is AaveV3GHOLane {
    * @param localChainInfo The relevant information of the local chain where GHO is being launched.
    */
   constructor(GhoCCIPChains.ChainInfo memory localChainInfo) AaveV3GHOLane(localChainInfo) {
+    LOCAL_CHAIN_SELECTOR = localChainInfo.chainSelector;
     GHO_TOKEN = IGhoToken(localChainInfo.ghoToken);
     GHO_BUCKET_STEWARD = localChainInfo.ghoBucketSteward;
     GHO_AAVE_STEWARD = localChainInfo.ghoAaveCoreSteward;
@@ -51,6 +54,26 @@ abstract contract AaveV3GHOLaunch is AaveV3GHOLane {
     _setupStewardsAndTokenPoolOnGho();
     _applyChainUpdatesInTokenPool();
     _setPoolInTokenAdminRegistry();
+  }
+
+  function lanesToAdd()
+    public
+    view
+    virtual
+    override
+    returns (IUpgradeableBurnMintTokenPool_1_5_1.ChainUpdate[] memory)
+  {
+    GhoCCIPChains.ChainInfo[] memory chainsToSupport = GhoCCIPChains.getAllChainsExcept(
+      LOCAL_CHAIN_SELECTOR
+    );
+    IUpgradeableBurnMintTokenPool_1_5_1.ChainUpdate[]
+      memory chainsToAdd = new IUpgradeableBurnMintTokenPool_1_5_1.ChainUpdate[](
+        chainsToSupport.length
+      );
+    for (uint256 i = 0; i < chainsToSupport.length; i++) {
+      chainsToAdd[i] = _asChainUpdateWithDefaultRateLimiterConfig(chainsToSupport[i]);
+    }
+    return chainsToAdd;
   }
 
   /**

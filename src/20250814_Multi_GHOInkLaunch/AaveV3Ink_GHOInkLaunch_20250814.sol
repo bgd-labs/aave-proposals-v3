@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {IUpgradeableBurnMintTokenPool_1_5_1} from 'src/interfaces/ccip/tokenPool/IUpgradeableBurnMintTokenPool.sol';
 import {AaveV3GHOLaunch} from '../helpers/gho-launch/AaveV3GHOLaunch.sol';
 import {GhoCCIPChains} from '../helpers/gho-launch/constants/GhoCCIPChains.sol';
 
@@ -13,24 +12,6 @@ import {GhoCCIPChains} from '../helpers/gho-launch/constants/GhoCCIPChains.sol';
  */
 contract AaveV3Ink_GHOInkLaunch_20250814 is AaveV3GHOLaunch {
   constructor() AaveV3GHOLaunch(GhoCCIPChains.INK()) {}
-
-  function lanesToAdd()
-    public
-    pure
-    override
-    returns (IUpgradeableBurnMintTokenPool_1_5_1.ChainUpdate[] memory)
-  {
-    IUpgradeableBurnMintTokenPool_1_5_1.ChainUpdate[]
-      memory chainsToAdd = new IUpgradeableBurnMintTokenPool_1_5_1.ChainUpdate[](5);
-
-    chainsToAdd[0] = _asChainUpdateWithDefaultRateLimiterConfig(GhoCCIPChains.ETHEREUM());
-    chainsToAdd[1] = _asChainUpdateWithDefaultRateLimiterConfig(GhoCCIPChains.ARBITRUM());
-    chainsToAdd[2] = _asChainUpdateWithDefaultRateLimiterConfig(GhoCCIPChains.BASE());
-    chainsToAdd[3] = _asChainUpdateWithDefaultRateLimiterConfig(GhoCCIPChains.AVALANCHE());
-    chainsToAdd[4] = _asChainUpdateWithDefaultRateLimiterConfig(GhoCCIPChains.GNOSIS());
-
-    return chainsToAdd;
-  }
 
   function _setupGhoAaveSteward() internal override {
     // Do not setup Aave Core Steward, it will be done through the Aave V3 Ink activation proposal.

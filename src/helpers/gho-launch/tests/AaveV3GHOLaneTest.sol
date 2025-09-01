@@ -117,7 +117,10 @@ abstract contract AaveV3GHOLaneTest is ProtocolV3TestBase {
     internal
     view
     virtual
-    returns (GhoCCIPChains.ChainInfo[] memory);
+    returns (GhoCCIPChains.ChainInfo[] memory)
+  {
+    return GhoCCIPChains.getAllChainsExcept(LOCAL_CHAIN_SELECTOR);
+  }
 
   function _getOnRamp(uint64 chainSelector) internal view virtual returns (address) {
     return LOCAL_CCIP_ROUTER.getOnRamp(chainSelector);

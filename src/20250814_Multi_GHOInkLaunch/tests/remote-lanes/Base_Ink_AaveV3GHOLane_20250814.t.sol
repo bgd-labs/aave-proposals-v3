@@ -16,22 +16,6 @@ contract Base_Ink_AaveV3GHOLane_20250814_Test is AaveV3GHORemoteLaneTest_PostExe
     )
   {}
 
-  function _expectedSupportedChains()
-    internal
-    view
-    virtual
-    override
-    returns (GhoCCIPChains.ChainInfo[] memory)
-  {
-    GhoCCIPChains.ChainInfo[] memory expectedSupportedChains = new GhoCCIPChains.ChainInfo[](5);
-    expectedSupportedChains[0] = GhoCCIPChains.ETHEREUM();
-    expectedSupportedChains[1] = GhoCCIPChains.ARBITRUM();
-    expectedSupportedChains[2] = GhoCCIPChains.AVALANCHE();
-    expectedSupportedChains[3] = GhoCCIPChains.GNOSIS();
-    expectedSupportedChains[4] = GhoCCIPChains.INK();
-    return expectedSupportedChains;
-  }
-
   function _deployAaveV3GHOLaneProposal() internal virtual override returns (AaveV3GHOLane) {
     return new Base_Ink_AaveV3GHOLane_20250814();
   }

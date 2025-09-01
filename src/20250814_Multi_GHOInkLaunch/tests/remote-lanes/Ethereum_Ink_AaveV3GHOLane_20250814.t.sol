@@ -11,22 +11,6 @@ contract Ethereum_Avalanche_AaveV3GHOLane_20250519_Test is
 {
   constructor() AaveV3GHOEthereumRemoteLaneTest_PostExecution(GhoCCIPChains.INK(), 23193620) {}
 
-  function _expectedSupportedChains()
-    internal
-    view
-    virtual
-    override
-    returns (GhoCCIPChains.ChainInfo[] memory)
-  {
-    GhoCCIPChains.ChainInfo[] memory expectedSupportedChains = new GhoCCIPChains.ChainInfo[](5);
-    expectedSupportedChains[0] = GhoCCIPChains.ARBITRUM();
-    expectedSupportedChains[1] = GhoCCIPChains.BASE();
-    expectedSupportedChains[2] = GhoCCIPChains.AVALANCHE();
-    expectedSupportedChains[3] = GhoCCIPChains.GNOSIS();
-    expectedSupportedChains[4] = GhoCCIPChains.INK();
-    return expectedSupportedChains;
-  }
-
   // Overriden because it has two pools for Arbitrum chain selector
   function _assertAgainstSupportedChain(
     GhoCCIPChains.ChainInfo memory supportedChain

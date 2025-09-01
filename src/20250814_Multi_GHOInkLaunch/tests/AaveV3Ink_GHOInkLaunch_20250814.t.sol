@@ -45,22 +45,6 @@ contract AaveV3Ink_GHOInkLaunch_20250814_PreExecution is AaveV3GHOLaunchTest_Pre
     return new AaveV3Ink_GHOInkLaunch_20250814();
   }
 
-  function _expectedSupportedChains()
-    internal
-    view
-    virtual
-    override
-    returns (GhoCCIPChains.ChainInfo[] memory)
-  {
-    GhoCCIPChains.ChainInfo[] memory chains = new GhoCCIPChains.ChainInfo[](5);
-    chains[0] = GhoCCIPChains.ETHEREUM();
-    chains[1] = GhoCCIPChains.ARBITRUM();
-    chains[2] = GhoCCIPChains.BASE();
-    chains[3] = GhoCCIPChains.AVALANCHE();
-    chains[4] = GhoCCIPChains.GNOSIS();
-    return chains;
-  }
-
   function _validateConstants() internal view virtual override {
     assertEq(LOCAL_TOKEN_ADMIN_REGISTRY.typeAndVersion(), 'TokenAdminRegistry 1.5.0');
     assertEq(LOCAL_TOKEN_POOL.typeAndVersion(), 'BurnMintTokenPool 1.5.1');
@@ -132,22 +116,6 @@ contract AaveV3Ink_GHOInkLaunch_20250814_PostExecution is AaveV3GHOLaunchTest_Po
 
   function _deployAaveV3GHOLaneProposal() internal virtual override returns (AaveV3GHOLane) {
     return new AaveV3Ink_GHOInkLaunch_20250814();
-  }
-
-  function _expectedSupportedChains()
-    internal
-    view
-    virtual
-    override
-    returns (GhoCCIPChains.ChainInfo[] memory)
-  {
-    GhoCCIPChains.ChainInfo[] memory chains = new GhoCCIPChains.ChainInfo[](5);
-    chains[0] = GhoCCIPChains.ETHEREUM();
-    chains[1] = GhoCCIPChains.ARBITRUM();
-    chains[2] = GhoCCIPChains.BASE();
-    chains[3] = GhoCCIPChains.AVALANCHE();
-    chains[4] = GhoCCIPChains.GNOSIS();
-    return chains;
   }
 
   function _validateConstants() internal view virtual override {
