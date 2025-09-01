@@ -69,12 +69,12 @@ Method: approve() above assets on the Aave Collector contract to the AFC address
 
 ###### Aave Buybacks
 
-Create a 1M aEthUSDT and 1M aEthUSDC allowance for the Aave Finance Committee to support the AAVE Buybacks program.
+Create a 2M aEthUSDT and 2M aEthUSDC allowance for the Aave Finance Committee to support the AAVE Buybacks program.
 
 Asset: aEthUSDT `0x23878914EFE38d27C4D67Ab83ed1b93A74D4086a`
-Amount: 1M
+Amount: 2M
 Asset: aEthUSDC `0x98C23E9d8f34FEFb1B7BD6a91B7FF122F4e16F5c`
-Amount: 1M
+Amount: 2M
 Spender: AFC `0x22740deBa78d5a0c24C58C740e3715ec29de1bFa`
 Method: approve() aEthUSDT and aEthUSDC on the Aave Collector contract to the AFC address
 
@@ -98,20 +98,15 @@ Method: approve() aEthLidoGHO on the Aave Collector contract to the Merit addres
 
 | Asset  | Amount | To   |
 | ------ | ------ | ---- |
-| DAI    | All    | USDC |
-| GUSD   | 200k   | USDC |
-| sUSD   | 50k    | USDC |
-| tUSD   | 50k    | USDC |
-| USDP   | 50k    | USDC |
 | crvUSD | All    | USDC |
-| LUSD   | All    | USDC |
 
 Retrieve POL migrated to MATIC.
+Deposit raw ETH into wETH to earn yield by later depositing into aEthWETH.
 
 ###### Reimbursements
 
 Asset: aEthWETH `0x4d5F47FA6A74757f35C14fD3a6Ef8E3C9BC514E8`
-Amount: TBA
+Amount: 0.2415
 Spender: ACI `0xac140648435d03f784879cd789130F22Ef588Fcd`
 Method: transfer() aEthWETH on the Aave Collector contract to the ACI address.
 
@@ -125,7 +120,7 @@ Method: transfer() aEthLidoGHO on the Aave Collector contract to the TokenLogic 
 #### Gnosis - Liquidity Mining Rewards
 
 Asset: aGnoEURe: `0xEdBC7449a9b594CA4E053D9737EC5Dc4CbCcBfb2`
-Amount: 5,145
+Amount: 15,000
 Spender: MASIV SAFE `0xdef1FA4CEfe67365ba046a7C630D6B885298E210`
 Method: approve() aGnoEURe on the Aave Collector contract to the ACI address
 
@@ -171,7 +166,7 @@ MaticX
 #### Sonic - Liquidity Mining Rewards
 
 Asset: aSonwS `0x6C5E14A212c1C3e4Baf6f871ac9B1a969918c131`
-Amount: 100,000
+Amount: 300,000
 Spender: MASiv nested safe `0x565B80842eCEDad88A2564Ea375CE875Ed3bAdeC`
 Method: approve() aSonwS on the Aave Collector contract to the Masiv address.
 

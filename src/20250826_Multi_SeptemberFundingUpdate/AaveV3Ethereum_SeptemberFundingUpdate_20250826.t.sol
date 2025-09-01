@@ -145,67 +145,10 @@ contract AaveV3Ethereum_SeptemberFundingUpdate_20250826_Test is ProtocolV3TestBa
   }
 
   function test_swaps() public {
-    vm.expectEmit(true, true, true, true, MiscEthereum.AAVE_SWAPPER);
-    emit SwapRequested(
-      proposal.MILKMAN(),
-      AaveV3EthereumAssets.DAI_UNDERLYING,
-      AaveV3EthereumAssets.USDC_UNDERLYING,
-      AaveV3EthereumAssets.DAI_ORACLE,
-      AaveV3EthereumAssets.USDC_ORACLE,
-      1, // Hardcoded as swap is dynamic
-      address(AaveV3Ethereum.COLLECTOR),
-      100
+    uint256 balanceEthBefore = address(AaveV3Ethereum.COLLECTOR).balance;
+    uint256 balanceWethBefore = IERC20(AaveV3EthereumAssets.WETH_UNDERLYING).balanceOf(
+      address(AaveV3Ethereum.COLLECTOR)
     );
-
-    vm.expectEmit(true, true, true, true, MiscEthereum.AAVE_SWAPPER);
-    emit SwapRequested(
-      proposal.MILKMAN(),
-      AaveV2EthereumAssets.GUSD_UNDERLYING,
-      AaveV2EthereumAssets.USDC_UNDERLYING,
-      AaveV2EthereumAssets.GUSD_ORACLE,
-      AaveV2EthereumAssets.USDC_ORACLE,
-      1,
-      address(AaveV3Ethereum.COLLECTOR),
-      200
-    );
-
-    vm.expectEmit(true, true, true, true, MiscEthereum.AAVE_SWAPPER);
-    emit SwapRequested(
-      proposal.MILKMAN(),
-      AaveV2EthereumAssets.sUSD_UNDERLYING,
-      AaveV2EthereumAssets.USDC_UNDERLYING,
-      AaveV2EthereumAssets.sUSD_ORACLE,
-      AaveV2EthereumAssets.USDC_ORACLE,
-      1, // Hardcoded as swap is dynamic
-      address(AaveV3Ethereum.COLLECTOR),
-      300
-    );
-
-    vm.expectEmit(true, true, true, true, MiscEthereum.AAVE_SWAPPER);
-    emit SwapRequested(
-      proposal.MILKMAN(),
-      AaveV2EthereumAssets.TUSD_UNDERLYING,
-      AaveV2EthereumAssets.USDC_UNDERLYING,
-      AaveV2EthereumAssets.TUSD_ORACLE,
-      AaveV2EthereumAssets.USDC_ORACLE,
-      1, // Hardcoded as swap is dynamic
-      address(AaveV3Ethereum.COLLECTOR),
-      300
-    );
-
-    vm.expectEmit(true, true, true, true, MiscEthereum.AAVE_SWAPPER);
-    emit SwapRequested(
-      proposal.MILKMAN(),
-      AaveV2EthereumAssets.USDP_UNDERLYING,
-      AaveV2EthereumAssets.USDC_UNDERLYING,
-      AaveV2EthereumAssets.USDP_ORACLE,
-      AaveV2EthereumAssets.USDC_ORACLE,
-      1, // Hardcoded as swap is dynamic
-      address(AaveV3Ethereum.COLLECTOR),
-      300
-    );
-
-    executePayload(vm, address(proposal));
 
     vm.expectEmit(true, true, true, true, MiscEthereum.AAVE_SWAPPER);
     emit SwapRequested(
@@ -219,50 +162,19 @@ contract AaveV3Ethereum_SeptemberFundingUpdate_20250826_Test is ProtocolV3TestBa
       500
     );
 
-    vm.expectEmit(true, true, true, true, MiscEthereum.AAVE_SWAPPER);
-    emit SwapRequested(
-      proposal.MILKMAN(),
-      AaveV3EthereumAssets.LUSD_UNDERLYING,
-      AaveV3EthereumAssets.USDC_UNDERLYING,
-      AaveV3EthereumAssets.LUSD_ORACLE,
-      AaveV3EthereumAssets.USDC_ORACLE,
-      1, // Hardcoded as swap is dynamic
-      address(AaveV3Ethereum.COLLECTOR),
-      300
-    );
+    executePayload(vm, address(proposal));
 
     assertEq(
-      IERC20(AaveV3EthereumAssets.DAI_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
-      0
+      address(AaveV3Ethereum.COLLECTOR).balance,
+      balanceEthBefore - proposal.ETH_TO_DEPOSIT()
     );
-
     assertEq(
-      IERC20(AaveV3EthereumAssets.LUSD_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
-      0
+      IERC20(AaveV3EthereumAssets.WETH_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
+      balanceWethBefore + proposal.ETH_TO_DEPOSIT()
     );
 
     assertEq(
       IERC20(AaveV3EthereumAssets.crvUSD_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
-      0
-    );
-
-    assertEq(
-      IERC20(AaveV2EthereumAssets.GUSD_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
-      0
-    );
-
-    assertEq(
-      IERC20(AaveV2EthereumAssets.sUSD_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
-      0
-    );
-
-    assertEq(
-      IERC20(AaveV2EthereumAssets.TUSD_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
-      0
-    );
-
-    assertEq(
-      IERC20(AaveV2EthereumAssets.USDP_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
       0
     );
   }

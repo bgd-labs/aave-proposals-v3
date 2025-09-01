@@ -9,6 +9,7 @@ import {AaveV3EthereumLidoAssets} from 'aave-address-book/AaveV3EthereumLido.sol
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {Rescuable} from 'solidity-utils/contracts/utils/Rescuable.sol';
 import {CollectorUtils, ICollector} from 'aave-helpers/src/CollectorUtils.sol';
+import {IWETH} from 'aave-v3-origin/contracts/helpers/interfaces/IWETH.sol';
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
 
 /**
@@ -21,8 +22,8 @@ contract AaveV3Ethereum_SeptemberFundingUpdate_20250826 is IProposalGenericExecu
   using CollectorUtils for ICollector;
 
   /// AAVE Buybacks allowance
-  uint256 public constant AFC_USDC_ALLOWANCE = 1_000_000e6;
-  uint256 public constant AFC_USDT_ALLOWANCE = 1_000_000e6;
+  uint256 public constant AFC_USDC_ALLOWANCE = 2_000_000e6;
+  uint256 public constant AFC_USDT_ALLOWANCE = 2_000_000e6;
 
   /// ALC CRV allowance
   uint256 public constant ALC_CRV_ALLOWANCE = 30_000 ether;
@@ -44,10 +45,12 @@ contract AaveV3Ethereum_SeptemberFundingUpdate_20250826 is IProposalGenericExecu
 
   /// Reimbursements
   address public constant ACI = 0xac140648435d03f784879cd789130F22Ef588Fcd;
-  uint256 public constant ACI_REIMBURSEMENT = 0;
+  uint256 public constant ACI_REIMBURSEMENT = 0.2415 ether;
 
   address public constant TOKEN_LOGIC = 0xAA088dfF3dcF619664094945028d44E779F19894;
   uint256 public constant TL_REIMBURSEMENT = 9_000 ether;
+
+  uint256 public constant ETH_TO_DEPOSIT = 223 ether;
 
   function execute() external {
     _approvals();
@@ -86,89 +89,16 @@ contract AaveV3Ethereum_SeptemberFundingUpdate_20250826 is IProposalGenericExecu
   }
 
   function _swaps() internal {
-    // DAI
-    AaveV3Ethereum.COLLECTOR.swap(
-      MiscEthereum.AAVE_SWAPPER,
-      CollectorUtils.SwapInput({
-        milkman: MILKMAN,
-        priceChecker: PRICE_CHECKER,
-        fromUnderlying: AaveV3EthereumAssets.DAI_UNDERLYING,
-        toUnderlying: AaveV3EthereumAssets.USDC_UNDERLYING,
-        fromUnderlyingPriceFeed: AaveV3EthereumAssets.DAI_ORACLE,
-        toUnderlyingPriceFeed: AaveV3EthereumAssets.USDC_ORACLE,
-        amount: IERC20(AaveV3EthereumAssets.DAI_UNDERLYING).balanceOf(
-          address(AaveV3Ethereum.COLLECTOR)
-        ),
-        slippage: 100
-      })
+    // ETH
+    AaveV3Ethereum.COLLECTOR.transfer(
+      IERC20(AaveV3Ethereum.COLLECTOR.ETH_MOCK_ADDRESS()),
+      address(this),
+      ETH_TO_DEPOSIT
     );
-
-    // GUSD
-    AaveV3Ethereum.COLLECTOR.swap(
-      MiscEthereum.AAVE_SWAPPER,
-      CollectorUtils.SwapInput({
-        milkman: MILKMAN,
-        priceChecker: PRICE_CHECKER,
-        fromUnderlying: AaveV2EthereumAssets.GUSD_UNDERLYING,
-        toUnderlying: AaveV2EthereumAssets.USDC_UNDERLYING,
-        fromUnderlyingPriceFeed: AaveV2EthereumAssets.GUSD_ORACLE,
-        toUnderlyingPriceFeed: AaveV2EthereumAssets.USDC_ORACLE,
-        amount: IERC20(AaveV2EthereumAssets.GUSD_UNDERLYING).balanceOf(
-          address(AaveV3Ethereum.COLLECTOR)
-        ),
-        slippage: 200
-      })
-    );
-
-    // SUSD
-    AaveV3Ethereum.COLLECTOR.swap(
-      MiscEthereum.AAVE_SWAPPER,
-      CollectorUtils.SwapInput({
-        milkman: MILKMAN,
-        priceChecker: PRICE_CHECKER,
-        fromUnderlying: AaveV2EthereumAssets.sUSD_UNDERLYING,
-        toUnderlying: AaveV2EthereumAssets.USDC_UNDERLYING,
-        fromUnderlyingPriceFeed: AaveV2EthereumAssets.sUSD_ORACLE,
-        toUnderlyingPriceFeed: AaveV2EthereumAssets.USDC_ORACLE,
-        amount: IERC20(AaveV2EthereumAssets.sUSD_UNDERLYING).balanceOf(
-          address(AaveV3Ethereum.COLLECTOR)
-        ),
-        slippage: 300
-      })
-    );
-
-    // TUSD
-    AaveV3Ethereum.COLLECTOR.swap(
-      MiscEthereum.AAVE_SWAPPER,
-      CollectorUtils.SwapInput({
-        milkman: MILKMAN,
-        priceChecker: PRICE_CHECKER,
-        fromUnderlying: AaveV2EthereumAssets.TUSD_UNDERLYING,
-        toUnderlying: AaveV2EthereumAssets.USDC_UNDERLYING,
-        fromUnderlyingPriceFeed: AaveV2EthereumAssets.TUSD_ORACLE,
-        toUnderlyingPriceFeed: AaveV2EthereumAssets.USDC_ORACLE,
-        amount: IERC20(AaveV2EthereumAssets.TUSD_UNDERLYING).balanceOf(
-          address(AaveV3Ethereum.COLLECTOR)
-        ),
-        slippage: 300
-      })
-    );
-
-    // USDP
-    AaveV3Ethereum.COLLECTOR.swap(
-      MiscEthereum.AAVE_SWAPPER,
-      CollectorUtils.SwapInput({
-        milkman: MILKMAN,
-        priceChecker: PRICE_CHECKER,
-        fromUnderlying: AaveV2EthereumAssets.USDP_UNDERLYING,
-        toUnderlying: AaveV2EthereumAssets.USDC_UNDERLYING,
-        fromUnderlyingPriceFeed: AaveV2EthereumAssets.USDP_ORACLE,
-        toUnderlyingPriceFeed: AaveV2EthereumAssets.USDC_ORACLE,
-        amount: IERC20(AaveV2EthereumAssets.USDP_UNDERLYING).balanceOf(
-          address(AaveV3Ethereum.COLLECTOR)
-        ),
-        slippage: 300
-      })
+    IWETH(AaveV3EthereumAssets.WETH_UNDERLYING).deposit{value: ETH_TO_DEPOSIT}();
+    IERC20(AaveV3EthereumAssets.WETH_UNDERLYING).transfer(
+      address(AaveV3Ethereum.COLLECTOR),
+      ETH_TO_DEPOSIT
     );
 
     // crvUSD
@@ -188,23 +118,6 @@ contract AaveV3Ethereum_SeptemberFundingUpdate_20250826 is IProposalGenericExecu
       })
     );
 
-    // LUSD
-    AaveV3Ethereum.COLLECTOR.swap(
-      MiscEthereum.AAVE_SWAPPER,
-      CollectorUtils.SwapInput({
-        milkman: MILKMAN,
-        priceChecker: PRICE_CHECKER,
-        fromUnderlying: AaveV3EthereumAssets.LUSD_UNDERLYING,
-        toUnderlying: AaveV3EthereumAssets.USDC_UNDERLYING,
-        fromUnderlyingPriceFeed: AaveV3EthereumAssets.LUSD_ORACLE,
-        toUnderlyingPriceFeed: AaveV3EthereumAssets.USDC_ORACLE,
-        amount: IERC20(AaveV3EthereumAssets.LUSD_UNDERLYING).balanceOf(
-          address(AaveV3Ethereum.COLLECTOR)
-        ),
-        slippage: 300
-      })
-    );
-
     /// Get POL
     Rescuable(PLASMA_BRIDGE).emergencyTokenTransfer(
       POL,
@@ -219,6 +132,7 @@ contract AaveV3Ethereum_SeptemberFundingUpdate_20250826 is IProposalGenericExecu
       ACI,
       ACI_REIMBURSEMENT
     );
+
     AaveV3EthereumLido.COLLECTOR.transfer(
       IERC20(AaveV3EthereumLidoAssets.GHO_A_TOKEN),
       TOKEN_LOGIC,

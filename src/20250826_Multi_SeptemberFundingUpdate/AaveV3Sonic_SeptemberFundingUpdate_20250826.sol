@@ -13,7 +13,7 @@ import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGen
  */
 contract AaveV3Sonic_SeptemberFundingUpdate_20250826 is IProposalGenericExecutor {
   address public constant MASIV_NESTED_SAFE = 0x565B80842eCEDad88A2564Ea375CE875Ed3bAdeC;
-  uint256 public constant WS_AMOUNT = 100_000 ether;
+  uint256 public constant WS_AMOUNT = 300_000 ether;
 
   function execute() external {
     AaveV3Sonic.COLLECTOR.approve(
