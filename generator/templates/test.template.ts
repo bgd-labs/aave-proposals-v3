@@ -4,6 +4,7 @@ import {
   getChainAlias,
   getPoolChain,
   isV2Pool,
+  isWhitelabelPool,
 } from '../common';
 import {Options, PoolConfig, PoolIdentifier} from '../types';
 import {prefixWithPragma} from '../utils/constants';
@@ -45,7 +46,7 @@ contract ${contractName}_Test is ${testBase} {
    * @dev executes the generic test suite including e2e and config snapshots
    */
   function test_defaultProposalExecution() public {
-    defaultTest('${contractName}', ${pool}.POOL, address(proposal));
+    defaultTest('${contractName}', ${pool}.POOL, address(proposal) ${isWhitelabelPool(pool) ? ', true, true' : ''});
   }
 
   ${functions}

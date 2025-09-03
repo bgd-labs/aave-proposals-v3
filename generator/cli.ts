@@ -1,7 +1,14 @@
 import 'dotenv/config';
 import path from 'path';
 import {Command, Option} from 'commander';
-import {CHAIN_TO_CHAIN_ID, getDate, getPoolChain, isV2Pool, pascalCase} from './common';
+import {
+  CHAIN_TO_CHAIN_ID,
+  getDate,
+  getPoolChain,
+  isWhitelabelPool,
+  isV2Pool,
+  pascalCase,
+} from './common';
 import {input, checkbox, select} from '@inquirer/prompts';
 import {
   CodeArtifact,
@@ -172,6 +179,16 @@ if (options.configFile) {
     // },
   });
 
+  const whitelabelPools = options.pools.filter((pool) => isWhitelabelPool(pool));
+  const nonWhitelabelPools = options.pools.filter((pool) => !isWhitelabelPool(pool));
+  if (whitelabelPools.length > 0 && nonWhitelabelPools.length > 0) {
+    console.log('\n❌ Error: Cannot mix whitelabel and non-whitelabel pools.');
+    console.log(
+      'Please run the command again and select either only whitelabel pools or only regular pools.\n',
+    );
+    process.exit(1);
+  }
+
   if (!options.title) {
     options.title = await input({
       message:
@@ -200,19 +217,19 @@ if (options.configFile) {
     });
   }
 
-  if (!options.discussion) {
+  if (!options.discussion && whitelabelPools.length == 0) {
     options.discussion = await input({
       message: 'Link to forum discussion',
     });
   }
 
-  if (!options.snapshot) {
+  if (!options.snapshot && whitelabelPools.length == 0) {
     options.snapshot = await input({
       message: 'Link to snapshot',
     });
   }
 
-  if (!options.votingNetwork) {
+  if (!options.votingNetwork && whitelabelPools.length == 0) {
     options.votingNetwork = await select({
       message: 'Select network where voting should takes place for the proposal',
       choices: Object.values(VOTING_NETWORK).map((v) => ({
