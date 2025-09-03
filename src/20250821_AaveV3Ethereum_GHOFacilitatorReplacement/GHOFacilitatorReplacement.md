@@ -53,8 +53,8 @@ This ensures a seamless/exact transition of the facilitator’s role and funds (
 
 ## References
 
-- Implementation: [`AaveV3Ethereum`](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250821_AaveV3Ethereum_GHOFacilitatorReplacement/AaveV3Ethereum_GHOFacilitatorReplacement_20250821.sol)
-- Tests: [`AaveV3Ethereum`](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250821_AaveV3Ethereum_GHOFacilitatorReplacement/AaveV3Ethereum_GHOFacilitatorReplacement_20250821.t.sol)
+- Implementation: [`AaveV3Ethereum`](https://github.com/bgd-labs/aave-proposals-v3/blob/3cd5d056c3cb152fa44843a78532023100a6595b/src/20250821_AaveV3Ethereum_GHOFacilitatorReplacement/AaveV3Ethereum_GHOFacilitatorReplacement_20250821.sol)
+- Tests: [`AaveV3Ethereum`](https://github.com/bgd-labs/aave-proposals-v3/blob/3cd5d056c3cb152fa44843a78532023100a6595b/src/20250821_AaveV3Ethereum_GHOFacilitatorReplacement/AaveV3Ethereum_GHOFacilitatorReplacement_20250821.t.sol)
 - Aave V3.4 upgrade payload: [`UpgradePayloadMainnet`](https://github.com/bgd-labs/protocol-v3.4-upgrade/blob/main/src/UpgradePayloadMainnet.sol)
 - [Discussion](https://governance.aave.com/t/technical-maintenance-proposals/15274/107)
 
