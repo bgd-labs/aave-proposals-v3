@@ -27,7 +27,7 @@ contract AaveV3Ethereum_OnboardUSDeNovemberExpiryPTTokensOnAaveV3CoreInstance_20
   address public constant RISK_ORACLE_OWNER = 0x42939e82DF15afc586bb95f7dD69Afb6Dc24A6f9;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 23274796);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 23282969);
     proposal = new AaveV3Ethereum_OnboardUSDeNovemberExpiryPTTokensOnAaveV3CoreInstance_20250829();
   }
 
@@ -92,7 +92,7 @@ contract AaveV3Ethereum_OnboardUSDeNovemberExpiryPTTokensOnAaveV3CoreInstance_20
   function test_inject_EMode26UpdateToProtocol() public {
     executePayload(vm, address(proposal));
 
-    uint8 eModeId = 26;
+    uint8 eModeId = 24;
     uint256 ltv = 87_80;
     uint256 liqThreshold = 89_80;
     uint256 liqBonus = 4_20;
@@ -118,7 +118,7 @@ contract AaveV3Ethereum_OnboardUSDeNovemberExpiryPTTokensOnAaveV3CoreInstance_20
   function test_inject_EMode27UpdateToProtocol() public {
     executePayload(vm, address(proposal));
 
-    uint8 eModeId = 27;
+    uint8 eModeId = 25;
     uint256 ltv = 88_60;
     uint256 liqThreshold = 90_60;
     uint256 liqBonus = 3_20;
