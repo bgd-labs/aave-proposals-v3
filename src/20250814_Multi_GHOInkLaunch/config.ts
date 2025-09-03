@@ -7,7 +7,7 @@ export const config: ConfigFile = {
       'AaveV3Base',
       'AaveV3Avalanche',
       'AaveV3Gnosis',
-      // 'AaveV3Ink', // TODO: AaveV3Ink or AaveV3InkWhitelabel type needed
+      'AaveV3InkWhitelabel',
     ],
     title: 'Launch GHO on Ink',
     shortName: 'GHOInkLaunch',
@@ -25,9 +25,9 @@ export const config: ConfigFile = {
     AaveV3Base: {configs: {OTHERS: {}}, cache: {blockNumber: 34520153}},
     AaveV3Ethereum: {configs: {OTHERS: {}}, cache: {blockNumber: 23193620}},
     AaveV3Gnosis: {configs: {OTHERS: {}}, cache: {blockNumber: 41726320}},
-    // AaveV3Ink: {  // TODO: AaveV3Ink or AaveV3InkWhitelabel type needed
-    //   configs: {OTHERS: {}},
-    //   cache: {blockNumber: 22331165},
-    // },
+    AaveV3InkWhitelabel: {
+      configs: {OTHERS: {}},
+      cache: {blockNumber: 22331165},
+    },
   },
 };
