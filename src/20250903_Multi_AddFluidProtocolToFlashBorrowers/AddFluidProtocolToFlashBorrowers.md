@@ -17,7 +17,8 @@ Fluid has been a long-standing partner in the Aave ecosystem, providing valuable
 
 Whitelist Fluid Protocol as part of FlashBorrowers of Aave v3 on Polygon & Avalanche liquidity pools.
 
-0x352423e2fA5D5c99343d371C9e3bC56C87723Cc7
+- Polygon: [0x352423e2fA5D5c99343d371C9e3bC56C87723Cc7](https://polygonscan.com/address/0x352423e2fA5D5c99343d371C9e3bC56C87723Cc7)
+- Avalanche: [0x352423e2fA5D5c99343d371C9e3bC56C87723Cc7](https://snowtrace.io/address/0x352423e2fA5D5c99343d371C9e3bC56C87723Cc7)
 
 This proposal aims to implement a single AIP, utilizing two similar payloads (one for each network), which will call addFlashBorrower() on the ACL_MANAGER contract.
 

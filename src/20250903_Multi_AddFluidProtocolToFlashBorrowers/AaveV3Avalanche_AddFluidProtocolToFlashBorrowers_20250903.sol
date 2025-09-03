@@ -11,6 +11,7 @@ import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGen
  * - Discussion: https://governance.aave.com/t/arfc-add-fluid-protocol-to-flashborrowers/23007
  */
 contract AaveV3Avalanche_AddFluidProtocolToFlashBorrowers_20250903 is IProposalGenericExecutor {
+  // https://snowtrace.io/address/0x352423e2fA5D5c99343d371C9e3bC56C87723Cc7
   address public constant FLUID_PROTOCOL = 0x352423e2fA5D5c99343d371C9e3bC56C87723Cc7;
 
   function execute() external {

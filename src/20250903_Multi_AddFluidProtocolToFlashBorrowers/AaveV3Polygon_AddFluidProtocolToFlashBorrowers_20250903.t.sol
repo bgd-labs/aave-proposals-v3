@@ -3,9 +3,7 @@ pragma solidity ^0.8.0;
 
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 import {AaveV3Polygon} from 'aave-address-book/AaveV3Polygon.sol';
-
-import 'forge-std/Test.sol';
-import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
+import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Polygon_AddFluidProtocolToFlashBorrowers_20250903} from './AaveV3Polygon_AddFluidProtocolToFlashBorrowers_20250903.sol';
 
 /**
@@ -32,8 +30,8 @@ contract AaveV3Polygon_AddFluidProtocolToFlashBorrowers_20250903_Test is Protoco
   }
 
   function test_isFlashBorrower() external {
+    assertFalse(AaveV3Polygon.ACL_MANAGER.isFlashBorrower(proposal.FLUID_PROTOCOL()));
     GovV3Helpers.executePayload(vm, address(proposal));
-    bool isFlashBorrower = AaveV3Polygon.ACL_MANAGER.isFlashBorrower(proposal.FLUID_PROTOCOL());
-    assertEq(isFlashBorrower, true);
+    assertTrue(AaveV3Polygon.ACL_MANAGER.isFlashBorrower(proposal.FLUID_PROTOCOL()));
   }
 }
