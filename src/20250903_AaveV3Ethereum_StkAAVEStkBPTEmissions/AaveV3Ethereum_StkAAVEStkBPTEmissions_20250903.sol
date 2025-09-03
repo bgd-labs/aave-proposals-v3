@@ -15,7 +15,7 @@ import {IStakeToken} from 'aave-address-book/common/IStakeToken.sol';
  * - Discussion: TODO
  */
 contract AaveV3Ethereum_StkAAVEStkBPTEmissions_20250903 is IProposalGenericExecutor {
-  uint256 public constant DISTRIBUTION_DURATION = 180 days;
+  uint256 public constant DISTRIBUTION_DURATION = 90 days;
   uint128 public constant AAVE_EMISSION_PER_SECOND_STK_BPT = uint128(240 ether) / 1 days;
   uint128 public constant AAVE_EMISSION_PER_SECOND_STK_AAVE = uint128(360 ether) / 1 days;
   uint256 public constant TOTAL_ALLOWANCE = (DISTRIBUTION_DURATION *
