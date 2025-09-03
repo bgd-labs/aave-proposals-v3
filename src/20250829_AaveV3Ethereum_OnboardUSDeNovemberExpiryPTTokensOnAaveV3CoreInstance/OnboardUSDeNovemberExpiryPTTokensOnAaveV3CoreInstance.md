@@ -44,7 +44,7 @@ The table below illustrates the configured risk parameters for **PT_USDe_27NOV20
 | Oracle                 | [PT Capped USDe USDT/USD linear discount 27NOV2025](https://etherscan.io/address/0x6A196A7B498C4EFBFEfB55364106EC80CceF0C3F) |
 | Underlying Oracle      |                                   [Capped USDT/USD](https://etherscan.io/address/0x260326c220E469358846b187eE53328303Efe19C) |
 | Underlying Oracle      |                                [Chainlink USDT/USD](https://etherscan.io/address/0x3E7d1eAB13ad0104d2750B8863b489D65364e32D) |
-| Oracle Latest Answer   |                                                                                                       (2025-08-25) USD .TODO |
+| Oracle Latest Answer   |                                                                                                   (2025-08-25) USD .97807106 |
 | discountRatePerYear    |                                                                                                                        9.51% |
 | maxDiscountRatePerYear |                                                                                                                       28.90% |
 
