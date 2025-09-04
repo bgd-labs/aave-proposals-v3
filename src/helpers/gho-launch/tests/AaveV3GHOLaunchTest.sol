@@ -65,7 +65,7 @@ abstract contract AaveV3GHOLaunchTest_PreExecution is AaveV3GHOLaneTest {
   function _aaveProtocolDataProvider() internal view virtual returns (address);
 
   function _executePayload() internal virtual {
-    executePayload(vm, address(proposal), IPool(_aavePool()));
+    executePayload(vm, address(proposal));
   }
 
   function test_stewardRoles() public {
@@ -264,7 +264,7 @@ abstract contract AaveV3GHOLaunchTest_PostExecution is AaveV3GHOLaneTest {
   function _aavePool() internal view virtual returns (address);
 
   function _executePayload() internal virtual {
-    executePayload(vm, address(proposal), IPool(_aavePool()));
+    executePayload(vm, address(proposal));
   }
 
   function setUp() public virtual override {

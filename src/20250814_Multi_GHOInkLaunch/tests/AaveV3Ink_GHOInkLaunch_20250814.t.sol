@@ -8,8 +8,7 @@ import {AaveV3Ink_GHOInkLaunch_20250814} from '../AaveV3Ink_GHOInkLaunch_2025081
 import {AaveV3GHOLaunchTest_PostExecution, AaveV3GHOLaunchTest_PreExecution} from '../../helpers/gho-launch/tests/AaveV3GHOLaunchTest.sol';
 import {CCIPChainTokenAdminRegistries} from '../../helpers/gho-launch/constants/CCIPChainTokenAdminRegistries.sol';
 import {ITokenAdminRegistry} from 'src/interfaces/ccip/ITokenAdminRegistry.sol';
-import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
-import {GovernanceV3Ink} from 'aave-address-book/GovernanceV3Ink.sol';
+import {AaveV3InkWhitelabel} from 'aave-address-book/AaveV3InkWhitelabel.sol';
 
 contract AaveV3Ink_GHOInkLaunch_20250814_PreExecution is AaveV3GHOLaunchTest_PreExecution {
   constructor() AaveV3GHOLaunchTest_PreExecution(GhoCCIPChains.INK(), 'ink', 22331165) {}
@@ -20,11 +19,7 @@ contract AaveV3Ink_GHOInkLaunch_20250814_PreExecution is AaveV3GHOLaunchTest_Pre
 
   function _executePayload() internal virtual override {
     _mockAdministratorProposal();
-    GovV3Helpers.executePayload(
-      vm,
-      address(proposal),
-      address(GovernanceV3Ink.PAYLOADS_CONTROLLER)
-    );
+    super._executePayload();
   }
 
   // TODO: Temporary mock until done on Ink
@@ -56,7 +51,7 @@ contract AaveV3Ink_GHOInkLaunch_20250814_PreExecution is AaveV3GHOLaunchTest_Pre
   }
 
   function _aavePool() internal view virtual override returns (address) {
-    return GHOInkLaunchConstants.POOL;
+    return address(AaveV3InkWhitelabel.POOL);
   }
 
   function _localRiskCouncil() internal view virtual override returns (address) {
@@ -68,11 +63,11 @@ contract AaveV3Ink_GHOInkLaunch_20250814_PreExecution is AaveV3GHOLaunchTest_Pre
   }
 
   function _aavePoolAddressesProvider() internal view virtual override returns (address) {
-    return GHOInkLaunchConstants.POOL_ADDRESSES_PROVIDER;
+    return address(AaveV3InkWhitelabel.POOL_ADDRESSES_PROVIDER);
   }
 
   function _aaveProtocolDataProvider() internal view virtual override returns (address) {
-    return GHOInkLaunchConstants.AAVE_PROTOCOL_DATA_PROVIDER;
+    return address(AaveV3InkWhitelabel.AAVE_PROTOCOL_DATA_PROVIDER);
   }
 
   function _test_ghoAaveCore_stewardsConfig() internal view virtual override {
@@ -93,11 +88,7 @@ contract AaveV3Ink_GHOInkLaunch_20250814_PostExecution is AaveV3GHOLaunchTest_Po
 
   function _executePayload() internal virtual override {
     _mockAdministratorProposal();
-    GovV3Helpers.executePayload(
-      vm,
-      address(proposal),
-      address(GovernanceV3Ink.PAYLOADS_CONTROLLER)
-    );
+    super._executePayload();
   }
 
   // TODO: Temporary mock until done on Ink
@@ -111,7 +102,7 @@ contract AaveV3Ink_GHOInkLaunch_20250814_PostExecution is AaveV3GHOLaunchTest_Po
   }
 
   function _aavePool() internal view virtual override returns (address) {
-    return GHOInkLaunchConstants.POOL;
+    return address(AaveV3InkWhitelabel.POOL);
   }
 
   function _deployAaveV3GHOLaneProposal() internal virtual override returns (AaveV3GHOLane) {
