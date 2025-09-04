@@ -28,10 +28,6 @@ As part on routine operations, certain asset holdings are to be converted to USD
 
 The CRV held within the Treasury are to be sent to the ALC safe and converted to sdCRV.
 
-### Avalanche
-
-On Avalanche, the AFC is to support the migration of DAO funds from v2 to v3 and in doing so, DAI is to be exchanged for USDC before being deposited into v3 to benefit from the ongoing AVAX incentive campaign.
-
 ### Optimism
 
 For Optimism, where lower deposit yield is available relative to Avalanche, funds are to be bridged back to Ethereum to support the DAO’s operations. sUSD will be exchanged for USDCn and bridged back to Ethereum via the AFC whilst other assets will be bridged directly via the AIP implementation. All assets are then deposited into Aave Protocol on Ethereum to earn yield.
@@ -58,16 +54,6 @@ Amount: 234,000 ARB
 Spender: APE `0xAA43203167317DeeF8288095C44b84a686918d2E`
 
 Method: approve() ARB on the Aave Collector contract to the APE SAFE address
-
-#### Avalanche
-
-Create Allowances to enable v2 assets to be transferred to the AFC, where asset will be exchanged for the corresponding asset on v3, and redeployed back into Aave Protocol to earn yield. The DAI shall be swapped to USDC and deposited into Aave v3 to benefit from the ongoing incentive campaign.
-
-Amount: All USDC.e, USDT.e, DAI.e
-
-Spender: AFC `0x22740deBa78d5a0c24C58C740e3715ec29de1bFa`
-
-Method: approve() above assets on the Aave Collector contract to the AFC address
 
 #### Ethereum
 
@@ -188,11 +174,9 @@ Method: approve() above assets on the Aave Collector contract to the AFC address
 
 Bridge all the balance of the following assets:
 
-USDT
 DAI
 USDC.e
 wBTC
-MaticX
 
 #### Sonic - Liquidity Mining Rewards
 

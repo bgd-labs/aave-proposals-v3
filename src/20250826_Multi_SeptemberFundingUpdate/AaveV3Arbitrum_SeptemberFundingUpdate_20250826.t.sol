@@ -15,7 +15,7 @@ contract AaveV3Arbitrum_SeptemberFundingUpdate_20250826_Test is ProtocolV3TestBa
   AaveV3Arbitrum_SeptemberFundingUpdate_20250826 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('arbitrum'), 372840280);
+    vm.createSelectFork(vm.rpcUrl('arbitrum'), 375324010);
     proposal = new AaveV3Arbitrum_SeptemberFundingUpdate_20250826();
   }
 

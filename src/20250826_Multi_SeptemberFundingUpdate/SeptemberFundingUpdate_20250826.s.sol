@@ -7,7 +7,6 @@ import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {EthereumScript, PolygonScript, AvalancheScript, OptimismScript, ArbitrumScript, GnosisScript, SonicScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
 import {AaveV3Ethereum_SeptemberFundingUpdate_20250826} from './AaveV3Ethereum_SeptemberFundingUpdate_20250826.sol';
 import {AaveV3Polygon_SeptemberFundingUpdate_20250826} from './AaveV3Polygon_SeptemberFundingUpdate_20250826.sol';
-import {AaveV2Avalanche_SeptemberFundingUpdate_20250826} from './AaveV2Avalanche_SeptemberFundingUpdate_20250826.sol';
 import {AaveV3Optimism_SeptemberFundingUpdate_20250826} from './AaveV3Optimism_SeptemberFundingUpdate_20250826.sol';
 import {AaveV3Arbitrum_SeptemberFundingUpdate_20250826} from './AaveV3Arbitrum_SeptemberFundingUpdate_20250826.sol';
 import {AaveV3Gnosis_SeptemberFundingUpdate_20250826} from './AaveV3Gnosis_SeptemberFundingUpdate_20250826.sol';
@@ -45,28 +44,6 @@ contract DeployPolygon is PolygonScript {
     // deploy payloads
     address payload0 = GovV3Helpers.deployDeterministic(
       type(AaveV3Polygon_SeptemberFundingUpdate_20250826).creationCode
-    );
-
-    // compose action
-    IPayloadsControllerCore.ExecutionAction[]
-      memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
-    actions[0] = GovV3Helpers.buildAction(payload0);
-
-    // register action at payloadsController
-    GovV3Helpers.createPayload(actions);
-  }
-}
-
-/**
- * @dev Deploy Avalanche
- * deploy-command: make deploy-ledger contract=src/20250826_Multi_SeptemberFundingUpdate/SeptemberFundingUpdate_20250826.s.sol:DeployAvalanche chain=avalanche
- * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/SeptemberFundingUpdate_20250826.s.sol/43114/run-latest.json
- */
-contract DeployAvalanche is AvalancheScript {
-  function run() external broadcast {
-    // deploy payloads
-    address payload0 = GovV3Helpers.deployDeterministic(
-      type(AaveV2Avalanche_SeptemberFundingUpdate_20250826).creationCode
     );
 
     // compose action
@@ -174,7 +151,7 @@ contract DeploySonic is SonicScript {
 contract CreateProposal is EthereumScript {
   function run() external {
     // create payloads
-    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](7);
+    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](6);
 
     // compose actions for validation
     {
@@ -197,20 +174,11 @@ contract CreateProposal is EthereumScript {
 
     {
       IPayloadsControllerCore.ExecutionAction[]
-        memory actionsAvalanche = new IPayloadsControllerCore.ExecutionAction[](1);
-      actionsAvalanche[0] = GovV3Helpers.buildAction(
-        type(AaveV2Avalanche_SeptemberFundingUpdate_20250826).creationCode
-      );
-      payloads[2] = GovV3Helpers.buildAvalanchePayload(vm, actionsAvalanche);
-    }
-
-    {
-      IPayloadsControllerCore.ExecutionAction[]
         memory actionsOptimism = new IPayloadsControllerCore.ExecutionAction[](1);
       actionsOptimism[0] = GovV3Helpers.buildAction(
         type(AaveV3Optimism_SeptemberFundingUpdate_20250826).creationCode
       );
-      payloads[3] = GovV3Helpers.buildOptimismPayload(vm, actionsOptimism);
+      payloads[2] = GovV3Helpers.buildOptimismPayload(vm, actionsOptimism);
     }
 
     {
@@ -219,7 +187,7 @@ contract CreateProposal is EthereumScript {
       actionsArbitrum[0] = GovV3Helpers.buildAction(
         type(AaveV3Arbitrum_SeptemberFundingUpdate_20250826).creationCode
       );
-      payloads[4] = GovV3Helpers.buildArbitrumPayload(vm, actionsArbitrum);
+      payloads[3] = GovV3Helpers.buildArbitrumPayload(vm, actionsArbitrum);
     }
 
     {
@@ -228,7 +196,7 @@ contract CreateProposal is EthereumScript {
       actionsGnosis[0] = GovV3Helpers.buildAction(
         type(AaveV3Gnosis_SeptemberFundingUpdate_20250826).creationCode
       );
-      payloads[5] = GovV3Helpers.buildGnosisPayload(vm, actionsGnosis);
+      payloads[4] = GovV3Helpers.buildGnosisPayload(vm, actionsGnosis);
     }
 
     {
@@ -237,7 +205,7 @@ contract CreateProposal is EthereumScript {
       actionsSonic[0] = GovV3Helpers.buildAction(
         type(AaveV3Sonic_SeptemberFundingUpdate_20250826).creationCode
       );
-      payloads[6] = GovV3Helpers.buildSonicPayload(vm, actionsSonic);
+      payloads[5] = GovV3Helpers.buildSonicPayload(vm, actionsSonic);
     }
 
     // create proposal

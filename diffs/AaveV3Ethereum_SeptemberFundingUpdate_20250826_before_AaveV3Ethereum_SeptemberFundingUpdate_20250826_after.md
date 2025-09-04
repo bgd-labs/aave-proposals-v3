@@ -8,26 +8,16 @@
       "balanceDiff": null,
       "stateDiff": {
         "0x14a553e31736f19e3e380cf55bfb2f82dfd6d880cd07235affb68d8d3e0cac4d": {
-          "previousValue": "0x00000000034859e53382e61149723c36000000000005e95de995501f69b5a5c2",
-          "newValue": "0x0000000003489b954cc5120cc65dc35c000000000005e77dd089b9e500e6c213"
+          "previousValue": "0x0000000003494ccf9b0e766ef7e2aa070000000000058e18f8f12088eebfa6be",
+          "newValue": "0x0000000003494d6375d1d47b43c680940000000000058c39455cf2a895ff6f97"
         },
         "0x3911990350576792b37c6c85e18a679e2335f9d47b7bb4eaa2c98f053978da61": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
           "newValue": "0x000000000000000000000000000000000000000000027b46536c66c8e3000000"
         },
         "0xfe0e6ec29d5ebf0d0dc0e00c7ac0be2d86d1ece5a4bebcb92ca798a0f551a75e": {
-          "previousValue": "0x000000000347f315976f343e75ffd36c00000000000000000000000000000000",
-          "newValue": "0x0000000003489b954cc5120cc65dc35c00000000000001e0190b963a68cee3af"
-        }
-      }
-    },
-    "0x1ba999bc47c5d7e836b953bbda3f8e8bf1eec347": {
-      "label": null,
-      "balanceDiff": null,
-      "stateDiff": {
-        "0x0000000000000000000000000000000000000000000000000000000000000000": {
-          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0xde2627081368b2c556ed553f8078d55fcfdc1d0077691bd8d5ac9900622c05d8"
+          "previousValue": "0x0000000003491695502cd15f6e943e1500000000000005be1182ff5b6d65650e",
+          "newValue": "0x0000000003494d6375d1d47b43c68094000000000000079dc5172d3bc6259c35"
         }
       }
     },
@@ -58,8 +48,8 @@
     "0x464c71f6c2f760dda6093dcb91c24c39e5d6e18c": {
       "label": "AaveV2Ethereum.COLLECTOR, AaveV2EthereumAMM.COLLECTOR, AaveV2EthereumArc.COLLECTOR, AaveV3Ethereum.COLLECTOR, AaveV3EthereumEtherFi.COLLECTOR, AaveV3EthereumLido.COLLECTOR",
       "balanceDiff": {
-        "previousValue": "0xc21689281133edfb0",
-        "newValue": "0x344b901d394edfb0"
+        "previousValue": "0xc8796c5b70e083250",
+        "newValue": "0x70d79f383dec3250"
       },
       "stateDiff": {}
     },
@@ -68,12 +58,12 @@
       "balanceDiff": null,
       "stateDiff": {
         "0x14a553e31736f19e3e380cf55bfb2f82dfd6d880cd07235affb68d8d3e0cac4d": {
-          "previousValue": "0x000000000365e694ea59af99f77c744f000000000000011d9a92cda4a28260bb",
-          "newValue": "0x000000000365e90c87fefe7f52f003bf000000000000011d9762f77827115c9e"
+          "previousValue": "0x0000000003664769f60b9b4038d9606c000000000000012611efab1bdaa28b2d",
+          "newValue": "0x00000000036648431bd86140867c344700000000000001260ec02e310dae942d"
         },
         "0xd815728a3ce9e0d2bd71d14d7c44e05b1cc636bb807a2f0a74ddc4e9b69c80f1": {
           "previousValue": "0x0000000003536a60cfa2badc97995b6300000000000000000000000000000000",
-          "newValue": "0x000000000365e90c87fefe7f52f003bf0000000000000000032fd62c7b71041d"
+          "newValue": "0x00000000036648431bd86140867c34470000000000000000032f7ceaccf3f700"
         }
       }
     },
@@ -81,35 +71,9 @@
       "label": "AaveV2Ethereum.POOL_ADMIN, AaveV2EthereumAMM.POOL_ADMIN, AaveV3Ethereum.ACL_ADMIN, AaveV3EthereumEtherFi.ACL_ADMIN, AaveV3EthereumLido.ACL_ADMIN, GovernanceV3Ethereum.EXECUTOR_LVL_1",
       "balanceDiff": {
         "previousValue": "0x0",
-        "newValue": "0xbed1d0263d9f00000"
+        "newValue": "0xc16bf267ed01c0000"
       },
       "stateDiff": {}
-    },
-    "0x6b175474e89094c44da98b954eedeac495271d0f": {
-      "label": "AaveV2Ethereum.ASSETS.DAI.UNDERLYING, AaveV2EthereumAMM.ASSETS.DAI.UNDERLYING, AaveV3Ethereum.ASSETS.DAI.UNDERLYING",
-      "balanceDiff": null,
-      "stateDiff": {
-        "0x0f2b2bd2199b681f3ab5326c42fec09dc5433349c8d1f15039248a149862850e": {
-          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
-        },
-        "0x0fc3b60505bba0712de975bfdfdf1e21eb0cf1e935e4cc3946e0ef9adf3293cb": {
-          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000000"
-        },
-        "0x72a165da023f1a8f29f8df4e50252c4b5fda5339146246eddc4b57af9c9fa158": {
-          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x00000000000000000000000000000000000000000000000040e2fd022f265b05"
-        },
-        "0xb043262f78550b1d3934eb6ae4b704759c10e5c4a5deec44a3ab35d1fd08ed13": {
-          "previousValue": "0x00000000000000000000000000000000000000000000000040e2fd022f265b05",
-          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000000"
-        },
-        "0xd10f697dd3df6a59b9e313e9a4cfe7b521baadeff448fd3b52adcb99b5b6963a": {
-          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000000"
-        }
-      }
     },
     "0x7b95ec873268a6bfc6427e7a28e396db9d0ebc65": {
       "label": "AaveV3Ethereum.ASSETS.CRV.A_TOKEN",
@@ -124,8 +88,8 @@
     "0x83b7ce402a0e756e901c4a9d1cafa27ca9572afc": {
       "label": null,
       "balanceDiff": {
-        "previousValue": "0xc21689281133edfb0",
-        "newValue": "0x344b901d394edfb0"
+        "previousValue": "0xc8796c5b70e083250",
+        "newValue": "0x70d79f383dec3250"
       },
       "stateDiff": {}
     },
@@ -155,20 +119,20 @@
       "stateDiff": {
         "0x0000000000000000000000000000000000000000000000000000000000000000": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x7b6bddfdcdeb63475b69a76114868ee3df1aec00957b3e30ddd284446b391bf4"
+          "newValue": "0xab57118fd7f66dcda01679216ad63f2c5501fed16489d4b01d58af072abc5096"
         }
       }
     },
     "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2": {
       "label": "AaveV2Ethereum.ASSETS.WETH.UNDERLYING, AaveV2EthereumAMM.ASSETS.WETH.UNDERLYING, AaveV2EthereumArc.ASSETS.WETH.UNDERLYING, AaveV3Ethereum.ASSETS.WETH.UNDERLYING, AaveV3EthereumLido.ASSETS.WETH.UNDERLYING",
       "balanceDiff": {
-        "previousValue": "0x1d4341fa5b04980fb80bc",
-        "newValue": "0x1d4400cc2b2ad5aeb80bc"
+        "previousValue": "0x1d7edb0262b442c63dc2a",
+        "newValue": "0x1d7f9c6e551c2fc7fdc2a"
       },
       "stateDiff": {
         "0x3107e6fb53c93683833e8824cc59e9c9f27821bf7d710a977a825c1959995195": {
-          "previousValue": "0x0000000000000000000000000000000000000000000000005cbe75349e306fe9",
-          "newValue": "0x00000000000000000000000000000000000000000000000c49db779878206fe9"
+          "previousValue": "0x00000000000000000000000000000000000000000000000001cf95db79de6b73",
+          "newValue": "0x00000000000000000000000000000000000000000000000c188ebc5a49fa6b73"
         },
         "0x89f4444109b1ce2fe5265477fa09b0f44061c82a9ba98ba4e60d1136a0dfc015": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -180,13 +144,13 @@
       "label": "GovernanceV3Ethereum.PAYLOADS_CONTROLLER",
       "balanceDiff": null,
       "stateDiff": {
-        "0x9b60514f0a37f75e91bc85a842c791986682952a388b64ea70dedaa895fa43f5": {
-          "previousValue": "0x0068ae3d22000000000002000000000000000000000000000000000000000000",
-          "newValue": "0x0068ae3d22000000000003000000000000000000000000000000000000000000"
+        "0x25449fa2e7137906e514f13986232d0f39f369be718e81f160ca187154669ae0": {
+          "previousValue": "0x0068b876a2000000000002000000000000000000000000000000000000000000",
+          "newValue": "0x0068b876a2000000000003000000000000000000000000000000000000000000"
         },
-        "0x9b60514f0a37f75e91bc85a842c791986682952a388b64ea70dedaa895fa43f6": {
-          "previousValue": "0x000000000000000000093a8000000000000068dc61a300000000000000000000",
-          "newValue": "0x000000000000000000093a8000000000000068dc61a300000000000068ae3d23"
+        "0x25449fa2e7137906e514f13986232d0f39f369be718e81f160ca187154669ae1": {
+          "previousValue": "0x000000000000000000093a8000000000000068e69b2300000000000000000000",
+          "newValue": "0x000000000000000000093a8000000000000068e69b2300000000000068b876a3"
         }
       }
     },
@@ -194,8 +158,12 @@
       "label": "AaveV3Ethereum.ASSETS.crvUSD.UNDERLYING",
       "balanceDiff": null,
       "stateDiff": {
+        "0x2ce2cedcde668b722d1105a5e7b35438e03d5162bb82fd508dd7d3a1ff40f856": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000017fb63a98db53c3f5"
+        },
         "0x86bf7e1656df4c27b372379178787f3b2945ae8eaf4a309b3691e88af4b891ec": {
-          "previousValue": "0x000000000000000000000000000000000000000000000000aa541dc72d9b43d0",
+          "previousValue": "0x0000000000000000000000000000000000000000000000017fb63a98db53c3f5",
           "newValue": "0x0000000000000000000000000000000000000000000000000000000000000000"
         },
         "0x884f873a0337b509a5bca8a4c087895022026fb96c8c7c3df7bdb117bd83651f": {
@@ -206,11 +174,7 @@
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
           "newValue": "0x0000000000000000000000000000000000000000000000000000000000000000"
         },
-        "0xdcc7731a997f1ecd2d501cc94db004278cfff5b6faf93b5a0e963ebb9599e65b": {
-          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x000000000000000000000000000000000000000000000000aa541dc72d9b43d0"
-        },
-        "0xedbf1ac4bb761788483f14093a792a7af45717a08680d821921ecea934b37fe6": {
+        "0xa09f969046a19c70cd19902f123609b30291dc60f095b604283cf4874fba558c": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
           "newValue": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
         }

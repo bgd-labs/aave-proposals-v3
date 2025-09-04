@@ -28,7 +28,7 @@ contract AaveV3Ethereum_SeptemberFundingUpdate_20250826_Test is ProtocolV3TestBa
   );
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 23228445);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 23283990);
     proposal = new AaveV3Ethereum_SeptemberFundingUpdate_20250826();
   }
 
@@ -157,7 +157,7 @@ contract AaveV3Ethereum_SeptemberFundingUpdate_20250826_Test is ProtocolV3TestBa
       AaveV3EthereumAssets.USDC_UNDERLYING,
       AaveV3EthereumAssets.crvUSD_ORACLE,
       AaveV3EthereumAssets.USDC_ORACLE,
-      1, // Hardcoded as swap is dynamic
+      27649351390476878837, // Hardcoded as swap is dynamic
       address(AaveV3Ethereum.COLLECTOR),
       500
     );

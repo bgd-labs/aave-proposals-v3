@@ -30,20 +30,6 @@ contract AaveV3Polygon_SeptemberFundingUpdate_20250826 is IProposalGenericExecut
   }
 
   function _bridges() internal {
-    // USDT
-    uint256 usdtBalance = IERC20(AaveV3PolygonAssets.USDT_UNDERLYING).balanceOf(
-      address(AaveV3Polygon.COLLECTOR)
-    );
-    AaveV3Polygon.COLLECTOR.transfer(
-      IERC20(AaveV3PolygonAssets.USDT_UNDERLYING),
-      MiscPolygon.AAVE_POL_ETH_BRIDGE,
-      usdtBalance
-    );
-    IAavePolEthERC20Bridge(MiscPolygon.AAVE_POL_ETH_BRIDGE).bridge(
-      AaveV3PolygonAssets.USDT_UNDERLYING,
-      usdtBalance
-    );
-
     // DAI
     uint256 daiBalance = IERC20(AaveV3PolygonAssets.DAI_UNDERLYING).balanceOf(
       address(AaveV3Polygon.COLLECTOR)
@@ -84,20 +70,6 @@ contract AaveV3Polygon_SeptemberFundingUpdate_20250826 is IProposalGenericExecut
     IAavePolEthERC20Bridge(MiscPolygon.AAVE_POL_ETH_BRIDGE).bridge(
       AaveV3PolygonAssets.WBTC_UNDERLYING,
       wbtcBalance
-    );
-
-    /// MATICX
-    uint256 maticxBalance = IERC20(AaveV3PolygonAssets.MaticX_UNDERLYING).balanceOf(
-      address(AaveV3Polygon.COLLECTOR)
-    );
-    AaveV3Polygon.COLLECTOR.transfer(
-      IERC20(AaveV3PolygonAssets.MaticX_UNDERLYING),
-      MiscPolygon.AAVE_POL_ETH_BRIDGE,
-      maticxBalance
-    );
-    IAavePolEthERC20Bridge(MiscPolygon.AAVE_POL_ETH_BRIDGE).bridge(
-      AaveV3PolygonAssets.MaticX_UNDERLYING,
-      maticxBalance
     );
   }
 }

@@ -17,7 +17,7 @@ contract AaveV3Optimism_SeptemberFundingUpdate_20250826_Test is ProtocolV3TestBa
   AaveV3Optimism_SeptemberFundingUpdate_20250826 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('optimism'), 140325310);
+    vm.createSelectFork(vm.rpcUrl('optimism'), 140660410);
     proposal = new AaveV3Optimism_SeptemberFundingUpdate_20250826();
   }
 

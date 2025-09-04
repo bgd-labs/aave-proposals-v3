@@ -17,7 +17,7 @@ contract AaveV3Polygon_SeptemberFundingUpdate_20250826_Test is ProtocolV3TestBas
   AaveV3Polygon_SeptemberFundingUpdate_20250826 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('polygon'), 75695832);
+    vm.createSelectFork(vm.rpcUrl('polygon'), 76010580);
     proposal = new AaveV3Polygon_SeptemberFundingUpdate_20250826();
   }
 
@@ -60,9 +60,6 @@ contract AaveV3Polygon_SeptemberFundingUpdate_20250826_Test is ProtocolV3TestBas
   }
 
   function test_bridges() public {
-    uint256 usdtCollectorBalanceBefore = IERC20(AaveV3PolygonAssets.USDT_UNDERLYING).balanceOf(
-      address(AaveV3Polygon.COLLECTOR)
-    );
     uint256 daiCollectorBalanceBefore = IERC20(AaveV3PolygonAssets.DAI_UNDERLYING).balanceOf(
       address(AaveV3Polygon.COLLECTOR)
     );
@@ -75,33 +72,18 @@ contract AaveV3Polygon_SeptemberFundingUpdate_20250826_Test is ProtocolV3TestBas
       address(AaveV3Polygon.COLLECTOR)
     );
 
-    uint256 maticxCollectorBalanceBefore = IERC20(AaveV3PolygonAssets.MaticX_UNDERLYING).balanceOf(
-      address(AaveV3Polygon.COLLECTOR)
-    );
-
-    assertGt(usdtCollectorBalanceBefore, 0);
     assertGt(daiCollectorBalanceBefore, 0);
     assertGt(usdcCollectorBalanceBefore, 0);
     assertGt(wbtcCollectorBalanceBefore, 0);
-    assertGt(maticxCollectorBalanceBefore, 0);
 
-    vm.expectEmit(true, true, true, true, MiscPolygon.AAVE_POL_ETH_BRIDGE);
-    emit Bridge(AaveV3PolygonAssets.USDT_UNDERLYING, usdtCollectorBalanceBefore);
     vm.expectEmit(true, true, true, true, MiscPolygon.AAVE_POL_ETH_BRIDGE);
     emit Bridge(AaveV3PolygonAssets.DAI_UNDERLYING, daiCollectorBalanceBefore);
     vm.expectEmit(true, true, true, true, MiscPolygon.AAVE_POL_ETH_BRIDGE);
     emit Bridge(AaveV3PolygonAssets.USDC_UNDERLYING, usdcCollectorBalanceBefore);
     vm.expectEmit(true, true, true, true, MiscPolygon.AAVE_POL_ETH_BRIDGE);
-    emit Bridge(AaveV3PolygonAssets.LINK_UNDERLYING, wbtcCollectorBalanceBefore);
-    vm.expectEmit(true, true, true, true, MiscPolygon.AAVE_POL_ETH_BRIDGE);
-    emit Bridge(AaveV3PolygonAssets.WETH_UNDERLYING, maticxCollectorBalanceBefore);
+    emit Bridge(AaveV3PolygonAssets.WBTC_UNDERLYING, wbtcCollectorBalanceBefore);
 
     executePayload(vm, address(proposal));
-
-    assertEq(
-      IERC20(AaveV3PolygonAssets.USDT_UNDERLYING).balanceOf(address(AaveV3Polygon.COLLECTOR)),
-      0
-    );
 
     assertEq(
       IERC20(AaveV3PolygonAssets.DAI_UNDERLYING).balanceOf(address(AaveV3Polygon.COLLECTOR)),
@@ -115,11 +97,6 @@ contract AaveV3Polygon_SeptemberFundingUpdate_20250826_Test is ProtocolV3TestBas
 
     assertEq(
       IERC20(AaveV3PolygonAssets.WBTC_UNDERLYING).balanceOf(address(AaveV3Polygon.COLLECTOR)),
-      0
-    );
-
-    assertEq(
-      IERC20(AaveV3PolygonAssets.MaticX_UNDERLYING).balanceOf(address(AaveV3Polygon.COLLECTOR)),
       0
     );
   }
