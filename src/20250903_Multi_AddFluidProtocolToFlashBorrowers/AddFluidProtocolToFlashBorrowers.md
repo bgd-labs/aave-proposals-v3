@@ -26,8 +26,8 @@ The AIP when implemented grants permission to whitelist any Fluid Protocol contr
 
 ## References
 
-- Implementation: [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250903_Multi_AddFluidProtocolToFlashBorrowers/AaveV3Polygon_AddFluidProtocolToFlashBorrowers_20250903.sol), [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250903_Multi_AddFluidProtocolToFlashBorrowers/AaveV3Avalanche_AddFluidProtocolToFlashBorrowers_20250903.sol)
-- Tests: [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250903_Multi_AddFluidProtocolToFlashBorrowers/AaveV3Polygon_AddFluidProtocolToFlashBorrowers_20250903.t.sol), [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250903_Multi_AddFluidProtocolToFlashBorrowers/AaveV3Avalanche_AddFluidProtocolToFlashBorrowers_20250903.t.sol)
+- Implementation: [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/2bed199524324e4eb4c21f5f0803942c98b8b400/src/20250903_Multi_AddFluidProtocolToFlashBorrowers/AaveV3Polygon_AddFluidProtocolToFlashBorrowers_20250903.sol), [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/2bed199524324e4eb4c21f5f0803942c98b8b400/src/20250903_Multi_AddFluidProtocolToFlashBorrowers/AaveV3Avalanche_AddFluidProtocolToFlashBorrowers_20250903.sol)
+- Tests: [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/2bed199524324e4eb4c21f5f0803942c98b8b400/src/20250903_Multi_AddFluidProtocolToFlashBorrowers/AaveV3Polygon_AddFluidProtocolToFlashBorrowers_20250903.t.sol), [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/2bed199524324e4eb4c21f5f0803942c98b8b400/src/20250903_Multi_AddFluidProtocolToFlashBorrowers/AaveV3Avalanche_AddFluidProtocolToFlashBorrowers_20250903.t.sol)
 - [Snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0x5e13f3e63fd9a2d4d00ff9f7915644e48d4b8b35fe03b52a599b4bc1c95914d0)
 - [Discussion](https://governance.aave.com/t/arfc-add-fluid-protocol-to-flashborrowers/23007)
 
