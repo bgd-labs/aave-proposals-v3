@@ -34,6 +34,19 @@ import {GovernanceV3Ink} from 'aave-address-book/GovernanceV3Ink.sol';
  * @notice Constants with relevant information of each chain supporting GHO through CCIP
  */
 library GhoCCIPChains {
+  /**
+   * @notice Struct containing information about a chain supporting GHO through CCIP
+   * @param chainSelector The selector identifying the chain on CCIP
+   * @param ghoToken The address of the GHO ERC-20 token on the chain
+   * @param ghoCCIPTokenPool The address of the GHO CCIP token pool on the chain
+   * @param ghoBucketSteward The address of the GHO bucket steward on the chain
+   * @param ghoAaveCoreSteward The address of the GHO Aave core steward on the chain
+   * @param ghoCCIPSteward The address of the GHO CCIP steward on the chain
+   * @param aclManager The address of the ACL manager on the chain
+   * @param tokenAdminRegistry The address of the token admin registry on the chain
+   * @param owner The address of the owner (a.k.a. executor level 1) on the chain
+   * @param ccipRouter The address of the CCIP router on the chain
+   */
   struct ChainInfo {
     uint64 chainSelector;
     address ghoToken;
@@ -47,6 +60,10 @@ library GhoCCIPChains {
     address ccipRouter;
   }
 
+  /**
+   * @notice Returns all supported ChainInfo constants
+   * @return allChains An array with all the ChainInfo constants supported
+   */
   function getAllChains() public pure returns (ChainInfo[] memory) {
     ChainInfo[] memory allChains = new ChainInfo[](6);
     allChains[0] = ETHEREUM();
@@ -58,6 +75,11 @@ library GhoCCIPChains {
     return allChains;
   }
 
+  /**
+   * @notice Returns all supported ChainInfo constants except the one specified
+   * @param selectorChainToExclude The selector of the chain to exclude
+   * @return chainsToReturn An array with all the ChainInfo constants supported except the one specified
+   */
   function getAllChainsExcept(
     uint64 selectorChainToExclude
   ) public pure returns (ChainInfo[] memory) {
@@ -73,6 +95,11 @@ library GhoCCIPChains {
     return chainsToReturn;
   }
 
+  /**
+   * @notice Returns all supported ChainInfo constants except the one specified
+   * @param chainToExclude The chain to exclude
+   * @return chainsToReturn An array with all the ChainInfo constants supported except the one specified
+   */
   function getAllChainsExcept(
     ChainInfo memory chainToExclude
   ) public pure returns (ChainInfo[] memory) {
@@ -81,6 +108,10 @@ library GhoCCIPChains {
 
   ///////////////////////////////////////////////////////////////
 
+  /**
+   * @notice Returns the ChainInfo constant for Ethereum
+   * @return ChainInfo The ChainInfo constant for Ethereum
+   */
   function ETHEREUM() public pure returns (ChainInfo memory) {
     return
       ChainInfo({
@@ -97,6 +128,10 @@ library GhoCCIPChains {
       });
   }
 
+  /**
+   * @notice Returns the ChainInfo constant for Arbitrum
+   * @return ChainInfo The ChainInfo constant for Arbitrum
+   */
   function ARBITRUM() public pure returns (ChainInfo memory) {
     return
       ChainInfo({
@@ -113,6 +148,10 @@ library GhoCCIPChains {
       });
   }
 
+  /**
+   * @notice Returns the ChainInfo constant for Base
+   * @return ChainInfo The ChainInfo constant for Base
+   */
   function BASE() public pure returns (ChainInfo memory) {
     return
       ChainInfo({
@@ -129,6 +168,10 @@ library GhoCCIPChains {
       });
   }
 
+  /**
+   * @notice Returns the ChainInfo constant for Avalanche
+   * @return ChainInfo The ChainInfo constant for Avalanche
+   */
   function AVALANCHE() public pure returns (ChainInfo memory) {
     return
       ChainInfo({
@@ -145,6 +188,10 @@ library GhoCCIPChains {
       });
   }
 
+  /**
+   * @notice Returns the ChainInfo constant for Gnosis
+   * @return ChainInfo The ChainInfo constant for Gnosis
+   */
   function GNOSIS() public pure returns (ChainInfo memory) {
     return
       ChainInfo({
@@ -161,6 +208,10 @@ library GhoCCIPChains {
       });
   }
 
+  /**
+   * @notice Returns the ChainInfo constant for Ink
+   * @return ChainInfo The ChainInfo constant for Ink
+   */
   function INK() public pure returns (ChainInfo memory) {
     return
       ChainInfo({
