@@ -106,7 +106,7 @@ contract DeployInk is InkScript {
       GovV3Helpers.deployDeterministic(type(AaveV3Ink_GHOInkLaunch_20250814).creationCode)
     );
 
-    // register both actions separately at payloadsController
+    // register action at payloadsController
     GovV3Helpers.createPayload(launchActions);
   }
 }
