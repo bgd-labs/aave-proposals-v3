@@ -20,7 +20,7 @@ Whitelist Fluid Protocol as part of FlashBorrowers of Aave v3 on Polygon & Avala
 - Polygon: [0x352423e2fA5D5c99343d371C9e3bC56C87723Cc7](https://polygonscan.com/address/0x352423e2fA5D5c99343d371C9e3bC56C87723Cc7)
 - Avalanche: [0x352423e2fA5D5c99343d371C9e3bC56C87723Cc7](https://snowtrace.io/address/0x352423e2fA5D5c99343d371C9e3bC56C87723Cc7)
 
-This proposal aims to implement a single AIP, utilizing two similar payloads (one for each network), which will call addFlashBorrower() on the ACL_MANAGER contract.
+This proposal aims to implement a single AIP, utilizing two similar payloads (one for each network), which will call `addFlashBorrower()` on the `ACL_MANAGER` contract.
 
 The AIP when implemented grants permission to whitelist any Fluid Protocol contract for all use cases, such as leveraged positions, eMode, debt and collateral swaps, with one exception: no smart-contract that migrates a position outside of the Aave ecosystem is eligible for whitelisting.
 
