@@ -48,7 +48,7 @@ contract AaveV3Sonic_SeptemberFundingUpdate_20250826_Test is ProtocolV3TestBase 
     IERC20(AaveV3SonicAssets.wS_A_TOKEN).transferFrom(
       address(AaveV3Sonic.COLLECTOR),
       proposal.MASIV_NESTED_SAFE(),
-      proposal.WS_AMOUNT() / 3
+      proposal.WS_AMOUNT() / 3 // Not everything is available in the collector at this time
     );
   }
 }
