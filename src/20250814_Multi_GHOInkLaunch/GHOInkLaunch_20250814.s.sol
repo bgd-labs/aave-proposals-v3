@@ -99,12 +99,15 @@ contract DeployGnosis is GnosisScript {
 
 contract DeployInk is InkScript {
   function run() external broadcast {
+    // deploy payloads
+    address payload0 = GovV3Helpers.deployDeterministic(
+      type(AaveV3Ink_GHOInkLaunch_20250814).creationCode
+    );
+
     // compose action
     IPayloadsControllerCore.ExecutionAction[]
       memory launchActions = new IPayloadsControllerCore.ExecutionAction[](1);
-    launchActions[0] = GovV3Helpers.buildAction(
-      GovV3Helpers.deployDeterministic(type(AaveV3Ink_GHOInkLaunch_20250814).creationCode)
-    );
+    launchActions[0] = GovV3Helpers.buildAction(payload0);
 
     // register action at payloadsController
     GovV3Helpers.createPayload(launchActions);
