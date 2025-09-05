@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {GHOInkLaunchConstants} from '../GHOInkLaunchConstants.sol';
 import {GhoCCIPChains} from '../../helpers/gho-launch/constants/GhoCCIPChains.sol';
 import {AaveV3GHOLane} from '../../helpers/gho-launch/AaveV3GHOLane.sol';
 import {AaveV3Ink_GHOInkLaunch_20250814} from '../AaveV3Ink_GHOInkLaunch_20250814.sol';
@@ -11,6 +10,11 @@ import {ITokenAdminRegistry} from 'src/interfaces/ccip/ITokenAdminRegistry.sol';
 import {AaveV3InkWhitelabel} from 'aave-address-book/AaveV3InkWhitelabel.sol';
 
 contract AaveV3Ink_GHOInkLaunch_20250814_PreExecution is AaveV3GHOLaunchTest_PreExecution {
+  // https://docs.chain.link/ccip/directory/mainnet/chain/ethereum-mainnet-ink-1
+  address internal constant RMN = 0x3A293fa336E118900AD0f2EcfeC0DAa6A4DeDaA1;
+
+  address internal constant RISK_COUNCIL = 0x8513e6F37dBc52De87b166980Fa3F50639694B60;
+
   constructor() AaveV3GHOLaunchTest_PreExecution(GhoCCIPChains.INK(), 'ink', 22331165) {}
 
   function setUp() public virtual override {
@@ -55,11 +59,11 @@ contract AaveV3Ink_GHOInkLaunch_20250814_PreExecution is AaveV3GHOLaunchTest_Pre
   }
 
   function _localRiskCouncil() internal view virtual override returns (address) {
-    return GHOInkLaunchConstants.RISK_COUNCIL;
+    return RISK_COUNCIL;
   }
 
   function _localRmnProxy() internal view virtual override returns (address) {
-    return GHOInkLaunchConstants.RMN;
+    return RMN;
   }
 
   function _aavePoolAddressesProvider() internal view virtual override returns (address) {
