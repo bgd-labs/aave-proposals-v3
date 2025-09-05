@@ -158,7 +158,7 @@ contract CreateProposal is EthereumScript {
     actionsInkLaunch[0] = GovV3Helpers.buildAction(
       type(AaveV3Ink_GHOInkLaunch_20250814).creationCode
     );
-    payloads[5] = GovV3Helpers._buildPayload(vm, ChainIds.INK, actionsInkLaunch);
+    payloads[5] = GovV3Helpers.buildInkPayload(vm, actionsInkLaunch);
 
     // create proposal
     vm.startBroadcast();
