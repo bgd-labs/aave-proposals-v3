@@ -21,8 +21,6 @@ This AIP includes a series of actions required to launch GHO on Ink:
 
 1. Configure new Chainlink CCIP lanes between Ink and the chains where GHO is launched with a rate limit of 1.5M GHO capacity and 300 GHO per second rate.
 2. Configure GhoCcipSteward.
-3. List GHO as a borrowable asset on the Aave Pool, with the risk configuration specified in the ARFC. Then, initial liquidity will be provided to the pool as a security measure to mitigate potential vulnerabilities and facilitate a stable launch.
-4. Set ACI multisig ([0xac140648435d03f784879cd789130F22Ef588Fcd](https://explorer.inkonchain.com/address/0xac140648435d03f784879cd789130F22Ef588Fcd)) as Emission Admin for GHO and aGHO rewards, as specified in the ARFC.
 
 The table below lists the address of the new **Ink** deployments
 
