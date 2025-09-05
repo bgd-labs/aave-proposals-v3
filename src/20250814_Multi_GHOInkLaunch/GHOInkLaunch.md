@@ -32,7 +32,7 @@ The table below lists the address of the new **Ink** deployments
 | GhoTokenPool     | [0xDe6539018B095353A40753Dc54C91C68c9487D4E](https://explorer.inkonchain.com/addres/0xDe6539018B095353A40753Dc54C91C68c9487D4E) |
 | GhoOracle        | [0x20fd5f3FCac8883a3A0A2bBcD658A2d2c6EFa6B6](https://explorer.inkonchain.com/addres/0x20fd5f3FCac8883a3A0A2bBcD658A2d2c6EFa6B6) |
 | GhoBucketSteward | [0xA5Ba213867E175A182a5dd6A9193C6158738105A](https://explorer.inkonchain.com/addres/0xA5Ba213867E175A182a5dd6A9193C6158738105A) |
-| GhoCcipSteward   | [0xca7c90A52B44E301AC01Cb5EB99b2fD99339433A](https://explorer.inkonchain.com/addres/0xca7c90A52B44E301AC01Cb5EB99b2fD99339433A) |
+| GhoCcipSteward   | [0x2Ce400703dAcc37b7edFA99D228b8E70a4d3831B](https://explorer.inkonchain.com/addres/0x2Ce400703dAcc37b7edFA99D228b8E70a4d3831B) |
 
 # References
 
