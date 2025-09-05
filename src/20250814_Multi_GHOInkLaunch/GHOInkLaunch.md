@@ -34,30 +34,6 @@ The table below lists the address of the new **Ink** deployments
 | GhoBucketSteward | [0xA5Ba213867E175A182a5dd6A9193C6158738105A](https://explorer.inkonchain.com/addres/0xA5Ba213867E175A182a5dd6A9193C6158738105A) |
 | GhoCcipSteward   | [0xca7c90A52B44E301AC01Cb5EB99b2fD99339433A](https://explorer.inkonchain.com/addres/0xca7c90A52B44E301AC01Cb5EB99b2fD99339433A) |
 
-The table below illustrates the configured risk parameters for **GHO**
-
-| Parameter                 |                                      Value |
-| ------------------------- | -----------------------------------------: |
-| Isolation Mode            |                                      false |
-| Borrowable                |                                    ENABLED |
-| Collateral Enabled        |                                      false |
-| Supply Cap (BLT)          |                                  5,000,000 |
-| Borrow Cap (BLT)          |                                  4,500,000 |
-| Debt Ceiling              |                                      USD 0 |
-| LTV                       |                                        0 % |
-| LT                        |                                        0 % |
-| Liquidation Bonus         |                                        0 % |
-| Liquidation Protocol Fee  |                                        0 % |
-| Reserve Factor            |                                       10 % |
-| Base Variable Borrow Rate |                                        0 % |
-| Variable Slope 1          |                                      5.5 % |
-| Variable Slope 2          |                                       50 % |
-| Uoptimal                  |                                       90 % |
-| Flashloanable             |                                    ENABLED |
-| Siloed Borrowing          |                                   DISABLED |
-| Borrowable in Isolation   |                                   DISABLED |
-| Oracle                    | 0x20fd5f3FCac8883a3A0A2bBcD658A2d2c6EFa6B6 |
-
 # References
 
 - Implementation: //TODO
