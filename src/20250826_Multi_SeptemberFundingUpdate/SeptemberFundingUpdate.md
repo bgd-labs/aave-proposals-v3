@@ -18,7 +18,7 @@ Create Allowances to support Operations.
 
 This publication balances near term operational needs and consolidates assets holdings, whilst ensuring various incentives programs are adequately funded.
 
-## Ethereum
+### Ethereum
 
 With @bgdlabs upgrading the GHO reserve on the Core instance, GHO’s revenue is now received more frequently instead of when users repaid debt. As a result, accrued fees were realised resulting in 2,965,399.19 aEthGHO being received by the Treasury.
 
@@ -45,7 +45,7 @@ In support of the Aave Protocol Embassy (APE), the ARB currently held in the Tre
 
 ## Specification
 
-#### Arbitrum - Aave Protocol Embassy
+### Arbitrum - Aave Protocol Embassy
 
 Create an Allowance to transfers ARB from the Treasury on Arbitrum to the Aave Protocol Embassy SAFE to enable participation in Arbitrum’s governance.
 
@@ -53,11 +53,11 @@ Amount: 234,000 ARB
 
 Spender: APE `0xAA43203167317DeeF8288095C44b84a686918d2E`
 
-Method: approve() ARB on the Aave Collector contract to the APE SAFE address
+Method: `approve()` ARB on the Aave Collector contract to the APE SAFE address
 
-#### Ethereum
+### Ethereum
 
-###### Aave Buybacks
+##### Aave Buybacks
 
 Create a 2M aEthUSDT and 2M aEthUSDC allowance for the Aave Finance Committee to support the AAVE Buybacks program.
 
@@ -170,7 +170,7 @@ Amount: 557,125 USDCn
 
 Spender: AFC `0x22740deBa78d5a0c24C58C740e3715ec29de1bFa`
 
-Method: approve() above assets on the Aave Collector contract to the AFC address
+Method: `approve()` above assets on the Aave Collector contract to the AFC address
 
 Bridge all the balance of the following assets:
 
