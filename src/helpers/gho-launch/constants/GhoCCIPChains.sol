@@ -219,7 +219,7 @@ library GhoCCIPChains {
         ghoToken: 0xfc421aD3C883Bf9E7C4f42dE845C4e4405799e73,
         ghoCCIPTokenPool: 0xDe6539018B095353A40753Dc54C91C68c9487D4E,
         ghoBucketSteward: 0xA5Ba213867E175A182a5dd6A9193C6158738105A,
-        ghoAaveCoreSteward: address(0),
+        ghoAaveCoreSteward: address(0), // Aave Core Steward not available and won't be configured in the Ink GHO Launch proposal
         ghoCCIPSteward: 0x2Ce400703dAcc37b7edFA99D228b8E70a4d3831B,
         aclManager: address(AaveV3InkWhitelabel.ACL_MANAGER),
         tokenAdminRegistry: CCIPChainTokenAdminRegistries.INK,
