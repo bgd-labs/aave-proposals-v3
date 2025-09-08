@@ -5,8 +5,6 @@ import {GhoCCIPChains} from '../../helpers/gho-launch/constants/GhoCCIPChains.so
 import {AaveV3GHOLane} from '../../helpers/gho-launch/AaveV3GHOLane.sol';
 import {AaveV3Ink_GHOInkLaunch_20250814} from '../AaveV3Ink_GHOInkLaunch_20250814.sol';
 import {AaveV3GHOLaunchTest_PostExecution, AaveV3GHOLaunchTest_PreExecution} from '../../helpers/gho-launch/tests/AaveV3GHOLaunchTest.sol';
-import {CCIPChainTokenAdminRegistries} from '../../helpers/gho-launch/constants/CCIPChainTokenAdminRegistries.sol';
-import {ITokenAdminRegistry} from 'src/interfaces/ccip/ITokenAdminRegistry.sol';
 import {AaveV3InkWhitelabel} from 'aave-address-book/AaveV3InkWhitelabel.sol';
 
 contract AaveV3Ink_GHOInkLaunch_20250814_PreExecution is AaveV3GHOLaunchTest_PreExecution {
@@ -15,25 +13,10 @@ contract AaveV3Ink_GHOInkLaunch_20250814_PreExecution is AaveV3GHOLaunchTest_Pre
 
   address internal constant RISK_COUNCIL = 0x8513e6F37dBc52De87b166980Fa3F50639694B60;
 
-  constructor() AaveV3GHOLaunchTest_PreExecution(GhoCCIPChains.INK(), 'ink', 22331165) {}
+  constructor() AaveV3GHOLaunchTest_PreExecution(GhoCCIPChains.INK(), 'ink', 23858218) {}
 
   function setUp() public virtual override {
     super.setUp();
-  }
-
-  function _executePayload() internal virtual override {
-    _mockAdministratorProposal();
-    super._executePayload();
-  }
-
-  // TODO: Temporary mock until done on Ink
-  function _mockAdministratorProposal() internal {
-    vm.startPrank(ITokenAdminRegistry(CCIPChainTokenAdminRegistries.INK).owner());
-    ITokenAdminRegistry(CCIPChainTokenAdminRegistries.INK).proposeAdministrator(
-      GhoCCIPChains.INK().ghoToken,
-      GhoCCIPChains.INK().owner
-    );
-    vm.stopPrank();
   }
 
   function test_defaultProposalExecution() public virtual override {
@@ -88,22 +71,7 @@ contract AaveV3Ink_GHOInkLaunch_20250814_PreExecution is AaveV3GHOLaunchTest_Pre
 }
 
 contract AaveV3Ink_GHOInkLaunch_20250814_PostExecution is AaveV3GHOLaunchTest_PostExecution {
-  constructor() AaveV3GHOLaunchTest_PostExecution(GhoCCIPChains.INK(), 'ink', 22331165) {}
-
-  function _executePayload() internal virtual override {
-    _mockAdministratorProposal();
-    super._executePayload();
-  }
-
-  // TODO: Temporary mock until done on Ink
-  function _mockAdministratorProposal() internal {
-    vm.startPrank(ITokenAdminRegistry(CCIPChainTokenAdminRegistries.INK).owner());
-    ITokenAdminRegistry(CCIPChainTokenAdminRegistries.INK).proposeAdministrator(
-      GhoCCIPChains.INK().ghoToken,
-      GhoCCIPChains.INK().owner
-    );
-    vm.stopPrank();
-  }
+  constructor() AaveV3GHOLaunchTest_PostExecution(GhoCCIPChains.INK(), 'ink', 23858218) {}
 
   function _aavePool() internal view virtual override returns (address) {
     return address(AaveV3InkWhitelabel.POOL);

@@ -27,7 +27,7 @@ export const config: ConfigFile = {
     AaveV3Gnosis: {configs: {OTHERS: {}}, cache: {blockNumber: 41726320}},
     AaveV3InkWhitelabel: {
       configs: {OTHERS: {}},
-      cache: {blockNumber: 22331165},
+      cache: {blockNumber: 23858218},
     },
   },
 };
