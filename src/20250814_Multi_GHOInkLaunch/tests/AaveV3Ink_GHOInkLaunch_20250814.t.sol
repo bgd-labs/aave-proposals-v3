@@ -19,10 +19,6 @@ contract AaveV3Ink_GHOInkLaunch_20250814_PreExecution is AaveV3GHOLaunchTest_Pre
     super.setUp();
   }
 
-  function test_defaultProposalExecution() public virtual override {
-    vm.skip(true); // TODO: Not using the proper payload controller - Change needed at aave-helpers for default test
-  }
-
   function _deployAaveV3GHOLaneProposal() internal virtual override returns (AaveV3GHOLane) {
     return new AaveV3Ink_GHOInkLaunch_20250814();
   }
@@ -31,14 +27,6 @@ contract AaveV3Ink_GHOInkLaunch_20250814_PreExecution is AaveV3GHOLaunchTest_Pre
     assertEq(LOCAL_TOKEN_ADMIN_REGISTRY.typeAndVersion(), 'TokenAdminRegistry 1.5.0');
     assertEq(LOCAL_TOKEN_POOL.typeAndVersion(), 'BurnMintTokenPool 1.5.1');
     assertEq(LOCAL_CCIP_ROUTER.typeAndVersion(), 'Router 1.2.0');
-  }
-
-  function _reportName() internal view virtual override returns (string memory) {
-    return 'AaveV3Ink_GHOInkLaunch_20250814';
-  }
-
-  function _aavePool() internal view virtual override returns (address) {
-    return address(AaveV3InkWhitelabel.POOL);
   }
 
   function _localRiskCouncil() internal view virtual override returns (address) {
