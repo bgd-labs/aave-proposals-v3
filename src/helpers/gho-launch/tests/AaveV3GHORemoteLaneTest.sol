@@ -8,6 +8,40 @@ import {IRateLimiter} from 'src/interfaces/ccip/IRateLimiter.sol';
 import {GhoCCIPChains} from '../constants/GhoCCIPChains.sol';
 import {AaveV3GHOLaneTest} from './AaveV3GHOLaneTest.sol';
 
+abstract contract AaveV3GHORemoteLaneTest_PreExecution is AaveV3GHOLaneTest {
+  constructor(
+    GhoCCIPChains.ChainInfo memory localChainInfo,
+    GhoCCIPChains.ChainInfo memory remoteChainInfo,
+    string memory rpcAlias,
+    uint256 blockNumber
+  ) AaveV3GHOLaneTest(localChainInfo, remoteChainInfo, rpcAlias, blockNumber) {}
+
+  // This test is not necessary but without it the compiler triggers stack too deep... very strange.
+  function test_currentPoolConfig() public virtual {
+    uint64[] memory supportedChains = LOCAL_TOKEN_POOL.getSupportedChains();
+
+    for (uint256 i = 0; i < supportedChains.length; i++) {
+      _assertAgainstSupportedChain(GhoCCIPChains.getChainInfoBySelector(supportedChains[i]));
+    }
+  }
+
+  function _assertAgainstSupportedChain(
+    GhoCCIPChains.ChainInfo memory supportedChain
+  ) internal virtual {
+    assertEq(
+      LOCAL_TOKEN_POOL.getRemoteToken(supportedChain.chainSelector),
+      abi.encode(supportedChain.ghoToken),
+      'Remote token mismatch for supported chain'
+    );
+
+    assertEq(
+      LOCAL_TOKEN_POOL.getRemotePools(supportedChain.chainSelector)[0],
+      abi.encode(supportedChain.ghoCCIPTokenPool),
+      'Remote pool mismatch for supported chain'
+    );
+  }
+}
+
 abstract contract AaveV3GHORemoteLaneTest_PostExecution is AaveV3GHOLaneTest {
   constructor(
     GhoCCIPChains.ChainInfo memory localChainInfo,

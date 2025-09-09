@@ -2,13 +2,74 @@
 pragma solidity ^0.8.0;
 
 import {GhoCCIPChains} from '../constants/GhoCCIPChains.sol';
-import {AaveV3GHORemoteLaneTest_PostExecution} from './AaveV3GHORemoteLaneTest.sol';
+import {AaveV3GHORemoteLaneTest_PreExecution, AaveV3GHORemoteLaneTest_PostExecution} from './AaveV3GHORemoteLaneTest.sol';
 import {IPool as IPool_CCIP} from 'src/interfaces/ccip/tokenPool/IPool.sol';
 import {IUpgradeableLockReleaseTokenPool_1_5_1} from 'src/interfaces/ccip/tokenPool/IUpgradeableLockReleaseTokenPool.sol';
 import {IClient} from 'src/interfaces/ccip/IClient.sol';
 import {IInternal} from 'src/interfaces/ccip/IInternal.sol';
 import {IRateLimiter} from 'src/interfaces/ccip/IRateLimiter.sol';
 import {GhoCCIPChains} from '../constants/GhoCCIPChains.sol';
+
+abstract contract AaveV3GHOEthereumRemoteLaneTest_PreExecution is
+  AaveV3GHORemoteLaneTest_PreExecution
+{
+  constructor(
+    GhoCCIPChains.ChainInfo memory remoteChainInfo,
+    uint256 blockNumber
+  )
+    AaveV3GHORemoteLaneTest_PreExecution(
+      GhoCCIPChains.ETHEREUM(),
+      remoteChainInfo,
+      'mainnet',
+      blockNumber
+    )
+  {}
+
+  function _expectedLocalTokenPoolTypeAndVersion()
+    internal
+    view
+    virtual
+    override
+    returns (string memory)
+  {
+    return 'LockReleaseTokenPool 1.5.1';
+  }
+
+  function _assertOnAndOffRamps() internal view virtual override {
+    _assertOnRamp(
+      _localOutboundLaneToRemote(),
+      LOCAL_CHAIN_SELECTOR,
+      REMOTE_CHAIN_SELECTOR,
+      LOCAL_CCIP_ROUTER
+    );
+    _assertOffRamp(
+      _localInboundLaneFromRemote(),
+      REMOTE_CHAIN_SELECTOR,
+      LOCAL_CHAIN_SELECTOR,
+      LOCAL_CCIP_ROUTER
+    );
+  }
+
+  function _assertAgainstSupportedChain(
+    GhoCCIPChains.ChainInfo memory supportedChain
+  ) internal virtual override {
+    if (supportedChain.chainSelector == GhoCCIPChains.ARBITRUM().chainSelector) {
+      assertEq(
+        LOCAL_TOKEN_POOL.getRemoteToken(supportedChain.chainSelector),
+        abi.encode(supportedChain.ghoToken),
+        'Remote token mismatch for supported chain'
+      );
+
+      assertEq(
+        LOCAL_TOKEN_POOL.getRemotePools(supportedChain.chainSelector)[1],
+        abi.encode(supportedChain.ghoCCIPTokenPool),
+        'Remote pool mismatch for supported chain'
+      );
+    } else {
+      super._assertAgainstSupportedChain(supportedChain);
+    }
+  }
+}
 
 abstract contract AaveV3GHOEthereumRemoteLaneTest_PostExecution is
   AaveV3GHORemoteLaneTest_PostExecution
@@ -36,6 +97,32 @@ abstract contract AaveV3GHOEthereumRemoteLaneTest_PostExecution is
     returns (string memory)
   {
     return 'LockReleaseTokenPool 1.5.1';
+  }
+
+  function _assertAgainstSupportedChain(
+    GhoCCIPChains.ChainInfo memory supportedChain
+  ) internal view virtual override {
+    if (supportedChain.chainSelector == GhoCCIPChains.ARBITRUM().chainSelector) {
+      assertEq(
+        LOCAL_TOKEN_POOL.getRemoteToken(supportedChain.chainSelector),
+        abi.encode(supportedChain.ghoToken),
+        'Remote token mismatch for supported chain'
+      );
+
+      assertEq(
+        LOCAL_TOKEN_POOL.getRemotePools(supportedChain.chainSelector).length,
+        2,
+        'Amount of remote pools mismatch for supported chain'
+      );
+
+      assertEq(
+        LOCAL_TOKEN_POOL.getRemotePools(supportedChain.chainSelector)[1],
+        abi.encode(supportedChain.ghoCCIPTokenPool),
+        'Remote pool mismatch for supported chain'
+      );
+    } else {
+      super._assertAgainstSupportedChain(supportedChain);
+    }
   }
 
   function _assertOnAndOffRamps() internal view virtual override {
