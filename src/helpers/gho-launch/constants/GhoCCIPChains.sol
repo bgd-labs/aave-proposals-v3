@@ -62,7 +62,7 @@ library GhoCCIPChains {
 
   /**
    * @notice Returns all supported ChainInfo constants
-   * @return allChains An array with all the ChainInfo constants supported
+   * @return An array with all the ChainInfo constants supported
    */
   function getAllChains() public pure returns (ChainInfo[] memory) {
     ChainInfo[] memory allChains = new ChainInfo[](6);
@@ -78,7 +78,7 @@ library GhoCCIPChains {
   /**
    * @notice Returns all supported ChainInfo constants except the one specified
    * @param selectorChainToExclude The selector of the chain to exclude
-   * @return chainsToReturn An array with all the ChainInfo constants supported except the one specified
+   * @return An array with all the ChainInfo constants supported except the one specified
    */
   function getAllChainsExcept(
     uint64 selectorChainToExclude
@@ -98,7 +98,7 @@ library GhoCCIPChains {
   /**
    * @notice Returns all supported ChainInfo constants except the one specified
    * @param chainToExclude The chain to exclude
-   * @return chainsToReturn An array with all the ChainInfo constants supported except the one specified
+   * @return An array with all the ChainInfo constants supported except the one specified
    */
   function getAllChainsExcept(
     ChainInfo memory chainToExclude
@@ -106,11 +106,34 @@ library GhoCCIPChains {
     return getAllChainsExcept(chainToExclude.chainSelector);
   }
 
+  /**
+   * @notice Returns the ChainInfo constant for the given chain selector
+   * @param chainSelector The selector of the chain to get the ChainInfo constant for
+   * @return The ChainInfo constant for the given chain selector
+   */
+  function getChainInfoBySelector(uint64 chainSelector) public pure returns (ChainInfo memory) {
+    ChainInfo[] memory allChains = getAllChains();
+    for (uint256 i = 0; i < allChains.length; i++) {
+      if (allChains[i].chainSelector == chainSelector) {
+        return allChains[i];
+      }
+    }
+    revert('ChainInfo not found for given chain selector');
+  }
+
+  /**
+   * @notice Returns a ChainInfo with all nullified values.
+   * @return A ChainInfo with all nullified values.
+   */
+  function emptyChainInfo() public pure returns (ChainInfo memory) {
+    // Returns a ChainInfo with all nullified values.
+  }
+
   ///////////////////////////////////////////////////////////////
 
   /**
    * @notice Returns the ChainInfo constant for Ethereum
-   * @return ChainInfo The ChainInfo constant for Ethereum
+   * @return The ChainInfo constant for Ethereum
    */
   function ETHEREUM() public pure returns (ChainInfo memory) {
     return
@@ -130,7 +153,7 @@ library GhoCCIPChains {
 
   /**
    * @notice Returns the ChainInfo constant for Arbitrum
-   * @return ChainInfo The ChainInfo constant for Arbitrum
+   * @return The ChainInfo constant for Arbitrum
    */
   function ARBITRUM() public pure returns (ChainInfo memory) {
     return
@@ -150,7 +173,7 @@ library GhoCCIPChains {
 
   /**
    * @notice Returns the ChainInfo constant for Base
-   * @return ChainInfo The ChainInfo constant for Base
+   * @return The ChainInfo constant for Base
    */
   function BASE() public pure returns (ChainInfo memory) {
     return
@@ -170,7 +193,7 @@ library GhoCCIPChains {
 
   /**
    * @notice Returns the ChainInfo constant for Avalanche
-   * @return ChainInfo The ChainInfo constant for Avalanche
+   * @return The ChainInfo constant for Avalanche
    */
   function AVALANCHE() public pure returns (ChainInfo memory) {
     return
@@ -190,7 +213,7 @@ library GhoCCIPChains {
 
   /**
    * @notice Returns the ChainInfo constant for Gnosis
-   * @return ChainInfo The ChainInfo constant for Gnosis
+   * @return The ChainInfo constant for Gnosis
    */
   function GNOSIS() public pure returns (ChainInfo memory) {
     return
@@ -210,7 +233,7 @@ library GhoCCIPChains {
 
   /**
    * @notice Returns the ChainInfo constant for Ink
-   * @return ChainInfo The ChainInfo constant for Ink
+   * @return The ChainInfo constant for Ink
    */
   function INK() public pure returns (ChainInfo memory) {
     return
