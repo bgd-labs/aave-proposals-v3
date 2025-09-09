@@ -2,7 +2,7 @@
 title: "Aave V2 deprecation"
 author: "BGD Labs @bgdlabs"
 discussions: "https://governance.aave.com/t/arfc-aave-v2-deprecation-tech-next-phase/23022"
-snapshot: TODO
+snapshot: https://snapshot.box/#/s:aavedao.eth/proposal/0xbece41f2549d7b908a07ef1e5032e500e9c887b8252915d3782b74df35659d22
 ---
 
 ## Simple Summary
@@ -25,12 +25,16 @@ The proposal will execute the following two steps on each network:
 2. Grant `FUNDS_MANAGER` role from the `Collector` to a `ClinicStewardV2` smart contract, an adapted version of the one done [HERE](https://governance.aave.com/t/arfc-bgd-aave-clinicsteward/21209) for Aave v3, for the DAO to clean up historic v2 bad debt with Collector’s funds.
    Additional details on its configuration:
 
-   - The final budgets per asset (existing bad debt) will be defined later in this thread, before the AIP stage. To be confirmed by Chaos Labs as a risk provider.
-   - The roles configuration of the steward [will be the same as on v3’s](https://governance.aave.com/t/arfc-bgd-aave-clinicsteward/21209#p-53721-specification-3): 2-of-3 for the superadmin (to not be really used), in this case, replacing kpk by one of the other risk providers. And a Dolce Vita EOA for the cleanup role, totally constrained by pre-defined budgets and on-chain logic.
+   - The final budgets per pool are as follows:
+     - 1M $ on Ethereum core
+     - 1k $ on Ethereum AMM
+     - 2.5k $ on Avalanche
+     - 5k $ on Polygon
+   - The roles configuration of the steward [will be the same as on v3’s](https://governance.aave.com/t/arfc-bgd-aave-clinicsteward/21209#p-53721-specification-3) for the superadmin (to not be really used). And a Dolce Vita EOA for the cleanup role, totally constrained by pre-defined budgets and on-chain logic.
 
 3. Do very minor changes to the precision of the system to have more compatibility with v3.
 
-On the security side, the different components are to be reviewed by Certora.
+On the security side, the different components have been reviewed by Certora.
 
 ## References
 
@@ -46,7 +50,7 @@ On the security side, the different components are to be reviewed by Certora.
 
 ### Other
 
-- [Snapshot](TODO)
+- [Snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0xbece41f2549d7b908a07ef1e5032e500e9c887b8252915d3782b74df35659d22)
 - [Discussion](https://governance.aave.com/t/arfc-aave-v2-deprecation-tech-next-phase/23022)
 
 ## Copyright

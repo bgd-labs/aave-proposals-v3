@@ -9,7 +9,6 @@ import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGen
 /**
  * @title Aave V2 deprecation
  * @author BGD Labs @bgdlabs
- * - Snapshot: TODO
  * - Discussion: https://governance.aave.com/t/arfc-aave-v2-deprecation-tech-next-phase/23022
  */
 contract ClinicStewardV2Activation_20250904 is IProposalGenericExecutor {

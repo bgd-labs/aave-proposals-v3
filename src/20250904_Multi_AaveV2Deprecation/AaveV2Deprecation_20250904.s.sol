@@ -15,7 +15,7 @@ import {ClinicStewardV2Activation_20250904} from './ClinicStewardV2Activation_20
 
 import {AaveV2DeprecationPayloadDeployments, ClinicStewardV2Deployments} from './Deployments.sol';
 
-address constant BOT = 0x3Cbded22F878aFC8d39dCD744d3Fe62086B76193;
+address constant BOT = 0x9148eCDA02859142D06B1591a4C2d6702d4C214D;
 
 /**
  * @dev Deploy Ethereum

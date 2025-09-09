@@ -21,11 +21,11 @@ contract ClinicStewardActivation_Mainnet_Core_20250904_Test is
   BaseActivationTest(
     'mainnet',
     'core',
-    23289614,
+    23326493,
     AaveV2Ethereum.POOL,
     AaveV2Ethereum.COLLECTOR,
     ClinicStewardV2Deployments.MAINNET_CORE,
-    0 // budget
+    1_000_000e8
   )
 {}
 
@@ -37,11 +37,11 @@ contract ClinicStewardActivation_Mainnet_Amm_20250904_Test is
   BaseActivationTest(
     'mainnet',
     'amm',
-    23289614,
+    23326493,
     AaveV2EthereumAMM.POOL,
     AaveV2EthereumAMM.COLLECTOR,
-    ClinicStewardV2Deployments.MAINNET_CORE,
-    0 // budget
+    ClinicStewardV2Deployments.MAINNET_AMM,
+    1_000e8
   )
 {}
 
@@ -53,11 +53,11 @@ contract ClinicStewardActivation_Avalanche_20250904_Test is
   BaseActivationTest(
     'avalanche',
     '',
-    68172961,
+    68482232,
     AaveV2Avalanche.POOL,
     AaveV2Avalanche.COLLECTOR,
-    ClinicStewardV2Deployments.MAINNET_AMM,
-    0 // budget
+    ClinicStewardV2Deployments.AVALANCHE,
+    2_500e8
   )
 {}
 
@@ -69,10 +69,10 @@ contract ClinicStewardActivation_Polygon_20250904_Test is
   BaseActivationTest(
     'polygon',
     '',
-    76042057,
+    76251363,
     AaveV2Polygon.POOL,
     AaveV2Polygon.COLLECTOR,
     ClinicStewardV2Deployments.POLYGON,
-    0 // budget
+    5_000e8
   )
 {}
