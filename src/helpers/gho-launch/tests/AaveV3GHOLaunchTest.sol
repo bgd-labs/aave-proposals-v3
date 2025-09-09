@@ -12,7 +12,6 @@ import {IOwnable} from 'aave-address-book/common/IOwnable.sol';
 import {IUpgradeableBurnMintTokenPool_1_5_1} from 'src/interfaces/ccip/tokenPool/IUpgradeableBurnMintTokenPool.sol';
 import {IGhoAaveSteward} from 'src/interfaces/IGhoAaveSteward.sol';
 import {IGhoCcipSteward} from 'src/interfaces/IGhoCcipSteward.sol';
-import {IPool} from 'aave-address-book/AaveV3.sol';
 
 abstract contract AaveV3GHOLaunchTest_PreExecution is AaveV3GHOLaneTest {
   IACLManager public immutable LOCAL_ACL_MANAGER;
@@ -25,18 +24,7 @@ abstract contract AaveV3GHOLaunchTest_PreExecution is AaveV3GHOLaneTest {
   )
     AaveV3GHOLaneTest(
       localChainInfo,
-      GhoCCIPChains.ChainInfo(
-        0,
-        address(0),
-        address(0),
-        address(0),
-        address(0),
-        address(0),
-        address(0),
-        address(0),
-        address(0),
-        address(0)
-      ), // Nullified remote chain info as it's not used for this test
+      GhoCCIPChains.emptyChainInfo(), // Nullified remote chain info as it's not used for this test
       rpcAlias,
       blockNumber
     )
@@ -44,17 +32,6 @@ abstract contract AaveV3GHOLaunchTest_PreExecution is AaveV3GHOLaneTest {
     LOCAL_ACL_MANAGER = IACLManager(localChainInfo.aclManager);
     LOCAL_OWNER = localChainInfo.owner;
   }
-
-  /**
-   * @dev executes the generic test suite including e2e and config snapshots
-   */
-  function test_defaultProposalExecution() public virtual {
-    defaultTest(_reportName(), IPool(_aavePool()), address(proposal));
-  }
-
-  function _reportName() internal view virtual returns (string memory);
-
-  function _aavePool() internal view virtual returns (address);
 
   function _localRiskCouncil() internal view virtual returns (address);
 
