@@ -2,7 +2,6 @@
 title: "September Funding Update"
 author: "@TokenLogic"
 discussions: "https://governance.aave.com/t/direct-to-aip-september-2025-funding-update/22915"
-snapshot: "Direct-to-AIP"
 ---
 
 ## Simple Summary
