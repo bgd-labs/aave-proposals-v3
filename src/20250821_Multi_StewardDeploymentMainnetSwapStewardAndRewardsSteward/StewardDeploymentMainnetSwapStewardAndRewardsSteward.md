@@ -7,6 +7,10 @@ snapshot: "PENDING"
 
 ## Simple Summary
 
+We are excited to present the next iteration of Aave’s non-custodial Treasury Management tooling suite. We are expanding the Aave `Finance Steward` role to perform swaps on Ethereum via `MainnetSwapSteward` v1 and claim Liquidity Mining rewards across acrued to the collector across all networks via the `RewardsSteward`. Activating these steward roles will enable Aave DAO to further streamline operations and reduce governance overhead in a secure and safe manner.
+
+## Overview
+
 Following the successful deployment of the Pool Exposure Stewards back in [April](https://vote.onaave.com/proposal/?proposalId=279&ipfsHash=0x0b0274c64c3044960cc136a5c813bb461e40da836c5873e85f99aafd1cd9f813), this publication seeks to deploy the next set of modules that comprise the [Aave Finance Steward](https://governance.aave.com/t/arfc-aave-finance-steward/17570/1).
 
 The Finance Steward role is comprised of a set of Modules (Smart Contracts) that provide approved signers with the ability to perform DAO approved actions such as swapping tokens or migrating assets from Aave V2 to Aave V3, without having to rely on governance.
@@ -17,7 +21,7 @@ This publication deploys the MainnetSwapSteward, grants the initial budget for s
 
 The Finance Steward modules enables the DAO to define a core set of financial capabilities to be carried out within strict role-based guardrails. As the role matures or new use cases arise, we plan to bring forward additional capabilities for the DAO to discuss.
 
-This publication includes deploying two separate contracts. The MainnetSwapSteward is deployed to more easily perform swaps on behalf of the DAO, as well as introducing TWAP Orders on-chain without having to grant an allowance to the AFC, meaning the DAO's funds never leave the DAO's possession.
+This publication includes deploying two separate contracts. The MainnetSwapSteward is deployed to more easily perform swaps on behalf of the DAO, as well as introducing TWAP Orders on-chain without having to grant an allowance to the AFC, meaning the DAO’s funds never leave the DAO’s possession.
 
 The RewardsSteward grants the stewards the ability to claim Aave rewards to be sent to the collector.
 
@@ -66,7 +70,7 @@ The RewardsSteward is a permissionless contract that can be called by anyone to 
 | Gnosis    |
 | Sonic     |
 
-The MainnetSwapSteward contract has been deployed (with more chains coming in the future), with the DAO as the owner of the contracts and the following SAFE acting as the guardian [0x22740deBa78d5a0c24C58C740e3715ec29de1bFa](https://app.safe.global/home?safe=eth:0x22740deBa78d5a0c24C58C740e3715ec29de1bFa).
+The `MainnetSwapSteward` contract has been deployed (with more chains coming in the future), with the DAO as the owner of the contracts and the following SAFE acting as the guardian [0x22740deBa78d5a0c24C58C740e3715ec29de1bFa](https://app.safe.global/home?safe=eth:0x22740deBa78d5a0c24C58C740e3715ec29de1bFa).
 
 The SAFE is configured as a 3-out-of-4 multi-sig, and the signers for the SAFE are the following:
 
@@ -79,10 +83,22 @@ The initial budget (allowance) granted to the SwapSteward via this proposal will
 
 | Token | Budget |
 | ----- | ------ |
-| USDC  |        |
-| USDT  |        |
-
-...etc
+| USDC  | 5M     |
+| USDT  | 5M     |
+| USDe  | 5M     |
+| USDS  | 5M     |
+| DAI   | 3M     |
+| rlUSD | 1M     |
+| LUSD  | 500k   |
+| FRAX  | 150k   |
+| pyUSD | 20k    |
+| UNI   | 15k    |
+| MKR   | 100    |
+| 1INCH | 50k    |
+| ENS   | 200    |
+| SNX   | 150k   |
+| SPK   | 375.8k |
+| SAFE  | 5.2k   |
 
 ## References
 
