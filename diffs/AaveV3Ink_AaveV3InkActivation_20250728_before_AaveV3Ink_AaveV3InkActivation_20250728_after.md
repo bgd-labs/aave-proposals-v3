@@ -1,0 +1,1078 @@
+## Reserve changes
+
+### Reserve added
+
+#### USD₮0 (0x0200C29006150606B650577BBE7B6248F58470c1)
+
+| description | value |
+| --- | --- |
+| decimals | 6 |
+| isActive | true |
+| isFrozen | false |
+| supplyCap | 190,000,000 USD₮0 |
+| borrowCap | 6,000,000 USD₮0 |
+| debtCeiling | 0 $ [0] |
+| isSiloed | false |
+| isFlashloanable | true |
+| oracle | 0x24FdD142b34C6B5D55299709DB0966681933c9aF |
+| oracleDecimals | 8 |
+| oracleDescription | Capped USDT/USD |
+| oracleLatestAnswer | 1.000185 |
+| usageAsCollateralEnabled | false |
+| ltv | 0 % [0] |
+| liquidationThreshold | 0 % [0] |
+| liquidationBonus | 0 % |
+| liquidationProtocolFee | 0 % [0] |
+| reserveFactor | 10 % [1000] |
+| aToken | 0x99cBF1Ff4527675Ed3301671105C9F7748fb8a04 |
+| variableDebtToken | 0xA5d61eF3D06234371507e54FB709F401E590719a |
+| borrowingEnabled | true |
+| isBorrowableInIsolation | false |
+| interestRateStrategy | 0xCFDAdA7DCd2e785cF706BaDBC2B8Af5084d595e9 |
+| aTokenName | Aave InkWhitelabel USDT |
+| aTokenSymbol | aInkWlUSDT |
+| aTokenUnderlyingBalance | 10 USD₮0 [10000000] |
+| id | 2 |
+| isPaused | false |
+| variableDebtTokenName | Aave InkWhitelabel Variable Debt USDT |
+| variableDebtTokenSymbol | variableDebtInkWlUSDT |
+| virtualBalance | 10 USD₮0 [10000000] |
+| optimalUsageRatio | 90 % |
+| maxVariableBorrowRate | 45.5 % |
+| baseVariableBorrowRate | 0 % |
+| variableRateSlope1 | 5.5 % |
+| variableRateSlope2 | 40 % |
+| interestRate | ![ir](https://dash.onaave.com/api/static?variableRateSlope1=55000000000000000000000000&variableRateSlope2=400000000000000000000000000&optimalUsageRatio=900000000000000000000000000&baseVariableBorrowRate=0&maxVariableBorrowRate=455000000000000000000000000) |
+
+
+#### WETH (0x4200000000000000000000000000000000000006)
+
+| description | value |
+| --- | --- |
+| decimals | 18 |
+| isActive | true |
+| isFrozen | false |
+| supplyCap | 32,000 WETH |
+| borrowCap | 1,500 WETH |
+| debtCeiling | 0 $ [0] |
+| isSiloed | false |
+| isFlashloanable | true |
+| oracle | 0x163131609562E578754aF12E998635BfCa56712C |
+| oracleDecimals | 8 |
+| oracleDescription | ETH / USD |
+| oracleLatestAnswer | 4199.86174507 |
+| usageAsCollateralEnabled | true |
+| ltv | 80 % [8000] |
+| liquidationThreshold | 83 % [8300] |
+| liquidationBonus | 7.5 % |
+| liquidationProtocolFee | 10 % [1000] |
+| reserveFactor | 15 % [1500] |
+| aToken | 0x2B35eF056728BaFFaC103e3b81cB029788006EF9 |
+| variableDebtToken | 0xc1457AcfBaD2332b07B7651A4Da3176E8F3Bc9E4 |
+| borrowingEnabled | true |
+| isBorrowableInIsolation | false |
+| interestRateStrategy | 0xCFDAdA7DCd2e785cF706BaDBC2B8Af5084d595e9 |
+| aTokenName | Aave InkWhitelabel WETH |
+| aTokenSymbol | aInkWlWETH |
+| aTokenUnderlyingBalance | 0.005 WETH [5000000000000000] |
+| id | 0 |
+| isPaused | false |
+| variableDebtTokenName | Aave InkWhitelabel Variable Debt WETH |
+| variableDebtTokenSymbol | variableDebtInkWlWETH |
+| virtualBalance | 0.005 WETH [5000000000000000] |
+| optimalUsageRatio | 90 % |
+| maxVariableBorrowRate | 42.7 % |
+| baseVariableBorrowRate | 0 % |
+| variableRateSlope1 | 2.7 % |
+| variableRateSlope2 | 40 % |
+| interestRate | ![ir](https://dash.onaave.com/api/static?variableRateSlope1=27000000000000000000000000&variableRateSlope2=400000000000000000000000000&optimalUsageRatio=900000000000000000000000000&baseVariableBorrowRate=0&maxVariableBorrowRate=427000000000000000000000000) |
+
+
+#### kBTC (0x73E0C0d45E048D25Fc26Fa3159b0aA04BfA4Db98)
+
+| description | value |
+| --- | --- |
+| decimals | 8 |
+| isActive | true |
+| isFrozen | false |
+| supplyCap | 350 kBTC |
+| borrowCap | 10 kBTC |
+| debtCeiling | 0 $ [0] |
+| isSiloed | false |
+| isFlashloanable | true |
+| oracle | 0xAe48F22903d43f13f66Cc650F57Bd4654ac222cb |
+| oracleDecimals | 8 |
+| oracleDescription | BTC / USD |
+| oracleLatestAnswer | 113819.32978862 |
+| usageAsCollateralEnabled | true |
+| ltv | 72 % [7200] |
+| liquidationThreshold | 77 % [7700] |
+| liquidationBonus | 7.5 % |
+| liquidationProtocolFee | 10 % [1000] |
+| reserveFactor | 50 % [5000] |
+| aToken | 0xC712C3a5624de08EA593FB23270804B47942564e |
+| variableDebtToken | 0x47D9b89775958F0b5c7734C5570565Ce575e7e94 |
+| borrowingEnabled | true |
+| isBorrowableInIsolation | false |
+| interestRateStrategy | 0xCFDAdA7DCd2e785cF706BaDBC2B8Af5084d595e9 |
+| aTokenName | Aave InkWhitelabel KBTC |
+| aTokenSymbol | aInkWlKBTC |
+| aTokenUnderlyingBalance | 0.001 kBTC [100000] |
+| id | 1 |
+| isPaused | false |
+| variableDebtTokenName | Aave InkWhitelabel Variable Debt KBTC |
+| variableDebtTokenSymbol | variableDebtInkWlKBTC |
+| virtualBalance | 0.001 kBTC [100000] |
+| optimalUsageRatio | 45 % |
+| maxVariableBorrowRate | 84 % |
+| baseVariableBorrowRate | 0 % |
+| variableRateSlope1 | 4 % |
+| variableRateSlope2 | 80 % |
+| interestRate | ![ir](https://dash.onaave.com/api/static?variableRateSlope1=40000000000000000000000000&variableRateSlope2=800000000000000000000000000&optimalUsageRatio=450000000000000000000000000&baseVariableBorrowRate=0&maxVariableBorrowRate=840000000000000000000000000) |
+
+
+#### USDG (0xe343167631d89B6Ffc58B88d6b7fB0228795491D)
+
+| description | value |
+| --- | --- |
+| decimals | 6 |
+| isActive | true |
+| isFrozen | false |
+| supplyCap | 20,000,000 USDG |
+| borrowCap | 1,600,000 USDG |
+| debtCeiling | 0 $ [0] |
+| isSiloed | false |
+| isFlashloanable | true |
+| oracle | 0x38758C93672A9F3F4297016BE4Ac1aCA70DcE82A |
+| oracleDecimals | 8 |
+| oracleDescription | Fixed USDG/USD |
+| oracleLatestAnswer | 1 |
+| usageAsCollateralEnabled | false |
+| ltv | 0 % [0] |
+| liquidationThreshold | 0 % [0] |
+| liquidationBonus | 0 % |
+| liquidationProtocolFee | 0 % [0] |
+| reserveFactor | 10 % [1000] |
+| aToken | 0x4cd13ce4edbB5523fd4849252b5f1bF215129D10 |
+| variableDebtToken | 0x08443163427BaE789774f45198315f6EAefe566C |
+| borrowingEnabled | true |
+| isBorrowableInIsolation | false |
+| interestRateStrategy | 0xCFDAdA7DCd2e785cF706BaDBC2B8Af5084d595e9 |
+| aTokenName | Aave InkWhitelabel USDG |
+| aTokenSymbol | aInkWlUSDG |
+| aTokenUnderlyingBalance | 10 USDG [10000000] |
+| id | 3 |
+| isPaused | false |
+| variableDebtTokenName | Aave InkWhitelabel Variable Debt USDG |
+| variableDebtTokenSymbol | variableDebtInkWlUSDG |
+| virtualBalance | 10 USDG [10000000] |
+| optimalUsageRatio | 80 % |
+| maxVariableBorrowRate | 55.5 % |
+| baseVariableBorrowRate | 0 % |
+| variableRateSlope1 | 5.5 % |
+| variableRateSlope2 | 50 % |
+| interestRate | ![ir](https://dash.onaave.com/api/static?variableRateSlope1=55000000000000000000000000&variableRateSlope2=500000000000000000000000000&optimalUsageRatio=800000000000000000000000000&baseVariableBorrowRate=0&maxVariableBorrowRate=555000000000000000000000000) |
+
+
+## Raw diff
+
+```json
+{
+  "reserves": {
+    "0x0200C29006150606B650577BBE7B6248F58470c1": {
+      "from": null,
+      "to": {
+        "aToken": "0x99cBF1Ff4527675Ed3301671105C9F7748fb8a04",
+        "aTokenName": "Aave InkWhitelabel USDT",
+        "aTokenSymbol": "aInkWlUSDT",
+        "aTokenUnderlyingBalance": "10000000",
+        "borrowCap": 6000000,
+        "borrowingEnabled": true,
+        "debtCeiling": 0,
+        "decimals": 6,
+        "id": 2,
+        "interestRateStrategy": "0xCFDAdA7DCd2e785cF706BaDBC2B8Af5084d595e9",
+        "isActive": true,
+        "isBorrowableInIsolation": false,
+        "isFlashloanable": true,
+        "isFrozen": false,
+        "isPaused": false,
+        "isSiloed": false,
+        "liquidationBonus": 0,
+        "liquidationProtocolFee": 0,
+        "liquidationThreshold": 0,
+        "ltv": 0,
+        "oracle": "0x24FdD142b34C6B5D55299709DB0966681933c9aF",
+        "oracleDecimals": 8,
+        "oracleDescription": "Capped USDT/USD",
+        "oracleLatestAnswer": "100018500",
+        "reserveFactor": 1000,
+        "supplyCap": 190000000,
+        "symbol": "USD₮0",
+        "underlying": "0x0200C29006150606B650577BBE7B6248F58470c1",
+        "usageAsCollateralEnabled": false,
+        "variableDebtToken": "0xA5d61eF3D06234371507e54FB709F401E590719a",
+        "variableDebtTokenName": "Aave InkWhitelabel Variable Debt USDT",
+        "variableDebtTokenSymbol": "variableDebtInkWlUSDT",
+        "virtualBalance": "10000000"
+      }
+    },
+    "0x4200000000000000000000000000000000000006": {
+      "from": null,
+      "to": {
+        "aToken": "0x2B35eF056728BaFFaC103e3b81cB029788006EF9",
+        "aTokenName": "Aave InkWhitelabel WETH",
+        "aTokenSymbol": "aInkWlWETH",
+        "aTokenUnderlyingBalance": "5000000000000000",
+        "borrowCap": 1500,
+        "borrowingEnabled": true,
+        "debtCeiling": 0,
+        "decimals": 18,
+        "id": 0,
+        "interestRateStrategy": "0xCFDAdA7DCd2e785cF706BaDBC2B8Af5084d595e9",
+        "isActive": true,
+        "isBorrowableInIsolation": false,
+        "isFlashloanable": true,
+        "isFrozen": false,
+        "isPaused": false,
+        "isSiloed": false,
+        "liquidationBonus": 10750,
+        "liquidationProtocolFee": 1000,
+        "liquidationThreshold": 8300,
+        "ltv": 8000,
+        "oracle": "0x163131609562E578754aF12E998635BfCa56712C",
+        "oracleDecimals": 8,
+        "oracleDescription": "ETH / USD",
+        "oracleLatestAnswer": "419986174507",
+        "reserveFactor": 1500,
+        "supplyCap": 32000,
+        "symbol": "WETH",
+        "underlying": "0x4200000000000000000000000000000000000006",
+        "usageAsCollateralEnabled": true,
+        "variableDebtToken": "0xc1457AcfBaD2332b07B7651A4Da3176E8F3Bc9E4",
+        "variableDebtTokenName": "Aave InkWhitelabel Variable Debt WETH",
+        "variableDebtTokenSymbol": "variableDebtInkWlWETH",
+        "virtualBalance": "5000000000000000"
+      }
+    },
+    "0x73E0C0d45E048D25Fc26Fa3159b0aA04BfA4Db98": {
+      "from": null,
+      "to": {
+        "aToken": "0xC712C3a5624de08EA593FB23270804B47942564e",
+        "aTokenName": "Aave InkWhitelabel KBTC",
+        "aTokenSymbol": "aInkWlKBTC",
+        "aTokenUnderlyingBalance": "100000",
+        "borrowCap": 10,
+        "borrowingEnabled": true,
+        "debtCeiling": 0,
+        "decimals": 8,
+        "id": 1,
+        "interestRateStrategy": "0xCFDAdA7DCd2e785cF706BaDBC2B8Af5084d595e9",
+        "isActive": true,
+        "isBorrowableInIsolation": false,
+        "isFlashloanable": true,
+        "isFrozen": false,
+        "isPaused": false,
+        "isSiloed": false,
+        "liquidationBonus": 10750,
+        "liquidationProtocolFee": 1000,
+        "liquidationThreshold": 7700,
+        "ltv": 7200,
+        "oracle": "0xAe48F22903d43f13f66Cc650F57Bd4654ac222cb",
+        "oracleDecimals": 8,
+        "oracleDescription": "BTC / USD",
+        "oracleLatestAnswer": "11381932978862",
+        "reserveFactor": 5000,
+        "supplyCap": 350,
+        "symbol": "kBTC",
+        "underlying": "0x73E0C0d45E048D25Fc26Fa3159b0aA04BfA4Db98",
+        "usageAsCollateralEnabled": true,
+        "variableDebtToken": "0x47D9b89775958F0b5c7734C5570565Ce575e7e94",
+        "variableDebtTokenName": "Aave InkWhitelabel Variable Debt KBTC",
+        "variableDebtTokenSymbol": "variableDebtInkWlKBTC",
+        "virtualBalance": "100000"
+      }
+    },
+    "0xe343167631d89B6Ffc58B88d6b7fB0228795491D": {
+      "from": null,
+      "to": {
+        "aToken": "0x4cd13ce4edbB5523fd4849252b5f1bF215129D10",
+        "aTokenName": "Aave InkWhitelabel USDG",
+        "aTokenSymbol": "aInkWlUSDG",
+        "aTokenUnderlyingBalance": "10000000",
+        "borrowCap": 1600000,
+        "borrowingEnabled": true,
+        "debtCeiling": 0,
+        "decimals": 6,
+        "id": 3,
+        "interestRateStrategy": "0xCFDAdA7DCd2e785cF706BaDBC2B8Af5084d595e9",
+        "isActive": true,
+        "isBorrowableInIsolation": false,
+        "isFlashloanable": true,
+        "isFrozen": false,
+        "isPaused": false,
+        "isSiloed": false,
+        "liquidationBonus": 0,
+        "liquidationProtocolFee": 0,
+        "liquidationThreshold": 0,
+        "ltv": 0,
+        "oracle": "0x38758C93672A9F3F4297016BE4Ac1aCA70DcE82A",
+        "oracleDecimals": 8,
+        "oracleDescription": "Fixed USDG/USD",
+        "oracleLatestAnswer": "100000000",
+        "reserveFactor": 1000,
+        "supplyCap": 20000000,
+        "symbol": "USDG",
+        "underlying": "0xe343167631d89B6Ffc58B88d6b7fB0228795491D",
+        "usageAsCollateralEnabled": false,
+        "variableDebtToken": "0x08443163427BaE789774f45198315f6EAefe566C",
+        "variableDebtTokenName": "Aave InkWhitelabel Variable Debt USDG",
+        "variableDebtTokenSymbol": "variableDebtInkWlUSDG",
+        "virtualBalance": "10000000"
+      }
+    }
+  },
+  "strategies": {
+    "0x0200C29006150606B650577BBE7B6248F58470c1": {
+      "from": null,
+      "to": {
+        "address": "0xCFDAdA7DCd2e785cF706BaDBC2B8Af5084d595e9",
+        "baseVariableBorrowRate": "0",
+        "maxVariableBorrowRate": "455000000000000000000000000",
+        "optimalUsageRatio": "900000000000000000000000000",
+        "variableRateSlope1": "55000000000000000000000000",
+        "variableRateSlope2": "400000000000000000000000000"
+      }
+    },
+    "0x4200000000000000000000000000000000000006": {
+      "from": null,
+      "to": {
+        "address": "0xCFDAdA7DCd2e785cF706BaDBC2B8Af5084d595e9",
+        "baseVariableBorrowRate": "0",
+        "maxVariableBorrowRate": "427000000000000000000000000",
+        "optimalUsageRatio": "900000000000000000000000000",
+        "variableRateSlope1": "27000000000000000000000000",
+        "variableRateSlope2": "400000000000000000000000000"
+      }
+    },
+    "0x73E0C0d45E048D25Fc26Fa3159b0aA04BfA4Db98": {
+      "from": null,
+      "to": {
+        "address": "0xCFDAdA7DCd2e785cF706BaDBC2B8Af5084d595e9",
+        "baseVariableBorrowRate": "0",
+        "maxVariableBorrowRate": "840000000000000000000000000",
+        "optimalUsageRatio": "450000000000000000000000000",
+        "variableRateSlope1": "40000000000000000000000000",
+        "variableRateSlope2": "800000000000000000000000000"
+      }
+    },
+    "0xe343167631d89B6Ffc58B88d6b7fB0228795491D": {
+      "from": null,
+      "to": {
+        "address": "0xCFDAdA7DCd2e785cF706BaDBC2B8Af5084d595e9",
+        "baseVariableBorrowRate": "0",
+        "maxVariableBorrowRate": "555000000000000000000000000",
+        "optimalUsageRatio": "800000000000000000000000000",
+        "variableRateSlope1": "55000000000000000000000000",
+        "variableRateSlope2": "500000000000000000000000000"
+      }
+    }
+  },
+  "raw": {
+    "0x0200c29006150606b650577bbe7b6248f58470c1": {
+      "label": null,
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x5e0c209f272136c8855b5e1d53ab2e2067d509c051d3f60a4bf0638fa0d28822": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000989680",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000000"
+        },
+        "0x7429094029c7f59978d52d276d100c32671af582b497e61733c813b32d90b86a": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000989680"
+        },
+        "0x7d86769415762ee7f9f4da172a22b99e95cb5c79a597f1d8e15ed0ef1abb775d": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000000"
+        }
+      }
+    },
+    "0x08443163427bae789774f45198315f6eaefe566c": {
+      "label": null,
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x0000000000000000000000000000000000000000000000000000000000000000": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000004"
+        },
+        "0x0000000000000000000000000000000000000000000000000000000000000001": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000000"
+        },
+        "0x0000000000000000000000000000000000000000000000000000000000000035": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x407d94fb54fa22f8f43aab8eca2ac5c11d946d3ec747a437680ef99ed355ea63"
+        },
+        "0x0000000000000000000000000000000000000000000000000000000000000037": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x000000000000000000000000e343167631d89b6ffc58b88d6b7fb0228795491d"
+        },
+        "0x000000000000000000000000000000000000000000000000000000000000003b": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x000000000000000000000000000000000000000000000000000000000000004b"
+        },
+        "0x000000000000000000000000000000000000000000000000000000000000003c": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x7661726961626c6544656274496e6b576c55534447000000000000000000002a"
+        },
+        "0x000000000000000000000000000000000000000000000000000000000000003d": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000006"
+        },
+        "0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x000000000000000000000000294dab91f3539f5a74ed995a59235ee62a14a345",
+          "label": "Implementation slot"
+        },
+        "0xbbe3212124853f8b0084a66a2d057c2966e251e132af3691db153ab65f0d1a4d": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x4161766520496e6b57686974656c6162656c205661726961626c652044656274"
+        },
+        "0xbbe3212124853f8b0084a66a2d057c2966e251e132af3691db153ab65f0d1a4e": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x2055534447000000000000000000000000000000000000000000000000000000"
+        }
+      }
+    },
+    "0x1de9cb9420dd1f2ccefff9393e126b800d413b7a": {
+      "label": "GovernanceV3InkWhitelabel.PERMISSIONED_PAYLOADS_CONTROLLER",
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x3617319a054d772f909f7c479a2cebe5066e836a939412e32403c99029b92eff": {
+          "previousValue": "0x0068a48df9000000000002000000000000000000000000000000000000000000",
+          "newValue": "0x0068a48df9000000000003000000000000000000000000000000000000000000"
+        },
+        "0x3617319a054d772f909f7c479a2cebe5066e836a939412e32403c99029b92f00": {
+          "previousValue": "0x000000000000000000093a8000000000000068d2b27a00000000000000000000",
+          "newValue": "0x000000000000000000093a8000000000000068d2b27a00000000000068a48dfa"
+        }
+      }
+    },
+    "0x2816cf15f6d2a220e789aa011d5ee4eb6c47feba": {
+      "label": "AaveV3InkWhitelabel.POOL",
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x000000000000000000000000000000000000000000000000000000000000003b": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000040000000000000000"
+        },
+        "0x0aa126583ac3a901713d8d5929bc7659f63b33065f64d43f2b2f95ddf3a5abf3": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x10000000000000000000000000001312d00000186a0003e88506000000000000"
+        },
+        "0x0aa126583ac3a901713d8d5929bc7659f63b33065f64d43f2b2f95ddf3a5abf4": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000033b2e3c9fd0803ce8000000"
+        },
+        "0x0aa126583ac3a901713d8d5929bc7659f63b33065f64d43f2b2f95ddf3a5abf5": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000033b2e3c9fd0803ce8000000"
+        },
+        "0x0aa126583ac3a901713d8d5929bc7659f63b33065f64d43f2b2f95ddf3a5abf6": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x00000000000000000000030068a48dfa00000000000000000000000000000000"
+        },
+        "0x0aa126583ac3a901713d8d5929bc7659f63b33065f64d43f2b2f95ddf3a5abf7": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000004cd13ce4edbb5523fd4849252b5f1bf215129d10"
+        },
+        "0x0aa126583ac3a901713d8d5929bc7659f63b33065f64d43f2b2f95ddf3a5abf9": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x00000000000000000000000008443163427bae789774f45198315f6eaefe566c"
+        },
+        "0x0aa126583ac3a901713d8d5929bc7659f63b33065f64d43f2b2f95ddf3a5abfb": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000098968000000000000000000000000000000000"
+        },
+        "0x13e1489dc27f0406a90cc6adcc2791ab4667229c8517552edad01675f20658bf": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x000000000000000000000000000000000000000000000000000000000000000a"
+        },
+        "0x49d58ea9a5daf69ab79ed6bff1f0de709220367fa3b259710db785f85d2077eb": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000200c29006150606b650577bbe7b6248f58470c1"
+        },
+        "0x4cb2b152c1b54ce671907a93c300fd5aa72383a9d4ec19a81e3333632ae92e00": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000004200000000000000000000000000000000000006"
+        },
+        "0x52eaf0ef0d5fb4b8b7ab408cae5db0f302f467a5f7642af11e325a225ec359fd": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x100000000000000000000003e800000015e00000000a1388850829fe1e141c20"
+        },
+        "0x52eaf0ef0d5fb4b8b7ab408cae5db0f302f467a5f7642af11e325a225ec359fe": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000033b2e3c9fd0803ce8000000"
+        },
+        "0x52eaf0ef0d5fb4b8b7ab408cae5db0f302f467a5f7642af11e325a225ec359ff": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000033b2e3c9fd0803ce8000000"
+        },
+        "0x52eaf0ef0d5fb4b8b7ab408cae5db0f302f467a5f7642af11e325a225ec35a00": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x00000000000000000000010068a48dfa00000000000000000000000000000000"
+        },
+        "0x52eaf0ef0d5fb4b8b7ab408cae5db0f302f467a5f7642af11e325a225ec35a01": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x000000000000000000000000c712c3a5624de08ea593fb23270804b47942564e"
+        },
+        "0x52eaf0ef0d5fb4b8b7ab408cae5db0f302f467a5f7642af11e325a225ec35a03": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x00000000000000000000000047d9b89775958f0b5c7734c5570565ce575e7e94"
+        },
+        "0x52eaf0ef0d5fb4b8b7ab408cae5db0f302f467a5f7642af11e325a225ec35a05": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x000000000000000000000000000186a000000000000000000000000000000000"
+        },
+        "0x52eaf0ef0d5fb4b8b7ab408cae5db0f302f467a5f7642af11e325a225ec35a06": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000000"
+        },
+        "0x7e47f63b8ad37aba97855785563ef3d1cc728913e5cd518cf2e44986d45aa777": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x1000000000000000000000000000b532b800005b8d8003e88506000000000000"
+        },
+        "0x7e47f63b8ad37aba97855785563ef3d1cc728913e5cd518cf2e44986d45aa778": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000033b2e3c9fd0803ce8000000"
+        },
+        "0x7e47f63b8ad37aba97855785563ef3d1cc728913e5cd518cf2e44986d45aa779": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000033b2e3c9fd0803ce8000000"
+        },
+        "0x7e47f63b8ad37aba97855785563ef3d1cc728913e5cd518cf2e44986d45aa77a": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x00000000000000000000020068a48dfa00000000000000000000000000000000"
+        },
+        "0x7e47f63b8ad37aba97855785563ef3d1cc728913e5cd518cf2e44986d45aa77b": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x00000000000000000000000099cbf1ff4527675ed3301671105c9f7748fb8a04"
+        },
+        "0x7e47f63b8ad37aba97855785563ef3d1cc728913e5cd518cf2e44986d45aa77d": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x000000000000000000000000a5d61ef3d06234371507e54fb709f401e590719a"
+        },
+        "0x7e47f63b8ad37aba97855785563ef3d1cc728913e5cd518cf2e44986d45aa77f": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000098968000000000000000000000000000000000"
+        },
+        "0x9f34118313d08abcbe5d630066a42015e9c14ddd958820a505759421525c3ade": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x100000000000000000000003e8000007d000000005dc05dc851229fe206c1f40"
+        },
+        "0x9f34118313d08abcbe5d630066a42015e9c14ddd958820a505759421525c3adf": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000033b2e3c9fd0803ce8000000"
+        },
+        "0x9f34118313d08abcbe5d630066a42015e9c14ddd958820a505759421525c3ae0": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000033b2e3c9fd0803ce8000000"
+        },
+        "0x9f34118313d08abcbe5d630066a42015e9c14ddd958820a505759421525c3ae1": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x00000000000000000000000068a48dfa00000000000000000000000000000000"
+        },
+        "0x9f34118313d08abcbe5d630066a42015e9c14ddd958820a505759421525c3ae2": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000002b35ef056728baffac103e3b81cb029788006ef9"
+        },
+        "0x9f34118313d08abcbe5d630066a42015e9c14ddd958820a505759421525c3ae4": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x000000000000000000000000c1457acfbad2332b07b7651a4da3176e8f3bc9e4"
+        },
+        "0x9f34118313d08abcbe5d630066a42015e9c14ddd958820a505759421525c3ae6": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x00000000000000000011c37937e0800000000000000000000000000000000000"
+        },
+        "0x9f34118313d08abcbe5d630066a42015e9c14ddd958820a505759421525c3ae7": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000000"
+        },
+        "0xbc2f57311c21670184a5dbcdfc5939827a8f57c97f69166be8694e2ce000cebc": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x000000000000000000000000e343167631d89b6ffc58b88d6b7fb0228795491d"
+        },
+        "0xc082cfcdc2bfeeffb970c9772df3384f481b69fbc495624ec92a9254cc4b32f0": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x00000000000000000000000073e0c0d45e048d25fc26fa3159b0aa04bfa4db98"
+        }
+      }
+    },
+    "0x2b35ef056728baffac103e3b81cb029788006ef9": {
+      "label": null,
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x0000000000000000000000000000000000000000000000000000000000000000": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000004"
+        },
+        "0x0000000000000000000000000000000000000000000000000000000000000001": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000000"
+        },
+        "0x0000000000000000000000000000000000000000000000000000000000000036": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000011c37937e08000"
+        },
+        "0x0000000000000000000000000000000000000000000000000000000000000037": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x4161766520496e6b57686974656c6162656c205745544800000000000000002e"
+        },
+        "0x0000000000000000000000000000000000000000000000000000000000000038": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x61496e6b576c5745544800000000000000000000000000000000000000000014"
+        },
+        "0x0000000000000000000000000000000000000000000000000000000000000039": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000012"
+        },
+        "0x000000000000000000000000000000000000000000000000000000000000003b": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0xacda7dd2e0c2a7867dc8b3774111a9a28b05e77e14ccd287b1f0b87ea5ad9917"
+        },
+        "0x000000000000000000000000000000000000000000000000000000000000003d": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000004200000000000000000000000000000000000006"
+        },
+        "0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x000000000000000000000000d8247c7926841337e8adf9fd9e87026992c45062",
+          "label": "Implementation slot"
+        },
+        "0xffb1c44aaa95ab07b2e32cfca3531e9cdbab14027ba421318af503f8dfb83ade": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x00000000033b2e3c9fd0803ce800000000000000000000000011c37937e08000"
+        }
+      }
+    },
+    "0x4200000000000000000000000000000000000006": {
+      "label": null,
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x0b282999699db73f2c5bee4253aecef0594e4268ad769803e4815d919c53e8e7": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000011c37937e08000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000000"
+        },
+        "0x1b87b307a3011da3fe5966d893c4606fe66d7d5196993136d1df808f83108d22": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000011c37937e08000"
+        },
+        "0x8b17f8d5747e68e044d8b4920b6b39643e7c210e851a2c5730d2b5d9e36a5544": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000000"
+        }
+      }
+    },
+    "0x4758213271bfdc72224a7a8742dc865fc97756e1": {
+      "label": "AaveV3InkWhitelabel.ORACLE",
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x21508b8977913ef2fad21ad8ad40729a198a718db58f3c42aecfa5ba00331466": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x00000000000000000000000038758c93672a9f3f4297016be4ac1aca70dce82a"
+        },
+        "0x77a0d2a8ad16fafa4712e51af69eaa691f15d06594b1c028546cfd8e54ccc16f": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x000000000000000000000000ae48f22903d43f13f66cc650f57bd4654ac222cb"
+        },
+        "0xaa544f6996e1da4967517881576aedff824813d40fbf84798b92a9de03a071fe": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x000000000000000000000000163131609562e578754af12e998635bfca56712c"
+        },
+        "0xcba1a9c44d9330bd23f98606a19303bf9373d011db3344ba68033594b8c36e5d": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x00000000000000000000000024fdd142b34c6b5d55299709db0966681933c9af"
+        }
+      }
+    },
+    "0x47d9b89775958f0b5c7734c5570565ce575e7e94": {
+      "label": null,
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x0000000000000000000000000000000000000000000000000000000000000000": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000004"
+        },
+        "0x0000000000000000000000000000000000000000000000000000000000000001": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000000"
+        },
+        "0x0000000000000000000000000000000000000000000000000000000000000035": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x30b53c0a8694532ab1a3d1afe01787b4e5b83ea70168ddce444afe1007375ae4"
+        },
+        "0x0000000000000000000000000000000000000000000000000000000000000037": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x00000000000000000000000073e0c0d45e048d25fc26fa3159b0aa04bfa4db98"
+        },
+        "0x000000000000000000000000000000000000000000000000000000000000003b": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x000000000000000000000000000000000000000000000000000000000000004b"
+        },
+        "0x000000000000000000000000000000000000000000000000000000000000003c": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x7661726961626c6544656274496e6b576c4b425443000000000000000000002a"
+        },
+        "0x000000000000000000000000000000000000000000000000000000000000003d": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000008"
+        },
+        "0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x000000000000000000000000294dab91f3539f5a74ed995a59235ee62a14a345",
+          "label": "Implementation slot"
+        },
+        "0xbbe3212124853f8b0084a66a2d057c2966e251e132af3691db153ab65f0d1a4d": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x4161766520496e6b57686974656c6162656c205661726961626c652044656274"
+        },
+        "0xbbe3212124853f8b0084a66a2d057c2966e251e132af3691db153ab65f0d1a4e": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x204b425443000000000000000000000000000000000000000000000000000000"
+        }
+      }
+    },
+    "0x4cd13ce4edbb5523fd4849252b5f1bf215129d10": {
+      "label": null,
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x0000000000000000000000000000000000000000000000000000000000000000": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000004"
+        },
+        "0x0000000000000000000000000000000000000000000000000000000000000001": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000000"
+        },
+        "0x0000000000000000000000000000000000000000000000000000000000000036": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000989680"
+        },
+        "0x0000000000000000000000000000000000000000000000000000000000000037": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x4161766520496e6b57686974656c6162656c205553444700000000000000002e"
+        },
+        "0x0000000000000000000000000000000000000000000000000000000000000038": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x61496e6b576c5553444700000000000000000000000000000000000000000014"
+        },
+        "0x0000000000000000000000000000000000000000000000000000000000000039": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000006"
+        },
+        "0x000000000000000000000000000000000000000000000000000000000000003b": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x6c0ba890727cf971db611c54a571be395772ceafcc2785161d10788885f790e6"
+        },
+        "0x000000000000000000000000000000000000000000000000000000000000003d": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x000000000000000000000000e343167631d89b6ffc58b88d6b7fb0228795491d"
+        },
+        "0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x000000000000000000000000d8247c7926841337e8adf9fd9e87026992c45062",
+          "label": "Implementation slot"
+        },
+        "0xffb1c44aaa95ab07b2e32cfca3531e9cdbab14027ba421318af503f8dfb83ade": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x00000000033b2e3c9fd0803ce800000000000000000000000000000000989680"
+        }
+      }
+    },
+    "0x73e0c0d45e048d25fc26fa3159b0aa04bfa4db98": {
+      "label": null,
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x25061132631c31b50f47b084591ef5cae6f847b89f571506a7396e9b4e489015": {
+          "previousValue": "0x00000000000000000000000000000000000000000000000000000000000186a0",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000000"
+        },
+        "0x52712fef6ac14b4cddc4788d2f6037328f670bb495889563480600b5004e8a14": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000000"
+        },
+        "0x615271a0fa3c223fe499f7a2070a2b08f68ce4c1c33a08df2730140e36058691": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x00000000000000000000000000000000000000000000000000000000000186a0"
+        }
+      }
+    },
+    "0x99cbf1ff4527675ed3301671105c9f7748fb8a04": {
+      "label": null,
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x0000000000000000000000000000000000000000000000000000000000000000": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000004"
+        },
+        "0x0000000000000000000000000000000000000000000000000000000000000001": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000000"
+        },
+        "0x0000000000000000000000000000000000000000000000000000000000000036": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000989680"
+        },
+        "0x0000000000000000000000000000000000000000000000000000000000000037": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x4161766520496e6b57686974656c6162656c205553445400000000000000002e"
+        },
+        "0x0000000000000000000000000000000000000000000000000000000000000038": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x61496e6b576c5553445400000000000000000000000000000000000000000014"
+        },
+        "0x0000000000000000000000000000000000000000000000000000000000000039": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000006"
+        },
+        "0x000000000000000000000000000000000000000000000000000000000000003b": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0xae663eaea170ef52aa2daa4bc3a078b7b321521e66eba0bfb0b05f338c35c2d9"
+        },
+        "0x000000000000000000000000000000000000000000000000000000000000003d": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000200c29006150606b650577bbe7b6248f58470c1"
+        },
+        "0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x000000000000000000000000d8247c7926841337e8adf9fd9e87026992c45062",
+          "label": "Implementation slot"
+        },
+        "0xffb1c44aaa95ab07b2e32cfca3531e9cdbab14027ba421318af503f8dfb83ade": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x00000000033b2e3c9fd0803ce800000000000000000000000000000000989680"
+        }
+      }
+    },
+    "0x9cbcef2c44cf28ff2aa36bff7bab315398209a79": {
+      "label": "AaveV3InkWhitelabel.EMISSION_MANAGER",
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x27e5ad65fbf7490fc2c6d4dfa02b09d41b29938aa068a3a51af38dd22ece1d8e": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x000000000000000000000000ac140648435d03f784879cd789130f22ef588fcd"
+        },
+        "0x29c7537912316a84b7ba35b270b4a16b52c9cee6af1ffabb8a308821d92d90b6": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x000000000000000000000000ac140648435d03f784879cd789130f22ef588fcd"
+        },
+        "0x30fb1310c39519fc6dfc9513f8fba06601cab5a715d659182972e14d8df46016": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x000000000000000000000000ac140648435d03f784879cd789130f22ef588fcd"
+        },
+        "0x9faf94d7ad9c48020c9771e568b4a500da5fdc5025195bbdc891c9855119d434": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x000000000000000000000000ac140648435d03f784879cd789130f22ef588fcd"
+        },
+        "0xa87a37a734ff7ed0e62c6f018ab80a1b96580e4a50ea4a6a3bf8ad75b3050401": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x000000000000000000000000ac140648435d03f784879cd789130f22ef588fcd"
+        },
+        "0xad59d8b039d0a49adcf8b040c0a328357753589ae2102d254712da0d90d17318": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x000000000000000000000000ac140648435d03f784879cd789130f22ef588fcd"
+        },
+        "0xdda36f7bf95c56e55bf48428002f14347a4b6a7b7903ae7cd9602fe55b510f07": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x000000000000000000000000ac140648435d03f784879cd789130f22ef588fcd"
+        },
+        "0xf373865a891d69283bc941cd4a18c254a684e3f51be4a66ef351606ba6b1de91": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x000000000000000000000000ac140648435d03f784879cd789130f22ef588fcd"
+        }
+      }
+    },
+    "0xa5d61ef3d06234371507e54fb709f401e590719a": {
+      "label": null,
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x0000000000000000000000000000000000000000000000000000000000000000": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000004"
+        },
+        "0x0000000000000000000000000000000000000000000000000000000000000001": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000000"
+        },
+        "0x0000000000000000000000000000000000000000000000000000000000000035": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0xdf96b82e44ccb0b0629bdc256e306993536af9970af27f4c8a4e19d2f921db51"
+        },
+        "0x0000000000000000000000000000000000000000000000000000000000000037": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000200c29006150606b650577bbe7b6248f58470c1"
+        },
+        "0x000000000000000000000000000000000000000000000000000000000000003b": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x000000000000000000000000000000000000000000000000000000000000004b"
+        },
+        "0x000000000000000000000000000000000000000000000000000000000000003c": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x7661726961626c6544656274496e6b576c55534454000000000000000000002a"
+        },
+        "0x000000000000000000000000000000000000000000000000000000000000003d": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000006"
+        },
+        "0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x000000000000000000000000294dab91f3539f5a74ed995a59235ee62a14a345",
+          "label": "Implementation slot"
+        },
+        "0xbbe3212124853f8b0084a66a2d057c2966e251e132af3691db153ab65f0d1a4d": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x4161766520496e6b57686974656c6162656c205661726961626c652044656274"
+        },
+        "0xbbe3212124853f8b0084a66a2d057c2966e251e132af3691db153ab65f0d1a4e": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x2055534454000000000000000000000000000000000000000000000000000000"
+        }
+      }
+    },
+    "0xc1457acfbad2332b07b7651a4da3176e8f3bc9e4": {
+      "label": null,
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x0000000000000000000000000000000000000000000000000000000000000000": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000004"
+        },
+        "0x0000000000000000000000000000000000000000000000000000000000000001": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000000"
+        },
+        "0x0000000000000000000000000000000000000000000000000000000000000035": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x5c631a346967a47707752bf65bdb638fb8f8d79f54554683fa1b94ee78802932"
+        },
+        "0x0000000000000000000000000000000000000000000000000000000000000037": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000004200000000000000000000000000000000000006"
+        },
+        "0x000000000000000000000000000000000000000000000000000000000000003b": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x000000000000000000000000000000000000000000000000000000000000004b"
+        },
+        "0x000000000000000000000000000000000000000000000000000000000000003c": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x7661726961626c6544656274496e6b576c57455448000000000000000000002a"
+        },
+        "0x000000000000000000000000000000000000000000000000000000000000003d": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000012"
+        },
+        "0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x000000000000000000000000294dab91f3539f5a74ed995a59235ee62a14a345",
+          "label": "Implementation slot"
+        },
+        "0xbbe3212124853f8b0084a66a2d057c2966e251e132af3691db153ab65f0d1a4d": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x4161766520496e6b57686974656c6162656c205661726961626c652044656274"
+        },
+        "0xbbe3212124853f8b0084a66a2d057c2966e251e132af3691db153ab65f0d1a4e": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x2057455448000000000000000000000000000000000000000000000000000000"
+        }
+      }
+    },
+    "0xc712c3a5624de08ea593fb23270804b47942564e": {
+      "label": null,
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x0000000000000000000000000000000000000000000000000000000000000000": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000004"
+        },
+        "0x0000000000000000000000000000000000000000000000000000000000000001": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000000"
+        },
+        "0x0000000000000000000000000000000000000000000000000000000000000036": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x00000000000000000000000000000000000000000000000000000000000186a0"
+        },
+        "0x0000000000000000000000000000000000000000000000000000000000000037": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x4161766520496e6b57686974656c6162656c204b42544300000000000000002e"
+        },
+        "0x0000000000000000000000000000000000000000000000000000000000000038": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x61496e6b576c4b42544300000000000000000000000000000000000000000014"
+        },
+        "0x0000000000000000000000000000000000000000000000000000000000000039": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000008"
+        },
+        "0x000000000000000000000000000000000000000000000000000000000000003b": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0xbd2be4aa1627bef30ed812e92d274baffa52f2da28819e0166f9665ee9ccc85b"
+        },
+        "0x000000000000000000000000000000000000000000000000000000000000003d": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x00000000000000000000000073e0c0d45e048d25fc26fa3159b0aa04bfa4db98"
+        },
+        "0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x000000000000000000000000d8247c7926841337e8adf9fd9e87026992c45062",
+          "label": "Implementation slot"
+        },
+        "0xffb1c44aaa95ab07b2e32cfca3531e9cdbab14027ba421318af503f8dfb83ade": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x00000000033b2e3c9fd0803ce8000000000000000000000000000000000186a0"
+        }
+      }
+    },
+    "0xcfdada7dcd2e785cf706badbc2b8af5084d595e9": {
+      "label": null,
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x21508b8977913ef2fad21ad8ad40729a198a718db58f3c42aecfa5ba00331466": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000138800000226000000001f40"
+        },
+        "0x77a0d2a8ad16fafa4712e51af69eaa691f15d06594b1c028546cfd8e54ccc16f": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x00000000000000000000000000000000000000001f4000000190000000001194"
+        },
+        "0xaa544f6996e1da4967517881576aedff824813d40fbf84798b92a9de03a071fe": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x00000000000000000000000000000000000000000fa00000010e000000002328"
+        },
+        "0xcba1a9c44d9330bd23f98606a19303bf9373d011db3344ba68033594b8c36e5d": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x00000000000000000000000000000000000000000fa000000226000000002328"
+        }
+      }
+    },
+    "0xe343167631d89b6ffc58b88d6b7fb0228795491d": {
+      "label": null,
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x9faf94d7ad9c48020c9771e568b4a500da5fdc5025195bbdc891c9855119d434": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000989680"
+        },
+        "0xba48b29b28cf96af25b22dbe68e671b107b2d9be1528602701d5aa1bf16f8ebe": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000000"
+        },
+        "0xe5f4839c13abf7388df320849805a3cb3746d7e5949bf69219c822663e6351f8": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000989680",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000000"
+        }
+      }
+    }
+  }
+}
+```
