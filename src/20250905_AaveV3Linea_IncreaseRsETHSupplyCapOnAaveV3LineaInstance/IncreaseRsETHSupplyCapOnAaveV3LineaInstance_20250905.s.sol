@@ -42,9 +42,7 @@ contract CreateProposal is EthereumScript {
     {
       IPayloadsControllerCore.ExecutionAction[]
         memory actionsLinea = new IPayloadsControllerCore.ExecutionAction[](1);
-      actionsLinea[0] = GovV3Helpers.buildAction(
-        type(AaveV3Linea_IncreaseRsETHSupplyCapOnAaveV3LineaInstance_20250905).creationCode
-      );
+      actionsLinea[0] = GovV3Helpers.buildAction(0x393cb9078fe3610D0daFAf3369EE61Fe78dcCB95);
       payloads[0] = GovV3Helpers.buildLineaPayload(vm, actionsLinea);
     }
 
