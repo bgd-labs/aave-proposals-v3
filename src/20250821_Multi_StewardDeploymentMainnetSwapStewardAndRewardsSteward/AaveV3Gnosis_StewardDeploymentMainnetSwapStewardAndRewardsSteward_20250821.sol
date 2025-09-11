@@ -9,7 +9,7 @@ import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGen
  * @title Steward Deployment: MainnetSwapSteward and RewardsSteward
  * @author @TokenLogic
  * - Snapshot: PENDING
- * - Discussion: PENDING
+ * - Discussion: https://governance.aave.com/t/arfc-steward-deployment-mainnetswapsteward-and-rewardssteward/23070
  */
 contract AaveV3Gnosis_StewardDeploymentMainnetSwapStewardAndRewardsSteward_20250821 is
   IProposalGenericExecutor

@@ -24,7 +24,7 @@ contract AaveV3Avalanche_StewardDeploymentMainnetSwapStewardAndRewardsSteward_20
   address[] assets = new address[](1);
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('avalanche'), 67428335);
+    vm.createSelectFork(vm.rpcUrl('avalanche'), 68588915);
     proposal = new AaveV3Avalanche_StewardDeploymentMainnetSwapStewardAndRewardsSteward_20250821();
     assets[0] = AaveV3AvalancheAssets.WETHe_A_TOKEN;
   }

@@ -97,8 +97,6 @@ The initial budget (allowance) granted to the SwapSteward via this proposal will
 | 1INCH | 50k    |
 | ENS   | 200    |
 | SNX   | 150k   |
-| SPK   | 375.8k |
-| SAFE  | 5.2k   |
 
 ## References
 

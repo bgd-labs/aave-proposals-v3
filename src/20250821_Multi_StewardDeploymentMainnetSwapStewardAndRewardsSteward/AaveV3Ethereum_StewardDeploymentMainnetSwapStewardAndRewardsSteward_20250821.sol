@@ -15,7 +15,7 @@ interface IMainnetSwapSteward {
  * @title Steward Deployment: MainnetSwapSteward and RewardsSteward
  * @author @TokenLogic
  * - Snapshot: PENDING
- * - Discussion: PENDING
+ * - Discussion: https://governance.aave.com/t/arfc-steward-deployment-mainnetswapsteward-and-rewardssteward/23070
  */
 contract AaveV3Ethereum_StewardDeploymentMainnetSwapStewardAndRewardsSteward_20250821 is
   IProposalGenericExecutor
@@ -29,6 +29,14 @@ contract AaveV3Ethereum_StewardDeploymentMainnetSwapStewardAndRewardsSteward_202
   uint256 public constant USD_STABLE_BUDGET = 5_000_000;
   uint256 public constant DAI_BUDGET = 3_000_000 ether;
   uint256 public constant RLUSD_BUDGET = 1_000_000 ether;
+  uint256 public constant LUSD_BUDGET = 500_000 ether;
+  uint256 public constant FRAX_BUDGET = 150_000 ether;
+  uint256 public constant PYUSD_BUDGET = 20_000e6;
+  uint256 public constant UNI_BUDGET = 15_000 ether;
+  uint256 public constant MKR_BUDGET = 100 ether;
+  uint256 public constant ONEINCH_BUDGET = 50_000 ether;
+  uint256 public constant ENS_BUDGET = 200 ether;
+  uint256 public constant SNX_BUDGET = 150_000 ether;
 
   function execute() external {
     // RewardsSteward
@@ -38,6 +46,17 @@ contract AaveV3Ethereum_StewardDeploymentMainnetSwapStewardAndRewardsSteward_202
     );
 
     // MainnetSwapSteward
+    _configureAssets();
+    _setSwappablePairs();
+  }
+
+  function _configureAssets() internal {
+    // Token: GHO (Only Oracle)
+    IMainnetSwapSteward(SWAP_STEWARD).setTokenOracle(
+      AaveV3EthereumAssets.GHO_UNDERLYING,
+      AaveV3EthereumAssets.GHO_ORACLE
+    );
+
     // Token: USDC
     _setOracleAndBudget(
       AaveV3EthereumAssets.USDC_UNDERLYING,
@@ -75,7 +94,152 @@ contract AaveV3Ethereum_StewardDeploymentMainnetSwapStewardAndRewardsSteward_202
       RLUSD_BUDGET
     );
 
-    // IMainnetSwapSteward(SWAP_STEWARD).setSwappablePair();
+    // Token: LUSD
+    _setOracleAndBudget(
+      AaveV3EthereumAssets.LUSD_UNDERLYING,
+      AaveV3EthereumAssets.LUSD_ORACLE,
+      LUSD_BUDGET
+    );
+
+    // Token: FRAX
+    _setOracleAndBudget(
+      AaveV3EthereumAssets.FRAX_UNDERLYING,
+      AaveV3EthereumAssets.FRAX_ORACLE,
+      FRAX_BUDGET
+    );
+
+    // Token: pyUSD
+    _setOracleAndBudget(
+      AaveV3EthereumAssets.PYUSD_UNDERLYING,
+      AaveV3EthereumAssets.PYUSD_ORACLE,
+      PYUSD_BUDGET
+    );
+
+    // Token: UNI
+    _setOracleAndBudget(
+      AaveV3EthereumAssets.UNI_UNDERLYING,
+      AaveV3EthereumAssets.UNI_ORACLE,
+      UNI_BUDGET
+    );
+
+    // Token: MKR
+    _setOracleAndBudget(
+      AaveV3EthereumAssets.MKR_UNDERLYING,
+      AaveV3EthereumAssets.MKR_ORACLE,
+      MKR_BUDGET
+    );
+
+    // Token: 1INCH
+    _setOracleAndBudget(
+      AaveV3EthereumAssets.ONE_INCH_UNDERLYING,
+      AaveV3EthereumAssets.ONE_INCH_ORACLE,
+      ONEINCH_BUDGET
+    );
+
+    // Token: ENS
+    _setOracleAndBudget(
+      AaveV3EthereumAssets.ENS_UNDERLYING,
+      AaveV3EthereumAssets.ENS_ORACLE,
+      ENS_BUDGET
+    );
+
+    // Token: SNX
+    _setOracleAndBudget(
+      AaveV3EthereumAssets.SNX_UNDERLYING,
+      AaveV3EthereumAssets.SNX_ORACLE,
+      SNX_BUDGET
+    );
+  }
+
+  function _setSwappablePairs() internal {
+    // To GHO
+    IMainnetSwapSteward(SWAP_STEWARD).setSwappablePair(
+      AaveV3EthereumAssets.USDC_UNDERLYING,
+      AaveV3EthereumAssets.GHO_UNDERLYING,
+      true
+    );
+    IMainnetSwapSteward(SWAP_STEWARD).setSwappablePair(
+      AaveV3EthereumAssets.USDT_UNDERLYING,
+      AaveV3EthereumAssets.GHO_UNDERLYING,
+      true
+    );
+    IMainnetSwapSteward(SWAP_STEWARD).setSwappablePair(
+      AaveV3EthereumAssets.USDe_UNDERLYING,
+      AaveV3EthereumAssets.GHO_UNDERLYING,
+      true
+    );
+    IMainnetSwapSteward(SWAP_STEWARD).setSwappablePair(
+      AaveV3EthereumAssets.USDS_UNDERLYING,
+      AaveV3EthereumAssets.GHO_UNDERLYING,
+      true
+    );
+    IMainnetSwapSteward(SWAP_STEWARD).setSwappablePair(
+      AaveV3EthereumAssets.DAI_UNDERLYING,
+      AaveV3EthereumAssets.GHO_UNDERLYING,
+      true
+    );
+
+    // To USDC
+    IMainnetSwapSteward(SWAP_STEWARD).setSwappablePair(
+      AaveV3EthereumAssets.USDe_UNDERLYING,
+      AaveV3EthereumAssets.USDC_UNDERLYING,
+      true
+    );
+    IMainnetSwapSteward(SWAP_STEWARD).setSwappablePair(
+      AaveV3EthereumAssets.USDS_UNDERLYING,
+      AaveV3EthereumAssets.USDC_UNDERLYING,
+      true
+    );
+    IMainnetSwapSteward(SWAP_STEWARD).setSwappablePair(
+      AaveV3EthereumAssets.DAI_UNDERLYING,
+      AaveV3EthereumAssets.USDC_UNDERLYING,
+      true
+    );
+    IMainnetSwapSteward(SWAP_STEWARD).setSwappablePair(
+      AaveV3EthereumAssets.RLUSD_UNDERLYING,
+      AaveV3EthereumAssets.USDC_UNDERLYING,
+      true
+    );
+    IMainnetSwapSteward(SWAP_STEWARD).setSwappablePair(
+      AaveV3EthereumAssets.LUSD_UNDERLYING,
+      AaveV3EthereumAssets.USDC_UNDERLYING,
+      true
+    );
+    IMainnetSwapSteward(SWAP_STEWARD).setSwappablePair(
+      AaveV3EthereumAssets.FRAX_UNDERLYING,
+      AaveV3EthereumAssets.USDC_UNDERLYING,
+      true
+    );
+    IMainnetSwapSteward(SWAP_STEWARD).setSwappablePair(
+      AaveV3EthereumAssets.PYUSD_UNDERLYING,
+      AaveV3EthereumAssets.USDC_UNDERLYING,
+      true
+    );
+    IMainnetSwapSteward(SWAP_STEWARD).setSwappablePair(
+      AaveV3EthereumAssets.UNI_UNDERLYING,
+      AaveV3EthereumAssets.USDC_UNDERLYING,
+      true
+    );
+    IMainnetSwapSteward(SWAP_STEWARD).setSwappablePair(
+      AaveV3EthereumAssets.MKR_UNDERLYING,
+      AaveV3EthereumAssets.USDC_UNDERLYING,
+      true
+    );
+    IMainnetSwapSteward(SWAP_STEWARD).setSwappablePair(
+      AaveV3EthereumAssets.ONE_INCH_UNDERLYING,
+      AaveV3EthereumAssets.USDC_UNDERLYING,
+      true
+    );
+    IMainnetSwapSteward(SWAP_STEWARD).setSwappablePair(
+      AaveV3EthereumAssets.ENS_UNDERLYING,
+      AaveV3EthereumAssets.USDC_UNDERLYING,
+      true
+    );
+    IMainnetSwapSteward(SWAP_STEWARD).setSwappablePair(
+      AaveV3EthereumAssets.SNX_UNDERLYING,
+      AaveV3EthereumAssets.USDC_UNDERLYING,
+      true
+    );
   }
 
   function _setOracleAndBudget(address token, address oracle, uint256 budget) internal {

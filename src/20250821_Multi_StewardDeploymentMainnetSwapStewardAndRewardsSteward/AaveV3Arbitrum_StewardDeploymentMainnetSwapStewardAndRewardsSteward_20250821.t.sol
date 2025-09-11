@@ -23,7 +23,7 @@ contract AaveV3Arbitrum_StewardDeploymentMainnetSwapStewardAndRewardsSteward_202
   address[] assets = new address[](1);
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('arbitrum'), 370838602);
+    vm.createSelectFork(vm.rpcUrl('arbitrum'), 378091190);
     proposal = new AaveV3Arbitrum_StewardDeploymentMainnetSwapStewardAndRewardsSteward_20250821();
     assets[0] = AaveV3ArbitrumAssets.WETH_A_TOKEN;
   }

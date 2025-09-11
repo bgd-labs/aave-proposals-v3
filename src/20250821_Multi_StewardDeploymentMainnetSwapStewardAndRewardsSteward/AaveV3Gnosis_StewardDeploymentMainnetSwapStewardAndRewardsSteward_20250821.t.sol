@@ -23,7 +23,7 @@ contract AaveV3Gnosis_StewardDeploymentMainnetSwapStewardAndRewardsSteward_20250
   address[] assets = new address[](1);
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('gnosis'), 41720476);
+    vm.createSelectFork(vm.rpcUrl('gnosis'), 42071675);
     proposal = new AaveV3Gnosis_StewardDeploymentMainnetSwapStewardAndRewardsSteward_20250821();
     assets[0] = AaveV3GnosisAssets.WETH_A_TOKEN;
   }

@@ -23,7 +23,7 @@ contract AaveV3Sonic_StewardDeploymentMainnetSwapStewardAndRewardsSteward_202508
   address[] assets = new address[](1);
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('sonic'), 43989355);
+    vm.createSelectFork(vm.rpcUrl('sonic'), 46516680);
     proposal = new AaveV3Sonic_StewardDeploymentMainnetSwapStewardAndRewardsSteward_20250821();
     assets[0] = AaveV3SonicAssets.WETH_A_TOKEN;
   }

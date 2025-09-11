@@ -23,7 +23,7 @@ contract AaveV3Base_StewardDeploymentMainnetSwapStewardAndRewardsSteward_2025082
   address[] assets = new address[](1);
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('base'), 34505178);
+    vm.createSelectFork(vm.rpcUrl('base'), 35410730);
     proposal = new AaveV3Base_StewardDeploymentMainnetSwapStewardAndRewardsSteward_20250821();
     assets[0] = AaveV3BaseAssets.WETH_A_TOKEN;
   }

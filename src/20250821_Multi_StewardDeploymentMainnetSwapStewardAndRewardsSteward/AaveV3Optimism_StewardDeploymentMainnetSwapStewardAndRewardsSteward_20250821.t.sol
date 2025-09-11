@@ -23,7 +23,7 @@ contract AaveV3Optimism_StewardDeploymentMainnetSwapStewardAndRewardsSteward_202
   address[] assets = new address[](1);
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('optimism'), 140100461);
+    vm.createSelectFork(vm.rpcUrl('optimism'), 141006090);
     proposal = new AaveV3Optimism_StewardDeploymentMainnetSwapStewardAndRewardsSteward_20250821();
     assets[0] = AaveV3OptimismAssets.WETH_A_TOKEN;
   }

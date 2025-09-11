@@ -23,7 +23,7 @@ contract AaveV3Polygon_StewardDeploymentMainnetSwapStewardAndRewardsSteward_2025
   address[] assets = new address[](1);
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('polygon'), 75487865);
+    vm.createSelectFork(vm.rpcUrl('polygon'), 76327075);
     proposal = new AaveV3Polygon_StewardDeploymentMainnetSwapStewardAndRewardsSteward_20250821();
     assets[0] = AaveV3PolygonAssets.WETH_A_TOKEN;
   }

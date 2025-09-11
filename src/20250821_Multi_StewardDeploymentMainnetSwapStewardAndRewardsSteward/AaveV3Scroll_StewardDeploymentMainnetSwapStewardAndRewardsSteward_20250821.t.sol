@@ -23,7 +23,7 @@ contract AaveV3Scroll_StewardDeploymentMainnetSwapStewardAndRewardsSteward_20250
   address[] assets = new address[](1);
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('scroll'), 19791423);
+    vm.createSelectFork(vm.rpcUrl('scroll'), 21043750);
     proposal = new AaveV3Scroll_StewardDeploymentMainnetSwapStewardAndRewardsSteward_20250821();
     assets[0] = AaveV3ScrollAssets.WETH_A_TOKEN;
   }

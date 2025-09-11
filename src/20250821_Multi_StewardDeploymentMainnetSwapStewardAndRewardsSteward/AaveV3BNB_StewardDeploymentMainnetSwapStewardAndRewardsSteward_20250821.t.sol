@@ -23,7 +23,7 @@ contract AaveV3BNB_StewardDeploymentMainnetSwapStewardAndRewardsSteward_20250821
   address[] assets = new address[](1);
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('bnb'), 58402040);
+    vm.createSelectFork(vm.rpcUrl('bnb'), 60816310);
     proposal = new AaveV3BNB_StewardDeploymentMainnetSwapStewardAndRewardsSteward_20250821();
     assets[0] = AaveV3BNBAssets.ETH_A_TOKEN;
   }
