@@ -27,31 +27,31 @@ The optimal bandwidth on the Ethereum -> Plasma path is set to 2, by calling upd
 
 The following are the configured adapters for the Ethereum → Plasma path. The required confirmations on the path are 2 out of 3.
 
-| Network  | Hyperlane Adapter                  | LayerZero Adapter                  | CCIP Adapter                       |
-| -------- | ---------------------------------- | ---------------------------------- | ---------------------------------- |
-| Ethereum | [](https://etherscan.io/address/)  | [](https://etherscan.io/address/)  | [](https://etherscan.io/address/)  |
-| Plasma   | [](https://plasmascan.to/address/) | [](https://plasmascan.to/address/) | [](https://plasmascan.to/address/) |
+| Network  | Hyperlane Adapter                                                                                                      | LayerZero Adapter                                                                                                      | CCIP Adapter                                                                                                           |
+| -------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| Ethereum | [0x6bda311748E6542d578b167d791A4130f3FbBc67](https://etherscan.io/address/0x6bda311748E6542d578b167d791A4130f3FbBc67)  | [0xBA0Ee375e9d0c815097D9eB7EB9Db20b59c06792](https://etherscan.io/address/0xBA0Ee375e9d0c815097D9eB7EB9Db20b59c06792)  | [0x352C71092fB60ce2f94DFF4ACda330DdffD946B0](https://etherscan.io/address/0x352C71092fB60ce2f94DFF4ACda330DdffD946B0)  |
+| Plasma   | [0x13Dc9eBb19bb1A14aa56215b443B2703A07ba2D5](https://plasmascan.to/address/0x13Dc9eBb19bb1A14aa56215b443B2703A07ba2D5) | [0x99950E7C7eB320A8551916e8676a42b90b058d5D](https://plasmascan.to/address/0x99950E7C7eB320A8551916e8676a42b90b058d5D) | [0x719e23D7B48Fc5AEa65Cff1bc58865C2b8d89A34](https://plasmascan.to/address/0x719e23D7B48Fc5AEa65Cff1bc58865C2b8d89A34) |
 
 The new a.DI deployments on Plasma network are as follows:
 
-| Contract                   | Address                            |
-| -------------------------- | ---------------------------------- |
-| CrossChainController       | [](https://plasmascan.to/address/) |
-| Granular Guardian          | [](https://plasmascan.to/address/) |
-| Chainlink Emergency Oracle | [](https://plasmascan.to/address/) |
+| Contract                   | Address                                                                                                                |
+| -------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| CrossChainController       | [0x643441742f73e270e565619be6DE5f4D55E08cd6](https://plasmascan.to/address/0x643441742f73e270e565619be6DE5f4D55E08cd6) |
+| Granular Guardian          | [0x60665b4F4FF7073C5fed2656852dCa271DfE2684](https://plasmascan.to/address/0x60665b4F4FF7073C5fed2656852dCa271DfE2684) |
+| Chainlink Emergency Oracle | [0xF61FE74Ec1cFbd9Ee8Bd27592D2EDEe0E2aA85Cf](https://plasmascan.to/address/0xF61FE74Ec1cFbd9Ee8Bd27592D2EDEe0E2aA85Cf) |
 
 The new Aave Governance deployments on Plasma network are as follows:
 
-| Contract            | Address                            |
-| ------------------- | ---------------------------------- |
-| PayloadsController  | [](https://plasmascan.to/address/) |
-| Executor Lvl 1      | [](https://plasmascan.to/address/) |
-| Governance Guardian | [](https://plasmascan.to/address/) |
-| BGD Labs Guardian   | [](https://plasmascan.to/address/) |
+| Contract            | Address                                                                                                                |
+| ------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| PayloadsController  | [0xe76EB348E65eF163d85ce282125FF5a7F5712A1d](https://plasmascan.to/address/0xe76EB348E65eF163d85ce282125FF5a7F5712A1d) |
+| Executor Lvl 1      | [0x47aAdaAE1F05C978E6aBb7568d11B7F6e0FC4d6A](https://plasmascan.to/address/0x47aAdaAE1F05C978E6aBb7568d11B7F6e0FC4d6A) |
+| Governance Guardian | [0x19CE4363FEA478Aa04B9EA2937cc5A2cbcD44be6](https://plasmascan.to/address/0x19CE4363FEA478Aa04B9EA2937cc5A2cbcD44be6) |
+| BGD Labs Guardian   | [0xdc62E0e65b2251Dc66404ca717FD32dcC365Be3A](https://plasmascan.to/address/0xdc62E0e65b2251Dc66404ca717FD32dcC365Be3A) |
 
 ## References
 
-- Adapter Implementations: [HyperLane Bridge Adapters](), [LayerZero Bridge Adapters](), [CCIP Bridge Adapters]()
+- Adapter Implementations: [HyperLane Bridge Adapters](https://github.com/aave-dao/aave-delivery-infrastructure/blob/d944e042703b1a1208f323ab9c7765297319c0b4/src/contracts/adapters/hyperLane/HyperLaneAdapter.sol), [LayerZero Bridge Adapters](https://github.com/aave-dao/aave-delivery-infrastructure/blob/d944e042703b1a1208f323ab9c7765297319c0b4/src/contracts/adapters/layerZero/LayerZeroAdapter.sol), [CCIP Bridge Adapters](https://github.com/aave-dao/aave-delivery-infrastructure/blob/d944e042703b1a1208f323ab9c7765297319c0b4/src/contracts/adapters/ccip/CCIPAdapter.sol)
 - Payload Implementation: [Payload]()
 - Payload Tests: [tests]()
 - Diffs: [a.DI diffs]()
