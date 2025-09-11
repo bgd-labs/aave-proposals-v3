@@ -156,7 +156,7 @@ contract CreateProposal is EthereumScript {
     GovV3Helpers.createProposal(
       vm,
       payloads,
-      GovernanceV3Ethereum.VOTING_PORTAL_ETH_POL,
+      GovernanceV3Ethereum.VOTING_PORTAL_ETH_AVAX,
       GovV3Helpers.ipfsHashFile(vm, 'src/20250904_Multi_AaveV2Deprecation/AaveV2Deprecation.md')
     );
   }
