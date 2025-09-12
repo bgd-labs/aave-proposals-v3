@@ -18,7 +18,7 @@ contract AaveV3Avalanche_AddEURCToAvalancheV3Instance_20250821_Test is ProtocolV
   AaveV3Avalanche_AddEURCToAvalancheV3Instance_20250821 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('avalanche'), 67423170);
+    vm.createSelectFork(vm.rpcUrl('avalanche'), 68627864);
     proposal = new AaveV3Avalanche_AddEURCToAvalancheV3Instance_20250821();
   }
 
@@ -36,7 +36,10 @@ contract AaveV3Avalanche_AddEURCToAvalancheV3Instance_20250821_Test is ProtocolV
   function test_dustBinHasEURCFunds() public {
     GovV3Helpers.executePayload(vm, address(proposal));
     address aTokenAddress = AaveV3Avalanche.POOL.getReserveAToken(proposal.EURC());
-    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Avalanche.DUST_BIN)), proposal.EURC_SEED_AMOUNT());
+    assertGe(
+      IERC20(aTokenAddress).balanceOf(address(AaveV3Avalanche.DUST_BIN)),
+      proposal.EURC_SEED_AMOUNT()
+    );
   }
 
   function test_EURCAdmin() public {
