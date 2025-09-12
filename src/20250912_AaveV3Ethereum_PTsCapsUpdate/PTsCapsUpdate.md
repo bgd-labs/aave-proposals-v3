@@ -34,11 +34,9 @@ Increase sUSDe November PT Supply Cap to $2.4b. Increase USDe November PT Supply
 
 ACI is not directly affiliated with Pendle and did not receive compensation for the creation of this proposal. Some ACI employees may hold Pendle tokens.
 
-### **Next Steps**
+## References
 
-1. Publish proposal to gather community and Service Providers feedback.
-
-2. Publish an AIP vote for final confirmation and enforcement of the proposal.
+- [Discussion](https://governance.aave.com/t/direct-to-aip-raise-susde-and-usde-november-expiry-pt-tokens-caps-on-aave-v3-core-instance/23117)
 
 ### Copyright
 
