@@ -32,8 +32,8 @@ The other changes mentionned in the original forum post will be handled separate
 
 ## References
 
-- Implementation: [AaveV3Scroll](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250912_AaveV3Scroll_RiskParameterAdjustmentsForAaveV3ScrollInstance/AaveV3Scroll_RiskParameterAdjustmentsForAaveV3ScrollInstance_20250912.sol)
-- Tests: [AaveV3Scroll](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250912_AaveV3Scroll_RiskParameterAdjustmentsForAaveV3ScrollInstance/AaveV3Scroll_RiskParameterAdjustmentsForAaveV3ScrollInstance_20250912.t.sol)
+- Implementation: [AaveV3Scroll](https://github.com/bgd-labs/aave-proposals-v3/blob/4bdc4d609596e471926d0582f611fb22582e0b40/src/20250912_AaveV3Scroll_RiskParameterAdjustmentsForAaveV3ScrollInstance/AaveV3Scroll_RiskParameterAdjustmentsForAaveV3ScrollInstance_20250912.sol)
+- Tests: [AaveV3Scroll](https://github.com/bgd-labs/aave-proposals-v3/blob/4bdc4d609596e471926d0582f611fb22582e0b40/src/20250912_AaveV3Scroll_RiskParameterAdjustmentsForAaveV3ScrollInstance/AaveV3Scroll_RiskParameterAdjustmentsForAaveV3ScrollInstance_20250912.t.sol)
 - Snapshot: Direct-to-AIP
 - [Discussion](https://governance.aave.com/t/direct-to-aip-risk-parameter-adjustments-for-aave-v3-scroll-instance/23113)
 
