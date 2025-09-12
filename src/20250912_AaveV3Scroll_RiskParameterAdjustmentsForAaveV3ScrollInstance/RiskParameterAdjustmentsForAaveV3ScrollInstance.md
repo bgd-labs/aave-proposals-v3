@@ -12,21 +12,21 @@ This Direct to AIP proposes immediate risk parameter adjustments for all assets 
 
 Recent governance developments within the Scroll ecosystem have introduced material uncertainty and potential risks that warrant immediate protocol protection measures. As a responsible risk management action, these adjustments aim to:
 
-* **Reduce Exposure**: Lower caps will limit the protocol’s total exposure to Scroll-based assets
-* **Maintain Protocol Safety**: Conservative parameters ensure protocol resilience during governance instability
-* **Enable Swift Response**: Direct to AIP process allows for rapid implementation of necessary risk controls
+- **Reduce Exposure**: Lower caps will limit the protocol’s total exposure to Scroll-based assets
+- **Maintain Protocol Safety**: Conservative parameters ensure protocol resilience during governance instability
+- **Enable Swift Response**: Direct to AIP process allows for rapid implementation of necessary risk controls
 
 ## Specification
 
-* **Reserve Factor Updates**: Increase RF for all listed assets to 50%.
+- **Reserve Factor Updates**: Increase RF for all listed assets to 50%.
 
-|Asset|Chain|Current Reserve Factor|Recommended Reserve Factor|
-| --- | --- | --- | --- |
-|WETH|Scroll|15%|50%|
-|weETH|Scroll|45%|50%|
-|wstETH|Scroll|5%|50%|
-|USDC|Scroll|10%|50%|
-|SCR|Scroll|20%|50%|
+| Asset  | Chain  | Current Reserve Factor | Recommended Reserve Factor |
+| ------ | ------ | ---------------------- | -------------------------- |
+| WETH   | Scroll | 15%                    | 50%                        |
+| weETH  | Scroll | 45%                    | 50%                        |
+| wstETH | Scroll | 5%                     | 50%                        |
+| USDC   | Scroll | 10%                    | 50%                        |
+| SCR    | Scroll | 20%                    | 50%                        |
 
 The other changes mentionned in the original forum post will be handled separately via risk steward.
 
