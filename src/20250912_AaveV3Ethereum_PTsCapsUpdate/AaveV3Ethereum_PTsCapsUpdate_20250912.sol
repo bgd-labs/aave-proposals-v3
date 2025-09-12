@@ -17,13 +17,13 @@ contract AaveV3Ethereum_PTsCapsUpdate_20250912 is AaveV3PayloadEthereum {
 
     capsUpdate[0] = IAaveV3ConfigEngine.CapsUpdate({
       asset: AaveV3EthereumAssets.PT_sUSDE_27NOV2025_UNDERLYING,
-      supplyCap: 2_400_000_000,
+      supplyCap: 1_200_000_000,
       borrowCap: EngineFlags.KEEP_CURRENT
     });
 
     capsUpdate[1] = IAaveV3ConfigEngine.CapsUpdate({
       asset: AaveV3EthereumAssets.PT_USDe_27NOV2025_UNDERLYING,
-      supplyCap: 1_800_000_000,
+      supplyCap: 1_000_000_000,
       borrowCap: EngineFlags.KEEP_CURRENT
     });
 

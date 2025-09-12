@@ -22,9 +22,9 @@ PT-USDe-27NOV2025
 
 ### Risk Parameters
 
-Increase sUSDe November PT Supply Cap to $2.4b.
+Increase sUSDe November PT Supply Cap to $1.2b.
 
-Increase USDe November PT Supply cap to $1.8b.
+Increase USDe November PT Supply cap to $1b.
 
 ### **Useful Links**
 

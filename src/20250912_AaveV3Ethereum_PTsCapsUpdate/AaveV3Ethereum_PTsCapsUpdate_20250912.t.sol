@@ -60,7 +60,7 @@ contract AaveV3Ethereum_PTsCapsUpdate_20250912_Test is ProtocolV3TestBase {
       .getReserveCaps(AaveV3EthereumAssets.PT_USDe_27NOV2025_UNDERLYING);
 
     assertEq(ptBorrowCapBefore, ptBorrowCapAfter);
-    assertEq(ptSupplyCapAfter, 1_800_000_000);
+    assertEq(ptSupplyCapAfter, 1_000_000_000);
     assertGt(ptSupplyCapAfter, ptSupplyCapBefore);
   }
 
@@ -76,7 +76,7 @@ contract AaveV3Ethereum_PTsCapsUpdate_20250912_Test is ProtocolV3TestBase {
       .getReserveCaps(AaveV3EthereumAssets.PT_sUSDE_27NOV2025_UNDERLYING);
 
     assertEq(ptBorrowCapBefore, ptBorrowCapAfter);
-    assertEq(ptSupplyCapAfter, 2_400_000_000);
+    assertEq(ptSupplyCapAfter, 1_200_000_000);
     assertGt(ptSupplyCapAfter, ptSupplyCapBefore);
   }
 
