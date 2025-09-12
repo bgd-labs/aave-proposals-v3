@@ -54,8 +54,8 @@ Additionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://snowtrace.io/a
 
 ## References
 
-- Implementation: [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250821_AaveV3Avalanche_AddEURCToAvalancheV3Instance/AaveV3Avalanche_AddEURCToAvalancheV3Instance_20250821.sol)
-- Tests: [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250821_AaveV3Avalanche_AddEURCToAvalancheV3Instance/AaveV3Avalanche_AddEURCToAvalancheV3Instance_20250821.t.sol)
+- Implementation: [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/0879652a8fe718fd47ac3e53287c60aa49a6e2d4/src/20250821_AaveV3Avalanche_AddEURCToAvalancheV3Instance/AaveV3Avalanche_AddEURCToAvalancheV3Instance_20250821.sol)
+- Tests: [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/0879652a8fe718fd47ac3e53287c60aa49a6e2d4/src/20250821_AaveV3Avalanche_AddEURCToAvalancheV3Instance/AaveV3Avalanche_AddEURCToAvalancheV3Instance_20250821.t.sol)
 - Snapshot: Direct-to-AIP
 - [Discussion](https://governance.aave.com/t/arfc-add-eurc-to-avalanche-v3-instance/21734)
 
