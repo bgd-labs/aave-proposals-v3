@@ -9,7 +9,7 @@ import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/
 /**
  * @title PTs caps update
  * @author ACI
- * - Discussion: TODO
+ * - Discussion: Direct-To-AIP
  */
 contract AaveV3Ethereum_PTsCapsUpdate_20250912 is AaveV3PayloadEthereum {
   function capsUpdates() public pure override returns (IAaveV3ConfigEngine.CapsUpdate[] memory) {
