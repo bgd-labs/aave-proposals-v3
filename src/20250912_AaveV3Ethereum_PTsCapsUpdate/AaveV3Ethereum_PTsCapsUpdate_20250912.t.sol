@@ -1,7 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
+import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
+import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 
 import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
@@ -17,6 +18,66 @@ contract AaveV3Ethereum_PTsCapsUpdate_20250912_Test is ProtocolV3TestBase {
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('mainnet'), 23348439);
     proposal = new AaveV3Ethereum_PTsCapsUpdate_20250912();
+  }
+
+  function test_PT_USDe_27NOV2025_priceFeedAdapter() public {
+    address feedBefore = AaveV3Ethereum.ORACLE.getSourceOfAsset(
+      AaveV3EthereumAssets.PT_USDe_27NOV2025_UNDERLYING
+    );
+
+    GovV3Helpers.executePayload(vm, address(proposal));
+
+    address feedAfter = AaveV3Ethereum.ORACLE.getSourceOfAsset(
+      AaveV3EthereumAssets.PT_USDe_27NOV2025_UNDERLYING
+    );
+
+    assertEq(feedBefore, feedAfter);
+  }
+
+  function test_PT_sUSDE_27NOV2025_priceFeedAdapter() public {
+    address feedBefore = AaveV3Ethereum.ORACLE.getSourceOfAsset(
+      AaveV3EthereumAssets.PT_sUSDE_27NOV2025_UNDERLYING
+    );
+
+    GovV3Helpers.executePayload(vm, address(proposal));
+
+    address feedAfter = AaveV3Ethereum.ORACLE.getSourceOfAsset(
+      AaveV3EthereumAssets.PT_sUSDE_27NOV2025_UNDERLYING
+    );
+
+    assertEq(feedBefore, feedAfter);
+  }
+
+  function test_PT_USDe_27NOV2025_caps() public {
+    (uint256 ptBorrowCapBefore, uint256 ptSupplyCapBefore) = AaveV3Ethereum
+      .AAVE_PROTOCOL_DATA_PROVIDER
+      .getReserveCaps(AaveV3EthereumAssets.PT_USDe_27NOV2025_UNDERLYING);
+
+    GovV3Helpers.executePayload(vm, address(proposal));
+
+    (uint256 ptBorrowCapAfter, uint256 ptSupplyCapAfter) = AaveV3Ethereum
+      .AAVE_PROTOCOL_DATA_PROVIDER
+      .getReserveCaps(AaveV3EthereumAssets.PT_USDe_27NOV2025_UNDERLYING);
+
+    assertEq(ptBorrowCapBefore, ptBorrowCapAfter);
+    assertEq(ptSupplyCapAfter, 1_800_000_000);
+    assertGt(ptSupplyCapAfter, ptSupplyCapBefore);
+  }
+
+  function test_PT_sUSDe_27NOV2025_caps() public {
+    (uint256 ptBorrowCapBefore, uint256 ptSupplyCapBefore) = AaveV3Ethereum
+      .AAVE_PROTOCOL_DATA_PROVIDER
+      .getReserveCaps(AaveV3EthereumAssets.PT_sUSDE_27NOV2025_UNDERLYING);
+
+    GovV3Helpers.executePayload(vm, address(proposal));
+
+    (uint256 ptBorrowCapAfter, uint256 ptSupplyCapAfter) = AaveV3Ethereum
+      .AAVE_PROTOCOL_DATA_PROVIDER
+      .getReserveCaps(AaveV3EthereumAssets.PT_sUSDE_27NOV2025_UNDERLYING);
+
+    assertEq(ptBorrowCapBefore, ptBorrowCapAfter);
+    assertEq(ptSupplyCapAfter, 2_400_000_000);
+    assertGt(ptSupplyCapAfter, ptSupplyCapBefore);
   }
 
   /**
