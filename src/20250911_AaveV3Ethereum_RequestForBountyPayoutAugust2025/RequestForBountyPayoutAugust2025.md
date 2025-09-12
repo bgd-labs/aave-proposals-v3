@@ -24,8 +24,8 @@ This proposal, following an approach similar to Direct-to-AIP, will go directly 
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250911_AaveV3Ethereum_RequestForBountyPayoutAugust2025/AaveV3Ethereum_RequestForBountyPayoutAugust2025_20250911.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250911_AaveV3Ethereum_RequestForBountyPayoutAugust2025/AaveV3Ethereum_RequestForBountyPayoutAugust2025_20250911.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/5d106e02859378b0a895f665cbef6dfc6c03bc57/src/20250911_AaveV3Ethereum_RequestForBountyPayoutAugust2025/AaveV3Ethereum_RequestForBountyPayoutAugust2025_20250911.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/5d106e02859378b0a895f665cbef6dfc6c03bc57/src/20250911_AaveV3Ethereum_RequestForBountyPayoutAugust2025/AaveV3Ethereum_RequestForBountyPayoutAugust2025_20250911.t.sol)
 - [Discussion](https://governance.aave.com/t/bgd-request-for-bounty-payout-august-2025/23096)
 
 ## Copyright
