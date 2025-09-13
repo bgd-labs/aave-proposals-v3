@@ -4,8 +4,6 @@ author: "Aave-Chan Initiative"
 discussions: "https://governance.aave.com/t/direct-to-aip-raise-susde-and-usde-november-expiry-pt-tokens-caps-on-aave-v3-core-instance/23117"
 ---
 
----
-
 ### Summary
 
 This ARFC proposes to increase supply caps on sUSDe November expiry PT tokens on Aave V3 Core Instance in anticipation of the PT rollover in September.
@@ -26,7 +24,7 @@ Increase sUSDe November PT Supply Cap to $1.2b.
 
 Increase USDe November PT Supply cap to $1b.
 
-### **Useful Links**
+### Useful Links
 
 [https://docs.pendle.finance/ProtocolMechanics/YieldTokenization/PT](https://docs.pendle.finance/ProtocolMechanics/YieldTokenization/PT)
 
