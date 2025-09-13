@@ -1,9 +1,9 @@
 ---
-Title: \[Direct to AIP\] Raise sUSDe and USDe November expiry PT tokens caps on Aave V3 Core Instance
+title: "[Direct to AIP]  Raise sUSDe and USDe November expiry PT tokens caps on Aave V3 Core Instance"
+author: "ACI"
+discussions: "https://governance.aave.com/t/direct-to-aip-raise-susde-and-usde-november-expiry-pt-tokens-caps-on-aave-v3-core-instance/23117"
+---
 
-Author: ACI
-
-Date: 2025-09-12
 ---
 
 ### **Summary**
@@ -33,10 +33,6 @@ Increase USDe November PT Supply cap to $1b.
 ### Disclaimer
 
 ACI is not directly affiliated with Pendle and did not receive compensation for the creation of this proposal. Some ACI employees may hold Pendle tokens.
-
-## References
-
-- [Discussion](https://governance.aave.com/t/direct-to-aip-raise-susde-and-usde-november-expiry-pt-tokens-caps-on-aave-v3-core-instance/23117)
 
 ### Copyright
 
