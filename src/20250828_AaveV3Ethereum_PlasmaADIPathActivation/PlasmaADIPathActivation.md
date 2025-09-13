@@ -48,6 +48,9 @@ The new Aave Governance deployments on Plasma network are as follows:
 | Governance Guardian | [0x19CE4363FEA478Aa04B9EA2937cc5A2cbcD44be6](https://plasmascan.to/address/0x19CE4363FEA478Aa04B9EA2937cc5A2cbcD44be6) |
 | BGD Labs Guardian   | [0xdc62E0e65b2251Dc66404ca717FD32dcC365Be3A](https://plasmascan.to/address/0xdc62E0e65b2251Dc66404ca717FD32dcC365Be3A) |
 
+- _The Plasma [explorer](https://plasmascan.to) is still in pre-release stage, so currently the access is restricted. We expect it to be fully open in the following days_
+- _[Chainlink Emergency Oracle](https://plasmascan.to/address/0xF61FE74Ec1cFbd9Ee8Bd27592D2EDEe0E2aA85Cf) implementation will be deployed by Chainlink during proposal life cycle_
+
 ## References
 
 - Adapter Implementations: [HyperLane Bridge Adapters](https://github.com/aave-dao/aave-delivery-infrastructure/blob/d944e042703b1a1208f323ab9c7765297319c0b4/src/contracts/adapters/hyperLane/HyperLaneAdapter.sol), [LayerZero Bridge Adapters](https://github.com/aave-dao/aave-delivery-infrastructure/blob/d944e042703b1a1208f323ab9c7765297319c0b4/src/contracts/adapters/layerZero/LayerZeroAdapter.sol), [CCIP Bridge Adapters](https://github.com/aave-dao/aave-delivery-infrastructure/blob/d944e042703b1a1208f323ab9c7765297319c0b4/src/contracts/adapters/ccip/CCIPAdapter.sol)
