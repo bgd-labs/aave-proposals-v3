@@ -1,6 +1,6 @@
 ---
 title: "[Direct to AIP]  Raise sUSDe and USDe November expiry PT tokens caps on Aave V3 Core Instance"
-author: "ACI"
+author: "Aave-Chan Initiative"
 discussions: "https://governance.aave.com/t/direct-to-aip-raise-susde-and-usde-november-expiry-pt-tokens-caps-on-aave-v3-core-instance/23117"
 ---
 
