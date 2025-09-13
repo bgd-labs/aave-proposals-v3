@@ -53,6 +53,7 @@ The new Aave Governance deployments on Plasma network are as follows:
 - Adapter Implementations: [HyperLane Bridge Adapters](https://github.com/aave-dao/aave-delivery-infrastructure/blob/d944e042703b1a1208f323ab9c7765297319c0b4/src/contracts/adapters/hyperLane/HyperLaneAdapter.sol), [LayerZero Bridge Adapters](https://github.com/aave-dao/aave-delivery-infrastructure/blob/d944e042703b1a1208f323ab9c7765297319c0b4/src/contracts/adapters/layerZero/LayerZeroAdapter.sol), [CCIP Bridge Adapters](https://github.com/aave-dao/aave-delivery-infrastructure/blob/d944e042703b1a1208f323ab9c7765297319c0b4/src/contracts/adapters/ccip/CCIPAdapter.sol)
 - Payload Implementation: [Payload](https://github.com/aave-dao/adi-deploy/blob/accfe189423c7c05b83f81f229bee2974ef5653f/src/adapter_payloads/Ethereum_Plasma_Path_Payload.sol)
 - Payload Tests: [tests](https://github.com/aave-dao/adi-deploy/blob/accfe189423c7c05b83f81f229bee2974ef5653f/tests/payloads/ethereum/AddPlasmaPathTest.t.sol)
+- Payload Creation Script: [script](https://github.com/aave-dao/adi-deploy/blob/accfe189423c7c05b83f81f229bee2974ef5653f/scripts/payloads/adapters/ethereum/Ethereum_Activate_Plasma_Bridge_Adapter_Payload.s.sol)
 - Diffs: [a.DI diffs](https://github.com/aave-dao/adi-deploy/blob/accfe189423c7c05b83f81f229bee2974ef5653f/diffs/adi_add_plasma_path_to_adiethereum_before_adi_add_plasma_path_to_adiethereum_after.md)
 - [Discussion](https://governance.aave.com/t/technical-maintenance-proposals/15274/112)
 
