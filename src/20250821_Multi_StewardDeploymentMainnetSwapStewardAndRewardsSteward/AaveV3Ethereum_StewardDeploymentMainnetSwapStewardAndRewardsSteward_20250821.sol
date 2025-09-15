@@ -3,6 +3,7 @@ pragma solidity ^0.8.0;
 
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {EmissionManager} from 'aave-v3-origin/contracts/rewards/EmissionManager.sol';
+import {IAccessControl} from 'openzeppelin-contracts/contracts/access/IAccessControl.sol';
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
 
 interface IMainnetSwapSteward {
@@ -46,6 +47,8 @@ contract AaveV3Ethereum_StewardDeploymentMainnetSwapStewardAndRewardsSteward_202
     );
 
     // MainnetSwapSteward
+    IAccessControl(address(AaveV3Ethereum.COLLECTOR)).grantRole('FUNDS_ADMIN', SWAP_STEWARD);
+
     _configureAssets();
     _setSwappablePairs();
   }

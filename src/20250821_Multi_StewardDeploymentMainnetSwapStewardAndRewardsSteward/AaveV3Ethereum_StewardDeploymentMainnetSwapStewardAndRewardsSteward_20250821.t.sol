@@ -4,6 +4,7 @@ pragma solidity ^0.8.0;
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {EmissionManager} from 'aave-v3-origin/contracts/rewards/EmissionManager.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
+import {IAccessControl} from 'openzeppelin-contracts/contracts/access/IAccessControl.sol';
 import {IRewardsController} from 'aave-v3-origin/contracts/rewards/interfaces/IRewardsController.sol';
 
 import {AaveV3Ethereum_StewardDeploymentMainnetSwapStewardAndRewardsSteward_20250821} from './AaveV3Ethereum_StewardDeploymentMainnetSwapStewardAndRewardsSteward_20250821.sol';
@@ -60,6 +61,24 @@ contract AaveV3Ethereum_StewardDeploymentMainnetSwapStewardAndRewardsSteward_202
     executePayload(vm, address(proposal));
 
     IRewardsSteward(steward).claimAllRewards(assets);
+  }
+
+  function test_accessGranted() public {
+    assertFalse(
+      IAccessControl(address(AaveV3Ethereum.COLLECTOR)).hasRole(
+        'FUNDS_ADMIN',
+        proposal.SWAP_STEWARD()
+      )
+    );
+
+    executePayload(vm, address(proposal));
+
+    assertTrue(
+      IAccessControl(address(AaveV3Ethereum.COLLECTOR)).hasRole(
+        'FUNDS_ADMIN',
+        proposal.SWAP_STEWARD()
+      )
+    );
   }
 
   function test_swap_budgets() public {
