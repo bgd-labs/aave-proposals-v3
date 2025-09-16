@@ -5,7 +5,6 @@ import {GhoCCIPChains} from '../../helpers/gho-launch/constants/GhoCCIPChains.so
 import {AaveV3GHOLane} from '../../helpers/gho-launch/AaveV3GHOLane.sol';
 import {AaveV3Ink_GHOInkLaunch_20250814} from '../AaveV3Ink_GHOInkLaunch_20250814.sol';
 import {AaveV3GHOLaunchTest_PostExecution, AaveV3GHOLaunchTest_PreExecution} from '../../helpers/gho-launch/tests/AaveV3GHOLaunchTest.sol';
-import {AaveV3InkWhitelabel} from 'aave-address-book/AaveV3InkWhitelabel.sol';
 
 contract AaveV3Ink_GHOInkLaunch_20250814_PreExecution is AaveV3GHOLaunchTest_PreExecution {
   // https://docs.chain.link/ccip/directory/mainnet/chain/ethereum-mainnet-ink-1
@@ -38,11 +37,11 @@ contract AaveV3Ink_GHOInkLaunch_20250814_PreExecution is AaveV3GHOLaunchTest_Pre
   }
 
   function _aavePoolAddressesProvider() internal view virtual override returns (address) {
-    return address(AaveV3InkWhitelabel.POOL_ADDRESSES_PROVIDER);
+    return address(0); // Not needed as it is only used at GHO Aave Core Stewards Config test
   }
 
   function _aaveProtocolDataProvider() internal view virtual override returns (address) {
-    return address(AaveV3InkWhitelabel.AAVE_PROTOCOL_DATA_PROVIDER);
+    return address(0); // Not needed as it is only used at GHO Aave Core Stewards Config test
   }
 
   function _test_ghoAaveCore_stewardsConfig() internal view virtual override {
