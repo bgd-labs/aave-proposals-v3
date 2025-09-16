@@ -238,8 +238,6 @@ abstract contract AaveV3GHOLaunchTest_PostExecution is AaveV3GHOLaneTest {
     )
   {}
 
-  function _aavePool() internal view virtual returns (address);
-
   function _executePayload() internal virtual {
     executePayload(vm, address(proposal));
   }

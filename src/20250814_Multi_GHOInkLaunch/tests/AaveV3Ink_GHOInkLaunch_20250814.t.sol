@@ -61,10 +61,6 @@ contract AaveV3Ink_GHOInkLaunch_20250814_PreExecution is AaveV3GHOLaunchTest_Pre
 contract AaveV3Ink_GHOInkLaunch_20250814_PostExecution is AaveV3GHOLaunchTest_PostExecution {
   constructor() AaveV3GHOLaunchTest_PostExecution(GhoCCIPChains.INK(), 'ink', 23858218) {}
 
-  function _aavePool() internal view virtual override returns (address) {
-    return address(AaveV3InkWhitelabel.POOL);
-  }
-
   function _deployAaveV3GHOLaneProposal() internal virtual override returns (AaveV3GHOLane) {
     return new AaveV3Ink_GHOInkLaunch_20250814();
   }
