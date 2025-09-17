@@ -108,6 +108,14 @@ The table below illustrates the configured risk parameters for the assets to be 
 | Liquidation Threshold | 78%       | -         |
 | Liquidation Bonus     | 7.50%     | -         |
 
+Additionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://plasmascan.to/address/0xac140648435d03f784879cd789130F22Ef588Fcd) has been set as the emission admin for the underlying tokens listed and their corresponding aTokens.
+
+### Security procedures:
+
+- The proposal execution is simulated within the tests and the resulting pool configuration is tested for correctness.
+- The deployed pool and other permissions have been programmatically verified, which can be found on the [aave-permissions-book](https://github.com/aave-dao/aave-permissions-book/blob/b7eab1b00898a92f8acb84afade0cb01187f5b9c/out/PLASMA-V3.md#contracts).
+- In addition, we have also checked the code diffs of the deployed sonic contracts with the production instance, which can be found [here](https://github.com/bgd-labs/aave-v3-origin/pull/4).
+
 ## References
 
 - Implementation: [AaveV3Plasma](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250917_AaveV3Plasma_AaveV35PlasmaActivation/AaveV3Plasma_AaveV35PlasmaActivation_20250917.sol)
