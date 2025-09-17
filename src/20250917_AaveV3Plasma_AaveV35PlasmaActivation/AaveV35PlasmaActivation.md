@@ -28,8 +28,6 @@ The proposal will do the following:
 - Set the guardian address as the pool admin by executing `ACL_MANAGER.addPoolAdmin()`. This is following the standard procedure of keeping pool admin on the Aave Guardian during the bootstrap period, for security.
 - Set ACI multi-sig as liquidity mining admin for all aTokens and underlying tokens by calling `EMISSION_MANAGER.setEmissionAdmin()` method.
 
-**Please note: As a matter of extra caution, the plasma instance will be activated very limited interim caps, and this AIP also authorizes the Aave Protocol Guardian to increase it to the pre-approved levels once technical SP have triple checked everything. Additionally, XPL will be listed separately at a later time.**
-
 The table below illustrates the configured risk parameters for the assets to be listed:
 
 | Parameter                 |    USDT0 |     USDe |    sUSDe |          XAUt0 |    weETH |     WETH |
@@ -52,6 +50,13 @@ The table below illustrates the configured risk parameters for the assets to be 
 | Flashloanable             |  ENABLED |  ENABLED |  ENABLED |        ENABLED |  ENABLED |  ENABLED |
 | Siloed Borrowing          | DISABLED | DISABLED | DISABLED |       DISABLED | DISABLED | DISABLED |
 | Borrowable in Isolation   |  ENABLED | DISABLED | DISABLED |       DISABLED | DISABLED | DISABLED |
+
+**Please note: As a matter of extra caution, XPL will be listed separately at a later time. Additionally, the plasma instance will be activated very limited interim caps, and this AIP also authorizes the Aave Protocol Guardian to increase it to the following pre-approved levels below once technical SP have triple checked everything:**
+
+| Parameter  |         USDT0 |        USDe |       sUSDe | XAUt0 |  weETH |   WETH |
+| ---------- | ------------: | ----------: | ----------: | ----: | -----: | -----: |
+| Supply Cap | 2,200,000,000 | 500,000,000 | 450,000,000 | 7,000 | 10,000 | 80,000 |
+| Borrow Cap | 2,000,000,000 |  50,000,000 |           1 |     1 |      1 | 10,000 |
 
 ### Oracle details:
 
