@@ -9,7 +9,7 @@
 | decimals | 6 |
 | isActive | true |
 | isFrozen | false |
-| supplyCap | 7,000 XAUt0 |
+| supplyCap | 30 XAUt0 |
 | borrowCap | 1 XAUt0 |
 | debtCeiling | 18,000,000 $ [1800000000] |
 | isSiloed | false |
@@ -52,7 +52,7 @@
 | decimals | 18 |
 | isActive | true |
 | isFrozen | false |
-| supplyCap | 450,000,000 sUSDe |
+| supplyCap | 100,000 sUSDe |
 | borrowCap | 1 sUSDe |
 | debtCeiling | 0 $ [0] |
 | isSiloed | false |
@@ -95,8 +95,8 @@
 | decimals | 18 |
 | isActive | true |
 | isFrozen | false |
-| supplyCap | 500,000,000 USDe |
-| borrowCap | 50,000,000 USDe |
+| supplyCap | 100,000 USDe |
+| borrowCap | 50,000 USDe |
 | debtCeiling | 0 $ [0] |
 | isSiloed | false |
 | isFlashloanable | true |
@@ -138,8 +138,8 @@
 | decimals | 18 |
 | isActive | true |
 | isFrozen | false |
-| supplyCap | 80,000 WETH |
-| borrowCap | 10,000 WETH |
+| supplyCap | 20 WETH |
+| borrowCap | 10 WETH |
 | debtCeiling | 0 $ [0] |
 | isSiloed | false |
 | isFlashloanable | true |
@@ -181,7 +181,7 @@
 | decimals | 18 |
 | isActive | true |
 | isFrozen | false |
-| supplyCap | 10,000 weETH |
+| supplyCap | 20 weETH |
 | borrowCap | 1 weETH |
 | debtCeiling | 0 $ [0] |
 | isSiloed | false |
@@ -224,8 +224,8 @@
 | decimals | 6 |
 | isActive | true |
 | isFrozen | false |
-| supplyCap | 2,200,000,000 USDT0 |
-| borrowCap | 2,000,000,000 USDT0 |
+| supplyCap | 100,000 USDT0 |
+| borrowCap | 50,000 USDT0 |
 | debtCeiling | 0 $ [0] |
 | isSiloed | false |
 | isFlashloanable | true |
@@ -393,7 +393,7 @@
         "oracleDescription": "XAU / USD",
         "oracleLatestAnswer": "3700000000",
         "reserveFactor": 2000,
-        "supplyCap": 7000,
+        "supplyCap": 30,
         "symbol": "XAUt0",
         "underlying": "0x1B64B9025EEbb9A6239575dF9Ea4b9Ac46D4d193",
         "usageAsCollateralEnabled": true,
@@ -431,7 +431,7 @@
         "oracleDescription": "Capped sUSDe / USDe / USD",
         "oracleLatestAnswer": "119028135",
         "reserveFactor": 2000,
-        "supplyCap": 450000000,
+        "supplyCap": 100000,
         "symbol": "sUSDe",
         "underlying": "0x211Cc4DD073734dA055fbF44a2b4667d5E5fE5d2",
         "usageAsCollateralEnabled": true,
@@ -448,7 +448,7 @@
         "aTokenName": "Aave Plasma USDe",
         "aTokenSymbol": "aPlaUSDe",
         "aTokenUnderlyingBalance": "10000000000000000000",
-        "borrowCap": 50000000,
+        "borrowCap": 50000,
         "borrowingEnabled": true,
         "debtCeiling": 0,
         "decimals": 18,
@@ -469,7 +469,7 @@
         "oracleDescription": "Capped USDT/USD",
         "oracleLatestAnswer": "100023643",
         "reserveFactor": 2500,
-        "supplyCap": 500000000,
+        "supplyCap": 100000,
         "symbol": "USDe",
         "underlying": "0x5d3a1Ff2b6BAb83b63cd9AD0787074081a52ef34",
         "usageAsCollateralEnabled": true,
@@ -486,7 +486,7 @@
         "aTokenName": "Aave Plasma WETH",
         "aTokenSymbol": "aPlaWETH",
         "aTokenUnderlyingBalance": "5000000000000000",
-        "borrowCap": 10000,
+        "borrowCap": 10,
         "borrowingEnabled": true,
         "debtCeiling": 0,
         "decimals": 18,
@@ -507,7 +507,7 @@
         "oracleDescription": "ETH / USD",
         "oracleLatestAnswer": "449605295241",
         "reserveFactor": 1500,
-        "supplyCap": 80000,
+        "supplyCap": 20,
         "symbol": "WETH",
         "underlying": "0x9895D81bB462A195b4922ED7De0e3ACD007c32CB",
         "usageAsCollateralEnabled": true,
@@ -545,7 +545,7 @@
         "oracleDescription": "Capped weETH / eETH(ETH) / USD",
         "oracleLatestAnswer": "483759412046",
         "reserveFactor": 2000,
-        "supplyCap": 10000,
+        "supplyCap": 20,
         "symbol": "weETH",
         "underlying": "0xA3D68b74bF0528fdD07263c60d6488749044914b",
         "usageAsCollateralEnabled": true,
@@ -562,7 +562,7 @@
         "aTokenName": "Aave Plasma USDT",
         "aTokenSymbol": "aPlaUSDT",
         "aTokenUnderlyingBalance": "10000000",
-        "borrowCap": 2000000000,
+        "borrowCap": 50000,
         "borrowingEnabled": true,
         "debtCeiling": 0,
         "decimals": 6,
@@ -583,7 +583,7 @@
         "oracleDescription": "Capped USDT/USD",
         "oracleLatestAnswer": "100023643",
         "reserveFactor": 1000,
-        "supplyCap": 2200000000,
+        "supplyCap": 100000,
         "symbol": "USDT0",
         "underlying": "0xB8CE59FC3717ada4C02eaDF9682A9e934F625ebb",
         "usageAsCollateralEnabled": true,
@@ -1233,7 +1233,7 @@
         },
         "0x0ee1b4748ece9938d60c5a08c06fdcc57c304bfbc0758f61e612ab3ee93ce023": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x100000000000000000000003e801dcd6500002faf08009c485122a621d4c1c20"
+          "newValue": "0x100000000000000000000003e80000186a000000c35009c485122a621d4c1c20"
         },
         "0x0ee1b4748ece9938d60c5a08c06fdcc57c304bfbc0758f61e612ab3ee93ce024": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -1265,7 +1265,7 @@
         },
         "0x0f69e495df4462160fbe947b1aac24bd3791eb88f23edd1cd5f46506f4070e42": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x1006b49d2000000000000003e8000001b5800000000107d0810629fe1d4c1b58"
+          "newValue": "0x1006b49d2000000000000003e800000001e00000000107d0810629fe1d4c1b58"
         },
         "0x0f69e495df4462160fbe947b1aac24bd3791eb88f23edd1cd5f46506f4070e43": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -1293,7 +1293,7 @@
         },
         "0x1dea4bb23223a46b1130bba61a7903c89ed61af55e10cfc5aa22a8ae2848f13b": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x100000000000000000000003e800001388000000271005dc85122936206c1f72"
+          "newValue": "0x100000000000000000000003e800000001400000000a05dc85122936206c1f72"
         },
         "0x1dea4bb23223a46b1130bba61a7903c89ed61af55e10cfc5aa22a8ae2848f13c": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -1341,7 +1341,7 @@
         },
         "0x52f7f1440ab20fcadde51b79423bd2f17e1c58bc3878efc43624e8de64ae798f": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x100000000000000000000003e800000271000000000107d0811229cc000a0005"
+          "newValue": "0x100000000000000000000003e800000001400000000107d0811229cc000a0005"
         },
         "0x52f7f1440ab20fcadde51b79423bd2f17e1c58bc3878efc43624e8de64ae7990": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -1421,7 +1421,7 @@
         },
         "0xace1738bd21dfb38ab702aadd1277b4df729315c49e6743bfbebb5a89576504a": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x100000000000000000000003e808321560007735940003e8a50628d21e781d4c"
+          "newValue": "0x100000000000000000000003e80000186a000000c35003e8a50628d21e781d4c"
         },
         "0xace1738bd21dfb38ab702aadd1277b4df729315c49e6743bfbebb5a89576504b": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -1453,7 +1453,7 @@
         },
         "0xb69e101291cae8ac8885e4f60b77f31b4a9feff65bb4172464a0e8f08242ae35": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x100000000000000000000003e801ad2748000000000107d081122a62000a0005"
+          "newValue": "0x100000000000000000000003e80000186a000000000107d081122a62000a0005"
         },
         "0xb69e101291cae8ac8885e4f60b77f31b4a9feff65bb4172464a0e8f08242ae36": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",

@@ -32,26 +32,26 @@ The proposal will do the following:
 
 The table below illustrates the configured risk parameters for the assets to be listed:
 
-| Parameter                 |         USDT0 |        USDe |       sUSDe |          XAUt0 |    weETH |     WETH |
-| ------------------------- | ------------: | ----------: | ----------: | -------------: | -------: | -------: |
-| Isolation Mode            |         false |       false |       false |          false |    false |    false |
-| Borrowable                |       ENABLED |     ENABLED |    DISABLED |       DISABLED | DISABLED |  ENABLED |
-| Collateral Enabled        |          true |        true |        true |           true |     true |     true |
-| Supply Cap                | 2,200,000,000 | 500,000,000 | 450,000,000 |          7,000 |   10,000 |   80,000 |
-| Borrow Cap                | 2,000,000,000 |  50,000,000 |           1 |              1 |        1 |   10,000 |
-| Debt Ceiling              |         USD 0 |       USD 0 |       USD 0 | USD 18,000,000 |    USD 0 |    USD 0 |
-| LTV                       |          75 % |        72 % |      0.05 % |           70 % |   0.05 % |   80.5 % |
-| LT                        |          78 % |        75 % |       0.1 % |           75 % |    0.1 % |     83 % |
-| Liquidation Bonus         |         4.5 % |       8.5 % |       8.5 % |          7.5 % |      7 % |    5.5 % |
-| Liquidation Protocol Fee  |          10 % |        10 % |        10 % |           10 % |     10 % |     10 % |
-| Reserve Factor            |          10 % |        25 % |        20 % |           20 % |     20 % |     15 % |
-| Base Variable Borrow Rate |         2.5 % |       2.5 % |         0 % |            0 % |      0 % |      0 % |
-| Variable Slope 1          |           4 % |         5 % |         9 % |            9 % |      9 % |     2.7% |
-| Variable Slope 2          |          20 % |        50 % |        75 % |           75 % |     75 % |      20% |
-| Uoptimal                  |          92 % |        85 % |        60 % |           60 % |     60 % |     92 % |
-| Flashloanable             |       ENABLED |     ENABLED |     ENABLED |        ENABLED |  ENABLED |  ENABLED |
-| Siloed Borrowing          |      DISABLED |    DISABLED |    DISABLED |       DISABLED | DISABLED | DISABLED |
-| Borrowable in Isolation   |       ENABLED |    DISABLED |    DISABLED |       DISABLED | DISABLED | DISABLED |
+| Parameter                 |    USDT0 |     USDe |    sUSDe |          XAUt0 |    weETH |     WETH |
+| ------------------------- | -------: | -------: | -------: | -------------: | -------: | -------: |
+| Isolation Mode            |    false |    false |    false |          false |    false |    false |
+| Borrowable                |  ENABLED |  ENABLED | DISABLED |       DISABLED | DISABLED |  ENABLED |
+| Collateral Enabled        |     true |     true |     true |           true |     true |     true |
+| Supply Cap                |  100,000 |  100,000 |  100,000 |             30 |       20 |       20 |
+| Borrow Cap                |   50,000 |   50,000 |        1 |              1 |        1 |       10 |
+| Debt Ceiling              |    USD 0 |    USD 0 |    USD 0 | USD 18,000,000 |    USD 0 |    USD 0 |
+| LTV                       |     75 % |     72 % |   0.05 % |           70 % |   0.05 % |   80.5 % |
+| LT                        |     78 % |     75 % |    0.1 % |           75 % |    0.1 % |     83 % |
+| Liquidation Bonus         |    4.5 % |    8.5 % |    8.5 % |          7.5 % |      7 % |    5.5 % |
+| Liquidation Protocol Fee  |     10 % |     10 % |     10 % |           10 % |     10 % |     10 % |
+| Reserve Factor            |     10 % |     25 % |     20 % |           20 % |     20 % |     15 % |
+| Base Variable Borrow Rate |    2.5 % |    2.5 % |      0 % |            0 % |      0 % |      0 % |
+| Variable Slope 1          |      4 % |      5 % |      9 % |            9 % |      9 % |     2.7% |
+| Variable Slope 2          |     20 % |     50 % |     75 % |           75 % |     75 % |      20% |
+| Uoptimal                  |     92 % |     85 % |     60 % |           60 % |     60 % |     92 % |
+| Flashloanable             |  ENABLED |  ENABLED |  ENABLED |        ENABLED |  ENABLED |  ENABLED |
+| Siloed Borrowing          | DISABLED | DISABLED | DISABLED |       DISABLED | DISABLED | DISABLED |
+| Borrowable in Isolation   |  ENABLED | DISABLED | DISABLED |       DISABLED | DISABLED | DISABLED |
 
 ### Oracle details:
 
