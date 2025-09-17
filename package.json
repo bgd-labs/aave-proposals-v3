@@ -35,7 +35,7 @@
     "@bgd-labs/aave-cli": "^1.4.0",
     "@bgd-labs/cli": "^0.0.50",
     "@bgd-labs/js-utils": "^1.4.7",
-    "@bgd-labs/toolbox": "^0.0.40",
+    "@bgd-labs/toolbox": "^0.0.42",
     "@inquirer/prompts": "^7.5.0",
     "@inquirer/testing": "^2.1.37",
     "catapulta-verify": "^1.4.1",
