@@ -125,8 +125,8 @@ Additionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://plasmascan.to/
 
 ## References
 
-- Implementation: [AaveV3Plasma](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250917_AaveV3Plasma_AaveV35PlasmaActivation/AaveV3Plasma_AaveV35PlasmaActivation_20250917.sol)
-- Tests: [AaveV3Plasma](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250917_AaveV3Plasma_AaveV35PlasmaActivation/AaveV3Plasma_AaveV35PlasmaActivation_20250917.t.sol)
+- Implementation: [AaveV3Plasma](https://github.com/bgd-labs/aave-proposals-v3/blob/1da1793485ac447b01e4edb0b45a2bea89efe41e/src/20250917_AaveV3Plasma_AaveV35PlasmaActivation/AaveV3Plasma_AaveV35PlasmaActivation_20250917.sol)
+- Tests: [AaveV3Plasma](https://github.com/bgd-labs/aave-proposals-v3/blob/1da1793485ac447b01e4edb0b45a2bea89efe41e/src/20250917_AaveV3Plasma_AaveV35PlasmaActivation/AaveV3Plasma_AaveV35PlasmaActivation_20250917.t.sol)
 - [Snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0xa2b9d0717a82a111acc27e514bed07caa9b8636c12dd68fb61ae4dc57503c3cd)
 - [Discussion](https://governance.aave.com/t/arfc-deploy-aave-v3-on-plasma/21494)
 
