@@ -7,7 +7,7 @@ snapshot: "https://snapshot.box/#/s:aavedao.eth/proposal/0xa2b9d0717a82a111acc27
 
 ## Simple Summary
 
-This proposal allows the Aave governance to activate the Aave V3 Plasma pool (3.5) by completing all the initial setup and listing USDT, USDe, sUSDe, XAUt, weETH, WETH as suggested by the risk service providers engaged with the DAO on the governance forum.
+This proposal allows the Aave governance to activate the Aave V3 Plasma pool (3.5) by completing all the initial setup and listing USDT0, USDe, sUSDe, XAUt0, weETH, WETH as suggested by the risk service providers engaged with the DAO on the governance forum.
 
 All the Aave Plasma V3 addresses can be found in the [aave-address-book](https://github.com/bgd-labs/aave-address-book/blob/a0c2498d496421565ca1a6c87f5b3e10e5bcc65b/src/AaveV3Plasma.sol).
 
@@ -23,7 +23,7 @@ All the governance procedures for the expansion of Aave v3 to Plasma have been f
 
 The proposal will do the following:
 
-- List the following assets on Aave V3 Plasma: USDT, USDe, sUSDe, XAUt, weETH, WETH.
+- List the following assets on Aave V3 Plasma: USDT0, USDe, sUSDe, XAUt0, weETH, WETH.
 - Set the risk steward as the risk admin by executing `ACL_MANAGER.addRiskAdmin()`.
 - Set the guardian address as the pool admin by executing `ACL_MANAGER.addPoolAdmin()`. This is following the standard procedure of keeping pool admin on the Aave Guardian during the bootstrap period, for security.
 - Set ACI multi-sig as liquidity mining admin for all aTokens and underlying tokens by calling `EMISSION_MANAGER.setEmissionAdmin()` method.
@@ -32,7 +32,7 @@ The proposal will do the following:
 
 The table below illustrates the configured risk parameters for the assets to be listed:
 
-| Parameter                 |          USDT |        USDe |       sUSDe |           XAUt |    weETH |     WETH |
+| Parameter                 |         USDT0 |        USDe |       sUSDe |          XAUt0 |    weETH |     WETH |
 | ------------------------- | ------------: | ----------: | ----------: | -------------: | -------: | -------: |
 | Isolation Mode            |         false |       false |       false |          false |    false |    false |
 | Borrowable                |       ENABLED |     ENABLED |    DISABLED |       DISABLED | DISABLED |  ENABLED |
@@ -55,7 +55,7 @@ The table below illustrates the configured risk parameters for the assets to be 
 
 ### Oracle details:
 
-|                             |                                                                                        USDT |                                                                                        USDe |                                                                                                 sUSDe |                                                                                                      weETH |                                                                                WETH |                                                                                XAUt |
+|                             |                                                                                       USDT0 |                                                                                        USDe |                                                                                                 sUSDe |                                                                                                      weETH |                                                                                WETH |                                                                               XAUt0 |
 | --------------------------- | ------------------------------------------------------------------------------------------: | ------------------------------------------------------------------------------------------: | ----------------------------------------------------------------------------------------------------: | ---------------------------------------------------------------------------------------------------------: | ----------------------------------------------------------------------------------: | ----------------------------------------------------------------------------------: |
 | Oracle                      | [Capped USDT/USD](https://plasmascan.to/address/0xdBbB0b5DD13E7AC9C56624834ef193df87b022c3) | [Capped USDT/USD](https://plasmascan.to/address/0xdBbB0b5DD13E7AC9C56624834ef193df87b022c3) | [Capped sUSDe / USDe / USD](https://plasmascan.to/address/0x8416952b92dC839c4378C3f566A486b438dD43d7) | [Capped weETH / eETH(ETH) / USD](https://plasmascan.to/address/0x3f14D35c276d3c4D13e47Dd733a815F12292eeb1) | [ETH/USD](https://plasmascan.to/address/0x43A7dd2125266c5c4c26EB86cd61241132426Fe7) | [XAU/USD](https://plasmascan.to/address/0x921371Fa4d4A30cD350D29762ccB8A5861724E29) |
 | PriceCap                    |                                                                                      1.04e8 |                                                                                      1.04e8 |                                                                                                     - |                                                                                                          - |                                                                                   - |                                                                                   - |
@@ -70,7 +70,7 @@ The table below illustrates the configured risk parameters for the assets to be 
 
 | **Parameter**         | **Value** | **Value** |
 | --------------------- | --------- | --------- |
-| Asset                 | USDe      | USDT      |
+| Asset                 | USDe      | USDT0     |
 | Collateral            | Yes       | No        |
 | Borrowable            | No        | Yes       |
 | Max LTV               | 90%       | -         |
@@ -81,7 +81,7 @@ The table below illustrates the configured risk parameters for the assets to be 
 
 | **Parameter**         | **Value** | **Value** | **Value** |
 | --------------------- | --------- | --------- | --------- |
-| Asset                 | USDe      | sUSDe     | USDT      |
+| Asset                 | USDe      | sUSDe     | USDT0     |
 | Collateral            | Yes       | Yes       | No        |
 | Borrowable            | No        | No        | Yes       |
 | Max LTV               | 90%       | 90%       | -         |
@@ -103,7 +103,7 @@ The table below illustrates the configured risk parameters for the assets to be 
 
 | **Parameter**         | **Value** | **Value** |
 | --------------------- | --------- | --------- |
-| Asset                 | weETH     | USDT      |
+| Asset                 | weETH     | USDT0     |
 | Collateral            | Yes       | No        |
 | Borrowable            | No        | Yes       |
 | Max LTV               | 75%       | -         |
