@@ -28,7 +28,7 @@ The proposal will do the following:
 - Set the guardian address as the pool admin by executing `ACL_MANAGER.addPoolAdmin()`. This is following the standard procedure of keeping pool admin on the Aave Guardian during the bootstrap period, for security.
 - Set ACI multi-sig as liquidity mining admin for all aTokens and underlying tokens by calling `EMISSION_MANAGER.setEmissionAdmin()` method.
 
-**Please note: As a matter of extra caution, the plasma instance will be activated very limited interim caps, and this AIP also authorizes the Aave Protocol Guardian to increase it the pre-approved levels once technical SP have triple checked everything. Additionally, XPL will be listed separately at a later time.**
+**Please note: As a matter of extra caution, the plasma instance will be activated very limited interim caps, and this AIP also authorizes the Aave Protocol Guardian to increase it to the pre-approved levels once technical SP have triple checked everything. Additionally, XPL will be listed separately at a later time.**
 
 The table below illustrates the configured risk parameters for the assets to be listed:
 
