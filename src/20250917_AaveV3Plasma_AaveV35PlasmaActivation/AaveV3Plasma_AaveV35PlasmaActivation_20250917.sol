@@ -82,7 +82,7 @@ contract AaveV3Plasma_AaveV35PlasmaActivation_20250917 is AaveV3PayloadPlasma {
       assetSymbol: 'USDe',
       priceFeed: 0xdBbB0b5DD13E7AC9C56624834ef193df87b022c3,
       enabledToBorrow: EngineFlags.ENABLED,
-      borrowableInIsolation: EngineFlags.ENABLED,
+      borrowableInIsolation: EngineFlags.DISABLED,
       withSiloedBorrowing: EngineFlags.DISABLED,
       flashloanable: EngineFlags.ENABLED,
       ltv: 72_00,
@@ -137,7 +137,7 @@ contract AaveV3Plasma_AaveV35PlasmaActivation_20250917 is AaveV3PayloadPlasma {
       reserveFactor: 20_00,
       supplyCap: 7_000,
       borrowCap: 1,
-      debtCeiling: 0,
+      debtCeiling: 18_000_000,
       liqProtocolFee: 10_00,
       rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
         optimalUsageRatio: 60_00,

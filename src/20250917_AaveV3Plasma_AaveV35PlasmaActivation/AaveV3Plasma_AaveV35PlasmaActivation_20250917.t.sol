@@ -19,7 +19,7 @@ contract AaveV3Plasma_AaveV35PlasmaActivation_20250917_Test is ProtocolV3TestBas
   AaveV3Plasma_AaveV35PlasmaActivation_20250917 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('plasma'), 1183600);
+    vm.createSelectFork(vm.rpcUrl('plasma'), 1194982);
     proposal = new AaveV3Plasma_AaveV35PlasmaActivation_20250917();
 
     _postSetup();
@@ -77,12 +77,9 @@ contract AaveV3Plasma_AaveV35PlasmaActivation_20250917_Test is ProtocolV3TestBas
 
   function _postSetup() internal {
     // mock funding seed amount
-    deal(proposal.USDT(), GovernanceV3Plasma.EXECUTOR_LVL_1, proposal.USDT_SEED_AMOUNT());
     deal(proposal.USDe(), GovernanceV3Plasma.EXECUTOR_LVL_1, proposal.USDe_SEED_AMOUNT());
     deal(proposal.sUSDe(), GovernanceV3Plasma.EXECUTOR_LVL_1, proposal.sUSDe_SEED_AMOUNT());
-    deal(proposal.XAUt(), GovernanceV3Plasma.EXECUTOR_LVL_1, proposal.XAUt_SEED_AMOUNT());
     deal(proposal.weETH(), GovernanceV3Plasma.EXECUTOR_LVL_1, proposal.weETH_SEED_AMOUNT());
-    deal(proposal.WETH(), GovernanceV3Plasma.EXECUTOR_LVL_1, proposal.WETH_SEED_AMOUNT());
 
     // mock price feed to return non-zero values
     vm.mockCall(
