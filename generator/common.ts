@@ -17,6 +17,7 @@ import {
   sonic,
   soneium,
   ink,
+  plasma,
 } from 'viem/chains';
 import {Hex, getAddress} from 'viem';
 import {getClient} from '@bgd-labs/toolbox';
@@ -40,6 +41,7 @@ export const AVAILABLE_CHAINS = [
   'Sonic',
   'Soneium',
   'Ink',
+  'Plasma',
 ] as const;
 
 export function getAssets(pool: PoolIdentifier): string[] {
@@ -153,6 +155,7 @@ export const CHAIN_TO_CHAIN_ID = {
   Sonic: sonic.id,
   Soneium: soneium.id,
   Ink: ink.id,
+  Plasma: plasma.id,
 };
 
 export function flagAsRequired(message: string, required?: boolean) {
