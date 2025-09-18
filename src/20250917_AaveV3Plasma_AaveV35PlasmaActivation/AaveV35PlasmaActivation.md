@@ -32,7 +32,7 @@ The table below illustrates the configured risk parameters for the assets to be 
 
 | Parameter                 |    USDT0 |     USDe |    sUSDe |          XAUt0 |    weETH |     WETH |
 | ------------------------- | -------: | -------: | -------: | -------------: | -------: | -------: |
-| Isolation Mode            |    false |    false |    false |          false |    false |    false |
+| Isolation Mode            |    false |    false |    false |           true |    false |    false |
 | Borrowable                |  ENABLED |  ENABLED | DISABLED |       DISABLED | DISABLED |  ENABLED |
 | Collateral Enabled        |     true |     true |     true |           true |     true |     true |
 | Supply Cap                |  100,000 |  100,000 |  100,000 |             30 |       20 |       20 |
@@ -67,7 +67,7 @@ The table below illustrates the configured risk parameters for the assets to be 
 | Exchange Rate Feed          |                                                                                           - |                                                                                           - |             [CL SUSDe/USDe](https://plasmascan.to/address/0x802033dc696B92e5ED5bF68E1750F7Ed3329eabD) |                   [CL weETH/ETH](https://plasmascan.to/address/0x00D7d8816E969EA6cA9125c3f5D279f9a6D253f6) |                                                                                   - |                                                                                   - |
 | Base Feed                   |    [CL USDT/USD](https://plasmascan.to/address/0x70b77FcdbE2293423e41AdD2FB599808396807BC/) |    [CL USDT/USD](https://plasmascan.to/address/0x70b77FcdbE2293423e41AdD2FB599808396807BC/) |           [Capped USDT/USD](https://plasmascan.to/address/0xdBbB0b5DD13E7AC9C56624834ef193df87b022c3) |                                                                                                          - |                                                                                   - |                                                                                   - |
 | MaxYearlyRatioGrowthPercent |                                                                                           - |                                                                                           - |                                                                                               15.19 % |                                                                                                     8.75 % |                                                                                   - |                                                                                   - |
-| MinimumSnapshotDelay        |                                                                                           - |                                                                                           - |                                                                                               14 days |                                                                                                          - |                                                                                   - |                                                                                   - |
+| MinimumSnapshotDelay        |                                                                                           - |                                                                                           - |                                                                                               14 days |                                                                                                     7 days |                                                                                   - |                                                                                   - |
 
 ### EMode Configurations:
 
@@ -125,8 +125,8 @@ Additionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://plasmascan.to/
 
 ## References
 
-- Implementation: [AaveV3Plasma](https://github.com/bgd-labs/aave-proposals-v3/blob/1da1793485ac447b01e4edb0b45a2bea89efe41e/src/20250917_AaveV3Plasma_AaveV35PlasmaActivation/AaveV3Plasma_AaveV35PlasmaActivation_20250917.sol)
-- Tests: [AaveV3Plasma](https://github.com/bgd-labs/aave-proposals-v3/blob/1da1793485ac447b01e4edb0b45a2bea89efe41e/src/20250917_AaveV3Plasma_AaveV35PlasmaActivation/AaveV3Plasma_AaveV35PlasmaActivation_20250917.t.sol)
+- Implementation: [AaveV3Plasma](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250917_AaveV3Plasma_AaveV35PlasmaActivation/AaveV3Plasma_AaveV35PlasmaActivation_20250917.sol)
+- Tests: [AaveV3Plasma](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250917_AaveV3Plasma_AaveV35PlasmaActivation/AaveV3Plasma_AaveV35PlasmaActivation_20250917.t.sol)
 - [Snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0xa2b9d0717a82a111acc27e514bed07caa9b8636c12dd68fb61ae4dc57503c3cd)
 - [Discussion](https://governance.aave.com/t/arfc-deploy-aave-v3-on-plasma/21494)
 

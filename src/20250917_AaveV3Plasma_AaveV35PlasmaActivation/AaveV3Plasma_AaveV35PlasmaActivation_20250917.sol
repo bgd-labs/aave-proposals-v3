@@ -19,8 +19,8 @@ import {IEmissionManager} from 'aave-v3-origin/contracts/rewards/interfaces/IEmi
 contract AaveV3Plasma_AaveV35PlasmaActivation_20250917 is AaveV3PayloadPlasma {
   using SafeERC20 for IERC20;
 
-  address public constant USDT = 0xB8CE59FC3717ada4C02eaDF9682A9e934F625ebb;
-  uint256 public constant USDT_SEED_AMOUNT = 10e6;
+  address public constant USDT0 = 0xB8CE59FC3717ada4C02eaDF9682A9e934F625ebb;
+  uint256 public constant USDT0_SEED_AMOUNT = 10e6;
 
   address public constant USDe = 0x5d3a1Ff2b6BAb83b63cd9AD0787074081a52ef34;
   uint256 public constant USDe_SEED_AMOUNT = 10e18;
@@ -28,8 +28,8 @@ contract AaveV3Plasma_AaveV35PlasmaActivation_20250917 is AaveV3PayloadPlasma {
   address public constant sUSDe = 0x211Cc4DD073734dA055fbF44a2b4667d5E5fE5d2;
   uint256 public constant sUSDe_SEED_AMOUNT = 10e18;
 
-  address public constant XAUt = 0x1B64B9025EEbb9A6239575dF9Ea4b9Ac46D4d193;
-  uint256 public constant XAUt_SEED_AMOUNT = 0.01e6;
+  address public constant XAUt0 = 0x1B64B9025EEbb9A6239575dF9Ea4b9Ac46D4d193;
+  uint256 public constant XAUt0_SEED_AMOUNT = 0.01e6;
 
   address public constant weETH = 0xA3D68b74bF0528fdD07263c60d6488749044914b;
   uint256 public constant weETH_SEED_AMOUNT = 0.005e18;
@@ -40,10 +40,10 @@ contract AaveV3Plasma_AaveV35PlasmaActivation_20250917 is AaveV3PayloadPlasma {
   address public constant LM_ADMIN = 0xac140648435d03f784879cd789130F22Ef588Fcd;
 
   function _postExecute() internal override {
-    _supplyAndConfigureLMAdmin(USDT, USDT_SEED_AMOUNT);
+    _supplyAndConfigureLMAdmin(USDT0, USDT0_SEED_AMOUNT);
     _supplyAndConfigureLMAdmin(USDe, USDe_SEED_AMOUNT);
     _supplyAndConfigureLMAdmin(sUSDe, sUSDe_SEED_AMOUNT);
-    _supplyAndConfigureLMAdmin(XAUt, XAUt_SEED_AMOUNT);
+    _supplyAndConfigureLMAdmin(XAUt0, XAUt0_SEED_AMOUNT);
     _supplyAndConfigureLMAdmin(weETH, weETH_SEED_AMOUNT);
     _supplyAndConfigureLMAdmin(WETH, WETH_SEED_AMOUNT);
 
@@ -55,8 +55,8 @@ contract AaveV3Plasma_AaveV35PlasmaActivation_20250917 is AaveV3PayloadPlasma {
     IAaveV3ConfigEngine.Listing[] memory listings = new IAaveV3ConfigEngine.Listing[](6);
 
     listings[0] = IAaveV3ConfigEngine.Listing({
-      asset: USDT,
-      assetSymbol: 'USDT',
+      asset: USDT0,
+      assetSymbol: 'USDT0',
       priceFeed: 0xdBbB0b5DD13E7AC9C56624834ef193df87b022c3,
       enabledToBorrow: EngineFlags.ENABLED,
       borrowableInIsolation: EngineFlags.ENABLED,
@@ -103,7 +103,7 @@ contract AaveV3Plasma_AaveV35PlasmaActivation_20250917 is AaveV3PayloadPlasma {
     listings[2] = IAaveV3ConfigEngine.Listing({
       asset: sUSDe,
       assetSymbol: 'sUSDe',
-      priceFeed: 0x8416952b92dC839c4378C3f566A486b438dD43d7,
+      priceFeed: 0x40eE40D7332995CACA49Db46B94237Fa64647Bd4,
       enabledToBorrow: EngineFlags.DISABLED,
       borrowableInIsolation: EngineFlags.DISABLED,
       withSiloedBorrowing: EngineFlags.DISABLED,
@@ -124,8 +124,8 @@ contract AaveV3Plasma_AaveV35PlasmaActivation_20250917 is AaveV3PayloadPlasma {
       })
     });
     listings[3] = IAaveV3ConfigEngine.Listing({
-      asset: XAUt,
-      assetSymbol: 'XAUt',
+      asset: XAUt0,
+      assetSymbol: 'XAUt0',
       priceFeed: 0x921371Fa4d4A30cD350D29762ccB8A5861724E29,
       enabledToBorrow: EngineFlags.DISABLED,
       borrowableInIsolation: EngineFlags.DISABLED,
@@ -149,7 +149,7 @@ contract AaveV3Plasma_AaveV35PlasmaActivation_20250917 is AaveV3PayloadPlasma {
     listings[4] = IAaveV3ConfigEngine.Listing({
       asset: weETH,
       assetSymbol: 'weETH',
-      priceFeed: 0x3f14D35c276d3c4D13e47Dd733a815F12292eeb1,
+      priceFeed: 0xA7786e3042435f88869e5a4e384B0AD6B009800b,
       enabledToBorrow: EngineFlags.DISABLED,
       borrowableInIsolation: EngineFlags.DISABLED,
       withSiloedBorrowing: EngineFlags.DISABLED,
@@ -209,7 +209,7 @@ contract AaveV3Plasma_AaveV35PlasmaActivation_20250917 is AaveV3PayloadPlasma {
     address[] memory collateralAssets_USDeEmode = new address[](1);
     address[] memory borrowableAssets_USDeEmode = new address[](1);
     collateralAssets_USDeEmode[0] = USDe;
-    borrowableAssets_USDeEmode[0] = USDT;
+    borrowableAssets_USDeEmode[0] = USDT0;
 
     eModeCreations[0] = IAaveV3ConfigEngine.EModeCategoryCreation({
       ltv: 90_00,
@@ -225,7 +225,7 @@ contract AaveV3Plasma_AaveV35PlasmaActivation_20250917 is AaveV3PayloadPlasma {
     address[] memory borrowableAssets_sUSDeEmode = new address[](1);
     collateralAssets_sUSDeEmode[0] = USDe;
     collateralAssets_sUSDeEmode[1] = sUSDe;
-    borrowableAssets_sUSDeEmode[0] = USDT;
+    borrowableAssets_sUSDeEmode[0] = USDT0;
 
     eModeCreations[1] = IAaveV3ConfigEngine.EModeCategoryCreation({
       ltv: 90_00,
@@ -255,7 +255,7 @@ contract AaveV3Plasma_AaveV35PlasmaActivation_20250917 is AaveV3PayloadPlasma {
     address[] memory collateralAssets_weETH_Stables_Emode = new address[](1);
     address[] memory borrowableAssets_weETH_Stables_Emode = new address[](1);
     collateralAssets_weETH_Stables_Emode[0] = weETH;
-    borrowableAssets_weETH_Stables_Emode[0] = USDT;
+    borrowableAssets_weETH_Stables_Emode[0] = USDT0;
 
     eModeCreations[3] = IAaveV3ConfigEngine.EModeCategoryCreation({
       ltv: 75_00,
