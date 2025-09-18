@@ -84,7 +84,7 @@ contract Ethereum_Foo_AaveV3GHOLane_YYYYMMDD is AaveV3GHOLane {
 
 You can inherit `AaveV3GHORemoteLaneTest_PreExecution` and `AaveV3GHORemoteLaneTest_PostExecution` for pre and post proposal execution tests respectively, then override the required functions.
 
-For the case of the Ethereum remote lane, you need to inherit `AaveV3GHOEthereumRemoteLaneTest_PreExecution` and `AaveV3GHOEthereumRemoteLaneTest_PreExecution` instead, as they have special test cases for the Ethereum chain.
+For the case of the Ethereum remote lane, you need to inherit `AaveV3GHOEthereumRemoteLaneTest_PreExecution` and `AaveV3GHOEthereumRemoteLaneTest_PostExecution` instead, as they have special test cases for the Ethereum chain.
 
 For the case of the Arbitrum remote lane, you will need to override the `_assertAgainstSupportedChain` function and make a special case when asserting against the Ethereum chain, given that it has two pools for the Ethereum chain selector:
 
