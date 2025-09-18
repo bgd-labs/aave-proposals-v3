@@ -19,7 +19,7 @@ contract AaveV3Plasma_AaveV35PlasmaActivation_20250917_Test is ProtocolV3TestBas
   AaveV3Plasma_AaveV35PlasmaActivation_20250917 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('plasma'), 1194982);
+    vm.createSelectFork(vm.rpcUrl('plasma'), 1261137);
     proposal = new AaveV3Plasma_AaveV35PlasmaActivation_20250917();
 
     _postSetup();
@@ -39,10 +39,10 @@ contract AaveV3Plasma_AaveV35PlasmaActivation_20250917_Test is ProtocolV3TestBas
   function test_collectorHasFunds() public {
     GovV3Helpers.executePayload(vm, address(proposal));
 
-    _validateCollectorFundsAndLMAdmin(proposal.USDT(), proposal.USDT_SEED_AMOUNT());
+    _validateCollectorFundsAndLMAdmin(proposal.USDT0(), proposal.USDT0_SEED_AMOUNT());
     _validateCollectorFundsAndLMAdmin(proposal.USDe(), proposal.USDe_SEED_AMOUNT());
     _validateCollectorFundsAndLMAdmin(proposal.sUSDe(), proposal.sUSDe_SEED_AMOUNT());
-    _validateCollectorFundsAndLMAdmin(proposal.XAUt(), proposal.XAUt_SEED_AMOUNT());
+    _validateCollectorFundsAndLMAdmin(proposal.XAUt0(), proposal.XAUt0_SEED_AMOUNT());
     _validateCollectorFundsAndLMAdmin(proposal.weETH(), proposal.weETH_SEED_AMOUNT());
     _validateCollectorFundsAndLMAdmin(proposal.WETH(), proposal.WETH_SEED_AMOUNT());
   }
@@ -57,6 +57,17 @@ contract AaveV3Plasma_AaveV35PlasmaActivation_20250917_Test is ProtocolV3TestBas
     assertFalse(AaveV3Plasma.ACL_MANAGER.isRiskAdmin(AaveV3Plasma.RISK_STEWARD));
     executePayload(vm, address(proposal));
     assertTrue(AaveV3Plasma.ACL_MANAGER.isRiskAdmin(AaveV3Plasma.RISK_STEWARD));
+  }
+
+  function test_capsIncreaseByGuardian() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+
+    _setAndValidateCapsByGuardian(proposal.USDT0(), 2_200_000_000, 2_00_000_000);
+    _setAndValidateCapsByGuardian(proposal.USDe(), 500_000_000, 50_000_000);
+    _setAndValidateCapsByGuardian(proposal.sUSDe(), 450_000_000, 1);
+    _setAndValidateCapsByGuardian(proposal.XAUt0(), 7_000, 1);
+    _setAndValidateCapsByGuardian(proposal.weETH(), 10_000, 1);
+    _setAndValidateCapsByGuardian(proposal.WETH(), 80_000, 10_000);
   }
 
   function _validateCollectorFundsAndLMAdmin(address asset, uint256 seedAmount) internal view {
@@ -75,29 +86,24 @@ contract AaveV3Plasma_AaveV35PlasmaActivation_20250917_Test is ProtocolV3TestBas
     );
   }
 
+  function _setAndValidateCapsByGuardian(
+    address asset,
+    uint256 supplyCap,
+    uint256 borrowCap
+  ) internal {
+    vm.startPrank(MiscPlasma.PROTOCOL_GUARDIAN);
+    AaveV3Plasma.POOL_CONFIGURATOR.setSupplyCap(asset, supplyCap);
+    AaveV3Plasma.POOL_CONFIGURATOR.setBorrowCap(asset, borrowCap);
+    vm.stopPrank();
+
+    (uint256 currentBorrowCap, uint256 currentSupplyCap) = AaveV3Plasma
+      .AAVE_PROTOCOL_DATA_PROVIDER
+      .getReserveCaps(asset);
+    assertEq(currentBorrowCap, borrowCap);
+    assertEq(currentSupplyCap, supplyCap);
+  }
+
   function _postSetup() internal {
-    // mock funding seed amount
-    deal(proposal.USDe(), GovernanceV3Plasma.EXECUTOR_LVL_1, proposal.USDe_SEED_AMOUNT());
-    deal(proposal.sUSDe(), GovernanceV3Plasma.EXECUTOR_LVL_1, proposal.sUSDe_SEED_AMOUNT());
-    deal(proposal.weETH(), GovernanceV3Plasma.EXECUTOR_LVL_1, proposal.weETH_SEED_AMOUNT());
-
-    // mock price feed to return non-zero values
-    vm.mockCall(
-      0x921371Fa4d4A30cD350D29762ccB8A5861724E29, // XAUt underlying feed
-      abi.encodeWithSelector(AggregatorInterface.latestAnswer.selector),
-      abi.encode(3700e6)
-    );
-    vm.mockCall(
-      0x00D7d8816E969EA6cA9125c3f5D279f9a6D253f6, // weETH-ETH exchange rate feed
-      abi.encodeWithSelector(AggregatorInterface.latestAnswer.selector),
-      abi.encode(1.1e18)
-    );
-    vm.mockCall(
-      0x802033dc696B92e5ED5bF68E1750F7Ed3329eabD, // sUSDe-USDe exchange rate feed
-      abi.encodeWithSelector(AggregatorInterface.latestAnswer.selector),
-      abi.encode(1.19e18)
-    );
-
     // mock increase totalSupply so the defaultTest does not cry because of `PL_SUPPLY_CAP_GT_TOTAL_SUPPLY` require
     vm.mockCall(
       0xdBbB0b5DD13E7AC9C56624834ef193df87b022c3,
