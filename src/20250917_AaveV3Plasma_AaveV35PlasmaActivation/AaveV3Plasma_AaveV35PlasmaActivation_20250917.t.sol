@@ -59,6 +59,17 @@ contract AaveV3Plasma_AaveV35PlasmaActivation_20250917_Test is ProtocolV3TestBas
     assertTrue(AaveV3Plasma.ACL_MANAGER.isRiskAdmin(AaveV3Plasma.RISK_STEWARD));
   }
 
+  function test_capsIncreaseByGuardian() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+
+    _setAndValidateCapsByGuardian(proposal.USDT0(), 2_200_000_000, 2_00_000_000);
+    _setAndValidateCapsByGuardian(proposal.USDe(), 500_000_000, 50_000_000);
+    _setAndValidateCapsByGuardian(proposal.sUSDe(), 450_000_000, 1);
+    _setAndValidateCapsByGuardian(proposal.XAUt0(), 7_000, 1);
+    _setAndValidateCapsByGuardian(proposal.weETH(), 10_000, 1);
+    _setAndValidateCapsByGuardian(proposal.WETH(), 80_000, 10_000);
+  }
+
   function _validateCollectorFundsAndLMAdmin(address asset, uint256 seedAmount) internal view {
     (address aToken, , ) = AaveV3Plasma.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(
       asset
@@ -73,6 +84,23 @@ contract AaveV3Plasma_AaveV35PlasmaActivation_20250917_Test is ProtocolV3TestBas
       IEmissionManager(AaveV3Plasma.EMISSION_MANAGER).getEmissionAdmin(aToken),
       proposal.LM_ADMIN()
     );
+  }
+
+  function _setAndValidateCapsByGuardian(
+    address asset,
+    uint256 supplyCap,
+    uint256 borrowCap
+  ) internal {
+    vm.startPrank(MiscPlasma.PROTOCOL_GUARDIAN);
+    AaveV3Plasma.POOL_CONFIGURATOR.setSupplyCap(asset, supplyCap);
+    AaveV3Plasma.POOL_CONFIGURATOR.setBorrowCap(asset, borrowCap);
+    vm.stopPrank();
+
+    (uint256 currentBorrowCap, uint256 currentSupplyCap) = AaveV3Plasma
+      .AAVE_PROTOCOL_DATA_PROVIDER
+      .getReserveCaps(asset);
+    assertEq(currentBorrowCap, borrowCap);
+    assertEq(currentSupplyCap, supplyCap);
   }
 
   function _postSetup() internal {
