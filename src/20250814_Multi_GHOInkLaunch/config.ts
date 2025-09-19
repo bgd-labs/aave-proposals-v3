@@ -23,7 +23,7 @@ export const config: ConfigFile = {
     AaveV3Avalanche: {configs: {OTHERS: {}}, cache: {blockNumber: 68979823}},
     AaveV3Arbitrum: {configs: {OTHERS: {}}, cache: {blockNumber: 380827682}},
     AaveV3Base: {configs: {OTHERS: {}}, cache: {blockNumber: 35752827}},
-    AaveV3Ethereum: {configs: {OTHERS: {}}, cache: {blockNumber: 23398142}},
+    AaveV3Ethereum: {configs: {OTHERS: {}}, cache: {blockNumber: 23346860}},
     AaveV3Gnosis: {configs: {OTHERS: {}}, cache: {blockNumber: 42203538}},
     AaveV3InkWhitelabel: {
       configs: {OTHERS: {}},
