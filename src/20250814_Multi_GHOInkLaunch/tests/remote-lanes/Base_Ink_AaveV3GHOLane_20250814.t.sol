@@ -7,7 +7,7 @@ import {AaveV3GHOLane} from '../../../helpers/gho-launch/AaveV3GHOLane.sol';
 import {Base_Ink_AaveV3GHOLane_20250814} from '../../remote-lanes/Base_Ink_AaveV3GHOLane_20250814.sol';
 import {AaveV3Base} from 'aave-address-book/AaveV3Base.sol';
 
-uint256 constant BASE_BLOCK_NUMBER = 34520153;
+uint256 constant BASE_BLOCK_NUMBER = 35752827;
 
 contract Base_Ink_AaveV3GHOLane_20250814_Test_PreExecution is AaveV3GHORemoteLaneTest_PreExecution {
   constructor()

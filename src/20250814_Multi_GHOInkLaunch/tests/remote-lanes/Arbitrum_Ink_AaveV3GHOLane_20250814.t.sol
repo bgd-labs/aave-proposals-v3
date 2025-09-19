@@ -7,7 +7,7 @@ import {AaveV3GHOLane} from '../../../helpers/gho-launch/AaveV3GHOLane.sol';
 import {Arbitrum_Ink_AaveV3GHOLane_20250814} from '../../remote-lanes/Arbitrum_Ink_AaveV3GHOLane_20250814.sol';
 import {AaveV3Arbitrum} from 'aave-address-book/AaveV3Arbitrum.sol';
 
-uint256 constant ARBITRUM_BLOCK_NUMBER = 370958655;
+uint256 constant ARBITRUM_BLOCK_NUMBER = 380827682;
 
 contract Arbitrum_Ink_AaveV3GHOLane_20250814_Test_PreExecution is
   AaveV3GHORemoteLaneTest_PreExecution

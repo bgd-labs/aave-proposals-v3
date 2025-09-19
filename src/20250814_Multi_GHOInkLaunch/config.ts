@@ -20,14 +20,14 @@ export const config: ConfigFile = {
     votingNetwork: VOTING_NETWORK.POLYGON,
   },
   poolOptions: {
-    AaveV3Avalanche: {configs: {OTHERS: {}}, cache: {blockNumber: 67445589}},
-    AaveV3Arbitrum: {configs: {OTHERS: {}}, cache: {blockNumber: 370958655}},
-    AaveV3Base: {configs: {OTHERS: {}}, cache: {blockNumber: 34520153}},
-    AaveV3Ethereum: {configs: {OTHERS: {}}, cache: {blockNumber: 23193620}},
-    AaveV3Gnosis: {configs: {OTHERS: {}}, cache: {blockNumber: 41726320}},
+    AaveV3Avalanche: {configs: {OTHERS: {}}, cache: {blockNumber: 68979823}},
+    AaveV3Arbitrum: {configs: {OTHERS: {}}, cache: {blockNumber: 380827682}},
+    AaveV3Base: {configs: {OTHERS: {}}, cache: {blockNumber: 35752827}},
+    AaveV3Ethereum: {configs: {OTHERS: {}}, cache: {blockNumber: 23398142}},
+    AaveV3Gnosis: {configs: {OTHERS: {}}, cache: {blockNumber: 42203538}},
     AaveV3InkWhitelabel: {
       configs: {OTHERS: {}},
-      cache: {blockNumber: 23858218},
+      cache: {blockNumber: 24796622},
     },
   },
 };
