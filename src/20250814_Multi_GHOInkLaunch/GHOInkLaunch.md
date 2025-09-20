@@ -22,7 +22,7 @@ This AIP includes a series of actions required to launch GHO on Ink:
 1. Configure new Chainlink CCIP lanes between Ink and the chains where GHO is launched with a rate limit of 1.5M GHO capacity and 300 GHO per second rate.
 2. Configure GhoCcipSteward.
 
-The table below lists the address of the new **Ink** deployments
+The table below lists the address of the new **Ink** deployments:
 
 | Contract         | Address                                                                                                                         |
 | :--------------- | :------------------------------------------------------------------------------------------------------------------------------ |
