@@ -25,4 +25,7 @@ library CCIPChainTokenAdminRegistries {
 
   // https://docs.chain.link/ccip/directory/mainnet/chain/ethereum-mainnet-ink-1
   address constant INK = 0xEb062d21c713A3d940BB0FaECFdC387d6Ea23697;
+
+  // https://docs.chain.link/ccip/directory/mainnet/chain/<TODO>
+  address constant PLASMA = 0xc23071a8AE83671f37bdA1DaDBC745a9780f632A;
 }

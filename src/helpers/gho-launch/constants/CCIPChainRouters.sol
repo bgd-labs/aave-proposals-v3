@@ -25,4 +25,7 @@ library CCIPChainRouters {
 
   // https://docs.chain.link/ccip/directory/mainnet/chain/ethereum-mainnet-ink-1
   address constant INK = 0xca7c90A52B44E301AC01Cb5EB99b2fD99339433A;
+
+  // https://docs.chain.link/ccip/directory/mainnet/chain/<TODO>
+  address constant PLASMA = 0xcDca5D374e46A6DDDab50bD2D9acB8c796eC35C3;
 }

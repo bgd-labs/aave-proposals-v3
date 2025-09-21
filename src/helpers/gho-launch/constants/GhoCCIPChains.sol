@@ -28,6 +28,9 @@ import {GhoGnosis} from 'aave-address-book/GhoGnosis.sol';
 import {AaveV3InkWhitelabel} from 'aave-address-book/AaveV3InkWhitelabel.sol';
 import {GovernanceV3Ink} from 'aave-address-book/GovernanceV3Ink.sol';
 
+import {AaveV3Plasma} from 'aave-address-book/AaveV3Plasma.sol';
+import {GovernanceV3Plasma} from 'aave-address-book/GovernanceV3Plasma.sol';
+
 /**
  * @title GhoCCIPChains
  * @author Aave Labs
@@ -248,6 +251,26 @@ library GhoCCIPChains {
         tokenAdminRegistry: CCIPChainTokenAdminRegistries.INK,
         owner: GovernanceV3Ink.EXECUTOR_LVL_1,
         ccipRouter: CCIPChainRouters.INK
+      });
+  }
+
+  /**
+   * @notice Returns the ChainInfo constant for Plasma
+   * @return The ChainInfo constant for Plasma
+   */
+  function PLASMA() public pure returns (ChainInfo memory) {
+    return
+      ChainInfo({
+        chainSelector: CCIPChainSelectors.INK,
+        ghoToken: 0xb77E872A68C62CfC0dFb02C067Ecc3DA23B4bbf3,
+        ghoCCIPTokenPool: 0x360d8aa8F6b09B7BC57aF34db2Eb84dD87bf4d12,
+        ghoBucketSteward: 0x2Ce400703dAcc37b7edFA99D228b8E70a4d3831B,
+        ghoAaveCoreSteward: 0xA5Ba213867E175A182a5dd6A9193C6158738105A,
+        ghoCCIPSteward: 0x20fd5f3FCac8883a3A0A2bBcD658A2d2c6EFa6B6,
+        aclManager: address(AaveV3Plasma.ACL_MANAGER),
+        tokenAdminRegistry: CCIPChainTokenAdminRegistries.PLASMA,
+        owner: GovernanceV3Ink.EXECUTOR_LVL_1,
+        ccipRouter: CCIPChainRouters.PLASMA
       });
   }
 }
