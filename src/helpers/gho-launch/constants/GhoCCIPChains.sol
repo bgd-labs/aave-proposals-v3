@@ -68,13 +68,14 @@ library GhoCCIPChains {
    * @return An array with all the ChainInfo constants supported
    */
   function getAllChains() public pure returns (ChainInfo[] memory) {
-    ChainInfo[] memory allChains = new ChainInfo[](6);
+    ChainInfo[] memory allChains = new ChainInfo[](7);
     allChains[0] = ETHEREUM();
     allChains[1] = ARBITRUM();
     allChains[2] = BASE();
     allChains[3] = AVALANCHE();
     allChains[4] = GNOSIS();
     allChains[5] = INK();
+    allChains[6] = PLASMA();
     return allChains;
   }
 

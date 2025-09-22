@@ -14,6 +14,14 @@ contract AaveV3_GhoPlasmaLaunch_20250921 is AaveV3GHOLaunch {
   constructor() AaveV3GHOLaunch(GhoCCIPChains.PLASMA()) {}
 
   function _setupGhoAaveSteward() internal override {
-    // Do not setup Aave Core Steward, it will be done through the Aave V3 Ink activation proposal.
+    // Do not setup Aave Core Steward, already created.
+  }
+
+  function _setupGhoBucketSteward() internal override {
+    // Do not setup Aave Gho Bucket Steward, already created.
+  }
+
+  function _setupGhoCCIPSteward() internal override {
+    // Do not setup Aave Gho Ccip Steward, already created.
   }
 }
