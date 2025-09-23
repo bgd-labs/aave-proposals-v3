@@ -1,13 +1,13 @@
 ---
 title: "Steward Deployment: MainnetSwapSteward and RewardsSteward"
 author: "@TokenLogic"
-discussions: "PENDING"
-snapshot: "PENDING"
+discussions: "https://governance.aave.com/t/arfc-steward-deployment-mainnetswapsteward-and-rewardssteward/23070"
+snapshot: "https://snapshot.box/#/s:aavedao.eth/proposal/0xdc005c2385a548143bbeb35b8bb92e5f0ed29829a445f5e986a2b010bc349c6a"
 ---
 
 ## Simple Summary
 
-We are excited to present the next iteration of Aave’s non-custodial Treasury Management tooling suite. We are expanding the Aave `Finance Steward` role to perform swaps on Ethereum via `MainnetSwapSteward` v1 and claim Liquidity Mining rewards across acrued to the collector across all networks via the `RewardsSteward`. Activating these steward roles will enable Aave DAO to further streamline operations and reduce governance overhead in a secure and safe manner.
+We are excited to present the next iteration of Aave’s non-custodial Treasury Management tooling suite. We are expanding the Aave `Finance Steward` role to perform swaps on Ethereum via `MainnetSwapSteward` v1 and claim Liquidity Mining rewards across accrued to the collector across all networks via the `RewardsSteward`. Activating these steward roles will enable Aave DAO to further streamline operations and reduce governance overhead in a secure and safe manner.
 
 ## Overview
 

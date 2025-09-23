@@ -14,7 +14,7 @@ import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGen
 contract AaveV3BNB_StewardDeploymentMainnetSwapStewardAndRewardsSteward_20250821 is
   IProposalGenericExecutor
 {
-  // https://basescan.com/address/0x6046A62a80a2c19A0De91063602ce90533c62ae1
+  // https://bscscan.com/address/0x6046A62a80a2c19A0De91063602ce90533c62ae1
   address public constant REWARDS_STEWARD = 0x6046A62a80a2c19A0De91063602ce90533c62ae1;
 
   function execute() external {
