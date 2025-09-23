@@ -1,4 +1,4 @@
-import {generateContractName, getPoolChain, getVersion} from '../common';
+import {generateContractName, getVersion, isWhitelabelPool} from '../common';
 import {FEATURE, Options, PoolConfig, PoolIdentifier} from '../types';
 import {prefixWithImports} from '../utils/importsResolver';
 import {prefixWithPragma} from '../utils/constants';
@@ -12,6 +12,7 @@ export const proposalTemplate = (
   const poolName = /AaveV[2|3](.*)/.test(pool) && pool.match(/AaveV[2|3](.*)/)![1];
   const version = getVersion(pool);
   const contractName = generateContractName(options, pool);
+  const isWhitelabel = isWhitelabelPool(pool);
 
   const constants = poolConfig.artifacts
     .map((artifact) => artifact.code?.constants)
@@ -50,9 +51,13 @@ export const proposalTemplate = (
 
   const contract = `/**
   * @title ${title || 'TODO'}
-  * @author ${author || 'TODO'}
+  * @author ${author || 'TODO'} ${
+    !isWhitelabel
+      ? `
   * - Snapshot: ${snapshot || 'TODO'}
-  * - Discussion: ${discussion || 'TODO'}
+  * - Discussion: ${discussion || 'TODO'}`
+      : ''
+  }
   */
  contract ${contractName} is ${
    usesConfigEngine ? `Aave${version}Payload${poolName}` : 'IProposalGenericExecutor'

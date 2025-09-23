@@ -16,6 +16,8 @@ import {
   celo,
   sonic,
   soneium,
+  ink,
+  plasma,
 } from 'viem/chains';
 import {Hex, getAddress} from 'viem';
 import {getClient} from '@bgd-labs/toolbox';
@@ -38,6 +40,8 @@ export const AVAILABLE_CHAINS = [
   'Celo',
   'Sonic',
   'Soneium',
+  'Ink',
+  'Plasma',
 ] as const;
 
 export function getAssets(pool: PoolIdentifier): string[] {
@@ -55,6 +59,10 @@ export function getEModes(pool: PoolIdentifierV3): {value: string; id: number}[]
 
 export function isV2Pool(pool: PoolIdentifier) {
   return V2_POOLS.includes(pool as any);
+}
+
+export function isWhitelabelPool(pool: PoolIdentifier) {
+  return pool.toLowerCase().includes('whitelabel');
 }
 
 export function getVersion(pool: PoolIdentifier) {
@@ -146,6 +154,8 @@ export const CHAIN_TO_CHAIN_ID = {
   Celo: celo.id,
   Sonic: sonic.id,
   Soneium: soneium.id,
+  Ink: ink.id,
+  Plasma: plasma.id,
 };
 
 export function flagAsRequired(message: string, required?: boolean) {

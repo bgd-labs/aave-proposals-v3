@@ -53,14 +53,21 @@ export interface AssetEModeUpdatePartial {
 
 export interface AssetEModeUpdate extends AssetEModeUpdatePartial, AssetSelector {}
 
-export interface EModeCategoryUpdate {
-  // library accessor or new id
-  eModeCategory: string | number;
+export interface EModeCategoryPartial {
   ltv: NumberInputValues;
   liqThreshold: NumberInputValues;
   liqBonus: NumberInputValues;
-  priceSource?: Hex | '';
   label: string;
+}
+
+export interface EModeCategoryUpdate extends EModeCategoryPartial {
+  // library accessor or new id
+  eModeCategory: string | number;
+}
+
+export interface EModeCategoryCreation extends EModeCategoryPartial {
+  borrowableAssets: string[];
+  collateralAssets: string[];
 }
 
 export interface RateStrategyParams {

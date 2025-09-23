@@ -2,7 +2,7 @@
 src = 'src'
 test = 'tests'
 script = 'scripts'
-solc = '0.8.22'
+solc = '0.8.27'
 optimizer = true
 optimizer_runs = 200
 out = 'out'
@@ -14,18 +14,20 @@ fs_permissions = [
   { access = "write", path = "./reports" },
   { access = "read", path = "./zkout" },
 ]
-evm_version = 'london'
+evm_version = 'shanghai'
+cache_path = 'cache/shanghai'
 
 [profile.zksync]
 src = 'zksync'
 test = 'zksync'
 libs = ['lib']
-solc = '0.8.22'
+solc = '0.8.27'
 optimizer = true
 optimizer_runs = 200
 fs_permissions = [{ access = "write", path = "./reports" }]
 ffi = true
 evm_version = 'shanghai'
+cache_path = 'cache/shanghai'
 
 [profile.zksync.zksync]
 bytecode_hash = 'none'
@@ -36,9 +38,15 @@ zksolc = '1.5.13'
 
 [profile.test]
 evm_version = 'cancun'
+cache_path = 'cache/cancun'
 
 [profile.deploy]
-evm_version = 'london' # due to linea
+evm_version = 'shanghai'
+cache_path = 'cache/shanghai'
+
+[profile.linea]
+evm_version = 'london'
+cache_path = 'cache/london'
 
 [rpc_endpoints]
 mainnet = "${RPC_MAINNET}"
@@ -59,5 +67,7 @@ linea = "${RPC_LINEA}"
 celo = "${RPC_CELO}"
 sonic = "${RPC_SONIC}"
 soneium = "${RPC_SONEIUM}"
+ink = "${RPC_INK}"
+plasma = "${RPC_PLASMA}"
 
-# See more config options https://github.com/gakonst/foundry/tree/master/config
+# See more config options https://github.com/foundry-rs/foundry/tree/master/crates/config
