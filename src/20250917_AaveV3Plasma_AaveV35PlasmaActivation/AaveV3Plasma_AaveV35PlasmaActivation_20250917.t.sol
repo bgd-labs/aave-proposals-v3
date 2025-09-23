@@ -4,12 +4,13 @@ pragma solidity ^0.8.0;
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 import {MiscPlasma} from 'aave-address-book/MiscPlasma.sol';
 import {GovernanceV3Plasma} from 'aave-address-book/GovernanceV3Plasma.sol';
-import {AaveV3Plasma} from 'aave-address-book/AaveV3Plasma.sol';
-import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
+import {AaveV3Plasma, IPoolConfigurator} from 'aave-address-book/AaveV3Plasma.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Plasma_AaveV35PlasmaActivation_20250917} from './AaveV3Plasma_AaveV35PlasmaActivation_20250917.sol';
 import {IEmissionManager} from 'aave-v3-origin/contracts/rewards/interfaces/IEmissionManager.sol';
 import {AggregatorInterface} from 'aave-v3-origin/contracts/dependencies/chainlink/AggregatorInterface.sol';
+import {IERC20} from 'forge-std/interfaces/IERC20.sol';
+import {console} from 'forge-std/console.sol';
 
 /**
  * @dev Test for AaveV3Plasma_AaveV35PlasmaActivation_20250917
@@ -62,6 +63,9 @@ contract AaveV3Plasma_AaveV35PlasmaActivation_20250917_Test is ProtocolV3TestBas
   function test_capsIncreaseByGuardian() public {
     GovV3Helpers.executePayload(vm, address(proposal));
 
+    console.log('Safe address (guardian):', MiscPlasma.PROTOCOL_GUARDIAN);
+    console.log('To address (pool configurator)', address(AaveV3Plasma.POOL_CONFIGURATOR));
+
     _setAndValidateCapsByGuardian(proposal.USDT0(), 2_200_000_000, 2_00_000_000);
     _setAndValidateCapsByGuardian(proposal.USDe(), 500_000_000, 50_000_000);
     _setAndValidateCapsByGuardian(proposal.sUSDe(), 450_000_000, 1);
@@ -95,6 +99,24 @@ contract AaveV3Plasma_AaveV35PlasmaActivation_20250917_Test is ProtocolV3TestBas
     AaveV3Plasma.POOL_CONFIGURATOR.setSupplyCap(asset, supplyCap);
     AaveV3Plasma.POOL_CONFIGURATOR.setBorrowCap(asset, borrowCap);
     vm.stopPrank();
+
+    bytes memory supplyCapCalldata = abi.encodeWithSelector(
+      IPoolConfigurator.setSupplyCap.selector,
+      asset,
+      supplyCap
+    );
+    bytes memory borrowCapCalldata = abi.encodeWithSelector(
+      IPoolConfigurator.setBorrowCap.selector,
+      asset,
+      borrowCap
+    );
+
+    console.log();
+    console.log('supply cap calldata', IERC20(asset).symbol(), ':');
+    console.logBytes(supplyCapCalldata);
+    console.log('borrow cap calldata', IERC20(asset).symbol(), ':');
+    console.logBytes(borrowCapCalldata);
+    console.log();
 
     (uint256 currentBorrowCap, uint256 currentSupplyCap) = AaveV3Plasma
       .AAVE_PROTOCOL_DATA_PROVIDER
