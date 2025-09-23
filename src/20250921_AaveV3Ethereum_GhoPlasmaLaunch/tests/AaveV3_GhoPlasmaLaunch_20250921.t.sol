@@ -9,7 +9,7 @@ import {AaveV3GHOLaunchTest_PostExecution, AaveV3GHOLaunchTest_PreExecution} fro
 uint256 constant PLASMA_BLOCK_NUMBER = 1559850;
 
 contract AaveV3_GhoPlasmaLaunch_20250814_PreExecution is AaveV3GHOLaunchTest_PreExecution {
-  // https://docs.chain.link/ccip/directory/mainnet/chain/<TODO>
+  // https://docs.chain.link/ccip/directory/mainnet/chain/plasma-mainnet
   address internal constant RMN = 0xAEf7A922931848d2e731D5914f428b4E851d1Ad5;
 
   address internal constant RISK_COUNCIL = 0x8513e6F37dBc52De87b166980Fa3F50639694B60;
