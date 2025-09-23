@@ -371,10 +371,7 @@ contract AaveV3Ethereum_StewardDeploymentMainnetSwapStewardAndRewardsSteward_202
 
     executePayload(vm, address(proposal));
 
-    assertEq(
-      steward.priceOracle(AaveV3EthereumAssets.GHO_UNDERLYING),
-      AaveV3EthereumAssets.GHO_ORACLE
-    );
+    assertEq(steward.priceOracle(AaveV3EthereumAssets.GHO_UNDERLYING), proposal.GHO_USD_FEED());
     assertEq(
       steward.priceOracle(AaveV3EthereumAssets.USDC_UNDERLYING),
       AaveV3EthereumAssets.USDC_ORACLE

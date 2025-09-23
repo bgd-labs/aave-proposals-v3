@@ -27,6 +27,9 @@ contract AaveV3Ethereum_StewardDeploymentMainnetSwapStewardAndRewardsSteward_202
   // https://etherscan.io/address/0xb7D402138Cb01BfE97d95181C849379d6AD14d19
   address public constant SWAP_STEWARD = 0xb7D402138Cb01BfE97d95181C849379d6AD14d19;
 
+  /// https://etherscan.io/address/0x3f12643D3f6f874d39C2a4c9f2Cd6f2DbAC877FC
+  address public constant GHO_USD_FEED = 0x3f12643D3f6f874d39C2a4c9f2Cd6f2DbAC877FC;
+
   uint256 public constant USD_STABLE_BUDGET = 5_000_000;
   uint256 public constant DAI_BUDGET = 3_000_000 ether;
   uint256 public constant RLUSD_BUDGET = 1_000_000 ether;
@@ -57,7 +60,7 @@ contract AaveV3Ethereum_StewardDeploymentMainnetSwapStewardAndRewardsSteward_202
     // Token: GHO (Only Oracle)
     IMainnetSwapSteward(SWAP_STEWARD).setTokenOracle(
       AaveV3EthereumAssets.GHO_UNDERLYING,
-      AaveV3EthereumAssets.GHO_ORACLE
+      GHO_USD_FEED
     );
 
     // Token: USDC
