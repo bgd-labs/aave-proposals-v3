@@ -7,9 +7,33 @@ snapshot: "https://snapshot.box/#/s:aavedao.eth/proposal/0xeb3572580924976867073
 
 ## Simple Summary
 
+This ARFC proposes deploying GHO on the Plasma blockchain. The goal is to establish GHO as a key stablecoin within Plasma’s ecosystem from inception, facilitating reward programs, liquidity incentives, and seamless integration with the upcoming Aave deployment on Plasma.
+
 ## Motivation
 
+Plasma is a purpose-built, EVM-compatible Bitcoin sidechain designed specifically for stablecoin scalability, speed, and security—offering zero-fee USDT transfers, lightning-fast finality, and Bitcoin-anchored settlement.
+
+The network is quickly approahcing launch with substantial USDT liquidity and an institutional partnership with Aave, including active GHO support on the platform.
+
+Deploying GHO concurrently with the Aave instance on Plasma ensures that GHO becomes foundational to DeFi and payments infrastructure on a chain optimized for stablecoin utility.
+
 ## Specification
+
+This AIP includes a series of actions required to launch GHO on Plasma:
+
+1. Configure new Chainlink CCIP lanes between Plasma and the chains where GHO is launched with a rate limit of 1.5M GHO capacity and 300 GHO per second rate.
+2. Configure GhoCcipSteward.
+
+The table below lists the address of the new **Plasma** deployments
+
+| Contract         | Address                                                                                                                |
+| :--------------- | :--------------------------------------------------------------------------------------------------------------------- |
+| GhoToken         | [0xb77E872A68C62CfC0dFb02C067Ecc3DA23B4bbf3](https://plasmascan.to/address/0xb77E872A68C62CfC0dFb02C067Ecc3DA23B4bbf3) |
+| GhoTokenPool     | [0x360d8aa8F6b09B7BC57aF34db2Eb84dD87bf4d12](https://plasmascan.to/address/0x360d8aa8F6b09B7BC57aF34db2Eb84dD87bf4d12) |
+| GhoOracle        | [0xb0e1c7830aA781362f79225559Aa068E6bDaF1d1](https://plasmascan.to/address/0xb0e1c7830aA781362f79225559Aa068E6bDaF1d1) |
+| GhoBucketSteward | [0x2Ce400703dAcc37b7edFA99D228b8E70a4d3831B](https://plasmascan.to/address/0x2Ce400703dAcc37b7edFA99D228b8E70a4d3831B) |
+| GhoCcipSteward   | [0x20fd5f3FCac8883a3A0A2bBcD658A2d2c6EFa6B6](https://plasmascan.to/address/0x20fd5f3FCac8883a3A0A2bBcD658A2d2c6EFa6B6) |
+| GhoAaveSteward   | [0xA5Ba213867E175A182a5dd6A9193C6158738105A](https://plasmascan.to/address/0xA5Ba213867E175A182a5dd6A9193C6158738105A) |
 
 ## References
 
