@@ -21,9 +21,13 @@ The key changes include:
 
 The following pyUSD Reserve parameters are to be updated:
 
-| Asset | RF Current | RF Proposed | UOptimal Current | UOptimal Proposed |
-| ----- | ---------- | ----------- | ---------------- | ----------------- |
-| pyUSD | 20.00%     | 10.00%      | 80.00%           | 90.00%            |
+| Parameters     | Current Value | Updated Value |
+| -------------- | ------------- | ------------- |
+| Asset          | PYUSD         | PYUSD         |
+| UOptimal       | 80%           | 90%           |
+| Reserve Factor | 20%           | 10%           |
+| Slope 1        | 10.5%         | 6.5%          |
+| LTV            | 75%           | 0%            |
 
 ## References
 

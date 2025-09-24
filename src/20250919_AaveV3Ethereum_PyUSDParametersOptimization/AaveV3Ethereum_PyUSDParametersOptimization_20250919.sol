@@ -26,13 +26,14 @@ contract AaveV3Ethereum_PyUSDParametersOptimization_20250919 is AaveV3PayloadEth
       params: IAaveV3ConfigEngine.InterestRateInputData({
         optimalUsageRatio: 90_00, // 90%
         baseVariableBorrowRate: EngineFlags.KEEP_CURRENT,
-        variableRateSlope1: EngineFlags.KEEP_CURRENT,
+        variableRateSlope1: 6_50, // 6.5%
         variableRateSlope2: EngineFlags.KEEP_CURRENT
       })
     });
 
     return rateStrategies;
   }
+
   function borrowsUpdates()
     public
     pure
@@ -52,5 +53,21 @@ contract AaveV3Ethereum_PyUSDParametersOptimization_20250919 is AaveV3PayloadEth
     });
 
     return borrowUpdates;
+  }
+
+  function collateralUpdates() public pure returns (IAaveV3ConfigEngine.CollateralUpdate[] memory) {
+    IAaveV3ConfigEngine.CollateralUpdate[]
+      memory updates = new IAaveV3ConfigEngine.CollateralUpdate[](1);
+
+    updates[0] = IAaveV3ConfigEngine.CollateralUpdate({
+      asset: AaveV3EthereumAssets.PYUSD_UNDERLYING,
+      ltv: 0,
+      liqThreshold: 0,
+      liqBonus: 0,
+      debtCeiling: EngineFlags.KEEP_CURRENT,
+      liqProtocolFee: EngineFlags.KEEP_CURRENT
+    });
+
+    return updates;
   }
 }
