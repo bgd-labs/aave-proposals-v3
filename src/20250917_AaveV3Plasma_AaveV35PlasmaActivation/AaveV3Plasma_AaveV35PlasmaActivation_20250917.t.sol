@@ -66,7 +66,7 @@ contract AaveV3Plasma_AaveV35PlasmaActivation_20250917_Test is ProtocolV3TestBas
     console.log('Safe address (guardian):', MiscPlasma.PROTOCOL_GUARDIAN);
     console.log('To address (pool configurator)', address(AaveV3Plasma.POOL_CONFIGURATOR));
 
-    _setAndValidateCapsByGuardian(proposal.USDT0(), 2_200_000_000, 2_00_000_000);
+    _setAndValidateCapsByGuardian(proposal.USDT0(), 2_200_000_000, 2_000_000_000);
     _setAndValidateCapsByGuardian(proposal.USDe(), 500_000_000, 50_000_000);
     _setAndValidateCapsByGuardian(proposal.sUSDe(), 450_000_000, 1);
     _setAndValidateCapsByGuardian(proposal.XAUt0(), 7_000, 1);
