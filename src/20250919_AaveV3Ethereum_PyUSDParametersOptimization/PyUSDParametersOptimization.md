@@ -6,9 +6,24 @@ discussions: "https://governance.aave.com/t/direct-to-aip-pyusd-parameters-optim
 
 ## Simple Summary
 
+This proposal updates the pyUSD reserve configuration on Ethereum v3 Core.
+
 ## Motivation
 
+This publication proposes aligning the Reserver Factor and Uoptimal for the pyUSD Reserve with various other stables ahead of a potential incentive campaign from PayPal.
+
+The key changes include:
+
+- Adjusting pyUSD Reserve Factor (RF) from 20% to 10%: With <$15M in liquidity within the Reserve, decreasing the RF routes a larger portion of the interest paid by users who borrow pyUSD to users who deposit pyUSD.
+- Adjusting Optimal Utilization (Uoptimal) from 80% to 90%: We recommend to increasing the Uoptimal of pyUSD, to better reflect the borrow and supply dynamism for these assets.
+
 ## Specification
+
+The following pyUSD Reserve parameters are to be updated:
+
+| Asset | RF Current | RF Proposed | UOptimal Current | UOptimal Proposed |
+| ----- | ---------- | ----------- | ---------------- | ----------------- |
+| pyUSD | 20.00%     | 10.00%      | 80.00%           | 90.00%            |
 
 ## References
 

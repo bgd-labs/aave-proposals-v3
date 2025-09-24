@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 import {AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
 
 import 'forge-std/Test.sol';
-import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
+import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Ethereum_PyUSDParametersOptimization_20250919} from './AaveV3Ethereum_PyUSDParametersOptimization_20250919.sol';
 import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
@@ -17,7 +17,7 @@ contract AaveV3Ethereum_PyUSDParametersOptimization_20250919_Test is ProtocolV3T
   AaveV3Ethereum_PyUSDParametersOptimization_20250919 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 23397595);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 23431964);
     proposal = new AaveV3Ethereum_PyUSDParametersOptimization_20250919();
   }
 
@@ -31,17 +31,4 @@ contract AaveV3Ethereum_PyUSDParametersOptimization_20250919_Test is ProtocolV3T
       address(proposal)
     );
   }
-  //   function test_pyUSDParametersOptimization() public {
-  //   ReserveConfig[] memory configsBefore = _getReservesConfigs(AaveV3Ethereum.POOL);
-  //   ReserveConfig memory pyUsdConfigBefore = _findReserveConfig(configsBefore, AaveV3EthereumAssets.PYUSD_UNDERLYING);
-
-  //   assertEq(pyUsdConfigBefore.reserveFactor, 2000);
-
-  //   GovV3Helpers.executePayload(vm, address(proposal));
-
-  //   ReserveConfig[] memory configsAfter = _getReservesConfigs(AaveV3Ethereum.POOL);
-  //   ReserveConfig memory pyUsdConfigAfter = _findReserveConfig(configsAfter, AaveV3EthereumAssets.PYUSD_UNDERLYING);
-
-  //   assertEq(pyUsdConfigAfter.reserveFactor, 1000);
-  // }
 }
