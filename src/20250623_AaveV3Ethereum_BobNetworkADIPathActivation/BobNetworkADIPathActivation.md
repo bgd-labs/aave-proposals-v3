@@ -2,7 +2,6 @@
 title: "Bob Network aDI path activation"
 author: "BGD Labs @bgdlabs"
 discussions: TODO
-snapshot: TODO
 ---
 
 ## Simple Summary
@@ -48,11 +47,10 @@ The new Aave Governance deployments on Bob network are as follows:
 
 ## References
 
-- Adapter Implementations: [Bob Native Adapters](https://github.com/bgd-labs/aave-delivery-infrastructure/blob/efaa21c418c943aa4a4cd79a6eff32d57923c009/src/contracts/adapters/bob/BobAdapter.sol)
-- Payload Implementation: [Payload](https://github.com/bgd-labs/adi-deploy/blob/732b94e991243088d38edea3569b24ee871407c7/scripts/payloads/adapters/ethereum/Ethereum_Activate_Bob_Bridge_Adapter_Payload.s.sol)
-- Payload Tests: [tests](https://github.com/bgd-labs/adi-deploy/blob/732b94e991243088d38edea3569b24ee871407c7/tests/payloads/ethereum/AddBobPathTest.t.sol)
-- Diffs: [a.DI diffs](https://github.com/bgd-labs/adi-deploy/blob/732b94e991243088d38edea3569b24ee871407c7/diffs/adi_add_bob_path_to_adiethereum_before_adi_add_bob_path_to_adiethereum_after.md)
-- Snapshot: Direct-to-AIP
+- Adapter Implementations: [Bob Native Adapters](https://github.com/aave-dao/aave-delivery-infrastructure/blob/45e37dc487491a7404953a27245cdeac3c90642a/src/contracts/adapters/bob/BobAdapter.sol)
+- Payload Implementation: [Payload](https://github.com/aave-dao/adi-deploy/blob/ed19600c9eae080d7506415b9e50069f0c8f92df/scripts/payloads/adapters/ethereum/Ethereum_Activate_Bob_Bridge_Adapter_Payload.s.sol)
+- Payload Tests: [tests](https://github.com/aave-dao/adi-deploy/blob/ed19600c9eae080d7506415b9e50069f0c8f92df/tests/payloads/ethereum/AddBobPathTest.t.sol)
+- Diffs: [a.DI diffs](https://github.com/aave-dao/adi-deploy/blob/ed19600c9eae080d7506415b9e50069f0c8f92df/diffs/adi_add_bob_path_to_adiethereum_before_adi_add_bob_path_to_adiethereum_after.md)
 - [Discussion](TODO)
 
 ## Copyright
