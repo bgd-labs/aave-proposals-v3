@@ -47,6 +47,8 @@ Slopes
 | USDT  | 12.50%         | 12.50%          | 60.00%         | 40.00%          |
 | DAI   | 12.50%         | 12.50%          | 60.00%         | 40.00%          |
 
+Additionally, freeze all reserves on Ethereum V2 Core.
+
 ### Polygon v2
 
 RF / Base / Uoptimal

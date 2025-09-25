@@ -29,21 +29,18 @@ contract AaveV2Ethereum_AaveV2DeprecationUpdate_20250925_Test is ProtocolV2TestB
     );
   }
 
-  function test_defaultProposalExecution_withAsserts() public {
+  function test_reserveFreezing() public {
     address[5] memory assets = [
-      AaveV2EthereumAssets.WETH_UNDERLYING, //WETH
-      AaveV2EthereumAssets.WBTC_UNDERLYING, //WBTC
-      AaveV2EthereumAssets.USDC_UNDERLYING, //USDC
-      AaveV2EthereumAssets.USDT_UNDERLYING, //USDT
-      AaveV2EthereumAssets.DAI_UNDERLYING //DAI
+      AaveV2EthereumAssets.WETH_UNDERLYING,
+      AaveV2EthereumAssets.WBTC_UNDERLYING,
+      AaveV2EthereumAssets.USDC_UNDERLYING,
+      AaveV2EthereumAssets.USDT_UNDERLYING,
+      AaveV2EthereumAssets.DAI_UNDERLYING
     ];
 
     executePayload(vm, address(proposal));
 
-    ReserveConfig[] memory allConfigsAfter = createConfigurationSnapshot(
-      'post-AaveV2Ethereum_AaveV2DeprecationUpdate_20250925',
-      AaveV2Ethereum.POOL
-    );
+    ReserveConfig[] memory allConfigsAfter = _getReservesConfigs(AaveV2Ethereum.POOL);
 
     for (uint256 i = 0; i < assets.length; i++) {
       ReserveConfig memory cfgAfter = _findReserveConfig(allConfigsAfter, assets[i]);

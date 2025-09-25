@@ -24,29 +24,8 @@ contract AaveV2Ethereum_AaveV2DeprecationUpdate_20250925 is AaveV2PayloadEthereu
   {
     IAaveV2ConfigEngine.RateStrategyUpdate[]
       memory rateStrategies = new IAaveV2ConfigEngine.RateStrategyUpdate[](5);
+
     rateStrategies[0] = IAaveV2ConfigEngine.RateStrategyUpdate({
-      asset: AaveV2EthereumAssets.USDT_UNDERLYING,
-      params: IV2RateStrategyFactory.RateStrategyParams({
-        optimalUtilizationRate: _bpsToRay(40_00),
-        baseVariableBorrowRate: _bpsToRay(5_00),
-        variableRateSlope1: _bpsToRay(12_50),
-        variableRateSlope2: _bpsToRay(40_00),
-        stableRateSlope1: EngineFlags.KEEP_CURRENT,
-        stableRateSlope2: EngineFlags.KEEP_CURRENT
-      })
-    });
-    rateStrategies[1] = IAaveV2ConfigEngine.RateStrategyUpdate({
-      asset: AaveV2EthereumAssets.WBTC_UNDERLYING,
-      params: IV2RateStrategyFactory.RateStrategyParams({
-        optimalUtilizationRate: _bpsToRay(25_00),
-        baseVariableBorrowRate: _bpsToRay(20_00),
-        variableRateSlope1: _bpsToRay(0),
-        variableRateSlope2: _bpsToRay(40_00),
-        stableRateSlope1: EngineFlags.KEEP_CURRENT,
-        stableRateSlope2: EngineFlags.KEEP_CURRENT
-      })
-    });
-    rateStrategies[2] = IAaveV2ConfigEngine.RateStrategyUpdate({
       asset: AaveV2EthereumAssets.WETH_UNDERLYING,
       params: IV2RateStrategyFactory.RateStrategyParams({
         optimalUtilizationRate: _bpsToRay(25_00),
@@ -57,10 +36,32 @@ contract AaveV2Ethereum_AaveV2DeprecationUpdate_20250925 is AaveV2PayloadEthereu
         stableRateSlope2: EngineFlags.KEEP_CURRENT
       })
     });
-    rateStrategies[3] = IAaveV2ConfigEngine.RateStrategyUpdate({
-      asset: AaveV2EthereumAssets.DAI_UNDERLYING,
+    rateStrategies[1] = IAaveV2ConfigEngine.RateStrategyUpdate({
+      asset: AaveV2EthereumAssets.WBTC_UNDERLYING,
       params: IV2RateStrategyFactory.RateStrategyParams({
-        optimalUtilizationRate: _bpsToRay(50_00),
+        optimalUtilizationRate: _bpsToRay(25_00),
+        baseVariableBorrowRate: _bpsToRay(20_00),
+        variableRateSlope1: EngineFlags.KEEP_CURRENT,
+        variableRateSlope2: _bpsToRay(40_00),
+        stableRateSlope1: EngineFlags.KEEP_CURRENT,
+        stableRateSlope2: EngineFlags.KEEP_CURRENT
+      })
+    });
+    rateStrategies[2] = IAaveV2ConfigEngine.RateStrategyUpdate({
+      asset: AaveV2EthereumAssets.USDC_UNDERLYING,
+      params: IV2RateStrategyFactory.RateStrategyParams({
+        optimalUtilizationRate: _bpsToRay(60_00),
+        baseVariableBorrowRate: _bpsToRay(5_00),
+        variableRateSlope1: _bpsToRay(12_50),
+        variableRateSlope2: _bpsToRay(40_00),
+        stableRateSlope1: EngineFlags.KEEP_CURRENT,
+        stableRateSlope2: EngineFlags.KEEP_CURRENT
+      })
+    });
+    rateStrategies[3] = IAaveV2ConfigEngine.RateStrategyUpdate({
+      asset: AaveV2EthereumAssets.USDT_UNDERLYING,
+      params: IV2RateStrategyFactory.RateStrategyParams({
+        optimalUtilizationRate: _bpsToRay(40_00),
         baseVariableBorrowRate: _bpsToRay(5_00),
         variableRateSlope1: _bpsToRay(12_50),
         variableRateSlope2: _bpsToRay(40_00),
@@ -69,9 +70,9 @@ contract AaveV2Ethereum_AaveV2DeprecationUpdate_20250925 is AaveV2PayloadEthereu
       })
     });
     rateStrategies[4] = IAaveV2ConfigEngine.RateStrategyUpdate({
-      asset: AaveV2EthereumAssets.USDC_UNDERLYING,
+      asset: AaveV2EthereumAssets.DAI_UNDERLYING,
       params: IV2RateStrategyFactory.RateStrategyParams({
-        optimalUtilizationRate: _bpsToRay(60_00),
+        optimalUtilizationRate: _bpsToRay(50_00),
         baseVariableBorrowRate: _bpsToRay(5_00),
         variableRateSlope1: _bpsToRay(12_50),
         variableRateSlope2: _bpsToRay(40_00),
@@ -84,32 +85,33 @@ contract AaveV2Ethereum_AaveV2DeprecationUpdate_20250925 is AaveV2PayloadEthereu
   }
 
   function _postExecute() internal override {
-    ILendingPoolConfigurator poolConfigurator = ILendingPoolConfigurator(
-      AaveV2Ethereum.POOL_CONFIGURATOR
-    );
-    IAaveProtocolDataProvider dataProvider = IAaveProtocolDataProvider(
-      AaveV2Ethereum.AAVE_PROTOCOL_DATA_PROVIDER
-    );
-
     address[5] memory assets = [
-      AaveV2EthereumAssets.WETH_UNDERLYING, //WETH
-      AaveV2EthereumAssets.WBTC_UNDERLYING, //WBTC
-      AaveV2EthereumAssets.USDC_UNDERLYING, //USDC
-      AaveV2EthereumAssets.USDT_UNDERLYING, //USDT
-      AaveV2EthereumAssets.DAI_UNDERLYING //DAI
+      AaveV2EthereumAssets.WETH_UNDERLYING,
+      AaveV2EthereumAssets.WBTC_UNDERLYING,
+      AaveV2EthereumAssets.USDC_UNDERLYING,
+      AaveV2EthereumAssets.USDT_UNDERLYING,
+      AaveV2EthereumAssets.DAI_UNDERLYING
     ];
 
     for (uint256 i = 0; i < assets.length; i++) {
-      (, , , , , , , , , bool isFrozen) = dataProvider.getReserveConfigurationData(assets[i]);
+      (, , , , , , , , , bool isFrozen) = IAaveProtocolDataProvider(
+        AaveV2Ethereum.AAVE_PROTOCOL_DATA_PROVIDER
+      ).getReserveConfigurationData(assets[i]);
       if (!isFrozen) {
-        poolConfigurator.freezeReserve(assets[i]);
+        ILendingPoolConfigurator(AaveV2Ethereum.POOL_CONFIGURATOR).freezeReserve(assets[i]);
       }
     }
-    // USDC: 70% -> 85%
-    poolConfigurator.setReserveFactor(AaveV2EthereumAssets.USDC_UNDERLYING, 85_00);
-    // USDT: 70% -> 85%
-    poolConfigurator.setReserveFactor(AaveV2EthereumAssets.USDT_UNDERLYING, 85_00);
-    // DAI: 70% -> 85%
-    poolConfigurator.setReserveFactor(AaveV2EthereumAssets.DAI_UNDERLYING, 85_00);
+    ILendingPoolConfigurator(AaveV2Ethereum.POOL_CONFIGURATOR).setReserveFactor(
+      AaveV2EthereumAssets.USDC_UNDERLYING,
+      85_00
+    );
+    ILendingPoolConfigurator(AaveV2Ethereum.POOL_CONFIGURATOR).setReserveFactor(
+      AaveV2EthereumAssets.USDT_UNDERLYING,
+      85_00
+    );
+    ILendingPoolConfigurator(AaveV2Ethereum.POOL_CONFIGURATOR).setReserveFactor(
+      AaveV2EthereumAssets.DAI_UNDERLYING,
+      85_00
+    );
   }
 }
