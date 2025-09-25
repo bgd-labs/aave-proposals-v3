@@ -12,6 +12,11 @@ import {Gnosis_Ink_AaveV3GHOLane_20250814} from './remote-lanes/Gnosis_Ink_AaveV
 import {AaveV3Ink_GHOInkLaunch_20250814} from './AaveV3Ink_GHOInkLaunch_20250814.sol';
 import {ChainIds} from 'solidity-utils/contracts/utils/ChainHelpers.sol';
 
+/**
+ * @dev Deploy Ethereum
+ * deploy-command: make deploy-ledger contract=src/20250814_Multi_GHOInkLaunch/GHOInkLaunch_20250814.s.sol:DeployEthereum chain=mainnet
+ * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/GHOInkLaunch_20250814.s.sol/1/run-latest.json
+ */
 contract DeployEthereum is EthereumScript {
   function run() external broadcast {
     // deploy payloads
@@ -29,6 +34,11 @@ contract DeployEthereum is EthereumScript {
   }
 }
 
+/**
+ * @dev Deploy Arbitrum
+ * deploy-command: make deploy-ledger contract=src/20250814_Multi_GHOInkLaunch/GHOInkLaunch_20250814.s.sol:DeployArbitrum chain=arbitrum
+ * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/GHOInkLaunch_20250814.s.sol/42161/run-latest.json
+ */
 contract DeployArbitrum is ArbitrumScript {
   function run() external broadcast {
     // deploy payloads
@@ -46,6 +56,11 @@ contract DeployArbitrum is ArbitrumScript {
   }
 }
 
+/**
+ * @dev Deploy Base
+ * deploy-command: make deploy-ledger contract=src/20250814_Multi_GHOInkLaunch/GHOInkLaunch_20250814.s.sol:DeployBase chain=base
+ * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/GHOInkLaunch_20250814.s.sol/8453/run-latest.json
+ */
 contract DeployBase is BaseScript {
   function run() external broadcast {
     // deploy payloads
@@ -63,6 +78,11 @@ contract DeployBase is BaseScript {
   }
 }
 
+/**
+ * @dev Deploy Avalanche
+ * deploy-command: make deploy-ledger contract=src/20250814_Multi_GHOInkLaunch/GHOInkLaunch_20250814.s.sol:DeployAvalanche chain=avalanche
+ * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/GHOInkLaunch_20250814.s.sol/43114/run-latest.json
+ */
 contract DeployAvalanche is AvalancheScript {
   function run() external broadcast {
     // deploy payloads
@@ -80,6 +100,11 @@ contract DeployAvalanche is AvalancheScript {
   }
 }
 
+/**
+ * @dev Deploy Gnosis
+ * deploy-command: make deploy-ledger contract=src/20250814_Multi_GHOInkLaunch/GHOInkLaunch_20250814.s.sol:DeployGnosis chain=gnosis
+ * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/GHOInkLaunch_20250814.s.sol/100/run-latest.json
+ */
 contract DeployGnosis is GnosisScript {
   function run() external broadcast {
     // deploy payloads
@@ -97,6 +122,11 @@ contract DeployGnosis is GnosisScript {
   }
 }
 
+/**
+ * @dev Deploy Ink
+ * deploy-command: make deploy-ledger contract=src/20250814_Multi_GHOInkLaunch/GHOInkLaunch_20250814.s.sol:DeployInk chain=ink
+ * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/GHOInkLaunch_20250814.s.sol/57073/run-latest.json
+ */
 contract DeployInk is InkScript {
   function run() external broadcast {
     // deploy payloads
@@ -114,6 +144,10 @@ contract DeployInk is InkScript {
   }
 }
 
+/**
+ * @dev Create Proposal
+ * command: make deploy-ledger contract=src/20250814_Multi_GHOInkLaunch/GHOInkLaunch_20250814.s.sol:CreateProposal chain=mainnet
+ */
 contract CreateProposal is EthereumScript {
   function run() external {
     // create payloads
