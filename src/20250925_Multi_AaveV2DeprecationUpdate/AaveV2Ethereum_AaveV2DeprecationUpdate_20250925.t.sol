@@ -2,10 +2,9 @@
 pragma solidity ^0.8.0;
 
 import {AaveV2Ethereum} from 'aave-address-book/AaveV2Ethereum.sol';
-
-import 'forge-std/Test.sol';
 import {ProtocolV2TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV2TestBase.sol';
 import {AaveV2Ethereum_AaveV2DeprecationUpdate_20250925} from './AaveV2Ethereum_AaveV2DeprecationUpdate_20250925.sol';
+import {AaveV2EthereumAssets} from 'aave-address-book/AaveV2Ethereum.sol';
 
 /**
  * @dev Test for AaveV2Ethereum_AaveV2DeprecationUpdate_20250925
@@ -28,5 +27,27 @@ contract AaveV2Ethereum_AaveV2DeprecationUpdate_20250925_Test is ProtocolV2TestB
       AaveV2Ethereum.POOL,
       address(proposal)
     );
+  }
+
+  function test_defaultProposalExecution_withAsserts() public {
+    address[5] memory assets = [
+      AaveV2EthereumAssets.WETH_UNDERLYING, //WETH
+      AaveV2EthereumAssets.WBTC_UNDERLYING, //WBTC
+      AaveV2EthereumAssets.USDC_UNDERLYING, //USDC
+      AaveV2EthereumAssets.USDT_UNDERLYING, //USDT
+      AaveV2EthereumAssets.DAI_UNDERLYING //DAI
+    ];
+
+    executePayload(vm, address(proposal));
+
+    ReserveConfig[] memory allConfigsAfter = createConfigurationSnapshot(
+      'post-AaveV2Ethereum_AaveV2DeprecationUpdate_20250925',
+      AaveV2Ethereum.POOL
+    );
+
+    for (uint256 i = 0; i < assets.length; i++) {
+      ReserveConfig memory cfgAfter = _findReserveConfig(allConfigsAfter, assets[i]);
+      assertTrue(cfgAfter.isFrozen, 'Reserve should be frozen');
+    }
   }
 }

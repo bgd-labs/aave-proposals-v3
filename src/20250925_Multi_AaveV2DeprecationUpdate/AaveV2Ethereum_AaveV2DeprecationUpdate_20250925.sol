@@ -6,7 +6,7 @@ import {AaveV2PayloadEthereum} from 'aave-helpers/src/v2-config-engine/AaveV2Pay
 import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
 import {IAaveV2ConfigEngine} from 'aave-helpers/src/v2-config-engine/IAaveV2ConfigEngine.sol';
 import {IV2RateStrategyFactory} from 'aave-helpers/src/v2-config-engine/IV2RateStrategyFactory.sol';
-import {ILendingPoolConfigurator} from 'aave-address-book/AaveV2.sol';
+import {ILendingPoolConfigurator, IAaveProtocolDataProvider} from 'aave-address-book/AaveV2.sol';
 import {AaveV2Ethereum} from 'aave-address-book/AaveV2Ethereum.sol';
 
 /**
@@ -87,7 +87,24 @@ contract AaveV2Ethereum_AaveV2DeprecationUpdate_20250925 is AaveV2PayloadEthereu
     ILendingPoolConfigurator poolConfigurator = ILendingPoolConfigurator(
       AaveV2Ethereum.POOL_CONFIGURATOR
     );
+    IAaveProtocolDataProvider dataProvider = IAaveProtocolDataProvider(
+      AaveV2Ethereum.AAVE_PROTOCOL_DATA_PROVIDER
+    );
 
+    address[5] memory assets = [
+      AaveV2EthereumAssets.WETH_UNDERLYING, //WETH
+      AaveV2EthereumAssets.WBTC_UNDERLYING, //WBTC
+      AaveV2EthereumAssets.USDC_UNDERLYING, //USDC
+      AaveV2EthereumAssets.USDT_UNDERLYING, //USDT
+      AaveV2EthereumAssets.DAI_UNDERLYING //DAI
+    ];
+
+    for (uint256 i = 0; i < assets.length; i++) {
+      (, , , , , , , , , bool isFrozen) = dataProvider.getReserveConfigurationData(assets[i]);
+      if (!isFrozen) {
+        poolConfigurator.freezeReserve(assets[i]);
+      }
+    }
     // USDC: 70% -> 85%
     poolConfigurator.setReserveFactor(AaveV2EthereumAssets.USDC_UNDERLYING, 85_00);
     // USDT: 70% -> 85%
