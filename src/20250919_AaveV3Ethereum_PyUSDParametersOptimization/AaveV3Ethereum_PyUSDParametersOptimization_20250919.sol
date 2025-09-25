@@ -62,8 +62,8 @@ contract AaveV3Ethereum_PyUSDParametersOptimization_20250919 is AaveV3PayloadEth
     updates[0] = IAaveV3ConfigEngine.CollateralUpdate({
       asset: AaveV3EthereumAssets.PYUSD_UNDERLYING,
       ltv: 0,
-      liqThreshold: 0,
-      liqBonus: 0,
+      liqThreshold: EngineFlags.KEEP_CURRENT,
+      liqBonus: EngineFlags.KEEP_CURRENT,
       debtCeiling: EngineFlags.KEEP_CURRENT,
       liqProtocolFee: EngineFlags.KEEP_CURRENT
     });

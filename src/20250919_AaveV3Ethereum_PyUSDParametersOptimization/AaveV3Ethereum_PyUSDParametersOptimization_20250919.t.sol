@@ -1,13 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
-
-import 'forge-std/Test.sol';
+import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Ethereum_PyUSDParametersOptimization_20250919} from './AaveV3Ethereum_PyUSDParametersOptimization_20250919.sol';
-import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
-import {GovV3Helpers} from 'aave-helpers/src/GovV3Helpers.sol';
 
 /**
  * @dev Test for AaveV3Ethereum_PyUSDParametersOptimization_20250919
