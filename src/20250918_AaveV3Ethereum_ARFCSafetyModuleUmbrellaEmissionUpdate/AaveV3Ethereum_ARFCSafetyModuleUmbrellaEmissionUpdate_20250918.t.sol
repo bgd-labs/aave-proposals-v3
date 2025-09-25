@@ -2,7 +2,6 @@
 pragma solidity ^0.8.0;
 
 import {AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
-
 import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Ethereum_ARFCSafetyModuleUmbrellaEmissionUpdate_20250918} from './AaveV3Ethereum_ARFCSafetyModuleUmbrellaEmissionUpdate_20250918.sol';
