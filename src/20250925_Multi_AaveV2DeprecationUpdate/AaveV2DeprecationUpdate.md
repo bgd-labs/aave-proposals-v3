@@ -1,6 +1,6 @@
 ---
 title: "Aave v2 Deprecation - Update"
-author: "@TokenLogic"
+author: "@TokenLogic & BGD Labs @bgdlabs"
 discussions: "https://governance.aave.com/t/arfc-aave-v2-deprecation-update/23008/2"
 snapshot: "https://snapshot.box/#/s:aavedao.eth/proposal/0x0c5427caf17d21b321a3b62362d085e580446b136b0eccf7f4dc377856025486"
 ---
@@ -22,6 +22,10 @@ For commonly borrowed assets, the Base parameter is increased to 5%, with furthe
 Additionally, the Reserve Factor is increased to 85%, resulting in lower deposit rates that discourage idle capital remaining in v2.
 
 These changes represent a coordinated effort among several service providers to align incentives and ensure the long-term health of the Aave ecosystem.
+
+---
+
+In [proposal 378](https://vote.onaave.com/proposal/?proposalId=378&ipfsHash=0x81a22e1d8c05b3061c45954cc83c807553fed9fae55cb6e074edf8f8557f5f8b), the metadata(symbol & name) was incorrectly configured on the aWBTC implementation due to minor technical differences between the v2 versions. Therefore, this proposal will update the aWBTC implementation on mainnet core, with a code-wise identical but correctly initialized version.
 
 ## Specification
 

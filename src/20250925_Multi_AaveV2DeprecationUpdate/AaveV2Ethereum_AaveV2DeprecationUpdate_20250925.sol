@@ -16,6 +16,8 @@ import {AaveV2Ethereum} from 'aave-address-book/AaveV2Ethereum.sol';
  * - Discussion: https://governance.aave.com/t/arfc-aave-v2-deprecation-update/23008/2
  */
 contract AaveV2Ethereum_AaveV2DeprecationUpdate_20250925 is AaveV2PayloadEthereum {
+  address public constant WBTC_IMPL = 0x5c7b3F858F8fBb4d1Fc525d51f82Cb5715c68c27;
+
   function rateStrategiesUpdates()
     public
     pure
@@ -94,5 +96,8 @@ contract AaveV2Ethereum_AaveV2DeprecationUpdate_20250925 is AaveV2PayloadEthereu
     poolConfigurator.setReserveFactor(AaveV2EthereumAssets.USDT_UNDERLYING, 85_00);
     // DAI: 70% -> 85%
     poolConfigurator.setReserveFactor(AaveV2EthereumAssets.DAI_UNDERLYING, 85_00);
+
+    // Upgrade WBTC impl
+    AaveV2Ethereum.POOL_CONFIGURATOR.updateAToken(AaveV2EthereumAssets.WBTC_UNDERLYING, WBTC_IMPL);
   }
 }
