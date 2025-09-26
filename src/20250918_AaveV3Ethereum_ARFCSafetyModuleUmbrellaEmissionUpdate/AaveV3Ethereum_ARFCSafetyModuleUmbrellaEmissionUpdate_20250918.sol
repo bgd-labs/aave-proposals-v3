@@ -21,7 +21,6 @@ contract AaveV3Ethereum_ARFCSafetyModuleUmbrellaEmissionUpdate_20250918 is
   uint256 public constant NEW_MAX_SLASHING_PCT = 0;
 
   uint256 public constant NEW_COOLDOWN_PERIOD_AAVE = 7 days;
-  uint256 public constant NEW_COOLDOWN_PERIOD_ABPT = 20 days;
 
   address public constant AAVE_LIQUIDITY_SAFE = 0xAAA973Fe8A6202947e21D0a3a43d8E83ABE35C23;
 
@@ -41,7 +40,6 @@ contract AaveV3Ethereum_ARFCSafetyModuleUmbrellaEmissionUpdate_20250918 is
 
   function _setCooldownPeriod() internal {
     IStakeToken(AaveSafetyModule.STK_AAVE).setCooldownSeconds(NEW_COOLDOWN_PERIOD_AAVE);
-    IStakeToken(AaveSafetyModule.STK_ABPT).setCooldownSeconds(NEW_COOLDOWN_PERIOD_ABPT);
   }
 
   function _setLiquiditySafeAllowances() internal {
