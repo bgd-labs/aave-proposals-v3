@@ -1,10 +1,14 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {AaveV2Ethereum} from 'aave-address-book/AaveV2Ethereum.sol';
+import {AaveV2Ethereum, AaveV2EthereumAssets} from 'aave-address-book/AaveV2Ethereum.sol';
+
+import 'forge-std/Test.sol';
 import {ProtocolV2TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV2TestBase.sol';
 import {AaveV2Ethereum_AaveV2DeprecationUpdate_20250925} from './AaveV2Ethereum_AaveV2DeprecationUpdate_20250925.sol';
-import {AaveV2EthereumAssets} from 'aave-address-book/AaveV2Ethereum.sol';
+import {IERC20Metadata} from 'openzeppelin-contracts/contracts/token/ERC20/extensions/IERC20Metadata.sol';
+import {ProtocolV2TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV2TestBase.sol';
+import {AaveV2Ethereum_AaveV2DeprecationUpdate_20250925} from './AaveV2Ethereum_AaveV2DeprecationUpdate_20250925.sol';
 
 /**
  * @dev Test for AaveV2Ethereum_AaveV2DeprecationUpdate_20250925
@@ -26,6 +30,15 @@ contract AaveV2Ethereum_AaveV2DeprecationUpdate_20250925_Test is ProtocolV2TestB
       'AaveV2Ethereum_AaveV2DeprecationUpdate_20250925',
       AaveV2Ethereum.POOL,
       address(proposal)
+      // termporarily set to generate seatbelt
+      // ,true,
+      // true
+    );
+
+    assertEq(IERC20Metadata(AaveV2EthereumAssets.WBTC_A_TOKEN).symbol(), 'aWBTC');
+    assertEq(
+      IERC20Metadata(AaveV2EthereumAssets.WBTC_A_TOKEN).name(),
+      'Aave interest bearing WBTC'
     );
   }
 

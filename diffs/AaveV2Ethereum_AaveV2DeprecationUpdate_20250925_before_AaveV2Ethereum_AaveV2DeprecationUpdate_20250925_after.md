@@ -7,7 +7,10 @@
 | description | value before | value after |
 | --- | --- | --- |
 | isFrozen | false | true |
+| aTokenImpl | [0xA33eCc2125f6FD0b900945b149176D46f0474Ac4](https://etherscan.io/address/0xA33eCc2125f6FD0b900945b149176D46f0474Ac4) | [0x5c7b3F858F8fBb4d1Fc525d51f82Cb5715c68c27](https://etherscan.io/address/0x5c7b3F858F8fBb4d1Fc525d51f82Cb5715c68c27) |
 | interestRateStrategy | [0x32f3A6134590fc2d9440663d35a2F0a6265F04c4](https://etherscan.io/address/0x32f3A6134590fc2d9440663d35a2F0a6265F04c4) | [0xdbcea77E2C4A0e6158a7555C249f28A8Da449178](https://etherscan.io/address/0xdbcea77E2C4A0e6158a7555C249f28A8Da449178) |
+| aTokenName | ATOKEN_IMPL | Aave interest bearing WBTC |
+| aTokenSymbol | ATOKEN_IMPL | aWBTC |
 | optimalUsageRatio | 65 % | 25 % |
 | variableRateSlope2 | 300 % | 40 % |
 | maxExcessUsageRatio | 35 % | 75 % |
@@ -72,6 +75,18 @@
 {
   "reserves": {
     "0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599": {
+      "aTokenImpl": {
+        "from": "0xA33eCc2125f6FD0b900945b149176D46f0474Ac4",
+        "to": "0x5c7b3F858F8fBb4d1Fc525d51f82Cb5715c68c27"
+      },
+      "aTokenName": {
+        "from": "ATOKEN_IMPL",
+        "to": "Aave interest bearing WBTC"
+      },
+      "aTokenSymbol": {
+        "from": "ATOKEN_IMPL",
+        "to": "aWBTC"
+      },
       "interestRateStrategy": {
         "from": "0x32f3A6134590fc2d9440663d35a2F0a6265F04c4",
         "to": "0xdbcea77E2C4A0e6158a7555C249f28A8Da449178"
@@ -251,9 +266,41 @@
     }
   },
   "raw": {
+    "0x013cde9e76fd7cab355b9f884ad8ee4ccb781278": {
+      "label": null,
+      "contract": null,
+      "balanceDiff": null,
+      "nonceDiff": {
+        "previousValue": 0,
+        "newValue": 1
+      },
+      "stateDiff": {}
+    },
+    "0x2d8a2d50d3158085180d32a9c0655b13bce81f22": {
+      "label": null,
+      "contract": null,
+      "balanceDiff": null,
+      "nonceDiff": {
+        "previousValue": 0,
+        "newValue": 1
+      },
+      "stateDiff": {}
+    },
+    "0x54be9db9e111ebce28c702825154f8c49e1ee93e": {
+      "label": null,
+      "contract": null,
+      "balanceDiff": null,
+      "nonceDiff": {
+        "previousValue": 0,
+        "newValue": 1
+      },
+      "stateDiff": {}
+    },
     "0x7d2768de32b0b80b7a3454c06bdac94a69ddc7a9": {
       "label": "AaveV2Ethereum.POOL",
+      "contract": "lib/aave-helpers/lib/aave-address-book/lib/aave-v3-origin/lib/solidity-utils/lib/openzeppelin-contracts-upgradeable/lib/openzeppelin-contracts/contracts/proxy/transparent/TransparentUpgradeableProxy.sol:TransparentUpgradeableProxy",
       "balanceDiff": null,
+      "nonceDiff": null,
       "stateDiff": {
         "0x212aa9bd7b173642810e5e991e9e9ed2f6ac3087d28021b9f35fb9d1a8d1160e": {
           "previousValue": "0x000000000000000000000000000000000000000000001b58011228a01e14189c",
@@ -297,9 +344,69 @@
         }
       }
     },
+    "0x8a50d613d683c1c381aa027c4d922ae55fd8a3b3": {
+      "label": null,
+      "contract": null,
+      "balanceDiff": null,
+      "nonceDiff": {
+        "previousValue": 0,
+        "newValue": 1
+      },
+      "stateDiff": {}
+    },
+    "0x9ff58f4ffb29fa2266ab25e75e2a8b3503311656": {
+      "label": "AaveV2Ethereum.ASSETS.WBTC.A_TOKEN",
+      "contract": "lib/aave-helpers/lib/aave-address-book/lib/aave-v3-origin/lib/solidity-utils/lib/openzeppelin-contracts-upgradeable/lib/openzeppelin-contracts/contracts/proxy/transparent/TransparentUpgradeableProxy.sol:TransparentUpgradeableProxy",
+      "balanceDiff": null,
+      "nonceDiff": null,
+      "stateDiff": {
+        "0x0000000000000000000000000000000000000000000000000000000000000000": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000003",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000004"
+        },
+        "0x0000000000000000000000000000000000000000000000000000000000000001": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000000"
+        },
+        "0x0000000000000000000000000000000000000000000000000000000000000037": {
+          "previousValue": "0x41544f4b454e5f494d504c000000000000000000000000000000000000000016",
+          "newValue": "0x4161766520696e7465726573742062656172696e672057425443000000000034"
+        },
+        "0x0000000000000000000000000000000000000000000000000000000000000038": {
+          "previousValue": "0x41544f4b454e5f494d504c000000000000000000000000000000000000000016",
+          "newValue": "0x615742544300000000000000000000000000000000000000000000000000000a"
+        },
+        "0x0000000000000000000000000000000000000000000000000000000000000039": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000008",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000008"
+        },
+        "0x000000000000000000000000000000000000000000000000000000000000003b": {
+          "previousValue": "0x2b79a3fd4103e532ba661f52e3b5590c8e944d650d1e75d11ea4b927fdbf4457",
+          "newValue": "0x0d89fcdd1f73494c0c9b12a97ab3f8def4cf0c9561300bbe79086cdd75514831"
+        },
+        "0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc": {
+          "previousValue": "0x000000000000000000000000a33ecc2125f6fd0b900945b149176d46f0474ac4",
+          "newValue": "0x0000000000000000000000005c7b3f858f8fbb4d1fc525d51f82cb5715c68c27",
+          "label": "Implementation slot"
+        },
+        "0x38395c5dceade9603479b177b68959049485df8aa97b39f3533039af5f456199": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000000"
+        },
+        "0x42a7b7dd785cd69714a189dffb3fd7d7174edc9ece837694ce50f7078f7c31ae": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000000"
+        }
+      }
+    },
     "0xbd37610bbb1ddc2a22797f7e3f531b59902b7ba7": {
       "label": "AaveV2Ethereum.RATES_FACTORY",
+      "contract": "lib/aave-helpers/lib/aave-address-book/lib/aave-v3-origin/lib/solidity-utils/lib/openzeppelin-contracts-upgradeable/lib/openzeppelin-contracts/contracts/proxy/transparent/TransparentUpgradeableProxy.sol:TransparentUpgradeableProxy",
       "balanceDiff": null,
+      "nonceDiff": {
+        "previousValue": 56,
+        "newValue": 61
+      },
       "stateDiff": {
         "0x0000000000000000000000000000000000000000000000000000000000000002": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000037",
@@ -349,7 +456,9 @@
     },
     "0xdabad81af85554e9ae636395611c58f7ec1aaec5": {
       "label": "GovernanceV3Ethereum.PAYLOADS_CONTROLLER",
+      "contract": "lib/aave-helpers/lib/aave-address-book/lib/aave-v3-origin/lib/solidity-utils/lib/openzeppelin-contracts-upgradeable/lib/openzeppelin-contracts/contracts/proxy/transparent/TransparentUpgradeableProxy.sol:TransparentUpgradeableProxy",
       "balanceDiff": null,
+      "nonceDiff": null,
       "stateDiff": {
         "0xd2e6ebac8330a1a1b0846b0b511eeb9510273e6698f84244b6c63e1b0339d6ac": {
           "previousValue": "0x0068d46daa000000000002000000000000000000000000000000000000000000",
@@ -360,6 +469,26 @@
           "newValue": "0x000000000000000000093a800000000000006902922b00000000000068d46dab"
         }
       }
+    },
+    "0xdbcea77e2c4a0e6158a7555c249f28a8da449178": {
+      "label": null,
+      "contract": null,
+      "balanceDiff": null,
+      "nonceDiff": {
+        "previousValue": 0,
+        "newValue": 1
+      },
+      "stateDiff": {}
+    },
+    "0xe20c172cc966db632af50d8740583b091c8ced80": {
+      "label": null,
+      "contract": null,
+      "balanceDiff": null,
+      "nonceDiff": {
+        "previousValue": 56,
+        "newValue": 61
+      },
+      "stateDiff": {}
     }
   }
 }
