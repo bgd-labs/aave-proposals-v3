@@ -15,12 +15,34 @@ The proposed changes aim to improve the capital efficiency of the Aave Safety Mo
 
 ## Specification
 
-This proposal when implemented via AIP will:
+If approved and executed, this proposal will implement the following updates:
+
+### 1. Reduce Slashing Risk
 
 | SM Category | Current | Proposed |
 | ----------- | ------- | -------- |
-| **stkAAVE** | 30%     | 0%       |
-| **stkABPT** | 30%     | 0%       |
+| **stkAAVE** | 10%     | 0%       |
+| **stkABPT** | 10%     | 0%       |
+
+### 2. Reduce Cooldown Period
+
+| SM Category | Current | Proposed |
+| ----------- | ------- | -------- |
+| **stkAAVE** | 20 days | 7 days   |
+| **stkABPT** | 20 days | 20 days  |
+
+### 3. AAVE/wETH Liquidity Funding
+
+Create allowances to a new **Aave Liquidity SAFE** for the equivalent of **$5M AAVE** and **$5M aEthWETH**, sourced from the Aave Ecosystem Reserve and the Aave Collector on Ethereum.
+
+- **Asset:** AAVE – `0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9`  
+  **Amount:** $5M USD equivalent
+- **Asset:** aEthWETH – `0x4d5F47FA6A74757f35C14fD3a6Ef8E3C9BC514E8`  
+  **Amount:** $5M USD equivalent
+- **Spender:** Aave Liquidity SAFE – `0xAAA973Fe8A6202947e21D0a3a43d8E83ABE35C23`
+- **Method:** `approve()` on the Ecosystem Reserve (AAVE) and Collector (aEthWETH) to the Liquidity SAFE
+
+The Liquidity SAFE signers follow the same configuration as other Asset SAFEs, requiring **3 of 4** approvals.
 
 ## References
 

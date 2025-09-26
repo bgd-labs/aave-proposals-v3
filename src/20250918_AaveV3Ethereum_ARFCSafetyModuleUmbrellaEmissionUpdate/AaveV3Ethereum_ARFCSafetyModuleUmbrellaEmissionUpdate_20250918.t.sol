@@ -16,7 +16,7 @@ contract AaveV3Ethereum_ARFCSafetyModuleUmbrellaEmissionUpdate_20250918_Test is 
   AaveV3Ethereum_ARFCSafetyModuleUmbrellaEmissionUpdate_20250918 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 23431964);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 23449402);
     proposal = new AaveV3Ethereum_ARFCSafetyModuleUmbrellaEmissionUpdate_20250918();
   }
 
