@@ -2,8 +2,6 @@
 pragma solidity ^0.8.0;
 
 import {AaveV2Avalanche} from 'aave-address-book/AaveV2Avalanche.sol';
-
-import 'forge-std/Test.sol';
 import {ProtocolV2TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV2TestBase.sol';
 import {AaveV2Avalanche_AaveV2DeprecationUpdate_20250925} from './AaveV2Avalanche_AaveV2DeprecationUpdate_20250925.sol';
 

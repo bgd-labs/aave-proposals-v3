@@ -23,9 +23,9 @@ contract AaveV2Polygon_AaveV2DeprecationUpdate_20250925 is AaveV2PayloadPolygon 
     IAaveV2ConfigEngine.RateStrategyUpdate[]
       memory rateStrategies = new IAaveV2ConfigEngine.RateStrategyUpdate[](6);
     rateStrategies[0] = IAaveV2ConfigEngine.RateStrategyUpdate({
-      asset: AaveV2PolygonAssets.DAI_UNDERLYING,
+      asset: AaveV2PolygonAssets.WETH_UNDERLYING,
       params: IV2RateStrategyFactory.RateStrategyParams({
-        optimalUtilizationRate: _bpsToRay(45_00),
+        optimalUtilizationRate: _bpsToRay(25_00),
         baseVariableBorrowRate: _bpsToRay(5_00),
         variableRateSlope1: _bpsToRay(15_00),
         variableRateSlope2: _bpsToRay(40_00),
@@ -34,44 +34,44 @@ contract AaveV2Polygon_AaveV2DeprecationUpdate_20250925 is AaveV2PayloadPolygon 
       })
     });
     rateStrategies[1] = IAaveV2ConfigEngine.RateStrategyUpdate({
-      asset: AaveV2PolygonAssets.USDC_UNDERLYING,
+      asset: AaveV2PolygonAssets.WBTC_UNDERLYING,
       params: IV2RateStrategyFactory.RateStrategyParams({
-        optimalUtilizationRate: _bpsToRay(65_00),
-        baseVariableBorrowRate: _bpsToRay(5_00),
-        variableRateSlope1: _bpsToRay(15_00),
+        optimalUtilizationRate: _bpsToRay(25_00),
+        baseVariableBorrowRate: _bpsToRay(20_00),
+        variableRateSlope1: EngineFlags.KEEP_CURRENT,
         variableRateSlope2: _bpsToRay(40_00),
         stableRateSlope1: EngineFlags.KEEP_CURRENT,
         stableRateSlope2: EngineFlags.KEEP_CURRENT
       })
     });
     rateStrategies[2] = IAaveV2ConfigEngine.RateStrategyUpdate({
-      asset: AaveV2PolygonAssets.USDT0_UNDERLYING,
+      asset: AaveV2PolygonAssets.USDC_UNDERLYING,
       params: IV2RateStrategyFactory.RateStrategyParams({
-        optimalUtilizationRate: _bpsToRay(35_00),
+        optimalUtilizationRate: _bpsToRay(65_00),
         baseVariableBorrowRate: _bpsToRay(5_00),
-        variableRateSlope1: _bpsToRay(15_00),
+        variableRateSlope1: EngineFlags.KEEP_CURRENT,
         variableRateSlope2: _bpsToRay(40_00),
         stableRateSlope1: EngineFlags.KEEP_CURRENT,
         stableRateSlope2: EngineFlags.KEEP_CURRENT
       })
     });
     rateStrategies[3] = IAaveV2ConfigEngine.RateStrategyUpdate({
-      asset: AaveV2PolygonAssets.WBTC_UNDERLYING,
+      asset: AaveV2PolygonAssets.DAI_UNDERLYING,
       params: IV2RateStrategyFactory.RateStrategyParams({
-        optimalUtilizationRate: _bpsToRay(25_00),
-        baseVariableBorrowRate: _bpsToRay(20_00),
-        variableRateSlope1: _bpsToRay(0),
+        optimalUtilizationRate: _bpsToRay(45_00),
+        baseVariableBorrowRate: _bpsToRay(5_00),
+        variableRateSlope1: EngineFlags.KEEP_CURRENT,
         variableRateSlope2: _bpsToRay(40_00),
         stableRateSlope1: EngineFlags.KEEP_CURRENT,
         stableRateSlope2: EngineFlags.KEEP_CURRENT
       })
     });
     rateStrategies[4] = IAaveV2ConfigEngine.RateStrategyUpdate({
-      asset: AaveV2PolygonAssets.WETH_UNDERLYING,
+      asset: AaveV2PolygonAssets.USDT0_UNDERLYING,
       params: IV2RateStrategyFactory.RateStrategyParams({
-        optimalUtilizationRate: _bpsToRay(25_00),
+        optimalUtilizationRate: _bpsToRay(35_00),
         baseVariableBorrowRate: _bpsToRay(5_00),
-        variableRateSlope1: _bpsToRay(15_00),
+        variableRateSlope1: EngineFlags.KEEP_CURRENT,
         variableRateSlope2: _bpsToRay(40_00),
         stableRateSlope1: EngineFlags.KEEP_CURRENT,
         stableRateSlope2: EngineFlags.KEEP_CURRENT
