@@ -1,5 +1,5 @@
 ---
-title: "Claim old Aave rewards and enable sentinel on celo, zksync"
+title: "Claim old StkAave rewards and enable sentinel on celo, zksync"
 author: "TokenLogic and BGD Labs (@bgdlabs)"
 discussions: TODO
 ---
