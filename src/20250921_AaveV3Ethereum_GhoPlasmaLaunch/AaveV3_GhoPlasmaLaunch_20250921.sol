@@ -4,6 +4,13 @@ pragma solidity ^0.8.0;
 import {AaveV3GHOLaunch} from '../helpers/gho-launch/AaveV3GHOLaunch.sol';
 import {GhoCCIPChains} from '../helpers/gho-launch/constants/GhoCCIPChains.sol';
 
+interface IRegistryModuleOwnerCustom {
+  /// @notice Registers the admin of the token using OZ's AccessControl DEFAULT_ADMIN_ROLE.
+  /// @param token The token to register the admin for.
+  /// @dev The caller must have the DEFAULT_ADMIN_ROLE as defined by the contract itself.
+  function registerAccessControlDefaultAdmin(address token) external;
+}
+
 /**
  * @title Gho Plasma Launch
  * @author @TokenLogic
@@ -14,14 +21,6 @@ contract AaveV3_GhoPlasmaLaunch_20250921 is AaveV3GHOLaunch {
   constructor() AaveV3GHOLaunch(GhoCCIPChains.PLASMA()) {}
 
   function _setupGhoAaveSteward() internal override {
-    // Do not setup Aave Core Steward, already created.
-  }
-
-  function _setupGhoBucketSteward() internal override {
-    // Do not setup Aave Gho Bucket Steward, already created.
-  }
-
-  function _setupGhoCCIPSteward() internal override {
-    // Do not setup Aave Gho Ccip Steward, already created.
+    // Do not setup Aave Core Steward, will be set up with Gho launch on Aave.
   }
 }

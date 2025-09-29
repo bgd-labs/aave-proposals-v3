@@ -6,7 +6,7 @@ import {AaveV3GHOLane} from '../../helpers/gho-launch/AaveV3GHOLane.sol';
 import {AaveV3_GhoPlasmaLaunch_20250921} from '../AaveV3_GhoPlasmaLaunch_20250921.sol';
 import {AaveV3GHOLaunchTest_PostExecution, AaveV3GHOLaunchTest_PreExecution} from '../../helpers/gho-launch/tests/AaveV3GHOLaunchTest.sol';
 
-uint256 constant PLASMA_BLOCK_NUMBER = 1559850;
+uint256 constant PLASMA_BLOCK_NUMBER = 2162830;
 
 contract AaveV3_GhoPlasmaLaunch_20250814_PreExecution is AaveV3GHOLaunchTest_PreExecution {
   // https://docs.chain.link/ccip/directory/mainnet/chain/plasma-mainnet

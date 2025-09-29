@@ -7,7 +7,7 @@ import {AaveV3GHOLane} from '../../../helpers/gho-launch/AaveV3GHOLane.sol';
 import {Ink_Plasma_AaveV3GHOLane_20250921} from '../../remote-lanes/Ink_Plasma_AaveV3GHOLane_20250921.sol';
 import {AaveV3InkWhitelabel} from 'aave-address-book/AaveV3InkWhitelabel.sol';
 
-uint256 constant INK_BLOCK_NUMBER = 42241190;
+uint256 constant INK_BLOCK_NUMBER = 25609830;
 
 contract Ink_Plasma_AaveV3GHOLane_20250921_Test_PreExecution is
   AaveV3GHORemoteLaneTest_PreExecution

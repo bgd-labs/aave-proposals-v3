@@ -48,7 +48,7 @@ abstract contract AaveV3GHOLaunch is AaveV3GHOLane {
   /**
    * @notice Executes the GHO Launch proposal
    */
-  function execute() external override {
+  function execute() external virtual override {
     _acceptTokenAdminRegistryAdminRole();
     _acceptTokenPoolOwnership();
     _setupStewardsAndTokenPoolOnGho();
