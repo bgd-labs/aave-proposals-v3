@@ -6,7 +6,7 @@ discussions: TODO
 
 ## Simple Summary
 
-Maintenance proposal to claim unclaimed StkAave rewards from the Ethereum V2 Incentives Controller and and activating Price Oracle Sentinel functionality on Aave V3 ZkSync and Celo instances.
+Maintenance proposal to claim unclaimed StkAave rewards from the Ethereum V2 Incentives Controller and activating Price Oracle Sentinel functionality on Aave V3 ZkSync and Celo instances.
 
 ## Motivation
 
