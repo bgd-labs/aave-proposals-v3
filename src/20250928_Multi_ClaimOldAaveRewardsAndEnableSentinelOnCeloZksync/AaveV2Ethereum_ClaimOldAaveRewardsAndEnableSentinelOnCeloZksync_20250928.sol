@@ -35,7 +35,7 @@ contract AaveV2Ethereum_ClaimOldAaveRewardsAndEnableSentinelOnCeloZksync_2025092
 /**
  * @dev part 1 payload: used to queue payload on govV2 (short-executor)
  *      payload to be called by executor-lvl-1 (govV3)
- * @title Claim old Aave rewards and temp disable BTC.b PoR
+ * @title Claim old Aave rewards and enable sentinel on celo, zksync
  * @author BGD Labs (@bgdlabs)
  * - Discussion: TODO
  */
@@ -67,7 +67,7 @@ contract AaveV2Ethereum_ClaimOldAaveRewardsAndEnableSentinelOnCeloZksync_2025092
 /**
  * @dev part 2 payload: used to execute payload using short-executor (govV2)
  *      payload to be called by executor-lvl-1 (govV3)
- * @title Claim old Aave rewards and temp disable BTC.b PoR
+ * @title Claim old Aave rewards and enable sentinel on celo, zksync
  * @author BGD Labs (@bgdlabs)
  * - Discussion: TODO
  */
@@ -75,7 +75,8 @@ contract AaveV2Ethereum_ClaimOldAaveRewardsAndEnableSentinelOnCeloZksync_2025092
   IProposalGenericExecutor
 {
   // referencing part1 as timing must be identical for the queue hash to match the executionHash
-  AaveV2Ethereum_ClaimOldAaveRewardsAndEnableSentinelOnCeloZksync_20250928_Part1 immutable PART_1;
+  AaveV2Ethereum_ClaimOldAaveRewardsAndEnableSentinelOnCeloZksync_20250928_Part1
+    public immutable PART_1;
 
   constructor(
     AaveV2Ethereum_ClaimOldAaveRewardsAndEnableSentinelOnCeloZksync_20250928_Part1 part1
