@@ -1,13 +1,14 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {AaveV2EthereumAssets} from 'aave-address-book/AaveV2Ethereum.sol';
+import {AaveV2Ethereum, AaveV2EthereumAssets} from 'aave-address-book/AaveV2Ethereum.sol';
+import {AaveV2EthereumAMM} from 'aave-address-book/AaveV2EthereumAMM.sol';
 import {AaveV2PayloadEthereum} from 'aave-helpers/src/v2-config-engine/AaveV2PayloadEthereum.sol';
 import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
 import {IAaveV2ConfigEngine} from 'aave-helpers/src/v2-config-engine/IAaveV2ConfigEngine.sol';
 import {IV2RateStrategyFactory} from 'aave-helpers/src/v2-config-engine/IV2RateStrategyFactory.sol';
 import {ILendingPoolConfigurator, IAaveProtocolDataProvider} from 'aave-address-book/AaveV2.sol';
-import {AaveV2Ethereum} from 'aave-address-book/AaveV2Ethereum.sol';
+import {IClinicSteward} from 'src/interfaces/IClinicSteward.sol';
 
 /**
  * @title Aave v2 Deprecation - Update
@@ -87,21 +88,17 @@ contract AaveV2Ethereum_AaveV2DeprecationUpdate_20250925 is AaveV2PayloadEthereu
   }
 
   function _postExecute() internal override {
-    address[5] memory assets = [
+    address[6] memory assets = [
       AaveV2EthereumAssets.WETH_UNDERLYING,
       AaveV2EthereumAssets.WBTC_UNDERLYING,
       AaveV2EthereumAssets.USDC_UNDERLYING,
       AaveV2EthereumAssets.USDT_UNDERLYING,
-      AaveV2EthereumAssets.DAI_UNDERLYING
+      AaveV2EthereumAssets.DAI_UNDERLYING,
+      AaveV2EthereumAssets.stETH_UNDERLYING
     ];
 
     for (uint256 i = 0; i < assets.length; i++) {
-      (, , , , , , , , , bool isFrozen) = IAaveProtocolDataProvider(
-        AaveV2Ethereum.AAVE_PROTOCOL_DATA_PROVIDER
-      ).getReserveConfigurationData(assets[i]);
-      if (!isFrozen) {
-        ILendingPoolConfigurator(AaveV2Ethereum.POOL_CONFIGURATOR).freezeReserve(assets[i]);
-      }
+      ILendingPoolConfigurator(AaveV2Ethereum.POOL_CONFIGURATOR).freezeReserve(assets[i]);
     }
     ILendingPoolConfigurator(AaveV2Ethereum.POOL_CONFIGURATOR).setReserveFactor(
       AaveV2EthereumAssets.USDC_UNDERLYING,
@@ -118,5 +115,9 @@ contract AaveV2Ethereum_AaveV2DeprecationUpdate_20250925 is AaveV2PayloadEthereu
 
     // Upgrade WBTC impl
     AaveV2Ethereum.POOL_CONFIGURATOR.updateAToken(AaveV2EthereumAssets.WBTC_UNDERLYING, WBTC_IMPL);
+
+    // renew budget
+    IClinicSteward(AaveV2Ethereum.CLINIC_STEWARD).setAvailableBudget(1_000_000e8);
+    IClinicSteward(AaveV2EthereumAMM.CLINIC_STEWARD).setAvailableBudget(2_500e8);
   }
 }
