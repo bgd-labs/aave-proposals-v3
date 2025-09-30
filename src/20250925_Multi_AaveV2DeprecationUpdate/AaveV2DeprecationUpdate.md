@@ -25,7 +25,11 @@ These changes represent a coordinated effort among several service providers to 
 
 ---
 
-In [proposal 378](https://vote.onaave.com/proposal/?proposalId=378&ipfsHash=0x81a22e1d8c05b3061c45954cc83c807553fed9fae55cb6e074edf8f8557f5f8b), the metadata(symbol & name) was incorrectly configured on the aWBTC implementation due to minor technical differences between the v2 versions. Therefore, this proposal will update the aWBTC implementation on mainnet core, with a code-wise identical but correctly initialized version.
+As a follow up to the [previous deprecation proposal](https://vote.onaave.com/proposal/?proposalId=378&ipfsHash=0x81a22e1d8c05b3061c45954cc83c807553fed9fae55cb6e074edf8f8557f5f8b) this proposal includes the following changes:
+
+- In proposal 378, the metadata(symbol & name) was incorrectly configured on the aWBTC implementation due to minor technical differences between the different v2 versions. Therefore, this proposal will update the aWBTC implementation on mainnet core, with a code-wise identical but correctly initialized version.
+- In proposal 378, the clinic steward was configured with estimated budgets based on the existing bad debt following the same practice as on [v3 activation](https://vote.onaave.com/proposal/?proposalId=270&ipfsHash=0x4043001b72316afa6b6728772941bfa08f127b66c1c006316a3f20510b6738ab) - namely taking the current deficit and adding a minor(5%) buffer on top.
+  While on v3 this worked fine, on v2 this estimation fell short. The `ClinicSteward` overestimated debt whenever a position is not clean, meaning when there is residual collateral. On v2 mainnet, this situation is far more common than on v3, which was not considered in the budget planning. Therefore this proposal sets the available budget to 1M$ on Core and 2.5k on AMM, respectively so the remaining bad debt can be covered.
 
 ## Specification
 
@@ -51,7 +55,12 @@ Slopes
 | USDT  | 12.50%         | 12.50%          | 60.00%         | 40.00%          |
 | DAI   | 12.50%         | 12.50%          | 60.00%         | 40.00%          |
 
-Additionally, freeze all reserves on Ethereum V2 Core.
+Additionally:
+
+- freeze all reserves on Ethereum V2 `Core` via `ILendingPoolConfigurator(AaveV2Ethereum.POOL_CONFIGURATOR).freezeReserve(asset)`.
+- updates the aWBTC impl on `Core` via `AaveV2Ethereum.POOL_CONFIGURATOR.updateAToken(AaveV2EthereumAssets.WBTC_UNDERLYING, WBTC_IMPL)`.
+- renews the budget for `Core`via `IClinicSteward(AaveV2Ethereum.CLINIC_STEWARD).setAvailableBudget(1_000_000e8)`.
+- renews the budget for `AMM` via `IClinicSteward(AaveV2EthereumAMM.CLINIC_STEWARD).setAvailableBudget(2_500e8)`.
 
 ### Polygon v2
 
@@ -105,6 +114,7 @@ Slopes
 
 - Implementation: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250925_Multi_AaveV2DeprecationUpdate/AaveV2Ethereum_AaveV2DeprecationUpdate_20250925.sol), [AaveV2Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250925_Multi_AaveV2DeprecationUpdate/AaveV2Polygon_AaveV2DeprecationUpdate_20250925.sol), [AaveV2Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250925_Multi_AaveV2DeprecationUpdate/AaveV2Avalanche_AaveV2DeprecationUpdate_20250925.sol)
 - Tests: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250925_Multi_AaveV2DeprecationUpdate/AaveV2Ethereum_AaveV2DeprecationUpdate_20250925.t.sol), [AaveV2Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250925_Multi_AaveV2DeprecationUpdate/AaveV2Polygon_AaveV2DeprecationUpdate_20250925.t.sol), [AaveV2Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250925_Multi_AaveV2DeprecationUpdate/AaveV2Avalanche_AaveV2DeprecationUpdate_20250925.t.sol)
+- [AToken code diff](https://github.com/bgd-labs/aave-proposals-v3/blob/main/diffs/1_0x9ff58f4ffb29fa2266ab25e75e2a8b3503311656_0xA33eCc2125f6FD0b900945b149176D46f0474Ac4_0x5c7b3F858F8fBb4d1Fc525d51f82Cb5715c68c27.diff)
 - [Snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0x0c5427caf17d21b321a3b62362d085e580446b136b0eccf7f4dc377856025486)
 - [Discussion](https://governance.aave.com/t/arfc-aave-v2-deprecation-update/23008/2)
 

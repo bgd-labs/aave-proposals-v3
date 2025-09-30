@@ -56,6 +56,13 @@
 | baseVariableBorrowRate | 1 % | 5 % |
 | interestRate | ![before](https://dash.onaave.com/api/static?variableRateSlope1=38000000000000000000000000&variableRateSlope2=800000000000000000000000000&optimalUsageRatio=800000000000000000000000000&baseVariableBorrowRate=10000000000000000000000000&maxVariableBorrowRate=undefined) | ![after](https://dash.onaave.com/api/static?variableRateSlope1=50000000000000000000000000&variableRateSlope2=400000000000000000000000000&optimalUsageRatio=250000000000000000000000000&baseVariableBorrowRate=50000000000000000000000000&maxVariableBorrowRate=undefined) |
 
+#### stETH ([0xae7ab96520DE3A18E5e111B5EaAb095312D7fE84](https://etherscan.io/address/0xae7ab96520DE3A18E5e111B5EaAb095312D7fE84))
+
+| description | value before | value after |
+| --- | --- | --- |
+| isFrozen | false | true |
+
+
 #### USDT ([0xdAC17F958D2ee523a2206206994597C13D831ec7](https://etherscan.io/address/0xdAC17F958D2ee523a2206206994597C13D831ec7))
 
 | description | value before | value after |
@@ -129,6 +136,12 @@
         "from": "0xb8975328Aa52c00B9Ec1e11e518C4900f2e6C62a",
         "to": "0x2D8A2d50D3158085180D32A9C0655b13bce81f22"
       },
+      "isFrozen": {
+        "from": false,
+        "to": true
+      }
+    },
+    "0xae7ab96520DE3A18E5e111B5EaAb095312D7fE84": {
       "isFrozen": {
         "from": false,
         "to": true
@@ -296,6 +309,18 @@
       },
       "stateDiff": {}
     },
+    "0x6a14ebe9a934c8efe15c3811a999149472876b56": {
+      "label": "AaveV2Ethereum.CLINIC_STEWARD",
+      "contract": null,
+      "balanceDiff": null,
+      "nonceDiff": null,
+      "stateDiff": {
+        "0x0000000000000000000000000000000000000000000000000000000000000001": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000377d0fad3160",
+          "newValue": "0x00000000000000000000000000000000000000000000000000005af3107a4000"
+        }
+      }
+    },
     "0x7d2768de32b0b80b7a3454c06bdac94a69ddc7a9": {
       "label": "AaveV2Ethereum.POOL",
       "contract": "lib/aave-helpers/lib/aave-address-book/lib/aave-v3-origin/lib/solidity-utils/lib/openzeppelin-contracts-upgradeable/lib/openzeppelin-contracts/contracts/proxy/transparent/TransparentUpgradeableProxy.sol:TransparentUpgradeableProxy",
@@ -333,6 +358,10 @@
         "0xa5ac31719d9f4564672a106339496685f6250ad08b6ee3bf8e1ddeb0c36d52d9": {
           "previousValue": "0x000000000000000000000000e85da2c9d406afe7a37f525b5cabeda42944db6f",
           "newValue": "0x0000000000000000000000008a50d613d683c1c381aa027c4d922ae55fd8a3b3"
+        },
+        "0xcac080dc8a089d3790b9187f12b917dc0cdef427b7c1d41c19021d30a82cbc30": {
+          "previousValue": "0x0000000000000000000000000000000000000000000003e8011229cc206c1c20",
+          "newValue": "0x0000000000000000000000000000000000000000000003e8031229cc206c1c20"
         },
         "0xe08aad639ffd10ccac329590adb88878e4ea69ff976a955eed6ae73f151b10cf": {
           "previousValue": "0x0000000000000000000000000000000000000000000023280108290420081c20",
@@ -479,6 +508,18 @@
         "newValue": 1
       },
       "stateDiff": {}
+    },
+    "0xe1e62c3ee0c581f715fbb0e23cda536fc29eeb2c": {
+      "label": "AaveV2EthereumAMM.CLINIC_STEWARD",
+      "contract": null,
+      "balanceDiff": null,
+      "nonceDiff": null,
+      "stateDiff": {
+        "0x0000000000000000000000000000000000000000000000000000000000000001": {
+          "previousValue": "0x00000000000000000000000000000000000000000000000000000011ab364662",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000003a35294400"
+        }
+      }
     },
     "0xe20c172cc966db632af50d8740583b091c8ced80": {
       "label": null,
