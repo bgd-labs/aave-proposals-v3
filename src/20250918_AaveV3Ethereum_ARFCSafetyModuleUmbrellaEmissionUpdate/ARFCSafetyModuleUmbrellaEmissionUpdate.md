@@ -29,7 +29,6 @@ If approved and executed, this proposal will implement the following updates:
 | SM Category | Current | Proposed |
 | ----------- | ------- | -------- |
 | **stkAAVE** | 20 days | 7 days   |
-| **stkABPT** | 20 days | 20 days  |
 
 ### 3. AAVE/wETH Liquidity Funding
 

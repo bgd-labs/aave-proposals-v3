@@ -22,10 +22,11 @@ contract AaveV3Ethereum_ARFCSafetyModuleUmbrellaEmissionUpdate_20250918 is
 
   uint256 public constant NEW_COOLDOWN_PERIOD_AAVE = 7 days;
 
+  //https://etherscan.io/address/0xaaa973fe8a6202947e21d0a3a43d8e83abe35c23
   address public constant AAVE_LIQUIDITY_SAFE = 0xAAA973Fe8A6202947e21D0a3a43d8E83ABE35C23;
 
-  uint256 public constant AAVE_ALLOWANCE = 18398.7 ether;
-  uint256 public constant WETH_ALLOWANCE = 1239.66 ether;
+  uint256 public constant AAVE_ALLOWANCE = 18398 ether;
+  uint256 public constant WETH_ALLOWANCE = 1239 ether;
 
   function execute() external override {
     _disableSlashingLegacyModules();
