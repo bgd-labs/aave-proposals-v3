@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 import {GhoCCIPChains} from '../../helpers/gho-launch/constants/GhoCCIPChains.sol';
 import {AaveV3GHOLane} from '../../helpers/gho-launch/AaveV3GHOLane.sol';
 import {AaveV3_GhoPlasmaLaunch_20250921} from '../AaveV3_GhoPlasmaLaunch_20250921.sol';
-import {AaveV3GHOLaunchTest_PostExecution, AaveV3GHOLaunchTest_PreExecution} from '../../helpers/gho-launch/tests/AaveV3GHOLaunchTest.sol';
+import {AaveV3GHOLaunch_1_6_Test_PostExecution, AaveV3GHOLaunchTest_PreExecution} from '../../helpers/gho-launch/tests/AaveV3GHOLaunchTest.sol';
 
 uint256 constant PLASMA_BLOCK_NUMBER = 2162830;
 
@@ -61,9 +61,9 @@ contract AaveV3_GhoPlasmaLaunch_20250814_PreExecution is AaveV3GHOLaunchTest_Pre
   }
 }
 
-contract AaveV3_GHOPlasmaLaunch_20250921_PostExecution is AaveV3GHOLaunchTest_PostExecution {
+contract AaveV3_GHOPlasmaLaunch_20250921_PostExecution is AaveV3GHOLaunch_1_6_Test_PostExecution {
   constructor()
-    AaveV3GHOLaunchTest_PostExecution(GhoCCIPChains.PLASMA(), 'plasma', PLASMA_BLOCK_NUMBER)
+    AaveV3GHOLaunch_1_6_Test_PostExecution(GhoCCIPChains.PLASMA(), 'plasma', PLASMA_BLOCK_NUMBER)
   {}
 
   function _deployAaveV3GHOLaneProposal() internal virtual override returns (AaveV3GHOLane) {

@@ -1,13 +1,14 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
+import {IERC20} from 'forge-std/interfaces/IERC20.sol';
 import {IUpgradeableBurnMintTokenPool_1_5_1} from 'src/interfaces/ccip/tokenPool/IUpgradeableBurnMintTokenPool.sol';
 import {IClient} from 'src/interfaces/ccip/IClient.sol';
 import {IInternal} from 'src/interfaces/ccip/IInternal.sol';
 import {IRouter} from 'src/interfaces/ccip/IRouter.sol';
 import {IRateLimiter} from 'src/interfaces/ccip/IRateLimiter.sol';
-import {IEVM2EVMOnRamp} from 'src/interfaces/ccip/IEVM2EVMOnRamp.sol';
-import {IEVM2EVMOffRamp_1_5} from 'src/interfaces/ccip/IEVM2EVMOffRamp.sol';
+import {IEVM2EVMOnRamp, IOnRamp_1_6} from 'src/interfaces/ccip/IEVM2EVMOnRamp.sol';
+import {IEVM2EVMOffRamp_1_5, IOffRamp_1_6} from 'src/interfaces/ccip/IEVM2EVMOffRamp.sol';
 import {ITokenAdminRegistry} from 'src/interfaces/ccip/ITokenAdminRegistry.sol';
 import {IGhoToken} from 'src/interfaces/IGhoToken.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
@@ -45,6 +46,7 @@ abstract contract AaveV3GHOLaneTest is ProtocolV3TestBase {
   IGhoAaveSteward internal immutable LOCAL_GHO_AAVE_CORE_STEWARD;
   IGhoBucketSteward internal immutable LOCAL_GHO_BUCKET_STEWARD;
   IGhoCcipSteward internal immutable LOCAL_GHO_CCIP_STEWARD;
+  address internal immutable LOCAL_LINK_TOKEN;
 
   address internal alice = makeAddr('alice');
   address internal bob = makeAddr('bob');
@@ -79,6 +81,7 @@ abstract contract AaveV3GHOLaneTest is ProtocolV3TestBase {
     LOCAL_GHO_AAVE_CORE_STEWARD = IGhoAaveSteward(localChainInfo.ghoAaveCoreSteward);
     LOCAL_GHO_BUCKET_STEWARD = IGhoBucketSteward(localChainInfo.ghoBucketSteward);
     LOCAL_GHO_CCIP_STEWARD = IGhoCcipSteward(localChainInfo.ghoCCIPSteward);
+    LOCAL_LINK_TOKEN = localChainInfo.linkToken;
   }
 
   ///// Constants to setup
@@ -111,15 +114,22 @@ abstract contract AaveV3GHOLaneTest is ProtocolV3TestBase {
     return IEVM2EVMOffRamp_1_5(_getOffRamp(REMOTE_CHAIN_SELECTOR));
   }
 
+  // Local Chain's outbound lane to Remote Chain (OnRamp address) Version 1.6.0
+  function _localOutboundLaneToRemote_1_6() internal view virtual returns (IOnRamp_1_6) {
+    return IOnRamp_1_6(_getOnRamp(REMOTE_CHAIN_SELECTOR));
+  }
+
+  // Local Chain's inbound lane from Remote Chain (OffRamp address) Version 1.6.0
+  function _localInboundLaneFromRemote_1_6() internal view virtual returns (IOffRamp_1_6) {
+    return IOffRamp_1_6(_getOffRamp_1_6(REMOTE_CHAIN_SELECTOR));
+  }
+
   function _deployAaveV3GHOLaneProposal() internal virtual returns (AaveV3GHOLane);
 
-  function _expectedSupportedChains()
-    internal
-    view
-    virtual
-    returns (GhoCCIPChains.ChainInfo[] memory)
-  {
-    return GhoCCIPChains.getAllChainsExcept(LOCAL_CHAIN_SELECTOR);
+  function _expectedSupportedChains(
+    bool excludeVersion_1_6
+  ) internal view virtual returns (GhoCCIPChains.ChainInfo[] memory) {
+    return GhoCCIPChains.getAllChainsExcept(LOCAL_CHAIN_SELECTOR, excludeVersion_1_6);
   }
 
   function _getOnRamp(uint64 chainSelector) internal view virtual returns (address) {
@@ -145,6 +155,19 @@ abstract contract AaveV3GHOLaneTest is ProtocolV3TestBase {
     return address(0);
   }
 
+  function _getOffRamp_1_6(uint64 chainSelector) internal view virtual returns (address) {
+    IRouter.OffRamp[] memory offRamps = LOCAL_CCIP_ROUTER.getOffRamps();
+    for (uint256 i = 0; i < offRamps.length; i++) {
+      if (
+        offRamps[i].sourceChainSelector == chainSelector &&
+        _hasOffRampExpectedVersion_1_6(offRamps[i].offRamp)
+      ) {
+        return offRamps[i].offRamp;
+      }
+    }
+    return address(0);
+  }
+
   function _offRampExpectedVersion() internal view virtual returns (string memory) {
     return 'EVM2EVMOffRamp 1.5.0';
   }
@@ -153,6 +176,16 @@ abstract contract AaveV3GHOLaneTest is ProtocolV3TestBase {
     return
       keccak256(bytes(IEVM2EVMOffRamp_1_5(offRamp).typeAndVersion())) ==
       keccak256(bytes(_offRampExpectedVersion()));
+  }
+
+  function _offRampExpectedVersion_1_6() internal view virtual returns (string memory) {
+    return 'OffRamp 1.6.0';
+  }
+
+  function _hasOffRampExpectedVersion_1_6(address offRamp) internal view virtual returns (bool) {
+    return
+      keccak256(bytes(IOffRamp_1_6(offRamp).typeAndVersion())) ==
+      keccak256(bytes(_offRampExpectedVersion_1_6()));
   }
 
   function setUp() public virtual {
@@ -228,6 +261,17 @@ abstract contract AaveV3GHOLaneTest is ProtocolV3TestBase {
     assertEq(router.getOnRamp(dstSelector), address(onRamp));
   }
 
+  function _assertOnRamp_1_6(
+    IOnRamp_1_6 onRamp,
+    uint64 srcSelector,
+    uint64 dstSelector,
+    IRouter router
+  ) internal view virtual {
+    assertEq(onRamp.typeAndVersion(), 'OnRamp 1.6.0');
+    assertEq(onRamp.getStaticConfig().chainSelector, srcSelector);
+    assertEq(router.getOnRamp(dstSelector), address(onRamp));
+  }
+
   function _assertOffRamp(
     IEVM2EVMOffRamp_1_5 offRamp,
     uint64 srcSelector,
@@ -241,10 +285,21 @@ abstract contract AaveV3GHOLaneTest is ProtocolV3TestBase {
     assertTrue(router.isOffRamp(srcSelector, address(offRamp)));
   }
 
+  function _assertOffRamp_1_6(
+    IOffRamp_1_6 offRamp,
+    uint64 srcSelector,
+    uint64 dstSelector,
+    IRouter router
+  ) internal view virtual {
+    assertEq(offRamp.typeAndVersion(), 'OffRamp 1.6.0');
+    assertEq(offRamp.getStaticConfig().chainSelector, dstSelector);
+    assertTrue(router.isOffRamp(srcSelector, address(offRamp)));
+  }
+
   function _getTokenMessage(
     CCIPSendParams memory params
   ) internal virtual returns (IClient.EVM2AnyMessage memory, IInternal.EVM2EVMMessage memory) {
-    IClient.EVM2AnyMessage memory message = CCIPUtils.generateMessage(params.sender, 1);
+    IClient.EVM2AnyMessage memory message = CCIPUtils.generateMessage(params.sender, 1, address(0));
     message.tokenAmounts[0] = IClient.EVMTokenAmount({
       token: address(LOCAL_GHO_TOKEN),
       amount: params.amount
@@ -254,6 +309,41 @@ abstract contract AaveV3GHOLaneTest is ProtocolV3TestBase {
     deal(params.sender, feeAmount);
 
     IInternal.EVM2EVMMessage memory eventArg = CCIPUtils.messageToEvent(
+      CCIPUtils.MessageToEventParams({
+        message: message,
+        router: LOCAL_CCIP_ROUTER,
+        sourceChainSelector: LOCAL_CHAIN_SELECTOR,
+        destChainSelector: params.destChainSelector,
+        feeTokenAmount: feeAmount,
+        originalSender: params.sender,
+        sourceToken: address(LOCAL_GHO_TOKEN),
+        destinationToken: params.destToken
+      })
+    );
+
+    return (message, eventArg);
+  }
+
+  function _getTokenMessage_1_6(
+    CCIPSendParams memory params
+  ) internal virtual returns (IClient.EVM2AnyMessage memory, IInternal.EVM2AnyRampMessage memory) {
+    IClient.EVM2AnyMessage memory message = CCIPUtils.generateMessage_1_6(
+      params.sender,
+      1,
+      LOCAL_LINK_TOKEN
+    );
+    message.tokenAmounts[0] = IClient.EVMTokenAmount({
+      token: address(LOCAL_GHO_TOKEN),
+      amount: params.amount
+    });
+
+    uint256 feeAmount = LOCAL_CCIP_ROUTER.getFee(params.destChainSelector, message);
+    deal(LOCAL_LINK_TOKEN, params.sender, feeAmount);
+
+    vm.prank(alice);
+    IERC20(LOCAL_LINK_TOKEN).approve(address(LOCAL_CCIP_ROUTER), feeAmount);
+
+    IInternal.EVM2AnyRampMessage memory eventArg = CCIPUtils.messageToEvent_1_6(
       CCIPUtils.MessageToEventParams({
         message: message,
         router: LOCAL_CCIP_ROUTER,

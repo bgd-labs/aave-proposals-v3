@@ -64,7 +64,8 @@ abstract contract AaveV3GHOLaunch is AaveV3GHOLane {
     returns (IUpgradeableBurnMintTokenPool_1_5_1.ChainUpdate[] memory)
   {
     GhoCCIPChains.ChainInfo[] memory chainsToSupport = GhoCCIPChains.getAllChainsExcept(
-      LOCAL_CHAIN_SELECTOR
+      LOCAL_CHAIN_SELECTOR,
+      false
     );
     IUpgradeableBurnMintTokenPool_1_5_1.ChainUpdate[]
       memory chainsToAdd = new IUpgradeableBurnMintTokenPool_1_5_1.ChainUpdate[](

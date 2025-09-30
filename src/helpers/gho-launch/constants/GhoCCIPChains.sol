@@ -5,11 +5,11 @@ import {CCIPChainSelectors} from './CCIPChainSelectors.sol';
 import {CCIPChainTokenAdminRegistries} from './CCIPChainTokenAdminRegistries.sol';
 import {CCIPChainRouters} from './CCIPChainRouters.sol';
 
-import {AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
+import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {GhoEthereum} from 'aave-address-book/GhoEthereum.sol';
 
-import {AaveV3Arbitrum} from 'aave-address-book/AaveV3Arbitrum.sol';
+import {AaveV3Arbitrum, AaveV3ArbitrumAssets} from 'aave-address-book/AaveV3Arbitrum.sol';
 import {GovernanceV3Arbitrum} from 'aave-address-book/GovernanceV3Arbitrum.sol';
 import {GhoArbitrum} from 'aave-address-book/GhoArbitrum.sol';
 
@@ -49,6 +49,7 @@ library GhoCCIPChains {
    * @param tokenAdminRegistry The address of the token admin registry on the chain
    * @param owner The address of the owner (a.k.a. executor level 1) on the chain
    * @param ccipRouter The address of the CCIP router on the chain
+   * @param linkToken The address of the LINK token on the chain
    */
   struct ChainInfo {
     uint64 chainSelector;
@@ -61,6 +62,8 @@ library GhoCCIPChains {
     address tokenAdminRegistry;
     address owner;
     address ccipRouter;
+    address linkToken;
+    bool isVersion_1_6;
   }
 
   /**
@@ -82,10 +85,12 @@ library GhoCCIPChains {
   /**
    * @notice Returns all supported ChainInfo constants except the one specified
    * @param selectorChainToExclude The selector of the chain to exclude
+   * @param excludeVersion_1_6 Whether to exclude chains that are version 1.6.0
    * @return An array with all the ChainInfo constants supported except the one specified
    */
   function getAllChainsExcept(
-    uint64 selectorChainToExclude
+    uint64 selectorChainToExclude,
+    bool excludeVersion_1_6
   ) public pure returns (ChainInfo[] memory) {
     ChainInfo[] memory allChains = getAllChains();
     ChainInfo[] memory chainsToReturn = new ChainInfo[](allChains.length - 1);
@@ -102,12 +107,42 @@ library GhoCCIPChains {
   /**
    * @notice Returns all supported ChainInfo constants except the one specified
    * @param chainToExclude The chain to exclude
+   * * @param excludeVersion_1_6 Whether to exclude chains that are version 1.6.0
    * @return An array with all the ChainInfo constants supported except the one specified
    */
   function getAllChainsExcept(
-    ChainInfo memory chainToExclude
+    ChainInfo memory chainToExclude,
+    bool excludeVersion_1_6
   ) public pure returns (ChainInfo[] memory) {
-    return getAllChainsExcept(chainToExclude.chainSelector);
+    return getAllChainsExcept(chainToExclude.chainSelector, excludeVersion_1_6);
+  }
+
+  /**
+   * @notice Returns all supported 1.6.0 ChainInfo constants except the one specified
+   * @param selectorChainToExclude The selector of the chain to exclude the ChainInfo constant for
+   * @return An array with all the ChainInfo constants supported except the one specified
+   */
+  function getAll_1_6_ChainsExcept(
+    uint64 selectorChainToExclude
+  ) public pure returns (ChainInfo[] memory) {
+    ChainInfo[] memory allChains = getAllChains();
+
+    uint256 chains_1_6_Count = 0;
+    for (uint256 i = 0; i < allChains.length; i++) {
+      if (allChains[i].isVersion_1_6) {
+        chains_1_6_Count++;
+      }
+    }
+
+    ChainInfo[] memory chainsToReturn = new ChainInfo[](chains_1_6_Count);
+    uint256 j = 0;
+    for (uint256 i = 0; i < allChains.length; i++) {
+      if (allChains[i].isVersion_1_6 && allChains[i].chainSelector != selectorChainToExclude) {
+        chainsToReturn[j] = allChains[i];
+        j++;
+      }
+    }
+    return chainsToReturn;
   }
 
   /**
@@ -151,7 +186,9 @@ library GhoCCIPChains {
         aclManager: address(AaveV3Ethereum.ACL_MANAGER),
         tokenAdminRegistry: CCIPChainTokenAdminRegistries.ETHEREUM,
         owner: GovernanceV3Ethereum.EXECUTOR_LVL_1,
-        ccipRouter: CCIPChainRouters.ETHEREUM
+        ccipRouter: CCIPChainRouters.ETHEREUM,
+        linkToken: AaveV3EthereumAssets.LINK_UNDERLYING,
+        isVersion_1_6: false
       });
   }
 
@@ -171,7 +208,9 @@ library GhoCCIPChains {
         aclManager: address(AaveV3Arbitrum.ACL_MANAGER),
         tokenAdminRegistry: CCIPChainTokenAdminRegistries.ARBITRUM,
         owner: GovernanceV3Arbitrum.EXECUTOR_LVL_1,
-        ccipRouter: CCIPChainRouters.ARBITRUM
+        ccipRouter: CCIPChainRouters.ARBITRUM,
+        linkToken: AaveV3ArbitrumAssets.LINK_UNDERLYING,
+        isVersion_1_6: false
       });
   }
 
@@ -191,7 +230,9 @@ library GhoCCIPChains {
         aclManager: address(AaveV3Base.ACL_MANAGER),
         tokenAdminRegistry: CCIPChainTokenAdminRegistries.BASE,
         owner: GovernanceV3Base.EXECUTOR_LVL_1,
-        ccipRouter: CCIPChainRouters.BASE
+        ccipRouter: CCIPChainRouters.BASE,
+        linkToken: 0x88Fb150BDc53A65fe94Dea0c9BA0a6dAf8C6e196,
+        isVersion_1_6: false
       });
   }
 
@@ -211,7 +252,9 @@ library GhoCCIPChains {
         aclManager: address(AaveV3Avalanche.ACL_MANAGER),
         tokenAdminRegistry: CCIPChainTokenAdminRegistries.AVALANCHE,
         owner: GovernanceV3Avalanche.EXECUTOR_LVL_1,
-        ccipRouter: CCIPChainRouters.AVALANCHE
+        ccipRouter: CCIPChainRouters.AVALANCHE,
+        linkToken: 0x5947BB275c521040051D82396192181b413227A3,
+        isVersion_1_6: false
       });
   }
 
@@ -231,7 +274,9 @@ library GhoCCIPChains {
         aclManager: address(AaveV3Gnosis.ACL_MANAGER),
         tokenAdminRegistry: CCIPChainTokenAdminRegistries.GNOSIS,
         owner: GovernanceV3Gnosis.EXECUTOR_LVL_1,
-        ccipRouter: CCIPChainRouters.GNOSIS
+        ccipRouter: CCIPChainRouters.GNOSIS,
+        linkToken: 0xE2e73A1c69ecF83F464EFCE6A5be353a37cA09b2,
+        isVersion_1_6: false
       });
   }
 
@@ -251,7 +296,9 @@ library GhoCCIPChains {
         aclManager: address(AaveV3InkWhitelabel.ACL_MANAGER),
         tokenAdminRegistry: CCIPChainTokenAdminRegistries.INK,
         owner: GovernanceV3Ink.EXECUTOR_LVL_1,
-        ccipRouter: CCIPChainRouters.INK
+        ccipRouter: CCIPChainRouters.INK,
+        linkToken: 0x71052BAe71C25C78E37fD12E5ff1101A71d9018F,
+        isVersion_1_6: false
       });
   }
 
@@ -262,7 +309,7 @@ library GhoCCIPChains {
   function PLASMA() public pure returns (ChainInfo memory) {
     return
       ChainInfo({
-        chainSelector: CCIPChainSelectors.INK,
+        chainSelector: CCIPChainSelectors.PLASMA,
         ghoToken: 0xb77E872A68C62CfC0dFb02C067Ecc3DA23B4bbf3,
         ghoCCIPTokenPool: 0x360d8aa8F6b09B7BC57aF34db2Eb84dD87bf4d12,
         ghoBucketSteward: 0x2Ce400703dAcc37b7edFA99D228b8E70a4d3831B,
@@ -270,8 +317,10 @@ library GhoCCIPChains {
         ghoCCIPSteward: 0x20fd5f3FCac8883a3A0A2bBcD658A2d2c6EFa6B6,
         aclManager: address(AaveV3Plasma.ACL_MANAGER),
         tokenAdminRegistry: CCIPChainTokenAdminRegistries.PLASMA,
-        owner: GovernanceV3Ink.EXECUTOR_LVL_1,
-        ccipRouter: CCIPChainRouters.PLASMA
+        owner: GovernanceV3Plasma.EXECUTOR_LVL_1,
+        ccipRouter: CCIPChainRouters.PLASMA,
+        linkToken: 0x76a443768A5e3B8d1AED0105FC250877841Deb40,
+        isVersion_1_6: true
       });
   }
 }

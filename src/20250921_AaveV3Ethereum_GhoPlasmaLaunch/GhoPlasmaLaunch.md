@@ -7,7 +7,7 @@ snapshot: "https://snapshot.box/#/s:aavedao.eth/proposal/0xeb3572580924976867073
 
 ## Simple Summary
 
-This ARFC proposes deploying GHO on the Plasma blockchain. The goal is to establish GHO as a key stablecoin within Plasma’s ecosystem from inception, facilitating reward programs, liquidity incentives, and seamless integration with the upcoming Aave deployment on Plasma.
+This AIP proposes deploying GHO on the Plasma blockchain. The goal is to establish GHO as a key stablecoin within Plasma’s ecosystem from inception, facilitating reward programs, liquidity incentives, and seamless integration with the upcoming Aave deployment on Plasma.
 
 ## Motivation
 
@@ -23,6 +23,7 @@ This AIP includes a series of actions required to launch GHO on Plasma:
 
 1. Configure new Chainlink CCIP lanes between Plasma and the chains where GHO is launched with a rate limit of 1.5M GHO capacity and 300 GHO per second rate.
 2. Configure GhoCcipSteward.
+3. Configure GhoBucketSteward
 
 The table below lists the address of the new **Plasma** deployments
 
@@ -33,7 +34,6 @@ The table below lists the address of the new **Plasma** deployments
 | GhoOracle        | [0xb0e1c7830aA781362f79225559Aa068E6bDaF1d1](https://plasmascan.to/address/0xb0e1c7830aA781362f79225559Aa068E6bDaF1d1) |
 | GhoBucketSteward | [0x2Ce400703dAcc37b7edFA99D228b8E70a4d3831B](https://plasmascan.to/address/0x2Ce400703dAcc37b7edFA99D228b8E70a4d3831B) |
 | GhoCcipSteward   | [0x20fd5f3FCac8883a3A0A2bBcD658A2d2c6EFa6B6](https://plasmascan.to/address/0x20fd5f3FCac8883a3A0A2bBcD658A2d2c6EFa6B6) |
-| GhoAaveSteward   | [0xA5Ba213867E175A182a5dd6A9193C6158738105A](https://plasmascan.to/address/0xA5Ba213867E175A182a5dd6A9193C6158738105A) |
 
 ## References
 

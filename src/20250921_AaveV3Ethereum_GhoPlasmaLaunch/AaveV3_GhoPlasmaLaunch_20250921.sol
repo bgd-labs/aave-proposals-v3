@@ -4,13 +4,6 @@ pragma solidity ^0.8.0;
 import {AaveV3GHOLaunch} from '../helpers/gho-launch/AaveV3GHOLaunch.sol';
 import {GhoCCIPChains} from '../helpers/gho-launch/constants/GhoCCIPChains.sol';
 
-interface IRegistryModuleOwnerCustom {
-  /// @notice Registers the admin of the token using OZ's AccessControl DEFAULT_ADMIN_ROLE.
-  /// @param token The token to register the admin for.
-  /// @dev The caller must have the DEFAULT_ADMIN_ROLE as defined by the contract itself.
-  function registerAccessControlDefaultAdmin(address token) external;
-}
-
 /**
  * @title Gho Plasma Launch
  * @author @TokenLogic
