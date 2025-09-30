@@ -9,14 +9,11 @@ import {IAaveIncentivesController} from './interfaces/IAaveIncentivesController.
 import {IExecutor} from './interfaces/IExecutor.sol';
 
 /**
- * @dev payload to be called by the short executor (gov v2) to claim rewards
- * @title Claim old Aave rewards and enable sentinel on celo, zksync
+ * @title Claim old stkAave rewards
  * @author BGD Labs (@bgdlabs)
  * - Discussion: TODO
  */
-contract AaveV2Ethereum_ClaimOldAaveRewardsAndEnableSentinelOnCeloZksync_20250928 is
-  IProposalGenericExecutor
-{
+contract AaveV2Ethereum_ClaimOldStkAaveRewards_20250930 is IProposalGenericExecutor {
   function execute() external {
     IAaveIncentivesController(AaveV2Ethereum.DEFAULT_INCENTIVES_CONTROLLER).setClaimer(
       address(AaveV2Ethereum.COLLECTOR),
@@ -35,20 +32,16 @@ contract AaveV2Ethereum_ClaimOldAaveRewardsAndEnableSentinelOnCeloZksync_2025092
 /**
  * @dev part 1 payload: used to queue payload on govV2 (short-executor)
  *      payload to be called by executor-lvl-1 (govV3)
- * @title Claim old Aave rewards and enable sentinel on celo, zksync
+ * @title Claim old stkAave rewards
  * @author BGD Labs (@bgdlabs)
  * - Discussion: TODO
  */
-contract AaveV2Ethereum_ClaimOldAaveRewardsAndEnableSentinelOnCeloZksync_20250928_Part1 is
-  IProposalGenericExecutor
-{
+contract AaveV2Ethereum_ClaimOldStkAaveRewards_20250930_Part1 is IProposalGenericExecutor {
   uint256 public immutable EXECUTION_TIME;
   address public immutable PAYLOAD;
 
   constructor(uint256 executionTime) {
-    PAYLOAD = address(
-      new AaveV2Ethereum_ClaimOldAaveRewardsAndEnableSentinelOnCeloZksync_20250928()
-    );
+    PAYLOAD = address(new AaveV2Ethereum_ClaimOldStkAaveRewards_20250930());
     EXECUTION_TIME = executionTime;
   }
 
@@ -67,20 +60,15 @@ contract AaveV2Ethereum_ClaimOldAaveRewardsAndEnableSentinelOnCeloZksync_2025092
 /**
  * @dev part 2 payload: used to execute payload using short-executor (govV2)
  *      payload to be called by executor-lvl-1 (govV3)
- * @title Claim old Aave rewards and enable sentinel on celo, zksync
+ * @title Claim old stkAave rewards
  * @author BGD Labs (@bgdlabs)
  * - Discussion: TODO
  */
-contract AaveV2Ethereum_ClaimOldAaveRewardsAndEnableSentinelOnCeloZksync_20250928_Part2 is
-  IProposalGenericExecutor
-{
+contract AaveV2Ethereum_ClaimOldStkAaveRewards_20250930_Part2 is IProposalGenericExecutor {
   // referencing part1 as timing must be identical for the queue hash to match the executionHash
-  AaveV2Ethereum_ClaimOldAaveRewardsAndEnableSentinelOnCeloZksync_20250928_Part1
-    public immutable PART_1;
+  AaveV2Ethereum_ClaimOldStkAaveRewards_20250930_Part1 public immutable PART_1;
 
-  constructor(
-    AaveV2Ethereum_ClaimOldAaveRewardsAndEnableSentinelOnCeloZksync_20250928_Part1 part1
-  ) {
+  constructor(AaveV2Ethereum_ClaimOldStkAaveRewards_20250930_Part1 part1) {
     PART_1 = part1;
   }
 

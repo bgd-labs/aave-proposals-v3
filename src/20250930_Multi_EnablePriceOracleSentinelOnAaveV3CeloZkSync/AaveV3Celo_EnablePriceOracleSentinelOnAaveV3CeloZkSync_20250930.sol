@@ -5,11 +5,11 @@ import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGen
 import {AaveV3Celo} from 'aave-address-book/AaveV3Celo.sol';
 
 /**
- * @title Claim old Aave rewards and enable sentinel on celo, zksync
+ * @title Enable Price Oracle Sentinel on Aave V3 Celo, ZkSync
  * @author BGD Labs (@bgdlabs)
  * - Discussion: TODO
  */
-contract AaveV3Celo_ClaimOldAaveRewardsAndEnableSentinelOnCeloZksync_20250928 is
+contract AaveV3Celo_EnablePriceOracleSentinelOnAaveV3CeloZkSync_20250930 is
   IProposalGenericExecutor
 {
   address public constant PRICE_ORACLE_SENTINEL = 0x06C5c197EdFDF2Ed0A3757880242B2264EF7c3C2;

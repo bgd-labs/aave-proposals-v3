@@ -4,17 +4,17 @@ pragma solidity ^0.8.0;
 import {GovV3Helpers, IPayloadsControllerCore} from 'aave-helpers/src/GovV3Helpers.sol';
 
 import {ZkSyncScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
-import {AaveV3ZkSync_ClaimOldAaveRewardsAndEnableSentinelOnCeloZksync_20250928} from './AaveV3ZkSync_ClaimOldAaveRewardsAndEnableSentinelOnCeloZksync_20250928.sol';
+import {AaveV3ZkSync_EnablePriceOracleSentinelOnAaveV3CeloZkSync_20250930} from './AaveV3ZkSync_EnablePriceOracleSentinelOnAaveV3CeloZkSync_20250930.sol';
 
 /**
  * @dev Deploy ZkSync
- * deploy-command: make deploy-ledger-zk contract=zksync/src/20250928_Multi_ClaimOldAaveRewardsAndEnableSentinelOnCeloZksync/ClaimOldAaveRewardsAndEnableSentinelOnCeloZksync_20250928.s.sol:DeployZkSync chain=zksync
+ * deploy-command: make deploy-ledger-zk contract=zksync/src/20250930_Multi_EnablePriceOracleSentinelOnAaveV3CeloZkSync/EnablePriceOracleSentinelOnAaveV3CeloZkSync_20250930.s.sol:DeployZkSync chain=zksync
  */
 contract DeployZkSync is ZkSyncScript {
   function run() external broadcast {
     // deploy payloads
     address payload0 = address(
-      new AaveV3ZkSync_ClaimOldAaveRewardsAndEnableSentinelOnCeloZksync_20250928{salt: 'aave'}()
+      new AaveV3ZkSync_EnablePriceOracleSentinelOnAaveV3CeloZkSync_20250930{salt: 'aave'}()
     );
 
     // compose action
