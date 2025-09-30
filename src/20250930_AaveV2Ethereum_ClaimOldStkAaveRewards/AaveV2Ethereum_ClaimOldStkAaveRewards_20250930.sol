@@ -9,7 +9,7 @@ import {IAaveIncentivesController} from './interfaces/IAaveIncentivesController.
 import {IExecutor} from './interfaces/IExecutor.sol';
 
 /**
- * @title Claim old stkAave rewards
+ * @title Claim Aave v2 stkAAVE rewards
  * @author BGD Labs (@bgdlabs)
  * - Discussion: TODO
  */
@@ -32,7 +32,7 @@ contract AaveV2Ethereum_ClaimOldStkAaveRewards_20250930 is IProposalGenericExecu
 /**
  * @dev part 1 payload: used to queue payload on govV2 (short-executor)
  *      payload to be called by executor-lvl-1 (govV3)
- * @title Claim old stkAave rewards
+ * @title Claim Aave v2 stkAAVE rewards
  * @author BGD Labs (@bgdlabs)
  * - Discussion: TODO
  */
@@ -60,7 +60,7 @@ contract AaveV2Ethereum_ClaimOldStkAaveRewards_20250930_Part1 is IProposalGeneri
 /**
  * @dev part 2 payload: used to execute payload using short-executor (govV2)
  *      payload to be called by executor-lvl-1 (govV3)
- * @title Claim old stkAave rewards
+ * @title Claim Aave v2 stkAAVE rewards
  * @author BGD Labs (@bgdlabs)
  * - Discussion: TODO
  */

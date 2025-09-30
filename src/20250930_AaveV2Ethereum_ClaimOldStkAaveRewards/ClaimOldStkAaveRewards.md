@@ -1,5 +1,5 @@
 ---
-title: "Claim old stkAave rewards"
+title: "Claim Aave v2 stkAAVE rewards"
 author: "BGD Labs (@bgdlabs) and TokenLogic (@Token_Logic)"
 discussions: TODO
 ---

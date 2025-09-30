@@ -2,7 +2,7 @@ import {ConfigFile} from '../../generator/types';
 export const config: ConfigFile = {
   rootOptions: {
     pools: ['AaveV2Ethereum'],
-    title: 'Claim old stkAave rewards',
+    title: 'Claim Aave v2 stkAAVE rewards',
     shortName: 'ClaimOldStkAaveRewards',
     date: '20250930',
     author: 'BGD Labs (@bgdlabs)',
