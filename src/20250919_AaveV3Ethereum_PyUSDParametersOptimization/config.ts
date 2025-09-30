@@ -6,7 +6,7 @@ export const config: ConfigFile = {
     shortName: 'PyUSDParametersOptimization',
     date: '20250919',
     author: '@TokenLogic',
-    discussion: 'https://governance.aave.com/t/direct-to-aip-pyusd-parameters-optimization/23082/2',
+    discussion: 'https://governance.aave.com/t/direct-to-aip-pyusd-parameters-optimization/23082/3',
     snapshot: 'Direct-to-AIP',
     votingNetwork: 'POLYGON',
   },

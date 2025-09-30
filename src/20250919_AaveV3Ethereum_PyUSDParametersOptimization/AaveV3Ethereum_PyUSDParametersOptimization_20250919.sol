@@ -10,7 +10,7 @@ import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config
  * @title pyUSD Parameters Optimization
  * @author @TokenLogic
  * - Snapshot: Direct-to-AIP
- * - Discussion: https://governance.aave.com/t/direct-to-aip-pyusd-parameters-optimization/23082/2
+ * - Discussion: https://governance.aave.com/t/direct-to-aip-pyusd-parameters-optimization/23082/3
  */
 contract AaveV3Ethereum_PyUSDParametersOptimization_20250919 is AaveV3PayloadEthereum {
   function rateStrategiesUpdates()
