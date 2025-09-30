@@ -14,8 +14,6 @@ In order to be able to pass messages from Ethereum to Bob via a.DI (Aave Deliver
 
 The first case of message passing Ethereum → Bob is the activation proposal for an Aave v3 Bob pool and consequently, to be able to execute on the Bob side the payload, the Aave governance should approve in advance the a.DI adapters smart contracts.
 
-This procedure mirrors the requirements on previous networks like Soneium or Base.
-
 ## Specification
 
 The proposal payload simply registers pre-deployed Bob adapters (with the necessary configurations to communicate with the Bob a.DI) on the Ethereum a.DI instance.
