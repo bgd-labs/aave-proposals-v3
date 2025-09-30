@@ -55,7 +55,7 @@ contract AaveV2Ethereum_AaveV2DeprecationUpdate_20250925 is AaveV2PayloadEthereu
       params: IV2RateStrategyFactory.RateStrategyParams({
         optimalUtilizationRate: _bpsToRay(60_00),
         baseVariableBorrowRate: _bpsToRay(5_00),
-        variableRateSlope1: _bpsToRay(12_50),
+        variableRateSlope1: EngineFlags.KEEP_CURRENT,
         variableRateSlope2: _bpsToRay(40_00),
         stableRateSlope1: EngineFlags.KEEP_CURRENT,
         stableRateSlope2: EngineFlags.KEEP_CURRENT
@@ -66,7 +66,7 @@ contract AaveV2Ethereum_AaveV2DeprecationUpdate_20250925 is AaveV2PayloadEthereu
       params: IV2RateStrategyFactory.RateStrategyParams({
         optimalUtilizationRate: _bpsToRay(40_00),
         baseVariableBorrowRate: _bpsToRay(5_00),
-        variableRateSlope1: _bpsToRay(12_50),
+        variableRateSlope1: EngineFlags.KEEP_CURRENT,
         variableRateSlope2: _bpsToRay(40_00),
         stableRateSlope1: EngineFlags.KEEP_CURRENT,
         stableRateSlope2: EngineFlags.KEEP_CURRENT
@@ -77,7 +77,7 @@ contract AaveV2Ethereum_AaveV2DeprecationUpdate_20250925 is AaveV2PayloadEthereu
       params: IV2RateStrategyFactory.RateStrategyParams({
         optimalUtilizationRate: _bpsToRay(50_00),
         baseVariableBorrowRate: _bpsToRay(5_00),
-        variableRateSlope1: _bpsToRay(12_50),
+        variableRateSlope1: EngineFlags.KEEP_CURRENT,
         variableRateSlope2: _bpsToRay(40_00),
         stableRateSlope1: EngineFlags.KEEP_CURRENT,
         stableRateSlope2: EngineFlags.KEEP_CURRENT
