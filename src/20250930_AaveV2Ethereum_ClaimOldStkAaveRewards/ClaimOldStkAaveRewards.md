@@ -1,6 +1,6 @@
 ---
 title: "Claim old stkAave rewards"
-author: "BGD Labs (@bgdlabs) and TokenLogic"
+author: "BGD Labs (@bgdlabs) and TokenLogic (@Token_Logic)"
 discussions: TODO
 ---
 
