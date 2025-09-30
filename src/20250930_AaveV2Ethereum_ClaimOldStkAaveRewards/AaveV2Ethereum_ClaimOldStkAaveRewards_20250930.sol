@@ -11,7 +11,7 @@ import {IExecutor} from './interfaces/IExecutor.sol';
 /**
  * @title Claim Aave v2 stkAAVE rewards
  * @author BGD Labs (@bgdlabs)
- * - Discussion: TODO
+ * - Discussion: https://governance.aave.com/t/technical-maintenance-proposals/15274/115
  */
 contract AaveV2Ethereum_ClaimOldStkAaveRewards_20250930 is IProposalGenericExecutor {
   function execute() external {
@@ -34,7 +34,7 @@ contract AaveV2Ethereum_ClaimOldStkAaveRewards_20250930 is IProposalGenericExecu
  *      payload to be called by executor-lvl-1 (govV3)
  * @title Claim Aave v2 stkAAVE rewards
  * @author BGD Labs (@bgdlabs)
- * - Discussion: TODO
+ * - Discussion: https://governance.aave.com/t/technical-maintenance-proposals/15274/115
  */
 contract AaveV2Ethereum_ClaimOldStkAaveRewards_20250930_Part1 is IProposalGenericExecutor {
   uint256 public immutable EXECUTION_TIME;
@@ -62,7 +62,7 @@ contract AaveV2Ethereum_ClaimOldStkAaveRewards_20250930_Part1 is IProposalGeneri
  *      payload to be called by executor-lvl-1 (govV3)
  * @title Claim Aave v2 stkAAVE rewards
  * @author BGD Labs (@bgdlabs)
- * - Discussion: TODO
+ * - Discussion: https://governance.aave.com/t/technical-maintenance-proposals/15274/115
  */
 contract AaveV2Ethereum_ClaimOldStkAaveRewards_20250930_Part2 is IProposalGenericExecutor {
   // referencing part1 as timing must be identical for the queue hash to match the executionHash

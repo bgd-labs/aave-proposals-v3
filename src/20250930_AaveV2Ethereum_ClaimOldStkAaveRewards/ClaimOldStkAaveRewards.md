@@ -1,7 +1,7 @@
 ---
 title: "Claim Aave v2 stkAAVE rewards"
 author: "BGD Labs (@bgdlabs) and TokenLogic (@Token_Logic)"
-discussions: TODO
+discussions: https://governance.aave.com/t/technical-maintenance-proposals/15274/115
 ---
 
 ## Simple Summary
@@ -28,7 +28,7 @@ Since the `EMISSIONS_ADMIN` role resides with the legacy Aave V2 Governance Shor
 
 - Implementation: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250930_AaveV2Ethereum_ClaimOldStkAaveRewards/AaveV2Ethereum_ClaimOldStkAaveRewards_20250930.sol)
 - Tests: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250930_AaveV2Ethereum_ClaimOldStkAaveRewards/AaveV2Ethereum_ClaimOldStkAaveRewards_20250930.t.sol)
-- [Discussion](TODO)
+- [Discussion](https://governance.aave.com/t/technical-maintenance-proposals/15274/115)
 
 ## Copyright
 
