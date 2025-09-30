@@ -16,7 +16,7 @@ During routine treasury analysis, TokenLogic identified approximately ~560 StkAa
 
 To claim the unclaimed StkAave reward, the payload:
 
-- Sets Claimer Authorization: Calls `setClaimer()` on the Ethereum V2 Incentives Controller to authorize the Aave Collector's executor address as the claimer.
+- Sets Claimer Authorization: Calls `setClaimer()` on the Ethereum V2 Incentives Controller to authorize the executor address as the claimer.
 - Executes Claim: Calls `claimRewardsOnBehalf()` to claim all pending StkAave rewards and transfer them directly to the Aave Collector.
 
 Since the `EMISSIONS_ADMIN` role resides with the legacy Aave V2 Governance Short Executor, the implementation requires two additional payload contracts on Ethereum, to be called by the Governance V3 Lvl 1 Executor:
