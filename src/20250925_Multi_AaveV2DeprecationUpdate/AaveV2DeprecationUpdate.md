@@ -27,9 +27,9 @@ These changes represent a coordinated effort among several service providers to 
 
 As a follow up to the [previous deprecation proposal](https://vote.onaave.com/proposal/?proposalId=378&ipfsHash=0x81a22e1d8c05b3061c45954cc83c807553fed9fae55cb6e074edf8f8557f5f8b) this proposal includes the following changes:
 
-- In proposal 378, the metadata(symbol & name) was incorrectly configured on the aWBTC implementation due to minor technical differences between the different v2 versions. Therefore, this proposal will update the aWBTC implementation on mainnet core, with a code-wise identical but correctly initialized version.
+- In proposal 378, the metadata(symbol & name) was incorrectly configured on the aWBTC implementation due to minor technical differences between the different v2 versions. Therefore, this proposal will update the aWBTC implementation on mainnet `Core`, with a code-wise identical but correctly initialized version.
 - In proposal 378, the clinic steward was configured with estimated budgets based on the existing bad debt following the same practice as on [v3 activation](https://vote.onaave.com/proposal/?proposalId=270&ipfsHash=0x4043001b72316afa6b6728772941bfa08f127b66c1c006316a3f20510b6738ab) - namely taking the current deficit and adding a minor(5%) buffer on top.
-  While on v3 this worked fine, on v2 this estimation fell short. The `ClinicSteward` overestimated debt whenever a position is not clean, meaning when there is residual collateral. On v2 mainnet, this situation is far more common than on v3, which was not considered in the budget planning. Therefore this proposal sets the available budget to 1M$ on Core and 2.5k on AMM, respectively so the remaining bad debt can be covered.
+  While on v3 this worked fine, on v2 this estimation fell short. The `ClinicSteward` overestimated debt whenever a position is not clean, meaning when there is residual collateral. On v2 mainnet, this situation is far more common than on v3, which was not considered in the budget planning. Therefore this proposal sets the available budget to 1M$ on `Core` and 2.5k on `AMM`, respectively so the remaining bad debt can be covered.
 
 ## Specification
 
