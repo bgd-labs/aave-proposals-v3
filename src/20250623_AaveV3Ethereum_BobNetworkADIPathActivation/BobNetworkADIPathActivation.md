@@ -1,7 +1,7 @@
 ---
 title: "Bob Network aDI path activation"
 author: "BGD Labs @bgdlabs"
-discussions: TODO
+discussions: "https://governance.aave.com/t/technical-maintenance-proposals/15274/114"
 ---
 
 ## Simple Summary
@@ -51,7 +51,7 @@ The new Aave Governance deployments on Bob network are as follows:
 - Payload Implementation: [Payload](https://github.com/aave-dao/adi-deploy/blob/ed19600c9eae080d7506415b9e50069f0c8f92df/scripts/payloads/adapters/ethereum/Ethereum_Activate_Bob_Bridge_Adapter_Payload.s.sol)
 - Payload Tests: [tests](https://github.com/aave-dao/adi-deploy/blob/ed19600c9eae080d7506415b9e50069f0c8f92df/tests/payloads/ethereum/AddBobPathTest.t.sol)
 - Diffs: [a.DI diffs](https://github.com/aave-dao/adi-deploy/blob/ed19600c9eae080d7506415b9e50069f0c8f92df/diffs/adi_add_bob_path_to_adiethereum_before_adi_add_bob_path_to_adiethereum_after.md)
-- [Discussion](TODO)
+- [Discussion](https://governance.aave.com/t/technical-maintenance-proposals/15274/114)
 
 ## Copyright
 
