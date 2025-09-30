@@ -96,6 +96,7 @@ library GhoCCIPChains {
     ChainInfo[] memory chainsToReturn = new ChainInfo[](allChains.length - 1);
     uint256 j = 0;
     for (uint256 i = 0; i < allChains.length; i++) {
+      if (excludeVersion_1_6 && allChains[i].isVersion_1_6) continue;
       if (allChains[i].chainSelector != selectorChainToExclude) {
         chainsToReturn[j] = allChains[i];
         j++;
