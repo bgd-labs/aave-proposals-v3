@@ -21,13 +21,13 @@ To claim the unclaimed StkAave reward, the payload:
 
 Since the `EMISSIONS_ADMIN` role resides with the legacy Aave V2 Governance Short Executor, the implementation requires two additional payload contracts on Ethereum, to be called by the Governance V3 Lvl 1 Executor:
 
-- [PART 1](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250930_AaveV2Ethereum_ClaimOldStkAaveRewards/AaveV2Ethereum_ClaimOldStkAaveRewards_20250930.sol#L42) Queue Payload: Contract calling `queueTransaction()` to queue the execution on Governance V2 Short Executor
-- [PART 2](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250930_AaveV2Ethereum_ClaimOldStkAaveRewards/AaveV2Ethereum_ClaimOldStkAaveRewards_20250930.sol#L74) Execute Payload: Contract calling `executeTransaction()` to execute the queued transaction via Governance V2 Short Executor
+- [PART 1](https://github.com/bgd-labs/aave-proposals-v3/blob/824ed1e0ff750c659b689996011a50687bdd1f4e/src/20250930_AaveV2Ethereum_ClaimOldStkAaveRewards/AaveV2Ethereum_ClaimOldStkAaveRewards_20250930.sol#L42) Queue Payload: Contract calling `queueTransaction()` to queue the execution on Governance V2 Short Executor
+- [PART 2](https://github.com/bgd-labs/aave-proposals-v3/blob/824ed1e0ff750c659b689996011a50687bdd1f4e/src/20250930_AaveV2Ethereum_ClaimOldStkAaveRewards/AaveV2Ethereum_ClaimOldStkAaveRewards_20250930.sol#L74) Execute Payload: Contract calling `executeTransaction()` to execute the queued transaction via Governance V2 Short Executor
 
 ## References
 
-- Implementation: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250930_AaveV2Ethereum_ClaimOldStkAaveRewards/AaveV2Ethereum_ClaimOldStkAaveRewards_20250930.sol)
-- Tests: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250930_AaveV2Ethereum_ClaimOldStkAaveRewards/AaveV2Ethereum_ClaimOldStkAaveRewards_20250930.t.sol)
+- Implementation: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/824ed1e0ff750c659b689996011a50687bdd1f4e/src/20250930_AaveV2Ethereum_ClaimOldStkAaveRewards/AaveV2Ethereum_ClaimOldStkAaveRewards_20250930.sol)
+- Tests: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/824ed1e0ff750c659b689996011a50687bdd1f4e/src/20250930_AaveV2Ethereum_ClaimOldStkAaveRewards/AaveV2Ethereum_ClaimOldStkAaveRewards_20250930.t.sol)
 - [Discussion](https://governance.aave.com/t/technical-maintenance-proposals/15274/115)
 
 ## Copyright
