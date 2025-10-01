@@ -1,0 +1,30 @@
+Index: settings
+===================================================================
+--- settings
++++ settings
+@@ -19,9 +19,9 @@
+     "runs": 200
+   },
+   "metadata": {
+     "useLiteralContent": false,
+-    "bytecodeHash": "ipfs"
++    "bytecodeHash": "none"
+   },
+   "outputSelection": {
+     "*": {
+       "*": [
+Index: src/core/AToken/AToken/@aave/protocol-v2/contracts/protocol/tokenization/AToken.sol
+===================================================================
+--- src/core/AToken/AToken/@aave/protocol-v2/contracts/protocol/tokenization/AToken.sol
++++ src/core/AToken/AToken/@aave/protocol-v2/contracts/protocol/tokenization/AToken.sol
+@@ -30,9 +30,9 @@
+             "Permit(address owner,address spender,uint256 value,uint256 nonce,uint256 deadline)"
+         );
+ 
+     uint256 public constant UINT_MAX_VALUE = uint256(-1);
+-    uint256 public constant ATOKEN_REVISION = 0x3;
++    uint256 public constant ATOKEN_REVISION = 0x4;
+     address public immutable UNDERLYING_ASSET_ADDRESS;
+     address public immutable RESERVE_TREASURY_ADDRESS;
+     uint256 internal constant RELEASE_MARGIN = 10;
+ 
