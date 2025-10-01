@@ -6,6 +6,7 @@
 
 | description | value before | value after |
 | --- | --- | --- |
+| ltv | 75 % [7500] | 0 % [0] |
 | reserveFactor | 20 % [2000] | 10 % [1000] |
 | optimalUsageRatio | 80 % | 90 % |
 | maxVariableBorrowRate | 60.5 % | 56.5 % |
@@ -18,6 +19,10 @@
 {
   "reserves": {
     "0x6c3ea9036406852006290770BEdFcAbA0e23A0e8": {
+      "ltv": {
+        "from": 7500,
+        "to": 0
+      },
       "reserveFactor": {
         "from": 2000,
         "to": 1000
@@ -47,7 +52,7 @@
       "stateDiff": {
         "0x5d0932b3bfc1052ccb8f073298333897b875f4c2d9eba20cdc99f93ff1bc1875": {
           "previousValue": "0x100000000000000000000003e8003938700000e4e1c007d0850629fe1e781d4c",
-          "newValue": "0x100000000000000000000003e8003938700000e4e1c003e8850629fe1e781d4c"
+          "newValue": "0x100000000000000000000003e8003938700000e4e1c003e8850629fe1e780000"
         },
         "0x5d0932b3bfc1052ccb8f073298333897b875f4c2d9eba20cdc99f93ff1bc1876": {
           "previousValue": "0x00000000001010f1e68a352fcf65c21400000000036f05c5b29f70b397cb602f",

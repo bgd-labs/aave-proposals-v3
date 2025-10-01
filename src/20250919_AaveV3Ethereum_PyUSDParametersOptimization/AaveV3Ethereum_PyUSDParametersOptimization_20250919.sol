@@ -55,7 +55,12 @@ contract AaveV3Ethereum_PyUSDParametersOptimization_20250919 is AaveV3PayloadEth
     return borrowUpdates;
   }
 
-  function collateralUpdates() public pure returns (IAaveV3ConfigEngine.CollateralUpdate[] memory) {
+  function collateralsUpdates()
+    public
+    pure
+    override
+    returns (IAaveV3ConfigEngine.CollateralUpdate[] memory)
+  {
     IAaveV3ConfigEngine.CollateralUpdate[]
       memory updates = new IAaveV3ConfigEngine.CollateralUpdate[](1);
 
