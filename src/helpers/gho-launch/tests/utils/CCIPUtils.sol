@@ -5,6 +5,7 @@ import {IClient} from 'src/interfaces/ccip/IClient.sol';
 import {IRouter} from 'src/interfaces/ccip/IRouter.sol';
 import {IInternal} from 'src/interfaces/ccip/IInternal.sol';
 import {IEVM2EVMOnRamp, IOnRamp_1_6} from 'src/interfaces/ccip/IEVM2EVMOnRamp.sol';
+import {INonceManager} from 'src/interfaces/ccip/INonceManager.sol';
 
 library CCIPUtils {
   bytes32 internal constant LEAF_DOMAIN_SEPARATOR =
@@ -131,13 +132,19 @@ library CCIPUtils {
       args[i - 4] = params.message.extraArgs[i];
     }
 
+    IOnRamp_1_6.StaticConfig memory config = onRamp.getStaticConfig();
+    uint64 nonce = INonceManager(config.nonceManager).getOutboundNonce(
+      params.destChainSelector,
+      params.originalSender
+    ) + 1;
+
     IInternal.EVM2AnyRampMessage memory messageEvent = IInternal.EVM2AnyRampMessage({
       header: IInternal.RampMessageHeader({
         messageId: '',
         sourceChainSelector: params.sourceChainSelector,
         destChainSelector: params.destChainSelector,
         sequenceNumber: onRamp.getExpectedNextSequenceNumber(params.destChainSelector),
-        nonce: 1
+        nonce: nonce
       }),
       sender: params.originalSender,
       data: params.message.data,
