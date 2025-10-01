@@ -2,10 +2,11 @@
 pragma solidity ^0.8.0;
 
 import {AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
-
 import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Ethereum_AaveLiquidityCommitteeFundingPhaseVII_20250930} from './AaveV3Ethereum_AaveLiquidityCommitteeFundingPhaseVII_20250930.sol';
+import {AaveV3EthereumLidoAssets} from 'aave-address-book/AaveV3EthereumLido.sol';
+import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 
 /**
  * @dev Test for AaveV3Ethereum_AaveLiquidityCommitteeFundingPhaseVII_20250930
@@ -28,5 +29,32 @@ contract AaveV3Ethereum_AaveLiquidityCommitteeFundingPhaseVII_20250930_Test is P
       AaveV3Ethereum.POOL,
       address(proposal)
     );
+  }
+
+  function test_approvals() public {
+    assertEq(
+      IERC20(AaveV3EthereumLidoAssets.GHO_A_TOKEN).allowance(
+        address(AaveV3Ethereum.COLLECTOR),
+        proposal.ALC_SAFE()
+      ),
+      0
+    );
+
+    executePayload(vm, address(proposal));
+
+    uint256 allowanceGhoAfter = IERC20(AaveV3EthereumLidoAssets.GHO_A_TOKEN).allowance(
+      address(AaveV3Ethereum.COLLECTOR),
+      proposal.ALC_SAFE()
+    );
+
+    assertEq(allowanceGhoAfter, proposal.ALLOWANCE_AMOUNT());
+
+    vm.startPrank(proposal.ALC_SAFE());
+    IERC20(AaveV3EthereumLidoAssets.GHO_A_TOKEN).transferFrom(
+      address(AaveV3Ethereum.COLLECTOR),
+      proposal.ALC_SAFE(),
+      allowanceGhoAfter
+    );
+    vm.stopPrank();
   }
 }
