@@ -5,7 +5,6 @@ import {AaveV3GHORemoteLaneTest_PreExecution, AaveV3GHORemoteLane_1_6_Test_PostE
 import {GhoCCIPChains} from '../../../helpers/gho-launch/constants/GhoCCIPChains.sol';
 import {AaveV3GHOLane} from '../../../helpers/gho-launch/AaveV3GHOLane.sol';
 import {Ink_Plasma_AaveV3GHOLane_20250921} from '../../remote-lanes/Ink_Plasma_AaveV3GHOLane_20250921.sol';
-import {AaveV3InkWhitelabel} from 'aave-address-book/AaveV3InkWhitelabel.sol';
 
 uint256 constant INK_BLOCK_NUMBER = 25749464;
 
@@ -26,7 +25,7 @@ contract Ink_Plasma_AaveV3GHOLane_20250921_Test_PreExecution is
   }
 
   function test_defaultProposalExecution() public virtual {
-    defaultTest('Ink_Plasma_AaveV3GHOLane_20250921', AaveV3InkWhitelabel.POOL, address(proposal));
+    executePayload(vm, address(proposal));
   }
 
   function _assertOnAndOffRamps() internal view override {
