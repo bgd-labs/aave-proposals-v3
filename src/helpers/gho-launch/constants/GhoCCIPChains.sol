@@ -127,21 +127,19 @@ library GhoCCIPChains {
     uint64 selectorChainToExclude
   ) public pure returns (ChainInfo[] memory) {
     ChainInfo[] memory allChains = getAllChains();
+    ChainInfo[] memory chainsToReturn = new ChainInfo[](allChains.length);
+    uint256 count;
 
-    uint256 chains_1_6_Count = 0;
     for (uint256 i = 0; i < allChains.length; i++) {
-      if (allChains[i].isVersion_1_6) {
-        chains_1_6_Count++;
+      if (allChains[i].isVersion_1_6 && allChains[i].chainSelector != selectorChainToExclude) {
+        chainsToReturn[count] = allChains[i];
+        count++;
       }
     }
 
-    ChainInfo[] memory chainsToReturn = new ChainInfo[](chains_1_6_Count);
-    uint256 j = 0;
-    for (uint256 i = 0; i < allChains.length; i++) {
-      if (allChains[i].isVersion_1_6 && allChains[i].chainSelector != selectorChainToExclude) {
-        chainsToReturn[j] = allChains[i];
-        j++;
-      }
+    // we initialized chainsToReturn with max length, and then squash it to the correct size using mstore
+    assembly {
+      mstore(chainsToReturn, count)
     }
     return chainsToReturn;
   }
