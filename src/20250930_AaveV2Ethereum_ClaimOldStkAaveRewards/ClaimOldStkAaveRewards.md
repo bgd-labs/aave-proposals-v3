@@ -10,7 +10,7 @@ Maintenance proposal to claim unclaimed StkAave rewards from the Ethereum V2 Inc
 
 ## Motivation
 
-During routine treasury analysis, TokenLogic identified approximately ~560 StkAave tokens (~$150,000 at current market prices) sitting unclaimed in the Ethereum V2 Incentives Controller contract. These dormant rewards represent treasury assets that should be actively managed rather than left idle, making it prudent for the DAO to claim and transfer them to the Aave Collector for proper treasury optimization.
+During routine treasury analysis, TokenLogic identified approximately 560 StkAave tokens (around $150,000 at current market prices) sitting unclaimed in the Ethereum V2 Incentives Controller contract. These dormant rewards represent treasury assets that should be actively managed rather than left idle, making it prudent for the DAO to claim and transfer them to the Aave Collector for proper treasury optimization.
 
 ## Specification
 
