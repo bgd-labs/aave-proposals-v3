@@ -33,8 +33,8 @@ The following pyUSD Reserve parameters are to be updated:
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250919_AaveV3Ethereum_PyUSDParametersOptimization/AaveV3Ethereum_PyUSDParametersOptimization_20250919.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250919_AaveV3Ethereum_PyUSDParametersOptimization/AaveV3Ethereum_PyUSDParametersOptimization_20250919.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/03c5ae38f0960c6b159a89694341ae0beae58d1e/src/20250919_AaveV3Ethereum_PyUSDParametersOptimization/AaveV3Ethereum_PyUSDParametersOptimization_20250919.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/03c5ae38f0960c6b159a89694341ae0beae58d1e/src/20250919_AaveV3Ethereum_PyUSDParametersOptimization/AaveV3Ethereum_PyUSDParametersOptimization_20250919.t.sol)
 - Snapshot: Direct-to-AIP
 - [Discussion](https://governance.aave.com/t/direct-to-aip-pyusd-parameters-optimization/23082/3)
 
