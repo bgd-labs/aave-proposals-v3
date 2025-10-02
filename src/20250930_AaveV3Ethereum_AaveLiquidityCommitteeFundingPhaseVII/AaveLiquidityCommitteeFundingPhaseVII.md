@@ -32,8 +32,8 @@ ALC Ethereum SAFE: 0xA1c93D2687f7014Aaf588c764E3Ce80aF016229b
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250930_AaveV3Ethereum_AaveLiquidityCommitteeFundingPhaseVII/AaveV3Ethereum_AaveLiquidityCommitteeFundingPhaseVII_20250930.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20250930_AaveV3Ethereum_AaveLiquidityCommitteeFundingPhaseVII/AaveV3Ethereum_AaveLiquidityCommitteeFundingPhaseVII_20250930.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/c2687ffde3d62d7e55a1e3c3ed076ec17b1af4e2/src/20250930_AaveV3Ethereum_AaveLiquidityCommitteeFundingPhaseVII/AaveV3Ethereum_AaveLiquidityCommitteeFundingPhaseVII_20250930.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/c2687ffde3d62d7e55a1e3c3ed076ec17b1af4e2/src/20250930_AaveV3Ethereum_AaveLiquidityCommitteeFundingPhaseVII/AaveV3Ethereum_AaveLiquidityCommitteeFundingPhaseVII_20250930.t.sol)
 - [Snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0x2d105bc85e7805faa1d43e8a069b5c1ae2ee792d6f80cb62ce0e2aeb5b75d713)
 - [Discussion](https://governance.aave.com/t/arfc-aave-liquidity-committee-funding-phase-vii/23143)
 
