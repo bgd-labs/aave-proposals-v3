@@ -49,8 +49,14 @@ contract CreateProposal is EthereumScript {
     PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](2);
 
     // compose actions for validation
-    payloads[0] = GovV3Helpers.buildMainnetPayload(vm, GovV3Helpers.buildAction(address(0))); // TODO: payload part 1
-    payloads[1] = GovV3Helpers.buildMainnetPayload(vm, GovV3Helpers.buildAction(address(0))); // TODO: payload part 2
+    payloads[0] = GovV3Helpers.buildMainnetPayload(
+      vm,
+      GovV3Helpers.buildAction(0xDeE236343caB418810DC323F1cB2553Db569926a)
+    );
+    payloads[1] = GovV3Helpers.buildMainnetPayload(
+      vm,
+      GovV3Helpers.buildAction(0x8b19CB7F294d38E2dEA04658129f8a10F6bb1002)
+    );
 
     // create proposal
     vm.startBroadcast();
