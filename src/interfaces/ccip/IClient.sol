@@ -28,4 +28,14 @@ interface IClient {
   struct EVMExtraArgsV1 {
     uint256 gasLimit;
   }
+
+  /// @param gasLimit: gas limit for the callback on the destination chain.
+  /// @param allowOutOfOrderExecution: if true, it indicates that the message can be executed in any order relative to
+  /// other messages from the same sender. This value's default varies by chain. On some chains, a particular value is
+  /// enforced, meaning if the expected value is not set, the message request will revert.
+  /// @dev Fully compatible with the previously existing EVMExtraArgsV2.
+  struct GenericExtraArgsV2 {
+    uint256 gasLimit;
+    bool allowOutOfOrderExecution;
+  }
 }

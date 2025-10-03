@@ -4,7 +4,8 @@ pragma solidity ^0.8.0;
 import {IClient} from 'src/interfaces/ccip/IClient.sol';
 import {IRouter} from 'src/interfaces/ccip/IRouter.sol';
 import {IInternal} from 'src/interfaces/ccip/IInternal.sol';
-import {IEVM2EVMOnRamp} from 'src/interfaces/ccip/IEVM2EVMOnRamp.sol';
+import {IEVM2EVMOnRamp, IOnRamp_1_6} from 'src/interfaces/ccip/IEVM2EVMOnRamp.sol';
+import {INonceManager} from 'src/interfaces/ccip/INonceManager.sol';
 
 library CCIPUtils {
   bytes32 internal constant LEAF_DOMAIN_SEPARATOR =
@@ -12,7 +13,10 @@ library CCIPUtils {
   bytes32 internal constant INTERNAL_DOMAIN_SEPARATOR =
     0x0000000000000000000000000000000000000000000000000000000000000001;
   bytes32 internal constant EVM_2_EVM_MESSAGE_HASH = keccak256('EVM2EVMMessageHashV2');
+  bytes32 internal constant EVM_2_ANY_MESSAGE_HASH = keccak256('EVM2AnyMessageHashV1');
   bytes4 public constant EVM_EXTRA_ARGS_V1_TAG = 0x97a657c9;
+  bytes4 public constant GENERIC_EXTRA_ARGS_V2_TAG = 0x181dcf10;
+  uint32 internal constant DEFAULT_TOKEN_DEST_GAS_OVERHEAD = 90_000;
 
   struct SourceTokenData {
     bytes sourcePoolAddress;
@@ -34,15 +38,33 @@ library CCIPUtils {
 
   function generateMessage(
     address receiver,
-    uint256 tokenAmountsLength
+    uint256 tokenAmountsLength,
+    address feeToken
   ) internal pure returns (IClient.EVM2AnyMessage memory) {
     return
       IClient.EVM2AnyMessage({
         receiver: abi.encode(receiver),
         data: '',
         tokenAmounts: new IClient.EVMTokenAmount[](tokenAmountsLength),
-        feeToken: address(0),
+        feeToken: feeToken,
         extraArgs: argsToBytes(IClient.EVMExtraArgsV1({gasLimit: 0}))
+      });
+  }
+
+  function generateMessage_1_6(
+    address receiver,
+    uint256 tokenAmountsLength,
+    address feeToken
+  ) internal pure returns (IClient.EVM2AnyMessage memory) {
+    return
+      IClient.EVM2AnyMessage({
+        receiver: abi.encode(receiver),
+        data: '',
+        tokenAmounts: new IClient.EVMTokenAmount[](tokenAmountsLength),
+        feeToken: feeToken,
+        extraArgs: argsToBytes_1_6(
+          IClient.GenericExtraArgsV2({gasLimit: 0, allowOutOfOrderExecution: false})
+        )
       });
   }
 
@@ -90,24 +112,94 @@ library CCIPUtils {
 
     messageEvent.messageId = hash(
       messageEvent,
-      generateMetadataHash(params.sourceChainSelector, params.destChainSelector, address(onRamp))
+      generateMetadataHash(
+        EVM_2_EVM_MESSAGE_HASH,
+        params.sourceChainSelector,
+        params.destChainSelector,
+        address(onRamp)
+      )
+    );
+    return messageEvent;
+  }
+
+  function messageToEvent_1_6(
+    MessageToEventParams memory params
+  ) public view returns (IInternal.EVM2AnyRampMessage memory) {
+    IOnRamp_1_6 onRamp = IOnRamp_1_6(params.router.getOnRamp(params.destChainSelector));
+
+    bytes memory args = new bytes(params.message.extraArgs.length - 4);
+    for (uint256 i = 4; i < params.message.extraArgs.length; ++i) {
+      args[i - 4] = params.message.extraArgs[i];
+    }
+
+    IOnRamp_1_6.StaticConfig memory config = onRamp.getStaticConfig();
+    uint64 nonce = INonceManager(config.nonceManager).getOutboundNonce(
+      params.destChainSelector,
+      params.originalSender
+    ) + 1;
+
+    IInternal.EVM2AnyRampMessage memory messageEvent = IInternal.EVM2AnyRampMessage({
+      header: IInternal.RampMessageHeader({
+        messageId: '',
+        sourceChainSelector: params.sourceChainSelector,
+        destChainSelector: params.destChainSelector,
+        sequenceNumber: onRamp.getExpectedNextSequenceNumber(params.destChainSelector),
+        nonce: nonce
+      }),
+      sender: params.originalSender,
+      data: params.message.data,
+      receiver: params.message.receiver,
+      extraArgs: params.message.extraArgs,
+      feeToken: params.message.feeToken,
+      feeTokenAmount: params.feeTokenAmount,
+      feeValueJuels: params.feeTokenAmount,
+      tokenAmounts: new IInternal.EVM2AnyTokenTransfer[](params.message.tokenAmounts.length)
+    });
+
+    for (uint256 i = 0; i < params.message.tokenAmounts.length; ++i) {
+      messageEvent.tokenAmounts[i] = IInternal.EVM2AnyTokenTransfer({
+        sourcePoolAddress: onRamp.getPoolBySourceToken(
+          params.destChainSelector,
+          params.message.tokenAmounts[i].token
+        ),
+        destTokenAddress: abi.encode(params.destinationToken),
+        extraData: abi.encode(18),
+        amount: params.message.tokenAmounts[i].amount,
+        destExecData: abi.encode(DEFAULT_TOKEN_DEST_GAS_OVERHEAD)
+      });
+    }
+
+    messageEvent.header.messageId = hash_1_6(
+      messageEvent,
+      generateMetadataHash(
+        EVM_2_ANY_MESSAGE_HASH,
+        params.sourceChainSelector,
+        params.destChainSelector,
+        address(onRamp)
+      )
     );
     return messageEvent;
   }
 
   function generateMetadataHash(
+    bytes32 messageHash,
     uint64 sourceChainSelector,
     uint64 destChainSelector,
     address onRamp
   ) internal pure returns (bytes32) {
-    return
-      keccak256(abi.encode(EVM_2_EVM_MESSAGE_HASH, sourceChainSelector, destChainSelector, onRamp));
+    return keccak256(abi.encode(messageHash, sourceChainSelector, destChainSelector, onRamp));
   }
 
   function argsToBytes(
     IClient.EVMExtraArgsV1 memory extraArgs
   ) internal pure returns (bytes memory bts) {
     return abi.encodeWithSelector(EVM_EXTRA_ARGS_V1_TAG, extraArgs);
+  }
+
+  function argsToBytes_1_6(
+    IClient.GenericExtraArgsV2 memory extraArgs
+  ) internal pure returns (bytes memory bts) {
+    return abi.encodeWithSelector(GENERIC_EXTRA_ARGS_V2_TAG, extraArgs);
   }
 
   /// @dev Used to hash messages for single-lane ramps.
@@ -142,6 +234,34 @@ library CCIPUtils {
           keccak256(original.data),
           keccak256(abi.encode(original.tokenAmounts)),
           keccak256(abi.encode(original.sourceTokenData))
+        )
+      );
+  }
+
+  function hash_1_6(
+    IInternal.EVM2AnyRampMessage memory original,
+    bytes32 metadataHash
+  ) internal pure returns (bytes32) {
+    // Fixed-size message fields are included in nested hash to reduce stack pressure.
+    // This hashing scheme is also used by RMN. If changing it, please notify the RMN maintainers.
+    return
+      keccak256(
+        abi.encode(
+          LEAF_DOMAIN_SEPARATOR,
+          metadataHash,
+          keccak256(
+            abi.encode(
+              original.sender,
+              original.header.sequenceNumber,
+              original.header.nonce,
+              original.feeToken,
+              original.feeTokenAmount
+            )
+          ),
+          keccak256(original.receiver),
+          keccak256(original.data),
+          keccak256(abi.encode(original.tokenAmounts)),
+          keccak256(original.extraArgs)
         )
       );
   }

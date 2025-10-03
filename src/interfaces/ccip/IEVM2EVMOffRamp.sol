@@ -19,6 +19,35 @@ interface IEVM2EVMOffRamp_1_2 is ITypeAndVersion {
   ) external;
 }
 
+interface IOffRamp_1_6 is ITypeAndVersion {
+  /// @dev Struct that contains the static configuration. The individual components are stored as immutable variables.
+  // solhint-disable-next-line gas-struct-packing
+  struct StaticConfig {
+    uint64 chainSelector; // ───────╮ Destination chainSelector
+    uint16 gasForCallExactCheck; // | Gas for call exact check
+    address rmnRemote; // ───────╯ RMN Verification Contract
+    address tokenAdminRegistry; // Token admin registry address
+    address nonceManager; // Nonce manager address
+  }
+
+  /// @dev Dynamic offRamp config.
+  /// @dev Since DynamicConfig is part of DynamicConfigSet event, if changing it, we should update the ABI on Atlas.
+  struct DynamicConfig {
+    address feeQuoter; // ──────────────────────────────╮ FeeQuoter address on the local chain.
+    uint32 permissionLessExecutionThresholdSeconds; // ─╯ Waiting time before manual execution is enabled.
+    address messageInterceptor; // Optional, validates incoming messages (zero address = no interceptor).
+  }
+
+  /// @notice Returns the static config.
+  /// @dev This function will always return the same struct as the contents is static and can never change.
+  /// RMN depends on this function, if changing, please notify the RMN maintainers.
+  function getStaticConfig() external view returns (StaticConfig memory);
+
+  /// @notice Returns the current dynamic config.
+  /// @return The current config.
+  function getDynamicConfig() external view returns (DynamicConfig memory);
+}
+
 interface IEVM2EVMOffRamp_1_5 is ITypeAndVersion {
   /// @notice Static offRamp config
   /// @dev RMN depends on this struct, if changing, please notify the RMN maintainers.
