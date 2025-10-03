@@ -27,6 +27,7 @@ import {GhoGnosis} from 'aave-address-book/GhoGnosis.sol';
 
 import {AaveV3InkWhitelabel} from 'aave-address-book/AaveV3InkWhitelabel.sol';
 import {GovernanceV3Ink} from 'aave-address-book/GovernanceV3Ink.sol';
+import {GhoInk} from 'aave-address-book/GhoInk.sol';
 
 import {AaveV3Plasma} from 'aave-address-book/AaveV3Plasma.sol';
 import {GovernanceV3Plasma} from 'aave-address-book/GovernanceV3Plasma.sol';
@@ -287,11 +288,11 @@ library GhoCCIPChains {
     return
       ChainInfo({
         chainSelector: CCIPChainSelectors.INK,
-        ghoToken: 0xfc421aD3C883Bf9E7C4f42dE845C4e4405799e73,
-        ghoCCIPTokenPool: 0xDe6539018B095353A40753Dc54C91C68c9487D4E,
-        ghoBucketSteward: 0xA5Ba213867E175A182a5dd6A9193C6158738105A,
+        ghoToken: GhoInk.GHO_TOKEN,
+        ghoCCIPTokenPool: GhoInk.GHO_CCIP_TOKEN_POOL,
+        ghoBucketSteward: GhoInk.GHO_BUCKET_STEWARD,
         ghoAaveCoreSteward: address(0), // Aave Core Steward not available and won't be configured in the Ink GHO Launch proposal
-        ghoCCIPSteward: 0x2Ce400703dAcc37b7edFA99D228b8E70a4d3831B,
+        ghoCCIPSteward: GhoInk.GHO_CCIP_STEWARD,
         aclManager: address(AaveV3InkWhitelabel.ACL_MANAGER),
         tokenAdminRegistry: CCIPChainTokenAdminRegistries.INK,
         owner: GovernanceV3Ink.EXECUTOR_LVL_1,
