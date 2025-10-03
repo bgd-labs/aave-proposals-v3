@@ -51,11 +51,11 @@ contract CreateProposal is EthereumScript {
     // compose actions for validation
     payloads[0] = GovV3Helpers.buildMainnetPayload(
       vm,
-      GovV3Helpers.buildAction(0xDeE236343caB418810DC323F1cB2553Db569926a)
+      GovV3Helpers.buildAction(0x95D98A409Bd14A35150aa4dC5A43DE797001F90F)
     );
     payloads[1] = GovV3Helpers.buildMainnetPayload(
       vm,
-      GovV3Helpers.buildAction(0x8b19CB7F294d38E2dEA04658129f8a10F6bb1002)
+      GovV3Helpers.buildAction(0xd6fF119A67A33725a28852eFd5055E72Cb92C48f)
     );
 
     // create proposal
