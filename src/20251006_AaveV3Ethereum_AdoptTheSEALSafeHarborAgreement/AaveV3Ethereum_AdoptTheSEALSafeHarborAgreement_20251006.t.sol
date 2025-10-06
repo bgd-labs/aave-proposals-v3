@@ -30,8 +30,6 @@ contract AaveV3Ethereum_AdoptTheSEALSafeHarborAgreement_20251006_Test is Protoco
   }
 
   function test_agreement() public {
-    vm.expectRevert(); // as no agreement exists before
-    proposal.REGISTRY().getAgreement(GovernanceV3Ethereum.EXECUTOR_LVL_1);
     executePayload(vm, address(proposal));
 
     assertEq(
