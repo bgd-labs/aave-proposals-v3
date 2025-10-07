@@ -25,4 +25,7 @@ library CCIPChainSelectors {
 
   // https://docs.chain.link/ccip/directory/mainnet/chain/ethereum-mainnet-ink-1
   uint64 constant INK = 3461204551265785888;
+
+  // https://docs.chain.link/ccip/directory/mainnet/chain/plasma-mainnet
+  uint64 constant PLASMA = 9335212494177455608;
 }
