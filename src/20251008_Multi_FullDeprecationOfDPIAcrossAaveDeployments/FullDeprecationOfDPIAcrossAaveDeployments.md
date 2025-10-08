@@ -34,11 +34,11 @@ To finalize deprecation, the following adjustments are proposed:
 
 Following the deprecation of Chainlink DPI feeds, the price feeds for DPI will be updated to a fixed equivalent of $102 across all instances:
 
-| Asset | Instance    | Current Price Feed                                                                       | New Price Feed                                                                              | New Fixed Price Value |
-| ----- | ----------- | ---------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | --------------------- |
-| DPI   | Ethereum v2 | [CL DPI/ETH](https://etherscan.io/address/0x2fe9EcF3024B5A63f50Ec0eFC53b8fF2C09F2E93)    | [Fixed DPI/ETH](https://etherscan.io/address/0x92A6A444f5b433235297d849d2F93B405657234a)    | `0.022767 ETH`        |
-| DPI   | Polygon v2  | [CL DPI/ETH](https://polygonscan.com/address/0xC70aAF9092De3a4E5000956E672cDf5E996B4610) | [Fixed DPI/ETH](https://polygonscan.com/address/0xD550Bce1a506F48802C9A4464c64E14A3141cE73) | `0.022767 ETH`        |
-| DPI   | Polygon v3  | [CL DPI/USD](https://polygonscan.com/address/0x2e48b7924FBe04d575BA229A59b64547d9da16e9) | [Fixed DPI/USD](https://polygonscan.com/address/0x105fe43207ce8331555c9be8c13718d6ded2fd97) | `102 USD`             |
+| Asset | Instance    | Current Price Feed                                                                        | New Price Feed                                                                              | New Fixed Price Value |
+| ----- | ----------- | ----------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | --------------------- |
+| DPI   | Ethereum v2 | [CL DPI/USD/ETH](https://etherscan.io/address/0x2fe9EcF3024B5A63f50Ec0eFC53b8fF2C09F2E93) | [Fixed DPI/ETH](https://etherscan.io/address/0x92A6A444f5b433235297d849d2F93B405657234a)    | `0.022767 ETH`        |
+| DPI   | Polygon v2  | [CL DPI/ETH](https://polygonscan.com/address/0xC70aAF9092De3a4E5000956E672cDf5E996B4610)  | [Fixed DPI/ETH](https://polygonscan.com/address/0xD550Bce1a506F48802C9A4464c64E14A3141cE73) | `0.022767 ETH`        |
+| DPI   | Polygon v3  | [CL DPI/USD](https://polygonscan.com/address/0x2e48b7924FBe04d575BA229A59b64547d9da16e9)  | [Fixed DPI/USD](https://polygonscan.com/address/0x105fe43207ce8331555c9be8c13718d6ded2fd97) | `102 USD`             |
 
 ## References
 
