@@ -28,6 +28,9 @@ contract AaveV3Ink_AaveV3InkActivation_20250728 is AaveV3PayloadInkWhitelabel {
   address public constant USDG = 0xe343167631d89B6Ffc58B88d6b7fB0228795491D;
   uint256 public constant USDG_SEED_AMOUNT = 10e6;
 
+  address public constant GHO = 0xfc421aD3C883Bf9E7C4f42dE845C4e4405799e73;
+  uint256 public constant GHO_SEED_AMOUNT = 10e6;
+
   address public constant LM_ADMIN = 0xac140648435d03f784879cd789130F22Ef588Fcd;
 
   function _postExecute() internal override {
@@ -35,10 +38,11 @@ contract AaveV3Ink_AaveV3InkActivation_20250728 is AaveV3PayloadInkWhitelabel {
     _supplyAndConfigureLMAdmin(KBTC, KBTC_SEED_AMOUNT);
     _supplyAndConfigureLMAdmin(USDT, USDT_SEED_AMOUNT);
     _supplyAndConfigureLMAdmin(USDG, USDG_SEED_AMOUNT);
+    _supplyAndConfigureLMAdmin(GHO, GHO_SEED_AMOUNT);
   }
 
   function newListings() public pure override returns (IAaveV3ConfigEngine.Listing[] memory) {
-    IAaveV3ConfigEngine.Listing[] memory listings = new IAaveV3ConfigEngine.Listing[](4);
+    IAaveV3ConfigEngine.Listing[] memory listings = new IAaveV3ConfigEngine.Listing[](5);
 
     listings[0] = IAaveV3ConfigEngine.Listing({
       asset: WETH,
@@ -127,6 +131,29 @@ contract AaveV3Ink_AaveV3InkActivation_20250728 is AaveV3PayloadInkWhitelabel {
       liqProtocolFee: 0,
       rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
         optimalUsageRatio: 80_00,
+        baseVariableBorrowRate: 0,
+        variableRateSlope1: 5_50,
+        variableRateSlope2: 50_00
+      })
+    });
+    listings[4] = IAaveV3ConfigEngine.Listing({
+      asset: GHO,
+      assetSymbol: 'GHO',
+      priceFeed: 0x20fd5f3FCac8883a3A0A2bBcD658A2d2c6EFa6B6,
+      enabledToBorrow: EngineFlags.ENABLED,
+      borrowableInIsolation: EngineFlags.DISABLED,
+      withSiloedBorrowing: EngineFlags.DISABLED,
+      flashloanable: EngineFlags.ENABLED,
+      ltv: 0,
+      liqThreshold: 0,
+      liqBonus: 0,
+      reserveFactor: 10_00,
+      supplyCap: 5_000_000,
+      borrowCap: 4_500_000,
+      debtCeiling: 0,
+      liqProtocolFee: 0,
+      rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
+        optimalUsageRatio: 90_00,
         baseVariableBorrowRate: 0,
         variableRateSlope1: 5_50,
         variableRateSlope2: 50_00
