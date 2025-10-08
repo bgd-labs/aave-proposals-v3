@@ -6,7 +6,11 @@ discussions: "https://governance.aave.com/t/direct-to-aip-onboard-susde-and-usde
 
 ## Simple Summary
 
+This AIP proposes to onboard sUSDe and USDe January expiry PT tokens on Aave V3 Plasma Instance.
+
 ## Motivation
+
+The previous Ethena (sUSDe and USDe) PT tokens that were onboarded have brought significant inflows to Aave, given the success of the Plasma instance launch along with the significant USDe and sUSDe liquidity on this instance we believe that onboarding Ethena PT tokens there is a logical next step.
 
 ## Specification
 
@@ -34,8 +38,20 @@ The table below illustrates the configured risk parameters for **PT_USDe_15JAN20
 | Borrowable in Isolation        |                                   DISABLED |
 | Oracle                         | 0x30cb6ff8649Cc02cEa91971D4730EebeD5A8D2F1 |
 
+**Pricefeed details**
+
+| Parameter              |                                                                                                                         Value |
+| ---------------------- | ----------------------------------------------------------------------------------------------------------------------------: |
+| Oracle                 | [PT Capped USDe USDT/USD linear discount 15JAN2026](https://plasmascan.to/address/0x30cb6ff8649Cc02cEa91971D4730EebeD5A8D2F1) |
+| Underlying Oracle      |                                   [Capped USDT/USD](https://plasmascan.to/address/0xdBbB0b5DD13E7AC9C56624834ef193df87b022c3) |
+| Underlying Oracle      |                                [Chainlink USDT/USD](https://plasmascan.to/address/0x70b77FcdbE2293423e41AdD2FB599808396807BC) |
+| Oracle Latest Answer   |                                                                                                    (2025-10-08) USD .97880894 |
+| discountRatePerYear    |                                                                                                                         7.96% |
+| maxDiscountRatePerYear |                                                                                                                        33.88% |
+
 Additionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://plasmascan.to/address/0xac140648435d03f784879cd789130F22Ef588Fcd) has been set as the emission admin for PT_USDe_15JAN2026 and the corresponding aToken.
-,The table below illustrates the configured risk parameters for **PT_sUSDE_15JAN2026**
+
+The table below illustrates the configured risk parameters for **PT_sUSDE_15JAN2026**
 
 | Parameter                       |                                      Value |
 | ------------------------------- | -----------------------------------------: |
@@ -59,7 +75,80 @@ Additionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://plasmascan.to/
 | Borrowable in Isolation         |                                   DISABLED |
 | Oracle                          | 0x3eca1c7836eA09DB3dc85be7B5526Ce80E2609a1 |
 
+**Pricefeed details**
+
+| Parameter              |                                                                                                                          Value |
+| ---------------------- | -----------------------------------------------------------------------------------------------------------------------------: |
+| Oracle                 | [PT Capped sUSDe USDT/USD linear discount 15JAN2026](https://plasmascan.to/address/0x3eca1c7836eA09DB3dc85be7B5526Ce80E2609a1) |
+| Underlying Oracle      |                                    [Capped USDT/USD](https://plasmascan.to/address/0xdBbB0b5DD13E7AC9C56624834ef193df87b022c3) |
+| Underlying Oracle      |                                 [Chainlink USDT/USD](https://plasmascan.to/address/0x70b77FcdbE2293423e41AdD2FB599808396807BC) |
+| Oracle Latest Answer   |                                                                                                     (2025-10-08) USD .97767085 |
+| discountRatePerYear    |                                                                                                                          8.38% |
+| maxDiscountRatePerYear |                                                                                                                         27.90% |
+
 Additionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://plasmascan.to/address/0xac140648435d03f784879cd789130F22Ef588Fcd) has been set as the emission admin for PT_sUSDE_15JAN2026 and the corresponding aToken.
+
+### E-mode
+
+**PT-USDe/Stablecoins E-mode**
+
+| **Asset**         | **PT-USDe-15JAN2026**  | **USDT0** | **USDe** |
+| ----------------- | ---------------------- | --------- | -------- |
+| Collateral        | Yes                    | No        | No       |
+| Borrowable        | No                     | Yes       | Yes      |
+| LTV               | Subject to Risk Oracle | -         | -        |
+| LT                | Subject to Risk Oracle | -         | -        |
+| Liquidation Bonus | Subject to Risk Oracle | -         | -        |
+
+**PT-USDe/USDe E-mode**
+
+| **Asset**         | **PT-USDe-15JAN2026**  | **USDe** |
+| ----------------- | ---------------------- | -------- |
+| Collateral        | Yes                    | No       |
+| Borrowable        | No                     | Yes      |
+| LTV               | Subject to Risk Oracle | -        |
+| LT                | Subject to Risk Oracle | -        |
+| Liquidation Bonus | Subject to Risk Oracle | -        |
+
+**Initial E-mode Risk Oracle for PT-USDe-15JAN2026**
+
+| **Parameter** | **Value**   | **Value** |
+| ------------- | ----------- | --------- |
+| E-Mode        | Stablecoins | USDe      |
+| LTV           | 85.4%       | 86.2%     |
+| LT            | 87.4%       | 88.2%     |
+| LB            | 4.9%        | 3.9%      |
+
+**PT-sUSDe/Stablecoins E-mode**
+
+| **Asset**         | **PT-sUSDe-15JAN2026** | **USDT0** | **USDe** |
+| ----------------- | ---------------------- | --------- | -------- |
+| Collateral        | Yes                    | No        | No       |
+| Borrowable        | No                     | Yes       | Yes      |
+| LTV               | Subject to Risk Oracle | -         | -        |
+| LT                | Subject to Risk Oracle | -         | -        |
+| Liquidation Bonus | Subject to Risk Oracle | -         | -        |
+
+**PT-sUSDe/USDe E-mode**
+
+| **Asset**         | **PT-sUSDe-15JAN2026** | **USDe** |
+| ----------------- | ---------------------- | -------- |
+| Collateral        | Yes                    | No       |
+| Borrowable        | No                     | Yes      |
+| LTV               | Subject to Risk Oracle | -        |
+| LT                | Subject to Risk Oracle | -        |
+| Liquidation Bonus | Subject to Risk Oracle | -        |
+
+**Initial E-mode Risk Oracle for PT-sUSDe-15JAN2026**
+
+| **Parameter** | **Value**   | **Value** |
+| ------------- | ----------- | --------- |
+| E-Mode        | Stablecoins | USDe      |
+| LTV           | 83.9%       | 84.5%     |
+| LT            | 85.9%       | 86.5%     |
+| LB            | 6.0%        | 5.2%      |
+
+[/quote]
 
 ## References
 
