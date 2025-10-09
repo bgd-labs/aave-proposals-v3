@@ -34,9 +34,9 @@ The proposal executes a single transaction to register Aave's adoption in the Sa
 
 **Adoption Parameters:**
 
-1. **Asset Recovery Addresses:** Multi-chain collector addresses controlled by Aave (see [ARFC](https://governance.aave.com/t/arfc-adopt-the-seal-safe-harbor-agreement/23059) for complete list across 15 chains)
+1. **Asset Recovery Addresses:** Multi-chain collector addresses controlled by Aave (see [ARFC](https://governance.aave.com/t/arfc-adopt-the-seal-safe-harbor-agreement/23059) for complete list across 16 chains)
 2. **Scope:** Comprehensive coverage including:
-   - All Aave V3 pools (Core and Prime on Ethereum, plus 14 other chains)
+   - All Aave V3 pools (Core and Prime on Ethereum, plus 15 other chains)
    - All pool components (configurators, oracles, adapters, gateways)
    - Governance infrastructure (cross-chain controllers, payload controllers, executors)
    - GHO token infrastructure across multiple chains
