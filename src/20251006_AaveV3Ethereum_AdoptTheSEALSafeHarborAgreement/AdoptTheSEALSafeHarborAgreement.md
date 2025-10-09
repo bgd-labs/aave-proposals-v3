@@ -63,7 +63,7 @@ The proposal executes a single transaction to register Aave's adoption in the Sa
 - Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251006_AaveV3Ethereum_AdoptTheSEALSafeHarborAgreement/AaveV3Ethereum_AdoptTheSEALSafeHarborAgreement_20251006.t.sol)
 - [Discussion](https://governance.aave.com/t/arfc-adopt-the-seal-safe-harbor-agreement/23059)
 - [Safe Harbor Framework](https://frameworks.securityalliance.org/safe-harbor/index.html)
-- [Safe Harbor Legal Agreement](https://github.com/security-alliance/safe-harbor/blob/main/documents/agreement.pdf)
+- [Safe Harbor Legal Agreement](https://bafybeigvd7z4iemq7vrdcczgyu2afm7egxwrggftiplydc3vdrdmgccwvu.ipfs.w3s.link/The_SEAL_Whitehat_Safe_Harbor_Agremeent_V1_01.pdf)
 - [Safe Harbor Registry](https://etherscan.io/address/0x1eaCD100B0546E433fbf4d773109cAD482c34686)
 - [Aave Bug Bounty Program](https://immunefi.com/bug-bounty/aave/information/)
 
