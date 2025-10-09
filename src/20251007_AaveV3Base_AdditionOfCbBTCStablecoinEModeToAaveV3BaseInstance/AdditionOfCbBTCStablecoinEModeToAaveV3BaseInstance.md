@@ -62,6 +62,15 @@ At the same time, SVR liquidations data shows that the recaptured rate historica
 
 ## Specification
 
+| **Parameter**         | **Value** | **Value** | **Value** |
+| --------------------- | --------- | --------- | --------- |
+| Asset                 | cbBTC     | USDC      | GHO       |
+| Collateral            | Yes       | No        | No        |
+| Borrowable            | No        | Yes       | Yes       |
+| Max LTV               | 80%       | -         | -         |
+| Liquidation Threshold | 83%       | -         | -         |
+| Liquidation Bonus     | 4.0%      | -         | -         |
+
 ## References
 
 - Implementation: [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251007_AaveV3Base_AdditionOfCbBTCStablecoinEModeToAaveV3BaseInstance/AaveV3Base_AdditionOfCbBTCStablecoinEModeToAaveV3BaseInstance_20251007.sol)
