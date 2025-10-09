@@ -59,8 +59,8 @@ The proposal executes a single transaction to register Aave's adoption in the Sa
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251006_AaveV3Ethereum_AdoptTheSEALSafeHarborAgreement/AaveV3Ethereum_AdoptTheSEALSafeHarborAgreement_20251006.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251006_AaveV3Ethereum_AdoptTheSEALSafeHarborAgreement/AaveV3Ethereum_AdoptTheSEALSafeHarborAgreement_20251006.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/08c3787c0357f106db925c49a55c97a19030defd/src/20251006_AaveV3Ethereum_AdoptTheSEALSafeHarborAgreement/AaveV3Ethereum_AdoptTheSEALSafeHarborAgreement_20251006.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/08c3787c0357f106db925c49a55c97a19030defd/src/20251006_AaveV3Ethereum_AdoptTheSEALSafeHarborAgreement/AaveV3Ethereum_AdoptTheSEALSafeHarborAgreement_20251006.t.sol)
 - [Discussion](https://governance.aave.com/t/arfc-adopt-the-seal-safe-harbor-agreement/23059)
 - [Safe Harbor Framework](https://frameworks.securityalliance.org/safe-harbor/index.html)
 - [Safe Harbor Legal Agreement](https://bafybeigvd7z4iemq7vrdcczgyu2afm7egxwrggftiplydc3vdrdmgccwvu.ipfs.w3s.link/The_SEAL_Whitehat_Safe_Harbor_Agremeent_V1_01.pdf)
