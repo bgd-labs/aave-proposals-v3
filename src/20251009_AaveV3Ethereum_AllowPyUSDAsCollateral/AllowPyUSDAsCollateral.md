@@ -19,7 +19,7 @@ sets TVL of PYUSD on Core to 75% instead of 0%
 - Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251009_AaveV3Ethereum_AllowPyUSDAsCollateral/AaveV3Ethereum_AllowPyUSDAsCollateral_20251009.sol)
 - Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251009_AaveV3Ethereum_AllowPyUSDAsCollateral/AaveV3Ethereum_AllowPyUSDAsCollateral_20251009.t.sol)
 - Snapshot: Direct-to-AIP
-- [Discussion](TODO)
+- [Discussion](https://governance.aave.com/t/direct-to-aip-enable-pyusd-as-collateral-on-aave-v2-core-instance/23235)
 
 ## Copyright
 
