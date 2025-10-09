@@ -14,7 +14,7 @@ import {DataTypes} from 'aave-v3-origin/contracts/protocol/libraries/types/DataT
 import {IAaveStewardInjector} from '../interfaces/IAaveStewardInjector.sol';
 import {IRiskOracle} from '../interfaces/IRiskOracle.sol';
 import {IPendlePriceCapAdapter} from '../interfaces/IPendlePriceCapAdapter.sol';
-import {AutomationCompatibleInterface} from '../interfaces/AutomationCompatibleInterface.sol';
+import {ExecutionChainRobotKeeper} from '../interfaces/ExecutionChainRobotKeeper.sol';
 /**
  * @dev Test for AaveV3Plasma_OnboardSUSDeAndUSDeJanuaryExpiryPTTokensOnAaveV3PlasmaInstance_20251007
  * command: FOUNDRY_PROFILE=test forge test --match-path=src/20251007_AaveV3Plasma_OnboardSUSDeAndUSDeJanuaryExpiryPTTokensOnAaveV3PlasmaInstance/AaveV3Plasma_OnboardSUSDeAndUSDeJanuaryExpiryPTTokensOnAaveV3PlasmaInstance_20251007.t.sol -vv
@@ -28,7 +28,7 @@ contract AaveV3Plasma_OnboardSUSDeAndUSDeJanuaryExpiryPTTokensOnAaveV3PlasmaInst
   address public constant RISK_ORACLE_OWNER = 0xDe841Bf4B67970f5a19165443B0e9ec808E1cC85;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('plasma'), 2942866);
+    vm.createSelectFork(vm.rpcUrl('plasma'), 3116719);
     proposal = new AaveV3Plasma_OnboardSUSDeAndUSDeJanuaryExpiryPTTokensOnAaveV3PlasmaInstance_20251007();
     vm.startPrank(RISK_ORACLE_OWNER);
     IRiskOracle(EDGE_RISK_ORACLE).addAuthorizedSender(RISK_ORACLE_OWNER);
@@ -97,12 +97,11 @@ contract AaveV3Plasma_OnboardSUSDeAndUSDeJanuaryExpiryPTTokensOnAaveV3PlasmaInst
     uint256 liqBonus = 4_90;
     _addUpdateToRiskOracle(eModeId, ltv, liqThreshold, liqBonus);
 
-    (bool upkeepNeeded, bytes memory performData) = AutomationCompatibleInterface(
-      proposal.EDGE_INJECTOR_PENDLE_EMODE()
-    ).checkUpkeep('');
+    bool upkeepNeeded = _checkAndPerformUpKeep(
+      ExecutionChainRobotKeeper(proposal.EDGE_INJECTOR_PENDLE_EMODE())
+    );
     assertTrue(upkeepNeeded);
 
-    AutomationCompatibleInterface(proposal.EDGE_INJECTOR_PENDLE_EMODE()).performUpkeep(performData);
     DataTypes.CollateralConfig memory eModeConfig = AaveV3Plasma
       .POOL
       .getEModeCategoryCollateralConfig(eModeId);
@@ -121,12 +120,11 @@ contract AaveV3Plasma_OnboardSUSDeAndUSDeJanuaryExpiryPTTokensOnAaveV3PlasmaInst
     uint256 liqBonus = 3_90;
     _addUpdateToRiskOracle(eModeId, ltv, liqThreshold, liqBonus);
 
-    (bool upkeepNeeded, bytes memory performData) = AutomationCompatibleInterface(
-      proposal.EDGE_INJECTOR_PENDLE_EMODE()
-    ).checkUpkeep('');
+    bool upkeepNeeded = _checkAndPerformUpKeep(
+      ExecutionChainRobotKeeper(proposal.EDGE_INJECTOR_PENDLE_EMODE())
+    );
     assertTrue(upkeepNeeded);
 
-    AutomationCompatibleInterface(proposal.EDGE_INJECTOR_PENDLE_EMODE()).performUpkeep(performData);
     DataTypes.CollateralConfig memory eModeConfig = AaveV3Plasma
       .POOL
       .getEModeCategoryCollateralConfig(eModeId);
@@ -145,12 +143,11 @@ contract AaveV3Plasma_OnboardSUSDeAndUSDeJanuaryExpiryPTTokensOnAaveV3PlasmaInst
     uint256 liqBonus = 6_00;
     _addUpdateToRiskOracle(eModeId, ltv, liqThreshold, liqBonus);
 
-    (bool upkeepNeeded, bytes memory performData) = AutomationCompatibleInterface(
-      proposal.EDGE_INJECTOR_PENDLE_EMODE()
-    ).checkUpkeep('');
+    bool upkeepNeeded = _checkAndPerformUpKeep(
+      ExecutionChainRobotKeeper(proposal.EDGE_INJECTOR_PENDLE_EMODE())
+    );
     assertTrue(upkeepNeeded);
 
-    AutomationCompatibleInterface(proposal.EDGE_INJECTOR_PENDLE_EMODE()).performUpkeep(performData);
     DataTypes.CollateralConfig memory eModeConfig = AaveV3Plasma
       .POOL
       .getEModeCategoryCollateralConfig(eModeId);
@@ -169,12 +166,11 @@ contract AaveV3Plasma_OnboardSUSDeAndUSDeJanuaryExpiryPTTokensOnAaveV3PlasmaInst
     uint256 liqBonus = 5_20;
     _addUpdateToRiskOracle(eModeId, ltv, liqThreshold, liqBonus);
 
-    (bool upkeepNeeded, bytes memory performData) = AutomationCompatibleInterface(
-      proposal.EDGE_INJECTOR_PENDLE_EMODE()
-    ).checkUpkeep('');
+    bool upkeepNeeded = _checkAndPerformUpKeep(
+      ExecutionChainRobotKeeper(proposal.EDGE_INJECTOR_PENDLE_EMODE())
+    );
     assertTrue(upkeepNeeded);
 
-    AutomationCompatibleInterface(proposal.EDGE_INJECTOR_PENDLE_EMODE()).performUpkeep(performData);
     DataTypes.CollateralConfig memory eModeConfig = AaveV3Plasma
       .POOL
       .getEModeCategoryCollateralConfig(eModeId);
@@ -194,14 +190,10 @@ contract AaveV3Plasma_OnboardSUSDeAndUSDeJanuaryExpiryPTTokensOnAaveV3PlasmaInst
 
     _addUpdateToRiskOracle(discountRateToSet, proposal.PT_sUSDE_15JAN2026());
 
-    (bool upkeepNeeded, bytes memory performData) = AutomationCompatibleInterface(
-      proposal.EDGE_INJECTOR_DISCOUNT_RATE()
-    ).checkUpkeep('');
-    assertTrue(upkeepNeeded);
-
-    AutomationCompatibleInterface(proposal.EDGE_INJECTOR_DISCOUNT_RATE()).performUpkeep(
-      performData
+    bool upkeepNeeded = _checkAndPerformUpKeep(
+      ExecutionChainRobotKeeper(proposal.EDGE_INJECTOR_DISCOUNT_RATE())
     );
+    assertTrue(upkeepNeeded);
 
     currentDiscountRate = PT_ORACLE.discountRatePerYear();
     assertEq(discountRateToSet, currentDiscountRate);
@@ -217,14 +209,10 @@ contract AaveV3Plasma_OnboardSUSDeAndUSDeJanuaryExpiryPTTokensOnAaveV3PlasmaInst
 
     _addUpdateToRiskOracle(discountRateToSet, proposal.PT_USDe_15JAN2026());
 
-    (bool upkeepNeeded, bytes memory performData) = AutomationCompatibleInterface(
-      proposal.EDGE_INJECTOR_DISCOUNT_RATE()
-    ).checkUpkeep('');
-    assertTrue(upkeepNeeded);
-
-    AutomationCompatibleInterface(proposal.EDGE_INJECTOR_DISCOUNT_RATE()).performUpkeep(
-      performData
+    bool upkeepNeeded = _checkAndPerformUpKeep(
+      ExecutionChainRobotKeeper(proposal.EDGE_INJECTOR_DISCOUNT_RATE())
     );
+    assertTrue(upkeepNeeded);
 
     currentDiscountRate = PT_ORACLE.discountRatePerYear();
     assertEq(discountRateToSet, currentDiscountRate);
@@ -256,5 +244,18 @@ contract AaveV3Plasma_OnboardSUSDeAndUSDeJanuaryExpiryPTTokensOnAaveV3PlasmaInst
       'additionalData'
     );
     vm.stopPrank();
+  }
+
+  function _checkAndPerformUpKeep(
+    ExecutionChainRobotKeeper executionChainRobotKeeper
+  ) internal returns (bool) {
+    (bool shouldRunKeeper, bytes memory encodedPerformData) = executionChainRobotKeeper.checkUpkeep(
+      ''
+    );
+    if (shouldRunKeeper) {
+      (bool status, ) = address(executionChainRobotKeeper).call(encodedPerformData);
+      assertTrue(status, 'Perform Upkeep Failed');
+    }
+    return shouldRunKeeper;
   }
 }
