@@ -46,14 +46,9 @@ contract DeployPolygon is PolygonScript {
       type(AaveV3Polygon_FullDeprecationOfDPIAcrossAaveDeployments_20251008).creationCode
     );
 
-    // compose action
-    IPayloadsControllerCore.ExecutionAction[]
-      memory actions = new IPayloadsControllerCore.ExecutionAction[](2);
-    actions[0] = GovV3Helpers.buildAction(payload0);
-    actions[1] = GovV3Helpers.buildAction(payload1);
-
     // register action at payloadsController
-    GovV3Helpers.createPayload(actions);
+    GovV3Helpers.createPayload(GovV3Helpers.buildAction(payload0));
+    GovV3Helpers.createPayload(GovV3Helpers.buildAction(payload1));
   }
 }
 
@@ -64,7 +59,7 @@ contract DeployPolygon is PolygonScript {
 contract CreateProposal is EthereumScript {
   function run() external {
     // create payloads
-    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](2);
+    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](3);
 
     // compose actions for validation
     {
@@ -78,14 +73,18 @@ contract CreateProposal is EthereumScript {
 
     {
       IPayloadsControllerCore.ExecutionAction[]
-        memory actionsPolygon = new IPayloadsControllerCore.ExecutionAction[](2);
-      actionsPolygon[0] = GovV3Helpers.buildAction(
+        memory actionsPolygonOne = new IPayloadsControllerCore.ExecutionAction[](1);
+      IPayloadsControllerCore.ExecutionAction[]
+        memory actionsPolygonTwo = new IPayloadsControllerCore.ExecutionAction[](1);
+
+      actionsPolygonOne[0] = GovV3Helpers.buildAction(
         type(AaveV2Polygon_FullDeprecationOfDPIAcrossAaveDeployments_20251008).creationCode
       );
-      actionsPolygon[1] = GovV3Helpers.buildAction(
+      actionsPolygonTwo[0] = GovV3Helpers.buildAction(
         type(AaveV3Polygon_FullDeprecationOfDPIAcrossAaveDeployments_20251008).creationCode
       );
-      payloads[1] = GovV3Helpers.buildPolygonPayload(vm, actionsPolygon);
+      payloads[1] = GovV3Helpers.buildPolygonPayload(vm, actionsPolygonOne);
+      payloads[2] = GovV3Helpers.buildPolygonPayload(vm, actionsPolygonTwo);
     }
 
     // create proposal
