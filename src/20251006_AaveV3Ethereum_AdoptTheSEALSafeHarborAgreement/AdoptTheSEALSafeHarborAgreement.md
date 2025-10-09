@@ -1,6 +1,6 @@
 ---
 title: "Adopt The SEAL Safe Harbor Agreement"
-author: "BGD Labs (@bgdlabs)"
+author: "SEAL (@_SEAL_Org), BGD Labs (@bgdlabs)"
 discussions: "https://governance.aave.com/t/arfc-adopt-the-seal-safe-harbor-agreement/23059"
 ---
 
