@@ -14,7 +14,7 @@ contract AaveV3Ethereum_AdoptTheSEALSafeHarborAgreement_20251006_Test is Protoco
   AaveV3Ethereum_AdoptTheSEALSafeHarborAgreement_20251006 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 23516158);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 23539370);
     proposal = new AaveV3Ethereum_AdoptTheSEALSafeHarborAgreement_20251006();
   }
 
@@ -34,7 +34,7 @@ contract AaveV3Ethereum_AdoptTheSEALSafeHarborAgreement_20251006_Test is Protoco
 
     assertEq(
       proposal.REGISTRY().getAgreement(GovernanceV3Ethereum.EXECUTOR_LVL_1),
-      0x585aFfCCFF9398AfdB12bDfF2E74182437f45aF0
+      0x276c889f5312844c6d3Df9Ed6C742649f79F9a9D
     );
   }
 }

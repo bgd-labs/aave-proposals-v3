@@ -11,7 +11,8 @@ import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGen
 contract AaveV3Ethereum_AdoptTheSEALSafeHarborAgreement_20251006 is IProposalGenericExecutor {
   ISafeHarborRegistry public constant REGISTRY =
     ISafeHarborRegistry(0x1eaCD100B0546E433fbf4d773109cAD482c34686);
-  address public constant AGREEMENT = 0x585aFfCCFF9398AfdB12bDfF2E74182437f45aF0;
+
+  address public constant AGREEMENT = 0x276c889f5312844c6d3Df9Ed6C742649f79F9a9D;
 
   function execute() external {
     REGISTRY.adoptSafeHarbor(AGREEMENT);
