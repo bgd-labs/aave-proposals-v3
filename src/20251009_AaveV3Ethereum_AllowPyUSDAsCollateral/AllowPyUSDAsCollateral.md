@@ -9,7 +9,9 @@ discussions: "https://governance.aave.com/t/direct-to-aip-enable-pyusd-as-collat
 This AIP proposes to enable pyUSD as collateral on the V3 Core instance.
 
 ## Motivation
+
 this proposal seek to revert recent changes on collateral status of this asset
+
 ## Specification
 
 sets TVL of PYUSD on Core to 75% instead of 0%
