@@ -30,7 +30,7 @@ The proposal executes a single transaction to register Aave's adoption in the Sa
 
 - **To:** [0x1eaCD100B0546E433fbf4d773109cAD482c34686](https://etherscan.io/address/0x1eaCD100B0546E433fbf4d773109cAD482c34686) (Safe Harbor Registry)
 - **Action:** `adoptSafeHarbor(address)`
-- **Parameter:** [0x585aFfCCFF9398AfdB12bDfF2E74182437f45aF0](https://etherscan.io/address/0x585aFfCCFF9398AfdB12bDfF2E74182437f45aF0) (Adoption Details Contract)
+- **Parameter:** [0x276c889f5312844c6d3Df9Ed6C742649f79F9a9D](https://etherscan.io/address/0x276c889f5312844c6d3Df9Ed6C742649f79F9a9D) (Adoption Details Contract)
 
 **Adoption Parameters:**
 
@@ -59,12 +59,13 @@ The proposal executes a single transaction to register Aave's adoption in the Sa
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/08c3787c0357f106db925c49a55c97a19030defd/src/20251006_AaveV3Ethereum_AdoptTheSEALSafeHarborAgreement/AaveV3Ethereum_AdoptTheSEALSafeHarborAgreement_20251006.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/08c3787c0357f106db925c49a55c97a19030defd/src/20251006_AaveV3Ethereum_AdoptTheSEALSafeHarborAgreement/AaveV3Ethereum_AdoptTheSEALSafeHarborAgreement_20251006.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251006_AaveV3Ethereum_AdoptTheSEALSafeHarborAgreement/AaveV3Ethereum_AdoptTheSEALSafeHarborAgreement_20251006.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251006_AaveV3Ethereum_AdoptTheSEALSafeHarborAgreement/AaveV3Ethereum_AdoptTheSEALSafeHarborAgreement_20251006.t.sol)
 - [Discussion](https://governance.aave.com/t/arfc-adopt-the-seal-safe-harbor-agreement/23059)
 - [Safe Harbor Framework](https://frameworks.securityalliance.org/safe-harbor/index.html)
 - [Safe Harbor Legal Agreement](https://bafybeigvd7z4iemq7vrdcczgyu2afm7egxwrggftiplydc3vdrdmgccwvu.ipfs.w3s.link/The_SEAL_Whitehat_Safe_Harbor_Agremeent_V1_01.pdf)
-- [Safe Harbor Registry](https://etherscan.io/address/0x1eaCD100B0546E433fbf4d773109cAD482c34686)
+- [Safe Harbor Registry Contract](https://etherscan.io/address/0x1eaCD100B0546E433fbf4d773109cAD482c34686)
+- [Safe Harbor Aave Agreement Contract](https://etherscan.io/address/0x276c889f5312844c6d3Df9Ed6C742649f79F9a9D)
 - [Aave Bug Bounty Program](https://immunefi.com/bug-bounty/aave/information/)
 
 ## Copyright
