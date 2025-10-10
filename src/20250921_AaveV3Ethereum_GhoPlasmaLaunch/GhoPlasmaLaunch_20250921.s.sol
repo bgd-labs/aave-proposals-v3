@@ -180,7 +180,7 @@ contract CreateProposal is EthereumScript {
     IPayloadsControllerCore.ExecutionAction[]
       memory actionsEthereum = new IPayloadsControllerCore.ExecutionAction[](1);
     actionsEthereum[0] = GovV3Helpers.buildAction(
-      type(AaveV3_GhoPlasmaLaunch_20250921).creationCode
+      type(Ethereum_Plasma_AaveV3GHOLane_20250921).creationCode
     );
     payloads[0] = GovV3Helpers.buildMainnetPayload(vm, actionsEthereum);
 
