@@ -1,7 +1,7 @@
 {
   "lib/aave-helpers": {
-    "tag": {
-      "name": "v3.1.0",
+    "branch": {
+      "name": "main",
       "rev": "ca1f163307489d2d842b819c0d60e97ab349ed0c"
     }
   }
