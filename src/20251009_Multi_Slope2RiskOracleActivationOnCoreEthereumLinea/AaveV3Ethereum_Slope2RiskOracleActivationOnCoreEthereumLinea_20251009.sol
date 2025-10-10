@@ -22,12 +22,12 @@ contract AaveV3Ethereum_Slope2RiskOracleActivationOnCoreEthereumLinea_20251009 i
   using SafeERC20 for IERC20;
   using SafeCast for uint256;
 
-  address public constant EDGE_RISK_STEWARDS_RATES = 0xAbb3A42a06930aEb694c99C0D3D8F5c1056D74f8;
-  address public constant EDGE_INJECTOR_RATES = 0xd3dc7C39FC2eD85fBC0723ec74a1ed8874410c64;
+  address public constant EDGE_RISK_STEWARD_RATES = AaveV3Ethereum.EDGE_RISK_STEWARD_RATES;
+  address public constant EDGE_INJECTOR_RATES = AaveV3Ethereum.EDGE_INJECTOR_RATES;
   uint256 public constant LINK_AMOUNT = 250 ether;
 
   function execute() external {
-    AaveV3Ethereum.ACL_MANAGER.addRiskAdmin(EDGE_RISK_STEWARDS_RATES);
+    AaveV3Ethereum.ACL_MANAGER.addRiskAdmin(EDGE_RISK_STEWARD_RATES);
 
     uint256 linkAmount = CollectorUtils.withdrawFromV3(
       AaveV3Ethereum.COLLECTOR,

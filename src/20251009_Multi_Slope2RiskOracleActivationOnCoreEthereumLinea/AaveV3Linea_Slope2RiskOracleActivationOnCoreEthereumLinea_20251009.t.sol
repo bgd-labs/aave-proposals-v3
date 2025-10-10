@@ -29,7 +29,7 @@ contract AaveV3Linea_Slope2RiskOracleActivationOnCoreEthereumLinea_20251009_Test
     vm.createSelectFork(vm.rpcUrl('linea'), 24364832);
     proposal = new AaveV3Linea_Slope2RiskOracleActivationOnCoreEthereumLinea_20251009();
 
-    EDGE_INJECTOR_RATES = IRiskSteward(proposal.EDGE_RISK_STEWARDS_RATES()).RISK_COUNCIL();
+    EDGE_INJECTOR_RATES = IRiskSteward(proposal.EDGE_RISK_STEWARD_RATES()).RISK_COUNCIL();
     RISK_ORACLE = IRiskOracle(IAaveStewardInjector(EDGE_INJECTOR_RATES).RISK_ORACLE());
   }
 
@@ -47,8 +47,8 @@ contract AaveV3Linea_Slope2RiskOracleActivationOnCoreEthereumLinea_20251009_Test
   function test_permissions() public {
     executePayload(vm, address(proposal));
 
-    assertEq(AaveV3Linea.ACL_MANAGER.isRiskAdmin(proposal.EDGE_RISK_STEWARDS_RATES()), true);
-    assertEq(IRiskSteward(proposal.EDGE_RISK_STEWARDS_RATES()).RISK_COUNCIL(), EDGE_INJECTOR_RATES);
+    assertEq(AaveV3Linea.ACL_MANAGER.isRiskAdmin(proposal.EDGE_RISK_STEWARD_RATES()), true);
+    assertEq(IRiskSteward(proposal.EDGE_RISK_STEWARD_RATES()).RISK_COUNCIL(), EDGE_INJECTOR_RATES);
   }
 
   function test_configuredMarkets_injector() public {

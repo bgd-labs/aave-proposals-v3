@@ -12,9 +12,9 @@ import {AaveV3Linea} from 'aave-address-book/AaveV3Linea.sol';
 contract AaveV3Linea_Slope2RiskOracleActivationOnCoreEthereumLinea_20251009 is
   IProposalGenericExecutor
 {
-  address public constant EDGE_RISK_STEWARDS_RATES = 0xdDE20B20E21a6F3b7080e740b684CDf5b764B80D;
+  address public constant EDGE_RISK_STEWARD_RATES = AaveV3Linea.EDGE_RISK_STEWARD_RATES;
 
   function execute() external {
-    AaveV3Linea.ACL_MANAGER.addRiskAdmin(EDGE_RISK_STEWARDS_RATES);
+    AaveV3Linea.ACL_MANAGER.addRiskAdmin(EDGE_RISK_STEWARD_RATES);
   }
 }
