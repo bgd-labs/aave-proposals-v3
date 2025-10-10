@@ -10,7 +10,7 @@ import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config
  * @title Allow PyUSD as collateral
  * @author Aave-chan Initiative
  * - Snapshot: direct-to-aip
- * - Discussion: TODO
+ * - Discussion: https://governance.aave.com/t/direct-to-aip-enable-pyusd-as-collateral-on-aave-v2-core-instance/23235
  */
 contract AaveV3Ethereum_AllowPyUSDAsCollateral_20251009 is AaveV3PayloadEthereum {
   function collateralsUpdates()
