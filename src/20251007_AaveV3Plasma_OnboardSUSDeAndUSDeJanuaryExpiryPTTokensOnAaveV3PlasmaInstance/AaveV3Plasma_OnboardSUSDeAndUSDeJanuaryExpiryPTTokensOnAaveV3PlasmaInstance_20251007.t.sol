@@ -14,7 +14,7 @@ import {DataTypes} from 'aave-v3-origin/contracts/protocol/libraries/types/DataT
 import {IAaveStewardInjector} from '../interfaces/IAaveStewardInjector.sol';
 import {IRiskOracle} from '../interfaces/IRiskOracle.sol';
 import {IPendlePriceCapAdapter} from '../interfaces/IPendlePriceCapAdapter.sol';
-import {ExecutionChainRobotKeeper} from '../interfaces/ExecutionChainRobotKeeper.sol';
+import {AutomationCompatibleInterface} from '../interfaces/AutomationCompatibleInterface.sol';
 /**
  * @dev Test for AaveV3Plasma_OnboardSUSDeAndUSDeJanuaryExpiryPTTokensOnAaveV3PlasmaInstance_20251007
  * command: FOUNDRY_PROFILE=test forge test --match-path=src/20251007_AaveV3Plasma_OnboardSUSDeAndUSDeJanuaryExpiryPTTokensOnAaveV3PlasmaInstance/AaveV3Plasma_OnboardSUSDeAndUSDeJanuaryExpiryPTTokensOnAaveV3PlasmaInstance_20251007.t.sol -vv
@@ -98,7 +98,7 @@ contract AaveV3Plasma_OnboardSUSDeAndUSDeJanuaryExpiryPTTokensOnAaveV3PlasmaInst
     _addUpdateToRiskOracle(eModeId, ltv, liqThreshold, liqBonus);
 
     bool upkeepNeeded = _checkAndPerformUpKeep(
-      ExecutionChainRobotKeeper(proposal.EDGE_INJECTOR_PENDLE_EMODE())
+      AutomationCompatibleInterface(proposal.EDGE_INJECTOR_PENDLE_EMODE())
     );
     assertTrue(upkeepNeeded);
 
@@ -121,7 +121,7 @@ contract AaveV3Plasma_OnboardSUSDeAndUSDeJanuaryExpiryPTTokensOnAaveV3PlasmaInst
     _addUpdateToRiskOracle(eModeId, ltv, liqThreshold, liqBonus);
 
     bool upkeepNeeded = _checkAndPerformUpKeep(
-      ExecutionChainRobotKeeper(proposal.EDGE_INJECTOR_PENDLE_EMODE())
+      AutomationCompatibleInterface(proposal.EDGE_INJECTOR_PENDLE_EMODE())
     );
     assertTrue(upkeepNeeded);
 
@@ -144,7 +144,7 @@ contract AaveV3Plasma_OnboardSUSDeAndUSDeJanuaryExpiryPTTokensOnAaveV3PlasmaInst
     _addUpdateToRiskOracle(eModeId, ltv, liqThreshold, liqBonus);
 
     bool upkeepNeeded = _checkAndPerformUpKeep(
-      ExecutionChainRobotKeeper(proposal.EDGE_INJECTOR_PENDLE_EMODE())
+      AutomationCompatibleInterface(proposal.EDGE_INJECTOR_PENDLE_EMODE())
     );
     assertTrue(upkeepNeeded);
 
@@ -167,7 +167,7 @@ contract AaveV3Plasma_OnboardSUSDeAndUSDeJanuaryExpiryPTTokensOnAaveV3PlasmaInst
     _addUpdateToRiskOracle(eModeId, ltv, liqThreshold, liqBonus);
 
     bool upkeepNeeded = _checkAndPerformUpKeep(
-      ExecutionChainRobotKeeper(proposal.EDGE_INJECTOR_PENDLE_EMODE())
+      AutomationCompatibleInterface(proposal.EDGE_INJECTOR_PENDLE_EMODE())
     );
     assertTrue(upkeepNeeded);
 
@@ -191,7 +191,7 @@ contract AaveV3Plasma_OnboardSUSDeAndUSDeJanuaryExpiryPTTokensOnAaveV3PlasmaInst
     _addUpdateToRiskOracle(discountRateToSet, proposal.PT_sUSDE_15JAN2026());
 
     bool upkeepNeeded = _checkAndPerformUpKeep(
-      ExecutionChainRobotKeeper(proposal.EDGE_INJECTOR_DISCOUNT_RATE())
+      AutomationCompatibleInterface(proposal.EDGE_INJECTOR_DISCOUNT_RATE())
     );
     assertTrue(upkeepNeeded);
 
@@ -210,7 +210,7 @@ contract AaveV3Plasma_OnboardSUSDeAndUSDeJanuaryExpiryPTTokensOnAaveV3PlasmaInst
     _addUpdateToRiskOracle(discountRateToSet, proposal.PT_USDe_15JAN2026());
 
     bool upkeepNeeded = _checkAndPerformUpKeep(
-      ExecutionChainRobotKeeper(proposal.EDGE_INJECTOR_DISCOUNT_RATE())
+      AutomationCompatibleInterface(proposal.EDGE_INJECTOR_DISCOUNT_RATE())
     );
     assertTrue(upkeepNeeded);
 
@@ -247,7 +247,7 @@ contract AaveV3Plasma_OnboardSUSDeAndUSDeJanuaryExpiryPTTokensOnAaveV3PlasmaInst
   }
 
   function _checkAndPerformUpKeep(
-    ExecutionChainRobotKeeper executionChainRobotKeeper
+    AutomationCompatibleInterface executionChainRobotKeeper
   ) internal returns (bool) {
     (bool shouldRunKeeper, bytes memory encodedPerformData) = executionChainRobotKeeper.checkUpkeep(
       ''
