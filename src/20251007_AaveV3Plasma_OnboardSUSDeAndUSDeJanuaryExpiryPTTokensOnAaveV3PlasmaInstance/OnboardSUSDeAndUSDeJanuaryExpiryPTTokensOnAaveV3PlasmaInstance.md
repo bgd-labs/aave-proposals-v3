@@ -86,7 +86,7 @@ The table below illustrates the configured risk parameters for **PT_sUSDE_15JAN2
 | discountRatePerYear    |                                                                                                                          8.38% |
 | maxDiscountRatePerYear |                                                                                                                         27.90% |
 
-Additionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://plasmascan.to/address/0xac140648435d03f784879cd789130F22Ef588Fcd) has been set as the emission admin for PT_sUSDE_15JAN2026 and the corresponding aToken.
+Additionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://plasmascan.to/address/0xac140648435d03f784879cd789130F22Ef588Fcd) has been set as the emission admin for PT_sUSDE_15JAN2026, PT_USDe_15JAN2026 and the corresponding aTokens.
 
 ### E-mode
 

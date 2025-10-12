@@ -35,7 +35,7 @@ contract AaveV3Plasma_OnboardSUSDeAndUSDeJanuaryExpiryPTTokensOnAaveV3PlasmaInst
 
   function _postExecute() internal override {
     // onboard new risk steward for ARGS
-    AaveV3Plasma.ACL_MANAGER.addRiskAdmin(EDGE_RISK_STEWARD_DISCOUNT_RATE); // manual risk-steward
+    AaveV3Plasma.ACL_MANAGER.addRiskAdmin(EDGE_RISK_STEWARD_DISCOUNT_RATE);
     AaveV3Plasma.ACL_MANAGER.addRiskAdmin(EDGE_RISK_STEWARD_EMODE);
     // we whitelist the four newly created eModeId on the injector
     uint8 nextID = _findFirstUnusedEmodeCategory(AaveV3Plasma.POOL);
@@ -114,7 +114,7 @@ contract AaveV3Plasma_OnboardSUSDeAndUSDeJanuaryExpiryPTTokensOnAaveV3PlasmaInst
       ltv: 85_40,
       liqThreshold: 87_40,
       liqBonus: 4_90,
-      label: 'PT_USDe_15JAN2026/Stablecoin',
+      label: 'PT-USDe Stablecoins Jan 2026',
       collaterals: collateralAssets_PT_USDe_15JAN2026Stablecoin,
       borrowables: borrowableAssets_PT_USDe_15JAN2026Stablecoin
     });
@@ -129,7 +129,7 @@ contract AaveV3Plasma_OnboardSUSDeAndUSDeJanuaryExpiryPTTokensOnAaveV3PlasmaInst
       ltv: 86_20,
       liqThreshold: 88_20,
       liqBonus: 3_90,
-      label: 'PT_USDe_15JAN2026/USDe',
+      label: 'PT-USDe USDe Jan 2026',
       collaterals: collateralAssets_PT_USDe_15JAN2026USDe,
       borrowables: borrowableAssets_PT_USDe_15JAN2026USDe
     });
@@ -145,7 +145,7 @@ contract AaveV3Plasma_OnboardSUSDeAndUSDeJanuaryExpiryPTTokensOnAaveV3PlasmaInst
       ltv: 83_90,
       liqThreshold: 85_90,
       liqBonus: 6_00,
-      label: 'PT_sUSDe_15JAN2026/Stablecoin',
+      label: 'PT-sUSDe Stablecoins Jan 2026',
       collaterals: collateralAssets_PT_sUSDe_15JAN2026Stablecoin,
       borrowables: borrowableAssets_PT_sUSDe_15JAN2026Stablecoin
     });
@@ -160,7 +160,7 @@ contract AaveV3Plasma_OnboardSUSDeAndUSDeJanuaryExpiryPTTokensOnAaveV3PlasmaInst
       ltv: 84_50,
       liqThreshold: 86_50,
       liqBonus: 5_20,
-      label: 'PT_sUSDe_15JAN2026/USDe',
+      label: 'PT-sUSDe USDe Jan 2026',
       collaterals: collateralAssets_PT_sUSDe_15JAN2026USDe,
       borrowables: borrowableAssets_PT_sUSDe_15JAN2026USDe
     });
@@ -222,7 +222,7 @@ contract AaveV3Plasma_OnboardSUSDeAndUSDeJanuaryExpiryPTTokensOnAaveV3PlasmaInst
   }
 
   function _findFirstUnusedEmodeCategory(IPool pool) private view returns (uint8) {
-    // eMode id 0 is skipped intentially as it is the reserved default
+    // eMode id 0 is skipped intentionally as it is the reserved default
     for (uint8 i = 1; i < 256; i++) {
       if (pool.getEModeCategoryCollateralConfig(i).liquidationThreshold == 0) return i;
     }
