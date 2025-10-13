@@ -48,7 +48,10 @@ contract AaveV3Linea_Slope2RiskOracleActivationOnCoreEthereumLinea_20251009_Test
     executePayload(vm, address(proposal));
 
     assertEq(AaveV3Linea.ACL_MANAGER.isRiskAdmin(proposal.EDGE_RISK_STEWARD_RATES()), true);
-    assertEq(IRiskSteward(proposal.EDGE_RISK_STEWARD_RATES()).RISK_COUNCIL(), EDGE_INJECTOR_RATES);
+    assertEq(
+      IRiskSteward(proposal.EDGE_RISK_STEWARD_RATES()).RISK_COUNCIL(),
+      0x55510C6fD37bcb9398260E49e57b63B31a5E9066
+    );
   }
 
   function test_configuredMarkets_injector() public {
