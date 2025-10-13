@@ -37,6 +37,7 @@ contract AaveV3InkWhitelabel_PostActivationRiskUpdate_20251013 is AaveV3PayloadI
 
     return capsUpdate;
   }
+
   function collateralsUpdates()
     public
     pure
@@ -51,12 +52,13 @@ contract AaveV3InkWhitelabel_PostActivationRiskUpdate_20251013 is AaveV3PayloadI
       ltv: 75_00,
       liqThreshold: 78_00,
       liqBonus: 4_50,
-      debtCeiling: 0,
+      debtCeiling: EngineFlags.KEEP_CURRENT,
       liqProtocolFee: 10_00
     });
 
     return collateralUpdate;
   }
+
   function borrowsUpdates()
     public
     pure
@@ -71,7 +73,7 @@ contract AaveV3InkWhitelabel_PostActivationRiskUpdate_20251013 is AaveV3PayloadI
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
       borrowableInIsolation: EngineFlags.ENABLED,
-      withSiloedBorrowing: EngineFlags.DISABLED,
+      withSiloedBorrowing: EngineFlags.KEEP_CURRENT,
       reserveFactor: EngineFlags.KEEP_CURRENT
     });
     borrowUpdates[1] = IAaveV3ConfigEngine.BorrowUpdate({
@@ -79,7 +81,7 @@ contract AaveV3InkWhitelabel_PostActivationRiskUpdate_20251013 is AaveV3PayloadI
       enabledToBorrow: EngineFlags.KEEP_CURRENT,
       flashloanable: EngineFlags.KEEP_CURRENT,
       borrowableInIsolation: EngineFlags.ENABLED,
-      withSiloedBorrowing: EngineFlags.DISABLED,
+      withSiloedBorrowing: EngineFlags.KEEP_CURRENT,
       reserveFactor: EngineFlags.KEEP_CURRENT
     });
 
