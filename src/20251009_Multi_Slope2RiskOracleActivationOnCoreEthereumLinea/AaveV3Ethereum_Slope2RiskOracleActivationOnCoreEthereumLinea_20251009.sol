@@ -44,7 +44,7 @@ contract AaveV3Ethereum_Slope2RiskOracleActivationOnCoreEthereumLinea_20251009 i
       linkAmount
     );
     IAaveCLRobotOperator(MiscEthereum.AAVE_CL_ROBOT_OPERATOR).register(
-      'CORE AGRS Injector',
+      'CORE Rates AGRS Injector',
       EDGE_INJECTOR_RATES,
       '',
       5_000_000,

@@ -74,9 +74,7 @@ contract CreateProposal is EthereumScript {
     {
       IPayloadsControllerCore.ExecutionAction[]
         memory actionsLinea = new IPayloadsControllerCore.ExecutionAction[](1);
-      actionsLinea[0] = GovV3Helpers.buildAction(
-        type(AaveV3Linea_Slope2RiskOracleActivationOnCoreEthereumLinea_20251009).creationCode
-      );
+      actionsLinea[0] = GovV3Helpers.buildAction(0xe40BfEa9631788b19c38D6A51Ba3AF839d35C3ec);
       payloads[1] = GovV3Helpers.buildLineaPayload(vm, actionsLinea);
     }
 

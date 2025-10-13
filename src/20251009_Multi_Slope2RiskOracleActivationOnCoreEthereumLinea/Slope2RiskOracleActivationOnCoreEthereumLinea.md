@@ -42,8 +42,8 @@ The automated AGRS system will be configured with the following params:
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/b38c18319aa174d6ee35d5276e53e9ad7f3f0ea9/src/20251009_Multi_Slope2RiskOracleActivationOnCoreEthereumLinea/AaveV3Ethereum_Slope2RiskOracleActivationOnCoreEthereumLinea_20251009.sol), [AaveV3Linea](https://github.com/bgd-labs/aave-proposals-v3/blob/b38c18319aa174d6ee35d5276e53e9ad7f3f0ea9/src/20251009_Multi_Slope2RiskOracleActivationOnCoreEthereumLinea/AaveV3Linea_Slope2RiskOracleActivationOnCoreEthereumLinea_20251009.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/b38c18319aa174d6ee35d5276e53e9ad7f3f0ea9/src/20251009_Multi_Slope2RiskOracleActivationOnCoreEthereumLinea/AaveV3Ethereum_Slope2RiskOracleActivationOnCoreEthereumLinea_20251009.t.sol), [AaveV3Linea](https://github.com/bgd-labs/aave-proposals-v3/blob/b38c18319aa174d6ee35d5276e53e9ad7f3f0ea9/src/20251009_Multi_Slope2RiskOracleActivationOnCoreEthereumLinea/AaveV3Linea_Slope2RiskOracleActivationOnCoreEthereumLinea_20251009.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251009_Multi_Slope2RiskOracleActivationOnCoreEthereumLinea/AaveV3Ethereum_Slope2RiskOracleActivationOnCoreEthereumLinea_20251009.sol), [AaveV3Linea](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251009_Multi_Slope2RiskOracleActivationOnCoreEthereumLinea/AaveV3Linea_Slope2RiskOracleActivationOnCoreEthereumLinea_20251009.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251009_Multi_Slope2RiskOracleActivationOnCoreEthereumLinea/AaveV3Ethereum_Slope2RiskOracleActivationOnCoreEthereumLinea_20251009.t.sol), [AaveV3Linea](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251009_Multi_Slope2RiskOracleActivationOnCoreEthereumLinea/AaveV3Linea_Slope2RiskOracleActivationOnCoreEthereumLinea_20251009.t.sol)
 - [Discussion](https://governance.aave.com/t/chaos-labs-risk-stewards-slope2-parameter-adjustments-for-risk-oracle-deployment/23192)
 
 ## Copyright
