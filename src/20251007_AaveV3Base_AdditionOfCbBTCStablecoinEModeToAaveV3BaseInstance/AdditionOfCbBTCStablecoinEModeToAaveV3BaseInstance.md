@@ -73,8 +73,8 @@ At the same time, SVR liquidations data shows that the recaptured rate historica
 
 ## References
 
-- Implementation: [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251007_AaveV3Base_AdditionOfCbBTCStablecoinEModeToAaveV3BaseInstance/AaveV3Base_AdditionOfCbBTCStablecoinEModeToAaveV3BaseInstance_20251007.sol)
-- Tests: [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251007_AaveV3Base_AdditionOfCbBTCStablecoinEModeToAaveV3BaseInstance/AaveV3Base_AdditionOfCbBTCStablecoinEModeToAaveV3BaseInstance_20251007.t.sol)
+- Implementation: [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/4fc1c4e302e911bbadfec5f8c46910d2ef83facd/src/20251007_AaveV3Base_AdditionOfCbBTCStablecoinEModeToAaveV3BaseInstance/AaveV3Base_AdditionOfCbBTCStablecoinEModeToAaveV3BaseInstance_20251007.sol)
+- Tests: [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/4fc1c4e302e911bbadfec5f8c46910d2ef83facd/src/20251007_AaveV3Base_AdditionOfCbBTCStablecoinEModeToAaveV3BaseInstance/AaveV3Base_AdditionOfCbBTCStablecoinEModeToAaveV3BaseInstance_20251007.t.sol)
 - Snapshot: Direct-to-AIP
 - [Discussion](https://governance.aave.com/t/direct-to-aip-addition-of-cbbtc-stablecoin-e-mode-to-aave-v3-base-instance/23174)
 
