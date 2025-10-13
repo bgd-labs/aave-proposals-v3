@@ -46,7 +46,7 @@ The table below illustrates the configured risk parameters for **PT_USDe_15JAN20
 | Underlying Oracle      |                                [Chainlink USDT/USD](https://plasmascan.to/address/0x70b77FcdbE2293423e41AdD2FB599808396807BC) |                                 [Chainlink USDT/USD](https://plasmascan.to/address/0x70b77FcdbE2293423e41AdD2FB599808396807BC) |
 | Oracle Latest Answer   |                                                                                                    (2025-10-08) USD .97880894 |                                                                                                     (2025-10-08) USD .97767085 |
 | discountRatePerYear    |                                                                                                                         7.96% |                                                                                                                          8.38% |
-| maxDiscountRatePerYear |                                                                                                                        33.88% |                                                                                                                         27.90% |
+| maxDiscountRatePerYear |                                                                                                                        33.88% |                                                                                                                         36.82% |
 
 Additionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://plasmascan.to/address/0xac140648435d03f784879cd789130F22Ef588Fcd) has been set as the emission admin for PT_sUSDE_15JAN2026, PT_USDe_15JAN2026 and the corresponding aTokens.
 
