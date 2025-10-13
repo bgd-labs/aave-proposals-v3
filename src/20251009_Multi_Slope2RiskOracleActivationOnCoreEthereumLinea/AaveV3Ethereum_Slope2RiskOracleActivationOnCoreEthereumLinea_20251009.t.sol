@@ -26,7 +26,7 @@ contract AaveV3Ethereum_Slope2RiskOracleActivationOnCoreEthereumLinea_20251009_T
   event KeeperRegistered(uint256 indexed id, address indexed upkeep, uint96 indexed amount);
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 23546177);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 23569444);
     proposal = new AaveV3Ethereum_Slope2RiskOracleActivationOnCoreEthereumLinea_20251009();
 
     RISK_ORACLE = IRiskOracle(IAaveStewardInjector(proposal.EDGE_INJECTOR_RATES()).RISK_ORACLE());
@@ -143,7 +143,7 @@ contract AaveV3Ethereum_Slope2RiskOracleActivationOnCoreEthereumLinea_20251009_T
     RISK_ORACLE.publishRiskParameterUpdate(
       'referenceId',
       abi.encode(rate),
-      'RateStrategyUpdate',
+      'RateStrategyUpdate_Core',
       address(AaveV3EthereumAssets.WETH_UNDERLYING),
       'additionalData'
     );
