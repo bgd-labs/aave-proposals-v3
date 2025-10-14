@@ -24,7 +24,7 @@ contract AaveV3Plasma_OnboardSUSDeAndUSDeJanuaryExpiryPTTokensOnAaveV3PlasmaInst
 {
   AaveV3Plasma_OnboardSUSDeAndUSDeJanuaryExpiryPTTokensOnAaveV3PlasmaInstance_20251007
     internal proposal;
-  address public constant EDGE_RISK_ORACLE = 0xAe48F22903d43f13f66Cc650F57Bd4654ac222cb;
+  address public constant EDGE_RISK_ORACLE = AaveV3Plasma.EDGE_RISK_ORACLE;
   address public constant RISK_ORACLE_OWNER = 0xDe841Bf4B67970f5a19165443B0e9ec808E1cC85;
 
   function setUp() public {
