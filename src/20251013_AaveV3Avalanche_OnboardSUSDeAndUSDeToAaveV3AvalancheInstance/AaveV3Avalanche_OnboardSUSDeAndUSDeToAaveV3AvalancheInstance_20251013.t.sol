@@ -20,7 +20,7 @@ contract AaveV3Avalanche_OnboardSUSDeAndUSDeToAaveV3AvalancheInstance_20251013_T
   AaveV3Avalanche_OnboardSUSDeAndUSDeToAaveV3AvalancheInstance_20251013 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('avalanche'), 70259132);
+    vm.createSelectFork(vm.rpcUrl('avalanche'), 70289869);
     proposal = new AaveV3Avalanche_OnboardSUSDeAndUSDeToAaveV3AvalancheInstance_20251013();
   }
 
