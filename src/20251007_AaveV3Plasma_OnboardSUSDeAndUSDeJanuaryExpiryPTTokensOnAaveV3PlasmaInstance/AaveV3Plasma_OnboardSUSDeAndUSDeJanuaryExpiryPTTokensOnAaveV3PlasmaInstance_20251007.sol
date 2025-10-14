@@ -19,11 +19,12 @@ contract AaveV3Plasma_OnboardSUSDeAndUSDeJanuaryExpiryPTTokensOnAaveV3PlasmaInst
   AaveV3PayloadPlasma
 {
   using SafeERC20 for IERC20;
-  address public constant EDGE_INJECTOR_PENDLE_EMODE = 0xdD56dE44d2d79eC97cEa1A0049c767A4ce97953e;
-  address public constant EDGE_INJECTOR_DISCOUNT_RATE = 0x6E3748B753D38e33CC476aF63C9d220Af65b7fc4;
-  address public constant EDGE_RISK_STEWARD_EMODE = 0xe1472037C9f17Ac00bf5336272ab74e423B9254d;
+  address public constant EDGE_INJECTOR_PENDLE_EMODE = AaveV3Plasma.EDGE_INJECTOR_PENDLE_EMODE;
+  address public constant EDGE_INJECTOR_DISCOUNT_RATE = AaveV3Plasma.EDGE_INJECTOR_DISCOUNT_RATE;
+  address public constant EDGE_RISK_STEWARD_PENDLE_EMODE =
+    AaveV3Plasma.EDGE_RISK_STEWARD_PENDLE_EMODE;
   address public constant EDGE_RISK_STEWARD_DISCOUNT_RATE =
-    0x530034d1A739Afd261291B86A5c3b95eC30c4b44;
+    AaveV3Plasma.EDGE_RISK_STEWARD_DISCOUNT_RATE;
 
   address public constant PT_USDe_15JAN2026 = 0x93B544c330F60A2aa05ceD87aEEffB8D38FD8c9a;
   uint256 public constant PT_USDe_15JAN2026_SEED_AMOUNT = 100e18;
@@ -36,7 +37,7 @@ contract AaveV3Plasma_OnboardSUSDeAndUSDeJanuaryExpiryPTTokensOnAaveV3PlasmaInst
   function _postExecute() internal override {
     // onboard new risk steward for ARGS
     AaveV3Plasma.ACL_MANAGER.addRiskAdmin(EDGE_RISK_STEWARD_DISCOUNT_RATE);
-    AaveV3Plasma.ACL_MANAGER.addRiskAdmin(EDGE_RISK_STEWARD_EMODE);
+    AaveV3Plasma.ACL_MANAGER.addRiskAdmin(EDGE_RISK_STEWARD_PENDLE_EMODE);
     // we whitelist the four newly created eModeId on the injector
     uint8 nextID = _findFirstUnusedEmodeCategory(AaveV3Plasma.POOL);
     address[] memory marketsToWhitelist = new address[](4);
