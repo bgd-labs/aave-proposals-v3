@@ -23,4 +23,10 @@ interface IRiskOracle {
     address market,
     bytes memory additionalData
   ) external;
+
+  /**
+   * @notice Adds a new sender to the list of addresses authorized to perform updates.
+   * @param sender Address to be authorized.
+   */
+  function addAuthorizedSender(address sender) external;
 }
