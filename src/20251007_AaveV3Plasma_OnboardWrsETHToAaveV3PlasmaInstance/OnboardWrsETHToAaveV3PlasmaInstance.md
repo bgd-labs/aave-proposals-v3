@@ -95,8 +95,8 @@ Additionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://plasmascan.to/
 
 ## References
 
-- Implementation: [AaveV3Plasma](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251007_AaveV3Plasma_OnboardWrsETHToAaveV3PlasmaInstance/AaveV3Plasma_OnboardWrsETHToAaveV3PlasmaInstance_20251007.sol)
-- Tests: [AaveV3Plasma](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251007_AaveV3Plasma_OnboardWrsETHToAaveV3PlasmaInstance/AaveV3Plasma_OnboardWrsETHToAaveV3PlasmaInstance_20251007.t.sol)
+- Implementation: [AaveV3Plasma](https://github.com/bgd-labs/aave-proposals-v3/blob/9247697ff4e69fb84944b6d7709cf15e301f86a7/src/20251007_AaveV3Plasma_OnboardWrsETHToAaveV3PlasmaInstance/AaveV3Plasma_OnboardWrsETHToAaveV3PlasmaInstance_20251007.sol)
+- Tests: [AaveV3Plasma](https://github.com/bgd-labs/aave-proposals-v3/blob/9247697ff4e69fb84944b6d7709cf15e301f86a7/src/20251007_AaveV3Plasma_OnboardWrsETHToAaveV3PlasmaInstance/AaveV3Plasma_OnboardWrsETHToAaveV3PlasmaInstance_20251007.t.sol)
 - Snapshot: Direct-to-AIP
 - [Discussion](https://governance.aave.com/t/direct-to-aip-onboard-wrseth-to-aave-v3-plasma-instance/23183)
 
