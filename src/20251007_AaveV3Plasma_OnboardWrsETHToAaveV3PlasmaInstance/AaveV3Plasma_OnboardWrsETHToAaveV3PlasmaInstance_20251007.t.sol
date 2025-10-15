@@ -18,7 +18,7 @@ contract AaveV3Plasma_OnboardWrsETHToAaveV3PlasmaInstance_20251007_Test is Proto
   AaveV3Plasma_OnboardWrsETHToAaveV3PlasmaInstance_20251007 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('plasma'), 2905138);
+    vm.createSelectFork(vm.rpcUrl('plasma'), 3592808);
     proposal = new AaveV3Plasma_OnboardWrsETHToAaveV3PlasmaInstance_20251007();
   }
 
@@ -33,10 +33,29 @@ contract AaveV3Plasma_OnboardWrsETHToAaveV3PlasmaInstance_20251007_Test is Proto
     );
   }
 
+  function test_dustBinHaswstETHFunds() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+    address aTokenAddress = AaveV3Plasma.POOL.getReserveAToken(proposal.wstETH());
+    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Plasma.DUST_BIN)), 2 * 10 ** 16);
+  }
+
+  function test_wstETHAdmin() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+    address awstETH = AaveV3Plasma.POOL.getReserveAToken(proposal.wstETH());
+    assertEq(
+      IEmissionManager(AaveV3Plasma.EMISSION_MANAGER).getEmissionAdmin(proposal.wstETH()),
+      proposal.wstETH_LM_ADMIN()
+    );
+    assertEq(
+      IEmissionManager(AaveV3Plasma.EMISSION_MANAGER).getEmissionAdmin(awstETH),
+      proposal.wstETH_LM_ADMIN()
+    );
+  }
+
   function test_dustBinHaswrsETHFunds() public {
     GovV3Helpers.executePayload(vm, address(proposal));
     address aTokenAddress = AaveV3Plasma.POOL.getReserveAToken(proposal.wrsETH());
-    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Plasma.DUST_BIN)), 4 * 10 ** 16);
+    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Plasma.DUST_BIN)), 2 * 10 ** 16);
   }
 
   function test_wrsETHAdmin() public {

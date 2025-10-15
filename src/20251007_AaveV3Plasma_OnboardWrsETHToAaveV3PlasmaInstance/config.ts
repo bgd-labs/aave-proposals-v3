@@ -1,6 +1,9 @@
 import {ConfigFile} from '../../generator/types';
 export const config: ConfigFile = {
   rootOptions: {
+    configFile: 'src/20251007_AaveV3Plasma_OnboardWrsETHToAaveV3PlasmaInstance/config.ts',
+    force: true,
+    update: true,
     author: 'Aave-chan Initiative',
     pools: ['AaveV3Plasma'],
     title: 'Onboard wrsETH to Aave v3 Plasma Instance',
@@ -21,10 +24,43 @@ export const config: ConfigFile = {
             liqBonus: '1',
             label: 'wrsETH/WETH',
             collateralAssets: ['wrsETH'],
+            borrowableAssets: ['WETH', 'wstETH'],
+          },
+          {
+            ltv: '94',
+            liqThreshold: '96',
+            liqBonus: '1',
+            label: 'wstETH/WETH',
+            collateralAssets: ['wstETH'],
             borrowableAssets: ['WETH'],
           },
         ],
         ASSET_LISTING: [
+          {
+            assetSymbol: 'wstETH',
+            decimals: 18,
+            priceFeed: '0xd6ff49B650550ce2452e0fCCa101Ab7CE206d851',
+            ltv: '78.5',
+            liqThreshold: '81.0',
+            liqBonus: '6',
+            debtCeiling: '0',
+            liqProtocolFee: '10',
+            enabledToBorrow: 'ENABLED',
+            flashloanable: 'ENABLED',
+            borrowableInIsolation: 'DISABLED',
+            withSiloedBorrowing: 'DISABLED',
+            reserveFactor: '35',
+            supplyCap: '20000',
+            borrowCap: '5000',
+            rateStrategyParams: {
+              optimalUtilizationRate: '90',
+              baseVariableBorrowRate: '0',
+              variableRateSlope1: '0.55',
+              variableRateSlope2: '40',
+            },
+            asset: '0xe48D935e6C9e735463ccCf29a7F11e32bC09136E',
+            admin: '0xac140648435d03f784879cd789130F22Ef588Fcd',
+          },
           {
             assetSymbol: 'wrsETH',
             decimals: 18,
@@ -52,7 +88,7 @@ export const config: ConfigFile = {
           },
         ],
       },
-      cache: {blockNumber: 2905138},
+      cache: {blockNumber: 3592808},
     },
   },
 };
