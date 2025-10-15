@@ -12,6 +12,7 @@ import {IOwnable} from 'aave-address-book/common/IOwnable.sol';
 import {IUpgradeableBurnMintTokenPool_1_5_1} from 'src/interfaces/ccip/tokenPool/IUpgradeableBurnMintTokenPool.sol';
 import {IGhoAaveSteward} from 'src/interfaces/IGhoAaveSteward.sol';
 import {IGhoCcipSteward} from 'src/interfaces/IGhoCcipSteward.sol';
+import {IOnRamp_1_6} from 'src/interfaces/ccip/IEVM2EVMOnRamp.sol';
 
 abstract contract AaveV3GHOLaunchTest_PreExecution is AaveV3GHOLaneTest {
   IACLManager public immutable LOCAL_ACL_MANAGER;
@@ -177,7 +178,7 @@ abstract contract AaveV3GHOLaunchTest_PreExecution is AaveV3GHOLaneTest {
     assertEq(abi.encode(LOCAL_TOKEN_POOL.getAllowList()), abi.encode(new address[](0)));
     assertEq(LOCAL_TOKEN_POOL.getRouter(), address(LOCAL_CCIP_ROUTER));
 
-    GhoCCIPChains.ChainInfo[] memory expectedSupportedChains = _expectedSupportedChains();
+    GhoCCIPChains.ChainInfo[] memory expectedSupportedChains = _expectedSupportedChains(false);
 
     assertEq(LOCAL_TOKEN_POOL.getSupportedChains().length, expectedSupportedChains.length);
     assertEq(LOCAL_TOKEN_POOL.getSupportedChains()[0], expectedSupportedChains[0].chainSelector);
@@ -213,7 +214,7 @@ abstract contract AaveV3GHOLaunchTest_PreExecution is AaveV3GHOLaneTest {
   }
 }
 
-abstract contract AaveV3GHOLaunchTest_PostExecution is AaveV3GHOLaneTest {
+abstract contract BaseAaveV3GHOLaunchTest_PostExecution is AaveV3GHOLaneTest {
   constructor(
     GhoCCIPChains.ChainInfo memory localChainInfo,
     string memory rpcAlias,
@@ -221,18 +222,7 @@ abstract contract AaveV3GHOLaunchTest_PostExecution is AaveV3GHOLaneTest {
   )
     AaveV3GHOLaneTest(
       localChainInfo,
-      GhoCCIPChains.ChainInfo(
-        0,
-        address(0),
-        address(0),
-        address(0),
-        address(0),
-        address(0),
-        address(0),
-        address(0),
-        address(0),
-        address(0)
-      ), // Nullified remote chain info as it's not used for this test
+      GhoCCIPChains.emptyChainInfo(), // Nullified remote chain info as it's not used for this test
       rpcAlias,
       blockNumber
     )
@@ -247,8 +237,108 @@ abstract contract AaveV3GHOLaunchTest_PostExecution is AaveV3GHOLaneTest {
     _executePayload();
   }
 
+  function _getOnRampFailIfNotFound(uint64 chainSelector) internal view override returns (address) {
+    address offRamp = _getOffRamp_1_6(chainSelector);
+    assertNotEq(offRamp, address(0), 'No offRamp found for the supported chain');
+    return offRamp;
+  }
+
+  function test_offRampViaSupportedChainSucceeds(uint256 amount, uint8 chainIndex) public {
+    GhoCCIPChains.ChainInfo[] memory supportedChains = _expectedSupportedChains(false);
+
+    require(supportedChains.length > 0);
+
+    chainIndex = uint8(bound(chainIndex, 0, supportedChains.length - 1));
+
+    amount = bound(
+      amount,
+      1,
+      _min(
+        LOCAL_GHO_TOKEN.getFacilitator(address(LOCAL_TOKEN_POOL)).bucketCapacity, // initially, bucketLevel == 0
+        _ccipRateLimitCapacity()
+      )
+    );
+    skip(_getInboundRefillTime(amount)); // wait for the rate limiter to refill
+
+    uint256 aliceBalance = LOCAL_GHO_TOKEN.balanceOf(alice);
+
+    address offRamp = _getOnRampFailIfNotFound(supportedChains[chainIndex].chainSelector);
+
+    vm.expectEmit(address(LOCAL_TOKEN_POOL));
+    emit Minted(offRamp, alice, amount);
+
+    vm.prank(offRamp);
+    LOCAL_TOKEN_POOL.releaseOrMint(
+      IPool_CCIP.ReleaseOrMintInV1({
+        originalSender: abi.encode(alice),
+        remoteChainSelector: supportedChains[chainIndex].chainSelector,
+        receiver: alice,
+        amount: amount,
+        localToken: address(LOCAL_GHO_TOKEN),
+        sourcePoolAddress: abi.encode(address(supportedChains[chainIndex].ghoCCIPTokenPool)),
+        sourcePoolData: new bytes(0),
+        offchainTokenData: new bytes(0)
+      })
+    );
+
+    assertEq(LOCAL_GHO_TOKEN.getFacilitator(address(LOCAL_TOKEN_POOL)).bucketLevel, amount);
+    assertEq(LOCAL_GHO_TOKEN.balanceOf(alice), aliceBalance + amount);
+  }
+
+  function test_cannotOffRampOtherChainMessages(uint8 chainIndexI, uint8 chainIndexII) public {
+    GhoCCIPChains.ChainInfo[] memory supportedChains = _expectedSupportedChains(false);
+
+    vm.skip(supportedChains.length < 2);
+
+    chainIndexI = uint8(bound(chainIndexI, 0, supportedChains.length - 1));
+    chainIndexII = uint8(bound(chainIndexII, 0, supportedChains.length - 1));
+
+    vm.assume(chainIndexI != chainIndexII);
+    vm.assume(
+      supportedChains[chainIndexI].ghoCCIPTokenPool !=
+        supportedChains[chainIndexII].ghoCCIPTokenPool
+    );
+
+    uint256 amount = 100e18;
+    skip(_getInboundRefillTime(amount));
+
+    address offRampI = _getOnRampFailIfNotFound(supportedChains[chainIndexI].chainSelector);
+
+    vm.expectRevert(
+      abi.encodeWithSelector(
+        InvalidSourcePoolAddress.selector,
+        abi.encode(address(supportedChains[chainIndexII].ghoCCIPTokenPool))
+      )
+    );
+    vm.prank(offRampI);
+    LOCAL_TOKEN_POOL.releaseOrMint(
+      IPool_CCIP.ReleaseOrMintInV1({
+        originalSender: abi.encode(alice),
+        remoteChainSelector: supportedChains[chainIndexI].chainSelector,
+        receiver: alice,
+        amount: amount,
+        localToken: address(LOCAL_GHO_TOKEN),
+        sourcePoolAddress: abi.encode(address(supportedChains[chainIndexII].ghoCCIPTokenPool)),
+        sourcePoolData: new bytes(0),
+        offchainTokenData: new bytes(0)
+      })
+    );
+  }
+}
+
+abstract contract AaveV3GHOLaunchTest_PostExecution is BaseAaveV3GHOLaunchTest_PostExecution {
+  constructor(
+    GhoCCIPChains.ChainInfo memory localChainInfo,
+    string memory rpcAlias,
+    uint256 blockNumber
+  ) BaseAaveV3GHOLaunchTest_PostExecution(localChainInfo, rpcAlias, blockNumber) {}
+
+  function setUp() public virtual override {
+    super.setUp();
+  }
+
   function test_sendMessageToSupportedChainSucceeds(uint256 amount, uint8 chainIndex) public {
-    GhoCCIPChains.ChainInfo[] memory supportedChains = _expectedSupportedChains();
+    GhoCCIPChains.ChainInfo[] memory supportedChains = _expectedSupportedChains(false);
 
     require(supportedChains.length > 0);
 
@@ -297,86 +387,75 @@ abstract contract AaveV3GHOLaunchTest_PostExecution is AaveV3GHOLaneTest {
       bucketLevel - amount
     );
   }
+}
 
-  function test_offRampViaSupportedChainSucceeds(uint256 amount, uint8 chainIndex) public {
-    GhoCCIPChains.ChainInfo[] memory supportedChains = _expectedSupportedChains();
+abstract contract AaveV3GHOLaunch_1_6_Test_PostExecution is BaseAaveV3GHOLaunchTest_PostExecution {
+  event CCIPMessageSent(
+    uint64 indexed destChainSelector,
+    uint64 indexed sequenceNumber,
+    IInternal.EVM2AnyRampMessage message
+  );
+
+  constructor(
+    GhoCCIPChains.ChainInfo memory localChainInfo,
+    string memory rpcAlias,
+    uint256 blockNumber
+  ) BaseAaveV3GHOLaunchTest_PostExecution(localChainInfo, rpcAlias, blockNumber) {}
+
+  function setUp() public virtual override {
+    super.setUp();
+  }
+
+  function test_sendMessageToSupportedChainSucceeds(uint256 amount, uint8 chainIndex) public {
+    GhoCCIPChains.ChainInfo[] memory supportedChains = _expectedSupportedChains(false);
 
     require(supportedChains.length > 0);
 
     chainIndex = uint8(bound(chainIndex, 0, supportedChains.length - 1));
 
-    amount = bound(
-      amount,
-      1,
-      _min(
-        LOCAL_GHO_TOKEN.getFacilitator(address(LOCAL_TOKEN_POOL)).bucketCapacity, // initially, bucketLevel == 0
-        _ccipRateLimitCapacity()
-      )
-    );
-    skip(_getInboundRefillTime(amount)); // wait for the rate limiter to refill
+    amount = bound(amount, 1, _ccipRateLimitCapacity());
+    skip(_getOutboundRefillTime(amount)); // wait for the rate limiter to refill
+    // mock previously bridged amount
+    vm.prank(address(LOCAL_TOKEN_POOL));
+    LOCAL_GHO_TOKEN.mint(alice, amount); // increase bucket level
+
+    vm.prank(alice);
+    LOCAL_GHO_TOKEN.approve(address(LOCAL_CCIP_ROUTER), amount);
 
     uint256 aliceBalance = LOCAL_GHO_TOKEN.balanceOf(alice);
+    uint256 bucketLevel = LOCAL_GHO_TOKEN.getFacilitator(address(LOCAL_TOKEN_POOL)).bucketLevel;
 
-    address offRamp = _getOnRampFailIfNotFound(supportedChains[chainIndex].chainSelector);
+    (
+      IClient.EVM2AnyMessage memory message,
+      IInternal.EVM2AnyRampMessage memory eventArg
+    ) = _getTokenMessage_1_6(
+        CCIPSendParams({
+          amount: amount,
+          sender: alice,
+          destChainSelector: supportedChains[chainIndex].chainSelector,
+          destToken: supportedChains[chainIndex].ghoToken
+        })
+      );
+
+    IOnRamp_1_6 onRamp = IOnRamp_1_6(
+      LOCAL_CCIP_ROUTER.getOnRamp(supportedChains[chainIndex].chainSelector)
+    );
+    uint64 sequenceNumber = onRamp.getExpectedNextSequenceNumber(
+      supportedChains[chainIndex].chainSelector
+    );
 
     vm.expectEmit(address(LOCAL_TOKEN_POOL));
-    emit Minted(offRamp, alice, amount);
+    emit Burned(address(onRamp), amount);
+    vm.expectEmit(address(onRamp));
+    emit CCIPMessageSent(supportedChains[chainIndex].chainSelector, sequenceNumber, eventArg);
 
-    vm.prank(offRamp);
-    LOCAL_TOKEN_POOL.releaseOrMint(
-      IPool_CCIP.ReleaseOrMintInV1({
-        originalSender: abi.encode(alice),
-        remoteChainSelector: supportedChains[chainIndex].chainSelector,
-        receiver: alice,
-        amount: amount,
-        localToken: address(LOCAL_GHO_TOKEN),
-        sourcePoolAddress: abi.encode(address(supportedChains[chainIndex].ghoCCIPTokenPool)),
-        sourcePoolData: new bytes(0),
-        offchainTokenData: new bytes(0)
-      })
-    );
+    vm.prank(alice);
+    LOCAL_CCIP_ROUTER.ccipSend(supportedChains[chainIndex].chainSelector, message);
 
-    assertEq(LOCAL_GHO_TOKEN.getFacilitator(address(LOCAL_TOKEN_POOL)).bucketLevel, amount);
-    assertEq(LOCAL_GHO_TOKEN.balanceOf(alice), aliceBalance + amount);
-  }
-
-  function test_cannotOffRampOtherChainMessages(uint8 chainIndexI, uint8 chainIndexII) public {
-    GhoCCIPChains.ChainInfo[] memory supportedChains = _expectedSupportedChains();
-
-    vm.skip(supportedChains.length < 2);
-
-    chainIndexI = uint8(bound(chainIndexI, 0, supportedChains.length - 1));
-    chainIndexII = uint8(bound(chainIndexII, 0, supportedChains.length - 1));
-
-    vm.assume(chainIndexI != chainIndexII);
-    vm.assume(
-      supportedChains[chainIndexI].ghoCCIPTokenPool !=
-        supportedChains[chainIndexII].ghoCCIPTokenPool
-    );
-
-    uint256 amount = 100e18;
-    skip(_getInboundRefillTime(amount));
-
-    address offRampI = _getOnRampFailIfNotFound(supportedChains[chainIndexI].chainSelector);
-
-    vm.expectRevert(
-      abi.encodeWithSelector(
-        InvalidSourcePoolAddress.selector,
-        abi.encode(address(supportedChains[chainIndexII].ghoCCIPTokenPool))
-      )
-    );
-    vm.prank(offRampI);
-    LOCAL_TOKEN_POOL.releaseOrMint(
-      IPool_CCIP.ReleaseOrMintInV1({
-        originalSender: abi.encode(alice),
-        remoteChainSelector: supportedChains[chainIndexI].chainSelector,
-        receiver: alice,
-        amount: amount,
-        localToken: address(LOCAL_GHO_TOKEN),
-        sourcePoolAddress: abi.encode(address(supportedChains[chainIndexII].ghoCCIPTokenPool)),
-        sourcePoolData: new bytes(0),
-        offchainTokenData: new bytes(0)
-      })
+    assertEq(LOCAL_GHO_TOKEN.balanceOf(alice), aliceBalance - amount);
+    assertEq(
+      LOCAL_GHO_TOKEN.getFacilitator(address(LOCAL_TOKEN_POOL)).bucketLevel,
+      bucketLevel - amount
     );
   }
 }

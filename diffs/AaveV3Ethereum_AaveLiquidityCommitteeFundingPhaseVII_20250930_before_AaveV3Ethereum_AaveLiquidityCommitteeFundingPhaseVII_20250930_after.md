@@ -1,0 +1,32 @@
+## Raw diff
+
+```json
+{
+  "raw": {
+    "0x18efe565a5373f430e2f809b97de30335b3ad96a": {
+      "label": "AaveV3EthereumLido.ASSETS.GHO.A_TOKEN",
+      "balanceDiff": null,
+      "stateDiff": {
+        "0xe9e697b024e78cc5eab5a7f747919b45b7df88b33a5380f250e9a2901c2133d0": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000211654585005212800000"
+        }
+      }
+    },
+    "0xdabad81af85554e9ae636395611c58f7ec1aaec5": {
+      "label": "GovernanceV3Ethereum.PAYLOADS_CONTROLLER",
+      "balanceDiff": null,
+      "stateDiff": {
+        "0xd2e6ebac8330a1a1b0846b0b511eeb9510273e6698f84244b6c63e1b0339d6ac": {
+          "previousValue": "0x0068dc3712000000000002000000000000000000000000000000000000000000",
+          "newValue": "0x0068dc3712000000000003000000000000000000000000000000000000000000"
+        },
+        "0xd2e6ebac8330a1a1b0846b0b511eeb9510273e6698f84244b6c63e1b0339d6ad": {
+          "previousValue": "0x000000000000000000093a80000000000000690a5b9300000000000000000000",
+          "newValue": "0x000000000000000000093a80000000000000690a5b9300000000000068dc3713"
+        }
+      }
+    }
+  }
+}
+```

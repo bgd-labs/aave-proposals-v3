@@ -48,7 +48,7 @@ abstract contract AaveV3GHOLaunch is AaveV3GHOLane {
   /**
    * @notice Executes the GHO Launch proposal
    */
-  function execute() external override {
+  function execute() external virtual override {
     _acceptTokenAdminRegistryAdminRole();
     _acceptTokenPoolOwnership();
     _setupStewardsAndTokenPoolOnGho();
@@ -64,7 +64,8 @@ abstract contract AaveV3GHOLaunch is AaveV3GHOLane {
     returns (IUpgradeableBurnMintTokenPool_1_5_1.ChainUpdate[] memory)
   {
     GhoCCIPChains.ChainInfo[] memory chainsToSupport = GhoCCIPChains.getAllChainsExcept(
-      LOCAL_CHAIN_SELECTOR
+      LOCAL_CHAIN_SELECTOR,
+      false
     );
     IUpgradeableBurnMintTokenPool_1_5_1.ChainUpdate[]
       memory chainsToAdd = new IUpgradeableBurnMintTokenPool_1_5_1.ChainUpdate[](
