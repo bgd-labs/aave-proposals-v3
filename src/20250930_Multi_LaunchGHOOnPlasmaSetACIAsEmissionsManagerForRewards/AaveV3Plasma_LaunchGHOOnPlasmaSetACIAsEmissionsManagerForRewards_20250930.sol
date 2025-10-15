@@ -24,6 +24,13 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
   uint256 public constant GHO_SEED_AMOUNT = 1e18;
   address public constant GHO_LM_ADMIN = 0xac140648435d03f784879cd789130F22Ef588Fcd;
 
+  function _preExecute() internal override {
+    // Set up GHO Reserve
+    // Set up GSMs
+    // Allow GSMs
+    // Move GHO to GHO Reserve
+  }
+
   function _postExecute() internal override {
     IERC20(GHO).forceApprove(address(AaveV3Plasma.POOL), GHO_SEED_AMOUNT);
     AaveV3Plasma.POOL.supply(GHO, GHO_SEED_AMOUNT, AaveV3Plasma.DUST_BIN, 0);
