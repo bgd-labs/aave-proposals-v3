@@ -16,15 +16,7 @@ Futher details about Fluid Protocol: https://fluid.io/
 
 ## Specification
 
-Whitelist Fluid Protocol as part of FlashBorrowers of Aave v3 on Plasma liquidity pools.
-
-//https://plasmascan.to/address/0x352423e2fA5D5c99343d371C9e3bC56C87723Cc7
-
-0x352423e2fA5D5c99343d371C9e3bC56C87723Cc7
-
-This proposal aims to implement an AIP which will call addFlashBorrower() on the ACL_MANAGER contract.
-
-The AIP when implemented grants permission to whitelist any Fluid Protocol contract for all use cases, such as leveraged positions, eMode, debt and collateral swaps, with one exception: no smart-contract that migrates a position outside of the Aave ecosystem is eligible for whitelisting.
+This proposal aims to implement a single AIP, which will call `addFlashBorrower()` on the `ACL_MANAGER` contract to whitelist `0x352423e2fA5D5c99343d371C9e3bC56C87723Cc7` as an eligible contract.
 
 ## References
 
