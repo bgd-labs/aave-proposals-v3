@@ -86,7 +86,7 @@ contract AaveV3Avalanche_OnboardSUSDeAndUSDeToAaveV3AvalancheInstance_20251013 i
     listings[0] = IAaveV3ConfigEngine.Listing({
       asset: USDe,
       assetSymbol: 'USDe',
-      priceFeed: 0x5b7810a910B4a878AaA4800a824E5E5796838009,
+      priceFeed: AaveV3AvalancheAssets.USDt_ORACLE,
       enabledToBorrow: EngineFlags.ENABLED,
       borrowableInIsolation: EngineFlags.DISABLED,
       withSiloedBorrowing: EngineFlags.DISABLED,
