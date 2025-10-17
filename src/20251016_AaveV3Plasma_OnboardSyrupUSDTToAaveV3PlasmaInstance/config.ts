@@ -39,7 +39,7 @@ export const config: ConfigFile = {
             borrowableInIsolation: 'DISABLED',
             withSiloedBorrowing: 'DISABLED',
             reserveFactor: '45',
-            supplyCap: '250000000',
+            supplyCap: '150000000',
             borrowCap: '1',
             rateStrategyParams: {
               optimalUtilizationRate: '45',

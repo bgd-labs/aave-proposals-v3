@@ -75,7 +75,7 @@ contract AaveV3Plasma_OnboardSyrupUSDTToAaveV3PlasmaInstance_20251016 is AaveV3P
       liqThreshold: 10,
       liqBonus: 6_00,
       reserveFactor: 45_00,
-      supplyCap: 250_000_000,
+      supplyCap: 150_000_000,
       borrowCap: 1,
       debtCeiling: 0,
       liqProtocolFee: 10_00,

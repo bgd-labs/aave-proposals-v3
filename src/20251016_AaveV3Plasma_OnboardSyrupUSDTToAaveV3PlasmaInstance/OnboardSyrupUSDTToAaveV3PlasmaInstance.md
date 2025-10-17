@@ -31,7 +31,7 @@ The table below illustrates the configured risk parameters for **syrupUSDT**
 | Isolation Mode            |       false |
 | Borrowable                |    DISABLED |
 | Collateral Enabled        |        true |
-| Supply Cap (syrupUSDT)    | 250,000,000 |
+| Supply Cap (syrupUSDT)    | 150,000,000 |
 | Borrow Cap (syrupUSDT)    |           1 |
 | Debt Ceiling              |       USD 0 |
 | LTV                       |      0.05 % |

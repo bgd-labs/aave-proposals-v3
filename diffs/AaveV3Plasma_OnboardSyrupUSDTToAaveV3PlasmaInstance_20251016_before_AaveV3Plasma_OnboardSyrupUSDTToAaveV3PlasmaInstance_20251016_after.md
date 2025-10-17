@@ -9,7 +9,7 @@
 | decimals | 6 |
 | isActive | true |
 | isFrozen | false |
-| supplyCap | 250,000,000 syrupUSDT |
+| supplyCap | 150,000,000 syrupUSDT |
 | borrowCap | 1 syrupUSDT |
 | debtCeiling | 0 $ [0] |
 | isSiloed | false |
@@ -122,7 +122,7 @@
         "oracleDescription": "Capped syrupUSDT / USDT / USD",
         "oracleLatestAnswer": "109822744",
         "reserveFactor": 4500,
-        "supplyCap": 250000000,
+        "supplyCap": 150000000,
         "symbol": "syrupUSDT",
         "underlying": "0xC4374775489CB9C56003BF2C9b12495fC64F0771",
         "usageAsCollateralEnabled": true,
@@ -207,7 +207,7 @@
         },
         "0xa2611fffb1563e77311e06c60d4d847b1804f1b210a636975fa6e9c20cb74aaa": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x100000000000000000000003e800ee6b280000000001119481062968000a0005"
+          "newValue": "0x100000000000000000000003e8008f0d180000000001119481062968000a0005"
         },
         "0xa2611fffb1563e77311e06c60d4d847b1804f1b210a636975fa6e9c20cb74aab": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
