@@ -18,9 +18,9 @@ Ava Labs has committed 1000 AVAX per week in incentives to bootstrapping usage o
 
 ## Specification
 
-The table below illustrates the configured risk parameters for **USDe**
+The table below illustrates the configured risk parameters for **USDe** and **sUSDe**
 
-| Parameter                 |      Value |      Value |
+| Parameter                 |       USDe |      sUSDe |
 | ------------------------- | ---------: | ---------: |
 | Isolation Mode            |      false |      false |
 | Borrowable                |    ENABLED |   DISABLED |
@@ -74,9 +74,9 @@ Additionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://snowscan.xyz/a
 | Asset                 | sUSDe     | USDe      | USDt      | GHO       | USDC      |
 | Collateral            | Yes       | No        | No        | No        | No        |
 | Borrowable            | No        | Yes       | Yes       | Yes       | Yes       |
-| Max LTV               | 89%       | 89%       | -         | -         | -         |
-| Liquidation Threshold | 91%       | 91%       | -         | -         | -         |
-| Liquidation Bonus     | 4%        | 4%        | -         | -         | -         |
+| Max LTV               | 89%       | -         | -         | -         | -         |
+| Liquidation Threshold | 91%       | -         | -         | -         | -         |
+| Liquidation Bonus     | 4%        | -         | -         | -         | -         |
 
 ## References
 
