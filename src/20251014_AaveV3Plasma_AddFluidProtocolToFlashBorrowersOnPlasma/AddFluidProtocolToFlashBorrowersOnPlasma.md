@@ -12,7 +12,7 @@ This proposal includes Fluid Protocol on the Aave v3 Flashborrowers whitelist fo
 
 Fluid has been a long-standing partner in the Aave ecosystem, providing valuable infrastructure and user interfaces. This publication extends the flashloan fee waiver to include recent Fluid deployment on Plasma.
 
-Futher details about Fluid Protocol: https://fluid.io/
+Further details about Fluid Protocol: https://fluid.io/
 
 ## Specification
 
