@@ -20,8 +20,8 @@ This proposal aims to implement a single AIP, which will call `addFlashBorrower(
 
 ## References
 
-- Implementation: [AaveV3Plasma](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251014_AaveV3Plasma_AddFluidProtocolToFlashBorrowersOnPlasma/AaveV3Plasma_AddFluidProtocolToFlashBorrowersOnPlasma_20251014.sol)
-- Tests: [AaveV3Plasma](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251014_AaveV3Plasma_AddFluidProtocolToFlashBorrowersOnPlasma/AaveV3Plasma_AddFluidProtocolToFlashBorrowersOnPlasma_20251014.t.sol)
+- Implementation: [AaveV3Plasma](https://github.com/bgd-labs/aave-proposals-v3/blob/f619eaf5ec4d6fcfab1bf96d43ad0cc1296538e8/src/20251014_AaveV3Plasma_AddFluidProtocolToFlashBorrowersOnPlasma/AaveV3Plasma_AddFluidProtocolToFlashBorrowersOnPlasma_20251014.sol)
+- Tests: [AaveV3Plasma](https://github.com/bgd-labs/aave-proposals-v3/blob/f619eaf5ec4d6fcfab1bf96d43ad0cc1296538e8/src/20251014_AaveV3Plasma_AddFluidProtocolToFlashBorrowersOnPlasma/AaveV3Plasma_AddFluidProtocolToFlashBorrowersOnPlasma_20251014.t.sol)
 - Snapshot: Direct-to-AIP
 - [Discussion](https://governance.aave.com/t/direct-to-aip-add-fluid-protocol-to-flashborrowers-on-plasma/23252)
 
