@@ -74,8 +74,8 @@ Additionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://plasmascan.to/
 
 ## References
 
-- Implementation: [AaveV3Plasma](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251016_AaveV3Plasma_OnboardSyrupUSDTToAaveV3PlasmaInstance/AaveV3Plasma_OnboardSyrupUSDTToAaveV3PlasmaInstance_20251016.sol)
-- Tests: [AaveV3Plasma](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251016_AaveV3Plasma_OnboardSyrupUSDTToAaveV3PlasmaInstance/AaveV3Plasma_OnboardSyrupUSDTToAaveV3PlasmaInstance_20251016.t.sol)
+- Implementation: [AaveV3Plasma](https://github.com/bgd-labs/aave-proposals-v3/blob/5e2461cce77245f7b73de996899e0cb861a63b0e/src/20251016_AaveV3Plasma_OnboardSyrupUSDTToAaveV3PlasmaInstance/AaveV3Plasma_OnboardSyrupUSDTToAaveV3PlasmaInstance_20251016.sol)
+- Tests: [AaveV3Plasma](https://github.com/bgd-labs/aave-proposals-v3/blob/5e2461cce77245f7b73de996899e0cb861a63b0e/src/20251016_AaveV3Plasma_OnboardSyrupUSDTToAaveV3PlasmaInstance/AaveV3Plasma_OnboardSyrupUSDTToAaveV3PlasmaInstance_20251016.t.sol)
 - Snapshot: Direct-to-AIP
 - [Discussion](https://governance.aave.com/t/direct-to-aip-onboard-syrupusdt-to-aave-v3-plasma-instance/23204)
 
