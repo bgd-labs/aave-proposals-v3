@@ -6,8 +6,7 @@ export const config: ConfigFile = {
     shortName: 'Slope2RiskOracleActivationOnCoreEthereumLinea',
     date: '20251009',
     author: 'BGD Labs (@bgdlabs)',
-    discussion:
-      'https://governance.aave.com/t/chaos-labs-risk-stewards-slope2-parameter-adjustments-for-risk-oracle-deployment/23192',
+    discussion: 'https://governance.aave.com/t/technical-maintenance-proposals/15274/118',
     snapshot: '',
     votingNetwork: 'AVALANCHE',
   },
