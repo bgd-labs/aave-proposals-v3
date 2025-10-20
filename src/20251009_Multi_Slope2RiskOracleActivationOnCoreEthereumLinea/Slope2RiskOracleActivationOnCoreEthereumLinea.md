@@ -44,8 +44,8 @@ Since Chainlink Automation is not available on Linea, the automation will be con
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251009_Multi_Slope2RiskOracleActivationOnCoreEthereumLinea/AaveV3Ethereum_Slope2RiskOracleActivationOnCoreEthereumLinea_20251009.sol), [AaveV3Linea](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251009_Multi_Slope2RiskOracleActivationOnCoreEthereumLinea/AaveV3Linea_Slope2RiskOracleActivationOnCoreEthereumLinea_20251009.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251009_Multi_Slope2RiskOracleActivationOnCoreEthereumLinea/AaveV3Ethereum_Slope2RiskOracleActivationOnCoreEthereumLinea_20251009.t.sol), [AaveV3Linea](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251009_Multi_Slope2RiskOracleActivationOnCoreEthereumLinea/AaveV3Linea_Slope2RiskOracleActivationOnCoreEthereumLinea_20251009.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/2a5e4510aa403aa21e4c6d40e9e5ba36b8751812/src/20251009_Multi_Slope2RiskOracleActivationOnCoreEthereumLinea/AaveV3Ethereum_Slope2RiskOracleActivationOnCoreEthereumLinea_20251009.sol), [AaveV3Linea](https://github.com/bgd-labs/aave-proposals-v3/blob/2a5e4510aa403aa21e4c6d40e9e5ba36b8751812/src/20251009_Multi_Slope2RiskOracleActivationOnCoreEthereumLinea/AaveV3Linea_Slope2RiskOracleActivationOnCoreEthereumLinea_20251009.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/2a5e4510aa403aa21e4c6d40e9e5ba36b8751812/src/20251009_Multi_Slope2RiskOracleActivationOnCoreEthereumLinea/AaveV3Ethereum_Slope2RiskOracleActivationOnCoreEthereumLinea_20251009.t.sol), [AaveV3Linea](https://github.com/bgd-labs/aave-proposals-v3/blob/2a5e4510aa403aa21e4c6d40e9e5ba36b8751812/src/20251009_Multi_Slope2RiskOracleActivationOnCoreEthereumLinea/AaveV3Linea_Slope2RiskOracleActivationOnCoreEthereumLinea_20251009.t.sol)
 - [Discussion](https://governance.aave.com/t/technical-maintenance-proposals/15274/118)
 
 ## Copyright
