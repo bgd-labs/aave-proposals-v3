@@ -115,6 +115,7 @@ import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/
 import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 import {SafeERC20} from 'openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol';
+import {IEmissionManager} from 'aave-v3-origin/contracts/rewards/interfaces/IEmissionManager.sol';
 
 /**
  * @title test
@@ -129,8 +130,7 @@ contract AaveV3Ethereum_Test_20231023 is AaveV3PayloadEthereum {
   uint256 public constant PSP_SEED_AMOUNT = 1e18;
 
   function _postExecute() internal override {
-    IERC20(PSP).forceApprove(address(AaveV3Ethereum.POOL), PSP_SEED_AMOUNT);
-    AaveV3Ethereum.POOL.supply(PSP, PSP_SEED_AMOUNT, AaveV3Ethereum.DUST_BIN, 0);
+    _supplyAndConfigureLMAdmin(PSP, PSP_SEED_AMOUNT, address(0));
   }
 
   function newListings() public pure override returns (IAaveV3ConfigEngine.Listing[] memory) {
@@ -161,6 +161,16 @@ contract AaveV3Ethereum_Test_20231023 is AaveV3PayloadEthereum {
     });
 
     return listings;
+  }
+  function _supplyAndConfigureLMAdmin(address asset, uint256 seedAmount, address lmAdmin) internal {
+    IERC20(asset).forceApprove(address(AaveV3Ethereum.POOL), seedAmount);
+    AaveV3Ethereum.POOL.supply(asset, seedAmount, address(AaveV3Ethereum.DUST_BIN), 0);
+
+    if (lmAdmin != address(0)) {
+      address aToken = AaveV3Ethereum.POOL.getReserveAToken(asset);
+      IEmissionManager(AaveV3Ethereum.EMISSION_MANAGER).setEmissionAdmin(asset, lmAdmin);
+      IEmissionManager(AaveV3Ethereum.EMISSION_MANAGER).setEmissionAdmin(aToken, lmAdmin);
+    }
   }
 }
 ",
@@ -385,6 +395,7 @@ import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/
 import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 import {SafeERC20} from 'openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol';
+import {IEmissionManager} from 'aave-v3-origin/contracts/rewards/interfaces/IEmissionManager.sol';
 
 /**
  * @title test
@@ -399,8 +410,7 @@ contract AaveV3Ethereum_Test_20231023 is AaveV3PayloadEthereum {
   uint256 public constant PSP_SEED_AMOUNT = 1e18;
 
   function _postExecute() internal override {
-    IERC20(PSP).forceApprove(address(AaveV3Ethereum.POOL), PSP_SEED_AMOUNT);
-    AaveV3Ethereum.POOL.supply(PSP, PSP_SEED_AMOUNT, AaveV3Ethereum.DUST_BIN, 0);
+    _supplyAndConfigureLMAdmin(PSP, PSP_SEED_AMOUNT, address(0));
   }
 
   function newListings() public pure override returns (IAaveV3ConfigEngine.Listing[] memory) {
@@ -431,6 +441,16 @@ contract AaveV3Ethereum_Test_20231023 is AaveV3PayloadEthereum {
     });
 
     return listings;
+  }
+  function _supplyAndConfigureLMAdmin(address asset, uint256 seedAmount, address lmAdmin) internal {
+    IERC20(asset).forceApprove(address(AaveV3Ethereum.POOL), seedAmount);
+    AaveV3Ethereum.POOL.supply(asset, seedAmount, address(AaveV3Ethereum.DUST_BIN), 0);
+
+    if (lmAdmin != address(0)) {
+      address aToken = AaveV3Ethereum.POOL.getReserveAToken(asset);
+      IEmissionManager(AaveV3Ethereum.EMISSION_MANAGER).setEmissionAdmin(asset, lmAdmin);
+      IEmissionManager(AaveV3Ethereum.EMISSION_MANAGER).setEmissionAdmin(aToken, lmAdmin);
+    }
   }
 }
 ",
@@ -577,8 +597,7 @@ uint256 public constant PSP_SEED_AMOUNT = 1e18;
 ",
     ],
     "execute": [
-      "IERC20(PSP).forceApprove(address(AaveV3Ethereum.POOL), PSP_SEED_AMOUNT);
-AaveV3Ethereum.POOL.supply(PSP, PSP_SEED_AMOUNT, AaveV3Ethereum.DUST_BIN, 0);
+      "_supplyAndConfigureLMAdmin(PSP,PSP_SEED_AMOUNT,address(0));
 ",
     ],
     "fn": [
@@ -610,6 +629,16 @@ AaveV3Ethereum.POOL.supply(PSP, PSP_SEED_AMOUNT, AaveV3Ethereum.DUST_BIN, 0);
              });
 
           return listings;
+        }",
+      "function _supplyAndConfigureLMAdmin(address asset, uint256 seedAmount, address lmAdmin) internal {
+          IERC20(asset).forceApprove(address(AaveV3Ethereum.POOL), seedAmount);
+          AaveV3Ethereum.POOL.supply(asset, seedAmount, address(AaveV3Ethereum.DUST_BIN), 0);
+
+          if (lmAdmin != address(0)) {
+            address aToken = AaveV3Ethereum.POOL.getReserveAToken(asset);
+            IEmissionManager(AaveV3Ethereum.EMISSION_MANAGER).setEmissionAdmin(asset, lmAdmin);
+            IEmissionManager(AaveV3Ethereum.EMISSION_MANAGER).setEmissionAdmin(aToken, lmAdmin);
+	  }
         }",
     ],
   },
