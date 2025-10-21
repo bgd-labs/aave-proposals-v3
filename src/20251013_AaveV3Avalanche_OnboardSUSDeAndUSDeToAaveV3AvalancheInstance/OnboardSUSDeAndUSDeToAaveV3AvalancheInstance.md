@@ -80,8 +80,8 @@ Additionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://snowscan.xyz/a
 
 ## References
 
-- Implementation: [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251013_AaveV3Avalanche_OnboardSUSDeAndUSDeToAaveV3AvalancheInstance/AaveV3Avalanche_OnboardSUSDeAndUSDeToAaveV3AvalancheInstance_20251013.sol)
-- Tests: [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251013_AaveV3Avalanche_OnboardSUSDeAndUSDeToAaveV3AvalancheInstance/AaveV3Avalanche_OnboardSUSDeAndUSDeToAaveV3AvalancheInstance_20251013.t.sol)
+- Implementation: [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/1cc7166d28d9e444f84a74d53037b6972301ced3/src/20251013_AaveV3Avalanche_OnboardSUSDeAndUSDeToAaveV3AvalancheInstance/AaveV3Avalanche_OnboardSUSDeAndUSDeToAaveV3AvalancheInstance_20251013.sol)
+- Tests: [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/1cc7166d28d9e444f84a74d53037b6972301ced3/src/20251013_AaveV3Avalanche_OnboardSUSDeAndUSDeToAaveV3AvalancheInstance/AaveV3Avalanche_OnboardSUSDeAndUSDeToAaveV3AvalancheInstance_20251013.t.sol)
 - Snapshot: Direct-to-AIP
 - [Discussion](https://governance.aave.com/t/direct-to-aip-onboard-susde-and-usde-to-aave-v3-avalanche-instance/23081)
 
