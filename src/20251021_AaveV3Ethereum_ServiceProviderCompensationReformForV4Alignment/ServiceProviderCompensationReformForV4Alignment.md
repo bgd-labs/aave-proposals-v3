@@ -39,7 +39,7 @@ The following structure will apply to all primary Aave service providers:
 
 The TWAP price used is 263.15$
 
-The vesting mentionned in the original discussion will be handled separately by the AFC
+The vesting mentioned in the original discussion will be handled separately by the AFC
 
 ## References
 
