@@ -39,6 +39,7 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
   address public constant GHO = 0xb77E872A68C62CfC0dFb02C067Ecc3DA23B4bbf3;
   uint256 public constant GHO_SEED_AMOUNT = 1e18;
   address public constant GHO_LM_ADMIN = 0xac140648435d03f784879cd789130F22Ef588Fcd;
+  address public constant GHO_ORACLE = 0xb0e1c7830aA781362f79225559Aa068E6bDaF1d1;
 
   // GhoReserve
   // https://plasmascan.to/address/0xBAdA742e7Ff54595F9049eeF1Cc5AaF4364988B9
@@ -46,16 +47,16 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
   uint256 public constant BRIDGED_AMOUNT = 50_000_000 ether;
 
   // Capacities
-  uint128 public constant USDT_CAPACITY = 10_000_000 ether;
+  uint128 public constant USDT_CAPACITY = 50_000_000 ether;
 
-  // https://etherscan.io/address/<>
-  address public constant NEW_GSM_USDT = address(0);
+  // https://plasmascan.to/address/0x7cCC8a3DF66a2cDEa6c0629412378752Db5014EA
+  address public constant NEW_GSM_USDT = 0x7cCC8a3DF66a2cDEa6c0629412378752Db5014EA;
 
-  // https://etherscan.io/address/<>
-  address public constant USDT_ORACLE_SWAP_FREEZER = address(0);
+  // https://plasmascan.to/address/0x2CF06F6116DE4da4f6d5541dF09981825820CE20
+  address public constant USDT_ORACLE_SWAP_FREEZER = 0x2CF06F6116DE4da4f6d5541dF09981825820CE20;
 
-  // https://etherscan.io/address/<>
-  address public constant FEE_STRATEGY = address(0);
+  // https://plasmascan.to/address/0xD70BE7e6111EA563226cb8e53B1F195Da4E566E2
+  address public constant FEE_STRATEGY = 0xD70BE7e6111EA563226cb8e53B1F195Da4E566E2;
 
   // https://etherscan.io/address/0x1cDF8879eC8bE012bA959EB515b11008E0cb6323
   address public constant ROBOT_OPERATOR = 0x1cDF8879eC8bE012bA959EB515b11008E0cb6323;
@@ -138,24 +139,24 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
     listings[0] = IAaveV3ConfigEngine.Listing({
       asset: GHO,
       assetSymbol: 'GHO',
-      priceFeed: 0xb0e1c7830aA781362f79225559Aa068E6bDaF1d1,
+      priceFeed: GHO_ORACLE,
       enabledToBorrow: EngineFlags.ENABLED,
       borrowableInIsolation: EngineFlags.DISABLED,
       withSiloedBorrowing: EngineFlags.DISABLED,
       flashloanable: EngineFlags.ENABLED,
-      ltv: 0,
-      liqThreshold: 0,
-      liqBonus: 0,
+      ltv: 75_00,
+      liqThreshold: 78_00,
+      liqBonus: 4_50,
       reserveFactor: 10_00,
-      supplyCap: 5_000_000,
-      borrowCap: 4_500_000,
+      supplyCap: 50_000_000,
+      borrowCap: 20_000_000,
       debtCeiling: 0,
-      liqProtocolFee: 0,
+      liqProtocolFee: 10_00,
       rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
-        optimalUsageRatio: 90_00,
-        baseVariableBorrowRate: 0,
-        variableRateSlope1: 6_50,
-        variableRateSlope2: 50_00
+        optimalUsageRatio: 92_00,
+        baseVariableBorrowRate: 1_25,
+        variableRateSlope1: 3_50,
+        variableRateSlope2: 16_50
       })
     });
 
