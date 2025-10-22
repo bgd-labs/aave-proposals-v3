@@ -12,7 +12,7 @@ library ReformData {
   // stream information
   uint256 public constant STREAM_DURATION = 365 days;
 
-  // grant is 980 AAVE
+  // grant is 950 AAVE
   uint256 public constant GRANT_AMOUNT = 950 ether;
 
   // stream receivers
