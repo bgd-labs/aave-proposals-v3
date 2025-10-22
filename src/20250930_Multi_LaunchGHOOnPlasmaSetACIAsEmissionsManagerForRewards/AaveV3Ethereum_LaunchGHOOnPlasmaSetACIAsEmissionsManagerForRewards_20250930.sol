@@ -57,36 +57,37 @@ contract AaveV3Ethereum_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_2025
   using CollectorUtils for ICollector;
 
   // OwnableFacilitator Constants
-  address public constant OWNABLE_FACILITATOR = address(0);
-  string public constant OWNABLE_FACILITATOR_NAME = 'OwnableFacilitator GHO L2 Bridging';
-  uint128 public constant OWNABLE_FACILITATOR_CAPACITY = 100_000_000 ether;
+  address public constant OWNABLE_FACILITATOR = 0x616AEe98F73C79FE59548Cfe7631c0baDBdA3165;
+  string public constant OWNABLE_FACILITATOR_NAME = 'OwnableFacilitator Gho GSMs';
+  uint128 public constant OWNABLE_FACILITATOR_CAPACITY = 150_000_000 ether;
 
   // GhoReserve
-  address public constant GHO_RESERVE = address(0);
+  // https://etherscan.io/address/0x0b0C0d8346F69EE94D29405f5630fc883A1052ab
+  address public constant GHO_RESERVE = 0x0b0C0d8346F69EE94D29405f5630fc883A1052ab;
 
   // Plasma Bridge Constants
   address public constant CCIP_BRIDGE = address(0);
   address public constant CCIP_BRIDGE_PLASMA = address(0);
-  uint256 public constant PLASMA_BRIDGE_AMOUNT = 0;
+  uint256 public constant PLASMA_BRIDGE_AMOUNT = 50_000_000 ether;
 
   // Existing GSM
-  uint128 public constant USDC_CAPACITY = 8_000_000 ether;
-  uint128 public constant USDT_CAPACITY = 16_000_000 ether;
+  uint128 public constant USDC_CAPACITY = 5_000_000 ether;
+  uint128 public constant USDT_CAPACITY = 25_000_000 ether;
 
-  // https://etherscan.io/address/<>
-  address public constant NEW_GSM_USDC = address(0);
+  // https://etherscan.io/address/0x99f3460A84f63a5039F926DB6904b65C30f20927
+  address public constant NEW_GSM_USDC = 0x99f3460A84f63a5039F926DB6904b65C30f20927;
 
-  // https://etherscan.io/address/<>
-  address public constant USDC_ORACLE_SWAP_FREEZER = address(0);
+  // https://etherscan.io/address/0x1de76e3d0f1a3Bf2dD64e676008727927beF0C40
+  address public constant USDC_ORACLE_SWAP_FREEZER = 0x1de76e3d0f1a3Bf2dD64e676008727927beF0C40;
 
-  // https://etherscan.io/address/<>
-  address public constant NEW_GSM_USDT = address(0);
+  // https://etherscan.io/address/0x59f7742C910D5150d284b44a56bf4A8B31588252
+  address public constant NEW_GSM_USDT = 0x59f7742C910D5150d284b44a56bf4A8B31588252;
 
-  // https://etherscan.io/address/<>
-  address public constant USDT_ORACLE_SWAP_FREEZER = address(0);
+  // https://etherscan.io/address/0x10C053eBcD738C88fA74903Ef2EB24166b770931
+  address public constant USDT_ORACLE_SWAP_FREEZER = 0x10C053eBcD738C88fA74903Ef2EB24166b770931;
 
-  // https://etherscan.io/address/<>
-  address public constant FEE_STRATEGY = address(0);
+  // https://etherscan.io/address/0x06fbDE909B43f01202E3C6207De1D27cC208AcC1
+  address public constant FEE_STRATEGY = 0x06fbDE909B43f01202E3C6207De1D27cC208AcC1;
 
   // https://etherscan.io/address/0x1cDF8879eC8bE012bA959EB515b11008E0cb6323
   address public constant ROBOT_OPERATOR = 0x1cDF8879eC8bE012bA959EB515b11008E0cb6323;
@@ -94,17 +95,19 @@ contract AaveV3Ethereum_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_2025
   uint96 public constant TOTAL_LINK_AMOUNT_KEEPERS = LINK_AMOUNT_ORACLE_FREEZER_KEEPER * 2; // 2 GSMs
   uint32 public constant KEEPER_GAS_LIMIT = 150_000;
 
-  uint256 public constant EXISTING_ORACLE_SWAP_FREEZER_USDC = 0;
-  uint256 public constant EXISTING_ORACLE_SWAP_FREEZER_USDT = 0;
+  uint256 public constant EXISTING_ORACLE_SWAP_FREEZER_USDC =
+    85153843967789017760384794934034524869526055173666527804449435339462659418687;
+  uint256 public constant EXISTING_ORACLE_SWAP_FREEZER_USDT =
+    113117985912495124427864354142901529291134634735835568280477108198234580494999;
 
   bytes32 public immutable LIQUIDATOR_ROLE = IGsm(GhoEthereum.GSM_USDC).LIQUIDATOR_ROLE();
   bytes32 public immutable SWAP_FREEZER_ROLE = IGsm(GhoEthereum.GSM_USDC).SWAP_FREEZER_ROLE();
 
   function execute() external {
-    uint256 balanceUsdc = IERC20(AaveV3EthereumAssets.USDC_UNDERLYING).balanceOf(
+    uint256 balanceUsdc = IERC20(AaveV3EthereumAssets.USDC_STATA_TOKEN).balanceOf(
       GhoEthereum.GSM_USDC
     );
-    uint256 balanceUsdt = IERC20(AaveV3EthereumAssets.USDT_UNDERLYING).balanceOf(
+    uint256 balanceUsdt = IERC20(AaveV3EthereumAssets.USDT_STATA_TOKEN).balanceOf(
       GhoEthereum.GSM_USDT
     );
 
@@ -230,40 +233,24 @@ contract AaveV3Ethereum_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_2025
   }
 
   function _fund(uint256 balanceUsdc, uint256 balanceUsdt) internal {
+    IOwnableFacilitator(OWNABLE_FACILITATOR).mint(GHO_RESERVE, USDC_CAPACITY + USDT_CAPACITY);
+
     AaveV3Ethereum.COLLECTOR.transfer(
-      IERC20(AaveV3EthereumAssets.USDC_UNDERLYING),
+      IERC20(AaveV3EthereumAssets.USDC_STATA_TOKEN),
       address(this),
       balanceUsdc
     );
     AaveV3Ethereum.COLLECTOR.transfer(
-      IERC20(AaveV3EthereumAssets.USDT_UNDERLYING),
+      IERC20(AaveV3EthereumAssets.USDT_STATA_TOKEN),
       address(this),
       balanceUsdt
     );
 
-    IERC20(AaveV3EthereumAssets.USDC_UNDERLYING).forceApprove(
-      AaveV3EthereumAssets.USDC_STATA_TOKEN,
-      balanceUsdc
-    );
-    IERC20(AaveV3EthereumAssets.USDT_UNDERLYING).forceApprove(
-      AaveV3EthereumAssets.USDT_STATA_TOKEN,
-      balanceUsdt
-    );
+    IERC20(AaveV3EthereumAssets.USDC_STATA_TOKEN).forceApprove(NEW_GSM_USDC, balanceUsdc);
+    IERC20(AaveV3EthereumAssets.USDT_STATA_TOKEN).forceApprove(NEW_GSM_USDT, balanceUsdt);
 
-    uint256 sharesUsdc = IERC4626(AaveV3EthereumAssets.USDC_STATA_TOKEN).deposit(
-      balanceUsdc,
-      address(this)
-    );
-    uint256 sharesUsdt = IERC4626(AaveV3EthereumAssets.USDT_STATA_TOKEN).deposit(
-      balanceUsdt,
-      address(this)
-    );
-
-    IERC20(AaveV3EthereumAssets.USDC_STATA_TOKEN).forceApprove(NEW_GSM_USDC, sharesUsdc);
-    IERC20(AaveV3EthereumAssets.USDT_STATA_TOKEN).forceApprove(NEW_GSM_USDT, sharesUsdt);
-
-    (, uint256 amountGhoUsdc) = IGsm(NEW_GSM_USDC).sellAsset(sharesUsdc, address(this));
-    (, uint256 amountGhoUsdt) = IGsm(NEW_GSM_USDT).sellAsset(sharesUsdt, address(this));
+    (, uint256 amountGhoUsdc) = IGsm(NEW_GSM_USDC).sellAsset(balanceUsdc, address(this));
+    (, uint256 amountGhoUsdt) = IGsm(NEW_GSM_USDT).sellAsset(balanceUsdt, address(this));
 
     (, uint256 ghoUsdcNeeded) = IGhoToken(GhoEthereum.GHO_TOKEN).getFacilitatorBucket(
       GhoEthereum.GSM_USDC
@@ -338,6 +325,6 @@ contract AaveV3Ethereum_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_2025
       EXISTING_ORACLE_SWAP_FREEZER_USDT
     );
 
-    // Withdraw LINK from existing keepers permissionesly ~20 blocks after cancel
+    // Manually withdraw LINK from existing keepers permissionesly ~20 blocks after cancel
   }
 }
