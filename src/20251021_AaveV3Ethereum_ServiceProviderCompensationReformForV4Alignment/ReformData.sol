@@ -35,7 +35,7 @@ library ReformData {
     });
     reformData[2] = ReformDataStructure({
       recipient: TOKEN_LOGIC,
-      toCancel: 100064,
+      toCancel: 0,
       amount: 2_500_000 ether
     });
     reformData[3] = ReformDataStructure({

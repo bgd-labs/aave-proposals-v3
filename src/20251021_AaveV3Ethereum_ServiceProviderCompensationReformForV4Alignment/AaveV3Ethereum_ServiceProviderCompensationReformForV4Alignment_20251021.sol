@@ -21,9 +21,10 @@ contract AaveV3Ethereum_ServiceProviderCompensationReformForV4Alignment_20251021
     ReformData.ReformDataStructure[] memory reformData = ReformData.getReformData();
 
     for (uint256 i = 0; i < reformData.length; i++) {
-      // cancel the previous stream
-      AaveV3EthereumLido.COLLECTOR.cancelStream(reformData[i].toCancel);
-
+      // cancel the previous stream if it exist
+      if (reformData[i].toCancel != 0) {
+        AaveV3EthereumLido.COLLECTOR.cancelStream(reformData[i].toCancel);
+      }
       // create the new one
       CollectorUtils.stream(
         AaveV3EthereumLido.COLLECTOR,

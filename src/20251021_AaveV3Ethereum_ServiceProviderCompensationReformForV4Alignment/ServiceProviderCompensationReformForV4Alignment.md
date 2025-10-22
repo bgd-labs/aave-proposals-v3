@@ -33,7 +33,7 @@ The following structure will apply to all primary Aave service providers:
 | Provider   | Annual Stream (Reset)   | Immediate Grant       |
 | ---------- | ----------------------- | --------------------- |
 | ACI        | Same as previous stream | $250K AAVE (30d TWAP) |
-| TokenLogic | Updated to 2.5M GHO     | $250K AAVE (30d TWAP) |
+| TokenLogic | 2.5M GHO                | $250K AAVE (30d TWAP) |
 | LlamaRisk  | Same as previous stream | $250K AAVE (30d TWAP) |
 | Chaos Labs | Same as previous stream | $250K AAVE (30d TWAP) |
 
