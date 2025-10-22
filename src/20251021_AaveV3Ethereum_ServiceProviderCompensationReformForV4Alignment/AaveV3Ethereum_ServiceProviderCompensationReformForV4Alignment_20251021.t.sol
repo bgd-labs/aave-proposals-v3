@@ -65,12 +65,6 @@ contract AaveV3Ethereum_ServiceProviderCompensationReformForV4Alignment_20251021
 
     executePayload(vm, address(proposal));
 
-    // test cancelation
-    for (uint256 i = 0; i < reformData.length; i++) {
-      vm.expectRevert();
-      AaveV3Ethereum.COLLECTOR.getStream(reformData[i].toCancel);
-    }
-
     vm.warp(block.timestamp + ReformData.STREAM_DURATION + 1 days);
 
     // transfer from previous stream cancelation count as "interest"
@@ -118,9 +112,6 @@ contract AaveV3Ethereum_ServiceProviderCompensationReformForV4Alignment_20251021
 
     executePayload(vm, address(proposal));
 
-    vm.expectRevert();
-    IStreamable(MiscEthereum.ECOSYSTEM_RESERVE).getStream(reformData.toCancel);
-
     // any sooner and we miss the transfered aave from stream cancellation
     uint256 aaveBalancesBeforeUsers = IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING).balanceOf(
       reformData.recipient
@@ -138,7 +129,7 @@ contract AaveV3Ethereum_ServiceProviderCompensationReformForV4Alignment_20251021
       finalBalanceToWithdraw,
       reformData.amount,
       maxDeltaStreamBalance,
-      'GHO Stream final balance is not correct'
+      'AAVE Stream final balance is not correct'
     );
 
     vm.prank(reformData.recipient);
@@ -150,7 +141,68 @@ contract AaveV3Ethereum_ServiceProviderCompensationReformForV4Alignment_20251021
       IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING).balanceOf(reformData.recipient),
       aaveBalancesBeforeUsers + reformData.amount,
       maxDeltaStreamBalance,
-      'GHO Stream final withdraw is not correct'
+      'AAVE Stream final withdraw is not correct'
+    );
+  }
+
+  function test_cancelGHOStream() public {
+    uint256[] memory ghoBalancesBeforeUsers = new uint256[](4);
+    uint256[] memory unclaimedGHOBalance = new uint256[](4);
+
+    ReformData.ReformDataStructure[] memory reformData = ReformData.getReformData();
+
+    for (uint256 i = 0; i < reformData.length; i++) {
+      ghoBalancesBeforeUsers[i] = IERC20(AaveV3EthereumLidoAssets.GHO_A_TOKEN).balanceOf(
+        reformData[i].recipient
+      );
+      if (reformData[i].toCancel != 0) {
+        unclaimedGHOBalance[i] = AaveV3EthereumLido.COLLECTOR.balanceOf(
+          reformData[i].toCancel,
+          reformData[i].recipient
+        );
+      }
+    }
+
+    executePayload(vm, address(proposal));
+
+    // test cancelation
+    for (uint256 i = 0; i < reformData.length; i++) {
+      vm.expectRevert();
+      AaveV3Ethereum.COLLECTOR.getStream(reformData[i].toCancel);
+    }
+
+    // recipient should have received the unclaimed amount
+    for (uint256 i = 0; i < reformData.length; i++) {
+      assertApproxEqAbs(
+        ghoBalancesBeforeUsers[i] + unclaimedGHOBalance[i],
+        IERC20(AaveV3EthereumLidoAssets.GHO_A_TOKEN).balanceOf(reformData[i].recipient),
+        1,
+        'GHO unclaimed amount was not properly transfered'
+      );
+    }
+  }
+
+  function test_AAVEStreamCancel() public {
+    ReformData.ReformDataStructure memory reformData = ReformData.getReformDataAAVE();
+
+    uint256 aaveBalancesBeforeUsers = IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING).balanceOf(
+      reformData.recipient
+    );
+
+    uint256 unclaimedAAVE = IStreamable(MiscEthereum.ECOSYSTEM_RESERVE).balanceOf(
+      reformData.toCancel,
+      reformData.recipient
+    );
+
+    executePayload(vm, address(proposal));
+
+    vm.expectRevert();
+    IStreamable(MiscEthereum.ECOSYSTEM_RESERVE).getStream(reformData.toCancel);
+
+    assertEq(
+      IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING).balanceOf(reformData.recipient),
+      aaveBalancesBeforeUsers + unclaimedAAVE + ReformData.GRANT_AMOUNT,
+      'unclaimed AAVE not propoerly distributed'
     );
   }
 }
