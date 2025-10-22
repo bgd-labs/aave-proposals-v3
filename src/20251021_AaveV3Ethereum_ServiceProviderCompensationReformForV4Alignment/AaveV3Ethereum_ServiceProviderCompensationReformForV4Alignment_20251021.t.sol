@@ -21,10 +21,16 @@ contract AaveV3Ethereum_ServiceProviderCompensationReformForV4Alignment_20251021
   ProtocolV3TestBase
 {
   AaveV3Ethereum_ServiceProviderCompensationReformForV4Alignment_20251021 internal proposal;
+  address constant aGHO_WHALE = 0x2cE01c87Fec1b71A9041c52CaED46Fc5f4807285;
 
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('mainnet'), 23627170);
     proposal = new AaveV3Ethereum_ServiceProviderCompensationReformForV4Alignment_20251021();
+    vm.prank(aGHO_WHALE);
+    IERC20(AaveV3EthereumLidoAssets.GHO_A_TOKEN).transfer(
+      address(AaveV3EthereumLido.COLLECTOR),
+      10_000_000 * 10 ** 18
+    );
   }
 
   /**
@@ -89,7 +95,7 @@ contract AaveV3Ethereum_ServiceProviderCompensationReformForV4Alignment_20251021
       );
 
       vm.prank(reformData[i].recipient);
-      AaveV3Ethereum.COLLECTOR.withdrawFromStream(nextStreamId + i, finalBalanceToWithdraw);
+      AaveV3EthereumLido.COLLECTOR.withdrawFromStream(nextStreamId + i, finalBalanceToWithdraw);
       assertApproxEqRel(
         IERC20(AaveV3EthereumLidoAssets.GHO_A_TOKEN).balanceOf(reformData[i].recipient),
         ghoBalancesBeforeUsers[i] + reformData[i].amount + aGHOInterest[i],
