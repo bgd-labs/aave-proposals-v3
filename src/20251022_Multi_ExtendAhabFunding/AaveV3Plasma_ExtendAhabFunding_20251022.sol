@@ -4,7 +4,9 @@ pragma solidity ^0.8.0;
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 import {AaveV3Plasma} from 'aave-address-book/AaveV3Plasma.sol';
-import {AHAB_SAFE} from 'aave-address-book/ts/MiscPlasma.ts';
+import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
+import {AaveV3PlasmaAssets} from 'aave-address-book/AaveV3Plasma.sol';
+import {IPoolConfigurator} from 'aave-v3-origin/contracts/interfaces/IPoolConfigurator.sol';
 
 /**
  * @title Extend Ahab Funding
@@ -15,15 +17,20 @@ import {AHAB_SAFE} from 'aave-address-book/ts/MiscPlasma.ts';
 contract AaveV3Plasma_ExtendAhabFunding_20251022 is IProposalGenericExecutor {
   function execute() external override {
     AaveV3Plasma.COLLECTOR.approve(
-      IERC20(0x5D72a9d9A9510Cd8cBdBA12aC62593A58930a948),
-      AHAB_SAFE,
+      IERC20(AaveV3PlasmaAssets.USDT0_A_TOKEN),
+      MiscEthereum.AHAB_SAFE,
       3_000_000 ether
     );
 
     AaveV3Plasma.COLLECTOR.approve(
-      IERC20(0x7519403E12111ff6b710877Fcd821D0c12CAF43A),
-      AHAB_SAFE,
+      IERC20(AaveV3PlasmaAssets.USDe_A_TOKEN),
+      MiscEthereum.AHAB_SAFE,
       2_000_000 ether
+    );
+
+    IPoolConfigurator(AaveV3Plasma.POOL_CONFIGURATOR).setReserveFactor(
+      AaveV3PlasmaAssets.USDT0_UNDERLYING,
+      5_000
     );
   }
 }
