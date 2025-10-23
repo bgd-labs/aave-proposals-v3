@@ -29,14 +29,6 @@ interface IOwnableFacilitator {
 
 interface IAaveGhoCcipBridge {
   function send(uint64 chainSelector, uint256 amount, address feeToken) external returns (bytes32);
-
-  function setDestinationChain(
-    uint64 chainSelector,
-    bytes calldata destination,
-    bytes calldata extraArgs,
-    uint32 gasLimit
-  ) external;
-
   function quoteBridge(
     uint64 chainSelector,
     uint256 amount,
@@ -45,10 +37,10 @@ interface IAaveGhoCcipBridge {
 }
 
 /**
- * @title Launch GHO on Plasma & Set ACI as Emissions Manager for Rewards
+ * @title Launch GHO on Plasma & Set ACI as Emissions Manager for Rewards, Update Mainnet GSMs
  * @author @TokenLogic
  * - Snapshot: https://snapshot.box/#/s:aavedao.eth/proposal/0xeb3572580924976867073ad9c8012cb9e52093c76dafebd7d3aebf318f2576fb
- * - Discussion: https://governance.aave.com/t/arfc-launch-gho-on-plasma-set-aci-as-emissions-manager-for-rewards/22994
+ * - Discussion: https://governance.aave.com/t/arfc-launch-gho-on-plasma-set-aci-as-emissions-manager-for-rewards/22994/6
  */
 contract AaveV3Ethereum_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_20250930 is
   IProposalGenericExecutor
@@ -66,8 +58,11 @@ contract AaveV3Ethereum_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_2025
   address public constant GHO_RESERVE = 0x0b0C0d8346F69EE94D29405f5630fc883A1052ab;
 
   // Plasma Bridge Constants
-  address public constant CCIP_BRIDGE = address(0);
-  address public constant CCIP_BRIDGE_PLASMA = address(0);
+  // https://etherscan.io/address/0x7f2f96fcdc3a29be75938d2ac3d92e7006919fe6
+  address public constant CCIP_BRIDGE = 0x7F2f96fcdC3A29Be75938d2aC3D92E7006919fe6;
+
+  // https://plasmascan.to/address/0x035Dec9dBE6DC0230ac05A760D9B6A70E7514243
+  address public constant CCIP_BRIDGE_PLASMA = 0x035Dec9dBE6DC0230ac05A760D9B6A70E7514243;
   uint256 public constant PLASMA_BRIDGE_AMOUNT = 50_000_000 ether;
 
   // Existing GSM
@@ -126,12 +121,6 @@ contract AaveV3Ethereum_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_2025
       OWNABLE_FACILITATOR,
       OWNABLE_FACILITATOR_NAME,
       OWNABLE_FACILITATOR_CAPACITY
-    );
-    IAaveGhoCcipBridge(CCIP_BRIDGE).setDestinationChain(
-      CCIPChainSelectors.PLASMA,
-      abi.encode(CCIP_BRIDGE_PLASMA),
-      bytes(''),
-      100_000
     );
 
     IOwnableFacilitator(OWNABLE_FACILITATOR).mint(CCIP_BRIDGE, PLASMA_BRIDGE_AMOUNT);

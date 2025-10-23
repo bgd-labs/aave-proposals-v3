@@ -3,9 +3,9 @@ pragma solidity ^0.8.0;
 
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 import {SafeERC20} from 'openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol';
-import {AaveV3Plasma} from 'aave-address-book/AaveV3Plasma.sol';
+import {AaveV3Plasma, AaveV3PlasmaAssets} from 'aave-address-book/AaveV3Plasma.sol';
 import {AaveV3PayloadPlasma} from 'aave-helpers/src/v3-config-engine/AaveV3PayloadPlasma.sol';
-import {GhoPlasma} from 'aave-address-book/GhoPlasma.sol';
+// import {GhoPlasma} from 'aave-address-book/GhoPlasma.sol';
 import {MiscPlasma} from 'aave-address-book/MiscPlasma.sol';
 import {GovernanceV3Plasma} from 'aave-address-book/GovernanceV3Plasma.sol';
 import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
@@ -25,10 +25,10 @@ interface IGhoReserve {
 }
 
 /**
- * @title Launch GHO on Plasma & Set ACI as Emissions Manager for Rewards
+ * @title Launch GHO on Plasma & Set ACI as Emissions Manager for Rewards, Update Mainnet GSMs
  * @author @TokenLogic
  * - Snapshot: https://snapshot.box/#/s:aavedao.eth/proposal/0xeb3572580924976867073ad9c8012cb9e52093c76dafebd7d3aebf318f2576fb
- * - Discussion: https://governance.aave.com/t/arfc-launch-gho-on-plasma-set-aci-as-emissions-manager-for-rewards/22994
+ * - Discussion: https://governance.aave.com/t/arfc-launch-gho-on-plasma-set-aci-as-emissions-manager-for-rewards/22994/6
  */
 contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_20250930 is
   AaveV3PayloadPlasma
@@ -36,10 +36,16 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
   using SafeERC20 for IERC20;
 
   // New GHO Token
+  // https://plasmascan.to/address/0xb77E872A68C62CfC0dFb02C067Ecc3DA23B4bbf3
   address public constant GHO = 0xb77E872A68C62CfC0dFb02C067Ecc3DA23B4bbf3;
-  uint256 public constant GHO_SEED_AMOUNT = 1e18;
+
+  // https://plasmascan.to/address/0xac140648435d03f784879cd789130F22Ef588Fcd
   address public constant GHO_LM_ADMIN = 0xac140648435d03f784879cd789130F22Ef588Fcd;
+
+  // https://plasmascan.to/address/0xb0e1c7830aA781362f79225559Aa068E6bDaF1d1
   address public constant GHO_ORACLE = 0xb0e1c7830aA781362f79225559Aa068E6bDaF1d1;
+
+  uint256 public constant GHO_SEED_AMOUNT = 1e18;
 
   // GhoReserve
   // https://plasmascan.to/address/0xBAdA742e7Ff54595F9049eeF1Cc5AaF4364988B9
@@ -161,5 +167,118 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
     });
 
     return listings;
+  }
+
+  function eModeCategoryCreations()
+    public
+    pure
+    override
+    returns (IAaveV3ConfigEngine.EModeCategoryCreation[] memory)
+  {
+    IAaveV3ConfigEngine.EModeCategoryCreation[]
+      memory eModeCreations = new IAaveV3ConfigEngine.EModeCategoryCreation[](3);
+
+    address[] memory collateralAssets = new address[](1);
+    address[] memory borrowableAssets = new address[](1);
+
+    collateralAssets[0] = GHO;
+    borrowableAssets[0] = AaveV3PlasmaAssets.USDT0_UNDERLYING;
+
+    eModeCreations[0] = IAaveV3ConfigEngine.EModeCategoryCreation({
+      ltv: 90_00,
+      liqThreshold: 93_00,
+      liqBonus: 2_00,
+      label: 'GHO/USDT0',
+      collaterals: collateralAssets,
+      borrowables: borrowableAssets
+    });
+
+    collateralAssets[0] = AaveV3PlasmaAssets.syrupUSDT_UNDERLYING;
+    borrowableAssets[0] = GHO;
+
+    eModeCreations[0] = IAaveV3ConfigEngine.EModeCategoryCreation({
+      ltv: 90_00,
+      liqThreshold: 92_00,
+      liqBonus: 4_00,
+      label: 'syrupUSDT/GHO',
+      collaterals: collateralAssets,
+      borrowables: borrowableAssets
+    });
+
+    address[] memory collateralAssets_syrup = new address[](1);
+
+    collateralAssets_syrup[0] = GHO;
+    collateralAssets_syrup[1] = AaveV3PlasmaAssets.syrupUSDT_UNDERLYING;
+    borrowableAssets[0] = AaveV3PlasmaAssets.USDT0_UNDERLYING;
+
+    eModeCreations[0] = IAaveV3ConfigEngine.EModeCategoryCreation({
+      ltv: 90_00,
+      liqThreshold: 92_00,
+      liqBonus: 4_00,
+      label: 'syrupUSDT Stables',
+      collaterals: collateralAssets_syrup,
+      borrowables: borrowableAssets
+    });
+
+    return eModeCreations;
+  }
+
+  function eModeCategoriesUpdates()
+    public
+    pure
+    override
+    returns (IAaveV3ConfigEngine.EModeCategoryUpdate[] memory)
+  {
+    IAaveV3ConfigEngine.EModeCategoryUpdate[]
+      memory eModeUpdates = new IAaveV3ConfigEngine.EModeCategoryUpdate[](2);
+
+    eModeUpdates[0] = IAaveV3ConfigEngine.EModeCategoryUpdate({
+      eModeCategory: 5,
+      ltv: 85_90,
+      liqThreshold: 87_90,
+      liqBonus: EngineFlags.KEEP_CURRENT,
+      label: EngineFlags.KEEP_CURRENT_STRING
+    });
+
+    eModeUpdates[1] = IAaveV3ConfigEngine.EModeCategoryUpdate({
+      eModeCategory: 7,
+      ltv: 84_40,
+      liqThreshold: 86_40,
+      liqBonus: EngineFlags.KEEP_CURRENT,
+      label: EngineFlags.KEEP_CURRENT_STRING
+    });
+
+    return eModeUpdates;
+  }
+
+  function assetsEModeUpdates()
+    public
+    pure
+    override
+    returns (IAaveV3ConfigEngine.AssetEModeUpdate[] memory)
+  {
+    IAaveV3ConfigEngine.AssetEModeUpdate[]
+      memory assetEModeUpdates = new IAaveV3ConfigEngine.AssetEModeUpdate[](3);
+
+    assetEModeUpdates[0] = IAaveV3ConfigEngine.AssetEModeUpdate({
+      asset: GHO,
+      eModeCategory: 2,
+      borrowable: EngineFlags.ENABLED,
+      collateral: EngineFlags.DISABLED
+    });
+    assetEModeUpdates[1] = IAaveV3ConfigEngine.AssetEModeUpdate({
+      asset: GHO,
+      eModeCategory: 5,
+      borrowable: EngineFlags.ENABLED,
+      collateral: EngineFlags.DISABLED
+    });
+    assetEModeUpdates[2] = IAaveV3ConfigEngine.AssetEModeUpdate({
+      asset: GHO,
+      eModeCategory: 7,
+      borrowable: EngineFlags.ENABLED,
+      collateral: EngineFlags.DISABLED
+    });
+
+    return assetEModeUpdates;
   }
 }
