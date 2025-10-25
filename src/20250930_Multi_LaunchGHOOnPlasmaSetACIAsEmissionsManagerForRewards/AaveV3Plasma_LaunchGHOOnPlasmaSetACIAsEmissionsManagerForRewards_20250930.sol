@@ -25,7 +25,7 @@ interface IGhoReserve {
 }
 
 /**
- * @title Launch GHO on Plasma & Set ACI as Emissions Manager for Rewards, Update Mainnet GSMs
+ * @title Add GHO and deploy GSM on Plasma. Migrate to new GSM on Ethereum
  * @author @TokenLogic
  * - Snapshot: https://snapshot.box/#/s:aavedao.eth/proposal/0xeb3572580924976867073ad9c8012cb9e52093c76dafebd7d3aebf318f2576fb
  * - Discussion: https://governance.aave.com/t/arfc-launch-gho-on-plasma-set-aci-as-emissions-manager-for-rewards/22994/6
@@ -185,8 +185,8 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
     borrowableAssets[0] = AaveV3PlasmaAssets.USDT0_UNDERLYING;
 
     eModeCreations[0] = IAaveV3ConfigEngine.EModeCategoryCreation({
-      ltv: 90_00,
-      liqThreshold: 93_00,
+      ltv: 94_00,
+      liqThreshold: 96_00,
       liqBonus: 2_00,
       label: 'GHO/USDT0',
       collaterals: collateralAssets,

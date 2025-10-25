@@ -1,5 +1,5 @@
 ---
-title: "Launch GHO on Plasma & Set ACI as Emissions Manager for Rewards, Update Mainnet GSMs"
+title: "Add GHO and deploy GSM on Plasma. Migrate to new GSM on Ethereum"
 author: "@TokenLogic"
 discussions: "https://governance.aave.com/t/arfc-launch-gho-on-plasma-set-aci-as-emissions-manager-for-rewards/22994/6"
 snapshot: "https://snapshot.box/#/s:aavedao.eth/proposal/0xeb3572580924976867073ad9c8012cb9e52093c76dafebd7d3aebf318f2576fb"
@@ -50,15 +50,15 @@ The table below illustrates the configured risk parameters for **GHO**
 | Supply Cap (GHO)          |                                  5,000,000 |
 | Borrow Cap (GHO)          |                                  4,500,000 |
 | Debt Ceiling              |                                      USD 0 |
-| LTV                       |                                        0 % |
-| LT                        |                                        0 % |
-| Liquidation Bonus         |                                        0 % |
-| Liquidation Protocol Fee  |                                        0 % |
+| LTV                       |                                       75 % |
+| LT                        |                                       78 % |
+| Liquidation Bonus         |                                      4.5 % |
+| Liquidation Protocol Fee  |                                       10 % |
 | Reserve Factor            |                                       10 % |
-| Base Variable Borrow Rate |                                        0 % |
-| Variable Slope 1          |                                      6.5 % |
-| Variable Slope 2          |                                       50 % |
-| Uoptimal                  |                                       90 % |
+| Base Variable Borrow Rate |                                     1.25 % |
+| Variable Slope 1          |                                      3.5 % |
+| Variable Slope 2          |                                     16.5 % |
+| Uoptimal                  |                                       92 % |
 | Flashloanable             |                                    ENABLED |
 | Siloed Borrowing          |                                   DISABLED |
 | Borrowable in Isolation   |                                   DISABLED |
@@ -70,13 +70,13 @@ Additionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://plasmascan.to/
 
 ## eMode Category 2
 
-| Parameter             | sUSDe | USDe | USDT | GHO |
-| --------------------- | :---: | :--: | :--: | :-: |
-| Collateral            |  Yes  | Yes  |  No  | No  |
-| Borrowable            |  No   |  No  | Yes  | Yes |
-| Max LTV               |  90%  | 90%  |  -   |  -  |
-| Liquidation Threshold |  92%  | 92%  |  -   |  -  |
-| Liquidation Bonus     | 4.0%  | 4.0% |  -   |  -  |
+| Parameter             |    sUSDe    | USDe | USDT | GHO |
+| --------------------- | :---------: | :--: | :--: | :-: |
+| Collateral            | sUSDe, USDe | Yes  |  No  | No  |
+| Borrowable            | USDT, GHOd  |  No  | Yes  | Yes |
+| Max LTV               |     90%     | 90%  |  -   |  -  |
+| Liquidation Threshold |     92%     | 92%  |  -   |  -  |
+| Liquidation Bonus     |    4.0%     | 4.0% |  -   |  -  |
 
 ## eMode Category - Category 5
 
@@ -104,8 +104,8 @@ Additionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://plasmascan.to/
 | --------------------- | :--: | :--: |
 | Collateral            | Yes  |  No  |
 | Borrowable            |  No  | Yes  |
-| Max LTV               | 90%  |  -   |
-| Liquidation Threshold | 93%  |  -   |
+| Max LTV               | 94%  |  -   |
+| Liquidation Threshold | 96%  |  -   |
 | Liquidation Bonus     | 2.0% |  -   |
 
 ## eMode Category (new)
@@ -132,7 +132,7 @@ Additionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://plasmascan.to/
 
 Deploy an **OwnableFacilitator** facilitator on Ethereum to enable GHO issuance for Plasma and the Mainnet GSMs.
 
-- **OwnableFacilitator Mint Cap**: 150M GHO
+- **OwnableFacilitator Mint Cap**: 100M GHO
 - **Initial Mint**: 50M GHO
 
 As required, future Minting of GHO on Ethereum, to be supplied into the RemoteGSM on Plasma (or other networks) will be performed via direct submission of AIPs.
@@ -177,10 +177,6 @@ Configure stataUSDT RemoteGSM as an entity with a draw capacity of 50M GHO.
 ### Bridging
 
 Bridge 50M GHO from Mainnet to Plasma utilizing the newly set up AaveGhoCcipBridge.
-
-#### Test Bridging Transaction
-
-[Here](https://ccip.chain.link/?search=0x44032ec98a3f567e1b3d45d0ca65f7a2bc5a50592fb56969704cff0fa270d218#/side-drawer/msg/0xa403ce0c2941750d56695d007f010a15f8d366f1ece6d44c028d6ea73943d32d)
 
 ## References
 

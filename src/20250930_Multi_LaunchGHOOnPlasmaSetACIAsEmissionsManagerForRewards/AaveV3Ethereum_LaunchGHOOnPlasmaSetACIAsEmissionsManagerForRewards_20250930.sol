@@ -37,7 +37,7 @@ interface IAaveGhoCcipBridge {
 }
 
 /**
- * @title Launch GHO on Plasma & Set ACI as Emissions Manager for Rewards, Update Mainnet GSMs
+ * @title Add GHO and deploy GSM on Plasma. Migrate to new GSM on Ethereum
  * @author @TokenLogic
  * - Snapshot: https://snapshot.box/#/s:aavedao.eth/proposal/0xeb3572580924976867073ad9c8012cb9e52093c76dafebd7d3aebf318f2576fb
  * - Discussion: https://governance.aave.com/t/arfc-launch-gho-on-plasma-set-aci-as-emissions-manager-for-rewards/22994/6
@@ -51,7 +51,7 @@ contract AaveV3Ethereum_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_2025
   // OwnableFacilitator Constants
   address public constant OWNABLE_FACILITATOR = 0x616AEe98F73C79FE59548Cfe7631c0baDBdA3165;
   string public constant OWNABLE_FACILITATOR_NAME = 'OwnableFacilitator Gho GSMs';
-  uint128 public constant OWNABLE_FACILITATOR_CAPACITY = 150_000_000 ether;
+  uint128 public constant OWNABLE_FACILITATOR_CAPACITY = 100_000_000 ether;
 
   // GhoReserve
   // https://etherscan.io/address/0x0b0C0d8346F69EE94D29405f5630fc883A1052ab
