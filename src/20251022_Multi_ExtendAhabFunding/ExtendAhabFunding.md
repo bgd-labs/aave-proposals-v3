@@ -78,44 +78,6 @@ Add the following pairs on the `MainnetSwapSteward` in order to be able to perfo
 
 To further align with the objectives of this proposal and foster accelerated growth of the **USDT0** market on Plasma, the **Reserve Factor** for USDT0 will be **temporarily reduced from 10% to 5%** for an initial three-month period.
 
-Upon AIP execution, this proposal implements the following actions:
-
-### Aave Helper Asset Budget (Ahab)
-
-**Ethereum**
-
-- **Asset:** aEthWETH — `0x4d5F47FA6A74757f35C14fD3a6Ef8E3C9BC514E8`
-- **Amount:** 6,000
-- **Spender:** Ahab — `0xAA2461f0f0A3dE5fEAF3273eAe16DEF861cf594e`
-- **Method:** `approve()` aEthWETH on the Aave Collector contract to the Ahab address
-
-**Plasma (USDT0)**
-
-- **Asset:** aPlaUSDT0 — `0x5D72a9d9A9510Cd8cBdBA12aC62593A58930a948`
-- **Amount:** 3,000,000
-- **Spender:** Ahab — `0xAA2461f0f0A3dE5fEAF3273eAe16DEF861cf594e`
-- **Method:** `approve()` aPlaUSDT0 on the Aave Collector contract to the Ahab address
-
-**Plasma (USDe)**
-
-- **Asset:** aPlaUSDe — `0x7519403E12111ff6b710877Fcd821D0c12CAF43A`
-- **Amount:** 2,000,000
-- **Spender:** Ahab — `0xAA2461f0f0A3dE5fEAF3273eAe16DEF861cf594e`
-- **Method:** `approve()` aPlaUSDe on the Aave Collector contract to the Ahab address
-
-**Ethereum (GHO)**
-
-- **Asset:** aEthGHO — `0x00907f9921424583e7ffBfEdf84F92B7B2Be4977`
-- **Amount:** 10,000,000
-- **Spender:** Ahab — `0xAA2461f0f0A3dE5fEAF3273eAe16DEF861cf594e`
-- **Method:** `approve()` aEthGHO on the Aave Collector contract to the Ahab address
-
----
-
-### Reserve Factor Adjustment
-
-To further align with the objectives of this proposal and foster accelerated growth of the **USDT0** market on Plasma, the **Reserve Factor** for USDT0 will be **temporarily reduced from 10% to 5%** for an initial three-month period.
-
 ## References
 
 - Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251022_Multi_ExtendAhabFunding/AaveV3Ethereum_ExtendAhabFunding_20251022.sol), [AaveV3Plasma](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251022_Multi_ExtendAhabFunding/AaveV3Plasma_ExtendAhabFunding_20251022.sol)

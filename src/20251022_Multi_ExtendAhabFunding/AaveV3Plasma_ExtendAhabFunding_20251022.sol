@@ -30,7 +30,7 @@ contract AaveV3Plasma_ExtendAhabFunding_20251022 is IProposalGenericExecutor {
 
     IPoolConfigurator(AaveV3Plasma.POOL_CONFIGURATOR).setReserveFactor(
       AaveV3PlasmaAssets.USDT0_UNDERLYING,
-      5_000
+      5_00
     );
   }
 }
