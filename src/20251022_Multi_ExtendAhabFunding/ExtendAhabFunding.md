@@ -80,8 +80,8 @@ To further align with the objectives of this proposal and foster accelerated gro
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251022_Multi_ExtendAhabFunding/AaveV3Ethereum_ExtendAhabFunding_20251022.sol), [AaveV3Plasma](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251022_Multi_ExtendAhabFunding/AaveV3Plasma_ExtendAhabFunding_20251022.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251022_Multi_ExtendAhabFunding/AaveV3Ethereum_ExtendAhabFunding_20251022.t.sol), [AaveV3Plasma](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251022_Multi_ExtendAhabFunding/AaveV3Plasma_ExtendAhabFunding_20251022.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/9aa8cc1a5fba882d69b8d87c3ea071137804bb50/src/20251022_Multi_ExtendAhabFunding/AaveV3Ethereum_ExtendAhabFunding_20251022.sol), [AaveV3Plasma](https://github.com/bgd-labs/aave-proposals-v3/blob/9aa8cc1a5fba882d69b8d87c3ea071137804bb50/src/20251022_Multi_ExtendAhabFunding/AaveV3Plasma_ExtendAhabFunding_20251022.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/9aa8cc1a5fba882d69b8d87c3ea071137804bb50/src/20251022_Multi_ExtendAhabFunding/AaveV3Ethereum_ExtendAhabFunding_20251022.t.sol), [AaveV3Plasma](https://github.com/bgd-labs/aave-proposals-v3/blob/9aa8cc1a5fba882d69b8d87c3ea071137804bb50/src/20251022_Multi_ExtendAhabFunding/AaveV3Plasma_ExtendAhabFunding_20251022.t.sol)
 - [Snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0xa1cb3c88f8c30a05dca3c767a60abc31b4f48fe36a4175f421ac0f2e8ab7dbac)
 - [Discussion](https://governance.aave.com/t/arfc-extend-ahab-funding/23213/2)
 
