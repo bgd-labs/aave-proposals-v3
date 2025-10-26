@@ -6,9 +6,12 @@ import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 import {AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
+
 interface IMainnetSwapSteward {
   function setSwappablePair(address fromToken, address toToken, bool allowed) external;
+  function setTokenOracle(address token, address oracle) external;
 }
+
 /**
  * @title Extend Ahab Funding
  * @author @TokenLogic
@@ -51,6 +54,11 @@ contract AaveV3Ethereum_ExtendAhabFunding_20251022 is IProposalGenericExecutor {
       AaveV3EthereumAssets.USDS_UNDERLYING,
       AaveV3EthereumAssets.AAVE_UNDERLYING,
       true
+    );
+
+    IMainnetSwapSteward(AaveV3Ethereum.COLLECTOR_SWAP_STEWARD).setTokenOracle(
+      AaveV3EthereumAssets.AAVE_UNDERLYING,
+      AaveV3EthereumAssets.AAVE_ORACLE
     );
   }
 }

@@ -195,4 +195,22 @@ contract AaveV3Ethereum_ExtendAhabFunding_20251022_Test is ProtocolV3TestBase {
       budgetBefore - (amount * numParts)
     );
   }
+
+  function test_oracle() public {
+    assertEq(
+      IMainnetSwapSteward(AaveV3Ethereum.COLLECTOR_SWAP_STEWARD).priceOracle(
+        AaveV3EthereumAssets.AAVE_UNDERLYING
+      ),
+      address(0)
+    );
+
+    executePayload(vm, address(proposal));
+
+    assertEq(
+      IMainnetSwapSteward(AaveV3Ethereum.COLLECTOR_SWAP_STEWARD).priceOracle(
+        AaveV3EthereumAssets.AAVE_UNDERLYING
+      ),
+      AaveV3EthereumAssets.AAVE_ORACLE
+    );
+  }
 }
