@@ -38,7 +38,7 @@ contract AaveV3Avalanche_AddEURCToAvalancheV3Instance_20250821 is AaveV3PayloadA
     listings[0] = IAaveV3ConfigEngine.Listing({
       asset: EURC,
       assetSymbol: 'EURC',
-      priceFeed: ChainlinkAvalanche.EURC_USD,
+      priceFeed: ChainlinkAvalanche.EURC__USD,
       enabledToBorrow: EngineFlags.ENABLED,
       borrowableInIsolation: EngineFlags.DISABLED,
       withSiloedBorrowing: EngineFlags.DISABLED,
