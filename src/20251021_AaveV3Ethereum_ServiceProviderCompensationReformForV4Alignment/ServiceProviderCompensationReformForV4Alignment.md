@@ -37,7 +37,9 @@ The following structure will apply to all primary Aave service providers:
 | LlamaRisk  | Same as previous stream | $250K AAVE (30d TWAP) |
 | Chaos Labs | Same as previous stream | $250K AAVE (30d TWAP) |
 
-The TWAP price used is 263.15$
+For Service Provider allowed to have concurent stream (Chaos Labs & TokenLogic) the olderst stream will not be reset.
+
+The TWAP price used for AAVE is 263.15$
 
 The vesting mentioned in the original discussion will be handled separately by the AFC
 
