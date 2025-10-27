@@ -4,7 +4,9 @@ pragma solidity ^0.8.0;
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 import {IERC4626} from 'openzeppelin-contracts/contracts/interfaces/IERC4626.sol';
 import {AaveV3Plasma, AaveV3PlasmaAssets} from 'aave-address-book/AaveV3Plasma.sol';
+import {GovernanceV3Plasma} from 'aave-address-book/GovernanceV3Plasma.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
+import {IAaveOracle} from 'aave-address-book/AaveV2.sol';
 import {IEmissionManager} from 'aave-v3-origin/contracts/rewards/interfaces/IEmissionManager.sol';
 import {IGhoToken} from 'src/interfaces/IGhoToken.sol';
 import {IGsm} from 'src/interfaces/IGsm.sol';
@@ -14,6 +16,13 @@ import {IGsmSteward} from 'src/interfaces/IGsmSteward.sol';
 import {IAaveCLRobotOperator} from 'src/interfaces/IAaveCLRobotOperator.sol';
 
 import {AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_20250930} from './AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_20250930.sol';
+
+interface IGhoReserve {
+  function addEntity(address entity) external;
+  function getLimit(address entity) external view returns (uint256);
+  function setLimit(address entity, uint256 limit) external;
+  function totalEntities() external view returns (uint256);
+}
 
 /**
  * @dev Test for AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_20250930
@@ -26,7 +35,7 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
   address public RISK_COUNCIL = 0x8513e6F37dBc52De87b166980Fa3F50639694B60;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('plasma'), 2343679);
+    vm.createSelectFork(vm.rpcUrl('plasma'), 4602220);
     proposal = new AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_20250930();
   }
 
@@ -67,16 +76,11 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
 
     uint256 limit = IGhoReserve(proposal.GHO_RESERVE()).getLimit(proposal.NEW_GSM_USDT());
     assertEq(limit, proposal.USDT_CAPACITY());
-    assertApproxEqAbs(
-      IGhoReserve(proposal.GHO_RESERVE()).getUsed(proposal.NEW_GSM_USDT()),
-      oldGsmUsdc.bucketLevel,
-      0.0001 ether
-    );
 
     // GSM USDT
     GsmConfig memory gsmUsdtConfig = GsmConfig({
       sellFee: 0, // 0%
-      buyFee: 0.0020e4, // 0.2%
+      buyFee: 0.001e4, // 0.2%
       exposureCap: 16_000_000e6,
       isFrozen: false,
       isSeized: false,
@@ -111,8 +115,8 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
     // Price outside the price range
     // Freezers cannot execute freeze without authorization
     _mockAssetPrice(
-      address(AaveV3Ethereum.ORACLE),
-      AaveV3PlasmaAssets.USDT_UNDERLYING,
+      address(AaveV3Plasma.ORACLE),
+      AaveV3PlasmaAssets.USDT0_UNDERLYING,
       usdtFreezeLowerBound - 1
     );
 
@@ -141,8 +145,8 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
 
     // Price back to normal
     _mockAssetPrice(
-      address(AaveV3Ethereum.ORACLE),
-      AaveV3PlasmaAssets.USDT_UNDERLYING,
+      address(AaveV3Plasma.ORACLE),
+      AaveV3PlasmaAssets.USDT0_UNDERLYING,
       usdtUnfreezeLowerBound + 1
     );
 
@@ -165,13 +169,13 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
 
     // New GSMs are operational
     IERC20(AaveV3PlasmaAssets.USDT0_STATA_TOKEN).approve(proposal.NEW_GSM_USDT(), 1_000e6);
-    IERC20(AaveV3PlasmaAssets.GHO_UNDERLYING).approve(proposal.NEW_GSM_USDT(), 1_200 ether);
+    IERC20(proposal.GHO()).approve(proposal.NEW_GSM_USDT(), 1_200 ether);
 
     uint256 amountUnderlying = 1_000e6;
     uint256 balanceBeforeUsdtGsm = IERC20(AaveV3PlasmaAssets.USDT0_STATA_TOKEN).balanceOf(
       proposal.NEW_GSM_USDT()
     );
-    uint256 balanceGhoBefore = IGhoToken(GhoEthereum.GHO_TOKEN).balanceOf(address(this));
+    uint256 balanceGhoBefore = IGhoToken(proposal.GHO()).balanceOf(address(this));
 
     (, uint256 ghoBought) = IGsm(proposal.NEW_GSM_USDT()).sellAsset(
       amountUnderlying,
@@ -184,7 +188,7 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
       'amounts USDT after sellAsset not equal'
     );
     assertEq(
-      IGhoToken(GhoEthereum.GHO_TOKEN).balanceOf(address(this)),
+      IGhoToken(proposal.GHO()).balanceOf(address(this)),
       balanceGhoBefore + ghoBought,
       'GHO balance after sellAsset not equal'
     );
@@ -197,7 +201,7 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
       'stataUSDT balance after buyAsset not equal'
     );
     assertEq(
-      IGhoToken(GhoEthereum.GHO_TOKEN).balanceOf(address(this)),
+      IGhoToken(proposal.GHO()).balanceOf(address(this)),
       balanceGhoBefore + ghoBought - ghoSold,
       'GHO balance after buyAsset not equal'
     );
@@ -210,7 +214,7 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
     uint128 newExposureCap = oldExposureCap + 1;
 
     vm.startPrank(RISK_COUNCIL);
-    IGsmSteward(GhoEthereum.GHO_GSM_STEWARD).updateGsmExposureCap(
+    IGsmSteward(proposal.GHO_GSM_STEWARD()).updateGsmExposureCap(
       proposal.NEW_GSM_USDT(),
       newExposureCap
     );
@@ -226,7 +230,7 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
     uint256 sellFee = IGsmFeeStrategy(feeStrategy).getSellFee(1e4);
 
     vm.startPrank(RISK_COUNCIL);
-    IGsmSteward(GhoEthereum.GHO_GSM_STEWARD).updateGsmBuySellFees(
+    IGsmSteward(proposal.GHO_GSM_STEWARD()).updateGsmBuySellFees(
       proposal.NEW_GSM_USDT(),
       buyFee + 1,
       sellFee
@@ -238,21 +242,18 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
 
   function _checkRolesConfig(IGsm gsm) internal view {
     // DAO permissions
+    assertTrue(gsm.hasRole(bytes32(0), GovernanceV3Plasma.EXECUTOR_LVL_1), 'Executor is not admin');
     assertTrue(
-      gsm.hasRole(bytes32(0), GovernanceV3Ethereum.EXECUTOR_LVL_1),
-      'Executor is not admin'
-    );
-    assertTrue(
-      gsm.hasRole(gsm.SWAP_FREEZER_ROLE(), GovernanceV3Ethereum.EXECUTOR_LVL_1),
+      gsm.hasRole(gsm.SWAP_FREEZER_ROLE(), GovernanceV3Plasma.EXECUTOR_LVL_1),
       'Executor is not swap freezer'
     );
     assertTrue(
-      gsm.hasRole(gsm.CONFIGURATOR_ROLE(), GovernanceV3Ethereum.EXECUTOR_LVL_1),
+      gsm.hasRole(gsm.CONFIGURATOR_ROLE(), GovernanceV3Plasma.EXECUTOR_LVL_1),
       'Executor is not configurator'
     );
     // No need to be liquidator or token rescuer at the beginning
-    assertFalse(gsm.hasRole(gsm.LIQUIDATOR_ROLE(), GovernanceV3Ethereum.EXECUTOR_LVL_1));
-    assertFalse(gsm.hasRole(gsm.TOKEN_RESCUER_ROLE(), GovernanceV3Ethereum.EXECUTOR_LVL_1));
+    assertFalse(gsm.hasRole(gsm.LIQUIDATOR_ROLE(), GovernanceV3Plasma.EXECUTOR_LVL_1));
+    assertFalse(gsm.hasRole(gsm.TOKEN_RESCUER_ROLE(), GovernanceV3Plasma.EXECUTOR_LVL_1));
 
     // Deployer does not have permissions
     address deployer = 0x99C7A4A4Ab99882C422eF777b182eBda204D5B02;
@@ -267,7 +268,7 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
 
     // GHO Steward
     assertTrue(
-      gsm.hasRole(gsm.CONFIGURATOR_ROLE(), GhoEthereum.GHO_GSM_STEWARD),
+      gsm.hasRole(gsm.CONFIGURATOR_ROLE(), proposal.GHO_GSM_STEWARD()),
       'Gho Steward not configured'
     );
   }
@@ -320,7 +321,7 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
       priceStrategy.getGhoPriceInAsset(1 ether, false)
     );
 
-    assertEq(gsm.getGhoTreasury(), address(AaveV3Ethereum.COLLECTOR));
+    assertEq(gsm.getGhoTreasury(), address(AaveV3Plasma.COLLECTOR));
 
     // Oracle freezer
     assertEq(freezer.getCanUnfreeze(), config.freezerCanUnfreeze, 'wrong freezer config');

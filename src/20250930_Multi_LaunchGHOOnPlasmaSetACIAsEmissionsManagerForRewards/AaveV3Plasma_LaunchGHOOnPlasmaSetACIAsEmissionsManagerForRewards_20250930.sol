@@ -11,6 +11,7 @@ import {GovernanceV3Plasma} from 'aave-address-book/GovernanceV3Plasma.sol';
 import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
 import {IEmissionManager} from 'aave-v3-origin/contracts/rewards/interfaces/IEmissionManager.sol';
+import {CollectorUtils, ICollector} from 'aave-helpers/src/CollectorUtils.sol';
 
 import {IGhoBucketSteward} from 'src/interfaces/IGhoBucketSteward.sol';
 import {IGhoToken} from 'src/interfaces/IGhoToken.sol';
@@ -34,6 +35,7 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
   AaveV3PayloadPlasma
 {
   using SafeERC20 for IERC20;
+  using CollectorUtils for ICollector;
 
   // New GHO Token
   // https://plasmascan.to/address/0xb77E872A68C62CfC0dFb02C067Ecc3DA23B4bbf3
@@ -55,6 +57,12 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
   // Capacities
   uint128 public constant USDT_CAPACITY = 50_000_000 ether;
 
+  // https://plasmascan.to/address/0x86992b2E2385E478dd2eeBfaE06369636e0a64E8
+  address public constant GHO_GSM_STEWARD = 0x86992b2E2385E478dd2eeBfaE06369636e0a64E8;
+
+  // https://plasmascan.to/address/0xc563fc29dD0A7E56D1B5Cc7bbF1DCF044d755303
+  address public constant GSM_REGISTRY = 0xc563fc29dD0A7E56D1B5Cc7bbF1DCF044d755303;
+
   // https://plasmascan.to/address/0x7cCC8a3DF66a2cDEa6c0629412378752Db5014EA
   address public constant NEW_GSM_USDT = 0x7cCC8a3DF66a2cDEa6c0629412378752Db5014EA;
 
@@ -69,6 +77,12 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
   uint96 public constant LINK_AMOUNT_ORACLE_FREEZER_KEEPER = 80 ether;
   uint32 public constant KEEPER_GAS_LIMIT = 150_000;
 
+  // https://etherscan.io/address/0x76a443768A5e3B8d1AED0105FC250877841Deb40
+  address public constant LINK = 0x76a443768A5e3B8d1AED0105FC250877841Deb40;
+
+  // https://etherscan.io/address/0xc4374775489cb9c56003bf2c9b12495fc64f0771
+  address public constant SYRUP_USDT = 0xC4374775489CB9C56003BF2C9b12495fC64F0771;
+
   bytes32 public immutable LIQUIDATOR_ROLE = IGsm(NEW_GSM_USDT).LIQUIDATOR_ROLE();
   bytes32 public immutable SWAP_FREEZER_ROLE = IGsm(NEW_GSM_USDT).SWAP_FREEZER_ROLE();
 
@@ -76,8 +90,6 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
     _grantAccess();
     _updateFeeStrategy();
     _registerOracles();
-
-    IERC20(AaveV3PlasmaAssets.GHO).transfer(GHO_RESERVE, BRIDGED_AMOUNT);
   }
 
   function _grantAccess() internal {
@@ -85,20 +97,15 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
     IGhoReserve(GHO_RESERVE).addEntity(NEW_GSM_USDT);
     IGhoReserve(GHO_RESERVE).setLimit(NEW_GSM_USDT, USDT_CAPACITY);
 
-    // Allow risk council to control the bucket capacity
-    address[] memory vaults = new address[](1);
-    vaults[1] = NEW_GSM_USDT;
-    IGhoBucketSteward(GhoPlasma.GHO_BUCKET_STEWARD).setControlledFacilitator(vaults, true);
-
     // Add GSM Swap Freezer role to OracleSwapFreezers
     IGsm(NEW_GSM_USDT).grantRole(SWAP_FREEZER_ROLE, USDT_ORACLE_SWAP_FREEZER);
     IGsm(NEW_GSM_USDT).grantRole(SWAP_FREEZER_ROLE, GovernanceV3Plasma.EXECUTOR_LVL_1);
 
     // Add GSMs to GSM Registry
-    IGsmRegistry(GhoPlasma.GSM_REGISTRY).addGsm(NEW_GSM_USDT);
+    IGsmRegistry(GSM_REGISTRY).addGsm(NEW_GSM_USDT);
 
     // GHO GSM Steward
-    IGsm(NEW_GSM_USDT).grantRole(IGsm(NEW_GSM_USDT).CONFIGURATOR_ROLE(), GhoPlasma.GHO_GSM_STEWARD);
+    IGsm(NEW_GSM_USDT).grantRole(IGsm(NEW_GSM_USDT).CONFIGURATOR_ROLE(), GHO_GSM_STEWARD);
   }
 
   function _updateFeeStrategy() internal {
@@ -109,17 +116,14 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
     AaveV3Plasma.COLLECTOR.withdrawFromV3(
       CollectorUtils.IOInput({
         pool: address(AaveV3Plasma.POOL),
-        underlying: AaveV3PlasmaAssets.LINK_UNDERLYING,
+        underlying: LINK,
         amount: LINK_AMOUNT_ORACLE_FREEZER_KEEPER
       }),
       address(this)
     );
-    IERC20(AaveV3PlasmaAssets.LINK_UNDERLYING).forceApprove(
-      MiscPlasma.AAVE_CL_ROBOT_OPERATOR,
-      LINK_AMOUNT_ORACLE_FREEZER_KEEPER
-    );
+    IERC20(LINK).forceApprove(ROBOT_OPERATOR, LINK_AMOUNT_ORACLE_FREEZER_KEEPER);
 
-    IAaveCLRobotOperator(MiscPlasma.AAVE_CL_ROBOT_OPERATOR).register(
+    IAaveCLRobotOperator(ROBOT_OPERATOR).register(
       'GHO GSM 4626 stataUSDT OracleSwapFreezer',
       USDT_ORACLE_SWAP_FREEZER,
       '',
@@ -137,6 +141,8 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
     address aGHO = AaveV3Plasma.POOL.getReserveAToken(GHO);
     IEmissionManager(AaveV3Plasma.EMISSION_MANAGER).setEmissionAdmin(GHO, GHO_LM_ADMIN);
     IEmissionManager(AaveV3Plasma.EMISSION_MANAGER).setEmissionAdmin(aGHO, GHO_LM_ADMIN);
+
+    IERC20(GHO).transfer(GHO_RESERVE, BRIDGED_AMOUNT);
   }
 
   function newListings() public pure override returns (IAaveV3ConfigEngine.Listing[] memory) {
@@ -193,7 +199,7 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
       borrowables: borrowableAssets
     });
 
-    collateralAssets[0] = AaveV3PlasmaAssets.syrupUSDT_UNDERLYING;
+    collateralAssets[0] = SYRUP_USDT;
     borrowableAssets[0] = GHO;
 
     eModeCreations[0] = IAaveV3ConfigEngine.EModeCategoryCreation({
@@ -208,7 +214,7 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
     address[] memory collateralAssets_syrup = new address[](1);
 
     collateralAssets_syrup[0] = GHO;
-    collateralAssets_syrup[1] = AaveV3PlasmaAssets.syrupUSDT_UNDERLYING;
+    collateralAssets_syrup[1] = SYRUP_USDT;
     borrowableAssets[0] = AaveV3PlasmaAssets.USDT0_UNDERLYING;
 
     eModeCreations[0] = IAaveV3ConfigEngine.EModeCategoryCreation({
