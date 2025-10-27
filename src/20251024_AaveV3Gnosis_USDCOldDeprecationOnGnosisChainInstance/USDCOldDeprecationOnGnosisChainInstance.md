@@ -35,8 +35,8 @@ The following table shows the current parameters and proposed adjustments for US
 
 ## References
 
-- Implementation: [AaveV3Gnosis](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251024_AaveV3Gnosis_USDCOldDeprecationOnGnosisChainInstance/AaveV3Gnosis_USDCOldDeprecationOnGnosisChainInstance_20251024.sol)
-- Tests: [AaveV3Gnosis](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251024_AaveV3Gnosis_USDCOldDeprecationOnGnosisChainInstance/AaveV3Gnosis_USDCOldDeprecationOnGnosisChainInstance_20251024.t.sol)
+- Implementation: [AaveV3Gnosis](https://github.com/bgd-labs/aave-proposals-v3/blob/2eebace0ecd8f4851a5d97796aa1dbf3ced8683e/src/20251024_AaveV3Gnosis_USDCOldDeprecationOnGnosisChainInstance/AaveV3Gnosis_USDCOldDeprecationOnGnosisChainInstance_20251024.sol)
+- Tests: [AaveV3Gnosis](https://github.com/bgd-labs/aave-proposals-v3/blob/2eebace0ecd8f4851a5d97796aa1dbf3ced8683e/src/20251024_AaveV3Gnosis_USDCOldDeprecationOnGnosisChainInstance/AaveV3Gnosis_USDCOldDeprecationOnGnosisChainInstance_20251024.t.sol)
 - [Snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0x438b460559aa8c3a039f28212362af9a0e3b94a88e4a2b8230fe2c5e8f4d43da)
 - [Discussion](https://governance.aave.com/t/arfc-usdc-old-deprecation-on-gnosis-chain-instance/23189)
 
