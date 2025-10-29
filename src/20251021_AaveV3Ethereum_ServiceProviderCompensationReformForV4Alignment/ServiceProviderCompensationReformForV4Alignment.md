@@ -45,8 +45,8 @@ The vesting mentioned in the original discussion will be handled separately by t
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251021_AaveV3Ethereum_ServiceProviderCompensationReformForV4Alignment/AaveV3Ethereum_ServiceProviderCompensationReformForV4Alignment_20251021.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251021_AaveV3Ethereum_ServiceProviderCompensationReformForV4Alignment/AaveV3Ethereum_ServiceProviderCompensationReformForV4Alignment_20251021.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/36eb591612d740537c314c0e0ffe86ab55ceda1d/src/20251021_AaveV3Ethereum_ServiceProviderCompensationReformForV4Alignment/AaveV3Ethereum_ServiceProviderCompensationReformForV4Alignment_20251021.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/36eb591612d740537c314c0e0ffe86ab55ceda1d/src/20251021_AaveV3Ethereum_ServiceProviderCompensationReformForV4Alignment/AaveV3Ethereum_ServiceProviderCompensationReformForV4Alignment_20251021.t.sol)
 - [Snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0xdf44cfaac72f0413d639d017c299a6491ba74a55fffcfdf74debfba51932891b)
 - [Discussion](https://governance.aave.com/t/arfc-service-provider-compensation-reform-for-v4-alignment/23246)
 
