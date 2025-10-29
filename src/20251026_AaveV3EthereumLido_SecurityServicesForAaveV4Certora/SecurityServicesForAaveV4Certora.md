@@ -5,7 +5,11 @@ discussions: "https://governance.aave.com/t/arfc-security-services-for-aave-v4-c
 snapshot: "https://snapshot.box/#/s:aavedao.eth/proposal/0xc84ffd9516f6c5248a4c79224baaf0191c8ce240a0e48482ce16594da6d0196d"
 ---
 
-# Summary
+# Simple summary
+
+This AIP will create a one year stream of 2,390,000$ aLidoGHO to Certora to compensate them for their future work on Aave V4.
+
+# Introduction
 
 Since March 2022, we’ve maintained a continuous partnership with the DAO. Now halfway through our fourth year, Aave is stronger than ever — with continued potential for growth.
 
