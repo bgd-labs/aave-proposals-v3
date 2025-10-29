@@ -5,7 +5,11 @@ discussions: "https://governance.aave.com/t/arfc-security-services-for-aave-curr
 snapshot: "https://snapshot.box/#/s:aavedao.eth/proposal/0xabaa167899193af7aab389c6412d18802845a88b9bb4061952c82ce78e670f71"
 ---
 
-# Summary
+# Simple Summary
+
+This AIP will open a one year aLidoGHO stream of 238,000$ to compensate Certora for their future work on the currently deployed Aave infrastructure.
+
+# Introduction
 
 Since March 2022, we’ve maintained a continuous partnership with the DAO. Now halfway through our fourth year, Aave is stronger than ever — with continued potential for growth.
 
@@ -61,7 +65,7 @@ With the current engagement coming to an end, we propose our services for the fo
 
 ## Specification
 
-Create a 365 days payment stream of $238,000 aLidodGHO to 0x0F11640BF66e2D9352d9c41434A5C6E597c5e4c8
+Create a 365 days payment stream of $238,000 aLidoGHO to 0x0F11640BF66e2D9352d9c41434A5C6E597c5e4c8
 
 ## References
 
