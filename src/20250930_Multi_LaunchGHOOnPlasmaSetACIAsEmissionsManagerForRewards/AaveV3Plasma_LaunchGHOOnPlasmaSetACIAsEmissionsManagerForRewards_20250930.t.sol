@@ -13,7 +13,6 @@ import {IGsm} from 'src/interfaces/IGsm.sol';
 import {IGsmFeeStrategy} from 'src/interfaces/IGsmFeeStrategy.sol';
 import {IGsmRegistry} from 'src/interfaces/IGsmRegistry.sol';
 import {IGsmSteward} from 'src/interfaces/IGsmSteward.sol';
-import {IAaveCLRobotOperator} from 'src/interfaces/IAaveCLRobotOperator.sol';
 
 import {AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_20250930} from './AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_20250930.sol';
 
@@ -35,8 +34,12 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
   address public RISK_COUNCIL = 0x8513e6F37dBc52De87b166980Fa3F50639694B60;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('plasma'), 4602220);
+    vm.createSelectFork(vm.rpcUrl('plasma'), 4757874);
     proposal = new AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_20250930();
+
+    // Deal GHO that is going to be bridged from Mainnet
+    // 1 GHO for seed amount already sent to Collector
+    deal(proposal.GHO(), address(AaveV3Plasma.COLLECTOR), 50_000_001 ether);
   }
 
   /**
@@ -81,7 +84,7 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
     GsmConfig memory gsmUsdtConfig = GsmConfig({
       sellFee: 0, // 0%
       buyFee: 0.001e4, // 0.2%
-      exposureCap: 16_000_000e6,
+      exposureCap: 45_000_000e6,
       isFrozen: false,
       isSeized: false,
       freezerCanUnfreeze: true,
@@ -301,7 +304,7 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
     GsmConfig memory config
   ) internal view {
     assertEq(gsm.UNDERLYING_ASSET(), underlying, 'wrong underlying asset');
-    assertLt(gsm.getAvailableUnderlyingExposure(), config.exposureCap, 'wrong exposure cap');
+    assertEq(gsm.getAvailableUnderlyingExposure(), config.exposureCap, 'wrong exposure cap');
     assertEq(gsm.getIsFrozen(), config.isFrozen, 'wrong freeze state');
     assertEq(gsm.getIsSeized(), config.isSeized, 'wrong seized state');
 

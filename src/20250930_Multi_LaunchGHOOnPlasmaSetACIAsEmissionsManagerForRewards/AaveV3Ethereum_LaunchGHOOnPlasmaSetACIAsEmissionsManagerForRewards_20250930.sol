@@ -11,6 +11,7 @@ import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {CollectorUtils, ICollector} from 'aave-helpers/src/CollectorUtils.sol';
 
+import {IUpgradeableLockReleaseTokenPool, IRateLimiter} from 'src/interfaces/ccip/IUpgradeableLockReleaseTokenPool.sol';
 import {IGhoBucketSteward} from 'src/interfaces/IGhoBucketSteward.sol';
 import {IGhoToken} from 'src/interfaces/IGhoToken.sol';
 import {IGsm} from 'src/interfaces/IGsm.sol';
@@ -51,7 +52,7 @@ contract AaveV3Ethereum_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_2025
   // OwnableFacilitator Constants
   address public constant OWNABLE_FACILITATOR = 0x616AEe98F73C79FE59548Cfe7631c0baDBdA3165;
   string public constant OWNABLE_FACILITATOR_NAME = 'OwnableFacilitator Gho GSMs';
-  uint128 public constant OWNABLE_FACILITATOR_CAPACITY = 100_000_000 ether;
+  uint128 public constant OWNABLE_FACILITATOR_CAPACITY = 150_000_000 ether;
 
   // GhoReserve
   // https://etherscan.io/address/0x0b0C0d8346F69EE94D29405f5630fc883A1052ab
@@ -64,22 +65,26 @@ contract AaveV3Ethereum_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_2025
   // https://plasmascan.to/address/0x035Dec9dBE6DC0230ac05A760D9B6A70E7514243
   address public constant CCIP_BRIDGE_PLASMA = 0x035Dec9dBE6DC0230ac05A760D9B6A70E7514243;
   uint256 public constant PLASMA_BRIDGE_AMOUNT = 50_000_000 ether;
+  uint256 public constant NEW_BRIDGE_LIMIT = 100_000_000 ether;
+
+  uint128 internal constant DEFAULT_RATE_LIMITER_CAPACITY = 1_500_000e18;
+  uint128 internal constant DEFAULT_RATE_LIMITER_RATE = 300e18;
 
   // Existing GSM
-  uint128 public constant USDC_CAPACITY = 5_000_000 ether;
+  uint128 public constant USDC_CAPACITY = 50_000_000 ether;
   uint128 public constant USDT_CAPACITY = 25_000_000 ether;
 
-  // https://etherscan.io/address/0x99f3460A84f63a5039F926DB6904b65C30f20927
-  address public constant NEW_GSM_USDC = 0x99f3460A84f63a5039F926DB6904b65C30f20927;
+  // https://etherscan.io/address/0x3a3868898305f04bec7fea77becff04c13444112
+  address public constant NEW_GSM_USDC = 0x3A3868898305f04beC7FEa77BecFf04C13444112;
 
-  // https://etherscan.io/address/0x1de76e3d0f1a3Bf2dD64e676008727927beF0C40
-  address public constant USDC_ORACLE_SWAP_FREEZER = 0x1de76e3d0f1a3Bf2dD64e676008727927beF0C40;
+  // https://etherscan.io/address/0xc39ac061686C99b1B8B09B401e8C2f486894AD3c
+  address public constant USDC_ORACLE_SWAP_FREEZER = 0xc39ac061686C99b1B8B09B401e8C2f486894AD3c;
 
-  // https://etherscan.io/address/0x59f7742C910D5150d284b44a56bf4A8B31588252
-  address public constant NEW_GSM_USDT = 0x59f7742C910D5150d284b44a56bf4A8B31588252;
+  // https://etherscan.io/address/0x882285e62656b9623af136ce3078c6bdcc33f5e3
+  address public constant NEW_GSM_USDT = 0x882285E62656b9623AF136Ce3078c6BdCc33F5E3;
 
-  // https://etherscan.io/address/0x10C053eBcD738C88fA74903Ef2EB24166b770931
-  address public constant USDT_ORACLE_SWAP_FREEZER = 0x10C053eBcD738C88fA74903Ef2EB24166b770931;
+  // https://etherscan.io/address/0xc2462092D1A2b0Ef015A49e2d832978AEc26866a
+  address public constant USDT_ORACLE_SWAP_FREEZER = 0xc2462092D1A2b0Ef015A49e2d832978AEc26866a;
 
   // https://etherscan.io/address/0x06fbDE909B43f01202E3C6207De1D27cC208AcC1
   address public constant FEE_STRATEGY = 0x06fbDE909B43f01202E3C6207De1D27cC208AcC1;
@@ -106,21 +111,39 @@ contract AaveV3Ethereum_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_2025
       GhoEthereum.GSM_USDT
     );
 
+    IGhoToken(AaveV3EthereumAssets.GHO_UNDERLYING).addFacilitator(
+      OWNABLE_FACILITATOR,
+      OWNABLE_FACILITATOR_NAME,
+      OWNABLE_FACILITATOR_CAPACITY
+    );
+
     _seize();
     _grantAccess();
     _updateFeeStrategy();
     _registerOracles();
     _fund(balanceUsdc, balanceUsdt);
     _revokeAccess();
-
     _bridgeToPlasma();
   }
 
   function _bridgeToPlasma() internal {
-    IGhoToken(AaveV3EthereumAssets.GHO_UNDERLYING).addFacilitator(
-      OWNABLE_FACILITATOR,
-      OWNABLE_FACILITATOR_NAME,
-      OWNABLE_FACILITATOR_CAPACITY
+    IUpgradeableLockReleaseTokenPool(GhoEthereum.GHO_CCIP_TOKEN_POOL).setBridgeLimit(
+      NEW_BRIDGE_LIMIT
+    );
+
+    // Temporarily increase the maximum bridge limit
+    IUpgradeableLockReleaseTokenPool(GhoEthereum.GHO_CCIP_TOKEN_POOL).setChainRateLimiterConfig(
+      CCIPChainSelectors.PLASMA,
+      IRateLimiter.Config({
+        isEnabled: true,
+        capacity: uint128(PLASMA_BRIDGE_AMOUNT),
+        rate: DEFAULT_RATE_LIMITER_RATE
+      }),
+      IRateLimiter.Config({
+        isEnabled: true,
+        capacity: DEFAULT_RATE_LIMITER_CAPACITY,
+        rate: DEFAULT_RATE_LIMITER_RATE
+      })
     );
 
     IOwnableFacilitator(OWNABLE_FACILITATOR).mint(CCIP_BRIDGE, PLASMA_BRIDGE_AMOUNT);
@@ -136,6 +159,21 @@ contract AaveV3Ethereum_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_2025
       CCIPChainSelectors.PLASMA,
       PLASMA_BRIDGE_AMOUNT,
       AaveV3EthereumAssets.GHO_UNDERLYING
+    );
+
+    // Restore bridge limit
+    IUpgradeableLockReleaseTokenPool(GhoEthereum.GHO_CCIP_TOKEN_POOL).setChainRateLimiterConfig(
+      CCIPChainSelectors.PLASMA,
+      IRateLimiter.Config({
+        isEnabled: true,
+        capacity: DEFAULT_RATE_LIMITER_CAPACITY,
+        rate: DEFAULT_RATE_LIMITER_RATE
+      }),
+      IRateLimiter.Config({
+        isEnabled: true,
+        capacity: DEFAULT_RATE_LIMITER_CAPACITY,
+        rate: DEFAULT_RATE_LIMITER_RATE
+      })
     );
   }
 
@@ -154,12 +192,6 @@ contract AaveV3Ethereum_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_2025
 
     IGhoReserve(GHO_RESERVE).setLimit(NEW_GSM_USDC, USDC_CAPACITY);
     IGhoReserve(GHO_RESERVE).setLimit(NEW_GSM_USDT, USDT_CAPACITY);
-
-    // Allow risk council to control the bucket capacity
-    address[] memory vaults = new address[](2);
-    vaults[0] = NEW_GSM_USDC;
-    vaults[1] = NEW_GSM_USDT;
-    IGhoBucketSteward(GhoEthereum.GHO_BUCKET_STEWARD).setControlledFacilitator(vaults, true);
 
     // Add GSM Swap Freezer role to OracleSwapFreezers
     IGsm(NEW_GSM_USDC).grantRole(SWAP_FREEZER_ROLE, USDC_ORACLE_SWAP_FREEZER);
@@ -222,6 +254,9 @@ contract AaveV3Ethereum_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_2025
   }
 
   function _fund(uint256 balanceUsdc, uint256 balanceUsdt) internal {
+    IGsm(GhoEthereum.GSM_USDC).distributeFeesToTreasury();
+    IGsm(GhoEthereum.GSM_USDT).distributeFeesToTreasury();
+
     IOwnableFacilitator(OWNABLE_FACILITATOR).mint(GHO_RESERVE, USDC_CAPACITY + USDT_CAPACITY);
 
     AaveV3Ethereum.COLLECTOR.transfer(
@@ -248,9 +283,15 @@ contract AaveV3Ethereum_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_2025
       GhoEthereum.GSM_USDT
     );
 
-    uint256 difference = ghoUsdcNeeded + ghoUsdtNeeded - amountGhoUsdc - amountGhoUsdt;
-    if (difference > 0) {
-      AaveV3Ethereum.COLLECTOR.transfer(IERC20(GhoEthereum.GHO_TOKEN), address(this), difference);
+    uint256 acquiredGho = amountGhoUsdc + amountGhoUsdt;
+    uint256 mintedGho = ghoUsdcNeeded + ghoUsdtNeeded;
+
+    if (mintedGho > acquiredGho) {
+      AaveV3Ethereum.COLLECTOR.transfer(
+        IERC20(GhoEthereum.GHO_TOKEN),
+        address(this),
+        mintedGho - acquiredGho
+      );
     }
 
     IERC20(GhoEthereum.GHO_TOKEN).forceApprove(GhoEthereum.GSM_USDC, ghoUsdcNeeded);
@@ -259,8 +300,11 @@ contract AaveV3Ethereum_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_2025
     IGsm(GhoEthereum.GSM_USDC).burnAfterSeize(ghoUsdcNeeded);
     IGsm(GhoEthereum.GSM_USDT).burnAfterSeize(ghoUsdtNeeded);
 
-    IGsm(GhoEthereum.GSM_USDC).distributeFeesToTreasury();
-    IGsm(GhoEthereum.GSM_USDT).distributeFeesToTreasury();
+    // Send to collector any positive difference
+    IERC20(GhoEthereum.GHO_TOKEN).transfer(
+      address(AaveV3Ethereum.COLLECTOR),
+      IERC20(GhoEthereum.GHO_TOKEN).balanceOf(address(this))
+    );
   }
 
   function _revokeAccess() internal {

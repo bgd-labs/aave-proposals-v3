@@ -2,6 +2,7 @@
 pragma solidity ^0.8.0;
 
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
+import {IACLManager} from 'aave-address-book/AaveV3.sol';
 import {SafeERC20} from 'openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol';
 import {AaveV3Plasma, AaveV3PlasmaAssets} from 'aave-address-book/AaveV3Plasma.sol';
 import {AaveV3PayloadPlasma} from 'aave-helpers/src/v3-config-engine/AaveV3PayloadPlasma.sol';
@@ -11,7 +12,6 @@ import {GovernanceV3Plasma} from 'aave-address-book/GovernanceV3Plasma.sol';
 import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
 import {IEmissionManager} from 'aave-v3-origin/contracts/rewards/interfaces/IEmissionManager.sol';
-import {CollectorUtils, ICollector} from 'aave-helpers/src/CollectorUtils.sol';
 
 import {IGhoBucketSteward} from 'src/interfaces/IGhoBucketSteward.sol';
 import {IGhoToken} from 'src/interfaces/IGhoToken.sol';
@@ -35,7 +35,6 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
   AaveV3PayloadPlasma
 {
   using SafeERC20 for IERC20;
-  using CollectorUtils for ICollector;
 
   // New GHO Token
   // https://plasmascan.to/address/0xb77E872A68C62CfC0dFb02C067Ecc3DA23B4bbf3
@@ -60,25 +59,20 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
   // https://plasmascan.to/address/0x86992b2E2385E478dd2eeBfaE06369636e0a64E8
   address public constant GHO_GSM_STEWARD = 0x86992b2E2385E478dd2eeBfaE06369636e0a64E8;
 
+  // https://plasmascan.to/address/0xA5Ba213867E175A182a5dd6A9193C6158738105A
+  address public constant GHO_AAVE_STEWARD = 0xA5Ba213867E175A182a5dd6A9193C6158738105A;
+
   // https://plasmascan.to/address/0xc563fc29dD0A7E56D1B5Cc7bbF1DCF044d755303
   address public constant GSM_REGISTRY = 0xc563fc29dD0A7E56D1B5Cc7bbF1DCF044d755303;
 
-  // https://plasmascan.to/address/0x7cCC8a3DF66a2cDEa6c0629412378752Db5014EA
-  address public constant NEW_GSM_USDT = 0x7cCC8a3DF66a2cDEa6c0629412378752Db5014EA;
+  // https://plasmascan.to/address/0xd06114F714beCD6f373e5cE94E07278eF46eBF37
+  address public constant NEW_GSM_USDT = 0xd06114F714beCD6f373e5cE94E07278eF46eBF37;
 
-  // https://plasmascan.to/address/0x2CF06F6116DE4da4f6d5541dF09981825820CE20
+  // https://plasmascan.to/address/<TODO>
   address public constant USDT_ORACLE_SWAP_FREEZER = 0x2CF06F6116DE4da4f6d5541dF09981825820CE20;
 
   // https://plasmascan.to/address/0xD70BE7e6111EA563226cb8e53B1F195Da4E566E2
   address public constant FEE_STRATEGY = 0xD70BE7e6111EA563226cb8e53B1F195Da4E566E2;
-
-  // https://etherscan.io/address/0x1cDF8879eC8bE012bA959EB515b11008E0cb6323
-  address public constant ROBOT_OPERATOR = 0x1cDF8879eC8bE012bA959EB515b11008E0cb6323;
-  uint96 public constant LINK_AMOUNT_ORACLE_FREEZER_KEEPER = 80 ether;
-  uint32 public constant KEEPER_GAS_LIMIT = 150_000;
-
-  // https://etherscan.io/address/0x76a443768A5e3B8d1AED0105FC250877841Deb40
-  address public constant LINK = 0x76a443768A5e3B8d1AED0105FC250877841Deb40;
 
   // https://etherscan.io/address/0xc4374775489cb9c56003bf2c9b12495fc64f0771
   address public constant SYRUP_USDT = 0xC4374775489CB9C56003BF2C9b12495fC64F0771;
@@ -87,6 +81,11 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
   bytes32 public immutable SWAP_FREEZER_ROLE = IGsm(NEW_GSM_USDT).SWAP_FREEZER_ROLE();
 
   function _preExecute() internal override {
+    AaveV3Plasma.ACL_MANAGER.grantRole(
+      AaveV3Plasma.ACL_MANAGER.RISK_ADMIN_ROLE(),
+      GHO_AAVE_STEWARD
+    );
+
     _grantAccess();
     _updateFeeStrategy();
     _registerOracles();
@@ -113,28 +112,11 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
   }
 
   function _registerOracles() internal {
-    AaveV3Plasma.COLLECTOR.withdrawFromV3(
-      CollectorUtils.IOInput({
-        pool: address(AaveV3Plasma.POOL),
-        underlying: LINK,
-        amount: LINK_AMOUNT_ORACLE_FREEZER_KEEPER
-      }),
-      address(this)
-    );
-    IERC20(LINK).forceApprove(ROBOT_OPERATOR, LINK_AMOUNT_ORACLE_FREEZER_KEEPER);
-
-    IAaveCLRobotOperator(ROBOT_OPERATOR).register(
-      'GHO GSM 4626 stataUSDT OracleSwapFreezer',
-      USDT_ORACLE_SWAP_FREEZER,
-      '',
-      KEEPER_GAS_LIMIT,
-      LINK_AMOUNT_ORACLE_FREEZER_KEEPER,
-      0,
-      ''
-    );
+    // Manual via Gelato for Plasma
   }
 
   function _postExecute() internal override {
+    AaveV3Plasma.COLLECTOR.transfer(IERC20(GHO), address(this), GHO_SEED_AMOUNT);
     IERC20(GHO).forceApprove(address(AaveV3Plasma.POOL), GHO_SEED_AMOUNT);
     AaveV3Plasma.POOL.supply(GHO, GHO_SEED_AMOUNT, AaveV3Plasma.DUST_BIN, 0);
 
@@ -142,7 +124,7 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
     IEmissionManager(AaveV3Plasma.EMISSION_MANAGER).setEmissionAdmin(GHO, GHO_LM_ADMIN);
     IEmissionManager(AaveV3Plasma.EMISSION_MANAGER).setEmissionAdmin(aGHO, GHO_LM_ADMIN);
 
-    IERC20(GHO).transfer(GHO_RESERVE, BRIDGED_AMOUNT);
+    AaveV3Plasma.COLLECTOR.transfer(IERC20(GHO), GHO_RESERVE, BRIDGED_AMOUNT);
   }
 
   function newListings() public pure override returns (IAaveV3ConfigEngine.Listing[] memory) {
@@ -202,7 +184,7 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
     collateralAssets[0] = SYRUP_USDT;
     borrowableAssets[0] = GHO;
 
-    eModeCreations[0] = IAaveV3ConfigEngine.EModeCategoryCreation({
+    eModeCreations[1] = IAaveV3ConfigEngine.EModeCategoryCreation({
       ltv: 90_00,
       liqThreshold: 92_00,
       liqBonus: 4_00,
@@ -211,13 +193,13 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
       borrowables: borrowableAssets
     });
 
-    address[] memory collateralAssets_syrup = new address[](1);
+    address[] memory collateralAssets_syrup = new address[](2);
 
     collateralAssets_syrup[0] = GHO;
     collateralAssets_syrup[1] = SYRUP_USDT;
     borrowableAssets[0] = AaveV3PlasmaAssets.USDT0_UNDERLYING;
 
-    eModeCreations[0] = IAaveV3ConfigEngine.EModeCategoryCreation({
+    eModeCreations[2] = IAaveV3ConfigEngine.EModeCategoryCreation({
       ltv: 90_00,
       liqThreshold: 92_00,
       liqBonus: 4_00,
