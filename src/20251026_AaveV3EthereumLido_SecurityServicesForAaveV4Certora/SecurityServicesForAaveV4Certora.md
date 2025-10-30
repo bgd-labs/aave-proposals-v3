@@ -80,8 +80,8 @@ Create a one year payment stream of 2,390,000$ aLidoGho to 0x0F11640BF66e2D9352d
 
 ## References
 
-- Implementation: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251026_AaveV3EthereumLido_SecurityServicesForAaveV4Certora/AaveV3EthereumLido_SecurityServicesForAaveV4Certora_20251026.sol)
-- Tests: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251026_AaveV3EthereumLido_SecurityServicesForAaveV4Certora/AaveV3EthereumLido_SecurityServicesForAaveV4Certora_20251026.t.sol)
+- Implementation: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/1bba72fd21e6ef2f7eb29d703d77aaf562673afb/src/20251026_AaveV3EthereumLido_SecurityServicesForAaveV4Certora/AaveV3EthereumLido_SecurityServicesForAaveV4Certora_20251026.sol)
+- Tests: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/1bba72fd21e6ef2f7eb29d703d77aaf562673afb/src/20251026_AaveV3EthereumLido_SecurityServicesForAaveV4Certora/AaveV3EthereumLido_SecurityServicesForAaveV4Certora_20251026.t.sol)
 - [Snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0xc84ffd9516f6c5248a4c79224baaf0191c8ce240a0e48482ce16594da6d0196d)
 - [Discussion](https://governance.aave.com/t/arfc-security-services-for-aave-v4-certora/23222)
 
