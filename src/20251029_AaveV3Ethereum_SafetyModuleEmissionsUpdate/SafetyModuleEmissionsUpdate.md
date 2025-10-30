@@ -14,7 +14,7 @@ With the conclusion of the recent reward cycle, this proposal aims to renew $AAV
 
 More information on stkBPT can be found in the following dashboard, [here](https://dune.com/xmc2/aave-safety-module).
 
-Re-enable distribution for V1 of the staked token so remaining allowance can be claimed.
+Extend stkBPT V1 allowance so users can claim pending amounts (~875 AAVE).
 
 ## Specification
 
@@ -24,7 +24,7 @@ Set the following params for staked tokens:
 | ---------- | ----------------- | -------- |
 | stkAAVE    | 260               | -        |
 | stkABPT_V2 | 130               | 90 days  |
-| stkABPT_V1 | -                 | 90 days  |
+| stkABPT_V1 | 1,000 (total)     | -        |
 
 ## References
 
