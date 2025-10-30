@@ -69,8 +69,8 @@ Create a 365 days payment stream of $238,000 aLidoGHO to 0x0F11640BF66e2D9352d9c
 
 ## References
 
-- Implementation: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251026_AaveV3EthereumLido_SecurityServicesForAaveCurrentInfrastructureCertora/AaveV3EthereumLido_SecurityServicesForAaveCurrentInfrastructureCertora_20251026.sol)
-- Tests: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251026_AaveV3EthereumLido_SecurityServicesForAaveCurrentInfrastructureCertora/AaveV3EthereumLido_SecurityServicesForAaveCurrentInfrastructureCertora_20251026.t.sol)
+- Implementation: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/c7feb526517304d59f3c25333cc9e81b6bef6719/src/20251026_AaveV3EthereumLido_SecurityServicesForAaveCurrentInfrastructureCertora/AaveV3EthereumLido_SecurityServicesForAaveCurrentInfrastructureCertora_20251026.sol)
+- Tests: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/c7feb526517304d59f3c25333cc9e81b6bef6719/src/20251026_AaveV3EthereumLido_SecurityServicesForAaveCurrentInfrastructureCertora/AaveV3EthereumLido_SecurityServicesForAaveCurrentInfrastructureCertora_20251026.t.sol)
 - [Snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0xabaa167899193af7aab389c6412d18802845a88b9bb4061952c82ce78e670f71)
 - [Discussion](https://governance.aave.com/t/arfc-security-services-for-aave-current-infrastructure-certora/23221)
 
