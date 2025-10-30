@@ -17,7 +17,7 @@ contract AaveV3Ethereum_SafetyModuleEmissionsUpdate_20251029_Test is ProtocolV3T
   AaveV3Ethereum_SafetyModuleEmissionsUpdate_20251029 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 23682983);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 23691993);
     proposal = new AaveV3Ethereum_SafetyModuleEmissionsUpdate_20251029();
   }
 
@@ -110,6 +110,14 @@ contract AaveV3Ethereum_SafetyModuleEmissionsUpdate_20251029_Test is ProtocolV3T
       AaveSafetyModule.STK_AAVE_WSTETH_BPTV2
     );
 
+    assertLt(
+      IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING).allowance(
+        MiscEthereum.ECOSYSTEM_RESERVE,
+        AaveSafetyModule.STK_ABPT
+      ),
+      proposal.STK_BPT_V1_ALLOWANCE()
+    );
+
     executePayload(vm, address(proposal));
 
     uint256 allowanceAfterStkAAVE = IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING).allowance(
@@ -122,9 +130,15 @@ contract AaveV3Ethereum_SafetyModuleEmissionsUpdate_20251029_Test is ProtocolV3T
       AaveSafetyModule.STK_AAVE_WSTETH_BPTV2
     );
 
+    uint256 allowanceAfterStkABPTV1 = IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING).allowance(
+      MiscEthereum.ECOSYSTEM_RESERVE,
+      AaveSafetyModule.STK_ABPT
+    );
+
     // New allowance is less than before
-    assertLt(allowanceBeforeStkAAVE, allowanceAfterStkAAVE);
-    assertLt(allowanceBeforeStkABPT, allowanceAfterStkABPT);
+    assertGt(allowanceAfterStkAAVE, allowanceBeforeStkAAVE);
+    assertGt(allowanceAfterStkABPT, allowanceBeforeStkABPT);
+    assertEq(allowanceAfterStkABPTV1, proposal.STK_BPT_V1_ALLOWANCE());
   }
 
   function test_checkRewards_stkAAVE() public {
@@ -167,23 +181,6 @@ contract AaveV3Ethereum_SafetyModuleEmissionsUpdate_20251029_Test is ProtocolV3T
 
     uint256 rewardsBalance = IStakeToken(AaveSafetyModule.STK_AAVE_WSTETH_BPTV2)
       .getTotalRewardsBalance(staker);
-
-    assertTrue(rewardsBalance > 0 && rewardsBalance <= rewardsPerDay);
-
-    vm.stopPrank();
-  }
-
-  function test_checkRewards_stkBPT_V1() public {
-    // https://etherscan.io/address/0x41A08648C3766F9F9d85598fF102a08f4ef84F84
-    address stakedToken = 0x41A08648C3766F9F9d85598fF102a08f4ef84F84;
-    address staker = 0xB82A183f218d77E23265928f9ac3d9199793d93A;
-    uint256 rewardsPerDay = 50e18;
-
-    executePayload(vm, address(proposal));
-
-    vm.warp(block.timestamp + 1 days);
-
-    uint256 rewardsBalance = IStakeToken(AaveSafetyModule.STK_ABPT).getTotalRewardsBalance(staker);
 
     assertTrue(rewardsBalance > 0 && rewardsBalance <= rewardsPerDay);
 

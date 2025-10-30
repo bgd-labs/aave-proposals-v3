@@ -23,10 +23,13 @@ contract AaveV3Ethereum_SafetyModuleEmissionsUpdate_20251029 is IProposalGeneric
   // stkABPT
   uint128 public constant AAVE_EMISSION_PER_SECOND_STK_BPT = uint128(130 ether) / 1 days;
 
+  // stkABPT_V1
+  uint256 public constant STK_BPT_V1_ALLOWANCE = 1_000 ether;
+
   function execute() external {
     _stkAAVE();
     _stkABPT();
-    // _stkABPT_V1();
+    _stkABPT_V1();
   }
 
   function _stkAAVE() internal {
@@ -97,9 +100,18 @@ contract AaveV3Ethereum_SafetyModuleEmissionsUpdate_20251029 is IProposalGeneric
   }
 
   function _stkABPT_V1() internal {
-    // Extend distribution end to allow claiming of left-over allowance
-    IStakeToken(AaveSafetyModule.STK_ABPT).setDistributionEnd(
-      block.timestamp + DISTRIBUTION_DURATION
+    MiscEthereum.AAVE_ECOSYSTEM_RESERVE_CONTROLLER.approve(
+      MiscEthereum.ECOSYSTEM_RESERVE,
+      AaveV3EthereumAssets.AAVE_UNDERLYING,
+      AaveSafetyModule.STK_ABPT,
+      0
+    );
+
+    MiscEthereum.AAVE_ECOSYSTEM_RESERVE_CONTROLLER.approve(
+      MiscEthereum.ECOSYSTEM_RESERVE,
+      AaveV3EthereumAssets.AAVE_UNDERLYING,
+      AaveSafetyModule.STK_ABPT,
+      STK_BPT_V1_ALLOWANCE
     );
   }
 }
