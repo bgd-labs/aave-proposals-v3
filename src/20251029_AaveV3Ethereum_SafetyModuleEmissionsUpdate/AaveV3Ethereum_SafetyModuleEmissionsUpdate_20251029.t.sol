@@ -186,4 +186,19 @@ contract AaveV3Ethereum_SafetyModuleEmissionsUpdate_20251029_Test is ProtocolV3T
 
     vm.stopPrank();
   }
+
+  function test_checkRewards_stkBPT_V1() public {
+    // https://etherscan.io/address/0xcf27ec0AE6F3C4AFf868b2A19F8dad58CdC8730c
+    address holder = 0xcf27ec0AE6F3C4AFf868b2A19F8dad58CdC8730c;
+    uint256 balance = IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING).balanceOf(holder);
+
+    executePayload(vm, address(proposal));
+
+    vm.startPrank(holder);
+    IStakeToken(AaveSafetyModule.STK_ABPT).claimRewards(holder, 10000000);
+
+    assertGt(IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING).balanceOf(holder), balance);
+
+    vm.stopPrank();
+  }
 }
