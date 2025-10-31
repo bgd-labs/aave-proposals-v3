@@ -2,6 +2,7 @@
 pragma solidity ^0.8.0;
 
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
+import {AaveV3EthereumLidoAssets} from 'aave-address-book/AaveV3EthereumLido.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {IStreamable} from 'aave-address-book/common/IStreamable.sol';
@@ -17,7 +18,7 @@ contract AaveV3Ethereum_AaveBGDPhase6_20251023_Test is ProtocolV3TestBase {
   AaveV3Ethereum_AaveBGDPhase6_20251023 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 23639554);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 23696816);
     proposal = new AaveV3Ethereum_AaveBGDPhase6_20251023();
   }
 
@@ -58,7 +59,7 @@ contract AaveV3Ethereum_AaveBGDPhase6_20251023_Test is ProtocolV3TestBase {
     uint256 streamIdAave = ecosystemReserve.getNextStreamId();
 
     uint256 streamsDuration = proposal.STOP_TIME() - block.timestamp;
-    uint256 aUSDCStreamed = (880_000e6 / streamsDuration) * streamsDuration;
+    uint256 aGhoStreamed = (880_000e6 / streamsDuration) * streamsDuration;
     uint256 AAVEStreamed = (1_200e18 / streamsDuration) * streamsDuration;
 
     executePayload(vm, address(proposal));
@@ -67,7 +68,7 @@ contract AaveV3Ethereum_AaveBGDPhase6_20251023_Test is ProtocolV3TestBase {
     vm.warp(proposal.STOP_TIME() + 1);
     vm.startPrank(receiverAddress);
 
-    uint256 aUsdcBalanceBefore = IERC20(AaveV3EthereumAssets.USDC_A_TOKEN).balanceOf(
+    uint256 aGhoBalanceBefore = IERC20(AaveV3EthereumLidoAssets.GHO_A_TOKEN).balanceOf(
       receiverAddress
     );
     uint256 aaveBalanceBefore = IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING).balanceOf(
@@ -83,14 +84,14 @@ contract AaveV3Ethereum_AaveBGDPhase6_20251023_Test is ProtocolV3TestBase {
       ecosystemReserve.balanceOf(streamIdAave, receiverAddress)
     );
 
-    uint256 aUsdcBalanceAfter = IERC20(AaveV3EthereumAssets.USDC_A_TOKEN).balanceOf(
+    uint256 aGhoBalanceAfter = IERC20(AaveV3EthereumLidoAssets.GHO_A_TOKEN).balanceOf(
       receiverAddress
     );
     uint256 aaveBalanceAfter = IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING).balanceOf(
       receiverAddress
     );
 
-    assertApproxEqAbs(aUsdcBalanceAfter, aUsdcBalanceBefore + aUSDCStreamed, 1);
+    assertApproxEqAbs(aGhoBalanceAfter, aGhoBalanceBefore + aGhoStreamed, 1);
     assertEq(aaveBalanceAfter, aaveBalanceBefore + AAVEStreamed);
   }
 }

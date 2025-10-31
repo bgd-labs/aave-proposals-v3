@@ -23,7 +23,7 @@ contract AaveV3Ethereum_AaveBGDPhase6_20251023 is IProposalGenericExecutor {
   uint256 public constant UPFRONT_AUSDC_AMOUNT = 1_320_000e6;
   uint256 public constant UPFRONT_AAVE_AMOUNT = 1_800e18;
 
-  uint256 public constant STREAM_AUSDC_AMOUNT = 880_000e6;
+  uint256 public constant STREAM_AGHO_AMOUNT = 880_000e6;
   uint256 public constant STREAM_AAVE_AMOUNT = 1_200e18;
 
   function execute() external {
@@ -45,9 +45,9 @@ contract AaveV3Ethereum_AaveBGDPhase6_20251023 is IProposalGenericExecutor {
 
     AaveV3Ethereum.COLLECTOR.stream(
       CollectorUtils.CreateStreamInput({
-        underlying: AaveV3EthereumAssets.USDC_A_TOKEN,
+        underlying: AaveV3EthereumLidoAssets.GHO_A_TOKEN,
         receiver: BGD_RECEIVER,
-        amount: STREAM_AUSDC_AMOUNT,
+        amount: STREAM_AGHO_AMOUNT,
         start: block.timestamp,
         duration: streamsDuration
       })
