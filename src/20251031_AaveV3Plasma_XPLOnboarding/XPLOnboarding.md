@@ -2,12 +2,11 @@
 title: "XPL Onboarding"
 author: "ACI"
 discussions: "https://governance.aave.com/t/direct-to-aip-onboard-xpl-on-aave-v3-plasma-instance/23197"
-snapshot: TODO
 ---
 
 ## Simple Summary
 
-This AIP proposes to onboard XPL on Aave V3 Plasma Instance.
+This AIP proposes to onboard XPL to Aave V3 Plasma Instance.
 
 This proposal will be a Direct to AIP.
 
