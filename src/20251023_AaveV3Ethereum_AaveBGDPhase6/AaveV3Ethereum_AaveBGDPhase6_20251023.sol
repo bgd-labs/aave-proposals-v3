@@ -11,7 +11,7 @@ import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 /**
  * @title Aave BGD Phase 6
  * @author BGD Labs (@bgdlabs)
- * - Snapshot: TODO
+ * - Snapshot: https://snapshot.box/#/s:aavedao.eth/proposal/0x3fcc8b9500e341189ff66cbbf690c6a738a2ae49d6e16aa21b8a8f1fd2597e80
  * - Discussion: https://governance.aave.com/t/arfc-aave-bored-ghosts-developing-phase-6/23191
  */
 contract AaveV3Ethereum_AaveBGDPhase6_20251023 is IProposalGenericExecutor {
