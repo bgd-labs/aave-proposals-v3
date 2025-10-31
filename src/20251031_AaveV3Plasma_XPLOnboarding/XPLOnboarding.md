@@ -7,35 +7,47 @@ snapshot: TODO
 
 ## Simple Summary
 
+This AIP proposes to onboard XPL on Aave V3 Plasma Instance.
+
+This proposal will be a Direct to AIP.
+
 ## Motivation
+
+XPL is the native token of the Plasma blockchain. It was initially approved by governance for onboarding to the Plasma instance during the Plasma instance deployment yet was paused due to reservations of some service providers. Given there is now sufficient liquidity for the token we believe it is time to reconsider onboarding XPL to the Plasma instance.
 
 ## Specification
 
-The table below illustrates the configured risk parameters for **WXPL**
+| **Parameter**            | **Value**  |
+| ------------------------ | ---------- |
+| Asset                    | WXPL       |
+| Isolation Mode           | No         |
+| Borrowable               | No         |
+| Collateral Enabled       | Yes        |
+| Supply Cap               | 14,000,000 |
+| Borrow Cap               | -          |
+| Debt Ceiling             | -          |
+| LTV                      | 0.05%      |
+| LT                       | 0.1%       |
+| Liquidation Bonus        | 10%        |
+| Liquidation Protocol Fee | 10%        |
+| Variable Base            | -          |
+| Variable Slope1          | -          |
+| Variable Slope2          | -          |
+| Uoptimal                 | -          |
+| Reserve Factor           | -          |
 
-| Parameter                 |                                      Value |
-| ------------------------- | -----------------------------------------: |
-| Isolation Mode            |                                       true |
-| Borrowable                |                                   DISABLED |
-| Collateral Enabled        |                                       true |
-| Supply Cap (WXPL)         |                                 14,000,000 |
-| Borrow Cap (WXPL)         |                                          1 |
-| Debt Ceiling              |                                      USD 1 |
-| LTV                       |                                     0.05 % |
-| LT                        |                                      0.1 % |
-| Liquidation Bonus         |                                       10 % |
-| Liquidation Protocol Fee  |                                       10 % |
-| Reserve Factor            |                                       10 % |
-| Base Variable Borrow Rate |                                        0 % |
-| Variable Slope 1          |                                       10 % |
-| Variable Slope 2          |                                      300 % |
-| Uoptimal                  |                                       45 % |
-| Flashloanable             |                                    ENABLED |
-| Siloed Borrowing          |                                   DISABLED |
-| Borrowable in Isolation   |                                   DISABLED |
-| Oracle                    | 0xF932477C37715aE6657Ab884414Bd9876FE3f750 |
+### **E-Mode**
 
-Additionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://plasmascan.to/address/0xac140648435d03f784879cd789130F22Ef588Fcd) has been set as the emission admin for WXPL and the corresponding aToken.
+| **Parameter**         | **Value** | **Value** |
+| --------------------- | --------- | --------- |
+| Asset                 | WXPL      | USDT0     |
+| Collateral            | Yes       | No        |
+| Borrowable            | No        | Yes       |
+| Max LTV               | 50%       | -         |
+| Liquidation Threshold | 55%       | -         |
+| Liquidation Bonus     | 10%       | -         |
+
+Additionally add ACI LM (0xac140648435d03f784879cd789130F22Ef588Fcd](https://plasmascan.to/address/0xac140648435d03f784879cd789130F22Ef588Fcd) has emission admin for XPL incentive.
 
 ## References
 
