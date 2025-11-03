@@ -7,7 +7,8 @@ snapshot: "https://snapshot.box/#/s:aavedao.eth/proposal/0x3fcc8b9500e341189ff66
 
 ## Simple Summary
 
-Present to the Aave DAO a proposal for BGD to renew our involvement as a development and security coordinator services provider until 1st April 2026 (previous finished 1st October 2025). Additionally, presenting a new BGD project line that will partially use Aave licensed technology: (codename) Project E.
+Present to the Aave DAO a proposal from BGD Labs to renew our involvement as a development and security coordinator services provider until 1st April 2026 (previous finished 1st October 2025).
+Additionally, presenting a new BGD project line that will partially use Aave licensed technology: (codename) Project E.
 
 ## Motivation
 
