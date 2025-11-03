@@ -20,11 +20,11 @@ contract AaveV3Ethereum_AaveBGDPhase6_20251023 is IProposalGenericExecutor {
   address public constant BGD_RECEIVER = 0xb812d0944f8F581DfAA3a93Dda0d22EcEf51A9CF;
   uint256 public constant STOP_TIME = 1775001600; // ends on 1 April 2026
 
-  uint256 public constant UPFRONT_AUSDC_AMOUNT = 1_320_000e6;
-  uint256 public constant UPFRONT_AAVE_AMOUNT = 1_800e18;
+  uint256 public constant UPFRONT_AUSDC_AMOUNT = 1_466_000e6; // 1_320_000 + 146_000 (October payment)
+  uint256 public constant UPFRONT_AAVE_AMOUNT = 2_000e18; // 1_800 + 200 (October payment)
 
-  uint256 public constant STREAM_AGHO_AMOUNT = 880_000e6;
-  uint256 public constant STREAM_AAVE_AMOUNT = 1_200e18;
+  uint256 public constant STREAM_AGHO_AMOUNT = 734_000e18;
+  uint256 public constant STREAM_AAVE_AMOUNT = 1_000e18;
 
   function execute() external {
     // Upfront

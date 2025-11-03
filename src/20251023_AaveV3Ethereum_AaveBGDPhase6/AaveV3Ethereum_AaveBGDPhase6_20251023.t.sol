@@ -47,8 +47,8 @@ contract AaveV3Ethereum_AaveBGDPhase6_20251023_Test is ProtocolV3TestBase {
       receiverAddress
     );
 
-    assertApproxEqAbs(aUsdcBalanceAfter - aUsdcBalanceBefore, 1_320_000e6, 1);
-    assertEq(aaveBalanceAfter - aaveBalanceBefore, 1_800e18);
+    assertApproxEqAbs(aUsdcBalanceAfter - aUsdcBalanceBefore, 1_466_000e6, 1);
+    assertEq(aaveBalanceAfter - aaveBalanceBefore, 2_000e18);
   }
 
   function test_streamAmounts() public {
@@ -59,8 +59,8 @@ contract AaveV3Ethereum_AaveBGDPhase6_20251023_Test is ProtocolV3TestBase {
     uint256 streamIdAave = ecosystemReserve.getNextStreamId();
 
     uint256 streamsDuration = proposal.STOP_TIME() - block.timestamp;
-    uint256 aGhoStreamed = (880_000e6 / streamsDuration) * streamsDuration;
-    uint256 AAVEStreamed = (1_200e18 / streamsDuration) * streamsDuration;
+    uint256 aGhoStreamed = (734_000e18 / streamsDuration) * streamsDuration;
+    uint256 AAVEStreamed = (1_000e18 / streamsDuration) * streamsDuration;
 
     executePayload(vm, address(proposal));
 
