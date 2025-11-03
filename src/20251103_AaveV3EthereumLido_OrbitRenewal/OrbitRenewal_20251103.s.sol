@@ -5,7 +5,7 @@ import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aa
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 
 import {EthereumScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
-import {AaveV3Ethereum_OrbitRenewal_20251103} from './AaveV3Ethereum_OrbitRenewal_20251103.sol';
+import {AaveV3EthereumLido_OrbitRenewal_20251103} from './AaveV3EthereumLido_OrbitRenewal_20251103.sol';
 
 /**
  * @dev Deploy Ethereum
@@ -16,7 +16,7 @@ contract DeployEthereum is EthereumScript {
   function run() external broadcast {
     // deploy payloads
     address payload0 = GovV3Helpers.deployDeterministic(
-      type(AaveV3Ethereum_OrbitRenewal_20251103).creationCode
+      type(AaveV3EthereumLido_OrbitRenewal_20251103).creationCode
     );
 
     // compose action
@@ -43,7 +43,7 @@ contract CreateProposal is EthereumScript {
       IPayloadsControllerCore.ExecutionAction[]
         memory actionsEthereum = new IPayloadsControllerCore.ExecutionAction[](1);
       actionsEthereum[0] = GovV3Helpers.buildAction(
-        type(AaveV3Ethereum_OrbitRenewal_20251103).creationCode
+        type(AaveV3EthereumLido_OrbitRenewal_20251103).creationCode
       );
       payloads[0] = GovV3Helpers.buildMainnetPayload(vm, actionsEthereum);
     }
