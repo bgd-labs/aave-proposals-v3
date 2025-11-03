@@ -6,15 +6,15 @@ discussions: "https://governance.aave.com/t/arfc-amend-safety-module-emissions/1
 
 ## Simple Summary
 
-Re-enable stkBPT incentives emissions for 90 days after previous period ended.
+Re-enable stkBPT and stkAAVE incentives emissions for 90 days after previous period ended. Add allowance for stkBPT V1 holders who have unclaimed amounts.
 
 ## Motivation
 
-With the conclusion of the recent reward cycle, this proposal aims to renew $AAVE emissions for stkBPT holders. The stkBPT module has proven to be a crucial mechanism as an AAVE supply sink, currently holding a TVL of $1.6B. It is recommended to maintain these emissions in anticipation of upcoming Umbrella developments, with adjustments to be made following the outcomes of the Umbrella upgrade.
+With the conclusion of the recent reward cycle, this proposal aims to renew $AAVE emissions for stkBPT holders and stkAAVE holders. The stkBPT module has proven to be a crucial mechanism as an AAVE supply sink, currently holding a TVL of $1.6B. It is recommended to maintain these emissions in anticipation of upcoming Umbrella developments, with adjustments to be made following the outcomes of the Umbrella upgrade.
 
 More information on stkBPT can be found in the following dashboard, [here](https://dune.com/xmc2/aave-safety-module).
 
-Extend stkBPT V1 allowance so users can claim pending amounts (~875 AAVE).
+Extend stkBPT V1 allowance so users can claim pending amounts (~875 AAVE) and restart stkAAVE emissions as well that are still ongoing.
 
 ## Specification
 
