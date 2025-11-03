@@ -42,11 +42,9 @@ The ACI is independent and has not received any form of compensation from relate
 
 Copyright and related rights waived under [Creative Commons Zero (CC0)](https://creativecommons.org/publicdomain/zero/1.0/)
 
-## References
-
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251103_AaveV3Ethereum_OrbitRenewal/AaveV3Ethereum_OrbitRenewal_20251103.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251103_AaveV3Ethereum_OrbitRenewal/AaveV3Ethereum_OrbitRenewal_20251103.t.sol)
-  [Snapshot](https://governance.aave.com/t/arfc-orbit-program-renewal-q3-and-q4-2025/23289)
+- Implementation: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251103_AaveV3EthereumLido_OrbitRenewal/AaveV3EthereumLido_OrbitRenewal_20251103.sol)
+- Tests: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251103_AaveV3EthereumLido_OrbitRenewal/AaveV3EthereumLido_OrbitRenewal_20251103.t.sol)
+- [Snapshot](https://governance.aave.com/t/arfc-orbit-program-renewal-q3-and-q4-2025/23289)
 - [Discussion](https://snapshot.org/#/s:aavedao.eth/proposal/0x4f2381126a2ddf4073916bbdd6d25b031c2dabd022d23887cee6f315693fd7c4)
 
 ## Copyright

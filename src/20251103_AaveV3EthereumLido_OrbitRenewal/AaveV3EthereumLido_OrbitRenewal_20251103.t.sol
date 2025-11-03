@@ -9,6 +9,7 @@ import {AaveV3EthereumLido_OrbitRenewal_20251103} from './AaveV3EthereumLido_Orb
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 
 import {OrbitProgramData} from './OrbitProgramData.sol';
+
 /**
  * @dev Test for AaveV3EthereumLido_OrbitRenewal_20251103
  * command: FOUNDRY_PROFILE=test forge test --match-path=src/20251103_AaveV3EthereumLido_OrbitRenewal/AaveV3EthereumLido_OrbitRenewal_20251103.t.sol -vv
@@ -17,7 +18,7 @@ contract AaveV3EthereumLido_OrbitRenewal_20251103_Test is ProtocolV3TestBase {
   AaveV3EthereumLido_OrbitRenewal_20251103 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 20251103);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 23719647);
     proposal = new AaveV3EthereumLido_OrbitRenewal_20251103();
   }
 
@@ -25,6 +26,14 @@ contract AaveV3EthereumLido_OrbitRenewal_20251103_Test is ProtocolV3TestBase {
    * @dev executes the generic test suite including e2e and config snapshots
    */
   function test_defaultProposalExecution() public {
+    defaultTest(
+      'AaveV3EthereumLido_OrbitRenewal_20251103',
+      AaveV3EthereumLido.POOL,
+      address(proposal)
+    );
+  }
+
+  function test_streamCreation() public {
     uint256[] memory ghoBalancesBeforeUsers = new uint256[](4);
     address[] memory ghoPaymentAddresses = OrbitProgramData.getOrbitAddresses();
     for (uint256 i = 0; i < ghoPaymentAddresses.length; i++) {

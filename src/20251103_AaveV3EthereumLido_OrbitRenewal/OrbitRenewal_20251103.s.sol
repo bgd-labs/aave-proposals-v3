@@ -9,7 +9,7 @@ import {AaveV3EthereumLido_OrbitRenewal_20251103} from './AaveV3EthereumLido_Orb
 
 /**
  * @dev Deploy Ethereum
- * deploy-command: make deploy-ledger contract=src/20251103_AaveV3Ethereum_OrbitRenewal/OrbitRenewal_20251103.s.sol:DeployEthereum chain=mainnet
+ * deploy-command: make deploy-ledger contract=src/20251103_AaveV3EthereumLido_OrbitRenewal/OrbitRenewal_20251103.s.sol:DeployEthereum chain=mainnet
  * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/OrbitRenewal_20251103.s.sol/1/run-latest.json
  */
 contract DeployEthereum is EthereumScript {
@@ -31,7 +31,7 @@ contract DeployEthereum is EthereumScript {
 
 /**
  * @dev Create Proposal
- * command: make deploy-ledger contract=src/20251103_AaveV3Ethereum_OrbitRenewal/OrbitRenewal_20251103.s.sol:CreateProposal chain=mainnet
+ * command: make deploy-ledger contract=src/20251103_AaveV3EthereumLido_OrbitRenewal/OrbitRenewal_20251103.s.sol:CreateProposal chain=mainnet
  */
 contract CreateProposal is EthereumScript {
   function run() external {
@@ -54,7 +54,7 @@ contract CreateProposal is EthereumScript {
       vm,
       payloads,
       GovernanceV3Ethereum.VOTING_PORTAL_ETH_AVAX,
-      GovV3Helpers.ipfsHashFile(vm, 'src/20251103_AaveV3Ethereum_OrbitRenewal/OrbitRenewal.md')
+      GovV3Helpers.ipfsHashFile(vm, 'src/20251103_AaveV3EthereumLido_OrbitRenewal/OrbitRenewal.md')
     );
   }
 }
