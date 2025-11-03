@@ -45,7 +45,7 @@ contract AaveV3Plasma_XPLOnboarding_20251031 is AaveV3PayloadPlasma {
       ltv: 50_00,
       liqThreshold: 55_00,
       liqBonus: 10_00,
-      label: 'xpl-usdt0',
+      label: 'WXPL__Stablecoins',
       collaterals: collateralAssets_XplUsdt0,
       borrowables: borrowableAssets_XplUsdt0
     });

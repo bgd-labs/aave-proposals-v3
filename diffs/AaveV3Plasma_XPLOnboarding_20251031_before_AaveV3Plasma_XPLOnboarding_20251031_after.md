@@ -91,11 +91,11 @@
 
 
 
-### EMode: xpl-usdt0(id: 12)
+### EMode: WXPL__Stablecoins(id: 12)
 
 | description | value before | value after |
 | --- | --- | --- |
-| eMode.label | - | xpl-usdt0 |
+| eMode.label | - | WXPL__Stablecoins |
 | eMode.ltv | - | 50 % |
 | eMode.liquidationThreshold | - | 55 % |
 | eMode.liquidationBonus | - | 10 % |
@@ -114,7 +114,7 @@
         "borrowableBitmap": "1",
         "collateralBitmap": "2048",
         "eModeCategory": 12,
-        "label": "xpl-usdt0",
+        "label": "WXPL__Stablecoins",
         "liquidationBonus": 11000,
         "liquidationThreshold": 5500,
         "ltv": 5000
@@ -360,7 +360,7 @@
         },
         "0x1aec1d7d90e7fdc8d0cb5cae39901fd57c1eb538af488d7215b10b8d307d84b8": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x78706c2d75736474300000000000000000000000000000000000000000000012"
+          "newValue": "0x5758504c5f5f537461626c65636f696e73000000000000000000000000000022"
         },
         "0x1aec1d7d90e7fdc8d0cb5cae39901fd57c1eb538af488d7215b10b8d307d84b9": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
