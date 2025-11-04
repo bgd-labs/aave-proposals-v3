@@ -9,7 +9,7 @@ import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config
 /**
  * @title Deprecation of Low Demand Volatile Assets on Aave V3 Instances
  * @author Aave-chan Initiative
- * - Snapshot: TODO
+ * - Snapshot: Direct-to-AIP
  * - Discussion: https://governance.aave.com/t/arfc-deprecation-of-low-demand-volatile-assets-on-aave-v3-instances/23261
  */
 contract AaveV3ZkSync_DeprecationOfLowDemandVolatileAssetsOnAaveV3Instances_20251023 is
