@@ -2,7 +2,6 @@
 title: "X Layer network aDI path activation"
 author: "BGD Labs @bgdlabs"
 discussions: TODO
-snapshot: TODO
 ---
 
 ## Simple Summary
@@ -47,9 +46,9 @@ The new Aave Governance deployments on XLayer network are as follows:
 ## References
 
 - Adapter Implementations: [XLayer Native Adapters](https://github.com/aave-dao/aave-delivery-infrastructure/blob/3d430b0441eab83f5825501077e8a02227d31634/src/contracts/adapters/xLayer/xLayerAdapter.sol)
-- Payload Implementation: [Payload]()
-- Payload Tests: [tests]()
-- Diffs: [a.DI diffs]()
+- Payload Implementation: [Payload](https://github.com/bgd-labs/adi-deploy-bgd-fork/blob/8852ea9fe8909446c2a0a35d46b816e7e88877f1/scripts/payloads/adapters/ethereum/Ethereum_Activate_XLayer_Bridge_Adapter_Payload.s.sol)
+- Payload Tests: [tests](https://github.com/bgd-labs/adi-deploy-bgd-fork/blob/8852ea9fe8909446c2a0a35d46b816e7e88877f1/tests/payloads/ethereum/AddXLayerPathTest.t.sol)
+- Diffs: [a.DI diffs](https://github.com/bgd-labs/adi-deploy-bgd-fork/blob/8852ea9fe8909446c2a0a35d46b816e7e88877f1/diffs/adi_add_xlayer_path_to_adiethereum_before_adi_add_xlayer_path_to_adiethereum_after.md)
 - [Discussion]()
 
 ## Copyright
