@@ -7,13 +7,13 @@ snapshot: https://governance.aave.com/t/arfc-orbit-program-renewal-q3-and-q4-202
 
 ## Simple Summary
 
-Proposing the renewal of the Orbit program for recognized delegates, compensating them with GHO, associated with their governance activity during Q3 and Q4 2025 ( From 2025-07-01, last date, until 2025-12-31). The reason is because extending period coverage will bring more reliance and predictability for delegates plaform.
+Proposing the renewal of the Orbit program for recognized delegates, compensating them with GHO, associated with their governance activity during Q3 and Q4 2025 ( From 2025-07-01, last date, until 2025-12-31). The reason is because extending period coverage will bring more reliance and predictability for delegates platform.
 
 ## Motivation
 
 Orbit recognizes the added value of the Delegates in the decentralization & diversity of the Aave DAO. This compensation allows them to focus on Aave and keep their contribution efforts to our governance. The ACI proposes the extension of Orbit for a both Q3 and Q4 2025, from 2025-07-01 to 2025-12-31.
 
-As a reminder from previous Orbit round, a new cutoff had been set, starting at [AIP 224](https://vote.onaave.com/proposal/?proposalId=224&ipfsHash=0xa4da1c686491e35541aa7e2659d55d0b93e395a89d1b268981aec3b8b2227bc1), to apply again previous rules of a minimum of 20k voting power and 85% vote ratio on all Snapshots and AIP to be considered elegible to Orbit.
+As a reminder from previous Orbit round, a new cutoff had been set, starting at [AIP 224](https://vote.onaave.com/proposal/?proposalId=224&ipfsHash=0xa4da1c686491e35541aa7e2659d55d0b93e395a89d1b268981aec3b8b2227bc1), to apply again previous rules of a minimum of 20k voting power and 85% vote ratio on all Snapshots and AIP to be considered eligible to Orbit.
 
 From now on, Orbit periode coverage will be semi-annually or 2 times per year (Q1 and Q2 together, and Q3 and Q4 together), with the aim of reducing governance bloat.
 
@@ -30,9 +30,9 @@ From now on, Orbit periode coverage will be semi-annually or 2 times per year (Q
 
 **Additional considerations:**
 
-As a reminder, Service Providers will not be considered elegible to Orbit Program.
+As a reminder, Service Providers will not be considered eligible to Orbit Program.
 
-Funds are distributed based on 180 days, as seen on budget and as specificied on motivation section.
+Funds are distributed based on 180 days, as seen on budget and as specified on motivation section.
 
 ## Disclosure
 
