@@ -3,20 +3,6 @@
 ```json
 {
   "raw": {
-    "0x4da27a545c0c5b758a6ba100e3a049001de870f5": {
-      "label": "AaveSafetyModule.STK_AAVE",
-      "balanceDiff": null,
-      "stateDiff": {
-        "0x2dfea4d26ae12ec86bef88e9ad5401cfe29f0cdab93e593879eb61068442f391": {
-          "previousValue": "0x0000000000000000000000006903ad570000000000000000000ab0e7c52f697b",
-          "newValue": "0x0000000000000000000000006903ae770000000000000000000ab0e7c52f697b"
-        },
-        "0x2dfea4d26ae12ec86bef88e9ad5401cfe29f0cdab93e593879eb61068442f392": {
-          "previousValue": "0x0000000000000000000000000000000000000000000000016af440d5dd8d11ad",
-          "newValue": "0x0000000000000000000000000000000000000000000000016af441208af514bb"
-        }
-      }
-    },
     "0x7fc66500c84a76ad7e9c93437bfc5ac33e2ddae9": {
       "label": "AaveV2Ethereum.ASSETS.AAVE.UNDERLYING, AaveV2EthereumArc.ASSETS.AAVE.UNDERLYING, AaveV3Ethereum.ASSETS.AAVE.UNDERLYING",
       "balanceDiff": null,

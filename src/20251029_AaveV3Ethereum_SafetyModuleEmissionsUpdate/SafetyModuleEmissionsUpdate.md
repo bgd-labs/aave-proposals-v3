@@ -1,7 +1,7 @@
 ---
 title: "Safety Module Emissions Update"
 author: "@TokenLogic"
-discussions: "https://governance.aave.com/t/arfc-amend-safety-module-emissions/16640/26"
+discussions: "https://governance.aave.com/t/arfc-amend-safety-module-emissions/16640/27"
 ---
 
 ## Simple Summary
@@ -24,14 +24,15 @@ Set the following params for staked tokens:
 | ---------- | ----------------- | -------- |
 | stkAAVE    | 260               | -        |
 | stkABPT_V2 | 130               | 90 days  |
-| stkABPT_V1 | 1,000 (total)     | -        |
+
+stkABPT_V1 - 1,000 AAVE total allowance
 
 ## References
 
 - Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251029_AaveV3Ethereum_SafetyModuleEmissionsUpdate/AaveV3Ethereum_SafetyModuleEmissionsUpdate_20251029.sol)
 - Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251029_AaveV3Ethereum_SafetyModuleEmissionsUpdate/AaveV3Ethereum_SafetyModuleEmissionsUpdate_20251029.t.sol)
 - Snapshot: Direct-to-AIP
-- [Discussion](https://governance.aave.com/t/arfc-amend-safety-module-emissions/16640/26)
+- [Discussion](https://governance.aave.com/t/arfc-amend-safety-module-emissions/16640/27)
 
 ## Copyright
 

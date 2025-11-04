@@ -12,7 +12,7 @@ import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGen
  * @title Safety Module Emissions Update
  * @author @TokenLogic
  * - Snapshot: Direct-to-AIP
- * - Discussion: https://governance.aave.com/t/arfc-amend-safety-module-emissions/16640/26
+ * - Discussion: https://governance.aave.com/t/arfc-amend-safety-module-emissions/16640/27
  */
 contract AaveV3Ethereum_SafetyModuleEmissionsUpdate_20251029 is IProposalGenericExecutor {
   uint256 public constant DISTRIBUTION_DURATION = 90 days;
@@ -40,14 +40,6 @@ contract AaveV3Ethereum_SafetyModuleEmissionsUpdate_20251029 is IProposalGeneric
     );
 
     uint256 newAllowance = DISTRIBUTION_DURATION * AAVE_EMISSION_PER_SECOND_STK_AAVE;
-
-    IStakeToken.AssetConfigInput[] memory config = new IStakeToken.AssetConfigInput[](1);
-    config[0] = IStakeToken.AssetConfigInput({
-      emissionPerSecond: AAVE_EMISSION_PER_SECOND_STK_AAVE,
-      totalStaked: 0, // it's overwritten internally
-      underlyingAsset: AaveSafetyModule.STK_AAVE
-    });
-    IStakeToken(AaveSafetyModule.STK_AAVE).configureAssets(config);
 
     MiscEthereum.AAVE_ECOSYSTEM_RESERVE_CONTROLLER.approve(
       MiscEthereum.ECOSYSTEM_RESERVE,
