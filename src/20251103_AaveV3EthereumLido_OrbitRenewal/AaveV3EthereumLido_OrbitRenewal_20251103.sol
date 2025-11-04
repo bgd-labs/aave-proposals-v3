@@ -2,7 +2,7 @@
 pragma solidity ^0.8.0;
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
 import {CollectorUtils} from 'aave-helpers/src/CollectorUtils.sol';
-import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
+import {AaveV3EthereumLido, AaveV3EthereumLidoAssets} from 'aave-address-book/AaveV3EthereumLido.sol';
 import {OrbitProgramData} from './OrbitProgramData.sol';
 
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
@@ -19,9 +19,9 @@ contract AaveV3EthereumLido_OrbitRenewal_20251103 is IProposalGenericExecutor {
     uint256 orbitAddressesLength = orbitAddresses.length;
     for (uint256 i = 0; i < orbitAddressesLength; i++) {
       CollectorUtils.stream(
-        AaveV3Ethereum.COLLECTOR,
+        AaveV3EthereumLido.COLLECTOR,
         CollectorUtils.CreateStreamInput({
-          underlying: AaveV3EthereumAssets.GHO_UNDERLYING,
+          underlying: AaveV3EthereumLidoAssets.GHO_UNDERLYING,
           receiver: orbitAddresses[i],
           amount: OrbitProgramData.STREAM_AMOUNT,
           start: block.timestamp,
