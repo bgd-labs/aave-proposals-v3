@@ -46,7 +46,7 @@ The new Aave Governance deployments on XLayer network are as follows:
 
 ## References
 
-- Adapter Implementations: [XLayer Native Adapters]()
+- Adapter Implementations: [XLayer Native Adapters](https://github.com/aave-dao/aave-delivery-infrastructure/blob/3d430b0441eab83f5825501077e8a02227d31634/src/contracts/adapters/xLayer/xLayerAdapter.sol)
 - Payload Implementation: [Payload]()
 - Payload Tests: [tests]()
 - Diffs: [a.DI diffs]()
