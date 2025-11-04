@@ -40,8 +40,8 @@ In terms of implementation, this proposal sets up the payment schedule defined:
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251023_AaveV3Ethereum_AaveBGDPhase6/AaveV3Ethereum_AaveBGDPhase6_20251023.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251023_AaveV3Ethereum_AaveBGDPhase6/AaveV3Ethereum_AaveBGDPhase6_20251023.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/f85b0d43d34410d273cd81ec73468b274fe2aff6/src/20251023_AaveV3Ethereum_AaveBGDPhase6/AaveV3Ethereum_AaveBGDPhase6_20251023.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/f85b0d43d34410d273cd81ec73468b274fe2aff6/src/20251023_AaveV3Ethereum_AaveBGDPhase6/AaveV3Ethereum_AaveBGDPhase6_20251023.t.sol)
   [Snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0x3fcc8b9500e341189ff66cbbf690c6a738a2ae49d6e16aa21b8a8f1fd2597e80)
 - [Discussion](https://governance.aave.com/t/arfc-aave-bored-ghosts-developing-phase-6/23191)
 - [Project E agreement IPFS](https://bgd.mypinata.cloud/ipfs/bafkreigi7jkixn2mcenzdw3tzvwnnrg7mjaienlmylbuvvuztarojt4yli)
