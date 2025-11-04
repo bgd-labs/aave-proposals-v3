@@ -67,6 +67,9 @@ contract AaveV3Ethereum_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_2025
   uint256 public constant PLASMA_BRIDGE_AMOUNT = 50_000_000 ether;
   uint256 public constant NEW_BRIDGE_LIMIT = 100_000_000 ether;
 
+  // 50M GHO bridge amount + 10% leeway in case of other bridges
+  uint256 public constant TEMP_BRIDGE_CAPACITY = 55_000_000 ether;
+
   uint128 internal constant DEFAULT_RATE_LIMITER_CAPACITY = 1_500_000e18;
   uint128 internal constant DEFAULT_RATE_LIMITER_RATE = 300e18;
 
@@ -136,8 +139,8 @@ contract AaveV3Ethereum_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_2025
       CCIPChainSelectors.PLASMA,
       IRateLimiter.Config({
         isEnabled: true,
-        capacity: uint128(PLASMA_BRIDGE_AMOUNT),
-        rate: DEFAULT_RATE_LIMITER_RATE
+        capacity: uint128(TEMP_BRIDGE_CAPACITY),
+        rate: uint128(TEMP_BRIDGE_CAPACITY) - 1 // Set rate to new capacity so it refills immediately
       }),
       IRateLimiter.Config({
         isEnabled: true,

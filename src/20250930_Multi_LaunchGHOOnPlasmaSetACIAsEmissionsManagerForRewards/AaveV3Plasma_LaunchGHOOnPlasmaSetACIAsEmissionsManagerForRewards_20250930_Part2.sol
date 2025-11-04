@@ -11,6 +11,8 @@ import {MiscPlasma} from 'aave-address-book/MiscPlasma.sol';
 import {GovernanceV3Plasma} from 'aave-address-book/GovernanceV3Plasma.sol';
 import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
+import {CCIPChainSelectors} from '../helpers/gho-launch/constants/CCIPChainSelectors.sol';
+import {IUpgradeableBurnMintTokenPool, IRateLimiter} from 'src/interfaces/ccip/IUpgradeableBurnMintTokenPool.sol';
 import {IEmissionManager} from 'aave-v3-origin/contracts/rewards/interfaces/IEmissionManager.sol';
 
 import {IGhoBucketSteward} from 'src/interfaces/IGhoBucketSteward.sol';
@@ -31,10 +33,16 @@ interface IGhoReserve {
  * - Snapshot: https://snapshot.box/#/s:aavedao.eth/proposal/0xeb3572580924976867073ad9c8012cb9e52093c76dafebd7d3aebf318f2576fb
  * - Discussion: https://governance.aave.com/t/arfc-launch-gho-on-plasma-set-aci-as-emissions-manager-for-rewards/22994/6
  */
-contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_20250930 is
+contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_20250930_Part2 is
   AaveV3PayloadPlasma
 {
   using SafeERC20 for IERC20;
+
+  uint128 public constant DEFAULT_RATE_LIMITER_CAPACITY = 1_500_000e18;
+  uint128 public constant DEFAULT_RATE_LIMITER_RATE = 300e18;
+
+  // https://plasmascan.to/address/0x360d8aa8F6b09B7BC57aF34db2Eb84dD87bf4d12
+  address public constant TOKEN_POOL = 0x360d8aa8F6b09B7BC57aF34db2Eb84dD87bf4d12;
 
   // New GHO Token
   // https://plasmascan.to/address/0xb77E872A68C62CfC0dFb02C067Ecc3DA23B4bbf3
@@ -68,8 +76,8 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
   // https://plasmascan.to/address/0xd06114F714beCD6f373e5cE94E07278eF46eBF37
   address public constant NEW_GSM_USDT = 0xd06114F714beCD6f373e5cE94E07278eF46eBF37;
 
-  // https://plasmascan.to/address/<TODO>
-  address public constant USDT_ORACLE_SWAP_FREEZER = 0x2CF06F6116DE4da4f6d5541dF09981825820CE20;
+  // https://plasmascan.to/address/0x0B60713B53Cf01Ff53111D0BC29743eF1E03C296
+  address public constant USDT_ORACLE_SWAP_FREEZER = 0x0B60713B53Cf01Ff53111D0BC29743eF1E03C296;
 
   // https://plasmascan.to/address/0xD70BE7e6111EA563226cb8e53B1F195Da4E566E2
   address public constant FEE_STRATEGY = 0xD70BE7e6111EA563226cb8e53B1F195Da4E566E2;
@@ -125,6 +133,21 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
     IEmissionManager(AaveV3Plasma.EMISSION_MANAGER).setEmissionAdmin(aGHO, GHO_LM_ADMIN);
 
     AaveV3Plasma.COLLECTOR.transfer(IERC20(GHO), GHO_RESERVE, BRIDGED_AMOUNT);
+
+    // Restore bridge limits after GHO bridging
+    IUpgradeableBurnMintTokenPool(TOKEN_POOL).setChainRateLimiterConfig(
+      CCIPChainSelectors.ETHEREUM,
+      IRateLimiter.Config({
+        isEnabled: true,
+        capacity: DEFAULT_RATE_LIMITER_CAPACITY,
+        rate: DEFAULT_RATE_LIMITER_RATE
+      }),
+      IRateLimiter.Config({
+        isEnabled: true,
+        capacity: DEFAULT_RATE_LIMITER_CAPACITY,
+        rate: DEFAULT_RATE_LIMITER_RATE
+      })
+    );
   }
 
   function newListings() public pure override returns (IAaveV3ConfigEngine.Listing[] memory) {

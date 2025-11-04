@@ -6,7 +6,8 @@ import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 
 import {EthereumScript, PlasmaScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
 import {AaveV3Ethereum_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_20250930} from './AaveV3Ethereum_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_20250930.sol';
-import {AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_20250930} from './AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_20250930.sol';
+import {AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_20250930_Part1} from './AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_20250930_Part1.sol';
+import {AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_20250930_Part2} from './AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_20250930_Part2.sol';
 
 /**
  * @dev Deploy Ethereum
@@ -39,13 +40,19 @@ contract DeployPlasma is PlasmaScript {
   function run() external broadcast {
     // deploy payloads
     address payload0 = GovV3Helpers.deployDeterministic(
-      type(AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_20250930).creationCode
+      type(AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_20250930_Part1)
+        .creationCode
+    );
+    address payload1 = GovV3Helpers.deployDeterministic(
+      type(AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_20250930_Part2)
+        .creationCode
     );
 
     // compose action
     IPayloadsControllerCore.ExecutionAction[]
-      memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
+      memory actions = new IPayloadsControllerCore.ExecutionAction[](2);
     actions[0] = GovV3Helpers.buildAction(payload0);
+    actions[1] = GovV3Helpers.buildAction(payload1);
 
     // register action at payloadsController
     GovV3Helpers.createPayload(actions);
@@ -74,9 +81,14 @@ contract CreateProposal is EthereumScript {
 
     {
       IPayloadsControllerCore.ExecutionAction[]
-        memory actionsPlasma = new IPayloadsControllerCore.ExecutionAction[](1);
+        memory actionsPlasma = new IPayloadsControllerCore.ExecutionAction[](2);
       actionsPlasma[0] = GovV3Helpers.buildAction(
-        type(AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_20250930).creationCode
+        type(AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_20250930_Part1)
+          .creationCode
+      );
+      actionsPlasma[1] = GovV3Helpers.buildAction(
+        type(AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_20250930_Part2)
+          .creationCode
       );
       payloads[1] = GovV3Helpers.buildPlasmaPayload(vm, actionsPlasma);
     }
