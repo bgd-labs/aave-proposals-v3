@@ -25,7 +25,7 @@ contract AaveV3EthereumLido_OrbitRenewal_20251103 is IProposalGenericExecutor {
           receiver: orbitAddresses[i],
           amount: OrbitProgramData.STREAM_AMOUNT,
           start: block.timestamp,
-          duration: OrbitProgramData.STREAM_DURATION
+          duration: 1767225599 - block.timestamp // until 31st Dec 2025 23:59:59 UTC
         })
       );
     }
