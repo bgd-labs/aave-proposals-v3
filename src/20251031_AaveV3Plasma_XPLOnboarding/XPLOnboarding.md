@@ -52,7 +52,7 @@ Additionally add ACI LM (0xac140648435d03f784879cd789130F22Ef588Fcd](https://pla
 
 - Implementation: [AaveV3Plasma](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251031_AaveV3Plasma_XPLOnboarding/AaveV3Plasma_XPLOnboarding_20251031.sol)
 - Tests: [AaveV3Plasma](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251031_AaveV3Plasma_XPLOnboarding/AaveV3Plasma_XPLOnboarding_20251031.t.sol)
-  [Snapshot](TODO)
+  Snapshot: Direct to AIP
 - [Discussion](https://governance.aave.com/t/direct-to-aip-onboard-xpl-on-aave-v3-plasma-instance/23197)
 
 ## Copyright

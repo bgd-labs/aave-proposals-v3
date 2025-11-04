@@ -12,7 +12,7 @@ import {IEmissionManager} from 'aave-v3-origin/contracts/rewards/interfaces/IEmi
 /**
  * @title XPL Onboarding
  * @author ACI
- * - Snapshot: TODO
+ * - Snapshot: Direct to AIP
  * - Discussion: https://governance.aave.com/t/direct-to-aip-onboard-xpl-on-aave-v3-plasma-instance/23197
  */
 contract AaveV3Plasma_XPLOnboarding_20251031 is AaveV3PayloadPlasma {
@@ -45,7 +45,7 @@ contract AaveV3Plasma_XPLOnboarding_20251031 is AaveV3PayloadPlasma {
       ltv: 50_00,
       liqThreshold: 55_00,
       liqBonus: 10_00,
-      label: 'WXPL__Stablecoins',
+      label: 'WXPL Stablecoins',
       collaterals: collateralAssets_XplUsdt0,
       borrowables: borrowableAssets_XplUsdt0
     });
@@ -57,7 +57,7 @@ contract AaveV3Plasma_XPLOnboarding_20251031 is AaveV3PayloadPlasma {
 
     listings[0] = IAaveV3ConfigEngine.Listing({
       asset: WXPL,
-      assetSymbol: 'XPL',
+      assetSymbol: 'WXPL',
       priceFeed: 0xF932477C37715aE6657Ab884414Bd9876FE3f750,
       enabledToBorrow: EngineFlags.DISABLED,
       borrowableInIsolation: EngineFlags.DISABLED,
@@ -69,7 +69,7 @@ contract AaveV3Plasma_XPLOnboarding_20251031 is AaveV3PayloadPlasma {
       reserveFactor: 10_00,
       supplyCap: 14_000_000,
       borrowCap: 1,
-      debtCeiling: 1,
+      debtCeiling: 0,
       liqProtocolFee: 10_00,
       rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
         optimalUsageRatio: 45_00,
