@@ -7,7 +7,7 @@ import {AaveV3Linea} from 'aave-address-book/AaveV3Linea.sol';
 /**
  * @title Slope2 Risk Oracle Activation On Core Ethereum, Linea
  * @author BGD Labs (@bgdlabs)
- * - Discussion: https://governance.aave.com/t/chaos-labs-risk-stewards-slope2-parameter-adjustments-for-risk-oracle-deployment/23192
+ * - Discussion: https://governance.aave.com/t/technical-maintenance-proposals/15274/118
  */
 contract AaveV3Linea_Slope2RiskOracleActivationOnCoreEthereumLinea_20251009 is
   IProposalGenericExecutor
