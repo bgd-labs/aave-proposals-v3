@@ -116,13 +116,12 @@ contract CreateProposal is EthereumScript {
     }
 
     {
-      IPayloadsControllerCore.ExecutionAction[]
-        memory actionsZkSync = new IPayloadsControllerCore.ExecutionAction[](1);
-      actionsZkSync[0] = GovV3Helpers.buildActionZkSync(
-        vm,
-        'AaveV3ZkSync_DeprecationOfLowDemandVolatileAssetsOnAaveV3Instances_20251023'
-      );
-      payloads[3] = GovV3Helpers.buildZkSyncPayload(vm, actionsZkSync);
+      payloads[3] = PayloadsControllerUtils.Payload({
+        chain: ChainIds.ZKSYNC,
+        accessLevel: PayloadsControllerUtils.AccessControl.Level_1,
+        payloadsController: address(GovernanceV3ZkSync.PAYLOADS_CONTROLLER),
+        payloadId: 32
+      });
     }
 
     // create proposal
