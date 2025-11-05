@@ -1,8 +1,8 @@
 ---
 title: "Orbit Program Renewal - Q3 and Q4 2025"
 author: "ACI"
-discussions: https://snapshot.org/#/s:aavedao.eth/proposal/0x4f2381126a2ddf4073916bbdd6d25b031c2dabd022d23887cee6f315693fd7c4
-snapshot: https://governance.aave.com/t/arfc-orbit-program-renewal-q3-and-q4-2025/23289
+discussions: https://governance.aave.com/t/arfc-orbit-program-renewal-q3-and-q4-2025/23289
+snapshot: https://snapshot.org/#/s:aavedao.eth/proposal/0x4f2381126a2ddf4073916bbdd6d25b031c2dabd022d23887cee6f315693fd7c4
 ---
 
 ## Simple Summary

@@ -10,8 +10,8 @@ import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGen
 /**
  * @title Orbit Renewal
  * @author ACI
- * - Snapshot: https://governance.aave.com/t/arfc-orbit-program-renewal-q3-and-q4-2025/23289
- * - Discussion: https://snapshot.org/#/s:aavedao.eth/proposal/0x4f2381126a2ddf4073916bbdd6d25b031c2dabd022d23887cee6f315693fd7c4
+ * - Snapshot: https://snapshot.org/#/s:aavedao.eth/proposal/0x4f2381126a2ddf4073916bbdd6d25b031c2dabd022d23887cee6f315693fd7c4
+ * - Discussion: https://governance.aave.com/t/arfc-orbit-program-renewal-q3-and-q4-2025/23289
  */
 contract AaveV3EthereumLido_OrbitRenewal_20251103 is IProposalGenericExecutor {
   function execute() external {
