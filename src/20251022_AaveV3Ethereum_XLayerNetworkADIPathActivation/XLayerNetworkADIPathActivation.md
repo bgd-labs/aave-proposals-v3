@@ -31,8 +31,8 @@ The new a.DI deployments on XLayer network are as follows:
 
 | Contract             | Address                                                                                                                         |
 | -------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| CrossChainController | [0xEd42a7D8559a463722Ca4beD50E0Cc05a386b0e1](https://www.oklink.com/x-layer/address/0xEd42a7D8559a463722Ca4beD50E0Cc05a386b0e1) |
-| Granular Guardian    | [0x4457cA11E90f416Cc1D3a8E1cA41C0cdEcC251d4](https://www.oklink.com/x-layer/address/0x4457cA11E90f416Cc1D3a8E1cA41C0cdEcC251d4) |
+| CrossChainController | [0xFdd46155fD3DA5B907AD3B9f9395366290f58097](https://www.oklink.com/x-layer/address/0xFdd46155fD3DA5B907AD3B9f9395366290f58097) |
+| Granular Guardian    | [0xD6727ec503A8d0C10a0EAA4e76eAf9A628188b25](https://www.oklink.com/x-layer/address/0xD6727ec503A8d0C10a0EAA4e76eAf9A628188b25) |
 
 The new Aave Governance deployments on XLayer network are as follows:
 
