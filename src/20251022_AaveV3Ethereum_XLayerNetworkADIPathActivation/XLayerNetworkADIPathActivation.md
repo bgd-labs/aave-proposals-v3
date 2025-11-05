@@ -1,7 +1,7 @@
 ---
 title: "X Layer network aDI path activation"
 author: "BGD Labs @bgdlabs"
-discussions: TODO
+discussions: "https://governance.aave.com/t/technical-maintenance-proposals/15274/120"
 ---
 
 ## Simple Summary
@@ -49,7 +49,7 @@ The new Aave Governance deployments on XLayer network are as follows:
 - Payload Implementation: [Payload](https://github.com/bgd-labs/adi-deploy-bgd-fork/blob/8852ea9fe8909446c2a0a35d46b816e7e88877f1/scripts/payloads/adapters/ethereum/Ethereum_Activate_XLayer_Bridge_Adapter_Payload.s.sol)
 - Payload Tests: [tests](https://github.com/bgd-labs/adi-deploy-bgd-fork/blob/8852ea9fe8909446c2a0a35d46b816e7e88877f1/tests/payloads/ethereum/AddXLayerPathTest.t.sol)
 - Diffs: [a.DI diffs](https://github.com/bgd-labs/adi-deploy-bgd-fork/blob/8852ea9fe8909446c2a0a35d46b816e7e88877f1/diffs/adi_add_xlayer_path_to_adiethereum_before_adi_add_xlayer_path_to_adiethereum_after.md)
-- [Discussion]()
+- [Discussion](https://governance.aave.com/t/technical-maintenance-proposals/15274/120)
 
 ## Copyright
 
