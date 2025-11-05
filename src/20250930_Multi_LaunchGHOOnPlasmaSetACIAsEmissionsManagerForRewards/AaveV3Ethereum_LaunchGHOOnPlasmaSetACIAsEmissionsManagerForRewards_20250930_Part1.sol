@@ -43,7 +43,7 @@ interface IAaveGhoCcipBridge {
  * - Snapshot: https://snapshot.box/#/s:aavedao.eth/proposal/0xeb3572580924976867073ad9c8012cb9e52093c76dafebd7d3aebf318f2576fb
  * - Discussion: https://governance.aave.com/t/arfc-launch-gho-on-plasma-set-aci-as-emissions-manager-for-rewards/22994/6
  */
-contract AaveV3Ethereum_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_20250930 is
+contract AaveV3Ethereum_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_20250930_Part1 is
   IProposalGenericExecutor
 {
   using SafeERC20 for IERC20;
@@ -126,10 +126,10 @@ contract AaveV3Ethereum_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_2025
     _registerOracles();
     _fund(balanceUsdc, balanceUsdt);
     _revokeAccess();
-    _bridgeToPlasma();
+    _increaseBridgeLimitAndMint();
   }
 
-  function _bridgeToPlasma() internal {
+  function _increaseBridgeLimitAndMint() internal {
     IUpgradeableLockReleaseTokenPool(GhoEthereum.GHO_CCIP_TOKEN_POOL).setBridgeLimit(
       NEW_BRIDGE_LIMIT
     );
@@ -141,36 +141,6 @@ contract AaveV3Ethereum_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_2025
         isEnabled: true,
         capacity: uint128(TEMP_BRIDGE_CAPACITY),
         rate: uint128(TEMP_BRIDGE_CAPACITY) - 1 // Set rate to new capacity so it refills immediately
-      }),
-      IRateLimiter.Config({
-        isEnabled: true,
-        capacity: DEFAULT_RATE_LIMITER_CAPACITY,
-        rate: DEFAULT_RATE_LIMITER_RATE
-      })
-    );
-
-    IOwnableFacilitator(OWNABLE_FACILITATOR).mint(CCIP_BRIDGE, PLASMA_BRIDGE_AMOUNT);
-
-    uint256 fee = IAaveGhoCcipBridge(CCIP_BRIDGE).quoteBridge(
-      CCIPChainSelectors.PLASMA,
-      PLASMA_BRIDGE_AMOUNT,
-      AaveV3EthereumAssets.GHO_UNDERLYING
-    );
-
-    IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).safeTransfer(CCIP_BRIDGE, fee);
-    IAaveGhoCcipBridge(CCIP_BRIDGE).send(
-      CCIPChainSelectors.PLASMA,
-      PLASMA_BRIDGE_AMOUNT,
-      AaveV3EthereumAssets.GHO_UNDERLYING
-    );
-
-    // Restore bridge limit
-    IUpgradeableLockReleaseTokenPool(GhoEthereum.GHO_CCIP_TOKEN_POOL).setChainRateLimiterConfig(
-      CCIPChainSelectors.PLASMA,
-      IRateLimiter.Config({
-        isEnabled: true,
-        capacity: DEFAULT_RATE_LIMITER_CAPACITY,
-        rate: DEFAULT_RATE_LIMITER_RATE
       }),
       IRateLimiter.Config({
         isEnabled: true,

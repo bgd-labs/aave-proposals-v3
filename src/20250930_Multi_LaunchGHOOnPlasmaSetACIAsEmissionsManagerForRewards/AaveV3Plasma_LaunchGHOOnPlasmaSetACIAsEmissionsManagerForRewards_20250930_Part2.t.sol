@@ -56,6 +56,20 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
   }
 
   function test_bridgeLimitRestore() public {
+    // Mock the update from Part 1
+    vm.startPrank(GovernanceV3Plasma.EXECUTOR_LVL_1);
+    IUpgradeableBurnMintTokenPool(proposal.TOKEN_POOL()).setChainRateLimiterConfig(
+      CCIPChainSelectors.ETHEREUM,
+      IRateLimiter.Config({
+        isEnabled: true,
+        capacity: proposal.DEFAULT_RATE_LIMITER_CAPACITY(),
+        rate: proposal.DEFAULT_RATE_LIMITER_RATE()
+      }),
+      IRateLimiter.Config({isEnabled: true, capacity: 5_000_000 ether, rate: 4_000_000 ether})
+    );
+    vm.stopPrank();
+    vm.warp(block.timestamp + 1);
+
     IRateLimiter.TokenBucket memory bucket = IUpgradeableBurnMintTokenPool(proposal.TOKEN_POOL())
       .getCurrentInboundRateLimiterState(CCIPChainSelectors.ETHEREUM);
 
