@@ -29,8 +29,8 @@ stkABPT_V1 - 1,000 AAVE total allowance
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251029_AaveV3Ethereum_SafetyModuleEmissionsUpdate/AaveV3Ethereum_SafetyModuleEmissionsUpdate_20251029.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251029_AaveV3Ethereum_SafetyModuleEmissionsUpdate/AaveV3Ethereum_SafetyModuleEmissionsUpdate_20251029.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/049d02f90487fdb43fecd0c72928733c11e742cb/src/20251029_AaveV3Ethereum_SafetyModuleEmissionsUpdate/AaveV3Ethereum_SafetyModuleEmissionsUpdate_20251029.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/049d02f90487fdb43fecd0c72928733c11e742cb/src/20251029_AaveV3Ethereum_SafetyModuleEmissionsUpdate/AaveV3Ethereum_SafetyModuleEmissionsUpdate_20251029.t.sol)
 - Snapshot: Direct-to-AIP
 - [Discussion](https://governance.aave.com/t/arfc-amend-safety-module-emissions/16640/27)
 
