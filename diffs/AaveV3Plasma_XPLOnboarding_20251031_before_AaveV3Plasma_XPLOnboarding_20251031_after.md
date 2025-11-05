@@ -11,7 +11,7 @@
 | isFrozen | false |
 | supplyCap | 14,000,000 WXPL |
 | borrowCap | 1 WXPL |
-| debtCeiling | 1 $ [100] |
+| debtCeiling | 0 $ [0] |
 | isSiloed | false |
 | isFlashloanable | true |
 | oracle | 0xF932477C37715aE6657Ab884414Bd9876FE3f750 |
@@ -29,13 +29,13 @@
 | borrowingEnabled | false |
 | isBorrowableInIsolation | false |
 | interestRateStrategy | 0x2B16E93bdB1897f517881B3c388bABD0C62C6cdC |
-| aTokenName | Aave Plasma XPL |
-| aTokenSymbol | aPlaXPL |
+| aTokenName | Aave Plasma WXPL |
+| aTokenSymbol | aPlaWXPL |
 | aTokenUnderlyingBalance | 350 WXPL [350000000000000000000] |
 | id | 11 |
 | isPaused | false |
-| variableDebtTokenName | Aave Plasma Variable Debt XPL |
-| variableDebtTokenSymbol | variableDebtPlaXPL |
+| variableDebtTokenName | Aave Plasma Variable Debt WXPL |
+| variableDebtTokenSymbol | variableDebtPlaWXPL |
 | virtualBalance | 350 WXPL [350000000000000000000] |
 | optimalUsageRatio | 45 % |
 | maxVariableBorrowRate | 310 % |
@@ -91,11 +91,11 @@
 
 
 
-### EMode: WXPL__Stablecoins(id: 12)
+### EMode: WXPL Stablecoins(id: 12)
 
 | description | value before | value after |
 | --- | --- | --- |
-| eMode.label | - | WXPL__Stablecoins |
+| eMode.label | - | WXPL Stablecoins |
 | eMode.ltv | - | 50 % |
 | eMode.liquidationThreshold | - | 55 % |
 | eMode.liquidationBonus | - | 10 % |
@@ -114,7 +114,7 @@
         "borrowableBitmap": "1",
         "collateralBitmap": "2048",
         "eModeCategory": 12,
-        "label": "WXPL__Stablecoins",
+        "label": "WXPL Stablecoins",
         "liquidationBonus": 11000,
         "liquidationThreshold": 5500,
         "ltv": 5000
@@ -126,12 +126,12 @@
       "from": null,
       "to": {
         "aToken": "0x5aA4bc74811D672DA5308019dA4779f673e60B47",
-        "aTokenName": "Aave Plasma XPL",
-        "aTokenSymbol": "aPlaXPL",
+        "aTokenName": "Aave Plasma WXPL",
+        "aTokenSymbol": "aPlaWXPL",
         "aTokenUnderlyingBalance": "350000000000000000000",
         "borrowCap": 1,
         "borrowingEnabled": false,
-        "debtCeiling": 100,
+        "debtCeiling": 0,
         "decimals": 18,
         "id": 11,
         "interestRateStrategy": "0x2B16E93bdB1897f517881B3c388bABD0C62C6cdC",
@@ -155,8 +155,8 @@
         "underlying": "0x6100E367285b01F48D07953803A2d8dCA5D19873",
         "usageAsCollateralEnabled": true,
         "variableDebtToken": "0x7ec35d7008682c33dBC6b214E01D919e8d441e48",
-        "variableDebtTokenName": "Aave Plasma Variable Debt XPL",
-        "variableDebtTokenSymbol": "variableDebtPlaXPL",
+        "variableDebtTokenName": "Aave Plasma Variable Debt WXPL",
+        "variableDebtTokenSymbol": "variableDebtPlaWXPL",
         "virtualBalance": "350000000000000000000"
       }
     }
@@ -190,6 +190,10 @@
         "0x4885f2ce1982f75a7fc1d98b42526f4407d990862fe68bbbba57872e8ac86206": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
           "newValue": "0x0000000000000012f939c99edab8000000000000000000000000000000000000"
+        },
+        "0xf7b916e89ff198a55c9a32d87db68cde6f482de2d189099c6dab6507b6e177ae": {
+          "previousValue": "0x00000000000000000000000000000000000000000000000000000000002aaa2a",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000aaaa2a"
         }
       }
     },
@@ -247,7 +251,7 @@
         },
         "0x0000000000000000000000000000000000000000000000000000000000000035": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0xcd38a6464134c943dacaebf02959ae15ba8a6f126bd1ee9bc3d960a0db2cd850"
+          "newValue": "0x19e3ca833f9a72df4ca4ae28a3853d4f948a60232726ec5cdc91ad56adae94e7"
         },
         "0x0000000000000000000000000000000000000000000000000000000000000037": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -255,11 +259,11 @@
         },
         "0x000000000000000000000000000000000000000000000000000000000000003b": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x4161766520506c61736d61205661726961626c6520446562742058504c00003a"
+          "newValue": "0x4161766520506c61736d61205661726961626c652044656274205758504c003c"
         },
         "0x000000000000000000000000000000000000000000000000000000000000003c": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x7661726961626c6544656274506c6158504c0000000000000000000000000024"
+          "newValue": "0x7661726961626c6544656274506c615758504c00000000000000000000000026"
         },
         "0x000000000000000000000000000000000000000000000000000000000000003d": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -360,7 +364,7 @@
         },
         "0x1aec1d7d90e7fdc8d0cb5cae39901fd57c1eb538af488d7215b10b8d307d84b8": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x5758504c5f5f537461626c65636f696e73000000000000000000000000000022"
+          "newValue": "0x5758504c20537461626c65636f696e7300000000000000000000000000000020"
         },
         "0x1aec1d7d90e7fdc8d0cb5cae39901fd57c1eb538af488d7215b10b8d307d84b9": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -368,7 +372,7 @@
         },
         "0x4885f2ce1982f75a7fc1d98b42526f4407d990862fe68bbbba57872e8ac861fe": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x100000000640000000000003e8000d59f8000000000103e881122af8000a0005"
+          "newValue": "0x100000000000000000000003e8000d59f8000000000103e881122af8000a0005"
         }
       }
     },
@@ -410,6 +414,10 @@
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
           "newValue": "0x0000000000000000000000007ec35d7008682c33dbc6b214e01d919e8d441e48"
         },
+        "0x4885f2ce1982f75a7fc1d98b42526f4407d990862fe68bbbba57872e8ac86207": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000000"
+        },
         "0xf801cd91f4737d4fcbeb3108ca2da80cf9c1a7a3469221f74308d5bc7ba7610b": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
           "newValue": "0x0000000000000000000000006100e367285b01f48d07953803a2d8dca5d19873"
@@ -439,11 +447,11 @@
         },
         "0x0000000000000000000000000000000000000000000000000000000000000037": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x4161766520506c61736d612058504c000000000000000000000000000000001e"
+          "newValue": "0x4161766520506c61736d61205758504c00000000000000000000000000000020"
         },
         "0x0000000000000000000000000000000000000000000000000000000000000038": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x61506c6158504c0000000000000000000000000000000000000000000000000e"
+          "newValue": "0x61506c615758504c000000000000000000000000000000000000000000000010"
         },
         "0x0000000000000000000000000000000000000000000000000000000000000039": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -451,7 +459,7 @@
         },
         "0x000000000000000000000000000000000000000000000000000000000000003b": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x22ed367b49dc370ac34b1094b921b7e46eab2c56eabb16d7a528b2d88f8f1e3b"
+          "newValue": "0xf0d87bed52691ad48de95cc69145d80474b0fb355ccf7d869fc36fc3aea386f9"
         },
         "0x000000000000000000000000000000000000000000000000000000000000003d": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
