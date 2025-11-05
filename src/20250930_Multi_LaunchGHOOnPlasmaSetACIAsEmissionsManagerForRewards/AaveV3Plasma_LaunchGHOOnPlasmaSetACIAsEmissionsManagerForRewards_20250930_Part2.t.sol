@@ -5,6 +5,7 @@ import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 import {IERC4626} from 'openzeppelin-contracts/contracts/interfaces/IERC4626.sol';
 import {AaveV3Plasma, AaveV3PlasmaAssets} from 'aave-address-book/AaveV3Plasma.sol';
 import {GovernanceV3Plasma} from 'aave-address-book/GovernanceV3Plasma.sol';
+import {GhoPlasma} from 'aave-address-book/GhoPlasma.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {IUpgradeableBurnMintTokenPool, IRateLimiter} from 'src/interfaces/ccip/IUpgradeableBurnMintTokenPool.sol';
 import {CCIPChainSelectors} from '../helpers/gho-launch/constants/CCIPChainSelectors.sol';
@@ -41,7 +42,7 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
 
     // Deal GHO that is going to be bridged from Mainnet
     // 1 GHO for seed amount already sent to Collector
-    deal(proposal.GHO(), address(AaveV3Plasma.COLLECTOR), 50_000_001 ether);
+    deal(GhoPlasma.GHO_TOKEN, address(AaveV3Plasma.COLLECTOR), 50_000_010 ether);
   }
 
   /**
@@ -58,7 +59,7 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
   function test_bridgeLimitRestore() public {
     // Mock the update from Part 1
     vm.startPrank(GovernanceV3Plasma.EXECUTOR_LVL_1);
-    IUpgradeableBurnMintTokenPool(proposal.TOKEN_POOL()).setChainRateLimiterConfig(
+    IUpgradeableBurnMintTokenPool(GhoPlasma.GHO_CCIP_TOKEN_POOL).setChainRateLimiterConfig(
       CCIPChainSelectors.ETHEREUM,
       IRateLimiter.Config({
         isEnabled: true,
@@ -70,8 +71,9 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
     vm.stopPrank();
     vm.warp(block.timestamp + 1);
 
-    IRateLimiter.TokenBucket memory bucket = IUpgradeableBurnMintTokenPool(proposal.TOKEN_POOL())
-      .getCurrentInboundRateLimiterState(CCIPChainSelectors.ETHEREUM);
+    IRateLimiter.TokenBucket memory bucket = IUpgradeableBurnMintTokenPool(
+      GhoPlasma.GHO_CCIP_TOKEN_POOL
+    ).getCurrentInboundRateLimiterState(CCIPChainSelectors.ETHEREUM);
 
     assertGt(bucket.capacity, proposal.DEFAULT_RATE_LIMITER_CAPACITY());
     assertGt(bucket.rate, proposal.DEFAULT_RATE_LIMITER_RATE());
@@ -80,9 +82,8 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
 
     executePayload(vm, address(proposal));
 
-    bucket = IUpgradeableBurnMintTokenPool(proposal.TOKEN_POOL()).getCurrentInboundRateLimiterState(
-      CCIPChainSelectors.ETHEREUM
-    );
+    bucket = IUpgradeableBurnMintTokenPool(GhoPlasma.GHO_CCIP_TOKEN_POOL)
+      .getCurrentInboundRateLimiterState(CCIPChainSelectors.ETHEREUM);
 
     assertEq(bucket.capacity, proposal.DEFAULT_RATE_LIMITER_CAPACITY());
     assertEq(bucket.rate, proposal.DEFAULT_RATE_LIMITER_RATE());
@@ -92,15 +93,15 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
 
   function test_dustBinHasGHOFunds() public {
     executePayload(vm, address(proposal));
-    address aTokenAddress = AaveV3Plasma.POOL.getReserveAToken(proposal.GHO());
+    address aTokenAddress = AaveV3Plasma.POOL.getReserveAToken(GhoPlasma.GHO_TOKEN);
     assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Plasma.DUST_BIN)), 10 ** 18);
   }
 
   function test_GHOAdmin() public {
     executePayload(vm, address(proposal));
-    address aGHO = AaveV3Plasma.POOL.getReserveAToken(proposal.GHO());
+    address aGHO = AaveV3Plasma.POOL.getReserveAToken(GhoPlasma.GHO_TOKEN);
     assertEq(
-      IEmissionManager(AaveV3Plasma.EMISSION_MANAGER).getEmissionAdmin(proposal.GHO()),
+      IEmissionManager(AaveV3Plasma.EMISSION_MANAGER).getEmissionAdmin(GhoPlasma.GHO_TOKEN),
       proposal.GHO_LM_ADMIN()
     );
     assertEq(
@@ -209,13 +210,13 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
 
     // New GSMs are operational
     IERC20(AaveV3PlasmaAssets.USDT0_STATA_TOKEN).approve(proposal.NEW_GSM_USDT(), 1_000e6);
-    IERC20(proposal.GHO()).approve(proposal.NEW_GSM_USDT(), 1_200 ether);
+    IERC20(GhoPlasma.GHO_TOKEN).approve(proposal.NEW_GSM_USDT(), 1_200 ether);
 
     uint256 amountUnderlying = 1_000e6;
     uint256 balanceBeforeUsdtGsm = IERC20(AaveV3PlasmaAssets.USDT0_STATA_TOKEN).balanceOf(
       proposal.NEW_GSM_USDT()
     );
-    uint256 balanceGhoBefore = IGhoToken(proposal.GHO()).balanceOf(address(this));
+    uint256 balanceGhoBefore = IGhoToken(GhoPlasma.GHO_TOKEN).balanceOf(address(this));
 
     (, uint256 ghoBought) = IGsm(proposal.NEW_GSM_USDT()).sellAsset(
       amountUnderlying,
@@ -228,7 +229,7 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
       'amounts USDT after sellAsset not equal'
     );
     assertEq(
-      IGhoToken(proposal.GHO()).balanceOf(address(this)),
+      IGhoToken(GhoPlasma.GHO_TOKEN).balanceOf(address(this)),
       balanceGhoBefore + ghoBought,
       'GHO balance after sellAsset not equal'
     );
@@ -241,7 +242,7 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
       'stataUSDT balance after buyAsset not equal'
     );
     assertEq(
-      IGhoToken(proposal.GHO()).balanceOf(address(this)),
+      IGhoToken(GhoPlasma.GHO_TOKEN).balanceOf(address(this)),
       balanceGhoBefore + ghoBought - ghoSold,
       'GHO balance after buyAsset not equal'
     );

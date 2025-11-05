@@ -6,7 +6,7 @@ import {IACLManager} from 'aave-address-book/AaveV3.sol';
 import {SafeERC20} from 'openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol';
 import {AaveV3Plasma, AaveV3PlasmaAssets} from 'aave-address-book/AaveV3Plasma.sol';
 import {AaveV3PayloadPlasma} from 'aave-helpers/src/v3-config-engine/AaveV3PayloadPlasma.sol';
-// import {GhoPlasma} from 'aave-address-book/GhoPlasma.sol';
+import {GhoPlasma} from 'aave-address-book/GhoPlasma.sol';
 import {MiscPlasma} from 'aave-address-book/MiscPlasma.sol';
 import {GovernanceV3Plasma} from 'aave-address-book/GovernanceV3Plasma.sol';
 import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
@@ -41,20 +41,10 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
   uint128 public constant DEFAULT_RATE_LIMITER_CAPACITY = 1_500_000e18;
   uint128 public constant DEFAULT_RATE_LIMITER_RATE = 300e18;
 
-  // https://plasmascan.to/address/0x360d8aa8F6b09B7BC57aF34db2Eb84dD87bf4d12
-  address public constant TOKEN_POOL = 0x360d8aa8F6b09B7BC57aF34db2Eb84dD87bf4d12;
-
-  // New GHO Token
-  // https://plasmascan.to/address/0xb77E872A68C62CfC0dFb02C067Ecc3DA23B4bbf3
-  address public constant GHO = 0xb77E872A68C62CfC0dFb02C067Ecc3DA23B4bbf3;
-
   // https://plasmascan.to/address/0xac140648435d03f784879cd789130F22Ef588Fcd
   address public constant GHO_LM_ADMIN = 0xac140648435d03f784879cd789130F22Ef588Fcd;
 
-  // https://plasmascan.to/address/0xb0e1c7830aA781362f79225559Aa068E6bDaF1d1
-  address public constant GHO_ORACLE = 0xb0e1c7830aA781362f79225559Aa068E6bDaF1d1;
-
-  uint256 public constant GHO_SEED_AMOUNT = 1e18;
+  uint256 public constant GHO_SEED_AMOUNT = 10e18;
 
   // GhoReserve
   // https://plasmascan.to/address/0xBAdA742e7Ff54595F9049eeF1Cc5AaF4364988B9
@@ -81,9 +71,6 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
 
   // https://plasmascan.to/address/0xD70BE7e6111EA563226cb8e53B1F195Da4E566E2
   address public constant FEE_STRATEGY = 0xD70BE7e6111EA563226cb8e53B1F195Da4E566E2;
-
-  // https://etherscan.io/address/0xc4374775489cb9c56003bf2c9b12495fc64f0771
-  address public constant SYRUP_USDT = 0xC4374775489CB9C56003BF2C9b12495fC64F0771;
 
   bytes32 public immutable LIQUIDATOR_ROLE = IGsm(NEW_GSM_USDT).LIQUIDATOR_ROLE();
   bytes32 public immutable SWAP_FREEZER_ROLE = IGsm(NEW_GSM_USDT).SWAP_FREEZER_ROLE();
@@ -124,18 +111,21 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
   }
 
   function _postExecute() internal override {
-    AaveV3Plasma.COLLECTOR.transfer(IERC20(GHO), address(this), GHO_SEED_AMOUNT);
-    IERC20(GHO).forceApprove(address(AaveV3Plasma.POOL), GHO_SEED_AMOUNT);
-    AaveV3Plasma.POOL.supply(GHO, GHO_SEED_AMOUNT, AaveV3Plasma.DUST_BIN, 0);
+    AaveV3Plasma.COLLECTOR.transfer(IERC20(GhoPlasma.GHO_TOKEN), address(this), GHO_SEED_AMOUNT);
+    IERC20(GhoPlasma.GHO_TOKEN).forceApprove(address(AaveV3Plasma.POOL), GHO_SEED_AMOUNT);
+    AaveV3Plasma.POOL.supply(GhoPlasma.GHO_TOKEN, GHO_SEED_AMOUNT, AaveV3Plasma.DUST_BIN, 0);
 
-    address aGHO = AaveV3Plasma.POOL.getReserveAToken(GHO);
-    IEmissionManager(AaveV3Plasma.EMISSION_MANAGER).setEmissionAdmin(GHO, GHO_LM_ADMIN);
+    address aGHO = AaveV3Plasma.POOL.getReserveAToken(GhoPlasma.GHO_TOKEN);
+    IEmissionManager(AaveV3Plasma.EMISSION_MANAGER).setEmissionAdmin(
+      GhoPlasma.GHO_TOKEN,
+      GHO_LM_ADMIN
+    );
     IEmissionManager(AaveV3Plasma.EMISSION_MANAGER).setEmissionAdmin(aGHO, GHO_LM_ADMIN);
 
-    AaveV3Plasma.COLLECTOR.transfer(IERC20(GHO), GHO_RESERVE, BRIDGED_AMOUNT);
+    AaveV3Plasma.COLLECTOR.transfer(IERC20(GhoPlasma.GHO_TOKEN), GHO_RESERVE, BRIDGED_AMOUNT);
 
     // Restore bridge limits after GHO bridging
-    IUpgradeableBurnMintTokenPool(TOKEN_POOL).setChainRateLimiterConfig(
+    IUpgradeableBurnMintTokenPool(GhoPlasma.GHO_CCIP_TOKEN_POOL).setChainRateLimiterConfig(
       CCIPChainSelectors.ETHEREUM,
       IRateLimiter.Config({
         isEnabled: true,
@@ -154,9 +144,9 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
     IAaveV3ConfigEngine.Listing[] memory listings = new IAaveV3ConfigEngine.Listing[](1);
 
     listings[0] = IAaveV3ConfigEngine.Listing({
-      asset: GHO,
+      asset: GhoPlasma.GHO_TOKEN,
       assetSymbol: 'GHO',
-      priceFeed: GHO_ORACLE,
+      priceFeed: GhoPlasma.GHO_ORACLE,
       enabledToBorrow: EngineFlags.ENABLED,
       borrowableInIsolation: EngineFlags.DISABLED,
       withSiloedBorrowing: EngineFlags.DISABLED,
@@ -192,7 +182,7 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
     address[] memory collateralAssets = new address[](1);
     address[] memory borrowableAssets = new address[](1);
 
-    collateralAssets[0] = GHO;
+    collateralAssets[0] = GhoPlasma.GHO_TOKEN;
     borrowableAssets[0] = AaveV3PlasmaAssets.USDT0_UNDERLYING;
 
     eModeCreations[0] = IAaveV3ConfigEngine.EModeCategoryCreation({
@@ -204,8 +194,8 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
       borrowables: borrowableAssets
     });
 
-    collateralAssets[0] = SYRUP_USDT;
-    borrowableAssets[0] = GHO;
+    collateralAssets[0] = AaveV3PlasmaAssets.syrupUSDT_UNDERLYING;
+    borrowableAssets[0] = GhoPlasma.GHO_TOKEN;
 
     eModeCreations[1] = IAaveV3ConfigEngine.EModeCategoryCreation({
       ltv: 90_00,
@@ -218,8 +208,8 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
 
     address[] memory collateralAssets_syrup = new address[](2);
 
-    collateralAssets_syrup[0] = GHO;
-    collateralAssets_syrup[1] = SYRUP_USDT;
+    collateralAssets_syrup[0] = GhoPlasma.GHO_TOKEN;
+    collateralAssets_syrup[1] = AaveV3PlasmaAssets.syrupUSDT_UNDERLYING;
     borrowableAssets[0] = AaveV3PlasmaAssets.USDT0_UNDERLYING;
 
     eModeCreations[2] = IAaveV3ConfigEngine.EModeCategoryCreation({
@@ -272,19 +262,19 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
       memory assetEModeUpdates = new IAaveV3ConfigEngine.AssetEModeUpdate[](3);
 
     assetEModeUpdates[0] = IAaveV3ConfigEngine.AssetEModeUpdate({
-      asset: GHO,
+      asset: GhoPlasma.GHO_TOKEN,
       eModeCategory: 2,
       borrowable: EngineFlags.ENABLED,
       collateral: EngineFlags.DISABLED
     });
     assetEModeUpdates[1] = IAaveV3ConfigEngine.AssetEModeUpdate({
-      asset: GHO,
+      asset: GhoPlasma.GHO_TOKEN,
       eModeCategory: 5,
       borrowable: EngineFlags.ENABLED,
       collateral: EngineFlags.DISABLED
     });
     assetEModeUpdates[2] = IAaveV3ConfigEngine.AssetEModeUpdate({
-      asset: GHO,
+      asset: GhoPlasma.GHO_TOKEN,
       eModeCategory: 7,
       borrowable: EngineFlags.ENABLED,
       collateral: EngineFlags.DISABLED

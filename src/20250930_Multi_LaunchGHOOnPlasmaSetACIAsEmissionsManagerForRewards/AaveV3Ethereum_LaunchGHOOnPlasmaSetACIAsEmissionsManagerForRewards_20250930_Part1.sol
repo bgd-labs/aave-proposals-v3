@@ -61,14 +61,14 @@ contract AaveV3Ethereum_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_2025
   // https://etherscan.io/address/0x3a3868898305f04bec7fea77becff04c13444112
   address public constant NEW_GSM_USDC = 0x3A3868898305f04beC7FEa77BecFf04C13444112;
 
-  // https://etherscan.io/address/0xc39ac061686C99b1B8B09B401e8C2f486894AD3c
-  address public constant USDC_ORACLE_SWAP_FREEZER = 0xc39ac061686C99b1B8B09B401e8C2f486894AD3c;
+  // https://etherscan.io/address/0x6e51936e0ED4256f9dA4794B536B619c88Ff0047
+  address public constant USDC_ORACLE_SWAP_FREEZER = 0x6e51936e0ED4256f9dA4794B536B619c88Ff0047;
 
   // https://etherscan.io/address/0x882285e62656b9623af136ce3078c6bdcc33f5e3
   address public constant NEW_GSM_USDT = 0x882285E62656b9623AF136Ce3078c6BdCc33F5E3;
 
-  // https://etherscan.io/address/0xc2462092D1A2b0Ef015A49e2d832978AEc26866a
-  address public constant USDT_ORACLE_SWAP_FREEZER = 0xc2462092D1A2b0Ef015A49e2d832978AEc26866a;
+  // https://etherscan.io/address/0x733AB16005c39d07FD3D9d1A350AA6768D10125b
+  address public constant USDT_ORACLE_SWAP_FREEZER = 0x733AB16005c39d07FD3D9d1A350AA6768D10125b;
 
   // https://etherscan.io/address/0x06fbDE909B43f01202E3C6207De1D27cC208AcC1
   address public constant FEE_STRATEGY = 0x06fbDE909B43f01202E3C6207De1D27cC208AcC1;

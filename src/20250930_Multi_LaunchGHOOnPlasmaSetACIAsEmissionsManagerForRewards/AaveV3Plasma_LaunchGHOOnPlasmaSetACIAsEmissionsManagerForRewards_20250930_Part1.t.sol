@@ -4,6 +4,7 @@ pragma solidity ^0.8.0;
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 import {AaveV3Plasma, AaveV3PlasmaAssets} from 'aave-address-book/AaveV3Plasma.sol';
 import {GovernanceV3Plasma} from 'aave-address-book/GovernanceV3Plasma.sol';
+import {GhoPlasma} from 'aave-address-book/GhoPlasma.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {IUpgradeableBurnMintTokenPool, IRateLimiter} from 'src/interfaces/ccip/IUpgradeableBurnMintTokenPool.sol';
 import {CCIPChainSelectors} from '../helpers/gho-launch/constants/CCIPChainSelectors.sol';
@@ -36,8 +37,9 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
   }
 
   function test_bridgeLimitIncrease() public {
-    IRateLimiter.TokenBucket memory bucket = IUpgradeableBurnMintTokenPool(proposal.TOKEN_POOL())
-      .getCurrentInboundRateLimiterState(CCIPChainSelectors.ETHEREUM);
+    IRateLimiter.TokenBucket memory bucket = IUpgradeableBurnMintTokenPool(
+      GhoPlasma.GHO_CCIP_TOKEN_POOL
+    ).getCurrentInboundRateLimiterState(CCIPChainSelectors.ETHEREUM);
 
     assertEq(bucket.capacity, proposal.DEFAULT_RATE_LIMITER_CAPACITY());
     assertEq(bucket.rate, proposal.DEFAULT_RATE_LIMITER_RATE());
@@ -48,9 +50,8 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
 
     vm.warp(block.timestamp + 1);
 
-    bucket = IUpgradeableBurnMintTokenPool(proposal.TOKEN_POOL()).getCurrentInboundRateLimiterState(
-      CCIPChainSelectors.ETHEREUM
-    );
+    bucket = IUpgradeableBurnMintTokenPool(GhoPlasma.GHO_CCIP_TOKEN_POOL)
+      .getCurrentInboundRateLimiterState(CCIPChainSelectors.ETHEREUM);
 
     assertEq(bucket.capacity, proposal.NEW_CAPACITY());
     assertEq(bucket.rate, proposal.NEW_CAPACITY() - 1);

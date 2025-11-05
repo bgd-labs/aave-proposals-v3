@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
+import {GhoPlasma} from 'aave-address-book/GhoPlasma.sol';
 import {CCIPChainSelectors} from '../helpers/gho-launch/constants/CCIPChainSelectors.sol';
 import {IUpgradeableBurnMintTokenPool, IRateLimiter} from 'src/interfaces/ccip/IUpgradeableBurnMintTokenPool.sol';
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
@@ -20,11 +21,8 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
   // 50M GHO to be bridged, add 10% leeway initially in case other bridges take place
   uint256 public constant NEW_CAPACITY = 55_000_000 ether;
 
-  // https://plasmascan.to/address/0x360d8aa8F6b09B7BC57aF34db2Eb84dD87bf4d12
-  address public constant TOKEN_POOL = 0x360d8aa8F6b09B7BC57aF34db2Eb84dD87bf4d12;
-
   function execute() external {
-    IUpgradeableBurnMintTokenPool(TOKEN_POOL).setChainRateLimiterConfig(
+    IUpgradeableBurnMintTokenPool(GhoPlasma.GHO_CCIP_TOKEN_POOL).setChainRateLimiterConfig(
       CCIPChainSelectors.ETHEREUM,
       IRateLimiter.Config({
         isEnabled: true,
