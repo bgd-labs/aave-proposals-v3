@@ -2,7 +2,6 @@
 pragma solidity ^0.8.0;
 
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
-import {IERC4626} from 'openzeppelin-contracts/contracts/interfaces/IERC4626.sol';
 import {SafeERC20} from 'openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol';
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
@@ -10,6 +9,7 @@ import {GhoEthereum} from 'aave-address-book/GhoEthereum.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {CollectorUtils, ICollector} from 'aave-helpers/src/CollectorUtils.sol';
+import {IAaveGhoCcipBridge} from 'aave-helpers/src/bridges/ccip/interfaces/IAaveGhoCcipBridge.sol';
 
 import {IUpgradeableLockReleaseTokenPool, IRateLimiter} from 'src/interfaces/ccip/IUpgradeableLockReleaseTokenPool.sol';
 import {IGhoBucketSteward} from 'src/interfaces/IGhoBucketSteward.sol';
@@ -17,25 +17,9 @@ import {IGhoToken} from 'src/interfaces/IGhoToken.sol';
 import {IGsm} from 'src/interfaces/IGsm.sol';
 import {IGsmRegistry} from 'src/interfaces/IGsmRegistry.sol';
 import {IAaveCLRobotOperator} from 'src/interfaces/IAaveCLRobotOperator.sol';
+import {IOwnableFacilitator} from 'src/interfaces/IOwnableFacilitator.sol';
+import {IGhoReserve} from 'src/interfaces/IGhoReserve.sol';
 import {CCIPChainSelectors} from '../helpers/gho-launch/constants/CCIPChainSelectors.sol';
-
-interface IGhoReserve {
-  function addEntity(address entity) external;
-  function setLimit(address entity, uint256 limit) external;
-}
-
-interface IOwnableFacilitator {
-  function mint(address to, uint256 amount) external;
-}
-
-interface IAaveGhoCcipBridge {
-  function send(uint64 chainSelector, uint256 amount, address feeToken) external returns (bytes32);
-  function quoteBridge(
-    uint64 chainSelector,
-    uint256 amount,
-    address feeToken
-  ) external view returns (uint256);
-}
 
 /**
  * @title Add GHO and deploy GSM on Plasma. Migrate to new GSM on Ethereum
@@ -62,9 +46,6 @@ contract AaveV3Ethereum_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_2025
   // https://etherscan.io/address/0x7f2f96fcdc3a29be75938d2ac3d92e7006919fe6
   address public constant CCIP_BRIDGE = 0x7F2f96fcdC3A29Be75938d2aC3D92E7006919fe6;
 
-  // https://plasmascan.to/address/0x035Dec9dBE6DC0230ac05A760D9B6A70E7514243
-  address public constant CCIP_BRIDGE_PLASMA = 0x035Dec9dBE6DC0230ac05A760D9B6A70E7514243;
-  uint256 public constant PLASMA_BRIDGE_AMOUNT = 50_000_000 ether;
   uint256 public constant NEW_BRIDGE_LIMIT = 100_000_000 ether;
 
   // 50M GHO bridge amount + 10% leeway in case of other bridges
@@ -92,8 +73,6 @@ contract AaveV3Ethereum_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_2025
   // https://etherscan.io/address/0x06fbDE909B43f01202E3C6207De1D27cC208AcC1
   address public constant FEE_STRATEGY = 0x06fbDE909B43f01202E3C6207De1D27cC208AcC1;
 
-  // https://etherscan.io/address/0x1cDF8879eC8bE012bA959EB515b11008E0cb6323
-  address public constant ROBOT_OPERATOR = 0x1cDF8879eC8bE012bA959EB515b11008E0cb6323;
   uint96 public constant LINK_AMOUNT_ORACLE_FREEZER_KEEPER = 80 ether;
   uint96 public constant TOTAL_LINK_AMOUNT_KEEPERS = LINK_AMOUNT_ORACLE_FREEZER_KEEPER * 2; // 2 GSMs
   uint32 public constant KEEPER_GAS_LIMIT = 150_000;

@@ -8,19 +8,8 @@ import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethe
 import {GhoEthereum} from 'aave-address-book/GhoEthereum.sol';
 import {IUpgradeableLockReleaseTokenPool, IRateLimiter} from 'src/interfaces/ccip/IUpgradeableLockReleaseTokenPool.sol';
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
-
-interface IOwnableFacilitator {
-  function mint(address to, uint256 amount) external;
-}
-
-interface IAaveGhoCcipBridge {
-  function send(uint64 chainSelector, uint256 amount, address feeToken) external returns (bytes32);
-  function quoteBridge(
-    uint64 chainSelector,
-    uint256 amount,
-    address feeToken
-  ) external view returns (uint256);
-}
+import {IAaveGhoCcipBridge} from 'aave-helpers/src/bridges/ccip/interfaces/IAaveGhoCcipBridge.sol';
+import {IOwnableFacilitator} from 'src/interfaces/IOwnableFacilitator.sol';
 
 /**
  * @title Add GHO and deploy GSM on Plasma. Migrate to new GSM on Ethereum
@@ -32,6 +21,8 @@ contract AaveV3Ethereum_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_2025
   IProposalGenericExecutor
 {
   using SafeERC20 for IERC20;
+
+  // https://etherscan.io/address/0x616AEe98F73C79FE59548Cfe7631c0baDBdA3165
   address public constant OWNABLE_FACILITATOR = 0x616AEe98F73C79FE59548Cfe7631c0baDBdA3165;
 
   // https://etherscan.io/address/0x7f2f96fcdc3a29be75938d2ac3d92e7006919fe6
@@ -41,26 +32,16 @@ contract AaveV3Ethereum_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_2025
   uint128 public constant DEFAULT_RATE_LIMITER_RATE = 300e18;
   uint256 public constant PLASMA_BRIDGE_AMOUNT = 50_000_000 ether;
 
-  // 50M GHO to be bridged, add 10% leeway initially in case other bridges take place
-  uint256 public constant NEW_CAPACITY = 55_000_000 ether;
-
-  // https://.to/address/0x360d8aa8F6b09B7BC57aF34db2Eb84dD87bf4d12
-  address public constant TOKEN_POOL = 0x360d8aa8F6b09B7BC57aF34db2Eb84dD87bf4d12;
-
   function execute() external {
-    IOwnableFacilitator(OWNABLE_FACILITATOR).mint(CCIP_BRIDGE, PLASMA_BRIDGE_AMOUNT);
+    IOwnableFacilitator(OWNABLE_FACILITATOR).mint(address(this), PLASMA_BRIDGE_AMOUNT);
 
-    uint256 fee = IAaveGhoCcipBridge(CCIP_BRIDGE).quoteBridge(
-      CCIPChainSelectors.PLASMA,
-      PLASMA_BRIDGE_AMOUNT,
-      AaveV3EthereumAssets.GHO_UNDERLYING
-    );
+    IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).approve(CCIP_BRIDGE, PLASMA_BRIDGE_AMOUNT);
 
-    IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).safeTransfer(CCIP_BRIDGE, fee);
+    // Bridge already has LINK to bridge, no need to send for fee
     IAaveGhoCcipBridge(CCIP_BRIDGE).send(
       CCIPChainSelectors.PLASMA,
       PLASMA_BRIDGE_AMOUNT,
-      AaveV3EthereumAssets.GHO_UNDERLYING
+      AaveV3EthereumAssets.LINK_UNDERLYING
     );
 
     // Restore bridge limit
