@@ -42,16 +42,6 @@ out = 'out/cancun'
 evm_version = 'cancun'
 cache_path = 'cache/cancun'
 
-[profile.deploy]
-out = 'out/shanghai'
-evm_version = 'shanghai'
-cache_path = 'cache/shanghai'
-
-[profile.linea]
-out = 'out/london'
-evm_version = 'london'
-cache_path = 'cache/london'
-
 [rpc_endpoints]
 mainnet = "${RPC_MAINNET}"
 optimism = "${RPC_OPTIMISM}"
