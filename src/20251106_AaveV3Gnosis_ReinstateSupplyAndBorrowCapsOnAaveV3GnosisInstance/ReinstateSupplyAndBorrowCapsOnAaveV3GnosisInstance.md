@@ -24,16 +24,16 @@ At the time of writing, the supply and borrow caps on a broad list of assets on 
 
 ## Specification
 
-| Instance | Asset  | Initial Supply Cap | Current Supply Cap | Recommended Supply Cap | Initial Borrow Cap | Current Borrow Cap | Recommended Borrow Cap |
-| -------- | ------ | ------------------ | ------------------ | ---------------------- | ------------------ | ------------------ | ---------------------- |
-| Gnosis   | wstETH | 12,201             | 1                  | 15,000                 | 94                 | 1                  | 150                    |
-| Gnosis   | sDAI   | 17,500,552         | 1                  | 24,000,000             | -                  | 0                  | 1                      |
-| Gnosis   | GNO    | 94,532             | 1                  | 140,000                | 15,252             | 1                  | 20,000                 |
-| Gnosis   | WETH   | 2,762              | 1                  | 3,600                  | 1,811              | 1                  | 2,400                  |
-| Gnosis   | EURe   | 13,537,147         | 27,000,000         | -                      | 12,194,512         | 1                  | 22,500,000             |
-| Gnosis   | USDC.e | 7,805,609          | 1                  | 12,000,000             | 6,246,190          | 1                  | 11,000,000             |
-| Gnosis   | xDAI   | 3,038,106          | 1                  | 4,000,000              | 2,524,773          | 1                  | 3,700,000              |
-| Gnosis   | GHO    | 799,613            | 1                  | 1,500,000              | 689,379            | 1                  | 1,400,000              |
+| Instance | Asset  | Current Supply | Current Supply Cap | Recommended Supply Cap | Current Borrow | Current Borrow Cap | Recommended Borrow Cap |
+| -------- | ------ | -------------- | ------------------ | ---------------------- | -------------- | ------------------ | ---------------------- |
+| Gnosis   | wstETH | 12,201         | 1                  | 15,000                 | 94             | 1                  | 150                    |
+| Gnosis   | sDAI   | 17,500,552     | 1                  | 24,000,000             | -              | 0                  | 1                      |
+| Gnosis   | GNO    | 94,532         | 1                  | 140,000                | 15,252         | 1                  | 20,000                 |
+| Gnosis   | WETH   | 2,762          | 1                  | 3,600                  | 1,811          | 1                  | 2,400                  |
+| Gnosis   | EURe   | 13,537,147     | 27,000,000         | -                      | 12,194,512     | 1                  | 22,500,000             |
+| Gnosis   | USDC.e | 7,805,609      | 1                  | 12,000,000             | 6,246,190      | 1                  | 11,000,000             |
+| Gnosis   | xDAI   | 3,038,106      | 1                  | 4,000,000              | 2,524,773      | 1                  | 3,700,000              |
+| Gnosis   | GHO    | 799,613        | 1                  | 1,500,000              | 689,379        | 1                  | 1,400,000              |
 
 ## References
 
