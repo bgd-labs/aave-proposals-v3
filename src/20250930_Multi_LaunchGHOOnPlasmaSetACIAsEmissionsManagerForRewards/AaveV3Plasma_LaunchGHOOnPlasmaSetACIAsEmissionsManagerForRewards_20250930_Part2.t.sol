@@ -372,10 +372,15 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
     (lowerBound, upperBound) = freezer.getUnfreezeBound();
     assertEq(lowerBound, config.unfreezeLowerBound, 'wrong unfreeze lower bound');
     assertEq(upperBound, config.unfreezeUpperBound, 'wrong unfreeze upper bound');
+
+    assertEq(freezer.ADDRESS_PROVIDER(), address(AaveV3Plasma.POOL_ADDRESSES_PROVIDER));
+    assertEq(freezer.GSM(), address(gsm));
   }
 }
 
 interface IOracleSwapFreezer {
+  function ADDRESS_PROVIDER() external view returns (address);
+  function GSM() external view returns (address);
   function getCanUnfreeze() external view returns (bool);
   function getFreezeBound() external view returns (uint128, uint128);
   function getUnfreezeBound() external view returns (uint128, uint128);

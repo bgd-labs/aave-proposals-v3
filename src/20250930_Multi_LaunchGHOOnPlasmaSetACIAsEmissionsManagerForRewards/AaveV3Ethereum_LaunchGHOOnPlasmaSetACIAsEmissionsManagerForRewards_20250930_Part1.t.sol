@@ -14,6 +14,7 @@ import {IGsmFeeStrategy} from 'src/interfaces/IGsmFeeStrategy.sol';
 import {IGsmRegistry} from 'src/interfaces/IGsmRegistry.sol';
 import {IGsmSteward} from 'src/interfaces/IGsmSteward.sol';
 import {IAaveCLRobotOperator} from 'src/interfaces/IAaveCLRobotOperator.sol';
+import {IGhoReserve} from 'src/interfaces/IGhoReserve.sol';
 
 import {AaveV3Ethereum_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_20250930_Part1} from './AaveV3Ethereum_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_20250930_Part1.sol';
 
@@ -68,27 +69,42 @@ contract AaveV3Ethereum_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_2025
 
     assertEq(IGhoReserve(proposal.GHO_RESERVE()).totalEntities(), 2);
 
+    // USDC
     uint256 limit = IGhoReserve(proposal.GHO_RESERVE()).getLimit(proposal.NEW_GSM_USDC());
     assertEq(limit, proposal.USDC_CAPACITY());
+
+    (uint256 excess, uint256 deficit) = IGsm4626(proposal.NEW_GSM_USDC()).getCurrentBacking();
+    assertEq(excess, 0);
+    assertEq(deficit, 0);
+
+    // Asset price in GHO has changed from previous migration
     assertApproxEqAbs(
       IGhoReserve(proposal.GHO_RESERVE()).getUsed(proposal.NEW_GSM_USDC()),
       oldGsmUsdc.bucketLevel,
-      0.0001 ether
+      2_500 ether,
+      'Delta for GHO needed on stataUSDC is too wide'
     );
 
+    // USDT
     limit = IGhoReserve(proposal.GHO_RESERVE()).getLimit(proposal.NEW_GSM_USDT());
     assertEq(limit, proposal.USDT_CAPACITY());
+    (excess, deficit) = IGsm4626(proposal.NEW_GSM_USDT()).getCurrentBacking();
+    assertEq(excess, 0);
+    assertEq(deficit, 0);
+
+    // Asset price in GHO has changed from previous migration
     assertApproxEqAbs(
-      IGhoReserve(proposal.GHO_RESERVE()).getUsed(proposal.NEW_GSM_USDC()),
+      IGhoReserve(proposal.GHO_RESERVE()).getUsed(proposal.NEW_GSM_USDT()),
       oldGsmUsdt.bucketLevel,
-      0.0001 ether
+      2_500 ether,
+      'Delta for GHO needed on stataUSDT is too wide'
     );
 
     // GSM USDC
     GsmConfig memory gsmUsdcConfig = GsmConfig({
       sellFee: 0, // 0%
-      buyFee: 0.0020e4, // 0.2%
-      exposureCap: 8_000_000e6,
+      buyFee: 0.0010e4, // 0.1%
+      exposureCap: 50_000_000e6,
       isFrozen: false,
       isSeized: false,
       freezerCanUnfreeze: true,
@@ -107,8 +123,8 @@ contract AaveV3Ethereum_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_2025
     // GSM USDT
     GsmConfig memory gsmUsdtConfig = GsmConfig({
       sellFee: 0, // 0%
-      buyFee: 0.0020e4, // 0.2%
-      exposureCap: 16_000_000e6,
+      buyFee: 0.0010e4, // 0.1%
+      exposureCap: 25_000_000e6,
       isFrozen: false,
       isSeized: false,
       freezerCanUnfreeze: true,
@@ -575,10 +591,15 @@ contract AaveV3Ethereum_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_2025
     (lowerBound, upperBound) = freezer.getUnfreezeBound();
     assertEq(lowerBound, config.unfreezeLowerBound, 'wrong unfreeze lower bound');
     assertEq(upperBound, config.unfreezeUpperBound, 'wrong unfreeze upper bound');
+
+    assertEq(freezer.ADDRESS_PROVIDER(), address(AaveV3Ethereum.POOL_ADDRESSES_PROVIDER));
+    assertEq(freezer.GSM(), address(gsm));
   }
 }
 
 interface IOracleSwapFreezer {
+  function ADDRESS_PROVIDER() external view returns (address);
+  function GSM() external view returns (address);
   function getCanUnfreeze() external view returns (bool);
   function getFreezeBound() external view returns (uint128, uint128);
   function getUnfreezeBound() external view returns (uint128, uint128);
@@ -591,11 +612,6 @@ interface IFixedPriceStrategy4626 {
   function getGhoPriceInAsset(uint256 ghoAmount, bool roundUp) external view returns (uint256);
 }
 
-interface IGhoReserve {
-  function addEntity(address entity) external;
-  function setLimit(address entity, uint256 limit) external;
-  function getLimit(address entity) external view returns (uint256);
-  function getUsed(address entity) external view returns (uint256);
-  function isEntity(address entity) external view returns (bool);
-  function totalEntities() external view returns (uint256);
+interface IGsm4626 {
+  function getCurrentBacking() external view returns (uint256, uint256);
 }
