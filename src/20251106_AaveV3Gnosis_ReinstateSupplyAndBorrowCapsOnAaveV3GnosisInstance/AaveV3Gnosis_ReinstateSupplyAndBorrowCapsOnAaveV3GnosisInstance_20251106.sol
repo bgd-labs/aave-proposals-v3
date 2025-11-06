@@ -9,7 +9,6 @@ import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config
 /**
  * @title Reinstate Supply and Borrow Caps on Aave V3 Gnosis Instance
  * @author Chaos Labs
- * - Snapshot: TODO
  * - Discussion: https://governance.aave.com/t/direct-to-aip-reinstate-supply-and-borrow-caps-on-aave-v3-gnosis-instance/23373
  */
 contract AaveV3Gnosis_ReinstateSupplyAndBorrowCapsOnAaveV3GnosisInstance_20251106 is
