@@ -22,7 +22,7 @@
 
 | description | value before | value after |
 | --- | --- | --- |
-| supplyCap | 1 wstETH | 150,000 wstETH |
+| supplyCap | 1 wstETH | 15,000 wstETH |
 | borrowCap | 1 wstETH | 150 wstETH |
 
 
@@ -97,7 +97,7 @@
       },
       "supplyCap": {
         "from": 1,
-        "to": 150000
+        "to": 15000
       }
     },
     "0x9C58BAcC331c9aa871AFD802DB6379a98e80CEdb": {
@@ -196,7 +196,7 @@
         },
         "0xee00b8c53ccd9d92afea2ade430b34dbda7a33b87f08ad29d280d4683a389d07": {
           "previousValue": "0x100000000000000000000103e800000000100000000101f4851229681edc1d4c",
-          "newValue": "0x100000000000000000000103e80000249f000000009601f4851229681edc1d4c"
+          "newValue": "0x100000000000000000000103e8000003a9800000009601f4851229681edc1d4c"
         },
         "0xf377efb019ad32c4e8b988eeeb3b6ac930668f710207fdcf6b231ce4ccfa238a": {
           "previousValue": "0x100000000000000000000103e800000000100000000105dc85122968206c1f40",

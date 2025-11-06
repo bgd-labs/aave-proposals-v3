@@ -25,7 +25,7 @@ contract AaveV3Gnosis_ReinstateSupplyAndBorrowCapsOnAaveV3GnosisInstance_2025110
     });
     capsUpdate[1] = IAaveV3ConfigEngine.CapsUpdate({
       asset: AaveV3GnosisAssets.wstETH_UNDERLYING,
-      supplyCap: 150_000,
+      supplyCap: 15_000,
       borrowCap: 150
     });
     capsUpdate[2] = IAaveV3ConfigEngine.CapsUpdate({
