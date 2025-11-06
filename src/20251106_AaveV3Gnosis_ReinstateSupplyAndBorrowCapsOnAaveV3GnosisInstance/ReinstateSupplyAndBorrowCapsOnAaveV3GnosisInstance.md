@@ -37,8 +37,8 @@ At the time of writing, the supply and borrow caps on a broad list of assets on 
 
 ## References
 
-- Implementation: [AaveV3Gnosis](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251106_AaveV3Gnosis_ReinstateSupplyAndBorrowCapsOnAaveV3GnosisInstance/AaveV3Gnosis_ReinstateSupplyAndBorrowCapsOnAaveV3GnosisInstance_20251106.sol)
-- Tests: [AaveV3Gnosis](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251106_AaveV3Gnosis_ReinstateSupplyAndBorrowCapsOnAaveV3GnosisInstance/AaveV3Gnosis_ReinstateSupplyAndBorrowCapsOnAaveV3GnosisInstance_20251106.t.sol)
+- Implementation: [AaveV3Gnosis](https://github.com/bgd-labs/aave-proposals-v3/blob/09f2ecfa5d211a6945a0b76e8fdecf5dd6fb9d33/src/20251106_AaveV3Gnosis_ReinstateSupplyAndBorrowCapsOnAaveV3GnosisInstance/AaveV3Gnosis_ReinstateSupplyAndBorrowCapsOnAaveV3GnosisInstance_20251106.sol)
+- Tests: [AaveV3Gnosis](https://github.com/bgd-labs/aave-proposals-v3/blob/09f2ecfa5d211a6945a0b76e8fdecf5dd6fb9d33/src/20251106_AaveV3Gnosis_ReinstateSupplyAndBorrowCapsOnAaveV3GnosisInstance/AaveV3Gnosis_ReinstateSupplyAndBorrowCapsOnAaveV3GnosisInstance_20251106.t.sol)
 - [Discussion](https://governance.aave.com/t/direct-to-aip-reinstate-supply-and-borrow-caps-on-aave-v3-gnosis-instance/23373)
 - Snapshot: Direct to AIP
 
