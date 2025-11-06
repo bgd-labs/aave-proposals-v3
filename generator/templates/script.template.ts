@@ -41,10 +41,10 @@ export function generateScript(options: Options) {
     acc[chain].push({contractName, pool});
     return acc;
   }, {});
+  const filteredPoolToChainsMap = Object.keys(poolsToChainsMap).filter((c) => c !== 'ZkSync');
 
   if (hasWhitelabelPool) {
-    template += Object.keys(poolsToChainsMap)
-      .filter((c) => c !== 'ZkSync')
+    template += filteredPoolToChainsMap
       .map((chain) => {
         return `/**
     * @dev Deploy ${chain}
@@ -81,31 +81,32 @@ export function generateScript(options: Options) {
     template += '\n\n';
   } else {
     // multi chain deploy scripts
-    template += `
-    /**
-    * @dev Deploy and Register Payloads on all networks
-    * deploy-command: make deploy-multichain-ledger contract=src/${folderName}/${fileName}.s.sol:DeployPayloads
-    */
-    contract DeployPayloads is Script {
-      function run() external {
-        ${Object.keys(poolsToChainsMap)
-          .filter((c) => c !== 'ZkSync')
-          .map(
-            (chain) => `
-          // ${chain}
-          bytes[] memory ${chain.toLowerCase()}Payload = new bytes[](${poolsToChainsMap[chain].length});
-          ${poolsToChainsMap[chain]
+    if (filteredPoolToChainsMap.length > 0) {
+      template += `
+      /**
+      * @dev Deploy and Register Payloads on all networks
+      * deploy-command: make deploy-multichain-ledger contract=src/${folderName}/${fileName}.s.sol:DeployPayloads
+      */
+      contract DeployPayloads is Script {
+        function run() external {
+          ${filteredPoolToChainsMap
             .map(
-              ({contractName, pool}, ix) =>
-                `${chain.toLowerCase()}Payload[${ix}] = type(${contractName}).creationCode;`,
+              (chain) => `
+            // ${chain}
+            bytes[] memory ${chain.toLowerCase()}Payload = new bytes[](${poolsToChainsMap[chain].length});
+            ${poolsToChainsMap[chain]
+              .map(
+                ({contractName, pool}, ix) =>
+                  `${chain.toLowerCase()}Payload[${ix}] = type(${contractName}).creationCode;`,
+              )
+              .join('\n')}
+            GovV3Helpers.deployRegisterPayload(vm, ChainIds.${chain.toUpperCase()}, ${chain.toLowerCase()}Payload);
+          `,
             )
             .join('\n')}
-          GovV3Helpers.deployRegisterPayload(vm, ChainIds.${chain.toUpperCase()}, ${chain.toLowerCase()}Payload);
-        `,
-          )
-          .join('\n')}
-      }
-    }`;
+        }
+      }`;
+    }
     template += '\n\n';
 
     // generate proposal creation script
