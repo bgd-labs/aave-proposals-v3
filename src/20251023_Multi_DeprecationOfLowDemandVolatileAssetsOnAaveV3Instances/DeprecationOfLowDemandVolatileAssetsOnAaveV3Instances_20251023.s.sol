@@ -3,7 +3,8 @@ pragma solidity ^0.8.0;
 
 import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aave-helpers/src/GovV3Helpers.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
-
+import {GovernanceV3ZkSync} from 'aave-address-book/GovernanceV3ZkSync.sol';
+import {ChainIds} from 'solidity-utils/contracts/utils/ChainHelpers.sol';
 import {EthereumScript, MetisScript, BNBScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
 import {AaveV3Ethereum_DeprecationOfLowDemandVolatileAssetsOnAaveV3Instances_20251023} from './AaveV3Ethereum_DeprecationOfLowDemandVolatileAssetsOnAaveV3Instances_20251023.sol';
 import {AaveV3Metis_DeprecationOfLowDemandVolatileAssetsOnAaveV3Instances_20251023} from './AaveV3Metis_DeprecationOfLowDemandVolatileAssetsOnAaveV3Instances_20251023.sol';
