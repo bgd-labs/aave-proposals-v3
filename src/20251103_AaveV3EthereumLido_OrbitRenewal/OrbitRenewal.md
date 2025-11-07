@@ -24,7 +24,7 @@ From now on, Orbit period coverage will be semi-annually or 2 times per year (Q1
   - EzR3al: [0x8659d0bb123da6d16d9394c7838ba286c2207d0e](https://etherscan.io/address/0x8659d0bb123da6d16d9394c7838ba286c2207d0e)
   - stablelabs: [0xecc2a9240268bc7a26386ecb49e1befca2706ac9](https://etherscan.io/address/0xecc2a9240268bc7a26386ecb49e1befca2706ac9)
   - IgnasDefi: [0x3DDC7d25c7a1dc381443e491Bbf1Caa8928A05B0](https://etherscan.io/address/0x3DDC7d25c7a1dc381443e491Bbf1Caa8928A05B0)
-- **Budget:** 90,000 GHO (aEthLidoGHO)
+- **Budget:** 90,000 GHO
 - **Relevant Links:**
   - [ACI’s Orbit tracker](https://dapps.aavechan.com/orbit-tracker)
 
