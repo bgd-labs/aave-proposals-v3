@@ -58,17 +58,32 @@ export function generateScript(options: Options) {
        ${poolsToChainsMap[chain]
          .map(
            ({contractName, pool}, ix) =>
-             `address payload${ix} = GovV3Helpers.deployDeterministic(type(${contractName}).creationCode);`,
+             `GovV3Helpers.deployDeterministic(type(${contractName}).creationCode);`,
          )
          .join('\n')}
+      }
+    }`;
+      })
+      .join('\n\n');
+    template += '\n\n';
 
+    // generate permissioned-payload calldata script
+    template += filteredPoolToChainsMap
+      .map((chain) => {
+        return `/**
+    * @dev Generate Calldata for ${chain}
+    * deploy-command: forge script --rpc-url ${getChainAlias(chain)} src/${folderName}/${fileName}.s.sol:RegisterPayloadCalldata${chain}
+    */
+   contract RegisterPayloadCalldata${chain} is ${chain}Script {
+     function run() external view {
        // compose action
        IPayloadsControllerCore.ExecutionAction[] memory actions = new IPayloadsControllerCore.ExecutionAction[](${
          poolsToChainsMap[chain].length
        });
        ${poolsToChainsMap[chain]
          .map(
-           ({contractName, pool}, ix) => `actions[${ix}] = GovV3Helpers.buildAction(payload${ix});`,
+           ({contractName, pool}, ix) =>
+             `actions[${ix}] = GovV3Helpers.buildAction(type(${contractName}).creationCode);`,
          )
          .join('\n')}
 
