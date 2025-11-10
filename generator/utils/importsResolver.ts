@@ -61,6 +61,12 @@ function findMatch(code: string, needle: string) {
  */
 export function prefixWithImports(code: string) {
   let imports = '';
+  if (findMatch(code, 'Script')) {
+    imports += `import {Script} from 'forge-std/Script.sol';\n`;
+  }
+  if (findMatch(code, 'ChainIds')) {
+    imports += `import {ChainIds} from 'solidity-utils/contracts/utils/ChainHelpers.sol';\n`;
+  }
   const govMatches = findMatches(code, GovernanceImports);
   // gov related imports
   if (govMatches.length > 0)

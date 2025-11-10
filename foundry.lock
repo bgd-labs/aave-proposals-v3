@@ -1,8 +1,8 @@
 {
   "lib/aave-helpers": {
     "branch": {
-      "name": "main",
-      "rev": "7eec1e60b71e0904d7f1afa5743965b9524bf30a"
+      "name": "feat/multi-deploy",
+      "rev": "89d808f97df37a9f38ceb9a70ec46271ee005054"
     }
   }
 }

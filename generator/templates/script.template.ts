@@ -1,5 +1,4 @@
 import {
-  CHAIN_TO_CHAIN_ID,
   generateContractName,
   generateFolderName,
   getChainAlias,
@@ -20,7 +19,10 @@ export function generateScript(options: Options) {
   const hasWhitelabelPool = options.pools.some((pool) => isWhitelabelPool(pool));
 
   // generate imports
-  template += `import {${['Ethereum', ...chains.filter((c) => c !== 'Ethereum' && c !== 'ZkSync')]
+  template += `import {${[
+    'Ethereum',
+    ...chains.filter((c) => hasWhitelabelPool && c !== 'Ethereum' && c !== 'ZkSync'),
+  ]
     .map((chain) => `${chain}Script`)
     .join(', ')}} from 'solidity-utils/contracts/utils/ScriptUtils.sol';\n`;
   template += options.pools
@@ -39,19 +41,16 @@ export function generateScript(options: Options) {
     acc[chain].push({contractName, pool});
     return acc;
   }, {});
+  const filteredPoolToChainsMap = Object.keys(poolsToChainsMap).filter((c) => c !== 'ZkSync');
 
-  // generate chain scripts
-  template += Object.keys(poolsToChainsMap)
-    .filter((c) => c !== 'ZkSync')
-    .map((chain) => {
-      return `/**
+  if (hasWhitelabelPool) {
+    template += filteredPoolToChainsMap
+      .map((chain) => {
+        return `/**
     * @dev Deploy ${chain}
     * deploy-command: make deploy-ledger contract=src/${folderName}/${fileName}.s.sol:Deploy${chain} chain=${getChainAlias(
       chain,
     )}
-    * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/${fileName}.s.sol/${
-      CHAIN_TO_CHAIN_ID[chain]
-    }/run-latest.json
     */
    contract Deploy${chain} is ${chain}Script {
      function run() external broadcast {
@@ -59,34 +58,73 @@ export function generateScript(options: Options) {
        ${poolsToChainsMap[chain]
          .map(
            ({contractName, pool}, ix) =>
-             `address payload${ix} = GovV3Helpers.deployDeterministic(type(${contractName}).creationCode);`,
+             `GovV3Helpers.deployDeterministic(type(${contractName}).creationCode);`,
          )
          .join('\n')}
+      }
+    }`;
+      })
+      .join('\n\n');
+    template += '\n\n';
 
+    // generate permissioned-payload calldata script
+    template += filteredPoolToChainsMap
+      .map((chain) => {
+        return `/**
+    * @dev Generate Calldata for ${chain}
+    * deploy-command: forge script --rpc-url ${getChainAlias(chain)} src/${folderName}/${fileName}.s.sol:RegisterPayloadCalldata${chain}
+    */
+   contract RegisterPayloadCalldata${chain} is ${chain}Script {
+     function run() external view {
        // compose action
        IPayloadsControllerCore.ExecutionAction[] memory actions = new IPayloadsControllerCore.ExecutionAction[](${
          poolsToChainsMap[chain].length
        });
        ${poolsToChainsMap[chain]
          .map(
-           ({contractName, pool}, ix) => `actions[${ix}] = GovV3Helpers.buildAction(payload${ix});`,
+           ({contractName, pool}, ix) =>
+             `actions[${ix}] = GovV3Helpers.buildAction(type(${contractName}).creationCode);`,
          )
          .join('\n')}
 
        // register action at payloadsController
-       ${
-         hasWhitelabelPool
-           ? `GovV3Helpers.createPermissionedPayloadCalldata(GovernanceV3${poolsToChainsMap[chain][0].pool.replace('AaveV3', '')}.PERMISSIONED_PAYLOADS_CONTROLLER, actions);`
-           : 'GovV3Helpers.createPayload(actions);'
-       }
+       GovV3Helpers.createPermissionedPayloadCalldata(GovernanceV3${poolsToChainsMap[chain][0].pool.replace('AaveV3', '')}.PERMISSIONED_PAYLOADS_CONTROLLER, actions);
      }
    }`;
-    })
-    .join('\n\n');
-  template += '\n\n';
+      })
+      .join('\n\n');
+    template += '\n\n';
+  } else {
+    // multi chain deploy scripts
+    if (filteredPoolToChainsMap.length > 0) {
+      template += `
+      /**
+      * @dev Deploy and Register Payloads on all networks
+      * deploy-command: make deploy-multichain-ledger contract=src/${folderName}/${fileName}.s.sol:DeployPayloads
+      */
+      contract DeployPayloads is Script {
+        function run() external {
+          ${filteredPoolToChainsMap
+            .map(
+              (chain) => `
+            // ${chain}
+            bytes[] memory ${chain.toLowerCase()}Payload = new bytes[](${poolsToChainsMap[chain].length});
+            ${poolsToChainsMap[chain]
+              .map(
+                ({contractName, pool}, ix) =>
+                  `${chain.toLowerCase()}Payload[${ix}] = type(${contractName}).creationCode;`,
+              )
+              .join('\n')}
+            GovV3Helpers.deployRegisterPayload(vm, ChainIds.${chain.toUpperCase()}, ${chain.toLowerCase()}Payload);
+          `,
+            )
+            .join('\n')}
+        }
+      }`;
+    }
+    template += '\n\n';
 
-  // generate proposal creation script
-  if (!hasWhitelabelPool) {
+    // generate proposal creation script
     template += `/**
       * @dev Create Proposal
       * command: make deploy-ledger contract=src/${folderName}/${fileName}.s.sol:CreateProposal chain=mainnet
