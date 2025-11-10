@@ -44,7 +44,6 @@ Given these developments, we propose increasing the E-Mode parameters by raising
 
 - Implementation: [AaveV3Plasma](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251110_AaveV3Plasma_WeETHPlasmaEModeUpdate/AaveV3Plasma_WeETHPlasmaEModeUpdate_20251110.sol)
 - Tests: [AaveV3Plasma](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251110_AaveV3Plasma_WeETHPlasmaEModeUpdate/AaveV3Plasma_WeETHPlasmaEModeUpdate_20251110.t.sol)
-  [Snapshot](TODO)
 - [Discussion](https://governance.aave.com/t/direct-to-aip-weeth-e-mode-risk-parameter-adjustment-on-aave-v3-plasma-instance/23381)
 
 ## Disclosure
