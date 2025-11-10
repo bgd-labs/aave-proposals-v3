@@ -17,7 +17,11 @@ When the Plasma instance was initially launched, we recommended introducing a st
 
 As market conditions have evolved, Plasma has improved in terms of liquidity depth, lending volumes, and overall efficiency. Specifically, the slippage on a 5,000 weETH sell order is limited to 3.5%. The aggregate supply of weETH on the instance currently exceeds $460 million (~100,000 tokens), surpassing WETH, which has a total supply of $160 million.
 
+![image (7)|2000x1243](https://europe1.discourse-cdn.com/flex013/uploads/aave/original/2X/2/22be1659c9f33907262cf7bd0baa0b710693ded1.jpeg)
+
 Furthermore, the market downturn on October 10th provided a measurable stress test of the system’s resilience, as weETH is primarily used to collateralize stablecoin borrow positions. Despite tightened liquidity conditions during the downturn, no bad debt was accrued, confirming that both risk controls and liquidation mechanisms functioned effectively. This outcome emphasizes the performance of the liquidation agreement facilitated by the Plasma team, which ensured orderly position unwinds.
+
+![image (8)|2000x1241](https://europe1.discourse-cdn.com/flex013/uploads/aave/original/2X/4/42403c7b43cf6a418e7c1067863ae616148e5c5b.png)
 
 Additionally, we observe that users who currently use weETH as collateral on the instance are primarily borrowing stablecoins within the dedicated weETH Stablecoin E-Mode. Therefore, the increase of the risk parameters of weETH would allow for additional stablecoin borrowing demand, boosting both protocol revenue and market efficiency.
 
