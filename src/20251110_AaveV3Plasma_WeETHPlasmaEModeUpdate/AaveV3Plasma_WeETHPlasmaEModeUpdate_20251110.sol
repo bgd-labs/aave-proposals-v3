@@ -9,7 +9,7 @@ import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config
 /**
  * @title WeETH Plasma e-mode update
  * @author Choas Labs (implemented by ACI)
- * - Snapshot: TODO
+ * - snapshot: Direct to AIP
  * - Discussion: https://governance.aave.com/t/direct-to-aip-weeth-e-mode-risk-parameter-adjustment-on-aave-v3-plasma-instance/23381
  */
 contract AaveV3Plasma_WeETHPlasmaEModeUpdate_20251110 is AaveV3PayloadPlasma {
