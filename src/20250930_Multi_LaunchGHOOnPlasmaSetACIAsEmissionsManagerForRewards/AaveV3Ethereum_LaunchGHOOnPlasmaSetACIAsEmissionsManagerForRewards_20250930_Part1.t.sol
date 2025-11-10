@@ -36,13 +36,13 @@ contract AaveV3Ethereum_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_2025
   /**
    * @dev executes the generic test suite including e2e and config snapshots
    */
-  // function test_defaultProposalExecution() public {
-  //   defaultTest(
-  //     'AaveV3Ethereum_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_20250930_Part1',
-  //     AaveV3Ethereum.POOL,
-  //     address(proposal)
-  //   );
-  // }
+  function test_defaultProposalExecution() public {
+    defaultTest(
+      'AaveV3Ethereum_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_20250930_Part1',
+      AaveV3Ethereum.POOL,
+      address(proposal)
+    );
+  }
 
   function test_checkConfig() public {
     uint256 facilitatorListLengthBefore = IGhoToken(GhoEthereum.GHO_TOKEN)
