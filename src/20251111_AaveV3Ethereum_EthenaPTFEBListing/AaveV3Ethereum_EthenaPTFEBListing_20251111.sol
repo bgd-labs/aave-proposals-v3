@@ -19,11 +19,11 @@ contract AaveV3Ethereum_EthenaPTFEBListing_20251111 is AaveV3PayloadEthereum {
   using SafeERC20 for IERC20;
 
   address public constant PT_USDE_5FEB_2026 = 0x1F84a51296691320478c98b8d77f2Bbd17D34350;
-  uint256 public constant PT_USDE_5FEB_2026_SEED_AMOUNT = 1e18;
+  uint256 public constant PT_USDE_5FEB_2026_SEED_AMOUNT = 120e18;
   address public constant PT_USDE_5FEB_2026_LM_ADMIN = 0xac140648435d03f784879cd789130F22Ef588Fcd;
 
   address public constant PT_sUSDe_5FEB_2026 = 0xE8483517077afa11A9B07f849cee2552f040d7b2;
-  uint256 public constant PT_sUSDe_5FEB_2026_SEED_AMOUNT = 1e18;
+  uint256 public constant PT_sUSDe_5FEB_2026_SEED_AMOUNT = 120e18;
   address public constant PT_sUSDe_5FEB_2026_LM_ADMIN = 0xac140648435d03f784879cd789130F22Ef588Fcd;
 
   function _postExecute() internal override {
