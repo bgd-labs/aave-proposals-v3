@@ -1,6 +1,6 @@
 ---
 title: "Freeze wstETH Plasma"
-author: "Lido (implemented by ACI by via Skyward)"
+author: "Lido (implemented by ACI via Skyward)"
 discussions: "https://governance.aave.com/t/direct-to-aip-freeze-wsteth-on-plasma/23400"
 snapshot: Direct to AIP
 ---
@@ -13,7 +13,7 @@ Freeze wstETH on Plasma instance
 
 Last week, Lido [announced](https://blog.lido.fi/announcing-partnership-with-chainlink-on-adopting-ccip-as-official-cross-chain-infrastructure-for-wsteth/) that Chainlink's CCIP will be the official cross-chain infrastructure for wstETH. While the wstETH representation on Plasma was already deployed through CCIP, it was unfortunately not set up in a fully future-proof manner.
 
-Together with Chainlink, they have decided to redeploy the token contract to ensure the deployment is in line with the new cross-chain strategy. They so they ask us to depreciate the asset.
+Together with Chainlink, they have decided to redeploy the token contract to ensure the deployment is in line with the new cross-chain strategy. They ask us to deprecate the asset.
 
 Right now, there is about 0.044 wstETH on Aave Plasma instance / 0.12 wstETH on Plasma.
 
