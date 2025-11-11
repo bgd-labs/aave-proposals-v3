@@ -7,60 +7,122 @@ snapshot: Direct to AIP
 
 ## Simple Summary
 
+This AIP proposes to onboard USDe and sUSDe February expiry PT tokens on Aave V3 Core Instance.
+
+This proposal is Direct to AIP.
+
 ## Motivation
+
+The previous USDe and sUSDe PT tokens that were onboarded have brought significant inflows to Aave, in preparation for the expiry and rollover we propose to onboard the next expiry of this PT token. We expect at a minimum that deposits will match those in the current expiry PT token, with potentially some sidelined demand.
 
 ## Specification
 
-The table below illustrates the configured risk parameters for **PT_USDE_5FEB_2026**
+PT-sUSDE-5FEB2026: https://etherscan.io/address/0xe8483517077afa11a9b07f849cee2552f040d7b2
 
-| Parameter                      |                                      Value |
-| ------------------------------ | -----------------------------------------: |
-| Isolation Mode                 |                                      false |
-| Borrowable                     |                                   DISABLED |
-| Collateral Enabled             |                                       true |
-| Supply Cap (PT_USDE_5FEB_2026) |                                 30,000,000 |
-| Borrow Cap (PT_USDE_5FEB_2026) |                                          1 |
-| Debt Ceiling                   |                                      USD 0 |
-| LTV                            |                                     0.05 % |
-| LT                             |                                      0.1 % |
-| Liquidation Bonus              |                                      7.5 % |
-| Liquidation Protocol Fee       |                                       10 % |
-| Reserve Factor                 |                                       45 % |
-| Base Variable Borrow Rate      |                                        0 % |
-| Variable Slope 1               |                                       10 % |
-| Variable Slope 2               |                                      300 % |
-| Uoptimal                       |                                       45 % |
-| Flashloanable                  |                                    ENABLED |
-| Siloed Borrowing               |                                   DISABLED |
-| Borrowable in Isolation        |                                   DISABLED |
-| Oracle                         | 0xc35D319FA5FEc2BBE0eB4d0a826465b60f821F81 |
+PT-USDe-5FEB2026: https://etherscan.io/address/0x1f84a51296691320478c98b8d77f2bbd17d34350
 
-Additionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://etherscan.io/address/0xac140648435d03f784879cd789130F22Ef588Fcd) has been set as the emission admin for PT_USDE_5FEB_2026 and the corresponding aToken.
-,The table below illustrates the configured risk parameters for **PT_sUSDe_5FEB_2026**
+| **Parameter**            | **Value**                         | **Value**                           |
+| ------------------------ | --------------------------------- | ----------------------------------- |
+| Asset                    | PT-USDe-5FEB2025                  | PT-sUSDe-5FEB2025                   |
+| Isolation Mode           | No                                | No                                  |
+| Borrowable               | No                                | No                                  |
+| Collateral Enabled       | Yes                               | Yes                                 |
+| Supply Cap               | 30,000,000                        | 30,000,000                          |
+| Borrow Cap               | -                                 | -                                   |
+| Debt Ceiling             | -                                 | -                                   |
+| LTV                      | 0.05%                             | 0.05%                               |
+| LT                       | 0.1%                              | 0.1%                                |
+| Liquidation Penalty      | 7.50%                             | 7.50%                               |
+| Liquidation Protocol Fee | 10.00%                            | 10.00%                              |
+| E-Mode Category          | PT-USDe Stablecoins, PT-USDe USDe | PT-sUSDe Stablecoins, PT-sUSDe USDe |
 
-| Parameter                       |                                      Value |
-| ------------------------------- | -----------------------------------------: |
-| Isolation Mode                  |                                      false |
-| Borrowable                      |                                   DISABLED |
-| Collateral Enabled              |                                       true |
-| Supply Cap (PT_sUSDe_5FEB_2026) |                                 30,000,000 |
-| Borrow Cap (PT_sUSDe_5FEB_2026) |                                          1 |
-| Debt Ceiling                    |                                      USD 0 |
-| LTV                             |                                     0.05 % |
-| LT                              |                                      0.1 % |
-| Liquidation Bonus               |                                      7.5 % |
-| Liquidation Protocol Fee        |                                       10 % |
-| Reserve Factor                  |                                       45 % |
-| Base Variable Borrow Rate       |                                        0 % |
-| Variable Slope 1                |                                       10 % |
-| Variable Slope 2                |                                      300 % |
-| Uoptimal                        |                                       45 % |
-| Flashloanable                   |                                    ENABLED |
-| Siloed Borrowing                |                                   DISABLED |
-| Borrowable in Isolation         |                                   DISABLED |
-| Oracle                          | 0x4e89f87F24C13819bBDDb56f99b38746C91677D8 |
+### PT-USDe-5FEB2025
 
-Additionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://etherscan.io/address/0xac140648435d03f784879cd789130F22Ef588Fcd) has been set as the emission admin for PT_sUSDe_5FEB_2026 and the corresponding aToken.
+**Initial E-mode Risk Oracle**
+
+| **Parameter** | **Value**   | **Value** |
+| ------------- | ----------- | --------- |
+| E-Mode        | Stablecoins | USDe      |
+| LTV           | 88.5%       | 89.3%     |
+| LT            | 90.5%       | 91.3%     |
+| LB            | 4.1%        | 3.1%      |
+
+**Linear Discount Rate Oracle**
+
+| **Parameter**          | **Value** |
+| ---------------------- | --------- |
+| discountRatePerYear    | 5.5266%   |
+| maxDiscountRatePerYear | 27.1629%  |
+
+**PT-USDe Stablecoins E-mode**
+
+| **Asset**         | **PT-USDe-5FEB2025**   | **PT-USDe-27NOV2025**  | **USDC** | **USDT** | **USDe** | **USDtb** |
+| ----------------- | ---------------------- | ---------------------- | -------- | -------- | -------- | --------- |
+| Collateral        | Yes                    | Yes                    | No       | No       | No       | No        |
+| Borrowable        | No                     | No                     | Yes      | Yes      | Yes      | Yes       |
+| LTV               | Subject to Risk Oracle | Subject to Risk Oracle | -        | -        | -        |           |
+| LT                | Subject to Risk Oracle | Subject to Risk Oracle | -        | -        | -        |           |
+| Liquidation Bonus | Subject to Risk Oracle | Subject to Risk Oracle | -        | -        | -        |           |
+
+**PT-USDe USDe E-mode**
+
+| **Asset**         | **PT-USDe-5FEB2025**   | **PT-USDe-27NOV2025**  | **USDe** |
+| ----------------- | ---------------------- | ---------------------- | -------- |
+| Collateral        | Yes                    | Yes                    | No       |
+| Borrowable        | No                     | No                     | Yes      |
+| LTV               | Subject to Risk Oracle | Subject to Risk Oracle | -        |
+| LT                | Subject to Risk Oracle | Subject to Risk Oracle | -        |
+| Liquidation Bonus | Subject to Risk Oracle | Subject to Risk Oracle | -        |
+
+### PT-sUSDe-5FEB2025
+
+**Initial E-mode Risk Oracle**
+
+| **Parameter** | **Value**   | **Value** |
+| ------------- | ----------- | --------- |
+| E-Mode        | Stablecoins | USDe      |
+| LTV           | 87.6%       | 88.5%     |
+| LT            | 89.6%       | 90.5%     |
+| LB            | 5.1%        | 4.1%      |
+
+**Linear Discount Rate Oracle**
+
+| **Parameter**                 | **Value** |
+| ----------------------------- | --------- |
+| discountRatePerYear (Initial) | 6.1953%   |
+| maxDiscountRatePerYear        | 27.1629%  |
+
+**PT-sUSDe Stablecoins E-mode**
+
+| **Asset**         | **PT-sUSDe-5FEB2025**  | **PT-sUSDe-27NOV2025** | **USDC** | **USDT** | **USDe** | **USDtb** |
+| ----------------- | ---------------------- | ---------------------- | -------- | -------- | -------- | --------- |
+| Collateral        | Yes                    | Yes                    | No       | No       | No       | No        |
+| Borrowable        | No                     | No                     | Yes      | Yes      | Yes      | Yes       |
+| LTV               | Subject to Risk Oracle | Subject to Risk Oracle | -        | -        | -        |           |
+| LT                | Subject to Risk Oracle | Subject to Risk Oracle | -        | -        | -        |           |
+| Liquidation Bonus | Subject to Risk Oracle | Subject to Risk Oracle | -        | -        | -        |           |
+
+**PT-sUSDe USDe E-mode**
+
+| **Asset**         | **PT-sUSDe-5FEB2025**  | **PT-sUSDe-27NOV2025** | **USDe** |
+| ----------------- | ---------------------- | ---------------------- | -------- |
+| Collateral        | Yes                    | Yes                    | No       |
+| Borrowable        | No                     | No                     | Yes      |
+| LTV               | Subject to Risk Oracle | Subject to Risk Oracle | -        |
+| LT                | Subject to Risk Oracle | Subject to Risk Oracle | -        |
+| Liquidation Bonus | Subject to Risk Oracle | Subject to Risk Oracle | -        |
+
+Additionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://etherscan.io/address/0xac140648435d03f784879cd789130F22Ef588Fcd) has been set as the emission admin for PT_sUSDe_5FEB_2026 , PT_USDe_5FEB_2026 and their corresponding aTokens.
+
+## Capo adapters
+
+- PT USDe 5FEB: [0xc35d319fa5fec2bbe0eb4d0a826465b60f821f81](https://etherscan.io/address/0xc35d319fa5fec2bbe0eb4d0a826465b60f821f81)
+
+- PT sUSDe 5FEB: [0x4e89f87f24c13819bbddb56f99b38746c91677d8](https://etherscan.io/address/0x4e89f87f24c13819bbddb56f99b38746c91677d8)
+
+### Useful Links
+
+https://docs.pendle.finance/ProtocolMechanics/YieldTokenization/PT
 
 ## References
 
