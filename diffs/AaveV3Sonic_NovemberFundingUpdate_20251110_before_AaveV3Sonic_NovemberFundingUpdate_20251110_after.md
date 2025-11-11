@@ -1,0 +1,32 @@
+## Raw diff
+
+```json
+{
+  "raw": {
+    "0x0846c28dd54dea4fd7fb31bcc5eb81673d68c695": {
+      "label": "GovernanceV3Sonic.PAYLOADS_CONTROLLER",
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x2d72af3c1b2b2956e6f694fb741556d5ca9524373974378cdbec16afa8b84164": {
+          "previousValue": "0x0069122d40000000000002000000000000000000000000000000000000000000",
+          "newValue": "0x0069122d40000000000003000000000000000000000000000000000000000000"
+        },
+        "0x2d72af3c1b2b2956e6f694fb741556d5ca9524373974378cdbec16afa8b84165": {
+          "previousValue": "0x000000000000000000093a80000000000000694051c100000000000000000000",
+          "newValue": "0x000000000000000000093a80000000000000694051c100000000000069122d41"
+        }
+      }
+    },
+    "0x50c42deacd8fc9773493ed674b675be577f2634b": {
+      "label": "AaveV3Sonic.ASSETS.WETH.UNDERLYING",
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x2be6d62e30e4b3296c8d9d84ca4fe06b9919e3fca92b90e42095db18e22e09a7": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x000000000000000000000000000000000000000000000000a688906bd8b00000"
+        }
+      }
+    }
+  }
+}
+```
