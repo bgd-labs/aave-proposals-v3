@@ -2,7 +2,7 @@
 title: "Freeze wstETH Plasma"
 author: "Lido (implemented by ACI by via Skyward)"
 discussions: "https://governance.aave.com/t/direct-to-aip-freeze-wsteth-on-plasma/23400"
-snapshot: TODO
+snapshot: Direct to AIP
 ---
 
 ## Simple Summary
@@ -29,7 +29,6 @@ Copyright and related rights waived under [CC0](https://creativecommons.org/publ
 
 - Implementation: [AaveV3Plasma](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251111_AaveV3Plasma_FreezeWstETHPlasma/AaveV3Plasma_FreezeWstETHPlasma_20251111.sol)
 - Tests: [AaveV3Plasma](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251111_AaveV3Plasma_FreezeWstETHPlasma/AaveV3Plasma_FreezeWstETHPlasma_20251111.t.sol)
-  [Snapshot](TODO)
 - [Discussion](https://governance.aave.com/t/direct-to-aip-freeze-wsteth-on-plasma/23400)
 
 ## Copyright

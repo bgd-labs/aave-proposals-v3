@@ -7,7 +7,7 @@ import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGen
 /**
  * @title Freeze wstETH on Plasma
  * @author Lido (implemented by ACI via Skyward)
- * - Snapshot: TODO
+ * - Snapshot: Direct to AIP
  * - Discussion: https://governance.aave.com/t/direct-to-aip-freeze-wsteth-on-plasma/23400
  */
 contract AaveV3Plasma_FreezeWstETHOnPlasma_20251111 is IProposalGenericExecutor {
