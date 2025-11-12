@@ -4,11 +4,10 @@ pragma solidity ^0.8.0;
 import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aave-helpers/src/GovV3Helpers.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 
-import {EthereumScript, PolygonScript, OptimismScript, MetisScript, BNBScript, SonicScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
+import {EthereumScript, PolygonScript, OptimismScript, BNBScript, SonicScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
 import {AaveV3Ethereum_NovemberFundingUpdate_20251110} from './AaveV3Ethereum_NovemberFundingUpdate_20251110.sol';
 import {AaveV3Polygon_NovemberFundingUpdate_20251110} from './AaveV3Polygon_NovemberFundingUpdate_20251110.sol';
 import {AaveV3Optimism_NovemberFundingUpdate_20251110} from './AaveV3Optimism_NovemberFundingUpdate_20251110.sol';
-import {AaveV3Metis_NovemberFundingUpdate_20251110} from './AaveV3Metis_NovemberFundingUpdate_20251110.sol';
 import {AaveV3BNB_NovemberFundingUpdate_20251110} from './AaveV3BNB_NovemberFundingUpdate_20251110.sol';
 import {AaveV3Sonic_NovemberFundingUpdate_20251110} from './AaveV3Sonic_NovemberFundingUpdate_20251110.sol';
 
@@ -79,28 +78,6 @@ contract DeployOptimism is OptimismScript {
 }
 
 /**
- * @dev Deploy Metis
- * deploy-command: make deploy-ledger contract=src/20251110_Multi_NovemberFundingUpdate/NovemberFundingUpdate_20251110.s.sol:DeployMetis chain=metis
- * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/NovemberFundingUpdate_20251110.s.sol/1088/run-latest.json
- */
-contract DeployMetis is MetisScript {
-  function run() external broadcast {
-    // deploy payloads
-    address payload0 = GovV3Helpers.deployDeterministic(
-      type(AaveV3Metis_NovemberFundingUpdate_20251110).creationCode
-    );
-
-    // compose action
-    IPayloadsControllerCore.ExecutionAction[]
-      memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
-    actions[0] = GovV3Helpers.buildAction(payload0);
-
-    // register action at payloadsController
-    GovV3Helpers.createPayload(actions);
-  }
-}
-
-/**
  * @dev Deploy BNB
  * deploy-command: make deploy-ledger contract=src/20251110_Multi_NovemberFundingUpdate/NovemberFundingUpdate_20251110.s.sol:DeployBNB chain=bnb
  * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/NovemberFundingUpdate_20251110.s.sol/56/run-latest.json
@@ -151,7 +128,7 @@ contract DeploySonic is SonicScript {
 contract CreateProposal is EthereumScript {
   function run() external {
     // create payloads
-    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](6);
+    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](5);
 
     // compose actions for validation
     {
@@ -183,20 +160,11 @@ contract CreateProposal is EthereumScript {
 
     {
       IPayloadsControllerCore.ExecutionAction[]
-        memory actionsMetis = new IPayloadsControllerCore.ExecutionAction[](1);
-      actionsMetis[0] = GovV3Helpers.buildAction(
-        type(AaveV3Metis_NovemberFundingUpdate_20251110).creationCode
-      );
-      payloads[3] = GovV3Helpers.buildMetisPayload(vm, actionsMetis);
-    }
-
-    {
-      IPayloadsControllerCore.ExecutionAction[]
         memory actionsBNB = new IPayloadsControllerCore.ExecutionAction[](1);
       actionsBNB[0] = GovV3Helpers.buildAction(
         type(AaveV3BNB_NovemberFundingUpdate_20251110).creationCode
       );
-      payloads[4] = GovV3Helpers.buildBNBPayload(vm, actionsBNB);
+      payloads[3] = GovV3Helpers.buildBNBPayload(vm, actionsBNB);
     }
 
     {
@@ -205,7 +173,7 @@ contract CreateProposal is EthereumScript {
       actionsSonic[0] = GovV3Helpers.buildAction(
         type(AaveV3Sonic_NovemberFundingUpdate_20251110).creationCode
       );
-      payloads[5] = GovV3Helpers.buildSonicPayload(vm, actionsSonic);
+      payloads[4] = GovV3Helpers.buildSonicPayload(vm, actionsSonic);
     }
 
     // create proposal

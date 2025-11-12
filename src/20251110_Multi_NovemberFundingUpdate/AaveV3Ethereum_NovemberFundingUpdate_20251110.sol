@@ -5,10 +5,10 @@ import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {AaveV3EthereumLido, AaveV3EthereumLidoAssets} from 'aave-address-book/AaveV3EthereumLido.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
+import {AaveSafetyModule} from 'aave-address-book/AaveSafetyModule.sol';
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
 
 interface IMainnetSwapSteward {
-  function increaseTokenBudget(address token, uint256 budget) external;
   function setSwappablePair(address fromToken, address toToken, bool allowed) external;
 }
 
@@ -42,6 +42,12 @@ contract AaveV3Ethereum_NovemberFundingUpdate_20251110 is IProposalGenericExecut
   address public constant TOKEN_LOGIC = 0xAA088dfF3dcF619664094945028d44E779F19894;
   uint256 public constant REIMBURSEMENTS_GHO_AMOUNT = 71_698 ether;
 
+  // stkAAVE
+  uint128 public constant AAVE_EMISSION_PER_SECOND_STK_AAVE = uint128(260 ether) / 1 days;
+
+  // stkABPT
+  uint128 public constant AAVE_EMISSION_PER_SECOND_STK_BPT = uint128(130 ether) / 1 days;
+
   function execute() external {
     _runway();
     _v4Audits();
@@ -49,6 +55,7 @@ contract AaveV3Ethereum_NovemberFundingUpdate_20251110 is IProposalGenericExecut
     _reimbursements();
     _ecosystemReserve();
     _swapPathsAndBudget();
+    _emissionsIncrease();
   }
 
   function _runway() internal {
@@ -188,6 +195,52 @@ contract AaveV3Ethereum_NovemberFundingUpdate_20251110 is IProposalGenericExecut
       AaveV3EthereumAssets.PYUSD_UNDERLYING,
       AaveV3EthereumAssets.RLUSD_UNDERLYING,
       true
+    );
+  }
+
+  function _emissionsIncrease() internal {
+    // Excess allowance that has not been claimed
+    uint256 allowanceToKeep = IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING).allowance(
+      address(MiscEthereum.ECOSYSTEM_RESERVE),
+      AaveSafetyModule.STK_AAVE
+    );
+
+    uint256 newAllowance = allowanceToKeep + 14 days * AAVE_EMISSION_PER_SECOND_STK_AAVE;
+
+    MiscEthereum.AAVE_ECOSYSTEM_RESERVE_CONTROLLER.approve(
+      MiscEthereum.ECOSYSTEM_RESERVE,
+      AaveV3EthereumAssets.AAVE_UNDERLYING,
+      AaveSafetyModule.STK_AAVE,
+      0
+    );
+
+    MiscEthereum.AAVE_ECOSYSTEM_RESERVE_CONTROLLER.approve(
+      MiscEthereum.ECOSYSTEM_RESERVE,
+      AaveV3EthereumAssets.AAVE_UNDERLYING,
+      AaveSafetyModule.STK_AAVE,
+      newAllowance
+    );
+
+    // Excess allowance that has not been claimed
+    allowanceToKeep = IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING).allowance(
+      address(MiscEthereum.ECOSYSTEM_RESERVE),
+      AaveSafetyModule.STK_AAVE_WSTETH_BPTV2
+    );
+
+    newAllowance = allowanceToKeep + 14 days * AAVE_EMISSION_PER_SECOND_STK_BPT;
+
+    MiscEthereum.AAVE_ECOSYSTEM_RESERVE_CONTROLLER.approve(
+      MiscEthereum.ECOSYSTEM_RESERVE,
+      AaveV3EthereumAssets.AAVE_UNDERLYING,
+      AaveSafetyModule.STK_AAVE_WSTETH_BPTV2,
+      0
+    );
+
+    MiscEthereum.AAVE_ECOSYSTEM_RESERVE_CONTROLLER.approve(
+      MiscEthereum.ECOSYSTEM_RESERVE,
+      AaveV3EthereumAssets.AAVE_UNDERLYING,
+      AaveSafetyModule.STK_AAVE_WSTETH_BPTV2,
+      newAllowance
     );
   }
 }

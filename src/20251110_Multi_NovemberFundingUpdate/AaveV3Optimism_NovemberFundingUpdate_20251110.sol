@@ -26,7 +26,7 @@ contract AaveV3Optimism_NovemberFundingUpdate_20251110 is IProposalGenericExecut
     AaveV3Optimism.COLLECTOR.approve(
       IERC20(AaveV3OptimismAssets.sUSD_UNDERLYING),
       MiscOptimism.AFC_SAFE,
-      IERC20(AaveV3OptimismAssets.sUSD_UNDERLYING).balanceOf(address(AaveV3Optimism.COLLECTOR))
+      SUSD_AMOUNT
     );
   }
 

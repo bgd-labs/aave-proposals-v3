@@ -15,7 +15,7 @@ import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGen
  */
 contract AaveV3Polygon_NovemberFundingUpdate_20251110 is IProposalGenericExecutor {
   uint256 public constant USDC_AMOUNT = 130_000e6;
-  uint256 public constant USDT_AMOUNT = 220_000e6;
+  uint256 public constant USDT_AMOUNT = 230_000e6;
   uint256 public constant WPOL_AMOUNT = 135_000 ether;
 
   function execute() external {

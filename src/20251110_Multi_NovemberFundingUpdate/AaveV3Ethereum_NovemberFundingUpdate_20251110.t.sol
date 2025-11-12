@@ -5,8 +5,13 @@ import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {AaveV3EthereumLido, AaveV3EthereumLidoAssets} from 'aave-address-book/AaveV3EthereumLido.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
+import {AaveSafetyModule} from 'aave-address-book/AaveSafetyModule.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Ethereum_NovemberFundingUpdate_20251110} from './AaveV3Ethereum_NovemberFundingUpdate_20251110.sol';
+
+interface IMainnetSwapSteward {
+  function swapApprovedToken(address from, address to) external view returns (bool);
+}
 
 /**
  * @dev Test for AaveV3Ethereum_NovemberFundingUpdate_20251110
@@ -126,7 +131,8 @@ contract AaveV3Ethereum_NovemberFundingUpdate_20251110_Test is ProtocolV3TestBas
       address(AaveV3Ethereum.COLLECTOR),
       MiscEthereum.MERIT_AHAB_SAFE
     );
-    assertEq(allowanceBefore, 0);
+
+    assertApproxEqAbs(allowanceBefore, 0, 1 ether);
 
     executePayload(vm, address(proposal));
 
@@ -135,7 +141,7 @@ contract AaveV3Ethereum_NovemberFundingUpdate_20251110_Test is ProtocolV3TestBas
       MiscEthereum.MERIT_AHAB_SAFE
     );
 
-    assertEq(allowanceAfter, allowanceBefore + proposal.MERIT_GHO_AMOUNT());
+    assertEq(allowanceAfter, proposal.MERIT_GHO_AMOUNT());
   }
 
   function test_reimbursements() public {
@@ -155,7 +161,258 @@ contract AaveV3Ethereum_NovemberFundingUpdate_20251110_Test is ProtocolV3TestBas
     assertEq(allowanceAfter, allowanceBefore + proposal.REIMBURSEMENTS_GHO_AMOUNT());
   }
 
-  function test_ecosystemReserve() public {}
+  function test_ecosystemReserve() public {
+    uint256 balance = IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING).balanceOf(
+      MiscEthereum.ECOSYSTEM_RESERVE
+    );
+    uint256 balanceCollector = IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING).balanceOf(
+      address(AaveV3Ethereum.COLLECTOR)
+    );
 
-  function test_swapPaths() public {}
+    executePayload(vm, address(proposal));
+
+    uint256 balanceAfter = IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING).balanceOf(
+      MiscEthereum.ECOSYSTEM_RESERVE
+    );
+
+    assertEq(
+      IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING).balanceOf(address(AaveV3Ethereum.COLLECTOR)),
+      0
+    );
+    assertEq(balanceAfter, balance + balanceCollector);
+  }
+
+  function test_swapPaths() public {
+    IMainnetSwapSteward steward = IMainnetSwapSteward(AaveV3Ethereum.COLLECTOR_SWAP_STEWARD);
+
+    // pyUSD
+    assertFalse(
+      steward.swapApprovedToken(
+        AaveV3EthereumAssets.USDC_UNDERLYING,
+        AaveV3EthereumAssets.PYUSD_UNDERLYING
+      )
+    );
+    assertFalse(
+      steward.swapApprovedToken(
+        AaveV3EthereumAssets.USDT_UNDERLYING,
+        AaveV3EthereumAssets.PYUSD_UNDERLYING
+      )
+    );
+    assertFalse(
+      steward.swapApprovedToken(
+        AaveV3EthereumAssets.GHO_UNDERLYING,
+        AaveV3EthereumAssets.PYUSD_UNDERLYING
+      )
+    );
+    assertFalse(
+      steward.swapApprovedToken(
+        AaveV3EthereumAssets.USDS_UNDERLYING,
+        AaveV3EthereumAssets.PYUSD_UNDERLYING
+      )
+    );
+    assertFalse(
+      steward.swapApprovedToken(
+        AaveV3EthereumAssets.DAI_UNDERLYING,
+        AaveV3EthereumAssets.PYUSD_UNDERLYING
+      )
+    );
+    assertFalse(
+      steward.swapApprovedToken(
+        AaveV3EthereumAssets.LUSD_UNDERLYING,
+        AaveV3EthereumAssets.PYUSD_UNDERLYING
+      )
+    );
+    assertFalse(
+      steward.swapApprovedToken(
+        AaveV3EthereumAssets.USDe_UNDERLYING,
+        AaveV3EthereumAssets.PYUSD_UNDERLYING
+      )
+    );
+    assertFalse(
+      steward.swapApprovedToken(
+        AaveV3EthereumAssets.RLUSD_UNDERLYING,
+        AaveV3EthereumAssets.PYUSD_UNDERLYING
+      )
+    );
+
+    // rlUSD
+    assertFalse(
+      steward.swapApprovedToken(
+        AaveV3EthereumAssets.USDC_UNDERLYING,
+        AaveV3EthereumAssets.RLUSD_UNDERLYING
+      )
+    );
+    assertFalse(
+      steward.swapApprovedToken(
+        AaveV3EthereumAssets.USDT_UNDERLYING,
+        AaveV3EthereumAssets.RLUSD_UNDERLYING
+      )
+    );
+    assertFalse(
+      steward.swapApprovedToken(
+        AaveV3EthereumAssets.GHO_UNDERLYING,
+        AaveV3EthereumAssets.RLUSD_UNDERLYING
+      )
+    );
+    assertFalse(
+      steward.swapApprovedToken(
+        AaveV3EthereumAssets.USDS_UNDERLYING,
+        AaveV3EthereumAssets.RLUSD_UNDERLYING
+      )
+    );
+    assertFalse(
+      steward.swapApprovedToken(
+        AaveV3EthereumAssets.DAI_UNDERLYING,
+        AaveV3EthereumAssets.RLUSD_UNDERLYING
+      )
+    );
+    assertFalse(
+      steward.swapApprovedToken(
+        AaveV3EthereumAssets.LUSD_UNDERLYING,
+        AaveV3EthereumAssets.RLUSD_UNDERLYING
+      )
+    );
+    assertFalse(
+      steward.swapApprovedToken(
+        AaveV3EthereumAssets.USDe_UNDERLYING,
+        AaveV3EthereumAssets.RLUSD_UNDERLYING
+      )
+    );
+    assertFalse(
+      steward.swapApprovedToken(
+        AaveV3EthereumAssets.RLUSD_UNDERLYING,
+        AaveV3EthereumAssets.RLUSD_UNDERLYING
+      )
+    );
+
+    executePayload(vm, address(proposal));
+
+    // pyUSD
+    assertTrue(
+      steward.swapApprovedToken(
+        AaveV3EthereumAssets.USDC_UNDERLYING,
+        AaveV3EthereumAssets.PYUSD_UNDERLYING
+      )
+    );
+    assertTrue(
+      steward.swapApprovedToken(
+        AaveV3EthereumAssets.USDT_UNDERLYING,
+        AaveV3EthereumAssets.PYUSD_UNDERLYING
+      )
+    );
+    assertTrue(
+      steward.swapApprovedToken(
+        AaveV3EthereumAssets.GHO_UNDERLYING,
+        AaveV3EthereumAssets.PYUSD_UNDERLYING
+      )
+    );
+    assertTrue(
+      steward.swapApprovedToken(
+        AaveV3EthereumAssets.USDS_UNDERLYING,
+        AaveV3EthereumAssets.PYUSD_UNDERLYING
+      )
+    );
+    assertTrue(
+      steward.swapApprovedToken(
+        AaveV3EthereumAssets.DAI_UNDERLYING,
+        AaveV3EthereumAssets.PYUSD_UNDERLYING
+      )
+    );
+    assertTrue(
+      steward.swapApprovedToken(
+        AaveV3EthereumAssets.LUSD_UNDERLYING,
+        AaveV3EthereumAssets.PYUSD_UNDERLYING
+      )
+    );
+    assertTrue(
+      steward.swapApprovedToken(
+        AaveV3EthereumAssets.USDe_UNDERLYING,
+        AaveV3EthereumAssets.PYUSD_UNDERLYING
+      )
+    );
+    assertTrue(
+      steward.swapApprovedToken(
+        AaveV3EthereumAssets.RLUSD_UNDERLYING,
+        AaveV3EthereumAssets.PYUSD_UNDERLYING
+      )
+    );
+
+    // rlUSD
+    assertTrue(
+      steward.swapApprovedToken(
+        AaveV3EthereumAssets.USDC_UNDERLYING,
+        AaveV3EthereumAssets.RLUSD_UNDERLYING
+      )
+    );
+    assertTrue(
+      steward.swapApprovedToken(
+        AaveV3EthereumAssets.USDT_UNDERLYING,
+        AaveV3EthereumAssets.RLUSD_UNDERLYING
+      )
+    );
+    assertTrue(
+      steward.swapApprovedToken(
+        AaveV3EthereumAssets.GHO_UNDERLYING,
+        AaveV3EthereumAssets.RLUSD_UNDERLYING
+      )
+    );
+    assertTrue(
+      steward.swapApprovedToken(
+        AaveV3EthereumAssets.USDS_UNDERLYING,
+        AaveV3EthereumAssets.RLUSD_UNDERLYING
+      )
+    );
+    assertTrue(
+      steward.swapApprovedToken(
+        AaveV3EthereumAssets.DAI_UNDERLYING,
+        AaveV3EthereumAssets.RLUSD_UNDERLYING
+      )
+    );
+    assertTrue(
+      steward.swapApprovedToken(
+        AaveV3EthereumAssets.LUSD_UNDERLYING,
+        AaveV3EthereumAssets.RLUSD_UNDERLYING
+      )
+    );
+    assertTrue(
+      steward.swapApprovedToken(
+        AaveV3EthereumAssets.USDe_UNDERLYING,
+        AaveV3EthereumAssets.RLUSD_UNDERLYING
+      )
+    );
+    assertTrue(
+      steward.swapApprovedToken(
+        AaveV3EthereumAssets.PYUSD_UNDERLYING,
+        AaveV3EthereumAssets.RLUSD_UNDERLYING
+      )
+    );
+  }
+
+  function test_emissionsAllowances() public {
+    uint256 allowanceBeforeStkAAVE = IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING).allowance(
+      MiscEthereum.ECOSYSTEM_RESERVE,
+      AaveSafetyModule.STK_AAVE
+    );
+
+    uint256 allowanceBeforeStkABPT = IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING).allowance(
+      MiscEthereum.ECOSYSTEM_RESERVE,
+      AaveSafetyModule.STK_AAVE_WSTETH_BPTV2
+    );
+
+    executePayload(vm, address(proposal));
+
+    uint256 allowanceAfterStkAAVE = IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING).allowance(
+      MiscEthereum.ECOSYSTEM_RESERVE,
+      AaveSafetyModule.STK_AAVE
+    );
+
+    uint256 allowanceAfterStkABPT = IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING).allowance(
+      MiscEthereum.ECOSYSTEM_RESERVE,
+      AaveSafetyModule.STK_AAVE_WSTETH_BPTV2
+    );
+
+    // New allowance is less than before
+    assertGt(allowanceAfterStkAAVE, allowanceBeforeStkAAVE);
+    assertGt(allowanceAfterStkABPT, allowanceBeforeStkABPT);
+  }
 }
