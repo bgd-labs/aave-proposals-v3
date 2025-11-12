@@ -27,8 +27,8 @@ Copyright and related rights waived under [CC0](https://creativecommons.org/publ
 
 ## References
 
-- Implementation: [AaveV3Plasma](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251111_AaveV3Plasma_FreezeWstETHPlasma/AaveV3Plasma_FreezeWstETHPlasma_20251111.sol)
-- Tests: [AaveV3Plasma](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251111_AaveV3Plasma_FreezeWstETHPlasma/AaveV3Plasma_FreezeWstETHPlasma_20251111.t.sol)
+- Implementation: [AaveV3Plasma](https://github.com/bgd-labs/aave-proposals-v3/blob/e0adf2f170cf1e7a896529ef75e9c138c785ef20/src/20251111_AaveV3Plasma_FreezeWstETHPlasma/AaveV3Plasma_FreezeWstETHPlasma_20251111.sol)
+- Tests: [AaveV3Plasma](https://github.com/bgd-labs/aave-proposals-v3/blob/e0adf2f170cf1e7a896529ef75e9c138c785ef20/src/20251111_AaveV3Plasma_FreezeWstETHPlasma/AaveV3Plasma_FreezeWstETHPlasma_20251111.t.sol)
 - [Discussion](https://governance.aave.com/t/direct-to-aip-freeze-wsteth-on-plasma/23400)
 
 ## Copyright
