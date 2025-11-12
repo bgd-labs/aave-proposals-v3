@@ -1,0 +1,52 @@
+## Raw diff
+
+```json
+{
+  "raw": {
+    "0x2170ed0880ac9a755fd29b2688956bd959f933f8": {
+      "label": "AaveV3BNB.ASSETS.ETH.UNDERLYING",
+      "balanceDiff": null,
+      "stateDiff": {
+        "0xbcd37c6560e5eccc92cfd0a9e4e4664a2a23aaea3205e7f3f9c082f8552632b8": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x00000000000000000000000000000000000000000000000176b344f2a78c0000"
+        }
+      }
+    },
+    "0x55d398326f99059ff775485246999027b3197955": {
+      "label": "AaveV3BNB.ASSETS.USDT.UNDERLYING",
+      "balanceDiff": null,
+      "stateDiff": {
+        "0xbcd37c6560e5eccc92cfd0a9e4e4664a2a23aaea3205e7f3f9c082f8552632b8": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x000000000000000000000000000000000000000000004465dd7640a7e3e00000"
+        }
+      }
+    },
+    "0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d": {
+      "label": "AaveV3BNB.ASSETS.USDC.UNDERLYING",
+      "balanceDiff": null,
+      "stateDiff": {
+        "0xbcd37c6560e5eccc92cfd0a9e4e4664a2a23aaea3205e7f3f9c082f8552632b8": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x000000000000000000000000000000000000000000001a0bd7e67e11f6e00000"
+        }
+      }
+    },
+    "0xe5ef2dd06755a97e975f7e282f828224f2c3e627": {
+      "label": "GovernanceV3BNB.PAYLOADS_CONTROLLER",
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x308b08755ec965f49e4d58d22ebbf80dc425791b553f8567a173e85e1abb76c3": {
+          "previousValue": "0x0069122d3f000000000002000000000000000000000000000000000000000000",
+          "newValue": "0x0069122d3f000000000003000000000000000000000000000000000000000000"
+        },
+        "0x308b08755ec965f49e4d58d22ebbf80dc425791b553f8567a173e85e1abb76c4": {
+          "previousValue": "0x000000000000000000093a80000000000000694051c000000000000000000000",
+          "newValue": "0x000000000000000000093a80000000000000694051c000000000000069122d40"
+        }
+      }
+    }
+  }
+}
+```
