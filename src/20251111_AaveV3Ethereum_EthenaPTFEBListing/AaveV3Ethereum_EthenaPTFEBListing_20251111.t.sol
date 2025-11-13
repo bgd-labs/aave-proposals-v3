@@ -18,7 +18,7 @@ contract AaveV3Ethereum_EthenaPTFEBListing_20251111_Test is ProtocolV3TestBase {
   AaveV3Ethereum_EthenaPTFEBListing_20251111 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 23777727);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 23790560);
     proposal = new AaveV3Ethereum_EthenaPTFEBListing_20251111();
   }
 
