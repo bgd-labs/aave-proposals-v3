@@ -202,11 +202,11 @@
 
 
 
-### EMode: PTUSDe5FEBStablecoins(id: 29)
+### EMode: PTUSDe5FEB/Stablecoins(id: 29)
 
 | description | value before | value after |
 | --- | --- | --- |
-| eMode.label | - | PTUSDe5FEBStablecoins |
+| eMode.label | - | PTUSDe5FEB/Stablecoins |
 | eMode.ltv | - | 88.5 % |
 | eMode.liquidationThreshold | - | 90.5 % |
 | eMode.liquidationBonus | - | 4.1 % |
@@ -214,11 +214,11 @@
 | eMode.collateralBitmap | - | PT-USDe-27NOV2025, PT-USDe-5FEB2026 |
 
 
-### EMode: PTUSDe5FEBUSDe(id: 30)
+### EMode: PTUSDe5FEB/USDe(id: 30)
 
 | description | value before | value after |
 | --- | --- | --- |
-| eMode.label | - | PTUSDe5FEBUSDe |
+| eMode.label | - | PTUSDe5FEB/USDe |
 | eMode.ltv | - | 89.3 % |
 | eMode.liquidationThreshold | - | 91.3 % |
 | eMode.liquidationBonus | - | 3.1 % |
@@ -226,11 +226,11 @@
 | eMode.collateralBitmap | - | PT-USDe-27NOV2025, PT-USDe-5FEB2026 |
 
 
-### EMode: PTsUSDe5FEBStablecoins(id: 31)
+### EMode: PTsUSDe5FEB/Stablecoins(id: 31)
 
 | description | value before | value after |
 | --- | --- | --- |
-| eMode.label | - | PTsUSDe5FEBStablecoins |
+| eMode.label | - | PTsUSDe5FEB/Stablecoins |
 | eMode.ltv | - | 87.6 % |
 | eMode.liquidationThreshold | - | 89.6 % |
 | eMode.liquidationBonus | - | 5.1 % |
@@ -238,11 +238,11 @@
 | eMode.collateralBitmap | - | PT-sUSDE-27NOV2025, PT-sUSDE-5FEB2026 |
 
 
-### EMode: PTsUSDe5FEBUSDe(id: 32)
+### EMode: PTsUSDe5FEB/USDe(id: 32)
 
 | description | value before | value after |
 | --- | --- | --- |
-| eMode.label | - | PTsUSDe5FEBUSDe |
+| eMode.label | - | PTsUSDe5FEB/USDe |
 | eMode.ltv | - | 88.5 % |
 | eMode.liquidationThreshold | - | 90.5 % |
 | eMode.liquidationBonus | - | 4.1 % |
@@ -261,7 +261,7 @@
         "borrowableBitmap": "4399120253192",
         "collateralBitmap": "54043195528445952",
         "eModeCategory": 29,
-        "label": "PTUSDe5FEBStablecoins",
+        "label": "PTUSDe5FEB/Stablecoins",
         "liquidationBonus": 10410,
         "liquidationThreshold": 9050,
         "ltv": 8850
@@ -273,7 +273,7 @@
         "borrowableBitmap": "1073741824",
         "collateralBitmap": "54043195528445952",
         "eModeCategory": 30,
-        "label": "PTUSDe5FEBUSDe",
+        "label": "PTUSDe5FEB/USDe",
         "liquidationBonus": 10310,
         "liquidationThreshold": 9130,
         "ltv": 8930
@@ -285,7 +285,7 @@
         "borrowableBitmap": "4399120253192",
         "collateralBitmap": "81064793292668928",
         "eModeCategory": 31,
-        "label": "PTsUSDe5FEBStablecoins",
+        "label": "PTsUSDe5FEB/Stablecoins",
         "liquidationBonus": 10510,
         "liquidationThreshold": 8960,
         "ltv": 8760
@@ -297,7 +297,7 @@
         "borrowableBitmap": "1073741824",
         "collateralBitmap": "81064793292668928",
         "eModeCategory": 32,
-        "label": "PTsUSDe5FEBUSDe",
+        "label": "PTsUSDe5FEB/USDe",
         "liquidationBonus": 10410,
         "liquidationThreshold": 9050,
         "ltv": 8850
@@ -618,7 +618,7 @@
         },
         "0x21898044632c57248207e72227fc41f5733f2f788a03dd65fae092ee6fa2a072": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x505473555344653546454255534465000000000000000000000000000000001e"
+          "newValue": "0x50547355534465354645422f5553446500000000000000000000000000000020"
         },
         "0x21898044632c57248207e72227fc41f5733f2f788a03dd65fae092ee6fa2a073": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -634,7 +634,7 @@
         },
         "0x5540f956076d2b96d9b5ae009ef453286928245383803229a3d68bd9262d69e9": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x5054735553446535464542537461626c65636f696e730000000000000000002c"
+          "newValue": "0x50547355534465354645422f537461626c65636f696e7300000000000000002e"
         },
         "0x5540f956076d2b96d9b5ae009ef453286928245383803229a3d68bd9262d69ea": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -646,7 +646,7 @@
         },
         "0x731e6d8269400fc394cb43330fd2612574d089c0e6408edfb23ea082b7072884": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x505455534465354645425553446500000000000000000000000000000000001c"
+          "newValue": "0x505455534465354645422f55534465000000000000000000000000000000001e"
         },
         "0x731e6d8269400fc394cb43330fd2612574d089c0e6408edfb23ea082b7072885": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -662,7 +662,7 @@
         },
         "0xff96dc9b2fb693edb8d05190a44f8cda48f48702b06828c27863d75ccd5a93d8": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x50545553446535464542537461626c65636f696e73000000000000000000002a"
+          "newValue": "0x505455534465354645422f537461626c65636f696e730000000000000000002c"
         },
         "0xff96dc9b2fb693edb8d05190a44f8cda48f48702b06828c27863d75ccd5a93d9": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",

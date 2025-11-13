@@ -63,7 +63,7 @@ contract AaveV3Ethereum_EthenaPTFEBListing_20251111 is AaveV3PayloadEthereum {
       ltv: 88_50,
       liqThreshold: 90_50,
       liqBonus: 4_10,
-      label: 'PTUSDe5FEBStablecoins',
+      label: 'PTUSDe5FEB/Stablecoins',
       collaterals: collateralAssets_PTUSDe5FEBStablecoins,
       borrowables: borrowableAssets_PTUSDe5FEBStablecoins
     });
@@ -79,7 +79,7 @@ contract AaveV3Ethereum_EthenaPTFEBListing_20251111 is AaveV3PayloadEthereum {
       ltv: 89_30,
       liqThreshold: 91_30,
       liqBonus: 3_10,
-      label: 'PTUSDe5FEBUSDe',
+      label: 'PTUSDe5FEB/USDe',
       collaterals: collateralAssets_PTUSDe5FEBUSDe,
       borrowables: borrowableAssets_PTUSDe5FEBUSDe
     });
@@ -98,7 +98,7 @@ contract AaveV3Ethereum_EthenaPTFEBListing_20251111 is AaveV3PayloadEthereum {
       ltv: 87_60,
       liqThreshold: 89_60,
       liqBonus: 5_10,
-      label: 'PTsUSDe5FEBStablecoins',
+      label: 'PTsUSDe5FEB/Stablecoins',
       collaterals: collateralAssets_PTsUSDe5FEBStablecoins,
       borrowables: borrowableAssets_PTsUSDe5FEBStablecoins
     });
@@ -114,7 +114,7 @@ contract AaveV3Ethereum_EthenaPTFEBListing_20251111 is AaveV3PayloadEthereum {
       ltv: 88_50,
       liqThreshold: 90_50,
       liqBonus: 4_10,
-      label: 'PTsUSDe5FEBUSDe',
+      label: 'PTsUSDe5FEB/USDe',
       collaterals: collateralAssets_PTsUSDe5FEBUSDe,
       borrowables: borrowableAssets_PTsUSDe5FEBUSDe
     });
