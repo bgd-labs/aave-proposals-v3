@@ -23,7 +23,7 @@ PT-USDe-5FEB2026: https://etherscan.io/address/0x1f84a51296691320478c98b8d77f2bb
 
 | **Parameter**            | **Value**                         | **Value**                           |
 | ------------------------ | --------------------------------- | ----------------------------------- |
-| Asset                    | PT-USDe-5FEB2025                  | PT-sUSDe-5FEB2025                   |
+| Asset                    | PT-USDe-5FEB2026                  | PT-sUSDe-5FEB2026                   |
 | Isolation Mode           | No                                | No                                  |
 | Borrowable               | No                                | No                                  |
 | Collateral Enabled       | Yes                               | Yes                                 |
@@ -36,7 +36,7 @@ PT-USDe-5FEB2026: https://etherscan.io/address/0x1f84a51296691320478c98b8d77f2bb
 | Liquidation Protocol Fee | 10.00%                            | 10.00%                              |
 | E-Mode Category          | PT-USDe Stablecoins, PT-USDe USDe | PT-sUSDe Stablecoins, PT-sUSDe USDe |
 
-### PT-USDe-5FEB2025
+### PT-USDe-5FEB2026
 
 **Initial E-mode Risk Oracle**
 
@@ -56,7 +56,7 @@ PT-USDe-5FEB2026: https://etherscan.io/address/0x1f84a51296691320478c98b8d77f2bb
 
 **PT-USDe Stablecoins E-mode**
 
-| **Asset**         | **PT-USDe-5FEB2025**   | **PT-USDe-27NOV2025**  | **USDC** | **USDT** | **USDe** | **USDtb** |
+| **Asset**         | **PT-USDe-5FEB2026**   | **PT-USDe-27NOV2026**  | **USDC** | **USDT** | **USDe** | **USDtb** |
 | ----------------- | ---------------------- | ---------------------- | -------- | -------- | -------- | --------- |
 | Collateral        | Yes                    | Yes                    | No       | No       | No       | No        |
 | Borrowable        | No                     | No                     | Yes      | Yes      | Yes      | Yes       |
@@ -66,7 +66,7 @@ PT-USDe-5FEB2026: https://etherscan.io/address/0x1f84a51296691320478c98b8d77f2bb
 
 **PT-USDe USDe E-mode**
 
-| **Asset**         | **PT-USDe-5FEB2025**   | **PT-USDe-27NOV2025**  | **USDe** |
+| **Asset**         | **PT-USDe-5FEB2026**   | **PT-USDe-27NOV2026**  | **USDe** |
 | ----------------- | ---------------------- | ---------------------- | -------- |
 | Collateral        | Yes                    | Yes                    | No       |
 | Borrowable        | No                     | No                     | Yes      |
@@ -74,7 +74,7 @@ PT-USDe-5FEB2026: https://etherscan.io/address/0x1f84a51296691320478c98b8d77f2bb
 | LT                | Subject to Risk Oracle | Subject to Risk Oracle | -        |
 | Liquidation Bonus | Subject to Risk Oracle | Subject to Risk Oracle | -        |
 
-### PT-sUSDe-5FEB2025
+### PT-sUSDe-5FEB2026
 
 **Initial E-mode Risk Oracle**
 
@@ -94,7 +94,7 @@ PT-USDe-5FEB2026: https://etherscan.io/address/0x1f84a51296691320478c98b8d77f2bb
 
 **PT-sUSDe Stablecoins E-mode**
 
-| **Asset**         | **PT-sUSDe-5FEB2025**  | **PT-sUSDe-27NOV2025** | **USDC** | **USDT** | **USDe** | **USDtb** |
+| **Asset**         | **PT-sUSDe-5FEB2026**  | **PT-sUSDe-27NOV2026** | **USDC** | **USDT** | **USDe** | **USDtb** |
 | ----------------- | ---------------------- | ---------------------- | -------- | -------- | -------- | --------- |
 | Collateral        | Yes                    | Yes                    | No       | No       | No       | No        |
 | Borrowable        | No                     | No                     | Yes      | Yes      | Yes      | Yes       |
@@ -104,7 +104,7 @@ PT-USDe-5FEB2026: https://etherscan.io/address/0x1f84a51296691320478c98b8d77f2bb
 
 **PT-sUSDe USDe E-mode**
 
-| **Asset**         | **PT-sUSDe-5FEB2025**  | **PT-sUSDe-27NOV2025** | **USDe** |
+| **Asset**         | **PT-sUSDe-5FEB2026**  | **PT-sUSDe-27NOV2026** | **USDe** |
 | ----------------- | ---------------------- | ---------------------- | -------- |
 | Collateral        | Yes                    | Yes                    | No       |
 | Borrowable        | No                     | No                     | Yes      |
