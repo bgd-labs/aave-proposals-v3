@@ -17,7 +17,7 @@ contract AaveV3InkWhitelabel_OnboardUSDCOnAaveV3InkWhitelabel_20251113_Test is P
   AaveV3InkWhitelabel_OnboardUSDCOnAaveV3InkWhitelabel_20251113 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('ink'), 29561410);
+    vm.createSelectFork(vm.rpcUrl('ink'), 29632164);
     proposal = new AaveV3InkWhitelabel_OnboardUSDCOnAaveV3InkWhitelabel_20251113();
   }
 
