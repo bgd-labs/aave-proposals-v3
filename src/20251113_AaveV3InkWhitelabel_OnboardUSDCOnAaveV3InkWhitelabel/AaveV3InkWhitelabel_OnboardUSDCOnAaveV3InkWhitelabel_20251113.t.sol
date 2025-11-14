@@ -37,7 +37,7 @@ contract AaveV3InkWhitelabel_OnboardUSDCOnAaveV3InkWhitelabel_20251113_Test is P
   function test_dustBinHasUSDCFunds() public {
     executePayload(vm, address(proposal), AaveV3InkWhitelabel.POOL);
     address aTokenAddress = AaveV3InkWhitelabel.POOL.getReserveAToken(proposal.USDC());
-    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3InkWhitelabel.DUST_BIN)), 10 ** 6);
+    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3InkWhitelabel.DUST_BIN)), 100 * 10 ** 6);
   }
 
   function test_USDCAdmin() public {

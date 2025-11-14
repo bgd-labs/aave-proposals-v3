@@ -19,7 +19,7 @@ contract AaveV3InkWhitelabel_OnboardUSDCOnAaveV3InkWhitelabel_20251113 is
   using SafeERC20 for IERC20;
 
   address public constant USDC = 0x2D270e6886d130D724215A266106e6832161EAEd;
-  uint256 public constant USDC_SEED_AMOUNT = 1e6;
+  uint256 public constant USDC_SEED_AMOUNT = 100e6;
   address public constant USDC_LM_ADMIN = 0xac140648435d03f784879cd789130F22Ef588Fcd;
 
   function _postExecute() internal override {
