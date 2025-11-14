@@ -1,5 +1,5 @@
 ---
-title: "weETH e-mode risk adjustment Plasma"
+title: "[Direct to AIP] weETH E-Mode Risk Parameter Adjustment on Aave V3 Plasma Instance"
 author: "Chaos Labs (implemented by ACI via Skyward)"
 discussions: "https://governance.aave.com/t/direct-to-aip-weeth-e-mode-risk-parameter-adjustment-on-aave-v3-plasma-instance/23381"
 ---
