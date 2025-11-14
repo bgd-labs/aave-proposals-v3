@@ -9,6 +9,7 @@ import {GhoEthereum} from 'aave-address-book/GhoEthereum.sol';
 import {IUpgradeableLockReleaseTokenPool, IRateLimiter} from 'src/interfaces/ccip/IUpgradeableLockReleaseTokenPool.sol';
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
 import {IAaveGhoCcipBridge} from 'aave-helpers/src/bridges/ccip/interfaces/IAaveGhoCcipBridge.sol';
+import {IGhoToken} from 'src/interfaces/IGhoToken.sol';
 import {IOwnableFacilitator} from 'src/interfaces/IOwnableFacilitator.sol';
 
 /**
@@ -22,8 +23,11 @@ contract AaveV3Ethereum_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_2025
 {
   using SafeERC20 for IERC20;
 
-  // https://etherscan.io/address/0x616AEe98F73C79FE59548Cfe7631c0baDBdA3165
-  address public constant OWNABLE_FACILITATOR = 0x616AEe98F73C79FE59548Cfe7631c0baDBdA3165;
+  // OwnableFacilitator Constants
+  // https://etherscan.io/address/0x023eb65d5098bfb44e71bf0d3affe2a9b87e743d
+  address public constant OWNABLE_FACILITATOR = 0x023eb65d5098bfB44E71bf0D3AFfe2A9B87e743d;
+  string public constant OWNABLE_FACILITATOR_NAME = 'OwnableFacilitator GHO On Plasma';
+  uint128 public constant OWNABLE_FACILITATOR_CAPACITY = 50_000_000 ether;
 
   // https://etherscan.io/address/0x7f2f96fcdc3a29be75938d2ac3d92e7006919fe6
   address public constant CCIP_BRIDGE = 0x7F2f96fcdC3A29Be75938d2aC3D92E7006919fe6;
@@ -33,6 +37,12 @@ contract AaveV3Ethereum_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_2025
   uint256 public constant PLASMA_BRIDGE_AMOUNT = 50_000_000 ether;
 
   function execute() external {
+    IGhoToken(AaveV3EthereumAssets.GHO_UNDERLYING).addFacilitator(
+      OWNABLE_FACILITATOR,
+      OWNABLE_FACILITATOR_NAME,
+      OWNABLE_FACILITATOR_CAPACITY
+    );
+
     IOwnableFacilitator(OWNABLE_FACILITATOR).mint(address(this), PLASMA_BRIDGE_AMOUNT);
 
     IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).approve(CCIP_BRIDGE, PLASMA_BRIDGE_AMOUNT);

@@ -1,5 +1,5 @@
 ---
-title: "Add GHO and deploy GSM on Plasma. Migrate to new GSM on Ethereum"
+title: "Add GHO on Aave Plasma and deploy GSM on Plasma."
 author: "@TokenLogic"
 discussions: "https://governance.aave.com/t/arfc-launch-gho-on-plasma-set-aci-as-emissions-manager-for-rewards/22994/6"
 snapshot: "https://snapshot.box/#/s:aavedao.eth/proposal/0xeb3572580924976867073ad9c8012cb9e52093c76dafebd7d3aebf318f2576fb"
@@ -8,7 +8,6 @@ snapshot: "https://snapshot.box/#/s:aavedao.eth/proposal/0xeb3572580924976867073
 ## Simple Summary
 
 With the GHO lanes now activated on CCIP, this publication defines the launch parameters for GHO on Plasma, as well as the introduction of GSMs on Plasma.
-With the launch of what is known as the new Remote GSM, this publication also updates the existing Mainnet GSMs to the new version.
 
 ## Motivation
 
@@ -130,20 +129,14 @@ Additionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://plasmascan.to/
 
 ### Facilitator & Bridging
 
-Deploy an **OwnableFacilitator** facilitator on Ethereum to enable GHO issuance for Plasma and the Mainnet GSMs.
+Deploy an **OwnableFacilitator** facilitator on Ethereum to enable GHO issuance for Plasma.
 
-- **OwnableFacilitator Mint Cap**: 100M GHO
+- **OwnableFacilitator Mint Cap**: 50M GHO
 - **Initial Mint**: 50M GHO
 
 As required, future Minting of GHO on Ethereum, to be supplied into the RemoteGSM on Plasma (or other networks) will be performed via direct submission of AIPs.
 
 **GhoReserve**
-
-Deploy GhoReserve on Mainnet to hold GHO to be drawn by GSMs.
-Configure stataUSDT RemoteGSM as an entity with a draw capacity of 25M GHO.
-Configure stataUSDC RemoteGSM as an entity with a draw capacity of 5M GHO.
-
-The Mainnet GSMs will keep the existing configuration.
 
 Deploy GhoReserve on Plasma to hold bridged GHO.
 Configure stataUSDT RemoteGSM as an entity with a draw capacity of 50M GHO.

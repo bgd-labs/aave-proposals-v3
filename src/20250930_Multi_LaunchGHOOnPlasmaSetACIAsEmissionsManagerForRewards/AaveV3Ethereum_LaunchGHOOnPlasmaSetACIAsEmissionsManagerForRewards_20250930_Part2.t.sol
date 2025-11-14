@@ -35,29 +35,19 @@ contract AaveV3Ethereum_LaunchGHOOnEthereumSetACIAsEmissionsManagerForRewards_20
     uint256 amount
   );
 
-  address public constant OWNABLE_FACILITATOR = 0x616AEe98F73C79FE59548Cfe7631c0baDBdA3165;
-  string public constant OWNABLE_FACILITATOR_NAME = 'OwnableFacilitator Gho GSMs';
-  uint128 public constant OWNABLE_FACILITATOR_CAPACITY = 150_000_000 ether;
-
   AaveV3Ethereum_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_20250930_Part2
     internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 23735008);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 23792200);
     proposal = new AaveV3Ethereum_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_20250930_Part2();
   }
 
   function test_bridgeLimitRestore() public {
     // Mock the update from Part 1
     vm.startPrank(GovernanceV3Ethereum.EXECUTOR_LVL_1);
-    IGhoToken(AaveV3EthereumAssets.GHO_UNDERLYING).addFacilitator(
-      OWNABLE_FACILITATOR,
-      OWNABLE_FACILITATOR_NAME,
-      OWNABLE_FACILITATOR_CAPACITY
-    );
-
     IUpgradeableLockReleaseTokenPool(GhoEthereum.GHO_CCIP_TOKEN_POOL).setBridgeLimit(
-      OWNABLE_FACILITATOR_CAPACITY * 2
+      proposal.OWNABLE_FACILITATOR_CAPACITY() * 2
     );
 
     IUpgradeableBurnMintTokenPool(GhoEthereum.GHO_CCIP_TOKEN_POOL).setChainRateLimiterConfig(
@@ -94,17 +84,11 @@ contract AaveV3Ethereum_LaunchGHOOnEthereumSetACIAsEmissionsManagerForRewards_20
 
   function test_bridge() public {
     vm.startPrank(GovernanceV3Ethereum.EXECUTOR_LVL_1);
-    IGhoToken(AaveV3EthereumAssets.GHO_UNDERLYING).addFacilitator(
-      OWNABLE_FACILITATOR,
-      OWNABLE_FACILITATOR_NAME,
-      OWNABLE_FACILITATOR_CAPACITY
-    );
-
     IGhoToken.Facilitator memory facilitator = IGhoToken(AaveV3EthereumAssets.GHO_UNDERLYING)
-      .getFacilitator(OWNABLE_FACILITATOR);
+      .getFacilitator(proposal.OWNABLE_FACILITATOR());
 
     IUpgradeableLockReleaseTokenPool(GhoEthereum.GHO_CCIP_TOKEN_POOL).setBridgeLimit(
-      OWNABLE_FACILITATOR_CAPACITY * 2
+      proposal.OWNABLE_FACILITATOR_CAPACITY() * 2
     );
 
     IUpgradeableBurnMintTokenPool(GhoEthereum.GHO_CCIP_TOKEN_POOL).setChainRateLimiterConfig(
@@ -119,7 +103,7 @@ contract AaveV3Ethereum_LaunchGHOOnEthereumSetACIAsEmissionsManagerForRewards_20
     vm.stopPrank();
     vm.warp(block.timestamp + 1);
 
-    assertEq(facilitator.bucketCapacity, OWNABLE_FACILITATOR_CAPACITY);
+    assertEq(facilitator.bucketCapacity, 0);
     assertEq(facilitator.bucketLevel, 0);
 
     uint256 fee = IAaveGhoCcipBridge(proposal.CCIP_BRIDGE()).quoteBridge(
@@ -142,10 +126,10 @@ contract AaveV3Ethereum_LaunchGHOOnEthereumSetACIAsEmissionsManagerForRewards_20
     executePayload(vm, address(proposal));
 
     facilitator = IGhoToken(AaveV3EthereumAssets.GHO_UNDERLYING).getFacilitator(
-      OWNABLE_FACILITATOR
+      proposal.OWNABLE_FACILITATOR()
     );
 
-    assertEq(facilitator.bucketCapacity, OWNABLE_FACILITATOR_CAPACITY);
+    assertEq(facilitator.bucketCapacity, proposal.OWNABLE_FACILITATOR_CAPACITY());
     assertEq(facilitator.bucketLevel, proposal.PLASMA_BRIDGE_AMOUNT());
     assertEq(
       IERC20(AaveV3EthereumAssets.LINK_UNDERLYING).balanceOf(proposal.CCIP_BRIDGE()),
