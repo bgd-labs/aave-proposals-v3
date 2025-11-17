@@ -115,9 +115,20 @@ Additionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://etherscan.io/a
 
 ## Capo adapters
 
-- PT USDe 5FEB: [0xc35d319fa5fec2bbe0eb4d0a826465b60f821f81](https://etherscan.io/address/0xc35d319fa5fec2bbe0eb4d0a826465b60f821f81)
+| Parameter              |                                                                                                                PT USDe FEB 5 |
+| ---------------------- | ---------------------------------------------------------------------------------------------------------------------------: |
+| Oracle                 | [PT Capped USDe USDT/USD linear discount 05FEB2026](https://etherscan.io/address/0xc35d319fa5fec2bbe0eb4d0a826465b60f821f81) |
+| USDT/USD Oracle        |                                                                [Capped USDT/USD](0x260326c220E469358846b187eE53328303Efe19C) |
+| Oracle Latest Answer   |                                                                                                  (2025-11-17) USD 0.98716883 |
+|  discountRatePerYear   |                                                                                                                      5.5266% |
+| maxDiscountRatePerYear |                                                                                                                     27.1629% |
 
-- PT sUSDe 5FEB: [0x4e89f87f24c13819bbddb56f99b38746c91677d8](https://etherscan.io/address/0x4e89f87f24c13819bbddb56f99b38746c91677d8)
+| Parameter                     |                                                                                                                PT sUSDe FEB 5 |
+| ----------------------------- | ----------------------------------------------------------------------------------------------------------------------------: |
+| Oracle                        | [PT Capped sUSDe USDT/USD linear discount 05FEB2026](https://etherscan.io/address/0x4e89f87f24c13819bbddb56f99b38746c91677d8) |
+| USDT/USD Oracle               |                                                                 [Capped USDT/USD](0x260326c220E469358846b187eE53328303Efe19C) |
+| discountRatePerYear (Initial) |                                                                                                                       6.1953% |
+| maxDiscountRatePerYear        |                                                                                                                      27.1629% |
 
 ### Useful Links
 
