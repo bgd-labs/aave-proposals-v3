@@ -127,6 +127,7 @@ Additionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://etherscan.io/a
 | ----------------------------- | ----------------------------------------------------------------------------------------------------------------------------: |
 | Oracle                        | [PT Capped sUSDe USDT/USD linear discount 05FEB2026](https://etherscan.io/address/0x4e89f87f24c13819bbddb56f99b38746c91677d8) |
 | USDT/USD Oracle               |                                                                 [Capped USDT/USD](0x260326c220E469358846b187eE53328303Efe19C) |
+| Oracle Last Answer            |                                                                                                                USD 0.98571889 |
 | discountRatePerYear (Initial) |                                                                                                                       6.1953% |
 | maxDiscountRatePerYear        |                                                                                                                      27.1629% |
 
