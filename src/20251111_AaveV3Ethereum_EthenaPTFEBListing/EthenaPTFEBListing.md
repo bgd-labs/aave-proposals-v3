@@ -2,7 +2,6 @@
 title: "Ethena PT FEB Listing"
 author: "ACI"
 discussions: "https://governance.aave.com/t/direct-to-aip-onboard-usde-susde-february-expiry-pt-tokens-on-aave-v3-core-instance/23358"
-snapshot: Direct to AIP
 ---
 
 ## Simple Summary
