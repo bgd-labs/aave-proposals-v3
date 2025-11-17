@@ -10,6 +10,8 @@ import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGen
 
 interface IMainnetSwapSteward {
   function setSwappablePair(address fromToken, address toToken, bool allowed) external;
+  function tokenBudget(address token) external view returns (uint256);
+  function increaseTokenBudget(address token, uint256 budget) external;
 }
 
 /**
@@ -48,6 +50,10 @@ contract AaveV3Ethereum_NovemberFundingUpdate_20251110 is IProposalGenericExecut
   // stkABPT
   uint128 public constant AAVE_EMISSION_PER_SECOND_STK_BPT = uint128(130 ether) / 1 days;
 
+  // Increase Swap Steward Budget
+  uint256 public constant USDC_SWAP_BUDGET_AMOUNT = 2_000_000e6;
+  uint256 public constant DAI_SWAP_BUDGET_AMOUNT = 1_000_000 ether;
+
   function execute() external {
     _runway();
     _v4Audits();
@@ -56,6 +62,7 @@ contract AaveV3Ethereum_NovemberFundingUpdate_20251110 is IProposalGenericExecut
     _ecosystemReserve();
     _swapPathsAndBudget();
     _emissionsIncrease();
+    _replenishAllowances();
   }
 
   function _runway() internal {
@@ -241,6 +248,17 @@ contract AaveV3Ethereum_NovemberFundingUpdate_20251110 is IProposalGenericExecut
       AaveV3EthereumAssets.AAVE_UNDERLYING,
       AaveSafetyModule.STK_AAVE_WSTETH_BPTV2,
       newAllowance
+    );
+  }
+
+  function _replenishAllowances() internal {
+    IMainnetSwapSteward(AaveV3Ethereum.COLLECTOR_SWAP_STEWARD).increaseTokenBudget(
+      AaveV3EthereumAssets.USDC_UNDERLYING,
+      USDC_SWAP_BUDGET_AMOUNT
+    );
+    IMainnetSwapSteward(AaveV3Ethereum.COLLECTOR_SWAP_STEWARD).increaseTokenBudget(
+      AaveV3EthereumAssets.DAI_UNDERLYING,
+      DAI_SWAP_BUDGET_AMOUNT
     );
   }
 }

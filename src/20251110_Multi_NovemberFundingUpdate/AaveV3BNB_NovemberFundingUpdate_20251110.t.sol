@@ -15,7 +15,7 @@ contract AaveV3BNB_NovemberFundingUpdate_20251110_Test is ProtocolV3TestBase {
   AaveV3BNB_NovemberFundingUpdate_20251110 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('bnb'), 67730544);
+    vm.createSelectFork(vm.rpcUrl('bnb'), 68537855);
     proposal = new AaveV3BNB_NovemberFundingUpdate_20251110();
   }
 

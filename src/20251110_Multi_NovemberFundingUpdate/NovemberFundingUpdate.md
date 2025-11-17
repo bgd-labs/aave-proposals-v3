@@ -31,13 +31,13 @@ For this cycle, funds held across several networks will be bridged back to Ether
 
 Transfer the following assets to Ethereum via AIP using the bridge adapter contracts.
 
-| Polygon | Optimism |
-| ------- | -------- |
-| DAI     | wETH     |
-| USDC.e  |          |
-| WBTC    |          |
-| WETH    |          |
-| AAVE    |          |
+| Polygon |
+| ------- |
+| DAI     |
+| USDC.e  |
+| WBTC    |
+| WETH    |
+| AAVE    |
 
 #### Approvals
 
@@ -45,7 +45,6 @@ _Polygon_
 
 Amount: 130,000 USDCn
 Amount: 230,000 USDT
-Amount: 135,000 wPOL
 Spender: AFC `0x22740deBa78d5a0c24C58C740e3715ec29de1bFa`
 Method: `approve()` above assets on the Aave Collector contract to the AFC address
 
@@ -54,14 +53,6 @@ _Binance_
 Amount: 123,000 USDC
 Amount: 323,000 USDT
 Amount: 27 ETH
-Spender: AFC `0x22740deBa78d5a0c24C58C740e3715ec29de1bFa`
-Method: `approve()` above assets on the Aave Collector contract to the AFC address
-
-_Metis_
-
-Amount: 58.000 m.USDC
-Amount: 55,000 m.USDT
-Amount: 19,000 m.DAI
 Spender: AFC `0x22740deBa78d5a0c24C58C740e3715ec29de1bFa`
 Method: `approve()` above assets on the Aave Collector contract to the AFC address
 
@@ -74,7 +65,13 @@ Method: `approve()` above assets on the Aave Collector contract to the AFC addre
 _Optimism_
 To be swapped to USDC, bridged from Optimism to Ethereum and sent to the treasury.
 
-Amount: 105,000 sUSD
+Amount: 55,000 sUSD
+Spender: AFC `0x22740deBa78d5a0c24C58C740e3715ec29de1bFa`
+Method: `approve()` above assets on the Aave Collector contract to the AFC address)
+
+To be bridged manually as it cannot be bridged programmatically.
+
+Amount: 195 ETH
 Spender: AFC `0x22740deBa78d5a0c24C58C740e3715ec29de1bFa`
 Method: `approve()` above assets on the Aave Collector contract to the AFC address)
 
@@ -109,15 +106,17 @@ Send all AAVE on the collector to the Ecosystem Reserve.
 _Swaps_
 
 Approve stablecoins to be swapped to `pyUSD` and `rlUSD`.
+Increase USDC token budget by 2.0M.
+Increase DAI token budget BY 1.0M.
 
 #### Emissions
 
-Increase allowance of stkAAVE and stkBPT for 14 days of emissions between end and restart.
+Increase allowance of stkAAVE and stkBPT for 14 days of emissions between end and restart as per mentioned [here](https://governance.aave.com/t/arfc-amend-safety-module-emissions/16640/37)
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251110_Multi_NovemberFundingUpdate/AaveV3Ethereum_NovemberFundingUpdate_20251110.sol), [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251110_Multi_NovemberFundingUpdate/AaveV3Polygon_NovemberFundingUpdate_20251110.sol), [AaveV3Optimism](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251110_Multi_NovemberFundingUpdate/AaveV3Optimism_NovemberFundingUpdate_20251110.sol), [AaveV3Metis](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251110_Multi_NovemberFundingUpdate/AaveV3Metis_NovemberFundingUpdate_20251110.sol), [AaveV3BNB](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251110_Multi_NovemberFundingUpdate/AaveV3BNB_NovemberFundingUpdate_20251110.sol), [AaveV3Sonic](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251110_Multi_NovemberFundingUpdate/AaveV3Sonic_NovemberFundingUpdate_20251110.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251110_Multi_NovemberFundingUpdate/AaveV3Ethereum_NovemberFundingUpdate_20251110.t.sol), [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251110_Multi_NovemberFundingUpdate/AaveV3Polygon_NovemberFundingUpdate_20251110.t.sol), [AaveV3Optimism](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251110_Multi_NovemberFundingUpdate/AaveV3Optimism_NovemberFundingUpdate_20251110.t.sol), [AaveV3Metis](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251110_Multi_NovemberFundingUpdate/AaveV3Metis_NovemberFundingUpdate_20251110.t.sol), [AaveV3BNB](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251110_Multi_NovemberFundingUpdate/AaveV3BNB_NovemberFundingUpdate_20251110.t.sol), [AaveV3Sonic](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251110_Multi_NovemberFundingUpdate/AaveV3Sonic_NovemberFundingUpdate_20251110.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251110_Multi_NovemberFundingUpdate/AaveV3Ethereum_NovemberFundingUpdate_20251110.sol), [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251110_Multi_NovemberFundingUpdate/AaveV3Polygon_NovemberFundingUpdate_20251110.sol), [AaveV3Optimism](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251110_Multi_NovemberFundingUpdate/AaveV3Optimism_NovemberFundingUpdate_20251110.sol), [AaveV3BNB](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251110_Multi_NovemberFundingUpdate/AaveV3BNB_NovemberFundingUpdate_20251110.sol), [AaveV3Sonic](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251110_Multi_NovemberFundingUpdate/AaveV3Sonic_NovemberFundingUpdate_20251110.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251110_Multi_NovemberFundingUpdate/AaveV3Ethereum_NovemberFundingUpdate_20251110.t.sol), [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251110_Multi_NovemberFundingUpdate/AaveV3Polygon_NovemberFundingUpdate_20251110.t.sol), [AaveV3Optimism](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251110_Multi_NovemberFundingUpdate/AaveV3Optimism_NovemberFundingUpdate_20251110.t.sol), [AaveV3BNB](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251110_Multi_NovemberFundingUpdate/AaveV3BNB_NovemberFundingUpdate_20251110.t.sol), [AaveV3Sonic](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251110_Multi_NovemberFundingUpdate/AaveV3Sonic_NovemberFundingUpdate_20251110.t.sol)
 - Snapshot: Direct-to-AIP
 - [Discussion](https://governance.aave.com/t/direct-to-aip-november-2025-funding-update/23339)
 

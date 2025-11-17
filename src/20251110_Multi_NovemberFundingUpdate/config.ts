@@ -18,11 +18,10 @@ export const config: ConfigFile = {
     votingNetwork: 'AVALANCHE',
   },
   poolOptions: {
-    AaveV3Ethereum: {configs: {OTHERS: {}}, cache: {blockNumber: 23770613}},
-    AaveV3Polygon: {configs: {OTHERS: {}}, cache: {blockNumber: 78847011}},
-    AaveV3Optimism: {configs: {OTHERS: {}}, cache: {blockNumber: 143600066}},
-    AaveV3Metis: {configs: {OTHERS: {}}, cache: {blockNumber: 21606204}},
-    AaveV3BNB: {configs: {OTHERS: {}}, cache: {blockNumber: 67730544}},
-    AaveV3Sonic: {configs: {OTHERS: {}}, cache: {blockNumber: 54766988}},
+    AaveV3Ethereum: {configs: {OTHERS: {}}, cache: {blockNumber: 23820685}},
+    AaveV3Polygon: {configs: {OTHERS: {}}, cache: {blockNumber: 79154342}},
+    AaveV3Optimism: {configs: {OTHERS: {}}, cache: {blockNumber: 143902770}},
+    AaveV3BNB: {configs: {OTHERS: {}}, cache: {blockNumber: 68537855}},
+    AaveV3Sonic: {configs: {OTHERS: {}}, cache: {blockNumber: 55579780}},
   },
 };

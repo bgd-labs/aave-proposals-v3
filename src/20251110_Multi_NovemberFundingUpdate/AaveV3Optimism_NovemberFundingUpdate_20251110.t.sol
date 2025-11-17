@@ -17,7 +17,7 @@ contract AaveV3Optimism_NovemberFundingUpdate_20251110_Test is ProtocolV3TestBas
   AaveV3Optimism_NovemberFundingUpdate_20251110 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('optimism'), 143600066);
+    vm.createSelectFork(vm.rpcUrl('optimism'), 143902770);
     proposal = new AaveV3Optimism_NovemberFundingUpdate_20251110();
   }
 
@@ -40,6 +40,13 @@ contract AaveV3Optimism_NovemberFundingUpdate_20251110_Test is ProtocolV3TestBas
       ),
       0
     );
+    assertEq(
+      IERC20(AaveV3OptimismAssets.WETH_UNDERLYING).allowance(
+        address(AaveV3Optimism.COLLECTOR),
+        MiscOptimism.AFC_SAFE
+      ),
+      0
+    );
 
     executePayload(vm, address(proposal));
 
@@ -51,31 +58,26 @@ contract AaveV3Optimism_NovemberFundingUpdate_20251110_Test is ProtocolV3TestBas
       proposal.SUSD_AMOUNT()
     );
 
+    assertEq(
+      IERC20(AaveV3OptimismAssets.WETH_UNDERLYING).allowance(
+        address(AaveV3Optimism.COLLECTOR),
+        MiscOptimism.AFC_SAFE
+      ),
+      proposal.WETH_AMOUNT()
+    );
+
     vm.startPrank(MiscOptimism.AFC_SAFE);
     IERC20(AaveV3OptimismAssets.sUSD_UNDERLYING).transferFrom(
       address(AaveV3Optimism.COLLECTOR),
       MiscOptimism.AFC_SAFE,
       proposal.SUSD_AMOUNT()
     );
+
+    IERC20(AaveV3OptimismAssets.WETH_UNDERLYING).transferFrom(
+      address(AaveV3Optimism.COLLECTOR),
+      MiscOptimism.AFC_SAFE,
+      proposal.WETH_AMOUNT()
+    );
     vm.stopPrank();
-  }
-
-  function test_bridges() public {
-    uint256 wethCollectorBalanceBefore = IERC20(AaveV3OptimismAssets.WETH_UNDERLYING).balanceOf(
-      address(AaveV3Optimism.COLLECTOR)
-    );
-
-    assertGt(wethCollectorBalanceBefore, 0);
-
-    vm.expectEmit(true, true, true, true, MiscOptimism.AAVE_OPT_ETH_BRIDGE);
-    emit Bridge(AaveV3OptimismAssets.WETH_UNDERLYING, wethCollectorBalanceBefore);
-
-    executePayload(vm, address(proposal));
-
-    uint256 wethCollectorBalanceAfter = IERC20(AaveV3OptimismAssets.WETH_UNDERLYING).balanceOf(
-      address(AaveV3Optimism.COLLECTOR)
-    );
-
-    assertEq(wethCollectorBalanceAfter, 0);
   }
 }

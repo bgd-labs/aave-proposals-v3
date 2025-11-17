@@ -17,7 +17,7 @@ contract AaveV3Polygon_NovemberFundingUpdate_20251110_Test is ProtocolV3TestBase
   AaveV3Polygon_NovemberFundingUpdate_20251110 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('polygon'), 78847011);
+    vm.createSelectFork(vm.rpcUrl('polygon'), 79154342);
     proposal = new AaveV3Polygon_NovemberFundingUpdate_20251110();
   }
 

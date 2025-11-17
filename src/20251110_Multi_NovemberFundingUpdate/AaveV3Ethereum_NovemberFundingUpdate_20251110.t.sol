@@ -10,6 +10,7 @@ import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Ethereum_NovemberFundingUpdate_20251110} from './AaveV3Ethereum_NovemberFundingUpdate_20251110.sol';
 
 interface IMainnetSwapSteward {
+  function tokenBudget(address token) external view returns (uint256);
   function swapApprovedToken(address from, address to) external view returns (bool);
 }
 
@@ -21,7 +22,7 @@ contract AaveV3Ethereum_NovemberFundingUpdate_20251110_Test is ProtocolV3TestBas
   AaveV3Ethereum_NovemberFundingUpdate_20251110 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 23770613);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 23820685);
     proposal = new AaveV3Ethereum_NovemberFundingUpdate_20251110();
   }
 
@@ -414,5 +415,23 @@ contract AaveV3Ethereum_NovemberFundingUpdate_20251110_Test is ProtocolV3TestBas
     // New allowance is less than before
     assertGt(allowanceAfterStkAAVE, allowanceBeforeStkAAVE);
     assertGt(allowanceAfterStkABPT, allowanceBeforeStkABPT);
+  }
+
+  function test_replenishSwapTokenBudget() public {
+    uint256 budgetUsdcBefore = IMainnetSwapSteward(AaveV3Ethereum.COLLECTOR_SWAP_STEWARD)
+      .tokenBudget(AaveV3EthereumAssets.USDC_UNDERLYING);
+    uint256 budgetDaiBefore = IMainnetSwapSteward(AaveV3Ethereum.COLLECTOR_SWAP_STEWARD)
+      .tokenBudget(AaveV3EthereumAssets.DAI_UNDERLYING);
+
+    executePayload(vm, address(proposal));
+
+    uint256 budgetUsdcAfter = IMainnetSwapSteward(AaveV3Ethereum.COLLECTOR_SWAP_STEWARD)
+      .tokenBudget(AaveV3EthereumAssets.USDC_UNDERLYING);
+    uint256 budgetDaiAfter = IMainnetSwapSteward(AaveV3Ethereum.COLLECTOR_SWAP_STEWARD).tokenBudget(
+      AaveV3EthereumAssets.DAI_UNDERLYING
+    );
+
+    assertEq(budgetUsdcAfter, budgetUsdcBefore + proposal.USDC_SWAP_BUDGET_AMOUNT());
+    assertEq(budgetDaiAfter, budgetDaiBefore + proposal.DAI_SWAP_BUDGET_AMOUNT());
   }
 }

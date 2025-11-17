@@ -15,35 +15,20 @@ import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGen
  * - Discussion: https://governance.aave.com/t/direct-to-aip-november-2025-funding-update/23339
  */
 contract AaveV3Optimism_NovemberFundingUpdate_20251110 is IProposalGenericExecutor {
-  uint256 public constant SUSD_AMOUNT = 105_000 ether;
+  uint256 public constant SUSD_AMOUNT = 55_000 ether;
+  uint256 public constant WETH_AMOUNT = 195 ether;
 
   function execute() external {
-    _approvals();
-    _bridges();
-  }
-
-  function _approvals() internal {
     AaveV3Optimism.COLLECTOR.approve(
       IERC20(AaveV3OptimismAssets.sUSD_UNDERLYING),
       MiscOptimism.AFC_SAFE,
       SUSD_AMOUNT
     );
-  }
 
-  function _bridges() internal {
-    /// WETH
-    uint256 wethBalance = IERC20(AaveV3OptimismAssets.WETH_UNDERLYING).balanceOf(
-      address(AaveV3Optimism.COLLECTOR)
-    );
-    AaveV3Optimism.COLLECTOR.transfer(
+    AaveV3Optimism.COLLECTOR.approve(
       IERC20(AaveV3OptimismAssets.WETH_UNDERLYING),
-      MiscOptimism.AAVE_OPT_ETH_BRIDGE,
-      wethBalance
-    );
-    IAaveOpEthERC20Bridge(MiscOptimism.AAVE_OPT_ETH_BRIDGE).bridge(
-      AaveV3OptimismAssets.WETH_UNDERLYING,
-      AaveV3EthereumAssets.WETH_UNDERLYING,
-      wethBalance
+      MiscOptimism.AFC_SAFE,
+      WETH_AMOUNT
     );
   }
 }
