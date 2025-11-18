@@ -33,8 +33,8 @@ contract AaveV3Ethereum_EthenaPTFEBListing_20251111 is AaveV3PayloadEthereum {
     address[] memory marketsToWhitelist = new address[](4);
     marketsToWhitelist[0] = address(uint160(nextID - 1)); // on the injector we encode eModeId to address
     marketsToWhitelist[1] = address(uint160(nextID - 2)); // on the injector we encode eModeId to address
-    marketsToWhitelist[1] = address(uint160(nextID - 3)); // on the injector we encode eModeId to address
-    marketsToWhitelist[1] = address(uint160(nextID - 4)); // on the injector we encode eModeId to address
+    marketsToWhitelist[2] = address(uint160(nextID - 3)); // on the injector we encode eModeId to address
+    marketsToWhitelist[3] = address(uint160(nextID - 4)); // on the injector we encode eModeId to address
     IAaveStewardInjector(AaveV3Ethereum.EDGE_INJECTOR_PENDLE_EMODE).addMarkets(marketsToWhitelist);
 
     address[] memory assetsToWhitelist = new address[](2);
