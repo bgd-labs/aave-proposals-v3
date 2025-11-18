@@ -134,9 +134,9 @@ contract AaveV3Ethereum_EthenaPTFEBListing_20251111_Test is ProtocolV3TestBase {
     executePayload(vm, address(proposal));
 
     uint8 eModeId = 29;
-    uint256 ltv = 86_10;
-    uint256 liqThreshold = 88_10;
-    uint256 liqBonus = 5_40;
+    uint256 ltv = 88_30;
+    uint256 liqThreshold = 90_40;
+    uint256 liqBonus = 4_12;
     _addUpdateToRiskOracle(eModeId, ltv, liqThreshold, liqBonus);
 
     (bool upkeepNeeded, bytes memory performData) = AutomationCompatibleInterface(
@@ -160,9 +160,9 @@ contract AaveV3Ethereum_EthenaPTFEBListing_20251111_Test is ProtocolV3TestBase {
     executePayload(vm, address(proposal));
 
     uint8 eModeId = 30;
-    uint256 ltv = 87_80;
-    uint256 liqThreshold = 89_80;
-    uint256 liqBonus = 3_40;
+    uint256 ltv = 89_33;
+    uint256 liqThreshold = 91_33;
+    uint256 liqBonus = 3_11;
     _addUpdateToRiskOracle(eModeId, ltv, liqThreshold, liqBonus);
 
     (bool upkeepNeeded, bytes memory performData) = AutomationCompatibleInterface(
@@ -186,9 +186,9 @@ contract AaveV3Ethereum_EthenaPTFEBListing_20251111_Test is ProtocolV3TestBase {
     executePayload(vm, address(proposal));
 
     uint8 eModeId = 31;
-    uint256 ltv = 87_80;
-    uint256 liqThreshold = 89_80;
-    uint256 liqBonus = 3_40;
+    uint256 ltv = 87_62;
+    uint256 liqThreshold = 89_62;
+    uint256 liqBonus = 5_12;
     _addUpdateToRiskOracle(eModeId, ltv, liqThreshold, liqBonus);
 
     (bool upkeepNeeded, bytes memory performData) = AutomationCompatibleInterface(
@@ -212,9 +212,9 @@ contract AaveV3Ethereum_EthenaPTFEBListing_20251111_Test is ProtocolV3TestBase {
     executePayload(vm, address(proposal));
 
     uint8 eModeId = 32;
-    uint256 ltv = 87_80;
-    uint256 liqThreshold = 89_80;
-    uint256 liqBonus = 3_40;
+    uint256 ltv = 88_52;
+    uint256 liqThreshold = 90_52;
+    uint256 liqBonus = 4_14;
     _addUpdateToRiskOracle(eModeId, ltv, liqThreshold, liqBonus);
 
     (bool upkeepNeeded, bytes memory performData) = AutomationCompatibleInterface(
