@@ -22,6 +22,6 @@ export const config: ConfigFile = {
     AaveV3Polygon: {configs: {OTHERS: {}}, cache: {blockNumber: 79154342}},
     AaveV3Optimism: {configs: {OTHERS: {}}, cache: {blockNumber: 143902770}},
     AaveV3BNB: {configs: {OTHERS: {}}, cache: {blockNumber: 68537855}},
-    AaveV3Sonic: {configs: {OTHERS: {}}, cache: {blockNumber: 55579780}},
+    AaveV3Sonic: {configs: {OTHERS: {}}, cache: {blockNumber: 55681659}},
   },
 };

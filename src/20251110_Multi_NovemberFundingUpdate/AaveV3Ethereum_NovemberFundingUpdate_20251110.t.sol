@@ -412,9 +412,15 @@ contract AaveV3Ethereum_NovemberFundingUpdate_20251110_Test is ProtocolV3TestBas
       AaveSafetyModule.STK_AAVE_WSTETH_BPTV2
     );
 
-    // New allowance is less than before
-    assertGt(allowanceAfterStkAAVE, allowanceBeforeStkAAVE);
-    assertGt(allowanceAfterStkABPT, allowanceBeforeStkABPT);
+    // New allowance is more than before
+    assertEq(
+      allowanceAfterStkAAVE,
+      allowanceBeforeStkAAVE + proposal.AAVE_EMISSION_PER_SECOND_STK_AAVE() * 14 days
+    );
+    assertEq(
+      allowanceAfterStkABPT,
+      allowanceBeforeStkABPT + proposal.AAVE_EMISSION_PER_SECOND_STK_BPT() * 14 days
+    );
   }
 
   function test_replenishSwapTokenBudget() public {

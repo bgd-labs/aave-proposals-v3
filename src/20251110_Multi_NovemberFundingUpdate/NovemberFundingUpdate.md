@@ -63,15 +63,15 @@ Spender: AFC `0x22740deBa78d5a0c24C58C740e3715ec29de1bFa`
 Method: `approve()` above assets on the Aave Collector contract to the AFC address
 
 _Optimism_
-To be swapped to USDC, bridged from Optimism to Ethereum and sent to the treasury.
+To be swapped to USDC, USDC to be bridged from Optimism to Ethereum and sent to the treasury manually.
 
 Amount: 55,000 sUSD
 Spender: AFC `0x22740deBa78d5a0c24C58C740e3715ec29de1bFa`
 Method: `approve()` above assets on the Aave Collector contract to the AFC address)
 
-To be bridged manually as it cannot be bridged programmatically.
+Withdraw wETH to ETH, then ETH to be bridged manually as it cannot be bridged programmatically.
 
-Amount: 195 ETH
+Amount: 195 wETH
 Spender: AFC `0x22740deBa78d5a0c24C58C740e3715ec29de1bFa`
 Method: `approve()` above assets on the Aave Collector contract to the AFC address)
 
@@ -106,6 +106,12 @@ Send all AAVE on the collector to the Ecosystem Reserve.
 _Swaps_
 
 Approve stablecoins to be swapped to `pyUSD` and `rlUSD`.
+
+Increase token budgets as they have been used in the swaps performed here:
+
+[USDC->GHO](https://explorer.cow.fi/address/0x1Ba999bc47c5D7e836b953bbDA3F8E8bf1eEC347)
+[DAI->GHO](https://explorer.cow.fi/address/0xbd40bdec30211d81f67d107347eb040047aaacd9)
+
 Increase USDC token budget by 2.0M.
 Increase DAI token budget BY 1.0M.
 
