@@ -45,6 +45,7 @@ _Polygon_
 
 Amount: 130,000 USDCn
 Amount: 230,000 USDT
+Amount: 135,000 wPOL
 Spender: AFC `0x22740deBa78d5a0c24C58C740e3715ec29de1bFa`
 Method: `approve()` above assets on the Aave Collector contract to the AFC address
 
@@ -63,7 +64,7 @@ Spender: AFC `0x22740deBa78d5a0c24C58C740e3715ec29de1bFa`
 Method: `approve()` above assets on the Aave Collector contract to the AFC address
 
 _Optimism_
-To be swapped to USDC, USDC to be bridged from Optimism to Ethereum and sent to the treasury manually.
+sUSD to be swapped to USDC, and USDC to be bridged from Optimism to Ethereum and sent to the treasury manually.
 
 Amount: 55,000 sUSD
 Spender: AFC `0x22740deBa78d5a0c24C58C740e3715ec29de1bFa`
@@ -92,6 +93,14 @@ Amount: 1.5M
 Spender: v4 Audits `0xAAf400e4Bbc38B5E2136C1a36946Bf841A357307`
 Method: `approve()` aEthLidoGHO on the Aave Collector contract to the Aave v4 Audits address
 
+_Merit Program_
+Create allowance for Merit, 3M aEthLidoGHO from Aave v3 Prime on Ethereum:
+
+Asset: aEthLidoGHO
+Amount: 3M
+Spender: `0xdeadD8aB03075b7FBA81864202a2f59EE25B312b`
+Method: `approve()` aEthLidoGHO on the Aave Collector contract to the Merit address
+
 _Reimbursements_
 
 Asset: aEthLidoGHO
@@ -113,7 +122,7 @@ Increase token budgets as they have been used in the swaps performed here:
 [DAI->GHO](https://explorer.cow.fi/address/0xbd40bdec30211d81f67d107347eb040047aaacd9)
 
 Increase USDC token budget by 2.0M.
-Increase DAI token budget BY 1.0M.
+Increase DAI token budget by 1.0M.
 
 #### Emissions
 
