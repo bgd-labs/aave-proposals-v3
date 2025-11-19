@@ -36,79 +36,88 @@ contract AaveV3InkWhitelabel_OnboardUSDCWeETHRsETHAndEzETHToAaveV3InkWhitelabel_
     );
   }
 
-  // function test_dustBinHasUSDCFunds() public {
-  //   executePayload(vm, address(proposal), AaveV3InkWhitelabel.POOL);
-  //   address aTokenAddress = AaveV3InkWhitelabel.POOL.getReserveAToken(proposal.USDC());
-  //   assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3InkWhitelabel.DUST_BIN)), 10 ** 6);
-  // }
+  function test_dustBinHasUSDCFunds() public {
+    executePayload(vm, address(proposal), AaveV3InkWhitelabel.POOL);
+    address aTokenAddress = AaveV3InkWhitelabel.POOL.getReserveAToken(proposal.USDC());
+    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3InkWhitelabel.DUST_BIN)), 100 * 10 ** 6);
+  }
 
-  // function test_USDCAdmin() public {
-  //   executePayload(vm, address(proposal), AaveV3InkWhitelabel.POOL);
-  //   address aUSDC = AaveV3InkWhitelabel.POOL.getReserveAToken(proposal.USDC());
-  //   assertEq(
-  //     IEmissionManager(AaveV3InkWhitelabel.EMISSION_MANAGER).getEmissionAdmin(proposal.USDC()),
-  //     proposal.USDC_LM_ADMIN()
-  //   );
-  //   assertEq(
-  //     IEmissionManager(AaveV3InkWhitelabel.EMISSION_MANAGER).getEmissionAdmin(aUSDC),
-  //     proposal.USDC_LM_ADMIN()
-  //   );
-  // }
+  function test_USDCAdmin() public {
+    executePayload(vm, address(proposal), AaveV3InkWhitelabel.POOL);
+    address aUSDC = AaveV3InkWhitelabel.POOL.getReserveAToken(proposal.USDC());
+    assertEq(
+      IEmissionManager(AaveV3InkWhitelabel.EMISSION_MANAGER).getEmissionAdmin(proposal.USDC()),
+      proposal.USDC_LM_ADMIN()
+    );
+    assertEq(
+      IEmissionManager(AaveV3InkWhitelabel.EMISSION_MANAGER).getEmissionAdmin(aUSDC),
+      proposal.USDC_LM_ADMIN()
+    );
+  }
 
-  // function test_dustBinHasweETHFunds() public {
-  //   executePayload(vm, address(proposal), AaveV3InkWhitelabel.POOL);
-  //   address aTokenAddress = AaveV3InkWhitelabel.POOL.getReserveAToken(proposal.weETH());
-  //   assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3InkWhitelabel.DUST_BIN)), 10 ** 18);
-  // }
+  function test_dustBinHasweETHFunds() public {
+    executePayload(vm, address(proposal), AaveV3InkWhitelabel.POOL);
+    address aTokenAddress = AaveV3InkWhitelabel.POOL.getReserveAToken(proposal.weETH());
+    assertGe(
+      IERC20(aTokenAddress).balanceOf(address(AaveV3InkWhitelabel.DUST_BIN)),
+      0.03 * 10 ** 18
+    );
+  }
 
-  // function test_weETHAdmin() public {
-  //   executePayload(vm, address(proposal), AaveV3InkWhitelabel.POOL);
-  //   address aweETH = AaveV3InkWhitelabel.POOL.getReserveAToken(proposal.weETH());
-  //   assertEq(
-  //     IEmissionManager(AaveV3InkWhitelabel.EMISSION_MANAGER).getEmissionAdmin(proposal.weETH()),
-  //     proposal.weETH_LM_ADMIN()
-  //   );
-  //   assertEq(
-  //     IEmissionManager(AaveV3InkWhitelabel.EMISSION_MANAGER).getEmissionAdmin(aweETH),
-  //     proposal.weETH_LM_ADMIN()
-  //   );
-  // }
+  function test_weETHAdmin() public {
+    executePayload(vm, address(proposal), AaveV3InkWhitelabel.POOL);
+    address aweETH = AaveV3InkWhitelabel.POOL.getReserveAToken(proposal.weETH());
+    assertEq(
+      IEmissionManager(AaveV3InkWhitelabel.EMISSION_MANAGER).getEmissionAdmin(proposal.weETH()),
+      proposal.weETH_LM_ADMIN()
+    );
+    assertEq(
+      IEmissionManager(AaveV3InkWhitelabel.EMISSION_MANAGER).getEmissionAdmin(aweETH),
+      proposal.weETH_LM_ADMIN()
+    );
+  }
 
-  // function test_dustBinHasrsETHFunds() public {
-  //   executePayload(vm, address(proposal), AaveV3InkWhitelabel.POOL);
-  //   address aTokenAddress = AaveV3InkWhitelabel.POOL.getReserveAToken(proposal.rsETH());
-  //   assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3InkWhitelabel.DUST_BIN)), 10 ** 18);
-  // }
+  function test_dustBinHasrsETHFunds() public {
+    executePayload(vm, address(proposal), AaveV3InkWhitelabel.POOL);
+    address aTokenAddress = AaveV3InkWhitelabel.POOL.getReserveAToken(proposal.rsETH());
+    assertGe(
+      IERC20(aTokenAddress).balanceOf(address(AaveV3InkWhitelabel.DUST_BIN)),
+      0.03 * 10 ** 18
+    );
+  }
 
-  // function test_rsETHAdmin() public {
-  //   executePayload(vm, address(proposal), AaveV3InkWhitelabel.POOL);
-  //   address arsETH = AaveV3InkWhitelabel.POOL.getReserveAToken(proposal.rsETH());
-  //   assertEq(
-  //     IEmissionManager(AaveV3InkWhitelabel.EMISSION_MANAGER).getEmissionAdmin(proposal.rsETH()),
-  //     proposal.rsETH_LM_ADMIN()
-  //   );
-  //   assertEq(
-  //     IEmissionManager(AaveV3InkWhitelabel.EMISSION_MANAGER).getEmissionAdmin(arsETH),
-  //     proposal.rsETH_LM_ADMIN()
-  //   );
-  // }
+  function test_rsETHAdmin() public {
+    executePayload(vm, address(proposal), AaveV3InkWhitelabel.POOL);
+    address arsETH = AaveV3InkWhitelabel.POOL.getReserveAToken(proposal.rsETH());
+    assertEq(
+      IEmissionManager(AaveV3InkWhitelabel.EMISSION_MANAGER).getEmissionAdmin(proposal.rsETH()),
+      proposal.rsETH_LM_ADMIN()
+    );
+    assertEq(
+      IEmissionManager(AaveV3InkWhitelabel.EMISSION_MANAGER).getEmissionAdmin(arsETH),
+      proposal.rsETH_LM_ADMIN()
+    );
+  }
 
-  // function test_dustBinHasezETHFunds() public {
-  //   executePayload(vm, address(proposal), AaveV3InkWhitelabel.POOL);
-  //   address aTokenAddress = AaveV3InkWhitelabel.POOL.getReserveAToken(proposal.ezETH());
-  //   assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3InkWhitelabel.DUST_BIN)), 10 ** 18);
-  // }
+  function test_dustBinHasezETHFunds() public {
+    executePayload(vm, address(proposal), AaveV3InkWhitelabel.POOL);
+    address aTokenAddress = AaveV3InkWhitelabel.POOL.getReserveAToken(proposal.ezETH());
+    assertGe(
+      IERC20(aTokenAddress).balanceOf(address(AaveV3InkWhitelabel.DUST_BIN)),
+      0.03 * 10 ** 18
+    );
+  }
 
-  // function test_ezETHAdmin() public {
-  //   executePayload(vm, address(proposal), AaveV3InkWhitelabel.POOL);
-  //   address aezETH = AaveV3InkWhitelabel.POOL.getReserveAToken(proposal.ezETH());
-  //   assertEq(
-  //     IEmissionManager(AaveV3InkWhitelabel.EMISSION_MANAGER).getEmissionAdmin(proposal.ezETH()),
-  //     proposal.ezETH_LM_ADMIN()
-  //   );
-  //   assertEq(
-  //     IEmissionManager(AaveV3InkWhitelabel.EMISSION_MANAGER).getEmissionAdmin(aezETH),
-  //     proposal.ezETH_LM_ADMIN()
-  //   );
-  // }
+  function test_ezETHAdmin() public {
+    executePayload(vm, address(proposal), AaveV3InkWhitelabel.POOL);
+    address aezETH = AaveV3InkWhitelabel.POOL.getReserveAToken(proposal.ezETH());
+    assertEq(
+      IEmissionManager(AaveV3InkWhitelabel.EMISSION_MANAGER).getEmissionAdmin(proposal.ezETH()),
+      proposal.ezETH_LM_ADMIN()
+    );
+    assertEq(
+      IEmissionManager(AaveV3InkWhitelabel.EMISSION_MANAGER).getEmissionAdmin(aezETH),
+      proposal.ezETH_LM_ADMIN()
+    );
+  }
 }
