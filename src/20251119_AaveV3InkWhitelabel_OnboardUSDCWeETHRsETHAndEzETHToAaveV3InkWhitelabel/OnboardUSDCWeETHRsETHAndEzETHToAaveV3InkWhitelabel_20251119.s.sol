@@ -5,18 +5,19 @@ import {GovV3Helpers, IPayloadsControllerCore} from 'aave-helpers/src/GovV3Helpe
 import {GovernanceV3InkWhitelabel} from 'aave-address-book/GovernanceV3InkWhitelabel.sol';
 
 import {EthereumScript, InkScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
-import {AaveV3InkWhitelabel_OnboardUSDCOnAaveV3InkWhitelabel_20251113} from './AaveV3InkWhitelabel_OnboardUSDCOnAaveV3InkWhitelabel_20251113.sol';
+import {AaveV3InkWhitelabel_OnboardUSDCWeETHRsETHAndEzETHToAaveV3InkWhitelabel_20251119} from './AaveV3InkWhitelabel_OnboardUSDCWeETHRsETHAndEzETHToAaveV3InkWhitelabel_20251119.sol';
 
 /**
  * @dev Deploy Ink
- * deploy-command: make deploy-ledger contract=src/20251113_AaveV3InkWhitelabel_OnboardUSDCOnAaveV3InkWhitelabel/OnboardUSDCOnAaveV3InkWhitelabel_20251113.s.sol:DeployInk chain=ink
- * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/OnboardUSDCOnAaveV3InkWhitelabel_20251113.s.sol/57073/run-latest.json
+ * deploy-command: make deploy-ledger contract=src/20251119_AaveV3InkWhitelabel_OnboardUSDCWeETHRsETHAndEzETHToAaveV3InkWhitelabel/OnboardUSDCWeETHRsETHAndEzETHToAaveV3InkWhitelabel_20251119.s.sol:DeployInk chain=ink
+ * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/OnboardUSDCWeETHRsETHAndEzETHToAaveV3InkWhitelabel_20251119.s.sol/57073/run-latest.json
  */
 contract DeployInk is InkScript {
   function run() external broadcast {
     // deploy payloads
     address payload0 = GovV3Helpers.deployDeterministic(
-      type(AaveV3InkWhitelabel_OnboardUSDCOnAaveV3InkWhitelabel_20251113).creationCode
+      type(AaveV3InkWhitelabel_OnboardUSDCWeETHRsETHAndEzETHToAaveV3InkWhitelabel_20251119)
+        .creationCode
     );
 
     // compose action
