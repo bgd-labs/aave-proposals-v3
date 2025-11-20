@@ -90,7 +90,7 @@ contract AaveV3InkWhitelabel_OnboardUSDCWeETHRsETHAndEzETHToAaveV3InkWhitelabel_
     executePayload(vm, address(proposal), AaveV3InkWhitelabel.POOL);
     address arsETH = AaveV3InkWhitelabel.POOL.getReserveAToken(proposal.wrsETH());
     assertEq(
-      IEmissionManager(AaveV3InkWhitelabel.EMISSION_MANAGER).getEmissionAdmin(proposal.rsETH()),
+      IEmissionManager(AaveV3InkWhitelabel.EMISSION_MANAGER).getEmissionAdmin(proposal.wrsETH()),
       proposal.rsETH_LM_ADMIN()
     );
     assertEq(
