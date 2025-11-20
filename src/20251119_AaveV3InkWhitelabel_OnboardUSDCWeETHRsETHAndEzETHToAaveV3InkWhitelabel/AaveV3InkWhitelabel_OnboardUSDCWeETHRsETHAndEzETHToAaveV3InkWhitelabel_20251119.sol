@@ -26,6 +26,7 @@ contract AaveV3InkWhitelabel_OnboardUSDCWeETHRsETHAndEzETHToAaveV3InkWhitelabel_
   uint256 public constant weETH_SEED_AMOUNT = 0.03 * 1e18;
   address public constant weETH_LM_ADMIN = 0xac140648435d03f784879cd789130F22Ef588Fcd;
 
+  address public constant wrsETH = 0x9f0a74A92287E323Eb95c1cd9eCdBEb0e397cAe4;
   address public constant rsETH = 0xc3eACf0612346366Db554C991D7858716db09f58;
   uint256 public constant rsETH_SEED_AMOUNT = 0.03 * 1e18;
   address public constant rsETH_LM_ADMIN = 0xac140648435d03f784879cd789130F22Ef588Fcd;
