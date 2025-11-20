@@ -58,7 +58,7 @@ contract AaveV3InkWhitelabel_OnboardUSDCWeETHRsETHAndEzETHToAaveV3InkWhitelabel_
     address[] memory borrowableAssets_LRTMain = new address[](1);
 
     collateralAssets_LRTMain[0] = weETH;
-    collateralAssets_LRTMain[1] = rsETH;
+    collateralAssets_LRTMain[1] = wrsETH;
     collateralAssets_LRTMain[2] = ezETH;
     borrowableAssets_LRTMain[0] = AaveV3InkWhitelabelAssets.WETH_UNDERLYING;
 
