@@ -79,7 +79,7 @@ contract AaveV3InkWhitelabel_OnboardUSDCWeETHRsETHAndEzETHToAaveV3InkWhitelabel_
 
   function test_dustBinHasrsETHFunds() public {
     executePayload(vm, address(proposal), AaveV3InkWhitelabel.POOL);
-    address aTokenAddress = AaveV3InkWhitelabel.POOL.getReserveAToken(proposal.rsETH());
+    address aTokenAddress = AaveV3InkWhitelabel.POOL.getReserveAToken(proposal.wrsETH());
     assertGe(
       IERC20(aTokenAddress).balanceOf(address(AaveV3InkWhitelabel.DUST_BIN)),
       0.03 * 10 ** 18
