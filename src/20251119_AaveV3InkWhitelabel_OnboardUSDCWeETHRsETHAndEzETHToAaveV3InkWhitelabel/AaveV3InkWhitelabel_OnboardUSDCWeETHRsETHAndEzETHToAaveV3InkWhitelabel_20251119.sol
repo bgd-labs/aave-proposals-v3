@@ -59,7 +59,7 @@ contract AaveV3InkWhitelabel_OnboardUSDCWeETHRsETHAndEzETHToAaveV3InkWhitelabel_
     collateralAssets_LRTMain[0] = weETH;
     collateralAssets_LRTMain[1] = rsETH;
     collateralAssets_LRTMain[2] = ezETH;
-    borrowableAssets_LRTMain[0] = USDC;
+    borrowableAssets_LRTMain[0] = AaveV3InkWhitelabelAssets.WETH_UNDERLYING;
 
     eModeCreations[0] = IAaveV3ConfigEngine.EModeCategoryCreation({
       ltv: 93_00,
