@@ -40,7 +40,7 @@ contract AaveV3InkWhitelabel_OnboardUSDCWeETHRsETHAndEzETHToAaveV3InkWhitelabel_
 
     _supplyAndConfigureLMAdmin(weETH, weETH_SEED_AMOUNT, weETH_LM_ADMIN);
 
-    _supplyAndConfigureLMAdmin(rsETH, rsETH_SEED_AMOUNT, rsETH_LM_ADMIN);
+    _supplyAndConfigureLMAdmin(wrsETH, rsETH_SEED_AMOUNT, rsETH_LM_ADMIN);
 
     _supplyAndConfigureLMAdmin(ezETH, ezETH_SEED_AMOUNT, ezETH_LM_ADMIN);
   }
