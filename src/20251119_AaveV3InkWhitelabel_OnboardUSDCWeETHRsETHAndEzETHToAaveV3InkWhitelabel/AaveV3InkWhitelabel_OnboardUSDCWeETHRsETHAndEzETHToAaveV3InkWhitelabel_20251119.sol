@@ -9,6 +9,10 @@ import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 import {SafeERC20} from 'openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol';
 import {IEmissionManager} from 'aave-v3-origin/contracts/rewards/interfaces/IEmissionManager.sol';
 
+interface IwrsETH {
+  function deposit(address asset, uint256 _amount) external;
+}
+
 /**
  * @title Onboard USDC, weETH, rsETH and ezETH to AaveV3InkWhitelabel
  * @author ACI
@@ -36,6 +40,9 @@ contract AaveV3InkWhitelabel_OnboardUSDCWeETHRsETHAndEzETHToAaveV3InkWhitelabel_
   address public constant ezETH_LM_ADMIN = 0xac140648435d03f784879cd789130F22Ef588Fcd;
 
   function _postExecute() internal override {
+    IERC20(rsETH).forceApprove(wrsETH, rsETH_SEED_AMOUNT);
+    IwrsETH(wrsETH).deposit(rsETH, rsETH_SEED_AMOUNT);
+
     _supplyAndConfigureLMAdmin(USDC, USDC_SEED_AMOUNT, USDC_LM_ADMIN);
 
     _supplyAndConfigureLMAdmin(weETH, weETH_SEED_AMOUNT, weETH_LM_ADMIN);
