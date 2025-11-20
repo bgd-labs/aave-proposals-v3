@@ -143,7 +143,7 @@ contract AaveV3InkWhitelabel_OnboardUSDCWeETHRsETHAndEzETHToAaveV3InkWhitelabel_
       reserveFactor: 10_00,
       supplyCap: 6_000,
       borrowCap: 1,
-      debtCeiling: 1,
+      debtCeiling: 0,
       liqProtocolFee: 10_00,
       rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
         optimalUsageRatio: 45_00,
@@ -166,7 +166,7 @@ contract AaveV3InkWhitelabel_OnboardUSDCWeETHRsETHAndEzETHToAaveV3InkWhitelabel_
       reserveFactor: 10_00,
       supplyCap: 6_000,
       borrowCap: 1,
-      debtCeiling: 1,
+      debtCeiling: 0,
       liqProtocolFee: 10_00,
       rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
         optimalUsageRatio: 45_00,
