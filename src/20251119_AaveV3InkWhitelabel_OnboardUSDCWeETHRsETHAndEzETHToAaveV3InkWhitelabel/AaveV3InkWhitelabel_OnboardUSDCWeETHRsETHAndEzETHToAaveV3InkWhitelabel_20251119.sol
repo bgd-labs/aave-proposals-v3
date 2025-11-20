@@ -123,8 +123,8 @@ contract AaveV3InkWhitelabel_OnboardUSDCWeETHRsETHAndEzETHToAaveV3InkWhitelabel_
       })
     });
     listings[2] = IAaveV3ConfigEngine.Listing({
-      asset: rsETH,
-      assetSymbol: 'rsETH',
+      asset: wrsETH,
+      assetSymbol: 'wrsETH',
       priceFeed: 0x771a1668f973f2485D32580aB53F5C4934e81531,
       enabledToBorrow: EngineFlags.DISABLED,
       borrowableInIsolation: EngineFlags.DISABLED,
