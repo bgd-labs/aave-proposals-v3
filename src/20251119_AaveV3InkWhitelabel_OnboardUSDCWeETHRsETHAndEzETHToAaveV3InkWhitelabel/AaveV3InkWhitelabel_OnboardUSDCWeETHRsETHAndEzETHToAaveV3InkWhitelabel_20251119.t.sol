@@ -91,11 +91,11 @@ contract AaveV3InkWhitelabel_OnboardUSDCWeETHRsETHAndEzETHToAaveV3InkWhitelabel_
     address arsETH = AaveV3InkWhitelabel.POOL.getReserveAToken(proposal.wrsETH());
     assertEq(
       IEmissionManager(AaveV3InkWhitelabel.EMISSION_MANAGER).getEmissionAdmin(proposal.wrsETH()),
-      proposal.rsETH_LM_ADMIN()
+      proposal.wrsETH_LM_ADMIN()
     );
     assertEq(
       IEmissionManager(AaveV3InkWhitelabel.EMISSION_MANAGER).getEmissionAdmin(arsETH),
-      proposal.rsETH_LM_ADMIN()
+      proposal.wrsETH_LM_ADMIN()
     );
   }
 
