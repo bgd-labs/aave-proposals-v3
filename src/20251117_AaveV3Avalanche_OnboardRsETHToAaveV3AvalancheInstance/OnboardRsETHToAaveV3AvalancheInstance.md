@@ -68,8 +68,8 @@ Additionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://snowscan.xyz/a
 
 ## References
 
-- Implementation: [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251117_AaveV3Avalanche_OnboardRsETHToAaveV3AvalancheInstance/AaveV3Avalanche_OnboardRsETHToAaveV3AvalancheInstance_20251117.sol)
-- Tests: [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251117_AaveV3Avalanche_OnboardRsETHToAaveV3AvalancheInstance/AaveV3Avalanche_OnboardRsETHToAaveV3AvalancheInstance_20251117.t.sol)
+- Implementation: [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/502ab2e2881bd9530694e8ecdd861a205da7fef1/src/20251117_AaveV3Avalanche_OnboardRsETHToAaveV3AvalancheInstance/AaveV3Avalanche_OnboardRsETHToAaveV3AvalancheInstance_20251117.sol)
+- Tests: [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/502ab2e2881bd9530694e8ecdd861a205da7fef1/src/20251117_AaveV3Avalanche_OnboardRsETHToAaveV3AvalancheInstance/AaveV3Avalanche_OnboardRsETHToAaveV3AvalancheInstance_20251117.t.sol)
 - Snapshot: Direct-to-AIP
 - [Discussion](https://governance.aave.com/t/direct-to-aip-onboard-rseth-to-aave-v3-avalanche-instance/23313)
 
