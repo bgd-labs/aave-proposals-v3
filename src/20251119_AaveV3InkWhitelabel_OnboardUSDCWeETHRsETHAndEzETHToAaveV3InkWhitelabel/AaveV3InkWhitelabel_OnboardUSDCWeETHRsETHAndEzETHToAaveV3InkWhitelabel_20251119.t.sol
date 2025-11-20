@@ -88,7 +88,7 @@ contract AaveV3InkWhitelabel_OnboardUSDCWeETHRsETHAndEzETHToAaveV3InkWhitelabel_
 
   function test_rsETHAdmin() public {
     executePayload(vm, address(proposal), AaveV3InkWhitelabel.POOL);
-    address arsETH = AaveV3InkWhitelabel.POOL.getReserveAToken(proposal.rsETH());
+    address arsETH = AaveV3InkWhitelabel.POOL.getReserveAToken(proposal.wrsETH());
     assertEq(
       IEmissionManager(AaveV3InkWhitelabel.EMISSION_MANAGER).getEmissionAdmin(proposal.rsETH()),
       proposal.rsETH_LM_ADMIN()
