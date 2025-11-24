@@ -43,7 +43,7 @@ export const config: ConfigFile = {
           },
         ],
       },
-      cache: {blockNumber: 23840931},
+      cache: {blockNumber: 23871455},
     },
     AaveV3Linea: {
       configs: {
@@ -75,7 +75,7 @@ export const config: ConfigFile = {
           },
         ],
       },
-      cache: {blockNumber: 25848289},
+      cache: {blockNumber: 25988876},
     },
   },
 };

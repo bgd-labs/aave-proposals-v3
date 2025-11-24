@@ -15,7 +15,7 @@ contract AaveV3Ethereum_AddMetaMaskMUSDToAaveV3EthereumLinea_20251120_Test is Pr
   AaveV3Ethereum_AddMetaMaskMUSDToAaveV3EthereumLinea_20251120 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 23840931);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 23871455);
     proposal = new AaveV3Ethereum_AddMetaMaskMUSDToAaveV3EthereumLinea_20251120();
   }
 
