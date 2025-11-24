@@ -41,7 +41,7 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
     proposal = new AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_20250930_Part2();
 
     // Deal GHO that is going to be bridged from Mainnet
-    // 1 GHO for seed amount already sent to Collector
+    // 10 GHO for seed amount already sent to Collector
     deal(GhoPlasma.GHO_TOKEN, address(AaveV3Plasma.COLLECTOR), 50_000_010 ether);
   }
 

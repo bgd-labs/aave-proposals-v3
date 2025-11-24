@@ -28,7 +28,7 @@ interface IGhoReserve {
 }
 
 /**
- * @title Add GHO and deploy GSM on Plasma. Migrate to new GSM on Ethereum
+ * @title Add GHO and deploy GSM on Plasma.
  * @author @TokenLogic
  * - Snapshot: https://snapshot.box/#/s:aavedao.eth/proposal/0xeb3572580924976867073ad9c8012cb9e52093c76dafebd7d3aebf318f2576fb
  * - Discussion: https://governance.aave.com/t/arfc-launch-gho-on-plasma-set-aci-as-emissions-manager-for-rewards/22994/6
@@ -83,7 +83,6 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
 
     _grantAccess();
     _updateFeeStrategy();
-    _registerOracles();
   }
 
   function _grantAccess() internal {
@@ -104,10 +103,6 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
 
   function _updateFeeStrategy() internal {
     IGsm(NEW_GSM_USDT).updateFeeStrategy(FEE_STRATEGY);
-  }
-
-  function _registerOracles() internal {
-    // Manual via Gelato for Plasma
   }
 
   function _postExecute() internal override {

@@ -27,14 +27,9 @@ contract DeployEthereum is EthereumScript {
         .creationCode
     );
 
-    // compose action
-    IPayloadsControllerCore.ExecutionAction[]
-      memory actions = new IPayloadsControllerCore.ExecutionAction[](2);
-    actions[0] = GovV3Helpers.buildAction(payload0);
-    actions[1] = GovV3Helpers.buildAction(payload1);
-
     // register action at payloadsController
-    GovV3Helpers.createPayload(actions);
+    GovV3Helpers.createPayload(GovV3Helpers.buildAction(payload0));
+    GovV3Helpers.createPayload(GovV3Helpers.buildAction(payload1));
   }
 }
 
@@ -55,14 +50,9 @@ contract DeployPlasma is PlasmaScript {
         .creationCode
     );
 
-    // compose action
-    IPayloadsControllerCore.ExecutionAction[]
-      memory actions = new IPayloadsControllerCore.ExecutionAction[](2);
-    actions[0] = GovV3Helpers.buildAction(payload0);
-    actions[1] = GovV3Helpers.buildAction(payload1);
-
     // register action at payloadsController
-    GovV3Helpers.createPayload(actions);
+    GovV3Helpers.createPayload(GovV3Helpers.buildAction(payload0));
+    GovV3Helpers.createPayload(GovV3Helpers.buildAction(payload1));
   }
 }
 
@@ -73,18 +63,14 @@ contract DeployPlasma is PlasmaScript {
 contract CreateProposal is EthereumScript {
   function run() external {
     // create payloads
-    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](2);
+    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](4);
 
     // compose actions for validation
     {
       IPayloadsControllerCore.ExecutionAction[]
-        memory actionsEthereum = new IPayloadsControllerCore.ExecutionAction[](2);
+        memory actionsEthereum = new IPayloadsControllerCore.ExecutionAction[](1);
       actionsEthereum[0] = GovV3Helpers.buildAction(
         type(AaveV3Ethereum_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_20250930_Part1)
-          .creationCode
-      );
-      actionsEthereum[1] = GovV3Helpers.buildAction(
-        type(AaveV3Ethereum_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_20250930_Part2)
           .creationCode
       );
       payloads[0] = GovV3Helpers.buildMainnetPayload(vm, actionsEthereum);
@@ -92,16 +78,32 @@ contract CreateProposal is EthereumScript {
 
     {
       IPayloadsControllerCore.ExecutionAction[]
-        memory actionsPlasma = new IPayloadsControllerCore.ExecutionAction[](2);
+        memory actionsEthereum = new IPayloadsControllerCore.ExecutionAction[](1);
+      actionsEthereum[0] = GovV3Helpers.buildAction(
+        type(AaveV3Ethereum_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_20250930_Part2)
+          .creationCode
+      );
+      payloads[1] = GovV3Helpers.buildMainnetPayload(vm, actionsEthereum);
+    }
+
+    {
+      IPayloadsControllerCore.ExecutionAction[]
+        memory actionsPlasma = new IPayloadsControllerCore.ExecutionAction[](1);
       actionsPlasma[0] = GovV3Helpers.buildAction(
         type(AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_20250930_Part1)
           .creationCode
       );
-      actionsPlasma[1] = GovV3Helpers.buildAction(
+      payloads[2] = GovV3Helpers.buildPlasmaPayload(vm, actionsPlasma);
+    }
+
+    {
+      IPayloadsControllerCore.ExecutionAction[]
+        memory actionsPlasma = new IPayloadsControllerCore.ExecutionAction[](1);
+      actionsPlasma[0] = GovV3Helpers.buildAction(
         type(AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_20250930_Part2)
           .creationCode
       );
-      payloads[1] = GovV3Helpers.buildPlasmaPayload(vm, actionsPlasma);
+      payloads[3] = GovV3Helpers.buildPlasmaPayload(vm, actionsPlasma);
     }
 
     // create proposal

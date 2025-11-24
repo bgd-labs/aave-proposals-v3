@@ -13,7 +13,7 @@ import {IGhoToken} from 'src/interfaces/IGhoToken.sol';
 import {IOwnableFacilitator} from 'src/interfaces/IOwnableFacilitator.sol';
 
 /**
- * @title Add GHO and deploy GSM on Plasma. Migrate to new GSM on Ethereum
+ * @title Add GHO and deploy GSM on Plasma.
  * @author @TokenLogic
  * - Snapshot: https://snapshot.box/#/s:aavedao.eth/proposal/0xeb3572580924976867073ad9c8012cb9e52093c76dafebd7d3aebf318f2576fb
  * - Discussion: https://governance.aave.com/t/arfc-launch-gho-on-plasma-set-aci-as-emissions-manager-for-rewards/22994/6
