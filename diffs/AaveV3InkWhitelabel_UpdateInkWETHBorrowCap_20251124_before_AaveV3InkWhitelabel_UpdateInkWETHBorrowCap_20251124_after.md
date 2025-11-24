@@ -2,7 +2,7 @@
 
 ### Reserves altered
 
-#### WETH (0x4200000000000000000000000000000000000006)
+#### WETH ([0x4200000000000000000000000000000000000006](https://explorer.inkonchain.com/address/0x4200000000000000000000000000000000000006))
 
 | description | value before | value after |
 | --- | --- | --- |
