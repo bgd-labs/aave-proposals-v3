@@ -51,6 +51,14 @@ The table below illustrates the configured risk parameters for **mUSD** on Ether
 | Borrowable in Isolation   |                                   DISABLED |
 | Oracle                    | 0xf22de319901C3b9BAEc7Fa14FdF013Ede40E7312 |
 
+### Oracle
+
+| Parameter      |                                                                                         Value |
+| -------------- | --------------------------------------------------------------------------------------------: |
+| Oracle address | [Capped mUSD / USD ](https://etherscan.io/address/0xf22de319901C3b9BAEc7Fa14FdF013Ede40E7312) |
+| Underlying     |         [mUSD / USD](https://etherscan.io/address/0xc90E3460424fb8ea79775089E9053113FEE34Ed0) |
+| last answer    |                                                                   (2025-11-24) USD 0.99995036 |
+
 The table below illustrates the configured risk parameters for **mUSD** on Linea.
 
 | Parameter                 |                                      Value |
@@ -74,6 +82,14 @@ The table below illustrates the configured risk parameters for **mUSD** on Linea
 | Siloed Borrowing          |                                   DISABLED |
 | Borrowable in Isolation   |                                   DISABLED |
 | Oracle                    | 0xB8454f3b48395103F23c88B699d4F6A81fD1DCff |
+
+### Oracle
+
+| Parameter      |                                                                                            Value |
+| -------------- | -----------------------------------------------------------------------------------------------: |
+| Oracle address | [Capped mUSD / USD ](https://lineascan.build/address/0xB8454f3b48395103F23c88B699d4F6A81fD1DCff) |
+| Underlying     |         [mUSD / USD](https://lineascan.build/address/0xc834a55fb78dEa866E9cd86047Df0F584B9da339) |
+| last answer    |                                                                      (2025-11-24) USD 0.99974795 |
 
 ## References
 

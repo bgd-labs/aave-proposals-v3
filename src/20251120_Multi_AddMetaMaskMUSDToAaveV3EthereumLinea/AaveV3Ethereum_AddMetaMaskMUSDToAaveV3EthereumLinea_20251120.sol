@@ -19,7 +19,7 @@ contract AaveV3Ethereum_AddMetaMaskMUSDToAaveV3EthereumLinea_20251120 is AaveV3P
   using SafeERC20 for IERC20;
 
   address public constant mUSD = 0xacA92E438df0B2401fF60dA7E4337B687a2435DA;
-  uint256 public constant mUSD_SEED_AMOUNT = 10e6;
+  uint256 public constant mUSD_SEED_AMOUNT = 20e6;
 
   function _postExecute() internal override {
     _supplyAndConfigureLMAdmin(mUSD, mUSD_SEED_AMOUNT, address(0));
