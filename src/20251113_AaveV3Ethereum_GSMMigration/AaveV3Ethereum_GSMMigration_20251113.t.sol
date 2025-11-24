@@ -27,7 +27,7 @@ contract AaveV3Ethereum_GSMMigration_20251113_Test is ProtocolV3TestBase {
   AaveV3Ethereum_GSMMigration_20251113 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 23791536);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 23848050);
     proposal = new AaveV3Ethereum_GSMMigration_20251113();
   }
 
@@ -107,8 +107,8 @@ contract AaveV3Ethereum_GSMMigration_20251113_Test is ProtocolV3TestBase {
 
     // GSM USDC
     GsmConfig memory gsmUsdcConfig = GsmConfig({
-      sellFee: 0, // 0%
-      buyFee: 0.0010e4, // 0.1%
+      sellFee: 0, // 0.05%
+      buyFee: 0.0013e4, // 0.13%
       exposureCap: 50_000_000e6,
       isFrozen: false,
       isSeized: false,
@@ -127,8 +127,8 @@ contract AaveV3Ethereum_GSMMigration_20251113_Test is ProtocolV3TestBase {
 
     // GSM USDT
     GsmConfig memory gsmUsdtConfig = GsmConfig({
-      sellFee: 0, // 0%
-      buyFee: 0.0010e4, // 0.1%
+      sellFee: 0.0005e4, // 0.05%
+      buyFee: 0.0015e4, // 0.15%
       exposureCap: 25_000_000e6,
       isFrozen: false,
       isSeized: false,
