@@ -93,8 +93,8 @@ The table below illustrates the configured risk parameters for **mUSD** on Linea
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251120_Multi_AddMetaMaskMUSDToAaveV3EthereumLinea/AaveV3Ethereum_AddMetaMaskMUSDToAaveV3EthereumLinea_20251120.sol), [AaveV3Linea](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251120_Multi_AddMetaMaskMUSDToAaveV3EthereumLinea/AaveV3Linea_AddMetaMaskMUSDToAaveV3EthereumLinea_20251120.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251120_Multi_AddMetaMaskMUSDToAaveV3EthereumLinea/AaveV3Ethereum_AddMetaMaskMUSDToAaveV3EthereumLinea_20251120.t.sol), [AaveV3Linea](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251120_Multi_AddMetaMaskMUSDToAaveV3EthereumLinea/AaveV3Linea_AddMetaMaskMUSDToAaveV3EthereumLinea_20251120.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/2448ca684e3466f55d2d4fbb65bd2e044c528ce7/src/20251120_Multi_AddMetaMaskMUSDToAaveV3EthereumLinea/AaveV3Ethereum_AddMetaMaskMUSDToAaveV3EthereumLinea_20251120.sol), [AaveV3Linea](https://github.com/bgd-labs/aave-proposals-v3/blob/2448ca684e3466f55d2d4fbb65bd2e044c528ce7/src/20251120_Multi_AddMetaMaskMUSDToAaveV3EthereumLinea/AaveV3Linea_AddMetaMaskMUSDToAaveV3EthereumLinea_20251120.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/2448ca684e3466f55d2d4fbb65bd2e044c528ce7/src/20251120_Multi_AddMetaMaskMUSDToAaveV3EthereumLinea/AaveV3Ethereum_AddMetaMaskMUSDToAaveV3EthereumLinea_20251120.t.sol), [AaveV3Linea](https://github.com/bgd-labs/aave-proposals-v3/blob/2448ca684e3466f55d2d4fbb65bd2e044c528ce7/src/20251120_Multi_AddMetaMaskMUSDToAaveV3EthereumLinea/AaveV3Linea_AddMetaMaskMUSDToAaveV3EthereumLinea_20251120.t.sol)
 - [Snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0x9abb72d91df849e8723ed6e8f20151310f42861a2c0d420f300324d855d787d9)
 - [Discussion](https://governance.aave.com/t/arfc-add-metamask-usd-musd-to-aave-v3-core-instance-on-ethereum-and-linea/23097)
 
