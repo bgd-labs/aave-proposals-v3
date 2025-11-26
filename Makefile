@@ -17,7 +17,7 @@ deploy-ledger :; forge script $(if $(filter zksync,${chain}),--zksync) ${contrac
 deploy-pk :; forge script $(if $(filter zksync,${chain}),--zksync) ${contract} --rpc-url ${chain} $(if ${dry},--sender 0x73AF3bcf944a6559933396c1577B257e2054D935 -vvvv, --private-key ${PRIVATE_KEY} --verify -vvvv --slow --broadcast)
 
 # Utilities
-download :; cast etherscan-source --chain ${chain} -d src/etherscan/${chain}_${address} ${address}
+download :; cast source --chain ${chain} -d src/etherscan/${chain}_${address} ${address}
 git-diff :
 	@mkdir -p diffs
 	@npx prettier ${before} ${after} --write
