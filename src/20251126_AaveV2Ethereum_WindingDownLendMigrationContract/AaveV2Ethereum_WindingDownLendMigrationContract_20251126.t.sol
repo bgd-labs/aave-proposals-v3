@@ -31,7 +31,7 @@ contract AaveV2Ethereum_WindingDownLendMigrationContract_20251126_Test is Protoc
       AaveV3Ethereum.POOL,
       address(proposal),
       false,
-      true
+      false
     );
 
     // should revert as long as migration is not finished
