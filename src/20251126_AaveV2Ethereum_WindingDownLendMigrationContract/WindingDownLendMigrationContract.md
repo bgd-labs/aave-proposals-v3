@@ -30,6 +30,7 @@ The new implementation prevents migrations and unlocks a permissionless `transfe
 - Tests: [AaveV2Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251126_AaveV2Ethereum_WindingDownLendMigrationContract/AaveV2Ethereum_WindingDownLendMigrationContract_20251126.t.sol)
 - [Snapshot](https://snapshot.org/#/s:aavedao.eth/proposal/0x4d9eb143c46a637dbf98d63ad00a6e53739a9b6affc0eed7d3cd35680500afaa)
 - [Discussion](https://governance.aave.com/t/arfc-winding-down-lend-migration-contract/23126)
+- [Implementation code diff]([src/20251126_AaveV2Ethereum_WindingDownLendMigrationContract](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251126_AaveV2Ethereum_WindingDownLendMigrationContract/LendToAaveMigrator/src/contracts/migrator.diff)
 
 ## Copyright
 
