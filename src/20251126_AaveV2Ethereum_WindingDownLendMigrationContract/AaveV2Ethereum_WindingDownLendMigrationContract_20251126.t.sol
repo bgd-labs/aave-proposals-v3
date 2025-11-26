@@ -2,6 +2,7 @@
 pragma solidity ^0.8.0;
 
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
+import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 
 import 'forge-std/Test.sol';
 import {ProtocolV3TestBase, ReserveConfig} from 'aave-helpers/src/ProtocolV3TestBase.sol';
@@ -33,23 +34,29 @@ contract AaveV2Ethereum_WindingDownLendMigrationContract_20251126_Test is Protoc
       true
     );
 
+    // should revert as long as migration is not finished
+    vm.expectRevert(abi.encodeWithSelector(LendToAaveMigrator.MigrationNotFinished.selector));
+    LendToAaveMigrator(LEND_MIGARTION_CONTRACT).transferRemainingFundsToEcosystemReserve();
+
     vm.warp(proposal.LEND_TO_AAVE_MIGRATOR_IMPLEMENTATION().MIGRATION_END_TIMESTAMP() + 1);
 
+    // should revert after migration is finished
     vm.expectRevert(abi.encodeWithSelector(LendToAaveMigrator.MigrationFinished.selector));
     LendToAaveMigrator(LEND_MIGARTION_CONTRACT).migrateFromLEND(100);
 
+    // should migrate all aave tokens to ecosystem reserve
     uint256 balanceBefore = IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING).balanceOf(
       LEND_MIGARTION_CONTRACT
     );
     uint256 balanceBeforeCollector = IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING).balanceOf(
-      address(AaveV3Ethereum.COLLECTOR)
+      address(MiscEthereum.ECOSYSTEM_RESERVE)
     );
-    LendToAaveMigrator(proposal.LEND_MIGARTION_CONTRACT()).transferRemainingFundsToTreasury();
+    LendToAaveMigrator(LEND_MIGARTION_CONTRACT).transferRemainingFundsToEcosystemReserve();
     uint256 balanceAfter = IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING).balanceOf(
       LEND_MIGARTION_CONTRACT
     );
     uint256 balanceAfterCollector = IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING).balanceOf(
-      address(AaveV3Ethereum.COLLECTOR)
+      address(MiscEthereum.ECOSYSTEM_RESERVE)
     );
     assertNotEq(balanceBefore, 0);
     assertEq(balanceAfter, 0);

@@ -15,14 +15,14 @@ This proposal is following up on promises made in [Aavenomics Part 1](https://go
 
 As announced multiple times over the past years and half a decade after opening the LEND to AAVE migration contract, it’s time to close the LEND chapter and focus on AAVE.
 
-This proposal will remove all remaining AAVE—305k tokens at the time of writing—from the migration contract and redirect them to the ecosystem reserve.
+This proposal will remove all remaining AAVE ~304k tokens at the time of writing—from the migration contract and redirect them to the ecosystem reserve.
 
-Given that the community has had multiple years of notice, we consider it fair to close down the migration process. Additional communication and clear timeline for ending migration window is outlined below.
+Given that the community has had multiple years of notice, we consider it fair to close down the migration process.
 
 ## Specification
 
 Calls `upgradeAndCall` on `LEND_MIGARTION_CONTRACT` to replace the current implementation.
-The new implementation prevents migrations and unlocks a permissionless `transferRemainingFundsToTreasury` after a `block.timestamp` of `1767225600`. The `transferRemainingFundsToTreasury` will transfer the remaining `AAVE` token to the `COLLECTOR`.
+The new implementation prevents migrations and unlocks a permissionless `transferRemainingFundsToEcosystemReserve` after a `block.timestamp` of `1767225600`. The `transferRemainingFundsToEcosystemReserve` will transfer the remaining `AAVE` token to the [`ECOSYSTEM_RESERVE`](https://etherscan.io/address/0x25F2226B597E8F9514B3F68F00f494cF4f286491).
 
 ## References
 

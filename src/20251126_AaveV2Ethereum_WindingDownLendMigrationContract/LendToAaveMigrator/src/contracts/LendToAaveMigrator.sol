@@ -3,7 +3,7 @@ pragma solidity ^0.8.0;
 
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 import {VersionedInitializable} from './dependencies/upgradeability/VersionedInitializable.sol';
-import {AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
+import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 
 /**
  * @title LendToAaveMigrator
@@ -58,11 +58,11 @@ contract LendToAaveMigrator is VersionedInitializable {
 
   /**
    * The DAO voted on stopping the migration on 1st of January 2026
-   * Once that time has passed, all remaining AAVE tokens can be claimed to the treasury.
+   * Once that time has passed, all remaining AAVE tokens can be claimed to the ecosystem reserve.
    */
-  function transferRemainingFundsToTreasury() external {
+  function transferRemainingFundsToEcosystemReserve() external {
     require(block.timestamp > MIGRATION_END_TIMESTAMP, MigrationNotFinished());
-    AAVE.transfer(address(AaveV3Ethereum.COLLECTOR), AAVE.balanceOf(address(this)));
+    AAVE.transfer(address(MiscEthereum.ECOSYSTEM_RESERVE), AAVE.balanceOf(address(this)));
   }
 
   /**
