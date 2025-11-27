@@ -65,8 +65,8 @@ Additionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://etherscan.io/a
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251126_AaveV3Ethereum_OnboardSyrupUSDTToAaveV3CoreInstance/AaveV3Ethereum_OnboardSyrupUSDTToAaveV3CoreInstance_20251126.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251126_AaveV3Ethereum_OnboardSyrupUSDTToAaveV3CoreInstance/AaveV3Ethereum_OnboardSyrupUSDTToAaveV3CoreInstance_20251126.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/eae60bd78e895dee088fb1039dc87f103030b35c/src/20251126_AaveV3Ethereum_OnboardSyrupUSDTToAaveV3CoreInstance/AaveV3Ethereum_OnboardSyrupUSDTToAaveV3CoreInstance_20251126.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/eae60bd78e895dee088fb1039dc87f103030b35c/src/20251126_AaveV3Ethereum_OnboardSyrupUSDTToAaveV3CoreInstance/AaveV3Ethereum_OnboardSyrupUSDTToAaveV3CoreInstance_20251126.t.sol)
 - Snapshot: Direct-to-AIP
 - [Discussion](https://governance.aave.com/t/direct-to-aip-onboard-syrupusdt-to-aave-v3-core-instance/23291)
 
