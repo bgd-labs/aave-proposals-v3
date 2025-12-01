@@ -10,13 +10,13 @@ Chaos Labs proposes increasing the XAUt debt ceiling and supply cap following st
 
 ## XAUt
 
-XAUt has now reached its $3M debt ceiling, placing the market effectively at full borrowing demand capacity. While debt expanded sharply over the past week, including a roughly $1M increase in a single day, signaling clear user interest, incremental demand is thus currently being forced to the sidelines by the binding cap. In practice, this means observed borrow growth is supply-constrained rather than demand-exhausted, and any further uptake is deferred until additional headroom is made available.
+XAUt has now reached its \$3M debt ceiling, placing the market effectively at full borrowing demand capacity. While debt expanded sharply over the past week, including a roughly \$1M increase in a single day, signaling clear user interest, incremental demand is thus currently being forced to the sidelines by the binding cap. In practice, this means observed borrow growth is supply-constrained rather than demand-exhausted, and any further uptake is deferred until additional headroom is made available.
 
 ![Screenshot 2025-11-25 at 12.58.32 PM|2000x222](https://europe1.discourse-cdn.com/flex013/uploads/aave/original/2X/c/ce2caf47c1263fb4baa9e2b19ae99fdd2367ac13.png)
 
 ![Screenshot 2025-11-25 at 1.20.45 PM|2000x691](https://europe1.discourse-cdn.com/flex013/uploads/aave/original/2X/3/3d8e1f873fcae730aa68a63b8d61fc92805886c6.png)
 
-Since listing on Aave, XAUt’s total supply on Ethereum has grown from 246K three months ago to [522K](https://etherscan.io/token/0x68749665ff8d2d112fa859aa293f07a622782f38) today. In market-cap terms, this reflects an increase from $822M at the time of listing to $2.1B today (28% of which is controlled by Tether), representing approximately 156% growth and suggesting that the asset itself is becoming more established and developed over time.
+Since listing on Aave, XAUt’s total supply on Ethereum has grown from 246K three months ago to [522K](https://etherscan.io/token/0x68749665ff8d2d112fa859aa293f07a622782f38) today. In market-cap terms, this reflects an increase from \$822M at the time of listing to \$2.1B today (28% of which is controlled by Tether), representing approximately 156% growth and suggesting that the asset itself is becoming more established and developed over time.
 
 ![Screenshot 2025-11-26 at 1.13.50 PM|2000x1174](https://europe1.discourse-cdn.com/flex013/uploads/aave/original/2X/c/cfe2719597570c34acbf436eb1370bdb891ad7ca.png)
 
