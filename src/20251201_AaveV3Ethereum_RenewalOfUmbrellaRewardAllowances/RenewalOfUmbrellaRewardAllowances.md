@@ -20,6 +20,14 @@ Renewing these allowances ensures that reward distribution continues uninterrupt
 
 Upon implementation, the AIP will **renew the reward allowances** by extending the four Umbrella StakeTokens on **Aave v3 Ethereum Core**.
 
+No changes are proposed to:
+
+- Emission rates
+- Target Liquidity
+- Cooldown parameters
+- Deficit offsets
+- Umbrella architecture
+
 ### New Allowances
 
 Each new allowance equals:
@@ -30,14 +38,6 @@ Each new allowance equals:
 | stkwaEthUSDT.v1 | 1,809,848          | remaining + 1,809,848 |
 | stkwaEthWETH.v1 | 271                | remaining + 271       |
 | stkGHO.v1       | 591,781            | remaining + 591,781   |
-
-No changes are proposed to:
-
-- Emission rates
-- Target Liquidity
-- Cooldown parameters
-- Deficit offsets
-- Umbrella architecture
 
 ## References
 
