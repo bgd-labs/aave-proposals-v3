@@ -17,10 +17,10 @@ import {UmbrellaEthereum} from 'aave-address-book/UmbrellaEthereum.sol';
  */
 contract AaveV3Ethereum_RenewalOfUmbrellaRewardAllowances_20251201 is IProposalGenericExecutor {
   /// @notice Additional allowance for stkwaEthUSDC.v1 rewards (USDC, 6 decimals).
-  uint256 public constant USDC_RENEWAL_ALLOWANCE = 1_149_028 * 1e6;
+  uint256 public constant USDC_RENEWAL_ALLOWANCE = 1_149_028e6;
 
   /// @notice Additional allowance for stkwaEthUSDT.v1 rewards (USDT, 6 decimals).
-  uint256 public constant USDT_RENEWAL_ALLOWANCE = 1_809_848 * 1e6;
+  uint256 public constant USDT_RENEWAL_ALLOWANCE = 1_809_848e6;
 
   /// @notice Additional allowance for stkwaEthWETH.v1 rewards (WETH, 18 decimals).
   uint256 public constant WETH_RENEWAL_ALLOWANCE = 271 ether;
@@ -35,45 +35,32 @@ contract AaveV3Ethereum_RenewalOfUmbrellaRewardAllowances_20251201 is IProposalG
     address collector = address(AaveV3Ethereum.COLLECTOR);
     address rewardsController = UmbrellaEthereum.UMBRELLA_REWARDS_CONTROLLER;
 
-    uint256 currentUsdcAllowance = IERC20(AaveV3EthereumAssets.USDC_A_TOKEN).allowance(
-      collector,
-      rewardsController
-    );
-    uint256 currentUsdtAllowance = IERC20(AaveV3EthereumAssets.USDT_A_TOKEN).allowance(
-      collector,
-      rewardsController
-    );
-    uint256 currentWethAllowance = IERC20(AaveV3EthereumAssets.WETH_A_TOKEN).allowance(
-      collector,
-      rewardsController
-    );
-    uint256 currentGhoAllowance = IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).allowance(
-      collector,
-      rewardsController
-    );
-
     AaveV3Ethereum.COLLECTOR.approve(
       IERC20(AaveV3EthereumAssets.USDC_A_TOKEN),
       rewardsController,
-      currentUsdcAllowance + USDC_RENEWAL_ALLOWANCE
+      IERC20(AaveV3EthereumAssets.USDC_A_TOKEN).allowance(collector, rewardsController) +
+        USDC_RENEWAL_ALLOWANCE
     );
 
     AaveV3Ethereum.COLLECTOR.approve(
       IERC20(AaveV3EthereumAssets.USDT_A_TOKEN),
       rewardsController,
-      currentUsdtAllowance + USDT_RENEWAL_ALLOWANCE
+      IERC20(AaveV3EthereumAssets.USDT_A_TOKEN).allowance(collector, rewardsController) +
+        USDT_RENEWAL_ALLOWANCE
     );
 
     AaveV3Ethereum.COLLECTOR.approve(
       IERC20(AaveV3EthereumAssets.WETH_A_TOKEN),
       rewardsController,
-      currentWethAllowance + WETH_RENEWAL_ALLOWANCE
+      IERC20(AaveV3EthereumAssets.WETH_A_TOKEN).allowance(collector, rewardsController) +
+        WETH_RENEWAL_ALLOWANCE
     );
 
     AaveV3Ethereum.COLLECTOR.approve(
       IERC20(AaveV3EthereumAssets.GHO_UNDERLYING),
       rewardsController,
-      currentGhoAllowance + GHO_RENEWAL_ALLOWANCE
+      IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).allowance(collector, rewardsController) +
+        GHO_RENEWAL_ALLOWANCE
     );
   }
 }
