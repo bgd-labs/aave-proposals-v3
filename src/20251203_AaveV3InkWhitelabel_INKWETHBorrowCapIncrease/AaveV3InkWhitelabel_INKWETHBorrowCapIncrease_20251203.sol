@@ -12,12 +12,24 @@ import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config
  */
 contract AaveV3InkWhitelabel_INKWETHBorrowCapIncrease_20251203 is AaveV3PayloadInkWhitelabel {
   function capsUpdates() public pure override returns (IAaveV3ConfigEngine.CapsUpdate[] memory) {
-    IAaveV3ConfigEngine.CapsUpdate[] memory capsUpdate = new IAaveV3ConfigEngine.CapsUpdate[](1);
+    IAaveV3ConfigEngine.CapsUpdate[] memory capsUpdate = new IAaveV3ConfigEngine.CapsUpdate[](3);
 
     capsUpdate[0] = IAaveV3ConfigEngine.CapsUpdate({
       asset: AaveV3InkWhitelabelAssets.WETH_UNDERLYING,
       supplyCap: EngineFlags.KEEP_CURRENT,
       borrowCap: 70_000
+    });
+
+    capsUpdate[1] = IAaveV3ConfigEngine.CapsUpdate({
+      asset: AaveV3InkWhitelabelAssets.wrsETH_UNDERLYING,
+      supplyCap: 18_000,
+      borrowCap: EngineFlags.KEEP_CURRENT
+    });
+
+    capsUpdate[2] = IAaveV3ConfigEngine.CapsUpdate({
+      asset: AaveV3InkWhitelabelAssets.ezETH_UNDERLYING,
+      supplyCap: 18_000,
+      borrowCap: EngineFlags.KEEP_CURRENT
     });
 
     return capsUpdate;
