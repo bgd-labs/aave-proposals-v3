@@ -1,0 +1,77 @@
+## Reserve changes
+
+### Reserves altered
+
+#### USDS ([0xdC035D45d973E3EC169d2276DDab16f1e407384F](https://etherscan.io/address/0xdC035D45d973E3EC169d2276DDab16f1e407384F))
+
+| description | value before | value after |
+| --- | --- | --- |
+| supplyCap | 200,000,000 USDS | 40,000,000 USDS |
+| borrowCap | 180,000,000 USDS | 36,000,000 USDS |
+| reserveFactor | 10 % [1000] | 25 % [2500] |
+
+
+## Raw diff
+
+```json
+{
+  "reserves": {
+    "0xdC035D45d973E3EC169d2276DDab16f1e407384F": {
+      "borrowCap": {
+        "from": 180000000,
+        "to": 36000000
+      },
+      "reserveFactor": {
+        "from": 1000,
+        "to": 2500
+      },
+      "supplyCap": {
+        "from": 200000000,
+        "to": 40000000
+      }
+    }
+  },
+  "raw": {
+    "0x4e033931ad43597d96d6bcc25c280717730b58b1": {
+      "label": "AaveV3EthereumLido.POOL",
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x4ef18721e98712b47bd659171158f093c47a5bb2c0ced3ed1c21e431251550c3": {
+          "previousValue": "0x1000000000000000000000000000bebc20000aba950003e88512000000000000",
+          "newValue": "0x10000000000000000000000000002625a0000225510009c48512000000000000"
+        },
+        "0x4ef18721e98712b47bd659171158f093c47a5bb2c0ced3ed1c21e431251550c4": {
+          "previousValue": "0x000000000014268a1ef47c9def875a840000000003649325231e069a91ddf2cc",
+          "newValue": "0x000000000010ce3ff19aab0f02255da2000000000365386af9e2b540d0ed32be"
+        },
+        "0x4ef18721e98712b47bd659171158f093c47a5bb2c0ced3ed1c21e431251550c5": {
+          "previousValue": "0x00000000002a03b4c3ed12cf966cf71b00000000037732ed931e115a1713991d",
+          "newValue": "0x00000000002a04980fc371d50d0f0ff5000000000378933042b4bfe24aa5ea14"
+        },
+        "0x4ef18721e98712b47bd659171158f093c47a5bb2c0ced3ed1c21e431251550c6": {
+          "previousValue": "0x0000000000000000000002006921941300000000000000000000000000000000",
+          "newValue": "0x000000000000000000000200693042bf00000000000000000000000000000000"
+        },
+        "0x4ef18721e98712b47bd659171158f093c47a5bb2c0ced3ed1c21e431251550cb": {
+          "previousValue": "0x00000000000019d43b4ef4f5f29bf84c00000000000000000000000000000000",
+          "newValue": "0x00000000000019d43b4ef4f5f29bf84c00000000000000011d08aa7ead91f5e8"
+        }
+      }
+    },
+    "0xdabad81af85554e9ae636395611c58f7ec1aaec5": {
+      "label": "GovernanceV3Ethereum.PAYLOADS_CONTROLLER",
+      "balanceDiff": null,
+      "stateDiff": {
+        "0xd6209e3e3321d5ffded79c758ae1554dd2f9916af03cb81a843ed73242b86577": {
+          "previousValue": "0x00693042be000000000002000000000000000000000000000000000000000000",
+          "newValue": "0x00693042be000000000003000000000000000000000000000000000000000000"
+        },
+        "0xd6209e3e3321d5ffded79c758ae1554dd2f9916af03cb81a843ed73242b86578": {
+          "previousValue": "0x000000000000000000093a80000000000000695e673f00000000000000000000",
+          "newValue": "0x000000000000000000093a80000000000000695e673f000000000000693042bf"
+        }
+      }
+    }
+  }
+}
+```
