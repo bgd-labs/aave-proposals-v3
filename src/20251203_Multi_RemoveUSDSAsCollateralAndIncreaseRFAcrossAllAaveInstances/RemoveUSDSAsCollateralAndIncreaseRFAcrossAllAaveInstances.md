@@ -17,7 +17,7 @@ Motivation for these changes is driven by both reducing revenue from USDS borrow
 
 ### 1. Low Profitability
 
-Data shows a decline in revenue each month, with $543,528 since Q1 2025, and current annualised revenue of $135,260 based on revenue since the beginning of Q4. With quarterly revenue data showing a sharp decline since the beginning of the year, we believe that current revenue is far below the scale required to justify current risk exposure.
+Data shows a decline in revenue each month, with \$543,528 since Q1 2025, and current annualised revenue of \$135,260 based on revenue since the beginning of Q4. With quarterly revenue data showing a sharp decline since the beginning of the year, we believe that current revenue is far below the scale required to justify current risk exposure.
 
 | **Instance** | **Q1**       | **Q2**       | **Q3**       | **Q4**      |
 | ------------ | ------------ | ------------ | ------------ | ----------- |
