@@ -41,8 +41,8 @@ Each new allowance equals:
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251201_AaveV3Ethereum_RenewalOfUmbrellaRewardAllowances/AaveV3Ethereum_RenewalOfUmbrellaRewardAllowances_20251201.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251201_AaveV3Ethereum_RenewalOfUmbrellaRewardAllowances/AaveV3Ethereum_RenewalOfUmbrellaRewardAllowances_20251201.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/80995abb3e5d952ac2e28feb9b310c9b7b700934/src/20251201_AaveV3Ethereum_RenewalOfUmbrellaRewardAllowances/AaveV3Ethereum_RenewalOfUmbrellaRewardAllowances_20251201.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/80995abb3e5d952ac2e28feb9b310c9b7b700934/src/20251201_AaveV3Ethereum_RenewalOfUmbrellaRewardAllowances/AaveV3Ethereum_RenewalOfUmbrellaRewardAllowances_20251201.t.sol)
 - Snapshot: Direct-to-AIP
 - [Discussion](https://governance.aave.com/t/direct-to-aip-renewal-of-umbrella-reward-allowances/23474)
 
