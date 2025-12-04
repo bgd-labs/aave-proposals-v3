@@ -45,8 +45,8 @@ Chaos Labs has not been compensated by any third party for publishing this recom
 
 ## References
 
-- Implementation: [AaveV3Plasma](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251114_AaveV3Plasma_WeETHEModeRiskAdjustmentPlasma/AaveV3Plasma_WeETHEModeRiskAdjustmentPlasma_20251114.sol)
-- Tests: [AaveV3Plasma](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251114_AaveV3Plasma_WeETHEModeRiskAdjustmentPlasma/AaveV3Plasma_WeETHEModeRiskAdjustmentPlasma_20251114.t.sol)
+- Implementation: [AaveV3Plasma](https://github.com/bgd-labs/aave-proposals-v3/blob/6b8ca86afaa1cc632a2aefbde62f4ea1e138af5b/src/20251114_AaveV3Plasma_WeETHEModeRiskAdjustmentPlasma/AaveV3Plasma_WeETHEModeRiskAdjustmentPlasma_20251114.sol)
+- Tests: [AaveV3Plasma](https://github.com/bgd-labs/aave-proposals-v3/blob/6b8ca86afaa1cc632a2aefbde62f4ea1e138af5b/src/20251114_AaveV3Plasma_WeETHEModeRiskAdjustmentPlasma/AaveV3Plasma_WeETHEModeRiskAdjustmentPlasma_20251114.t.sol)
 - Snapshot: Direct-to-AIP
 - [Discussion](https://governance.aave.com/t/direct-to-aip-weeth-e-mode-risk-parameter-adjustment-on-aave-v3-plasma-instance/23381)
 
