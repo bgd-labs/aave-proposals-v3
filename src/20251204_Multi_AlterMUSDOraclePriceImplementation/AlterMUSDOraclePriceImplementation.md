@@ -6,7 +6,7 @@ discussions: "https://governance.aave.com/t/direct-to-aip-alter-musd-oracle-pric
 
 ## Simple Summary
 
-This proposal re-enables economically meaningful supply and borrow caps for MetaMask USD (mUSD) on the Aave v3 Ethereum and Linea deployments while swapping the oracle feed on both networks to a static $1 adapter. The action follows the Chaos Labs recommendation to neutralize transient oracle mispricing that briefly pushed the feed below parity despite the asset remaining redeemable at $1.
+This proposal re-enables the supply and borrow caps for MetaMask USD (mUSD) on the Aave v3 Ethereum and Linea deployments while swapping the oracle feed on both networks to a static $1 adapter.
 
 ## Motivation
 
@@ -14,21 +14,14 @@ Chaos Labs observed short-lived but material negative deviations in the current 
 
 ## Specification
 
-### Ethereum v3
-
-| Parameter  | Current     | Proposed                                                              |
-| ---------- | ----------- | --------------------------------------------------------------------- |
-| Supply Cap | 1 mUSD      | 5,000,000 mUSD                                                        |
-| Borrow Cap | 1 mUSD      | 4,500,000 mUSD                                                        |
-| Oracle     | Market feed | Fixed mUSD / USD adapter `0x8adb5187695F773513dEC4b569d21db0341931dA` |
-
-### Linea v3
-
-| Parameter  | Current     | Proposed                                                              |
-| ---------- | ----------- | --------------------------------------------------------------------- |
-| Supply Cap | 1 mUSD      | 20,000,000 mUSD                                                       |
-| Borrow Cap | 1 mUSD      | 18,000,000 mUSD                                                       |
-| Oracle     | Market feed | Fixed mUSD / USD adapter `0xA77b1C51a76bbB72D17BF467393a540868103097` |
+| Network       | Parameter  | Current                                                                                                       | Proposed                                                                                            |
+| ------------- | ---------- | ------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| Ethereum Core | Supply Cap | 1 mUSD                                                                                                        | 5,000,000 mUSD                                                                                      |
+| Ethereum Core | Borrow Cap | 1 mUSD                                                                                                        | 4,500,000 mUSD                                                                                      |
+| Linea         | Supply Cap | 1 mUSD                                                                                                        | 20,000,000 mUSD                                                                                     |
+| Linea         | Borrow Cap | 1 mUSD                                                                                                        | 18,000,000 mUSD                                                                                     |
+| Ethereum Core | Price Feed | [Capped mUSD / USD](https://etherscan.io/address/0xf22de319901C3b9BAEc7Fa14FdF013Ede40E7312) ($0.99977589)    | [Fixed mUSD / USD](https://etherscan.io/address/0x8adb5187695f773513dec4b569d21db0341931da) ($1)    |
+| Linea         | Price Feed | [Capped mUSD / USD](https://lineascan.build/address/0xB8454f3b48395103F23c88B699d4F6A81fD1DCff) ($0.99984807) | [Fixed mUSD / USD](https://lineascan.build/address/0xA77b1C51a76bbB72D17BF467393a540868103097) ($1) |
 
 ## References
 
