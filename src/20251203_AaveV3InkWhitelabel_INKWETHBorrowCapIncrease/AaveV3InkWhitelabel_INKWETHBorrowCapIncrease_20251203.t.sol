@@ -15,7 +15,7 @@ contract AaveV3InkWhitelabel_INKWETHBorrowCapIncrease_20251203_Test is ProtocolV
   AaveV3InkWhitelabel_INKWETHBorrowCapIncrease_20251203 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('ink'), 31234261);
+    vm.createSelectFork(vm.rpcUrl('ink'), 31359283);
     proposal = new AaveV3InkWhitelabel_INKWETHBorrowCapIncrease_20251203();
   }
 
