@@ -1,5 +1,5 @@
 ---
-title: "[Direct to AIP] XAUt Supply Cap and Debt Ceiling Adjustment on Aave V3 Core Instance"
+title: "XAUt Supply Cap and Debt Ceiling Adjustment on Aave V3 Core Instance"
 author: "Chaos Labs (implemented by ACI via Skyward)"
 discussions: "https://governance.aave.com/t/direct-to-aip-xaut-supply-cap-and-debt-ceiling-adjustment-on-aave-v3-core-instance/23466"
 ---
