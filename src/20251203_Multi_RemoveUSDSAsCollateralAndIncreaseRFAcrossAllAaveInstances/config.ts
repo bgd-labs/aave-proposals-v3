@@ -58,12 +58,98 @@ export const config: ConfigFile = {
             asset: 'USDS',
           },
         ],
+        EMODES_ASSETS: [
+          {
+            asset: 'USDS',
+            eModeCategory: 'AaveV3EthereumEModes.USDe_sUSDe__USDC_USDT_USDS',
+            collateral: 'KEEP_CURRENT',
+            borrowable: 'DISABLED',
+          },
+          {
+            asset: 'USDS',
+            eModeCategory: 'AaveV3EthereumEModes.sUSDe_PT_sUSDE_31JUL2025__USDC_USDT_USDS',
+            collateral: 'KEEP_CURRENT',
+            borrowable: 'DISABLED',
+          },
+          {
+            asset: 'USDS',
+            eModeCategory: 'AaveV3EthereumEModes.PT_eUSDE_29MAY2025_eUSDe__USDC_USDT_USDS',
+            collateral: 'KEEP_CURRENT',
+            borrowable: 'DISABLED',
+          },
+          {
+            asset: 'USDS',
+            eModeCategory: 'AaveV3EthereumEModes.USDe_PT_USDe_31JUL2025__USDC_USDT_USDS',
+            collateral: 'KEEP_CURRENT',
+            borrowable: 'DISABLED',
+          },
+          {
+            asset: 'USDS',
+            eModeCategory: 'AaveV3EthereumEModes.USDe__USDC_USDT_USDS',
+            collateral: 'KEEP_CURRENT',
+            borrowable: 'DISABLED',
+          },
+          {
+            asset: 'USDS',
+            eModeCategory: 'AaveV3EthereumEModes.PT_eUSDE_14AUG2025_eUSDe__USDC_USDT_USDS',
+            collateral: 'KEEP_CURRENT',
+            borrowable: 'DISABLED',
+          },
+          {
+            asset: 'USDS',
+            eModeCategory: 'AaveV3EthereumEModes.eUSDe__USDC_USDT_USDS',
+            collateral: 'KEEP_CURRENT',
+            borrowable: 'DISABLED',
+          },
+          {
+            asset: 'USDS',
+            eModeCategory:
+              'AaveV3EthereumEModes.sUSDe_PT_sUSDE_31JUL2025_PT_sUSDE_25SEP2025__USDC_USDT_USDe_USDS_USDtb',
+            collateral: 'KEEP_CURRENT',
+            borrowable: 'DISABLED',
+          },
+          {
+            asset: 'USDS',
+            eModeCategory:
+              'AaveV3EthereumEModes.USDe_PT_USDe_31JUL2025_PT_eUSDE_14AUG2025_PT_USDe_25SEP2025__USDC_USDT_USDe_USDS',
+            collateral: 'KEEP_CURRENT',
+            borrowable: 'DISABLED',
+          },
+          {
+            asset: 'USDS',
+            eModeCategory:
+              'AaveV3EthereumEModes.sUSDe_PT_sUSDE_25SEP2025_PT_sUSDE_27NOV2025__USDC_USDT_USDe_USDS_USDtb',
+            collateral: 'KEEP_CURRENT',
+            borrowable: 'DISABLED',
+          },
+          {
+            asset: 'USDS',
+            eModeCategory:
+              'AaveV3EthereumEModes.PT_USDe_25SEP2025_PT_USDe_27NOV2025__USDC_USDT_USDe_USDS_USDtb',
+            collateral: 'KEEP_CURRENT',
+            borrowable: 'DISABLED',
+          },
+        ],
       },
       cache: {blockNumber: 23933369},
     },
     AaveV3EthereumLido: {
       configs: {
         CAPS_UPDATE: [{asset: 'USDS', supplyCap: '40000000', borrowCap: '36000000'}],
+        EMODES_ASSETS: [
+          {
+            asset: 'USDS',
+            eModeCategory: 'AaveV3EthereumLidoEModes.ezETH__USDS_USDC_GHO',
+            collateral: 'KEEP_CURRENT',
+            borrowable: 'ENABLED',
+          },
+          {
+            asset: 'USDS',
+            eModeCategory: 'AaveV3EthereumLidoEModes.rsETH__USDS_USDC_GHO',
+            collateral: 'KEEP_CURRENT',
+            borrowable: 'ENABLED',
+          },
+        ],
         BORROWS_UPDATE: [
           {
             enabledToBorrow: 'KEEP_CURRENT',

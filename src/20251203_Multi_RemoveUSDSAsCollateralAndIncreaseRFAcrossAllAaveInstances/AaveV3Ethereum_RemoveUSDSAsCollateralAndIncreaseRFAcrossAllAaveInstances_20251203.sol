@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
+import {AaveV3EthereumAssets, AaveV3EthereumEModes} from 'aave-address-book/AaveV3Ethereum.sol';
 import {AaveV3PayloadEthereum} from 'aave-helpers/src/v3-config-engine/AaveV3PayloadEthereum.sol';
 import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
@@ -78,5 +78,87 @@ contract AaveV3Ethereum_RemoveUSDSAsCollateralAndIncreaseRFAcrossAllAaveInstance
     });
 
     return borrowUpdates;
+  }
+  function assetsEModeUpdates()
+    public
+    pure
+    override
+    returns (IAaveV3ConfigEngine.AssetEModeUpdate[] memory)
+  {
+    IAaveV3ConfigEngine.AssetEModeUpdate[]
+      memory assetEModeUpdates = new IAaveV3ConfigEngine.AssetEModeUpdate[](11);
+
+    assetEModeUpdates[0] = IAaveV3ConfigEngine.AssetEModeUpdate({
+      asset: AaveV3EthereumAssets.USDS_UNDERLYING,
+      eModeCategory: AaveV3EthereumEModes.USDe_sUSDe__USDC_USDT_USDS,
+      borrowable: EngineFlags.DISABLED,
+      collateral: EngineFlags.KEEP_CURRENT
+    });
+    assetEModeUpdates[1] = IAaveV3ConfigEngine.AssetEModeUpdate({
+      asset: AaveV3EthereumAssets.USDS_UNDERLYING,
+      eModeCategory: AaveV3EthereumEModes.sUSDe_PT_sUSDE_31JUL2025__USDC_USDT_USDS,
+      borrowable: EngineFlags.DISABLED,
+      collateral: EngineFlags.KEEP_CURRENT
+    });
+    assetEModeUpdates[2] = IAaveV3ConfigEngine.AssetEModeUpdate({
+      asset: AaveV3EthereumAssets.USDS_UNDERLYING,
+      eModeCategory: AaveV3EthereumEModes.PT_eUSDE_29MAY2025_eUSDe__USDC_USDT_USDS,
+      borrowable: EngineFlags.DISABLED,
+      collateral: EngineFlags.KEEP_CURRENT
+    });
+    assetEModeUpdates[3] = IAaveV3ConfigEngine.AssetEModeUpdate({
+      asset: AaveV3EthereumAssets.USDS_UNDERLYING,
+      eModeCategory: AaveV3EthereumEModes.USDe_PT_USDe_31JUL2025__USDC_USDT_USDS,
+      borrowable: EngineFlags.DISABLED,
+      collateral: EngineFlags.KEEP_CURRENT
+    });
+    assetEModeUpdates[4] = IAaveV3ConfigEngine.AssetEModeUpdate({
+      asset: AaveV3EthereumAssets.USDS_UNDERLYING,
+      eModeCategory: AaveV3EthereumEModes.USDe__USDC_USDT_USDS,
+      borrowable: EngineFlags.DISABLED,
+      collateral: EngineFlags.KEEP_CURRENT
+    });
+    assetEModeUpdates[5] = IAaveV3ConfigEngine.AssetEModeUpdate({
+      asset: AaveV3EthereumAssets.USDS_UNDERLYING,
+      eModeCategory: AaveV3EthereumEModes.PT_eUSDE_14AUG2025_eUSDe__USDC_USDT_USDS,
+      borrowable: EngineFlags.DISABLED,
+      collateral: EngineFlags.KEEP_CURRENT
+    });
+    assetEModeUpdates[6] = IAaveV3ConfigEngine.AssetEModeUpdate({
+      asset: AaveV3EthereumAssets.USDS_UNDERLYING,
+      eModeCategory: AaveV3EthereumEModes.eUSDe__USDC_USDT_USDS,
+      borrowable: EngineFlags.DISABLED,
+      collateral: EngineFlags.KEEP_CURRENT
+    });
+    assetEModeUpdates[7] = IAaveV3ConfigEngine.AssetEModeUpdate({
+      asset: AaveV3EthereumAssets.USDS_UNDERLYING,
+      eModeCategory: AaveV3EthereumEModes
+        .sUSDe_PT_sUSDE_31JUL2025_PT_sUSDE_25SEP2025__USDC_USDT_USDe_USDS_USDtb,
+      borrowable: EngineFlags.DISABLED,
+      collateral: EngineFlags.KEEP_CURRENT
+    });
+    assetEModeUpdates[8] = IAaveV3ConfigEngine.AssetEModeUpdate({
+      asset: AaveV3EthereumAssets.USDS_UNDERLYING,
+      eModeCategory: AaveV3EthereumEModes
+        .USDe_PT_USDe_31JUL2025_PT_eUSDE_14AUG2025_PT_USDe_25SEP2025__USDC_USDT_USDe_USDS,
+      borrowable: EngineFlags.DISABLED,
+      collateral: EngineFlags.KEEP_CURRENT
+    });
+    assetEModeUpdates[9] = IAaveV3ConfigEngine.AssetEModeUpdate({
+      asset: AaveV3EthereumAssets.USDS_UNDERLYING,
+      eModeCategory: AaveV3EthereumEModes
+        .sUSDe_PT_sUSDE_25SEP2025_PT_sUSDE_27NOV2025__USDC_USDT_USDe_USDS_USDtb,
+      borrowable: EngineFlags.DISABLED,
+      collateral: EngineFlags.KEEP_CURRENT
+    });
+    assetEModeUpdates[10] = IAaveV3ConfigEngine.AssetEModeUpdate({
+      asset: AaveV3EthereumAssets.USDS_UNDERLYING,
+      eModeCategory: AaveV3EthereumEModes
+        .PT_USDe_25SEP2025_PT_USDe_27NOV2025__USDC_USDT_USDe_USDS_USDtb,
+      borrowable: EngineFlags.DISABLED,
+      collateral: EngineFlags.KEEP_CURRENT
+    });
+
+    return assetEModeUpdates;
   }
 }

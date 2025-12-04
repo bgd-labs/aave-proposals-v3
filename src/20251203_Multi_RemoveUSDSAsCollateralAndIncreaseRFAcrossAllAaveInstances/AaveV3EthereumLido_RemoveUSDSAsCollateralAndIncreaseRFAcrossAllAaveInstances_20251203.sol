@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {AaveV3EthereumLidoAssets} from 'aave-address-book/AaveV3EthereumLido.sol';
+import {AaveV3EthereumLidoAssets, AaveV3EthereumLidoEModes} from 'aave-address-book/AaveV3EthereumLido.sol';
 import {AaveV3PayloadEthereumLido} from 'aave-helpers/src/v3-config-engine/AaveV3PayloadEthereumLido.sol';
 import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
@@ -25,6 +25,30 @@ contract AaveV3EthereumLido_RemoveUSDSAsCollateralAndIncreaseRFAcrossAllAaveInst
     });
 
     return capsUpdate;
+  }
+  function assetsEModeUpdates()
+    public
+    pure
+    override
+    returns (IAaveV3ConfigEngine.AssetEModeUpdate[] memory)
+  {
+    IAaveV3ConfigEngine.AssetEModeUpdate[]
+      memory assetEModeUpdates = new IAaveV3ConfigEngine.AssetEModeUpdate[](2);
+
+    assetEModeUpdates[0] = IAaveV3ConfigEngine.AssetEModeUpdate({
+      asset: AaveV3EthereumLidoAssets.USDS_UNDERLYING,
+      eModeCategory: AaveV3EthereumLidoEModes.ezETH__USDS_USDC_GHO,
+      borrowable: EngineFlags.ENABLED,
+      collateral: EngineFlags.KEEP_CURRENT
+    });
+    assetEModeUpdates[1] = IAaveV3ConfigEngine.AssetEModeUpdate({
+      asset: AaveV3EthereumLidoAssets.USDS_UNDERLYING,
+      eModeCategory: AaveV3EthereumLidoEModes.rsETH__USDS_USDC_GHO,
+      borrowable: EngineFlags.ENABLED,
+      collateral: EngineFlags.KEEP_CURRENT
+    });
+
+    return assetEModeUpdates;
   }
   function borrowsUpdates()
     public

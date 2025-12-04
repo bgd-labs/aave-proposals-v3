@@ -53,6 +53,27 @@ Alongside the increase in RF we propose setting LTV to 0% in order to remove Aav
 | DAI   | OP Mainnet     | 10,000,000         | 2,000,000              | 7,000,000          | 1,800,000              | -          | -                  |
 | m.DAI | Metis          | 1,000,000          | 200,000                | 900,000            | 180,000                | -          | -                  |
 
+Moreover USDS will be removed from the following emodes:
+
+**Core**:
+
+- USDe_sUSDe\_\_USDC_USDT_USDS
+- sUSDe_PT_sUSDE_31JUL2025\_\_USDC_USDT_USDS
+- PT_eUSDE_29MAY2025_eUSDe\_\_USDC_USDT_USDS
+- USDe_PT_USDe_31JUL2025\_\_USDC_USDT_USDS
+- USDe\_\_USDC_USDT_USDS
+- PT_eUSDE_14AUG2025_eUSDe\_\_USDC_USDT_USDS
+- eUSDe\_\_USDC_USDT_USDS
+- sUSDe_PT_sUSDE_31JUL2025_PT_sUSDE_25SEP2025\_\_USDC_USDT_USDe_USDS_USDtb
+- USDe_PT_USDe_31JUL2025_PT_eUSDE_14AUG2025_PT_USDe_25SEP2025\_\_USDC_USDT_USDe_USDS
+- sUSDe_PT_sUSDE_25SEP2025_PT_sUSDE_27NOV2025\_\_USDC_USDT_USDe_USDS_USDtb
+- PT_USDe_25SEP2025_PT_USDe_27NOV2025\_\_USDC_USDT_USDe_USDS_USDtb
+
+**prime**:
+
+- ezETH\_\_USDS_USDC_GHO
+- rsETH\_\_USDS_USDC_GHO
+
 ## References
 
 - Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251203_Multi_RemoveUSDSAsCollateralAndIncreaseRFAcrossAllAaveInstances/AaveV3Ethereum_RemoveUSDSAsCollateralAndIncreaseRFAcrossAllAaveInstances_20251203.sol), [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251203_Multi_RemoveUSDSAsCollateralAndIncreaseRFAcrossAllAaveInstances/AaveV3EthereumLido_RemoveUSDSAsCollateralAndIncreaseRFAcrossAllAaveInstances_20251203.sol), [AaveV3Polygon](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251203_Multi_RemoveUSDSAsCollateralAndIncreaseRFAcrossAllAaveInstances/AaveV3Polygon_RemoveUSDSAsCollateralAndIncreaseRFAcrossAllAaveInstances_20251203.sol), [AaveV3Avalanche](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251203_Multi_RemoveUSDSAsCollateralAndIncreaseRFAcrossAllAaveInstances/AaveV3Avalanche_RemoveUSDSAsCollateralAndIncreaseRFAcrossAllAaveInstances_20251203.sol), [AaveV3Optimism](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251203_Multi_RemoveUSDSAsCollateralAndIncreaseRFAcrossAllAaveInstances/AaveV3Optimism_RemoveUSDSAsCollateralAndIncreaseRFAcrossAllAaveInstances_20251203.sol), [AaveV3Arbitrum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251203_Multi_RemoveUSDSAsCollateralAndIncreaseRFAcrossAllAaveInstances/AaveV3Arbitrum_RemoveUSDSAsCollateralAndIncreaseRFAcrossAllAaveInstances_20251203.sol), [AaveV3Metis](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251203_Multi_RemoveUSDSAsCollateralAndIncreaseRFAcrossAllAaveInstances/AaveV3Metis_RemoveUSDSAsCollateralAndIncreaseRFAcrossAllAaveInstances_20251203.sol)
