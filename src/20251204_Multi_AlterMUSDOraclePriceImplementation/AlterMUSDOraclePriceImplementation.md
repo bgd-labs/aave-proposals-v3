@@ -25,8 +25,8 @@ Chaos Labs observed short-lived but material negative deviations in the current 
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251204_Multi_AlterMUSDOraclePriceImplementation/AaveV3Ethereum_AlterMUSDOraclePriceImplementation_20251204.sol), [AaveV3Linea](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251204_Multi_AlterMUSDOraclePriceImplementation/AaveV3Linea_AlterMUSDOraclePriceImplementation_20251204.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251204_Multi_AlterMUSDOraclePriceImplementation/AaveV3Ethereum_AlterMUSDOraclePriceImplementation_20251204.t.sol), [AaveV3Linea](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251204_Multi_AlterMUSDOraclePriceImplementation/AaveV3Linea_AlterMUSDOraclePriceImplementation_20251204.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/f51556cc92ee555aa5ff391a4dc5b923729c015b/src/20251204_Multi_AlterMUSDOraclePriceImplementation/AaveV3Ethereum_AlterMUSDOraclePriceImplementation_20251204.sol), [AaveV3Linea](https://github.com/bgd-labs/aave-proposals-v3/blob/f51556cc92ee555aa5ff391a4dc5b923729c015b/src/20251204_Multi_AlterMUSDOraclePriceImplementation/AaveV3Linea_AlterMUSDOraclePriceImplementation_20251204.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/f51556cc92ee555aa5ff391a4dc5b923729c015b/src/20251204_Multi_AlterMUSDOraclePriceImplementation/AaveV3Ethereum_AlterMUSDOraclePriceImplementation_20251204.t.sol), [AaveV3Linea](https://github.com/bgd-labs/aave-proposals-v3/blob/f51556cc92ee555aa5ff391a4dc5b923729c015b/src/20251204_Multi_AlterMUSDOraclePriceImplementation/AaveV3Linea_AlterMUSDOraclePriceImplementation_20251204.t.sol)
 - [Discussion](https://governance.aave.com/t/direct-to-aip-alter-musd-oracle-price-implementation/23489)
 - Snapshot: Direct To AIP
 
