@@ -47,6 +47,8 @@ To date, this substitution path has seen limited use: in September, approximatel
 
 Chaos Labs has not been compensated by any third party for publishing this AGRS recommendation.
 
+Caps updates mentioned on the forum discussion post have been implemented via risk steward so it will not be part of this AIP.
+
 ## Copyright
 
 Copyright and related rights waived via [CC0](https://creativecommons.org/publicdomain/zero/1.0/).
