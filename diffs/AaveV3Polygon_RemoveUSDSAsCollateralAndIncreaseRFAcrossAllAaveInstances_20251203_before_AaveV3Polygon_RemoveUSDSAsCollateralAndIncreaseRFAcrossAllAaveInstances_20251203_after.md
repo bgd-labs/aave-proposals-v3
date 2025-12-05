@@ -1,0 +1,32 @@
+## Raw diff
+
+```json
+{
+  "raw": {
+    "0x401b5d0294e23637c18fcc38b1bca814cda2637c": {
+      "label": "GovernanceV3Polygon.PAYLOADS_CONTROLLER",
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x291b3f5beaf27de1fcd805bfa0533ac930d6820e7b252f1f7582c712b496fdf3": {
+          "previousValue": "0x0069304348000000000002000000000000000000000000000000000000000000",
+          "newValue": "0x0069304348000000000003000000000000000000000000000000000000000000"
+        },
+        "0x291b3f5beaf27de1fcd805bfa0533ac930d6820e7b252f1f7582c712b496fdf4": {
+          "previousValue": "0x000000000000000000093a80000000000000695e67c900000000000000000000",
+          "newValue": "0x000000000000000000093a80000000000000695e67c900000000000069304349"
+        }
+      }
+    },
+    "0x794a61358d6845594f94dc1db02a252b5b4814ad": {
+      "label": "AaveV3Polygon.POOL",
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x9690560edd96b8ad42bbefadc2405558072125d86547c092bfe966b61dcb42f5": {
+          "previousValue": "0x100000000000000000000103e8000da0c5000096b22009c4a51229041e140000",
+          "newValue": "0x100000000000000000000103e8000da0c5000096b22009c4a51229041e140000"
+        }
+      }
+    }
+  }
+}
+```
