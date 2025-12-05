@@ -19,7 +19,8 @@ Key differentiators:
 
 1. Regulatory compliance: USDG is fully regulated and issued by Paxos, a New York State Department of Financial Services regulated entity.
 2. Transparency: Regular attestations verify USDG's reserves are fully backed by cash and short-term U.S. Treasuries.
-3. Chainlink price feed: Live and available for use in Aave integrations.
+3. Paxos plan to rollout a public bug bounty program in Q1 2026 on a major bug bounty platform.
+   This program will cover all Paxos tokens and our full platform (APIs, UIs, etc.). We will share more details as they we get closer to launch.
 
 ## Specification
 
