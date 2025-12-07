@@ -11,10 +11,70 @@
 | reserveFactor | 10 % [1000] | 25 % [2500] |
 
 
+## Emodes changed
+
+### EMode: wstETH/WETH(id: 1)
+
+
+
+### EMode: LRT Stablecoins main(id: 2)
+
+| description | value before | value after |
+| --- | --- | --- |
+| eMode.label (unchanged) | LRT Stablecoins main | LRT Stablecoins main |
+| eMode.ltv (unchanged) | 75 % | 75 % |
+| eMode.liquidationThreshold (unchanged) | 78 % | 78 % |
+| eMode.liquidationBonus (unchanged) | 7.5 % | 7.5 % |
+| eMode.borrowableBitmap | USDS, USDC, GHO | USDC, GHO |
+| eMode.collateralBitmap (unchanged) | ezETH | ezETH |
+
+
+### EMode: LRT wstETH main(id: 3)
+
+
+
+### EMode: sUSDe Stablecoins(id: 4)
+
+
+
+### EMode: rsETH LST main(id: 5)
+
+
+
+### EMode: rsETH/Stablecoins(id: 6)
+
+| description | value before | value after |
+| --- | --- | --- |
+| eMode.label (unchanged) | rsETH/Stablecoins | rsETH/Stablecoins |
+| eMode.ltv (unchanged) | 72 % | 72 % |
+| eMode.liquidationThreshold (unchanged) | 75 % | 75 % |
+| eMode.liquidationBonus (unchanged) | 7.5 % | 7.5 % |
+| eMode.borrowableBitmap | USDS, USDC, GHO | USDC, GHO |
+| eMode.collateralBitmap (unchanged) | rsETH | rsETH |
+
+
+### EMode: tETH/wstETH(id: 7)
+
+
+
 ## Raw diff
 
 ```json
 {
+  "eModes": {
+    "2": {
+      "borrowableBitmap": {
+        "from": "76",
+        "to": "72"
+      }
+    },
+    "6": {
+      "borrowableBitmap": {
+        "from": "76",
+        "to": "72"
+      }
+    }
+  },
   "reserves": {
     "0xdC035D45d973E3EC169d2276DDab16f1e407384F": {
       "borrowCap": {
@@ -38,7 +98,7 @@
       "stateDiff": {
         "0x01290583d43e205f46f8d824d1236df318521e471f570a5b36fa1844856e40d8": {
           "previousValue": "0x000000000000000000000000000000000000000000000000000000000000004c",
-          "newValue": "0x000000000000000000000000000000000000000000000000000000000000004c"
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000048"
         },
         "0x4ef18721e98712b47bd659171158f093c47a5bb2c0ced3ed1c21e431251550c3": {
           "previousValue": "0x1000000000000000000000000000bebc20000aba950003e88512000000000000",
@@ -62,7 +122,7 @@
         },
         "0x67dcc86da9aaaf40a183002157e56801115aa6057705e43279b4c1c90942d6b4": {
           "previousValue": "0x000000000000000000000000000000000000000000000000000000000000004c",
-          "newValue": "0x000000000000000000000000000000000000000000000000000000000000004c"
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000048"
         }
       }
     },

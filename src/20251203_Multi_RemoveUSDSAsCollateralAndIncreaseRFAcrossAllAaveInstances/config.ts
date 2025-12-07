@@ -141,13 +141,13 @@ export const config: ConfigFile = {
             asset: 'USDS',
             eModeCategory: 'AaveV3EthereumLidoEModes.ezETH__USDS_USDC_GHO',
             collateral: 'KEEP_CURRENT',
-            borrowable: 'ENABLED',
+            borrowable: 'DISABLED',
           },
           {
             asset: 'USDS',
             eModeCategory: 'AaveV3EthereumLidoEModes.rsETH__USDS_USDC_GHO',
             collateral: 'KEEP_CURRENT',
-            borrowable: 'ENABLED',
+            borrowable: 'DISABLED',
           },
         ],
         BORROWS_UPDATE: [

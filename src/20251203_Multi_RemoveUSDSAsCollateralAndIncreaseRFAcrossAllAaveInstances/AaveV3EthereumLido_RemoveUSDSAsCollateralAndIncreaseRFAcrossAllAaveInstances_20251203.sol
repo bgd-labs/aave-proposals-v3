@@ -38,13 +38,13 @@ contract AaveV3EthereumLido_RemoveUSDSAsCollateralAndIncreaseRFAcrossAllAaveInst
     assetEModeUpdates[0] = IAaveV3ConfigEngine.AssetEModeUpdate({
       asset: AaveV3EthereumLidoAssets.USDS_UNDERLYING,
       eModeCategory: AaveV3EthereumLidoEModes.ezETH__USDS_USDC_GHO,
-      borrowable: EngineFlags.ENABLED,
+      borrowable: EngineFlags.DISABLED,
       collateral: EngineFlags.KEEP_CURRENT
     });
     assetEModeUpdates[1] = IAaveV3ConfigEngine.AssetEModeUpdate({
       asset: AaveV3EthereumLidoAssets.USDS_UNDERLYING,
       eModeCategory: AaveV3EthereumLidoEModes.rsETH__USDS_USDC_GHO,
-      borrowable: EngineFlags.ENABLED,
+      borrowable: EngineFlags.DISABLED,
       collateral: EngineFlags.KEEP_CURRENT
     });
 
