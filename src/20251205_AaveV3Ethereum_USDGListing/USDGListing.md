@@ -50,7 +50,7 @@ USDG Overview:
 - Issuer: Paxos
 - Backing assets: USD cash and short-term U.S treasuries.
 - Audits: Multiple third-party audits
-- Price Oracle: Chainlink
+- Price Oracle: fixed \$1 USDG/USD as asset is only enable as collateral: 0xF29b1e3b68Fd59DD0a413811fD5d0AbaE653216d
 - USDG Listed on: Major centralized and decentralized exchanges.
 
 Use Cases:

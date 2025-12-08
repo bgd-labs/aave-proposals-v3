@@ -18,7 +18,7 @@ contract AaveV3Ethereum_USDGListing_20251205_Test is ProtocolV3TestBase {
   AaveV3Ethereum_USDGListing_20251205 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 23948851);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 23968919);
     proposal = new AaveV3Ethereum_USDGListing_20251205();
   }
 

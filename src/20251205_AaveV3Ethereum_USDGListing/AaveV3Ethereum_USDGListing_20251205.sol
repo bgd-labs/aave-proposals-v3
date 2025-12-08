@@ -32,7 +32,7 @@ contract AaveV3Ethereum_USDGListing_20251205 is AaveV3PayloadEthereum {
     listings[0] = IAaveV3ConfigEngine.Listing({
       asset: USDG,
       assetSymbol: 'USDG',
-      priceFeed: 0x8adb5187695F773513dEC4b569d21db0341931dA,
+      priceFeed: 0xF29b1e3b68Fd59DD0a413811fD5d0AbaE653216d,
       enabledToBorrow: EngineFlags.DISABLED,
       borrowableInIsolation: EngineFlags.DISABLED,
       withSiloedBorrowing: EngineFlags.DISABLED,
