@@ -5,7 +5,7 @@ script = 'scripts'
 solc = '0.8.27'
 optimizer = true
 optimizer_runs = 200
-out = 'out'
+out = 'out/shanghai'
 bytecode_hash = 'none'
 libs = ['lib']
 remappings = []
@@ -26,6 +26,7 @@ optimizer = true
 optimizer_runs = 200
 fs_permissions = [{ access = "write", path = "./reports" }]
 ffi = true
+out = 'out/shanghai'
 evm_version = 'shanghai'
 cache_path = 'cache/shanghai'
 
@@ -37,14 +38,17 @@ mode = '3'
 zksolc = '1.5.13'
 
 [profile.test]
+out = 'out/cancun'
 evm_version = 'cancun'
 cache_path = 'cache/cancun'
 
 [profile.deploy]
+out = 'out/shanghai'
 evm_version = 'shanghai'
 cache_path = 'cache/shanghai'
 
 [profile.linea]
+out = 'out/london'
 evm_version = 'london'
 cache_path = 'cache/london'
 
