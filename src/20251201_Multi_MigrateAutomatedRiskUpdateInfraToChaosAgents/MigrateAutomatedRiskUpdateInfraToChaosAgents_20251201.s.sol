@@ -3,7 +3,7 @@ pragma solidity ^0.8.0;
 
 import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aave-helpers/src/GovV3Helpers.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
-
+import {AaveV3Ethereum_ReimburseLinkForRobot_20251201} from './AaveV3Ethereum_ReimburseLinkForRobot_20251201.sol';
 import {EthereumScript, PolygonScript, AvalancheScript, OptimismScript, ArbitrumScript, BaseScript, GnosisScript, BNBScript, LineaScript, PlasmaScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
 
 library Payloads {
@@ -27,11 +27,17 @@ library Payloads {
  */
 contract DeployEthereum is EthereumScript {
   function run() external broadcast {
+    // deploy payloads
+    address reimbursePayload = GovV3Helpers.deployDeterministic(
+      type(AaveV3Ethereum_ReimburseLinkForRobot_20251201).creationCode
+    );
+
     // compose action
     IPayloadsControllerCore.ExecutionAction[]
-      memory actions = new IPayloadsControllerCore.ExecutionAction[](2);
+      memory actions = new IPayloadsControllerCore.ExecutionAction[](3);
     actions[0] = GovV3Helpers.buildAction(Payloads.ETHEREUM_CORE);
     actions[1] = GovV3Helpers.buildAction(Payloads.ETHEREUM_PRIME);
+    actions[2] = GovV3Helpers.buildAction(reimbursePayload);
 
     // register action at payloadsController
     GovV3Helpers.createPayload(actions);
@@ -158,9 +164,13 @@ contract CreateProposal is EthereumScript {
     // compose actions for validation
     {
       IPayloadsControllerCore.ExecutionAction[]
-        memory actionsEthereum = new IPayloadsControllerCore.ExecutionAction[](2);
+        memory actionsEthereum = new IPayloadsControllerCore.ExecutionAction[](3);
       actionsEthereum[0] = GovV3Helpers.buildAction(Payloads.ETHEREUM_CORE);
       actionsEthereum[1] = GovV3Helpers.buildAction(Payloads.ETHEREUM_PRIME);
+      actionsEthereum[2] = GovV3Helpers.buildAction(
+        type(AaveV3Ethereum_ReimburseLinkForRobot_20251201).creationCode
+      );
+
       payloads[0] = GovV3Helpers.buildMainnetPayload(vm, actionsEthereum);
     }
 
