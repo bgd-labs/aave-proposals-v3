@@ -7,17 +7,17 @@ import {AaveV3Ethereum_ReimburseLinkForRobot_20251201} from './AaveV3Ethereum_Re
 import {EthereumScript, PolygonScript, AvalancheScript, OptimismScript, ArbitrumScript, BaseScript, GnosisScript, BNBScript, LineaScript, PlasmaScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
 
 library Payloads {
-  address internal constant ETHEREUM_CORE = 0x16747805927466664367aC107128501211B83dAf;
-  address internal constant ETHEREUM_PRIME = 0x7Ca783f0Ab6c574978580E9e9F3b22733B035d8e;
-  address internal constant ARBITRUM = 0xe2B7ad5e3aD12C5C59BB75532fd2d4177017B4C1;
-  address internal constant AVALANCHE = 0xe22EeB5DCBb1f2934365CEAe2F504Dd7cF4e8652;
-  address internal constant BASE = 0xB4BEE48b6D831586F5Ca498d65aaEe7cCed5804d;
-  address internal constant BNB = 0x3085447F23F698Fe68A7d756a5fC333B88782880;
-  address internal constant GNOSIS = 0x7afd7E52C258a9829614e93ac15C5c90EEEb1b64;
-  address internal constant LINEA = 0x80BeCdFD39e47666FF2242aB5A9397c395e20581;
-  address internal constant OPTIMISM = 0x022d4798197Af5003eA3AD8e83c93B4f30E0Faee;
-  address internal constant POLYGON = 0x46bC67F2d5e937e478bbFc24652C8E101e664C75;
-  address internal constant PLASMA = 0xc1772f185d7A7c1177791A85C3719277c2EA004E;
+  address internal constant ETHEREUM_CORE = 0xfFc35B2ae62A7a4aCCAa64BCe70eF9c85435b0eC;
+  address internal constant ETHEREUM_PRIME = 0x8dA7d151F230ca969a0460Be804Af7aAe5b50f6b;
+  address internal constant ARBITRUM = 0x9D1C9aA189c538c0F793ABCCB8A6195A4f67D878;
+  address internal constant AVALANCHE = 0x2A31906B9B6da2d9D2057C926276C0D610e79882;
+  address internal constant BASE = 0xCC88fB5f07F38e285Aba857ee5345535c60f4098;
+  address internal constant BNB = 0x593b820168eeBa2De15eBdAb0F2bCe4c8B09760A;
+  address internal constant GNOSIS = 0x593bBD378c2bdC59A54966135A7653f5e08Ce172;
+  address internal constant LINEA = 0xE638b790AF0EFaD986F162A1dDbEa7C0583d3a74;
+  address internal constant OPTIMISM = 0x8b5850ADD9784874BCB3cc3ee72B2DE3f897d61A;
+  address internal constant POLYGON = 0xeED95cea6E2FD11f1513d2317d4c4353523e76B4;
+  address internal constant PLASMA = 0x2514b2B522dB4FdE44ec8eAe701Be17b204D4c21;
 }
 
 /**
