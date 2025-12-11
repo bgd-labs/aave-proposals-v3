@@ -4,5 +4,11 @@
       "name": "main",
       "rev": "a973bd47ec3025fa77d6c569c378b44534b62ac8"
     }
+  },
+  "lib/aave-umbrella": {
+    "tag": {
+      "name": "v1.0.0",
+      "rev": "d34359f567da4fbb58685e114cd1b824d8300fac"
+    }
   }
 }
