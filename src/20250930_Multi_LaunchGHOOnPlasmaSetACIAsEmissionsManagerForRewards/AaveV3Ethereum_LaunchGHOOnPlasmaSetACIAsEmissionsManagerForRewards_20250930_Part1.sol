@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
 import {GhoEthereum} from 'aave-address-book/GhoEthereum.sol';
 
@@ -21,8 +20,8 @@ contract AaveV3Ethereum_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_2025
   uint256 public constant TEMP_BRIDGE_CAPACITY = 55_000_000 ether;
   uint256 public constant NEW_BRIDGE_LIMIT = 100_000_000 ether;
 
-  uint128 public constant DEFAULT_RATE_LIMITER_CAPACITY = 1_500_000e18;
-  uint128 public constant DEFAULT_RATE_LIMITER_RATE = 300e18;
+  uint128 public constant DEFAULT_RATE_LIMITER_CAPACITY = 1_500_000 ether;
+  uint128 public constant DEFAULT_RATE_LIMITER_RATE = 300 ether;
 
   function execute() external {
     IUpgradeableLockReleaseTokenPool(GhoEthereum.GHO_CCIP_TOKEN_POOL).setBridgeLimit(

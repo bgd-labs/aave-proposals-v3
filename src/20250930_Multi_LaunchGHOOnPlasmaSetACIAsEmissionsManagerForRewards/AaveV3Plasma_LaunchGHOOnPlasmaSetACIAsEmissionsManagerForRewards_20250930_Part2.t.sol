@@ -116,7 +116,7 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
     executePayload(vm, address(proposal));
 
     uint256 limit = IGhoReserve(proposal.GHO_RESERVE()).getLimit(proposal.NEW_GSM_USDT());
-    assertEq(limit, proposal.USDT_CAPACITY());
+    assertEq(limit, proposal.RESERVE_LIMIT_GSM_USDT());
 
     // GSM USDT
     GsmConfig memory gsmUsdtConfig = GsmConfig({

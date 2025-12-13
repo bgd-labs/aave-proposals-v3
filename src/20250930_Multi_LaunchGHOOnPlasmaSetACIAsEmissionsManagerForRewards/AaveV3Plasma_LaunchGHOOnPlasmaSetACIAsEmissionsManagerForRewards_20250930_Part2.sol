@@ -2,12 +2,10 @@
 pragma solidity ^0.8.0;
 
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
-import {IACLManager} from 'aave-address-book/AaveV3.sol';
 import {SafeERC20} from 'openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol';
 import {AaveV3Plasma, AaveV3PlasmaAssets} from 'aave-address-book/AaveV3Plasma.sol';
 import {AaveV3PayloadPlasma} from 'aave-helpers/src/v3-config-engine/AaveV3PayloadPlasma.sol';
 import {GhoPlasma} from 'aave-address-book/GhoPlasma.sol';
-import {MiscPlasma} from 'aave-address-book/MiscPlasma.sol';
 import {GovernanceV3Plasma} from 'aave-address-book/GovernanceV3Plasma.sol';
 import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
@@ -15,17 +13,9 @@ import {CCIPChainSelectors} from '../helpers/gho-launch/constants/CCIPChainSelec
 import {IUpgradeableBurnMintTokenPool, IRateLimiter} from 'src/interfaces/ccip/IUpgradeableBurnMintTokenPool.sol';
 import {IEmissionManager} from 'aave-v3-origin/contracts/rewards/interfaces/IEmissionManager.sol';
 
-import {IGhoBucketSteward} from 'src/interfaces/IGhoBucketSteward.sol';
-import {IGhoToken} from 'src/interfaces/IGhoToken.sol';
+import {IGhoReserve} from 'src/interfaces/IGhoReserve.sol';
 import {IGsm} from 'src/interfaces/IGsm.sol';
 import {IGsmRegistry} from 'src/interfaces/IGsmRegistry.sol';
-import {IAaveCLRobotOperator} from 'src/interfaces/IAaveCLRobotOperator.sol';
-
-interface IGhoReserve {
-  function addEntity(address entity) external;
-  function setLimit(address entity, uint256 limit) external;
-  function totalEntities() external view returns (uint256);
-}
 
 /**
  * @title Add GHO and deploy GSM on Plasma.
@@ -38,13 +28,13 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
 {
   using SafeERC20 for IERC20;
 
-  uint128 public constant DEFAULT_RATE_LIMITER_CAPACITY = 1_500_000e18;
-  uint128 public constant DEFAULT_RATE_LIMITER_RATE = 300e18;
+  uint128 public constant DEFAULT_RATE_LIMITER_CAPACITY = 1_500_000 ether;
+  uint128 public constant DEFAULT_RATE_LIMITER_RATE = 300 ether;
 
   // https://plasmascan.to/address/0xac140648435d03f784879cd789130F22Ef588Fcd
   address public constant GHO_LM_ADMIN = 0xac140648435d03f784879cd789130F22Ef588Fcd;
 
-  uint256 public constant GHO_SEED_AMOUNT = 10e18;
+  uint256 public constant GHO_SEED_AMOUNT = 10 ether;
 
   // GhoReserve
   // https://plasmascan.to/address/0xBAdA742e7Ff54595F9049eeF1Cc5AaF4364988B9
@@ -52,7 +42,7 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
   uint256 public constant BRIDGED_AMOUNT = 50_000_000 ether;
 
   // Capacities
-  uint128 public constant USDT_CAPACITY = 50_000_000 ether;
+  uint128 public constant RESERVE_LIMIT_GSM_USDT = 50_000_000 ether;
 
   // https://plasmascan.to/address/0x86992b2E2385E478dd2eeBfaE06369636e0a64E8
   address public constant GHO_GSM_STEWARD = 0x86992b2E2385E478dd2eeBfaE06369636e0a64E8;
@@ -72,7 +62,6 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
   // https://plasmascan.to/address/0xD70BE7e6111EA563226cb8e53B1F195Da4E566E2
   address public constant FEE_STRATEGY = 0xD70BE7e6111EA563226cb8e53B1F195Da4E566E2;
 
-  bytes32 public immutable LIQUIDATOR_ROLE = IGsm(NEW_GSM_USDT).LIQUIDATOR_ROLE();
   bytes32 public immutable SWAP_FREEZER_ROLE = IGsm(NEW_GSM_USDT).SWAP_FREEZER_ROLE();
 
   function _preExecute() internal override {
@@ -82,13 +71,13 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
     );
 
     _grantAccess();
-    _updateFeeStrategy();
+    IGsm(NEW_GSM_USDT).updateFeeStrategy(FEE_STRATEGY);
   }
 
   function _grantAccess() internal {
     // Enroll GSMs as entities and set limit
     IGhoReserve(GHO_RESERVE).addEntity(NEW_GSM_USDT);
-    IGhoReserve(GHO_RESERVE).setLimit(NEW_GSM_USDT, USDT_CAPACITY);
+    IGhoReserve(GHO_RESERVE).setLimit(NEW_GSM_USDT, RESERVE_LIMIT_GSM_USDT);
 
     // Add GSM Swap Freezer role to OracleSwapFreezers
     IGsm(NEW_GSM_USDT).grantRole(SWAP_FREEZER_ROLE, USDT_ORACLE_SWAP_FREEZER);
@@ -99,10 +88,6 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
 
     // GHO GSM Steward
     IGsm(NEW_GSM_USDT).grantRole(IGsm(NEW_GSM_USDT).CONFIGURATOR_ROLE(), GHO_GSM_STEWARD);
-  }
-
-  function _updateFeeStrategy() internal {
-    IGsm(NEW_GSM_USDT).updateFeeStrategy(FEE_STRATEGY);
   }
 
   function _postExecute() internal override {
@@ -146,10 +131,10 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
       borrowableInIsolation: EngineFlags.DISABLED,
       withSiloedBorrowing: EngineFlags.DISABLED,
       flashloanable: EngineFlags.ENABLED,
-      ltv: 75_00,
-      liqThreshold: 78_00,
+      ltv: 5,
+      liqThreshold: 10,
       liqBonus: 4_50,
-      reserveFactor: 10_00,
+      reserveFactor: 5_00,
       supplyCap: 50_000_000,
       borrowCap: 20_000_000,
       debtCeiling: 0,
@@ -232,7 +217,7 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
       eModeCategory: 5,
       ltv: 85_90,
       liqThreshold: 87_90,
-      liqBonus: EngineFlags.KEEP_CURRENT,
+      liqBonus: 4_90,
       label: EngineFlags.KEEP_CURRENT_STRING
     });
 
@@ -240,7 +225,7 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
       eModeCategory: 7,
       ltv: 84_40,
       liqThreshold: 86_40,
-      liqBonus: EngineFlags.KEEP_CURRENT,
+      liqBonus: 6_00,
       label: EngineFlags.KEEP_CURRENT_STRING
     });
 

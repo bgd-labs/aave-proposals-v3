@@ -5,7 +5,9 @@
   "raw": {
     "0x06179f7c1be40863405f374e7f5f8806c728660a": {
       "label": "GhoEthereum.GHO_CCIP_TOKEN_POOL",
+      "contract": "lib/aave-helpers/lib/aave-address-book/lib/aave-v3-origin/lib/solidity-utils/lib/openzeppelin-contracts-upgradeable/lib/openzeppelin-contracts/contracts/proxy/transparent/TransparentUpgradeableProxy.sol:TransparentUpgradeableProxy",
       "balanceDiff": null,
+      "nonceDiff": null,
       "stateDiff": {
         "0x0000000000000000000000000000000000000000000000000000000000000035": {
           "previousValue": "0x0000000000000000000000000000000000000000002116545850052128000000",
@@ -31,7 +33,9 @@
     },
     "0xdabad81af85554e9ae636395611c58f7ec1aaec5": {
       "label": "GovernanceV3Ethereum.PAYLOADS_CONTROLLER",
+      "contract": "lib/aave-helpers/lib/aave-address-book/lib/aave-v3-origin/lib/solidity-utils/lib/openzeppelin-contracts-upgradeable/lib/openzeppelin-contracts/contracts/proxy/transparent/TransparentUpgradeableProxy.sol:TransparentUpgradeableProxy",
       "balanceDiff": null,
+      "nonceDiff": null,
       "stateDiff": {
         "0x32e830cc2d99bcd03a6b00de44c079172fc1615142526593da9060da4afbf6cd": {
           "previousValue": "0x006916296a000000000002000000000000000000000000000000000000000000",

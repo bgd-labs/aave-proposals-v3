@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 import {SafeERC20} from 'openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol';
 import {CCIPChainSelectors} from '../helpers/gho-launch/constants/CCIPChainSelectors.sol';
-import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
+import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {GhoEthereum} from 'aave-address-book/GhoEthereum.sol';
 import {IUpgradeableLockReleaseTokenPool, IRateLimiter} from 'src/interfaces/ccip/IUpgradeableLockReleaseTokenPool.sol';
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
@@ -32,8 +32,8 @@ contract AaveV3Ethereum_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_2025
   // https://etherscan.io/address/0x7f2f96fcdc3a29be75938d2ac3d92e7006919fe6
   address public constant CCIP_BRIDGE = 0x7F2f96fcdC3A29Be75938d2aC3D92E7006919fe6;
 
-  uint128 public constant DEFAULT_RATE_LIMITER_CAPACITY = 1_500_000e18;
-  uint128 public constant DEFAULT_RATE_LIMITER_RATE = 300e18;
+  uint128 public constant DEFAULT_RATE_LIMITER_CAPACITY = 1_500_000 ether;
+  uint128 public constant DEFAULT_RATE_LIMITER_RATE = 300 ether;
   uint256 public constant PLASMA_BRIDGE_AMOUNT = 50_000_000 ether;
 
   function execute() external {

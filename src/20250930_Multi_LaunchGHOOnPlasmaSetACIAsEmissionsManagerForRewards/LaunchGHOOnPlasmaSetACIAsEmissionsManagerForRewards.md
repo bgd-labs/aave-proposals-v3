@@ -23,13 +23,13 @@ Within the new syrupUSDT and GHO collateral eMode, users who:
 
 Will receive GHO incentives (~3.50%) such that the Total Supply yield (Native + Incentives) exceeds the native syrupUSDT yield by approximately 50bps.
 
-The above incentive strategies create GHO Supply on Aave Protocol. Sourcing the GHO is expected to at least partially flow from through the remote GSM, which deposits USDT into Aave whereby the DAO earns the Supply yield.
+The above incentive strategies create GHO Supply on Aave Protocol. Sourcing the GHO is expected to at least partially flow from through the remote GSM, which deposits USDT0 into Aave whereby the DAO earns the Supply yield.
 
 ### GHO Demand
 
 With strong GHO supply expected from the GHO incentives, GHO demand is created via the revision of eMode 2 to include GHO as a debt asset. eMode 2 is to offer sUSDe and USDe as collateral with USDT and GHO as debt, the GHO debt will receive a x5 Sats multiplier from the Ethena team that matches what is currently available on the Ethereum Core and Prime instances.
 
-This is expected to stimulate Demand for GHO on Aave Protocol with GHO expected to be a lower cost alternative to USDT due to the Borrow Rate configuration (150bps less than USDT at Uoptimal) and additional Sat incentives acting to offset the cost of capital for leverage users.
+This is expected to stimulate Demand for GHO on Aave Protocol with GHO expected to be a lower cost alternative to USDT0 due to the Borrow Rate configuration (150bps less than USDT at Uoptimal) and additional Sat incentives acting to offset the cost of capital for leverage users.
 
 Furthemore, additional eModes with Pendle PT assets are expected to provide sustained demand for GHO that reduces the reliance on GHO Incentive yield to attract GHO supply.
 
@@ -46,14 +46,14 @@ The table below illustrates the configured risk parameters for **GHO**
 | Isolation Mode            |                                      false |
 | Borrowable                |                                    ENABLED |
 | Collateral Enabled        |                                       true |
-| Supply Cap (GHO)          |                                  5,000,000 |
-| Borrow Cap (GHO)          |                                  4,500,000 |
+| Supply Cap (GHO)          |                                 50,000,000 |
+| Borrow Cap (GHO)          |                                 20,000,000 |
 | Debt Ceiling              |                                      USD 0 |
-| LTV                       |                                       75 % |
-| LT                        |                                       78 % |
+| LTV                       |                                     0.05 % |
+| LT                        |                                      0.1 % |
 | Liquidation Bonus         |                                      4.5 % |
 | Liquidation Protocol Fee  |                                       10 % |
-| Reserve Factor            |                                       10 % |
+| Reserve Factor            |                                        5 % |
 | Base Variable Borrow Rate |                                     1.25 % |
 | Variable Slope 1          |                                      3.5 % |
 | Variable Slope 2          |                                     16.5 % |
@@ -69,13 +69,13 @@ Additionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://plasmascan.to/
 
 ## eMode Category 2
 
-| Parameter             |    sUSDe    | USDe | USDT | GHO |
-| --------------------- | :---------: | :--: | :--: | :-: |
-| Collateral            | sUSDe, USDe | Yes  |  No  | No  |
-| Borrowable            | USDT, GHOd  |  No  | Yes  | Yes |
-| Max LTV               |     90%     | 90%  |  -   |  -  |
-| Liquidation Threshold |     92%     | 92%  |  -   |  -  |
-| Liquidation Bonus     |    4.0%     | 4.0% |  -   |  -  |
+| Parameter             | sUSDe | USDe | USDT | GHO |
+| --------------------- | :---: | :--: | :--: | :-: |
+| Collateral            |  Yes  | Yes  |  No  | No  |
+| Borrowable            |  No   |  No  | Yes  | Yes |
+| Max LTV               |  90%  | 90%  |  -   |  -  |
+| Liquidation Threshold |  92%  | 92%  |  -   |  -  |
+| Liquidation Bonus     | 4.0%  | 4.0% |  -   |  -  |
 
 ## eMode Category - Category 5
 
@@ -152,7 +152,7 @@ Configure stataUSDT RemoteGSM as an entity with a draw capacity of 50M GHO.
 | Unfreeze Lower Bound   | $0.995 |
 | Unfreeze Upper Bound   | $1.005 |
 | Mint GHO Fee           | 0.00%  |
-| Burn GHO Fee           | 0.15%  |
+| Burn GHO Fee           | 0.10%  |
 
 ### GHO Steward Configuration
 

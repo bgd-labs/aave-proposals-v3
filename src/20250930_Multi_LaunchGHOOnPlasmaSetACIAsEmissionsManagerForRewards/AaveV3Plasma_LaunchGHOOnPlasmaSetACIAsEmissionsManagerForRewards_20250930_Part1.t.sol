@@ -53,9 +53,9 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
     bucket = IUpgradeableBurnMintTokenPool(GhoPlasma.GHO_CCIP_TOKEN_POOL)
       .getCurrentInboundRateLimiterState(CCIPChainSelectors.ETHEREUM);
 
-    assertEq(bucket.capacity, proposal.NEW_CAPACITY());
-    assertEq(bucket.rate, proposal.NEW_CAPACITY() - 1);
+    assertEq(bucket.capacity, proposal.TEMP_BRIDGE_CAPACITY());
+    assertEq(bucket.rate, proposal.TEMP_BRIDGE_CAPACITY() - 1);
     assertTrue(bucket.isEnabled);
-    assertEq(bucket.tokens, proposal.NEW_CAPACITY());
+    assertEq(bucket.tokens, proposal.TEMP_BRIDGE_CAPACITY());
   }
 }

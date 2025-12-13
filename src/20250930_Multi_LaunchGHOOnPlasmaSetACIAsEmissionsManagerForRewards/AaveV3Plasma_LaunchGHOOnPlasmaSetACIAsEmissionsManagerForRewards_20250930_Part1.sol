@@ -15,11 +15,11 @@ import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGen
 contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_20250930_Part1 is
   IProposalGenericExecutor
 {
-  uint128 public constant DEFAULT_RATE_LIMITER_CAPACITY = 1_500_000e18;
-  uint128 public constant DEFAULT_RATE_LIMITER_RATE = 300e18;
+  uint128 public constant DEFAULT_RATE_LIMITER_CAPACITY = 1_500_000 ether;
+  uint128 public constant DEFAULT_RATE_LIMITER_RATE = 300 ether;
 
-  // 50M GHO to be bridged, add 10% leeway initially in case other bridges take place
-  uint256 public constant NEW_CAPACITY = 55_000_000 ether;
+  // 50M GHO bridge amount + 10% leeway in case of other bridges
+  uint256 public constant TEMP_BRIDGE_CAPACITY = 55_000_000 ether;
 
   function execute() external {
     IUpgradeableBurnMintTokenPool(GhoPlasma.GHO_CCIP_TOKEN_POOL).setChainRateLimiterConfig(
@@ -31,8 +31,8 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
       }),
       IRateLimiter.Config({
         isEnabled: true,
-        capacity: uint128(NEW_CAPACITY),
-        rate: uint128(NEW_CAPACITY) - 1 // Set rate to capacity so it fills to limit right away (-1 because they cannot be the same)
+        capacity: uint128(TEMP_BRIDGE_CAPACITY),
+        rate: uint128(TEMP_BRIDGE_CAPACITY) - 1 // Set rate to capacity so it fills to limit right away (-1 because they cannot be the same)
       })
     );
   }
