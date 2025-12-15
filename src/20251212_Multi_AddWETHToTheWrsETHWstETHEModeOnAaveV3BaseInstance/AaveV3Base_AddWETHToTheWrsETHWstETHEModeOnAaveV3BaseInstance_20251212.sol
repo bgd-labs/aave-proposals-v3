@@ -26,7 +26,7 @@ contract AaveV3Base_AddWETHToTheWrsETHWstETHEModeOnAaveV3BaseInstance_20251212 i
 
     assetEModeUpdates[0] = IAaveV3ConfigEngine.AssetEModeUpdate({
       asset: AaveV3BaseAssets.WETH_UNDERLYING,
-      eModeCategory: AaveV3BaseEModes.RSETH_WSTETH,
+      eModeCategory: AaveV3BaseEModes.wrsETH__wstETH,
       borrowable: EngineFlags.ENABLED,
       collateral: EngineFlags.DISABLED
     });
