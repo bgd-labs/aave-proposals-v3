@@ -1,0 +1,374 @@
+## Reserve changes
+
+### Reserves added
+
+#### wrsETH ([0x7bFd4CA2a6Cf3A3fDDd645D10B323031afe47FF0](https://snowtrace.io/address/0x7bFd4CA2a6Cf3A3fDDd645D10B323031afe47FF0))
+
+| description | value |
+| --- | --- |
+| decimals | 18 |
+| isActive | true |
+| isFrozen | false |
+| supplyCap | 5,000 wrsETH |
+| borrowCap | 1 wrsETH |
+| debtCeiling | 0 $ [0] |
+| isSiloed | false |
+| isFlashloanable | true |
+| oracle | [0xe5Af98d1c62c7D9C1378AF187eEFB0BEe112ff64](https://snowtrace.io/address/0xe5Af98d1c62c7D9C1378AF187eEFB0BEe112ff64) |
+| oracleDecimals | 8 |
+| oracleDescription | Capped wrsETH / ETH / USD |
+| oracleLatestAnswer | 3249.71656008 |
+| usageAsCollateralEnabled | true |
+| ltv | 0.05 % [5] |
+| liquidationThreshold | 0.1 % [10] |
+| liquidationBonus | 7 % |
+| liquidationProtocolFee | 10 % [1000] |
+| reserveFactor | 45 % [4500] |
+| aToken | [0x40B4BAEcc69B882e8804f9286b12228C27F8c9BF](https://snowtrace.io/address/0x40B4BAEcc69B882e8804f9286b12228C27F8c9BF) |
+| variableDebtToken | [0x3ca5FA07689F266e907439aFd1fBB59c44fe12f6](https://snowtrace.io/address/0x3ca5FA07689F266e907439aFd1fBB59c44fe12f6) |
+| borrowingEnabled | false |
+| isBorrowableInIsolation | false |
+| interestRateStrategy | [0xCe1C5509f2f4d755aA64B8D135B15ec6F12a93da](https://snowtrace.io/address/0xCe1C5509f2f4d755aA64B8D135B15ec6F12a93da) |
+| aTokenName | Aave Avalanche wrsETH |
+| aTokenSymbol | aAvawrsETH |
+| aTokenUnderlyingBalance | 0.03 wrsETH [30000000000000000] |
+| id | 17 |
+| isPaused | false |
+| variableDebtTokenName | Aave Avalanche Variable Debt wrsETH |
+| variableDebtTokenSymbol | variableDebtAvawrsETH |
+| virtualBalance | 0.03 wrsETH [30000000000000000] |
+| optimalUsageRatio | 45 % |
+| maxVariableBorrowRate | 310 % |
+| baseVariableBorrowRate | 0 % |
+| variableRateSlope1 | 10 % |
+| variableRateSlope2 | 300 % |
+| interestRate | ![ir](https://dash.onaave.com/api/static?variableRateSlope1=100000000000000000000000000&variableRateSlope2=3000000000000000000000000000&optimalUsageRatio=450000000000000000000000000&baseVariableBorrowRate=0&maxVariableBorrowRate=3100000000000000000000000000) |
+
+
+## Emodes changed
+
+### EMode: Stablecoins(id: 1)
+
+
+
+### EMode: AVAX correlated(id: 2)
+
+
+
+### EMode: USDe/Stablecoin(id: 3)
+
+
+
+### EMode: sUSDe/Stablecoin(id: 4)
+
+
+
+### EMode: wrsETH/ETH(id: 5)
+
+| description | value before | value after |
+| --- | --- | --- |
+| eMode.label | - | wrsETH/ETH |
+| eMode.ltv | - | 93 % |
+| eMode.liquidationThreshold | - | 95 % |
+| eMode.liquidationBonus | - | 1 % |
+| eMode.borrowableBitmap | - | WETH.e |
+| eMode.collateralBitmap | - | wrsETH |
+
+
+## Raw diff
+
+```json
+{
+  "eModes": {
+    "5": {
+      "from": null,
+      "to": {
+        "borrowableBitmap": "16",
+        "collateralBitmap": "131072",
+        "eModeCategory": 5,
+        "label": "wrsETH/ETH",
+        "liquidationBonus": 10100,
+        "liquidationThreshold": 9500,
+        "ltv": 9300
+      }
+    }
+  },
+  "reserves": {
+    "0x7bFd4CA2a6Cf3A3fDDd645D10B323031afe47FF0": {
+      "from": null,
+      "to": {
+        "aToken": "0x40B4BAEcc69B882e8804f9286b12228C27F8c9BF",
+        "aTokenName": "Aave Avalanche wrsETH",
+        "aTokenSymbol": "aAvawrsETH",
+        "aTokenUnderlyingBalance": "30000000000000000",
+        "borrowCap": 1,
+        "borrowingEnabled": false,
+        "debtCeiling": 0,
+        "decimals": 18,
+        "id": 17,
+        "interestRateStrategy": "0xCe1C5509f2f4d755aA64B8D135B15ec6F12a93da",
+        "isActive": true,
+        "isBorrowableInIsolation": false,
+        "isFlashloanable": true,
+        "isFrozen": false,
+        "isPaused": false,
+        "isSiloed": false,
+        "liquidationBonus": 10700,
+        "liquidationProtocolFee": 1000,
+        "liquidationThreshold": 10,
+        "ltv": 5,
+        "oracle": "0xe5Af98d1c62c7D9C1378AF187eEFB0BEe112ff64",
+        "oracleDecimals": 8,
+        "oracleDescription": "Capped wrsETH / ETH / USD",
+        "oracleLatestAnswer": "324971656008",
+        "reserveFactor": 4500,
+        "supplyCap": 5000,
+        "symbol": "wrsETH",
+        "underlying": "0x7bFd4CA2a6Cf3A3fDDd645D10B323031afe47FF0",
+        "usageAsCollateralEnabled": true,
+        "variableDebtToken": "0x3ca5FA07689F266e907439aFd1fBB59c44fe12f6",
+        "variableDebtTokenName": "Aave Avalanche Variable Debt wrsETH",
+        "variableDebtTokenSymbol": "variableDebtAvawrsETH",
+        "virtualBalance": "30000000000000000"
+      }
+    }
+  },
+  "strategies": {
+    "0x7bFd4CA2a6Cf3A3fDDd645D10B323031afe47FF0": {
+      "from": null,
+      "to": {
+        "address": "0xCe1C5509f2f4d755aA64B8D135B15ec6F12a93da",
+        "baseVariableBorrowRate": "0",
+        "maxVariableBorrowRate": "3100000000000000000000000000",
+        "optimalUsageRatio": "450000000000000000000000000",
+        "variableRateSlope1": "100000000000000000000000000",
+        "variableRateSlope2": "3000000000000000000000000000"
+      }
+    }
+  },
+  "raw": {
+    "0x048f2228d7bf6776f99ab50cb1b1eab4d1d4ca73": {
+      "label": "AaveV3Avalanche.EMISSION_MANAGER",
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x629aeddc2607a2ffe07c71ead4578eb421af044a4d4b34c44d0113cb26f18218": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x000000000000000000000000ac140648435d03f784879cd789130f22ef588fcd"
+        },
+        "0xc1ef3c113724f4d971212dcc2be70cc7477105fa10d499e90fd012950a9417bd": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x000000000000000000000000ac140648435d03f784879cd789130f22ef588fcd"
+        }
+      }
+    },
+    "0x1140cb7cafacc745771c2ea31e7b5c653c5d0b80": {
+      "label": "GovernanceV3Avalanche.PAYLOADS_CONTROLLER",
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x5ed25f7f90ee98fc55a6c59d7b052a857d4bf613ad8f5f7fd8077c1e252c6c1a": {
+          "previousValue": "0x00691b6532000000000002000000000000000000000000000000000000000000",
+          "newValue": "0x00691b6532000000000003000000000000000000000000000000000000000000"
+        },
+        "0x5ed25f7f90ee98fc55a6c59d7b052a857d4bf613ad8f5f7fd8077c1e252c6c1b": {
+          "previousValue": "0x000000000000000000093a80000000000000694989b300000000000000000000",
+          "newValue": "0x000000000000000000093a80000000000000694989b3000000000000691b6533"
+        }
+      }
+    },
+    "0x3ca5fa07689f266e907439afd1fbb59c44fe12f6": {
+      "label": null,
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x0000000000000000000000000000000000000000000000000000000000000000": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000004"
+        },
+        "0x0000000000000000000000000000000000000000000000000000000000000001": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000000"
+        },
+        "0x0000000000000000000000000000000000000000000000000000000000000035": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0xfcff85026c4848fe2c9e5c35689e7f040e042a1fc539f8325afa81f9b81d5843"
+        },
+        "0x0000000000000000000000000000000000000000000000000000000000000037": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000007bfd4ca2a6cf3a3fddd645d10b323031afe47ff0"
+        },
+        "0x000000000000000000000000000000000000000000000000000000000000003b": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000047"
+        },
+        "0x000000000000000000000000000000000000000000000000000000000000003c": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x7661726961626c6544656274417661777273455448000000000000000000002a"
+        },
+        "0x000000000000000000000000000000000000000000000000000000000000003d": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000012"
+        },
+        "0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x000000000000000000000000acd1a67bd377c6a4397b486f8b9afabde49b8933",
+          "label": "Implementation slot"
+        },
+        "0xbbe3212124853f8b0084a66a2d057c2966e251e132af3691db153ab65f0d1a4d": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x41617665204176616c616e636865205661726961626c65204465627420777273"
+        },
+        "0xbbe3212124853f8b0084a66a2d057c2966e251e132af3691db153ab65f0d1a4e": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x4554480000000000000000000000000000000000000000000000000000000000"
+        }
+      }
+    },
+    "0x40b4baecc69b882e8804f9286b12228c27f8c9bf": {
+      "label": null,
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x0000000000000000000000000000000000000000000000000000000000000000": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000004"
+        },
+        "0x0000000000000000000000000000000000000000000000000000000000000001": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000000"
+        },
+        "0x0000000000000000000000000000000000000000000000000000000000000036": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x000000000000000000000000000000000000000000000000006a94d74f430000"
+        },
+        "0x0000000000000000000000000000000000000000000000000000000000000037": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x41617665204176616c616e63686520777273455448000000000000000000002a"
+        },
+        "0x0000000000000000000000000000000000000000000000000000000000000038": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x6141766177727345544800000000000000000000000000000000000000000014"
+        },
+        "0x0000000000000000000000000000000000000000000000000000000000000039": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000012"
+        },
+        "0x000000000000000000000000000000000000000000000000000000000000003b": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0xfbd23e3912fe30855f4326b09280e888e838e519cf865c230c9ba63ca9579ca6"
+        },
+        "0x000000000000000000000000000000000000000000000000000000000000003d": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000007bfd4ca2a6cf3a3fddd645d10b323031afe47ff0"
+        },
+        "0x1b0a8b1fefd7a38e70e752f3739d9dc1a8977de346f6e5fbc0ed7b9a89d5fe95": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x00000000033b2e3c9fd0803ce80000000000000000000000006a94d74f430000"
+        },
+        "0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000008debe6c7d5b56e09403bdb0ec5cb92506ac462cd",
+          "label": "Implementation slot"
+        }
+      }
+    },
+    "0x794a61358d6845594f94dc1db02a252b5b4814ad": {
+      "label": "AaveV3Avalanche.POOL",
+      "balanceDiff": null,
+      "stateDiff": {
+        "0x000000000000000000000000000000000000000000000000000000000000003b": {
+          "previousValue": "0x00000000000000000000000000000000000000000000001100000000000009c4",
+          "newValue": "0x00000000000000000000000000000000000000000000001200000000000009c4"
+        },
+        "0x50039cf134a124858bd88bbc9225ec3c537b89a0e9237ce39fe1813e6edf8257": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x00000000000000000000000000000000000000000000000200002774251c2454"
+        },
+        "0x50039cf134a124858bd88bbc9225ec3c537b89a0e9237ce39fe1813e6edf8258": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x7772734554482f45544800000000000000000000000000000000000000000014"
+        },
+        "0x50039cf134a124858bd88bbc9225ec3c537b89a0e9237ce39fe1813e6edf8259": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000010"
+        },
+        "0xb812b08fc94f6751621c5f09eda8cff1b6d95c23621bb67471e4a584de3a2b6a": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x100000000000000000000003e80000013880000000011194811229cc000a0005"
+        },
+        "0xb812b08fc94f6751621c5f09eda8cff1b6d95c23621bb67471e4a584de3a2b6b": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000033b2e3c9fd0803ce8000000"
+        },
+        "0xb812b08fc94f6751621c5f09eda8cff1b6d95c23621bb67471e4a584de3a2b6c": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000033b2e3c9fd0803ce8000000"
+        },
+        "0xb812b08fc94f6751621c5f09eda8cff1b6d95c23621bb67471e4a584de3a2b6d": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x000000000000000000001100691b653300000000000000000000000000000000"
+        },
+        "0xb812b08fc94f6751621c5f09eda8cff1b6d95c23621bb67471e4a584de3a2b6e": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x00000000000000000000000040b4baecc69b882e8804f9286b12228c27f8c9bf"
+        },
+        "0xb812b08fc94f6751621c5f09eda8cff1b6d95c23621bb67471e4a584de3a2b70": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000003ca5fa07689f266e907439afd1fbb59c44fe12f6"
+        },
+        "0xb812b08fc94f6751621c5f09eda8cff1b6d95c23621bb67471e4a584de3a2b72": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000006a94d74f43000000000000000000000000000000000000"
+        },
+        "0xb812b08fc94f6751621c5f09eda8cff1b6d95c23621bb67471e4a584de3a2b73": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000000"
+        },
+        "0xcfe10d416e2f575bd9e9c7a821917ef0e52140561533eb539cf7531ee5a2ee1d": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000007bfd4ca2a6cf3a3fddd645d10b323031afe47ff0"
+        },
+        "0xedc1d953cc6ade74d50e6c6e70d0462e65eb7a20e8c51b7bd12c917f09b11b0a": {
+          "previousValue": "0x00000000000000000000000000000000000000000000000000000002a282aa2a",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000aa282aa2a"
+        }
+      }
+    },
+    "0x7bfd4ca2a6cf3a3fddd645d10b323031afe47ff0": {
+      "label": null,
+      "balanceDiff": null,
+      "stateDiff": {
+        "0xa2864286d37fb3460a75d193c9ec753b99b9c639be8a486ae64ec7d4196eca34": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x000000000000000000000000000000000000000000000000006a94d74f430000"
+        },
+        "0xc2e95128e5e1bb2fc61d9fce762e8c16152618771f3e1755d4ac1403c6861ace": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000000"
+        },
+        "0xf6c8a0034e04c4d44da4f61ddd1eeafe56dcfbc8dec5afbfa4f0bebfe8738794": {
+          "previousValue": "0x000000000000000000000000000000000000000000000000008e1bc9bf040000",
+          "newValue": "0x000000000000000000000000000000000000000000000000002386f26fc10000"
+        }
+      }
+    },
+    "0xce1c5509f2f4d755aa64b8d135b15ec6f12a93da": {
+      "label": "AaveV3Avalanche.ASSETS.DAIe.INTEREST_RATE_STRATEGY, AaveV3Avalanche.ASSETS.LINKe.INTEREST_RATE_STRATEGY, AaveV3Avalanche.ASSETS.USDC.INTEREST_RATE_STRATEGY, AaveV3Avalanche.ASSETS.WBTCe.INTEREST_RATE_STRATEGY, AaveV3Avalanche.ASSETS.WETHe.INTEREST_RATE_STRATEGY, AaveV3Avalanche.ASSETS.USDt.INTEREST_RATE_STRATEGY, AaveV3Avalanche.ASSETS.AAVEe.INTEREST_RATE_STRATEGY, AaveV3Avalanche.ASSETS.WAVAX.INTEREST_RATE_STRATEGY, AaveV3Avalanche.ASSETS.sAVAX.INTEREST_RATE_STRATEGY, AaveV3Avalanche.ASSETS.FRAX.INTEREST_RATE_STRATEGY, AaveV3Avalanche.ASSETS.MAI.INTEREST_RATE_STRATEGY, AaveV3Avalanche.ASSETS.BTCb.INTEREST_RATE_STRATEGY, AaveV3Avalanche.ASSETS.AUSD.INTEREST_RATE_STRATEGY, AaveV3Avalanche.ASSETS.GHO.INTEREST_RATE_STRATEGY, AaveV3Avalanche.ASSETS.EURC.INTEREST_RATE_STRATEGY",
+      "balanceDiff": null,
+      "stateDiff": {
+        "0xd591f48fdbfdcb6f08f0fe63c1110d90cd81399aa894f06a18ef4c4102ef40bd": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x00000000000000000000000000000000000000007530000003e8000000001194"
+        }
+      }
+    },
+    "0xebd36016b3ed09d4693ed4251c67bd858c3c7c9c": {
+      "label": "AaveV3Avalanche.ORACLE",
+      "balanceDiff": null,
+      "stateDiff": {
+        "0xd591f48fdbfdcb6f08f0fe63c1110d90cd81399aa894f06a18ef4c4102ef40bd": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x000000000000000000000000e5af98d1c62c7d9c1378af187eefb0bee112ff64"
+        }
+      }
+    }
+  }
+}
+```
