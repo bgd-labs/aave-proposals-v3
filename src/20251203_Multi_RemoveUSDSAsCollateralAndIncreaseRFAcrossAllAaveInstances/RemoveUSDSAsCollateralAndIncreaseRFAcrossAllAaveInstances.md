@@ -69,7 +69,7 @@ Moreover USDS will be removed from the following emodes:
 - sUSDe_PT_sUSDE_25SEP2025_PT_sUSDE_27NOV2025\_\_USDC_USDT_USDe_USDS_USDtb
 - PT_USDe_25SEP2025_PT_USDe_27NOV2025\_\_USDC_USDT_USDe_USDS_USDtb
 
-**prime**:
+**Prime**:
 
 - ezETH\_\_USDS_USDC_GHO
 - rsETH\_\_USDS_USDC_GHO
