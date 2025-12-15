@@ -7,7 +7,7 @@ snapshot: "https://snapshot.org/#/s:aavedao.eth/proposal/0xeb05b887d9db47d2f4a42
 
 ## Simple Summary
 
-This ARFC proposes removing USDS as collateral and increasing RF across all Aave instances.
+This AIP proposes removing USDS as collateral and increasing RF across all Aave instances.
 
 USDS generates negligible revenue while its issuance model introduces asymmetric risks that could impact Aave’s stability.
 
