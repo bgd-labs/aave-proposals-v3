@@ -7,9 +7,48 @@ snapshot: TODO
 
 ## Simple Summary
 
+This publication presents the December Funding Update, consisting of the following key activities:
+
+- Aquire GHO to support runway;
+- Expand AFC & Ahab SAFEs remit support GHO liquidity and,
+- Create allowances to support operations.
+
 ## Motivation
 
 ## Specification
+
+### Runway
+
+Using the MainnetSwapSteward and the already approved allowances, acquire 2M of GHO to be deposited into Prime instance.
+
+Replenish the budgets on the MainnetSwapSteward as they will be consumed with the rebalancing of assets mentioned above.
+
+### Collector Assets
+
+Deposit idle ETH held on Ethereum Collector into the Prime instance of Aave v3.
+
+Create allowance for the following assets to be transferred from the Treasury to the AFC where stkAAVE will be redeemed for AAVE and held on the AFC SAFE.
+Amount: All `stkAAVE`
+Spender: AFC `0x22740deBa78d5a0c24C58C740e3715ec29de1bFa`
+Method: `approve()` stkAAVE on the Aave Collector contract to the AFC address.
+
+Amount: 2,300 `aEthLidoWETH`
+Spender: Ahab `0xAA2461f0f0A3dE5fEAF3273eAe16DEF861cf594e`
+Method: `approve()` AAVE on the Aave Collector contract to the ahab address
+
+_Note_: To support ongoing DEX liquidity, launching GHO on Plasma and other networks, this publication grants the Aave Finance Committee (AFC) ability to provide DEX liquidity and reduce the reliance on incentive distribution. Assets held in the Ahab and AFC SAFEs are to be used as collateral.
+
+Amount: 20,000 `AAVE`
+Spender: AFC `0x22740deBa78d5a0c24C58C740e3715ec29de1bFa`
+Method: `approve()` AAVE on the Aave Collector contract to the AFC address
+
+_Note_: We have transitioned to using the MainnetSwapSteward for buybacks, with the acquired AAVE going directly to the collector, thus we'll create an allowance enabling the AAVE acquired to be held on the AFC SAFE. The Allowance is larger than the current balance to facilitate future buyback movements.
+
+### Merit Program
+
+Asset: 3,000,000 `aEthLidoGHO`
+Spender: Merit `0xdeadD8aB03075b7FBA81864202a2f59EE25B312b`
+Method: `approve()` aEthLidoGHO on the Aave Collector contract to the Merit address
 
 ## References
 
