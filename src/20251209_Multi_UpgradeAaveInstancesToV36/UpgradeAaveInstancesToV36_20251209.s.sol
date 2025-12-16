@@ -6,6 +6,7 @@ import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {GovernanceV3ZkSync} from 'aave-address-book/GovernanceV3ZkSync.sol';
 import {ChainIds, EthereumScript, PolygonScript, AvalancheScript, OptimismScript, ArbitrumScript, MetisScript, BaseScript, GnosisScript, ScrollScript, BNBScript, LineaScript, CeloScript, SonicScript, SoneiumScript, PlasmaScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
 import {Deployments} from './Deployments.sol';
+import {ReimbursePayload} from './ReimbursePayload.sol';
 
 /**
  * @dev Deploy Ethereum
@@ -14,15 +15,28 @@ import {Deployments} from './Deployments.sol';
  */
 contract DeployEthereum is EthereumScript {
   function run() external broadcast {
-    // compose action
-    IPayloadsControllerCore.ExecutionAction[]
-      memory actions = new IPayloadsControllerCore.ExecutionAction[](3);
-    actions[0] = GovV3Helpers.buildAction(Deployments.MAINNET_CORE);
-    actions[1] = GovV3Helpers.buildAction(Deployments.MAINNET_LIDO);
-    actions[2] = GovV3Helpers.buildAction(Deployments.MAINNET_ETHERFI);
+    {
+      IPayloadsControllerCore.ExecutionAction[]
+        memory actions = new IPayloadsControllerCore.ExecutionAction[](2);
+      address payload0 = GovV3Helpers.deployDeterministic(type(ReimbursePayload).creationCode);
 
-    // register action at payloadsController
-    GovV3Helpers.createPayload(actions);
+      actions[0] = GovV3Helpers.buildAction(payload0);
+      actions[1] = GovV3Helpers.buildAction(Deployments.MAINNET_CORE);
+
+      // register action at payloadsController
+      GovV3Helpers.createPayload(actions);
+    }
+
+    {
+      // compose action
+      IPayloadsControllerCore.ExecutionAction[]
+        memory actions = new IPayloadsControllerCore.ExecutionAction[](2);
+      actions[0] = GovV3Helpers.buildAction(Deployments.MAINNET_LIDO);
+      actions[1] = GovV3Helpers.buildAction(Deployments.MAINNET_ETHERFI);
+
+      // register action at payloadsController
+      GovV3Helpers.createPayload(actions);
+    }
   }
 }
 

@@ -11,6 +11,8 @@ Upgrade the Aave protocol instances from v3.5 to v3.6.
 
 ## Motivation
 
+Aave v3.6 enhances isolation, via more fine-grained configurations and the decoupling of eMode and eMode0 settings. For a comprehensive overview of the changes, please refer to the [documentation](https://github.com/bgd-labs/aave-v3-origin/blob/b3ce63440cacd4054c62d55c6282afd248215b28/docs/3.6/Aave-v3.6-features.md).
+
 ## Specification
 
 The upgrade payload updates the implementations of the Pool, PoolConfigurator, AToken & VariableDebtToken on all networks.
@@ -20,7 +22,24 @@ On mainnet the payloads varies slightly to account for:
 - aAave which has a different implementation due to the governance delegation integration
 - vGHO which has a different implementation due to the deprecated discount mechanism on stkAAVE
 
-An additional action is included on mainnet which transfers 113'752 $ as aUSDT to a BGD Labs address and 30'400 $ to a Certora address, to reimburse the cost of the audits.
+An additional action is included on mainnet which:
+
+- transfers 113'752 $ as aUSDT to a BGD Labs address
+- transfers 30'400 $ as USDC to a Certora address
+
+to reimburse the cost of the audits.
+
+## Security procedures
+
+The upgrade was extensively unit tested and fuzzed.
+Certora adapted its formal properties to ensure the upgrade's correctness.
+In addition 5 audits by Independent Auditors were conducted.
+
+- [Blackthorn](https://github.com/bgd-labs/aave-v3-origin/blob/b3ce63440cacd4054c62d55c6282afd248215b28/audits/2025-11-16_Blackthorn_Aave-v3.6.pdf)
+- [Certora](https://github.com/bgd-labs/aave-v3-origin/blob/b3ce63440cacd4054c62d55c6282afd248215b28/audits/2025-11-18_Certora_Aave-v3.6.pdf)
+- [MixBytes](https://github.com/bgd-labs/aave-v3-origin/blob/b3ce63440cacd4054c62d55c6282afd248215b28/audits/2025-11-18_MixBytes_Aave-v3.6.pdf)
+- [Savant](https://github.com/bgd-labs/aave-v3-origin/blob/b3ce63440cacd4054c62d55c6282afd248215b28/audits/2025-11-18_Savant_Aave-v3.6.pdf)
+- [Pashov](https://github.com/bgd-labs/aave-v3-origin/blob/b3ce63440cacd4054c62d55c6282afd248215b28/audits/2025-11-29_Pashov_Aave-v3.6.pdf)
 
 ## References
 
