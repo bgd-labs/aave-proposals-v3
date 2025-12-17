@@ -16,8 +16,8 @@ interface IMainnetSwapSteward {
 /**
  * @title December Funding Update
  * @author @TokenLogic
- * - Snapshot: TODO
- * - Discussion: TODO
+ * - Snapshot: Direct-to-AIP
+ * - Discussion: https://governance.aave.com/t/direct-to-aip-december-2025-funding-update/23619
  */
 contract AaveV3Ethereum_DecemberFundingUpdate_20251214 is IProposalGenericExecutor {
   // Approvals

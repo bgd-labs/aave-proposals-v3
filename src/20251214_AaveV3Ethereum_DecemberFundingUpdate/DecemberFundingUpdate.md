@@ -1,8 +1,8 @@
 ---
 title: "December Funding Update"
 author: "@TokenLogic"
-discussions: TODO
-snapshot: TODO
+discussions: https://governance.aave.com/t/direct-to-aip-december-2025-funding-update/23619
+snapshot: Direct-to-AIP
 ---
 
 ## Simple Summary
@@ -63,8 +63,8 @@ Method: `approve()` aEthLidoGHO on the Aave Collector contract to the Merit addr
 
 - Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251214_AaveV3Ethereum_DecemberFundingUpdate/AaveV3Ethereum_DecemberFundingUpdate_20251214.sol)
 - Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251214_AaveV3Ethereum_DecemberFundingUpdate/AaveV3Ethereum_DecemberFundingUpdate_20251214.t.sol)
-  [Snapshot](TODO)
-- [Discussion](TODO)
+  [Snapshot] Direct-to-AIP
+- [Discussion](https://governance.aave.com/t/direct-to-aip-december-2025-funding-update/23619)
 
 ## Copyright
 
