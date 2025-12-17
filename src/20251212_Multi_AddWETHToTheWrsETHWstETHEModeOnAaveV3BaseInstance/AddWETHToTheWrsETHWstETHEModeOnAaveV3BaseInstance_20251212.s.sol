@@ -4,33 +4,8 @@ pragma solidity ^0.8.0;
 import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aave-helpers/src/GovV3Helpers.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 
-import {EthereumScript, BaseScript, LineaScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
-import {AaveV3EthereumLido_AddWETHToTheWrsETHWstETHEModeOnAaveV3BaseInstance_20251212} from './AaveV3EthereumLido_AddWETHToTheWrsETHWstETHEModeOnAaveV3BaseInstance_20251212.sol';
+import {EthereumScript, BaseScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
 import {AaveV3Base_AddWETHToTheWrsETHWstETHEModeOnAaveV3BaseInstance_20251212} from './AaveV3Base_AddWETHToTheWrsETHWstETHEModeOnAaveV3BaseInstance_20251212.sol';
-import {AaveV3Linea_AddWETHToTheWrsETHWstETHEModeOnAaveV3BaseInstance_20251212} from './AaveV3Linea_AddWETHToTheWrsETHWstETHEModeOnAaveV3BaseInstance_20251212.sol';
-
-/**
- * @dev Deploy Ethereum
- * deploy-command: make deploy-ledger contract=src/20251212_Multi_AddWETHToTheWrsETHWstETHEModeOnAaveV3BaseInstance/AddWETHToTheWrsETHWstETHEModeOnAaveV3BaseInstance_20251212.s.sol:DeployEthereum chain=mainnet
- * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/AddWETHToTheWrsETHWstETHEModeOnAaveV3BaseInstance_20251212.s.sol/1/run-latest.json
- */
-contract DeployEthereum is EthereumScript {
-  function run() external broadcast {
-    // deploy payloads
-    address payload0 = GovV3Helpers.deployDeterministic(
-      type(AaveV3EthereumLido_AddWETHToTheWrsETHWstETHEModeOnAaveV3BaseInstance_20251212)
-        .creationCode
-    );
-
-    // compose action
-    IPayloadsControllerCore.ExecutionAction[]
-      memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
-    actions[0] = GovV3Helpers.buildAction(payload0);
-
-    // register action at payloadsController
-    GovV3Helpers.createPayload(actions);
-  }
-}
 
 /**
  * @dev Deploy Base
@@ -55,65 +30,23 @@ contract DeployBase is BaseScript {
 }
 
 /**
- * @dev Deploy Linea
- * deploy-command: make deploy-ledger contract=src/20251212_Multi_AddWETHToTheWrsETHWstETHEModeOnAaveV3BaseInstance/AddWETHToTheWrsETHWstETHEModeOnAaveV3BaseInstance_20251212.s.sol:DeployLinea chain=linea
- * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/AddWETHToTheWrsETHWstETHEModeOnAaveV3BaseInstance_20251212.s.sol/59144/run-latest.json
- */
-contract DeployLinea is LineaScript {
-  function run() external broadcast {
-    // deploy payloads
-    address payload0 = GovV3Helpers.deployDeterministic(
-      type(AaveV3Linea_AddWETHToTheWrsETHWstETHEModeOnAaveV3BaseInstance_20251212).creationCode
-    );
-
-    // compose action
-    IPayloadsControllerCore.ExecutionAction[]
-      memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
-    actions[0] = GovV3Helpers.buildAction(payload0);
-
-    // register action at payloadsController
-    GovV3Helpers.createPayload(actions);
-  }
-}
-
-/**
  * @dev Create Proposal
  * command: make deploy-ledger contract=src/20251212_Multi_AddWETHToTheWrsETHWstETHEModeOnAaveV3BaseInstance/AddWETHToTheWrsETHWstETHEModeOnAaveV3BaseInstance_20251212.s.sol:CreateProposal chain=mainnet
  */
 contract CreateProposal is EthereumScript {
   function run() external {
     // create payloads
-    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](3);
+    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](1);
 
     // compose actions for validation
     {
       IPayloadsControllerCore.ExecutionAction[]
-        memory actionsEthereum = new IPayloadsControllerCore.ExecutionAction[](1);
-      actionsEthereum[0] = GovV3Helpers.buildAction(
-        type(AaveV3EthereumLido_AddWETHToTheWrsETHWstETHEModeOnAaveV3BaseInstance_20251212)
-          .creationCode
-      );
-      payloads[0] = GovV3Helpers.buildMainnetPayload(vm, actionsEthereum);
-    }
-
-    {
-      IPayloadsControllerCore.ExecutionAction[]
-        memory actionsBase = new IPayloadsControllerCore.ExecutionAction[](1);
+        memory actionsBase = new IPayloadsControllerCore.ExecutionAction[](0);
       actionsBase[0] = GovV3Helpers.buildAction(
         type(AaveV3Base_AddWETHToTheWrsETHWstETHEModeOnAaveV3BaseInstance_20251212).creationCode
       );
       payloads[1] = GovV3Helpers.buildBasePayload(vm, actionsBase);
     }
-
-    {
-      IPayloadsControllerCore.ExecutionAction[]
-        memory actionsLinea = new IPayloadsControllerCore.ExecutionAction[](1);
-      actionsLinea[0] = GovV3Helpers.buildAction(
-        type(AaveV3Linea_AddWETHToTheWrsETHWstETHEModeOnAaveV3BaseInstance_20251212).creationCode
-      );
-      payloads[2] = GovV3Helpers.buildLineaPayload(vm, actionsLinea);
-    }
-
     // create proposal
     vm.startBroadcast();
     GovV3Helpers.createProposal(

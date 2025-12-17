@@ -18,6 +18,8 @@ Given strong sidelined demand and Kelp’s growing LRT ecosystem, we expect sign
 
 ## Specification
 
+The wrsETH/wstETH emode on the Base instance will receive the following parameters
+
 | **Parameter**         | **Value** | **Value** | Value |
 | --------------------- | --------- | --------- | ----- |
 | Asset                 | wrsETH    | wstETH    | WETH  |
@@ -27,10 +29,7 @@ Given strong sidelined demand and Kelp’s growing LRT ecosystem, we expect sign
 | Liquidation Threshold | 95.0%     | -         | -     |
 | Liquidation Bonus     | 1.0%      | -         | -     |
 
-| **Instance** | **Asset** | **Current Supply Cap** | **Recommended Supply Cap** |
-| ------------ | --------- | ---------------------- | -------------------------- |
-| Prime        | rsETH     | 65,000                 | 15,000                     |
-| Linea        | wrsETH    | 140,000                | 30,000                     |
+The caps changes mentionned in the original proposal will be handled separately.
 
 ## References
 

@@ -2,7 +2,7 @@ import {ConfigFile} from '../../generator/types';
 export const config: ConfigFile = {
   rootOptions: {
     author: 'Aave-chan Initiative',
-    pools: ['AaveV3EthereumLido', 'AaveV3Base', 'AaveV3Linea'],
+    pools: ['AaveV3Base'],
     title: 'Add WETH to the wrsETH wstETH E-Mode on Aave V3 Base Instance',
     shortName: 'AddWETHToTheWrsETHWstETHEModeOnAaveV3BaseInstance',
     date: '20251212',
@@ -12,10 +12,6 @@ export const config: ConfigFile = {
     votingNetwork: 'AVALANCHE',
   },
   poolOptions: {
-    AaveV3EthereumLido: {
-      configs: {CAPS_UPDATE: [{asset: 'rsETH', supplyCap: '15000', borrowCap: ''}]},
-      cache: {blockNumber: 23995637},
-    },
     AaveV3Base: {
       configs: {
         EMODES_ASSETS: [
@@ -28,10 +24,6 @@ export const config: ConfigFile = {
         ],
       },
       cache: {blockNumber: 39371067},
-    },
-    AaveV3Linea: {
-      configs: {CAPS_UPDATE: [{asset: 'wrsETH', supplyCap: '30000', borrowCap: ''}]},
-      cache: {blockNumber: 26595891},
     },
   },
 };
