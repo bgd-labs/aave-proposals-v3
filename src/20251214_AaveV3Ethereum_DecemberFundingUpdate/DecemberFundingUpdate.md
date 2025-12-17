@@ -9,8 +9,8 @@ snapshot: TODO
 
 This publication presents the December Funding Update, consisting of the following key activities:
 
-- Aquire GHO to support runway;
-- Expand AFC & Ahab SAFEs remit support GHO liquidity and,
+- Acquire GHO to support runway;
+- Expand the remit of the AFC & Ahab SAFEs to support GHO liquidity; and
 - Create allowances to support operations.
 
 ## Motivation
@@ -19,15 +19,16 @@ This publication presents the December Funding Update, consisting of the followi
 
 ### Runway
 
-Using the MainnetSwapSteward and the already approved allowances, acquire 2M of GHO to be deposited into Prime instance.
+Using the MainnetSwapSteward and the already approved allowances, acquire 2M GHO to be deposited into the Prime instance.
 
-Replenish the budgets on the MainnetSwapSteward as they will be consumed with the rebalancing of assets mentioned above.
+Replenish the budgets on the MainnetSwapSteward, as they will be consumed by the rebalancing of assets mentioned above.
 
 ### Collector Assets
 
-Deposit idle ETH held on Ethereum Collector into the Prime instance of Aave v3.
+Deposit idle ETH held on the Ethereum Collector into the Prime instance of Aave v3.
 
-Create allowance for the following assets to be transferred from the Treasury to the AFC where stkAAVE will be redeemed for AAVE and held on the AFC SAFE.
+Create allowances for the following assets to be transferred from the Treasury to the AFC, where stkAAVE will be redeemed for AAVE and held on the AFC SAFE.
+
 Amount: All `stkAAVE`
 Spender: AFC `0x22740deBa78d5a0c24C58C740e3715ec29de1bFa`
 Method: `approve()` stkAAVE on the Aave Collector contract to the AFC address.
