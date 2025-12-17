@@ -24,6 +24,9 @@ contract AaveV3Ethereum_DecemberFundingUpdate_20251214 is IProposalGenericExecut
   uint256 public constant MERIT_GHO_AMOUNT = 3_000_000 ether;
   uint256 public constant AHAB_WETH_AMOUNT = 2_300 ether;
   uint256 public constant AFC_AAVE_AMOUNT = 20_000 ether;
+  uint256 public constant PT_eUSDE_14AUG2025_AMOUNT = 175190155978359917557;
+  uint256 public constant PT_sUSDE_25SEP2025_AMOUNT = 304354299785406069585;
+  uint256 public constant PT_USDe_31JUL2025_AMOUNT = 1583144136895510331668;
 
   // Increase Swap Steward Budget
   uint256 public constant USDC_SWAP_BUDGET_AMOUNT = 2_000_000e6;
@@ -35,6 +38,7 @@ contract AaveV3Ethereum_DecemberFundingUpdate_20251214 is IProposalGenericExecut
     _aaveApprovals();
     _depositEth();
     _merit();
+    _ptApprovals();
     _replenishAllowances();
   }
 
@@ -78,6 +82,24 @@ contract AaveV3Ethereum_DecemberFundingUpdate_20251214 is IProposalGenericExecut
       IERC20(AaveV3EthereumLidoAssets.GHO_A_TOKEN),
       MiscEthereum.MERIT_INCENTIVE_SAFE,
       MERIT_GHO_AMOUNT
+    );
+  }
+
+  function _ptApprovals() internal {
+    AaveV3Ethereum.COLLECTOR.approve(
+      IERC20(AaveV3EthereumAssets.PT_eUSDE_14AUG2025_A_TOKEN),
+      MiscEthereum.AFC_SAFE,
+      PT_eUSDE_14AUG2025_AMOUNT
+    );
+    AaveV3Ethereum.COLLECTOR.approve(
+      IERC20(AaveV3EthereumAssets.PT_sUSDE_25SEP2025_A_TOKEN),
+      MiscEthereum.AFC_SAFE,
+      PT_sUSDE_25SEP2025_AMOUNT
+    );
+    AaveV3Ethereum.COLLECTOR.approve(
+      IERC20(AaveV3EthereumAssets.PT_USDe_31JUL2025_A_TOKEN),
+      MiscEthereum.AFC_SAFE,
+      PT_USDe_31JUL2025_AMOUNT
     );
   }
 

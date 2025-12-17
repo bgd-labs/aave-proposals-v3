@@ -44,6 +44,14 @@ Method: `approve()` AAVE on the Aave Collector contract to the AFC address
 
 _Note_: We have transitioned to using the MainnetSwapSteward for buybacks, with the acquired AAVE going directly to the collector, thus we'll create an allowance enabling the AAVE acquired to be held on the AFC SAFE. The Allowance is larger than the current balance to facilitate future buyback movements.
 
+Redeem expired Principle Tokens to the underlying and convert to GHO.
+
+Amount: 175.190155978359917557 `PT_eUSDe_14AUG2025`
+Amount: 3,043.54299785406069585 `PT_sUSDE_25SEP2025`
+Amount: 1,583.144136895510331668 `aEthPT_USDe_31JUL2025`
+Spender: AFC `0x22740deBa78d5a0c24C58C740e3715ec29de1bFa`
+Method: `approve()` on the Aave Collector contract to the AFC address
+
 ### Merit Program
 
 Asset: 3,000,000 `aEthLidoGHO`

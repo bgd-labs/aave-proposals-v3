@@ -15,6 +15,30 @@
         }
       }
     },
+    "0x2edff5af94334fbd7c38ae318edf1c40e072b73b": {
+      "label": "AaveV3Ethereum.ASSETS.PT_eUSDE_14AUG2025.A_TOKEN",
+      "contract": "lib/aave-helpers/lib/aave-address-book/lib/aave-v3-origin/lib/solidity-utils/lib/openzeppelin-contracts-upgradeable/lib/openzeppelin-contracts/contracts/proxy/transparent/TransparentUpgradeableProxy.sol:TransparentUpgradeableProxy",
+      "balanceDiff": null,
+      "nonceDiff": null,
+      "stateDiff": {
+        "0xe81cbc5010bf701c96afcd9e85ab3c1ab37e3b123b04a49f76cc11c5ef1205b6": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000097f4076aa436b4bf5"
+        }
+      }
+    },
+    "0x312ffc57778cefa11989733e6e08143e7e229c1c": {
+      "label": "AaveV3Ethereum.ASSETS.PT_USDe_31JUL2025.A_TOKEN",
+      "contract": "lib/aave-helpers/lib/aave-address-book/lib/aave-v3-origin/lib/solidity-utils/lib/openzeppelin-contracts-upgradeable/lib/openzeppelin-contracts/contracts/proxy/transparent/TransparentUpgradeableProxy.sol:TransparentUpgradeableProxy",
+      "balanceDiff": null,
+      "nonceDiff": null,
+      "stateDiff": {
+        "0xe81cbc5010bf701c96afcd9e85ab3c1ab37e3b123b04a49f76cc11c5ef1205b6": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x000000000000000000000000000000000000000000000055d289d4a63b47c114"
+        }
+      }
+    },
     "0x464c71f6c2f760dda6093dcb91c24c39e5d6e18c": {
       "label": "AaveV2Ethereum.COLLECTOR, AaveV2EthereumAMM.COLLECTOR, AaveV2EthereumArc.COLLECTOR, AaveV3Ethereum.COLLECTOR, AaveV3EthereumEtherFi.COLLECTOR, AaveV3EthereumLido.COLLECTOR",
       "contract": "lib/aave-helpers/lib/aave-address-book/lib/aave-v3-origin/lib/solidity-utils/lib/openzeppelin-contracts-upgradeable/lib/openzeppelin-contracts/contracts/proxy/transparent/TransparentUpgradeableProxy.sol:TransparentUpgradeableProxy",
@@ -46,6 +70,18 @@
       },
       "nonceDiff": null,
       "stateDiff": {}
+    },
+    "0x5f4a0873a3a02f7c0cb0e13a1d4362a1ad90e751": {
+      "label": "AaveV3Ethereum.ASSETS.PT_sUSDE_25SEP2025.A_TOKEN",
+      "contract": "lib/aave-helpers/lib/aave-address-book/lib/aave-v3-origin/lib/solidity-utils/lib/openzeppelin-contracts-upgradeable/lib/openzeppelin-contracts/contracts/proxy/transparent/TransparentUpgradeableProxy.sol:TransparentUpgradeableProxy",
+      "balanceDiff": null,
+      "nonceDiff": null,
+      "stateDiff": {
+        "0xe81cbc5010bf701c96afcd9e85ab3c1ab37e3b123b04a49f76cc11c5ef1205b6": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000107fc3af1ddbe03b51"
+        }
+      }
     },
     "0x7fc66500c84a76ad7e9c93437bfc5ac33e2ddae9": {
       "label": "AaveV2Ethereum.ASSETS.AAVE.UNDERLYING, AaveV2EthereumArc.ASSETS.AAVE.UNDERLYING, AaveV3Ethereum.ASSETS.AAVE.UNDERLYING",

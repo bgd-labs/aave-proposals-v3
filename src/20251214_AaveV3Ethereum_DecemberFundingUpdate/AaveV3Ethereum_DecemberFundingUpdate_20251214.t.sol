@@ -87,6 +87,72 @@ contract AaveV3Ethereum_DecemberFundingUpdate_20251214_Test is ProtocolV3TestBas
     assertEq(allowanceStkAaveAfter, allowanceStkAaveBefore + balanceStkAave);
   }
 
+  function test_ptApprovals() public {
+    assertEq(
+      IERC20(AaveV3EthereumAssets.PT_eUSDE_14AUG2025_A_TOKEN).allowance(
+        address(AaveV3Ethereum.COLLECTOR),
+        MiscEthereum.AFC_SAFE
+      ),
+      0
+    );
+    assertEq(
+      IERC20(AaveV3EthereumAssets.PT_sUSDE_25SEP2025_A_TOKEN).allowance(
+        address(AaveV3Ethereum.COLLECTOR),
+        MiscEthereum.AFC_SAFE
+      ),
+      0
+    );
+    assertEq(
+      IERC20(AaveV3EthereumAssets.PT_USDe_31JUL2025_A_TOKEN).allowance(
+        address(AaveV3Ethereum.COLLECTOR),
+        MiscEthereum.AFC_SAFE
+      ),
+      0
+    );
+
+    executePayload(vm, address(proposal));
+
+    assertEq(
+      IERC20(AaveV3EthereumAssets.PT_eUSDE_14AUG2025_A_TOKEN).allowance(
+        address(AaveV3Ethereum.COLLECTOR),
+        MiscEthereum.AFC_SAFE
+      ),
+      proposal.PT_eUSDE_14AUG2025_AMOUNT()
+    );
+    assertEq(
+      IERC20(AaveV3EthereumAssets.PT_sUSDE_25SEP2025_A_TOKEN).allowance(
+        address(AaveV3Ethereum.COLLECTOR),
+        MiscEthereum.AFC_SAFE
+      ),
+      proposal.PT_sUSDE_25SEP2025_AMOUNT()
+    );
+    assertEq(
+      IERC20(AaveV3EthereumAssets.PT_USDe_31JUL2025_A_TOKEN).allowance(
+        address(AaveV3Ethereum.COLLECTOR),
+        MiscEthereum.AFC_SAFE
+      ),
+      proposal.PT_USDe_31JUL2025_AMOUNT()
+    );
+
+    vm.startPrank(MiscEthereum.AFC_SAFE);
+    IERC20(AaveV3EthereumAssets.PT_eUSDE_14AUG2025_A_TOKEN).transferFrom(
+      address(AaveV3Ethereum.COLLECTOR),
+      MiscEthereum.AFC_SAFE,
+      proposal.PT_eUSDE_14AUG2025_AMOUNT()
+    );
+    IERC20(AaveV3EthereumAssets.PT_sUSDE_25SEP2025_A_TOKEN).transferFrom(
+      address(AaveV3Ethereum.COLLECTOR),
+      MiscEthereum.AFC_SAFE,
+      proposal.PT_sUSDE_25SEP2025_AMOUNT()
+    );
+    IERC20(AaveV3EthereumAssets.PT_USDe_31JUL2025_A_TOKEN).transferFrom(
+      address(AaveV3Ethereum.COLLECTOR),
+      MiscEthereum.AFC_SAFE,
+      proposal.PT_USDe_31JUL2025_AMOUNT()
+    );
+    vm.stopPrank();
+  }
+
   function test_ethDeposit() public {
     uint256 balanceEthBefore = address(AaveV3Ethereum.COLLECTOR).balance;
     uint256 balanceWethBefore = IERC20(AaveV3EthereumAssets.WETH_UNDERLYING).balanceOf(
