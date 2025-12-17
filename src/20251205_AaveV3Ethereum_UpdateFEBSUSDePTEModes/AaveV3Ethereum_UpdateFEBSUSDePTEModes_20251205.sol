@@ -20,7 +20,7 @@ contract AaveV3Ethereum_UpdateFEBSUSDePTEModes_20251205 is AaveV3PayloadEthereum
     returns (IAaveV3ConfigEngine.AssetEModeUpdate[] memory)
   {
     IAaveV3ConfigEngine.AssetEModeUpdate[]
-      memory assetEModeUpdates = new IAaveV3ConfigEngine.AssetEModeUpdate[](2);
+      memory assetEModeUpdates = new IAaveV3ConfigEngine.AssetEModeUpdate[](4);
 
     assetEModeUpdates[0] = IAaveV3ConfigEngine.AssetEModeUpdate({
       asset: AaveV3EthereumAssets.sUSDe_UNDERLYING,
@@ -33,6 +33,21 @@ contract AaveV3Ethereum_UpdateFEBSUSDePTEModes_20251205 is AaveV3PayloadEthereum
     assetEModeUpdates[1] = IAaveV3ConfigEngine.AssetEModeUpdate({
       asset: AaveV3EthereumAssets.sUSDe_UNDERLYING,
       eModeCategory: AaveV3EthereumEModes.PT_sUSDE_27NOV2025_PT_sUSDE_5FEB2026__USDe,
+      borrowable: EngineFlags.KEEP_CURRENT,
+      collateral: EngineFlags.ENABLED
+    });
+
+    assetEModeUpdates[2] = IAaveV3ConfigEngine.AssetEModeUpdate({
+      asset: AaveV3EthereumAssets.USDe_UNDERLYING,
+      eModeCategory: AaveV3EthereumEModes
+        .PT_USDe_25SEP2025_PT_USDe_27NOV2025__USDC_USDT_USDe_USDS_USDtb,
+      borrowable: EngineFlags.KEEP_CURRENT,
+      collateral: EngineFlags.ENABLED
+    });
+
+    assetEModeUpdates[3] = IAaveV3ConfigEngine.AssetEModeUpdate({
+      asset: AaveV3EthereumAssets.USDe_UNDERLYING,
+      eModeCategory: AaveV3EthereumEModes.PT_USDe_27NOV2025_PT_USDe_5FEB2026__USDe,
       borrowable: EngineFlags.KEEP_CURRENT,
       collateral: EngineFlags.ENABLED
     });
