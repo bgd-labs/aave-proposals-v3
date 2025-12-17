@@ -34,7 +34,7 @@ Method: `approve()` stkAAVE on the Aave Collector contract to the AFC address.
 
 Amount: 2,300 `aEthLidoWETH`
 Spender: Ahab `0xAA2461f0f0A3dE5fEAF3273eAe16DEF861cf594e`
-Method: `approve()` AAVE on the Aave Collector contract to the ahab address
+Method: `approve()` aEthLidoWETH on the Aave Collector contract to the ahab address
 
 _Note_: To support ongoing DEX liquidity, launching GHO on Plasma and other networks, this publication grants the Aave Finance Committee (AFC) ability to provide DEX liquidity and reduce the reliance on incentive distribution. Assets held in the Ahab and AFC SAFEs are to be used as collateral.
 
