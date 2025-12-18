@@ -33,8 +33,8 @@ The caps changes mentioned in the original forum post was updated by the risk st
 
 ## References
 
-- Implementation: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251212_Multi_AddWETHToTheWrsETHWstETHEModeOnAaveV3BaseInstance/AaveV3EthereumLido_AddWETHToTheWrsETHWstETHEModeOnAaveV3BaseInstance_20251212.sol), [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251212_Multi_AddWETHToTheWrsETHWstETHEModeOnAaveV3BaseInstance/AaveV3Base_AddWETHToTheWrsETHWstETHEModeOnAaveV3BaseInstance_20251212.sol), [AaveV3Linea](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251212_Multi_AddWETHToTheWrsETHWstETHEModeOnAaveV3BaseInstance/AaveV3Linea_AddWETHToTheWrsETHWstETHEModeOnAaveV3BaseInstance_20251212.sol)
-- Tests: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251212_Multi_AddWETHToTheWrsETHWstETHEModeOnAaveV3BaseInstance/AaveV3EthereumLido_AddWETHToTheWrsETHWstETHEModeOnAaveV3BaseInstance_20251212.t.sol), [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251212_Multi_AddWETHToTheWrsETHWstETHEModeOnAaveV3BaseInstance/AaveV3Base_AddWETHToTheWrsETHWstETHEModeOnAaveV3BaseInstance_20251212.t.sol), [AaveV3Linea](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251212_Multi_AddWETHToTheWrsETHWstETHEModeOnAaveV3BaseInstance/AaveV3Linea_AddWETHToTheWrsETHWstETHEModeOnAaveV3BaseInstance_20251212.t.sol)
+- Implementation: [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251212_Multi_AddWETHToTheWrsETHWstETHEModeOnAaveV3BaseInstance/AaveV3Base_AddWETHToTheWrsETHWstETHEModeOnAaveV3BaseInstance_20251212.sol)
+- Tests: [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251212_Multi_AddWETHToTheWrsETHWstETHEModeOnAaveV3BaseInstance/AaveV3Base_AddWETHToTheWrsETHWstETHEModeOnAaveV3BaseInstance_20251212.t.sol)
 - Snapshot: Direct-to-AIP
 - [Discussion](https://governance.aave.com/t/direct-to-aip-add-weth-to-the-wrseth-wsteth-e-mode-on-aave-v3-base-instance/23431)
 
