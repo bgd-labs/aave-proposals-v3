@@ -25,8 +25,8 @@ The wrsETH/wstETH emode on the Base instance will receive the following paramete
 | Asset                 | wrsETH    | wstETH    | WETH  |
 | Collateral            | Yes       | No        | No    |
 | Borrowable            | No        | Yes       | Yes   |
-| Max LTV               | 93.0%     | -         | -     |
-| Liquidation Threshold | 95.0%     | -         | -     |
+| Max LTV               | 92.5%     | -         | -     |
+| Liquidation Threshold | 94.5%     | -         | -     |
 | Liquidation Bonus     | 1.0%      | -         | -     |
 
 The caps changes mentioned in the original forum post was updated by the risk stewards.
