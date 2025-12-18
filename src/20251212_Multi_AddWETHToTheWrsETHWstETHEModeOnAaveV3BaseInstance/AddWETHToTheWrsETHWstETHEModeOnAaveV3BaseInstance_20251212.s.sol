@@ -45,7 +45,7 @@ contract CreateProposal is EthereumScript {
       actionsBase[0] = GovV3Helpers.buildAction(
         type(AaveV3Base_AddWETHToTheWrsETHWstETHEModeOnAaveV3BaseInstance_20251212).creationCode
       );
-      payloads[1] = GovV3Helpers.buildBasePayload(vm, actionsBase);
+      payloads[0] = GovV3Helpers.buildBasePayload(vm, actionsBase);
     }
     // create proposal
     vm.startBroadcast();
