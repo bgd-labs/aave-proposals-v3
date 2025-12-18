@@ -20,7 +20,7 @@ export const config: ConfigFile = {
             liqThreshold: '88.4',
             liqBonus: '4.7',
             label: 'PT_USDe_9APR2026__Stablecoins',
-            collateralAssets: ['USDe', 'weETH', 'PT_USDe_15JAN2026'],
+            collateralAssets: ['USDe', 'PT_sUSDe_9APR2026', 'PT_USDe_15JAN2026'],
             borrowableAssets: ['USDT0', 'USDe'],
           },
           {
@@ -28,7 +28,7 @@ export const config: ConfigFile = {
             liqThreshold: '89.2',
             liqBonus: '3.7',
             label: 'PT_USDe_9APR2026__USDe',
-            collateralAssets: ['USDe', 'weETH', 'PT_USDe_15JAN2026'],
+            collateralAssets: ['USDe', 'PT_sUSDe_9APR2026', 'PT_USDe_15JAN2026'],
             borrowableAssets: ['USDT0', 'USDe'],
           },
           {
@@ -36,7 +36,7 @@ export const config: ConfigFile = {
             liqThreshold: '87.5',
             liqBonus: '5.7',
             label: 'PT_sUSDe_9APR2026__Stablecoins',
-            collateralAssets: ['sUSDe', 'XAUt0', 'PT_sUSDE_15JAN2026'],
+            collateralAssets: ['sUSDe', 'PT_USDe_9APR2026', 'PT_sUSDE_15JAN2026'],
             borrowableAssets: ['USDT0', 'USDe'],
           },
           {
@@ -44,7 +44,7 @@ export const config: ConfigFile = {
             liqThreshold: '89.2',
             liqBonus: '3.7',
             label: 'PT_sUSDe_9APR2026__USDe',
-            collateralAssets: ['sUSDe', 'XAUt0', 'PT_sUSDE_15JAN2026'],
+            collateralAssets: ['sUSDe', 'PT_USDe_9APR2026', 'PT_sUSDE_15JAN2026'],
             borrowableAssets: ['USDe'],
           },
         ],

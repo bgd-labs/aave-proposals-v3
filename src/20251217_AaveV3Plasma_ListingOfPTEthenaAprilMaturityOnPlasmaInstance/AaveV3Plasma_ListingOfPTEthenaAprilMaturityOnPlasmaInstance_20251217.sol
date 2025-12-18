@@ -55,7 +55,7 @@ contract AaveV3Plasma_ListingOfPTEthenaAprilMaturityOnPlasmaInstance_20251217 is
     address[] memory borrowableAssets_PT_USDe_9APR2026__Stablecoins = new address[](2);
 
     collateralAssets_PT_USDe_9APR2026__Stablecoins[0] = AaveV3PlasmaAssets.USDe_UNDERLYING;
-    collateralAssets_PT_USDe_9APR2026__Stablecoins[1] = AaveV3PlasmaAssets.weETH_UNDERLYING;
+    collateralAssets_PT_USDe_9APR2026__Stablecoins[1] = PT_USDe_9APR2026;
     collateralAssets_PT_USDe_9APR2026__Stablecoins[2] = AaveV3PlasmaAssets
       .PT_USDe_15JAN2026_UNDERLYING;
     borrowableAssets_PT_USDe_9APR2026__Stablecoins[0] = AaveV3PlasmaAssets.USDT0_UNDERLYING;
@@ -74,7 +74,7 @@ contract AaveV3Plasma_ListingOfPTEthenaAprilMaturityOnPlasmaInstance_20251217 is
     address[] memory borrowableAssets_PT_USDe_9APR2026__USDe = new address[](2);
 
     collateralAssets_PT_USDe_9APR2026__USDe[0] = AaveV3PlasmaAssets.USDe_UNDERLYING;
-    collateralAssets_PT_USDe_9APR2026__USDe[1] = AaveV3PlasmaAssets.weETH_UNDERLYING;
+    collateralAssets_PT_USDe_9APR2026__USDe[1] = PT_USDe_9APR2026;
     collateralAssets_PT_USDe_9APR2026__USDe[2] = AaveV3PlasmaAssets.PT_USDe_15JAN2026_UNDERLYING;
     borrowableAssets_PT_USDe_9APR2026__USDe[0] = AaveV3PlasmaAssets.USDT0_UNDERLYING;
     borrowableAssets_PT_USDe_9APR2026__USDe[1] = AaveV3PlasmaAssets.USDe_UNDERLYING;
@@ -92,7 +92,7 @@ contract AaveV3Plasma_ListingOfPTEthenaAprilMaturityOnPlasmaInstance_20251217 is
     address[] memory borrowableAssets_PT_sUSDe_9APR2026__Stablecoins = new address[](2);
 
     collateralAssets_PT_sUSDe_9APR2026__Stablecoins[0] = AaveV3PlasmaAssets.sUSDe_UNDERLYING;
-    collateralAssets_PT_sUSDe_9APR2026__Stablecoins[1] = AaveV3PlasmaAssets.XAUt0_UNDERLYING;
+    collateralAssets_PT_sUSDe_9APR2026__Stablecoins[1] = PT_sUSDE_9APR2026;
     collateralAssets_PT_sUSDe_9APR2026__Stablecoins[2] = AaveV3PlasmaAssets
       .PT_sUSDE_15JAN2026_UNDERLYING;
     borrowableAssets_PT_sUSDe_9APR2026__Stablecoins[0] = AaveV3PlasmaAssets.USDT0_UNDERLYING;
@@ -111,7 +111,7 @@ contract AaveV3Plasma_ListingOfPTEthenaAprilMaturityOnPlasmaInstance_20251217 is
     address[] memory borrowableAssets_PT_sUSDe_9APR2026__USDe = new address[](1);
 
     collateralAssets_PT_sUSDe_9APR2026__USDe[0] = AaveV3PlasmaAssets.sUSDe_UNDERLYING;
-    collateralAssets_PT_sUSDe_9APR2026__USDe[1] = AaveV3PlasmaAssets.XAUt0_UNDERLYING;
+    collateralAssets_PT_sUSDe_9APR2026__USDe[1] = PT_sUSDE_9APR2026;
     collateralAssets_PT_sUSDe_9APR2026__USDe[2] = AaveV3PlasmaAssets.PT_sUSDE_15JAN2026_UNDERLYING;
     borrowableAssets_PT_sUSDe_9APR2026__USDe[0] = AaveV3PlasmaAssets.USDe_UNDERLYING;
 

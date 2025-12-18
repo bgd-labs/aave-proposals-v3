@@ -147,7 +147,7 @@
 | eMode.liquidationThreshold | - | 88.4 % |
 | eMode.liquidationBonus | - | 4.7 % |
 | eMode.borrowableBitmap | - | USDT0, USDe |
-| eMode.collateralBitmap | - | USDe, weETH, PT-USDe-15JAN2026 |
+| eMode.collateralBitmap | - | USDe, PT-USDe-15JAN2026, PT-USDe-9APR2026 |
 
 
 ### EMode: PT_USDe_9APR2026__USDe(id: 14)
@@ -159,7 +159,7 @@
 | eMode.liquidationThreshold | - | 89.2 % |
 | eMode.liquidationBonus | - | 3.7 % |
 | eMode.borrowableBitmap | - | USDT0, USDe |
-| eMode.collateralBitmap | - | USDe, weETH, PT-USDe-15JAN2026 |
+| eMode.collateralBitmap | - | USDe, PT-USDe-15JAN2026, PT-USDe-9APR2026 |
 
 
 ### EMode: PT_sUSDe_9APR2026__Stablecoins(id: 15)
@@ -171,7 +171,7 @@
 | eMode.liquidationThreshold | - | 87.5 % |
 | eMode.liquidationBonus | - | 5.7 % |
 | eMode.borrowableBitmap | - | USDT0, USDe |
-| eMode.collateralBitmap | - | sUSDe, XAUt0, PT-sUSDE-15JAN2026 |
+| eMode.collateralBitmap | - | sUSDe, PT-sUSDE-15JAN2026, PT-sUSDE-9APR2026 |
 
 
 ### EMode: PT_sUSDe_9APR2026__USDe(id: 16)
@@ -183,7 +183,7 @@
 | eMode.liquidationThreshold | - | 89.2 % |
 | eMode.liquidationBonus | - | 3.7 % |
 | eMode.borrowableBitmap | - | USDe |
-| eMode.collateralBitmap | - | sUSDe, XAUt0, PT-sUSDE-15JAN2026 |
+| eMode.collateralBitmap | - | sUSDe, PT-sUSDE-15JAN2026, PT-sUSDE-9APR2026 |
 
 
 ## Raw diff
@@ -195,7 +195,7 @@
       "from": null,
       "to": {
         "borrowableBitmap": "3",
-        "collateralBitmap": "82",
+        "collateralBitmap": "8258",
         "eModeCategory": 13,
         "label": "PT_USDe_9APR2026__Stablecoins",
         "liquidationBonus": 10470,
@@ -207,7 +207,7 @@
       "from": null,
       "to": {
         "borrowableBitmap": "3",
-        "collateralBitmap": "82",
+        "collateralBitmap": "8258",
         "eModeCategory": 14,
         "label": "PT_USDe_9APR2026__USDe",
         "liquidationBonus": 10370,
@@ -219,7 +219,7 @@
       "from": null,
       "to": {
         "borrowableBitmap": "3",
-        "collateralBitmap": "140",
+        "collateralBitmap": "4228",
         "eModeCategory": 15,
         "label": "PT_sUSDe_9APR2026__Stablecoins",
         "liquidationBonus": 10570,
@@ -231,7 +231,7 @@
       "from": null,
       "to": {
         "borrowableBitmap": "2",
-        "collateralBitmap": "140",
+        "collateralBitmap": "4228",
         "eModeCategory": 16,
         "label": "PT_sUSDe_9APR2026__USDe",
         "liquidationBonus": 10370,
@@ -572,7 +572,7 @@
       "stateDiff": {
         "0x04e6a57294bb916b654e5f2a9be58b33bb23f83005593c07f959637b56d00d6f": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x000000000000000000000000000000000000000000000000005228e6228821c0"
+          "newValue": "0x000000000000000000000000000000000000000000000000204228e6228821c0"
         },
         "0x04e6a57294bb916b654e5f2a9be58b33bb23f83005593c07f959637b56d00d70": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -588,7 +588,7 @@
         },
         "0x2ab8cd8eab3e8c901115e793997bc427e1596b98dcca832d2eb3bc8b02d226a1": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x0000000000000000000000000000000000000000000000000052288222d82210"
+          "newValue": "0x0000000000000000000000000000000000000000000000002042288222d82210"
         },
         "0x2ab8cd8eab3e8c901115e793997bc427e1596b98dcca832d2eb3bc8b02d226a2": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -600,7 +600,7 @@
         },
         "0x769cad6e4f69fb39d4bdc2ee07759d8d4955411817e0dd7fe8899ea55308f3d7": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x000000000000000000000000000000000000000000000000008c294a222e2166"
+          "newValue": "0x0000000000000000000000000000000000000000000000001084294a222e2166"
         },
         "0x769cad6e4f69fb39d4bdc2ee07759d8d4955411817e0dd7fe8899ea55308f3d8": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -616,7 +616,7 @@
         },
         "0xa7bf79a4e9020d76afa56dc4030c1068d9ba48fab53e2077125a95956624e927": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x000000000000000000000000000000000000000000000000008c288222d82210"
+          "newValue": "0x0000000000000000000000000000000000000000000000001084288222d82210"
         },
         "0xa7bf79a4e9020d76afa56dc4030c1068d9ba48fab53e2077125a95956624e928": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
