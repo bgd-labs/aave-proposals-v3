@@ -6,7 +6,7 @@ discussions: "https://governance.aave.com/t/direct-to-aip-add-weth-to-the-wrseth
 
 ## Simple Summary
 
-This proposal seeks to extend utility for wrsETH on the Aave V3 Base market by adding WETH borrowing to the existing wrsETH/wstETH E-Mode category. And adjust the supply cap of rsETH on the mainnet Prime instance and Linea
+This proposal seeks to extend utility for wrsETH on the Aave V3 Base market by adding WETH borrowing to the existing wrsETH/wstETH E-Mode category.
 
 ## Motivation
 
