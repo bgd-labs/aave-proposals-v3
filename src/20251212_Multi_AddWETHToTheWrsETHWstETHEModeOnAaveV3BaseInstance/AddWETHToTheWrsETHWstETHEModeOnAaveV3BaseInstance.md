@@ -29,7 +29,7 @@ The wrsETH/wstETH emode on the Base instance will receive the following paramete
 | Liquidation Threshold | 95.0%     | -         | -     |
 | Liquidation Bonus     | 1.0%      | -         | -     |
 
-The caps changes mentionned in the original proposal will be handled separately.
+The caps changes mentioned in the original forum post was updated by the risk stewards.
 
 ## References
 
