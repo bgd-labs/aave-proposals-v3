@@ -26,7 +26,7 @@
 | reserveFactor | 20 % [2000] |
 | aToken | [0x7c0477d085ECb607CF8429f3eC91Ae5E1e460F4F](https://etherscan.io/address/0x7c0477d085ECb607CF8429f3eC91Ae5E1e460F4F) |
 | variableDebtToken | [0x4f97B950a30321c181E974971E156E19fAD184A3](https://etherscan.io/address/0x4f97B950a30321c181E974971E156E19fAD184A3) |
-| borrowingEnabled | false |
+| borrowingEnabled | true |
 | isBorrowableInIsolation | false |
 | interestRateStrategy | [0x9ec6F08190DeA04A54f8Afc53Db96134e5E3FdFB](https://etherscan.io/address/0x9ec6F08190DeA04A54f8Afc53Db96134e5E3FdFB) |
 | aTokenName | Aave Ethereum USDG |
@@ -58,7 +58,7 @@
         "aTokenSymbol": "aEthUSDG",
         "aTokenUnderlyingBalance": "100000000",
         "borrowCap": 25000000,
-        "borrowingEnabled": false,
+        "borrowingEnabled": true,
         "debtCeiling": 0,
         "decimals": 6,
         "id": 59,
@@ -273,7 +273,7 @@
       "stateDiff": {
         "0x0aa126583ac3a901713d8d5929bc7659f63b33065f64d43f2b2f95ddf3a5abf3": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x10000000000000000000000000001c9c3800017d784007d08106000000000000"
+          "newValue": "0x10000000000000000000000000001c9c3800017d784007d08506000000000000"
         }
       }
     },
