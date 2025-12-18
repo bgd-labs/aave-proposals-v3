@@ -33,7 +33,7 @@ contract AaveV3Ethereum_USDGListing_20251205 is AaveV3PayloadEthereum {
       asset: USDG,
       assetSymbol: 'USDG',
       priceFeed: 0xF29b1e3b68Fd59DD0a413811fD5d0AbaE653216d,
-      enabledToBorrow: EngineFlags.DISABLED,
+      enabledToBorrow: EngineFlags.ENABLED,
       borrowableInIsolation: EngineFlags.DISABLED,
       withSiloedBorrowing: EngineFlags.DISABLED,
       flashloanable: EngineFlags.ENABLED,

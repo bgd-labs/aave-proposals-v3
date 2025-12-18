@@ -19,8 +19,8 @@ Key differentiators:
 
 1. Regulatory compliance: USDG is fully regulated and issued by Paxos, a New York State Department of Financial Services regulated entity.
 2. Transparency: Regular attestations verify USDG's reserves are fully backed by cash and short-term U.S. Treasuries.
-3. Paxos plan to rollout a public bug bounty program in Q1 2026 on a major bug bounty platform.
-   This program will cover all Paxos tokens and our full platform (APIs, UIs, etc.). We will share more details as they we get closer to launch.
+3. Paxos plans to roll out a public bug bounty program in Q1 2026 on a major bug bounty platform.
+   This program will cover all Paxos tokens and our full platform (APIs, UIs, etc.). We will share more details as we get closer to launch.
 
 ## Specification
 
@@ -63,7 +63,7 @@ Given the recent behavior observed on other smaller stablecoin oracles such as m
 
 This change does not introduce material additional risk as USDG is to be configured on the Aave Core instance exclusively as a borrowable asset and cannot be used as collateral. The oracle affects only the notional at which liabilities are recorded, not the valuation of collateral or the solvency profile of the protocol. In normal conditions, the hardcoded price neutralizes oracle-driven opportunities for underpriced borrowing. In a genuine depeg scenario, it is conservative for the protocol: USDG liabilities remain booked at 1 USD while the asset can be sourced below par by liquidators and borrowers alike, improving liquidation economics and reducing the probability of bad debt.
 
-- Price Oracle: fixed \$1 USDG/USD: 0xF29b1e3b68Fd59DD0a413811fD5d0AbaE653216d
+- Price Oracle: fixed \$1 USDG/USD: [0xF29b1e3b68Fd59DD0a413811fD5d0AbaE653216d](https://etherscan.io/address/0xF29b1e3b68Fd59DD0a413811fD5d0AbaE653216d)
 
 Additionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://etherscan.io/address/0xac140648435d03f784879cd789130F22Ef588Fcd) has been set as the emission admin for USDG and the corresponding aToken.
 
