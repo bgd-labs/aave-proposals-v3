@@ -20,7 +20,7 @@ contract AaveV3Plasma_ListingOfPTEthenaAprilMaturityOnPlasmaInstance_20251217_Te
   AaveV3Plasma_ListingOfPTEthenaAprilMaturityOnPlasmaInstance_20251217 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('plasma'), 9081692);
+    vm.createSelectFork(vm.rpcUrl('plasma'), 9134331);
     proposal = new AaveV3Plasma_ListingOfPTEthenaAprilMaturityOnPlasmaInstance_20251217();
   }
 
