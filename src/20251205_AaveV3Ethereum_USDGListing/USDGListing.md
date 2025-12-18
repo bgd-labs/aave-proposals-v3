@@ -43,20 +43,27 @@ Key differentiators:
 | Uoptimal                 | 80%        |
 | Reserve Factor           | 20%        |
 
-USDG Overview:
+### USDG Overview:
 
 - Ticker: USDG
 - Fiat backed stablecoin
 - Issuer: Paxos
 - Backing assets: USD cash and short-term U.S treasuries.
 - Audits: Multiple third-party audits
-- Price Oracle: fixed \$1 USDG/USD as asset is only enable as collateral: 0xF29b1e3b68Fd59DD0a413811fD5d0AbaE653216d
 - USDG Listed on: Major centralized and decentralized exchanges.
 
-Use Cases:
+### Use Cases:
 
 1. Deposits enabled for yield generation
 2. Borrowing enabled as a low-volatility asset
+
+### Oracle/Pricing
+
+Given the recent behavior observed on other smaller stablecoin oracles such as mUSD, we recommend pricing USDG on Aave V3 Ethereum with a hardcoded price of 1 USD. In the current environment, a market oracle can produce temporary deviations that are not aligned with the asset’s backing, These deviations would open the risk of opportunistic borrowing at artificially depressed oracle levels prior to a return to backing value. Hardcoding the price to 1 USD removes this path, preventing its abuse and minimizing the asset’s risk.
+
+This change does not introduce material additional risk as USDG is to be configured on the Aave Core instance exclusively as a borrowable asset and cannot be used as collateral. The oracle affects only the notional at which liabilities are recorded, not the valuation of collateral or the solvency profile of the protocol. In normal conditions, the hardcoded price neutralizes oracle-driven opportunities for underpriced borrowing. In a genuine depeg scenario, it is conservative for the protocol: USDG liabilities remain booked at 1 USD while the asset can be sourced below par by liquidators and borrowers alike, improving liquidation economics and reducing the probability of bad debt.
+
+- Price Oracle: fixed \$1 USDG/USD: 0xF29b1e3b68Fd59DD0a413811fD5d0AbaE653216d
 
 Additionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://etherscan.io/address/0xac140648435d03f784879cd789130F22Ef588Fcd) has been set as the emission admin for USDG and the corresponding aToken.
 
