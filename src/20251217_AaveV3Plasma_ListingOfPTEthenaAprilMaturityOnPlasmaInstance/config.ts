@@ -7,7 +7,7 @@ export const config: ConfigFile = {
     date: '20251217',
     author: 'ACI',
     discussion:
-      'https://governance.aave.com/t/direct-to-aip-onboard-usde-susde-april-expiry-pt-tokens-on-aave-v3-plasma-instance/23515/3',
+      'https://governance.aave.com/t/direct-to-aip-onboard-usde-susde-april-expiry-pt-tokens-on-aave-v3-plasma-instance/23515',
     snapshot: 'direct-to-aip',
     votingNetwork: 'AVALANCHE',
   },

@@ -13,7 +13,7 @@ import {IEmissionManager} from 'aave-v3-origin/contracts/rewards/interfaces/IEmi
  * @title Listing of PT Ethena April Maturity on Plasma Instance
  * @author ACI
  * - Snapshot: direct-to-aip
- * - Discussion: https://governance.aave.com/t/direct-to-aip-onboard-usde-susde-april-expiry-pt-tokens-on-aave-v3-plasma-instance/23515/3
+ * - Discussion: https://governance.aave.com/t/direct-to-aip-onboard-usde-susde-april-expiry-pt-tokens-on-aave-v3-plasma-instance/23515
  */
 contract AaveV3Plasma_ListingOfPTEthenaAprilMaturityOnPlasmaInstance_20251217 is
   AaveV3PayloadPlasma
