@@ -41,7 +41,7 @@ contract CreateProposal is EthereumScript {
     // compose actions for validation
     {
       IPayloadsControllerCore.ExecutionAction[]
-        memory actionsBase = new IPayloadsControllerCore.ExecutionAction[](0);
+        memory actionsBase = new IPayloadsControllerCore.ExecutionAction[](1);
       actionsBase[0] = GovV3Helpers.buildAction(
         type(AaveV3Base_AddWETHToTheWrsETHWstETHEModeOnAaveV3BaseInstance_20251212).creationCode
       );
