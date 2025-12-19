@@ -158,7 +158,7 @@
 | eMode.ltv | - | 87.2 % |
 | eMode.liquidationThreshold | - | 89.2 % |
 | eMode.liquidationBonus | - | 3.7 % |
-| eMode.borrowableBitmap | - | USDT0, USDe |
+| eMode.borrowableBitmap | - | USDe |
 | eMode.collateralBitmap | - | USDe, PT-USDe-15JAN2026, PT-USDe-9APR2026 |
 
 
@@ -206,7 +206,7 @@
     "14": {
       "from": null,
       "to": {
-        "borrowableBitmap": "3",
+        "borrowableBitmap": "2",
         "collateralBitmap": "8258",
         "eModeCategory": 14,
         "label": "PT_USDe_9APR2026__USDe",
@@ -596,7 +596,7 @@
         },
         "0x2ab8cd8eab3e8c901115e793997bc427e1596b98dcca832d2eb3bc8b02d226a3": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000003"
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000002"
         },
         "0x769cad6e4f69fb39d4bdc2ee07759d8d4955411817e0dd7fe8899ea55308f3d7": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",

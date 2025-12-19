@@ -71,13 +71,12 @@ contract AaveV3Plasma_ListingOfPTEthenaAprilMaturityOnPlasmaInstance_20251217 is
     });
 
     address[] memory collateralAssets_PT_USDe_9APR2026__USDe = new address[](3);
-    address[] memory borrowableAssets_PT_USDe_9APR2026__USDe = new address[](2);
+    address[] memory borrowableAssets_PT_USDe_9APR2026__USDe = new address[](1);
 
     collateralAssets_PT_USDe_9APR2026__USDe[0] = AaveV3PlasmaAssets.USDe_UNDERLYING;
     collateralAssets_PT_USDe_9APR2026__USDe[1] = PT_USDe_9APR2026;
     collateralAssets_PT_USDe_9APR2026__USDe[2] = AaveV3PlasmaAssets.PT_USDe_15JAN2026_UNDERLYING;
-    borrowableAssets_PT_USDe_9APR2026__USDe[0] = AaveV3PlasmaAssets.USDT0_UNDERLYING;
-    borrowableAssets_PT_USDe_9APR2026__USDe[1] = AaveV3PlasmaAssets.USDe_UNDERLYING;
+    borrowableAssets_PT_USDe_9APR2026__USDe[0] = AaveV3PlasmaAssets.USDe_UNDERLYING;
 
     eModeCreations[1] = IAaveV3ConfigEngine.EModeCategoryCreation({
       ltv: 87_20,
