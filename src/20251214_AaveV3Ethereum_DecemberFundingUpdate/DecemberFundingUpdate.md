@@ -23,6 +23,10 @@ Using the MainnetSwapSteward and the already approved allowances, acquire 2M GHO
 
 Replenish the budgets on the MainnetSwapSteward, as they will be consumed by the rebalancing of assets mentioned above.
 
+- USDC: 2M increase
+- USDT: 4M increase
+- USDS: 2M increase
+
 ### Collector Assets
 
 Deposit idle ETH held on the Ethereum Collector into the Prime instance of Aave v3.
@@ -37,7 +41,7 @@ Amount: 2,300 `aEthLidoWETH`
 Spender: Ahab `0xAA2461f0f0A3dE5fEAF3273eAe16DEF861cf594e`
 Method: `approve()` aEthLidoWETH on the Aave Collector contract to the ahab address
 
-_Note_: To support ongoing DEX liquidity, launching GHO on Plasma and other networks, this publication grants the Aave Finance Committee (AFC) ability to provide DEX liquidity and reduce the reliance on incentive distribution. Assets held in the Ahab and AFC SAFEs are to be used as collateral.
+_Note_: To support ongoing DEX liquidity, launching GHO on Plasma and other networks, this publication grants the Aave Finance Committee (AFC) ability to provide DEX liquidity and reduce the reliance on incentive distribution. These assets now held in the AFC and Ahab SAFEs will be used as collateral to borrow GHO and fund the DEX liquidity.
 
 Amount: 20,000 `AAVE`
 Spender: AFC `0x22740deBa78d5a0c24C58C740e3715ec29de1bFa`

@@ -171,7 +171,7 @@ contract AaveV3Ethereum_DecemberFundingUpdate_20251214_Test is ProtocolV3TestBas
   function test_merit() public {
     uint256 allowanceBefore = IERC20(AaveV3EthereumLidoAssets.GHO_A_TOKEN).allowance(
       address(AaveV3Ethereum.COLLECTOR),
-      MiscEthereum.MERIT_INCENTIVE_SAFE
+      MiscEthereum.MERIT_AHAB_SAFE
     );
 
     assertApproxEqAbs(allowanceBefore, 0, 1 ether);
@@ -180,7 +180,7 @@ contract AaveV3Ethereum_DecemberFundingUpdate_20251214_Test is ProtocolV3TestBas
 
     uint256 allowanceAfter = IERC20(AaveV3EthereumLidoAssets.GHO_A_TOKEN).allowance(
       address(AaveV3Ethereum.COLLECTOR),
-      MiscEthereum.MERIT_INCENTIVE_SAFE
+      MiscEthereum.MERIT_AHAB_SAFE
     );
 
     assertEq(allowanceAfter, proposal.MERIT_GHO_AMOUNT());

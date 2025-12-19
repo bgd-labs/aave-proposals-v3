@@ -80,7 +80,7 @@ contract AaveV3Ethereum_DecemberFundingUpdate_20251214 is IProposalGenericExecut
   function _merit() internal {
     AaveV3EthereumLido.COLLECTOR.approve(
       IERC20(AaveV3EthereumLidoAssets.GHO_A_TOKEN),
-      MiscEthereum.MERIT_INCENTIVE_SAFE,
+      MiscEthereum.MERIT_AHAB_SAFE,
       MERIT_GHO_AMOUNT
     );
   }
