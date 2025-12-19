@@ -3,6 +3,18 @@
 ```json
 {
   "raw": {
+    "0x7fc66500c84a76ad7e9c93437bfc5ac33e2ddae9": {
+      "label": "AaveV2Ethereum.ASSETS.AAVE.UNDERLYING, AaveV2EthereumArc.ASSETS.AAVE.UNDERLYING, AaveV3Ethereum.ASSETS.AAVE.UNDERLYING",
+      "contract": "lib/aave-helpers/lib/aave-address-book/lib/aave-v3-origin/lib/solidity-utils/lib/openzeppelin-contracts-upgradeable/lib/openzeppelin-contracts/contracts/proxy/transparent/TransparentUpgradeableProxy.sol:TransparentUpgradeableProxy",
+      "balanceDiff": null,
+      "nonceDiff": null,
+      "stateDiff": {
+        "0x495a957a79652a5e0fd2a854635df04aeb86fb136127eba37ff9c7b5a260662d": {
+          "previousValue": "0x00000000000000000000000000000000000000000000053692ff8e1568a213f5",
+          "newValue": "0x00000000000000000000000000000000000000000000007175bf4e5217ce3d50"
+        }
+      }
+    },
     "0x9eda81c21c273a82be9bbc19b6a6182212068101": {
       "label": "AaveSafetyModule.STK_AAVE_WSTETH_BPTV2",
       "contract": "lib/aave-helpers/lib/aave-address-book/lib/aave-v3-origin/lib/solidity-utils/lib/openzeppelin-contracts-upgradeable/lib/openzeppelin-contracts/contracts/proxy/transparent/TransparentUpgradeableProxy.sol:TransparentUpgradeableProxy",

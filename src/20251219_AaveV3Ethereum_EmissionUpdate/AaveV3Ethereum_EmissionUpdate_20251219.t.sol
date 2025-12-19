@@ -6,6 +6,9 @@ import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 import {AaveV3Ethereum_EmissionUpdate_20251219} from './AaveV3Ethereum_EmissionUpdate_20251219.sol';
 import {IStakeToken} from 'aave-address-book/common/IStakeToken.sol';
 import {AaveSafetyModule} from 'aave-address-book/AaveSafetyModule.sol';
+import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
+import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
+import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 
 /**
  * @dev Test for AaveV3Ethereum_EmissionUpdate_20251219
@@ -26,11 +29,12 @@ contract AaveV3Ethereum_EmissionUpdate_20251219_Test is ProtocolV3TestBase {
 
   function test_checkConfig() public {
     (uint128 emissionPerSecondBefore, , ) = IStakeToken(AaveSafetyModule.STK_AAVE_WSTETH_BPTV2)
-      .assets(AaveSafetyModule.STK_ABPT);
+      .assets(AaveSafetyModule.STK_AAVE_WSTETH_BPTV2);
 
-    assertTrue(
-      emissionPerSecondBefore != proposal.AAVE_EMISSION_PER_SECOND_STK_BPT(),
-      'emissions before already equal to new stkABPT rate'
+    assertEq(
+      emissionPerSecondBefore,
+      uint128(130 ether) / 1 days,
+      'unexpected stkABPT emission rate before'
     );
 
     executePayload(vm, address(proposal));
@@ -41,14 +45,25 @@ contract AaveV3Ethereum_EmissionUpdate_20251219_Test is ProtocolV3TestBase {
     assertEq(
       emissionPerSecondAfter,
       proposal.AAVE_EMISSION_PER_SECOND_STK_BPT(),
-      'emissions after not equal to expected stkABPT rate'
+      'unexpected stkABPT emission rate after'
+    );
+  }
+
+  function test_checkAllowance() public {
+    uint256 distributionEnd = IStakeToken(AaveSafetyModule.STK_AAVE_WSTETH_BPTV2).distributionEnd();
+    uint256 secondsRemaining = distributionEnd > block.timestamp
+      ? (distributionEnd - block.timestamp)
+      : 0;
+    uint256 expectedAllowance = uint256(proposal.AAVE_EMISSION_PER_SECOND_STK_BPT()) *
+      secondsRemaining;
+
+    executePayload(vm, address(proposal));
+
+    uint256 allowanceAfter = IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING).allowance(
+      MiscEthereum.ECOSYSTEM_RESERVE,
+      AaveSafetyModule.STK_AAVE_WSTETH_BPTV2
     );
 
-    assertApproxEqAbs(
-      emissionPerSecondAfter,
-      proposal.AAVE_EMISSION_PER_SECOND_STK_BPT(),
-      1,
-      'stkABPT emissions not set to expected value'
-    );
+    assertEq(allowanceAfter, expectedAllowance, 'unexpected allowance after');
   }
 }
