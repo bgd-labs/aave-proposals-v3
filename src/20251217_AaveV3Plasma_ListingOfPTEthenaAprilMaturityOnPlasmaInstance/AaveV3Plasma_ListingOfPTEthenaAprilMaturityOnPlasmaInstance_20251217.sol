@@ -4,10 +4,11 @@ pragma solidity ^0.8.0;
 import {AaveV3Plasma, AaveV3PlasmaAssets} from 'aave-address-book/AaveV3Plasma.sol';
 import {AaveV3PayloadPlasma} from 'aave-helpers/src/v3-config-engine/AaveV3PayloadPlasma.sol';
 import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
-import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
+import {IAaveV3ConfigEngine, IPool} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 import {SafeERC20} from 'openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol';
 import {IEmissionManager} from 'aave-v3-origin/contracts/rewards/interfaces/IEmissionManager.sol';
+import {IAaveStewardInjector} from '../interfaces/IAaveStewardInjector.sol';
 
 /**
  * @title Listing of PT Ethena April Maturity on Plasma Instance
@@ -29,6 +30,20 @@ contract AaveV3Plasma_ListingOfPTEthenaAprilMaturityOnPlasmaInstance_20251217 is
   address public constant PT_USDe_9APR2026_LM_ADMIN = 0xac140648435d03f784879cd789130F22Ef588Fcd;
 
   function _postExecute() internal override {
+    // we whitelist the four newly created eModeId on the injector
+    uint8 nextID = _findFirstUnusedEmodeCategory(AaveV3Plasma.POOL);
+    address[] memory marketsToWhitelist = new address[](4);
+    marketsToWhitelist[0] = address(uint160(nextID - 1)); // on the injector we encode eModeId to address
+    marketsToWhitelist[1] = address(uint160(nextID - 2)); // on the injector we encode eModeId to address
+    marketsToWhitelist[2] = address(uint160(nextID - 3)); // on the injector we encode eModeId to address
+    marketsToWhitelist[3] = address(uint160(nextID - 4)); // on the injector we encode eModeId to address
+    IAaveStewardInjector(AaveV3Plasma.EDGE_INJECTOR_PENDLE_EMODE).addMarkets(marketsToWhitelist);
+
+    address[] memory assetsToWhitelist = new address[](2);
+    assetsToWhitelist[0] = PT_sUSDE_9APR2026;
+    assetsToWhitelist[1] = PT_USDe_9APR2026;
+    IAaveStewardInjector(AaveV3Plasma.EDGE_INJECTOR_DISCOUNT_RATE).addMarkets(assetsToWhitelist);
+
     _supplyAndConfigureLMAdmin(
       PT_sUSDE_9APR2026,
       PT_sUSDE_9APR2026_SEED_AMOUNT,
@@ -186,5 +201,13 @@ contract AaveV3Plasma_ListingOfPTEthenaAprilMaturityOnPlasmaInstance_20251217 is
       IEmissionManager(AaveV3Plasma.EMISSION_MANAGER).setEmissionAdmin(asset, lmAdmin);
       IEmissionManager(AaveV3Plasma.EMISSION_MANAGER).setEmissionAdmin(aToken, lmAdmin);
     }
+  }
+
+  function _findFirstUnusedEmodeCategory(IPool pool) private view returns (uint8) {
+    // eMode id 0 is skipped intentially as it is the reserved default
+    for (uint8 i = 1; i < 256; i++) {
+      if (pool.getEModeCategoryCollateralConfig(i).liquidationThreshold == 0) return i;
+    }
+    revert('NoAvailableEmodeCategory');
   }
 }
