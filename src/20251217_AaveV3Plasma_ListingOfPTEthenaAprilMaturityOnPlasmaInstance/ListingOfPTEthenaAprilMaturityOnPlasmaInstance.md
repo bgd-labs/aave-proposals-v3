@@ -73,12 +73,16 @@ To support a seamless migration from other PT-USDe-15JAN2026 and PT-sUSDe-15JAN2
 | LT            | 88.4%       | 89.2%     |
 | LB            | 4.7%        | 3.7%      |
 
-**Linear Discount Rate Oracle**
+**Oracle details**
+Linear discount oracle
 
-| **Parameter**          | **Value** |
-| ---------------------- | --------- |
-| discountRatePerYear    | 4.701%    |
-| maxDiscountRatePerYear | 27.276%   |
+| **Parameter**          | **Value**                                   |
+| ---------------------- | ------------------------------------------- |
+| Oracle                 | [PT Capped USDe USDT/USD linear discount]() |
+| USDT/USD Oracle        | [Capped USDT/USD]()                         |
+| discountRatePerYear    | 4.701%                                      |
+| maxDiscountRatePerYear | 27.276%                                     |
+| Last Answer            |                                             |
 
 **PT-USDe Stablecoins E-mode**
 
@@ -134,12 +138,16 @@ To support a seamless migration from other PT-USDe-15JAN2026 and PT-sUSDe-15JAN2
 | LT            | 87.5%       | 89.2%     |
 | LB            | 5.7%        | 3.7%      |
 
-**Linear Discount Rate Oracle**
+**Oracle details**
+Linear discount oracle
 
-| **Parameter**                 | **Value** |
-| ----------------------------- | --------- |
-| discountRatePerYear (Initial) | 5.596%    |
-| maxDiscountRatePerYear        | 27.276%   |
+| **Parameter**                 | **Value**                                    |
+| ----------------------------- | -------------------------------------------- |
+| Oracle                        | [PT Capped sUSDe USDT/USD linear discount]() |
+| USDT/USD Oracle               | [Capped USDT/USD]()                          |
+| discountRatePerYear (Initial) | 5.596%                                       |
+| maxDiscountRatePerYear        | 27.276%                                      |
+| Last Answer                   |                                              |
 
 **PT-sUSDe Stablecoins E-mode**
 
