@@ -73,8 +73,8 @@ The current proposal has been powered by Skywards. ACI is not affiliated with Pa
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251205_AaveV3Ethereum_USDGListing/AaveV3Ethereum_USDGListing_20251205.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251205_AaveV3Ethereum_USDGListing/AaveV3Ethereum_USDGListing_20251205.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/9da84e01f4d0e52aca6c7f81b4da0a1ebd67b41d/src/20251205_AaveV3Ethereum_USDGListing/AaveV3Ethereum_USDGListing_20251205.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/9da84e01f4d0e52aca6c7f81b4da0a1ebd67b41d/src/20251205_AaveV3Ethereum_USDGListing/AaveV3Ethereum_USDGListing_20251205.t.sol)
 - [Snapshot](https://snapshot.org/#/s:aavedao.eth/proposal/0x31a6ca3a958d1d9f0d560b90487a72af28780a9b19bc6398444c06ee9d3a96fb)
 - [Discussion](https://governance.aave.com/t/arfc-onboard-usdg-to-aave-v3-core-instance/23271)
 
