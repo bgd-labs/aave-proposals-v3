@@ -50,12 +50,13 @@ contract AaveV3Ethereum_EmissionUpdate_20251219_Test is ProtocolV3TestBase {
   }
 
   function test_checkAllowance() public {
-    uint256 distributionEnd = IStakeToken(AaveSafetyModule.STK_AAVE_WSTETH_BPTV2).distributionEnd();
-    uint256 secondsRemaining = distributionEnd > block.timestamp
-      ? (distributionEnd - block.timestamp)
-      : 0;
+    uint256 allowanceBefore = IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING).allowance(
+      MiscEthereum.ECOSYSTEM_RESERVE,
+      AaveSafetyModule.STK_AAVE_WSTETH_BPTV2
+    );
+
     uint256 expectedAllowance = uint256(proposal.AAVE_EMISSION_PER_SECOND_STK_BPT()) *
-      secondsRemaining;
+      IStakeToken(AaveSafetyModule.STK_AAVE_WSTETH_BPTV2).distributionEnd();
 
     executePayload(vm, address(proposal));
 
@@ -65,5 +66,6 @@ contract AaveV3Ethereum_EmissionUpdate_20251219_Test is ProtocolV3TestBase {
     );
 
     assertEq(allowanceAfter, expectedAllowance, 'unexpected allowance after');
+    assertTrue(allowanceAfter != allowanceBefore, 'allowance after should not be equal to before');
   }
 }
