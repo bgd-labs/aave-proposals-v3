@@ -61,7 +61,7 @@ To support a seamless migration from other PT-USDe-15JAN2026 and PT-sUSDe-15JAN2
 | Flashloanable                  |                                    ENABLED |
 | Siloed Borrowing               |                                   DISABLED |
 | Borrowable in Isolation        |                                   DISABLED |
-| Oracle                         | 0x13f2EA8dfa948c5247826283079615Ee4d0A1AA5 |
+| Oracle                         | 0x37f3a8b02BAbe4dd71acb5f214F22C09AFf607f3 |
 | E-Mode Category                |          PT-USDe Stablecoins, PT-USDe USDe |
 
 **Initial E-mode Risk Oracle**
@@ -126,7 +126,7 @@ Linear discount oracle
 | Flashloanable                 |                                    ENABLED |
 | Siloed Borrowing              |                                   DISABLED |
 | Borrowable in Isolation       |                                   DISABLED |
-| Oracle                        | 0x37f3a8b02BAbe4dd71acb5f214F22C09AFf607f3 |
+| Oracle                        | 0x13f2EA8dfa948c5247826283079615Ee4d0A1AA5 |
 | E-Mode Category               |        PT-sUSDe Stablecoins, PT-sUSDe USDe |
 
 **Initial E-mode Risk Oracle**
