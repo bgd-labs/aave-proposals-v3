@@ -76,13 +76,13 @@ To support a seamless migration from other PT-USDe-15JAN2026 and PT-sUSDe-15JAN2
 **Oracle details**
 Linear discount oracle
 
-| **Parameter**          | **Value**                                   |
-| ---------------------- | ------------------------------------------- |
-| Oracle                 | [PT Capped USDe USDT/USD linear discount]() |
-| USDT/USD Oracle        | [Capped USDT/USD]()                         |
-| discountRatePerYear    | 4.701%                                      |
-| maxDiscountRatePerYear | 27.276%                                     |
-| Last Answer            |                                             |
+| **Parameter**          | **Value**                                                                                                                |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| Oracle                 | [PT Capped USDe USDT/USD linear discount](https://plasmascan.to/address/0x37f3a8b02BAbe4dd71acb5f214F22C09AFf607f3#code) |
+| USDT/USD Oracle        | [Capped USDT/USD](https://plasmascan.to/address/0xdBbB0b5DD13E7AC9C56624834ef193df87b022c3#readContract)                 |
+| discountRatePerYear    | 4.701%                                                                                                                   |
+| maxDiscountRatePerYear | 27.276%                                                                                                                  |
+| Last Answer            | 98568910 ($0.98568910)                                                                                                   |
 
 **PT-USDe Stablecoins E-mode**
 
@@ -141,13 +141,13 @@ Linear discount oracle
 **Oracle details**
 Linear discount oracle
 
-| **Parameter**                 | **Value**                                    |
-| ----------------------------- | -------------------------------------------- |
-| Oracle                        | [PT Capped sUSDe USDT/USD linear discount]() |
-| USDT/USD Oracle               | [Capped USDT/USD]()                          |
-| discountRatePerYear (Initial) | 5.596%                                       |
-| maxDiscountRatePerYear        | 27.276%                                      |
-| Last Answer                   |                                              |
+| **Parameter**                 | **Value**                                                                                                                         |
+| ----------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| Oracle                        | [PT Capped sUSDe USDT/USD linear discount](https://plasmascan.to/address/0x13f2EA8dfa948c5247826283079615Ee4d0A1AA5#readContract) |
+| USDT/USD Oracle               | [Capped USDT/USD](https://plasmascan.to/address/0xdBbB0b5DD13E7AC9C56624834ef193df87b022c3#readContract)                          |
+| discountRatePerYear (Initial) | 5.596%                                                                                                                            |
+| maxDiscountRatePerYear        | 27.276%                                                                                                                           |
+| Last Answer                   | 98303829 ($0.98303829)                                                                                                            |
 
 **PT-sUSDe Stablecoins E-mode**
 
