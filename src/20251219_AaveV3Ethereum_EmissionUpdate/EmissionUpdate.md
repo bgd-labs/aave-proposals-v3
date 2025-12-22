@@ -1,5 +1,5 @@
 ---
-title: "Emissions Update"
+title: "stkABPT Emission Update"
 author: "@TokenLogic"
 discussions: "https://governance.aave.com/t/arfc-safety-module-umbrella-emission-update/23103/9"
 ---
@@ -10,7 +10,9 @@ Reduce AAVE emissions for the legacy Safety Module **stkABPT** (stkAAVE/wstETH B
 
 ## Motivation
 
-This change follows the proposal’s direction to **phase out legacy staking modules** by reducing incentives on the legacy Safety Module. Reducing stkABPT emissions lowers ongoing incentive spend while supporting the transition towards the Umbrella Safety Modules and improved capital efficiency.
+This change follows the proposal’s direction to **phase out stkABPT incentives** (as emissions will trend to **0**) by reducing incentives on the legacy Safety Module. Reducing stkABPT emissions lowers ongoing incentive spend while supporting the transition towards the Umbrella Safety Modules and improved capital efficiency.
+
+**Note:** **stkAAVE is not being phased out**; it will be **repurposed** into a **no-risk staking (dividend yield) contract**.
 
 ## Specification
 

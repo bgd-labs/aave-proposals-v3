@@ -2,7 +2,7 @@ import {ConfigFile} from '../../generator/types';
 export const config: ConfigFile = {
   rootOptions: {
     pools: ['AaveV3Ethereum'],
-    title: 'Emission Update',
+    title: 'stkABPT Emission Update',
     shortName: 'EmissionUpdate',
     date: '20251219',
     author: '@TokenLogic',
