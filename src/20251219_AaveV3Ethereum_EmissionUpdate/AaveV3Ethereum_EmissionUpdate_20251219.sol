@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
 import {IStakeToken} from 'aave-helpers/lib/aave-address-book/src/common/IStakeToken.sol';
 import {AaveSafetyModule} from 'aave-address-book/AaveSafetyModule.sol';
