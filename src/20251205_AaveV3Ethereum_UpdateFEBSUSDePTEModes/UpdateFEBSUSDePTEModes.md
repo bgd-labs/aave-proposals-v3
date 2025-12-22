@@ -56,15 +56,15 @@ While the inclusion of USDe in the proposed E-Modes presents limited utility, su
 | LT                | Subject to Risk Oracle | Subject to Risk Oracle | Subject to Risk Oracle | -        | -        | -         |
 | Liquidation Bonus | Subject to Risk Oracle | Subject to Risk Oracle | Subject to Risk Oracle | -        | -        | -         |
 
-**PT-sUSDe USDe E-mode**
+**PT-USDe USDe E-mode**
 
-| **Asset**         | **PT-sUSDe-5FEB2026**  | **PT-sUSDe-27NOV2025** | **sUSDe**              | **USDe** |
-| ----------------- | ---------------------- | ---------------------- | ---------------------- | -------- |
-| Collateral        | Yes                    | Yes                    | Yes                    | Yes      |
-| Borrowable        | No                     | No                     | No                     | Yes      |
-| LTV               | Subject to Risk Oracle | Subject to Risk Oracle | Subject to Risk Oracle | -        |
-| LT                | Subject to Risk Oracle | Subject to Risk Oracle | Subject to Risk Oracle | -        |
-| Liquidation Bonus | Subject to Risk Oracle | Subject to Risk Oracle | Subject to Risk Oracle | -        |
+| **Asset**         | **PT-USDe-5FEB2026**   | **PT-USDe-27NOV2025**  | **USDe**               |
+| ----------------- | ---------------------- | ---------------------- | ---------------------- |
+| Collateral        | Yes                    | Yes                    | Yes                    |
+| Borrowable        | No                     | No                     | Yes                    |
+| LTV               | Subject to Risk Oracle | Subject to Risk Oracle | Subject to Risk Oracle |
+| LT                | Subject to Risk Oracle | Subject to Risk Oracle | Subject to Risk Oracle |
+| Liquidation Bonus | Subject to Risk Oracle | Subject to Risk Oracle | Subject to Risk Oracle |
 
 ## References
 
