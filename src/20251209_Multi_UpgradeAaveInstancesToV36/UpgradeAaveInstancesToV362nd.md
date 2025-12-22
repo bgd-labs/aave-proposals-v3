@@ -1,13 +1,13 @@
 ---
-title: "Upgrade Aave instances to v3.6"
+title: "Upgrade Aave instances to v3.6 Part 1"
 author: "BGD Labs @bgdlabs"
-discussions: "https://governance.aave.com/t/arfc-bgd-aave-v3-6/23172"
+discussions: "https://governance.aave.com/t/arfc-bgd-aave-v3-6/23172/4"
 snapshot: "https://snapshot.box/#/s:aavedao.eth/proposal/0x83ab94cea13da68fc9685dc2fa8ad738107bdbebd01fdf04122131d5de1d7847"
 ---
 
 ## Simple Summary
 
-Upgrade the Aave protocol instances from v3.5 to v3.6.
+Upgrade the Aave protocol instances from v3.5 to v3.6 Part 1.
 
 ## Motivation
 
@@ -15,12 +15,7 @@ Aave v3.6 enhances isolation, via more fine-grained configurations and the decou
 
 ## Specification
 
-The upgrade payload updates the implementations of the Pool, PoolConfigurator, AToken & VariableDebtToken on all networks.
-
-On mainnet the payloads varies slightly to account for:
-
-- aAave which has a different implementation due to the governance delegation integration
-- vGHO which has a different implementation due to the deprecated discount mechanism on stkAAVE
+The upgrade payload updates the implementations of the Pool, PoolConfigurator, AToken & VariableDebtToken on an initial set of pools, namely **Sonic, Optimism, Gnosis, Scroll, ZKSync, Celo, Metis, Soneium, and Ethereum (EtherFi)**.
 
 An additional action is included on mainnet which:
 
