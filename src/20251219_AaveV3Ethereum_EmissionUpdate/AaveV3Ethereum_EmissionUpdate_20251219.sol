@@ -27,8 +27,9 @@ contract AaveV3Ethereum_EmissionUpdate_20251219 is IProposalGenericExecutor {
 
     IStakeToken(AaveSafetyModule.STK_AAVE_WSTETH_BPTV2).configureAssets(config);
 
+    uint256 distributionEnd = IStakeToken(AaveSafetyModule.STK_AAVE_WSTETH_BPTV2).distributionEnd();
     uint256 updatedAllowance = uint256(AAVE_EMISSION_PER_SECOND_STK_BPT) *
-      IStakeToken(AaveSafetyModule.STK_AAVE_WSTETH_BPTV2).distributionEnd();
+      (distributionEnd - block.timestamp);
 
     MiscEthereum.AAVE_ECOSYSTEM_RESERVE_CONTROLLER.approve(
       MiscEthereum.ECOSYSTEM_RESERVE,

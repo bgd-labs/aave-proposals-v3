@@ -55,8 +55,13 @@ contract AaveV3Ethereum_EmissionUpdate_20251219_Test is ProtocolV3TestBase {
       AaveSafetyModule.STK_AAVE_WSTETH_BPTV2
     );
 
+    uint256 distributionEnd = IStakeToken(AaveSafetyModule.STK_AAVE_WSTETH_BPTV2).distributionEnd();
+    uint256 secondsRemaining = distributionEnd > block.timestamp
+      ? distributionEnd - block.timestamp
+      : 0;
+
     uint256 expectedAllowance = uint256(proposal.AAVE_EMISSION_PER_SECOND_STK_BPT()) *
-      IStakeToken(AaveSafetyModule.STK_AAVE_WSTETH_BPTV2).distributionEnd();
+      secondsRemaining;
 
     executePayload(vm, address(proposal));
 
@@ -66,6 +71,6 @@ contract AaveV3Ethereum_EmissionUpdate_20251219_Test is ProtocolV3TestBase {
     );
 
     assertEq(allowanceAfter, expectedAllowance, 'unexpected allowance after');
-    assertTrue(allowanceAfter != allowanceBefore, 'allowance after should not be equal to before');
+    assertLt(allowanceAfter, allowanceBefore, 'allowance after should be lower than before');
   }
 }
