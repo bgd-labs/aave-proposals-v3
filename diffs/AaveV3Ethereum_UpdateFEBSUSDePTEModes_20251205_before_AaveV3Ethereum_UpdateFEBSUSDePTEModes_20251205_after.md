@@ -106,14 +106,6 @@
 
 ### EMode: PT-USDe Stablecoins Nov 2025(id: 27)
 
-| description | value before | value after |
-| --- | --- | --- |
-| eMode.label (unchanged) | PT-USDe Stablecoins Nov 2025 | PT-USDe Stablecoins Nov 2025 |
-| eMode.ltv (unchanged) | 91 % | 91 % |
-| eMode.liquidationThreshold (unchanged) | 93 % | 93 % |
-| eMode.liquidationBonus (unchanged) | 2 % | 2 % |
-| eMode.borrowableBitmap (unchanged) | USDC, USDT, USDe, USDS, USDtb | USDC, USDT, USDe, USDS, USDtb |
-| eMode.collateralBitmap | PT-USDe-25SEP2025, PT-USDe-27NOV2025 | USDe, PT-USDe-25SEP2025, PT-USDe-27NOV2025 |
 
 
 ### EMode: PT-USDe USDe Nov 2025(id: 28)
@@ -122,6 +114,14 @@
 
 ### EMode: PTUSDe5FEB/Stablecoins(id: 29)
 
+| description | value before | value after |
+| --- | --- | --- |
+| eMode.label (unchanged) | PTUSDe5FEB/Stablecoins | PTUSDe5FEB/Stablecoins |
+| eMode.ltv (unchanged) | 90 % | 90 % |
+| eMode.liquidationThreshold (unchanged) | 92 % | 92 % |
+| eMode.liquidationBonus (unchanged) | 3.8 % | 3.8 % |
+| eMode.borrowableBitmap (unchanged) | USDC, USDT, USDe, USDtb | USDC, USDT, USDe, USDtb |
+| eMode.collateralBitmap | PT-USDe-27NOV2025, PT-USDe-5FEB2026 | USDe, PT-USDe-27NOV2025, PT-USDe-5FEB2026 |
 
 
 ### EMode: PTUSDe5FEB/USDe(id: 30)
@@ -169,10 +169,10 @@
 ```json
 {
   "eModes": {
-    "27": {
+    "29": {
       "collateralBitmap": {
-        "from": "18577348462903296",
-        "to": "18577349536645120"
+        "from": "54043195528445952",
+        "to": "54043196602187776"
       }
     },
     "30": {
@@ -250,9 +250,9 @@
           "previousValue": "0x00000000000000000000000000000000000000c0000000000000282824402378",
           "newValue": "0x00000000000000000000000000000000000000c0000040000000282824402378"
         },
-        "0xb21e45f5a751781d9eda81dc3e978b8c437a59852152032967c7a26a13c9e5cb": {
-          "previousValue": "0x000000000000000000000000000000000000004200000000000027d82454238c",
-          "newValue": "0x000000000000000000000000000000000000004200004000000027d82454238c"
+        "0xff96dc9b2fb693edb8d05190a44f8cda48f48702b06828c27863d75ccd5a93d7": {
+          "previousValue": "0x00000000000000000000000000000000000000c0000000000000288c23f02328",
+          "newValue": "0x00000000000000000000000000000000000000c0000040000000288c23f02328"
         }
       }
     },

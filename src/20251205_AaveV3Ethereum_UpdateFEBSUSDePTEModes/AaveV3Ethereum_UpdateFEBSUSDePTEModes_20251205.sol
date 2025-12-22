@@ -39,8 +39,7 @@ contract AaveV3Ethereum_UpdateFEBSUSDePTEModes_20251205 is AaveV3PayloadEthereum
 
     assetEModeUpdates[2] = IAaveV3ConfigEngine.AssetEModeUpdate({
       asset: AaveV3EthereumAssets.USDe_UNDERLYING,
-      eModeCategory: AaveV3EthereumEModes
-        .PT_USDe_25SEP2025_PT_USDe_27NOV2025__USDC_USDT_USDe_USDS_USDtb,
+      eModeCategory: AaveV3EthereumEModes.PT_USDe_27NOV2025_PT_USDe_5FEB2026__USDC_USDT_USDe_USDtb,
       borrowable: EngineFlags.KEEP_CURRENT,
       collateral: EngineFlags.ENABLED
     });
