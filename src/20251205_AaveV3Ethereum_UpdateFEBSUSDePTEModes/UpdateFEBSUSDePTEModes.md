@@ -68,8 +68,8 @@ While the inclusion of USDe in the proposed E-Modes presents limited utility, su
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251205_AaveV3Ethereum_UpdateFEBSUSDePTEModes/AaveV3Ethereum_UpdateFEBSUSDePTEModes_20251205.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251205_AaveV3Ethereum_UpdateFEBSUSDePTEModes/AaveV3Ethereum_UpdateFEBSUSDePTEModes_20251205.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/c2c8ff4d98d07a1cf89ed945be332a6dd798f304/src/20251205_AaveV3Ethereum_UpdateFEBSUSDePTEModes/AaveV3Ethereum_UpdateFEBSUSDePTEModes_20251205.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/c2c8ff4d98d07a1cf89ed945be332a6dd798f304/src/20251205_AaveV3Ethereum_UpdateFEBSUSDePTEModes/AaveV3Ethereum_UpdateFEBSUSDePTEModes_20251205.t.sol)
 - Snapshot: Direct-to-AIP
 - [Discussion](https://governance.aave.com/t/direct-to-aip-ethena-february-pts-caps-and-e-modes-adjustments/23501)
 
