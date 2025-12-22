@@ -48,13 +48,13 @@ While the inclusion of USDe in the proposed E-Modes presents limited utility, su
 
 **PT-USDe Stablecoins E-mode**
 
-| **Asset**         | **PT-USDe-5FEB2026**   | **PT-USDe-27NOV2025**  | **USDe**               | **USDC** | **USDT** **USDtb** |
-| ----------------- | ---------------------- | ---------------------- | ---------------------- | -------- | ------------------ | --- |
-| Collateral        | Yes                    | Yes                    | Yes                    | No       | No                 | No  |
-| Borrowable        | No                     | No                     | Yes                    | Yes      | Yes                | Yes |
-| LTV               | Subject to Risk Oracle | Subject to Risk Oracle | Subject to Risk Oracle | -        | -                  | -   |
-| LT                | Subject to Risk Oracle | Subject to Risk Oracle | Subject to Risk Oracle | -        | -                  | -   |
-| Liquidation Bonus | Subject to Risk Oracle | Subject to Risk Oracle | Subject to Risk Oracle | -        | -                  | -   |
+| **Asset**         | **PT-USDe-5FEB2026**   | **PT-USDe-27NOV2025**  | **USDe**               | **USDC** | **USDT** | **USDtb** |
+| ----------------- | ---------------------- | ---------------------- | ---------------------- | -------- | -------- | --------- |
+| Collateral        | Yes                    | Yes                    | Yes                    | No       | No       | No        |
+| Borrowable        | No                     | No                     | Yes                    | Yes      | Yes      | Yes       |
+| LTV               | Subject to Risk Oracle | Subject to Risk Oracle | Subject to Risk Oracle | -        | -        | -         |
+| LT                | Subject to Risk Oracle | Subject to Risk Oracle | Subject to Risk Oracle | -        | -        | -         |
+| Liquidation Bonus | Subject to Risk Oracle | Subject to Risk Oracle | Subject to Risk Oracle | -        | -        | -         |
 
 **PT-sUSDe USDe E-mode**
 
