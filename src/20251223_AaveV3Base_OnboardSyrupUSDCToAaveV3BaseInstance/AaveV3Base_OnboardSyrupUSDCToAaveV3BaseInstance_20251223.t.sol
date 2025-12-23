@@ -18,7 +18,7 @@ contract AaveV3Base_OnboardSyrupUSDCToAaveV3BaseInstance_20251223_Test is Protoc
   AaveV3Base_OnboardSyrupUSDCToAaveV3BaseInstance_20251223 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('base'), 39831121);
+    vm.createSelectFork(vm.rpcUrl('base'), 39861991);
     proposal = new AaveV3Base_OnboardSyrupUSDCToAaveV3BaseInstance_20251223();
   }
 

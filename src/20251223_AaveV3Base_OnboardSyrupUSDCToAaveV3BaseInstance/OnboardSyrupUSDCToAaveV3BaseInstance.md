@@ -28,9 +28,9 @@ The table below illustrates the configured risk parameters for **syrupUSDC**
 | Supply Cap (syrupUSDC)    | 50,000,000 |
 | Borrow Cap (syrupUSDC)    |          1 |
 | Debt Ceiling              |      USD 0 |
-| LTV                       |        0 % |
-| LT                        |        0 % |
-| Liquidation Bonus         |       10 % |
+| LTV                       |     0.05 % |
+| LT                        |      0.1 % |
+| Liquidation Bonus         |        4 % |
 | Liquidation Protocol Fee  |       10 % |
 | Reserve Factor            |       50 % |
 | Base Variable Borrow Rate |        0 % |
