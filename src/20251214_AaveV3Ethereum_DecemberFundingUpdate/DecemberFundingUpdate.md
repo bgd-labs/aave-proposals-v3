@@ -65,8 +65,8 @@ Method: `approve()` aEthLidoGHO on the Aave Collector contract to the Merit addr
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251214_AaveV3Ethereum_DecemberFundingUpdate/AaveV3Ethereum_DecemberFundingUpdate_20251214.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251214_AaveV3Ethereum_DecemberFundingUpdate/AaveV3Ethereum_DecemberFundingUpdate_20251214.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/07ae8206aeb4502ef15d8b2652a1a481f7869c23/src/20251214_AaveV3Ethereum_DecemberFundingUpdate/AaveV3Ethereum_DecemberFundingUpdate_20251214.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/07ae8206aeb4502ef15d8b2652a1a481f7869c23/src/20251214_AaveV3Ethereum_DecemberFundingUpdate/AaveV3Ethereum_DecemberFundingUpdate_20251214.t.sol)
   [Snapshot] Direct-to-AIP
 - [Discussion](https://governance.aave.com/t/direct-to-aip-december-2025-funding-update/23619)
 
