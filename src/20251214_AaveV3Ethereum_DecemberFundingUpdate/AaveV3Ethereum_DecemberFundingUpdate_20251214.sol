@@ -24,9 +24,9 @@ contract AaveV3Ethereum_DecemberFundingUpdate_20251214 is IProposalGenericExecut
   uint256 public constant MERIT_GHO_AMOUNT = 3_000_000 ether;
   uint256 public constant AHAB_WETH_AMOUNT = 2_300 ether;
   uint256 public constant AFC_AAVE_AMOUNT = 20_000 ether;
-  uint256 public constant PT_eUSDE_14AUG2025_AMOUNT = 175190155978359917557;
-  uint256 public constant PT_sUSDE_25SEP2025_AMOUNT = 304354299785406069585;
-  uint256 public constant PT_USDe_31JUL2025_AMOUNT = 1583144136895510331668;
+  uint256 public constant PT_eUSDE_14AUG2025_AMOUNT = 175_190155978359917557;
+  uint256 public constant PT_sUSDE_25SEP2025_AMOUNT = 3043_542997854060695850;
+  uint256 public constant PT_USDe_31JUL2025_AMOUNT = 1583_144136895510331668;
 
   // Increase Swap Steward Budget
   uint256 public constant USDC_SWAP_BUDGET_AMOUNT = 2_000_000e6;
