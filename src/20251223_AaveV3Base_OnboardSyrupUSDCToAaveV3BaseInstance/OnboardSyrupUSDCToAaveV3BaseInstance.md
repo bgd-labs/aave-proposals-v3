@@ -1,6 +1,6 @@
 ---
 title: "Onboard syrupUSDC to Aave V3 Base Instance"
-author: "Aave-chan Initiative"
+author: "Maple (implemented and written by ACI via Skyward)"
 discussions: "https://governance.aave.com/t/direct-to-aip-onboard-syrupusdc-to-aave-v3-base-instance/23234"
 ---
 
