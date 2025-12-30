@@ -6,6 +6,7 @@ import {IStakeToken} from 'aave-helpers/lib/aave-address-book/src/common/IStakeT
 import {AaveSafetyModule} from 'aave-address-book/AaveSafetyModule.sol';
 import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
+import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 
 /**
  * @title stkABPT Emission Update
@@ -27,8 +28,16 @@ contract AaveV3Ethereum_EmissionUpdate_20251219 is IProposalGenericExecutor {
     IStakeToken(AaveSafetyModule.STK_AAVE_WSTETH_BPTV2).configureAssets(config);
 
     uint256 distributionEnd = IStakeToken(AaveSafetyModule.STK_AAVE_WSTETH_BPTV2).distributionEnd();
-    uint256 updatedAllowance = uint256(AAVE_EMISSION_PER_SECOND_STK_BPT) *
-      (distributionEnd - block.timestamp);
+    uint256 newDistributionEnd = distributionEnd + 90 days;
+    IStakeToken(AaveSafetyModule.STK_AAVE_WSTETH_BPTV2).setDistributionEnd(newDistributionEnd);
+
+    uint256 currentAllowance = IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING).allowance(
+      MiscEthereum.ECOSYSTEM_RESERVE,
+      AaveSafetyModule.STK_AAVE_WSTETH_BPTV2
+    );
+
+    uint256 updatedAllowance = currentAllowance +
+      (uint256(AAVE_EMISSION_PER_SECOND_STK_BPT) * (newDistributionEnd - block.timestamp));
 
     MiscEthereum.AAVE_ECOSYSTEM_RESERVE_CONTROLLER.approve(
       MiscEthereum.ECOSYSTEM_RESERVE,
