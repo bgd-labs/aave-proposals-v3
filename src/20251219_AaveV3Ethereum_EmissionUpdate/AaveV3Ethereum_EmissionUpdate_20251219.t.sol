@@ -19,7 +19,7 @@ contract AaveV3Ethereum_EmissionUpdate_20251219_Test is ProtocolV3TestBase {
   AaveV3Ethereum_EmissionUpdate_20251219 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 24044627);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 24127122);
     proposal = new AaveV3Ethereum_EmissionUpdate_20251219();
   }
 
@@ -56,14 +56,20 @@ contract AaveV3Ethereum_EmissionUpdate_20251219_Test is ProtocolV3TestBase {
     );
 
     uint256 distributionEnd = IStakeToken(AaveSafetyModule.STK_AAVE_WSTETH_BPTV2).distributionEnd();
-    uint256 secondsRemaining = distributionEnd > block.timestamp
-      ? distributionEnd - block.timestamp
-      : 0;
+    uint256 newDistributionEnd = distributionEnd + 90 days;
 
-    uint256 expectedAllowance = uint256(proposal.AAVE_EMISSION_PER_SECOND_STK_BPT()) *
-      secondsRemaining;
+    assertGt(newDistributionEnd, block.timestamp, 'newDistributionEnd should be in the future');
+
+    uint256 secondsRemaining = newDistributionEnd - block.timestamp;
+
+    uint256 expectedAllowance = allowanceBefore +
+      (uint256(proposal.AAVE_EMISSION_PER_SECOND_STK_BPT()) * secondsRemaining);
 
     executePayload(vm, address(proposal));
+
+    uint256 distributionEndAfter = IStakeToken(AaveSafetyModule.STK_AAVE_WSTETH_BPTV2)
+      .distributionEnd();
+    assertEq(distributionEndAfter, newDistributionEnd, 'unexpected distributionEnd after');
 
     uint256 allowanceAfter = IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING).allowance(
       MiscEthereum.ECOSYSTEM_RESERVE,
@@ -71,6 +77,6 @@ contract AaveV3Ethereum_EmissionUpdate_20251219_Test is ProtocolV3TestBase {
     );
 
     assertEq(allowanceAfter, expectedAllowance, 'unexpected allowance after');
-    assertLt(allowanceAfter, allowanceBefore, 'allowance after should be lower than before');
+    assertGe(allowanceAfter, allowanceBefore, 'allowance after should be >= allowance before');
   }
 }

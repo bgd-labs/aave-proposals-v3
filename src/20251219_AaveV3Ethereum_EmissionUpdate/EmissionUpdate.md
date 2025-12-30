@@ -19,8 +19,9 @@ This change follows the proposal’s direction to **phase out stkABPT incentives
 - **Target module:** Legacy Safety Module stake token **stkABPT** (`AaveSafetyModule.STK_AAVE_WSTETH_BPTV2`).
 - **Change:** Update AAVE rewards emission rate from **130 AAVE/day → 40 AAVE/day** by setting:
   - `emissionPerSecond = 40 AAVE / day` (expressed as `uint128(40 ether) / 1 days`)
-  - **Allowance adjustment (funding):** Reset and set the AAVE allowance from the **Ecosystem Reserve** to the stake token to match the remaining distribution budget:
-  - `allowance = emissionPerSecond * (distributionEnd - block.timestamp)`
+- **Distribution end:** extend rewards distribution by **90 days**: `newDistributionEnd = distributionEnd + 90 days`.
+- **Allowance adjustment (funding):** Reset and set the AAVE allowance from the **Ecosystem Reserve** to the stake token to cover **already accrued** + **future emissions**:
+  - `allowance = currentAllowance + emissionPerSecond * (newDistributionEnd - block.timestamp)`
 - **No other changes:** This payload does **not** modify stkAAVE emissions, cooldown parameters, slashing parameters, or any Umbrella module emissions.
 
 ## References
