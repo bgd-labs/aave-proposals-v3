@@ -46,7 +46,7 @@ The table below illustrates the configured risk parameters for **syrupUSDC**
 | **Parameter**          | **Value**                                                                                                |
 | ---------------------- | -------------------------------------------------------------------------------------------------------- |
 | Oracle                 | [Capped SyrupUSDC / USDC / USD](https://basescan.org/address/0xa61f10Bb2f05A94728734A8a95673ADbCA9B8397) |
-| Ratio Provider         | [syrupUSDC-USDC Exchange Rate](https://basescan.org/address0x311D3A3faA1d5939c681E33C2CDAc041FF388EB2/)  |
+| Ratio Provider         | [syrupUSDC-USDC Exchange Rate](https://basescan.org/address/0x311D3A3faA1d5939c681E33C2CDAc041FF388EB2)  |
 | Underlying oracle      | [Capped USDC/USD](https://basescan.org/address/0xfcF82bFa2485253263969167583Ea4de09e9993b)               |
 | Minimum Snapshot delay | 7 days                                                                                                   |
 | Max yearly growth      | 8.04%                                                                                                    |
