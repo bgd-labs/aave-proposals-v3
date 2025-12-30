@@ -67,6 +67,9 @@ The table below illustrates the configured risk parameters for **syrupUSDC**
 
 Additionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://basescan.org/address/0xac140648435d03f784879cd789130F22Ef588Fcd) has been set as the emission admin for syrupUSDC and the corresponding aToken.
 
+## Disclaimer
+ACI is not directly affiliated with Maple and did not receive compensation for the creation of this proposal.
+
 ## References
 
 - Implementation: [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251223_AaveV3Base_OnboardSyrupUSDCToAaveV3BaseInstance/AaveV3Base_OnboardSyrupUSDCToAaveV3BaseInstance_20251223.sol)
