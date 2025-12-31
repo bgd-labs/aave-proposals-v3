@@ -41,28 +41,28 @@ To support a seamless migration from other PT-USDe-15JAN2026 and PT-sUSDe-15JAN2
 
 ### PT-USDe-9APR2026
 
-| Parameter                      |                                      Value |
-| ------------------------------ | -----------------------------------------: |
-| Isolation Mode                 |                                      false |
-| Borrowable                     |                                   DISABLED |
-| Collateral Enabled             |                                       true |
-| Supply Cap |                                40,000,000 |
-| Borrow Cap |                                          1 |
-| Debt Ceiling                   |                                      USD 0 |
-| LTV                            |                                     0.05 % |
-| LT                             |                                      0.1 % |
-| Liquidation Bonus              |                                      7.5 % |
-| Liquidation Protocol Fee       |                                       10 % |
-| Reserve Factor                 |                                       45 % |
-| Base Variable Borrow Rate      |                                        0 % |
-| Variable Slope 1               |                                       10 % |
-| Variable Slope 2               |                                      300 % |
-| Uoptimal                       |                                       45 % |
-| Flashloanable                  |                                    ENABLED |
-| Siloed Borrowing               |                                   DISABLED |
-| Borrowable in Isolation        |                                   DISABLED |
-| Oracle                         | 0x37f3a8b02BAbe4dd71acb5f214F22C09AFf607f3 |
-| E-Mode Category                |          PT-USDe Stablecoins, PT-USDe USDe |
+| Parameter                 |                                      Value |
+| ------------------------- | -----------------------------------------: |
+| Isolation Mode            |                                      false |
+| Borrowable                |                                   DISABLED |
+| Collateral Enabled        |                                       true |
+| Supply Cap                |                                 40,000,000 |
+| Borrow Cap                |                                          1 |
+| Debt Ceiling              |                                      USD 0 |
+| LTV                       |                                     0.05 % |
+| LT                        |                                      0.1 % |
+| Liquidation Bonus         |                                      7.5 % |
+| Liquidation Protocol Fee  |                                       10 % |
+| Reserve Factor            |                                       45 % |
+| Base Variable Borrow Rate |                                        0 % |
+| Variable Slope 1          |                                       10 % |
+| Variable Slope 2          |                                      300 % |
+| Uoptimal                  |                                       45 % |
+| Flashloanable             |                                    ENABLED |
+| Siloed Borrowing          |                                   DISABLED |
+| Borrowable in Isolation   |                                   DISABLED |
+| Oracle                    | 0x37f3a8b02BAbe4dd71acb5f214F22C09AFf607f3 |
+| E-Mode Category           |          PT-USDe Stablecoins, PT-USDe USDe |
 
 **Initial E-mode Risk Oracle**
 
@@ -82,7 +82,7 @@ Linear discount oracle
 | USDT/USD Oracle        | [Capped USDT/USD](https://plasmascan.to/address/0xdBbB0b5DD13E7AC9C56624834ef193df87b022c3#readContract)                 |
 | discountRatePerYear    | 4.701%                                                                                                                   |
 | maxDiscountRatePerYear | 27.276%                                                                                                                  |
-| Last Answer            | 98568910 ($0.98568910)                                                                                                   |
+| Last Answer (Dec 31th) | 98620390 ($0.98620390)                                                                                                   |
 
 **PT-USDe Stablecoins E-mode**
 
@@ -106,28 +106,28 @@ Linear discount oracle
 
 ### PT-sUSDe-9APR2026
 
-| Parameter                     |                                      Value |
-| ----------------------------- | -----------------------------------------: |
-| Isolation Mode                |                                      false |
-| Borrowable                    |                                   DISABLED |
-| Collateral Enabled            |                                       true |
-| Supply Cap |                                 100,000,000 |
-| Borrow Cap |                                          1 |
-| Debt Ceiling                  |                                      USD 0 |
-| LTV                           |                                     0.05 % |
-| LT                            |                                      0.1 % |
-| Liquidation Bonus             |                                      7.5 % |
-| Liquidation Protocol Fee      |                                       10 % |
-| Reserve Factor                |                                       45 % |
-| Base Variable Borrow Rate     |                                        0 % |
-| Variable Slope 1              |                                       10 % |
-| Variable Slope 2              |                                      300 % |
-| Uoptimal                      |                                       45 % |
-| Flashloanable                 |                                    ENABLED |
-| Siloed Borrowing              |                                   DISABLED |
-| Borrowable in Isolation       |                                   DISABLED |
-| Oracle                        | 0x13f2EA8dfa948c5247826283079615Ee4d0A1AA5 |
-| E-Mode Category               |        PT-sUSDe Stablecoins, PT-sUSDe USDe |
+| Parameter                 |                                      Value |
+| ------------------------- | -----------------------------------------: |
+| Isolation Mode            |                                      false |
+| Borrowable                |                                   DISABLED |
+| Collateral Enabled        |                                       true |
+| Supply Cap                |                                100,000,000 |
+| Borrow Cap                |                                          1 |
+| Debt Ceiling              |                                      USD 0 |
+| LTV                       |                                     0.05 % |
+| LT                        |                                      0.1 % |
+| Liquidation Bonus         |                                      7.5 % |
+| Liquidation Protocol Fee  |                                       10 % |
+| Reserve Factor            |                                       45 % |
+| Base Variable Borrow Rate |                                        0 % |
+| Variable Slope 1          |                                       10 % |
+| Variable Slope 2          |                                      300 % |
+| Uoptimal                  |                                       45 % |
+| Flashloanable             |                                    ENABLED |
+| Siloed Borrowing          |                                   DISABLED |
+| Borrowable in Isolation   |                                   DISABLED |
+| Oracle                    | 0x13f2EA8dfa948c5247826283079615Ee4d0A1AA5 |
+| E-Mode Category           |        PT-sUSDe Stablecoins, PT-sUSDe USDe |
 
 **Initial E-mode Risk Oracle**
 
@@ -147,7 +147,7 @@ Linear discount oracle
 | USDT/USD Oracle               | [Capped USDT/USD](https://plasmascan.to/address/0xdBbB0b5DD13E7AC9C56624834ef193df87b022c3#readContract)                          |
 | discountRatePerYear (Initial) | 5.596%                                                                                                                            |
 | maxDiscountRatePerYear        | 27.276%                                                                                                                           |
-| Last Answer                   | 98303829 ($0.98303829)                                                                                                            |
+| Last Answer (Dec 31th)        | 98379258 ($0.98379258)                                                                                                            |
 
 **PT-sUSDe Stablecoins E-mode**
 
