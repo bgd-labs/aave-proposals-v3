@@ -49,7 +49,7 @@ To support a seamless migration from other PT-USDe-15JAN2026 and PT-sUSDe-15JAN2
 | Supply Cap |                                40,000,000 |
 | Borrow Cap |                                          1 |
 | Debt Ceiling                   |                                      USD 0 |
-| LTV                            |                                     87.2 % |
+| LTV                            |                                     0.05 % |
 | LT                             |                                      0.1 % |
 | Liquidation Bonus              |                                      7.5 % |
 | Liquidation Protocol Fee       |                                       10 % |
