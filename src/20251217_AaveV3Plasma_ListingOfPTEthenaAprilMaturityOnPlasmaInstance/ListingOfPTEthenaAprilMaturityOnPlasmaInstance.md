@@ -177,8 +177,8 @@ ACI is not directly affiliated with Pendle and did not receive compensation for 
 
 ## References
 
-- Implementation: [AaveV3Plasma](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251217_AaveV3Plasma_ListingOfPTEthenaAprilMaturityOnPlasmaInstance/AaveV3Plasma_ListingOfPTEthenaAprilMaturityOnPlasmaInstance_20251217.sol)
-- Tests: [AaveV3Plasma](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251217_AaveV3Plasma_ListingOfPTEthenaAprilMaturityOnPlasmaInstance/AaveV3Plasma_ListingOfPTEthenaAprilMaturityOnPlasmaInstance_20251217.t.sol)
+- Implementation: [AaveV3Plasma](https://github.com/bgd-labs/aave-proposals-v3/blob/f3649c0066c4a7eda7084d4841e8a95185017bf4/src/20251217_AaveV3Plasma_ListingOfPTEthenaAprilMaturityOnPlasmaInstance/AaveV3Plasma_ListingOfPTEthenaAprilMaturityOnPlasmaInstance_20251217.sol)
+- Tests: [AaveV3Plasma](https://github.com/bgd-labs/aave-proposals-v3/blob/f3649c0066c4a7eda7084d4841e8a95185017bf4/src/20251217_AaveV3Plasma_ListingOfPTEthenaAprilMaturityOnPlasmaInstance/AaveV3Plasma_ListingOfPTEthenaAprilMaturityOnPlasmaInstance_20251217.t.sol)
 - Snapshot: Direct-to-AIP
 - [Discussion](https://governance.aave.com/t/direct-to-aip-onboard-usde-susde-april-expiry-pt-tokens-on-aave-v3-plasma-instance/23515)
 
