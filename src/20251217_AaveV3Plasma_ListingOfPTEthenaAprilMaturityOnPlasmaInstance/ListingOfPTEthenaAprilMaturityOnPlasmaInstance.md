@@ -111,8 +111,8 @@ Linear discount oracle
 | Isolation Mode                |                                      false |
 | Borrowable                    |                                   DISABLED |
 | Collateral Enabled            |                                       true |
-| Supply Cap (PT_USDe_9APR2026) |                                 40,000,000 |
-| Borrow Cap (PT_USDe_9APR2026) |                                          1 |
+| Supply Cap |                                 100,000,000 |
+| Borrow Cap |                                          1 |
 | Debt Ceiling                  |                                      USD 0 |
 | LTV                           |                                     0.05 % |
 | LT                            |                                      0.1 % |
