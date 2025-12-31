@@ -27,7 +27,7 @@ contract AaveV3EthereumLido_OrbitProgramRenewalQ1AndQ22026_20251231 is IProposal
       CollectorUtils.stream(
         AaveV3EthereumLido.COLLECTOR,
         CollectorUtils.CreateStreamInput({
-          underlying: AaveV3EthereumLidoAssets.GHO_UNDERLYING,
+          underlying: AaveV3EthereumLidoAssets.GHO_A_TOKEN,
           receiver: orbitAddresses[i],
           amount: actualAmount,
           start: block.timestamp,

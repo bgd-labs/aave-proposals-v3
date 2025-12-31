@@ -37,11 +37,6 @@ contract AaveV3EthereumLido_OrbitProgramRenewalQ1AndQ22026_20251231_Test is Prot
   function test_streamCreation() public {
     uint256[] memory ghoBalancesBeforeUsers = new uint256[](4);
     address[] memory ghoPaymentAddresses = OrbitProgramData.getOrbitAddresses();
-    for (uint256 i = 0; i < ghoPaymentAddresses.length; i++) {
-      ghoBalancesBeforeUsers[i] = IERC20(AaveV3EthereumLidoAssets.GHO_UNDERLYING).balanceOf(
-        ghoPaymentAddresses[i]
-      );
-    }
 
     uint256 nextStreamId = AaveV3EthereumLido.COLLECTOR.getNextStreamId();
     vm.expectRevert();
@@ -53,16 +48,13 @@ contract AaveV3EthereumLido_OrbitProgramRenewalQ1AndQ22026_20251231_Test is Prot
 
     /// Their GHO balance has increased and call also withdraw from stream as it now exists
     for (uint256 i = 0; i < ghoPaymentAddresses.length; i++) {
-      assertEq(
-        IERC20(AaveV3EthereumLidoAssets.GHO_UNDERLYING).balanceOf(ghoPaymentAddresses[i]),
-        ghoBalancesBeforeUsers[i],
-        'GHO balance of Orbit recipient is not greater than before'
+      ghoBalancesBeforeUsers[i] = IERC20(AaveV3EthereumLidoAssets.GHO_A_TOKEN).balanceOf(
+        ghoPaymentAddresses[i]
       );
-
       vm.prank(ghoPaymentAddresses[i]);
       AaveV3EthereumLido.COLLECTOR.withdrawFromStream(nextStreamId + i, 1);
       assertEq(
-        IERC20(AaveV3EthereumLidoAssets.GHO_UNDERLYING).balanceOf(ghoPaymentAddresses[i]),
+        IERC20(AaveV3EthereumLidoAssets.GHO_A_TOKEN).balanceOf(ghoPaymentAddresses[i]),
         ghoBalancesBeforeUsers[i] + 1
       );
     }
