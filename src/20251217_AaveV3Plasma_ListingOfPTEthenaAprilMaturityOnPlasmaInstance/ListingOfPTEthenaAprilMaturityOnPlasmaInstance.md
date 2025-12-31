@@ -46,8 +46,8 @@ To support a seamless migration from other PT-USDe-15JAN2026 and PT-sUSDe-15JAN2
 | Isolation Mode                 |                                      false |
 | Borrowable                     |                                   DISABLED |
 | Collateral Enabled             |                                       true |
-| Supply Cap (PT_sUSDE_9APR2026) |                                100,000,000 |
-| Borrow Cap (PT_sUSDE_9APR2026) |                                          1 |
+| Supply Cap |                                40,000,000 |
+| Borrow Cap |                                          1 |
 | Debt Ceiling                   |                                      USD 0 |
 | LTV                            |                                     87.2 % |
 | LT                             |                                      0.1 % |
