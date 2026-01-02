@@ -20,7 +20,7 @@ The upgrade payload updates the implementations of the Pool, PoolConfigurator, A
 An additional action is included on mainnet which:
 
 - transfers 113'752 $ as aUSDT to a BGD Labs address
-- transfers 30'400 $ as USDC to a Certora address
+- transfers 30'400 $ as GHO to a Certora address
 
 to reimburse the cost of the audits.
 

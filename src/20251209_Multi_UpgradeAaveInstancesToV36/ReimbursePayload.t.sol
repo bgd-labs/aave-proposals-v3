@@ -20,7 +20,7 @@ contract ReimbursePayload_Test is ProtocolV3TestBase {
   ReimbursePayload internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 24024198);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 24145530);
     proposal = new ReimbursePayload();
   }
 
@@ -32,15 +32,15 @@ contract ReimbursePayload_Test is ProtocolV3TestBase {
   }
 
   function test_balanceBeforeAfter() public {
-    uint256 usdcBefore = IERC20(AaveV3EthereumAssets.USDC_UNDERLYING).balanceOf(proposal.CERTORA());
+    uint256 ghoBefore = IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(proposal.CERTORA());
     uint256 usdtBefore = IERC20(AaveV3EthereumAssets.USDT_A_TOKEN).balanceOf(proposal.BGD());
 
     executePayload(vm, address(proposal));
 
-    uint256 usdcAfter = IERC20(AaveV3EthereumAssets.USDC_UNDERLYING).balanceOf(proposal.CERTORA());
+    uint256 ghoAfter = IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).balanceOf(proposal.CERTORA());
     uint256 usdtAfter = IERC20(AaveV3EthereumAssets.USDT_A_TOKEN).balanceOf(proposal.BGD());
 
-    assertEq(usdcAfter - usdcBefore, 30_400e6, 'USDC renewal allowance mismatch');
+    assertEq(ghoAfter - ghoBefore, 30_400e18, 'GHO post-proposal balance mismatch');
     assertApproxEqAbs(usdtAfter - usdtBefore, 113_752e6, 2);
   }
 }
