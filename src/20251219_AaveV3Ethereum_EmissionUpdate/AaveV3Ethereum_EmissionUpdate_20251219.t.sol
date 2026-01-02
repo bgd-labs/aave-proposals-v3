@@ -1,0 +1,123 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+import {AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
+import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
+import {AaveV3Ethereum_EmissionUpdate_20251219} from './AaveV3Ethereum_EmissionUpdate_20251219.sol';
+import {IStakeToken} from 'aave-address-book/common/IStakeToken.sol';
+import {AaveSafetyModule} from 'aave-address-book/AaveSafetyModule.sol';
+import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
+import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
+import {AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
+
+/**
+ * @dev Test for AaveV3Ethereum_EmissionUpdate_20251219
+ * command:
+ * FOUNDRY_PROFILE=test forge test --match-path=src/20251219_AaveV3Ethereum_EmissionUpdate/AaveV3Ethereum_EmissionUpdate_20251219.t.sol -vv
+ */
+contract AaveV3Ethereum_EmissionUpdate_20251219_Test is ProtocolV3TestBase {
+  AaveV3Ethereum_EmissionUpdate_20251219 internal proposal;
+
+  function setUp() public {
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 24127590);
+    proposal = new AaveV3Ethereum_EmissionUpdate_20251219();
+  }
+
+  function test_defaultProposalExecution() public {
+    defaultTest('AaveV3Ethereum_EmissionUpdate_20251219', AaveV3Ethereum.POOL, address(proposal));
+  }
+
+  function test_checkConfig() public {
+    (uint128 emissionPerSecondBefore, , ) = IStakeToken(AaveSafetyModule.STK_AAVE_WSTETH_BPTV2)
+      .assets(AaveSafetyModule.STK_AAVE_WSTETH_BPTV2);
+
+    assertEq(
+      emissionPerSecondBefore,
+      uint128(130 ether) / 1 days,
+      'unexpected stkABPT emission rate before'
+    );
+
+    executePayload(vm, address(proposal));
+
+    (uint128 emissionPerSecondAfter, , ) = IStakeToken(AaveSafetyModule.STK_AAVE_WSTETH_BPTV2)
+      .assets(AaveSafetyModule.STK_AAVE_WSTETH_BPTV2);
+
+    assertEq(
+      emissionPerSecondAfter,
+      proposal.AAVE_EMISSION_PER_SECOND_STK_BPT(),
+      'unexpected stkABPT emission rate after'
+    );
+  }
+
+  function test_distributionEnd() public {
+    uint256 endTimestampBefore = IStakeToken(AaveSafetyModule.STK_AAVE_WSTETH_BPTV2)
+      .distributionEnd();
+
+    assertGt(
+      endTimestampBefore,
+      block.timestamp,
+      'New distribution duration is lower than current timestamp'
+    );
+
+    executePayload(vm, address(proposal));
+
+    uint256 endTimestampAfter = IStakeToken(AaveSafetyModule.STK_AAVE_WSTETH_BPTV2)
+      .distributionEnd();
+
+    assertEq(endTimestampBefore + 90 days, endTimestampAfter, 'New distribution duration differs');
+  }
+
+  function test_checkAllowance() public {
+    uint256 allowanceBefore = IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING).allowance(
+      MiscEthereum.ECOSYSTEM_RESERVE,
+      AaveSafetyModule.STK_AAVE_WSTETH_BPTV2
+    );
+
+    uint256 newDistributionEnd = IStakeToken(AaveSafetyModule.STK_AAVE_WSTETH_BPTV2)
+      .distributionEnd() + 90 days;
+
+    uint256 secondsRemaining = newDistributionEnd - block.timestamp;
+
+    uint256 expectedAllowance = allowanceBefore +
+      (uint256(proposal.AAVE_EMISSION_PER_SECOND_STK_BPT()) * secondsRemaining);
+
+    executePayload(vm, address(proposal));
+
+    assertEq(
+      IStakeToken(AaveSafetyModule.STK_AAVE_WSTETH_BPTV2).distributionEnd(),
+      newDistributionEnd,
+      'unexpected distributionEnd after'
+    );
+
+    uint256 allowanceAfter = IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING).allowance(
+      MiscEthereum.ECOSYSTEM_RESERVE,
+      AaveSafetyModule.STK_AAVE_WSTETH_BPTV2
+    );
+
+    assertEq(allowanceAfter, expectedAllowance, 'unexpected allowance after');
+    assertGe(allowanceAfter, allowanceBefore, 'allowance after should be >= allowance before');
+  }
+
+  function test_checkRewards_stkBPT() public {
+    address stakedToken = 0x3de27EFa2F1AA663Ae5D458857e731c129069F29;
+    address staker = 0xce88686553686DA562CE7Cea497CE749DA109f9F;
+    uint256 rewardsPerDay = 40e18;
+
+    executePayload(vm, address(proposal));
+
+    vm.startPrank(staker);
+    IERC20(stakedToken).approve(AaveSafetyModule.STK_AAVE_WSTETH_BPTV2, 1 ether);
+    IERC20(stakedToken).balanceOf(staker);
+    IStakeToken(AaveSafetyModule.STK_AAVE_WSTETH_BPTV2).stake(staker, 1 ether);
+    vm.stopPrank();
+
+    vm.warp(block.timestamp + 1 days);
+
+    uint256 rewardsBalance = IStakeToken(AaveSafetyModule.STK_AAVE_WSTETH_BPTV2)
+      .getTotalRewardsBalance(staker);
+
+    assertTrue(rewardsBalance > 0 && rewardsBalance <= rewardsPerDay);
+
+    vm.stopPrank();
+  }
+}
