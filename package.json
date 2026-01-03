@@ -5,8 +5,8 @@
     "test": "vitest generator",
     "lint": "prettier . --check",
     "lint:fix": "prettier . --write",
-    "generate": "tsx generator/cli",
-    "generate:bgd": "tsx generator/cli -a 'BGD Labs @bgdlabs'",
+    "generate": "tsx --require ./instrumentation.ts generator/cli",
+    "generate:bgd": "tsx --require ./instrumentation.ts generator/cli -a 'BGD Labs @bgdlabs'",
     "prepare": "husky install"
   },
   "engines": {
@@ -37,6 +37,12 @@
     "@bgd-labs/toolbox": "^0.0.46",
     "@inquirer/prompts": "^7.5.0",
     "@inquirer/testing": "^2.1.37",
+    "@opentelemetry/auto-instrumentations-node": "^0.67.2",
+    "@opentelemetry/exporter-trace-otlp-http": "^0.208.0",
+    "@opentelemetry/resources": "^2.2.0",
+    "@opentelemetry/sdk-node": "^0.208.0",
+    "@opentelemetry/sdk-trace-node": "^2.2.0",
+    "@opentelemetry/semantic-conventions": "^1.38.0",
     "catapulta-verify": "^1.4.3",
     "commander": "^12.1.0",
     "dotenv": "^16.4.7",
