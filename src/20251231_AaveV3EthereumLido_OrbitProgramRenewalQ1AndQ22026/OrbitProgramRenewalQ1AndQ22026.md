@@ -47,7 +47,7 @@ We would like to submit for governance approval a 100% increase in @EzR3al’s O
 
 As a reminder, Service Providers will not be considered elegible to Orbit Program.
 
-Funds are distributed based on 180 days, as seen on budget and as specificied on motivation section.
+Funds are distributed based on 180 days, as seen on budget and as specified on motivation section.
 
 ## Disclosure
 
