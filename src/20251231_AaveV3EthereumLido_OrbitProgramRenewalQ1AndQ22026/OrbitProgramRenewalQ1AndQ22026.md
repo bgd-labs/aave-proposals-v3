@@ -21,7 +21,7 @@ The ACI proposes the extension of Orbit for a both Q1 and Q2 2026, from 2026-01-
 
 As a reminder from previous Orbit rounds, a new cutoff had been set, starting at [AIP 224](https://vote.onaave.com/proposal/?proposalId=224&ipfsHash=0xa4da1c686491e35541aa7e2659d55d0b93e395a89d1b268981aec3b8b2227bc1), to apply again previous rules of a minimum of 20k voting power and 85% vote ratio on all Snapshots and AIP to be considered elegible to Orbit.
 
-As a reminder again,for transparency purposes, Orbit periode coverage will be 2 times per year (Q1 and Q2 together, and Q3 and Q4 together), with the aim of reducing governance bloat.
+As a reminder again, for transparency purposes, Orbit period coverage will be 2 times per year (Q1 and Q2 together, and Q3 and Q4 together), with the aim of reducing governance bloat.
 
 ### Additional Compensation
 
