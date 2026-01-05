@@ -7,7 +7,7 @@ snapshot: "https://snapshot.org/#/s:aavedao.eth/proposal/0xdd35aa587c490548ce8eb
 
 ## Simple Summary
 
-Proposing the latest renewal of the Orbit program for recognized delegates, compensating them with GHO, associated with their future governance activity during Q1 and Q2 2026( From 2026-01-01 new date when [[ARFC] Orbit Program Renewal - Q3 and Q4 2025](https://governance.aave.com/t/arfc-orbit-program-renewal-q3-and-q4-2025/23289) ends, until 2025-06-30).
+Proposing the latest renewal of the Orbit program for recognized delegates, compensating them with GHO, associated with their future governance activity during Q1 and Q2 2026( From 2026-01-01 new date when [[ARFC] Orbit Program Renewal - Q3 and Q4 2025](https://governance.aave.com/t/arfc-orbit-program-renewal-q3-and-q4-2025/23289) ends, until 2026-06-30).
 
 The reason as mentioned previously is because extending period coverage will bring more reliance and predictability for delegates platform.
 

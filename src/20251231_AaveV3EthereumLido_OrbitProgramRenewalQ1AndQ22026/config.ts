@@ -1,7 +1,7 @@
 import {ConfigFile} from '../../generator/types';
 export const config: ConfigFile = {
   rootOptions: {
-    author: 'Aave-chan Iniiative',
+    author: 'Aave-chan Initiative',
     pools: ['AaveV3EthereumLido'],
     title: 'Orbit Program Renewal - Q1 and Q2 2026',
     shortName: 'OrbitProgramRenewalQ1AndQ22026',
