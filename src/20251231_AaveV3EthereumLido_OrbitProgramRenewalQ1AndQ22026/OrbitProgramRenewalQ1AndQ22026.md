@@ -1,6 +1,6 @@
 ---
 title: "Orbit Program Renewal - Q1 and Q2 2026"
-author: "Aave-chan Iniiative"
+author: "Aave-chan Initiative"
 discussions: "https://governance.aave.com/t/arfc-orbit-program-renewal-q1-and-q2-2026/23695"
 snapshot: "https://snapshot.org/#/s:aavedao.eth/proposal/0xdd35aa587c490548ce8ebc6293231718e68d53ded7704f576fd07bcaabe722a8"
 ---
