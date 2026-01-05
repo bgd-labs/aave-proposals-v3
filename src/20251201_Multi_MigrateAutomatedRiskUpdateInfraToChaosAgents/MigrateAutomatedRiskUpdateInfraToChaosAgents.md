@@ -51,7 +51,7 @@ Whitelisted Assets / Markets configured on chaos agent:
 | EthereumCore Slope2 Interest Rate    | WETH, USDC, USDT, USDe                                                                                                                                     |
 | Linea Slope2 Interest Rate           | WETH, USDC, USDT                                                                                                                                           |
 
-_Please note: The whitelisted assets and the constrains are exactly the same as previously on the AGRS injector infra._
+_Please note: The whitelisted assets and the constrains are exactly the same as previously on the AGRS injector infra. This proposal only migrates existing automated AGRS system using injector infra, there is no change to the manual AGRS system and updates on it using the new infra will be applied at a different AIP._
 
 The chaos agent contracts have not been pre-configured during deployment and all operations including the following will be done on the payload:
 
