@@ -38,7 +38,7 @@ We would like to submit for governance approval a 100% increase in @EzR3al’s O
   - EzR3al: [0x8659d0bb123da6d16d9394c7838ba286c2207d0e](https://etherscan.io/address/0x8659d0bb123da6d16d9394c7838ba286c2207d0e)
   - StableLab: [0xecc2a9240268bc7a26386ecb49e1befca2706ac9](https://etherscan.io/address/0xecc2a9240268bc7a26386ecb49e1befca2706ac9)
   - IgnasDefi: [0x3DDC7d25c7a1dc381443e491Bbf1Caa8928A05B0](https://etherscan.io/address/0x3DDC7d25c7a1dc381443e491Bbf1Caa8928A05B0)
-  - Areta:[0x8b37a5Af68D315cf5A64097D96621F64b5502a22](http://etherscan.io/address/0x8b37a5Af68D315cf5A64097D96621F64b5502a22)
+  - Areta:[0x8b37a5Af68D315cf5A64097D96621F64b5502a22](https://etherscan.io/address/0x8b37a5Af68D315cf5A64097D96621F64b5502a22)
 - **Budget:** 150,000 GHO (aEthLidoGHO)
 - **Relevant Links:**
   - [ACI’s Orbit tracker](https://dapps.aavechan.com/orbit-tracker)
