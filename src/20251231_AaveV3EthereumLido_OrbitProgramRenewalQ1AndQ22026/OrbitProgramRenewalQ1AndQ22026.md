@@ -45,7 +45,7 @@ We would like to submit for governance approval a 100% increase in @EzR3al’s O
 
 **Additional considerations:**
 
-As a reminder, Service Providers will not be considered elegible to Orbit Program.
+As a reminder, Service Providers will not be considered eligible to Orbit Program.
 
 Funds are distributed based on 180 days, as seen on budget and as specified on motivation section.
 
