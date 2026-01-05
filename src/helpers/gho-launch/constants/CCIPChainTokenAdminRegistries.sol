@@ -28,4 +28,7 @@ library CCIPChainTokenAdminRegistries {
 
   // https://docs.chain.link/ccip/directory/mainnet/chain/plasma-mainnet
   address constant PLASMA = 0xc23071a8AE83671f37bdA1DaDBC745a9780f632A;
+
+  // https://docs.chain.link/ccip/directory/mainnet/chain/ethereum-mainnet-mantle-1
+  address constant MANTLE = 0x000A744940eB5D857c0d61d97015DFc83107404F;
 }

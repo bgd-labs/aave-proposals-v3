@@ -32,6 +32,9 @@ import {GhoInk} from 'aave-address-book/GhoInk.sol';
 import {AaveV3Plasma} from 'aave-address-book/AaveV3Plasma.sol';
 import {GovernanceV3Plasma} from 'aave-address-book/GovernanceV3Plasma.sol';
 
+import {AaveV3Mantle} from 'aave-address-book/AaveV3Mantle.sol';
+import {GovernanceV3Mantle} from 'aave-address-book/GovernanceV3Mantle.sol';
+
 /**
  * @title GhoCCIPChains
  * @author Aave Labs
@@ -72,7 +75,7 @@ library GhoCCIPChains {
    * @return An array with all the ChainInfo constants supported
    */
   function getAllChains() public pure returns (ChainInfo[] memory) {
-    ChainInfo[] memory allChains = new ChainInfo[](7);
+    ChainInfo[] memory allChains = new ChainInfo[](8);
     allChains[0] = ETHEREUM();
     allChains[1] = ARBITRUM();
     allChains[2] = BASE();
@@ -80,6 +83,7 @@ library GhoCCIPChains {
     allChains[4] = GNOSIS();
     allChains[5] = INK();
     allChains[6] = PLASMA();
+    allChains[7] = MANTLE();
     return allChains;
   }
 
@@ -319,6 +323,28 @@ library GhoCCIPChains {
         tokenAdminRegistry: CCIPChainTokenAdminRegistries.PLASMA,
         owner: GovernanceV3Plasma.EXECUTOR_LVL_1,
         ccipRouter: CCIPChainRouters.PLASMA,
+        linkToken: 0x76a443768A5e3B8d1AED0105FC250877841Deb40,
+        isVersion_1_6: true
+      });
+  }
+
+  /**
+   * @notice Returns the ChainInfo constant for Mantle
+   * @return The ChainInfo constant for Mantle
+   */
+  function MANTLE() public pure returns (ChainInfo memory) {
+    return
+      ChainInfo({
+        chainSelector: CCIPChainSelectors.MANTLE,
+        ghoToken: 0xb77E872A68C62CfC0dFb02C067Ecc3DA23B4bbf3,
+        ghoCCIPTokenPool: 0x360d8aa8F6b09B7BC57aF34db2Eb84dD87bf4d12,
+        ghoBucketSteward: 0x2Ce400703dAcc37b7edFA99D228b8E70a4d3831B,
+        ghoAaveCoreSteward: 0xA5Ba213867E175A182a5dd6A9193C6158738105A,
+        ghoCCIPSteward: 0x20fd5f3FCac8883a3A0A2bBcD658A2d2c6EFa6B6,
+        aclManager: address(AaveV3Mantle.ACL_MANAGER),
+        tokenAdminRegistry: CCIPChainTokenAdminRegistries.MANTLE,
+        owner: GovernanceV3Mantle.EXECUTOR_LVL_1,
+        ccipRouter: CCIPChainRouters.MANTLE,
         linkToken: 0x76a443768A5e3B8d1AED0105FC250877841Deb40,
         isVersion_1_6: true
       });
