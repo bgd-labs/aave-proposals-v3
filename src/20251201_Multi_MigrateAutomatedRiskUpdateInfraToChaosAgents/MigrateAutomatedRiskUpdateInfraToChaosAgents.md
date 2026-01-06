@@ -80,7 +80,7 @@ Detailed permissions post payload execution of the Chaos Risk Agent could be fou
 | AgentHub ProxyAdmin owner           | Governance Executor Lvl 1 |
 | Agent Admin                         | Governance Executor Lvl 1 |
 | RangeValidationModule Config Update | Governance Executor Lvl 1 |
-| `RISK_ADMIN` on ACL Manager         | Each Agent contract            |
+| `RISK_ADMIN` on ACL Manager         | Each Agent contract       |
 
 ## References
 
