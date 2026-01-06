@@ -1,5 +1,5 @@
 ---
-title: "Migrate automated risk update infra to chaos agents"
+title: "AGRS (Risk Stewards) migration to Risk Agents"
 author: "BGD Labs (@bgdlabs)"
 discussions: "https://governance.aave.com/t/arfc-chaos-risk-agents/23401"
 snapshot: "https://snapshot.org/#/s:aavedao.eth/proposal/0x9795f1b7057d2780b3382b9f67f309fbfead98e7357a88df4c309dbbfefcbeb7"
@@ -7,22 +7,22 @@ snapshot: "https://snapshot.org/#/s:aavedao.eth/proposal/0x9795f1b7057d2780b3382
 
 ## Simple Summary
 
-This proposal migrates all existing injector middleware infra used to perform automated risk updates to the new chaos agents system.
+Following the approval of [Risk Agents](https://governance.aave.com/t/arfc-chaos-risk-agents/23401), this proposal migrates all existing injector middleware infra used to perform automated risk updates to the new chaos agents system.
 
 ## Motivation
 
-Currently, the AGRS in conjunction with the injector system is responsible for processing risk recommendations for a range of parameters including supply and borrow caps, interest rates, pendle pt e-mode collateral params and CAPO values across multiple assets and Aave instances. These updates are executed through the injector middleware which consume updates from the chaos risk oracles and inject updates onto the Aave protocol in real-time.
+Currently, the AGRS, in conjunction with the injector system, is responsible for processing highly constrained risk recommendations for a range of parameters, including supply and borrow caps, interest rates, pendle pt e-mode collateral params, and CAPO values across multiple assets and Aave instances. These updates are executed through the injector middleware, which consumes updates from the chaos risk oracles and injects updates onto the Aave protocol in real-time.
 
 While the existing system has served Aave more than well, several limitations exist:
 
-- Limited generalization: Almost every Risk Stewards activation requires ad-hoc replication of the entire architecture. This results in meaningful overhead for Aave SPs (e.g., ACI, Chaos Labs, BGD Labs).
+- Limited generalization: Almost every Risk Stewards activation requires ad-hoc replication of the entire architecture. This results in meaningful overhead for Aave SPs.
 - Limited infrastructure visibility: Tracking all active Risk Stewards, as well as their covered assets and constraints, can be challenging at times.
 
 The Chaos Risk Agents framework generalizes and modularizes the process of ingesting Risk Oracle data within Aave. It eliminates redundant deployments, centralizes validation logic, and improves visibility across all risk automation layers. The result is a cleaner, more maintainable architecture that allows Aave to expand real-time risk management capabilities, ensuring consistent, verifiable execution of parameter updates.
 
 ## Specification
 
-All the current automated risk param updates will be migrated from the old injector infra to the chaos-agent system including the following:
+All the current automated risk param updates will be migrated from the old injector infra to the chaos-agent system, including the following:
 
 | Risk Param                                    | Network Instance                                          | Constrains                                                             |
 | --------------------------------------------- | --------------------------------------------------------- | ---------------------------------------------------------------------- |
@@ -32,7 +32,7 @@ All the current automated risk param updates will be migrated from the old injec
 | Interest Rate: Base, Slope1, Slope2, uOptimal | EthereumPrime                                             | max 3% uOpt, 0.5% base, 0.5% slope1, 5% slope2 absolute change / 1 day |
 | Interest Rate: Slope2                         | EthereumCore, Linea                                       | max 4% absolute change / 8 hours                                       |
 
-Whitelisted Assets / Markets configured on chaos agent:
+Whitelisted Assets / Markets configured by agent:
 
 |                                      | Whitelisted Assets / Markets                                                                                                                               |
 | ------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -51,20 +51,20 @@ Whitelisted Assets / Markets configured on chaos agent:
 | EthereumCore Slope2 Interest Rate    | WETH, USDC, USDT, USDe                                                                                                                                     |
 | Linea Slope2 Interest Rate           | WETH, USDC, USDT                                                                                                                                           |
 
-_Please note: The whitelisted assets and the constrains are exactly the same as previously on the AGRS injector infra. This proposal only migrates existing automated AGRS system using injector infra, there is no change to the manual AGRS system and updates on it using the new infra will be applied at a different AIP._
+_Please note: The whitelisted assets and the constraints are the same as previously on the AGRS injector infra. This proposal only migrates the existing automated AGRS system using injector infrastructure; there is no change to the manual AGRS system, and updates on it using the new infra will be applied at a different AIP._
 
-The chaos agent contracts have not been pre-configured during deployment and all operations including the following will be done on the payload:
+The risk agent contracts have not been pre-configured during deployment, and all operations, will be done on the payload:
 
 - Register new agents on the AgentHub contract by calling `registerAgent()`
 - Configure constrained ranges on the `RangeValidationModule` to strictly bound the risk param update from the Chaos Risk Oracle.
 - Give `RISK_ADMIN` role to the AgentContract which will be called by the Chaos Agent system to inject updates onto the Aave protocol.
-- Revoke `RISK_ADMIN` role from the previous injector contracts as this system will be unused.
-- Cancel previous injector automation and register new one's on the AgentHub Automation wrapper contract. This is done only on networks were we use chainlink automation, on Linea, Gnosis and Plasma networks this will be done off-chain using the DAO account on Gelato automation.
+- Revoke `RISK_ADMIN` role from the previous injector contracts, as this system will be unused.
+- Cancel previous injector automation and register new ones on the AgentHub Automation wrapper contract. This is done only on networks where we use Chainlink automation, on Linea, Gnosis, and Plasma networks, this will be done off-chain using the DAO account on Gelato automation.
 - Reimburse BGD Labs with 120 LINK by withdrawing aLINK from Collector on Ethereum, which was used to fund chainlink automation on BNB, Base networks as Collector did not have LINK on those networks.
 
 All configurations used on the proposal payload could be found on the [AgentConfigLib](https://github.com/bgd-labs/chaos-agents-migration/blob/88bb6f3c4e043960f8cb42741ebe13c46c73b944/src/contracts/AgentConfigLib.sol).
 
-More detailed specification can be found on the [chaos-agents-migration](https://github.com/bgd-labs/chaos-agents-migration) repo.
+More detailed specifications can be found on the [chaos-agents-migration](https://github.com/bgd-labs/chaos-agents-migration) repo.
 
 ### Security
 
@@ -81,6 +81,10 @@ Detailed permissions post payload execution of the Chaos Risk Agent could be fou
 | Agent Admin                         | Governance Executor Lvl 1 |
 | RangeValidationModule Config Update | Governance Executor Lvl 1 |
 | `RISK_ADMIN` on ACL Manager         | Each Agent contract       |
+
+### Addresses
+
+All Agents Hub addresses per network can be found on [Aave Address Book](https://search.onaave.com/?q=agent%20hub).
 
 ## References
 
