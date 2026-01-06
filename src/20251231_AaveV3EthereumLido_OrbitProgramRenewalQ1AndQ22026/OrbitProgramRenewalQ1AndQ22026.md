@@ -55,8 +55,8 @@ The ACI is independent and has not received any form of compensation from relate
 
 ## References
 
-- Implementation: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251231_AaveV3EthereumLido_OrbitProgramRenewalQ1AndQ22026/AaveV3EthereumLido_OrbitProgramRenewalQ1AndQ22026_20251231.sol)
-- Tests: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20251231_AaveV3EthereumLido_OrbitProgramRenewalQ1AndQ22026/AaveV3EthereumLido_OrbitProgramRenewalQ1AndQ22026_20251231.t.sol)
+- Implementation: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/4cb55e7ca7a76535190d1a936f8fc7f2abf55577/src/20251231_AaveV3EthereumLido_OrbitProgramRenewalQ1AndQ22026/AaveV3EthereumLido_OrbitProgramRenewalQ1AndQ22026_20251231.sol)
+- Tests: [AaveV3EthereumLido](https://github.com/bgd-labs/aave-proposals-v3/blob/4cb55e7ca7a76535190d1a936f8fc7f2abf55577/src/20251231_AaveV3EthereumLido_OrbitProgramRenewalQ1AndQ22026/AaveV3EthereumLido_OrbitProgramRenewalQ1AndQ22026_20251231.t.sol)
 - [Snapshot](https://snapshot.org/#/s:aavedao.eth/proposal/0xdd35aa587c490548ce8ebc6293231718e68d53ded7704f576fd07bcaabe722a8)
 - [Discussion](https://governance.aave.com/t/arfc-orbit-program-renewal-q1-and-q2-2026/23695)
 
