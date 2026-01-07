@@ -31,6 +31,7 @@ import {GhoInk} from 'aave-address-book/GhoInk.sol';
 
 import {AaveV3Plasma} from 'aave-address-book/AaveV3Plasma.sol';
 import {GovernanceV3Plasma} from 'aave-address-book/GovernanceV3Plasma.sol';
+import {GhoPlasma} from 'aave-address-book/GhoPlasma.sol';
 
 import {AaveV3Mantle} from 'aave-address-book/AaveV3Mantle.sol';
 import {GovernanceV3Mantle} from 'aave-address-book/GovernanceV3Mantle.sol';
@@ -314,11 +315,11 @@ library GhoCCIPChains {
     return
       ChainInfo({
         chainSelector: CCIPChainSelectors.PLASMA,
-        ghoToken: 0xb77E872A68C62CfC0dFb02C067Ecc3DA23B4bbf3,
-        ghoCCIPTokenPool: 0x360d8aa8F6b09B7BC57aF34db2Eb84dD87bf4d12,
-        ghoBucketSteward: 0x2Ce400703dAcc37b7edFA99D228b8E70a4d3831B,
+        ghoToken: GhoPlasma.GHO_TOKEN,
+        ghoCCIPTokenPool: GhoInk.GHO_CCIP_TOKEN_POOL,
+        ghoBucketSteward: GhoInk.GHO_BUCKET_STEWARD,
         ghoAaveCoreSteward: 0xA5Ba213867E175A182a5dd6A9193C6158738105A,
-        ghoCCIPSteward: 0x20fd5f3FCac8883a3A0A2bBcD658A2d2c6EFa6B6,
+        ghoCCIPSteward: GhoInk.GHO_CCIP_STEWARD,
         aclManager: address(AaveV3Plasma.ACL_MANAGER),
         tokenAdminRegistry: CCIPChainTokenAdminRegistries.PLASMA,
         owner: GovernanceV3Plasma.EXECUTOR_LVL_1,
@@ -336,8 +337,8 @@ library GhoCCIPChains {
     return
       ChainInfo({
         chainSelector: CCIPChainSelectors.MANTLE,
-        ghoToken: 0xb77E872A68C62CfC0dFb02C067Ecc3DA23B4bbf3,
-        ghoCCIPTokenPool: 0x360d8aa8F6b09B7BC57aF34db2Eb84dD87bf4d12,
+        ghoToken: 0xfc421aD3C883Bf9E7C4f42dE845C4e4405799e73,
+        ghoCCIPTokenPool: 0xDe6539018B095353A40753Dc54C91C68c9487D4E,
         ghoBucketSteward: 0x2Ce400703dAcc37b7edFA99D228b8E70a4d3831B,
         ghoAaveCoreSteward: 0xA5Ba213867E175A182a5dd6A9193C6158738105A,
         ghoCCIPSteward: 0x20fd5f3FCac8883a3A0A2bBcD658A2d2c6EFa6B6,
@@ -345,7 +346,7 @@ library GhoCCIPChains {
         tokenAdminRegistry: CCIPChainTokenAdminRegistries.MANTLE,
         owner: GovernanceV3Mantle.EXECUTOR_LVL_1,
         ccipRouter: CCIPChainRouters.MANTLE,
-        linkToken: 0x76a443768A5e3B8d1AED0105FC250877841Deb40,
+        linkToken: 0xfe36cF0B43aAe49fBc5cFC5c0AF22a623114E043,
         isVersion_1_6: true
       });
   }

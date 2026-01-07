@@ -8,7 +8,7 @@ import {GhoCCIPChains} from '../helpers/gho-launch/constants/GhoCCIPChains.sol';
  * @title Gho Mantle Launch
  * @author @TokenLogic
  * - Snapshot: TODO
- * - Discussion: TODO
+ * - Discussion: https://governance.aave.com/t/arfc-deploy-aave-v3-on-mantle/20542/10
  */
 contract AaveV3Mantle_GhoMantleActivation_20260102 is AaveV3GHOLaunch {
   constructor() AaveV3GHOLaunch(GhoCCIPChains.MANTLE()) {}

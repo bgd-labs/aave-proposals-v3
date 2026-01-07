@@ -1,7 +1,7 @@
 ---
 title: "Gho Mantle Activation"
 author: "@TokenLogic"
-discussions: "TODO"
+discussions: "https://governance.aave.com/t/arfc-deploy-aave-v3-on-mantle/20542/10"
 snapshot: "TODO"
 ---
 
@@ -16,7 +16,7 @@ snapshot: "TODO"
 - Implementation: [AaveV3Metis](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20260102_AaveV3Metis_GhoMantleActivation/AaveV3Metis_GhoMantleActivation_20260102.sol)
 - Tests: [AaveV3Metis](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20260102_AaveV3Metis_GhoMantleActivation/AaveV3Metis_GhoMantleActivation_20260102.t.sol)
 - [Snapshot](TODO)
-- [Discussion](TODO)
+- [Discussion](https://governance.aave.com/t/arfc-deploy-aave-v3-on-mantle/20542/10)
 
 ## Copyright
 

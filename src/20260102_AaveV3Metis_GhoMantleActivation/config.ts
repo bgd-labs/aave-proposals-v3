@@ -6,7 +6,7 @@ export const config: ConfigFile = {
     shortName: 'GhoMantleActivation',
     date: '20260102',
     author: '@TokenLogic',
-    discussion: 'TODO',
+    discussion: 'https://governance.aave.com/t/arfc-deploy-aave-v3-on-mantle/20542/10',
     snapshot: 'TODO',
     votingNetwork: 'AVALANCHE',
   },

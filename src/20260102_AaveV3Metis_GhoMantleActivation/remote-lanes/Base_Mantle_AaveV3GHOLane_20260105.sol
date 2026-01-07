@@ -9,9 +9,9 @@ import {GhoCCIPChains} from '../../helpers/gho-launch/constants/GhoCCIPChains.so
  * @title Base<>Mantle GHO CCIP Lane
  * @author TokenLogic
  * - Snapshot: TODO
- * - Discussion: TODO
+ * - Discussion: https://governance.aave.com/t/arfc-deploy-aave-v3-on-mantle/20542/10
  */
-contract Base_Mantle_AaveV3GHOLane_20250921 is AaveV3GHOLane {
+contract Base_Mantle_AaveV3GHOLane_20260105 is AaveV3GHOLane {
   constructor() AaveV3GHOLane(GhoCCIPChains.BASE()) {}
 
   function lanesToAdd()
