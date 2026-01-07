@@ -5,18 +5,18 @@ import {GovV3Helpers, IPayloadsControllerCore} from 'aave-helpers/src/GovV3Helpe
 import {GovernanceV3InkWhitelabel} from 'aave-address-book/GovernanceV3InkWhitelabel.sol';
 
 import {EthereumScript, InkScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
-import {AaveV3InkWhitelabel_TrydoSablecoinIR_20260106} from './AaveV3InkWhitelabel_TrydoSablecoinIR_20260106.sol';
+import {AaveV3InkWhitelabel_TrydoStablecoinIR_20260107} from './AaveV3InkWhitelabel_TrydoStablecoinIR_20260107.sol';
 
 /**
  * @dev Deploy Ink
- * deploy-command: make deploy-ledger contract=src/20260106_AaveV3InkWhitelabel_TrydoSablecoinIR/TrydoSablecoinIR_20260106.s.sol:DeployInk chain=ink
- * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/TrydoSablecoinIR_20260106.s.sol/57073/run-latest.json
+ * deploy-command: make deploy-ledger contract=src/20260107_AaveV3InkWhitelabel_TrydoStablecoinIR/TrydoStablecoinIR_20260107.s.sol:DeployInk chain=ink
+ * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/TrydoStablecoinIR_20260107.s.sol/57073/run-latest.json
  */
 contract DeployInk is InkScript {
   function run() external broadcast {
     // deploy payloads
     address payload0 = GovV3Helpers.deployDeterministic(
-      type(AaveV3InkWhitelabel_TrydoSablecoinIR_20260106).creationCode
+      type(AaveV3InkWhitelabel_TrydoStablecoinIR_20260107).creationCode
     );
 
     // compose action

@@ -2,10 +2,10 @@ import {ConfigFile} from '../../generator/types';
 export const config: ConfigFile = {
   rootOptions: {
     pools: ['AaveV3InkWhitelabel'],
-    title: 'Trydo Sablecoin IR',
-    shortName: 'TrydoSablecoinIR',
-    date: '20260106',
-    author: 'ACI',
+    title: 'Trydo Stablecoin IR',
+    shortName: 'TrydoStablecoinIR',
+    date: '20260107',
+    author: 'Chaos Labs (implemented by Aavechan Initiative @aci via Skyward)',
   },
   poolOptions: {
     AaveV3InkWhitelabel: {
@@ -40,7 +40,7 @@ export const config: ConfigFile = {
           },
         ],
       },
-      cache: {blockNumber: 34210021},
+      cache: {blockNumber: 34306982},
     },
   },
 };

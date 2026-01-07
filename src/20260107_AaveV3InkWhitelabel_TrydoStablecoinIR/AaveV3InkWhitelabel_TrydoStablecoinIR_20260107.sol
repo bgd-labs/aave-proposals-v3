@@ -7,10 +7,10 @@ import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/
 import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
 
 /**
- * @title Trydo Sablecoin IR
- * @author ACI
+ * @title Trydo Stablecoin IR
+ * @author Chaos Labs (implemented by Aavechan Initiative @aci via Skyward)
  */
-contract AaveV3InkWhitelabel_TrydoSablecoinIR_20260106 is AaveV3PayloadInkWhitelabel {
+contract AaveV3InkWhitelabel_TrydoStablecoinIR_20260107 is AaveV3PayloadInkWhitelabel {
   function rateStrategiesUpdates()
     public
     pure
