@@ -7,6 +7,8 @@
     "lint:fix": "prettier . --write",
     "generate": "tsx generator/cli",
     "generate:bgd": "tsx generator/cli -a 'BGD Labs @bgdlabs'",
+    "generate:aci": "tsx generator/cli -a 'Aavechan Initiative @aci'",
+    "generate:aci-sky": "tsx generator/cli -a 'XXX (implemented by Aavechan Initiative @aci via Skyward)'",
     "prepare": "husky install"
   },
   "engines": {
