@@ -1,5 +1,5 @@
 ---
-title: "Add WETH to the rsETH LST E-Mode on Aave Core Instance"
+title: "Add WETH to the rsETH LST E-Mode on Aave Core Instance "
 author: "Kelp DAO (implemented by Aavechan Initiative @aci via Skyward)"
 discussions: "https://governance.aave.com/t/direct-to-aip-add-weth-to-the-rseth-lst-e-mode-on-aave-core-instance/23425"
 ---
@@ -45,8 +45,8 @@ This proposal is powered by Skywards. The Aave Chan Initiative is not directly a
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20260107_AaveV3Ethereum_UpddateRsETHEModeOnCore/AaveV3Ethereum_UpddateRsETHEModeOnCore_20260107.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20260107_AaveV3Ethereum_UpddateRsETHEModeOnCore/AaveV3Ethereum_UpddateRsETHEModeOnCore_20260107.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20260107_AaveV3Ethereum_AddWETHToTheRsETHLSTEModeOnAaveCoreInstance/AaveV3Ethereum_AddWETHToTheRsETHLSTEModeOnAaveCoreInstance_20260107.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20260107_AaveV3Ethereum_AddWETHToTheRsETHLSTEModeOnAaveCoreInstance/AaveV3Ethereum_AddWETHToTheRsETHLSTEModeOnAaveCoreInstance_20260107.t.sol)
 - Snapshot: Direct-to-AIP
 - [Discussion](https://governance.aave.com/t/direct-to-aip-add-weth-to-the-rseth-lst-e-mode-on-aave-core-instance/23425)
 

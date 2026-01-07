@@ -8,11 +8,11 @@
 
 
 
-### EMode: rsETH__ETHx_wstETH_ETHx(id: 3)
+### EMode: rsETH__ETH_wstETH_ETHx(id: 3)
 
 | description | value before | value after |
 | --- | --- | --- |
-| eMode.label | rsETH LST main | rsETH__ETHx_wstETH_ETHx |
+| eMode.label | rsETH LST main | rsETH__ETH_wstETH_ETHx |
 | eMode.ltv (unchanged) | 93 % | 93 % |
 | eMode.liquidationThreshold (unchanged) | 95 % | 95 % |
 | eMode.liquidationBonus (unchanged) | 1 % | 1 % |
@@ -152,7 +152,7 @@
       },
       "label": {
         "from": "rsETH LST main",
-        "to": "rsETH__ETHx_wstETH_ETHx"
+        "to": "rsETH__ETH_wstETH_ETHx"
       }
     }
   },
@@ -169,7 +169,7 @@
         },
         "0x81d0999fde243adcc41b7fa1be5cea14f789e3a6065b815ac58f4bc0838c3156": {
           "previousValue": "0x7273455448204c5354206d61696e00000000000000000000000000000000001c",
-          "newValue": "0x72734554485f5f455448785f7773744554485f4554487800000000000000002e"
+          "newValue": "0x72734554485f5f4554485f7773744554485f455448780000000000000000002c"
         },
         "0x81d0999fde243adcc41b7fa1be5cea14f789e3a6065b815ac58f4bc0838c3157": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000080000002",

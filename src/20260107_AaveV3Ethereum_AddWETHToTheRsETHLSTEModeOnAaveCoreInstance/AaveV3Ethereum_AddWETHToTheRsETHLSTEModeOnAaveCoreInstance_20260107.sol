@@ -29,7 +29,7 @@ contract AaveV3Ethereum_AddWETHToTheRsETHLSTEModeOnAaveCoreInstance_20260107 is
       ltv: 93_00,
       liqThreshold: 95_00,
       liqBonus: 1_00,
-      label: 'rsETH__ETHx_wstETH_ETHx'
+      label: 'rsETH__ETH_wstETH_ETHx'
     });
 
     return eModeUpdates;
