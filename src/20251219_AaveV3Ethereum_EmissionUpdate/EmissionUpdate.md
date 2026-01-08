@@ -6,19 +6,18 @@ discussions: "https://governance.aave.com/t/arfc-safety-module-umbrella-emission
 
 ## Simple Summary
 
-Reduce AAVE emissions for the legacy Safety Module **stkABPT** (stkAAVE/wstETH BPTv2) from **130 AAVE/day** to **40 AAVE/day**.
+Extend the rewards distribution duration for the legacy Safety Module **stkABPT** (stkAAVE/wstETH BPTv2) while keeping the current AAVE emission rate unchanged.
 
 ## Motivation
 
-This change follows the proposal’s direction to **phase out stkABPT incentives** (as emissions will trend to **0**) by reducing incentives on the legacy Safety Module. Reducing stkABPT emissions lowers ongoing incentive spend while supporting the transition towards the Umbrella Safety Modules and improved capital efficiency.
+Extend stkABPT rewards distribution duration without modifying the current emission rate.
 
 **Note:** **stkAAVE is not being phased out**; it will be **repurposed** into a **no-risk staking (dividend yield) contract**.
 
 ## Specification
 
 - **Target module:** Legacy Safety Module stake token **stkABPT** (`AaveSafetyModule.STK_AAVE_WSTETH_BPTV2`).
-- **Change:** Update AAVE rewards emission rate from **130 AAVE/day → 40 AAVE/day** by setting:
-  - `emissionPerSecond = 40 AAVE / day` (expressed as `uint128(40 ether) / 1 days`)
+- **Emission rate:** unchanged (this payload does not call `configureAssets`; it reads `emissionPerSecond` on-chain for funding calculations).
 - **Distribution end:** extend rewards distribution by **90 days**: `newDistributionEnd = distributionEnd + 90 days`.
 - **Allowance adjustment (funding):** Reset and set the AAVE allowance from the **Ecosystem Reserve** to the stake token to cover **already accrued** + **future emissions**:
   - `allowance = currentAllowance + emissionPerSecond * (newDistributionEnd - block.timestamp)`
