@@ -23,12 +23,12 @@ Given the strong demand on the sidelines and proven growth potential of Kelp’s
 **E-mode (rsETH LST Main) - Core**
 
 | **Parameter**         | **rsETH** | **wstETH** | **ETHx** | **ETH** |
-| --------------------- | --------- | --------- | --------- | ----- |
-| Collateral            | Yes       | No        | No        | No    |
-| Borrowable            | No        | Yes       | Yes       | Yes   |
-| Max LTV               | 93.0%     | -         | -         | -     |
-| Liquidation Threshold | 95.0%     | -         | -         | -     |
-| Liquidation Bonus     | 1.0%      | -         | -         | -     |
+| --------------------- | --------- | ---------- | -------- | ------- |
+| Collateral            | Yes       | No         | No       | No      |
+| Borrowable            | No        | Yes        | Yes      | Yes     |
+| Max LTV               | 93.0%     | -          | -        | -       |
+| Liquidation Threshold | 95.0%     | -          | -        | -       |
+| Liquidation Bonus     | 1.0%      | -          | -        | -       |
 
 ## Useful Links
 
