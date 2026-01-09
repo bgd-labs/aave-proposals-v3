@@ -18,7 +18,7 @@ export const config: ConfigFile = {
     shortName: 'MigrateAutomatedRiskUpdateInfraToChaosAgents',
     date: '20251201',
     author: 'BGD Labs (@bgdlabs)',
-    discussion: 'https://governance.aave.com/t/arfc-chaos-risk-agents/23401',
+    discussion: 'https://governance.aave.com/t/technical-maintenance-proposals/15274/122',
     snapshot:
       'https://snapshot.org/#/s:aavedao.eth/proposal/0x9795f1b7057d2780b3382b9f67f309fbfead98e7357a88df4c309dbbfefcbeb7',
     votingNetwork: 'AVALANCHE',
