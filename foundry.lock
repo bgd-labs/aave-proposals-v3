@@ -1,8 +1,8 @@
 {
   "lib/aave-helpers": {
     "branch": {
-      "name": "fix/new-engine",
-      "rev": "a2d2deffe083c5d8d42f3c3c3ea2282a8cf46b0f"
+      "name": "main",
+      "rev": "bf079475983317f5c02228a27f92881fc4937e15"
     }
   },
   "lib/aave-umbrella": {
