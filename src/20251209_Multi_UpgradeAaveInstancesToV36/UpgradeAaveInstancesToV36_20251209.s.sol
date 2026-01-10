@@ -16,18 +16,6 @@ import {ReimbursePayload} from './ReimbursePayload.sol';
 contract DeployEthereum is EthereumScript {
   function run() external broadcast {
     {
-      IPayloadsControllerCore.ExecutionAction[]
-        memory actions = new IPayloadsControllerCore.ExecutionAction[](2);
-      address payload0 = GovV3Helpers.deployDeterministic(type(ReimbursePayload).creationCode);
-
-      actions[0] = GovV3Helpers.buildAction(Deployments.MAINNET_ETHERFI);
-      actions[1] = GovV3Helpers.buildAction(payload0);
-
-      // register action at payloadsController
-      GovV3Helpers.createPayload(actions);
-    }
-
-    {
       // compose action
       IPayloadsControllerCore.ExecutionAction[]
         memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
