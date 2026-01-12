@@ -17,7 +17,7 @@ contract AaveV3Ethereum_AddWETHToTheRsETHLSTEModeOnAaveCoreInstance_20260107_Tes
   AaveV3Ethereum_AddWETHToTheRsETHLSTEModeOnAaveCoreInstance_20260107 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 24183624);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 24219749);
     proposal = new AaveV3Ethereum_AddWETHToTheRsETHLSTEModeOnAaveCoreInstance_20260107();
   }
 
