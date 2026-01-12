@@ -29,6 +29,9 @@ async function subCli(pool: PoolIdentifier) {
       borrowable: await boolPrompt({
         message: `Should the asset ${asset} be enabled as borrowable inside the EMode?`,
       }),
+      ltvzero: await boolPrompt({
+        message: `Should ltvzero be enabled for the asset ${asset} inside the EMode?`,
+      }),
     });
   }
   return answers;
@@ -58,7 +61,8 @@ export const eModeAssets: FeatureModule<EmodeAssetUpdates> = {
                asset: ${translateAssetToAssetLibUnderlying(cfg.asset, pool)},
                eModeCategory: ${cfg.eModeCategory},
                borrowable: ${translateJsBoolToSol(cfg.borrowable)},
-               collateral: ${translateJsBoolToSol(cfg.collateral)}
+               collateral: ${translateJsBoolToSol(cfg.collateral)},
+               ltvzero: ${translateJsBoolToSol(cfg.ltvzero)},
              });`,
             )
             .join('\n')}

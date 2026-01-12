@@ -5,18 +5,18 @@ import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aa
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 
 import {EthereumScript, BaseScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
-import {AaveV3Base_AddWETHToTheWrsETHWstETHEModeOnAaveV3BaseInstance_20251212} from './AaveV3Base_AddWETHToTheWrsETHWstETHEModeOnAaveV3BaseInstance_20251212.sol';
+import {AaveV3Base_OnboardSyrupUSDCToAaveV3BaseInstance_20251223} from './AaveV3Base_OnboardSyrupUSDCToAaveV3BaseInstance_20251223.sol';
 
 /**
  * @dev Deploy Base
- * deploy-command: make deploy-ledger contract=src/20251212_Multi_AddWETHToTheWrsETHWstETHEModeOnAaveV3BaseInstance/AddWETHToTheWrsETHWstETHEModeOnAaveV3BaseInstance_20251212.s.sol:DeployBase chain=base
- * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/AddWETHToTheWrsETHWstETHEModeOnAaveV3BaseInstance_20251212.s.sol/8453/run-latest.json
+ * deploy-command: make deploy-ledger contract=src/20251223_AaveV3Base_OnboardSyrupUSDCToAaveV3BaseInstance/OnboardSyrupUSDCToAaveV3BaseInstance_20251223.s.sol:DeployBase chain=base
+ * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/OnboardSyrupUSDCToAaveV3BaseInstance_20251223.s.sol/8453/run-latest.json
  */
 contract DeployBase is BaseScript {
   function run() external broadcast {
     // deploy payloads
     address payload0 = GovV3Helpers.deployDeterministic(
-      type(AaveV3Base_AddWETHToTheWrsETHWstETHEModeOnAaveV3BaseInstance_20251212).creationCode
+      type(AaveV3Base_OnboardSyrupUSDCToAaveV3BaseInstance_20251223).creationCode
     );
 
     // compose action
@@ -31,7 +31,7 @@ contract DeployBase is BaseScript {
 
 /**
  * @dev Create Proposal
- * command: make deploy-ledger contract=src/20251212_Multi_AddWETHToTheWrsETHWstETHEModeOnAaveV3BaseInstance/AddWETHToTheWrsETHWstETHEModeOnAaveV3BaseInstance_20251212.s.sol:CreateProposal chain=mainnet
+ * command: make deploy-ledger contract=src/20251223_AaveV3Base_OnboardSyrupUSDCToAaveV3BaseInstance/OnboardSyrupUSDCToAaveV3BaseInstance_20251223.s.sol:CreateProposal chain=mainnet
  */
 contract CreateProposal is EthereumScript {
   function run() external {
@@ -43,10 +43,11 @@ contract CreateProposal is EthereumScript {
       IPayloadsControllerCore.ExecutionAction[]
         memory actionsBase = new IPayloadsControllerCore.ExecutionAction[](1);
       actionsBase[0] = GovV3Helpers.buildAction(
-        type(AaveV3Base_AddWETHToTheWrsETHWstETHEModeOnAaveV3BaseInstance_20251212).creationCode
+        type(AaveV3Base_OnboardSyrupUSDCToAaveV3BaseInstance_20251223).creationCode
       );
       payloads[0] = GovV3Helpers.buildBasePayload(vm, actionsBase);
     }
+
     // create proposal
     vm.startBroadcast();
     GovV3Helpers.createProposal(
@@ -55,7 +56,7 @@ contract CreateProposal is EthereumScript {
       GovernanceV3Ethereum.VOTING_PORTAL_ETH_AVAX,
       GovV3Helpers.ipfsHashFile(
         vm,
-        'src/20251212_Multi_AddWETHToTheWrsETHWstETHEModeOnAaveV3BaseInstance/AddWETHToTheWrsETHWstETHEModeOnAaveV3BaseInstance.md'
+        'src/20251223_AaveV3Base_OnboardSyrupUSDCToAaveV3BaseInstance/OnboardSyrupUSDCToAaveV3BaseInstance.md'
       )
     );
   }
