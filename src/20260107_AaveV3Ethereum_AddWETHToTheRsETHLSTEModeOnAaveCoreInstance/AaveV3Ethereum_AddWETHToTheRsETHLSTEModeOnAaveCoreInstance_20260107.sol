@@ -47,7 +47,8 @@ contract AaveV3Ethereum_AddWETHToTheRsETHLSTEModeOnAaveCoreInstance_20260107 is
       asset: AaveV3EthereumAssets.WETH_UNDERLYING,
       eModeCategory: AaveV3EthereumEModes.rsETH__wstETH_ETHx,
       borrowable: EngineFlags.ENABLED,
-      collateral: EngineFlags.KEEP_CURRENT
+      collateral: EngineFlags.KEEP_CURRENT,
+      ltvzero: EngineFlags.KEEP_CURRENT
     });
 
     return assetEModeUpdates;
