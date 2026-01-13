@@ -68,6 +68,16 @@ contract AaveV3Ethereum_EmissionUpdate_20251219_Test is ProtocolV3TestBase {
   }
 
   function test_checkAllowance() public {
+    (uint128 stkAaveEmissionPerSecond, , ) = IStakeToken(AaveSafetyModule.STK_AAVE).assets(
+      AaveSafetyModule.STK_AAVE
+    );
+    uint256 allowanceBeforeStkAAVE = IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING).allowance(
+      MiscEthereum.ECOSYSTEM_RESERVE,
+      AaveSafetyModule.STK_AAVE
+    );
+    uint256 expectedAllowanceStkAAVE = allowanceBeforeStkAAVE +
+      (uint256(stkAaveEmissionPerSecond) * proposal.DISTRIBUTION_DURATION());
+
     uint256 allowanceBefore = IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING).allowance(
       MiscEthereum.ECOSYSTEM_RESERVE,
       AaveSafetyModule.STK_AAVE_WSTETH_BPTV2
@@ -82,6 +92,17 @@ contract AaveV3Ethereum_EmissionUpdate_20251219_Test is ProtocolV3TestBase {
       (uint256(proposal.AAVE_EMISSION_PER_SECOND_STK_BPT()) * secondsRemaining);
 
     executePayload(vm, address(proposal));
+
+    uint256 allowanceAfterStkAAVE = IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING).allowance(
+      MiscEthereum.ECOSYSTEM_RESERVE,
+      AaveSafetyModule.STK_AAVE
+    );
+    assertEq(allowanceAfterStkAAVE, expectedAllowanceStkAAVE, 'unexpected stkAAVE allowance after');
+    assertGe(
+      allowanceAfterStkAAVE,
+      allowanceBeforeStkAAVE,
+      'stkAAVE allowance after should be >= allowance before'
+    );
 
     assertEq(
       IStakeToken(AaveSafetyModule.STK_AAVE_WSTETH_BPTV2).distributionEnd(),

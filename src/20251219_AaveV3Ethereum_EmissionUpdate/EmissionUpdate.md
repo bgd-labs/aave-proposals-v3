@@ -6,7 +6,7 @@ discussions: "https://governance.aave.com/t/arfc-safety-module-umbrella-emission
 
 ## Simple Summary
 
-Extend the rewards distribution duration for the legacy Safety Module **stkABPT** (stkAAVE/wstETH BPTv2) while keeping the current AAVE emission rate unchanged.
+Extend the rewards distribution duration for the legacy Safety Module **stkABPT** (stkAAVE/wstETH BPTv2) while keeping the current AAVE emission rate unchanged, and top-up **stkAAVE** allowance.
 
 ## Motivation
 
@@ -16,11 +16,12 @@ Extend stkABPT rewards distribution duration without modifying the current emiss
 
 ## Specification
 
-- **Target module:** Legacy Safety Module stake token **stkABPT** (`AaveSafetyModule.STK_AAVE_WSTETH_BPTV2`).
-- **Emission rate:** unchanged (this payload does not call `configureAssets`; it reads `emissionPerSecond` on-chain for funding calculations).
+- **Target module:** Legacy Safety Module stake token **stkABPT**.
+- **Emission rate:** unchanged; the payload re-applies the current emission rate via `configureAssets` (`130 AAVE/day`).
 - **Distribution end:** extend rewards distribution by **90 days**: `newDistributionEnd = distributionEnd + 90 days`.
 - **Allowance adjustment (funding):** Reset and set the AAVE allowance from the **Ecosystem Reserve** to the stake token to cover **already accrued** + **future emissions**:
   - `allowance = currentAllowance + emissionPerSecond * (newDistributionEnd - block.timestamp)`
+- **stkAAVE allowance top-up (funding only):** Increase the AAVE allowance from the **Ecosystem Reserve** to `AaveSafetyModule.STK_AAVE` by **90 days** worth of `emissionPerSecond`, preserving any remaining allowance.
 - **No other changes:** This payload does **not** modify stkAAVE emissions, cooldown parameters, slashing parameters, or any Umbrella module emissions.
 
 ## References

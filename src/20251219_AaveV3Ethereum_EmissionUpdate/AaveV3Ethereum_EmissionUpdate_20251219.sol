@@ -15,9 +15,42 @@ import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
  * - Discussion: https://governance.aave.com/t/arfc-safety-module-umbrella-emission-update/23103/9
  */
 contract AaveV3Ethereum_EmissionUpdate_20251219 is IProposalGenericExecutor {
+  uint256 public constant DISTRIBUTION_DURATION = 90 days;
   uint128 public constant AAVE_EMISSION_PER_SECOND_STK_BPT = uint128(130 ether) / 1 days;
 
   function execute() external override {
+    _StkAAVE();
+    _extendStkABPT();
+  }
+
+  function _StkAAVE() internal {
+    (uint128 emissionPerSecond, , ) = IStakeToken(AaveSafetyModule.STK_AAVE).assets(
+      AaveSafetyModule.STK_AAVE
+    );
+
+    uint256 allowanceToKeep = IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING).allowance(
+      MiscEthereum.ECOSYSTEM_RESERVE,
+      AaveSafetyModule.STK_AAVE
+    );
+
+    uint256 additionalAllowance = uint256(emissionPerSecond) * DISTRIBUTION_DURATION;
+
+    MiscEthereum.AAVE_ECOSYSTEM_RESERVE_CONTROLLER.approve(
+      MiscEthereum.ECOSYSTEM_RESERVE,
+      AaveV3EthereumAssets.AAVE_UNDERLYING,
+      AaveSafetyModule.STK_AAVE,
+      0
+    );
+
+    MiscEthereum.AAVE_ECOSYSTEM_RESERVE_CONTROLLER.approve(
+      MiscEthereum.ECOSYSTEM_RESERVE,
+      AaveV3EthereumAssets.AAVE_UNDERLYING,
+      AaveSafetyModule.STK_AAVE,
+      allowanceToKeep + additionalAllowance
+    );
+  }
+
+  function _extendStkABPT() internal {
     IStakeToken.AssetConfigInput[] memory config = new IStakeToken.AssetConfigInput[](1);
     config[0] = IStakeToken.AssetConfigInput({
       emissionPerSecond: AAVE_EMISSION_PER_SECOND_STK_BPT,
@@ -28,7 +61,7 @@ contract AaveV3Ethereum_EmissionUpdate_20251219 is IProposalGenericExecutor {
     IStakeToken(AaveSafetyModule.STK_AAVE_WSTETH_BPTV2).configureAssets(config);
 
     uint256 newDistributionEnd = IStakeToken(AaveSafetyModule.STK_AAVE_WSTETH_BPTV2)
-      .distributionEnd() + 90 days;
+      .distributionEnd() + DISTRIBUTION_DURATION;
     IStakeToken(AaveSafetyModule.STK_AAVE_WSTETH_BPTV2).setDistributionEnd(newDistributionEnd);
 
     uint256 currentAllowance = IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING).allowance(
