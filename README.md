@@ -8,21 +8,20 @@ The tooling documentation is co-located with the relevant smart contracts.
 
 ![Governance Flow](./images/governance-flow.png)
 
-**Initial steps of Governance Process**:
+**Governance Process**:
 
 1. **Forum Discussion (ARFC)** → Community feedback
 2. **Snapshot Vote** → Off-chain temperature check
 
-**This repository** (steps 3-4 run in parallel):
+**This repository**:
 
-3. **Proposal Generation**
-4. **Payload Deployment** → Target chain (e.g., Arbitrum)
-5. **AIP Creation** → IPFS upload (auto via CI)
-6. **Mainnet Proposal** → Requires 80k AAVE voting power
+3. **Proposal Generation** → Generate proposal files (`npm run generate`)
+4. **Payload Deployment** → Deploy to target chain (e.g., Arbitrum)
+5. **AIP Creation** → Create on-chain proposal
 
 **On-chain Governance**:
 
-7. **Voting & Execution** → On-chain execution
+6. **Voting & Execution** → Community vote and on-chain execution
 
 ## Repository Structure
 
@@ -31,7 +30,7 @@ aave-proposals-v3/
 ├── docs/              # Documentation
 ├── src/               # Proposal payloads (Solidity)
 │   └── YYYYMMDD_*/    # Individual proposals (date-based)
-├── zksync/            # zkSync-specific proposals
+├── zksync/            # zkSync-specific code
 │   └── src/           # zkSync proposal payloads
 ├── generator/         # TypeScript CLI tool
 ├── diffs/             # Protocol state diffs (before/after)
