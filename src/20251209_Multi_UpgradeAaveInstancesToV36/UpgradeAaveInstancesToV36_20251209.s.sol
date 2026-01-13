@@ -454,7 +454,7 @@ contract CreateProposal6thJanuary is EthereumScript {
 
 /**
  * @dev Deploy Ink
- * deploy-command: make deploy-ledger contract=src/20251209_Multi_UpgradeAaveInstancesToV36/UpgradeAaveInstancesToV36_20251209.s.sol:CreateInkProposal chain=ink
+ * deploy-command: make deploy-ledger contract=src/20251209_Multi_UpgradeAaveInstancesToV36/UpgradeAaveInstancesToV36_20251209.s.sol:CreateInkProposal chain=ink dry=true
  */
 contract CreateInkProposal is InkScript {
   function run() external broadcast {
