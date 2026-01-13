@@ -44,8 +44,8 @@ This proposal is powered by Skywards. The Aave Chan Initiative is not directly a
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20260107_AaveV3Ethereum_AddWETHToTheRsETHLSTEModeOnAaveCoreInstance/AaveV3Ethereum_AddWETHToTheRsETHLSTEModeOnAaveCoreInstance_20260107.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20260107_AaveV3Ethereum_AddWETHToTheRsETHLSTEModeOnAaveCoreInstance/AaveV3Ethereum_AddWETHToTheRsETHLSTEModeOnAaveCoreInstance_20260107.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/e2c82482e142021e4578428b8a51c6c8fd3d7784/src/20260107_AaveV3Ethereum_AddWETHToTheRsETHLSTEModeOnAaveCoreInstance/AaveV3Ethereum_AddWETHToTheRsETHLSTEModeOnAaveCoreInstance_20260107.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/e2c82482e142021e4578428b8a51c6c8fd3d7784/src/20260107_AaveV3Ethereum_AddWETHToTheRsETHLSTEModeOnAaveCoreInstance/AaveV3Ethereum_AddWETHToTheRsETHLSTEModeOnAaveCoreInstance_20260107.t.sol)
 - Snapshot: Direct-to-AIP
 - [Discussion](https://governance.aave.com/t/direct-to-aip-add-weth-to-the-rseth-lst-e-mode-on-aave-core-instance/23425)
 
