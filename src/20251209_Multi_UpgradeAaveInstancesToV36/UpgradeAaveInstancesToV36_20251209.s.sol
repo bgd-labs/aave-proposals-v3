@@ -4,9 +4,10 @@ pragma solidity ^0.8.0;
 import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aave-helpers/src/GovV3Helpers.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {GovernanceV3ZkSync} from 'aave-address-book/GovernanceV3ZkSync.sol';
-import {ChainIds, EthereumScript, PolygonScript, AvalancheScript, OptimismScript, ArbitrumScript, MetisScript, BaseScript, GnosisScript, ScrollScript, BNBScript, LineaScript, CeloScript, SonicScript, SoneiumScript, PlasmaScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
+import {ChainIds, InkScript, EthereumScript, PolygonScript, AvalancheScript, OptimismScript, ArbitrumScript, MetisScript, BaseScript, GnosisScript, ScrollScript, BNBScript, LineaScript, CeloScript, SonicScript, SoneiumScript, PlasmaScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
 import {Deployments} from './Deployments.sol';
 import {ReimbursePayload} from './ReimbursePayload.sol';
+import {GovernanceV3InkWhitelabel} from 'aave-address-book/GovernanceV3InkWhitelabel.sol';
 
 /**
  * @dev Deploy Ethereum
@@ -447,6 +448,25 @@ contract CreateProposal6thJanuary is EthereumScript {
         vm,
         'src/20251209_Multi_UpgradeAaveInstancesToV36/UpgradeAaveInstancesToV366th.md'
       )
+    );
+  }
+}
+
+/**
+ * @dev Deploy Ink
+ * deploy-command: make deploy-ledger contract=src/20251209_Multi_UpgradeAaveInstancesToV36/UpgradeAaveInstancesToV36_20251209.s.sol:CreateInkProposal chain=ink dry=true
+ */
+contract CreateInkProposal is InkScript {
+  function run() external broadcast {
+    // compose action
+    IPayloadsControllerCore.ExecutionAction[]
+      memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
+    actions[0] = GovV3Helpers.buildAction(Deployments.INK);
+
+    // register action at payloadsController
+    GovV3Helpers.createPermissionedPayloadCalldata(
+      GovernanceV3InkWhitelabel.PERMISSIONED_PAYLOADS_CONTROLLER,
+      actions
     );
   }
 }
