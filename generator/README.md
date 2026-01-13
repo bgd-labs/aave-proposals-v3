@@ -59,6 +59,7 @@ After feature selection (step 3), the generator prompts for parameters specific 
 **Example** (Caps Updates): Select assets → Enter new supply cap → Enter new borrow cap
 
 **Available features**:
+
 - Asset Listing
 - Caps Updates
 - Interest Rate Updates
