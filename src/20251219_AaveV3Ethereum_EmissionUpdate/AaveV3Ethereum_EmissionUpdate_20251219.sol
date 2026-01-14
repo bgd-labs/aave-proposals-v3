@@ -19,11 +19,11 @@ contract AaveV3Ethereum_EmissionUpdate_20251219 is IProposalGenericExecutor {
   uint128 public constant AAVE_EMISSION_PER_SECOND_STK_BPT = uint128(130 ether) / 1 days;
 
   function execute() external override {
-    _StkAAVE();
+    _stkAAVE();
     _extendStkABPT();
   }
 
-  function _StkAAVE() internal {
+  function _stkAAVE() internal {
     (uint128 emissionPerSecond, , ) = IStakeToken(AaveSafetyModule.STK_AAVE).assets(
       AaveSafetyModule.STK_AAVE
     );

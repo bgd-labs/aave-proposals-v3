@@ -2,8 +2,8 @@ import {ConfigFile} from '../../generator/types';
 export const config: ConfigFile = {
   rootOptions: {
     pools: ['AaveV3Ethereum'],
-    title: 'stkABPT Emission Update',
-    shortName: 'EmissionUpdate',
+    title: 'Updating stkABPT emissions payload',
+    shortName: 'SafetyModuleAllowanceTopUp',
     date: '20251219',
     author: '@TokenLogic',
     discussion: 'https://governance.aave.com/t/arfc-safety-module-umbrella-emission-update/23103/9',

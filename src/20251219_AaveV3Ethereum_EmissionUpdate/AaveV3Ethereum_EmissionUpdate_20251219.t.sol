@@ -28,22 +28,40 @@ contract AaveV3Ethereum_EmissionUpdate_20251219_Test is ProtocolV3TestBase {
   }
 
   function test_checkConfig() public {
-    (uint128 emissionPerSecondBefore, , ) = IStakeToken(AaveSafetyModule.STK_AAVE_WSTETH_BPTV2)
-      .assets(AaveSafetyModule.STK_AAVE_WSTETH_BPTV2);
+    (uint128 emissionPerSecondBeforeStkAAVE, , ) = IStakeToken(AaveSafetyModule.STK_AAVE).assets(
+      AaveSafetyModule.STK_AAVE
+    );
+
+    (uint128 emissionPerSecondBeforeStkABPT, , ) = IStakeToken(
+      AaveSafetyModule.STK_AAVE_WSTETH_BPTV2
+    ).assets(AaveSafetyModule.STK_AAVE_WSTETH_BPTV2);
+
+    assertGt(emissionPerSecondBeforeStkAAVE, 0, 'unexpected stkAAVE emission rate before');
 
     assertEq(
-      emissionPerSecondBefore,
+      emissionPerSecondBeforeStkABPT,
       uint128(130 ether) / 1 days,
       'unexpected stkABPT emission rate before'
     );
 
     executePayload(vm, address(proposal));
 
-    (uint128 emissionPerSecondAfter, , ) = IStakeToken(AaveSafetyModule.STK_AAVE_WSTETH_BPTV2)
-      .assets(AaveSafetyModule.STK_AAVE_WSTETH_BPTV2);
+    (uint128 emissionPerSecondAfterStkAAVE, , ) = IStakeToken(AaveSafetyModule.STK_AAVE).assets(
+      AaveSafetyModule.STK_AAVE
+    );
+
+    (uint128 emissionPerSecondAfterStkABPT, , ) = IStakeToken(
+      AaveSafetyModule.STK_AAVE_WSTETH_BPTV2
+    ).assets(AaveSafetyModule.STK_AAVE_WSTETH_BPTV2);
 
     assertEq(
-      emissionPerSecondAfter,
+      emissionPerSecondAfterStkAAVE,
+      emissionPerSecondBeforeStkAAVE,
+      'unexpected stkAAVE emission rate after'
+    );
+
+    assertEq(
+      emissionPerSecondAfterStkABPT,
       proposal.AAVE_EMISSION_PER_SECOND_STK_BPT(),
       'unexpected stkABPT emission rate after'
     );
@@ -107,7 +125,7 @@ contract AaveV3Ethereum_EmissionUpdate_20251219_Test is ProtocolV3TestBase {
     assertEq(
       IStakeToken(AaveSafetyModule.STK_AAVE_WSTETH_BPTV2).distributionEnd(),
       newDistributionEnd,
-      'unexpected distributionEnd after'
+      'unexpected stkABPT distributionEnd after'
     );
 
     uint256 allowanceAfter = IERC20(AaveV3EthereumAssets.AAVE_UNDERLYING).allowance(
@@ -115,14 +133,34 @@ contract AaveV3Ethereum_EmissionUpdate_20251219_Test is ProtocolV3TestBase {
       AaveSafetyModule.STK_AAVE_WSTETH_BPTV2
     );
 
-    assertEq(allowanceAfter, expectedAllowance, 'unexpected allowance after');
+    assertEq(allowanceAfter, expectedAllowance, 'unexpected stkABPT allowance after');
     assertGe(allowanceAfter, allowanceBefore, 'allowance after should be >= allowance before');
+  }
+
+  function test_checkRewards_stkAAVE() public {
+    address stakedToken = AaveV3EthereumAssets.AAVE_UNDERLYING;
+    address staker = 0x5a801a9418D036fD453078c3ADCB761fdc5Ae695;
+    uint256 rewardsPerDay = 260e18;
+
+    executePayload(vm, address(proposal));
+
+    vm.startPrank(staker);
+    IERC20(stakedToken).approve(AaveSafetyModule.STK_AAVE, 1 ether);
+    IERC20(stakedToken).balanceOf(staker);
+    IStakeToken(AaveSafetyModule.STK_AAVE).stake(staker, 1 ether);
+    vm.stopPrank();
+
+    vm.warp(block.timestamp + 1 days);
+
+    uint256 rewardsBalance = IStakeToken(AaveSafetyModule.STK_AAVE).getTotalRewardsBalance(staker);
+
+    assertTrue(rewardsBalance > 0 && rewardsBalance <= rewardsPerDay);
   }
 
   function test_checkRewards_stkBPT() public {
     address stakedToken = 0x3de27EFa2F1AA663Ae5D458857e731c129069F29;
     address staker = 0xce88686553686DA562CE7Cea497CE749DA109f9F;
-    uint256 rewardsPerDay = 40e18;
+    uint256 rewardsPerDay = 130e18;
 
     executePayload(vm, address(proposal));
 
