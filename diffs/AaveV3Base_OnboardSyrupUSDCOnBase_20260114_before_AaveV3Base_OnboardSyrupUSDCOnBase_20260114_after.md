@@ -96,7 +96,7 @@
 | eMode.liquidationThreshold | - | 92 % |
 | eMode.liquidationBonus | - | 4 % |
 | eMode.borrowableBitmap | - | USDC, GHO |
-| eMode.collateralBitmap | - | WETH |
+| eMode.collateralBitmap | - | syrupUSDC |
 
 
 ## Raw diff
@@ -108,7 +108,7 @@
       "from": null,
       "to": {
         "borrowableBitmap": "272",
-        "collateralBitmap": "1",
+        "collateralBitmap": "16384",
         "eModeCategory": 11,
         "label": "SyrupUSDC__USDC_GHO",
         "liquidationBonus": 10400,
@@ -369,7 +369,7 @@
         },
         "0x21d3abaf0b58baf827d64a5111853ffc1e6960c8a404e653db18a5a25d5f12bc": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x000000000000000000000000000000000000000000000000000128a023f02328"
+          "newValue": "0x000000000000000000000000000000000000000000000000400028a023f02328"
         },
         "0x21d3abaf0b58baf827d64a5111853ffc1e6960c8a404e653db18a5a25d5f12bd": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",

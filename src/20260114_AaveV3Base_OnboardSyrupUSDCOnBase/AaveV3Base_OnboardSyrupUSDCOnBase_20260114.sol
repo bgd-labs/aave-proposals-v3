@@ -38,7 +38,7 @@ contract AaveV3Base_OnboardSyrupUSDCOnBase_20260114 is AaveV3PayloadBase {
     address[] memory collateralAssets_SyrupUSDC__USDC_GHO = new address[](1);
     address[] memory borrowableAssets_SyrupUSDC__USDC_GHO = new address[](2);
 
-    collateralAssets_SyrupUSDC__USDC_GHO[0] = AaveV3BaseAssets.WETH_UNDERLYING;
+    collateralAssets_SyrupUSDC__USDC_GHO[0] = syrupUSDC;
     borrowableAssets_SyrupUSDC__USDC_GHO[0] = AaveV3BaseAssets.USDC_UNDERLYING;
     borrowableAssets_SyrupUSDC__USDC_GHO[1] = AaveV3BaseAssets.GHO_UNDERLYING;
 
