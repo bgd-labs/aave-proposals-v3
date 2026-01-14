@@ -4,28 +4,29 @@ pragma solidity ^0.8.0;
 import {AaveV3GHORemoteLaneTest_PreExecution, AaveV3GHORemoteLane_1_6_Test_PostExecution} from '../../../helpers/gho-launch/tests/AaveV3GHORemoteLaneTest.sol';
 import {GhoCCIPChains} from '../../../helpers/gho-launch/constants/GhoCCIPChains.sol';
 import {AaveV3GHOLane} from '../../../helpers/gho-launch/AaveV3GHOLane.sol';
-import {Ink_Mantle_AaveV3GHOLane_20260105} from '../../remote-lanes/Ink_Mantle_AaveV3GHOLane_20260105.sol';
+import {Base_Mantle_AaveV3GHOLane_20260105} from '../../remote-lanes/Base_Mantle_AaveV3GHOLane_20260105.sol';
+import {AaveV3Base} from 'aave-address-book/AaveV3Base.sol';
 
-uint256 constant INK_BLOCK_NUMBER = 25749464;
+uint256 constant BASE_BLOCK_NUMBER = 40805271;
 
-contract Ink_Mantle_AaveV3GHOLane_20260105_Test_PreExecution is
+contract Base_Mantle_AaveV3GHOLane_20260105_Test_PreExecution is
   AaveV3GHORemoteLaneTest_PreExecution
 {
   constructor()
     AaveV3GHORemoteLaneTest_PreExecution(
-      GhoCCIPChains.INK(),
+      GhoCCIPChains.BASE(),
       GhoCCIPChains.MANTLE(),
-      'ink',
-      INK_BLOCK_NUMBER
+      'base',
+      BASE_BLOCK_NUMBER
     )
   {}
 
   function _deployAaveV3GHOLaneProposal() internal virtual override returns (AaveV3GHOLane) {
-    return new Ink_Mantle_AaveV3GHOLane_20260105();
+    return new Base_Mantle_AaveV3GHOLane_20260105();
   }
 
   function test_defaultProposalExecution() public virtual {
-    executePayload(vm, address(proposal));
+    defaultTest('Base_Mantle_AaveV3GHOLane_20260105', AaveV3Base.POOL, address(proposal));
   }
 
   function _assertOnAndOffRamps() internal view override {
@@ -56,18 +57,18 @@ contract Ink_Mantle_AaveV3GHOLane_20260105_Test_PreExecution is
   }
 }
 
-contract Ink_Mantle_AaveV3GHOLane_20260105_Test is AaveV3GHORemoteLane_1_6_Test_PostExecution {
+contract Base_Mantle_AaveV3GHOLane_20260105_Test is AaveV3GHORemoteLane_1_6_Test_PostExecution {
   constructor()
     AaveV3GHORemoteLane_1_6_Test_PostExecution(
-      GhoCCIPChains.INK(),
+      GhoCCIPChains.BASE(),
       GhoCCIPChains.MANTLE(),
-      'ink',
-      INK_BLOCK_NUMBER
+      'base',
+      BASE_BLOCK_NUMBER
     )
   {}
 
   function _deployAaveV3GHOLaneProposal() internal virtual override returns (AaveV3GHOLane) {
-    return new Ink_Mantle_AaveV3GHOLane_20260105();
+    return new Base_Mantle_AaveV3GHOLane_20260105();
   }
 
   function _assertOnAndOffRamps() internal view override {

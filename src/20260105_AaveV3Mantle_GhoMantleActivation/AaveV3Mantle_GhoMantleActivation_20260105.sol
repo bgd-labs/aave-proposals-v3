@@ -10,7 +10,7 @@ import {GhoCCIPChains} from '../helpers/gho-launch/constants/GhoCCIPChains.sol';
  * - Snapshot: TODO
  * - Discussion: https://governance.aave.com/t/arfc-deploy-aave-v3-on-mantle/20542/10
  */
-contract AaveV3Mantle_GhoMantleActivation_20260102 is AaveV3GHOLaunch {
+contract AaveV3Mantle_GhoMantleActivation_20260105 is AaveV3GHOLaunch {
   constructor() AaveV3GHOLaunch(GhoCCIPChains.MANTLE()) {}
 
   function _setupGhoAaveSteward() internal override {

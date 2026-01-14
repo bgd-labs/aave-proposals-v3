@@ -316,10 +316,10 @@ library GhoCCIPChains {
       ChainInfo({
         chainSelector: CCIPChainSelectors.PLASMA,
         ghoToken: GhoPlasma.GHO_TOKEN,
-        ghoCCIPTokenPool: GhoInk.GHO_CCIP_TOKEN_POOL,
-        ghoBucketSteward: GhoInk.GHO_BUCKET_STEWARD,
+        ghoCCIPTokenPool: GhoPlasma.GHO_CCIP_TOKEN_POOL,
+        ghoBucketSteward: GhoPlasma.GHO_BUCKET_STEWARD,
         ghoAaveCoreSteward: 0xA5Ba213867E175A182a5dd6A9193C6158738105A,
-        ghoCCIPSteward: GhoInk.GHO_CCIP_STEWARD,
+        ghoCCIPSteward: GhoPlasma.GHO_CCIP_STEWARD,
         aclManager: address(AaveV3Plasma.ACL_MANAGER),
         tokenAdminRegistry: CCIPChainTokenAdminRegistries.PLASMA,
         owner: GovernanceV3Plasma.EXECUTOR_LVL_1,

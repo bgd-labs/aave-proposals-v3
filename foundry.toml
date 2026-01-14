@@ -73,5 +73,7 @@ sonic = "${RPC_SONIC}"
 soneium = "${RPC_SONEIUM}"
 ink = "${RPC_INK}"
 plasma = "${RPC_PLASMA}"
+mantle = "${RPC_MANTLE}"
+xlayer = "${RPC_XLAYER}"
 
 # See more config options https://github.com/foundry-rs/foundry/tree/master/crates/config
