@@ -76,7 +76,7 @@ contract AaveV3Base_OnboardSyrupUSDCOnBase_20260114 is AaveV3PayloadBase {
         optimalUsageRatio: 45_00,
         baseVariableBorrowRate: 0,
         variableRateSlope1: 10_00,
-        variableRateSlope2: 3_000_00
+        variableRateSlope2: 300_00
       })
     });
 
