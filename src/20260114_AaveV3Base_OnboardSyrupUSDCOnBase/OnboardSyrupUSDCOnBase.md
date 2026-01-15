@@ -52,7 +52,7 @@ Service providers recommend initially listing the asset with defined low LT and 
 | Underlying oracle      | [Capped USDC/USD](https://basescan.org/address/0xfcF82bFa2485253263969167583Ea4de09e9993b)               |
 | Minimum Snapshot delay | 7 days                                                                                                   |
 | Max yearly growth      | 8.04%                                                                                                    |
-| Last Answer            | (2025-12-23) USD 1.14277342                                                                              |
+| Last Answer            | (2026-1-15) USD 1.14646984                                                                               |
 
 ### Emodes
 

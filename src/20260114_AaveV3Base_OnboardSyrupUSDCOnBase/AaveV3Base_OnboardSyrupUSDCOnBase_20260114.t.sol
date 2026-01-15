@@ -32,7 +32,7 @@ contract AaveV3Base_OnboardSyrupUSDCOnBase_20260114_Test is ProtocolV3TestBase {
   function test_dustBinHassyrupUSDCFunds() public {
     GovV3Helpers.executePayload(vm, address(proposal));
     address aTokenAddress = AaveV3Base.POOL.getReserveAToken(proposal.syrupUSDC());
-    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Base.DUST_BIN)), 10 ** 6);
+    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Base.DUST_BIN)), 100 ** 6);
   }
 
   function test_syrupUSDCAdmin() public {
