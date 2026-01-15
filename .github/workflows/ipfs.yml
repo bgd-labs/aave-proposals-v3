@@ -61,9 +61,17 @@ jobs:
           json_array=($(jq -r '.[]' ".github/outputs/all_changed_files.json"))
           for i in "${json_array[@]}"
           do
-            npx prettier $i --write
-            sed -i 's@https://github.com/bgd-labs/aave-proposals-v3/blob/main/@https://github.com/bgd-labs/aave-proposals-v3/blob/${{ github.sha }}/@g' $i
-            sed -i 's@https://github.com/bgd-labs/aave-proposals-v3/tree/main/@https://github.com/bgd-labs/aave-proposals-v3/blob/${{ github.sha }}/@g' $i
+            # Extract folder name and filename without extension
+            folder_name=$(basename $(dirname "$i"))
+            file_name=$(basename "$i" .md)
+
+            if [[ "$folder_name" == *"$file_name"* ]]; then
+              npx prettier $i --write
+              sed -i 's@https://github.com/bgd-labs/aave-proposals-v3/blob/main/@https://github.com/bgd-labs/aave-proposals-v3/blob/${{ github.sha }}/@g' $i
+              sed -i 's@https://github.com/bgd-labs/aave-proposals-v3/tree/main/@https://github.com/bgd-labs/aave-proposals-v3/blob/${{ github.sha }}/@g' $i
+            else
+              echo "Skipping $i (filename doesn't match folder)"
+            fi
           done
 
       - name: Upload
