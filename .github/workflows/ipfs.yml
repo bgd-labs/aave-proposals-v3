@@ -115,7 +115,7 @@ jobs:
             git add src
             git commit -am "fix(cache): automated cache update [skip ci]"
             git push origin ${{ github.event.repository.default_branch }}
-          exit
+            exit
           fi
 
       - name: Post to a Slack channel
