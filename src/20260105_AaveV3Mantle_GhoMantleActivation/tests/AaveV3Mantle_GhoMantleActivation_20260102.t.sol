@@ -13,7 +13,7 @@ contract AaveV3Mantle_GhoMantleActivation_20260105_Test is ProtocolV3TestBase {
   AaveV3Mantle_GhoMantleActivation_20260105 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mantle'), 90136862);
+    vm.createSelectFork(vm.rpcUrl('mantle'), 90174807);
     proposal = new AaveV3Mantle_GhoMantleActivation_20260105();
   }
 
