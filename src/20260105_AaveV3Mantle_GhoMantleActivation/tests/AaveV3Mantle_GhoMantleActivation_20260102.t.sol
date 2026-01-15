@@ -21,6 +21,12 @@ contract AaveV3Mantle_GhoMantleActivation_20260105_Test is ProtocolV3TestBase {
    * @dev executes the generic test suite including e2e and config snapshots
    */
   function test_defaultProposalExecution() public {
-    defaultTest('AaveV3Mantle_GhoMantleActivation_20260105', AaveV3Mantle.POOL, address(proposal));
+    defaultTest(
+      'AaveV3Mantle_GhoMantleActivation_20260105',
+      AaveV3Mantle.POOL,
+      address(proposal),
+      false,
+      false
+    );
   }
 }

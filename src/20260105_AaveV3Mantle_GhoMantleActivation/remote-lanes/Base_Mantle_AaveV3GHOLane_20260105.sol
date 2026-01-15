@@ -8,7 +8,7 @@ import {GhoCCIPChains} from '../../helpers/gho-launch/constants/GhoCCIPChains.so
 /**
  * @title Base<>Mantle GHO CCIP Lane
  * @author TokenLogic
- * - Snapshot: TODO
+ * - Snapshot: https://snapshot.box/#/s:aavedao.eth/proposal/0xa3dc5b82f2dc5176c2a7543a6cc10aa75cccf96a73afe06478795182cff9d771
  * - Discussion: https://governance.aave.com/t/arfc-deploy-aave-v3-on-mantle/20542/10
  */
 contract Base_Mantle_AaveV3GHOLane_20260105 is AaveV3GHOLane {

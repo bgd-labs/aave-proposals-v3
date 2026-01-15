@@ -36,7 +36,7 @@ The table below lists the address of the new **Mantle** deployments
 
 - Implementation: [AaveV3Mantle](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20260105_AaveV3Mantle_GhoMantleActivation/AaveV3Mantle_GhoMantleActivation_20260105.sol)
 - Tests: [AaveV3Mantle](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20260105_AaveV3Mantle_GhoMantleActivation/AaveV3Mantle_GhoMantleActivation_20260105.t.sol)
-- [Snapshot](TODO)
+- [Snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0xa3dc5b82f2dc5176c2a7543a6cc10aa75cccf96a73afe06478795182cff9d771)
 - [Discussion](https://governance.aave.com/t/arfc-deploy-aave-v3-on-mantle/20542/10)
 
 ## Copyright
