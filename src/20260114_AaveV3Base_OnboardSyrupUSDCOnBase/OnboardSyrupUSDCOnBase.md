@@ -20,6 +20,8 @@ We recommend an eMode be created with USDC and GHO as borrow assets.
 
 The table below illustrates the configured risk parameters for **syrupUSDC**
 
+Service providers recommend initially listing the asset with defined low LT and LTV parameters. However, since Aave v3.6 will be deployed when this AIP will be executed, the asset is listed with LT, LTV, LB and LPE set to 0. Aave v3.6 allows an asset to be listed with collateral capacity restricted exclusively to E-Mode. Notice that low LT and LTV was a way to force user to only use the asset on an E-mode before Aave v3.6.
+
 | Parameter                 |      Value |
 | ------------------------- | ---------: |
 | Isolation Mode            |      false |
@@ -30,8 +32,8 @@ The table below illustrates the configured risk parameters for **syrupUSDC**
 | Debt Ceiling              |      USD 0 |
 | LTV                       |        0 % |
 | LT                        |        0 % |
-| Liquidation Bonus         |        4 % |
-| Liquidation Protocol Fee  |       10 % |
+| Liquidation Bonus         |        0 % |
+| Liquidation Protocol Fee  |        0 % |
 | Reserve Factor            |       50 % |
 | Base Variable Borrow Rate |        0 % |
 | Variable Slope 1          |       10 % |
@@ -70,8 +72,6 @@ Additionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://basescan.org/a
 ## Disclaimer
 
 ACI is not directly affiliated with Maple and did not receive compensation for the creation of this proposal.
-
-Service providers recommend initially listing the asset with defined low LT and LTV parameters. However, since Aave v3.6 will be deployed when this AIP will be executed, the asset is listed with LT and LTV set to 0. Aave v3.6 allows an asset to be listed with collateral capacity restricted exclusively to E-Mode. Notice that low LT and LTV was a way to force user to only use the asset on an E-mode before Aave v3.6.
 
 ## References
 
