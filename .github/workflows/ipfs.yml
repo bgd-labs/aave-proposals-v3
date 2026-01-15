@@ -83,7 +83,15 @@ jobs:
           json_array=($(jq -r '.[]' ".github/outputs/all_changed_files.json"))
           for i in "${json_array[@]}"
           do
-            npx aave-cli ipfs ${{ github.event_name != 'pull_request' && '-u' || ''}} $i
+            # Extract folder name and filename without extension
+            folder_name=$(basename $(dirname "$i"))
+            file_name=$(basename "$i" .md)
+
+            if [[ "$folder_name" == *"$file_name"* ]]; then
+              npx aave-cli ipfs ${{ github.event_name != 'pull_request' && '-u' || ''}} $i
+            else
+              echo "Skipping $i (filename doesn't match folder)"
+            fi
           done
 
       - name: check diff and potentially commit
