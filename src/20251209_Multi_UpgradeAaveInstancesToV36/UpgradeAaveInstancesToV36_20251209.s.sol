@@ -367,75 +367,61 @@ contract CreateProposal2thJanuary is EthereumScript {
 
 /**
  * @dev Create Proposal
- * command: make deploy-ledger contract=src/20251209_Multi_UpgradeAaveInstancesToV36/UpgradeAaveInstancesToV36_20251209.s.sol:CreateProposal6thJanuary chain=mainnet
+ * command: make deploy-ledger contract=src/20251209_Multi_UpgradeAaveInstancesToV36/UpgradeAaveInstancesToV36_20251209.s.sol:CreateProposal6thResubmissionJanuary chain=mainnet
  */
-contract CreateProposal6thJanuary is EthereumScript {
+contract CreateProposal6thResubmissionJanuary is EthereumScript {
   function run() external {
     // create payloads
-    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](9);
+    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](7);
 
     // compose actions for validation
     {
       IPayloadsControllerCore.ExecutionAction[]
-        memory actionsEthereum = new IPayloadsControllerCore.ExecutionAction[](1);
-      actionsEthereum[0] = GovV3Helpers.buildAction(Deployments.MAINNET_CORE);
-      payloads[0] = GovV3Helpers.buildMainnetPayload(vm, actionsEthereum);
-    }
-
-    {
-      IPayloadsControllerCore.ExecutionAction[]
-        memory actionsEthereum = new IPayloadsControllerCore.ExecutionAction[](1);
-      actionsEthereum[0] = GovV3Helpers.buildAction(Deployments.MAINNET_LIDO);
-      payloads[1] = GovV3Helpers.buildMainnetPayload(vm, actionsEthereum);
-    }
-
-    {
-      IPayloadsControllerCore.ExecutionAction[]
         memory actionsPolygon = new IPayloadsControllerCore.ExecutionAction[](1);
       actionsPolygon[0] = GovV3Helpers.buildAction(Deployments.POLYGON);
-      payloads[2] = GovV3Helpers.buildPolygonPayload(vm, actionsPolygon);
+      payloads[0] = GovV3Helpers.buildPolygonPayload(vm, actionsPolygon);
     }
 
     {
       IPayloadsControllerCore.ExecutionAction[]
         memory actionsAvalanche = new IPayloadsControllerCore.ExecutionAction[](1);
       actionsAvalanche[0] = GovV3Helpers.buildAction(Deployments.AVALANCHE);
-      payloads[3] = GovV3Helpers.buildAvalanchePayload(vm, actionsAvalanche);
+      payloads[1] = GovV3Helpers.buildAvalanchePayload(vm, actionsAvalanche);
     }
 
     {
       IPayloadsControllerCore.ExecutionAction[]
         memory actionsArbitrum = new IPayloadsControllerCore.ExecutionAction[](1);
       actionsArbitrum[0] = GovV3Helpers.buildAction(Deployments.ARBITRUM);
-      payloads[4] = GovV3Helpers.buildArbitrumPayload(vm, actionsArbitrum);
+      payloads[2] = GovV3Helpers.buildArbitrumPayload(vm, actionsArbitrum);
     }
 
     {
       IPayloadsControllerCore.ExecutionAction[]
         memory actionsBase = new IPayloadsControllerCore.ExecutionAction[](1);
       actionsBase[0] = GovV3Helpers.buildAction(Deployments.BASE);
-      payloads[5] = GovV3Helpers.buildBasePayload(vm, actionsBase);
+      payloads[3] = GovV3Helpers.buildBasePayload(vm, actionsBase);
     }
 
     {
       IPayloadsControllerCore.ExecutionAction[]
         memory actionsBNB = new IPayloadsControllerCore.ExecutionAction[](1);
       actionsBNB[0] = GovV3Helpers.buildAction(Deployments.BNB);
-      payloads[6] = GovV3Helpers.buildBNBPayload(vm, actionsBNB);
+      payloads[4] = GovV3Helpers.buildBNBPayload(vm, actionsBNB);
     }
 
     {
       IPayloadsControllerCore.ExecutionAction[]
         memory actionsLinea = new IPayloadsControllerCore.ExecutionAction[](1);
       actionsLinea[0] = GovV3Helpers.buildAction(Deployments.LINEA);
-      payloads[7] = GovV3Helpers.buildLineaPayload(vm, actionsLinea);
+      payloads[5] = GovV3Helpers.buildLineaPayload(vm, actionsLinea);
     }
 
     {
       IPayloadsControllerCore.ExecutionAction[]
         memory actionsPlasma = new IPayloadsControllerCore.ExecutionAction[](1);
       actionsPlasma[0] = GovV3Helpers.buildAction(Deployments.PLASMA);
-      payloads[8] = GovV3Helpers.buildPlasmaPayload(vm, actionsPlasma);
+      payloads[6] = GovV3Helpers.buildPlasmaPayload(vm, actionsPlasma);
     }
 
     // create proposal
