@@ -1,5 +1,5 @@
 ---
-title: "Upgrade Aave instances to v3.6 Part 2"
+title: "Upgrade Aave instances to v3.6 Part 3"
 author: "BGD Labs @bgdlabs"
 discussions: "https://governance.aave.com/t/arfc-bgd-aave-v3-6/23172/8"
 snapshot: "https://snapshot.box/#/s:aavedao.eth/proposal/0x83ab94cea13da68fc9685dc2fa8ad738107bdbebd01fdf04122131d5de1d7847"
@@ -7,8 +7,8 @@ snapshot: "https://snapshot.box/#/s:aavedao.eth/proposal/0x83ab94cea13da68fc9685
 
 ## Simple Summary
 
-Resubmission: Upgrade of the Aave protocol instances from v3.5 to v3.6 **Part 2**.
-Due to a expiry protection, the payloads on the following networks were not executed: **Plasma, Base, Arbitrum, Avalanche, Linea, BNB Chain, Polygon**.
+Resubmission: Upgrade of the Aave protocol instances from v3.5 to v3.6 **Part 3**.
+Due to a expiry protection, the payloads on the following networks were not executed on part 2: **Plasma, Base, Arbitrum, Avalanche, Linea, BNB Chain, Polygon**.
 
 ## Motivation
 
