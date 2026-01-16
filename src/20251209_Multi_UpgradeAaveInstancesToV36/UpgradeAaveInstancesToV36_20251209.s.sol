@@ -4,9 +4,10 @@ pragma solidity ^0.8.0;
 import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aave-helpers/src/GovV3Helpers.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {GovernanceV3ZkSync} from 'aave-address-book/GovernanceV3ZkSync.sol';
-import {ChainIds, EthereumScript, PolygonScript, AvalancheScript, OptimismScript, ArbitrumScript, MetisScript, BaseScript, GnosisScript, ScrollScript, BNBScript, LineaScript, CeloScript, SonicScript, SoneiumScript, PlasmaScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
+import {ChainIds, InkScript, EthereumScript, PolygonScript, AvalancheScript, OptimismScript, ArbitrumScript, MetisScript, BaseScript, GnosisScript, ScrollScript, BNBScript, LineaScript, CeloScript, SonicScript, SoneiumScript, PlasmaScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
 import {Deployments} from './Deployments.sol';
 import {ReimbursePayload} from './ReimbursePayload.sol';
+import {GovernanceV3InkWhitelabel} from 'aave-address-book/GovernanceV3InkWhitelabel.sol';
 
 /**
  * @dev Deploy Ethereum
@@ -366,75 +367,61 @@ contract CreateProposal2thJanuary is EthereumScript {
 
 /**
  * @dev Create Proposal
- * command: make deploy-ledger contract=src/20251209_Multi_UpgradeAaveInstancesToV36/UpgradeAaveInstancesToV36_20251209.s.sol:CreateProposal6thJanuary chain=mainnet
+ * command: make deploy-ledger contract=src/20251209_Multi_UpgradeAaveInstancesToV36/UpgradeAaveInstancesToV36_20251209.s.sol:CreateProposal6thResubmissionJanuary chain=mainnet
  */
-contract CreateProposal6thJanuary is EthereumScript {
+contract CreateProposal6thResubmissionJanuary is EthereumScript {
   function run() external {
     // create payloads
-    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](9);
+    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](7);
 
     // compose actions for validation
     {
       IPayloadsControllerCore.ExecutionAction[]
-        memory actionsEthereum = new IPayloadsControllerCore.ExecutionAction[](1);
-      actionsEthereum[0] = GovV3Helpers.buildAction(Deployments.MAINNET_CORE);
-      payloads[0] = GovV3Helpers.buildMainnetPayload(vm, actionsEthereum);
-    }
-
-    {
-      IPayloadsControllerCore.ExecutionAction[]
-        memory actionsEthereum = new IPayloadsControllerCore.ExecutionAction[](1);
-      actionsEthereum[0] = GovV3Helpers.buildAction(Deployments.MAINNET_LIDO);
-      payloads[1] = GovV3Helpers.buildMainnetPayload(vm, actionsEthereum);
-    }
-
-    {
-      IPayloadsControllerCore.ExecutionAction[]
         memory actionsPolygon = new IPayloadsControllerCore.ExecutionAction[](1);
       actionsPolygon[0] = GovV3Helpers.buildAction(Deployments.POLYGON);
-      payloads[2] = GovV3Helpers.buildPolygonPayload(vm, actionsPolygon);
+      payloads[0] = GovV3Helpers.buildPolygonPayload(vm, actionsPolygon);
     }
 
     {
       IPayloadsControllerCore.ExecutionAction[]
         memory actionsAvalanche = new IPayloadsControllerCore.ExecutionAction[](1);
       actionsAvalanche[0] = GovV3Helpers.buildAction(Deployments.AVALANCHE);
-      payloads[3] = GovV3Helpers.buildAvalanchePayload(vm, actionsAvalanche);
+      payloads[1] = GovV3Helpers.buildAvalanchePayload(vm, actionsAvalanche);
     }
 
     {
       IPayloadsControllerCore.ExecutionAction[]
         memory actionsArbitrum = new IPayloadsControllerCore.ExecutionAction[](1);
       actionsArbitrum[0] = GovV3Helpers.buildAction(Deployments.ARBITRUM);
-      payloads[4] = GovV3Helpers.buildArbitrumPayload(vm, actionsArbitrum);
+      payloads[2] = GovV3Helpers.buildArbitrumPayload(vm, actionsArbitrum);
     }
 
     {
       IPayloadsControllerCore.ExecutionAction[]
         memory actionsBase = new IPayloadsControllerCore.ExecutionAction[](1);
       actionsBase[0] = GovV3Helpers.buildAction(Deployments.BASE);
-      payloads[5] = GovV3Helpers.buildBasePayload(vm, actionsBase);
+      payloads[3] = GovV3Helpers.buildBasePayload(vm, actionsBase);
     }
 
     {
       IPayloadsControllerCore.ExecutionAction[]
         memory actionsBNB = new IPayloadsControllerCore.ExecutionAction[](1);
       actionsBNB[0] = GovV3Helpers.buildAction(Deployments.BNB);
-      payloads[6] = GovV3Helpers.buildBNBPayload(vm, actionsBNB);
+      payloads[4] = GovV3Helpers.buildBNBPayload(vm, actionsBNB);
     }
 
     {
       IPayloadsControllerCore.ExecutionAction[]
         memory actionsLinea = new IPayloadsControllerCore.ExecutionAction[](1);
       actionsLinea[0] = GovV3Helpers.buildAction(Deployments.LINEA);
-      payloads[7] = GovV3Helpers.buildLineaPayload(vm, actionsLinea);
+      payloads[5] = GovV3Helpers.buildLineaPayload(vm, actionsLinea);
     }
 
     {
       IPayloadsControllerCore.ExecutionAction[]
         memory actionsPlasma = new IPayloadsControllerCore.ExecutionAction[](1);
       actionsPlasma[0] = GovV3Helpers.buildAction(Deployments.PLASMA);
-      payloads[8] = GovV3Helpers.buildPlasmaPayload(vm, actionsPlasma);
+      payloads[6] = GovV3Helpers.buildPlasmaPayload(vm, actionsPlasma);
     }
 
     // create proposal
@@ -447,6 +434,25 @@ contract CreateProposal6thJanuary is EthereumScript {
         vm,
         'src/20251209_Multi_UpgradeAaveInstancesToV36/UpgradeAaveInstancesToV366th.md'
       )
+    );
+  }
+}
+
+/**
+ * @dev Deploy Ink
+ * deploy-command: make deploy-ledger contract=src/20251209_Multi_UpgradeAaveInstancesToV36/UpgradeAaveInstancesToV36_20251209.s.sol:CreateInkProposal chain=ink dry=true
+ */
+contract CreateInkProposal is InkScript {
+  function run() external broadcast {
+    // compose action
+    IPayloadsControllerCore.ExecutionAction[]
+      memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
+    actions[0] = GovV3Helpers.buildAction(Deployments.INK);
+
+    // register action at payloadsController
+    GovV3Helpers.createPermissionedPayloadCalldata(
+      GovernanceV3InkWhitelabel.PERMISSIONED_PAYLOADS_CONTROLLER,
+      actions
     );
   }
 }
