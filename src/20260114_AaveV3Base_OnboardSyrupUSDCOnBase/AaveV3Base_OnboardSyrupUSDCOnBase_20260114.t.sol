@@ -18,7 +18,7 @@ contract AaveV3Base_OnboardSyrupUSDCOnBase_20260114_Test is ProtocolV3TestBase {
   AaveV3Base_OnboardSyrupUSDCOnBase_20260114 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('base'), 40786531);
+    vm.createSelectFork(vm.rpcUrl('base'), 41018666);
     proposal = new AaveV3Base_OnboardSyrupUSDCOnBase_20260114();
   }
 
