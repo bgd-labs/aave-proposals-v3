@@ -18,6 +18,7 @@ import {
   soneium,
   ink,
   plasma,
+  mantle,
 } from 'viem/chains';
 import {Hex, getAddress} from 'viem';
 import {getClient} from '@bgd-labs/toolbox';
@@ -42,6 +43,7 @@ export const AVAILABLE_CHAINS = [
   'Soneium',
   'Ink',
   'Plasma',
+  'Mantle',
 ] as const;
 
 export function getAssets(pool: PoolIdentifier): string[] {
@@ -159,6 +161,7 @@ export const CHAIN_TO_CHAIN_ID = {
   Soneium: soneium.id,
   Ink: ink.id,
   Plasma: plasma.id,
+  Mantle: mantle.id,
 };
 
 export function flagAsRequired(message: string, required?: boolean) {
