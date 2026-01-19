@@ -7,225 +7,126 @@ snapshot: "https://snapshot.org/#/s:aavedao.eth/proposal/0xa3dc5b82f2dc5176c2a75
 
 ## Simple Summary
 
+This proposal allows the Aave governance to activate the Aave V3 Mantle pool (3.6) by completing all the initial setup and listing WETH, WMNT, USDT0, USDC, USDe, sUSDe, FBTC, syrupUSDT, wrsETH as suggested by the risk service providers engaged with the DAO on the governance forum.
+
+All the Aave Mantle V3 addresses can be found in the [aave-address-book](https://github.com/bgd-labs/aave-address-book/blob/04ee5b91ffeac4b7695babb59da3a9c426b8b35e/src/AaveV3Mantle.sol).
+
 ## Motivation
+
+All the governance procedures for the expansion of Aave v3 to Plasma have been finished, said:
+
+- Positive signaling and approval regarding the expansion on the [governance forum](https://governance.aave.com/t/arfc-deploy-aave-v3-on-mantle/20542), and [snapshot](https://snapshot.org/#/s:aavedao.eth/proposal/0xa3dc5b82f2dc5176c2a7543a6cc10aa75cccf96a73afe06478795182cff9d771).
+- Positive technical evaluation done by BGD Labs of the Plasma network, as described in the [forum](https://governance.aave.com/t/bgd-aave-mantle-infrastructure-technical-evaluation/21628) in detail.
+- Positive risk analysis and assets/parameters recommendation by the risk service providers.
 
 ## Specification
 
+The proposal will do the following:
+
+- List the following assets on Aave V3 Mantle: WETH, WMNT, USDT0, USDC, USDe, sUSDe, FBTC, syrupUSDT, wrsETH.
+- Set the risk steward as the risk admin by executing `ACL_MANAGER.addRiskAdmin()`.
+- Set the guardian address as the pool admin by executing `ACL_MANAGER.addPoolAdmin()`. This is following the standard procedure of keeping pool admin on the Aave Guardian during the bootstrap period, for security.
+- Set ACI multi-sig as liquidity mining admin for all aTokens and underlying tokens by calling `EMISSION_MANAGER.setEmissionAdmin()` method.
+
+The table below illustrates the configured risk parameters for the assets to be listed:
+
 The table below illustrates the configured risk parameters for **WETH**
 
-| Parameter                 |                                      Value |
-| ------------------------- | -----------------------------------------: |
-| Isolation Mode            |                                       true |
-| Borrowable                |                                    ENABLED |
-| Collateral Enabled        |                                       true |
-| Supply Cap (WETH)         |                                     30,000 |
-| Borrow Cap (WETH)         |                                     28,000 |
-| Debt Ceiling              |                             USD 30,000,000 |
-| LTV                       |                                     80.5 % |
-| LT                        |                                       83 % |
-| Liquidation Bonus         |                                      5.5 % |
-| Liquidation Protocol Fee  |                                       10 % |
-| Reserve Factor            |                                       15 % |
-| Base Variable Borrow Rate |                                        0 % |
-| Variable Slope 1          |                                      2.5 % |
-| Variable Slope 2          |                                        8 % |
-| Uoptimal                  |                                       90 % |
-| Flashloanable             |                                    ENABLED |
-| Siloed Borrowing          |                                   DISABLED |
-| Borrowable in Isolation   |                                   DISABLED |
-| Oracle                    | 0x5bc7Cf88EB131DB18b5d7930e793095140799aD5 |
+| Parameter                 |           WETH |          WMNT |      USDT0 |       USDC |       USDe |      sUSDe |     FBTC |  syrupUSDT |   wrsETH |
+| ------------------------- | -------------: | ------------: | ---------: | ---------: | ---------: | ---------: | -------: | ---------: | -------: |
+| Isolation Mode            |           true |          true |      false |      false |      false |      false |    false |      false |    false |
+| Borrowable                |        ENABLED |      DISABLED |    ENABLED |    ENABLED |    ENABLED |   DISABLED | DISABLED |   DISABLED | DISABLED |
+| Collateral Enabled        |           true |          true |       true |       true |       true |       true |     true |       true |     true |
+| Supply Cap                |         30,000 |     5,000,000 | 50,000,000 | 10,000,000 | 20,000,000 | 20,000,000 |       50 | 70,000,000 |   18,000 |
+| Borrow Cap                |         28,000 |             1 | 47,000,000 |  9,500,000 | 17,500,000 |          1 |        1 |          1 |        1 |
+| Debt Ceiling              | USD 30,000,000 | USD 2,000,000 |      USD 0 |      USD 0 |      USD 0 |      USD 0 |    USD 0 |      USD 0 |    USD 0 |
+| LTV                       |         80.5 % |          40 % |        0 % |        0 % |        0 % |        0 % |      0 % |        0 % |      0 % |
+| LT                        |           83 % |          45 % |        0 % |        0 % |        0 % |        0 % |      0 % |        0 % |      0 % |
+| Liquidation Bonus         |          5.5 % |          10 % |        0 % |        0 % |        0 % |        0 % |      0 % |        0 % |      0 % |
+| Liquidation Protocol Fee  |           10 % |          10 % |       10 % |       10 % |       10 % |       10 % |     10 % |       10 % |     10 % |
+| Reserve Factor            |           15 % |          20 % |       10 % |       10 % |       10 % |       20 % |     20 % |       20 % |     20 % |
+| Base Variable Borrow Rate |            0 % |           0 % |        0 % |        0 % |        0 % |        0 % |      0 % |        0 % |      0 % |
+| Variable Slope 1          |          2.5 % |           5 % |        5 % |        5 % |     5.25 % |        5 % |      5 % |        5 % |      5 % |
+| Variable Slope 2          |            8 % |          20 % |       10 % |       10 % |       12 % |       20 % |     20 % |       20 % |     20 % |
+| Uoptimal                  |           90 % |          90 % |       90 % |       90 % |       85 % |       90 % |     90 % |       90 % |     90 % |
+| Flashloanable             |        ENABLED |       ENABLED |    ENABLED |    ENABLED |    ENABLED |    ENABLED |  ENABLED |    ENABLED |  ENABLED |
+| Siloed Borrowing          |       DISABLED |      DISABLED |   DISABLED |   DISABLED |   DISABLED |   DISABLED | DISABLED |   DISABLED | DISABLED |
+| Borrowable in Isolation   |       DISABLED |      DISABLED |    ENABLED |    ENABLED |    ENABLED |   DISABLED | DISABLED |   DISABLED | DISABLED |
 
-,The table below illustrates the configured risk parameters for **WMNT**
+#### Oracle details:
 
-| Parameter                 |                                      Value |
-| ------------------------- | -----------------------------------------: |
-| Isolation Mode            |                                       true |
-| Borrowable                |                                   DISABLED |
-| Collateral Enabled        |                                       true |
-| Supply Cap (WMNT)         |                                  5,000,000 |
-| Borrow Cap (WMNT)         |                                          1 |
-| Debt Ceiling              |                              USD 2,000,000 |
-| LTV                       |                                       40 % |
-| LT                        |                                       45 % |
-| Liquidation Bonus         |                                       10 % |
-| Liquidation Protocol Fee  |                                       10 % |
-| Reserve Factor            |                                       20 % |
-| Base Variable Borrow Rate |                                        0 % |
-| Variable Slope 1          |                                        5 % |
-| Variable Slope 2          |                                       20 % |
-| Uoptimal                  |                                       90 % |
-| Flashloanable             |                                    ENABLED |
-| Siloed Borrowing          |                                   DISABLED |
-| Borrowable in Isolation   |                                   DISABLED |
-| Oracle                    | 0xD97F20bEbeD74e8144134C4b148fE93417dd0F96 |
+|                             | sUSDe                                                                                              | syrupUSDT                                                                                              | wrsETH                                                                                             | USDT0                                                                                        | USDC                                                                                         | USDe                                                                                         | FBTC                                                                                 | WETH                                                                                | WMNT                                                                                 |
+| --------------------------- | -------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| Oracle                      | [Capped sUSDe/USDT/USD](https://mantlescan.xyz/address/0x8b47ec48ac560793861d94a997d020872c1ce3f5) | [Capped SyrupUSDT/USDT/USD](https://mantlescan.xyz/address/0xcf1700ee060ab65fa16d5f44a6fbf16721eb0d9b) | [Capped wrsETH/ETH/USD](https://mantlescan.xyz/address/0xfed794060d37391d966f931b9509378063c5b0fb) | [Capped USDT/USD](https://mantlescan.xyz/address/0xFA5dEcEd7cdCEAB065addd0E32D9527ABd1069Ee) | [Capped USDC/USD](https://mantlescan.xyz/address/0x3876FB349c14613e0633b5cAe08C4E3B1d4904fB) | [Capped USDT/USD](https://mantlescan.xyz/address/0xFA5dEcEd7cdCEAB065addd0E32D9527ABd1069Ee) | [BTC/USD](https://mantlescan.xyz/address/0x7db2275279F52D0914A481e14c4Ce5a59705A25b) | [ETH/USD](http://mantlescan.xyz/address/0x5bc7Cf88EB131DB18b5d7930e793095140799aD5) | [MNT/USD](https://mantlescan.xyz/address/0xD97F20bEbeD74e8144134C4b148fE93417dd0F96) |
+| PriceCap                    | -                                                                                                  | -                                                                                                      | -                                                                                                  | 1.04                                                                                         | 1.04                                                                                         | 1.04                                                                                         | -                                                                                    | -                                                                                   | -                                                                                    |
+| Exchange Rate Feed          | [CL sUSDe/USDe](https://mantlescan.xyz/address/0x1D28137b7695d1Dcd122E5Bf0ce7eE92360e83b7)         | [CL syrupUSDT/USDT](https://mantlescan.xyz/address/0xdDEaeAdF319bd363120Af02fBdb1e2C5A3Ce172a)         | [CL rsETH/ETH](https://mantlescan.xyz/address/0xAa7B3679db156d3773620eBce98E38Cd87544C0e)          | -                                                                                            | -                                                                                            | -                                                                                            | -                                                                                    | -                                                                                   | -                                                                                    |
+| Base Feed                   | [Capped USDT/USD](https://mantlescan.xyz/address/0xFA5dEcEd7cdCEAB065addd0E32D9527ABd1069Ee)       | [Capped USDT/USD](https://mantlescan.xyz/address/0xFA5dEcEd7cdCEAB065addd0E32D9527ABd1069Ee)           | [CL ETH/USD](https://mantlescan.xyz/address/0x5bc7Cf88EB131DB18b5d7930e793095140799aD5)            | -                                                                                            | -                                                                                            | -                                                                                            | -                                                                                    | -                                                                                   | -                                                                                    |
+| MaxYearlyRatioGrowthPercent | 15.19%                                                                                             | 8.45%                                                                                                  | 6.67%                                                                                              | -                                                                                            | -                                                                                            | -                                                                                            | -                                                                                    | -                                                                                   | -                                                                                    |
+| MinimumSnapshotDelay        | 14 days                                                                                            | 7 days                                                                                                 | 14 days                                                                                            | -                                                                                            | -                                                                                            | -                                                                                            | -                                                                                    | -                                                                                   | -                                                                                    |
+| Latest Answer (19 Jan 2026) | $1.21612359                                                                                        | $1.11193853                                                                                            | $3390.23237648                                                                                     | $0.9995361                                                                                   | $0.99974                                                                                     | $0.9995361                                                                                   | $92,523.93                                                                           | $3,189.416319                                                                       | $0.93201554                                                                          |
 
-,The table below illustrates the configured risk parameters for **USDT0**
+#### E-Mode Configurations
 
-| Parameter                 |                                      Value |
-| ------------------------- | -----------------------------------------: |
-| Isolation Mode            |                                      false |
-| Borrowable                |                                    ENABLED |
-| Collateral Enabled        |                                       true |
-| Supply Cap (USDT0)        |                                 50,000,000 |
-| Borrow Cap (USDT0)        |                                 47,000,000 |
-| Debt Ceiling              |                                      USD 0 |
-| LTV                       |                                        0 % |
-| LT                        |                                        0 % |
-| Liquidation Bonus         |                                        0 % |
-| Liquidation Protocol Fee  |                                       10 % |
-| Reserve Factor            |                                       10 % |
-| Base Variable Borrow Rate |                                        0 % |
-| Variable Slope 1          |                                        5 % |
-| Variable Slope 2          |                                       10 % |
-| Uoptimal                  |                                       90 % |
-| Flashloanable             |                                    ENABLED |
-| Siloed Borrowing          |                                   DISABLED |
-| Borrowable in Isolation   |                                    ENABLED |
-| Oracle                    | 0xFA5dEcEd7cdCEAB065addd0E32D9527ABd1069Ee |
+**sUSDe Stablecoins [EModeId: 1]**
 
-,The table below illustrates the configured risk parameters for **USDC**
+| **Parameter**         |        |        |       |      |
+| --------------------- | ------ | ------ | ----- | ---- |
+| Asset                 | sUSDe  | USDe   | USDT0 | USDC |
+| Collateral            | Yes    | Yes    | No    | No   |
+| Borrowable            | No     | No     | Yes   | Yes  |
+| Max LTV               | 90.00% | 90.00% | -     | -    |
+| Liquidation Threshold | 92.00% | 92.00% | -     | -    |
+| Liquidation Bonus     | 4.00%  | 4.00%  | -     | -    |
 
-| Parameter                 |                                      Value |
-| ------------------------- | -----------------------------------------: |
-| Isolation Mode            |                                      false |
-| Borrowable                |                                    ENABLED |
-| Collateral Enabled        |                                       true |
-| Supply Cap (USDC)         |                                 10,000,000 |
-| Borrow Cap (USDC)         |                                  9,500,000 |
-| Debt Ceiling              |                                      USD 0 |
-| LTV                       |                                        0 % |
-| LT                        |                                        0 % |
-| Liquidation Bonus         |                                        0 % |
-| Liquidation Protocol Fee  |                                       10 % |
-| Reserve Factor            |                                       10 % |
-| Base Variable Borrow Rate |                                        0 % |
-| Variable Slope 1          |                                        5 % |
-| Variable Slope 2          |                                       10 % |
-| Uoptimal                  |                                       90 % |
-| Flashloanable             |                                    ENABLED |
-| Siloed Borrowing          |                                   DISABLED |
-| Borrowable in Isolation   |                                    ENABLED |
-| Oracle                    | 0x3876fb349c14613e0633b5cae08c4e3b1d4904fb |
+**USDe Stablecoins [EModeId: 2]**
 
-,The table below illustrates the configured risk parameters for **USDe**
+| **Parameter**         |        |       |      |
+| --------------------- | ------ | ----- | ---- |
+| Asset                 | USDe   | USDT0 | USDC |
+| Collateral            | Yes    | No    | No   |
+| Borrowable            | No     | Yes   | Yes  |
+| Max LTV               | 90.00% | -     | -    |
+| Liquidation Threshold | 93.00% | -     | -    |
+| Liquidation Bonus     | 2.00%  | -     | -    |
 
-| Parameter                 |                                      Value |
-| ------------------------- | -----------------------------------------: |
-| Isolation Mode            |                                      false |
-| Borrowable                |                                    ENABLED |
-| Collateral Enabled        |                                       true |
-| Supply Cap (USDe)         |                                 20,000,000 |
-| Borrow Cap (USDe)         |                                 17,500,000 |
-| Debt Ceiling              |                                      USD 0 |
-| LTV                       |                                        0 % |
-| LT                        |                                        0 % |
-| Liquidation Bonus         |                                        0 % |
-| Liquidation Protocol Fee  |                                       10 % |
-| Reserve Factor            |                                       10 % |
-| Base Variable Borrow Rate |                                        0 % |
-| Variable Slope 1          |                                     5.25 % |
-| Variable Slope 2          |                                       12 % |
-| Uoptimal                  |                                       85 % |
-| Flashloanable             |                                    ENABLED |
-| Siloed Borrowing          |                                   DISABLED |
-| Borrowable in Isolation   |                                    ENABLED |
-| Oracle                    | 0xFA5dEcEd7cdCEAB065addd0E32D9527ABd1069Ee |
+**fBTC Stablecoins [EModeId: 3]**
 
-,The table below illustrates the configured risk parameters for **sUSDe**
+| **Parameter**         |        |       |      |      |
+| --------------------- | ------ | ----- | ---- | ---- |
+| Asset                 | fBTC   | USDT0 | USDC | USDe |
+| Collateral            | Yes    | No    | No   | No   |
+| Borrowable            | No     | Yes   | Yes  | Yes  |
+| Max LTV               | 75.00% | -     | -    | -    |
+| Liquidation Threshold | 79.00% | -     | -    | -    |
+| Liquidation Bonus     | 8.00%  | -     | -    | -    |
 
-| Parameter                 |                                      Value |
-| ------------------------- | -----------------------------------------: |
-| Isolation Mode            |                                      false |
-| Borrowable                |                                   DISABLED |
-| Collateral Enabled        |                                       true |
-| Supply Cap (sUSDe)        |                                 20,000,000 |
-| Borrow Cap (sUSDe)        |                                          1 |
-| Debt Ceiling              |                                      USD 0 |
-| LTV                       |                                        0 % |
-| LT                        |                                        0 % |
-| Liquidation Bonus         |                                        0 % |
-| Liquidation Protocol Fee  |                                       10 % |
-| Reserve Factor            |                                       20 % |
-| Base Variable Borrow Rate |                                        0 % |
-| Variable Slope 1          |                                        5 % |
-| Variable Slope 2          |                                       20 % |
-| Uoptimal                  |                                       90 % |
-| Flashloanable             |                                    ENABLED |
-| Siloed Borrowing          |                                   DISABLED |
-| Borrowable in Isolation   |                                   DISABLED |
-| Oracle                    | 0x8b47ec48ac560793861d94a997d020872c1ce3f5 |
+**syrupUSDT Stablecoins [EModeId: 4]**
 
-,The table below illustrates the configured risk parameters for **FBTC**
+| **Parameter**         |           |       |      |
+| --------------------- | --------- | ----- | ---- |
+| Asset                 | syrupUSDT | USDT0 | USDC |
+| Collateral            | Yes       | No    | No   |
+| Borrowable            | No        | Yes   | Yes  |
+| Max LTV               | 90.00%    | -     | -    |
+| Liquidation Threshold | 92.00%    | -     | -    |
+| Liquidation Bonus     | 4.00%     | -     | -    |
 
-| Parameter                 |                                      Value |
-| ------------------------- | -----------------------------------------: |
-| Isolation Mode            |                                      false |
-| Borrowable                |                                   DISABLED |
-| Collateral Enabled        |                                       true |
-| Supply Cap (FBTC)         |                                         50 |
-| Borrow Cap (FBTC)         |                                          1 |
-| Debt Ceiling              |                                      USD 0 |
-| LTV                       |                                        0 % |
-| LT                        |                                        0 % |
-| Liquidation Bonus         |                                        0 % |
-| Liquidation Protocol Fee  |                                       10 % |
-| Reserve Factor            |                                       20 % |
-| Base Variable Borrow Rate |                                        0 % |
-| Variable Slope 1          |                                        5 % |
-| Variable Slope 2          |                                       20 % |
-| Uoptimal                  |                                       90 % |
-| Flashloanable             |                                    ENABLED |
-| Siloed Borrowing          |                                   DISABLED |
-| Borrowable in Isolation   |                                   DISABLED |
-| Oracle                    | 0x7db2275279F52D0914A481e14c4Ce5a59705A25b |
+**wrsETH Correlated [EModeId: 5]**
 
-,The table below illustrates the configured risk parameters for **syrupUSDT**
+| **Parameter**         |        |      |
+| --------------------- | ------ | ---- |
+| Asset                 | wrsETH | WETH |
+| Collateral            | Yes    | No   |
+| Borrowable            | No     | Yes  |
+| Max LTV               | 93.00% | -    |
+| Liquidation Threshold | 95.00% | -    |
+| Liquidation Bonus     | 1.00%  | -    |
 
-| Parameter                 |                                      Value |
-| ------------------------- | -----------------------------------------: |
-| Isolation Mode            |                                      false |
-| Borrowable                |                                   DISABLED |
-| Collateral Enabled        |                                       true |
-| Supply Cap (syrupUSDT)    |                                 70,000,000 |
-| Borrow Cap (syrupUSDT)    |                                          1 |
-| Debt Ceiling              |                                      USD 0 |
-| LTV                       |                                        0 % |
-| LT                        |                                        0 % |
-| Liquidation Bonus         |                                        0 % |
-| Liquidation Protocol Fee  |                                       10 % |
-| Reserve Factor            |                                       20 % |
-| Base Variable Borrow Rate |                                        0 % |
-| Variable Slope 1          |                                        5 % |
-| Variable Slope 2          |                                       20 % |
-| Uoptimal                  |                                       90 % |
-| Flashloanable             |                                    ENABLED |
-| Siloed Borrowing          |                                   DISABLED |
-| Borrowable in Isolation   |                                   DISABLED |
-| Oracle                    | 0xcf1700ee060ab65fa16d5f44a6fbf16721eb0d9b |
+### Security procedures:
 
-,The table below illustrates the configured risk parameters for **wrsETH**
-
-| Parameter                 |                                      Value |
-| ------------------------- | -----------------------------------------: |
-| Isolation Mode            |                                      false |
-| Borrowable                |                                   DISABLED |
-| Collateral Enabled        |                                       true |
-| Supply Cap (wrsETH)       |                                     18,000 |
-| Borrow Cap (wrsETH)       |                                          1 |
-| Debt Ceiling              |                                      USD 0 |
-| LTV                       |                                        0 % |
-| LT                        |                                        0 % |
-| Liquidation Bonus         |                                        0 % |
-| Liquidation Protocol Fee  |                                       10 % |
-| Reserve Factor            |                                       20 % |
-| Base Variable Borrow Rate |                                        0 % |
-| Variable Slope 1          |                                        5 % |
-| Variable Slope 2          |                                       20 % |
-| Uoptimal                  |                                       90 % |
-| Flashloanable             |                                    ENABLED |
-| Siloed Borrowing          |                                   DISABLED |
-| Borrowable in Isolation   |                                   DISABLED |
-| Oracle                    | 0xfed794060d37391d966f931b9509378063c5b0fb |
+- The proposal execution is simulated within the tests and the resulting pool configuration is tested for correctness.
+- The deployed pool and other permissions have been programmatically verified, which can be found on the [aave-permissions-book](TODO).
+- In addition, we have also checked the code diffs of the deployed plasma contracts with the production instance, which can be found [here](https://github.com/bgd-labs/aave-v3-origin/pull/6).
 
 ## References
 

@@ -2,7 +2,7 @@
 pragma solidity ^0.8.0;
 
 import {AaveV3Mantle} from 'aave-address-book/AaveV3Mantle.sol';
-import {MiscPlasma} from 'aave-address-book/MiscPlasma.sol';
+import {MiscMantle} from 'aave-address-book/MiscMantle.sol';
 import {AaveV3PayloadMantle} from 'aave-helpers/src/v3-config-engine/AaveV3PayloadMantle.sol';
 import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
@@ -22,44 +22,44 @@ contract AaveV3Mantle_AaveV36MantleActivation_20260117 is AaveV3PayloadMantle {
   address public constant LM_ADMIN = 0xac140648435d03f784879cd789130F22Ef588Fcd;
 
   address public constant WETH = 0xdEAddEaDdeadDEadDEADDEAddEADDEAddead1111;
-  uint256 public constant WETH_SEED_AMOUNT = 1e18;
+  uint256 public constant WETH_SEED_AMOUNT = 0.0025e18;
 
   address public constant WMNT = 0x78c1b0C915c4FAA5FffA6CAbf0219DA63d7f4cb8;
-  uint256 public constant WMNT_SEED_AMOUNT = 1e18;
+  uint256 public constant WMNT_SEED_AMOUNT = 10e18;
 
   address public constant USDT0 = 0x779Ded0c9e1022225f8E0630b35a9b54bE713736;
-  uint256 public constant USDT0_SEED_AMOUNT = 1e6;
+  uint256 public constant USDT0_SEED_AMOUNT = 10e6;
 
   address public constant USDC = 0x09Bc4E0D864854c6aFB6eB9A9cdF58aC190D0dF9;
-  uint256 public constant USDC_SEED_AMOUNT = 1e6;
+  uint256 public constant USDC_SEED_AMOUNT = 10e6;
 
   address public constant USDe = 0x5d3a1Ff2b6BAb83b63cd9AD0787074081a52ef34;
-  uint256 public constant USDe_SEED_AMOUNT = 1e18;
+  uint256 public constant USDe_SEED_AMOUNT = 10e18;
 
   address public constant sUSDe = 0x211Cc4DD073734dA055fbF44a2b4667d5E5fE5d2;
-  uint256 public constant sUSDe_SEED_AMOUNT = 1e18;
+  uint256 public constant sUSDe_SEED_AMOUNT = 10e18;
 
   address public constant FBTC = 0xC96dE26018A54D51c097160568752c4E3BD6C364;
   uint256 public constant FBTC_SEED_AMOUNT = 0.0005e8;
 
   address public constant syrupUSDT = 0x051665f2455116e929b9972c36d23070F5054Ce0;
-  uint256 public constant syrupUSDT_SEED_AMOUNT = 1e6;
+  uint256 public constant syrupUSDT_SEED_AMOUNT = 10e6;
 
   address public constant wrsETH = 0x93e855643e940D025bE2e529272e4Dbd15a2Cf74;
-  uint256 public constant wrsETH_SEED_AMOUNT = 1e18;
+  uint256 public constant wrsETH_SEED_AMOUNT = 0.0025e18;
 
   function _postExecute() internal override {
-    // _supplyAndConfigureLMAdmin(WETH, WETH_SEED_AMOUNT);
-    // _supplyAndConfigureLMAdmin(WMNT, WMNT_SEED_AMOUNT);
-    // _supplyAndConfigureLMAdmin(USDT0, USDT0_SEED_AMOUNT);
-    // _supplyAndConfigureLMAdmin(USDC, USDC_SEED_AMOUNT);
-    // _supplyAndConfigureLMAdmin(USDe, USDe_SEED_AMOUNT);
-    // _supplyAndConfigureLMAdmin(sUSDe, sUSDe_SEED_AMOUNT);
-    // _supplyAndConfigureLMAdmin(FBTC, FBTC_SEED_AMOUNT);
-    // _supplyAndConfigureLMAdmin(syrupUSDT, syrupUSDT_SEED_AMOUNT);
-    // _supplyAndConfigureLMAdmin(wrsETH, wrsETH_SEED_AMOUNT);
+    _supplyAndConfigureLMAdmin(WETH, WETH_SEED_AMOUNT);
+    _supplyAndConfigureLMAdmin(WMNT, WMNT_SEED_AMOUNT);
+    _supplyAndConfigureLMAdmin(USDT0, USDT0_SEED_AMOUNT);
+    _supplyAndConfigureLMAdmin(USDC, USDC_SEED_AMOUNT);
+    _supplyAndConfigureLMAdmin(USDe, USDe_SEED_AMOUNT);
+    _supplyAndConfigureLMAdmin(sUSDe, sUSDe_SEED_AMOUNT);
+    _supplyAndConfigureLMAdmin(FBTC, FBTC_SEED_AMOUNT);
+    _supplyAndConfigureLMAdmin(syrupUSDT, syrupUSDT_SEED_AMOUNT);
+    _supplyAndConfigureLMAdmin(wrsETH, wrsETH_SEED_AMOUNT);
 
-    AaveV3Mantle.ACL_MANAGER.addPoolAdmin(MiscPlasma.PROTOCOL_GUARDIAN);
+    AaveV3Mantle.ACL_MANAGER.addPoolAdmin(MiscMantle.PROTOCOL_GUARDIAN);
     AaveV3Mantle.ACL_MANAGER.addRiskAdmin(AaveV3Mantle.RISK_STEWARD);
   }
 
