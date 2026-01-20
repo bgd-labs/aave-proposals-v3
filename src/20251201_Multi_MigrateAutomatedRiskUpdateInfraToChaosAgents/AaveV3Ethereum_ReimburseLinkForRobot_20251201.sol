@@ -9,7 +9,7 @@ import {CollectorUtils, ICollector} from 'aave-helpers/src/CollectorUtils.sol';
  * @title Migrate automated risk update infra to chaos agents
  * @author BGD Labs (@bgdlabs)
  * - Snapshot: https://snapshot.org/#/s:aavedao.eth/proposal/0x9795f1b7057d2780b3382b9f67f309fbfead98e7357a88df4c309dbbfefcbeb7
- * - Discussion: https://governance.aave.com/t/arfc-chaos-risk-agents/23401
+ * - Discussion: https://governance.aave.com/t/technical-maintenance-proposals/15274/122
  */
 contract AaveV3Ethereum_ReimburseLinkForRobot_20251201 is IProposalGenericExecutor {
   using CollectorUtils for ICollector;
