@@ -75,8 +75,8 @@ ACI is not directly affiliated with Maple and did not receive compensation for t
 
 ## References
 
-- Implementation: [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20260114_AaveV3Base_OnboardSyrupUSDCOnBase/AaveV3Base_OnboardSyrupUSDCOnBase_20260114.sol)
-- Tests: [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20260114_AaveV3Base_OnboardSyrupUSDCOnBase/AaveV3Base_OnboardSyrupUSDCOnBase_20260114.t.sol)
+- Implementation: [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/cf06467d79b7dac0d1a45017c2dfd4bbeede38e4/src/20260114_AaveV3Base_OnboardSyrupUSDCOnBase/AaveV3Base_OnboardSyrupUSDCOnBase_20260114.sol)
+- Tests: [AaveV3Base](https://github.com/bgd-labs/aave-proposals-v3/blob/cf06467d79b7dac0d1a45017c2dfd4bbeede38e4/src/20260114_AaveV3Base_OnboardSyrupUSDCOnBase/AaveV3Base_OnboardSyrupUSDCOnBase_20260114.t.sol)
 - Snapshot: Direct-to-AIP
 - [Discussion](https://governance.aave.com/t/direct-to-aip-onboard-syrupusdc-to-aave-v3-base-instance/23234)
 
