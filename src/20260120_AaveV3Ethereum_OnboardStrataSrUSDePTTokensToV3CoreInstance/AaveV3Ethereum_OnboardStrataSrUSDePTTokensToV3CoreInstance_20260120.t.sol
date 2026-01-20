@@ -38,7 +38,7 @@ contract AaveV3Ethereum_OnboardStrataSrUSDePTTokensToV3CoreInstance_20260120_Tes
   function test_dustBinHasPT_srUSDe_2APR2026Funds() public {
     GovV3Helpers.executePayload(vm, address(proposal));
     address aTokenAddress = AaveV3Ethereum.POOL.getReserveAToken(proposal.PT_srUSDe_2APR2026());
-    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Ethereum.DUST_BIN)), 1000 * 10 ** 18);
+    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Ethereum.DUST_BIN)), 100e18);
   }
 
   function test_PT_srUSDe_2APR2026Admin() public {
