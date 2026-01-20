@@ -1,7 +1,7 @@
 ---
 title: "MegaEth aDI path activation"
 author: "BGD Labs @bgdlabs"
-discussions: TODO
+discussions: "https://governance.aave.com/t/technical-maintenance-proposals/15274/124"
 ---
 
 ## Simple Summary
@@ -49,7 +49,7 @@ The new Aave Governance deployments on MegaEth network are as follows:
 - Payload Implementation: [Payload](https://github.com/aave-dao/adi-deploy/blob/24bcd658ba115a99743f6282e42a070b81ada588/scripts/payloads/adapters/ethereum/Ethereum_Activate_MegaEth_Bridge_Adapter_Payload.s.sol)
 - Payload Tests: [tests](https://github.com/aave-dao/adi-deploy/blob/24bcd658ba115a99743f6282e42a070b81ada588/tests/payloads/ethereum/AddMegaEthPathTest.t.sol)
 - Diffs: [a.DI diffs](https://github.com/aave-dao/adi-deploy/blob/24bcd658ba115a99743f6282e42a070b81ada588/diffs/adi_add_megaeth_path_to_adiethereum_before_adi_add_megaeth_path_to_adiethereum_after.md)
-- [Discussion]()
+- [Discussion](https://governance.aave.com/t/technical-maintenance-proposals/15274/124)
 
 ## Copyright
 
