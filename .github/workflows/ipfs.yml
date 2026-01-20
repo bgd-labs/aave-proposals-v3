@@ -61,17 +61,16 @@ jobs:
           json_array=($(jq -r '.[]' ".github/outputs/all_changed_files.json"))
           for i in "${json_array[@]}"
           do
-            # Extract folder name and filename without extension
-            folder_name=$(basename $(dirname "$i"))
+            # Extract filename without extension
             file_name=$(basename "$i" .md)
-            echo "Processing: $i (folder: $folder_name, file: $file_name)"
+            echo "Processing: $i (file: $file_name)"
 
-            if [[ "$folder_name" == *"$file_name"* ]]; then
+            if [[ "$file_name" == "README" ]]; then
+              echo "Skipping $i (README.md file)"
+            else
               npx prettier $i --write
               sed -i 's@https://github.com/bgd-labs/aave-proposals-v3/blob/main/@https://github.com/bgd-labs/aave-proposals-v3/blob/${{ github.sha }}/@g' $i
               sed -i 's@https://github.com/bgd-labs/aave-proposals-v3/tree/main/@https://github.com/bgd-labs/aave-proposals-v3/blob/${{ github.sha }}/@g' $i
-            else
-              echo "Skipping $i (filename doesn't match folder)"
             fi
           done
 
@@ -84,15 +83,14 @@ jobs:
           json_array=($(jq -r '.[]' ".github/outputs/all_changed_files.json"))
           for i in "${json_array[@]}"
           do
-            # Extract folder name and filename without extension
-            folder_name=$(basename $(dirname "$i"))
+            # Extract filename without extension
             file_name=$(basename "$i" .md)
-            echo "Processing: $i (folder: $folder_name, file: $file_name)"
+            echo "Processing: $i (file: $file_name)"
 
-            if [[ "$folder_name" == *"$file_name"* ]]; then
-              npx aave-cli ipfs ${{ github.event_name != 'pull_request' && '-u' || ''}} $i
+            if [[ "$file_name" == "README" ]]; then
+              echo "Skipping $i (README.md file)"
             else
-              echo "Skipping $i (filename doesn't match folder)"
+              npx aave-cli ipfs ${{ github.event_name != 'pull_request' && '-u' || ''}} $i
             fi
           done
 
@@ -101,7 +99,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
         run: |
-          if [[ -z $(git status --porcelain) ]]
+          if [[ -z $(git status --porcelain src) ]]
           then
             echo "tree is clean"
           else
