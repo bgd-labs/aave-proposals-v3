@@ -5,6 +5,7 @@ import {AaveV3GHORemoteLaneTest_PreExecution, AaveV3GHORemoteLane_1_6_Test_PostE
 import {GhoCCIPChains} from '../../../helpers/gho-launch/constants/GhoCCIPChains.sol';
 import {AaveV3GHOLane} from '../../../helpers/gho-launch/AaveV3GHOLane.sol';
 import {Plasma_Mantle_AaveV3GHOLane_20260105} from '../../remote-lanes/Plasma_Mantle_AaveV3GHOLane_20260105.sol';
+import {AaveV3Plasma} from 'aave-address-book/AaveV3Plasma.sol';
 
 uint256 constant PLASMA_BLOCK_NUMBER = 11473470;
 
@@ -25,7 +26,7 @@ contract Plasma_Mantle_AaveV3GHOLane_20260105_Test_PreExecution is
   }
 
   function test_defaultProposalExecution() public virtual {
-    executePayload(vm, address(proposal));
+    defaultTest('Plasma_Mantle_AaveV3GHOLane_20260105', AaveV3Plasma.POOL, address(proposal));
   }
 
   function _assertOnAndOffRamps() internal view override {

@@ -2,7 +2,7 @@
 title: "Gho Mantle Activation"
 author: "@TokenLogic"
 discussions: "https://governance.aave.com/t/arfc-deploy-aave-v3-on-mantle/20542/10"
-snapshot: "TODO"
+snapshot: "https://snapshot.org/#/s:aavedao.eth/proposal/0x2f9378770f1838f0ea8d483239af1530c9fbea98d648e0b11e4647dcb722d119"
 ---
 
 ## Simple Summary
@@ -25,18 +25,19 @@ This AIP includes a series of actions required to launch GHO on Mantle:
 
 The table below lists the address of the new **Mantle** deployments
 
-| Contract         | Address                                                                                                                 |
-| :--------------- | :---------------------------------------------------------------------------------------------------------------------- |
-| GhoToken         | [0xfc421aD3C883Bf9E7C4f42dE845C4e4405799e73](https://mantlescan.xyz/address/0xb0e1c7830aa781362f79225559aa068e6bdaf1d1) |
-| GhoTokenPool     | [0xDe6539018B095353A40753Dc54C91C68c9487D4E](https://mantlescan.xyz/address/0xde6539018b095353a40753dc54c91c68c9487d4e) |
-| GhoBucketSteward | [0x2Ce400703dAcc37b7edFA99D228b8E70a4d3831B](https://mantlescan.xyz/address/0x2ce400703dacc37b7edfa99d228b8e70a4d3831b) |
-| GhoCcipSteward   | [0x20fd5f3FCac8883a3A0A2bBcD658A2d2c6EFa6B6](https://mantlescan.xyz/address/0x20fd5f3FCac8883a3A0A2bBcD658A2d2c6EFa6B6) |
+| Contract           | Address                                                                                                                 |
+| :----------------- | :---------------------------------------------------------------------------------------------------------------------- |
+| GhoToken           | [0xfc421aD3C883Bf9E7C4f42dE845C4e4405799e73](https://mantlescan.xyz/address/0xb0e1c7830aa781362f79225559aa068e6bdaf1d1) |
+| GhoTokenPool       | [0xDe6539018B095353A40753Dc54C91C68c9487D4E](https://mantlescan.xyz/address/0xde6539018b095353a40753dc54c91c68c9487d4e) |
+| GhoBucketSteward   | [0x2Ce400703dAcc37b7edFA99D228b8E70a4d3831B](https://mantlescan.xyz/address/0x2ce400703dacc37b7edfa99d228b8e70a4d3831b) |
+| GhoCcipSteward     | [0x20fd5f3FCac8883a3A0A2bBcD658A2d2c6EFa6B6](https://mantlescan.xyz/address/0x20fd5f3FCac8883a3A0A2bBcD658A2d2c6EFa6B6) |
+| GhoAavecoreSteward | [0xA5Ba213867E175A182a5dd6A9193C6158738105A](https://mantlescan.xyz/address/0xA5Ba213867E175A182a5dd6A9193C6158738105A) |
 
 ## References
 
 - Implementation: [AaveV3Mantle](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20260105_AaveV3Mantle_GhoMantleActivation/AaveV3Mantle_GhoMantleActivation_20260105.sol)
 - Tests: [AaveV3Mantle](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20260105_AaveV3Mantle_GhoMantleActivation/AaveV3Mantle_GhoMantleActivation_20260105.t.sol)
-- [Snapshot](https://snapshot.box/#/s:aavedao.eth/proposal/0xa3dc5b82f2dc5176c2a7543a6cc10aa75cccf96a73afe06478795182cff9d771)
+- [Snapshot](https://snapshot.org/#/s:aavedao.eth/proposal/0x2f9378770f1838f0ea8d483239af1530c9fbea98d648e0b11e4647dcb722d119)
 - [Discussion](https://governance.aave.com/t/arfc-deploy-aave-v3-on-mantle/20542/10)
 
 ## Copyright
