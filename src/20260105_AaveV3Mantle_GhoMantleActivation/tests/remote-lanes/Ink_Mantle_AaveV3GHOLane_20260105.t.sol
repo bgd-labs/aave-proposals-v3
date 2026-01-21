@@ -26,7 +26,7 @@ contract Ink_Mantle_AaveV3GHOLane_20260105_Test_PreExecution is
   }
 
   function test_defaultProposalExecution() public virtual {
-    defaultTest('Ink_Mantle_AaveV3GHOLane_20260105', AaveV3InkWhitelabel.POOL, address(proposal));
+    executePayload(vm, address(proposal));
   }
 
   function _assertOnAndOffRamps() internal view override {
