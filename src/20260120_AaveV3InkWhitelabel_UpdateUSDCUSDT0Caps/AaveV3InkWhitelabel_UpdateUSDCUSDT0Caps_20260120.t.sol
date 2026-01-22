@@ -15,7 +15,7 @@ contract AaveV3InkWhitelabel_UpdateUSDCUSDT0Caps_20260120_Test is ProtocolV3Test
   AaveV3InkWhitelabel_UpdateUSDCUSDT0Caps_20260120 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('ink'), 35414297);
+    vm.createSelectFork(vm.rpcUrl('ink'), 35581284);
     proposal = new AaveV3InkWhitelabel_UpdateUSDCUSDT0Caps_20260120();
   }
 
