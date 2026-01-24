@@ -15,7 +15,7 @@ import {IGhoToken} from 'src/interfaces/IGhoToken.sol';
 import {IGsm} from 'src/interfaces/IGsm.sol';
 import {IGsmRegistry} from 'src/interfaces/IGsmRegistry.sol';
 import {IAaveCLRobotOperator} from 'src/interfaces/IAaveCLRobotOperator.sol';
-import {IOwnableFacilitator} from 'src/interfaces/IOwnableFacilitator.sol';
+import {IGhoDirectFacilitator} from 'src/interfaces/IGhoDirectFacilitator.sol';
 import {IGhoReserve} from 'src/interfaces/IGhoReserve.sol';
 
 /**
@@ -28,14 +28,14 @@ contract AaveV3Ethereum_GSMMigration_20251113 is IProposalGenericExecutor {
   using SafeERC20 for IERC20;
   using CollectorUtils for ICollector;
 
-  // OwnableFacilitator Constants
-  address public constant OWNABLE_FACILITATOR = 0x616AEe98F73C79FE59548Cfe7631c0baDBdA3165;
-  string public constant OWNABLE_FACILITATOR_NAME = 'OwnableFacilitator Gho GSMs Mainnet';
-  uint128 public constant OWNABLE_FACILITATOR_CAPACITY = 85_000_000 ether;
+  // GhoDirectFacilitator Constants
+  address public constant DIRECT_FACILITATOR = 0xE9ac5231fAecb633dA0Fe85Fcb2785b8363427d2;
+  string public constant DIRECT_FACILITATOR_NAME = 'GhoDirectFacilitator GSMs Mainnet';
+  uint128 public constant DIRECT_FACILITATOR_CAPACITY = 85_000_000 ether;
 
   // GhoReserve
-  // https://etherscan.io/address/0x0b0C0d8346F69EE94D29405f5630fc883A1052ab
-  address public constant GHO_RESERVE = 0x0b0C0d8346F69EE94D29405f5630fc883A1052ab;
+  // https://etherscan.io/address/0x54C58157DeF387A880AE62332D1445f03adbE7E9
+  address public constant GHO_RESERVE = 0x54C58157DeF387A880AE62332D1445f03adbE7E9;
 
   // GSM Draw Limits
   uint128 public constant USDC_GSM_RESERVE_LIMIT = 55_000_000 ether;
@@ -80,9 +80,9 @@ contract AaveV3Ethereum_GSMMigration_20251113 is IProposalGenericExecutor {
     );
 
     IGhoToken(AaveV3EthereumAssets.GHO_UNDERLYING).addFacilitator(
-      OWNABLE_FACILITATOR,
-      OWNABLE_FACILITATOR_NAME,
-      OWNABLE_FACILITATOR_CAPACITY
+      DIRECT_FACILITATOR,
+      DIRECT_FACILITATOR_NAME,
+      DIRECT_FACILITATOR_CAPACITY
     );
 
     _seize();
@@ -103,7 +103,7 @@ contract AaveV3Ethereum_GSMMigration_20251113 is IProposalGenericExecutor {
 
   function _grantAccess() internal {
     address[] memory vaults = new address[](1);
-    vaults[0] = OWNABLE_FACILITATOR;
+    vaults[0] = DIRECT_FACILITATOR;
     IGhoBucketSteward(GhoEthereum.GHO_BUCKET_STEWARD).setControlledFacilitator(vaults, true);
 
     // Enroll GSMs as entities and set limit
@@ -177,7 +177,7 @@ contract AaveV3Ethereum_GSMMigration_20251113 is IProposalGenericExecutor {
     IGsm(GhoEthereum.GSM_USDC).distributeFeesToTreasury();
     IGsm(GhoEthereum.GSM_USDT).distributeFeesToTreasury();
 
-    IOwnableFacilitator(OWNABLE_FACILITATOR).mint(
+    IGhoDirectFacilitator(DIRECT_FACILITATOR).mint(
       GHO_RESERVE,
       USDC_GSM_RESERVE_LIMIT + USDT_GSM_RESERVE_LIMIT
     );

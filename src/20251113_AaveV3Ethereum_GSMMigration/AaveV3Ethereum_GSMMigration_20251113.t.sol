@@ -27,7 +27,7 @@ contract AaveV3Ethereum_GSMMigration_20251113_Test is ProtocolV3TestBase {
   AaveV3Ethereum_GSMMigration_20251113 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 23848050);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 24305590);
     proposal = new AaveV3Ethereum_GSMMigration_20251113();
   }
 
@@ -40,7 +40,7 @@ contract AaveV3Ethereum_GSMMigration_20251113_Test is ProtocolV3TestBase {
   function test_checkConfig() public {
     assertFalse(
       IGhoBucketSteward(GhoEthereum.GHO_BUCKET_STEWARD).isControlledFacilitator(
-        proposal.OWNABLE_FACILITATOR()
+        proposal.DIRECT_FACILITATOR()
       )
     );
 
@@ -62,11 +62,11 @@ contract AaveV3Ethereum_GSMMigration_20251113_Test is ProtocolV3TestBase {
 
     assertTrue(
       IGhoBucketSteward(GhoEthereum.GHO_BUCKET_STEWARD).isControlledFacilitator(
-        proposal.OWNABLE_FACILITATOR()
+        proposal.DIRECT_FACILITATOR()
       )
     );
 
-    // We replace 2 GSMs as facilitators with only the OwnableFacilitator
+    // We replace 2 GSMs as facilitators with only the GhoDirectFacilitator
     assertTrue(
       IGhoToken(GhoEthereum.GHO_TOKEN).getFacilitatorsList().length ==
         facilitatorListLengthBefore - 1
