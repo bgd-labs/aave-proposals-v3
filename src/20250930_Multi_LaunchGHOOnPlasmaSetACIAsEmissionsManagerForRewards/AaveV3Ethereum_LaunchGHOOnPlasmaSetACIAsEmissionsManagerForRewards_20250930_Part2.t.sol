@@ -39,7 +39,7 @@ contract AaveV3Ethereum_LaunchGHOOnEthereumSetACIAsEmissionsManagerForRewards_20
     internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 23792200);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 24305760);
     proposal = new AaveV3Ethereum_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_20250930_Part2();
   }
 
@@ -47,7 +47,7 @@ contract AaveV3Ethereum_LaunchGHOOnEthereumSetACIAsEmissionsManagerForRewards_20
     // Mock the update from Part 1
     vm.startPrank(GovernanceV3Ethereum.EXECUTOR_LVL_1);
     IUpgradeableLockReleaseTokenPool(GhoEthereum.GHO_CCIP_TOKEN_POOL).setBridgeLimit(
-      proposal.OWNABLE_FACILITATOR_CAPACITY() * 2
+      proposal.DIRECT_FACILITATOR_CAPACITY() * 2
     );
 
     IUpgradeableBurnMintTokenPool(GhoEthereum.GHO_CCIP_TOKEN_POOL).setChainRateLimiterConfig(
@@ -85,10 +85,10 @@ contract AaveV3Ethereum_LaunchGHOOnEthereumSetACIAsEmissionsManagerForRewards_20
   function test_bridge() public {
     vm.startPrank(GovernanceV3Ethereum.EXECUTOR_LVL_1);
     IGhoToken.Facilitator memory facilitator = IGhoToken(AaveV3EthereumAssets.GHO_UNDERLYING)
-      .getFacilitator(proposal.OWNABLE_FACILITATOR());
+      .getFacilitator(proposal.DIRECT_FACILITATOR());
 
     IUpgradeableLockReleaseTokenPool(GhoEthereum.GHO_CCIP_TOKEN_POOL).setBridgeLimit(
-      proposal.OWNABLE_FACILITATOR_CAPACITY() * 2
+      proposal.DIRECT_FACILITATOR_CAPACITY() * 2
     );
 
     IUpgradeableBurnMintTokenPool(GhoEthereum.GHO_CCIP_TOKEN_POOL).setChainRateLimiterConfig(
@@ -126,10 +126,10 @@ contract AaveV3Ethereum_LaunchGHOOnEthereumSetACIAsEmissionsManagerForRewards_20
     executePayload(vm, address(proposal));
 
     facilitator = IGhoToken(AaveV3EthereumAssets.GHO_UNDERLYING).getFacilitator(
-      proposal.OWNABLE_FACILITATOR()
+      proposal.DIRECT_FACILITATOR()
     );
 
-    assertEq(facilitator.bucketCapacity, proposal.OWNABLE_FACILITATOR_CAPACITY());
+    assertEq(facilitator.bucketCapacity, proposal.DIRECT_FACILITATOR_CAPACITY());
     assertEq(facilitator.bucketLevel, proposal.PLASMA_BRIDGE_AMOUNT());
     assertEq(
       IERC20(AaveV3EthereumAssets.LINK_UNDERLYING).balanceOf(proposal.CCIP_BRIDGE()),

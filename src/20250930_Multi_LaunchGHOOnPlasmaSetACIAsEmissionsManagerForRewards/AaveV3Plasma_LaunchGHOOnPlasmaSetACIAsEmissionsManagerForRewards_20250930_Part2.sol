@@ -37,8 +37,8 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
   uint256 public constant GHO_SEED_AMOUNT = 10 ether;
 
   // GhoReserve
-  // https://plasmascan.to/address/0xBAdA742e7Ff54595F9049eeF1Cc5AaF4364988B9
-  address public constant GHO_RESERVE = 0xBAdA742e7Ff54595F9049eeF1Cc5AaF4364988B9;
+  // https://plasmascan.to/address/0x6aC541605b0317dE076C9FeC2842902c844dEa74
+  address public constant GHO_RESERVE = 0x6aC541605b0317dE076C9FeC2842902c844dEa74;
   uint256 public constant BRIDGED_AMOUNT = 50_000_000 ether;
 
   // Capacities
