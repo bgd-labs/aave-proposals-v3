@@ -9,7 +9,7 @@ import {AaveV3InkWhitelabel} from 'aave-address-book/AaveV3InkWhitelabel.sol';
  * @author BGD Labs (@bgdlabs)
  */
 contract AaveV3InkWhitelabel_ManualRiskStewardsActivation_20260119 is IProposalGenericExecutor {
-  address public constant RISK_STEWARD = 0x69a6CaF240698982c3Ac89E0A7C12E76bCEee4ef;
+  address public constant RISK_STEWARD = 0x2F9fDD0D80843b21A7e2c7bfe2A6278231A5683e;
 
   function execute() external {
     AaveV3InkWhitelabel.ACL_MANAGER.addRiskAdmin(RISK_STEWARD);

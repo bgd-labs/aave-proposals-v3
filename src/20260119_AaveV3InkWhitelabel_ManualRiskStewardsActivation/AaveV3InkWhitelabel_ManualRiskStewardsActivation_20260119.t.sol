@@ -17,10 +17,10 @@ import {IRiskSteward} from '../interfaces/IRiskSteward.sol';
 contract AaveV3InkWhitelabel_ManualRiskStewardsActivation_20260119_Test is ProtocolV3TestBase {
   AaveV3InkWhitelabel_ManualRiskStewardsActivation_20260119 internal proposal;
 
-  address public constant RISK_COUNCIL = 0x0e92549288354832Cf345C8cC59666002aDeC8db;
+  address public constant RISK_COUNCIL = 0xEcD37F855bB9814D75A83F0021815dc5cd6fd889;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('ink'), 35296796);
+    vm.createSelectFork(vm.rpcUrl('ink'), 35911234);
     proposal = new AaveV3InkWhitelabel_ManualRiskStewardsActivation_20260119();
   }
 
@@ -65,44 +65,44 @@ contract AaveV3InkWhitelabel_ManualRiskStewardsActivation_20260119_Test is Proto
 
     IRiskSteward.Config memory expectedConfig = IRiskSteward.Config({
       collateralConfig: IRiskSteward.CollateralConfig({
-        ltv: IRiskSteward.RiskParamConfig({minDelay: 3 days, maxPercentChange: 50}),
+        ltv: IRiskSteward.RiskParamConfig({minDelay: 1 days, maxPercentChange: 50}),
         liquidationThreshold: IRiskSteward.RiskParamConfig({
-          minDelay: 3 days,
+          minDelay: 1 days,
           maxPercentChange: 50
         }),
-        liquidationBonus: IRiskSteward.RiskParamConfig({minDelay: 3 days, maxPercentChange: 50}),
-        debtCeiling: IRiskSteward.RiskParamConfig({minDelay: 3 days, maxPercentChange: 20_00})
+        liquidationBonus: IRiskSteward.RiskParamConfig({minDelay: 1 days, maxPercentChange: 50}),
+        debtCeiling: IRiskSteward.RiskParamConfig({minDelay: 1 days, maxPercentChange: 20_00})
       }),
       eModeConfig: IRiskSteward.EmodeConfig({
-        ltv: IRiskSteward.RiskParamConfig({minDelay: 3 days, maxPercentChange: 50}),
+        ltv: IRiskSteward.RiskParamConfig({minDelay: 1 days, maxPercentChange: 50}),
         liquidationThreshold: IRiskSteward.RiskParamConfig({
-          minDelay: 3 days,
+          minDelay: 1 days,
           maxPercentChange: 10
         }),
-        liquidationBonus: IRiskSteward.RiskParamConfig({minDelay: 3 days, maxPercentChange: 50})
+        liquidationBonus: IRiskSteward.RiskParamConfig({minDelay: 1 days, maxPercentChange: 50})
       }),
       rateConfig: IRiskSteward.RateConfig({
         baseVariableBorrowRate: IRiskSteward.RiskParamConfig({
-          minDelay: 3 days,
+          minDelay: 1 days,
           maxPercentChange: 1_00
         }),
         variableRateSlope1: IRiskSteward.RiskParamConfig({
-          minDelay: 3 days,
+          minDelay: 1 days,
           maxPercentChange: 1_00
         }),
         variableRateSlope2: IRiskSteward.RiskParamConfig({
-          minDelay: 3 days,
+          minDelay: 1 days,
           maxPercentChange: 20_00
         }),
-        optimalUsageRatio: IRiskSteward.RiskParamConfig({minDelay: 3 days, maxPercentChange: 3_00})
+        optimalUsageRatio: IRiskSteward.RiskParamConfig({minDelay: 1 days, maxPercentChange: 3_00})
       }),
       capConfig: IRiskSteward.CapConfig({
-        supplyCap: IRiskSteward.RiskParamConfig({minDelay: 3 days, maxPercentChange: 100_00}),
-        borrowCap: IRiskSteward.RiskParamConfig({minDelay: 3 days, maxPercentChange: 100_00})
+        supplyCap: IRiskSteward.RiskParamConfig({minDelay: 1 days, maxPercentChange: 100_00}),
+        borrowCap: IRiskSteward.RiskParamConfig({minDelay: 1 days, maxPercentChange: 100_00})
       }),
       priceCapConfig: IRiskSteward.PriceCapConfig({
-        priceCapLst: IRiskSteward.RiskParamConfig({minDelay: 3 days, maxPercentChange: 5_00}),
-        priceCapStable: IRiskSteward.RiskParamConfig({minDelay: 3 days, maxPercentChange: 50}),
+        priceCapLst: IRiskSteward.RiskParamConfig({minDelay: 1 days, maxPercentChange: 5_00}),
+        priceCapStable: IRiskSteward.RiskParamConfig({minDelay: 1 days, maxPercentChange: 50}),
         discountRatePendle: IRiskSteward.RiskParamConfig({
           minDelay: 2 days,
           maxPercentChange: 0.025e18
