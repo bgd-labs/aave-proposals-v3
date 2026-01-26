@@ -28,4 +28,7 @@ library CCIPChainRouters {
 
   // https://docs.chain.link/ccip/directory/mainnet/chain/plasma-mainnet
   address constant PLASMA = 0xcDca5D374e46A6DDDab50bD2D9acB8c796eC35C3;
+
+  // https://docs.chain.link/ccip/directory/mainnet/chain/ethereum-mainnet-mantle-1
+  address constant MANTLE = 0x670052635a9850bb45882Cb2eCcF66bCff0F41B7;
 }

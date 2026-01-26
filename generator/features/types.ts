@@ -49,6 +49,7 @@ export interface AssetEModeUpdatePartial {
   eModeCategory: string;
   collateral: BooleanSelectValues;
   borrowable: BooleanSelectValues;
+  ltvzero: BooleanSelectValues;
 }
 
 export interface AssetEModeUpdate extends AssetEModeUpdatePartial, AssetSelector {}
