@@ -93,7 +93,6 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
   }
 
   function _postExecute() internal override {
-    AaveV3Plasma.COLLECTOR.transfer(IERC20(GhoPlasma.GHO_TOKEN), address(this), GHO_SEED_AMOUNT);
     IERC20(GhoPlasma.GHO_TOKEN).forceApprove(address(AaveV3Plasma.POOL), GHO_SEED_AMOUNT);
     AaveV3Plasma.POOL.supply(GhoPlasma.GHO_TOKEN, GHO_SEED_AMOUNT, AaveV3Plasma.DUST_BIN, 0);
 

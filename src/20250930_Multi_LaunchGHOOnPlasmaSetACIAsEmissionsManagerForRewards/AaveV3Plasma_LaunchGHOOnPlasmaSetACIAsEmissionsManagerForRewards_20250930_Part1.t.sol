@@ -21,7 +21,7 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
   AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_20250930_Part1 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('plasma'), 12339150);
+    vm.createSelectFork(vm.rpcUrl('plasma'), 12459680);
     proposal = new AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_20250930_Part1();
   }
 
