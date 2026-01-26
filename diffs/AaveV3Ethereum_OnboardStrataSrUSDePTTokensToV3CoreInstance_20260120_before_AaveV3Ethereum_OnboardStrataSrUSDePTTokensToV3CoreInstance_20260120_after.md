@@ -17,7 +17,7 @@
 | oracle | [0xB539C6C0fc36ff1572B13ACec343B854937db576](https://etherscan.io/address/0xB539C6C0fc36ff1572B13ACec343B854937db576) |
 | oracleDecimals | 8 |
 | oracleDescription | PT Capped srUSDe USDT/USD linear discount 02APR2026 |
-| oracleLatestAnswer | 0.98596534 |
+| oracleLatestAnswer | 0.98684521 |
 | usageAsCollateralEnabled | false |
 | ltv | 0 % [0] |
 | liquidationThreshold | 0 % [0] |
@@ -260,7 +260,7 @@
         "oracle": "0xB539C6C0fc36ff1572B13ACec343B854937db576",
         "oracleDecimals": 8,
         "oracleDescription": "PT Capped srUSDe USDT/USD linear discount 02APR2026",
-        "oracleLatestAnswer": "98596534",
+        "oracleLatestAnswer": "98684521",
         "reserveFactor": 5000,
         "supplyCap": 50000000,
         "symbol": "PT-srUSDe-2APR2026",
@@ -289,7 +289,12 @@
   "raw": {
     "0x04142fc546d59838852873bba5c8827601a13fc8": {
       "label": null,
+      "contract": "lib/aave-umbrella/lib/aave-v3-origin/lib/solidity-utils/lib/openzeppelin-contracts-upgradeable/lib/openzeppelin-contracts/contracts/proxy/transparent/TransparentUpgradeableProxy.sol:TransparentUpgradeableProxy",
       "balanceDiff": null,
+      "nonceDiff": {
+        "previousValue": 0,
+        "newValue": 1
+      },
       "stateDiff": {
         "0x0000000000000000000000000000000000000000000000000000000000000000": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -344,7 +349,9 @@
     },
     "0x15885a83936eb943e98eeffb91e9a49040d93993": {
       "label": "AaveV3Ethereum.EDGE_INJECTOR_DISCOUNT_RATE",
+      "contract": null,
       "balanceDiff": null,
+      "nonceDiff": null,
       "stateDiff": {
         "0x0000000000000000000000000000000000000000000000000000000000000002": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000009",
@@ -370,7 +377,9 @@
     },
     "0x223d844fc4b006d67c0cdbd39371a9f73f69d974": {
       "label": "AaveV3Ethereum.EMISSION_MANAGER, AaveV3EthereumEtherFi.EMISSION_MANAGER, AaveV3EthereumLido.EMISSION_MANAGER",
+      "contract": null,
       "balanceDiff": null,
+      "nonceDiff": null,
       "stateDiff": {
         "0x1a0497cb70eae9176674ea6cd10f55d790693c0c7ede7b804815ee3465b38ea2": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -384,7 +393,9 @@
     },
     "0x54586be62e3c3580375ae3723c145253060ca0c2": {
       "label": "AaveV3Ethereum.ORACLE",
+      "contract": null,
       "balanceDiff": null,
+      "nonceDiff": null,
       "stateDiff": {
         "0xf04bde5cbba2fcdac6902856bc583d2c9c7730e6ab3e6027d9e1485e1fc8c2a2": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -392,9 +403,41 @@
         }
       }
     },
+    "0x64b761d848206f447fe2dd461b0c635ec39ebb27": {
+      "label": "AaveV3Ethereum.POOL_CONFIGURATOR",
+      "contract": "lib/aave-umbrella/lib/aave-v3-origin/lib/solidity-utils/lib/openzeppelin-contracts-upgradeable/lib/openzeppelin-contracts/contracts/proxy/transparent/TransparentUpgradeableProxy.sol:TransparentUpgradeableProxy",
+      "balanceDiff": null,
+      "nonceDiff": {
+        "previousValue": 157,
+        "newValue": 159
+      },
+      "stateDiff": {}
+    },
+    "0x6e2afd57a161d12f34f416c29619bfeacac8aa18": {
+      "label": null,
+      "contract": null,
+      "balanceDiff": null,
+      "nonceDiff": {
+        "previousValue": 157,
+        "newValue": 159
+      },
+      "stateDiff": {}
+    },
+    "0x6fddde45f777a4e461b0721a578b169b44579623": {
+      "label": null,
+      "contract": null,
+      "balanceDiff": null,
+      "nonceDiff": {
+        "previousValue": 157,
+        "newValue": 159
+      },
+      "stateDiff": {}
+    },
     "0x83ab600ce8a61b43e1757b89c0589928f765c1c4": {
       "label": "AaveV3Ethereum.EDGE_INJECTOR_PENDLE_EMODE",
+      "contract": null,
       "balanceDiff": null,
+      "nonceDiff": null,
       "stateDiff": {
         "0x0000000000000000000000000000000000000000000000000000000000000002": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000012",
@@ -420,7 +463,9 @@
     },
     "0x87870bca3f3fd6335c3f4ce8392d69350b4fa4e2": {
       "label": "AaveV3Ethereum.POOL",
+      "contract": "lib/aave-umbrella/lib/aave-v3-origin/lib/solidity-utils/lib/openzeppelin-contracts-upgradeable/lib/openzeppelin-contracts/contracts/proxy/transparent/TransparentUpgradeableProxy.sol:TransparentUpgradeableProxy",
       "balanceDiff": null,
+      "nonceDiff": null,
       "stateDiff": {
         "0x000000000000000000000000000000000000000000000000000000000000003b": {
           "previousValue": "0x00000000000000000000000000000000000000000000003c00000000000009c4",
@@ -472,7 +517,7 @@
         },
         "0xdad2b88773d2af466956d97de743bbf371f3217193b70a9ed08750e48b4e1ccc": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x000000000000000000003c006970d72300000000000000000000000000000000"
+          "newValue": "0x000000000000000000003c00697768a300000000000000000000000000000000"
         },
         "0xdad2b88773d2af466956d97de743bbf371f3217193b70a9ed08750e48b4e1ccd": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -494,11 +539,13 @@
     },
     "0x9bf45ab47747f4b4dd09b3c2c73953484b4eb375": {
       "label": null,
+      "contract": null,
       "balanceDiff": null,
+      "nonceDiff": null,
       "stateDiff": {
         "0x0000000000000000000000000000000000000000000000000000000000000002": {
-          "previousValue": "0x0100000000000000000000000000000000000000002e99b7e4cd063f124ecc1f",
-          "newValue": "0x0100000000000000000000000000000000000000002e99b7e4cd063f124ecc1f"
+          "previousValue": "0x01000000000000000000000000000000000000000030a83a0a971b87411f6cfe",
+          "newValue": "0x01000000000000000000000000000000000000000030a83a0a971b87411f6cfe"
         },
         "0xcb766f01d41f37437c8c0d97e65c0617cff428edd52c26c03742e3edcef1f586": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -516,7 +563,9 @@
     },
     "0x9ec6f08190dea04a54f8afc53db96134e5e3fdfb": {
       "label": "AaveV3Ethereum.ASSETS.WETH.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.wstETH.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.WBTC.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.USDC.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.DAI.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.LINK.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.AAVE.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.cbETH.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.USDT.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.rETH.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.LUSD.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.CRV.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.MKR.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.SNX.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.BAL.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.UNI.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.LDO.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.ENS.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.ONE_INCH.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.FRAX.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.GHO.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.RPL.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.sDAI.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.STG.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.KNC.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.FXS.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.crvUSD.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.PYUSD.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.weETH.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.osETH.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.USDe.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.ETHx.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.sUSDe.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.tBTC.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.cbBTC.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.USDS.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.rsETH.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.LBTC.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.eBTC.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.RLUSD.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.PT_eUSDE_29MAY2025.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.PT_sUSDE_31JUL2025.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.USDtb.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.PT_USDe_31JUL2025.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.PT_eUSDE_14AUG2025.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.eUSDe.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.FBTC.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.EURC.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.PT_sUSDE_25SEP2025.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.PT_USDe_25SEP2025.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.tETH.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.ezETH.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.XAUt.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.PT_sUSDE_27NOV2025.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.PT_USDe_27NOV2025.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.PT_USDe_5FEB2026.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.PT_sUSDE_5FEB2026.INTEREST_RATE_STRATEGY",
+      "contract": null,
       "balanceDiff": null,
+      "nonceDiff": null,
       "stateDiff": {
         "0xf04bde5cbba2fcdac6902856bc583d2c9c7730e6ab3e6027d9e1485e1fc8c2a2": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -526,21 +575,28 @@
     },
     "0xdabad81af85554e9ae636395611c58f7ec1aaec5": {
       "label": "GovernanceV3Ethereum.PAYLOADS_CONTROLLER",
+      "contract": "lib/aave-umbrella/lib/aave-v3-origin/lib/solidity-utils/lib/openzeppelin-contracts-upgradeable/lib/openzeppelin-contracts/contracts/proxy/transparent/TransparentUpgradeableProxy.sol:TransparentUpgradeableProxy",
       "balanceDiff": null,
+      "nonceDiff": null,
       "stateDiff": {
-        "0xa56be8dc51e2930be3eda04b7b27b0a2f5921a68c355bb74cb7ef787bdf28fac": {
-          "previousValue": "0x006970d722000000000002000000000000000000000000000000000000000000",
-          "newValue": "0x006970d722000000000003000000000000000000000000000000000000000000"
+        "0xbe350a38cc5c51bfe2e30b263c389ff98a218ceae2d1822ba1ebb7c4dda05c2e": {
+          "previousValue": "0x00697768a2000000000002000000000000000000000000000000000000000000",
+          "newValue": "0x00697768a2000000000003000000000000000000000000000000000000000000"
         },
-        "0xa56be8dc51e2930be3eda04b7b27b0a2f5921a68c355bb74cb7ef787bdf28fad": {
-          "previousValue": "0x000000000000000000093a80000000000000699efba300000000000000000000",
-          "newValue": "0x000000000000000000093a80000000000000699efba30000000000006970d723"
+        "0xbe350a38cc5c51bfe2e30b263c389ff98a218ceae2d1822ba1ebb7c4dda05c2f": {
+          "previousValue": "0x000000000000000000093a8000000000000069a58d2300000000000000000000",
+          "newValue": "0x000000000000000000093a8000000000000069a58d23000000000000697768a3"
         }
       }
     },
     "0xe036478da9a7ed89b56fe39a06e1fc1a4b38d4ea": {
       "label": null,
+      "contract": "lib/aave-umbrella/lib/aave-v3-origin/lib/solidity-utils/lib/openzeppelin-contracts-upgradeable/lib/openzeppelin-contracts/contracts/proxy/transparent/TransparentUpgradeableProxy.sol:TransparentUpgradeableProxy",
       "balanceDiff": null,
+      "nonceDiff": {
+        "previousValue": 0,
+        "newValue": 1
+      },
       "stateDiff": {
         "0x0000000000000000000000000000000000000000000000000000000000000000": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",

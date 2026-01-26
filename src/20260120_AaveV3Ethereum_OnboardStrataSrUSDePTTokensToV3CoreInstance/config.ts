@@ -43,7 +43,7 @@ export const config: ConfigFile = {
             liqThreshold: '0',
             liqBonus: '0',
             debtCeiling: '0',
-            liqProtocolFee: '10',
+            liqProtocolFee: '0',
             enabledToBorrow: 'DISABLED',
             flashloanable: 'ENABLED',
             borrowableInIsolation: 'DISABLED',
