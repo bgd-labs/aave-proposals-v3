@@ -24,8 +24,8 @@ contract AaveV3Ethereum_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_2025
   using SafeERC20 for IERC20;
 
   // GhoDirectFacilitator Constants
-  // https://etherscan.io/address/0x746a0ab61d3c69Ed3CeA845056Da472edE4c5C3a
-  address public constant DIRECT_FACILITATOR = 0x746a0ab61d3c69Ed3CeA845056Da472edE4c5C3a;
+  // https://etherscan.io/address/0x2bd010Ab5393AB51b601B99C4B33ba148d9466e9
+  address public constant DIRECT_FACILITATOR = 0x2bd010Ab5393AB51b601B99C4B33ba148d9466e9;
   string public constant DIRECT_FACILITATOR_NAME = 'GhoDirectFacilitator Plasma';
   uint128 public constant DIRECT_FACILITATOR_CAPACITY = 50_000_000 ether;
 

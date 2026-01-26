@@ -61,9 +61,17 @@ jobs:
           json_array=($(jq -r '.[]' ".github/outputs/all_changed_files.json"))
           for i in "${json_array[@]}"
           do
-            npx prettier $i --write
-            sed -i 's@https://github.com/bgd-labs/aave-proposals-v3/blob/main/@https://github.com/bgd-labs/aave-proposals-v3/blob/${{ github.sha }}/@g' $i
-            sed -i 's@https://github.com/bgd-labs/aave-proposals-v3/tree/main/@https://github.com/bgd-labs/aave-proposals-v3/blob/${{ github.sha }}/@g' $i
+            # Extract filename without extension
+            file_name=$(basename "$i" .md)
+            echo "Processing: $i (file: $file_name)"
+
+            if [[ "$file_name" == "README" ]]; then
+              echo "Skipping $i (README.md file)"
+            else
+              npx prettier $i --write
+              sed -i 's@https://github.com/bgd-labs/aave-proposals-v3/blob/main/@https://github.com/bgd-labs/aave-proposals-v3/blob/${{ github.sha }}/@g' $i
+              sed -i 's@https://github.com/bgd-labs/aave-proposals-v3/tree/main/@https://github.com/bgd-labs/aave-proposals-v3/blob/${{ github.sha }}/@g' $i
+            fi
           done
 
       - name: Upload
@@ -75,7 +83,15 @@ jobs:
           json_array=($(jq -r '.[]' ".github/outputs/all_changed_files.json"))
           for i in "${json_array[@]}"
           do
-            npx aave-cli ipfs ${{ github.event_name != 'pull_request' && '-u' || ''}} $i
+            # Extract filename without extension
+            file_name=$(basename "$i" .md)
+            echo "Processing: $i (file: $file_name)"
+
+            if [[ "$file_name" == "README" ]]; then
+              echo "Skipping $i (README.md file)"
+            else
+              npx aave-cli ipfs ${{ github.event_name != 'pull_request' && '-u' || ''}} $i
+            fi
           done
 
       - name: check diff and potentially commit
@@ -83,7 +99,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
         run: |
-          if [[ -z $(git status --porcelain) ]]
+          if [[ -z $(git status --porcelain src) ]]
           then
             echo "tree is clean"
           else
@@ -97,7 +113,7 @@ jobs:
             git add src
             git commit -am "fix(cache): automated cache update [skip ci]"
             git push origin ${{ github.event.repository.default_branch }}
-          exit
+            exit
           fi
 
       - name: Post to a Slack channel

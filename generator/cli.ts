@@ -215,6 +215,15 @@ if (options.configFile) {
         return true;
       },
     });
+  } else if (options.author.includes('TTT')) {
+    const author = await input({
+      message: 'Skyward proposal, please provide the name this proposal should be attributed to',
+      validate(input) {
+        if (input.length == 0) return "Author name can't be empty";
+        return true;
+      },
+    });
+    options.author = options.author.replace('TTT', author);
   }
 
   if (!options.discussion && whitelabelPools.length == 0) {

@@ -13,7 +13,7 @@ export const config: ConfigFile = {
     votingNetwork: 'AVALANCHE',
   },
   poolOptions: {
-    AaveV3Ethereum: {configs: {OTHERS: {}}, cache: {blockNumber: 24305760}},
+    AaveV3Ethereum: {configs: {OTHERS: {}}, cache: {blockNumber: 24312700}},
     AaveV3Plasma: {
       configs: {
         ASSET_LISTING: [

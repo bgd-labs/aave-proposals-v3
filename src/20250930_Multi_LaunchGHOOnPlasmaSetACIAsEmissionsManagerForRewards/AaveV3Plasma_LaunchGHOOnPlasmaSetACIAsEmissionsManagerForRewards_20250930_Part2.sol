@@ -75,6 +75,8 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
   }
 
   function _grantAccess() internal {
+    IGsm(NEW_GSM_USDT).updateGhoReserve(GHO_RESERVE);
+
     // Enroll GSMs as entities and set limit
     IGhoReserve(GHO_RESERVE).addEntity(NEW_GSM_USDT);
     IGhoReserve(GHO_RESERVE).setLimit(NEW_GSM_USDT, RESERVE_LIMIT_GSM_USDT);
@@ -245,19 +247,22 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
       asset: GhoPlasma.GHO_TOKEN,
       eModeCategory: 2,
       borrowable: EngineFlags.ENABLED,
-      collateral: EngineFlags.DISABLED
+      collateral: EngineFlags.DISABLED,
+      ltvzero: EngineFlags.KEEP_CURRENT
     });
     assetEModeUpdates[1] = IAaveV3ConfigEngine.AssetEModeUpdate({
       asset: GhoPlasma.GHO_TOKEN,
       eModeCategory: 5,
       borrowable: EngineFlags.ENABLED,
-      collateral: EngineFlags.DISABLED
+      collateral: EngineFlags.DISABLED,
+      ltvzero: EngineFlags.KEEP_CURRENT
     });
     assetEModeUpdates[2] = IAaveV3ConfigEngine.AssetEModeUpdate({
       asset: GhoPlasma.GHO_TOKEN,
       eModeCategory: 7,
       borrowable: EngineFlags.ENABLED,
-      collateral: EngineFlags.DISABLED
+      collateral: EngineFlags.DISABLED,
+      ltvzero: EngineFlags.KEEP_CURRENT
     });
 
     return assetEModeUpdates;
