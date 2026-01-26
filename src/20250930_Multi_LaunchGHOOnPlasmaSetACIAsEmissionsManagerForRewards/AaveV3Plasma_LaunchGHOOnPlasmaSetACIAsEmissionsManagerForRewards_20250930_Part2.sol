@@ -160,38 +160,42 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
     IAaveV3ConfigEngine.EModeCategoryCreation[]
       memory eModeCreations = new IAaveV3ConfigEngine.EModeCategoryCreation[](3);
 
-    address[] memory collateralAssets = new address[](1);
-    address[] memory borrowableAssets = new address[](1);
+    address[] memory collateralAssetsOne = new address[](1);
+    address[] memory borrowableAssetsOne = new address[](1);
 
-    collateralAssets[0] = GhoPlasma.GHO_TOKEN;
-    borrowableAssets[0] = AaveV3PlasmaAssets.USDT0_UNDERLYING;
+    collateralAssetsOne[0] = GhoPlasma.GHO_TOKEN;
+    borrowableAssetsOne[0] = AaveV3PlasmaAssets.USDT0_UNDERLYING;
 
     eModeCreations[0] = IAaveV3ConfigEngine.EModeCategoryCreation({
       ltv: 94_00,
       liqThreshold: 96_00,
       liqBonus: 2_00,
       label: 'GHO/USDT0',
-      collaterals: collateralAssets,
-      borrowables: borrowableAssets
+      collaterals: collateralAssetsOne,
+      borrowables: borrowableAssetsOne
     });
 
-    collateralAssets[0] = AaveV3PlasmaAssets.syrupUSDT_UNDERLYING;
-    borrowableAssets[0] = GhoPlasma.GHO_TOKEN;
+    address[] memory collateralAssetsTwo = new address[](1);
+    address[] memory borrowableAssetsTwo = new address[](1);
+
+    collateralAssetsTwo[0] = AaveV3PlasmaAssets.syrupUSDT_UNDERLYING;
+    borrowableAssetsTwo[0] = GhoPlasma.GHO_TOKEN;
 
     eModeCreations[1] = IAaveV3ConfigEngine.EModeCategoryCreation({
       ltv: 90_00,
       liqThreshold: 92_00,
       liqBonus: 4_00,
       label: 'syrupUSDT/GHO',
-      collaterals: collateralAssets,
-      borrowables: borrowableAssets
+      collaterals: collateralAssetsTwo,
+      borrowables: borrowableAssetsTwo
     });
 
     address[] memory collateralAssets_syrup = new address[](2);
+    address[] memory borrowableAssets_syrup = new address[](1);
 
     collateralAssets_syrup[0] = GhoPlasma.GHO_TOKEN;
     collateralAssets_syrup[1] = AaveV3PlasmaAssets.syrupUSDT_UNDERLYING;
-    borrowableAssets[0] = AaveV3PlasmaAssets.USDT0_UNDERLYING;
+    borrowableAssets_syrup[0] = AaveV3PlasmaAssets.USDT0_UNDERLYING;
 
     eModeCreations[2] = IAaveV3ConfigEngine.EModeCategoryCreation({
       ltv: 90_00,
@@ -199,7 +203,7 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
       liqBonus: 4_00,
       label: 'syrupUSDT Stables',
       collaterals: collateralAssets_syrup,
-      borrowables: borrowableAssets
+      borrowables: borrowableAssets_syrup
     });
 
     return eModeCreations;

@@ -143,7 +143,7 @@
 | eMode.liquidationThreshold | - | 96 % |
 | eMode.liquidationBonus | - | 2 % |
 | eMode.borrowableBitmap | - | USDT0 |
-| eMode.collateralBitmap | - | syrupUSDT |
+| eMode.collateralBitmap | - | GHO |
 
 
 ### EMode: syrupUSDT/GHO(id: 18)
@@ -154,7 +154,7 @@
 | eMode.ltv | - | 90 % |
 | eMode.liquidationThreshold | - | 92 % |
 | eMode.liquidationBonus | - | 4 % |
-| eMode.borrowableBitmap | - | USDT0 |
+| eMode.borrowableBitmap | - | GHO |
 | eMode.collateralBitmap | - | syrupUSDT |
 
 
@@ -221,7 +221,7 @@
       "from": null,
       "to": {
         "borrowableBitmap": "1",
-        "collateralBitmap": "1024",
+        "collateralBitmap": "16384",
         "eModeCategory": 17,
         "label": "GHO/USDT0",
         "liquidationBonus": 10200,
@@ -232,7 +232,7 @@
     "18": {
       "from": null,
       "to": {
-        "borrowableBitmap": "1",
+        "borrowableBitmap": "16384",
         "collateralBitmap": "1024",
         "eModeCategory": 18,
         "label": "syrupUSDT/GHO",
@@ -495,7 +495,7 @@
         },
         "0x7635c6f6fb0dc990d132e97ffe82e07606fac72c3d39da71ac41d6a8564addda": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x000000000000000000000000000000000000000000000000040027d8258024b8"
+          "newValue": "0x000000000000000000000000000000000000000000000000400027d8258024b8"
         },
         "0x7635c6f6fb0dc990d132e97ffe82e07606fac72c3d39da71ac41d6a8564adddb": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -515,7 +515,7 @@
         },
         "0xad685eb1539e227904de4d026e2fa285114f8a6da148661059c13a946d709f51": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000001"
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000004000"
         },
         "0xf7b916e89ff198a55c9a32d87db68cde6f482de2d189099c6dab6507b6e177ae": {
           "previousValue": "0x000000000000000000000000000000000000000000000000000000000aaaaa2a",
