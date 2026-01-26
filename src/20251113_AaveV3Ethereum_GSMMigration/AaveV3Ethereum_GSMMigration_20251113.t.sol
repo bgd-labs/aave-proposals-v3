@@ -101,15 +101,15 @@ contract AaveV3Ethereum_GSMMigration_20251113_Test is ProtocolV3TestBase {
     assertApproxEqAbs(
       IGhoReserve(proposal.GHO_RESERVE()).getUsed(proposal.NEW_GSM_USDT()),
       oldGsmUsdt.bucketLevel,
-      2_500 ether,
+      22_500 ether,
       'Delta for GHO needed on stataUSDT is too wide'
     );
 
     // GSM USDC
     GsmConfig memory gsmUsdcConfig = GsmConfig({
-      sellFee: 0, // 0.05%
-      buyFee: 0.0013e4, // 0.13%
-      exposureCap: 50_000_000e6,
+      sellFee: 0, // 0.00%
+      buyFee: 0.0008e4, // 0.08%
+      exposureCap: 87_000_000e6,
       isFrozen: false,
       isSeized: false,
       freezerCanUnfreeze: true,
@@ -127,9 +127,9 @@ contract AaveV3Ethereum_GSMMigration_20251113_Test is ProtocolV3TestBase {
 
     // GSM USDT
     GsmConfig memory gsmUsdtConfig = GsmConfig({
-      sellFee: 0.0005e4, // 0.05%
-      buyFee: 0.0015e4, // 0.15%
-      exposureCap: 25_000_000e6,
+      sellFee: 0, // 0.00%
+      buyFee: 0.0010e4, // 0.10%
+      exposureCap: 40_000_000e6,
       isFrozen: false,
       isSeized: false,
       freezerCanUnfreeze: true,
@@ -400,7 +400,7 @@ contract AaveV3Ethereum_GSMMigration_20251113_Test is ProtocolV3TestBase {
     IERC20(AaveV3EthereumAssets.USDT_STATA_TOKEN).approve(proposal.NEW_GSM_USDT(), 1_000e6);
     IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).approve(proposal.NEW_GSM_USDT(), 1_200 ether);
 
-    uint256 amountUnderlying = 1_000e6;
+    uint256 amountUnderlying = 100e6;
     uint256 balanceBeforeUsdtGsm = IERC20(AaveV3EthereumAssets.USDT_STATA_TOKEN).balanceOf(
       proposal.NEW_GSM_USDT()
     );

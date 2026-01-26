@@ -31,15 +31,15 @@ contract AaveV3Ethereum_GSMMigration_20251113 is IProposalGenericExecutor {
   // GhoDirectFacilitator Constants
   address public constant DIRECT_FACILITATOR = 0xE9ac5231fAecb633dA0Fe85Fcb2785b8363427d2;
   string public constant DIRECT_FACILITATOR_NAME = 'GhoDirectFacilitator GSMs Mainnet';
-  uint128 public constant DIRECT_FACILITATOR_CAPACITY = 85_000_000 ether;
+  uint128 public constant DIRECT_FACILITATOR_CAPACITY = 150_000_000 ether;
 
   // GhoReserve
   // https://etherscan.io/address/0x54C58157DeF387A880AE62332D1445f03adbE7E9
   address public constant GHO_RESERVE = 0x54C58157DeF387A880AE62332D1445f03adbE7E9;
 
   // GSM Draw Limits
-  uint128 public constant USDC_GSM_RESERVE_LIMIT = 55_000_000 ether;
-  uint128 public constant USDT_GSM_RESERVE_LIMIT = 30_000_000 ether;
+  uint128 public constant USDC_GSM_RESERVE_LIMIT = 100_000_000 ether;
+  uint128 public constant USDT_GSM_RESERVE_LIMIT = 50_000_000 ether;
 
   // https://etherscan.io/address/0x3a3868898305f04bec7fea77becff04c13444112
   address public constant NEW_GSM_USDC = 0x3A3868898305f04beC7FEa77BecFf04C13444112;
@@ -53,11 +53,11 @@ contract AaveV3Ethereum_GSMMigration_20251113 is IProposalGenericExecutor {
   // https://etherscan.io/address/0x733AB16005c39d07FD3D9d1A350AA6768D10125b
   address public constant USDT_ORACLE_SWAP_FREEZER = 0x733AB16005c39d07FD3D9d1A350AA6768D10125b;
 
-  // https://etherscan.io/address/0xE5025A7c15a44283A0616567181587eE6A646D64
-  address public constant FEE_STRATEGY_USDC = 0xE5025A7c15a44283A0616567181587eE6A646D64;
+  // https://etherscan.io/address/0xF009Ce2453884712707DcED6e5eA16F3e6f515E0
+  address public constant FEE_STRATEGY_USDC = 0xF009Ce2453884712707DcED6e5eA16F3e6f515E0;
 
-  // https://etherscan.io/address/0xA4346AEa575fCf5777D32F419E5850E5c68B2329
-  address public constant FEE_STRATEGY_USDT = 0xA4346AEa575fCf5777D32F419E5850E5c68B2329;
+  // https://etherscan.io/address/0x06fbDE909B43f01202E3C6207De1D27cC208AcC1
+  address public constant FEE_STRATEGY_USDT = 0x06fbDE909B43f01202E3C6207De1D27cC208AcC1;
 
   uint96 public constant LINK_AMOUNT_ORACLE_FREEZER_KEEPER = 80 ether;
   uint96 public constant TOTAL_LINK_AMOUNT_KEEPERS = LINK_AMOUNT_ORACLE_FREEZER_KEEPER * 2; // 2 GSMs
@@ -85,6 +85,7 @@ contract AaveV3Ethereum_GSMMigration_20251113 is IProposalGenericExecutor {
       DIRECT_FACILITATOR_CAPACITY
     );
 
+    _updateNewGsms();
     _seize();
     _grantAccess();
     _updateFeeStrategy();
@@ -93,7 +94,18 @@ contract AaveV3Ethereum_GSMMigration_20251113 is IProposalGenericExecutor {
     _revokeAccess();
   }
 
+  function _updateNewGsms() internal {
+    IGsm(NEW_GSM_USDC).updateExposureCap(IGsm(GhoEthereum.GSM_USDC).getExposureCap());
+    IGsm(NEW_GSM_USDT).updateExposureCap(IGsm(GhoEthereum.GSM_USDT).getExposureCap());
+
+    IGsm(NEW_GSM_USDC).updateGhoReserve(GHO_RESERVE);
+    IGsm(NEW_GSM_USDT).updateGhoReserve(GHO_RESERVE);
+  }
+
   function _seize() internal {
+    IGsm(GhoEthereum.GSM_USDC).distributeFeesToTreasury();
+    IGsm(GhoEthereum.GSM_USDT).distributeFeesToTreasury();
+
     IGsm(GhoEthereum.GSM_USDC).grantRole(LIQUIDATOR_ROLE, GovernanceV3Ethereum.EXECUTOR_LVL_1);
     IGsm(GhoEthereum.GSM_USDT).grantRole(LIQUIDATOR_ROLE, GovernanceV3Ethereum.EXECUTOR_LVL_1);
 
@@ -174,9 +186,6 @@ contract AaveV3Ethereum_GSMMigration_20251113 is IProposalGenericExecutor {
   }
 
   function _fund(uint256 balanceUsdc, uint256 balanceUsdt) internal {
-    IGsm(GhoEthereum.GSM_USDC).distributeFeesToTreasury();
-    IGsm(GhoEthereum.GSM_USDT).distributeFeesToTreasury();
-
     IGhoDirectFacilitator(DIRECT_FACILITATOR).mint(
       GHO_RESERVE,
       USDC_GSM_RESERVE_LIMIT + USDT_GSM_RESERVE_LIMIT

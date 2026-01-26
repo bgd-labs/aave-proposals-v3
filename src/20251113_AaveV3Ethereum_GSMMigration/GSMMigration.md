@@ -36,24 +36,24 @@ To create a unified GSM paradigm for both mainnet and L2s, a newer version of th
 
 The below details the configuration of the stataUSDC GSM.
 
-| Parameter                | Value  |
-| ------------------------ | :----: |
-| Draw Limit (GHO)         | 55.00M |
-| Exposure Capacity (USDC) | 50.00M |
-| Price Strategy           |  1:1   |
-| Freeze Lower Bound       | $0.990 |
-| Freeze Upper Bound       | $1.010 |
-| Unfreeze Lower Bound     | $0.995 |
-| Unfreeze Upper Bound     | $1.005 |
-| Mint GHO Fee             | 0.00%  |
-| Burn GHO Fee             | 0.10%  |
+| Parameter                |  Value  |
+| ------------------------ | :-----: |
+| Draw Limit (GHO)         | 100.00M |
+| Exposure Capacity (USDC) | 87.00M  |
+| Price Strategy           |   1:1   |
+| Freeze Lower Bound       | $0.990  |
+| Freeze Upper Bound       | $1.010  |
+| Unfreeze Lower Bound     | $0.995  |
+| Unfreeze Upper Bound     | $1.005  |
+| Mint GHO Fee             |  0.00%  |
+| Burn GHO Fee             |  0.10%  |
 
 The below details the configuration of the stataUSDT GSM.
 
 | Parameter                | Value  |
 | ------------------------ | :----: |
-| Draw Limit (GHO)         | 30.00M |
-| Exposure Capacity (USDT) | 25.00M |
+| Draw Limit (GHO)         | 50.00M |
+| Exposure Capacity (USDT) | 40.00M |
 | Price Strategy           |  1:1   |
 | Freeze Lower Bound       | $0.990 |
 | Freeze Upper Bound       | $1.010 |
