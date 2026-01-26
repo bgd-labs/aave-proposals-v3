@@ -7,7 +7,7 @@ snapshot: "https://snapshot.org/#/aavedao.eth/proposal/0x064b74d6b55b4cdabd62335
 
 ## Simple Summary
 
-This proposal seeks to onboard the Strata srUSDe PT tokens to the Aave V3 Core Instance. This specxific AIP is onboarding the April expiry PT token.
+This proposal seeks to onboard the Strata srUSDe PT tokens to the Aave V3 Core Instance. This specific AIP is onboarding the April expiry PT token.
 
 ## Motivation
 
