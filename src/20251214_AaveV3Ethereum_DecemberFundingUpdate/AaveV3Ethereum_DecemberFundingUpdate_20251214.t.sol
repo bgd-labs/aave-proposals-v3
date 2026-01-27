@@ -135,16 +135,19 @@ contract AaveV3Ethereum_DecemberFundingUpdate_20251214_Test is ProtocolV3TestBas
     );
 
     vm.startPrank(MiscEthereum.AFC_SAFE);
+    // forge-lint: disable-next-item(erc20-unchecked-transfer)
     IERC20(AaveV3EthereumAssets.PT_eUSDE_14AUG2025_A_TOKEN).transferFrom(
       address(AaveV3Ethereum.COLLECTOR),
       MiscEthereum.AFC_SAFE,
       proposal.PT_eUSDE_14AUG2025_AMOUNT()
     );
+    // forge-lint: disable-next-item(erc20-unchecked-transfer)
     IERC20(AaveV3EthereumAssets.PT_sUSDE_25SEP2025_A_TOKEN).transferFrom(
       address(AaveV3Ethereum.COLLECTOR),
       MiscEthereum.AFC_SAFE,
       proposal.PT_sUSDE_25SEP2025_AMOUNT()
     );
+    // forge-lint: disable-next-item(erc20-unchecked-transfer)
     IERC20(AaveV3EthereumAssets.PT_USDe_31JUL2025_A_TOKEN).transferFrom(
       address(AaveV3Ethereum.COLLECTOR),
       MiscEthereum.AFC_SAFE,

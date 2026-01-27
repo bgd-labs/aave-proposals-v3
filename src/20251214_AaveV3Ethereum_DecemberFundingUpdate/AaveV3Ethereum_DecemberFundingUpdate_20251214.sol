@@ -71,6 +71,7 @@ contract AaveV3Ethereum_DecemberFundingUpdate_20251214 is IProposalGenericExecut
       address(AaveV3Ethereum.COLLECTOR).balance
     );
     IWETH(AaveV3EthereumAssets.WETH_UNDERLYING).deposit{value: address(this).balance}();
+    // forge-lint: disable-next-item(erc20-unchecked-transfer)
     IERC20(AaveV3EthereumAssets.WETH_UNDERLYING).transfer(
       address(AaveV3Ethereum.COLLECTOR),
       IERC20(AaveV3EthereumAssets.WETH_UNDERLYING).balanceOf(address(this))
