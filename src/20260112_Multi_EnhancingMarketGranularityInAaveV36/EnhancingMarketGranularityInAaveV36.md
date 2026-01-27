@@ -53,7 +53,6 @@ The following asset got their status as borrowable asset removed:
 | Scroll       | weETH     |
 | Scroll       | SCR       |
 | ZKSync       | wstETH    |
-| ZKSync       | weETH     |
 | ZKSync       | WETH      |
 | ZKSync       | ZK        |
 | Celo         | Celo      |
@@ -63,6 +62,7 @@ The following asset got their status as borrowable asset removed:
 ## Disclaimer
 
 Chaos Labs requested disabling Optimism sUSD as collateral, but it was already disabled.
+Disabling of this asset were also omit as it was already the case: weETH on ZkSync.
 
 ## References
 

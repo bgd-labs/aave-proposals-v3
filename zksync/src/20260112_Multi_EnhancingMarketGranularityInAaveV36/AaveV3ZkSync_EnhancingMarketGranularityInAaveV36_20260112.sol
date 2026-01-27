@@ -56,7 +56,7 @@ contract AaveV3ZkSync_EnhancingMarketGranularityInAaveV36_20260112 is AaveV3Payl
     returns (IAaveV3ConfigEngine.BorrowUpdate[] memory)
   {
     IAaveV3ConfigEngine.BorrowUpdate[]
-      memory borrowUpdates = new IAaveV3ConfigEngine.BorrowUpdate[](4);
+      memory borrowUpdates = new IAaveV3ConfigEngine.BorrowUpdate[](3);
 
     borrowUpdates[0] = IAaveV3ConfigEngine.BorrowUpdate({
       asset: AaveV3ZkSyncAssets.WETH_UNDERLYING,
@@ -76,14 +76,6 @@ contract AaveV3ZkSync_EnhancingMarketGranularityInAaveV36_20260112 is AaveV3Payl
     });
     borrowUpdates[2] = IAaveV3ConfigEngine.BorrowUpdate({
       asset: AaveV3ZkSyncAssets.ZK_UNDERLYING,
-      enabledToBorrow: EngineFlags.DISABLED,
-      flashloanable: EngineFlags.KEEP_CURRENT,
-      borrowableInIsolation: EngineFlags.KEEP_CURRENT,
-      withSiloedBorrowing: EngineFlags.KEEP_CURRENT,
-      reserveFactor: EngineFlags.KEEP_CURRENT
-    });
-    borrowUpdates[3] = IAaveV3ConfigEngine.BorrowUpdate({
-      asset: AaveV3ZkSyncAssets.weETH_UNDERLYING,
       enabledToBorrow: EngineFlags.DISABLED,
       flashloanable: EngineFlags.KEEP_CURRENT,
       borrowableInIsolation: EngineFlags.KEEP_CURRENT,
