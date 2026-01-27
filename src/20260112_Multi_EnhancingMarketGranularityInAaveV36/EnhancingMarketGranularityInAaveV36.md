@@ -14,7 +14,7 @@ This proposal leverages the configurability improvements introduced in [Aave v3.
 
 This aims to reduce systemic exposure, simplify risk management, and enable cleaner differentiation between general market assets and those intended for correlated or high-efficiency lending environments.
 
-**This AIP is split into 2 parts, this one will only cover instances only  instances covered by Aave V3.6 part 1. A second AIP will cover the rest of the instances**
+**This AIP is split into 2 parts, this one will only cover instances only instances covered by Aave V3.6 part 1. A second AIP will cover the rest of the instances**
 
 ## Motivation
 
@@ -47,7 +47,6 @@ The following asset got their status as borrowable asset removed:
 | Optimism     | LUSD      |
 | Optimism     | OP        |
 | Optimism     | rETH      |
-| Optimism     | sUSD      |
 | Gnosis       | wstETH    |
 | Gnosis       | WETH      |
 | Scroll       | wstETH    |
@@ -60,6 +59,10 @@ The following asset got their status as borrowable asset removed:
 | Celo         | Celo      |
 | Metis        | mDAI      |
 | Metis        | WETH      |
+
+## Disclaimer
+
+Chaos Labs requested disabling Optimism sUSD as collateral, but it was already disabled.
 
 ## References
 

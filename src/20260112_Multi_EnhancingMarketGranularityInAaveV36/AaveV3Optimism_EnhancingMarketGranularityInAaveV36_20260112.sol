@@ -20,7 +20,7 @@ contract AaveV3Optimism_EnhancingMarketGranularityInAaveV36_20260112 is AaveV3Pa
     returns (IAaveV3ConfigEngine.CollateralUpdate[] memory)
   {
     IAaveV3ConfigEngine.CollateralUpdate[]
-      memory collateralUpdate = new IAaveV3ConfigEngine.CollateralUpdate[](6);
+      memory collateralUpdate = new IAaveV3ConfigEngine.CollateralUpdate[](5);
 
     collateralUpdate[0] = IAaveV3ConfigEngine.CollateralUpdate({
       asset: AaveV3OptimismAssets.LINK_UNDERLYING,
@@ -47,14 +47,6 @@ contract AaveV3Optimism_EnhancingMarketGranularityInAaveV36_20260112 is AaveV3Pa
       liqProtocolFee: EngineFlags.KEEP_CURRENT
     });
     collateralUpdate[3] = IAaveV3ConfigEngine.CollateralUpdate({
-      asset: AaveV3OptimismAssets.sUSD_UNDERLYING,
-      ltv: 0,
-      liqThreshold: EngineFlags.KEEP_CURRENT,
-      liqBonus: EngineFlags.KEEP_CURRENT,
-      debtCeiling: EngineFlags.KEEP_CURRENT,
-      liqProtocolFee: EngineFlags.KEEP_CURRENT
-    });
-    collateralUpdate[4] = IAaveV3ConfigEngine.CollateralUpdate({
       asset: AaveV3OptimismAssets.OP_UNDERLYING,
       ltv: 0,
       liqThreshold: EngineFlags.KEEP_CURRENT,
@@ -62,7 +54,7 @@ contract AaveV3Optimism_EnhancingMarketGranularityInAaveV36_20260112 is AaveV3Pa
       debtCeiling: EngineFlags.KEEP_CURRENT,
       liqProtocolFee: EngineFlags.KEEP_CURRENT
     });
-    collateralUpdate[5] = IAaveV3ConfigEngine.CollateralUpdate({
+    collateralUpdate[4] = IAaveV3ConfigEngine.CollateralUpdate({
       asset: AaveV3OptimismAssets.rETH_UNDERLYING,
       ltv: 0,
       liqThreshold: EngineFlags.KEEP_CURRENT,
