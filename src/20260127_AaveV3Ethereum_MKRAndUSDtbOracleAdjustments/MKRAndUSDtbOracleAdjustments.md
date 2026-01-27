@@ -27,8 +27,8 @@ The proposal payload will do the following oracle price feeds replacement v3 Eth
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20260127_AaveV3Ethereum_MKRAndUSDtbOracleAdjustments/AaveV3Ethereum_MKRAndUSDtbOracleAdjustments_20260127.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20260127_AaveV3Ethereum_MKRAndUSDtbOracleAdjustments/AaveV3Ethereum_MKRAndUSDtbOracleAdjustments_20260127.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/f0cc818c1f3daa7e8fbcd4bf457d84b43f071422/src/20260127_AaveV3Ethereum_MKRAndUSDtbOracleAdjustments/AaveV3Ethereum_MKRAndUSDtbOracleAdjustments_20260127.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/f0cc818c1f3daa7e8fbcd4bf457d84b43f071422/src/20260127_AaveV3Ethereum_MKRAndUSDtbOracleAdjustments/AaveV3Ethereum_MKRAndUSDtbOracleAdjustments_20260127.t.sol)
 - [DiscountedMKRSKYAdapter](https://github.com/bgd-labs/aave-price-feeds/blob/main/src/contracts/misc-adapters/DiscountedMKRSKYAdapter.sol)
 - [OneUSDFixedAdapter](https://github.com/bgd-labs/aave-price-feeds/blob/main/src/contracts/misc-adapters/OneUSDFixedAdapter.sol)
 - [Discussion](https://governance.aave.com/t/direct-to-aip-mkr-and-usdtb-oracle-adjustments/23911)
