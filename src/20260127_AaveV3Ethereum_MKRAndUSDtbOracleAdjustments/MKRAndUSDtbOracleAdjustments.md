@@ -14,6 +14,8 @@ As described by Aave risk providers, with the running MKR to SKY migration, liqu
 
 Regarding USDtb, similar to other only-borrowable assets, for the Aave protocol is only positive to price it at a price of 1 USD, conservatively, thereby abstracting from temporary liquidity (hence price) dislocations.
 
+There is a slight deviation on the technical implementation of the MKR/USD feed, to be dynamic in regards to the migration discount, instead of the initially defined 6% static by risk providers. More details in the References section.
+
 ## Specification
 
 The proposal payload will do the following oracle price feeds replacement v3 Ethereum Core.
@@ -30,6 +32,7 @@ The proposal payload will do the following oracle price feeds replacement v3 Eth
 - [DiscountedMKRSKYAdapter](https://github.com/bgd-labs/aave-price-feeds/blob/main/src/contracts/misc-adapters/DiscountedMKRSKYAdapter.sol)
 - [OneUSDFixedAdapter](https://github.com/bgd-labs/aave-price-feeds/blob/main/src/contracts/misc-adapters/OneUSDFixedAdapter.sol)
 - [Discussion](https://governance.aave.com/t/direct-to-aip-mkr-and-usdtb-oracle-adjustments/23911)
+- [Final pricing approach for MKR/USD by BGD](https://governance.aave.com/t/direct-to-aip-mkr-and-usdtb-oracle-adjustments/23911/4)
 
 ## Copyright
 
