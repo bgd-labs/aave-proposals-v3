@@ -2,7 +2,7 @@
   "lib/aave-helpers": {
     "branch": {
       "name": "feat/megaeth",
-      "rev": "bcf129650b2d80eb5f9b5512f866369457a8cf4d"
+      "rev": "66517ed4a6bb67d83d158e6190728a567d1811b0"
     }
   },
   "lib/aave-umbrella": {

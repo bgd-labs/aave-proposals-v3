@@ -31,7 +31,9 @@ contract AaveV3MegaEth_AaveV36MegaETHActivation_20260128_Test is ProtocolV3TestB
     defaultTest(
       'AaveV3MegaEth_AaveV36MegaETHActivation_20260128',
       AaveV3MegaEth.POOL,
-      address(proposal)
+      address(proposal),
+      false,
+      false
     );
   }
 
