@@ -62,7 +62,7 @@ The following asset got their status as borrowable asset removed:
 ## Disclaimer
 
 Chaos Labs requested disabling Optimism sUSD as collateral, but it was already disabled.
-Disabling of this asset were also omit as it was already the case: weETH on ZkSync.
+Disabling of weETH borrowing on ZkSync was also omitted as it is already disabled.
 
 ## References
 
