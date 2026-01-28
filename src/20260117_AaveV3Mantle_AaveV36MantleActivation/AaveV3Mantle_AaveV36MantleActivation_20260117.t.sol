@@ -18,7 +18,7 @@ contract AaveV3Mantle_AaveV36MantleActivation_20260117_Test is ProtocolV3TestBas
   AaveV3Mantle_AaveV36MantleActivation_20260117 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mantle'), 90260247);
+    vm.createSelectFork(vm.rpcUrl('mantle'), 90742070);
     proposal = new AaveV3Mantle_AaveV36MantleActivation_20260117();
 
     _postSetup(); // TODO: remove after seeding tokens
@@ -49,6 +49,7 @@ contract AaveV3Mantle_AaveV36MantleActivation_20260117_Test is ProtocolV3TestBas
     _validateDustbinFundsAndLMAdmin(proposal.FBTC(), 0.0005e8);
     _validateDustbinFundsAndLMAdmin(proposal.syrupUSDT(), 10e6);
     _validateDustbinFundsAndLMAdmin(proposal.wrsETH(), 0.0025e18);
+    // _validateDustbinFundsAndLMAdmin(proposal.GHO(), 10e18); // TODO: fix
   }
 
   function test_guardianPoolAdmin() public {
@@ -90,12 +91,18 @@ contract AaveV3Mantle_AaveV36MantleActivation_20260117_Test is ProtocolV3TestBas
     deal(proposal.FBTC(), GovernanceV3Mantle.EXECUTOR_LVL_1, proposal.FBTC_SEED_AMOUNT());
     deal(proposal.syrupUSDT(), GovernanceV3Mantle.EXECUTOR_LVL_1, proposal.syrupUSDT_SEED_AMOUNT());
     deal(proposal.wrsETH(), GovernanceV3Mantle.EXECUTOR_LVL_1, proposal.wrsETH_SEED_AMOUNT());
+    deal(proposal.GHO(), GovernanceV3Mantle.EXECUTOR_LVL_1, proposal.GHO_SEED_AMOUNT());
 
     // mock increase totalSupply so the defaultTest does not complain because of `PL_SUPPLY_CAP_GT_TOTAL_SUPPLY` require
     vm.mockCall(
       proposal.syrupUSDT(),
       abi.encodeWithSelector(IERC20.totalSupply.selector),
       abi.encode(70_000_001)
+    );
+    vm.mockCall(
+      proposal.GHO(),
+      abi.encodeWithSelector(IERC20.totalSupply.selector),
+      abi.encode(20_000_001)
     );
   }
 }

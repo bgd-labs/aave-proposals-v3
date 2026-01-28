@@ -48,6 +48,9 @@ contract AaveV3Mantle_AaveV36MantleActivation_20260117 is AaveV3PayloadMantle {
   address public constant wrsETH = 0x93e855643e940D025bE2e529272e4Dbd15a2Cf74;
   uint256 public constant wrsETH_SEED_AMOUNT = 0.0025e18;
 
+  address public constant GHO = 0xfc421aD3C883Bf9E7C4f42dE845C4e4405799e73;
+  uint256 public constant GHO_SEED_AMOUNT = 10e18;
+
   function _postExecute() internal override {
     _supplyAndConfigureLMAdmin(WETH, WETH_SEED_AMOUNT);
     _supplyAndConfigureLMAdmin(WMNT, WMNT_SEED_AMOUNT);
@@ -64,7 +67,7 @@ contract AaveV3Mantle_AaveV36MantleActivation_20260117 is AaveV3PayloadMantle {
   }
 
   function newListings() public pure override returns (IAaveV3ConfigEngine.Listing[] memory) {
-    IAaveV3ConfigEngine.Listing[] memory listings = new IAaveV3ConfigEngine.Listing[](9);
+    IAaveV3ConfigEngine.Listing[] memory listings = new IAaveV3ConfigEngine.Listing[](10);
 
     listings[0] = IAaveV3ConfigEngine.Listing({
       asset: WETH,
@@ -273,6 +276,29 @@ contract AaveV3Mantle_AaveV36MantleActivation_20260117 is AaveV3PayloadMantle {
         variableRateSlope2: 20_00
       })
     });
+    listings[9] = IAaveV3ConfigEngine.Listing({
+      asset: GHO,
+      assetSymbol: 'GHO',
+      priceFeed: 0x360d8aa8F6b09B7BC57aF34db2Eb84dD87bf4d12,
+      enabledToBorrow: EngineFlags.ENABLED,
+      borrowableInIsolation: EngineFlags.ENABLED,
+      withSiloedBorrowing: EngineFlags.DISABLED,
+      flashloanable: EngineFlags.ENABLED,
+      ltv: 0,
+      liqThreshold: 0,
+      liqBonus: 0,
+      reserveFactor: 10_00,
+      supplyCap: 20_000_000,
+      borrowCap: 18_000_000,
+      debtCeiling: 0,
+      liqProtocolFee: 10_00,
+      rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
+        optimalUsageRatio: 90_00,
+        baseVariableBorrowRate: 2_00,
+        variableRateSlope1: 3_00,
+        variableRateSlope2: 40_00
+      })
+    });
 
     return listings;
   }
@@ -288,11 +314,12 @@ contract AaveV3Mantle_AaveV36MantleActivation_20260117 is AaveV3PayloadMantle {
 
     // sUSDe Stablecoins
     address[] memory collateralAssets_sUSDeStablecoinsEMode = new address[](1);
-    address[] memory borrowableAssets_sUSDeStablecoinsEMode = new address[](3);
+    address[] memory borrowableAssets_sUSDeStablecoinsEMode = new address[](4);
     collateralAssets_sUSDeStablecoinsEMode[0] = sUSDe;
     borrowableAssets_sUSDeStablecoinsEMode[0] = USDe;
     borrowableAssets_sUSDeStablecoinsEMode[1] = USDT0;
     borrowableAssets_sUSDeStablecoinsEMode[2] = USDC;
+    borrowableAssets_sUSDeStablecoinsEMode[3] = GHO;
 
     eModeCreations[0] = IAaveV3ConfigEngine.EModeCategoryCreation({
       ltv: 90_00,
@@ -305,10 +332,11 @@ contract AaveV3Mantle_AaveV36MantleActivation_20260117 is AaveV3PayloadMantle {
 
     // USDe Stablecoins
     address[] memory collateralAssets_USDeStablecoinsEMode = new address[](1);
-    address[] memory borrowableAssets_USDeStablecoinsEMode = new address[](2);
+    address[] memory borrowableAssets_USDeStablecoinsEMode = new address[](3);
     collateralAssets_USDeStablecoinsEMode[0] = USDe;
     borrowableAssets_USDeStablecoinsEMode[0] = USDT0;
     borrowableAssets_USDeStablecoinsEMode[1] = USDC;
+    borrowableAssets_USDeStablecoinsEMode[2] = GHO;
 
     eModeCreations[1] = IAaveV3ConfigEngine.EModeCategoryCreation({
       ltv: 90_00,
@@ -338,10 +366,11 @@ contract AaveV3Mantle_AaveV36MantleActivation_20260117 is AaveV3PayloadMantle {
 
     // syrupUSDT Stablecoins
     address[] memory collateralAssets_syrupUSDTStablecoinsEMode = new address[](1);
-    address[] memory borrowableAssets_syrupUSDTStablecoinsEMode = new address[](2);
+    address[] memory borrowableAssets_syrupUSDTStablecoinsEMode = new address[](3);
     collateralAssets_syrupUSDTStablecoinsEMode[0] = syrupUSDT;
     borrowableAssets_syrupUSDTStablecoinsEMode[0] = USDT0;
     borrowableAssets_syrupUSDTStablecoinsEMode[1] = USDC;
+    borrowableAssets_syrupUSDTStablecoinsEMode[2] = GHO;
 
     eModeCreations[3] = IAaveV3ConfigEngine.EModeCategoryCreation({
       ltv: 90_00,
