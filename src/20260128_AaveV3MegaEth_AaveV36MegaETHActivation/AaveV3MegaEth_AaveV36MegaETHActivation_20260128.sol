@@ -42,6 +42,8 @@ contract AaveV3MegaEth_AaveV36MegaETHActivation_20260128 is AaveV3PayloadMegaEth
   address public constant ezETH = 0x09601A65e7de7BC8A19813D263dD9E98bFdC3c57;
   uint256 public constant ezETH_SEED_AMOUNT = 0.0025e18;
 
+  address public constant PRICE_ORACLE_SENTINEL = 0x98F756B77D6Fde14E08bb064b248ec7512F9f8ba;
+
   function _postExecute() internal override {
     _supplyAndConfigureLMAdmin(WETH, WETH_SEED_AMOUNT);
     _supplyAndConfigureLMAdmin(BTCb, BTCb_SEED_AMOUNT);
@@ -53,6 +55,9 @@ contract AaveV3MegaEth_AaveV36MegaETHActivation_20260128 is AaveV3PayloadMegaEth
 
     AaveV3MegaEth.ACL_MANAGER.addPoolAdmin(MiscMegaEth.PROTOCOL_GUARDIAN);
     AaveV3MegaEth.ACL_MANAGER.addRiskAdmin(AaveV3MegaEth.RISK_STEWARD);
+
+    // configure price-oracle-sentinel
+    AaveV3MegaEth.POOL_ADDRESSES_PROVIDER.setPriceOracleSentinel(PRICE_ORACLE_SENTINEL);
   }
 
   function newListings() public pure override returns (IAaveV3ConfigEngine.Listing[] memory) {
@@ -221,6 +226,111 @@ contract AaveV3MegaEth_AaveV36MegaETHActivation_20260128 is AaveV3PayloadMegaEth
     });
 
     return listings;
+  }
+
+  function eModeCategoryCreations()
+    public
+    pure
+    override
+    returns (IAaveV3ConfigEngine.EModeCategoryCreation[] memory)
+  {
+    IAaveV3ConfigEngine.EModeCategoryCreation[]
+      memory eModeCreations = new IAaveV3ConfigEngine.EModeCategoryCreation[](6);
+
+    // WETH Stablecoins
+    address[] memory collateralAssets_WETHStablecoinsEMode = new address[](1);
+    address[] memory borrowableAssets_WETHStablecoinsEMode = new address[](2);
+    collateralAssets_WETHStablecoinsEMode[0] = WETH;
+    borrowableAssets_WETHStablecoinsEMode[0] = USDT0;
+    borrowableAssets_WETHStablecoinsEMode[1] = USDm;
+
+    eModeCreations[0] = IAaveV3ConfigEngine.EModeCategoryCreation({
+      ltv: 80_50,
+      liqThreshold: 83_00,
+      liqBonus: 5_50,
+      label: 'WETH Stablecoins',
+      collaterals: collateralAssets_WETHStablecoinsEMode,
+      borrowables: borrowableAssets_WETHStablecoinsEMode
+    });
+
+    // BTCb Stablecoins
+    address[] memory collateralAssets_BTCbStablecoinsEMode = new address[](1);
+    address[] memory borrowableAssets_BTCbStablecoinsEMode = new address[](2);
+    collateralAssets_BTCbStablecoinsEMode[0] = BTCb;
+    borrowableAssets_BTCbStablecoinsEMode[0] = USDT0;
+    borrowableAssets_BTCbStablecoinsEMode[1] = USDm;
+
+    eModeCreations[1] = IAaveV3ConfigEngine.EModeCategoryCreation({
+      ltv: 70_00,
+      liqThreshold: 75_00,
+      liqBonus: 6_50,
+      label: 'BTCb Stablecoins',
+      collaterals: collateralAssets_BTCbStablecoinsEMode,
+      borrowables: borrowableAssets_BTCbStablecoinsEMode
+    });
+
+    // wstETH Stablecoins
+    address[] memory collateralAssets_wstETHStablecoinsEMode = new address[](1);
+    address[] memory borrowableAssets_wstETHStablecoinsEMode = new address[](2);
+    collateralAssets_wstETHStablecoinsEMode[0] = wstETH;
+    borrowableAssets_wstETHStablecoinsEMode[0] = USDT0;
+    borrowableAssets_wstETHStablecoinsEMode[1] = USDm;
+
+    eModeCreations[2] = IAaveV3ConfigEngine.EModeCategoryCreation({
+      ltv: 75_00,
+      liqThreshold: 79_00,
+      liqBonus: 6_50,
+      label: 'wstETH Stablecoins',
+      collaterals: collateralAssets_wstETHStablecoinsEMode,
+      borrowables: borrowableAssets_wstETHStablecoinsEMode
+    });
+
+    // wstETH Correlated
+    address[] memory collateralAssets_wstETHCorrelatedEMode = new address[](1);
+    address[] memory borrowableAssets_wstETHCorrelatedEMode = new address[](1);
+    collateralAssets_wstETHCorrelatedEMode[0] = wstETH;
+    borrowableAssets_wstETHCorrelatedEMode[0] = WETH;
+
+    eModeCreations[3] = IAaveV3ConfigEngine.EModeCategoryCreation({
+      ltv: 94_00,
+      liqThreshold: 96_00,
+      liqBonus: 1_00,
+      label: 'wstETH Correlated',
+      collaterals: collateralAssets_wstETHCorrelatedEMode,
+      borrowables: borrowableAssets_wstETHCorrelatedEMode
+    });
+
+    // wrsETH Correlated
+    address[] memory collateralAssets_wrsETHCorrelatedEMode = new address[](1);
+    address[] memory borrowableAssets_wrsETHCorrelatedEMode = new address[](1);
+    collateralAssets_wrsETHCorrelatedEMode[0] = wrsETH;
+    borrowableAssets_wrsETHCorrelatedEMode[0] = WETH;
+
+    eModeCreations[4] = IAaveV3ConfigEngine.EModeCategoryCreation({
+      ltv: 93_00,
+      liqThreshold: 95_00,
+      liqBonus: 1_00,
+      label: 'wrsETH Correlated',
+      collaterals: collateralAssets_wrsETHCorrelatedEMode,
+      borrowables: borrowableAssets_wrsETHCorrelatedEMode
+    });
+
+    // ezETH Correlated
+    address[] memory collateralAssets_ezETHCorrelatedEMode = new address[](1);
+    address[] memory borrowableAssets_ezETHCorrelatedEMode = new address[](1);
+    collateralAssets_ezETHCorrelatedEMode[0] = ezETH;
+    borrowableAssets_ezETHCorrelatedEMode[0] = WETH;
+
+    eModeCreations[5] = IAaveV3ConfigEngine.EModeCategoryCreation({
+      ltv: 93_00,
+      liqThreshold: 95_00,
+      liqBonus: 1_00,
+      label: 'ezETH Correlated',
+      collaterals: collateralAssets_ezETHCorrelatedEMode,
+      borrowables: borrowableAssets_ezETHCorrelatedEMode
+    });
+
+    return eModeCreations;
   }
 
   function _supplyAndConfigureLMAdmin(address asset, uint256 seedAmount) internal {

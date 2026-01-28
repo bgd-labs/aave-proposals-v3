@@ -8,6 +8,7 @@ import {GovernanceV3MegaEth} from 'aave-address-book/GovernanceV3MegaEth.sol';
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 import {IEmissionManager} from 'aave-v3-origin/contracts/rewards/interfaces/IEmissionManager.sol';
 import {ProtocolV3TestBase} from 'aave-helpers/src/ProtocolV3TestBase.sol';
+import {IPriceOracleSentinel} from 'aave-v3-origin/contracts/interfaces/IPriceOracleSentinel.sol';
 import {AaveV3MegaEth_AaveV36MegaETHActivation_20260128} from './AaveV3MegaEth_AaveV36MegaETHActivation_20260128.sol';
 
 /**
@@ -18,7 +19,7 @@ contract AaveV3MegaEth_AaveV36MegaETHActivation_20260128_Test is ProtocolV3TestB
   AaveV3MegaEth_AaveV36MegaETHActivation_20260128 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('megaeth'), 6780301);
+    vm.createSelectFork(vm.rpcUrl('megaeth'), 6812400);
     proposal = new AaveV3MegaEth_AaveV36MegaETHActivation_20260128();
 
     _postSetup(); // TODO: remove after seeding tokens
@@ -59,6 +60,26 @@ contract AaveV3MegaEth_AaveV36MegaETHActivation_20260128_Test is ProtocolV3TestB
     assertFalse(AaveV3MegaEth.ACL_MANAGER.isRiskAdmin(AaveV3MegaEth.RISK_STEWARD));
     executePayload(vm, address(proposal));
     assertTrue(AaveV3MegaEth.ACL_MANAGER.isRiskAdmin(AaveV3MegaEth.RISK_STEWARD));
+  }
+
+  function test_price_oracle_sentinel() public {
+    assertEq(AaveV3MegaEth.POOL_ADDRESSES_PROVIDER.getPriceOracleSentinel(), address(0));
+    executePayload(vm, address(proposal));
+    assertEq(
+      AaveV3MegaEth.POOL_ADDRESSES_PROVIDER.getPriceOracleSentinel(),
+      proposal.PRICE_ORACLE_SENTINEL()
+    );
+
+    // sentinel config validate
+    assertEq(
+      address(IPriceOracleSentinel(proposal.PRICE_ORACLE_SENTINEL()).ADDRESSES_PROVIDER()),
+      address(AaveV3MegaEth.POOL_ADDRESSES_PROVIDER)
+    );
+    assertEq(IPriceOracleSentinel(proposal.PRICE_ORACLE_SENTINEL()).getGracePeriod(), 3600);
+    assertEq(
+      IPriceOracleSentinel(proposal.PRICE_ORACLE_SENTINEL()).getSequencerOracle(),
+      0x78B2195A21B8BBe82acaB43F90F9180E9513FD0C
+    );
   }
 
   function _validateDustbinFundsAndLMAdmin(address asset, uint256 seedAmount) internal view {
