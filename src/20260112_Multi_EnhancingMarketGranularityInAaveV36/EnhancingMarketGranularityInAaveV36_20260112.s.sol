@@ -128,7 +128,7 @@ contract DeployCelo is CeloScript {
 contract CreateProposal is EthereumScript {
   function run() external {
     // create payloads
-    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](6);
+    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](5);
 
     // compose actions for validation
     {
@@ -169,21 +169,11 @@ contract CreateProposal is EthereumScript {
 
     {
       IPayloadsControllerCore.ExecutionAction[]
-        memory actionsZkSync = new IPayloadsControllerCore.ExecutionAction[](1);
-      actionsZkSync[0] = GovV3Helpers.buildActionZkSync(
-        vm,
-        'AaveV3ZkSync_EnhancingMarketGranularityInAaveV36_20260112'
-      );
-      payloads[4] = GovV3Helpers.buildZkSyncPayload(vm, actionsZkSync);
-    }
-
-    {
-      IPayloadsControllerCore.ExecutionAction[]
         memory actionsCelo = new IPayloadsControllerCore.ExecutionAction[](1);
       actionsCelo[0] = GovV3Helpers.buildAction(
         type(AaveV3Celo_EnhancingMarketGranularityInAaveV36_20260112).creationCode
       );
-      payloads[5] = GovV3Helpers.buildCeloPayload(vm, actionsCelo);
+      payloads[4] = GovV3Helpers.buildCeloPayload(vm, actionsCelo);
     }
 
     // create proposal
