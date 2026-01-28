@@ -47,11 +47,6 @@ out = 'out/shanghai'
 evm_version = 'shanghai'
 cache_path = 'cache/shanghai'
 
-[profile.linea]
-out = 'out/london'
-evm_version = 'london'
-cache_path = 'cache/london'
-
 [rpc_endpoints]
 mainnet = "${RPC_MAINNET}"
 optimism = "${RPC_OPTIMISM}"
@@ -75,5 +70,6 @@ ink = "${RPC_INK}"
 plasma = "${RPC_PLASMA}"
 mantle = "${RPC_MANTLE}"
 xlayer = "${RPC_XLAYER}"
+megaeth = "${RPC_MEGAETH}"
 
 # See more config options https://github.com/foundry-rs/foundry/tree/master/crates/config
