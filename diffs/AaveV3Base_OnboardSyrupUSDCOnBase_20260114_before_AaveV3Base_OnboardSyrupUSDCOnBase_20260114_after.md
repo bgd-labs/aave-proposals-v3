@@ -210,7 +210,7 @@
       "stateDiff": {}
     },
     "0x5793fe4de34532f162b4e207af872729880ec2b6": {
-      "label": "AaveV3Base.POOL_CONFIGURATOR_IMPL",
+      "label": null,
       "contract": null,
       "balanceDiff": null,
       "nonceDiff": {
@@ -220,7 +220,7 @@
       "stateDiff": {}
     },
     "0x57b8c05ee2cd9d0143ebc21fbd9288c39b9f716c": {
-      "label": null,
+      "label": "AaveV3Base.ASSETS.syrupUSDC.V_TOKEN",
       "contract": "lib/aave-umbrella/lib/aave-v3-origin/lib/solidity-utils/lib/openzeppelin-contracts-upgradeable/lib/openzeppelin-contracts/contracts/proxy/transparent/TransparentUpgradeableProxy.sol:TransparentUpgradeableProxy",
       "balanceDiff": null,
       "nonceDiff": {
@@ -288,7 +288,7 @@
       }
     },
     "0x660975730059246a68521a3e2fbd4740173100f5": {
-      "label": null,
+      "label": "AaveV3Base.ASSETS.syrupUSDC.UNDERLYING",
       "contract": null,
       "balanceDiff": null,
       "nonceDiff": null,
@@ -318,7 +318,7 @@
       "stateDiff": {}
     },
     "0x86ab1c62a8bf868e1b3e1ab87d587aba6fbcbdc5": {
-      "label": "AaveV3Base.ASSETS.WETH.INTEREST_RATE_STRATEGY, AaveV3Base.ASSETS.cbETH.INTEREST_RATE_STRATEGY, AaveV3Base.ASSETS.USDbC.INTEREST_RATE_STRATEGY, AaveV3Base.ASSETS.wstETH.INTEREST_RATE_STRATEGY, AaveV3Base.ASSETS.USDC.INTEREST_RATE_STRATEGY, AaveV3Base.ASSETS.weETH.INTEREST_RATE_STRATEGY, AaveV3Base.ASSETS.cbBTC.INTEREST_RATE_STRATEGY, AaveV3Base.ASSETS.ezETH.INTEREST_RATE_STRATEGY, AaveV3Base.ASSETS.GHO.INTEREST_RATE_STRATEGY, AaveV3Base.ASSETS.wrsETH.INTEREST_RATE_STRATEGY, AaveV3Base.ASSETS.LBTC.INTEREST_RATE_STRATEGY, AaveV3Base.ASSETS.EURC.INTEREST_RATE_STRATEGY, AaveV3Base.ASSETS.AAVE.INTEREST_RATE_STRATEGY, AaveV3Base.ASSETS.tBTC.INTEREST_RATE_STRATEGY",
+      "label": "AaveV3Base.ASSETS.WETH.INTEREST_RATE_STRATEGY, AaveV3Base.ASSETS.cbETH.INTEREST_RATE_STRATEGY, AaveV3Base.ASSETS.USDbC.INTEREST_RATE_STRATEGY, AaveV3Base.ASSETS.wstETH.INTEREST_RATE_STRATEGY, AaveV3Base.ASSETS.USDC.INTEREST_RATE_STRATEGY, AaveV3Base.ASSETS.weETH.INTEREST_RATE_STRATEGY, AaveV3Base.ASSETS.cbBTC.INTEREST_RATE_STRATEGY, AaveV3Base.ASSETS.ezETH.INTEREST_RATE_STRATEGY, AaveV3Base.ASSETS.GHO.INTEREST_RATE_STRATEGY, AaveV3Base.ASSETS.wrsETH.INTEREST_RATE_STRATEGY, AaveV3Base.ASSETS.LBTC.INTEREST_RATE_STRATEGY, AaveV3Base.ASSETS.EURC.INTEREST_RATE_STRATEGY, AaveV3Base.ASSETS.AAVE.INTEREST_RATE_STRATEGY, AaveV3Base.ASSETS.tBTC.INTEREST_RATE_STRATEGY, AaveV3Base.ASSETS.syrupUSDC.INTEREST_RATE_STRATEGY",
       "contract": null,
       "balanceDiff": null,
       "nonceDiff": null,
@@ -386,7 +386,7 @@
       }
     },
     "0xd7424238ccbe7b7198ab3cfe232e0271e22da7bd": {
-      "label": null,
+      "label": "AaveV3Base.ASSETS.syrupUSDC.A_TOKEN",
       "contract": "lib/aave-umbrella/lib/aave-v3-origin/lib/solidity-utils/lib/openzeppelin-contracts-upgradeable/lib/openzeppelin-contracts/contracts/proxy/transparent/TransparentUpgradeableProxy.sol:TransparentUpgradeableProxy",
       "balanceDiff": null,
       "nonceDiff": {
