@@ -111,7 +111,7 @@ contract AaveV3Ethereum_ListingPTEthenaMay_20260129 is AaveV3PayloadEthereum {
     address[] memory collateralAssets_PT_sUSDe_7MAY2026__USDe = new address[](3);
     address[] memory borrowableAssets_PT_sUSDe_7MAY2026__USDe = new address[](1);
 
-    collateralAssets_PT_sUSDe_7MAY2026__USDe[0] = AaveV3EthereumAssets.PT_sUSDe_7MAY2026;
+    collateralAssets_PT_sUSDe_7MAY2026__USDe[0] = PT_sUSDe_7MAY2026;
     collateralAssets_PT_sUSDe_7MAY2026__USDe[1] = AaveV3EthereumAssets.sUSDe_UNDERLYING;
     collateralAssets_PT_sUSDe_7MAY2026__USDe[2] = AaveV3EthereumAssets.PT_sUSDE_5FEB2026_UNDERLYING;
     borrowableAssets_PT_sUSDe_7MAY2026__USDe[0] = AaveV3EthereumAssets.USDe_UNDERLYING;
