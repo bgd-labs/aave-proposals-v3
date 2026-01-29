@@ -52,7 +52,7 @@ contract AaveV3Ethereum_ListingPTEthenaMay_20260129 is AaveV3PayloadEthereum {
     address[] memory collateralAssets_PT_USDe_7MAY2026__Stablecoins = new address[](3);
     address[] memory borrowableAssets_PT_USDe_7MAY2026__Stablecoins = new address[](4);
 
-    collateralAssets_PT_USDe_7MAY2026__Stablecoins[0] = AaveV3EthereumAssets.WETH_UNDERLYING;
+    collateralAssets_PT_USDe_7MAY2026__Stablecoins[0] = PT_USDe_7MAY2026;
     collateralAssets_PT_USDe_7MAY2026__Stablecoins[1] = AaveV3EthereumAssets.USDe_UNDERLYING;
     collateralAssets_PT_USDe_7MAY2026__Stablecoins[2] = AaveV3EthereumAssets
       .PT_USDe_5FEB2026_UNDERLYING;
@@ -73,7 +73,7 @@ contract AaveV3Ethereum_ListingPTEthenaMay_20260129 is AaveV3PayloadEthereum {
     address[] memory collateralAssets_PT_USDe_7MAY2026__USDe = new address[](3);
     address[] memory borrowableAssets_PT_USDe_7MAY2026__USDe = new address[](1);
 
-    collateralAssets_PT_USDe_7MAY2026__USDe[0] = AaveV3EthereumAssets.WETH_UNDERLYING;
+    collateralAssets_PT_USDe_7MAY2026__USDe[0] = PT_USDe_7MAY2026;
     collateralAssets_PT_USDe_7MAY2026__USDe[1] = AaveV3EthereumAssets.USDe_UNDERLYING;
     collateralAssets_PT_USDe_7MAY2026__USDe[2] = AaveV3EthereumAssets.PT_USDe_5FEB2026_UNDERLYING;
     borrowableAssets_PT_USDe_7MAY2026__USDe[0] = AaveV3EthereumAssets.USDe_UNDERLYING;
@@ -90,7 +90,7 @@ contract AaveV3Ethereum_ListingPTEthenaMay_20260129 is AaveV3PayloadEthereum {
     address[] memory collateralAssets_PT_sUSDe_7MAY2026__Stablecoins = new address[](3);
     address[] memory borrowableAssets_PT_sUSDe_7MAY2026__Stablecoins = new address[](4);
 
-    collateralAssets_PT_sUSDe_7MAY2026__Stablecoins[0] = AaveV3EthereumAssets.wstETH_UNDERLYING;
+    collateralAssets_PT_sUSDe_7MAY2026__Stablecoins[0] = PT_sUSDe_7MAY2026;
     collateralAssets_PT_sUSDe_7MAY2026__Stablecoins[1] = AaveV3EthereumAssets.sUSDe_UNDERLYING;
     collateralAssets_PT_sUSDe_7MAY2026__Stablecoins[2] = AaveV3EthereumAssets
       .PT_sUSDE_5FEB2026_UNDERLYING;
@@ -111,7 +111,7 @@ contract AaveV3Ethereum_ListingPTEthenaMay_20260129 is AaveV3PayloadEthereum {
     address[] memory collateralAssets_PT_sUSDe_7MAY2026__USDe = new address[](3);
     address[] memory borrowableAssets_PT_sUSDe_7MAY2026__USDe = new address[](1);
 
-    collateralAssets_PT_sUSDe_7MAY2026__USDe[0] = AaveV3EthereumAssets.wstETH_UNDERLYING;
+    collateralAssets_PT_sUSDe_7MAY2026__USDe[0] = AaveV3EthereumAssets.PT_sUSDe_7MAY2026;
     collateralAssets_PT_sUSDe_7MAY2026__USDe[1] = AaveV3EthereumAssets.sUSDe_UNDERLYING;
     collateralAssets_PT_sUSDe_7MAY2026__USDe[2] = AaveV3EthereumAssets.PT_sUSDE_5FEB2026_UNDERLYING;
     borrowableAssets_PT_sUSDe_7MAY2026__USDe[0] = AaveV3EthereumAssets.USDe_UNDERLYING;
@@ -142,10 +142,10 @@ contract AaveV3Ethereum_ListingPTEthenaMay_20260129 is AaveV3PayloadEthereum {
       liqThreshold: 0,
       liqBonus: 0,
       reserveFactor: 45_00,
-      supplyCap: 81_000_000,
+      supplyCap: 30_000_000,
       borrowCap: 1,
       debtCeiling: 1,
-      liqProtocolFee: 0,
+      liqProtocolFee: 10,
       rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
         optimalUsageRatio: 45_00,
         baseVariableBorrowRate: 0,
@@ -165,10 +165,10 @@ contract AaveV3Ethereum_ListingPTEthenaMay_20260129 is AaveV3PayloadEthereum {
       liqThreshold: 0,
       liqBonus: 0,
       reserveFactor: 45_00,
-      supplyCap: 145_000_000,
+      supplyCap: 70_000_000,
       borrowCap: 1,
       debtCeiling: 1,
-      liqProtocolFee: 0,
+      liqProtocolFee: 10,
       rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
         optimalUsageRatio: 45_00,
         baseVariableBorrowRate: 0,
