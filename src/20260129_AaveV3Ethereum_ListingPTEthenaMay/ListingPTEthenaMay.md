@@ -118,7 +118,7 @@ Additionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://etherscan.io/a
 
 ACI is not directly affiliated with Pendle and did not receive compensation for the creation of this proposal. Some ACI employees may hold Pendle tokens.
 
-The parameters are the ones recommended by risk service providers. The only changes are caps that have been increased to prevent risk of TVL leakage to competitors and user friction that can discourage users from migrating.
+The parameters are the ones recommended by risk service providers.
 
 ## References
 
