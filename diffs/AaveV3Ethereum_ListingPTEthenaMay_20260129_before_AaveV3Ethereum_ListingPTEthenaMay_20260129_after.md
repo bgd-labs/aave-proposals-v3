@@ -9,7 +9,7 @@
 | decimals | 18 |
 | isActive | true |
 | isFrozen | false |
-| supplyCap | 70,000,000 PT-sUSDE-7MAY2026 |
+| supplyCap | 100,000,000 PT-sUSDE-7MAY2026 |
 | borrowCap | 1 PT-sUSDE-7MAY2026 |
 | debtCeiling | 0 $ [0] |
 | isSiloed | false |
@@ -52,7 +52,7 @@
 | decimals | 18 |
 | isActive | true |
 | isFrozen | false |
-| supplyCap | 30,000,000 PT-USDe-7MAY2026 |
+| supplyCap | 45,000,000 PT-USDe-7MAY2026 |
 | borrowCap | 1 PT-USDe-7MAY2026 |
 | debtCeiling | 0 $ [0] |
 | isSiloed | false |
@@ -353,7 +353,7 @@
         "oracleDescription": "PT Capped sUSDe USDT/USD linear discount 07MAY2026",
         "oracleLatestAnswer": "98502447",
         "reserveFactor": 4500,
-        "supplyCap": 70000000,
+        "supplyCap": 100000000,
         "symbol": "PT-sUSDE-7MAY2026",
         "underlying": "0x3de0ff76E8b528C092d47b9DaC775931cef80F49",
         "usageAsCollateralEnabled": false,
@@ -391,7 +391,7 @@
         "oracleDescription": "PT Capped USDe USDT/USD linear discount 07MAY2026",
         "oracleLatestAnswer": "98521095",
         "reserveFactor": 4500,
-        "supplyCap": 30000000,
+        "supplyCap": 45000000,
         "symbol": "PT-USDe-7MAY2026",
         "underlying": "0xAeBf0Bb9f57E89260d57f31AF34eB58657d96Ce0",
         "usageAsCollateralEnabled": false,
@@ -721,7 +721,7 @@
         },
         "0x9b4375ef6417236e5b34427af6117f5f3419dcdfdfe725739579715e5b911a4a": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x100000000000000000000000000042c1d8000000000111948112000000000000"
+          "newValue": "0x10000000000000000000000000005f5e10000000000111948112000000000000"
         },
         "0x9b4375ef6417236e5b34427af6117f5f3419dcdfdfe725739579715e5b911a4b": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -777,7 +777,7 @@
         },
         "0xded1b10ca0842148924af06fc1e3d9896ce292a7727a5ddfd0bc947b445e343f": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x10000000000000000000000000001c9c38000000000111948112000000000000"
+          "newValue": "0x10000000000000000000000000002aea54000000000111948112000000000000"
         },
         "0xded1b10ca0842148924af06fc1e3d9896ce292a7727a5ddfd0bc947b445e3440": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
