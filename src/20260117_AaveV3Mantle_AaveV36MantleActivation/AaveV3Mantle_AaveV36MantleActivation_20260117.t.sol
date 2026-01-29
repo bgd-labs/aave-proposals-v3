@@ -64,6 +64,24 @@ contract AaveV3Mantle_AaveV36MantleActivation_20260117_Test is ProtocolV3TestBas
     assertTrue(AaveV3Mantle.ACL_MANAGER.isRiskAdmin(AaveV3Mantle.RISK_STEWARD));
   }
 
+  function test_eMode_sanity() public {
+    executePayload(vm, address(proposal));
+
+    address user = address(505);
+    deal(proposal.sUSDe(), user, 10e18);
+    vm.startPrank(user);
+
+    // e2e pool operations
+    AaveV3Mantle.POOL.setUserEMode(1); // enter sUSDe Stablecoins
+    IERC20(proposal.sUSDe()).approve(address(AaveV3Mantle.POOL), 10e18);
+    AaveV3Mantle.POOL.supply(proposal.sUSDe(), 10e18, user, 0);
+    AaveV3Mantle.POOL.borrow(proposal.USDe(), 9e18, 2, 0, user);
+
+    IERC20(proposal.USDe()).approve(address(AaveV3Mantle.POOL), 4e18);
+    AaveV3Mantle.POOL.repay(proposal.USDe(), 4e18, 2, user);
+    AaveV3Mantle.POOL.withdraw(proposal.sUSDe(), 5e18, user);
+  }
+
   function _validateDustbinFundsAndLMAdmin(address asset, uint256 seedAmount) internal view {
     (address aToken, , ) = AaveV3Mantle.AAVE_PROTOCOL_DATA_PROVIDER.getReserveTokensAddresses(
       asset
