@@ -22,7 +22,7 @@
 | ltv | 0 % [0] |
 | liquidationThreshold | 0 % [0] |
 | liquidationBonus | 0 % |
-| liquidationProtocolFee | 0 % [0] |
+| liquidationProtocolFee | 10 % [1000] |
 | reserveFactor | 45 % [4500] |
 | aToken | [0x81b76ff3FeD28BA0B4a5D4c76Bd5C13Bd0641d86](https://etherscan.io/address/0x81b76ff3FeD28BA0B4a5D4c76Bd5C13Bd0641d86) |
 | variableDebtToken | [0x762Edb8D79b97487F82093f85059e42EeEf61E9e](https://etherscan.io/address/0x762Edb8D79b97487F82093f85059e42EeEf61E9e) |
@@ -65,7 +65,7 @@
 | ltv | 0 % [0] |
 | liquidationThreshold | 0 % [0] |
 | liquidationBonus | 0 % |
-| liquidationProtocolFee | 0 % [0] |
+| liquidationProtocolFee | 10 % [1000] |
 | reserveFactor | 45 % [4500] |
 | aToken | [0xE036478Da9A7ed89b56FE39A06e1FC1a4b38D4Ea](https://etherscan.io/address/0xE036478Da9A7ed89b56FE39A06e1FC1a4b38D4Ea) |
 | variableDebtToken | [0x04142fc546D59838852873bba5C8827601A13FC8](https://etherscan.io/address/0x04142fc546D59838852873bba5C8827601A13FC8) |
@@ -345,7 +345,7 @@
         "isPaused": false,
         "isSiloed": false,
         "liquidationBonus": 0,
-        "liquidationProtocolFee": 0,
+        "liquidationProtocolFee": 1000,
         "liquidationThreshold": 0,
         "ltv": 0,
         "oracle": "0xa0dc0249c32fa79e8B9b17c735908a60b1141B40",
@@ -383,7 +383,7 @@
         "isPaused": false,
         "isSiloed": false,
         "liquidationBonus": 0,
-        "liquidationProtocolFee": 0,
+        "liquidationProtocolFee": 1000,
         "liquidationThreshold": 0,
         "ltv": 0,
         "oracle": "0x0a72df02CE3E4185b6CEDf561f0AE651E9BeE235",
@@ -721,7 +721,7 @@
         },
         "0x9b4375ef6417236e5b34427af6117f5f3419dcdfdfe725739579715e5b911a4a": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x10000000000000000000000000005f5e10000000000111948112000000000000"
+          "newValue": "0x100000000000000000000003e8005f5e10000000000111948112000000000000"
         },
         "0x9b4375ef6417236e5b34427af6117f5f3419dcdfdfe725739579715e5b911a4b": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -777,7 +777,7 @@
         },
         "0xded1b10ca0842148924af06fc1e3d9896ce292a7727a5ddfd0bc947b445e343f": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x10000000000000000000000000002aea54000000000111948112000000000000"
+          "newValue": "0x100000000000000000000003e8002aea54000000000111948112000000000000"
         },
         "0xded1b10ca0842148924af06fc1e3d9896ce292a7727a5ddfd0bc947b445e3440": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",

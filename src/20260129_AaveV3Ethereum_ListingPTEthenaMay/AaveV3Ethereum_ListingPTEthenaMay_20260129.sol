@@ -47,11 +47,15 @@ contract AaveV3Ethereum_ListingPTEthenaMay_20260129 is AaveV3PayloadEthereum {
       PT_USDe_7MAY2026_LM_ADMIN
     );
 
+    AaveV3Ethereum.POOL_CONFIGURATOR.setLiquidationProtocolFee(PT_USDe_7MAY2026, 1000);
+
     _supplyAndConfigureLMAdmin(
       PT_sUSDe_7MAY2026,
       PT_sUSDe_7MAY2026_SEED_AMOUNT,
       PT_sUSDe_7MAY2026_LM_ADMIN
     );
+
+    AaveV3Ethereum.POOL_CONFIGURATOR.setLiquidationProtocolFee(PT_sUSDe_7MAY2026, 1000);
   }
 
   function eModeCategoryCreations()
@@ -159,7 +163,7 @@ contract AaveV3Ethereum_ListingPTEthenaMay_20260129 is AaveV3PayloadEthereum {
       supplyCap: 45_000_000,
       borrowCap: 1,
       debtCeiling: 1,
-      liqProtocolFee: 10,
+      liqProtocolFee: 0,
       rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
         optimalUsageRatio: 45_00,
         baseVariableBorrowRate: 0,
@@ -182,7 +186,7 @@ contract AaveV3Ethereum_ListingPTEthenaMay_20260129 is AaveV3PayloadEthereum {
       supplyCap: 100_000_000,
       borrowCap: 1,
       debtCeiling: 1,
-      liqProtocolFee: 10,
+      liqProtocolFee: 0,
       rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
         optimalUsageRatio: 45_00,
         baseVariableBorrowRate: 0,
