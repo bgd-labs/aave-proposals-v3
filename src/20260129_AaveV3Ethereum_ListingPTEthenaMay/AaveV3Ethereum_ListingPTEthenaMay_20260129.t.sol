@@ -36,7 +36,7 @@ contract AaveV3Ethereum_ListingPTEthenaMay_20260129_Test is ProtocolV3TestBase {
   function test_dustBinHasPT_USDe_7MAY2026Funds() public {
     GovV3Helpers.executePayload(vm, address(proposal));
     address aTokenAddress = AaveV3Ethereum.POOL.getReserveAToken(proposal.PT_USDe_7MAY2026());
-    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Ethereum.DUST_BIN)), 10 ** 18);
+    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Ethereum.DUST_BIN)), 100e18);
   }
 
   function test_PT_USDe_7MAY2026Admin() public {
@@ -57,7 +57,7 @@ contract AaveV3Ethereum_ListingPTEthenaMay_20260129_Test is ProtocolV3TestBase {
   function test_dustBinHasPT_sUSDe_7MAY2026Funds() public {
     GovV3Helpers.executePayload(vm, address(proposal));
     address aTokenAddress = AaveV3Ethereum.POOL.getReserveAToken(proposal.PT_sUSDe_7MAY2026());
-    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Ethereum.DUST_BIN)), 10 ** 18);
+    assertGe(IERC20(aTokenAddress).balanceOf(address(AaveV3Ethereum.DUST_BIN)), 100e18);
   }
 
   function test_PT_sUSDe_7MAY2026Admin() public {

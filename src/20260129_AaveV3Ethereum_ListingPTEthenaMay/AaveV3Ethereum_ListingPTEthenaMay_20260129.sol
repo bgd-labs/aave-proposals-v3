@@ -19,11 +19,11 @@ contract AaveV3Ethereum_ListingPTEthenaMay_20260129 is AaveV3PayloadEthereum {
   using SafeERC20 for IERC20;
 
   address public constant PT_USDe_7MAY2026 = 0xAeBf0Bb9f57E89260d57f31AF34eB58657d96Ce0;
-  uint256 public constant PT_USDe_7MAY2026_SEED_AMOUNT = 1e18;
+  uint256 public constant PT_USDe_7MAY2026_SEED_AMOUNT = 100e18;
   address public constant PT_USDe_7MAY2026_LM_ADMIN = 0xac140648435d03f784879cd789130F22Ef588Fcd;
 
   address public constant PT_sUSDe_7MAY2026 = 0x3de0ff76E8b528C092d47b9DaC775931cef80F49;
-  uint256 public constant PT_sUSDe_7MAY2026_SEED_AMOUNT = 1e18;
+  uint256 public constant PT_sUSDe_7MAY2026_SEED_AMOUNT = 100e18;
   address public constant PT_sUSDe_7MAY2026_LM_ADMIN = 0xac140648435d03f784879cd789130F22Ef588Fcd;
 
   function _postExecute() internal override {
