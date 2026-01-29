@@ -26,6 +26,21 @@ contract AaveV3Ethereum_ListingPTEthenaMay_20260129 is AaveV3PayloadEthereum {
   uint256 public constant PT_sUSDe_7MAY2026_SEED_AMOUNT = 100e18;
   address public constant PT_sUSDe_7MAY2026_LM_ADMIN = 0xac140648435d03f784879cd789130F22Ef588Fcd;
 
+  address public constant EXECUTOTR_LVL_1 = 0x5300A1a15135EA4dc7aD5a167152C01EFc9b192A; // to-do: replace by it's import from address-book
+
+  function _preExecute() internal override {
+    AaveV3Ethereum.COLLECTOR.transfer(
+      IERC20(PT_USDe_7MAY2026),
+      EXECUTOTR_LVL_1,
+      PT_USDe_7MAY2026_SEED_AMOUNT
+    );
+    AaveV3Ethereum.COLLECTOR.transfer(
+      IERC20(PT_sUSDe_7MAY2026),
+      EXECUTOTR_LVL_1,
+      PT_sUSDe_7MAY2026_SEED_AMOUNT
+    );
+  }
+
   function _postExecute() internal override {
     _supplyAndConfigureLMAdmin(
       PT_USDe_7MAY2026,
