@@ -6,11 +6,11 @@ discussions: "https://governance.aave.com/t/direct-to-aip-onboard-usde-susde-may
 
 ## Simple Summary
 
-We proposes to onboard USDe and sUSDe May expiry PT tokens on Aave V3 Core Instance.
+We propose onboarding the USDe and sUSDe May-expiry PT tokens to the Aave V3 Core instance.
 
 ## Motivation
 
-The previous USDe and sUSDe PT tokens that were onboarded have brought significant inflows to Aave, in preparation for the expiry and rollover we propose to onboard the next expiry of this PT token. We expect at a minimum that deposits will match those in the current expiry PT token, with potentially some sidelined demand.
+The previously onboarded USDe and sUSDe PT tokens have brought significant inflows to Aave. In preparation for their expiry and rollover, we propose onboarding the next expiry of these PT tokens. We expect deposits to at least match those of the current-expiry PT tokens, with the potential for additional sidelined demand.
 
 ## Specification
 
@@ -87,7 +87,7 @@ The table below illustrates the configured risk parameters for **PT_sUSDe_7MAY20
 | Base Variable Borrow Rate      |                                        0 % |
 | Variable Slope 1               |                                       10 % |
 | Variable Slope 2               |                                      300 % |
-| Uoptimal                       |                                        0 % |
+| Uoptimal                       |                                       45 % |
 | Flashloanable                  |                                    ENABLED |
 | Siloed Borrowing               |                                   DISABLED |
 | Borrowable in Isolation        |                                   DISABLED |
@@ -118,7 +118,7 @@ Additionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://etherscan.io/a
 
 ACI is not directly affiliated with Pendle and did not receive compensation for the creation of this proposal. Some ACI employees may hold Pendle tokens.
 
-The parameters are the ones recommended by risk providers SPs. The only changes are caps that have been increased to prevent risk of TVL leakage to competitors and user friction that can discourage users from migrating.
+The parameters are the ones recommended by risk service providers. The only changes are caps that have been increased to prevent risk of TVL leakage to competitors and user friction that can discourage users from migrating.
 
 ## References
 
