@@ -47,7 +47,7 @@ contract AaveV3Ethereum_ListingPTEthenaMay_20260129 is AaveV3PayloadEthereum {
     returns (IAaveV3ConfigEngine.EModeCategoryCreation[] memory)
   {
     IAaveV3ConfigEngine.EModeCategoryCreation[]
-      memory eModeCreations = new IAaveV3ConfigEngine.EModeCategoryCreation[](2);
+      memory eModeCreations = new IAaveV3ConfigEngine.EModeCategoryCreation[](4);
 
     address[] memory collateralAssets_PT_USDe_7MAY2026__Stablecoins = new address[](3);
     address[] memory borrowableAssets_PT_USDe_7MAY2026__Stablecoins = new address[](4);
@@ -70,24 +70,59 @@ contract AaveV3Ethereum_ListingPTEthenaMay_20260129 is AaveV3PayloadEthereum {
       borrowables: borrowableAssets_PT_USDe_7MAY2026__Stablecoins
     });
 
-    address[] memory collateralAssets_PT_sUSDe_7MAY2026 = new address[](3);
-    address[] memory borrowableAssets_PT_sUSDe_7MAY2026 = new address[](4);
+    address[] memory collateralAssets_PT_USDe_7MAY2026__USDe = new address[](3);
+    address[] memory borrowableAssets_PT_USDe_7MAY2026__USDe = new address[](1);
 
-    collateralAssets_PT_sUSDe_7MAY2026[0] = AaveV3EthereumAssets.wstETH_UNDERLYING;
-    collateralAssets_PT_sUSDe_7MAY2026[1] = AaveV3EthereumAssets.sUSDe_UNDERLYING;
-    collateralAssets_PT_sUSDe_7MAY2026[2] = AaveV3EthereumAssets.PT_sUSDE_5FEB2026_UNDERLYING;
-    borrowableAssets_PT_sUSDe_7MAY2026[0] = AaveV3EthereumAssets.USDC_UNDERLYING;
-    borrowableAssets_PT_sUSDe_7MAY2026[1] = AaveV3EthereumAssets.USDT_UNDERLYING;
-    borrowableAssets_PT_sUSDe_7MAY2026[2] = AaveV3EthereumAssets.USDe_UNDERLYING;
-    borrowableAssets_PT_sUSDe_7MAY2026[3] = AaveV3EthereumAssets.USDtb_UNDERLYING;
+    collateralAssets_PT_USDe_7MAY2026__USDe[0] = AaveV3EthereumAssets.WETH_UNDERLYING;
+    collateralAssets_PT_USDe_7MAY2026__USDe[1] = AaveV3EthereumAssets.USDe_UNDERLYING;
+    collateralAssets_PT_USDe_7MAY2026__USDe[2] = AaveV3EthereumAssets.PT_USDe_5FEB2026_UNDERLYING;
+    borrowableAssets_PT_USDe_7MAY2026__USDe[0] = AaveV3EthereumAssets.USDe_UNDERLYING;
 
     eModeCreations[1] = IAaveV3ConfigEngine.EModeCategoryCreation({
+      ltv: 88_10,
+      liqThreshold: 90_10,
+      liqBonus: 3_40,
+      label: 'PT_USDe_7MAY2026__USDe',
+      collaterals: collateralAssets_PT_USDe_7MAY2026__USDe,
+      borrowables: borrowableAssets_PT_USDe_7MAY2026__USDe
+    });
+
+    address[] memory collateralAssets_PT_sUSDe_7MAY2026__Stablecoins = new address[](3);
+    address[] memory borrowableAssets_PT_sUSDe_7MAY2026__Stablecoins = new address[](4);
+
+    collateralAssets_PT_sUSDe_7MAY2026__Stablecoins[0] = AaveV3EthereumAssets.wstETH_UNDERLYING;
+    collateralAssets_PT_sUSDe_7MAY2026__Stablecoins[1] = AaveV3EthereumAssets.sUSDe_UNDERLYING;
+    collateralAssets_PT_sUSDe_7MAY2026__Stablecoins[2] = AaveV3EthereumAssets
+      .PT_sUSDE_5FEB2026_UNDERLYING;
+    borrowableAssets_PT_sUSDe_7MAY2026__Stablecoins[0] = AaveV3EthereumAssets.USDC_UNDERLYING;
+    borrowableAssets_PT_sUSDe_7MAY2026__Stablecoins[1] = AaveV3EthereumAssets.USDT_UNDERLYING;
+    borrowableAssets_PT_sUSDe_7MAY2026__Stablecoins[2] = AaveV3EthereumAssets.USDe_UNDERLYING;
+    borrowableAssets_PT_sUSDe_7MAY2026__Stablecoins[3] = AaveV3EthereumAssets.USDtb_UNDERLYING;
+
+    eModeCreations[2] = IAaveV3ConfigEngine.EModeCategoryCreation({
       ltv: 86_40,
       liqThreshold: 88_40,
       liqBonus: 5_50,
-      label: 'PT_sUSDe_7MAY2026',
-      collaterals: collateralAssets_PT_sUSDe_7MAY2026,
-      borrowables: borrowableAssets_PT_sUSDe_7MAY2026
+      label: 'PT_sUSDe_7MAY2026__Stablecoins',
+      collaterals: collateralAssets_PT_sUSDe_7MAY2026__Stablecoins,
+      borrowables: borrowableAssets_PT_sUSDe_7MAY2026__Stablecoins
+    });
+
+    address[] memory collateralAssets_PT_sUSDe_7MAY2026__USDe = new address[](3);
+    address[] memory borrowableAssets_PT_sUSDe_7MAY2026__USDe = new address[](1);
+
+    collateralAssets_PT_sUSDe_7MAY2026__USDe[0] = AaveV3EthereumAssets.wstETH_UNDERLYING;
+    collateralAssets_PT_sUSDe_7MAY2026__USDe[1] = AaveV3EthereumAssets.sUSDe_UNDERLYING;
+    collateralAssets_PT_sUSDe_7MAY2026__USDe[2] = AaveV3EthereumAssets.PT_sUSDE_5FEB2026_UNDERLYING;
+    borrowableAssets_PT_sUSDe_7MAY2026__USDe[0] = AaveV3EthereumAssets.USDe_UNDERLYING;
+
+    eModeCreations[3] = IAaveV3ConfigEngine.EModeCategoryCreation({
+      ltv: 87_20,
+      liqThreshold: 89_20,
+      liqBonus: 4_50,
+      label: 'PT_sUSDe_7MAY2026__USDe',
+      collaterals: collateralAssets_PT_sUSDe_7MAY2026__USDe,
+      borrowables: borrowableAssets_PT_sUSDe_7MAY2026__USDe
     });
 
     return eModeCreations;
