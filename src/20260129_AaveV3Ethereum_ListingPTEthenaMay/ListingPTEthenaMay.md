@@ -58,6 +58,7 @@ The table below illustrates the configured risk parameters for **PT_USDe_7MAY202
 | initialDiscountRatePerYear | 4.95%                                                                                                                 |
 | maxDiscountRatePerYear     | 25.69%                                                                                                                |
 | address                    | [0x0a72df02ce3e4185b6cedf561f0ae651e9bee235](https://etherscan.io/address/0x0a72df02ce3e4185b6cedf561f0ae651e9bee235) |
+| Last answer                | 98521492 (0.98521492 USD)                                                                                             |
 
 **PT-USDe Stablecoins E-Mode**
 
@@ -111,6 +112,7 @@ The table below illustrates the configured risk parameters for **PT_sUSDe_7MAY20
 | initialDiscountRatePerYear | 5.02%                                                                                                                  |
 | maxDiscountRatePerYear     | 25.67%                                                                                                                 |
 | address                    | [0xa0dc0249c32fa79e8b9b17c735908a60b1141b40 ](https://etherscan.io/address/0xa0dc0249c32fa79e8b9b17c735908a60b1141b40) |
+| Last answer                | 98502870 (0.98502870 USD)                                                                                              |
 
 Additionally [0xac140648435d03f784879cd789130F22Ef588Fcd](https://etherscan.io/address/0xac140648435d03f784879cd789130F22Ef588Fcd) has been set as the emission admin both PTs.
 
