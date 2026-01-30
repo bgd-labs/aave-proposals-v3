@@ -124,8 +124,8 @@ The parameters are the ones recommended by risk service providers.
 
 ## References
 
-- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20260129_AaveV3Ethereum_ListingPTEthenaMay/AaveV3Ethereum_ListingPTEthenaMay_20260129.sol)
-- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20260129_AaveV3Ethereum_ListingPTEthenaMay/AaveV3Ethereum_ListingPTEthenaMay_20260129.t.sol)
+- Implementation: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/e0779efa69beeda55ae83a0c6d0f6f9a94fc1758/src/20260129_AaveV3Ethereum_ListingPTEthenaMay/AaveV3Ethereum_ListingPTEthenaMay_20260129.sol)
+- Tests: [AaveV3Ethereum](https://github.com/bgd-labs/aave-proposals-v3/blob/e0779efa69beeda55ae83a0c6d0f6f9a94fc1758/src/20260129_AaveV3Ethereum_ListingPTEthenaMay/AaveV3Ethereum_ListingPTEthenaMay_20260129.t.sol)
 - Snapshot: Direct-to-AIP
 - [Discussion](https://governance.aave.com/t/direct-to-aip-onboard-usde-susde-may-expiry-pt-tokens-on-aave-v3-core-instance/23882)
 
