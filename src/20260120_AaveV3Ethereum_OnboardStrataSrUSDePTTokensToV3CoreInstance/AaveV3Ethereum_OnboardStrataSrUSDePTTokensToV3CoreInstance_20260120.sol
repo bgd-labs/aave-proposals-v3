@@ -33,7 +33,7 @@ contract AaveV3Ethereum_OnboardStrataSrUSDePTTokensToV3CoreInstance_20260120 is
     marketsToWhitelist[1] = address(uint160(nextID - 2)); // on the injector we encode eModeId to address
     IAaveStewardInjector(AaveV3Ethereum.EDGE_INJECTOR_PENDLE_EMODE).addMarkets(marketsToWhitelist);
 
-    address[] memory assetsToWhitelist = new address[](2);
+    address[] memory assetsToWhitelist = new address[](1);
     assetsToWhitelist[0] = PT_srUSDe_2APR2026;
     IAaveStewardInjector(AaveV3Ethereum.EDGE_INJECTOR_DISCOUNT_RATE).addMarkets(assetsToWhitelist);
 
