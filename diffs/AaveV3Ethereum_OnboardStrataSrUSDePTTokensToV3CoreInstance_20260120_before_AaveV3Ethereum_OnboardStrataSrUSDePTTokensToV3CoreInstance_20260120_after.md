@@ -22,7 +22,7 @@
 | ltv | 0 % [0] |
 | liquidationThreshold | 0 % [0] |
 | liquidationBonus | 0 % |
-| liquidationProtocolFee | 10 % [1000] |
+| liquidationProtocolFee | 0 % [0] |
 | reserveFactor | 50 % [5000] |
 | aToken | [0xE036478Da9A7ed89b56FE39A06e1FC1a4b38D4Ea](https://etherscan.io/address/0xE036478Da9A7ed89b56FE39A06e1FC1a4b38D4Ea) |
 | variableDebtToken | [0x04142fc546D59838852873bba5C8827601A13FC8](https://etherscan.io/address/0x04142fc546D59838852873bba5C8827601A13FC8) |
@@ -254,7 +254,7 @@
         "isPaused": false,
         "isSiloed": false,
         "liquidationBonus": 0,
-        "liquidationProtocolFee": 1000,
+        "liquidationProtocolFee": 0,
         "liquidationThreshold": 0,
         "ltv": 0,
         "oracle": "0xB539C6C0fc36ff1572B13ACec343B854937db576",
@@ -449,7 +449,7 @@
         },
         "0xdad2b88773d2af466956d97de743bbf371f3217193b70a9ed08750e48b4e1cc9": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x100000000000000000000003e8002faf08000000000113888112000000000000"
+          "newValue": "0x10000000000000000000000000002faf08000000000113888112000000000000"
         },
         "0xdad2b88773d2af466956d97de743bbf371f3217193b70a9ed08750e48b4e1cca": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
