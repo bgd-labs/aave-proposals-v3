@@ -429,7 +429,7 @@
   "raw": {
     "0x04142fc546d59838852873bba5c8827601a13fc8": {
       "label": null,
-      "contract": "lib/aave-umbrella/lib/aave-v3-origin/lib/solidity-utils/lib/openzeppelin-contracts-upgradeable/lib/openzeppelin-contracts/contracts/proxy/transparent/TransparentUpgradeableProxy.sol:TransparentUpgradeableProxy",
+      "contract": "lib/chaos-agents/lib/solidity-utils/lib/openzeppelin-contracts-upgradeable/lib/openzeppelin-contracts/contracts/proxy/transparent/TransparentUpgradeableProxy.sol:TransparentUpgradeableProxy",
       "balanceDiff": null,
       "nonceDiff": {
         "previousValue": 0,
@@ -549,7 +549,7 @@
     },
     "0x64b761d848206f447fe2dd461b0c635ec39ebb27": {
       "label": "AaveV3Ethereum.POOL_CONFIGURATOR",
-      "contract": "lib/aave-umbrella/lib/aave-v3-origin/lib/solidity-utils/lib/openzeppelin-contracts-upgradeable/lib/openzeppelin-contracts/contracts/proxy/transparent/TransparentUpgradeableProxy.sol:TransparentUpgradeableProxy",
+      "contract": "lib/chaos-agents/lib/solidity-utils/lib/openzeppelin-contracts-upgradeable/lib/openzeppelin-contracts/contracts/proxy/transparent/TransparentUpgradeableProxy.sol:TransparentUpgradeableProxy",
       "balanceDiff": null,
       "nonceDiff": {
         "previousValue": 157,
@@ -579,7 +579,7 @@
     },
     "0x762edb8d79b97487f82093f85059e42eeef61e9e": {
       "label": null,
-      "contract": "lib/aave-umbrella/lib/aave-v3-origin/lib/solidity-utils/lib/openzeppelin-contracts-upgradeable/lib/openzeppelin-contracts/contracts/proxy/transparent/TransparentUpgradeableProxy.sol:TransparentUpgradeableProxy",
+      "contract": "lib/chaos-agents/lib/solidity-utils/lib/openzeppelin-contracts-upgradeable/lib/openzeppelin-contracts/contracts/proxy/transparent/TransparentUpgradeableProxy.sol:TransparentUpgradeableProxy",
       "balanceDiff": null,
       "nonceDiff": {
         "previousValue": 0,
@@ -635,7 +635,7 @@
     },
     "0x81b76ff3fed28ba0b4a5d4c76bd5c13bd0641d86": {
       "label": null,
-      "contract": "lib/aave-umbrella/lib/aave-v3-origin/lib/solidity-utils/lib/openzeppelin-contracts-upgradeable/lib/openzeppelin-contracts/contracts/proxy/transparent/TransparentUpgradeableProxy.sol:TransparentUpgradeableProxy",
+      "contract": "lib/chaos-agents/lib/solidity-utils/lib/openzeppelin-contracts-upgradeable/lib/openzeppelin-contracts/contracts/proxy/transparent/TransparentUpgradeableProxy.sol:TransparentUpgradeableProxy",
       "balanceDiff": null,
       "nonceDiff": {
         "previousValue": 0,
@@ -687,7 +687,7 @@
     },
     "0x87870bca3f3fd6335c3f4ce8392d69350b4fa4e2": {
       "label": "AaveV3Ethereum.POOL",
-      "contract": "lib/aave-umbrella/lib/aave-v3-origin/lib/solidity-utils/lib/openzeppelin-contracts-upgradeable/lib/openzeppelin-contracts/contracts/proxy/transparent/TransparentUpgradeableProxy.sol:TransparentUpgradeableProxy",
+      "contract": "lib/chaos-agents/lib/solidity-utils/lib/openzeppelin-contracts-upgradeable/lib/openzeppelin-contracts/contracts/proxy/transparent/TransparentUpgradeableProxy.sol:TransparentUpgradeableProxy",
       "balanceDiff": null,
       "nonceDiff": null,
       "stateDiff": {
@@ -809,6 +809,70 @@
         }
       }
     },
+    "0x95e3015c67ef62b866cc28ca5a9ab5017a55e336": {
+      "label": "MiscEthereum.AGENT_HUB",
+      "contract": "lib/chaos-agents/lib/solidity-utils/lib/openzeppelin-contracts-upgradeable/lib/openzeppelin-contracts/contracts/proxy/transparent/TransparentUpgradeableProxy.sol:TransparentUpgradeableProxy",
+      "balanceDiff": null,
+      "nonceDiff": null,
+      "stateDiff": {
+        "0x1d282c5a2fd9eeb5c8762292fa0c10b742e82f29adeadb67f874c7fef1be3d90": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000016"
+        },
+        "0x1ede37f6a99472fb48e168c8036d092cf18480bf4cfb8d0aa56c7881d8d419f0": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000014"
+        },
+        "0x760743c1af2272774a0e5b418394aa11357cd7f1998bd428357eea879241b631": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x000000000000000000000000000000000000000000000000000000000000000a"
+        },
+        "0x8b67e5d6be60d0f551baa09719aaa416174ac5b177433621eb1a1ed149b10570": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000015"
+        },
+        "0x90a2a15695dd4f817524589057d71bf2fef09c1eb251350582875a5327577226": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000025"
+        },
+        "0x90a2a15695dd4f817524589057d71bf2fef09c1eb251350582875a5327577227": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000024"
+        },
+        "0x90a2a15695dd4f817524589057d71bf2fef09c1eb251350582875a5327577228": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000023"
+        },
+        "0x90a2a15695dd4f817524589057d71bf2fef09c1eb251350582875a5327577229": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000022"
+        },
+        "0xa9ceb88658247ff95343201007b31a2bf987018c4566107ce06aa8f17c7f8ee9": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x000000000000000000000000000000000000000000000000000000000000000b"
+        },
+        "0xaf23a9fe98ab74c8206d31b4f275ddf8dabc82d8a5daa7c12084d552666b96f5": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000012",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000016"
+        },
+        "0xbb643715c311797cb76081224d73b78c16502dbbdfd0a53a8d2d75404ee84cb3": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x000000000000000000000000aebf0bb9f57e89260d57f31af34eb58657d96ce0"
+        },
+        "0xbb643715c311797cb76081224d73b78c16502dbbdfd0a53a8d2d75404ee84cb4": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000003de0ff76e8b528c092d47b9dac775931cef80f49"
+        },
+        "0xee6b85641a13b2acbae003dda3c9a3221b97580234226749d412fc843e6f8ae8": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "newValue": "0x0000000000000000000000000000000000000000000000000000000000000013"
+        },
+        "0xf80cf091d48cb329813162312cf78c924f5aae0ee991535608533f788290f87f": {
+          "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000009",
+          "newValue": "0x000000000000000000000000000000000000000000000000000000000000000b"
+        }
+      }
+    },
     "0x9ec6f08190dea04a54f8afc53db96134e5e3fdfb": {
       "label": "AaveV3Ethereum.ASSETS.WETH.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.wstETH.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.WBTC.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.USDC.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.DAI.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.LINK.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.AAVE.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.cbETH.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.USDT.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.rETH.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.LUSD.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.CRV.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.MKR.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.SNX.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.BAL.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.UNI.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.LDO.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.ENS.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.ONE_INCH.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.FRAX.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.GHO.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.RPL.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.sDAI.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.STG.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.KNC.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.FXS.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.crvUSD.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.PYUSD.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.weETH.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.osETH.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.USDe.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.ETHx.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.sUSDe.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.tBTC.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.cbBTC.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.USDS.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.rsETH.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.LBTC.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.eBTC.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.RLUSD.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.PT_eUSDE_29MAY2025.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.PT_sUSDE_31JUL2025.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.USDtb.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.PT_USDe_31JUL2025.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.PT_eUSDE_14AUG2025.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.eUSDe.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.FBTC.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.EURC.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.PT_sUSDE_25SEP2025.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.PT_USDe_25SEP2025.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.tETH.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.ezETH.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.XAUt.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.PT_sUSDE_27NOV2025.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.PT_USDe_27NOV2025.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.PT_USDe_5FEB2026.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.PT_sUSDE_5FEB2026.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.mUSD.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.syrupUSDT.INTEREST_RATE_STRATEGY, AaveV3Ethereum.ASSETS.USDG.INTEREST_RATE_STRATEGY",
       "contract": null,
@@ -855,7 +919,7 @@
     },
     "0xdabad81af85554e9ae636395611c58f7ec1aaec5": {
       "label": "GovernanceV3Ethereum.PAYLOADS_CONTROLLER",
-      "contract": "lib/aave-umbrella/lib/aave-v3-origin/lib/solidity-utils/lib/openzeppelin-contracts-upgradeable/lib/openzeppelin-contracts/contracts/proxy/transparent/TransparentUpgradeableProxy.sol:TransparentUpgradeableProxy",
+      "contract": "lib/chaos-agents/lib/solidity-utils/lib/openzeppelin-contracts-upgradeable/lib/openzeppelin-contracts/contracts/proxy/transparent/TransparentUpgradeableProxy.sol:TransparentUpgradeableProxy",
       "balanceDiff": null,
       "nonceDiff": null,
       "stateDiff": {
@@ -871,7 +935,7 @@
     },
     "0xe036478da9a7ed89b56fe39a06e1fc1a4b38d4ea": {
       "label": null,
-      "contract": "lib/aave-umbrella/lib/aave-v3-origin/lib/solidity-utils/lib/openzeppelin-contracts-upgradeable/lib/openzeppelin-contracts/contracts/proxy/transparent/TransparentUpgradeableProxy.sol:TransparentUpgradeableProxy",
+      "contract": "lib/chaos-agents/lib/solidity-utils/lib/openzeppelin-contracts-upgradeable/lib/openzeppelin-contracts/contracts/proxy/transparent/TransparentUpgradeableProxy.sol:TransparentUpgradeableProxy",
       "balanceDiff": null,
       "nonceDiff": {
         "previousValue": 0,

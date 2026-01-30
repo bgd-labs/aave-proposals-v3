@@ -2,6 +2,7 @@
 pragma solidity ^0.8.0;
 
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
+import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {AaveV3PayloadEthereum} from 'aave-helpers/src/v3-config-engine/AaveV3PayloadEthereum.sol';
 import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
@@ -10,6 +11,7 @@ import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 import {SafeERC20} from 'openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol';
 import {IEmissionManager} from 'aave-v3-origin/contracts/rewards/interfaces/IEmissionManager.sol';
 import {IAgentHub} from 'chaos-agents/src/interfaces/IAgentHub.sol';
+import {IPool} from 'aave-v3-origin/contracts/interfaces/IPool.sol';
 
 /**
  * @title Listing PT Ethena May
@@ -19,6 +21,7 @@ import {IAgentHub} from 'chaos-agents/src/interfaces/IAgentHub.sol';
  */
 contract AaveV3Ethereum_ListingPTEthenaMay_20260129 is AaveV3PayloadEthereum {
   using SafeERC20 for IERC20;
+  error NoAvailableEmodeCategory();
 
   address public constant PT_USDe_7MAY2026 = 0xAeBf0Bb9f57E89260d57f31AF34eB58657d96Ce0;
   uint256 public constant PT_USDe_7MAY2026_SEED_AMOUNT = 100e18;
@@ -61,14 +64,14 @@ contract AaveV3Ethereum_ListingPTEthenaMay_20260129 is AaveV3PayloadEthereum {
     uint8 nextID = _findFirstUnusedEmodeCategory(AaveV3Ethereum.POOL);
 
     // whitelist the new eModes on automated chaos-agents [agentId 0: EModeCategoryUpdate_Core]
-    IAgentHub(AGENT_HUB).addAllowedMarket(0, address(uint160(nextID - 1)));
-    IAgentHub(AGENT_HUB).addAllowedMarket(0, address(uint160(nextID - 2)));
-    IAgentHub(AGENT_HUB).addAllowedMarket(0, address(uint160(nextID - 3)));
-    IAgentHub(AGENT_HUB).addAllowedMarket(0, address(uint160(nextID - 4)));
+    IAgentHub(MiscEthereum.AGENT_HUB).addAllowedMarket(0, address(uint160(nextID - 1)));
+    IAgentHub(MiscEthereum.AGENT_HUB).addAllowedMarket(0, address(uint160(nextID - 2)));
+    IAgentHub(MiscEthereum.AGENT_HUB).addAllowedMarket(0, address(uint160(nextID - 3)));
+    IAgentHub(MiscEthereum.AGENT_HUB).addAllowedMarket(0, address(uint160(nextID - 4)));
 
     // whitelist the new pt-assets on automated chaos-agents [agentId 1: PendleDiscountRateUpdate_Core]
-    IAgentHub(AGENT_HUB).addAllowedMarket(1, PT_USDe_7MAY2026);
-    IAgentHub(AGENT_HUB).addAllowedMarket(1, PT_sUSDe_7MAY2026);
+    IAgentHub(MiscEthereum.AGENT_HUB).addAllowedMarket(1, PT_USDe_7MAY2026);
+    IAgentHub(MiscEthereum.AGENT_HUB).addAllowedMarket(1, PT_sUSDe_7MAY2026);
   }
 
   function eModeCategoryCreations()
@@ -219,5 +222,13 @@ contract AaveV3Ethereum_ListingPTEthenaMay_20260129 is AaveV3PayloadEthereum {
       IEmissionManager(AaveV3Ethereum.EMISSION_MANAGER).setEmissionAdmin(asset, lmAdmin);
       IEmissionManager(AaveV3Ethereum.EMISSION_MANAGER).setEmissionAdmin(aToken, lmAdmin);
     }
+  }
+
+  function _findFirstUnusedEmodeCategory(IPool pool) private view returns (uint8) {
+    // eMode id 0 is skipped intentially as it is the reserved default
+    for (uint8 i = 1; i < 256; i++) {
+      if (pool.getEModeCategoryCollateralConfig(i).liquidationThreshold == 0) return i;
+    }
+    revert NoAvailableEmodeCategory();
   }
 }
