@@ -18,7 +18,7 @@ contract AaveV3Ethereum_ListingPTEthenaMay_20260129_Test is ProtocolV3TestBase {
   AaveV3Ethereum_ListingPTEthenaMay_20260129 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 24341140);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 24348713);
     proposal = new AaveV3Ethereum_ListingPTEthenaMay_20260129();
   }
 
