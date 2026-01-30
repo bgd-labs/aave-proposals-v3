@@ -10,7 +10,7 @@ import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 import {SafeERC20} from 'openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol';
 import {IEmissionManager} from 'aave-v3-origin/contracts/rewards/interfaces/IEmissionManager.sol';
-import {IAgentHub} from 'chaos-agents/src/interfaces/IAgentHub.sol';
+import {IAgentHub} from 'chaos-agents/IAgentHub.sol';
 import {IPool} from 'aave-v3-origin/contracts/interfaces/IPool.sol';
 
 /**
