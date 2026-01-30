@@ -2,6 +2,7 @@
 pragma solidity ^0.8.0;
 
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
+import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {AaveV3PayloadEthereum} from 'aave-helpers/src/v3-config-engine/AaveV3PayloadEthereum.sol';
 import {EngineFlags} from 'aave-v3-origin/contracts/extensions/v3-config-engine/EngineFlags.sol';
 import {IAaveV3ConfigEngine, IPool} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
@@ -9,6 +10,8 @@ import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 import {SafeERC20} from 'openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol';
 import {IEmissionManager} from 'aave-v3-origin/contracts/rewards/interfaces/IEmissionManager.sol';
 import {IAaveStewardInjector} from '../interfaces/IAaveStewardInjector.sol';
+import {IAgentHub} from '../interfaces/chaos-agents/IAgentHub.sol';
+import {IPool} from 'aave-v3-origin/contracts/interfaces/IPool.sol';
 
 /**
  * @title Onboard Strata srUSDe PT tokens to V3 Core Instance
@@ -36,6 +39,10 @@ contract AaveV3Ethereum_OnboardStrataSrUSDePTTokensToV3CoreInstance_20260120 is
     address[] memory assetsToWhitelist = new address[](1);
     assetsToWhitelist[0] = PT_srUSDe_2APR2026;
     IAaveStewardInjector(AaveV3Ethereum.EDGE_INJECTOR_DISCOUNT_RATE).addMarkets(assetsToWhitelist);
+
+    // whitelist the new eModes on automated chaos-agents [agentId 0: EModeCategoryUpdate_Core]
+    IAgentHub(MiscEthereum.AGENT_HUB).addAllowedMarket(0, address(uint160(nextID - 1)));
+    IAgentHub(MiscEthereum.AGENT_HUB).addAllowedMarket(0, address(uint160(nextID - 2)));
 
     _supplyAndConfigureLMAdmin(
       PT_srUSDe_2APR2026,
