@@ -110,7 +110,7 @@ contract AaveV3Ethereum_OnboardStrataSrUSDePTTokensToV3CoreInstance_20260120 is
       supplyCap: 50_000_000,
       borrowCap: 1,
       debtCeiling: 0,
-      liqProtocolFee: 0,
+      liqProtocolFee: 10_00,
       rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
         optimalUsageRatio: 45_00,
         baseVariableBorrowRate: 0,
