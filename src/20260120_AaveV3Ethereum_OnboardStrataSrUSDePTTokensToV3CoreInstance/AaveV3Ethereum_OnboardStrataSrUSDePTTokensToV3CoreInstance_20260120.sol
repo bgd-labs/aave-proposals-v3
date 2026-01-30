@@ -31,14 +31,6 @@ contract AaveV3Ethereum_OnboardStrataSrUSDePTTokensToV3CoreInstance_20260120 is
   function _postExecute() internal override {
     // we whitelist the two newly created eModeId on the injector
     uint8 nextID = _findFirstUnusedEmodeCategory(AaveV3Ethereum.POOL);
-    address[] memory marketsToWhitelist = new address[](2);
-    marketsToWhitelist[0] = address(uint160(nextID - 1)); // on the injector we encode eModeId to address
-    marketsToWhitelist[1] = address(uint160(nextID - 2)); // on the injector we encode eModeId to address
-    IAaveStewardInjector(AaveV3Ethereum.EDGE_INJECTOR_PENDLE_EMODE).addMarkets(marketsToWhitelist);
-
-    address[] memory assetsToWhitelist = new address[](1);
-    assetsToWhitelist[0] = PT_srUSDe_2APR2026;
-    IAaveStewardInjector(AaveV3Ethereum.EDGE_INJECTOR_DISCOUNT_RATE).addMarkets(assetsToWhitelist);
 
     // whitelist the new eModes on automated chaos-agents [agentId 0: EModeCategoryUpdate_Core]
     IAgentHub(MiscEthereum.AGENT_HUB).addAllowedMarket(0, address(uint160(nextID - 1)));
