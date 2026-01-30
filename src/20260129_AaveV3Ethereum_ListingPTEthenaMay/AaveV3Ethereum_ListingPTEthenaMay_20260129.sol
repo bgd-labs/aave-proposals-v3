@@ -56,6 +56,18 @@ contract AaveV3Ethereum_ListingPTEthenaMay_20260129 is AaveV3PayloadEthereum {
     );
 
     AaveV3Ethereum.POOL_CONFIGURATOR.setLiquidationProtocolFee(PT_sUSDe_7MAY2026, 1000);
+  
+  uint8 nextID = _findFirstUnusedEmodeCategory(AaveV3Ethereum.POOL);
+	
+	// whitelist the new eModes on automated chaos-agents [agentId 0: EModeCategoryUpdate_Core]
+	IAgentHub(AGENT_HUB).addAllowedMarket(0, address(uint160(nextID - 1));
+	IAgentHub(AGENT_HUB).addAllowedMarket(0, address(uint160(nextID - 2));
+	IAgentHub(AGENT_HUB).addAllowedMarket(0, address(uint160(nextID - 3));
+	IAgentHub(AGENT_HUB).addAllowedMarket(0, address(uint160(nextID - 4));
+	
+	// whitelist the new pt-assets on automated chaos-agents [agentId 1: PendleDiscountRateUpdate_Core]
+	IAgentHub(AGENT_HUB).addAllowedMarket(1, PT_USDe_7MAY2026);
+	IAgentHub(AGENT_HUB).addAllowedMarket(1, PT_sUSDe_7MAY2026);
   }
 
   function eModeCategoryCreations()
