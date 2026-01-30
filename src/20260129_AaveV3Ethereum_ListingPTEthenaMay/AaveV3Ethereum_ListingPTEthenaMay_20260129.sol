@@ -178,7 +178,7 @@ contract AaveV3Ethereum_ListingPTEthenaMay_20260129 is AaveV3PayloadEthereum {
       reserveFactor: 45_00,
       supplyCap: 45_000_000,
       borrowCap: 1,
-      debtCeiling: 1,
+      debtCeiling: 0,
       liqProtocolFee: 0,
       rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
         optimalUsageRatio: 45_00,
@@ -201,7 +201,7 @@ contract AaveV3Ethereum_ListingPTEthenaMay_20260129 is AaveV3PayloadEthereum {
       reserveFactor: 45_00,
       supplyCap: 100_000_000,
       borrowCap: 1,
-      debtCeiling: 1,
+      debtCeiling: 0,
       liqProtocolFee: 0,
       rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
         optimalUsageRatio: 45_00,

@@ -22,9 +22,9 @@ The table below illustrates the configured risk parameters for **PT_USDe_7MAY202
 
 | Parameter                     |                                      Value |
 | ----------------------------- | -----------------------------------------: |
-| Isolation Mode                |                                       true |
+| Isolation Mode                |                                      false |
 | Borrowable                    |                                   DISABLED |
-| Collateral Enabled            |                                       true |
+| Collateral Enabled            |                                      false |
 | Supply Cap (PT_USDe_7MAY2026) |                                 45,000,000 |
 | Borrow Cap (PT_USDe_7MAY2026) |                                          1 |
 | Debt Ceiling                  |                                      USD 1 |
@@ -74,9 +74,9 @@ The table below illustrates the configured risk parameters for **PT_sUSDe_7MAY20
 
 | Parameter                      |                                      Value |
 | ------------------------------ | -----------------------------------------: |
-| Isolation Mode                 |                                       true |
+| Isolation Mode                 |                                      false |
 | Borrowable                     |                                   DISABLED |
-| Collateral Enabled             |                                       true |
+| Collateral Enabled             |                                      false |
 | Supply Cap (PT_sUSDe_7MAY2026) |                                100,000,000 |
 | Borrow Cap (PT_sUSDe_7MAY2026) |                                          1 |
 | Debt Ceiling                   |                                      USD 1 |
