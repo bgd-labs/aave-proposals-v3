@@ -27,7 +27,7 @@ The table below illustrates the configured risk parameters for **PT_USDe_7MAY202
 | Collateral Enabled            |                                      false |
 | Supply Cap (PT_USDe_7MAY2026) |                                 45,000,000 |
 | Borrow Cap (PT_USDe_7MAY2026) |                                          1 |
-| Debt Ceiling                  |                                      USD 1 |
+| Debt Ceiling                  |                                      USD 0 |
 | LTV                           |                                        0 % |
 | LT                            |                                        0 % |
 | Liquidation Bonus             |                                        0 % |
@@ -79,7 +79,7 @@ The table below illustrates the configured risk parameters for **PT_sUSDe_7MAY20
 | Collateral Enabled             |                                      false |
 | Supply Cap (PT_sUSDe_7MAY2026) |                                100,000,000 |
 | Borrow Cap (PT_sUSDe_7MAY2026) |                                          1 |
-| Debt Ceiling                   |                                      USD 1 |
+| Debt Ceiling                   |                                      USD 0 |
 | LTV                            |                                        0 % |
 | LT                             |                                        0 % |
 | Liquidation Bonus              |                                        0 % |
