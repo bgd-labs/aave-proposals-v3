@@ -41,8 +41,6 @@ contract AaveV3Ethereum_OnboardStrataSrUSDePTTokensToV3CoreInstance_20260120 is
       PT_srUSDe_2APR2026_SEED_AMOUNT,
       PT_srUSDe_2APR2026_LM_ADMIN
     );
-
-    AaveV3Ethereum.POOL_CONFIGURATOR.setLiquidationProtocolFee(PT_srUSDe_2APR2026, 10_00);
   }
 
   function eModeCategoryCreations()
