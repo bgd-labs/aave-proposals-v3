@@ -40,7 +40,6 @@
     "@inquirer/prompts": "^7.5.0",
     "@inquirer/testing": "^2.1.37",
     "catapulta-verify": "^1.4.3",
-    "chaos-agents": "github:ChaosLabsInc/chaos-agents",
     "commander": "^12.1.0",
     "dotenv": "^16.4.7",
     "husky": "^8.0.3",
