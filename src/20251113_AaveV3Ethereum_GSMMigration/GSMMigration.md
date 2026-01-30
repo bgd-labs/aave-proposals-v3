@@ -15,7 +15,7 @@ To create a unified GSM paradigm for both mainnet and L2s, a newer version of th
 
 ## Specification
 
-- Deploy OwnableFacilitator to mint GHO for GSMs
+- Deploy GhoDirectFacilitator to mint GHO for GSMs
 - Deploy GhoReserve to hold GHO to be used by GSMs
 - Deploy new stataUSDC and stataUSDT GSM4626 from the Gho-Core repository with their respective Oracles
 - Grant the Executor the `'LIQUIDATOR_ROLE'` to be able to seize the existing GSMs
@@ -38,7 +38,7 @@ The below details the configuration of the stataUSDC GSM.
 
 | Parameter                |  Value  |
 | ------------------------ | :-----: |
-| Draw Limit (GHO)         | 100.00M |
+| Draw Limit (GHO)         | 110.00M |
 | Exposure Capacity (USDC) | 87.00M  |
 | Price Strategy           |   1:1   |
 | Freeze Lower Bound       | $0.990  |
@@ -52,8 +52,8 @@ The below details the configuration of the stataUSDT GSM.
 
 | Parameter                | Value  |
 | ------------------------ | :----: |
-| Draw Limit (GHO)         | 50.00M |
-| Exposure Capacity (USDT) | 40.00M |
+| Draw Limit (GHO)         | 70.00M |
+| Exposure Capacity (USDT) | 55.00M |
 | Price Strategy           |  1:1   |
 | Freeze Lower Bound       | $0.990 |
 | Freeze Upper Bound       | $1.010 |

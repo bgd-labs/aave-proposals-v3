@@ -31,15 +31,15 @@ contract AaveV3Ethereum_GSMMigration_20251113 is IProposalGenericExecutor {
   // GhoDirectFacilitator Constants
   address public constant DIRECT_FACILITATOR = 0xE9ac5231fAecb633dA0Fe85Fcb2785b8363427d2;
   string public constant DIRECT_FACILITATOR_NAME = 'GhoDirectFacilitator GSMs Mainnet';
-  uint128 public constant DIRECT_FACILITATOR_CAPACITY = 150_000_000 ether;
+  uint128 public constant DIRECT_FACILITATOR_CAPACITY = 180_000_000 ether;
 
   // GhoReserve
   // https://etherscan.io/address/0x54C58157DeF387A880AE62332D1445f03adbE7E9
   address public constant GHO_RESERVE = 0x54C58157DeF387A880AE62332D1445f03adbE7E9;
 
   // GSM Draw Limits
-  uint128 public constant USDC_GSM_RESERVE_LIMIT = 100_000_000 ether;
-  uint128 public constant USDT_GSM_RESERVE_LIMIT = 50_000_000 ether;
+  uint128 public constant USDC_GSM_RESERVE_LIMIT = 110_000_000 ether;
+  uint128 public constant USDT_GSM_RESERVE_LIMIT = 70_000_000 ether;
 
   // https://etherscan.io/address/0x3a3868898305f04bec7fea77becff04c13444112
   address public constant NEW_GSM_USDC = 0x3A3868898305f04beC7FEa77BecFf04C13444112;

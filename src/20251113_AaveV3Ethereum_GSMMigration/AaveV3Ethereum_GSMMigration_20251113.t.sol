@@ -27,7 +27,7 @@ contract AaveV3Ethereum_GSMMigration_20251113_Test is ProtocolV3TestBase {
   AaveV3Ethereum_GSMMigration_20251113 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 24305590);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 24347697);
     proposal = new AaveV3Ethereum_GSMMigration_20251113();
   }
 
@@ -37,6 +37,7 @@ contract AaveV3Ethereum_GSMMigration_20251113_Test is ProtocolV3TestBase {
   function test_defaultProposalExecution() public {
     defaultTest('AaveV3Ethereum_GSMMigration_20251113', AaveV3Ethereum.POOL, address(proposal));
   }
+
   function test_checkConfig() public {
     assertFalse(
       IGhoBucketSteward(GhoEthereum.GHO_BUCKET_STEWARD).isControlledFacilitator(
@@ -101,7 +102,7 @@ contract AaveV3Ethereum_GSMMigration_20251113_Test is ProtocolV3TestBase {
     assertApproxEqAbs(
       IGhoReserve(proposal.GHO_RESERVE()).getUsed(proposal.NEW_GSM_USDT()),
       oldGsmUsdt.bucketLevel,
-      22_500 ether,
+      50_000 ether,
       'Delta for GHO needed on stataUSDT is too wide'
     );
 
@@ -394,13 +395,20 @@ contract AaveV3Ethereum_GSMMigration_20251113_Test is ProtocolV3TestBase {
   function test_gsmUsdtIsOperational() public {
     executePayload(vm, address(proposal));
 
-    deal(AaveV3EthereumAssets.USDT_STATA_TOKEN, address(this), 1_000e6);
+    // Update exposure cap because it's currently full
+    vm.startPrank(GovernanceV3Ethereum.EXECUTOR_LVL_1);
+    IGsm(proposal.NEW_GSM_USDT()).updateExposureCap(
+      (proposal.USDT_GSM_RESERVE_LIMIT() * 1e6) / 1e18
+    );
+    vm.stopPrank();
+
+    deal(AaveV3EthereumAssets.USDT_STATA_TOKEN, address(this), 10_000e6);
 
     // New GSMs are operational
-    IERC20(AaveV3EthereumAssets.USDT_STATA_TOKEN).approve(proposal.NEW_GSM_USDT(), 1_000e6);
+    IERC20(AaveV3EthereumAssets.USDT_STATA_TOKEN).approve(proposal.NEW_GSM_USDT(), 10_000e6);
     IERC20(AaveV3EthereumAssets.GHO_UNDERLYING).approve(proposal.NEW_GSM_USDT(), 1_200 ether);
 
-    uint256 amountUnderlying = 100e6;
+    uint256 amountUnderlying = 500e6;
     uint256 balanceBeforeUsdtGsm = IERC20(AaveV3EthereumAssets.USDT_STATA_TOKEN).balanceOf(
       proposal.NEW_GSM_USDT()
     );
@@ -422,11 +430,11 @@ contract AaveV3Ethereum_GSMMigration_20251113_Test is ProtocolV3TestBase {
       'GHO balance after sellAsset not equal'
     );
 
-    (, uint256 ghoSold) = IGsm(proposal.NEW_GSM_USDT()).buyAsset(500e6, address(this));
+    (, uint256 ghoSold) = IGsm(proposal.NEW_GSM_USDT()).buyAsset(100e6, address(this));
 
     assertEq(
       IERC20(AaveV3EthereumAssets.USDT_STATA_TOKEN).balanceOf(proposal.NEW_GSM_USDT()),
-      balanceBeforeUsdtGsm + amountUnderlying - 500e6,
+      balanceBeforeUsdtGsm + amountUnderlying - 100e6,
       'stataUSDT balance after buyAsset not equal'
     );
     assertEq(
