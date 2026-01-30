@@ -5,3 +5,6 @@
 [submodule "lib/aave-umbrella"]
 	path = lib/aave-umbrella
 	url = https://github.com/aave-dao/aave-umbrella
+[submodule "lib/chaos-agents"]
+	path = lib/chaos-agents
+	url = https://github.com/ChaosLabsInc/chaos-agents

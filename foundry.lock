@@ -10,5 +10,8 @@
       "name": "v1.0.0",
       "rev": "d34359f567da4fbb58685e114cd1b824d8300fac"
     }
+  },
+  "lib/chaos-agents": {
+    "rev": "f02af714ef069e54bae577ac2d34bb3d57d6e1cd"
   }
 }
