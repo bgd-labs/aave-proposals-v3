@@ -5,7 +5,9 @@ import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGen
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
+
 import {IAgentHub, IAgentConfigurator} from '../interfaces/IAgentHub.sol';
+import {IRangeValidationModule} from '../interfaces/IRangeValidationModule.sol';
 
 /**
  * @title Activate Capo Risk Agent and expand Rates Agent on more networks
@@ -19,7 +21,8 @@ contract AaveV3Ethereum_ActivateCapoRiskAgentAndExpandRatesAgentOnMoreNetworks_2
   address public constant CAPO_AGENT = 0xCc18Be380838956aad41FD22466085eD66aaBB46;
 
   function execute() external {
-    IAgentHub(MiscEthereum.AGENT_HUB).registerAgent(
+    // 1. register chaos-agents on the agent-hub
+    uint256 agentId = IAgentHub(MiscEthereum.AGENT_HUB).registerAgent(
       IAgentConfigurator.AgentRegistrationInput({
         admin: GovernanceV3Ethereum.EXECUTOR_LVL_1,
         riskOracle: AaveV3Ethereum.EDGE_RISK_ORACLE,
@@ -36,6 +39,35 @@ contract AaveV3Ethereum_ActivateCapoRiskAgentAndExpandRatesAgentOnMoreNetworks_2
         permissionedSenders: new address[](0) // default
       })
     );
+
+    // 2. configure range on the range-validation-module
+    IRangeValidationModule(MiscEthereum.RANGE_VALIDATION_MODULE).setDefaultRangeConfig(
+      address(AGENT_HUB),
+      agentId,
+      'CapoSnapshotRatio',
+      IRangeValidationModule.RangeConfig({
+        maxIncrease: 5_00, // 5%
+        maxDecrease: 5_00, // 5%
+        isIncreaseRelative: true,
+        isDecreaseRelative: true
+      })
+    );
+    IRangeValidationModule(MiscEthereum.RANGE_VALIDATION_MODULE).setDefaultRangeConfig(
+      address(AGENT_HUB),
+      agentId,
+      'CapoMaxYearlyGrowthRatePercent',
+      IRangeValidationModule.RangeConfig({
+        maxIncrease: 10_00, // 10%
+        maxDecrease: 10_00, // 10%
+        isIncreaseRelative: true,
+        isDecreaseRelative: true
+      })
+    );
+
+    // 3. give permissions to new agent contracts
+    AaveV3Ethereum.ACL_MANAGER.addRiskAdmin(CAPO_AGENT);
+
+    // 4. register new automation for the chaos-agents
   }
 
   function getAssetsToEnableForCapoAgent() public pure returns (address[] memory) {
