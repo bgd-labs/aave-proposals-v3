@@ -72,12 +72,8 @@ contract AaveV3Ethereum_GSMMigration_20251113 is IProposalGenericExecutor {
   bytes32 public immutable SWAP_FREEZER_ROLE = IGsm(GhoEthereum.GSM_USDC).SWAP_FREEZER_ROLE();
 
   function execute() external {
-    uint256 balanceUsdc = IERC20(AaveV3EthereumAssets.USDC_STATA_TOKEN).balanceOf(
-      GhoEthereum.GSM_USDC
-    );
-    uint256 balanceUsdt = IERC20(AaveV3EthereumAssets.USDT_STATA_TOKEN).balanceOf(
-      GhoEthereum.GSM_USDT
-    );
+    uint256 balanceUsdc = IGsm(GhoEthereum.GSM_USDC).getAvailableLiquidity();
+    uint256 balanceUsdt = IGsm(GhoEthereum.GSM_USDT).getAvailableLiquidity();
 
     IGhoToken(AaveV3EthereumAssets.GHO_UNDERLYING).addFacilitator(
       DIRECT_FACILITATOR,
