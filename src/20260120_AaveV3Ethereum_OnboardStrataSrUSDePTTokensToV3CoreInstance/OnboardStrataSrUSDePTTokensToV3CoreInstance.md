@@ -23,7 +23,7 @@ The table below illustrates the configured risk parameters for **PT_srUSDe_2APR2
 | ------------------------------- | ---------: |
 | Isolation Mode                  |      false |
 | Borrowable                      |   DISABLED |
-| Collateral Enabled              |       true |
+| Collateral Enabled              |      false |
 | Supply Cap (PT_srUSDe_2APR2026) | 50,000,000 |
 | Borrow Cap (PT_srUSDe_2APR2026) |          1 |
 | Debt Ceiling                    |      USD 0 |
