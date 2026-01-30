@@ -36,6 +36,9 @@ contract AaveV3Ethereum_OnboardStrataSrUSDePTTokensToV3CoreInstance_20260120 is
     IAgentHub(MiscEthereum.AGENT_HUB).addAllowedMarket(0, address(uint160(nextID - 1)));
     IAgentHub(MiscEthereum.AGENT_HUB).addAllowedMarket(0, address(uint160(nextID - 2)));
 
+    // whitelist the new pt-assets on automated chaos-agents [agentId 1: PendleDiscountRateUpdate_Core]
+    IAgentHub(MiscEthereum.AGENT_HUB).addAllowedMarket(1, PT_srUSDe_2APR2026);
+
     _supplyAndConfigureLMAdmin(
       PT_srUSDe_2APR2026,
       PT_srUSDe_2APR2026_SEED_AMOUNT,
