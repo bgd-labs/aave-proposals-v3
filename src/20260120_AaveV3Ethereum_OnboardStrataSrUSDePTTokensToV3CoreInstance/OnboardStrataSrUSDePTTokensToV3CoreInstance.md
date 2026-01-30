@@ -52,8 +52,6 @@ Linear discount oracle
 | maxDiscountRatePerYear | 24.01%                                                                                                                         |
 | Last Answer (Dec 31th) | 98578086 ($0.98578086)                                                                                                         |
 
-| Oracle | 0xB539C6C0fc36ff1572B13ACec343B854937db576 |
-
 ### Emodes
 
 **PT-srUSDe Stablecoins E-mode**
