@@ -20,7 +20,7 @@ contract AaveV3Ethereum_OnboardStrataSrUSDePTTokensToV3CoreInstance_20260120_Tes
   AaveV3Ethereum_OnboardStrataSrUSDePTTokensToV3CoreInstance_20260120 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), 24348790);
+    vm.createSelectFork(vm.rpcUrl('mainnet'), 24361718);
     proposal = new AaveV3Ethereum_OnboardStrataSrUSDePTTokensToV3CoreInstance_20260120();
   }
 
