@@ -57,12 +57,12 @@ Linear discount oracle
 **PT-srUSDe Stablecoins E-mode**
 
 | **Asset**         | **PT-srUSDe-1APR2026** | **sUSDe**              | **USDT** | **USDe** | **USDC** |
-| ----------------- | ---------------------- | ---------------------- | -------- | -------- | ---- |
-| Collateral        | Yes                    | Yes                    | No       | No       | No   |
-| Borrowable        | No                     | No                     | Yes      | Yes      | Yes  |
-| LTV               | Subject to Risk Oracle | Subject to Risk Oracle | -        | -        | -    |
-| LT                | Subject to Risk Oracle | Subject to Risk Oracle | -        | -        | -    |
-| Liquidation Bonus | Subject to Risk Oracle | Subject to Risk Oracle | -        | -        | -    |
+| ----------------- | ---------------------- | ---------------------- | -------- | -------- | -------- |
+| Collateral        | Yes                    | Yes                    | No       | No       | No       |
+| Borrowable        | No                     | No                     | Yes      | Yes      | Yes      |
+| LTV               | Subject to Risk Oracle | Subject to Risk Oracle | -        | -        | -        |
+| LT                | Subject to Risk Oracle | Subject to Risk Oracle | -        | -        | -        |
+| Liquidation Bonus | Subject to Risk Oracle | Subject to Risk Oracle | -        | -        | -        |
 
 **PT-srUSDe USDe E-mode**
 
