@@ -129,7 +129,7 @@ contract AaveV3Mantle_AaveV36MantleActivation_20260117 is AaveV3PayloadMantle {
       liqBonus: 0,
       reserveFactor: 10_00,
       supplyCap: 50_000_000,
-      borrowCap: 47_000_000,
+      borrowCap: 47_500_000,
       debtCeiling: 0,
       liqProtocolFee: 10_00,
       rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({

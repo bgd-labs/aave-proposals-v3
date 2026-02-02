@@ -36,7 +36,7 @@ The table below illustrates the configured risk parameters for the assets to be 
 | Borrowable                |        ENABLED |      DISABLED |    ENABLED |    ENABLED |    ENABLED |    ENABLED |   DISABLED | DISABLED |   DISABLED | DISABLED |
 | Collateral Enabled        |           true |          true |      false |      false |      false |      false |      false |    false |      false |    false |
 | Supply Cap                |         30,000 |     5,000,000 | 50,000,000 | 10,000,000 | 20,000,000 | 20,000,000 | 20,000,000 |       50 | 70,000,000 |   18,000 |
-| Borrow Cap                |         28,000 |             1 | 47,000,000 |  9,500,000 | 17,500,000 | 18,000,000 |          1 |        1 |          1 |        1 |
+| Borrow Cap                |         28,000 |             1 | 47,500,000 |  9,500,000 | 17,500,000 | 18,000,000 |          1 |        1 |          1 |        1 |
 | Debt Ceiling              | USD 30,000,000 | USD 2,000,000 |      USD 0 |      USD 0 |      USD 0 |      USD 0 |      USD 0 |    USD 0 |      USD 0 |    USD 0 |
 | LTV                       |         80.5 % |          40 % |        0 % |        0 % |        0 % |        0 % |        0 % |      0 % |        0 % |      0 % |
 | LT                        |           83 % |          45 % |        0 % |        0 % |        0 % |        0 % |        0 % |      0 % |        0 % |      0 % |

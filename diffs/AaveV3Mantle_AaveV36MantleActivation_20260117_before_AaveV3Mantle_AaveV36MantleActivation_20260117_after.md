@@ -182,7 +182,7 @@
 | isActive | true |
 | isFrozen | false |
 | supplyCap | 50,000,000 USDT0 |
-| borrowCap | 47,000,000 USDT0 |
+| borrowCap | 47,500,000 USDT0 |
 | debtCeiling | 0 $ [0] |
 | isSiloed | false |
 | isFlashloanable | true |
@@ -719,7 +719,7 @@
         "aTokenName": "Aave Mantle USDT0",
         "aTokenSymbol": "aManUSDT0",
         "aTokenUnderlyingBalance": "10000000",
-        "borrowCap": 47000000,
+        "borrowCap": 47500000,
         "borrowingEnabled": true,
         "debtCeiling": 0,
         "decimals": 6,
@@ -1531,7 +1531,7 @@
         },
         "0x7662e223990a93494934b770de9a96c9648de2e79a2f363ce1661d2b51be74f8": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x100000000000000000000003e8002faf080002cd29c003e8a506000000000000"
+          "newValue": "0x100000000000000000000003e8002faf080002d4cae003e8a506000000000000"
         },
         "0x7662e223990a93494934b770de9a96c9648de2e79a2f363ce1661d2b51be74f9": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
