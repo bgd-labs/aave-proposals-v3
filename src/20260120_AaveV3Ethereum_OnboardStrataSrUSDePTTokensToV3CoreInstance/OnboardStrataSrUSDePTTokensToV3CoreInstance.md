@@ -52,11 +52,11 @@ Linear discount oracle
 | maxDiscountRatePerYear | 24.01%                                                                                                                         |
 | Last Answer (Dec 31th) | 98578086 ($0.98578086)                                                                                                         |
 
-### Emodes
+### Emodes
 
 **PT-srUSDe Stablecoins E-mode**
 
-| **Asset**         | **PT-srUSDe-1APR2026** | **sUSDe**              | **USDT** | **USDe** | USDC |
+| **Asset**         | **PT-srUSDe-1APR2026** | **sUSDe**              | **USDT** | **USDe** | **USDC** |
 | ----------------- | ---------------------- | ---------------------- | -------- | -------- | ---- |
 | Collateral        | Yes                    | Yes                    | No       | No       | No   |
 | Borrowable        | No                     | No                     | Yes      | Yes      | Yes  |

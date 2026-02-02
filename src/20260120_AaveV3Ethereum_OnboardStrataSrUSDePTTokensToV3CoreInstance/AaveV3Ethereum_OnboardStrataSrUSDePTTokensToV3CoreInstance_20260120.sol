@@ -9,7 +9,6 @@ import {IAaveV3ConfigEngine, IPool} from 'aave-v3-origin/contracts/extensions/v3
 import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
 import {SafeERC20} from 'openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol';
 import {IEmissionManager} from 'aave-v3-origin/contracts/rewards/interfaces/IEmissionManager.sol';
-import {IAaveStewardInjector} from '../interfaces/IAaveStewardInjector.sol';
 import {IAgentHub} from '../interfaces/chaos-agents/IAgentHub.sol';
 import {IPool} from 'aave-v3-origin/contracts/interfaces/IPool.sol';
 
