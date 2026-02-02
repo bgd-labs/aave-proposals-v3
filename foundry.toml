@@ -38,19 +38,14 @@ mode = '3'
 zksolc = '1.5.13'
 
 [profile.test]
-out = 'out/cancun'
-evm_version = 'cancun'
-cache_path = 'cache/cancun'
+out = 'out/prague'
+evm_version = 'prague'
+cache_path = 'cache/prague'
 
 [profile.deploy]
 out = 'out/shanghai'
 evm_version = 'shanghai'
 cache_path = 'cache/shanghai'
-
-[profile.linea]
-out = 'out/london'
-evm_version = 'london'
-cache_path = 'cache/london'
 
 [rpc_endpoints]
 mainnet = "${RPC_MAINNET}"
@@ -74,5 +69,6 @@ soneium = "${RPC_SONEIUM}"
 ink = "${RPC_INK}"
 plasma = "${RPC_PLASMA}"
 mantle = "${RPC_MANTLE}"
+xlayer = "${RPC_XLAYER}"
 
 # See more config options https://github.com/foundry-rs/foundry/tree/master/crates/config
