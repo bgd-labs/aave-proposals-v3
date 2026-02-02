@@ -61,6 +61,7 @@ contract AaveV3Mantle_AaveV36MantleActivation_20260117 is AaveV3PayloadMantle {
     _supplyAndConfigureLMAdmin(FBTC, FBTC_SEED_AMOUNT);
     _supplyAndConfigureLMAdmin(syrupUSDT, syrupUSDT_SEED_AMOUNT);
     _supplyAndConfigureLMAdmin(wrsETH, wrsETH_SEED_AMOUNT);
+    _supplyAndConfigureLMAdmin(GHO, GHO_SEED_AMOUNT);
 
     AaveV3Mantle.ACL_MANAGER.addPoolAdmin(MiscMantle.PROTOCOL_GUARDIAN);
     AaveV3Mantle.ACL_MANAGER.addRiskAdmin(AaveV3Mantle.RISK_STEWARD);

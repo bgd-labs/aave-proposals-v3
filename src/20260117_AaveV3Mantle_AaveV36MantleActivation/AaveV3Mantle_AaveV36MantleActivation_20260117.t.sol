@@ -18,7 +18,7 @@ contract AaveV3Mantle_AaveV36MantleActivation_20260117_Test is ProtocolV3TestBas
   AaveV3Mantle_AaveV36MantleActivation_20260117 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mantle'), 90742070);
+    vm.createSelectFork(vm.rpcUrl('mantle'), 90941209);
     proposal = new AaveV3Mantle_AaveV36MantleActivation_20260117();
 
     _postSetup(); // TODO: remove after seeding tokens
@@ -49,7 +49,7 @@ contract AaveV3Mantle_AaveV36MantleActivation_20260117_Test is ProtocolV3TestBas
     _validateDustbinFundsAndLMAdmin(proposal.FBTC(), 0.0005e8);
     _validateDustbinFundsAndLMAdmin(proposal.syrupUSDT(), 10e6);
     _validateDustbinFundsAndLMAdmin(proposal.wrsETH(), 0.0025e18);
-    // _validateDustbinFundsAndLMAdmin(proposal.GHO(), 10e18); // TODO: fix
+    _validateDustbinFundsAndLMAdmin(proposal.GHO(), 10e18);
   }
 
   function test_guardianPoolAdmin() public {
