@@ -13,7 +13,7 @@ import {IEmissionManager} from 'aave-v3-origin/contracts/rewards/interfaces/IEmi
 /**
  * @title Aave V3.6 Mantle Activation
  * @author BGD Labs (@bgdlabs)
- * - Snapshot: https://snapshot.org/#/s:aavedao.eth/proposal/0xa3dc5b82f2dc5176c2a7543a6cc10aa75cccf96a73afe06478795182cff9d771
+ * - Snapshot: https://snapshot.org/#/s:aavedao.eth/proposal/0x2f9378770f1838f0ea8d483239af1530c9fbea98d648e0b11e4647dcb722d119
  * - Discussion: https://governance.aave.com/t/arfc-deploy-aave-v3-on-mantle/20542/12
  */
 contract AaveV3Mantle_AaveV36MantleActivation_20260117 is AaveV3PayloadMantle {
@@ -174,8 +174,8 @@ contract AaveV3Mantle_AaveV36MantleActivation_20260117 is AaveV3PayloadMantle {
       liqThreshold: 0,
       liqBonus: 0,
       reserveFactor: 10_00,
-      supplyCap: 20_000_000,
-      borrowCap: 17_500_000,
+      supplyCap: 40_000_000,
+      borrowCap: 36_000_000,
       debtCeiling: 0,
       liqProtocolFee: 10_00,
       rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({
@@ -197,7 +197,7 @@ contract AaveV3Mantle_AaveV36MantleActivation_20260117 is AaveV3PayloadMantle {
       liqThreshold: 0,
       liqBonus: 0,
       reserveFactor: 20_00,
-      supplyCap: 20_000_000,
+      supplyCap: 80_000_000,
       borrowCap: 1,
       debtCeiling: 0,
       liqProtocolFee: 10_00,
@@ -314,9 +314,10 @@ contract AaveV3Mantle_AaveV36MantleActivation_20260117 is AaveV3PayloadMantle {
       memory eModeCreations = new IAaveV3ConfigEngine.EModeCategoryCreation[](5);
 
     // sUSDe Stablecoins
-    address[] memory collateralAssets_sUSDeStablecoinsEMode = new address[](1);
+    address[] memory collateralAssets_sUSDeStablecoinsEMode = new address[](2);
     address[] memory borrowableAssets_sUSDeStablecoinsEMode = new address[](4);
     collateralAssets_sUSDeStablecoinsEMode[0] = sUSDe;
+    collateralAssets_sUSDeStablecoinsEMode[1] = USDe;
     borrowableAssets_sUSDeStablecoinsEMode[0] = USDe;
     borrowableAssets_sUSDeStablecoinsEMode[1] = USDT0;
     borrowableAssets_sUSDeStablecoinsEMode[2] = USDC;

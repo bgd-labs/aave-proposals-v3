@@ -95,7 +95,7 @@
 | decimals | 18 |
 | isActive | true |
 | isFrozen | false |
-| supplyCap | 20,000,000 sUSDe |
+| supplyCap | 80,000,000 sUSDe |
 | borrowCap | 1 sUSDe |
 | debtCeiling | 0 $ [0] |
 | isSiloed | false |
@@ -138,8 +138,8 @@
 | decimals | 18 |
 | isActive | true |
 | isFrozen | false |
-| supplyCap | 20,000,000 USDe |
-| borrowCap | 17,500,000 USDe |
+| supplyCap | 40,000,000 USDe |
+| borrowCap | 36,000,000 USDe |
 | debtCeiling | 0 $ [0] |
 | isSiloed | false |
 | isFlashloanable | true |
@@ -442,7 +442,7 @@
 | eMode.liquidationThreshold | - | 92 % |
 | eMode.liquidationBonus | - | 4 % |
 | eMode.borrowableBitmap | - | USDT0, USDC, USDe, GHO |
-| eMode.collateralBitmap | - | sUSDe |
+| eMode.collateralBitmap | - | USDe, sUSDe |
 
 
 ### EMode: USDe Stablecoins(id: 2)
@@ -502,7 +502,7 @@
       "from": null,
       "to": {
         "borrowableBitmap": "540",
-        "collateralBitmap": "32",
+        "collateralBitmap": "48",
         "eModeCategory": 1,
         "label": "sUSDe Stablecoins",
         "liquidationBonus": 10400,
@@ -664,7 +664,7 @@
         "oracleDescription": "Capped sUSDe / USDT / USD",
         "oracleLatestAnswer": "121747946",
         "reserveFactor": 2000,
-        "supplyCap": 20000000,
+        "supplyCap": 80000000,
         "symbol": "sUSDe",
         "underlying": "0x211Cc4DD073734dA055fbF44a2b4667d5E5fE5d2",
         "usageAsCollateralEnabled": false,
@@ -681,7 +681,7 @@
         "aTokenName": "Aave Mantle USDe",
         "aTokenSymbol": "aManUSDe",
         "aTokenUnderlyingBalance": "10000000000000000000",
-        "borrowCap": 17500000,
+        "borrowCap": 36000000,
         "borrowingEnabled": true,
         "debtCeiling": 0,
         "decimals": 18,
@@ -702,7 +702,7 @@
         "oracleDescription": "Capped USDT/USD",
         "oracleLatestAnswer": "99892000",
         "reserveFactor": 1000,
-        "supplyCap": 20000000,
+        "supplyCap": 40000000,
         "symbol": "USDe",
         "underlying": "0x5d3a1Ff2b6BAb83b63cd9AD0787074081a52ef34",
         "usageAsCollateralEnabled": false,
@@ -1327,7 +1327,7 @@
         },
         "0x0ee1b4748ece9938d60c5a08c06fdcc57c304bfbc0758f61e612ab3ee93ce023": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x100000000000000000000003e8001312d000010b076003e8a512000000000000"
+          "newValue": "0x100000000000000000000003e8002625a0000225510003e8a512000000000000"
         },
         "0x0ee1b4748ece9938d60c5a08c06fdcc57c304bfbc0758f61e612ab3ee93ce024": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -1599,7 +1599,7 @@
         },
         "0x8e0cc0f1f0504b4cb44a23b328568106915b169e79003737a7b094503cdbeeb0": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x000000000000000000000000000000000000000000000000002028a023f02328"
+          "newValue": "0x000000000000000000000000000000000000000000000000003028a023f02328"
         },
         "0x8e0cc0f1f0504b4cb44a23b328568106915b169e79003737a7b094503cdbeeb1": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -1611,7 +1611,7 @@
         },
         "0xb69e101291cae8ac8885e4f60b77f31b4a9feff65bb4172464a0e8f08242ae35": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x100000000000000000000003e8001312d0000000000107d08112000000000000"
+          "newValue": "0x100000000000000000000003e8004c4b40000000000107d08112000000000000"
         },
         "0xb69e101291cae8ac8885e4f60b77f31b4a9feff65bb4172464a0e8f08242ae36": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",

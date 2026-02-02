@@ -2,7 +2,7 @@
 title: "Aave V3.6 Mantle Activation"
 author: "BGD Labs (@bgdlabs)"
 discussions: "https://governance.aave.com/t/arfc-deploy-aave-v3-on-mantle/20542/12"
-snapshot: "https://snapshot.org/#/s:aavedao.eth/proposal/0xa3dc5b82f2dc5176c2a7543a6cc10aa75cccf96a73afe06478795182cff9d771"
+snapshot: "https://snapshot.org/#/s:aavedao.eth/proposal/0x2f9378770f1838f0ea8d483239af1530c9fbea98d648e0b11e4647dcb722d119"
 ---
 
 ## Simple Summary
@@ -15,7 +15,7 @@ All the Aave Mantle V3 addresses can be found in the [aave-address-book](https:/
 
 All the governance procedures for the expansion of Aave v3 to Mantle have been finished, said:
 
-- Positive signaling and approval regarding the expansion on the [governance forum](https://governance.aave.com/t/arfc-deploy-aave-v3-on-mantle/20542), and [snapshot](https://snapshot.org/#/s:aavedao.eth/proposal/0xa3dc5b82f2dc5176c2a7543a6cc10aa75cccf96a73afe06478795182cff9d771).
+- Positive signaling and approval regarding the expansion on the [governance forum](https://governance.aave.com/t/arfc-deploy-aave-v3-on-mantle/20542), and [snapshot](https://snapshot.org/#/s:aavedao.eth/proposal/0x2f9378770f1838f0ea8d483239af1530c9fbea98d648e0b11e4647dcb722d119).
 - Positive technical evaluation done by BGD Labs of the Mantle network, as described in the [forum](https://governance.aave.com/t/bgd-aave-mantle-infrastructure-technical-evaluation/21628) in detail.
 - Positive risk analysis and assets/parameters recommendation by the risk service providers.
 
@@ -35,8 +35,8 @@ The table below illustrates the configured risk parameters for the assets to be 
 | Isolation Mode            |           true |          true |      false |      false |      false |      false |      false |    false |      false |    false |
 | Borrowable                |        ENABLED |      DISABLED |    ENABLED |    ENABLED |    ENABLED |    ENABLED |   DISABLED | DISABLED |   DISABLED | DISABLED |
 | Collateral Enabled        |           true |          true |      false |      false |      false |      false |      false |    false |      false |    false |
-| Supply Cap                |         30,000 |     5,000,000 | 50,000,000 | 10,000,000 | 20,000,000 | 20,000,000 | 20,000,000 |       50 | 70,000,000 |   18,000 |
-| Borrow Cap                |         28,000 |             1 | 47,500,000 |  9,500,000 | 17,500,000 | 18,000,000 |          1 |        1 |          1 |        1 |
+| Supply Cap                |         30,000 |     5,000,000 | 50,000,000 | 10,000,000 | 40,000,000 | 20,000,000 | 80,000,000 |       50 | 70,000,000 |   18,000 |
+| Borrow Cap                |         28,000 |             1 | 47,500,000 |  9,500,000 | 36,000,000 | 18,000,000 |          1 |        1 |          1 |        1 |
 | Debt Ceiling              | USD 30,000,000 | USD 2,000,000 |      USD 0 |      USD 0 |      USD 0 |      USD 0 |      USD 0 |    USD 0 |      USD 0 |    USD 0 |
 | LTV                       |         80.5 % |          40 % |        0 % |        0 % |        0 % |        0 % |        0 % |      0 % |        0 % |      0 % |
 | LT                        |           83 % |          45 % |        0 % |        0 % |        0 % |        0 % |        0 % |      0 % |        0 % |      0 % |
@@ -130,7 +130,7 @@ The table below illustrates the configured risk parameters for the assets to be 
 
 - Implementation: [AaveV3Mantle](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20260117_AaveV3Mantle_AaveV36MantleActivation/AaveV3Mantle_AaveV36MantleActivation_20260117.sol)
 - Tests: [AaveV3Mantle](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20260117_AaveV3Mantle_AaveV36MantleActivation/AaveV3Mantle_AaveV36MantleActivation_20260117.t.sol)
-- [Snapshot](https://snapshot.org/#/s:aavedao.eth/proposal/0xa3dc5b82f2dc5176c2a7543a6cc10aa75cccf96a73afe06478795182cff9d771)
+- [Snapshot](https://snapshot.org/#/s:aavedao.eth/proposal/0x2f9378770f1838f0ea8d483239af1530c9fbea98d648e0b11e4647dcb722d119)
 - [Discussion](https://governance.aave.com/t/arfc-deploy-aave-v3-on-mantle/20542/12)
 
 ## Copyright
