@@ -14,29 +14,24 @@ import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config
  */
 contract AaveV3Arbitrum_EnhancingMarketGranularityInAave36Part2_20260127 is AaveV3PayloadArbitrum {
   function capsUpdates() public pure override returns (IAaveV3ConfigEngine.CapsUpdate[] memory) {
-    IAaveV3ConfigEngine.CapsUpdate[] memory capsUpdate = new IAaveV3ConfigEngine.CapsUpdate[](5);
+    IAaveV3ConfigEngine.CapsUpdate[] memory capsUpdate = new IAaveV3ConfigEngine.CapsUpdate[](4);
 
     capsUpdate[0] = IAaveV3ConfigEngine.CapsUpdate({
-      asset: AaveV3ArbitrumAssets.LINK_UNDERLYING,
-      supplyCap: EngineFlags.KEEP_CURRENT,
-      borrowCap: 1
-    });
-    capsUpdate[1] = IAaveV3ConfigEngine.CapsUpdate({
       asset: AaveV3ArbitrumAssets.rETH_UNDERLYING,
       supplyCap: EngineFlags.KEEP_CURRENT,
       borrowCap: 1
     });
-    capsUpdate[2] = IAaveV3ConfigEngine.CapsUpdate({
+    capsUpdate[1] = IAaveV3ConfigEngine.CapsUpdate({
       asset: AaveV3ArbitrumAssets.LUSD_UNDERLYING,
       supplyCap: EngineFlags.KEEP_CURRENT,
       borrowCap: 1
     });
-    capsUpdate[3] = IAaveV3ConfigEngine.CapsUpdate({
+    capsUpdate[2] = IAaveV3ConfigEngine.CapsUpdate({
       asset: AaveV3ArbitrumAssets.ARB_UNDERLYING,
       supplyCap: EngineFlags.KEEP_CURRENT,
       borrowCap: 1
     });
-    capsUpdate[4] = IAaveV3ConfigEngine.CapsUpdate({
+    capsUpdate[3] = IAaveV3ConfigEngine.CapsUpdate({
       asset: AaveV3ArbitrumAssets.weETH_UNDERLYING,
       supplyCap: EngineFlags.KEEP_CURRENT,
       borrowCap: 1
@@ -88,7 +83,7 @@ contract AaveV3Arbitrum_EnhancingMarketGranularityInAave36Part2_20260127 is Aave
     collateralUpdate[4] = IAaveV3ConfigEngine.CollateralUpdate({
       asset: AaveV3ArbitrumAssets.ezETH_UNDERLYING,
       ltv: 0,
-      liqThreshold: 10,
+      liqThreshold: EngineFlags.KEEP_CURRENT,
       liqBonus: EngineFlags.KEEP_CURRENT,
       debtCeiling: EngineFlags.KEEP_CURRENT,
       liqProtocolFee: EngineFlags.KEEP_CURRENT
@@ -119,7 +114,7 @@ contract AaveV3Arbitrum_EnhancingMarketGranularityInAave36Part2_20260127 is Aave
     returns (IAaveV3ConfigEngine.BorrowUpdate[] memory)
   {
     IAaveV3ConfigEngine.BorrowUpdate[]
-      memory borrowUpdates = new IAaveV3ConfigEngine.BorrowUpdate[](8);
+      memory borrowUpdates = new IAaveV3ConfigEngine.BorrowUpdate[](7);
 
     borrowUpdates[0] = IAaveV3ConfigEngine.BorrowUpdate({
       asset: AaveV3ArbitrumAssets.LINK_UNDERLYING,
@@ -162,14 +157,6 @@ contract AaveV3Arbitrum_EnhancingMarketGranularityInAave36Part2_20260127 is Aave
       reserveFactor: EngineFlags.KEEP_CURRENT
     });
     borrowUpdates[5] = IAaveV3ConfigEngine.BorrowUpdate({
-      asset: AaveV3ArbitrumAssets.FRAX_UNDERLYING,
-      enabledToBorrow: EngineFlags.DISABLED,
-      flashloanable: EngineFlags.KEEP_CURRENT,
-      borrowableInIsolation: EngineFlags.KEEP_CURRENT,
-      withSiloedBorrowing: EngineFlags.KEEP_CURRENT,
-      reserveFactor: EngineFlags.KEEP_CURRENT
-    });
-    borrowUpdates[6] = IAaveV3ConfigEngine.BorrowUpdate({
       asset: AaveV3ArbitrumAssets.ARB_UNDERLYING,
       enabledToBorrow: EngineFlags.DISABLED,
       flashloanable: EngineFlags.KEEP_CURRENT,
@@ -177,7 +164,7 @@ contract AaveV3Arbitrum_EnhancingMarketGranularityInAave36Part2_20260127 is Aave
       withSiloedBorrowing: EngineFlags.KEEP_CURRENT,
       reserveFactor: EngineFlags.KEEP_CURRENT
     });
-    borrowUpdates[7] = IAaveV3ConfigEngine.BorrowUpdate({
+    borrowUpdates[6] = IAaveV3ConfigEngine.BorrowUpdate({
       asset: AaveV3ArbitrumAssets.weETH_UNDERLYING,
       enabledToBorrow: EngineFlags.DISABLED,
       flashloanable: EngineFlags.KEEP_CURRENT,

@@ -13,17 +13,6 @@ import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config
  * - Discussion: https://governance.aave.com/t/direct-to-aip-enhancing-market-granularity-in-aave-v3-6-restricting-borrowability-and-collateralization-outside-of-liquid-emodes/23592
  */
 contract AaveV3Base_EnhancingMarketGranularityInAave36Part2_20260127 is AaveV3PayloadBase {
-  function capsUpdates() public pure override returns (IAaveV3ConfigEngine.CapsUpdate[] memory) {
-    IAaveV3ConfigEngine.CapsUpdate[] memory capsUpdate = new IAaveV3ConfigEngine.CapsUpdate[](1);
-
-    capsUpdate[0] = IAaveV3ConfigEngine.CapsUpdate({
-      asset: AaveV3BaseAssets.weETH_UNDERLYING,
-      supplyCap: EngineFlags.KEEP_CURRENT,
-      borrowCap: 1
-    });
-
-    return capsUpdate;
-  }
   function collateralsUpdates()
     public
     pure

@@ -20,7 +20,7 @@ contract AaveV3Plasma_EnhancingMarketGranularityInAave36Part2_20260127 is AaveV3
     returns (IAaveV3ConfigEngine.CollateralUpdate[] memory)
   {
     IAaveV3ConfigEngine.CollateralUpdate[]
-      memory collateralUpdate = new IAaveV3ConfigEngine.CollateralUpdate[](5);
+      memory collateralUpdate = new IAaveV3ConfigEngine.CollateralUpdate[](6);
 
     collateralUpdate[0] = IAaveV3ConfigEngine.CollateralUpdate({
       asset: AaveV3PlasmaAssets.USDe_UNDERLYING,
@@ -41,7 +41,7 @@ contract AaveV3Plasma_EnhancingMarketGranularityInAave36Part2_20260127 is AaveV3
     collateralUpdate[2] = IAaveV3ConfigEngine.CollateralUpdate({
       asset: AaveV3PlasmaAssets.weETH_UNDERLYING,
       ltv: 0,
-      liqThreshold: 10,
+      liqThreshold: EngineFlags.KEEP_CURRENT,
       liqBonus: EngineFlags.KEEP_CURRENT,
       debtCeiling: EngineFlags.KEEP_CURRENT,
       liqProtocolFee: EngineFlags.KEEP_CURRENT
@@ -49,7 +49,7 @@ contract AaveV3Plasma_EnhancingMarketGranularityInAave36Part2_20260127 is AaveV3
     collateralUpdate[3] = IAaveV3ConfigEngine.CollateralUpdate({
       asset: AaveV3PlasmaAssets.syrupUSDT_UNDERLYING,
       ltv: 0,
-      liqThreshold: 10,
+      liqThreshold: EngineFlags.KEEP_CURRENT,
       liqBonus: EngineFlags.KEEP_CURRENT,
       debtCeiling: EngineFlags.KEEP_CURRENT,
       liqProtocolFee: EngineFlags.KEEP_CURRENT
@@ -62,7 +62,14 @@ contract AaveV3Plasma_EnhancingMarketGranularityInAave36Part2_20260127 is AaveV3
       debtCeiling: EngineFlags.KEEP_CURRENT,
       liqProtocolFee: EngineFlags.KEEP_CURRENT
     });
-
+    collateralUpdate[5] = IAaveV3ConfigEngine.CollateralUpdate({
+      asset: AaveV3PlasmaAssets.sUSDe_UNDERLYING,
+      ltv: 0,
+      liqThreshold: EngineFlags.KEEP_CURRENT,
+      liqBonus: EngineFlags.KEEP_CURRENT,
+      debtCeiling: EngineFlags.KEEP_CURRENT,
+      liqProtocolFee: EngineFlags.KEEP_CURRENT
+    });
     return collateralUpdate;
   }
   function eModeCategoryCreations()

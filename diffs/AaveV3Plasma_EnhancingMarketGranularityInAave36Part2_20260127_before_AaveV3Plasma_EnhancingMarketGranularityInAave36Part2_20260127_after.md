@@ -10,6 +10,13 @@
 | ltv | 70 % [7000] | 0 % [0] |
 
 
+#### sUSDe ([0x211Cc4DD073734dA055fbF44a2b4667d5E5fE5d2](https://plasmascan.to/address/0x211Cc4DD073734dA055fbF44a2b4667d5E5fE5d2))
+
+| description | value before | value after |
+| --- | --- | --- |
+| ltv | 0.05 % [5] | 0 % [0] |
+
+
 #### USDe ([0x5d3a1Ff2b6BAb83b63cd9AD0787074081a52ef34](https://plasmascan.to/address/0x5d3a1Ff2b6BAb83b63cd9AD0787074081a52ef34))
 
 | description | value before | value after |
@@ -145,6 +152,12 @@
         "to": 0
       }
     },
+    "0x211Cc4DD073734dA055fbF44a2b4667d5E5fE5d2": {
+      "ltv": {
+        "from": 5,
+        "to": 0
+      }
+    },
     "0x5d3a1Ff2b6BAb83b63cd9AD0787074081a52ef34": {
       "ltv": {
         "from": 7200,
@@ -206,6 +219,10 @@
         "0xa2611fffb1563e77311e06c60d4d847b1804f1b210a636975fa6e9c20cb74aaa": {
           "previousValue": "0x100000000000000000000003e8017d78400000000001119481062968000a0005",
           "newValue": "0x100000000000000000000003e8017d78400000000001119481062968000a0000"
+        },
+        "0xb69e101291cae8ac8885e4f60b77f31b4a9feff65bb4172464a0e8f08242ae35": {
+          "previousValue": "0x100000000000000000000003e805de097c000000000107d081122a62000a0005",
+          "newValue": "0x100000000000000000000003e805de097c000000000107d081122a62000a0000"
         },
         "0xf235290065507aca56dd1272ea508d53a3f4f7d822b50f8bbe62ce44a2aace13": {
           "previousValue": "0x100000000000000000000003e8000004e200000000011194811229cc000a0005",
