@@ -19,7 +19,7 @@ contract AaveV3MegaEth_AaveV36MegaETHActivation_20260128_Test is ProtocolV3TestB
   AaveV3MegaEth_AaveV36MegaETHActivation_20260128 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('megaeth'), 6812400);
+    vm.createSelectFork(vm.rpcUrl('megaeth'), 7321769);
     proposal = new AaveV3MegaEth_AaveV36MegaETHActivation_20260128();
 
     _postSetup(); // TODO: remove after seeding tokens
@@ -100,10 +100,7 @@ contract AaveV3MegaEth_AaveV36MegaETHActivation_20260128_Test is ProtocolV3TestB
 
   function _postSetup() internal {
     // mock funding seed amount
-    deal(proposal.WETH(), GovernanceV3MegaEth.EXECUTOR_LVL_1, proposal.WETH_SEED_AMOUNT());
     deal(proposal.BTCb(), GovernanceV3MegaEth.EXECUTOR_LVL_1, proposal.BTCb_SEED_AMOUNT());
-    deal(proposal.USDT0(), GovernanceV3MegaEth.EXECUTOR_LVL_1, proposal.USDT0_SEED_AMOUNT());
-    deal(proposal.USDm(), GovernanceV3MegaEth.EXECUTOR_LVL_1, proposal.USDm_SEED_AMOUNT());
     deal(proposal.wrsETH(), GovernanceV3MegaEth.EXECUTOR_LVL_1, proposal.wrsETH_SEED_AMOUNT());
     deal(proposal.wstETH(), GovernanceV3MegaEth.EXECUTOR_LVL_1, proposal.wstETH_SEED_AMOUNT());
     deal(proposal.ezETH(), GovernanceV3MegaEth.EXECUTOR_LVL_1, proposal.ezETH_SEED_AMOUNT());

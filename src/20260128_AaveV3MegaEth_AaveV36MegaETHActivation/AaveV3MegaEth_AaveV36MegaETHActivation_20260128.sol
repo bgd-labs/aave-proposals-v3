@@ -66,7 +66,7 @@ contract AaveV3MegaEth_AaveV36MegaETHActivation_20260128 is AaveV3PayloadMegaEth
     listings[0] = IAaveV3ConfigEngine.Listing({
       asset: WETH,
       assetSymbol: 'WETH',
-      priceFeed: 0xe5448B8318493c6e3F72E21e8BDB8242d3299FB5, // TODO: fix
+      priceFeed: 0xcA4e254D95637DE95E2a2F79244b03380d697feD,
       enabledToBorrow: EngineFlags.DISABLED,
       borrowableInIsolation: EngineFlags.DISABLED,
       withSiloedBorrowing: EngineFlags.DISABLED,
@@ -112,7 +112,7 @@ contract AaveV3MegaEth_AaveV36MegaETHActivation_20260128 is AaveV3PayloadMegaEth
     listings[2] = IAaveV3ConfigEngine.Listing({
       asset: USDT0,
       assetSymbol: 'USDT0',
-      priceFeed: 0xc6E3007B597f6F5a6330d43053D1EF73cCbbE721, // TODO: fix
+      priceFeed: 0xAe95ff42e16468AB1DfD405c9533C9b67d87d66A,
       enabledToBorrow: EngineFlags.ENABLED,
       borrowableInIsolation: EngineFlags.ENABLED,
       withSiloedBorrowing: EngineFlags.DISABLED,
@@ -135,7 +135,7 @@ contract AaveV3MegaEth_AaveV36MegaETHActivation_20260128 is AaveV3PayloadMegaEth
     listings[3] = IAaveV3ConfigEngine.Listing({
       asset: USDm,
       assetSymbol: 'USDm',
-      priceFeed: 0xc6E3007B597f6F5a6330d43053D1EF73cCbbE721, // TODO: fix
+      priceFeed: 0xe5448B8318493c6e3F72E21e8BDB8242d3299FB5,
       enabledToBorrow: EngineFlags.ENABLED,
       borrowableInIsolation: EngineFlags.ENABLED,
       withSiloedBorrowing: EngineFlags.DISABLED,
@@ -158,7 +158,7 @@ contract AaveV3MegaEth_AaveV36MegaETHActivation_20260128 is AaveV3PayloadMegaEth
     listings[4] = IAaveV3ConfigEngine.Listing({
       asset: wstETH,
       assetSymbol: 'wstETH',
-      priceFeed: 0xc6E3007B597f6F5a6330d43053D1EF73cCbbE721, // TODO: fix
+      priceFeed: 0x376397e34eA968e79DC6F629E6210ba25311a3ce,
       enabledToBorrow: EngineFlags.DISABLED,
       borrowableInIsolation: EngineFlags.DISABLED,
       withSiloedBorrowing: EngineFlags.DISABLED,
@@ -181,7 +181,7 @@ contract AaveV3MegaEth_AaveV36MegaETHActivation_20260128 is AaveV3PayloadMegaEth
     listings[5] = IAaveV3ConfigEngine.Listing({
       asset: wrsETH,
       assetSymbol: 'wrsETH',
-      priceFeed: 0xc6E3007B597f6F5a6330d43053D1EF73cCbbE721, // TODO: fix
+      priceFeed: 0x6356b92Bc636CCe722e0F53DDc24a86baE64216E,
       enabledToBorrow: EngineFlags.DISABLED,
       borrowableInIsolation: EngineFlags.DISABLED,
       withSiloedBorrowing: EngineFlags.DISABLED,
@@ -204,7 +204,7 @@ contract AaveV3MegaEth_AaveV36MegaETHActivation_20260128 is AaveV3PayloadMegaEth
     listings[6] = IAaveV3ConfigEngine.Listing({
       asset: ezETH,
       assetSymbol: 'ezETH',
-      priceFeed: 0xc6E3007B597f6F5a6330d43053D1EF73cCbbE721, // TODO: fix
+      priceFeed: 0xd7Da71D3acf07C604A925799B0b48E2Ec607584D,
       enabledToBorrow: EngineFlags.DISABLED,
       borrowableInIsolation: EngineFlags.DISABLED,
       withSiloedBorrowing: EngineFlags.DISABLED,
