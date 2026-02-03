@@ -18,7 +18,7 @@ contract AaveV3Mantle_AaveV36MantleActivation_20260117_Test is ProtocolV3TestBas
   AaveV3Mantle_AaveV36MantleActivation_20260117 internal proposal;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mantle'), 90941209);
+    vm.createSelectFork(vm.rpcUrl('mantle'), 90991830);
     proposal = new AaveV3Mantle_AaveV36MantleActivation_20260117();
 
     _postSetup(); // TODO: remove after seeding tokens
@@ -100,16 +100,7 @@ contract AaveV3Mantle_AaveV36MantleActivation_20260117_Test is ProtocolV3TestBas
 
   function _postSetup() internal {
     // mock funding seed amount
-    deal(proposal.WETH(), GovernanceV3Mantle.EXECUTOR_LVL_1, proposal.WETH_SEED_AMOUNT());
-    deal(proposal.WMNT(), GovernanceV3Mantle.EXECUTOR_LVL_1, proposal.WMNT_SEED_AMOUNT());
-    deal(proposal.USDT0(), GovernanceV3Mantle.EXECUTOR_LVL_1, proposal.USDT0_SEED_AMOUNT());
-    deal(proposal.USDC(), GovernanceV3Mantle.EXECUTOR_LVL_1, proposal.USDC_SEED_AMOUNT());
-    deal(proposal.USDe(), GovernanceV3Mantle.EXECUTOR_LVL_1, proposal.USDe_SEED_AMOUNT());
-    deal(proposal.sUSDe(), GovernanceV3Mantle.EXECUTOR_LVL_1, proposal.sUSDe_SEED_AMOUNT());
-    deal(proposal.FBTC(), GovernanceV3Mantle.EXECUTOR_LVL_1, proposal.FBTC_SEED_AMOUNT());
     deal(proposal.syrupUSDT(), GovernanceV3Mantle.EXECUTOR_LVL_1, proposal.syrupUSDT_SEED_AMOUNT());
-    deal(proposal.wrsETH(), GovernanceV3Mantle.EXECUTOR_LVL_1, proposal.wrsETH_SEED_AMOUNT());
-    deal(proposal.GHO(), GovernanceV3Mantle.EXECUTOR_LVL_1, proposal.GHO_SEED_AMOUNT());
 
     // mock increase totalSupply so the defaultTest does not complain because of `PL_SUPPLY_CAP_GT_TOTAL_SUPPLY` require
     vm.mockCall(
