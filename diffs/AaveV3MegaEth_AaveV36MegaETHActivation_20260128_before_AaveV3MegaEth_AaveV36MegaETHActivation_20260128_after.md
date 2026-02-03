@@ -22,7 +22,7 @@
 | ltv | 0 % [0] |
 | liquidationThreshold | 0 % [0] |
 | liquidationBonus | 0 % |
-| liquidationProtocolFee | 0 % [0] |
+| liquidationProtocolFee | 10 % [1000] |
 | reserveFactor | 20 % [2000] |
 | aToken | [0x03C99Cce547b1c2E74442b73E6f588A66D19597e](https://megaeth.blockscout.com/address/0x03C99Cce547b1c2E74442b73E6f588A66D19597e) |
 | variableDebtToken | [0x1505f48Bd4db0fF8B28817D2C0Fb95Abcb8eEbbc](https://megaeth.blockscout.com/address/0x1505f48Bd4db0fF8B28817D2C0Fb95Abcb8eEbbc) |
@@ -65,7 +65,7 @@
 | ltv | 0 % [0] |
 | liquidationThreshold | 0 % [0] |
 | liquidationBonus | 0 % |
-| liquidationProtocolFee | 0 % [0] |
+| liquidationProtocolFee | 10 % [1000] |
 | reserveFactor | 15 % [1500] |
 | aToken | [0xa31E6b433382062e8A1dA41485f7b234D97c3f4d](https://megaeth.blockscout.com/address/0xa31E6b433382062e8A1dA41485f7b234D97c3f4d) |
 | variableDebtToken | [0x09ADCCC7AF2aBD356c18A4CadF2e5cC250f300E9](https://megaeth.blockscout.com/address/0x09ADCCC7AF2aBD356c18A4CadF2e5cC250f300E9) |
@@ -108,7 +108,7 @@
 | ltv | 0 % [0] |
 | liquidationThreshold | 0 % [0] |
 | liquidationBonus | 0 % |
-| liquidationProtocolFee | 0 % [0] |
+| liquidationProtocolFee | 10 % [1000] |
 | reserveFactor | 20 % [2000] |
 | aToken | [0xb8578af311353b44B14bb4480EBB4DE608EC7e1B](https://megaeth.blockscout.com/address/0xb8578af311353b44B14bb4480EBB4DE608EC7e1B) |
 | variableDebtToken | [0xd7B71D855bBAcd3f11F623400bc870AB3448AfF7](https://megaeth.blockscout.com/address/0xd7B71D855bBAcd3f11F623400bc870AB3448AfF7) |
@@ -151,7 +151,7 @@
 | ltv | 0 % [0] |
 | liquidationThreshold | 0 % [0] |
 | liquidationBonus | 0 % |
-| liquidationProtocolFee | 0 % [0] |
+| liquidationProtocolFee | 10 % [1000] |
 | reserveFactor | 20 % [2000] |
 | aToken | [0xaD2de503b5c723371d6B38A5224A2E12E103DfB8](https://megaeth.blockscout.com/address/0xaD2de503b5c723371d6B38A5224A2E12E103DfB8) |
 | variableDebtToken | [0x259A9Cd7628f6D15ef384887dd90bb7A0283fEf9](https://megaeth.blockscout.com/address/0x259A9Cd7628f6D15ef384887dd90bb7A0283fEf9) |
@@ -194,7 +194,7 @@
 | ltv | 0 % [0] |
 | liquidationThreshold | 0 % [0] |
 | liquidationBonus | 0 % |
-| liquidationProtocolFee | 0 % [0] |
+| liquidationProtocolFee | 10 % [1000] |
 | reserveFactor | 20 % [2000] |
 | aToken | [0x0889d59eA7178ee5B71DA01949a5cB42aaFBe337](https://megaeth.blockscout.com/address/0x0889d59eA7178ee5B71DA01949a5cB42aaFBe337) |
 | variableDebtToken | [0x15B550784928C5b1A93849CA5d6caA18B2545B6d](https://megaeth.blockscout.com/address/0x15B550784928C5b1A93849CA5d6caA18B2545B6d) |
@@ -237,7 +237,7 @@
 | ltv | 0 % [0] |
 | liquidationThreshold | 0 % [0] |
 | liquidationBonus | 0 % |
-| liquidationProtocolFee | 0 % [0] |
+| liquidationProtocolFee | 10 % [1000] |
 | reserveFactor | 10 % [1000] |
 | aToken | [0xE2283E01a667b512c340f19B499d86fbc885D5Ef](https://megaeth.blockscout.com/address/0xE2283E01a667b512c340f19B499d86fbc885D5Ef) |
 | variableDebtToken | [0xB951225133b5eed3D88645E4Bb1360136FF70D9a](https://megaeth.blockscout.com/address/0xB951225133b5eed3D88645E4Bb1360136FF70D9a) |
@@ -280,7 +280,7 @@
 | ltv | 0 % [0] |
 | liquidationThreshold | 0 % [0] |
 | liquidationBonus | 0 % |
-| liquidationProtocolFee | 0 % [0] |
+| liquidationProtocolFee | 10 % [1000] |
 | reserveFactor | 10 % [1000] |
 | aToken | [0x5dF82810CB4B8f3e0Da3c031cCc9208ee9cF9500](https://megaeth.blockscout.com/address/0x5dF82810CB4B8f3e0Da3c031cCc9208ee9cF9500) |
 | variableDebtToken | [0x6B408d6c479C304794abC60a4693A3AD2D3c2D0D](https://megaeth.blockscout.com/address/0x6B408d6c479C304794abC60a4693A3AD2D3c2D0D) |
@@ -482,7 +482,7 @@
         "isPaused": false,
         "isSiloed": false,
         "liquidationBonus": 0,
-        "liquidationProtocolFee": 0,
+        "liquidationProtocolFee": 1000,
         "liquidationThreshold": 0,
         "ltv": 0,
         "oracle": "0xd7Da71D3acf07C604A925799B0b48E2Ec607584D",
@@ -520,7 +520,7 @@
         "isPaused": false,
         "isSiloed": false,
         "liquidationBonus": 0,
-        "liquidationProtocolFee": 0,
+        "liquidationProtocolFee": 1000,
         "liquidationThreshold": 0,
         "ltv": 0,
         "oracle": "0xcA4e254D95637DE95E2a2F79244b03380d697feD",
@@ -558,7 +558,7 @@
         "isPaused": false,
         "isSiloed": false,
         "liquidationBonus": 0,
-        "liquidationProtocolFee": 0,
+        "liquidationProtocolFee": 1000,
         "liquidationThreshold": 0,
         "ltv": 0,
         "oracle": "0x6356b92Bc636CCe722e0F53DDc24a86baE64216E",
@@ -596,7 +596,7 @@
         "isPaused": false,
         "isSiloed": false,
         "liquidationBonus": 0,
-        "liquidationProtocolFee": 0,
+        "liquidationProtocolFee": 1000,
         "liquidationThreshold": 0,
         "ltv": 0,
         "oracle": "0x376397e34eA968e79DC6F629E6210ba25311a3ce",
@@ -634,7 +634,7 @@
         "isPaused": false,
         "isSiloed": false,
         "liquidationBonus": 0,
-        "liquidationProtocolFee": 0,
+        "liquidationProtocolFee": 1000,
         "liquidationThreshold": 0,
         "ltv": 0,
         "oracle": "0xc6E3007B597f6F5a6330d43053D1EF73cCbbE721",
@@ -672,7 +672,7 @@
         "isPaused": false,
         "isSiloed": false,
         "liquidationBonus": 0,
-        "liquidationProtocolFee": 0,
+        "liquidationProtocolFee": 1000,
         "liquidationThreshold": 0,
         "ltv": 0,
         "oracle": "0xAe95ff42e16468AB1DfD405c9533C9b67d87d66A",
@@ -710,7 +710,7 @@
         "isPaused": false,
         "isSiloed": false,
         "liquidationBonus": 0,
-        "liquidationProtocolFee": 0,
+        "liquidationProtocolFee": 1000,
         "liquidationThreshold": 0,
         "ltv": 0,
         "oracle": "0xe5448B8318493c6e3F72E21e8BDB8242d3299FB5",
@@ -856,7 +856,7 @@
         },
         "0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x000000000000000000000000deb02056e277174566a1c425a8e60550142b70a2",
+          "newValue": "0x00000000000000000000000034ca0a24e0b7cbceb77088ae539f57ba0650fc05",
           "label": "Implementation slot"
         }
       }
@@ -908,7 +908,7 @@
         },
         "0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x000000000000000000000000deb02056e277174566a1c425a8e60550142b70a2",
+          "newValue": "0x00000000000000000000000034ca0a24e0b7cbceb77088ae539f57ba0650fc05",
           "label": "Implementation slot"
         }
       }
@@ -972,7 +972,7 @@
         },
         "0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x00000000000000000000000052cb5cdf732889be3fd5d5e3a5d589446e060c0d",
+          "newValue": "0x000000000000000000000000ff01493c22208de3a89fe9cafbdae103acc72af8",
           "label": "Implementation slot"
         }
       }
@@ -1016,7 +1016,7 @@
         },
         "0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x00000000000000000000000052cb5cdf732889be3fd5d5e3a5d589446e060c0d",
+          "newValue": "0x000000000000000000000000ff01493c22208de3a89fe9cafbdae103acc72af8",
           "label": "Implementation slot"
         },
         "0xbbe3212124853f8b0084a66a2d057c2966e251e132af3691db153ab65f0d1a4d": {
@@ -1064,7 +1064,7 @@
         },
         "0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x00000000000000000000000052cb5cdf732889be3fd5d5e3a5d589446e060c0d",
+          "newValue": "0x000000000000000000000000ff01493c22208de3a89fe9cafbdae103acc72af8",
           "label": "Implementation slot"
         }
       }
@@ -1118,7 +1118,7 @@
         },
         "0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x00000000000000000000000052cb5cdf732889be3fd5d5e3a5d589446e060c0d",
+          "newValue": "0x000000000000000000000000ff01493c22208de3a89fe9cafbdae103acc72af8",
           "label": "Implementation slot"
         },
         "0xbbe3212124853f8b0084a66a2d057c2966e251e132af3691db153ab65f0d1a4d": {
@@ -1328,7 +1328,7 @@
         },
         "0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x000000000000000000000000deb02056e277174566a1c425a8e60550142b70a2",
+          "newValue": "0x00000000000000000000000034ca0a24e0b7cbceb77088ae539f57ba0650fc05",
           "label": "Implementation slot"
         }
       }
@@ -1392,7 +1392,7 @@
         },
         "0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x00000000000000000000000052cb5cdf732889be3fd5d5e3a5d589446e060c0d",
+          "newValue": "0x000000000000000000000000ff01493c22208de3a89fe9cafbdae103acc72af8",
           "label": "Implementation slot"
         }
       }
@@ -1429,7 +1429,7 @@
         },
         "0x4853baaf8dbe8a1046261c0b8387595b5dac8597867ac12c5138507a4775d92c": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x10000000000000000000000000000002ee000000000107d08112000000000000"
+          "newValue": "0x100000000000000000000003e8000002ee000000000107d08112000000000000"
         },
         "0x4853baaf8dbe8a1046261c0b8387595b5dac8597867ac12c5138507a4775d92d": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -1505,7 +1505,7 @@
         },
         "0x7a18f972cb3c30997624be86bf2fd31e3cd44e3df901d4f88e0579aa778bb37b": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x1000000000000000000000000000000007800000000107d08108000000000000"
+          "newValue": "0x100000000000000000000003e800000007800000000107d08108000000000000"
         },
         "0x7a18f972cb3c30997624be86bf2fd31e3cd44e3df901d4f88e0579aa778bb37c": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -1533,7 +1533,7 @@
         },
         "0x80432f665e0bdbfe261b656dbe8c35e7f08625c01f0327d4e88f6aaee03aeced": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x1000000000000000000000000000000271000000000107d08112000000000000"
+          "newValue": "0x100000000000000000000003e800000271000000000107d08112000000000000"
         },
         "0x80432f665e0bdbfe261b656dbe8c35e7f08625c01f0327d4e88f6aaee03aecee": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -1573,7 +1573,7 @@
         },
         "0x8868a55b276168fe4e9b1d77859b72352206ee587e0f77d39380f4763c63338c": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x1000000000000000000000000000000271000000000107d08112000000000000"
+          "newValue": "0x100000000000000000000003e800000271000000000107d08112000000000000"
         },
         "0x8868a55b276168fe4e9b1d77859b72352206ee587e0f77d39380f4763c63338d": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -1613,7 +1613,7 @@
         },
         "0x9f34118313d08abcbe5d630066a42015e9c14ddd958820a505759421525c3ade": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x1000000000000000000000000000000c35000000b3b005dc8112000000000000"
+          "newValue": "0x100000000000000000000003e800000c35000000b3b005dc8112000000000000"
         },
         "0x9f34118313d08abcbe5d630066a42015e9c14ddd958820a505759421525c3adf": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -1641,7 +1641,7 @@
         },
         "0x9ff805b90c1892cbb0a31579cc27c582558b288e0e349f90918280cb67cda6c3": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x10000000000000000000000000002faf080002bde78003e8a512000000000000"
+          "newValue": "0x100000000000000000000003e8002faf080002bde78003e8a512000000000000"
         },
         "0x9ff805b90c1892cbb0a31579cc27c582558b288e0e349f90918280cb67cda6c4": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -1669,7 +1669,7 @@
         },
         "0xace1738bd21dfb38ab702aadd1277b4df729315c49e6743bfbebb5a89576504a": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x10000000000000000000000000002faf080002bde78003e8a506000000000000"
+          "newValue": "0x100000000000000000000003e8002faf080002bde78003e8a506000000000000"
         },
         "0xace1738bd21dfb38ab702aadd1277b4df729315c49e6743bfbebb5a89576504b": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -1768,7 +1768,7 @@
         },
         "0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x000000000000000000000000deb02056e277174566a1c425a8e60550142b70a2",
+          "newValue": "0x00000000000000000000000034ca0a24e0b7cbceb77088ae539f57ba0650fc05",
           "label": "Implementation slot"
         }
       }
@@ -1820,7 +1820,7 @@
         },
         "0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x000000000000000000000000deb02056e277174566a1c425a8e60550142b70a2",
+          "newValue": "0x00000000000000000000000034ca0a24e0b7cbceb77088ae539f57ba0650fc05",
           "label": "Implementation slot"
         }
       }
@@ -1892,7 +1892,7 @@
         },
         "0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x000000000000000000000000deb02056e277174566a1c425a8e60550142b70a2",
+          "newValue": "0x00000000000000000000000034ca0a24e0b7cbceb77088ae539f57ba0650fc05",
           "label": "Implementation slot"
         }
       }
@@ -1956,7 +1956,7 @@
         },
         "0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x00000000000000000000000052cb5cdf732889be3fd5d5e3a5d589446e060c0d",
+          "newValue": "0x000000000000000000000000ff01493c22208de3a89fe9cafbdae103acc72af8",
           "label": "Implementation slot"
         },
         "0xbbe3212124853f8b0084a66a2d057c2966e251e132af3691db153ab65f0d1a4d": {
@@ -2068,7 +2068,7 @@
         },
         "0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x00000000000000000000000052cb5cdf732889be3fd5d5e3a5d589446e060c0d",
+          "newValue": "0x000000000000000000000000ff01493c22208de3a89fe9cafbdae103acc72af8",
           "label": "Implementation slot"
         },
         "0xbbe3212124853f8b0084a66a2d057c2966e251e132af3691db153ab65f0d1a4d": {
@@ -2128,7 +2128,7 @@
         },
         "0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x000000000000000000000000deb02056e277174566a1c425a8e60550142b70a2",
+          "newValue": "0x00000000000000000000000034ca0a24e0b7cbceb77088ae539f57ba0650fc05",
           "label": "Implementation slot"
         }
       }
