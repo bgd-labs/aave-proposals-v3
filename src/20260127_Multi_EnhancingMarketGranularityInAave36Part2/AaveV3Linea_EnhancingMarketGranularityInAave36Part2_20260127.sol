@@ -13,17 +13,6 @@ import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config
  * - Discussion: https://governance.aave.com/t/direct-to-aip-enhancing-market-granularity-in-aave-v3-6-restricting-borrowability-and-collateralization-outside-of-liquid-emodes/23592
  */
 contract AaveV3Linea_EnhancingMarketGranularityInAave36Part2_20260127 is AaveV3PayloadLinea {
-  function capsUpdates() public pure override returns (IAaveV3ConfigEngine.CapsUpdate[] memory) {
-    IAaveV3ConfigEngine.CapsUpdate[] memory capsUpdate = new IAaveV3ConfigEngine.CapsUpdate[](1);
-
-    capsUpdate[0] = IAaveV3ConfigEngine.CapsUpdate({
-      asset: AaveV3LineaAssets.weETH_UNDERLYING,
-      supplyCap: EngineFlags.KEEP_CURRENT,
-      borrowCap: 1
-    });
-
-    return capsUpdate;
-  }
   function collateralsUpdates()
     public
     pure
@@ -59,18 +48,10 @@ contract AaveV3Linea_EnhancingMarketGranularityInAave36Part2_20260127 is AaveV3P
     returns (IAaveV3ConfigEngine.BorrowUpdate[] memory)
   {
     IAaveV3ConfigEngine.BorrowUpdate[]
-      memory borrowUpdates = new IAaveV3ConfigEngine.BorrowUpdate[](2);
+      memory borrowUpdates = new IAaveV3ConfigEngine.BorrowUpdate[](1);
 
     borrowUpdates[0] = IAaveV3ConfigEngine.BorrowUpdate({
       asset: AaveV3LineaAssets.wstETH_UNDERLYING,
-      enabledToBorrow: EngineFlags.DISABLED,
-      flashloanable: EngineFlags.KEEP_CURRENT,
-      borrowableInIsolation: EngineFlags.KEEP_CURRENT,
-      withSiloedBorrowing: EngineFlags.KEEP_CURRENT,
-      reserveFactor: EngineFlags.KEEP_CURRENT
-    });
-    borrowUpdates[1] = IAaveV3ConfigEngine.BorrowUpdate({
-      asset: AaveV3LineaAssets.weETH_UNDERLYING,
       enabledToBorrow: EngineFlags.DISABLED,
       flashloanable: EngineFlags.KEEP_CURRENT,
       borrowableInIsolation: EngineFlags.KEEP_CURRENT,
