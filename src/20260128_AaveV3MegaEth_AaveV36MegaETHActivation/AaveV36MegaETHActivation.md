@@ -126,7 +126,7 @@ The table below illustrates the configured risk parameters for the assets to be 
 
 | **Parameter**         |        |      |
 | --------------------- | ------ | ---- |
-| Asset                 | wrsETH | WETH |
+| Asset                 | ezETH  | WETH |
 | Collateral            | Yes    | No   |
 | Borrowable            | No     | Yes  |
 | Max LTV               | 93.00% | -    |
