@@ -13,7 +13,7 @@ import {IEmissionManager} from 'aave-v3-origin/contracts/rewards/interfaces/IEmi
 /**
  * @title Aave V3.6 MegaETH Activation
  * @author BGD Labs (@bgdlabs)
- * - Snapshot: https://snapshot.org/#/s:aavedao.eth/proposal/0xab1d9c42264c89e1b8f0d807c9ff971f8c3f9f5cc0323072d9e970c110d1e39b
+ * - Snapshot: https://snapshot.org/#/s:aavedao.eth/proposal/0xf6e4ca9941805b3c89615df693c657d81eda6a4c8a24d6d2e220020f9c1c5aa7
  * - Discussion: https://governance.aave.com/t/arfc-deploy-aave-v3-to-megaeth/23517
  */
 contract AaveV3MegaEth_AaveV36MegaETHActivation_20260128 is AaveV3PayloadMegaEth {

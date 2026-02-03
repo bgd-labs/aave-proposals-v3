@@ -2,7 +2,7 @@
 title: "Aave V3.6 MegaETH Activation"
 author: "BGD Labs (@bgdlabs)"
 discussions: "https://governance.aave.com/t/arfc-deploy-aave-v3-to-megaeth/23517"
-snapshot: "https://snapshot.org/#/s:aavedao.eth/proposal/0xab1d9c42264c89e1b8f0d807c9ff971f8c3f9f5cc0323072d9e970c110d1e39b"
+snapshot: "https://snapshot.org/#/s:aavedao.eth/proposal/0xf6e4ca9941805b3c89615df693c657d81eda6a4c8a24d6d2e220020f9c1c5aa7"
 ---
 
 ## Simple Summary
@@ -15,7 +15,7 @@ All the Aave MegaETH V3 addresses can be found in the [aave-address-book](https:
 
 All the governance procedures for the expansion of Aave v3 to MegaETH have been finished, said:
 
-- Positive signaling and approval regarding the expansion on the governance [forum](https://governance.aave.com/t/arfc-deploy-aave-v3-to-megaeth/23517), and [snapshot](https://snapshot.org/#/s:aavedao.eth/proposal/0xab1d9c42264c89e1b8f0d807c9ff971f8c3f9f5cc0323072d9e970c110d1e39b).
+- Positive signaling and approval regarding the expansion on the governance [forum](https://governance.aave.com/t/arfc-deploy-aave-v3-to-megaeth/23517), and [snapshot](https://snapshot.org/#/s:aavedao.eth/proposal/0xf6e4ca9941805b3c89615df693c657d81eda6a4c8a24d6d2e220020f9c1c5aa7).
 - Positive technical evaluation done by BGD Labs of the MegaETH network, as described in the [forum](https://governance.aave.com/t/bgd-aave-megaeth-infrastructure-technical-evaluation/23905) in detail.
 - Positive risk analysis and assets/parameters recommendation by the risk service providers.
 
@@ -143,7 +143,7 @@ The table below illustrates the configured risk parameters for the assets to be 
 
 - Implementation: [AaveV3MegaEth](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20260128_AaveV3MegaEth_AaveV36MegaETHActivation/AaveV3MegaEth_AaveV36MegaETHActivation_20260128.sol)
 - Tests: [AaveV3MegaEth](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20260128_AaveV3MegaEth_AaveV36MegaETHActivation/AaveV3MegaEth_AaveV36MegaETHActivation_20260128.t.sol)
-- [Snapshot](https://snapshot.org/#/s:aavedao.eth/proposal/0xab1d9c42264c89e1b8f0d807c9ff971f8c3f9f5cc0323072d9e970c110d1e39b)
+- [Snapshot](https://snapshot.org/#/s:aavedao.eth/proposal/0xf6e4ca9941805b3c89615df693c657d81eda6a4c8a24d6d2e220020f9c1c5aa7)
 - [Discussion](https://governance.aave.com/t/arfc-deploy-aave-v3-to-megaeth/23517)
 
 ## Copyright

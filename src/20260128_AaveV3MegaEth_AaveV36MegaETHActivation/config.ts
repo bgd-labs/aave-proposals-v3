@@ -8,7 +8,7 @@ export const config: ConfigFile = {
     author: 'BGD Labs (@bgdlabs)',
     discussion: 'https://governance.aave.com/t/arfc-deploy-aave-v3-to-megaeth/23517',
     snapshot:
-      'https://snapshot.org/#/s:aavedao.eth/proposal/0xab1d9c42264c89e1b8f0d807c9ff971f8c3f9f5cc0323072d9e970c110d1e39b',
+      'https://snapshot.org/#/s:aavedao.eth/proposal/0xf6e4ca9941805b3c89615df693c657d81eda6a4c8a24d6d2e220020f9c1c5aa7',
     votingNetwork: 'AVALANCHE',
   },
   poolOptions: {
