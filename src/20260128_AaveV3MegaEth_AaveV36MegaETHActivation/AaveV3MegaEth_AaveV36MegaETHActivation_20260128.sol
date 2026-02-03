@@ -144,8 +144,8 @@ contract AaveV3MegaEth_AaveV36MegaETHActivation_20260128 is AaveV3PayloadMegaEth
       liqThreshold: 0,
       liqBonus: 0,
       reserveFactor: 10_00,
-      supplyCap: 50_000_000,
-      borrowCap: 46_000_000,
+      supplyCap: 100_000_000,
+      borrowCap: 95_000_000,
       debtCeiling: 0,
       liqProtocolFee: 10_00,
       rateStrategyParams: IAaveV3ConfigEngine.InterestRateInputData({

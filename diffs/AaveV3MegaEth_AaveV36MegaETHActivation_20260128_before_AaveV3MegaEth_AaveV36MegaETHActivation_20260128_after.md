@@ -267,8 +267,8 @@
 | decimals | 18 |
 | isActive | true |
 | isFrozen | false |
-| supplyCap | 50,000,000 USDm |
-| borrowCap | 46,000,000 USDm |
+| supplyCap | 100,000,000 USDm |
+| borrowCap | 95,000,000 USDm |
 | debtCeiling | 0 $ [0] |
 | isSiloed | false |
 | isFlashloanable | true |
@@ -697,7 +697,7 @@
         "aTokenName": "Aave MegaEth USDm",
         "aTokenSymbol": "aMegUSDm",
         "aTokenUnderlyingBalance": "10000000000000000000",
-        "borrowCap": 46000000,
+        "borrowCap": 95000000,
         "borrowingEnabled": true,
         "debtCeiling": 0,
         "decimals": 18,
@@ -718,7 +718,7 @@
         "oracleDescription": "ONE USD",
         "oracleLatestAnswer": "100000000",
         "reserveFactor": 1000,
-        "supplyCap": 50000000,
+        "supplyCap": 100000000,
         "symbol": "USDm",
         "underlying": "0xFAfDdbb3FC7688494971a79cc65DCa3EF82079E7",
         "usageAsCollateralEnabled": false,
@@ -1641,7 +1641,7 @@
         },
         "0x9ff805b90c1892cbb0a31579cc27c582558b288e0e349f90918280cb67cda6c3": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x100000000000000000000003e8002faf080002bde78003e8a512000000000000"
+          "newValue": "0x100000000000000000000003e8005f5e100005a995c003e8a512000000000000"
         },
         "0x9ff805b90c1892cbb0a31579cc27c582558b288e0e349f90918280cb67cda6c4": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",

@@ -38,6 +38,24 @@ contract AaveV3MegaEth_AaveV36MegaETHActivation_20260128_Test is ProtocolV3TestB
     );
   }
 
+  function test_eMode_sanity() public {
+    executePayload(vm, address(proposal));
+
+    address user = address(505);
+    deal(proposal.wstETH(), user, 0.0025e18);
+    vm.startPrank(user);
+
+    // e2e pool operations
+    AaveV3MegaEth.POOL.setUserEMode(4); // enter wstETH/ETH
+    IERC20(proposal.wstETH()).approve(address(AaveV3MegaEth.POOL), 0.0025e18);
+    AaveV3MegaEth.POOL.supply(proposal.wstETH(), 0.0025e18, user, 0);
+    AaveV3MegaEth.POOL.borrow(proposal.WETH(), 0.0015e18, 2, 0, user);
+
+    IERC20(proposal.WETH()).approve(address(AaveV3MegaEth.POOL), 0.001e18);
+    AaveV3MegaEth.POOL.repay(proposal.WETH(), 0.001e18, 2, user);
+    AaveV3MegaEth.POOL.withdraw(proposal.wstETH(), 0.0005e18, user);
+  }
+
   function test_dustBinHasFunds() public {
     GovV3Helpers.executePayload(vm, address(proposal));
 
