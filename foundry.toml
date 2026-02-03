@@ -38,9 +38,9 @@ mode = '3'
 zksolc = '1.5.13'
 
 [profile.test]
-out = 'out/cancun'
-evm_version = 'cancun'
-cache_path = 'cache/cancun'
+out = 'out/prague'
+evm_version = 'prague'
+cache_path = 'cache/prague'
 
 [profile.deploy]
 out = 'out/shanghai'
