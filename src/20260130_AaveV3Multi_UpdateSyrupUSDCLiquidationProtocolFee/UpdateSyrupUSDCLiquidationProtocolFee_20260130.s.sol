@@ -6,6 +6,29 @@ import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 
 import {EthereumScript, BaseScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
 import {AaveV3Base_UpdateSyrupUSDCLiquidationProtocolFee_20260130} from './AaveV3Base_UpdateSyrupUSDCLiquidationProtocolFee_20260130.sol';
+import {AaveV3Ethereum_UpdateSyrupUSDCLiquidationProtocolFee_20260130} from './AaveV3Ethereum_UpdateSyrupUSDCLiquidationProtocolFee_20260130.sol';
+
+/**
+ * @dev Deploy Ethereum
+ * deploy-command: make deploy-ledger contract=src/20260130_AaveV3Ethereum_UpdateSyrupUSDCLiquidationProtocolFee/UpdateSyrupUSDCLiquidationProtocolFee_20260130.s.sol:DeployEthereum chain=mainnet
+ * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/UpdateSyrupUSDCLiquidationProtocolFee_20260130.s.sol/8453/run-latest.json
+ */
+contract DeployEthereum is BaseScript {
+  function run() external broadcast {
+    // deploy payloads
+    address payload0 = GovV3Helpers.deployDeterministic(
+      type(AaveV3Ethereum_UpdateSyrupUSDCLiquidationProtocolFee_20260130).creationCode
+    );
+
+    // compose action
+    IPayloadsControllerCore.ExecutionAction[]
+      memory actions = new IPayloadsControllerCore.ExecutionAction[](1);
+    actions[0] = GovV3Helpers.buildAction(payload0);
+
+    // register action at payloadsController
+    GovV3Helpers.createPayload(actions);
+  }
+}
 
 /**
  * @dev Deploy Base
@@ -36,9 +59,18 @@ contract DeployBase is BaseScript {
 contract CreateProposal is EthereumScript {
   function run() external {
     // create payloads
-    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](1);
+    PayloadsControllerUtils.Payload[] memory payloads = new PayloadsControllerUtils.Payload[](2);
 
     // compose actions for validation
+    {
+      IPayloadsControllerCore.ExecutionAction[]
+        memory actionsEthereum = new IPayloadsControllerCore.ExecutionAction[](1);
+      actionsEthereum[0] = GovV3Helpers.buildAction(
+        type(AaveV3Ethereum_UpdateSyrupUSDCLiquidationProtocolFee_20260130).creationCode
+      );
+      payloads[0] = GovV3Helpers.buildBasePayload(vm, actionsEthereum);
+    }
+
     {
       IPayloadsControllerCore.ExecutionAction[]
         memory actionsBase = new IPayloadsControllerCore.ExecutionAction[](1);
