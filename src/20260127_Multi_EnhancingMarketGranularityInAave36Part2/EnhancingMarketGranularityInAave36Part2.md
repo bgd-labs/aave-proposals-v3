@@ -301,14 +301,14 @@ As such, this section removes the isolation mode status of XAUt and XAUt0 on Eth
 
 **XAUt0 Stablecoins Plasma**
 
-| **Parameter**         | **Value** | **Value** | Value | **Value** |
-| --------------------- | --------- | --------- | ----- | --------- |
-| Asset                 | XAUt0     | USDC      | USDT  | GHO       |
-| Collateral            | Yes       | No        | No    | No        |
-| Borrowable            | No        | Yes       | Yes   | Yes       |
-| Max LTV               | 70%       | -         |       |           |
-| Liquidation Threshold | 75%       | -         |       |           |
-| Liquidation Bonus     | 7.5%      | -         |       |           |
+| **Parameter**         | **Value** | **Value** |
+| --------------------- | --------- | --------- |
+| Asset                 | XAUt0     | USDT      |
+| Collateral            | Yes       | No        |
+| Borrowable            | No        | Yes       |
+| Max LTV               | 70%       | -         |
+| Liquidation Threshold | 75%       | -         |
+| Liquidation Bonus     | 7.5%      | -         |
 
 ### Configuration Cleanup (Collateral)
 
@@ -336,8 +336,6 @@ Assets that are currently leveraging the 0.1% LT workaround outside of Emode. In
 | syrupUSDT          | Plasma         | TRUE                            | FALSE                               | LT 0.1%                    |
 | weETH              | Plasma         | TRUE                            | FALSE                               | LT 0.1%                    |
 | sUSDe              | Plasma         | TRUE                            | FALSE                               | LT 0.1%                    |
-| PT-sUSDE-27NOV2025 | Plasma         | TRUE                            | FALSE                               | LT 0.1%                    |
-| PT-USDe-27NOV2025  | Plasma         | TRUE                            | FALSE                               | LT 0.1%                    |
 | rsETH              | Plasma         | TRUE                            | FALSE                               | LT 0.1%                    |
 | ezETH              | Base           | TRUE                            | FALSE                               | LT 0.1%                    |
 | wrsETH             | Base           | TRUE                            | FALSE                               | LT 0.1%                    |
