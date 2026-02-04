@@ -9,7 +9,7 @@ import {AaveV3Ethereum_UpdateSyrupUSDCLiquidationProtocolFee_20260130} from './A
 
 /**
  * @dev Test for AaveV3Ethereum_Test_20260204
- * command: FOUNDRY_PROFILE=test forge test --match-path=src/20260204_AaveV3Multi_UpdateSyrupUSDCLiquidationProtocolFee/AaveV3Ethereum_UpdateSyrupUSDCLiquidationProtocolFee_20260130.t.sol -vv
+ * command: FOUNDRY_PROFILE=test forge test --match-path=src/20260130_AaveV3Multi_UpdateSyrupUSDCLiquidationProtocolFee/AaveV3Ethereum_UpdateSyrupUSDCLiquidationProtocolFee_20260130.t.sol -vv
  */
 contract AaveV3Ethereum_UpdateSyrupUSDCLiquidationProtocolFee_20260130_Test is ProtocolV3TestBase {
   AaveV3Ethereum_UpdateSyrupUSDCLiquidationProtocolFee_20260130 internal proposal;

@@ -10,7 +10,7 @@ import {AaveV3Ethereum_UpdateSyrupUSDCLiquidationProtocolFee_20260130} from './A
 
 /**
  * @dev Deploy Ethereum
- * deploy-command: make deploy-ledger contract=src/20260130_AaveV3Ethereum_UpdateSyrupUSDCLiquidationProtocolFee/UpdateSyrupUSDCLiquidationProtocolFee_20260130.s.sol:DeployEthereum chain=mainnet
+ * deploy-command: make deploy-ledger contract=src/20260130_AaveV3Multi_UpdateSyrupUSDCLiquidationProtocolFee/UpdateSyrupUSDCLiquidationProtocolFee_20260130.s.sol:DeployEthereum chain=mainnet
  * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/UpdateSyrupUSDCLiquidationProtocolFee_20260130.s.sol/8453/run-latest.json
  */
 contract DeployEthereum is BaseScript {
@@ -32,7 +32,7 @@ contract DeployEthereum is BaseScript {
 
 /**
  * @dev Deploy Base
- * deploy-command: make deploy-ledger contract=src/20260130_AaveV3Base_UpdateSyrupUSDCLiquidationProtocolFee/UpdateSyrupUSDCLiquidationProtocolFee_20260130.s.sol:DeployBase chain=base
+ * deploy-command: make deploy-ledger contract=src/20260130_AaveV3Multi_UpdateSyrupUSDCLiquidationProtocolFee/UpdateSyrupUSDCLiquidationProtocolFee_20260130.s.sol:DeployBase chain=base
  * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/UpdateSyrupUSDCLiquidationProtocolFee_20260130.s.sol/8453/run-latest.json
  */
 contract DeployBase is BaseScript {
@@ -54,7 +54,7 @@ contract DeployBase is BaseScript {
 
 /**
  * @dev Create Proposal
- * command: make deploy-ledger contract=src/20260130_AaveV3Base_UpdateSyrupUSDCLiquidationProtocolFee/UpdateSyrupUSDCLiquidationProtocolFee_20260130.s.sol:CreateProposal chain=mainnet
+ * command: make deploy-ledger contract=src/20260130_AaveV3Multi_UpdateSyrupUSDCLiquidationProtocolFee/UpdateSyrupUSDCLiquidationProtocolFee_20260130.s.sol:CreateProposal chain=mainnet
  */
 contract CreateProposal is EthereumScript {
   function run() external {
