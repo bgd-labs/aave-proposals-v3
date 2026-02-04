@@ -152,8 +152,8 @@ The table below illustrates the configured risk parameters for the assets to be 
 
 ## References
 
-- Implementation: [AaveV3MegaEth](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20260128_AaveV3MegaEth_AaveV36MegaETHActivation/AaveV3MegaEth_AaveV36MegaETHActivation_20260128.sol)
-- Tests: [AaveV3MegaEth](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20260128_AaveV3MegaEth_AaveV36MegaETHActivation/AaveV3MegaEth_AaveV36MegaETHActivation_20260128.t.sol)
+- Implementation: [AaveV3MegaEth](https://github.com/bgd-labs/aave-proposals-v3/blob/55b3f19727a40fd86045222f7d98afc855e6d37e/src/20260128_AaveV3MegaEth_AaveV36MegaETHActivation/AaveV3MegaEth_AaveV36MegaETHActivation_20260128.sol)
+- Tests: [AaveV3MegaEth](https://github.com/bgd-labs/aave-proposals-v3/blob/55b3f19727a40fd86045222f7d98afc855e6d37e/src/20260128_AaveV3MegaEth_AaveV36MegaETHActivation/AaveV3MegaEth_AaveV36MegaETHActivation_20260128.t.sol)
 - [Snapshot](https://snapshot.org/#/s:aavedao.eth/proposal/0xf6e4ca9941805b3c89615df693c657d81eda6a4c8a24d6d2e220020f9c1c5aa7)
 - [Discussion](https://governance.aave.com/t/arfc-deploy-aave-v3-to-megaeth/23517)
 
