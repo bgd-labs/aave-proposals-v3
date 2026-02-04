@@ -33,8 +33,8 @@ The table below illustrates the configured risk parameters for the assets to be 
 
 | Parameter                 |                                                   WETH |              BTCb |                                                   USDT0 |                                                    USDm |                          wstETH |      wrsETH |      ezETH |
 | ------------------------- | -----------------------------------------------------: | ----------------: | ------------------------------------------------------: | ------------------------------------------------------: | ------------------------------: | ----------: | ---------: |
-| Supply Cap                |                                                 50,000 |               120 |                                              50,000,000 |                                             100,000,000 |                          12,000 |      10,000 |     10,000 |
-| Borrow Cap                |                                                 46,000 |                 1 |                                              46,000,000 |                                              95,000,000 |                               1 |           1 |          1 |
+| Supply Cap                |                                                     20 |                 2 |                                                  50,000 |                                                  50,000 |                              20 |          20 |         20 |
+| Borrow Cap                |                                                     10 |                 1 |                                                  20,000 |                                                  20,000 |                               1 |           1 |          1 |
 | Borrowable                |                                               DISABLED |          DISABLED |                                                 ENABLED |                                                 ENABLED |                        DISABLED |    DISABLED |   DISABLED |
 | Collateral Enabled        |                                                  false |             false |                                                   false |                                                   false |                           false |       false |      false |
 | LTV                       |                                                    0 % |               0 % |                                                     0 % |                                                     0 % |                             0 % |         0 % |        0 % |
@@ -52,6 +52,18 @@ The table below illustrates the configured risk parameters for the assets to be 
 | Siloed Borrowing          |                                               DISABLED |          DISABLED |                                                DISABLED |                                                DISABLED |                        DISABLED |    DISABLED |   DISABLED |
 | Borrowable in Isolation   |                                               DISABLED |          DISABLED |                                                 ENABLED |                                                 ENABLED |                        DISABLED |    DISABLED |   DISABLED |
 | E-Mode                    | WETH/Stablecoins, wstETH/WETH, wrsETH/WETH, ezETH/WETH | BTC.b/Stablecoins | wstETH/Stablecoins, WETH/Stablecoins, BTC.b/Stablecoins | wstETH/Stablecoins, WETH/Stablecoins, BTC.b/Stablecoins | wstETH/WETH, wstETH/Stablecoins | wrsETH/WETH | ezETH/WETH |
+
+**Please note: As a matter of extra caution, the MegaETH instance will be activated very limited interim caps, and this AIP authorizes the Aave Protocol Guardian to increase it to the following pre-approved levels below once technical SP have triple checked everything**:
+
+| Asset  | Supply Cap  | Borrow Cap |
+| ------ | ----------- | ---------- |
+| WETH   | 50'000      | 46'000     |
+| BTCb   | 120         | 1          |
+| USDT0  | 50'000'000  | 46'000'000 |
+| USDm   | 100'000'000 | 95'000'000 |
+| wstETH | 12'000      | 1          |
+| wrsETH | 10'000      | 1          |
+| ezETH  | 10'000      | 1          |
 
 ### Oracle details:
 

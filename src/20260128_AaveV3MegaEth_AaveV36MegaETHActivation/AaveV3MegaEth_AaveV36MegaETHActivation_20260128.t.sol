@@ -56,6 +56,18 @@ contract AaveV3MegaEth_AaveV36MegaETHActivation_20260128_Test is ProtocolV3TestB
     AaveV3MegaEth.POOL.withdraw(proposal.wstETH(), 0.0005e18, user);
   }
 
+  function test_capsIncreaseByGuardian() public {
+    GovV3Helpers.executePayload(vm, address(proposal));
+
+    _setAndValidateCapsByGuardian(proposal.WETH(), 50_000, 46_000);
+    _setAndValidateCapsByGuardian(proposal.BTCb(), 120, 1);
+    _setAndValidateCapsByGuardian(proposal.USDT0(), 50_000_000, 46_000_000);
+    _setAndValidateCapsByGuardian(proposal.USDm(), 100_000_000, 95_000_000);
+    _setAndValidateCapsByGuardian(proposal.wstETH(), 12_000, 1);
+    _setAndValidateCapsByGuardian(proposal.wrsETH(), 10_000, 1);
+    _setAndValidateCapsByGuardian(proposal.ezETH(), 10_000, 1);
+  }
+
   function test_dustBinHasFunds() public {
     GovV3Helpers.executePayload(vm, address(proposal));
 
@@ -114,6 +126,23 @@ contract AaveV3MegaEth_AaveV36MegaETHActivation_20260128_Test is ProtocolV3TestB
       IEmissionManager(AaveV3MegaEth.EMISSION_MANAGER).getEmissionAdmin(aToken),
       proposal.LM_ADMIN()
     );
+  }
+
+  function _setAndValidateCapsByGuardian(
+    address asset,
+    uint256 supplyCap,
+    uint256 borrowCap
+  ) internal {
+    vm.startPrank(MiscMegaEth.PROTOCOL_GUARDIAN);
+    AaveV3MegaEth.POOL_CONFIGURATOR.setSupplyCap(asset, supplyCap);
+    AaveV3MegaEth.POOL_CONFIGURATOR.setBorrowCap(asset, borrowCap);
+    vm.stopPrank();
+
+    (uint256 currentBorrowCap, uint256 currentSupplyCap) = AaveV3MegaEth
+      .AAVE_PROTOCOL_DATA_PROVIDER
+      .getReserveCaps(asset);
+    assertEq(currentBorrowCap, borrowCap);
+    assertEq(currentSupplyCap, supplyCap);
   }
 
   function _postSetup() internal {
