@@ -53,7 +53,7 @@ The table below illustrates the configured risk parameters for the assets to be 
 | Borrowable in Isolation   |                                               DISABLED |          DISABLED |                                                 ENABLED |                                                 ENABLED |                        DISABLED |    DISABLED |   DISABLED |
 | E-Mode                    | WETH/Stablecoins, wstETH/WETH, wrsETH/WETH, ezETH/WETH | BTC.b/Stablecoins | wstETH/Stablecoins, WETH/Stablecoins, BTC.b/Stablecoins | wstETH/Stablecoins, WETH/Stablecoins, BTC.b/Stablecoins | wstETH/WETH, wstETH/Stablecoins | wrsETH/WETH | ezETH/WETH |
 
-**Please note: As a matter of extra caution, the MegaETH instance will be activated very limited interim caps, and this AIP authorizes the Aave Protocol Guardian to increase it to the following pre-approved levels below once technical SP have triple checked everything**:
+**Please note: As a matter of extra caution, the MegaETH instance will be activated very limited interim caps, and this AIP authorizes the Aave Protocol Guardian to increase it to the following pre-approved levels below once technical SP have triple checked everything. Additionally, due to the recent stress test, the explorers are not fully indexed, which means that some deployed contracts are not verified. We will verify the contracts before proposal execution once the explorers are fully indexed.**:
 
 | Asset  | Supply Cap  | Borrow Cap |
 | ------ | ----------- | ---------- |
@@ -149,7 +149,6 @@ The table below illustrates the configured risk parameters for the assets to be 
 
 - The proposal execution is simulated within the tests and the resulting pool configuration is tested for correctness.
 - The deployed pool and other permissions have been programmatically verified, which can be found on the [aave-permissions-book](https://github.com/aave-dao/aave-permissions-book/blob/71f5d995451a9e21c4ba33cab420861f68aed285/out/MEGAETH-V3.md).
-- In addition, we have also checked the code diffs of the deployed MegaETH contracts with the production instance, which can be found [here](TODO).
 
 ## References
 
