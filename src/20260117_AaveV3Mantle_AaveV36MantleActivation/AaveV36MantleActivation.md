@@ -128,8 +128,8 @@ The table below illustrates the configured risk parameters for the assets to be 
 
 ## References
 
-- Implementation: [AaveV3Mantle](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20260117_AaveV3Mantle_AaveV36MantleActivation/AaveV3Mantle_AaveV36MantleActivation_20260117.sol)
-- Tests: [AaveV3Mantle](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20260117_AaveV3Mantle_AaveV36MantleActivation/AaveV3Mantle_AaveV36MantleActivation_20260117.t.sol)
+- Implementation: [AaveV3Mantle](https://github.com/bgd-labs/aave-proposals-v3/blob/97d03b1a38a07f810c02587472ec7b9430ec8fb4/src/20260117_AaveV3Mantle_AaveV36MantleActivation/AaveV3Mantle_AaveV36MantleActivation_20260117.sol)
+- Tests: [AaveV3Mantle](https://github.com/bgd-labs/aave-proposals-v3/blob/97d03b1a38a07f810c02587472ec7b9430ec8fb4/src/20260117_AaveV3Mantle_AaveV36MantleActivation/AaveV3Mantle_AaveV36MantleActivation_20260117.t.sol)
 - [Snapshot](https://snapshot.org/#/s:aavedao.eth/proposal/0x2f9378770f1838f0ea8d483239af1530c9fbea98d648e0b11e4647dcb722d119)
 - [Discussion](https://governance.aave.com/t/arfc-deploy-aave-v3-on-mantle/20542/12)
 
