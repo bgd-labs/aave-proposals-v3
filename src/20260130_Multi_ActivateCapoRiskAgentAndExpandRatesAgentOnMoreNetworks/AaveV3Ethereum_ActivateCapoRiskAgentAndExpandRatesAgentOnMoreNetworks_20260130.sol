@@ -4,8 +4,14 @@ pragma solidity ^0.8.0;
 import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
+import {AaveV3EthereumLido} from 'aave-address-book/AaveV3EthereumLido.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
+import {ICollector, CollectorUtils} from 'aave-helpers/src/CollectorUtils.sol';
+import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
+import {SafeERC20} from 'openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol';
+import {SafeCast} from 'openzeppelin-contracts/contracts/utils/math/SafeCast.sol';
 
+import {IAaveCLRobotOperator} from '../interfaces/IAaveCLRobotOperator.sol';
 import {IAgentHub, IAgentConfigurator} from '../interfaces/IAgentHub.sol';
 import {IRangeValidationModule} from '../interfaces/IRangeValidationModule.sol';
 
@@ -18,10 +24,15 @@ import {IRangeValidationModule} from '../interfaces/IRangeValidationModule.sol';
 contract AaveV3Ethereum_ActivateCapoRiskAgentAndExpandRatesAgentOnMoreNetworks_20260130 is
   IProposalGenericExecutor
 {
+  using CollectorUtils for ICollector;
+  using SafeERC20 for IERC20;
+  using SafeCast for uint256;
+
   address public constant CAPO_AGENT = 0xCc18Be380838956aad41FD22466085eD66aaBB46;
+  uint96 public constant LINK_AMOUNT = 200 ether;
 
   function execute() external {
-    // 1. register chaos-agents on the agent-hub
+    // 1. register agent on the agent-hub
     uint256 agentId = IAgentHub(MiscEthereum.AGENT_HUB).registerAgent(
       IAgentConfigurator.AgentRegistrationInput({
         admin: GovernanceV3Ethereum.EXECUTOR_LVL_1,
@@ -42,18 +53,18 @@ contract AaveV3Ethereum_ActivateCapoRiskAgentAndExpandRatesAgentOnMoreNetworks_2
 
     // 2. configure range on the range-validation-module
     IRangeValidationModule(MiscEthereum.RANGE_VALIDATION_MODULE).setDefaultRangeConfig(
-      address(AGENT_HUB),
+      MiscEthereum.AGENT_HUB,
       agentId,
       'CapoSnapshotRatio',
       IRangeValidationModule.RangeConfig({
-        maxIncrease: 5_00, // 5%
-        maxDecrease: 5_00, // 5%
+        maxIncrease: 3_00, // 3%
+        maxDecrease: 3_00, // 3%
         isIncreaseRelative: true,
         isDecreaseRelative: true
       })
     );
     IRangeValidationModule(MiscEthereum.RANGE_VALIDATION_MODULE).setDefaultRangeConfig(
-      address(AGENT_HUB),
+      MiscEthereum.AGENT_HUB,
       agentId,
       'CapoMaxYearlyGrowthRatePercent',
       IRangeValidationModule.RangeConfig({
@@ -66,8 +77,30 @@ contract AaveV3Ethereum_ActivateCapoRiskAgentAndExpandRatesAgentOnMoreNetworks_2
 
     // 3. give permissions to new agent contracts
     AaveV3Ethereum.ACL_MANAGER.addRiskAdmin(CAPO_AGENT);
+    AaveV3EthereumLido.ACL_MANAGER.addRiskAdmin(CAPO_AGENT); // as on ezETH we're using same capo on lido and core
 
     // 4. register new automation for the chaos-agents
+    uint256 linkAmount = AaveV3Ethereum.COLLECTOR.withdrawFromV3(
+      CollectorUtils.IOInput({
+        pool: address(AaveV3Ethereum.POOL),
+        underlying: AaveV3EthereumAssets.LINK_UNDERLYING,
+        amount: LINK_AMOUNT
+      }),
+      address(this)
+    );
+    IERC20(AaveV3EthereumAssets.LINK_UNDERLYING).forceApprove(
+      MiscEthereum.AAVE_CL_ROBOT_OPERATOR,
+      linkAmount
+    );
+    IAaveCLRobotOperator(MiscEthereum.AAVE_CL_ROBOT_OPERATOR).register(
+      'Core Capo Agent', // name
+      MiscEthereum.AGENT_HUB_AUTOMATION, // upkeepContract
+      _encodeAgentIdToBytes(agentId), // upkeepCheckData
+      5_000_000, // gasLimit
+      linkAmount.toUint96(), // amountToFund
+      0, // triggerType
+      '' // triggerConfig
+    );
   }
 
   function getAssetsToEnableForCapoAgent() public pure returns (address[] memory) {
@@ -88,5 +121,11 @@ contract AaveV3Ethereum_ActivateCapoRiskAgentAndExpandRatesAgentOnMoreNetworks_2
     markets[13] = AaveV3EthereumAssets.sDAI_UNDERLYING;
 
     return markets;
+  }
+
+  function _encodeAgentIdToBytes(uint256 agentId) internal pure returns (bytes memory) {
+    uint256[] memory agentIds = new uint256[](1);
+    agentIds[0] = agentId;
+    return abi.encode(agentIds);
   }
 }
