@@ -173,7 +173,7 @@ contract AaveV3Mantle_AaveV36MantleActivation_20260117 is AaveV3PayloadMantle {
       ltv: 0,
       liqThreshold: 0,
       liqBonus: 0,
-      reserveFactor: 10_00,
+      reserveFactor: 25_00,
       supplyCap: 40_000_000,
       borrowCap: 36_000_000,
       debtCeiling: 0,
@@ -315,13 +315,12 @@ contract AaveV3Mantle_AaveV36MantleActivation_20260117 is AaveV3PayloadMantle {
 
     // sUSDe Stablecoins
     address[] memory collateralAssets_sUSDeStablecoinsEMode = new address[](2);
-    address[] memory borrowableAssets_sUSDeStablecoinsEMode = new address[](4);
+    address[] memory borrowableAssets_sUSDeStablecoinsEMode = new address[](3);
     collateralAssets_sUSDeStablecoinsEMode[0] = sUSDe;
     collateralAssets_sUSDeStablecoinsEMode[1] = USDe;
-    borrowableAssets_sUSDeStablecoinsEMode[0] = USDe;
-    borrowableAssets_sUSDeStablecoinsEMode[1] = USDT0;
-    borrowableAssets_sUSDeStablecoinsEMode[2] = USDC;
-    borrowableAssets_sUSDeStablecoinsEMode[3] = GHO;
+    borrowableAssets_sUSDeStablecoinsEMode[0] = USDT0;
+    borrowableAssets_sUSDeStablecoinsEMode[1] = USDC;
+    borrowableAssets_sUSDeStablecoinsEMode[2] = GHO;
 
     eModeCreations[0] = IAaveV3ConfigEngine.EModeCategoryCreation({
       ltv: 90_00,

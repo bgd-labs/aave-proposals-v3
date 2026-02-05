@@ -152,7 +152,7 @@
 | liquidationThreshold | 0 % [0] |
 | liquidationBonus | 0 % |
 | liquidationProtocolFee | 10 % [1000] |
-| reserveFactor | 10 % [1000] |
+| reserveFactor | 25 % [2500] |
 | aToken | [0xb9aCA933C9c0aa854a6DBb7b12f0CC3FdaC15ee7](https://mantlescan.xyz//address/0xb9aCA933C9c0aa854a6DBb7b12f0CC3FdaC15ee7) |
 | variableDebtToken | [0x0169FD279c8c656037E5D199Cff8137f1e2d807c](https://mantlescan.xyz//address/0x0169FD279c8c656037E5D199Cff8137f1e2d807c) |
 | borrowingEnabled | true |
@@ -441,7 +441,7 @@
 | eMode.ltv | - | 90 % |
 | eMode.liquidationThreshold | - | 92 % |
 | eMode.liquidationBonus | - | 4 % |
-| eMode.borrowableBitmap | - | USDT0, USDC, USDe, GHO |
+| eMode.borrowableBitmap | - | USDT0, USDC, GHO |
 | eMode.collateralBitmap | - | USDe, sUSDe |
 
 
@@ -501,7 +501,7 @@
     "1": {
       "from": null,
       "to": {
-        "borrowableBitmap": "540",
+        "borrowableBitmap": "524",
         "collateralBitmap": "48",
         "eModeCategory": 1,
         "label": "sUSDe Stablecoins",
@@ -701,7 +701,7 @@
         "oracleDecimals": 8,
         "oracleDescription": "Capped USDT/USD",
         "oracleLatestAnswer": "99788000",
-        "reserveFactor": 1000,
+        "reserveFactor": 2500,
         "supplyCap": 40000000,
         "symbol": "USDe",
         "underlying": "0x5d3a1Ff2b6BAb83b63cd9AD0787074081a52ef34",
@@ -1327,7 +1327,7 @@
         },
         "0x0ee1b4748ece9938d60c5a08c06fdcc57c304bfbc0758f61e612ab3ee93ce023": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x100000000000000000000003e8002625a0000225510003e8a512000000000000"
+          "newValue": "0x100000000000000000000003e8002625a0000225510009c4a512000000000000"
         },
         "0x0ee1b4748ece9938d60c5a08c06fdcc57c304bfbc0758f61e612ab3ee93ce024": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -1607,7 +1607,7 @@
         },
         "0x8e0cc0f1f0504b4cb44a23b328568106915b169e79003737a7b094503cdbeeb2": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x000000000000000000000000000000000000000000000000000000000000021c"
+          "newValue": "0x000000000000000000000000000000000000000000000000000000000000020c"
         },
         "0xb69e101291cae8ac8885e4f60b77f31b4a9feff65bb4172464a0e8f08242ae35": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",

@@ -73,10 +73,10 @@ contract AaveV3Mantle_AaveV36MantleActivation_20260117_Test is ProtocolV3TestBas
     AaveV3Mantle.POOL.setUserEMode(1); // enter sUSDe Stablecoins
     IERC20(proposal.sUSDe()).approve(address(AaveV3Mantle.POOL), 10e18);
     AaveV3Mantle.POOL.supply(proposal.sUSDe(), 10e18, user, 0);
-    AaveV3Mantle.POOL.borrow(proposal.USDe(), 9e18, 2, 0, user);
+    AaveV3Mantle.POOL.borrow(proposal.USDT0(), 9e6, 2, 0, user);
 
-    IERC20(proposal.USDe()).approve(address(AaveV3Mantle.POOL), 4e18);
-    AaveV3Mantle.POOL.repay(proposal.USDe(), 4e18, 2, user);
+    IERC20(proposal.USDT0()).approve(address(AaveV3Mantle.POOL), 4e6);
+    AaveV3Mantle.POOL.repay(proposal.USDT0(), 4e6, 2, user);
     AaveV3Mantle.POOL.withdraw(proposal.sUSDe(), 5e18, user);
   }
 

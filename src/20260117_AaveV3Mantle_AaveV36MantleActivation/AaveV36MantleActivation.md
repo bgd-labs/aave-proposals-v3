@@ -42,7 +42,7 @@ The table below illustrates the configured risk parameters for the assets to be 
 | LT                        |           83 % |          45 % |        0 % |        0 % |        0 % |        0 % |        0 % |      0 % |        0 % |      0 % |
 | Liquidation Bonus         |          5.5 % |          10 % |        0 % |        0 % |        0 % |        0 % |        0 % |      0 % |        0 % |      0 % |
 | Liquidation Protocol Fee  |           10 % |          10 % |       10 % |       10 % |       10 % |       10 % |       10 % |     10 % |       10 % |     10 % |
-| Reserve Factor            |           15 % |          20 % |       10 % |       10 % |       10 % |       10 % |       20 % |     20 % |       20 % |     20 % |
+| Reserve Factor            |           15 % |          20 % |       10 % |       10 % |       25 % |       10 % |       20 % |     20 % |       20 % |     20 % |
 | Base Variable Borrow Rate |            0 % |           0 % |        0 % |        0 % |        0 % |        2 % |        0 % |      0 % |        0 % |      0 % |
 | Variable Slope 1          |          2.5 % |           5 % |        5 % |        5 % |     5.25 % |        3 % |        5 % |      5 % |        5 % |      5 % |
 | Variable Slope 2          |            8 % |          20 % |       10 % |       10 % |       12 % |       40 % |       20 % |     20 % |       20 % |     20 % |
