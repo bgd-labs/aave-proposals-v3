@@ -10,7 +10,7 @@ import {IAaveV3ConfigEngine} from 'aave-v3-origin/contracts/extensions/v3-config
  * @title Update syrupUSDC liquidation protocol fee
  * @author Aavechan Initiative @aci
  * - Snapshot: direct-to-AIP
- * - Discussion: https://governance.aave.com/t/direct-to-aip-update-syrupusdc-liquidation-protocol-fee-on-aave-v3-base-instance/23962
+ * - Discussion: https://governance.aave.com/t/direct-to-aip-update-syrupusdc-liquidation-protocol-fee-on-aave-v3-base-instance/23963
  */
 contract AaveV3Ethereum_UpdateSyrupUSDCLiquidationProtocolFee_20260130 is AaveV3PayloadEthereum {
   function eModeCategoriesUpdates()

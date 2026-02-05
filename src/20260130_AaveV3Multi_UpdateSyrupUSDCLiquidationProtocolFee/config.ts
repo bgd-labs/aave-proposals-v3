@@ -7,7 +7,7 @@ export const config: ConfigFile = {
     shortName: 'UpdateSyrupUSDCLiquidationProtocolFee',
     date: '20260130',
     discussion:
-      'https://governance.aave.com/t/direct-to-aip-update-syrupusdc-liquidation-protocol-fee-on-aave-v3-base-instance/23962',
+      'https://governance.aave.com/t/direct-to-aip-update-syrupusdc-liquidation-protocol-fee-on-aave-v3-base-instance/23963',
     snapshot: 'direct-to-aip',
     votingNetwork: 'AVALANCHE',
   },

@@ -8,7 +8,7 @@ import {AaveV3Base, AaveV3BaseAssets} from 'aave-address-book/AaveV3Base.sol';
  * @title Update syrupUSDC liquidation protocol fee
  * @author Aavechan Initiative @aci
  * - Snapshot: direct-to-aip
- * - Discussion: https://governance.aave.com/t/direct-to-aip-update-syrupusdc-liquidation-protocol-fee-on-aave-v3-base-instance/23962
+ * - Discussion: https://governance.aave.com/t/direct-to-aip-update-syrupusdc-liquidation-protocol-fee-on-aave-v3-base-instance/23963
  */
 contract AaveV3Base_UpdateSyrupUSDCLiquidationProtocolFee_20260130 is IProposalGenericExecutor {
   function execute() external {
