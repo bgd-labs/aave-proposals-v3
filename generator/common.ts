@@ -18,6 +18,7 @@ import {
   soneium,
   ink,
   plasma,
+  mantle,
   megaeth,
 } from 'viem/chains';
 import {Hex, getAddress} from 'viem';
@@ -43,6 +44,7 @@ export const AVAILABLE_CHAINS = [
   'Soneium',
   'Ink',
   'Plasma',
+  'Mantle',
   'MegaEth',
 ] as const;
 
@@ -161,6 +163,7 @@ export const CHAIN_TO_CHAIN_ID = {
   Soneium: soneium.id,
   Ink: ink.id,
   Plasma: plasma.id,
+  Mantle: mantle.id,
   MegaEth: megaeth.id,
 };
 
