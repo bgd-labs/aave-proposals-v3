@@ -78,14 +78,14 @@ The table below illustrates the configured risk parameters for the assets to be 
 
 **USDe Stablecoins [EModeId: 2]**
 
-| **Parameter**         |        |       |      |
-| --------------------- | ------ | ----- | ---- |
-| Asset                 | USDe   | USDT0 | USDC |
-| Collateral            | Yes    | No    | No   |
-| Borrowable            | No     | Yes   | Yes  |
-| Max LTV               | 90.00% | -     | -    |
-| Liquidation Threshold | 93.00% | -     | -    |
-| Liquidation Bonus     | 2.00%  | -     | -    |
+| **Parameter**         |        |       |      |     |
+| --------------------- | ------ | ----- | ---- | --- |
+| Asset                 | USDe   | USDT0 | USDC | GHO |
+| Collateral            | Yes    | No    | No   | No  |
+| Borrowable            | No     | Yes   | Yes  | Yes |
+| Max LTV               | 90.00% | -     | -    | -   |
+| Liquidation Threshold | 93.00% | -     | -    | -   |
+| Liquidation Bonus     | 2.00%  | -     | -    | -   |
 
 **fBTC Stablecoins [EModeId: 3]**
 
@@ -100,14 +100,14 @@ The table below illustrates the configured risk parameters for the assets to be 
 
 **syrupUSDT Stablecoins [EModeId: 4]**
 
-| **Parameter**         |           |       |      |
-| --------------------- | --------- | ----- | ---- |
-| Asset                 | syrupUSDT | USDT0 | USDC |
-| Collateral            | Yes       | No    | No   |
-| Borrowable            | No        | Yes   | Yes  |
-| Max LTV               | 90.00%    | -     | -    |
-| Liquidation Threshold | 92.00%    | -     | -    |
-| Liquidation Bonus     | 4.00%     | -     | -    |
+| **Parameter**         |           |       |      |     |
+| --------------------- | --------- | ----- | ---- | --- |
+| Asset                 | syrupUSDT | USDT0 | USDC | GHO |
+| Collateral            | Yes       | No    | No   | No  |
+| Borrowable            | No        | Yes   | Yes  | Yes |
+| Max LTV               | 90.00%    | -     | -    | -   |
+| Liquidation Threshold | 92.00%    | -     | -    | -   |
+| Liquidation Bonus     | 4.00%     | -     | -    | -   |
 
 **wrsETH Correlated [EModeId: 5]**
 
@@ -128,8 +128,8 @@ The table below illustrates the configured risk parameters for the assets to be 
 
 ## References
 
-- Implementation: [AaveV3Mantle](https://github.com/bgd-labs/aave-proposals-v3/blob/97d03b1a38a07f810c02587472ec7b9430ec8fb4/src/20260117_AaveV3Mantle_AaveV36MantleActivation/AaveV3Mantle_AaveV36MantleActivation_20260117.sol)
-- Tests: [AaveV3Mantle](https://github.com/bgd-labs/aave-proposals-v3/blob/97d03b1a38a07f810c02587472ec7b9430ec8fb4/src/20260117_AaveV3Mantle_AaveV36MantleActivation/AaveV3Mantle_AaveV36MantleActivation_20260117.t.sol)
+- Implementation: [AaveV3Mantle](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20260117_AaveV3Mantle_AaveV36MantleActivation/AaveV3Mantle_AaveV36MantleActivation_20260117.sol)
+- Tests: [AaveV3Mantle](https://github.com/bgd-labs/aave-proposals-v3/blob/main/src/20260117_AaveV3Mantle_AaveV36MantleActivation/AaveV3Mantle_AaveV36MantleActivation_20260117.t.sol)
 - [Snapshot](https://snapshot.org/#/s:aavedao.eth/proposal/0x2f9378770f1838f0ea8d483239af1530c9fbea98d648e0b11e4647dcb722d119)
 - [Discussion](https://governance.aave.com/t/arfc-deploy-aave-v3-on-mantle/20542/12)
 
