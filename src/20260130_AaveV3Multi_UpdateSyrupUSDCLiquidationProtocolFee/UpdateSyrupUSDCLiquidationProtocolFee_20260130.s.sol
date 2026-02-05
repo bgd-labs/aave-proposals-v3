@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aave-helpers/src/GovV3Helpers.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 
-import {EthereumScript, BaseScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
+import {EthereumScript, BaseScript, EthereumScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
 import {AaveV3Base_UpdateSyrupUSDCLiquidationProtocolFee_20260130} from './AaveV3Base_UpdateSyrupUSDCLiquidationProtocolFee_20260130.sol';
 import {AaveV3Ethereum_UpdateSyrupUSDCLiquidationProtocolFee_20260130} from './AaveV3Ethereum_UpdateSyrupUSDCLiquidationProtocolFee_20260130.sol';
 
@@ -13,7 +13,7 @@ import {AaveV3Ethereum_UpdateSyrupUSDCLiquidationProtocolFee_20260130} from './A
  * deploy-command: make deploy-ledger contract=src/20260130_AaveV3Multi_UpdateSyrupUSDCLiquidationProtocolFee/UpdateSyrupUSDCLiquidationProtocolFee_20260130.s.sol:DeployEthereum chain=mainnet
  * verify-command: FOUNDRY_PROFILE=deploy npx catapulta-verify -b broadcast/UpdateSyrupUSDCLiquidationProtocolFee_20260130.s.sol/8453/run-latest.json
  */
-contract DeployEthereum is BaseScript {
+contract DeployEthereum is EthereumScript {
   function run() external broadcast {
     // deploy payloads
     address payload0 = GovV3Helpers.deployDeterministic(
@@ -68,7 +68,7 @@ contract CreateProposal is EthereumScript {
       actionsEthereum[0] = GovV3Helpers.buildAction(
         type(AaveV3Ethereum_UpdateSyrupUSDCLiquidationProtocolFee_20260130).creationCode
       );
-      payloads[0] = GovV3Helpers.buildBasePayload(vm, actionsEthereum);
+      payloads[0] = GovV3Helpers.buildMainnetPayload(vm, actionsEthereum);
     }
 
     {
@@ -88,7 +88,7 @@ contract CreateProposal is EthereumScript {
       GovernanceV3Ethereum.VOTING_PORTAL_ETH_AVAX,
       GovV3Helpers.ipfsHashFile(
         vm,
-        'src/20260130_AaveV3Base_UpdateSyrupUSDCLiquidationProtocolFee/UpdateSyrupUSDCLiquidationProtocolFee.md'
+        'src/20260130_AaveV3Multi_UpdateSyrupUSDCLiquidationProtocolFee/UpdateSyrupUSDCLiquidationProtocolFee.md'
       )
     );
   }
