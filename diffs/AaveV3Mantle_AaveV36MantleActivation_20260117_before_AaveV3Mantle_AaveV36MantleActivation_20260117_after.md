@@ -408,7 +408,7 @@
 | ltv | 0 % [0] |
 | liquidationThreshold | 0 % [0] |
 | liquidationBonus | 0 % |
-| liquidationProtocolFee | 10 % [1000] |
+| liquidationProtocolFee | 0 % [0] |
 | reserveFactor | 10 % [1000] |
 | aToken | [0x8917d4eE4609f991b559DAF8D0aD1b892c13B127](https://mantlescan.xyz//address/0x8917d4eE4609f991b559DAF8D0aD1b892c13B127) |
 | variableDebtToken | [0xeE1eABe23fA42028809F587B8fE1936b154d2620](https://mantlescan.xyz//address/0xeE1eABe23fA42028809F587B8fE1936b154d2620) |
@@ -922,7 +922,7 @@
         "isPaused": false,
         "isSiloed": false,
         "liquidationBonus": 0,
-        "liquidationProtocolFee": 1000,
+        "liquidationProtocolFee": 0,
         "liquidationThreshold": 0,
         "ltv": 0,
         "oracle": "0x360d8aa8F6b09B7BC57aF34db2Eb84dD87bf4d12",
@@ -1647,7 +1647,7 @@
         },
         "0xd65dfe8da0b5a761df1b1a8535b7c5e4a8bdd40bd305a11fa569ad02c896b907": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
-          "newValue": "0x100000000000000000000003e8001312d0000112a88003e8a512000000000000"
+          "newValue": "0x10000000000000000000000000001312d0000112a88003e8a512000000000000"
         },
         "0xd65dfe8da0b5a761df1b1a8535b7c5e4a8bdd40bd305a11fa569ad02c896b908": {
           "previousValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
