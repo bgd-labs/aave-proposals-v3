@@ -20,6 +20,8 @@ This Direct to AIP will update the Liquidation Protocol fee from 0 to 10%.
 
 Update the Liquidation Protocol Fee from 0% to 10% for SyrupUSDC on Aave V3 Base Instance.
 
+We will also batch with this AIP a correction of last PT srUSDCe e-mode labels.
+
 ## Useful Links
 
 [**[Direct to AIP] Onboard syrupUSDC to Aave V3 Base Instance**](https://governance.aave.com/t/direct-to-aip-onboard-syrupusdc-to-aave-v3-base-instance/23234)
