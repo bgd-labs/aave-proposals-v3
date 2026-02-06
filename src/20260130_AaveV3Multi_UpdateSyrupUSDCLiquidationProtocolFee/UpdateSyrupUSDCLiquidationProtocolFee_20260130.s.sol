@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 import {GovV3Helpers, IPayloadsControllerCore, PayloadsControllerUtils} from 'aave-helpers/src/GovV3Helpers.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 
-import {EthereumScript, BaseScript, EthereumScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
+import {EthereumScript, BaseScript} from 'solidity-utils/contracts/utils/ScriptUtils.sol';
 import {AaveV3Base_UpdateSyrupUSDCLiquidationProtocolFee_20260130} from './AaveV3Base_UpdateSyrupUSDCLiquidationProtocolFee_20260130.sol';
 import {AaveV3Ethereum_UpdateSyrupUSDCLiquidationProtocolFee_20260130} from './AaveV3Ethereum_UpdateSyrupUSDCLiquidationProtocolFee_20260130.sol';
 
@@ -77,7 +77,7 @@ contract CreateProposal is EthereumScript {
       actionsBase[0] = GovV3Helpers.buildAction(
         type(AaveV3Base_UpdateSyrupUSDCLiquidationProtocolFee_20260130).creationCode
       );
-      payloads[0] = GovV3Helpers.buildBasePayload(vm, actionsBase);
+      payloads[1] = GovV3Helpers.buildBasePayload(vm, actionsBase);
     }
 
     // create proposal

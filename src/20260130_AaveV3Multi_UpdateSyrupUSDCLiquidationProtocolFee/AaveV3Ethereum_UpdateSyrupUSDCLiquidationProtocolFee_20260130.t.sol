@@ -12,7 +12,7 @@ import {AaveV3Ethereum_ListingPTEthenaMay_20260129} from '../20260129_AaveV3Ethe
 import {AaveV3Ethereum_OnboardStrataSrUSDePTTokensToV3CoreInstance_20260120} from '../20260120_AaveV3Ethereum_OnboardStrataSrUSDePTTokensToV3CoreInstance/AaveV3Ethereum_OnboardStrataSrUSDePTTokensToV3CoreInstance_20260120.sol';
 
 /**
- * @dev Test for AaveV3Ethereum_Test_20260204
+ * @dev Test for AaveV3Ethereum_UpdateSyrupUSDCLiquidationProtocolFee_20260130_Test
  * command: FOUNDRY_PROFILE=test forge test --match-path=src/20260130_AaveV3Multi_UpdateSyrupUSDCLiquidationProtocolFee/AaveV3Ethereum_UpdateSyrupUSDCLiquidationProtocolFee_20260130.t.sol -vv
  */
 contract AaveV3Ethereum_UpdateSyrupUSDCLiquidationProtocolFee_20260130_Test is ProtocolV3TestBase {
