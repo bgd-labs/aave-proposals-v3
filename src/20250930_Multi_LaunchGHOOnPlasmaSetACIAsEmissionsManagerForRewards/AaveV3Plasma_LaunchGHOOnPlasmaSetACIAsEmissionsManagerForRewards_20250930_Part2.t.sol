@@ -16,15 +16,9 @@ import {IGsm} from 'src/interfaces/IGsm.sol';
 import {IGsmFeeStrategy} from 'src/interfaces/IGsmFeeStrategy.sol';
 import {IGsmRegistry} from 'src/interfaces/IGsmRegistry.sol';
 import {IGsmSteward} from 'src/interfaces/IGsmSteward.sol';
+import {IGhoReserve} from 'src/interfaces/IGhoReserve.sol';
 
 import {AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_20250930_Part2} from './AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_20250930_Part2.sol';
-
-interface IGhoReserve {
-  function addEntity(address entity) external;
-  function getLimit(address entity) external view returns (uint256);
-  function setLimit(address entity, uint256 limit) external;
-  function totalEntities() external view returns (uint256);
-}
 
 /**
  * @dev Test for AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_20250930_Part2
@@ -122,7 +116,7 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
     GsmConfig memory gsmUsdtConfig = GsmConfig({
       sellFee: 0, // 0%
       buyFee: 0.001e4, // 0.2%
-      exposureCap: 45_000_000e6,
+      exposureCap: proposal.INITIAL_EXPOSURE_CAP(),
       isFrozen: false,
       isSeized: false,
       freezerCanUnfreeze: true,
@@ -310,6 +304,15 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
     // GHO Steward
     assertTrue(
       gsm.hasRole(gsm.CONFIGURATOR_ROLE(), proposal.GHO_GSM_STEWARD()),
+      'Gho Steward not configured'
+    );
+
+    // Risk Council can update draw limit
+    assertTrue(
+      IGhoReserve(proposal.GHO_RESERVE()).hasRole(
+        IGhoReserve(proposal.GHO_RESERVE()).LIMIT_MANAGER_ROLE(),
+        GhoPlasma.RISK_COUNCIL
+      ),
       'Gho Steward not configured'
     );
   }

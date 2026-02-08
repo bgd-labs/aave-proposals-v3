@@ -43,6 +43,7 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
 
   // Capacities
   uint128 public constant RESERVE_LIMIT_GSM_USDT = 50_000_000 ether;
+  uint128 public constant INITIAL_EXPOSURE_CAP = 10_000_000e6;
 
   // https://plasmascan.to/address/0x86992b2E2385E478dd2eeBfaE06369636e0a64E8
   address public constant GHO_GSM_STEWARD = 0x86992b2E2385E478dd2eeBfaE06369636e0a64E8;
@@ -78,6 +79,10 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
     IGsm(NEW_GSM_USDT).updateGhoReserve(GHO_RESERVE);
 
     // Enroll GSMs as entities and set limit
+    IGhoReserve(GHO_RESERVE).grantRole(
+      IGhoReserve(GHO_RESERVE).LIMIT_MANAGER_ROLE(),
+      GhoPlasma.RISK_COUNCIL
+    );
     IGhoReserve(GHO_RESERVE).addEntity(NEW_GSM_USDT);
     IGhoReserve(GHO_RESERVE).setLimit(NEW_GSM_USDT, RESERVE_LIMIT_GSM_USDT);
 
@@ -90,6 +95,9 @@ contract AaveV3Plasma_LaunchGHOOnPlasmaSetACIAsEmissionsManagerForRewards_202509
 
     // GHO GSM Steward
     IGsm(NEW_GSM_USDT).grantRole(IGsm(NEW_GSM_USDT).CONFIGURATOR_ROLE(), GHO_GSM_STEWARD);
+
+    // Update deployed exposure cap to initial
+    IGsm(NEW_GSM_USDT).updateExposureCap(INITIAL_EXPOSURE_CAP);
   }
 
   function _postExecute() internal override {

@@ -146,13 +146,15 @@ Configure stataUSDT RemoteGSM as an entity with a draw capacity of 50M GHO.
 | Parameter              | Value  |
 | ---------------------- | ------ |
 | GHO Cap                | 50M    |
-| stataUSDT Exposure Cap | 45M    |
+| stataUSDT Exposure Cap | 10M    |
 | Freeze Lower Bound     | $0.990 |
 | Freeze Upper Bound     | $1.010 |
 | Unfreeze Lower Bound   | $0.995 |
 | Unfreeze Upper Bound   | $1.005 |
 | Mint GHO Fee           | 0.00%  |
 | Burn GHO Fee           | 0.10%  |
+
+In order to not allow arbitrageurs to move GHO immediately from Plasma to Mainnet, the exposure cap will initially be 10M and as Gho and USDT pegs stabilize, the risk council will gradually bring the exposure cap to 45M as originally planned.
 
 ### GHO Steward Configuration
 
