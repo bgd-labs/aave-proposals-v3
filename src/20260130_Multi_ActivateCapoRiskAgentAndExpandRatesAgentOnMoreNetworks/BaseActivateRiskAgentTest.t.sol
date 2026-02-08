@@ -6,7 +6,7 @@ import {IACLManager} from 'aave-v3-origin/contracts/interfaces/IACLManager.sol';
 import {IPoolDataProvider} from 'aave-v3-origin/contracts/interfaces/IPoolDataProvider.sol';
 import {ProtocolV3TestBase, GovV3Helpers} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 
-import {IAaveCLRobotOperator} from './AaveV3Ethereum_ActivateCapoRiskAgentAndExpandRatesAgentOnMoreNetworks_20260130.sol';
+import {IAaveCLRobotOperator} from '../interfaces/IAaveCLRobotOperator.sol';
 import {AutomationCompatibleInterface} from '../interfaces/AutomationCompatibleInterface.sol';
 import {IBaseAaveAgent} from '../interfaces/IBaseAaveAgent.sol';
 import {IAgentHub} from '../interfaces/IAgentHub.sol';

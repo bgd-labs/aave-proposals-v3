@@ -5,12 +5,10 @@ import {AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
 import {AaveV3EthereumLido} from 'aave-address-book/AaveV3EthereumLido.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
 import {GovV3Helpers} from 'aave-helpers/src/ProtocolV3TestBase.sol';
-import {IPool} from 'aave-v3-origin/contracts/interfaces/IPool.sol';
-import {IACLManager} from 'aave-v3-origin/contracts/interfaces/IACLManager.sol';
-import {IPoolDataProvider} from 'aave-v3-origin/contracts/interfaces/IPoolDataProvider.sol';
 import {SafeCast} from 'openzeppelin-contracts/contracts/utils/math/SafeCast.sol';
 
-import {AaveV3Ethereum_ActivateCapoRiskAgentAndExpandRatesAgentOnMoreNetworks_20260130, IRangeValidationModule} from './AaveV3Ethereum_ActivateCapoRiskAgentAndExpandRatesAgentOnMoreNetworks_20260130.sol';
+import {AaveV3Ethereum_ActivateCapoRiskAgentAndExpandRatesAgentOnMoreNetworks_20260130} from './AaveV3Ethereum_ActivateCapoRiskAgentAndExpandRatesAgentOnMoreNetworks_20260130.sol';
+import {IRangeValidationModule} from '../interfaces/IRangeValidationModule.sol';
 import {IRiskOracle} from '../interfaces/IRiskOracle.sol';
 import {IPriceCapAdapter} from '../interfaces/IPriceCapAdapter.sol';
 import {BaseActivateRiskAgentTest} from './BaseActivateRiskAgentTest.t.sol';
@@ -34,11 +32,9 @@ contract AaveV3Ethereum_ActivateCapoRiskAgentAndExpandRatesAgentOnMoreNetworks_2
   function _getConfig() internal view override returns (TestConfig memory) {
     return
       TestConfig({
-        pool: IPool(address(AaveV3Ethereum.POOL)),
-        aclManager: IACLManager(address(AaveV3Ethereum.ACL_MANAGER)),
-        protocolDataProvider: IPoolDataProvider(
-          address(AaveV3Ethereum.AAVE_PROTOCOL_DATA_PROVIDER)
-        ),
+        pool: AaveV3Ethereum.POOL,
+        aclManager: AaveV3Ethereum.ACL_MANAGER,
+        protocolDataProvider: AaveV3Ethereum.AAVE_PROTOCOL_DATA_PROVIDER,
         agentHub: MiscEthereum.AGENT_HUB,
         rangeValidationModule: MiscEthereum.RANGE_VALIDATION_MODULE,
         agentHubAutomation: MiscEthereum.AGENT_HUB_AUTOMATION,
@@ -47,14 +43,14 @@ contract AaveV3Ethereum_ActivateCapoRiskAgentAndExpandRatesAgentOnMoreNetworks_2
         proposal: address(proposal),
         riskAgent: proposal.CAPO_AGENT(),
         linkAmount: proposal.LINK_AMOUNT(),
-        assetsToEnable: proposal.getAssetsToEnableForCapoAgent(),
+        assetsToEnable: proposal.getAllowedMarkets(),
         testName: 'AaveV3Ethereum_ActivateCapoRiskAgentAndExpandRatesAgentOnMoreNetworks_20260130',
         agentId: 4,
         updateType: 'CapoPriceCapUpdate_Core'
       });
   }
 
-  // Override: Ethereum checks both Core and Lido ACL managers
+  // Ethereum checks both Core and Lido ACL managers
   function test_riskAdminRole() public override {
     TestConfig memory config = _getConfig();
     address agentContract = config.riskAgent;

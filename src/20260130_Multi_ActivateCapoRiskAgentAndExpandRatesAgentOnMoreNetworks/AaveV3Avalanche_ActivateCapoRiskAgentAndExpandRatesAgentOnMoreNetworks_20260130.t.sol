@@ -3,9 +3,6 @@ pragma solidity ^0.8.0;
 
 import {AaveV3Avalanche} from 'aave-address-book/AaveV3Avalanche.sol';
 import {MiscAvalanche} from 'aave-address-book/MiscAvalanche.sol';
-import {IPool} from 'aave-v3-origin/contracts/interfaces/IPool.sol';
-import {IACLManager} from 'aave-v3-origin/contracts/interfaces/IACLManager.sol';
-import {IPoolDataProvider} from 'aave-v3-origin/contracts/interfaces/IPoolDataProvider.sol';
 
 import {AaveV3Avalanche_ActivateCapoRiskAgentAndExpandRatesAgentOnMoreNetworks_20260130} from './AaveV3Avalanche_ActivateCapoRiskAgentAndExpandRatesAgentOnMoreNetworks_20260130.sol';
 import {BaseActivateRatesRiskAgentTest} from './BaseActivateRatesRiskAgentTest.t.sol';
@@ -27,20 +24,18 @@ contract AaveV3Avalanche_ActivateCapoRiskAgentAndExpandRatesAgentOnMoreNetworks_
   function _getConfig() internal view override returns (TestConfig memory) {
     return
       TestConfig({
-        pool: IPool(address(AaveV3Avalanche.POOL)),
-        aclManager: IACLManager(address(AaveV3Avalanche.ACL_MANAGER)),
-        protocolDataProvider: IPoolDataProvider(
-          address(AaveV3Avalanche.AAVE_PROTOCOL_DATA_PROVIDER)
-        ),
+        pool: AaveV3Avalanche.POOL,
+        aclManager: AaveV3Avalanche.ACL_MANAGER,
+        protocolDataProvider: AaveV3Avalanche.AAVE_PROTOCOL_DATA_PROVIDER,
         agentHub: MiscAvalanche.AGENT_HUB,
         rangeValidationModule: MiscAvalanche.RANGE_VALIDATION_MODULE,
         agentHubAutomation: MiscAvalanche.AGENT_HUB_AUTOMATION,
         robotOperator: MiscAvalanche.AAVE_CL_ROBOT_OPERATOR,
-        edgeRiskOracle: address(AaveV3Avalanche.EDGE_RISK_ORACLE),
+        edgeRiskOracle: AaveV3Avalanche.EDGE_RISK_ORACLE,
         proposal: address(proposal),
         riskAgent: proposal.RATES_AGENT(),
         linkAmount: proposal.LINK_AMOUNT(),
-        assetsToEnable: proposal.getAssetsToEnableForRatesAgent(),
+        assetsToEnable: proposal.getAllowedMarkets(),
         testName: 'AaveV3Avalanche_ActivateCapoRiskAgentAndExpandRatesAgentOnMoreNetworks_20260130',
         agentId: 2,
         updateType: 'RateStrategyUpdate'

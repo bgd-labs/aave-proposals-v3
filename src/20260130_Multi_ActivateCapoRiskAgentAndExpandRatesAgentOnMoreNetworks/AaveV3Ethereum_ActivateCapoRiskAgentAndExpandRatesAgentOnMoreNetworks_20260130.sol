@@ -1,19 +1,13 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {IProposalGenericExecutor} from 'aave-helpers/src/interfaces/IProposalGenericExecutor.sol';
 import {GovernanceV3Ethereum} from 'aave-address-book/GovernanceV3Ethereum.sol';
 import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
 import {AaveV3EthereumLido} from 'aave-address-book/AaveV3EthereumLido.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
-import {ICollector, CollectorUtils} from 'aave-helpers/src/CollectorUtils.sol';
-import {IERC20} from 'openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
-import {SafeERC20} from 'openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol';
-import {SafeCast} from 'openzeppelin-contracts/contracts/utils/math/SafeCast.sol';
 
-import {IAaveCLRobotOperator} from '../interfaces/IAaveCLRobotOperator.sol';
-import {IAgentHub, IAgentConfigurator} from '../interfaces/IAgentHub.sol';
 import {IRangeValidationModule} from '../interfaces/IRangeValidationModule.sol';
+import {BaseActivateRiskAgentPayload} from './BaseActivateRiskAgentPayload.sol';
 
 /**
  * @title Activate Capo Risk Agent and expand Rates Agent on more networks
@@ -22,88 +16,12 @@ import {IRangeValidationModule} from '../interfaces/IRangeValidationModule.sol';
  * - Discussion: https://governance.aave.com/t/arfc-dynamic-calibration-of-capo-parameters-via-risk-oracles/22601
  */
 contract AaveV3Ethereum_ActivateCapoRiskAgentAndExpandRatesAgentOnMoreNetworks_20260130 is
-  IProposalGenericExecutor
+  BaseActivateRiskAgentPayload
 {
-  using CollectorUtils for ICollector;
-  using SafeERC20 for IERC20;
-  using SafeCast for uint256;
-
   address public constant CAPO_AGENT = 0xCc18Be380838956aad41FD22466085eD66aaBB46;
   uint96 public constant LINK_AMOUNT = 200 ether;
 
-  function execute() external {
-    // 1. register agent on the agent-hub
-    uint256 agentId = IAgentHub(MiscEthereum.AGENT_HUB).registerAgent(
-      IAgentConfigurator.AgentRegistrationInput({
-        admin: GovernanceV3Ethereum.EXECUTOR_LVL_1,
-        riskOracle: AaveV3Ethereum.EDGE_RISK_ORACLE,
-        isAgentEnabled: true,
-        isAgentPermissioned: false,
-        isMarketsFromAgentEnabled: false,
-        agentAddress: CAPO_AGENT,
-        expirationPeriod: 3 days,
-        minimumDelay: 3 days,
-        updateType: 'CapoPriceCapUpdate_Core',
-        agentContext: '',
-        allowedMarkets: getAssetsToEnableForCapoAgent(),
-        restrictedMarkets: new address[](0), // default
-        permissionedSenders: new address[](0) // default
-      })
-    );
-
-    // 2. configure range on the range-validation-module
-    IRangeValidationModule(MiscEthereum.RANGE_VALIDATION_MODULE).setDefaultRangeConfig(
-      MiscEthereum.AGENT_HUB,
-      agentId,
-      'CapoSnapshotRatio',
-      IRangeValidationModule.RangeConfig({
-        maxIncrease: 3_00, // 3%
-        maxDecrease: 3_00, // 3%
-        isIncreaseRelative: true,
-        isDecreaseRelative: true
-      })
-    );
-    IRangeValidationModule(MiscEthereum.RANGE_VALIDATION_MODULE).setDefaultRangeConfig(
-      MiscEthereum.AGENT_HUB,
-      agentId,
-      'CapoMaxYearlyGrowthRatePercent',
-      IRangeValidationModule.RangeConfig({
-        maxIncrease: 10_00, // 10%
-        maxDecrease: 10_00, // 10%
-        isIncreaseRelative: true,
-        isDecreaseRelative: true
-      })
-    );
-
-    // 3. give permissions to new agent contracts
-    AaveV3Ethereum.ACL_MANAGER.addRiskAdmin(CAPO_AGENT);
-    AaveV3EthereumLido.ACL_MANAGER.addRiskAdmin(CAPO_AGENT); // as on ezETH we're using same capo on lido and core
-
-    // 4. register new automation for the chaos-agents
-    uint256 linkAmount = AaveV3Ethereum.COLLECTOR.withdrawFromV3(
-      CollectorUtils.IOInput({
-        pool: address(AaveV3Ethereum.POOL),
-        underlying: AaveV3EthereumAssets.LINK_UNDERLYING,
-        amount: LINK_AMOUNT
-      }),
-      address(this)
-    );
-    IERC20(AaveV3EthereumAssets.LINK_UNDERLYING).forceApprove(
-      MiscEthereum.AAVE_CL_ROBOT_OPERATOR,
-      linkAmount
-    );
-    IAaveCLRobotOperator(MiscEthereum.AAVE_CL_ROBOT_OPERATOR).register(
-      'Core Capo Agent', // name
-      MiscEthereum.AGENT_HUB_AUTOMATION, // upkeepContract
-      _encodeAgentIdToBytes(agentId), // upkeepCheckData
-      5_000_000, // gasLimit
-      linkAmount.toUint96(), // amountToFund
-      0, // triggerType
-      '' // triggerConfig
-    );
-  }
-
-  function getAssetsToEnableForCapoAgent() public pure returns (address[] memory) {
+  function getAllowedMarkets() public pure override returns (address[] memory) {
     address[] memory markets = new address[](14);
     markets[0] = AaveV3EthereumAssets.wstETH_UNDERLYING;
     markets[1] = AaveV3EthereumAssets.weETH_UNDERLYING;
@@ -123,9 +41,61 @@ contract AaveV3Ethereum_ActivateCapoRiskAgentAndExpandRatesAgentOnMoreNetworks_2
     return markets;
   }
 
-  function _encodeAgentIdToBytes(uint256 agentId) internal pure returns (bytes memory) {
-    uint256[] memory agentIds = new uint256[](1);
-    agentIds[0] = agentId;
-    return abi.encode(agentIds);
+  function _getConfig() internal pure override returns (PayloadConfig memory) {
+    return
+      PayloadConfig({
+        admin: GovernanceV3Ethereum.EXECUTOR_LVL_1,
+        riskOracle: AaveV3Ethereum.EDGE_RISK_ORACLE,
+        agentAddress: CAPO_AGENT,
+        expirationPeriod: 3 days,
+        minimumDelay: 3 days,
+        updateType: 'CapoPriceCapUpdate_Core',
+        agentContext: '',
+        agentHub: MiscEthereum.AGENT_HUB,
+        rangeValidationModule: MiscEthereum.RANGE_VALIDATION_MODULE,
+        robotOperator: MiscEthereum.AAVE_CL_ROBOT_OPERATOR,
+        agentHubAutomation: MiscEthereum.AGENT_HUB_AUTOMATION,
+        linkToken: AaveV3EthereumAssets.LINK_UNDERLYING,
+        linkAmount: LINK_AMOUNT,
+        withdrawLinkFromCollector: true,
+        pool: AaveV3Ethereum.POOL,
+        collector: AaveV3Ethereum.COLLECTOR,
+        automationName: 'Core Capo Agent'
+      });
+  }
+
+  function _configureRangeValidation(
+    address rangeValidationModule,
+    address agentHub,
+    uint256 agentId
+  ) internal override {
+    IRangeValidationModule(rangeValidationModule).setDefaultRangeConfig(
+      agentHub,
+      agentId,
+      'CapoSnapshotRatio',
+      IRangeValidationModule.RangeConfig({
+        maxIncrease: 3_00, // 3%
+        maxDecrease: 3_00, // 3%
+        isIncreaseRelative: true,
+        isDecreaseRelative: true
+      })
+    );
+    IRangeValidationModule(rangeValidationModule).setDefaultRangeConfig(
+      agentHub,
+      agentId,
+      'CapoMaxYearlyGrowthRatePercent',
+      IRangeValidationModule.RangeConfig({
+        maxIncrease: 10_00, // 10%
+        maxDecrease: 10_00, // 10%
+        isIncreaseRelative: true,
+        isDecreaseRelative: true
+      })
+    );
+  }
+
+  // Ethereum grants risk admin to both Core and Lido ACL managers as on ezETH we're using same capo on lido and core
+  function _grantRiskAdminPermissions(address agentAddress) internal override {
+    AaveV3Ethereum.ACL_MANAGER.addRiskAdmin(agentAddress);
+    AaveV3EthereumLido.ACL_MANAGER.addRiskAdmin(agentAddress);
   }
 }

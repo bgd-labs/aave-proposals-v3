@@ -3,9 +3,6 @@ pragma solidity ^0.8.0;
 
 import {AaveV3Arbitrum} from 'aave-address-book/AaveV3Arbitrum.sol';
 import {MiscArbitrum} from 'aave-address-book/MiscArbitrum.sol';
-import {IPool} from 'aave-v3-origin/contracts/interfaces/IPool.sol';
-import {IACLManager} from 'aave-v3-origin/contracts/interfaces/IACLManager.sol';
-import {IPoolDataProvider} from 'aave-v3-origin/contracts/interfaces/IPoolDataProvider.sol';
 
 import {AaveV3Arbitrum_ActivateCapoRiskAgentAndExpandRatesAgentOnMoreNetworks_20260130} from './AaveV3Arbitrum_ActivateCapoRiskAgentAndExpandRatesAgentOnMoreNetworks_20260130.sol';
 import {ArbSys} from '../interfaces/ArbSys.sol';
@@ -41,20 +38,18 @@ contract AaveV3Arbitrum_ActivateCapoRiskAgentAndExpandRatesAgentOnMoreNetworks_2
   function _getConfig() internal view override returns (TestConfig memory) {
     return
       TestConfig({
-        pool: IPool(address(AaveV3Arbitrum.POOL)),
-        aclManager: IACLManager(address(AaveV3Arbitrum.ACL_MANAGER)),
-        protocolDataProvider: IPoolDataProvider(
-          address(AaveV3Arbitrum.AAVE_PROTOCOL_DATA_PROVIDER)
-        ),
+        pool: AaveV3Arbitrum.POOL,
+        aclManager: AaveV3Arbitrum.ACL_MANAGER,
+        protocolDataProvider: AaveV3Arbitrum.AAVE_PROTOCOL_DATA_PROVIDER,
         agentHub: MiscArbitrum.AGENT_HUB,
         rangeValidationModule: MiscArbitrum.RANGE_VALIDATION_MODULE,
         agentHubAutomation: MiscArbitrum.AGENT_HUB_AUTOMATION,
         robotOperator: MiscArbitrum.AAVE_CL_ROBOT_OPERATOR,
-        edgeRiskOracle: address(AaveV3Arbitrum.EDGE_RISK_ORACLE),
+        edgeRiskOracle: AaveV3Arbitrum.EDGE_RISK_ORACLE,
         proposal: address(proposal),
         riskAgent: proposal.RATES_AGENT(),
         linkAmount: proposal.LINK_AMOUNT(),
-        assetsToEnable: proposal.getAssetsToEnableForRatesAgent(),
+        assetsToEnable: proposal.getAllowedMarkets(),
         testName: 'AaveV3Arbitrum_ActivateCapoRiskAgentAndExpandRatesAgentOnMoreNetworks_20260130',
         agentId: 2,
         updateType: 'RateStrategyUpdate'

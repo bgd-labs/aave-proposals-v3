@@ -5,7 +5,7 @@ import {IDefaultInterestRateStrategyV2} from 'aave-v3-origin/contracts/interface
 import {IAaveV3ConfigEngine as IEngine} from 'aave-v3-origin/contracts/extensions/v3-config-engine/IAaveV3ConfigEngine.sol';
 import {GovV3Helpers} from 'aave-helpers/src/ProtocolV3TestBase.sol';
 
-import {IRangeValidationModule} from './AaveV3Ethereum_ActivateCapoRiskAgentAndExpandRatesAgentOnMoreNetworks_20260130.sol';
+import {IRangeValidationModule} from '../interfaces/IRangeValidationModule.sol';
 import {IRiskOracle} from '../interfaces/IRiskOracle.sol';
 import {BaseActivateRiskAgentTest} from './BaseActivateRiskAgentTest.t.sol';
 
