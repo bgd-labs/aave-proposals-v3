@@ -1,121 +1,109 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {AaveV3Ethereum, AaveV3EthereumAssets} from 'aave-address-book/AaveV3Ethereum.sol';
+import {AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
 import {AaveV3EthereumLido} from 'aave-address-book/AaveV3EthereumLido.sol';
 import {MiscEthereum} from 'aave-address-book/MiscEthereum.sol';
-import {ProtocolV3TestBase, GovV3Helpers} from 'aave-helpers/src/ProtocolV3TestBase.sol';
+import {GovV3Helpers} from 'aave-helpers/src/ProtocolV3TestBase.sol';
+import {IPool} from 'aave-v3-origin/contracts/interfaces/IPool.sol';
+import {IACLManager} from 'aave-v3-origin/contracts/interfaces/IACLManager.sol';
+import {IPoolDataProvider} from 'aave-v3-origin/contracts/interfaces/IPoolDataProvider.sol';
 import {SafeCast} from 'openzeppelin-contracts/contracts/utils/math/SafeCast.sol';
 
-import {AaveV3Ethereum_ActivateCapoRiskAgentAndExpandRatesAgentOnMoreNetworks_20260130, IRangeValidationModule, IAaveCLRobotOperator} from './AaveV3Ethereum_ActivateCapoRiskAgentAndExpandRatesAgentOnMoreNetworks_20260130.sol';
-import {AutomationCompatibleInterface} from '../interfaces/AutomationCompatibleInterface.sol';
+import {AaveV3Ethereum_ActivateCapoRiskAgentAndExpandRatesAgentOnMoreNetworks_20260130, IRangeValidationModule} from './AaveV3Ethereum_ActivateCapoRiskAgentAndExpandRatesAgentOnMoreNetworks_20260130.sol';
 import {IRiskOracle} from '../interfaces/IRiskOracle.sol';
 import {IPriceCapAdapter} from '../interfaces/IPriceCapAdapter.sol';
-import {IAgentHub} from '../interfaces/IAgentHub.sol';
-import {IBaseAaveAgent} from '../interfaces/IBaseAaveAgent.sol';
+import {BaseActivateRiskAgentTest} from './BaseActivateRiskAgentTest.t.sol';
 
 /**
  * @dev Test for AaveV3Ethereum_ActivateCapoRiskAgentAndExpandRatesAgentOnMoreNetworks_20260130
  * command: FOUNDRY_PROFILE=test forge test --match-path=src/20260130_Multi_ActivateCapoRiskAgentAndExpandRatesAgentOnMoreNetworks/AaveV3Ethereum_ActivateCapoRiskAgentAndExpandRatesAgentOnMoreNetworks_20260130.t.sol -vv
  */
 contract AaveV3Ethereum_ActivateCapoRiskAgentAndExpandRatesAgentOnMoreNetworks_20260130_Test is
-  ProtocolV3TestBase
+  BaseActivateRiskAgentTest
 {
   using SafeCast for uint256;
 
   AaveV3Ethereum_ActivateCapoRiskAgentAndExpandRatesAgentOnMoreNetworks_20260130 internal proposal;
-  uint256 public constant AGENT_ID = 4;
 
   function setUp() public {
     vm.createSelectFork(vm.rpcUrl('mainnet'), 24390711);
     proposal = new AaveV3Ethereum_ActivateCapoRiskAgentAndExpandRatesAgentOnMoreNetworks_20260130();
   }
 
-  /**
-   * @dev executes the generic test suite including e2e and config snapshots
-   */
-  function test_defaultProposalExecution() public {
-    defaultTest(
-      'AaveV3Ethereum_ActivateCapoRiskAgentAndExpandRatesAgentOnMoreNetworks_20260130',
-      AaveV3Ethereum.POOL,
-      address(proposal)
-    );
+  function _getConfig() internal view override returns (TestConfig memory) {
+    return
+      TestConfig({
+        pool: IPool(address(AaveV3Ethereum.POOL)),
+        aclManager: IACLManager(address(AaveV3Ethereum.ACL_MANAGER)),
+        protocolDataProvider: IPoolDataProvider(
+          address(AaveV3Ethereum.AAVE_PROTOCOL_DATA_PROVIDER)
+        ),
+        agentHub: MiscEthereum.AGENT_HUB,
+        rangeValidationModule: MiscEthereum.RANGE_VALIDATION_MODULE,
+        agentHubAutomation: MiscEthereum.AGENT_HUB_AUTOMATION,
+        robotOperator: MiscEthereum.AAVE_CL_ROBOT_OPERATOR,
+        edgeRiskOracle: address(AaveV3Ethereum.EDGE_RISK_ORACLE),
+        proposal: address(proposal),
+        riskAgent: proposal.CAPO_AGENT(),
+        linkAmount: proposal.LINK_AMOUNT(),
+        assetsToEnable: proposal.getAssetsToEnableForCapoAgent(),
+        testName: 'AaveV3Ethereum_ActivateCapoRiskAgentAndExpandRatesAgentOnMoreNetworks_20260130',
+        agentId: 4,
+        updateType: 'CapoPriceCapUpdate_Core'
+      });
   }
 
-  function test_agentsRegistered() public {
-    uint256 oldAgentCount = IAgentHub(MiscEthereum.AGENT_HUB).getAgentCount();
-    GovV3Helpers.executePayload(vm, address(proposal));
+  // Override: Ethereum checks both Core and Lido ACL managers
+  function test_riskAdminRole() public override {
+    TestConfig memory config = _getConfig();
+    address agentContract = config.riskAgent;
 
-    uint256 currentAgentCount = IAgentHub(MiscEthereum.AGENT_HUB).getAgentCount();
-    assertEq(AGENT_ID, currentAgentCount - 1);
-    assertEq(currentAgentCount, oldAgentCount + 1);
+    assertFalse(AaveV3Ethereum.ACL_MANAGER.isRiskAdmin(agentContract));
+    assertFalse(AaveV3EthereumLido.ACL_MANAGER.isRiskAdmin(agentContract));
 
-    assertEq(IAgentHub(MiscEthereum.AGENT_HUB).getUpdateType(AGENT_ID), 'CapoPriceCapUpdate_Core');
+    GovV3Helpers.executePayload(vm, config.proposal);
+
+    assertTrue(AaveV3Ethereum.ACL_MANAGER.isRiskAdmin(agentContract));
+    assertTrue(AaveV3EthereumLido.ACL_MANAGER.isRiskAdmin(agentContract));
   }
 
   function test_rangeValidationConfiguration() public {
-    GovV3Helpers.executePayload(vm, address(proposal));
+    TestConfig memory config = _getConfig();
+    GovV3Helpers.executePayload(vm, config.proposal);
 
     IRangeValidationModule.RangeConfig memory snapshotConfig = IRangeValidationModule(
-      MiscEthereum.RANGE_VALIDATION_MODULE
-    ).getDefaultRangeConfig(MiscEthereum.AGENT_HUB, AGENT_ID, 'CapoSnapshotRatio');
+      config.rangeValidationModule
+    ).getDefaultRangeConfig(config.agentHub, config.agentId, 'CapoSnapshotRatio');
     assertEq(snapshotConfig.maxIncrease, 3_00);
     assertEq(snapshotConfig.maxDecrease, 3_00);
     assertEq(snapshotConfig.isIncreaseRelative, true);
     assertEq(snapshotConfig.isDecreaseRelative, true);
 
     IRangeValidationModule.RangeConfig memory maxGrowthConfig = IRangeValidationModule(
-      MiscEthereum.RANGE_VALIDATION_MODULE
-    ).getDefaultRangeConfig(MiscEthereum.AGENT_HUB, AGENT_ID, 'CapoMaxYearlyGrowthRatePercent');
+      config.rangeValidationModule
+    ).getDefaultRangeConfig(config.agentHub, config.agentId, 'CapoMaxYearlyGrowthRatePercent');
     assertEq(maxGrowthConfig.maxIncrease, 10_00);
     assertEq(maxGrowthConfig.maxDecrease, 10_00);
     assertEq(maxGrowthConfig.isIncreaseRelative, true);
     assertEq(maxGrowthConfig.isDecreaseRelative, true);
   }
 
-  function test_validateAgentContractImmutables() public virtual {
-    GovV3Helpers.executePayload(vm, address(proposal));
-
-    address agentContract = IAgentHub(MiscEthereum.AGENT_HUB).getAgentAddress(AGENT_ID);
-    assertEq(
-      address(IBaseAaveAgent(agentContract).RANGE_VALIDATION_MODULE()),
-      address(MiscEthereum.RANGE_VALIDATION_MODULE)
-    );
-    assertEq(address(IBaseAaveAgent(agentContract).POOL()), address(AaveV3Ethereum.POOL));
-    assertEq(address(IBaseAaveAgent(agentContract).AGENT_HUB()), MiscEthereum.AGENT_HUB);
-  }
-
-  function test_riskAdminRole() public {
-    address agentContract = proposal.CAPO_AGENT();
-
-    assertFalse(AaveV3Ethereum.ACL_MANAGER.isRiskAdmin(agentContract));
-    assertFalse(AaveV3EthereumLido.ACL_MANAGER.isRiskAdmin(agentContract));
-
-    GovV3Helpers.executePayload(vm, address(proposal));
-
-    assertTrue(AaveV3Ethereum.ACL_MANAGER.isRiskAdmin(agentContract));
-    assertTrue(AaveV3EthereumLido.ACL_MANAGER.isRiskAdmin(agentContract));
-  }
-
-  function test_automationRegistered() public {
-    vm.expectEmit(false, true, true, true, MiscEthereum.AAVE_CL_ROBOT_OPERATOR);
-    emit IAaveCLRobotOperator.KeeperRegistered(
-      0,
-      MiscEthereum.AGENT_HUB_AUTOMATION,
-      uint96(proposal.LINK_AMOUNT())
-    );
-    GovV3Helpers.executePayload(vm, address(proposal));
-  }
-
   function test_injection_capo() public {
-    GovV3Helpers.executePayload(vm, address(proposal));
-    address[] memory markets = proposal.getAssetsToEnableForCapoAgent();
+    TestConfig memory config = _getConfig();
+    GovV3Helpers.executePayload(vm, config.proposal);
 
-    for (uint256 i = 0; i < markets.length && markets[i] != address(0); i++) {
+    for (
+      uint256 i = 0;
+      i < config.assetsToEnable.length && config.assetsToEnable[i] != address(0);
+      i++
+    ) {
       vm.startPrank(0x42939e82DF15afc586bb95f7dD69Afb6Dc24A6f9);
-      IPriceCapAdapter capo = IPriceCapAdapter(AaveV3Ethereum.ORACLE.getSourceOfAsset(markets[i]));
+      IPriceCapAdapter capo = IPriceCapAdapter(
+        AaveV3Ethereum.ORACLE.getSourceOfAsset(config.assetsToEnable[i])
+      );
 
-      IRiskOracle(AaveV3Ethereum.EDGE_RISK_ORACLE).publishRiskParameterUpdate(
+      IRiskOracle(config.edgeRiskOracle).publishRiskParameterUpdate(
         'referenceId',
         abi.encode(
           IPriceCapAdapter.PriceCapUpdateParams({
@@ -126,25 +114,31 @@ contract AaveV3Ethereum_ActivateCapoRiskAgentAndExpandRatesAgentOnMoreNetworks_2
           })
         ),
         'CapoPriceCapUpdate_Core',
-        markets[i],
+        config.assetsToEnable[i],
         'additionalData'
       );
       vm.stopPrank();
 
       // check injection
-      assertTrue(_checkAndPerformAutomation());
+      assertTrue(_checkAndPerformAutomation(config.agentHubAutomation, config.agentId));
     }
   }
 
   function test_injection_capo_wrong_update() public {
-    GovV3Helpers.executePayload(vm, address(proposal));
-    address[] memory markets = proposal.getAssetsToEnableForCapoAgent();
+    TestConfig memory config = _getConfig();
+    GovV3Helpers.executePayload(vm, config.proposal);
 
-    for (uint256 i = 0; i < markets.length && markets[i] != address(0); i++) {
+    for (
+      uint256 i = 0;
+      i < config.assetsToEnable.length && config.assetsToEnable[i] != address(0);
+      i++
+    ) {
       vm.startPrank(0x42939e82DF15afc586bb95f7dD69Afb6Dc24A6f9);
-      IPriceCapAdapter capo = IPriceCapAdapter(AaveV3Ethereum.ORACLE.getSourceOfAsset(markets[i]));
+      IPriceCapAdapter capo = IPriceCapAdapter(
+        AaveV3Ethereum.ORACLE.getSourceOfAsset(config.assetsToEnable[i])
+      );
 
-      IRiskOracle(AaveV3Ethereum.EDGE_RISK_ORACLE).publishRiskParameterUpdate(
+      IRiskOracle(config.edgeRiskOracle).publishRiskParameterUpdate(
         'referenceId',
         abi.encode(
           IPriceCapAdapter.PriceCapUpdateParams({
@@ -155,27 +149,13 @@ contract AaveV3Ethereum_ActivateCapoRiskAgentAndExpandRatesAgentOnMoreNetworks_2
           })
         ),
         'CapoPriceCapUpdate_Core',
-        markets[i],
+        config.assetsToEnable[i],
         'additionalData'
       );
       vm.stopPrank();
 
       // check injection
-      assertFalse(_checkAndPerformAutomation());
+      assertFalse(_checkAndPerformAutomation(config.agentHubAutomation, config.agentId));
     }
-  }
-
-  function _checkAndPerformAutomation() public returns (bool) {
-    uint256[] memory agentIds = new uint256[](1);
-    agentIds[0] = AGENT_ID;
-
-    (bool upkeepNeeded, bytes memory performData) = AutomationCompatibleInterface(
-      MiscEthereum.AGENT_HUB_AUTOMATION
-    ).checkUpkeep(abi.encode(agentIds));
-
-    if (upkeepNeeded) {
-      AutomationCompatibleInterface(MiscEthereum.AGENT_HUB_AUTOMATION).performUpkeep(performData);
-    }
-    return upkeepNeeded;
   }
 }
